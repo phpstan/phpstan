@@ -9,7 +9,10 @@ class CachedParser implements Parser
 	private $originalParser;
 
 	/** @var mixed[] */
-	private $cachedNodes = [];
+	private $cachedNodesByFile = [];
+
+	/** @var mixed[] */
+	private $cachedNodesByString = [];
 
 	public function __construct(Parser $originalParser)
 	{
@@ -20,13 +23,26 @@ class CachedParser implements Parser
 	 * @param string $file path to a file to parse
 	 * @return \PhpParser\Node[]
 	 */
-	public function parse(string $file): array
+	public function parseFile(string $file): array
 	{
-		if (!isset($this->cachedNodes[$file])) {
-			$this->cachedNodes[$file] = $this->originalParser->parse($file);
+		if (!isset($this->cachedNodesByFile[$file])) {
+			$this->cachedNodesByFile[$file] = $this->originalParser->parseFile($file);
 		}
 
-		return $this->cachedNodes[$file];
+		return $this->cachedNodesByFile[$file];
+	}
+
+	/**
+	 * @param string $sourceCode
+	 * @return \PhpParser\Node[]
+	 */
+	public function parseString(string $sourceCode): array
+	{
+		if (!isset($this->cachedNodesByString[$sourceCode])) {
+			$this->cachedNodesByString[$sourceCode] = $this->originalParser->parseString($sourceCode);
+		}
+
+		return $this->cachedNodesByString[$sourceCode];
 	}
 
 }

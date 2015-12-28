@@ -3,8 +3,7 @@
 namespace PHPStan\Rules\Classes;
 
 use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\Expr\Variable;
-use PHPStan\Analyser\Node;
+use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 
 class AccessOwnPropertiesRule implements \PHPStan\Rules\Rule
@@ -29,30 +28,26 @@ class AccessOwnPropertiesRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Node $node
+	 * @param \PhpParser\Node $node
+	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */
-	public function processNode(Node $node): array
+	public function processNode(\PhpParser\Node $node, Scope $scope): array
 	{
-		$propertyFetch = $node->getParserNode();
-		if ($node->getScope()->isInClosureBind()) {
+		if ($scope->isInClosureBind()) {
 			return [];
 		}
-		if (!($propertyFetch->var instanceof Variable)) {
+		if (!is_string($node->name)) {
 			return [];
 		}
-		if ((string) $propertyFetch->var->name !== 'this') {
+		$type = $scope->getType($node->var);
+		$propertyClass = $type->getClass();
+		if ($propertyClass === null || $propertyClass !== $scope->getClass()) {
 			return [];
 		}
-		if (!is_string($propertyFetch->name)) {
-			return [];
-		}
-		$name = (string) $propertyFetch->name;
-		$class = $node->getScope()->getClass();
-		if ($class === null) {
-			return array();
-		}
-		$classReflection = $this->broker->getClass($class);
+
+		$name = (string) $node->name;
+		$classReflection = $this->broker->getClass($propertyClass);
 
 		if (!$classReflection->hasProperty($name)) {
 			$parentClassReflection = $classReflection->getParentClass();
@@ -72,7 +67,7 @@ class AccessOwnPropertiesRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf(
 					'Access to an undefined property %s::$%s.',
-					$class,
+					$propertyClass,
 					$name
 				),
 			];

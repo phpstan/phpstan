@@ -7,6 +7,6 @@
 		<exclude name="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly"/>
 	</rule>
 	<rule ref="Squiz.PHP.InnerFunctions.NotAllowed">
-		<exclude-pattern>tests/PHPStan/Rules/AbstractRuleTest.php</exclude-pattern>
+		<exclude-pattern>tests/TestCase.php</exclude-pattern>
 	</rule>
 </ruleset>

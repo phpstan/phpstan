@@ -2,8 +2,9 @@
 
 namespace PHPStan\Rules\Classes;
 
+use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
-use PHPStan\Analyser\Node;
+use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 
 class ClassConstantRule implements \PHPStan\Rules\Rule
@@ -28,20 +29,20 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Node $node
+	 * @param \PhpParser\Node $node
+	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */
-	public function processNode(Node $node): array
+	public function processNode(Node $node, Scope $scope): array
 	{
-		$constantFetch = $node->getParserNode();
-		$class = $constantFetch->class;
+		$class = $node->class;
 		if (!($class instanceof \PhpParser\Node\Name)) {
 			return [];
 		}
 		$className = (string) $class;
 
 		if ($className === 'self' || $className === 'static') {
-			if ($node->getScope()->getClass() === null) {
+			if ($scope->getClass() === null && !$scope->isInAnonymousClass()) {
 				return [
 					sprintf('Using %s outside of class scope.', $className),
 				];
@@ -56,7 +57,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 			];
 		}
 
-		$constantName = $constantFetch->name;
+		$constantName = $node->name;
 		if ($constantName === 'class') {
 			return [];
 		}

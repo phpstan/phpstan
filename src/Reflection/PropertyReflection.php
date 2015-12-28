@@ -2,6 +2,8 @@
 
 namespace PHPStan\Reflection;
 
+use PHPStan\Type\Type;
+
 interface PropertyReflection
 {
 
@@ -12,5 +14,7 @@ interface PropertyReflection
 	public function isPrivate(): bool;
 
 	public function isPublic(): bool;
+
+	public function getType(): Type;
 
 }

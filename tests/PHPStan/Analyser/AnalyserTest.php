@@ -49,9 +49,12 @@ class AnalyserTest extends \PHPStan\TestCase
 		$traverser = new \PhpParser\NodeTraverser();
 		$traverser->addVisitor(new \PhpParser\NodeVisitor\NameResolver());
 
+		$broker = $this->getBroker();
 		$analyser = new Analyser(
+			$broker,
 			new DirectParser(new \PhpParser\Parser\Php7(new \PhpParser\Lexer()), $traverser),
 			$registry,
+			new NodeScopeResolver($broker, false, false, false),
 			$analyseExcludes
 		);
 		$result = $analyser->analyse([$filePath]);

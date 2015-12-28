@@ -2,8 +2,9 @@
 
 namespace PHPStan\Rules\Classes;
 
+use PhpParser\Node;
 use PhpParser\Node\Expr\StaticPropertyFetch;
-use PHPStan\Analyser\Node;
+use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 
 class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
@@ -28,19 +29,19 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Node $node
+	 * @param \PhpParser\Node $node
+	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */
-	public function processNode(Node $node): array
+	public function processNode(Node $node, Scope $scope): array
 	{
-		$propertyFetch = $node->getParserNode();
-		$name = (string) $propertyFetch->name;
-		$currentClass = $node->getScope()->getClass();
+		$name = (string) $node->name;
+		$currentClass = $scope->getClass();
 		if ($currentClass === null) {
 			return [];
 		}
 		$currentClassReflection = $this->broker->getClass($currentClass);
-		$class = (string) $propertyFetch->class;
+		$class = (string) $node->class;
 		if ($class === 'self' || $class === 'static') {
 			$class = $currentClass;
 		}
@@ -50,7 +51,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 					sprintf(
 						'%s::%s() accesses parent::$%s but %s does not extend any class.',
 						$currentClass,
-						$node->getScope()->getFunction(),
+						$scope->getFunction(),
 						$name,
 						$currentClass
 					),
@@ -58,7 +59,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 			}
 
 			$currentMethodReflection = $currentClassReflection->getMethod(
-				$node->getScope()->getFunction()
+				$scope->getFunction()
 			);
 			if (!$currentMethodReflection->isStatic()) {
 				// calling parent::method() from instance method

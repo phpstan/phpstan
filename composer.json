@@ -20,7 +20,7 @@
 		"consistence/coding-standard": "~0.10.0",
 		"phing/phing": "~2.13.0",
 		"phpunit/phpunit": "~5.0",
-		"slevomat/coding-standard": "1.0.4"
+		"slevomat/coding-standard": "dev-php7#c13aa7d0ea"
 	},
 	"autoload": {
 		"psr-4": {"PHPStan\\": "src/"}

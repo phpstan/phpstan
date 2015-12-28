@@ -2,9 +2,10 @@
 
 namespace PHPStan\Rules\Methods;
 
+use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Name;
-use PHPStan\Analyser\Node;
+use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\FunctionCallParametersCheck;
 
@@ -37,25 +38,25 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Node $node
+	 * @param \PhpParser\Node $node
+	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */
-	public function processNode(Node $node): array
+	public function processNode(Node $node, Scope $scope): array
 	{
-		$methodCall = $node->getParserNode();
-		if (!is_string($methodCall->name)) {
+		if (!is_string($node->name)) {
 			return [];
 		}
-		$name = $methodCall->name;
-		$currentClass = $node->getScope()->getClass();
+		$name = $node->name;
+		$currentClass = $scope->getClass();
 		if ($currentClass === null) {
 			return [];
 		}
 		$currentClassReflection = $this->broker->getClass($currentClass);
-		if (!($methodCall->class instanceof Name)) {
+		if (!($node->class instanceof Name)) {
 			return [];
 		}
-		$class = (string) $methodCall->class;
+		$class = (string) $node->class;
 		if ($class === 'self' || $class === 'static') {
 			$class = $currentClass;
 		}
@@ -65,7 +66,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 					sprintf(
 						'%s::%s() calls to parent::%s() but %s does not extend any class.',
 						$currentClass,
-						$node->getScope()->getFunction(),
+						$scope->getFunction(),
 						$name,
 						$currentClass
 					),
@@ -73,13 +74,13 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 			}
 
 			$currentMethodReflection = $currentClassReflection->getMethod(
-				$node->getScope()->getFunction()
+				$scope->getFunction()
 			);
 			if (!$currentMethodReflection->isStatic()) {
 				if ($name === '__construct' && $currentClassReflection->getParentClass()->hasMethod('__construct')) {
 					return $this->check->check(
 						$currentClassReflection->getParentClass()->getMethod('__construct'),
-						$methodCall,
+						$node,
 						[
 							'Parent constructor invoked with %d parameter, %d required.',
 							'Parent constructor invoked with %d parameters, %d required.',
@@ -148,7 +149,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 
 		return $this->check->check(
 			$method,
-			$methodCall,
+			$node,
 			[
 				'Static method ' . $methodName . ' invoked with %d parameter, %d required.',
 				'Static method ' . $methodName . ' invoked with %d parameters, %d required.',

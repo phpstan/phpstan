@@ -2,8 +2,9 @@
 
 namespace PHPStan\Rules\Functions;
 
+use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
-use PHPStan\Analyser\Node;
+use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 
 class CallToNonExistentFunctionRule implements \PHPStan\Rules\Rule
@@ -28,28 +29,28 @@ class CallToNonExistentFunctionRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Node $node
+	 * @param \PhpParser\Node $node
+	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */
-	public function processNode(Node $node): array
+	public function processNode(Node $node, Scope $scope): array
 	{
-		$functionCallNode = $node->getParserNode();
-		if (!($functionCallNode->name instanceof \PhpParser\Node\Name)) {
+		if (!($node->name instanceof \PhpParser\Node\Name)) {
 			return [];
 		}
 
-		$name = (string) $functionCallNode->name;
-		if ($this->getFunction($node, $name) === false) {
+		$name = (string) $node->name;
+		if ($this->getFunction($scope, $name) === false) {
 			return [sprintf('Function %s does not exist.', $name)];
 		}
 
 		return [];
 	}
 
-	private function getFunction(Node $node, $name)
+	private function getFunction(Scope $scope, $name)
 	{
-		if ($node->getScope()->getNamespace() !== null) {
-			$namespacedName = sprintf('%s\\%s', $node->getScope()->getNamespace(), $name);
+		if ($scope->getNamespace() !== null) {
+			$namespacedName = sprintf('%s\\%s', $scope->getNamespace(), $name);
 			if ($this->broker->hasFunction($namespacedName)) {
 				return $this->broker->getFunction($namespacedName);
 			}

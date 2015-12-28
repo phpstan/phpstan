@@ -2,8 +2,9 @@
 
 namespace PHPStan\Rules\Classes;
 
+use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
-use PHPStan\Analyser\Node;
+use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ClassReflection;
 
@@ -29,17 +30,17 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Node $node
+	 * @param \PhpParser\Node $node
+	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */
-	public function processNode(Node $node): array
+	public function processNode(Node $node, Scope $scope): array
 	{
-		$parserNode = $node->getParserNode();
-		if ($parserNode->name !== '__construct') {
+		if ($node->name !== '__construct') {
 			return [];
 		}
 
-		$className = $node->getScope()->getClass();
+		$className = $scope->getClass();
 		if ($className === null) {
 			return []; // anonymous class
 		}
@@ -48,7 +49,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		if ($this->callsParentConstruct($parserNode)) {
+		if ($this->callsParentConstruct($node)) {
 			if ($classReflection->getParentClass() === false) {
 				return [
 					sprintf(
@@ -81,10 +82,10 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PhpParser\Node $parserNode
+	 * @param Node $parserNode
 	 * @return bool
 	 */
-	private function callsParentConstruct(\PhpParser\Node $parserNode)
+	private function callsParentConstruct(Node $parserNode)
 	{
 		if (!isset($parserNode->stmts)) {
 			return false;

@@ -7,6 +7,10 @@ use PHPStan\Parser\FunctionCallStatementFinder;
 use PHPStan\Parser\Parser;
 use PHPStan\Reflection\Php\DummyOptionalParameter;
 use PHPStan\Reflection\Php\PhpParameterReflection;
+use PHPStan\Type\IntegerType;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\Type;
+use PHPStan\Type\TypehintHelper;
 
 class FunctionReflection implements ParametersAcceptor
 {
@@ -26,6 +30,9 @@ class FunctionReflection implements ParametersAcceptor
 	/** @var \PHPStan\Reflection\ParameterReflection[] */
 	private $parameters;
 
+	/** @var \PHPStan\Type\Type */
+	private $returnType;
+
 	public function __construct(
 		\ReflectionFunction $reflection,
 		Parser $parser,
@@ -37,6 +44,11 @@ class FunctionReflection implements ParametersAcceptor
 		$this->parser = $parser;
 		$this->functionCallStatementFinder = $functionCallStatementFinder;
 		$this->lookForFuncGetArgs = $lookForFuncGetArgs;
+	}
+
+	public function getName(): string
+	{
+		return $this->reflection->getName();
 	}
 
 	/**
@@ -53,7 +65,10 @@ class FunctionReflection implements ParametersAcceptor
 				&& count($this->parameters) === 1
 			) {
 				// PHP bug #70960
-				$this->parameters[] = new DummyOptionalParameter();
+				$this->parameters[] = new DummyOptionalParameter(
+					'sort_flags',
+					new IntegerType(false)
+				);
 			}
 		}
 
@@ -64,7 +79,7 @@ class FunctionReflection implements ParametersAcceptor
 	{
 		$isNativelyVariadic = $this->reflection->isVariadic();
 		if (!$isNativelyVariadic && $this->lookForFuncGetArgs && $this->reflection->getFileName() !== false) {
-			$nodes = $this->parser->parse($this->reflection->getFileName());
+			$nodes = $this->parser->parseFile($this->reflection->getFileName());
 			return $this->callsFuncGetArgs($nodes);
 		}
 
@@ -99,6 +114,23 @@ class FunctionReflection implements ParametersAcceptor
 		}
 
 		return false;
+	}
+
+	public function getReturnType(): Type
+	{
+		if ($this->returnType === null) {
+			$phpTypeReflection = $this->reflection->getReturnType();
+			if ($phpTypeReflection === null) {
+				$this->returnType = new MixedType(true);
+			} else {
+				$this->returnType = TypehintHelper::getTypeObjectFromTypehint(
+					(string) $phpTypeReflection,
+					$phpTypeReflection->allowsNull()
+				);
+			}
+		}
+
+		return $this->returnType;
 	}
 
 }

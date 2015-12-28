@@ -3,6 +3,16 @@
 namespace PHPStan;
 
 use Nette\DI\Container;
+use PHPStan\Broker\Broker;
+use PHPStan\Parser\DirectParser;
+use PHPStan\Parser\FunctionCallStatementFinder;
+use PHPStan\Parser\Parser;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Reflection\FunctionReflectionFactory;
+use PHPStan\Reflection\Php\PhpClassReflectionExtension;
+use PHPStan\Reflection\Php\PhpMethodReflection;
+use PHPStan\Reflection\Php\PhpMethodReflectionFactory;
 
 abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
@@ -11,6 +21,12 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 	 * @var \Nette\DI\Container
 	 */
 	private static $container;
+
+	/** @var \PHPStan\Parser\Parser */
+	private $parser;
+
+	/** @var \PHPStan\Broker\Broker */
+	private $broker;
 
 	/**
 	 * @return \Nette\DI\Container
@@ -26,6 +42,71 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 	public static function setContainer(Container $container)
 	{
 		self::$container = $container;
+	}
+
+	public function getParser(): \PHPStan\Parser\Parser
+	{
+		if ($this->parser === null) {
+			$traverser = new \PhpParser\NodeTraverser();
+			$traverser->addVisitor(new \PhpParser\NodeVisitor\NameResolver());
+			$this->parser = new DirectParser(new \PhpParser\Parser\Php7(new \PhpParser\Lexer()), $traverser);
+		}
+
+		return $this->parser;
+	}
+
+	/**
+	 * @return \PHPStan\Broker\Broker
+	 */
+	public function getBroker(): Broker
+	{
+		if ($this->broker === null) {
+			$functionCallStatementFinder = new FunctionCallStatementFinder();
+			$parser = $this->getParser();
+			$phpExtension = new PhpClassReflectionExtension(new class($parser, $functionCallStatementFinder) implements PhpMethodReflectionFactory {
+			/** @var \PHPStan\Parser\Parser */
+			private $parser;
+
+			/** @var \PHPStan\Parser\FunctionCallStatementFinder */
+			private $functionCallStatementFinder;
+
+			public function __construct(Parser $parser, FunctionCallStatementFinder $functionCallStatementFinder)
+			{
+				$this->parser = $parser;
+				$this->functionCallStatementFinder = $functionCallStatementFinder;
+			}
+
+			public function create(
+				ClassReflection $declaringClass,
+				\ReflectionMethod $reflection
+			): PhpMethodReflection
+			{
+				return new PhpMethodReflection($declaringClass, $reflection, $this->parser, $this->functionCallStatementFinder, true);
+			}
+			}, $parser);
+			$functionReflectionFactory = new class($this->getParser(), $functionCallStatementFinder) implements FunctionReflectionFactory {
+			/** @var \PHPStan\Parser\Parser */
+			private $parser;
+
+			/** @var \PHPStan\Parser\FunctionCallStatementFinder */
+			private $functionCallStatementFinder;
+
+			public function __construct(Parser $parser, FunctionCallStatementFinder $functionCallStatementFinder)
+			{
+				$this->parser = $parser;
+				$this->functionCallStatementFinder = $functionCallStatementFinder;
+			}
+
+			public function create(\ReflectionFunction $function): FunctionReflection
+			{
+				return new FunctionReflection($function, $this->parser, $this->functionCallStatementFinder, true);
+			}
+			};
+			$this->broker = new Broker([$phpExtension], [$phpExtension], $functionReflectionFactory);
+			$phpExtension->setBroker($this->broker);
+		}
+
+		return $this->broker;
 	}
 
 }

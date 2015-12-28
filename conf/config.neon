@@ -5,6 +5,9 @@ parameters:
 	autoload_directories: []
 	autoload_files: []
 	lookForFuncGetArgs: false # 'true' looks for func_get_args and evaluates functions and methods as variadic, greatly decreases performance
+	polluteScopeWithForLoopInitialAssignments: false
+	polluteCatchScopeWithTryAssignments: false
+	defineVariablesWithoutDefaultBranch: false
 
 services:
 	-
@@ -25,6 +28,13 @@ services:
 		class: PHPStan\Analyser\Analyser
 		arguments:
 			analyseExcludes: %excludes_analyse%
+
+	-
+		class: PHPStan\Analyser\NodeScopeResolver
+		arguments:
+			polluteScopeWithForLoopInitialAssignments: %polluteScopeWithForLoopInitialAssignments%
+			polluteCatchScopeWithTryAssignments: %polluteCatchScopeWithTryAssignments%
+			defineVariablesWithoutDefaultBranch: %defineVariablesWithoutDefaultBranch%
 
 	-
 		class: PHPStan\Command\AnalyseApplication
@@ -115,11 +125,17 @@ services:
 			- register(@PHPStan\Rules\Methods\CallOwnMethodsRule)
 			- register(@PHPStan\Rules\Methods\CallStaticMethodsRule)
 			- register(@PHPStan\Rules\Methods\ExistingClassesInTypehintsRule)
+			- register(@PHPStan\Rules\Variables\DefinedVariableRule)
+
+	-
+		class: PHPStan\Rules\Variables\DefinedVariableRule
 
 	broker:
 		class: PHPStan\Broker\Broker
 		arguments:
-			classReflectionExtensions:
+			propertiesClassReflectionExtensions:
+				- @PHPStan\Reflection\Php\PhpClassReflectionExtension
+			methodsClassReflectionExtensions:
 				- @PHPStan\Reflection\Php\PhpClassReflectionExtension
 
 	directParser:

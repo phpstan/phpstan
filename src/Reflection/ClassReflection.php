@@ -10,8 +10,11 @@ class ClassReflection
 	/** @var \PHPStan\Broker\Broker */
 	private $broker;
 
-	/** @var \PHPStan\Reflection\ClassReflectionExtension[] */
-	private $extensions;
+	/** @var \PHPStan\Reflection\PropertiesClassReflectionExtension[] */
+	private $propertiesClassReflectionExtensions;
+
+	/** @var \PHPStan\Reflection\MethodsClassReflectionExtension[] */
+	private $methodsClassReflectionExtensions;
 
 	/** @var \ReflectionClass */
 	private $reflection;
@@ -22,10 +25,16 @@ class ClassReflection
 	/** @var \PHPStan\Reflection\PropertyReflection[] */
 	private $properties = [];
 
-	public function __construct(Broker $broker, array $extensions, \ReflectionClass $reflection)
+	public function __construct(
+		Broker $broker,
+		array $propertiesClassReflectionExtensions,
+		array $methodsClassReflectionExtensions,
+		\ReflectionClass $reflection
+	)
 	{
 		$this->broker = $broker;
-		$this->extensions = $extensions;
+		$this->propertiesClassReflectionExtensions = $propertiesClassReflectionExtensions;
+		$this->methodsClassReflectionExtensions = $methodsClassReflectionExtensions;
 		$this->reflection = $reflection;
 	}
 
@@ -53,7 +62,7 @@ class ClassReflection
 
 	public function hasProperty(string $propertyName): bool
 	{
-		foreach ($this->extensions as $extension) {
+		foreach ($this->propertiesClassReflectionExtensions as $extension) {
 			if ($extension->hasProperty($this, $propertyName)) {
 				return true;
 			}
@@ -64,7 +73,7 @@ class ClassReflection
 
 	public function hasMethod(string $methodName): bool
 	{
-		foreach ($this->extensions as $extension) {
+		foreach ($this->methodsClassReflectionExtensions as $extension) {
 			if ($extension->hasMethod($this, $methodName)) {
 				return true;
 			}
@@ -76,7 +85,7 @@ class ClassReflection
 	public function getMethod(string $methodName): MethodReflection
 	{
 		if (!isset($this->methods[$methodName])) {
-			foreach ($this->extensions as $extension) {
+			foreach ($this->methodsClassReflectionExtensions as $extension) {
 				if ($extension->hasMethod($this, $methodName)) {
 					return $this->methods[$methodName] = $extension->getMethod($this, $methodName);
 				}
@@ -89,7 +98,7 @@ class ClassReflection
 	public function getProperty(string $propertyName): PropertyReflection
 	{
 		if (!isset($this->properties[$propertyName])) {
-			foreach ($this->extensions as $extension) {
+			foreach ($this->propertiesClassReflectionExtensions as $extension) {
 				if ($extension->hasProperty($this, $propertyName)) {
 					return $this->properties[$propertyName] = $extension->getProperty($this, $propertyName);
 				}

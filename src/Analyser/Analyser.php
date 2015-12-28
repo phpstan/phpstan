@@ -2,6 +2,7 @@
 
 namespace PHPStan\Analyser;
 
+use PHPStan\Broker\Broker;
 use PHPStan\Parser\Parser;
 use PHPStan\Rules\Registry;
 
@@ -19,6 +20,16 @@ class Analyser
 	private $registry;
 
 	/**
+	 * @var \PHPStan\Broker\Broker
+	 */
+	private $broker;
+
+	/**
+	 * @var \PHPStan\Analyser\NodeScopeResolver
+	 */
+	private $nodeScopeResolver;
+
+	/**
 	 * Directories to exclude from analysing
 	 *
 	 * @var string[]
@@ -26,33 +37,24 @@ class Analyser
 	private $analyseExcludes;
 
 	/**
-	 * @var \PHPStan\Analyser\Scope
-	 */
-	private $scope;
-
-	/**
-	 * @var int
-	 */
-	private $level;
-
-	/**
-	 * @var int|null
-	 */
-	private $closureBindLevel;
-
-	/**
+	 * @param \PHPStan\Broker\Broker $broker
 	 * @param \PHPStan\Parser\Parser $parser
 	 * @param \PHPStan\Rules\Registry $registry
+	 * @param \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver
 	 * @param string[] $analyseExcludes
 	 */
 	public function __construct(
+		Broker $broker,
 		Parser $parser,
 		Registry $registry,
+		NodeScopeResolver $nodeScopeResolver,
 		array $analyseExcludes
 	)
 	{
+		$this->broker = $broker;
 		$this->parser = $parser;
 		$this->registry = $registry;
+		$this->nodeScopeResolver = $nodeScopeResolver;
 		$this->analyseExcludes = $analyseExcludes;
 	}
 
@@ -74,11 +76,20 @@ class Analyser
 					continue;
 				}
 
-				$this->scope = new Scope(null, null, null, false);
-				$this->level = 0;
-				$fileErrors = $this->processNodes(
-					$this->parser->parse($file),
-					$file
+				$fileErrors = [];
+				$this->nodeScopeResolver->processNodes(
+					$this->parser->parseFile($file),
+					new Scope($this->broker, $file),
+					function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors) {
+						foreach ($this->registry->getRules(get_class($node)) as $rule) {
+							$ruleErrors = $this->createErrors(
+								$node,
+								$scope->getFile(),
+								$rule->processNode($node, $scope)
+							);
+							$fileErrors = array_merge($fileErrors, $ruleErrors);
+						}
+					}
 				);
 				if ($progressCallback !== null) {
 					$progressCallback($file);
@@ -89,108 +100,10 @@ class Analyser
 			} catch (\PHPStan\AnalysedCodeException $e) {
 				$errors[] = new Error($e->getMessage(), $file);
 			} catch (\Throwable $t) {
-				\Tracy\Debugger::log($e);
+				\Tracy\Debugger::log($t);
 				$errors[] = new Error(sprintf('Internal error: %s', $t->getMessage()), $file);
 			}
 		}
-
-		return $errors;
-	}
-
-	/**
-	 * @param \PhpParser\Node[]|\IteratorAggregate $nodes
-	 * @param string $file
-	 * @return string[] errors
-	 */
-	private function processNodes($nodes, string $file): array
-	{
-		$errors = [];
-		foreach ($nodes as $node) {
-			if (is_array($node)) {
-				$this->level++;
-				$errors = array_merge($errors, $this->processNodes($node, $file));
-				continue;
-			}
-			if (!($node instanceof \PhpParser\Node)) {
-				continue;
-			}
-			if ($node instanceof \PhpParser\Node\Stmt\Class_
-				|| $node instanceof \PhpParser\Node\Stmt\Interface_
-				|| $node instanceof \PhpParser\Node\Stmt\Trait_) {
-				$this->scope = new Scope(
-					isset($node->namespacedName) ? (string) $node->namespacedName : null,
-					null,
-					$this->scope->getNamespace(),
-					false
-				);
-			}
-			if ($node instanceof \PhpParser\Node\Stmt\Function_
-				|| $node instanceof \PhpParser\Node\Stmt\ClassMethod) {
-				$this->scope = new Scope(
-					$this->scope->getClass(),
-					($node instanceof \PhpParser\Node\Stmt\Function_ && (string) $node->namespacedName)
-						? (string) $node->namespacedName
-						: (string) $node->name,
-					$this->scope->getNamespace(),
-					false
-				);
-			}
-			if ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
-				$this->scope = new Scope(
-					null,
-					null,
-					(string) $node->name,
-					false
-				);
-			}
-
-			$justStartedClosureBind = false;
-			if (
-				$node instanceof \PhpParser\Node\Expr\StaticCall
-				&& (is_string($node->class) || $node->class instanceof \PhpParser\Node\Name)
-				&& is_string($node->name)
-			) {
-				$className = (string) $node->class;
-				$methodName = (string) $node->name;
-				if ($className === 'Closure' && $methodName === 'bind') {
-					$justStartedClosureBind = true;
-					$this->closureBindLevel = $this->level;
-					$this->scope = new Scope(
-						$this->scope->getClass(),
-						$this->scope->getFunction(),
-						$this->scope->getNamespace(),
-						true
-					);
-				}
-			}
-
-			if (
-				$this->scope->isInClosureBind()
-				&& !$justStartedClosureBind
-				&& $this->level === $this->closureBindLevel
-			) {
-				$this->scope = new Scope(
-					$this->scope->getClass(),
-					$this->scope->getFunction(),
-					$this->scope->getNamespace(),
-					false
-				);
-			}
-
-			foreach ($this->registry->getRules(get_class($node)) as $rule) {
-				$ruleErrors = $this->createErrors(
-					$node,
-					$file,
-					$rule->processNode(new Node($node, $this->scope))
-				);
-				$errors = array_merge($errors, $ruleErrors);
-			}
-
-			$this->level++;
-			$errors = array_merge($errors, $this->processNodes($node, $file));
-		}
-
-		$this->level--;
 
 		return $errors;
 	}

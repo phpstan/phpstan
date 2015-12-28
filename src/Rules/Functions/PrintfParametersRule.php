@@ -2,9 +2,10 @@
 
 namespace PHPStan\Rules\Functions;
 
+use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Scalar\String_;
-use PHPStan\Analyser\Node;
+use PHPStan\Analyser\Scope;
 
 class PrintfParametersRule implements \PHPStan\Rules\Rule
 {
@@ -15,22 +16,22 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Node $node
+	 * @param \PhpParser\Node $node
+	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */
-	public function processNode(Node $node): array
+	public function processNode(Node $node, Scope $scope): array
 	{
-		$functionCallNode = $node->getParserNode();
-		if (!($functionCallNode->name instanceof \PhpParser\Node\Name)) {
+		if (!($node->name instanceof \PhpParser\Node\Name)) {
 			return [];
 		}
 
-		$name = (string) $functionCallNode->name;
+		$name = (string) $node->name;
 		if (!in_array($name, ['printf', 'sprintf'], true)) {
 			return [];
 		}
 
-		$args = $functionCallNode->args;
+		$args = $node->args;
 		$argsCount = count($args);
 		if ($argsCount < 1) {
 			return []; // caught by CallToFunctionParametersRule

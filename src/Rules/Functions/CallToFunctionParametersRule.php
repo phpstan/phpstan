@@ -2,8 +2,9 @@
 
 namespace PHPStan\Rules\Functions;
 
+use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
-use PHPStan\Analyser\Node;
+use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\FunctionCallParametersCheck;
 
@@ -36,25 +37,25 @@ class CallToFunctionParametersRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Node $node
+	 * @param \PhpParser\Node $node
+	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */
-	public function processNode(Node $node): array
+	public function processNode(Node $node, Scope $scope): array
 	{
-		$functionCallNode = $node->getParserNode();
-		if (!($functionCallNode->name instanceof \PhpParser\Node\Name)) {
+		if (!($node->name instanceof \PhpParser\Node\Name)) {
 			return [];
 		}
-		$name = (string) $functionCallNode->name;
+		$name = (string) $node->name;
 
-		$function = $this->getFunction($node, $name);
+		$function = $this->getFunction($scope, $name);
 		if ($function === false) {
 			return [];
 		}
 
 		return $this->check->check(
 			$function,
-			$functionCallNode,
+			$node,
 			[
 				'Function ' . $name . ' invoked with %d parameter, %d required.',
 				'Function ' . $name . ' invoked with %d parameters, %d required.',
@@ -66,10 +67,10 @@ class CallToFunctionParametersRule implements \PHPStan\Rules\Rule
 		);
 	}
 
-	private function getFunction(Node $node, $name)
+	private function getFunction(Scope $scope, $name)
 	{
-		if ($node->getScope()->getNamespace() !== null) {
-			$namespacedName = sprintf('%s\\%s', $node->getScope()->getNamespace(), $name);
+		if ($scope->getNamespace() !== null) {
+			$namespacedName = sprintf('%s\\%s', $scope->getNamespace(), $name);
 			if ($this->broker->hasFunction($namespacedName)) {
 				return $this->broker->getFunction($namespacedName);
 			}

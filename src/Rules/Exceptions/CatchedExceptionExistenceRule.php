@@ -2,8 +2,9 @@
 
 namespace PHPStan\Rules\Exceptions;
 
+use PhpParser\Node;
 use PhpParser\Node\Stmt\Catch_;
-use PHPStan\Analyser\Node;
+use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 
 class CatchedExceptionExistenceRule implements \PHPStan\Rules\Rule
@@ -28,13 +29,13 @@ class CatchedExceptionExistenceRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Node $node
+	 * @param \PhpParser\Node $node
+	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */
-	public function processNode(Node $node): array
+	public function processNode(Node $node, Scope $scope): array
 	{
-		$catch = $node->getParserNode();
-		$class = (string) $catch->type;
+		$class = (string) $node->type;
 
 		if (!$this->broker->hasClass($class)) {
 			return [

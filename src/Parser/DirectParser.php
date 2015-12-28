@@ -31,9 +31,18 @@ class DirectParser implements Parser
 	 * @param string $file path to a file to parse
 	 * @return \PhpParser\Node[]
 	 */
-	public function parse(string $file): array
+	public function parseFile(string $file): array
 	{
-		return $this->traverser->traverse($this->parser->parse(file_get_contents($file)));
+		return $this->parseString(file_get_contents($file));
+	}
+
+	/**
+	 * @param string $sourceCode
+	 * @return \PhpParser\Node[]
+	 */
+	public function parseString(string $sourceCode): array
+	{
+		return $this->traverser->traverse($this->parser->parse($sourceCode));
 	}
 
 }

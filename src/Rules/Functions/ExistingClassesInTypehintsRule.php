@@ -2,8 +2,9 @@
 
 namespace PHPStan\Rules\Functions;
 
+use PhpParser\Node;
 use PhpParser\Node\Stmt\Function_;
-use PHPStan\Analyser\Node;
+use PHPStan\Analyser\Scope;
 use PHPStan\Rules\FunctionDefinitionCheck;
 
 class ExistingClassesInTypehintsRule implements \PHPStan\Rules\Rule
@@ -23,20 +24,21 @@ class ExistingClassesInTypehintsRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Node $node
+	 * @param \PhpParser\Node $node
+	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */
-	public function processNode(Node $node): array
+	public function processNode(Node $node, Scope $scope): array
 	{
 		return $this->check->checkFunction(
-			$node->getParserNode(),
+			$node,
 			sprintf(
 				'Parameter $%%s of function %s() has invalid typehint type %%s.',
-				$node->getScope()->getFunction()
+				$node->namespacedName
 			),
 			sprintf(
 				'Return typehint of function %s() has invalid type %%s.',
-				$node->getScope()->getFunction()
+				$node->namespacedName
 			)
 		);
 	}

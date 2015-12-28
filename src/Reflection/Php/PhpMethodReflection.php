@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace PHPStan\Reflection\Php;
 
@@ -7,6 +7,11 @@ use PHPStan\Parser\FunctionCallStatementFinder;
 use PHPStan\Parser\Parser;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Type\IntegerType;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\StringType;
+use PHPStan\Type\Type;
+use PHPStan\Type\TypehintHelper;
 
 class PhpMethodReflection implements MethodReflection
 {
@@ -28,6 +33,9 @@ class PhpMethodReflection implements MethodReflection
 
 	/** @var \PHPStan\Reflection\ParameterReflection[] */
 	private $parameters;
+
+	/** @var \PHPStan\Type\Type */
+	private $returnType;
 
 	public function __construct(
 		ClassReflection $declaringClass,
@@ -54,6 +62,11 @@ class PhpMethodReflection implements MethodReflection
 		return $this->reflection->isStatic();
 	}
 
+	public function getName(): string
+	{
+		return $this->reflection->getName();
+	}
+
 	/**
 	 * @return \PHPStan\Reflection\ParameterReflection[]
 	 */
@@ -70,8 +83,14 @@ class PhpMethodReflection implements MethodReflection
 				&& count($this->parameters) === 1
 			) {
 				// PHP bug #71077
-				$this->parameters[] = new DummyOptionalParameter();
-				$this->parameters[] = new DummyOptionalParameter();
+				$this->parameters[] = new DummyOptionalParameter(
+					'flags',
+					new IntegerType(false)
+				);
+				$this->parameters[] = new DummyOptionalParameter(
+					'iterator_class',
+					new StringType(false)
+				);
 			}
 		}
 
@@ -82,7 +101,7 @@ class PhpMethodReflection implements MethodReflection
 	{
 		$isNativelyVariadic = $this->reflection->isVariadic();
 		if (!$isNativelyVariadic && $this->lookForFuncGetArgs && $this->declaringClass->getNativeReflection()->getFileName() !== false) {
-			$nodes = $this->parser->parse($this->declaringClass->getNativeReflection()->getFileName());
+			$nodes = $this->parser->parseFile($this->declaringClass->getNativeReflection()->getFileName());
 			return $this->callsFuncGetArgs($nodes);
 		}
 
@@ -127,6 +146,24 @@ class PhpMethodReflection implements MethodReflection
 	public function isPublic(): bool
 	{
 		return $this->reflection->isPublic();
+	}
+
+	public function getReturnType(): Type
+	{
+		if ($this->returnType === null) {
+			$phpTypeReflection = $this->reflection->getReturnType();
+			if ($phpTypeReflection === null) {
+				$this->returnType = new MixedType(true);
+			} else {
+				$this->returnType = TypehintHelper::getTypeObjectFromTypehint(
+					(string) $phpTypeReflection,
+					$phpTypeReflection->allowsNull(),
+					$this->declaringClass->getName()
+				);
+			}
+		}
+
+		return $this->returnType;
 	}
 
 }

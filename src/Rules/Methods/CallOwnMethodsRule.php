@@ -2,9 +2,10 @@
 
 namespace PHPStan\Rules\Methods;
 
+use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
-use PHPStan\Analyser\Node;
+use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\FunctionCallParametersCheck;
 
@@ -37,29 +38,29 @@ class CallOwnMethodsRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Node $node
+	 * @param \PhpParser\Node $node
+	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */
-	public function processNode(Node $node): array
+	public function processNode(Node $node, Scope $scope): array
 	{
-		$methodCall = $node->getParserNode();
-		if ($node->getScope()->isInClosureBind()) {
+		if ($scope->isInClosureBind()) {
 			return [];
 		}
-		if ($node->getScope()->getClass() === null) {
+		if ($scope->getClass() === null) {
 			return [];
 		}
-		if (!($methodCall->var instanceof Variable)) {
+		if (!($node->var instanceof Variable)) {
 			return [];
 		}
-		if ((string) $methodCall->var->name !== 'this') {
+		if ((string) $node->var->name !== 'this') {
 			return [];
 		}
-		if (!is_string($methodCall->name)) {
+		if (!is_string($node->name)) {
 			return [];
 		}
-		$name = (string) $methodCall->name;
-		$class = $node->getScope()->getClass();
+		$name = (string) $node->name;
+		$class = $scope->getClass();
 		if ($class === null) {
 			return []; // using $this as a normal variable
 		}
@@ -92,7 +93,7 @@ class CallOwnMethodsRule implements \PHPStan\Rules\Rule
 
 		return $this->check->check(
 			$method,
-			$methodCall,
+			$node,
 			[
 				'Method ' . $methodName . ' invoked with %d parameter, %d required.',
 				'Method ' . $methodName . ' invoked with %d parameters, %d required.',

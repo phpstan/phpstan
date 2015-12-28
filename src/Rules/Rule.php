@@ -2,7 +2,8 @@
 
 namespace PHPStan\Rules;
 
-use PHPStan\Analyser\Node;
+use PhpParser\Node;
+use PHPStan\Analyser\Scope;
 
 interface Rule
 {
@@ -13,9 +14,10 @@ interface Rule
 	public function getNodeType(): string;
 
 	/**
-	 * @param \PHPStan\Analyser\Node $node
+	 * @param \PhpParser\Node $node
+	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[] errors
 	 */
-	public function processNode(Node $node): array;
+	public function processNode(Node $node, Scope $scope): array;
 
 }

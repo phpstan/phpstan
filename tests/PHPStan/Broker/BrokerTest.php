@@ -14,6 +14,7 @@ class BrokerTest extends \PHPStan\TestCase
 	{
 		$this->broker = new Broker(
 			[],
+			[],
 			$this->getMock(FunctionReflectionFactory::class)
 		);
 	}

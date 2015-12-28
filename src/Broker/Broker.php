@@ -10,8 +10,11 @@ use ReflectionClass;
 class Broker
 {
 
-	/** @var \PHPStan\Reflection\ClassReflectionExtension[] */
-	private $classReflectionExtensions;
+	/** @var \PHPStan\Reflection\PropertiesClassReflectionExtension[] */
+	private $propertiesClassReflectionExtensions;
+
+	/** @var \PHPStan\Reflection\MethodsClassReflectionExtension[] */
+	private $methodsClassReflectionExtensions;
 
 	/** @var \PHPStan\Reflection\ClassReflection[] */
 	private $classReflections = [];
@@ -22,13 +25,20 @@ class Broker
 	/** @var \PHPStan\Reflection\FunctionReflection[] */
 	private $functionReflections = [];
 
+	/**
+	 * @param \PHPStan\Reflection\PropertiesClassReflectionExtension[] $propertiesClassReflectionExtensions
+	 * @param \PHPStan\Reflection\MethodsClassReflectionExtension[] $methodsClassReflectionExtensions
+	 * @param \PHPStan\Reflection\FunctionReflectionFactory $functionReflectionFactory
+	 */
 	public function __construct(
-		array $classReflectionExtensions,
+		array $propertiesClassReflectionExtensions,
+		array $methodsClassReflectionExtensions,
 		FunctionReflectionFactory $functionReflectionFactory
 	)
 	{
-		$this->classReflectionExtensions = $classReflectionExtensions;
-		foreach ($this->classReflectionExtensions as $extension) {
+		$this->propertiesClassReflectionExtensions = $propertiesClassReflectionExtensions;
+		$this->methodsClassReflectionExtensions = $methodsClassReflectionExtensions;
+		foreach (array_merge($propertiesClassReflectionExtensions, $methodsClassReflectionExtensions) as $extension) {
 			if ($extension instanceof BrokerAwareClassReflectionExtension) {
 				$extension->setBroker($this);
 			}
@@ -44,7 +54,12 @@ class Broker
 		}
 
 		if (!isset($this->classReflections[$className])) {
-			$this->classReflections[$className] = new ClassReflection($this, $this->classReflectionExtensions, new ReflectionClass($className));
+			$this->classReflections[$className] = new ClassReflection(
+				$this,
+				$this->propertiesClassReflectionExtensions,
+				$this->methodsClassReflectionExtensions,
+				new ReflectionClass($className)
+			);
 		}
 
 		return $this->classReflections[$className];

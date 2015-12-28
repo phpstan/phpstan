@@ -2,8 +2,9 @@
 
 namespace PHPStan\Rules\Classes;
 
+use PhpParser\Node;
 use PhpParser\Node\Expr\New_;
-use PHPStan\Analyser\Node;
+use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\FunctionCallParametersCheck;
 
@@ -36,23 +37,23 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Node $node
+	 * @param \PhpParser\Node $node
+	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */
-	public function processNode(Node $node): array
+	public function processNode(Node $node, Scope $scope): array
 	{
-		$instantiation = $node->getParserNode();
-		if (!($instantiation->class instanceof \PhpParser\Node\Name)) {
+		if (!($node->class instanceof \PhpParser\Node\Name)) {
 			return [];
 		}
 
-		$class = (string) $instantiation->class;
+		$class = (string) $node->class;
 		if ($class === 'static') {
 			return array();
 		}
 
 		if ($class === 'self') {
-			$class = $node->getScope()->getClass();
+			$class = $scope->getClass();
 			if ($class === null) {
 				return [];
 			}
@@ -65,19 +66,20 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 		}
 
 		$classReflection = $this->broker->getClass($class);
-		if ($classReflection->isAbstract()) {
-			return [
-				sprintf('Instantiated class %s is abstract.', $class),
-			];
-		}
 		if ($classReflection->isInterface()) {
 			return [
 				sprintf('Cannot instantiate interface %s.', $class),
 			];
 		}
 
+		if ($classReflection->isAbstract()) {
+			return [
+				sprintf('Instantiated class %s is abstract.', $class),
+			];
+		}
+
 		if (!$classReflection->hasMethod('__construct') && !$classReflection->hasMethod($class)) {
-			if (count($instantiation->args) > 0) {
+			if (count($node->args) > 0) {
 				return [
 					sprintf(
 						'Class %s does not have a constructor and must be instantiated without any parameters.',
@@ -91,7 +93,7 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 
 		return $this->check->check(
 			$classReflection->hasMethod('__construct') ? $classReflection->getMethod('__construct') : $classReflection->getMethod($class),
-			$instantiation,
+			$node,
 			[
 				'Class ' . $class . ' constructor invoked with %d parameter, %d required.',
 				'Class ' . $class . ' constructor invoked with %d parameters, %d required.',

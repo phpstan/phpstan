@@ -2,8 +2,9 @@
 
 namespace PHPStan\Rules\Classes;
 
+use PhpParser\Node;
 use PhpParser\Node\Expr\Instanceof_;
-use PHPStan\Analyser\Node;
+use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 
 class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
@@ -28,19 +29,20 @@ class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Node $node
+	 * @param Node $node
+	 * @param Scope $scope
 	 * @return string[]
 	 */
-	public function processNode(Node $node): array
+	public function processNode(Node $node, Scope $scope): array
 	{
-		$class = $node->getParserNode()->class;
+		$class = $node->class;
 		if (!($class instanceof \PhpParser\Node\Name)) {
 			return [];
 		}
 		$name = (string) $class;
 
 		if ($name === 'self' || $name === 'static') {
-			if ($node->getScope()->getClass() === null) {
+			if ($scope->getClass() === null && !$scope->isInAnonymousClass()) {
 				return [
 					sprintf('Using %s outside of class scope.', $name),
 				];

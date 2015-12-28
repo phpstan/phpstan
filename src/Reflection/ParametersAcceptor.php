@@ -2,8 +2,12 @@
 
 namespace PHPStan\Reflection;
 
+use PHPStan\Type\Type;
+
 interface ParametersAcceptor
 {
+
+	public function getName(): string;
 
 	/**
 	 * @return \PHPStan\Reflection\ParameterReflection[]
@@ -11,5 +15,7 @@ interface ParametersAcceptor
 	public function getParameters(): array;
 
 	public function isVariadic(): bool;
+
+	public function getReturnType(): Type;
 
 }
