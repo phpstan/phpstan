@@ -1,0 +1,5 @@
+{
+	"name": "phpstan/phpstan",
+	"description": "PHPStan - PHP Static Analysis Tool",
+	"license": ["MIT"]
+}
