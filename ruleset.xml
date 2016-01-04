@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<ruleset name="PHPStan">
+	<rule ref="vendor/slevomat/coding-standard/SlevomatCodingStandard/ruleset.xml">
+		<exclude name="SlevomatCodingStandard.Files.TypeNameMatchesFileName"/>
+		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameAfterKeyword"/>
+		<exclude name="SlevomatCodingStandard.Namespaces.UseOnlyWhitelistedNamespaces"/>
+		<exclude name="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly"/>
+	</rule>
+	<rule ref="Squiz.PHP.InnerFunctions.NotAllowed">
+		<exclude-pattern>tests/PHPStan/Rules/AbstractRuleTest.php</exclude-pattern>
+	</rule>
+</ruleset>

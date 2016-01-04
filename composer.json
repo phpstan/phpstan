@@ -1,5 +1,31 @@
 {
 	"name": "phpstan/phpstan",
 	"description": "PHPStan - PHP Static Analysis Tool",
-	"license": ["MIT"]
+	"license": ["MIT"],
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"bin": [
+		"bin/phpstan"
+	],
+	"require": {
+		"php": "~7.0",
+		"nette/bootstrap": "~2.3",
+		"nette/robot-loader": "~2.3",
+		"nikic/php-parser": "~2.0",
+		"symfony/console": "~3.0",
+		"symfony/finder": "~3.0",
+		"tracy/tracy": "~2.3"
+	},
+	"require-dev": {
+		"consistence/coding-standard": "~0.10.0",
+		"phing/phing": "~2.13.0",
+		"phpunit/phpunit": "~5.0",
+		"slevomat/coding-standard": "1.0.4"
+	},
+	"autoload": {
+		"psr-4": {"PHPStan\\": "src/"}
+	},
+	"autoload-dev": {
+		"classmap": ["tests/"]
+	}
 }

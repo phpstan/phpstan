@@ -1,0 +1,24 @@
+<phpunit
+	bootstrap="bootstrap.php"
+	colors="true"
+	backupGlobals="false"
+	backupStaticAttributes="false"
+	beStrictAboutChangesToGlobalState="true"
+	beStrictAboutOutputDuringTests="true"
+	beStrictAboutTestsThatDoNotTestAnything="true"
+	beStrictAboutTodoAnnotatedTests="true"
+>
+	<filter>
+		<whitelist>
+			<directory suffix=".php">../src</directory>
+		</whitelist>
+	</filter>
+	<logging>
+		<log
+			type="coverage-text"
+			target="php://stdout"
+			showUncoveredFiles="true"
+			showOnlySummary="true"
+		/>
+	</logging>
+</phpunit>

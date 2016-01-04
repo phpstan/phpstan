@@ -1,0 +1,128 @@
+parameters:
+	debug_cli_browser:
+	excludes_analyse:
+		- %rootDir%/tests/*/data/* # todo přes konfigurák při spouštění binárky
+	autoload_directories: []
+	autoload_files: []
+	lookForFuncGetArgs: false # 'true' looks for func_get_args and evaluates functions and methods as variadic, greatly decreases performance
+
+services:
+	-
+		class: PhpParser\Lexer
+
+	-
+		class: PhpParser\NodeTraverser
+		setup:
+			- addVisitor(@PhpParser\NodeVisitor\NameResolver)
+
+	-
+		class: PhpParser\NodeVisitor\NameResolver
+
+	-
+		class: PhpParser\Parser\Php7
+
+	-
+		class: PHPStan\Analyser\Analyser
+		arguments:
+			analyseExcludes: %excludes_analyse%
+
+	-
+		class: PHPStan\Command\AnalyseApplication
+
+	-
+		class: PHPStan\Parser\CachedParser
+		arguments:
+			originalParser: @directParser
+
+	-
+		class: PHPStan\Parser\FunctionCallStatementFinder
+
+	-
+		implement: PHPStan\Reflection\FunctionReflectionFactory
+		arguments:
+			lookForFuncGetArgs: %lookForFuncGetArgs%
+
+	-
+		class: PHPStan\Reflection\Php\PhpClassReflectionExtension
+
+	-
+		implement: PHPStan\Reflection\Php\PhpMethodReflectionFactory
+		arguments:
+			lookForFuncGetArgs: %lookForFuncGetArgs%
+
+	-
+		class: PHPStan\Rules\FunctionCallParametersCheck
+
+	-
+		class: PHPStan\Rules\FunctionDefinitionCheck
+
+	-
+		class: PHPStan\Rules\Classes\AccessOwnPropertiesRule
+
+	-
+		class: PHPStan\Rules\Classes\AccessStaticPropertiesRule
+
+	-
+		class: PHPStan\Rules\Classes\ClassConstantRule
+
+	-
+		class: PHPStan\Rules\Classes\ExistingClassInInstanceOfRule
+
+	-
+		class: PHPStan\Rules\Classes\InstantiationRule
+
+	-
+		class: PHPStan\Rules\Classes\RequireParentConstructCallRule
+
+	-
+		class: PHPStan\Rules\Exceptions\CatchedExceptionExistenceRule
+
+	-
+		class: PHPStan\Rules\Functions\CallToFunctionParametersRule
+
+	-
+		class: PHPStan\Rules\Functions\CallToNonExistentFunctionRule
+
+	-
+		class: PHPStan\Rules\Functions\ExistingClassesInTypehintsRule
+
+	-
+		class: PHPStan\Rules\Functions\PrintfParametersRule
+
+	-
+		class: PHPStan\Rules\Methods\CallOwnMethodsRule
+
+	-
+		class: PHPStan\Rules\Methods\CallStaticMethodsRule
+
+	-
+		class: PHPStan\Rules\Methods\ExistingClassesInTypehintsRule
+
+	-
+		class: PHPStan\Rules\Registry
+		setup:
+			- register(@PHPStan\Rules\Classes\AccessOwnPropertiesRule)
+			- register(@PHPStan\Rules\Classes\AccessStaticPropertiesRule)
+			- register(@PHPStan\Rules\Classes\ClassConstantRule)
+			- register(@PHPStan\Rules\Classes\ExistingClassInInstanceOfRule)
+			- register(@PHPStan\Rules\Classes\InstantiationRule)
+			- register(@PHPStan\Rules\Classes\RequireParentConstructCallRule)
+			- register(@PHPStan\Rules\Exceptions\CatchedExceptionExistenceRule)
+			- register(@PHPStan\Rules\Functions\CallToNonExistentFunctionRule)
+			- register(@PHPStan\Rules\Functions\CallToFunctionParametersRule)
+			- register(@PHPStan\Rules\Functions\ExistingClassesInTypehintsRule)
+			- register(@PHPStan\Rules\Functions\PrintfParametersRule)
+			- register(@PHPStan\Rules\Methods\CallOwnMethodsRule)
+			- register(@PHPStan\Rules\Methods\CallStaticMethodsRule)
+			- register(@PHPStan\Rules\Methods\ExistingClassesInTypehintsRule)
+
+	broker:
+		class: PHPStan\Broker\Broker
+		arguments:
+			classReflectionExtensions:
+				- @PHPStan\Reflection\Php\PhpClassReflectionExtension
+
+	directParser:
+		class: PHPStan\Parser\DirectParser
+		autowired: no
+

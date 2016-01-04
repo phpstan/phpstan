@@ -1,0 +1,95 @@
+<?php declare(strict_types = 1);
+
+namespace PHPStan\Rules\Functions;
+
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Scalar\String_;
+use PHPStan\Analyser\Node;
+
+class PrintfParametersRule implements \PHPStan\Rules\Rule
+{
+
+	public function getNodeType(): string
+	{
+		return FuncCall::class;
+	}
+
+	/**
+	 * @param \PHPStan\Analyser\Node $node
+	 * @return string[]
+	 */
+	public function processNode(Node $node): array
+	{
+		$functionCallNode = $node->getParserNode();
+		if (!($functionCallNode->name instanceof \PhpParser\Node\Name)) {
+			return [];
+		}
+
+		$name = (string) $functionCallNode->name;
+		if (!in_array($name, ['printf', 'sprintf'], true)) {
+			return [];
+		}
+
+		$args = $functionCallNode->args;
+		$argsCount = count($args);
+		if ($argsCount < 1) {
+			return []; // caught by CallToFunctionParametersRule
+		}
+
+		$formatArg = $args[0]->value;
+		if (!($formatArg instanceof String_)) {
+			return []; // inspect only literal string format
+		}
+
+		$format = $formatArg->value;
+		$placeHoldersCount = $this->getPlaceholdersCount($format);
+
+		if ($argsCount !== $placeHoldersCount + 1) {
+			return [
+				sprintf(
+					sprintf(
+						'%s, %s.',
+						ngettext(
+							'Call to %s contains %d placeholder',
+							'Call to %s contains %d placeholders',
+							$placeHoldersCount
+						),
+						ngettext(
+							'%d value given',
+							'%d values given',
+							$argsCount - 1
+						)
+					),
+					$name,
+					$placeHoldersCount,
+					$argsCount - 1
+				),
+			];
+		}
+
+		return [];
+	}
+
+	private function getPlaceholdersCount(string $format): int
+	{
+		$format = str_replace('%%', '', $format);
+		$characterGroups = '(?:[\.\-0-9\'])*[a-zA-Z]';
+		$options = [
+			$characterGroups,
+			'[0-9]+\$' . $characterGroups,
+		];
+		preg_match_all(sprintf('~%%((?:%s))~', implode(')|(?:', $options)), $format, $matches);
+		$maxPositionedNumber = 0;
+		$maxOrdinaryNumber = 0;
+		foreach ($matches[1] as $match) {
+			if ((int) $match !== 0 && strpos($match, '$') !== false) {
+				$maxPositionedNumber = max((int) $match, $maxPositionedNumber);
+			} else {
+				$maxOrdinaryNumber++;
+			}
+		}
+
+		return max($maxPositionedNumber, $maxOrdinaryNumber);
+	}
+
+}

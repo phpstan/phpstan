@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="PHPStan" default="check">
+
+	<target name="check" depends="
+		composer,
+		lint,
+		cs,
+		tests,
+		phpstan
+	"/>
+
+	<target name="composer">
+		<exec
+				executable="composer"
+				logoutput="true"
+				passthru="true"
+				checkreturn="true"
+		>
+			<arg value="install"/>
+		</exec>
+	</target>
+
+	<target name="lint">
+		<exec
+				executable="vendor/bin/parallel-lint"
+				logoutput="true"
+				passthru="true"
+				checkreturn="true"
+		>
+			<arg value="--exclude"/>
+			<arg path="tests/PHPStan/Analyser/data"/>
+			<arg path="src" />
+			<arg path="tests" />
+		</exec>
+	</target>
+
+	<target name="cs">
+		<exec
+				executable="vendor/bin/phpcs"
+				logoutput="true"
+				passthru="true"
+				checkreturn="true"
+		>
+			<arg value="--standard=ruleset.xml"/>
+			<arg value="--extensions=php"/>
+			<arg value="--encoding=utf-8"/>
+			<arg value="--tab-width=4"/>
+			<arg value="--ignore=tests/*/data"/>
+			<arg value="-sp"/>
+			<arg path="src"/>
+			<arg path="tests"/>
+		</exec>
+	</target>
+
+	<target name="cs-fix">
+		<exec
+				executable="vendor/bin/phpcbf"
+				logoutput="true"
+				passthru="true"
+				checkreturn="true"
+		>
+			<arg value="--standard=ruleset.xml"/>
+			<arg value="--extensions=php"/>
+			<arg value="--encoding=utf-8"/>
+			<arg value="--tab-width=4"/>
+			<arg value="--ignore=tests/*/data"/>
+			<arg value="-sp"/>
+			<arg path="src"/>
+			<arg path="tests"/>
+		</exec>
+	</target>
+
+	<target name="tests">
+		<exec
+				executable="vendor/bin/phpunit"
+				logoutput="true"
+				passthru="true"
+				checkreturn="true"
+		>
+			<arg value="-c"/>
+			<arg value="tests/phpunit.xml"/>
+			<arg path="tests"/>
+		</exec>
+	</target>
+
+	<target name="phpstan">
+		<exec
+				executable="bin/phpstan"
+				logoutput="true"
+				passthru="true"
+				checkreturn="true"
+		>
+			<arg value="analyse"/>
+			<arg path="src"/>
+			<arg path="tests"/>
+		</exec>
+	</target>
+
+</project>
