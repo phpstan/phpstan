@@ -30,6 +30,11 @@ class Analyser
 	private $nodeScopeResolver;
 
 	/**
+	 * @var \PhpParser\PrettyPrinter\Standard
+	 */
+	private $printer;
+
+	/**
 	 * Directories to exclude from analysing
 	 *
 	 * @var string[]
@@ -37,25 +42,36 @@ class Analyser
 	private $analyseExcludes;
 
 	/**
+	 * @var string[]
+	 */
+	private $ignoreErrors;
+
+	/**
 	 * @param \PHPStan\Broker\Broker $broker
 	 * @param \PHPStan\Parser\Parser $parser
 	 * @param \PHPStan\Rules\Registry $registry
 	 * @param \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver
+	 * @param \PhpParser\PrettyPrinter\Standard $printer
 	 * @param string[] $analyseExcludes
+	 * @param string[] $ignoreErrors
 	 */
 	public function __construct(
 		Broker $broker,
 		Parser $parser,
 		Registry $registry,
 		NodeScopeResolver $nodeScopeResolver,
-		array $analyseExcludes
+		\PhpParser\PrettyPrinter\Standard $printer,
+		array $analyseExcludes,
+		array $ignoreErrors
 	)
 	{
 		$this->broker = $broker;
 		$this->parser = $parser;
 		$this->registry = $registry;
 		$this->nodeScopeResolver = $nodeScopeResolver;
+		$this->printer = $printer;
 		$this->analyseExcludes = $analyseExcludes;
+		$this->ignoreErrors = $ignoreErrors;
 	}
 
 	/**
@@ -63,7 +79,7 @@ class Analyser
 	 * @param \Closure|null $progressCallback
 	 * @return string[] errors
 	 */
-	public function analyse(array $files, \Closure $progressCallback = null)
+	public function analyse(array $files, \Closure $progressCallback = null): array
 	{
 		$errors = [];
 
@@ -73,13 +89,14 @@ class Analyser
 					if ($progressCallback !== null) {
 						$progressCallback($file);
 					}
+
 					continue;
 				}
 
 				$fileErrors = [];
 				$this->nodeScopeResolver->processNodes(
 					$this->parser->parseFile($file),
-					new Scope($this->broker, $file),
+					new Scope($this->broker, $this->printer, $file),
 					function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors) {
 						foreach ($this->registry->getRules(get_class($node)) as $rule) {
 							$ruleErrors = $this->createErrors(
@@ -94,6 +111,7 @@ class Analyser
 				if ($progressCallback !== null) {
 					$progressCallback($file);
 				}
+
 				$errors = array_merge($errors, $fileErrors);
 			} catch (\PhpParser\Error $e) {
 				$errors[] = new Error($e->getMessage(), $file);
@@ -105,7 +123,15 @@ class Analyser
 			}
 		}
 
-		return $errors;
+		return array_values(array_filter($errors, function (string $error): bool {
+			foreach ($this->ignoreErrors as $ignore) {
+				if (\Nette\Utils\Strings::match($error, $ignore) !== null) {
+					return false;
+				}
+			}
+
+			return true;
+		}));
 	}
 
 	/**
@@ -120,13 +146,10 @@ class Analyser
 		foreach ($messages as $message) {
 			$errors[] = new Error($message, $file, $node->getLine());
 		}
+
 		return $errors;
 	}
 
-	/**
-	 * @param string $file
-	 * @return bool
-	 */
 	public function isExcludedFromAnalysing(string $file): bool
 	{
 		return $this->isExcluded($file, $this->analyseExcludes);

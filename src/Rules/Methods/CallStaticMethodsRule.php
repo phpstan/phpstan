@@ -22,10 +22,6 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 	 */
 	private $check;
 
-	/**
-	 * @param \PHPStan\Broker\Broker $broker
-	 * @param \PHPStan\Rules\FunctionCallParametersCheck $check
-	 */
 	public function __construct(Broker $broker, FunctionCallParametersCheck $check)
 	{
 		$this->broker = $broker;
@@ -38,7 +34,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PhpParser\Node $node
+	 * @param \PhpParser\Node\Expr\StaticCall $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */
@@ -47,19 +43,23 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 		if (!is_string($node->name)) {
 			return [];
 		}
+
 		$name = $node->name;
 		$currentClass = $scope->getClass();
 		if ($currentClass === null) {
 			return [];
 		}
+
 		$currentClassReflection = $this->broker->getClass($currentClass);
 		if (!($node->class instanceof Name)) {
 			return [];
 		}
+
 		$class = (string) $node->class;
 		if ($class === 'self' || $class === 'static') {
 			$class = $currentClass;
 		}
+
 		if ($class === 'parent') {
 			if ($currentClassReflection->getParentClass() === false) {
 				return [
@@ -115,7 +115,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 				sprintf(
 					'Static call to instance method %s::%s().',
 					$class,
-					$name
+					$method->getName()
 				),
 			];
 		}
@@ -126,7 +126,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 					return [
 						sprintf(
 							'Call to private static method %s() of class %s.',
-							$name,
+							$method->getName(),
 							$method->getDeclaringClass()->getName()
 						),
 					];
@@ -137,7 +137,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 						sprintf(
 							'Call to %s static method %s() of class %s.',
 							$method->isPrivate() ? 'private' : 'protected',
-							$name,
+							$method->getName(),
 							$method->getDeclaringClass()->getName()
 						),
 					];
@@ -145,9 +145,9 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 			}
 		}
 
-		$methodName = $class . '::' . $name . '()';
+		$methodName = $class . '::' . $method->getName() . '()';
 
-		return $this->check->check(
+		$errors = $this->check->check(
 			$method,
 			$node,
 			[
@@ -159,6 +159,12 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 				'Static method ' . $methodName . ' invoked with %d parameters, %d-%d required.',
 			]
 		);
+
+		if ($method->getName() !== $name) {
+			$errors[] = sprintf('Call to static method %s with incorrect case: %s', $methodName, $name);
+		}
+
+		return $errors;
 	}
 
 }

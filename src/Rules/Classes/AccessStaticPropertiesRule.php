@@ -15,9 +15,6 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 	 */
 	private $broker;
 
-	/**
-	 * @param \PHPStan\Broker\Broker $broker
-	 */
 	public function __construct(Broker $broker)
 	{
 		$this->broker = $broker;
@@ -29,7 +26,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PhpParser\Node $node
+	 * @param \PhpParser\Node\Expr\StaticPropertyFetch $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */
@@ -40,11 +37,13 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 		if ($currentClass === null) {
 			return [];
 		}
+
 		$currentClassReflection = $this->broker->getClass($currentClass);
 		$class = (string) $node->class;
 		if ($class === 'self' || $class === 'static') {
 			$class = $currentClass;
 		}
+
 		if ($class === 'parent') {
 			if ($currentClassReflection->getParentClass() === false) {
 				return [

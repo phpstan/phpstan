@@ -5,9 +5,6 @@ namespace PHPStan\Rules\Variables;
 class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 {
 
-	/**
-	 * @return \PHPStan\Rules\Rule
-	 */
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
 		return new DefinedVariableRule();
@@ -47,6 +44,14 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			[
 				'Undefined variable: $mustAlreadyExistWhenDividing',
 				48,
+			],
+			[
+				'Undefined variable: $arrayDoesNotExist',
+				55,
+			],
+			[
+				'Undefined variable: $undefinedVariable',
+				57,
 			],
 		]);
 	}

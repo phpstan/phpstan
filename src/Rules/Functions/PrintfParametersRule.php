@@ -16,7 +16,7 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PhpParser\Node $node
+	 * @param \PhpParser\Node\Expr\FuncCall $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */

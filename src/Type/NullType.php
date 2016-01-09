@@ -1,10 +1,13 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type;
 
 class NullType implements Type
 {
 
+	/**
+	 * @return string|null
+	 */
 	public function getClass()
 	{
 		return null;

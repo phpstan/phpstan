@@ -13,6 +13,8 @@ use PHPStan\Reflection\FunctionReflectionFactory;
 use PHPStan\Reflection\Php\PhpClassReflectionExtension;
 use PHPStan\Reflection\Php\PhpMethodReflection;
 use PHPStan\Reflection\Php\PhpMethodReflectionFactory;
+use PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension;
+use PHPStan\Type\Type;
 
 abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
@@ -25,20 +27,11 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 	/** @var \PHPStan\Parser\Parser */
 	private $parser;
 
-	/** @var \PHPStan\Broker\Broker */
-	private $broker;
-
-	/**
-	 * @return \Nette\DI\Container
-	 */
-	public function getContainer()
+	public function getContainer(): \Nette\DI\Container
 	{
 		return self::$container;
 	}
 
-	/**
-	 * @param \Nette\DI\Container $container
-	 */
 	public static function setContainer(Container $container)
 	{
 		self::$container = $container;
@@ -56,15 +49,15 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * @param \PHPStan\Type\DynamicMethodReturnTypeExtension[] $dynamicMethodReturnTypeExtensions
 	 * @return \PHPStan\Broker\Broker
 	 */
-	public function getBroker(): Broker
+	public function createBroker(array $dynamicMethodReturnTypeExtensions = []): Broker
 	{
-		if ($this->broker === null) {
-			$functionCallStatementFinder = new FunctionCallStatementFinder();
-			$parser = $this->getParser();
-			$cache = new \Nette\Caching\Cache(new \Nette\Caching\Storages\MemoryStorage());
-			$phpExtension = new PhpClassReflectionExtension(new class($parser, $functionCallStatementFinder, $cache) implements PhpMethodReflectionFactory {
+		$functionCallStatementFinder = new FunctionCallStatementFinder();
+		$parser = $this->getParser();
+		$cache = new \Nette\Caching\Cache(new \Nette\Caching\Storages\MemoryStorage());
+		$phpExtension = new PhpClassReflectionExtension(new class($parser, $functionCallStatementFinder, $cache) implements PhpMethodReflectionFactory {
 			/** @var \PHPStan\Parser\Parser */
 			private $parser;
 
@@ -87,13 +80,23 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 
 			public function create(
 				ClassReflection $declaringClass,
-				\ReflectionMethod $reflection
+				\ReflectionMethod $reflection,
+				array $phpDocParameterTypes,
+				Type $phpDocReturnType = null
 			): PhpMethodReflection
 			{
-				return new PhpMethodReflection($declaringClass, $reflection, $this->parser, $this->functionCallStatementFinder, $this->cache);
+				return new PhpMethodReflection(
+					$declaringClass,
+					$reflection,
+					$this->parser,
+					$this->functionCallStatementFinder,
+					$this->cache,
+					$phpDocParameterTypes,
+					$phpDocReturnType
+				);
 			}
-			}, $parser);
-			$functionReflectionFactory = new class($this->getParser(), $functionCallStatementFinder, $cache) implements FunctionReflectionFactory {
+		}, $parser);
+		$functionReflectionFactory = new class($this->getParser(), $functionCallStatementFinder, $cache) implements FunctionReflectionFactory {
 			/** @var \PHPStan\Parser\Parser */
 			private $parser;
 
@@ -118,12 +121,13 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 			{
 				return new FunctionReflection($function, $this->parser, $this->functionCallStatementFinder, $this->cache);
 			}
-			};
-			$this->broker = new Broker([$phpExtension], [$phpExtension], $functionReflectionFactory);
-			$phpExtension->setBroker($this->broker);
-		}
+		};
+		$broker = new Broker([
+			$phpExtension,
+			new UniversalObjectCratesClassReflectionExtension(),
+		], [$phpExtension], $dynamicMethodReturnTypeExtensions, $functionReflectionFactory);
 
-		return $this->broker;
+		return $broker;
 	}
 
 }

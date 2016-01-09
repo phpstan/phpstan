@@ -14,21 +14,27 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 
 	abstract protected function getRule(): Rule;
 
-	/**
-	 * @return \PHPStan\Analyser\Analyser
-	 */
 	private function getAnalyser(): Analyser
 	{
 		if ($this->analyser === null) {
 			$registry = new Registry();
 			$registry->register($this->getRule());
 
-			$broker = $this->getBroker();
+			$broker = $this->createBroker();
+			$printer = new \PhpParser\PrettyPrinter\Standard();
 			$this->analyser = new Analyser(
 				$broker,
 				$this->getParser(),
 				$registry,
-				new NodeScopeResolver($broker, false, false, false),
+				new NodeScopeResolver(
+					$broker,
+					$printer,
+					false,
+					false,
+					false
+				),
+				$printer,
+				[],
 				[]
 			);
 		}

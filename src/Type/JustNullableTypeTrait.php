@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type;
 
@@ -13,6 +13,9 @@ trait JustNullableTypeTrait
 		$this->nullable = $nullable;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getClass()
 	{
 		return null;

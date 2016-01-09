@@ -15,9 +15,6 @@ class CatchedExceptionExistenceRule implements \PHPStan\Rules\Rule
 	 */
 	private $broker;
 
-	/**
-	 * @param \PHPStan\Broker\Broker $broker
-	 */
 	public function __construct(Broker $broker)
 	{
 		$this->broker = $broker;
@@ -29,7 +26,7 @@ class CatchedExceptionExistenceRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PhpParser\Node $node
+	 * @param \PhpParser\Node\Stmt\Catch_ $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */

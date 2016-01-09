@@ -2,15 +2,15 @@
 
 namespace PHPStan\Rules\Classes;
 
-class AccessOwnPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class AccessPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new AccessOwnPropertiesRule($this->getBroker());
+		return new AccessPropertiesRule($this->createBroker());
 	}
 
-	public function testAccessOwnProperties()
+	public function testAccessProperties()
 	{
 		$this->analyse(
 			[__DIR__ . '/data/access-properties.php'],
@@ -22,6 +22,14 @@ class AccessOwnPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				[
 					'Access to private property $foo of parent class TestAccessProperties\FooAccessProperties.',
 					24,
+				],
+				[
+					'Cannot access property TestAccessProperties\FooAccessProperties::$foo from current scope.',
+					39,
+				],
+				[
+					'Cannot access property TestAccessProperties\FooAccessProperties::$bar from current scope.',
+					40,
 				],
 			]
 		);

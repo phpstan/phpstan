@@ -24,7 +24,7 @@ class ExistingClassesInTypehintsRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PhpParser\Node $node
+	 * @param \PhpParser\Node\Stmt\ClassMethod $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */

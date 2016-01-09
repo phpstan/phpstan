@@ -3,9 +3,13 @@
 namespace PHPStan\Analyser;
 
 use PhpParser\Node\Expr\Exit_;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\New_;
+use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
+use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
@@ -20,9 +24,19 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	/** @var \PHPStan\Analyser\NodeScopeResolver */
 	private $resolver;
 
+	/** @var \PhpParser\PrettyPrinter\Standard */
+	private $printer;
+
 	protected function setUp()
 	{
-		$this->resolver = new NodeScopeResolver($this->getBroker(), true, true, false);
+		$this->printer = new \PhpParser\PrettyPrinter\Standard();
+		$this->resolver = new NodeScopeResolver(
+			$this->createBroker(),
+			$this->printer,
+			true,
+			true,
+			false
+		);
 	}
 
 	public function testClassMethodScope()
@@ -100,7 +114,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		});
 	}
 
-	public function dataParameterTypes()
+	public function dataParameterTypes(): array
 	{
 		return [
 			[
@@ -194,7 +208,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	public function testTypehints(
 		string $typeClass,
 		bool $nullable,
-		$class,
+		string $class = null,
 		string $expression
 	)
 	{
@@ -207,7 +221,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
-	public function dataCasts()
+	public function dataCasts(): array
 	{
 		return [
 			[
@@ -265,7 +279,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	public function testCasts(
 		string $typeClass,
 		bool $nullable,
-		$class,
+		string $class = null,
 		string $expression
 	)
 	{
@@ -278,7 +292,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
-	public function dataDeductedTypes()
+	public function dataDeductedTypes(): array
 	{
 		return [
 			[
@@ -359,6 +373,48 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				null,
 				'$mixedFromFunction',
 			],
+			[
+				IntegerType::class,
+				false,
+				null,
+				'\TypesNamespaceDeductedTypes\Foo::INTEGER_CONSTANT',
+			],
+			[
+				IntegerType::class,
+				false,
+				null,
+				'self::INTEGER_CONSTANT',
+			],
+			[
+				FloatType::class,
+				false,
+				null,
+				'self::FLOAT_CONSTANT',
+			],
+			[
+				StringType::class,
+				false,
+				null,
+				'self::STRING_CONSTANT',
+			],
+			[
+				ArrayType::class,
+				false,
+				null,
+				'self::ARRAY_CONSTANT',
+			],
+			[
+				BooleanType::class,
+				false,
+				null,
+				'self::BOOLEAN_CONSTANT',
+			],
+			[
+				NullType::class,
+				true,
+				null,
+				'self::NULL_CONSTANT',
+			],
 		];
 	}
 
@@ -372,7 +428,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	public function testDeductedTypes(
 		string $typeClass,
 		bool $nullable,
-		$class,
+		string $class = null,
 		string $expression
 	)
 	{
@@ -386,7 +442,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
-	public function dataProperties()
+	public function dataProperties(): array
 	{
 		return [
 			[
@@ -503,6 +559,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'PropertiesNamespace\Bar',
 				'$this->barObject->doBar()',
 			],
+			[
+				MixedType::class,
+				false,
+				null,
+				'$this->invalidTypeProperty',
+			],
 		];
 	}
 
@@ -516,7 +578,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	public function testProperties(
 		string $typeClass,
 		bool $nullable,
-		$class,
+		string $class = null,
 		string $expression
 	)
 	{
@@ -529,7 +591,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
-	public function dataBinaryOperations()
+	public function dataBinaryOperations(): array
 	{
 		$typeCallback = function ($value) {
 			$type = gettype($value);
@@ -797,7 +859,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	public function testBinaryOperations(
 		string $typeClass,
 		bool $nullable,
-		$class,
+		string $class = null,
 		string $expression
 	)
 	{
@@ -810,16 +872,384 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+	public function dataTypeFromMethodPhpDocs(): array
+	{
+		return [
+			[
+				MixedType::class,
+				true,
+				null,
+				'$mixedParameter',
+			],
+			[
+				MixedType::class,
+				false,
+				null,
+				'$alsoMixedParameter',
+			],
+			[
+				MixedType::class,
+				true,
+				null,
+				'$anotherMixedParameter',
+			],
+			[
+				MixedType::class,
+				true,
+				null,
+				'$yetAnotherMixedParameter',
+			],
+			[
+				IntegerType::class,
+				false,
+				null,
+				'$integerParameter',
+			],
+			[
+				IntegerType::class,
+				false,
+				null,
+				'$anotherIntegerParameter',
+			],
+			[
+				ArrayType::class,
+				false,
+				null,
+				'$arrayParameterOne',
+			],
+			[
+				ArrayType::class,
+				false,
+				null,
+				'$arrayParameterOther',
+			],
+			[
+				ObjectType::class,
+				false,
+				'MethodPhpDocsNamespace\\Lorem',
+				'$objectRelative',
+			],
+			[
+				ObjectType::class,
+				false,
+				'SomeOtherNamespace\\Ipsum',
+				'$objectFullyQualified',
+			],
+			[
+				ObjectType::class,
+				false,
+				'SomeNamespace\\Amet',
+				'$objectUsed',
+			],
+			[
+				MixedType::class,
+				true,
+				null,
+				'$nonexistentParameter',
+			],
+			[
+				IntegerType::class,
+				true,
+				null,
+				'$nullableInteger',
+			],
+			[
+				ObjectType::class,
+				true,
+				'SomeNamespace\Amet',
+				'$nullableObject',
+			],
+			[
+				ObjectType::class,
+				true,
+				'SomeNamespace\Amet',
+				'$anotherNullableObject',
+			],
+			[
+				ObjectType::class,
+				false,
+				'MethodPhpDocsNamespace\\Foo',
+				'$selfType',
+			],
+			[
+				MixedType::class,
+				false,
+				null,
+				'$staticType',
+			],
+			[
+				NullType::class,
+				true,
+				null,
+				'$nullType',
+			],
+			[
+				ObjectType::class,
+				false,
+				'MethodPhpDocsNamespace\Foo',
+				'$this->doFoo()',
+			],
+			[
+				ObjectType::class,
+				false,
+				'MethodPhpDocsNamespace\Bar',
+				'$barObject->doBar()',
+			],
+			[
+				MixedType::class,
+				false,
+				null,
+				'$conflictedObject',
+			],
+			[
+				ObjectType::class,
+				false,
+				'MethodPhpDocsNamespace\Baz',
+				'$moreSpecifiedObject',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataTypeFromMethodPhpDocs
+	 * @param string $typeClass
+	 * @param boolean $nullable
+	 * @param string|null $class
+	 * @param string $expression
+	 */
+	public function testTypeFromMethodPhpDocs(
+		string $typeClass,
+		bool $nullable,
+		string $class = null,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/methodPhpDocs.php',
+			$typeClass,
+			$nullable,
+			$class,
+			$expression
+		);
+	}
+
+	public function dataInstanceOf(): array
+	{
+		return [
+			[
+				ObjectType::class,
+				false,
+				'PhpParser\Node\Expr\ArrayDimFetch',
+				'$foo',
+			],
+			[
+				ObjectType::class,
+				false,
+				'PhpParser\Node\Stmt\Function_',
+				'$bar',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataInstanceOf
+	 * @param string $typeClass
+	 * @param boolean $nullable
+	 * @param string|null $class
+	 * @param string $expression
+	 */
+	public function testInstanceOf(
+		string $typeClass,
+		bool $nullable,
+		string $class = null,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/instanceof.php',
+			$typeClass,
+			$nullable,
+			$class,
+			$expression
+		);
+	}
+
+	public function dataDynamicMethodReturnTypeExtensions(): array
+	{
+		return [
+			[
+				MixedType::class,
+				true,
+				null,
+				'$em->getByFoo($foo)',
+			],
+			[
+				ObjectType::class,
+				false,
+				'DynamicMethodReturnTypesNamespace\Entity',
+				'$em->getByPrimary()',
+			],
+			[
+				ObjectType::class,
+				false,
+				'DynamicMethodReturnTypesNamespace\Entity',
+				'$em->getByPrimary($foo)',
+			],
+			[
+				ObjectType::class,
+				false,
+				'DynamicMethodReturnTypesNamespace\Foo',
+				'$em->getByPrimary(DynamicMethodReturnTypesNamespace\Foo::class)',
+			],
+			[
+				MixedType::class,
+				true,
+				null,
+				'$iem->getByFoo($foo)',
+			],
+			[
+				ObjectType::class,
+				false,
+				'DynamicMethodReturnTypesNamespace\Entity',
+				'$iem->getByPrimary()',
+			],
+			[
+				ObjectType::class,
+				false,
+				'DynamicMethodReturnTypesNamespace\Entity',
+				'$iem->getByPrimary($foo)',
+			],
+			[
+				ObjectType::class,
+				false,
+				'DynamicMethodReturnTypesNamespace\Foo',
+				'$iem->getByPrimary(DynamicMethodReturnTypesNamespace\Foo::class)',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataDynamicMethodReturnTypeExtensions
+	 * @param string $typeClass
+	 * @param bool $nullable
+	 * @param string|null $class
+	 * @param string $expression
+	 */
+	public function testDynamicMethodReturnTypeExtensions(
+		string $typeClass,
+		bool $nullable,
+		string $class = null,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/dynamic-method-return-types.php',
+			$typeClass,
+			$nullable,
+			$class,
+			$expression,
+			[
+				new class() implements DynamicMethodReturnTypeExtension {
+
+			public static function getClass(): string
+			{
+				return \DynamicMethodReturnTypesNamespace\EntityManager::class;
+			}
+
+			public function isMethodSupported(MethodReflection $methodReflection): bool
+			{
+				return in_array($methodReflection->getName(), ['getByPrimary'], true);
+			}
+
+			public function getTypeFromMethodCall(MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope): \PHPStan\Type\Type
+			{
+				$args = $methodCall->args;
+				if (count($args) === 0) {
+					return $methodReflection->getReturnType();
+				}
+
+				$arg = $args[0]->value;
+				if (!($arg instanceof \PhpParser\Node\Expr\ClassConstFetch)) {
+					return $methodReflection->getReturnType();
+				}
+
+				if (!($arg->class instanceof \PhpParser\Node\Name)) {
+					return $methodReflection->getReturnType();
+				}
+
+				return new ObjectType((string) $arg->class, false);
+			}
+				},
+			]
+		);
+	}
+
+	public function dataOverwritingVariable(): array
+	{
+		return [
+			[
+				MixedType::class,
+				true,
+				null,
+				'$var',
+				New_::class,
+			],
+			[
+				ObjectType::class,
+				false,
+				'OverwritingVariable\Bar',
+				'$var',
+				MethodCall::class,
+			],
+			[
+				ObjectType::class,
+				false,
+				'OverwritingVariable\Foo',
+				'$var',
+				Exit_::class,
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataOverwritingVariable
+	 * @param string $typeClass
+	 * @param boolean $nullable
+	 * @param string|null $class
+	 * @param string $expression
+	 * @param string $evaluatedPointExpressionType
+	 */
+	public function testOverwritingVariable(
+		string $typeClass,
+		bool $nullable,
+		string $class = null,
+		string $expression,
+		string $evaluatedPointExpressionType
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/overwritingVariable.php',
+			$typeClass,
+			$nullable,
+			$class,
+			$expression,
+			[],
+			$evaluatedPointExpressionType
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $typeClass,
 		bool $nullable,
-		$class,
-		string $expression
+		string $class = null,
+		string $expression,
+		array $dynamicMethodReturnTypeExtensions = [],
+		string $evaluatedPointExpressionType = Exit_::class
 	)
 	{
-		$this->processFile($file, function (\PhpParser\Node $node, Scope $scope) use ($typeClass, $nullable, $class, $expression) {
-			if ($node instanceof Exit_) {
+		$this->processFile($file, function (\PhpParser\Node $node, Scope $scope) use ($typeClass, $nullable, $class, $expression, $evaluatedPointExpressionType) {
+			if ($node instanceof $evaluatedPointExpressionType) {
 				$type = $scope->getType(
 					$this->getParser()->parseString(sprintf('<?php %s;', $expression))[0]
 				);
@@ -827,14 +1257,18 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$this->assertSame($nullable, $type->isNullable());
 				$this->assertSame($class, $type->getClass());
 			}
-		});
+		}, $dynamicMethodReturnTypeExtensions);
 	}
 
-	private function processFile(string $file, \Closure $callback)
+	private function processFile(string $file, \Closure $callback, array $dynamicMethodReturnTypeExtensions = [])
 	{
 		$this->resolver->processNodes(
 			$this->getParser()->parseFile($file),
-			new Scope($this->getBroker(), $file),
+			new Scope(
+				$this->createBroker($dynamicMethodReturnTypeExtensions),
+				$this->printer,
+				$file
+			),
 			$callback
 		);
 	}

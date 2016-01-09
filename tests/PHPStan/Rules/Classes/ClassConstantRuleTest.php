@@ -9,7 +9,7 @@ class ClassConstantRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	protected function getRule(): Rule
 	{
-		return new ClassConstantRule($this->getBroker());
+		return new ClassConstantRule($this->createBroker());
 	}
 
 	public function testClassDoesNotExist()

@@ -17,10 +17,6 @@ class DirectParser implements Parser
 	 */
 	private $traverser;
 
-	/**
-	 * @param \PhpParser\Parser $parser
-	 * @param \PhpParser\NodeTraverser $traverser
-	 */
 	public function __construct(\PhpParser\Parser $parser, NodeTraverser $traverser)
 	{
 		$this->parser = $parser;

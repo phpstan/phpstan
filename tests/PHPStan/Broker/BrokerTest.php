@@ -15,34 +15,29 @@ class BrokerTest extends \PHPStan\TestCase
 		$this->broker = new Broker(
 			[],
 			[],
-			$this->getMock(FunctionReflectionFactory::class)
+			[],
+			$this->createMock(FunctionReflectionFactory::class)
 		);
 	}
 
-	/**
-	 * @expectedException PHPStan\Broker\ClassNotFoundException
-	 * @expectedExceptionMessage Class NonexistentClass not found.
-	 */
 	public function testClassNotFound()
 	{
+		$this->expectException(\PHPStan\Broker\ClassNotFoundException::class);
+		$this->expectExceptionMessage('Class NonexistentClass not found.');
 		$this->broker->getClass('NonexistentClass');
 	}
 
-	/**
-	 * @expectedException PHPStan\Broker\FunctionNotFoundException
-	 * @expectedExceptionMessage Function nonexistentFunction not found.
-	 */
 	public function testFunctionNotFound()
 	{
+		$this->expectException(\PHPStan\Broker\FunctionNotFoundException::class);
+		$this->expectExceptionMessage('Function nonexistentFunction not found.');
 		$this->broker->getFunction('nonexistentFunction');
 	}
 
-	/**
-	 * @expectedException PHPStan\Broker\ClassAutoloadingException
-	 * @expectedExceptionMessage ParseError (syntax error, unexpected '{') thrown while autoloading class NonexistentClass.
-	 */
 	public function testClassAutoloadingException()
 	{
+		$this->expectException(\PHPStan\Broker\ClassAutoloadingException::class);
+		$this->expectExceptionMessage("ParseError (syntax error, unexpected '{') thrown while autoloading class NonexistentClass.");
 		spl_autoload_register(function () {
 			require_once __DIR__ . '/../Analyser/data/parse-error.php';
 		}, true, true);

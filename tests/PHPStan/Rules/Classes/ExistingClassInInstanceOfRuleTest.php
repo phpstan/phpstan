@@ -9,7 +9,7 @@ class ExistingClassInInstanceOfRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	protected function getRule(): Rule
 	{
-		return new ExistingClassInInstanceOfRule($this->getBroker());
+		return new ExistingClassInInstanceOfRule($this->createBroker());
 	}
 
 	public function testClassDoesNotExist()

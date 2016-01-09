@@ -29,3 +29,17 @@ class BarAccessProperties extends FooAccessProperties
 	}
 
 }
+
+class BazAccessProperties
+{
+
+	public function foo(\stdClass $stdClass)
+	{
+		$foo = new FooAccessProperties();
+		$foo->foo;
+		$foo->bar;
+		$foo->ipsum;
+		$stdClass->foo;
+	}
+
+}

@@ -10,7 +10,7 @@ class InstantiationRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
 		return new InstantiationRule(
-			$this->getBroker(),
+			$this->createBroker(),
 			new FunctionCallParametersCheck()
 		);
 	}

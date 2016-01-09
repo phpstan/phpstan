@@ -20,7 +20,11 @@ use PhpParser\Node\Scalar\DNumber;
 use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ClassMemberReflection;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptor;
+use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\FloatType;
@@ -30,7 +34,6 @@ use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
-use PHPStan\Type\TypehintHelper;
 
 class Scope
 {
@@ -39,6 +42,11 @@ class Scope
 	 * @var \PHPStan\Broker\Broker
 	 */
 	private $broker;
+
+	/**
+	 * @var \PhpParser\PrettyPrinter\Standard
+	 */
+	private $printer;
 
 	/**
 	 * @var string
@@ -71,45 +79,64 @@ class Scope
 	private $inClosureBind;
 
 	/**
-	 * @var bool
+	 * @var \PHPStan\Reflection\ClassReflection
 	 */
-	private $inAnonymousClass;
+	private $anonymousClass;
 
 	/**
 	 * @var string|null
 	 */
 	private $inFunctionCallName;
 
+	/**
+	 * @var \PHPStan\Type\Type[]
+	 */
+	private $moreSpecificTypes;
+
+	/**
+	 * @var string[]
+	 */
+	private $currentlyAssignedVariables = [];
+
 	public function __construct(
 		Broker $broker,
+		\PhpParser\PrettyPrinter\Standard $printer,
 		string $file,
 		string $class = null,
 		string $function = null,
 		string $namespace = null,
 		array $variablesTypes = [],
 		bool $inClosureBind = false,
-		bool $inAnonymousClass = false,
-		string $inFunctionCallName = null
+		ClassReflection $anonymousClass = null,
+		string $inFunctionCallName = null,
+		array $moreSpecificTypes = [],
+		array $currentlyAssignedVariables = []
 	)
 	{
 		if ($class === '') {
 			$class = null;
 		}
+
 		if ($function === '') {
 			$function = null;
 		}
+
 		if ($namespace === '') {
 			$namespace = null;
 		}
+
 		$this->broker = $broker;
+		$this->printer = $printer;
 		$this->file = $file;
 		$this->class = $class;
 		$this->function = $function;
 		$this->namespace = $namespace;
 		$this->variableTypes = $variablesTypes;
 		$this->inClosureBind = $inClosureBind;
-		$this->inAnonymousClass = $inAnonymousClass;
+		$this->anonymousClass = $anonymousClass;
 		$this->inFunctionCallName = $inFunctionCallName;
+		$this->moreSpecificTypes = $moreSpecificTypes;
+		$this->currentlyAssignedVariables = $currentlyAssignedVariables;
 	}
 
 	public function getFile(): string
@@ -170,7 +197,12 @@ class Scope
 
 	public function isInAnonymousClass(): bool
 	{
-		return $this->inAnonymousClass;
+		return $this->anonymousClass !== null;
+	}
+
+	public function getAnonymousClass(): ClassReflection
+	{
+		return $this->anonymousClass;
 	}
 
 	/**
@@ -183,50 +215,6 @@ class Scope
 
 	public function getType(Node $node): Type
 	{
-		if ($node instanceof Variable && is_string($node->name)) {
-			return $this->getVariableType($node->name);
-		}
-		if ($node instanceof MethodCall && is_string($node->name)) {
-			$methodCalledOnType = $this->getType($node->var);
-			if (
-				$methodCalledOnType->getClass() !== null
-				&& $this->broker->hasClass($methodCalledOnType->getClass())
-			) {
-				$methodClassReflection = $this->broker->getClass(
-					$methodCalledOnType->getClass()
-				);
-				if (!$methodClassReflection->hasMethod($node->name)) {
-					return new MixedType(true);
-				}
-
-				return $methodClassReflection->getMethod($node->name)->getReturnType();
-			}
-		}
-		if ($node instanceof PropertyFetch && is_string($node->name)) {
-			$propertyFetchedOnType = $this->getType($node->var);
-			if (
-				$propertyFetchedOnType->getClass() !== null
-				&& $this->broker->hasClass($propertyFetchedOnType->getClass())
-			) {
-				$propertyClassReflection = $this->broker->getClass(
-					$propertyFetchedOnType->getClass()
-				);
-				if (!$propertyClassReflection->hasProperty($node->name)) {
-					return new MixedType(true);
-				}
-
-				return $propertyClassReflection->getProperty($node->name)->getType();
-			}
-		}
-		if ($node instanceof FuncCall && $node->name instanceof Name) {
-			$functionName = (string) $node->name;
-			if (!$this->broker->hasFunction($functionName)) {
-				return new MixedType(true);
-			}
-
-			return $this->broker->getFunction($functionName)->getReturnType();
-		}
-
 		if (
 			$node instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd
 			|| $node instanceof \PhpParser\Node\Expr\BinaryOp\BooleanOr
@@ -260,14 +248,15 @@ class Scope
 			|| $node instanceof Node\Expr\BinaryOp\Mul
 			|| $node instanceof Node\Expr\BinaryOp\Pow
 			|| $node instanceof Node\Expr\AssignOp
-		)
-		{
+		) {
 			if ($node instanceof Node\Expr\AssignOp) {
 				$left = $node->var;
 				$right = $node->expr;
-			} else {
+			} elseif ($node instanceof Node\Expr\BinaryOp) {
 				$left = $node->left;
 				$right = $node->right;
+			} else {
+				throw new \PHPStan\ShouldNotHappenException();
 			}
 
 			$leftType = $this->getType($left);
@@ -276,6 +265,7 @@ class Scope
 			if ($leftType instanceof BooleanType) {
 				$leftType = new IntegerType($leftType->isNullable());
 			}
+
 			if ($rightType instanceof BooleanType) {
 				$rightType = new IntegerType($rightType->isNullable());
 			}
@@ -289,53 +279,143 @@ class Scope
 			}
 		}
 
-		switch (get_class($node)) {
-			case LNumber::class:
+		if ($node instanceof LNumber) {
+			return new IntegerType(false);
+		} elseif ($node instanceof ConstFetch) {
+			$constName = (string) $node->name;
+			if (in_array($constName, ['true', 'false'], true)) {
+				return new BooleanType(false);
+			}
+
+			if ($constName === 'null') {
+				return new NullType();
+			}
+		} elseif ($node instanceof String_) {
+			return new StringType(false);
+		} elseif ($node instanceof DNumber) {
+			return new FloatType(false);
+		} elseif ($node instanceof New_) {
+			if ($node->class instanceof Name) {
+				if (
+					count($node->class->parts) === 1
+				) {
+					if ($node->class->parts[0] === 'static') {
+						return new MixedType(false);
+					} elseif ($node->class->parts[0] === 'self') {
+						return new ObjectType($this->getClass(), false);
+					}
+				}
+
+				return new ObjectType((string) $node->class, false);
+			}
+		} elseif ($node instanceof Array_) {
+			return new ArrayType(false);
+		} elseif ($node instanceof Int_) {
 				return new IntegerType(false);
-			case ConstFetch::class:
-				$constName = (string) $node->name;
-				if (in_array($constName, ['true', 'false'], true)) {
-					return new BooleanType(false);
+		} elseif ($node instanceof Bool_) {
+			return new BooleanType(false);
+		} elseif ($node instanceof Double) {
+			return new FloatType(false);
+		} elseif ($node instanceof \PhpParser\Node\Expr\Cast\String_) {
+			return new StringType(false);
+		} elseif ($node instanceof \PhpParser\Node\Expr\Cast\Array_) {
+			return new ArrayType(false);
+		} elseif ($node instanceof Object_) {
+			return new ObjectType('stdClass', false);
+		} elseif ($node instanceof Unset_) {
+			return new NullType();
+		} elseif ($node instanceof Node\Expr\ClassConstFetch && $node->class instanceof Name) {
+			$constantClass = (string) $node->class;
+			if ($constantClass === 'self') {
+				$constantClass = $this->getClass();
+			}
+
+			$constantName = $node->name;
+			if ($this->broker->hasClass($constantClass)) {
+				$constantClassReflection = $this->broker->getClass($constantClass);
+				$constants = $constantClassReflection->getNativeReflection()->getConstants();
+				if (array_key_exists($constantName, $constants)) {
+					$constantValue = $constants[$constantName];
+					if (is_int($constantValue)) {
+						return new IntegerType(false);
+					} elseif (is_float($constantValue)) {
+						return new FloatType(false);
+					} elseif (is_bool($constantValue)) {
+						return new BooleanType(false);
+					} elseif ($constantValue === null) {
+						return new NullType();
+					} elseif (is_string($constantValue)) {
+						return new StringType(false);
+					} elseif (is_array($constantValue)) {
+						return new ArrayType(false);
+					}
 				}
-				if ($constName === 'null') {
-					return new NullType();
+			}
+		}
+
+		$exprString = $this->printer->prettyPrint([$node]);
+		if (isset($this->moreSpecificTypes[$exprString])) {
+			return $this->moreSpecificTypes[$exprString];
+		}
+
+		if ($node instanceof Variable && is_string($node->name)) {
+			if (!$this->hasVariableType($node->name)) {
+				return new MixedType(true);
+			}
+
+			return $this->getVariableType($node->name);
+		}
+
+		if ($node instanceof MethodCall && is_string($node->name)) {
+			$methodCalledOnType = $this->getType($node->var);
+			if (
+				$methodCalledOnType->getClass() !== null
+				&& $this->broker->hasClass($methodCalledOnType->getClass())
+			) {
+				$methodClassReflection = $this->broker->getClass(
+					$methodCalledOnType->getClass()
+				);
+				if (!$methodClassReflection->hasMethod($node->name)) {
+					return new MixedType(true);
 				}
-				break;
-			case String_::class:
-				return new StringType(false);
-			case DNumber::class:
-				return new FloatType(false);
-			case New_::class:
-				if ($node->class instanceof Name) {
-					if (
-						count($node->class->parts) === 1
-					) {
-						if ($node->class->parts[0] === 'static') {
-							return new MixedType(false);
-						} elseif ($node->class->parts[0] === 'self') {
-							return new ObjectType($this->getClass(), false);
-						}
+
+				$methodReflection = $methodClassReflection->getMethod($node->name);
+				foreach ($this->broker->getDynamicMethodReturnTypeExtensionsForClass($methodCalledOnType->getClass()) as $dynamicMethodReturnTypeExtension) {
+					if (!$dynamicMethodReturnTypeExtension->isMethodSupported($methodReflection)) {
+						continue;
 					}
 
-					return new ObjectType((string) $node->class, false);
+					return $dynamicMethodReturnTypeExtension->getTypeFromMethodCall($methodReflection, $node, $this);
 				}
-				break;
-			case Array_::class:
-				return new ArrayType(false);
-			case Int_::class:
-				return new IntegerType(false);
-			case Bool_::class:
-				return new BooleanType(false);
-			case Double::class:
-				return new FloatType(false);
-			case \PhpParser\Node\Expr\Cast\String_::class:
-				return new StringType(false);
-			case \PhpParser\Node\Expr\Cast\Array_::class:
-				return new ArrayType(false);
-			case Object_::class:
-				return new ObjectType('stdClass', false);
-			case Unset_::class:
-				return new NullType();
+
+				return $methodReflection->getReturnType();
+			}
+		}
+
+		if ($node instanceof PropertyFetch && is_string($node->name)) {
+			$propertyFetchedOnType = $this->getType($node->var);
+			if (
+				$propertyFetchedOnType->getClass() !== null
+				&& $this->broker->hasClass($propertyFetchedOnType->getClass())
+			) {
+				$propertyClassReflection = $this->broker->getClass(
+					$propertyFetchedOnType->getClass()
+				);
+				if (!$propertyClassReflection->hasProperty($node->name)) {
+					return new MixedType(true);
+				}
+
+				return $propertyClassReflection->getProperty($node->name)->getType();
+			}
+		}
+
+		if ($node instanceof FuncCall && $node->name instanceof Name) {
+			$functionName = (string) $node->name;
+			if (!$this->broker->hasFunction($functionName)) {
+				return new MixedType(true);
+			}
+
+			return $this->broker->getFunction($functionName)->getReturnType();
 		}
 
 		// todo throw?
@@ -346,6 +426,7 @@ class Scope
 	{
 		return new self(
 			$this->broker,
+			$this->printer,
 			$this->getFile(),
 			$className,
 			null,
@@ -356,10 +437,6 @@ class Scope
 		);
 	}
 
-	/**
-	 * @param \PHPStan\Reflection\ParametersAcceptor $functionReflection
-	 * @return self
-	 */
 	public function enterFunction(
 		ParametersAcceptor $functionReflection
 	): self
@@ -371,37 +448,10 @@ class Scope
 
 		return new self(
 			$this->broker,
+			$this->printer,
 			$this->getFile(),
 			$this->getClass(),
 			$functionReflection->getName(),
-			$this->getNamespace(),
-			$variableTypes
-		);
-	}
-
-	/**
-	 * @param \PHPStan\Analyser\string $methodName
-	 * @param \PhpParser\Node\Param[] $parameters
-	 */
-	public function enterAnonymousClassMethod(
-		string $methodName,
-		array $parameters
-	)
-	{
-		$variableTypes = $this->getVariableTypes();
-		foreach ($parameters as $parameter) {
-			$isNullable = $parameter->default !== null
-				&& $parameter->default instanceof ConstFetch
-				&& (string) $parameter->default->name === 'null';
-
-			$variableTypes[$parameter->name] = TypehintHelper::getTypeObjectFromTypehint((string) $parameter->type, $isNullable);
-		}
-
-		return new self(
-			$this->broker,
-			$this->getFile(),
-			$this->getClass(),
-			$methodName,
 			$this->getNamespace(),
 			$variableTypes
 		);
@@ -411,6 +461,7 @@ class Scope
 	{
 		return new self(
 			$this->broker,
+			$this->printer,
 			$this->getFile(),
 			null,
 			null,
@@ -422,21 +473,24 @@ class Scope
 	{
 		return new self(
 			$this->broker,
+			$this->printer,
 			$this->getFile(),
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),
 			true,
-			$this->isInAnonymousClass(),
-			$this->getInFunctionCallName()
+			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
+			$this->getInFunctionCallName(),
+			$this->moreSpecificTypes
 		);
 	}
 
-	public function enterAnonymousClass(): self
+	public function enterAnonymousClass(ClassReflection $anonymousClass): self
 	{
 		return new self(
 			$this->broker,
+			$this->printer,
 			$this->getFile(),
 			null,
 			null,
@@ -445,7 +499,7 @@ class Scope
 				'this' => new MixedType(false),
 			],
 			$this->isInClosureBind(),
-			true,
+			$anonymousClass,
 			$this->getInFunctionCallName()
 		);
 	}
@@ -462,6 +516,7 @@ class Scope
 			// todo stejná logika ohledně zjištění typů jako v enterFunction
 			$variableTypes[$parameter->name] = new MixedType(true);
 		}
+
 		foreach ($uses as $use) {
 			// todo převzít typy z outer scope
 			$variableTypes[$use->var] = new MixedType(true);
@@ -473,13 +528,14 @@ class Scope
 
 		return new self(
 			$this->broker,
+			$this->printer,
 			$this->getFile(),
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
 			$this->isInClosureBind(),
-			$this->isInAnonymousClass(),
+			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCallName()
 		);
 	}
@@ -494,13 +550,16 @@ class Scope
 
 		return new self(
 			$this->broker,
+			$this->printer,
 			$this->getFile(),
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
 			$this->isInClosureBind(),
-			$this->isInAnonymousClass()
+			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
+			null,
+			$this->moreSpecificTypes
 		);
 	}
 
@@ -511,13 +570,16 @@ class Scope
 
 		return new self(
 			$this->broker,
+			$this->printer,
 			$this->getFile(),
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
 			$this->isInClosureBind(),
-			$this->isInAnonymousClass()
+			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
+			null,
+			$this->moreSpecificTypes
 		);
 	}
 
@@ -525,15 +587,43 @@ class Scope
 	{
 		return new self(
 			$this->broker,
+			$this->printer,
 			$this->getFile(),
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),
 			$this->isInClosureBind(),
-			$this->isInAnonymousClass(),
-			$functionName
+			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
+			$functionName,
+			$this->moreSpecificTypes
 		);
+	}
+
+	public function enterVariableAssign(string $variableName): self
+	{
+		$currentlyAssignedVariables = $this->currentlyAssignedVariables;
+		$currentlyAssignedVariables[] = $variableName;
+
+		return new self(
+			$this->broker,
+			$this->printer,
+			$this->getFile(),
+			$this->getClass(),
+			$this->getFunction(),
+			$this->getNamespace(),
+			$this->getVariableTypes(),
+			$this->isInClosureBind(),
+			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
+			$this->getInFunctionCallName(),
+			$this->moreSpecificTypes,
+			$currentlyAssignedVariables
+		);
+	}
+
+	public function isInVariableAssign(string $variableName): bool
+	{
+		return in_array($variableName, $this->currentlyAssignedVariables, true);
 	}
 
 	public function assignVariable(
@@ -548,18 +638,20 @@ class Scope
 
 		return new self(
 			$this->broker,
+			$this->printer,
 			$this->getFile(),
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
 			$this->isInClosureBind(),
-			$this->isInAnonymousClass(),
-			$this->getInFunctionCallName()
+			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
+			$this->getInFunctionCallName(),
+			$this->moreSpecificTypes
 		);
 	}
 
-	public function unsetVariable(string $variableName)
+	public function unsetVariable(string $variableName): self
 	{
 		$this->getVariableType($variableName); // check if exists
 		$variableTypes = $this->getVariableTypes();
@@ -567,14 +659,16 @@ class Scope
 
 		return new self(
 			$this->broker,
+			$this->printer,
 			$this->getFile(),
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
 			$this->isInClosureBind(),
-			$this->isInAnonymousClass(),
-			$this->getInFunctionCallName()
+			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
+			$this->getInFunctionCallName(),
+			$this->moreSpecificTypes
 		);
 	}
 
@@ -593,14 +687,16 @@ class Scope
 
 		return new self(
 			$this->broker,
+			$this->printer,
 			$this->getFile(),
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
 			$intersectedVariableTypes,
 			$this->isInClosureBind(),
-			$this->isInAnonymousClass(),
-			$this->getInFunctionCallName()
+			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
+			$this->getInFunctionCallName(),
+			$this->moreSpecificTypes
 		);
 	}
 
@@ -613,15 +709,110 @@ class Scope
 
 		return new self(
 			$this->broker,
+			$this->printer,
 			$this->getFile(),
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
 			$this->isInClosureBind(),
-			$this->isInAnonymousClass(),
-			$this->getInFunctionCallName()
+			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
+			$this->getInFunctionCallName(),
+			$this->moreSpecificTypes
 		);
+	}
+
+	public function specifyObjectType(Node $expr, string $className): self
+	{
+		if ($expr instanceof Variable && is_string($expr->name)) {
+			$variableName = $expr->name;
+			if (!$this->hasVariableType($variableName)) {
+				return $this;
+			}
+
+			$variableTypes = $this->getVariableTypes();
+			$currentType = $this->getVariableType($variableName);
+			$variableTypes[$variableName] = new ObjectType($className, $currentType->isNullable());
+
+			return new self(
+				$this->broker,
+				$this->printer,
+				$this->getFile(),
+				$this->getClass(),
+				$this->getFunction(),
+				$this->getNamespace(),
+				$variableTypes,
+				$this->isInClosureBind(),
+				$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
+				$this->getInFunctionCallName(),
+				$this->moreSpecificTypes
+			);
+		}
+
+		$exprString = $this->printer->prettyPrint([$expr]);
+
+		return $this->addMoreSpecificTypes([
+			$exprString => new ObjectType($className, false),
+		]);
+	}
+
+	private function addMoreSpecificTypes(array $types): self
+	{
+		$moreSpecificTypes = $this->moreSpecificTypes;
+		foreach ($types as $exprString => $type) {
+			$moreSpecificTypes[$exprString] = $type;
+		}
+
+		return new self(
+			$this->broker,
+			$this->printer,
+			$this->getFile(),
+			$this->getClass(),
+			$this->getFunction(),
+			$this->getNamespace(),
+			$this->getVariableTypes(),
+			$this->isInClosureBind(),
+			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
+			$this->getInFunctionCallName(),
+			$moreSpecificTypes
+		);
+	}
+
+	public function canAccessProperty(PropertyReflection $propertyReflection): bool
+	{
+		return $this->canAccessClassMember($propertyReflection);
+	}
+
+	public function canCallMethod(MethodReflection $methodReflection): bool
+	{
+		return $this->canAccessClassMember($methodReflection);
+	}
+
+	private function canAccessClassMember(ClassMemberReflection $classMemberReflection): bool
+	{
+		if ($this->isInClosureBind()) {
+			return true;
+		}
+
+		if ($classMemberReflection->isPublic()) {
+			return true;
+		}
+
+		if ($this->getClass() === null) {
+			return false;
+		}
+
+		$classReflectionName = $classMemberReflection->getDeclaringClass()->getName();
+		if ($classMemberReflection->isPrivate()) {
+			return $this->getClass() === $classReflectionName;
+		}
+
+		$currentClassReflection = $this->broker->getClass($this->getClass());
+
+		// protected
+
+		return $currentClassReflection->getName() === $classReflectionName
+			|| $currentClassReflection->isSubclassOf($classReflectionName);
 	}
 
 }

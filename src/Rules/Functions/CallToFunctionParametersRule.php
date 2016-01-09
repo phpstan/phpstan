@@ -21,10 +21,6 @@ class CallToFunctionParametersRule implements \PHPStan\Rules\Rule
 	 */
 	private $check;
 
-	/**
-	 * @param \PHPStan\Broker\Broker $broker
-	 * @param \PHPStan\Rules\FunctionCallParametersCheck $check
-	 */
 	public function __construct(Broker $broker, FunctionCallParametersCheck $check)
 	{
 		$this->broker = $broker;
@@ -37,7 +33,7 @@ class CallToFunctionParametersRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PhpParser\Node $node
+	 * @param \PhpParser\Node\Expr\FuncCall $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */
@@ -46,10 +42,11 @@ class CallToFunctionParametersRule implements \PHPStan\Rules\Rule
 		if (!($node->name instanceof \PhpParser\Node\Name)) {
 			return [];
 		}
+
 		$name = (string) $node->name;
 
 		$function = $this->getFunction($scope, $name);
-		if ($function === false) {
+		if ($function === null) {
 			return [];
 		}
 
@@ -57,17 +54,22 @@ class CallToFunctionParametersRule implements \PHPStan\Rules\Rule
 			$function,
 			$node,
 			[
-				'Function ' . $name . ' invoked with %d parameter, %d required.',
-				'Function ' . $name . ' invoked with %d parameters, %d required.',
-				'Function ' . $name . ' invoked with %d parameter, at least %d required.',
-				'Function ' . $name . ' invoked with %d parameters, at least %d required.',
-				'Function ' . $name . ' invoked with %d parameter, %d-%d required.',
-				'Function ' . $name . ' invoked with %d parameters, %d-%d required.',
+				'Function ' . $function->getName() . ' invoked with %d parameter, %d required.',
+				'Function ' . $function->getName() . ' invoked with %d parameters, %d required.',
+				'Function ' . $function->getName() . ' invoked with %d parameter, at least %d required.',
+				'Function ' . $function->getName() . ' invoked with %d parameters, at least %d required.',
+				'Function ' . $function->getName() . ' invoked with %d parameter, %d-%d required.',
+				'Function ' . $function->getName() . ' invoked with %d parameters, %d-%d required.',
 			]
 		);
 	}
 
-	private function getFunction(Scope $scope, $name)
+	/**
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param string $name
+	 * @return null|\PHPStan\Reflection\FunctionReflection
+	 */
+	private function getFunction(Scope $scope, string $name)
 	{
 		if ($scope->getNamespace() !== null) {
 			$namespacedName = sprintf('%s\\%s', $scope->getNamespace(), $name);
@@ -80,7 +82,7 @@ class CallToFunctionParametersRule implements \PHPStan\Rules\Rule
 			return $this->broker->getFunction($name);
 		}
 
-		return false;
+		return null;
 	}
 
 }

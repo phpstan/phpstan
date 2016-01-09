@@ -7,6 +7,7 @@ parameters:
 	polluteScopeWithForLoopInitialAssignments: false
 	polluteCatchScopeWithTryAssignments: false
 	defineVariablesWithoutDefaultBranch: false
+	ignoreErrors: []
 
 services:
 	-
@@ -30,9 +31,13 @@ services:
 		class: PhpParser\Parser\Php7
 
 	-
+		class: PhpParser\PrettyPrinter\Standard
+
+	-
 		class: PHPStan\Analyser\Analyser
 		arguments:
 			analyseExcludes: %excludes_analyse%
+			ignoreErrors: %ignoreErrors%
 
 	-
 		class: PHPStan\Analyser\NodeScopeResolver
@@ -62,13 +67,16 @@ services:
 		implement: PHPStan\Reflection\Php\PhpMethodReflectionFactory
 
 	-
+		class: PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension
+
+	-
 		class: PHPStan\Rules\FunctionCallParametersCheck
 
 	-
 		class: PHPStan\Rules\FunctionDefinitionCheck
 
 	-
-		class: PHPStan\Rules\Classes\AccessOwnPropertiesRule
+		class: PHPStan\Rules\Classes\AccessPropertiesRule
 
 	-
 		class: PHPStan\Rules\Classes\AccessStaticPropertiesRule
@@ -95,13 +103,16 @@ services:
 		class: PHPStan\Rules\Functions\CallToNonExistentFunctionRule
 
 	-
+		class: PHPStan\Rules\Functions\ExistingClassesInClosureTypehintsRule
+
+	-
 		class: PHPStan\Rules\Functions\ExistingClassesInTypehintsRule
 
 	-
 		class: PHPStan\Rules\Functions\PrintfParametersRule
 
 	-
-		class: PHPStan\Rules\Methods\CallOwnMethodsRule
+		class: PHPStan\Rules\Methods\CallMethodsRule
 
 	-
 		class: PHPStan\Rules\Methods\CallStaticMethodsRule
@@ -112,7 +123,7 @@ services:
 	-
 		class: PHPStan\Rules\Registry
 		setup:
-			- register(@PHPStan\Rules\Classes\AccessOwnPropertiesRule)
+			- register(@PHPStan\Rules\Classes\AccessPropertiesRule)
 			- register(@PHPStan\Rules\Classes\AccessStaticPropertiesRule)
 			- register(@PHPStan\Rules\Classes\ClassConstantRule)
 			- register(@PHPStan\Rules\Classes\ExistingClassInInstanceOfRule)
@@ -121,9 +132,10 @@ services:
 			- register(@PHPStan\Rules\Exceptions\CatchedExceptionExistenceRule)
 			- register(@PHPStan\Rules\Functions\CallToNonExistentFunctionRule)
 			- register(@PHPStan\Rules\Functions\CallToFunctionParametersRule)
+			- register(@PHPStan\Rules\Functions\ExistingClassesInClosureTypehintsRule)
 			- register(@PHPStan\Rules\Functions\ExistingClassesInTypehintsRule)
 			- register(@PHPStan\Rules\Functions\PrintfParametersRule)
-			- register(@PHPStan\Rules\Methods\CallOwnMethodsRule)
+			- register(@PHPStan\Rules\Methods\CallMethodsRule)
 			- register(@PHPStan\Rules\Methods\CallStaticMethodsRule)
 			- register(@PHPStan\Rules\Methods\ExistingClassesInTypehintsRule)
 			- register(@PHPStan\Rules\Variables\DefinedVariableRule)
@@ -136,8 +148,10 @@ services:
 		arguments:
 			propertiesClassReflectionExtensions:
 				- @PHPStan\Reflection\Php\PhpClassReflectionExtension
+				- @PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension
 			methodsClassReflectionExtensions:
 				- @PHPStan\Reflection\Php\PhpClassReflectionExtension
+			dynamicMethodReturnTypeExtensions: []
 
 	cachingStorage:
 		class: Nette\Caching\Storages\FileStorage

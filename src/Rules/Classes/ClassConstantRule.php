@@ -15,9 +15,6 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 	 */
 	private $broker;
 
-	/**
-	 * @param \PHPStan\Broker\Broker $broker
-	 */
 	public function __construct(Broker $broker)
 	{
 		$this->broker = $broker;
@@ -29,7 +26,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PhpParser\Node $node
+	 * @param \PhpParser\Node\Expr\ClassConstFetch $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */
@@ -39,6 +36,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 		if (!($class instanceof \PhpParser\Node\Name)) {
 			return [];
 		}
+
 		$className = (string) $class;
 
 		if ($className === 'self' || $className === 'static') {
@@ -46,8 +44,14 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 				return [
 					sprintf('Using %s outside of class scope.', $className),
 				];
-			} else {
+			}
+
+			if ($className === 'static') {
 				return [];
+			}
+
+			if ($className === 'self') {
+				$className = $scope->getClass();
 			}
 		}
 

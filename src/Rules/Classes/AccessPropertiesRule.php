@@ -6,7 +6,7 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 
-class AccessOwnPropertiesRule implements \PHPStan\Rules\Rule
+class AccessPropertiesRule implements \PHPStan\Rules\Rule
 {
 
 	/**
@@ -14,9 +14,6 @@ class AccessOwnPropertiesRule implements \PHPStan\Rules\Rule
 	 */
 	private $broker;
 
-	/**
-	 * @param \PHPStan\Broker\Broker $broker
-	 */
 	public function __construct(Broker $broker)
 	{
 		$this->broker = $broker;
@@ -28,7 +25,7 @@ class AccessOwnPropertiesRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PhpParser\Node $node
+	 * @param \PhpParser\Node\Expr\PropertyFetch $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */
@@ -37,20 +34,22 @@ class AccessOwnPropertiesRule implements \PHPStan\Rules\Rule
 		if ($scope->isInClosureBind()) {
 			return [];
 		}
+
 		if (!is_string($node->name)) {
 			return [];
 		}
+
 		$type = $scope->getType($node->var);
 		$propertyClass = $type->getClass();
-		if ($propertyClass === null || $propertyClass !== $scope->getClass()) {
+		if ($propertyClass === null) {
 			return [];
 		}
 
 		$name = (string) $node->name;
-		$classReflection = $this->broker->getClass($propertyClass);
+		$propertyClassReflection = $this->broker->getClass($propertyClass);
 
-		if (!$classReflection->hasProperty($name)) {
-			$parentClassReflection = $classReflection->getParentClass();
+		if (!$propertyClassReflection->hasProperty($name)) {
+			$parentClassReflection = $propertyClassReflection->getParentClass();
 			while ($parentClassReflection !== false) {
 				if ($parentClassReflection->hasProperty($name)) {
 					return [
@@ -61,6 +60,7 @@ class AccessOwnPropertiesRule implements \PHPStan\Rules\Rule
 						),
 					];
 				}
+
 				$parentClassReflection = $parentClassReflection->getParentClass();
 			}
 
@@ -68,6 +68,17 @@ class AccessOwnPropertiesRule implements \PHPStan\Rules\Rule
 				sprintf(
 					'Access to an undefined property %s::$%s.',
 					$propertyClass,
+					$name
+				),
+			];
+		}
+
+		$propertyReflection = $propertyClassReflection->getProperty($name);
+		if (!$scope->canAccessProperty($propertyReflection)) {
+			return [
+				sprintf(
+					'Cannot access property %s::$%s from current scope.',
+					$propertyReflection->getDeclaringClass()->getName(),
 					$name
 				),
 			];

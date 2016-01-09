@@ -15,7 +15,7 @@ class DefinedVariableRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PhpParser\Node $node
+	 * @param \PhpParser\Node\Expr\Variable $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */
@@ -36,6 +36,10 @@ class DefinedVariableRule implements \PHPStan\Rules\Rule
 			'_REQUEST',
 			'_ENV',
 		], true)) {
+			return [];
+		}
+
+		if ($scope->isInVariableAssign($node->name)) {
 			return [];
 		}
 

@@ -15,9 +15,6 @@ class AnalyseApplication
 	 */
 	private $analyser;
 
-	/**
-	 * @param \PHPStan\Analyser\Analyser $analyser
-	 */
 	public function __construct(Analyser $analyser)
 	{
 		$this->analyser = $analyser;
@@ -62,6 +59,7 @@ class AnalyseApplication
 			$style->success('No errors');
 			return 0;
 		}
+
 		$currentDir = realpath(dirname($paths[0]));
 		$cropFilename = function ($filename) use ($currentDir) {
 			if ($currentDir !== false && strpos($filename, $currentDir) === 0) {
@@ -90,6 +88,7 @@ class AnalyseApplication
 					$error->getMessage(),
 				];
 			}
+
 			$style->table(['Line', $cropFilename($file)], $rows);
 		}
 

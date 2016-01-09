@@ -15,9 +15,6 @@ class CallToNonExistentFunctionRule implements \PHPStan\Rules\Rule
 	 */
 	private $broker;
 
-	/**
-	 * @param \PHPStan\Broker\Broker $broker
-	 */
 	public function __construct(Broker $broker)
 	{
 		$this->broker = $broker;
@@ -29,7 +26,7 @@ class CallToNonExistentFunctionRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PhpParser\Node $node
+	 * @param \PhpParser\Node\Expr\FuncCall $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */
@@ -39,28 +36,44 @@ class CallToNonExistentFunctionRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
+		list($function, $isNamespaced) = $this->getFunction($scope, $node->name);
 		$name = (string) $node->name;
-		if ($this->getFunction($scope, $name) === false) {
+		if ($function === null) {
 			return [sprintf('Function %s does not exist.', $name)];
+		}
+
+		$namespacedName = $name;
+		if ($scope->getNamespace() !== null && $isNamespaced) {
+			$namespacedName = sprintf('%s\\%s', $scope->getNamespace(), $name);
+		}
+
+		if ($function->getName() !== $namespacedName) {
+			return [sprintf('Call to function %s() with incorrect case: %s', $function->getName(), $name)];
 		}
 
 		return [];
 	}
 
-	private function getFunction(Scope $scope, $name)
+	/**
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PhpParser\Node\Name $nameNode
+	 * @return mixed[]
+	 */
+	private function getFunction(Scope $scope, \PhpParser\Node\Name $nameNode)
 	{
-		if ($scope->getNamespace() !== null) {
+		$name = (string) $nameNode;
+		if ($scope->getNamespace() !== null && !$nameNode->isFullyQualified()) {
 			$namespacedName = sprintf('%s\\%s', $scope->getNamespace(), $name);
 			if ($this->broker->hasFunction($namespacedName)) {
-				return $this->broker->getFunction($namespacedName);
+				return [$this->broker->getFunction($namespacedName), true];
 			}
 		}
 
 		if ($this->broker->hasFunction($name)) {
-			return $this->broker->getFunction($name);
+			return [$this->broker->getFunction($name), false];
 		}
 
-		return false;
+		return null;
 	}
 
 }

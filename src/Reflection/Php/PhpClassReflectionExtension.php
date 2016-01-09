@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Reflection\Php;
 
@@ -15,6 +15,7 @@ use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
 
 class PhpClassReflectionExtension
@@ -76,13 +77,18 @@ class PhpClassReflectionExtension
 		foreach ($classReflection->getNativeReflection()->getProperties() as $propertyReflection) {
 			$propertyName = $propertyReflection->getName();
 			$declaringClassReflection = $this->broker->getClass($propertyReflection->getDeclaringClass()->getName());
-			$typeString = $this->getPropertyAnnotationType($propertyReflection);
+			$typeString = $this->getPropertyAnnotationTypeString($propertyReflection);
 			if ($typeString === null) {
 				$type = new MixedType(false);
 			} else {
 				$typeMap = $this->getTypeMap($declaringClassReflection);
-				$type = $typeMap[$typeString];
+				if (isset($typeMap[$typeString])) {
+					$type = $typeMap[$typeString];
+				} else {
+					$type = new MixedType(true);
+				}
 			}
+
 			$properties[$propertyName] = new PhpPropertyReflection(
 				$declaringClassReflection,
 				$type,
@@ -106,112 +112,224 @@ class PhpClassReflectionExtension
 	{
 		$objectTypes = [];
 		$typeMap = [];
-		$declaringClasses = [];
-		foreach ($classReflection->getNativeReflection()->getProperties() as $propertyReflection) {
-			$declaringClass = $propertyReflection->getDeclaringClass();
-			if ($classReflection->getName() !== $declaringClass->getName()) {
-				$this->createTypeMap($this->broker->getClass($declaringClass->getName()));
-				continue;
-			}
-			$declaringClasses[$declaringClass->getName()] = $declaringClass;
-			if (!isset($typeMap[$declaringClass->getName()])) {
-				$typeMap[$declaringClass->getName()] = [];
+		$processTypeString = function (string $typeString) use ($classReflection, &$typeMap, &$objectTypes) {
+			$type = $this->getTypeFromTypeString($typeString, $classReflection);
+			if (isset($typeMap[$typeString])) {
+				return;
 			}
 
-			$typeString = $this->getPropertyAnnotationType($propertyReflection);
-			if ($typeString === null) {
-				continue;
-			}
-			$typeParts = explode('|', $typeString);
-			$typePartsWithoutNull = array_values(array_filter($typeParts, function ($part) {
-				return $part !== 'null';
-			}));
-			if (count($typePartsWithoutNull) === 0) {
-				$typeMap[$declaringClass->getName()][$typeString] = new NullType();
-				continue;
-			}
-			if (count($typePartsWithoutNull) !== 1) {
-				$typeMap[$declaringClass->getName()][$typeString] = new MixedType(false);
-				continue;
-			}
-			$isNullable = count($typeParts) !== count($typePartsWithoutNull);
-			if ($typePartsWithoutNull[0] === 'self') {
-				$typeMap[$declaringClass->getName()][$typeString] = new ObjectType($declaringClass->getName(), $isNullable);
-				continue;
-			}
-			$type = TypehintHelper::getTypeObjectFromTypehint($typePartsWithoutNull[0], $isNullable);
 			if (!($type instanceof ObjectType)) {
-				$typeMap[$declaringClass->getName()][$typeString] = $type;
-				continue;
+				$typeMap[$typeString] = $type;
+				return;
+			} elseif ($type->getClass() === $classReflection->getName()) {
+				$typeMap[$typeString] = $type;
+				return;
 			}
 
-			$objectTypes[$declaringClass->getName()][] = [
+			$objectTypes[] = [
 				'type' => $type,
 				'typeString' => $typeString,
 			];
-		}
-
-		// todo opět zploštit, $declaringClasses je tu zase jen jedna
-
-		foreach ($declaringClasses as $declaringClassName => $declaringClass) {
-			if (!isset($objectTypes[$declaringClassName])) {
-				$this->typeMaps[$declaringClassName] = $typeMap[$declaringClassName];
+		};
+		foreach ($classReflection->getNativeReflection()->getProperties() as $propertyReflection) {
+			$declaringClass = $propertyReflection->getDeclaringClass();
+			if ($declaringClass->getName() !== $classReflection->getName()) {
+				$this->getTypeMap($this->broker->getClass($declaringClass->getName()));
 				continue;
 			}
 
-			$classFileString = file_get_contents($declaringClass->getFileName());
-			$classType = 'class';
-			if ($declaringClass->isInterface()) {
-				$classType = 'interface';
-			} elseif ($declaringClass->isTrait()) {
-				$classType = 'trait';
-			}
-			$classTypePosition = strpos($classFileString, sprintf('%s %s', $classType, $declaringClass->getShortName()));
-			if ($classTypePosition === false) {
-				throw new \Exception('wtf?'); // todo
-			}
-			$nameResolveInfluencingPart = trim(substr($classFileString, 0, $classTypePosition));
-			if (substr($nameResolveInfluencingPart, -strlen('final')) === 'final') {
-				$nameResolveInfluencingPart = trim(substr($nameResolveInfluencingPart, 0, -strlen('final')));
-			}
-			if (substr($nameResolveInfluencingPart, -strlen('abstract')) === 'abstract') {
-				$nameResolveInfluencingPart = trim(substr($nameResolveInfluencingPart, 0, -strlen('abstract')));
+			$typeString = $this->getPropertyAnnotationTypeString($propertyReflection);
+			if ($typeString === null) {
+				continue;
 			}
 
-			foreach ($objectTypes[$declaringClassName] as $objectType) {
-				$objectTypeType = $objectType['type'];
-				$nameResolveInfluencingPart .= sprintf("\n%s::%s;", $objectTypeType->getClass(), self::CONST_FETCH_CONSTANT);
-			}
-
-			try {
-				$parserNodes = $this->parser->parseString($nameResolveInfluencingPart);
-			} catch (\PhpParser\Error $e) {
-				throw new \PHPStan\Reflection\Php\DocCommentTypesParseErrorException($e);
-			}
-			$i = 0;
-			$this->findClassNames($parserNodes, function ($className) use (&$typeMap, &$i, $objectTypes, $declaringClassName) {
-				$objectType = $objectTypes[$declaringClassName][$i];
-				$objectTypeString = $objectType['typeString'];
-				$objectTypeType = $objectType['type'];
-				$typeMap[$declaringClassName][$objectTypeString] = new ObjectType($className, $objectTypeType->isNullable());
-				$i++;
-			});
-
-			$this->typeMaps[$declaringClassName] = $typeMap[$declaringClassName];
+			$processTypeString($typeString);
 		}
+
+		foreach ($classReflection->getNativeReflection()->getMethods() as $methodReflection) {
+			$declaringClass = $methodReflection->getDeclaringClass();
+			if ($declaringClass->getName() !== $classReflection->getName()) {
+				$this->getTypeMap($this->broker->getClass($declaringClass->getName()));
+				continue;
+			}
+
+			$phpDocParams = $this->getPhpDocParamsFromMethod($methodReflection);
+			foreach ($methodReflection->getParameters() as $parameterReflection) {
+				$typeString = $this->getMethodParameterAnnotationTypeString($phpDocParams, $parameterReflection);
+				if ($typeString === null) {
+					continue;
+				}
+
+				$processTypeString($typeString);
+			}
+
+			$returnTypeString = $this->getReturnTypeStringFromMethod($methodReflection);
+			if ($returnTypeString !== null) {
+				$processTypeString($returnTypeString);
+			}
+		}
+
+		if (count($objectTypes) === 0) {
+			$this->typeMaps[$classReflection->getName()] = $typeMap;
+			return;
+		}
+
+		if (
+			$classReflection->getNativeReflection()->getFileName() === false
+			|| !file_exists($classReflection->getNativeReflection()->getFileName())
+		) {
+			$this->typeMaps[$classReflection->getName()] = $typeMap;
+			return;
+		}
+
+		$classFileString = file_get_contents($classReflection->getNativeReflection()->getFileName());
+		$classType = 'class';
+		if ($classReflection->isInterface()) {
+			$classType = 'interface';
+		} elseif ($classReflection->isTrait()) {
+			$classType = 'trait';
+		}
+
+		$classTypePosition = strpos($classFileString, sprintf('%s %s', $classType, $classReflection->getNativeReflection()->getShortName()));
+		if ($classTypePosition === false) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		$nameResolveInfluencingPart = trim(substr($classFileString, 0, $classTypePosition));
+		if (substr($nameResolveInfluencingPart, -strlen('final')) === 'final') {
+			$nameResolveInfluencingPart = trim(substr($nameResolveInfluencingPart, 0, -strlen('final')));
+		}
+
+		if (substr($nameResolveInfluencingPart, -strlen('abstract')) === 'abstract') {
+			$nameResolveInfluencingPart = trim(substr($nameResolveInfluencingPart, 0, -strlen('abstract')));
+		}
+
+		foreach ($objectTypes as $objectType) {
+			$objectTypeType = $objectType['type'];
+			$objectTypeTypeClass = $objectTypeType->getClass();
+			if (preg_match('#^[a-zA-Z_\\\]#', $objectTypeTypeClass) === 0) {
+				continue;
+			}
+
+			$nameResolveInfluencingPart .= sprintf("\n%s::%s;", $objectTypeTypeClass, self::CONST_FETCH_CONSTANT);
+		}
+
+		try {
+			$parserNodes = $this->parser->parseString($nameResolveInfluencingPart);
+		} catch (\PhpParser\Error $e) {
+			throw new \PHPStan\Reflection\Php\DocCommentTypesParseErrorException($e);
+		}
+
+		$i = 0;
+		$this->findClassNames($parserNodes, function ($className) use (&$typeMap, &$i, $objectTypes, $classReflection) {
+			$objectType = $objectTypes[$i];
+			$objectTypeString = $objectType['typeString'];
+			$objectTypeType = $objectType['type'];
+			$typeMap[$objectTypeString] = new ObjectType($className, $objectTypeType->isNullable());
+			$i++;
+		});
+
+		$this->typeMaps[$classReflection->getName()] = $typeMap;
+	}
+
+	/**
+	 * @param \ReflectionMethod $reflectionMethod
+	 * @return mixed[]
+	 */
+	private function getPhpDocParamsFromMethod(\ReflectionMethod $reflectionMethod): array
+	{
+		$phpDoc = $reflectionMethod->getDocComment();
+		if ($phpDoc === false) {
+			return [];
+		}
+
+		preg_match_all('#@param\s+([a-zA-Z_\\\][0-9a-zA-Z\\\_|\[\]]+)\s+\$([a-zA-Z0-9]+)#', $phpDoc, $matches, PREG_SET_ORDER);
+		$phpDocParams = [];
+		foreach ($matches as $match) {
+			$typeString = $match[1];
+			$parameterName = $match[2];
+			if (!isset($phpDocParams[$parameterName])) {
+				$phpDocParams[$parameterName] = [];
+			}
+
+			$phpDocParams[$parameterName][] = $typeString;
+		}
+
+		return $phpDocParams;
+	}
+
+	/**
+	 * @param \ReflectionMethod $reflectionMethod
+	 * @return string|null
+	 */
+	private function getReturnTypeStringFromMethod(\ReflectionMethod $reflectionMethod)
+	{
+		$phpDoc = $reflectionMethod->getDocComment();
+		if ($phpDoc === false) {
+			return null;
+		}
+
+		$count = preg_match_all('#@return\s+([a-zA-Z_\\\][0-9a-zA-Z\\\_|\[\]]+)#', $phpDoc, $matches);
+		if ($count !== 1) {
+			return null;
+		}
+
+		return $matches[1][0];
+	}
+
+	/**
+	 * @param mixed[] $phpDocParams
+	 * @param \ReflectionParameter $parameterReflection
+	 * @return string|null
+	 */
+	private function getMethodParameterAnnotationTypeString(array $phpDocParams, \ReflectionParameter $parameterReflection)
+	{
+		if (!isset($phpDocParams[$parameterReflection->getName()])) {
+			return null;
+		}
+
+		$typeStrings = $phpDocParams[$parameterReflection->getName()];
+		if (count($typeStrings) > 1) {
+			return null;
+		}
+
+		return $typeStrings[0];
+	}
+
+	private function getTypeFromTypeString(string $typeString, ClassReflection $classReflection): Type
+	{
+		$typeParts = explode('|', $typeString);
+		$typePartsWithoutNull = array_values(array_filter($typeParts, function ($part) {
+			return $part !== 'null';
+		}));
+		if (count($typePartsWithoutNull) === 0) {
+			return new NullType();
+		}
+
+		if (count($typePartsWithoutNull) !== 1) {
+			return new MixedType(false);
+		}
+
+		$isNullable = count($typeParts) !== count($typePartsWithoutNull);
+		if ($typePartsWithoutNull[0] === 'self') {
+			return new ObjectType($classReflection->getName(), $isNullable);
+		}
+
+		return TypehintHelper::getTypeObjectFromTypehint($typePartsWithoutNull[0], $isNullable);
 	}
 
 	/**
 	 * @param \ReflectionProperty $propertyReflection
 	 * @return string|null
 	 */
-	private function getPropertyAnnotationType(\ReflectionProperty $propertyReflection)
+	private function getPropertyAnnotationTypeString(\ReflectionProperty $propertyReflection)
 	{
 		$phpDoc = $propertyReflection->getDocComment();
 		if ($phpDoc === false) {
 			return null;
 		}
-		$count = preg_match_all('#@var\s+([0-9a-zA-Z\\\_|\[\]]+)#', $phpDoc, $matches);
+
+		$count = preg_match_all('#@var\s+([a-zA-Z_\\\][0-9a-zA-Z\\\_|\[\]]+)#', $phpDoc, $matches);
 		if ($count !== 1) {
 			return null;
 		}
@@ -226,15 +344,53 @@ class PhpClassReflectionExtension
 
 	public function getMethod(ClassReflection $classReflection, string $methodName): MethodReflection
 	{
-		if (!isset($this->methods[$classReflection->getName()][$methodName])) {
-			$methodReflection = $classReflection->getNativeReflection()->getMethod($methodName);
-			$this->methods[$classReflection->getName()][$methodName] = $this->methodReflectionFactory->create(
-				$this->broker->getClass($methodReflection->getDeclaringClass()->getName()),
-				$methodReflection
+		if (!isset($this->methods[$classReflection->getName()])) {
+			$this->methods[$classReflection->getName()] = $this->createMethods($classReflection);
+		}
+
+		$methodName = strtolower($methodName);
+
+		return $this->methods[$classReflection->getName()][$methodName];
+	}
+
+	/**
+	 * @param \PHPStan\Reflection\ClassReflection $classReflection
+	 * @return \PHPStan\Reflection\MethodReflection[]
+	 */
+	private function createMethods(ClassReflection $classReflection): array
+	{
+		$methods = [];
+		foreach ($classReflection->getNativeReflection()->getMethods() as $methodReflection) {
+			$declaringClass = $this->broker->getClass($methodReflection->getDeclaringClass()->getName());
+			$phpDocParameters = $this->getPhpDocParamsFromMethod($methodReflection);
+			$phpDocParameterTypes = [];
+			$typeMap = $this->getTypeMap($declaringClass);
+			foreach ($methodReflection->getParameters() as $parameterReflection) {
+				$typeString = $this->getMethodParameterAnnotationTypeString($phpDocParameters, $parameterReflection);
+				if ($typeString === null || !isset($typeMap[$typeString])) {
+					continue;
+				}
+
+				$type = $typeMap[$typeString];
+
+				$phpDocParameterTypes[$parameterReflection->getName()] = $type;
+			}
+
+			$phpDocReturnType = null;
+			$returnTypeString = $this->getReturnTypeStringFromMethod($methodReflection);
+			if ($returnTypeString !== null) {
+				$phpDocReturnType = $typeMap[$returnTypeString];
+			}
+
+			$methods[strtolower($methodReflection->getName())] = $this->methodReflectionFactory->create(
+				$declaringClass,
+				$methodReflection,
+				$phpDocParameterTypes,
+				$phpDocReturnType
 			);
 		}
 
-		return $this->methods[$classReflection->getName()][$methodName];
+		return $methods;
 	}
 
 	/**

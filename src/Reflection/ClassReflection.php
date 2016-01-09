@@ -98,12 +98,26 @@ class ClassReflection
 	public function getProperty(string $propertyName): PropertyReflection
 	{
 		if (!isset($this->properties[$propertyName])) {
+			$privateProperty = null;
+			$publicProperty = null;
 			foreach ($this->propertiesClassReflectionExtensions as $extension) {
 				if ($extension->hasProperty($this, $propertyName)) {
-					return $this->properties[$propertyName] = $extension->getProperty($this, $propertyName);
+					$property = $extension->getProperty($this, $propertyName);
+					if ($privateProperty === null && !$property->isPublic()) {
+						$privateProperty = $property;
+					} elseif ($publicProperty === null && $property->isPublic()) {
+						$publicProperty = $property;
+					}
 				}
 			}
+
+			if ($publicProperty !== null) {
+				return $this->properties[$propertyName] = $publicProperty;
+			} elseif ($privateProperty !== null) {
+				return $this->properties[$propertyName] = $privateProperty;
+			}
 		}
+
 		return $this->properties[$propertyName];
 	}
 
@@ -115,6 +129,11 @@ class ClassReflection
 	public function isInterface(): bool
 	{
 		return $this->reflection->isInterface();
+	}
+
+	public function isTrait(): bool
+	{
+		return $this->reflection->isTrait();
 	}
 
 	public function isSubclassOf(string $className): bool
@@ -165,6 +184,23 @@ class ClassReflection
 	public function hasConstant(string $name): bool
 	{
 		return $this->getNativeReflection()->hasConstant($name);
+	}
+
+	public function hasTraitUse(string $traitName): bool
+	{
+		return in_array($traitName, $this->getTraitNames(), true);
+	}
+
+	private function getTraitNames(): array
+	{
+		$class = $this->reflection;
+		$traitNames = $class->getTraitNames();
+		while ($class->getParentClass() !== false) {
+			$traitNames = array_values(array_unique(array_merge($traitNames, $class->getParentClass()->getTraitNames())));
+			$class = $class->getParentClass();
+		}
+
+		return $traitNames;
 	}
 
 }

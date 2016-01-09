@@ -38,27 +38,18 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\TestCase
 
 	public function testExecuteOnAFileWithErrors()
 	{
-		$this->markTestIncomplete('Failing and I dont know why :(');
 		$path = __DIR__ . '/../Rules/Functions/data/nonexistent-function.php';
 		$output = $this->runPath($path, 1);
-		var_dump($output);
-		$this->assertContains(sprintf(
-			'Function foobarNonExistentFunction does not exist in %s on line 8',
-			realpath($path)
-		), $output);
+		$this->assertContains('Function foobarNonExistentFunction does not exist.', $output);
 	}
 
-	/**
-	 * @param string $path
-	 * @param integer $expectedStatusCode
-	 */
-	private function runPath($path, $expectedStatusCode)
+	private function runPath(string $path, int $expectedStatusCode): string
 	{
 		$analyserApplication = $this->getContainer()->getByType(AnalyseApplication::class);
 		$output = new StreamOutput(fopen('php://memory', 'w', false));
 
 		$style = new SymfonyStyle(
-			$this->getMock(InputInterface::class),
+			$this->createMock(InputInterface::class),
 			$output
 		);
 

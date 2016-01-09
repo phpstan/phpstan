@@ -91,6 +91,8 @@
 				checkreturn="true"
 		>
 			<arg value="analyse"/>
+			<arg value="-c"/>
+			<arg path="phpstan.neon"/>
 			<arg path="src"/>
 			<arg path="tests"/>
 		</exec>

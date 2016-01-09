@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type;
 
@@ -40,6 +40,9 @@ class TypehintHelper
 				return new CallableType($isNullable);
 			case null:
 				return new MixedType(true);
+			case 'object':
+			case 'mixed':
+				return new MixedType($isNullable);
 			default:
 				return new ObjectType($typehintString, $isNullable);
 		}

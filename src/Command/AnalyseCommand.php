@@ -14,9 +14,6 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 	const NAME = 'analyse';
 
-	/**
-	 * @see \Symfony\Component\Console\Command\Command
-	 */
 	protected function configure()
 	{
 		$this->setName(self::NAME)
@@ -27,12 +24,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			]);
 	}
 
-	/**
-	 * @param \Symfony\Component\Console\Input\InputInterface $input
-	 * @param \Symfony\Component\Console\Output\OutputInterface $output
-	 * @return int status code
-	 */
-	protected function execute(InputInterface $input, OutputInterface $output)
+	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
 		$rootDir = realpath(__DIR__ . '/../..');
 		$tmpDir = $rootDir . '/tmp';
@@ -52,12 +44,14 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				$output->writeln(sprintf('Project config file at path %s does not exist.', $projectConfigFilePath !== false ? $projectConfigFilePath : $projectConfigFile));
 				return 1;
 			}
+
 			$configFiles[] = $projectConfigFilePath;
 		}
 
 		foreach ($configFiles as $configFile) {
 			$configurator->addConfig($configFile);
 		}
+
 		$configurator->addParameters([
 			'rootDir' => $rootDir,
 		]);
@@ -75,6 +69,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			foreach ($container->parameters['autoload_directories'] as $directory) {
 				$robotLoader->addDirectory($directory);
 			}
+
 			$robotLoader->register();
 		}
 

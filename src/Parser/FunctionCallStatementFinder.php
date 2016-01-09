@@ -8,6 +8,11 @@ use PhpParser\Node\Name;
 class FunctionCallStatementFinder
 {
 
+	/**
+	 * @param string $functionName
+	 * @param mixed $statements
+	 * @return \PhpParser\Node|null
+	 */
 	public function findFunctionCallInStatements(string $functionName, $statements)
 	{
 		foreach ($statements as $statement) {
@@ -17,6 +22,7 @@ class FunctionCallStatementFinder
 					return $result;
 				}
 			}
+
 			if (!($statement instanceof \PhpParser\Node)) {
 				continue;
 			}

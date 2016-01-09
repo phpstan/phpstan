@@ -94,6 +94,10 @@ class FunctionReflection implements ParametersAcceptor
 		return $isNativelyVariadic;
 	}
 
+	/**
+	 * @param mixed $nodes
+	 * @return bool
+	 */
 	private function callsFuncGetArgs($nodes): bool
 	{
 		foreach ($nodes as $node) {
@@ -102,6 +106,7 @@ class FunctionReflection implements ParametersAcceptor
 					return true;
 				}
 			}
+
 			if (!($node instanceof \PhpParser\Node)) {
 				continue;
 			}
@@ -111,6 +116,7 @@ class FunctionReflection implements ParametersAcceptor
 				if ((string) $node->namespacedName) {
 					$functionName = (string) $node->namespacedName;
 				}
+
 				if ($functionName === $this->reflection->getName()) {
 					return $this->functionCallStatementFinder->findFunctionCallInStatements('func_get_args', $node->getStmts()) !== null;
 				}

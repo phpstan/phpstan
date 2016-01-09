@@ -4,16 +4,8 @@ namespace PHPStan\Reflection;
 
 use PHPStan\Type\Type;
 
-interface PropertyReflection
+interface PropertyReflection extends ClassMemberReflection
 {
-
-	public function getDeclaringClass(): ClassReflection;
-
-	public function isStatic(): bool;
-
-	public function isPrivate(): bool;
-
-	public function isPublic(): bool;
 
 	public function getType(): Type;
 

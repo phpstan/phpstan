@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type;
 
@@ -17,6 +17,9 @@ class ObjectType implements Type
 		$this->nullable = $nullable;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getClass()
 	{
 		return $this->class;

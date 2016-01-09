@@ -37,7 +37,7 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 			}, $rows);
 		};
 
-		return parent::table($headers, $wrap($rows));
+		parent::table($headers, $wrap($rows));
 	}
 
 }

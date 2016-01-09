@@ -5,29 +5,26 @@ namespace PHPStan\Rules\Methods;
 use PHPStan\Rules\FunctionCallParametersCheck;
 use PHPStan\Rules\Rule;
 
-class CallOwnMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 {
 
-	/**
-	 * @return \PHPStan\Rules\Rule
-	 */
 	protected function getRule(): Rule
 	{
-		return new CallOwnMethodsRule(
-			$this->getBroker(),
+		return new CallMethodsRule(
+			$this->createBroker(),
 			new FunctionCallParametersCheck()
 		);
 	}
 
-	public function testCallOwnMethods()
+	public function testCallMethods()
 	{
-		$this->analyse([ __DIR__ . '/data/call-own-methods.php'], [
+		$this->analyse([ __DIR__ . '/data/call-methods.php'], [
 			[
 				'Call to an undefined method Test\Bar::loremipsum().',
 				40,
 			],
 			[
-				'Call to private method foo() of parent class Test\Foo.',
+				'Cannot call method Test\Foo::foo() from current scope.',
 				41,
 			],
 			[
@@ -77,6 +74,16 @@ class CallOwnMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			[
 				'Method CallVariadicMethods\Foo::lorem() invoked with 0 parameters, at least 2 required.',
 				11,
+			],
+		]);
+	}
+
+	public function testCallToIncorrectCaseMethodName()
+	{
+		$this->analyse([__DIR__ . '/data/incorrect-method-case.php'], [
+			[
+				'Call to method IncorrectMethodCase\Foo::fooBar() with incorrect case: foobar',
+				10,
 			],
 		]);
 	}

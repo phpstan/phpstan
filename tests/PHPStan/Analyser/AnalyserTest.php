@@ -9,28 +9,40 @@ use PHPStan\Rules\Registry;
 class AnalyserTest extends \PHPStan\TestCase
 {
 
-	public function dataExclude()
+	public function dataExclude(): array
 	{
 		return [
 			[
 				__DIR__ . '/data/parse-error.php',
 				[__DIR__],
+				[],
 				0,
 			],
 			[
 				__DIR__ . '/data/func-call.php',
+				[],
 				[],
 				0,
 			],
 			[
 				__DIR__ . '/data/parse-error.php',
 				[__DIR__ . '/*'],
+				[],
 				0,
 			],
 			[
 				__DIR__ . '/data/parse-error.php',
 				[__DIR__ . '/aaa'],
+				[],
 				1,
+			],
+			[
+				__DIR__ . '/data/parse-error.php',
+				[__DIR__ . '/aaa'],
+				[
+					'#Syntax error#',
+				],
+				0,
 			],
 		];
 	}
@@ -39,9 +51,10 @@ class AnalyserTest extends \PHPStan\TestCase
 	 * @dataProvider dataExclude
 	 * @param string $filePath
 	 * @param string[] $analyseExcludes
+	 * @param string[] $ignoreErrors
 	 * @param integer $errorsCount
 	 */
-	public function testExclude($filePath, array $analyseExcludes, $errorsCount)
+	public function testExclude(string $filePath, array $analyseExcludes, array $ignoreErrors, int $errorsCount)
 	{
 		$registry = new Registry();
 		$registry->register(new AlwaysFailRule());
@@ -49,13 +62,22 @@ class AnalyserTest extends \PHPStan\TestCase
 		$traverser = new \PhpParser\NodeTraverser();
 		$traverser->addVisitor(new \PhpParser\NodeVisitor\NameResolver());
 
-		$broker = $this->getBroker();
+		$broker = $this->createBroker();
+		$printer = new \PhpParser\PrettyPrinter\Standard();
 		$analyser = new Analyser(
 			$broker,
 			new DirectParser(new \PhpParser\Parser\Php7(new \PhpParser\Lexer()), $traverser),
 			$registry,
-			new NodeScopeResolver($broker, false, false, false),
-			$analyseExcludes
+			new NodeScopeResolver(
+				$broker,
+				$printer,
+				false,
+				false,
+				false
+			),
+			$printer,
+			$analyseExcludes,
+			$ignoreErrors
 		);
 		$result = $analyser->analyse([$filePath]);
 		$this->assertInternalType('array', $result);

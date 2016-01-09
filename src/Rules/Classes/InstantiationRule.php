@@ -21,10 +21,6 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 	 */
 	private $check;
 
-	/**
-	 * @param \PHPStan\Broker\Broker $broker
-	 * @param \PHPStan\Rules\FunctionCallParametersCheck $check
-	 */
 	public function __construct(Broker $broker, FunctionCallParametersCheck $check)
 	{
 		$this->broker = $broker;
@@ -37,7 +33,7 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PhpParser\Node $node
+	 * @param \PhpParser\Node\Expr\New_ $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */
@@ -49,7 +45,7 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 
 		$class = (string) $node->class;
 		if ($class === 'static') {
-			return array();
+			return [];
 		}
 
 		if ($class === 'self') {

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Reflection\Php;
 
@@ -14,10 +14,6 @@ class DummyOptionalParameter implements ParameterReflection
 	/** @var \PHPStan\Type\Type  */
 	private $type;
 
-	/**
-	 * @param string $name
-	 * @param \PHPStan\Type\Type $type
-	 */
 	public function __construct(string $name, Type $type)
 	{
 		$this->name = $name;

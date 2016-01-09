@@ -10,7 +10,7 @@ class CallStaticMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
 		return new CallStaticMethodsRule(
-			$this->getBroker(),
+			$this->createBroker(),
 			new FunctionCallParametersCheck()
 		);
 	}
@@ -60,6 +60,16 @@ class CallStaticMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			[
 				'Call to an undefined static method Baz::barStaticMethod().',
 				25,
+			],
+		]);
+	}
+
+	public function testCallToIncorrectCaseMethodName()
+	{
+		$this->analyse([__DIR__ . '/data/incorrect-static-method-case.php'], [
+			[
+				'Call to static method IncorrectStaticMethodCase\Foo::fooBar() with incorrect case: foobar',
+				10,
 			],
 		]);
 	}

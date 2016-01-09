@@ -15,9 +15,6 @@ class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
 	 */
 	private $broker;
 
-	/**
-	 * @param \PHPStan\Broker\Broker $broker
-	 */
 	public function __construct(Broker $broker)
 	{
 		$this->broker = $broker;
@@ -29,8 +26,8 @@ class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param Node $node
-	 * @param Scope $scope
+	 * @param \PhpParser\Node\Expr\Instanceof_ $node
+	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
@@ -39,6 +36,7 @@ class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
 		if (!($class instanceof \PhpParser\Node\Name)) {
 			return [];
 		}
+
 		$name = (string) $class;
 
 		if ($name === 'self' || $name === 'static') {
@@ -46,8 +44,14 @@ class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
 				return [
 					sprintf('Using %s outside of class scope.', $name),
 				];
-			} else {
+			}
+
+			if ($name === 'static') {
 				return [];
+			}
+
+			if ($name === 'self') {
+				$name = $scope->getClass();
 			}
 		}
 

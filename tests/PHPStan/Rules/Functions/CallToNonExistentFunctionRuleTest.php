@@ -7,7 +7,7 @@ class CallToNonExistentFunctionRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new CallToNonExistentFunctionRule($this->getBroker());
+		return new CallToNonExistentFunctionRule($this->createBroker());
 	}
 
 	public function testEmptyFile()
@@ -37,6 +37,25 @@ class CallToNonExistentFunctionRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			[
 				'Function barNonExistentFunction does not exist.',
 				5,
+			],
+		]);
+	}
+
+	public function testCallToIncorrectCaseFunctionName()
+	{
+		require_once __DIR__ . '/data/incorrect-function-case-definition.php';
+		$this->analyse([__DIR__ . '/data/incorrect-function-case.php'], [
+			[
+				'Call to function IncorrectFunctionCase\fooBar() with incorrect case: foobar',
+				5,
+			],
+			[
+				'Call to function IncorrectFunctionCase\fooBar() with incorrect case: IncorrectFunctionCase\foobar',
+				7,
+			],
+			[
+				'Call to function htmlspecialchars() with incorrect case: htmlSpecialChars',
+				10,
 			],
 		]);
 	}

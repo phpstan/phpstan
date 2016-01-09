@@ -9,7 +9,7 @@ class ExistingClassesInTypehintsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new ExistingClassesInTypehintsRule(new FunctionDefinitionCheck($this->getBroker()));
+		return new ExistingClassesInTypehintsRule(new FunctionDefinitionCheck($this->createBroker()));
 	}
 
 	public function testExistingClassInTypehint()

@@ -80,6 +80,11 @@ abstract class Foo extends Bar
 	 */
 	private $barObject;
 
+	/**
+	 * @var [$invalidType]
+	 */
+	private $invalidTypeProperty;
+
 	public function doFoo()
 	{
 		die;

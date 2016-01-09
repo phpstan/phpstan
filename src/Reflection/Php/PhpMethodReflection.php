@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Reflection\Php;
 
@@ -31,6 +31,12 @@ class PhpMethodReflection implements MethodReflection
 	/** @var \Nette\Caching\Cache */
 	private $cache;
 
+	/** @var \PHPStan\Type\Type[] */
+	private $phpDocParameterTypes;
+
+	/** @var \PHPStan\Type\Type */
+	private $phpDocReturnType;
+
 	/** @var \PHPStan\Reflection\ParameterReflection[] */
 	private $parameters;
 
@@ -42,7 +48,9 @@ class PhpMethodReflection implements MethodReflection
 		\ReflectionMethod $reflection,
 		Parser $parser,
 		FunctionCallStatementFinder $functionCallStatementFinder,
-		\Nette\Caching\Cache $cache
+		\Nette\Caching\Cache $cache,
+		array $phpDocParameterTypes,
+		Type $phpDocReturnType = null
 	)
 	{
 		$this->declaringClass = $declaringClass;
@@ -50,6 +58,8 @@ class PhpMethodReflection implements MethodReflection
 		$this->parser = $parser;
 		$this->functionCallStatementFinder = $functionCallStatementFinder;
 		$this->cache = $cache;
+		$this->phpDocParameterTypes = $phpDocParameterTypes;
+		$this->phpDocReturnType = $phpDocReturnType;
 	}
 
 	public function getDeclaringClass(): ClassReflection
@@ -74,7 +84,10 @@ class PhpMethodReflection implements MethodReflection
 	{
 		if ($this->parameters === null) {
 			$this->parameters = array_map(function (\ReflectionParameter $reflection) {
-				return new PhpParameterReflection($reflection);
+				return new PhpParameterReflection(
+					$reflection,
+					isset($this->phpDocParameterTypes[$reflection->getName()]) ? $this->phpDocParameterTypes[$reflection->getName()] : null
+				);
 			}, $this->reflection->getParameters());
 
 			if (
@@ -116,6 +129,10 @@ class PhpMethodReflection implements MethodReflection
 		return $isNativelyVariadic;
 	}
 
+	/**
+	 * @param mixed $nodes
+	 * @return bool
+	 */
 	private function callsFuncGetArgs($nodes): bool
 	{
 		foreach ($nodes as $node) {
@@ -124,6 +141,7 @@ class PhpMethodReflection implements MethodReflection
 					return true;
 				}
 			}
+
 			if (!($node instanceof \PhpParser\Node)) {
 				continue;
 			}
@@ -132,6 +150,7 @@ class PhpMethodReflection implements MethodReflection
 				if ($node->getStmts() === null) {
 					continue; // interface
 				}
+
 				$methodName = $node->name;
 				if ($methodName === $this->reflection->getName()) {
 					return $this->functionCallStatementFinder->findFunctionCallInStatements('func_get_args', $node->getStmts()) !== null;
@@ -161,7 +180,11 @@ class PhpMethodReflection implements MethodReflection
 		if ($this->returnType === null) {
 			$phpTypeReflection = $this->reflection->getReturnType();
 			if ($phpTypeReflection === null) {
-				$this->returnType = new MixedType(true);
+				if ($this->phpDocReturnType !== null) {
+					$this->returnType = $this->phpDocReturnType;
+				} else {
+					$this->returnType = new MixedType(true);
+				}
 			} else {
 				$this->returnType = TypehintHelper::getTypeObjectFromTypehint(
 					(string) $phpTypeReflection,

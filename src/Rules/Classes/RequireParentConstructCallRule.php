@@ -16,9 +16,6 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 	 */
 	private $broker;
 
-	/**
-	 * @param \PHPStan\Broker\Broker $broker
-	 */
 	public function __construct(Broker $broker)
 	{
 		$this->broker = $broker;
@@ -30,7 +27,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PhpParser\Node $node
+	 * @param \PhpParser\Node\Stmt\ClassMethod $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */
@@ -44,6 +41,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 		if ($className === null) {
 			return []; // anonymous class
 		}
+
 		$classReflection = $this->broker->getClass($className);
 		if ($classReflection->isInterface()) {
 			return [];
@@ -58,6 +56,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 					),
 				];
 			}
+
 			if ($this->getParentConstructorClass($classReflection) === false) {
 				return [
 					sprintf(
@@ -82,15 +81,12 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 		return [];
 	}
 
-	/**
-	 * @param Node $parserNode
-	 * @return bool
-	 */
-	private function callsParentConstruct(Node $parserNode)
+	private function callsParentConstruct(Node $parserNode): bool
 	{
 		if (!isset($parserNode->stmts)) {
 			return false;
 		}
+
 		foreach ($parserNode->stmts as $statement) {
 			if ($statement instanceof \PhpParser\Node\Expr\StaticCall) {
 				if (((string) $statement->class === 'parent') && $statement->name === '__construct') {

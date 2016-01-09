@@ -46,3 +46,12 @@ unset($arrayVariableCannotBeUnsetByDimFetch['foo']);
 $arrayVariableCannotBeUnsetByDimFetch;
 
 $mustAlreadyExistWhenDividing /= 5;
+
+$anonymousClassObject = new class {};
+
+$newArrayCreatedByDimFetch[] = 'foo';
+echo $newArrayCreatedByDimFetch[0];
+
+$arrayDoesNotExist['foo'];
+
+$undefinedVariable;

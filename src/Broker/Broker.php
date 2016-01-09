@@ -16,6 +16,9 @@ class Broker
 	/** @var \PHPStan\Reflection\MethodsClassReflectionExtension[] */
 	private $methodsClassReflectionExtensions;
 
+	/** @var \PHPStan\Type\DynamicMethodReturnTypeExtension[] */
+	private $dynamicMethodReturnTypeExtensions = [];
+
 	/** @var \PHPStan\Reflection\ClassReflection[] */
 	private $classReflections = [];
 
@@ -28,11 +31,13 @@ class Broker
 	/**
 	 * @param \PHPStan\Reflection\PropertiesClassReflectionExtension[] $propertiesClassReflectionExtensions
 	 * @param \PHPStan\Reflection\MethodsClassReflectionExtension[] $methodsClassReflectionExtensions
+	 * @param \PHPStan\Type\DynamicMethodReturnTypeExtension[] $dynamicMethodReturnTypeExtensions
 	 * @param \PHPStan\Reflection\FunctionReflectionFactory $functionReflectionFactory
 	 */
 	public function __construct(
 		array $propertiesClassReflectionExtensions,
 		array $methodsClassReflectionExtensions,
+		array $dynamicMethodReturnTypeExtensions,
 		FunctionReflectionFactory $functionReflectionFactory
 	)
 	{
@@ -44,7 +49,30 @@ class Broker
 			}
 		}
 
+		foreach ($dynamicMethodReturnTypeExtensions as $dynamicMethodReturnTypeExtension) {
+			$this->dynamicMethodReturnTypeExtensions[$dynamicMethodReturnTypeExtension->getClass()][] = $dynamicMethodReturnTypeExtension;
+		}
+
 		$this->functionReflectionFactory = $functionReflectionFactory;
+	}
+
+	/**
+	 * @param string $className
+	 * @return \PHPStan\Type\DynamicMethodReturnTypeExtension[]
+	 */
+	public function getDynamicMethodReturnTypeExtensionsForClass(string $className): array
+	{
+		$extensions = [];
+		$class = $this->getClass($className);
+		foreach (array_merge([$className], $class->getParentClassesNames()) as $extensionClassName) {
+			if (!isset($this->dynamicMethodReturnTypeExtensions[$extensionClassName])) {
+				continue;
+			}
+
+			$extensions = array_merge($extensions, $this->dynamicMethodReturnTypeExtensions[$extensionClassName]);
+		}
+
+		return $extensions;
 	}
 
 	public function getClass(string $className): \PHPStan\Reflection\ClassReflection
@@ -54,15 +82,20 @@ class Broker
 		}
 
 		if (!isset($this->classReflections[$className])) {
-			$this->classReflections[$className] = new ClassReflection(
-				$this,
-				$this->propertiesClassReflectionExtensions,
-				$this->methodsClassReflectionExtensions,
-				new ReflectionClass($className)
-			);
+			$this->classReflections[$className] = $this->getClassFromReflection(new ReflectionClass($className));
 		}
 
 		return $this->classReflections[$className];
+	}
+
+	public function getClassFromReflection(\ReflectionClass $reflectionClass): \PHPStan\Reflection\ClassReflection
+	{
+		return new ClassReflection(
+			$this,
+			$this->propertiesClassReflectionExtensions,
+			$this->methodsClassReflectionExtensions,
+			$reflectionClass
+		);
 	}
 
 	public function hasClass(string $className): bool
@@ -83,11 +116,12 @@ class Broker
 			throw new \PHPStan\Broker\FunctionNotFoundException($functionName);
 		}
 
-		if (!isset($this->functionReflections[$functionName])) {
-			$this->functionReflections[$functionName] = $this->functionReflectionFactory->create(new \ReflectionFunction($functionName));
+		$lowerCasedFunctionName = strtolower($functionName);
+		if (!isset($this->functionReflections[$lowerCasedFunctionName])) {
+			$this->functionReflections[$lowerCasedFunctionName] = $this->functionReflectionFactory->create(new \ReflectionFunction($lowerCasedFunctionName));
 		}
 
-		return $this->functionReflections[$functionName];
+		return $this->functionReflections[$lowerCasedFunctionName];
 	}
 
 	public function hasFunction(string $functionName): bool

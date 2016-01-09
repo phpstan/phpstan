@@ -7,7 +7,7 @@ class RequireParentConstructCallRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new RequireParentConstructCallRule($this->getBroker());
+		return new RequireParentConstructCallRule($this->createBroker());
 	}
 
 	public function testCallToParentConstructor()
@@ -15,6 +15,7 @@ class RequireParentConstructCallRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		if (!extension_loaded('soap')) {
 			$this->markTestSkipped('Extension SOAP needed');
 		}
+
 		$this->analyse([__DIR__ . '/data/call-to-parent-constructor.php'], [
 			[
 				'IpsumCallToParentConstructor::__construct() calls parent constructor but parent does not have one.',

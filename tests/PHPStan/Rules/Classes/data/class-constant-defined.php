@@ -11,6 +11,8 @@ class Foo
 	public function fooMethod()
 	{
 		self::class;
+		self::LOREM;
+		self::IPSUM;
 	}
 
 }

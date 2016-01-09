@@ -21,6 +21,7 @@ class FunctionCallParametersCheck
 			if (!$parameter->isOptional()) {
 				$functionParametersMinCount++;
 			}
+
 			$functionParametersMaxCount++;
 		}
 
