@@ -24,8 +24,8 @@ class FunctionReflection implements ParametersAcceptor
 	/** @var \PHPStan\Parser\FunctionCallStatementFinder */
 	private $functionCallStatementFinder;
 
-	/** @var bool */
-	private $lookForFuncGetArgs;
+	/** @var \Nette\Caching\Cache */
+	private $cache;
 
 	/** @var \PHPStan\Reflection\ParameterReflection[] */
 	private $parameters;
@@ -37,13 +37,13 @@ class FunctionReflection implements ParametersAcceptor
 		\ReflectionFunction $reflection,
 		Parser $parser,
 		FunctionCallStatementFinder $functionCallStatementFinder,
-		bool $lookForFuncGetArgs
+		\Nette\Caching\Cache $cache
 	)
 	{
 		$this->reflection = $reflection;
 		$this->parser = $parser;
 		$this->functionCallStatementFinder = $functionCallStatementFinder;
-		$this->lookForFuncGetArgs = $lookForFuncGetArgs;
+		$this->cache = $cache;
 	}
 
 	public function getName(): string
@@ -78,9 +78,17 @@ class FunctionReflection implements ParametersAcceptor
 	public function isVariadic(): bool
 	{
 		$isNativelyVariadic = $this->reflection->isVariadic();
-		if (!$isNativelyVariadic && $this->lookForFuncGetArgs && $this->reflection->getFileName() !== false) {
-			$nodes = $this->parser->parseFile($this->reflection->getFileName());
-			return $this->callsFuncGetArgs($nodes);
+		if (!$isNativelyVariadic && $this->reflection->getFileName() !== false) {
+			$key = sprintf('variadic-function-%s', $this->reflection->getName());
+			$cachedResult = $this->cache->load($key);
+			if ($cachedResult === null) {
+				$nodes = $this->parser->parseFile($this->reflection->getFileName());
+				$result = $this->callsFuncGetArgs($nodes);
+				$this->cache->save($key, $result);
+				return $result;
+			}
+
+			return $cachedResult;
 		}
 
 		return $isNativelyVariadic;

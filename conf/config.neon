@@ -4,12 +4,17 @@ parameters:
 		- %rootDir%/tests/*/data/* # todo přes konfigurák při spouštění binárky
 	autoload_directories: []
 	autoload_files: []
-	lookForFuncGetArgs: false # 'true' looks for func_get_args and evaluates functions and methods as variadic, greatly decreases performance
 	polluteScopeWithForLoopInitialAssignments: false
 	polluteCatchScopeWithTryAssignments: false
 	defineVariablesWithoutDefaultBranch: false
 
 services:
+	-
+		class: Nette\Caching\Cache
+		arguments:
+			storage: @cachingStorage
+			namespace: PHPStan
+
 	-
 		class: PhpParser\Lexer
 
@@ -49,16 +54,12 @@ services:
 
 	-
 		implement: PHPStan\Reflection\FunctionReflectionFactory
-		arguments:
-			lookForFuncGetArgs: %lookForFuncGetArgs%
 
 	-
 		class: PHPStan\Reflection\Php\PhpClassReflectionExtension
 
 	-
 		implement: PHPStan\Reflection\Php\PhpMethodReflectionFactory
-		arguments:
-			lookForFuncGetArgs: %lookForFuncGetArgs%
 
 	-
 		class: PHPStan\Rules\FunctionCallParametersCheck
@@ -138,7 +139,12 @@ services:
 			methodsClassReflectionExtensions:
 				- @PHPStan\Reflection\Php\PhpClassReflectionExtension
 
+	cachingStorage:
+		class: Nette\Caching\Storages\FileStorage
+		arguments:
+			dir: %rootDir%/tmp/cache
+		autowired: no
+
 	directParser:
 		class: PHPStan\Parser\DirectParser
 		autowired: no
-

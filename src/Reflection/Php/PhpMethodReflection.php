@@ -28,8 +28,8 @@ class PhpMethodReflection implements MethodReflection
 	/** @var \PHPStan\Parser\FunctionCallStatementFinder */
 	private $functionCallStatementFinder;
 
-	/** @var bool */
-	private $lookForFuncGetArgs;
+	/** @var \Nette\Caching\Cache */
+	private $cache;
 
 	/** @var \PHPStan\Reflection\ParameterReflection[] */
 	private $parameters;
@@ -42,14 +42,14 @@ class PhpMethodReflection implements MethodReflection
 		\ReflectionMethod $reflection,
 		Parser $parser,
 		FunctionCallStatementFinder $functionCallStatementFinder,
-		bool $lookForFuncGetArgs
+		\Nette\Caching\Cache $cache
 	)
 	{
 		$this->declaringClass = $declaringClass;
 		$this->reflection = $reflection;
 		$this->parser = $parser;
 		$this->functionCallStatementFinder = $functionCallStatementFinder;
-		$this->lookForFuncGetArgs = $lookForFuncGetArgs;
+		$this->cache = $cache;
 	}
 
 	public function getDeclaringClass(): ClassReflection
@@ -100,9 +100,17 @@ class PhpMethodReflection implements MethodReflection
 	public function isVariadic(): bool
 	{
 		$isNativelyVariadic = $this->reflection->isVariadic();
-		if (!$isNativelyVariadic && $this->lookForFuncGetArgs && $this->declaringClass->getNativeReflection()->getFileName() !== false) {
-			$nodes = $this->parser->parseFile($this->declaringClass->getNativeReflection()->getFileName());
-			return $this->callsFuncGetArgs($nodes);
+		if (!$isNativelyVariadic && $this->declaringClass->getNativeReflection()->getFileName() !== false) {
+			$key = sprintf('variadic-method-%s-%s', $this->declaringClass->getName(), $this->reflection->getName());
+			$cachedResult = $this->cache->load($key);
+			if ($cachedResult === null) {
+				$nodes = $this->parser->parseFile($this->declaringClass->getNativeReflection()->getFileName());
+				$result = $this->callsFuncGetArgs($nodes);
+				$this->cache->save($key, $result);
+				return $result;
+			}
+
+			return $cachedResult;
 		}
 
 		return $isNativelyVariadic;

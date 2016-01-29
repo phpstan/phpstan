@@ -63,17 +63,26 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 		if ($this->broker === null) {
 			$functionCallStatementFinder = new FunctionCallStatementFinder();
 			$parser = $this->getParser();
-			$phpExtension = new PhpClassReflectionExtension(new class($parser, $functionCallStatementFinder) implements PhpMethodReflectionFactory {
+			$cache = new \Nette\Caching\Cache(new \Nette\Caching\Storages\MemoryStorage());
+			$phpExtension = new PhpClassReflectionExtension(new class($parser, $functionCallStatementFinder, $cache) implements PhpMethodReflectionFactory {
 			/** @var \PHPStan\Parser\Parser */
 			private $parser;
 
 			/** @var \PHPStan\Parser\FunctionCallStatementFinder */
 			private $functionCallStatementFinder;
 
-			public function __construct(Parser $parser, FunctionCallStatementFinder $functionCallStatementFinder)
+			/** @var \Nette\Caching\Cache */
+			private $cache;
+
+			public function __construct(
+				Parser $parser,
+				FunctionCallStatementFinder $functionCallStatementFinder,
+				\Nette\Caching\Cache $cache
+			)
 			{
 				$this->parser = $parser;
 				$this->functionCallStatementFinder = $functionCallStatementFinder;
+				$this->cache = $cache;
 			}
 
 			public function create(
@@ -81,25 +90,33 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 				\ReflectionMethod $reflection
 			): PhpMethodReflection
 			{
-				return new PhpMethodReflection($declaringClass, $reflection, $this->parser, $this->functionCallStatementFinder, true);
+				return new PhpMethodReflection($declaringClass, $reflection, $this->parser, $this->functionCallStatementFinder, $this->cache);
 			}
 			}, $parser);
-			$functionReflectionFactory = new class($this->getParser(), $functionCallStatementFinder) implements FunctionReflectionFactory {
+			$functionReflectionFactory = new class($this->getParser(), $functionCallStatementFinder, $cache) implements FunctionReflectionFactory {
 			/** @var \PHPStan\Parser\Parser */
 			private $parser;
 
 			/** @var \PHPStan\Parser\FunctionCallStatementFinder */
 			private $functionCallStatementFinder;
 
-			public function __construct(Parser $parser, FunctionCallStatementFinder $functionCallStatementFinder)
+			/** @var \Nette\Caching\Cache */
+			private $cache;
+
+			public function __construct(
+				Parser $parser,
+				FunctionCallStatementFinder $functionCallStatementFinder,
+				\Nette\Caching\Cache $cache
+			)
 			{
 				$this->parser = $parser;
 				$this->functionCallStatementFinder = $functionCallStatementFinder;
+				$this->cache = $cache;
 			}
 
 			public function create(\ReflectionFunction $function): FunctionReflection
 			{
-				return new FunctionReflection($function, $this->parser, $this->functionCallStatementFinder, true);
+				return new FunctionReflection($function, $this->parser, $this->functionCallStatementFinder, $this->cache);
 			}
 			};
 			$this->broker = new Broker([$phpExtension], [$phpExtension], $functionReflectionFactory);
