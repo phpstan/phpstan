@@ -11,6 +11,7 @@
 		"php": "~7.0",
 		"nette/bootstrap": "~2.3",
 		"nette/caching": "~2.4",
+		"nette/di": "^2.3.6",
 		"nette/robot-loader": "~2.3",
 		"nikic/php-parser": "~2.0",
 		"symfony/console": "~3.0",
