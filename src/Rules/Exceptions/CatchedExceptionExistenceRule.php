@@ -44,7 +44,7 @@ class CatchedExceptionExistenceRule implements \PHPStan\Rules\Rule
 		}
 
 		$classReflection = $this->broker->getClass($class);
-		if (!$classReflection->isInterface() && $class !== 'Exception' && !$classReflection->isSubclassOf('Exception')) {
+		if (!$classReflection->isInterface() && !$classReflection->getNativeReflection()->implementsInterface(\Throwable::class)) {
 			return [
 				sprintf('Catched class %s is not an exception.', $class),
 			];

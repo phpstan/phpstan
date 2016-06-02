@@ -29,3 +29,9 @@ try {
 } catch (\FooCatchException $e) { // nonexistent exception class
 
 }
+
+try {
+
+} catch (\TypeError $e) {
+
+}
