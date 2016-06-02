@@ -67,7 +67,8 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 				];
 			}
 		} else {
-			if (($parentClass = $this->getParentConstructorClass($classReflection)) !== false) {
+			$parentClass = $this->getParentConstructorClass($classReflection);
+			if ($parentClass !== false) {
 				return [
 					sprintf(
 						'%s::__construct() does not call parent constructor from %s.',
