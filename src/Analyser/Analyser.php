@@ -70,7 +70,9 @@ class Analyser
 		$this->registry = $registry;
 		$this->nodeScopeResolver = $nodeScopeResolver;
 		$this->printer = $printer;
-		$this->analyseExcludes = $analyseExcludes;
+		$this->analyseExcludes = array_map(function (string $exclude): string {
+			return str_replace('/', DIRECTORY_SEPARATOR, $exclude);
+		}, $analyseExcludes);
 		$this->ignoreErrors = $ignoreErrors;
 	}
 
@@ -175,17 +177,7 @@ class Analyser
 
 	public function isExcludedFromAnalysing(string $file): bool
 	{
-		return $this->isExcluded($file, $this->analyseExcludes);
-	}
-
-	/**
-	 * @param string $file
-	 * @param string[] $excludes
-	 * @return bool
-	 */
-	private function isExcluded(string $file, array $excludes): bool
-	{
-		foreach ($excludes as $exclude) {
+		foreach ($this->analyseExcludes as $exclude) {
 			$realpathedExclude = realpath($exclude);
 			if (($realpathedExclude !== false
 				&& strpos($file, $realpathedExclude) === 0)
