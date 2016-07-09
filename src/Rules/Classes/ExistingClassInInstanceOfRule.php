@@ -57,7 +57,7 @@ class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
 
 		if (!$this->broker->hasClass($name)) {
 			return [
-				sprintf('Class %s does not exist.', $name),
+				sprintf('Class %s not found.', $name),
 			];
 		}
 

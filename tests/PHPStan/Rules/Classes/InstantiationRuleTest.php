@@ -26,7 +26,7 @@ class InstantiationRuleTest extends \PHPStan\Rules\AbstractRuleTest
 					7,
 				],
 				[
-					'Instantiated class TestInstantiation\FooBarInstantiation does not exist.',
+					'Instantiated class TestInstantiation\FooBarInstantiation not found.',
 					8,
 				],
 				[

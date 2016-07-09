@@ -40,7 +40,7 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\TestCase
 	{
 		$path = __DIR__ . '/../Rules/Functions/data/nonexistent-function.php';
 		$output = $this->runPath($path, 1);
-		$this->assertContains('Function foobarNonExistentFunction does not exist.', $output);
+		$this->assertContains('Function foobarNonExistentFunction not found.', $output);
 	}
 
 	private function runPath(string $path, int $expectedStatusCode): string

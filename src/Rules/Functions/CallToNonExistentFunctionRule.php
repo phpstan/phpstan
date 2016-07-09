@@ -39,7 +39,7 @@ class CallToNonExistentFunctionRule implements \PHPStan\Rules\Rule
 		list($function, $isNamespaced) = $this->getFunction($scope, $node->name);
 		$name = (string) $node->name;
 		if ($function === null) {
-			return [sprintf('Function %s does not exist.', $name)];
+			return [sprintf('Function %s not found.', $name)];
 		}
 
 		$namespacedName = $name;

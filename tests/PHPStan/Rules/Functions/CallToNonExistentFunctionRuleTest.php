@@ -25,7 +25,7 @@ class CallToNonExistentFunctionRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	{
 		$this->analyse([__DIR__ . '/data/nonexistent-function.php'], [
 			[
-				'Function foobarNonExistentFunction does not exist.',
+				'Function foobarNonExistentFunction not found.',
 				5,
 			],
 		]);
@@ -35,7 +35,7 @@ class CallToNonExistentFunctionRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	{
 		$this->analyse([__DIR__ . '/data/nonexistent-nested-function.php'], [
 			[
-				'Function barNonExistentFunction does not exist.',
+				'Function barNonExistentFunction not found.',
 				5,
 			],
 		]);

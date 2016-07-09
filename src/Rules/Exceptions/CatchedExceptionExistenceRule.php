@@ -36,7 +36,7 @@ class CatchedExceptionExistenceRule implements \PHPStan\Rules\Rule
 
 		if (!$this->broker->hasClass($class)) {
 			return [
-				sprintf('Catched class %s does not exist.', $class),
+				sprintf('Catched class %s not found.', $class),
 			];
 		}
 

@@ -57,7 +57,7 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 
 		if (!$this->broker->hasClass($class)) {
 			return [
-				sprintf('Instantiated class %s does not exist.', $class),
+				sprintf('Instantiated class %s not found.', $class),
 			];
 		}
 

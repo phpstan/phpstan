@@ -57,7 +57,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 
 		if (!$this->broker->hasClass($className)) {
 			return [
-				sprintf('Class %s does not exist.', $className),
+				sprintf('Class %s not found.', $className),
 			];
 		}
 

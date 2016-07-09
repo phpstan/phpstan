@@ -21,7 +21,7 @@ class ExistingClassInInstanceOfRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			],
 			[
 				[
-					'Class InstanceOfNamespace\Bar does not exist.',
+					'Class InstanceOfNamespace\Bar not found.',
 					7,
 				],
 				[

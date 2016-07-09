@@ -20,7 +20,7 @@ class CatchedExceptionExistenceRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				17,
 			],
 			[
-				'Catched class FooCatchException does not exist.',
+				'Catched class FooCatchException not found.',
 				29,
 			],
 		]);

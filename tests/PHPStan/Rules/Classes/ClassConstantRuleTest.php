@@ -21,7 +21,7 @@ class ClassConstantRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			],
 			[
 				[
-					'Class ClassConstantNamespace\Bar does not exist.',
+					'Class ClassConstantNamespace\Bar not found.',
 					6,
 				],
 				[
