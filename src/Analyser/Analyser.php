@@ -123,15 +123,26 @@ class Analyser
 			}
 		}
 
-		return array_values(array_filter($errors, function (string $error): bool {
-			foreach ($this->ignoreErrors as $ignore) {
+		$unmatchedIgnoredErrors = $this->ignoreErrors;
+		$errors = array_values(array_filter($errors, function (string $error) use (&$unmatchedIgnoredErrors): bool {
+			foreach ($this->ignoreErrors as $i => $ignore) {
 				if (\Nette\Utils\Strings::match($error, $ignore) !== null) {
+					unset($unmatchedIgnoredErrors[$i]);
 					return false;
 				}
 			}
 
 			return true;
 		}));
+
+		foreach ($unmatchedIgnoredErrors as $unmatchedIgnoredError) {
+			$errors[] = sprintf(
+				'Ignored error pattern %s was not matched in reported errors.',
+				$unmatchedIgnoredError
+			);
+		}
+
+		return $errors;
 	}
 
 	/**

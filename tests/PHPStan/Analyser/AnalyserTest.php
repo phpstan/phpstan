@@ -56,6 +56,29 @@ class AnalyserTest extends \PHPStan\TestCase
 	 */
 	public function testExclude(string $filePath, array $analyseExcludes, array $ignoreErrors, int $errorsCount)
 	{
+		$analyser = $this->createAnalyser($analyseExcludes, $ignoreErrors);
+		$result = $analyser->analyse([$filePath]);
+		$this->assertInternalType('array', $result);
+		$this->assertCount($errorsCount, $result);
+	}
+
+	public function testReturnErrorIfIgnoredMessagesDoesNotOccur()
+	{
+		$analyser = $this->createAnalyser([], ['#Unknown error#']);
+		$result = $analyser->analyse([__DIR__ . '/data/empty.php']);
+		$this->assertInternalType('array', $result);
+		$this->assertSame([
+			'Ignored error pattern #Unknown error# was not matched in reported errors.',
+		], $result);
+	}
+
+	/**
+	 * @param string[] $analyseExcludes
+	 * @param string[] $ignoreErrors
+	 * @return Analyser
+	 */
+	private function createAnalyser(array $analyseExcludes, array $ignoreErrors): \PHPStan\Analyser\Analyser
+	{
 		$registry = new Registry();
 		$registry->register(new AlwaysFailRule());
 
@@ -79,9 +102,8 @@ class AnalyserTest extends \PHPStan\TestCase
 			$analyseExcludes,
 			$ignoreErrors
 		);
-		$result = $analyser->analyse([$filePath]);
-		$this->assertInternalType('array', $result);
-		$this->assertCount($errorsCount, $result);
+
+		return $analyser;
 	}
 
 }
