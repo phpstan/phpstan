@@ -1,12 +1,5 @@
 services:
 	-
 		class: PHPStan\Reflection\PhpParser\PhpParserNameClassReflectionExtension
-
-	broker:
-		class: PHPStan\Broker\Broker
-		arguments:
-			propertiesClassReflectionExtensions:
-				- @PHPStan\Reflection\Php\PhpClassReflectionExtension
-				- @PHPStan\Reflection\PhpParser\PhpParserNameClassReflectionExtension
-			methodsClassReflectionExtensions:
-				- @PHPStan\Reflection\Php\PhpClassReflectionExtension
+		tags:
+			- phpstan.broker.propertiesClassReflectionExtension

@@ -48,6 +48,9 @@ services:
 			defineVariablesWithoutDefaultBranch: %defineVariablesWithoutDefaultBranch%
 
 	-
+		class: PHPStan\Broker\BrokerFactory
+
+	-
 		class: PHPStan\Command\AnalyseApplication
 
 	-
@@ -69,6 +72,8 @@ services:
 
 	-
 		class: PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension
+		tags:
+			- phpstan.broker.propertiesClassReflectionExtension
 		arguments:
 			classes: %universalObjectCratesClasses%
 
@@ -148,13 +153,7 @@ services:
 
 	broker:
 		class: PHPStan\Broker\Broker
-		arguments:
-			propertiesClassReflectionExtensions:
-				- @PHPStan\Reflection\Php\PhpClassReflectionExtension
-				- @PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension
-			methodsClassReflectionExtensions:
-				- @PHPStan\Reflection\Php\PhpClassReflectionExtension
-			dynamicMethodReturnTypeExtensions: []
+		factory: @PHPStan\Broker\BrokerFactory::create
 
 	cachingStorage:
 		class: Nette\Caching\Storages\FileStorage
