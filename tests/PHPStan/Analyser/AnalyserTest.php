@@ -72,6 +72,16 @@ class AnalyserTest extends \PHPStan\TestCase
 		], $result);
 	}
 
+	public function testReportInvalidIgnorePatternEarly()
+	{
+		$analyser = $this->createAnalyser([], ['#Regexp syntax error']);
+		$result = $analyser->analyse([__DIR__ . '/data/parse-error.php']);
+		$this->assertInternalType('array', $result);
+		$this->assertSame([
+			"No ending delimiter '#' found in pattern: #Regexp syntax error",
+		], $result);
+	}
+
 	/**
 	 * @param string[] $analyseExcludes
 	 * @param string[] $ignoreErrors

@@ -70,9 +70,14 @@ class AnalyseApplication
 		};
 
 		$fileErrors = [];
+		$notFileSpecificErrors = [];
 		$totalErrorsCount = count($errors);
 
 		foreach ($errors as $error) {
+			if (is_string($error)) {
+				$notFileSpecificErrors[] = [$error];
+				continue;
+			}
 			if (!isset($fileErrors[$error->getFile()])) {
 				$fileErrors[$error->getFile()] = [];
 			}
@@ -90,6 +95,10 @@ class AnalyseApplication
 			}
 
 			$style->table(['Line', $cropFilename($file)], $rows);
+		}
+
+		if (count($notFileSpecificErrors) > 0) {
+			$style->table(['Error'], $notFileSpecificErrors);
 		}
 
 		$style->error(sprintf(ngettext('Found %d error', 'Found %d errors', $totalErrorsCount), $totalErrorsCount));

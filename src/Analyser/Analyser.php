@@ -77,11 +77,23 @@ class Analyser
 	/**
 	 * @param string[] $files
 	 * @param \Closure|null $progressCallback
-	 * @return string[] errors
+	 * @return string[]|\PHPStan\Analyser\Error[] errors
 	 */
 	public function analyse(array $files, \Closure $progressCallback = null): array
 	{
 		$errors = [];
+
+		foreach ($this->ignoreErrors as $ignoreError) {
+			try {
+				\Nette\Utils\Strings::match('', $ignoreError);
+			} catch (\Nette\Utils\RegexpException $e) {
+				$errors[] = $e->getMessage();
+			}
+		}
+
+		if (count($errors) > 0) {
+			return $errors;
+		}
 
 		foreach ($files as $file) {
 			try {
