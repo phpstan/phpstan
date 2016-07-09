@@ -9,14 +9,20 @@ class UniversalObjectCratesClassReflectionExtension
 	implements \PHPStan\Reflection\PropertiesClassReflectionExtension
 {
 
+	/** @var string[] */
+	private $classes;
+
+	/**
+	 * @param string[] $classes
+	 */
+	public function __construct(array $classes)
+	{
+		$this->classes = $classes;
+	}
+
 	public function hasProperty(ClassReflection $classReflection, string $propertyName): bool
 	{
-		$classNames = [
-			\SimpleXMLElement::class,
-			\stdClass::class,
-		];
-
-		foreach ($classNames as $className) {
+		foreach ($this->classes as $className) {
 			if (
 				$classReflection->getName() === $className
 				|| $classReflection->isSubclassOf($className)

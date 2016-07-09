@@ -124,7 +124,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 		};
 		$broker = new Broker([
 			$phpExtension,
-			new UniversalObjectCratesClassReflectionExtension(),
+			new UniversalObjectCratesClassReflectionExtension([\stdClass::class]),
 		], [$phpExtension], $dynamicMethodReturnTypeExtensions, $functionReflectionFactory);
 
 		return $broker;

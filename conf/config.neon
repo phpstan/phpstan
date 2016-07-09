@@ -8,6 +8,7 @@ parameters:
 	polluteCatchScopeWithTryAssignments: false
 	defineVariablesWithoutDefaultBranch: false
 	ignoreErrors: []
+	universalObjectCratesClasses: []
 
 services:
 	-
@@ -68,6 +69,8 @@ services:
 
 	-
 		class: PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension
+		arguments:
+			classes: %universalObjectCratesClasses%
 
 	-
 		class: PHPStan\Rules\FunctionCallParametersCheck
