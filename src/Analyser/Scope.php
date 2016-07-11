@@ -32,6 +32,7 @@ use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\StaticType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 
@@ -386,6 +387,14 @@ class Scope
 					}
 
 					return $dynamicMethodReturnTypeExtension->getTypeFromMethodCall($methodReflection, $node, $this);
+				}
+
+				if ($methodReflection->getReturnType() instanceof StaticType) {
+					if ($methodReflection->getReturnType()->isNullable()) {
+						return $methodCalledOnType->makeNullable();
+					}
+
+					return $methodCalledOnType;
 				}
 
 				return $methodReflection->getReturnType();

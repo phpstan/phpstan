@@ -15,6 +15,22 @@ class Bar
 
 	}
 
+	/**
+	 * @return static
+	 */
+	public function doFluent()
+	{
+
+	}
+
+	/**
+	 * @return static|null
+	 */
+	public function doFluentNullable()
+	{
+
+	}
+
 }
 
 class Baz extends Bar

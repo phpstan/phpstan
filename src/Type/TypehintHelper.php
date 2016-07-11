@@ -16,7 +16,7 @@ class TypehintHelper
 		}
 
 		if ($typehintString === 'static') {
-			return new MixedType($isNullable);
+			return new StaticType($isNullable);
 		}
 
 		if ($typehintString === 'self' && $selfClass !== null) {

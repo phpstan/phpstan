@@ -15,6 +15,7 @@ use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\StaticType;
 use PHPStan\Type\StringType;
 use SomeNodeScopeResolverNamespace\Foo;
 
@@ -536,7 +537,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$this->selfType',
 			],
 			[
-				MixedType::class,
+				StaticType::class,
 				false,
 				null,
 				'$this->staticType',
@@ -972,7 +973,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$selfType',
 			],
 			[
-				MixedType::class,
+				StaticType::class,
 				false,
 				null,
 				'$staticType',
@@ -1006,6 +1007,18 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				false,
 				'MethodPhpDocsNamespace\Baz',
 				'$moreSpecifiedObject',
+			],
+			[
+				ObjectType::class,
+				false,
+				'MethodPhpDocsNamespace\Baz',
+				'$moreSpecifiedObject->doFluent()',
+			],
+			[
+				ObjectType::class,
+				true,
+				'MethodPhpDocsNamespace\Baz',
+				'$moreSpecifiedObject->doFluentNullable()',
 			],
 		];
 	}
