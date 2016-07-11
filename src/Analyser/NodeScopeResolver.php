@@ -341,6 +341,9 @@ class NodeScopeResolver
 
 			$scope = $this->lookForAssignsInBranches($scope, $statements);
 		} elseif ($node instanceof MethodCall || $node instanceof FuncCall) {
+			if ($node instanceof MethodCall) {
+				$scope = $this->lookForAssigns($scope, $node->var);
+			}
 			foreach ($node->args as $argument) {
 				$scope = $this->lookForAssigns($scope, $argument);
 			}

@@ -55,3 +55,9 @@ echo $newArrayCreatedByDimFetch[0];
 $arrayDoesNotExist['foo'];
 
 $undefinedVariable;
+
+$containerBuilder = getContainer();
+$serviceDefinition = $containerBuilder->addDefinition($serviceName = prefix('cache'))
+	->setAutowired(false);
+
+instantiate($serviceName);
