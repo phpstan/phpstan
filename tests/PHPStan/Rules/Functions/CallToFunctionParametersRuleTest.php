@@ -72,4 +72,9 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		]);
 	}
 
+	public function testCallToArrayMapVariadic()
+	{
+		$this->analyse([__DIR__ . '/data/call-to-array-map-unique.php'], []);
+	}
+
 }
