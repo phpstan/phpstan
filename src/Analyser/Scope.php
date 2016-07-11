@@ -735,13 +735,9 @@ class Scope
 	{
 		if ($expr instanceof Variable && is_string($expr->name)) {
 			$variableName = $expr->name;
-			if (!$this->hasVariableType($variableName)) {
-				return $this;
-			}
 
 			$variableTypes = $this->getVariableTypes();
-			$currentType = $this->getVariableType($variableName);
-			$variableTypes[$variableName] = new ObjectType($className, $currentType->isNullable());
+			$variableTypes[$variableName] = new ObjectType($className, false);
 
 			return new self(
 				$this->broker,

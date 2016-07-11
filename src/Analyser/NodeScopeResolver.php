@@ -121,6 +121,13 @@ class NodeScopeResolver
 
 			$this->processNode($node, $scope, $nodeCallback);
 			$scope = $this->lookForAssigns($scope, $node);
+
+			if ($node instanceof If_ && $node->cond instanceof BooleanNot) {
+				if ($this->hasEarlyTermination($node->stmts)) {
+					$negatedCondition = $node->cond->expr;
+					$scope = $this->lookForInstanceOfs($scope, $negatedCondition);
+				}
+			}
 		}
 	}
 

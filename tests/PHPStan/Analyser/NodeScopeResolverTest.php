@@ -1251,6 +1251,17 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+	public function testNegatedInstanceof()
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/negated-instanceof.php',
+			ObjectType::class,
+			false,
+			'NegatedInstanceOf\Foo',
+			'$foo'
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $typeClass,
