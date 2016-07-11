@@ -61,3 +61,7 @@ $serviceDefinition = $containerBuilder->addDefinition($serviceName = prefix('cac
 	->setAutowired(false);
 
 instantiate($serviceName);
+
+function () use (&$errorHandler) {
+	$errorHandler->handle(); // variable is fine here
+};

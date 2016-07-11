@@ -527,8 +527,13 @@ class Scope
 		}
 
 		foreach ($uses as $use) {
-			// todo převzít typy z outer scope
-			$variableTypes[$use->var] = new MixedType(true);
+			if (!$this->hasVariableType($use->var)) {
+				if ($use->byRef) {
+					$variableTypes[$use->var] = new MixedType(true);
+				}
+				continue;
+			}
+			$variableTypes[$use->var] = $this->getVariableType($use->var);
 		}
 
 		if ($this->getClass() !== null) {

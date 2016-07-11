@@ -1262,6 +1262,53 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+	public function dataAnonymousFunction(): array
+	{
+		return [
+			[
+				MixedType::class,
+				true,
+				null,
+				'$str',
+			],
+			[
+				IntegerType::class,
+				false,
+				null,
+				'$integer',
+			],
+			[
+				MixedType::class,
+				true,
+				null,
+				'$bar',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataAnonymousFunction
+	 * @param string $typeClass
+	 * @param boolean $nullable
+	 * @param string|null $class
+	 * @param string $expression
+	 */
+	public function testAnonymousFunction(
+		string $typeClass,
+		bool $nullable,
+		string $class = null,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/anonymous-function.php',
+			$typeClass,
+			$nullable,
+			$class,
+			$expression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $typeClass,
