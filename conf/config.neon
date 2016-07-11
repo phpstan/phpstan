@@ -151,6 +151,9 @@ services:
 	-
 		class: PHPStan\Rules\Variables\DefinedVariableRule
 
+	-
+		class: PHPStan\Rules\Variables\DefinedVariableInAnonymousFunctionUseRule
+
 	broker:
 		class: PHPStan\Broker\Broker
 		factory: @PHPStan\Broker\BrokerFactory::create
