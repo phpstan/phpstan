@@ -222,6 +222,95 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+	public function dataAnonymousFunctionParameterTypes(): array
+	{
+		return [
+			[
+				IntegerType::class,
+				false,
+				null,
+				'$integer',
+			],
+			[
+				BooleanType::class,
+				false,
+				null,
+				'$boolean',
+			],
+			[
+				StringType::class,
+				false,
+				null,
+				'$string',
+			],
+			[
+				FloatType::class,
+				false,
+				null,
+				'$float',
+			],
+			[
+				ObjectType::class,
+				false,
+				'TypesNamespaceTypehints\Lorem',
+				'$loremObject',
+			],
+			[
+				MixedType::class,
+				true,
+				null,
+				'$mixed',
+			],
+			[
+				ArrayType::class,
+				false,
+				null,
+				'$array',
+			],
+			[
+				BooleanType::class,
+				true,
+				null,
+				'$isNullable',
+			],
+			[
+				CallableType::class,
+				false,
+				null,
+				'$callable',
+			],
+			[
+				ObjectType::class,
+				false,
+				'TypesNamespaceTypehints\FooWithAnonymousFunction',
+				'$self',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataAnonymousFunctionParameterTypes
+	 * @param string $typeClass
+	 * @param boolean $nullable
+	 * @param string|null $class
+	 * @param string $expression
+	 */
+	public function testAnonymousFunctionTypehints(
+		string $typeClass,
+		bool $nullable,
+		string $class = null,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/typehints-anonymous-function.php',
+			$typeClass,
+			$nullable,
+			$class,
+			$expression
+		);
+	}
+
 	public function dataCasts(): array
 	{
 		return [
@@ -1266,8 +1355,8 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				MixedType::class,
-				true,
+				StringType::class,
+				false,
 				null,
 				'$str',
 			],

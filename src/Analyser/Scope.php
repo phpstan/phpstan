@@ -27,6 +27,7 @@ use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
+use PHPStan\Type\CallableType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
@@ -522,8 +523,35 @@ class Scope
 	{
 		$variableTypes = [];
 		foreach ($parameters as $parameter) {
-			// todo stejná logika ohledně zjištění typů jako v enterFunction
-			$variableTypes[$parameter->name] = new MixedType(true);
+			$isNullable = false;
+			if ($parameter->default instanceof ConstFetch && $parameter->default->name instanceof Name) {
+				$isNullable = (string) $parameter->default->name === 'null';
+			}
+			if ($parameter->type === null) {
+				$parameterType = new MixedType(true);
+			} elseif ($parameter->type === 'string') {
+				$parameterType = new StringType($isNullable);
+			} elseif ($parameter->type === 'int') {
+				$parameterType = new IntegerType($isNullable);
+			} elseif ($parameter->type === 'bool') {
+				$parameterType = new BooleanType($isNullable);
+			} elseif ($parameter->type === 'float') {
+				$parameterType = new FloatType($isNullable);
+			} elseif ($parameter->type === 'callable') {
+				$parameterType = new CallableType($isNullable);
+			} elseif ($parameter->type === 'array') {
+				$parameterType = new ArrayType($isNullable);
+			} elseif ($parameter->type instanceof Name) {
+				$className = (string) $parameter->type;
+				if ($className === 'self') {
+					$className = $this->getClass();
+				}
+				$parameterType = new ObjectType($className, $isNullable);
+			} else {
+				$parameterType = new MixedType($isNullable);
+			}
+
+			$variableTypes[$parameter->name] = $parameterType;
 		}
 
 		foreach ($uses as $use) {
