@@ -127,6 +127,18 @@ class NodeScopeResolver
 					$negatedCondition = $node->cond->expr;
 					$scope = $this->lookForInstanceOfs($scope, $negatedCondition);
 				}
+			} elseif ($node instanceof Node\Stmt\Declare_) {
+				foreach ($node->declares as $declare) {
+					if (
+						$declare instanceof Node\Stmt\DeclareDeclare
+						&& $declare->key === 'strict_types'
+						&& $declare->value instanceof Node\Scalar\LNumber
+						&& $declare->value->value === 1
+					) {
+						$scope = $scope->enterDeclareStrictTypes();
+						break;
+					}
+				}
 			}
 		}
 	}

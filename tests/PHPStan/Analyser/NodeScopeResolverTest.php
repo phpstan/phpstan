@@ -1433,4 +1433,36 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+	public function dataDeclareStrictTypes(): array
+	{
+		return [
+			[
+				__DIR__ . '/data/declareWeakTypes.php',
+				false,
+			],
+			[
+				__DIR__ . '/data/noDeclare.php',
+				false,
+			],
+			[
+				__DIR__ . '/data/declareStrictTypes.php',
+				true,
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataDeclareStrictTypes
+	 * @param string $file
+	 * @param bool $result
+	 */
+	public function testDeclareStrictTypes(string $file, bool $result)
+	{
+		$this->processFile($file, function (\PhpParser\Node $node, Scope $scope) use ($result) {
+			if ($node instanceof Exit_) {
+				$this->assertSame($result, $scope->isDeclareStrictTypes());
+			}
+		});
+	}
+
 }

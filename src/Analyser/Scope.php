@@ -56,6 +56,11 @@ class Scope
 	private $file;
 
 	/**
+	 * @var bool
+	 */
+	private $declareStrictTypes;
+
+	/**
 	 * @var string|null
 	 */
 	private $class;
@@ -104,6 +109,7 @@ class Scope
 		Broker $broker,
 		\PhpParser\PrettyPrinter\Standard $printer,
 		string $file,
+		bool $declareStrictTypes = false,
 		string $class = null,
 		string $function = null,
 		string $namespace = null,
@@ -130,6 +136,7 @@ class Scope
 		$this->broker = $broker;
 		$this->printer = $printer;
 		$this->file = $file;
+		$this->declareStrictTypes = $declareStrictTypes;
 		$this->class = $class;
 		$this->function = $function;
 		$this->namespace = $namespace;
@@ -144,6 +151,21 @@ class Scope
 	public function getFile(): string
 	{
 		return $this->file;
+	}
+
+	public function isDeclareStrictTypes(): bool
+	{
+		return $this->declareStrictTypes;
+	}
+
+	public function enterDeclareStrictTypes(): self
+	{
+		return new self(
+			$this->broker,
+			$this->printer,
+			$this->getFile(),
+			true
+		);
 	}
 
 	/**
@@ -438,6 +460,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->isDeclareStrictTypes(),
 			$className,
 			null,
 			$this->getNamespace(),
@@ -460,6 +483,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->isDeclareStrictTypes(),
 			$this->getClass(),
 			$functionReflection->getName(),
 			$this->getNamespace(),
@@ -473,6 +497,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->isDeclareStrictTypes(),
 			null,
 			null,
 			$namespaceName
@@ -485,6 +510,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->isDeclareStrictTypes(),
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
@@ -502,6 +528,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->isDeclareStrictTypes(),
 			null,
 			null,
 			$this->getNamespace(),
@@ -572,6 +599,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->isDeclareStrictTypes(),
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
@@ -594,6 +622,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->isDeclareStrictTypes(),
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
@@ -614,6 +643,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->isDeclareStrictTypes(),
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
@@ -631,6 +661,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->isDeclareStrictTypes(),
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
@@ -651,6 +682,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->isDeclareStrictTypes(),
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
@@ -682,6 +714,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->isDeclareStrictTypes(),
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
@@ -703,6 +736,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->isDeclareStrictTypes(),
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
@@ -731,6 +765,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->isDeclareStrictTypes(),
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
@@ -753,6 +788,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->isDeclareStrictTypes(),
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
@@ -776,6 +812,7 @@ class Scope
 				$this->broker,
 				$this->printer,
 				$this->getFile(),
+				$this->isDeclareStrictTypes(),
 				$this->getClass(),
 				$this->getFunction(),
 				$this->getNamespace(),
@@ -805,6 +842,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->isDeclareStrictTypes(),
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
