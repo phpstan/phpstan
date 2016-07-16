@@ -14,6 +14,7 @@ use PhpParser\Node\Expr\BinaryOp\Coalesce;
 use PhpParser\Node\Expr\BooleanNot;
 use PhpParser\Node\Expr\Cast;
 use PhpParser\Node\Expr\ErrorSuppress;
+use PhpParser\Node\Expr\Exit_;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\Instanceof_;
 use PhpParser\Node\Expr\Isset_;
@@ -567,6 +568,7 @@ class NodeScopeResolver
 				|| $statement instanceof Return_
 				|| $statement instanceof Continue_
 				|| $statement instanceof Break_
+				|| $statement instanceof Exit_
 			) {
 				return true;
 			} elseif ($statement instanceof MethodCall) {
