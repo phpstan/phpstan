@@ -29,6 +29,7 @@ class Foo
 		$stringFromFunction = TypesNamespaceFunctions\stringFunction();
 		$fooObjectFromFunction = TypesNamespaceFunctions\objectFunction();
 		$mixedFromFunction = TypesNamespaceFunctions\unknownTypeFunction();
+		$foo = new self();
 		die;
 	}
 

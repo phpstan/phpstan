@@ -8,4 +8,9 @@ self::class;
 Foo::LOREM;
 Foo::IPSUM;
 Foo::DOLOR;
+$bar::LOREM;
+
+$foo = new Foo();
 $foo::LOREM;
+$foo::IPSUM;
+$foo::DOLOR;

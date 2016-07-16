@@ -511,6 +511,42 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				null,
 				'self::NULL_CONSTANT',
 			],
+			[
+				IntegerType::class,
+				false,
+				null,
+				'$foo::INTEGER_CONSTANT',
+			],
+			[
+				FloatType::class,
+				false,
+				null,
+				'$foo::FLOAT_CONSTANT',
+			],
+			[
+				StringType::class,
+				false,
+				null,
+				'$foo::STRING_CONSTANT',
+			],
+			[
+				ArrayType::class,
+				false,
+				null,
+				'$foo::ARRAY_CONSTANT',
+			],
+			[
+				BooleanType::class,
+				false,
+				null,
+				'$foo::BOOLEAN_CONSTANT',
+			],
+			[
+				NullType::class,
+				true,
+				null,
+				'$foo::NULL_CONSTANT',
+			],
 		];
 	}
 

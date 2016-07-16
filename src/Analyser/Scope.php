@@ -348,30 +348,39 @@ class Scope
 			return new ObjectType('stdClass', false);
 		} elseif ($node instanceof Unset_) {
 			return new NullType();
-		} elseif ($node instanceof Node\Expr\ClassConstFetch && $node->class instanceof Name) {
-			$constantClass = (string) $node->class;
-			if ($constantClass === 'self') {
-				$constantClass = $this->getClass();
+		} elseif ($node instanceof Node\Expr\ClassConstFetch) {
+			if ($node->class instanceof Name) {
+				$constantClass = (string) $node->class;
+				if ($constantClass === 'self') {
+					$constantClass = $this->getClass();
+				}
+			} else {
+				$constantClassType = $this->getType($node->class);
+				if ($constantClassType->getClass() !== null) {
+					$constantClass = $constantClassType->getClass();
+				}
 			}
 
-			$constantName = $node->name;
-			if ($this->broker->hasClass($constantClass)) {
-				$constantClassReflection = $this->broker->getClass($constantClass);
-				$constants = $constantClassReflection->getNativeReflection()->getConstants();
-				if (array_key_exists($constantName, $constants)) {
-					$constantValue = $constants[$constantName];
-					if (is_int($constantValue)) {
-						return new IntegerType(false);
-					} elseif (is_float($constantValue)) {
-						return new FloatType(false);
-					} elseif (is_bool($constantValue)) {
-						return new BooleanType(false);
-					} elseif ($constantValue === null) {
-						return new NullType();
-					} elseif (is_string($constantValue)) {
-						return new StringType(false);
-					} elseif (is_array($constantValue)) {
-						return new ArrayType(false);
+			if (isset($constantClass)) {
+				$constantName = $node->name;
+				if ($this->broker->hasClass($constantClass)) {
+					$constantClassReflection = $this->broker->getClass($constantClass);
+					$constants = $constantClassReflection->getNativeReflection()->getConstants();
+					if (array_key_exists($constantName, $constants)) {
+						$constantValue = $constants[$constantName];
+						if (is_int($constantValue)) {
+							return new IntegerType(false);
+						} elseif (is_float($constantValue)) {
+							return new FloatType(false);
+						} elseif (is_bool($constantValue)) {
+							return new BooleanType(false);
+						} elseif ($constantValue === null) {
+							return new NullType();
+						} elseif (is_string($constantValue)) {
+							return new StringType(false);
+						} elseif (is_array($constantValue)) {
+							return new ArrayType(false);
+						}
 					}
 				}
 			}

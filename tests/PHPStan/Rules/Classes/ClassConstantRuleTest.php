@@ -32,6 +32,10 @@ class ClassConstantRuleTest extends \PHPStan\Rules\AbstractRuleTest
 					'Access to undefined constant ClassConstantNamespace\Foo::DOLOR.',
 					10,
 				],
+				[
+					'Access to undefined constant ClassConstantNamespace\Foo::DOLOR.',
+					16,
+				],
 			]
 		);
 	}

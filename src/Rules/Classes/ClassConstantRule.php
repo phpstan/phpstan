@@ -33,11 +33,16 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 	public function processNode(Node $node, Scope $scope): array
 	{
 		$class = $node->class;
-		if (!($class instanceof \PhpParser\Node\Name)) {
-			return [];
+		if ($class instanceof \PhpParser\Node\Name) {
+			$className = (string) $class;
+		} else {
+			$classType = $scope->getType($class);
+			if ($classType->getClass() !== null) {
+				$className = $classType->getClass();
+			} else {
+				return [];
+			}
 		}
-
-		$className = (string) $class;
 
 		if ($className === 'self' || $className === 'static') {
 			if ($scope->getClass() === null && !$scope->isInAnonymousClass()) {
