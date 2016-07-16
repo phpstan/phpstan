@@ -450,7 +450,6 @@ class Scope
 			return $this->broker->getFunction($functionName)->getReturnType();
 		}
 
-		// todo throw?
 		return new MixedType(false);
 	}
 

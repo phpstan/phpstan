@@ -189,7 +189,6 @@ class NodeScopeResolver
 		} elseif ($node instanceof \PhpParser\Node\Expr\Closure) {
 			$scope = $scope->enterAnonymousFunction($node->params, $node->uses);
 		} elseif ($node instanceof Foreach_) {
-			// todo typy podle obsahu ArrayType
 			if ($node->valueVar instanceof Variable) {
 				$scope = $scope->enterForeach(
 					$node->valueVar->name,
@@ -401,7 +400,6 @@ class NodeScopeResolver
 			$scope = $this->lookForAssigns($scope, $node->else);
 		} elseif ($node instanceof List_) {
 			foreach ($node->vars as $var) {
-				// todo typy podle obsahu pole
 				if ($var instanceof Variable) {
 					$scope = $scope->assignVariable($var->name);
 				} elseif ($var instanceof ArrayDimFetch && $var->var instanceof Variable) {
