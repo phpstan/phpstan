@@ -40,6 +40,8 @@ class TypehintHelper
 				return new CallableType($isNullable);
 			case null:
 				return new MixedType(true);
+			case 'resource':
+				return new ResourceType($isNullable);
 			case 'object':
 			case 'mixed':
 				return new MixedType($isNullable);

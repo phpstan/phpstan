@@ -28,6 +28,7 @@ class Foo
 	 * @param Bar $barObject
 	 * @param Foo $conflictedObject
 	 * @param Baz $moreSpecifiedObject
+	 * @param resource $resource
 	 * @return Foo
 	 */
 	public function doFoo(
@@ -50,7 +51,8 @@ class Foo
 		$nullType,
 		$barObject,
 		Bar $conflictedObject,
-		Bar $moreSpecifiedObject
+		Bar $moreSpecifiedObject,
+		$resource
 	)
 	{
 		die;

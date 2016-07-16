@@ -15,6 +15,7 @@ use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\ResourceType;
 use PHPStan\Type\StaticType;
 use PHPStan\Type\StringType;
 use SomeNodeScopeResolverNamespace\Foo;
@@ -655,6 +656,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				null,
 				'$this->invalidTypeProperty',
 			],
+			[
+				ResourceType::class,
+				false,
+				null,
+				'$this->resource',
+			],
 		];
 	}
 
@@ -1108,6 +1115,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				true,
 				'MethodPhpDocsNamespace\Baz',
 				'$moreSpecifiedObject->doFluentNullable()',
+			],
+			[
+				ResourceType::class,
+				false,
+				null,
+				'$resource',
 			],
 		];
 	}
