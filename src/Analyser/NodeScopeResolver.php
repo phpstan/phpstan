@@ -57,6 +57,7 @@ class NodeScopeResolver
 		'parse_str' => [2],
 		'exec' => [2, 3],
 		'stream_socket_client' => [2, 3],
+		'openssl_sign' => [2],
 	];
 
 	/** @var \PHPStan\Broker\Broker */
