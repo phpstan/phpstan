@@ -37,7 +37,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			$this->printer,
 			true,
 			true,
-			false
+			false,
+			[
+				\EarlyTermination\Foo::class => [
+					'doFoo',
+				],
+			]
 		);
 	}
 
@@ -1474,6 +1479,16 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		$this->processFile($file, function (\PhpParser\Node $node, Scope $scope) use ($result) {
 			if ($node instanceof Exit_) {
 				$this->assertSame($result, $scope->isDeclareStrictTypes());
+			}
+		});
+	}
+
+	public function testEarlyTermination()
+	{
+		$this->processFile(__DIR__ . '/data/early-termination.php', function (\PhpParser\Node $node, Scope $scope) {
+			if ($node instanceof Exit_) {
+				$this->assertTrue($scope->hasVariableType('something'));
+				$this->assertTrue($scope->hasVariableType('var'));
 			}
 		});
 	}

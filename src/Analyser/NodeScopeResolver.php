@@ -76,6 +76,9 @@ class NodeScopeResolver
 	/** @var bool */
 	private $defineVariablesWithoutDefaultBranch;
 
+	/** @var string[][] className(string) => methods(string[]) */
+	private $earlyTerminatingMethodCalls;
+
 	/** @var \PHPStan\Reflection\ClassReflection|null */
 	private $anonymousClassReflection;
 
@@ -84,7 +87,8 @@ class NodeScopeResolver
 		\PhpParser\PrettyPrinter\Standard $printer,
 		bool $polluteScopeWithForLoopInitialAssignments,
 		bool $polluteCatchScopeWithTryAssignments,
-		bool $defineVariablesWithoutDefaultBranch
+		bool $defineVariablesWithoutDefaultBranch,
+		array $earlyTerminatingMethodCalls
 	)
 	{
 		$this->broker = $broker;
@@ -92,6 +96,7 @@ class NodeScopeResolver
 		$this->polluteScopeWithForLoopInitialAssignments = $polluteScopeWithForLoopInitialAssignments;
 		$this->polluteCatchScopeWithTryAssignments = $polluteCatchScopeWithTryAssignments;
 		$this->defineVariablesWithoutDefaultBranch = $defineVariablesWithoutDefaultBranch;
+		$this->earlyTerminatingMethodCalls = $earlyTerminatingMethodCalls;
 	}
 
 	/**
@@ -125,7 +130,7 @@ class NodeScopeResolver
 			$scope = $this->lookForAssigns($scope, $node);
 
 			if ($node instanceof If_ && $node->cond instanceof BooleanNot) {
-				if ($this->hasEarlyTermination($node->stmts)) {
+				if ($this->hasEarlyTermination($node->stmts, $scope)) {
 					$negatedCondition = $node->cond->expr;
 					$scope = $this->lookForInstanceOfs($scope, $negatedCondition);
 				}
@@ -529,15 +534,14 @@ class NodeScopeResolver
 				continue;
 			}
 
-			$hasEarlyTermination = $this->hasEarlyTermination($statements);
-			if ($hasEarlyTermination && !$isSwitchCase) {
-				continue;
-			}
-
 			$mergeWithPrevious = $isSwitchCase;
 
 			foreach ($statements as $statement) {
 				$branchScope = $this->lookForAssigns($branchScope, $statement);
+				$hasStatementEarlyTermination = $this->hasStatementEarlyTermination($statement, $branchScope);
+				if ($hasStatementEarlyTermination && !$isSwitchCase) {
+					continue 2;
+				}
 			}
 
 			if ($intersectedScope === null) {
@@ -558,39 +562,54 @@ class NodeScopeResolver
 
 	/**
 	 * @param \PhpParser\Node[] $statements
+	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return bool
 	 */
-	private function hasEarlyTermination(array $statements): bool
+	private function hasEarlyTermination(array $statements, Scope $scope): bool
 	{
 		foreach ($statements as $statement) {
-			if (
-				$statement instanceof Throw_
-				|| $statement instanceof Return_
-				|| $statement instanceof Continue_
-				|| $statement instanceof Break_
-				|| $statement instanceof Exit_
-			) {
+			if ($this->hasStatementEarlyTermination($statement, $scope)) {
 				return true;
-			} elseif ($statement instanceof MethodCall) {
-				// todo temporary - extension subject
-				if (
-					$statement->var instanceof Variable
-					&& $statement->var->name === 'this'
-					&& is_string($statement->name)
-					&& in_array($statement->name, [
-						'redirect',
-						'redirectUrl',
-						'sendPayload',
-						'sendResponse',
-						'sendJson',
-						'terminate',
-						'error',
-						'raiseError',
-					], true)
-				) {
-					return true;
-				}
 			}
+		}
+
+		return false;
+	}
+
+	private function hasStatementEarlyTermination(Node $statement, Scope $scope): bool
+	{
+		if (
+			$statement instanceof Throw_
+			|| $statement instanceof Return_
+			|| $statement instanceof Continue_
+			|| $statement instanceof Break_
+			|| $statement instanceof Exit_
+		) {
+			return true;
+		} elseif ($statement instanceof MethodCall) {
+			if (!is_string($statement->name)) {
+				return false;
+			}
+
+			$methodCalledOnType = $scope->getType($statement->var);
+			if ($methodCalledOnType->getClass() === null) {
+				return false;
+			}
+
+			if (!$this->broker->hasClass($methodCalledOnType->getClass())) {
+				return false;
+			}
+
+			$classReflection = $this->broker->getClass($methodCalledOnType->getClass());
+			foreach (array_merge([$methodCalledOnType->getClass()], $classReflection->getParentClassesNames()) as $className) {
+				if (!isset($this->earlyTerminatingMethodCalls[$className])) {
+					continue;
+				}
+
+				return in_array($statement->name, $this->earlyTerminatingMethodCalls[$className], true);
+			}
+
+			return false;
 		}
 
 		return false;

@@ -9,6 +9,7 @@ parameters:
 	defineVariablesWithoutDefaultBranch: false
 	ignoreErrors: []
 	universalObjectCratesClasses: []
+	earlyTerminatingMethodCalls: []
 
 services:
 	-
@@ -46,6 +47,7 @@ services:
 			polluteScopeWithForLoopInitialAssignments: %polluteScopeWithForLoopInitialAssignments%
 			polluteCatchScopeWithTryAssignments: %polluteCatchScopeWithTryAssignments%
 			defineVariablesWithoutDefaultBranch: %defineVariablesWithoutDefaultBranch%
+			earlyTerminatingMethodCalls: %earlyTerminatingMethodCalls%
 
 	-
 		class: PHPStan\Broker\BrokerFactory

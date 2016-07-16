@@ -106,7 +106,8 @@ class AnalyserTest extends \PHPStan\TestCase
 				$printer,
 				false,
 				false,
-				false
+				false,
+				[]
 			),
 			$printer,
 			$analyseExcludes,
