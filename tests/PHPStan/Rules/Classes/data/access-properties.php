@@ -39,7 +39,14 @@ class BazAccessProperties
 		$foo->foo;
 		$foo->bar;
 		$foo->ipsum;
+		if (isset($foo->baz)) {
+			$foo->baz;
+		}
 		$stdClass->foo;
+		if (!isset($foo->nonexistent)) {
+			return;
+		}
+		$foo->nonexistent;
 	}
 
 }

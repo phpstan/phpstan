@@ -49,6 +49,10 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 		$propertyClassReflection = $this->broker->getClass($propertyClass);
 
 		if (!$propertyClassReflection->hasProperty($name)) {
+			if ($scope->isSpecified($node)) {
+				return [];
+			}
+
 			$parentClassReflection = $propertyClassReflection->getParentClass();
 			while ($parentClassReflection !== false) {
 				if ($parentClassReflection->hasProperty($name)) {

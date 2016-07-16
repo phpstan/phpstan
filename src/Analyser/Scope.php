@@ -453,6 +453,13 @@ class Scope
 		return new MixedType(false);
 	}
 
+	public function isSpecified(Node $node): bool
+	{
+		$exprString = $this->printer->prettyPrint([$node]);
+
+		return isset($this->moreSpecificTypes[$exprString]);
+	}
+
 	public function enterClass(string $className): self
 	{
 		return new self(
@@ -827,6 +834,15 @@ class Scope
 
 		return $this->addMoreSpecificTypes([
 			$exprString => new ObjectType($className, false),
+		]);
+	}
+
+	public function specifyFetchedPropertyFromIsset(PropertyFetch $expr): self
+	{
+		$exprString = $this->printer->prettyPrint([$expr]);
+
+		return $this->addMoreSpecificTypes([
+			$exprString => new MixedType(false),
 		]);
 	}
 

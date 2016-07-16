@@ -21,6 +21,7 @@ use PhpParser\Node\Expr\Isset_;
 use PhpParser\Node\Expr\List_;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
+use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Ternary;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
@@ -133,6 +134,13 @@ class NodeScopeResolver
 				if ($this->hasEarlyTermination($node->stmts, $scope)) {
 					$negatedCondition = $node->cond->expr;
 					$scope = $this->lookForInstanceOfs($scope, $negatedCondition);
+					if ($negatedCondition instanceof Isset_) {
+						foreach ($negatedCondition->vars as $var) {
+							if ($var instanceof PropertyFetch) {
+								$scope = $scope->specifyFetchedPropertyFromIsset($var);
+							}
+						}
+					}
 				}
 			} elseif ($node instanceof Node\Stmt\Declare_) {
 				foreach ($node->declares as $declare) {
@@ -482,6 +490,14 @@ class NodeScopeResolver
 
 			if ($node instanceof Assign) {
 				$scope = $this->lookForAssigns($scope, $node->expr);
+			}
+
+			if ($node instanceof Isset_) {
+				foreach ($vars as $var) {
+					if ($var instanceof PropertyFetch) {
+						$scope = $scope->specifyFetchedPropertyFromIsset($var);
+					}
+				}
 			}
 		}
 
