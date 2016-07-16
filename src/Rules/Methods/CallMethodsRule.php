@@ -49,7 +49,7 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 
 		$type = $scope->getType($node->var);
 		$methodClass = $type->getClass();
-		if ($methodClass === null) {
+		if ($methodClass === null || !$this->broker->hasClass($methodClass)) {
 			return [];
 		}
 

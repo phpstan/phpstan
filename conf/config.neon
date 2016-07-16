@@ -96,6 +96,9 @@ services:
 		class: PHPStan\Rules\Classes\ExistingClassInInstanceOfRule
 
 	-
+		class: PHPStan\Rules\Classes\ExistingClassesInPropertiesRule
+
+	-
 		class: PHPStan\Rules\Classes\InstantiationRule
 
 	-
@@ -135,6 +138,7 @@ services:
 			- register(@PHPStan\Rules\Classes\AccessStaticPropertiesRule)
 			- register(@PHPStan\Rules\Classes\ClassConstantRule)
 			- register(@PHPStan\Rules\Classes\ExistingClassInInstanceOfRule)
+			- register(@PHPStan\Rules\Classes\ExistingClassesInPropertiesRule)
 			- register(@PHPStan\Rules\Classes\InstantiationRule)
 			- register(@PHPStan\Rules\Classes\RequireParentConstructCallRule)
 			- register(@PHPStan\Rules\Exceptions\CatchedExceptionExistenceRule)
