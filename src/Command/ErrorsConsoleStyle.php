@@ -3,9 +3,21 @@
 namespace PHPStan\Command;
 
 use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 {
+
+	/** @var \Symfony\Component\Console\Output\OutputInterface */
+	private $output;
+
+	public function __construct(InputInterface $input, OutputInterface $output)
+	{
+		parent::__construct($input, $output);
+		$this->output = $output;
+	}
 
 	public function table(array $headers, array $rows)
 	{
@@ -38,6 +50,23 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 		};
 
 		parent::table($headers, $wrap($rows));
+	}
+
+	/**
+	 * @phpcsSuppress SlevomatCodingStandard.Typehints.TypeHintDeclaration.missingParameterTypeHint
+	 * @param int $max
+	 */
+	public function createProgressBar($max = 0): ProgressBar
+	{
+		$progressBar = new ThrottledProgressBar($this->output, $max);
+
+		if (DIRECTORY_SEPARATOR !== '\\') {
+			$progressBar->setEmptyBarCharacter('░'); // light shade character \u2591
+			$progressBar->setProgressCharacter('');
+			$progressBar->setBarCharacter('▓'); // dark shade character \u2593
+		}
+
+		return $progressBar;
 	}
 
 }
