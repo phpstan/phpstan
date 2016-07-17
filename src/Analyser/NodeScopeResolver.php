@@ -617,7 +617,7 @@ class NodeScopeResolver
 			|| $statement instanceof Exit_
 		) {
 			return true;
-		} elseif ($statement instanceof MethodCall) {
+		} elseif ($statement instanceof MethodCall && count($this->earlyTerminatingMethodCalls) > 0) {
 			if (!is_string($statement->name)) {
 				return false;
 			}

@@ -79,6 +79,13 @@ class FileTypeMapper
 				if ($node instanceof Node\Stmt\ClassLike) {
 					$lastClass = $node;
 				}
+				if (!in_array(get_class($node), [
+					Node\Stmt\Property::class,
+					Node\Stmt\ClassMethod::class,
+					Node\Expr\Assign::class,
+				], true)) {
+					return;
+				}
 				$phpDoc = $node->getDocComment();
 				if ($phpDoc === null) {
 					return;
