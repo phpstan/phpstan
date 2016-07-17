@@ -429,3 +429,7 @@ services:
 
 * If `include` or `require` are used in the analysed code (instead of `include_once` or `require_once`),
 PHPStan will throw `Cannot redeclare class` error. Use the `_once` variants to avoid this error.
+
+## Code of Conduct
+
+This project adheres to a [Contributor Code of Conduct](https://github.com/phpstan/phpstan/blob/master/CODE_OF_CONDUCT.md). By participating in this project and its community, you are expected to uphold this code.
