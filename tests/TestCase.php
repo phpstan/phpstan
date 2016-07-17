@@ -14,6 +14,7 @@ use PHPStan\Reflection\Php\PhpClassReflectionExtension;
 use PHPStan\Reflection\Php\PhpMethodReflection;
 use PHPStan\Reflection\Php\PhpMethodReflectionFactory;
 use PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension;
+use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Type;
 
 abstract class TestCase extends \PHPUnit_Framework_TestCase
@@ -95,7 +96,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 					$phpDocReturnType
 				);
 			}
-		}, $parser);
+		}, new FileTypeMapper($parser, $this->createMock(\Nette\Caching\Cache::class)));
 		$functionReflectionFactory = new class($this->getParser(), $functionCallStatementFinder, $cache) implements FunctionReflectionFactory {
 			/** @var \PHPStan\Parser\Parser */
 			private $parser;

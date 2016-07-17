@@ -160,6 +160,9 @@ services:
 	-
 		class: PHPStan\Rules\Variables\DefinedVariableInAnonymousFunctionUseRule
 
+	-
+		class: PHPStan\Type\FileTypeMapper
+
 	broker:
 		class: PHPStan\Broker\Broker
 		factory: @PHPStan\Broker\BrokerFactory::create
