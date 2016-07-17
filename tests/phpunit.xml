@@ -22,5 +22,6 @@
 			showUncoveredFiles="true"
 			showOnlySummary="true"
 		/>
+		<log type="coverage-clover" target="tmp/clover.xml"/>
 	</logging>
 </phpunit>
