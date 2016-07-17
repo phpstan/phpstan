@@ -10,6 +10,7 @@ use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
+use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
@@ -35,6 +36,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		$this->resolver = new NodeScopeResolver(
 			$this->createBroker(),
 			$this->printer,
+			new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class)),
 			true,
 			true,
 			false,
@@ -310,6 +312,107 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/typehints-anonymous-function.php',
+			$typeClass,
+			$nullable,
+			$class,
+			$expression
+		);
+	}
+
+	public function dataVarAnnotations(): array
+	{
+		return [
+			[
+				IntegerType::class,
+				false,
+				null,
+				'$integer',
+			],
+			[
+				BooleanType::class,
+				false,
+				null,
+				'$boolean',
+			],
+			[
+				StringType::class,
+				false,
+				null,
+				'$string',
+			],
+			[
+				FloatType::class,
+				false,
+				null,
+				'$float',
+			],
+			[
+				ObjectType::class,
+				false,
+				'VarAnnotations\Lorem',
+				'$loremObject',
+			],
+			[
+				ObjectType::class,
+				false,
+				'AnotherNamespace\Bar',
+				'$barObject',
+			],
+			[
+				MixedType::class,
+				true,
+				null,
+				'$mixed',
+			],
+			[
+				ArrayType::class,
+				false,
+				null,
+				'$array',
+			],
+			[
+				BooleanType::class,
+				true,
+				null,
+				'$isNullable',
+			],
+			[
+				CallableType::class,
+				false,
+				null,
+				'$callable',
+			],
+			[
+				ObjectType::class,
+				false,
+				'VarAnnotations\Foo',
+				'$self',
+			],
+			[
+				FloatType::class,
+				false,
+				null,
+				'$invalidInteger',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataVarAnnotations
+	 * @param string $typeClass
+	 * @param boolean $nullable
+	 * @param string|null $class
+	 * @param string $expression
+	 */
+	public function testVarAnnotations(
+		string $typeClass,
+		bool $nullable,
+		string $class = null,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/var-annotations.php',
 			$typeClass,
 			$nullable,
 			$class,

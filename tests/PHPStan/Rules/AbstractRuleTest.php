@@ -5,6 +5,7 @@ namespace PHPStan\Rules;
 use PHPStan\Analyser\Analyser;
 use PHPStan\Analyser\Error;
 use PHPStan\Analyser\NodeScopeResolver;
+use PHPStan\Type\FileTypeMapper;
 
 abstract class AbstractRuleTest extends \PHPStan\TestCase
 {
@@ -29,6 +30,7 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 				new NodeScopeResolver(
 					$broker,
 					$printer,
+					new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class)),
 					false,
 					false,
 					false,

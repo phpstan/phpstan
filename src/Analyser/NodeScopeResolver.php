@@ -43,6 +43,7 @@ use PhpParser\Node\Stmt\TryCatch;
 use PhpParser\Node\Stmt\While_;
 use PHPStan\Broker\Broker;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Type;
 
 class NodeScopeResolver
@@ -68,6 +69,9 @@ class NodeScopeResolver
 	/** @var \PhpParser\PrettyPrinter\Standard */
 	private $printer;
 
+	/** @var \PHPStan\Type\FileTypeMapper */
+	private $fileTypeMapper;
+
 	/** @var bool */
 	private $polluteScopeWithForLoopInitialAssignments;
 
@@ -86,6 +90,7 @@ class NodeScopeResolver
 	public function __construct(
 		Broker $broker,
 		\PhpParser\PrettyPrinter\Standard $printer,
+		FileTypeMapper $fileTypeMapper,
 		bool $polluteScopeWithForLoopInitialAssignments,
 		bool $polluteCatchScopeWithTryAssignments,
 		bool $defineVariablesWithoutDefaultBranch,
@@ -94,6 +99,7 @@ class NodeScopeResolver
 	{
 		$this->broker = $broker;
 		$this->printer = $printer;
+		$this->fileTypeMapper = $fileTypeMapper;
 		$this->polluteScopeWithForLoopInitialAssignments = $polluteScopeWithForLoopInitialAssignments;
 		$this->polluteCatchScopeWithTryAssignments = $polluteCatchScopeWithTryAssignments;
 		$this->defineVariablesWithoutDefaultBranch = $defineVariablesWithoutDefaultBranch;
@@ -490,6 +496,17 @@ class NodeScopeResolver
 
 			if ($node instanceof Assign) {
 				$scope = $this->lookForAssigns($scope, $node->expr);
+				if ($node->getDocComment() !== null && $node->var instanceof Variable && is_string($node->var->name)) {
+					$docComment = $node->getDocComment()->getText();
+					if (preg_match('#@var\s+([a-zA-Z_\\\][0-9a-zA-Z\\\_|\[\]]+)\s+\$([a-zA-Z0-9_]+)#', $docComment, $matches)) {
+						$matchedType = $matches[1];
+						$matchedVariableName = $matches[2];
+						$fileTypeMap = $this->fileTypeMapper->getTypeMap($scope->getFile());
+						if (isset($fileTypeMap[$matchedType]) && $matchedVariableName === $node->var->name) {
+							$scope = $scope->assignVariable($matchedVariableName, $fileTypeMap[$matchedType]);
+						}
+					}
+				}
 			}
 
 			if ($node instanceof Isset_) {

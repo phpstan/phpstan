@@ -5,6 +5,7 @@ namespace PHPStan\Analyser;
 use PHPStan\Parser\DirectParser;
 use PHPStan\Rules\AlwaysFailRule;
 use PHPStan\Rules\Registry;
+use PHPStan\Type\FileTypeMapper;
 
 class AnalyserTest extends \PHPStan\TestCase
 {
@@ -104,6 +105,7 @@ class AnalyserTest extends \PHPStan\TestCase
 			new NodeScopeResolver(
 				$broker,
 				$printer,
+				new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class)),
 				false,
 				false,
 				false,
