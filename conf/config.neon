@@ -1,7 +1,6 @@
 parameters:
 	debug_cli_browser:
-	excludes_analyse:
-		- %rootDir%/tests/*/data/* # todo přes konfigurák při spouštění binárky
+	excludes_analyse: []
 	autoload_directories: []
 	autoload_files: []
 	polluteScopeWithForLoopInitialAssignments: false

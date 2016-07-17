@@ -1,3 +1,6 @@
+parameters:
+	excludes_analyse:
+		- %rootDir%/tests/*/data/*
 services:
 	-
 		class: PHPStan\Reflection\PhpParser\PhpParserNameClassReflectionExtension
