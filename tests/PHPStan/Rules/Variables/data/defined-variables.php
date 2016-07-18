@@ -1,5 +1,7 @@
 <?php
 
+namespace DefinedVariables;
+
 if ($definedLater) {
 	$definedLater = 1;
 	$definedInIfOnly = foo();
@@ -65,3 +67,6 @@ instantiate($serviceName);
 function () use (&$errorHandler) {
 	$errorHandler->handle(); // variable is fine here
 };
+
+$refObject = &refFunction();
+$refObject->foo;

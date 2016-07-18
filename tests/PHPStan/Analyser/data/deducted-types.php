@@ -21,6 +21,7 @@ class Foo
 		$anotherBooleanLiteral = false;
 		$stringLiteral = 'foo';
 		$floatLiteral = 1.0;
+		$floatAssignedByRef = &$floatLiteral;
 		$nullLiteral = null;
 		$loremObjectLiteral = new Lorem();
 		$mixedObjectLiteral = new $class();

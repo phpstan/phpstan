@@ -12,46 +12,47 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	public function testDefinedVariables()
 	{
+		require_once __DIR__ . '/data/defined-variables-definition.php';
 		$this->analyse([__DIR__ . '/data/defined-variables.php'], [
 			[
 				'Undefined variable: $definedLater',
-				3,
+				5,
 			],
 			[
 				'Undefined variable: $definedInIfOnly',
-				8,
+				10,
 			],
 			[
 				'Undefined variable: $definedInCases',
-				19,
+				21,
 			],
 			[
 				'Undefined variable: $fooParameterBeforeDeclaration',
-				27,
+				29,
 			],
 			[
 				'Undefined variable: $parseStrParameter',
-				32,
+				34,
 			],
 			[
 				'Undefined variable: $foo',
-				37,
+				39,
 			],
 			[
 				'Undefined variable: $willBeUnset',
-				42,
+				44,
 			],
 			[
 				'Undefined variable: $mustAlreadyExistWhenDividing',
-				48,
+				50,
 			],
 			[
 				'Undefined variable: $arrayDoesNotExist',
-				55,
+				57,
 			],
 			[
 				'Undefined variable: $undefinedVariable',
-				57,
+				59,
 			],
 		]);
 	}

@@ -525,6 +525,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$floatLiteral',
 			],
 			[
+				FloatType::class,
+				false,
+				null,
+				'$floatAssignedByRef',
+			],
+			[
 				NullType::class,
 				true,
 				null,

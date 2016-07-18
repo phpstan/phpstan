@@ -7,6 +7,7 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\AssignRef;
 use PhpParser\Node\Expr\BinaryOp;
 use PhpParser\Node\Expr\BinaryOp\BooleanAnd;
 use PhpParser\Node\Expr\BinaryOp\BooleanOr;
@@ -297,7 +298,7 @@ class NodeScopeResolver
 					$scope = $this->lookForInstanceOfs($scope, $node->left);
 				}
 
-				if ($node instanceof Assign && $subNodeName === 'var') {
+				if (($node instanceof Assign || $node instanceof AssignRef) && $subNodeName === 'var') {
 					$var = $node->var;
 					if ($var instanceof Variable && is_string($var->name)) {
 						$scope = $scope->enterVariableAssign($var->name);
@@ -477,8 +478,8 @@ class NodeScopeResolver
 
 	private function updateScopeForVariableAssign(Scope $scope, \PhpParser\Node $node): Scope
 	{
-		if ($node instanceof Assign || $node instanceof Isset_) {
-			if ($node instanceof Assign) {
+		if (($node instanceof Assign || $node instanceof AssignRef) || $node instanceof Isset_) {
+			if ($node instanceof Assign || $node instanceof AssignRef) {
 				$vars = [$node->var];
 			} elseif ($node instanceof Isset_) {
 				$vars = $node->vars;
@@ -490,11 +491,11 @@ class NodeScopeResolver
 				$scope = $this->assignVariable(
 					$scope,
 					$var,
-					$node instanceof Assign ? $scope->getType($node->expr) : null
+					($node instanceof Assign || $node instanceof AssignRef) ? $scope->getType($node->expr) : null
 				);
 			}
 
-			if ($node instanceof Assign) {
+			if ($node instanceof Assign || $node instanceof AssignRef) {
 				$scope = $this->lookForAssigns($scope, $node->expr);
 				if ($node->getDocComment() !== null && $node->var instanceof Variable && is_string($node->var->name)) {
 					$docComment = $node->getDocComment()->getText();
