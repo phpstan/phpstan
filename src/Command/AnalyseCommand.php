@@ -24,6 +24,12 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			]);
 	}
 
+
+	public function getAliases(): array
+	{
+		return ['analyze'];
+	}
+
 	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
 		$rootDir = realpath(__DIR__ . '/../..');
