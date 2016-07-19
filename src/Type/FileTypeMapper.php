@@ -157,7 +157,7 @@ class FileTypeMapper
 	{
 		$typeParts = explode('|', $typeString);
 		$typePartsWithoutNull = array_values(array_filter($typeParts, function ($part) {
-			return $part !== 'null';
+			return strtolower($part) !== 'null';
 		}));
 		if (count($typePartsWithoutNull) === 0) {
 			return new NullType();

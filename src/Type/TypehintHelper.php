@@ -23,7 +23,8 @@ class TypehintHelper
 			return new ObjectType($selfClass, $isNullable);
 		}
 
-		switch ($typehintString) {
+		$lowercasedTypehintString = strtolower($typehintString);
+		switch ($lowercasedTypehintString) {
 			case 'int':
 			case 'integer':
 				return new IntegerType($isNullable);

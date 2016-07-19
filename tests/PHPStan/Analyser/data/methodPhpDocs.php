@@ -14,7 +14,7 @@ class Foo
 	 * @paran int $yetAnotherMixedProperty
 	 * @param int $integerParameter
 	 * @param integer $anotherIntegerParameter
-	 * @param array $arrayParameterOne
+	 * @param aRray $arrayParameterOne
 	 * @param mixed[] $arrayParameterOther
 	 * @param Lorem $objectRelative
 	 * @param \SomeOtherNamespace\Ipsum $objectFullyQualified
@@ -24,7 +24,7 @@ class Foo
 	 * @param Dolor $anotherNullableObject
 	 * @param self $selfType
 	 * @param static $staticType
-	 * @param null $nullType
+	 * @param Null $nullType
 	 * @param Bar $barObject
 	 * @param Foo $conflictedObject
 	 * @param Baz $moreSpecifiedObject

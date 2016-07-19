@@ -306,7 +306,7 @@ class Scope
 		if ($node instanceof LNumber) {
 			return new IntegerType(false);
 		} elseif ($node instanceof ConstFetch) {
-			$constName = (string) $node->name;
+			$constName = strtolower((string) $node->name);
 			if (in_array($constName, ['true', 'false'], true)) {
 				return new BooleanType(false);
 			}
@@ -567,8 +567,9 @@ class Scope
 		foreach ($parameters as $parameter) {
 			$isNullable = false;
 			if ($parameter->default instanceof ConstFetch && $parameter->default->name instanceof Name) {
-				$isNullable = (string) $parameter->default->name === 'null';
+				$isNullable = strtolower((string) $parameter->default->name) === 'null';
 			}
+
 			if ($parameter->type === null) {
 				$parameterType = new MixedType(true);
 			} elseif ($parameter->type === 'string') {
