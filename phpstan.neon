@@ -1,6 +1,8 @@
 parameters:
 	excludes_analyse:
 		- %rootDir%/tests/*/data/*
+	ignoreErrors:
+		- '#PHPUnit_Framework_MockObject_MockObject::method\(\)#'
 services:
 	-
 		class: PHPStan\Reflection\PhpParser\PhpParserNameClassReflectionExtension

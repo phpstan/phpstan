@@ -3,6 +3,7 @@
 namespace PHPStan\Analyser;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\Cast\Bool_;
 use PhpParser\Node\Expr\Cast\Double;
@@ -91,9 +92,9 @@ class Scope
 	private $anonymousClass;
 
 	/**
-	 * @var string|null
+	 * @var \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|null
 	 */
-	private $inFunctionCallName;
+	private $inFunctionCall;
 
 	/**
 	 * @var \PHPStan\Type\Type[]
@@ -116,7 +117,7 @@ class Scope
 		array $variablesTypes = [],
 		bool $inClosureBind = false,
 		ClassReflection $anonymousClass = null,
-		string $inFunctionCallName = null,
+		Expr $inFunctionCall = null,
 		array $moreSpecificTypes = [],
 		array $currentlyAssignedVariables = []
 	)
@@ -143,7 +144,7 @@ class Scope
 		$this->variableTypes = $variablesTypes;
 		$this->inClosureBind = $inClosureBind;
 		$this->anonymousClass = $anonymousClass;
-		$this->inFunctionCallName = $inFunctionCallName;
+		$this->inFunctionCall = $inFunctionCall;
 		$this->moreSpecificTypes = $moreSpecificTypes;
 		$this->currentlyAssignedVariables = $currentlyAssignedVariables;
 	}
@@ -230,11 +231,11 @@ class Scope
 	}
 
 	/**
-	 * @return string|null
+	 * @return \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|null
 	 */
-	public function getInFunctionCallName()
+	public function getInFunctionCall()
 	{
-		return $this->inFunctionCallName;
+		return $this->inFunctionCall;
 	}
 
 	public function getType(Node $node): Type
@@ -451,12 +452,11 @@ class Scope
 		}
 
 		if ($node instanceof FuncCall && $node->name instanceof Name) {
-			$functionName = (string) $node->name;
-			if (!$this->broker->hasFunction($functionName)) {
+			if (!$this->broker->hasFunction($node->name, $this)) {
 				return new MixedType(true);
 			}
 
-			return $this->broker->getFunction($functionName)->getReturnType();
+			return $this->broker->getFunction($node->name, $this)->getReturnType();
 		}
 
 		return new MixedType(false);
@@ -532,7 +532,7 @@ class Scope
 			$this->getVariableTypes(),
 			true,
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
-			$this->getInFunctionCallName(),
+			$this->getInFunctionCall(),
 			$this->moreSpecificTypes
 		);
 	}
@@ -552,7 +552,7 @@ class Scope
 			],
 			$this->isInClosureBind(),
 			$anonymousClass,
-			$this->getInFunctionCallName()
+			$this->getInFunctionCall()
 		);
 	}
 
@@ -622,7 +622,7 @@ class Scope
 			$variableTypes,
 			$this->isInClosureBind(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
-			$this->getInFunctionCallName()
+			$this->getInFunctionCall()
 		);
 	}
 
@@ -671,7 +671,11 @@ class Scope
 		);
 	}
 
-	public function enterFunctionCall(string $functionName): self
+	/**
+	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall $functionCall
+	 * @return self
+	 */
+	public function enterFunctionCall($functionCall): self
 	{
 		return new self(
 			$this->broker,
@@ -684,7 +688,7 @@ class Scope
 			$this->getVariableTypes(),
 			$this->isInClosureBind(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
-			$functionName,
+			$functionCall,
 			$this->moreSpecificTypes
 		);
 	}
@@ -705,7 +709,7 @@ class Scope
 			$this->getVariableTypes(),
 			$this->isInClosureBind(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
-			$this->getInFunctionCallName(),
+			$this->getInFunctionCall(),
 			$this->moreSpecificTypes,
 			$currentlyAssignedVariables
 		);
@@ -737,7 +741,7 @@ class Scope
 			$variableTypes,
 			$this->isInClosureBind(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
-			$this->getInFunctionCallName(),
+			$this->getInFunctionCall(),
 			$this->moreSpecificTypes
 		);
 	}
@@ -759,7 +763,7 @@ class Scope
 			$variableTypes,
 			$this->isInClosureBind(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
-			$this->getInFunctionCallName(),
+			$this->getInFunctionCall(),
 			$this->moreSpecificTypes
 		);
 	}
@@ -788,7 +792,7 @@ class Scope
 			$intersectedVariableTypes,
 			$this->isInClosureBind(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
-			$this->getInFunctionCallName(),
+			$this->getInFunctionCall(),
 			$this->moreSpecificTypes
 		);
 	}
@@ -811,7 +815,7 @@ class Scope
 			$variableTypes,
 			$this->isInClosureBind(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
-			$this->getInFunctionCallName(),
+			$this->getInFunctionCall(),
 			$this->moreSpecificTypes
 		);
 	}
@@ -835,7 +839,7 @@ class Scope
 				$variableTypes,
 				$this->isInClosureBind(),
 				$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
-				$this->getInFunctionCallName(),
+				$this->getInFunctionCall(),
 				$this->moreSpecificTypes
 			);
 		}
@@ -874,7 +878,7 @@ class Scope
 			$this->getVariableTypes(),
 			$this->isInClosureBind(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
-			$this->getInFunctionCallName(),
+			$this->getInFunctionCall(),
 			$moreSpecificTypes
 		);
 	}

@@ -70,3 +70,10 @@ function () use (&$errorHandler) {
 
 $refObject = &refFunction();
 $refObject->foo;
+
+funcWithSpecialParameter(1, 2, $variableDefinedInsideTheFunction);
+echo $variableDefinedInsideTheFunction;
+
+$fooObject = new Foo();
+$fooObject->doFoo(1, 2, $anotherVariableDefinedInsideTheFunction);
+echo $anotherVariableDefinedInsideTheFunction;

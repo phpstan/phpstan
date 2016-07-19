@@ -2,6 +2,7 @@
 
 namespace PHPStan\Broker;
 
+use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\BrokerAwareClassReflectionExtension;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\FunctionReflectionFactory;
@@ -110,10 +111,11 @@ class Broker
 		}
 	}
 
-	public function getFunction(string $functionName): \PHPStan\Reflection\FunctionReflection
+	public function getFunction(\PhpParser\Node\Name $nameNode, Scope $scope): \PHPStan\Reflection\FunctionReflection
 	{
-		if (!$this->hasFunction($functionName)) {
-			throw new \PHPStan\Broker\FunctionNotFoundException($functionName);
+		$functionName = $this->resolveFunctionName($nameNode, $scope);
+		if ($functionName === null) {
+			throw new \PHPStan\Broker\FunctionNotFoundException((string) $nameNode);
 		}
 
 		$lowerCasedFunctionName = strtolower($functionName);
@@ -124,9 +126,31 @@ class Broker
 		return $this->functionReflections[$lowerCasedFunctionName];
 	}
 
-	public function hasFunction(string $functionName): bool
+	public function hasFunction(\PhpParser\Node\Name $nameNode, Scope $scope): bool
 	{
-		return function_exists($functionName);
+		return $this->resolveFunctionName($nameNode, $scope) !== null;
+	}
+
+	/**
+	 * @param \PhpParser\Node\Name $nameNode
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @return string|null
+	 */
+	public function resolveFunctionName(\PhpParser\Node\Name $nameNode, Scope $scope)
+	{
+		$name = (string) $nameNode;
+		if ($scope->getNamespace() !== null && !$nameNode->isFullyQualified()) {
+			$namespacedName = sprintf('%s\\%s', $scope->getNamespace(), $name);
+			if (function_exists($namespacedName)) {
+				return $namespacedName;
+			}
+		}
+
+		if (function_exists($name)) {
+			return $name;
+		}
+
+		return null;
 	}
 
 }

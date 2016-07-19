@@ -2,6 +2,8 @@
 
 namespace PHPStan\Broker;
 
+use PhpParser\Node\Name;
+use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflectionFactory;
 
 class BrokerTest extends \PHPStan\TestCase
@@ -31,7 +33,11 @@ class BrokerTest extends \PHPStan\TestCase
 	{
 		$this->expectException(\PHPStan\Broker\FunctionNotFoundException::class);
 		$this->expectExceptionMessage('Function nonexistentFunction not found.');
-		$this->broker->getFunction('nonexistentFunction');
+
+		$scope = $this->createMock(Scope::class);
+		$scope->method('getNamespace')
+			->willReturn(null);
+		$this->broker->getFunction(new Name('nonexistentFunction'), $scope);
 	}
 
 	public function testClassAutoloadingException()

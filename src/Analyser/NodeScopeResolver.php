@@ -4,6 +4,7 @@ namespace PHPStan\Analyser;
 
 use PhpParser\Node;
 use PhpParser\Node\Arg;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
@@ -45,24 +46,11 @@ use PhpParser\Node\Stmt\While_;
 use PHPStan\Broker\Broker;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\FileTypeMapper;
+use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 
 class NodeScopeResolver
 {
-
-	const SPECIAL_FUNCTIONS = [
-		'preg_match' => [3],
-		'preg_match_all' => [3],
-		'preg_replace_callback' => [5],
-		'preg_replace_callback_array' => [4],
-		'preg_replace' => [5],
-		'proc_open' => [3],
-		'passthru' => [2],
-		'parse_str' => [2],
-		'exec' => [2, 3],
-		'stream_socket_client' => [2, 3],
-		'openssl_sign' => [2],
-	];
 
 	/** @var \PHPStan\Broker\Broker */
 	private $broker;
@@ -119,18 +107,19 @@ class NodeScopeResolver
 				continue;
 			}
 
-			if (
-				$scope->getInFunctionCallName() !== null
-				&& in_array($scope->getInFunctionCallName(), array_keys(self::SPECIAL_FUNCTIONS), true)
-				&& $node instanceof Arg
-			) {
-				$functionName = $scope->getInFunctionCallName();
-				$specialArgsPositions = self::SPECIAL_FUNCTIONS[$functionName];
+			if ($scope->getInFunctionCall() !== null && $node instanceof Arg) {
+				$functionCall = $scope->getInFunctionCall();
 				$value = $node->value;
-				if (in_array($i + 1, $specialArgsPositions, true) && $value instanceof Variable) {
-					$functionReflection = $this->broker->getFunction($functionName);
-					$parameters = $functionReflection->getParameters();
-					$scope = $scope->assignVariable($value->name, $parameters[$i]->getType());
+
+				$parameters = $this->findParametersInFunctionCall($functionCall, $scope);
+
+				if (
+					$parameters !== null
+					&& isset($parameters[$i])
+					&& $parameters[$i]->isPassedByReference()
+					&& $value instanceof Variable
+				) {
+					$scope = $scope->assignVariable($value->name, new MixedType(true));
 				}
 			}
 
@@ -179,7 +168,7 @@ class NodeScopeResolver
 			}
 		} elseif ($node instanceof \PhpParser\Node\Stmt\Function_) {
 			$scope = $scope->enterFunction(
-				$this->broker->getFunction((string) $node->namespacedName)
+				$this->broker->getFunction($node->namespacedName, $scope)
 			);
 		} elseif ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
 			if ($scope->getClass() !== null) {
@@ -251,8 +240,8 @@ class NodeScopeResolver
 			foreach ($node->stmts as $statement) {
 				$scope = $this->lookForAssigns($scope, $statement);
 			}
-		} elseif ($node instanceof FuncCall && $node->name instanceof Name) {
-			$scope = $scope->enterFunctionCall((string) $node->name);
+		} elseif ($node instanceof FuncCall || $node instanceof MethodCall) {
+			$scope = $scope->enterFunctionCall($node);
 		} elseif ($node instanceof Array_) {
 			foreach ($node->items as $item) {
 				$scope = $this->lookForAssigns($scope, $item->value);
@@ -388,19 +377,17 @@ class NodeScopeResolver
 				$scope = $this->lookForAssigns($scope, $argument);
 			}
 
-			if ($node instanceof FuncCall && $node->name instanceof Name) {
-				if (in_array((string) $node->name, array_keys(self::SPECIAL_FUNCTIONS), true)) {
-					$functionName = (string) $node->name;
-					$newVariablePositions = self::SPECIAL_FUNCTIONS[$functionName];
-					foreach ($newVariablePositions as $newVariablePosition) {
-						if (count($node->args) >= $newVariablePosition) {
-							$arg = $node->args[$newVariablePosition - 1]->value;
-							if ($arg instanceof Variable) {
-								$functionReflection = $this->broker->getFunction($functionName);
-								$parameters = $functionReflection->getParameters();
-								$scope = $scope->assignVariable($arg->name, $parameters[$newVariablePosition - 1]->getType());
-							}
-						}
+			$parameters = $this->findParametersInFunctionCall($node, $scope);
+
+			if ($parameters !== null) {
+				foreach ($parameters as $i => $parameter) {
+					if (!isset($node->args[$i]) || !$parameter->isPassedByReference()) {
+						continue;
+					}
+
+					$arg = $node->args[$i]->value;
+					if ($arg instanceof Variable && is_string($arg->name)) {
+						$scope = $scope->assignVariable($arg->name, new MixedType(true));
 					}
 				}
 			}
@@ -645,6 +632,31 @@ class NodeScopeResolver
 		}
 
 		return false;
+	}
+
+	/**
+	 * @param \PhpParser\Node\Expr $functionCall
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @return null|\ReflectionParameter[]
+	 */
+	private function findParametersInFunctionCall(Expr $functionCall, Scope $scope)
+	{
+		if ($functionCall instanceof FuncCall && $functionCall->name instanceof Name) {
+			if ($this->broker->hasFunction($functionCall->name, $scope)) {
+				return $this->broker->getFunction($functionCall->name, $scope)->getNativeReflection()->getParameters();
+			}
+		} elseif ($functionCall instanceof MethodCall && is_string($functionCall->name)) {
+			$type = $scope->getType($functionCall->var);
+			if ($type->getClass() !== null && $this->broker->hasClass($type->getClass())) {
+				$classReflection = $this->broker->getClass($type->getClass())->getNativeReflection();
+				$methodName = $functionCall->name;
+				if ($classReflection->hasMethod($methodName)) {
+					return $classReflection->getMethod($methodName)->getParameters();
+				}
+			}
+		}
+
+		return null;
 	}
 
 }
