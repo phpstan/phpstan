@@ -102,7 +102,7 @@ class PhpClassReflectionExtension
 			return [];
 		}
 
-		preg_match_all('#@param\s+([a-zA-Z_\\\][0-9a-zA-Z\\\_|\[\]]+)\s+\$([a-zA-Z0-9_]+)#', $phpDoc, $matches, PREG_SET_ORDER);
+		preg_match_all('#@param\s+' . FileTypeMapper::TYPE_PATTERN . '\s+\$([a-zA-Z0-9_]+)#', $phpDoc, $matches, PREG_SET_ORDER);
 		$phpDocParams = [];
 		foreach ($matches as $match) {
 			$typeString = $match[1];
@@ -128,7 +128,7 @@ class PhpClassReflectionExtension
 			return null;
 		}
 
-		$count = preg_match_all('#@return\s+([a-zA-Z_\\\][0-9a-zA-Z\\\_|\[\]]+)#', $phpDoc, $matches);
+		$count = preg_match_all('#@return\s+' . FileTypeMapper::TYPE_PATTERN . '#', $phpDoc, $matches);
 		if ($count !== 1) {
 			return null;
 		}
@@ -166,7 +166,7 @@ class PhpClassReflectionExtension
 			return null;
 		}
 
-		$count = preg_match_all('#@var\s+([a-zA-Z_\\\][0-9a-zA-Z\\\_|\[\]]+)#', $phpDoc, $matches);
+		$count = preg_match_all('#@var\s+' . FileTypeMapper::TYPE_PATTERN . '#', $phpDoc, $matches);
 		if ($count !== 1) {
 			return null;
 		}

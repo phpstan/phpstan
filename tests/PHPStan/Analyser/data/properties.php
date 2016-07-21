@@ -90,6 +90,16 @@ abstract class Foo extends Bar
 	 */
 	private $resource;
 
+	/**
+	 * @var array[array]
+	 */
+	private $yetAnotherAnotherMixedParameter;
+
+	/**
+	 * @var \\Test\Bar
+	 */
+	private $yetAnotherAnotherAnotherMixedParameter;
+
 	public function doFoo()
 	{
 		die;

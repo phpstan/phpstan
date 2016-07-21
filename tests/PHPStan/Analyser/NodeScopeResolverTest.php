@@ -812,6 +812,18 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				null,
 				'$this->resource',
 			],
+			[
+				MixedType::class,
+				true,
+				null,
+				'$yetAnotherAnotherMixedParameter',
+			],
+			[
+				MixedType::class,
+				true,
+				null,
+				'$yetAnotherAnotherAnotherMixedParameter',
+			],
 		];
 	}
 
@@ -1271,6 +1283,18 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				false,
 				null,
 				'$resource',
+			],
+			[
+				MixedType::class,
+				true,
+				null,
+				'$yetAnotherAnotherMixedParameter',
+			],
+			[
+				MixedType::class,
+				true,
+				null,
+				'$yetAnotherAnotherAnotherMixedParameter',
 			],
 		];
 	}

@@ -12,6 +12,7 @@ class FileTypeMapper
 {
 
 	const CONST_FETCH_CONSTANT = '__PHPSTAN_CLASS_REFLECTION_CONSTANT__';
+	const TYPE_PATTERN = '((?:\\\?[0-9a-zA-Z_]+(?:\[\])?(?:\|)?)+)';
 
 	/** @var \PHPStan\Parser\Parser */
 	private $parser;
@@ -67,9 +68,9 @@ class FileTypeMapper
 		};
 
 		$patterns = [
-			'#@param\s+([a-zA-Z_\\\][0-9a-zA-Z\\\_|\[\]]+)\s+\$[a-zA-Z0-9_]+#',
-			'#@var\s+([a-zA-Z_\\\][0-9a-zA-Z\\\_|\[\]]+)#',
-			'#@return\s+([a-zA-Z_\\\][0-9a-zA-Z\\\_|\[\]]+)#',
+			'#@param\s+' . self::TYPE_PATTERN . '\s+\$[a-zA-Z0-9_]+#',
+			'#@var\s+' . self::TYPE_PATTERN . '#',
+			'#@return\s+' . self::TYPE_PATTERN . '#',
 		];
 
 		$lastClass = null;

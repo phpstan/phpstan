@@ -29,6 +29,8 @@ class Foo
 	 * @param Foo $conflictedObject
 	 * @param Baz $moreSpecifiedObject
 	 * @param resource $resource
+	 * @param array[array] $yetAnotherAnotherMixedParameter
+	 * @param \\Test\Bar $yetAnotherAnotherAnotherMixedParameter
 	 * @return Foo
 	 */
 	public function doFoo(
@@ -52,7 +54,9 @@ class Foo
 		$barObject,
 		Bar $conflictedObject,
 		Bar $moreSpecifiedObject,
-		$resource
+		$resource,
+		$yetAnotherAnotherMixedParameter,
+		$yetAnotherAnotherAnotherMixedParameter
 	)
 	{
 		die;
