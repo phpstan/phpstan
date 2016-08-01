@@ -41,6 +41,7 @@ class IpsumAccessStaticProperties
 		parent::$lorem; // does not have a parent
 		FooAccessStaticProperties::$test;
 		FooAccessStaticProperties::$foo; // protected and not from a parent
+		FooAccessStaticProperties::$$foo;
 	}
 
 }
