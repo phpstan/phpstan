@@ -224,6 +224,20 @@ class NodeScopeResolver
 			}
 		} elseif ($node instanceof If_) {
 			$scope = $this->lookForAssigns($scope, $node->cond);
+			$scope = $this->lookForInstanceOfs($scope, $node->cond);
+			$this->processNode($node->cond, $scope, $nodeCallback);
+			$this->processNodes($node->stmts, $scope, $nodeCallback);
+
+			$ifScope = $scope;
+			foreach ($node->elseifs as $elseif) {
+				$this->processNode($elseif, $ifScope, $nodeCallback);
+				$ifScope = $this->lookForAssigns($ifScope, $elseif->cond);
+			}
+			if ($node->else !== null) {
+				$this->processNode($node->else, $ifScope, $nodeCallback);
+			}
+
+			return;
 		} elseif ($node instanceof ElseIf_) {
 			$scope = $this->lookForAssigns($scope, $node->cond);
 			$scope = $this->lookForInstanceOfs($scope, $node->cond);
@@ -268,11 +282,8 @@ class NodeScopeResolver
 		foreach ($node->getSubNodeNames() as $subNodeName) {
 			$scope = $originalScope;
 			$subNode = $node->{$subNodeName};
-			if (is_array($subNode)) {
-				if ($node instanceof If_ && $subNodeName === 'stmts') {
-					$scope = $this->lookForInstanceOfs($scope, $node->cond);
-				}
 
+			if (is_array($subNode)) {
 				$this->processNodes($subNode, $scope, $nodeCallback);
 			} elseif ($subNode instanceof \PhpParser\Node) {
 				if ($node instanceof Coalesce && $subNodeName === 'left') {

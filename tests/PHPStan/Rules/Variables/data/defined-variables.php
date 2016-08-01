@@ -77,3 +77,14 @@ echo $variableDefinedInsideTheFunction;
 $fooObject = new Foo();
 $fooObject->doFoo(1, 2, $anotherVariableDefinedInsideTheFunction);
 echo $anotherVariableDefinedInsideTheFunction;
+
+if ($fooInCondition = doFoo()) {
+	$fooInCondition->foo();
+} elseif ($barInCondition = $fooInCondition) {
+	$barInCondition->bar();
+} elseif (doBar()) {
+	$barInCondition->differentBar();
+} else {
+	$fooInCondition->differentFoo();
+	$barInCondition->totallyDifferentBar();
+}
