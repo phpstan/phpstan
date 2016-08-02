@@ -1,9 +1,17 @@
 language: php
 php:
   - 7.0
+matrix:
+  include:
+    - php: 7.0
+      env: dependencies=lowest
+    - php: 7.0
+      env: dependencies=highest
 before_script:
   - composer self-update
-  - composer install
+  - if [ -z "$dependencies" ]; then composer install; fi;
+  - if [ "$dependencies" = "lowest" ]; then composer update --prefer-lowest -n; fi;
+  - if [ "$dependencies" = "highest" ]; then composer update -n; fi;
 script:
   - vendor/bin/phing
 after_script:
