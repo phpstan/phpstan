@@ -18,4 +18,7 @@
 			"/>
 		</properties>
 	</rule>
+	<rule ref="Generic.Strings.UnnecessaryStringConcat.Found">
+		<exclude-pattern>tests/PHPStan/Analyser/NodeScopeResolverTest.php</exclude-pattern>
+	</rule>
 </ruleset>

@@ -861,6 +861,8 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				return FloatType::class;
 			} elseif ($type === 'boolean') {
 				return BooleanType::class;
+			} elseif ($type === 'string') {
+				return StringType::class;
 			}
 
 			return MixedType::class;
@@ -1105,6 +1107,31 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				false,
 				null,
 				'true + false',
+			],
+			// string
+			[
+				$typeCallback('a' . 'b'),
+				false,
+				null,
+				"'a' . 'b'",
+			],
+			[
+				$typeCallback(1 . 'b'),
+				false,
+				null,
+				"1 . 'b'",
+			],
+			[
+				$typeCallback(1.0 . 'b'),
+				false,
+				null,
+				"1.0 . 'b'",
+			],
+			[
+				$typeCallback(1.0 . 2.0),
+				false,
+				null,
+				'1.0 . 2.0',
 			],
 		];
 	}

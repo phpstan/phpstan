@@ -267,6 +267,10 @@ class Scope
 			return new IntegerType(false);
 		}
 
+		if ($node instanceof Expr\BinaryOp\Concat) {
+			return new StringType(false);
+		}
+
 		if (
 			$node instanceof Node\Expr\BinaryOp\Plus
 			|| $node instanceof Node\Expr\BinaryOp\Minus
