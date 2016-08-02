@@ -97,6 +97,11 @@ class Scope
 	private $inFunctionCall;
 
 	/**
+	 * @var bool
+	 */
+	private $negated;
+
+	/**
 	 * @var \PHPStan\Type\Type[]
 	 */
 	private $moreSpecificTypes;
@@ -118,6 +123,7 @@ class Scope
 		bool $inClosureBind = false,
 		ClassReflection $anonymousClass = null,
 		Expr $inFunctionCall = null,
+		bool $negated = false,
 		array $moreSpecificTypes = [],
 		array $currentlyAssignedVariables = []
 	)
@@ -145,6 +151,7 @@ class Scope
 		$this->inClosureBind = $inClosureBind;
 		$this->anonymousClass = $anonymousClass;
 		$this->inFunctionCall = $inFunctionCall;
+		$this->negated = $negated;
 		$this->moreSpecificTypes = $moreSpecificTypes;
 		$this->currentlyAssignedVariables = $currentlyAssignedVariables;
 	}
@@ -537,6 +544,7 @@ class Scope
 			true,
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
+			$this->isNegated(),
 			$this->moreSpecificTypes
 		);
 	}
@@ -650,6 +658,7 @@ class Scope
 			$this->isInClosureBind(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			null,
+			$this->isNegated(),
 			$this->moreSpecificTypes
 		);
 	}
@@ -671,6 +680,7 @@ class Scope
 			$this->isInClosureBind(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			null,
+			$this->isNegated(),
 			$this->moreSpecificTypes
 		);
 	}
@@ -693,6 +703,7 @@ class Scope
 			$this->isInClosureBind(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$functionCall,
+			$this->isNegated(),
 			$this->moreSpecificTypes
 		);
 	}
@@ -714,6 +725,7 @@ class Scope
 			$this->isInClosureBind(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
+			$this->isNegated(),
 			$this->moreSpecificTypes,
 			$currentlyAssignedVariables
 		);
@@ -746,6 +758,7 @@ class Scope
 			$this->isInClosureBind(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
+			$this->isNegated(),
 			$this->moreSpecificTypes
 		);
 	}
@@ -768,6 +781,7 @@ class Scope
 			$this->isInClosureBind(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
+			$this->isNegated(),
 			$this->moreSpecificTypes
 		);
 	}
@@ -797,6 +811,7 @@ class Scope
 			$this->isInClosureBind(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
+			$this->isNegated(),
 			$this->moreSpecificTypes
 		);
 	}
@@ -820,6 +835,7 @@ class Scope
 			$this->isInClosureBind(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
+			$this->isNegated(),
 			$this->moreSpecificTypes
 		);
 	}
@@ -844,6 +860,7 @@ class Scope
 				$this->isInClosureBind(),
 				$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 				$this->getInFunctionCall(),
+				$this->isNegated(),
 				$this->moreSpecificTypes
 			);
 		}
@@ -862,6 +879,30 @@ class Scope
 		return $this->addMoreSpecificTypes([
 			$exprString => new MixedType(false),
 		]);
+	}
+
+	public function enterNegation(): self
+	{
+		return new self(
+			$this->broker,
+			$this->printer,
+			$this->getFile(),
+			$this->isDeclareStrictTypes(),
+			$this->getClass(),
+			$this->getFunction(),
+			$this->getNamespace(),
+			$this->getVariableTypes(),
+			$this->isInClosureBind(),
+			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
+			$this->getInFunctionCall(),
+			!$this->isNegated(),
+			$this->moreSpecificTypes
+		);
+	}
+
+	public function isNegated(): bool
+	{
+		return $this->negated;
 	}
 
 	private function addMoreSpecificTypes(array $types): self
@@ -883,6 +924,7 @@ class Scope
 			$this->isInClosureBind(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
+			$this->isNegated(),
 			$moreSpecificTypes
 		);
 	}

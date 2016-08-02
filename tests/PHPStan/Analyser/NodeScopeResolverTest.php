@@ -1555,14 +1555,62 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
-	public function testNegatedInstanceof()
+	public function dataNegatedInstanceof(): array
+	{
+		return [
+			[
+				ObjectType::class,
+				false,
+				'NegatedInstanceOf\Foo',
+				'$foo',
+			],
+			[
+				ObjectType::class,
+				false,
+				'NegatedInstanceOf\Bar',
+				'$bar',
+			],
+			[
+				ObjectType::class,
+				false,
+				'NegatedInstanceOf\Lorem',
+				'$lorem',
+			],
+			[
+				MixedType::class,
+				true,
+				null,
+				'$dolor',
+			],
+			[
+				MixedType::class,
+				true,
+				null,
+				'$sit',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataNegatedInstanceof
+	 * @param string $typeClass
+	 * @param bool $nullable
+	 * @param string|null $class
+	 * @param string $expression
+	 */
+	public function testNegatedInstanceof(
+		string $typeClass,
+		bool $nullable,
+		string $class = null,
+		string $expression
+	)
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/negated-instanceof.php',
-			ObjectType::class,
-			false,
-			'NegatedInstanceOf\Foo',
-			'$foo'
+			$typeClass,
+			$nullable,
+			$class,
+			$expression
 		);
 	}
 

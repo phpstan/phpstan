@@ -126,17 +126,20 @@ class NodeScopeResolver
 			$this->processNode($node, $scope, $nodeCallback);
 			$scope = $this->lookForAssigns($scope, $node);
 
-			if ($node instanceof If_ && $node->cond instanceof BooleanNot) {
+			if ($node instanceof If_) {
 				if ($this->hasEarlyTermination($node->stmts, $scope)) {
-					$negatedCondition = $node->cond->expr;
-					$scope = $this->lookForInstanceOfs($scope, $negatedCondition);
-					if ($negatedCondition instanceof Isset_) {
-						foreach ($negatedCondition->vars as $var) {
-							if ($var instanceof PropertyFetch) {
-								$scope = $scope->specifyFetchedPropertyFromIsset($var);
+					$this->processNode($node->cond, $scope, function (Node $node, Scope $inScope) use (&$scope) {
+						if ($inScope->isNegated()) {
+							$scope = $this->lookForInstanceOfs($scope, $node);
+							if ($node instanceof Isset_) {
+								foreach ($node->vars as $var) {
+									if ($var instanceof PropertyFetch) {
+										$scope = $scope->specifyFetchedPropertyFromIsset($var);
+									}
+								}
 							}
 						}
-					}
+					});
 				}
 			} elseif ($node instanceof Node\Stmt\Declare_) {
 				foreach ($node->declares as $declare) {
@@ -276,6 +279,8 @@ class NodeScopeResolver
 			$code = $this->printer->prettyPrint([$node]);
 			$classReflection = new \ReflectionClass(eval(sprintf('return %s', $code)));
 			$this->anonymousClassReflection = $this->broker->getClassFromReflection($classReflection);
+		} elseif ($node instanceof BooleanNot) {
+			$scope = $scope->enterNegation();
 		}
 
 		$originalScope = $scope;
