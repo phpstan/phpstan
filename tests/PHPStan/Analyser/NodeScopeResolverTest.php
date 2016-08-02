@@ -103,6 +103,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$this->assertArrayHasKey('ternaryMatches', $variables);
 				$this->assertArrayHasKey('previousI', $variables);
 				$this->assertArrayHasKey('previousJ', $variables);
+				$this->assertArrayHasKey('frame', $variables);
 				$this->assertArrayHasKey('listOne', $variables);
 				$this->assertArrayHasKey('listTwo', $variables);
 				$this->assertArrayHasKey('e', $variables);

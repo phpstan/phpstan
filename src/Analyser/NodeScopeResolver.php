@@ -62,7 +62,7 @@ class NodeScopeResolver
 	private $fileTypeMapper;
 
 	/** @var bool */
-	private $polluteScopeWithForLoopInitialAssignments;
+	private $polluteScopeWithLoopInitialAssignments;
 
 	/** @var bool */
 	private $polluteCatchScopeWithTryAssignments;
@@ -80,7 +80,7 @@ class NodeScopeResolver
 		Broker $broker,
 		\PhpParser\PrettyPrinter\Standard $printer,
 		FileTypeMapper $fileTypeMapper,
-		bool $polluteScopeWithForLoopInitialAssignments,
+		bool $polluteScopeWithLoopInitialAssignments,
 		bool $polluteCatchScopeWithTryAssignments,
 		bool $defineVariablesWithoutDefaultBranch,
 		array $earlyTerminatingMethodCalls
@@ -89,7 +89,7 @@ class NodeScopeResolver
 		$this->broker = $broker;
 		$this->printer = $printer;
 		$this->fileTypeMapper = $fileTypeMapper;
-		$this->polluteScopeWithForLoopInitialAssignments = $polluteScopeWithForLoopInitialAssignments;
+		$this->polluteScopeWithLoopInitialAssignments = $polluteScopeWithLoopInitialAssignments;
 		$this->polluteCatchScopeWithTryAssignments = $polluteCatchScopeWithTryAssignments;
 		$this->defineVariablesWithoutDefaultBranch = $defineVariablesWithoutDefaultBranch;
 		$this->earlyTerminatingMethodCalls = $earlyTerminatingMethodCalls;
@@ -451,13 +451,17 @@ class NodeScopeResolver
 			$scope = $this->lookForAssignsInBranches($scope, $statements, true);
 		} elseif ($node instanceof Cast) {
 			$scope = $this->lookForAssigns($scope, $node->expr);
-		} elseif ($this->polluteScopeWithForLoopInitialAssignments && $node instanceof For_) {
-			foreach ($node->init as $initExpr) {
-				$scope = $this->lookForAssigns($scope, $initExpr);
-			}
+		} elseif ($this->polluteScopeWithLoopInitialAssignments) {
+			if ($node instanceof For_) {
+				foreach ($node->init as $initExpr) {
+					$scope = $this->lookForAssigns($scope, $initExpr);
+				}
 
-			foreach ($node->cond as $condExpr) {
-				$scope = $this->lookForAssigns($scope, $condExpr);
+				foreach ($node->cond as $condExpr) {
+					$scope = $this->lookForAssigns($scope, $condExpr);
+				}
+			} elseif ($node instanceof While_) {
+				$scope = $this->lookForAssigns($scope, $node->cond);
 			}
 		} elseif ($node instanceof ErrorSuppress) {
 			$scope = $this->lookForAssigns($scope, $node->expr);

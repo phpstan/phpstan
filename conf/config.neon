@@ -3,7 +3,7 @@ parameters:
 	excludes_analyse: []
 	autoload_directories: []
 	autoload_files: []
-	polluteScopeWithForLoopInitialAssignments: false
+	polluteScopeWithLoopInitialAssignments: false
 	polluteCatchScopeWithTryAssignments: false
 	defineVariablesWithoutDefaultBranch: false
 	ignoreErrors: []
@@ -43,7 +43,7 @@ services:
 	-
 		class: PHPStan\Analyser\NodeScopeResolver
 		arguments:
-			polluteScopeWithForLoopInitialAssignments: %polluteScopeWithForLoopInitialAssignments%
+			polluteScopeWithLoopInitialAssignments: %polluteScopeWithLoopInitialAssignments%
 			polluteCatchScopeWithTryAssignments: %polluteCatchScopeWithTryAssignments%
 			defineVariablesWithoutDefaultBranch: %defineVariablesWithoutDefaultBranch%
 			earlyTerminatingMethodCalls: %earlyTerminatingMethodCalls%

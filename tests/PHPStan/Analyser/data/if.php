@@ -79,6 +79,10 @@ for ($previousI = 0, $previousJ = 0; $previousI < 1; $previousI++) {
 
 }
 
+while (($frame = $that->getReader()->consumeFrame($that->getReadBuffer())) === null) {
+
+}
+
 try {
 	$inTryTwo = 1;
 } catch (\Exception $e) {

@@ -135,7 +135,7 @@ parameters:
 
 ### Add non-obviously assigned variables to scope
 
-If you use the initial assignment variable after for-loop, set `polluteScopeWithForLoopInitialAssignments` boolean parameter to `true`.
+If you use the initial assignment variable after for-loop or while-loop, set `polluteScopeWithLoopInitialAssignments` boolean parameter to `true`.
 
 ```php
 	for ($i = 0; $i < count($list); $i++) {
