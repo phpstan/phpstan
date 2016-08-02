@@ -9,20 +9,21 @@
 	],
 	"require": {
 		"php": "~7.0",
-		"nette/bootstrap": "~2.3",
+		"nette/bootstrap": "~2.4",
 		"nette/caching": "~2.4",
-		"nette/di": "^2.3.6",
-		"nette/robot-loader": "~2.3",
+		"nette/di": "~2.4",
+		"nette/robot-loader": "~2.4",
+		"nette/utils": "~2.4",
 		"nikic/php-parser": "~2.0",
-		"symfony/console": "~3.0",
-		"symfony/finder": "~3.0",
-		"tracy/tracy": "~2.3"
+		"symfony/console": "~2.8 || ~3.0",
+		"symfony/finder": "~2.8 || ~3.0",
+		"tracy/tracy": "~2.4"
 	},
 	"require-dev": {
 		"consistence/coding-standard": "~0.11.0",
 		"satooshi/php-coveralls": "^1.0",
 		"phing/phing": "^2.13.0",
-		"phpunit/phpunit": "^5.3",
+		"phpunit/phpunit": "^5.4",
 		"slevomat/coding-standard": "dev-php7#961090ac32"
 	},
 	"autoload": {
