@@ -7,7 +7,9 @@ parameters:
 	polluteCatchScopeWithTryAssignments: false
 	defineVariablesWithoutDefaultBranch: false
 	ignoreErrors: []
-	universalObjectCratesClasses: []
+	universalObjectCratesClasses:
+		- stdClass
+		- SimpleXMLElement
 	earlyTerminatingMethodCalls: []
 
 services:
