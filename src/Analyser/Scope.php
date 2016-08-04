@@ -765,7 +765,9 @@ class Scope
 
 	public function unsetVariable(string $variableName): self
 	{
-		$this->getVariableType($variableName); // check if exists
+		if (!$this->hasVariableType($variableName)) {
+			return $this;
+		}
 		$variableTypes = $this->getVariableTypes();
 		unset($variableTypes[$variableName]);
 
