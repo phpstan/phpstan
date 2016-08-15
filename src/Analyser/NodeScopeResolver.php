@@ -241,6 +241,24 @@ class NodeScopeResolver
 			}
 
 			return;
+		} elseif ($node instanceof Switch_) {
+			$scope = $this->lookForAssigns($scope, $node->cond);
+			$switchScope = $scope;
+			$switchConditionIsTrue = $node->cond instanceof Expr\ConstFetch && strtolower((string) $node->cond->name) === 'true';
+			foreach ($node->cases as $caseNode) {
+				if ($caseNode->cond !== null) {
+					$switchScope = $this->lookForAssigns($switchScope, $caseNode->cond);
+
+					if ($switchConditionIsTrue) {
+						$switchScope = $this->lookForInstanceOfs($switchScope, $caseNode->cond);
+					}
+				}
+				$this->processNode($caseNode, $switchScope, $nodeCallback);
+				if ($this->hasEarlyTermination($caseNode->stmts, $switchScope)) {
+					$switchScope = $scope;
+				}
+			}
+			return;
 		} elseif ($node instanceof ElseIf_) {
 			$scope = $this->lookForAssigns($scope, $node->cond);
 			$scope = $this->lookForInstanceOfs($scope, $node->cond);

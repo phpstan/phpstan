@@ -1397,6 +1397,64 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+	public function testNotSwitchInstanceof()
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/switch-instanceof-not.php',
+			MixedType::class,
+			true,
+			null,
+			'$foo'
+		);
+	}
+
+	public function dataSwitchInstanceOf(): array
+	{
+		return [
+			[
+				MixedType::class,
+				true,
+				null,
+				'$foo',
+			],
+			[
+				ObjectType::class,
+				false,
+				'SwitchInstanceOf\Bar',
+				'$bar',
+			],
+			[
+				ObjectType::class,
+				false,
+				'SwitchInstanceOf\Baz',
+				'$baz',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataSwitchInstanceOf
+	 * @param string $typeClass
+	 * @param boolean $nullable
+	 * @param string|null $class
+	 * @param string $expression
+	 */
+	public function testSwitchInstanceof(
+		string $typeClass,
+		bool $nullable,
+		string $class = null,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/switch-instanceof.php',
+			$typeClass,
+			$nullable,
+			$class,
+			$expression
+		);
+	}
+
 	public function dataDynamicMethodReturnTypeExtensions(): array
 	{
 		return [
