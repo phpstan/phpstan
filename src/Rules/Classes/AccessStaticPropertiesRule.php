@@ -94,29 +94,14 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 			];
 		}
 
-		if ($currentClass !== null && $property->getDeclaringClass()->getName() !== $currentClass) {
-			if (in_array($class, $currentClassReflection->getParentClassesNames(), true)) {
-				if ($property->isPrivate()) {
-					return [
-						sprintf(
-							'Access to private static property $%s of class %s.',
-							$name,
-							$property->getDeclaringClass()->getName()
-						),
-					];
-				}
-			} else {
-				if (!$property->isPublic()) {
-					return [
-						sprintf(
-							'Access to %s static property $%s of class %s.',
-							$property->isPrivate() ? 'private' : 'protected',
-							$name,
-							$property->getDeclaringClass()->getName()
-						),
-					];
-				}
-			}
+		if (!$scope->canAccessProperty($property)) {
+			return [
+				sprintf(
+					'Cannot access property %s::$%s from current scope.',
+					$property->getDeclaringClass()->getName(),
+					$name
+				),
+			];
 		}
 
 		return [];

@@ -33,11 +33,11 @@ class AccessStaticPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			],
 			[
 				'IpsumAccessStaticProperties::ipsum() accesses parent::$lorem but IpsumAccessStaticProperties does not extend any class.',
-				41,
+				42,
 			],
 			[
-				'Access to protected static property $foo of class FooAccessStaticProperties.',
-				43,
+				'Cannot access property FooAccessStaticProperties::$foo from current scope.',
+				44,
 			],
 		]);
 	}

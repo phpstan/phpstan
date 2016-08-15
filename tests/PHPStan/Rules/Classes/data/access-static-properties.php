@@ -24,6 +24,7 @@ class BarAccessStaticProperties extends FooAccessStaticProperties
 		self::$bar; // nonexistent
 		parent::$bar; // nonexistent
 		FooAccessStaticProperties::$loremIpsum; // instance
+		static::$foo;
 	}
 
 	public function loremIpsum()
