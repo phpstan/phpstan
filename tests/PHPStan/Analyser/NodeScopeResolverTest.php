@@ -1365,6 +1365,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'PhpParser\Node\Stmt\Function_',
 				'$bar',
 			],
+			[
+				MixedType::class,
+				true,
+				null,
+				'$baz',
+			],
 		];
 	}
 

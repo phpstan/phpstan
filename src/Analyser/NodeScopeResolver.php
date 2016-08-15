@@ -227,11 +227,11 @@ class NodeScopeResolver
 			}
 		} elseif ($node instanceof If_) {
 			$scope = $this->lookForAssigns($scope, $node->cond);
+			$ifScope = $scope;
 			$scope = $this->lookForInstanceOfs($scope, $node->cond);
 			$this->processNode($node->cond, $scope, $nodeCallback);
 			$this->processNodes($node->stmts, $scope, $nodeCallback);
 
-			$ifScope = $scope;
 			foreach ($node->elseifs as $elseif) {
 				$this->processNode($elseif, $ifScope, $nodeCallback);
 				$ifScope = $this->lookForAssigns($ifScope, $elseif->cond);
