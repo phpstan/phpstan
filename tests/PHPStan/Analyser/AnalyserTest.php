@@ -83,12 +83,46 @@ class AnalyserTest extends \PHPStan\TestCase
 		], $result);
 	}
 
+	public function testNonexistentBootstrapFile()
+	{
+		$analyser = $this->createAnalyser([], [], __DIR__ . '/foo.php');
+		$result = $analyser->analyse([__DIR__ . '/data/empty.php']);
+		$this->assertInternalType('array', $result);
+		$this->assertCount(1, $result);
+		$this->assertContains('does not exist', $result[0]);
+	}
+
+	public function testBootstrapFile()
+	{
+		$analyser = $this->createAnalyser([], [], __DIR__ . '/data/bootstrap.php');
+		$result = $analyser->analyse([__DIR__ . '/data/empty.php']);
+		$this->assertInternalType('array', $result);
+		$this->assertEmpty($result);
+		$this->assertSame('fooo', PHPSTAN_TEST_CONSTANT);
+	}
+
+	public function testBootstrapFileWithAnError()
+	{
+		$analyser = $this->createAnalyser([], [], __DIR__ . '/data/bootstrap-error.php');
+		$result = $analyser->analyse([__DIR__ . '/data/empty.php']);
+		$this->assertInternalType('array', $result);
+		$this->assertCount(1, $result);
+		$this->assertSame([
+			'Call to undefined function BootstrapError\doFoo()',
+		], $result);
+	}
+
 	/**
 	 * @param string[] $analyseExcludes
 	 * @param string[] $ignoreErrors
+	 * @param string|null $bootstrapFile
 	 * @return Analyser
 	 */
-	private function createAnalyser(array $analyseExcludes, array $ignoreErrors): \PHPStan\Analyser\Analyser
+	private function createAnalyser(
+		array $analyseExcludes,
+		array $ignoreErrors,
+		string $bootstrapFile = null
+	): \PHPStan\Analyser\Analyser
 	{
 		$registry = new Registry();
 		$registry->register(new AlwaysFailRule());
@@ -113,7 +147,8 @@ class AnalyserTest extends \PHPStan\TestCase
 			),
 			$printer,
 			$analyseExcludes,
-			$ignoreErrors
+			$ignoreErrors,
+			$bootstrapFile
 		);
 
 		return $analyser;

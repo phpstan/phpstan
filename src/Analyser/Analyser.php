@@ -47,6 +47,11 @@ class Analyser
 	private $ignoreErrors;
 
 	/**
+	 * @var string|null
+	 */
+	private $bootstrapFile;
+
+	/**
 	 * @param \PHPStan\Broker\Broker $broker
 	 * @param \PHPStan\Parser\Parser $parser
 	 * @param \PHPStan\Rules\Registry $registry
@@ -54,6 +59,7 @@ class Analyser
 	 * @param \PhpParser\PrettyPrinter\Standard $printer
 	 * @param string[] $analyseExcludes
 	 * @param string[] $ignoreErrors
+	 * @param string|null $bootstrapFile
 	 */
 	public function __construct(
 		Broker $broker,
@@ -62,7 +68,8 @@ class Analyser
 		NodeScopeResolver $nodeScopeResolver,
 		\PhpParser\PrettyPrinter\Standard $printer,
 		array $analyseExcludes,
-		array $ignoreErrors
+		array $ignoreErrors,
+		string $bootstrapFile = null
 	)
 	{
 		$this->broker = $broker;
@@ -74,6 +81,7 @@ class Analyser
 			return str_replace('/', DIRECTORY_SEPARATOR, $exclude);
 		}, $analyseExcludes);
 		$this->ignoreErrors = $ignoreErrors;
+		$this->bootstrapFile = $bootstrapFile;
 	}
 
 	/**
@@ -84,6 +92,19 @@ class Analyser
 	public function analyse(array $files, \Closure $progressCallback = null): array
 	{
 		$errors = [];
+
+		if ($this->bootstrapFile !== null) {
+			if (!is_file($this->bootstrapFile)) {
+				return [
+					sprintf('Bootstrap file %s does not exist.', $this->bootstrapFile),
+				];
+			}
+			try {
+				require_once $this->bootstrapFile;
+			} catch (\Throwable $e) {
+				return [$e->getMessage()];
+			}
+		}
 
 		foreach ($this->ignoreErrors as $ignoreError) {
 			try {

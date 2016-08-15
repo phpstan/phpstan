@@ -1,4 +1,5 @@
 parameters:
+	bootstrap: null
 	debug_cli_browser:
 	excludes_analyse: []
 	autoload_directories: []
@@ -41,6 +42,7 @@ services:
 		arguments:
 			analyseExcludes: %excludes_analyse%
 			ignoreErrors: %ignoreErrors%
+			bootstrapFile: %bootstrap%
 
 	-
 		class: PHPStan\Analyser\NodeScopeResolver
