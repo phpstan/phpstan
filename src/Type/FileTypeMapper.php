@@ -70,6 +70,7 @@ class FileTypeMapper
 		$patterns = [
 			'#@param\s+' . self::TYPE_PATTERN . '\s+\$[a-zA-Z0-9_]+#',
 			'#@var\s+' . self::TYPE_PATTERN . '#',
+			'#@var\s+\$[a-zA-Z0-9_]+\s+' . self::TYPE_PATTERN . '#',
 			'#@return\s+' . self::TYPE_PATTERN . '#',
 		];
 
