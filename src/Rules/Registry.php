@@ -6,7 +6,7 @@ class Registry
 {
 
 	/**
-	 * @var \PHPStan\Rules\Rule[]
+	 * @var \PHPStan\Rules\Rule[][]
 	 */
 	private $rules;
 
