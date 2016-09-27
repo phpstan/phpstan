@@ -10,7 +10,17 @@ class Registry
 	 */
 	private $rules;
 
-	public function register(Rule $rule)
+	/**
+	 * @param \PHPStan\Rules\Rule[] $rules
+	 */
+	public function __construct(array $rules)
+	{
+		foreach ($rules as $rule) {
+			$this->register($rule);
+		}
+	}
+
+	private function register(Rule $rule)
 	{
 		if (!isset($this->rules[$rule->getNodeType()])) {
 			$this->rules[$rule->getNodeType()] = [];

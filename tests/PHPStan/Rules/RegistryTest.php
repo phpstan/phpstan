@@ -9,8 +9,9 @@ class RegistryTest extends \PHPStan\TestCase
 	{
 		$rule = new DummyRule();
 
-		$registry = new Registry();
-		$registry->register($rule);
+		$registry = new Registry([
+			$rule,
+		]);
 
 		$rules = $registry->getRules('PHPParser_Node_Expr_FuncCall');
 		$this->assertSame(1, count($rules));
