@@ -18,8 +18,9 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 	private function getAnalyser(): Analyser
 	{
 		if ($this->analyser === null) {
-			$registry = new Registry();
-			$registry->register($this->getRule());
+			$registry = new Registry([
+				$this->getRule(),
+			]);
 
 			$broker = $this->createBroker();
 			$printer = new \PhpParser\PrettyPrinter\Standard();

@@ -90,78 +90,96 @@ services:
 
 	-
 		class: PHPStan\Rules\Classes\AccessPropertiesRule
+		tags:
+			- phpstan.rules.rule
 
 	-
 		class: PHPStan\Rules\Classes\AccessStaticPropertiesRule
+		tags:
+			- phpstan.rules.rule
 
 	-
 		class: PHPStan\Rules\Classes\ClassConstantRule
+		tags:
+			- phpstan.rules.rule
 
 	-
 		class: PHPStan\Rules\Classes\ExistingClassInInstanceOfRule
+		tags:
+			- phpstan.rules.rule
 
 	-
 		class: PHPStan\Rules\Classes\ExistingClassesInPropertiesRule
+		tags:
+			- phpstan.rules.rule
 
 	-
 		class: PHPStan\Rules\Classes\InstantiationRule
+		tags:
+			- phpstan.rules.rule
 
 	-
 		class: PHPStan\Rules\Classes\RequireParentConstructCallRule
+		tags:
+			- phpstan.rules.rule
 
 	-
 		class: PHPStan\Rules\Exceptions\CatchedExceptionExistenceRule
+		tags:
+			- phpstan.rules.rule
 
 	-
 		class: PHPStan\Rules\Functions\CallToFunctionParametersRule
+		tags:
+			- phpstan.rules.rule
 
 	-
 		class: PHPStan\Rules\Functions\CallToNonExistentFunctionRule
+		tags:
+			- phpstan.rules.rule
 
 	-
 		class: PHPStan\Rules\Functions\ExistingClassesInClosureTypehintsRule
+		tags:
+			- phpstan.rules.rule
 
 	-
 		class: PHPStan\Rules\Functions\ExistingClassesInTypehintsRule
+		tags:
+			- phpstan.rules.rule
 
 	-
 		class: PHPStan\Rules\Functions\PrintfParametersRule
+		tags:
+			- phpstan.rules.rule
 
 	-
 		class: PHPStan\Rules\Methods\CallMethodsRule
+		tags:
+			- phpstan.rules.rule
 
 	-
 		class: PHPStan\Rules\Methods\CallStaticMethodsRule
+		tags:
+			- phpstan.rules.rule
 
 	-
 		class: PHPStan\Rules\Methods\ExistingClassesInTypehintsRule
+		tags:
+			- phpstan.rules.rule
 
 	-
-		class: PHPStan\Rules\Registry
-		setup:
-			- register(@PHPStan\Rules\Classes\AccessPropertiesRule)
-			- register(@PHPStan\Rules\Classes\AccessStaticPropertiesRule)
-			- register(@PHPStan\Rules\Classes\ClassConstantRule)
-			- register(@PHPStan\Rules\Classes\ExistingClassInInstanceOfRule)
-			- register(@PHPStan\Rules\Classes\ExistingClassesInPropertiesRule)
-			- register(@PHPStan\Rules\Classes\InstantiationRule)
-			- register(@PHPStan\Rules\Classes\RequireParentConstructCallRule)
-			- register(@PHPStan\Rules\Exceptions\CatchedExceptionExistenceRule)
-			- register(@PHPStan\Rules\Functions\CallToNonExistentFunctionRule)
-			- register(@PHPStan\Rules\Functions\CallToFunctionParametersRule)
-			- register(@PHPStan\Rules\Functions\ExistingClassesInClosureTypehintsRule)
-			- register(@PHPStan\Rules\Functions\ExistingClassesInTypehintsRule)
-			- register(@PHPStan\Rules\Functions\PrintfParametersRule)
-			- register(@PHPStan\Rules\Methods\CallMethodsRule)
-			- register(@PHPStan\Rules\Methods\CallStaticMethodsRule)
-			- register(@PHPStan\Rules\Methods\ExistingClassesInTypehintsRule)
-			- register(@PHPStan\Rules\Variables\DefinedVariableRule)
+		class: PHPStan\Rules\RegistryFactory
 
 	-
 		class: PHPStan\Rules\Variables\DefinedVariableRule
+		tags:
+			- phpstan.rules.rule
 
 	-
 		class: PHPStan\Rules\Variables\DefinedVariableInAnonymousFunctionUseRule
+		tags:
+			- phpstan.rules.rule
 
 	-
 		class: PHPStan\Type\FileTypeMapper
@@ -179,3 +197,7 @@ services:
 	directParser:
 		class: PHPStan\Parser\DirectParser
 		autowired: no
+
+	registry:
+		class: PHPStan\Rules\Registry
+		factory: @PHPStan\Rules\RegistryFactory::create

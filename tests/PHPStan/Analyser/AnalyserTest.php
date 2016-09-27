@@ -124,8 +124,9 @@ class AnalyserTest extends \PHPStan\TestCase
 		string $bootstrapFile = null
 	): \PHPStan\Analyser\Analyser
 	{
-		$registry = new Registry();
-		$registry->register(new AlwaysFailRule());
+		$registry = new Registry([
+			new AlwaysFailRule(),
+		]);
 
 		$traverser = new \PhpParser\NodeTraverser();
 		$traverser->addVisitor(new \PhpParser\NodeVisitor\NameResolver());
