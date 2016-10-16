@@ -88,13 +88,14 @@ class FileTypeMapper
 				], true)) {
 					return;
 				}
-				$phpDoc = $node->getDocComment();
-				if ($phpDoc === null) {
+
+				$comment = CommentHelper::getDocComment($node);
+				if ($comment === null) {
 					return;
 				}
 
 				foreach ($patterns as $pattern) {
-					preg_match_all($pattern, $phpDoc->getText(), $matches, PREG_SET_ORDER);
+					preg_match_all($pattern, $comment, $matches, PREG_SET_ORDER);
 					foreach ($matches as $match) {
 						$processTypeString($match[1], $className);
 					}

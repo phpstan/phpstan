@@ -45,6 +45,7 @@ use PhpParser\Node\Stmt\TryCatch;
 use PhpParser\Node\Stmt\While_;
 use PHPStan\Broker\Broker;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\CommentHelper;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
@@ -522,9 +523,8 @@ class NodeScopeResolver
 
 			if ($node instanceof Assign || $node instanceof AssignRef) {
 				$scope = $this->lookForAssigns($scope, $node->expr);
-				if ($node->getDocComment() !== null && $node->var instanceof Variable && is_string($node->var->name)) {
-					$docComment = $node->getDocComment()->getText();
-
+				$comment = CommentHelper::getDocComment($node);
+				if ($comment !== null && $node->var instanceof Variable && is_string($node->var->name)) {
 					$variableName = $node->var->name;
 					$processVarAnnotation = function (string $matchedType, string $matchedVariableName) use ($scope, $variableName): Scope {
 						$fileTypeMap = $this->fileTypeMapper->getTypeMap($scope->getFile());
@@ -535,9 +535,9 @@ class NodeScopeResolver
 						return $scope;
 					};
 
-					if (preg_match('#@var\s+' . FileTypeMapper::TYPE_PATTERN . '\s+\$([a-zA-Z0-9_]+)#', $docComment, $matches)) {
+					if (preg_match('#@var\s+' . FileTypeMapper::TYPE_PATTERN . '\s+\$([a-zA-Z0-9_]+)#', $comment, $matches)) {
 						$scope = $processVarAnnotation($matches[1], $matches[2]);
-					} elseif (preg_match('#@var\s+\$([a-zA-Z0-9_]+)\s+' . FileTypeMapper::TYPE_PATTERN . '#', $docComment, $matches)) {
+					} elseif (preg_match('#@var\s+\$([a-zA-Z0-9_]+)\s+' . FileTypeMapper::TYPE_PATTERN . '#', $comment, $matches)) {
 						$scope = $processVarAnnotation($matches[2], $matches[1]);
 					}
 				}

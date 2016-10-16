@@ -421,6 +421,32 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+	/**
+	 * @dataProvider dataVarAnnotations
+	 * @param string $typeClass
+	 * @param boolean $nullable
+	 * @param string|null $class
+	 * @param string $expression
+	 */
+	public function testVarAnnotationsAlt(
+		string $typeClass,
+		bool $nullable,
+		string $class = null,
+		string $expression
+	)
+	{
+		if (\Nette\Utils\Strings::startsWith($class, 'VarAnnotations\\')) {
+			$class = 'VarAnnotationsAlt\\' . substr($class, strlen('VarAnnotations\\'));
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/var-annotations-alt.php',
+			$typeClass,
+			$nullable,
+			$class,
+			$expression
+		);
+	}
+
 	public function dataCasts(): array
 	{
 		return [
