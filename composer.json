@@ -20,11 +20,11 @@
 		"tracy/tracy": "~2.4"
 	},
 	"require-dev": {
-		"consistence/coding-standard": "~0.11.0",
+		"consistence/coding-standard": "~0.12.0",
 		"satooshi/php-coveralls": "^1.0",
 		"phing/phing": "^2.13.0",
 		"phpunit/phpunit": "^5.4",
-		"slevomat/coding-standard": "dev-php7#961090ac32"
+		"slevomat/coding-standard": "dev-php7#d4a1a9cd4e"
 	},
 	"autoload": {
 		"psr-4": {"PHPStan\\": "src/"}

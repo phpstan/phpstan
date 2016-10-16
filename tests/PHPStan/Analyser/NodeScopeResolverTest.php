@@ -1532,34 +1532,34 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			[
 				new class() implements DynamicMethodReturnTypeExtension {
 
-			public static function getClass(): string
-			{
-				return \DynamicMethodReturnTypesNamespace\EntityManager::class;
-			}
+					public static function getClass(): string
+					{
+						return \DynamicMethodReturnTypesNamespace\EntityManager::class;
+					}
 
-			public function isMethodSupported(MethodReflection $methodReflection): bool
-			{
-				return in_array($methodReflection->getName(), ['getByPrimary'], true);
-			}
+					public function isMethodSupported(MethodReflection $methodReflection): bool
+					{
+						return in_array($methodReflection->getName(), ['getByPrimary'], true);
+					}
 
-			public function getTypeFromMethodCall(MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope): \PHPStan\Type\Type
-			{
-				$args = $methodCall->args;
-				if (count($args) === 0) {
-					return $methodReflection->getReturnType();
-				}
+					public function getTypeFromMethodCall(MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope): \PHPStan\Type\Type
+					{
+						$args = $methodCall->args;
+						if (count($args) === 0) {
+							return $methodReflection->getReturnType();
+						}
 
-				$arg = $args[0]->value;
-				if (!($arg instanceof \PhpParser\Node\Expr\ClassConstFetch)) {
-					return $methodReflection->getReturnType();
-				}
+						$arg = $args[0]->value;
+						if (!($arg instanceof \PhpParser\Node\Expr\ClassConstFetch)) {
+							return $methodReflection->getReturnType();
+						}
 
-				if (!($arg->class instanceof \PhpParser\Node\Name)) {
-					return $methodReflection->getReturnType();
-				}
+						if (!($arg->class instanceof \PhpParser\Node\Name)) {
+							return $methodReflection->getReturnType();
+						}
 
-				return new ObjectType((string) $arg->class, false);
-			}
+						return new ObjectType((string) $arg->class, false);
+					}
 				},
 			]
 		);
