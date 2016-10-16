@@ -44,16 +44,22 @@ class AnalyseApplication
 			}
 		}
 
-		$style->progressStart(count($files));
+		$progressStarted = false;
 
 		$errors = array_merge($errors, $this->analyser->analyse(
 			$files,
-			function () use ($style) {
+			function () use ($style, &$progressStarted, $files) {
+				if (!$progressStarted) {
+					$style->progressStart(count($files));
+					$progressStarted = true;
+				}
 				$style->progressAdvance();
 			}
 		));
 
-		$style->progressFinish();
+		if ($progressStarted) {
+			$style->progressFinish();
+		}
 
 		if (count($errors) === 0) {
 			$style->success('No errors');
