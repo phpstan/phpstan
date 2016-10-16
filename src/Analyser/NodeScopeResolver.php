@@ -683,21 +683,21 @@ class NodeScopeResolver
 	/**
 	 * @param \PhpParser\Node\Expr $functionCall
 	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return null|\ReflectionParameter[]
+	 * @return null|\PHPStan\Reflection\ParameterReflection[]
 	 */
 	private function findParametersInFunctionCall(Expr $functionCall, Scope $scope)
 	{
 		if ($functionCall instanceof FuncCall && $functionCall->name instanceof Name) {
 			if ($this->broker->hasFunction($functionCall->name, $scope)) {
-				return $this->broker->getFunction($functionCall->name, $scope)->getNativeReflection()->getParameters();
+				return $this->broker->getFunction($functionCall->name, $scope)->getParameters();
 			}
 		} elseif ($functionCall instanceof MethodCall && is_string($functionCall->name)) {
 			$type = $scope->getType($functionCall->var);
 			if ($type->getClass() !== null && $this->broker->hasClass($type->getClass())) {
-				$classReflection = $this->broker->getClass($type->getClass())->getNativeReflection();
+				$classReflection = $this->broker->getClass($type->getClass());
 				$methodName = $functionCall->name;
-				if ($classReflection->hasMethod($methodName)) {
-					return $classReflection->getMethod($methodName)->getParameters();
+				if ($classReflection->hasMethod((string) $methodName)) {
+					return $classReflection->getMethod((string) $methodName)->getParameters();
 				}
 			}
 		}

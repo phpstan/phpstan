@@ -83,4 +83,9 @@ class PhpParameterReflection implements ParameterReflection
 		return $this->type;
 	}
 
+	public function isPassedByReference(): bool
+	{
+		return $this->reflection->isPassedByReference();
+	}
+
 }

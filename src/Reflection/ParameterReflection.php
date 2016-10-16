@@ -13,4 +13,6 @@ interface ParameterReflection
 
 	public function getType(): Type;
 
+	public function isPassedByReference(): bool;
+
 }
