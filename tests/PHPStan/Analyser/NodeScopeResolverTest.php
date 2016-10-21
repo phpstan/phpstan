@@ -851,6 +851,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				null,
 				'$yetAnotherAnotherAnotherMixedParameter',
 			],
+			[
+				MixedType::class,
+				true,
+				null,
+				'$yetAnotherAnotherAnotherAnotherMixedParameter',
+			],
 		];
 	}
 

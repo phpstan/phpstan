@@ -31,6 +31,7 @@ class Foo
 	 * @param resource $resource
 	 * @param array[array] $yetAnotherAnotherMixedParameter
 	 * @param \\Test\Bar $yetAnotherAnotherAnotherMixedParameter
+	 * @param New $yetAnotherAnotherAnotherAnotherMixedParameter
 	 * @return Foo
 	 */
 	public function doFoo(
@@ -56,7 +57,8 @@ class Foo
 		Bar $moreSpecifiedObject,
 		$resource,
 		$yetAnotherAnotherMixedParameter,
-		$yetAnotherAnotherAnotherMixedParameter
+		$yetAnotherAnotherAnotherMixedParameter,
+		$yetAnotherAnotherAnotherAnotherMixedParameter
 	)
 	{
 		die;

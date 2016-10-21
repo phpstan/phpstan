@@ -134,6 +134,9 @@ class FileTypeMapper
 			if (preg_match('#^[a-zA-Z_\\\]#', $objectTypeTypeClass) === 0) {
 				continue;
 			}
+			if (strtolower($objectTypeTypeClass) === 'new') {
+				continue;
+			}
 
 			$nameResolveInfluencingPart .= sprintf("\n%s::%s;", $objectTypeTypeClass, self::CONST_FETCH_CONSTANT);
 		}
