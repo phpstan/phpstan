@@ -1191,6 +1191,59 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+	public function dataLiteralArrays(): array
+	{
+		return [
+			[
+				IntegerType::class,
+				false,
+				null,
+				'$integers[0]',
+			],
+			[
+				StringType::class,
+				false,
+				null,
+				'$strings[0]',
+			],
+			[
+				MixedType::class,
+				true,
+				null,
+				'$emptyArray[0]',
+			],
+			[
+				MixedType::class,
+				false,
+				null,
+				'$mixedArray[0]',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataLiteralArrays
+	 * @param string $typeClass
+	 * @param boolean $nullable
+	 * @param string|null $class
+	 * @param string $expression
+	 */
+	public function testLiteralArrays(
+		string $typeClass,
+		bool $nullable,
+		string $class = null,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/literal-arrays.php',
+			$typeClass,
+			$nullable,
+			$class,
+			$expression
+		);
+	}
+
 	public function dataTypeFromMethodPhpDocs(): array
 	{
 		return [
@@ -1750,6 +1803,93 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/anonymous-function.php',
+			$typeClass,
+			$nullable,
+			$class,
+			$expression
+		);
+	}
+
+	public function dataForeachArrayType(): array
+	{
+		return [
+			[
+				__DIR__ . '/data/foreach/array-object-type.php',
+				ObjectType::class,
+				false,
+				'AnotherNamespace\Foo',
+				'$foo',
+			],
+			[
+				__DIR__ . '/data/foreach/array-object-type.php',
+				ObjectType::class,
+				false,
+				'AnotherNamespace\Foo',
+				'$foos[0]',
+			],
+			[
+				__DIR__ . '/data/foreach/array-object-type.php',
+				IntegerType::class,
+				false,
+				null,
+				'self::ARRAY_CONSTANT[0]',
+			],
+			[
+				__DIR__ . '/data/foreach/array-object-type.php',
+				MixedType::class,
+				false,
+				null,
+				'self::MIXED_CONSTANT[0]',
+			],
+			[
+				__DIR__ . '/data/foreach/nested-object-type.php',
+				ObjectType::class,
+				false,
+				'AnotherNamespace\Foo',
+				'$foo',
+			],
+			[
+				__DIR__ . '/data/foreach/nested-object-type.php',
+				ObjectType::class,
+				false,
+				'AnotherNamespace\Foo',
+				'$foos[0]',
+			],
+			[
+				__DIR__ . '/data/foreach/nested-object-type.php',
+				ObjectType::class,
+				false,
+				'AnotherNamespace\Foo',
+				'$fooses[0][0]',
+			],
+			[
+				__DIR__ . '/data/foreach/integer-type.php',
+				IntegerType::class,
+				false,
+				null,
+				'$integer',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataForeachArrayType
+	 * @param string $file
+	 * @param string $typeClass
+	 * @param bool $nullable
+	 * @param string|null $class
+	 * @param string $expression
+	 */
+	public function testForeachArrayType(
+		string $file,
+		string $typeClass,
+		bool $nullable,
+		string $class = null,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			$file,
 			$typeClass,
 			$nullable,
 			$class,

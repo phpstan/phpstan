@@ -11,8 +11,13 @@ class TypehintHelper
 		string $selfClass = null
 	): Type
 	{
-		if (strpos($typehintString, '[]') !== false) {
-			return new ArrayType($isNullable);
+		if (strrpos($typehintString, '[]') === strlen($typehintString) - 2) {
+			$arr = new ArrayType(self::getTypeObjectFromTypehint(
+				substr($typehintString, 0, -2),
+				false,
+				$selfClass
+			), $isNullable);
+			return $arr;
 		}
 
 		if ($typehintString === 'static') {
@@ -36,7 +41,7 @@ class TypehintHelper
 			case 'float':
 				return new FloatType($isNullable);
 			case 'array':
-				return new ArrayType($isNullable);
+				return new ArrayType(new MixedType(true), $isNullable);
 			case 'callable':
 				return new CallableType($isNullable);
 			case null:

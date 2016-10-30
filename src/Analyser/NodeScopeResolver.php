@@ -199,6 +199,7 @@ class NodeScopeResolver
 		} elseif ($node instanceof Foreach_) {
 			if ($node->valueVar instanceof Variable) {
 				$scope = $scope->enterForeach(
+					$node->expr,
 					$node->valueVar->name,
 					$node->keyVar !== null && $node->keyVar instanceof Variable ? $node->keyVar->name : null
 				);
@@ -335,9 +336,9 @@ class NodeScopeResolver
 							$scope = $scope->enterVariableAssign($var->name);
 						}
 					} elseif ($var instanceof List_) {
-						foreach ($var->vars as $var) {
-							if ($var instanceof Variable && is_string($var->name)) {
-								$scope = $scope->enterVariableAssign($var->name);
+						foreach ($var->vars as $listVar) {
+							if ($listVar instanceof Variable && is_string($listVar->name)) {
+								$scope = $scope->enterVariableAssign($listVar->name);
 							}
 						}
 					}
@@ -560,14 +561,16 @@ class NodeScopeResolver
 		if ($var instanceof Variable) {
 			$scope = $scope->assignVariable($var->name, $subNodeType);
 		} elseif ($var instanceof ArrayDimFetch) {
+			$depth = 0;
 			while ($var instanceof ArrayDimFetch) {
 				$var = $var->var;
+				$depth++;
 			}
 
 			if ($var instanceof Variable) {
 				$scope = $scope->assignVariable(
 					$var->name,
-					new ArrayType(false)
+					ArrayType::createDeepArrayType($subNodeType !== null ? $subNodeType : new MixedType(true), false, $depth)
 				);
 			}
 

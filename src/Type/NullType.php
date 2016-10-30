@@ -28,4 +28,9 @@ class NullType implements Type
 		return $this;
 	}
 
+	public function equals(Type $type): bool
+	{
+		return $type instanceof self;
+	}
+
 }

@@ -12,7 +12,7 @@ class FileTypeMapper
 {
 
 	const CONST_FETCH_CONSTANT = '__PHPSTAN_CLASS_REFLECTION_CONSTANT__';
-	const TYPE_PATTERN = '((?:\\\?[0-9a-zA-Z_]+(?:\[\])?(?:\|)?)+)';
+	const TYPE_PATTERN = '((?:\\\?[0-9a-zA-Z_]+(?:\[\])*(?:\|)?)+)';
 
 	/** @var \PHPStan\Parser\Parser */
 	private $parser;
@@ -31,7 +31,7 @@ class FileTypeMapper
 
 	public function getTypeMap(string $fileName): array
 	{
-		$cacheKey = sprintf('%s-%d-v2', $fileName, filemtime($fileName));
+		$cacheKey = sprintf('%s-%d-v3', $fileName, filemtime($fileName));
 		$cachedResult = $this->cache->load($cacheKey);
 		if ($cachedResult === null) {
 			$typeMap = $this->createTypeMap($fileName);
@@ -52,6 +52,24 @@ class FileTypeMapper
 			}
 
 			$type = $this->getTypeFromTypeString($typeString, $className);
+
+			if ($type instanceof ArrayType) {
+				list($itemType, $arrayTypeDepth) = $this->getNestedItemTypeFromArrayType($type);
+				if ($itemType instanceof ObjectType) {
+					$objectTypes[] = [
+						'type' => $itemType,
+						'typeString' => $typeString,
+						'arrayType' => [
+							'depth' => $arrayTypeDepth,
+							'nullable' => $type->isNullable(),
+						],
+					];
+				} else {
+					$typeMap[$typeString] = $type;
+				}
+
+				return;
+			}
 
 			if (!($type instanceof ObjectType)) {
 				$typeMap[$typeString] = $type;
@@ -150,13 +168,34 @@ class FileTypeMapper
 		$i = 0;
 		$this->findClassNames($parserNodes, function ($className) use (&$typeMap, &$i, $objectTypes) {
 			$objectType = $objectTypes[$i];
-			$objectTypeString = $objectType['typeString'];
-			$objectTypeType = $objectType['type'];
-			$typeMap[$objectTypeString] = new ObjectType($className, $objectTypeType->isNullable());
+			if (isset($objectType['arrayType'])) {
+				$arrayType = $objectType['arrayType'];
+				$typeMap[$objectType['typeString']] = ArrayType::createDeepArrayType(
+					new ObjectType($className, false),
+					$arrayType['nullable'],
+					$arrayType['depth']
+				);
+			} else {
+				$objectTypeString = $objectType['typeString'];
+				$objectTypeType = $objectType['type'];
+				$typeMap[$objectTypeString] = new ObjectType($className, $objectTypeType->isNullable());
+			}
+
 			$i++;
 		});
 
 		return $typeMap;
+	}
+
+	private function getNestedItemTypeFromArrayType(ArrayType $arrayType): array
+	{
+		$depth = 0;
+		while ($arrayType instanceof ArrayType) {
+			$arrayType = $arrayType->getItemType();
+			$depth++;
+		}
+
+		return [$arrayType, $depth];
 	}
 
 	private function getTypeFromTypeString(string $typeString, string $className = null): Type

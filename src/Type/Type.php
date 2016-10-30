@@ -16,4 +16,6 @@ interface Type
 
 	public function makeNullable(): Type;
 
+	public function equals(Type $type): bool;
+
 }

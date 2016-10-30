@@ -345,7 +345,9 @@ class Scope
 				return new ObjectType((string) $node->class, false);
 			}
 		} elseif ($node instanceof Array_) {
-			return new ArrayType(false);
+			return new ArrayType($this->getCombinedType(array_map(function (Expr\ArrayItem $item): Type {
+				return $this->getType($item->value);
+			}, $node->items)), false);
 		} elseif ($node instanceof Int_) {
 				return new IntegerType(false);
 		} elseif ($node instanceof Bool_) {
@@ -355,7 +357,7 @@ class Scope
 		} elseif ($node instanceof \PhpParser\Node\Expr\Cast\String_) {
 			return new StringType(false);
 		} elseif ($node instanceof \PhpParser\Node\Expr\Cast\Array_) {
-			return new ArrayType(false);
+			return new ArrayType(new MixedType(true), false);
 		} elseif ($node instanceof Object_) {
 			return new ObjectType('stdClass', false);
 		} elseif ($node instanceof Unset_) {
@@ -380,18 +382,9 @@ class Scope
 					$constants = $constantClassReflection->getNativeReflection()->getConstants();
 					if (array_key_exists($constantName, $constants)) {
 						$constantValue = $constants[$constantName];
-						if (is_int($constantValue)) {
-							return new IntegerType(false);
-						} elseif (is_float($constantValue)) {
-							return new FloatType(false);
-						} elseif (is_bool($constantValue)) {
-							return new BooleanType(false);
-						} elseif ($constantValue === null) {
-							return new NullType();
-						} elseif (is_string($constantValue)) {
-							return new StringType(false);
-						} elseif (is_array($constantValue)) {
-							return new ArrayType(false);
+						$typeFromValue = $this->getTypeFromValue($constantValue);
+						if ($typeFromValue !== null) {
+							return $typeFromValue;
 						}
 					}
 				}
@@ -409,6 +402,13 @@ class Scope
 			}
 
 			return $this->getVariableType($node->name);
+		}
+
+		if ($node instanceof Expr\ArrayDimFetch && $node->dim !== null) {
+			$arrayType = $this->getType($node->var);
+			if ($arrayType instanceof ArrayType) {
+				return $arrayType->getItemType();
+			}
 		}
 
 		if ($node instanceof MethodCall && is_string($node->name)) {
@@ -471,6 +471,49 @@ class Scope
 		}
 
 		return new MixedType(false);
+	}
+
+	/**
+	 * @param mixed $value
+	 * @return Type|null
+	 */
+	private function getTypeFromValue($value)
+	{
+		if (is_int($value)) {
+			return new IntegerType(false);
+		} elseif (is_float($value)) {
+			return new FloatType(false);
+		} elseif (is_bool($value)) {
+			return new BooleanType(false);
+		} elseif ($value === null) {
+			return new NullType();
+		} elseif (is_string($value)) {
+			return new StringType(false);
+		} elseif (is_array($value)) {
+			return new ArrayType($this->getCombinedType(array_map(function ($value): Type {
+				return $this->getTypeFromValue($value);
+			}, $value)), false);
+		}
+
+		return null;
+	}
+
+	/**
+	 * @param \PHPStan\Type\Type[] $types
+	 * @return \PHPStan\Type\Type
+	 */
+	private function getCombinedType(array $types): Type
+	{
+		if (count($types) === 0) {
+			return new MixedType(true);
+		}
+
+		$itemType = $types[0];
+		for ($i = 1; $i < count($types); $i++) {
+			$itemType = $itemType->combineWith($types[$i]);
+		}
+
+		return $itemType;
 	}
 
 	public function isSpecified(Node $node): bool
@@ -595,7 +638,7 @@ class Scope
 			} elseif ($parameter->type === 'callable') {
 				$parameterType = new CallableType($isNullable);
 			} elseif ($parameter->type === 'array') {
-				$parameterType = new ArrayType($isNullable);
+				$parameterType = new ArrayType(new MixedType(true), $isNullable);
 			} elseif ($parameter->type instanceof Name) {
 				$className = (string) $parameter->type;
 				if ($className === 'self') {
@@ -638,10 +681,16 @@ class Scope
 		);
 	}
 
-	public function enterForeach(string $valueName, string $keyName = null): self
+	public function enterForeach(Node $iteratee, string $valueName, string $keyName = null): self
 	{
+		$iterateeType = $this->getType($iteratee);
 		$variableTypes = $this->getVariableTypes();
-		$variableTypes[$valueName] = new MixedType(true);
+		if ($iterateeType instanceof ArrayType) {
+			$variableTypes[$valueName] = $iterateeType->getItemType();
+		} else {
+			$variableTypes[$valueName] = new MixedType(true);
+		}
+
 		if ($keyName !== null) {
 			$variableTypes[$keyName] = new MixedType(false);
 		}
