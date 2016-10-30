@@ -33,7 +33,7 @@ trait JustNullableTypeTrait
 		}
 
 		if ($otherType instanceof NullType) {
-			return new self(true);
+			return $this->makeNullable();
 		}
 
 		return new MixedType($this->isNullable() || $otherType->isNullable());
