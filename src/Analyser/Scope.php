@@ -508,9 +508,13 @@ class Scope
 			return new MixedType(true);
 		}
 
-		$itemType = $types[0];
-		for ($i = 1; $i < count($types); $i++) {
-			$itemType = $itemType->combineWith($types[$i]);
+		$itemType = null;
+		foreach ($types as $type) {
+			if ($itemType === null) {
+				$itemType = $type;
+				continue;
+			}
+			$itemType = $itemType->combineWith($type);
 		}
 
 		return $itemType;
