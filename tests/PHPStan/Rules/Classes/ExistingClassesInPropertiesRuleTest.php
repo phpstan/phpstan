@@ -23,6 +23,10 @@ class ExistingClassesInPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTes
 					'Property PropertiesTypes\Foo::$bar has unknown class PropertiesTypes\Bar as its type.',
 					12,
 				],
+				[
+					'Property PropertiesTypes\Foo::$bars has unknown class PropertiesTypes\Bar[] as its array type.',
+					18,
+				],
 			]
 		);
 	}

@@ -11,4 +11,10 @@ class Foo
 	/** @var Bar */
 	private $bar;
 
+	/** @var Foo[] */
+	private $foos;
+
+	/** @var Bar[] */
+	private $bars;
+
 }
