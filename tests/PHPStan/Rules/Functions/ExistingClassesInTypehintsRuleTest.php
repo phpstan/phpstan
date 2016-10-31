@@ -14,6 +14,7 @@ class ExistingClassesInTypehintsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	public function testExistingClassInTypehint()
 	{
+		require_once __DIR__ . '/data/typehints.php';
 		$this->analyse([__DIR__ . '/data/typehints.php'], [
 			[
 				'Return typehint of function TestFunctionTypehints\foo() has invalid type TestFunctionTypehints\NonexistentClass.',

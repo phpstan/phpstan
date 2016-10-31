@@ -32,6 +32,7 @@ class ExistingClassesInTypehintsRule implements \PHPStan\Rules\Rule
 	{
 		return $this->check->checkFunction(
 			$node,
+			$scope,
 			sprintf(
 				'Parameter $%%s of method %s::%s() has invalid typehint type %%s.',
 				$scope->getClass(),

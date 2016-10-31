@@ -111,7 +111,7 @@ class Broker
 		}
 	}
 
-	public function getFunction(\PhpParser\Node\Name $nameNode, Scope $scope): \PHPStan\Reflection\FunctionReflection
+	public function getFunction(\PhpParser\Node\Name $nameNode, Scope $scope = null): \PHPStan\Reflection\FunctionReflection
 	{
 		$functionName = $this->resolveFunctionName($nameNode, $scope);
 		if ($functionName === null) {
@@ -133,13 +133,13 @@ class Broker
 
 	/**
 	 * @param \PhpParser\Node\Name $nameNode
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope|null $scope
 	 * @return string|null
 	 */
-	public function resolveFunctionName(\PhpParser\Node\Name $nameNode, Scope $scope)
+	public function resolveFunctionName(\PhpParser\Node\Name $nameNode, Scope $scope = null)
 	{
 		$name = (string) $nameNode;
-		if ($scope->getNamespace() !== null && !$nameNode->isFullyQualified()) {
+		if ($scope !== null && $scope->getNamespace() !== null && !$nameNode->isFullyQualified()) {
 			$namespacedName = sprintf('%s\\%s', $scope->getNamespace(), $name);
 			if (function_exists($namespacedName)) {
 				return $namespacedName;
