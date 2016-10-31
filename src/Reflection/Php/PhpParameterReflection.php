@@ -3,6 +3,7 @@
 namespace PHPStan\Reflection\Php;
 
 use PHPStan\Reflection\ParameterReflection;
+use PHPStan\Type\ArrayType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
@@ -56,23 +57,28 @@ class PhpParameterReflection implements ParameterReflection
 					$phpTypeReflection->allowsNull(),
 					$this->reflection->getDeclaringClass() !== null ? $this->reflection->getDeclaringClass()->getName() : null
 				);
-				if (
-					$typehintType->getClass() !== null
-					&& $this->phpDocType !== null
-					&& $this->phpDocType->getClass() !== null
-				) {
+				if ($this->phpDocType !== null) {
 					$phpDocType = $this->phpDocType;
 					if ($this->reflection->isDefaultValueAvailable() && $this->reflection->getDefaultValue() === null) {
 						$phpDocType = $phpDocType->makeNullable();
 					}
 
-					if ($phpDocType->getClass() !== $typehintType->getClass()) {
+					if (
+						$typehintType->getClass() !== null
+						&& $phpDocType->getClass() !== $typehintType->getClass()
+						&& $this->phpDocType->getClass() !== null
+					) {
 						$phpDocTypeClassReflection = new \ReflectionClass($phpDocType->getClass());
 						if ($phpDocTypeClassReflection->isSubclassOf($typehintType->getClass())) {
 							return $this->type = $phpDocType;
 						} else {
 							return new MixedType($typehintType->isNullable() || $phpDocType->isNullable());
 						}
+					} elseif (
+						$typehintType instanceof ArrayType
+						&& $phpDocType instanceof ArrayType
+					) {
+						return $this->type = $phpDocType;
 					}
 				}
 

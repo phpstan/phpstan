@@ -7,6 +7,7 @@ use PHPStan\Parser\FunctionCallStatementFinder;
 use PHPStan\Parser\Parser;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Type\ArrayType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\StringType;
@@ -186,11 +187,21 @@ class PhpMethodReflection implements MethodReflection
 					$this->returnType = new MixedType(true);
 				}
 			} else {
-				$this->returnType = TypehintHelper::getTypeObjectFromTypehint(
+				$returnType = TypehintHelper::getTypeObjectFromTypehint(
 					(string) $phpTypeReflection,
 					$phpTypeReflection->allowsNull(),
 					$this->declaringClass->getName()
 				);
+				if ($this->phpDocReturnType !== null) {
+					if ($returnType instanceof ArrayType && $this->phpDocReturnType instanceof ArrayType) {
+						$returnType = new ArrayType(
+							$this->phpDocReturnType->getItemType(),
+							$returnType->isNullable() || $this->phpDocReturnType->isNullable()
+						);
+					}
+				}
+
+				$this->returnType = $returnType;
 			}
 		}
 

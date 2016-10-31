@@ -30,4 +30,14 @@ class FooMethodTypehints
 
 	}
 
+	/**
+	 * @param FooMethodTypehints[] $foos
+	 * @param BarMethodTypehints[] $bars
+	 * @return BazMethodTypehints[]
+	 */
+	function ipsum(array $foos, array $bars): array
+	{
+
+	}
+
 }
