@@ -54,13 +54,13 @@ class FileTypeMapper
 			$type = $this->getTypeFromTypeString($typeString, $className);
 
 			if ($type instanceof ArrayType) {
-				list($itemType, $arrayTypeDepth) = $this->getNestedItemTypeFromArrayType($type);
-				if ($itemType instanceof ObjectType) {
+				$nestedItemType = $type->getNestedItemType();
+				if ($nestedItemType->getItemType() instanceof ObjectType) {
 					$objectTypes[] = [
-						'type' => $itemType,
+						'type' => $nestedItemType->getItemType(),
 						'typeString' => $typeString,
 						'arrayType' => [
-							'depth' => $arrayTypeDepth,
+							'depth' => $nestedItemType->getDepth(),
 							'nullable' => $type->isNullable(),
 						],
 					];
@@ -171,9 +171,8 @@ class FileTypeMapper
 			if (isset($objectType['arrayType'])) {
 				$arrayType = $objectType['arrayType'];
 				$typeMap[$objectType['typeString']] = ArrayType::createDeepArrayType(
-					new ObjectType($className, false),
-					$arrayType['nullable'],
-					$arrayType['depth']
+					new NestedArrayItemType(new ObjectType($className, false), $arrayType['depth']),
+					$arrayType['nullable']
 				);
 			} else {
 				$objectTypeString = $objectType['typeString'];
@@ -185,17 +184,6 @@ class FileTypeMapper
 		});
 
 		return $typeMap;
-	}
-
-	private function getNestedItemTypeFromArrayType(ArrayType $arrayType): array
-	{
-		$depth = 0;
-		while ($arrayType instanceof ArrayType) {
-			$arrayType = $arrayType->getItemType();
-			$depth++;
-		}
-
-		return [$arrayType, $depth];
 	}
 
 	private function getTypeFromTypeString(string $typeString, string $className = null): Type

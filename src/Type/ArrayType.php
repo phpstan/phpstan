@@ -17,13 +17,26 @@ class ArrayType implements Type
 		$this->nullable = $nullable;
 	}
 
-	public static function createDeepArrayType(Type $itemType, bool $nullable, int $depth): self
+	public static function createDeepArrayType(NestedArrayItemType $nestedItemType, bool $nullable): self
 	{
-		for ($i = 0; $i < $depth - 1; $i++) {
+		$itemType = $nestedItemType->getItemType();
+		for ($i = 0; $i < $nestedItemType->getDepth() - 1; $i++) {
 			$itemType = new ArrayType($itemType, false);
 		}
 
 		return new ArrayType($itemType, $nullable);
+	}
+
+	public function getNestedItemType(): NestedArrayItemType
+	{
+		$depth = 0;
+		$itemType = $this;
+		while ($itemType instanceof ArrayType) {
+			$itemType = $itemType->getItemType();
+			$depth++;
+		}
+
+		return new NestedArrayItemType($itemType, $depth);
 	}
 
 	public function getItemType(): Type

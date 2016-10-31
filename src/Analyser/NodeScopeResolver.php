@@ -48,6 +48,7 @@ use PHPStan\Type\ArrayType;
 use PHPStan\Type\CommentHelper;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\NestedArrayItemType;
 use PHPStan\Type\Type;
 
 class NodeScopeResolver
@@ -570,7 +571,10 @@ class NodeScopeResolver
 			if ($var instanceof Variable) {
 				$scope = $scope->assignVariable(
 					$var->name,
-					ArrayType::createDeepArrayType($subNodeType !== null ? $subNodeType : new MixedType(true), false, $depth)
+					ArrayType::createDeepArrayType(
+						new NestedArrayItemType($subNodeType !== null ? $subNodeType : new MixedType(true), $depth),
+						false
+					)
 				);
 			}
 
