@@ -23,6 +23,14 @@ class ExistingClassesInTypehintsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Parameter $bar of method TestMethodTypehints\FooMethodTypehints::bar() has invalid typehint type TestMethodTypehints\BarMethodTypehints.',
 				13,
 			],
+			[
+				'Parameter $bars of method TestMethodTypehints\FooMethodTypehints::lorem() has invalid typehint type TestMethodTypehints\BarMethodTypehints[].',
+				28,
+			],
+			[
+				'Return typehint of method TestMethodTypehints\FooMethodTypehints::lorem() has invalid type TestMethodTypehints\BazMethodTypehints[].',
+				28,
+			],
 		]);
 	}
 

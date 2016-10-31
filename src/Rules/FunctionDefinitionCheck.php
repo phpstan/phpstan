@@ -9,6 +9,7 @@ use PhpParser\Node\Stmt\Function_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ParametersAcceptor;
+use PHPStan\Type\ArrayType;
 
 class FunctionDefinitionCheck
 {
@@ -105,6 +106,16 @@ class FunctionDefinitionCheck
 				&& !$this->broker->hasClass($type->getClass())
 			) {
 				$errors[] = sprintf($parameterMessage, $parameter->getName(), $type->getClass());
+			} elseif (
+				$type instanceof ArrayType
+			) {
+				$nestedItemType = $type->getNestedItemType();
+				if (
+					$nestedItemType->getItemType()->getClass() !== null
+					&& !$this->broker->hasClass($nestedItemType->getItemType()->getClass())
+				) {
+					$errors[] = sprintf($parameterMessage, $parameter->getName(), $nestedItemType->describe());
+				}
 			}
 		}
 
@@ -114,6 +125,16 @@ class FunctionDefinitionCheck
 			&& !$this->broker->hasClass($returnType->getClass())
 		) {
 			$errors[] = sprintf($returnMessage, $returnType->getClass());
+		} elseif (
+			$returnType instanceof ArrayType
+		) {
+			$nestedItemType = $returnType->getNestedItemType();
+			if (
+				$nestedItemType->getItemType()->getClass() !== null
+				&& !$this->broker->hasClass($nestedItemType->getItemType()->getClass())
+			) {
+				$errors[] = sprintf($returnMessage, $nestedItemType->describe());
+			}
 		}
 
 		return $errors;

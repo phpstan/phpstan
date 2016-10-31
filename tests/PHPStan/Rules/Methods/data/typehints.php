@@ -20,4 +20,14 @@ class FooMethodTypehints
 
 	}
 
+	/**
+	 * @param FooMethodTypehints[] $foos
+	 * @param BarMethodTypehints[] $bars
+	 * @return BazMethodTypehints[]
+	 */
+	function lorem($foos, $bars)
+	{
+
+	}
+
 }
