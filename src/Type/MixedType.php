@@ -36,9 +36,4 @@ class MixedType implements Type
 		return new self(true);
 	}
 
-	public function equals(Type $type): bool
-	{
-		return $type instanceof self && $this->isNullable() === $type->isNullable();
-	}
-
 }

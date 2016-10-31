@@ -48,13 +48,4 @@ class ObjectType implements Type
 		return new self($this->getClass(), true);
 	}
 
-	public function equals(Type $type): bool
-	{
-		if ($type instanceof self) {
-			return $this->getClass() === $type->getClass() && $this->isNullable() === $type->isNullable();
-		}
-
-		return false;
-	}
-
 }

@@ -44,13 +44,4 @@ trait JustNullableTypeTrait
 		return new self(true);
 	}
 
-	public function equals(Type $type): bool
-	{
-		if ($type instanceof $this) {
-			return $this->isNullable() === $type->isNullable();
-		}
-
-		return false;
-	}
-
 }

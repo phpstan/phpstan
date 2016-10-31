@@ -75,13 +75,4 @@ class ArrayType implements Type
 		return new self($this->getItemType(), true);
 	}
 
-	public function equals(Type $type): bool
-	{
-		if ($type instanceof self) {
-			return $this->getItemType()->equals($type->getItemType()) && $this->isNullable() === $type->isNullable();
-		}
-
-		return false;
-	}
-
 }
