@@ -1409,6 +1409,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				null,
 				'$yetAnotherAnotherAnotherMixedParameter',
 			],
+			[
+				ObjectType::class,
+				false,
+				'MethodPhpDocsNamespace\Foo',
+				'$this->doBar()[0]',
+			],
 		];
 	}
 

@@ -56,14 +56,21 @@ class FileTypeMapper
 			if ($type instanceof ArrayType) {
 				$nestedItemType = $type->getNestedItemType();
 				if ($nestedItemType->getItemType() instanceof ObjectType) {
-					$objectTypes[] = [
-						'type' => $nestedItemType->getItemType(),
-						'typeString' => $typeString,
-						'arrayType' => [
-							'depth' => $nestedItemType->getDepth(),
-							'nullable' => $type->isNullable(),
-						],
-					];
+					if ($nestedItemType->getItemType()->getClass() === $className) {
+						$typeMap[$typeString] = ArrayType::createDeepArrayType(
+							new NestedArrayItemType(new ObjectType($className, false), $nestedItemType->getDepth()),
+							$type->isNullable()
+						);
+					} else {
+						$objectTypes[] = [
+							'type' => $nestedItemType->getItemType(),
+							'typeString' => $typeString,
+							'arrayType' => [
+								'depth' => $nestedItemType->getDepth(),
+								'nullable' => $type->isNullable(),
+							],
+						];
+					}
 				} else {
 					$typeMap[$typeString] = $type;
 				}

@@ -64,4 +64,12 @@ class Foo
 		die;
 	}
 
+	/**
+	 * @return self[]
+	 */
+	public function doBar(): array
+	{
+
+	}
+
 }
