@@ -7,4 +7,9 @@ class IntegerType implements Type
 
 	use JustNullableTypeTrait;
 
+	public function describe(): string
+	{
+		return 'int';
+	}
+
 }

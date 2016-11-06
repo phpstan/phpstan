@@ -16,4 +16,8 @@ interface Type
 
 	public function makeNullable(): Type;
 
+	public function accepts(Type $type): bool;
+
+	public function describe(): string;
+
 }

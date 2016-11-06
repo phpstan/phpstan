@@ -66,7 +66,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 					sprintf(
 						'%s::%s() calls to parent::%s() but %s does not extend any class.',
 						$currentClass,
-						$scope->getFunction(),
+						$scope->getFunctionName(),
 						$name,
 						$currentClass
 					),
@@ -74,7 +74,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 			}
 
 			$currentMethodReflection = $currentClassReflection->getMethod(
-				$scope->getFunction()
+				$scope->getFunctionName()
 			);
 			if (!$currentMethodReflection->isStatic()) {
 				if ($name === '__construct' && $currentClassReflection->getParentClass()->hasMethod('__construct')) {

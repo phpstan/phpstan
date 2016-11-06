@@ -54,7 +54,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 					sprintf(
 						'%s::%s() accesses parent::$%s but %s does not extend any class.',
 						$currentClass,
-						$scope->getFunction(),
+						$scope->getFunctionName(),
 						$name,
 						$currentClass
 					),
@@ -62,7 +62,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 			}
 
 			$currentMethodReflection = $currentClassReflection->getMethod(
-				$scope->getFunction()
+				$scope->getFunctionName()
 			);
 			if (!$currentMethodReflection->isStatic()) {
 				// calling parent::method() from instance method

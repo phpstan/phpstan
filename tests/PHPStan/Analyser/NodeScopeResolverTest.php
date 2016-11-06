@@ -54,7 +54,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			if ($node instanceof Exit_) {
 				$this->assertSame('SomeNodeScopeResolverNamespace', $scope->getNamespace());
 				$this->assertSame(Foo::class, $scope->getClass());
-				$this->assertSame('doFoo', $scope->getFunction());
+				$this->assertSame('doFoo', $scope->getFunctionName());
 				$this->assertSame(Foo::class, $scope->getVariableType('this')->getClass());
 				$this->assertTrue($scope->hasVariableType('baz'));
 				$this->assertTrue($scope->hasVariableType('lorem'));

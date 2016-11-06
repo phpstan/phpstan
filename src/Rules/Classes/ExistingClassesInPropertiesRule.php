@@ -49,7 +49,7 @@ class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 						'Property %s::$%s has unknown class %s as its array type.',
 						$className,
 						$node->name,
-						$nestedItemType->describe()
+						$propertyType->describe()
 					),
 				];
 			}

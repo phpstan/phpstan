@@ -29,7 +29,8 @@ trait JustNullableTypeTrait
 	public function combineWith(Type $otherType): Type
 	{
 		if ($otherType instanceof $this) {
-			return new self($this->isNullable() || $otherType->isNullable());
+			$thisClass = get_class($this);
+			return new $thisClass($this->isNullable() || $otherType->isNullable());
 		}
 
 		if ($otherType instanceof NullType) {
@@ -41,7 +42,21 @@ trait JustNullableTypeTrait
 
 	public function makeNullable(): Type
 	{
-		return new self(true);
+		$thisClass = get_class($this);
+		return new $thisClass(true);
+	}
+
+	public function accepts(Type $type): bool
+	{
+		if ($type instanceof $this) {
+			return true;
+		}
+
+		if ($this->isNullable() && $type instanceof NullType) {
+			return true;
+		}
+
+		return $type instanceof MixedType;
 	}
 
 }

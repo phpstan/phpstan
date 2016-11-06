@@ -36,4 +36,14 @@ class MixedType implements Type
 		return new self(true);
 	}
 
+	public function accepts(Type $type): bool
+	{
+		return true;
+	}
+
+	public function describe(): string
+	{
+		return 'mixed';
+	}
+
 }

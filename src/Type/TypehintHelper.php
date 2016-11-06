@@ -20,8 +20,8 @@ class TypehintHelper
 			return $arr;
 		}
 
-		if ($typehintString === 'static') {
-			return new StaticType($isNullable);
+		if ($typehintString === 'static' && $selfClass !== null) {
+			return new StaticType($selfClass, $isNullable);
 		}
 
 		if ($typehintString === 'self' && $selfClass !== null) {

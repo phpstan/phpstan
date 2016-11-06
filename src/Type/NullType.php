@@ -28,4 +28,14 @@ class NullType implements Type
 		return $this;
 	}
 
+	public function accepts(Type $type): bool
+	{
+		return $type instanceof self || $type instanceof MixedType;
+	}
+
+	public function describe(): string
+	{
+		return 'null';
+	}
+
 }

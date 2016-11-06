@@ -114,7 +114,7 @@ class FunctionDefinitionCheck
 					$nestedItemType->getItemType()->getClass() !== null
 					&& !$this->broker->hasClass($nestedItemType->getItemType()->getClass())
 				) {
-					$errors[] = sprintf($parameterMessage, $parameter->getName(), $nestedItemType->describe());
+					$errors[] = sprintf($parameterMessage, $parameter->getName(), $type->describe());
 				}
 			}
 		}
@@ -133,7 +133,7 @@ class FunctionDefinitionCheck
 				$nestedItemType->getItemType()->getClass() !== null
 				&& !$this->broker->hasClass($nestedItemType->getItemType()->getClass())
 			) {
-				$errors[] = sprintf($returnMessage, $nestedItemType->describe());
+				$errors[] = sprintf($returnMessage, $returnType->describe());
 			}
 		}
 

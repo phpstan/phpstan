@@ -67,7 +67,7 @@ class Scope
 	private $class;
 
 	/**
-	 * @var string|null
+	 * @var \PHPStan\Reflection\ParametersAcceptor|null
 	 */
 	private $function;
 
@@ -85,6 +85,11 @@ class Scope
 	 * @var bool
 	 */
 	private $inClosureBind;
+
+	/**
+	 * @var bool
+	 */
+	private $inAnonymousFunction;
 
 	/**
 	 * @var \PHPStan\Reflection\ClassReflection
@@ -117,10 +122,11 @@ class Scope
 		string $file,
 		bool $declareStrictTypes = false,
 		string $class = null,
-		string $function = null,
+		\PHPStan\Reflection\ParametersAcceptor $function = null,
 		string $namespace = null,
 		array $variablesTypes = [],
 		bool $inClosureBind = false,
+		bool $inAnonymousFunction = false,
 		ClassReflection $anonymousClass = null,
 		Expr $inFunctionCall = null,
 		bool $negated = false,
@@ -130,10 +136,6 @@ class Scope
 	{
 		if ($class === '') {
 			$class = null;
-		}
-
-		if ($function === '') {
-			$function = null;
 		}
 
 		if ($namespace === '') {
@@ -149,6 +151,7 @@ class Scope
 		$this->namespace = $namespace;
 		$this->variableTypes = $variablesTypes;
 		$this->inClosureBind = $inClosureBind;
+		$this->inAnonymousFunction = $inAnonymousFunction;
 		$this->anonymousClass = $anonymousClass;
 		$this->inFunctionCall = $inFunctionCall;
 		$this->negated = $negated;
@@ -185,11 +188,19 @@ class Scope
 	}
 
 	/**
-	 * @return null|string
+	 * @return null|\PHPStan\Reflection\ParametersAcceptor
 	 */
 	public function getFunction()
 	{
 		return $this->function;
+	}
+
+	/**
+	 * @return null|string
+	 */
+	public function getFunctionName()
+	{
+		return $this->function !== null ? $this->function->getName() : null;
 	}
 
 	/**
@@ -225,6 +236,11 @@ class Scope
 	public function isInClosureBind(): bool
 	{
 		return $this->inClosureBind;
+	}
+
+	public function isInAnonymousFunction(): bool
+	{
+		return $this->inAnonymousFunction;
 	}
 
 	public function isInAnonymousClass(): bool
@@ -508,7 +524,8 @@ class Scope
 			return new MixedType(true);
 		}
 
-		$itemType = null;
+		$itemType = reset($types);
+		array_shift($types);
 		foreach ($types as $type) {
 			if ($itemType === null) {
 				$itemType = $type;
@@ -558,7 +575,7 @@ class Scope
 			$this->getFile(),
 			$this->isDeclareStrictTypes(),
 			$this->getClass(),
-			$functionReflection->getName(),
+			$functionReflection,
 			$this->getNamespace(),
 			$variableTypes
 		);
@@ -589,6 +606,7 @@ class Scope
 			$this->getNamespace(),
 			$this->getVariableTypes(),
 			true,
+			$this->isInAnonymousFunction(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
@@ -610,6 +628,7 @@ class Scope
 				'this' => new MixedType(false),
 			],
 			$this->isInClosureBind(),
+			$this->isInAnonymousFunction(),
 			$anonymousClass,
 			$this->getInFunctionCall()
 		);
@@ -680,6 +699,7 @@ class Scope
 			$this->getNamespace(),
 			$variableTypes,
 			$this->isInClosureBind(),
+			true,
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall()
 		);
@@ -709,6 +729,7 @@ class Scope
 			$this->getNamespace(),
 			$variableTypes,
 			$this->isInClosureBind(),
+			$this->isInAnonymousFunction(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			null,
 			$this->isNegated(),
@@ -731,6 +752,7 @@ class Scope
 			$this->getNamespace(),
 			$variableTypes,
 			$this->isInClosureBind(),
+			$this->isInAnonymousFunction(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			null,
 			$this->isNegated(),
@@ -754,6 +776,7 @@ class Scope
 			$this->getNamespace(),
 			$this->getVariableTypes(),
 			$this->isInClosureBind(),
+			$this->isInAnonymousFunction(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$functionCall,
 			$this->isNegated(),
@@ -776,6 +799,7 @@ class Scope
 			$this->getNamespace(),
 			$this->getVariableTypes(),
 			$this->isInClosureBind(),
+			$this->isInAnonymousFunction(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
@@ -809,6 +833,7 @@ class Scope
 			$this->getNamespace(),
 			$variableTypes,
 			$this->isInClosureBind(),
+			$this->isInAnonymousFunction(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
@@ -834,6 +859,7 @@ class Scope
 			$this->getNamespace(),
 			$variableTypes,
 			$this->isInClosureBind(),
+			$this->isInAnonymousFunction(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
@@ -864,6 +890,7 @@ class Scope
 			$this->getNamespace(),
 			$intersectedVariableTypes,
 			$this->isInClosureBind(),
+			$this->isInAnonymousFunction(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
@@ -888,6 +915,7 @@ class Scope
 			$this->getNamespace(),
 			$variableTypes,
 			$this->isInClosureBind(),
+			$this->isInAnonymousFunction(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
@@ -913,6 +941,7 @@ class Scope
 				$this->getNamespace(),
 				$variableTypes,
 				$this->isInClosureBind(),
+				$this->isInAnonymousFunction(),
 				$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 				$this->getInFunctionCall(),
 				$this->isNegated(),
@@ -948,6 +977,7 @@ class Scope
 			$this->getNamespace(),
 			$this->getVariableTypes(),
 			$this->isInClosureBind(),
+			$this->isInAnonymousFunction(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			!$this->isNegated(),
@@ -977,6 +1007,7 @@ class Scope
 			$this->getNamespace(),
 			$this->getVariableTypes(),
 			$this->isInClosureBind(),
+			$this->isInAnonymousFunction(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),

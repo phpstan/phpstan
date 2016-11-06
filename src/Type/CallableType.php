@@ -7,4 +7,9 @@ class CallableType implements Type
 
 	use JustNullableTypeTrait;
 
+	public function describe(): string
+	{
+		return 'callable';
+	}
+
 }

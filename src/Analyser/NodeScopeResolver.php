@@ -568,7 +568,7 @@ class NodeScopeResolver
 				$depth++;
 			}
 
-			if ($var instanceof Variable) {
+			if ($var instanceof Variable && is_string($var->name) && !$scope->hasVariableType($var->name)) {
 				$scope = $scope->assignVariable(
 					$var->name,
 					ArrayType::createDeepArrayType(

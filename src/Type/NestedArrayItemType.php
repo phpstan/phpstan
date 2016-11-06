@@ -27,9 +27,4 @@ class NestedArrayItemType
 		return $this->depth;
 	}
 
-	public function describe(): string
-	{
-		return sprintf('%s%s', $this->getItemType()->getClass(), str_repeat('[]', $this->getDepth()));
-	}
-
 }

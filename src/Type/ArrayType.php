@@ -75,4 +75,26 @@ class ArrayType implements Type
 		return new self($this->getItemType(), true);
 	}
 
+	public function accepts(Type $type): bool
+	{
+		if ($type instanceof self) {
+			return $this->getItemType()->accepts($type->getItemType());
+		}
+
+		if ($type instanceof MixedType) {
+			return true;
+		}
+
+		if ($this->isNullable() && $type instanceof NullType) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public function describe(): string
+	{
+		return sprintf('%s[]', $this->getItemType()->describe());
+	}
+
 }
