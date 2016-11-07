@@ -480,6 +480,14 @@ class Scope
 					return new MixedType(true);
 				}
 				$staticMethodReflection = $staticMethodClassReflection->getMethod($node->name);
+				if ($staticMethodReflection->getReturnType() instanceof StaticType) {
+					$calleeType = new ObjectType($calleeClass, false);
+					if ($staticMethodReflection->getReturnType()->isNullable()) {
+						return $calleeType->makeNullable();
+					}
+
+					return $calleeType;
+				}
 				return $staticMethodReflection->getReturnType();
 			}
 		}

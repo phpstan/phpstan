@@ -1434,9 +1434,9 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'static::doSomethingStatic()',
 			],
 			[
-				StaticType::class,
+				ObjectType::class,
 				false,
-				null,
+				'MethodPhpDocsNamespace\FooParent',
 				'parent::doLorem()',
 			],
 		];
