@@ -461,6 +461,29 @@ class Scope
 			}
 		}
 
+		if ($node instanceof Expr\StaticCall && is_string($node->name) && $node->class instanceof Name) {
+			$calleeClassOriginal = (string) $node->class;
+			if ($calleeClassOriginal === 'self' || $calleeClassOriginal === 'static') {
+				$calleeClass = $this->getClass();
+			} elseif ($calleeClassOriginal === 'parent' && $this->broker->hasClass($this->getClass())) {
+				$currentClassReflection = $this->broker->getClass($this->getClass());
+				if ($currentClassReflection->getParentClass() !== false) {
+					$calleeClass = $currentClassReflection->getParentClass()->getName();
+				}
+			} else {
+				$calleeClass = $calleeClassOriginal;
+			}
+
+			if (isset($calleeClass) && $this->broker->hasClass($calleeClass)) {
+				$staticMethodClassReflection = $this->broker->getClass($calleeClass);
+				if (!$staticMethodClassReflection->hasMethod($node->name)) {
+					return new MixedType(true);
+				}
+				$staticMethodReflection = $staticMethodClassReflection->getMethod($node->name);
+				return $staticMethodReflection->getReturnType();
+			}
+		}
+
 		if ($node instanceof PropertyFetch && is_string($node->name)) {
 			$propertyFetchedOnType = $this->getType($node->var);
 			if (

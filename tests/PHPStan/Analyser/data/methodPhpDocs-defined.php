@@ -37,3 +37,16 @@ class Baz extends Bar
 {
 
 }
+
+class FooParent
+{
+
+	/**
+	 * @return static
+	 */
+	public function doLorem()
+	{
+
+	}
+
+}

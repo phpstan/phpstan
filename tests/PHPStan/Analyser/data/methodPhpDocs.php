@@ -4,8 +4,16 @@ namespace MethodPhpDocsNamespace;
 
 use SomeNamespace\Amet as Dolor;
 
-class Foo
+class Foo extends FooParent
 {
+
+	/**
+	 * @return Bar
+	 */
+	public static function doSomethingStatic()
+	{
+
+	}
 
 	/**
 	 * @param Foo|Bar $alsoMixedParameter
