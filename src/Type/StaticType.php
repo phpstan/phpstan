@@ -42,10 +42,6 @@ class StaticType implements Type
 
 	public function accepts(Type $type): bool
 	{
-		if ($type->getClass() === null) {
-			return false;
-		}
-
 		return (new ObjectType($this->baseClass, $this->isNullable()))->accepts($type);
 	}
 
