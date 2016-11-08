@@ -199,6 +199,9 @@ class PhpMethodReflection implements MethodReflection
 							$returnType->isNullable() || $this->phpDocReturnType->isNullable()
 						);
 					}
+					if ($returnType->accepts($this->phpDocReturnType)) {
+						return $this->phpDocReturnType;
+					}
 				}
 
 				$this->returnType = $returnType;

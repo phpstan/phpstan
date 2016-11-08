@@ -1439,6 +1439,24 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'MethodPhpDocsNamespace\FooParent',
 				'parent::doLorem()',
 			],
+			[
+				ObjectType::class,
+				false,
+				'MethodPhpDocsNamespace\Foo',
+				'$this->doLorem()',
+			],
+			[
+				ObjectType::class,
+				false,
+				'MethodPhpDocsNamespace\FooParent',
+				'parent::doIpsum()',
+			],
+			[
+				ObjectType::class,
+				false,
+				'MethodPhpDocsNamespace\Foo',
+				'$this->doIpsum()',
+			],
 		];
 	}
 

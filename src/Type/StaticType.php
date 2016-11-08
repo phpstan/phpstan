@@ -25,6 +25,11 @@ class StaticType implements Type
 		return null;
 	}
 
+	public function getBaseClass(): string
+	{
+		return $this->baseClass;
+	}
+
 	public function isNullable(): bool
 	{
 		return $this->nullable;

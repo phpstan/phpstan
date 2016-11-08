@@ -55,20 +55,29 @@ class ObjectType implements Type
 			return true;
 		}
 
+		if ($type instanceof StaticType) {
+			return $this->checkSubclassAcceptability($type->getBaseClass());
+		}
+
 		if ($type->getClass() === null) {
 			return false;
 		}
 
-		if ($this->getClass() === $type->getClass()) {
+		return $this->checkSubclassAcceptability($type->getClass());
+	}
+
+	private function checkSubclassAcceptability(string $thatClass): bool
+	{
+		if ($this->getClass() === $thatClass) {
 			return true;
 		}
 
-		if (!$this->exists($this->getClass()) || !$this->exists($type->getClass())) {
+		if (!$this->exists($this->getClass()) || !$this->exists($thatClass)) {
 			return false;
 		}
 
 		$thisReflection = new \ReflectionClass($this->getClass());
-		$thatReflection = new \ReflectionClass($type->getClass());
+		$thatReflection = new \ReflectionClass($thatClass);
 
 		if ($thisReflection->isInterface() && $thatReflection->isInterface()) {
 			return $thatReflection->implementsInterface($this->getClass());
