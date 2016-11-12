@@ -40,6 +40,7 @@ class Foo extends FooParent
 	 * @param array[array] $yetAnotherAnotherMixedParameter
 	 * @param \\Test\Bar $yetAnotherAnotherAnotherMixedParameter
 	 * @param New $yetAnotherAnotherAnotherAnotherMixedParameter
+	 * @param void $voidParameter
 	 * @return Foo
 	 */
 	public function doFoo(
@@ -66,7 +67,8 @@ class Foo extends FooParent
 		$resource,
 		$yetAnotherAnotherMixedParameter,
 		$yetAnotherAnotherAnotherMixedParameter,
-		$yetAnotherAnotherAnotherAnotherMixedParameter
+		$yetAnotherAnotherAnotherAnotherMixedParameter,
+		$voidParameter
 	)
 	{
 		die;

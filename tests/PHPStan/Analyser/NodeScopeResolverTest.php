@@ -19,6 +19,7 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\ResourceType;
 use PHPStan\Type\StaticType;
 use PHPStan\Type\StringType;
+use PHPStan\Type\VoidType;
 use SomeNodeScopeResolverNamespace\Foo;
 
 class NodeScopeResolverTest extends \PHPStan\TestCase
@@ -1408,6 +1409,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				true,
 				null,
 				'$yetAnotherAnotherAnotherMixedParameter',
+			],
+			[
+				VoidType::class,
+				true,
+				null,
+				'$voidParameter',
 			],
 			[
 				ObjectType::class,

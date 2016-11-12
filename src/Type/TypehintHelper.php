@@ -51,6 +51,8 @@ class TypehintHelper
 			case 'object':
 			case 'mixed':
 				return new MixedType($isNullable);
+			case 'void':
+				return new VoidType();
 			default:
 				return new ObjectType($typehintString, $isNullable);
 		}
