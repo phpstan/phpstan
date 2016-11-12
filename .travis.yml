@@ -12,6 +12,7 @@ before_script:
   - if [ -z "$dependencies" ]; then composer install; fi;
   - if [ "$dependencies" = "lowest" ]; then composer update --prefer-lowest -n; fi;
   - if [ "$dependencies" = "highest" ]; then composer update -n; fi;
+  - stty cols 80 # weird Travis CI issue with PHPUnit ResultPrinter https://github.com/sebastianbergmann/phpunit/issues/1976
 script:
   - vendor/bin/phing
 after_script:
