@@ -3,8 +3,6 @@
 namespace PHPStan\Reflection\Php;
 
 use PHPStan\Reflection\ParameterReflection;
-use PHPStan\Type\ArrayType;
-use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
 
@@ -39,51 +37,15 @@ class PhpParameterReflection implements ParameterReflection
 	public function getType(): Type
 	{
 		if ($this->type === null) {
-			$phpTypeReflection = $this->reflection->getType();
-			if ($phpTypeReflection === null) {
-				if ($this->phpDocType !== null) {
-					$type = $this->phpDocType;
-					if ($this->reflection->isDefaultValueAvailable() && $this->reflection->getDefaultValue() === null) {
-						$type = $type->makeNullable();
-					}
-
-					$this->type = $type;
-				} else {
-					$this->type = new MixedType(true);
-				}
-			} else {
-				$typehintType = TypehintHelper::getTypeObjectFromTypehint(
-					(string) $phpTypeReflection,
-					$phpTypeReflection->allowsNull(),
-					$this->reflection->getDeclaringClass() !== null ? $this->reflection->getDeclaringClass()->getName() : null
-				);
-				if ($this->phpDocType !== null) {
-					$phpDocType = $this->phpDocType;
-					if ($this->reflection->isDefaultValueAvailable() && $this->reflection->getDefaultValue() === null) {
-						$phpDocType = $phpDocType->makeNullable();
-					}
-
-					if (
-						$typehintType->getClass() !== null
-						&& $phpDocType->getClass() !== $typehintType->getClass()
-						&& $this->phpDocType->getClass() !== null
-					) {
-						$phpDocTypeClassReflection = new \ReflectionClass($phpDocType->getClass());
-						if ($phpDocTypeClassReflection->isSubclassOf($typehintType->getClass())) {
-							return $this->type = $phpDocType;
-						} else {
-							return new MixedType($typehintType->isNullable() || $phpDocType->isNullable());
-						}
-					} elseif (
-						$typehintType instanceof ArrayType
-						&& $phpDocType instanceof ArrayType
-					) {
-						return $this->type = $phpDocType;
-					}
-				}
-
-				return $this->type = $typehintType;
+			$phpDocType = $this->phpDocType;
+			if ($phpDocType !== null && $this->reflection->isDefaultValueAvailable() && $this->reflection->getDefaultValue() === null) {
+				$phpDocType = $phpDocType->makeNullable();
 			}
+			$this->type = TypehintHelper::decideType(
+				$this->reflection->getType(),
+				$phpDocType,
+				$this->reflection->getDeclaringClass() !== null ? $this->reflection->getDeclaringClass()->getName() : null
+			);
 		}
 
 		return $this->type;

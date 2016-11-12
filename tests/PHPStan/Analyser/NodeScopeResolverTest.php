@@ -1369,9 +1369,9 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$barObject->doBar()',
 			],
 			[
-				MixedType::class,
+				ObjectType::class,
 				false,
-				null,
+				'MethodPhpDocsNamespace\Bar',
 				'$conflictedObject',
 			],
 			[

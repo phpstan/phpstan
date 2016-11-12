@@ -58,4 +58,34 @@ class TypehintHelper
 		}
 	}
 
+	public static function decideType(
+		\ReflectionType $reflectionType = null,
+		Type $phpDocType = null,
+		string $selfClass = null
+	): Type
+	{
+		if ($reflectionType === null) {
+			return $phpDocType !== null ? $phpDocType : new MixedType(true);
+		}
+
+		$type = self::getTypeObjectFromTypehint(
+			(string) $reflectionType,
+			$reflectionType->allowsNull(),
+			$selfClass
+		);
+		if ($phpDocType !== null) {
+			if ($type instanceof ArrayType && $phpDocType instanceof ArrayType) {
+				$type = new ArrayType(
+					$phpDocType->getItemType(),
+					$type->isNullable() || $phpDocType->isNullable()
+				);
+			}
+			if ($type->accepts($phpDocType)) {
+				return $phpDocType;
+			}
+		}
+
+		return $type;
+	}
+
 }

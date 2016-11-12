@@ -7,9 +7,7 @@ use PHPStan\Parser\FunctionCallStatementFinder;
 use PHPStan\Parser\Parser;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
-use PHPStan\Type\ArrayType;
 use PHPStan\Type\IntegerType;
-use PHPStan\Type\MixedType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
@@ -179,33 +177,11 @@ class PhpMethodReflection implements MethodReflection
 	public function getReturnType(): Type
 	{
 		if ($this->returnType === null) {
-			$phpTypeReflection = $this->reflection->getReturnType();
-			if ($phpTypeReflection === null) {
-				if ($this->phpDocReturnType !== null) {
-					$this->returnType = $this->phpDocReturnType;
-				} else {
-					$this->returnType = new MixedType(true);
-				}
-			} else {
-				$returnType = TypehintHelper::getTypeObjectFromTypehint(
-					(string) $phpTypeReflection,
-					$phpTypeReflection->allowsNull(),
-					$this->declaringClass->getName()
-				);
-				if ($this->phpDocReturnType !== null) {
-					if ($returnType instanceof ArrayType && $this->phpDocReturnType instanceof ArrayType) {
-						$returnType = new ArrayType(
-							$this->phpDocReturnType->getItemType(),
-							$returnType->isNullable() || $this->phpDocReturnType->isNullable()
-						);
-					}
-					if ($returnType->accepts($this->phpDocReturnType)) {
-						return $this->phpDocReturnType;
-					}
-				}
-
-				$this->returnType = $returnType;
-			}
+			$this->returnType = TypehintHelper::decideType(
+				$this->reflection->getReturnType(),
+				$this->phpDocReturnType,
+				$this->declaringClass->getName()
+			);
 		}
 
 		return $this->returnType;
