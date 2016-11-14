@@ -33,6 +33,14 @@ class ReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Method ReturnTypes\Foo::returnChild() should return ReturnTypes\Foo but returns ReturnTypes\OtherInterfaceImpl.',
 				34,
 			],
+			[
+				'Method ReturnTypes\Foo::returnVoid() with return type void returns null but should not return anything.',
+				57,
+			],
+			[
+				'Method ReturnTypes\Foo::returnVoid() with return type void returns int but should not return anything.',
+				58,
+			],
 		]);
 	}
 

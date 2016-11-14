@@ -7,6 +7,7 @@ use PhpParser\Node\Stmt\Return_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\VoidType;
 
 class ReturnTypeRule implements \PHPStan\Rules\Rule
 {
@@ -39,7 +40,7 @@ class ReturnTypeRule implements \PHPStan\Rules\Rule
 		$returnType = $method->getReturnType();
 		$returnValue = $node->expr;
 		if ($returnValue === null) {
-			if ($returnType instanceof MixedType) {
+			if ($returnType instanceof VoidType || $returnType instanceof MixedType) {
 				return [];
 			}
 
@@ -54,6 +55,17 @@ class ReturnTypeRule implements \PHPStan\Rules\Rule
 		}
 
 		$returnValueType = $scope->getType($returnValue);
+		if ($returnType instanceof VoidType) {
+			return [
+				sprintf(
+					'Method %s::%s() with return type void returns %s but should not return anything.',
+					$method->getDeclaringClass()->getName(),
+					$method->getName(),
+					$returnValueType->describe()
+				),
+			];
+		}
+
 		if (!$returnType->accepts($returnValueType)) {
 			return [
 				sprintf(

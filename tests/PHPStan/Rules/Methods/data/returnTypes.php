@@ -48,6 +48,16 @@ class Foo implements FooInterface
 		return new self();
 	}
 
+	/**
+	 * @return void
+	 */
+	public function returnVoid()
+	{
+		return;
+		return null;
+		return 1;
+	}
+
 }
 
 class FooChild extends Foo
