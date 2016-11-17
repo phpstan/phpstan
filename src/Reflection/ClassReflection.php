@@ -2,6 +2,7 @@
 
 namespace PHPStan\Reflection;
 
+use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 
 class ClassReflection
@@ -95,7 +96,7 @@ class ClassReflection
 		return $this->methods[$methodName];
 	}
 
-	public function getProperty(string $propertyName): PropertyReflection
+	public function getProperty(string $propertyName, Scope $scope = null): PropertyReflection
 	{
 		if (!isset($this->properties[$propertyName])) {
 			$privateProperty = null;
@@ -103,18 +104,11 @@ class ClassReflection
 			foreach ($this->propertiesClassReflectionExtensions as $extension) {
 				if ($extension->hasProperty($this, $propertyName)) {
 					$property = $extension->getProperty($this, $propertyName);
-					if ($privateProperty === null && !$property->isPublic()) {
-						$privateProperty = $property;
-					} elseif ($publicProperty === null && $property->isPublic()) {
-						$publicProperty = $property;
+					if ($scope !== null && $scope->canAccessProperty($property)) {
+						return $this->properties[$propertyName] = $property;
 					}
+					$this->properties[$propertyName] = $property;
 				}
-			}
-
-			if ($publicProperty !== null) {
-				return $this->properties[$propertyName] = $publicProperty;
-			} elseif ($privateProperty !== null) {
-				return $this->properties[$propertyName] = $privateProperty;
 			}
 		}
 

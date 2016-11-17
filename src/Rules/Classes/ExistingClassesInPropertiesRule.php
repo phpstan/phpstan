@@ -39,7 +39,7 @@ class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 		}
 
 		$classReflection = $this->broker->getClass($className);
-		$propertyType = $classReflection->getProperty($node->name)->getType();
+		$propertyType = $classReflection->getProperty($node->name, $scope)->getType();
 
 		if ($propertyType instanceof ArrayType) {
 			$nestedItemType = $propertyType->getNestedItemType();

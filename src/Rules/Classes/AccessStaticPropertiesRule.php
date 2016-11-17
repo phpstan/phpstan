@@ -83,7 +83,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 			];
 		}
 
-		$property = $classReflection->getProperty($name);
+		$property = $classReflection->getProperty($name, $scope);
 		if (!$property->isStatic()) {
 			return [
 				sprintf(

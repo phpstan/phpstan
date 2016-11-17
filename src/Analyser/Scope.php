@@ -505,7 +505,7 @@ class Scope
 					return new MixedType(true);
 				}
 
-				return $propertyClassReflection->getProperty($node->name)->getType();
+				return $propertyClassReflection->getProperty($node->name, $this)->getType();
 			}
 		}
 
