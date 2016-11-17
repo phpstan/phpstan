@@ -61,15 +61,21 @@ class TypehintHelper
 	public static function decideType(
 		\ReflectionType $reflectionType = null,
 		Type $phpDocType = null,
-		string $selfClass = null
+		string $selfClass = null,
+		bool $isVariadic = false
 	): Type
 	{
 		if ($reflectionType === null) {
 			return $phpDocType !== null ? $phpDocType : new MixedType(true);
 		}
 
+		$reflectionTypeString = (string) $reflectionType;
+		if ($isVariadic) {
+			$reflectionTypeString .= '[]';
+		}
+
 		$type = self::getTypeObjectFromTypehint(
-			(string) $reflectionType,
+			$reflectionTypeString,
 			$reflectionType->allowsNull(),
 			$selfClass
 		);

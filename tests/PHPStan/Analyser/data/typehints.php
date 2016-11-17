@@ -14,7 +14,8 @@ class Foo
 		$mixed,
 		array $array,
 		bool $isNullable = null,
-		callable $callable
+		callable $callable,
+		string ...$variadicStrings
 	): Bar
 	{
 		$loremObjectRef = $loremObject;

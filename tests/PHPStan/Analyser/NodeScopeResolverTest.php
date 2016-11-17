@@ -206,6 +206,18 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				null,
 				'$callable',
 			],
+			[
+				ArrayType::class,
+				false,
+				null,
+				'$variadicStrings',
+			],
+			[
+				StringType::class,
+				false,
+				null,
+				'$variadicStrings[0]',
+			],
 		];
 	}
 
