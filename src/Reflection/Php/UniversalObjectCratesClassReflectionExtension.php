@@ -22,6 +22,10 @@ class UniversalObjectCratesClassReflectionExtension
 
 	public function hasProperty(ClassReflection $classReflection, string $propertyName): bool
 	{
+		if ($classReflection->getNativeReflection()->hasProperty($propertyName)) {
+			return false;
+		}
+
 		foreach ($this->classes as $className) {
 			if (
 				$classReflection->getName() === $className
