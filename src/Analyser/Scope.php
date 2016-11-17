@@ -471,6 +471,11 @@ class Scope
 				}
 				$staticMethodReflection = $staticMethodClassReflection->getMethod($node->name);
 				if ($staticMethodReflection->getReturnType() instanceof StaticType) {
+					$nodeClassString = (string) $node->class;
+					if ($nodeClassString === 'parent' && $this->getClass() !== null) {
+						return new StaticType($this->getClass(), $staticMethodReflection->getReturnType()->isNullable());
+					}
+
 					$calleeType = new ObjectType($calleeClass, false);
 					if ($staticMethodReflection->getReturnType()->isNullable()) {
 						return $calleeType->makeNullable();

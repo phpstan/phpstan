@@ -2,7 +2,7 @@
 
 namespace ReturnTypes;
 
-class Foo implements FooInterface
+class Foo extends FooParent implements FooInterface
 {
 
 	public function returnNothing()
@@ -58,19 +58,21 @@ class Foo implements FooInterface
 		return 1;
 	}
 
+	/**
+	 * @return static
+	 */
+	public function returnStatic(): FooParent
+	{
+		return parent::returnStatic();
+
+		$parent = new FooParent();
+		return $parent->returnStatic(); // the only case with wrong static base class
+		return $this->returnStatic();
+	}
+
 }
 
 class FooChild extends Foo
-{
-
-}
-
-interface FooInterface
-{
-
-}
-
-class OtherInterfaceImpl implements FooInterface
 {
 
 }

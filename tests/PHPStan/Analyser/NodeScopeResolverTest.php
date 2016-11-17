@@ -1459,10 +1459,16 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'static::doSomethingStatic()',
 			],
 			[
+				StaticType::class,
+				false,
+				null,
+				'parent::doLorem()',
+			],
+			[
 				ObjectType::class,
 				false,
 				'MethodPhpDocsNamespace\FooParent',
-				'parent::doLorem()',
+				'$parent->doLorem()',
 			],
 			[
 				ObjectType::class,
@@ -1471,10 +1477,16 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$this->doLorem()',
 			],
 			[
+				StaticType::class,
+				false,
+				null,
+				'parent::doIpsum()',
+			],
+			[
 				ObjectType::class,
 				false,
 				'MethodPhpDocsNamespace\FooParent',
-				'parent::doIpsum()',
+				'$parent->doIpsum()',
 			],
 			[
 				ObjectType::class,

@@ -41,6 +41,10 @@ class ReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Method ReturnTypes\Foo::returnVoid() with return type void returns int but should not return anything.',
 				58,
 			],
+			[
+				'Method ReturnTypes\Foo::returnStatic() should return static(ReturnTypes\Foo) but returns ReturnTypes\FooParent.',
+				69,
+			],
 		]);
 	}
 

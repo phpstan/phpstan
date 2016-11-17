@@ -71,6 +71,7 @@ class Foo extends FooParent
 		$voidParameter
 	)
 	{
+		$parent = new FooParent();
 		die;
 	}
 
