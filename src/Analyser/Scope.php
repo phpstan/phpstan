@@ -462,19 +462,9 @@ class Scope
 		}
 
 		if ($node instanceof Expr\StaticCall && is_string($node->name) && $node->class instanceof Name) {
-			$calleeClassOriginal = (string) $node->class;
-			if ($calleeClassOriginal === 'self' || $calleeClassOriginal === 'static') {
-				$calleeClass = $this->getClass();
-			} elseif ($calleeClassOriginal === 'parent' && $this->broker->hasClass($this->getClass())) {
-				$currentClassReflection = $this->broker->getClass($this->getClass());
-				if ($currentClassReflection->getParentClass() !== false) {
-					$calleeClass = $currentClassReflection->getParentClass()->getName();
-				}
-			} else {
-				$calleeClass = $calleeClassOriginal;
-			}
+			$calleeClass = $this->resolveName($node->class);
 
-			if (isset($calleeClass) && $this->broker->hasClass($calleeClass)) {
+			if ($calleeClass !== null && $this->broker->hasClass($calleeClass)) {
 				$staticMethodClassReflection = $this->broker->getClass($calleeClass);
 				if (!$staticMethodClassReflection->hasMethod($node->name)) {
 					return new MixedType(true);
@@ -518,6 +508,27 @@ class Scope
 		}
 
 		return new MixedType(false);
+	}
+
+	/**
+	 * @param \PhpParser\Node\Name $name
+	 * @return string|null
+	 */
+	public function resolveName(Name $name)
+	{
+		$originalClass = (string) $name;
+		if ($originalClass === 'self' || $originalClass === 'static') {
+			return $this->getClass();
+		} elseif ($originalClass === 'parent' && $this->broker->hasClass($this->getClass())) {
+			$currentClassReflection = $this->broker->getClass($this->getClass());
+			if ($currentClassReflection->getParentClass() !== false) {
+				return $currentClassReflection->getParentClass()->getName();
+			}
+		} else {
+			return $originalClass;
+		}
+
+		return null;
 	}
 
 	/**
