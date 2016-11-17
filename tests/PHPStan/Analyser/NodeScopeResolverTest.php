@@ -870,6 +870,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				null,
 				'$yetAnotherAnotherAnotherAnotherMixedParameter',
 			],
+			[
+				StringType::class,
+				false,
+				null,
+				'self::$staticStringProperty',
+			],
 		];
 	}
 

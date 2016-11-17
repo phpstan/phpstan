@@ -499,6 +499,20 @@ class Scope
 			}
 		}
 
+		if ($node instanceof Expr\StaticPropertyFetch && is_string($node->name) && $node->class instanceof Name) {
+			$staticPropertyHolderClass = $this->resolveName($node->class);
+			if ($staticPropertyHolderClass !== null && $this->broker->hasClass($staticPropertyHolderClass)) {
+				$staticPropertyClassReflection = $this->broker->getClass(
+					$staticPropertyHolderClass
+				);
+				if (!$staticPropertyClassReflection->hasProperty($node->name)) {
+					return new MixedType(true);
+				}
+
+				return $staticPropertyClassReflection->getProperty($node->name, $this)->getType();
+			}
+		}
+
 		if ($node instanceof FuncCall && $node->name instanceof Name) {
 			if (!$this->broker->hasFunction($node->name, $this)) {
 				return new MixedType(true);

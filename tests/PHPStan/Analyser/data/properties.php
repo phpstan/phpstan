@@ -100,6 +100,11 @@ abstract class Foo extends Bar
 	 */
 	private $yetAnotherAnotherAnotherMixedParameter;
 
+	/**
+	 * @var string
+	 */
+	private static $staticStringProperty;
+
 	public function doFoo()
 	{
 		die;
