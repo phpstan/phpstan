@@ -370,7 +370,7 @@ class Scope
 		} elseif ($node instanceof Array_) {
 			return new ArrayType($this->getCombinedType(array_map(function (Expr\ArrayItem $item): Type {
 				return $this->getType($item->value);
-			}, $node->items)), false);
+			}, $node->items)), false, true);
 		} elseif ($node instanceof Int_) {
 				return new IntegerType(false);
 		} elseif ($node instanceof Bool_) {

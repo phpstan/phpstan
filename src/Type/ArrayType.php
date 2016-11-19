@@ -11,10 +11,14 @@ class ArrayType implements Type
 	/** @var bool */
 	private $nullable;
 
-	public function __construct(Type $itemType, bool $nullable)
+	/** @var bool */
+	private $itemTypeInferredFromLiteralArray;
+
+	public function __construct(Type $itemType, bool $nullable, bool $itemTypeInferredFromLiteralArray = false)
 	{
 		$this->itemType = $itemType;
 		$this->nullable = $nullable;
+		$this->itemTypeInferredFromLiteralArray = $itemTypeInferredFromLiteralArray;
 	}
 
 	public static function createDeepArrayType(NestedArrayItemType $nestedItemType, bool $nullable): self
@@ -42,6 +46,11 @@ class ArrayType implements Type
 	public function getItemType(): Type
 	{
 		return $this->itemType;
+	}
+
+	public function isItemTypeInferredFromLiteralArray(): bool
+	{
+		return $this->itemTypeInferredFromLiteralArray;
 	}
 
 	/**

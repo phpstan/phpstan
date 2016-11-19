@@ -31,6 +31,10 @@ class AppendedArrayItemTypeRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
+		if ($assignedToType->isItemTypeInferredFromLiteralArray()) {
+			return [];
+		}
+
 		$assignedValueType = $scope->getType($node->expr);
 		if (!$assignedToType->getItemType()->accepts($assignedValueType)) {
 			return [

@@ -31,7 +31,7 @@ class FileTypeMapper
 
 	public function getTypeMap(string $fileName): array
 	{
-		$cacheKey = sprintf('%s-%d-v5', $fileName, filemtime($fileName));
+		$cacheKey = sprintf('%s-%d-v6', $fileName, filemtime($fileName));
 		$cachedResult = $this->cache->load($cacheKey);
 		if ($cachedResult === null) {
 			$typeMap = $this->createTypeMap($fileName);
