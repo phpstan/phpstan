@@ -88,3 +88,13 @@ if ($fooInCondition = doFoo()) {
 	$fooInCondition->differentFoo();
 	$barInCondition->totallyDifferentBar();
 }
+
+\Closure::bind(function () {
+	$this->doFoo();
+}, $fooObject);
+\Closure::bind(function () {
+	$this->doFoo(); // $this undefined
+});
+\Closure::bind(function () {
+	$this->doFoo(); // $this undefined
+}, null);

@@ -54,6 +54,14 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Undefined variable: $undefinedVariable',
 				59,
 			],
+			[
+				'Undefined variable: $this',
+				96,
+			],
+			[
+				'Undefined variable: $this',
+				99,
+			],
 		]);
 	}
 

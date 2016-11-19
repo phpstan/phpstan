@@ -667,10 +667,16 @@ class Scope
 		);
 	}
 
-	public function enterClosureBind(Type $thisType): self
+	public function enterClosureBind(Type $thisType = null): self
 	{
 		$variableTypes = $this->getVariableTypes();
-		$variableTypes['this'] = $thisType;
+
+		if ($thisType !== null) {
+			$variableTypes['this'] = $thisType;
+		} else {
+			unset($variableTypes['this']);
+		}
+
 		return new self(
 			$this->broker,
 			$this->printer,

@@ -194,9 +194,14 @@ class NodeScopeResolver
 			&& (string) $node->class === 'Closure'
 			&& $node->name === 'bind'
 		) {
-			$thisType = new MixedType(true);
+			$thisType = null;
 			if (isset($node->args[1])) {
-				$thisType = $scope->getType($node->args[1]->value);
+				$argValue = $node->args[1]->value;
+				if ($argValue instanceof Expr\ConstFetch && ((string) $argValue->name === 'null')) {
+					$thisType = null;
+				} else {
+					$thisType = $scope->getType($argValue);
+				}
 			}
 			$scope = $scope->enterClosureBind($thisType);
 		} elseif ($node instanceof \PhpParser\Node\Expr\Closure) {
