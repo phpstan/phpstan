@@ -101,8 +101,14 @@ class NodeScopeResolver
 	 * @param \PhpParser\Node[] $nodes
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @param \Closure $nodeCallback
+	 * @param \PHPStan\Analyser\Scope $closureBindScope
 	 */
-	public function processNodes(array $nodes, Scope $scope, \Closure $nodeCallback)
+	public function processNodes(
+		array $nodes,
+		Scope $scope,
+		\Closure $nodeCallback,
+		Scope $closureBindScope = null
+	)
 	{
 		foreach ($nodes as $i => $node) {
 			if (!($node instanceof \PhpParser\Node)) {
@@ -125,7 +131,12 @@ class NodeScopeResolver
 				}
 			}
 
-			$this->processNode($node, $scope, $nodeCallback);
+			$nodeScope = $scope;
+			if ($i === 0 && $closureBindScope !== null) {
+				$nodeScope = $closureBindScope;
+			}
+
+			$this->processNode($node, $nodeScope, $nodeCallback);
 			$scope = $this->lookForAssigns($scope, $node);
 
 			if ($node instanceof If_) {
@@ -219,7 +230,7 @@ class NodeScopeResolver
 					$scopeClass = $argValue->value;
 				}
 			}
-			$scope = $scope->enterClosureBind($thisType, $scopeClass);
+			$closureBindScope = $scope->enterClosureBind($thisType, $scopeClass);
 		} elseif ($node instanceof \PhpParser\Node\Expr\Closure) {
 			$scope = $scope->enterAnonymousFunction($node->params, $node->uses, $node->returnType);
 		} elseif ($node instanceof Foreach_) {
@@ -335,7 +346,11 @@ class NodeScopeResolver
 			$subNode = $node->{$subNodeName};
 
 			if (is_array($subNode)) {
-				$this->processNodes($subNode, $scope, $nodeCallback);
+				$argClosureBindScope = null;
+				if (isset($closureBindScope) && $subNodeName === 'args') {
+					$argClosureBindScope = $closureBindScope;
+				}
+				$this->processNodes($subNode, $scope, $nodeCallback, $argClosureBindScope);
 			} elseif ($subNode instanceof \PhpParser\Node) {
 				if ($node instanceof Coalesce && $subNodeName === 'left') {
 					$scope = $this->assignVariable($scope, $subNode);

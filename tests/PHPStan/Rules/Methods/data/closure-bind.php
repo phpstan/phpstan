@@ -5,7 +5,7 @@ namespace CallClosureBind;
 class Bar
 {
 
-	public function fooMethod()
+	public function fooMethod(): Foo
 	{
 		\Closure::bind(function (Foo $foo) {
 			$foo->privateMethod();
@@ -32,6 +32,12 @@ class Bar
 			$foo->privateMethod();
 			$foo->nonexistentMethod();
 		}, null, new Foo());
+
+		\Closure::bind(function () {
+			// $this is Foo
+			$this->privateMethod();
+			$this->nonexistentMethod();
+		}, $this->fooMethod(), Foo::class);
 	}
 
 }

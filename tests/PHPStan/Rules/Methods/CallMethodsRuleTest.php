@@ -81,6 +81,10 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Call to an undefined method CallClosureBind\Foo::nonexistentMethod().',
 				33,
 			],
+			[
+				'Call to an undefined method CallClosureBind\Foo::nonexistentMethod().',
+				39,
+			],
 		]);
 	}
 
