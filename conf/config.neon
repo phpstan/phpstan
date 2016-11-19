@@ -92,6 +92,11 @@ services:
 		class: PHPStan\Rules\FunctionReturnTypeCheck
 
 	-
+		class: PHPStan\Rules\Arrays\AppendedArrayItemTypeRule
+		tags:
+			- phpstan.rules.rule
+
+	-
 		class: PHPStan\Rules\Classes\AccessPropertiesRule
 		tags:
 			- phpstan.rules.rule
