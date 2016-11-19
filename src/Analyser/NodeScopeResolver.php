@@ -196,7 +196,7 @@ class NodeScopeResolver
 		) {
 			$scope = $scope->enterClosureBind();
 		} elseif ($node instanceof \PhpParser\Node\Expr\Closure) {
-			$scope = $scope->enterAnonymousFunction($node->params, $node->uses);
+			$scope = $scope->enterAnonymousFunction($node->params, $node->uses, $node->returnType);
 		} elseif ($node instanceof Foreach_) {
 			if ($node->valueVar instanceof Variable) {
 				$scope = $scope->enterForeach(

@@ -87,9 +87,9 @@ class Scope
 	private $inClosureBind;
 
 	/**
-	 * @var bool
+	 * @var \PHPStan\Type\Type|null
 	 */
-	private $inAnonymousFunction;
+	private $inAnonymousFunctionReturnType;
 
 	/**
 	 * @var \PHPStan\Reflection\ClassReflection
@@ -126,7 +126,7 @@ class Scope
 		string $namespace = null,
 		array $variablesTypes = [],
 		bool $inClosureBind = false,
-		bool $inAnonymousFunction = false,
+		Type $inAnonymousFunctionReturnType = null,
 		ClassReflection $anonymousClass = null,
 		Expr $inFunctionCall = null,
 		bool $negated = false,
@@ -151,7 +151,7 @@ class Scope
 		$this->namespace = $namespace;
 		$this->variableTypes = $variablesTypes;
 		$this->inClosureBind = $inClosureBind;
-		$this->inAnonymousFunction = $inAnonymousFunction;
+		$this->inAnonymousFunctionReturnType = $inAnonymousFunctionReturnType;
 		$this->anonymousClass = $anonymousClass;
 		$this->inFunctionCall = $inFunctionCall;
 		$this->negated = $negated;
@@ -240,7 +240,15 @@ class Scope
 
 	public function isInAnonymousFunction(): bool
 	{
-		return $this->inAnonymousFunction;
+		return $this->inAnonymousFunctionReturnType !== null;
+	}
+
+	/**
+	 * @return \PHPStan\Type\Type|null
+	 */
+	public function getAnonymousFunctionReturnType()
+	{
+		return $this->inAnonymousFunctionReturnType;
 	}
 
 	public function isInAnonymousClass(): bool
@@ -667,7 +675,7 @@ class Scope
 			$this->getNamespace(),
 			$this->getVariableTypes(),
 			true,
-			$this->isInAnonymousFunction(),
+			$this->getAnonymousFunctionReturnType(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
@@ -689,7 +697,7 @@ class Scope
 				'this' => new MixedType(false),
 			],
 			$this->isInClosureBind(),
-			$this->isInAnonymousFunction(),
+			$this->getAnonymousFunctionReturnType(),
 			$anonymousClass,
 			$this->getInFunctionCall()
 		);
@@ -698,9 +706,14 @@ class Scope
 	/**
 	 * @param \PhpParser\Node\Param[] $parameters
 	 * @param \PhpParser\Node\Expr\ClosureUse[] $uses
+	 * @param \PhpParser\Node\Name|string|null $returnTypehint
 	 * @return self
 	 */
-	public function enterAnonymousFunction(array $parameters, array $uses): self
+	public function enterAnonymousFunction(
+		array $parameters,
+		array $uses,
+		$returnTypehint = null
+	): self
 	{
 		$variableTypes = [];
 		foreach ($parameters as $parameter) {
@@ -726,6 +739,8 @@ class Scope
 			$variableTypes['this'] = new ObjectType($this->getClass(), false);
 		}
 
+		$returnType = $this->getAnonymousFunctionType($returnTypehint, $returnTypehint !== null);
+
 		return new self(
 			$this->broker,
 			$this->printer,
@@ -736,7 +751,7 @@ class Scope
 			$this->getNamespace(),
 			$variableTypes,
 			$this->isInClosureBind(),
-			true,
+			$returnType,
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall()
 		);
@@ -798,7 +813,7 @@ class Scope
 			$this->getNamespace(),
 			$variableTypes,
 			$this->isInClosureBind(),
-			$this->isInAnonymousFunction(),
+			$this->getAnonymousFunctionReturnType(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			null,
 			$this->isNegated(),
@@ -821,7 +836,7 @@ class Scope
 			$this->getNamespace(),
 			$variableTypes,
 			$this->isInClosureBind(),
-			$this->isInAnonymousFunction(),
+			$this->getAnonymousFunctionReturnType(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			null,
 			$this->isNegated(),
@@ -845,7 +860,7 @@ class Scope
 			$this->getNamespace(),
 			$this->getVariableTypes(),
 			$this->isInClosureBind(),
-			$this->isInAnonymousFunction(),
+			$this->getAnonymousFunctionReturnType(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$functionCall,
 			$this->isNegated(),
@@ -868,7 +883,7 @@ class Scope
 			$this->getNamespace(),
 			$this->getVariableTypes(),
 			$this->isInClosureBind(),
-			$this->isInAnonymousFunction(),
+			$this->getAnonymousFunctionReturnType(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
@@ -902,7 +917,7 @@ class Scope
 			$this->getNamespace(),
 			$variableTypes,
 			$this->isInClosureBind(),
-			$this->isInAnonymousFunction(),
+			$this->getAnonymousFunctionReturnType(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
@@ -928,7 +943,7 @@ class Scope
 			$this->getNamespace(),
 			$variableTypes,
 			$this->isInClosureBind(),
-			$this->isInAnonymousFunction(),
+			$this->getAnonymousFunctionReturnType(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
@@ -959,7 +974,7 @@ class Scope
 			$this->getNamespace(),
 			$intersectedVariableTypes,
 			$this->isInClosureBind(),
-			$this->isInAnonymousFunction(),
+			$this->getAnonymousFunctionReturnType(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
@@ -984,7 +999,7 @@ class Scope
 			$this->getNamespace(),
 			$variableTypes,
 			$this->isInClosureBind(),
-			$this->isInAnonymousFunction(),
+			$this->getAnonymousFunctionReturnType(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
@@ -1010,7 +1025,7 @@ class Scope
 				$this->getNamespace(),
 				$variableTypes,
 				$this->isInClosureBind(),
-				$this->isInAnonymousFunction(),
+				$this->getAnonymousFunctionReturnType(),
 				$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 				$this->getInFunctionCall(),
 				$this->isNegated(),
@@ -1046,7 +1061,7 @@ class Scope
 			$this->getNamespace(),
 			$this->getVariableTypes(),
 			$this->isInClosureBind(),
-			$this->isInAnonymousFunction(),
+			$this->getAnonymousFunctionReturnType(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			!$this->isNegated(),
@@ -1076,7 +1091,7 @@ class Scope
 			$this->getNamespace(),
 			$this->getVariableTypes(),
 			$this->isInClosureBind(),
-			$this->isInAnonymousFunction(),
+			$this->getAnonymousFunctionReturnType(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),

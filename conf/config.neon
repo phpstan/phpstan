@@ -152,6 +152,11 @@ services:
 			- phpstan.rules.rule
 
 	-
+		class: PHPStan\Rules\Functions\ClosureReturnTypeRule
+		tags:
+			- phpstan.rules.rule
+
+	-
 		class: PHPStan\Rules\Functions\ExistingClassesInClosureTypehintsRule
 		tags:
 			- phpstan.rules.rule
