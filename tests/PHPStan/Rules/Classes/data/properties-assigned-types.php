@@ -31,6 +31,8 @@ class Foo extends Ipsum
 		Foo::$staticStringProperty = 1;
 		parent::$parentStringProperty = 'foo';
 		parent::$parentStringProperty = 1;
+		$this->nonexistentProperty = 'foo';
+		$this->nonexistentProperty = 1;
 	}
 
 }
