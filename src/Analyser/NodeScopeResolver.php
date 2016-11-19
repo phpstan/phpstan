@@ -203,7 +203,23 @@ class NodeScopeResolver
 					$thisType = $scope->getType($argValue);
 				}
 			}
-			$scope = $scope->enterClosureBind($thisType);
+			$scopeClass = 'static';
+			if (isset($node->args[2])) {
+				$argValue = $node->args[2]->value;
+				$argValueType = $scope->getType($argValue);
+				if ($argValueType->getClass() !== null) {
+					$scopeClass = $argValueType->getClass();
+				} elseif (
+					$argValue instanceof Expr\ClassConstFetch
+					&& $argValue->name === 'class'
+					&& $argValue->class instanceof Name
+				) {
+					$scopeClass = $scope->resolveName($argValue->class);
+				} elseif ($argValue instanceof Node\Scalar\String_) {
+					$scopeClass = $argValue->value;
+				}
+			}
+			$scope = $scope->enterClosureBind($thisType, $scopeClass);
 		} elseif ($node instanceof \PhpParser\Node\Expr\Closure) {
 			$scope = $scope->enterAnonymousFunction($node->params, $node->uses, $node->returnType);
 		} elseif ($node instanceof Foreach_) {

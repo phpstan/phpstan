@@ -82,9 +82,9 @@ class Scope
 	private $variableTypes;
 
 	/**
-	 * @var bool
+	 * @var string
 	 */
-	private $inClosureBind;
+	private $inClosureBindScopeClass;
 
 	/**
 	 * @var \PHPStan\Type\Type|null
@@ -125,7 +125,7 @@ class Scope
 		\PHPStan\Reflection\ParametersAcceptor $function = null,
 		string $namespace = null,
 		array $variablesTypes = [],
-		bool $inClosureBind = false,
+		string $inClosureBindScopeClass = null,
 		Type $inAnonymousFunctionReturnType = null,
 		ClassReflection $anonymousClass = null,
 		Expr $inFunctionCall = null,
@@ -150,7 +150,7 @@ class Scope
 		$this->function = $function;
 		$this->namespace = $namespace;
 		$this->variableTypes = $variablesTypes;
-		$this->inClosureBind = $inClosureBind;
+		$this->inClosureBindScopeClass = $inClosureBindScopeClass;
 		$this->inAnonymousFunctionReturnType = $inAnonymousFunctionReturnType;
 		$this->anonymousClass = $anonymousClass;
 		$this->inFunctionCall = $inFunctionCall;
@@ -235,7 +235,7 @@ class Scope
 
 	public function isInClosureBind(): bool
 	{
-		return $this->inClosureBind;
+		return $this->inClosureBindScopeClass !== null;
 	}
 
 	public function isInAnonymousFunction(): bool
@@ -667,7 +667,7 @@ class Scope
 		);
 	}
 
-	public function enterClosureBind(Type $thisType = null): self
+	public function enterClosureBind(Type $thisType = null, string $scopeClass): self
 	{
 		$variableTypes = $this->getVariableTypes();
 
@@ -675,6 +675,10 @@ class Scope
 			$variableTypes['this'] = $thisType;
 		} else {
 			unset($variableTypes['this']);
+		}
+
+		if ($scopeClass === 'static') {
+			$scopeClass = $this->getClass();
 		}
 
 		return new self(
@@ -686,7 +690,7 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
-			true,
+			$scopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
@@ -708,7 +712,7 @@ class Scope
 			[
 				'this' => new MixedType(false),
 			],
-			$this->isInClosureBind(),
+			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$anonymousClass,
 			$this->getInFunctionCall()
@@ -762,7 +766,7 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
-			$this->isInClosureBind(),
+			$this->inClosureBindScopeClass,
 			$returnType,
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall()
@@ -824,7 +828,7 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
-			$this->isInClosureBind(),
+			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			null,
@@ -847,7 +851,7 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
-			$this->isInClosureBind(),
+			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			null,
@@ -871,7 +875,7 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),
-			$this->isInClosureBind(),
+			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$functionCall,
@@ -894,7 +898,7 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),
-			$this->isInClosureBind(),
+			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
@@ -928,7 +932,7 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
-			$this->isInClosureBind(),
+			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
@@ -954,7 +958,7 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
-			$this->isInClosureBind(),
+			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
@@ -985,7 +989,7 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$intersectedVariableTypes,
-			$this->isInClosureBind(),
+			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
@@ -1010,7 +1014,7 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
-			$this->isInClosureBind(),
+			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
@@ -1036,7 +1040,7 @@ class Scope
 				$this->getFunction(),
 				$this->getNamespace(),
 				$variableTypes,
-				$this->isInClosureBind(),
+				$this->inClosureBindScopeClass,
 				$this->getAnonymousFunctionReturnType(),
 				$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 				$this->getInFunctionCall(),
@@ -1072,7 +1076,7 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),
-			$this->isInClosureBind(),
+			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
@@ -1102,7 +1106,7 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),
-			$this->isInClosureBind(),
+			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
@@ -1127,12 +1131,11 @@ class Scope
 			return true;
 		}
 
-		if (!$this->hasVariableType('this')) {
+		$class = $this->isInClosureBind() ? $this->inClosureBindScopeClass : $this->getClass();
+		if ($class === null) {
 			return false;
 		}
-
-		$class = $this->getVariableType('this')->getClass();
-		if ($class === null) {
+		if (!$this->broker->hasClass($class)) {
 			return false;
 		}
 
