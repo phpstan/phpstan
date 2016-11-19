@@ -302,6 +302,10 @@ class Scope
 			return new StringType(false);
 		}
 
+		if ($node instanceof Expr\BinaryOp\Spaceship) {
+			return new IntegerType(false);
+		}
+
 		if (
 			$node instanceof Node\Expr\BinaryOp\Plus
 			|| $node instanceof Node\Expr\BinaryOp\Minus

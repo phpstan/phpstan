@@ -1184,6 +1184,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				null,
 				'1.0 . 2.0',
 			],
+			[
+				$typeCallback('foo' <=> 'bar'),
+				false,
+				null,
+				"'foo' <=> 'bar'",
+			],
 		];
 	}
 
