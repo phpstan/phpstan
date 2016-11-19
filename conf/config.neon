@@ -89,6 +89,9 @@ services:
 		class: PHPStan\Rules\FunctionDefinitionCheck
 
 	-
+		class: PHPStan\Rules\FunctionReturnTypeCheck
+
+	-
 		class: PHPStan\Rules\Classes\AccessPropertiesRule
 		tags:
 			- phpstan.rules.rule

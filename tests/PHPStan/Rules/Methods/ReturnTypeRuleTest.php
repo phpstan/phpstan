@@ -2,12 +2,14 @@
 
 namespace PHPStan\Rules\Methods;
 
+use PHPStan\Rules\FunctionReturnTypeCheck;
+
 class ReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new ReturnTypeRule();
+		return new ReturnTypeRule(new FunctionReturnTypeCheck());
 	}
 
 	public function testReturnTypeRule()
