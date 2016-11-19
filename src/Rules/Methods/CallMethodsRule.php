@@ -39,10 +39,6 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		if ($scope->isInClosureBind()) {
-			return [];
-		}
-
 		if (!is_string($node->name)) {
 			return [];
 		}

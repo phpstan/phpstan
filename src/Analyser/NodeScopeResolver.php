@@ -194,7 +194,11 @@ class NodeScopeResolver
 			&& (string) $node->class === 'Closure'
 			&& $node->name === 'bind'
 		) {
-			$scope = $scope->enterClosureBind();
+			$thisType = new MixedType(true);
+			if (isset($node->args[1])) {
+				$thisType = $scope->getType($node->args[1]->value);
+			}
+			$scope = $scope->enterClosureBind($thisType);
 		} elseif ($node instanceof \PhpParser\Node\Expr\Closure) {
 			$scope = $scope->enterAnonymousFunction($node->params, $node->uses, $node->returnType);
 		} elseif ($node instanceof Foreach_) {

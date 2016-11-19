@@ -31,10 +31,6 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(\PhpParser\Node $node, Scope $scope): array
 	{
-		if ($scope->isInClosureBind()) {
-			return [];
-		}
-
 		if (!is_string($node->name)) {
 			return [];
 		}

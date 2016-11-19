@@ -667,8 +667,10 @@ class Scope
 		);
 	}
 
-	public function enterClosureBind(): self
+	public function enterClosureBind(Type $thisType): self
 	{
+		$variableTypes = $this->getVariableTypes();
+		$variableTypes['this'] = $thisType;
 		return new self(
 			$this->broker,
 			$this->printer,
@@ -677,7 +679,7 @@ class Scope
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
-			$this->getVariableTypes(),
+			$variableTypes,
 			true,
 			$this->getAnonymousFunctionReturnType(),
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
@@ -739,8 +741,8 @@ class Scope
 			$variableTypes[$use->var] = $this->getVariableType($use->var);
 		}
 
-		if ($this->getClass() !== null) {
-			$variableTypes['this'] = new ObjectType($this->getClass(), false);
+		if ($this->hasVariableType('this')) {
+			$variableTypes['this'] = $this->getVariableType('this');
 		}
 
 		$returnType = $this->getAnonymousFunctionType($returnTypehint, $returnTypehint !== null);
@@ -1115,24 +1117,25 @@ class Scope
 
 	private function canAccessClassMember(ClassMemberReflection $classMemberReflection): bool
 	{
-		if ($this->isInClosureBind()) {
-			return true;
-		}
-
 		if ($classMemberReflection->isPublic()) {
 			return true;
 		}
 
-		if ($this->getClass() === null) {
+		if (!$this->hasVariableType('this')) {
+			return false;
+		}
+
+		$class = $this->getVariableType('this')->getClass();
+		if ($class === null) {
 			return false;
 		}
 
 		$classReflectionName = $classMemberReflection->getDeclaringClass()->getName();
 		if ($classMemberReflection->isPrivate()) {
-			return $this->getClass() === $classReflectionName;
+			return $class === $classReflectionName;
 		}
 
-		$currentClassReflection = $this->broker->getClass($this->getClass());
+		$currentClassReflection = $this->broker->getClass($class);
 
 		// protected
 

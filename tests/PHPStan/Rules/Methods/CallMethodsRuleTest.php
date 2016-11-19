@@ -54,9 +54,13 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		]);
 	}
 
-	public function testDoNotCheckInsideClosureBind()
+	public function testClosureBind()
 	{
 		$this->analyse([__DIR__ . '/data/closure-bind.php'], [
+			[
+				'Call to an undefined method A::barMethod().',
+				10,
+			],
 			[
 				'Call to an undefined method A::barMethod().',
 				14,

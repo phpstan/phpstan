@@ -12,6 +12,11 @@ class A
 
 		$this->fooMethod();
 		$this->barMethod();
+
+		\Closure::bind(function () {
+			$this->fooMethod();
+			$this->barMethod();
+		}, $nonexistent, self::class);
 	}
 
 }
