@@ -233,11 +233,6 @@ class Scope
 		return $this->variableTypes[$variableName];
 	}
 
-	public function isInClosureBind(): bool
-	{
-		return $this->inClosureBindScopeClass !== null;
-	}
-
 	public function isInAnonymousFunction(): bool
 	{
 		return $this->inAnonymousFunctionReturnType !== null;
@@ -1131,7 +1126,7 @@ class Scope
 			return true;
 		}
 
-		$class = $this->isInClosureBind() ? $this->inClosureBindScopeClass : $this->getClass();
+		$class = $this->inClosureBindScopeClass !== null ? $this->inClosureBindScopeClass : $this->getClass();
 		if ($class === null) {
 			return false;
 		}
