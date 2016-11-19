@@ -709,31 +709,7 @@ class Scope
 				$isNullable = strtolower((string) $parameter->default->name) === 'null';
 			}
 
-			if ($parameter->type === null) {
-				$parameterType = new MixedType(true);
-			} elseif ($parameter->type === 'string') {
-				$parameterType = new StringType($isNullable);
-			} elseif ($parameter->type === 'int') {
-				$parameterType = new IntegerType($isNullable);
-			} elseif ($parameter->type === 'bool') {
-				$parameterType = new BooleanType($isNullable);
-			} elseif ($parameter->type === 'float') {
-				$parameterType = new FloatType($isNullable);
-			} elseif ($parameter->type === 'callable') {
-				$parameterType = new CallableType($isNullable);
-			} elseif ($parameter->type === 'array') {
-				$parameterType = new ArrayType(new MixedType(true), $isNullable);
-			} elseif ($parameter->type instanceof Name) {
-				$className = (string) $parameter->type;
-				if ($className === 'self') {
-					$className = $this->getClass();
-				}
-				$parameterType = new ObjectType($className, $isNullable);
-			} else {
-				$parameterType = new MixedType($isNullable);
-			}
-
-			$variableTypes[$parameter->name] = $parameterType;
+			$variableTypes[$parameter->name] = $this->getAnonymousFunctionType($parameter->type, $isNullable);
 		}
 
 		foreach ($uses as $use) {
@@ -764,6 +740,38 @@ class Scope
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall()
 		);
+	}
+
+	/**
+	 * @param \PhpParser\Node\Name|string|null $type
+	 * @param bool $isNullable
+	 * @return Type
+	 */
+	private function getAnonymousFunctionType($type = null, bool $isNullable): Type
+	{
+		if ($type === null) {
+			return new MixedType(true);
+		} elseif ($type === 'string') {
+			return new StringType($isNullable);
+		} elseif ($type === 'int') {
+			return new IntegerType($isNullable);
+		} elseif ($type === 'bool') {
+			return new BooleanType($isNullable);
+		} elseif ($type === 'float') {
+			return new FloatType($isNullable);
+		} elseif ($type === 'callable') {
+			return new CallableType($isNullable);
+		} elseif ($type === 'array') {
+			return new ArrayType(new MixedType(true), $isNullable);
+		} elseif ($type instanceof Name) {
+			$className = (string) $type;
+			if ($className === 'self') {
+				$className = $this->getClass();
+			}
+			return new ObjectType($className, $isNullable);
+		}
+
+		return new MixedType($isNullable);
 	}
 
 	public function enterForeach(Node $iteratee, string $valueName, string $keyName = null): self
