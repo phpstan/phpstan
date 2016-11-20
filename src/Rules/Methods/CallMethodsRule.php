@@ -7,6 +7,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\FunctionCallParametersCheck;
+use PHPStan\Rules\RuleLevelHelper;
 
 class CallMethodsRule implements \PHPStan\Rules\Rule
 {
@@ -21,10 +22,27 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 	 */
 	private $check;
 
-	public function __construct(Broker $broker, FunctionCallParametersCheck $check)
+	/**
+	 * @var \PHPStan\Rules\RuleLevelHelper
+	 */
+	private $ruleLevelHelper;
+
+	/**
+	 * @var bool
+	 */
+	private $checkThisOnly;
+
+	public function __construct(
+		Broker $broker,
+		FunctionCallParametersCheck $check,
+		RuleLevelHelper $ruleLevelHelper,
+		bool $checkThisOnly
+	)
 	{
 		$this->broker = $broker;
 		$this->check = $check;
+		$this->ruleLevelHelper = $ruleLevelHelper;
+		$this->checkThisOnly = $checkThisOnly;
 	}
 
 	public function getNodeType(): string
@@ -40,6 +58,10 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 	public function processNode(Node $node, Scope $scope): array
 	{
 		if (!is_string($node->name)) {
+			return [];
+		}
+
+		if ($this->checkThisOnly && !$this->ruleLevelHelper->isThis($node->var)) {
 			return [];
 		}
 

@@ -14,6 +14,10 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 	const NAME = 'analyse';
 
+	const OPTION_LEVEL = 'level';
+
+	const DEFAULT_LEVEL = 0;
+
 	protected function configure()
 	{
 		$this->setName(self::NAME)
@@ -21,6 +25,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			->setDefinition([
 				new InputArgument('paths', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'Paths with source code to run analysis on'),
 				new InputOption('configuration', 'c', InputOption::VALUE_REQUIRED, 'Path to project configuration file'),
+				new InputOption(self::OPTION_LEVEL, 'l', InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter', self::DEFAULT_LEVEL),
 			]);
 	}
 
@@ -42,7 +47,14 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		$configurator->setTempDirectory($tmpDir);
 		$configurator->enableDebugger($tmpDir . '/log');
 
-		$configFiles = [$confDir . '/config.neon'];
+		$levelConfigFile = sprintf('%s/config.level%s.neon', $confDir, $input->getOption(self::OPTION_LEVEL));
+		if (!is_file($levelConfigFile)) {
+			$output->writeln(sprintf('Level config file %s was not found.', $levelConfigFile));
+			return 1;
+		}
+
+		$configFiles = [$confDir . '/config.neon', $levelConfigFile];
+
 		$projectConfigFile = $input->getOption('configuration');
 		if ($projectConfigFile !== null) {
 			$projectConfigFilePath = realpath($projectConfigFile);

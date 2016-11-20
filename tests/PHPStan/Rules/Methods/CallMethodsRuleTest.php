@@ -4,20 +4,27 @@ namespace PHPStan\Rules\Methods;
 
 use PHPStan\Rules\FunctionCallParametersCheck;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleLevelHelper;
 
 class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 {
+
+	/** @var bool */
+	private $checkThisOnly;
 
 	protected function getRule(): Rule
 	{
 		return new CallMethodsRule(
 			$this->createBroker(),
-			new FunctionCallParametersCheck()
+			new FunctionCallParametersCheck(),
+			new RuleLevelHelper(),
+			$this->checkThisOnly
 		);
 	}
 
 	public function testCallMethods()
 	{
+		$this->checkThisOnly = false;
 		$this->analyse([ __DIR__ . '/data/call-methods.php'], [
 			[
 				'Call to an undefined method Test\Bar::loremipsum().',
@@ -38,8 +45,28 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		]);
 	}
 
+	public function testCallMethodsOnThisOnly()
+	{
+		$this->checkThisOnly = true;
+		$this->analyse([ __DIR__ . '/data/call-methods.php'], [
+			[
+				'Call to an undefined method Test\Bar::loremipsum().',
+				40,
+			],
+			[
+				'Cannot call method Test\Foo::foo() from current scope.',
+				41,
+			],
+			[
+				'Method Test\Foo::test() invoked with 0 parameters, 1 required.',
+				46,
+			],
+		]);
+	}
+
 	public function testCallTraitMethods()
 	{
+		$this->checkThisOnly = false;
 		$this->analyse([__DIR__ . '/data/call-trait-methods.php'], [
 			[
 				'Call to an undefined method Baz::unexistentMethod().',
@@ -50,6 +77,7 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	public function testCallInterfaceMethods()
 	{
+		$this->checkThisOnly = false;
 		$this->analyse([__DIR__ . '/data/call-interface-methods.php'], [
 			[
 				'Call to an undefined method Baz::barMethod().',
@@ -60,6 +88,7 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	public function testClosureBind()
 	{
+		$this->checkThisOnly = false;
 		$this->analyse([__DIR__ . '/data/closure-bind.php'], [
 			[
 				'Call to an undefined method CallClosureBind\Foo::nonexistentMethod().',
@@ -94,6 +123,7 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	public function testCallVariadicMethods()
 	{
+		$this->checkThisOnly = false;
 		$this->analyse([__DIR__ . '/data/call-variadic-methods.php'], [
 			[
 				'Method CallVariadicMethods\Foo::baz() invoked with 0 parameters, at least 1 required.',
@@ -108,6 +138,7 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	public function testCallToIncorrectCaseMethodName()
 	{
+		$this->checkThisOnly = false;
 		$this->analyse([__DIR__ . '/data/incorrect-method-case.php'], [
 			[
 				'Call to method IncorrectMethodCase\Foo::fooBar() with incorrect case: foobar',

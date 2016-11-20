@@ -93,6 +93,8 @@
 			<arg value="analyse"/>
 			<arg value="-c"/>
 			<arg path="phpstan.neon"/>
+			<arg value="-l"/>
+			<arg value="3"/>
 			<arg path="src"/>
 			<arg path="tests"/>
 		</exec>

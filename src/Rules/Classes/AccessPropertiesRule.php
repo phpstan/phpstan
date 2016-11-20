@@ -5,6 +5,7 @@ namespace PHPStan\Rules\Classes;
 use PhpParser\Node\Expr\PropertyFetch;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Rules\RuleLevelHelper;
 
 class AccessPropertiesRule implements \PHPStan\Rules\Rule
 {
@@ -14,9 +15,25 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 	 */
 	private $broker;
 
-	public function __construct(Broker $broker)
+	/**
+	 * @var \PHPStan\Rules\RuleLevelHelper
+	 */
+	private $ruleLevelHelper;
+
+	/**
+	 * @var bool
+	 */
+	private $checkThisOnly;
+
+	public function __construct(
+		Broker $broker,
+		RuleLevelHelper $ruleLevelHelper,
+		bool $checkThisOnly
+	)
 	{
 		$this->broker = $broker;
+		$this->ruleLevelHelper = $ruleLevelHelper;
+		$this->checkThisOnly = $checkThisOnly;
 	}
 
 	public function getNodeType(): string
@@ -32,6 +49,10 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 	public function processNode(\PhpParser\Node $node, Scope $scope): array
 	{
 		if (!is_string($node->name)) {
+			return [];
+		}
+
+		if ($this->checkThisOnly && !$this->ruleLevelHelper->isThis($node->var)) {
 			return [];
 		}
 

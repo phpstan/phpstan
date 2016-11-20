@@ -1,0 +1,28 @@
+includes:
+	- config.level2.neon
+
+services:
+	-
+		class: PHPStan\Rules\Arrays\AppendedArrayItemTypeRule
+		tags:
+			- phpstan.rules.rule
+
+	-
+		class: PHPStan\Rules\Classes\DefaultValueTypesAssignedToPropertiesRule
+		tags:
+			- phpstan.rules.rule
+
+	-
+		class: PHPStan\Rules\Classes\TypesAssignedToPropertiesRule
+		tags:
+			- phpstan.rules.rule
+
+	-
+		class: PHPStan\Rules\Functions\ClosureReturnTypeRule
+		tags:
+			- phpstan.rules.rule
+
+	-
+		class: PHPStan\Rules\Methods\ReturnTypeRule
+		tags:
+			- phpstan.rules.rule
