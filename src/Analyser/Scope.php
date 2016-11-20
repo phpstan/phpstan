@@ -545,7 +545,7 @@ class Scope
 		$originalClass = (string) $name;
 		if ($originalClass === 'self' || $originalClass === 'static') {
 			return $this->getClass();
-		} elseif ($originalClass === 'parent' && $this->broker->hasClass($this->getClass())) {
+		} elseif ($originalClass === 'parent' && $this->getClass() !== null && $this->broker->hasClass($this->getClass())) {
 			$currentClassReflection = $this->broker->getClass($this->getClass());
 			if ($currentClassReflection->getParentClass() !== false) {
 				return $currentClassReflection->getParentClass()->getName();

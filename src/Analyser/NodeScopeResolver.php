@@ -225,7 +225,10 @@ class NodeScopeResolver
 					&& $argValue->name === 'class'
 					&& $argValue->class instanceof Name
 				) {
-					$scopeClass = $scope->resolveName($argValue->class);
+					$resolvedName = $scope->resolveName($argValue->class);
+					if ($resolvedName !== null) {
+						$scopeClass = $resolvedName;
+					}
 				} elseif ($argValue instanceof Node\Scalar\String_) {
 					$scopeClass = $argValue->value;
 				}
