@@ -16,7 +16,9 @@ It currently performs the following checks on your code:
 * Existence of variables while respecting scopes of branches and loops.
 * Existence and visibility of called methods and functions.
 * Existence and visibility of accessed properties.
+* Correct types assigned to properties.
 * Correct number of parameters passed to constructors, methods and functions.
+* Correct types returned from methods and functions.
 * Correct number of parameters passed to `sprintf`/`printf` calls based on format strings.
 
 Future versions will also check if arguments of correct types are passed to methods and functions and assigned to properties.
@@ -120,15 +122,13 @@ parameters:
 
 Classes without predefined structure are common in PHP applications.
 They are used as universal holders of data - any property can be set and read on them. Notable examples
-include `stdClass`, `SimpleXMLElement`, objects with results of database queries etc.
+include `stdClass`, `SimpleXMLElement` (these are enabled by default), objects with results of database queries etc.
 Use `universalObjectCratesClasses` array parameter to let PHPStan know which classes
 with these characteristics are used in your codebase:
 
 ```
 parameters:
 	universalObjectCratesClasses:
-		- stdClass
-		- SimpleXMLElement
 		- Dibi\Row
 		- Ratchet\ConnectionInterface
 ```
@@ -185,7 +185,7 @@ if (somethingIsTrue()) {
 doFoo($foo);
 ```
 
-I recommend leaving `polluteScopeWithForLoopInitialAssignments`, `polluteCatchScopeWithTryAssignments` and
+I recommend leaving `polluteScopeWithLoopInitialAssignments`, `polluteCatchScopeWithTryAssignments` and
 `defineVariablesWithoutDefaultBranch` set to `false` because it leads to a clearer and more maintainable code.
 
 ### Custom early terminating method calls
@@ -237,6 +237,32 @@ parameters:
 
 If some of the patterns do not occur in the result anymore, PHPStan will let you know
 and you will have to remove the pattern from the configuration.
+
+### Bootstrap file
+
+If you need to initialize something in PHP runtime before PHPStan runs (like your own autoloader),
+you can provide your own bootstrap file:
+
+```
+parameters:
+	bootstrap: - %rootDir%/../../../phpstan-bootstrap.php
+```
+
+### Custom rules
+
+PHPStan allows writing custom rules to check for specific situations in your own codebase. Your rule class
+needs to implement the `PHPStan\Rules\Rule` interface and registered as a service in the configuration file:
+
+```
+services:
+	-
+		class: MyApp\PHPStan\Rules\DefaultValueTypesAssignedToPropertiesRule
+		tags:
+			- phpstan.rules.rule
+```
+
+For inspiration on how to implement a rule turn to [src/Rules](https://github.com/phpstan/phpstan/tree/master/src/Rules)
+to see a lot of built-in rules.
 
 ## Class reflection extensions
 
