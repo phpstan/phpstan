@@ -32,7 +32,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		if (!is_string($node->name)) {
+		if (!is_string($node->name) || !($node->class instanceof Node\Name)) {
 			return [];
 		}
 
