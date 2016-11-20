@@ -8,6 +8,7 @@ use PHPStan\Parser\Parser;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\IntegerType;
+use PHPStan\Type\MixedType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
@@ -104,6 +105,18 @@ class PhpMethodReflection implements MethodReflection
 					new StringType(false)
 				);
 			}
+
+			if (
+				$this->declaringClass->getName() === 'ReflectionMethod'
+				&& $this->reflection->getName() === 'invoke'
+				&& !$this->parameters[1]->isOptional()
+			) {
+				// PHP bug #71416
+				$this->parameters[1] = new DummyOptionalParameter(
+					'parameter',
+					new MixedType(true)
+				);
+			}
 		}
 
 		return $this->parameters;
@@ -112,6 +125,14 @@ class PhpMethodReflection implements MethodReflection
 	public function isVariadic(): bool
 	{
 		$isNativelyVariadic = $this->reflection->isVariadic();
+		if (
+			!$isNativelyVariadic
+			&& $this->declaringClass->getName() === 'ReflectionMethod'
+			&& $this->reflection->getName() === 'invoke'
+		) {
+			return true;
+		}
+
 		if (!$isNativelyVariadic && $this->declaringClass->getNativeReflection()->getFileName() !== false) {
 			$key = sprintf('variadic-method-%s-%s', $this->declaringClass->getName(), $this->reflection->getName());
 			$cachedResult = $this->cache->load($key);

@@ -49,4 +49,12 @@ class Bar extends Foo
 		$string->method();
 	}
 
+	public function dolor($foo, $bar, $baz)
+	{
+		// fixing PHP bug #71416
+		$methodReflection = new \ReflectionMethod(Bar::class, 'dolor');
+		$methodReflection->invoke(new self());
+		$methodReflection->invoke(new self(), 'foo', 'bar', 'baz');
+	}
+
 }
