@@ -12,4 +12,14 @@ class ResourceType implements Type
 		return 'resource';
 	}
 
+	public function canAccessProperties(): bool
+	{
+		return false;
+	}
+
+	public function canCallMethods(): bool
+	{
+		return false;
+	}
+
 }

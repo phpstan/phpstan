@@ -42,4 +42,14 @@ class VoidType implements Type
 		return 'void';
 	}
 
+	public function canAccessProperties(): bool
+	{
+		return false;
+	}
+
+	public function canCallMethods(): bool
+	{
+		return false;
+	}
+
 }

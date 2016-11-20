@@ -12,4 +12,14 @@ class StringType implements Type
 		return 'string';
 	}
 
+	public function canAccessProperties(): bool
+	{
+		return false;
+	}
+
+	public function canCallMethods(): bool
+	{
+		return false;
+	}
+
 }

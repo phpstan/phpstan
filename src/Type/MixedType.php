@@ -46,4 +46,14 @@ class MixedType implements Type
 		return 'mixed';
 	}
 
+	public function canAccessProperties(): bool
+	{
+		return true;
+	}
+
+	public function canCallMethods(): bool
+	{
+		return true;
+	}
+
 }

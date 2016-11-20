@@ -12,4 +12,14 @@ class CallableType implements Type
 		return 'callable';
 	}
 
+	public function canAccessProperties(): bool
+	{
+		return false;
+	}
+
+	public function canCallMethods(): bool
+	{
+		return true;
+	}
+
 }

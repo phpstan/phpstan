@@ -110,4 +110,14 @@ class ArrayType implements Type
 		return sprintf('%s[]', $this->getItemType()->describe());
 	}
 
+	public function canAccessProperties(): bool
+	{
+		return false;
+	}
+
+	public function canCallMethods(): bool
+	{
+		return false;
+	}
+
 }

@@ -26,6 +26,9 @@ class BarAccessProperties extends FooAccessProperties
 		$this->ipsum;
 		$this->foobar;
 		Foo::class;
+
+		$string = 'foo';
+		$string->propertyOnString;
 	}
 
 }

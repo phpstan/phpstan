@@ -31,6 +31,10 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Method Test\Foo::test() invoked with 0 parameters, 1 required.',
 				46,
 			],
+			[
+				'Cannot call method method() on string.',
+				49,
+			],
 		]);
 	}
 

@@ -24,12 +24,16 @@ class AccessPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 					24,
 				],
 				[
+					'Cannot access property $propertyOnString on string.',
+					31,
+				],
+				[
 					'Cannot access property TestAccessProperties\FooAccessProperties::$foo from current scope.',
-					39,
+					42,
 				],
 				[
 					'Cannot access property TestAccessProperties\FooAccessProperties::$bar from current scope.',
-					40,
+					43,
 				],
 			]
 		);

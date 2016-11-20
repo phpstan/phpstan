@@ -55,4 +55,14 @@ class StaticType implements Type
 		return sprintf('static(%s)', $this->baseClass);
 	}
 
+	public function canAccessProperties(): bool
+	{
+		return true;
+	}
+
+	public function canCallMethods(): bool
+	{
+		return true;
+	}
+
 }

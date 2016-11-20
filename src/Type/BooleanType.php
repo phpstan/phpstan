@@ -12,4 +12,14 @@ class BooleanType implements Type
 		return 'bool';
 	}
 
+	public function canAccessProperties(): bool
+	{
+		return false;
+	}
+
+	public function canCallMethods(): bool
+	{
+		return false;
+	}
+
 }

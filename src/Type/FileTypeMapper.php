@@ -99,6 +99,7 @@ class FileTypeMapper
 			'#@return\s+' . self::TYPE_PATTERN . '#',
 		];
 
+		/** @var \PhpParser\Node\Stmt\ClassLike|null $lastClass */
 		$lastClass = null;
 		$this->processNodes(
 			$this->parser->parseFile($fileName),

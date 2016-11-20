@@ -62,4 +62,14 @@ class FloatType implements Type
 		return 'float';
 	}
 
+	public function canAccessProperties(): bool
+	{
+		return false;
+	}
+
+	public function canCallMethods(): bool
+	{
+		return false;
+	}
+
 }

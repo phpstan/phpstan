@@ -36,6 +36,11 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 		}
 
 		$type = $scope->getType($node->var);
+		if (!$type->canAccessProperties()) {
+			return [
+				sprintf('Cannot access property $%s on %s.', $node->name, $type->describe()),
+			];
+		}
 		$propertyClass = $type->getClass();
 		if ($propertyClass === null) {
 			return [];

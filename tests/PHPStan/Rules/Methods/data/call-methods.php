@@ -44,6 +44,9 @@ class Bar extends Foo
 		$this->foobar();
 		$this->lorem();
 		$this->test(); // missing parameter
+
+		$string = 'foo';
+		$string->method();
 	}
 
 }

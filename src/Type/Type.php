@@ -20,4 +20,8 @@ interface Type
 
 	public function describe(): string;
 
+	public function canAccessProperties(): bool;
+
+	public function canCallMethods(): bool;
+
 }

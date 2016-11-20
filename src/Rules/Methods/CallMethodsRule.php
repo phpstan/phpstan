@@ -44,6 +44,11 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 		}
 
 		$type = $scope->getType($node->var);
+		if (!$type->canCallMethods()) {
+			return [
+				sprintf('Cannot call method %s() on %s.', $node->name, $type->describe()),
+			];
+		}
 		$methodClass = $type->getClass();
 		if ($methodClass === null || !$this->broker->hasClass($methodClass)) {
 			return [];

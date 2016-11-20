@@ -103,4 +103,14 @@ class ObjectType implements Type
 		return $this->class;
 	}
 
+	public function canAccessProperties(): bool
+	{
+		return true;
+	}
+
+	public function canCallMethods(): bool
+	{
+		return $this->class !== 'stdClass';
+	}
+
 }
