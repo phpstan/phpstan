@@ -24,7 +24,7 @@ class Foo
 		$integers['foo'] = 5;
 
 		$integers[] = 'foo';
-		$integers['bar'] = 'baz';
+		$integers['bar'] = 'baz'; // already mixed[] here
 	}
 
 }

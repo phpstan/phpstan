@@ -83,6 +83,12 @@ while (($frame = $that->getReader()->consumeFrame($that->getReadBuffer())) === n
 
 }
 
+$nullableIntegers = [1, 2, 3];
+$nullableIntegers[] = null;
+
+$mixeds = [1, 2, 3];
+$mixeds[] = 'foo';
+
 try {
 	$inTryTwo = 1;
 } catch (\Exception $e) {

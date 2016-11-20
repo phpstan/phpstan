@@ -19,10 +19,6 @@ class AppendedArrayItemTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 					'Array (int[]) does not accept string.',
 					26,
 				],
-				[
-					'Array (int[]) does not accept string.',
-					27,
-				],
 			]
 		);
 	}

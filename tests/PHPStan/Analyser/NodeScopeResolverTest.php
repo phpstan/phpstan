@@ -121,6 +121,20 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$this->assertArrayHasKey('anotherNullableIntegerFromTryCatch', $variables);
 				$this->assertInstanceOf(IntegerType::class, $variables['anotherNullableIntegerFromTryCatch']);
 				$this->assertTrue($variables['anotherNullableIntegerFromTryCatch']->isNullable());
+
+				$this->assertInstanceOf(ArrayType::class, $variables['nullableIntegers']);
+
+				/** @var $nullableIntegers \PHPStan\Type\ArrayType */
+				$nullableIntegers = $variables['nullableIntegers'];
+				$this->assertInstanceOf(IntegerType::class, $nullableIntegers->getItemType());
+				$this->assertTrue($nullableIntegers->getItemType()->isNullable());
+
+				$this->assertInstanceOf(ArrayType::class, $variables['mixeds']);
+
+				/** @var $mixeds \PHPStan\Type\ArrayType */
+				$mixeds = $variables['mixeds'];
+				$this->assertInstanceOf(MixedType::class, $mixeds->getItemType());
+				$this->assertFalse($mixeds->getItemType()->isNullable());
 			}
 		});
 	}

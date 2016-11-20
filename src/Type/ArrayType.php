@@ -69,7 +69,11 @@ class ArrayType implements Type
 	public function combineWith(Type $otherType): Type
 	{
 		if ($otherType instanceof ArrayType) {
-			return new self($this->getItemType()->combineWith($otherType->getItemType()), $this->isNullable() || $otherType->isNullable());
+			return new self(
+				$this->getItemType()->combineWith($otherType->getItemType()),
+				$this->isNullable() || $otherType->isNullable(),
+				$this->isItemTypeInferredFromLiteralArray() || $otherType->isItemTypeInferredFromLiteralArray()
+			);
 		}
 
 		if ($otherType instanceof NullType) {
@@ -81,7 +85,7 @@ class ArrayType implements Type
 
 	public function makeNullable(): Type
 	{
-		return new self($this->getItemType(), true);
+		return new self($this->getItemType(), true, $this->isItemTypeInferredFromLiteralArray());
 	}
 
 	public function accepts(Type $type): bool

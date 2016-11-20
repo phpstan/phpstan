@@ -608,14 +608,16 @@ class NodeScopeResolver
 				$depth++;
 			}
 
-			if ($var instanceof Variable && is_string($var->name) && !$scope->hasVariableType($var->name)) {
-				$scope = $scope->assignVariable(
-					$var->name,
-					ArrayType::createDeepArrayType(
-						new NestedArrayItemType($subNodeType !== null ? $subNodeType : new MixedType(true), $depth),
-						false
-					)
+			if ($var instanceof Variable && is_string($var->name)) {
+				$arrayType = ArrayType::createDeepArrayType(
+					new NestedArrayItemType($subNodeType !== null ? $subNodeType : new MixedType(true), $depth),
+					false
 				);
+				if ($scope->hasVariableType($var->name)) {
+					$arrayType = $scope->getVariableType($var->name)->combineWith($arrayType);
+				}
+
+				$scope = $scope->assignVariable($var->name, $arrayType);
 			}
 
 			if (isset($var->dim)) {
