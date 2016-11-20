@@ -20,6 +20,9 @@ class FileTypeMapper
 	/** @var \Nette\Caching\Cache */
 	private $cache;
 
+	/** @var mixed[] */
+	private $memoryCache = [];
+
 	public function __construct(
 		Parser $parser,
 		\Nette\Caching\Cache $cache
@@ -32,12 +35,18 @@ class FileTypeMapper
 	public function getTypeMap(string $fileName): array
 	{
 		$cacheKey = sprintf('%s-%d-v6', $fileName, filemtime($fileName));
+		if (isset($this->memoryCache[$cacheKey])) {
+			return $this->memoryCache[$cacheKey];
+		}
 		$cachedResult = $this->cache->load($cacheKey);
 		if ($cachedResult === null) {
 			$typeMap = $this->createTypeMap($fileName);
 			$this->cache->save($cacheKey, $typeMap);
+			$this->memoryCache[$cacheKey] = $typeMap;
 			return $typeMap;
 		}
+
+		$this->memoryCache[$cacheKey] = $cachedResult;
 
 		return $cachedResult;
 	}
