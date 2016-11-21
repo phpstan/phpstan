@@ -77,4 +77,18 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$this->analyse([__DIR__ . '/data/call-to-array-map-unique.php'], []);
 	}
 
+	public function testCallToImplode()
+	{
+		$this->analyse([__DIR__ . '/data/call-to-implode.php'], [
+			[
+				'Function implode invoked with 0 parameters, 1-2 required.',
+				3,
+			],
+			[
+				'Function implode invoked with 3 parameters, 1-2 required.',
+				6,
+			],
+		]);
+	}
+
 }
