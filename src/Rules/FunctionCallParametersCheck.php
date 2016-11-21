@@ -2,6 +2,7 @@
 
 namespace PHPStan\Rules;
 
+use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 
 class FunctionCallParametersCheck
@@ -15,18 +16,23 @@ class FunctionCallParametersCheck
 	 */
 	public function check(ParametersAcceptor $function, $funcCall, array $messages): array
 	{
-		$functionParametersMinCount = 0;
-		$functionParametersMaxCount = 0;
-		foreach ($function->getParameters() as $parameter) {
-			if (!$parameter->isOptional()) {
-				$functionParametersMinCount++;
+		if ($function instanceof FunctionReflection && $function->getName() === 'implode') {
+			$functionParametersMinCount = 1;
+			$functionParametersMaxCount = 2;
+		} else {
+			$functionParametersMinCount = 0;
+			$functionParametersMaxCount = 0;
+			foreach ($function->getParameters() as $parameter) {
+				if (!$parameter->isOptional()) {
+					$functionParametersMinCount++;
+				}
+
+				$functionParametersMaxCount++;
 			}
 
-			$functionParametersMaxCount++;
-		}
-
-		if ($function->isVariadic()) {
-			$functionParametersMaxCount = -1;
+			if ($function->isVariadic()) {
+				$functionParametersMaxCount = -1;
+			}
 		}
 
 		$invokedParametersCount = count($funcCall->args);
