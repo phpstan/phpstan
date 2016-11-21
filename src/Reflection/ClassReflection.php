@@ -93,6 +93,10 @@ class ClassReflection
 			}
 		}
 
+		if (!isset($this->methods[$methodName])) {
+			throw new \PHPStan\Reflection\MissingMethodFromReflectionException($this->getName(), $methodName);
+		}
+
 		return $this->methods[$methodName];
 	}
 
@@ -110,6 +114,10 @@ class ClassReflection
 					$this->properties[$propertyName] = $property;
 				}
 			}
+		}
+
+		if (!isset($this->properties[$propertyName])) {
+			throw new \PHPStan\Reflection\MissingPropertyFromReflectionException($this->getName(), $propertyName);
 		}
 
 		return $this->properties[$propertyName];

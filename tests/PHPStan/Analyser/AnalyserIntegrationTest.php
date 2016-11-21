@@ -17,4 +17,16 @@ class AnalyserIntegrationTest extends \PHPStan\TestCase
 		$this->assertSame(3, $error->getLine());
 	}
 
+	public function testMissingPropertyAndMethod()
+	{
+		$file = __DIR__ . '/../../notAutoloaded/Foo.php';
+		$analyser = $this->getContainer()->getByType(Analyser::class);
+		$errors = $analyser->analyse([$file]);
+		$this->assertCount(1, $errors);
+		$error = $errors[0];
+		$this->assertSame('Property $fooProperty was not found in reflection of class PHPStan\Tests\Foo - probably the wrong version of class is autoloaded.', $error->getMessage());
+		$this->assertSame($file, $error->getFile());
+		$this->assertNull($error->getLine());
+	}
+
 }
