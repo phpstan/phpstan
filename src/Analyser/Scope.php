@@ -77,11 +77,6 @@ class Scope
 	private $namespace;
 
 	/**
-	 * @var string[]
-	 */
-	private $uses = [];
-
-	/**
 	 * @var \PHPStan\Type\Type[]
 	 */
 	private $variableTypes;
@@ -129,7 +124,6 @@ class Scope
 		string $class = null,
 		\PHPStan\Reflection\ParametersAcceptor $function = null,
 		string $namespace = null,
-		array $uses = [],
 		array $variablesTypes = [],
 		string $inClosureBindScopeClass = null,
 		Type $inAnonymousFunctionReturnType = null,
@@ -155,7 +149,6 @@ class Scope
 		$this->class = $class;
 		$this->function = $function;
 		$this->namespace = $namespace;
-		$this->uses = $uses;
 		$this->variableTypes = $variablesTypes;
 		$this->inClosureBindScopeClass = $inClosureBindScopeClass;
 		$this->inAnonymousFunctionReturnType = $inAnonymousFunctionReturnType;
@@ -629,7 +622,6 @@ class Scope
 			$className,
 			null,
 			$this->getNamespace(),
-			$this->uses,
 			[
 				'this' => new ObjectType($className, false),
 			]
@@ -653,7 +645,6 @@ class Scope
 			$this->getClass(),
 			$functionReflection,
 			$this->getNamespace(),
-			$this->uses,
 			$variableTypes
 		);
 	}
@@ -668,29 +659,6 @@ class Scope
 			null,
 			null,
 			$namespaceName
-		);
-	}
-
-	/**
-	 * @param \PhpParser\Node\Stmt\UseUse[] $uses
-	 * @return Scope
-	 */
-	public function enterUses(array $uses): self
-	{
-		$currentUses = $this->uses;
-		foreach ($uses as $use) {
-			$currentUses[$use->alias] = (string) $use->name;
-		}
-
-		return new self(
-			$this->broker,
-			$this->printer,
-			$this->getFile(),
-			$this->isDeclareStrictTypes(),
-			null,
-			null,
-			$this->getNamespace(),
-			$currentUses
 		);
 	}
 
@@ -716,7 +684,6 @@ class Scope
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
-			$this->uses,
 			$variableTypes,
 			$scopeClass,
 			$this->getAnonymousFunctionReturnType(),
@@ -737,7 +704,6 @@ class Scope
 			null,
 			null,
 			$this->getNamespace(),
-			$this->uses,
 			[
 				'this' => new MixedType(false),
 			],
@@ -794,7 +760,6 @@ class Scope
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
-			$this->uses,
 			$variableTypes,
 			$this->inClosureBindScopeClass,
 			$returnType,
@@ -857,7 +822,6 @@ class Scope
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
-			$this->uses,
 			$variableTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
@@ -881,7 +845,6 @@ class Scope
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
-			$this->uses,
 			$variableTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
@@ -906,7 +869,6 @@ class Scope
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
-			$this->uses,
 			$this->getVariableTypes(),
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
@@ -930,7 +892,6 @@ class Scope
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
-			$this->uses,
 			$this->getVariableTypes(),
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
@@ -965,7 +926,6 @@ class Scope
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
-			$this->uses,
 			$variableTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
@@ -992,7 +952,6 @@ class Scope
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
-			$this->uses,
 			$variableTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
@@ -1024,7 +983,6 @@ class Scope
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
-			$this->uses,
 			$intersectedVariableTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
@@ -1050,7 +1008,6 @@ class Scope
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
-			$this->uses,
 			$variableTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
@@ -1077,7 +1034,6 @@ class Scope
 				$this->getClass(),
 				$this->getFunction(),
 				$this->getNamespace(),
-				$this->uses,
 				$variableTypes,
 				$this->inClosureBindScopeClass,
 				$this->getAnonymousFunctionReturnType(),
@@ -1114,7 +1070,6 @@ class Scope
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
-			$this->uses,
 			$this->getVariableTypes(),
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
@@ -1145,7 +1100,6 @@ class Scope
 			$this->getClass(),
 			$this->getFunction(),
 			$this->getNamespace(),
-			$this->uses,
 			$this->getVariableTypes(),
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),

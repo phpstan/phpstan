@@ -42,7 +42,6 @@ use PhpParser\Node\Stmt\StaticVar;
 use PhpParser\Node\Stmt\Switch_;
 use PhpParser\Node\Stmt\Throw_;
 use PhpParser\Node\Stmt\TryCatch;
-use PhpParser\Node\Stmt\UseUse;
 use PhpParser\Node\Stmt\While_;
 use PHPStan\Broker\Broker;
 use PHPStan\Type\ArrayType;
@@ -199,17 +198,6 @@ class NodeScopeResolver
 			);
 		} elseif ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
 			$scope = $scope->enterNamespace((string) $node->name);
-		} elseif ($node instanceof \PhpParser\Node\Stmt\Use_ && $node->type === \PhpParser\Node\Stmt\Use_::TYPE_NORMAL) {
-			$scope = $scope->enterUses($node->uses);
-		} elseif ($node instanceof \PhpParser\Node\Stmt\GroupUse) {
-			$uses = [];
-			$prefix = (string) $node->prefix;
-			foreach ($node->uses as $use) {
-				if ($node->type === \PhpParser\Node\Stmt\Use_::TYPE_NORMAL || $use->type === \PhpParser\Node\Stmt\Use_::TYPE_NORMAL) {
-					$uses[] = new UseUse(new Name(sprintf('%s\\%s', $prefix, $use->name)), $use->alias, \PhpParser\Node\Stmt\Use_::TYPE_UNKNOWN, $use->getAttributes());
-				}
-			}
-			$scope = $scope->enterUses($uses);
 		} elseif (
 			$node instanceof \PhpParser\Node\Expr\StaticCall
 			&& (is_string($node->class) || $node->class instanceof \PhpParser\Node\Name)
