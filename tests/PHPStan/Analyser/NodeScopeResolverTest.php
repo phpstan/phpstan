@@ -1457,6 +1457,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			[
 				ObjectType::class,
 				false,
+				'SomeNamespace\Consecteur',
+				'$useWithoutAlias',
+			],
+			[
+				ObjectType::class,
+				false,
 				'MethodPhpDocsNamespace\Foo',
 				'$this->doBar()[0]',
 			],
