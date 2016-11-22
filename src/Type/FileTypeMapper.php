@@ -34,7 +34,7 @@ class FileTypeMapper
 
 	public function getTypeMap(string $fileName): array
 	{
-		$cacheKey = sprintf('%s-%d-v6', $fileName, filemtime($fileName));
+		$cacheKey = sprintf('%s-%d-v7', $fileName, filemtime($fileName));
 		if (isset($this->memoryCache[$cacheKey])) {
 			return $this->memoryCache[$cacheKey];
 		}
@@ -163,18 +163,22 @@ class FileTypeMapper
 			$nameResolveInfluencingPart = trim(substr($nameResolveInfluencingPart, 0, -strlen('abstract')));
 		}
 
-		foreach ($objectTypes as $objectType) {
+		foreach ($objectTypes as $key => $objectType) {
 			$objectTypeType = $objectType['type'];
 			$objectTypeTypeClass = $objectTypeType->getClass();
 			if (preg_match('#^[a-zA-Z_\\\]#', $objectTypeTypeClass) === 0) {
+				unset($objectTypes[$key]);
 				continue;
 			}
 			if (strtolower($objectTypeTypeClass) === 'new') {
+				unset($objectTypes[$key]);
 				continue;
 			}
 
 			$nameResolveInfluencingPart .= sprintf("\n%s::%s;", $objectTypeTypeClass, self::CONST_FETCH_CONSTANT);
 		}
+
+		$objectTypes = array_values($objectTypes);
 
 		try {
 			$parserNodes = $this->parser->parseString($nameResolveInfluencingPart);

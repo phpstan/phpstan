@@ -3,6 +3,7 @@
 namespace MethodPhpDocsNamespace;
 
 use SomeNamespace\Amet as Dolor;
+use SomeNamespace\Consecteur;
 
 class Foo extends FooParent
 {
@@ -41,6 +42,7 @@ class Foo extends FooParent
 	 * @param \\Test\Bar $yetAnotherAnotherAnotherMixedParameter
 	 * @param New $yetAnotherAnotherAnotherAnotherMixedParameter
 	 * @param void $voidParameter
+	 * @param Consecteur $useWithoutAlias
 	 * @return Foo
 	 */
 	public function doFoo(
@@ -68,7 +70,8 @@ class Foo extends FooParent
 		$yetAnotherAnotherMixedParameter,
 		$yetAnotherAnotherAnotherMixedParameter,
 		$yetAnotherAnotherAnotherAnotherMixedParameter,
-		$voidParameter
+		$voidParameter,
+		$useWithoutAlias
 	)
 	{
 		$parent = new FooParent();
