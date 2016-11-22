@@ -3,6 +3,7 @@
 namespace PropertiesNamespace;
 
 use SomeNamespace\Amet as Dolor;
+use SomeGroupNamespace\{One, Two as Too, Three};
 
 abstract class Foo extends Bar
 {
@@ -104,6 +105,16 @@ abstract class Foo extends Bar
 	 * @var string
 	 */
 	private static $staticStringProperty;
+
+	/**
+	 * @var One
+	 */
+	private $groupUseProperty;
+
+	/**
+	 * @var Too
+	 */
+	private $anotherGroupUseProperty;
 
 	public function doFoo()
 	{

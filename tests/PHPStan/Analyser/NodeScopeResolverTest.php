@@ -890,6 +890,18 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				null,
 				'self::$staticStringProperty',
 			],
+			[
+				ObjectType::class,
+				false,
+				'SomeGroupNamespace\One',
+				'$this->groupUseProperty',
+			],
+			[
+				ObjectType::class,
+				false,
+				'SomeGroupNamespace\Two',
+				'$this->anotherGroupUseProperty',
+			],
 		];
 	}
 
