@@ -3,7 +3,6 @@
 namespace PHPStan\Type;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Stmt\Interface_;
 use PhpParser\Node\Stmt\Trait_;
 use PHPStan\Parser\Parser;
@@ -34,7 +33,7 @@ class FileTypeMapper
 
 	public function getTypeMap(string $fileName): array
 	{
-		$cacheKey = sprintf('%s-%d-v7', $fileName, filemtime($fileName));
+		$cacheKey = sprintf('%s-%d-v8', $fileName, filemtime($fileName));
 		if (isset($this->memoryCache[$cacheKey])) {
 			return $this->memoryCache[$cacheKey];
 		}
@@ -116,6 +115,7 @@ class FileTypeMapper
 				if ($node instanceof Node\Stmt\ClassLike) {
 					$lastClass = $node;
 				}
+
 				if (!in_array(get_class($node), [
 					Node\Stmt\Property::class,
 					Node\Stmt\ClassMethod::class,
@@ -163,6 +163,28 @@ class FileTypeMapper
 			$nameResolveInfluencingPart = trim(substr($nameResolveInfluencingPart, 0, -strlen('abstract')));
 		}
 
+		$namespace = null;
+		$uses = [];
+		$this->processNodes(
+			$this->parser->parseString($nameResolveInfluencingPart),
+			function (\PhpParser\Node $node) use ($processTypeString, $patterns, &$namespace, &$uses) {
+				if ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
+					$namespace = (string) $node->name;
+				} elseif ($node instanceof \PhpParser\Node\Stmt\Use_ && $node->type === \PhpParser\Node\Stmt\Use_::TYPE_NORMAL) {
+					foreach ($node->uses as $use) {
+						$uses[$use->alias] = (string) $use->name;
+					}
+				} elseif ($node instanceof \PhpParser\Node\Stmt\GroupUse) {
+					$prefix = (string) $node->prefix;
+					foreach ($node->uses as $use) {
+						if ($node->type === \PhpParser\Node\Stmt\Use_::TYPE_NORMAL || $use->type === \PhpParser\Node\Stmt\Use_::TYPE_NORMAL) {
+							$uses[$use->alias] = sprintf('%s\\%s', $prefix, $use->name);
+						}
+					}
+				}
+			}
+		);
+
 		foreach ($objectTypes as $key => $objectType) {
 			$objectTypeType = $objectType['type'];
 			$objectTypeTypeClass = $objectTypeType->getClass();
@@ -174,37 +196,46 @@ class FileTypeMapper
 				unset($objectTypes[$key]);
 				continue;
 			}
-
-			$nameResolveInfluencingPart .= sprintf("\n%s::%s;", $objectTypeTypeClass, self::CONST_FETCH_CONSTANT);
 		}
 
-		$objectTypes = array_values($objectTypes);
-
-		try {
-			$parserNodes = $this->parser->parseString($nameResolveInfluencingPart);
-		} catch (\PhpParser\Error $e) {
-			throw new \PHPStan\Reflection\Php\DocCommentTypesParseErrorException($e);
-		}
-
-		$i = 0;
-		$this->findClassNames($parserNodes, function ($className) use (&$typeMap, &$i, $objectTypes) {
-			$objectType = $objectTypes[$i];
+		foreach ($objectTypes as $objectType) {
 			if (isset($objectType['arrayType'])) {
 				$arrayType = $objectType['arrayType'];
 				$typeMap[$objectType['typeString']] = ArrayType::createDeepArrayType(
-					new NestedArrayItemType(new ObjectType($className, false), $arrayType['depth']),
+					new NestedArrayItemType(new ObjectType($this->resolveStringName($namespace, $objectType['type']->getClass(), $uses), false), $arrayType['depth']),
 					$arrayType['nullable']
 				);
 			} else {
 				$objectTypeString = $objectType['typeString'];
 				$objectTypeType = $objectType['type'];
-				$typeMap[$objectTypeString] = new ObjectType($className, $objectTypeType->isNullable());
+				$typeMap[$objectTypeString] = new ObjectType($this->resolveStringName($namespace, $objectType['type']->getClass(), $uses), $objectTypeType->isNullable());
 			}
-
-			$i++;
-		});
+		}
 
 		return $typeMap;
+	}
+
+	private function resolveStringName(string $namespace = null, string $name, array $uses): string
+	{
+		if (strpos($name, '\\') === 0) {
+			return ltrim($name, '\\');
+		}
+
+		$nameParts = explode('\\', $name);
+		$firstNamePart = $nameParts[0];
+		if (isset($uses[$firstNamePart])) {
+			if (count($nameParts) === 1) {
+				return $uses[$firstNamePart];
+			}
+			array_shift($nameParts);
+			return sprintf('%s\\%s', $uses[$firstNamePart], implode('\\', $nameParts));
+		}
+
+		if ($namespace !== null) {
+			return sprintf('%s\\%s', $namespace, $name);
+		}
+
+		return $name;
 	}
 
 	private function getTypeFromTypeString(string $typeString, string $className = null): Type
@@ -224,19 +255,6 @@ class FileTypeMapper
 		$isNullable = count($typeParts) !== count($typePartsWithoutNull);
 
 		return TypehintHelper::getTypeObjectFromTypehint($typePartsWithoutNull[0], $isNullable, $className);
-	}
-
-	/**
-	 * @param \PhpParser\Node[]|\PhpParser\Node $node
-	 * @param \Closure $callback
-	 */
-	private function findClassNames($node, \Closure $callback)
-	{
-		$this->processNodes($node, function (\PhpParser\Node $node) use ($callback) {
-			if ($node instanceof ClassConstFetch && $node->name === self::CONST_FETCH_CONSTANT) {
-				$callback((string) $node->class);
-			}
-		});
 	}
 
 	/**
