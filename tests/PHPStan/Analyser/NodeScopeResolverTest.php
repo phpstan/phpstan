@@ -2085,6 +2085,101 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+	public function dataSpecifiedTypesUsingIsFunctions(): array
+	{
+		return [
+			[
+				IntegerType::class,
+				false,
+				null,
+				'$integer',
+			],
+			[
+				IntegerType::class,
+				false,
+				null,
+				'$anotherInteger',
+			],
+			[
+				IntegerType::class,
+				false,
+				null,
+				'$longInteger',
+			],
+			[
+				FloatType::class,
+				false,
+				null,
+				'$float',
+			],
+			[
+				FloatType::class,
+				false,
+				null,
+				'$doubleFloat',
+			],
+			[
+				FloatType::class,
+				false,
+				null,
+				'$realFloat',
+			],
+			[
+				NullType::class,
+				true,
+				null,
+				'$null',
+			],
+			[
+				ArrayType::class,
+				false,
+				null,
+				'$array',
+			],
+			[
+				BooleanType::class,
+				false,
+				null,
+				'$bool',
+			],
+			[
+				CallableType::class,
+				false,
+				null,
+				'$callable',
+			],
+			[
+				ResourceType::class,
+				false,
+				null,
+				'$resource',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataSpecifiedTypesUsingIsFunctions
+	 * @param string $typeClass
+	 * @param bool $nullable
+	 * @param string|null $class
+	 * @param string $expression
+	 */
+	public function testSpecifiedTypesUsingIsFunctions(
+		string $typeClass,
+		bool $nullable,
+		string $class = null,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/specifiedTypesUsingIsFunctions.php',
+			$typeClass,
+			$nullable,
+			$class,
+			$expression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $typeClass,

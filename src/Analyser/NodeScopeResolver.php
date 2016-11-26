@@ -45,11 +45,17 @@ use PhpParser\Node\Stmt\TryCatch;
 use PhpParser\Node\Stmt\While_;
 use PHPStan\Broker\Broker;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\BooleanType;
+use PHPStan\Type\CallableType;
 use PHPStan\Type\CommentHelper;
 use PHPStan\Type\FileTypeMapper;
+use PHPStan\Type\FloatType;
+use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NestedArrayItemType;
+use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\ResourceType;
 use PHPStan\Type\Type;
 
 class NodeScopeResolver
@@ -421,6 +427,41 @@ class NodeScopeResolver
 			}
 
 			return $scope->specifyExpressionType($node->expr, new ObjectType($class, false));
+		} elseif (
+			$node instanceof FuncCall
+			&& $node->name instanceof Name
+			&& isset($node->args[0])
+		) {
+			$functionName = (string) $node->name;
+			$argumentExpression = $node->args[0]->value;
+			$specifiedType = null;
+			if (in_array($functionName, [
+				'is_int',
+				'is_integer',
+				'is_long',
+			], true)) {
+				$specifiedType = new IntegerType(false);
+			} elseif (in_array($functionName, [
+				'is_float',
+				'is_double',
+				'is_real',
+			], true)) {
+				$specifiedType = new FloatType(false);
+			} elseif ($functionName === 'is_null') {
+				$specifiedType = new NullType();
+			} elseif ($functionName === 'is_array') {
+				$specifiedType = new ArrayType(new MixedType(true), false);
+			} elseif ($functionName === 'is_bool') {
+				$specifiedType = new BooleanType(false);
+			} elseif ($functionName === 'is_callable') {
+				$specifiedType = new CallableType(false);
+			} elseif ($functionName === 'is_resource') {
+				$specifiedType = new ResourceType(false);
+			}
+
+			if ($specifiedType !== null) {
+				return $scope->specifyExpressionType($argumentExpression, $specifiedType);
+			}
 		} elseif ($node instanceof BooleanAnd) {
 			$scope = $this->lookForTypeSpecifications($scope, $node->left);
 			$scope = $this->lookForTypeSpecifications($scope, $node->right);
