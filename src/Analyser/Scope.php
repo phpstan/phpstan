@@ -353,6 +353,8 @@ class Scope
 			return new StringType(false);
 		} elseif ($node instanceof DNumber) {
 			return new FloatType(false);
+		} elseif ($node instanceof Expr\Closure) {
+			return new ObjectType('Closure', false);
 		} elseif ($node instanceof New_) {
 			if ($node->class instanceof Name) {
 				if (

@@ -317,7 +317,16 @@ class NodeScopeResolver
 			foreach ($node->stmts as $statement) {
 				$scope = $this->lookForAssigns($scope, $statement);
 			}
-		} elseif ($node instanceof FuncCall || $node instanceof MethodCall) {
+		} elseif ($node instanceof FuncCall) {
+			$scope = $scope->enterFunctionCall($node);
+		} elseif ($node instanceof MethodCall) {
+			if (
+				$scope->getType($node->var)->getClass() === 'Closure'
+				&& $node->name === 'call'
+				&& isset($node->args[0])
+			) {
+				$closureCallScope = $scope->enterClosureBind($scope->getType($node->args[0]->value), 'static');
+			}
 			$scope = $scope->enterFunctionCall($node);
 		} elseif ($node instanceof Array_) {
 			foreach ($node->items as $item) {
@@ -388,7 +397,12 @@ class NodeScopeResolver
 					}
 				}
 
-				$this->processNode($subNode, $scope, $nodeCallback);
+				$nodeScope = $scope;
+				if ($node instanceof MethodCall && $subNodeName === 'var' && isset($closureCallScope)) {
+					$nodeScope = $closureCallScope;
+				}
+
+				$this->processNode($subNode, $nodeScope, $nodeCallback);
 			}
 		}
 	}

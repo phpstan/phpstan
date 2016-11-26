@@ -38,6 +38,10 @@ class Bar
 			$this->privateMethod();
 			$this->nonexistentMethod();
 		}, $this->fooMethod(), Foo::class);
+
+		(function () {
+			$this->publicMethod();
+		})->call(new Foo());
 	}
 
 }

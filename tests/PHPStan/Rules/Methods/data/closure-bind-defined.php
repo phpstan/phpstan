@@ -10,4 +10,9 @@ class Foo
 
 	}
 
+	public function publicMethod()
+	{
+
+	}
+
 }
