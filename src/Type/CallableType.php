@@ -32,6 +32,10 @@ class CallableType implements Type
 			return new self($this->isNullable() || $otherType->isNullable());
 		}
 
+		if ($otherType instanceof ArrayType && $otherType->isPossiblyCallable()) {
+			return $this;
+		}
+
 		if ($otherType instanceof NullType) {
 			return $this->makeNullable();
 		}
@@ -51,6 +55,10 @@ class CallableType implements Type
 		}
 
 		if ($this->isNullable() && $type instanceof NullType) {
+			return true;
+		}
+
+		if ($type instanceof ArrayType && $type->isPossiblyCallable()) {
 			return true;
 		}
 

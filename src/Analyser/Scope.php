@@ -370,9 +370,18 @@ class Scope
 				return new ObjectType((string) $node->class, false);
 			}
 		} elseif ($node instanceof Array_) {
+			$possiblyCallable = false;
+			if (count($node->items) === 2) {
+				if (
+					$this->getType($node->items[0]->value) instanceof ObjectType
+					&& $this->getType($node->items[1]->value) instanceof StringType
+				) {
+					$possiblyCallable = true;
+				}
+			}
 			return new ArrayType($this->getCombinedType(array_map(function (Expr\ArrayItem $item): Type {
 				return $this->getType($item->value);
-			}, $node->items)), false, true);
+			}, $node->items)), false, true, $possiblyCallable);
 		} elseif ($node instanceof Int_) {
 				return new IntegerType(false);
 		} elseif ($node instanceof Bool_) {

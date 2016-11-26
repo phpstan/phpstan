@@ -15,9 +15,11 @@ class Foo
 
 	/**
 	 * @param int[] $integers
+	 * @param callable[] $callables
 	 */
 	public function doFoo(
-		array $integers
+		array $integers,
+		array $callables
 	)
 	{
 		$integers[] = 4;
@@ -25,6 +27,9 @@ class Foo
 
 		$integers[] = 'foo';
 		$integers['bar'] = 'baz'; // already mixed[] here
+
+		$callables[] = [$this, 'doFoo'];
+		$callables[] = [1, 2, 3];
 	}
 
 }

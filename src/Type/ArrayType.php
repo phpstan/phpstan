@@ -14,11 +14,20 @@ class ArrayType implements Type
 	/** @var bool */
 	private $itemTypeInferredFromLiteralArray;
 
-	public function __construct(Type $itemType, bool $nullable, bool $itemTypeInferredFromLiteralArray = false)
+	/** @var bool */
+	private $possiblyCallable;
+
+	public function __construct(
+		Type $itemType,
+		bool $nullable,
+		bool $itemTypeInferredFromLiteralArray = false,
+		bool $possiblyCallable = false
+	)
 	{
 		$this->itemType = $itemType;
 		$this->nullable = $nullable;
 		$this->itemTypeInferredFromLiteralArray = $itemTypeInferredFromLiteralArray;
+		$this->possiblyCallable = $possiblyCallable;
 	}
 
 	public static function createDeepArrayType(NestedArrayItemType $nestedItemType, bool $nullable): self
@@ -53,6 +62,11 @@ class ArrayType implements Type
 		return $this->itemTypeInferredFromLiteralArray;
 	}
 
+	public function isPossiblyCallable(): bool
+	{
+		return $this->possiblyCallable;
+	}
+
 	/**
 	 * @return string|null
 	 */
@@ -72,7 +86,8 @@ class ArrayType implements Type
 			return new self(
 				$this->getItemType()->combineWith($otherType->getItemType()),
 				$this->isNullable() || $otherType->isNullable(),
-				$this->isItemTypeInferredFromLiteralArray() || $otherType->isItemTypeInferredFromLiteralArray()
+				$this->isItemTypeInferredFromLiteralArray() || $otherType->isItemTypeInferredFromLiteralArray(),
+				$this->isPossiblyCallable() || $otherType->isPossiblyCallable()
 			);
 		}
 
@@ -85,7 +100,7 @@ class ArrayType implements Type
 
 	public function makeNullable(): Type
 	{
-		return new self($this->getItemType(), true, $this->isItemTypeInferredFromLiteralArray());
+		return new self($this->getItemType(), true, $this->isItemTypeInferredFromLiteralArray(), $this->isPossiblyCallable());
 	}
 
 	public function accepts(Type $type): bool
