@@ -50,16 +50,8 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 				sprintf(
 					sprintf(
 						'%s, %s.',
-						ngettext(
-							'Call to %s contains %d placeholder',
-							'Call to %s contains %d placeholders',
-							$placeHoldersCount
-						),
-						ngettext(
-							'%d value given',
-							'%d values given',
-							$argsCount - 1
-						)
+						$placeHoldersCount === 1 ? 'Call to %s contains %d placeholder' : 'Call to %s contains %d placeholders',
+						$argsCount - 1 === 1 ? '%d value given' : '%d values given'
 					),
 					$name,
 					$placeHoldersCount,

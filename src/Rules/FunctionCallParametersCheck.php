@@ -46,31 +46,19 @@ class FunctionCallParametersCheck
 		if ($invokedParametersCount < $functionParametersMinCount || $invokedParametersCount > $functionParametersMaxCount) {
 			if ($functionParametersMinCount === $functionParametersMaxCount) {
 				return [sprintf(
-					ngettext(
-						$messages[0],
-						$messages[1],
-						$invokedParametersCount
-					),
+					$invokedParametersCount === 1 ? $messages[0] : $messages[1],
 					$invokedParametersCount,
 					$functionParametersMinCount
 				)];
 			} elseif ($functionParametersMaxCount === -1 && $invokedParametersCount < $functionParametersMinCount) {
 				return [sprintf(
-					ngettext(
-						$messages[2],
-						$messages[3],
-						$invokedParametersCount
-					),
+					$invokedParametersCount === 1 ? $messages[2] : $messages[3],
 					$invokedParametersCount,
 					$functionParametersMinCount
 				)];
 			} elseif ($functionParametersMaxCount !== -1) {
 				return [sprintf(
-					ngettext(
-						$messages[4],
-						$messages[5],
-						$invokedParametersCount
-					),
+					$invokedParametersCount === 1 ? $messages[4] : $messages[5],
 					$invokedParametersCount,
 					$functionParametersMinCount,
 					$functionParametersMaxCount

@@ -107,7 +107,7 @@ class AnalyseApplication
 			$style->table(['Error'], $notFileSpecificErrors);
 		}
 
-		$style->error(sprintf(ngettext('Found %d error', 'Found %d errors', $totalErrorsCount), $totalErrorsCount));
+		$style->error(sprintf($totalErrorsCount === 1 ? 'Found %d error' : 'Found %d errors', $totalErrorsCount));
 
 		return 1;
 	}
