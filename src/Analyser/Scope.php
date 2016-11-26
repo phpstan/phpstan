@@ -1050,13 +1050,13 @@ class Scope
 		);
 	}
 
-	public function specifyObjectType(Node $expr, string $className): self
+	public function specifyExpressionType(Node $expr, Type $type): self
 	{
 		if ($expr instanceof Variable && is_string($expr->name)) {
 			$variableName = $expr->name;
 
 			$variableTypes = $this->getVariableTypes();
-			$variableTypes[$variableName] = new ObjectType($className, false);
+			$variableTypes[$variableName] = $type;
 
 			return new self(
 				$this->broker,
@@ -1079,7 +1079,7 @@ class Scope
 		$exprString = $this->printer->prettyPrint([$expr]);
 
 		return $this->addMoreSpecificTypes([
-			$exprString => new ObjectType($className, false),
+			$exprString => $type,
 		]);
 	}
 

@@ -49,6 +49,7 @@ use PHPStan\Type\CommentHelper;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NestedArrayItemType;
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 
 class NodeScopeResolver
@@ -143,7 +144,7 @@ class NodeScopeResolver
 				if ($this->hasEarlyTermination($node->stmts, $scope)) {
 					$this->processNode($node->cond, $scope, function (Node $node, Scope $inScope) use (&$scope) {
 						if ($inScope->isNegated()) {
-							$scope = $this->lookForInstanceOfs($scope, $node);
+							$scope = $this->lookForTypeSpecifications($scope, $node);
 							if ($node instanceof Isset_) {
 								foreach ($node->vars as $var) {
 									if ($var instanceof PropertyFetch) {
@@ -270,7 +271,7 @@ class NodeScopeResolver
 		} elseif ($node instanceof If_) {
 			$scope = $this->lookForAssigns($scope, $node->cond);
 			$ifScope = $scope;
-			$scope = $this->lookForInstanceOfs($scope, $node->cond);
+			$scope = $this->lookForTypeSpecifications($scope, $node->cond);
 			$this->processNode($node->cond, $scope, $nodeCallback);
 			$this->processNodes($node->stmts, $scope, $nodeCallback);
 
@@ -292,7 +293,7 @@ class NodeScopeResolver
 					$switchScope = $this->lookForAssigns($switchScope, $caseNode->cond);
 
 					if ($switchConditionIsTrue) {
-						$switchScope = $this->lookForInstanceOfs($switchScope, $caseNode->cond);
+						$switchScope = $this->lookForTypeSpecifications($switchScope, $caseNode->cond);
 					}
 				}
 				$this->processNode($caseNode, $switchScope, $nodeCallback);
@@ -303,10 +304,10 @@ class NodeScopeResolver
 			return;
 		} elseif ($node instanceof ElseIf_) {
 			$scope = $this->lookForAssigns($scope, $node->cond);
-			$scope = $this->lookForInstanceOfs($scope, $node->cond);
+			$scope = $this->lookForTypeSpecifications($scope, $node->cond);
 		} elseif ($node instanceof While_) {
 			$scope = $this->lookForAssigns($scope, $node->cond);
-			$scope = $this->lookForInstanceOfs($scope, $node->cond);
+			$scope = $this->lookForTypeSpecifications($scope, $node->cond);
 		} elseif ($this->polluteCatchScopeWithTryAssignments && $node instanceof TryCatch) {
 			foreach ($node->stmts as $statement) {
 				$scope = $this->lookForAssigns($scope, $statement);
@@ -369,11 +370,11 @@ class NodeScopeResolver
 				}
 
 				if ($node instanceof Ternary && $subNodeName === 'if') {
-					$scope = $this->lookForInstanceOfs($scope, $node->cond);
+					$scope = $this->lookForTypeSpecifications($scope, $node->cond);
 				}
 
 				if ($node instanceof BooleanAnd && $subNodeName === 'right') {
-					$scope = $this->lookForInstanceOfs($scope, $node->left);
+					$scope = $this->lookForTypeSpecifications($scope, $node->left);
 				}
 
 				if (($node instanceof Assign || $node instanceof AssignRef) && $subNodeName === 'var') {
@@ -407,7 +408,7 @@ class NodeScopeResolver
 		}
 	}
 
-	private function lookForInstanceOfs(Scope $scope, Node $node): Scope
+	private function lookForTypeSpecifications(Scope $scope, Node $node): Scope
 	{
 		if ($node instanceof Instanceof_ && $node->class instanceof Name) {
 			$class = (string) $node->class;
@@ -419,13 +420,13 @@ class NodeScopeResolver
 				$class = $scope->getClass();
 			}
 
-			return $scope->specifyObjectType($node->expr, $class);
+			return $scope->specifyExpressionType($node->expr, new ObjectType($class, false));
 		} elseif ($node instanceof BooleanAnd) {
-			$scope = $this->lookForInstanceOfs($scope, $node->left);
-			$scope = $this->lookForInstanceOfs($scope, $node->right);
+			$scope = $this->lookForTypeSpecifications($scope, $node->left);
+			$scope = $this->lookForTypeSpecifications($scope, $node->right);
 		} elseif ($node instanceof BooleanOr) {
-			$scope = $this->lookForInstanceOfs($scope, $node->left);
-			$scope = $this->lookForInstanceOfs($scope, $node->right);
+			$scope = $this->lookForTypeSpecifications($scope, $node->left);
+			$scope = $this->lookForTypeSpecifications($scope, $node->right);
 		}
 
 		return $scope;
