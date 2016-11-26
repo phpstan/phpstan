@@ -30,16 +30,27 @@ class Registry
 	}
 
 	/**
-	 * @param string $nodeType
+	 * @param string[] $nodeTypes
 	 * @return \PHPStan\Rules\Rule[]
 	 */
-	public function getRules(string $nodeType): array
+	public function getRules(array $nodeTypes): array
 	{
-		if (!isset($this->rules[$nodeType])) {
-			return [];
+		$rules = [];
+		foreach ($nodeTypes as $nodeType) {
+			if (!isset($this->rules[$nodeType])) {
+				continue;
+			}
+
+			$classRules = $this->rules[$nodeType];
+			foreach ($classRules as $classRule) {
+				$classRuleClass = get_class($classRule);
+				if (!array_key_exists($classRuleClass, $rules)) {
+					$rules[$classRuleClass] = $classRule;
+				}
+			}
 		}
 
-		return $this->rules[$nodeType];
+		return array_values($rules);
 	}
 
 }

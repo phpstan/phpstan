@@ -13,11 +13,11 @@ class RegistryTest extends \PHPStan\TestCase
 			$rule,
 		]);
 
-		$rules = $registry->getRules('PHPParser_Node_Expr_FuncCall');
+		$rules = $registry->getRules(['PHPParser_Node_Expr_FuncCall']);
 		$this->assertSame(1, count($rules));
 		$this->assertSame($rule, $rules[0]);
 
-		$this->assertSame(0, count($registry->getRules('foo')));
+		$this->assertSame(0, count($registry->getRules(['foo'])));
 	}
 
 }
