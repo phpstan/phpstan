@@ -2020,6 +2020,71 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+	public function dataArrayFunctions(): array
+	{
+		return [
+			[
+				IntegerType::class,
+				false,
+				null,
+				'$integers[0]',
+			],
+			[
+				StringType::class,
+				false,
+				null,
+				'$mappedStrings[0]',
+			],
+			[
+				IntegerType::class,
+				false,
+				null,
+				'$filteredIntegers[0]',
+			],
+			[
+				IntegerType::class,
+				false,
+				null,
+				'$uniquedIntegers[0]',
+			],
+			[
+				StringType::class,
+				false,
+				null,
+				'$reducedIntegersToString[0]',
+			],
+			[
+				IntegerType::class,
+				false,
+				null,
+				'$reversedIntegers[0]',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataArrayFunctions
+	 * @param string $typeClass
+	 * @param bool $nullable
+	 * @param string|null $class
+	 * @param string $expression
+	 */
+	public function testArrayFunctions(
+		string $typeClass,
+		bool $nullable,
+		string $class = null,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/array-functions.php',
+			$typeClass,
+			$nullable,
+			$class,
+			$expression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $typeClass,

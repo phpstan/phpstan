@@ -528,6 +528,36 @@ class Scope
 		}
 
 		if ($node instanceof FuncCall && $node->name instanceof Name) {
+			$arrayFunctionsThatDependOnClosureReturnType = [
+				'array_map' => 0,
+				'array_reduce' => 1,
+			];
+			$functionName = (string) $node->name;
+			if (
+				isset($arrayFunctionsThatDependOnClosureReturnType[$functionName])
+				&& isset($node->args[$arrayFunctionsThatDependOnClosureReturnType[$functionName]])
+				&& $node->args[$arrayFunctionsThatDependOnClosureReturnType[$functionName]]->value instanceof Expr\Closure
+			) {
+				$closure = $node->args[$arrayFunctionsThatDependOnClosureReturnType[$functionName]]->value;
+				return new ArrayType(
+					$this->getAnonymousFunctionType($closure->returnType, $closure->returnType === null),
+					false
+				);
+			}
+
+			$arrayFunctionsThatDependOnArgumentType = [
+				'array_filter' => 0,
+				'array_unique' => 0,
+				'array_reverse' => 0,
+			];
+			if (
+				isset($arrayFunctionsThatDependOnArgumentType[$functionName])
+				&& isset($node->args[$arrayFunctionsThatDependOnArgumentType[$functionName]])
+			) {
+				$argumentValue = $node->args[$arrayFunctionsThatDependOnArgumentType[$functionName]]->value;
+				return $this->getType($argumentValue);
+			}
+
 			if (!$this->broker->hasFunction($node->name, $this)) {
 				return new MixedType(true);
 			}
