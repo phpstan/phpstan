@@ -76,7 +76,7 @@ class FunctionDefinitionCheck
 				&& !in_array($class, self::VALID_TYPEHINTS, true)
 				&& !$this->broker->hasClass($class)
 			) {
-				$errors[] = sprintf($parameterMessage, (string) $param->name, $class);
+				$errors[] = sprintf($parameterMessage, $param->name, $class);
 			}
 		}
 

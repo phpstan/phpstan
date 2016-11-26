@@ -8,6 +8,11 @@ services:
 			- phpstan.rules.rule
 
 	-
+		class: PHPStan\Rules\Cast\UselessCastRule
+		tags:
+			- phpstan.rules.rule
+
+	-
 		class: PHPStan\Rules\Classes\DefaultValueTypesAssignedToPropertiesRule
 		tags:
 			- phpstan.rules.rule
