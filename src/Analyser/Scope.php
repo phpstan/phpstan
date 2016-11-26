@@ -752,7 +752,7 @@ class Scope
 			$variableTypes['this'] = $this->getVariableType('this');
 		}
 
-		$returnType = $this->getAnonymousFunctionType($returnTypehint, $returnTypehint !== null);
+		$returnType = $this->getAnonymousFunctionType($returnTypehint, $returnTypehint === null);
 
 		return new self(
 			$this->broker,
