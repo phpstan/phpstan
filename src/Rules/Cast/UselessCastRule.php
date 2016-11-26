@@ -27,6 +27,10 @@ class UselessCastRule implements \PHPStan\Rules\Rule
 		}
 
 		$expressionType = $scope->getType($node->expr);
+		if ($expressionType->isNullable()) {
+			return [];
+		}
+
 		$castType = $scope->getType($node);
 
 		if (get_class($expressionType) === get_class($castType)) {
