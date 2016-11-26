@@ -1579,6 +1579,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				null,
 				'$baz',
 			],
+			[
+				ObjectType::class,
+				false,
+				'InstanceOfNamespace\Lorem',
+				'$lorem',
+			],
 		];
 	}
 
@@ -2153,6 +2159,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				false,
 				null,
 				'$resource',
+			],
+			[
+				IntegerType::class,
+				false,
+				null,
+				'$yetAnotherInteger',
 			],
 		];
 	}

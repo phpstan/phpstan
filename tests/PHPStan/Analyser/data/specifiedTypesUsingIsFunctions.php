@@ -44,4 +44,6 @@ if (!is_resource($resource)) {
 	throw new \Exception();
 }
 
+assert(is_int($yetAnotherInteger));
+
 die;

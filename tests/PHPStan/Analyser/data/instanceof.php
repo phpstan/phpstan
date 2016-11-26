@@ -13,6 +13,7 @@ if ($baz instanceof Foo) {
 	// ...
 } else {
 	while ($foo instanceof ArrayDimFetch) {
+		assert($lorem instanceof Lorem);
 		die;
 	}
 }

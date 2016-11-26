@@ -173,6 +173,13 @@ class NodeScopeResolver
 						break;
 					}
 				}
+			} elseif (
+				$node instanceof FuncCall
+				&& $node->name instanceof Name
+				&& (string) $node->name === 'assert'
+				&& isset($node->args[0])
+			) {
+				$scope = $this->lookForTypeSpecifications($scope, $node->args[0]->value);
 			}
 		}
 	}
