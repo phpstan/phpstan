@@ -2057,7 +2057,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				StringType::class,
 				false,
 				null,
-				'$reducedIntegersToString[0]',
+				'$reducedIntegersToString',
 			],
 			[
 				IntegerType::class,

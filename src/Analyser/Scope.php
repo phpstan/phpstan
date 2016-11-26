@@ -548,8 +548,13 @@ class Scope
 				&& $node->args[$arrayFunctionsThatDependOnClosureReturnType[$functionName]]->value instanceof Expr\Closure
 			) {
 				$closure = $node->args[$arrayFunctionsThatDependOnClosureReturnType[$functionName]]->value;
+				$anonymousFunctionType = $this->getAnonymousFunctionType($closure->returnType, $closure->returnType === null);
+				if ($functionName === 'array_reduce') {
+					return $anonymousFunctionType;
+				}
+
 				return new ArrayType(
-					$this->getAnonymousFunctionType($closure->returnType, $closure->returnType === null),
+					$anonymousFunctionType,
 					false
 				);
 			}
