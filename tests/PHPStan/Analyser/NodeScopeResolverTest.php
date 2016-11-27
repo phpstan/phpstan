@@ -1217,6 +1217,60 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				null,
 				"'foo' <=> 'bar'",
 			],
+			[
+				MixedType::class,
+				false,
+				null,
+				'1 + doFoo()',
+			],
+			[
+				MixedType::class,
+				false,
+				null,
+				'1 / doFoo()',
+			],
+			[
+				MixedType::class,
+				false,
+				null,
+				'1.0 / doFoo()',
+			],
+			[
+				MixedType::class,
+				false,
+				null,
+				'doFoo() / 1',
+			],
+			[
+				MixedType::class,
+				false,
+				null,
+				'doFoo() / 1.0',
+			],
+			[
+				MixedType::class,
+				false,
+				null,
+				'1.0 + doFoo()',
+			],
+			[
+				MixedType::class,
+				false,
+				null,
+				'1.0 + doFoo()',
+			],
+			[
+				MixedType::class,
+				false,
+				null,
+				'doFoo() + 1',
+			],
+			[
+				MixedType::class,
+				false,
+				null,
+				'doFoo() + 1.0',
+			],
 		];
 	}
 

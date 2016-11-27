@@ -282,13 +282,6 @@ class Scope
 			return $this->getType($node->expr);
 		}
 
-		if (
-			$node instanceof Node\Expr\BinaryOp\Div
-			|| $node instanceof Node\Expr\AssignOp\Div
-		) {
-			return new FloatType(false);
-		}
-
 		if ($node instanceof Node\Expr\BinaryOp\Mod) {
 			return new IntegerType(false);
 		}
@@ -306,6 +299,7 @@ class Scope
 			|| $node instanceof Node\Expr\BinaryOp\Minus
 			|| $node instanceof Node\Expr\BinaryOp\Mul
 			|| $node instanceof Node\Expr\BinaryOp\Pow
+			|| $node instanceof Node\Expr\BinaryOp\Div
 			|| $node instanceof Node\Expr\AssignOp
 		) {
 			if ($node instanceof Node\Expr\AssignOp) {
@@ -329,7 +323,16 @@ class Scope
 				$rightType = new IntegerType($rightType->isNullable());
 			}
 
-			if ($leftType instanceof FloatType || $rightType instanceof FloatType) {
+			if ($node instanceof Expr\AssignOp\Div || $node instanceof Expr\BinaryOp\Div) {
+				if (!$leftType instanceof MixedType && !$rightType instanceof MixedType) {
+					return new FloatType(false);
+				}
+			}
+
+			if (
+				($leftType instanceof FloatType && !$rightType instanceof MixedType)
+				|| ($rightType instanceof FloatType && !$leftType instanceof MixedType)
+			) {
 				return new FloatType(false);
 			}
 
