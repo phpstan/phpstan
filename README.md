@@ -74,13 +74,22 @@ After fixing the obvious mistakes in the code, look to the following section
 for all the configuration options that will bring the number of reported errors to zero
 making PHPStan suitable to run as part of your continous integration script.
 
+## Rule levels
+
+Rule levels. If you want to use PHPStan but your codebase isn't up to speed with strong typing
+and PHPStan's strict checks, you can choose from currently 5 levels
+(0 is the loosest and 4 is the strictest) by passing `--level` to `analyse` command. Default level is `0`.
+
 ## Configuration
 
 Config file is passed to the `phpstan` executable with `-c` option:
 
 ```
-vendor/bin/phpstan analyse -c phpstan.neon src tests
+vendor/bin/phpstan analyse -l 4 -c phpstan.neon src tests
 ```
+
+When using a custom project config file, you have to pass the `--level` (`-l`)
+option to `analyse` command (default value does not apply here).
 
 [NEON file format](https://ne-on.org/) is very similar to YAML.
 All the following options are part of the `parameters` section.
