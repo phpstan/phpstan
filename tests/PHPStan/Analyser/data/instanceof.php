@@ -14,6 +14,8 @@ if ($baz instanceof Foo) {
 } else {
 	while ($foo instanceof ArrayDimFetch) {
 		assert($lorem instanceof Lorem);
-		die;
+		if ($dolor instanceof Dolor && $sit instanceof Sit) {
+			die;
+		}
 	}
 }

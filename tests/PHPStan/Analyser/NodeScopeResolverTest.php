@@ -38,6 +38,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			$this->createBroker(),
 			$this->printer,
 			new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class)),
+			new TypeSpecifier($this->printer),
 			true,
 			true,
 			false,
@@ -1585,6 +1586,18 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'InstanceOfNamespace\Lorem',
 				'$lorem',
 			],
+			[
+				ObjectType::class,
+				false,
+				'InstanceOfNamespace\Dolor',
+				'$dolor',
+			],
+			[
+				ObjectType::class,
+				false,
+				'InstanceOfNamespace\Sit',
+				'$sit',
+			],
 		];
 	}
 
@@ -1849,9 +1862,9 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$bar',
 			],
 			[
-				ObjectType::class,
-				false,
-				'NegatedInstanceOf\Lorem',
+				MixedType::class,
+				true,
+				null,
 				'$lorem',
 			],
 			[
@@ -1865,6 +1878,18 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				true,
 				null,
 				'$sit',
+			],
+			[
+				MixedType::class,
+				true,
+				null,
+				'$mixedFoo',
+			],
+			[
+				MixedType::class,
+				true,
+				null,
+				'$mixedBar',
 			],
 		];
 	}
@@ -2165,6 +2190,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				false,
 				null,
 				'$yetAnotherInteger',
+			],
+			[
+				MixedType::class,
+				true,
+				null,
+				'$mixedInteger',
 			],
 		];
 	}

@@ -141,6 +141,7 @@ class AnalyserTest extends \PHPStan\TestCase
 				$broker,
 				$printer,
 				new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class)),
+				new TypeSpecifier($printer),
 				false,
 				false,
 				false,

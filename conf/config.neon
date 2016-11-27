@@ -53,6 +53,9 @@ services:
 			earlyTerminatingMethodCalls: %earlyTerminatingMethodCalls%
 
 	-
+		class: PHPStan\Analyser\TypeSpecifier
+
+	-
 		class: PHPStan\Broker\BrokerFactory
 
 	-

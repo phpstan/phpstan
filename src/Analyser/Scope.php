@@ -425,7 +425,7 @@ class Scope
 			}
 		}
 
-		$exprString = $this->printer->prettyPrint([$node]);
+		$exprString = $this->printer->prettyPrintExpr($node);
 		if (isset($this->moreSpecificTypes[$exprString])) {
 			return $this->moreSpecificTypes[$exprString];
 		}
@@ -653,7 +653,7 @@ class Scope
 
 	public function isSpecified(Node $node): bool
 	{
-		$exprString = $this->printer->prettyPrint([$node]);
+		$exprString = $this->printer->prettyPrintExpr($node);
 
 		return isset($this->moreSpecificTypes[$exprString]);
 	}
@@ -1090,7 +1090,7 @@ class Scope
 			);
 		}
 
-		$exprString = $this->printer->prettyPrint([$expr]);
+		$exprString = $this->printer->prettyPrintExpr($expr);
 
 		return $this->addMoreSpecificTypes([
 			$exprString => $type,
@@ -1099,7 +1099,7 @@ class Scope
 
 	public function specifyFetchedPropertyFromIsset(PropertyFetch $expr): self
 	{
-		$exprString = $this->printer->prettyPrint([$expr]);
+		$exprString = $this->printer->prettyPrintExpr($expr);
 
 		return $this->addMoreSpecificTypes([
 			$exprString => new MixedType(false),

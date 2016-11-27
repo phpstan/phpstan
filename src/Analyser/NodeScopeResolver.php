@@ -11,14 +11,12 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\AssignRef;
 use PhpParser\Node\Expr\BinaryOp;
 use PhpParser\Node\Expr\BinaryOp\BooleanAnd;
-use PhpParser\Node\Expr\BinaryOp\BooleanOr;
 use PhpParser\Node\Expr\BinaryOp\Coalesce;
 use PhpParser\Node\Expr\BooleanNot;
 use PhpParser\Node\Expr\Cast;
 use PhpParser\Node\Expr\ErrorSuppress;
 use PhpParser\Node\Expr\Exit_;
 use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Expr\Instanceof_;
 use PhpParser\Node\Expr\Isset_;
 use PhpParser\Node\Expr\List_;
 use PhpParser\Node\Expr\MethodCall;
@@ -45,17 +43,10 @@ use PhpParser\Node\Stmt\TryCatch;
 use PhpParser\Node\Stmt\While_;
 use PHPStan\Broker\Broker;
 use PHPStan\Type\ArrayType;
-use PHPStan\Type\BooleanType;
-use PHPStan\Type\CallableType;
 use PHPStan\Type\CommentHelper;
 use PHPStan\Type\FileTypeMapper;
-use PHPStan\Type\FloatType;
-use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NestedArrayItemType;
-use PHPStan\Type\NullType;
-use PHPStan\Type\ObjectType;
-use PHPStan\Type\ResourceType;
 use PHPStan\Type\Type;
 
 class NodeScopeResolver
@@ -69,6 +60,9 @@ class NodeScopeResolver
 
 	/** @var \PHPStan\Type\FileTypeMapper */
 	private $fileTypeMapper;
+
+	/** @var \PHPStan\Analyser\TypeSpecifier */
+	private $typeSpecifier;
 
 	/** @var bool */
 	private $polluteScopeWithLoopInitialAssignments;
@@ -89,6 +83,7 @@ class NodeScopeResolver
 		Broker $broker,
 		\PhpParser\PrettyPrinter\Standard $printer,
 		FileTypeMapper $fileTypeMapper,
+		TypeSpecifier $typeSpecifier,
 		bool $polluteScopeWithLoopInitialAssignments,
 		bool $polluteCatchScopeWithTryAssignments,
 		bool $defineVariablesWithoutDefaultBranch,
@@ -98,6 +93,7 @@ class NodeScopeResolver
 		$this->broker = $broker;
 		$this->printer = $printer;
 		$this->fileTypeMapper = $fileTypeMapper;
+		$this->typeSpecifier = $typeSpecifier;
 		$this->polluteScopeWithLoopInitialAssignments = $polluteScopeWithLoopInitialAssignments;
 		$this->polluteCatchScopeWithTryAssignments = $polluteCatchScopeWithTryAssignments;
 		$this->defineVariablesWithoutDefaultBranch = $defineVariablesWithoutDefaultBranch;
@@ -148,9 +144,9 @@ class NodeScopeResolver
 
 			if ($node instanceof If_) {
 				if ($this->hasEarlyTermination($node->stmts, $scope)) {
+					$scope = $this->lookForTypeSpecificationsInEarlyTermination($scope, $node->cond);
 					$this->processNode($node->cond, $scope, function (Node $node, Scope $inScope) use (&$scope) {
 						if ($inScope->isNegated()) {
-							$scope = $this->lookForTypeSpecifications($scope, $node);
 							if ($node instanceof Isset_) {
 								foreach ($node->vars as $var) {
 									if ($var instanceof PropertyFetch) {
@@ -423,58 +419,19 @@ class NodeScopeResolver
 
 	private function lookForTypeSpecifications(Scope $scope, Node $node): Scope
 	{
-		if ($node instanceof Instanceof_ && $node->class instanceof Name) {
-			$class = (string) $node->class;
-			if ($class === 'static') {
-				return $scope;
-			}
+		$types = $this->typeSpecifier->specifyTypesInCondition(new SpecifiedTypes(), $scope, $node);
+		foreach ($types->getSureTypes() as $type) {
+			$scope = $scope->specifyExpressionType($type[0], $type[1]);
+		}
 
-			if ($class === 'self' && $scope->getClass() !== null) {
-				$class = $scope->getClass();
-			}
+		return $scope;
+	}
 
-			return $scope->specifyExpressionType($node->expr, new ObjectType($class, false));
-		} elseif (
-			$node instanceof FuncCall
-			&& $node->name instanceof Name
-			&& isset($node->args[0])
-		) {
-			$functionName = (string) $node->name;
-			$argumentExpression = $node->args[0]->value;
-			$specifiedType = null;
-			if (in_array($functionName, [
-				'is_int',
-				'is_integer',
-				'is_long',
-			], true)) {
-				$specifiedType = new IntegerType(false);
-			} elseif (in_array($functionName, [
-				'is_float',
-				'is_double',
-				'is_real',
-			], true)) {
-				$specifiedType = new FloatType(false);
-			} elseif ($functionName === 'is_null') {
-				$specifiedType = new NullType();
-			} elseif ($functionName === 'is_array') {
-				$specifiedType = new ArrayType(new MixedType(true), false);
-			} elseif ($functionName === 'is_bool') {
-				$specifiedType = new BooleanType(false);
-			} elseif ($functionName === 'is_callable') {
-				$specifiedType = new CallableType(false);
-			} elseif ($functionName === 'is_resource') {
-				$specifiedType = new ResourceType(false);
-			}
-
-			if ($specifiedType !== null) {
-				return $scope->specifyExpressionType($argumentExpression, $specifiedType);
-			}
-		} elseif ($node instanceof BooleanAnd) {
-			$scope = $this->lookForTypeSpecifications($scope, $node->left);
-			$scope = $this->lookForTypeSpecifications($scope, $node->right);
-		} elseif ($node instanceof BooleanOr) {
-			$scope = $this->lookForTypeSpecifications($scope, $node->left);
-			$scope = $this->lookForTypeSpecifications($scope, $node->right);
+	private function lookForTypeSpecificationsInEarlyTermination(Scope $scope, Node $node): Scope
+	{
+		$types = $this->typeSpecifier->specifyTypesInCondition(new SpecifiedTypes(), $scope, $node);
+		foreach ($types->getSureNotTypes() as $type) {
+			$scope = $scope->specifyExpressionType($type[0], $type[1]);
 		}
 
 		return $scope;
