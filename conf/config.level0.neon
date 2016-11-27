@@ -1,4 +1,5 @@
 parameters:
+	customRulesetUsed: false
 	checkThisOnly: true
 
 services:

@@ -25,7 +25,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			->setDefinition([
 				new InputArgument('paths', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'Paths with source code to run analysis on'),
 				new InputOption('configuration', 'c', InputOption::VALUE_REQUIRED, 'Path to project configuration file'),
-				new InputOption(self::OPTION_LEVEL, 'l', InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter', self::DEFAULT_LEVEL),
+				new InputOption(self::OPTION_LEVEL, 'l', InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter'),
 			]);
 	}
 
@@ -47,23 +47,31 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		$configurator->setTempDirectory($tmpDir);
 		$configurator->enableDebugger($tmpDir . '/log');
 
-		$levelConfigFile = sprintf('%s/config.level%s.neon', $confDir, $input->getOption(self::OPTION_LEVEL));
-		if (!is_file($levelConfigFile)) {
-			$output->writeln(sprintf('Level config file %s was not found.', $levelConfigFile));
-			return 1;
+		$projectConfigFile = $input->getOption('configuration');
+		$levelOption = $input->getOption(self::OPTION_LEVEL);
+		if ($projectConfigFile === null && $levelOption === null) {
+			$levelOption = self::DEFAULT_LEVEL;
 		}
 
-		$configFiles = [$confDir . '/config.neon', $levelConfigFile];
-
-		$projectConfigFile = $input->getOption('configuration');
-		if ($projectConfigFile !== null) {
-			$projectConfigFilePath = realpath($projectConfigFile);
-			if (!is_file($projectConfigFilePath)) {
-				$output->writeln(sprintf('Project config file at path %s does not exist.', $projectConfigFilePath !== false ? $projectConfigFilePath : $projectConfigFile));
+		$configFiles = [$confDir . '/config.neon'];
+		if ($levelOption !== null) {
+			$levelConfigFile = sprintf('%s/config.level%s.neon', $confDir, $levelOption);
+			if (!is_file($levelConfigFile)) {
+				$output->writeln(sprintf('Level config file %s was not found.', $levelConfigFile));
 				return 1;
 			}
 
-			$configFiles[] = $projectConfigFilePath;
+			$configFiles[] = $levelConfigFile;
+		}
+
+		if ($projectConfigFile !== null) {
+			$projectConfigRealFilePath = realpath($projectConfigFile);
+			if (!is_file($projectConfigFile)) {
+				$output->writeln(sprintf('Project config file at path %s does not exist.', $projectConfigRealFilePath !== false ? $projectConfigRealFilePath : $projectConfigFile));
+				return 1;
+			}
+
+			$configFiles[] = $projectConfigRealFilePath;
 		}
 
 		foreach ($configFiles as $configFile) {
@@ -74,6 +82,19 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			'rootDir' => $rootDir,
 		]);
 		$container = $configurator->createContainer();
+		if (!isset($container->parameters['customRulesetUsed'])) {
+			$output->writeln('');
+			$output->writeln('<comment>No rules detected</comment>');
+			$output->writeln('');
+			$output->writeln('You have the following choices:');
+			$output->writeln('');
+			$output->writeln('* while running the analyse option, use the <info>--level</info> option to adjust your rule level - the higher the stricter');
+			$output->writeln('');
+			$output->writeln(sprintf('* create your own <info>custom ruleset</info> by selecting which rules you want to check by copying the service definitions from the built-in config level files in <options=bold>%s</>.', realpath(__DIR__ . '/../../conf')));
+			$output->writeln('  * in this case, don\'t forget to define parameter <options=bold>customRulesetUsed</> in your config file.');
+			$output->writeln('');
+			return 1;
+		}
 
 		Debugger::$browser = $container->parameters['debug_cli_browser'];
 
