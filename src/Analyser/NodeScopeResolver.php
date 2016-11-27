@@ -682,7 +682,7 @@ class NodeScopeResolver
 			}
 
 			if ($intersectedScope === null) {
-				$intersectedScope = $branchScope;
+				$intersectedScope = $initialScope->addVariables($branchScope);
 			} elseif ($mergeWithPrevious) {
 				if ($previousBranchScope !== null) {
 					$intersectedScope = $branchScope->addVariables($previousBranchScope);

@@ -1043,6 +1043,9 @@ class Scope
 	{
 		$variableTypes = $this->getVariableTypes();
 		foreach ($otherScope->getVariableTypes() as $name => $variableType) {
+			if ($this->hasVariableType($name)) {
+				$variableType = $this->getVariableType($name)->combineWith($variableType);
+			}
 			$variableTypes[$name] = $variableType;
 		}
 
