@@ -6,3 +6,8 @@ services:
 		class: PHPStan\Rules\Cast\UselessCastRule
 		tags:
 			- phpstan.rules.rule
+
+	-
+		class: PHPStan\Rules\Comparison\StrictComparisonOfDifferentTypesRule
+		tags:
+			- phpstan.rules.rule
