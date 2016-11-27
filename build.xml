@@ -94,7 +94,7 @@
 			<arg value="-c"/>
 			<arg path="phpstan.neon"/>
 			<arg value="-l"/>
-			<arg value="3"/>
+			<arg value="4"/>
 			<arg path="src"/>
 			<arg path="tests"/>
 		</exec>
