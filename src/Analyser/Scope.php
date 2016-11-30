@@ -881,10 +881,21 @@ class Scope
 		);
 	}
 
-	public function enterCatch(string $exceptionClassName, string $variableName): self
+	/**
+	 * @param \PhpParser\Node\Name[] $classes
+	 * @param string $variableName
+	 * @return Scope
+	 */
+	public function enterCatch(array $classes, string $variableName): self
 	{
 		$variableTypes = $this->getVariableTypes();
-		$variableTypes[$variableName] = new ObjectType($exceptionClassName, false);
+
+		if (count($classes) === 1) {
+			$type = new ObjectType((string) $classes[0], false);
+		} else {
+			$type = new MixedType(false);
+		}
+		$variableTypes[$variableName] = $type;
 
 		return new self(
 			$this->broker,

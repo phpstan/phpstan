@@ -7,6 +7,7 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayDimFetch;
+use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\AssignRef;
 use PhpParser\Node\Expr\BinaryOp;
@@ -262,7 +263,7 @@ class NodeScopeResolver
 			}
 		} elseif ($node instanceof Catch_) {
 			$scope = $scope->enterCatch(
-				(string) $node->type,
+				$node->types,
 				$node->var
 			);
 		} elseif ($node instanceof For_) {
@@ -399,9 +400,12 @@ class NodeScopeResolver
 							$scope = $scope->enterVariableAssign($var->name);
 						}
 					} elseif ($var instanceof List_) {
-						foreach ($var->vars as $listVar) {
-							if ($listVar instanceof Variable && is_string($listVar->name)) {
-								$scope = $scope->enterVariableAssign($listVar->name);
+						foreach ($var->items as $listItem) {
+							if (!($listItem instanceof Expr\ArrayItem)) {
+								continue;
+							}
+							if ($listItem->value instanceof Variable && is_string($listItem->value->name)) {
+								$scope = $scope->enterVariableAssign($listItem->value->name);
 							}
 						}
 					}
@@ -459,11 +463,11 @@ class NodeScopeResolver
 		} elseif ($node instanceof TryCatch) {
 			$statements = [
 				new StatementList($scope, $node->stmts),
-				new StatementList($scope, $node->finallyStmts !== null ? $node->finallyStmts : null),
+				new StatementList($scope, $node->finally !== null ? $node->finally->stmts : null),
 			];
 			foreach ($node->catches as $catch) {
 				$statements[] = new StatementList($scope->enterCatch(
-					(string) $catch->type,
+					$catch->types,
 					$catch->var
 				), $catch->stmts);
 			}
@@ -501,13 +505,16 @@ class NodeScopeResolver
 		} elseif ($node instanceof Ternary) {
 			$scope = $this->lookForAssigns($scope, $node->else);
 		} elseif ($node instanceof List_) {
-			foreach ($node->vars as $var) {
-				if ($var instanceof Variable) {
-					$scope = $scope->assignVariable($var->name);
-				} elseif ($var instanceof ArrayDimFetch && $var->var instanceof Variable) {
-					$scope = $scope->assignVariable($var->var->name);
-				} elseif ($var !== null) {
-					$scope = $this->lookForAssigns($scope, $var);
+			foreach ($node->items as $item) {
+				if ($item === null) {
+					continue;
+				}
+				if ($item instanceof List_) {
+					$scope = $this->lookForAssigns($scope, $item);
+				} elseif ($item instanceof ArrayItem && $item->value instanceof Variable) {
+					$scope = $scope->assignVariable($item->value->name);
+				} elseif ($item instanceof ArrayItem && $item->value instanceof ArrayDimFetch && $item->value->var instanceof Variable) {
+					$scope = $scope->assignVariable($item->value->var->name);
 				}
 			}
 		} elseif ($node instanceof Array_) {
