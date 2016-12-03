@@ -42,6 +42,10 @@ class DefaultValueTypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 				continue;
 			}
 
+			if ($property->default instanceof Node\Expr\ConstFetch && (string) $property->default->name === 'null') {
+				continue;
+			}
+
 			$propertyReflection = $classReflection->getProperty($property->name);
 			$propertyType = $propertyReflection->getType();
 			$defaultValueType = $scope->getType($property->default);
