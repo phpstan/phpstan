@@ -17,4 +17,7 @@ class Foo
 	/** @var string */
 	private static $staticStringPropertyWithWrongDefaultValue = 1;
 
+	/** @var string */
+	private $stringPropertyWithDefaultNullValue = null;
+
 }
