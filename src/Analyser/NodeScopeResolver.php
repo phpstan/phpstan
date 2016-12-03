@@ -7,7 +7,6 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayDimFetch;
-use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\AssignRef;
 use PhpParser\Node\Expr\BinaryOp;
@@ -401,7 +400,7 @@ class NodeScopeResolver
 						}
 					} elseif ($var instanceof List_) {
 						foreach ($var->items as $listItem) {
-							if (!($listItem instanceof Expr\ArrayItem)) {
+							if ($listItem === null) {
 								continue;
 							}
 							if ($listItem->value instanceof Variable && is_string($listItem->value->name)) {
@@ -509,12 +508,12 @@ class NodeScopeResolver
 				if ($item === null) {
 					continue;
 				}
-				if ($item instanceof List_) {
-					$scope = $this->lookForAssigns($scope, $item);
-				} elseif ($item instanceof ArrayItem && $item->value instanceof Variable) {
+				if ($item->value instanceof Variable) {
 					$scope = $scope->assignVariable($item->value->name);
-				} elseif ($item instanceof ArrayItem && $item->value instanceof ArrayDimFetch && $item->value->var instanceof Variable) {
+				} elseif ($item->value instanceof ArrayDimFetch && $item->value->var instanceof Variable) {
 					$scope = $scope->assignVariable($item->value->var->name);
+				} else {
+					$scope = $this->lookForAssigns($scope, $item->value);
 				}
 			}
 		} elseif ($node instanceof Array_) {
