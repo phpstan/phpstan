@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Cast;
 use PhpParser\Node\Expr\Cast\Object_;
 use PHPStan\Analyser\Scope;
+use PHPStan\Type\FloatType;
 
 class UselessCastRule implements \PHPStan\Rules\Rule
 {
@@ -32,6 +33,9 @@ class UselessCastRule implements \PHPStan\Rules\Rule
 		}
 
 		$castType = $scope->getType($node);
+		if ($castType instanceof FloatType && $node->expr instanceof Node\Expr\BinaryOp\Div) {
+			return [];
+		}
 
 		if (get_class($expressionType) === get_class($castType)) {
 			return [

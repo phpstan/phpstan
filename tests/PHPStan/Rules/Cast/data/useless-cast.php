@@ -11,3 +11,5 @@ $foo = (object) new \stdClass();
 /** @var $nullableString string|null */
 $nullableString = 'foo';
 $foo = (string) $nullableString;
+
+$foo = (float) (6 / 2);
