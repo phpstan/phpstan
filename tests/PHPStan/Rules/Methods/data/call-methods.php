@@ -7,7 +7,7 @@ class Foo
 
 	private function foo()
 	{
-
+		$this->protectedMethodFromChild();
 	}
 
 	protected function bar()
@@ -55,6 +55,11 @@ class Bar extends Foo
 		$methodReflection = new \ReflectionMethod(Bar::class, 'dolor');
 		$methodReflection->invoke(new self());
 		$methodReflection->invoke(new self(), 'foo', 'bar', 'baz');
+	}
+
+	protected function protectedMethodFromChild()
+	{
+
 	}
 
 }

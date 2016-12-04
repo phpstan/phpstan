@@ -1208,8 +1208,15 @@ class Scope
 
 		// protected
 
-		return $currentClassReflection->getName() === $classReflectionName
-			|| $currentClassReflection->isSubclassOf($classReflectionName);
+		if (
+			$currentClassReflection->getName() === $classReflectionName
+			|| $currentClassReflection->isSubclassOf($classReflectionName)
+		) {
+			return true;
+		}
+
+		return $classMemberReflection->isStatic()
+			&& $classMemberReflection->getDeclaringClass()->isSubclassOf($class);
 	}
 
 }

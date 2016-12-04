@@ -120,29 +120,15 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 			];
 		}
 
-		if ($currentClass !== null && $method->getDeclaringClass()->getName() !== $currentClass) {
-			if (in_array($method->getDeclaringClass()->getName(), $currentClassReflection->getParentClassesNames(), true)) {
-				if ($method->isPrivate()) {
-					return [
-						sprintf(
-							'Call to private static method %s() of class %s.',
-							$method->getName(),
-							$method->getDeclaringClass()->getName()
-						),
-					];
-				}
-			} else {
-				if (!$method->isPublic()) {
-					return [
-						sprintf(
-							'Call to %s static method %s() of class %s.',
-							$method->isPrivate() ? 'private' : 'protected',
-							$method->getName(),
-							$method->getDeclaringClass()->getName()
-						),
-					];
-				}
-			}
+		if (!$scope->canCallMethod($method)) {
+			return [
+				sprintf(
+					'Call to %s static method %s() of class %s.',
+					$method->isPrivate() ? 'private' : 'protected',
+					$method->getName(),
+					$method->getDeclaringClass()->getName()
+				),
+			];
 		}
 
 		$methodName = $class . '::' . $method->getName() . '()';

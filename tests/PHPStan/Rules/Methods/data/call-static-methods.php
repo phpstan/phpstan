@@ -7,7 +7,7 @@ class Foo
 
 	public static function test()
 	{
-
+		Bar::protectedMethodFromChild();
 	}
 
 	protected static function baz()
@@ -16,6 +16,11 @@ class Foo
 	}
 
 	public function loremIpsum()
+	{
+
+	}
+
+	private static function dolor()
 	{
 
 	}
@@ -35,11 +40,17 @@ class Bar extends Foo
 		self::bar(); // nonexistent
 		parent::bar(); // nonexistent
 		Foo::loremIpsum(); // instance
+		Foo::dolor();
 	}
 
 	public function loremIpsum()
 	{
 		parent::loremIpsum();
+	}
+
+	protected static function protectedMethodFromChild()
+	{
+
 	}
 
 }

@@ -27,6 +27,10 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$this->checkThisOnly = false;
 		$this->analyse([ __DIR__ . '/data/call-methods.php'], [
 			[
+				'Call to an undefined method Test\Foo::protectedMethodFromChild().',
+				10,
+			],
+			[
 				'Call to an undefined method Test\Bar::loremipsum().',
 				40,
 			],
@@ -49,6 +53,10 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	{
 		$this->checkThisOnly = true;
 		$this->analyse([ __DIR__ . '/data/call-methods.php'], [
+			[
+				'Call to an undefined method Test\Foo::protectedMethodFromChild().',
+				10,
+			],
 			[
 				'Call to an undefined method Test\Bar::loremipsum().',
 				40,
