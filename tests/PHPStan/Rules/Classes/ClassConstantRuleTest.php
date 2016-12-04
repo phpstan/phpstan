@@ -12,7 +12,7 @@ class ClassConstantRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		return new ClassConstantRule($this->createBroker());
 	}
 
-	public function testClassDoesNotExist()
+	public function testClassConstant()
 	{
 		$this->analyse(
 			[
@@ -38,6 +38,39 @@ class ClassConstantRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				],
 			]
 		);
+	}
+
+	/**
+	 * @requires PHP 7.1
+	 */
+	public function testClassConstantVisibility()
+	{
+		$this->analyse([__DIR__ . '/data/class-constant-visibility.php'], [
+			[
+				'Cannot access constant ClassConstantVisibility\Bar::PRIVATE_BAR from current scope.',
+				25,
+			],
+			[
+				'Access to parent::BAZ but ClassConstantVisibility\Foo does not extend any class.',
+				27,
+			],
+			[
+				'Access to undefined constant ClassConstantVisibility\Bar::PRIVATE_FOO.',
+				45,
+			],
+			[
+				'Cannot access constant ClassConstantVisibility\Foo::PRIVATE_FOO from current scope.',
+				46,
+			],
+			[
+				'Cannot access constant ClassConstantVisibility\Foo::PRIVATE_FOO from current scope.',
+				47,
+			],
+			[
+				'Cannot access constant ClassConstantVisibility\Foo::PROTECTED_FOO from current scope.',
+				63,
+			],
+		]);
 	}
 
 }

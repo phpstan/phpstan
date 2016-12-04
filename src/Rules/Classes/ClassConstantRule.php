@@ -60,13 +60,28 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 			}
 		}
 
+		$constantName = $node->name;
+		if ($scope->getClass() !== null && $className === 'parent') {
+			$currentClassReflection = $this->broker->getClass($scope->getClass());
+			if ($currentClassReflection->getParentClass() === false) {
+				return [
+					sprintf(
+						'Access to parent::%s but %s does not extend any class.',
+						$constantName,
+						$scope->getClass()
+					),
+				];
+			}
+
+			$className = $currentClassReflection->getParentClass()->getName();
+		}
+
 		if (!$this->broker->hasClass($className)) {
 			return [
 				sprintf('Class %s not found.', $className),
 			];
 		}
 
-		$constantName = $node->name;
 		if ($constantName === 'class') {
 			return [];
 		}
@@ -75,6 +90,13 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 		if (!$classReflection->hasConstant($constantName)) {
 			return [
 				sprintf('Access to undefined constant %s::%s.', $className, $constantName),
+			];
+		}
+
+		$constantReflection = $classReflection->getConstant($constantName);
+		if (!$scope->canAccessConstant($constantReflection)) {
+			return [
+				sprintf('Cannot access constant %s::%s from current scope.', $constantReflection->getDeclaringClass()->getName(), $constantName),
 			];
 		}
 

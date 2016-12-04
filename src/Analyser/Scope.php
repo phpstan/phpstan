@@ -21,6 +21,7 @@ use PhpParser\Node\Scalar\DNumber;
 use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ClassConstantReflection;
 use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
@@ -418,8 +419,8 @@ class Scope
 				if ($this->broker->hasClass($constantClass)) {
 					$constantClassReflection = $this->broker->getClass($constantClass);
 					if ($constantClassReflection->hasConstant($constantName)) {
-						$constantValue = $constantClassReflection->getNativeReflection()->getConstant($constantName);
-						$typeFromValue = $this->getTypeFromValue($constantValue);
+						$constant = $constantClassReflection->getConstant($constantName);
+						$typeFromValue = $this->getTypeFromValue($constant->getValue());
 						if ($typeFromValue !== null) {
 							return $typeFromValue;
 						}
@@ -1183,6 +1184,11 @@ class Scope
 	public function canCallMethod(MethodReflection $methodReflection): bool
 	{
 		return $this->canAccessClassMember($methodReflection);
+	}
+
+	public function canAccessConstant(ClassConstantReflection $constantReflection): bool
+	{
+		return $this->canAccessClassMember($constantReflection);
 	}
 
 	private function canAccessClassMember(ClassMemberReflection $classMemberReflection): bool

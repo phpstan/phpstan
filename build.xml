@@ -88,6 +88,16 @@
 	</target>
 
 	<target name="phpstan">
+		<php expression="PHP_VERSION_ID &lt; 70100 ?'true':'false'" returnProperty="isPHP70" level="verbose" />
+		<if>
+			<equals arg1="${isPHP70}" arg2="true" />
+			<then>
+				<property name="phpstan.config" value="phpstan.php7.0.neon"/>
+			</then>
+			<else>
+				<property name="phpstan.config" value="phpstan.neon"/>
+			</else>
+		</if>
 		<exec
 				executable="bin/phpstan"
 				logoutput="true"
@@ -96,7 +106,7 @@
 		>
 			<arg value="analyse"/>
 			<arg value="-c"/>
-			<arg path="phpstan.neon"/>
+			<arg path="${phpstan.config}"/>
 			<arg value="-l"/>
 			<arg value="4"/>
 			<arg path="src"/>
