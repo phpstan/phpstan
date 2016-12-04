@@ -14,6 +14,11 @@ class ClosureReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	public function testClosureReturnTypeRule()
 	{
+		if (PHP_VERSION_ID >= 70100) {
+			$this->markTestSkipped(
+				'Test can be run only on PHP 7.0 - higher versions fail with the following test in the parse phase.'
+			);
+		}
 		$this->analyse([__DIR__ . '/data/closureReturnTypes.php'], [
 			[
 				'Anonymous function should return int but returns string.',

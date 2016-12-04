@@ -14,6 +14,11 @@ class ReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	public function testReturnTypeRule()
 	{
+		if (PHP_VERSION_ID >= 70100) {
+			$this->markTestSkipped(
+				'Test can be run only on PHP 7.0 - higher versions fail with the following test in the parse phase.'
+			);
+		}
 		$this->analyse([__DIR__ . '/data/returnTypes.php'], [
 			[
 				'Method ReturnTypes\Foo::returnInteger() should return int but empty return statement found.',
