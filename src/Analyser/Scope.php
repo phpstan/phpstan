@@ -417,9 +417,8 @@ class Scope
 				$constantName = $node->name;
 				if ($this->broker->hasClass($constantClass)) {
 					$constantClassReflection = $this->broker->getClass($constantClass);
-					$constants = $constantClassReflection->getNativeReflection()->getConstants();
-					if (array_key_exists($constantName, $constants)) {
-						$constantValue = $constants[$constantName];
+					if ($constantClassReflection->hasConstant($constantName)) {
+						$constantValue = $constantClassReflection->getNativeReflection()->getConstant($constantName);
 						$typeFromValue = $this->getTypeFromValue($constantValue);
 						if ($typeFromValue !== null) {
 							return $typeFromValue;
