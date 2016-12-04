@@ -2398,6 +2398,54 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+	public function dataVoid(): array
+	{
+		return [
+			[
+				VoidType::class,
+				false,
+				null,
+				'$this->doFoo()',
+			],
+			[
+				VoidType::class,
+				false,
+				null,
+				'$this->doBar()',
+			],
+			[
+				VoidType::class,
+				false,
+				null,
+				'$this->doConflictingVoid()',
+			],
+		];
+	}
+
+	/**
+	 * @requires PHP 7.1
+	 * @dataProvider dataVoid
+	 * @param string $typeClass
+	 * @param bool $nullable
+	 * @param string|null $class
+	 * @param string $expression
+	 */
+	public function testVoid(
+		string $typeClass,
+		bool $nullable,
+		string $class = null,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/void.php',
+			$typeClass,
+			$nullable,
+			$class,
+			$expression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $typeClass,
