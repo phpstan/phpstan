@@ -98,3 +98,6 @@ if ($fooInCondition = doFoo()) {
 \Closure::bind(function () {
 	$this->doFoo(); // $this undefined
 }, null);
+
+$someArray = [1, 2, [3, 4]];
+list($variableInList, $anotherVariableInList, list($yetAnotherVariableInList, $yetAnotherAnotherVariableInList)) = $someArray;

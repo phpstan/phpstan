@@ -387,27 +387,7 @@ class NodeScopeResolver
 				}
 
 				if (($node instanceof Assign || $node instanceof AssignRef) && $subNodeName === 'var') {
-					$var = $node->var;
-					if ($var instanceof Variable && is_string($var->name)) {
-						$scope = $scope->enterVariableAssign($var->name);
-					} elseif ($var instanceof ArrayDimFetch) {
-						while ($var instanceof ArrayDimFetch) {
-							$var = $var->var;
-						}
-
-						if ($var instanceof Variable && is_string($var->name)) {
-							$scope = $scope->enterVariableAssign($var->name);
-						}
-					} elseif ($var instanceof List_) {
-						foreach ($var->items as $listItem) {
-							if ($listItem === null) {
-								continue;
-							}
-							if ($listItem->value instanceof Variable && is_string($listItem->value->name)) {
-								$scope = $scope->enterVariableAssign($listItem->value->name);
-							}
-						}
-					}
+					$scope = $this->lookForEnterVariableAssign($scope, $node->var);
 				}
 
 				$nodeScope = $scope;
@@ -418,6 +398,30 @@ class NodeScopeResolver
 				$this->processNode($subNode, $nodeScope, $nodeCallback);
 			}
 		}
+	}
+
+	private function lookForEnterVariableAssign(Scope $scope, Node $node): Scope
+	{
+		if ($node instanceof Variable && is_string($node->name)) {
+			$scope = $scope->enterVariableAssign($node->name);
+		} elseif ($node instanceof ArrayDimFetch) {
+			while ($node instanceof ArrayDimFetch) {
+				$node = $node->var;
+			}
+
+			if ($node instanceof Variable && is_string($node->name)) {
+				$scope = $scope->enterVariableAssign($node->name);
+			}
+		} elseif ($node instanceof List_) {
+			foreach ($node->items as $listItem) {
+				if ($listItem === null) {
+					continue;
+				}
+				$scope = $this->lookForEnterVariableAssign($scope, $listItem->value);
+			}
+		}
+
+		return $scope;
 	}
 
 	private function lookForTypeSpecifications(Scope $scope, Node $node): Scope
