@@ -10,6 +10,8 @@ even before you write tests for the code.
 PHPStan moves PHP closer to compiled languages in the sense that the correctness of each line of the code
 can be checked before you run the actual line.
 
+**[Read more about PHPStan on Medium.com »](https://medium.com/@ondrejmirtes/phpstan-2939cd0ad0e3)**
+
 It currently performs the following checks on your code:
 
 * Existence of classes and interfaces in `instanceof`, `catch`, typehints, other language constructs and even annotations. PHP does not do this and just stays silent instead.
