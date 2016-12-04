@@ -13,6 +13,7 @@ use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
+use PHPStan\Type\IterableIterableType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
@@ -93,6 +94,8 @@ class TypeSpecifier
 				$specifiedType = new CallableType(false);
 			} elseif ($functionName === 'is_resource') {
 				$specifiedType = new ResourceType(false);
+			} elseif ($functionName === 'is_iterable') {
+				$specifiedType = new IterableIterableType(new MixedType(true), false);
 			}
 
 			if ($specifiedType !== null) {

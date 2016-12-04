@@ -42,6 +42,8 @@ class TypehintHelper
 				return new FloatType($isNullable);
 			case 'array':
 				return new ArrayType(new MixedType(true), $isNullable);
+			case 'iterable':
+				return new IterableIterableType(new MixedType(true), $isNullable);
 			case 'callable':
 				return new CallableType($isNullable);
 			case null:
@@ -80,11 +82,18 @@ class TypehintHelper
 			$selfClass
 		);
 		if ($phpDocType !== null) {
-			if ($type instanceof ArrayType && $phpDocType instanceof ArrayType) {
-				$type = new ArrayType(
-					$phpDocType->getItemType(),
-					$type->isNullable() || $phpDocType->isNullable()
-				);
+			if ($type instanceof IterableType && $phpDocType instanceof ArrayType) {
+				if ($type instanceof IterableIterableType) {
+					$type = new IterableIterableType(
+						$phpDocType->getItemType(),
+						$type->isNullable() || $phpDocType->isNullable()
+					);
+				} elseif ($type instanceof ArrayType) {
+					$type = new ArrayType(
+						$phpDocType->getItemType(),
+						$type->isNullable() || $phpDocType->isNullable()
+					);
+				}
 			}
 			if ($type->accepts($phpDocType)) {
 				return $phpDocType;

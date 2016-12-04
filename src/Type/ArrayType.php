@@ -2,14 +2,10 @@
 
 namespace PHPStan\Type;
 
-class ArrayType implements Type
+class ArrayType implements IterableType
 {
 
-	/** @var \PHPStan\Type\Type */
-	private $itemType;
-
-	/** @var bool */
-	private $nullable;
+	use IterableTypeTrait;
 
 	/** @var bool */
 	private $itemTypeInferredFromLiteralArray;
@@ -34,27 +30,10 @@ class ArrayType implements Type
 	{
 		$itemType = $nestedItemType->getItemType();
 		for ($i = 0; $i < $nestedItemType->getDepth() - 1; $i++) {
-			$itemType = new ArrayType($itemType, false);
+			$itemType = new self($itemType, false);
 		}
 
-		return new ArrayType($itemType, $nullable);
-	}
-
-	public function getNestedItemType(): NestedArrayItemType
-	{
-		$depth = 0;
-		$itemType = $this;
-		while ($itemType instanceof ArrayType) {
-			$itemType = $itemType->getItemType();
-			$depth++;
-		}
-
-		return new NestedArrayItemType($itemType, $depth);
-	}
-
-	public function getItemType(): Type
-	{
-		return $this->itemType;
+		return new self($itemType, $nullable);
 	}
 
 	public function isItemTypeInferredFromLiteralArray(): bool
@@ -67,27 +46,20 @@ class ArrayType implements Type
 		return $this->possiblyCallable;
 	}
 
-	/**
-	 * @return string|null
-	 */
-	public function getClass()
-	{
-		return null;
-	}
-
-	public function isNullable(): bool
-	{
-		return $this->nullable;
-	}
-
 	public function combineWith(Type $otherType): Type
 	{
-		if ($otherType instanceof ArrayType) {
+		if ($otherType instanceof IterableType) {
+			$isItemInferredFromLiteralArray = $this->isItemTypeInferredFromLiteralArray();
+			$isPossiblyCallable = $this->isPossiblyCallable();
+			if ($otherType instanceof self) {
+				$isItemInferredFromLiteralArray = $isItemInferredFromLiteralArray || $otherType->isItemTypeInferredFromLiteralArray();
+				$isPossiblyCallable = $isPossiblyCallable || $otherType->isPossiblyCallable();
+			}
 			return new self(
 				$this->getItemType()->combineWith($otherType->getItemType()),
 				$this->isNullable() || $otherType->isNullable(),
-				$this->isItemTypeInferredFromLiteralArray() || $otherType->isItemTypeInferredFromLiteralArray(),
-				$this->isPossiblyCallable() || $otherType->isPossiblyCallable()
+				$isItemInferredFromLiteralArray,
+				$isPossiblyCallable
 			);
 		}
 
@@ -123,16 +95,6 @@ class ArrayType implements Type
 	public function describe(): string
 	{
 		return sprintf('%s[]', $this->getItemType()->describe());
-	}
-
-	public function canAccessProperties(): bool
-	{
-		return false;
-	}
-
-	public function canCallMethods(): bool
-	{
-		return false;
 	}
 
 }

@@ -13,6 +13,7 @@ use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
+use PHPStan\Type\IterableIterableType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
@@ -2270,6 +2271,126 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/specifiedTypesUsingIsFunctions.php',
+			$typeClass,
+			$nullable,
+			$class,
+			$expression
+		);
+	}
+
+	public function dataIterable(): array
+	{
+		return [
+			[
+				IterableIterableType::class,
+				false,
+				null,
+				'$this->iterableProperty',
+			],
+			[
+				IterableIterableType::class,
+				false,
+				null,
+				'$iterableSpecifiedLater',
+			],
+			[
+				IterableIterableType::class,
+				false,
+				null,
+				'$iterableWithoutTypehint',
+			],
+			[
+				MixedType::class,
+				false,
+				null,
+				'$iterableWithoutTypehint[0]',
+			],
+			[
+				IterableIterableType::class,
+				false,
+				null,
+				'$iterableWithIterableTypehint',
+			],
+			[
+				MixedType::class,
+				false,
+				null,
+				'$iterableWithIterableTypehint[0]',
+			],
+			[
+				MixedType::class,
+				true,
+				null,
+				'$mixed',
+			],
+			[
+				IterableIterableType::class,
+				false,
+				null,
+				'$iterableWithConcreteTypehint',
+			],
+			[
+				MixedType::class,
+				false,
+				null,
+				'$iterableWithConcreteTypehint[0]',
+			],
+			[
+				ObjectType::class,
+				false,
+				'Iterables\Bar',
+				'$bar',
+			],
+			[
+				IterableIterableType::class,
+				false,
+				null,
+				'$this->doBar()',
+			],
+			[
+				IterableIterableType::class,
+				false,
+				null,
+				'$this->doBaz()',
+			],
+			[
+				ObjectType::class,
+				false,
+				'Iterables\Baz',
+				'$baz',
+			],
+			[
+				ArrayType::class,
+				false,
+				null,
+				'$arrayWithIterableTypehint',
+			],
+			[
+				MixedType::class,
+				true,
+				null,
+				'$arrayWithIterableTypehint[0]',
+			],
+		];
+	}
+
+	/**
+	 * @requires PHP 7.1
+	 * @dataProvider dataIterable
+	 * @param string $typeClass
+	 * @param bool $nullable
+	 * @param string|null $class
+	 * @param string $expression
+	 */
+	public function testIterable(
+		string $typeClass,
+		bool $nullable,
+		string $class = null,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/iterable.php',
 			$typeClass,
 			$nullable,
 			$class,

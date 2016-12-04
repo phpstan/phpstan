@@ -31,6 +31,7 @@ use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
+use PHPStan\Type\IterableType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
@@ -853,7 +854,7 @@ class Scope
 	{
 		$iterateeType = $this->getType($iteratee);
 		$variableTypes = $this->getVariableTypes();
-		if ($iterateeType instanceof ArrayType) {
+		if ($iterateeType instanceof IterableType) {
 			$variableTypes[$valueName] = $iterateeType->getItemType();
 		} else {
 			$variableTypes[$valueName] = new MixedType(true);

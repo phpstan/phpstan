@@ -9,7 +9,7 @@ use PhpParser\Node\Stmt\Function_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ParametersAcceptor;
-use PHPStan\Type\ArrayType;
+use PHPStan\Type\IterableType;
 
 class FunctionDefinitionCheck
 {
@@ -107,7 +107,7 @@ class FunctionDefinitionCheck
 			) {
 				$errors[] = sprintf($parameterMessage, $parameter->getName(), $type->getClass());
 			} elseif (
-				$type instanceof ArrayType
+				$type instanceof IterableType
 			) {
 				$nestedItemType = $type->getNestedItemType();
 				if (
@@ -126,7 +126,7 @@ class FunctionDefinitionCheck
 		) {
 			$errors[] = sprintf($returnMessage, $returnType->getClass());
 		} elseif (
-			$returnType instanceof ArrayType
+			$returnType instanceof IterableType
 		) {
 			$nestedItemType = $returnType->getNestedItemType();
 			if (
