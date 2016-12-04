@@ -845,6 +845,8 @@ class Scope
 				$className = $this->getClass();
 			}
 			return new ObjectType($className, $isNullable);
+		} elseif ($type instanceof Node\NullableType) {
+			return $this->getAnonymousFunctionType($type->type, true);
 		}
 
 		return new MixedType($isNullable);

@@ -51,4 +51,17 @@ class ClosureReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		]);
 	}
 
+	/**
+	 * @requires PHP 7.1
+	 */
+	public function testClosureReturnTypeNullableTypehints()
+	{
+		$this->analyse([__DIR__ . '/data/closure-nullableReturnTypes.php'], [
+			[
+				'Anonymous function should return int but returns string.',
+				6,
+			],
+		]);
+	}
+
 }
