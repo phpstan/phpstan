@@ -29,6 +29,10 @@
 		>
 			<arg value="--exclude"/>
 			<arg path="tests/PHPStan/Analyser/data"/>
+			<arg value="--exclude"/>
+			<arg path="tests/PHPStan/Rules/Methods/data"/>
+			<arg value="--exclude"/>
+			<arg path="tests/PHPStan/Rules/Functions/data"/>
 			<arg path="src" />
 			<arg path="tests" />
 		</exec>
