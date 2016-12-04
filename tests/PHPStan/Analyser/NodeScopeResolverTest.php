@@ -1518,7 +1518,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			],
 			[
 				VoidType::class,
-				true,
+				false,
 				null,
 				'$voidParameter',
 			],

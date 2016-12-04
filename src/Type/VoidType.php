@@ -15,7 +15,7 @@ class VoidType implements Type
 
 	public function isNullable(): bool
 	{
-		return true;
+		return false;
 	}
 
 	public function combineWith(Type $otherType): Type
