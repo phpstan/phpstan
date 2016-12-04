@@ -176,8 +176,26 @@ class NodeScopeResolver
 				&& isset($node->args[0])
 			) {
 				$scope = $this->lookForTypeSpecifications($scope, $node->args[0]->value);
+			} elseif (
+				$node instanceof Assign
+				&& $node->var instanceof Array_
+			) {
+				$scope = $this->lookForArrayDestructuringArray($scope, $node->var);
 			}
 		}
+	}
+
+	private function lookForArrayDestructuringArray(Scope $scope, Node $node): Scope
+	{
+		if ($node instanceof Array_) {
+			foreach ($node->items as $item) {
+				$scope = $this->lookForArrayDestructuringArray($scope, $item->value);
+			}
+		} elseif ($node instanceof Variable && is_string($node->name)) {
+			$scope = $scope->assignVariable($node->name);
+		}
+
+		return $scope;
 	}
 
 	private function processNode(\PhpParser\Node $node, Scope $scope, \Closure $nodeCallback)
@@ -412,7 +430,7 @@ class NodeScopeResolver
 			if ($node instanceof Variable && is_string($node->name)) {
 				$scope = $scope->enterVariableAssign($node->name);
 			}
-		} elseif ($node instanceof List_) {
+		} elseif ($node instanceof List_ || $node instanceof Array_) {
 			foreach ($node->items as $listItem) {
 				if ($listItem === null) {
 					continue;

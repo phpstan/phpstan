@@ -141,6 +141,23 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		});
 	}
 
+	/**
+	 * @requires PHP 7.1
+	 */
+	public function testArrayDestructuringShortSyntax()
+	{
+		$this->processFile(__DIR__ . '/data/array-destructuring-short.php', function (\PhpParser\Node $node, Scope $scope) {
+			if ($node instanceof Exit_) {
+				$variables = $scope->getVariableTypes();
+				$this->assertArrayHasKey('a', $variables);
+				$this->assertArrayHasKey('b', $variables);
+				$this->assertArrayHasKey('c', $variables);
+				$this->assertArrayHasKey('d', $variables);
+				$this->assertArrayHasKey('e', $variables);
+			}
+		});
+	}
+
 	public function dataParameterTypes(): array
 	{
 		return [

@@ -65,4 +65,12 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		]);
 	}
 
+	/**
+	 * @requires 7.1
+	 */
+	public function testDefinedVariablesInShortArrayDestructuringSyntax()
+	{
+		$this->analyse([__DIR__ . '/data/defined-variables-array-destructuring-short-syntax.php'], []);
+	}
+
 }
