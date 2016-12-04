@@ -14,7 +14,8 @@
 	<rule ref="SlevomatCodingStandard.Typehints.TypeHintDeclaration">
 		<properties>
 			<property name="usefulAnnotations" type="array" value="
-				@dataProvider
+				@dataProvider,
+				@requires
 			"/>
 		</properties>
 	</rule>

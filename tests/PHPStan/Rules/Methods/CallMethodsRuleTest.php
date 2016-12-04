@@ -147,4 +147,26 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		]);
 	}
 
+	/**
+	 * @requires PHP 7.1
+	 */
+	public function testNullableParameters()
+	{
+		$this->checkThisOnly = false;
+		$this->analyse([__DIR__ . '/data/nullable-parameters.php'], [
+			[
+				'Method NullableParameters\Foo::doFoo() invoked with 0 parameters, 2 required.',
+				6,
+			],
+			[
+				'Method NullableParameters\Foo::doFoo() invoked with 1 parameter, 2 required.',
+				7,
+			],
+			[
+				'Method NullableParameters\Foo::doFoo() invoked with 3 parameters, 2 required.',
+				10,
+			],
+		]);
+	}
+
 }
