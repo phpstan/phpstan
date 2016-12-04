@@ -198,9 +198,18 @@ class PhpMethodReflection implements MethodReflection
 	public function getReturnType(): Type
 	{
 		if ($this->returnType === null) {
+			$returnType = $this->reflection->getReturnType();
+			$phpDocReturnType = $this->phpDocReturnType;
+			if (
+				$returnType !== null
+				&& $phpDocReturnType !== null
+				&& $returnType->allowsNull() !== $phpDocReturnType->isNullable()
+			) {
+				$phpDocReturnType = null;
+			}
 			$this->returnType = TypehintHelper::decideType(
-				$this->reflection->getReturnType(),
-				$this->phpDocReturnType,
+				$returnType,
+				$phpDocReturnType,
 				$this->declaringClass->getName()
 			);
 		}

@@ -2446,6 +2446,60 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+	public function dataNullableReturnTypes(): array
+	{
+		return [
+			[
+				IntegerType::class,
+				true,
+				null,
+				'$this->doFoo()',
+			],
+			[
+				IntegerType::class,
+				true,
+				null,
+				'$this->doBar()',
+			],
+			[
+				IntegerType::class,
+				true,
+				null,
+				'$this->doConflictingNullable()',
+			],
+			[
+				IntegerType::class,
+				false,
+				null,
+				'$this->doAnotherConflictingNullable()',
+			],
+		];
+	}
+
+	/**
+	 * @requires PHP 7.1
+	 * @dataProvider dataNullableReturnTypes
+	 * @param string $typeClass
+	 * @param bool $nullable
+	 * @param string|null $class
+	 * @param string $expression
+	 */
+	public function testNullableReturnTypes(
+		string $typeClass,
+		bool $nullable,
+		string $class = null,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/nullable-returnTypes.php',
+			$typeClass,
+			$nullable,
+			$class,
+			$expression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $typeClass,
