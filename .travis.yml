@@ -1,11 +1,16 @@
 language: php
 php:
   - 7.0
+  - 7.1
 matrix:
   include:
     - php: 7.0
       env: dependencies=lowest
     - php: 7.0
+      env: dependencies=highest
+    - php: 7.1
+      env: dependencies=lowest
+    - php: 7.1
       env: dependencies=highest
 before_script:
   - composer self-update
