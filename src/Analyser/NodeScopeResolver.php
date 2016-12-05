@@ -276,7 +276,11 @@ class NodeScopeResolver
 					$scope = $scope->assignVariable($node->keyVar->name);
 				}
 
-				$scope = $this->lookForAssigns($scope, $node->valueVar);
+				if ($node->valueVar instanceof Array_) {
+					$scope = $this->lookForArrayDestructuringArray($scope, $node->valueVar);
+				} else {
+					$scope = $this->lookForAssigns($scope, $node->valueVar);
+				}
 			}
 		} elseif ($node instanceof Catch_) {
 			$scope = $scope->enterCatch(
