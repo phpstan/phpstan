@@ -5,7 +5,7 @@ namespace PHPStan\Type;
 class IterableIterableType implements IterableType
 {
 
-	use IterableTypeTrait;
+	use ClassTypeHelperTrait, IterableTypeTrait;
 
 	public function __construct(
 		Type $itemType,
@@ -41,6 +41,11 @@ class IterableIterableType implements IterableType
 	{
 		if ($type instanceof IterableType) {
 			return $this->getItemType()->accepts($type->getItemType());
+		}
+
+		if ($type->getClass() !== null && $this->exists($type->getClass())) {
+			$classReflection = new \ReflectionClass($type->getClass());
+			return $classReflection->implementsInterface(\Traversable::class);
 		}
 
 		if ($type instanceof MixedType) {

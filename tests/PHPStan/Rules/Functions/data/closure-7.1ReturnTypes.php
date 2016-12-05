@@ -11,6 +11,7 @@ function (): iterable
 {
 	return [];
 	return 'foo';
+	return new \ArrayIterator([]);
 };
 
 function (): void

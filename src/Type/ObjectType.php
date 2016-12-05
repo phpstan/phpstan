@@ -5,6 +5,8 @@ namespace PHPStan\Type;
 class ObjectType implements Type
 {
 
+	use ClassTypeHelperTrait;
+
 	/** @var string */
 	private $class;
 
@@ -84,18 +86,6 @@ class ObjectType implements Type
 		}
 
 		return $thatReflection->isSubclassOf($this->getClass());
-	}
-
-	private function exists(string $className): bool
-	{
-		try {
-			return class_exists($className) || interface_exists($className) || trait_exists($className);
-		} catch (\Throwable $t) {
-			throw new \PHPStan\Broker\ClassAutoloadingException(
-				$className,
-				$t
-			);
-		}
 	}
 
 	public function describe(): string
