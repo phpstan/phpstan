@@ -26,4 +26,12 @@ class ExistingClassesInClosureTypehintsRuleTest extends \PHPStan\Rules\AbstractR
 		]);
 	}
 
+	/**
+	 * @requires PHP 7.1
+	 */
+	public function testValidTypehint()
+	{
+		$this->analyse([__DIR__ . '/data/closure-valid-php71-typehints.php'], []);
+	}
+
 }
