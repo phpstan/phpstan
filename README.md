@@ -106,7 +106,7 @@ exist in the codebase AND you don't want to use Composer autoloader for some rea
 you can specify directories to scan and concrete files to include using
 `autoload_directories` and `autoload_files` array parameters:
 
-```
+```yaml
 parameters:
 	autoload_directories:
 		- %rootDir%/../../../build
@@ -123,7 +123,7 @@ If your codebase contains some files that are broken on purpose
 you can exclude them using the `excludes_analyse` array parameter. String at each line
 is used as a pattern for the [`fnmatch`](https://secure.php.net/manual/en/function.fnmatch.php) function.
 
-```
+```yaml
 parameters:
 	excludes_analyse:
 		- %rootDir%/tests/*/data/*
@@ -137,7 +137,7 @@ include `stdClass`, `SimpleXMLElement` (these are enabled by default), objects w
 Use `universalObjectCratesClasses` array parameter to let PHPStan know which classes
 with these characteristics are used in your codebase:
 
-```
+```yaml
 parameters:
 	universalObjectCratesClasses:
 		- Dibi\Row
@@ -149,23 +149,23 @@ parameters:
 If you use the initial assignment variable after for-loop or while-loop, set `polluteScopeWithLoopInitialAssignments` boolean parameter to `true`.
 
 ```php
-	for ($i = 0; $i < count($list); $i++) {
-		// ...
-	}
-	
-	echo $i;
+for ($i = 0; $i < count($list); $i++) {
+	// ...
+}
+
+echo $i;
 ```
 
 If you use some variables from a try block in your catch blocks, set `polluteCatchScopeWithTryAssignments` boolean parameter to `true`.
 
 ```php
-	try {
-		$author = $this->getLoggedInUser();
-		$post = $this->postRepository->getById($id);
-	} catch (PostNotFoundException $e) {
-		// $author is probably defined here
-		throw new ArticleByAuthorCannotBePublished($author);
-	}
+try {
+	$author = $this->getLoggedInUser();
+	$post = $this->postRepository->getById($id);
+} catch (PostNotFoundException $e) {
+	// $author is probably defined here
+	throw new ArticleByAuthorCannotBePublished($author);
+}
 ```
 
 If you are enumerating over all possible situations in if-elseif branches
@@ -222,7 +222,7 @@ doFoo($foo);
 
 These methods can be configured by specifying a class on whose instance they are called like this:
 
-```
+```yaml
 parameters:
 	earlyTerminatingMethodCalls:
 		Nette\Application\UI\Presenter:
@@ -237,7 +237,7 @@ parameters:
 If some issue in your code base is not easy to fix or just simply want to deal with it later,
 you can exclude error messages from the analysis result with regular expressions:
 
-```
+```yaml
 parameters:
 	ignoreErrors:
 		- '#Call to an undefined method [a-zA-Z0-9\\_]+::method\(\)#'
@@ -254,7 +254,7 @@ and you will have to remove the pattern from the configuration.
 If you need to initialize something in PHP runtime before PHPStan runs (like your own autoloader),
 you can provide your own bootstrap file:
 
-```
+```yaml
 parameters:
 	bootstrap: - %rootDir%/../../../phpstan-bootstrap.php
 ```
@@ -264,7 +264,7 @@ parameters:
 PHPStan allows writing custom rules to check for specific situations in your own codebase. Your rule class
 needs to implement the `PHPStan\Rules\Rule` interface and registered as a service in the configuration file:
 
-```
+```yaml
 services:
 	-
 		class: MyApp\PHPStan\Rules\DefaultValueTypesAssignedToPropertiesRule
@@ -324,7 +324,7 @@ interface PropertyReflection
 
 This is how you register the extension in project's PHPStan config file:
 
-```
+```yaml
 services:
 	-
 		class: App\PHPStan\PropertiesFromAnnotationsClassReflectionExtension
@@ -381,7 +381,7 @@ interface MethodReflection
 
 This is how you register the extension in project's PHPStan config file:
 
-```
+```yaml
 services:
 	-
 		class: App\PHPStan\EnumMethodsClassReflectionExtension
@@ -427,34 +427,34 @@ interface DynamicMethodReturnTypeExtension
 And this is how you'd write the extension that correctly resolves the EntityManager::merge() return type:
 
 ```php
-	public static function getClass(): string
-	{
-		return \Doctrine\ORM\EntityManager::class;
-	}
+public static function getClass(): string
+{
+	return \Doctrine\ORM\EntityManager::class;
+}
 
-	public function isMethodSupported(MethodReflection $methodReflection): bool
-	{
-		return $methodReflection->getName() === 'merge';
-	}
+public function isMethodSupported(MethodReflection $methodReflection): bool
+{
+	return $methodReflection->getName() === 'merge';
+}
 
-	public function getTypeFromMethodCall(MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope): Type
-	{
-		if (count($methodCall->args) === 0) {
-			return $methodReflection->getReturnType();
-		}
-		$arg = $methodCall->args[0]->value;
-		$type = $scope->getType($arg);
-		if ($type->getClass() !== null) {
-			return $type;
-		}
-
+public function getTypeFromMethodCall(MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope): Type
+{
+	if (count($methodCall->args) === 0) {
 		return $methodReflection->getReturnType();
 	}
+	$arg = $methodCall->args[0]->value;
+	$type = $scope->getType($arg);
+	if ($type->getClass() !== null) {
+		return $type;
+	}
+
+	return $methodReflection->getReturnType();
+}
 ```
 
 And finally, register the extension to PHPStan in the project's config file:
 
-```
+```yaml
 services:
 	-
 		class: App\PHPStan\EntityManagerDynamicReturnTypeExtension
