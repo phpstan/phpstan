@@ -23,9 +23,10 @@ class AnalyseApplication
 	/**
 	 * @param string[] $paths
 	 * @param \Symfony\Component\Console\Style\StyleInterface $style
+	 * @param bool $defaultLevelUsed
 	 * @return int
 	 */
-	public function analyse(array $paths, StyleInterface $style): int
+	public function analyse(array $paths, StyleInterface $style, bool $defaultLevelUsed): int
 	{
 		$errors = [];
 		$files = [];
@@ -63,6 +64,13 @@ class AnalyseApplication
 
 		if (count($errors) === 0) {
 			$style->success('No errors');
+			if ($defaultLevelUsed) {
+				$style->note(sprintf(
+					'PHPStan is performing only the most basic checks. You can pass a higher rule level through the --%s option (the default and current level is %d) to analyse code more thoroughly.',
+					AnalyseCommand::OPTION_LEVEL,
+					AnalyseCommand::DEFAULT_LEVEL
+				));
+			}
 			return 0;
 		}
 

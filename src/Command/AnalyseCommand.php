@@ -49,8 +49,10 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 		$projectConfigFile = $input->getOption('configuration');
 		$levelOption = $input->getOption(self::OPTION_LEVEL);
+		$defaultLevelUsed = false;
 		if ($projectConfigFile === null && $levelOption === null) {
 			$levelOption = self::DEFAULT_LEVEL;
+			$defaultLevelUsed = true;
 		}
 
 		$configFiles = [$confDir . '/config.neon'];
@@ -115,7 +117,8 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		$application = $container->getByType(AnalyseApplication::class);
 		return $application->analyse(
 			$input->getArgument('paths'),
-			new ErrorsConsoleStyle($input, $output)
+			new ErrorsConsoleStyle($input, $output),
+			$defaultLevelUsed
 		);
 	}
 

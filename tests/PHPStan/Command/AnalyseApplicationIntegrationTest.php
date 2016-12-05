@@ -53,7 +53,7 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\TestCase
 			$output
 		);
 
-		$statusCode = $analyserApplication->analyse([$path], $style);
+		$statusCode = $analyserApplication->analyse([$path], $style, false);
 		$this->assertSame($expectedStatusCode, $statusCode);
 
 		rewind($output->getStream());
