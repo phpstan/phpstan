@@ -25,7 +25,7 @@ class BrokerTest extends \PHPStan\TestCase
 	public function testClassNotFound()
 	{
 		$this->expectException(\PHPStan\Broker\ClassNotFoundException::class);
-		$this->expectExceptionMessage('Class NonexistentClass not found.');
+		$this->expectExceptionMessage('NonexistentClass');
 		$this->broker->getClass('NonexistentClass');
 	}
 

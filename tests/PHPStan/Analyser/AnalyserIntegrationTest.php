@@ -29,4 +29,16 @@ class AnalyserIntegrationTest extends \PHPStan\TestCase
 		$this->assertNull($error->getLine());
 	}
 
+	public function testErrorAboutMisconfiguredAutoloader()
+	{
+		$file = __DIR__ . '/../../notAutoloaded/Bar.php';
+		$analyser = $this->getContainer()->getByType(Analyser::class);
+		$errors = $analyser->analyse([$file]);
+		$this->assertCount(1, $errors);
+		$error = $errors[0];
+		$this->assertSame('Class PHPStan\Tests\Bar was not found while trying to analyse it - autoloading is not probably configured properly.', $error->getMessage());
+		$this->assertSame($file, $error->getFile());
+		$this->assertNull($error->getLine());
+	}
+
 }
