@@ -4,6 +4,7 @@ namespace PHPStan\Rules;
 
 use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Name;
+use PhpParser\Node\NullableType;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use PHPStan\Analyser\Scope;
@@ -23,6 +24,8 @@ class FunctionDefinitionCheck
 		'int',
 		'bool',
 		'float',
+		'void',
+		'iterable',
 	];
 
 	/**
@@ -70,7 +73,9 @@ class FunctionDefinitionCheck
 
 		$errors = [];
 		foreach ($function->getParams() as $param) {
-			$class = (string) $param->type;
+			$class = $param->type instanceof NullableType
+				? (string) $param->type->type
+				: (string) $param->type;
 			if (
 				$class
 				&& !in_array($class, self::VALID_TYPEHINTS, true)
@@ -80,7 +85,10 @@ class FunctionDefinitionCheck
 			}
 		}
 
-		$returnType = (string) $function->getReturnType();
+		$returnType = $function->getReturnType() instanceof NullableType
+			? (string) $function->getReturnType()->type
+			: (string) $function->getReturnType();
+
 		if (
 			$returnType
 			&& !in_array($returnType, self::VALID_TYPEHINTS, true)

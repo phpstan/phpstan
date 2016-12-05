@@ -26,4 +26,21 @@ class ExistingClassesInClosureTypehintsRuleTest extends \PHPStan\Rules\AbstractR
 		]);
 	}
 
+	/**
+	 * @requires PHP 7.1
+	 */
+	public function testValidTypehint()
+	{
+		$this->analyse([__DIR__ . '/data/closure-7.1-typehints.php'], [
+			[
+				'Parameter $bar of anonymous function has invalid typehint type TestClosureFunctionTypehintsPhp71\NonexistentClass.',
+				35,
+			],
+			[
+				'Return typehint of anonymous function has invalid type TestClosureFunctionTypehintsPhp71\NonexistentClass.',
+				35,
+			],
+		]);
+	}
+
 }
