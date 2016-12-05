@@ -13,7 +13,6 @@ class Foo extends FooParent implements FooInterface
 	public function returnInteger(): int
 	{
 		return 1;
-		return;
 		return 'foo';
 		$foo = function () {
 			return 'bar';

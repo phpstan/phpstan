@@ -13,13 +13,11 @@ function () {
 function (): int {
 	return 1;
 	return 'foo';
-	return;
 };
 
 function (): string {
 	return 'foo';
 	return 1;
-	return;
 };
 
 function (): Foo {
