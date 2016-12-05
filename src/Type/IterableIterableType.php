@@ -39,7 +39,7 @@ class IterableIterableType implements IterableType
 
 	public function accepts(Type $type): bool
 	{
-		if ($type instanceof self) {
+		if ($type instanceof IterableType) {
 			return $this->getItemType()->accepts($type->getItemType());
 		}
 

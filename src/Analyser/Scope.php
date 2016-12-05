@@ -32,6 +32,7 @@ use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
+use PHPStan\Type\IterableIterableType;
 use PHPStan\Type\IterableType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
@@ -39,6 +40,7 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\StaticType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
+use PHPStan\Type\VoidType;
 
 class Scope
 {
@@ -845,6 +847,10 @@ class Scope
 				$className = $this->getClass();
 			}
 			return new ObjectType($className, $isNullable);
+		} elseif ($type === 'iterable') {
+			return new IterableIterableType(new MixedType(true), $isNullable);
+		} elseif ($type === 'void') {
+			return new VoidType();
 		} elseif ($type instanceof Node\NullableType) {
 			return $this->getAnonymousFunctionType($type->type, true);
 		}

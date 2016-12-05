@@ -84,7 +84,7 @@ class TypehintHelper
 		if ($phpDocType !== null) {
 			if ($type instanceof IterableType && $phpDocType instanceof ArrayType) {
 				if ($type instanceof IterableIterableType) {
-					$type = new IterableIterableType(
+					$phpDocType = new IterableIterableType(
 						$phpDocType->getItemType(),
 						$type->isNullable() || $phpDocType->isNullable()
 					);

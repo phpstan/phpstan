@@ -60,12 +60,16 @@ class ClosureReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	/**
 	 * @requires PHP 7.1
 	 */
-	public function testClosureReturnTypeNullableTypehints()
+	public function testClosureReturnTypePhp71Typehints()
 	{
-		$this->analyse([__DIR__ . '/data/closure-nullableReturnTypes.php'], [
+		$this->analyse([__DIR__ . '/data/closure-7.1ReturnTypes.php'], [
 			[
 				'Anonymous function should return int but returns string.',
 				6,
+			],
+			[
+				'Anonymous function should return iterable(mixed[]) but returns string.',
+				13,
 			],
 		]);
 	}
