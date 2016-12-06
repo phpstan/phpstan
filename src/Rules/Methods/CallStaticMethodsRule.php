@@ -8,10 +8,12 @@ use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ClassReflection;
+use PHPStan\Rules\AddContextTrait;
 use PHPStan\Rules\FunctionCallParametersCheck;
 
 class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 {
+    use AddContextTrait;
 
 	/**
 	 * @var \PHPStan\Broker\Broker
@@ -142,13 +144,16 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
         string $context = null
     ): array {
         if (!$classReflection->hasMethod($name)) {
-            return [
-                sprintf(
-                    'Call to an undefined static method %s::%s().',
-                    $class,
-                    $name
-                ),
-            ];
+            return $this->addContext(
+                [
+                    sprintf(
+                        'Call to an undefined static method %s::%s().',
+                        $class,
+                        $name
+                    ),
+                ],
+                $context
+            );
         }
 
         $method = $classReflection->getMethod($name);
@@ -157,8 +162,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
                 sprintf(
                     'Static call to instance method %s::%s().',
                     $class,
-                    $method->getName(),
-                    $userName
+                    $method->getName()
                 ),
             ];
         }
@@ -193,15 +197,6 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
             $errors[] = sprintf('Call to static method %s with incorrect case: %s', $methodName, $name);
         }
 
-        if ($context) {
-            $errors = array_map(
-                function ($error) use ($context) {
-                    return is_string($error) ? sprintf('%s (in context %s)', $error, $context) : $error;
-                },
-                $errors
-            );
-        }
-
-        return $errors;
+        return $this->addContext($errors, $context);
     }
 }
