@@ -19,7 +19,7 @@
 		"nette/di": "~2.4",
 		"nette/robot-loader": "~2.4",
 		"nette/utils": "~2.4",
-		"nikic/php-parser": "~3.0.1",
+		"nikic/php-parser": "~3.0.2",
 		"symfony/console": "~2.8 || ~3.0",
 		"symfony/finder": "~2.8 || ~3.0",
 		"tracy/tracy": "~2.4"
