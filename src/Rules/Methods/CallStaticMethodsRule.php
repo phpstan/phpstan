@@ -7,6 +7,7 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ClassReflection;
 use PHPStan\Rules\FunctionCallParametersCheck;
 
 class CallStaticMethodsRule implements \PHPStan\Rules\Rule
@@ -98,59 +99,109 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 			$class = $currentClassReflection->getParentClass()->getName();
 		}
 
+        $errors = [];
 		$classReflection = $this->broker->getClass($class);
-		if (!$classReflection->hasMethod($name)) {
-			return [
-				sprintf(
-					'Call to an undefined static method %s::%s().',
-					$class,
-					$name
-				),
-			];
-		}
 
-		$method = $classReflection->getMethod($name);
-		if (!$method->isStatic()) {
-			return [
-				sprintf(
-					'Static call to instance method %s::%s().',
-					$class,
-					$method->getName()
-				),
-			];
-		}
+        if ($classReflection->isTrait()) {
+            /**
+             * Process trait check per using class.
+             *
+             * This is necessary for contextual processing of the trait, otherwise it
+             * is very hard to identify in what context the trait is failing.
+             */
+            foreach ($this->broker->getTraitUsers($class) as $userName => $userClass) {
+                $errors = array_merge($this->processContextNode($node, $scope, $name, $class, $userClass, $userName), $errors);
+            }
+        } else {
+            $errors = $this->processContextNode($node, $scope, $name, $class, $classReflection);
+        }
 
-		if (!$scope->canCallMethod($method)) {
-			return [
-				sprintf(
-					'Call to %s static method %s() of class %s.',
-					$method->isPrivate() ? 'private' : 'protected',
-					$method->getName(),
-					$method->getDeclaringClass()->getName()
-				),
-			];
-		}
+        return $errors;
+    }
 
-		$methodName = $class . '::' . $method->getName() . '()';
+    /**
+     * Process a specific context of the node.
+     *
+     * Neessary for proper isolation of parsing in context (for trait handling).
+     *
+     * @param Node            $node            The active node.
+     * @param Scope           $scope           The active scope.
+     * @param string          $name            The method name.
+     * @param string          $class           The class name.
+     * @param ClassReflection $classReflection The special refletion object.
+     * @param string|null     $context         The context we're working under (for traits).  Optional.
+     *
+     * @return array The array of errors
+     */
+    public function processContextNode(
+        Node $node,
+        Scope $scope,
+        string $name,
+        string $class,
+        ClassReflection $classReflection,
+        string $context = null
+    ): array {
+        if (!$classReflection->hasMethod($name)) {
+            return [
+                sprintf(
+                    'Call to an undefined static method %s::%s().',
+                    $class,
+                    $name
+                ),
+            ];
+        }
 
-		$errors = $this->check->check(
-			$method,
-			$node,
-			[
-				'Static method ' . $methodName . ' invoked with %d parameter, %d required.',
-				'Static method ' . $methodName . ' invoked with %d parameters, %d required.',
-				'Static method ' . $methodName . ' invoked with %d parameter, at least %d required.',
-				'Static method ' . $methodName . ' invoked with %d parameters, at least %d required.',
-				'Static method ' . $methodName . ' invoked with %d parameter, %d-%d required.',
-				'Static method ' . $methodName . ' invoked with %d parameters, %d-%d required.',
-			]
-		);
+        $method = $classReflection->getMethod($name);
+        if (!$method->isStatic()) {
+            return [
+                sprintf(
+                    'Static call to instance method %s::%s().',
+                    $class,
+                    $method->getName(),
+                    $userName
+                ),
+            ];
+        }
 
-		if ($method->getName() !== $name) {
-			$errors[] = sprintf('Call to static method %s with incorrect case: %s', $methodName, $name);
-		}
+        if (!$scope->canCallMethod($method)) {
+            return [
+                sprintf(
+                    'Call to %s static method %s() of class %s.',
+                    $method->isPrivate() ? 'private' : 'protected',
+                    $method->getName(),
+                    $method->getDeclaringClass()->getName()
+                ),
+            ];
+        }
 
-		return $errors;
-	}
+        $methodName = $class . '::' . $method->getName() . '()';
 
+        $errors = $this->check->check(
+            $method,
+            $node,
+            [
+                'Static method ' . $methodName . ' invoked with %d parameter, %d required.',
+                'Static method ' . $methodName . ' invoked with %d parameters, %d required.',
+                'Static method ' . $methodName . ' invoked with %d parameter, at least %d required.',
+                'Static method ' . $methodName . ' invoked with %d parameters, at least %d required.',
+                'Static method ' . $methodName . ' invoked with %d parameter, %d-%d required.',
+                'Static method ' . $methodName . ' invoked with %d parameters, %d-%d required.',
+            ]
+        );
+
+        if ($method->getName() !== $name) {
+            $errors[] = sprintf('Call to static method %s with incorrect case: %s', $methodName, $name);
+        }
+
+        if ($context) {
+            $errors = array_map(
+                function ($error) use ($context) {
+                    return is_string($error) ? sprintf('%s (in context %s)', $error, $context) : $error;
+                },
+                $errors
+            );
+        }
+
+        return $errors;
+    }
 }

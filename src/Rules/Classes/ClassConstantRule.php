@@ -88,9 +88,31 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 
 		$classReflection = $this->broker->getClass($className);
 		if (!$classReflection->hasConstant($constantName)) {
-			return [
-				sprintf('Access to undefined constant %s::%s.', $className, $constantName),
-			];
+            // If we're reflecting a trait, perform analysis on each context of the trait.
+            if ($classReflection->isTrait()) {
+                $errors = [];
+
+                // List of all available classes that use this trait...
+                foreach ($this->broker->getTraitUsers($className) as $userName => $userClass) {
+                    if (!$userClass->hasConstant($constantName)) {
+                        $errors[] = sprintf(
+                            'Access to undefined constant %s::%s in %s context.',
+                            $className,
+                            $constantName,
+                            $userName
+                        );
+                    }
+                }
+
+                // If we didn't find errors, we can just keep on going...
+                if (!empty($errors)) {
+                    return $errors;
+                }
+            } else {
+                return [
+                    sprintf('Access to undefined constant %s::%s.', $className, $constantName),
+                ];
+            }
 		}
 
 		$constantReflection = $classReflection->getConstant($constantName);
