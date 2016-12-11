@@ -62,6 +62,10 @@ class CallableType implements Type
 			return true;
 		}
 
+		if ($type instanceof StringType) {
+			return true;
+		}
+
 		if ($type->getClass() === 'Closure') {
 			return true;
 		}
