@@ -122,15 +122,20 @@ class NodeScopeResolver
 				$functionCall = $scope->getInFunctionCall();
 				$value = $node->value;
 
-				$parameters = $this->findParametersInFunctionCall($functionCall, $scope);
+				$parametersAcceptor = $this->findParametersAcceptorInFunctionCall($functionCall, $scope);
 
-				if (
-					$parameters !== null
-					&& isset($parameters[$i])
-					&& $parameters[$i]->isPassedByReference()
-					&& $value instanceof Variable
-				) {
-					$scope = $scope->assignVariable($value->name, new MixedType(true));
+				if ($parametersAcceptor !== null) {
+					$parameters = $parametersAcceptor->getParameters();
+					$assignByReference = false;
+					if (isset($parameters[$i])) {
+						$assignByReference = $parameters[$i]->isPassedByReference();
+					} elseif (count($parameters) > 0 && $parametersAcceptor->isVariadic()) {
+						$lastParameter = $parameters[count($parameters) - 1];
+						$assignByReference = $lastParameter->isPassedByReference();
+					}
+					if ($assignByReference && $value instanceof Variable) {
+						$scope = $scope->assignVariable($value->name, new MixedType(true));
+					}
 				}
 			}
 
@@ -506,11 +511,20 @@ class NodeScopeResolver
 				$scope = $this->lookForAssigns($scope, $argument);
 			}
 
-			$parameters = $this->findParametersInFunctionCall($node, $scope);
+			$parametersAcceptor = $this->findParametersAcceptorInFunctionCall($node, $scope);
 
-			if ($parameters !== null) {
-				foreach ($parameters as $i => $parameter) {
-					if (!isset($node->args[$i]) || !$parameter->isPassedByReference()) {
+			if ($parametersAcceptor !== null) {
+				$parameters = $parametersAcceptor->getParameters();
+				foreach ($node->args as $i => $arg) {
+					$assignByReference = false;
+					if (isset($parameters[$i])) {
+						$assignByReference = $parameters[$i]->isPassedByReference();
+					} elseif (count($parameters) > 0 && $parametersAcceptor->isVariadic()) {
+						$lastParameter = $parameters[count($parameters) - 1];
+						$assignByReference = $lastParameter->isPassedByReference();
+					}
+
+					if (!$assignByReference) {
 						continue;
 					}
 
@@ -787,13 +801,13 @@ class NodeScopeResolver
 	/**
 	 * @param \PhpParser\Node\Expr $functionCall
 	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return null|\PHPStan\Reflection\ParameterReflection[]
+	 * @return null|\PHPStan\Reflection\ParametersAcceptor
 	 */
-	private function findParametersInFunctionCall(Expr $functionCall, Scope $scope)
+	private function findParametersAcceptorInFunctionCall(Expr $functionCall, Scope $scope)
 	{
 		if ($functionCall instanceof FuncCall && $functionCall->name instanceof Name) {
 			if ($this->broker->hasFunction($functionCall->name, $scope)) {
-				return $this->broker->getFunction($functionCall->name, $scope)->getParameters();
+				return $this->broker->getFunction($functionCall->name, $scope);
 			}
 		} elseif ($functionCall instanceof MethodCall && is_string($functionCall->name)) {
 			$type = $scope->getType($functionCall->var);
@@ -801,7 +815,7 @@ class NodeScopeResolver
 				$classReflection = $this->broker->getClass($type->getClass());
 				$methodName = $functionCall->name;
 				if ($classReflection->hasMethod((string) $methodName)) {
-					return $classReflection->getMethod((string) $methodName)->getParameters();
+					return $classReflection->getMethod((string) $methodName);
 				}
 			}
 		}

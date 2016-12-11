@@ -105,3 +105,9 @@ list($variableInList, $anotherVariableInList, list($yetAnotherVariableInList, $y
 foreach ($someArray as list($destructuredA, $destructuredB, list($destructuredC, $destructuredD))) {
 
 }
+
+$str = '12';
+$resource = fopen();
+sscanf($str, '%d%d', $sscanfArgument, $anotherSscanfArgument);
+fscanf($resource, '%d%d', $fscanfArgument, $anotherFscanfArgument);
+doFoo($sscanfArgument, $anotherSscanfArgument, $fscanfArgument, $anotherFscanfArgument);
