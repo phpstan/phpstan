@@ -23,12 +23,21 @@ class AnalyserIntegrationTest extends \PHPStan\TestCase
 		$this->assertNull($error->getLine());
 	}
 
-	public function testErrorAboutMisconfiguredAutoloader()
+	public function testMissingClassErrorAboutMisconfiguredAutoloader()
 	{
 		$errors = $this->runAnalyse(__DIR__ . '/../../notAutoloaded/Bar.php');
 		$this->assertCount(1, $errors);
 		$error = $errors[0];
 		$this->assertSame('Class PHPStan\Tests\Bar was not found while trying to analyse it - autoloading is not probably configured properly.', $error->getMessage());
+		$this->assertNull($error->getLine());
+	}
+
+	public function testMissingFunctionErrorAboutMisconfiguredAutoloader()
+	{
+		$errors = $this->runAnalyse(__DIR__ . '/../../notAutoloaded/functionFoo.php');
+		$this->assertCount(1, $errors);
+		$error = $errors[0];
+		$this->assertSame('Function PHPStan\Tests\foo not found while trying to analyse it - autoloading is not probably configured properly.', $error->getMessage());
 		$this->assertNull($error->getLine());
 	}
 

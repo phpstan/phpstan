@@ -32,7 +32,7 @@ class BrokerTest extends \PHPStan\TestCase
 	public function testFunctionNotFound()
 	{
 		$this->expectException(\PHPStan\Broker\FunctionNotFoundException::class);
-		$this->expectExceptionMessage('Function nonexistentFunction not found.');
+		$this->expectExceptionMessage('Function nonexistentFunction not found while trying to analyse it - autoloading is not probably configured properly.');
 
 		$scope = $this->createMock(Scope::class);
 		$scope->method('getNamespace')
