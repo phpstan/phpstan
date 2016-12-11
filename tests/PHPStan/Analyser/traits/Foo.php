@@ -11,4 +11,8 @@ class Foo
 	{
 	}
 
+	public function conflictingMethodWithDifferentArgumentNames(string $input)
+	{
+	}
+
 }

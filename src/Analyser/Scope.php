@@ -26,6 +26,7 @@ use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptor;
+use PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
@@ -571,7 +572,7 @@ class Scope
 				&& $node->args[$arrayFunctionsThatDependOnClosureReturnType[$functionName]]->value instanceof Expr\Closure
 			) {
 				$closure = $node->args[$arrayFunctionsThatDependOnClosureReturnType[$functionName]]->value;
-				$anonymousFunctionType = $this->getAnonymousFunctionType($closure->returnType, $closure->returnType === null);
+				$anonymousFunctionType = $this->getFunctionType($closure->returnType, $closure->returnType === null, false);
 				if ($functionName === 'array_reduce') {
 					return $anonymousFunctionType;
 				}
@@ -741,6 +742,42 @@ class Scope
 		);
 	}
 
+	public function enterClassMethod(
+		Node\Stmt\ClassMethod $classMethod,
+		array $phpDocParameterTypes,
+		Type $phpDocReturnType = null
+	): self
+	{
+		$isVariadic = false;
+		foreach ($classMethod->params as $parameter) {
+			if ($parameter->variadic) {
+				$isVariadic = true;
+			}
+		}
+
+		$realParameterTypes = [];
+		foreach ($classMethod->params as $parameter) {
+			$realParameterTypes[$parameter->name] = $this->getFunctionType(
+				$parameter->type,
+				$this->isParameterValueNullable($parameter),
+				$parameter->variadic
+			);
+		}
+
+		return $this->enterFunction(
+			new PhpMethodFromParserNodeReflection(
+				$this->getClass() !== null ? $this->broker->getClass($this->getClass()) : $this->getAnonymousClass(),
+				$classMethod,
+				$realParameterTypes,
+				$phpDocParameterTypes,
+				$classMethod->returnType !== null,
+				$this->getFunctionType($classMethod->returnType, $classMethod->returnType === null, false),
+				$phpDocReturnType,
+				$isVariadic
+			)
+		);
+	}
+
 	public function enterNamespace(string $namespaceName): self
 	{
 		return new self(
@@ -823,12 +860,9 @@ class Scope
 	{
 		$variableTypes = [];
 		foreach ($parameters as $parameter) {
-			$isNullable = false;
-			if ($parameter->default instanceof ConstFetch && $parameter->default->name instanceof Name) {
-				$isNullable = strtolower((string) $parameter->default->name) === 'null';
-			}
+			$isNullable = $this->isParameterValueNullable($parameter);
 
-			$variableTypes[$parameter->name] = $this->getAnonymousFunctionType($parameter->type, $isNullable);
+			$variableTypes[$parameter->name] = $this->getFunctionType($parameter->type, $isNullable, $parameter->variadic);
 		}
 
 		foreach ($uses as $use) {
@@ -845,7 +879,7 @@ class Scope
 			$variableTypes['this'] = $this->getVariableType('this');
 		}
 
-		$returnType = $this->getAnonymousFunctionType($returnTypehint, $returnTypehint === null);
+		$returnType = $this->getFunctionType($returnTypehint, $returnTypehint === null, false);
 
 		return new self(
 			$this->broker,
@@ -864,13 +898,30 @@ class Scope
 		);
 	}
 
+	private function isParameterValueNullable(Node\Param $parameter): bool
+	{
+		if ($parameter->default instanceof ConstFetch && $parameter->default->name instanceof Name) {
+			return strtolower((string) $parameter->default->name) === 'null';
+		}
+
+		return false;
+	}
+
 	/**
 	 * @param \PhpParser\Node\Name|string|null $type
 	 * @param bool $isNullable
+	 * @param bool $isVariadic
 	 * @return Type
 	 */
-	private function getAnonymousFunctionType($type = null, bool $isNullable): Type
+	private function getFunctionType($type = null, bool $isNullable, bool $isVariadic): Type
 	{
+		if ($isVariadic) {
+			return new ArrayType($this->getFunctionType(
+				$type,
+				$isNullable,
+				false
+			), false);
+		}
 		if ($type === null) {
 			return new MixedType(true);
 		} elseif ($type === 'string') {
@@ -896,7 +947,7 @@ class Scope
 		} elseif ($type === 'void') {
 			return new VoidType();
 		} elseif ($type instanceof Node\NullableType) {
-			return $this->getAnonymousFunctionType($type->type, true);
+			return $this->getFunctionType($type->type, true, $isVariadic);
 		}
 
 		return new MixedType($isNullable);

@@ -10,4 +10,9 @@ trait FooTrait
 		$this->doFoo();
 	}
 
+	public function conflictingMethodWithDifferentArgumentNames(string $string)
+	{
+		strpos($string, 'foo');
+	}
+
 }

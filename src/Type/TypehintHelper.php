@@ -60,7 +60,7 @@ class TypehintHelper
 		}
 	}
 
-	public static function decideType(
+	public static function decideTypeFromReflection(
 		\ReflectionType $reflectionType = null,
 		Type $phpDocType = null,
 		string $selfClass = null,
@@ -81,6 +81,15 @@ class TypehintHelper
 			$reflectionType->allowsNull(),
 			$selfClass
 		);
+
+		return self::decideType($type, $phpDocType);
+	}
+
+	public static function decideType(
+		Type $type,
+		Type $phpDocType = null
+	): Type
+	{
 		if ($phpDocType !== null) {
 			if ($type instanceof IterableType && $phpDocType instanceof ArrayType) {
 				if ($type instanceof IterableIterableType) {

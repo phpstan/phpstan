@@ -27,6 +27,7 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Ternary;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
+use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Break_;
 use PhpParser\Node\Stmt\Catch_;
 use PhpParser\Node\Stmt\Class_;
@@ -52,6 +53,7 @@ use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NestedArrayItemType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypehintHelper;
 
 class NodeScopeResolver
 {
@@ -234,15 +236,7 @@ class NodeScopeResolver
 				$this->broker->getFunction($node->namespacedName, $scope)
 			);
 		} elseif ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
-			if ($scope->getClass() !== null) {
-				$classReflection = $this->broker->getClass($scope->getClass());
-			} else {
-				$classReflection = $scope->getAnonymousClass();
-			}
-
-			$scope = $scope->enterFunction(
-				$classReflection->getMethod($node->name)
-			);
+			$scope = $this->enterClassMethod($scope, $node);
 		} elseif ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
 			$scope = $scope->enterNamespace((string) $node->name);
 		} elseif (
@@ -924,6 +918,30 @@ class NodeScopeResolver
 				}
 			});
 		}
+	}
+
+	private function enterClassMethod(Scope $scope, Node\Stmt\ClassMethod $classMethod): Scope
+	{
+		$fileTypeMap = $this->fileTypeMapper->getTypeMap($scope->getFile());
+		$phpDocParameterTypes = [];
+		$phpDocReturnType = null;
+		if ($classMethod->getDocComment() !== null) {
+			$docComment = $classMethod->getDocComment()->getText();
+			$phpDocParameterTypes = TypehintHelper::getPhpDocParameterTypesFromMethod(
+				$fileTypeMap,
+				array_map(function (Param $parameter): string {
+					return $parameter->name;
+				}, $classMethod->params),
+				$docComment
+			);
+			$phpDocReturnType = TypehintHelper::getPhpDocReturnTypeFromMethod($fileTypeMap, $docComment);
+		}
+
+		return $scope->enterClassMethod(
+			$classMethod,
+			$phpDocParameterTypes,
+			$phpDocReturnType
+		);
 	}
 
 }

@@ -218,7 +218,7 @@ class PhpMethodReflection implements MethodReflection
 			) {
 				$phpDocReturnType = null;
 			}
-			$this->returnType = TypehintHelper::decideType(
+			$this->returnType = TypehintHelper::decideTypeFromReflection(
 				$returnType,
 				$phpDocReturnType,
 				$this->declaringClass->getName()
