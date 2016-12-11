@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <ruleset name="PHPStan">
-	<rule ref="vendor/consistence/coding-standard/Consistence/ruleset.xml"/>
+	<rule ref="vendor/consistence/coding-standard/Consistence/ruleset.xml">
+		<exclude name="Squiz.Functions.GlobalFunction.Found"/>
+	</rule>
 	<rule ref="vendor/slevomat/coding-standard/SlevomatCodingStandard/ruleset.xml">
 		<exclude name="SlevomatCodingStandard.Files.TypeNameMatchesFileName"/>
 		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameAfterKeyword"/>
