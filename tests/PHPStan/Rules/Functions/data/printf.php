@@ -16,3 +16,9 @@ sprintf('%%s %s', 'foo', 'bar'); // one parameter over
 sprintf('https://%s/staticmaps/%dx%d/%d/%Fx%F.png'); // six parameters required
 sprintf('%%0%dd%%0%dd'); // two parameters required
 sprintf('%%%s%%'); // one required
+sscanf($str, '%d%d'); // correct - result returned as an array
+sscanf($str, '%d', $number); // correct
+sscanf($str, '%d%d', $number); // one parameter missing
+fscanf($resource, '%d%d'); // correct - result returned as an array
+fscanf($resource, '%d', $number); // correct
+fscanf($resource, '%d%d', $number); // one parameter missing

@@ -26,24 +26,40 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
+		$functionsArgumentPositions = [
+			'printf' => 0,
+			'sprintf' => 0,
+			'sscanf' => 1,
+			'fscanf' => 1,
+		];
+		$minimumNumberOfArguments = [
+			'printf' => 1,
+			'sprintf' => 1,
+			'sscanf' => 3,
+			'fscanf' => 3,
+		];
+
 		$name = (string) $node->name;
-		if (!in_array($name, ['printf', 'sprintf'], true)) {
+		if (!isset($functionsArgumentPositions[$name])) {
 			return [];
 		}
 
+		$formatArgumentPosition = $functionsArgumentPositions[$name];
+
 		$args = $node->args;
 		$argsCount = count($args);
-		if ($argsCount < 1) {
+		if ($argsCount < $minimumNumberOfArguments[$name]) {
 			return []; // caught by CallToFunctionParametersRule
 		}
 
-		$formatArg = $args[0]->value;
+		$formatArg = $args[$formatArgumentPosition]->value;
 		if (!($formatArg instanceof String_)) {
 			return []; // inspect only literal string format
 		}
 
 		$format = $formatArg->value;
 		$placeHoldersCount = $this->getPlaceholdersCount($format);
+		$argsCount -= $formatArgumentPosition;
 
 		if ($argsCount !== $placeHoldersCount + 1) {
 			return [
