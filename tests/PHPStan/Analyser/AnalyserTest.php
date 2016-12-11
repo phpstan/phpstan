@@ -139,6 +139,7 @@ class AnalyserTest extends \PHPStan\TestCase
 			$registry,
 			new NodeScopeResolver(
 				$broker,
+				$this->getParser(),
 				$printer,
 				new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class)),
 				new TypeSpecifier($printer),

@@ -42,6 +42,7 @@ use PhpParser\Node\Stmt\Throw_;
 use PhpParser\Node\Stmt\TryCatch;
 use PhpParser\Node\Stmt\While_;
 use PHPStan\Broker\Broker;
+use PHPStan\Parser\Parser;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\CommentHelper;
 use PHPStan\Type\FileTypeMapper;
@@ -54,6 +55,9 @@ class NodeScopeResolver
 
 	/** @var \PHPStan\Broker\Broker */
 	private $broker;
+
+	/** @var \PHPStan\Parser\Parser */
+	private $parser;
 
 	/** @var \PhpParser\PrettyPrinter\Standard */
 	private $printer;
@@ -81,6 +85,7 @@ class NodeScopeResolver
 
 	public function __construct(
 		Broker $broker,
+		Parser $parser,
 		\PhpParser\PrettyPrinter\Standard $printer,
 		FileTypeMapper $fileTypeMapper,
 		TypeSpecifier $typeSpecifier,
@@ -91,6 +96,7 @@ class NodeScopeResolver
 	)
 	{
 		$this->broker = $broker;
+		$this->parser = $parser;
 		$this->printer = $printer;
 		$this->fileTypeMapper = $fileTypeMapper;
 		$this->typeSpecifier = $typeSpecifier;
@@ -218,6 +224,8 @@ class NodeScopeResolver
 			} else {
 				$scope = $scope->enterAnonymousClass($this->anonymousClassReflection);
 			}
+		} elseif ($node instanceof Node\Stmt\TraitUse) {
+			$this->processTraitUse($node, $scope, $nodeCallback);
 		} elseif ($node instanceof \PhpParser\Node\Stmt\Function_) {
 			$scope = $scope->enterFunction(
 				$this->broker->getFunction($node->namespacedName, $scope)
@@ -824,6 +832,24 @@ class NodeScopeResolver
 		}
 
 		return null;
+	}
+
+	private function processTraitUse(Node\Stmt\TraitUse $node, Scope $classScope, \Closure $nodeCallback)
+	{
+		foreach ($node->traits as $trait) {
+			$traitName = (string) $trait;
+			if (!$this->broker->hasClass($traitName)) {
+				continue;
+			}
+			$traitReflection = $this->broker->getClass($traitName);
+			$fileName = $traitReflection->getNativeReflection()->getFileName();
+			$parserNodes = $this->parser->parseFile($fileName);
+			$this->processNodes($parserNodes, new Scope($this->broker, $this->printer, $fileName), function (\PhpParser\Node $node) use ($traitName, $classScope, $nodeCallback) {
+				if ($node instanceof Node\Stmt\Trait_ && $traitName === (string) $node->namespacedName) {
+					$this->processNodes($node->stmts, $classScope, $nodeCallback);
+				}
+			});
+		}
 	}
 
 }

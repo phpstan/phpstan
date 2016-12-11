@@ -37,6 +37,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		$this->printer = new \PhpParser\PrettyPrinter\Standard();
 		$this->resolver = new NodeScopeResolver(
 			$this->createBroker(),
+			$this->getParser(),
 			$this->printer,
 			new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class)),
 			new TypeSpecifier($this->printer),
