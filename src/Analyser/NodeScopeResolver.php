@@ -844,6 +844,13 @@ class NodeScopeResolver
 			$traitReflection = $this->broker->getClass($traitName);
 			$fileName = $traitReflection->getNativeReflection()->getFileName();
 			$parserNodes = $this->parser->parseFile($fileName);
+			$classScope = $classScope->changeAnalysedContextFile(
+				sprintf(
+					'%s (in context of %s)',
+					$fileName,
+					$classScope->getClass() !== null ? sprintf('class %s', $classScope->getClass()) : 'anonymous class'
+				)
+			);
 			$this->processNodes($parserNodes, new Scope($this->broker, $this->printer, $fileName), function (\PhpParser\Node $node) use ($traitName, $classScope, $nodeCallback) {
 				if ($node instanceof Node\Stmt\Trait_ && $traitName === (string) $node->namespacedName) {
 					$this->processNodes($node->stmts, $classScope, $nodeCallback);

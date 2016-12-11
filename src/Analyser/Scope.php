@@ -61,6 +61,11 @@ class Scope
 	private $file;
 
 	/**
+	 * @var string
+	 */
+	private $analysedContextFile;
+
+	/**
 	 * @var bool
 	 */
 	private $declareStrictTypes;
@@ -124,6 +129,7 @@ class Scope
 		Broker $broker,
 		\PhpParser\PrettyPrinter\Standard $printer,
 		string $file,
+		string $analysedContextFile = null,
 		bool $declareStrictTypes = false,
 		string $class = null,
 		\PHPStan\Reflection\ParametersAcceptor $function = null,
@@ -149,6 +155,7 @@ class Scope
 		$this->broker = $broker;
 		$this->printer = $printer;
 		$this->file = $file;
+		$this->analysedContextFile = $analysedContextFile !== null ? $analysedContextFile : $file;
 		$this->declareStrictTypes = $declareStrictTypes;
 		$this->class = $class;
 		$this->function = $function;
@@ -168,6 +175,11 @@ class Scope
 		return $this->file;
 	}
 
+	public function getAnalysedContextFile(): string
+	{
+		return $this->analysedContextFile;
+	}
+
 	public function isDeclareStrictTypes(): bool
 	{
 		return $this->declareStrictTypes;
@@ -179,6 +191,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->getAnalysedContextFile(),
 			true
 		);
 	}
@@ -670,6 +683,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$className,
 			null,
@@ -677,6 +691,27 @@ class Scope
 			[
 				'this' => new ObjectType($className, false),
 			]
+		);
+	}
+
+	public function changeAnalysedContextFile(string $fileName): self
+	{
+		return new self(
+			$this->broker,
+			$this->printer,
+			$this->getFile(),
+			$fileName,
+			$this->isDeclareStrictTypes(),
+			$this->getClass(),
+			$this->getFunction(),
+			$this->getNamespace(),
+			$this->getVariableTypes(),
+			$this->inClosureBindScopeClass,
+			$this->getAnonymousFunctionReturnType(),
+			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
+			$this->getInFunctionCall(),
+			$this->isNegated(),
+			$this->moreSpecificTypes
 		);
 	}
 
@@ -693,6 +728,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->getClass(),
 			$functionReflection,
@@ -707,6 +743,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			null,
 			null,
@@ -732,6 +769,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->getClass(),
 			$this->getFunction(),
@@ -752,6 +790,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			null,
 			null,
@@ -808,6 +847,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->getClass(),
 			$this->getFunction(),
@@ -876,6 +916,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->getClass(),
 			$this->getFunction(),
@@ -910,6 +951,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->getClass(),
 			$this->getFunction(),
@@ -934,6 +976,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->getClass(),
 			$this->getFunction(),
@@ -957,6 +1000,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->getClass(),
 			$this->getFunction(),
@@ -991,6 +1035,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->getClass(),
 			$this->getFunction(),
@@ -1017,6 +1062,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->getClass(),
 			$this->getFunction(),
@@ -1048,6 +1094,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->getClass(),
 			$this->getFunction(),
@@ -1076,6 +1123,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->getClass(),
 			$this->getFunction(),
@@ -1102,6 +1150,7 @@ class Scope
 				$this->broker,
 				$this->printer,
 				$this->getFile(),
+				$this->getAnalysedContextFile(),
 				$this->isDeclareStrictTypes(),
 				$this->getClass(),
 				$this->getFunction(),
@@ -1138,6 +1187,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->getClass(),
 			$this->getFunction(),
@@ -1168,6 +1218,7 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->getFile(),
+			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->getClass(),
 			$this->getFunction(),

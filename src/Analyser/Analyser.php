@@ -140,7 +140,7 @@ class Analyser
 						foreach ($this->registry->getRules($classes) as $rule) {
 							$ruleErrors = $this->createErrors(
 								$node,
-								$scope->getFile(),
+								$scope->getAnalysedContextFile(),
 								$rule->processNode($node, $scope)
 							);
 							$fileErrors = array_merge($fileErrors, $ruleErrors);
