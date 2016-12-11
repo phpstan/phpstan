@@ -133,6 +133,9 @@ class Analyser
 					$this->parser->parseFile($file),
 					new Scope($this->broker, $this->printer, $file),
 					function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors) {
+						if ($node instanceof \PhpParser\Node\Stmt\Trait_) {
+							return;
+						}
 						$classes = array_merge([get_class($node)], class_parents($node));
 						foreach ($this->registry->getRules($classes) as $rule) {
 							$ruleErrors = $this->createErrors(

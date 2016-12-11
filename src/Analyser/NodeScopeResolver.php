@@ -210,6 +210,9 @@ class NodeScopeResolver
 		if (
 			$node instanceof \PhpParser\Node\Stmt\ClassLike
 		) {
+			if ($node instanceof Node\Stmt\Trait_) {
+				return;
+			}
 			if (isset($node->namespacedName)) {
 				$scope = $scope->enterClass((string) $node->namespacedName);
 			} else {
