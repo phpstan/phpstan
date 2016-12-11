@@ -30,6 +30,14 @@ class Foo
 
 		$callables[] = [$this, 'doFoo'];
 		$callables[] = [1, 2, 3];
+
+		/** @var callable[] $otherCallables */
+		$otherCallables = $callables;
+		$otherCallables[] = ['Foo', 'doFoo'];
+
+		/** @var callable[] $anotherCallables */
+		$anotherCallables = $callables;
+		$anotherCallables[] = 'doFoo';
 	}
 
 }
