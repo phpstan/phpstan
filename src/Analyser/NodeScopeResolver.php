@@ -21,6 +21,7 @@ use PhpParser\Node\Expr\Isset_;
 use PhpParser\Node\Expr\List_;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
+use PhpParser\Node\Expr\Print_;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Ternary;
 use PhpParser\Node\Expr\Variable;
@@ -30,6 +31,7 @@ use PhpParser\Node\Stmt\Catch_;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Continue_;
 use PhpParser\Node\Stmt\Do_;
+use PhpParser\Node\Stmt\Echo_;
 use PhpParser\Node\Stmt\ElseIf_;
 use PhpParser\Node\Stmt\For_;
 use PhpParser\Node\Stmt\Foreach_;
@@ -608,6 +610,12 @@ class NodeScopeResolver
 					$scope = $scope->unsetVariable($var->name);
 				}
 			}
+		} elseif ($node instanceof Echo_) {
+			foreach ($node->exprs as $echoedExpr) {
+				$scope = $this->lookForAssigns($scope, $echoedExpr);
+			}
+		} elseif ($node instanceof Print_) {
+			$scope = $this->lookForAssigns($scope, $node->expr);
 		}
 
 		$scope = $this->updateScopeForVariableAssign($scope, $node);

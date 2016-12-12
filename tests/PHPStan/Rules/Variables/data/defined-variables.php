@@ -114,3 +114,9 @@ doFoo($sscanfArgument, $anotherSscanfArgument, $fscanfArgument, $anotherFscanfAr
 
 Foo::doStaticFoo(1, 2, $variableDefinedInStaticMethodPassedByReference);
 echo $variableDefinedInStaticMethodPassedByReference;
+
+echo $echoedVariable = 1;
+echo $echoedVariable;
+
+print $printedVariable = 2;
+print $printedVariable;
