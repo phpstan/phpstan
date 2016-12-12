@@ -106,7 +106,7 @@ class Scope
 	private $anonymousClass;
 
 	/**
-	 * @var \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|null
+	 * @var \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null
 	 */
 	private $inFunctionCall;
 
@@ -971,7 +971,7 @@ class Scope
 	}
 
 	/**
-	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall $functionCall
+	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall $functionCall
 	 * @return self
 	 */
 	public function enterFunctionCall($functionCall): self

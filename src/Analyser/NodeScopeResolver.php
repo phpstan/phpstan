@@ -367,6 +367,8 @@ class NodeScopeResolver
 			}
 		} elseif ($node instanceof FuncCall) {
 			$scope = $scope->enterFunctionCall($node);
+		} elseif ($node instanceof Expr\StaticCall) {
+			$scope = $scope->enterFunctionCall($node);
 		} elseif ($node instanceof MethodCall) {
 			if (
 				$scope->getType($node->var)->getClass() === 'Closure'
@@ -514,7 +516,7 @@ class NodeScopeResolver
 			}
 
 			$scope = $this->lookForAssignsInBranches($scope, $statements);
-		} elseif ($node instanceof MethodCall || $node instanceof FuncCall) {
+		} elseif ($node instanceof MethodCall || $node instanceof FuncCall || $node instanceof Expr\StaticCall) {
 			if ($node instanceof MethodCall) {
 				$scope = $this->lookForAssigns($scope, $node->var);
 			}
@@ -827,6 +829,17 @@ class NodeScopeResolver
 				$methodName = $functionCall->name;
 				if ($classReflection->hasMethod((string) $methodName)) {
 					return $classReflection->getMethod((string) $methodName);
+				}
+			}
+		} elseif (
+			$functionCall instanceof Expr\StaticCall
+			&& $functionCall->class instanceof Name
+			&& is_string($functionCall->name)) {
+			$className = (string) $functionCall->class;
+			if ($this->broker->hasClass($className)) {
+				$classReflection = $this->broker->getClass($className);
+				if ($classReflection->hasMethod($functionCall->name)) {
+					return $classReflection->getMethod($functionCall->name);
 				}
 			}
 		}

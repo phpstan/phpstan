@@ -111,3 +111,6 @@ $resource = fopen();
 sscanf($str, '%d%d', $sscanfArgument, $anotherSscanfArgument);
 fscanf($resource, '%d%d', $fscanfArgument, $anotherFscanfArgument);
 doFoo($sscanfArgument, $anotherSscanfArgument, $fscanfArgument, $anotherFscanfArgument);
+
+Foo::doStaticFoo(1, 2, $variableDefinedInStaticMethodPassedByReference);
+echo $variableDefinedInStaticMethodPassedByReference;
