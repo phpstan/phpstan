@@ -18,4 +18,10 @@ class Foo
 	{
 		$three = 'test';
 	}
+
+	public static function doStaticFoo($one, $two, &$three)
+	{
+		$three = 'anotherTest';
+	}
+
 }
