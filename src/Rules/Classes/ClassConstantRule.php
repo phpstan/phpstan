@@ -6,9 +6,12 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Rules\AddContextTrait;
 
 class ClassConstantRule implements \PHPStan\Rules\Rule
 {
+    use AddContextTrait;
 
 	/**
 	 * @var \PHPStan\Broker\Broker
@@ -86,21 +89,61 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
+        $errors = [];
 		$classReflection = $this->broker->getClass($className);
+
+        if ($classReflection->isTrait()) {
+            foreach ($this->broker->getTraitUsers($className) as $userName => $userClass) {
+                $errors = array_merge($this->processContextNode($node, $scope, $constantName, $className, $userClass, $userName), $errors);
+            }
+        } else {
+            $errors = $this->processContextNode($node, $scope, $constantName, $className, $classReflection);
+        }
+
+        return $errors;
+    }
+
+    /**
+     * Process a specific context of the node.
+     *
+     * Neessary for proper isolation of parsing in context (for trait handling).
+     *
+     * @param Node            $node            The active node.
+     * @param Scope           $scope           The active scope.
+     * @param string          $constantName    The constant name.
+     * @param string          $className       The class name.
+     * @param ClassReflection $classReflection The special refletion object.
+     * @param string|null     $context         The context we're working under (for traits).  Optional.
+     *
+     * @return array The array of errors
+     */
+    public function processContextNode(
+        Node $node,
+        Scope $scope,
+        string $constantName,
+        string $className,
+        ClassReflection $classReflection,
+        string $context = null
+    ): array {
 		if (!$classReflection->hasConstant($constantName)) {
-			return [
-				sprintf('Access to undefined constant %s::%s.', $className, $constantName),
-			];
+            return $this->addContext(
+                [
+                    sprintf('Access to undefined constant %s::%s.', $className, $constantName),
+                ],
+                $context
+            );
 		}
 
 		$constantReflection = $classReflection->getConstant($constantName);
 		if (!$scope->canAccessConstant($constantReflection)) {
-			return [
-				sprintf('Cannot access constant %s::%s from current scope.', $constantReflection->getDeclaringClass()->getName(), $constantName),
-			];
+            return $this->addContext(
+                [
+                    sprintf('Cannot access constant %s::%s from current scope.', $constantReflection->getDeclaringClass()->getName(), $constantName),
+                ],
+                $context
+            );
 		}
 
 		return [];
 	}
-
 }

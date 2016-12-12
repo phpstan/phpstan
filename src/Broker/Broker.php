@@ -153,4 +153,25 @@ class Broker
 		return null;
 	}
 
+    /**
+     * Get a list of all trait users.
+     *
+     * @todo This could use some optimization to ensure it only does a once
+     * over pass when invoked multiple times, as the results will not change.
+     *
+     * @return ClassReflection[] The set of matches that use the trait.
+     */
+    public function getTraitUsers(string $traitName)
+    {
+        $matches = [];
+        $classes = get_declared_classes();
+
+        foreach ($classes as $class) {
+            if (($classReflection = $this->getClass($class))->hasTraitUse($traitName)) {
+                $matches[$class] = $classReflection;
+            }
+        }
+
+        return $matches;
+    }
 }
