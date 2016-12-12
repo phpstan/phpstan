@@ -120,3 +120,8 @@ echo $echoedVariable;
 
 print $printedVariable = 2;
 print $printedVariable;
+
+foreach ($variableAssignedInForeach = [] as $v) {
+
+}
+echo $variableAssignedInForeach;
