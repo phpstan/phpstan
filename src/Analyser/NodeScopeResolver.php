@@ -629,6 +629,12 @@ class NodeScopeResolver
 			$scope = $this->lookForAssigns($scope, $node->expr);
 		} elseif ($node instanceof Foreach_) {
 			$scope = $this->lookForAssigns($scope, $node->expr);
+		} elseif ($node instanceof Isset_) {
+			foreach ($node->vars as $var) {
+				$scope = $this->lookForAssigns($scope, $var);
+			}
+		} elseif ($node instanceof ArrayDimFetch && $node->dim !== null) {
+			$scope = $this->lookForAssigns($scope, $node->dim);
 		}
 
 		$scope = $this->updateScopeForVariableAssign($scope, $node);
