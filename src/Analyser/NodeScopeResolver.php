@@ -627,6 +627,8 @@ class NodeScopeResolver
 			}
 		} elseif ($node instanceof Print_) {
 			$scope = $this->lookForAssigns($scope, $node->expr);
+		} elseif ($node instanceof Foreach_) {
+			$scope = $this->lookForAssigns($scope, $node->expr);
 		}
 
 		$scope = $this->updateScopeForVariableAssign($scope, $node);
