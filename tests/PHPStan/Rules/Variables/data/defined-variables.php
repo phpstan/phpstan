@@ -125,3 +125,10 @@ foreach ($variableAssignedInForeach = [] as $v) {
 
 }
 echo $variableAssignedInForeach;
+
+$someArray[$variableDefinedInDimFetch = 1];
+
+if (isset($_[$variableAssignedInIsset = 123]) && $variableAssignedInIsset > 0) {
+	doFoo($variableAssignedInIsset); // defined here
+}
+doFoo($variableAssignedInIsset);
