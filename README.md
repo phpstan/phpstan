@@ -256,7 +256,7 @@ you can provide your own bootstrap file:
 
 ```yaml
 parameters:
-	bootstrap: - %rootDir%/../../../phpstan-bootstrap.php
+	bootstrap: %rootDir%/../../../phpstan-bootstrap.php
 ```
 
 ### Custom rules
