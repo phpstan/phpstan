@@ -58,7 +58,7 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 	 */
 	public function createProgressBar($max = 0): ProgressBar
 	{
-		$progressBar = new ThrottledProgressBar($this->output, $max);
+		$progressBar = new ProgressBar($this->output, $max);
 
 		if (DIRECTORY_SEPARATOR !== '\\') {
 			$progressBar->setEmptyBarCharacter('░'); // light shade character \u2591
