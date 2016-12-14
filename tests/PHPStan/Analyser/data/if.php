@@ -89,6 +89,8 @@ $nullableIntegers[] = null;
 $mixeds = [1, 2, 3];
 $mixeds[] = 'foo';
 
+$$lorem = 'ipsum';
+
 try {
 	$inTryTwo = 1;
 } catch (\Exception $e) {

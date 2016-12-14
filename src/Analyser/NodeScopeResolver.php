@@ -697,7 +697,7 @@ class NodeScopeResolver
 
 	private function assignVariable(Scope $scope, Node $var, Type $subNodeType = null): Scope
 	{
-		if ($var instanceof Variable) {
+		if ($var instanceof Variable && is_string($var->name)) {
 			$scope = $scope->assignVariable($var->name, $subNodeType);
 		} elseif ($var instanceof ArrayDimFetch) {
 			$depth = 0;
