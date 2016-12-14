@@ -44,6 +44,7 @@ class IpsumAccessStaticProperties
 		FooAccessStaticProperties::$foo; // protected and not from a parent
 		FooAccessStaticProperties::$$foo;
 		$class::$property;
+		UnknownStaticProperties::$test;
 	}
 
 }
