@@ -49,7 +49,7 @@ not only static analysis tools but also other people that work with the code to 
 To start performing analysis on your code, require PHPStan in [Composer](https://getcomposer.org/):
 
 ```
-composer require phpstan/phpstan
+composer require --dev phpstan/phpstan
 ```
 
 Composer will install PHPStan's executable in its `bin-dir` which defaults to `vendor/bin`.
