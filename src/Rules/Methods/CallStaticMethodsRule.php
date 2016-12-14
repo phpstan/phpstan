@@ -98,6 +98,16 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 			$class = $currentClassReflection->getParentClass()->getName();
 		}
 
+		if (!$this->broker->hasClass($class)) {
+			return [
+				sprintf(
+					'Call to static method %s() on an unknown class %s.',
+					$name,
+					$class
+				),
+			];
+		}
+
 		$classReflection = $this->broker->getClass($class);
 		if (!$classReflection->hasMethod($name)) {
 			return [

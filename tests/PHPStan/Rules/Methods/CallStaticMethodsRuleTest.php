@@ -52,8 +52,12 @@ class CallStaticMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				66,
 			],
 			[
+				'Call to static method loremIpsum() on an unknown class CallStaticMethods\UnknownStaticMethodClass.',
+				67,
+			],
+			[
 				'Parent constructor invoked with 0 parameters, 1 required.',
-				86,
+				87,
 			],
 		]);
 	}

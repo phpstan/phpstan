@@ -64,6 +64,7 @@ class Ipsum
 		Foo::test();
 		Foo::test(1);
 		Foo::baz(); // protected and not from a parent
+		UnknownStaticMethodClass::loremIpsum();
 	}
 
 }
