@@ -55,6 +55,9 @@ class BazAccessProperties
 		$fooAlias->foo;
 		$fooAlias->bar;
 		$fooAlias->ipsum;
+
+		$bar = new UnknownClass();
+		$bar->foo;
 	}
 
 }
