@@ -157,7 +157,6 @@ class Analyser
 			} catch (\PHPStan\AnalysedCodeException $e) {
 				$errors[] = new Error($e->getMessage(), $file);
 			} catch (\Throwable $t) {
-				\Tracy\Debugger::log($t);
 				$errors[] = new Error(sprintf('Internal error: %s', $t->getMessage()), $file);
 			}
 		}

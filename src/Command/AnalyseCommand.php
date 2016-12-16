@@ -7,7 +7,6 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Tracy\Debugger;
 
 class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 {
@@ -45,7 +44,6 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		$configurator->defaultExtensions = [];
 		$configurator->setDebugMode(true);
 		$configurator->setTempDirectory($tmpDir);
-		$configurator->enableDebugger($tmpDir . '/log');
 
 		$projectConfigFile = $input->getOption('configuration');
 		$levelOption = $input->getOption(self::OPTION_LEVEL);
@@ -99,8 +97,6 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		} elseif ($container->parameters['customRulesetUsed']) {
 			$defaultLevelUsed = false;
 		}
-
-		Debugger::$browser = $container->parameters['debug_cli_browser'];
 
 		foreach ($container->parameters['autoload_files'] as $autoloadFile) {
 			require_once $autoloadFile;

@@ -16,7 +16,6 @@ $configurator = new Configurator();
 $configurator->defaultExtensions = [];
 $configurator->setDebugMode(true);
 $configurator->setTempDirectory($tmpDir);
-$configurator->enableDebugger($tmpDir . '/log');
 $configurator->addConfig($confDir . '/config.neon');
 $configurator->addConfig($confDir . '/config.level4.neon');
 $configurator->addParameters([
