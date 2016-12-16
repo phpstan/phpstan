@@ -64,6 +64,12 @@ So for example if you have your classes in directories `src` and `tests`, you ca
 vendor/bin/phpstan analyse src tests
 ```
 
+If PHPStan seems to crash without completing, try increasing your `memory_limit` as needed:
+
+```
+php -d memory_limit=1G vendor/bin/phpstan analyse src tests
+```
+
 PHPStan will probably find some errors, but don't worry, your code might be just fine. Errors found
 on the first run tend to be:
 
