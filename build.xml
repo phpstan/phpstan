@@ -45,7 +45,7 @@
 				passthru="true"
 				checkreturn="true"
 		>
-			<arg value="--standard=ruleset.xml"/>
+			<arg value="--standard=build/ruleset.xml"/>
 			<arg value="--extensions=php"/>
 			<arg value="--encoding=utf-8"/>
 			<arg value="--tab-width=4"/>
@@ -63,7 +63,7 @@
 				passthru="true"
 				checkreturn="true"
 		>
-			<arg value="--standard=ruleset.xml"/>
+			<arg value="--standard=build/ruleset.xml"/>
 			<arg value="--extensions=php"/>
 			<arg value="--encoding=utf-8"/>
 			<arg value="--tab-width=4"/>
@@ -93,10 +93,10 @@
 		<if>
 			<equals arg1="${isPHP70}" arg2="true" />
 			<then>
-				<property name="phpstan.config" value="phpstan.php7.0${phpParserSuffix}.neon"/>
+				<property name="phpstan.config" value="build/phpstan.php7.0${phpParserSuffix}.neon"/>
 			</then>
 			<else>
-				<property name="phpstan.config" value="phpstan${phpParserSuffix}.neon"/>
+				<property name="phpstan.config" value="build/phpstan${phpParserSuffix}.neon"/>
 			</else>
 		</if>
 		<exec
