@@ -46,6 +46,10 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Cannot call method method() on string.',
 				49,
 			],
+			[
+				'Call to method doFoo() on an unknown class Test\UnknownClass.',
+				63,
+			],
 		]);
 	}
 

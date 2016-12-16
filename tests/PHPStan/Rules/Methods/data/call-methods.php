@@ -59,7 +59,8 @@ class Bar extends Foo
 
 	protected function protectedMethodFromChild()
 	{
-
+		$foo = new UnknownClass();
+		$foo->doFoo();
 	}
 
 }

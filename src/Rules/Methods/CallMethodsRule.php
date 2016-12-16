@@ -72,11 +72,21 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 			];
 		}
 		$methodClass = $type->getClass();
-		if ($methodClass === null || !$this->broker->hasClass($methodClass)) {
+		if ($methodClass === null) {
 			return [];
 		}
 
 		$name = (string) $node->name;
+		if (!$this->broker->hasClass($methodClass)) {
+			return [
+				sprintf(
+					'Call to method %s() on an unknown class %s.',
+					$name,
+					$methodClass
+				),
+			];
+		}
+
 		$methodClassReflection = $this->broker->getClass($methodClass);
 		if (!$methodClassReflection->hasMethod($name)) {
 			$parentClassReflection = $methodClassReflection->getParentClass();
