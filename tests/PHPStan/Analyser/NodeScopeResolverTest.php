@@ -147,6 +147,9 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	 */
 	public function testArrayDestructuringShortSyntax()
 	{
+		if (self::isObsoletePhpParserVersion()) {
+			$this->markTestSkipped('Test requires PHP-Parser ^3.0.0');
+		}
 		$this->processFile(__DIR__ . '/data/array-destructuring-short.php', function (\PhpParser\Node $node, Scope $scope) {
 			if ($node instanceof Exit_) {
 				$variables = $scope->getVariableTypes();
@@ -2407,6 +2410,9 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		string $expression
 	)
 	{
+		if (self::isObsoletePhpParserVersion()) {
+			$this->markTestSkipped('Test requires PHP-Parser ^3.0.0');
+		}
 		$this->assertTypes(
 			__DIR__ . '/data/iterable.php',
 			$typeClass,
@@ -2455,6 +2461,9 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		string $expression
 	)
 	{
+		if (self::isObsoletePhpParserVersion()) {
+			$this->markTestSkipped('Test requires PHP-Parser ^3.0.0');
+		}
 		$this->assertTypes(
 			__DIR__ . '/data/void.php',
 			$typeClass,
@@ -2509,6 +2518,9 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		string $expression
 	)
 	{
+		if (self::isObsoletePhpParserVersion()) {
+			$this->markTestSkipped('Test requires PHP-Parser ^3.0.0');
+		}
 		$this->assertTypes(
 			__DIR__ . '/data/nullable-returnTypes.php',
 			$typeClass,

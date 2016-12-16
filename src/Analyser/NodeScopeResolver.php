@@ -7,6 +7,7 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayDimFetch;
+use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\AssignRef;
 use PhpParser\Node\Expr\BinaryOp;
@@ -301,8 +302,15 @@ class NodeScopeResolver
 				}
 			}
 		} elseif ($node instanceof Catch_) {
+			if (isset($node->types)) {
+				$nodeTypes = $node->types;
+			} elseif (isset($node->type)) {
+				$nodeTypes = [$node->type];
+			} else {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
 			$scope = $scope->enterCatch(
-				$node->types,
+				$nodeTypes,
 				$node->var
 			);
 		} elseif ($node instanceof For_) {
@@ -455,11 +463,16 @@ class NodeScopeResolver
 				$scope = $scope->enterVariableAssign($node->name);
 			}
 		} elseif ($node instanceof List_ || $node instanceof Array_) {
-			foreach ($node->items as $listItem) {
+			$listItems = isset($node->items) ? $node->items : $node->vars;
+			foreach ($listItems as $listItem) {
 				if ($listItem === null) {
 					continue;
 				}
-				$scope = $this->lookForEnterVariableAssign($scope, $listItem->value);
+				$listItemValue = $listItem;
+				if ($listItemValue instanceof Expr\ArrayItem) {
+					$listItemValue = $listItemValue->value;
+				}
+				$scope = $this->lookForEnterVariableAssign($scope, $listItemValue);
 			}
 		}
 
@@ -506,13 +519,27 @@ class NodeScopeResolver
 
 			$scope = $this->lookForAssignsInBranches($scope, $statements);
 		} elseif ($node instanceof TryCatch) {
+			if (property_exists($node, 'finally') && (isset($node->finally) || $node->finally === null)) {
+				$finallyStatements = $node->finally;
+			} elseif (property_exists($node, 'finallyStmts') && (isset($node->finallyStmts) || $node->finallyStmts === null)) {
+				$finallyStatements = $node->finallyStmts;
+			} else {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
 			$statements = [
 				new StatementList($scope, $node->stmts),
-				new StatementList($scope, $node->finally !== null ? $node->finally->stmts : null),
+				new StatementList($scope, $finallyStatements),
 			];
 			foreach ($node->catches as $catch) {
+				if (isset($catch->types)) {
+					$catchTypes = $catch->types;
+				} elseif (isset($catch->type)) {
+					$catchTypes = [$catch->type];
+				} else {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
 				$statements[] = new StatementList($scope->enterCatch(
-					$catch->types,
+					$catchTypes,
 					$catch->var
 				), $catch->stmts);
 			}
@@ -559,16 +586,27 @@ class NodeScopeResolver
 		} elseif ($node instanceof Ternary) {
 			$scope = $this->lookForAssigns($scope, $node->else);
 		} elseif ($node instanceof List_) {
-			foreach ($node->items as $item) {
+			if (isset($node->items)) {
+				$nodeItems = $node->items;
+			} elseif (isset($node->vars)) {
+				$nodeItems = $node->vars;
+			} else {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+			foreach ($nodeItems as $item) {
 				if ($item === null) {
 					continue;
 				}
-				if ($item->value instanceof Variable) {
-					$scope = $scope->assignVariable($item->value->name);
-				} elseif ($item->value instanceof ArrayDimFetch && $item->value->var instanceof Variable) {
-					$scope = $scope->assignVariable($item->value->var->name);
+				$itemValue = $item;
+				if ($itemValue instanceof ArrayItem) {
+					$itemValue = $itemValue->value;
+				}
+				if ($itemValue instanceof Variable) {
+					$scope = $scope->assignVariable($itemValue->name);
+				} elseif ($itemValue instanceof ArrayDimFetch && $itemValue->var instanceof Variable) {
+					$scope = $scope->assignVariable($itemValue->var->name);
 				} else {
-					$scope = $this->lookForAssigns($scope, $item->value);
+					$scope = $this->lookForAssigns($scope, $itemValue);
 				}
 			}
 		} elseif ($node instanceof Array_) {

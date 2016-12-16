@@ -62,6 +62,9 @@ class ClosureReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	 */
 	public function testClosureReturnTypePhp71Typehints()
 	{
+		if (self::isObsoletePhpParserVersion()) {
+			$this->markTestSkipped('Test requires PHP-Parser ^3.0.0');
+		}
 		$this->analyse([__DIR__ . '/data/closure-7.1ReturnTypes.php'], [
 			[
 				'Anonymous function should return int but returns string.',

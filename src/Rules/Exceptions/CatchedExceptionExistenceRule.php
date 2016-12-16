@@ -32,7 +32,13 @@ class CatchedExceptionExistenceRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		$classes = $node->types;
+		if (isset($node->types)) {
+			$classes = $node->types;
+		} elseif (isset($node->type)) {
+			$classes = [$node->type];
+		} else {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
 		$errors = [];
 		foreach ($classes as $className) {
 			$class = (string) $className;

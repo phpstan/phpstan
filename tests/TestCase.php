@@ -131,4 +131,9 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 		return $broker;
 	}
 
+	public static function isObsoletePhpParserVersion(): bool
+	{
+		return !property_exists(\PhpParser\Node\Stmt\Catch_::class, 'types');
+	}
+
 }

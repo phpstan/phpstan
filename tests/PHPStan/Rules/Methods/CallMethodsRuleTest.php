@@ -160,6 +160,9 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	 */
 	public function testNullableParameters()
 	{
+		if (self::isObsoletePhpParserVersion()) {
+			$this->markTestSkipped('Test requires PHP-Parser ^3.0.0');
+		}
 		$this->checkThisOnly = false;
 		$this->analyse([__DIR__ . '/data/nullable-parameters.php'], [
 			[
