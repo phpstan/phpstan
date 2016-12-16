@@ -40,7 +40,7 @@ class AccessStaticPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				44,
 			],
 			[
-				'Access to property $test on an unknown class UnknownStaticProperties.',
+				'Access to static property $test on an unknown class UnknownStaticProperties.',
 				47,
 			],
 		]);

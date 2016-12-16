@@ -75,7 +75,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 		if (!$this->broker->hasClass($class)) {
 			return [
 				sprintf(
-					'Access to property $%s on an unknown class %s.',
+					'Access to static property $%s on an unknown class %s.',
 					$name,
 					$class
 				),
