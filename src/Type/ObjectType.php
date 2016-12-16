@@ -81,6 +81,11 @@ class ObjectType implements Type
 		$thisReflection = new \ReflectionClass($this->getClass());
 		$thatReflection = new \ReflectionClass($thatClass);
 
+		if ($thisReflection->getName() === $thatReflection->getName()) {
+			// class alias
+			return true;
+		}
+
 		if ($thisReflection->isInterface() && $thatReflection->isInterface()) {
 			return $thatReflection->implementsInterface($this->getClass());
 		}

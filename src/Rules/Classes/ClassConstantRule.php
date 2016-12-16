@@ -89,7 +89,11 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 		$classReflection = $this->broker->getClass($className);
 		if (!$classReflection->hasConstant($constantName)) {
 			return [
-				sprintf('Access to undefined constant %s::%s.', $className, $constantName),
+				sprintf(
+					'Access to undefined constant %s::%s.',
+					$classReflection->getName(),
+					$constantName
+				),
 			];
 		}
 

@@ -113,7 +113,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf(
 					'Call to an undefined static method %s::%s().',
-					$class,
+					$classReflection->getName(),
 					$name
 				),
 			];
@@ -124,7 +124,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf(
 					'Static call to instance method %s::%s().',
-					$class,
+					$method->getDeclaringClass()->getName(),
 					$method->getName()
 				),
 			];
@@ -141,7 +141,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 			];
 		}
 
-		$methodName = $class . '::' . $method->getName() . '()';
+		$methodName = $method->getDeclaringClass()->getName() . '::' . $method->getName() . '()';
 
 		$errors = $this->check->check(
 			$method,

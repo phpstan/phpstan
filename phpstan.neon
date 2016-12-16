@@ -1,4 +1,5 @@
 parameters:
+	bootstrap: %rootDir%/tests/phpstan-bootstrap.php
 	excludes_analyse:
 		- %rootDir%/tests/*/data/*
 		- %rootDir%/tests/PHPStan/Analyser/traits/*

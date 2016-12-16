@@ -41,6 +41,14 @@ class AccessPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 					'Cannot access property TestAccessProperties\FooAccessProperties::$bar from current scope.',
 					43,
 				],
+				[
+					'Cannot access property TestAccessProperties\FooAccessProperties::$foo from current scope.',
+					55,
+				],
+				[
+					'Cannot access property TestAccessProperties\FooAccessProperties::$bar from current scope.',
+					56,
+				],
 			]
 		);
 	}

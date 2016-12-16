@@ -83,7 +83,13 @@ class Broker
 		}
 
 		if (!isset($this->classReflections[$className])) {
-			$this->classReflections[$className] = $this->getClassFromReflection(new ReflectionClass($className));
+			$reflectionClass = new ReflectionClass($className);
+			$classReflection = $this->getClassFromReflection($reflectionClass);
+			$this->classReflections[$className] = $classReflection;
+			if ($className !== $reflectionClass->getName()) {
+				// class alias optimization
+				$this->classReflections[$reflectionClass->getName()] = $classReflection;
+			}
 		}
 
 		return $this->classReflections[$className];

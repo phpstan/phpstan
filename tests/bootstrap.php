@@ -24,3 +24,4 @@ $configurator->addParameters([
 $container = $configurator->createContainer();
 
 PHPStan\TestCase::setContainer($container);
+require_once __DIR__ . '/phpstan-bootstrap.php';

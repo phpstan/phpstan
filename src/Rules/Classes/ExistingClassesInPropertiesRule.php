@@ -39,7 +39,8 @@ class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 		}
 
 		$classReflection = $this->broker->getClass($className);
-		$propertyType = $classReflection->getProperty($node->name, $scope)->getType();
+		$propertyReflection = $classReflection->getProperty($node->name, $scope);
+		$propertyType = $propertyReflection->getType();
 
 		if ($propertyType instanceof ArrayType) {
 			$nestedItemType = $propertyType->getNestedItemType();
@@ -63,7 +64,7 @@ class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf(
 					'Property %s::$%s has unknown class %s as its type.',
-					$className,
+					$propertyReflection->getDeclaringClass()->getName(),
 					$node->name,
 					$propertyType->getClass()
 				),

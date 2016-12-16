@@ -69,6 +69,16 @@ class Foo extends FooParent implements FooInterface
 		return $this->returnStatic();
 	}
 
+	public function returnAlias(): Foo
+	{
+		return new FooAlias();
+	}
+
+	public function returnAnotherAlias(): FooAlias
+	{
+		return new Foo();
+	}
+
 }
 
 class FooChild extends Foo

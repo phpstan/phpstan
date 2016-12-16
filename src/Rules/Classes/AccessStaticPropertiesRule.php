@@ -87,7 +87,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf(
 					'Access to an undefined static property %s::$%s.',
-					$class,
+					$classReflection->getName(),
 					$name
 				),
 			];
@@ -98,7 +98,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf(
 					'Static access to instance property %s::$%s.',
-					$class,
+					$property->getDeclaringClass()->getName(),
 					$name
 				),
 			];

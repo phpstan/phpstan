@@ -50,6 +50,11 @@ class BazAccessProperties
 			return;
 		}
 		$foo->nonexistent;
+
+		$fooAlias = new FooAccessPropertiesAlias();
+		$fooAlias->foo;
+		$fooAlias->bar;
+		$fooAlias->ipsum;
 	}
 
 }
