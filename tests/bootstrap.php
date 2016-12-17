@@ -20,6 +20,7 @@ $configurator->addConfig($confDir . '/config.neon');
 $configurator->addConfig($confDir . '/config.level4.neon');
 $configurator->addParameters([
 	'rootDir' => $rootDir,
+	'tmpDir' => $tmpDir,
 ]);
 $container = $configurator->createContainer();
 

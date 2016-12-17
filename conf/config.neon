@@ -11,6 +11,7 @@ parameters:
 		- stdClass
 		- SimpleXMLElement
 	earlyTerminatingMethodCalls: []
+	memoryLimitFile: %tmpDir%/.memory_limit
 
 services:
 	-
@@ -59,6 +60,8 @@ services:
 
 	-
 		class: PHPStan\Command\AnalyseApplication
+		arguments:
+			memoryLimitFile: %memoryLimitFile%
 
 	-
 		class: PHPStan\Parser\CachedParser

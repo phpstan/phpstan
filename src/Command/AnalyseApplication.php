@@ -15,9 +15,15 @@ class AnalyseApplication
 	 */
 	private $analyser;
 
-	public function __construct(Analyser $analyser)
+	/**
+	 * @var string
+	 */
+	private $memoryLimitFile;
+
+	public function __construct(Analyser $analyser, string $memoryLimitFile)
 	{
 		$this->analyser = $analyser;
+		$this->memoryLimitFile = $memoryLimitFile;
 	}
 
 	/**
@@ -30,6 +36,8 @@ class AnalyseApplication
 	{
 		$errors = [];
 		$files = [];
+
+		$this->updateMemoryLimitFile();
 
 		foreach ($paths as $path) {
 			$realpath = realpath($path);
@@ -45,6 +53,8 @@ class AnalyseApplication
 			}
 		}
 
+		$this->updateMemoryLimitFile();
+
 		$progressStarted = false;
 
 		$errors = array_merge($errors, $this->analyser->analyse(
@@ -55,6 +65,7 @@ class AnalyseApplication
 					$progressStarted = true;
 				}
 				$style->progressAdvance();
+				$this->updateMemoryLimitFile();
 			}
 		));
 
@@ -118,6 +129,13 @@ class AnalyseApplication
 		$style->error(sprintf($totalErrorsCount === 1 ? 'Found %d error' : 'Found %d errors', $totalErrorsCount));
 
 		return 1;
+	}
+
+	private function updateMemoryLimitFile()
+	{
+		$bytes = memory_get_peak_usage(true);
+		$megabytes = ceil($bytes / 1024 / 1024);
+		file_put_contents($this->memoryLimitFile, sprintf('%d MB', $megabytes));
 	}
 
 }

@@ -80,8 +80,19 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 		$configurator->addParameters([
 			'rootDir' => $rootDir,
+			'tmpDir' => $tmpDir,
 		]);
 		$container = $configurator->createContainer();
+		$consoleStyle = new ErrorsConsoleStyle($input, $output);
+		$memoryLimitFile = $container->parameters['memoryLimitFile'];
+		if (file_exists($memoryLimitFile)) {
+			$consoleStyle->note(sprintf(
+				'PHPStan crashed in the previous run probably because of excessive memory consumption. It consumed around %s of memory. To avoid this issue, increase the memory_limit directive in your php.ini file here: %s',
+				file_get_contents($memoryLimitFile),
+				php_ini_loaded_file()
+			));
+			unlink($memoryLimitFile);
+		}
 		if (!isset($container->parameters['customRulesetUsed'])) {
 			$output->writeln('');
 			$output->writeln('<comment>No rules detected</comment>');
@@ -93,7 +104,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			$output->writeln(sprintf('* create your own <info>custom ruleset</info> by selecting which rules you want to check by copying the service definitions from the built-in config level files in <options=bold>%s</>.', realpath(__DIR__ . '/../../conf')));
 			$output->writeln('  * in this case, don\'t forget to define parameter <options=bold>customRulesetUsed</> in your config file.');
 			$output->writeln('');
-			return 1;
+			return $this->handleReturn(1, $memoryLimitFile);
 		} elseif ($container->parameters['customRulesetUsed']) {
 			$defaultLevelUsed = false;
 		}
@@ -113,11 +124,20 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		}
 
 		$application = $container->getByType(AnalyseApplication::class);
-		return $application->analyse(
-			$input->getArgument('paths'),
-			new ErrorsConsoleStyle($input, $output),
-			$defaultLevelUsed
+		return $this->handleReturn(
+			$application->analyse(
+				$input->getArgument('paths'),
+				$consoleStyle,
+				$defaultLevelUsed
+			),
+			$memoryLimitFile
 		);
+	}
+
+	private function handleReturn(int $code, string $memoryLimitFile): int
+	{
+		unlink($memoryLimitFile);
+		return $code;
 	}
 
 }
