@@ -520,7 +520,7 @@ class NodeScopeResolver
 			$scope = $this->lookForAssignsInBranches($scope, $statements);
 		} elseif ($node instanceof TryCatch) {
 			if (property_exists($node, 'finally') && (isset($node->finally) || $node->finally === null)) {
-				$finallyStatements = $node->finally;
+				$finallyStatements = $node->finally !== null ? $node->finally->stmts : null;
 			} elseif (property_exists($node, 'finallyStmts') && (isset($node->finallyStmts) || $node->finallyStmts === null)) {
 				$finallyStatements = $node->finallyStmts;
 			} else {
