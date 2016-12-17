@@ -89,9 +89,10 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		$memoryLimitFile = $container->parameters['memoryLimitFile'];
 		if (file_exists($memoryLimitFile)) {
 			$consoleStyle->note(sprintf(
-				'PHPStan crashed in the previous run probably because of excessive memory consumption. It consumed around %s of memory. To avoid this issue, increase the memory_limit directive in your php.ini file here: %s',
+				"PHPStan crashed in the previous run probably because of excessive memory consumption.\nIt consumed around %s of memory.\n\nTo avoid this issue, increase the memory_limit directive in your php.ini file here:\n%s\n\nIf you can't or don't want to change the system-wide memory limit, run PHPStan like this:\n%s",
 				file_get_contents($memoryLimitFile),
-				php_ini_loaded_file()
+				php_ini_loaded_file(),
+				sprintf('php -d memory_limit=XX %s', implode(' ', $_SERVER['argv']))
 			));
 			unlink($memoryLimitFile);
 		}
