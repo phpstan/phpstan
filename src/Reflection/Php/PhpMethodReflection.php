@@ -7,6 +7,7 @@ use PHPStan\Parser\FunctionCallStatementFinder;
 use PHPStan\Parser\Parser;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\StringType;
@@ -134,7 +135,7 @@ class PhpMethodReflection implements MethodReflection
 		}
 
 		if (!$isNativelyVariadic && $this->declaringClass->getNativeReflection()->getFileName() !== false) {
-			$key = sprintf('variadic-method-%s-%s', $this->declaringClass->getName(), $this->reflection->getName());
+			$key = sprintf('variadic-method-%s-%s-v2', $this->declaringClass->getName(), $this->reflection->getName());
 			$cachedResult = $this->cache->load($key);
 			if ($cachedResult === null) {
 				$nodes = $this->parser->parseFile($this->declaringClass->getNativeReflection()->getFileName());
@@ -181,7 +182,7 @@ class PhpMethodReflection implements MethodReflection
 
 				$methodName = $node->name;
 				if ($methodName === $this->reflection->getName()) {
-					return $this->functionCallStatementFinder->findFunctionCallInStatements('func_get_args', $node->getStmts()) !== null;
+					return $this->functionCallStatementFinder->findFunctionCallInStatements(ParametersAcceptor::VARIADIC_FUNCTIONS, $node->getStmts()) !== null;
 				}
 			}
 

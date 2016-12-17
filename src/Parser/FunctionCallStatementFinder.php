@@ -9,15 +9,15 @@ class FunctionCallStatementFinder
 {
 
 	/**
-	 * @param string $functionName
+	 * @param string[] $functionNames
 	 * @param mixed $statements
 	 * @return \PhpParser\Node|null
 	 */
-	public function findFunctionCallInStatements(string $functionName, $statements)
+	public function findFunctionCallInStatements(array $functionNames, $statements)
 	{
 		foreach ($statements as $statement) {
 			if (is_array($statement)) {
-				$result = $this->findFunctionCallInStatements($functionName, $statement);
+				$result = $this->findFunctionCallInStatements($functionNames, $statement);
 				if ($result !== null) {
 					return $result;
 				}
@@ -28,12 +28,12 @@ class FunctionCallStatementFinder
 			}
 
 			if ($statement instanceof FuncCall && $statement->name instanceof Name) {
-				if ($functionName === (string) $statement->name) {
+				if (in_array((string) $statement->name, $functionNames, true)) {
 					return $statement;
 				}
 			}
 
-			$result = $this->findFunctionCallInStatements($functionName, $statement);
+			$result = $this->findFunctionCallInStatements($functionNames, $statement);
 			if ($result !== null) {
 				return $result;
 			}

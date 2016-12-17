@@ -84,7 +84,7 @@ class FunctionReflection implements ParametersAcceptor
 	{
 		$isNativelyVariadic = $this->reflection->isVariadic();
 		if (!$isNativelyVariadic && $this->reflection->getFileName() !== false) {
-			$key = sprintf('variadic-function-%s', $this->reflection->getName());
+			$key = sprintf('variadic-function-%s-v2', $this->reflection->getName());
 			$cachedResult = $this->cache->load($key);
 			if ($cachedResult === null) {
 				$nodes = $this->parser->parseFile($this->reflection->getFileName());
@@ -123,7 +123,7 @@ class FunctionReflection implements ParametersAcceptor
 				}
 
 				if ($functionName === $this->reflection->getName()) {
-					return $this->functionCallStatementFinder->findFunctionCallInStatements('func_get_args', $node->getStmts()) !== null;
+					return $this->functionCallStatementFinder->findFunctionCallInStatements(self::VARIADIC_FUNCTIONS, $node->getStmts()) !== null;
 				}
 			}
 
