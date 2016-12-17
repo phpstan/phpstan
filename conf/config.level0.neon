@@ -41,6 +41,11 @@ services:
 			- phpstan.rules.rule
 
 	-
+		class: PHPStan\Rules\Classes\UnusedConstructorParametersRule
+		tags:
+			- phpstan.rules.rule
+
+	-
 		class: PHPStan\Rules\Exceptions\CatchedExceptionExistenceRule
 		tags:
 			- phpstan.rules.rule
