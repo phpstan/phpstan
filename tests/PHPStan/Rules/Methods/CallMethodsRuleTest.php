@@ -184,4 +184,10 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		]);
 	}
 
+	public function testProtectedMethodCallFromParent()
+	{
+		$this->checkThisOnly = false;
+		$this->analyse([__DIR__ . '/data/protected-method-call-from-parent.php'], []);
+	}
+
 }

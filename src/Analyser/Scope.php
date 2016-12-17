@@ -1282,8 +1282,7 @@ class Scope
 			return true;
 		}
 
-		return $classMemberReflection->isStatic()
-			&& $classMemberReflection->getDeclaringClass()->isSubclassOf($class);
+		return $classMemberReflection->getDeclaringClass()->isSubclassOf($class);
 	}
 
 }
