@@ -53,7 +53,12 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\TestCase
 			$output
 		);
 
+		$memoryLimitFile = $this->getContainer()->parameters['memoryLimitFile'];
+
 		$statusCode = $analyserApplication->analyse([$path], $style, false);
+		if (file_exists($memoryLimitFile)) {
+			unlink($memoryLimitFile);
+		}
 		$this->assertSame($expectedStatusCode, $statusCode);
 
 		rewind($output->getStream());
