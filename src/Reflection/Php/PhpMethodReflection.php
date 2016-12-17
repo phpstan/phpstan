@@ -166,6 +166,14 @@ class PhpMethodReflection implements MethodReflection
 				continue;
 			}
 
+			if (
+				$node instanceof \PhpParser\Node\Stmt\ClassLike
+				&& isset($node->namespacedName)
+				&& $this->declaringClass->getName() !== (string) $node->namespacedName
+			) {
+				continue;
+			}
+
 			if ($node instanceof ClassMethod) {
 				if ($node->getStmts() === null) {
 					continue; // interface
