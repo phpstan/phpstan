@@ -184,6 +184,8 @@ class PhpMethodReflection implements MethodReflection
 				if ($methodName === $this->reflection->getName()) {
 					return $this->functionCallStatementFinder->findFunctionCallInStatements(ParametersAcceptor::VARIADIC_FUNCTIONS, $node->getStmts()) !== null;
 				}
+
+				continue;
 			}
 
 			if ($this->callsFuncGetArgs($node)) {

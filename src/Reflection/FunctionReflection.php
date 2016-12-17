@@ -125,6 +125,8 @@ class FunctionReflection implements ParametersAcceptor
 				if ($functionName === $this->reflection->getName()) {
 					return $this->functionCallStatementFinder->findFunctionCallInStatements(self::VARIADIC_FUNCTIONS, $node->getStmts()) !== null;
 				}
+
+				continue;
 			}
 
 			if ($this->callsFuncGetArgs($node)) {
