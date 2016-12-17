@@ -57,15 +57,19 @@ class AnalyseApplication
 
 		$progressStarted = false;
 
+		$fileOrder = 0;
 		$errors = array_merge($errors, $this->analyser->analyse(
 			$files,
-			function () use ($style, &$progressStarted, $files) {
+			function () use ($style, &$progressStarted, $files, &$fileOrder) {
 				if (!$progressStarted) {
 					$style->progressStart(count($files));
 					$progressStarted = true;
 				}
 				$style->progressAdvance();
-				$this->updateMemoryLimitFile();
+				if ($fileOrder % 100 === 0) {
+					$this->updateMemoryLimitFile();
+				}
+				$fileOrder++;
 			}
 		));
 
@@ -136,6 +140,10 @@ class AnalyseApplication
 		$bytes = memory_get_peak_usage(true);
 		$megabytes = ceil($bytes / 1024 / 1024);
 		file_put_contents($this->memoryLimitFile, sprintf('%d MB', $megabytes));
+
+		if (function_exists('pcntl_signal_dispatch')) {
+			pcntl_signal_dispatch();
+		}
 	}
 
 }

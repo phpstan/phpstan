@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\StyleInterface;
 
 class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 {
@@ -93,6 +94,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			));
 			unlink($memoryLimitFile);
 		}
+		$this->setUpSignalHandler($consoleStyle, $memoryLimitFile);
 		if (!isset($container->parameters['customRulesetUsed'])) {
 			$output->writeln('');
 			$output->writeln('<comment>No rules detected</comment>');
@@ -138,6 +140,19 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 	{
 		unlink($memoryLimitFile);
 		return $code;
+	}
+
+	private function setUpSignalHandler(StyleInterface $consoleStyle, string $memoryLimitFile)
+	{
+		if (function_exists('pcntl_signal')) {
+			pcntl_signal(SIGINT, function () use ($consoleStyle, $memoryLimitFile) {
+				if (file_exists($memoryLimitFile)) {
+					unlink($memoryLimitFile);
+				}
+				$consoleStyle->newLine();
+				exit(1);
+			});
+		}
 	}
 
 }
