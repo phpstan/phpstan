@@ -11,6 +11,7 @@ use PHPStan\Reflection\PropertiesClassReflectionExtension;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\TypehintHelper;
 
 class PhpClassReflectionExtension
 	implements PropertiesClassReflectionExtension, MethodsClassReflectionExtension, BrokerAwareClassReflectionExtension
@@ -92,70 +93,6 @@ class PhpClassReflectionExtension
 	}
 
 	/**
-	 * @param \ReflectionMethod $reflectionMethod
-	 * @return mixed[]
-	 */
-	private function getPhpDocParamsFromMethod(\ReflectionMethod $reflectionMethod): array
-	{
-		$phpDoc = $reflectionMethod->getDocComment();
-		if ($phpDoc === false) {
-			return [];
-		}
-
-		preg_match_all('#@param\s+' . FileTypeMapper::TYPE_PATTERN . '\s+\$([a-zA-Z0-9_]+)#', $phpDoc, $matches, PREG_SET_ORDER);
-		$phpDocParams = [];
-		foreach ($matches as $match) {
-			$typeString = $match[1];
-			$parameterName = $match[2];
-			if (!isset($phpDocParams[$parameterName])) {
-				$phpDocParams[$parameterName] = [];
-			}
-
-			$phpDocParams[$parameterName][] = $typeString;
-		}
-
-		return $phpDocParams;
-	}
-
-	/**
-	 * @param \ReflectionMethod $reflectionMethod
-	 * @return string|null
-	 */
-	private function getReturnTypeStringFromMethod(\ReflectionMethod $reflectionMethod)
-	{
-		$phpDoc = $reflectionMethod->getDocComment();
-		if ($phpDoc === false) {
-			return null;
-		}
-
-		$count = preg_match_all('#@return\s+' . FileTypeMapper::TYPE_PATTERN . '#', $phpDoc, $matches);
-		if ($count !== 1) {
-			return null;
-		}
-
-		return $matches[1][0];
-	}
-
-	/**
-	 * @param mixed[] $phpDocParams
-	 * @param \ReflectionParameter $parameterReflection
-	 * @return string|null
-	 */
-	private function getMethodParameterAnnotationTypeString(array $phpDocParams, \ReflectionParameter $parameterReflection)
-	{
-		if (!isset($phpDocParams[$parameterReflection->getName()])) {
-			return null;
-		}
-
-		$typeStrings = $phpDocParams[$parameterReflection->getName()];
-		if (count($typeStrings) > 1) {
-			return null;
-		}
-
-		return $typeStrings[0];
-	}
-
-	/**
 	 * @param \ReflectionProperty $propertyReflection
 	 * @return string|null
 	 */
@@ -199,27 +136,24 @@ class PhpClassReflectionExtension
 		$methods = [];
 		foreach ($classReflection->getNativeReflection()->getMethods() as $methodReflection) {
 			$declaringClass = $this->broker->getClass($methodReflection->getDeclaringClass()->getName());
-			$phpDocParameters = $this->getPhpDocParamsFromMethod($methodReflection);
-			$phpDocParameterTypes = [];
 
+			$phpDocParameterTypes = [];
+			$phpDocReturnType = null;
 			if (!$declaringClass->getNativeReflection()->isAnonymous() && $declaringClass->getNativeReflection()->getFileName() !== false) {
 				$typeMap = $this->fileTypeMapper->getTypeMap($declaringClass->getNativeReflection()->getFileName());
-				foreach ($methodReflection->getParameters() as $parameterReflection) {
-					$typeString = $this->getMethodParameterAnnotationTypeString($phpDocParameters, $parameterReflection);
-					if ($typeString === null || !isset($typeMap[$typeString])) {
-						continue;
-					}
-
-					$type = $typeMap[$typeString];
-
-					$phpDocParameterTypes[$parameterReflection->getName()] = $type;
+				if ($methodReflection->getDocComment() !== false) {
+					$phpDocParameterTypes = TypehintHelper::getPhpDocParameterTypesFromMethod(
+						$typeMap,
+						array_map(function (\ReflectionParameter $parameterReflection): string {
+							return $parameterReflection->getName();
+						}, $methodReflection->getParameters()),
+						$methodReflection->getDocComment()
+					);
 				}
-			}
 
-			$phpDocReturnType = null;
-			$returnTypeString = $this->getReturnTypeStringFromMethod($methodReflection);
-			if ($returnTypeString !== null && isset($typeMap[$returnTypeString])) {
-				$phpDocReturnType = $typeMap[$returnTypeString];
+				if ($methodReflection->getDocComment() !== false) {
+					$phpDocReturnType = TypehintHelper::getPhpDocReturnTypeFromMethod($typeMap, $methodReflection->getDocComment());
+				}
 			}
 
 			$methods[strtolower($methodReflection->getName())] = $this->methodReflectionFactory->create(

@@ -103,4 +103,87 @@ class TypehintHelper
 		return $type;
 	}
 
+	/**
+	 * @param \PHPStan\Type\Type[] $typeMap
+	 * @param string $docComment
+	 * @return \PHPStan\Type\Type|null
+	 */
+	public static function getPhpDocReturnTypeFromMethod(array $typeMap, string $docComment)
+	{
+		$returnTypeString = self::getReturnTypeStringFromMethod($docComment);
+		if ($returnTypeString !== null && isset($typeMap[$returnTypeString])) {
+			return $typeMap[$returnTypeString];
+		}
+
+		return null;
+	}
+
+	/**
+	 * @param string $docComment
+	 * @return string|null
+	 */
+	private static function getReturnTypeStringFromMethod(string $docComment)
+	{
+		$count = preg_match_all('#@return\s+' . FileTypeMapper::TYPE_PATTERN . '#', $docComment, $matches);
+		if ($count !== 1) {
+			return null;
+		}
+
+		return $matches[1][0];
+	}
+
+	/**
+	 * @param \PHPStan\Type\Type[] $typeMap
+	 * @param string[] $parameterNames
+	 * @param string $docComment
+	 * @return \PHPStan\Type\Type[]
+	 */
+	public static function getPhpDocParameterTypesFromMethod(
+		array $typeMap,
+		array $parameterNames,
+		string $docComment
+	): array
+	{
+		preg_match_all('#@param\s+' . FileTypeMapper::TYPE_PATTERN . '\s+\$([a-zA-Z0-9_]+)#', $docComment, $matches, PREG_SET_ORDER);
+		$phpDocParameterTypeStrings = [];
+		foreach ($matches as $match) {
+			$typeString = $match[1];
+			$parameterName = $match[2];
+			if (!isset($phpDocParameterTypeStrings[$parameterName])) {
+				$phpDocParameterTypeStrings[$parameterName] = [];
+			}
+
+			$phpDocParameterTypeStrings[$parameterName][] = $typeString;
+		}
+
+		$phpDocParameterTypes = [];
+		foreach ($parameterNames as $parameterName) {
+			$typeString = self::getMethodParameterAnnotationTypeString($phpDocParameterTypeStrings, $parameterName);
+			if ($typeString !== null && isset($typeMap[$typeString])) {
+				$phpDocParameterTypes[$parameterName] = $typeMap[$typeString];
+			}
+		}
+
+		return $phpDocParameterTypes;
+	}
+
+	/**
+	 * @param mixed[] $phpDocParameterTypeStrings
+	 * @param string $parameterName
+	 * @return string|null
+	 */
+	private static function getMethodParameterAnnotationTypeString(array $phpDocParameterTypeStrings, string $parameterName)
+	{
+		if (!isset($phpDocParameterTypeStrings[$parameterName])) {
+			return null;
+		}
+
+		$typeStrings = $phpDocParameterTypeStrings[$parameterName];
+		if (count($typeStrings) > 1) {
+			return null;
+		}
+
+		return $typeStrings[0];
+	}
+
 }
