@@ -10,6 +10,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 {
 
+	const OPTION_NO_PROGRESS = 'no-progress';
+
+	/** @var bool */
+	private $showProgress;
+
 	/** @var \Symfony\Component\Console\Output\OutputInterface */
 	private $output;
 
@@ -19,6 +24,7 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 	public function __construct(InputInterface $input, OutputInterface $output)
 	{
 		parent::__construct($input, $output);
+		$this->showProgress = !$input->getOption(self::OPTION_NO_PROGRESS);
 		$this->output = $output;
 	}
 
@@ -67,10 +73,25 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 
 	/**
 	 * @phpcsSuppress SlevomatCodingStandard.Typehints.TypeHintDeclaration.missingParameterTypeHint
+	 * @param int $max
+	 */
+	public function progressStart($max = 0)
+	{
+		if (!$this->showProgress) {
+			return;
+		}
+		parent::progressStart($max);
+	}
+
+	/**
+	 * @phpcsSuppress SlevomatCodingStandard.Typehints.TypeHintDeclaration.missingParameterTypeHint
 	 * @param int $step
 	 */
 	public function progressAdvance($step = 1)
 	{
+		if (!$this->showProgress) {
+			return;
+		}
 		if ($this->output->isDecorated() && $step > 0) {
 			$stepTime = (time() - $this->progressBar->getStartTime()) / $step;
 			if ($stepTime > 0 && $stepTime < 1) {
@@ -81,6 +102,14 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 		}
 
 		$this->progressBar->setProgress($this->progressBar->getProgress() + $step);
+	}
+
+	public function progressFinish()
+	{
+		if (!$this->showProgress) {
+			return;
+		}
+		parent::progressFinish();
 	}
 
 }
