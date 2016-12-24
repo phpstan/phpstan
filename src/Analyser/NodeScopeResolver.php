@@ -44,6 +44,7 @@ use PhpParser\Node\Stmt\StaticVar;
 use PhpParser\Node\Stmt\Switch_;
 use PhpParser\Node\Stmt\Throw_;
 use PhpParser\Node\Stmt\TryCatch;
+use PhpParser\Node\Stmt\Unset_;
 use PhpParser\Node\Stmt\While_;
 use PHPStan\Broker\Broker;
 use PHPStan\Parser\Parser;
@@ -404,6 +405,12 @@ class NodeScopeResolver
 			$this->anonymousClassReflection = $this->broker->getClassFromReflection($classReflection);
 		} elseif ($node instanceof BooleanNot) {
 			$scope = $scope->enterNegation();
+		} elseif ($node instanceof Unset_) {
+			foreach ($node->vars as $unsetVar) {
+				if ($unsetVar instanceof Variable && is_string($unsetVar->name)) {
+					$scope = $scope->enterVariableAssign($unsetVar->name);
+				}
+			}
 		}
 
 		$originalScope = $scope;

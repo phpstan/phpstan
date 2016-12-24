@@ -132,3 +132,5 @@ if (isset($_[$variableAssignedInIsset = 123]) && $variableAssignedInIsset > 0) {
 	doFoo($variableAssignedInIsset); // defined here
 }
 doFoo($variableAssignedInIsset);
+
+unset($unsettingUndefinedVariable); // it's fine from PHP POV
