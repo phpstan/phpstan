@@ -26,6 +26,7 @@ use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptor;
+use PHPStan\Reflection\Php\PhpFunctionFromParserNodeReflection;
 use PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Type\ArrayType;
@@ -728,9 +729,58 @@ class Scope
 		);
 	}
 
-	public function enterFunction(
-		ParametersAcceptor $functionReflection
+	public function enterClassMethod(
+		Node\Stmt\ClassMethod $classMethod,
+		array $phpDocParameterTypes,
+		Type $phpDocReturnType = null
 	): self
+	{
+		return $this->enterFunctionLike(
+			new PhpMethodFromParserNodeReflection(
+				$this->getClass() !== null ? $this->broker->getClass($this->getClass()) : $this->getAnonymousClass(),
+				$classMethod,
+				$this->getRealParameterTypes($classMethod),
+				$phpDocParameterTypes,
+				$classMethod->returnType !== null,
+				$this->getFunctionType($classMethod->returnType, $classMethod->returnType === null, false),
+				$phpDocReturnType
+			)
+		);
+	}
+
+	private function getRealParameterTypes(Node\FunctionLike $functionLike): array
+	{
+		$realParameterTypes = [];
+		foreach ($functionLike->getParams() as $parameter) {
+			$realParameterTypes[$parameter->name] = $this->getFunctionType(
+				$parameter->type,
+				$this->isParameterValueNullable($parameter),
+				$parameter->variadic
+			);
+		}
+
+		return $realParameterTypes;
+	}
+
+	public function enterFunction(
+		Node\Stmt\Function_ $function,
+		array $phpDocParameterTypes,
+		Type $phpDocReturnType = null
+	): self
+	{
+		return $this->enterFunctionLike(
+			new PhpFunctionFromParserNodeReflection(
+				$function,
+				$this->getRealParameterTypes($function),
+				$phpDocParameterTypes,
+				$function->returnType !== null,
+				$this->getFunctionType($function->returnType, $function->returnType === null, false),
+				$phpDocReturnType
+			)
+		);
+	}
+
+	private function enterFunctionLike(ParametersAcceptor $functionReflection): self
 	{
 		$variableTypes = $this->getVariableTypes();
 		foreach ($functionReflection->getParameters() as $parameter) {
@@ -747,42 +797,6 @@ class Scope
 			$functionReflection,
 			$this->getNamespace(),
 			$variableTypes
-		);
-	}
-
-	public function enterClassMethod(
-		Node\Stmt\ClassMethod $classMethod,
-		array $phpDocParameterTypes,
-		Type $phpDocReturnType = null
-	): self
-	{
-		$isVariadic = false;
-		foreach ($classMethod->params as $parameter) {
-			if ($parameter->variadic) {
-				$isVariadic = true;
-			}
-		}
-
-		$realParameterTypes = [];
-		foreach ($classMethod->params as $parameter) {
-			$realParameterTypes[$parameter->name] = $this->getFunctionType(
-				$parameter->type,
-				$this->isParameterValueNullable($parameter),
-				$parameter->variadic
-			);
-		}
-
-		return $this->enterFunction(
-			new PhpMethodFromParserNodeReflection(
-				$this->getClass() !== null ? $this->broker->getClass($this->getClass()) : $this->getAnonymousClass(),
-				$classMethod,
-				$realParameterTypes,
-				$phpDocParameterTypes,
-				$classMethod->returnType !== null,
-				$this->getFunctionType($classMethod->returnType, $classMethod->returnType === null, false),
-				$phpDocReturnType,
-				$isVariadic
-			)
 		);
 	}
 

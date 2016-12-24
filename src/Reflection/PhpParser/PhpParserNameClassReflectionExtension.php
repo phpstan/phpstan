@@ -13,7 +13,7 @@ class PhpParserNameClassReflectionExtension implements PropertiesClassReflection
 	public function hasProperty(ClassReflection $classReflection, string $propertyName): bool
 	{
 		return $classReflection->isSubclassOf(Node::class)
-			&& $classReflection->getNativeReflection()->hasProperty('name')
+			&& ($classReflection->getNativeReflection()->hasProperty('name') || $classReflection->getName() === \PhpParser\Node\FunctionLike::class)
 			&& $propertyName === 'namespacedName';
 	}
 

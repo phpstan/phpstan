@@ -233,9 +233,7 @@ class NodeScopeResolver
 		} elseif ($node instanceof Node\Stmt\TraitUse) {
 			$this->processTraitUse($node, $scope, $nodeCallback);
 		} elseif ($node instanceof \PhpParser\Node\Stmt\Function_) {
-			$scope = $scope->enterFunction(
-				$this->broker->getFunction($node->namespacedName, $scope)
-			);
+			$scope = $this->enterFunction($scope, $node);
 		} elseif ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
 			$scope = $this->enterClassMethod($scope, $node);
 		} elseif ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
@@ -929,23 +927,41 @@ class NodeScopeResolver
 
 	private function enterClassMethod(Scope $scope, Node\Stmt\ClassMethod $classMethod): Scope
 	{
+		list($phpDocParameterTypes, $phpDocReturnType) = $this->getPhpDocs($scope, $classMethod);
+
+		return $scope->enterClassMethod(
+			$classMethod,
+			$phpDocParameterTypes,
+			$phpDocReturnType
+		);
+	}
+
+	private function getPhpDocs(Scope $scope, Node\FunctionLike $functionLike): array
+	{
 		$fileTypeMap = $this->fileTypeMapper->getTypeMap($scope->getFile());
 		$phpDocParameterTypes = [];
 		$phpDocReturnType = null;
-		if ($classMethod->getDocComment() !== null) {
-			$docComment = $classMethod->getDocComment()->getText();
+		if ($functionLike->getDocComment() !== null) {
+			$docComment = $functionLike->getDocComment()->getText();
 			$phpDocParameterTypes = TypehintHelper::getPhpDocParameterTypesFromMethod(
 				$fileTypeMap,
 				array_map(function (Param $parameter): string {
 					return $parameter->name;
-				}, $classMethod->params),
+				}, $functionLike->getParams()),
 				$docComment
 			);
 			$phpDocReturnType = TypehintHelper::getPhpDocReturnTypeFromMethod($fileTypeMap, $docComment);
 		}
 
-		return $scope->enterClassMethod(
-			$classMethod,
+		return [$phpDocParameterTypes, $phpDocReturnType];
+	}
+
+	private function enterFunction(Scope $scope, Node\Stmt\Function_ $function): Scope
+	{
+		list($phpDocParameterTypes, $phpDocReturnType) = $this->getPhpDocs($scope, $function);
+
+		return $scope->enterFunction(
+			$function,
 			$phpDocParameterTypes,
 			$phpDocReturnType
 		);

@@ -1384,7 +1384,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
-	public function dataTypeFromMethodPhpDocs(): array
+	public function dataTypeFromFunctionPhpDocs(): array
 	{
 		return [
 			[
@@ -1478,28 +1478,10 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$anotherNullableObject',
 			],
 			[
-				ObjectType::class,
-				false,
-				'MethodPhpDocsNamespace\\Foo',
-				'$selfType',
-			],
-			[
-				StaticType::class,
-				false,
-				null,
-				'$staticType',
-			],
-			[
 				NullType::class,
 				true,
 				null,
 				'$nullType',
-			],
-			[
-				ObjectType::class,
-				false,
-				'MethodPhpDocsNamespace\Foo',
-				'$this->doFoo()',
 			],
 			[
 				ObjectType::class,
@@ -1561,23 +1543,53 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'SomeNamespace\Consecteur',
 				'$useWithoutAlias',
 			],
+
+		];
+	}
+
+	/**
+	 * @dataProvider dataTypeFromFunctionPhpDocs
+	 * @param string $typeClass
+	 * @param boolean $nullable
+	 * @param string|null $class
+	 * @param string $expression
+	 */
+	public function testTypeFromFunctionPhpDocs(
+		string $typeClass,
+		bool $nullable,
+		string $class = null,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/functionPhpDocs.php',
+			$typeClass,
+			$nullable,
+			$class,
+			$expression
+		);
+	}
+
+	public function dataTypeFromMethodPhpDocs(): array
+	{
+		return [
+			[
+				ObjectType::class,
+				false,
+				'MethodPhpDocsNamespace\\Foo',
+				'$selfType',
+			],
+			[
+				StaticType::class,
+				false,
+				null,
+				'$staticType',
+			],
 			[
 				ObjectType::class,
 				false,
 				'MethodPhpDocsNamespace\Foo',
-				'$this->doBar()[0]',
-			],
-			[
-				ObjectType::class,
-				false,
-				'MethodPhpDocsNamespace\Bar',
-				'self::doSomethingStatic()',
-			],
-			[
-				ObjectType::class,
-				false,
-				'MethodPhpDocsNamespace\Bar',
-				'\MethodPhpDocsNamespace\Foo::doSomethingStatic()',
+				'$this->doFoo()',
 			],
 			[
 				ObjectType::class,
@@ -1621,10 +1633,29 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'MethodPhpDocsNamespace\Foo',
 				'$this->doIpsum()',
 			],
+			[
+				ObjectType::class,
+				false,
+				'MethodPhpDocsNamespace\Foo',
+				'$this->doBar()[0]',
+			],
+			[
+				ObjectType::class,
+				false,
+				'MethodPhpDocsNamespace\Bar',
+				'self::doSomethingStatic()',
+			],
+			[
+				ObjectType::class,
+				false,
+				'MethodPhpDocsNamespace\Bar',
+				'\MethodPhpDocsNamespace\Foo::doSomethingStatic()',
+			],
 		];
 	}
 
 	/**
+	 * @dataProvider dataTypeFromFunctionPhpDocs
 	 * @dataProvider dataTypeFromMethodPhpDocs
 	 * @param string $typeClass
 	 * @param boolean $nullable
