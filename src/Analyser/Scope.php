@@ -312,6 +312,14 @@ class Scope
 			return new IntegerType(false);
 		}
 
+		if ($node instanceof Expr\Ternary) {
+			$elseType = $this->getType($node->else);
+			if ($node->if === null) {
+				return $this->getType($node->cond)->combineWith($elseType);
+			}
+			return $this->getType($node->if)->combineWith($elseType);
+		}
+
 		if (
 			$node instanceof Node\Expr\BinaryOp\Plus
 			|| $node instanceof Node\Expr\BinaryOp\Minus
