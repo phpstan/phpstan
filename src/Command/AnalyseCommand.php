@@ -81,10 +81,16 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			$configurator->addConfig($configFile);
 		}
 
-		$configurator->addParameters([
+		$parameters = [
 			'rootDir' => $rootDir,
 			'tmpDir' => $tmpDir,
-		]);
+		];
+		$currentWorkingDirectory = getcwd();
+		if ($currentWorkingDirectory !== false) {
+			$parameters['currentWorkingDirectory'] = $currentWorkingDirectory;
+		}
+
+		$configurator->addParameters($parameters);
 		$container = $configurator->createContainer();
 		$consoleStyle = new ErrorsConsoleStyle($input, $output);
 		$memoryLimitFile = $container->parameters['memoryLimitFile'];
