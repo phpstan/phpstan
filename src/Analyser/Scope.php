@@ -325,6 +325,10 @@ class Scope
 			return $this->getType($node->left)->combineWith($this->getType($node->right));
 		}
 
+		if ($node instanceof Expr\Clone_) {
+			return $this->getType($node->expr);
+		}
+
 		if (
 			$node instanceof Node\Expr\BinaryOp\Plus
 			|| $node instanceof Node\Expr\BinaryOp\Minus
