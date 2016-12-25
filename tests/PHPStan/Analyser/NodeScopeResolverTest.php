@@ -1338,6 +1338,41 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+	public function dataCloneOperators(): array
+	{
+		return [
+			[
+				ObjectType::class,
+				false,
+				\Foo::class,
+				'clone $fooObject',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataCloneOperators
+	 * @param string $typeClass
+	 * @param boolean $nullable
+	 * @param string|null $class
+	 * @param string $expression
+	 */
+	public function testCloneOperators(
+		string $typeClass,
+		bool $nullable,
+		string $class = null,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/clone.php',
+			$typeClass,
+			$nullable,
+			$class,
+			$expression
+		);
+	}
+
 	public function dataLiteralArrays(): array
 	{
 		return [
