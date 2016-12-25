@@ -118,15 +118,32 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 				$this->cache = $cache;
 			}
 
-			public function create(\ReflectionFunction $function): FunctionReflection
+			public function create(
+				\ReflectionFunction $function,
+				array $phpDocParameterTypes,
+				Type $phpDocReturnType = null
+			): FunctionReflection
 			{
-				return new FunctionReflection($function, $this->parser, $this->functionCallStatementFinder, $this->cache);
+				return new FunctionReflection(
+					$function,
+					$this->parser,
+					$this->functionCallStatementFinder,
+					$this->cache,
+					$phpDocParameterTypes,
+					$phpDocReturnType
+				);
 			}
 		};
-		$broker = new Broker([
-			$phpExtension,
-			new UniversalObjectCratesClassReflectionExtension([\stdClass::class]),
-		], [$phpExtension], $dynamicMethodReturnTypeExtensions, $functionReflectionFactory);
+		$broker = new Broker(
+			[
+				$phpExtension,
+				new UniversalObjectCratesClassReflectionExtension([\stdClass::class]),
+			],
+			[$phpExtension],
+			$dynamicMethodReturnTypeExtensions,
+			$functionReflectionFactory,
+			new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class))
+		);
 
 		return $broker;
 	}

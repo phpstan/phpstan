@@ -4,6 +4,7 @@ namespace PHPStan\Broker;
 
 use PHPStan\Reflection\FunctionReflectionFactory;
 use PHPStan\Reflection\Php\PhpClassReflectionExtension;
+use PHPStan\Type\FileTypeMapper;
 
 class BrokerFactory
 {
@@ -34,7 +35,8 @@ class BrokerFactory
 			array_merge([$phpClassReflectionExtension], $tagToService($this->container->findByTag(self::PROPERTIES_CLASS_REFLECTION_EXTENSION_TAG))),
 			array_merge([$phpClassReflectionExtension], $tagToService($this->container->findByTag(self::METHODS_CLASS_REFLECTION_EXTENSION_TAG))),
 			$tagToService($this->container->findByTag(self::DYNAMIC_METHOD_RETURN_TYPE_EXTENSION_TAG)),
-			$this->container->getByType(FunctionReflectionFactory::class)
+			$this->container->getByType(FunctionReflectionFactory::class),
+			$this->container->getByType(FileTypeMapper::class)
 		);
 	}
 

@@ -6,6 +6,8 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\BrokerAwareClassReflectionExtension;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\FunctionReflectionFactory;
+use PHPStan\Type\FileTypeMapper;
+use PHPStan\Type\TypehintHelper;
 use ReflectionClass;
 
 class Broker
@@ -26,6 +28,9 @@ class Broker
 	/** @var \PHPStan\Reflection\FunctionReflectionFactory */
 	private $functionReflectionFactory;
 
+	/** @var \PHPStan\Type\FileTypeMapper */
+	private $fileTypeMapper;
+
 	/** @var \PHPStan\Reflection\FunctionReflection[] */
 	private $functionReflections = [];
 
@@ -34,12 +39,14 @@ class Broker
 	 * @param \PHPStan\Reflection\MethodsClassReflectionExtension[] $methodsClassReflectionExtensions
 	 * @param \PHPStan\Type\DynamicMethodReturnTypeExtension[] $dynamicMethodReturnTypeExtensions
 	 * @param \PHPStan\Reflection\FunctionReflectionFactory $functionReflectionFactory
+	 * @param \PHPStan\Type\FileTypeMapper $fileTypeMapper
 	 */
 	public function __construct(
 		array $propertiesClassReflectionExtensions,
 		array $methodsClassReflectionExtensions,
 		array $dynamicMethodReturnTypeExtensions,
-		FunctionReflectionFactory $functionReflectionFactory
+		FunctionReflectionFactory $functionReflectionFactory,
+		FileTypeMapper $fileTypeMapper
 	)
 	{
 		$this->propertiesClassReflectionExtensions = $propertiesClassReflectionExtensions;
@@ -55,6 +62,7 @@ class Broker
 		}
 
 		$this->functionReflectionFactory = $functionReflectionFactory;
+		$this->fileTypeMapper = $fileTypeMapper;
 	}
 
 	/**
@@ -126,7 +134,26 @@ class Broker
 
 		$lowerCasedFunctionName = strtolower($functionName);
 		if (!isset($this->functionReflections[$lowerCasedFunctionName])) {
-			$this->functionReflections[$lowerCasedFunctionName] = $this->functionReflectionFactory->create(new \ReflectionFunction($lowerCasedFunctionName));
+			$reflectionFunction = new \ReflectionFunction($lowerCasedFunctionName);
+			$phpDocParameterTypes = [];
+			$phpDocReturnType = null;
+			if ($reflectionFunction->getFileName() !== false && $reflectionFunction->getDocComment() !== false) {
+				$fileTypeMap = $this->fileTypeMapper->getTypeMap($reflectionFunction->getFileName());
+				$docComment = $reflectionFunction->getDocComment();
+				$phpDocParameterTypes = TypehintHelper::getParameterTypesFromPhpDoc(
+					$fileTypeMap,
+					array_map(function (\ReflectionParameter $parameter): string {
+						return $parameter->getName();
+					}, $reflectionFunction->getParameters()),
+					$docComment
+				);
+				$phpDocReturnType = TypehintHelper::getReturnTypeFromPhpDoc($fileTypeMap, $docComment);
+			}
+			$this->functionReflections[$lowerCasedFunctionName] = $this->functionReflectionFactory->create(
+				$reflectionFunction,
+				$phpDocParameterTypes,
+				$phpDocReturnType
+			);
 		}
 
 		return $this->functionReflections[$lowerCasedFunctionName];

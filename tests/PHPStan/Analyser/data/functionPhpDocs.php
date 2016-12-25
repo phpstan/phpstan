@@ -59,5 +59,12 @@ function doFoo(
 	$useWithoutAlias
 )
 {
+	$fooFunctionResult = doFoo();
+	$barFunctionResult = doBar();
 	die;
+}
+
+function doBar(): Bar
+{
+
 }

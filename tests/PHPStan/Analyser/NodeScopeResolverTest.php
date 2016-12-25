@@ -1547,8 +1547,27 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		];
 	}
 
+	public function dataTypeFromFunctionFunctionPhpDocs(): array
+	{
+		return [
+			[
+				ObjectType::class,
+				false,
+				'MethodPhpDocsNamespace\Foo',
+				'$fooFunctionResult',
+			],
+			[
+				ObjectType::class,
+				false,
+				'MethodPhpDocsNamespace\Bar',
+				'$barFunctionResult',
+			],
+		];
+	}
+
 	/**
 	 * @dataProvider dataTypeFromFunctionPhpDocs
+	 * @dataProvider dataTypeFromFunctionFunctionPhpDocs
 	 * @param string $typeClass
 	 * @param boolean $nullable
 	 * @param string|null $class
@@ -1561,6 +1580,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		string $expression
 	)
 	{
+		require_once __DIR__ . '/data/functionPhpDocs.php';
 		$this->assertTypes(
 			__DIR__ . '/data/functionPhpDocs.php',
 			$typeClass,
