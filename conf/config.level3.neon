@@ -23,6 +23,11 @@ services:
 			- phpstan.rules.rule
 
 	-
+		class: PHPStan\Rules\Functions\ReturnTypeRule
+		tags:
+			- phpstan.rules.rule
+
+	-
 		class: PHPStan\Rules\Methods\ReturnTypeRule
 		tags:
 			- phpstan.rules.rule
