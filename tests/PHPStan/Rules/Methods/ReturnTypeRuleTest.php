@@ -43,6 +43,46 @@ class ReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Method ReturnTypes\Foo::returnStatic() should return static(ReturnTypes\Foo) but returns ReturnTypes\FooParent.',
 				68,
 			],
+			[
+				'Method ReturnTypes\Foo::returnUnionIterableType() should return ReturnTypes\Foo[]|ReturnTypes\Collection but returns ReturnTypes\Foo.',
+				90,
+			],
+			[
+				'Method ReturnTypes\Foo::returnUnionIterableType() should return ReturnTypes\Foo[]|ReturnTypes\Collection but returns ReturnTypes\Bar.',
+				92,
+			],
+			[
+				'Method ReturnTypes\Foo::returnUnionIterableType() should return ReturnTypes\Foo[]|ReturnTypes\Collection but returns ReturnTypes\Bar[].',
+				93,
+			],
+			[
+				'Method ReturnTypes\Foo::returnUnionIterableType() should return ReturnTypes\Foo[]|ReturnTypes\Collection but returns int.',
+				94,
+			],
+			[
+				'Method ReturnTypes\Foo::returnUnionIterableType() should return ReturnTypes\Foo[]|ReturnTypes\Collection but empty return statement found.',
+				95,
+			],
+			[
+				'Method ReturnTypes\Foo::returnUnionIterableType() should return ReturnTypes\Foo[]|ReturnTypes\Collection but returns ReturnTypes\Bar[]|ReturnTypes\Collection.',
+				99,
+			],
+			[
+				'Method ReturnTypes\Foo::returnUnionIterableType() should return ReturnTypes\Foo[]|ReturnTypes\Collection but returns ReturnTypes\Foo[]|ReturnTypes\AnotherCollection.',
+				103,
+			],
+			[
+				'Method ReturnTypes\Foo::returnUnionIterableType() should return ReturnTypes\Foo[]|ReturnTypes\Collection but returns ReturnTypes\Foo[]|ReturnTypes\Collection|ReturnTypes\AnotherCollection.',
+				107,
+			],
+			[
+				'Method ReturnTypes\Foo::returnUnionIterableType() should return ReturnTypes\Foo[]|ReturnTypes\Collection but returns ReturnTypes\Bar[]|ReturnTypes\AnotherCollection.',
+				111,
+			],
+			[
+				'Method ReturnTypes\Foo::returnUnionIterableType() should return ReturnTypes\Foo[]|ReturnTypes\Collection but returns null.',
+				113,
+			],
 		]);
 	}
 

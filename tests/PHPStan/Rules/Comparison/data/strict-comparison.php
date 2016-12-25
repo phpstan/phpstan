@@ -8,3 +8,10 @@ namespace StrictComparison;
 doFoo() === doBar();
 1 === null;
 (new Bar()) === 1; // wrong
+
+/** @var Foo[]|Collection|bool $unionIterableType */
+$unionIterableType = doFoo();
+1 === $unionIterableType;
+false === $unionIterableType;
+$unionIterableType === [new Foo()];
+$unionIterableType === new Collection();

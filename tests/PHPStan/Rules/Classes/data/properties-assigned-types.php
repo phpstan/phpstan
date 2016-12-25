@@ -17,6 +17,12 @@ class Foo extends Ipsum
 	/** @var string */
 	private static $staticStringProperty;
 
+	/** @var self[]|Collection */
+	private $unionPropertySelf;
+
+	/** @var Bar[]|self */
+	private $unionPropertyBar;
+
 	public function doFoo()
 	{
 		$this->stringProperty = 'foo';
@@ -33,6 +39,11 @@ class Foo extends Ipsum
 		parent::$parentStringProperty = 1;
 		$this->nonexistentProperty = 'foo';
 		$this->nonexistentProperty = 1;
+		$this->unionPropertySelf = [new self()];
+		$this->unionPropertySelf = new Collection();
+		$this->unionPropertySelf = new self();
+		$this->unionPropertySelf = [new Bar()];
+		$this->unionPropertySelf = new Bar();
 	}
 
 }

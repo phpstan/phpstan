@@ -20,6 +20,7 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\ResourceType;
 use PHPStan\Type\StaticType;
 use PHPStan\Type\StringType;
+use PHPStan\Type\UnionIterableType;
 use PHPStan\Type\VoidType;
 use SomeNodeScopeResolverNamespace\Foo;
 
@@ -2460,6 +2461,36 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				true,
 				null,
 				'$arrayWithIterableTypehint[0]',
+			],
+			[
+				UnionIterableType::class,
+				false,
+				null,
+				'$unionIterableType',
+			],
+			[
+				ObjectType::class,
+				false,
+				'Iterables\Bar',
+				'$unionBar',
+			],
+			[
+				MixedType::class,
+				false,
+				null,
+				'$mixedUnionIterableType',
+			],
+			[
+				MixedType::class,
+				true,
+				null,
+				'$mixedBar',
+			],
+			[
+				ObjectType::class,
+				false,
+				'Iterables\Bar',
+				'$iterableUnionBar',
 			],
 		];
 	}

@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
+use PHPStan\Type\UnionIterableType;
 
 class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 {
@@ -38,7 +39,21 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		if (get_class($leftType) !== get_class($rightType)) {
+		if ($leftType instanceof UnionIterableType || $rightType instanceof UnionIterableType) {
+			if ($leftType instanceof UnionIterableType) {
+				$unionIterableType = $leftType;
+				$otherType = $rightType;
+			} else {
+				$unionIterableType = $rightType;
+				$otherType = $leftType;
+			}
+
+			$isSameType = $unionIterableType->accepts($otherType);
+		} else {
+			$isSameType = get_class($leftType) === get_class($rightType);
+		}
+
+		if (!$isSameType) {
 			return [
 				sprintf(
 					'Strict comparison using %s between %s and %s will always evaluate to false.',

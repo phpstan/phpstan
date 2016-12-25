@@ -15,27 +15,39 @@ class TypesAssignedToPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$this->analyse([__DIR__ . '/data/properties-assigned-types.php'], [
 			[
 				'Property PropertiesAssignedTypes\Foo::$stringProperty (string) does not accept int.',
-				23,
-			],
-			[
-				'Property PropertiesAssignedTypes\Foo::$intProperty (int) does not accept string.',
-				25,
-			],
-			[
-				'Property PropertiesAssignedTypes\Foo::$fooProperty (PropertiesAssignedTypes\Foo) does not accept PropertiesAssignedTypes\Bar.',
-				27,
-			],
-			[
-				'Static property PropertiesAssignedTypes\Foo::$staticStringProperty (string) does not accept int.',
 				29,
 			],
 			[
-				'Static property PropertiesAssignedTypes\Foo::$staticStringProperty (string) does not accept int.',
+				'Property PropertiesAssignedTypes\Foo::$intProperty (int) does not accept string.',
 				31,
 			],
 			[
-				'Static property PropertiesAssignedTypes\Ipsum::$parentStringProperty (string) does not accept int.',
+				'Property PropertiesAssignedTypes\Foo::$fooProperty (PropertiesAssignedTypes\Foo) does not accept PropertiesAssignedTypes\Bar.',
 				33,
+			],
+			[
+				'Static property PropertiesAssignedTypes\Foo::$staticStringProperty (string) does not accept int.',
+				35,
+			],
+			[
+				'Static property PropertiesAssignedTypes\Foo::$staticStringProperty (string) does not accept int.',
+				37,
+			],
+			[
+				'Static property PropertiesAssignedTypes\Ipsum::$parentStringProperty (string) does not accept int.',
+				39,
+			],
+			[
+				'Property PropertiesAssignedTypes\Foo::$unionPropertySelf (PropertiesAssignedTypes\Foo[]|PropertiesAssignedTypes\Collection) does not accept PropertiesAssignedTypes\Foo.',
+				44,
+			],
+			[
+				'Property PropertiesAssignedTypes\Foo::$unionPropertySelf (PropertiesAssignedTypes\Foo[]|PropertiesAssignedTypes\Collection) does not accept PropertiesAssignedTypes\Bar[].',
+				45,
+			],
+			[
+				'Property PropertiesAssignedTypes\Foo::$unionPropertySelf (PropertiesAssignedTypes\Foo[]|PropertiesAssignedTypes\Collection) does not accept PropertiesAssignedTypes\Bar.',
+				46,
 			],
 		]);
 	}

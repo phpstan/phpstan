@@ -27,6 +27,10 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Rules\AbstractRu
 					'Strict comparison using === between StrictComparison\Bar and int will always evaluate to false.',
 					10,
 				],
+				[
+					'Strict comparison using === between int and StrictComparison\Foo[]|StrictComparison\Collection|bool will always evaluate to false.',
+					14,
+				],
 			]
 		);
 	}

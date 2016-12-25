@@ -79,6 +79,50 @@ class Foo extends FooParent implements FooInterface
 		return new Foo();
 	}
 
+	/**
+	 * @param self[]|Collection $collection
+	 * @return self[]|Collection
+	 */
+	public function returnUnionIterableType($collection)
+	{
+		return $collection;
+		return new Collection();
+		return new self();
+		return [new self()];
+		return new Bar();
+		return [new Bar()];
+		return 1;
+		return;
+
+		/** @var Bar[]|Collection $barListOrCollection */
+		$barListOrCollection = doFoo();
+		return $barListOrCollection;
+
+		/** @var self[]|AnotherCollection $selfListOrAnotherCollection */
+		$selfListOrAnotherCollection = doFoo();
+		return $selfListOrAnotherCollection;
+
+		/** @var self[]|Collection|AnotherCollection $selfListOrCollectionorAnotherCollection */
+		$selfListOrCollectionorAnotherCollection = doFoo();
+		return $selfListOrCollectionorAnotherCollection;
+
+		/** @var Bar[]|AnotherCollection $completelyDiffernetUnionIterable */
+		$completelyDiffernetUnionIterable = doFoo();
+		return $completelyDiffernetUnionIterable;
+
+		return null;
+	}
+
+	/**
+	 * @param self[]|Collection $collection
+	 * @return self[]|Collection|OtherCollection|null
+	 */
+	public function returnUnionIterableLooserReturnType($collection)
+	{
+		return $collection;
+		return null;
+	}
+
 }
 
 class FooChild extends Foo

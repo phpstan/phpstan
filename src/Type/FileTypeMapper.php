@@ -32,7 +32,7 @@ class FileTypeMapper
 
 	public function getTypeMap(string $fileName): array
 	{
-		$cacheKey = sprintf('%s-%d-v12', $fileName, filemtime($fileName));
+		$cacheKey = sprintf('%s-%d-v13', $fileName, filemtime($fileName));
 		if (isset($this->memoryCache[$cacheKey])) {
 			return $this->memoryCache[$cacheKey];
 		}
@@ -135,11 +135,31 @@ class FileTypeMapper
 			return new NullType();
 		}
 
-		if (count($typePartsWithoutNull) !== 1) {
-			return new MixedType(false);
-		}
-
 		$isNullable = count($typeParts) !== count($typePartsWithoutNull);
+		if (count($typePartsWithoutNull) > 1) {
+			$otherTypes = [];
+			$itemType = null;
+			$onlyOneItemType = true;
+			foreach ($typePartsWithoutNull as $typePart) {
+				$type = TypehintHelper::getTypeObjectFromTypehint($typePart, $isNullable, $className, $nameScope);
+				if ($type instanceof IterableType) {
+					if ($itemType !== null) {
+						$onlyOneItemType = false;
+						break;
+					}
+
+					$itemType = $type->getItemType();
+				} else {
+					$otherTypes[] = $type;
+				}
+			}
+
+			if ($itemType !== null && $onlyOneItemType) {
+				return new UnionIterableType($itemType, $isNullable, $otherTypes);
+			}
+
+			return new MixedType($isNullable);
+		}
 
 		return TypehintHelper::getTypeObjectFromTypehint($typePartsWithoutNull[0], $isNullable, $className, $nameScope);
 	}

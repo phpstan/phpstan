@@ -14,12 +14,18 @@ class Foo
 	 * @param iterable $iterableWithIterableTypehint
 	 * @param Bar[] $iterableWithConcreteTypehint
 	 * @param iterable $arrayWithIterableTypehint
+	 * @param Bar[]|Collection $unionIterableType
+	 * @param Foo[]|Bar[]|Collection $mixedUnionIterableType
+	 * @param Bar[]|Collection $unionIterableIterableType
 	 */
 	public function doFoo(
 		iterable $iterableWithoutTypehint,
 		iterable $iterableWithIterableTypehint,
 		iterable $iterableWithConcreteTypehint,
 		array $arrayWithIterableTypehint,
+		array $unionIterableType,
+		array $mixedUnionIterableType,
+		iterable $unionIterableIterableType,
 		$iterableSpecifiedLater
 	)
 	{
@@ -30,7 +36,13 @@ class Foo
 		foreach ($iterableWithIterableTypehint as $mixed) {
 			foreach ($iterableWithConcreteTypehint as $bar) {
 				foreach ($this->doBaz() as $baz) {
-					die;
+					foreach ($unionIterableType as $unionBar) {
+						foreach ($mixedUnionIterableType as $mixedBar) {
+							foreach ($unionIterableIterableType as $iterableUnionBar) {
+								die;
+							}
+						}
+					}
 				}
 			}
 		}
