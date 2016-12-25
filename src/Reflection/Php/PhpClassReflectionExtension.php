@@ -142,7 +142,7 @@ class PhpClassReflectionExtension
 			if (!$declaringClass->getNativeReflection()->isAnonymous() && $declaringClass->getNativeReflection()->getFileName() !== false) {
 				$typeMap = $this->fileTypeMapper->getTypeMap($declaringClass->getNativeReflection()->getFileName());
 				if ($methodReflection->getDocComment() !== false) {
-					$phpDocParameterTypes = TypehintHelper::getPhpDocParameterTypesFromMethod(
+					$phpDocParameterTypes = TypehintHelper::getParameterTypesFromPhpDoc(
 						$typeMap,
 						array_map(function (\ReflectionParameter $parameterReflection): string {
 							return $parameterReflection->getName();
@@ -152,7 +152,7 @@ class PhpClassReflectionExtension
 				}
 
 				if ($methodReflection->getDocComment() !== false) {
-					$phpDocReturnType = TypehintHelper::getPhpDocReturnTypeFromMethod($typeMap, $methodReflection->getDocComment());
+					$phpDocReturnType = TypehintHelper::getReturnTypeFromPhpDoc($typeMap, $methodReflection->getDocComment());
 				}
 			}
 

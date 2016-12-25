@@ -117,7 +117,7 @@ class TypehintHelper
 	 * @param string $docComment
 	 * @return \PHPStan\Type\Type|null
 	 */
-	public static function getPhpDocReturnTypeFromMethod(array $typeMap, string $docComment)
+	public static function getReturnTypeFromPhpDoc(array $typeMap, string $docComment)
 	{
 		$returnTypeString = self::getReturnTypeStringFromMethod($docComment);
 		if ($returnTypeString !== null && isset($typeMap[$returnTypeString])) {
@@ -147,7 +147,7 @@ class TypehintHelper
 	 * @param string $docComment
 	 * @return \PHPStan\Type\Type[]
 	 */
-	public static function getPhpDocParameterTypesFromMethod(
+	public static function getParameterTypesFromPhpDoc(
 		array $typeMap,
 		array $parameterNames,
 		string $docComment
@@ -167,7 +167,7 @@ class TypehintHelper
 
 		$phpDocParameterTypes = [];
 		foreach ($parameterNames as $parameterName) {
-			$typeString = self::getMethodParameterAnnotationTypeString($phpDocParameterTypeStrings, $parameterName);
+			$typeString = self::getParameterAnnotationTypeString($phpDocParameterTypeStrings, $parameterName);
 			if ($typeString !== null && isset($typeMap[$typeString])) {
 				$phpDocParameterTypes[$parameterName] = $typeMap[$typeString];
 			}
@@ -181,7 +181,7 @@ class TypehintHelper
 	 * @param string $parameterName
 	 * @return string|null
 	 */
-	private static function getMethodParameterAnnotationTypeString(array $phpDocParameterTypeStrings, string $parameterName)
+	private static function getParameterAnnotationTypeString(array $phpDocParameterTypeStrings, string $parameterName)
 	{
 		if (!isset($phpDocParameterTypeStrings[$parameterName])) {
 			return null;

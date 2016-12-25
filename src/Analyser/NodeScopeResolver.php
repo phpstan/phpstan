@@ -943,14 +943,14 @@ class NodeScopeResolver
 		$phpDocReturnType = null;
 		if ($functionLike->getDocComment() !== null) {
 			$docComment = $functionLike->getDocComment()->getText();
-			$phpDocParameterTypes = TypehintHelper::getPhpDocParameterTypesFromMethod(
+			$phpDocParameterTypes = TypehintHelper::getParameterTypesFromPhpDoc(
 				$fileTypeMap,
 				array_map(function (Param $parameter): string {
 					return $parameter->name;
 				}, $functionLike->getParams()),
 				$docComment
 			);
-			$phpDocReturnType = TypehintHelper::getPhpDocReturnTypeFromMethod($fileTypeMap, $docComment);
+			$phpDocReturnType = TypehintHelper::getReturnTypeFromPhpDoc($fileTypeMap, $docComment);
 		}
 
 		return [$phpDocParameterTypes, $phpDocReturnType];
