@@ -938,10 +938,10 @@ class NodeScopeResolver
 
 	private function getPhpDocs(Scope $scope, Node\FunctionLike $functionLike): array
 	{
-		$fileTypeMap = $this->fileTypeMapper->getTypeMap($scope->getFile());
 		$phpDocParameterTypes = [];
 		$phpDocReturnType = null;
 		if ($functionLike->getDocComment() !== null) {
+			$fileTypeMap = $this->fileTypeMapper->getTypeMap($scope->getFile());
 			$docComment = $functionLike->getDocComment()->getText();
 			$phpDocParameterTypes = TypehintHelper::getParameterTypesFromPhpDoc(
 				$fileTypeMap,
