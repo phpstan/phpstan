@@ -321,6 +321,10 @@ class Scope
 			return $this->getType($node->if)->combineWith($elseType);
 		}
 
+		if ($node instanceof Expr\BinaryOp\Coalesce) {
+			return $this->getType($node->left)->combineWith($this->getType($node->right));
+		}
+
 		if (
 			$node instanceof Node\Expr\BinaryOp\Plus
 			|| $node instanceof Node\Expr\BinaryOp\Minus

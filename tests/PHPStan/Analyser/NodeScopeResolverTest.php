@@ -1305,6 +1305,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				null,
 				'12 ?: null',
 			],
+			[
+				StringType::class,
+				true,
+				null,
+				"'foo' ?? null",
+			],
 		];
 	}
 
