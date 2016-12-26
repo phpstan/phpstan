@@ -32,10 +32,22 @@ class UnionIterableType implements IterableType
 	public function combineWith(Type $otherType): Type
 	{
 		if ($otherType instanceof IterableType) {
+			$otherTypes = $this->getOtherTypes();
+			if ($otherType instanceof self) {
+				$otherTypesTemp = [];
+				foreach ($this->getOtherTypes() as $otherOtherType) {
+					$otherTypesTemp[$otherOtherType->describe()] = $otherOtherType;
+				}
+				foreach ($otherType->getOtherTypes() as $otherOtherType) {
+					$otherTypesTemp[$otherOtherType->describe()] = $otherOtherType;
+				}
+
+				$otherTypes = array_values($otherTypesTemp);
+			}
 			return new self(
 				$this->getItemType()->combineWith($otherType->getItemType()),
 				$this->isNullable() || $otherType->isNullable(),
-				$this->otherTypes
+				$otherTypes
 			);
 		}
 
