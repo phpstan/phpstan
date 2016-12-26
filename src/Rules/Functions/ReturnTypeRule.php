@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\Php\PhpFunctionFromParserNodeReflection;
+use PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection;
 use PHPStan\Rules\FunctionReturnTypeCheck;
 
 class ReturnTypeRule implements \PHPStan\Rules\Rule
@@ -40,7 +41,10 @@ class ReturnTypeRule implements \PHPStan\Rules\Rule
 		}
 
 		$function = $scope->getFunction();
-		if (!($function instanceof PhpFunctionFromParserNodeReflection)) {
+		if (
+			!($function instanceof PhpFunctionFromParserNodeReflection)
+			|| $function instanceof PhpMethodFromParserNodeReflection
+		) {
 			return [];
 		}
 
