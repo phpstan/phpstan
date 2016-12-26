@@ -50,6 +50,10 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Call to method doFoo() on an unknown class Test\UnknownClass.',
 				63,
 			],
+			[
+				'Call to an undefined method ArrayObject::doFoo().',
+				71,
+			],
 		]);
 	}
 

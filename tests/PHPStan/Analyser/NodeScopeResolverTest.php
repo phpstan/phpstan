@@ -2465,7 +2465,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			[
 				UnionIterableType::class,
 				false,
-				null,
+				'Iterables\Collection',
 				'$unionIterableType',
 			],
 			[
