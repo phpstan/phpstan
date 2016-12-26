@@ -29,6 +29,9 @@ class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\Parame
 	/** @var \PhpParser\Node\Expr|null */
 	private $defaultValue;
 
+	/** @var bool */
+	private $variadic;
+
 	/** @var \PHPStan\Type\Type */
 	private $type;
 
@@ -38,7 +41,8 @@ class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\Parame
 		Type $realType,
 		Type $phpDocType = null,
 		bool $passedByReference,
-		Expr $defaultValue = null
+		Expr $defaultValue = null,
+		bool $variadic
 	)
 	{
 		$this->name = $name;
@@ -47,6 +51,7 @@ class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\Parame
 		$this->phpDocType = $phpDocType;
 		$this->passedByReference = $passedByReference;
 		$this->defaultValue = $defaultValue;
+		$this->variadic = $variadic;
 	}
 
 	public function getName(): string
@@ -77,6 +82,11 @@ class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\Parame
 	public function isPassedByReference(): bool
 	{
 		return $this->passedByReference;
+	}
+
+	public function isVariadic(): bool
+	{
+		return $this->variadic;
 	}
 
 }

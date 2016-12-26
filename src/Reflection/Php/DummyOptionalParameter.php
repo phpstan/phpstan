@@ -17,11 +17,15 @@ class DummyOptionalParameter implements ParameterReflection
 	/** @var bool */
 	private $passedByReference;
 
-	public function __construct(string $name, Type $type, bool $passedByReference = false)
+	/** @var bool */
+	private $variadic;
+
+	public function __construct(string $name, Type $type, bool $passedByReference = false, bool $variadic = false)
 	{
 		$this->name = $name;
 		$this->type = $type;
 		$this->passedByReference = $passedByReference;
+		$this->variadic = $variadic;
 	}
 
 	public function getName(): string
@@ -42,6 +46,11 @@ class DummyOptionalParameter implements ParameterReflection
 	public function isPassedByReference(): bool
 	{
 		return $this->passedByReference;
+	}
+
+	public function isVariadic(): bool
+	{
+		return $this->variadic;
 	}
 
 }

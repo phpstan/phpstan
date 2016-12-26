@@ -15,4 +15,6 @@ interface ParameterReflection
 
 	public function isPassedByReference(): bool;
 
+	public function isVariadic(): bool;
+
 }

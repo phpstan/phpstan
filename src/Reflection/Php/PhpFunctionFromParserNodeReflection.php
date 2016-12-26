@@ -87,7 +87,8 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Paramet
 					$this->realParameterTypes[$parameter->name],
 					isset($this->phpDocParameterTypes[$parameter->name]) ? $this->phpDocParameterTypes[$parameter->name] : null,
 					$parameter->byRef,
-					$parameter->default
+					$parameter->default,
+					$parameter->variadic
 				);
 			}
 
@@ -104,6 +105,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Paramet
 			foreach ($this->functionLike->getParams() as $parameter) {
 				if ($parameter->variadic) {
 					$isVariadic = true;
+					break;
 				}
 			}
 
