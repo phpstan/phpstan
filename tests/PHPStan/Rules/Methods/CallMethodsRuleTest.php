@@ -16,7 +16,7 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	{
 		return new CallMethodsRule(
 			$this->createBroker(),
-			new FunctionCallParametersCheck(),
+			new FunctionCallParametersCheck(true),
 			new RuleLevelHelper(),
 			$this->checkThisOnly
 		);
@@ -144,6 +144,26 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			[
 				'Method CallVariadicMethods\Foo::lorem() invoked with 0 parameters, at least 2 required.',
 				11,
+			],
+			[
+				'Parameter #2 ...$strings of method CallVariadicMethods\Foo::doVariadicString() expects string, int given.',
+				32,
+			],
+			[
+				'Parameter #3 ...$strings of method CallVariadicMethods\Foo::doVariadicString() expects string, int given.',
+				32,
+			],
+			[
+				'Parameter #1 $int of method CallVariadicMethods\Foo::doVariadicString() expects int, string given.',
+				34,
+			],
+			[
+				'Parameter #3 ...$strings of method CallVariadicMethods\Foo::doVariadicString() expects string, int given.',
+				42,
+			],
+			[
+				'Parameter #4 ...$strings of method CallVariadicMethods\Foo::doVariadicString() expects string[], int[] given.',
+				42,
 			],
 		]);
 	}

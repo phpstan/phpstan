@@ -2,19 +2,30 @@
 
 namespace PHPStan\Rules;
 
+use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\ParametersAcceptor;
+use PHPStan\Type\ArrayType;
 
 class FunctionCallParametersCheck
 {
 
+	/** @var bool */
+	private $checkArgumentTypes;
+
+	public function __construct(bool $checkArgumentTypes)
+	{
+		$this->checkArgumentTypes = $checkArgumentTypes;
+	}
+
 	/**
 	 * @param \PHPStan\Reflection\ParametersAcceptor $function
+	 * @param \PHPStan\Analyser\Scope $scope
 	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall $funcCall
-	 * @param string[] $messages Six message templates
+	 * @param string[] $messages Seven message templates
 	 * @return string[]
 	 */
-	public function check(ParametersAcceptor $function, $funcCall, array $messages): array
+	public function check(ParametersAcceptor $function, Scope $scope, $funcCall, array $messages): array
 	{
 		if ($function instanceof FunctionReflection && $function->getName() === 'implode') {
 			$functionParametersMinCount = 1;
@@ -66,7 +77,53 @@ class FunctionCallParametersCheck
 			}
 		}
 
-		return [];
+		if (!$this->checkArgumentTypes) {
+			return [];
+		}
+
+		$errors = [];
+		$parameters = $function->getParameters();
+		foreach ($funcCall->args as $i => $argument) {
+			if (!isset($parameters[$i])) {
+				if (!$function->isVariadic() || count($parameters) === 0) {
+					break;
+				}
+
+				$parameter = $parameters[count($parameters) - 1];
+				$parameterType = $parameter->getType();
+				if ($parameter->getType() instanceof ArrayType) {
+					if (!$argument->unpack) {
+						$parameterType = $parameterType->getItemType();
+					}
+				} else {
+					break;
+				}
+			} else {
+				$parameter = $parameters[$i];
+				$parameterType = $parameter->getType();
+				if ($parameter->isVariadic()) {
+					if ($parameterType instanceof ArrayType && !$argument->unpack) {
+						$parameterType = $parameterType->getItemType();
+					}
+				} elseif ($argument->unpack) {
+					continue;
+				}
+			}
+
+			$argumentValueType = $scope->getType($argument->value);
+
+			if (!$parameterType->accepts($argumentValueType)) {
+				$errors[] = sprintf(
+					$messages[6],
+					$i + 1,
+					sprintf('%s$%s', $parameter->isVariadic() ? '...' : '', $parameter->getName()),
+					$parameterType->describe(),
+					$argumentValueType->describe()
+				);
+			}
+		}
+
+		return $errors;
 	}
 
 }

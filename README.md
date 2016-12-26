@@ -85,6 +85,7 @@ and PHPStan's strict checks, you can choose from currently 5 levels
 There's also **experimental** level 5 that currently enables:
 
 * Union types (Foo|Bar will be a specified type with checks performed on it instead of mixed)
+* Checking function and method argument types when calling them
 
 ## Configuration
 

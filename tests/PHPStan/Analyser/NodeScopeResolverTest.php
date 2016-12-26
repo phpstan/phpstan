@@ -2648,9 +2648,9 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		$this->processFile($file, function (\PhpParser\Node $node, Scope $scope) use ($typeClass, $nullable, $class, $expression, $evaluatedPointExpressionType) {
 			if ($node instanceof $evaluatedPointExpressionType) {
-				$type = $scope->getType(
-					$this->getParser()->parseString(sprintf('<?php %s;', $expression))[0]
-				);
+				/** @var \PhpParser\Node\Expr $expression */
+				$expression = $this->getParser()->parseString(sprintf('<?php %s;', $expression))[0];
+				$type = $scope->getType($expression);
 				$this->assertInstanceOf($typeClass, $type);
 				$this->assertSame($nullable, $type->isNullable());
 				$this->assertSame($class, $type->getClass());

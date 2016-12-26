@@ -80,6 +80,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 				if ($name === '__construct' && $currentClassReflection->getParentClass()->hasMethod('__construct')) {
 					return $this->check->check(
 						$currentClassReflection->getParentClass()->getMethod('__construct'),
+						$scope,
 						$node,
 						[
 							'Parent constructor invoked with %d parameter, %d required.',
@@ -88,6 +89,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 							'Parent constructor invoked with %d parameters, at least %d required.',
 							'Parent constructor invoked with %d parameter, %d-%d required.',
 							'Parent constructor invoked with %d parameters, %d-%d required.',
+							'Parameter #%d %s of parent constructor expects %s, %s given.',
 						]
 					);
 				}
@@ -145,6 +147,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 
 		$errors = $this->check->check(
 			$method,
+			$scope,
 			$node,
 			[
 				'Static method ' . $methodName . ' invoked with %d parameter, %d required.',
@@ -153,6 +156,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 				'Static method ' . $methodName . ' invoked with %d parameters, at least %d required.',
 				'Static method ' . $methodName . ' invoked with %d parameter, %d-%d required.',
 				'Static method ' . $methodName . ' invoked with %d parameters, %d-%d required.',
+				'Parameter #%d %s of static method ' . $methodName . ' expects %s, %s given.',
 			]
 		);
 

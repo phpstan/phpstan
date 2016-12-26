@@ -283,7 +283,7 @@ class Scope
 		return $this->inFunctionCall;
 	}
 
-	public function getType(Node $node): Type
+	public function getType(Expr $node): Type
 	{
 		if (
 			$node instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd
@@ -688,7 +688,7 @@ class Scope
 		return $itemType;
 	}
 
-	public function isSpecified(Node $node): bool
+	public function isSpecified(Expr $node): bool
 	{
 		$exprString = $this->printer->prettyPrintExpr($node);
 
@@ -979,7 +979,7 @@ class Scope
 		return new MixedType($isNullable);
 	}
 
-	public function enterForeach(Node $iteratee, string $valueName, string $keyName = null): self
+	public function enterForeach(Expr $iteratee, string $valueName, string $keyName = null): self
 	{
 		$iterateeType = $this->getType($iteratee);
 		$variableTypes = $this->getVariableTypes();
@@ -1219,7 +1219,7 @@ class Scope
 		);
 	}
 
-	public function specifyExpressionType(Node $expr, Type $type): self
+	public function specifyExpressionType(Expr $expr, Type $type): self
 	{
 		if ($expr instanceof Variable && is_string($expr->name)) {
 			$variableName = $expr->name;

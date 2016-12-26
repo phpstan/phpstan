@@ -89,6 +89,7 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 
 		return $this->check->check(
 			$classReflection->hasMethod('__construct') ? $classReflection->getMethod('__construct') : $classReflection->getMethod($class),
+			$scope,
 			$node,
 			[
 				'Class ' . $classReflection->getName() . ' constructor invoked with %d parameter, %d required.',
@@ -97,6 +98,7 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 				'Class ' . $classReflection->getName() . ' constructor invoked with %d parameters, at least %d required.',
 				'Class ' . $classReflection->getName() . ' constructor invoked with %d parameter, %d-%d required.',
 				'Class ' . $classReflection->getName() . ' constructor invoked with %d parameters, %d-%d required.',
+				'Parameter #%d %s of class ' . $classReflection->getName() . ' constructor expects %s, %s given.',
 			]
 		);
 	}

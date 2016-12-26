@@ -144,6 +144,8 @@ class FileTypeMapper
 		if (count($typePartsWithoutNull) > 1) {
 			if ($this->enableUnionTypes) {
 				$otherTypes = [];
+
+				/** @var \PHPStan\Type\Type $itemType */
 				$itemType = null;
 				$onlyOneItemType = true;
 				foreach ($typePartsWithoutNull as $typePart) {

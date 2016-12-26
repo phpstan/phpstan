@@ -3,6 +3,7 @@ parameters:
 	excludes_analyse: []
 	autoload_directories: []
 	autoload_files: []
+	checkFunctionArgumentTypes: false
 	enableUnionTypes: false
 	polluteScopeWithLoopInitialAssignments: false
 	polluteCatchScopeWithTryAssignments: false
@@ -90,6 +91,8 @@ services:
 
 	-
 		class: PHPStan\Rules\FunctionCallParametersCheck
+		arguments:
+			checkArgumentTypes: %checkFunctionArgumentTypes%
 
 	-
 		class: PHPStan\Rules\FunctionDefinitionCheck

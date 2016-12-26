@@ -773,7 +773,10 @@ class NodeScopeResolver
 	 */
 	private function lookForAssignsInBranches(Scope $initialScope, array $statementsLists, bool $isSwitchCase = false): Scope
 	{
+		/** @var \PHPStan\Analyser\Scope|null $intersectedScope */
 		$intersectedScope = null;
+
+		/** @var \PHPStan\Analyser\Scope|null $previousBranchScope */
 		$previousBranchScope = null;
 		foreach ($statementsLists as $i => $statementList) {
 			$statements = $statementList->getStatements();

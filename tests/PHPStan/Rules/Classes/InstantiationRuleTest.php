@@ -11,7 +11,7 @@ class InstantiationRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	{
 		return new InstantiationRule(
 			$this->createBroker(),
-			new FunctionCallParametersCheck()
+			new FunctionCallParametersCheck(true)
 		);
 	}
 

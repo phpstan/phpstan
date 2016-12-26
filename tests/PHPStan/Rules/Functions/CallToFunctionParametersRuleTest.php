@@ -11,7 +11,7 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	{
 		return new CallToFunctionParametersRule(
 			$this->createBroker(),
-			new FunctionCallParametersCheck()
+			new FunctionCallParametersCheck(true)
 		);
 	}
 
