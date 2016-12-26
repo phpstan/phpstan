@@ -64,3 +64,9 @@ class Bar extends Foo
 	}
 
 }
+
+$f = function () {
+	/** @var \stdClass[]|\ArrayObject $arrayOfStdClass */
+	$arrayOfStdClass = new \ArrayObject([new \stdClass()]);
+	$arrayOfStdClass->doFoo();
+};

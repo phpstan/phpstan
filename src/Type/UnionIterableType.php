@@ -22,6 +22,25 @@ class UnionIterableType implements IterableType
 	}
 
 	/**
+	 * @return string|null
+	 */
+	public function getClass()
+	{
+		$uniqueTypeClass = null;
+		foreach ($this->otherTypes as $otherType) {
+			if ($otherType->getClass() !== null) {
+				if ($uniqueTypeClass !== null) {
+					return null;
+				}
+
+				$uniqueTypeClass = $otherType->getClass();
+			}
+		}
+
+		return $uniqueTypeClass;
+	}
+
+	/**
 	 * @return \PHPStan\Type\Type[]
 	 */
 	public function getOtherTypes(): array
