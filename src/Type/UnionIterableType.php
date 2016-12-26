@@ -135,7 +135,7 @@ class UnionIterableType implements IterableType
 			}
 		}
 
-		return $this->itemType->canAccessProperties();
+		return false;
 	}
 
 	public function canCallMethods(): bool
