@@ -41,7 +41,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
 		$autoloadFile = $input->getOption('autoload-file');
-		if (null !== $autoloadFile && is_file($autoloadFile)) {
+		if ($autoloadFile !== null && is_file($autoloadFile)) {
 			require_once $autoloadFile;
 		}
 
