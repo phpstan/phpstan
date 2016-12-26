@@ -2,20 +2,24 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Analyser\NameScope;
+
 class TypehintHelper
 {
 
 	public static function getTypeObjectFromTypehint(
 		string $typehintString,
 		bool $isNullable,
-		string $selfClass = null
+		string $selfClass = null,
+		NameScope $nameScope = null
 	): Type
 	{
 		if (strrpos($typehintString, '[]') === strlen($typehintString) - 2) {
 			$arr = new ArrayType(self::getTypeObjectFromTypehint(
 				substr($typehintString, 0, -2),
 				false,
-				$selfClass
+				$selfClass,
+				$nameScope
 			), $isNullable);
 			return $arr;
 		}
@@ -56,7 +60,11 @@ class TypehintHelper
 			case 'void':
 				return new VoidType();
 			default:
-				return new ObjectType($typehintString, $isNullable);
+				$className = $typehintString;
+				if ($nameScope !== null) {
+					$className = $nameScope->resolveStringName($className);
+				}
+				return new ObjectType($className, $isNullable);
 		}
 	}
 
