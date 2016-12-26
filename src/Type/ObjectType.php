@@ -105,7 +105,7 @@ class ObjectType implements Type
 
 	public function canCallMethods(): bool
 	{
-		return $this->class !== 'stdClass';
+		return strtolower($this->class) !== 'stdclass';
 	}
 
 }
