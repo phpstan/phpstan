@@ -1,0 +1,5 @@
+includes:
+	- config.level4.neon
+
+parameters:
+	enableUnionTypes: true

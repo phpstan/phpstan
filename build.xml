@@ -109,7 +109,7 @@
 			<arg value="-c"/>
 			<arg path="${phpstan.config}"/>
 			<arg value="-l"/>
-			<arg value="4"/>
+			<arg value="5"/>
 			<arg path="src"/>
 			<arg path="tests"/>
 		</exec>

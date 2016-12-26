@@ -18,21 +18,26 @@ class FileTypeMapper
 	/** @var \Nette\Caching\Cache */
 	private $cache;
 
+	/** @var bool */
+	private $enableUnionTypes;
+
 	/** @var mixed[] */
 	private $memoryCache = [];
 
 	public function __construct(
 		Parser $parser,
-		\Nette\Caching\Cache $cache
+		\Nette\Caching\Cache $cache,
+		bool $enableUnionTypes
 	)
 	{
 		$this->parser = $parser;
 		$this->cache = $cache;
+		$this->enableUnionTypes = $enableUnionTypes;
 	}
 
 	public function getTypeMap(string $fileName): array
 	{
-		$cacheKey = sprintf('%s-%d-v13', $fileName, filemtime($fileName));
+		$cacheKey = sprintf('%s-%d-v13-%d', $fileName, filemtime($fileName), $this->enableUnionTypes ? 1 : 0);
 		if (isset($this->memoryCache[$cacheKey])) {
 			return $this->memoryCache[$cacheKey];
 		}
@@ -137,25 +142,27 @@ class FileTypeMapper
 
 		$isNullable = count($typeParts) !== count($typePartsWithoutNull);
 		if (count($typePartsWithoutNull) > 1) {
-			$otherTypes = [];
-			$itemType = null;
-			$onlyOneItemType = true;
-			foreach ($typePartsWithoutNull as $typePart) {
-				$type = TypehintHelper::getTypeObjectFromTypehint($typePart, $isNullable, $className, $nameScope);
-				if ($type instanceof IterableType) {
-					if ($itemType !== null) {
-						$onlyOneItemType = false;
-						break;
+			if ($this->enableUnionTypes) {
+				$otherTypes = [];
+				$itemType = null;
+				$onlyOneItemType = true;
+				foreach ($typePartsWithoutNull as $typePart) {
+					$type = TypehintHelper::getTypeObjectFromTypehint($typePart, $isNullable, $className, $nameScope);
+					if ($type instanceof IterableType) {
+						if ($itemType !== null) {
+							$onlyOneItemType = false;
+							break;
+						}
+
+						$itemType = $type->getItemType();
+					} else {
+						$otherTypes[] = $type;
 					}
-
-					$itemType = $type->getItemType();
-				} else {
-					$otherTypes[] = $type;
 				}
-			}
 
-			if ($itemType !== null && $onlyOneItemType) {
-				return new UnionIterableType($itemType, $isNullable, $otherTypes);
+				if ($itemType !== null && $onlyOneItemType) {
+					return new UnionIterableType($itemType, $isNullable, $otherTypes);
+				}
 			}
 
 			return new MixedType($isNullable);

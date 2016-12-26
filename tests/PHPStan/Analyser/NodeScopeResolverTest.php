@@ -40,7 +40,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			$this->createBroker(),
 			$this->getParser(),
 			$this->printer,
-			new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class)),
+			new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class), true),
 			new TypeSpecifier($this->printer),
 			true,
 			true,

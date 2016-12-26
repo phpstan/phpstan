@@ -96,7 +96,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 					$phpDocReturnType
 				);
 			}
-		}, new FileTypeMapper($parser, $this->createMock(\Nette\Caching\Cache::class)));
+		}, new FileTypeMapper($parser, $this->createMock(\Nette\Caching\Cache::class), true));
 		$functionReflectionFactory = new class($this->getParser(), $functionCallStatementFinder, $cache) implements FunctionReflectionFactory {
 			/** @var \PHPStan\Parser\Parser */
 			private $parser;
@@ -142,7 +142,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 			[$phpExtension],
 			$dynamicMethodReturnTypeExtensions,
 			$functionReflectionFactory,
-			new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class))
+			new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class), true)
 		);
 
 		return $broker;

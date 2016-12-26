@@ -20,7 +20,7 @@ class BrokerTest extends \PHPStan\TestCase
 			[],
 			[],
 			$this->createMock(FunctionReflectionFactory::class),
-			new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class))
+			new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class), true)
 		);
 	}
 

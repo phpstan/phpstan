@@ -3,6 +3,7 @@ parameters:
 	excludes_analyse: []
 	autoload_directories: []
 	autoload_files: []
+	enableUnionTypes: false
 	polluteScopeWithLoopInitialAssignments: false
 	polluteCatchScopeWithTryAssignments: false
 	defineVariablesWithoutDefaultBranch: false
@@ -104,6 +105,8 @@ services:
 
 	-
 		class: PHPStan\Type\FileTypeMapper
+		arguments:
+			enableUnionTypes: %enableUnionTypes%
 
 	broker:
 		class: PHPStan\Broker\Broker
