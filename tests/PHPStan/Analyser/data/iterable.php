@@ -23,7 +23,7 @@ class Foo
 		iterable $iterableWithIterableTypehint,
 		iterable $iterableWithConcreteTypehint,
 		array $arrayWithIterableTypehint,
-		array $unionIterableType,
+		Collection $unionIterableType,
 		array $mixedUnionIterableType,
 		iterable $unionIterableIterableType,
 		$iterableSpecifiedLater
@@ -39,7 +39,9 @@ class Foo
 					foreach ($unionIterableType as $unionBar) {
 						foreach ($mixedUnionIterableType as $mixedBar) {
 							foreach ($unionIterableIterableType as $iterableUnionBar) {
-								die;
+								foreach ($this->doUnionIterableWithPhpDoc() as $unionBarFromMethod) {
+									die;
+								}
 							}
 						}
 					}
@@ -60,6 +62,14 @@ class Foo
 	 * @return Baz[]
 	 */
 	public function doBaz(): iterable
+	{
+
+	}
+
+	/**
+	 * @return Bar[]|\Traversable
+	 */
+	public function doUnionIterableWithPhpDoc(): \Traversable
 	{
 
 	}

@@ -99,23 +99,21 @@ class TypehintHelper
 	): Type
 	{
 		if ($phpDocType !== null) {
-			if ($type instanceof IterableType) {
-				if ($phpDocType instanceof ArrayType) {
-					if ($type instanceof IterableIterableType) {
-						$phpDocType = new IterableIterableType(
-							$phpDocType->getItemType(),
-							$type->isNullable() || $phpDocType->isNullable()
-						);
-					} elseif ($type instanceof ArrayType) {
-						$type = new ArrayType(
-							$phpDocType->getItemType(),
-							$type->isNullable() || $phpDocType->isNullable()
-						);
-					}
-				} elseif ($phpDocType instanceof UnionIterableType) {
-					if ($type->getItemType()->accepts($phpDocType->getItemType())) {
-						return $phpDocType;
-					}
+			if ($type instanceof IterableType && $phpDocType instanceof ArrayType) {
+				if ($type instanceof IterableIterableType) {
+					$phpDocType = new IterableIterableType(
+						$phpDocType->getItemType(),
+						$type->isNullable() || $phpDocType->isNullable()
+					);
+				} elseif ($type instanceof ArrayType) {
+					$type = new ArrayType(
+						$phpDocType->getItemType(),
+						$type->isNullable() || $phpDocType->isNullable()
+					);
+				}
+			} elseif ($phpDocType instanceof UnionIterableType) {
+				if ($phpDocType->accepts($type)) {
+					return $phpDocType;
 				}
 			}
 			if ($type->accepts($phpDocType)) {

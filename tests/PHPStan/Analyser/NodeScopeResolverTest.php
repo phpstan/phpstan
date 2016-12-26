@@ -2492,6 +2492,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'Iterables\Bar',
 				'$iterableUnionBar',
 			],
+			[
+				ObjectType::class,
+				false,
+				'Iterables\Bar',
+				'$unionBarFromMethod',
+			],
 		];
 	}
 
