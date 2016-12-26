@@ -72,4 +72,9 @@ class FloatType implements Type
 		return false;
 	}
 
+	public function isDocumentableNatively(): bool
+	{
+		return true;
+	}
+
 }

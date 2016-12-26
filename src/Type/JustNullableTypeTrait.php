@@ -59,4 +59,9 @@ trait JustNullableTypeTrait
 		return $type instanceof MixedType;
 	}
 
+	public function isDocumentableNatively(): bool
+	{
+		return true;
+	}
+
 }

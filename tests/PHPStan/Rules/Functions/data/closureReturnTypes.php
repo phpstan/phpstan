@@ -34,3 +34,9 @@ function (): Baz {
 	return new Foo();
 	return new Baz();
 };
+
+function (): \Traversable {
+	/** @var int[]|\Traversable $foo */
+	$foo = doFoo();
+	return $foo;
+};

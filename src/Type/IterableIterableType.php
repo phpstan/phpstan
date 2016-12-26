@@ -64,4 +64,9 @@ class IterableIterableType implements IterableType
 		return sprintf('iterable(%s[])', $this->getItemType()->describe());
 	}
 
+	public function isDocumentableNatively(): bool
+	{
+		return true;
+	}
+
 }

@@ -130,4 +130,9 @@ class UnionIterableType implements IterableType
 		return $this->itemType->canCallMethods();
 	}
 
+	public function isDocumentableNatively(): bool
+	{
+		return false;
+	}
+
 }

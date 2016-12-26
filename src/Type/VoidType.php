@@ -52,4 +52,9 @@ class VoidType implements Type
 		return false;
 	}
 
+	public function isDocumentableNatively(): bool
+	{
+		return true;
+	}
+
 }

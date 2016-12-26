@@ -18,6 +18,7 @@ class FunctionReturnTypeCheck
 	 * @param string $emptyReturnStatementMessage
 	 * @param string $voidMessage
 	 * @param string $typeMismatchMessage
+	 * @param bool $isAnonymousFunction
 	 * @return string[]
 	 */
 	public function checkReturnType(
@@ -26,7 +27,8 @@ class FunctionReturnTypeCheck
 		Expr $returnValue = null,
 		string $emptyReturnStatementMessage,
 		string $voidMessage,
-		string $typeMismatchMessage
+		string $typeMismatchMessage,
+		bool $isAnonymousFunction = false
 	): array
 	{
 		if ($returnValue === null) {
@@ -52,7 +54,7 @@ class FunctionReturnTypeCheck
 			];
 		}
 
-		if (!$returnType->accepts($returnValueType)) {
+		if (!$returnType->accepts($returnValueType) && (!$isAnonymousFunction || $returnValueType->isDocumentableNatively())) {
 			return [
 				sprintf(
 					$typeMismatchMessage,

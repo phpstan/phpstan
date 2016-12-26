@@ -24,4 +24,6 @@ interface Type
 
 	public function canCallMethods(): bool;
 
+	public function isDocumentableNatively(): bool;
+
 }

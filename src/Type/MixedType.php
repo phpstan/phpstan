@@ -56,4 +56,9 @@ class MixedType implements Type
 		return true;
 	}
 
+	public function isDocumentableNatively(): bool
+	{
+		return true;
+	}
+
 }

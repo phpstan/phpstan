@@ -97,4 +97,9 @@ class ArrayType implements IterableType
 		return sprintf('%s[]', $this->getItemType()->describe());
 	}
 
+	public function isDocumentableNatively(): bool
+	{
+		return true;
+	}
+
 }

@@ -108,4 +108,9 @@ class ObjectType implements Type
 		return $this->class !== 'stdClass';
 	}
 
+	public function isDocumentableNatively(): bool
+	{
+		return true;
+	}
+
 }
