@@ -28,6 +28,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				new InputOption('configuration', 'c', InputOption::VALUE_REQUIRED, 'Path to project configuration file'),
 				new InputOption(self::OPTION_LEVEL, 'l', InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter'),
 				new InputOption(ErrorsConsoleStyle::OPTION_NO_PROGRESS, null, InputOption::VALUE_NONE, 'Do not show progress bar, only results'),
+				new InputOption('autoload-file', 'a', InputOption::VALUE_OPTIONAL, 'Project\'s additional autoload file path'),
 			]);
 	}
 
@@ -39,8 +40,12 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
-		$rootDir = realpath(__DIR__ . '/../..');
-		$tmpDir = $rootDir . '/tmp';
+		if ($autoloadFile = $input->getOption('autoload-file')) {
+			require_once $autoloadFile;
+		}
+
+		$rootDir = __DIR__ . '/../..';
+		$tmpDir = sys_get_temp_dir();
 		$confDir = $rootDir . '/conf';
 
 		$configurator = new Configurator();
