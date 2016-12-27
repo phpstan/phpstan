@@ -9,7 +9,6 @@ use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\Instanceof_;
 use PhpParser\Node\Name;
 use PHPStan\Type\ArrayType;
-use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
@@ -18,6 +17,7 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\ResourceType;
+use PHPStan\Type\TrueOrFalseBooleanType;
 
 class TypeSpecifier
 {
@@ -89,7 +89,7 @@ class TypeSpecifier
 			} elseif ($functionName === 'is_array') {
 				$specifiedType = new ArrayType(new MixedType(true), false);
 			} elseif ($functionName === 'is_bool') {
-				$specifiedType = new BooleanType(false);
+				$specifiedType = new TrueOrFalseBooleanType(false);
 			} elseif ($functionName === 'is_callable') {
 				$specifiedType = new CallableType(false);
 			} elseif ($functionName === 'is_resource') {

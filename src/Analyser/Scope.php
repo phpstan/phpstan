@@ -41,6 +41,7 @@ use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StaticResolvableType;
 use PHPStan\Type\StringType;
+use PHPStan\Type\TrueOrFalseBooleanType;
 use PHPStan\Type\Type;
 use PHPStan\Type\VoidType;
 
@@ -291,7 +292,7 @@ class Scope
 			|| $node instanceof \PhpParser\Node\Expr\BooleanNot
 			|| $node instanceof \PhpParser\Node\Expr\BinaryOp\LogicalXor
 		) {
-			return new BooleanType(false);
+			return new TrueOrFalseBooleanType(false);
 		}
 
 		if (
@@ -380,11 +381,11 @@ class Scope
 			return new IntegerType(false);
 		} elseif ($node instanceof ConstFetch) {
 			$constName = strtolower((string) $node->name);
-			if (in_array($constName, ['true', 'false'], true)) {
-				return new BooleanType(false);
-			}
-
-			if ($constName === 'null') {
+			if ($constName === 'true') {
+				return new \PHPStan\Type\TrueBooleanType(false);
+			} elseif ($constName === 'false') {
+				return new \PHPStan\Type\FalseBooleanType(false);
+			} elseif ($constName === 'null') {
 				return new NullType();
 			}
 		} elseif ($node instanceof String_) {
@@ -427,7 +428,7 @@ class Scope
 		} elseif ($node instanceof Int_) {
 				return new IntegerType(false);
 		} elseif ($node instanceof Bool_) {
-			return new BooleanType(false);
+			return new TrueOrFalseBooleanType(false);
 		} elseif ($node instanceof Double) {
 			return new FloatType(false);
 		} elseif ($node instanceof \PhpParser\Node\Expr\Cast\String_) {
@@ -646,7 +647,7 @@ class Scope
 		} elseif (is_float($value)) {
 			return new FloatType(false);
 		} elseif (is_bool($value)) {
-			return new BooleanType(false);
+			return new TrueOrFalseBooleanType(false);
 		} elseif ($value === null) {
 			return new NullType();
 		} elseif (is_string($value)) {
@@ -950,7 +951,7 @@ class Scope
 		} elseif ($type === 'int') {
 			return new IntegerType($isNullable);
 		} elseif ($type === 'bool') {
-			return new BooleanType($isNullable);
+			return new TrueOrFalseBooleanType($isNullable);
 		} elseif ($type === 'float') {
 			return new FloatType($isNullable);
 		} elseif ($type === 'callable') {

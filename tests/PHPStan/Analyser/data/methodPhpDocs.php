@@ -43,6 +43,11 @@ class Foo extends FooParent
 	 * @param New $yetAnotherAnotherAnotherAnotherMixedParameter
 	 * @param void $voidParameter
 	 * @param Consecteur $useWithoutAlias
+	 * @param true $true
+	 * @param false $false
+	 * @param true $boolTrue
+	 * @param false $boolFalse
+	 * @param bool $trueBoolean
 	 * @return Foo
 	 */
 	public function doFoo(
@@ -71,7 +76,12 @@ class Foo extends FooParent
 		$yetAnotherAnotherAnotherMixedParameter,
 		$yetAnotherAnotherAnotherAnotherMixedParameter,
 		$voidParameter,
-		$useWithoutAlias
+		$useWithoutAlias,
+		$true,
+		$false,
+		bool $boolTrue,
+		bool $boolFalse,
+		bool $trueBoolean
 	)
 	{
 		$parent = new FooParent();

@@ -91,6 +91,17 @@ $mixeds[] = 'foo';
 
 $$lorem = 'ipsum';
 
+$trueOrFalse = true;
+$falseOrTrue = false;
+$true = true;
+$false = false;
+if (doFoo()) {
+	$trueOrFalse = false;
+	$falseOrTrue = true;
+	$true = true;
+	$false = false;
+}
+
 try {
 	$inTryTwo = 1;
 } catch (\Exception $e) {

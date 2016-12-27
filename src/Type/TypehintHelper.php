@@ -39,7 +39,11 @@ class TypehintHelper
 				return new IntegerType($isNullable);
 			case 'bool':
 			case 'boolean':
-				return new BooleanType($isNullable);
+				return new TrueOrFalseBooleanType($isNullable);
+			case 'true':
+				return new TrueBooleanType($isNullable);
+			case 'false':
+				return new FalseBooleanType($isNullable);
 			case 'string':
 				return new StringType($isNullable);
 			case 'float':

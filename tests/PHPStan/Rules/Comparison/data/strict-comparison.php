@@ -15,3 +15,12 @@ $unionIterableType = doFoo();
 false === $unionIterableType;
 $unionIterableType === [new Foo()];
 $unionIterableType === new Collection();
+
+/** @var bool $boolean */
+$boolean = doFoo();
+true === $boolean;
+false === $boolean;
+$boolean === true;
+$boolean === false;
+true === false;
+false === true;

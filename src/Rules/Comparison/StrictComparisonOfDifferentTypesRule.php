@@ -4,6 +4,7 @@ namespace PHPStan\Rules\Comparison;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
+use PHPStan\Type\BooleanType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\UnionIterableType;
@@ -49,6 +50,8 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 			}
 
 			$isSameType = $unionIterableType->accepts($otherType);
+		} elseif ($leftType instanceof BooleanType && $rightType instanceof BooleanType) {
+			$isSameType = $leftType->accepts($rightType) || $rightType->accepts($leftType);
 		} else {
 			$isSameType = get_class($leftType) === get_class($rightType);
 		}

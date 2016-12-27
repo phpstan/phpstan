@@ -30,6 +30,11 @@ use SomeNamespace\Consecteur;
  * @param New $yetAnotherAnotherAnotherAnotherMixedParameter
  * @param void $voidParameter
  * @param Consecteur $useWithoutAlias
+ * @param true $true
+ * @param false $false
+ * @param true $boolTrue
+ * @param false $boolFalse
+ * @param bool $trueBoolean
  * @return Foo
  */
 function doFoo(
@@ -56,7 +61,12 @@ function doFoo(
 	$yetAnotherAnotherAnotherMixedParameter,
 	$yetAnotherAnotherAnotherAnotherMixedParameter,
 	$voidParameter,
-	$useWithoutAlias
+	$useWithoutAlias,
+	$true,
+	$false,
+	bool $boolTrue,
+	bool $boolFalse,
+	bool $trueBoolean
 )
 {
 	$fooFunctionResult = doFoo();

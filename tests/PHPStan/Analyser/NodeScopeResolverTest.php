@@ -10,6 +10,7 @@ use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
+use PHPStan\Type\FalseBooleanType;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
@@ -20,6 +21,8 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\ResourceType;
 use PHPStan\Type\StaticType;
 use PHPStan\Type\StringType;
+use PHPStan\Type\TrueBooleanType;
+use PHPStan\Type\TrueOrFalseBooleanType;
 use PHPStan\Type\UnionIterableType;
 use PHPStan\Type\VoidType;
 use SomeNodeScopeResolverNamespace\Foo;
@@ -139,6 +142,15 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$mixeds = $variables['mixeds'];
 				$this->assertInstanceOf(MixedType::class, $mixeds->getItemType());
 				$this->assertFalse($mixeds->getItemType()->isNullable());
+
+				$this->assertArrayHasKey('trueOrFalse', $variables);
+				$this->assertInstanceOf(TrueOrFalseBooleanType::class, $variables['trueOrFalse']);
+				$this->assertArrayHasKey('falseOrTrue', $variables);
+				$this->assertInstanceOf(TrueOrFalseBooleanType::class, $variables['falseOrTrue']);
+				$this->assertArrayHasKey('true', $variables);
+				$this->assertInstanceOf(TrueBooleanType::class, $variables['true']);
+				$this->assertArrayHasKey('false', $variables);
+				$this->assertInstanceOf(FalseBooleanType::class, $variables['false']);
 			}
 		});
 	}
@@ -1602,6 +1614,36 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				false,
 				'SomeNamespace\Consecteur',
 				'$useWithoutAlias',
+			],
+			[
+				TrueBooleanType::class,
+				false,
+				null,
+				'$true',
+			],
+			[
+				FalseBooleanType::class,
+				false,
+				null,
+				'$false',
+			],
+			[
+				TrueBooleanType::class,
+				false,
+				null,
+				'$boolTrue',
+			],
+			[
+				FalseBooleanType::class,
+				false,
+				null,
+				'$boolFalse',
+			],
+			[
+				TrueOrFalseBooleanType::class,
+				false,
+				null,
+				'$trueBoolean',
 			],
 
 		];
