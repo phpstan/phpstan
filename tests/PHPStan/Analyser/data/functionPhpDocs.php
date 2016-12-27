@@ -61,7 +61,10 @@ function doFoo(
 {
 	$fooFunctionResult = doFoo();
 	$barFunctionResult = doBar();
-	die;
+
+	foreach ($moreSpecifiedObject->doFluentUnionIterable() as $fluentUnionIterableBaz) {
+		die;
+	}
 }
 
 function doBar(): Bar

@@ -75,7 +75,9 @@ class Foo extends FooParent
 	)
 	{
 		$parent = new FooParent();
-		die;
+		foreach ($moreSpecifiedObject->doFluentUnionIterable() as $fluentUnionIterableBaz) {
+			die;
+		}
 	}
 
 	/**

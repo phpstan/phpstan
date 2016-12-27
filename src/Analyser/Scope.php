@@ -39,7 +39,7 @@ use PHPStan\Type\IterableType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
-use PHPStan\Type\StaticType;
+use PHPStan\Type\StaticResolvableType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\VoidType;
@@ -504,12 +504,8 @@ class Scope
 					return $dynamicMethodReturnTypeExtension->getTypeFromMethodCall($methodReflection, $node, $this);
 				}
 
-				if ($methodReflection->getReturnType() instanceof StaticType) {
-					if ($methodReflection->getReturnType()->isNullable()) {
-						return $methodCalledOnType->makeNullable();
-					}
-
-					return $methodCalledOnType;
+				if ($methodReflection->getReturnType() instanceof StaticResolvableType) {
+					return $methodReflection->getReturnType()->resolveStatic($methodCalledOnType->getClass());
 				}
 
 				return $methodReflection->getReturnType();
@@ -525,18 +521,13 @@ class Scope
 					return new MixedType(true);
 				}
 				$staticMethodReflection = $staticMethodClassReflection->getMethod($node->name);
-				if ($staticMethodReflection->getReturnType() instanceof StaticType) {
+				if ($staticMethodReflection->getReturnType() instanceof StaticResolvableType) {
 					$nodeClassString = (string) $node->class;
 					if ($nodeClassString === 'parent' && $this->getClass() !== null) {
-						return new StaticType($this->getClass(), $staticMethodReflection->getReturnType()->isNullable());
+						return $staticMethodReflection->getReturnType()->changeBaseClass($this->getClass());
 					}
 
-					$calleeType = new ObjectType($calleeClass, false);
-					if ($staticMethodReflection->getReturnType()->isNullable()) {
-						return $calleeType->makeNullable();
-					}
-
-					return $calleeType;
+					return $staticMethodReflection->getReturnType()->resolveStatic($calleeClass);
 				}
 				return $staticMethodReflection->getReturnType();
 			}

@@ -2,7 +2,7 @@
 
 namespace PHPStan\Type;
 
-interface IterableType extends Type
+interface IterableType extends StaticResolvableType
 {
 
 	public function getItemType(): Type;

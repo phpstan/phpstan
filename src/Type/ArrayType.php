@@ -102,4 +102,32 @@ class ArrayType implements IterableType
 		return true;
 	}
 
+	public function resolveStatic(string $className): Type
+	{
+		if ($this->getItemType() instanceof StaticResolvableType) {
+			return new self(
+				$this->getItemType()->resolveStatic($className),
+				$this->isNullable(),
+				$this->isItemTypeInferredFromLiteralArray(),
+				$this->isPossiblyCallable()
+			);
+		}
+
+		return $this;
+	}
+
+	public function changeBaseClass(string $className): StaticResolvableType
+	{
+		if ($this->getItemType() instanceof StaticResolvableType) {
+			return new self(
+				$this->getItemType()->changeBaseClass($className),
+				$this->isNullable(),
+				$this->isItemTypeInferredFromLiteralArray(),
+				$this->isPossiblyCallable()
+			);
+		}
+
+		return $this;
+	}
+
 }

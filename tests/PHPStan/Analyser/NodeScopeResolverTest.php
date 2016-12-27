@@ -1521,6 +1521,24 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$moreSpecifiedObject->doFluentNullable()',
 			],
 			[
+				ObjectType::class,
+				false,
+				'MethodPhpDocsNamespace\Baz',
+				'$moreSpecifiedObject->doFluentArray()[0]',
+			],
+			[
+				UnionIterableType::class,
+				false,
+				null,
+				'$moreSpecifiedObject->doFluentUnionIterable()',
+			],
+			[
+				ObjectType::class,
+				false,
+				'MethodPhpDocsNamespace\Baz',
+				'$fluentUnionIterableBaz',
+			],
+			[
 				ResourceType::class,
 				false,
 				null,

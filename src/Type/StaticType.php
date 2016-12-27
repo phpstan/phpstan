@@ -2,7 +2,7 @@
 
 namespace PHPStan\Type;
 
-class StaticType implements Type
+class StaticType implements StaticResolvableType
 {
 
 	/** @var string */
@@ -68,6 +68,16 @@ class StaticType implements Type
 	public function isDocumentableNatively(): bool
 	{
 		return true;
+	}
+
+	public function resolveStatic(string $className): Type
+	{
+		return new ObjectType($className, $this->isNullable());
+	}
+
+	public function changeBaseClass(string $className): StaticResolvableType
+	{
+		return new self($className, $this->isNullable());
 	}
 
 }

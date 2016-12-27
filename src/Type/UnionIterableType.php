@@ -135,4 +135,36 @@ class UnionIterableType implements IterableType
 		return false;
 	}
 
+	public function resolveStatic(string $className): Type
+	{
+		$itemType = $this->getItemType();
+		$otherTypes = $this->getOtherTypes();
+		if ($itemType instanceof StaticResolvableType) {
+			$itemType = $itemType->resolveStatic($className);
+		}
+		foreach ($otherTypes as $i => $otherType) {
+			if ($otherType instanceof StaticResolvableType) {
+				$otherTypes[$i] = $otherType->resolveStatic($className);
+			}
+		}
+
+		return new self($itemType, $this->isNullable(), $otherTypes);
+	}
+
+	public function changeBaseClass(string $className): StaticResolvableType
+	{
+		$itemType = $this->getItemType();
+		$otherTypes = $this->getOtherTypes();
+		if ($itemType instanceof StaticResolvableType) {
+			$itemType = $itemType->changeBaseClass($className);
+		}
+		foreach ($otherTypes as $i => $otherType) {
+			if ($otherType instanceof StaticResolvableType) {
+				$otherTypes[$i] = $otherType->changeBaseClass($className);
+			}
+		}
+
+		return new self($itemType, $this->isNullable(), $otherTypes);
+	}
+
 }

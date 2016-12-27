@@ -31,4 +31,20 @@ class Bar
 
 	}
 
+	/**
+	 * @return static[]
+	 */
+	public function doFluentArray(): array
+	{
+
+	}
+
+	/**
+	 * @return static[]|static|Foo
+	 */
+	public function doFluentUnionIterable()
+	{
+
+	}
+
 }
