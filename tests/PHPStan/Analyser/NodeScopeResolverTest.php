@@ -1344,7 +1344,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			[
 				ObjectType::class,
 				false,
-				\Foo::class,
+				'CloneOperators\Foo',
 				'clone $fooObject',
 			],
 		];

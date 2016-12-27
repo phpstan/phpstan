@@ -1,6 +1,10 @@
 <?php
 
-class Foo {};
-$fooObject = new Foo();
+namespace CloneOperators;
 
-die;
+function () {
+	class Foo {};
+	$fooObject = new Foo();
+
+	die;
+};
