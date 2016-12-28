@@ -28,11 +28,14 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		$propertyType = $scope->getType($node->var);
+		/** @var \PhpParser\Node\Expr\PropertyFetch|\PhpParser\Node\Expr\StaticPropertyFetch $propertyFetch */
+		$propertyFetch = $node->var;
+
+		$propertyType = $scope->getType($propertyFetch);
 		$assignedValueType = $scope->getType($node->expr);
 
 		if (!$propertyType->accepts($assignedValueType)) {
-			$propertyDescription = $this->describeProperty($node->var, $scope);
+			$propertyDescription = $this->describeProperty($propertyFetch, $scope);
 			if ($propertyDescription === null) {
 				return [];
 			}

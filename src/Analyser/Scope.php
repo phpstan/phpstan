@@ -128,6 +128,24 @@ class Scope
 	 */
 	private $currentlyAssignedVariables = [];
 
+	/**
+	 * @param \PHPStan\Broker\Broker $broker
+	 * @param \PhpParser\PrettyPrinter\Standard $printer
+	 * @param string $file
+	 * @param string|null $analysedContextFile
+	 * @param bool $declareStrictTypes
+	 * @param string|null $class
+	 * @param \PHPStan\Reflection\ParametersAcceptor|null $function
+	 * @param string|null $namespace
+	 * @param \PHPStan\Type\Type[] $variablesTypes
+	 * @param string|null $inClosureBindScopeClass
+	 * @param \PHPStan\Type\Type|null $inAnonymousFunctionReturnType
+	 * @param \PHPStan\Reflection\ClassReflection|null $anonymousClass
+	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null $inFunctionCall
+	 * @param bool $negated
+	 * @param \PHPStan\Type\Type[] $moreSpecificTypes
+	 * @param string[] $currentlyAssignedVariables
+	 */
 	public function __construct(
 		Broker $broker,
 		\PhpParser\PrettyPrinter\Standard $printer,
@@ -277,7 +295,7 @@ class Scope
 	}
 
 	/**
-	 * @return \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|null
+	 * @return \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null
 	 */
 	public function getInFunctionCall()
 	{
@@ -445,7 +463,7 @@ class Scope
 				if ($constantClass === 'self') {
 					$constantClass = $this->getClass();
 				}
-			} else {
+			} elseif ($node->class instanceof Expr) {
 				$constantClassType = $this->getType($node->class);
 				if ($constantClassType->getClass() !== null) {
 					$constantClass = $constantClassType->getClass();
@@ -871,7 +889,7 @@ class Scope
 	/**
 	 * @param \PhpParser\Node\Param[] $parameters
 	 * @param \PhpParser\Node\Expr\ClosureUse[] $uses
-	 * @param \PhpParser\Node\Name|string|null $returnTypehint
+	 * @param \PhpParser\Node\Name|string|\PhpParser\Node\NullableType|null $returnTypehint
 	 * @return self
 	 */
 	public function enterAnonymousFunction(
@@ -930,7 +948,7 @@ class Scope
 	}
 
 	/**
-	 * @param \PhpParser\Node\Name|string|null $type
+	 * @param \PhpParser\Node\Name|string|\PhpParser\Node\NullableType|null $type
 	 * @param bool $isNullable
 	 * @param bool $isVariadic
 	 * @return Type

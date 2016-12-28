@@ -35,13 +35,15 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 		$class = $node->class;
 		if ($class instanceof \PhpParser\Node\Name) {
 			$className = (string) $class;
-		} else {
+		} elseif ($class instanceof Node\Expr) {
 			$classType = $scope->getType($class);
 			if ($classType->getClass() !== null) {
 				$className = $classType->getClass();
 			} else {
 				return [];
 			}
+		} else {
+			throw new \PHPStan\ShouldNotHappenException();
 		}
 
 		if ($className === 'self' || $className === 'static') {
