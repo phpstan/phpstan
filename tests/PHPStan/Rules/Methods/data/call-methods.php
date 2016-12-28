@@ -73,6 +73,17 @@ class Bar extends Foo
 				doFoo() ? $this->returnsVoid() : 'bar';
 				doFoo() ? 'foo' : $this->returnsVoid();
 				$void = $this->returnsVoid();
+				$void = $this->returnsVoid() ? 'foo' : 'bar';
+				$void = doFoo() ? $this->returnsVoid() : 'bar';
+				$void = doFoo() ? 'foo' : $this->returnsVoid();
+				$this->returnsVoid() && 'foo';
+				'foo' && $this->returnsVoid();
+				$this->returnsVoid() || 'foo';
+				'foo' || $this->returnsVoid();
+				$void = $this->returnsVoid() && 'foo';
+				$void = 'foo' && $this->returnsVoid();
+				$void = $this->returnsVoid() || 'foo';
+				$void = 'foo' || $this->returnsVoid();
 			}
 		}
 	}

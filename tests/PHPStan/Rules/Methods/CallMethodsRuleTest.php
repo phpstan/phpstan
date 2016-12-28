@@ -68,19 +68,47 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			],
 			[
 				'Result of method Test\Bar::returnsVoid() (void) is used.',
-				73,
-			],
-			[
-				'Result of method Test\Bar::returnsVoid() (void) is used.',
-				74,
-			],
-			[
-				'Result of method Test\Bar::returnsVoid() (void) is used.',
 				75,
 			],
 			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				76,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				77,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				78,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				79,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				81,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				83,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				84,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				85,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				86,
+			],
+			[
 				'Call to an undefined method ArrayObject::doFoo().',
-				93,
+				104,
 			],
 		]);
 	}
@@ -123,15 +151,43 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			],
 			[
 				'Result of method Test\Bar::returnsVoid() (void) is used.',
-				73,
-			],
-			[
-				'Result of method Test\Bar::returnsVoid() (void) is used.',
-				74,
-			],
-			[
-				'Result of method Test\Bar::returnsVoid() (void) is used.',
 				75,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				76,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				77,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				78,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				79,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				81,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				83,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				84,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				85,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				86,
 			],
 		]);
 	}

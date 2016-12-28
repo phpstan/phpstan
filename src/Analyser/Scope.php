@@ -1090,7 +1090,8 @@ class Scope
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$functionCall,
 			$this->isNegated(),
-			$this->moreSpecificTypes
+			$this->moreSpecificTypes,
+			$this->inFirstLevelStatement
 		);
 	}
 
@@ -1150,7 +1151,8 @@ class Scope
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
-			$this->moreSpecificTypes
+			$this->moreSpecificTypes,
+			$this->inFirstLevelStatement
 		);
 	}
 
@@ -1177,7 +1179,8 @@ class Scope
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
-			$this->moreSpecificTypes
+			$this->moreSpecificTypes,
+			$this->inFirstLevelStatement
 		);
 	}
 
@@ -1209,7 +1212,8 @@ class Scope
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
-			$this->moreSpecificTypes
+			$this->moreSpecificTypes,
+			$this->inFirstLevelStatement
 		);
 	}
 
@@ -1238,7 +1242,8 @@ class Scope
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
-			$this->moreSpecificTypes
+			$this->moreSpecificTypes,
+			$this->inFirstLevelStatement
 		);
 	}
 
@@ -1265,7 +1270,8 @@ class Scope
 				$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 				$this->getInFunctionCall(),
 				$this->isNegated(),
-				$this->moreSpecificTypes
+				$this->moreSpecificTypes,
+				$this->inFirstLevelStatement
 			);
 		}
 
@@ -1302,7 +1308,8 @@ class Scope
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			!$this->isNegated(),
-			$this->moreSpecificTypes
+			$this->moreSpecificTypes,
+			$this->inFirstLevelStatement
 		);
 	}
 
@@ -1384,7 +1391,8 @@ class Scope
 			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
-			$moreSpecificTypes
+			$moreSpecificTypes,
+			$this->inFirstLevelStatement
 		);
 	}
 

@@ -445,6 +445,17 @@ class NodeScopeResolver
 				}
 
 				$nodeScope = $scope->exitFirstLevelStatements();
+				if ($scope->isInFirstLevelStatement()) {
+					if ($node instanceof Ternary && $subNodeName !== 'cond') {
+						$nodeScope = $scope->enterFirstLevelStatements();
+					} elseif (
+						($node instanceof BooleanAnd || $node instanceof BinaryOp\BooleanOr)
+						&& $subNodeName === 'right'
+					) {
+						$nodeScope = $scope->enterFirstLevelStatements();
+					}
+				}
+
 				if ($node instanceof MethodCall && $subNodeName === 'var' && isset($closureCallScope)) {
 					$nodeScope = $closureCallScope->exitFirstLevelStatements();
 				}
