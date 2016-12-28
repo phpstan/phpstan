@@ -6,6 +6,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\VoidType;
 
 class FunctionCallParametersCheck
 {
@@ -22,7 +23,7 @@ class FunctionCallParametersCheck
 	 * @param \PHPStan\Reflection\ParametersAcceptor $function
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|\PhpParser\Node\Expr\New_ $funcCall
-	 * @param string[] $messages Seven message templates
+	 * @param string[] $messages Eight message templates
 	 * @return string[]
 	 */
 	public function check(ParametersAcceptor $function, Scope $scope, $funcCall, array $messages): array
@@ -46,6 +47,7 @@ class FunctionCallParametersCheck
 			}
 		}
 
+		$errors = [];
 		$invokedParametersCount = count($funcCall->args);
 		foreach ($funcCall->args as $arg) {
 			if ($arg->unpack) {
@@ -56,32 +58,35 @@ class FunctionCallParametersCheck
 
 		if ($invokedParametersCount < $functionParametersMinCount || $invokedParametersCount > $functionParametersMaxCount) {
 			if ($functionParametersMinCount === $functionParametersMaxCount) {
-				return [sprintf(
+				$errors[] = sprintf(
 					$invokedParametersCount === 1 ? $messages[0] : $messages[1],
 					$invokedParametersCount,
 					$functionParametersMinCount
-				)];
+				);
 			} elseif ($functionParametersMaxCount === -1 && $invokedParametersCount < $functionParametersMinCount) {
-				return [sprintf(
+				$errors[] = sprintf(
 					$invokedParametersCount === 1 ? $messages[2] : $messages[3],
 					$invokedParametersCount,
 					$functionParametersMinCount
-				)];
+				);
 			} elseif ($functionParametersMaxCount !== -1) {
-				return [sprintf(
+				$errors[] = sprintf(
 					$invokedParametersCount === 1 ? $messages[4] : $messages[5],
 					$invokedParametersCount,
 					$functionParametersMinCount,
 					$functionParametersMaxCount
-				)];
+				);
 			}
 		}
 
-		if (!$this->checkArgumentTypes) {
-			return [];
+		if ($function->getReturnType() instanceof VoidType && !$scope->isInFirstLevelStatement()) {
+			$errors[] = $messages[7];
 		}
 
-		$errors = [];
+		if (!$this->checkArgumentTypes) {
+			return $errors;
+		}
+
 		$parameters = $function->getParameters();
 		foreach ($funcCall->args as $i => $argument) {
 			if (!isset($parameters[$i])) {

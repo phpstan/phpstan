@@ -51,8 +51,36 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				63,
 			],
 			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				66,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				68,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				70,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				72,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				73,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				74,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				75,
+			],
+			[
 				'Call to an undefined method ArrayObject::doFoo().',
-				71,
+				93,
 			],
 		]);
 	}
@@ -76,6 +104,34 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			[
 				'Method Test\Foo::test() invoked with 0 parameters, 1 required.',
 				46,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				66,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				68,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				70,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				72,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				73,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				74,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				75,
 			],
 		]);
 	}

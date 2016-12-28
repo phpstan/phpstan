@@ -90,6 +90,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 							'Parent constructor invoked with %d parameter, %d-%d required.',
 							'Parent constructor invoked with %d parameters, %d-%d required.',
 							'Parameter #%d %s of parent constructor expects %s, %s given.',
+							'', // constructor does not have a return type
 						]
 					);
 				}
@@ -157,6 +158,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 				'Static method ' . $methodName . ' invoked with %d parameter, %d-%d required.',
 				'Static method ' . $methodName . ' invoked with %d parameters, %d-%d required.',
 				'Parameter #%d %s of static method ' . $methodName . ' expects %s, %s given.',
+				'Result of static method ' . $methodName . ' (void) is used.',
 			]
 		);
 

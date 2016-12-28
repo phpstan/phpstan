@@ -61,6 +61,28 @@ class Bar extends Foo
 	{
 		$foo = new UnknownClass();
 		$foo->doFoo();
+
+		$this->returnsVoid();
+		$this->dolor($this->returnsVoid(), 'bar', 'baz');
+
+		foreach ($this->returnsVoid() as $void) {
+			$this->returnsVoid();
+			if ($this->returnsVoid()) {
+				$this->returnsVoid();
+				$this->returnsVoid() ? 'foo' : 'bar';
+				doFoo() ? $this->returnsVoid() : 'bar';
+				doFoo() ? 'foo' : $this->returnsVoid();
+				$void = $this->returnsVoid();
+			}
+		}
+	}
+
+	/**
+	 * @return void
+	 */
+	private function returnsVoid()
+	{
+
 	}
 
 }

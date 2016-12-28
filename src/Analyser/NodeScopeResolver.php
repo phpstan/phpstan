@@ -319,11 +319,11 @@ class NodeScopeResolver
 				$scope = $this->lookForAssigns($scope, $loopExpr);
 			}
 		} elseif ($node instanceof If_) {
-			$scope = $this->lookForAssigns($scope, $node->cond);
+			$scope = $this->lookForAssigns($scope, $node->cond)->exitFirstLevelStatements();
 			$ifScope = $scope;
 			$scope = $this->lookForTypeSpecifications($scope, $node->cond);
 			$this->processNode($node->cond, $scope, $nodeCallback);
-			$this->processNodes($node->stmts, $scope, $nodeCallback);
+			$this->processNodes($node->stmts, $scope->enterFirstLevelStatements(), $nodeCallback);
 
 			foreach ($node->elseifs as $elseif) {
 				$this->processNode($elseif, $ifScope, $nodeCallback);
@@ -421,6 +421,11 @@ class NodeScopeResolver
 				if (isset($closureBindScope) && $subNodeName === 'args') {
 					$argClosureBindScope = $closureBindScope;
 				}
+				if ($subNodeName === 'stmts') {
+					$scope = $scope->enterFirstLevelStatements();
+				} else {
+					$scope = $scope->exitFirstLevelStatements();
+				}
 				$this->processNodes($subNode, $scope, $nodeCallback, $argClosureBindScope);
 			} elseif ($subNode instanceof \PhpParser\Node) {
 				if ($node instanceof Coalesce && $subNodeName === 'left') {
@@ -439,9 +444,9 @@ class NodeScopeResolver
 					$scope = $this->lookForEnterVariableAssign($scope, $node->var);
 				}
 
-				$nodeScope = $scope;
+				$nodeScope = $scope->exitFirstLevelStatements();
 				if ($node instanceof MethodCall && $subNodeName === 'var' && isset($closureCallScope)) {
-					$nodeScope = $closureCallScope;
+					$nodeScope = $closureCallScope->exitFirstLevelStatements();
 				}
 
 				$this->processNode($subNode, $nodeScope, $nodeCallback);
@@ -922,7 +927,7 @@ class NodeScopeResolver
 			);
 			$this->processNodes($parserNodes, new Scope($this->broker, $this->printer, $fileName), function (\PhpParser\Node $node) use ($traitName, $classScope, $nodeCallback) {
 				if ($node instanceof Node\Stmt\Trait_ && $traitName === (string) $node->namespacedName) {
-					$this->processNodes($node->stmts, $classScope, $nodeCallback);
+					$this->processNodes($node->stmts, $classScope->enterFirstLevelStatements(), $nodeCallback);
 				}
 			});
 		}

@@ -124,6 +124,11 @@ class Scope
 	private $moreSpecificTypes;
 
 	/**
+	 * @var bool
+	 */
+	private $inFirstLevelStatement;
+
+	/**
 	 * @var string[]
 	 */
 	private $currentlyAssignedVariables = [];
@@ -144,6 +149,7 @@ class Scope
 	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null $inFunctionCall
 	 * @param bool $negated
 	 * @param \PHPStan\Type\Type[] $moreSpecificTypes
+	 * @param bool $inFirstLevelStatement
 	 * @param string[] $currentlyAssignedVariables
 	 */
 	public function __construct(
@@ -162,6 +168,7 @@ class Scope
 		Expr $inFunctionCall = null,
 		bool $negated = false,
 		array $moreSpecificTypes = [],
+		bool $inFirstLevelStatement = true,
 		array $currentlyAssignedVariables = []
 	)
 	{
@@ -188,6 +195,7 @@ class Scope
 		$this->inFunctionCall = $inFunctionCall;
 		$this->negated = $negated;
 		$this->moreSpecificTypes = $moreSpecificTypes;
+		$this->inFirstLevelStatement = $inFirstLevelStatement;
 		$this->currentlyAssignedVariables = $currentlyAssignedVariables;
 	}
 
@@ -1107,6 +1115,7 @@ class Scope
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->moreSpecificTypes,
+			$this->isInFirstLevelStatement(),
 			$currentlyAssignedVariables
 		);
 	}
@@ -1295,6 +1304,57 @@ class Scope
 			!$this->isNegated(),
 			$this->moreSpecificTypes
 		);
+	}
+
+	public function enterFirstLevelStatements(): self
+	{
+		return new self(
+			$this->broker,
+			$this->printer,
+			$this->getFile(),
+			$this->getAnalysedContextFile(),
+			$this->isDeclareStrictTypes(),
+			$this->getClass(),
+			$this->getFunction(),
+			$this->getNamespace(),
+			$this->getVariableTypes(),
+			$this->inClosureBindScopeClass,
+			$this->getAnonymousFunctionReturnType(),
+			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
+			$this->getInFunctionCall(),
+			$this->isNegated(),
+			$this->moreSpecificTypes,
+			true,
+			$this->currentlyAssignedVariables
+		);
+	}
+
+	public function exitFirstLevelStatements(): self
+	{
+		return new self(
+			$this->broker,
+			$this->printer,
+			$this->getFile(),
+			$this->getAnalysedContextFile(),
+			$this->isDeclareStrictTypes(),
+			$this->getClass(),
+			$this->getFunction(),
+			$this->getNamespace(),
+			$this->getVariableTypes(),
+			$this->inClosureBindScopeClass,
+			$this->getAnonymousFunctionReturnType(),
+			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
+			$this->getInFunctionCall(),
+			$this->isNegated(),
+			$this->moreSpecificTypes,
+			false,
+			$this->currentlyAssignedVariables
+		);
+	}
+
+	public function isInFirstLevelStatement(): bool
+	{
+		return $this->inFirstLevelStatement;
 	}
 
 	public function isNegated(): bool
