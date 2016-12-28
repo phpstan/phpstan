@@ -17,6 +17,7 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\ResourceType;
+use PHPStan\Type\StringType;
 use PHPStan\Type\TrueOrFalseBooleanType;
 
 class TypeSpecifier
@@ -96,6 +97,8 @@ class TypeSpecifier
 				$specifiedType = new ResourceType(false);
 			} elseif ($functionName === 'is_iterable') {
 				$specifiedType = new IterableIterableType(new MixedType(true), false);
+			} elseif ($functionName === 'is_string') {
+				$specifiedType = new StringType(false);
 			}
 
 			if ($specifiedType !== null) {

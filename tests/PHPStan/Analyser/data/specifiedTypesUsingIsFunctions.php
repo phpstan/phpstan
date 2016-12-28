@@ -44,6 +44,10 @@ if (!is_resource($resource)) {
 	throw new \Exception();
 }
 
+if (!is_string($string)) {
+	throw new \Exception();
+}
+
 if (!is_int($mixedInteger) && !ctype_digit($whatever)) {
 	return;
 }

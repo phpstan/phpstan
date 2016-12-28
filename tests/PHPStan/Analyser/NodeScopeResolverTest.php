@@ -2438,6 +2438,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				null,
 				'$mixedInteger',
 			],
+			[
+				StringType::class,
+				false,
+				null,
+				'$string',
+			],
 		];
 	}
 

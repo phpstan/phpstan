@@ -145,7 +145,7 @@ class NodeScopeResolver
 						$lastParameter = $parameters[count($parameters) - 1];
 						$assignByReference = $lastParameter->isPassedByReference();
 					}
-					if ($assignByReference && $value instanceof Variable) {
+					if ($assignByReference && $value instanceof Variable && is_string($value->name)) {
 						$scope = $scope->assignVariable($value->name, new MixedType(true));
 					}
 				}
@@ -277,14 +277,14 @@ class NodeScopeResolver
 		} elseif ($node instanceof \PhpParser\Node\Expr\Closure) {
 			$scope = $scope->enterAnonymousFunction($node->params, $node->uses, $node->returnType);
 		} elseif ($node instanceof Foreach_) {
-			if ($node->valueVar instanceof Variable) {
+			if ($node->valueVar instanceof Variable && is_string($node->valueVar->name)) {
 				$scope = $scope->enterForeach(
 					$node->expr,
 					$node->valueVar->name,
 					$node->keyVar !== null && $node->keyVar instanceof Variable ? $node->keyVar->name : null
 				);
 			} else {
-				if ($node->keyVar !== null && $node->keyVar instanceof Variable) {
+				if ($node->keyVar !== null && $node->keyVar instanceof Variable && is_string($node->keyVar->name)) {
 					$scope = $scope->assignVariable($node->keyVar->name);
 				}
 
@@ -600,9 +600,9 @@ class NodeScopeResolver
 				if ($itemValue instanceof ArrayItem) {
 					$itemValue = $itemValue->value;
 				}
-				if ($itemValue instanceof Variable) {
+				if ($itemValue instanceof Variable && is_string($itemValue->name)) {
 					$scope = $scope->assignVariable($itemValue->name);
-				} elseif ($itemValue instanceof ArrayDimFetch && $itemValue->var instanceof Variable) {
+				} elseif ($itemValue instanceof ArrayDimFetch && $itemValue->var instanceof Variable && is_string($itemValue->var->name)) {
 					$scope = $scope->assignVariable($itemValue->var->name);
 				} else {
 					$scope = $this->lookForAssigns($scope, $itemValue);
@@ -883,8 +883,8 @@ class NodeScopeResolver
 			if ($type->getClass() !== null && $this->broker->hasClass($type->getClass())) {
 				$classReflection = $this->broker->getClass($type->getClass());
 				$methodName = $functionCall->name;
-				if ($classReflection->hasMethod((string) $methodName)) {
-					return $classReflection->getMethod((string) $methodName);
+				if ($classReflection->hasMethod($methodName)) {
+					return $classReflection->getMethod($methodName);
 				}
 			}
 		} elseif (

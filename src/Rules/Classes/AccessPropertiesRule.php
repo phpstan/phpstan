@@ -67,7 +67,7 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		$name = (string) $node->name;
+		$name = $node->name;
 		if (!$this->broker->hasClass($propertyClass)) {
 			return [
 				sprintf(
