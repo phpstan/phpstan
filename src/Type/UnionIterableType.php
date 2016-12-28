@@ -5,7 +5,7 @@ namespace PHPStan\Type;
 class UnionIterableType implements IterableType
 {
 
-	use ClassTypeHelperTrait, IterableTypeTrait;
+	use IterableTypeTrait;
 
 	/** @var \PHPStan\Type\Type[] */
 	private $otherTypes;
