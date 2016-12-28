@@ -11,7 +11,7 @@ abstract class Foo extends Bar
 	private $mixedProperty;
 
 	/** @var Foo|Bar */
-	private $alsoMixedProperty;
+	private $unionTypeProperty;
 
 	/**
 	 * @var int

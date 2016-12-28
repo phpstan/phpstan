@@ -6,7 +6,7 @@ use SomeNamespace\Amet as Dolor;
 use SomeNamespace\Consecteur;
 
 /**
- * @param Foo|Bar $alsoMixedParameter
+ * @param Foo|Bar $unionTypeParameter
  * @param int $anotherMixedParameter
  * @param int $anotherMixedParameter
  * @paran int $yetAnotherMixedProperty
@@ -39,7 +39,7 @@ use SomeNamespace\Consecteur;
  */
 function doFoo(
 	$mixedParameter,
-	$alsoMixedParameter,
+	$unionTypeParameter,
 	$anotherMixedParameter,
 	$yetAnotherMixedParameter,
 	$integerParameter,

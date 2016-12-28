@@ -115,7 +115,7 @@ class TypehintHelper
 						$type->isNullable() || $phpDocType->isNullable()
 					);
 				}
-			} elseif ($phpDocType instanceof UnionIterableType) {
+			} elseif ($phpDocType instanceof UnionType) {
 				if ($phpDocType->accepts($type)) {
 					return $phpDocType;
 				}

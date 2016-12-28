@@ -37,7 +37,7 @@ class FileTypeMapper
 
 	public function getTypeMap(string $fileName): array
 	{
-		$cacheKey = sprintf('%s-%d-v14-%d', $fileName, filemtime($fileName), $this->enableUnionTypes ? 1 : 0);
+		$cacheKey = sprintf('%s-%d-v15-%d', $fileName, filemtime($fileName), $this->enableUnionTypes ? 1 : 0);
 		if (isset($this->memoryCache[$cacheKey])) {
 			return $this->memoryCache[$cacheKey];
 		}
@@ -145,26 +145,31 @@ class FileTypeMapper
 			if ($this->enableUnionTypes) {
 				$otherTypes = [];
 
-				/** @var \PHPStan\Type\Type $itemType */
-				$itemType = null;
+				/** @var \PHPStan\Type\IterableType $iterableType */
+				$iterableType = null;
 				$onlyOneItemType = true;
 				foreach ($typePartsWithoutNull as $typePart) {
-					$type = TypehintHelper::getTypeObjectFromTypehint($typePart, $isNullable, $className, $nameScope);
+					$type = TypehintHelper::getTypeObjectFromTypehint($typePart, false, $className, $nameScope);
 					if ($type instanceof IterableType) {
-						if ($itemType !== null) {
+						if ($iterableType !== null) {
+							if ($onlyOneItemType) {
+								$otherTypes[] = $iterableType;
+							}
+							$otherTypes[] = $type;
 							$onlyOneItemType = false;
-							break;
+						} else {
+							$iterableType = $type;
 						}
-
-						$itemType = $type->getItemType();
 					} else {
 						$otherTypes[] = $type;
 					}
 				}
 
-				if ($itemType !== null && $onlyOneItemType) {
-					return new UnionIterableType($itemType, $isNullable, $otherTypes);
+				if ($iterableType !== null && $onlyOneItemType) {
+					return new UnionIterableType($iterableType->getItemType(), $isNullable, $otherTypes);
 				}
+
+				return new CommonUnionType($otherTypes, $isNullable);
 			}
 
 			return new MixedType($isNullable);

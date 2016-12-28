@@ -89,6 +89,10 @@ class ArrayType implements IterableType
 			return true;
 		}
 
+		if ($type instanceof UnionType && UnionTypeHelper::acceptsAll($this, $type)) {
+			return true;
+		}
+
 		return false;
 	}
 

@@ -9,6 +9,7 @@ use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
+use PHPStan\Type\CommonUnionType;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Type\FalseBooleanType;
 use PHPStan\Type\FileTypeMapper;
@@ -24,6 +25,7 @@ use PHPStan\Type\StringType;
 use PHPStan\Type\TrueBooleanType;
 use PHPStan\Type\TrueOrFalseBooleanType;
 use PHPStan\Type\UnionIterableType;
+use PHPStan\Type\UnionType;
 use PHPStan\Type\VoidType;
 use SomeNodeScopeResolverNamespace\Foo;
 
@@ -783,10 +785,10 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$this->mixedProperty',
 			],
 			[
-				MixedType::class,
+				CommonUnionType::class,
 				false,
 				null,
-				'$this->alsoMixedProperty',
+				'$this->unionTypeProperty',
 			],
 			[
 				MixedType::class,
@@ -1448,10 +1450,10 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$mixedParameter',
 			],
 			[
-				MixedType::class,
+				UnionType::class,
 				false,
 				null,
-				'$alsoMixedParameter',
+				'$unionTypeParameter',
 			],
 			[
 				MixedType::class,
@@ -2576,9 +2578,9 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$unionBar',
 			],
 			[
-				MixedType::class,
+				CommonUnionType::class,
 				false,
-				null,
+				'Iterables\Collection',
 				'$mixedUnionIterableType',
 			],
 			[

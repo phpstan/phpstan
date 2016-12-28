@@ -54,6 +54,10 @@ class FloatType implements Type
 			return true;
 		}
 
+		if ($type instanceof UnionType && UnionTypeHelper::acceptsAll($this, $type)) {
+			return true;
+		}
+
 		return $type instanceof MixedType;
 	}
 

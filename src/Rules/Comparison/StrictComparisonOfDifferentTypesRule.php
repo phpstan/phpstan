@@ -7,7 +7,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
-use PHPStan\Type\UnionIterableType;
+use PHPStan\Type\UnionType;
 
 class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 {
@@ -40,16 +40,16 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		if ($leftType instanceof UnionIterableType || $rightType instanceof UnionIterableType) {
-			if ($leftType instanceof UnionIterableType) {
-				$unionIterableType = $leftType;
+		if ($leftType instanceof UnionType || $rightType instanceof UnionType) {
+			if ($leftType instanceof UnionType) {
+				$unionType = $leftType;
 				$otherType = $rightType;
 			} else {
-				$unionIterableType = $rightType;
+				$unionType = $rightType;
 				$otherType = $leftType;
 			}
 
-			$isSameType = $unionIterableType->accepts($otherType);
+			$isSameType = $unionType->accepts($otherType);
 		} elseif ($leftType instanceof BooleanType && $rightType instanceof BooleanType) {
 			$isSameType = $leftType->accepts($rightType) || $rightType->accepts($leftType);
 		} else {

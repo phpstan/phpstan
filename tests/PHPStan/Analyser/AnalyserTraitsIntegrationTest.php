@@ -55,7 +55,7 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\TestCase
 
 	/**
 	 * @param string $file
-	 * @return \PHPStan\Analyser\Error[]
+	 * @return \PHPStan\Analyser\Error[]|string[]
 	 */
 	private function runAnalyse(string $file): array
 	{

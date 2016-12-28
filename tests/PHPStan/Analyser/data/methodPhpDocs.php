@@ -17,7 +17,7 @@ class Foo extends FooParent
 	}
 
 	/**
-	 * @param Foo|Bar $alsoMixedParameter
+	 * @param Foo|Bar $unionTypeParameter
 	 * @param int $anotherMixedParameter
 	 * @param int $anotherMixedParameter
 	 * @paran int $yetAnotherMixedProperty
@@ -52,7 +52,7 @@ class Foo extends FooParent
 	 */
 	public function doFoo(
 		$mixedParameter,
-		$alsoMixedParameter,
+		$unionTypeParameter,
 		$anotherMixedParameter,
 		$yetAnotherMixedParameter,
 		$integerParameter,
