@@ -79,7 +79,7 @@ class CallableType implements Type
 
 	public function describe(): string
 	{
-		return 'callable';
+		return 'callable' . ($this->nullable ? '|null' : '');
 	}
 
 	public function canAccessProperties(): bool

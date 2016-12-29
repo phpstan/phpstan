@@ -9,7 +9,7 @@ class IntegerType implements Type
 
 	public function describe(): string
 	{
-		return 'int';
+		return 'int' . ($this->nullable ? '|null' : '');
 	}
 
 	public function canAccessProperties(): bool
