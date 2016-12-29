@@ -52,7 +52,7 @@ class StaticType implements StaticResolvableType
 
 	public function describe(): string
 	{
-		return sprintf('static(%s)', $this->baseClass);
+		return sprintf('static(%s)', $this->baseClass) . ($this->nullable ? '|null' : '');
 	}
 
 	public function canAccessProperties(): bool

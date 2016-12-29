@@ -15,7 +15,7 @@ class FalseBooleanType implements BooleanType
 
 	public function describe(): string
 	{
-		return 'false';
+		return 'false' . ($this->nullable ? '|null' : '');
 	}
 
 	public function canAccessProperties(): bool

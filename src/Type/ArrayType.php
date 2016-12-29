@@ -98,7 +98,7 @@ class ArrayType implements IterableType
 
 	public function describe(): string
 	{
-		return sprintf('%s[]', $this->getItemType()->describe());
+		return sprintf('%s[]', $this->getItemType()->describe()) . ($this->nullable ? '|null' : '');
 	}
 
 	public function isDocumentableNatively(): bool

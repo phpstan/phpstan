@@ -99,7 +99,7 @@ class ObjectType implements Type
 
 	public function describe(): string
 	{
-		return $this->class;
+		return $this->class . ($this->nullable ? '|null' : '');
 	}
 
 	public function canAccessProperties(): bool

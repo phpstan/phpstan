@@ -7,26 +7,14 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\ArrayType;
-use PHPStan\Type\BooleanType;
-use PHPStan\Type\CallableType;
-use PHPStan\Type\CommonUnionType;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Type\FalseBooleanType;
 use PHPStan\Type\FileTypeMapper;
-use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
-use PHPStan\Type\IterableIterableType;
 use PHPStan\Type\MixedType;
-use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
-use PHPStan\Type\ResourceType;
-use PHPStan\Type\StaticType;
-use PHPStan\Type\StringType;
 use PHPStan\Type\TrueBooleanType;
 use PHPStan\Type\TrueOrFalseBooleanType;
-use PHPStan\Type\UnionIterableType;
-use PHPStan\Type\UnionType;
-use PHPStan\Type\VoidType;
 use SomeNodeScopeResolverNamespace\Foo;
 
 class NodeScopeResolverTest extends \PHPStan\TestCase
@@ -181,93 +169,63 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				IntegerType::class,
-				false,
-				null,
+				'int',
 				'$integer',
 			],
 			[
-				BooleanType::class,
-				false,
-				null,
+				'bool',
 				'$boolean',
 			],
 			[
-				StringType::class,
-				false,
-				null,
+				'string',
 				'$string',
 			],
 			[
-				FloatType::class,
-				false,
-				null,
+				'float',
 				'$float',
 			],
 			[
-				ObjectType::class,
-				false,
 				'TypesNamespaceTypehints\Lorem',
 				'$loremObject',
 			],
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$mixed',
 			],
 			[
-				ArrayType::class,
-				false,
-				null,
+				'mixed[]',
 				'$array',
 			],
 			[
-				BooleanType::class,
-				true,
-				null,
+				'bool|null',
 				'$isNullable',
 			],
 			[
-				ObjectType::class,
-				false,
 				'TypesNamespaceTypehints\Lorem',
 				'$loremObjectRef',
 			],
 			[
-				ObjectType::class,
-				false,
 				'TypesNamespaceTypehints\Bar',
 				'$barObject',
 			],
 			[
-				ObjectType::class,
-				false,
 				'TypesNamespaceTypehints\Foo',
 				'$fooObject',
 			],
 			[
-				ObjectType::class,
-				false,
 				'TypesNamespaceTypehints\Bar',
 				'$anotherBarObject',
 			],
 			[
-				CallableType::class,
-				false,
-				null,
+				'callable',
 				'$callable',
 			],
 			[
-				ArrayType::class,
-				false,
-				null,
+				'string[]',
 				'$variadicStrings',
 			],
 			[
-				StringType::class,
-				false,
-				null,
+				'string',
 				'$variadicStrings[0]',
 			],
 		];
@@ -276,22 +234,16 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	/**
 	 * @dataProvider dataParameterTypes
 	 * @param string $typeClass
-	 * @param boolean $nullable
-	 * @param string|null $class
 	 * @param string $expression
 	 */
 	public function testTypehints(
 		string $typeClass,
-		bool $nullable,
-		string $class = null,
 		string $expression
 	)
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/typehints.php',
 			$typeClass,
-			$nullable,
-			$class,
 			$expression
 		);
 	}
@@ -300,62 +252,42 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				IntegerType::class,
-				false,
-				null,
+				'int',
 				'$integer',
 			],
 			[
-				BooleanType::class,
-				false,
-				null,
+				'bool',
 				'$boolean',
 			],
 			[
-				StringType::class,
-				false,
-				null,
+				'string',
 				'$string',
 			],
 			[
-				FloatType::class,
-				false,
-				null,
+				'float',
 				'$float',
 			],
 			[
-				ObjectType::class,
-				false,
 				'TypesNamespaceTypehints\Lorem',
 				'$loremObject',
 			],
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$mixed',
 			],
 			[
-				ArrayType::class,
-				false,
-				null,
+				'mixed[]',
 				'$array',
 			],
 			[
-				BooleanType::class,
-				true,
-				null,
+				'bool|null',
 				'$isNullable',
 			],
 			[
-				CallableType::class,
-				false,
-				null,
+				'callable',
 				'$callable',
 			],
 			[
-				ObjectType::class,
-				false,
 				'TypesNamespaceTypehints\FooWithAnonymousFunction',
 				'$self',
 			],
@@ -364,23 +296,17 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 
 	/**
 	 * @dataProvider dataAnonymousFunctionParameterTypes
-	 * @param string $typeClass
-	 * @param boolean $nullable
-	 * @param string|null $class
+	 * @param string $description
 	 * @param string $expression
 	 */
 	public function testAnonymousFunctionTypehints(
-		string $typeClass,
-		bool $nullable,
-		string $class = null,
+		string $description,
 		string $expression
 	)
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/typehints-anonymous-function.php',
-			$typeClass,
-			$nullable,
-			$class,
+			$description,
 			$expression
 		);
 	}
@@ -389,75 +315,51 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				IntegerType::class,
-				false,
-				null,
+				'int',
 				'$integer',
 			],
 			[
-				BooleanType::class,
-				false,
-				null,
+				'bool',
 				'$boolean',
 			],
 			[
-				StringType::class,
-				false,
-				null,
+				'string',
 				'$string',
 			],
 			[
-				FloatType::class,
-				false,
-				null,
+				'float',
 				'$float',
 			],
 			[
-				ObjectType::class,
-				false,
 				'VarAnnotations\Lorem',
 				'$loremObject',
 			],
 			[
-				ObjectType::class,
-				false,
 				'AnotherNamespace\Bar',
 				'$barObject',
 			],
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$mixed',
 			],
 			[
-				ArrayType::class,
-				false,
-				null,
+				'mixed[]',
 				'$array',
 			],
 			[
-				BooleanType::class,
-				true,
-				null,
+				'bool|null',
 				'$isNullable',
 			],
 			[
-				CallableType::class,
-				false,
-				null,
+				'callable',
 				'$callable',
 			],
 			[
-				ObjectType::class,
-				false,
 				'VarAnnotations\Foo',
 				'$self',
 			],
 			[
-				FloatType::class,
-				false,
-				null,
+				'float',
 				'$invalidInteger',
 			],
 		];
@@ -465,49 +367,37 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 
 	/**
 	 * @dataProvider dataVarAnnotations
-	 * @param string $typeClass
-	 * @param boolean $nullable
-	 * @param string|null $class
+	 * @param string $description
 	 * @param string $expression
 	 */
 	public function testVarAnnotations(
-		string $typeClass,
-		bool $nullable,
-		string $class = null,
+		string $description,
 		string $expression
 	)
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/var-annotations.php',
-			$typeClass,
-			$nullable,
-			$class,
+			$description,
 			$expression
 		);
 	}
 
 	/**
 	 * @dataProvider dataVarAnnotations
-	 * @param string $typeClass
-	 * @param boolean $nullable
-	 * @param string|null $class
+	 * @param string $description
 	 * @param string $expression
 	 */
 	public function testVarAnnotationsAlt(
-		string $typeClass,
-		bool $nullable,
-		string $class = null,
+		string $description,
 		string $expression
 	)
 	{
-		if (\Nette\Utils\Strings::startsWith($class, 'VarAnnotations\\')) {
-			$class = 'VarAnnotationsAlt\\' . substr($class, strlen('VarAnnotations\\'));
+		if (\Nette\Utils\Strings::startsWith($description, 'VarAnnotations\\')) {
+			$description = 'VarAnnotationsAlt\\' . substr($description, strlen('VarAnnotations\\'));
 		}
 		$this->assertTypes(
 			__DIR__ . '/data/var-annotations-alt.php',
-			$typeClass,
-			$nullable,
-			$class,
+			$description,
 			$expression
 		);
 	}
@@ -516,45 +406,31 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				IntegerType::class,
-				false,
-				null,
+				'int',
 				'$castedInteger',
 			],
 			[
-				BooleanType::class,
-				false,
-				null,
+				'bool',
 				'$castedBoolean',
 			],
 			[
-				FloatType::class,
-				false,
-				null,
+				'float',
 				'$castedFloat',
 			],
 			[
-				StringType::class,
-				false,
-				null,
+				'string',
 				'$castedString',
 			],
 			[
-				ArrayType::class,
-				false,
-				null,
+				'mixed[]',
 				'$castedArray',
 			],
 			[
-				ObjectType::class,
-				false,
 				'stdClass',
 				'$castedObject',
 			],
 			[
-				NullType::class,
-				true,
-				null,
+				'null',
 				'$castedNull',
 			],
 		];
@@ -562,23 +438,17 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 
 	/**
 	 * @dataProvider dataCasts
-	 * @param string $typeClass
-	 * @param boolean $nullable
-	 * @param string|null $class
+	 * @param string $desciptiion
 	 * @param string $expression
 	 */
 	public function testCasts(
-		string $typeClass,
-		bool $nullable,
-		string $class = null,
+		string $desciptiion,
 		string $expression
 	)
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/casts.php',
-			$typeClass,
-			$nullable,
-			$class,
+			$desciptiion,
 			$expression
 		);
 	}
@@ -587,165 +457,111 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				IntegerType::class,
-				false,
-				null,
+				'int',
 				'$integerLiteral',
 			],
 			[
-				BooleanType::class,
-				false,
-				null,
+				'true',
 				'$booleanLiteral',
 			],
 			[
-				BooleanType::class,
-				false,
-				null,
+				'false',
 				'$anotherBooleanLiteral',
 			],
 			[
-				StringType::class,
-				false,
-				null,
+				'string',
 				'$stringLiteral',
 			],
 			[
-				FloatType::class,
-				false,
-				null,
+				'float',
 				'$floatLiteral',
 			],
 			[
-				FloatType::class,
-				false,
-				null,
+				'float',
 				'$floatAssignedByRef',
 			],
 			[
-				NullType::class,
-				true,
-				null,
+				'null',
 				'$nullLiteral',
 			],
 			[
-				ObjectType::class,
-				false,
 				'TypesNamespaceDeductedTypes\Lorem',
 				'$loremObjectLiteral',
 			],
 			[
-				MixedType::class,
-				false,
-				null,
+				'mixed',
 				'$mixedObjectLiteral',
 			],
 			[
-				MixedType::class,
-				false,
-				null,
+				'mixed',
 				'$anotherMixedObjectLiteral',
 			],
 			[
-				ArrayType::class,
-				false,
-				null,
+				'mixed[]',
 				'$arrayLiteral',
 			],
 			[
-				StringType::class,
-				false,
-				null,
+				'string',
 				'$stringFromFunction',
 			],
 			[
-				ObjectType::class,
-				false,
 				'TypesNamespaceFunctions\Foo',
 				'$fooObjectFromFunction',
 			],
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$mixedFromFunction',
 			],
 			[
-				IntegerType::class,
-				false,
-				null,
+				'int',
 				'\TypesNamespaceDeductedTypes\Foo::INTEGER_CONSTANT',
 			],
 			[
-				IntegerType::class,
-				false,
-				null,
+				'int',
 				'self::INTEGER_CONSTANT',
 			],
 			[
-				FloatType::class,
-				false,
-				null,
+				'float',
 				'self::FLOAT_CONSTANT',
 			],
 			[
-				StringType::class,
-				false,
-				null,
+				'string',
 				'self::STRING_CONSTANT',
 			],
 			[
-				ArrayType::class,
-				false,
-				null,
+				'mixed[]',
 				'self::ARRAY_CONSTANT',
 			],
 			[
-				BooleanType::class,
-				false,
-				null,
+				'bool',
 				'self::BOOLEAN_CONSTANT',
 			],
 			[
-				NullType::class,
-				true,
-				null,
+				'null',
 				'self::NULL_CONSTANT',
 			],
 			[
-				IntegerType::class,
-				false,
-				null,
+				'int',
 				'$foo::INTEGER_CONSTANT',
 			],
 			[
-				FloatType::class,
-				false,
-				null,
+				'float',
 				'$foo::FLOAT_CONSTANT',
 			],
 			[
-				StringType::class,
-				false,
-				null,
+				'string',
 				'$foo::STRING_CONSTANT',
 			],
 			[
-				ArrayType::class,
-				false,
-				null,
+				'mixed[]',
 				'$foo::ARRAY_CONSTANT',
 			],
 			[
-				BooleanType::class,
-				false,
-				null,
+				'bool',
 				'$foo::BOOLEAN_CONSTANT',
 			],
 			[
-				NullType::class,
-				true,
-				null,
+				'null',
 				'$foo::NULL_CONSTANT',
 			],
 		];
@@ -753,24 +569,18 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 
 	/**
 	 * @dataProvider dataDeductedTypes
-	 * @param string $typeClass
-	 * @param boolean $nullable
-	 * @param string|null $class
+	 * @param string $description
 	 * @param string $expression
 	 */
 	public function testDeductedTypes(
-		string $typeClass,
-		bool $nullable,
-		string $class = null,
+		string $description,
 		string $expression
 	)
 	{
 		require_once __DIR__ . '/data/function-definitions.php';
 		$this->assertTypes(
 			__DIR__ . '/data/deducted-types.php',
-			$typeClass,
-			$nullable,
-			$class,
+			$description,
 			$expression
 		);
 	}
@@ -779,164 +589,110 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				MixedType::class,
-				false,
-				null,
+				'mixed',
 				'$this->mixedProperty',
 			],
 			[
-				CommonUnionType::class,
-				false,
-				null,
-				'$this->unionTypeProperty',
+				'mixed',
+				'$this->alsoMixedProperty',
 			],
 			[
-				MixedType::class,
-				false,
-				null,
+				'mixed',
 				'$this->anotherMixedProperty',
 			],
 			[
-				MixedType::class,
-				false,
-				null,
+				'mixed',
 				'$this->yetAnotherMixedProperty',
 			],
 			[
-				IntegerType::class,
-				false,
-				null,
+				'int',
 				'$this->integerProperty',
 			],
 			[
-				IntegerType::class,
-				false,
-				null,
+				'int',
 				'$this->anotherIntegerProperty',
 			],
 			[
-				ArrayType::class,
-				false,
-				null,
+				'mixed[]',
 				'$this->arrayPropertyOne',
 			],
 			[
-				ArrayType::class,
-				false,
-				null,
+				'mixed[]',
 				'$this->arrayPropertyOther',
 			],
 			[
-				ObjectType::class,
-				false,
 				'PropertiesNamespace\\Lorem',
 				'$this->objectRelative',
 			],
 			[
-				ObjectType::class,
-				false,
 				'SomeOtherNamespace\\Ipsum',
 				'$this->objectFullyQualified',
 			],
 			[
-				ObjectType::class,
-				false,
 				'SomeNamespace\\Amet',
 				'$this->objectUsed',
 			],
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$this->nonexistentProperty',
 			],
 			[
-				IntegerType::class,
-				true,
-				null,
+				'int|null',
 				'$this->nullableInteger',
 			],
 			[
-				ObjectType::class,
-				true,
-				'SomeNamespace\Amet',
+				'SomeNamespace\Amet|null',
 				'$this->nullableObject',
 			],
 			[
-				ObjectType::class,
-				false,
 				'PropertiesNamespace\\Foo',
 				'$this->selfType',
 			],
 			[
-				StaticType::class,
-				false,
-				null,
+				'static(PropertiesNamespace\Foo)',
 				'$this->staticType',
 			],
 			[
-				NullType::class,
-				true,
-				null,
+				'null',
 				'$this->nullType',
 			],
 			[
-				ObjectType::class,
-				false,
 				'SomeNamespace\Sit',
 				'$this->inheritedProperty',
 			],
 			[
-				ObjectType::class,
-				false,
 				'PropertiesNamespace\Bar',
 				'$this->barObject->doBar()',
 			],
 			[
-				MixedType::class,
-				false,
-				null,
+				'mixed',
 				'$this->invalidTypeProperty',
 			],
 			[
-				ResourceType::class,
-				false,
-				null,
+				'resource',
 				'$this->resource',
 			],
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$yetAnotherAnotherMixedParameter',
 			],
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$yetAnotherAnotherAnotherMixedParameter',
 			],
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$yetAnotherAnotherAnotherAnotherMixedParameter',
 			],
 			[
-				StringType::class,
-				false,
-				null,
+				'string',
 				'self::$staticStringProperty',
 			],
 			[
-				ObjectType::class,
-				false,
 				'SomeGroupNamespace\One',
 				'$this->groupUseProperty',
 			],
 			[
-				ObjectType::class,
-				false,
 				'SomeGroupNamespace\Two',
 				'$this->anotherGroupUseProperty',
 			],
@@ -945,23 +701,17 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 
 	/**
 	 * @dataProvider dataProperties
-	 * @param string $typeClass
-	 * @param boolean $nullable
-	 * @param string|null $class
+	 * @param string $description
 	 * @param string $expression
 	 */
 	public function testProperties(
-		string $typeClass,
-		bool $nullable,
-		string $class = null,
+		string $description,
 		string $expression
 	)
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/properties.php',
-			$typeClass,
-			$nullable,
-			$class,
+			$description,
 			$expression
 		);
 	}
@@ -971,13 +721,13 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		$typeCallback = function ($value) {
 			$type = gettype($value);
 			if ($type === 'integer') {
-				return IntegerType::class;
+				return 'int';
 			} elseif ($type === 'double') {
-				return FloatType::class;
+				return 'float';
 			} elseif ($type === 'boolean') {
-				return BooleanType::class;
+				return 'bool';
 			} elseif ($type === 'string') {
-				return StringType::class;
+				return $type;
 			}
 
 			return MixedType::class;
@@ -986,344 +736,232 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		return [
 			[
 				$typeCallback('foo' && 'bar'),
-				false,
-				null,
 				"'foo' && 'bar'",
 			],
 			[
 				$typeCallback('foo' || 'bar'),
-				false,
-				null,
 				"'foo' || 'bar'",
 			],
 			[
 				$typeCallback('foo' xor 'bar'),
-				false,
-				null,
 				"'foo' xor 'bar'",
 			],
 			[
 				$typeCallback(!2),
-				false,
-				null,
 				'!2',
 			],
 			[
 				$typeCallback(-1),
-				false,
-				null,
 				'-1',
 			],
 			[
 				$typeCallback(+1),
-				false,
-				null,
 				'+1',
 			],
 			// integer + integer
 			[
 				$typeCallback(1 + 1),
-				false,
-				null,
 				'1 + 1',
 			],
 			[
 				$typeCallback(1 - 1),
-				false,
-				null,
 				'1 - 1',
 			],
 			[
 				$typeCallback(1 / 2),
-				false,
-				null,
 				'1 / 2',
 			],
 			[
 				$typeCallback(1 * 1),
-				false,
-				null,
 				'1 * 1',
 			],
 			[
 				$typeCallback(1 ** 1),
-				false,
-				null,
 				'1 ** 1',
 			],
 			[
 				$typeCallback(1 % 1),
-				false,
-				null,
 				'1 % 1',
 			],
 			[
 				$typeCallback(1 / 2),
-				false,
-				null,
 				'$integer /= 2',
 			],
 			[
 				$typeCallback(1 * 1),
-				false,
-				null,
 				'$integer *= 1',
 			],
 			// float + float
 			[
 				$typeCallback(1.2 + 1.4),
-				false,
-				null,
 				'1.2 + 1.4',
 			],
 			[
 				$typeCallback(1.2 - 1.4),
-				false,
-				null,
 				'1.2 - 1.4',
 			],
 			[
 				$typeCallback(1.2 / 2.4),
-				false,
-				null,
 				'1.2 / 2.4',
 			],
 			[
 				$typeCallback(1.2 * 1.4),
-				false,
-				null,
 				'1.2 * 1.4',
 			],
 			[
 				$typeCallback(1.2 ** 1.4),
-				false,
-				null,
 				'1.2 ** 1.4',
 			],
 			[
 				$typeCallback(3.2 % 2.4),
-				false,
-				null,
 				'3.2 % 2.4',
 			],
 			[
 				$typeCallback(1.2 / 2.4),
-				false,
-				null,
 				'$float /= 2.4',
 			],
 			[
 				$typeCallback(1.2 * 2.4),
-				false,
-				null,
 				'$float *= 2.4',
 			],
 			// integer + float
 			[
 				$typeCallback(1 + 1.4),
-				false,
-				null,
 				'1 + 1.4',
 			],
 			[
 				$typeCallback(1 - 1.4),
-				false,
-				null,
 				'1 - 1.4',
 			],
 			[
 				$typeCallback(1 / 2.4),
-				false,
-				null,
 				'1 / 2.4',
 			],
 			[
 				$typeCallback(1 * 1.4),
-				false,
-				null,
 				'1 * 1.4',
 			],
 			[
 				$typeCallback(1 ** 1.4),
-				false,
-				null,
 				'1 ** 1.4',
 			],
 			[
 				$typeCallback(3 % 2.4),
-				false,
-				null,
 				'3 % 2.4',
 			],
 			[
 				$typeCallback(1 / 2.4),
-				false,
-				null,
 				'$integer /= 2.4',
 			],
 			[
 				$typeCallback(1 * 2.4),
-				false,
-				null,
 				'$integer *= 2.4',
 			],
 			// float + integer
 			[
 				$typeCallback(1.2 + 1),
-				false,
-				null,
 				'1.2 + 1',
 			],
 			[
 				$typeCallback(1.2 - 1),
-				false,
-				null,
 				'1.2 - 1',
 			],
 			[
 				$typeCallback(1.2 / 2),
-				false,
-				null,
 				'1.2 / 2',
 			],
 			[
 				$typeCallback(1.2 * 1),
-				false,
-				null,
 				'1.2 * 1',
 			],
 			[
 				$typeCallback(1.2 ** 1),
-				false,
-				null,
 				'1.2 ** 1',
 			],
 			[
 				$typeCallback(3.2 % 2),
-				false,
-				null,
 				'3.2 % 2',
 			],
 			[
 				$typeCallback(1.2 / 2.4),
-				false,
-				null,
 				'$float /= 2.4',
 			],
 			[
 				$typeCallback(1.2 * 2),
-				false,
-				null,
 				'$float *= 2',
 			],
 			// boolean
 			[
 				$typeCallback(true + false),
-				false,
-				null,
 				'true + false',
 			],
 			// string
 			[
 				$typeCallback('a' . 'b'),
-				false,
-				null,
 				"'a' . 'b'",
 			],
 			[
 				$typeCallback(1 . 'b'),
-				false,
-				null,
 				"1 . 'b'",
 			],
 			[
 				$typeCallback(1.0 . 'b'),
-				false,
-				null,
 				"1.0 . 'b'",
 			],
 			[
 				$typeCallback(1.0 . 2.0),
-				false,
-				null,
 				'1.0 . 2.0',
 			],
 			[
 				$typeCallback('foo' <=> 'bar'),
-				false,
-				null,
 				"'foo' <=> 'bar'",
 			],
 			[
-				MixedType::class,
-				false,
-				null,
+				'mixed',
 				'1 + doFoo()',
 			],
 			[
-				MixedType::class,
-				false,
-				null,
+				'mixed',
 				'1 / doFoo()',
 			],
 			[
-				MixedType::class,
-				false,
-				null,
+				'mixed',
 				'1.0 / doFoo()',
 			],
 			[
-				MixedType::class,
-				false,
-				null,
+				'mixed',
 				'doFoo() / 1',
 			],
 			[
-				MixedType::class,
-				false,
-				null,
+				'mixed',
 				'doFoo() / 1.0',
 			],
 			[
-				MixedType::class,
-				false,
-				null,
+				'mixed',
 				'1.0 + doFoo()',
 			],
 			[
-				MixedType::class,
-				false,
-				null,
+				'mixed',
 				'1.0 + doFoo()',
 			],
 			[
-				MixedType::class,
-				false,
-				null,
+				'mixed',
 				'doFoo() + 1',
 			],
 			[
-				MixedType::class,
-				false,
-				null,
+				'mixed',
 				'doFoo() + 1.0',
 			],
 			[
-				StringType::class,
-				true,
-				null,
+				'string|null',
 				"doFoo() ? 'foo' : null",
 			],
 			[
-				IntegerType::class,
-				true,
-				null,
+				'int|null',
 				'12 ?: null',
 			],
 			[
-				StringType::class,
-				true,
-				null,
+				'string|null',
 				"'foo' ?? null",
 			],
 		];
@@ -1331,23 +969,17 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 
 	/**
 	 * @dataProvider dataBinaryOperations
-	 * @param string $typeClass
-	 * @param boolean $nullable
-	 * @param string|null $class
+	 * @param string $description
 	 * @param string $expression
 	 */
 	public function testBinaryOperations(
-		string $typeClass,
-		bool $nullable,
-		string $class = null,
+		string $description,
 		string $expression
 	)
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/binary.php',
-			$typeClass,
-			$nullable,
-			$class,
+			$description,
 			$expression
 		);
 	}
@@ -1356,8 +988,6 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				ObjectType::class,
-				false,
 				'CloneOperators\Foo',
 				'clone $fooObject',
 			],
@@ -1366,23 +996,17 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 
 	/**
 	 * @dataProvider dataCloneOperators
-	 * @param string $typeClass
-	 * @param boolean $nullable
-	 * @param string|null $class
+	 * @param string $description
 	 * @param string $expression
 	 */
 	public function testCloneOperators(
-		string $typeClass,
-		bool $nullable,
-		string $class = null,
+		string $description,
 		string $expression
 	)
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/clone.php',
-			$typeClass,
-			$nullable,
-			$class,
+			$description,
 			$expression
 		);
 	}
@@ -1391,27 +1015,19 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				IntegerType::class,
-				false,
-				null,
+				'int',
 				'$integers[0]',
 			],
 			[
-				StringType::class,
-				false,
-				null,
+				'string',
 				'$strings[0]',
 			],
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$emptyArray[0]',
 			],
 			[
-				MixedType::class,
-				false,
-				null,
+				'mixed',
 				'$mixedArray[0]',
 			],
 		];
@@ -1419,23 +1035,17 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 
 	/**
 	 * @dataProvider dataLiteralArrays
-	 * @param string $typeClass
-	 * @param boolean $nullable
-	 * @param string|null $class
+	 * @param string $description
 	 * @param string $expression
 	 */
 	public function testLiteralArrays(
-		string $typeClass,
-		bool $nullable,
-		string $class = null,
+		string $description,
 		string $expression
 	)
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/literal-arrays.php',
-			$typeClass,
-			$nullable,
-			$class,
+			$description,
 			$expression
 		);
 	}
@@ -1444,207 +1054,139 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$mixedParameter',
 			],
 			[
-				UnionType::class,
-				false,
-				null,
-				'$unionTypeParameter',
+				'mixed',
+				'$alsoMixedParameter',
 			],
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$anotherMixedParameter',
 			],
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$yetAnotherMixedParameter',
 			],
 			[
-				IntegerType::class,
-				false,
-				null,
+				'int',
 				'$integerParameter',
 			],
 			[
-				IntegerType::class,
-				false,
-				null,
+				'int',
 				'$anotherIntegerParameter',
 			],
 			[
-				ArrayType::class,
-				false,
-				null,
+				'mixed[]',
 				'$arrayParameterOne',
 			],
 			[
-				ArrayType::class,
-				false,
-				null,
+				'mixed[]',
 				'$arrayParameterOther',
 			],
 			[
-				ObjectType::class,
-				false,
 				'MethodPhpDocsNamespace\\Lorem',
 				'$objectRelative',
 			],
 			[
-				ObjectType::class,
-				false,
 				'SomeOtherNamespace\\Ipsum',
 				'$objectFullyQualified',
 			],
 			[
-				ObjectType::class,
-				false,
 				'SomeNamespace\\Amet',
 				'$objectUsed',
 			],
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$nonexistentParameter',
 			],
 			[
-				IntegerType::class,
-				true,
-				null,
+				'int|null',
 				'$nullableInteger',
 			],
 			[
-				ObjectType::class,
-				true,
-				'SomeNamespace\Amet',
+				'SomeNamespace\Amet|null',
 				'$nullableObject',
 			],
 			[
-				ObjectType::class,
-				true,
-				'SomeNamespace\Amet',
+				'SomeNamespace\Amet|null',
 				'$anotherNullableObject',
 			],
 			[
-				NullType::class,
-				true,
-				null,
+				'null',
 				'$nullType',
 			],
 			[
-				ObjectType::class,
-				false,
 				'MethodPhpDocsNamespace\Bar',
 				'$barObject->doBar()',
 			],
 			[
-				ObjectType::class,
-				false,
 				'MethodPhpDocsNamespace\Bar',
 				'$conflictedObject',
 			],
 			[
-				ObjectType::class,
-				false,
 				'MethodPhpDocsNamespace\Baz',
 				'$moreSpecifiedObject',
 			],
 			[
-				ObjectType::class,
-				false,
 				'MethodPhpDocsNamespace\Baz',
 				'$moreSpecifiedObject->doFluent()',
 			],
 			[
-				ObjectType::class,
-				true,
-				'MethodPhpDocsNamespace\Baz',
+				'MethodPhpDocsNamespace\Baz|null',
 				'$moreSpecifiedObject->doFluentNullable()',
 			],
 			[
-				ObjectType::class,
-				false,
 				'MethodPhpDocsNamespace\Baz',
 				'$moreSpecifiedObject->doFluentArray()[0]',
 			],
 			[
-				UnionIterableType::class,
-				false,
-				null,
+				'MethodPhpDocsNamespace\Baz[]|MethodPhpDocsNamespace\Baz|MethodPhpDocsNamespace\Foo',
 				'$moreSpecifiedObject->doFluentUnionIterable()',
 			],
 			[
-				ObjectType::class,
-				false,
 				'MethodPhpDocsNamespace\Baz',
 				'$fluentUnionIterableBaz',
 			],
 			[
-				ResourceType::class,
-				false,
-				null,
+				'resource',
 				'$resource',
 			],
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$yetAnotherAnotherMixedParameter',
 			],
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$yetAnotherAnotherAnotherMixedParameter',
 			],
 			[
-				VoidType::class,
-				false,
-				null,
+				'void',
 				'$voidParameter',
 			],
 			[
-				ObjectType::class,
-				false,
 				'SomeNamespace\Consecteur',
 				'$useWithoutAlias',
 			],
 			[
-				TrueBooleanType::class,
-				false,
-				null,
+				'true',
 				'$true',
 			],
 			[
-				FalseBooleanType::class,
-				false,
-				null,
+				'false',
 				'$false',
 			],
 			[
-				TrueBooleanType::class,
-				false,
-				null,
+				'true',
 				'$boolTrue',
 			],
 			[
-				FalseBooleanType::class,
-				false,
-				null,
+				'false',
 				'$boolFalse',
 			],
 			[
-				TrueOrFalseBooleanType::class,
-				false,
-				null,
+				'bool',
 				'$trueBoolean',
 			],
 
@@ -1655,14 +1197,10 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				ObjectType::class,
-				false,
 				'MethodPhpDocsNamespace\Foo',
 				'$fooFunctionResult',
 			],
 			[
-				ObjectType::class,
-				false,
 				'MethodPhpDocsNamespace\Bar',
 				'$barFunctionResult',
 			],
@@ -1672,24 +1210,18 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	/**
 	 * @dataProvider dataTypeFromFunctionPhpDocs
 	 * @dataProvider dataTypeFromFunctionFunctionPhpDocs
-	 * @param string $typeClass
-	 * @param boolean $nullable
-	 * @param string|null $class
+	 * @param string $description
 	 * @param string $expression
 	 */
 	public function testTypeFromFunctionPhpDocs(
-		string $typeClass,
-		bool $nullable,
-		string $class = null,
+		string $description,
 		string $expression
 	)
 	{
 		require_once __DIR__ . '/data/functionPhpDocs.php';
 		$this->assertTypes(
 			__DIR__ . '/data/functionPhpDocs.php',
-			$typeClass,
-			$nullable,
-			$class,
+			$description,
 			$expression
 		);
 	}
@@ -1698,80 +1230,54 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				ObjectType::class,
-				false,
 				'MethodPhpDocsNamespace\\Foo',
 				'$selfType',
 			],
 			[
-				StaticType::class,
-				false,
-				null,
+				'static(MethodPhpDocsNamespace\Foo)',
 				'$staticType',
 			],
 			[
-				ObjectType::class,
-				false,
 				'MethodPhpDocsNamespace\Foo',
 				'$this->doFoo()',
 			],
 			[
-				ObjectType::class,
-				false,
 				'MethodPhpDocsNamespace\Bar',
 				'static::doSomethingStatic()',
 			],
 			[
-				StaticType::class,
-				false,
-				null,
+				'static(MethodPhpDocsNamespace\Foo)',
 				'parent::doLorem()',
 			],
 			[
-				ObjectType::class,
-				false,
 				'MethodPhpDocsNamespace\FooParent',
 				'$parent->doLorem()',
 			],
 			[
-				ObjectType::class,
-				false,
 				'MethodPhpDocsNamespace\Foo',
 				'$this->doLorem()',
 			],
 			[
-				StaticType::class,
-				false,
-				null,
+				'static(MethodPhpDocsNamespace\Foo)',
 				'parent::doIpsum()',
 			],
 			[
-				ObjectType::class,
-				false,
 				'MethodPhpDocsNamespace\FooParent',
 				'$parent->doIpsum()',
 			],
 			[
-				ObjectType::class,
-				false,
 				'MethodPhpDocsNamespace\Foo',
 				'$this->doIpsum()',
 			],
 			[
-				ObjectType::class,
-				false,
 				'MethodPhpDocsNamespace\Foo',
 				'$this->doBar()[0]',
 			],
 			[
-				ObjectType::class,
-				false,
 				'MethodPhpDocsNamespace\Bar',
 				'self::doSomethingStatic()',
 			],
 			[
-				ObjectType::class,
-				false,
 				'MethodPhpDocsNamespace\Bar',
 				'\MethodPhpDocsNamespace\Foo::doSomethingStatic()',
 			],
@@ -1781,23 +1287,17 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	/**
 	 * @dataProvider dataTypeFromFunctionPhpDocs
 	 * @dataProvider dataTypeFromMethodPhpDocs
-	 * @param string $typeClass
-	 * @param boolean $nullable
-	 * @param string|null $class
+	 * @param string $description
 	 * @param string $expression
 	 */
 	public function testTypeFromMethodPhpDocs(
-		string $typeClass,
-		bool $nullable,
-		string $class = null,
+		string $description,
 		string $expression
 	)
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/methodPhpDocs.php',
-			$typeClass,
-			$nullable,
-			$class,
+			$description,
 			$expression
 		);
 	}
@@ -1806,38 +1306,26 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				ObjectType::class,
-				false,
 				'PhpParser\Node\Expr\ArrayDimFetch',
 				'$foo',
 			],
 			[
-				ObjectType::class,
-				false,
 				'PhpParser\Node\Stmt\Function_',
 				'$bar',
 			],
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$baz',
 			],
 			[
-				ObjectType::class,
-				false,
 				'InstanceOfNamespace\Lorem',
 				'$lorem',
 			],
 			[
-				ObjectType::class,
-				false,
 				'InstanceOfNamespace\Dolor',
 				'$dolor',
 			],
 			[
-				ObjectType::class,
-				false,
 				'InstanceOfNamespace\Sit',
 				'$sit',
 			],
@@ -1846,23 +1334,17 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 
 	/**
 	 * @dataProvider dataInstanceOf
-	 * @param string $typeClass
-	 * @param boolean $nullable
-	 * @param string|null $class
+	 * @param string $description
 	 * @param string $expression
 	 */
 	public function testInstanceOf(
-		string $typeClass,
-		bool $nullable,
-		string $class = null,
+		string $description,
 		string $expression
 	)
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/instanceof.php',
-			$typeClass,
-			$nullable,
-			$class,
+			$description,
 			$expression
 		);
 	}
@@ -1871,9 +1353,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/switch-instanceof-not.php',
-			MixedType::class,
-			true,
-			null,
+			'mixed',
 			'$foo'
 		);
 	}
@@ -1882,20 +1362,14 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$foo',
 			],
 			[
-				ObjectType::class,
-				false,
 				'SwitchInstanceOf\Bar',
 				'$bar',
 			],
 			[
-				ObjectType::class,
-				false,
 				'SwitchInstanceOf\Baz',
 				'$baz',
 			],
@@ -1904,23 +1378,17 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 
 	/**
 	 * @dataProvider dataSwitchInstanceOf
-	 * @param string $typeClass
-	 * @param boolean $nullable
-	 * @param string|null $class
+	 * @param string $description
 	 * @param string $expression
 	 */
 	public function testSwitchInstanceof(
-		string $typeClass,
-		bool $nullable,
-		string $class = null,
+		string $description,
 		string $expression
 	)
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/switch-instanceof.php',
-			$typeClass,
-			$nullable,
-			$class,
+			$description,
 			$expression
 		);
 	}
@@ -1929,50 +1397,34 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$em->getByFoo($foo)',
 			],
 			[
-				ObjectType::class,
-				false,
 				'DynamicMethodReturnTypesNamespace\Entity',
 				'$em->getByPrimary()',
 			],
 			[
-				ObjectType::class,
-				false,
 				'DynamicMethodReturnTypesNamespace\Entity',
 				'$em->getByPrimary($foo)',
 			],
 			[
-				ObjectType::class,
-				false,
 				'DynamicMethodReturnTypesNamespace\Foo',
 				'$em->getByPrimary(DynamicMethodReturnTypesNamespace\Foo::class)',
 			],
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$iem->getByFoo($foo)',
 			],
 			[
-				ObjectType::class,
-				false,
 				'DynamicMethodReturnTypesNamespace\Entity',
 				'$iem->getByPrimary()',
 			],
 			[
-				ObjectType::class,
-				false,
 				'DynamicMethodReturnTypesNamespace\Entity',
 				'$iem->getByPrimary($foo)',
 			],
 			[
-				ObjectType::class,
-				false,
 				'DynamicMethodReturnTypesNamespace\Foo',
 				'$iem->getByPrimary(DynamicMethodReturnTypesNamespace\Foo::class)',
 			],
@@ -1981,23 +1433,17 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 
 	/**
 	 * @dataProvider dataDynamicMethodReturnTypeExtensions
-	 * @param string $typeClass
-	 * @param bool $nullable
-	 * @param string|null $class
+	 * @param string $description
 	 * @param string $expression
 	 */
 	public function testDynamicMethodReturnTypeExtensions(
-		string $typeClass,
-		bool $nullable,
-		string $class = null,
+		string $description,
 		string $expression
 	)
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/dynamic-method-return-types.php',
-			$typeClass,
-			$nullable,
-			$class,
+			$description,
 			$expression,
 			[
 				new class() implements DynamicMethodReturnTypeExtension {
@@ -2039,22 +1485,16 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$var',
 				New_::class,
 			],
 			[
-				ObjectType::class,
-				false,
 				'OverwritingVariable\Bar',
 				'$var',
 				MethodCall::class,
 			],
 			[
-				ObjectType::class,
-				false,
 				'OverwritingVariable\Foo',
 				'$var',
 				Exit_::class,
@@ -2064,25 +1504,19 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 
 	/**
 	 * @dataProvider dataOverwritingVariable
-	 * @param string $typeClass
-	 * @param boolean $nullable
-	 * @param string|null $class
+	 * @param string $description
 	 * @param string $expression
 	 * @param string $evaluatedPointExpressionType
 	 */
 	public function testOverwritingVariable(
-		string $typeClass,
-		bool $nullable,
-		string $class = null,
+		string $description,
 		string $expression,
 		string $evaluatedPointExpressionType
 	)
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/overwritingVariable.php',
-			$typeClass,
-			$nullable,
-			$class,
+			$description,
 			$expression,
 			[],
 			$evaluatedPointExpressionType
@@ -2093,45 +1527,31 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				ObjectType::class,
-				false,
 				'NegatedInstanceOf\Foo',
 				'$foo',
 			],
 			[
-				ObjectType::class,
-				false,
 				'NegatedInstanceOf\Bar',
 				'$bar',
 			],
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$lorem',
 			],
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$dolor',
 			],
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$sit',
 			],
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$mixedFoo',
 			],
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$mixedBar',
 			],
 		];
@@ -2139,23 +1559,17 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 
 	/**
 	 * @dataProvider dataNegatedInstanceof
-	 * @param string $typeClass
-	 * @param bool $nullable
-	 * @param string|null $class
+	 * @param string $description
 	 * @param string $expression
 	 */
 	public function testNegatedInstanceof(
-		string $typeClass,
-		bool $nullable,
-		string $class = null,
+		string $description,
 		string $expression
 	)
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/negated-instanceof.php',
-			$typeClass,
-			$nullable,
-			$class,
+			$description,
 			$expression
 		);
 	}
@@ -2164,21 +1578,15 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				StringType::class,
-				false,
-				null,
+				'string',
 				'$str',
 			],
 			[
-				IntegerType::class,
-				false,
-				null,
+				'int',
 				'$integer',
 			],
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$bar',
 			],
 		];
@@ -2186,23 +1594,17 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 
 	/**
 	 * @dataProvider dataAnonymousFunction
-	 * @param string $typeClass
-	 * @param boolean $nullable
-	 * @param string|null $class
+	 * @param string $description
 	 * @param string $expression
 	 */
 	public function testAnonymousFunction(
-		string $typeClass,
-		bool $nullable,
-		string $class = null,
+		string $description,
 		string $expression
 	)
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/anonymous-function.php',
-			$typeClass,
-			$nullable,
-			$class,
+			$description,
 			$expression
 		);
 	}
@@ -2212,58 +1614,42 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		return [
 			[
 				__DIR__ . '/data/foreach/array-object-type.php',
-				ObjectType::class,
-				false,
 				'AnotherNamespace\Foo',
 				'$foo',
 			],
 			[
 				__DIR__ . '/data/foreach/array-object-type.php',
-				ObjectType::class,
-				false,
 				'AnotherNamespace\Foo',
 				'$foos[0]',
 			],
 			[
 				__DIR__ . '/data/foreach/array-object-type.php',
-				IntegerType::class,
-				false,
-				null,
+				'int',
 				'self::ARRAY_CONSTANT[0]',
 			],
 			[
 				__DIR__ . '/data/foreach/array-object-type.php',
-				MixedType::class,
-				false,
-				null,
+				'mixed',
 				'self::MIXED_CONSTANT[0]',
 			],
 			[
 				__DIR__ . '/data/foreach/nested-object-type.php',
-				ObjectType::class,
-				false,
 				'AnotherNamespace\Foo',
 				'$foo',
 			],
 			[
 				__DIR__ . '/data/foreach/nested-object-type.php',
-				ObjectType::class,
-				false,
 				'AnotherNamespace\Foo',
 				'$foos[0]',
 			],
 			[
 				__DIR__ . '/data/foreach/nested-object-type.php',
-				ObjectType::class,
-				false,
 				'AnotherNamespace\Foo',
 				'$fooses[0][0]',
 			],
 			[
 				__DIR__ . '/data/foreach/integer-type.php',
-				IntegerType::class,
-				false,
-				null,
+				'int',
 				'$integer',
 			],
 		];
@@ -2272,24 +1658,18 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	/**
 	 * @dataProvider dataForeachArrayType
 	 * @param string $file
-	 * @param string $typeClass
-	 * @param bool $nullable
-	 * @param string|null $class
+	 * @param string $description
 	 * @param string $expression
 	 */
 	public function testForeachArrayType(
 		string $file,
-		string $typeClass,
-		bool $nullable,
-		string $class = null,
+		string $description,
 		string $expression
 	)
 	{
 		$this->assertTypes(
 			$file,
-			$typeClass,
-			$nullable,
-			$class,
+			$description,
 			$expression
 		);
 	}
@@ -2298,39 +1678,27 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				IntegerType::class,
-				false,
-				null,
+				'int',
 				'$integers[0]',
 			],
 			[
-				StringType::class,
-				false,
-				null,
+				'string',
 				'$mappedStrings[0]',
 			],
 			[
-				IntegerType::class,
-				false,
-				null,
+				'int',
 				'$filteredIntegers[0]',
 			],
 			[
-				IntegerType::class,
-				false,
-				null,
+				'int',
 				'$uniquedIntegers[0]',
 			],
 			[
-				StringType::class,
-				false,
-				null,
+				'string',
 				'$reducedIntegersToString',
 			],
 			[
-				IntegerType::class,
-				false,
-				null,
+				'int',
 				'$reversedIntegers[0]',
 			],
 		];
@@ -2338,23 +1706,17 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 
 	/**
 	 * @dataProvider dataArrayFunctions
-	 * @param string $typeClass
-	 * @param bool $nullable
-	 * @param string|null $class
+	 * @param string $description
 	 * @param string $expression
 	 */
 	public function testArrayFunctions(
-		string $typeClass,
-		bool $nullable,
-		string $class = null,
+		string $description,
 		string $expression
 	)
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/array-functions.php',
-			$typeClass,
-			$nullable,
-			$class,
+			$description,
 			$expression
 		);
 	}
@@ -2363,87 +1725,59 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				IntegerType::class,
-				false,
-				null,
+				'int',
 				'$integer',
 			],
 			[
-				IntegerType::class,
-				false,
-				null,
+				'int',
 				'$anotherInteger',
 			],
 			[
-				IntegerType::class,
-				false,
-				null,
+				'int',
 				'$longInteger',
 			],
 			[
-				FloatType::class,
-				false,
-				null,
+				'float',
 				'$float',
 			],
 			[
-				FloatType::class,
-				false,
-				null,
+				'float',
 				'$doubleFloat',
 			],
 			[
-				FloatType::class,
-				false,
-				null,
+				'float',
 				'$realFloat',
 			],
 			[
-				NullType::class,
-				true,
-				null,
+				'null',
 				'$null',
 			],
 			[
-				ArrayType::class,
-				false,
-				null,
+				'mixed[]',
 				'$array',
 			],
 			[
-				BooleanType::class,
-				false,
-				null,
+				'bool',
 				'$bool',
 			],
 			[
-				CallableType::class,
-				false,
-				null,
+				'callable',
 				'$callable',
 			],
 			[
-				ResourceType::class,
-				false,
-				null,
+				'resource',
 				'$resource',
 			],
 			[
-				IntegerType::class,
-				false,
-				null,
+				'int',
 				'$yetAnotherInteger',
 			],
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$mixedInteger',
 			],
 			[
-				StringType::class,
-				false,
-				null,
+				'string',
 				'$string',
 			],
 		];
@@ -2451,23 +1785,17 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 
 	/**
 	 * @dataProvider dataSpecifiedTypesUsingIsFunctions
-	 * @param string $typeClass
-	 * @param bool $nullable
-	 * @param string|null $class
+	 * @param string $description
 	 * @param string $expression
 	 */
 	public function testSpecifiedTypesUsingIsFunctions(
-		string $typeClass,
-		bool $nullable,
-		string $class = null,
+		string $description,
 		string $expression
 	)
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/specifiedTypesUsingIsFunctions.php',
-			$typeClass,
-			$nullable,
-			$class,
+			$description,
 			$expression
 		);
 	}
@@ -2476,128 +1804,86 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				IterableIterableType::class,
-				false,
-				null,
+				'iterable(mixed[])',
 				'$this->iterableProperty',
 			],
 			[
-				IterableIterableType::class,
-				false,
-				null,
+				'iterable(mixed[])',
 				'$iterableSpecifiedLater',
 			],
 			[
-				IterableIterableType::class,
-				false,
-				null,
+				'iterable(mixed[])',
 				'$iterableWithoutTypehint',
 			],
 			[
-				MixedType::class,
-				false,
-				null,
+				'mixed',
 				'$iterableWithoutTypehint[0]',
 			],
 			[
-				IterableIterableType::class,
-				false,
-				null,
+				'iterable(mixed[])',
 				'$iterableWithIterableTypehint',
 			],
 			[
-				MixedType::class,
-				false,
-				null,
+				'mixed',
 				'$iterableWithIterableTypehint[0]',
 			],
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$mixed',
 			],
 			[
-				IterableIterableType::class,
-				false,
-				null,
+				'iterable(Iterables\Bar[])',
 				'$iterableWithConcreteTypehint',
 			],
 			[
-				MixedType::class,
-				false,
-				null,
+				'mixed',
 				'$iterableWithConcreteTypehint[0]',
 			],
 			[
-				ObjectType::class,
-				false,
 				'Iterables\Bar',
 				'$bar',
 			],
 			[
-				IterableIterableType::class,
-				false,
-				null,
+				'iterable(mixed[])',
 				'$this->doBar()',
 			],
 			[
-				IterableIterableType::class,
-				false,
-				null,
+				'iterable(Iterables\Baz[])',
 				'$this->doBaz()',
 			],
 			[
-				ObjectType::class,
-				false,
 				'Iterables\Baz',
 				'$baz',
 			],
 			[
-				ArrayType::class,
-				false,
-				null,
+				'mixed[]',
 				'$arrayWithIterableTypehint',
 			],
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$arrayWithIterableTypehint[0]',
 			],
 			[
-				UnionIterableType::class,
-				false,
-				'Iterables\Collection',
+				'Iterables\Bar[]|Iterables\Collection',
 				'$unionIterableType',
 			],
 			[
-				ObjectType::class,
-				false,
 				'Iterables\Bar',
 				'$unionBar',
 			],
 			[
-				CommonUnionType::class,
-				false,
-				'Iterables\Collection',
+				'Iterables\Foo[]|Iterables\Bar[]|Iterables\Collection',
 				'$mixedUnionIterableType',
 			],
 			[
-				MixedType::class,
-				true,
-				null,
+				'mixed',
 				'$mixedBar',
 			],
 			[
-				ObjectType::class,
-				false,
 				'Iterables\Bar',
 				'$iterableUnionBar',
 			],
 			[
-				ObjectType::class,
-				false,
 				'Iterables\Bar',
 				'$unionBarFromMethod',
 			],
@@ -2607,15 +1893,11 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	/**
 	 * @requires PHP 7.1
 	 * @dataProvider dataIterable
-	 * @param string $typeClass
-	 * @param bool $nullable
-	 * @param string|null $class
+	 * @param string $description
 	 * @param string $expression
 	 */
 	public function testIterable(
-		string $typeClass,
-		bool $nullable,
-		string $class = null,
+		string $description,
 		string $expression
 	)
 	{
@@ -2624,9 +1906,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		}
 		$this->assertTypes(
 			__DIR__ . '/data/iterable.php',
-			$typeClass,
-			$nullable,
-			$class,
+			$description,
 			$expression
 		);
 	}
@@ -2635,21 +1915,15 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				VoidType::class,
-				false,
-				null,
+				'void',
 				'$this->doFoo()',
 			],
 			[
-				VoidType::class,
-				false,
-				null,
+				'void',
 				'$this->doBar()',
 			],
 			[
-				VoidType::class,
-				false,
-				null,
+				'void',
 				'$this->doConflictingVoid()',
 			],
 		];
@@ -2658,15 +1932,11 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	/**
 	 * @requires PHP 7.1
 	 * @dataProvider dataVoid
-	 * @param string $typeClass
-	 * @param bool $nullable
-	 * @param string|null $class
+	 * @param string $description
 	 * @param string $expression
 	 */
 	public function testVoid(
-		string $typeClass,
-		bool $nullable,
-		string $class = null,
+		string $description,
 		string $expression
 	)
 	{
@@ -2675,9 +1945,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		}
 		$this->assertTypes(
 			__DIR__ . '/data/void.php',
-			$typeClass,
-			$nullable,
-			$class,
+			$description,
 			$expression
 		);
 	}
@@ -2686,27 +1954,19 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				IntegerType::class,
-				true,
-				null,
+				'int|null',
 				'$this->doFoo()',
 			],
 			[
-				IntegerType::class,
-				true,
-				null,
+				'int|null',
 				'$this->doBar()',
 			],
 			[
-				IntegerType::class,
-				true,
-				null,
+				'int|null',
 				'$this->doConflictingNullable()',
 			],
 			[
-				IntegerType::class,
-				false,
-				null,
+				'int',
 				'$this->doAnotherConflictingNullable()',
 			],
 		];
@@ -2715,15 +1975,11 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	/**
 	 * @requires PHP 7.1
 	 * @dataProvider dataNullableReturnTypes
-	 * @param string $typeClass
-	 * @param bool $nullable
-	 * @param string|null $class
+	 * @param string $description
 	 * @param string $expression
 	 */
 	public function testNullableReturnTypes(
-		string $typeClass,
-		bool $nullable,
-		string $class = null,
+		string $description,
 		string $expression
 	)
 	{
@@ -2732,31 +1988,25 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		}
 		$this->assertTypes(
 			__DIR__ . '/data/nullable-returnTypes.php',
-			$typeClass,
-			$nullable,
-			$class,
+			$description,
 			$expression
 		);
 	}
 
 	private function assertTypes(
 		string $file,
-		string $typeClass,
-		bool $nullable,
-		string $class = null,
+		string $description,
 		string $expression,
 		array $dynamicMethodReturnTypeExtensions = [],
 		string $evaluatedPointExpressionType = Exit_::class
 	)
 	{
-		$this->processFile($file, function (\PhpParser\Node $node, Scope $scope) use ($typeClass, $nullable, $class, $expression, $evaluatedPointExpressionType) {
+		$this->processFile($file, function (\PhpParser\Node $node, Scope $scope) use ($description, $expression, $evaluatedPointExpressionType) {
 			if ($node instanceof $evaluatedPointExpressionType) {
 				/** @var \PhpParser\Node\Expr $expression */
 				$expression = $this->getParser()->parseString(sprintf('<?php %s;', $expression))[0];
 				$type = $scope->getType($expression);
-				$this->assertInstanceOf($typeClass, $type);
-				$this->assertSame($nullable, $type->isNullable());
-				$this->assertSame($class, $type->getClass());
+				$this->assertTypeDescribe($description, $type->describe());
 			}
 		}, $dynamicMethodReturnTypeExtensions);
 	}
@@ -2814,6 +2064,18 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$this->assertTrue($scope->hasVariableType('var'));
 			}
 		});
+	}
+
+	private function assertTypeDescribe(string $expectedDescription, string $actualDescription)
+	{
+		$this->assertEquals(
+			explode('|', $expectedDescription),
+			explode('|', $actualDescription),
+			'',
+			0.0,
+			10,
+			true
+		);
 	}
 
 }

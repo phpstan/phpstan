@@ -15,7 +15,7 @@ class TrueOrFalseBooleanType implements BooleanType
 
 	public function describe(): string
 	{
-		return 'bool';
+		return 'bool' . ($this->nullable ? '|null' : '');
 	}
 
 	public function canAccessProperties(): bool

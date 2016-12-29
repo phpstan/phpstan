@@ -63,7 +63,7 @@ class FloatType implements Type
 
 	public function describe(): string
 	{
-		return 'float';
+		return 'float' . ($this->nullable ? '|null' : '');
 	}
 
 	public function canAccessProperties(): bool
