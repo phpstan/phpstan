@@ -118,7 +118,7 @@ services:
 	cachingStorage:
 		class: Nette\Caching\Storages\FileStorage
 		arguments:
-			dir: %rootDir%/tmp/cache
+			dir: %tmpDir%/cache
 		autowired: no
 
 	directParser:
