@@ -62,6 +62,14 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Undefined variable: $this',
 				99,
 			],
+			[
+				'Undefined variable: $variableInEmpty',
+				145,
+			],
+			[
+				'Undefined variable: $negatedVariableInEmpty',
+				156,
+			],
 		]);
 	}
 

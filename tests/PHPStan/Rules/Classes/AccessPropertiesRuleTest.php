@@ -61,6 +61,14 @@ class AccessPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 					'Access to property $foo on an unknown class TestAccessProperties\UnknownClass.',
 					63,
 				],
+				[
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$emptyBaz.',
+					68,
+				],
+				[
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$emptyNonexistent.',
+					70,
+				],
 			]
 		);
 	}

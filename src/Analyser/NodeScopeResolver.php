@@ -171,6 +171,13 @@ class NodeScopeResolver
 									}
 								}
 							}
+						} else {
+							if ($node instanceof Expr\Empty_) {
+								if ($node->expr instanceof PropertyFetch) {
+									$scope = $scope->specifyFetchedPropertyFromIsset($node->expr);
+								}
+								$scope = $this->assignVariable($scope, $node->expr);
+							}
 						}
 					});
 				}
@@ -333,6 +340,13 @@ class NodeScopeResolver
 							}
 						}
 					}
+				} else {
+					if ($node instanceof Expr\Empty_) {
+						if ($node->expr instanceof PropertyFetch) {
+							$scope = $scope->specifyFetchedPropertyFromIsset($node->expr);
+						}
+						$scope = $this->assignVariable($scope, $node->expr);
+					}
 				}
 			};
 			$this->processNode($node->cond, $scope, $specifyFetchedProperty);
@@ -478,6 +492,13 @@ class NodeScopeResolver
 
 				if ($node instanceof BinaryOp && $subNodeName === 'right') {
 					$scope = $this->lookForAssigns($scope, $node->left);
+				}
+
+				if ($node instanceof Expr\Empty_ && $subNodeName === 'expr') {
+					if ($node->expr instanceof PropertyFetch) {
+						$scope = $scope->specifyFetchedPropertyFromIsset($node->expr);
+					}
+					$scope = $this->lookForEnterVariableAssign($scope, $node->expr);
 				}
 
 				$nodeScope = $scope->exitFirstLevelStatements();
@@ -724,6 +745,8 @@ class NodeScopeResolver
 			foreach ($node->vars as $var) {
 				$scope = $this->lookForAssigns($scope, $var);
 			}
+		} elseif ($node instanceof Expr\Empty_) {
+			$scope = $this->lookForAssigns($scope, $node->expr);
 		} elseif ($node instanceof ArrayDimFetch && $node->dim !== null) {
 			$scope = $this->lookForAssigns($scope, $node->dim);
 		} elseif ($node instanceof Expr\Closure) {
@@ -743,7 +766,7 @@ class NodeScopeResolver
 
 	private function updateScopeForVariableAssign(Scope $scope, \PhpParser\Node $node): Scope
 	{
-		if (($node instanceof Assign || $node instanceof AssignRef) || $node instanceof Isset_) {
+		if ($node instanceof Assign || $node instanceof AssignRef || $node instanceof Isset_) {
 			if ($node instanceof Assign || $node instanceof AssignRef) {
 				$vars = [$node->var];
 			} elseif ($node instanceof Isset_) {

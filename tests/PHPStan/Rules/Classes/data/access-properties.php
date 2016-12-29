@@ -61,6 +61,16 @@ class BazAccessProperties
 
 		$bar = new UnknownClass();
 		$bar->foo;
+
+		if (!empty($foo->emptyBaz)) {
+			$foo->emptyBaz;
+		}
+		$foo->emptyBaz;
+		if (empty($foo->emptyNonexistent)) {
+			$foo->emptyNonexistent;
+			return;
+		}
+		$foo->emptyNonexistent;
 	}
 
 }

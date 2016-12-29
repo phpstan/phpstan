@@ -141,3 +141,22 @@ function () use (&$variablePassedByReferenceToClosure) {
 
 };
 echo $variablePassedByReferenceToClosure;
+if (empty($variableInEmpty) && empty($anotherVariableInEmpty['foo'])) {
+	echo $variableInEmpty; // does not exist here
+	return;
+} else {
+	//echo $variableInEmpty; // exists here - not yet supported
+}
+
+if (!empty($negatedVariableInEmpty)) {
+	echo $negatedVariableInEmpty; // exists here
+}
+
+echo $variableInEmpty; // exists here
+echo $negatedVariableInEmpty; // does not exist here
+
+if (isset($variableInIsset) && isset($anotherVariableInIsset['foo'])) {
+	echo $variableInIsset;
+} else {
+	echo $variableInIsset; // does not exist
+}
