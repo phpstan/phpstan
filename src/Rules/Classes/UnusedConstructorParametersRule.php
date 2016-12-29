@@ -21,7 +21,7 @@ class UnusedConstructorParametersRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		if ($node->name !== '__construct') {
+		if ($node->name !== '__construct' || $node->stmts === null) {
 			return [];
 		}
 

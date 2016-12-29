@@ -26,3 +26,10 @@ class Foo
 	}
 
 }
+
+interface Bar
+{
+
+	public function __construct($interfaceParameter);
+
+}
