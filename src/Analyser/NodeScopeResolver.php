@@ -426,6 +426,11 @@ class NodeScopeResolver
 				} else {
 					$scope = $scope->exitFirstLevelStatements();
 				}
+
+				if ($node instanceof Foreach_ && $subNodeName === 'stmts') {
+					$scope = $this->lookForAssigns($scope, $node->expr);
+				}
+
 				$this->processNodes($subNode, $scope, $nodeCallback, $argClosureBindScope);
 			} elseif ($subNode instanceof \PhpParser\Node) {
 				if ($node instanceof Coalesce && $subNodeName === 'left') {
