@@ -444,6 +444,10 @@ class NodeScopeResolver
 					$scope = $this->lookForEnterVariableAssign($scope, $node->var);
 				}
 
+				if ($node instanceof BinaryOp && $subNodeName === 'right') {
+					$scope = $this->lookForAssigns($scope, $node->left);
+				}
+
 				$nodeScope = $scope->exitFirstLevelStatements();
 				if ($scope->isInFirstLevelStatement()) {
 					if ($node instanceof Ternary && $subNodeName !== 'cond') {
