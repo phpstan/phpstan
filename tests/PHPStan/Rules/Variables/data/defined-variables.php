@@ -136,3 +136,8 @@ doFoo($variableAssignedInIsset);
 unset($unsettingUndefinedVariable); // it's fine from PHP POV
 
 ($variableInBooleanAnd = 123) && $variableInBooleanAnd;
+
+function () use (&$variablePassedByReferenceToClosure) {
+
+};
+echo $variablePassedByReferenceToClosure;

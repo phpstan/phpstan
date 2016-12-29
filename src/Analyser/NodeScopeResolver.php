@@ -697,6 +697,14 @@ class NodeScopeResolver
 			}
 		} elseif ($node instanceof ArrayDimFetch && $node->dim !== null) {
 			$scope = $this->lookForAssigns($scope, $node->dim);
+		} elseif ($node instanceof Expr\Closure) {
+			foreach ($node->uses as $closureUse) {
+				if (!$closureUse->byRef || $scope->hasVariableType($closureUse->var)) {
+					continue;
+				}
+
+				$scope = $scope->assignVariable($closureUse->var, new MixedType(true));
+			}
 		}
 
 		$scope = $this->updateScopeForVariableAssign($scope, $node);
