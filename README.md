@@ -106,6 +106,31 @@ All the following options are part of the `parameters` section.
 PHPStan uses Composer autoloader so the easiest way how to autoload classes
 is through the `autoload`/`autoload-dev` sections in composer.json.
 
+#### Specify autoloading path
+
+If you install PHPStan with composer global or if you change the `vendor-dir` of your `composer.json`, you should help it to find your composer autoloader.
+
+**Two solutions** :
+
+You could specify `--autoload-file|-a` option during execution :
+
+```
+vendor/bin/phpstan analyse --autoload-file=/path/to/autoload.php src tests
+```
+
+Or you could add a `vendor/autoload.php` file next to the folder where you run PHPStan.
+
+```shell
+# /home/www/myapp
+pwd
+echo '<?php require_once("the/path/to/my/app/autoload.php")' > 'vendor/autoload.php'
+
+# Now this call will require the above autoload.php
+/home/www/myapp/phpstan analyse
+```
+
+#### Your own autoloading
+
 If PHPStan complains about some nonexistent classes and you're sure the classes
 exist in the codebase AND you don't want to use Composer autoloader for some reason,
 you can specify directories to scan and concrete files to include using
@@ -315,7 +340,7 @@ interface PropertyReflection
 {
 
 	public function getType(): Type;
-	
+
 	public function getDeclaringClass(): ClassReflection;
 
 	public function isStatic(): bool;
@@ -369,7 +394,7 @@ interface MethodReflection
 	public function isPrivate(): bool;
 
 	public function isPublic(): bool;
-	
+
 	public function getName(): string;
 
 	/**
