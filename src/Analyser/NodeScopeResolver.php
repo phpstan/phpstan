@@ -323,14 +323,33 @@ class NodeScopeResolver
 			$ifScope = $scope;
 			$scope = $this->lookForTypeSpecifications($scope, $node->cond);
 			$this->processNode($node->cond, $scope, $nodeCallback);
+
+			$specifyFetchedProperty = function (Node $node, Scope $inScope) use (&$scope) {
+				if (!$inScope->isNegated()) {
+					if ($node instanceof Isset_) {
+						foreach ($node->vars as $var) {
+							if ($var instanceof PropertyFetch) {
+								$scope = $scope->specifyFetchedPropertyFromIsset($var);
+							}
+						}
+					}
+				}
+			};
+			$this->processNode($node->cond, $scope, $specifyFetchedProperty);
 			$this->processNodes($node->stmts, $scope->enterFirstLevelStatements(), $nodeCallback);
 
+			$elseifScope = $ifScope;
 			foreach ($node->elseifs as $elseif) {
-				$this->processNode($elseif, $ifScope, $nodeCallback);
-				$ifScope = $this->lookForAssigns($ifScope, $elseif->cond);
+				$scope = $elseifScope;
+				$scope = $this->lookForAssigns($scope, $elseif->cond)->exitFirstLevelStatements();
+				$scope = $this->lookForTypeSpecifications($scope, $elseif->cond);
+				$this->processNode($elseif->cond, $scope, $nodeCallback);
+				$this->processNode($elseif->cond, $scope, $specifyFetchedProperty);
+				$this->processNodes($elseif->stmts, $scope->enterFirstLevelStatements(), $nodeCallback);
+				$elseifScope = $this->lookForAssigns($elseifScope, $elseif->cond);
 			}
 			if ($node->else !== null) {
-				$this->processNode($node->else, $ifScope, $nodeCallback);
+				$this->processNode($node->else, $elseifScope, $nodeCallback);
 			}
 
 			return;
@@ -429,6 +448,14 @@ class NodeScopeResolver
 
 				if ($node instanceof Foreach_ && $subNodeName === 'stmts') {
 					$scope = $this->lookForAssigns($scope, $node->expr);
+				}
+
+				if ($node instanceof Isset_ && $subNodeName === 'vars') {
+					foreach ($node->vars as $issetVar) {
+						if ($issetVar instanceof PropertyFetch) {
+							$scope = $scope->specifyFetchedPropertyFromIsset($issetVar);
+						}
+					}
 				}
 
 				$this->processNodes($subNode, $scope, $nodeCallback, $argClosureBindScope);
@@ -543,9 +570,11 @@ class NodeScopeResolver
 
 			$scope = $this->lookForAssignsInBranches($scope, $statements);
 		} elseif ($node instanceof TryCatch) {
-			if (property_exists($node, 'finally') && (isset($node->finally) || $node->finally === null)) {
+			/** @var mixed $node */
+			$node = $node;
+			if (property_exists($node, 'finally')) {
 				$finallyStatements = $node->finally !== null ? $node->finally->stmts : null;
-			} elseif (property_exists($node, 'finallyStmts') && (isset($node->finallyStmts) || $node->finallyStmts === null)) {
+			} elseif (property_exists($node, 'finallyStmts')) {
 				$finallyStatements = $node->finallyStmts;
 			} else {
 				throw new \PHPStan\ShouldNotHappenException();
@@ -749,14 +778,6 @@ class NodeScopeResolver
 						$scope = $processVarAnnotation($matches[1], $matches[2]);
 					} elseif (preg_match('#@var\s+\$([a-zA-Z0-9_]+)\s+' . FileTypeMapper::TYPE_PATTERN . '#', $comment, $matches)) {
 						$scope = $processVarAnnotation($matches[2], $matches[1]);
-					}
-				}
-			}
-
-			if ($node instanceof Isset_) {
-				foreach ($vars as $var) {
-					if ($var instanceof PropertyFetch) {
-						$scope = $scope->specifyFetchedPropertyFromIsset($var);
 					}
 				}
 			}
