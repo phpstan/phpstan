@@ -17,27 +17,27 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Rules\AbstractRu
 			[
 				[
 					'Strict comparison using === between int and string will always evaluate to false.',
-					6,
+					11,
 				],
 				[
 					'Strict comparison using !== between int and string will always evaluate to false.',
-					7,
+					12,
 				],
 				[
 					'Strict comparison using === between StrictComparison\Bar and int will always evaluate to false.',
-					10,
+					15,
 				],
 				[
 					'Strict comparison using === between int and StrictComparison\Foo[]|StrictComparison\Collection|bool will always evaluate to false.',
-					14,
+					19,
 				],
 				[
 					'Strict comparison using === between true and false will always evaluate to false.',
-					25,
+					30,
 				],
 				[
 					'Strict comparison using === between false and true will always evaluate to false.',
-					26,
+					31,
 				],
 			]
 		);

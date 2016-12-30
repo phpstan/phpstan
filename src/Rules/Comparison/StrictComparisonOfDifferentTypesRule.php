@@ -7,6 +7,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
+use PHPStan\Type\StaticResolvableType;
 use PHPStan\Type\UnionType;
 
 class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
@@ -51,6 +52,8 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 
 			$isSameType = $unionType->accepts($otherType);
 		} elseif ($leftType instanceof BooleanType && $rightType instanceof BooleanType) {
+			$isSameType = $leftType->accepts($rightType) || $rightType->accepts($leftType);
+		} elseif ($leftType instanceof StaticResolvableType || $rightType instanceof StaticResolvableType) {
 			$isSameType = $leftType->accepts($rightType) || $rightType->accepts($leftType);
 		} else {
 			$isSameType = get_class($leftType) === get_class($rightType);
