@@ -24,12 +24,14 @@ class TypehintHelper
 			return $arr;
 		}
 
-		if ($typehintString === 'static' && $selfClass !== null) {
-			return new StaticType($selfClass, $isNullable);
-		}
-
-		if ($typehintString === 'self' && $selfClass !== null) {
-			return new ObjectType($selfClass, $isNullable);
+		if ($selfClass !== null) {
+			if ($typehintString === 'static') {
+				return new StaticType($selfClass, $isNullable);
+			} elseif ($typehintString === 'self') {
+				return new ObjectType($selfClass, $isNullable);
+			} elseif ($typehintString === '$this') {
+				return new ThisType($selfClass, $isNullable);
+			}
 		}
 
 		$lowercasedTypehintString = strtolower($typehintString);

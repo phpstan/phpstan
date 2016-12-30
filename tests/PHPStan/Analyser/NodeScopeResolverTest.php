@@ -1281,6 +1281,18 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'MethodPhpDocsNamespace\Bar',
 				'\MethodPhpDocsNamespace\Foo::doSomethingStatic()',
 			],
+			[
+				'$this(MethodPhpDocsNamespace\Foo)',
+				'parent::doThis()',
+			],
+			[
+				'$this(MethodPhpDocsNamespace\Foo)|null',
+				'parent::doThisNullable()',
+			],
+			[
+				'$this(MethodPhpDocsNamespace\Foo)|MethodPhpDocsNamespace\Bar|null',
+				'parent::doThisUnion()',
+			],
 		];
 	}
 

@@ -77,7 +77,8 @@ class StaticType implements StaticResolvableType
 
 	public function changeBaseClass(string $className): StaticResolvableType
 	{
-		return new self($className, $this->isNullable());
+		$thisClass = get_class($this);
+		return new $thisClass($className, $this->isNullable());
 	}
 
 }

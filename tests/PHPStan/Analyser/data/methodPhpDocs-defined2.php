@@ -23,4 +23,28 @@ class FooParent
 
 	}
 
+	/**
+	 * @return $this
+	 */
+	public function doThis()
+	{
+		return $this;
+	}
+
+	/**
+	 * @return $this|null
+	 */
+	public function doThisNullable()
+	{
+		return $this;
+	}
+
+	/**
+	 * @return $this|Bar|null
+	 */
+	public function doThisUnion()
+	{
+
+	}
+
 }
