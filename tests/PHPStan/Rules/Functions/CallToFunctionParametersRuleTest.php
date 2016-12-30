@@ -88,6 +88,14 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Function implode invoked with 3 parameters, 1-2 required.',
 				6,
 			],
+			[
+				'Function strtok invoked with 0 parameters, 1-2 required.',
+				8,
+			],
+			[
+				'Function strtok invoked with 3 parameters, 1-2 required.',
+				11,
+			],
 		]);
 	}
 

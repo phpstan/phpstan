@@ -28,7 +28,13 @@ class FunctionCallParametersCheck
 	 */
 	public function check(ParametersAcceptor $function, Scope $scope, $funcCall, array $messages): array
 	{
-		if ($function instanceof FunctionReflection && $function->getName() === 'implode') {
+		if (
+			$function instanceof FunctionReflection
+			&& in_array($function->getName(), [
+				'implode',
+				'strtok',
+			], true)
+		) {
 			$functionParametersMinCount = 1;
 			$functionParametersMaxCount = 2;
 		} else {
