@@ -97,7 +97,7 @@ class CommonUnionType implements UnionType
 
 	public function describe(): string
 	{
-		return UnionTypeHelper::describe($this->getTypes());
+		return UnionTypeHelper::describe($this->getTypes(), $this->isNullable());
 	}
 
 	public function canAccessProperties(): bool

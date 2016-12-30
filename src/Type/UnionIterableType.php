@@ -101,7 +101,7 @@ class UnionIterableType implements IterableType, UnionType
 
 	public function describe(): string
 	{
-		return sprintf('%s[]|%s', $this->getItemType()->describe(), UnionTypeHelper::describe($this->getTypes()));
+		return sprintf('%s[]|%s', $this->getItemType()->describe(), UnionTypeHelper::describe($this->getTypes(), $this->isNullable()));
 	}
 
 	public function canAccessProperties(): bool

@@ -7,13 +7,20 @@ class UnionTypeHelper
 
 	/**
 	 * @param \PHPStan\Type\Type[] $types
+	 * @param bool $isNullable
 	 * @return string
 	 */
-	public static function describe(array $types): string
+	public static function describe(array $types, bool $isNullable): string
 	{
-		return implode('|', array_map(function (Type $type): string {
+		$description = implode('|', array_map(function (Type $type): string {
 			return $type->describe();
 		}, $types));
+
+		if ($isNullable) {
+			$description .= '|null';
+		}
+
+		return $description;
 	}
 
 	/**
