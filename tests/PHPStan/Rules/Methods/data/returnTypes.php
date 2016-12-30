@@ -146,6 +146,13 @@ class Foo extends FooParent implements FooInterface
 		return $this->returnThis();
 	}
 
+	/**
+	 * @return static
+	 */
+	public function returnStaticThatReturnsNewStatic(): self
+	{
+		return new static();
+	}
 }
 
 class FooChild extends Foo
