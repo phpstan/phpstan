@@ -44,6 +44,10 @@ class Foo extends Ipsum
 		$this->unionPropertySelf = new self();
 		$this->unionPropertySelf = [new Bar()];
 		$this->unionPropertySelf = new Bar();
+		$this->parentStringProperty = 'foo';
+		$this->parentStringProperty = 1;
+		self::$parentStaticStringProperty = 'foo';
+		self::$parentStaticStringProperty = 1;
 	}
 
 }
@@ -53,5 +57,8 @@ class Ipsum
 
 	/** @var string */
 	protected $parentStringProperty;
+
+	/** @var string */
+	protected static $parentStaticStringProperty;
 
 }

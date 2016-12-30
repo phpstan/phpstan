@@ -7,7 +7,7 @@ class TypesAssignedToPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new TypesAssignedToPropertiesRule();
+		return new TypesAssignedToPropertiesRule($this->createBroker());
 	}
 
 	public function testTypesAssignedToProperties()
@@ -48,6 +48,14 @@ class TypesAssignedToPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			[
 				'Property PropertiesAssignedTypes\Foo::$unionPropertySelf (PropertiesAssignedTypes\Foo[]|PropertiesAssignedTypes\Collection) does not accept PropertiesAssignedTypes\Bar.',
 				46,
+			],
+			[
+				'Property PropertiesAssignedTypes\Ipsum::$parentStringProperty (string) does not accept int.',
+				48,
+			],
+			[
+				'Static property PropertiesAssignedTypes\Ipsum::$parentStaticStringProperty (string) does not accept int.',
+				50,
 			],
 		]);
 	}
