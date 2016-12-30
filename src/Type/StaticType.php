@@ -22,7 +22,7 @@ class StaticType implements StaticResolvableType
 	 */
 	public function getClass()
 	{
-		return null;
+		return $this->baseClass;
 	}
 
 	public function getBaseClass(): string
