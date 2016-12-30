@@ -123,6 +123,28 @@ class Foo extends FooParent implements FooInterface
 		return null;
 	}
 
+	/**
+	 * @return $this
+	 */
+	public function returnThis(): self
+	{
+		return $this;
+		return new self();
+		return 1;
+		return null;
+	}
+
+	/**
+	 * @return $this|null
+	 */
+	public function returnThisOrNull()
+	{
+		return $this;
+		return new self();
+		return 1;
+		return null;
+	}
+
 }
 
 class FooChild extends Foo

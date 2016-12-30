@@ -9,7 +9,7 @@ class ReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new ReturnTypeRule(new FunctionReturnTypeCheck());
+		return new ReturnTypeRule(new FunctionReturnTypeCheck(new \PhpParser\PrettyPrinter\Standard()));
 	}
 
 	public function testReturnTypeRule()

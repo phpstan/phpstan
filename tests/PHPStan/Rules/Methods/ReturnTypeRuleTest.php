@@ -9,7 +9,7 @@ class ReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new ReturnTypeRule(new FunctionReturnTypeCheck());
+		return new ReturnTypeRule(new FunctionReturnTypeCheck(new \PhpParser\PrettyPrinter\Standard()));
 	}
 
 	public function testReturnTypeRule()
@@ -82,6 +82,26 @@ class ReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			[
 				'Method ReturnTypes\Foo::returnUnionIterableType() should return ReturnTypes\Foo[]|ReturnTypes\Collection but returns null.',
 				113,
+			],
+			[
+				'Method ReturnTypes\Foo::returnThis() should return $this but returns new self().',
+				132,
+			],
+			[
+				'Method ReturnTypes\Foo::returnThis() should return $this but returns 1.',
+				133,
+			],
+			[
+				'Method ReturnTypes\Foo::returnThis() should return $this but returns null.',
+				134,
+			],
+			[
+				'Method ReturnTypes\Foo::returnThisOrNull() should return $this but returns new self().',
+				143,
+			],
+			[
+				'Method ReturnTypes\Foo::returnThisOrNull() should return $this but returns 1.',
+				144,
 			],
 		]);
 	}
