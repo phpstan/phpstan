@@ -493,8 +493,8 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$mixedObjectLiteral',
 			],
 			[
-				'mixed',
-				'$anotherMixedObjectLiteral',
+				'static(TypesNamespaceDeductedTypes\Foo)',
+				'$newStatic',
 			],
 			[
 				'mixed[]',

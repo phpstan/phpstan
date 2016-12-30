@@ -40,6 +40,7 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StaticResolvableType;
+use PHPStan\Type\StaticType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\TrueOrFalseBooleanType;
 use PHPStan\Type\Type;
@@ -426,7 +427,7 @@ class Scope
 					count($node->class->parts) === 1
 				) {
 					if ($node->class->parts[0] === 'static') {
-						return new MixedType(false);
+						return new StaticType($this->getClass(), false);
 					} elseif ($node->class->parts[0] === 'self') {
 						return new ObjectType($this->getClass(), false);
 					}

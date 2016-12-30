@@ -25,7 +25,7 @@ class Foo
 		$nullLiteral = null;
 		$loremObjectLiteral = new Lorem();
 		$mixedObjectLiteral = new $class();
-		$anotherMixedObjectLiteral = new static();
+		$newStatic = new static();
 		$arrayLiteral = [];
 		$stringFromFunction = TypesNamespaceFunctions\stringFunction();
 		$fooObjectFromFunction = TypesNamespaceFunctions\objectFunction();
