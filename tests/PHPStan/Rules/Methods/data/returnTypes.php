@@ -143,6 +143,7 @@ class Foo extends FooParent implements FooInterface
 		return new self();
 		return 1;
 		return null;
+		return $this->returnThis();
 	}
 
 }

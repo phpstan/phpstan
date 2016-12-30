@@ -85,6 +85,7 @@ class Foo extends FooParent
 	)
 	{
 		$parent = new FooParent();
+		$differentInstance = new self();
 		foreach ($moreSpecifiedObject->doFluentUnionIterable() as $fluentUnionIterableBaz) {
 			die;
 		}

@@ -55,7 +55,7 @@ class FunctionReturnTypeCheck
 		}
 
 		$returnValueType = $scope->getType($returnValue);
-		if ($returnType instanceof ThisType) {
+		if ($returnType instanceof ThisType && !$returnValueType instanceof ThisType) {
 			if ($returnType->isNullable() && $returnValueType instanceof NullType) {
 				return [];
 			}

@@ -535,7 +535,8 @@ class Scope
 					return $dynamicMethodReturnTypeExtension->getTypeFromMethodCall($methodReflection, $node, $this);
 				}
 
-				if ($methodReflection->getReturnType() instanceof StaticResolvableType) {
+				$calledOnThis = $node->var instanceof Variable && is_string($node->var->name) && $node->var->name === 'this';
+				if (!$calledOnThis && $methodReflection->getReturnType() instanceof StaticResolvableType) {
 					return $methodReflection->getReturnType()->resolveStatic($methodCalledOnType->getClass());
 				}
 

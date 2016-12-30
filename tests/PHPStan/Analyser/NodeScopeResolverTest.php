@@ -1254,8 +1254,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$parent->doLorem()',
 			],
 			[
-				'MethodPhpDocsNamespace\Foo',
+				'static(MethodPhpDocsNamespace\FooParent)',
 				'$this->doLorem()',
+			],
+			[
+				'MethodPhpDocsNamespace\Foo',
+				'$differentInstance->doLorem()',
 			],
 			[
 				'static(MethodPhpDocsNamespace\Foo)',
@@ -1267,6 +1271,10 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			],
 			[
 				'MethodPhpDocsNamespace\Foo',
+				'$differentInstance->doIpsum()',
+			],
+			[
+				'static(MethodPhpDocsNamespace\FooParent)',
 				'$this->doIpsum()',
 			],
 			[
