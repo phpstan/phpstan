@@ -30,6 +30,17 @@ class UnionIterableType implements IterableType, UnionType
 	}
 
 	/**
+	 * @return string[]
+	 */
+	public function getReferencedClasses(): array
+	{
+		$classes = UnionTypeHelper::getReferencedClasses($this->getTypes());
+		$classes = array_merge($classes, $this->getItemType()->getReferencedClasses());
+
+		return $classes;
+	}
+
+	/**
 	 * @return \PHPStan\Type\Type[]
 	 */
 	public function getTypes(): array

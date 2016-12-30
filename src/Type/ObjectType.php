@@ -24,6 +24,14 @@ class ObjectType implements Type
 		return $this->class;
 	}
 
+	/**
+	 * @return string[]
+	 */
+	public function getReferencedClasses(): array
+	{
+		return [$this->getClass()];
+	}
+
 	public function isNullable(): bool
 	{
 		return $this->nullable;

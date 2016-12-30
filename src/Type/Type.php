@@ -10,6 +10,11 @@ interface Type
 	 */
 	public function getClass();
 
+	/**
+	 * @return string[]
+	 */
+	public function getReferencedClasses(): array;
+
 	public function isNullable(): bool;
 
 	public function combineWith(Type $otherType): Type;

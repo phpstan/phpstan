@@ -24,8 +24,16 @@ class ExistingClassesInPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTes
 					12,
 				],
 				[
-					'Property PropertiesTypes\Foo::$bars has unknown class PropertiesTypes\Bar[] as its array type.',
+					'Property PropertiesTypes\Foo::$bars has unknown class PropertiesTypes\Bar as its type.',
 					18,
+				],
+				[
+					'Property PropertiesTypes\Foo::$dolors has unknown class PropertiesTypes\Ipsum as its type.',
+					21,
+				],
+				[
+					'Property PropertiesTypes\Foo::$dolors has unknown class PropertiesTypes\Dolor as its type.',
+					21,
 				],
 			]
 		);

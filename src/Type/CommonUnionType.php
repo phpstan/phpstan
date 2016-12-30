@@ -36,6 +36,14 @@ class CommonUnionType implements UnionType
 		return UnionTypeHelper::getClass($this->getTypes());
 	}
 
+	/**
+	 * @return string[]
+	 */
+	public function getReferencedClasses(): array
+	{
+		return UnionTypeHelper::getReferencedClasses($this->getTypes());
+	}
+
 	public function isNullable(): bool
 	{
 		return $this->isNullable;

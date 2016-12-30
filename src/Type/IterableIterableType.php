@@ -16,6 +16,14 @@ class IterableIterableType implements IterableType
 		$this->nullable = $nullable;
 	}
 
+	/**
+	 * @return string[]
+	 */
+	public function getReferencedClasses(): array
+	{
+		return $this->getItemType()->getReferencedClasses();
+	}
+
 	public function combineWith(Type $otherType): Type
 	{
 		if ($otherType instanceof IterableType) {

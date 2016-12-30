@@ -17,4 +17,7 @@ class Foo
 	/** @var Bar[] */
 	private $bars;
 
+	/** @var Ipsum|Dolor[] */
+	private $dolors;
+
 }

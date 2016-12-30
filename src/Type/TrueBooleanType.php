@@ -36,6 +36,14 @@ class TrueBooleanType implements BooleanType
 		return null;
 	}
 
+	/**
+	 * @return string[]
+	 */
+	public function getReferencedClasses(): array
+	{
+		return [];
+	}
+
 	public function isNullable(): bool
 	{
 		return $this->nullable;

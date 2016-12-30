@@ -40,4 +40,14 @@ class FooMethodTypehints
 
 	}
 
+	/**
+	 * @param FooMethodTypehints[] $foos
+	 * @param FooMethodTypehints|BarMethodTypehints[] $bars
+	 * @return self|BazMethodTypehints[]
+	 */
+	function dolor(array $foos, array $bars): array
+	{
+
+	}
+
 }

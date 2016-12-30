@@ -106,6 +106,20 @@ class UnionTypeHelper
 	}
 
 	/**
+	 * @param \PHPStan\Type\Type[] $types
+	 * @return string[]
+	 */
+	public static function getReferencedClasses(array $types): array
+	{
+		$classes = [];
+		foreach ($types as $type) {
+			$classes = array_merge($classes, $type->getReferencedClasses());
+		}
+
+		return $classes;
+	}
+
+	/**
 	 * @param \PHPStan\Type\UnionType $unionType
 	 * @param \PHPStan\Type\Type $type
 	 * @return bool|null

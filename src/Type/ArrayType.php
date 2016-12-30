@@ -26,6 +26,14 @@ class ArrayType implements IterableType
 		$this->possiblyCallable = $possiblyCallable;
 	}
 
+	/**
+	 * @return string[]
+	 */
+	public function getReferencedClasses(): array
+	{
+		return $this->getItemType()->getReferencedClasses();
+	}
+
 	public static function createDeepArrayType(NestedArrayItemType $nestedItemType, bool $nullable): self
 	{
 		$itemType = $nestedItemType->getItemType();
