@@ -24,3 +24,13 @@ $boolean === true;
 $boolean === false;
 true === false;
 false === true;
+
+$return = false;
+switch ('foo') {
+    case 'foo':
+        $return = true;
+        break;
+}
+if ($return === true) {
+    return '';
+}
