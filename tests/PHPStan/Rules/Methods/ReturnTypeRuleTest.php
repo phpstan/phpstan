@@ -97,11 +97,15 @@ class ReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			],
 			[
 				'Method ReturnTypes\Foo::returnThisOrNull() should return $this but returns new self().',
-				143,
+				146,
 			],
 			[
 				'Method ReturnTypes\Foo::returnThisOrNull() should return $this but returns 1.',
-				144,
+				147,
+			],
+			[
+				'Method ReturnTypes\Foo::returnThisOrNull() should return $this but returns $this->returnStaticThatReturnsNewStatic().',
+				150,
 			],
 		]);
 	}

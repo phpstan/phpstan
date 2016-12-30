@@ -42,6 +42,7 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\StaticResolvableType;
 use PHPStan\Type\StaticType;
 use PHPStan\Type\StringType;
+use PHPStan\Type\ThisType;
 use PHPStan\Type\TrueOrFalseBooleanType;
 use PHPStan\Type\Type;
 use PHPStan\Type\VoidType;
@@ -441,7 +442,7 @@ class Scope
 				$firstItem = $node->items[0]->value;
 				if (
 					(
-						$this->getType($firstItem) instanceof ObjectType
+						$this->getType($firstItem)->getClass() !== null
 						|| $this->getType($firstItem) instanceof StringType
 					)
 					&& $this->getType($node->items[1]->value) instanceof StringType
@@ -731,7 +732,7 @@ class Scope
 			null,
 			$this->getNamespace(),
 			[
-				'this' => new ObjectType($className, false),
+				'this' => new ThisType($className, false),
 			]
 		);
 	}

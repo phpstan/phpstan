@@ -132,6 +132,9 @@ class Foo extends FooParent implements FooInterface
 		return new self();
 		return 1;
 		return null;
+
+		$that = $this;
+		return $that;
 	}
 
 	/**
@@ -144,6 +147,7 @@ class Foo extends FooParent implements FooInterface
 		return 1;
 		return null;
 		return $this->returnThis();
+		return $this->returnStaticThatReturnsNewStatic();
 	}
 
 	/**
@@ -152,6 +156,7 @@ class Foo extends FooParent implements FooInterface
 	public function returnStaticThatReturnsNewStatic(): self
 	{
 		return new static();
+		return $this;
 	}
 }
 
