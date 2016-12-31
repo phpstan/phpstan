@@ -1413,6 +1413,33 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+	public function dataSwitchGetClass(): array
+	{
+		return [
+			[
+				'SwitchGetClass\Lorem',
+				'$lorem',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataSwitchGetClass
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testSwitchGetClass(
+		string $description,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/switch-get-class.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataDynamicMethodReturnTypeExtensions(): array
 	{
 		return [

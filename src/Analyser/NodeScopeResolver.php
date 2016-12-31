@@ -53,6 +53,7 @@ use PHPStan\Type\CommentHelper;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NestedArrayItemType;
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
 
@@ -371,12 +372,31 @@ class NodeScopeResolver
 			$scope = $this->lookForAssigns($scope, $node->cond);
 			$switchScope = $scope;
 			$switchConditionIsTrue = $node->cond instanceof Expr\ConstFetch && strtolower((string) $node->cond->name) === 'true';
+			$switchConditionGetClassExpression = null;
+			if (
+				$node->cond instanceof FuncCall
+				&& $node->cond->name instanceof Name
+				&& strtolower((string) $node->cond->name) === 'get_class'
+				&& isset($node->cond->args[0])
+			) {
+				$switchConditionGetClassExpression = $node->cond->args[0]->value;
+			}
 			foreach ($node->cases as $caseNode) {
 				if ($caseNode->cond !== null) {
 					$switchScope = $this->lookForAssigns($switchScope, $caseNode->cond);
 
 					if ($switchConditionIsTrue) {
 						$switchScope = $this->lookForTypeSpecifications($switchScope, $caseNode->cond);
+					} elseif (
+						$switchConditionGetClassExpression !== null
+						&& $caseNode->cond instanceof Expr\ClassConstFetch
+						&& $caseNode->cond->class instanceof Name
+						&& strtolower($caseNode->cond->name) === 'class'
+					) {
+						$switchScope = $switchScope->specifyExpressionType(
+							$switchConditionGetClassExpression,
+							new ObjectType((string) $caseNode->cond->class, false)
+						);
 					}
 				}
 				$this->processNode($caseNode, $switchScope, $nodeCallback);
