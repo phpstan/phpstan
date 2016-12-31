@@ -60,10 +60,12 @@ if ((bool) preg_match('#.*#', 'foo', $matches3)) {
 $someArray = [];
 list($listedOne, , $listedTwo['two'], list($listedThree, $listedFour['four'])) = $someArray;
 
+$trueOrFalseFromSwitch = true;
 switch (foo()) {
 	case 1:
 		$switchVar = 1;
 		$noSwitchVar = 1;
+		$trueOrFalseFromSwitch = false;
 		break;
 	case 2:
 		$switchVar = 2;
@@ -71,6 +73,53 @@ switch (foo()) {
 	case 3:
 	default:
 		$switchVar = 3;
+}
+
+$trueOrFalseInSwitchWithDefault = false;
+$nullableTrueOrFalse = null;
+switch ('foo') {
+	case 'foo':
+		$trueOrFalseInSwitchWithDefault = true;
+		$nullableTrueOrFalse = true;
+		break;
+	case 'bar';
+		$nullableTrueOrFalse = false;
+		break;
+	default:
+		break;
+}
+
+$trueOrFalseInSwitchInAllCases = false;
+switch ('foo') {
+	case 'foo':
+		$trueOrFalseInSwitchInAllCases = true;
+		break;
+	case 'bar';
+		$trueOrFalseInSwitchInAllCases = true;
+		break;
+}
+$trueOrFalseInSwitchInAllCasesWithDefault = false;
+switch ('foo') {
+	case 'foo':
+		$trueOrFalseInSwitchInAllCasesWithDefault = true;
+		break;
+	case 'bar';
+		$trueOrFalseInSwitchInAllCasesWithDefault = true;
+		break;
+	default:
+		break;
+}
+$trueOrFalseInSwitchInAllCasesWithDefaultCase = false;
+switch ('foo') {
+	case 'foo':
+		$trueOrFalseInSwitchInAllCasesWithDefaultCase = true;
+		break;
+	case 'bar';
+		$trueOrFalseInSwitchInAllCasesWithDefaultCase = true;
+		break;
+	default:
+		$trueOrFalseInSwitchInAllCasesWithDefaultCase = true;
+		break;
 }
 
 do {

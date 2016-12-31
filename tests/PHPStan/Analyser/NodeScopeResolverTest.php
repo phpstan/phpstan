@@ -141,6 +141,20 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$this->assertInstanceOf(TrueBooleanType::class, $variables['true']);
 				$this->assertArrayHasKey('false', $variables);
 				$this->assertInstanceOf(FalseBooleanType::class, $variables['false']);
+
+				$this->assertArrayHasKey('trueOrFalseFromSwitch', $variables);
+				$this->assertInstanceOf(TrueOrFalseBooleanType::class, $variables['trueOrFalseFromSwitch']);
+				$this->assertArrayHasKey('trueOrFalseInSwitchWithDefault', $variables);
+				$this->assertInstanceOf(TrueOrFalseBooleanType::class, $variables['trueOrFalseInSwitchWithDefault']);
+				$this->assertArrayHasKey('trueOrFalseInSwitchInAllCases', $variables);
+				$this->assertInstanceOf(TrueOrFalseBooleanType::class, $variables['trueOrFalseInSwitchInAllCases']);
+				$this->assertArrayHasKey('trueOrFalseInSwitchInAllCasesWithDefault', $variables);
+				$this->assertInstanceOf(TrueOrFalseBooleanType::class, $variables['trueOrFalseInSwitchInAllCasesWithDefault']);
+				$this->assertArrayHasKey('trueOrFalseInSwitchInAllCasesWithDefaultCase', $variables);
+				$this->assertInstanceOf(TrueOrFalseBooleanType::class, $variables['trueOrFalseInSwitchInAllCasesWithDefaultCase']);
+				$this->assertArrayHasKey('nullableTrueOrFalse', $variables);
+				$this->assertInstanceOf(TrueOrFalseBooleanType::class, $variables['nullableTrueOrFalse']);
+				$this->assertTrue($variables['nullableTrueOrFalse']->isNullable());
 			}
 		});
 	}

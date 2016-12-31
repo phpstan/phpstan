@@ -32,6 +32,16 @@ class Foo
 
 		$foo = new self();
 		$this === $foo;
+
+		$trueOrFalseInSwitch = false;
+		switch ('foo') {
+			case 'foo':
+				$trueOrFalseInSwitch = true;
+				break;
+		}
+		if ($trueOrFalseInSwitch === true) {
+
+		}
 	}
 
 }

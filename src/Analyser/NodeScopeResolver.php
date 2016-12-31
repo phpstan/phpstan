@@ -712,12 +712,11 @@ class NodeScopeResolver
 				if ($case->cond === null) {
 					$hasDefault = true;
 				}
-
 				$statements[] = new StatementList($scope, $case->stmts);
 			}
 
 			if (!$hasDefault) {
-				$statements = [];
+				$statements[] = new StatementList($scope, []);
 			}
 
 			$scope = $this->lookForAssignsInBranches($scope, $statements, true);
@@ -865,6 +864,9 @@ class NodeScopeResolver
 
 		/** @var \PHPStan\Analyser\Scope|null $previousBranchScope */
 		$previousBranchScope = null;
+
+		$allBranchesScope = $initialScope;
+
 		foreach ($statementsLists as $i => $statementList) {
 			$statements = $statementList->getStatements();
 			$branchScope = $statementList->getScope();
@@ -873,30 +875,38 @@ class NodeScopeResolver
 				continue;
 			}
 
-			$mergeWithPrevious = $isSwitchCase;
-
+			$hasStatementEarlyTermination = false;
 			foreach ($statements as $statement) {
 				$branchScope = $this->lookForAssigns($branchScope, $statement);
 				$hasStatementEarlyTermination = $this->hasStatementEarlyTermination($statement, $branchScope);
 				if ($hasStatementEarlyTermination && !$isSwitchCase) {
+					$allBranchesScope = $allBranchesScope->addVariables($branchScope);
 					continue 2;
 				}
 			}
 
+			$allBranchesScope = $allBranchesScope->addVariables($branchScope);
+
 			if ($intersectedScope === null) {
 				$intersectedScope = $initialScope->addVariables($branchScope);
-			} elseif ($mergeWithPrevious) {
-				if ($previousBranchScope !== null) {
-					$intersectedScope = $branchScope->addVariables($previousBranchScope);
-				}
+			} elseif ($isSwitchCase && $previousBranchScope !== null) {
+				$intersectedScope = $branchScope->addVariables($previousBranchScope);
 			} else {
 				$intersectedScope = $branchScope->intersectVariables($intersectedScope);
 			}
 
-			$previousBranchScope = $branchScope;
+			if (!$hasStatementEarlyTermination) {
+				$previousBranchScope = $branchScope;
+			} else {
+				$previousBranchScope = null;
+			}
 		}
 
-		return $intersectedScope !== null ? $intersectedScope : $initialScope;
+		if ($intersectedScope !== null) {
+			return $intersectedScope->addVariables($allBranchesScope->intersectVariables($initialScope));
+		}
+
+		return $initialScope;
 	}
 
 	/**
