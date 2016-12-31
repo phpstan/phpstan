@@ -39,6 +39,8 @@ try {
 	$anotherNullableIntegerFromTryCatch = 1;
 } catch (\Exception $e) {
 	throw $e;
+} finally {
+	restore_error_handler();
 }
 
 $lorem = 1;

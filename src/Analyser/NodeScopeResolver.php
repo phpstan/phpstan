@@ -611,18 +611,8 @@ class NodeScopeResolver
 
 			$scope = $this->lookForAssignsInBranches($scope, $statements);
 		} elseif ($node instanceof TryCatch) {
-			/** @var mixed $node */
-			$node = $node;
-			if (property_exists($node, 'finally')) {
-				$finallyStatements = $node->finally !== null ? $node->finally->stmts : null;
-			} elseif (property_exists($node, 'finallyStmts')) {
-				$finallyStatements = $node->finallyStmts;
-			} else {
-				throw new \PHPStan\ShouldNotHappenException();
-			}
 			$statements = [
 				new StatementList($scope, $node->stmts),
-				new StatementList($scope, $finallyStatements),
 			];
 			foreach ($node->catches as $catch) {
 				if (isset($catch->types)) {
