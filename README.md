@@ -85,6 +85,9 @@ Rule levels. If you want to use PHPStan but your codebase isn't up to speed with
 and PHPStan's strict checks, you can choose from currently 5 levels
 (0 is the loosest and 4 is the strictest) by passing `--level` to `analyse` command. Default level is `0`.
 
+This feature enables incremental adoption of PHPStan checks. You can start using PHPStan
+with a lower rule level and increase it when you feel like it.
+
 There's also **experimental** level 5 that currently enables:
 
 * Union types (Foo|Bar will be a specified type with checks performed on it instead of mixed)
