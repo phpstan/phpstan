@@ -160,3 +160,16 @@ if (isset($variableInIsset) && isset($anotherVariableInIsset['foo'])) {
 } else {
 	echo $variableInIsset; // does not exist
 }
+
+switch ('foo') {
+	case 1:
+		$variableInSwitchWithEarlyTerminatingStatement = 'foo';
+		break;
+	case 2:
+		$variableInSwitchWithEarlyTerminatingStatement = 'bar';
+		break;
+	default:
+		return 'test';
+}
+
+echo $variableInSwitchWithEarlyTerminatingStatement;

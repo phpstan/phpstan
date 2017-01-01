@@ -161,7 +161,7 @@ class NodeScopeResolver
 			$scope = $this->lookForAssigns($scope, $node);
 
 			if ($node instanceof If_) {
-				if ($this->hasEarlyTermination($node->stmts, $scope)) {
+				if ($this->findEarlyTermination($node->stmts, $scope) !== null) {
 					$scope = $this->lookForTypeSpecificationsInEarlyTermination($scope, $node->cond);
 					$this->processNode($node->cond, $scope, function (Node $node, Scope $inScope) use (&$scope) {
 						if ($inScope->isNegated()) {
@@ -400,7 +400,7 @@ class NodeScopeResolver
 					}
 				}
 				$this->processNode($caseNode, $switchScope, $nodeCallback);
-				if ($this->hasEarlyTermination($caseNode->stmts, $switchScope)) {
+				if ($this->findEarlyTermination($caseNode->stmts, $switchScope) !== null) {
 					$switchScope = $scope;
 				}
 			}
@@ -875,13 +875,16 @@ class NodeScopeResolver
 				continue;
 			}
 
-			$hasStatementEarlyTermination = false;
+			$earlyTerminationStatement = null;
 			foreach ($statements as $statement) {
 				$branchScope = $this->lookForAssigns($branchScope, $statement);
-				$hasStatementEarlyTermination = $this->hasStatementEarlyTermination($statement, $branchScope);
-				if ($hasStatementEarlyTermination && !$isSwitchCase) {
-					$allBranchesScope = $allBranchesScope->addVariables($branchScope);
-					continue 2;
+				$earlyTerminationStatement = $this->findStatementEarlyTermination($statement, $branchScope);
+				if ($earlyTerminationStatement !== null) {
+					if (!$isSwitchCase) {
+						$allBranchesScope = $allBranchesScope->addVariables($branchScope);
+						continue 2;
+					}
+					break;
 				}
 			}
 
@@ -891,11 +894,11 @@ class NodeScopeResolver
 				$intersectedScope = $initialScope->addVariables($branchScope);
 			} elseif ($isSwitchCase && $previousBranchScope !== null) {
 				$intersectedScope = $branchScope->addVariables($previousBranchScope);
-			} else {
+			} elseif ($earlyTerminationStatement === null || $earlyTerminationStatement instanceof Break_) {
 				$intersectedScope = $branchScope->intersectVariables($intersectedScope);
 			}
 
-			if (!$hasStatementEarlyTermination) {
+			if ($earlyTerminationStatement === null) {
 				$previousBranchScope = $branchScope;
 			} else {
 				$previousBranchScope = null;
@@ -912,20 +915,26 @@ class NodeScopeResolver
 	/**
 	 * @param \PhpParser\Node[] $statements
 	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return bool
+	 * @return \PhpParser\Node|null
 	 */
-	private function hasEarlyTermination(array $statements, Scope $scope): bool
+	private function findEarlyTermination(array $statements, Scope $scope)
 	{
 		foreach ($statements as $statement) {
-			if ($this->hasStatementEarlyTermination($statement, $scope)) {
-				return true;
+			$statement = $this->findStatementEarlyTermination($statement, $scope);
+			if ($statement !== null) {
+				return $statement;
 			}
 		}
 
-		return false;
+		return null;
 	}
 
-	private function hasStatementEarlyTermination(Node $statement, Scope $scope): bool
+	/**
+	 * @param \PhpParser\Node $statement
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @return \PhpParser\Node|null
+	 */
+	private function findStatementEarlyTermination(Node $statement, Scope $scope)
 	{
 		if (
 			$statement instanceof Throw_
@@ -934,19 +943,19 @@ class NodeScopeResolver
 			|| $statement instanceof Break_
 			|| $statement instanceof Exit_
 		) {
-			return true;
+			return $statement;
 		} elseif ($statement instanceof MethodCall && count($this->earlyTerminatingMethodCalls) > 0) {
 			if (!is_string($statement->name)) {
-				return false;
+				return null;
 			}
 
 			$methodCalledOnType = $scope->getType($statement->var);
 			if ($methodCalledOnType->getClass() === null) {
-				return false;
+				return null;
 			}
 
 			if (!$this->broker->hasClass($methodCalledOnType->getClass())) {
-				return false;
+				return null;
 			}
 
 			$classReflection = $this->broker->getClass($methodCalledOnType->getClass());
@@ -955,13 +964,15 @@ class NodeScopeResolver
 					continue;
 				}
 
-				return in_array($statement->name, $this->earlyTerminatingMethodCalls[$className], true);
+				if (in_array($statement->name, $this->earlyTerminatingMethodCalls[$className], true)) {
+					return $statement;
+				}
 			}
 
-			return false;
+			return null;
 		}
 
-		return false;
+		return null;
 	}
 
 	/**
