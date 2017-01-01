@@ -147,7 +147,7 @@ class NodeScopeResolver
 						$assignByReference = $lastParameter->isPassedByReference();
 					}
 					if ($assignByReference && $value instanceof Variable && is_string($value->name)) {
-						$scope = $scope->assignVariable($value->name, new MixedType(true));
+						$scope = $scope->assignVariable($value->name, new MixedType());
 					}
 				}
 			}
@@ -656,7 +656,7 @@ class NodeScopeResolver
 
 					$arg = $node->args[$i]->value;
 					if ($arg instanceof Variable && is_string($arg->name)) {
-						$scope = $scope->assignVariable($arg->name, new MixedType(true));
+						$scope = $scope->assignVariable($arg->name, new MixedType());
 					}
 				}
 			}
@@ -764,7 +764,7 @@ class NodeScopeResolver
 					continue;
 				}
 
-				$scope = $scope->assignVariable($closureUse->var, new MixedType(true));
+				$scope = $scope->assignVariable($closureUse->var, new MixedType());
 			}
 		}
 
@@ -831,7 +831,7 @@ class NodeScopeResolver
 
 			if ($var instanceof Variable && is_string($var->name)) {
 				$arrayType = ArrayType::createDeepArrayType(
-					new NestedArrayItemType($subNodeType !== null ? $subNodeType : new MixedType(true), $depth),
+					new NestedArrayItemType($subNodeType !== null ? $subNodeType : new MixedType(), $depth),
 					false
 				);
 				if ($scope->hasVariableType($var->name)) {

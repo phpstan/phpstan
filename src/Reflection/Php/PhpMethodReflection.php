@@ -115,7 +115,7 @@ class PhpMethodReflection implements MethodReflection
 				// PHP bug #71416
 				$this->parameters[1] = new DummyOptionalParameter(
 					'parameter',
-					new MixedType(true),
+					new MixedType(),
 					false,
 					true
 				);

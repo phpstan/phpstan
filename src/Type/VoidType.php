@@ -32,7 +32,7 @@ class VoidType implements Type
 			return $this;
 		}
 
-		return new MixedType(true);
+		return new MixedType();
 	}
 
 	public function makeNullable(): Type

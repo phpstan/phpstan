@@ -39,7 +39,7 @@ class UniversalObjectCrateProperty implements \PHPStan\Reflection\PropertyReflec
 
 	public function getType(): Type
 	{
-		return new MixedType(true);
+		return new MixedType();
 	}
 
 }
