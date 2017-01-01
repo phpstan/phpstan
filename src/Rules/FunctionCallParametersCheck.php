@@ -85,7 +85,11 @@ class FunctionCallParametersCheck
 			}
 		}
 
-		if ($function->getReturnType() instanceof VoidType && !$scope->isInFirstLevelStatement()) {
+		if (
+			$function->getReturnType() instanceof VoidType
+			&& !$scope->isInFirstLevelStatement()
+			&& !$funcCall instanceof \PhpParser\Node\Expr\New_
+		) {
 			$errors[] = $messages[7];
 		}
 
