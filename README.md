@@ -38,6 +38,13 @@ and invoking methods using `__call`.
 
 See [Class reflection extensions](#class-reflection-extensions) and [Dynamic return type extensions](#dynamic-return-type-extensions).
 
+You can also installed already created framework-specific extensions:
+
+* [Nette Framework](https://github.com/phpstan/phpstan-nette)
+* [Dibi - Database Abstraction Library](https://github.com/phpstan/phpstan-dibi)
+
+Other framework-specific extension will be coming soon!
+
 ## Prerequisities
 
 PHPStan requires PHP 7.0. You have to run it in environment with PHP 7 but the actual code does not have to use
