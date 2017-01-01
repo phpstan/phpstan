@@ -36,6 +36,10 @@ class CallToNonExistentFunctionRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
+		if (strpos((string) $node->name, 'apache_') === 0) {
+			return [];
+		}
+
 		if (!$this->broker->hasFunction($node->name, $scope)) {
 			return [sprintf('Function %s not found.', (string) $node->name)];
 		}
