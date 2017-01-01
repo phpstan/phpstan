@@ -105,7 +105,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$this->assertArrayHasKey('fooObjectFromTryCatch', $variables);
 				$this->assertSame('InTryCatchFoo', $variables['fooObjectFromTryCatch']->describe());
 				$this->assertArrayHasKey('mixedVarFromTryCatch', $variables);
-				$this->assertSame('mixed', $variables['mixedVarFromTryCatch']->describe());
+				$this->assertSame('float', $variables['mixedVarFromTryCatch']->describe());
 				$this->assertArrayHasKey('nullableIntegerFromTryCatch', $variables);
 				$this->assertSame('int|null', $variables['nullableIntegerFromTryCatch']->describe());
 				$this->assertArrayHasKey('anotherNullableIntegerFromTryCatch', $variables);
