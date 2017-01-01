@@ -51,18 +51,18 @@ class TypehintHelper
 			case 'float':
 				return new FloatType($isNullable);
 			case 'array':
-				return new ArrayType(new MixedType(true), $isNullable);
+				return new ArrayType(new MixedType(), $isNullable);
 			case 'iterable':
-				return new IterableIterableType(new MixedType(true), $isNullable);
+				return new IterableIterableType(new MixedType(), $isNullable);
 			case 'callable':
 				return new CallableType($isNullable);
 			case null:
-				return new MixedType(true);
+				return new MixedType();
 			case 'resource':
 				return new ResourceType($isNullable);
 			case 'object':
 			case 'mixed':
-				return new MixedType($isNullable);
+				return new MixedType();
 			case 'void':
 				return new VoidType();
 			default:
@@ -82,7 +82,7 @@ class TypehintHelper
 	): Type
 	{
 		if ($reflectionType === null) {
-			return $phpDocType !== null ? $phpDocType : new MixedType(true);
+			return $phpDocType !== null ? $phpDocType : new MixedType();
 		}
 
 		$reflectionTypeString = (string) $reflectionType;

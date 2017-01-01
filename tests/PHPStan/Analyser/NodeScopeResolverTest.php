@@ -117,7 +117,6 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				/** @var $mixeds \PHPStan\Type\ArrayType */
 				$mixeds = $variables['mixeds'];
 				$this->assertInstanceOf(MixedType::class, $mixeds->getItemType());
-				$this->assertFalse($mixeds->getItemType()->isNullable());
 
 				$this->assertArrayHasKey('trueOrFalse', $variables);
 				$this->assertSame('bool', $variables['trueOrFalse']->describe());

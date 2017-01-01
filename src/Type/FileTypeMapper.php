@@ -174,7 +174,7 @@ class FileTypeMapper
 				return new CommonUnionType($otherTypes, $isNullable);
 			}
 
-			return new MixedType($isNullable);
+			return new MixedType();
 		}
 
 		return TypehintHelper::getTypeObjectFromTypehint($typePartsWithoutNull[0], $isNullable, $className, $nameScope);

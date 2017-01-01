@@ -70,16 +70,16 @@ class PhpClassReflectionExtension
 			$declaringClassReflection = $this->broker->getClass($propertyReflection->getDeclaringClass()->getName());
 			$typeString = $this->getPropertyAnnotationTypeString($propertyReflection);
 			if ($typeString === null) {
-				$type = new MixedType(false);
+				$type = new MixedType();
 			} elseif (!$declaringClassReflection->getNativeReflection()->isAnonymous() && $declaringClassReflection->getNativeReflection()->getFileName() !== false) {
 				$typeMap = $this->fileTypeMapper->getTypeMap($declaringClassReflection->getNativeReflection()->getFileName());
 				if (isset($typeMap[$typeString])) {
 					$type = $typeMap[$typeString];
 				} else {
-					$type = new MixedType(true);
+					$type = new MixedType();
 				}
 			} else {
-				$type = new MixedType(true);
+				$type = new MixedType();
 			}
 
 			$properties[$propertyName] = new PhpPropertyReflection(

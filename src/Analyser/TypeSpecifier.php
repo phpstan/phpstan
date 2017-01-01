@@ -88,7 +88,7 @@ class TypeSpecifier
 			} elseif ($functionName === 'is_null') {
 				$specifiedType = new NullType();
 			} elseif ($functionName === 'is_array') {
-				$specifiedType = new ArrayType(new MixedType(true), false);
+				$specifiedType = new ArrayType(new MixedType(), false);
 			} elseif ($functionName === 'is_bool') {
 				$specifiedType = new TrueOrFalseBooleanType(false);
 			} elseif ($functionName === 'is_callable') {
@@ -96,7 +96,7 @@ class TypeSpecifier
 			} elseif ($functionName === 'is_resource') {
 				$specifiedType = new ResourceType(false);
 			} elseif ($functionName === 'is_iterable') {
-				$specifiedType = new IterableIterableType(new MixedType(true), false);
+				$specifiedType = new IterableIterableType(new MixedType(), false);
 			} elseif ($functionName === 'is_string') {
 				$specifiedType = new StringType(false);
 			}

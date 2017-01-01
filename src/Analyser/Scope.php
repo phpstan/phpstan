@@ -462,7 +462,7 @@ class Scope
 		} elseif ($node instanceof \PhpParser\Node\Expr\Cast\String_) {
 			return new StringType(false);
 		} elseif ($node instanceof \PhpParser\Node\Expr\Cast\Array_) {
-			return new ArrayType(new MixedType(true), false);
+			return new ArrayType(new MixedType(), false);
 		} elseif ($node instanceof Object_) {
 			return new ObjectType('stdClass', false);
 		} elseif ($node instanceof Unset_) {
@@ -502,7 +502,7 @@ class Scope
 
 		if ($node instanceof Variable && is_string($node->name)) {
 			if (!$this->hasVariableType($node->name)) {
-				return new MixedType(true);
+				return new MixedType();
 			}
 
 			return $this->getVariableType($node->name);
@@ -525,7 +525,7 @@ class Scope
 					$methodCalledOnType->getClass()
 				);
 				if (!$methodClassReflection->hasMethod($node->name)) {
-					return new MixedType(true);
+					return new MixedType();
 				}
 
 				$methodReflection = $methodClassReflection->getMethod($node->name);
@@ -552,7 +552,7 @@ class Scope
 			if ($calleeClass !== null && $this->broker->hasClass($calleeClass)) {
 				$staticMethodClassReflection = $this->broker->getClass($calleeClass);
 				if (!$staticMethodClassReflection->hasMethod($node->name)) {
-					return new MixedType(true);
+					return new MixedType();
 				}
 				$staticMethodReflection = $staticMethodClassReflection->getMethod($node->name);
 				if ($staticMethodReflection->getReturnType() instanceof StaticResolvableType) {
@@ -577,7 +577,7 @@ class Scope
 					$propertyFetchedOnType->getClass()
 				);
 				if (!$propertyClassReflection->hasProperty($node->name)) {
-					return new MixedType(true);
+					return new MixedType();
 				}
 
 				return $propertyClassReflection->getProperty($node->name, $this)->getType();
@@ -591,7 +591,7 @@ class Scope
 					$staticPropertyHolderClass
 				);
 				if (!$staticPropertyClassReflection->hasProperty($node->name)) {
-					return new MixedType(true);
+					return new MixedType();
 				}
 
 				return $staticPropertyClassReflection->getProperty($node->name, $this)->getType();
@@ -635,13 +635,13 @@ class Scope
 			}
 
 			if (!$this->broker->hasFunction($node->name, $this)) {
-				return new MixedType(true);
+				return new MixedType();
 			}
 
 			return $this->broker->getFunction($node->name, $this)->getReturnType();
 		}
 
-		return new MixedType(false);
+		return new MixedType();
 	}
 
 	/**
@@ -697,7 +697,7 @@ class Scope
 	private function getCombinedType(array $types): Type
 	{
 		if (count($types) === 0) {
-			return new MixedType(true);
+			return new MixedType();
 		}
 
 		$itemType = reset($types);
@@ -888,7 +888,7 @@ class Scope
 			null,
 			$this->getNamespace(),
 			[
-				'this' => new MixedType(false),
+				'this' => new MixedType(),
 			],
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
@@ -919,7 +919,7 @@ class Scope
 		foreach ($uses as $use) {
 			if (!$this->hasVariableType($use->var)) {
 				if ($use->byRef) {
-					$variableTypes[$use->var] = new MixedType(true);
+					$variableTypes[$use->var] = new MixedType();
 				}
 				continue;
 			}
@@ -974,7 +974,7 @@ class Scope
 			), false);
 		}
 		if ($type === null) {
-			return new MixedType(true);
+			return new MixedType();
 		} elseif ($type === 'string') {
 			return new StringType($isNullable);
 		} elseif ($type === 'int') {
@@ -986,7 +986,7 @@ class Scope
 		} elseif ($type === 'callable') {
 			return new CallableType($isNullable);
 		} elseif ($type === 'array') {
-			return new ArrayType(new MixedType(true), $isNullable);
+			return new ArrayType(new MixedType(), $isNullable);
 		} elseif ($type instanceof Name) {
 			$className = (string) $type;
 			if ($className === 'self') {
@@ -994,14 +994,14 @@ class Scope
 			}
 			return new ObjectType($className, $isNullable);
 		} elseif ($type === 'iterable') {
-			return new IterableIterableType(new MixedType(true), $isNullable);
+			return new IterableIterableType(new MixedType(), $isNullable);
 		} elseif ($type === 'void') {
 			return new VoidType();
 		} elseif ($type instanceof Node\NullableType) {
 			return $this->getFunctionType($type->type, true, $isVariadic);
 		}
 
-		return new MixedType($isNullable);
+		return new MixedType();
 	}
 
 	public function enterForeach(Expr $iteratee, string $valueName, string $keyName = null): self
@@ -1011,11 +1011,11 @@ class Scope
 		if ($iterateeType instanceof IterableType) {
 			$variableTypes[$valueName] = $iterateeType->getItemType();
 		} else {
-			$variableTypes[$valueName] = new MixedType(true);
+			$variableTypes[$valueName] = new MixedType();
 		}
 
 		if ($keyName !== null) {
-			$variableTypes[$keyName] = new MixedType(false);
+			$variableTypes[$keyName] = new MixedType();
 		}
 
 		return new self(
@@ -1049,7 +1049,7 @@ class Scope
 		if (count($classes) === 1) {
 			$type = new ObjectType((string) $classes[0], false);
 		} else {
-			$type = new MixedType(false);
+			$type = new MixedType();
 		}
 		$variableTypes[$variableName] = $type;
 
@@ -1137,7 +1137,7 @@ class Scope
 		$variableTypes = $this->getVariableTypes();
 		$variableTypes[$variableName] = $type !== null
 			? $type
-			: new MixedType(true);
+			: new MixedType();
 
 		return new self(
 			$this->broker,
@@ -1290,7 +1290,7 @@ class Scope
 		$exprString = $this->printer->prettyPrintExpr($expr);
 
 		return $this->addMoreSpecificTypes([
-			$exprString => new MixedType(false),
+			$exprString => new MixedType(),
 		]);
 	}
 
