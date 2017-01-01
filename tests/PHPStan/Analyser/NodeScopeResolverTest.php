@@ -10,6 +10,7 @@ use PHPStan\Type\ArrayType;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Type\FalseBooleanType;
 use PHPStan\Type\FileTypeMapper;
+use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
@@ -111,7 +112,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$this->assertInstanceOf(ObjectType::class, $variables['fooObjectFromTryCatch']);
 				$this->assertSame('InTryCatchFoo', $variables['fooObjectFromTryCatch']->getClass());
 				$this->assertArrayHasKey('mixedVarFromTryCatch', $variables);
-				$this->assertInstanceOf(MixedType::class, $variables['mixedVarFromTryCatch']);
+				$this->assertInstanceOf(FloatType::class, $variables['mixedVarFromTryCatch']);
 				$this->assertArrayHasKey('nullableIntegerFromTryCatch', $variables);
 				$this->assertInstanceOf(IntegerType::class, $variables['nullableIntegerFromTryCatch']);
 				$this->assertTrue($variables['nullableIntegerFromTryCatch']->isNullable());
