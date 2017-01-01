@@ -20,13 +20,15 @@ It currently performs the following checks on your code:
 * Existence of classes and interfaces in `instanceof`, `catch`, typehints, other language constructs and even annotations. PHP does not do this and just stays silent instead.
 * Existence of variables while respecting scopes of branches and loops.
 * Existence and visibility of called methods and functions.
-* Existence and visibility of accessed properties.
+* Existence and visibility of accessed properties and constants.
 * Correct types assigned to properties.
-* Correct number of parameters passed to constructors, methods and functions.
+* Correct number and types of parameters passed to constructors, methods and functions.
 * Correct types returned from methods and functions.
 * Correct number of parameters passed to `sprintf`/`printf` calls based on format strings.
-
-Future versions will also check if arguments of correct types are passed to methods and functions and assigned to properties.
+* Useless casts like `(string) 'foo'`.
+* Unused constructor parameters - they can either be deleted or the author forgot to
+use them in the class code.
+* That only objects are passed to the `clone` keyword.
 
 ## Extensibility
 
