@@ -102,7 +102,7 @@ class FunctionCallParametersCheck
 
 				$parameter = $parameters[count($parameters) - 1];
 				$parameterType = $parameter->getType();
-				if ($parameter->getType() instanceof ArrayType) {
+				if ($parameterType instanceof ArrayType) {
 					if (!$argument->unpack) {
 						$parameterType = $parameterType->getItemType();
 					}
