@@ -474,6 +474,9 @@ services:
 
 * If `include` or `require` are used in the analysed code (instead of `include_once` or `require_once`),
 PHPStan will throw `Cannot redeclare class` error. Use the `_once` variants to avoid this error.
+* If PHPStan crashes without outputting any error, it's quite possible that it's
+because of a low memory limit set on your system. **Run PHPStan again** to read a couple of hints
+what you can do to prevent the crashes.
 
 ## Code of Conduct
 
