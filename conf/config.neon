@@ -83,6 +83,9 @@ services:
 		class: PHPStan\Reflection\Php\PhpClassReflectionExtension
 
 	-
+		class: PHPStan\Reflection\PhpDefect\PhpDefectClassReflectionExtension
+
+	-
 		implement: PHPStan\Reflection\Php\PhpMethodReflectionFactory
 
 	-
