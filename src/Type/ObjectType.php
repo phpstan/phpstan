@@ -39,7 +39,7 @@ class ObjectType implements Type
 
 	public function combineWith(Type $otherType): Type
 	{
-		if ($otherType instanceof self && $this->getClass() == $otherType->getClass()) {
+		if ($otherType instanceof self && $this->getClass() === $otherType->getClass()) {
 			return new self($this->getClass(), $this->isNullable() || $otherType->isNullable());
 		}
 
