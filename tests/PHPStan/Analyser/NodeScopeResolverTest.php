@@ -6,15 +6,10 @@ use PhpParser\Node\Expr\Exit_;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
 use PHPStan\Reflection\MethodReflection;
-use PHPStan\Type\ArrayType;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
-use PHPStan\Type\FalseBooleanType;
 use PHPStan\Type\FileTypeMapper;
-use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
-use PHPStan\Type\TrueBooleanType;
-use PHPStan\Type\TrueOrFalseBooleanType;
 use SomeNodeScopeResolverNamespace\Foo;
 
 class NodeScopeResolverTest extends \PHPStan\TestCase
@@ -108,25 +103,16 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$this->assertArrayHasKey('exception', $variables);
 				$this->assertArrayNotHasKey('inTryNotInCatch', $variables);
 				$this->assertArrayHasKey('fooObjectFromTryCatch', $variables);
-				$this->assertInstanceOf(ObjectType::class, $variables['fooObjectFromTryCatch']);
-				$this->assertSame('InTryCatchFoo', $variables['fooObjectFromTryCatch']->getClass());
+				$this->assertSame('InTryCatchFoo', $variables['fooObjectFromTryCatch']->describe());
 				$this->assertArrayHasKey('mixedVarFromTryCatch', $variables);
-				$this->assertInstanceOf(MixedType::class, $variables['mixedVarFromTryCatch']);
+				$this->assertSame('mixed', $variables['mixedVarFromTryCatch']->describe());
 				$this->assertArrayHasKey('nullableIntegerFromTryCatch', $variables);
-				$this->assertInstanceOf(IntegerType::class, $variables['nullableIntegerFromTryCatch']);
-				$this->assertTrue($variables['nullableIntegerFromTryCatch']->isNullable());
+				$this->assertSame('int|null', $variables['nullableIntegerFromTryCatch']->describe());
 				$this->assertArrayHasKey('anotherNullableIntegerFromTryCatch', $variables);
-				$this->assertInstanceOf(IntegerType::class, $variables['anotherNullableIntegerFromTryCatch']);
-				$this->assertTrue($variables['anotherNullableIntegerFromTryCatch']->isNullable());
+				$this->assertSame('int|null', $variables['anotherNullableIntegerFromTryCatch']->describe());
 
-				$this->assertInstanceOf(ArrayType::class, $variables['nullableIntegers']);
-
-				/** @var $nullableIntegers \PHPStan\Type\ArrayType */
-				$nullableIntegers = $variables['nullableIntegers'];
-				$this->assertInstanceOf(IntegerType::class, $nullableIntegers->getItemType());
-				$this->assertTrue($nullableIntegers->getItemType()->isNullable());
-
-				$this->assertInstanceOf(ArrayType::class, $variables['mixeds']);
+				$this->assertSame('int|null[]', $variables['nullableIntegers']->describe());
+				$this->assertSame('mixed[]', $variables['mixeds']->describe());
 
 				/** @var $mixeds \PHPStan\Type\ArrayType */
 				$mixeds = $variables['mixeds'];
@@ -134,27 +120,26 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$this->assertFalse($mixeds->getItemType()->isNullable());
 
 				$this->assertArrayHasKey('trueOrFalse', $variables);
-				$this->assertInstanceOf(TrueOrFalseBooleanType::class, $variables['trueOrFalse']);
+				$this->assertSame('bool', $variables['trueOrFalse']->describe());
 				$this->assertArrayHasKey('falseOrTrue', $variables);
-				$this->assertInstanceOf(TrueOrFalseBooleanType::class, $variables['falseOrTrue']);
+				$this->assertSame('bool', $variables['falseOrTrue']->describe());
 				$this->assertArrayHasKey('true', $variables);
-				$this->assertInstanceOf(TrueBooleanType::class, $variables['true']);
+				$this->assertSame('true', $variables['true']->describe());
 				$this->assertArrayHasKey('false', $variables);
-				$this->assertInstanceOf(FalseBooleanType::class, $variables['false']);
+				$this->assertSame('false', $variables['false']->describe());
 
 				$this->assertArrayHasKey('trueOrFalseFromSwitch', $variables);
-				$this->assertInstanceOf(TrueOrFalseBooleanType::class, $variables['trueOrFalseFromSwitch']);
+				$this->assertSame('bool', $variables['trueOrFalseFromSwitch']->describe());
 				$this->assertArrayHasKey('trueOrFalseInSwitchWithDefault', $variables);
-				$this->assertInstanceOf(TrueOrFalseBooleanType::class, $variables['trueOrFalseInSwitchWithDefault']);
+				$this->assertSame('bool', $variables['trueOrFalseInSwitchWithDefault']->describe());
 				$this->assertArrayHasKey('trueOrFalseInSwitchInAllCases', $variables);
-				$this->assertInstanceOf(TrueOrFalseBooleanType::class, $variables['trueOrFalseInSwitchInAllCases']);
+				$this->assertSame('bool', $variables['trueOrFalseInSwitchInAllCases']->describe());
 				$this->assertArrayHasKey('trueOrFalseInSwitchInAllCasesWithDefault', $variables);
-				$this->assertInstanceOf(TrueOrFalseBooleanType::class, $variables['trueOrFalseInSwitchInAllCasesWithDefault']);
+				$this->assertSame('bool', $variables['trueOrFalseInSwitchInAllCasesWithDefault']->describe());
 				$this->assertArrayHasKey('trueOrFalseInSwitchInAllCasesWithDefaultCase', $variables);
-				$this->assertInstanceOf(TrueOrFalseBooleanType::class, $variables['trueOrFalseInSwitchInAllCasesWithDefaultCase']);
+				$this->assertSame('bool', $variables['trueOrFalseInSwitchInAllCasesWithDefaultCase']->describe());
 				$this->assertArrayHasKey('nullableTrueOrFalse', $variables);
-				$this->assertInstanceOf(TrueOrFalseBooleanType::class, $variables['nullableTrueOrFalse']);
-				$this->assertTrue($variables['nullableTrueOrFalse']->isNullable());
+				$this->assertSame('bool|null', $variables['nullableTrueOrFalse']->describe());
 			}
 		});
 	}
