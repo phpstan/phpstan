@@ -477,6 +477,11 @@ PHPStan will throw `Cannot redeclare class` error. Use the `_once` variants to a
 * If PHPStan crashes without outputting any error, it's quite possible that it's
 because of a low memory limit set on your system. **Run PHPStan again** to read a couple of hints
 what you can do to prevent the crashes.
+* If you install PHPStan globally on your system, you can experience errors resulting from
+using different versions of dependencies than PHPStan uses. For example if PHPStan's
+version of Symfony Console has a method with different arguments than your version
+of Symfony Console and you use this method in the analysed code, PHPStan can mark that as error.
+This will be solved in the future by prefixing the namespaces of PHPStan's dependencies.
 
 ## Code of Conduct
 
