@@ -113,6 +113,9 @@ services:
 		class: PHPStan\Rules\RuleLevelHelper
 
 	-
+		class: PHPStan\Rules\UnusedFunctionParametersCheck
+
+	-
 		class: PHPStan\Type\FileTypeMapper
 		arguments:
 			enableUnionTypes: %enableUnionTypes%

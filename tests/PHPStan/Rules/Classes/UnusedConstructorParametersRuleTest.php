@@ -2,12 +2,14 @@
 
 namespace PHPStan\Rules\Classes;
 
+use PHPStan\Rules\UnusedFunctionParametersCheck;
+
 class UnusedConstructorParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new UnusedConstructorParametersRule();
+		return new UnusedConstructorParametersRule(new UnusedFunctionParametersCheck());
 	}
 
 	public function testUnusedConstructorParameters()
