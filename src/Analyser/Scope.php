@@ -32,6 +32,7 @@ use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
+use PHPStan\Type\CommonUnionType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\IterableIterableType;
@@ -45,6 +46,7 @@ use PHPStan\Type\StringType;
 use PHPStan\Type\ThisType;
 use PHPStan\Type\TrueOrFalseBooleanType;
 use PHPStan\Type\Type;
+use PHPStan\Type\UnionType;
 use PHPStan\Type\VoidType;
 
 class Scope
@@ -1254,9 +1256,23 @@ class Scope
 	{
 		if ($expr instanceof Variable && is_string($expr->name)) {
 			$variableName = $expr->name;
-
 			$variableTypes = $this->getVariableTypes();
-			$variableTypes[$variableName] = $type;
+			$newType = $type;
+
+			if ($this->hasVariableType($variableName)) {
+				$existingType = $variableTypes[$variableName];
+
+				if ($existingType instanceof UnionType) {
+					$newType = $existingType->combineWith($type);
+				} elseif ($existingType instanceof ObjectType) {
+					$newType = new CommonUnionType(
+						[$existingType, $type],
+						$existingType->isNullable() || $type->isNullable()
+					);
+				}
+			}
+
+			$variableTypes[$variableName] = $newType;
 
 			return new self(
 				$this->broker,

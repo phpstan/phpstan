@@ -1324,7 +1324,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				'PhpParser\Node\Expr\ArrayDimFetch',
+				'PhpParser\Node\Expr\ArrayDimFetch|PhpParser\Node\Stmt\Function_',
 				'$foo',
 			],
 			[
