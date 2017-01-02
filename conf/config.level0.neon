@@ -76,6 +76,11 @@ services:
 			- phpstan.rules.rule
 
 	-
+		class: PHPStan\Rules\Functions\UnusedClosureUsesRule
+		tags:
+			- phpstan.rules.rule
+
+	-
 		class: PHPStan\Rules\Methods\CallMethodsRule
 		arguments:
 			checkThisOnly: %checkThisOnly%
