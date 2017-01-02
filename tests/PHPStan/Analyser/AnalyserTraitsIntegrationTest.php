@@ -2,6 +2,8 @@
 
 namespace PHPStan\Analyser;
 
+use PHPStan\FileHelper;
+
 class AnalyserTraitsIntegrationTest extends \PHPStan\TestCase
 {
 
@@ -18,7 +20,7 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\TestCase
 		$error = $errors[0];
 		$this->assertSame('Call to an undefined method AnalyseTraits\Bar::doFoo().', $error->getMessage());
 		$this->assertSame(
-			sprintf('%s (in context of class AnalyseTraits\Bar)', __DIR__ . '/traits/FooTrait.php'),
+			sprintf('%s (in context of class AnalyseTraits\Bar)', FileHelper::normalizePath(__DIR__ . '/traits/FooTrait.php')),
 			$error->getFile()
 		);
 		$this->assertSame(10, $error->getLine());
@@ -31,7 +33,7 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\TestCase
 		$firstError = $errors[0];
 		$this->assertSame('Call to an undefined method AnalyseTraits\NestedBar::doFoo().', $firstError->getMessage());
 		$this->assertSame(
-			sprintf('%s (in context of class AnalyseTraits\NestedBar)', __DIR__ . '/traits/FooTrait.php'),
+			sprintf('%s (in context of class AnalyseTraits\NestedBar)', FileHelper::normalizePath(__DIR__ . '/traits/FooTrait.php')),
 			$firstError->getFile()
 		);
 		$this->assertSame(10, $firstError->getLine());
@@ -39,7 +41,7 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\TestCase
 		$secondError = $errors[1];
 		$this->assertSame('Call to an undefined method AnalyseTraits\NestedBar::doNestedFoo().', $secondError->getMessage());
 		$this->assertSame(
-			sprintf('%s (in context of class AnalyseTraits\NestedBar)', __DIR__ . '/traits/NestedFooTrait.php'),
+			sprintf('%s (in context of class AnalyseTraits\NestedBar)', FileHelper::normalizePath(__DIR__ . '/traits/NestedFooTrait.php')),
 			$secondError->getFile()
 		);
 		$this->assertSame(12, $secondError->getLine());

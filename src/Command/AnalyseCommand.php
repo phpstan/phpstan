@@ -4,6 +4,7 @@ namespace PHPStan\Command;
 
 use Nette\Configurator;
 use PhpParser\Node\Stmt\Catch_;
+use PHPStan\FileHelper;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -45,7 +46,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			require_once $autoloadFile;
 		}
 
-		$rootDir = realpath(__DIR__ . '/../..');
+		$rootDir = FileHelper::normalizePath(__DIR__ . '/../..');
 		$tmpDir = $rootDir . '/tmp';
 		$confDir = $rootDir . '/conf';
 
@@ -74,13 +75,12 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		}
 
 		if ($projectConfigFile !== null) {
-			$projectConfigRealFilePath = realpath($projectConfigFile);
 			if (!is_file($projectConfigFile)) {
-				$output->writeln(sprintf('Project config file at path %s does not exist.', $projectConfigRealFilePath !== false ? $projectConfigRealFilePath : $projectConfigFile));
+				$output->writeln(sprintf('Project config file at path %s does not exist.', $projectConfigFile));
 				return 1;
 			}
 
-			$configFiles[] = $projectConfigRealFilePath;
+			$configFiles[] = $projectConfigFile;
 		}
 
 		foreach ($configFiles as $configFile) {
@@ -123,7 +123,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			$output->writeln('');
 			$output->writeln('* while running the analyse option, use the <info>--level</info> option to adjust your rule level - the higher the stricter');
 			$output->writeln('');
-			$output->writeln(sprintf('* create your own <info>custom ruleset</info> by selecting which rules you want to check by copying the service definitions from the built-in config level files in <options=bold>%s</>.', realpath(__DIR__ . '/../../conf')));
+			$output->writeln(sprintf('* create your own <info>custom ruleset</info> by selecting which rules you want to check by copying the service definitions from the built-in config level files in <options=bold>%s</>.', FileHelper::normalizePath(__DIR__ . '/../../conf')));
 			$output->writeln('  * in this case, don\'t forget to define parameter <options=bold>customRulesetUsed</> in your config file.');
 			$output->writeln('');
 			return $this->handleReturn(1, $memoryLimitFile);
