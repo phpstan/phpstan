@@ -3,6 +3,7 @@
 namespace PHPStan\Analyser;
 
 use PHPStan\Broker\Broker;
+use PHPStan\FileHelper;
 use PHPStan\Parser\Parser;
 use PHPStan\Rules\Registry;
 
@@ -78,7 +79,7 @@ class Analyser
 		$this->nodeScopeResolver = $nodeScopeResolver;
 		$this->printer = $printer;
 		$this->analyseExcludes = array_map(function (string $exclude): string {
-			return str_replace('/', DIRECTORY_SEPARATOR, $exclude);
+			return FileHelper::normalizePath($exclude);
 		}, $analyseExcludes);
 		$this->ignoreErrors = $ignoreErrors;
 		$this->bootstrapFile = $bootstrapFile;
@@ -119,6 +120,8 @@ class Analyser
 		}
 
 		foreach ($files as $file) {
+			$file = FileHelper::normalizePath($file);
+
 			try {
 				if ($this->isExcludedFromAnalysing($file)) {
 					if ($progressCallback !== null) {
@@ -202,9 +205,7 @@ class Analyser
 	public function isExcludedFromAnalysing(string $file): bool
 	{
 		foreach ($this->analyseExcludes as $exclude) {
-			$realpathedExclude = realpath($exclude);
-			if (($realpathedExclude !== false
-				&& strpos($file, $realpathedExclude) === 0)
+			if (strpos($file, $exclude) === 0
 				|| fnmatch($exclude, $file, DIRECTORY_SEPARATOR === '\\' ? FNM_NOESCAPE : 0)) {
 				return true;
 			}
