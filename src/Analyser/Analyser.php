@@ -205,7 +205,7 @@ class Analyser
 			$realpathedExclude = realpath($exclude);
 			if (($realpathedExclude !== false
 				&& strpos($file, $realpathedExclude) === 0)
-				|| fnmatch($exclude, $file)) {
+				|| fnmatch($exclude, $file, DIRECTORY_SEPARATOR === '\\' ? FNM_NOESCAPE : 0)) {
 				return true;
 			}
 		}
