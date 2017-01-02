@@ -14,7 +14,8 @@ class Foo
 		$usedParameterInStringThree,
 		$usedParameterInCondition,
 		$usedParameterInClosureUse,
-		$unusedParameter
+		$unusedParameter,
+		$anotherUnusedParameter
 	)
 	{
 		$this->foo = $usedParameter;
@@ -24,8 +25,8 @@ class Foo
 		if (doFoo()) {
 			$this->foo = $usedParameterInCondition;
 		}
-		function () use ($usedParameterInClosureUse) {
-
+		function ($anotherUnusedParameter) use ($usedParameterInClosureUse) {
+			echo $anotherUnusedParameter; // different scope
 		};
 	}
 

@@ -17,6 +17,10 @@ class UnusedConstructorParametersRuleTest extends \PHPStan\Rules\AbstractRuleTes
 				'Constructor of class UnusedConstructorParameters\Foo has an unused parameter $unusedParameter.',
 				10,
 			],
+			[
+				'Constructor of class UnusedConstructorParameters\Foo has an unused parameter $anotherUnusedParameter.',
+				10,
+			],
 		]);
 	}
 

@@ -63,6 +63,9 @@ class UnusedConstructorParametersRule implements \PHPStan\Rules\Rule
 				return [$node->var];
 			}
 			foreach ($node->getSubNodeNames() as $subNodeName) {
+				if ($node instanceof Node\Expr\Closure && $subNodeName !== 'uses') {
+					continue;
+				}
 				$subNode = $node->{$subNodeName};
 				$variableNames = array_merge($variableNames, $this->getUsedVariables($subNode));
 			}
