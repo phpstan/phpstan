@@ -25,11 +25,15 @@ class UnusedConstructorParametersRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
+		if (count($node->params) === 0) {
+			return [];
+		}
+
 		$unusedParameters = [];
 		foreach ($node->params as $parameter) {
 			$unusedParameters[$parameter->name] = true;
 		}
-		foreach ($this->getUsedVariables($node) as $variableName) {
+		foreach ($this->getUsedVariables($node->stmts) as $variableName) {
 			if (isset($unusedParameters[$variableName])) {
 				unset($unusedParameters[$variableName]);
 			}
