@@ -6,6 +6,7 @@ use PHPStan\Analyser\Analyser;
 use PHPStan\Analyser\Error;
 use PHPStan\Analyser\NodeScopeResolver;
 use PHPStan\Analyser\TypeSpecifier;
+use PHPStan\FileHelper;
 use PHPStan\Type\FileTypeMapper;
 
 abstract class AbstractRuleTest extends \PHPStan\TestCase
@@ -51,7 +52,7 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 
 	private function assertError(string $message, string $file, int $line = null, Error $error)
 	{
-		$this->assertSame($file, $error->getFile(), $error->getMessage());
+		$this->assertSame(FileHelper::normalizePath($file), $error->getFile(), $error->getMessage());
 		$this->assertSame($line, $error->getLine(), $error->getMessage());
 		$this->assertSame($message, $error->getMessage());
 	}

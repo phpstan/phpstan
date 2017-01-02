@@ -4,6 +4,7 @@ namespace PHPStan\Command;
 
 use PHPStan\Analyser\Analyser;
 use PHPStan\Analyser\Error;
+use PHPStan\FileHelper;
 use Symfony\Component\Console\Style\StyleInterface;
 use Symfony\Component\Finder\Finder;
 
@@ -39,15 +40,19 @@ class AnalyseApplication
 
 		$this->updateMemoryLimitFile();
 
+		$workingDirectory = getcwd();
+		$paths = array_map(function (string $path) use ($workingDirectory): string {
+			return !FileHelper::isAbsolutePath($path) ? $workingDirectory . DIRECTORY_SEPARATOR . $path : $path;
+		}, $paths);
+
 		foreach ($paths as $path) {
-			$realpath = realpath($path);
-			if ($realpath === false || !file_exists($realpath)) {
+			if (!file_exists($path)) {
 				$errors[] = new Error(sprintf('<error>Path %s does not exist</error>', $path), $path);
-			} elseif (is_file($realpath)) {
-				$files[] = $realpath;
+			} elseif (is_file($path)) {
+				$files[] = $path;
 			} else {
 				$finder = new Finder();
-				foreach ($finder->files()->name('*.php')->in($realpath) as $fileInfo) {
+				foreach ($finder->files()->name('*.php')->in($path) as $fileInfo) {
 					$files[] = $fileInfo->getPathname();
 				}
 			}
@@ -89,9 +94,9 @@ class AnalyseApplication
 			return 0;
 		}
 
-		$currentDir = realpath(dirname($paths[0]));
-		$cropFilename = function ($filename) use ($currentDir) {
-			if ($currentDir !== false && strpos($filename, $currentDir) === 0) {
+		$currentDir = FileHelper::normalizePath(dirname($paths[0]));
+		$cropFilename = function (string $filename) use ($currentDir): string {
+			if ($currentDir !== '' && strpos($filename, $currentDir) === 0) {
 				return substr($filename, strlen($currentDir) + 1);
 			}
 

@@ -2,6 +2,8 @@
 
 namespace PHPStan\Analyser;
 
+use PHPStan\FileHelper;
+
 class AnalyserIntegrationTest extends \PHPStan\TestCase
 {
 
@@ -47,6 +49,8 @@ class AnalyserIntegrationTest extends \PHPStan\TestCase
 	 */
 	private function runAnalyse(string $file): array
 	{
+		$file = FileHelper::normalizePath($file);
+
 		/** @var \PHPStan\Analyser\Analyser $analyser */
 		$analyser = $this->getContainer()->getByType(Analyser::class);
 		$errors = $analyser->analyse([$file]);
