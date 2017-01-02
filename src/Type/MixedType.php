@@ -38,7 +38,11 @@ class MixedType implements Type
 
 	public function accepts(Type $type): bool
 	{
-		return true;
+		if ($type instanceof UnionType && UnionTypeHelper::acceptsAll($this, $type)) {
+			return true;
+		}
+
+		return !($type instanceof VoidType);
 	}
 
 	public function describe(): string

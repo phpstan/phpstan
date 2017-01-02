@@ -51,6 +51,10 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				63,
 			],
 			[
+				'Parameter #1 $foo of method Test\Bar::dolor() expects mixed, void given.',
+				66,
+			],
+			[
 				'Result of method Test\Bar::returnsVoid() (void) is used.',
 				66,
 			],
@@ -132,6 +136,10 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			[
 				'Method Test\Foo::test() invoked with 0 parameters, 1 required.',
 				46,
+			],
+			[
+				'Parameter #1 $foo of method Test\Bar::dolor() expects mixed, void given.',
+				66,
 			],
 			[
 				'Result of method Test\Bar::returnsVoid() (void) is used.',
