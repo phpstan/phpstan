@@ -1028,11 +1028,35 @@ class NodeScopeResolver
 					$classScope->getClass() !== null ? sprintf('class %s', $classScope->getClass()) : 'anonymous class'
 				)
 			);
-			$this->processNodes($parserNodes, new Scope($this->broker, $this->printer, $fileName), function (\PhpParser\Node $node) use ($traitName, $classScope, $nodeCallback) {
-				if ($node instanceof Node\Stmt\Trait_ && $traitName === (string) $node->namespacedName) {
-					$this->processNodes($node->stmts, $classScope->enterFirstLevelStatements(), $nodeCallback);
-				}
-			});
+
+			$this->processNodesForTraitUse($parserNodes, $traitName, $classScope, $nodeCallback);
+		}
+	}
+
+	/**
+	 * @param \PhpParser\Node[]|\PhpParser\Node $node
+	 * @param string $traitName
+	 * @param \PHPStan\Analyser\Scope $classScope
+	 * @param \Closure $nodeCallback
+	 */
+	private function processNodesForTraitUse($node, string $traitName, Scope $classScope, \Closure $nodeCallback)
+	{
+		if ($node instanceof Node) {
+			if ($node instanceof Node\Stmt\Trait_ && $traitName === (string) $node->namespacedName) {
+				$this->processNodes($node->stmts, $classScope->enterFirstLevelStatements(), $nodeCallback);
+				return;
+			}
+			if ($node instanceof Node\Stmt\ClassLike) {
+				return;
+			}
+			foreach ($node->getSubNodeNames() as $subNodeName) {
+				$subNode = $node->{$subNodeName};
+				$this->processNodesForTraitUse($subNode, $traitName, $classScope, $nodeCallback);
+			}
+		} elseif (is_array($node)) {
+			foreach ($node as $subNode) {
+				$this->processNodesForTraitUse($subNode, $traitName, $classScope, $nodeCallback);
+			}
 		}
 	}
 

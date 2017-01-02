@@ -53,6 +53,12 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\TestCase
 		$this->assertEmpty($errors);
 	}
 
+	public function testClassAndTraitInTheSameFile()
+	{
+		$errors = $this->runAnalyse(__DIR__ . '/traits/classAndTrait.php');
+		$this->assertEmpty($errors);
+	}
+
 	/**
 	 * @param string $file
 	 * @return \PHPStan\Analyser\Error[]|string[]
