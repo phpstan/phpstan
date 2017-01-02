@@ -13,6 +13,7 @@ class Foo
 		$usedParameterInStringTwo,
 		$usedParameterInStringThree,
 		$usedParameterInCondition,
+		$usedParameterInClosureUse,
 		$unusedParameter
 	)
 	{
@@ -23,6 +24,9 @@ class Foo
 		if (doFoo()) {
 			$this->foo = $usedParameterInCondition;
 		}
+		function () use ($usedParameterInClosureUse) {
+
+		};
 	}
 
 }
