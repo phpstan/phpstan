@@ -326,4 +326,10 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$this->analyse([__DIR__ . '/data/protected-method-call-from-parent.php'], []);
 	}
 
+	public function testInstanceofUnionMethods()
+	{
+		$this->checkThisOnly = false;
+		$this->analyse([__DIR__ . '/data/call-instanceof-methods.php'], []);
+	}
+
 }
