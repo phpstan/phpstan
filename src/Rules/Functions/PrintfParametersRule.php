@@ -86,6 +86,7 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 		$options = [
 			$characterGroups,
 			'[0-9]+\$' . $characterGroups,
+			'(?:[\.\-0-9\'])*\[\^[^\]]\]',
 		];
 		preg_match_all(sprintf('~%%((?:%s))~', implode(')|(?:', $options)), $format, $matches);
 		$maxPositionedNumber = 0;

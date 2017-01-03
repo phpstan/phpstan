@@ -19,6 +19,7 @@ sprintf('%%%s%%'); // one required
 sscanf($str, '%d%d'); // correct - result returned as an array
 sscanf($str, '%d', $number); // correct
 sscanf($str, '%d%d', $number); // one parameter missing
+sscanf($str, '%20[^,],%d', $string, $number); // ok
 fscanf($resource, '%d%d'); // correct - result returned as an array
 fscanf($resource, '%d', $number); // correct
 fscanf($resource, '%d%d', $number); // one parameter missing
