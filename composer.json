@@ -9,7 +9,7 @@
 	],
 	"extra": {
 		"branch-alias": {
-			"dev-master": "0.5-dev"
+			"dev-master": "0.6-dev"
 		}
 	},
 	"require": {
