@@ -1406,7 +1406,7 @@ class Scope
 
 	public function canCallMethod(MethodReflection $methodReflection): bool
 	{
-		return $this->canAccessClassMember($methodReflection);
+		return $this->canAccessClassMember($methodReflection->getPrototype());
 	}
 
 	public function canAccessConstant(ClassConstantReflection $constantReflection): bool

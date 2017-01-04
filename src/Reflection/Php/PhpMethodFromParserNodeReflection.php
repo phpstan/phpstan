@@ -39,6 +39,11 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 		return $this->declaringClass;
 	}
 
+	public function getPrototype(): MethodReflection
+	{
+		return $this->declaringClass->getMethod($this->getClassMethod()->name)->getPrototype();
+	}
+
 	private function getClassMethod(): ClassMethod
 	{
 		/** @var \PhpParser\Node\Stmt\ClassMethod $functionLike */

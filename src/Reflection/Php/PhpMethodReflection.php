@@ -3,6 +3,7 @@
 namespace PHPStan\Reflection\Php;
 
 use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\Broker\Broker;
 use PHPStan\Parser\FunctionCallStatementFinder;
 use PHPStan\Parser\Parser;
 use PHPStan\Reflection\ClassReflection;
@@ -22,6 +23,9 @@ class PhpMethodReflection implements MethodReflection
 
 	/** @var \ReflectionMethod */
 	private $reflection;
+
+	/** @var \PHPStan\Broker\Broker */
+	private $broker;
 
 	/** @var \PHPStan\Parser\Parser */
 	private $parser;
@@ -47,6 +51,7 @@ class PhpMethodReflection implements MethodReflection
 	public function __construct(
 		ClassReflection $declaringClass,
 		\ReflectionMethod $reflection,
+		Broker $broker,
 		Parser $parser,
 		FunctionCallStatementFinder $functionCallStatementFinder,
 		\Nette\Caching\Cache $cache,
@@ -56,6 +61,7 @@ class PhpMethodReflection implements MethodReflection
 	{
 		$this->declaringClass = $declaringClass;
 		$this->reflection = $reflection;
+		$this->broker = $broker;
 		$this->parser = $parser;
 		$this->functionCallStatementFinder = $functionCallStatementFinder;
 		$this->cache = $cache;
@@ -66,6 +72,27 @@ class PhpMethodReflection implements MethodReflection
 	public function getDeclaringClass(): ClassReflection
 	{
 		return $this->declaringClass;
+	}
+
+	public function getPrototype(): MethodReflection
+	{
+		try {
+			$prototypeReflection = $this->reflection->getPrototype();
+			$prototypeDeclaringClass = $this->broker->getClassFromReflection($prototypeReflection->getDeclaringClass());
+
+			return new self(
+				$prototypeDeclaringClass,
+				$prototypeReflection,
+				$this->broker,
+				$this->parser,
+				$this->functionCallStatementFinder,
+				$this->cache,
+				$this->phpDocParameterTypes,
+				$this->phpDocReturnType
+			);
+		} catch (\ReflectionException $e) {
+			return $this;
+		}
 	}
 
 	public function isStatic(): bool

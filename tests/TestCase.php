@@ -58,7 +58,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 		$functionCallStatementFinder = new FunctionCallStatementFinder();
 		$parser = $this->getParser();
 		$cache = new \Nette\Caching\Cache(new \Nette\Caching\Storages\MemoryStorage());
-		$phpExtension = new PhpClassReflectionExtension(new class($parser, $functionCallStatementFinder, $cache) implements PhpMethodReflectionFactory {
+		$methodReflectionFactory = new class($parser, $functionCallStatementFinder, $cache) implements PhpMethodReflectionFactory {
 			/** @var \PHPStan\Parser\Parser */
 			private $parser;
 
@@ -67,6 +67,9 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 
 			/** @var \Nette\Caching\Cache */
 			private $cache;
+
+			/** @var \PHPStan\Broker\Broker */
+			public $broker;
 
 			public function __construct(
 				Parser $parser,
@@ -89,6 +92,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 				return new PhpMethodReflection(
 					$declaringClass,
 					$reflection,
+					$this->broker,
 					$this->parser,
 					$this->functionCallStatementFinder,
 					$this->cache,
@@ -96,7 +100,8 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 					$phpDocReturnType
 				);
 			}
-		}, new FileTypeMapper($parser, $this->createMock(\Nette\Caching\Cache::class), true));
+		};
+		$phpExtension = new PhpClassReflectionExtension($methodReflectionFactory, new FileTypeMapper($parser, $this->createMock(\Nette\Caching\Cache::class), true));
 		$functionReflectionFactory = new class($this->getParser(), $functionCallStatementFinder, $cache) implements FunctionReflectionFactory {
 			/** @var \PHPStan\Parser\Parser */
 			private $parser;
@@ -144,6 +149,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 			$functionReflectionFactory,
 			new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class), true)
 		);
+		$methodReflectionFactory->broker = $broker;
 
 		return $broker;
 	}
