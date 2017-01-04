@@ -825,7 +825,10 @@ class Scope
 			$this->getClass(),
 			$functionReflection,
 			$this->getNamespace(),
-			$variableTypes
+			$variableTypes,
+			null,
+			null,
+			$this->anonymousClass
 		);
 	}
 
@@ -1421,19 +1424,18 @@ class Scope
 		}
 
 		$class = $this->inClosureBindScopeClass !== null ? $this->inClosureBindScopeClass : $this->getClass();
-		if ($class === null) {
-			return false;
-		}
-		if (!$this->broker->hasClass($class)) {
+		if ($class !== null && $this->broker->hasClass($class)) {
+			$currentClassReflection = $this->broker->getClass($class);
+		} elseif ($this->isInAnonymousClass()) {
+			$currentClassReflection = $this->getAnonymousClass();
+		} else {
 			return false;
 		}
 
 		$classReflectionName = $classMemberReflection->getDeclaringClass()->getName();
 		if ($classMemberReflection->isPrivate()) {
-			return $class === $classReflectionName;
+			return $currentClassReflection->getName() === $classReflectionName;
 		}
-
-		$currentClassReflection = $this->broker->getClass($class);
 
 		// protected
 
@@ -1444,7 +1446,7 @@ class Scope
 			return true;
 		}
 
-		return $classMemberReflection->getDeclaringClass()->isSubclassOf($class);
+		return $classMemberReflection->getDeclaringClass()->isSubclassOf($currentClassReflection->getName());
 	}
 
 }

@@ -31,3 +31,17 @@ class Child extends Base {
 	}
 
 }
+
+function () {
+
+	new class extends Base {
+
+		public function bar()
+		{
+			$other = new Other();
+			$other->foo();
+		}
+
+	};
+
+};
