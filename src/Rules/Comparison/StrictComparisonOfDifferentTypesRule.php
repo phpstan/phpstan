@@ -35,17 +35,13 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 		if (
 			$leftType instanceof MixedType
 			|| $rightType instanceof MixedType
+			|| $leftType instanceof NullType
+			|| $rightType instanceof NullType
 		) {
 			return [];
 		}
 
-		if ($leftType instanceof NullType || $rightType instanceof NullType) {
-			if ($leftType instanceof NullType) {
-				$isSameType = $rightType->isNullable();
-			} else {
-				$isSameType = $leftType->isNullable();
-			}
-		} elseif ($leftType instanceof UnionType || $rightType instanceof UnionType) {
+		if ($leftType instanceof UnionType || $rightType instanceof UnionType) {
 			if ($leftType instanceof UnionType) {
 				$unionType = $leftType;
 				$otherType = $rightType;
