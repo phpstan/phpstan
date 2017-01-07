@@ -42,6 +42,12 @@ class Foo
 		if ($trueOrFalseInSwitch === true) {
 
 		}
+
+		$intOrNull = 5;
+		if (doFoo()) {
+			$intOrNull = null;
+		}
+		$intOrNull === null;
 	}
 
 }
