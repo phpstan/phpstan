@@ -122,9 +122,9 @@ class PhpClassReflectionExtension
 			$this->methods[$classReflection->getName()] = $this->createMethods($classReflection);
 		}
 
-		$methodName = strtolower($methodName);
+		$nativeMethodReflection = $classReflection->getNativeReflection()->getMethod($methodName);
 
-		return $this->methods[$classReflection->getName()][$methodName];
+		return $this->methods[$classReflection->getName()][$nativeMethodReflection->getName()];
 	}
 
 	/**
@@ -156,7 +156,7 @@ class PhpClassReflectionExtension
 				}
 			}
 
-			$methods[strtolower($methodReflection->getName())] = $this->methodReflectionFactory->create(
+			$methods[$methodReflection->getName()] = $this->methodReflectionFactory->create(
 				$declaringClass,
 				$methodReflection,
 				$phpDocParameterTypes,

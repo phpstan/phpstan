@@ -137,7 +137,7 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 			]
 		);
 
-		if ($methodReflection->getName() !== $name) {
+		if (strtolower($methodReflection->getName()) === strtolower($name) && $methodReflection->getName() !== $name) {
 			$errors[] = sprintf('Call to method %s with incorrect case: %s', $messagesMethodName, $name);
 		}
 
