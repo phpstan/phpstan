@@ -51,9 +51,10 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @param \PHPStan\Type\DynamicMethodReturnTypeExtension[] $dynamicMethodReturnTypeExtensions
+	 * @param \PHPStan\Type\DynamicStaticMethodReturnTypeExtension[] $dynamicStaticMethodReturnTypeExtensions
 	 * @return \PHPStan\Broker\Broker
 	 */
-	public function createBroker(array $dynamicMethodReturnTypeExtensions = []): Broker
+	public function createBroker(array $dynamicMethodReturnTypeExtensions = [], array $dynamicStaticMethodReturnTypeExtensions = []): Broker
 	{
 		$functionCallStatementFinder = new FunctionCallStatementFinder();
 		$parser = $this->getParser();
@@ -141,6 +142,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 			],
 			[$phpExtension],
 			$dynamicMethodReturnTypeExtensions,
+			$dynamicStaticMethodReturnTypeExtensions,
 			$functionReflectionFactory,
 			new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class), true)
 		);

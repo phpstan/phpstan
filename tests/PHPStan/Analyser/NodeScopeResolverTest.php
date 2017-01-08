@@ -5,8 +5,10 @@ namespace PHPStan\Analyser;
 use PhpParser\Node\Expr\Exit_;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
+use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
+use PHPStan\Type\DynamicStaticMethodReturnTypeExtension;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
@@ -1473,6 +1475,38 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'DynamicMethodReturnTypesNamespace\Foo',
 				'$iem->getByPrimary(DynamicMethodReturnTypesNamespace\Foo::class)',
 			],
+			[
+				'mixed',
+				'EntityManager::getByFoo($foo)',
+			],
+			[
+				'DynamicMethodReturnTypesNamespace\EntityManager',
+				'\DynamicMethodReturnTypesNamespace\EntityManager::createManagerForEntity()',
+			],
+			[
+				'DynamicMethodReturnTypesNamespace\EntityManager',
+				'\DynamicMethodReturnTypesNamespace\EntityManager::createManagerForEntity($foo)',
+			],
+			[
+				'DynamicMethodReturnTypesNamespace\Foo',
+				'\DynamicMethodReturnTypesNamespace\EntityManager::createManagerForEntity(DynamicMethodReturnTypesNamespace\Foo::class)',
+			],
+			[
+				'mixed',
+				'\DynamicMethodReturnTypesNamespace\InheritedEntityManager::getByFoo($foo)',
+			],
+			[
+				'DynamicMethodReturnTypesNamespace\EntityManager',
+				'\DynamicMethodReturnTypesNamespace\InheritedEntityManager::createManagerForEntity()',
+			],
+			[
+				'DynamicMethodReturnTypesNamespace\EntityManager',
+				'\DynamicMethodReturnTypesNamespace\InheritedEntityManager::createManagerForEntity($foo)',
+			],
+			[
+				'DynamicMethodReturnTypesNamespace\Foo',
+				'\DynamicMethodReturnTypesNamespace\InheritedEntityManager::createManagerForEntity(DynamicMethodReturnTypesNamespace\Foo::class)',
+			],
 		];
 	}
 
@@ -1504,6 +1538,39 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 					}
 
 					public function getTypeFromMethodCall(MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope): \PHPStan\Type\Type
+					{
+						$args = $methodCall->args;
+						if (count($args) === 0) {
+							return $methodReflection->getReturnType();
+						}
+
+						$arg = $args[0]->value;
+						if (!($arg instanceof \PhpParser\Node\Expr\ClassConstFetch)) {
+							return $methodReflection->getReturnType();
+						}
+
+						if (!($arg->class instanceof \PhpParser\Node\Name)) {
+							return $methodReflection->getReturnType();
+						}
+
+						return new ObjectType((string) $arg->class, false);
+					}
+				},
+			],
+			[
+				new class() implements DynamicStaticMethodReturnTypeExtension {
+
+					public static function getClass(): string
+					{
+						return \DynamicMethodReturnTypesNamespace\EntityManager::class;
+					}
+
+					public function isStaticMethodSupported(MethodReflection $methodReflection): bool
+					{
+						return in_array($methodReflection->getName(), ['createManagerForEntity'], true);
+					}
+
+					public function getTypeFromStaticMethodCall(MethodReflection $methodReflection, StaticCall $methodCall, Scope $scope): \PHPStan\Type\Type
 					{
 						$args = $methodCall->args;
 						if (count($args) === 0) {
@@ -1563,6 +1630,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			__DIR__ . '/data/overwritingVariable.php',
 			$description,
 			$expression,
+			[],
 			[],
 			$evaluatedPointExpressionType
 		);
@@ -2043,6 +2111,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		string $description,
 		string $expression,
 		array $dynamicMethodReturnTypeExtensions = [],
+		array $dynamicStaticMethodReturnTypeExtensions = [],
 		string $evaluatedPointExpressionType = Exit_::class
 	)
 	{
@@ -2053,15 +2122,15 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$type = $scope->getType($expression);
 				$this->assertTypeDescribe($description, $type->describe());
 			}
-		}, $dynamicMethodReturnTypeExtensions);
+		}, $dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions);
 	}
 
-	private function processFile(string $file, \Closure $callback, array $dynamicMethodReturnTypeExtensions = [])
+	private function processFile(string $file, \Closure $callback, array $dynamicMethodReturnTypeExtensions = [], array $dynamicStaticMethodReturnTypeExtensions = [])
 	{
 		$this->resolver->processNodes(
 			$this->getParser()->parseFile($file),
 			new Scope(
-				$this->createBroker($dynamicMethodReturnTypeExtensions),
+				$this->createBroker($dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions),
 				$this->printer,
 				$file
 			),
