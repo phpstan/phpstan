@@ -53,7 +53,7 @@ class AnalyserIntegrationTest extends \PHPStan\TestCase
 
 		/** @var \PHPStan\Analyser\Analyser $analyser */
 		$analyser = $this->getContainer()->getByType(Analyser::class);
-		$errors = $analyser->analyse([$file]);
+		$errors = $analyser->analyse([$file], false);
 		foreach ($errors as $error) {
 			$this->assertSame($file, $error->getFile());
 		}

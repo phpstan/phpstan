@@ -45,6 +45,7 @@ class AnalyseApplication
 			return !FileHelper::isAbsolutePath($path) ? $workingDirectory . DIRECTORY_SEPARATOR . $path : $path;
 		}, $paths);
 
+		$onlyFiles = true;
 		foreach ($paths as $path) {
 			if (!file_exists($path)) {
 				$errors[] = new Error(sprintf('<error>Path %s does not exist</error>', $path), $path);
@@ -54,6 +55,7 @@ class AnalyseApplication
 				$finder = new Finder();
 				foreach ($finder->files()->name('*.php')->in($path) as $fileInfo) {
 					$files[] = $fileInfo->getPathname();
+					$onlyFiles = false;
 				}
 			}
 		}
@@ -65,6 +67,7 @@ class AnalyseApplication
 		$fileOrder = 0;
 		$errors = array_merge($errors, $this->analyser->analyse(
 			$files,
+			$onlyFiles,
 			function () use ($style, &$progressStarted, $files, &$fileOrder) {
 				if (!$progressStarted) {
 					$style->progressStart(count($files));

@@ -87,10 +87,11 @@ class Analyser
 
 	/**
 	 * @param string[] $files
+	 * @param bool $onlyFiles
 	 * @param \Closure|null $progressCallback
 	 * @return string[]|\PHPStan\Analyser\Error[] errors
 	 */
-	public function analyse(array $files, \Closure $progressCallback = null): array
+	public function analyse(array $files, bool $onlyFiles, \Closure $progressCallback = null): array
 	{
 		$errors = [];
 
@@ -176,11 +177,13 @@ class Analyser
 			return true;
 		}));
 
-		foreach ($unmatchedIgnoredErrors as $unmatchedIgnoredError) {
-			$errors[] = sprintf(
-				'Ignored error pattern %s was not matched in reported errors.',
-				$unmatchedIgnoredError
-			);
+		if (!$onlyFiles) {
+			foreach ($unmatchedIgnoredErrors as $unmatchedIgnoredError) {
+				$errors[] = sprintf(
+					'Ignored error pattern %s was not matched in reported errors.',
+					$unmatchedIgnoredError
+				);
+			}
 		}
 
 		return $errors;
