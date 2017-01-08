@@ -61,6 +61,12 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\TestCase
 		$this->assertEmpty($errors);
 	}
 
+	public function testTraitMethodAlias()
+	{
+		$errors = $this->runAnalyse(__DIR__ . '/traits/trait-aliases.php');
+		$this->assertEmpty($errors);
+	}
+
 	/**
 	 * @param string $file
 	 * @return \PHPStan\Analyser\Error[]|string[]
