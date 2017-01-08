@@ -156,7 +156,7 @@ class Analyser
 
 				$errors = array_merge($errors, $fileErrors);
 			} catch (\PhpParser\Error $e) {
-				$errors[] = new Error($e->getMessage(), $file);
+				$errors[] = new Error($e->getMessage(), $file, $e->getStartLine() !== -1 ? $e->getStartLine() : null);
 			} catch (\PHPStan\AnalysedCodeException $e) {
 				$errors[] = new Error($e->getMessage(), $file);
 			} catch (\Throwable $t) {
