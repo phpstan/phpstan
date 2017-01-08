@@ -173,3 +173,10 @@ switch ('foo') {
 }
 
 echo $variableInSwitchWithEarlyTerminatingStatement;
+
+foreach ($someArray as $someArrayKey => &$valueByReference) {
+	if (is_array($valueByReference)) {
+		$valueByReference = implode(',', $valueByReference);
+	}
+}
+unset($valueByReference);
