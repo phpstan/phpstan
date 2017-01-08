@@ -9,6 +9,7 @@ use PHPStan\Parser\Parser;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptor;
+use PHPStan\Type\ArrayType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\StringType;
@@ -147,6 +148,33 @@ class PhpMethodReflection implements MethodReflection
 					new MixedType(),
 					true,
 					false,
+					true
+				);
+			}
+
+			if (
+				$this->declaringClass->getName() === 'PDO'
+				&& $this->reflection->getName() === 'query'
+				&& count($this->parameters) < 4
+			) {
+				$this->parameters[] = new DummyParameter(
+					'statement',
+					new StringType(false),
+					false
+				);
+				$this->parameters[] = new DummyParameter(
+					'fetchColumn',
+					new IntegerType(false),
+					true
+				);
+				$this->parameters[] = new DummyParameter(
+					'colno',
+					new MixedType(),
+					true
+				);
+				$this->parameters[] = new DummyParameter(
+					'constructorArgs',
+					new ArrayType(new MixedType(), false),
 					true
 				);
 			}

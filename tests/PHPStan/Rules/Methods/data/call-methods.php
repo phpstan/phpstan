@@ -103,3 +103,9 @@ $f = function () {
 	$arrayOfStdClass = new \ArrayObject([new \stdClass()]);
 	$arrayOfStdClass->doFoo();
 };
+
+$g = function () {
+	$pdo = new \PDO('dsn', 'username', 'password');
+	$pdo->query();
+	$pdo->query('statement');
+};
