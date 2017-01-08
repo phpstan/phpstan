@@ -58,7 +58,7 @@ class AnalyserTest extends \PHPStan\TestCase
 	public function testExclude(string $filePath, array $analyseExcludes, array $ignoreErrors, int $errorsCount)
 	{
 		$analyser = $this->createAnalyser($analyseExcludes, $ignoreErrors);
-		$result = $analyser->analyse([$filePath]);
+		$result = $analyser->analyse([$filePath], !is_file($filePath));
 		$this->assertInternalType('array', $result);
 		$this->assertCount($errorsCount, $result);
 	}
@@ -66,17 +66,25 @@ class AnalyserTest extends \PHPStan\TestCase
 	public function testReturnErrorIfIgnoredMessagesDoesNotOccur()
 	{
 		$analyser = $this->createAnalyser([], ['#Unknown error#']);
-		$result = $analyser->analyse([__DIR__ . '/data/empty.php']);
+		$result = $analyser->analyse([__DIR__ . '/data/empty/empty.php'], false);
 		$this->assertInternalType('array', $result);
 		$this->assertSame([
 			'Ignored error pattern #Unknown error# was not matched in reported errors.',
 		], $result);
 	}
 
+	public function testDoNotReturnErrorIfIgnoredMessagesDoNotOccurWhileAnalysingIndividualFiles()
+	{
+		$analyser = $this->createAnalyser([], ['#Unknown error#']);
+		$result = $analyser->analyse([__DIR__ . '/data/empty/empty.php'], true);
+		$this->assertInternalType('array', $result);
+		$this->assertEmpty($result);
+	}
+
 	public function testReportInvalidIgnorePatternEarly()
 	{
 		$analyser = $this->createAnalyser([], ['#Regexp syntax error']);
-		$result = $analyser->analyse([__DIR__ . '/data/parse-error.php']);
+		$result = $analyser->analyse([__DIR__ . '/data/parse-error.php'], false);
 		$this->assertInternalType('array', $result);
 		$this->assertSame([
 			"No ending delimiter '#' found in pattern: #Regexp syntax error",
@@ -86,7 +94,7 @@ class AnalyserTest extends \PHPStan\TestCase
 	public function testNonexistentBootstrapFile()
 	{
 		$analyser = $this->createAnalyser([], [], __DIR__ . '/foo.php');
-		$result = $analyser->analyse([__DIR__ . '/data/empty.php']);
+		$result = $analyser->analyse([__DIR__ . '/data/empty/empty.php'], false);
 		$this->assertInternalType('array', $result);
 		$this->assertCount(1, $result);
 		$this->assertContains('does not exist', $result[0]);
@@ -95,7 +103,7 @@ class AnalyserTest extends \PHPStan\TestCase
 	public function testBootstrapFile()
 	{
 		$analyser = $this->createAnalyser([], [], __DIR__ . '/data/bootstrap.php');
-		$result = $analyser->analyse([__DIR__ . '/data/empty.php']);
+		$result = $analyser->analyse([__DIR__ . '/data/empty/empty.php'], false);
 		$this->assertInternalType('array', $result);
 		$this->assertEmpty($result);
 		$this->assertSame('fooo', PHPSTAN_TEST_CONSTANT);
@@ -104,7 +112,7 @@ class AnalyserTest extends \PHPStan\TestCase
 	public function testBootstrapFileWithAnError()
 	{
 		$analyser = $this->createAnalyser([], [], __DIR__ . '/data/bootstrap-error.php');
-		$result = $analyser->analyse([__DIR__ . '/data/empty.php']);
+		$result = $analyser->analyse([__DIR__ . '/data/empty/empty.php'], false);
 		$this->assertInternalType('array', $result);
 		$this->assertCount(1, $result);
 		$this->assertSame([

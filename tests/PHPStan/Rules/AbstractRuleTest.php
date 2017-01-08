@@ -59,7 +59,7 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 
 	public function analyse(array $files, array $errors)
 	{
-		$result = $this->getAnalyser()->analyse($files);
+		$result = $this->getAnalyser()->analyse($files, false);
 		$this->assertInternalType('array', $result);
 		foreach ($errors as $i => $error) {
 			if (!isset($result[$i])) {
