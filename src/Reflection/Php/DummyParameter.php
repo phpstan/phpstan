@@ -5,7 +5,7 @@ namespace PHPStan\Reflection\Php;
 use PHPStan\Reflection\ParameterReflection;
 use PHPStan\Type\Type;
 
-class DummyOptionalParameter implements ParameterReflection
+class DummyParameter implements ParameterReflection
 {
 
 	/** @var string */
@@ -15,15 +15,19 @@ class DummyOptionalParameter implements ParameterReflection
 	private $type;
 
 	/** @var bool */
+	private $optional;
+
+	/** @var bool */
 	private $passedByReference;
 
 	/** @var bool */
 	private $variadic;
 
-	public function __construct(string $name, Type $type, bool $passedByReference = false, bool $variadic = false)
+	public function __construct(string $name, Type $type, bool $optional, bool $passedByReference = false, bool $variadic = false)
 	{
 		$this->name = $name;
 		$this->type = $type;
+		$this->optional = $optional;
 		$this->passedByReference = $passedByReference;
 		$this->variadic = $variadic;
 	}
@@ -35,7 +39,7 @@ class DummyOptionalParameter implements ParameterReflection
 
 	public function isOptional(): bool
 	{
-		return true;
+		return $this->optional;
 	}
 
 	public function getType(): Type
