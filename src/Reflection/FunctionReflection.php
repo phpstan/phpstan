@@ -5,7 +5,7 @@ namespace PHPStan\Reflection;
 use PhpParser\Node\Stmt\Function_;
 use PHPStan\Parser\FunctionCallStatementFinder;
 use PHPStan\Parser\Parser;
-use PHPStan\Reflection\Php\DummyOptionalParameter;
+use PHPStan\Reflection\Php\DummyParameter;
 use PHPStan\Reflection\Php\PhpParameterReflection;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\Type;
@@ -82,9 +82,10 @@ class FunctionReflection implements ParametersAcceptor
 				&& count($this->parameters) === 1
 			) {
 				// PHP bug #70960
-				$this->parameters[] = new DummyOptionalParameter(
+				$this->parameters[] = new DummyParameter(
 					'sort_flags',
-					new IntegerType(false)
+					new IntegerType(false),
+					true
 				);
 			}
 		}

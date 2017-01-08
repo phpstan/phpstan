@@ -97,13 +97,15 @@ class PhpMethodReflection implements MethodReflection
 				&& count($this->parameters) === 1
 			) {
 				// PHP bug #71077
-				$this->parameters[] = new DummyOptionalParameter(
+				$this->parameters[] = new DummyParameter(
 					'flags',
-					new IntegerType(false)
+					new IntegerType(false),
+					true
 				);
-				$this->parameters[] = new DummyOptionalParameter(
+				$this->parameters[] = new DummyParameter(
 					'iterator_class',
-					new StringType(false)
+					new StringType(false),
+					true
 				);
 			}
 
@@ -113,9 +115,10 @@ class PhpMethodReflection implements MethodReflection
 				&& !$this->parameters[1]->isOptional()
 			) {
 				// PHP bug #71416
-				$this->parameters[1] = new DummyOptionalParameter(
+				$this->parameters[1] = new DummyParameter(
 					'parameter',
 					new MixedType(),
+					true,
 					false,
 					true
 				);
