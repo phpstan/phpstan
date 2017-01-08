@@ -22,6 +22,9 @@ class Broker
 	/** @var \PHPStan\Type\DynamicMethodReturnTypeExtension[] */
 	private $dynamicMethodReturnTypeExtensions = [];
 
+	/** @var \PHPStan\Type\DynamicStaticMethodReturnTypeExtension[] */
+	private $dynamicStaticMethodReturnTypeExtensions = [];
+
 	/** @var \PHPStan\Reflection\ClassReflection[] */
 	private $classReflections = [];
 
@@ -38,6 +41,7 @@ class Broker
 	 * @param \PHPStan\Reflection\PropertiesClassReflectionExtension[] $propertiesClassReflectionExtensions
 	 * @param \PHPStan\Reflection\MethodsClassReflectionExtension[] $methodsClassReflectionExtensions
 	 * @param \PHPStan\Type\DynamicMethodReturnTypeExtension[] $dynamicMethodReturnTypeExtensions
+	 * @param \PHPStan\Type\DynamicStaticMethodReturnTypeExtension[] $dynamicStaticMethodReturnTypeExtensions
 	 * @param \PHPStan\Reflection\FunctionReflectionFactory $functionReflectionFactory
 	 * @param \PHPStan\Type\FileTypeMapper $fileTypeMapper
 	 */
@@ -45,6 +49,7 @@ class Broker
 		array $propertiesClassReflectionExtensions,
 		array $methodsClassReflectionExtensions,
 		array $dynamicMethodReturnTypeExtensions,
+		array $dynamicStaticMethodReturnTypeExtensions,
 		FunctionReflectionFactory $functionReflectionFactory,
 		FileTypeMapper $fileTypeMapper
 	)
@@ -61,6 +66,10 @@ class Broker
 			$this->dynamicMethodReturnTypeExtensions[$dynamicMethodReturnTypeExtension->getClass()][] = $dynamicMethodReturnTypeExtension;
 		}
 
+		foreach ($dynamicStaticMethodReturnTypeExtensions as $dynamicStaticMethodReturnTypeExtension) {
+			$this->dynamicStaticMethodReturnTypeExtensions[$dynamicStaticMethodReturnTypeExtension->getClass()][] = $dynamicStaticMethodReturnTypeExtension;
+		}
+
 		$this->functionReflectionFactory = $functionReflectionFactory;
 		$this->fileTypeMapper = $fileTypeMapper;
 	}
@@ -71,17 +80,36 @@ class Broker
 	 */
 	public function getDynamicMethodReturnTypeExtensionsForClass(string $className): array
 	{
-		$extensions = [];
+		return $this->getDynamicExtensionsForType($this->dynamicMethodReturnTypeExtensions, $className);
+	}
+
+	/**
+	 * @param string $className
+	 * @return \PHPStan\Type\DynamicStaticMethodReturnTypeExtension[]
+	 */
+	public function getDynamicStaticMethodReturnTypeExtensionsForClass(string $className): array
+	{
+		return $this->getDynamicExtensionsForType($this->dynamicStaticMethodReturnTypeExtensions, $className);
+	}
+
+	/**
+	 * @param \PHPStan\Type\DynamicMethodReturnTypeExtension[]|\PHPStan\Type\DynamicStaticMethodReturnTypeExtension[] $extensions
+	 * @param string $className
+	 * @return mixed[]
+	 */
+	private function getDynamicExtensionsForType(array $extensions, string $className): array
+	{
+		$extensionsForClass = [];
 		$class = $this->getClass($className);
 		foreach (array_merge([$className], $class->getParentClassesNames()) as $extensionClassName) {
-			if (!isset($this->dynamicMethodReturnTypeExtensions[$extensionClassName])) {
+			if (!isset($extensions[$extensionClassName])) {
 				continue;
 			}
 
-			$extensions = array_merge($extensions, $this->dynamicMethodReturnTypeExtensions[$extensionClassName]);
+			$extensionsForClass = array_merge($extensionsForClass, $extensions[$extensionClassName]);
 		}
 
-		return $extensions;
+		return $extensionsForClass;
 	}
 
 	public function getClass(string $className): \PHPStan\Reflection\ClassReflection

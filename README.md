@@ -503,6 +503,9 @@ services:
 			- phpstan.broker.dynamicMethodReturnTypeExtension
 ```
 
+There's also an analogous functionality for static methods using `DynamicStaticMethodReturnTypeExtension` interface
+and `phpstan.broker.dynamicStaticMethodReturnTypeExtension` service tag.
+
 ## Known issues
 
 * If `include` or `require` are used in the analysed code (instead of `include_once` or `require_once`),

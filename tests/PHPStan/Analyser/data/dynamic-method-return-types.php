@@ -10,6 +10,11 @@ class EntityManager
 		return new $className();
 	}
 
+	public static function createManagerForEntity(string $className): self
+	{
+
+	}
+
 }
 
 class InheritedEntityManager extends EntityManager

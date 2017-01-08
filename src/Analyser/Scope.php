@@ -555,6 +555,13 @@ class Scope
 					return new MixedType();
 				}
 				$staticMethodReflection = $staticMethodClassReflection->getMethod($node->name);
+				foreach ($this->broker->getDynamicStaticMethodReturnTypeExtensionsForClass($calleeClass) as $dynamicStaticMethodReturnTypeExtension) {
+					if (!$dynamicStaticMethodReturnTypeExtension->isStaticMethodSupported($staticMethodReflection)) {
+						continue;
+					}
+
+					return $dynamicStaticMethodReturnTypeExtension->getTypeFromStaticMethodCall($staticMethodReflection, $node, $this);
+				}
 				if ($staticMethodReflection->getReturnType() instanceof StaticResolvableType) {
 					$nodeClassString = (string) $node->class;
 					if ($nodeClassString === 'parent' && $this->getClass() !== null) {
