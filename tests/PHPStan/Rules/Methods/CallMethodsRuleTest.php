@@ -110,6 +110,10 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Call to an undefined method ArrayObject::doFoo().',
 				104,
 			],
+			[
+				'Method PDO::query() invoked with 0 parameters, 1-4 required.',
+				109,
+			],
 		]);
 	}
 
