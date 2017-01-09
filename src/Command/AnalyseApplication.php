@@ -44,9 +44,8 @@ class AnalyseApplication
 
 		$this->updateMemoryLimitFile();
 
-		$workingDirectory = getcwd();
-		$paths = array_map(function (string $path) use ($workingDirectory): string {
-			return !$this->fileHelper->isAbsolutePath($path) ? $workingDirectory . DIRECTORY_SEPARATOR . $path : $path;
+		$paths = array_map(function (string $path): string {
+			return $this->fileHelper->absolutizePath($path);
 		}, $paths);
 
 		$onlyFiles = true;

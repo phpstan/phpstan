@@ -46,7 +46,9 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			require_once $autoloadFile;
 		}
 
-		$fileHelper = new FileHelper();
+		$currentWorkingDirectory = getcwd();
+
+		$fileHelper = new FileHelper($currentWorkingDirectory);
 
 		$rootDir = $fileHelper->normalizePath(__DIR__ . '/../..');
 		$tmpDir = $rootDir . '/tmp';
@@ -92,11 +94,8 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		$parameters = [
 			'rootDir' => $rootDir,
 			'tmpDir' => $tmpDir,
+			'currentWorkingDirectory' => $currentWorkingDirectory,
 		];
-		$currentWorkingDirectory = getcwd();
-		if ($currentWorkingDirectory !== false) {
-			$parameters['currentWorkingDirectory'] = $currentWorkingDirectory;
-		}
 
 		$configurator->addParameters($parameters);
 		$container = $configurator->createContainer();

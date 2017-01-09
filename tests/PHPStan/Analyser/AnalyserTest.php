@@ -34,6 +34,24 @@ class AnalyserTest extends \PHPStan\TestCase
 			],
 			[
 				__DIR__ . '/data/parse-error.php',
+				[__DIR__ . '/data/?a?s?-error.?h?'],
+				[],
+				0,
+			],
+			[
+				__DIR__ . '/data/parse-error.php',
+				[__DIR__ . '/data/[pP]arse-[eE]rror.ph[pP]'],
+				[],
+				0,
+			],
+			[
+				__DIR__ . '/data/parse-error.php',
+				['tests/PHPStan/Analyser/data'],
+				[],
+				0,
+			],
+			[
+				__DIR__ . '/data/parse-error.php',
 				[__DIR__ . '/aaa'],
 				[],
 				1,
@@ -161,7 +179,7 @@ class AnalyserTest extends \PHPStan\TestCase
 			$analyseExcludes,
 			$ignoreErrors,
 			$bootstrapFile,
-			new FileHelper()
+			$this->getContainer()->getByType(FileHelper::class)
 		);
 
 		return $analyser;

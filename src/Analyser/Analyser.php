@@ -84,7 +84,13 @@ class Analyser
 		$this->nodeScopeResolver = $nodeScopeResolver;
 		$this->printer = $printer;
 		$this->analyseExcludes = array_map(function (string $exclude) use ($fileHelper): string {
-			return $fileHelper->normalizePath($exclude);
+			$normalized = $fileHelper->normalizePath($exclude);
+
+			if ($this->isFnmatchPattern($normalized)) {
+				return $normalized;
+			}
+
+			return $fileHelper->absolutizePath($normalized);
 		}, $analyseExcludes);
 		$this->ignoreErrors = $ignoreErrors;
 		$this->bootstrapFile = $bootstrapFile;
@@ -214,13 +220,21 @@ class Analyser
 	public function isExcludedFromAnalysing(string $file): bool
 	{
 		foreach ($this->analyseExcludes as $exclude) {
-			if (strpos($file, $exclude) === 0
-				|| fnmatch($exclude, $file, DIRECTORY_SEPARATOR === '\\' ? FNM_NOESCAPE : 0)) {
+			if (strpos($file, $exclude) === 0) {
+				return true;
+			}
+
+			if ($this->isFnmatchPattern($exclude) && fnmatch($exclude, $file, DIRECTORY_SEPARATOR === '\\' ? FNM_NOESCAPE : 0)) {
 				return true;
 			}
 		}
 
 		return false;
+	}
+
+	private function isFnmatchPattern(string $path): bool
+	{
+		return preg_match('~[*?[\]]~', $path) > 0;
 	}
 
 }
