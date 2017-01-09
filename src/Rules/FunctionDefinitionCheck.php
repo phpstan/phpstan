@@ -10,6 +10,7 @@ use PhpParser\Node\Stmt\Function_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ParametersAcceptor;
+use PHPStan\Type\NonexistentParentClassType;
 
 class FunctionDefinitionCheck
 {
@@ -115,12 +116,18 @@ class FunctionDefinitionCheck
 					$errors[] = sprintf($parameterMessage, $parameter->getName(), $class);
 				}
 			}
+			if ($parameter->getType() instanceof NonexistentParentClassType) {
+				$errors[] = sprintf($parameterMessage, $parameter->getName(), $parameter->getType()->describe());
+			}
 		}
 
 		foreach ($parametersAcceptor->getReturnType()->getReferencedClasses() as $class) {
 			if (!$this->broker->hasClass($class)) {
 				$errors[] = sprintf($returnMessage, $class);
 			}
+		}
+		if ($parametersAcceptor->getReturnType() instanceof NonexistentParentClassType) {
+			$errors[] = sprintf($returnMessage, $parametersAcceptor->getReturnType()->describe());
 		}
 
 		return $errors;

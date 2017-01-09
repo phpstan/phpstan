@@ -41,7 +41,7 @@ class TypehintHelper
 					}
 				}
 
-				return new MixedType();
+				return new NonexistentParentClassType(false);
 			}
 		}
 

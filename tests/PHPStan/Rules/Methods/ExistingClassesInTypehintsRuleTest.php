@@ -47,6 +47,22 @@ class ExistingClassesInTypehintsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Return typehint of method TestMethodTypehints\FooMethodTypehints::dolor() has invalid type TestMethodTypehints\BazMethodTypehints.',
 				48,
 			],
+			[
+				'Parameter $parent of method TestMethodTypehints\FooMethodTypehints::parentWithoutParent() has invalid typehint type parent.',
+				53,
+			],
+			[
+				'Return typehint of method TestMethodTypehints\FooMethodTypehints::parentWithoutParent() has invalid type parent.',
+				53,
+			],
+			[
+				'Parameter $parent of method TestMethodTypehints\FooMethodTypehints::phpDocParentWithoutParent() has invalid typehint type parent.',
+				62,
+			],
+			[
+				'Return typehint of method TestMethodTypehints\FooMethodTypehints::phpDocParentWithoutParent() has invalid type parent.',
+				62,
+			],
 		]);
 	}
 

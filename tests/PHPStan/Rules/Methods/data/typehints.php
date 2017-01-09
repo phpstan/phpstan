@@ -50,4 +50,18 @@ class FooMethodTypehints
 
 	}
 
+	function parentWithoutParent(parent $parent): parent
+	{
+
+	}
+
+	/**
+	 * @param parent $parent
+	 * @return parent
+	 */
+	function phpDocParentWithoutParent($parent)
+	{
+
+	}
+
 }
