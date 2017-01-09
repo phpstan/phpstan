@@ -482,6 +482,9 @@ class Scope
 
 			if (isset($constantClass)) {
 				$constantName = $node->name;
+				if (strtolower($constantName) === 'class') {
+					return new StringType(false);
+				}
 				if ($this->broker->hasClass($constantClass)) {
 					$constantClassReflection = $this->broker->getClass($constantClass);
 					if ($constantClassReflection->hasConstant($constantName)) {
