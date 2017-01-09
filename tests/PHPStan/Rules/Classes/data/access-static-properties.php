@@ -66,6 +66,16 @@ class IpsumAccessStaticProperties
 			return;
 		}
 		static::$emptyNonexistent;
+
+		isset(static::$anotherNonexistent) ? static::$anotherNonexistent : null;
+		isset(static::$anotherNonexistent) ? null : static::$anotherNonexistent;
+		!isset(static::$anotherNonexistent) ? static::$anotherNonexistent : null;
+		!isset(static::$anotherNonexistent) ? null : static::$anotherNonexistent;
+
+		empty(static::$anotherEmptyNonexistent) ? static::$anotherEmptyNonexistent : null;
+		empty(static::$anotherEmptyNonexistent) ? null : static::$anotherEmptyNonexistent;
+		!empty(static::$anotherEmptyNonexistent) ? static::$anotherEmptyNonexistent : null;
+		!empty(static::$anotherEmptyNonexistent) ? null : static::$anotherEmptyNonexistent;
 	}
 
 }

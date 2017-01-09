@@ -164,18 +164,7 @@ class NodeScopeResolver
 				if ($this->findEarlyTermination($node->stmts, $scope) !== null) {
 					$scope = $this->lookForTypeSpecificationsInEarlyTermination($scope, $node->cond);
 					$this->processNode($node->cond, $scope, function (Node $node, Scope $inScope) use (&$scope) {
-						if ($inScope->isNegated()) {
-							if ($node instanceof Isset_) {
-								foreach ($node->vars as $var) {
-									$scope = $this->specifyProperty($scope, $var);
-								}
-							}
-						} else {
-							if ($node instanceof Expr\Empty_) {
-								$scope = $this->specifyProperty($scope, $node->expr);
-								$scope = $this->assignVariable($scope, $node->expr);
-							}
-						}
+						$this->specifyFetchedPropertyForInnerScope($node, $inScope, true, $scope);
 					});
 				}
 			} elseif ($node instanceof Node\Stmt\Declare_) {
@@ -219,6 +208,22 @@ class NodeScopeResolver
 		}
 
 		return $scope;
+	}
+
+	private function specifyFetchedPropertyForInnerScope(Node $node, Scope $inScope, bool $inEarlyTermination, Scope &$scope)
+	{
+		if ($inEarlyTermination === $inScope->isNegated()) {
+			if ($node instanceof Isset_) {
+				foreach ($node->vars as $var) {
+					$scope = $this->specifyProperty($scope, $var);
+				}
+			}
+		} else {
+			if ($node instanceof Expr\Empty_) {
+				$scope = $this->specifyProperty($scope, $node->expr);
+				$scope = $this->assignVariable($scope, $node->expr);
+			}
+		}
 	}
 
 	private function lookForArrayDestructuringArray(Scope $scope, Node $node): Scope
@@ -344,18 +349,7 @@ class NodeScopeResolver
 			$this->processNode($node->cond, $scope, $nodeCallback);
 
 			$specifyFetchedProperty = function (Node $node, Scope $inScope) use (&$scope) {
-				if (!$inScope->isNegated()) {
-					if ($node instanceof Isset_) {
-						foreach ($node->vars as $var) {
-							$scope = $this->specifyProperty($scope, $var);
-						}
-					}
-				} else {
-					if ($node instanceof Expr\Empty_) {
-						$scope = $this->specifyProperty($scope, $node->expr);
-						$scope = $this->assignVariable($scope, $node->expr);
-					}
-				}
+				$this->specifyFetchedPropertyForInnerScope($node, $inScope, false, $scope);
 			};
 			$this->processNode($node->cond, $scope, $specifyFetchedProperty);
 			$this->processNodes($node->stmts, $scope->enterFirstLevelStatements(), $nodeCallback);
@@ -503,8 +497,18 @@ class NodeScopeResolver
 					$scope = $this->assignVariable($scope, $subNode);
 				}
 
-				if ($node instanceof Ternary && $subNodeName === 'if') {
-					$scope = $this->lookForTypeSpecifications($scope, $node->cond);
+				if ($node instanceof Ternary) {
+					if ($subNodeName === 'if') {
+						$scope = $this->lookForTypeSpecifications($scope, $node->cond);
+						$this->processNode($node->cond, $scope, function (Node $node, Scope $inScope) use (&$scope) {
+							$this->specifyFetchedPropertyForInnerScope($node, $inScope, false, $scope);
+						});
+					} elseif ($subNodeName === 'else') {
+						$scope = $this->lookForTypeSpecificationsInEarlyTermination($scope, $node->cond);
+						$this->processNode($node->cond, $scope, function (Node $node, Scope $inScope) use (&$scope) {
+							$this->specifyFetchedPropertyForInnerScope($node, $inScope, true, $scope);
+						});
+					}
 				}
 
 				if ($node instanceof BooleanAnd && $subNodeName === 'right') {

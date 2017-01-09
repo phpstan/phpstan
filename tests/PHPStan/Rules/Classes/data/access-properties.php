@@ -71,6 +71,16 @@ class BazAccessProperties
 			return;
 		}
 		$foo->emptyNonexistent;
+
+		isset($foo->anotherNonexistent) ? $foo->anotherNonexistent : null;
+		isset($foo->anotherNonexistent) ? null : $foo->anotherNonexistent;
+		!isset($foo->anotherNonexistent) ? $foo->anotherNonexistent : null;
+		!isset($foo->anotherNonexistent) ? null : $foo->anotherNonexistent;
+
+		empty($foo->anotherEmptyNonexistent) ? $foo->anotherEmptyNonexistent : null;
+		empty($foo->anotherEmptyNonexistent) ? null : $foo->anotherEmptyNonexistent;
+		!empty($foo->anotherEmptyNonexistent) ? $foo->anotherEmptyNonexistent : null;
+		!empty($foo->anotherEmptyNonexistent) ? null : $foo->anotherEmptyNonexistent;
 	}
 
 }

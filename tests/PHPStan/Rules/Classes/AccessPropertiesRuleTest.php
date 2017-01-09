@@ -69,6 +69,22 @@ class AccessPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 					'Access to an undefined property TestAccessProperties\FooAccessProperties::$emptyNonexistent.',
 					70,
 				],
+				[
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherNonexistent.',
+					76,
+				],
+				[
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherNonexistent.',
+					77,
+				],
+				[
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherEmptyNonexistent.',
+					80,
+				],
+				[
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherEmptyNonexistent.',
+					83,
+				],
 			]
 		);
 	}
