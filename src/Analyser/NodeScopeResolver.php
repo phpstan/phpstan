@@ -167,28 +167,12 @@ class NodeScopeResolver
 						if ($inScope->isNegated()) {
 							if ($node instanceof Isset_) {
 								foreach ($node->vars as $var) {
-									if ($var instanceof PropertyFetch) {
-										$scope = $scope->specifyFetchedPropertyFromIsset($var);
-									} elseif (
-										$var instanceof Expr\StaticPropertyFetch
-										&& $var->class instanceof Name
-										&& (string) $var->class === 'static'
-									) {
-										$scope = $scope->specifyFetchedStaticPropertyFromIsset($var);
-									}
+									$scope = $this->specifyProperty($scope, $var);
 								}
 							}
 						} else {
 							if ($node instanceof Expr\Empty_) {
-								if ($node->expr instanceof PropertyFetch) {
-									$scope = $scope->specifyFetchedPropertyFromIsset($node->expr);
-								} elseif (
-									$node->expr instanceof Expr\StaticPropertyFetch
-									&& $node->expr->class instanceof Name
-									&& (string) $node->expr->class === 'static'
-								) {
-									$scope = $scope->specifyFetchedStaticPropertyFromIsset($node->expr);
-								}
+								$scope = $this->specifyProperty($scope, $node->expr);
 								$scope = $this->assignVariable($scope, $node->expr);
 							}
 						}
@@ -220,6 +204,21 @@ class NodeScopeResolver
 				$scope = $this->lookForArrayDestructuringArray($scope, $node->var);
 			}
 		}
+	}
+
+	private function specifyProperty(Scope $scope, Expr $expr): Scope
+	{
+		if ($expr instanceof PropertyFetch) {
+			return $scope->specifyFetchedPropertyFromIsset($expr);
+		} elseif (
+			$expr instanceof Expr\StaticPropertyFetch
+			&& $expr->class instanceof Name
+			&& (string) $expr->class === 'static'
+		) {
+			return $scope->specifyFetchedStaticPropertyFromIsset($expr);
+		}
+
+		return $scope;
 	}
 
 	private function lookForArrayDestructuringArray(Scope $scope, Node $node): Scope
@@ -348,28 +347,12 @@ class NodeScopeResolver
 				if (!$inScope->isNegated()) {
 					if ($node instanceof Isset_) {
 						foreach ($node->vars as $var) {
-							if ($var instanceof PropertyFetch) {
-								$scope = $scope->specifyFetchedPropertyFromIsset($var);
-							} elseif (
-								$var instanceof Expr\StaticPropertyFetch
-								&& $var->class instanceof Name
-								&& (string) $var->class === 'static'
-							) {
-								$scope = $scope->specifyFetchedStaticPropertyFromIsset($var);
-							}
+							$scope = $this->specifyProperty($scope, $var);
 						}
 					}
 				} else {
 					if ($node instanceof Expr\Empty_) {
-						if ($node->expr instanceof PropertyFetch) {
-							$scope = $scope->specifyFetchedPropertyFromIsset($node->expr);
-						} elseif (
-							$node->expr instanceof Expr\StaticPropertyFetch
-							&& $node->expr->class instanceof Name
-							&& (string) $node->expr->class === 'static'
-						) {
-							$scope = $scope->specifyFetchedStaticPropertyFromIsset($node->expr);
-						}
+						$scope = $this->specifyProperty($scope, $node->expr);
 						$scope = $this->assignVariable($scope, $node->expr);
 					}
 				}
@@ -510,15 +493,7 @@ class NodeScopeResolver
 
 				if ($node instanceof Isset_ && $subNodeName === 'vars') {
 					foreach ($node->vars as $issetVar) {
-						if ($issetVar instanceof PropertyFetch) {
-							$scope = $scope->specifyFetchedPropertyFromIsset($issetVar);
-						} elseif (
-							$issetVar instanceof Expr\StaticPropertyFetch
-							&& $issetVar->class instanceof Name
-							&& (string) $issetVar->class === 'static'
-						) {
-							$scope = $scope->specifyFetchedStaticPropertyFromIsset($issetVar);
-						}
+						$scope = $this->specifyProperty($scope, $issetVar);
 					}
 				}
 
@@ -545,15 +520,7 @@ class NodeScopeResolver
 				}
 
 				if ($node instanceof Expr\Empty_ && $subNodeName === 'expr') {
-					if ($node->expr instanceof PropertyFetch) {
-						$scope = $scope->specifyFetchedPropertyFromIsset($node->expr);
-					} elseif (
-						$node->expr instanceof Expr\StaticPropertyFetch
-						&& $node->expr->class instanceof Name
-						&& (string) $node->expr->class === 'static'
-					) {
-						$scope = $scope->specifyFetchedStaticPropertyFromIsset($node->expr);
-					}
+					$scope = $this->specifyProperty($scope, $node->expr);
 					$scope = $this->lookForEnterVariableAssign($scope, $node->expr);
 				}
 
