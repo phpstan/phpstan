@@ -14,7 +14,7 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\TestCase
 
 	protected function setUp()
 	{
-		$this->fileHelper = new FileHelper();
+		$this->fileHelper = $this->getContainer()->getByType(FileHelper::class);
 	}
 
 	public function testMethodIsInClassUsingTrait()

@@ -67,6 +67,8 @@ services:
 
 	-
 		class: PHPStan\FileHelper
+		arguments:
+			workingDirectory: %currentWorkingDirectory%
 
 	-
 		class: PHPStan\Parser\CachedParser

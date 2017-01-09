@@ -60,7 +60,7 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 	private function getFileHelper(): FileHelper
 	{
 		if ($this->fileHelper === null) {
-			$this->fileHelper = new FileHelper();
+			$this->fileHelper = $this->getContainer()->getByType(FileHelper::class);
 		}
 
 		return $this->fileHelper;

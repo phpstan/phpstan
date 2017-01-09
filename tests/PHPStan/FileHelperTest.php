@@ -5,37 +5,60 @@ namespace PHPStan;
 class FileHelperTest extends \PHPStan\TestCase
 {
 
-	/** @var \PHPStan\FileHelper */
-	private $fileHelper;
-
-	protected function setUp()
-	{
-		$this->fileHelper = new FileHelper();
-	}
-
 	/**
-	 * @return mixed[][]
+	 * @return string[][]
 	 */
-	public function dataIsAbsolute(): array
+	public function dataAbsolutizePathOnWindows(): array
 	{
 		return [
-			['C:/Program Files', true],
-			['Program Files', false],
-			['/home/users', true],
-			['users', false],
-			['../lib', false],
-			['./lib', false],
+			['C:/Program Files', 'C:/Program Files'],
+			['C:\Program Files', 'C:\Program Files'],
+			['Program Files', 'C:\abcd\Program Files'],
+			['/home/users', 'C:\abcd\home/users'],
+			['users', 'C:\abcd\users'],
+			['../lib', 'C:\abcd\../lib'],
+			['./lib', 'C:\abcd\./lib'],
 		];
 	}
 
 	/**
-	 * @dataProvider dataIsAbsolute
+	 * @requires OS WIN
+	 * @dataProvider dataAbsolutizePathOnWindows
 	 * @param string $path
-	 * @param bool $isAbsolute
+	 * @param string $absolutePath
 	 */
-	public function testIsAbsolute(string $path, bool $isAbsolute)
+	public function testAbsolutizePathOnWindows(string $path, string $absolutePath)
 	{
-		$this->assertSame($isAbsolute, $this->fileHelper->isAbsolutePath($path));
+		$fileHelper = new FileHelper('C:\abcd');
+		$this->assertSame($absolutePath, $fileHelper->absolutizePath($path));
+	}
+
+	/**
+	 * @return string[][]
+	 */
+	public function dataAbsolutizePathOnLinuxOrMac(): array
+	{
+		return [
+			['C:/Program Files', '/abcd/C:/Program Files'],
+			['C:\Program Files', '/abcd/C:\Program Files'],
+			['Program Files', '/abcd/Program Files'],
+			['/home/users', '/home/users'],
+			['users', '/abcd/users'],
+			['../lib', '/abcd/../lib'],
+			['./lib', '/abcd/./lib'],
+		];
+	}
+
+	/**
+	 * @requires OS Linux|Mac
+	 * @dataProvider dataAbsolutizePathOnLinuxOrMac
+	 * @param string $path
+	 * @param string $absolutePath
+	 */
+	public function testAbsolutizePathOnLinuxOrMac(string $path, string $absolutePath)
+	{
+		$fileHelper = new FileHelper('/abcd');
+		$this->assertSame($absolutePath, $fileHelper->absolutizePath($path));
 	}
 
 	/**
@@ -62,7 +85,7 @@ class FileHelperTest extends \PHPStan\TestCase
 	 */
 	public function testNormalizePathOnWindows(string $path, string $normalizedPath)
 	{
-		$this->assertSame($normalizedPath, $this->fileHelper->normalizePath($path));
+		$this->assertSame($normalizedPath, $this->getContainer()->getByType(FileHelper::class)->normalizePath($path));
 	}
 
 	/**
@@ -89,7 +112,7 @@ class FileHelperTest extends \PHPStan\TestCase
 	 */
 	public function testNormalizePathOnLinuxOrMac(string $path, string $normalizedPath)
 	{
-		$this->assertSame($normalizedPath, $this->fileHelper->normalizePath($path));
+		$this->assertSame($normalizedPath, $this->getContainer()->getByType(FileHelper::class)->normalizePath($path));
 	}
 
 }

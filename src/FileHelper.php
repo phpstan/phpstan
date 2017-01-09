@@ -5,9 +5,32 @@ namespace PHPStan;
 class FileHelper
 {
 
-	public function isAbsolutePath(string $path): bool
+	/** @var string */
+	private $workingDirectory;
+
+	public function __construct(string $workingDirectory)
 	{
-		return substr($path, 0, 1) === '/' || substr($path, 1, 1) === ':';
+		$this->workingDirectory = $this->normalizePath($workingDirectory);
+	}
+
+	public function getWorkingDirectory(): string
+	{
+		return $this->workingDirectory;
+	}
+
+	public function absolutizePath(string $path): string
+	{
+		if (DIRECTORY_SEPARATOR === '/') {
+			if (substr($path, 0, 1) === '/') {
+				return $path;
+			}
+		} else {
+			if (substr($path, 1, 1) === ':') {
+				return $path;
+			}
+		}
+
+		return rtrim($this->getWorkingDirectory(), '/\\') . DIRECTORY_SEPARATOR . ltrim($path, '/\\');
 	}
 
 	public function normalizePath(string $path): string
