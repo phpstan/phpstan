@@ -5,7 +5,7 @@ namespace PHPStan\Type;
 trait ClassTypeHelperTrait
 {
 
-	private function exists(string $className): bool
+	private static function exists(string $className): bool
 	{
 		try {
 			return class_exists($className) || interface_exists($className) || trait_exists($className);

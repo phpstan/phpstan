@@ -7,6 +7,8 @@ use PHPStan\Analyser\NameScope;
 class TypehintHelper
 {
 
+	use ClassTypeHelperTrait;
+
 	public static function getTypeObjectFromTypehint(
 		string $typehintString,
 		bool $isNullable,
@@ -31,6 +33,15 @@ class TypehintHelper
 				return new ObjectType($selfClass, $isNullable);
 			} elseif ($typehintString === '$this') {
 				return new ThisType($selfClass, $isNullable);
+			} elseif ($typehintString === 'parent') {
+				if (self::exists($selfClass)) {
+					$classReflection = new \ReflectionClass($selfClass);
+					if ($classReflection->getParentClass() !== false) {
+						return new ObjectType($classReflection->getParentClass()->getName(), false);
+					}
+				}
+
+				return new MixedType();
 			}
 		}
 

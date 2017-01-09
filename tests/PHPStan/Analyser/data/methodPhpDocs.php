@@ -99,4 +99,17 @@ class Foo extends FooParent
 
 	}
 
+	public function returnParent(): parent
+	{
+
+	}
+
+	/**
+	 * @return parent
+	 */
+	public function returnPhpDocParent()
+	{
+
+	}
+
 }
