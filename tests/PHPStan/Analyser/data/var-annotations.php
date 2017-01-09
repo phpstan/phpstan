@@ -43,6 +43,9 @@ class Foo
 		/** @var int $invalidInt */
 		$invalidInteger = 1.0;
 
+		/** @var static $static */
+		$static = getFoo();
+
 		die;
 	}
 
@@ -83,6 +86,9 @@ class Foo
 
 		/** @var $invalidInt int */
 		$invalidInteger = 1.0;
+
+		/** @var $static static */
+		$static = getFoo();
 
 		die;
 	}

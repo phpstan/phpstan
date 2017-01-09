@@ -362,6 +362,10 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'float',
 				'$invalidInteger',
 			],
+			[
+				'static(VarAnnotations\Foo)',
+				'$static',
+			],
 		];
 	}
 
@@ -392,9 +396,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		string $expression
 	)
 	{
-		if (\Nette\Utils\Strings::startsWith($description, 'VarAnnotations\\')) {
-			$description = 'VarAnnotationsAlt\\' . substr($description, strlen('VarAnnotations\\'));
-		}
+		$description = str_replace('VarAnnotations\\', 'VarAnnotationsAlt\\', $description);
 		$this->assertTypes(
 			__DIR__ . '/data/var-annotations-alt.php',
 			$description,
