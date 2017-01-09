@@ -169,6 +169,12 @@ class NodeScopeResolver
 								foreach ($node->vars as $var) {
 									if ($var instanceof PropertyFetch) {
 										$scope = $scope->specifyFetchedPropertyFromIsset($var);
+									} elseif (
+										$var instanceof Expr\StaticPropertyFetch
+										&& $var->class instanceof Name
+										&& (string) $var->class === 'static'
+									) {
+										$scope = $scope->specifyFetchedStaticPropertyFromIsset($var);
 									}
 								}
 							}
@@ -176,6 +182,12 @@ class NodeScopeResolver
 							if ($node instanceof Expr\Empty_) {
 								if ($node->expr instanceof PropertyFetch) {
 									$scope = $scope->specifyFetchedPropertyFromIsset($node->expr);
+								} elseif (
+									$node->expr instanceof Expr\StaticPropertyFetch
+									&& $node->expr->class instanceof Name
+									&& (string) $node->expr->class === 'static'
+								) {
+									$scope = $scope->specifyFetchedStaticPropertyFromIsset($node->expr);
 								}
 								$scope = $this->assignVariable($scope, $node->expr);
 							}
@@ -338,6 +350,12 @@ class NodeScopeResolver
 						foreach ($node->vars as $var) {
 							if ($var instanceof PropertyFetch) {
 								$scope = $scope->specifyFetchedPropertyFromIsset($var);
+							} elseif (
+								$var instanceof Expr\StaticPropertyFetch
+								&& $var->class instanceof Name
+								&& (string) $var->class === 'static'
+							) {
+								$scope = $scope->specifyFetchedStaticPropertyFromIsset($var);
 							}
 						}
 					}
@@ -345,6 +363,12 @@ class NodeScopeResolver
 					if ($node instanceof Expr\Empty_) {
 						if ($node->expr instanceof PropertyFetch) {
 							$scope = $scope->specifyFetchedPropertyFromIsset($node->expr);
+						} elseif (
+							$node->expr instanceof Expr\StaticPropertyFetch
+							&& $node->expr->class instanceof Name
+							&& (string) $node->expr->class === 'static'
+						) {
+							$scope = $scope->specifyFetchedStaticPropertyFromIsset($node->expr);
 						}
 						$scope = $this->assignVariable($scope, $node->expr);
 					}
@@ -488,6 +512,12 @@ class NodeScopeResolver
 					foreach ($node->vars as $issetVar) {
 						if ($issetVar instanceof PropertyFetch) {
 							$scope = $scope->specifyFetchedPropertyFromIsset($issetVar);
+						} elseif (
+							$issetVar instanceof Expr\StaticPropertyFetch
+							&& $issetVar->class instanceof Name
+							&& (string) $issetVar->class === 'static'
+						) {
+							$scope = $scope->specifyFetchedStaticPropertyFromIsset($issetVar);
 						}
 					}
 				}
@@ -517,6 +547,12 @@ class NodeScopeResolver
 				if ($node instanceof Expr\Empty_ && $subNodeName === 'expr') {
 					if ($node->expr instanceof PropertyFetch) {
 						$scope = $scope->specifyFetchedPropertyFromIsset($node->expr);
+					} elseif (
+						$node->expr instanceof Expr\StaticPropertyFetch
+						&& $node->expr->class instanceof Name
+						&& (string) $node->expr->class === 'static'
+					) {
+						$scope = $scope->specifyFetchedStaticPropertyFromIsset($node->expr);
 					}
 					$scope = $this->lookForEnterVariableAssign($scope, $node->expr);
 				}

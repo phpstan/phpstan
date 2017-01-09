@@ -45,6 +45,27 @@ class IpsumAccessStaticProperties
 		FooAccessStaticProperties::$$foo;
 		$class::$property;
 		UnknownStaticProperties::$test;
+
+		if (isset(static::$baz)) {
+			static::$baz;
+		}
+		isset(static::$baz);
+		static::$baz;
+		if (!isset(static::$nonexistent)) {
+			static::$nonexistent;
+			return;
+		}
+		static::$nonexistent;
+
+		if (!empty(static::$emptyBaz)) {
+			static::$emptyBaz;
+		}
+		static::$emptyBaz;
+		if (empty(static::$emptyNonexistent)) {
+			static::$emptyNonexistent;
+			return;
+		}
+		static::$emptyNonexistent;
 	}
 
 }

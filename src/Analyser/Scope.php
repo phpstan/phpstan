@@ -1304,6 +1304,15 @@ class Scope
 		]);
 	}
 
+	public function specifyFetchedStaticPropertyFromIsset(Expr\StaticPropertyFetch $expr): self
+	{
+		$exprString = $this->printer->prettyPrintExpr($expr);
+
+		return $this->addMoreSpecificTypes([
+			$exprString => new MixedType(),
+		]);
+	}
+
 	public function enterNegation(): self
 	{
 		return new self(

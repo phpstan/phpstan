@@ -84,6 +84,10 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 
 		$classReflection = $this->broker->getClass($class);
 		if (!$classReflection->hasProperty($name)) {
+			if ($scope->isSpecified($node)) {
+				return [];
+			}
+
 			return [
 				sprintf(
 					'Access to an undefined static property %s::$%s.',
