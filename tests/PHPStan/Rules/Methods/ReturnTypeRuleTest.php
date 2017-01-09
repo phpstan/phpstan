@@ -107,6 +107,22 @@ class ReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Method ReturnTypes\Foo::returnThisOrNull() should return $this but returns $this->returnStaticThatReturnsNewStatic().',
 				150,
 			],
+			[
+				'Method ReturnTypes\Foo::returnsParent() should return ReturnTypes\FooParent but returns int.',
+				165,
+			],
+			[
+				'Method ReturnTypes\Foo::returnsParent() should return ReturnTypes\FooParent but returns null.',
+				166,
+			],
+			[
+				'Method ReturnTypes\Foo::returnsPhpDocParent() should return ReturnTypes\FooParent but returns int.',
+				172,
+			],
+			[
+				'Method ReturnTypes\Foo::returnsPhpDocParent() should return ReturnTypes\FooParent but returns null.',
+				173,
+			],
 		]);
 	}
 

@@ -158,6 +158,20 @@ class Foo extends FooParent implements FooInterface
 		return new static();
 		return $this;
 	}
+
+	public function returnsParent(): parent
+	{
+		return new FooParent();
+		return 1;
+		return null;
+	}
+
+	public function returnsPhpDocParent(): parent
+	{
+		return new FooParent();
+		return 1;
+		return null;
+	}
 }
 
 class FooChild extends Foo

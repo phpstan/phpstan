@@ -1001,6 +1001,23 @@ class Scope
 			$className = (string) $type;
 			if ($className === 'self') {
 				$className = $this->getClass();
+			} elseif (
+				$className === 'parent'
+			) {
+				if (
+					$this->getClass() !== null
+					&& $this->broker->hasClass($this->getClass())
+				) {
+					$classReflection = $this->broker->getClass($this->getClass());
+				} elseif ($this->isInAnonymousClass()) {
+					$classReflection = $this->getAnonymousClass();
+				} else {
+					return new MixedType();
+				}
+
+				if ($classReflection->getParentClass() !== false) {
+					return new ObjectType($classReflection->getParentClass()->getName(), $isNullable);
+				}
 			}
 			return new ObjectType($className, $isNullable);
 		} elseif ($type === 'iterable') {
