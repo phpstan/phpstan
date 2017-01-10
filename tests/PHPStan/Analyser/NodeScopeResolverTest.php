@@ -1367,6 +1367,18 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'InstanceOfNamespace\Sit',
 				'$sit',
 			],
+			[
+				'InstanceOfNamespace\Foo',
+				'$self',
+			],
+			[
+				'static(InstanceOfNamespace\Foo)',
+				'$static',
+			],
+			[
+				'static(InstanceOfNamespace\Foo)',
+				'clone $static',
+			],
 		];
 	}
 
@@ -1684,6 +1696,14 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			[
 				'mixed',
 				'$mixedBar',
+			],
+			[
+				'NegatedInstanceOf\Foo',
+				'$self',
+			],
+			[
+				'static(NegatedInstanceOf\Foo)',
+				'$static',
 			],
 		];
 	}
