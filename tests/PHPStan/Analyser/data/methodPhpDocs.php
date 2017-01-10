@@ -112,4 +112,12 @@ class Foo extends FooParent
 
 	}
 
+	/**
+	 * @return NULL[]
+	 */
+	public function returnNulls(): array
+	{
+
+	}
+
 }

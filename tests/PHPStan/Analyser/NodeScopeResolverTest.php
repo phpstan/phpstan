@@ -1315,6 +1315,10 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'MethodPhpDocsNamespace\FooParent',
 				'$this->returnPhpDocParent()',
 			],
+			[
+				'null[]',
+				'$this->returnNulls()',
+			],
 		];
 	}
 

@@ -69,8 +69,8 @@ class TypehintHelper
 				return new IterableIterableType(new MixedType(), $isNullable);
 			case 'callable':
 				return new CallableType($isNullable);
-			case null:
-				return new MixedType();
+			case 'null':
+				return new NullType();
 			case 'resource':
 				return new ResourceType($isNullable);
 			case 'object':
