@@ -336,4 +336,10 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$this->analyse([__DIR__ . '/data/sibling-method-prototype.php'], []);
 	}
 
+	public function testOverridenMethodPrototype()
+	{
+		$this->checkThisOnly = false;
+		$this->analyse([__DIR__ . '/data/overriden-method-prototype.php'], []);
+	}
+
 }

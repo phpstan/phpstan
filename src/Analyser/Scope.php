@@ -1461,6 +1461,10 @@ class Scope
 
 	public function canCallMethod(MethodReflection $methodReflection): bool
 	{
+		if ($this->canAccessClassMember($methodReflection)) {
+			return true;
+		}
+
 		return $this->canAccessClassMember($methodReflection->getPrototype());
 	}
 
