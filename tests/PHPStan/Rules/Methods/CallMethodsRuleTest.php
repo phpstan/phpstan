@@ -342,4 +342,15 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$this->analyse([__DIR__ . '/data/overriden-method-prototype.php'], []);
 	}
 
+	public function testCallMethodWithInheritDoc()
+	{
+		$this->checkThisOnly = false;
+		$this->analyse([__DIR__ . '/data/calling-method-with-inheritdoc.php'], [
+			[
+				'Parameter #1 $i of method MethodWithInheritDoc\Baz::doFoo() expects int, string given.',
+				47,
+			],
+		]);
+	}
+
 }
