@@ -348,7 +348,11 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$this->analyse([__DIR__ . '/data/calling-method-with-inheritdoc.php'], [
 			[
 				'Parameter #1 $i of method MethodWithInheritDoc\Baz::doFoo() expects int, string given.',
-				47,
+				65,
+			],
+			[
+				'Parameter #1 $str of method MethodWithInheritDoc\Foo::doBar() expects string, int given.',
+				67,
 			],
 		]);
 	}

@@ -2,13 +2,31 @@
 
 namespace MethodWithInheritDoc;
 
-class Foo
+interface FooInterface
+{
+
+	/**
+	 * @param string $str
+	 */
+	public function doBar($str);
+
+}
+
+class Foo implements FooInterface
 {
 
 	/**
 	 * @param int $i
 	 */
 	public function doFoo($i)
+	{
+
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function doBar($str)
 	{
 
 	}
@@ -45,4 +63,6 @@ function () {
 	$baz = new Baz();
 	$baz->doFoo(1);
 	$baz->doFoo('1');
+	$baz->doBar('1');
+	$baz->doBar(1);
 };
