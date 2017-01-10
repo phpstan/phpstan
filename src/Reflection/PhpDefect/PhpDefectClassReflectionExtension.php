@@ -11,6 +11,33 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 {
 
 	private $properties = [
+		'DateInterval' => [
+			'y' => 'int',
+			'm' => 'int',
+			'd' => 'int',
+			'h' => 'int',
+			'i' => 'int',
+			's' => 'int',
+			'invert' => 'int',
+			'days' => 'mixed',
+		],
+		'DOMDocument' => [
+			'documentURI' => 'string',
+			'encoding' => 'string',
+			'formatOutput' => 'bool',
+			'implementation' => 'bool',
+			'preserveWhiteSpace' => 'bool',
+			'recover' => 'bool',
+			'resolveExternals' => 'bool',
+			'standalone' => 'bool',
+			'strictErrorChecking' => 'bool',
+			'substituteEntities' => 'bool',
+			'validateOnParse' => 'bool',
+			'version' => 'string',
+			'xmlEncoding' => 'string',
+			'xmlStandalone' => 'bool',
+			'xmlVersion' => 'string',
+		],
 		'ZipArchive' => [
 			'status' => 'int',
 			'statusSys' => 'int',
