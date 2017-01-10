@@ -65,6 +65,14 @@ class PrintfParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Call to fscanf contains 2 placeholders, 1 value given.',
 				25,
 			],
+			[
+				'Call to sprintf contains 2 placeholders, 1 value given.',
+				27,
+			],
+			[
+				'Call to sprintf contains 2 placeholders, 1 value given.',
+				29,
+			],
 		]);
 	}
 

@@ -23,3 +23,7 @@ sscanf($str, '%20[^,],%d', $string, $number); // ok
 fscanf($resource, '%d%d'); // correct - result returned as an array
 fscanf($resource, '%d', $number); // correct
 fscanf($resource, '%d%d', $number); // one parameter missing
+sprintf('%+02d', 1); // ok
+sprintf('%+02d %d', 1); // one parameter missing
+sprintf('%-02d', 1); // ok
+sprintf('%-02d %d', 1); // one parameter missing

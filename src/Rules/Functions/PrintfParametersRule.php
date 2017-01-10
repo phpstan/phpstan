@@ -82,13 +82,13 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 	private function getPlaceholdersCount(string $format): int
 	{
 		$format = str_replace('%%', '', $format);
-		$characterGroups = '(?:[\.\-0-9\'])*[a-zA-Z]';
+		$characterGroups = '(?:[\.0-9\'])*[a-zA-Z]';
 		$options = [
 			$characterGroups,
 			'[0-9]+\$' . $characterGroups,
 			'(?:[\.\-0-9\'])*\[\^[^\]]\]',
 		];
-		preg_match_all(sprintf('~%%((?:%s))~', implode(')|(?:', $options)), $format, $matches);
+		preg_match_all(sprintf('~%%(?:[+\-])?((?:%s))~', implode(')|(?:', $options)), $format, $matches);
 		$maxPositionedNumber = 0;
 		$maxOrdinaryNumber = 0;
 		foreach ($matches[1] as $match) {
