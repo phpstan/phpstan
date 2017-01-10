@@ -48,6 +48,7 @@ use PhpParser\Node\Stmt\Unset_;
 use PhpParser\Node\Stmt\While_;
 use PHPStan\Broker\Broker;
 use PHPStan\Parser\Parser;
+use PHPStan\PhpDoc\PhpDocBlock;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\CommentHelper;
 use PHPStan\Type\FileTypeMapper;
@@ -1083,8 +1084,20 @@ class NodeScopeResolver
 		$phpDocParameterTypes = [];
 		$phpDocReturnType = null;
 		if ($functionLike->getDocComment() !== null) {
-			$fileTypeMap = $this->fileTypeMapper->getTypeMap($scope->getFile());
 			$docComment = $functionLike->getDocComment()->getText();
+			$file = $scope->getFile();
+			if ($scope->getClass() !== null && $functionLike instanceof Node\Stmt\ClassMethod) {
+				$phpDocBlock = PhpDocBlock::resolvePhpDocBlock(
+					$this->broker,
+					$docComment,
+					$scope->getClass(),
+					$functionLike->name,
+					$file
+				);
+				$docComment = $phpDocBlock->getDocComment();
+				$file = $phpDocBlock->getFile();
+			}
+			$fileTypeMap = $this->fileTypeMapper->getTypeMap($file);
 			$phpDocParameterTypes = TypehintHelper::getParameterTypesFromPhpDoc(
 				$fileTypeMap,
 				array_map(function (Param $parameter): string {

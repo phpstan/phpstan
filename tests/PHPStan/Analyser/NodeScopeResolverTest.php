@@ -1242,6 +1242,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			[
 				'static(MethodPhpDocsNamespace\Foo)',
 				'$staticType',
+				false,
 			],
 			[
 				'MethodPhpDocsNamespace\Foo',
@@ -1335,6 +1336,30 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/methodPhpDocs.php',
+			$description,
+			$expression
+		);
+	}
+
+	/**
+	 * @dataProvider dataTypeFromFunctionPhpDocs
+	 * @dataProvider dataTypeFromMethodPhpDocs
+	 * @param string $description
+	 * @param string $expression
+	 * @param bool $replaceClass
+	 */
+	public function testTypeFromMethodPhpDocsInheritDoc(
+		string $description,
+		string $expression,
+		bool $replaceClass = true
+	)
+	{
+		if ($replaceClass) {
+			$description = str_replace('$this(MethodPhpDocsNamespace\Foo)', '$this(MethodPhpDocsNamespace\FooInheritDocChild)', $description);
+			$description = str_replace('static(MethodPhpDocsNamespace\Foo)', 'static(MethodPhpDocsNamespace\FooInheritDocChild)', $description);
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/method-phpDocs-inheritdoc.php',
 			$description,
 			$expression
 		);

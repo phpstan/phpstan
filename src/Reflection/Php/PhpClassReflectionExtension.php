@@ -3,6 +3,7 @@
 namespace PHPStan\Reflection\Php;
 
 use PHPStan\Broker\Broker;
+use PHPStan\PhpDoc\PhpDocBlock;
 use PHPStan\Reflection\BrokerAwareClassReflectionExtension;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
@@ -140,19 +141,23 @@ class PhpClassReflectionExtension
 			$phpDocParameterTypes = [];
 			$phpDocReturnType = null;
 			if (!$declaringClass->getNativeReflection()->isAnonymous() && $declaringClass->getNativeReflection()->getFileName() !== false) {
-				$typeMap = $this->fileTypeMapper->getTypeMap($declaringClass->getNativeReflection()->getFileName());
 				if ($methodReflection->getDocComment() !== false) {
+					$phpDocBlock = PhpDocBlock::resolvePhpDocBlock(
+						$this->broker,
+						$methodReflection->getDocComment(),
+						$declaringClass->getName(),
+						$methodReflection->getName(),
+						$declaringClass->getNativeReflection()->getFileName()
+					);
+					$typeMap = $this->fileTypeMapper->getTypeMap($phpDocBlock->getFile());
 					$phpDocParameterTypes = TypehintHelper::getParameterTypesFromPhpDoc(
 						$typeMap,
 						array_map(function (\ReflectionParameter $parameterReflection): string {
 							return $parameterReflection->getName();
 						}, $methodReflection->getParameters()),
-						$methodReflection->getDocComment()
+						$phpDocBlock->getDocComment()
 					);
-				}
-
-				if ($methodReflection->getDocComment() !== false) {
-					$phpDocReturnType = TypehintHelper::getReturnTypeFromPhpDoc($typeMap, $methodReflection->getDocComment());
+					$phpDocReturnType = TypehintHelper::getReturnTypeFromPhpDoc($typeMap, $phpDocBlock->getDocComment());
 				}
 			}
 
