@@ -46,7 +46,9 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			require_once $autoloadFile;
 		}
 
-		$rootDir = FileHelper::normalizePath(__DIR__ . '/../..');
+		$fileHelper = new FileHelper();
+
+		$rootDir = $fileHelper->normalizePath(__DIR__ . '/../..');
 		$tmpDir = $rootDir . '/tmp';
 		$confDir = $rootDir . '/conf';
 
@@ -123,7 +125,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			$output->writeln('');
 			$output->writeln('* while running the analyse option, use the <info>--level</info> option to adjust your rule level - the higher the stricter');
 			$output->writeln('');
-			$output->writeln(sprintf('* create your own <info>custom ruleset</info> by selecting which rules you want to check by copying the service definitions from the built-in config level files in <options=bold>%s</>.', FileHelper::normalizePath(__DIR__ . '/../../conf')));
+			$output->writeln(sprintf('* create your own <info>custom ruleset</info> by selecting which rules you want to check by copying the service definitions from the built-in config level files in <options=bold>%s</>.', $fileHelper->normalizePath(__DIR__ . '/../../conf')));
 			$output->writeln('  * in this case, don\'t forget to define parameter <options=bold>customRulesetUsed</> in your config file.');
 			$output->writeln('');
 			return $this->handleReturn(1, $memoryLimitFile);

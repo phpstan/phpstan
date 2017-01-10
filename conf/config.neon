@@ -66,6 +66,9 @@ services:
 			memoryLimitFile: %memoryLimitFile%
 
 	-
+		class: PHPStan\FileHelper
+
+	-
 		class: PHPStan\Parser\CachedParser
 		arguments:
 			originalParser: @directParser

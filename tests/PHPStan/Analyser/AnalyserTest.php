@@ -2,6 +2,7 @@
 
 namespace PHPStan\Analyser;
 
+use PHPStan\FileHelper;
 use PHPStan\Parser\DirectParser;
 use PHPStan\Rules\AlwaysFailRule;
 use PHPStan\Rules\Registry;
@@ -159,7 +160,8 @@ class AnalyserTest extends \PHPStan\TestCase
 			$printer,
 			$analyseExcludes,
 			$ignoreErrors,
-			$bootstrapFile
+			$bootstrapFile,
+			new FileHelper()
 		);
 
 		return $analyser;

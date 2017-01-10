@@ -5,17 +5,17 @@ namespace PHPStan;
 class FileHelper
 {
 
-	public static function isAbsolutePath(string $path): bool
+	public function isAbsolutePath(string $path): bool
 	{
 		return substr($path, 0, 1) === '/' || substr($path, 1, 1) === ':';
 	}
 
-	public static function normalizePath(string $path): string
+	public function normalizePath(string $path): string
 	{
 		$path = str_replace('\\', '/', $path);
 		$path = preg_replace('~/{2,}~', '/', $path);
 
-		$pathRoot = strpos($path, '/') === 0 ? '/' : '';
+		$pathRoot = strpos($path, '/') === 0 ? DIRECTORY_SEPARATOR : '';
 		$pathParts = explode('/', trim($path, '/'));
 
 		$normalizedPathParts = [];

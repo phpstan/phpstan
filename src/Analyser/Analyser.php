@@ -52,6 +52,9 @@ class Analyser
 	 */
 	private $bootstrapFile;
 
+	/** @var \PHPStan\FileHelper */
+	private $fileHelper;
+
 	/**
 	 * @param \PHPStan\Broker\Broker $broker
 	 * @param \PHPStan\Parser\Parser $parser
@@ -61,6 +64,7 @@ class Analyser
 	 * @param string[] $analyseExcludes
 	 * @param string[] $ignoreErrors
 	 * @param string|null $bootstrapFile
+	 * @param \PHPStan\FileHelper $fileHelper
 	 */
 	public function __construct(
 		Broker $broker,
@@ -70,7 +74,8 @@ class Analyser
 		\PhpParser\PrettyPrinter\Standard $printer,
 		array $analyseExcludes,
 		array $ignoreErrors,
-		string $bootstrapFile = null
+		string $bootstrapFile = null,
+		FileHelper $fileHelper
 	)
 	{
 		$this->broker = $broker;
@@ -78,11 +83,12 @@ class Analyser
 		$this->registry = $registry;
 		$this->nodeScopeResolver = $nodeScopeResolver;
 		$this->printer = $printer;
-		$this->analyseExcludes = array_map(function (string $exclude): string {
-			return FileHelper::normalizePath($exclude);
+		$this->analyseExcludes = array_map(function (string $exclude) use ($fileHelper): string {
+			return $fileHelper->normalizePath($exclude);
 		}, $analyseExcludes);
 		$this->ignoreErrors = $ignoreErrors;
 		$this->bootstrapFile = $bootstrapFile;
+		$this->fileHelper = $fileHelper;
 	}
 
 	/**
@@ -121,7 +127,7 @@ class Analyser
 		}
 
 		foreach ($files as $file) {
-			$file = FileHelper::normalizePath($file);
+			$file = $this->fileHelper->normalizePath($file);
 
 			try {
 				if ($this->isExcludedFromAnalysing($file)) {

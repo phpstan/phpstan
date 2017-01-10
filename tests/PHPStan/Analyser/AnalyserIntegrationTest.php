@@ -49,13 +49,13 @@ class AnalyserIntegrationTest extends \PHPStan\TestCase
 	 */
 	private function runAnalyse(string $file): array
 	{
-		$file = FileHelper::normalizePath($file);
-
 		/** @var \PHPStan\Analyser\Analyser $analyser */
 		$analyser = $this->getContainer()->getByType(Analyser::class);
+		/** @var \PHPStan\FileHelper $fileHelper */
+		$fileHelper = $this->getContainer()->getByType(FileHelper::class);
 		$errors = $analyser->analyse([$file], false);
 		foreach ($errors as $error) {
-			$this->assertSame($file, $error->getFile());
+			$this->assertSame($fileHelper->normalizePath($file), $error->getFile());
 		}
 
 		return $errors;
