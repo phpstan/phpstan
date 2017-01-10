@@ -37,7 +37,7 @@ class FileTypeMapper
 
 	public function getTypeMap(string $fileName): array
 	{
-		$cacheKey = sprintf('%s-%d-v20-%d', $fileName, filemtime($fileName), $this->enableUnionTypes ? 1 : 0);
+		$cacheKey = sprintf('%s-%d-v21-%d', $fileName, filemtime($fileName), $this->enableUnionTypes ? 1 : 0);
 		if (isset($this->memoryCache[$cacheKey])) {
 			return $this->memoryCache[$cacheKey];
 		}
@@ -144,33 +144,33 @@ class FileTypeMapper
 
 		$isNullable = count($typeParts) !== count($typePartsWithoutNull);
 		if (count($typePartsWithoutNull) > 1) {
-			if ($this->enableUnionTypes) {
-				$otherTypes = [];
+			$otherTypes = [];
 
-				/** @var \PHPStan\Type\IterableType $iterableType */
-				$iterableType = null;
-				$onlyOneItemType = true;
-				foreach ($typePartsWithoutNull as $typePart) {
-					$type = TypehintHelper::getTypeObjectFromTypehint($typePart, false, $className, $nameScope);
-					if ($type instanceof IterableType) {
-						if ($iterableType !== null) {
-							if ($onlyOneItemType) {
-								$otherTypes[] = $iterableType;
-							}
-							$otherTypes[] = $type;
-							$onlyOneItemType = false;
-						} else {
-							$iterableType = $type;
+			/** @var \PHPStan\Type\IterableType $iterableType */
+			$iterableType = null;
+			$onlyOneItemType = true;
+			foreach ($typePartsWithoutNull as $typePart) {
+				$type = TypehintHelper::getTypeObjectFromTypehint($typePart, false, $className, $nameScope);
+				if ($type instanceof IterableType) {
+					if ($iterableType !== null) {
+						if ($onlyOneItemType) {
+							$otherTypes[] = $iterableType;
 						}
-					} else {
 						$otherTypes[] = $type;
+						$onlyOneItemType = false;
+					} else {
+						$iterableType = $type;
 					}
+				} else {
+					$otherTypes[] = $type;
 				}
+			}
 
-				if ($iterableType !== null && $onlyOneItemType) {
-					return new UnionIterableType($iterableType->getItemType(), $isNullable, $otherTypes);
-				}
+			if ($iterableType !== null && $onlyOneItemType) {
+				return new UnionIterableType($iterableType->getItemType(), $isNullable, $otherTypes);
+			}
 
+			if ($this->enableUnionTypes) {
 				return new CommonUnionType($otherTypes, $isNullable);
 			}
 
