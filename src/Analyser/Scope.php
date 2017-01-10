@@ -645,6 +645,19 @@ class Scope
 				return $this->getType($argumentValue);
 			}
 
+			$arrayFunctionsThatCreateArrayBasedOnArgumentType = [
+				'array_fill' => 2,
+				'array_fill_keys' => 1,
+			];
+			if (
+				isset($arrayFunctionsThatCreateArrayBasedOnArgumentType[$functionName])
+				&& isset($node->args[$arrayFunctionsThatCreateArrayBasedOnArgumentType[$functionName]])
+			) {
+				$argumentValue = $node->args[$arrayFunctionsThatCreateArrayBasedOnArgumentType[$functionName]]->value;
+
+				return new ArrayType($this->getType($argumentValue), false, true);
+			}
+
 			if (!$this->broker->hasFunction($node->name, $this)) {
 				return new MixedType();
 			}

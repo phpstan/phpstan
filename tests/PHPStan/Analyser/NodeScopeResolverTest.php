@@ -1832,6 +1832,14 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'int',
 				'$reversedIntegers[0]',
 			],
+			[
+				'int[]',
+				'$filledIntegers',
+			],
+			[
+				'int[]',
+				'$filledIntegersWithKeys',
+			],
 		];
 	}
 
