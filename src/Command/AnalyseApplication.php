@@ -21,10 +21,14 @@ class AnalyseApplication
 	 */
 	private $memoryLimitFile;
 
-	public function __construct(Analyser $analyser, string $memoryLimitFile)
+	/** @var \PHPStan\FileHelper */
+	private $fileHelper;
+
+	public function __construct(Analyser $analyser, string $memoryLimitFile, FileHelper $fileHelper)
 	{
 		$this->analyser = $analyser;
 		$this->memoryLimitFile = $memoryLimitFile;
+		$this->fileHelper = $fileHelper;
 	}
 
 	/**
@@ -42,7 +46,7 @@ class AnalyseApplication
 
 		$workingDirectory = getcwd();
 		$paths = array_map(function (string $path) use ($workingDirectory): string {
-			return !FileHelper::isAbsolutePath($path) ? $workingDirectory . DIRECTORY_SEPARATOR . $path : $path;
+			return !$this->fileHelper->isAbsolutePath($path) ? $workingDirectory . DIRECTORY_SEPARATOR . $path : $path;
 		}, $paths);
 
 		$onlyFiles = true;
@@ -97,7 +101,7 @@ class AnalyseApplication
 			return 0;
 		}
 
-		$currentDir = FileHelper::normalizePath(dirname($paths[0]));
+		$currentDir = $this->fileHelper->normalizePath(dirname($paths[0]));
 		$cropFilename = function (string $filename) use ($currentDir): string {
 			if ($currentDir !== '' && strpos($filename, $currentDir) === 0) {
 				return substr($filename, strlen($currentDir) + 1);

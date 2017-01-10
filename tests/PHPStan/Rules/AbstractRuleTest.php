@@ -15,6 +15,11 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 	/** @var \PHPStan\Analyser\Analyser */
 	private $analyser;
 
+	/**
+	 * @var \PHPStan\FileHelper
+	 */
+	private $fileHelper;
+
 	abstract protected function getRule(): Rule;
 
 	private function getAnalyser(): Analyser
@@ -43,16 +48,27 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 				),
 				$printer,
 				[],
-				[]
+				[],
+				null,
+				$this->getFileHelper()
 			);
 		}
 
 		return $this->analyser;
 	}
 
+	private function getFileHelper(): FileHelper
+	{
+		if ($this->fileHelper === null) {
+			$this->fileHelper = new FileHelper();
+		}
+
+		return $this->fileHelper;
+	}
+
 	private function assertError(string $message, string $file, int $line = null, Error $error)
 	{
-		$this->assertSame(FileHelper::normalizePath($file), $error->getFile(), $error->getMessage());
+		$this->assertSame($this->getFileHelper()->normalizePath($file), $error->getFile(), $error->getMessage());
 		$this->assertSame($line, $error->getLine(), $error->getMessage());
 		$this->assertSame($message, $error->getMessage());
 	}

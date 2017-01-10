@@ -2,6 +2,7 @@
 <?php declare(strict_types=1);
 
 use PHPStan\Command\AnalyseCommand;
+use PHPStan\FileHelper;
 
 gc_disable(); // performance boost
 
