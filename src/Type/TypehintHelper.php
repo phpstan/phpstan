@@ -43,6 +43,8 @@ class TypehintHelper
 
 				return new NonexistentParentClassType(false);
 			}
+		} elseif ($typehintString === 'parent') {
+			return new NonexistentParentClassType(false);
 		}
 
 		$lowercasedTypehintString = strtolower($typehintString);

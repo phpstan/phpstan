@@ -23,6 +23,10 @@ class ExistingClassesInClosureTypehintsRuleTest extends \PHPStan\Rules\AbstractR
 				'Parameter $bar of anonymous function has invalid typehint type TestClosureFunctionTypehints\BarFunctionTypehints.',
 				15,
 			],
+			[
+				'Return typehint of anonymous function has invalid type parent.',
+				25,
+			],
 		]);
 	}
 

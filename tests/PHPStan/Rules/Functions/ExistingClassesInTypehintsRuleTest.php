@@ -24,6 +24,10 @@ class ExistingClassesInTypehintsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Parameter $bar of function TestFunctionTypehints\bar() has invalid typehint type TestFunctionTypehints\BarFunctionTypehints.',
 				15,
 			],
+			[
+				'Return typehint of function TestFunctionTypehints\returnParent() has invalid type parent.',
+				28,
+			],
 		]);
 	}
 

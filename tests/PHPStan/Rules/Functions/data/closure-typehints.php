@@ -21,3 +21,8 @@ $callback = function (...$bar): FooFunctionTypehints
 {
 
 };
+
+$callback = function (): parent
+{
+
+};

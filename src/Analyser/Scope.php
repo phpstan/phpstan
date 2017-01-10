@@ -37,6 +37,7 @@ use PHPStan\Type\IntegerType;
 use PHPStan\Type\IterableIterableType;
 use PHPStan\Type\IterableType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\NonexistentParentClassType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StaticResolvableType;
@@ -1015,12 +1016,14 @@ class Scope
 				} elseif ($this->isInAnonymousClass()) {
 					$classReflection = $this->getAnonymousClass();
 				} else {
-					return new MixedType();
+					return new NonexistentParentClassType(false);
 				}
 
 				if ($classReflection->getParentClass() !== false) {
 					return new ObjectType($classReflection->getParentClass()->getName(), $isNullable);
 				}
+
+				return new NonexistentParentClassType(false);
 			}
 			return new ObjectType($className, $isNullable);
 		} elseif ($type === 'iterable') {

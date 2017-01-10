@@ -21,3 +21,11 @@ function baz(...$bar): FooFunctionTypehints
 {
 
 }
+
+/**
+ * @return parent
+ */
+function returnParent()
+{
+
+}
