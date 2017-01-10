@@ -698,6 +698,10 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'SomeGroupNamespace\Two',
 				'$this->anotherGroupUseProperty',
 			],
+			[
+				'PropertiesNamespace\Bar',
+				'$this->inheritDocProperty',
+			],
 		];
 	}
 

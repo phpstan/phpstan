@@ -69,11 +69,18 @@ class PhpClassReflectionExtension
 		foreach ($classReflection->getNativeReflection()->getProperties() as $propertyReflection) {
 			$propertyName = $propertyReflection->getName();
 			$declaringClassReflection = $this->broker->getClass($propertyReflection->getDeclaringClass()->getName());
-			$typeString = $this->getPropertyAnnotationTypeString($propertyReflection);
-			if ($typeString === null) {
+			if ($propertyReflection->getDocComment() === false) {
 				$type = new MixedType();
 			} elseif (!$declaringClassReflection->getNativeReflection()->isAnonymous() && $declaringClassReflection->getNativeReflection()->getFileName() !== false) {
-				$typeMap = $this->fileTypeMapper->getTypeMap($declaringClassReflection->getNativeReflection()->getFileName());
+				$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForProperty(
+					$this->broker,
+					$propertyReflection->getDocComment(),
+					$declaringClassReflection->getName(),
+					$propertyName,
+					$declaringClassReflection->getNativeReflection()->getFileName()
+				);
+				$typeMap = $this->fileTypeMapper->getTypeMap($phpDocBlock->getFile());
+				$typeString = $this->getPropertyAnnotationTypeString($phpDocBlock->getDocComment());
 				if (isset($typeMap[$typeString])) {
 					$type = $typeMap[$typeString];
 				} else {
@@ -94,16 +101,11 @@ class PhpClassReflectionExtension
 	}
 
 	/**
-	 * @param \ReflectionProperty $propertyReflection
+	 * @param string $phpDoc
 	 * @return string|null
 	 */
-	private function getPropertyAnnotationTypeString(\ReflectionProperty $propertyReflection)
+	private function getPropertyAnnotationTypeString(string $phpDoc)
 	{
-		$phpDoc = $propertyReflection->getDocComment();
-		if ($phpDoc === false) {
-			return null;
-		}
-
 		$count = preg_match_all('#@var\s+' . FileTypeMapper::TYPE_PATTERN . '#', $phpDoc, $matches);
 		if ($count !== 1) {
 			return null;
@@ -142,7 +144,7 @@ class PhpClassReflectionExtension
 			$phpDocReturnType = null;
 			if (!$declaringClass->getNativeReflection()->isAnonymous() && $declaringClass->getNativeReflection()->getFileName() !== false) {
 				if ($methodReflection->getDocComment() !== false) {
-					$phpDocBlock = PhpDocBlock::resolvePhpDocBlock(
+					$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForMethod(
 						$this->broker,
 						$methodReflection->getDocComment(),
 						$declaringClass->getName(),

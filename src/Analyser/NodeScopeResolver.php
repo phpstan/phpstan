@@ -1087,7 +1087,7 @@ class NodeScopeResolver
 			$docComment = $functionLike->getDocComment()->getText();
 			$file = $scope->getFile();
 			if ($scope->getClass() !== null && $functionLike instanceof Node\Stmt\ClassMethod) {
-				$phpDocBlock = PhpDocBlock::resolvePhpDocBlock(
+				$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForMethod(
 					$this->broker,
 					$docComment,
 					$scope->getClass(),

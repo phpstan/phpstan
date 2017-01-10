@@ -29,12 +29,55 @@ class PhpDocBlock
 		return $this->file;
 	}
 
-	public static function resolvePhpDocBlock(
+	public static function resolvePhpDocBlockForProperty(
+		Broker $broker,
+		string $docComment,
+		string $class,
+		string $propertyName,
+		string $file
+	): self
+	{
+		return self::resolvePhpDocBlock(
+			$broker,
+			$docComment,
+			$class,
+			$propertyName,
+			$file,
+			'hasProperty',
+			'getProperty',
+			__FUNCTION__
+		);
+	}
+
+	public static function resolvePhpDocBlockForMethod(
 		Broker $broker,
 		string $docComment,
 		string $class,
 		string $methodName,
 		string $file
+	): self
+	{
+		return self::resolvePhpDocBlock(
+			$broker,
+			$docComment,
+			$class,
+			$methodName,
+			$file,
+			'hasMethod',
+			'getMethod',
+			__FUNCTION__
+		);
+	}
+
+	private static function resolvePhpDocBlock(
+		Broker $broker,
+		string $docComment,
+		string $class,
+		string $name,
+		string $file,
+		string $hasMethodName,
+		string $getMethodName,
+		string $resolveMethodName
 	): self
 	{
 		if (
@@ -44,13 +87,27 @@ class PhpDocBlock
 			$classReflection = $broker->getClass($class);
 			if ($classReflection->getParentClass() !== false) {
 				$parentClassReflection = $classReflection->getParentClass()->getNativeReflection();
-				$phpDocBlockFromClass = self::resolvePhpDocBlockFromClass($broker, $parentClassReflection, $methodName);
+				$phpDocBlockFromClass = self::resolvePhpDocBlockFromClass(
+					$broker,
+					$parentClassReflection,
+					$name,
+					$hasMethodName,
+					$getMethodName,
+					$resolveMethodName
+				);
 				if ($phpDocBlockFromClass !== null) {
 					return $phpDocBlockFromClass;
 				}
 			} else {
 				foreach ($classReflection->getInterfaces() as $interface) {
-					$phpDocBlockFromClass = self::resolvePhpDocBlockFromClass($broker, $interface->getNativeReflection(), $methodName);
+					$phpDocBlockFromClass = self::resolvePhpDocBlockFromClass(
+						$broker,
+						$interface->getNativeReflection(),
+						$name,
+						$hasMethodName,
+						$getMethodName,
+						$resolveMethodName
+					);
 					if ($phpDocBlockFromClass !== null) {
 						return $phpDocBlockFromClass;
 					}
@@ -64,23 +121,29 @@ class PhpDocBlock
 	/**
 	 * @param \PHPStan\Broker\Broker $broker
 	 * @param \ReflectionClass $classReflection
-	 * @param string $methodName
+	 * @param string $name
+	 * @param string $hasMethodName
+	 * @param string $getMethodName
+	 * @param string $resolveMethodName
 	 * @return self|null
 	 */
 	private static function resolvePhpDocBlockFromClass(
 		Broker $broker,
 		\ReflectionClass $classReflection,
-		string $methodName
+		string $name,
+		string $hasMethodName,
+		string $getMethodName,
+		string $resolveMethodName
 	)
 	{
-		if ($classReflection->getFileName() !== false && $classReflection->hasMethod($methodName)) {
-			$parentMethodReflection = $classReflection->getMethod($methodName);
+		if ($classReflection->getFileName() !== false && $classReflection->$hasMethodName($name)) {
+			$parentMethodReflection = $classReflection->$getMethodName($name);
 			if ($parentMethodReflection->getDocComment() !== false) {
-				return self::resolvePhpDocBlock(
+				return self::$resolveMethodName(
 					$broker,
 					$parentMethodReflection->getDocComment(),
 					$classReflection->getName(),
-					$methodName,
+					$name,
 					$classReflection->getFileName()
 				);
 			}

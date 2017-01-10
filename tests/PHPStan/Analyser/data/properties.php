@@ -116,6 +116,11 @@ abstract class Foo extends Bar
 	 */
 	private $anotherGroupUseProperty;
 
+	/**
+	 * {@inheritDoc}
+	 */
+	protected $inheritDocProperty;
+
 	public function doFoo()
 	{
 		die;
