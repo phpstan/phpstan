@@ -58,7 +58,7 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 		}
 
 		$format = $formatArg->value;
-		$placeHoldersCount = $this->getPlaceholdersCount($format);
+		$placeHoldersCount = $this->getPlaceholdersCount($name, $format);
 		$argsCount -= $formatArgumentPosition;
 
 		if ($argsCount !== $placeHoldersCount + 1) {
@@ -79,21 +79,28 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 		return [];
 	}
 
-	private function getPlaceholdersCount(string $format): int
+	private function getPlaceholdersCount(string $functionName, string $format): int
 	{
-		$format = str_replace('%%', '', $format);
-		$characterGroups = '(?:[\.0-9\'])*[a-zA-Z]';
-		$options = [
-			$characterGroups,
-			'[0-9]+\$' . $characterGroups,
-			'(?:[\.\-0-9\'])*\[\^[^\]]\]',
-		];
-		preg_match_all(sprintf('~%%(?:[+\-])?((?:%s))~', implode(')|(?:', $options)), $format, $matches);
+		$specifiers = in_array($functionName, ['sprintf', 'printf'], true) ? '[bcdeEfFgGosuxX]' : '(?:[cdDeEfinosuxX]|\[\^[^\]]+\])';
+		$pattern = '~(?<before>%*)%(?:(?<position>\d+)\$)?[-+]?(?:[ 0]|(?:\'[^%]))?-?\d*(?:\.\d+)?' . $specifiers . '~';
+
+		if (!preg_match_all($pattern, $format, $matches, PREG_SET_ORDER)) {
+			return 0;
+		}
+
+		$placeholders = array_filter($matches, function (array $match): bool {
+			return strlen($match['before']) % 2 === 0;
+		});
+
+		if (count($placeholders) === 0) {
+			return 0;
+		}
+
 		$maxPositionedNumber = 0;
 		$maxOrdinaryNumber = 0;
-		foreach ($matches[1] as $match) {
-			if ((int) $match !== 0 && strpos($match, '$') !== false) {
-				$maxPositionedNumber = max((int) $match, $maxPositionedNumber);
+		foreach ($placeholders as $placeholder) {
+			if (isset($placeholder['position']) && $placeholder['position'] !== '') {
+				$maxPositionedNumber = max((int) $placeholder['position'], $maxPositionedNumber);
 			} else {
 				$maxOrdinaryNumber++;
 			}
