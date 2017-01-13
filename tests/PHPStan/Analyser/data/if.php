@@ -132,8 +132,10 @@ for ($previousI = 0, $previousJ = 0; $previousI < 1; $previousI++) {
 	$nonexistentVariableOutsideFor = 1;
 }
 
+$integerOrNullFromWhile = null;
 while (($frame = $that->getReader()->consumeFrame($that->getReadBuffer())) === null) {
-
+	$integerOrNullFromWhile = 1;
+	$nonexistentVariableOutsideWhile = 1;
 }
 
 $nullableIntegers = [1, 2, 3];

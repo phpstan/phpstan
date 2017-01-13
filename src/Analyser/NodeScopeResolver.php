@@ -750,6 +750,12 @@ class NodeScopeResolver
 			if ($this->polluteScopeWithLoopInitialAssignments) {
 				$scope = $this->lookForAssigns($scope, $node->cond);
 			}
+
+			$statements = [
+				new StatementList($scope, $node->stmts),
+				new StatementList($scope, []), // in order not to add variables existing only inside the for loop
+			];
+			$scope = $this->lookForAssignsInBranches($scope, $statements);
 		} elseif ($node instanceof ErrorSuppress) {
 			$scope = $this->lookForAssigns($scope, $node->expr);
 		} elseif ($node instanceof \PhpParser\Node\Stmt\Unset_) {
