@@ -147,6 +147,9 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$this->assertArrayNotHasKey('nonexistentVariableOutsideWhile', $variables);
 				$this->assertArrayHasKey('integerOrNullFromWhile', $variables);
 				$this->assertSame('int|null', $variables['integerOrNullFromWhile']->describe());
+				$this->assertArrayNotHasKey('nonexistentVariableOutsideForeach', $variables);
+				$this->assertArrayHasKey('integerOrNullFromForeach', $variables);
+				$this->assertSame('int|null', $variables['integerOrNullFromForeach']->describe());
 			}
 		});
 	}

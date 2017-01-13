@@ -138,6 +138,12 @@ while (($frame = $that->getReader()->consumeFrame($that->getReadBuffer())) === n
 	$nonexistentVariableOutsideWhile = 1;
 }
 
+$integerOrNullFromForeach = null;
+foreach ($someArray as $someValue) {
+	$integerOrNullFromForeach = 1;
+	$nonexistentVariableOutsideForeach = null;
+}
+
 $nullableIntegers = [1, 2, 3];
 $nullableIntegers[] = null;
 

@@ -772,6 +772,11 @@ class NodeScopeResolver
 			$scope = $this->lookForAssigns($scope, $node->expr);
 		} elseif ($node instanceof Foreach_) {
 			$scope = $this->lookForAssigns($scope, $node->expr);
+			$statements = [
+				new StatementList($scope, $node->stmts),
+				new StatementList($scope, []), // in order not to add variables existing only inside the for loop
+			];
+			$scope = $this->lookForAssignsInBranches($scope, $statements);
 		} elseif ($node instanceof Isset_) {
 			foreach ($node->vars as $var) {
 				$scope = $this->lookForAssigns($scope, $var);
