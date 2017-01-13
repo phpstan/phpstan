@@ -402,6 +402,8 @@ interface MethodReflection
 
 	public function getDeclaringClass(): ClassReflection;
 
+	public function getPrototype(): self;
+
 	public function isStatic(): bool;
 
 	public function isPrivate(): bool;
