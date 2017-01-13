@@ -5,6 +5,20 @@ namespace PHPStan;
 class FileHelperTest extends \PHPStan\TestCase
 {
 
+	private function skipIfNotOnWindows()
+	{
+		if (DIRECTORY_SEPARATOR !== '\\') {
+			$this->markTestSkipped();
+		}
+	}
+
+	private function skipIfNotOnUnix()
+	{
+		if (DIRECTORY_SEPARATOR !== '/') {
+			$this->markTestSkipped();
+		}
+	}
+
 	/**
 	 * @return string[][]
 	 */
@@ -22,13 +36,13 @@ class FileHelperTest extends \PHPStan\TestCase
 	}
 
 	/**
-	 * @requires OS WIN
 	 * @dataProvider dataAbsolutizePathOnWindows
 	 * @param string $path
 	 * @param string $absolutePath
 	 */
 	public function testAbsolutizePathOnWindows(string $path, string $absolutePath)
 	{
+		$this->skipIfNotOnWindows();
 		$fileHelper = new FileHelper('C:\abcd');
 		$this->assertSame($absolutePath, $fileHelper->absolutizePath($path));
 	}
@@ -50,13 +64,13 @@ class FileHelperTest extends \PHPStan\TestCase
 	}
 
 	/**
-	 * @requires OS Linux|Mac
 	 * @dataProvider dataAbsolutizePathOnLinuxOrMac
 	 * @param string $path
 	 * @param string $absolutePath
 	 */
 	public function testAbsolutizePathOnLinuxOrMac(string $path, string $absolutePath)
 	{
+		$this->skipIfNotOnUnix();
 		$fileHelper = new FileHelper('/abcd');
 		$this->assertSame($absolutePath, $fileHelper->absolutizePath($path));
 	}
@@ -78,13 +92,13 @@ class FileHelperTest extends \PHPStan\TestCase
 	}
 
 	/**
-	 * @requires OS WIN
 	 * @dataProvider dataNormalizePathOnWindows
 	 * @param string $path
 	 * @param string $normalizedPath
 	 */
 	public function testNormalizePathOnWindows(string $path, string $normalizedPath)
 	{
+		$this->skipIfNotOnWindows();
 		$this->assertSame($normalizedPath, $this->getContainer()->getByType(FileHelper::class)->normalizePath($path));
 	}
 
@@ -105,13 +119,13 @@ class FileHelperTest extends \PHPStan\TestCase
 	}
 
 	/**
-	 * @requires OS Linux|Mac
 	 * @dataProvider dataNormalizePathOnLinuxOrMac
 	 * @param string $path
 	 * @param string $normalizedPath
 	 */
 	public function testNormalizePathOnLinuxOrMac(string $path, string $normalizedPath)
 	{
+		$this->skipIfNotOnUnix();
 		$this->assertSame($normalizedPath, $this->getContainer()->getByType(FileHelper::class)->normalizePath($path));
 	}
 
