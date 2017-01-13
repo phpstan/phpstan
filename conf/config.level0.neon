@@ -96,3 +96,8 @@ services:
 		class: PHPStan\Rules\Methods\ExistingClassesInTypehintsRule
 		tags:
 			- phpstan.rules.rule
+
+	-
+		class: PHPStan\Rules\Variables\ThisVariableRule
+		tags:
+			- phpstan.rules.rule
