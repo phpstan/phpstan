@@ -7,6 +7,7 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\MethodReflection;
 use PHPStan\Rules\FunctionCallParametersCheck;
 
 class CallStaticMethodsRule implements \PHPStan\Rules\Rule
@@ -124,46 +125,68 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 
 		$method = $classReflection->getMethod($name);
 		if (!$method->isStatic()) {
-			return [
-				sprintf(
-					'Static call to instance method %s::%s().',
-					$method->getDeclaringClass()->getName(),
-					$method->getName()
-				),
-			];
+			$function = $scope->getFunction();
+			if (
+				!(
+					$function instanceof MethodReflection
+					&& !$function->isStatic()
+					&& (
+						$scope->getClass() === $class
+						|| $currentClassReflection->isSubclassOf($class)
+					)
+				)
+			) {
+				return [
+					sprintf(
+						'Static call to instance method %s::%s().',
+						$method->getDeclaringClass()->getName(),
+						$method->getName()
+					),
+				];
+			}
 		}
 
 		if (!$scope->canCallMethod($method)) {
 			return [
 				sprintf(
-					'Call to %s static method %s() of class %s.',
+					'Call to %s %s %s() of class %s.',
 					$method->isPrivate() ? 'private' : 'protected',
+					$method->isStatic() ? 'static method' : 'method',
 					$method->getName(),
 					$method->getDeclaringClass()->getName()
 				),
 			];
 		}
 
-		$methodName = $method->getDeclaringClass()->getName() . '::' . $method->getName() . '()';
+		$lowercasedMethodName = sprintf(
+			'%s %s',
+			$method->isStatic() ? 'static method' : 'method',
+			$method->getDeclaringClass()->getName() . '::' . $method->getName() . '()'
+		);
+		$methodName = sprintf(
+			'%s %s',
+			$method->isStatic() ? 'Static method' : 'Method',
+			$method->getDeclaringClass()->getName() . '::' . $method->getName() . '()'
+		);
 
 		$errors = $this->check->check(
 			$method,
 			$scope,
 			$node,
 			[
-				'Static method ' . $methodName . ' invoked with %d parameter, %d required.',
-				'Static method ' . $methodName . ' invoked with %d parameters, %d required.',
-				'Static method ' . $methodName . ' invoked with %d parameter, at least %d required.',
-				'Static method ' . $methodName . ' invoked with %d parameters, at least %d required.',
-				'Static method ' . $methodName . ' invoked with %d parameter, %d-%d required.',
-				'Static method ' . $methodName . ' invoked with %d parameters, %d-%d required.',
-				'Parameter #%d %s of static method ' . $methodName . ' expects %s, %s given.',
-				'Result of static method ' . $methodName . ' (void) is used.',
+				$methodName . ' invoked with %d parameter, %d required.',
+				$methodName . ' invoked with %d parameters, %d required.',
+				$methodName . ' invoked with %d parameter, at least %d required.',
+				$methodName . ' invoked with %d parameters, at least %d required.',
+				$methodName . ' invoked with %d parameter, %d-%d required.',
+				$methodName . ' invoked with %d parameters, %d-%d required.',
+				'Parameter #%d %s of ' . $lowercasedMethodName . ' expects %s, %s given.',
+				'Result of ' . $lowercasedMethodName . ' (void) is used.',
 			]
 		);
 
 		if ($method->getName() !== $name) {
-			$errors[] = sprintf('Call to static method %s with incorrect case: %s', $methodName, $name);
+			$errors[] = sprintf('Call to %s with incorrect case: %s', $lowercasedMethodName, $name);
 		}
 
 		return $errors;

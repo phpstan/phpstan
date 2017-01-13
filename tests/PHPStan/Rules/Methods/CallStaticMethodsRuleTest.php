@@ -82,4 +82,34 @@ class CallStaticMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		]);
 	}
 
+	public function testStaticCallsToInstanceMethods()
+	{
+		$this->analyse([__DIR__ . '/data/static-calls-to-instance-methods.php'], [
+			[
+				'Static call to instance method StaticCallsToInstanceMethods\Foo::doFoo().',
+				10,
+			],
+			[
+				'Static call to instance method StaticCallsToInstanceMethods\Bar::doBar().',
+				16,
+			],
+			[
+				'Static call to instance method StaticCallsToInstanceMethods\Foo::doFoo().',
+				36,
+			],
+			[
+				'Call to method StaticCallsToInstanceMethods\Foo::doFoo() with incorrect case: dofoo',
+				42,
+			],
+			[
+				'Method StaticCallsToInstanceMethods\Foo::doFoo() invoked with 1 parameter, 0 required.',
+				43,
+			],
+			[
+				'Call to private method doPrivateFoo() of class StaticCallsToInstanceMethods\Foo.',
+				45,
+			],
+		]);
+	}
+
 }
