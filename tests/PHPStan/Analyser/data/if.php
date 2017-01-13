@@ -126,8 +126,10 @@ do {
 	$doWhileVar = 1;
 } while (something());
 
+$integerOrNullFromFor = null;
 for ($previousI = 0, $previousJ = 0; $previousI < 1; $previousI++) {
-
+	$integerOrNullFromFor = 1;
+	$nonexistentVariableOutsideFor = 1;
 }
 
 while (($frame = $that->getReader()->consumeFrame($that->getReadBuffer())) === null) {

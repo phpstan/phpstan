@@ -730,8 +730,8 @@ class NodeScopeResolver
 			$scope = $this->lookForAssignsInBranches($scope, $statements, true);
 		} elseif ($node instanceof Cast) {
 			$scope = $this->lookForAssigns($scope, $node->expr);
-		} elseif ($this->polluteScopeWithLoopInitialAssignments) {
-			if ($node instanceof For_) {
+		} elseif ($node instanceof For_) {
+			if ($this->polluteScopeWithLoopInitialAssignments) {
 				foreach ($node->init as $initExpr) {
 					$scope = $this->lookForAssigns($scope, $initExpr);
 				}
@@ -739,7 +739,15 @@ class NodeScopeResolver
 				foreach ($node->cond as $condExpr) {
 					$scope = $this->lookForAssigns($scope, $condExpr);
 				}
-			} elseif ($node instanceof While_) {
+			}
+
+			$statements = [
+				new StatementList($scope, $node->stmts),
+				new StatementList($scope, []), // in order not to add variables existing only inside the for loop
+			];
+			$scope = $this->lookForAssignsInBranches($scope, $statements);
+		} elseif ($node instanceof While_) {
+			if ($this->polluteScopeWithLoopInitialAssignments) {
 				$scope = $this->lookForAssigns($scope, $node->cond);
 			}
 		} elseif ($node instanceof ErrorSuppress) {

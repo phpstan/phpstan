@@ -141,6 +141,9 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$this->assertSame('bool', $variables['trueOrFalseInSwitchInAllCasesWithDefaultCase']->describe());
 				$this->assertArrayHasKey('nullableTrueOrFalse', $variables);
 				$this->assertSame('bool|null', $variables['nullableTrueOrFalse']->describe());
+				$this->assertArrayNotHasKey('nonexistentVariableOutsideFor', $variables);
+				$this->assertArrayHasKey('integerOrNullFromFor', $variables);
+				$this->assertSame('int|null', $variables['integerOrNullFromFor']->describe());
 			}
 		});
 	}
