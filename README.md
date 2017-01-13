@@ -169,7 +169,7 @@ is used as a pattern for the [`fnmatch`](https://secure.php.net/manual/en/functi
 ```yaml
 parameters:
 	excludes_analyse:
-		- %rootDir%/tests/*/data/*
+		- %rootDir%/../../../tests/*/data/*
 ```
 
 ### Universal object crates
