@@ -35,7 +35,6 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Continue_;
 use PhpParser\Node\Stmt\Do_;
 use PhpParser\Node\Stmt\Echo_;
-use PhpParser\Node\Stmt\ElseIf_;
 use PhpParser\Node\Stmt\For_;
 use PhpParser\Node\Stmt\Foreach_;
 use PhpParser\Node\Stmt\If_;
@@ -408,9 +407,6 @@ class NodeScopeResolver
 				}
 			}
 			return;
-		} elseif ($node instanceof ElseIf_) {
-			$scope = $this->lookForAssigns($scope, $node->cond);
-			$scope = $this->lookForTypeSpecifications($scope, $node->cond);
 		} elseif ($node instanceof While_) {
 			$scope = $this->lookForAssigns($scope, $node->cond);
 			$scope = $this->lookForTypeSpecifications($scope, $node->cond);
