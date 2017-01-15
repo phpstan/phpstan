@@ -180,3 +180,15 @@ foreach ($someArray as $someArrayKey => &$valueByReference) {
 	}
 }
 unset($valueByReference);
+
+function () {
+	var_dump($http_response_header);
+	fopen('http://www.google.com', 'r');
+	var_dump($http_response_header);
+};
+
+function () {
+	var_dump($http_response_header);
+	file_get_contents('http://www.google.com');
+	var_dump($http_response_header);
+};

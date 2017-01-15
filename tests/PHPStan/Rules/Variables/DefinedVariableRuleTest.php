@@ -70,6 +70,14 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Undefined variable: $negatedVariableInEmpty',
 				156,
 			],
+			[
+				'Undefined variable: $http_response_header',
+				185,
+			],
+			[
+				'Undefined variable: $http_response_header',
+				191,
+			],
 		]);
 	}
 

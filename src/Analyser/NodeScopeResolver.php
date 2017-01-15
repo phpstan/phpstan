@@ -55,6 +55,7 @@ use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NestedArrayItemType;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
 
@@ -669,6 +670,16 @@ class NodeScopeResolver
 						$scope = $scope->assignVariable($arg->name, new MixedType());
 					}
 				}
+			}
+			if (
+				$node instanceof FuncCall
+				&& $node->name instanceof Name
+				&& in_array((string) $node->name, [
+					'fopen',
+					'file_get_contents',
+				], true)
+			) {
+				$scope = $scope->assignVariable('http_response_header', new ArrayType(new StringType(false), false));
 			}
 		} elseif ($node instanceof BinaryOp) {
 			$scope = $this->lookForAssigns($scope, $node->left);
