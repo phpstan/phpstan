@@ -409,7 +409,6 @@ class NodeScopeResolver
 			return;
 		} elseif ($node instanceof While_) {
 			$scope = $this->lookForAssigns($scope, $node->cond);
-			$scope = $this->lookForTypeSpecifications($scope, $node->cond);
 		} elseif ($this->polluteCatchScopeWithTryAssignments && $node instanceof TryCatch) {
 			foreach ($node->stmts as $statement) {
 				$scope = $this->lookForAssigns($scope, $statement);
@@ -481,6 +480,9 @@ class NodeScopeResolver
 
 				if ($node instanceof Foreach_ && $subNodeName === 'stmts') {
 					$scope = $this->lookForAssigns($scope, $node->expr);
+				}
+				if ($node instanceof While_ && $subNodeName === 'stmts') {
+					$scope = $this->lookForTypeSpecifications($scope, $node->cond);
 				}
 
 				if ($node instanceof Isset_ && $subNodeName === 'vars') {

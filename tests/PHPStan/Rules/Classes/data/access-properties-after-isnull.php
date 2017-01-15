@@ -29,6 +29,25 @@ class Foo
 		if (!is_null($this->fooProperty) && $this->fooProperty->barProperty) {
 
 		}
+
+		while (is_null($this->fooProperty) && $this->fooProperty->fooProperty) {
+
+		}
+		while (is_null($this->fooProperty) || $this->fooProperty->fooProperty) {
+
+		}
+		while (!is_null($this->fooProperty) && $this->fooProperty->fooProperty) {
+
+		}
+		while (!is_null($this->fooProperty) || $this->fooProperty->fooProperty) {
+
+		}
+		while (is_null($this->fooProperty) || $this->fooProperty->barProperty) {
+
+		}
+		while (!is_null($this->fooProperty) && $this->fooProperty->barProperty) {
+
+		}
 	}
 
 }

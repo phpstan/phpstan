@@ -127,6 +127,22 @@ class AccessPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Access to an undefined property AccessPropertiesAfterIsNull\Foo::$barProperty.',
 				29,
 			],
+			[
+				'Cannot access property $fooProperty on null.',
+				33,
+			],
+			[
+				'Cannot access property $fooProperty on null.',
+				42,
+			],
+			[
+				'Access to an undefined property AccessPropertiesAfterIsNull\Foo::$barProperty.',
+				45,
+			],
+			[
+				'Access to an undefined property AccessPropertiesAfterIsNull\Foo::$barProperty.',
+				48,
+			],
 		]);
 	}
 
