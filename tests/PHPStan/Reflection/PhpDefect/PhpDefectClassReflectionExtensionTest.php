@@ -22,7 +22,7 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 		foreach ($data as $propertyName => $typeDescription) {
 			$broker = $this->getContainer()->getByType(Broker::class);
 			$classReflection = $broker->getClass($className);
-			$this->assertTrue($classReflection->hasProperty($propertyName));
+			$this->assertTrue($classReflection->hasProperty($propertyName), sprintf('%s::$%s', $className, $propertyName));
 			$propertyReflection = $classReflection->getProperty($propertyName);
 			$this->assertInstanceOf(PhpDefectPropertyReflection::class, $propertyReflection);
 			$this->assertSame($declaringClassName, $propertyReflection->getDeclaringClass()->getName());
@@ -71,10 +71,14 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 				\DOMDocument::class,
 				\DOMDocument::class,
 				[
+					'actualEncoding' => 'string',
+					'config' => 'DOMConfiguration',
+					'doctype' => 'DOMDocumentType',
+					'documentElement' => 'DOMElement',
 					'documentURI' => 'string',
 					'encoding' => 'string',
 					'formatOutput' => 'bool',
-					'implementation' => 'bool',
+					'implementation' => 'DOMImplementation',
 					'preserveWhiteSpace' => 'bool',
 					'recover' => 'bool',
 					'resolveExternals' => 'bool',
@@ -84,6 +88,7 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 					'validateOnParse' => 'bool',
 					'version' => 'string',
 					'xmlEncoding' => 'string',
+					'xmlStandalone' => 'bool',
 					'xmlVersion' => 'string',
 				],
 			],
