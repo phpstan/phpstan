@@ -12,6 +12,7 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\AssignRef;
 use PhpParser\Node\Expr\BinaryOp;
 use PhpParser\Node\Expr\BinaryOp\BooleanAnd;
+use PhpParser\Node\Expr\BinaryOp\BooleanOr;
 use PhpParser\Node\Expr\BinaryOp\Coalesce;
 use PhpParser\Node\Expr\BooleanNot;
 use PhpParser\Node\Expr\Cast;
@@ -514,6 +515,9 @@ class NodeScopeResolver
 
 				if ($node instanceof BooleanAnd && $subNodeName === 'right') {
 					$scope = $this->lookForTypeSpecifications($scope, $node->left);
+				}
+				if ($node instanceof BooleanOr && $subNodeName === 'right') {
+					$scope = $this->lookForTypeSpecificationsInEarlyTermination($scope, $node->left);
 				}
 
 				if (($node instanceof Assign || $node instanceof AssignRef) && $subNodeName === 'var') {

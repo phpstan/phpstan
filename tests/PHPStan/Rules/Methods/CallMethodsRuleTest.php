@@ -357,4 +357,10 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		]);
 	}
 
+	public function testNegatedInstanceof()
+	{
+		$this->checkThisOnly = false;
+		$this->analyse([__DIR__ . '/data/negated-instanceof.php'], []);
+	}
+
 }
