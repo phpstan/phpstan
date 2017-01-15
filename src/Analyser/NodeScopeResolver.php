@@ -689,7 +689,7 @@ class NodeScopeResolver
 		} elseif ($node instanceof BooleanNot) {
 			$scope = $this->lookForAssigns($scope, $node->expr);
 		} elseif ($node instanceof Ternary) {
-			$scope = $this->lookForAssigns($scope, $node->else);
+			$scope = $this->lookForAssigns($scope, $node->cond);
 		} elseif ($node instanceof List_) {
 			if (isset($node->items)) {
 				$nodeItems = $node->items;

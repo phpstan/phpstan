@@ -192,3 +192,6 @@ function () {
 	file_get_contents('http://www.google.com');
 	var_dump($http_response_header);
 };
+
+($variableDefinedInTernary = doFoo()) ? ('foo' . $variableDefinedInTernary): 'bar';
+echo $variableDefinedInTernary;
