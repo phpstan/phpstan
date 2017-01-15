@@ -146,4 +146,15 @@ class AccessPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		]);
 	}
 
+	public function testDateIntervalChildProperties()
+	{
+		$this->checkThisOnly = false;
+		$this->analyse([__DIR__ . '/data/date-interval-child-properties.php'], [
+			[
+				'Access to an undefined property AccessPropertiesDateIntervalChild\DateIntervalChild::$nonexistent.',
+				14,
+			],
+		]);
+	}
+
 }

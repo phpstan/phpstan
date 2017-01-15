@@ -14,9 +14,10 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 	 * @dataProvider dataZipArchiveProperties
 	 *
 	 * @param string $className
+	 * @param string $declaringClassName
 	 * @param array  $data
 	 */
-	public function testProperties(string $className, array $data)
+	public function testProperties(string $className, string $declaringClassName, array $data)
 	{
 		foreach ($data as $propertyName => $typeDescription) {
 			$broker = $this->getContainer()->getByType(Broker::class);
@@ -24,7 +25,7 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 			$this->assertTrue($classReflection->hasProperty($propertyName));
 			$propertyReflection = $classReflection->getProperty($propertyName);
 			$this->assertInstanceOf(PhpDefectPropertyReflection::class, $propertyReflection);
-			$this->assertSame($classReflection, $propertyReflection->getDeclaringClass());
+			$this->assertSame($declaringClassName, $propertyReflection->getDeclaringClass()->getName());
 			$this->assertSame($typeDescription, $propertyReflection->getType()->describe(), sprintf('%s::$%s', $className, $propertyName));
 		}
 	}
@@ -33,6 +34,21 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 	{
 		return [
 			[
+				\DateInterval::class,
+				\DateInterval::class,
+				[
+					'y' => 'int',
+					'm' => 'int',
+					'd' => 'int',
+					'h' => 'int',
+					'i' => 'int',
+					's' => 'int',
+					'invert' => 'int',
+					'days' => 'mixed',
+				],
+			],
+			[
+				\PhpDefectClasses\DateIntervalChild::class,
 				\DateInterval::class,
 				[
 					'y' => 'int',
@@ -52,6 +68,7 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 	{
 		return [
 			[
+				\DOMDocument::class,
 				\DOMDocument::class,
 				[
 					'documentURI' => 'string',
@@ -79,6 +96,7 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 	{
 		return [
 			[
+				ZipArchive::class,
 				ZipArchive::class,
 				[
 					'status' => 'int',

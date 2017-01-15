@@ -14,6 +14,7 @@ use PHPStan\Reflection\Php\PhpClassReflectionExtension;
 use PHPStan\Reflection\Php\PhpMethodReflection;
 use PHPStan\Reflection\Php\PhpMethodReflectionFactory;
 use PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension;
+use PHPStan\Reflection\PhpDefect\PhpDefectClassReflectionExtension;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Type;
 
@@ -144,6 +145,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 			[
 				$phpExtension,
 				new UniversalObjectCratesClassReflectionExtension([\stdClass::class]),
+				new PhpDefectClassReflectionExtension(),
 			],
 			[$phpExtension],
 			$dynamicMethodReturnTypeExtensions,
