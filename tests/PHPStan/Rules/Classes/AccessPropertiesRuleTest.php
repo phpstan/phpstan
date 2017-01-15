@@ -107,4 +107,27 @@ class AccessPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		);
 	}
 
+	public function testAccessPropertiesAfterIsNullInBooleanOr()
+	{
+		$this->checkThisOnly = false;
+		$this->analyse([__DIR__ . '/data/access-properties-after-isnull.php'], [
+			[
+				'Cannot access property $fooProperty on null.',
+				14,
+			],
+			[
+				'Cannot access property $fooProperty on null.',
+				23,
+			],
+			[
+				'Access to an undefined property AccessPropertiesAfterIsNull\Foo::$barProperty.',
+				26,
+			],
+			[
+				'Access to an undefined property AccessPropertiesAfterIsNull\Foo::$barProperty.',
+				29,
+			],
+		]);
+	}
+
 }

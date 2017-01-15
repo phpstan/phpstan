@@ -347,8 +347,8 @@ class NodeScopeResolver
 		} elseif ($node instanceof If_) {
 			$scope = $this->lookForAssigns($scope, $node->cond)->exitFirstLevelStatements();
 			$ifScope = $scope;
-			$scope = $this->lookForTypeSpecifications($scope, $node->cond);
 			$this->processNode($node->cond, $scope, $nodeCallback);
+			$scope = $this->lookForTypeSpecifications($scope, $node->cond);
 
 			$specifyFetchedProperty = function (Node $node, Scope $inScope) use (&$scope) {
 				$this->specifyFetchedPropertyForInnerScope($node, $inScope, false, $scope);
@@ -360,8 +360,8 @@ class NodeScopeResolver
 			foreach ($node->elseifs as $elseif) {
 				$scope = $elseifScope;
 				$scope = $this->lookForAssigns($scope, $elseif->cond)->exitFirstLevelStatements();
-				$scope = $this->lookForTypeSpecifications($scope, $elseif->cond);
 				$this->processNode($elseif->cond, $scope, $nodeCallback);
+				$scope = $this->lookForTypeSpecifications($scope, $elseif->cond);
 				$this->processNode($elseif->cond, $scope, $specifyFetchedProperty);
 				$this->processNodes($elseif->stmts, $scope->enterFirstLevelStatements(), $nodeCallback);
 				$elseifScope = $this->lookForAssigns($elseifScope, $elseif->cond);
