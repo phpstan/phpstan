@@ -40,7 +40,7 @@ and invoking methods using `__call`.
 
 See [Class reflection extensions](#class-reflection-extensions) and [Dynamic return type extensions](#dynamic-return-type-extensions).
 
-You can also installed already created framework-specific extensions:
+You can also install already created framework-specific extensions:
 
 * [Nette Framework](https://github.com/phpstan/phpstan-nette)
 * [Dibi - Database Abstraction Library](https://github.com/phpstan/phpstan-dibi)
