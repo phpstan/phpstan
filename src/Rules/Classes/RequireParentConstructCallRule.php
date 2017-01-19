@@ -3,6 +3,7 @@
 namespace PHPStan\Rules\Classes;
 
 use PhpParser\Node;
+use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
@@ -89,7 +90,11 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 
 		foreach ($parserNode->stmts as $statement) {
 			if ($statement instanceof \PhpParser\Node\Expr\StaticCall) {
-				if (((string) $statement->class === 'parent') && $statement->name === '__construct') {
+				if (
+					$statement->class instanceof Name
+					&& ((string) $statement->class === 'parent')
+					&& $statement->name === '__construct'
+				) {
 					return true;
 				}
 			} else {

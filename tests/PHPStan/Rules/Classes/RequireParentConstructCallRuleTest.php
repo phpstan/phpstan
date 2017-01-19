@@ -37,6 +37,10 @@ class RequireParentConstructCallRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'BarSoapClient::__construct() does not call parent constructor from SoapClient.',
 				129,
 			],
+			[
+				'StaticCallOnAVariable::__construct() does not call parent constructor from FooCallToParentConstructor.',
+				140,
+			],
 		]);
 	}
 

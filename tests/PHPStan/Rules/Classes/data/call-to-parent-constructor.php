@@ -133,3 +133,14 @@ class BarSoapClient extends \SoapClient
 
 
 }
+
+class StaticCallOnAVariable extends FooCallToParentConstructor
+{
+
+	public function __construct()
+	{
+		$thisClass = __CLASS__;
+		$thisClass::myMethod();
+	}
+
+}
