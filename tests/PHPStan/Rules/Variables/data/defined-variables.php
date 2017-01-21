@@ -206,3 +206,8 @@ $arrayWithAssignmentInKey = [
 	$assignedInKey . $assignedInValue => $assignedInKey . $assignedInValue,
 ];
 echo $assignedInKey;
+
+if (($isInstanceOf = $fooObject) instanceof Foo && $isInstanceOf) {
+
+}
+echo $isInstanceOf;

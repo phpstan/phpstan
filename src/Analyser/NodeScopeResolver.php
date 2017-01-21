@@ -19,6 +19,7 @@ use PhpParser\Node\Expr\Cast;
 use PhpParser\Node\Expr\ErrorSuppress;
 use PhpParser\Node\Expr\Exit_;
 use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Expr\Instanceof_;
 use PhpParser\Node\Expr\Isset_;
 use PhpParser\Node\Expr\List_;
 use PhpParser\Node\Expr\MethodCall;
@@ -834,6 +835,8 @@ class NodeScopeResolver
 
 				$scope = $scope->assignVariable($closureUse->var, new MixedType());
 			}
+		} elseif ($node instanceof Instanceof_) {
+			$scope = $this->lookForAssigns($scope, $node->expr);
 		}
 
 		$scope = $this->updateScopeForVariableAssign($scope, $node);
