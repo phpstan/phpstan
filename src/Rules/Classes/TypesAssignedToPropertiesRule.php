@@ -78,7 +78,7 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 				return null;
 			}
 
-			$property = $this->findPropertyReflection($propertyHolderType->getClass(), $propertyFetch->name);
+			$property = $this->findPropertyReflection($propertyHolderType->getClass(), $propertyFetch->name, $scope);
 			if ($property === null) {
 				return null;
 			}
@@ -92,7 +92,7 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 				return null;
 			}
 
-			$property = $this->findPropertyReflection($scope->resolveName($propertyFetch->class), $propertyFetch->name);
+			$property = $this->findPropertyReflection($scope->resolveName($propertyFetch->class), $propertyFetch->name, $scope);
 			if ($property === null) {
 				return null;
 			}
@@ -106,9 +106,10 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param string $className
 	 * @param string $propertyName
+	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return \PHPStan\Reflection\PropertyReflection|null
 	 */
-	private function findPropertyReflection(string $className, string $propertyName)
+	private function findPropertyReflection(string $className, string $propertyName, Scope $scope)
 	{
 		if (!$this->broker->hasClass($className)) {
 			return null;
@@ -118,7 +119,7 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 			return null;
 		}
 
-		return $propertyClass->getProperty($propertyName);
+		return $propertyClass->getProperty($propertyName, $scope);
 	}
 
 }
