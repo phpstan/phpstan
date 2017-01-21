@@ -114,3 +114,23 @@ $g = function () {
 	$pdo->query();
 	$pdo->query('statement');
 };
+
+class ClassWithToString
+{
+
+	public function __toString()
+	{
+		return 'foo';
+	}
+
+	public function acceptsString(string $foo)
+	{
+
+	}
+
+}
+
+function () {
+	$foo = new ClassWithToString();
+	$foo->acceptsString($foo);
+};

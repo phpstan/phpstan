@@ -3,19 +3,28 @@
 namespace PHPStan\Rules;
 
 use PHPStan\Analyser\Scope;
+use PHPStan\Broker\Broker;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\StringType;
 use PHPStan\Type\VoidType;
 
 class FunctionCallParametersCheck
 {
 
+	/** @var \PHPStan\Broker\Broker */
+	private $broker;
+
 	/** @var bool */
 	private $checkArgumentTypes;
 
-	public function __construct(bool $checkArgumentTypes)
+	public function __construct(
+		Broker $broker,
+		bool $checkArgumentTypes
+	)
 	{
+		$this->broker = $broker;
 		$this->checkArgumentTypes = $checkArgumentTypes;
 	}
 
@@ -127,7 +136,17 @@ class FunctionCallParametersCheck
 
 			$argumentValueType = $scope->getType($argument->value);
 
-			if (!$parameterType->accepts($argumentValueType)) {
+			if (
+				!$parameterType->accepts($argumentValueType)
+				&& (
+					!($parameterType instanceof StringType)
+					|| !(
+						$argumentValueType->getClass() !== null
+						&& $this->broker->hasClass($argumentValueType->getClass())
+						&& $this->broker->getClass($argumentValueType->getClass())->hasMethod('__toString')
+					)
+				)
+			) {
 				$errors[] = sprintf(
 					$messages[6],
 					$i + 1,

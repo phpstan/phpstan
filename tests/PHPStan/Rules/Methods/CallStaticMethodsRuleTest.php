@@ -9,9 +9,10 @@ class CallStaticMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
+		$broker = $this->createBroker();
 		return new CallStaticMethodsRule(
-			$this->createBroker(),
-			new FunctionCallParametersCheck(true)
+			$broker,
+			new FunctionCallParametersCheck($broker, true)
 		);
 	}
 

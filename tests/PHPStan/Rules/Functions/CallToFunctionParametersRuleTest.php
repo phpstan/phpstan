@@ -9,9 +9,10 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
+		$broker = $this->createBroker();
 		return new CallToFunctionParametersRule(
-			$this->createBroker(),
-			new FunctionCallParametersCheck(true)
+			$broker,
+			new FunctionCallParametersCheck($broker, true)
 		);
 	}
 
