@@ -41,6 +41,10 @@ class InstantiationRuleTest extends \PHPStan\Rules\AbstractRuleTest
 					'Cannot instantiate interface TestInstantiation\IpsumInstantiation.',
 					11,
 				],
+				[
+					'Class DatePeriod constructor invoked with 0 parameters, 3-4 required.',
+					17,
+				],
 			]
 		);
 	}

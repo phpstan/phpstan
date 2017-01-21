@@ -178,6 +178,17 @@ class PhpMethodReflection implements MethodReflection
 					true
 				);
 			}
+			if (
+				$this->declaringClass->getName() === 'DatePeriod'
+				&& $this->reflection->getName() === '__construct'
+				&& count($this->parameters) < 4
+			) {
+				$this->parameters[] = new DummyParameter(
+					'options',
+					new IntegerType(false),
+					true
+				);
+			}
 		}
 
 		return $this->parameters;
