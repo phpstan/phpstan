@@ -4,7 +4,7 @@ namespace PHPStan\Command;
 
 use Nette\Configurator;
 use PhpParser\Node\Stmt\Catch_;
-use PHPStan\FileHelper;
+use PHPStan\File\FileHelper;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;

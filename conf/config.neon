@@ -66,7 +66,7 @@ services:
 			memoryLimitFile: %memoryLimitFile%
 
 	-
-		class: PHPStan\FileHelper
+		class: PHPStan\File\FileHelper
 		arguments:
 			workingDirectory: %currentWorkingDirectory%
 

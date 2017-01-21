@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace PHPStan;
+namespace PHPStan\File;
 
 class FileHelper
 {

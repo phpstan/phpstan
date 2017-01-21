@@ -2,13 +2,13 @@
 
 namespace PHPStan\Analyser;
 
-use PHPStan\FileHelper;
+use PHPStan\File\FileHelper;
 
 class AnalyserTraitsIntegrationTest extends \PHPStan\TestCase
 {
 
 	/**
-	 * @var \PHPStan\FileHelper
+	 * @var \PHPStan\File\FileHelper
 	 */
 	private $fileHelper;
 

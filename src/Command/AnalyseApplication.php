@@ -4,7 +4,7 @@ namespace PHPStan\Command;
 
 use PHPStan\Analyser\Analyser;
 use PHPStan\Analyser\Error;
-use PHPStan\FileHelper;
+use PHPStan\File\FileHelper;
 use Symfony\Component\Console\Style\StyleInterface;
 use Symfony\Component\Finder\Finder;
 
@@ -21,7 +21,7 @@ class AnalyseApplication
 	 */
 	private $memoryLimitFile;
 
-	/** @var \PHPStan\FileHelper */
+	/** @var \PHPStan\File\FileHelper */
 	private $fileHelper;
 
 	public function __construct(Analyser $analyser, string $memoryLimitFile, FileHelper $fileHelper)

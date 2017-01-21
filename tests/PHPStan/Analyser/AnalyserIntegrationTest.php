@@ -2,7 +2,7 @@
 
 namespace PHPStan\Analyser;
 
-use PHPStan\FileHelper;
+use PHPStan\File\FileHelper;
 
 class AnalyserIntegrationTest extends \PHPStan\TestCase
 {
@@ -51,7 +51,7 @@ class AnalyserIntegrationTest extends \PHPStan\TestCase
 	{
 		/** @var \PHPStan\Analyser\Analyser $analyser */
 		$analyser = $this->getContainer()->getByType(Analyser::class);
-		/** @var \PHPStan\FileHelper $fileHelper */
+		/** @var \PHPStan\File\FileHelper $fileHelper */
 		$fileHelper = $this->getContainer()->getByType(FileHelper::class);
 		$errors = $analyser->analyse([$file], false);
 		foreach ($errors as $error) {

@@ -3,7 +3,7 @@
 namespace PHPStan\Analyser;
 
 use PHPStan\Broker\Broker;
-use PHPStan\FileHelper;
+use PHPStan\File\FileHelper;
 use PHPStan\Parser\Parser;
 use PHPStan\Rules\Registry;
 
@@ -52,7 +52,7 @@ class Analyser
 	 */
 	private $bootstrapFile;
 
-	/** @var \PHPStan\FileHelper */
+	/** @var \PHPStan\File\FileHelper */
 	private $fileHelper;
 
 	/**
@@ -64,7 +64,7 @@ class Analyser
 	 * @param string[] $analyseExcludes
 	 * @param string[] $ignoreErrors
 	 * @param string|null $bootstrapFile
-	 * @param \PHPStan\FileHelper $fileHelper
+	 * @param \PHPStan\File\FileHelper $fileHelper
 	 */
 	public function __construct(
 		Broker $broker,

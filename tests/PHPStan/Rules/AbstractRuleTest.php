@@ -6,7 +6,7 @@ use PHPStan\Analyser\Analyser;
 use PHPStan\Analyser\Error;
 use PHPStan\Analyser\NodeScopeResolver;
 use PHPStan\Analyser\TypeSpecifier;
-use PHPStan\FileHelper;
+use PHPStan\File\FileHelper;
 use PHPStan\Type\FileTypeMapper;
 
 abstract class AbstractRuleTest extends \PHPStan\TestCase
@@ -16,7 +16,7 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 	private $analyser;
 
 	/**
-	 * @var \PHPStan\FileHelper
+	 * @var \PHPStan\File\FileHelper
 	 */
 	private $fileHelper;
 

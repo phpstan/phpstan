@@ -2,7 +2,7 @@
 
 namespace PHPStan\Analyser;
 
-use PHPStan\FileHelper;
+use PHPStan\File\FileHelper;
 use PHPStan\Parser\DirectParser;
 use PHPStan\Rules\AlwaysFailRule;
 use PHPStan\Rules\Registry;
