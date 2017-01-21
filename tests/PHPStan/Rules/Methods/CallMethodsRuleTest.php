@@ -107,12 +107,20 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				86,
 			],
 			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				90,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				91,
+			],
+			[
 				'Call to an undefined method ArrayObject::doFoo().',
-				104,
+				109,
 			],
 			[
 				'Method PDO::query() invoked with 0 parameters, 1-4 required.',
-				109,
+				114,
 			],
 		]);
 	}
@@ -192,6 +200,14 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			[
 				'Result of method Test\Bar::returnsVoid() (void) is used.',
 				86,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				90,
+			],
+			[
+				'Result of method Test\Bar::returnsVoid() (void) is used.',
+				91,
 			],
 		]);
 	}

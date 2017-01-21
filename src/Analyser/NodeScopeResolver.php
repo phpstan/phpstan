@@ -383,6 +383,7 @@ class NodeScopeResolver
 
 			return;
 		} elseif ($node instanceof Switch_) {
+			$scope = $scope->exitFirstLevelStatements();
 			$this->processNode($node->cond, $scope, $nodeCallback);
 			$scope = $this->lookForAssigns($scope, $node->cond);
 			$switchScope = $scope;

@@ -86,6 +86,11 @@ class Bar extends Foo
 				$void = 'foo' || $this->returnsVoid();
 			}
 		}
+
+		switch ($this->returnsVoid()) {
+			case $this->returnsVoid():
+				$this->returnsVoid();
+		}
 	}
 
 	/**
