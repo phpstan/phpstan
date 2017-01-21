@@ -19,13 +19,19 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\TestCase
 
 	public function testMethodIsInClassUsingTrait()
 	{
-		$errors = $this->runAnalyse(__DIR__ . '/traits/Foo.php');
+		$errors = $this->runAnalyse([
+			__DIR__ . '/traits/Foo.php',
+			__DIR__ . '/traits/FooTrait.php',
+		]);
 		$this->assertEmpty($errors);
 	}
 
 	public function testMethodDoesNotExist()
 	{
-		$errors = $this->runAnalyse(__DIR__ . '/traits/Bar.php');
+		$errors = $this->runAnalyse([
+			__DIR__ . '/traits/Bar.php',
+			__DIR__ . '/traits/FooTrait.php',
+		]);
 		$this->assertCount(1, $errors);
 		$error = $errors[0];
 		$this->assertSame('Call to an undefined method AnalyseTraits\Bar::doFoo().', $error->getMessage());
@@ -38,7 +44,11 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\TestCase
 
 	public function testNestedTraits()
 	{
-		$errors = $this->runAnalyse(__DIR__ . '/traits/NestedBar.php');
+		$errors = $this->runAnalyse([
+			__DIR__ . '/traits/NestedBar.php',
+			__DIR__ . '/traits/NestedFooTrait.php',
+			__DIR__ . '/traits/FooTrait.php',
+		]);
 		$this->assertCount(2, $errors);
 		$firstError = $errors[0];
 		$this->assertSame('Call to an undefined method AnalyseTraits\NestedBar::doFoo().', $firstError->getMessage());
@@ -59,33 +69,33 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\TestCase
 
 	public function testTraitsAreNotAnalysedDirectly()
 	{
-		$errors = $this->runAnalyse(__DIR__ . '/traits/FooTrait.php');
+		$errors = $this->runAnalyse([__DIR__ . '/traits/FooTrait.php']);
 		$this->assertEmpty($errors);
-		$errors = $this->runAnalyse(__DIR__ . '/traits/NestedFooTrait.php');
+		$errors = $this->runAnalyse([__DIR__ . '/traits/NestedFooTrait.php']);
 		$this->assertEmpty($errors);
 	}
 
 	public function testClassAndTraitInTheSameFile()
 	{
-		$errors = $this->runAnalyse(__DIR__ . '/traits/classAndTrait.php');
+		$errors = $this->runAnalyse([__DIR__ . '/traits/classAndTrait.php']);
 		$this->assertEmpty($errors);
 	}
 
 	public function testTraitMethodAlias()
 	{
-		$errors = $this->runAnalyse(__DIR__ . '/traits/trait-aliases.php');
+		$errors = $this->runAnalyse([__DIR__ . '/traits/trait-aliases.php']);
 		$this->assertEmpty($errors);
 	}
 
 	/**
-	 * @param string $file
+	 * @param string[] $files
 	 * @return \PHPStan\Analyser\Error[]|string[]
 	 */
-	private function runAnalyse(string $file): array
+	private function runAnalyse(array $files): array
 	{
 		/** @var \PHPStan\Analyser\Analyser $analyser */
 		$analyser = $this->getContainer()->getByType(Analyser::class);
-		return $analyser->analyse([$file], false);
+		return $analyser->analyse($files, false);
 	}
 
 }

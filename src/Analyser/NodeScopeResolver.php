@@ -97,6 +97,9 @@ class NodeScopeResolver
 	/** @var \PHPStan\Reflection\ClassReflection|null */
 	private $anonymousClassReflection;
 
+	/** @var bool[] filePath(string) => bool(true) */
+	private $analysedFiles;
+
 	public function __construct(
 		Broker $broker,
 		Parser $parser,
@@ -120,6 +123,14 @@ class NodeScopeResolver
 		$this->polluteCatchScopeWithTryAssignments = $polluteCatchScopeWithTryAssignments;
 		$this->defineVariablesWithoutDefaultBranch = $defineVariablesWithoutDefaultBranch;
 		$this->earlyTerminatingMethodCalls = $earlyTerminatingMethodCalls;
+	}
+
+	/**
+	 * @param string[] $files
+	 */
+	public function setAnalysedFiles(array $files)
+	{
+		$this->analysedFiles = array_fill_keys($files, true);
 	}
 
 	/**
@@ -1098,6 +1109,9 @@ class NodeScopeResolver
 			$traitReflection = $this->broker->getClass($traitName);
 			$fileName = $traitReflection->getNativeReflection()->getFileName();
 			if ($this->fileExcluder->isExcludedFromAnalysing($fileName)) {
+				return;
+			}
+			if (!isset($this->analysedFiles[$fileName])) {
 				return;
 			}
 			$parserNodes = $this->parser->parseFile($fileName);

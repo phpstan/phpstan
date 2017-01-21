@@ -125,6 +125,7 @@ class Analyser
 			return $errors;
 		}
 
+		$this->nodeScopeResolver->setAnalysedFiles($files);
 		foreach ($files as $file) {
 			$file = $this->fileHelper->normalizePath($file);
 
