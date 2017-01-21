@@ -383,6 +383,7 @@ class NodeScopeResolver
 
 			return;
 		} elseif ($node instanceof Switch_) {
+			$this->processNode($node->cond, $scope, $nodeCallback);
 			$scope = $this->lookForAssigns($scope, $node->cond);
 			$switchScope = $scope;
 			$switchConditionIsTrue = $node->cond instanceof Expr\ConstFetch && strtolower((string) $node->cond->name) === 'true';
