@@ -105,23 +105,31 @@ class ClassReflection
 
 	public function getProperty(string $propertyName, Scope $scope = null): PropertyReflection
 	{
-		if (!isset($this->properties[$propertyName])) {
+		$key = $propertyName;
+		if ($scope !== null) {
+			if ($scope->isInAnonymousClass()) {
+				$key = sprintf('%s-%s', $key, $scope->getAnonymousClass()->getName());
+			} elseif ($scope->getClass() !== null) {
+				$key = sprintf('%s-%s', $key, $scope->getClass());
+			}
+		}
+		if (!isset($this->properties[$key])) {
 			foreach ($this->propertiesClassReflectionExtensions as $extension) {
 				if ($extension->hasProperty($this, $propertyName)) {
 					$property = $extension->getProperty($this, $propertyName);
 					if ($scope !== null && $scope->canAccessProperty($property)) {
-						return $this->properties[$propertyName] = $property;
+						return $this->properties[$key] = $property;
 					}
-					$this->properties[$propertyName] = $property;
+					$this->properties[$key] = $property;
 				}
 			}
 		}
 
-		if (!isset($this->properties[$propertyName])) {
+		if (!isset($this->properties[$key])) {
 			throw new \PHPStan\Reflection\MissingPropertyFromReflectionException($this->getName(), $propertyName);
 		}
 
-		return $this->properties[$propertyName];
+		return $this->properties[$key];
 	}
 
 	public function isAbstract(): bool
