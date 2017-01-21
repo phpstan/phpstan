@@ -344,6 +344,17 @@ class NodeScopeResolver
 			foreach ($node->loop as $loopExpr) {
 				$scope = $this->lookForAssigns($scope, $loopExpr);
 			}
+		} elseif ($node instanceof Array_) {
+			$scope = $scope->exitFirstLevelStatements();
+			foreach ($node->items as $item) {
+				$this->processNode($item, $scope, $nodeCallback);
+				if ($item->key !== null) {
+					$scope = $this->lookForAssigns($scope, $item->key);
+				}
+				$scope = $this->lookForAssigns($scope, $item->value);
+			}
+
+			return;
 		} elseif ($node instanceof If_) {
 			$scope = $this->lookForAssigns($scope, $node->cond)->exitFirstLevelStatements();
 			$ifScope = $scope;
@@ -536,6 +547,14 @@ class NodeScopeResolver
 					$scope = $this->lookForEnterVariableAssign($scope, $node->expr);
 				}
 
+				if (
+					$node instanceof ArrayItem
+					&& $subNodeName === 'value'
+					&& $node->key !== null
+				) {
+					$scope = $this->lookForAssigns($scope, $node->key);
+				}
+
 				$nodeScope = $scope->exitFirstLevelStatements();
 				if ($scope->isInFirstLevelStatement()) {
 					if ($node instanceof Ternary && $subNodeName !== 'cond') {
@@ -720,6 +739,9 @@ class NodeScopeResolver
 			}
 		} elseif ($node instanceof Array_) {
 			foreach ($node->items as $item) {
+				if ($item->key !== null) {
+					$scope = $this->lookForAssigns($scope, $item->key);
+				}
 				$scope = $this->lookForAssigns($scope, $item->value);
 			}
 		} elseif ($node instanceof New_) {

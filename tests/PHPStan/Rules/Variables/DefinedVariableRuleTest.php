@@ -78,6 +78,14 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Undefined variable: $http_response_header',
 				191,
 			],
+			[
+				'Undefined variable: $assignedInKey',
+				203,
+			],
+			[
+				'Undefined variable: $assignedInKey',
+				204,
+			],
 		]);
 	}
 

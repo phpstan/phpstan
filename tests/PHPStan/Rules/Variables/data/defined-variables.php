@@ -198,3 +198,11 @@ echo $variableDefinedInTernary;
 
 $fooObject->select($parameterValue = 'test')->from($parameterValue);
 echo $parameterValue;
+
+$arrayWithAssignmentInKey = [
+	$assignedInKey => 'baz',
+	'baz' => $assignedInKey,
+	$assignedInKey = 'foo' => $assignedInKey . 'bar' . ($assignedInValue = 'foo'),
+	$assignedInKey . $assignedInValue => $assignedInKey . $assignedInValue,
+];
+echo $assignedInKey;
