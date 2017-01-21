@@ -2,6 +2,7 @@
 
 namespace PHPStan\Analyser;
 
+use PHPStan\File\FileExcluder;
 use PHPStan\File\FileHelper;
 use PHPStan\Parser\DirectParser;
 use PHPStan\Rules\AlwaysFailRule;
@@ -160,6 +161,7 @@ class AnalyserTest extends \PHPStan\TestCase
 
 		$broker = $this->createBroker();
 		$printer = new \PhpParser\PrettyPrinter\Standard();
+		$fileHelper = $this->getContainer()->getByType(FileHelper::class);
 		$analyser = new Analyser(
 			$broker,
 			new DirectParser(new \PhpParser\Parser\Php7(new \PhpParser\Lexer()), $traverser),
@@ -176,10 +178,10 @@ class AnalyserTest extends \PHPStan\TestCase
 				[]
 			),
 			$printer,
-			$analyseExcludes,
+			new FileExcluder($fileHelper, $analyseExcludes),
 			$ignoreErrors,
 			$bootstrapFile,
-			$this->getContainer()->getByType(FileHelper::class)
+			$fileHelper
 		);
 
 		return $analyser;

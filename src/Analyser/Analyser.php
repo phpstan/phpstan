@@ -3,6 +3,7 @@
 namespace PHPStan\Analyser;
 
 use PHPStan\Broker\Broker;
+use PHPStan\File\FileExcluder;
 use PHPStan\File\FileHelper;
 use PHPStan\Parser\Parser;
 use PHPStan\Rules\Registry;
@@ -36,11 +37,9 @@ class Analyser
 	private $printer;
 
 	/**
-	 * Directories to exclude from analysing
-	 *
-	 * @var string[]
+	 * @var \PHPStan\File\FileExcluder
 	 */
-	private $analyseExcludes;
+	private $fileExcluder;
 
 	/**
 	 * @var string[]
@@ -52,7 +51,9 @@ class Analyser
 	 */
 	private $bootstrapFile;
 
-	/** @var \PHPStan\File\FileHelper */
+	/**
+	 * @var \PHPStan\File\FileHelper
+	 */
 	private $fileHelper;
 
 	/**
@@ -61,7 +62,7 @@ class Analyser
 	 * @param \PHPStan\Rules\Registry $registry
 	 * @param \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver
 	 * @param \PhpParser\PrettyPrinter\Standard $printer
-	 * @param string[] $analyseExcludes
+	 * @param \PHPStan\File\FileExcluder $fileExcluder
 	 * @param string[] $ignoreErrors
 	 * @param string|null $bootstrapFile
 	 * @param \PHPStan\File\FileHelper $fileHelper
@@ -72,7 +73,7 @@ class Analyser
 		Registry $registry,
 		NodeScopeResolver $nodeScopeResolver,
 		\PhpParser\PrettyPrinter\Standard $printer,
-		array $analyseExcludes,
+		FileExcluder $fileExcluder,
 		array $ignoreErrors,
 		string $bootstrapFile = null,
 		FileHelper $fileHelper
@@ -83,15 +84,7 @@ class Analyser
 		$this->registry = $registry;
 		$this->nodeScopeResolver = $nodeScopeResolver;
 		$this->printer = $printer;
-		$this->analyseExcludes = array_map(function (string $exclude) use ($fileHelper): string {
-			$normalized = $fileHelper->normalizePath($exclude);
-
-			if ($this->isFnmatchPattern($normalized)) {
-				return $normalized;
-			}
-
-			return $fileHelper->absolutizePath($normalized);
-		}, $analyseExcludes);
+		$this->fileExcluder = $fileExcluder;
 		$this->ignoreErrors = $ignoreErrors;
 		$this->bootstrapFile = $bootstrapFile;
 		$this->fileHelper = $fileHelper;
@@ -136,7 +129,7 @@ class Analyser
 			$file = $this->fileHelper->normalizePath($file);
 
 			try {
-				if ($this->isExcludedFromAnalysing($file)) {
+				if ($this->fileExcluder->isExcludedFromAnalysing($file)) {
 					if ($progressCallback !== null) {
 						$progressCallback($file);
 					}
@@ -215,26 +208,6 @@ class Analyser
 		}
 
 		return $errors;
-	}
-
-	public function isExcludedFromAnalysing(string $file): bool
-	{
-		foreach ($this->analyseExcludes as $exclude) {
-			if (strpos($file, $exclude) === 0) {
-				return true;
-			}
-
-			if ($this->isFnmatchPattern($exclude) && fnmatch($exclude, $file, DIRECTORY_SEPARATOR === '\\' ? FNM_NOESCAPE : 0)) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	private function isFnmatchPattern(string $path): bool
-	{
-		return preg_match('~[*?[\]]~', $path) > 0;
 	}
 
 }

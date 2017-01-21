@@ -6,6 +6,7 @@ use PHPStan\Analyser\Analyser;
 use PHPStan\Analyser\Error;
 use PHPStan\Analyser\NodeScopeResolver;
 use PHPStan\Analyser\TypeSpecifier;
+use PHPStan\File\FileExcluder;
 use PHPStan\File\FileHelper;
 use PHPStan\Type\FileTypeMapper;
 
@@ -31,6 +32,7 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 
 			$broker = $this->createBroker();
 			$printer = new \PhpParser\PrettyPrinter\Standard();
+			$fileHelper = $this->getFileHelper();
 			$this->analyser = new Analyser(
 				$broker,
 				$this->getParser(),
@@ -47,10 +49,10 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 					[]
 				),
 				$printer,
-				[],
+				new FileExcluder($fileHelper, []),
 				[],
 				null,
-				$this->getFileHelper()
+				$fileHelper
 			);
 		}
 
