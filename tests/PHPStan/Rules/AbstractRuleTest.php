@@ -33,6 +33,7 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 			$broker = $this->createBroker();
 			$printer = new \PhpParser\PrettyPrinter\Standard();
 			$fileHelper = $this->getFileHelper();
+			$fileExcluder = new FileExcluder($fileHelper, []);
 			$this->analyser = new Analyser(
 				$broker,
 				$this->getParser(),
@@ -43,13 +44,14 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 					$printer,
 					new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class), true),
 					new TypeSpecifier($printer),
+					$fileExcluder,
 					false,
 					false,
 					false,
 					[]
 				),
 				$printer,
-				new FileExcluder($fileHelper, []),
+				$fileExcluder,
 				[],
 				null,
 				$fileHelper
