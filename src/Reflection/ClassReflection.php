@@ -106,8 +106,6 @@ class ClassReflection
 	public function getProperty(string $propertyName, Scope $scope = null): PropertyReflection
 	{
 		if (!isset($this->properties[$propertyName])) {
-			$privateProperty = null;
-			$publicProperty = null;
 			foreach ($this->propertiesClassReflectionExtensions as $extension) {
 				if ($extension->hasProperty($this, $propertyName)) {
 					$property = $extension->getProperty($this, $propertyName);
