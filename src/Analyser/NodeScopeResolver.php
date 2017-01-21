@@ -1060,7 +1060,7 @@ class NodeScopeResolver
 				$classReflection = $this->broker->getClass($type->getClass());
 				$methodName = $functionCall->name;
 				if ($classReflection->hasMethod($methodName)) {
-					return $classReflection->getMethod($methodName);
+					return $classReflection->getMethod($methodName, $scope);
 				}
 			}
 		} elseif (
@@ -1071,7 +1071,7 @@ class NodeScopeResolver
 			if ($this->broker->hasClass($className)) {
 				$classReflection = $this->broker->getClass($className);
 				if ($classReflection->hasMethod($functionCall->name)) {
-					return $classReflection->getMethod($functionCall->name);
+					return $classReflection->getMethod($functionCall->name, $scope);
 				}
 			}
 		}

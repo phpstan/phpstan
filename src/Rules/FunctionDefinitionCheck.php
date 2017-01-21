@@ -57,7 +57,7 @@ class FunctionDefinitionCheck
 				return [];
 			}
 			return $this->checkParametersAcceptor(
-				$this->broker->getClass($scope->getClass())->getMethod($function->name),
+				$this->broker->getClass($scope->getClass())->getMethod($function->name, $scope),
 				$parameterMessage,
 				$returnMessage
 			);

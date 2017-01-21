@@ -58,7 +58,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 				];
 			}
 
-			if ($this->getParentConstructorClass($classReflection) === false) {
+			if ($this->getParentConstructorClass($classReflection, $scope) === false) {
 				return [
 					sprintf(
 						'%s::__construct() calls parent constructor but parent does not have one.',
@@ -67,7 +67,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 				];
 			}
 		} else {
-			$parentClass = $this->getParentConstructorClass($classReflection);
+			$parentClass = $this->getParentConstructorClass($classReflection, $scope);
 			if ($parentClass !== false) {
 				return [
 					sprintf(
@@ -109,18 +109,19 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PHPStan\Reflection\ClassReflection $classReflection
+	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return \PHPStan\Reflection\ClassReflection|boolean
 	 */
-	private function getParentConstructorClass(ClassReflection $classReflection)
+	private function getParentConstructorClass(ClassReflection $classReflection, Scope $scope)
 	{
 		while ($classReflection->getParentClass() !== false) {
 			if (
 				(
 					$classReflection->getParentClass()->hasMethod('__construct')
-					&& $classReflection->getParentClass()->getMethod('__construct')->getDeclaringClass()->getName() === $classReflection->getParentClass()->getName()
+					&& $classReflection->getParentClass()->getMethod('__construct', $scope)->getDeclaringClass()->getName() === $classReflection->getParentClass()->getName()
 				) || (
 					$classReflection->getParentClass()->hasMethod($classReflection->getParentClass()->getName())
-					&& $classReflection->getParentClass()->getMethod($classReflection->getParentClass()->getName())->getDeclaringClass()->getName() === $classReflection->getParentClass()->getName()
+					&& $classReflection->getParentClass()->getMethod($classReflection->getParentClass()->getName(), $scope)->getDeclaringClass()->getName() === $classReflection->getParentClass()->getName()
 				)
 			) {
 				return $classReflection->getParentClass();

@@ -88,7 +88,7 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 		}
 
 		return $this->check->check(
-			$classReflection->hasMethod('__construct') ? $classReflection->getMethod('__construct') : $classReflection->getMethod($class),
+			$classReflection->hasMethod('__construct') ? $classReflection->getMethod('__construct', $scope) : $classReflection->getMethod($class),
 			$scope,
 			$node,
 			[

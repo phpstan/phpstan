@@ -62,7 +62,8 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 			}
 
 			$currentMethodReflection = $currentClassReflection->getMethod(
-				$scope->getFunctionName()
+				$scope->getFunctionName(),
+				$scope
 			);
 			if (!$currentMethodReflection->isStatic()) {
 				// calling parent::method() from instance method

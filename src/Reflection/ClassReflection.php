@@ -86,21 +86,33 @@ class ClassReflection
 		return false;
 	}
 
-	public function getMethod(string $methodName): MethodReflection
+	public function getMethod(string $methodName, Scope $scope = null): MethodReflection
 	{
-		if (!isset($this->methods[$methodName])) {
+		$key = $methodName;
+		if ($scope !== null) {
+			if ($scope->isInAnonymousClass()) {
+				$key = sprintf('%s-%s', $key, $scope->getAnonymousClass()->getName());
+			} elseif ($scope->getClass() !== null) {
+				$key = sprintf('%s-%s', $key, $scope->getClass());
+			}
+		}
+		if (!isset($this->methods[$key])) {
 			foreach ($this->methodsClassReflectionExtensions as $extension) {
 				if ($extension->hasMethod($this, $methodName)) {
-					return $this->methods[$methodName] = $extension->getMethod($this, $methodName);
+					$method = $extension->getMethod($this, $methodName);
+					if ($scope !== null && $scope->canCallMethod($method)) {
+						return $this->methods[$key] = $method;
+					}
+					$this->methods[$key] = $method;
 				}
 			}
 		}
 
-		if (!isset($this->methods[$methodName])) {
+		if (!isset($this->methods[$key])) {
 			throw new \PHPStan\Reflection\MissingMethodFromReflectionException($this->getName(), $methodName);
 		}
 
-		return $this->methods[$methodName];
+		return $this->methods[$key];
 	}
 
 	public function getProperty(string $propertyName, Scope $scope = null): PropertyReflection

@@ -75,12 +75,13 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 			}
 
 			$currentMethodReflection = $currentClassReflection->getMethod(
-				$scope->getFunctionName()
+				$scope->getFunctionName(),
+				$scope
 			);
 			if (!$currentMethodReflection->isStatic()) {
 				if ($name === '__construct' && $currentClassReflection->getParentClass()->hasMethod('__construct')) {
 					return $this->check->check(
-						$currentClassReflection->getParentClass()->getMethod('__construct'),
+						$currentClassReflection->getParentClass()->getMethod('__construct', $scope),
 						$scope,
 						$node,
 						[
@@ -123,7 +124,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 			];
 		}
 
-		$method = $classReflection->getMethod($name);
+		$method = $classReflection->getMethod($name, $scope);
 		if (!$method->isStatic()) {
 			$function = $scope->getFunction();
 			if (

@@ -95,7 +95,7 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 					return [
 						sprintf(
 							'Call to private method %s() of parent class %s.',
-							$parentClassReflection->getMethod($name)->getName(),
+							$parentClassReflection->getMethod($name, $scope)->getName(),
 							$parentClassReflection->getName()
 						),
 					];
@@ -113,7 +113,7 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 			];
 		}
 
-		$methodReflection = $methodClassReflection->getMethod($name);
+		$methodReflection = $methodClassReflection->getMethod($name, $scope);
 		$messagesMethodName = $methodReflection->getDeclaringClass()->getName() . '::' . $methodReflection->getName() . '()';
 		if (!$scope->canCallMethod($methodReflection)) {
 			return [

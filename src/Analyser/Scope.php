@@ -532,7 +532,7 @@ class Scope
 					return new MixedType();
 				}
 
-				$methodReflection = $methodClassReflection->getMethod($node->name);
+				$methodReflection = $methodClassReflection->getMethod($node->name, $this);
 				foreach ($this->broker->getDynamicMethodReturnTypeExtensionsForClass($methodCalledOnType->getClass()) as $dynamicMethodReturnTypeExtension) {
 					if (!$dynamicMethodReturnTypeExtension->isMethodSupported($methodReflection)) {
 						continue;
@@ -558,7 +558,7 @@ class Scope
 				if (!$staticMethodClassReflection->hasMethod($node->name)) {
 					return new MixedType();
 				}
-				$staticMethodReflection = $staticMethodClassReflection->getMethod($node->name);
+				$staticMethodReflection = $staticMethodClassReflection->getMethod($node->name, $this);
 				foreach ($this->broker->getDynamicStaticMethodReturnTypeExtensionsForClass($calleeClass) as $dynamicStaticMethodReturnTypeExtension) {
 					if (!$dynamicStaticMethodReturnTypeExtension->isStaticMethodSupported($staticMethodReflection)) {
 						continue;
