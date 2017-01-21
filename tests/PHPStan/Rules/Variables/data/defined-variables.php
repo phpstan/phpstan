@@ -195,3 +195,6 @@ function () {
 
 ($variableDefinedInTernary = doFoo()) ? ('foo' . $variableDefinedInTernary): 'bar';
 echo $variableDefinedInTernary;
+
+$fooObject->select($parameterValue = 'test')->from($parameterValue);
+echo $parameterValue;

@@ -492,6 +492,10 @@ class NodeScopeResolver
 					}
 				}
 
+				if ($node instanceof MethodCall && $subNodeName === 'args') {
+					$scope = $this->lookForAssigns($scope, $node->var);
+				}
+
 				$this->processNodes($subNode, $scope, $nodeCallback, $argClosureBindScope);
 			} elseif ($subNode instanceof \PhpParser\Node) {
 				if ($node instanceof Coalesce && $subNodeName === 'left') {
