@@ -5,7 +5,6 @@ parameters:
 		- %rootDir%/tests/PHPStan/Analyser/traits/*
 		- %rootDir%/tests/notAutoloaded/*
 	ignoreErrors:
-		- '#PHPUnit_Framework_MockObject_MockObject::method\(\)#'
 		- '#PHPUnit_Framework_MockObject_MockObject given#'
 services:
 	-
