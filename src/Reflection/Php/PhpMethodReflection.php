@@ -189,6 +189,19 @@ class PhpMethodReflection implements MethodReflection
 					true
 				);
 			}
+			if (
+				$this->declaringClass->getName() === 'Closure'
+				&& $this->reflection->getName() === '__invoke'
+				&& count($this->parameters) < 1
+			) {
+				$this->parameters[] = new DummyParameter(
+					'args',
+					new MixedType(),
+					true,
+					false,
+					true
+				);
+			}
 		}
 
 		return $this->parameters;
@@ -199,8 +212,16 @@ class PhpMethodReflection implements MethodReflection
 		$isNativelyVariadic = $this->reflection->isVariadic();
 		if (
 			!$isNativelyVariadic
-			&& $this->declaringClass->getName() === 'ReflectionMethod'
-			&& $this->reflection->getName() === 'invoke'
+			&& (
+				(
+					$this->declaringClass->getName() === 'ReflectionMethod'
+					&& $this->reflection->getName() === 'invoke'
+				)
+				|| (
+					$this->declaringClass->getName() === 'Closure'
+					&& $this->reflection->getName() === '__invoke'
+				)
+			)
 		) {
 			return true;
 		}

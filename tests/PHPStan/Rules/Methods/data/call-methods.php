@@ -133,4 +133,9 @@ class ClassWithToString
 function () {
 	$foo = new ClassWithToString();
 	$foo->acceptsString($foo);
+
+	$closure = function () {
+
+	};
+	$closure->__invoke(1, 2, 3);
 };

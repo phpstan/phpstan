@@ -137,7 +137,20 @@ class PhpClassReflectionExtension
 	private function createMethods(ClassReflection $classReflection): array
 	{
 		$methods = [];
-		foreach ($classReflection->getNativeReflection()->getMethods() as $methodReflection) {
+		$reflectionMethods = $classReflection->getNativeReflection()->getMethods();
+		if ($classReflection->getName() === \Closure::class || $classReflection->isSubclassOf(\Closure::class)) {
+			$hasInvokeMethod = false;
+			foreach ($reflectionMethods as $reflectionMethod) {
+				if ($reflectionMethod->getName() === '__invoke') {
+					$hasInvokeMethod = true;
+					break;
+				}
+			}
+			if (!$hasInvokeMethod) {
+				$reflectionMethods[] = $classReflection->getNativeReflection()->getMethod('__invoke');
+			}
+		}
+		foreach ($reflectionMethods as $methodReflection) {
 			$declaringClass = $this->broker->getClass($methodReflection->getDeclaringClass()->getName());
 
 			$phpDocParameterTypes = [];
