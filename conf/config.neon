@@ -86,6 +86,9 @@ services:
 		implement: PHPStan\Reflection\FunctionReflectionFactory
 
 	-
+		class: PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension
+
+	-
 		class: PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension
 
 	-
