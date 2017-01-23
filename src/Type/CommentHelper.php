@@ -14,7 +14,6 @@ class CommentHelper
 	public static function getDocComment(Node $node)
 	{
 		$phpDoc = $node->getDocComment();
-		$phpDocText = null;
 		if ($phpDoc !== null) {
 			return $phpDoc->getText();
 		}
