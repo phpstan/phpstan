@@ -54,7 +54,8 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 				$fileExcluder,
 				[],
 				null,
-				$fileHelper
+				$fileHelper,
+				true
 			);
 		}
 

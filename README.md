@@ -293,7 +293,8 @@ parameters:
 ```
 
 If some of the patterns do not occur in the result anymore, PHPStan will let you know
-and you will have to remove the pattern from the configuration.
+and you will have to remove the pattern from the configuration. You can turn off
+this behavior by setting `reportUnmatchedIgnoredErrors` to `false` in PHPStan configuration.
 
 ### Bootstrap file
 
