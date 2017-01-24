@@ -5,6 +5,7 @@ namespace PHPStan\Rules;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\StringType;
@@ -46,6 +47,13 @@ class FunctionCallParametersCheck
 		) {
 			$functionParametersMinCount = 1;
 			$functionParametersMaxCount = 2;
+		} elseif (
+			$function instanceof MethodReflection
+			&& $function->getDeclaringClass()->getName() === 'DatePeriod'
+			&& $function->getName() === '__construct'
+		) {
+			$functionParametersMinCount = 1;
+			$functionParametersMaxCount = 4;
 		} else {
 			$functionParametersMinCount = 0;
 			$functionParametersMaxCount = 0;

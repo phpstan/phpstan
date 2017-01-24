@@ -93,6 +93,14 @@ class AnalyserTest extends \PHPStan\TestCase
 		], $result);
 	}
 
+	public function testDoNotReturnErrorIfIgnoredMessagesDoesNotOccurWithReportUnmatchedIgnoredErrorsOff()
+	{
+		$analyser = $this->createAnalyser([], ['#Unknown error#'], null, false);
+		$result = $analyser->analyse([__DIR__ . '/data/empty/empty.php'], false);
+		$this->assertInternalType('array', $result);
+		$this->assertEmpty($result);
+	}
+
 	public function testDoNotReturnErrorIfIgnoredMessagesDoNotOccurWhileAnalysingIndividualFiles()
 	{
 		$analyser = $this->createAnalyser([], ['#Unknown error#']);
@@ -144,12 +152,14 @@ class AnalyserTest extends \PHPStan\TestCase
 	 * @param string[] $analyseExcludes
 	 * @param string[] $ignoreErrors
 	 * @param string|null $bootstrapFile
+	 * @param bool $reportUnmatchedIgnoredErrors
 	 * @return Analyser
 	 */
 	private function createAnalyser(
 		array $analyseExcludes,
 		array $ignoreErrors,
-		string $bootstrapFile = null
+		string $bootstrapFile = null,
+		bool $reportUnmatchedIgnoredErrors = true
 	): \PHPStan\Analyser\Analyser
 	{
 		$registry = new Registry([
@@ -183,7 +193,8 @@ class AnalyserTest extends \PHPStan\TestCase
 			$fileExcluder,
 			$ignoreErrors,
 			$bootstrapFile,
-			$fileHelper
+			$fileHelper,
+			$reportUnmatchedIgnoredErrors
 		);
 
 		return $analyser;

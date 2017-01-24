@@ -57,6 +57,11 @@ class Analyser
 	private $fileHelper;
 
 	/**
+	 * @var bool
+	 */
+	private $reportUnmatchedIgnoredErrors;
+
+	/**
 	 * @param \PHPStan\Broker\Broker $broker
 	 * @param \PHPStan\Parser\Parser $parser
 	 * @param \PHPStan\Rules\Registry $registry
@@ -66,6 +71,7 @@ class Analyser
 	 * @param string[] $ignoreErrors
 	 * @param string|null $bootstrapFile
 	 * @param \PHPStan\File\FileHelper $fileHelper
+	 * @param bool $reportUnmatchedIgnoredErrors
 	 */
 	public function __construct(
 		Broker $broker,
@@ -76,7 +82,8 @@ class Analyser
 		FileExcluder $fileExcluder,
 		array $ignoreErrors,
 		string $bootstrapFile = null,
-		FileHelper $fileHelper
+		FileHelper $fileHelper,
+		bool $reportUnmatchedIgnoredErrors
 	)
 	{
 		$this->broker = $broker;
@@ -88,6 +95,7 @@ class Analyser
 		$this->ignoreErrors = $ignoreErrors;
 		$this->bootstrapFile = $bootstrapFile;
 		$this->fileHelper = $fileHelper;
+		$this->reportUnmatchedIgnoredErrors = $reportUnmatchedIgnoredErrors;
 	}
 
 	/**
@@ -183,7 +191,7 @@ class Analyser
 			return true;
 		}));
 
-		if (!$onlyFiles) {
+		if (!$onlyFiles && $this->reportUnmatchedIgnoredErrors) {
 			foreach ($unmatchedIgnoredErrors as $unmatchedIgnoredError) {
 				$errors[] = sprintf(
 					'Ignored error pattern %s was not matched in reported errors.',

@@ -9,6 +9,7 @@ parameters:
 	polluteCatchScopeWithTryAssignments: false
 	defineVariablesWithoutDefaultBranch: false
 	ignoreErrors: []
+	reportUnmatchedIgnoredErrors: true
 	universalObjectCratesClasses:
 		- stdClass
 		- SimpleXMLElement
@@ -43,6 +44,7 @@ services:
 		class: PHPStan\Analyser\Analyser
 		arguments:
 			ignoreErrors: %ignoreErrors%
+			reportUnmatchedIgnoredErrors: %reportUnmatchedIgnoredErrors%
 			bootstrapFile: %bootstrap%
 
 	-

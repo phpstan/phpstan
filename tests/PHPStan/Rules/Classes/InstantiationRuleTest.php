@@ -43,7 +43,7 @@ class InstantiationRuleTest extends \PHPStan\Rules\AbstractRuleTest
 					11,
 				],
 				[
-					'Class DatePeriod constructor invoked with 0 parameters, 3-4 required.',
+					'Class DatePeriod constructor invoked with 0 parameters, 1-4 required.',
 					17,
 				],
 			]
