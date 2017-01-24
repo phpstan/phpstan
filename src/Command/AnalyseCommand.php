@@ -30,6 +30,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				new InputOption(self::OPTION_LEVEL, 'l', InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter'),
 				new InputOption(ErrorsConsoleStyle::OPTION_NO_PROGRESS, null, InputOption::VALUE_NONE, 'Do not show progress bar, only results'),
 				new InputOption('autoload-file', 'a', InputOption::VALUE_OPTIONAL, 'Project\'s additional autoload file path'),
+				new InputOption('additional-autoload-dir', 'd', InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Additional paths to scan for autoload information'),
 			]);
 	}
 
@@ -136,10 +137,16 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			require_once $autoloadFile;
 		}
 
-		if (count($container->parameters['autoload_directories']) > 0) {
+		$autoloadDirectories = $container->parameters['autoload_directories'];
+		foreach ($input->getOption('additional-autoload-dir') as $directory) {
+			$autoloadDirectories[] = $fileHelper->absolutizePath($directory);
+		}
+		$autoloadDirectories = array_unique($autoloadDirectories);
+
+		if (count($autoloadDirectories) > 0) {
 			$robotLoader = new \Nette\Loaders\RobotLoader();
 			$robotLoader->setCacheStorage(new \Nette\Caching\Storages\MemoryStorage());
-			foreach ($container->parameters['autoload_directories'] as $directory) {
+			foreach ($autoloadDirectories as $directory) {
 				$robotLoader->addDirectory($directory);
 			}
 
