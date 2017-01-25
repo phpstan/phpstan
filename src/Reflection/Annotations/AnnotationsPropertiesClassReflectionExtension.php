@@ -2,21 +2,16 @@
 
 namespace PHPStan\Reflection\Annotations;
 
-use PHPStan\Broker\Broker;
-use PHPStan\Reflection\BrokerAwareClassReflectionExtension;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\PropertiesClassReflectionExtension;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Type\FileTypeMapper;
 
-class AnnotationsPropertiesClassReflectionExtension implements PropertiesClassReflectionExtension, BrokerAwareClassReflectionExtension
+class AnnotationsPropertiesClassReflectionExtension implements PropertiesClassReflectionExtension
 {
 
 	/** @var \PHPStan\Type\FileTypeMapper */
 	private $fileTypeMapper;
-
-	/** @var \PHPStan\Broker\Broker */
-	private $broker;
 
 	/** @var \PHPStan\Reflection\PropertyReflection[][] */
 	private $properties = [];
@@ -24,11 +19,6 @@ class AnnotationsPropertiesClassReflectionExtension implements PropertiesClassRe
 	public function __construct(FileTypeMapper $fileTypeMapper)
 	{
 		$this->fileTypeMapper = $fileTypeMapper;
-	}
-
-	public function setBroker(Broker $broker)
-	{
-		$this->broker = $broker;
 	}
 
 	public function hasProperty(ClassReflection $classReflection, string $propertyName): bool
@@ -52,11 +42,8 @@ class AnnotationsPropertiesClassReflectionExtension implements PropertiesClassRe
 	private function createProperties(ClassReflection $classReflection): array
 	{
 		$properties = [];
-		foreach ($classReflection->getParentClassesNames() as $parentClassName) {
-			if (!$this->broker->hasClass($parentClassName)) {
-				continue;
-			}
-			$properties += $this->createProperties($this->broker->getClass($parentClassName));
+		foreach ($classReflection->getParents() as $parentClass) {
+			$properties += $this->createProperties($parentClass);
 		}
 
 		$fileName = $classReflection->getNativeReflection()->getFileName();
