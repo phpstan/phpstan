@@ -97,6 +97,10 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Function strtok invoked with 3 parameters, 1-2 required.',
 				11,
 			],
+			[
+				'Function fputcsv invoked with 1 parameter, 2-5 required.',
+				13,
+			],
 		]);
 	}
 

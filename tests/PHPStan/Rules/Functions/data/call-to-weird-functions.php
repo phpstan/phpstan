@@ -9,3 +9,6 @@ strtok(); // should report 1-2 parameters
 strtok('/something', '/'); // OK
 strtok('/'); // also OK, variant with $token only
 strtok('/something', '/', 'foo'); // should report 3 parameters given, 1-2 required
+
+fputcsv($handle);
+fputcsv($handle, $data, ',', '""', '\\');
