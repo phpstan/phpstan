@@ -122,6 +122,38 @@ switch ('foo') {
 		break;
 }
 
+switch ('foo') {
+	case 'foo':
+		$variableDefinedInSwitchWithOtherCasesWithEarlyTermination = true;
+		break;
+	case 'bar':
+		throw new \Exception();
+	default:
+		throw new \Exception();
+}
+
+switch ('foo') {
+	case 'foo':
+		throw new \Exception();
+	case 'bar':
+		$anotherVariableDefinedInSwitchWithOtherCasesWithEarlyTermination = true;
+		break;
+	default:
+		throw new \Exception();
+}
+
+switch ('foo') {
+	case 'foo':
+		$variableDefinedOnlyInEarlyTerminatingSwitchCases = true;
+		throw new \Exception();
+	case 'bar':
+		$variableDefinedOnlyInEarlyTerminatingSwitchCases = true;
+		return;
+	default:
+		$variableDefinedOnlyInEarlyTerminatingSwitchCases = true;
+		return;
+}
+
 do {
 	$doWhileVar = 1;
 } while (something());

@@ -978,12 +978,18 @@ class NodeScopeResolver
 
 			$allBranchesScope = $allBranchesScope->addVariables($branchScope);
 
-			if ($intersectedScope === null) {
-				$intersectedScope = $initialScope->addVariables($branchScope);
-			} elseif ($isSwitchCase && $previousBranchScope !== null) {
-				$intersectedScope = $branchScope->addVariables($previousBranchScope);
-			} elseif ($earlyTerminationStatement === null || $earlyTerminationStatement instanceof Break_) {
-				$intersectedScope = $branchScope->intersectVariables($intersectedScope);
+			if ($earlyTerminationStatement === null || $earlyTerminationStatement instanceof Break_) {
+				if ($intersectedScope === null) {
+					$intersectedScope = $initialScope->addVariables($branchScope);
+				}
+
+				if ($intersectedScope !== null) {
+					if ($isSwitchCase && $previousBranchScope !== null) {
+						$intersectedScope = $branchScope->addVariables($previousBranchScope);
+					} else {
+						$intersectedScope = $branchScope->intersectVariables($intersectedScope);
+					}
+				}
 			}
 
 			if ($earlyTerminationStatement === null) {
