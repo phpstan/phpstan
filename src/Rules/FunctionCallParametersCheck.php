@@ -43,16 +43,10 @@ class FunctionCallParametersCheck
 			&& in_array($function->getName(), [
 				'implode',
 				'strtok',
-				'fputcsv',
 			], true)
 		) {
-			if ($function->getName() === 'fputcsv') {
-				$functionParametersMinCount = 2;
-				$functionParametersMaxCount = 5;
-			} else {
-				$functionParametersMinCount = 1;
-				$functionParametersMaxCount = 2;
-			}
+			$functionParametersMinCount = 1;
+			$functionParametersMaxCount = 2;
 		} elseif (
 			$function instanceof MethodReflection
 			&& $function->getDeclaringClass()->getName() === 'DatePeriod'

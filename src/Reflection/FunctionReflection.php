@@ -8,6 +8,7 @@ use PHPStan\Parser\Parser;
 use PHPStan\Reflection\Php\DummyParameter;
 use PHPStan\Reflection\Php\PhpParameterReflection;
 use PHPStan\Type\IntegerType;
+use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
 
@@ -84,6 +85,26 @@ class FunctionReflection implements ParametersAcceptor
 				// PHP bug #70960
 				$this->parameters[] = new DummyParameter(
 					'sort_flags',
+					new IntegerType(false),
+					true
+				);
+			}
+			if (
+				$this->reflection->getName() === 'fputcsv'
+				&& count($this->parameters) === 4
+			) {
+				$this->parameters[] = new DummyParameter(
+					'escape_char',
+					new StringType(false),
+					true
+				);
+			}
+			if (
+				$this->reflection->getName() === 'unpack'
+				&& PHP_VERSION_ID >= 70101
+			) {
+				$this->parameters[2] = new DummyParameter(
+					'offset',
 					new IntegerType(false),
 					true
 				);
