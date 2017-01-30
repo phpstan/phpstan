@@ -99,6 +99,16 @@ class FunctionReflection implements ParametersAcceptor
 					true
 				);
 			}
+			if (
+				$this->reflection->getName() === 'unpack'
+				&& PHP_VERSION_ID >= 70101
+			) {
+				$this->parameters[2] = new DummyParameter(
+					'offset',
+					new IntegerType(false),
+					true
+				);
+			}
 		}
 
 		return $this->parameters;

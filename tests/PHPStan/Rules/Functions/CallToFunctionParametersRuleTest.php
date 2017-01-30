@@ -104,4 +104,34 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		]);
 	}
 
+	/**
+	 * @requires PHP 7.1.1
+	 */
+	public function testUnpackOnAfter711()
+	{
+		$this->analyse([__DIR__ . '/data/unpack.php'], [
+			[
+				'Function unpack invoked with 0 parameters, 2-3 required.',
+				3,
+			],
+		]);
+	}
+
+	public function testUnpackOnBefore711()
+	{
+		if (PHP_VERSION_ID >= 70101) {
+			$this->markTestSkipped('This test requires PHP < 7.1.1');
+		}
+		$this->analyse([__DIR__ . '/data/unpack.php'], [
+			[
+				'Function unpack invoked with 0 parameters, 2 required.',
+				3,
+			],
+			[
+				'Function unpack invoked with 3 parameters, 2 required.',
+				4,
+			],
+		]);
+	}
+
 }
