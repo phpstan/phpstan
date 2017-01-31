@@ -6,6 +6,7 @@ class Foo
 {
 
 	private $foo;
+	private $bar;
 
 	public function __construct(
 		$usedParameter,
@@ -14,6 +15,7 @@ class Foo
 		$usedParameterInStringThree,
 		$usedParameterInCondition,
 		$usedParameterInClosureUse,
+		$usedParameterInCompact,
 		$unusedParameter,
 		$anotherUnusedParameter
 	)
@@ -28,6 +30,7 @@ class Foo
 		function ($anotherUnusedParameter) use ($usedParameterInClosureUse) {
 			echo $anotherUnusedParameter; // different scope
 		};
+		$this->bar = compact('usedParameterInCompact');
 	}
 
 }
