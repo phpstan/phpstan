@@ -47,6 +47,15 @@ class UnusedFunctionParametersCheck
 			if ($node instanceof Node\Expr\ClosureUse) {
 				return [$node->var];
 			}
+			if ($node instanceof Node\Expr\FuncCall
+				&& $node->name instanceof Node\Name
+				&& (string) $node->name === 'compact') {
+				foreach ($node->args as $arg) {
+					if ($arg->value instanceof Node\Scalar\String_) {
+						$variableNames[] = $arg->value->value;
+					}
+				}
+			}
 			foreach ($node->getSubNodeNames() as $subNodeName) {
 				if ($node instanceof Node\Expr\Closure && $subNodeName !== 'uses') {
 					continue;
