@@ -486,7 +486,7 @@ class NodeScopeResolver
 			$this->anonymousClassReflection = $this->broker->getClassFromReflection($classReflection);
 		} elseif ($node instanceof BooleanNot) {
 			$scope = $scope->enterNegation();
-		} elseif ($node instanceof Unset_) {
+		} elseif ($node instanceof Unset_ || $node instanceof Isset_) {
 			foreach ($node->vars as $unsetVar) {
 				if ($unsetVar instanceof Variable && is_string($unsetVar->name)) {
 					$scope = $scope->enterVariableAssign($unsetVar->name);

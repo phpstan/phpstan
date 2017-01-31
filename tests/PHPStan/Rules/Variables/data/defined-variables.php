@@ -211,3 +211,5 @@ if (($isInstanceOf = $fooObject) instanceof Foo && $isInstanceOf) {
 
 }
 echo $isInstanceOf;
+
+isset($nonexistentVariableInIsset);
