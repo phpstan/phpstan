@@ -43,6 +43,7 @@ See [Class reflection extensions](#class-reflection-extensions) and [Dynamic ret
 
 You can also install already created framework-specific extensions:
 
+* [Doctrine](https://github.com/phpstan/phpstan-doctrine)
 * [Nette Framework](https://github.com/phpstan/phpstan-nette)
 * [Dibi - Database Abstraction Library](https://github.com/phpstan/phpstan-dibi)
 
