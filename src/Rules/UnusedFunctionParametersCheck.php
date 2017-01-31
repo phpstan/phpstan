@@ -48,7 +48,8 @@ class UnusedFunctionParametersCheck
 				return [$node->var];
 			}
 			if ($node instanceof Node\Expr\FuncCall
-				&& $node->name == 'compact') {
+				&& $node->name instanceof Node\Name
+				&& (string)$node->name === 'compact') {
 				foreach ($node->args as $arg) {
 					if ($arg->value instanceof Node\Scalar\String_) {
 						$variableNames[] = $arg->value->value;
