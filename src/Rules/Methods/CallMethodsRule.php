@@ -117,7 +117,12 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 		$messagesMethodName = $methodReflection->getDeclaringClass()->getName() . '::' . $methodReflection->getName() . '()';
 		if (!$scope->canCallMethod($methodReflection)) {
 			return [
-				sprintf('Cannot call method %s from current scope.', $messagesMethodName),
+				sprintf(
+					'Call to %s method %s() of class %s.',
+					$methodReflection->isPrivate() ? 'private' : 'protected',
+					$methodReflection->getName(),
+					$methodReflection->getDeclaringClass()->getName()
+				),
 			];
 		}
 

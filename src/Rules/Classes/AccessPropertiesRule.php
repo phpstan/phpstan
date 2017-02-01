@@ -113,9 +113,10 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 		if (!$scope->canAccessProperty($propertyReflection)) {
 			return [
 				sprintf(
-					'Cannot access property %s::$%s from current scope.',
-					$propertyReflection->getDeclaringClass()->getName(),
-					$name
+					'Access to %s property $%s of class %s.',
+					$propertyReflection->isPrivate() ? 'private' : 'protected',
+					$name,
+					$propertyReflection->getDeclaringClass()->getName()
 				),
 			];
 		}

@@ -34,11 +34,11 @@ class AccessPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 					31,
 				],
 				[
-					'Cannot access property TestAccessProperties\FooAccessProperties::$foo from current scope.',
+					'Access to private property $foo of class TestAccessProperties\FooAccessProperties.',
 					42,
 				],
 				[
-					'Cannot access property TestAccessProperties\FooAccessProperties::$bar from current scope.',
+					'Access to protected property $bar of class TestAccessProperties\FooAccessProperties.',
 					43,
 				],
 				[
@@ -50,11 +50,11 @@ class AccessPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 					52,
 				],
 				[
-					'Cannot access property TestAccessProperties\FooAccessProperties::$foo from current scope.',
+					'Access to private property $foo of class TestAccessProperties\FooAccessProperties.',
 					58,
 				],
 				[
-					'Cannot access property TestAccessProperties\FooAccessProperties::$bar from current scope.',
+					'Access to protected property $bar of class TestAccessProperties\FooAccessProperties.',
 					59,
 				],
 				[

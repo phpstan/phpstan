@@ -122,9 +122,10 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 		if (!$scope->canAccessProperty($property)) {
 			return [
 				sprintf(
-					'Cannot access property %s::$%s from current scope.',
-					$property->getDeclaringClass()->getName(),
-					$name
+					'Access to %s property $%s of class %s.',
+					$property->isPrivate() ? 'private' : 'protected',
+					$name,
+					$property->getDeclaringClass()->getName()
 				),
 			];
 		}

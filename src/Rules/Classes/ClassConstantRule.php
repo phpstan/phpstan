@@ -102,7 +102,12 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 		$constantReflection = $classReflection->getConstant($constantName);
 		if (!$scope->canAccessConstant($constantReflection)) {
 			return [
-				sprintf('Cannot access constant %s::%s from current scope.', $constantReflection->getDeclaringClass()->getName(), $constantName),
+				sprintf(
+					'Access to %s constant %s of class %s.',
+					$constantReflection->isPrivate() ? 'private' : 'protected',
+					$constantName,
+					$constantReflection->getDeclaringClass()->getName()
+				),
 			];
 		}
 

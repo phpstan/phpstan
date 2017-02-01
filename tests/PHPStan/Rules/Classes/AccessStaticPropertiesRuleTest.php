@@ -36,7 +36,7 @@ class AccessStaticPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				42,
 			],
 			[
-				'Cannot access property FooAccessStaticProperties::$foo from current scope.',
+				'Access to protected property $foo of class FooAccessStaticProperties.',
 				44,
 			],
 			[
@@ -88,7 +88,7 @@ class AccessStaticPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				86,
 			],
 			[
-				'Cannot access property FooAccessStaticProperties::$foo from current scope.',
+				'Access to protected property $foo of class FooAccessStaticProperties.',
 				89,
 			],
 			[

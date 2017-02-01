@@ -50,7 +50,7 @@ class ClassConstantRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		}
 		$this->analyse([__DIR__ . '/data/class-constant-visibility.php'], [
 			[
-				'Cannot access constant ClassConstantVisibility\Bar::PRIVATE_BAR from current scope.',
+				'Access to private constant PRIVATE_BAR of class ClassConstantVisibility\Bar.',
 				25,
 			],
 			[
@@ -62,15 +62,15 @@ class ClassConstantRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				45,
 			],
 			[
-				'Cannot access constant ClassConstantVisibility\Foo::PRIVATE_FOO from current scope.',
+				'Access to private constant PRIVATE_FOO of class ClassConstantVisibility\Foo.',
 				46,
 			],
 			[
-				'Cannot access constant ClassConstantVisibility\Foo::PRIVATE_FOO from current scope.',
+				'Access to private constant PRIVATE_FOO of class ClassConstantVisibility\Foo.',
 				47,
 			],
 			[
-				'Cannot access constant ClassConstantVisibility\Foo::PROTECTED_FOO from current scope.',
+				'Access to protected constant PROTECTED_FOO of class ClassConstantVisibility\Foo.',
 				63,
 			],
 		]);

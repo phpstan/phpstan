@@ -36,7 +36,7 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				40,
 			],
 			[
-				'Cannot call method Test\Foo::foo() from current scope.',
+				'Call to private method foo() of class Test\Foo.',
 				41,
 			],
 			[
@@ -139,7 +139,7 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				40,
 			],
 			[
-				'Cannot call method Test\Foo::foo() from current scope.',
+				'Call to private method foo() of class Test\Foo.',
 				41,
 			],
 			[
@@ -248,7 +248,7 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				16,
 			],
 			[
-				'Cannot call method CallClosureBind\Foo::privateMethod() from current scope.',
+				'Call to private method privateMethod() of class CallClosureBind\Foo.',
 				18,
 			],
 			[
