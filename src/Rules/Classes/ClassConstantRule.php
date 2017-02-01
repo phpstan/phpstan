@@ -46,6 +46,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
+		$constantName = $node->name;
 		if ($className === 'self' || $className === 'static') {
 			if (!$scope->isInClass()) {
 				return [
@@ -53,17 +54,13 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 				];
 			}
 
-			if ($className === 'static') {
-				return [];
+			$classReflection = $scope->getClassReflection();
+		} elseif ($className === 'parent') {
+			if (!$scope->isInClass()) {
+				return [
+					sprintf('Using %s outside of class scope.', $className),
+				];
 			}
-
-			if ($className === 'self') {
-				$className = $scope->getClassReflection()->getName();
-			}
-		}
-
-		$constantName = $node->name;
-		if ($scope->isInClass() && $className === 'parent') {
 			$currentClassReflection = $scope->getClassReflection();
 			if ($currentClassReflection->getParentClass() === false) {
 				return [
@@ -74,21 +71,21 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 					),
 				];
 			}
+			$classReflection = $currentClassReflection->getParentClass();
+		} else {
+			if (!$this->broker->hasClass($className)) {
+				return [
+					sprintf('Class %s not found.', $className),
+				];
+			}
 
-			$className = $currentClassReflection->getParentClass()->getName();
-		}
-
-		if (!$this->broker->hasClass($className)) {
-			return [
-				sprintf('Class %s not found.', $className),
-			];
+			$classReflection = $this->broker->getClass($className);
 		}
 
 		if ($constantName === 'class') {
 			return [];
 		}
 
-		$classReflection = $this->broker->getClass($className);
 		if (!$classReflection->hasConstant($constantName)) {
 			return [
 				sprintf(

@@ -14,3 +14,6 @@ $foo = new Foo();
 $foo::LOREM;
 $foo::IPSUM;
 $foo::DOLOR;
+
+static::LOREM;
+parent::LOREM;

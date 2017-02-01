@@ -36,6 +36,14 @@ class ClassConstantRuleTest extends \PHPStan\Rules\AbstractRuleTest
 					'Access to undefined constant ClassConstantNamespace\Foo::DOLOR.',
 					16,
 				],
+				[
+					'Using static outside of class scope.',
+					18,
+				],
+				[
+					'Using parent outside of class scope.',
+					19,
+				],
 			]
 		);
 	}
