@@ -12,3 +12,8 @@ strtok('/something', '/', 'foo'); // should report 3 parameters given, 1-2 requi
 
 fputcsv($handle);
 fputcsv($handle, $data, ',', '""', '\\');
+
+imagepng(); // should report 1-4 parameters
+imagepng('resource'); // OK
+imagepng('resource', 'to', 1, 2); // OK
+imagepng('resource', 'to', 1, 2, 4); // should report 5 parameters given, 1-4 required

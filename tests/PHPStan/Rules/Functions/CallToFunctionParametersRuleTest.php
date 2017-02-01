@@ -101,6 +101,14 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Function fputcsv invoked with 1 parameter, 2-5 required.',
 				13,
 			],
+			[
+				'Function imagepng invoked with 0 parameters, 1-4 required.',
+				16,
+			],
+			[
+				'Function imagepng invoked with 5 parameters, 1-4 required.',
+				19,
+			],
 		]);
 	}
 
