@@ -109,6 +109,21 @@ class FunctionReflection implements ParametersAcceptor
 					true
 				);
 			}
+			if (
+				$this->reflection->getName() === 'imagepng'
+				&& count($this->parameters) === 2
+			) {
+				$this->parameters[] = new DummyParameter(
+					'quality',
+					new IntegerType(false),
+					true
+				);
+				$this->parameters[] = new DummyParameter(
+					'filters',
+					new IntegerType(false),
+					true
+				);
+			}
 		}
 
 		return $this->parameters;
