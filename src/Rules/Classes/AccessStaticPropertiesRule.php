@@ -37,30 +37,41 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 		}
 
 		$name = $node->name;
-		if (!$scope->isInClass()) {
-			return [];
-		}
-
-		$currentClassReflection = $scope->getClassReflection();
 		$class = (string) $node->class;
 		if ($class === 'self' || $class === 'static') {
-			$class = $currentClassReflection->getName();
-		}
-
-		if ($class === 'parent') {
-			if ($currentClassReflection->getParentClass() === false) {
+			if (!$scope->isInClass()) {
+				return [
+					sprintf(
+						'Accessing %s::$%s outside of class scope.',
+						$class,
+						$name
+					),
+				];
+			}
+			$classReflection = $scope->getClassReflection();
+		} elseif ($class === 'parent') {
+			if (!$scope->isInClass()) {
+				return [
+					sprintf(
+						'Accessing %s::$%s outside of class scope.',
+						$class,
+						$name
+					),
+				];
+			}
+			if ($scope->getClassReflection()->getParentClass() === false) {
 				return [
 					sprintf(
 						'%s::%s() accesses parent::$%s but %s does not extend any class.',
-						$currentClassReflection->getName(),
+						$scope->getClassReflection()->getName(),
 						$scope->getFunctionName(),
 						$name,
-						$currentClassReflection->getName()
+						$scope->getClassReflection()->getName()
 					),
 				];
 			}
 
-			$currentMethodReflection = $currentClassReflection->getMethod(
+			$currentMethodReflection = $scope->getClassReflection()->getMethod(
 				$scope->getFunctionName(),
 				$scope
 			);
@@ -69,20 +80,20 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 				return [];
 			}
 
-			$class = $currentClassReflection->getParentClass()->getName();
+			$classReflection = $scope->getClassReflection()->getParentClass();
+		} else {
+			if (!$this->broker->hasClass($class)) {
+				return [
+					sprintf(
+						'Access to static property $%s on an unknown class %s.',
+						$name,
+						$class
+					),
+				];
+			}
+			$classReflection = $this->broker->getClass($class);
 		}
 
-		if (!$this->broker->hasClass($class)) {
-			return [
-				sprintf(
-					'Access to static property $%s on an unknown class %s.',
-					$name,
-					$class
-				),
-			];
-		}
-
-		$classReflection = $this->broker->getClass($class);
 		if (!$classReflection->hasProperty($name)) {
 			if ($scope->isSpecified($node)) {
 				return [];

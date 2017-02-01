@@ -79,3 +79,13 @@ class IpsumAccessStaticProperties
 	}
 
 }
+
+function () {
+	self::$staticFooProperty;
+	static::$staticFooProperty;
+	parent::$staticFooProperty;
+
+	FooAccessStaticProperties::$test;
+	FooAccessStaticProperties::$foo;
+	FooAccessStaticProperties::$loremIpsum;
+};

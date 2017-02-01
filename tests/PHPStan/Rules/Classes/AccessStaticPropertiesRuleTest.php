@@ -75,6 +75,26 @@ class AccessStaticPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Access to an undefined static property IpsumAccessStaticProperties::$anotherEmptyNonexistent.',
 				78,
 			],
+			[
+				'Accessing self::$staticFooProperty outside of class scope.',
+				84,
+			],
+			[
+				'Accessing static::$staticFooProperty outside of class scope.',
+				85,
+			],
+			[
+				'Accessing parent::$staticFooProperty outside of class scope.',
+				86,
+			],
+			[
+				'Cannot access property FooAccessStaticProperties::$foo from current scope.',
+				89,
+			],
+			[
+				'Static access to instance property FooAccessStaticProperties::$loremIpsum.',
+				90,
+			],
 		]);
 	}
 
