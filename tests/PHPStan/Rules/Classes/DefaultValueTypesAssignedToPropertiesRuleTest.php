@@ -9,7 +9,7 @@ class DefaultValueTypesAssignedToPropertiesRuleTest extends \PHPStan\Rules\Abstr
 
 	protected function getRule(): Rule
 	{
-		return new DefaultValueTypesAssignedToPropertiesRule($this->createBroker());
+		return new DefaultValueTypesAssignedToPropertiesRule();
 	}
 
 	public function testDefaultValueTypesAssignedToProperties()

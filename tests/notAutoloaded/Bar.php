@@ -5,8 +5,4 @@ namespace PHPStan\Tests;
 class Bar
 {
 
-	public function doFoo()
-	{
-	}
-
 }

@@ -270,7 +270,7 @@ class NodeScopeResolver
 				return;
 			}
 			if (isset($node->namespacedName)) {
-				$scope = $scope->enterClass((string) $node->namespacedName);
+				$scope = $scope->enterClass($this->broker->getClass((string) $node->namespacedName));
 			} else {
 				$scope = $scope->enterAnonymousClass($this->anonymousClassReflection);
 			}
@@ -1121,11 +1121,15 @@ class NodeScopeResolver
 				return;
 			}
 			$parserNodes = $this->parser->parseFile($fileName);
+			$className = sprintf('class %s', $classScope->getClassReflection()->getName());
+			if ($classScope->getClassReflection()->getNativeReflection()->isAnonymous()) {
+				$className = 'anonymous class';
+			}
 			$classScope = $classScope->changeAnalysedContextFile(
 				sprintf(
 					'%s (in context of %s)',
 					$fileName,
-					$classScope->getClass() !== null ? sprintf('class %s', $classScope->getClass()) : 'anonymous class'
+					$className
 				)
 			);
 
@@ -1178,11 +1182,11 @@ class NodeScopeResolver
 		if ($functionLike->getDocComment() !== null) {
 			$docComment = $functionLike->getDocComment()->getText();
 			$file = $scope->getFile();
-			if ($scope->getClass() !== null && $functionLike instanceof Node\Stmt\ClassMethod) {
+			if ($functionLike instanceof Node\Stmt\ClassMethod) {
 				$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForMethod(
 					$this->broker,
 					$docComment,
-					$scope->getClass(),
+					$scope->getClassReflection()->getName(),
 					$functionLike->name,
 					$file
 				);

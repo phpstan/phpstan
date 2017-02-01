@@ -5,18 +5,9 @@ namespace PHPStan\Rules\Classes;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\Analyser\Scope;
-use PHPStan\Broker\Broker;
 
 class DefaultValueTypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 {
-
-	/** @var \PHPStan\Broker\Broker */
-	private $broker;
-
-	public function __construct(Broker $broker)
-	{
-		$this->broker = $broker;
-	}
 
 	public function getNodeType(): string
 	{
@@ -30,11 +21,7 @@ class DefaultValueTypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		if ($scope->getClass() === null || !$this->broker->hasClass($scope->getClass())) {
-			return [];
-		}
-
-		$classReflection = $this->broker->getClass($scope->getClass());
+		$classReflection = $scope->getClassReflection();
 
 		$errors = [];
 		foreach ($node->props as $property) {
@@ -56,7 +43,7 @@ class DefaultValueTypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 			$errors[] = sprintf(
 				'%s %s::$%s (%s) does not accept default value of type %s.',
 				$node->isStatic() ? 'Static property' : 'Property',
-				$scope->getClass(),
+				$classReflection->getName(),
 				$property->name,
 				$propertyType->describe(),
 				$defaultValueType->describe()

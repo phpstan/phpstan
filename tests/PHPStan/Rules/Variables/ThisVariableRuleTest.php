@@ -22,8 +22,9 @@ class ThisVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				24,
 			],
 			[
-				'Using $this in static method AnonymousClass::doBar().',
+				'sing $this in static method class@anonymous',
 				36,
+				false,
 			],
 		]);
 	}

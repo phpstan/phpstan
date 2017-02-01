@@ -51,7 +51,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		$this->processFile(__DIR__ . '/data/class.php', function (\PhpParser\Node $node, Scope $scope) {
 			if ($node instanceof Exit_) {
 				$this->assertSame('SomeNodeScopeResolverNamespace', $scope->getNamespace());
-				$this->assertSame(Foo::class, $scope->getClass());
+				$this->assertSame(Foo::class, $scope->getClassReflection()->getName());
 				$this->assertSame('doFoo', $scope->getFunctionName());
 				$this->assertSame(Foo::class, $scope->getVariableType('this')->getClass());
 				$this->assertTrue($scope->hasVariableType('baz'));

@@ -26,7 +26,7 @@ class ThisVariableRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		if ($scope->getClass() === null && !$scope->isInAnonymousClass()) {
+		if (!$scope->isInClass()) {
 			return [
 				'Using $this outside a class.',
 			];
@@ -41,7 +41,7 @@ class ThisVariableRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf(
 					'Using $this in static method %s::%s().',
-					$scope->getClass() !== null ? $scope->getClass() : 'AnonymousClass',
+					$scope->getClassReflection()->getName(),
 					$function->getName()
 				),
 			];

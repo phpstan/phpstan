@@ -40,19 +40,13 @@ class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
 		$name = (string) $class;
 
 		if ($name === 'self' || $name === 'static') {
-			if ($scope->getClass() === null && !$scope->isInAnonymousClass()) {
+			if (!$scope->isInClass()) {
 				return [
 					sprintf('Using %s outside of class scope.', $name),
 				];
 			}
 
-			if ($name === 'static') {
-				return [];
-			}
-
-			if ($name === 'self') {
-				$name = $scope->getClass();
-			}
+			return [];
 		}
 
 		if (!$this->broker->hasClass($name)) {

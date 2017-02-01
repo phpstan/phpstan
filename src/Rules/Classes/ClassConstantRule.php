@@ -47,7 +47,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 		}
 
 		if ($className === 'self' || $className === 'static') {
-			if ($scope->getClass() === null && !$scope->isInAnonymousClass()) {
+			if (!$scope->isInClass()) {
 				return [
 					sprintf('Using %s outside of class scope.', $className),
 				];
@@ -58,19 +58,19 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 			}
 
 			if ($className === 'self') {
-				$className = $scope->getClass();
+				$className = $scope->getClassReflection()->getName();
 			}
 		}
 
 		$constantName = $node->name;
-		if ($scope->getClass() !== null && $className === 'parent') {
-			$currentClassReflection = $this->broker->getClass($scope->getClass());
+		if ($scope->isInClass() && $className === 'parent') {
+			$currentClassReflection = $scope->getClassReflection();
 			if ($currentClassReflection->getParentClass() === false) {
 				return [
 					sprintf(
 						'Access to parent::%s but %s does not extend any class.',
 						$constantName,
-						$scope->getClass()
+						$currentClassReflection->getName()
 					),
 				];
 			}

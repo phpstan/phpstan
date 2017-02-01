@@ -2,8 +2,12 @@
 
 namespace CloneOperators;
 
+class Foo
+{
+
+}
+
 function () {
-	class Foo {};
 	$fooObject = new Foo();
 
 	die;

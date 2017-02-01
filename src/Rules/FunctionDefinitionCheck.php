@@ -52,12 +52,9 @@ class FunctionDefinitionCheck
 		string $returnMessage
 	): array
 	{
-		if ($function instanceof ClassMethod && $scope->getClass() !== null) {
-			if (!$this->broker->hasClass($scope->getClass())) {
-				return [];
-			}
+		if ($function instanceof ClassMethod) {
 			return $this->checkParametersAcceptor(
-				$this->broker->getClass($scope->getClass())->getMethod($function->name, $scope),
+				$scope->getClassReflection()->getMethod($function->name, $scope),
 				$parameterMessage,
 				$returnMessage
 			);

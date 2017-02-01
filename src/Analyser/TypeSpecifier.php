@@ -48,10 +48,10 @@ class TypeSpecifier
 	{
 		if ($expr instanceof Instanceof_ && $expr->class instanceof Name) {
 			$class = (string) $expr->class;
-			if ($class === 'self' && $scope->getClass() !== null) {
-				$type = new ObjectType($scope->getClass(), false);
-			} elseif ($class === 'static' && $scope->getClass() !== null) {
-				$type = new StaticType($scope->getClass(), false);
+			if ($class === 'self' && $scope->isInClass()) {
+				$type = new ObjectType($scope->getClassReflection()->getName(), false);
+			} elseif ($class === 'static' && $scope->isInClass()) {
+				$type = new StaticType($scope->getClassReflection()->getName(), false);
 			} else {
 				$type = new ObjectType($class, false);
 			}

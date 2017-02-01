@@ -77,9 +77,9 @@ class Scope
 	private $declareStrictTypes;
 
 	/**
-	 * @var string|null
+	 * @var \PHPStan\Reflection\ClassReflection
 	 */
-	private $class;
+	private $classReflection;
 
 	/**
 	 * @var \PHPStan\Reflection\ParametersAcceptor|null
@@ -105,11 +105,6 @@ class Scope
 	 * @var \PHPStan\Type\Type|null
 	 */
 	private $inAnonymousFunctionReturnType;
-
-	/**
-	 * @var \PHPStan\Reflection\ClassReflection
-	 */
-	private $anonymousClass;
 
 	/**
 	 * @var \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null
@@ -142,13 +137,12 @@ class Scope
 	 * @param string $file
 	 * @param string|null $analysedContextFile
 	 * @param bool $declareStrictTypes
-	 * @param string|null $class
+	 * @param \PHPStan\Reflection\ClassReflection|null $classReflection
 	 * @param \PHPStan\Reflection\ParametersAcceptor|null $function
 	 * @param string|null $namespace
 	 * @param \PHPStan\Type\Type[] $variablesTypes
 	 * @param string|null $inClosureBindScopeClass
 	 * @param \PHPStan\Type\Type|null $inAnonymousFunctionReturnType
-	 * @param \PHPStan\Reflection\ClassReflection|null $anonymousClass
 	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null $inFunctionCall
 	 * @param bool $negated
 	 * @param \PHPStan\Type\Type[] $moreSpecificTypes
@@ -161,13 +155,12 @@ class Scope
 		string $file,
 		string $analysedContextFile = null,
 		bool $declareStrictTypes = false,
-		string $class = null,
+		ClassReflection $classReflection = null,
 		\PHPStan\Reflection\ParametersAcceptor $function = null,
 		string $namespace = null,
 		array $variablesTypes = [],
 		string $inClosureBindScopeClass = null,
 		Type $inAnonymousFunctionReturnType = null,
-		ClassReflection $anonymousClass = null,
 		Expr $inFunctionCall = null,
 		bool $negated = false,
 		array $moreSpecificTypes = [],
@@ -175,10 +168,6 @@ class Scope
 		array $currentlyAssignedVariables = []
 	)
 	{
-		if ($class === '') {
-			$class = null;
-		}
-
 		if ($namespace === '') {
 			$namespace = null;
 		}
@@ -188,13 +177,12 @@ class Scope
 		$this->file = $file;
 		$this->analysedContextFile = $analysedContextFile !== null ? $analysedContextFile : $file;
 		$this->declareStrictTypes = $declareStrictTypes;
-		$this->class = $class;
+		$this->classReflection = $classReflection;
 		$this->function = $function;
 		$this->namespace = $namespace;
 		$this->variableTypes = $variablesTypes;
 		$this->inClosureBindScopeClass = $inClosureBindScopeClass;
 		$this->inAnonymousFunctionReturnType = $inAnonymousFunctionReturnType;
-		$this->anonymousClass = $anonymousClass;
 		$this->inFunctionCall = $inFunctionCall;
 		$this->negated = $negated;
 		$this->moreSpecificTypes = $moreSpecificTypes;
@@ -228,12 +216,14 @@ class Scope
 		);
 	}
 
-	/**
-	 * @return null|string
-	 */
-	public function getClass()
+	public function isInClass(): bool
 	{
-		return $this->class;
+		return $this->classReflection !== null;
+	}
+
+	public function getClassReflection(): ClassReflection
+	{
+		return $this->classReflection;
 	}
 
 	/**
@@ -293,16 +283,6 @@ class Scope
 	public function getAnonymousFunctionReturnType()
 	{
 		return $this->inAnonymousFunctionReturnType;
-	}
-
-	public function isInAnonymousClass(): bool
-	{
-		return $this->anonymousClass !== null;
-	}
-
-	public function getAnonymousClass(): ClassReflection
-	{
-		return $this->anonymousClass;
 	}
 
 	/**
@@ -429,9 +409,9 @@ class Scope
 					count($node->class->parts) === 1
 				) {
 					if ($node->class->parts[0] === 'static') {
-						return new StaticType($this->getClass(), false);
+						return new StaticType($this->getClassReflection()->getName(), false);
 					} elseif ($node->class->parts[0] === 'self') {
-						return new ObjectType($this->getClass(), false);
+						return new ObjectType($this->getClassReflection()->getName(), false);
 					}
 				}
 
@@ -472,7 +452,7 @@ class Scope
 			if ($node->class instanceof Name) {
 				$constantClass = (string) $node->class;
 				if ($constantClass === 'self') {
-					$constantClass = $this->getClass();
+					$constantClass = $this->getClassReflection()->getName();
 				}
 			} elseif ($node->class instanceof Expr) {
 				$constantClassType = $this->getType($node->class);
@@ -568,8 +548,8 @@ class Scope
 				}
 				if ($staticMethodReflection->getReturnType() instanceof StaticResolvableType) {
 					$nodeClassString = (string) $node->class;
-					if ($nodeClassString === 'parent' && $this->getClass() !== null) {
-						return $staticMethodReflection->getReturnType()->changeBaseClass($this->getClass());
+					if ($nodeClassString === 'parent' && $this->isInClass()) {
+						return $staticMethodReflection->getReturnType()->changeBaseClass($this->getClassReflection()->getName());
 					}
 
 					return $staticMethodReflection->getReturnType()->resolveStatic($calleeClass);
@@ -676,9 +656,9 @@ class Scope
 	{
 		$originalClass = (string) $name;
 		if ($originalClass === 'self' || $originalClass === 'static') {
-			return $this->getClass();
-		} elseif ($originalClass === 'parent' && $this->getClass() !== null && $this->broker->hasClass($this->getClass())) {
-			$currentClassReflection = $this->broker->getClass($this->getClass());
+			return $this->getClassReflection()->getName();
+		} elseif ($originalClass === 'parent' && $this->isInClass()) {
+			$currentClassReflection = $this->getClassReflection();
 			if ($currentClassReflection->getParentClass() !== false) {
 				return $currentClassReflection->getParentClass()->getName();
 			}
@@ -744,7 +724,7 @@ class Scope
 		return isset($this->moreSpecificTypes[$exprString]);
 	}
 
-	public function enterClass(string $className): self
+	public function enterClass(ClassReflection $classReflection): self
 	{
 		return new self(
 			$this->broker,
@@ -752,11 +732,11 @@ class Scope
 			$this->getFile(),
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
-			$className,
+			$classReflection,
 			null,
 			$this->getNamespace(),
 			[
-				'this' => new ThisType($className, false),
+				'this' => new ThisType($classReflection->getName(), false),
 			]
 		);
 	}
@@ -769,13 +749,12 @@ class Scope
 			$this->getFile(),
 			$fileName,
 			$this->isDeclareStrictTypes(),
-			$this->getClass(),
+			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->moreSpecificTypes
@@ -790,7 +769,7 @@ class Scope
 	{
 		return $this->enterFunctionLike(
 			new PhpMethodFromParserNodeReflection(
-				$this->getClass() !== null ? $this->broker->getClass($this->getClass()) : $this->getAnonymousClass(),
+				$this->getClassReflection(),
 				$classMethod,
 				$this->getRealParameterTypes($classMethod),
 				$phpDocParameterTypes,
@@ -846,13 +825,12 @@ class Scope
 			$this->getFile(),
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
-			$this->getClass(),
+			$this->isInClass() ? $this->getClassReflection() : null,
 			$functionReflection,
 			$this->getNamespace(),
 			$variableTypes,
 			null,
-			null,
-			$this->anonymousClass
+			null
 		);
 	}
 
@@ -880,8 +858,8 @@ class Scope
 			unset($variableTypes['this']);
 		}
 
-		if ($scopeClass === 'static') {
-			$scopeClass = $this->getClass();
+		if ($scopeClass === 'static' && $this->isInClass()) {
+			$scopeClass = $this->getClassReflection()->getName();
 		}
 
 		return new self(
@@ -890,13 +868,12 @@ class Scope
 			$this->getFile(),
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
-			$this->getClass(),
+			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
 			$scopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->moreSpecificTypes
@@ -911,7 +888,7 @@ class Scope
 			$this->getFile(),
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
-			null,
+			$anonymousClass,
 			null,
 			$this->getNamespace(),
 			[
@@ -919,7 +896,6 @@ class Scope
 			],
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$anonymousClass,
 			$this->getInFunctionCall()
 		);
 	}
@@ -965,13 +941,12 @@ class Scope
 			$this->getFile(),
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
-			$this->getClass(),
+			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
 			$this->inClosureBindScopeClass,
 			$returnType,
-			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall()
 		);
 	}
@@ -1017,23 +992,12 @@ class Scope
 		} elseif ($type instanceof Name) {
 			$className = (string) $type;
 			if ($className === 'self') {
-				$className = $this->getClass();
+				$className = $this->getClassReflection()->getName();
 			} elseif (
 				$className === 'parent'
 			) {
-				if (
-					$this->getClass() !== null
-					&& $this->broker->hasClass($this->getClass())
-				) {
-					$classReflection = $this->broker->getClass($this->getClass());
-				} elseif ($this->isInAnonymousClass()) {
-					$classReflection = $this->getAnonymousClass();
-				} else {
-					return new NonexistentParentClassType(false);
-				}
-
-				if ($classReflection->getParentClass() !== false) {
-					return new ObjectType($classReflection->getParentClass()->getName(), $isNullable);
+				if ($this->isInClass() && $this->getClassReflection()->getParentClass() !== false) {
+					return new ObjectType($this->getClassReflection()->getParentClass()->getName(), $isNullable);
 				}
 
 				return new NonexistentParentClassType(false);
@@ -1070,13 +1034,12 @@ class Scope
 			$this->getFile(),
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
-			$this->getClass(),
+			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			null,
 			$this->isNegated(),
 			$this->moreSpecificTypes
@@ -1105,13 +1068,12 @@ class Scope
 			$this->getFile(),
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
-			$this->getClass(),
+			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			null,
 			$this->isNegated(),
 			$this->moreSpecificTypes
@@ -1130,13 +1092,12 @@ class Scope
 			$this->getFile(),
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
-			$this->getClass(),
+			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$functionCall,
 			$this->isNegated(),
 			$this->moreSpecificTypes,
@@ -1155,13 +1116,12 @@ class Scope
 			$this->getFile(),
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
-			$this->getClass(),
+			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->moreSpecificTypes,
@@ -1191,13 +1151,12 @@ class Scope
 			$this->getFile(),
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
-			$this->getClass(),
+			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->moreSpecificTypes,
@@ -1219,13 +1178,12 @@ class Scope
 			$this->getFile(),
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
-			$this->getClass(),
+			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->moreSpecificTypes,
@@ -1252,13 +1210,12 @@ class Scope
 			$this->getFile(),
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
-			$this->getClass(),
+			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$intersectedVariableTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->moreSpecificTypes,
@@ -1282,13 +1239,12 @@ class Scope
 			$this->getFile(),
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
-			$this->getClass(),
+			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->moreSpecificTypes,
@@ -1310,13 +1266,12 @@ class Scope
 				$this->getFile(),
 				$this->getAnalysedContextFile(),
 				$this->isDeclareStrictTypes(),
-				$this->getClass(),
+				$this->isInClass() ? $this->getClassReflection() : null,
 				$this->getFunction(),
 				$this->getNamespace(),
 				$variableTypes,
 				$this->inClosureBindScopeClass,
 				$this->getAnonymousFunctionReturnType(),
-				$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 				$this->getInFunctionCall(),
 				$this->isNegated(),
 				$this->moreSpecificTypes,
@@ -1357,13 +1312,12 @@ class Scope
 			$this->getFile(),
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
-			$this->getClass(),
+			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			!$this->isNegated(),
 			$this->moreSpecificTypes,
@@ -1379,13 +1333,12 @@ class Scope
 			$this->getFile(),
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
-			$this->getClass(),
+			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->moreSpecificTypes,
@@ -1402,13 +1355,12 @@ class Scope
 			$this->getFile(),
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
-			$this->getClass(),
+			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->moreSpecificTypes,
@@ -1440,13 +1392,12 @@ class Scope
 			$this->getFile(),
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
-			$this->getClass(),
+			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$this->isInAnonymousClass() ? $this->getAnonymousClass() : null,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$moreSpecificTypes,
@@ -1479,11 +1430,10 @@ class Scope
 			return true;
 		}
 
-		$class = $this->inClosureBindScopeClass !== null ? $this->inClosureBindScopeClass : $this->getClass();
-		if ($class !== null && $this->broker->hasClass($class)) {
-			$currentClassReflection = $this->broker->getClass($class);
-		} elseif ($this->isInAnonymousClass()) {
-			$currentClassReflection = $this->getAnonymousClass();
+		if ($this->inClosureBindScopeClass !== null && $this->broker->hasClass($this->inClosureBindScopeClass)) {
+			$currentClassReflection = $this->broker->getClass($this->inClosureBindScopeClass);
+		} elseif ($this->isInClass()) {
+			$currentClassReflection = $this->getClassReflection();
 		} else {
 			return false;
 		}

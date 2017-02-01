@@ -7,7 +7,7 @@ class RequireParentConstructCallRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new RequireParentConstructCallRule($this->createBroker());
+		return new RequireParentConstructCallRule();
 	}
 
 	public function testCallToParentConstructor()

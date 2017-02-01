@@ -89,12 +89,8 @@ class ClassReflection
 	public function getMethod(string $methodName, Scope $scope = null): MethodReflection
 	{
 		$key = $methodName;
-		if ($scope !== null) {
-			if ($scope->isInAnonymousClass()) {
-				$key = sprintf('%s-%s', $key, $scope->getAnonymousClass()->getName());
-			} elseif ($scope->getClass() !== null) {
-				$key = sprintf('%s-%s', $key, $scope->getClass());
-			}
+		if ($scope !== null && $scope->isInClass()) {
+			$key = sprintf('%s-%s', $key, $scope->getClassReflection()->getName());
 		}
 		if (!isset($this->methods[$key])) {
 			foreach ($this->methodsClassReflectionExtensions as $extension) {
@@ -118,12 +114,8 @@ class ClassReflection
 	public function getProperty(string $propertyName, Scope $scope = null): PropertyReflection
 	{
 		$key = $propertyName;
-		if ($scope !== null) {
-			if ($scope->isInAnonymousClass()) {
-				$key = sprintf('%s-%s', $key, $scope->getAnonymousClass()->getName());
-			} elseif ($scope->getClass() !== null) {
-				$key = sprintf('%s-%s', $key, $scope->getClass());
-			}
+		if ($scope !== null && $scope->isInClass()) {
+			$key = sprintf('%s-%s', $key, $scope->getClassReflection()->getName());
 		}
 		if (!isset($this->properties[$key])) {
 			foreach ($this->propertiesClassReflectionExtensions as $extension) {

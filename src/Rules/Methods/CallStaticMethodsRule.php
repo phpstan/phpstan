@@ -46,19 +46,18 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 		}
 
 		$name = $node->name;
-		$currentClass = $scope->getClass();
-		if ($currentClass === null) {
+		if (!$scope->isInClass()) {
 			return [];
 		}
 
-		$currentClassReflection = $this->broker->getClass($currentClass);
+		$currentClassReflection = $scope->getClassReflection();
 		if (!($node->class instanceof Name)) {
 			return [];
 		}
 
 		$class = (string) $node->class;
 		if ($class === 'self' || $class === 'static') {
-			$class = $currentClass;
+			$class = $currentClassReflection->getName();
 		}
 
 		if ($class === 'parent') {
@@ -66,10 +65,10 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 				return [
 					sprintf(
 						'%s::%s() calls to parent::%s() but %s does not extend any class.',
-						$currentClass,
+						$currentClassReflection->getName(),
 						$scope->getFunctionName(),
 						$name,
-						$currentClass
+						$currentClassReflection->getName()
 					),
 				];
 			}
@@ -131,7 +130,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 				!$function instanceof MethodReflection
 				|| $function->isStatic()
 				|| (
-					$scope->getClass() !== $class
+					$currentClassReflection->getName() !== $class
 					&& !$currentClassReflection->isSubclassOf($class)
 				)
 			) {

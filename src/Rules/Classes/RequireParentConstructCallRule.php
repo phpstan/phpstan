@@ -6,21 +6,10 @@ use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
-use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ClassReflection;
 
 class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 {
-
-	/**
-	 * @var \PHPStan\Broker\Broker
-	 */
-	private $broker;
-
-	public function __construct(Broker $broker)
-	{
-		$this->broker = $broker;
-	}
 
 	public function getNodeType(): string
 	{
@@ -38,12 +27,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		$className = $scope->getClass();
-		if ($className === null) {
-			return []; // anonymous class
-		}
-
-		$classReflection = $this->broker->getClass($className);
+		$classReflection = $scope->getClassReflection();
 		if ($classReflection->isInterface()) {
 			return [];
 		}
@@ -53,7 +37,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 				return [
 					sprintf(
 						'%s::__construct() calls parent constructor but does not extend any class.',
-						$className
+						$classReflection->getName()
 					),
 				];
 			}
@@ -62,7 +46,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 				return [
 					sprintf(
 						'%s::__construct() calls parent constructor but parent does not have one.',
-						$className
+						$classReflection->getName()
 					),
 				];
 			}
@@ -72,7 +56,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 				return [
 					sprintf(
 						'%s::__construct() does not call parent constructor from %s.',
-						$className,
+						$classReflection->getName(),
 						$parentClass->getName()
 					),
 				];

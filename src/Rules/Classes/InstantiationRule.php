@@ -46,22 +46,21 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 		$class = (string) $node->class;
 		if ($class === 'static') {
 			return [];
-		}
-
-		if ($class === 'self') {
-			$class = $scope->getClass();
-			if ($class === null) {
+		} elseif ($class === 'self') {
+			if (!$scope->isInClass()) {
 				return [];
 			}
+			$classReflection = $scope->getClassReflection();
+		} else {
+			if (!$this->broker->hasClass($class)) {
+				return [
+					sprintf('Instantiated class %s not found.', $class),
+				];
+			}
+
+			$classReflection = $this->broker->getClass($class);
 		}
 
-		if (!$this->broker->hasClass($class)) {
-			return [
-				sprintf('Instantiated class %s not found.', $class),
-			];
-		}
-
-		$classReflection = $this->broker->getClass($class);
 		if ($classReflection->isInterface()) {
 			return [
 				sprintf('Cannot instantiate interface %s.', $classReflection->getName()),
