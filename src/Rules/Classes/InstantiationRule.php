@@ -58,6 +58,23 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 				];
 			}
 			$classReflection = $scope->getClassReflection();
+		} elseif ($class === 'parent') {
+			if (!$scope->isInClass()) {
+				return [
+					sprintf('Using %s outside of class scope.', $class),
+				];
+			}
+			if ($scope->getClassReflection()->getParentClass() === false) {
+				return [
+					sprintf(
+						'%s::%s() calls new parent but %s does not extend any class.',
+						$scope->getClassReflection()->getName(),
+						$scope->getFunctionName(),
+						$scope->getClassReflection()->getName()
+					),
+				];
+			}
+			$classReflection = $scope->getClassReflection()->getParentClass();
 		} else {
 			if (!$this->broker->hasClass($class)) {
 				return [

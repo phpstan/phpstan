@@ -15,6 +15,7 @@ class InstantiatingClass
 		new self();
 		new self(1);
 		new static(); // not checked
+		new parent();
 	}
 
 }
@@ -37,4 +38,21 @@ function () {
 
 	new self();
 	new static();
+	new parent();
 };
+
+class ChildInstantiatingClass extends InstantiatingClass
+{
+
+	public function __construct(int $i, int $j)
+	{
+		parent::__construct($i);
+	}
+
+	public function doBar()
+	{
+		new parent();
+		new parent(1);
+	}
+
+}
