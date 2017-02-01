@@ -21,13 +21,24 @@ class AnalyseApplication
 	 */
 	private $memoryLimitFile;
 
+	/**
+	 * @var array
+	 */
+	private $fileExtensions;
+
 	/** @var \PHPStan\File\FileHelper */
 	private $fileHelper;
 
-	public function __construct(Analyser $analyser, string $memoryLimitFile, FileHelper $fileHelper)
+	public function __construct(
+		Analyser $analyser,
+		string $memoryLimitFile,
+		FileHelper $fileHelper,
+		array $fileExtensions
+	)
 	{
 		$this->analyser = $analyser;
 		$this->memoryLimitFile = $memoryLimitFile;
+		$this->fileExtensions = $fileExtensions;
 		$this->fileHelper = $fileHelper;
 	}
 
@@ -56,7 +67,7 @@ class AnalyseApplication
 				$files[] = $path;
 			} else {
 				$finder = new Finder();
-				foreach ($finder->files()->name('*.php')->in($path) as $fileInfo) {
+				foreach ($finder->files()->name('*.{' . implode(',', $this->fileExtensions) . '}')->in($path) as $fileInfo) {
 					$files[] = $fileInfo->getPathname();
 					$onlyFiles = false;
 				}
