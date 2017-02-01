@@ -45,10 +45,17 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 
 		$class = (string) $node->class;
 		if ($class === 'static') {
+			if (!$scope->isInClass()) {
+				return [
+					sprintf('Using %s outside of class scope.', $class),
+				];
+			}
 			return [];
 		} elseif ($class === 'self') {
 			if (!$scope->isInClass()) {
-				return [];
+				return [
+					sprintf('Using %s outside of class scope.', $class),
+				];
 			}
 			$classReflection = $scope->getClassReflection();
 		} else {

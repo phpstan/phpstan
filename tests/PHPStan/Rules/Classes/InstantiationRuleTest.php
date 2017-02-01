@@ -18,33 +18,44 @@ class InstantiationRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	public function testInstantiation()
 	{
-		require_once __DIR__ . '/data/instantiation-classes.php';
 		$this->analyse(
 			[__DIR__ . '/data/instantiation.php'],
 			[
 				[
+					'Class TestInstantiation\InstantiatingClass constructor invoked with 0 parameters, 1 required.',
+					15,
+				],
+				[
 					'Class TestInstantiation\FooInstantiation does not have a constructor and must be instantiated without any parameters.',
-					7,
+					25,
 				],
 				[
 					'Instantiated class TestInstantiation\FooBarInstantiation not found.',
-					8,
+					26,
 				],
 				[
 					'Class TestInstantiation\BarInstantiation constructor invoked with 0 parameters, 1 required.',
-					9,
+					27,
 				],
 				[
 					'Instantiated class TestInstantiation\LoremInstantiation is abstract.',
-					10,
+					28,
 				],
 				[
 					'Cannot instantiate interface TestInstantiation\IpsumInstantiation.',
-					11,
+					29,
 				],
 				[
 					'Class DatePeriod constructor invoked with 0 parameters, 1-4 required.',
-					17,
+					35,
+				],
+				[
+					'Using self outside of class scope.',
+					38,
+				],
+				[
+					'Using static outside of class scope.',
+					39,
 				],
 			]
 		);
