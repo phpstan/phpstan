@@ -175,6 +175,19 @@ parameters:
 		- %rootDir%/../../../tests/*/data/*
 ```
 
+### Include custom extensions
+
+If your codebase contains php files with extensions other than the standard .php extension then you can add them
+to the `fileExtensions` array parameter:
+
+```yaml
+parameters:
+	fileExtensions:
+		- php
+		- module
+		- inc
+```
+
 ### Universal object crates
 
 Classes without predefined structure are common in PHP applications.

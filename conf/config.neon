@@ -3,6 +3,8 @@ parameters:
 	excludes_analyse: []
 	autoload_directories: []
 	autoload_files: []
+	fileExtensions:
+		- php
 	checkFunctionArgumentTypes: false
 	enableUnionTypes: false
 	polluteScopeWithLoopInitialAssignments: false
@@ -65,6 +67,7 @@ services:
 		class: PHPStan\Command\AnalyseApplication
 		arguments:
 			memoryLimitFile: %memoryLimitFile%
+			fileExtensions: %fileExtensions%
 
 	-
 		class: PHPStan\File\FileHelper
