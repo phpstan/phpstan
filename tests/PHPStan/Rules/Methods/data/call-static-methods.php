@@ -88,3 +88,14 @@ class CheckConstructor extends ClassWithConstructor
 	}
 
 }
+
+function () {
+	self::someStaticMethod();
+	static::someStaticMethod();
+	parent::someStaticMethod();
+	Foo::test();
+	Foo::baz();
+	Foo::bar();
+	Foo::loremIpsum();
+	Foo::dolor();
+};

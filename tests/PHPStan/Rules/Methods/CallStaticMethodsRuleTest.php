@@ -18,7 +18,6 @@ class CallStaticMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	public function testCallStaticMethods()
 	{
-		require_once __DIR__ . '/data/call-static-methods.php';
 		$this->analyse([__DIR__ . '/data/call-static-methods.php'], [
 			[
 				'Call to an undefined static method CallStaticMethods\Foo::bar().',
@@ -41,7 +40,7 @@ class CallStaticMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				43,
 			],
 			[
-				'CallStaticMethods\Ipsum::ipsumTest() calls to parent::lorem() but CallStaticMethods\Ipsum does not extend any class.',
+				'CallStaticMethods\Ipsum::ipsumTest() calls parent::lorem() but CallStaticMethods\Ipsum does not extend any class.',
 				63,
 			],
 			[
@@ -59,6 +58,34 @@ class CallStaticMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			[
 				'Parent constructor invoked with 0 parameters, 1 required.',
 				87,
+			],
+			[
+				'Calling self::someStaticMethod() outside of class scope.',
+				93,
+			],
+			[
+				'Calling static::someStaticMethod() outside of class scope.',
+				94,
+			],
+			[
+				'Calling parent::someStaticMethod() outside of class scope.',
+				95,
+			],
+			[
+				'Call to protected static method baz() of class CallStaticMethods\Foo.',
+				97,
+			],
+			[
+				'Call to an undefined static method CallStaticMethods\Foo::bar().',
+				98,
+			],
+			[
+				'Static call to instance method CallStaticMethods\Foo::loremIpsum().',
+				99,
+			],
+			[
+				'Call to private static method dolor() of class CallStaticMethods\Foo.',
+				100,
 			],
 		]);
 	}
