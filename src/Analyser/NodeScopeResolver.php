@@ -206,11 +206,6 @@ class NodeScopeResolver
 				&& isset($node->args[0])
 			) {
 				$scope = $this->lookForTypeSpecifications($scope, $node->args[0]->value);
-			} elseif (
-				$node instanceof Assign
-				&& $node->var instanceof Array_
-			) {
-				$scope = $this->lookForArrayDestructuringArray($scope, $node->var);
 			}
 		}
 	}
@@ -254,6 +249,30 @@ class NodeScopeResolver
 			}
 		} elseif ($node instanceof Variable && is_string($node->name)) {
 			$scope = $scope->assignVariable($node->name);
+		} elseif ($node instanceof ArrayDimFetch && $node->var instanceof Variable && is_string($node->var->name)) {
+			$scope = $scope->assignVariable($node->var->name);
+		} elseif ($node instanceof List_) {
+			if (isset($node->items)) {
+				$nodeItems = $node->items;
+			} elseif (isset($node->vars)) {
+				$nodeItems = $node->vars;
+			} else {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+			foreach ($nodeItems as $item) {
+				if ($item === null) {
+					continue;
+				}
+				$itemValue = $item;
+				if ($itemValue instanceof ArrayItem) {
+					$itemValue = $itemValue->value;
+				}
+				if ($itemValue instanceof Variable && is_string($itemValue->name)) {
+					$scope = $scope->assignVariable($itemValue->name);
+				} else {
+					$scope = $this->lookForArrayDestructuringArray($scope, $itemValue);
+				}
+			}
 		}
 
 		return $scope;
@@ -332,7 +351,7 @@ class NodeScopeResolver
 					$scope = $scope->assignVariable($node->keyVar->name);
 				}
 
-				if ($node->valueVar instanceof Array_) {
+				if ($node->valueVar instanceof List_ || $node->valueVar instanceof Array_) {
 					$scope = $this->lookForArrayDestructuringArray($scope, $node->valueVar);
 				} else {
 					$scope = $this->lookForAssigns($scope, $node->valueVar);
@@ -733,30 +752,6 @@ class NodeScopeResolver
 			$scope = $this->lookForAssigns($scope, $node->expr);
 		} elseif ($node instanceof Ternary) {
 			$scope = $this->lookForAssigns($scope, $node->cond);
-		} elseif ($node instanceof List_) {
-			if (isset($node->items)) {
-				$nodeItems = $node->items;
-			} elseif (isset($node->vars)) {
-				$nodeItems = $node->vars;
-			} else {
-				throw new \PHPStan\ShouldNotHappenException();
-			}
-			foreach ($nodeItems as $item) {
-				if ($item === null) {
-					continue;
-				}
-				$itemValue = $item;
-				if ($itemValue instanceof ArrayItem) {
-					$itemValue = $itemValue->value;
-				}
-				if ($itemValue instanceof Variable && is_string($itemValue->name)) {
-					$scope = $scope->assignVariable($itemValue->name);
-				} elseif ($itemValue instanceof ArrayDimFetch && $itemValue->var instanceof Variable && is_string($itemValue->var->name)) {
-					$scope = $scope->assignVariable($itemValue->var->name);
-				} else {
-					$scope = $this->lookForAssigns($scope, $itemValue);
-				}
-			}
 		} elseif ($node instanceof Array_) {
 			foreach ($node->items as $item) {
 				if ($item->key !== null) {
@@ -881,6 +876,9 @@ class NodeScopeResolver
 			}
 
 			if ($node instanceof Assign || $node instanceof AssignRef) {
+				if ($node->var instanceof Array_ || $node->var instanceof List_) {
+					$scope = $this->lookForArrayDestructuringArray($scope, $node->var);
+				}
 				$scope = $this->lookForAssigns($scope, $node->expr);
 				$comment = CommentHelper::getDocComment($node);
 				if ($comment !== null && $node->var instanceof Variable && is_string($node->var->name)) {

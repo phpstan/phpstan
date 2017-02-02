@@ -97,7 +97,20 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		if (self::isObsoletePhpParserVersion()) {
 			$this->markTestSkipped('Test requires PHP-Parser ^3.0.0');
 		}
-		$this->analyse([__DIR__ . '/data/defined-variables-array-destructuring-short-syntax.php'], []);
+		$this->analyse([__DIR__ . '/data/defined-variables-array-destructuring-short-syntax.php'], [
+			[
+				'Undefined variable: $f',
+				11,
+			],
+			[
+				'Undefined variable: $f',
+				14,
+			],
+			[
+				'Undefined variable: $var3',
+				32,
+			],
+		]);
 	}
 
 }
