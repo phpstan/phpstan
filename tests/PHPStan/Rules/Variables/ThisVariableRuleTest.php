@@ -22,7 +22,7 @@ class ThisVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				24,
 			],
 			[
-				'sing $this in static method class@anonymous',
+				'Using $this in static method class@anonymous',
 				36,
 				false,
 			],
