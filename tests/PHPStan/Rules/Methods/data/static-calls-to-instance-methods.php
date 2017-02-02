@@ -44,6 +44,8 @@ class Bar extends Foo
 		Foo::doProtectedFoo();
 		Foo::doPrivateFoo();
 		Bar::doBar();
+		static::doFoo();
+		static::doFoo(1);
 	}
 
 }

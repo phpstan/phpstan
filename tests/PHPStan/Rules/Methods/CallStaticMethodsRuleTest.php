@@ -137,6 +137,10 @@ class CallStaticMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Call to private method doPrivateFoo() of class StaticCallsToInstanceMethods\Foo.',
 				45,
 			],
+			[
+				'Method StaticCallsToInstanceMethods\Foo::doFoo() invoked with 1 parameter, 0 required.',
+				48,
+			],
 		]);
 	}
 
