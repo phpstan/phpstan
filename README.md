@@ -70,7 +70,7 @@ composer require --dev phpstan/phpstan
 
 Composer will install PHPStan's executable in its `bin-dir` which defaults to `vendor/bin`.
 
-You can also use [PHPStan via Docker](https://github.com/tommy-muehle/docker-phpstan).
+You can also use [PHPStan via Docker](https://github.com/phpstan/docker-image).
 
 ## First run
 
