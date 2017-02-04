@@ -481,7 +481,7 @@ class Scope
 				}
 			}
 
-			if (isset($constantClass)) {
+			if (isset($constantClass) && is_string($node->name)) {
 				$constantName = $node->name;
 				if (strtolower($constantName) === 'class') {
 					return new StringType(false);

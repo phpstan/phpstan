@@ -84,7 +84,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 			];
 		}
 
-		if ($constantName === 'class') {
+		if (!is_string($constantName) || $constantName === 'class') {
 			return [];
 		}
 
