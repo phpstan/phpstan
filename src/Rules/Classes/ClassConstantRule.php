@@ -82,7 +82,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 			$classReflection = $this->broker->getClass($className);
 		}
 
-		if ($constantName === 'class') {
+		if (!is_string($constantName) || $constantName === 'class') {
 			return [];
 		}
 
