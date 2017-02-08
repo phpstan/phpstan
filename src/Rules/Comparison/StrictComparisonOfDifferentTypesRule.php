@@ -62,10 +62,11 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 		if (!$isSameType) {
 			return [
 				sprintf(
-					'Strict comparison using %s between %s and %s will always evaluate to false.',
+					'Strict comparison using %s between %s and %s will always evaluate to %s.',
 					$node instanceof Node\Expr\BinaryOp\Identical ? '===' : '!==',
 					$leftType->describe(),
-					$rightType->describe()
+					$rightType->describe(),
+					$node instanceof Node\Expr\BinaryOp\Identical ? 'false' : 'true'
 				),
 			];
 		}
