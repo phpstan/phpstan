@@ -477,13 +477,11 @@ use PHPStan\Reflection\MethodReflection;
 
 interface DynamicMethodReturnTypeExtension
 {
-
 	public static function getClass(): string;
 
 	public function isMethodSupported(MethodReflection $methodReflection): bool;
 
 	public function getTypeFromMethodCall(MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope): Type;
-
 }
 ```
 
