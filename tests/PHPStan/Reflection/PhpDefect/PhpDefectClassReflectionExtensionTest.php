@@ -3,6 +3,7 @@
 namespace PHPStan\Reflection\PhpDefect;
 
 use PHPStan\Broker\Broker;
+use XMLReader;
 use ZipArchive;
 
 class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
@@ -11,6 +12,7 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 	/**
 	 * @dataProvider dataDateIntervalProperties
 	 * @dataProvider dataDomDocumentProperties
+	 * @dataProvider dataXmlReaderProperties
 	 * @dataProvider dataZipArchiveProperties
 	 *
 	 * @param string $className
@@ -95,7 +97,31 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 		];
 	}
 
-
+	public function dataXmlReaderProperties(): array
+	{
+		return [
+			[
+				XMLReader::class,
+				XMLReader::class,
+				[
+					'attributeCount' => 'int',
+					'baseURI' => 'string',
+					'depth' => 'int',
+					'hasAttributes' => 'bool',
+					'hasValue' => 'bool',
+					'isDefault' => 'bool',
+					'isEmptyElement' => 'bool',
+					'localName' => 'string',
+					'name' => 'string',
+					'namespaceURI' => 'string',
+					'nodeType' => 'int',
+					'prefix' => 'string',
+					'value' => 'string',
+					'xmlLang' => 'string',
+				],
+			],
+		];
+	}
 
 	public function dataZipArchiveProperties(): array
 	{
