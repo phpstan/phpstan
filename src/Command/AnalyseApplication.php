@@ -22,7 +22,7 @@ class AnalyseApplication
 	private $memoryLimitFile;
 
 	/**
-	 * @var array
+	 * @var string[]
 	 */
 	private $fileExtensions;
 

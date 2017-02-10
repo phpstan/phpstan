@@ -62,7 +62,7 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 	}
 
 	/**
-	 * @phpcsSuppress SlevomatCodingStandard.Typehints.TypeHintDeclaration.missingParameterTypeHint
+	 * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
 	 * @param int $max
 	 */
 	public function createProgressBar($max = 0): ProgressBar
@@ -72,7 +72,7 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 	}
 
 	/**
-	 * @phpcsSuppress SlevomatCodingStandard.Typehints.TypeHintDeclaration.missingParameterTypeHint
+	 * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
 	 * @param int $max
 	 */
 	public function progressStart($max = 0)
@@ -84,7 +84,7 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 	}
 
 	/**
-	 * @phpcsSuppress SlevomatCodingStandard.Typehints.TypeHintDeclaration.missingParameterTypeHint
+	 * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
 	 * @param int $step
 	 */
 	public function progressAdvance($step = 1)

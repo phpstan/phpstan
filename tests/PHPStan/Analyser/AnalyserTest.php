@@ -73,7 +73,7 @@ class AnalyserTest extends \PHPStan\TestCase
 	 * @param string $filePath
 	 * @param string[] $analyseExcludes
 	 * @param string[] $ignoreErrors
-	 * @param integer $errorsCount
+	 * @param int $errorsCount
 	 */
 	public function testExclude(string $filePath, array $analyseExcludes, array $ignoreErrors, int $errorsCount)
 	{

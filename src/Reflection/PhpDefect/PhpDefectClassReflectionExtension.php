@@ -10,6 +10,7 @@ use PHPStan\Type\TypehintHelper;
 class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExtension
 {
 
+	/** @var string[][] */
 	private $properties = [
 		'DateInterval' => [
 			'y' => 'int',

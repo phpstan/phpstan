@@ -4,21 +4,27 @@
 		<exclude name="Squiz.Functions.GlobalFunction.Found"/>
 	</rule>
 	<rule ref="vendor/slevomat/coding-standard/SlevomatCodingStandard/ruleset.xml">
+		<exclude name="SlevomatCodingStandard.Classes.ClassConstantVisibility.MissingConstantVisibility"/>
 		<exclude name="SlevomatCodingStandard.Files.TypeNameMatchesFileName"/>
 		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameAfterKeyword"/>
 		<exclude name="SlevomatCodingStandard.Namespaces.UseOnlyWhitelistedNamespaces"/>
 		<exclude name="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly"/>
+		<exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableParameterTypeHintSpecification"/>
+		<exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableReturnTypeHintSpecification"/>
+		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation.NonFullyQualifiedClassName"/>
 	</rule>
 	<rule ref="Squiz.PHP.InnerFunctions.NotAllowed">
 		<exclude-pattern>tests/TestCase.php</exclude-pattern>
 		<exclude-pattern>tests/PHPStan/Analyser/NodeScopeResolverTest.php</exclude-pattern>
 	</rule>
-	<rule ref="SlevomatCodingStandard.Typehints.TypeHintDeclaration">
+	<rule ref="SlevomatCodingStandard.TypeHints.TypeHintDeclaration">
 		<properties>
 			<property name="usefulAnnotations" type="array" value="
 				@dataProvider,
 				@requires
 			"/>
+			<property name="enableNullableTypeHints" type="false" />
+			<property name="enableVoidTypeHint" type="false" />
 		</properties>
 	</rule>
 	<rule ref="Generic.Strings.UnnecessaryStringConcat.Found">
