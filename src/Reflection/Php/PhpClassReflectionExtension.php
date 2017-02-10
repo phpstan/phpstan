@@ -27,8 +27,10 @@ class PhpClassReflectionExtension
 	/** @var \PHPStan\Broker\Broker */
 	private $broker;
 
+	/** @var \PHPStan\Reflection\PropertyReflection[][] */
 	private $properties = [];
 
+	/** @var \PHPStan\Reflection\MethodReflection[][] */
 	private $methods = [];
 
 	public function __construct(

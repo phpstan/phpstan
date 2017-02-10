@@ -110,7 +110,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param \PHPStan\Reflection\ClassReflection $classReflection
 	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return \PHPStan\Reflection\ClassReflection|boolean
+	 * @return \PHPStan\Reflection\ClassReflection|bool
 	 */
 	private function getParentConstructorClass(ClassReflection $classReflection, Scope $scope)
 	{
