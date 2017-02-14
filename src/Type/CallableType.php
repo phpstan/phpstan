@@ -78,6 +78,10 @@ class CallableType implements Type
 			return true;
 		}
 
+		if ($type->getClass() !== null && method_exists($type->getClass(), '__invoke')) {
+			return true;
+		}
+
 		if ($type instanceof UnionType && UnionTypeHelper::acceptsAll($this, $type)) {
 			return true;
 		}

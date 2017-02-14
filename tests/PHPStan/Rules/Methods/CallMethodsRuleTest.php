@@ -380,4 +380,15 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$this->analyse([__DIR__ . '/data/negated-instanceof.php'], []);
 	}
 
+	public function testInvokeMagicInvokeMethod()
+	{
+		$this->checkThisOnly = false;
+		$this->analyse([__DIR__ . '/data/invoke-magic-method.php'], [
+			[
+				'Parameter #1 $foo of method InvokeMagicInvokeMethod\ClassForCallable::doFoo() expects callable, InvokeMagicInvokeMethod\ClassForCallable given.',
+				27,
+			],
+		]);
+	}
+
 }
