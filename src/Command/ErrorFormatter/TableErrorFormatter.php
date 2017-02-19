@@ -1,12 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace PHPStan\Command;
+namespace PHPStan\Command\ErrorFormatter;
 
 use PHPStan\File\FileHelper;
+use PHPStan\Command\AnalyseCommand;
 
 use Symfony\Component\Console\Style\StyleInterface;
 
-class PrettyErrorFormatter implements ErrorFormatter
+class TableErrorFormatter implements ErrorFormatter
 {
 
 	/** @var \PHPStan\File\FileHelper */

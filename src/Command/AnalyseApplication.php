@@ -5,6 +5,7 @@ namespace PHPStan\Command;
 use PHPStan\Analyser\Analyser;
 use PHPStan\Analyser\Error;
 use PHPStan\File\FileHelper;
+use PHPStan\Command\ErrorFormatter\ErrorFormatter;
 use Symfony\Component\Console\Style\StyleInterface;
 use Symfony\Component\Finder\Finder;
 
@@ -29,17 +30,22 @@ class AnalyseApplication
 	/** @var \PHPStan\File\FileHelper */
 	private $fileHelper;
 
+	/** @var \PHPStan\Command\ErrorFormatter\ErrorFormatter */
+	private $errorFormatter;
+
 	public function __construct(
 		Analyser $analyser,
 		string $memoryLimitFile,
 		FileHelper $fileHelper,
-		array $fileExtensions
+		array $fileExtensions,
+		ErrorFormatter $errorFormatter
 	)
 	{
 		$this->analyser = $analyser;
 		$this->memoryLimitFile = $memoryLimitFile;
 		$this->fileExtensions = $fileExtensions;
 		$this->fileHelper = $fileHelper;
+		$this->errorFormatter = $errorFormatter;
 	}
 
 	/**
@@ -49,7 +55,7 @@ class AnalyseApplication
 	 * @param ErrorFormatter $formatter
 	 * @return int Error code.
 	 */
-	public function analyse(array $paths, StyleInterface $style, bool $defaultLevelUsed, ErrorFormatter $formatter): int
+	public function analyse(array $paths, StyleInterface $style, bool $defaultLevelUsed): int
 	{
 		$errors = [];
 		$files = [];
@@ -100,7 +106,7 @@ class AnalyseApplication
 			$style->progressFinish();
 		}
 
-		return $formatter->formatErrors($errors, $paths, $style);
+		return $this->errorFormatter->formatErrors($errors, $paths, $style);
 	}
 
 	private function updateMemoryLimitFile()

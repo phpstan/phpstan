@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace PHPStan\Command;
+namespace PHPStan\Command\ErrorFormatter;
 
 use Symfony\Component\Console\Style\StyleInterface;
 
