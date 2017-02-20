@@ -113,7 +113,7 @@ There's also **experimental** level 5 that currently enables:
 Config file is passed to the `phpstan` executable with `-c` option:
 
 ```
-vendor/bin/phpstan analyse -l 4 -c phpstan.neon src tests
+vendor/bin/phpstan analyse -l4 -c phpstan.neon src tests
 ```
 
 When using a custom project config file, you have to pass the `--level` (`-l`)
