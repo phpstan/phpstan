@@ -141,11 +141,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 			$robotLoader->acceptFiles = '*.' . implode(', *.', $container->parameters['fileExtensions']);
 
-			if (method_exists($robotLoader, 'setCacheStorage')) {
-				$robotLoader->setCacheStorage(new \Nette\Caching\Storages\MemoryStorage());
-			} elseif (method_exists($robotLoader, 'setTempDirectory')) {
-				$robotLoader->setTempDirectory($tmpDir);
-			}
+			$robotLoader->setTempDirectory($tmpDir);
 			foreach ($container->parameters['autoload_directories'] as $directory) {
 				$robotLoader->addDirectory($directory);
 			}
