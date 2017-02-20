@@ -144,6 +144,12 @@ parameters:
 
 `%rootDir%` is expanded to the root directory where PHPStan resides.
 
+Additionally you can define directories to scan with the `--additional-autoload-dir|-d` option:
+
+```
+vendor/bin/phpstan analyse -c phpstan.neon --additional-autoload-dir /path/to/other/classes src test
+```
+
 #### Autoloading for global installation
 
 PHPStan supports global installation using [`composer global`](https://getcomposer.org/doc/03-cli.md#global).
