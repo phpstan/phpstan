@@ -20,7 +20,7 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Rules\AbstractRu
 					11,
 				],
 				[
-					'Strict comparison using !== between int and string will always evaluate to true.',
+					'Strict comparison using !== between int and string will always evaluate to false.',
 					12,
 				],
 				[
