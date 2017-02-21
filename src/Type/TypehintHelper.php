@@ -63,6 +63,8 @@ class TypehintHelper
 				return new StringType($isNullable);
 			case 'float':
 				return new FloatType($isNullable);
+			case 'scalar':
+				return new CommonUnionType([new IntegerType(false), new FloatType(false), new StringType(false), new TrueOrFalseBooleanType(false)], $isNullable);
 			case 'array':
 				return new ArrayType(new MixedType(), $isNullable);
 			case 'iterable':

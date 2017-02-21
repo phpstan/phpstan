@@ -172,6 +172,18 @@ class Foo extends FooParent implements FooInterface
 		return 1;
 		return null;
 	}
+
+	/**
+	 * @return scalar
+	 */
+	public function returnScalar()
+	{
+		return 1;
+		return 10.1;
+		return 'a';
+		return false;
+		return new \stdClass();
+	}
 }
 
 class FooChild extends Foo
