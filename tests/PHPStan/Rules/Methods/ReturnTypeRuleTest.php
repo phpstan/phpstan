@@ -123,6 +123,10 @@ class ReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Method ReturnTypes\Foo::returnsPhpDocParent() should return ReturnTypes\FooParent but returns null.',
 				173,
 			],
+			[
+				'Method ReturnTypes\Foo::returnScalar() should return int|float|string|bool but returns stdClass.',
+				185,
+			],
 		]);
 	}
 
