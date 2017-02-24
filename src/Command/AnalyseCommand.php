@@ -162,7 +162,9 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 	private function handleReturn(int $code, string $memoryLimitFile): int
 	{
-		unlink($memoryLimitFile);
+		if (file_exists($memoryLimitFile)) {
+			unlink($memoryLimitFile);
+		}
 		return $code;
 	}
 
