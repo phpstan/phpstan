@@ -18,7 +18,7 @@ use PHPStan\Reflection\PhpDefect\PhpDefectClassReflectionExtension;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Type;
 
-abstract class TestCase extends \PHPUnit_Framework_TestCase
+abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
 
 	/**
