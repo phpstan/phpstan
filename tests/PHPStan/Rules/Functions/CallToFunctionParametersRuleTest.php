@@ -78,6 +78,24 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$this->analyse([__DIR__ . '/data/call-to-array-map-unique.php'], []);
 	}
 
+	public function testCallToArrayUdiff()
+	{
+		$this->analyse([__DIR__ . '/data/call-to-array-udiff.php'], [
+			[
+				'Function array_udiff invoked with 2 parameters, at least 3 required.',
+				6,
+			],
+			[
+				'Function array_udiff_assoc invoked with 2 parameters, at least 3 required.',
+				7,
+			],
+			[
+				'Function array_udiff_uassoc invoked with 2 parameters, at least 4 required.',
+				8,
+			],
+		]);
+	}
+
 	public function testCallToWeirdFunctions()
 	{
 		$this->analyse([__DIR__ . '/data/call-to-weird-functions.php'], [
