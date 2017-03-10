@@ -9,6 +9,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Style\StyleInterface;
 
 class AnalyseCommand extends \Symfony\Component\Console\Command\Command
@@ -41,6 +42,10 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
+        if ($output instanceof ConsoleOutputInterface) {
+            $stderr = $output->getErrorOutput();
+        }
+
 		$autoloadFile = $input->getOption('autoload-file');
 		if ($autoloadFile !== null && is_file($autoloadFile)) {
 			require_once $autoloadFile;
@@ -71,7 +76,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		if ($levelOption !== null) {
 			$levelConfigFile = sprintf('%s/config.level%s.neon', $confDir, $levelOption);
 			if (!is_file($levelConfigFile)) {
-				$output->writeln(sprintf('Level config file %s was not found.', $levelConfigFile));
+				$stderr->writeln(sprintf('Level config file %s was not found.', $levelConfigFile));
 				return 1;
 			}
 
@@ -80,7 +85,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 		if ($projectConfigFile !== null) {
 			if (!is_file($projectConfigFile)) {
-				$output->writeln(sprintf('Project config file at path %s does not exist.', $projectConfigFile));
+				$stderr->writeln(sprintf('Project config file at path %s does not exist.', $projectConfigFile));
 				return 1;
 			}
 
@@ -99,10 +104,11 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 		$configurator->addParameters($parameters);
 		$container = $configurator->createContainer();
+		$errorStyle = new ErrorsConsoleStyle($input, $stderr);
 		$consoleStyle = new ErrorsConsoleStyle($input, $output);
 		$memoryLimitFile = $container->parameters['memoryLimitFile'];
 		if (file_exists($memoryLimitFile)) {
-			$consoleStyle->note(sprintf(
+			$errorStyle->note(sprintf(
 				"PHPStan crashed in the previous run probably because of excessive memory consumption.\nIt consumed around %s of memory.\n\nTo avoid this issue, increase the memory_limit directive in your php.ini file here:\n%s\n\nIf you can't or don't want to change the system-wide memory limit, run PHPStan like this:\n%s",
 				file_get_contents($memoryLimitFile),
 				php_ini_loaded_file(),
@@ -111,22 +117,22 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			unlink($memoryLimitFile);
 		}
 		if (PHP_VERSION_ID >= 70100 && !property_exists(Catch_::class, 'types')) {
-			$consoleStyle->note(
+			$errorStyle->note(
 				'You\'re running PHP >= 7.1, but you still have PHP-Parser version 2.x. This will lead to parse errors in case you use PHP 7.1 syntax like nullable parameters, iterable and void typehints, union exception types, or class constant visibility. Update to PHP-Parser 3.x to dismiss this message.'
 			);
 		}
-		$this->setUpSignalHandler($consoleStyle, $memoryLimitFile);
+		$this->setUpSignalHandler($errorStyle, $memoryLimitFile);
 		if (!isset($container->parameters['customRulesetUsed'])) {
-			$output->writeln('');
-			$output->writeln('<comment>No rules detected</comment>');
-			$output->writeln('');
-			$output->writeln('You have the following choices:');
-			$output->writeln('');
-			$output->writeln('* while running the analyse option, use the <info>--level</info> option to adjust your rule level - the higher the stricter');
-			$output->writeln('');
-			$output->writeln(sprintf('* create your own <info>custom ruleset</info> by selecting which rules you want to check by copying the service definitions from the built-in config level files in <options=bold>%s</>.', $fileHelper->normalizePath(__DIR__ . '/../../conf')));
-			$output->writeln('  * in this case, don\'t forget to define parameter <options=bold>customRulesetUsed</> in your config file.');
-			$output->writeln('');
+			$stderr->writeln('');
+			$stderr->writeln('<comment>No rules detected</comment>');
+			$stderr->writeln('');
+			$stderr->writeln('You have the following choices:');
+			$stderr->writeln('');
+			$stderr->writeln('* while running the analyse option, use the <info>--level</info> option to adjust your rule level - the higher the stricter');
+			$stderr->writeln('');
+			$stderr->writeln(sprintf('* create your own <info>custom ruleset</info> by selecting which rules you want to check by copying the service definitions from the built-in config level files in <options=bold>%s</>.', $fileHelper->normalizePath(__DIR__ . '/../../conf')));
+			$stderr->writeln('  * in this case, don\'t forget to define parameter <options=bold>customRulesetUsed</> in your config file.');
+			$stderr->writeln('');
 			return $this->handleReturn(1, $memoryLimitFile);
 		} elseif ($container->parameters['customRulesetUsed']) {
 			$defaultLevelUsed = false;
@@ -154,6 +160,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			$application->analyse(
 				$input->getArgument('paths'),
 				$consoleStyle,
+                $errorStyle,
 				$defaultLevelUsed
 			),
 			$memoryLimitFile

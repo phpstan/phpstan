@@ -48,7 +48,7 @@ class AnalyseApplication
 	 * @param bool $defaultLevelUsed
 	 * @return int
 	 */
-	public function analyse(array $paths, StyleInterface $style, bool $defaultLevelUsed): int
+	public function analyse(array $paths, StyleInterface $style, StyleInterface $errorStyle, bool $defaultLevelUsed): int
 	{
 		$errors = [];
 		$files = [];
@@ -82,12 +82,12 @@ class AnalyseApplication
 		$errors = array_merge($errors, $this->analyser->analyse(
 			$files,
 			$onlyFiles,
-			function () use ($style, &$progressStarted, $files, &$fileOrder) {
+			function () use ($errorStyle, &$progressStarted, $files, &$fileOrder) {
 				if (!$progressStarted) {
-					$style->progressStart(count($files));
+					$errorStyle->progressStart(count($files));
 					$progressStarted = true;
 				}
-				$style->progressAdvance();
+				$errorStyle->progressAdvance();
 				if ($fileOrder % 100 === 0) {
 					$this->updateMemoryLimitFile();
 				}
@@ -96,13 +96,13 @@ class AnalyseApplication
 		));
 
 		if ($progressStarted) {
-			$style->progressFinish();
+			$errorStyle->progressFinish();
 		}
 
 		if (count($errors) === 0) {
-			$style->success('No errors');
+			$errorStyle->success('No errors');
 			if ($defaultLevelUsed) {
-				$style->note(sprintf(
+				$errorStyle->note(sprintf(
 					'PHPStan is performing only the most basic checks. You can pass a higher rule level through the --%s option (the default and current level is %d) to analyse code more thoroughly.',
 					AnalyseCommand::OPTION_LEVEL,
 					AnalyseCommand::DEFAULT_LEVEL
@@ -120,37 +120,9 @@ class AnalyseApplication
 			return $filename;
 		};
 
-		$fileErrors = [];
-		$notFileSpecificErrors = [];
 		$totalErrorsCount = count($errors);
 
-		foreach ($errors as $error) {
-			if (is_string($error)) {
-				$notFileSpecificErrors[] = [$error];
-				continue;
-			}
-			if (!isset($fileErrors[$error->getFile()])) {
-				$fileErrors[$error->getFile()] = [];
-			}
-
-			$fileErrors[$error->getFile()][] = $error;
-		}
-
-		foreach ($fileErrors as $file => $errors) {
-			$rows = [];
-			foreach ($errors as $error) {
-				$rows[] = [
-					(string) $error->getLine(),
-					$error->getMessage(),
-				];
-			}
-
-			$style->table(['Line', $cropFilename($file)], $rows);
-		}
-
-		if (count($notFileSpecificErrors) > 0) {
-			$style->table(['Error'], $notFileSpecificErrors);
-		}
+        $style->listing($errors);
 
 		$style->error(sprintf($totalErrorsCount === 1 ? 'Found %d error' : 'Found %d errors', $totalErrorsCount));
 
