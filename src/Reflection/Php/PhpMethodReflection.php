@@ -202,6 +202,19 @@ class PhpMethodReflection implements MethodReflection
 					true
 				);
 			}
+			if (
+				$this->declaringClass->getName() === 'ReflectionClass'
+				&& $this->reflection->getName() === 'newInstance'
+				&& count($this->parameters) === 1
+			) {
+				$this->parameters[0] = new DummyParameter(
+					'args',
+					new MixedType(),
+					true,
+					false,
+					true
+				);
+			}
 		}
 
 		return $this->parameters;
@@ -220,6 +233,10 @@ class PhpMethodReflection implements MethodReflection
 				|| (
 					$this->declaringClass->getName() === 'Closure'
 					&& $this->reflection->getName() === '__invoke'
+				)
+				|| (
+					$this->declaringClass->getName() === 'ReflectionClass'
+					&& $this->reflection->getName() === 'newInstance'
 				)
 			)
 		) {
