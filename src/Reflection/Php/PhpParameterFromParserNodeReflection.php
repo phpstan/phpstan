@@ -11,82 +11,80 @@ use PHPStan\Type\TypehintHelper;
 class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\ParameterReflection
 {
 
-	/** @var string */
-	private $name;
+    /** @var string */
+    private $name;
 
-	/** @var bool */
-	private $optional;
+    /** @var bool */
+    private $optional;
 
-	/** @var \PHPStan\Type\Type */
-	private $realType;
+    /** @var \PHPStan\Type\Type */
+    private $realType;
 
-	/** @var \PHPStan\Type\Type|null */
-	private $phpDocType;
+    /** @var \PHPStan\Type\Type|null */
+    private $phpDocType;
 
-	/** @var bool */
-	private $passedByReference;
+    /** @var bool */
+    private $passedByReference;
 
-	/** @var \PhpParser\Node\Expr|null */
-	private $defaultValue;
+    /** @var \PhpParser\Node\Expr|null */
+    private $defaultValue;
 
-	/** @var bool */
-	private $variadic;
+    /** @var bool */
+    private $variadic;
 
-	/** @var \PHPStan\Type\Type */
-	private $type;
+    /** @var \PHPStan\Type\Type */
+    private $type;
 
-	public function __construct(
-		string $name,
-		bool $optional,
-		Type $realType,
-		Type $phpDocType = null,
-		bool $passedByReference,
-		Expr $defaultValue = null,
-		bool $variadic
-	)
-	{
-		$this->name = $name;
-		$this->optional = $optional;
-		$this->realType = $realType;
-		$this->phpDocType = $phpDocType;
-		$this->passedByReference = $passedByReference;
-		$this->defaultValue = $defaultValue;
-		$this->variadic = $variadic;
-	}
+    public function __construct(
+        string $name,
+        bool $optional,
+        Type $realType,
+        Type $phpDocType = null,
+        bool $passedByReference,
+        Expr $defaultValue = null,
+        bool $variadic
+    ) {
+        $this->name = $name;
+        $this->optional = $optional;
+        $this->realType = $realType;
+        $this->phpDocType = $phpDocType;
+        $this->passedByReference = $passedByReference;
+        $this->defaultValue = $defaultValue;
+        $this->variadic = $variadic;
+    }
 
-	public function getName(): string
-	{
-		return $this->name;
-	}
+    public function getName(): string
+    {
+        return $this->name;
+    }
 
-	public function isOptional(): bool
-	{
-		return $this->optional;
-	}
+    public function isOptional(): bool
+    {
+        return $this->optional;
+    }
 
-	public function getType(): Type
-	{
-		if ($this->type === null) {
-			$phpDocType = $this->phpDocType;
-			if ($phpDocType !== null && $this->defaultValue !== null) {
-				if ($this->defaultValue instanceof ConstFetch && $this->defaultValue->name instanceof Name) {
-					$phpDocType = $phpDocType->makeNullable();
-				}
-			}
-			$this->type = TypehintHelper::decideType($this->realType, $phpDocType);
-		}
+    public function getType(): Type
+    {
+        if ($this->type === null) {
+            $phpDocType = $this->phpDocType;
+            if ($phpDocType !== null && $this->defaultValue !== null) {
+                if ($this->defaultValue instanceof ConstFetch && $this->defaultValue->name instanceof Name) {
+                    $phpDocType = $phpDocType->makeNullable();
+                }
+            }
+            $this->type = TypehintHelper::decideType($this->realType, $phpDocType);
+        }
 
-		return $this->type;
-	}
+        return $this->type;
+    }
 
-	public function isPassedByReference(): bool
-	{
-		return $this->passedByReference;
-	}
+    public function isPassedByReference(): bool
+    {
+        return $this->passedByReference;
+    }
 
-	public function isVariadic(): bool
-	{
-		return $this->variadic;
-	}
-
+    public function isVariadic(): bool
+    {
+        return $this->variadic;
+    }
 }

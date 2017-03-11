@@ -9,44 +9,42 @@ use PHPStan\Type\Type;
 class PhpDefectPropertyReflection implements PropertyReflection
 {
 
-	/** @var \PHPStan\Reflection\ClassReflection */
-	private $declaringClass;
+    /** @var \PHPStan\Reflection\ClassReflection */
+    private $declaringClass;
 
-	/** @var \PHPStan\Type\Type */
-	private $type;
+    /** @var \PHPStan\Type\Type */
+    private $type;
 
-	public function __construct(
-		ClassReflection $declaringClass,
-		Type $type
-	)
-	{
-		$this->declaringClass = $declaringClass;
-		$this->type = $type;
-	}
+    public function __construct(
+        ClassReflection $declaringClass,
+        Type $type
+    ) {
+        $this->declaringClass = $declaringClass;
+        $this->type = $type;
+    }
 
-	public function getDeclaringClass(): ClassReflection
-	{
-		return $this->declaringClass;
-	}
+    public function getDeclaringClass(): ClassReflection
+    {
+        return $this->declaringClass;
+    }
 
-	public function isStatic(): bool
-	{
-		return false;
-	}
+    public function isStatic(): bool
+    {
+        return false;
+    }
 
-	public function isPrivate(): bool
-	{
-		return false;
-	}
+    public function isPrivate(): bool
+    {
+        return false;
+    }
 
-	public function isPublic(): bool
-	{
-		return true;
-	}
+    public function isPublic(): bool
+    {
+        return true;
+    }
 
-	public function getType(): Type
-	{
-		return $this->type;
-	}
-
+    public function getType(): Type
+    {
+        return $this->type;
+    }
 }

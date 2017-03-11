@@ -4,25 +4,24 @@ $array = [1, 2, 3, [4, 5]];
 [$a, $b, $c, [$d, $e]] = $array;
 
 foreach ($array as [$destructuredA, $destructuredB, [$destructuredC, $destructuredD]]) {
-
 }
 
 $anotherArray = [
-	$f,
+    $f,
 ];
 echo $anotherArray;
 echo $f;
 
 if (true) {
-	[$var1] = [1];
-	list($var2) = [1];
+    [$var1] = [1];
+    list($var2) = [1];
 } elseif (true) {
-	$var1 = 1;
-	$var2 = 1;
+    $var1 = 1;
+    $var2 = 1;
 } else {
-	$var1 = 1;
-	$var2 = 2;
-	[$var3] = 1;
+    $var1 = 1;
+    $var2 = 2;
+    [$var3] = 1;
 }
 
 [$var4] = [1];

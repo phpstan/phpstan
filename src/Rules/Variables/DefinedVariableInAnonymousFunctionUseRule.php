@@ -8,30 +8,28 @@ use PHPStan\Analyser\Scope;
 
 class DefinedVariableInAnonymousFunctionUseRule implements \PHPStan\Rules\Rule
 {
+    public function getNodeType(): string
+    {
+        return ClosureUse::class;
+    }
 
-	public function getNodeType(): string
-	{
-		return ClosureUse::class;
-	}
+    /**
+     * @param \PhpParser\Node\Expr\ClosureUse $node
+     * @param \PHPStan\Analyser\Scope $scope
+     * @return string[]
+     */
+    public function processNode(Node $node, Scope $scope): array
+    {
+        if ($node->byRef) {
+            return [];
+        }
 
-	/**
-	 * @param \PhpParser\Node\Expr\ClosureUse $node
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
-	 */
-	public function processNode(Node $node, Scope $scope): array
-	{
-		if ($node->byRef) {
-			return [];
-		}
+        if (!$scope->hasVariableType($node->var)) {
+            return [
+                sprintf('Undefined variable: $%s', $node->var),
+            ];
+        }
 
-		if (!$scope->hasVariableType($node->var)) {
-			return [
-				sprintf('Undefined variable: $%s', $node->var),
-			];
-		}
-
-		return [];
-	}
-
+        return [];
+    }
 }

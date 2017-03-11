@@ -4,15 +4,11 @@ namespace CallClosureBind;
 
 class Foo
 {
+    private function privateMethod()
+    {
+    }
 
-	private function privateMethod()
-	{
-
-	}
-
-	public function publicMethod()
-	{
-
-	}
-
+    public function publicMethod()
+    {
+    }
 }

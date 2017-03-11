@@ -4,5 +4,4 @@ namespace PHPStan;
 
 abstract class AnalysedCodeException extends \Exception
 {
-
 }

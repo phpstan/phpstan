@@ -4,15 +4,13 @@ namespace AnalyseTraits;
 
 class Foo
 {
+    use FooTrait;
 
-	use FooTrait;
+    public function doFoo()
+    {
+    }
 
-	public function doFoo()
-	{
-	}
-
-	public function conflictingMethodWithDifferentArgumentNames(string $input)
-	{
-	}
-
+    public function conflictingMethodWithDifferentArgumentNames(string $input)
+    {
+    }
 }

@@ -1,55 +1,55 @@
 <?php
 
 if (!is_int($integer)) {
-	throw new \Exception();
+    throw new \Exception();
 }
 
 if (!is_integer($anotherInteger)) {
-	throw new \Exception();
+    throw new \Exception();
 }
 
 if (!is_long($longInteger)) {
-	throw new \Exception();
+    throw new \Exception();
 }
 
 if (!is_float($float)) {
-	throw new \Exception();
+    throw new \Exception();
 }
 
 if (!is_double($doubleFloat)) {
-	throw new \Exception();
+    throw new \Exception();
 }
 
 if (!is_real($realFloat)) {
-	throw new \Exception();
+    throw new \Exception();
 }
 
 if (!is_null($null)) {
-	throw new \Exception();
+    throw new \Exception();
 }
 
 if (!is_array($array)) {
-	throw new \Exception();
+    throw new \Exception();
 }
 
 if (!is_bool($bool)) {
-	throw new \Exception();
+    throw new \Exception();
 }
 
 if (!is_callable($callable)) {
-	throw new \Exception();
+    throw new \Exception();
 }
 
 if (!is_resource($resource)) {
-	throw new \Exception();
+    throw new \Exception();
 }
 
 if (!is_string($string)) {
-	throw new \Exception();
+    throw new \Exception();
 }
 
 if (!is_int($mixedInteger) && !ctype_digit($whatever)) {
-	return;
+    return;
 }
 
 assert(is_int($yetAnotherInteger));

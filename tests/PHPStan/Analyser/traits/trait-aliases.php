@@ -4,39 +4,32 @@ namespace TraitAliases;
 
 trait BazTrait
 {
-
-	public function fooMethod()
-	{
-
-	}
-
+    public function fooMethod()
+    {
+    }
 }
 
 trait BarTrait
 {
+    use BazTrait {
+        fooMethod as parentFooMethod;
+    }
 
-	use BazTrait {
-		fooMethod as parentFooMethod;
-	}
-
-	public function fooMethod()
-	{
-		// some code ...
-		$this->fooMethod();
-		$this->parentFooMethod();
-	}
-
+    public function fooMethod()
+    {
+        // some code ...
+        $this->fooMethod();
+        $this->parentFooMethod();
+    }
 }
 
 class Foo
 {
+    use BarTrait;
 
-	use BarTrait;
-
-	public function doFoo()
-	{
-		$this->fooMethod();
-		$this->parentFooMethod();
-	}
-
+    public function doFoo()
+    {
+        $this->fooMethod();
+        $this->parentFooMethod();
+    }
 }

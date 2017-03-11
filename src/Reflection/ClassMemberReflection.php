@@ -4,13 +4,11 @@ namespace PHPStan\Reflection;
 
 interface ClassMemberReflection
 {
+    public function getDeclaringClass(): ClassReflection;
 
-	public function getDeclaringClass(): ClassReflection;
+    public function isStatic(): bool;
 
-	public function isStatic(): bool;
+    public function isPrivate(): bool;
 
-	public function isPrivate(): bool;
-
-	public function isPublic(): bool;
-
+    public function isPublic(): bool;
 }

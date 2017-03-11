@@ -9,49 +9,47 @@ use PHPStan\Type\Type;
 class PhpPropertyReflection implements PropertyReflection
 {
 
-	/** @var \PHPStan\Reflection\ClassReflection */
-	private $declaringClass;
+    /** @var \PHPStan\Reflection\ClassReflection */
+    private $declaringClass;
 
-	/** @var \PHPStan\Type\Type */
-	private $type;
+    /** @var \PHPStan\Type\Type */
+    private $type;
 
-	/** @var \ReflectionProperty */
-	private $reflection;
+    /** @var \ReflectionProperty */
+    private $reflection;
 
-	public function __construct(
-		ClassReflection $declaringClass,
-		Type $type,
-		\ReflectionProperty $reflection
-	)
-	{
-		$this->declaringClass = $declaringClass;
-		$this->type = $type;
-		$this->reflection = $reflection;
-	}
+    public function __construct(
+        ClassReflection $declaringClass,
+        Type $type,
+        \ReflectionProperty $reflection
+    ) {
+        $this->declaringClass = $declaringClass;
+        $this->type = $type;
+        $this->reflection = $reflection;
+    }
 
-	public function getDeclaringClass(): ClassReflection
-	{
-		return $this->declaringClass;
-	}
+    public function getDeclaringClass(): ClassReflection
+    {
+        return $this->declaringClass;
+    }
 
-	public function isStatic(): bool
-	{
-		return $this->reflection->isStatic();
-	}
+    public function isStatic(): bool
+    {
+        return $this->reflection->isStatic();
+    }
 
-	public function isPrivate(): bool
-	{
-		return $this->reflection->isPrivate();
-	}
+    public function isPrivate(): bool
+    {
+        return $this->reflection->isPrivate();
+    }
 
-	public function isPublic(): bool
-	{
-		return $this->reflection->isPublic();
-	}
+    public function isPublic(): bool
+    {
+        return $this->reflection->isPublic();
+    }
 
-	public function getType(): Type
-	{
-		return $this->type;
-	}
-
+    public function getType(): Type
+    {
+        return $this->type;
+    }
 }

@@ -19,9 +19,9 @@ $configurator->setTempDirectory($tmpDir);
 $configurator->addConfig($confDir . '/config.neon');
 $configurator->addConfig($confDir . '/config.level5.neon');
 $configurator->addParameters([
-	'rootDir' => $rootDir,
-	'tmpDir' => $tmpDir,
-	'currentWorkingDirectory' => $rootDir,
+    'rootDir' => $rootDir,
+    'tmpDir' => $tmpDir,
+    'currentWorkingDirectory' => $rootDir,
 ]);
 $container = $configurator->createContainer();
 

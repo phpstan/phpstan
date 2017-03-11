@@ -4,7 +4,5 @@ namespace HasTraitUse;
 
 class Foo
 {
-
-	use FooTrait;
-
+    use FooTrait;
 }

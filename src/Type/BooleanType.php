@@ -4,5 +4,4 @@ namespace PHPStan\Type;
 
 interface BooleanType extends Type
 {
-
 }

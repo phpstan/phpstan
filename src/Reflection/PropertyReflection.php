@@ -6,7 +6,5 @@ use PHPStan\Type\Type;
 
 interface PropertyReflection extends ClassMemberReflection
 {
-
-	public function getType(): Type;
-
+    public function getType(): Type;
 }

@@ -4,11 +4,9 @@ namespace AnalyseTraits;
 
 class NestedBar
 {
+    use NestedFooTrait;
 
-	use NestedFooTrait;
-
-	public function doBar()
-	{
-	}
-
+    public function doBar()
+    {
+    }
 }

@@ -10,44 +10,42 @@ use PHPStan\Type\FloatType;
 
 class UselessCastRule implements \PHPStan\Rules\Rule
 {
+    public function getNodeType(): string
+    {
+        return Cast::class;
+    }
 
-	public function getNodeType(): string
-	{
-		return Cast::class;
-	}
+    /**
+     * @param \PhpParser\Node\Expr\Cast $node
+     * @param \PHPStan\Analyser\Scope $scope
+     * @return string[] errors
+     */
+    public function processNode(Node $node, Scope $scope): array
+    {
+        if ($node instanceof Object_) {
+            return [];
+        }
 
-	/**
-	 * @param \PhpParser\Node\Expr\Cast $node
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[] errors
-	 */
-	public function processNode(Node $node, Scope $scope): array
-	{
-		if ($node instanceof Object_) {
-			return [];
-		}
+        $expressionType = $scope->getType($node->expr);
+        if ($expressionType->isNullable()) {
+            return [];
+        }
 
-		$expressionType = $scope->getType($node->expr);
-		if ($expressionType->isNullable()) {
-			return [];
-		}
+        $castType = $scope->getType($node);
+        if ($castType instanceof FloatType && $node->expr instanceof Node\Expr\BinaryOp\Div) {
+            return [];
+        }
 
-		$castType = $scope->getType($node);
-		if ($castType instanceof FloatType && $node->expr instanceof Node\Expr\BinaryOp\Div) {
-			return [];
-		}
+        if (get_class($expressionType) === get_class($castType)) {
+            return [
+                sprintf(
+                    'Casting to %s something that\'s already %s.',
+                    $castType->describe(),
+                    $expressionType->describe()
+                ),
+            ];
+        }
 
-		if (get_class($expressionType) === get_class($castType)) {
-			return [
-				sprintf(
-					'Casting to %s something that\'s already %s.',
-					$castType->describe(),
-					$expressionType->describe()
-				),
-			];
-		}
-
-		return [];
-	}
-
+        return [];
+    }
 }

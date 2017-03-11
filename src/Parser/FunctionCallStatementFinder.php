@@ -8,38 +8,37 @@ use PhpParser\Node\Name;
 class FunctionCallStatementFinder
 {
 
-	/**
-	 * @param string[] $functionNames
-	 * @param mixed $statements
-	 * @return \PhpParser\Node|null
-	 */
-	public function findFunctionCallInStatements(array $functionNames, $statements)
-	{
-		foreach ($statements as $statement) {
-			if (is_array($statement)) {
-				$result = $this->findFunctionCallInStatements($functionNames, $statement);
-				if ($result !== null) {
-					return $result;
-				}
-			}
+    /**
+     * @param string[] $functionNames
+     * @param mixed $statements
+     * @return \PhpParser\Node|null
+     */
+    public function findFunctionCallInStatements(array $functionNames, $statements)
+    {
+        foreach ($statements as $statement) {
+            if (is_array($statement)) {
+                $result = $this->findFunctionCallInStatements($functionNames, $statement);
+                if ($result !== null) {
+                    return $result;
+                }
+            }
 
-			if (!($statement instanceof \PhpParser\Node)) {
-				continue;
-			}
+            if (!($statement instanceof \PhpParser\Node)) {
+                continue;
+            }
 
-			if ($statement instanceof FuncCall && $statement->name instanceof Name) {
-				if (in_array((string) $statement->name, $functionNames, true)) {
-					return $statement;
-				}
-			}
+            if ($statement instanceof FuncCall && $statement->name instanceof Name) {
+                if (in_array((string) $statement->name, $functionNames, true)) {
+                    return $statement;
+                }
+            }
 
-			$result = $this->findFunctionCallInStatements($functionNames, $statement);
-			if ($result !== null) {
-				return $result;
-			}
-		}
+            $result = $this->findFunctionCallInStatements($functionNames, $statement);
+            if ($result !== null) {
+                return $result;
+            }
+        }
 
-		return null;
-	}
-
+        return null;
+    }
 }

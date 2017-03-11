@@ -3,127 +3,127 @@
 namespace PropertiesNamespace;
 
 use SomeNamespace\Amet as Dolor;
-use SomeGroupNamespace\{One, Two as Too, Three};
+use SomeGroupNamespace\One;
+use SomeGroupNamespace\Two as Too;
+use SomeGroupNamespace\Three;
 
 abstract class Foo extends Bar
 {
+    private $mixedProperty;
 
-	private $mixedProperty;
+    /** @var Foo|Bar */
+    private $unionTypeProperty;
 
-	/** @var Foo|Bar */
-	private $unionTypeProperty;
+    /**
+     * @var int
+     * @var int
+     */
+    private $anotherMixedProperty;
 
-	/**
-	 * @var int
-	 * @var int
-	 */
-	private $anotherMixedProperty;
+    /**
+     * @vaz int
+     */
+    private $yetAnotherMixedProperty;
 
-	/**
-	 * @vaz int
-	 */
-	private $yetAnotherMixedProperty;
+    /** @var int */
+    private $integerProperty;
 
-	/** @var int */
-	private $integerProperty;
+    /** @var integer */
+    private $anotherIntegerProperty;
 
-	/** @var integer */
-	private $anotherIntegerProperty;
+    /** @var array */
+    private $arrayPropertyOne;
 
-	/** @var array */
-	private $arrayPropertyOne;
+    /** @var mixed[] */
+    private $arrayPropertyOther;
 
-	/** @var mixed[] */
-	private $arrayPropertyOther;
+    /**
+     * @var Lorem
+     */
+    private $objectRelative;
 
-	/**
-	 * @var Lorem
-	 */
-	private $objectRelative;
+    /**
+     * @var \SomeOtherNamespace\Ipsum
+     */
+    private $objectFullyQualified;
 
-	/**
-	 * @var \SomeOtherNamespace\Ipsum
-	 */
-	private $objectFullyQualified;
+    /**
+     * @var Dolor
+     */
+    private $objectUsed;
 
-	/**
-	 * @var Dolor
-	 */
-	private $objectUsed;
+    /**
+     * @var null|int
+     */
+    private $nullableInteger;
 
-	/**
-	 * @var null|int
-	 */
-	private $nullableInteger;
+    /**
+     * @var Dolor|null
+     */
+    private $nullableObject;
 
-	/**
-	 * @var Dolor|null
-	 */
-	private $nullableObject;
+    /**
+     * @var self
+     */
+    private $selfType;
 
-	/**
-	 * @var self
-	 */
-	private $selfType;
+    /**
+     * @var static
+     */
+    private $staticType;
 
-	/**
-	 * @var static
-	 */
-	private $staticType;
+    /**
+     * @var null
+     */
+    private $nullType;
 
-	/**
-	 * @var null
-	 */
-	private $nullType;
+    /**
+     * @var Bar
+     */
+    private $barObject;
 
-	/**
-	 * @var Bar
-	 */
-	private $barObject;
+    /**
+     * @var [$invalidType]
+     */
+    private $invalidTypeProperty;
 
-	/**
-	 * @var [$invalidType]
-	 */
-	private $invalidTypeProperty;
+    /**
+     * @var resource
+     */
+    private $resource;
 
-	/**
-	 * @var resource
-	 */
-	private $resource;
+    /**
+     * @var array[array]
+     */
+    private $yetAnotherAnotherMixedParameter;
 
-	/**
-	 * @var array[array]
-	 */
-	private $yetAnotherAnotherMixedParameter;
+    /**
+     * @var \\Test\Bar
+     */
+    private $yetAnotherAnotherAnotherMixedParameter;
 
-	/**
-	 * @var \\Test\Bar
-	 */
-	private $yetAnotherAnotherAnotherMixedParameter;
+    /**
+     * @var string
+     */
+    private static $staticStringProperty;
 
-	/**
-	 * @var string
-	 */
-	private static $staticStringProperty;
+    /**
+     * @var One
+     */
+    private $groupUseProperty;
 
-	/**
-	 * @var One
-	 */
-	private $groupUseProperty;
+    /**
+     * @var Too
+     */
+    private $anotherGroupUseProperty;
 
-	/**
-	 * @var Too
-	 */
-	private $anotherGroupUseProperty;
+    /**
+     * {@inheritDoc}
+     */
+    protected $inheritDocProperty;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected $inheritDocProperty;
-
-	public function doFoo()
-	{
-		die;
-	}
-
+    public function doFoo()
+    {
+        die;
+    }
 }

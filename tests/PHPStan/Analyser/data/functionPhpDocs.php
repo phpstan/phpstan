@@ -38,46 +38,44 @@ use SomeNamespace\Consecteur;
  * @return Foo
  */
 function doFoo(
-	$mixedParameter,
-	$unionTypeParameter,
-	$anotherMixedParameter,
-	$yetAnotherMixedParameter,
-	$integerParameter,
-	$anotherIntegerParameter,
-	$arrayParameterOne,
-	$arrayParameterOther,
-	$objectRelative,
-	$objectFullyQualified,
-	$objectUsed,
-	$nullableInteger,
-	$nullableObject,
-	$anotherNullableObject = null,
-	$nullType,
-	$barObject,
-	Bar $conflictedObject,
-	Bar $moreSpecifiedObject,
-	$resource,
-	$yetAnotherAnotherMixedParameter,
-	$yetAnotherAnotherAnotherMixedParameter,
-	$yetAnotherAnotherAnotherAnotherMixedParameter,
-	$voidParameter,
-	$useWithoutAlias,
-	$true,
-	$false,
-	bool $boolTrue,
-	bool $boolFalse,
-	bool $trueBoolean
-)
-{
-	$fooFunctionResult = doFoo();
-	$barFunctionResult = doBar();
+    $mixedParameter,
+    $unionTypeParameter,
+    $anotherMixedParameter,
+    $yetAnotherMixedParameter,
+    $integerParameter,
+    $anotherIntegerParameter,
+    $arrayParameterOne,
+    $arrayParameterOther,
+    $objectRelative,
+    $objectFullyQualified,
+    $objectUsed,
+    $nullableInteger,
+    $nullableObject,
+    $anotherNullableObject = null,
+    $nullType,
+    $barObject,
+    Bar $conflictedObject,
+    Bar $moreSpecifiedObject,
+    $resource,
+    $yetAnotherAnotherMixedParameter,
+    $yetAnotherAnotherAnotherMixedParameter,
+    $yetAnotherAnotherAnotherAnotherMixedParameter,
+    $voidParameter,
+    $useWithoutAlias,
+    $true,
+    $false,
+    bool $boolTrue,
+    bool $boolFalse,
+    bool $trueBoolean
+) {
+    $fooFunctionResult = doFoo();
+    $barFunctionResult = doBar();
 
-	foreach ($moreSpecifiedObject->doFluentUnionIterable() as $fluentUnionIterableBaz) {
-		die;
-	}
+    foreach ($moreSpecifiedObject->doFluentUnionIterable() as $fluentUnionIterableBaz) {
+        die;
+    }
 }
 
 function doBar(): Bar
 {
-
 }

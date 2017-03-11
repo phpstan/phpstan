@@ -4,10 +4,8 @@ namespace PHPStan\Type;
 
 class ThisType extends StaticType
 {
-
-	public function describe(): string
-	{
-		return sprintf('$this(%s)', $this->getBaseClass()) . ($this->isNullable() ? '|null' : '');
-	}
-
+    public function describe(): string
+    {
+        return sprintf('$this(%s)', $this->getBaseClass()) . ($this->isNullable() ? '|null' : '');
+    }
 }

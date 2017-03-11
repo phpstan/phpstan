@@ -4,5 +4,4 @@ namespace HasTraitUse;
 
 trait FooTrait
 {
-
 }

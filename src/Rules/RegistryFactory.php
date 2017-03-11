@@ -38,23 +38,23 @@ class RegistryFactory
         [4, Comparison\StrictComparisonOfDifferentTypesRule::class],
     ];
 
-	const RULE_TAG = 'phpstan.rules.rule';
+    const RULE_TAG = 'phpstan.rules.rule';
     private static $selectedRules = [];
 
-	/** @var \Nette\DI\Container */
-	private $container;
+    /** @var \Nette\DI\Container */
+    private $container;
 
-	public function __construct(\Nette\DI\Container $container)
-	{
-		$this->container = $container;
-	}
+    public function __construct(\Nette\DI\Container $container)
+    {
+        $this->container = $container;
+    }
 
     public function create(): Registry
     {
         $services = [];
         foreach (self::$selectedRules as $rule) {
             $service = $this->container->getByType($rule, false);
-            if($service) {
+            if ($service) {
                 $services[] = $service;
             }
         }

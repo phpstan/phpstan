@@ -4,36 +4,32 @@ namespace ThisVariable;
 
 class Foo
 {
+    public function doFoo()
+    {
+        $this->test;
+        $foo->test;
+    }
 
-	public function doFoo()
-	{
-		$this->test;
-		$foo->test;
-	}
-
-	public static function doBar()
-	{
-		$this->test;
-		$foo->test;
-		$$bar->test;
-	}
-
+    public static function doBar()
+    {
+        $this->test;
+        $foo->test;
+        $$bar->test;
+    }
 }
 
 function () {
-	$this->foo;
+    $this->foo;
 };
 
-new class () {
+new class() {
+    public function doFoo()
+    {
+        $this->foo;
+    }
 
-	public function doFoo()
-	{
-		$this->foo;
-	}
-
-	public static function doBar()
-	{
-		$this->foo;
-	}
-
+    public static function doBar()
+    {
+        $this->foo;
+    }
 };

@@ -10,42 +10,40 @@ use PHPStan\Type\MixedType;
 
 class VariableCloningRule implements \PHPStan\Rules\Rule
 {
+    public function getNodeType(): string
+    {
+        return Clone_::class;
+    }
 
-	public function getNodeType(): string
-	{
-		return Clone_::class;
-	}
+    /**
+     * @param \PhpParser\Node\Expr\Clone_ $node
+     * @param \PHPStan\Analyser\Scope $scope
+     * @return string[]
+     */
+    public function processNode(Node $node, Scope $scope): array
+    {
+        $type = $scope->getType($node->expr);
 
-	/**
-	 * @param \PhpParser\Node\Expr\Clone_ $node
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
-	 */
-	public function processNode(Node $node, Scope $scope): array
-	{
-		$type = $scope->getType($node->expr);
+        if ($type instanceof MixedType) {
+            return [];
+        }
 
-		if ($type instanceof MixedType) {
-			return [];
-		}
+        if ($type->getClass() !== null) {
+            return [];
+        }
 
-		if ($type->getClass() !== null) {
-			return [];
-		}
+        if ($node->expr instanceof Variable) {
+            return [
+                sprintf(
+                    'Cannot clone non-object variable $%s of type %s.',
+                    $node->expr->name,
+                    $type->describe()
+                ),
+            ];
+        }
 
-		if ($node->expr instanceof Variable) {
-			return [
-				sprintf(
-					'Cannot clone non-object variable $%s of type %s.',
-					$node->expr->name,
-					$type->describe()
-				),
-			];
-		}
-
-		return [
-			sprintf('Cannot clone %s.', $type->describe()),
-		];
-	}
-
+        return [
+            sprintf('Cannot clone %s.', $type->describe()),
+        ];
+    }
 }

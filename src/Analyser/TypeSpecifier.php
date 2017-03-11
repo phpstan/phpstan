@@ -23,115 +23,112 @@ use PHPStan\Type\TrueOrFalseBooleanType;
 
 class TypeSpecifier
 {
+    const SOURCE_UNKNOWN = 0;
+    const SOURCE_FROM_AND = 1;
+    const SOURCE_FROM_OR = 2;
 
-	const SOURCE_UNKNOWN = 0;
-	const SOURCE_FROM_AND = 1;
-	const SOURCE_FROM_OR = 2;
+    /**
+     * @var \PhpParser\PrettyPrinter\Standard
+     */
+    private $printer;
 
-	/**
-	 * @var \PhpParser\PrettyPrinter\Standard
-	 */
-	private $printer;
+    public function __construct(\PhpParser\PrettyPrinter\Standard $printer)
+    {
+        $this->printer = $printer;
+    }
 
-	public function __construct(\PhpParser\PrettyPrinter\Standard $printer)
-	{
-		$this->printer = $printer;
-	}
+    public function specifyTypesInCondition(
+        SpecifiedTypes $types,
+        Scope $scope,
+        Node $expr,
+        bool $negated = false,
+        int $source = self::SOURCE_UNKNOWN
+    ): SpecifiedTypes {
+        if ($expr instanceof Instanceof_ && $expr->class instanceof Name) {
+            $class = (string) $expr->class;
+            if ($class === 'self' && $scope->isInClass()) {
+                $type = new ObjectType($scope->getClassReflection()->getName(), false);
+            } elseif ($class === 'static' && $scope->isInClass()) {
+                $type = new StaticType($scope->getClassReflection()->getName(), false);
+            } else {
+                $type = new ObjectType($class, false);
+            }
 
-	public function specifyTypesInCondition(
-		SpecifiedTypes $types,
-		Scope $scope,
-		Node $expr,
-		bool $negated = false,
-		int $source = self::SOURCE_UNKNOWN
-	): SpecifiedTypes
-	{
-		if ($expr instanceof Instanceof_ && $expr->class instanceof Name) {
-			$class = (string) $expr->class;
-			if ($class === 'self' && $scope->isInClass()) {
-				$type = new ObjectType($scope->getClassReflection()->getName(), false);
-			} elseif ($class === 'static' && $scope->isInClass()) {
-				$type = new StaticType($scope->getClassReflection()->getName(), false);
-			} else {
-				$type = new ObjectType($class, false);
-			}
+            $printedExpr = $this->printer->prettyPrintExpr($expr->expr);
 
-			$printedExpr = $this->printer->prettyPrintExpr($expr->expr);
+            if ($negated) {
+                if ($source === self::SOURCE_FROM_AND) {
+                    return $types;
+                }
+                return $types->addSureNotType($expr->expr, $printedExpr, $type);
+            }
 
-			if ($negated) {
-				if ($source === self::SOURCE_FROM_AND) {
-					return $types;
-				}
-				return $types->addSureNotType($expr->expr, $printedExpr, $type);
-			}
+            return $types->addSureType($expr->expr, $printedExpr, $type);
+        } elseif (
+            $expr instanceof FuncCall
+            && $expr->name instanceof Name
+            && isset($expr->args[0])
+        ) {
+            $functionName = (string) $expr->name;
+            $argumentExpression = $expr->args[0]->value;
+            $specifiedType = null;
+            if (in_array($functionName, [
+                'is_int',
+                'is_integer',
+                'is_long',
+            ], true)) {
+                $specifiedType = new IntegerType(false);
+            } elseif (in_array($functionName, [
+                'is_float',
+                'is_double',
+                'is_real',
+            ], true)) {
+                $specifiedType = new FloatType(false);
+            } elseif ($functionName === 'is_null') {
+                $specifiedType = new NullType();
+            } elseif ($functionName === 'is_array') {
+                $specifiedType = new ArrayType(new MixedType(), false);
+            } elseif ($functionName === 'is_bool') {
+                $specifiedType = new TrueOrFalseBooleanType(false);
+            } elseif ($functionName === 'is_callable') {
+                $specifiedType = new CallableType(false);
+            } elseif ($functionName === 'is_resource') {
+                $specifiedType = new ResourceType(false);
+            } elseif ($functionName === 'is_iterable') {
+                $specifiedType = new IterableIterableType(new MixedType(), false);
+            } elseif ($functionName === 'is_string') {
+                $specifiedType = new StringType(false);
+            }
 
-			return $types->addSureType($expr->expr, $printedExpr, $type);
-		} elseif (
-			$expr instanceof FuncCall
-			&& $expr->name instanceof Name
-			&& isset($expr->args[0])
-		) {
-			$functionName = (string) $expr->name;
-			$argumentExpression = $expr->args[0]->value;
-			$specifiedType = null;
-			if (in_array($functionName, [
-				'is_int',
-				'is_integer',
-				'is_long',
-			], true)) {
-				$specifiedType = new IntegerType(false);
-			} elseif (in_array($functionName, [
-				'is_float',
-				'is_double',
-				'is_real',
-			], true)) {
-				$specifiedType = new FloatType(false);
-			} elseif ($functionName === 'is_null') {
-				$specifiedType = new NullType();
-			} elseif ($functionName === 'is_array') {
-				$specifiedType = new ArrayType(new MixedType(), false);
-			} elseif ($functionName === 'is_bool') {
-				$specifiedType = new TrueOrFalseBooleanType(false);
-			} elseif ($functionName === 'is_callable') {
-				$specifiedType = new CallableType(false);
-			} elseif ($functionName === 'is_resource') {
-				$specifiedType = new ResourceType(false);
-			} elseif ($functionName === 'is_iterable') {
-				$specifiedType = new IterableIterableType(new MixedType(), false);
-			} elseif ($functionName === 'is_string') {
-				$specifiedType = new StringType(false);
-			}
+            if ($specifiedType !== null) {
+                $printedExpr = $this->printer->prettyPrintExpr($argumentExpression);
 
-			if ($specifiedType !== null) {
-				$printedExpr = $this->printer->prettyPrintExpr($argumentExpression);
+                if ($negated) {
+                    return $types->addSureNotType($argumentExpression, $printedExpr, $specifiedType);
+                }
 
-				if ($negated) {
-					return $types->addSureNotType($argumentExpression, $printedExpr, $specifiedType);
-				}
+                return $types->addSureType($argumentExpression, $printedExpr, $specifiedType);
+            }
+        } elseif ($expr instanceof BooleanAnd) {
+            if ($source !== self::SOURCE_UNKNOWN && $source !== self::SOURCE_FROM_AND) {
+                return $types;
+            }
+            $types = $this->specifyTypesInCondition($types, $scope, $expr->left, $negated, self::SOURCE_FROM_AND);
+            $types = $this->specifyTypesInCondition($types, $scope, $expr->right, $negated, self::SOURCE_FROM_AND);
+        } elseif ($expr instanceof BooleanOr) {
+            if ($negated) {
+                return $types;
+            }
+            $types = $this->specifyTypesInCondition($types, $scope, $expr->left, $negated, self::SOURCE_FROM_OR);
+            $types = $this->specifyTypesInCondition($types, $scope, $expr->right, $negated, self::SOURCE_FROM_OR);
+        } elseif ($expr instanceof Node\Expr\BooleanNot) {
+            if ($source === self::SOURCE_FROM_AND) {
+                return $types;
+            }
 
-				return $types->addSureType($argumentExpression, $printedExpr, $specifiedType);
-			}
-		} elseif ($expr instanceof BooleanAnd) {
-			if ($source !== self::SOURCE_UNKNOWN && $source !== self::SOURCE_FROM_AND) {
-				return $types;
-			}
-			$types = $this->specifyTypesInCondition($types, $scope, $expr->left, $negated, self::SOURCE_FROM_AND);
-			$types = $this->specifyTypesInCondition($types, $scope, $expr->right, $negated, self::SOURCE_FROM_AND);
-		} elseif ($expr instanceof BooleanOr) {
-			if ($negated) {
-				return $types;
-			}
-			$types = $this->specifyTypesInCondition($types, $scope, $expr->left, $negated, self::SOURCE_FROM_OR);
-			$types = $this->specifyTypesInCondition($types, $scope, $expr->right, $negated, self::SOURCE_FROM_OR);
-		} elseif ($expr instanceof Node\Expr\BooleanNot) {
-			if ($source === self::SOURCE_FROM_AND) {
-				return $types;
-			}
+            $types = $this->specifyTypesInCondition($types, $scope, $expr->expr, !$negated, $source);
+        }
 
-			$types = $this->specifyTypesInCondition($types, $scope, $expr->expr, !$negated, $source);
-		}
-
-		return $types;
-	}
-
+        return $types;
+    }
 }

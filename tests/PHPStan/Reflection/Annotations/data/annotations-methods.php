@@ -13,12 +13,10 @@ use OtherNamespace\Test as OtherTest;
  */
 class Foo
 {
-
 }
 
 class Bar extends Foo
 {
-
 }
 
 /**
@@ -27,7 +25,6 @@ class Bar extends Foo
  */
 class Baz extends Bar
 {
-
 }
 
 /**
@@ -35,5 +32,4 @@ class Baz extends Bar
  */
 class BazBaz extends Baz
 {
-
 }

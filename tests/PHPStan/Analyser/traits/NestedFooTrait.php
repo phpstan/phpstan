@@ -4,12 +4,10 @@ namespace AnalyseTraits;
 
 trait NestedFooTrait
 {
+    use FooTrait;
 
-	use FooTrait;
-
-	public function doNestedTraitFoo()
-	{
-		$this->doNestedFoo();
-	}
-
+    public function doNestedTraitFoo()
+    {
+        $this->doNestedFoo();
+    }
 }

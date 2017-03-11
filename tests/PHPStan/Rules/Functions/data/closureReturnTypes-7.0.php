@@ -1,9 +1,9 @@
 <?php
 
 function (): int {
-	return;
+    return;
 };
 
 function (): string {
-	return;
+    return;
 };

@@ -4,30 +4,30 @@ namespace ReturnTypes;
 
 function returnNothing()
 {
-	return;
+    return;
 }
 
 function returnInteger(): int
 {
-	return 1;
-	return 'foo';
-	$foo = function () {
-		return 'bar';
-	};
+    return 1;
+    return 'foo';
+    $foo = function () {
+        return 'bar';
+    };
 }
 
 function returnObject(): Bar
 {
-	return 1;
-	return new Foo();
-	return new Bar();
+    return 1;
+    return new Foo();
+    return new Bar();
 }
 
 function returnChild(): Foo
 {
-	return new Foo();
-	return new FooChild();
-	return new OtherInterfaceImpl();
+    return new Foo();
+    return new FooChild();
+    return new OtherInterfaceImpl();
 }
 
 /**
@@ -35,13 +35,13 @@ function returnChild(): Foo
  */
 function returnNullable()
 {
-	return 'foo';
-	return null;
+    return 'foo';
+    return null;
 }
 
 function returnInterface(): FooInterface
 {
-	return new Foo();
+    return new Foo();
 }
 
 /**
@@ -49,18 +49,17 @@ function returnInterface(): FooInterface
  */
 function returnVoid()
 {
-	return;
-	return null;
-	return 1;
+    return;
+    return null;
+    return 1;
 }
 
 function returnAlias(): Foo
 {
-	return new FooAlias();
+    return new FooAlias();
 }
 
 function returnAnotherAlias(): FooAlias
 {
-	return new Foo();
+    return new Foo();
 }
-

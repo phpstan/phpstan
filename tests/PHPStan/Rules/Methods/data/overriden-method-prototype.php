@@ -4,25 +4,19 @@ namespace OverridenMethodPrototype;
 
 class Foo
 {
-
-	protected function foo()
-	{
-
-	}
-
+    protected function foo()
+    {
+    }
 }
 
 class Bar extends Foo
 {
-
-	public function foo()
-	{
-
-	}
-
+    public function foo()
+    {
+    }
 }
 
 function () {
-	$bar = new Bar();
-	$bar->foo();
+    $bar = new Bar();
+    $bar->foo();
 };

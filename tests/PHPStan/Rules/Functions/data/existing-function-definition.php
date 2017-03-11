@@ -4,5 +4,4 @@ namespace CallToExistingFunction;
 
 function foo()
 {
-
 }

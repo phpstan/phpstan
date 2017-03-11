@@ -4,11 +4,9 @@ namespace AnalyseTraits;
 
 class Bar
 {
+    use FooTrait;
 
-	use FooTrait;
-
-	public function doBar()
-	{
-	}
-
+    public function doBar()
+    {
+    }
 }

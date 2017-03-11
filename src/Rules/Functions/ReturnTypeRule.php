@@ -12,59 +12,58 @@ use PHPStan\Rules\FunctionReturnTypeCheck;
 class ReturnTypeRule implements \PHPStan\Rules\Rule
 {
 
-	/** @var \PHPStan\Rules\FunctionReturnTypeCheck */
-	private $returnTypeCheck;
+    /** @var \PHPStan\Rules\FunctionReturnTypeCheck */
+    private $returnTypeCheck;
 
-	public function __construct(FunctionReturnTypeCheck $returnTypeCheck)
-	{
-		$this->returnTypeCheck = $returnTypeCheck;
-	}
+    public function __construct(FunctionReturnTypeCheck $returnTypeCheck)
+    {
+        $this->returnTypeCheck = $returnTypeCheck;
+    }
 
-	public function getNodeType(): string
-	{
-		return Return_::class;
-	}
+    public function getNodeType(): string
+    {
+        return Return_::class;
+    }
 
-	/**
-	 * @param \PhpParser\Node\Stmt\Return_ $node
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
-	 */
-	public function processNode(Node $node, Scope $scope): array
-	{
-		if ($scope->getFunction() === null) {
-			return [];
-		}
+    /**
+     * @param \PhpParser\Node\Stmt\Return_ $node
+     * @param \PHPStan\Analyser\Scope $scope
+     * @return string[]
+     */
+    public function processNode(Node $node, Scope $scope): array
+    {
+        if ($scope->getFunction() === null) {
+            return [];
+        }
 
-		if ($scope->isInAnonymousFunction()) {
-			return [];
-		}
+        if ($scope->isInAnonymousFunction()) {
+            return [];
+        }
 
-		$function = $scope->getFunction();
-		if (
-			!($function instanceof PhpFunctionFromParserNodeReflection)
-			|| $function instanceof PhpMethodFromParserNodeReflection
-		) {
-			return [];
-		}
+        $function = $scope->getFunction();
+        if (
+            !($function instanceof PhpFunctionFromParserNodeReflection)
+            || $function instanceof PhpMethodFromParserNodeReflection
+        ) {
+            return [];
+        }
 
-		return $this->returnTypeCheck->checkReturnType(
-			$scope,
-			$function->getReturnType(),
-			$node->expr,
-			sprintf(
-				'Function %s() should return %%s but empty return statement found.',
-				$function->getName()
-			),
-			sprintf(
-				'Function %s() with return type void returns %%s but should not return anything.',
-				$function->getName()
-			),
-			sprintf(
-				'Function %s() should return %%s but returns %%s.',
-				$function->getName()
-			)
-		);
-	}
-
+        return $this->returnTypeCheck->checkReturnType(
+            $scope,
+            $function->getReturnType(),
+            $node->expr,
+            sprintf(
+                'Function %s() should return %%s but empty return statement found.',
+                $function->getName()
+            ),
+            sprintf(
+                'Function %s() with return type void returns %%s but should not return anything.',
+                $function->getName()
+            ),
+            sprintf(
+                'Function %s() should return %%s but returns %%s.',
+                $function->getName()
+            )
+        );
+    }
 }

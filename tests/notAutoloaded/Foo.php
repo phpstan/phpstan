@@ -5,14 +5,13 @@ namespace PHPStan\Tests;
 class Foo
 {
 
-	/** @var string */
-	private $fooProperty;
+    /** @var string */
+    private $fooProperty;
 
-	public function doFoo(): string
-	{
-		$this->fooProperty = 'test';
+    public function doFoo(): string
+    {
+        $this->fooProperty = 'test';
 
-		return $this->fooProperty;
-	}
-
+        return $this->fooProperty;
+    }
 }

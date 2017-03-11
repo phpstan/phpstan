@@ -4,9 +4,7 @@ namespace PHPStan\Type;
 
 interface StaticResolvableType extends Type
 {
+    public function resolveStatic(string $className): Type;
 
-	public function resolveStatic(string $className): Type;
-
-	public function changeBaseClass(string $className): self;
-
+    public function changeBaseClass(string $className): self;
 }

@@ -4,5 +4,5 @@ namespace PHPStan\Tests;
 
 function foo()
 {
-	doSomething();
+    doSomething();
 }

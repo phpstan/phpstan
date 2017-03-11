@@ -13,12 +13,10 @@ use OtherNamespace\Ipsum;
  */
 class Foo
 {
-
 }
 
 class Bar extends Foo
 {
-
 }
 
 /**
@@ -27,10 +25,8 @@ class Bar extends Foo
  */
 class Baz extends Bar
 {
-
 }
 
 class BazBaz extends Baz
 {
-
 }

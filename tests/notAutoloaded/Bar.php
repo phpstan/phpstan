@@ -4,5 +4,4 @@ namespace PHPStan\Tests;
 
 class Bar
 {
-
 }

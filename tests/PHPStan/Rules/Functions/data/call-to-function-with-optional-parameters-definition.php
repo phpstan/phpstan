@@ -2,7 +2,6 @@
 
 namespace CallToFunctionWithOptionalParameters;
 
-function foo($foo, $bar = NULL)
+function foo($foo, $bar = null)
 {
-
 }

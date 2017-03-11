@@ -5,30 +5,29 @@ namespace PHPStan\Type;
 interface Type
 {
 
-	/**
-	 * @return string|null
-	 */
-	public function getClass();
+    /**
+     * @return string|null
+     */
+    public function getClass();
 
-	/**
-	 * @return string[]
-	 */
-	public function getReferencedClasses(): array;
+    /**
+     * @return string[]
+     */
+    public function getReferencedClasses(): array;
 
-	public function isNullable(): bool;
+    public function isNullable(): bool;
 
-	public function combineWith(Type $otherType): Type;
+    public function combineWith(Type $otherType): Type;
 
-	public function makeNullable(): Type;
+    public function makeNullable(): Type;
 
-	public function accepts(Type $type): bool;
+    public function accepts(Type $type): bool;
 
-	public function describe(): string;
+    public function describe(): string;
 
-	public function canAccessProperties(): bool;
+    public function canAccessProperties(): bool;
 
-	public function canCallMethods(): bool;
+    public function canCallMethods(): bool;
 
-	public function isDocumentableNatively(): bool;
-
+    public function isDocumentableNatively(): bool;
 }
