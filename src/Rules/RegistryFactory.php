@@ -72,7 +72,6 @@ class RegistryFactory
         foreach (self::RULES as list($ruleLevel, $className)) {
             if ($ruleLevel <= $level) {
                 $rule = str_replace($prefix, '', $className);
-                $rule = str_replace('\\', '-', $rule);
                 $rules[] = $rule;
             }
         }
@@ -84,8 +83,10 @@ class RegistryFactory
     {
         self::$selectedRules = [];
         foreach ($rules as $rule) {
-            $rule = str_replace('-', '\\', $rule);
-            self::$selectedRules[] = __NAMESPACE__."\\".$rule;
+            if ($rule[0] != "\\") {
+                $rule = __NAMESPACE__."\\".$rule;
+            }
+            self::$selectedRules[] = $rule;
         }
     }
 }
