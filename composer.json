@@ -21,12 +21,11 @@
 		"tedivm/stash": "^0.14.1"
 	},
 	"require-dev": {
-		"consistence/coding-standard": "~0.13.0",
 		"jakub-onderka/php-parallel-lint": "^0.9",
 		"satooshi/php-coveralls": "^1.0",
 		"phing/phing": "^2.16.0",
 		"phpunit/phpunit": "^6.0.7",
-		"slevomat/coding-standard": "dev-2.0-dev#2b8e2b0992f31205e4c1d2fb5c39af05274c7c4d"
+		"squizlabs/php_codesniffer": "^2.8"
 	},
 	"autoload": {
 		"psr-4": {"PHPStan\\": "src/"}

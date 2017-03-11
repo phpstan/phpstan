@@ -1,34 +1,14 @@
 <?xml version="1.0"?>
 <ruleset name="PHPStan">
-	<rule ref="vendor/consistence/coding-standard/Consistence/ruleset.xml">
-		<exclude name="Squiz.Functions.GlobalFunction.Found"/>
-	</rule>
-	<rule ref="vendor/slevomat/coding-standard/SlevomatCodingStandard/ruleset.xml">
-		<exclude name="SlevomatCodingStandard.Classes.ClassConstantVisibility.MissingConstantVisibility"/>
-		<exclude name="SlevomatCodingStandard.Files.TypeNameMatchesFileName"/>
-		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameAfterKeyword"/>
-		<exclude name="SlevomatCodingStandard.Namespaces.UseOnlyWhitelistedNamespaces"/>
-		<exclude name="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly"/>
-		<exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableParameterTypeHintSpecification"/>
-		<exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableReturnTypeHintSpecification"/>
-		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation.NonFullyQualifiedClassName"/>
-		<exclude name="SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue"/>
-	</rule>
+	<rule ref="vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/PSR2/ruleset.xml"/>
 	<rule ref="Squiz.PHP.InnerFunctions.NotAllowed">
 		<exclude-pattern>tests/TestCase.php</exclude-pattern>
 		<exclude-pattern>tests/PHPStan/Analyser/NodeScopeResolverTest.php</exclude-pattern>
 	</rule>
-	<rule ref="SlevomatCodingStandard.TypeHints.TypeHintDeclaration">
+	<rule ref="Generic.Files.LineLength">
 		<properties>
-			<property name="usefulAnnotations" type="array" value="
-				@dataProvider,
-				@requires
-			"/>
-			<property name="enableNullableTypeHints" type="false" />
-			<property name="enableVoidTypeHint" type="false" />
+			<property name="lineLimit" value="512"/>
+			<property name="absoluteLineLimit" value="0"/>
 		</properties>
-	</rule>
-	<rule ref="Generic.Strings.UnnecessaryStringConcat.Found">
-		<exclude-pattern>tests/PHPStan/Analyser/NodeScopeResolverTest.php</exclude-pattern>
 	</rule>
 </ruleset>

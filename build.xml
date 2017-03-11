@@ -48,7 +48,6 @@
 			<arg value="--standard=build/ruleset.xml"/>
 			<arg value="--extensions=php"/>
 			<arg value="--encoding=utf-8"/>
-			<arg value="--tab-width=4"/>
 			<arg value="--ignore=tests/*/data"/>
 			<arg value="--ignore=tests/*/traits"/>
 			<arg value="-sp"/>
@@ -67,7 +66,6 @@
 			<arg value="--standard=build/ruleset.xml"/>
 			<arg value="--extensions=php"/>
 			<arg value="--encoding=utf-8"/>
-			<arg value="--tab-width=4"/>
 			<arg value="--ignore=tests/*/data"/>
 			<arg value="-sp"/>
 			<arg path="src"/>
