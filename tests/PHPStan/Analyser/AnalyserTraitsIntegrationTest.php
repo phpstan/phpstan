@@ -14,7 +14,7 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\TestCase
 
     protected function setUp()
     {
-        $this->fileHelper = $this->getContainer()->getByType(FileHelper::class);
+        $this->fileHelper = $this->getContainer()->get(FileHelper::class);
     }
 
     public function testMethodIsInClassUsingTrait()
@@ -39,7 +39,7 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\TestCase
             sprintf('%s (in context of class AnalyseTraits\Bar)', $this->fileHelper->normalizePath(__DIR__ . '/traits/FooTrait.php')),
             $error->getFile()
         );
-        $this->assertSame(10, $error->getLine());
+        $this->assertSame(9, $error->getLine());
     }
 
     public function testNestedTraits()
@@ -56,7 +56,7 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\TestCase
             sprintf('%s (in context of class AnalyseTraits\NestedBar)', $this->fileHelper->normalizePath(__DIR__ . '/traits/FooTrait.php')),
             $firstError->getFile()
         );
-        $this->assertSame(10, $firstError->getLine());
+        $this->assertSame(9, $firstError->getLine());
 
         $secondError = $errors[1];
         $this->assertSame('Call to an undefined method AnalyseTraits\NestedBar::doNestedFoo().', $secondError->getMessage());
@@ -64,7 +64,7 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\TestCase
             sprintf('%s (in context of class AnalyseTraits\NestedBar)', $this->fileHelper->normalizePath(__DIR__ . '/traits/NestedFooTrait.php')),
             $secondError->getFile()
         );
-        $this->assertSame(12, $secondError->getLine());
+        $this->assertSame(11, $secondError->getLine());
     }
 
     public function testTraitsAreNotAnalysedDirectly()
@@ -94,7 +94,7 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\TestCase
     private function runAnalyse(array $files): array
     {
         /** @var \PHPStan\Analyser\Analyser $analyser */
-        $analyser = $this->getContainer()->getByType(Analyser::class);
+        $analyser = $this->getContainer()->get(Analyser::class);
         return $analyser->analyse($files, false);
     }
 }

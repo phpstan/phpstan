@@ -14,15 +14,15 @@ class ThisVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
         $this->analyse([__DIR__ . '/data/this.php'], [
             [
                 'Using $this in static method ThisVariable\Foo::doBar().',
-                16,
+                15,
             ],
             [
                 'Using $this outside a class.',
-                24,
+                22,
             ],
             [
                 'Using $this in static method class@anonymous',
-                36,
+                33,
                 false,
             ],
         ]);

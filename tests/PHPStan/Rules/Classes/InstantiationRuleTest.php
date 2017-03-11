@@ -22,51 +22,51 @@ class InstantiationRuleTest extends \PHPStan\Rules\AbstractRuleTest
             [
                 [
                     'Class TestInstantiation\InstantiatingClass constructor invoked with 0 parameters, 1 required.',
-                    15,
+                    13,
                 ],
                 [
                     'TestInstantiation\InstantiatingClass::doFoo() calls new parent but TestInstantiation\InstantiatingClass does not extend any class.',
-                    18,
+                    16,
                 ],
                 [
                     'Class TestInstantiation\FooInstantiation does not have a constructor and must be instantiated without any parameters.',
-                    26,
+                    23,
                 ],
                 [
                     'Instantiated class TestInstantiation\FooBarInstantiation not found.',
-                    27,
+                    24,
                 ],
                 [
                     'Class TestInstantiation\BarInstantiation constructor invoked with 0 parameters, 1 required.',
-                    28,
+                    25,
                 ],
                 [
                     'Instantiated class TestInstantiation\LoremInstantiation is abstract.',
-                    29,
+                    26,
                 ],
                 [
                     'Cannot instantiate interface TestInstantiation\IpsumInstantiation.',
-                    30,
+                    27,
                 ],
                 [
                     'Class DatePeriod constructor invoked with 0 parameters, 1-4 required.',
-                    36,
+                    33,
                 ],
                 [
                     'Using self outside of class scope.',
-                    39,
+                    36,
                 ],
                 [
                     'Using static outside of class scope.',
-                    40,
+                    37,
                 ],
                 [
                     'Using parent outside of class scope.',
-                    41,
+                    38,
                 ],
                 [
                     'Class TestInstantiation\InstantiatingClass constructor invoked with 0 parameters, 1 required.',
-                    54,
+                    50,
                 ],
             ]
         );

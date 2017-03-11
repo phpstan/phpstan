@@ -16,83 +16,83 @@ class AccessStaticPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
         $this->analyse([__DIR__ . '/data/access-static-properties.php'], [
             [
                 'Access to an undefined static property FooAccessStaticProperties::$bar.',
-                23,
+                20,
             ],
             [
                 'Access to an undefined static property BarAccessStaticProperties::$bar.',
-                24,
+                21,
             ],
             [
                 'Access to an undefined static property FooAccessStaticProperties::$bar.',
-                25,
+                22,
             ],
             [
                 'Static access to instance property FooAccessStaticProperties::$loremIpsum.',
-                26,
+                23,
             ],
             [
                 'IpsumAccessStaticProperties::ipsum() accesses parent::$lorem but IpsumAccessStaticProperties does not extend any class.',
-                42,
+                37,
             ],
             [
                 'Access to protected property $foo of class FooAccessStaticProperties.',
-                44,
+                39,
             ],
             [
                 'Access to static property $test on an unknown class UnknownStaticProperties.',
-                47,
+                42,
             ],
             [
                 'Access to an undefined static property IpsumAccessStaticProperties::$baz.',
-                53,
+                48,
             ],
             [
                 'Access to an undefined static property IpsumAccessStaticProperties::$nonexistent.',
-                55,
+                50,
             ],
             [
                 'Access to an undefined static property IpsumAccessStaticProperties::$emptyBaz.',
-                63,
+                58,
             ],
             [
                 'Access to an undefined static property IpsumAccessStaticProperties::$emptyNonexistent.',
-                65,
+                60,
             ],
             [
                 'Access to an undefined static property IpsumAccessStaticProperties::$anotherNonexistent.',
-                71,
+                66,
             ],
             [
                 'Access to an undefined static property IpsumAccessStaticProperties::$anotherNonexistent.',
-                72,
+                67,
             ],
             [
                 'Access to an undefined static property IpsumAccessStaticProperties::$anotherEmptyNonexistent.',
-                75,
+                70,
             ],
             [
                 'Access to an undefined static property IpsumAccessStaticProperties::$anotherEmptyNonexistent.',
-                78,
+                73,
             ],
             [
                 'Accessing self::$staticFooProperty outside of class scope.',
-                84,
+                78,
             ],
             [
                 'Accessing static::$staticFooProperty outside of class scope.',
-                85,
+                79,
             ],
             [
                 'Accessing parent::$staticFooProperty outside of class scope.',
-                86,
+                80,
             ],
             [
                 'Access to protected property $foo of class FooAccessStaticProperties.',
-                89,
+                83,
             ],
             [
                 'Static access to instance property FooAccessStaticProperties::$loremIpsum.',
-                90,
+                84,
             ],
         ]);
     }

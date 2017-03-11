@@ -21,7 +21,7 @@ class BrokerTest extends \PHPStan\TestCase
             [],
             [],
             $this->createMock(FunctionReflectionFactory::class),
-            new FileTypeMapper($this->getParser(), $this->createMock(\Psr\Cache\CacheItemPoolInterface::class), true)
+            new FileTypeMapper($this->getParser(), new \Stash\Pool(new \Stash\Driver\Ephemeral()), true)
         );
     }
 

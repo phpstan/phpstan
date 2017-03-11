@@ -16,11 +16,11 @@ class CatchedExceptionExistenceRuleTest extends \PHPStan\Rules\AbstractRuleTest
         $this->analyse([__DIR__ . '/data/catch.php'], [
             [
                 'Catched class TestCatch\FooCatch is not an exception.',
-                17,
+                14,
             ],
             [
                 'Catched class FooCatchException not found.',
-                29,
+                22,
             ],
         ]);
     }

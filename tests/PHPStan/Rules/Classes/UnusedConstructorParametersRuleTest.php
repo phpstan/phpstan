@@ -16,11 +16,11 @@ class UnusedConstructorParametersRuleTest extends \PHPStan\Rules\AbstractRuleTes
         $this->analyse([__DIR__ . '/data/unused-constructor-parameters.php'], [
             [
                 'Constructor of class UnusedConstructorParameters\Foo has an unused parameter $unusedParameter.',
-                11,
+                10,
             ],
             [
                 'Constructor of class UnusedConstructorParameters\Foo has an unused parameter $anotherUnusedParameter.',
-                11,
+                10,
             ],
         ]);
     }

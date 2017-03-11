@@ -32,7 +32,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
             $this->createBroker(),
             $this->getParser(),
             $this->printer,
-            new FileTypeMapper($this->getParser(), $this->createMock(\Psr\Cache\CacheItemPoolInterface::class), true),
+            new FileTypeMapper($this->getParser(), new \Stash\Pool(new \Stash\Driver\Ephemeral()), true),
             new TypeSpecifier($this->printer),
             new FileExcluder($this->createMock(FileHelper::class), []),
             true,

@@ -67,11 +67,11 @@ class ClosureReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
         $this->analyse([__DIR__ . '/data/closure-7.1ReturnTypes.php'], [
             [
                 'Anonymous function should return int|null but returns string.',
-                6,
+                5,
             ],
             [
                 'Anonymous function should return iterable(mixed[]) but returns string.',
-                13,
+                11,
             ],
         ]);
     }

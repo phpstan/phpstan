@@ -111,7 +111,7 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCas
      */
     public function testProperties(string $className, array $properties)
     {
-        $broker = $this->getContainer()->getByType(Broker::class);
+        $broker = $this->getContainer()->get(Broker::class);
         $class = $broker->getClass($className);
         foreach ($properties as $propertyName => $expectedPropertyData) {
             $this->assertTrue($class->hasProperty($propertyName));

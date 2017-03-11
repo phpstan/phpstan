@@ -47,43 +47,43 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
             ],
             [
                 'Undefined variable: $arrayDoesNotExist',
-                57,
+                58,
             ],
             [
                 'Undefined variable: $undefinedVariable',
-                59,
+                60,
             ],
             [
                 'Undefined variable: $this',
-                96,
+                97,
             ],
             [
                 'Undefined variable: $this',
-                99,
+                100,
             ],
             [
                 'Undefined variable: $variableInEmpty',
-                145,
+                144,
             ],
             [
                 'Undefined variable: $negatedVariableInEmpty',
-                156,
+                155,
             ],
             [
                 'Undefined variable: $http_response_header',
-                185,
+                184,
             ],
             [
                 'Undefined variable: $http_response_header',
-                191,
+                190,
+            ],
+            [
+                'Undefined variable: $assignedInKey',
+                202,
             ],
             [
                 'Undefined variable: $assignedInKey',
                 203,
-            ],
-            [
-                'Undefined variable: $assignedInKey',
-                204,
             ],
         ]);
     }
@@ -99,15 +99,15 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
         $this->analyse([__DIR__ . '/data/defined-variables-array-destructuring-short-syntax.php'], [
             [
                 'Undefined variable: $f',
-                11,
+                10,
             ],
             [
                 'Undefined variable: $f',
-                14,
+                13,
             ],
             [
                 'Undefined variable: $var3',
-                32,
+                31,
             ],
         ]);
     }

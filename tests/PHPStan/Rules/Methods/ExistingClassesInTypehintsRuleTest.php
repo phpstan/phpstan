@@ -16,51 +16,51 @@ class ExistingClassesInTypehintsRuleTest extends \PHPStan\Rules\AbstractRuleTest
         $this->analyse([__DIR__ . '/data/typehints.php'], [
             [
                 'Return typehint of method TestMethodTypehints\FooMethodTypehints::foo() has invalid type TestMethodTypehints\NonexistentClass.',
-                8,
+                7,
             ],
             [
                 'Parameter $bar of method TestMethodTypehints\FooMethodTypehints::bar() has invalid typehint type TestMethodTypehints\BarMethodTypehints.',
-                13,
+                11,
             ],
             [
                 'Parameter $bars of method TestMethodTypehints\FooMethodTypehints::lorem() has invalid typehint type TestMethodTypehints\BarMethodTypehints.',
-                28,
+                24,
             ],
             [
                 'Return typehint of method TestMethodTypehints\FooMethodTypehints::lorem() has invalid type TestMethodTypehints\BazMethodTypehints.',
-                28,
+                24,
             ],
             [
                 'Parameter $bars of method TestMethodTypehints\FooMethodTypehints::ipsum() has invalid typehint type TestMethodTypehints\BarMethodTypehints.',
-                38,
+                33,
             ],
             [
                 'Return typehint of method TestMethodTypehints\FooMethodTypehints::ipsum() has invalid type TestMethodTypehints\BazMethodTypehints.',
-                38,
+                33,
             ],
             [
                 'Parameter $bars of method TestMethodTypehints\FooMethodTypehints::dolor() has invalid typehint type TestMethodTypehints\BarMethodTypehints.',
-                48,
+                42,
             ],
             [
                 'Return typehint of method TestMethodTypehints\FooMethodTypehints::dolor() has invalid type TestMethodTypehints\BazMethodTypehints.',
-                48,
+                42,
             ],
             [
                 'Parameter $parent of method TestMethodTypehints\FooMethodTypehints::parentWithoutParent() has invalid typehint type parent.',
-                53,
+                46,
             ],
             [
                 'Return typehint of method TestMethodTypehints\FooMethodTypehints::parentWithoutParent() has invalid type parent.',
-                53,
+                46,
             ],
             [
                 'Parameter $parent of method TestMethodTypehints\FooMethodTypehints::phpDocParentWithoutParent() has invalid typehint type parent.',
-                62,
+                54,
             ],
             [
                 'Return typehint of method TestMethodTypehints\FooMethodTypehints::phpDocParentWithoutParent() has invalid type parent.',
-                62,
+                54,
             ],
         ]);
     }

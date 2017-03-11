@@ -29,31 +29,43 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
         $this->analyse([ __DIR__ . '/data/call-methods.php'], [
             [
                 'Call to an undefined method Test\Foo::protectedMethodFromChild().',
-                10,
+                9,
             ],
             [
                 'Call to an undefined method Test\Bar::loremipsum().',
-                40,
+                33,
             ],
             [
                 'Call to private method foo() of class Test\Foo.',
-                41,
+                34,
             ],
             [
                 'Method Test\Foo::test() invoked with 0 parameters, 1 required.',
-                46,
+                39,
             ],
             [
                 'Cannot call method method() on string.',
-                49,
+                42,
             ],
             [
                 'Call to method doFoo() on an unknown class Test\UnknownClass.',
+                56,
+            ],
+            [
+                'Result of method Test\Bar::returnsVoid() (void) is used.',
+                59,
+            ],
+            [
+                'Result of method Test\Bar::returnsVoid() (void) is used.',
+                61,
+            ],
+            [
+                'Result of method Test\Bar::returnsVoid() (void) is used.',
                 63,
             ],
             [
                 'Result of method Test\Bar::returnsVoid() (void) is used.',
-                66,
+                65,
             ],
             [
                 'Result of method Test\Bar::returnsVoid() (void) is used.',
@@ -61,7 +73,15 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
             ],
             [
                 'Result of method Test\Bar::returnsVoid() (void) is used.',
+                69,
+            ],
+            [
+                'Result of method Test\Bar::returnsVoid() (void) is used.',
                 70,
+            ],
+            [
+                'Result of method Test\Bar::returnsVoid() (void) is used.',
+                71,
             ],
             [
                 'Result of method Test\Bar::returnsVoid() (void) is used.',
@@ -69,7 +89,7 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
             ],
             [
                 'Result of method Test\Bar::returnsVoid() (void) is used.',
-                75,
+                74,
             ],
             [
                 'Result of method Test\Bar::returnsVoid() (void) is used.',
@@ -89,10 +109,6 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
             ],
             [
                 'Result of method Test\Bar::returnsVoid() (void) is used.',
-                81,
-            ],
-            [
-                'Result of method Test\Bar::returnsVoid() (void) is used.',
                 83,
             ],
             [
@@ -100,28 +116,12 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
                 84,
             ],
             [
-                'Result of method Test\Bar::returnsVoid() (void) is used.',
-                85,
-            ],
-            [
-                'Result of method Test\Bar::returnsVoid() (void) is used.',
-                86,
-            ],
-            [
-                'Result of method Test\Bar::returnsVoid() (void) is used.',
-                90,
-            ],
-            [
-                'Result of method Test\Bar::returnsVoid() (void) is used.',
-                91,
-            ],
-            [
                 'Call to an undefined method ArrayObject::doFoo().',
-                109,
+                100,
             ],
             [
                 'Method PDO::query() invoked with 0 parameters, 1-4 required.',
-                114,
+                105,
             ],
         ]);
     }
@@ -132,23 +132,35 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
         $this->analyse([ __DIR__ . '/data/call-methods.php'], [
             [
                 'Call to an undefined method Test\Foo::protectedMethodFromChild().',
-                10,
+                9,
             ],
             [
                 'Call to an undefined method Test\Bar::loremipsum().',
-                40,
+                33,
             ],
             [
                 'Call to private method foo() of class Test\Foo.',
-                41,
+                34,
             ],
             [
                 'Method Test\Foo::test() invoked with 0 parameters, 1 required.',
-                46,
+                39,
             ],
             [
                 'Result of method Test\Bar::returnsVoid() (void) is used.',
-                66,
+                59,
+            ],
+            [
+                'Result of method Test\Bar::returnsVoid() (void) is used.',
+                61,
+            ],
+            [
+                'Result of method Test\Bar::returnsVoid() (void) is used.',
+                63,
+            ],
+            [
+                'Result of method Test\Bar::returnsVoid() (void) is used.',
+                65,
             ],
             [
                 'Result of method Test\Bar::returnsVoid() (void) is used.',
@@ -156,7 +168,15 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
             ],
             [
                 'Result of method Test\Bar::returnsVoid() (void) is used.',
+                69,
+            ],
+            [
+                'Result of method Test\Bar::returnsVoid() (void) is used.',
                 70,
+            ],
+            [
+                'Result of method Test\Bar::returnsVoid() (void) is used.',
+                71,
             ],
             [
                 'Result of method Test\Bar::returnsVoid() (void) is used.',
@@ -164,7 +184,7 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
             ],
             [
                 'Result of method Test\Bar::returnsVoid() (void) is used.',
-                75,
+                74,
             ],
             [
                 'Result of method Test\Bar::returnsVoid() (void) is used.',
@@ -184,31 +204,11 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
             ],
             [
                 'Result of method Test\Bar::returnsVoid() (void) is used.',
-                81,
-            ],
-            [
-                'Result of method Test\Bar::returnsVoid() (void) is used.',
                 83,
             ],
             [
                 'Result of method Test\Bar::returnsVoid() (void) is used.',
                 84,
-            ],
-            [
-                'Result of method Test\Bar::returnsVoid() (void) is used.',
-                85,
-            ],
-            [
-                'Result of method Test\Bar::returnsVoid() (void) is used.',
-                86,
-            ],
-            [
-                'Result of method Test\Bar::returnsVoid() (void) is used.',
-                90,
-            ],
-            [
-                'Result of method Test\Bar::returnsVoid() (void) is used.',
-                91,
             ],
         ]);
     }
@@ -219,7 +219,7 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
         $this->analyse([__DIR__ . '/data/call-trait-methods.php'], [
             [
                 'Call to an undefined method Baz::unexistentMethod().',
-                24,
+                20,
             ],
         ]);
     }
@@ -230,7 +230,7 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
         $this->analyse([__DIR__ . '/data/call-interface-methods.php'], [
             [
                 'Call to an undefined method Baz::barMethod().',
-                23,
+                19,
             ],
         ]);
     }
@@ -241,31 +241,31 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
         $this->analyse([__DIR__ . '/data/closure-bind.php'], [
             [
                 'Call to an undefined method CallClosureBind\Foo::nonexistentMethod().',
-                12,
+                11,
             ],
             [
                 'Call to an undefined method CallClosureBind\Bar::barMethod().',
-                16,
+                15,
             ],
             [
                 'Call to private method privateMethod() of class CallClosureBind\Foo.',
+                17,
+            ],
+            [
+                'Call to an undefined method CallClosureBind\Foo::nonexistentMethod().',
                 18,
             ],
             [
                 'Call to an undefined method CallClosureBind\Foo::nonexistentMethod().',
-                19,
+                27,
             ],
             [
                 'Call to an undefined method CallClosureBind\Foo::nonexistentMethod().',
-                28,
+                32,
             ],
             [
                 'Call to an undefined method CallClosureBind\Foo::nonexistentMethod().',
-                33,
-            ],
-            [
-                'Call to an undefined method CallClosureBind\Foo::nonexistentMethod().',
-                39,
+                38,
             ],
         ]);
     }
@@ -276,31 +276,31 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
         $this->analyse([__DIR__ . '/data/call-variadic-methods.php'], [
             [
                 'Method CallVariadicMethods\Foo::baz() invoked with 0 parameters, at least 1 required.',
-                10,
+                9,
             ],
             [
                 'Method CallVariadicMethods\Foo::lorem() invoked with 0 parameters, at least 2 required.',
-                11,
+                10,
             ],
             [
                 'Parameter #2 ...$strings of method CallVariadicMethods\Foo::doVariadicString() expects string, int given.',
-                32,
+                30,
             ],
             [
                 'Parameter #3 ...$strings of method CallVariadicMethods\Foo::doVariadicString() expects string, int given.',
-                32,
+                30,
             ],
             [
                 'Parameter #1 $int of method CallVariadicMethods\Foo::doVariadicString() expects int, string given.',
-                34,
+                32,
             ],
             [
                 'Parameter #3 ...$strings of method CallVariadicMethods\Foo::doVariadicString() expects string, int given.',
-                42,
+                40,
             ],
             [
                 'Parameter #4 ...$strings of method CallVariadicMethods\Foo::doVariadicString() expects string[], int[] given.',
-                42,
+                40,
             ],
         ]);
     }
@@ -311,7 +311,7 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
         $this->analyse([__DIR__ . '/data/incorrect-method-case.php'], [
             [
                 'Call to method IncorrectMethodCase\Foo::fooBar() with incorrect case: foobar',
-                10,
+                9,
             ],
         ]);
     }
@@ -365,11 +365,11 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
         $this->analyse([__DIR__ . '/data/calling-method-with-inheritdoc.php'], [
             [
                 'Parameter #1 $i of method MethodWithInheritDoc\Baz::doFoo() expects int, string given.',
-                65,
+                57,
             ],
             [
                 'Parameter #1 $str of method MethodWithInheritDoc\Foo::doBar() expects string, int given.',
-                67,
+                59,
             ],
         ]);
     }
@@ -386,7 +386,7 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
         $this->analyse([__DIR__ . '/data/invoke-magic-method.php'], [
             [
                 'Parameter #1 $foo of method InvokeMagicInvokeMethod\ClassForCallable::doFoo() expects callable, InvokeMagicInvokeMethod\ClassForCallable given.',
-                27,
+                22,
             ],
         ]);
     }

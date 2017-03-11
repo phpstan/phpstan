@@ -39,12 +39,12 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\TestCase
     {
         $path = __DIR__ . '/../Rules/Functions/data/nonexistent-function.php';
         $output = $this->runPath($path, 1);
-        $this->assertContains('Function foobarNonExistentFunction not found.', $output);
+        $this->assertContains('Function foobarNonExistentFunction not found', $output);
     }
 
     private function runPath(string $path, int $expectedStatusCode): string
     {
-        $analyserApplication = $this->getContainer()->getByType(AnalyseApplication::class);
+        $analyserApplication = $this->getContainer()->get(AnalyseApplication::class);
         $output = new StreamOutput(fopen('php://memory', 'w', false));
 
         $style = new SymfonyStyle(
@@ -52,9 +52,9 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\TestCase
             $output
         );
 
-        $memoryLimitFile = $this->getContainer()->parameters['memoryLimitFile'];
+        $memoryLimitFile = $this->getContainer()->get('memoryLimitFile');
 
-        $statusCode = $analyserApplication->analyse([$path], $style, false);
+        $statusCode = $analyserApplication->analyse([$path], $style, $style, false);
         if (file_exists($memoryLimitFile)) {
             unlink($memoryLimitFile);
         }

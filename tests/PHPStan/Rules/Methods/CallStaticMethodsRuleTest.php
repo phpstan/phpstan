@@ -20,71 +20,71 @@ class CallStaticMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
         $this->analyse([__DIR__ . '/data/call-static-methods.php'], [
             [
                 'Call to an undefined static method CallStaticMethods\Foo::bar().',
-                39,
+                33,
             ],
             [
                 'Call to an undefined static method CallStaticMethods\Bar::bar().',
-                40,
+                34,
             ],
             [
                 'Call to an undefined static method CallStaticMethods\Foo::bar().',
-                41,
+                35,
             ],
             [
                 'Static call to instance method CallStaticMethods\Foo::loremIpsum().',
-                42,
+                36,
             ],
             [
                 'Call to private static method dolor() of class CallStaticMethods\Foo.',
-                43,
+                37,
             ],
             [
                 'CallStaticMethods\Ipsum::ipsumTest() calls parent::lorem() but CallStaticMethods\Ipsum does not extend any class.',
-                63,
+                54,
             ],
             [
                 'Static method CallStaticMethods\Foo::test() invoked with 1 parameter, 0 required.',
-                65,
+                56,
             ],
             [
                 'Call to protected static method baz() of class CallStaticMethods\Foo.',
-                66,
+                57,
             ],
             [
                 'Call to static method loremIpsum() on an unknown class CallStaticMethods\UnknownStaticMethodClass.',
-                67,
+                58,
             ],
             [
                 'Parent constructor invoked with 0 parameters, 1 required.',
-                87,
+                73,
             ],
             [
                 'Calling self::someStaticMethod() outside of class scope.',
-                93,
+                78,
             ],
             [
                 'Calling static::someStaticMethod() outside of class scope.',
-                94,
+                79,
             ],
             [
                 'Calling parent::someStaticMethod() outside of class scope.',
-                95,
+                80,
             ],
             [
                 'Call to protected static method baz() of class CallStaticMethods\Foo.',
-                97,
+                82,
             ],
             [
                 'Call to an undefined static method CallStaticMethods\Foo::bar().',
-                98,
+                83,
             ],
             [
                 'Static call to instance method CallStaticMethods\Foo::loremIpsum().',
-                99,
+                84,
             ],
             [
                 'Call to private static method dolor() of class CallStaticMethods\Foo.',
-                100,
+                85,
             ],
         ]);
     }
@@ -94,7 +94,7 @@ class CallStaticMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
         $this->analyse([__DIR__ . '/data/call-interface-methods.php'], [
             [
                 'Call to an undefined static method Baz::barStaticMethod().',
-                25,
+                21,
             ],
         ]);
     }
@@ -104,7 +104,7 @@ class CallStaticMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
         $this->analyse([__DIR__ . '/data/incorrect-static-method-case.php'], [
             [
                 'Call to static method IncorrectStaticMethodCase\Foo::fooBar() with incorrect case: foobar',
-                10,
+                9,
             ],
         ]);
     }
@@ -114,31 +114,31 @@ class CallStaticMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
         $this->analyse([__DIR__ . '/data/static-calls-to-instance-methods.php'], [
             [
                 'Static call to instance method StaticCallsToInstanceMethods\Foo::doFoo().',
-                10,
+                9,
             ],
             [
                 'Static call to instance method StaticCallsToInstanceMethods\Bar::doBar().',
-                16,
+                15,
             ],
             [
                 'Static call to instance method StaticCallsToInstanceMethods\Foo::doFoo().',
-                36,
+                31,
             ],
             [
                 'Call to method StaticCallsToInstanceMethods\Foo::doFoo() with incorrect case: dofoo',
-                42,
+                37,
+            ],
+            [
+                'Method StaticCallsToInstanceMethods\Foo::doFoo() invoked with 1 parameter, 0 required.',
+                38,
+            ],
+            [
+                'Call to private method doPrivateFoo() of class StaticCallsToInstanceMethods\Foo.',
+                40,
             ],
             [
                 'Method StaticCallsToInstanceMethods\Foo::doFoo() invoked with 1 parameter, 0 required.',
                 43,
-            ],
-            [
-                'Call to private method doPrivateFoo() of class StaticCallsToInstanceMethods\Foo.',
-                45,
-            ],
-            [
-                'Method StaticCallsToInstanceMethods\Foo::doFoo() invoked with 1 parameter, 0 required.',
-                48,
             ],
         ]);
     }

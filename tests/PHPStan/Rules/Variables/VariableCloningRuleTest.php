@@ -15,11 +15,11 @@ class VariableCloningRuleTest extends \PHPStan\Rules\AbstractRuleTest
         $this->analyse([__DIR__ . '/data/variable-cloning.php'], [
             [
                 'Cannot clone non-object variable $stringData of type string.',
-                14,
+                16,
             ],
             [
                 'Cannot clone string.',
-                15,
+                17,
             ],
         ]);
     }

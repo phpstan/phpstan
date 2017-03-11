@@ -18,7 +18,7 @@ class DefinedVariableInAnonymousFunctionUseRuleTest extends \PHPStan\Rules\Abstr
             ],
             [
                 'Undefined variable: $wrongErrorHandler',
-                13,
+                11,
             ],
         ]);
     }

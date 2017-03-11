@@ -16,115 +16,115 @@ class ReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
         $this->analyse([__DIR__ . '/data/returnTypes.php'], [
             [
                 'Method ReturnTypes\Foo::returnInteger() should return int but returns string.',
-                16,
+                15,
             ],
             [
                 'Method ReturnTypes\Foo::returnObject() should return ReturnTypes\Bar but returns int.',
-                24,
+                23,
             ],
             [
                 'Method ReturnTypes\Foo::returnObject() should return ReturnTypes\Bar but returns ReturnTypes\Foo.',
-                25,
+                24,
             ],
             [
                 'Method ReturnTypes\Foo::returnChild() should return ReturnTypes\Foo but returns ReturnTypes\OtherInterfaceImpl.',
-                33,
+                32,
             ],
             [
                 'Method ReturnTypes\Foo::returnVoid() with return type void returns null but should not return anything.',
-                56,
+                55,
             ],
             [
                 'Method ReturnTypes\Foo::returnVoid() with return type void returns int but should not return anything.',
-                57,
+                56,
             ],
             [
                 'Method ReturnTypes\Foo::returnStatic() should return static(ReturnTypes\Foo) but returns ReturnTypes\FooParent.',
-                68,
+                67,
             ],
             [
                 'Method ReturnTypes\Foo::returnUnionIterableType() should return ReturnTypes\Foo[]|ReturnTypes\Collection but returns ReturnTypes\Foo.',
-                90,
+                89,
             ],
             [
                 'Method ReturnTypes\Foo::returnUnionIterableType() should return ReturnTypes\Foo[]|ReturnTypes\Collection but returns ReturnTypes\Bar.',
-                92,
+                91,
             ],
             [
                 'Method ReturnTypes\Foo::returnUnionIterableType() should return ReturnTypes\Foo[]|ReturnTypes\Collection but returns ReturnTypes\Bar[].',
-                93,
+                92,
             ],
             [
                 'Method ReturnTypes\Foo::returnUnionIterableType() should return ReturnTypes\Foo[]|ReturnTypes\Collection but returns int.',
-                94,
+                93,
             ],
             [
                 'Method ReturnTypes\Foo::returnUnionIterableType() should return ReturnTypes\Foo[]|ReturnTypes\Collection but empty return statement found.',
-                95,
+                94,
             ],
             [
                 'Method ReturnTypes\Foo::returnUnionIterableType() should return ReturnTypes\Foo[]|ReturnTypes\Collection but returns ReturnTypes\Bar[]|ReturnTypes\Collection.',
-                99,
+                98,
             ],
             [
                 'Method ReturnTypes\Foo::returnUnionIterableType() should return ReturnTypes\Foo[]|ReturnTypes\Collection but returns ReturnTypes\Foo[]|ReturnTypes\AnotherCollection.',
-                103,
+                102,
             ],
             [
                 'Method ReturnTypes\Foo::returnUnionIterableType() should return ReturnTypes\Foo[]|ReturnTypes\Collection but returns ReturnTypes\Foo[]|ReturnTypes\Collection|ReturnTypes\AnotherCollection.',
-                107,
+                106,
             ],
             [
                 'Method ReturnTypes\Foo::returnUnionIterableType() should return ReturnTypes\Foo[]|ReturnTypes\Collection but returns ReturnTypes\Bar[]|ReturnTypes\AnotherCollection.',
-                111,
+                110,
             ],
             [
                 'Method ReturnTypes\Foo::returnUnionIterableType() should return ReturnTypes\Foo[]|ReturnTypes\Collection but returns null.',
-                113,
+                112,
             ],
             [
                 'Method ReturnTypes\Foo::returnThis() should return $this but returns new self().',
-                132,
+                131,
             ],
             [
                 'Method ReturnTypes\Foo::returnThis() should return $this but returns 1.',
-                133,
+                132,
             ],
             [
                 'Method ReturnTypes\Foo::returnThis() should return $this but returns null.',
-                134,
+                133,
             ],
             [
                 'Method ReturnTypes\Foo::returnThisOrNull() should return $this but returns new self().',
-                146,
+                145,
             ],
             [
                 'Method ReturnTypes\Foo::returnThisOrNull() should return $this but returns 1.',
-                147,
+                146,
             ],
             [
                 'Method ReturnTypes\Foo::returnThisOrNull() should return $this but returns $this->returnStaticThatReturnsNewStatic().',
-                150,
+                149,
             ],
             [
                 'Method ReturnTypes\Foo::returnsParent() should return ReturnTypes\FooParent but returns int.',
-                165,
+                164,
             ],
             [
                 'Method ReturnTypes\Foo::returnsParent() should return ReturnTypes\FooParent but returns null.',
-                166,
+                165,
             ],
             [
                 'Method ReturnTypes\Foo::returnsPhpDocParent() should return ReturnTypes\FooParent but returns int.',
-                172,
+                171,
             ],
             [
                 'Method ReturnTypes\Foo::returnsPhpDocParent() should return ReturnTypes\FooParent but returns null.',
-                173,
+                172,
             ],
             [
                 'Method ReturnTypes\Foo::returnScalar() should return int|float|string|bool but returns stdClass.',
-                185,
+                184,
             ],
         ]);
     }

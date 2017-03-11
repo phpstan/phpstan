@@ -84,7 +84,7 @@
 		>
 			<arg value="-c"/>
 			<arg value="tests/phpunit.xml"/>
-			<arg path="tests"/>
+			<arg path="tests/PHPStan"/>
 		</exec>
 	</target>
 

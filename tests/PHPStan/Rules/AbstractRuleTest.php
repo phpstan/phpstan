@@ -42,7 +42,7 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
                     $broker,
                     $this->getParser(),
                     $printer,
-                    new FileTypeMapper($this->getParser(), $this->createMock(\Psr\Cache\CacheItemPoolInterface::class), true),
+                    new FileTypeMapper($this->getParser(), new \Stash\Pool(new \Stash\Driver\Ephemeral()), true),
                     new TypeSpecifier($printer),
                     $fileExcluder,
                     false,
@@ -65,7 +65,7 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
     private function getFileHelper(): FileHelper
     {
         if ($this->fileHelper === null) {
-            $this->fileHelper = $this->getContainer()->getByType(FileHelper::class);
+            $this->fileHelper = $this->getContainer()->get(FileHelper::class);
         }
 
         return $this->fileHelper;

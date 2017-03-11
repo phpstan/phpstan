@@ -21,11 +21,11 @@ class ExistingClassInInstanceOfRuleTest extends \PHPStan\Rules\AbstractRuleTest
             [
                 [
                     'Class InstanceOfNamespace\Bar not found.',
-                    7,
+                    6,
                 ],
                 [
                     'Using self outside of class scope.',
-                    9,
+                    7,
                 ],
             ]
         );

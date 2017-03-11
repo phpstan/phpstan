@@ -58,27 +58,27 @@ class ClassConstantRuleTest extends \PHPStan\Rules\AbstractRuleTest
         $this->analyse([__DIR__ . '/data/class-constant-visibility.php'], [
             [
                 'Access to private constant PRIVATE_BAR of class ClassConstantVisibility\Bar.',
-                25,
+                24,
             ],
             [
                 'Access to parent::BAZ but ClassConstantVisibility\Foo does not extend any class.',
-                27,
+                26,
             ],
             [
                 'Access to undefined constant ClassConstantVisibility\Bar::PRIVATE_FOO.',
-                45,
+                42,
             ],
             [
                 'Access to private constant PRIVATE_FOO of class ClassConstantVisibility\Foo.',
-                46,
+                43,
             ],
             [
                 'Access to private constant PRIVATE_FOO of class ClassConstantVisibility\Foo.',
-                47,
+                44,
             ],
             [
                 'Access to protected constant PROTECTED_FOO of class ClassConstantVisibility\Foo.',
-                63,
+                58,
             ],
         ]);
     }

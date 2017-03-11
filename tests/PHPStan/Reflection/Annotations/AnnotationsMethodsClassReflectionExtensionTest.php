@@ -116,7 +116,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
     public function testMethods(string $className, array $methods)
     {
         /** @var Broker $broker */
-        $broker = $this->getContainer()->getByType(Broker::class);
+        $broker = $this->getContainer()->get(Broker::class);
         $class = $broker->getClass($className);
         foreach ($methods as $methodName => $expectedMethodData) {
             $this->assertTrue($class->hasMethod($methodName), sprintf('Method %s not found in class %s.', $methodName, $className));

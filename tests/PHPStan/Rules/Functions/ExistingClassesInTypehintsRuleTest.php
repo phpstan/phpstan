@@ -17,15 +17,15 @@ class ExistingClassesInTypehintsRuleTest extends \PHPStan\Rules\AbstractRuleTest
         $this->analyse([__DIR__ . '/data/typehints.php'], [
             [
                 'Return typehint of function TestFunctionTypehints\foo() has invalid type TestFunctionTypehints\NonexistentClass.',
-                10,
+                9,
             ],
             [
                 'Parameter $bar of function TestFunctionTypehints\bar() has invalid typehint type TestFunctionTypehints\BarFunctionTypehints.',
-                15,
+                13,
             ],
             [
                 'Return typehint of function TestFunctionTypehints\returnParent() has invalid type parent.',
-                28,
+                24,
             ],
         ]);
     }

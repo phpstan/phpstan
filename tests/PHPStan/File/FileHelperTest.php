@@ -98,7 +98,7 @@ class FileHelperTest extends \PHPStan\TestCase
     public function testNormalizePathOnWindows(string $path, string $normalizedPath)
     {
         $this->skipIfNotOnWindows();
-        $this->assertSame($normalizedPath, $this->getContainer()->getByType(FileHelper::class)->normalizePath($path));
+        $this->assertSame($normalizedPath, $this->getContainer()->get(FileHelper::class)->normalizePath($path));
     }
 
     /**
@@ -125,6 +125,6 @@ class FileHelperTest extends \PHPStan\TestCase
     public function testNormalizePathOnLinuxOrMac(string $path, string $normalizedPath)
     {
         $this->skipIfNotOnUnix();
-        $this->assertSame($normalizedPath, $this->getContainer()->getByType(FileHelper::class)->normalizePath($path));
+        $this->assertSame($normalizedPath, $this->getContainer()->get(FileHelper::class)->normalizePath($path));
     }
 }

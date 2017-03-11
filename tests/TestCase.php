@@ -2,7 +2,6 @@
 
 namespace PHPStan;
 
-use Nette\DI\Container;
 use PHPStan\Broker\Broker;
 use PHPStan\Parser\DirectParser;
 use PHPStan\Parser\FunctionCallStatementFinder;
@@ -22,19 +21,19 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
 
     /**
-     * @var \Nette\DI\Container
+     * @var \DI\Container
      */
     private static $container;
 
     /** @var \PHPStan\Parser\Parser */
     private $parser;
 
-    public function getContainer(): \Nette\DI\Container
+    public function getContainer(): \DI\Container
     {
         return self::$container;
     }
 
-    public static function setContainer(Container $container)
+    public static function setContainer(\DI\Container $container)
     {
         self::$container = $container;
     }
@@ -59,7 +58,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     {
         $functionCallStatementFinder = new FunctionCallStatementFinder();
         $parser = $this->getParser();
-        $cache = new Stash\Pool(new Stash\Driver\Ephemeral());
+        $cache = new \Stash\Pool(new \Stash\Driver\Ephemeral());
         $methodReflectionFactory = new class($parser, $functionCallStatementFinder, $cache) implements PhpMethodReflectionFactory {
             /** @var \PHPStan\Parser\Parser */
             private $parser;
@@ -101,7 +100,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
                 );
             }
         };
-        $phpExtension = new PhpClassReflectionExtension($methodReflectionFactory, new FileTypeMapper($parser, $this->createMock(\Psr\Cache\CacheItemPoolInterface::class), true));
+        $phpExtension = new PhpClassReflectionExtension($methodReflectionFactory, new FileTypeMapper($parser, new \Stash\Pool(new \Stash\Driver\Ephemeral()), true));
         $functionReflectionFactory = new class($this->getParser(), $functionCallStatementFinder, $cache) implements FunctionReflectionFactory {
             /** @var \PHPStan\Parser\Parser */
             private $parser;
@@ -147,7 +146,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             $dynamicMethodReturnTypeExtensions,
             $dynamicStaticMethodReturnTypeExtensions,
             $functionReflectionFactory,
-            new FileTypeMapper($this->getParser(), $this->createMock(\Psr\Cache\CacheItemPoolInterface::class), true)
+            new FileTypeMapper($this->getParser(), new \Stash\Pool(new \Stash\Driver\Ephemeral()), true)
         );
         $methodReflectionFactory->broker = $broker;
 

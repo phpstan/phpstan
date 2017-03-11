@@ -18,27 +18,27 @@ class RequireParentConstructCallRuleTest extends \PHPStan\Rules\AbstractRuleTest
         $this->analyse([__DIR__ . '/data/call-to-parent-constructor.php'], [
             [
                 'IpsumCallToParentConstructor::__construct() calls parent constructor but parent does not have one.',
-                31,
+                24,
             ],
             [
                 'BCallToParentConstructor::__construct() does not call parent constructor from ACallToParentConstructor.',
-                51,
+                39,
             ],
             [
                 'CCallToParentConstructor::__construct() calls parent constructor but does not extend any class.',
-                61,
+                46,
             ],
             [
                 'FCallToParentConstructor::__construct() does not call parent constructor from DCallToParentConstructor.',
-                86,
+                65,
             ],
             [
                 'BarSoapClient::__construct() does not call parent constructor from SoapClient.',
-                129,
+                98,
             ],
             [
                 'StaticCallOnAVariable::__construct() does not call parent constructor from FooCallToParentConstructor.',
-                140,
+                105,
             ],
         ]);
     }

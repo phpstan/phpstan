@@ -23,67 +23,67 @@ class AccessPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
             [
                 [
                     'Access to an undefined property TestAccessProperties\BarAccessProperties::$loremipsum.',
-                    23,
+                    20,
                 ],
                 [
                     'Access to private property $foo of parent class TestAccessProperties\FooAccessProperties.',
-                    24,
+                    21,
                 ],
                 [
                     'Cannot access property $propertyOnString on string.',
-                    31,
+                    28,
                 ],
                 [
                     'Access to private property $foo of class TestAccessProperties\FooAccessProperties.',
-                    42,
+                    37,
                 ],
                 [
                     'Access to protected property $bar of class TestAccessProperties\FooAccessProperties.',
-                    43,
+                    38,
                 ],
                 [
                     'Access to an undefined property TestAccessProperties\FooAccessProperties::$baz.',
-                    49,
+                    44,
                 ],
                 [
                     'Access to an undefined property TestAccessProperties\FooAccessProperties::$nonexistent.',
-                    52,
+                    47,
                 ],
                 [
                     'Access to private property $foo of class TestAccessProperties\FooAccessProperties.',
-                    58,
+                    53,
                 ],
                 [
                     'Access to protected property $bar of class TestAccessProperties\FooAccessProperties.',
-                    59,
+                    54,
                 ],
                 [
                     'Access to property $foo on an unknown class TestAccessProperties\UnknownClass.',
-                    63,
+                    58,
                 ],
                 [
                     'Access to an undefined property TestAccessProperties\FooAccessProperties::$emptyBaz.',
-                    68,
+                    63,
                 ],
                 [
                     'Access to an undefined property TestAccessProperties\FooAccessProperties::$emptyNonexistent.',
-                    70,
+                    65,
                 ],
                 [
                     'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherNonexistent.',
-                    76,
+                    71,
                 ],
                 [
                     'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherNonexistent.',
-                    77,
+                    72,
                 ],
                 [
                     'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherEmptyNonexistent.',
-                    80,
+                    75,
                 ],
                 [
                     'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherEmptyNonexistent.',
-                    83,
+                    78,
                 ],
             ]
         );
@@ -97,11 +97,11 @@ class AccessPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
             [
                 [
                     'Access to an undefined property TestAccessProperties\BarAccessProperties::$loremipsum.',
-                    23,
+                    20,
                 ],
                 [
                     'Access to private property $foo of parent class TestAccessProperties\FooAccessProperties.',
-                    24,
+                    21,
                 ],
             ]
         );
@@ -117,31 +117,31 @@ class AccessPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
             ],
             [
                 'Cannot access property $fooProperty on null.',
-                23,
+                20,
             ],
             [
                 'Access to an undefined property AccessPropertiesAfterIsNull\Foo::$barProperty.',
-                26,
+                22,
             ],
             [
                 'Access to an undefined property AccessPropertiesAfterIsNull\Foo::$barProperty.',
-                29,
+                24,
+            ],
+            [
+                'Cannot access property $fooProperty on null.',
+                27,
             ],
             [
                 'Cannot access property $fooProperty on null.',
                 33,
             ],
             [
-                'Cannot access property $fooProperty on null.',
-                42,
+                'Access to an undefined property AccessPropertiesAfterIsNull\Foo::$barProperty.',
+                35,
             ],
             [
                 'Access to an undefined property AccessPropertiesAfterIsNull\Foo::$barProperty.',
-                45,
-            ],
-            [
-                'Access to an undefined property AccessPropertiesAfterIsNull\Foo::$barProperty.',
-                48,
+                37,
             ],
         ]);
     }
@@ -152,7 +152,7 @@ class AccessPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
         $this->analyse([__DIR__ . '/data/date-interval-child-properties.php'], [
             [
                 'Access to an undefined property AccessPropertiesDateIntervalChild\DateIntervalChild::$nonexistent.',
-                14,
+                13,
             ],
         ]);
     }

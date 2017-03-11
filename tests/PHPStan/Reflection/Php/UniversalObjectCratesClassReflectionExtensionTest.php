@@ -8,7 +8,7 @@ class UniversalObjectCratesClassReflectionExtensionTest extends \PHPStan\TestCas
 {
     public function testNonexistentClass()
     {
-        $broker = $this->getContainer()->getByType(Broker::class);
+        $broker = $this->getContainer()->get(Broker::class);
         $extension = new UniversalObjectCratesClassReflectionExtension([
             'NonexistentClass',
             'stdClass',

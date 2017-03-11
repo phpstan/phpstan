@@ -16,15 +16,15 @@ class ExistingClassesInClosureTypehintsRuleTest extends \PHPStan\Rules\AbstractR
         $this->analyse([__DIR__ . '/data/closure-typehints.php'], [
             [
                 'Return typehint of anonymous function has invalid type TestClosureFunctionTypehints\NonexistentClass.',
-                10,
+                9,
             ],
             [
                 'Parameter $bar of anonymous function has invalid typehint type TestClosureFunctionTypehints\BarFunctionTypehints.',
-                15,
+                12,
             ],
             [
                 'Return typehint of anonymous function has invalid type parent.',
-                25,
+                18,
             ],
         ]);
     }
@@ -40,11 +40,11 @@ class ExistingClassesInClosureTypehintsRuleTest extends \PHPStan\Rules\AbstractR
         $this->analyse([__DIR__ . '/data/closure-7.1-typehints.php'], [
             [
                 'Parameter $bar of anonymous function has invalid typehint type TestClosureFunctionTypehintsPhp71\NonexistentClass.',
-                35,
+                24,
             ],
             [
                 'Return typehint of anonymous function has invalid type TestClosureFunctionTypehintsPhp71\NonexistentClass.',
-                35,
+                24,
             ],
         ]);
     }
