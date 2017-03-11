@@ -85,12 +85,25 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
         if ($levelOption === null) {
             $levelOption = self::DEFAULT_LEVEL;
             $defaultLevelUsed = true;
+        } else {
+            $levelOption = (int) $levelOption;
         }
+
+        switch ($levelOption) {
+        case 2:
+            $container->set('checkThisOnly', false);
+            break;
+        case 5:
+            $container->set('checkFunctionArgumentTypes', true);
+            $container->set('enableUnionTypes', true);
+            break;
+        }
+
         $rules = $input->getOption('rules');
         if ($rules) {
             $rules = explode(',', $rules);
         } else {
-            $rules = RegistryFactory::getRuleArgList((int)$levelOption);
+            $rules = RegistryFactory::getRuleArgList($levelOption);
         }
         RegistryFactory::setRules($rules);
 
