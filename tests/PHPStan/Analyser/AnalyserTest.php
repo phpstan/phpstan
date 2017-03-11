@@ -201,7 +201,7 @@ class AnalyserTest extends \PHPStan\TestCase
 				$broker,
 				$this->getParser(),
 				$printer,
-				new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class)),
+				new FileTypeMapper($this->getParser(), $broker->getTypeFactory(), $this->createMock(\Nette\Caching\Cache::class)),
 				$fileExcluder,
 				new \PhpParser\BuilderFactory(),
 				$fileHelper,

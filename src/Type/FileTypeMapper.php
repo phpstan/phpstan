@@ -5,6 +5,7 @@ namespace PHPStan\Type;
 use PhpParser\Node;
 use PHPStan\Analyser\NameScope;
 use PHPStan\Parser\Parser;
+use PHPStan\TypeX\TypeXFactory;
 
 class FileTypeMapper
 {
@@ -15,6 +16,9 @@ class FileTypeMapper
 	/** @var \PHPStan\Parser\Parser */
 	private $parser;
 
+	/** @var \PHPStan\TypeX\TypeXFactory */
+	private $typeFactory;
+
 	/** @var \Nette\Caching\Cache */
 	private $cache;
 
@@ -23,10 +27,12 @@ class FileTypeMapper
 
 	public function __construct(
 		Parser $parser,
+		TypeXFactory $typeFactory,
 		\Nette\Caching\Cache $cache
 	)
 	{
 		$this->parser = $parser;
+		$this->typeFactory = $typeFactory;
 		$this->cache = $cache;
 	}
 

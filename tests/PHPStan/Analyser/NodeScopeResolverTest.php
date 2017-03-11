@@ -26,12 +26,14 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 
 	protected function setUp()
 	{
+		$broker = $this->createBroker();
+
 		$this->printer = new \PhpParser\PrettyPrinter\Standard();
 		$this->resolver = new NodeScopeResolver(
-			$this->createBroker(),
+			$broker,
 			$this->getParser(),
 			$this->printer,
-			new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class)),
+			new FileTypeMapper($this->getParser(), $broker->getTypeFactory(), $this->createMock(\Nette\Caching\Cache::class)),
 			new FileExcluder($this->createMock(FileHelper::class), []),
 			new \PhpParser\BuilderFactory(),
 			new FileHelper('/'),

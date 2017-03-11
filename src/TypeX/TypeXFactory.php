@@ -10,8 +10,9 @@ class TypeXFactory
 	/** @var Broker */
 	private $broker;
 
-	public function __construct(Broker $broker)
+	public function setBroker(Broker $broker)
 	{
+		assert($this->broker === null);
 		$this->broker = $broker;
 	}
 

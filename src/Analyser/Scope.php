@@ -48,6 +48,7 @@ use PHPStan\Type\TrueOrFalseBooleanType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\VoidType;
+use PHPStan\TypeX\TypeXFactory;
 
 class Scope
 {
@@ -56,6 +57,11 @@ class Scope
 	 * @var \PHPStan\Broker\Broker
 	 */
 	private $broker;
+
+	/**
+	 * @var \PHPStan\TypeX\TypeXFactory
+	 */
+	private $typeFactory;
 
 	/**
 	 * @var \PhpParser\PrettyPrinter\Standard
@@ -186,6 +192,7 @@ class Scope
 		}
 
 		$this->broker = $broker;
+		$this->typeFactory = $this->broker->getTypeFactory();
 		$this->printer = $printer;
 		$this->typeSpecifier = $typeSpecifier;
 		$this->file = $file;
