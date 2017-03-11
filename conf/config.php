@@ -24,6 +24,7 @@ return [
     'bootstrap' => null,
     'bootstrapFile' => null,
     'excludes_analyse' => [],
+    'ignorePathPatterns' => [],
     'autoload_directories' => [],
     'autoload_files' => [],
     'fileExtensions' => [ 'php', ],
@@ -77,6 +78,7 @@ return [
     PHPStan\Command\AnalyseApplication::class => $obj([
         'memoryLimitFile',
         'fileExtensions',
+        'ignorePathPatterns',
     ]),
 
     PHPStan\File\FileHelper::class => $obj([

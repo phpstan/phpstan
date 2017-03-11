@@ -29,16 +29,23 @@ class AnalyseApplication
     /** @var \PHPStan\File\FileHelper */
     private $fileHelper;
 
+    /**
+     * @var string[]
+     */
+    private $ignorePathPatterns;
+
     public function __construct(
         Analyser $analyser,
         string $memoryLimitFile,
         FileHelper $fileHelper,
+        array $ignorePathPatterns,
         array $fileExtensions
     ) {
         $this->analyser = $analyser;
         $this->memoryLimitFile = $memoryLimitFile;
         $this->fileExtensions = $fileExtensions;
         $this->fileHelper = $fileHelper;
+        $this->ignorePathPatterns = $ignorePathPatterns;
     }
 
     /**
@@ -66,6 +73,14 @@ class AnalyseApplication
                 $files[] = $path;
             } else {
                 $finder = new Finder();
+                $finder->filter(function (\SplFileInfo $info) {
+                    foreach ($this->ignorePathPatterns as $pattern) {
+                        if (preg_match("#$pattern#", $info->getPath())) {
+                            return false;
+                        }
+                    }
+                    return true;
+                });
                 foreach ($finder->files()->name('*.{' . implode(',', $this->fileExtensions) . '}')->in($path) as $fileInfo) {
                     $files[] = $fileInfo->getPathname();
                     $onlyFiles = false;

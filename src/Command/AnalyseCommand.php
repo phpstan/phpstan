@@ -30,6 +30,8 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
                 new InputOption(ErrorsConsoleStyle::OPTION_NO_PROGRESS, null, InputOption::VALUE_NONE, 'Do not show progress bar, only results'),
                 new InputOption('autoload-file', 'a', InputOption::VALUE_OPTIONAL, 'Project\'s additional autoload file path'),
                 new InputOption('rules', 'r', InputOption::VALUE_OPTIONAL, "rule1,rule2,...\n".implode("\n", RegistryFactory::getRuleArgList(65535))),
+                new InputOption('ignore', 'i', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'preg pattern for file path to be ignored'),
+                new InputOption('ignore-error', 'e', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'preg pattern for error to be ignored'),
             ]);
     }
 
@@ -41,6 +43,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $stderr = $output;
         if ($output instanceof ConsoleOutputInterface) {
             $stderr = $output->getErrorOutput();
         }
@@ -66,6 +69,16 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
         $container->set('tmpDir', $tmpDir);
         $container->set('currentWorkingDirectory', $currentWorkingDirectory);
         $container->set('defaultExtensions', []);
+
+        $ignorePathPatterns = $input->getOption('ignore');
+        if ($ignorePathPatterns) {
+            $container->set('ignorePathPatterns', $ignorePathPatterns);
+        }
+        $ignoreErrors = $input->getOption('ignore-error');
+
+        if ($ignoreErrors) {
+            $container->set('ignoreErrors', $ignoreErrors);
+        }
 
         $levelOption = $input->getOption(self::OPTION_LEVEL);
         $defaultLevelUsed = false;

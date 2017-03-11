@@ -87,17 +87,6 @@
 	</target>
 
 	<target name="phpstan">
-		<php expression="PHP_VERSION_ID &lt; 70100 ?'true':'false'" returnProperty="isPHP70" level="verbose" />
-		<php expression="\PHPStan\TestCase::isObsoletePhpParserVersion() ?'.old-php-parser':''" returnProperty="phpParserSuffix" level="verbose" />
-		<if>
-			<equals arg1="${isPHP70}" arg2="true" />
-			<then>
-				<property name="phpstan.config" value="build/phpstan.php7.0${phpParserSuffix}.neon"/>
-			</then>
-			<else>
-				<property name="phpstan.config" value="build/phpstan${phpParserSuffix}.neon"/>
-			</else>
-		</if>
 		<exec
 				executable="php"
 				logoutput="true"
@@ -106,12 +95,18 @@
 		>
 			<arg path="bin/phpstan"/>
 			<arg value="analyse"/>
-			<arg value="-c"/>
-			<arg path="${phpstan.config}"/>
 			<arg value="-l"/>
 			<arg value="5"/>
+			<arg value="--ignore"/>
+			<arg value="tests/.*/data"/>
+			<arg value="--ignore"/>
+			<arg value="tests/notAutoloaded"/>
+			<arg value="--ignore"/>
+			<arg value="tests/PHPStan/Analyser/traits"/>
+			<arg value="--ignore-error"/>
+			<arg value="PHPUnit_Framework_MockObject_MockObject"/>
 			<arg path="src"/>
-			<arg path="tests"/>
+			<arg path="tests/PHPStan"/>
 		</exec>
 	</target>
 

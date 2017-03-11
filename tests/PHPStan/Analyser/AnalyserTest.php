@@ -60,7 +60,7 @@ class AnalyserTest extends \PHPStan\TestCase
                 __DIR__ . '/data/parse-error.php',
                 [__DIR__ . '/aaa'],
                 [
-                    '#Syntax error#',
+                    'Syntax error',
                 ],
                 0,
             ],
@@ -80,16 +80,6 @@ class AnalyserTest extends \PHPStan\TestCase
         $result = $analyser->analyse([$filePath], !is_file($filePath));
         $this->assertInternalType('array', $result);
         $this->assertCount($errorsCount, $result);
-    }
-
-    public function testReturnErrorIfIgnoredMessagesDoesNotOccur()
-    {
-        $analyser = $this->createAnalyser([], ['#Unknown error#']);
-        $result = $analyser->analyse([__DIR__ . '/data/empty/empty.php'], false);
-        $this->assertInternalType('array', $result);
-        $this->assertSame([
-            'Ignored error pattern #Unknown error# was not matched in reported errors.',
-        ], $result);
     }
 
     public function testDoNotReturnErrorIfIgnoredMessagesDoesNotOccurWithReportUnmatchedIgnoredErrorsOff()

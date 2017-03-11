@@ -170,26 +170,15 @@ class Analyser
             }
         }
 
-        $unmatchedIgnoredErrors = $this->ignoreErrors;
-        $errors = array_values(array_filter($errors, function (string $error) use (&$unmatchedIgnoredErrors): bool {
-            foreach ($this->ignoreErrors as $i => $ignore) {
-                if (preg_match($ignore, $error)) {
-                    unset($unmatchedIgnoredErrors[$i]);
+        $errors = array_values(array_filter($errors, function (string $error) : bool {
+            foreach ($this->ignoreErrors as $pattern) {
+                if (preg_match("#$pattern#", $error)) {
                     return false;
                 }
             }
 
             return true;
         }));
-
-        if (!$onlyFiles && $this->reportUnmatchedIgnoredErrors) {
-            foreach ($unmatchedIgnoredErrors as $unmatchedIgnoredError) {
-                $errors[] = sprintf(
-                    'Ignored error pattern %s was not matched in reported errors.',
-                    $unmatchedIgnoredError
-                );
-            }
-        }
 
         return $errors;
     }
