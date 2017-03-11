@@ -119,19 +119,6 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
             require_once $autoloadFile;
         }
 
-        if (count($container->get('autoload_directories')) > 0) {
-            $robotLoader = new \Nette\Loaders\RobotLoader();
-
-            $robotLoader->acceptFiles = '*.' . implode(', *.', $container->get('fileExtensions'));
-
-            $robotLoader->setTempDirectory($tmpDir);
-            foreach ($container->get('autoload_directories') as $directory) {
-                $robotLoader->addDirectory($directory);
-            }
-
-            $robotLoader->register();
-        }
-
         $application = $container->get(AnalyseApplication::class);
         return $this->handleReturn(
             $application->analyse(

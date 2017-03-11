@@ -127,23 +127,6 @@ All the following options are part of the `parameters` section.
 PHPStan uses Composer autoloader so the easiest way how to autoload classes
 is through the `autoload`/`autoload-dev` sections in composer.json.
 
-#### Specify paths to scan
-
-If PHPStan complains about some nonexistent classes and you're sure the classes
-exist in the codebase AND you don't want to use Composer autoloader for some reason,
-you can specify directories to scan and concrete files to include using
-`autoload_directories` and `autoload_files` array parameters:
-
-```yaml
-parameters:
-	autoload_directories:
-		- %rootDir%/../../../build
-	autoload_files:
-		- %rootDir%/../../../generated/routes/GeneratedRouteList.php
-```
-
-`%rootDir%` is expanded to the root directory where PHPStan resides.
-
 #### Autoloading for global installation
 
 PHPStan supports global installation using [`composer global`](https://getcomposer.org/doc/03-cli.md#global).
