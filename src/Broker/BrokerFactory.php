@@ -8,6 +8,7 @@ use PHPStan\Reflection\FunctionReflectionFactory;
 use PHPStan\Reflection\Php\PhpClassReflectionExtension;
 use PHPStan\Reflection\PhpDefect\PhpDefectClassReflectionExtension;
 use PHPStan\Type\FileTypeMapper;
+use Interop\Container\ContainerInterface;
 
 class BrokerFactory
 {
@@ -16,10 +17,10 @@ class BrokerFactory
     const DYNAMIC_METHOD_RETURN_TYPE_EXTENSION_TAG = 'phpstan.broker.dynamicMethodReturnTypeExtension';
     const DYNAMIC_STATIC_METHOD_RETURN_TYPE_EXTENSION_TAG = 'phpstan.broker.dynamicStaticMethodReturnTypeExtension';
 
-    /** @var \Nette\DI\Container */
+    /** @var ContainerInterface */
     private $container;
 
-    public function __construct(\Nette\DI\Container $container)
+    public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }
@@ -32,18 +33,21 @@ class BrokerFactory
             }, array_keys($tags));
         };
 
-        $phpClassReflectionExtension = $this->container->getByType(PhpClassReflectionExtension::class);
-        $annotationsMethodsClassReflectionExtension = $this->container->getByType(AnnotationsMethodsClassReflectionExtension::class);
-        $annotationsPropertiesClassReflectionExtension = $this->container->getByType(AnnotationsPropertiesClassReflectionExtension::class);
-        $phpDefectClassReflectionExtension = $this->container->getByType(PhpDefectClassReflectionExtension::class);
+        $phpClassReflectionExtension = $this->container->get(PhpClassReflectionExtension::class);
+        $annotationsMethodsClassReflectionExtension = $this->container->get(AnnotationsMethodsClassReflectionExtension::class);
+        $annotationsPropertiesClassReflectionExtension = $this->container->get(AnnotationsPropertiesClassReflectionExtension::class);
+        $phpDefectClassReflectionExtension = $this->container->get(PhpDefectClassReflectionExtension::class);
+        // todo find by interface not tag
 
         return new Broker(
-            array_merge([$phpClassReflectionExtension, $annotationsPropertiesClassReflectionExtension, $phpDefectClassReflectionExtension], $tagToService($this->container->findByTag(self::PROPERTIES_CLASS_REFLECTION_EXTENSION_TAG))),
-            array_merge([$phpClassReflectionExtension, $annotationsMethodsClassReflectionExtension], $tagToService($this->container->findByTag(self::METHODS_CLASS_REFLECTION_EXTENSION_TAG))),
-            $tagToService($this->container->findByTag(self::DYNAMIC_METHOD_RETURN_TYPE_EXTENSION_TAG)),
-            $tagToService($this->container->findByTag(self::DYNAMIC_STATIC_METHOD_RETURN_TYPE_EXTENSION_TAG)),
-            $this->container->getByType(FunctionReflectionFactory::class),
-            $this->container->getByType(FileTypeMapper::class)
+            // array_merge([$phpClassReflectionExtension, $annotationsPropertiesClassReflectionExtension, $phpDefectClassReflectionExtension], $tagToService($this->container->findByTag(self::PROPERTIES_CLASS_REFLECTION_EXTENSION_TAG))),
+            // array_merge([$phpClassReflectionExtension, $annotationsMethodsClassReflectionExtension], $tagToService($this->container->findByTag(self::METHODS_CLASS_REFLECTION_EXTENSION_TAG))),
+            array_merge([$phpClassReflectionExtension, $annotationsPropertiesClassReflectionExtension, $phpDefectClassReflectionExtension], []),
+            array_merge([$phpClassReflectionExtension, $annotationsMethodsClassReflectionExtension], []),
+            [], //$tagToService($this->container->findByTag(self::DYNAMIC_METHOD_RETURN_TYPE_EXTENSION_TAG)),
+            [], //$tagToService($this->container->findByTag(self::DYNAMIC_STATIC_METHOD_RETURN_TYPE_EXTENSION_TAG)),
+            $this->container->get(FunctionReflectionFactory::class),
+            $this->container->get(FileTypeMapper::class)
         );
     }
 }

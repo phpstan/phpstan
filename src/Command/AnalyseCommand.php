@@ -2,7 +2,6 @@
 
 namespace PHPStan\Command;
 
-use Nette\Configurator;
 use PhpParser\Node\Stmt\Catch_;
 use PHPStan\File\FileHelper;
 use Symfony\Component\Console\Input\InputArgument;
@@ -59,10 +58,14 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
         $tmpDir = sys_get_temp_dir();
         $confDir = $rootDir . '/conf';
 
-        $configurator = new Configurator();
-        $configurator->defaultExtensions = [];
-        $configurator->setDebugMode(true);
-        $configurator->setTempDirectory($tmpDir);
+        $builder = new \DI\ContainerBuilder();
+        $builder->addDefinitions($confDir.'/config.php');
+        $container = $builder->build();
+        $container->set(\Interop\Container\ContainerInterface::class, $container);
+        $container->set('rootDir', $rootDir);
+        $container->set('tmpDir', $tmpDir);
+        $container->set('currentWorkingDirectory', $currentWorkingDirectory);
+        $container->set('defaultExtensions', []);
 
         $levelOption = $input->getOption(self::OPTION_LEVEL);
         $defaultLevelUsed = false;
@@ -78,27 +81,9 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
         }
         RegistryFactory::setRules($rules);
 
-        $configFiles = [
-            $confDir . '/config.neon',
-            $confDir . '/config.rules.neon',
-        ];
-
-        foreach ($configFiles as $configFile) {
-            $configurator->addConfig($configFile);
-        }
-
-        $parameters = [
-            'rootDir' => $rootDir,
-            'tmpDir' => $tmpDir,
-            'currentWorkingDirectory' => $currentWorkingDirectory,
-        ];
-
-        $configurator->addParameters($parameters);
-        $container = $configurator->createContainer();
-
         $errorStyle = new ErrorsConsoleStyle($input, $stderr);
         $consoleStyle = new ErrorsConsoleStyle($input, $output);
-        $memoryLimitFile = $container->parameters['memoryLimitFile'];
+        $memoryLimitFile = $container->get('memoryLimitFile');
         if (file_exists($memoryLimitFile)) {
             $errorStyle->note(sprintf(
                 "PHPStan crashed in the previous run probably because of excessive memory consumption.\nIt consumed around %s of memory.\n\nTo avoid this issue, increase the memory_limit directive in your php.ini file here:\n%s\n\nIf you can't or don't want to change the system-wide memory limit, run PHPStan like this:\n%s",
@@ -114,7 +99,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
             );
         }
         $this->setUpSignalHandler($errorStyle, $memoryLimitFile);
-        if (!isset($container->parameters['customRulesetUsed'])) {
+        if ($container->get('customRulesetUsed')) {
             $stderr->writeln('');
             $stderr->writeln('<comment>No rules detected</comment>');
             $stderr->writeln('');
@@ -126,28 +111,28 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
             $stderr->writeln('  * in this case, don\'t forget to define parameter <options=bold>customRulesetUsed</> in your config file.');
             $stderr->writeln('');
             return $this->handleReturn(1, $memoryLimitFile);
-        } elseif ($container->parameters['customRulesetUsed']) {
+        } elseif ($container->get('customRulesetUsed')) {
             $defaultLevelUsed = false;
         }
 
-        foreach ($container->parameters['autoload_files'] as $autoloadFile) {
+        foreach ($container->get('autoload_files') as $autoloadFile) {
             require_once $autoloadFile;
         }
 
-        if (count($container->parameters['autoload_directories']) > 0) {
+        if (count($container->get('autoload_directories')) > 0) {
             $robotLoader = new \Nette\Loaders\RobotLoader();
 
-            $robotLoader->acceptFiles = '*.' . implode(', *.', $container->parameters['fileExtensions']);
+            $robotLoader->acceptFiles = '*.' . implode(', *.', $container->get('fileExtensions'));
 
             $robotLoader->setTempDirectory($tmpDir);
-            foreach ($container->parameters['autoload_directories'] as $directory) {
+            foreach ($container->get('autoload_directories') as $directory) {
                 $robotLoader->addDirectory($directory);
             }
 
             $robotLoader->register();
         }
 
-        $application = $container->getByType(AnalyseApplication::class);
+        $application = $container->get(AnalyseApplication::class);
         return $this->handleReturn(
             $application->analyse(
                 $input->getArgument('paths'),

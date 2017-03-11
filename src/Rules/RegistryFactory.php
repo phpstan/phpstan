@@ -2,6 +2,8 @@
 
 namespace PHPStan\Rules;
 
+use Interop\Container\ContainerInterface;
+
 class RegistryFactory
 {
     const rules = [
@@ -41,10 +43,12 @@ class RegistryFactory
     const RULE_TAG = 'phpstan.rules.rule';
     private static $selectedRules = [];
 
-    /** @var \Nette\DI\Container */
+    /**
+     * @var ContainerInterface
+     */
     private $container;
 
-    public function __construct(\Nette\DI\Container $container)
+    public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }
@@ -53,9 +57,8 @@ class RegistryFactory
     {
         $services = [];
         foreach (self::$selectedRules as $rule) {
-            $service = $this->container->getByType($rule, false);
-            if ($service) {
-                $services[] = $service;
+            if ($this->container->has($rule)) {
+                $services[] = $this->container->get($rule);
             }
         }
 
