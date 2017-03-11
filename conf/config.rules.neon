@@ -1,0 +1,71 @@
+parameters:
+	customRulesetUsed: false
+	checkThisOnly: true
+	checkFunctionArgumentTypes: true
+	enableUnionTypes: true
+
+services:
+	-
+		class: PHPStan\Rules\Classes\AccessPropertiesRule
+		arguments:
+			checkThisOnly: %checkThisOnly%
+	-
+		class: PHPStan\Rules\Classes\AccessStaticPropertiesRule
+	-
+		class: PHPStan\Rules\Classes\ClassConstantRule
+	-
+		class: PHPStan\Rules\Classes\ExistingClassInInstanceOfRule
+	-
+		class: PHPStan\Rules\Classes\ExistingClassesInPropertiesRule
+	-
+		class: PHPStan\Rules\Classes\InstantiationRule
+	-
+		class: PHPStan\Rules\Classes\RequireParentConstructCallRule
+	-
+		class: PHPStan\Rules\Classes\UnusedConstructorParametersRule
+	-
+		class: PHPStan\Rules\Exceptions\CatchedExceptionExistenceRule
+	-
+		class: PHPStan\Rules\Functions\CallToFunctionParametersRule
+	-
+		class: PHPStan\Rules\Functions\CallToNonExistentFunctionRule
+	-
+		class: PHPStan\Rules\Functions\ExistingClassesInClosureTypehintsRule
+	-
+		class: PHPStan\Rules\Functions\ExistingClassesInTypehintsRule
+	-
+		class: PHPStan\Rules\Functions\PrintfParametersRule
+	-
+		class: PHPStan\Rules\Functions\UnusedClosureUsesRule
+	-
+		class: PHPStan\Rules\Methods\CallMethodsRule
+		arguments:
+			checkThisOnly: %checkThisOnly%
+	-
+		class: PHPStan\Rules\Methods\CallStaticMethodsRule
+	-
+		class: PHPStan\Rules\Methods\ExistingClassesInTypehintsRule
+	-
+		class: PHPStan\Rules\Variables\ThisVariableRule
+	-
+		class: PHPStan\Rules\Variables\DefinedVariableRule
+	-
+		class: PHPStan\Rules\Variables\DefinedVariableInAnonymousFunctionUseRule
+	-
+		class: PHPStan\Rules\Arrays\AppendedArrayItemTypeRule
+	-
+		class: PHPStan\Rules\Classes\DefaultValueTypesAssignedToPropertiesRule
+	-
+		class: PHPStan\Rules\Classes\TypesAssignedToPropertiesRule
+	-
+		class: PHPStan\Rules\Functions\ClosureReturnTypeRule
+	-
+		class: PHPStan\Rules\Functions\ReturnTypeRule
+	-
+		class: PHPStan\Rules\Methods\ReturnTypeRule
+	-
+		class: PHPStan\Rules\Variables\VariableCloningRule
+	-
+		class: PHPStan\Rules\Cast\UselessCastRule
+	-
+		class: PHPStan\Rules\Comparison\StrictComparisonOfDifferentTypesRule

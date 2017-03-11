@@ -11,6 +11,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Style\StyleInterface;
+use PHPStan\Rules\RegistryFactory;
 
 class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 {
@@ -27,10 +28,10 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			->setDescription('Analyses source code')
 			->setDefinition([
 				new InputArgument('paths', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'Paths with source code to run analysis on'),
-				new InputOption('configuration', 'c', InputOption::VALUE_REQUIRED, 'Path to project configuration file'),
 				new InputOption(self::OPTION_LEVEL, 'l', InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter'),
 				new InputOption(ErrorsConsoleStyle::OPTION_NO_PROGRESS, null, InputOption::VALUE_NONE, 'Do not show progress bar, only results'),
 				new InputOption('autoload-file', 'a', InputOption::VALUE_OPTIONAL, 'Project\'s additional autoload file path'),
+                new InputOption('rules', 'r', InputOption::VALUE_OPTIONAL, "rule1,rule2,...\n".implode("\n", RegistryFactory::getRuleArgList(65535))),
 			]);
 	}
 
@@ -64,33 +65,24 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		$configurator->setDebugMode(true);
 		$configurator->setTempDirectory($tmpDir);
 
-		$projectConfigFile = $input->getOption('configuration');
 		$levelOption = $input->getOption(self::OPTION_LEVEL);
 		$defaultLevelUsed = false;
-		if ($projectConfigFile === null && $levelOption === null) {
+		if ($levelOption === null) {
 			$levelOption = self::DEFAULT_LEVEL;
 			$defaultLevelUsed = true;
 		}
+        $rules = $input->getOption('rules');
+        if ($rules) {
+            $rules = explode(',', $rules);
+        } else {
+            $rules = RegistryFactory::getRuleArgList((int)$levelOption);
+        }
+        RegistryFactory::setRules($rules);
 
-		$configFiles = [$confDir . '/config.neon'];
-		if ($levelOption !== null) {
-			$levelConfigFile = sprintf('%s/config.level%s.neon', $confDir, $levelOption);
-			if (!is_file($levelConfigFile)) {
-				$stderr->writeln(sprintf('Level config file %s was not found.', $levelConfigFile));
-				return 1;
-			}
-
-			$configFiles[] = $levelConfigFile;
-		}
-
-		if ($projectConfigFile !== null) {
-			if (!is_file($projectConfigFile)) {
-				$stderr->writeln(sprintf('Project config file at path %s does not exist.', $projectConfigFile));
-				return 1;
-			}
-
-			$configFiles[] = $projectConfigFile;
-		}
+        $configFiles = [
+            $confDir . '/config.neon',
+            $confDir . '/config.rules.neon',
+        ];
 
 		foreach ($configFiles as $configFile) {
 			$configurator->addConfig($configFile);
@@ -104,6 +96,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 		$configurator->addParameters($parameters);
 		$container = $configurator->createContainer();
+
 		$errorStyle = new ErrorsConsoleStyle($input, $stderr);
 		$consoleStyle = new ErrorsConsoleStyle($input, $output);
 		$memoryLimitFile = $container->parameters['memoryLimitFile'];
