@@ -15,6 +15,7 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
+use Psr\Cache\CacheItemPoolInterface;
 
 class PhpMethodReflection implements MethodReflection
 {
@@ -34,7 +35,7 @@ class PhpMethodReflection implements MethodReflection
     /** @var \PHPStan\Parser\FunctionCallStatementFinder */
     private $functionCallStatementFinder;
 
-    /** @var \Nette\Caching\Cache */
+    /** @var CacheItemPoolInterface */
     private $cache;
 
     /** @var \PHPStan\Type\Type[] */
@@ -55,7 +56,7 @@ class PhpMethodReflection implements MethodReflection
         Broker $broker,
         Parser $parser,
         FunctionCallStatementFinder $functionCallStatementFinder,
-        \Nette\Caching\Cache $cache,
+        CacheItemPoolInterface $cache,
         array $phpDocParameterTypes,
         Type $phpDocReturnType = null
     ) {
@@ -227,15 +228,16 @@ class PhpMethodReflection implements MethodReflection
 
         if (!$isNativelyVariadic && $this->declaringClass->getNativeReflection()->getFileName() !== false) {
             $key = sprintf('variadic-method-%s-%s-v2', $this->declaringClass->getName(), $this->reflection->getName());
-            $cachedResult = $this->cache->load($key);
-            if ($cachedResult === null) {
+            $item = $this->cache->getItem($key);
+            if (!$item->isHit()) {
                 $nodes = $this->parser->parseFile($this->declaringClass->getNativeReflection()->getFileName());
                 $result = $this->callsFuncGetArgs($nodes);
-                $this->cache->save($key, $result);
+                $item->set($result);
+                $this->cache->save($item);
                 return $result;
             }
 
-            return $cachedResult;
+            return $item->get();
         }
 
         return $isNativelyVariadic;

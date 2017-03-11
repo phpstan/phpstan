@@ -44,14 +44,13 @@ return [
     'checkFunctionArgumentTypes' => true,
     'enableUnionTypes' => true,
     'memoryLimitFile' => DI\string('{tmpDir}/.memory_limit'),
+    'cacheOptions' => [
+        'path' => DI\string('{tmpDir}/phpstan'),
+    ],
     'customRulesetUsed' => false,
     'checkThisOnly' => true,
     'checkFunctionArgumentTypes' => true,
     'enableUnionTypes' => true,
-
-    Nette\Caching\Cache::class => $obj([
-        'namespace' => '#PHPStan',
-    ]),
 
     PhpParser\NodeTraverser::class => function (PhpParser\NodeVisitor\NameResolver $nameResolver) {
         $nodeTraverser = new PhpParser\NodeTraverser;
@@ -110,9 +109,11 @@ return [
 
     PHPStan\Broker\Broker::class=> DI\factory([PHPStan\Broker\BrokerFactory::class, 'create']),
 
-    Nette\Caching\IStorage::class  => $obj([
-        'dir' => DI\string('{tmpDir}/cache'),
-    ], Nette\Caching\Storages\FileStorage::class),
+    Stash\Interfaces\DriverInterface::class => $obj([
+        'options' => 'cacheOptions',
+    ], Stash\Driver\FileSystem::class),
+
+    Psr\Cache\CacheItemPoolInterface::class => DI\object(Stash\Pool::class),
 
     PHPStan\Parser\Parser::class => DI\object(PHPStan\Parser\DirectParser::class),
 

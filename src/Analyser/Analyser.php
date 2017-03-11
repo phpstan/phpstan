@@ -120,14 +120,6 @@ class Analyser
             }
         }
 
-        foreach ($this->ignoreErrors as $ignoreError) {
-            try {
-                \Nette\Utils\Strings::match('', $ignoreError);
-            } catch (\Nette\Utils\RegexpException $e) {
-                $errors[] = $e->getMessage();
-            }
-        }
-
         if (count($errors) > 0) {
             return $errors;
         }
@@ -181,7 +173,7 @@ class Analyser
         $unmatchedIgnoredErrors = $this->ignoreErrors;
         $errors = array_values(array_filter($errors, function (string $error) use (&$unmatchedIgnoredErrors): bool {
             foreach ($this->ignoreErrors as $i => $ignore) {
-                if (\Nette\Utils\Strings::match($error, $ignore) !== null) {
+                if (preg_match($ignore, $error)) {
                     unset($unmatchedIgnoredErrors[$i]);
                     return false;
                 }

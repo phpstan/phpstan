@@ -42,7 +42,7 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
                     $broker,
                     $this->getParser(),
                     $printer,
-                    new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class), true),
+                    new FileTypeMapper($this->getParser(), $this->createMock(\Psr\Cache\CacheItemPoolInterface::class), true),
                     new TypeSpecifier($printer),
                     $fileExcluder,
                     false,

@@ -5,6 +5,7 @@ namespace PHPStan\Type;
 use PhpParser\Node;
 use PHPStan\Analyser\NameScope;
 use PHPStan\Parser\Parser;
+use Psr\Cache\CacheItemPoolInterface;
 
 class FileTypeMapper
 {
@@ -14,7 +15,7 @@ class FileTypeMapper
     /** @var \PHPStan\Parser\Parser */
     private $parser;
 
-    /** @var \Nette\Caching\Cache */
+    /** @var CacheItemPoolInterface */
     private $cache;
 
     /** @var bool */
@@ -25,7 +26,7 @@ class FileTypeMapper
 
     public function __construct(
         Parser $parser,
-        \Nette\Caching\Cache $cache,
+        CacheItemPoolInterface $cache,
         bool $enableUnionTypes
     ) {
         $this->parser = $parser;
@@ -39,14 +40,16 @@ class FileTypeMapper
         if (isset($this->memoryCache[$cacheKey])) {
             return $this->memoryCache[$cacheKey];
         }
-        $cachedResult = $this->cache->load($cacheKey);
-        if ($cachedResult === null) {
+        $item = $this->cache->getItem($cacheKey);
+        if (!$item->isHit()) {
             $typeMap = $this->createTypeMap($fileName);
-            $this->cache->save($cacheKey, $typeMap);
+            $item->set($typeMap);
+            $this->cache->save($item);
             $this->memoryCache[$cacheKey] = $typeMap;
             return $typeMap;
         }
 
+        $cachedResult = $item->get();
         $this->memoryCache[$cacheKey] = $cachedResult;
 
         return $cachedResult;

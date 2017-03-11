@@ -11,6 +11,7 @@ use PHPStan\Type\IntegerType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
+use Psr\Cache\CacheItemPoolInterface;
 
 class FunctionReflection implements ParametersAcceptor
 {
@@ -24,7 +25,7 @@ class FunctionReflection implements ParametersAcceptor
     /** @var \PHPStan\Parser\FunctionCallStatementFinder */
     private $functionCallStatementFinder;
 
-    /** @var \Nette\Caching\Cache */
+    /** @var CacheItemPoolInterface */
     private $cache;
 
     /** @var \PHPStan\Type\Type[] */
@@ -43,7 +44,7 @@ class FunctionReflection implements ParametersAcceptor
         \ReflectionFunction $reflection,
         Parser $parser,
         FunctionCallStatementFinder $functionCallStatementFinder,
-        \Nette\Caching\Cache $cache,
+        CacheItemPoolInterface $cache,
         array $phpDocParameterTypes,
         Type $phpDocReturnType = null
     ) {
@@ -133,15 +134,16 @@ class FunctionReflection implements ParametersAcceptor
         $isNativelyVariadic = $this->reflection->isVariadic();
         if (!$isNativelyVariadic && $this->reflection->getFileName() !== false) {
             $key = sprintf('variadic-function-%s-v2', $this->reflection->getName());
-            $cachedResult = $this->cache->load($key);
-            if ($cachedResult === null) {
+            $cachedResult = $this->cache->getItem($key);
+            if (!$cachedResult->isHit()) {
                 $nodes = $this->parser->parseFile($this->reflection->getFileName());
                 $result = $this->callsFuncGetArgs($nodes);
-                $this->cache->save($key, $result);
+                $cachedResult->set($result);
+                $this->cache->save($cachedResult);
                 return $result;
             }
 
-            return $cachedResult;
+            return $cachedResult->get();
         }
 
         return $isNativelyVariadic;
