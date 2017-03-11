@@ -3,6 +3,8 @@
 namespace PHPStan\Command;
 
 use Nette\Configurator;
+use Nette\DI\Extensions\ExtensionsExtension;
+use Nette\DI\Extensions\PhpExtension;
 use PhpParser\Node\Stmt\Catch_;
 use PHPStan\File\FileHelper;
 use Symfony\Component\Console\Input\InputArgument;
@@ -55,7 +57,10 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		$confDir = $rootDir . '/conf';
 
 		$configurator = new Configurator();
-		$configurator->defaultExtensions = [];
+		$configurator->defaultExtensions = [
+			'php' => PhpExtension::class,
+			'extensions' => ExtensionsExtension::class,
+		];
 		$configurator->setDebugMode(true);
 		$configurator->setTempDirectory($tmpDir);
 
