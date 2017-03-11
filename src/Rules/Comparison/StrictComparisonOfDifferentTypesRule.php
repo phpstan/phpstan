@@ -31,8 +31,7 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
         $leftType = $scope->getType($node->left);
         $rightType = $scope->getType($node->right);
 
-        if (
-            $leftType instanceof MixedType
+        if ($leftType instanceof MixedType
             || $rightType instanceof MixedType
             || $leftType instanceof NullType
             || $rightType instanceof NullType

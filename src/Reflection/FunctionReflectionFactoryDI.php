@@ -21,8 +21,8 @@ class FunctionReflectionFactoryDI implements FunctionReflectionFactory
         \ReflectionFunction $reflection,
         array $phpDocParameterTypes,
         Type $phpDocReturnType = null
-    ): FunctionReflection
-    {
+    ): FunctionReflection {
+    
         return $this->container->make(FunctionReflection::class, compact([
             'reflection', 'phpDocParameterTypes', 'phpDocReturnType',
         ]));

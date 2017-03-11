@@ -30,8 +30,8 @@ class PhpMethodReflectionFactoryDI implements PhpMethodReflectionFactory
         \ReflectionMethod $reflection,
         array $phpDocParameterTypes,
         Type $phpDocReturnType = null
-    ): PhpMethodReflection
-    {
+    ): PhpMethodReflection {
+    
         return $this->container->make(PhpMethodReflection::class, compact([
             'declaringClass', 'reflection', 'phpDocParameterTypes', 'phpDocReturnType'
         ]));

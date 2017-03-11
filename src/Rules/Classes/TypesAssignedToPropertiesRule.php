@@ -30,8 +30,7 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
      */
     public function processNode(Node $node, Scope $scope): array
     {
-        if (
-            !($node->var instanceof Node\Expr\PropertyFetch)
+        if (!($node->var instanceof Node\Expr\PropertyFetch)
             && !($node->var instanceof Node\Expr\StaticPropertyFetch)
         ) {
             return [];
@@ -85,8 +84,7 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 
             return sprintf('Property %s::$%s', $property->getDeclaringClass()->getName(), $propertyFetch->name);
         } elseif ($propertyFetch instanceof Node\Expr\StaticPropertyFetch) {
-            if (
-                !($propertyFetch->class instanceof Node\Name)
+            if (!($propertyFetch->class instanceof Node\Name)
                 || !is_string($propertyFetch->name)
             ) {
                 return null;

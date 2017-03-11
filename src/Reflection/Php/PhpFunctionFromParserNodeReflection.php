@@ -118,8 +118,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Paramet
     {
         if ($this->returnType === null) {
             $phpDocReturnType = $this->phpDocReturnType;
-            if (
-                $this->realReturnTypePresent
+            if ($this->realReturnTypePresent
                 && $phpDocReturnType !== null
                 && $this->realReturnType->isNullable() !== $phpDocReturnType->isNullable()
             ) {

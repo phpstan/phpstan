@@ -133,8 +133,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
         $method = $classReflection->getMethod($name, $scope);
         if (!$method->isStatic()) {
             $function = $scope->getFunction();
-            if (
-                !$function instanceof MethodReflection
+            if (!$function instanceof MethodReflection
                 || $function->isStatic()
                 || !$scope->isInClass()
                 || (

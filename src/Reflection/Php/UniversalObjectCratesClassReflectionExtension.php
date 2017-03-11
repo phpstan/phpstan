@@ -30,8 +30,7 @@ class UniversalObjectCratesClassReflectionExtension implements \PHPStan\Reflecti
         }
 
         foreach ($this->classes as $className) {
-            if (
-                $classReflection->getName() === $className
+            if ($classReflection->getName() === $className
                 || $classReflection->isSubclassOf($className)
             ) {
                 return true;

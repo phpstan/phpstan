@@ -294,8 +294,7 @@ class Scope
 
     public function getType(Expr $node): Type
     {
-        if (
-            $node instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd
+        if ($node instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd
             || $node instanceof \PhpParser\Node\Expr\BinaryOp\BooleanOr
             || $node instanceof \PhpParser\Node\Expr\BooleanNot
             || $node instanceof \PhpParser\Node\Expr\BinaryOp\LogicalXor
@@ -303,8 +302,7 @@ class Scope
             return new TrueOrFalseBooleanType(false);
         }
 
-        if (
-            $node instanceof Node\Expr\UnaryMinus
+        if ($node instanceof Node\Expr\UnaryMinus
             || $node instanceof Node\Expr\UnaryPlus
         ) {
             return $this->getType($node->expr);
@@ -338,8 +336,7 @@ class Scope
             return $this->getType($node->expr);
         }
 
-        if (
-            $node instanceof Node\Expr\BinaryOp\Plus
+        if ($node instanceof Node\Expr\BinaryOp\Plus
             || $node instanceof Node\Expr\BinaryOp\Minus
             || $node instanceof Node\Expr\BinaryOp\Mul
             || $node instanceof Node\Expr\BinaryOp\Pow
@@ -373,8 +370,7 @@ class Scope
                 }
             }
 
-            if (
-                ($leftType instanceof FloatType && !$rightType instanceof MixedType)
+            if (($leftType instanceof FloatType && !$rightType instanceof MixedType)
                 || ($rightType instanceof FloatType && !$leftType instanceof MixedType)
             ) {
                 return new FloatType(false);
@@ -404,8 +400,7 @@ class Scope
             return new ObjectType('Closure', false);
         } elseif ($node instanceof New_) {
             if ($node->class instanceof Name) {
-                if (
-                    count($node->class->parts) === 1
+                if (count($node->class->parts) === 1
                 ) {
                     if ($node->class->parts[0] === 'static') {
                         return new StaticType($this->getClassReflection()->getName(), false);
@@ -420,8 +415,7 @@ class Scope
             $possiblyCallable = false;
             if (count($node->items) === 2) {
                 $firstItem = $node->items[0]->value;
-                if (
-                    (
+                if ((
                         $this->getType($firstItem)->getClass() !== null
                         || $this->getType($firstItem) instanceof StringType
                     )
@@ -500,8 +494,7 @@ class Scope
 
         if ($node instanceof MethodCall && is_string($node->name)) {
             $methodCalledOnType = $this->getType($node->var);
-            if (
-                $methodCalledOnType->getClass() !== null
+            if ($methodCalledOnType->getClass() !== null
                 && $this->broker->hasClass($methodCalledOnType->getClass())
             ) {
                 $methodClassReflection = $this->broker->getClass(
@@ -559,8 +552,7 @@ class Scope
 
         if ($node instanceof PropertyFetch && is_string($node->name)) {
             $propertyFetchedOnType = $this->getType($node->var);
-            if (
-                $propertyFetchedOnType->getClass() !== null
+            if ($propertyFetchedOnType->getClass() !== null
                 && $this->broker->hasClass($propertyFetchedOnType->getClass())
             ) {
                 $propertyClassReflection = $this->broker->getClass(
@@ -594,8 +586,7 @@ class Scope
                 'array_reduce' => 1,
             ];
             $functionName = (string) $node->name;
-            if (
-                isset($arrayFunctionsThatDependOnClosureReturnType[$functionName])
+            if (isset($arrayFunctionsThatDependOnClosureReturnType[$functionName])
                 && isset($node->args[$arrayFunctionsThatDependOnClosureReturnType[$functionName]])
                 && $node->args[$arrayFunctionsThatDependOnClosureReturnType[$functionName]]->value instanceof Expr\Closure
             ) {
@@ -616,8 +607,7 @@ class Scope
                 'array_unique' => 0,
                 'array_reverse' => 0,
             ];
-            if (
-                isset($arrayFunctionsThatDependOnArgumentType[$functionName])
+            if (isset($arrayFunctionsThatDependOnArgumentType[$functionName])
                 && isset($node->args[$arrayFunctionsThatDependOnArgumentType[$functionName]])
             ) {
                 $argumentValue = $node->args[$arrayFunctionsThatDependOnArgumentType[$functionName]]->value;
@@ -628,8 +618,7 @@ class Scope
                 'array_fill' => 2,
                 'array_fill_keys' => 1,
             ];
-            if (
-                isset($arrayFunctionsThatCreateArrayBasedOnArgumentType[$functionName])
+            if (isset($arrayFunctionsThatCreateArrayBasedOnArgumentType[$functionName])
                 && isset($node->args[$arrayFunctionsThatCreateArrayBasedOnArgumentType[$functionName]])
             ) {
                 $argumentValue = $node->args[$arrayFunctionsThatCreateArrayBasedOnArgumentType[$functionName]]->value;
@@ -962,7 +951,7 @@ class Scope
      * @param bool $isVariadic
      * @return Type
      */
-    private function getFunctionType($type = null, bool $isNullable, bool $isVariadic): Type
+    private function getFunctionType($type, bool $isNullable, bool $isVariadic): Type
     {
         if ($isVariadic) {
             return new ArrayType($this->getFunctionType(
@@ -989,8 +978,7 @@ class Scope
             $className = (string) $type;
             if ($className === 'self') {
                 $className = $this->getClassReflection()->getName();
-            } elseif (
-                $className === 'parent'
+            } elseif ($className === 'parent'
             ) {
                 if ($this->isInClass() && $this->getClassReflection()->getParentClass() !== false) {
                     return new ObjectType($this->getClassReflection()->getParentClass()->getName(), $isNullable);
@@ -1440,8 +1428,7 @@ class Scope
 
         // protected
 
-        if (
-            $currentClassReflection->getName() === $classReflectionName
+        if ($currentClassReflection->getName() === $classReflectionName
             || $currentClassReflection->isSubclassOf($classReflectionName)
         ) {
             return true;

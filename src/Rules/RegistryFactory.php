@@ -6,7 +6,7 @@ use Interop\Container\ContainerInterface;
 
 class RegistryFactory
 {
-    const rules = [
+    const RULES = [
         // [level, rule class name]
         [0, Classes\AccessPropertiesRule::class],
         [0, Classes\AccessStaticPropertiesRule::class],
@@ -69,7 +69,7 @@ class RegistryFactory
     {
         $rules = [];
         $prefix = __NAMESPACE__.'\\';
-        foreach (self::rules as list($ruleLevel, $className)) {
+        foreach (self::RULES as list($ruleLevel, $className)) {
             if ($ruleLevel <= $level) {
                 $rule = str_replace($prefix, '', $className);
                 $rule = str_replace('\\', '-', $rule);

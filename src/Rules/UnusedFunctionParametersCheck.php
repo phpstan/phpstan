@@ -46,8 +46,7 @@ class UnusedFunctionParametersCheck
             if ($node instanceof Node\Expr\ClosureUse) {
                 return [$node->var];
             }
-            if (
-                $node instanceof Node\Expr\FuncCall
+            if ($node instanceof Node\Expr\FuncCall
                 && $node->name instanceof Node\Name
                 && (string) $node->name === 'compact'
             ) {

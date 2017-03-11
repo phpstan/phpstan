@@ -74,8 +74,7 @@ class FunctionDefinitionCheck
             $class = $param->type instanceof NullableType
                 ? (string) $param->type->type
                 : (string) $param->type;
-            if (
-                $class
+            if ($class
                 && !in_array($class, self::VALID_TYPEHINTS, true)
                 && !$this->broker->hasClass($class)
             ) {
@@ -87,8 +86,7 @@ class FunctionDefinitionCheck
             ? (string) $function->getReturnType()->type
             : (string) $function->getReturnType();
 
-        if (
-            $returnType
+        if ($returnType
             && !in_array($returnType, self::VALID_TYPEHINTS, true)
             && !$this->broker->hasClass($returnType)
         ) {

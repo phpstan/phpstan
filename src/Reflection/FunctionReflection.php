@@ -78,8 +78,7 @@ class FunctionReflection implements ParametersAcceptor
                     isset($this->phpDocParameterTypes[$reflection->getName()]) ? $this->phpDocParameterTypes[$reflection->getName()] : null
                 );
             }, $this->reflection->getParameters());
-            if (
-                $this->reflection->getName() === 'array_unique'
+            if ($this->reflection->getName() === 'array_unique'
                 && count($this->parameters) === 1
             ) {
                 // PHP bug #70960
@@ -89,8 +88,7 @@ class FunctionReflection implements ParametersAcceptor
                     true
                 );
             }
-            if (
-                $this->reflection->getName() === 'fputcsv'
+            if ($this->reflection->getName() === 'fputcsv'
                 && count($this->parameters) === 4
             ) {
                 $this->parameters[] = new DummyParameter(
@@ -99,8 +97,7 @@ class FunctionReflection implements ParametersAcceptor
                     true
                 );
             }
-            if (
-                $this->reflection->getName() === 'unpack'
+            if ($this->reflection->getName() === 'unpack'
                 && PHP_VERSION_ID >= 70101
             ) {
                 $this->parameters[2] = new DummyParameter(
@@ -109,8 +106,7 @@ class FunctionReflection implements ParametersAcceptor
                     true
                 );
             }
-            if (
-                $this->reflection->getName() === 'imagepng'
+            if ($this->reflection->getName() === 'imagepng'
                 && count($this->parameters) === 2
             ) {
                 $this->parameters[] = new DummyParameter(
@@ -192,8 +188,7 @@ class FunctionReflection implements ParametersAcceptor
         if ($this->returnType === null) {
             $returnType = $this->reflection->getReturnType();
             $phpDocReturnType = $this->phpDocReturnType;
-            if (
-                $returnType !== null
+            if ($returnType !== null
                 && $phpDocReturnType !== null
                 && $returnType->allowsNull() !== $phpDocReturnType->isNullable()
             ) {

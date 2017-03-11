@@ -119,8 +119,7 @@ class PhpMethodReflection implements MethodReflection
                 );
             }, $this->reflection->getParameters());
 
-            if (
-                $this->reflection->getName() === '__construct'
+            if ($this->reflection->getName() === '__construct'
                 && $this->declaringClass->getName() === 'ArrayObject'
                 && count($this->parameters) === 1
             ) {
@@ -137,8 +136,7 @@ class PhpMethodReflection implements MethodReflection
                 );
             }
 
-            if (
-                $this->declaringClass->getName() === 'ReflectionMethod'
+            if ($this->declaringClass->getName() === 'ReflectionMethod'
                 && $this->reflection->getName() === 'invoke'
                 && !$this->parameters[1]->isOptional()
             ) {
@@ -152,8 +150,7 @@ class PhpMethodReflection implements MethodReflection
                 );
             }
 
-            if (
-                $this->declaringClass->getName() === 'PDO'
+            if ($this->declaringClass->getName() === 'PDO'
                 && $this->reflection->getName() === 'query'
                 && count($this->parameters) < 4
             ) {
@@ -178,8 +175,7 @@ class PhpMethodReflection implements MethodReflection
                     true
                 );
             }
-            if (
-                $this->declaringClass->getName() === 'DatePeriod'
+            if ($this->declaringClass->getName() === 'DatePeriod'
                 && $this->reflection->getName() === '__construct'
                 && count($this->parameters) < 4
             ) {
@@ -189,8 +185,7 @@ class PhpMethodReflection implements MethodReflection
                     true
                 );
             }
-            if (
-                $this->declaringClass->getName() === 'Closure'
+            if ($this->declaringClass->getName() === 'Closure'
                 && $this->reflection->getName() === '__invoke'
                 && count($this->parameters) < 1
             ) {
@@ -210,8 +205,7 @@ class PhpMethodReflection implements MethodReflection
     public function isVariadic(): bool
     {
         $isNativelyVariadic = $this->reflection->isVariadic();
-        if (
-            !$isNativelyVariadic
+        if (!$isNativelyVariadic
             && (
                 (
                     $this->declaringClass->getName() === 'ReflectionMethod'
@@ -260,8 +254,7 @@ class PhpMethodReflection implements MethodReflection
                 continue;
             }
 
-            if (
-                $node instanceof \PhpParser\Node\Stmt\ClassLike
+            if ($node instanceof \PhpParser\Node\Stmt\ClassLike
                 && isset($node->namespacedName)
                 && $this->declaringClass->getName() !== (string) $node->namespacedName
             ) {
@@ -304,8 +297,7 @@ class PhpMethodReflection implements MethodReflection
         if ($this->returnType === null) {
             $returnType = $this->reflection->getReturnType();
             $phpDocReturnType = $this->phpDocReturnType;
-            if (
-                $returnType !== null
+            if ($returnType !== null
                 && $phpDocReturnType !== null
                 && $returnType->allowsNull() !== $phpDocReturnType->isNullable()
             ) {

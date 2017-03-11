@@ -37,8 +37,7 @@ class FunctionCallParametersCheck
      */
     public function check(ParametersAcceptor $function, Scope $scope, $funcCall, array $messages): array
     {
-        if (
-            $function instanceof FunctionReflection
+        if ($function instanceof FunctionReflection
             && in_array($function->getName(), [
                 'implode',
                 'strtok',
@@ -46,8 +45,7 @@ class FunctionCallParametersCheck
         ) {
             $functionParametersMinCount = 1;
             $functionParametersMaxCount = 2;
-        } elseif (
-            $function instanceof MethodReflection
+        } elseif ($function instanceof MethodReflection
             && $function->getDeclaringClass()->getName() === 'DatePeriod'
             && $function->getName() === '__construct'
         ) {
@@ -101,8 +99,7 @@ class FunctionCallParametersCheck
             }
         }
 
-        if (
-            $function->getReturnType() instanceof VoidType
+        if ($function->getReturnType() instanceof VoidType
             && !$scope->isInFirstLevelStatement()
             && !$funcCall instanceof \PhpParser\Node\Expr\New_
         ) {
@@ -143,8 +140,7 @@ class FunctionCallParametersCheck
 
             $argumentValueType = $scope->getType($argument->value);
 
-            if (
-                !$parameterType->accepts($argumentValueType)
+            if (!$parameterType->accepts($argumentValueType)
                 && (
                     !($parameterType instanceof StringType)
                     || !(

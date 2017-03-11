@@ -41,8 +41,7 @@ class ReturnTypeRule implements \PHPStan\Rules\Rule
         }
 
         $function = $scope->getFunction();
-        if (
-            !($function instanceof PhpFunctionFromParserNodeReflection)
+        if (!($function instanceof PhpFunctionFromParserNodeReflection)
             || $function instanceof PhpMethodFromParserNodeReflection
         ) {
             return [];

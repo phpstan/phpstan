@@ -187,8 +187,7 @@ class NodeScopeResolver
                 }
             } elseif ($node instanceof Node\Stmt\Declare_) {
                 foreach ($node->declares as $declare) {
-                    if (
-                        $declare instanceof Node\Stmt\DeclareDeclare
+                    if ($declare instanceof Node\Stmt\DeclareDeclare
                         && $declare->key === 'strict_types'
                         && $declare->value instanceof Node\Scalar\LNumber
                         && $declare->value->value === 1
@@ -197,8 +196,7 @@ class NodeScopeResolver
                         break;
                     }
                 }
-            } elseif (
-                $node instanceof FuncCall
+            } elseif ($node instanceof FuncCall
                 && $node->name instanceof Name
                 && (string) $node->name === 'assert'
                 && isset($node->args[0])
@@ -212,8 +210,7 @@ class NodeScopeResolver
     {
         if ($expr instanceof PropertyFetch) {
             return $scope->specifyFetchedPropertyFromIsset($expr);
-        } elseif (
-            $expr instanceof Expr\StaticPropertyFetch
+        } elseif ($expr instanceof Expr\StaticPropertyFetch
             && $expr->class instanceof Name
             && (string) $expr->class === 'static'
         ) {
@@ -280,8 +277,7 @@ class NodeScopeResolver
     {
         $nodeCallback($node, $scope);
 
-        if (
-            $node instanceof \PhpParser\Node\Stmt\ClassLike
+        if ($node instanceof \PhpParser\Node\Stmt\ClassLike
         ) {
             if ($node instanceof Node\Stmt\Trait_) {
                 return;
@@ -299,8 +295,7 @@ class NodeScopeResolver
             $scope = $this->enterClassMethod($scope, $node);
         } elseif ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
             $scope = $scope->enterNamespace((string) $node->name);
-        } elseif (
-            $node instanceof \PhpParser\Node\Expr\StaticCall
+        } elseif ($node instanceof \PhpParser\Node\Expr\StaticCall
             && (is_string($node->class) || $node->class instanceof \PhpParser\Node\Name)
             && is_string($node->name)
             && (string) $node->class === 'Closure'
@@ -321,8 +316,7 @@ class NodeScopeResolver
                 $argValueType = $scope->getType($argValue);
                 if ($argValueType->getClass() !== null) {
                     $scopeClass = $argValueType->getClass();
-                } elseif (
-                    $argValue instanceof Expr\ClassConstFetch
+                } elseif ($argValue instanceof Expr\ClassConstFetch
                     && $argValue->name === 'class'
                     && $argValue->class instanceof Name
                 ) {
@@ -424,8 +418,7 @@ class NodeScopeResolver
             $switchScope = $scope;
             $switchConditionIsTrue = $node->cond instanceof Expr\ConstFetch && strtolower((string) $node->cond->name) === 'true';
             $switchConditionGetClassExpression = null;
-            if (
-                $node->cond instanceof FuncCall
+            if ($node->cond instanceof FuncCall
                 && $node->cond->name instanceof Name
                 && strtolower((string) $node->cond->name) === 'get_class'
                 && isset($node->cond->args[0])
@@ -438,8 +431,7 @@ class NodeScopeResolver
 
                     if ($switchConditionIsTrue) {
                         $switchScope = $this->lookForTypeSpecifications($switchScope, $caseNode->cond);
-                    } elseif (
-                        $switchConditionGetClassExpression !== null
+                    } elseif ($switchConditionGetClassExpression !== null
                         && $caseNode->cond instanceof Expr\ClassConstFetch
                         && $caseNode->cond->class instanceof Name
                         && strtolower($caseNode->cond->name) === 'class'
@@ -473,8 +465,7 @@ class NodeScopeResolver
         } elseif ($node instanceof Expr\StaticCall) {
             $scope = $scope->enterFunctionCall($node);
         } elseif ($node instanceof MethodCall) {
-            if (
-                $scope->getType($node->var)->getClass() === 'Closure'
+            if ($scope->getType($node->var)->getClass() === 'Closure'
                 && $node->name === 'call'
                 && isset($node->args[0])
             ) {
@@ -488,8 +479,7 @@ class NodeScopeResolver
         } elseif ($node instanceof New_ && $node->class instanceof Class_) {
             $node->args = [];
             foreach ($node->class->stmts as $i => $statement) {
-                if (
-                    $statement instanceof Node\Stmt\ClassMethod
+                if ($statement instanceof Node\Stmt\ClassMethod
                     && $statement->name === '__construct'
                 ) {
                     unset($node->class->stmts[$i]);
@@ -584,8 +574,7 @@ class NodeScopeResolver
                     $scope = $this->lookForEnterVariableAssign($scope, $node->expr);
                 }
 
-                if (
-                    $node instanceof ArrayItem
+                if ($node instanceof ArrayItem
                     && $subNodeName === 'value'
                     && $node->key !== null
                 ) {
@@ -596,8 +585,7 @@ class NodeScopeResolver
                 if ($scope->isInFirstLevelStatement()) {
                     if ($node instanceof Ternary && $subNodeName !== 'cond') {
                         $nodeScope = $scope->enterFirstLevelStatements();
-                    } elseif (
-                        ($node instanceof BooleanAnd || $node instanceof BinaryOp\BooleanOr)
+                    } elseif (($node instanceof BooleanAnd || $node instanceof BinaryOp\BooleanOr)
                         && $subNodeName === 'right'
                     ) {
                         $nodeScope = $scope->enterFirstLevelStatements();
@@ -731,8 +719,7 @@ class NodeScopeResolver
                     }
                 }
             }
-            if (
-                $node instanceof FuncCall
+            if ($node instanceof FuncCall
                 && $node->name instanceof Name
                 && in_array((string) $node->name, [
                     'fopen',
@@ -1026,8 +1013,7 @@ class NodeScopeResolver
      */
     private function findStatementEarlyTermination(Node $statement, Scope $scope)
     {
-        if (
-            $statement instanceof Throw_
+        if ($statement instanceof Throw_
             || $statement instanceof Return_
             || $statement instanceof Continue_
             || $statement instanceof Break_
@@ -1085,8 +1071,7 @@ class NodeScopeResolver
                     return $classReflection->getMethod($methodName, $scope);
                 }
             }
-        } elseif (
-            $functionCall instanceof Expr\StaticCall
+        } elseif ($functionCall instanceof Expr\StaticCall
             && $functionCall->class instanceof Name
             && is_string($functionCall->name)) {
             $className = (string) $functionCall->class;

@@ -58,8 +58,7 @@ class FunctionReturnTypeCheck
             if ($returnType->isNullable() && $returnValueType instanceof NullType) {
                 return [];
             }
-            if (
-                $returnValue instanceof Expr\Variable
+            if ($returnValue instanceof Expr\Variable
                 && is_string($returnValue->name)
                 && $returnValue->name === 'this'
             ) {

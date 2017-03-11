@@ -73,8 +73,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 
         foreach ($parserNode->stmts as $statement) {
             if ($statement instanceof \PhpParser\Node\Expr\StaticCall) {
-                if (
-                    $statement->class instanceof Name
+                if ($statement->class instanceof Name
                     && ((string) $statement->class === 'parent')
                     && $statement->name === '__construct'
                 ) {
@@ -98,8 +97,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
     private function getParentConstructorClass(ClassReflection $classReflection, Scope $scope)
     {
         while ($classReflection->getParentClass() !== false) {
-            if (
-                (
+            if ((
                     $classReflection->getParentClass()->hasMethod('__construct')
                     && $classReflection->getParentClass()->getMethod('__construct', $scope)->getDeclaringClass()->getName() === $classReflection->getParentClass()->getName()
                 ) || (

@@ -64,8 +64,7 @@ class TypeSpecifier
             }
 
             return $types->addSureType($expr->expr, $printedExpr, $type);
-        } elseif (
-            $expr instanceof FuncCall
+        } elseif ($expr instanceof FuncCall
             && $expr->name instanceof Name
             && isset($expr->args[0])
         ) {

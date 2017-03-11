@@ -77,8 +77,7 @@ class PhpDocBlock
         string $getMethodName,
         string $resolveMethodName
     ): self {
-        if (
-            preg_match('#\{@inheritdoc\}#i', $docComment) > 0
+        if (preg_match('#\{@inheritdoc\}#i', $docComment) > 0
             && $broker->hasClass($class)
         ) {
             $classReflection = $broker->getClass($class);
