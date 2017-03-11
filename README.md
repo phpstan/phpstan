@@ -337,6 +337,42 @@ services:
 For inspiration on how to implement a rule turn to [src/Rules](https://github.com/phpstan/phpstan/tree/master/src/Rules)
 to see a lot of built-in rules.
 
+### Custom error formatters
+
+By default, PHPStan outputs found errors into tables grouped by files to be easily human-readable. To change the output, you can use the `--errorFormat` CLI option. There's an additional built-in `raw` format with one-per-line errors intended for easy parsing. You can also create your own error formatter by implementing the `PHPStan\Command\ErrorFormatter\ErrorFormatter` interface:
+
+```php
+interface ErrorFormatter
+{
+
+	/**
+	 * Formats the errors and outputs them to the console.
+	 *
+	 * @param \PHPStan\Command\AnalysisResult $analysisResult
+	 * @param \Symfony\Component\Console\Style\OutputStyle $style
+	 * @return int Error code.
+	 */
+	public function formatErrors(
+		AnalysisResult $analysisResult,
+		\Symfony\Component\Console\Style\OutputStyle $style
+	): int;
+
+}
+```
+
+Register the formatter in your `phpstan.neon`:
+
+```yaml
+errorFormatter.awesome:
+	class: App\PHPStan\AwesomeErrorFormatter
+```
+
+Use the name part after `errorFormatter.` as the CLI option value:
+
+```
+vendor/bin/phpstan analyse -c phpstan.neon -l 4 --errorFormatter awesome src tests
+```
+
 ## Class reflection extensions
 
 Classes in PHP can expose "magical" properties and methods decided in run-time using

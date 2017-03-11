@@ -2,6 +2,7 @@
 
 namespace PHPStan\Command;
 
+use PHPStan\Command\ErrorFormatter\TableErrorFormatter;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\StreamOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -55,7 +56,12 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\TestCase
 
 		$memoryLimitFile = $this->getContainer()->parameters['memoryLimitFile'];
 
-		$statusCode = $analyserApplication->analyse([$path], $style, false);
+		$statusCode = $analyserApplication->analyse(
+			[$path],
+			$style,
+			new TableErrorFormatter(),
+			false
+		);
 		if (file_exists($memoryLimitFile)) {
 			unlink($memoryLimitFile);
 		}

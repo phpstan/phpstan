@@ -4,8 +4,9 @@ namespace PHPStan\Command;
 
 use PHPStan\Analyser\Analyser;
 use PHPStan\Analyser\Error;
+use PHPStan\Command\ErrorFormatter\ErrorFormatter;
 use PHPStan\File\FileHelper;
-use Symfony\Component\Console\Style\StyleInterface;
+use Symfony\Component\Console\Style\OutputStyle;
 use Symfony\Component\Finder\Finder;
 
 class AnalyseApplication
@@ -44,11 +45,17 @@ class AnalyseApplication
 
 	/**
 	 * @param string[] $paths
-	 * @param \Symfony\Component\Console\Style\StyleInterface $style
+	 * @param \Symfony\Component\Console\Style\OutputStyle $style
+	 * @param \PHPStan\Command\ErrorFormatter\ErrorFormatter $errorFormatter
 	 * @param bool $defaultLevelUsed
-	 * @return int
+	 * @return int Error code.
 	 */
-	public function analyse(array $paths, StyleInterface $style, bool $defaultLevelUsed): int
+	public function analyse(
+		array $paths,
+		OutputStyle $style,
+		ErrorFormatter $errorFormatter,
+		bool $defaultLevelUsed
+	): int
 	{
 		$errors = [];
 		$files = [];
@@ -99,62 +106,27 @@ class AnalyseApplication
 			$style->progressFinish();
 		}
 
-		if (count($errors) === 0) {
-			$style->success('No errors');
-			if ($defaultLevelUsed) {
-				$style->note(sprintf(
-					'PHPStan is performing only the most basic checks. You can pass a higher rule level through the --%s option (the default and current level is %d) to analyse code more thoroughly.',
-					AnalyseCommand::OPTION_LEVEL,
-					AnalyseCommand::DEFAULT_LEVEL
-				));
-			}
-			return 0;
-		}
-
-		$currentDir = $this->fileHelper->normalizePath(dirname($paths[0]));
-		$cropFilename = function (string $filename) use ($currentDir): string {
-			if ($currentDir !== '' && strpos($filename, $currentDir) === 0) {
-				return substr($filename, strlen($currentDir) + 1);
-			}
-
-			return $filename;
-		};
-
-		$fileErrors = [];
+		$fileSpecificErrors = [];
 		$notFileSpecificErrors = [];
-		$totalErrorsCount = count($errors);
-
 		foreach ($errors as $error) {
 			if (is_string($error)) {
-				$notFileSpecificErrors[] = [$error];
-				continue;
+				$notFileSpecificErrors[] = $error;
+			} elseif ($error instanceof Error) {
+				$fileSpecificErrors[] = $error;
+			} else {
+				throw new \PHPStan\ShouldNotHappenException();
 			}
-			if (!isset($fileErrors[$error->getFile()])) {
-				$fileErrors[$error->getFile()] = [];
-			}
-
-			$fileErrors[$error->getFile()][] = $error;
 		}
 
-		foreach ($fileErrors as $file => $errors) {
-			$rows = [];
-			foreach ($errors as $error) {
-				$rows[] = [
-					(string) $error->getLine(),
-					$error->getMessage(),
-				];
-			}
-
-			$style->table(['Line', $cropFilename($file)], $rows);
-		}
-
-		if (count($notFileSpecificErrors) > 0) {
-			$style->table(['Error'], $notFileSpecificErrors);
-		}
-
-		$style->error(sprintf($totalErrorsCount === 1 ? 'Found %d error' : 'Found %d errors', $totalErrorsCount));
-
-		return 1;
+		return $errorFormatter->formatErrors(
+			new AnalysisResult(
+				$fileSpecificErrors,
+				$notFileSpecificErrors,
+				$defaultLevelUsed,
+				$this->fileHelper->normalizePath(dirname($paths[0]))
+			),
+			$style
+		);
 	}
 
 	private function updateMemoryLimitFile()

@@ -6,6 +6,7 @@ use Nette\Configurator;
 use Nette\DI\Extensions\ExtensionsExtension;
 use Nette\DI\Extensions\PhpExtension;
 use PhpParser\Node\Stmt\Catch_;
+use PHPStan\Command\ErrorFormatter\ErrorFormatter;
 use PHPStan\File\FileHelper;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -32,6 +33,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				new InputOption(self::OPTION_LEVEL, 'l', InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter'),
 				new InputOption(ErrorsConsoleStyle::OPTION_NO_PROGRESS, null, InputOption::VALUE_NONE, 'Do not show progress bar, only results'),
 				new InputOption('autoload-file', 'a', InputOption::VALUE_OPTIONAL, 'Project\'s additional autoload file path'),
+				new InputOption('errorFormat', null, InputOption::VALUE_REQUIRED, 'Format in which to print the result of the analysis', 'table'),
 			]);
 	}
 
@@ -100,6 +102,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			'rootDir' => $rootDir,
 			'tmpDir' => $tmpDir,
 			'currentWorkingDirectory' => $currentWorkingDirectory,
+			'errorFormat' => $input->getOption('errorFormat'),
 		];
 
 		$configurator->addParameters($parameters);
@@ -120,6 +123,20 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				'You\'re running PHP >= 7.1, but you still have PHP-Parser version 2.x. This will lead to parse errors in case you use PHP 7.1 syntax like nullable parameters, iterable and void typehints, union exception types, or class constant visibility. Update to PHP-Parser 3.x to dismiss this message.'
 			);
 		}
+		$errorFormat = $input->getOption('errorFormat');
+		$errorFormatterServiceName = sprintf('errorFormatter.%s', $errorFormat);
+		if (!$container->hasService($errorFormatterServiceName)) {
+			$consoleStyle->error(sprintf(
+				'Error formatter "%s" not found. Available error formatters are: %s',
+				$errorFormat,
+				implode(', ', array_map(function (string $name) {
+					return substr($name, strlen('errorFormatter.'));
+				}, $container->findByType(ErrorFormatter::class)))
+			));
+			return 1;
+		}
+		/** @var ErrorFormatter $errorFormatter */
+		$errorFormatter = $container->getService($errorFormatterServiceName);
 		$this->setUpSignalHandler($consoleStyle, $memoryLimitFile);
 		if (!isset($container->parameters['customRulesetUsed'])) {
 			$output->writeln('');
@@ -154,11 +171,13 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			$robotLoader->register();
 		}
 
+		/** @var \PHPStan\Command\AnalyseApplication $application */
 		$application = $container->getByType(AnalyseApplication::class);
 		return $this->handleReturn(
 			$application->analyse(
 				$input->getArgument('paths'),
 				$consoleStyle,
+				$errorFormatter,
 				$defaultLevelUsed
 			),
 			$memoryLimitFile
