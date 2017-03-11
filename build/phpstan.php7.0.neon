@@ -1,9 +1,0 @@
-includes:
-	- phpstan.neon
-
-parameters:
-	ignoreErrors:
-		- '#has unknown class ReflectionClassConstant as its type#'
-		- '#has invalid typehint type ReflectionClassConstant#'
-		- '#Call to an undefined method ReflectionClass::getReflectionConstant#'
-		- '#Call to method [a-zA-Z0-9_]+\(\) on an unknown class ReflectionClassConstant#'

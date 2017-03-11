@@ -1,5 +1,0 @@
-parameters:
-	ignoreErrors:
-		- '#Class PhpParser\\Node\\NullableType not found#'
-		- '#Access to property \$type on an unknown class PhpParser\\Node\\NullableType#'
-		- '#has invalid typehint type PhpParser\\Node\\NullableType#'
