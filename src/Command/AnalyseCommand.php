@@ -28,7 +28,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
                 new InputArgument('paths', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'Paths with source code to run analysis on'),
                 new InputOption(self::OPTION_LEVEL, 'l', InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter'),
                 new InputOption(ErrorsConsoleStyle::OPTION_NO_PROGRESS, null, InputOption::VALUE_NONE, 'Do not show progress bar, only results'),
-                new InputOption('autoload-file', 'a', InputOption::VALUE_OPTIONAL, 'Project\'s additional autoload file path'),
+                new InputOption('autoload-file', 'a', InputOption::VALUE_OPTIONAL|InputOption::VALUE_IS_ARRAY, 'Project\'s additional autoload file path'),
                 new InputOption('rule', 'r', InputOption::VALUE_OPTIONAL|InputOption::VALUE_IS_ARRAY, "check rule to be used. use FQCN for custom rule. the builtin rules:\n".implode("\n", RegistryFactory::getRuleArgList(65535))),
                 new InputOption('exclude-rule', 'R', InputOption::VALUE_OPTIONAL|InputOption::VALUE_IS_ARRAY, "check rule to be excluded"),
                 new InputOption('ignore-path', 'P', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'preg pattern for file path to be ignored'),
@@ -49,11 +49,6 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
             $stderr = $output->getErrorOutput();
         }
 
-        $autoloadFile = $input->getOption('autoload-file');
-        if ($autoloadFile !== null && is_file($autoloadFile)) {
-            require_once $autoloadFile;
-        }
-
         $currentWorkingDirectory = getcwd();
 
         $fileHelper = new FileHelper($currentWorkingDirectory);
@@ -70,6 +65,13 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
         $container->set('tmpDir', $tmpDir);
         $container->set('currentWorkingDirectory', $currentWorkingDirectory);
         $container->set('defaultExtensions', []);
+
+        $autoloadFiles = $input->getOption('autoload-file');
+        foreach ($autoloadFiles as $autoloadFile) {
+            if (is_file($autoloadFile)) {
+                require_once $autoloadFile;
+            }
+        }
 
         $ignorePathPatterns = $input->getOption('ignore-path');
         if ($ignorePathPatterns) {
@@ -130,10 +132,6 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
             );
         }
         $this->setUpSignalHandler($errorStyle, $memoryLimitFile);
-
-        foreach ($container->get('autoload_files') as $autoloadFile) {
-            require_once $autoloadFile;
-        }
 
         $application = $container->get(AnalyseApplication::class);
         return $this->handleReturn(

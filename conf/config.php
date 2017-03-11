@@ -25,8 +25,6 @@ return [
     'bootstrapFile' => null,
     'excludes_analyse' => [],
     'ignorePathPatterns' => [],
-    'autoload_directories' => [],
-    'autoload_files' => [],
     'fileExtensions' => [ 'php', ],
     'checkFunctionArgumentTypes' => false,
     'enableUnionTypes' => false,
