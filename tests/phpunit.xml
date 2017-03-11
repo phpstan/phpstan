@@ -15,13 +15,13 @@
 			<directory suffix=".php">../src</directory>
 		</whitelist>
 	</filter>
-	<!-- <logging> -->
-	<!-- 	<log -->
-	<!-- 		type="coverage&#45;text" -->
-	<!-- 		target="php://stdout" -->
-	<!-- 		showUncoveredFiles="true" -->
-	<!-- 		showOnlySummary="true" -->
-	<!-- 	/> -->
-	<!-- 	<log type="coverage&#45;clover" target="tmp/clover.xml"/> -->
-	<!-- </logging> -->
+	<logging>
+		<log
+			type="coverage-text"
+			target="php://stdout"
+			showUncoveredFiles="true"
+			showOnlySummary="true"
+		/>
+		<log type="coverage-clover" target="tmp/clover.xml"/>
+	</logging>
 </phpunit>
