@@ -138,4 +138,8 @@ function () {
 
 	};
 	$closure->__invoke(1, 2, 3);
+
+	$reflectionClass = new \ReflectionClass(Foo::class);
+	$reflectionClass->newInstance();
+	$reflectionClass->newInstance(1, 2, 3);
 };
