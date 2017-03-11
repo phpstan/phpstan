@@ -97,11 +97,11 @@
 			<arg value="analyse"/>
 			<arg value="-l"/>
 			<arg value="5"/>
-			<arg value="--ignore"/>
+			<arg value="--ignore-path"/>
 			<arg value="tests/.*/data"/>
-			<arg value="--ignore"/>
+			<arg value="--ignore-path"/>
 			<arg value="tests/notAutoloaded"/>
-			<arg value="--ignore"/>
+			<arg value="--ignore-path"/>
 			<arg value="tests/PHPStan/Analyser/traits"/>
 			<arg value="--ignore-error"/>
 			<arg value="PHPUnit_Framework_MockObject_MockObject"/>

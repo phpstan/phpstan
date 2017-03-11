@@ -29,9 +29,10 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
                 new InputOption(self::OPTION_LEVEL, 'l', InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter'),
                 new InputOption(ErrorsConsoleStyle::OPTION_NO_PROGRESS, null, InputOption::VALUE_NONE, 'Do not show progress bar, only results'),
                 new InputOption('autoload-file', 'a', InputOption::VALUE_OPTIONAL, 'Project\'s additional autoload file path'),
-                new InputOption('rules', 'r', InputOption::VALUE_OPTIONAL, "rule1,rule2,...\n".implode("\n", RegistryFactory::getRuleArgList(65535))),
-                new InputOption('ignore', 'i', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'preg pattern for file path to be ignored'),
-                new InputOption('ignore-error', 'e', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'preg pattern for error to be ignored'),
+                new InputOption('rule', 'r', InputOption::VALUE_OPTIONAL|InputOption::VALUE_IS_ARRAY, "check rule to be used. use FQCN for custom rule. the builtin rules:\n".implode("\n", RegistryFactory::getRuleArgList(65535))),
+                new InputOption('exclude-rule', 'R', InputOption::VALUE_OPTIONAL|InputOption::VALUE_IS_ARRAY, "check rule to be excluded"),
+                new InputOption('ignore-path', 'P', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'preg pattern for file path to be ignored'),
+                new InputOption('ignore-error', 'E', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'preg pattern for error to be ignored'),
             ]);
     }
 
@@ -70,7 +71,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
         $container->set('currentWorkingDirectory', $currentWorkingDirectory);
         $container->set('defaultExtensions', []);
 
-        $ignorePathPatterns = $input->getOption('ignore');
+        $ignorePathPatterns = $input->getOption('ignore-path');
         if ($ignorePathPatterns) {
             $container->set('ignorePathPatterns', $ignorePathPatterns);
         }
@@ -99,12 +100,16 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
             break;
         }
 
-        $rules = $input->getOption('rules');
-        if ($rules) {
-            $rules = explode(',', $rules);
-        } else {
+        $rules = $input->getOption('rule');
+        if (!$rules) {
             $rules = RegistryFactory::getRuleArgList($levelOption);
         }
+
+        $excludeRules = $input->getOption('exclude-rule');
+        if ($excludeRules) {
+            $rules = array_values(array_diff($rules, $excludeRules));
+        }
+
         RegistryFactory::setRules($rules);
 
         $errorStyle = new ErrorsConsoleStyle($input, $stderr);
@@ -125,21 +130,6 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
             );
         }
         $this->setUpSignalHandler($errorStyle, $memoryLimitFile);
-        if ($container->get('customRulesetUsed')) {
-            $stderr->writeln('');
-            $stderr->writeln('<comment>No rules detected</comment>');
-            $stderr->writeln('');
-            $stderr->writeln('You have the following choices:');
-            $stderr->writeln('');
-            $stderr->writeln('* while running the analyse option, use the <info>--level</info> option to adjust your rule level - the higher the stricter');
-            $stderr->writeln('');
-            $stderr->writeln(sprintf('* create your own <info>custom ruleset</info> by selecting which rules you want to check by copying the service definitions from the built-in config level files in <options=bold>%s</>.', $fileHelper->normalizePath(__DIR__ . '/../../conf')));
-            $stderr->writeln('  * in this case, don\'t forget to define parameter <options=bold>customRulesetUsed</> in your config file.');
-            $stderr->writeln('');
-            return $this->handleReturn(1, $memoryLimitFile);
-        } elseif ($container->get('customRulesetUsed')) {
-            $defaultLevelUsed = false;
-        }
 
         foreach ($container->get('autoload_files') as $autoloadFile) {
             require_once $autoloadFile;
