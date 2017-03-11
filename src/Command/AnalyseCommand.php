@@ -32,6 +32,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				new InputOption(self::OPTION_LEVEL, 'l', InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter'),
 				new InputOption(ErrorsConsoleStyle::OPTION_NO_PROGRESS, null, InputOption::VALUE_NONE, 'Do not show progress bar, only results'),
 				new InputOption('autoload-file', 'a', InputOption::VALUE_OPTIONAL, 'Project\'s additional autoload file path'),
+				new InputOption('errorFormat', null, InputOption::VALUE_REQUIRED, 'Format in which to print the result of the analysis', 'table'),
 			]);
 	}
 
@@ -100,6 +101,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			'rootDir' => $rootDir,
 			'tmpDir' => $tmpDir,
 			'currentWorkingDirectory' => $currentWorkingDirectory,
+            'errorFormat' => $input->getOption('errorFormat'),
 		];
 
 		$configurator->addParameters($parameters);

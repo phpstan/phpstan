@@ -154,3 +154,20 @@ services:
 	registry:
 		class: PHPStan\Rules\Registry
 		factory: @PHPStan\Rules\RegistryFactory::create
+
+	errorFormatter:
+		class: PHPStan\Command\ErrorFormatter\ErrorFormatter
+		factory: @errorFormatterFactory::create
+
+	errorFormatterFactory:
+		class: PHPStan\Command\ErrorFormatter\ErrorFormatterFactory
+		arguments:
+			formatType: %errorFormat%
+
+	errorFormatter.raw:
+		class: PHPStan\Command\ErrorFormatter\RawErrorFormatter
+		autowired: no
+
+	errorFormatter.table:
+		class: PHPStan\Command\ErrorFormatter\TableErrorFormatter
+		autowired: no
