@@ -61,7 +61,6 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
         $fileHelper = new FileHelper($currentWorkingDirectory);
 
         $rootDir = $fileHelper->normalizePath(__DIR__ . '/../..');
-        $tmpDir = sys_get_temp_dir();
         $confDir = $rootDir . '/conf';
 
         $builder = new \DI\ContainerBuilder();
@@ -95,7 +94,6 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
         $container = $builder->build();
         $container->set(\Interop\Container\ContainerInterface::class, $container);
         $container->set('rootDir', $rootDir);
-        $container->set('tmpDir', $tmpDir);
         $container->set('currentWorkingDirectory', $currentWorkingDirectory);
         $container->set('defaultExtensions', []);
 

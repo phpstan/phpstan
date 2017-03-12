@@ -138,7 +138,7 @@ class AnalyseApplication
 
         $style->listing($errors);
 
-        $style->error(sprintf($totalErrorsCount === 1 ? 'Found %d error' : 'Found %d errors', $totalErrorsCount));
+        $errorStyle->error(sprintf($totalErrorsCount === 1 ? 'Found %d error' : 'Found %d errors', $totalErrorsCount));
 
         return 1;
     }
