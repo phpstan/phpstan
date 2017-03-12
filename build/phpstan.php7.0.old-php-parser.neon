@@ -1,3 +1,0 @@
-includes:
-	- phpstan.php7.0.neon
-	- ignore-old-php-parser-errors.neon
