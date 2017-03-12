@@ -108,19 +108,9 @@ There's also **experimental** level 5 that currently enables:
 * Union types (Foo|Bar will be a specified type with checks performed on it instead of mixed)
 * Checking function and method argument types when calling them
 
-## Configuration
+## ~~Configuration~~
 
-Config file is passed to the `phpstan` executable with `-c` option:
-
-```
-vendor/bin/phpstan analyse -l 4 -c phpstan.neon src tests
-```
-
-When using a custom project config file, you have to pass the `--level` (`-l`)
-option to `analyse` command (default value does not apply here).
-
-[NEON file format](https://ne-on.org/) is very similar to YAML.
-All the following options are part of the `parameters` section.
+Only option is supported.
 
 ### Autoloading
 
@@ -143,36 +133,24 @@ or you're running PHPStan from a different directory,
 you can specify the path to the autoloader with the `--autoload-file|-a` option:
 
 ```bash
-phpstan analyse --autoload-file=/path/to/autoload.php src tests
+phpstan analyse --autoload-file=/path/to/autoload.php --autoload-file=/path/to/another.php src tests
 ```
 
 ### Exclude files from analysis
 
 If your codebase contains some files that are broken on purpose
 (e. g. to test behaviour of your application on files with invalid PHP code),
-you can exclude them using the `excludes_analyse` array parameter. String at each line
-is used as a pattern for the [`fnmatch`](https://secure.php.net/manual/en/function.fnmatch.php) function.
+you can specify the ignoring path with the `--ignore-path|-P` option:
+String at each line is used as a pattern for the [`fnmatch`](https://secure.php.net/manual/en/function.fnmatch.php) function.
 
-```yaml
-parameters:
-	excludes_analyse:
-		- %rootDir%/../../../tests/*/data/*
+```bash
+phpstan analyse --ignore-path='tests/*/data/*' src tests
 ```
 
-### Include custom extensions
+### ~~Include custom extensions~~
+Only support check php file.
 
-If your codebase contains php files with extensions other than the standard .php extension then you can add them
-to the `fileExtensions` array parameter:
-
-```yaml
-parameters:
-	fileExtensions:
-		- php
-		- module
-		- inc
-```
-
-### Universal object crates
+### Universal object crates [TODO]
 
 Classes without predefined structure are common in PHP applications.
 They are used as universal holders of data - any property can be set and read on them. Notable examples
@@ -180,14 +158,9 @@ include `stdClass`, `SimpleXMLElement` (these are enabled by default), objects w
 Use `universalObjectCratesClasses` array parameter to let PHPStan know which classes
 with these characteristics are used in your codebase:
 
-```yaml
-parameters:
-	universalObjectCratesClasses:
-		- Dibi\Row
-		- Ratchet\ConnectionInterface
-```
+This need another option.
 
-### Add non-obviously assigned variables to scope
+### Add non-obviously assigned variables to scope [TODO]
 
 If you use the initial assignment variable after for-loop or while-loop, set `polluteScopeWithLoopInitialAssignments` boolean parameter to `true`.
 
@@ -278,43 +251,45 @@ parameters:
 ### Ignore error messages with regular expresions
 
 If some issue in your code base is not easy to fix or just simply want to deal with it later,
-you can exclude error messages from the analysis result with regular expressions:
+you can specify the ignoring pattern with the `--ignore-error|-E` option:
 
-```yaml
-parameters:
-	ignoreErrors:
-		- '#Call to an undefined method [a-zA-Z0-9\\_]+::method\(\)#'
-		- '#Call to an undefined method [a-zA-Z0-9\\_]+::expects\(\)#'
-		- '#Access to an undefined property PHPUnit_Framework_MockObject_MockObject::\$[a-zA-Z0-9_]+#'
-		- '#Call to an undefined method PHPUnit_Framework_MockObject_MockObject::[a-zA-Z0-9_]+\(\)#'
+```bash
+phpstan analyse --ignore-error='Call to an undefined method [a-zA-Z0-9\\_]+::method\(\)' \
+	--ignore-error='Call to an undefined method [a-zA-Z0-9\\_]+::expects\(\)' \
+	--ignore-error='Access to an undefined property PHPUnit_Framework_MockObject_MockObject::\$[a-zA-Z0-9_]+' \
+	--ignore-error='Call to an undefined method PHPUnit_Framework_MockObject_MockObject::[a-zA-Z0-9_]+\(\)' \
+	src tests
 ```
 
-If some of the patterns do not occur in the result anymore, PHPStan will let you know
-and you will have to remove the pattern from the configuration. You can turn off
-this behavior by setting `reportUnmatchedIgnoredErrors` to `false` in PHPStan configuration.
+`reportUnmatchedIgnoredErrors` has been removed. The `--ignore-error` option will
+never pollute the result list.
 
-### Bootstrap file
+### ~~Bootstrap file~~
 
-If you need to initialize something in PHP runtime before PHPStan runs (like your own autoloader),
-you can provide your own bootstrap file:
-
-```yaml
-parameters:
-	bootstrap: %rootDir%/../../../phpstan-bootstrap.php
-```
+Use the `--autoload-path|-a` option instead.
 
 ### Custom rules
 
-PHPStan allows writing custom rules to check for specific situations in your own codebase. Your rule class
-needs to implement the `PHPStan\Rules\Rule` interface and registered as a service in the configuration file:
+You can use the `--level` option to use a preset rules to check your source. However,
+if you want use all the level n rules but SomeBuiltInRule, you can specify the
+`--ignore-rule|-R` option:
 
-```yaml
-services:
-	-
-		class: MyApp\PHPStan\Rules\DefaultValueTypesAssignedToPropertiesRule
-		tags:
-			- phpstan.rules.rule
+```bash
+phpstan analyse --level=5 --rule='Methods\ReturnTypeRule' src tests
 ```
+
+**Please notice the leading slash, the builtin rule name should be relative name!**
+
+Use `phpstan analyse --help` will get all bultin rule list.
+
+PHPStan allows writing custom rules to check for specific situations in your own codebase. Your rule class
+needs to implement the `PHPStan\Rules\Rule` interface and specify the rule with the `--rule|-r` option:
+
+```bash
+phpstan analyse --rule='\MyApp\PHPStan\Rules\DefaultValueTypesAssignedToPropertiesRule' src tests
+```
+
+**Please notice the leading slash, the custom rule name should be FQCN!**
 
 For inspiration on how to implement a rule turn to [src/Rules](https://github.com/phpstan/phpstan/tree/master/src/Rules)
 to see a lot of built-in rules.
