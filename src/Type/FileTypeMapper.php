@@ -63,7 +63,7 @@ class FileTypeMapper
 			'#@var\s+\$[a-zA-Z0-9_]+\s+' . self::TYPE_PATTERN . '#',
 			'#@return\s+' . self::TYPE_PATTERN . '#',
 			'#@property(?:-read)?\s+' . self::TYPE_PATTERN . '\s+\$[a-zA-Z0-9_]+#',
-			'#@method\s+' . self::TYPE_PATTERN . '\s+[a-zA-Z0-9_]+\(.*\)#',
+			'#@method\s+(?:static\s+)?' . self::TYPE_PATTERN . '\s*?[a-zA-Z0-9_]+\(.*\)#',
 		];
 
 		/** @var \PhpParser\Node\Stmt\ClassLike|null $lastClass */
