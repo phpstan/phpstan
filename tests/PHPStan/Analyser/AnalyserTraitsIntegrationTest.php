@@ -93,6 +93,9 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\TestCase
 	 */
 	private function runAnalyse(array $files): array
 	{
+		$files = array_map(function (string $file): string {
+			return $this->getFileHelper()->normalizePath($file);
+		}, $files);
 		/** @var \PHPStan\Analyser\Analyser $analyser */
 		$analyser = $this->getContainer()->getByType(Analyser::class);
 		return $analyser->analyse($files, false);
