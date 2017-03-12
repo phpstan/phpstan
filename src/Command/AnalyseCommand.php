@@ -11,6 +11,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Style\StyleInterface;
 use PHPStan\Rules\RegistryFactory;
+use PHPStan\Reflection\PropertiesClassReflectionExtension;
+use PHPStan\Reflection\MethodsClassReflectionExtension;
+use PHPStan\Type\DynamicMethodReturnTypeExtension;
+use PHPStan\Type\DynamicStaticMethodReturnTypeExtension;
 
 class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 {
@@ -31,8 +35,9 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
                 new InputOption('autoload-file', 'a', InputOption::VALUE_OPTIONAL|InputOption::VALUE_IS_ARRAY, 'Project\'s additional autoload file path'),
                 new InputOption('rule', 'r', InputOption::VALUE_OPTIONAL|InputOption::VALUE_IS_ARRAY, "check rule to be used. use FQCN for custom rule. the builtin rules:\n".implode("\n", RegistryFactory::getRuleArgList(65535))),
                 new InputOption('exclude-rule', 'R', InputOption::VALUE_OPTIONAL|InputOption::VALUE_IS_ARRAY, "check rule to be excluded"),
-                new InputOption('ignore-path', 'P', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'preg pattern for file path to be ignored'),
-                new InputOption('ignore-error', 'E', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'preg pattern for error to be ignored'),
+                new InputOption('ignore-path', 'p', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'preg pattern **WITHOUT DELIMITER** for file path to be ignored'),
+                new InputOption('ignore-error', 'e', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'preg pattern **WITHOUT DELIMITER** for error to be ignored'),
+                new InputOption('extension', 'x', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'extension class name to be used, must be FQCN'),
             ]);
     }
 
@@ -44,6 +49,13 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $autoloadFiles = $input->getOption('autoload-file');
+        foreach ($autoloadFiles as $autoloadFile) {
+            if (is_file($autoloadFile)) {
+                require_once $autoloadFile;
+            }
+        }
+
         $currentWorkingDirectory = getcwd();
 
         $fileHelper = new FileHelper($currentWorkingDirectory);
@@ -54,20 +66,38 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
         $builder = new \DI\ContainerBuilder();
         $builder->addDefinitions($confDir.'/config.php');
-        // todo add extensions
+
+        $extensionDefinitions = [];
+        $extensionNames = $input->getOption('extension');
+        foreach ($extensionNames as $extensionName) {
+            if (!class_exists($extensionName, true)) {
+                continue;
+            }
+            $interfaces = class_implements($extensionName);
+            foreach ($interfaces as $interface) {
+                switch ($interface) {
+                case PropertiesClassReflectionExtension::class:
+                case MethodsClassReflectionExtension::class:
+                case DynamicMethodReturnTypeExtension::class:
+                case DynamicStaticMethodReturnTypeExtension::class:
+                    $extensionDefinitions[$interface][] = \DI\get($extensionName);
+                    break;
+                }
+            }
+        }
+
+        foreach ($extensionDefinitions as $interface => $extensions) {
+            $builder->addDefinitions([
+                $interface => \DI\add($extensions), // use add to append
+            ]);
+        }
+
         $container = $builder->build();
         $container->set(\Interop\Container\ContainerInterface::class, $container);
         $container->set('rootDir', $rootDir);
         $container->set('tmpDir', $tmpDir);
         $container->set('currentWorkingDirectory', $currentWorkingDirectory);
         $container->set('defaultExtensions', []);
-
-        $autoloadFiles = $input->getOption('autoload-file');
-        foreach ($autoloadFiles as $autoloadFile) {
-            if (is_file($autoloadFile)) {
-                require_once $autoloadFile;
-            }
-        }
 
         $ignorePathPatterns = $input->getOption('ignore-path');
         if ($ignorePathPatterns) {
