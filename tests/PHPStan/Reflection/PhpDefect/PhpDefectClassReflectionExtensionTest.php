@@ -128,6 +128,24 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 		];
 	}
 
+	public function dataDomDocumentTypeProperties(): array
+	{
+		return [
+			[
+				\DOMDocumentType::class,
+				\DOMDocumentType::class,
+				[
+					'publicId' => 'string',
+					'systemId' => 'string',
+					'name' => 'string',
+					'entities' => 'DOMNamedNodeMap',
+					'notations' => 'DOMNamedNodeMap',
+					'internalSubset' => 'string',
+				],
+			],
+		];
+	}
+
 	public function dataDomNodeProperties(): array
 	{
 		return [
