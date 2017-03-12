@@ -97,6 +97,34 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 		];
 	}
 
+	public function dataDomNodeProperties(): array
+	{
+		return [
+			[
+				\DOMNode::class,
+				\DOMNode::class,
+				[
+					'nodeName' => 'string',
+					'nodeValue' => 'string',
+					'nodeType' => 'int',
+					'parentNode' => 'DOMNode',
+					'childNodes' => 'DOMNodeList',
+					'firstChild' => 'DOMNode',
+					'lastChild' => 'DOMNode',
+					'previousSibling' => 'DOMNode',
+					'nextSibling' => 'DOMNode',
+					'attributes' => 'DOMNamedNodeMap',
+					'ownerDocument' => 'DOMDocument',
+					'namespaceURI' => 'string',
+					'prefix' => 'string',
+					'localName' => 'string',
+					'baseURI' => 'string',
+					'textContent' => 'string',
+				],
+			],
+		];
+	}
+
 	public function dataXmlReaderProperties(): array
 	{
 		return [
