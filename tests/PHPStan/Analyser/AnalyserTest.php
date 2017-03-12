@@ -77,16 +77,14 @@ class AnalyserTest extends \PHPStan\TestCase
 	 */
 	public function testExclude(string $filePath, array $analyseExcludes, array $ignoreErrors, int $errorsCount)
 	{
-		$analyser = $this->createAnalyser($analyseExcludes, $ignoreErrors);
-		$result = $analyser->analyse([$filePath], !is_file($filePath));
+		$result = $this->runAnalyser($analyseExcludes, $ignoreErrors, null, true, $filePath, !is_file($filePath));
 		$this->assertInternalType('array', $result);
 		$this->assertCount($errorsCount, $result);
 	}
 
 	public function testReturnErrorIfIgnoredMessagesDoesNotOccur()
 	{
-		$analyser = $this->createAnalyser([], ['#Unknown error#']);
-		$result = $analyser->analyse([__DIR__ . '/data/empty/empty.php'], false);
+		$result = $this->runAnalyser([], ['#Unknown error#'], null, true, __DIR__ . '/data/empty/empty.php', false);
 		$this->assertInternalType('array', $result);
 		$this->assertSame([
 			'Ignored error pattern #Unknown error# was not matched in reported errors.',
@@ -95,24 +93,21 @@ class AnalyserTest extends \PHPStan\TestCase
 
 	public function testDoNotReturnErrorIfIgnoredMessagesDoesNotOccurWithReportUnmatchedIgnoredErrorsOff()
 	{
-		$analyser = $this->createAnalyser([], ['#Unknown error#'], null, false);
-		$result = $analyser->analyse([__DIR__ . '/data/empty/empty.php'], false);
+		$result = $this->runAnalyser([], ['#Unknown error#'], null, false, __DIR__ . '/data/empty/empty.php', false);
 		$this->assertInternalType('array', $result);
 		$this->assertEmpty($result);
 	}
 
 	public function testDoNotReturnErrorIfIgnoredMessagesDoNotOccurWhileAnalysingIndividualFiles()
 	{
-		$analyser = $this->createAnalyser([], ['#Unknown error#']);
-		$result = $analyser->analyse([__DIR__ . '/data/empty/empty.php'], true);
+		$result = $this->runAnalyser([], ['#Unknown error#'], null, true, __DIR__ . '/data/empty/empty.php', true);
 		$this->assertInternalType('array', $result);
 		$this->assertEmpty($result);
 	}
 
 	public function testReportInvalidIgnorePatternEarly()
 	{
-		$analyser = $this->createAnalyser([], ['#Regexp syntax error']);
-		$result = $analyser->analyse([__DIR__ . '/data/parse-error.php'], false);
+		$result = $this->runAnalyser([], ['#Regexp syntax error'], null, true, __DIR__ . '/data/parse-error.php', false);
 		$this->assertInternalType('array', $result);
 		$this->assertSame([
 			"No ending delimiter '#' found in pattern: #Regexp syntax error",
@@ -121,8 +116,7 @@ class AnalyserTest extends \PHPStan\TestCase
 
 	public function testNonexistentBootstrapFile()
 	{
-		$analyser = $this->createAnalyser([], [], __DIR__ . '/foo.php');
-		$result = $analyser->analyse([__DIR__ . '/data/empty/empty.php'], false);
+		$result = $this->runAnalyser([], [], __DIR__ . '/foo.php', true, __DIR__ . '/data/empty/empty.php', false);
 		$this->assertInternalType('array', $result);
 		$this->assertCount(1, $result);
 		$this->assertContains('does not exist', $result[0]);
@@ -130,8 +124,7 @@ class AnalyserTest extends \PHPStan\TestCase
 
 	public function testBootstrapFile()
 	{
-		$analyser = $this->createAnalyser([], [], __DIR__ . '/data/bootstrap.php');
-		$result = $analyser->analyse([__DIR__ . '/data/empty/empty.php'], false);
+		$result = $this->runAnalyser([], [], __DIR__ . '/data/bootstrap.php', true, __DIR__ . '/data/empty/empty.php', false);
 		$this->assertInternalType('array', $result);
 		$this->assertEmpty($result);
 		$this->assertSame('fooo', PHPSTAN_TEST_CONSTANT);
@@ -139,13 +132,39 @@ class AnalyserTest extends \PHPStan\TestCase
 
 	public function testBootstrapFileWithAnError()
 	{
-		$analyser = $this->createAnalyser([], [], __DIR__ . '/data/bootstrap-error.php');
-		$result = $analyser->analyse([__DIR__ . '/data/empty/empty.php'], false);
+		$result = $this->runAnalyser([], [], __DIR__ . '/data/bootstrap-error.php', true, __DIR__ . '/data/empty/empty.php', false);
 		$this->assertInternalType('array', $result);
 		$this->assertCount(1, $result);
 		$this->assertSame([
 			'Call to undefined function BootstrapError\doFoo()',
 		], $result);
+	}
+
+	/**
+	 * @param string[] $analyseExcludes
+	 * @param string[] $ignoreErrors
+	 * @param string|null $bootstrapFile
+	 * @param bool $reportUnmatchedIgnoredErrors
+	 * @param string $filePath
+	 * @param bool $onlyFiles
+	 * @return string[]|\PHPStan\Analyser\Error[]
+	 */
+	private function runAnalyser(
+		array $analyseExcludes,
+		array $ignoreErrors,
+		string $bootstrapFile = null,
+		bool $reportUnmatchedIgnoredErrors,
+		string $filePath,
+		bool $onlyFiles
+	): array
+	{
+		$analyser = $this->createAnalyser(
+			$analyseExcludes,
+			$ignoreErrors,
+			$bootstrapFile,
+			$reportUnmatchedIgnoredErrors
+		);
+		return $analyser->analyse([$this->getFileHelper()->normalizePath($filePath)], $onlyFiles);
 	}
 
 	/**
@@ -185,6 +204,7 @@ class AnalyserTest extends \PHPStan\TestCase
 				new TypeSpecifier($printer),
 				$fileExcluder,
 				new \PhpParser\BuilderFactory(),
+				$fileHelper,
 				false,
 				false,
 				false,
@@ -194,7 +214,6 @@ class AnalyserTest extends \PHPStan\TestCase
 			$fileExcluder,
 			$ignoreErrors,
 			$bootstrapFile,
-			$fileHelper,
 			$reportUnmatchedIgnoredErrors
 		);
 

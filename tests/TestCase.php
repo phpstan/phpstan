@@ -4,6 +4,7 @@ namespace PHPStan;
 
 use Nette\DI\Container;
 use PHPStan\Broker\Broker;
+use PHPStan\File\FileHelper;
 use PHPStan\Parser\DirectParser;
 use PHPStan\Parser\FunctionCallStatementFinder;
 use PHPStan\Parser\Parser;
@@ -28,6 +29,11 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
 	/** @var \PHPStan\Parser\Parser */
 	private $parser;
+
+	/**
+	 * @var \PHPStan\File\FileHelper
+	 */
+	private $fileHelper;
 
 	public function getContainer(): \Nette\DI\Container
 	{
@@ -161,6 +167,15 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	public static function isObsoletePhpParserVersion(): bool
 	{
 		return !property_exists(\PhpParser\Node\Stmt\Catch_::class, 'types');
+	}
+
+	public function getFileHelper(): FileHelper
+	{
+		if ($this->fileHelper === null) {
+			$this->fileHelper = $this->getContainer()->getByType(FileHelper::class);
+		}
+
+		return $this->fileHelper;
 	}
 
 }

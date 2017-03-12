@@ -56,6 +56,7 @@ class AnalyserIntegrationTest extends \PHPStan\TestCase
 	 */
 	private function runAnalyse(string $file): array
 	{
+		$file = $this->getFileHelper()->normalizePath($file);
 		/** @var \PHPStan\Analyser\Analyser $analyser */
 		$analyser = $this->getContainer()->getByType(Analyser::class);
 		/** @var \PHPStan\File\FileHelper $fileHelper */

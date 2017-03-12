@@ -71,11 +71,11 @@ class AnalyseApplication
 			if (!file_exists($path)) {
 				$errors[] = new Error(sprintf('<error>Path %s does not exist</error>', $path), $path);
 			} elseif (is_file($path)) {
-				$files[] = $path;
+				$files[] = $this->fileHelper->normalizePath($path);
 			} else {
 				$finder = new Finder();
 				foreach ($finder->files()->name('*.{' . implode(',', $this->fileExtensions) . '}')->in($path) as $fileInfo) {
-					$files[] = $fileInfo->getPathname();
+					$files[] = $this->fileHelper->normalizePath($fileInfo->getPathname());
 					$onlyFiles = false;
 				}
 			}

@@ -7,7 +7,6 @@ use PHPStan\Analyser\Error;
 use PHPStan\Analyser\NodeScopeResolver;
 use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\File\FileExcluder;
-use PHPStan\File\FileHelper;
 use PHPStan\Type\FileTypeMapper;
 
 abstract class AbstractRuleTest extends \PHPStan\TestCase
@@ -15,11 +14,6 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 
 	/** @var \PHPStan\Analyser\Analyser */
 	private $analyser;
-
-	/**
-	 * @var \PHPStan\File\FileHelper
-	 */
-	private $fileHelper;
 
 	abstract protected function getRule(): Rule;
 
@@ -46,6 +40,7 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 					new TypeSpecifier($printer),
 					$fileExcluder,
 					new \PhpParser\BuilderFactory(),
+					$fileHelper,
 					false,
 					false,
 					false,
@@ -55,21 +50,11 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 				$fileExcluder,
 				[],
 				null,
-				$fileHelper,
 				true
 			);
 		}
 
 		return $this->analyser;
-	}
-
-	private function getFileHelper(): FileHelper
-	{
-		if ($this->fileHelper === null) {
-			$this->fileHelper = $this->getContainer()->getByType(FileHelper::class);
-		}
-
-		return $this->fileHelper;
 	}
 
 	private function assertError(string $message, string $file, bool $exactMatch, int $line = null, Error $error)
@@ -86,6 +71,9 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 
 	public function analyse(array $files, array $errors)
 	{
+		$files = array_map(function (string $file): string {
+			return $this->getFileHelper()->normalizePath($file);
+		}, $files);
 		$result = $this->getAnalyser()->analyse($files, false);
 		$this->assertInternalType('array', $result);
 		foreach ($errors as $i => $error) {
