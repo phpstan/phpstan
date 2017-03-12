@@ -168,6 +168,10 @@ class Analyser
             } catch (\Throwable $t) {
                 $errors[] = new Error(sprintf('Internal error: %s', $t->getMessage()), $file);
             }
+
+            if (function_exists('pcntl_signal_dispatch')) {
+                pcntl_signal_dispatch();
+            }
         }
 
         $errors = array_values(array_filter($errors, function (string $error) : bool {
