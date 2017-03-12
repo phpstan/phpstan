@@ -106,6 +106,9 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 			'target' => 'string',
 			'data' => 'string',
 		],
+		'DOMText' => [ // extends DOMCharacterData
+			'wholeText' => 'string',
+		],
 		'XMLReader' => [
 			'attributeCount' => 'int',
 			'baseURI' => 'string',

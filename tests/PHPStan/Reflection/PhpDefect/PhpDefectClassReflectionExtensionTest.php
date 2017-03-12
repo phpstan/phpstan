@@ -260,6 +260,19 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 		];
 	}
 
+	public function dataDomTextProperties(): array
+	{
+		return [
+			[
+				\DOMText::class,
+				\DOMText::class,
+				[
+					'wholeText' => 'string',
+				],
+			],
+		];
+	}
+
 	public function dataXmlReaderProperties(): array
 	{
 		return [
