@@ -146,6 +146,20 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 		];
 	}
 
+	public function dataDomElementProperties(): array
+	{
+		return [
+			[
+				\DOMElement::class,
+				\DOMElement::class,
+				[
+					'schemaTypeInfo' => 'bool',
+					'tagName' => 'string',
+				],
+			],
+		];
+	}
+
 	public function dataDomNodeProperties(): array
 	{
 		return [
