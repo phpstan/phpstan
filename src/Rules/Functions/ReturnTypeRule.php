@@ -48,6 +48,11 @@ class ReturnTypeRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
+		$reflection = null;
+		if (function_exists($function->getName())) {
+			$reflection = new \ReflectionFunction($function->getName());
+		}
+
 		return $this->returnTypeCheck->checkReturnType(
 			$scope,
 			$function->getReturnType(),
@@ -63,7 +68,9 @@ class ReturnTypeRule implements \PHPStan\Rules\Rule
 			sprintf(
 				'Function %s() should return %%s but returns %%s.',
 				$function->getName()
-			)
+			),
+			$reflection !== null && $reflection->isGenerator(),
+			false
 		);
 	}
 

@@ -28,6 +28,7 @@ class FunctionReturnTypeCheck
 	 * @param string $emptyReturnStatementMessage
 	 * @param string $voidMessage
 	 * @param string $typeMismatchMessage
+	 * @param bool $isGenerator
 	 * @param bool $isAnonymousFunction
 	 * @return string[]
 	 */
@@ -38,11 +39,16 @@ class FunctionReturnTypeCheck
 		string $emptyReturnStatementMessage,
 		string $voidMessage,
 		string $typeMismatchMessage,
+		bool $isGenerator,
 		bool $isAnonymousFunction = false
 	): array
 	{
 		if ($returnValue === null) {
-			if ($returnType instanceof VoidType || $returnType instanceof MixedType) {
+			if (
+				$isGenerator
+				|| $returnType instanceof VoidType
+				|| $returnType instanceof MixedType
+			) {
 				return [];
 			}
 

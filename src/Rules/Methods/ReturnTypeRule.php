@@ -44,6 +44,11 @@ class ReturnTypeRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
+		$reflection = null;
+		if ($method->getDeclaringClass()->getNativeReflection()->hasMethod($method->getName())) {
+			$reflection = $method->getDeclaringClass()->getNativeReflection()->getMethod($method->getName());
+		}
+
 		return $this->returnTypeCheck->checkReturnType(
 			$scope,
 			$method->getReturnType(),
@@ -62,7 +67,9 @@ class ReturnTypeRule implements \PHPStan\Rules\Rule
 				'Method %s::%s() should return %%s but returns %%s.',
 				$method->getDeclaringClass()->getName(),
 				$method->getName()
-			)
+			),
+			$reflection !== null && $reflection->isGenerator(),
+			false
 		);
 	}
 

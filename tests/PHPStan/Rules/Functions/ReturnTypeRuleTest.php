@@ -14,6 +14,7 @@ class ReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	public function testReturnTypeRule()
 	{
+		require_once __DIR__ . '/data/returnTypes.php';
 		$this->analyse([__DIR__ . '/data/returnTypes.php'], [
 			[
 				'Function ReturnTypes\returnInteger() should return int but returns string.',

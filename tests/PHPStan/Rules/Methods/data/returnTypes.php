@@ -184,6 +184,15 @@ class Foo extends FooParent implements FooInterface
 		return false;
 		return new \stdClass();
 	}
+
+	/**
+	 * @return int
+	 */
+	public function containsYield()
+	{
+		yield 1;
+		return;
+	}
 }
 
 class FooChild extends Foo

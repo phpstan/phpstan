@@ -64,3 +64,11 @@ function returnAnotherAlias(): FooAlias
 	return new Foo();
 }
 
+/**
+ * @return int
+ */
+function containsYield()
+{
+	yield 1;
+	return;
+}

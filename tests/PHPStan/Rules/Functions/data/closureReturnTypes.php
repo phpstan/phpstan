@@ -40,3 +40,8 @@ function (): \Traversable {
 	$foo = doFoo();
 	return $foo;
 };
+
+function (): \Generator {
+	yield 1;
+	return;
+};
