@@ -137,6 +137,9 @@ class TypehintHelper
 					return $phpDocType;
 				}
 			}
+			if ($type instanceof MixedType && $phpDocType instanceof VoidType) {
+				return $phpDocType;
+			}
 			if ($type->accepts($phpDocType)) {
 				return $phpDocType;
 			}
