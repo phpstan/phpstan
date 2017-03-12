@@ -273,6 +273,19 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 		];
 	}
 
+	public function dataDomXPathProperties(): array
+	{
+		return [
+			[
+				\DOMXPath::class,
+				\DOMXPath::class,
+				[
+					'document' => 'DOMDocument',
+				],
+			],
+		];
+	}
+
 	public function dataXmlReaderProperties(): array
 	{
 		return [
