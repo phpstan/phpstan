@@ -1,6 +1,3 @@
-includes:
-	- phpstan.neon
-
 parameters:
 	ignoreErrors:
 		- '#has unknown class ReflectionClassConstant as its type#'

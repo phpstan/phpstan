@@ -91,16 +91,36 @@
 
 	<target name="phpstan">
 		<php expression="PHP_VERSION_ID &lt; 70100 ?'true':'false'" returnProperty="isPHP70" level="verbose" />
-		<php expression="\PHPStan\TestCase::isObsoletePhpParserVersion() ?'.old-php-parser':''" returnProperty="phpParserSuffix" level="verbose" />
+		<php expression="\PHPStan\TestCase::isObsoletePhpParserVersion() ?'true':'false'" returnProperty="isOldParser" level="verbose" />
+		<property name="phpstan.config" value="build/phpstan-generated.neon"/>
+		<touch file="${phpstan.config}"/>
+		<append
+			destFile="${phpstan.config}"
+			text="includes: [ phpstan.neon"
+			append="false"
+		></append>
 		<if>
 			<equals arg1="${isPHP70}" arg2="true" />
 			<then>
-				<property name="phpstan.config" value="build/phpstan.php7.0${phpParserSuffix}.neon"/>
+				<append
+						destFile="${phpstan.config}"
+						text=", ignore-php7.0-errors.neon"
+				></append>
 			</then>
-			<else>
-				<property name="phpstan.config" value="build/phpstan${phpParserSuffix}.neon"/>
-			</else>
 		</if>
+		<if>
+			<equals arg1="${isOldParser}" arg2="true" />
+			<then>
+				<append
+						destFile="${phpstan.config}"
+						text=", ignore-old-php-parser-errors.neon"
+				></append>
+			</then>
+		</if>
+		<append
+				destFile="${phpstan.config}"
+				text=" ]"
+		></append>
 		<exec
 				executable="php"
 				logoutput="true"
