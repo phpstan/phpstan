@@ -232,6 +232,20 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 		];
 	}
 
+	public function dataDomNotationProperties(): array
+	{
+		return [
+			[
+				\DOMNotation::class,
+				\DOMNotation::class,
+				[
+					'publicId' => 'string',
+					'systemId' => 'string',
+				],
+			],
+		];
+	}
+
 	public function dataXmlReaderProperties(): array
 	{
 		return [
