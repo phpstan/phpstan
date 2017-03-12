@@ -1,7 +1,11 @@
 <?php
 use Interop\Container\ContainerInterface;
+use PHPStan\Reflection\PropertiesClassReflectionExtension;
+use PHPStan\Reflection\MethodsClassReflectionExtension;
+use PHPStan\Type\DynamicMethodReturnTypeExtension;
+use PHPStan\Type\DynamicStaticMethodReturnTypeExtension;
 
-$obj = function (array $parameters, string $class = '', string $prefix = '') {
+$obj = function (array $parameters, string $class = '') {
     $obj = $class ? DI\object($class) : DI\object();
 
     foreach ($parameters as $key => $value) {
@@ -10,7 +14,7 @@ $obj = function (array $parameters, string $class = '', string $prefix = '') {
         }
 
         if (is_string($value)) {
-            $value = $value[0] == '#' ? substr($value, 1) : DI\get($prefix.$value);
+            $value = $value[0] == '#' ? substr($value, 1) : DI\get($value);
         }
 
         $obj->constructorParameter($key, $value);
@@ -19,7 +23,7 @@ $obj = function (array $parameters, string $class = '', string $prefix = '') {
     return $obj;
 };
 
-return [
+$parameters = [
     'tmpDir' => sys_get_temp_dir(),
     'bootstrap' => null,
     'bootstrapFile' => null,
@@ -50,7 +54,9 @@ return [
     'checkThisOnly' => true,
     'checkFunctionArgumentTypes' => true,
     'enableUnionTypes' => true,
+];
 
+$services = [
     PhpParser\NodeTraverser::class => function (PhpParser\NodeVisitor\NameResolver $nameResolver) {
         $nodeTraverser = new PhpParser\NodeTraverser;
         $nodeTraverser->addVisitor($nameResolver);
@@ -99,6 +105,23 @@ return [
 
     PHPStan\Reflection\FunctionReflectionFactory::class => DI\object(PHPStan\Reflection\FunctionReflectionFactoryDI::class),
 
+    PHPStan\Reflection\PropertiesClassReflectionExtension::class => [
+        DI\get(PHPStan\Reflection\Php\PhpClassReflectionExtension::class),
+        DI\get(PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension::class),
+        DI\get(PHPStan\Reflection\PhpDefect\PhpDefectClassReflectionExtension::class),
+    ],
+
+    PHPStan\Reflection\MethodsClassReflectionExtension::class => [
+        DI\get(PHPStan\Reflection\Php\PhpClassReflectionExtension::class),
+        DI\get(PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension::class),
+    ],
+
+    PHPStan\Type\DynamicMethodReturnTypeExtension::class => [
+    ],
+
+    PHPStan\Type\DynamicStaticMethodReturnTypeExtension::class => [
+    ],
+
     PHPStan\Rules\FunctionCallParametersCheck::class => $obj([
         'checkArgumentTypes' => 'checkFunctionArgumentTypes',
     ]),
@@ -107,7 +130,12 @@ return [
         'enableUnionTypes',
     ]),
 
-    PHPStan\Broker\Broker::class=> DI\factory([PHPStan\Broker\BrokerFactory::class, 'create']),
+    PHPStan\Broker\Broker::class=> $obj([
+        'propertiesClassReflectionExtensions' => DI\get(PropertiesClassReflectionExtension::class),
+        'methodsClassReflectionExtensions' => DI\get(MethodsClassReflectionExtension::class),
+        'dynamicMethodReturnTypeExtensions' => DI\get(DynamicMethodReturnTypeExtension::class),
+        'dynamicStaticMethodReturnTypeExtensions' => DI\get(DynamicStaticMethodReturnTypeExtension::class),
+    ]),
 
     Stash\Interfaces\DriverInterface::class => $obj([
         'options' => 'cacheOptions',
@@ -127,3 +155,5 @@ return [
         'checkThisOnly',
     ])
 ];
+
+return $parameters + $services;

@@ -59,6 +59,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
         $builder = new \DI\ContainerBuilder();
         $builder->addDefinitions($confDir.'/config.php');
+        // todo add extensions
         $container = $builder->build();
         $container->set(\Interop\Container\ContainerInterface::class, $container);
         $container->set('rootDir', $rootDir);
