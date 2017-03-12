@@ -41,7 +41,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
                 new InputOption(self::OPTION_AUTOLOAD_FILE, 'a', InputOption::VALUE_OPTIONAL|InputOption::VALUE_IS_ARRAY, 'Project\'s additional autoload file path'),
                 new InputOption(self::OPTION_RULE, 'r', InputOption::VALUE_OPTIONAL|InputOption::VALUE_IS_ARRAY, "Rule to be used. use FQCN for custom rule. the builtin rules:\n".implode("\n", RegistryFactory::getRuleArgList(65535))),
                 new InputOption(self::OPTION_EXCLUED_RULE, 'R', InputOption::VALUE_OPTIONAL|InputOption::VALUE_IS_ARRAY, "Rule to be excluded"),
-                new InputOption(self::OPTION_IGNORE_PATH, 'P', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Preg pattern **WITHOUT DELIMITER** for file path to be ignored'),
+                new InputOption(self::OPTION_IGNORE_PATH, 'P', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Fnmatch pattern for file path to be ignored'),
                 new InputOption(self::OPTION_IGNORE_ERROR, 'E', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Preg pattern **WITHOUT DELIMITER** for error to be ignored'),
                 new InputOption(self::OPTION_EXTENSION, 'x', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Extension class name to be used, must be FQCN'),
             ]);

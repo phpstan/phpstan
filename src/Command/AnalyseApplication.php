@@ -65,7 +65,7 @@ class AnalyseApplication
                 $finder = new Finder();
                 $finder->filter(function (\SplFileInfo $info) {
                     foreach ($this->ignorePathPatterns as $pattern) {
-                        if (preg_match("#$pattern#", $info->getPath())) {
+                        if (fnmatch($pattern, $info->getPath())) {
                             return false;
                         }
                     }

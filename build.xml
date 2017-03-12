@@ -98,7 +98,7 @@
 			<arg value="-l"/>
 			<arg value="5"/>
 			<arg value="--ignore-path"/>
-			<arg value="tests/.*/data"/>
+			<arg value="tests/*/data*"/>
 			<arg value="--ignore-path"/>
 			<arg value="tests/notAutoloaded"/>
 			<arg value="--ignore-path"/>
