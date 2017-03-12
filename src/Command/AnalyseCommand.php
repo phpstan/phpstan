@@ -44,11 +44,6 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $stderr = $output;
-        if ($output instanceof ConsoleOutputInterface) {
-            $stderr = $output->getErrorOutput();
-        }
-
         $currentWorkingDirectory = getcwd();
 
         $fileHelper = new FileHelper($currentWorkingDirectory);
@@ -115,6 +110,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
         RegistryFactory::setRules($rules);
 
+        $stderr = ($output instanceof ConsoleOutputInterface) ? $output->getErrorOutput() : $output;
         $errorStyle = new ErrorsConsoleStyle($input, $stderr);
         $consoleStyle = new ErrorsConsoleStyle($input, $output);
         $memoryLimitFile = $container->get('memoryLimitFile');

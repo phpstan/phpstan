@@ -31,7 +31,6 @@ class PhpMethodReflectionFactoryDI implements PhpMethodReflectionFactory
         array $phpDocParameterTypes,
         Type $phpDocReturnType = null
     ): PhpMethodReflection {
-    
         return $this->container->make(PhpMethodReflection::class, compact([
             'declaringClass', 'reflection', 'phpDocParameterTypes', 'phpDocReturnType'
         ]));
