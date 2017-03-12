@@ -20,6 +20,13 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
     const NAME = 'analyse';
 
     const OPTION_LEVEL = 'level';
+    const OPTION_NO_PROGRESS = 'no-progress';
+    const OPTION_RULE = 'rule';
+    const OPTION_AUTOLOAD_FILE = 'autoload-file';
+    const OPTION_EXCLUED_RULE = 'exclude-rule';
+    const OPTION_IGNORE_PATH = 'ignore-path';
+    const OPTION_IGNORE_ERROR = 'ignore-error';
+    const OPTION_EXTENSION = 'extension';
 
     const DEFAULT_LEVEL = 0;
 
@@ -30,13 +37,13 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
             ->setDefinition([
                 new InputArgument('paths', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'Paths with source code to run analysis on'),
                 new InputOption(self::OPTION_LEVEL, 'l', InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter'),
-                new InputOption(ErrorsConsoleStyle::OPTION_NO_PROGRESS, null, InputOption::VALUE_NONE, 'Do not show progress bar, only results'),
-                new InputOption('autoload-file', 'a', InputOption::VALUE_OPTIONAL|InputOption::VALUE_IS_ARRAY, 'Project\'s additional autoload file path'),
-                new InputOption('rule', 'r', InputOption::VALUE_OPTIONAL|InputOption::VALUE_IS_ARRAY, "check rule to be used. use FQCN for custom rule. the builtin rules:\n".implode("\n", RegistryFactory::getRuleArgList(65535))),
-                new InputOption('exclude-rule', 'R', InputOption::VALUE_OPTIONAL|InputOption::VALUE_IS_ARRAY, "check rule to be excluded"),
-                new InputOption('ignore-path', 'p', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'preg pattern **WITHOUT DELIMITER** for file path to be ignored'),
-                new InputOption('ignore-error', 'e', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'preg pattern **WITHOUT DELIMITER** for error to be ignored'),
-                new InputOption('extension', 'x', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'extension class name to be used, must be FQCN'),
+                new InputOption(self::OPTION_NO_PROGRESS, null, InputOption::VALUE_NONE, 'Do not show progress bar, only results'),
+                new InputOption(self::OPTION_AUTOLOAD_FILE, 'a', InputOption::VALUE_OPTIONAL|InputOption::VALUE_IS_ARRAY, 'Project\'s additional autoload file path'),
+                new InputOption(self::OPTION_RULE, 'r', InputOption::VALUE_OPTIONAL|InputOption::VALUE_IS_ARRAY, "Rule to be used. use FQCN for custom rule. the builtin rules:\n".implode("\n", RegistryFactory::getRuleArgList(65535))),
+                new InputOption(self::OPTION_EXCLUED_RULE, 'R', InputOption::VALUE_OPTIONAL|InputOption::VALUE_IS_ARRAY, "Rule to be excluded"),
+                new InputOption(self::OPTION_IGNORE_PATH, 'P', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Preg pattern **WITHOUT DELIMITER** for file path to be ignored'),
+                new InputOption(self::OPTION_IGNORE_ERROR, 'E', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Preg pattern **WITHOUT DELIMITER** for error to be ignored'),
+                new InputOption(self::OPTION_EXTENSION, 'x', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Extension class name to be used, must be FQCN'),
             ]);
     }
 
@@ -48,7 +55,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $autoloadFiles = $input->getOption('autoload-file');
+        $autoloadFiles = $input->getOption(self::OPTION_AUTOLOAD_FILE);
         foreach ($autoloadFiles as $autoloadFile) {
             if (is_file($autoloadFile)) {
                 require_once $autoloadFile;
@@ -62,7 +69,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
         $builder->addDefinitions($confDir.'/config.php');
 
         $extensionDefinitions = [];
-        $extensionNames = $input->getOption('extension');
+        $extensionNames = $input->getOption(self::OPTION_EXTENSION);
         foreach ($extensionNames as $extensionName) {
             if (!class_exists($extensionName, true)) {
                 continue;
@@ -89,11 +96,11 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
         $container = $builder->build();
         $container->set(\Interop\Container\ContainerInterface::class, $container);
 
-        $ignorePathPatterns = $input->getOption('ignore-path');
+        $ignorePathPatterns = $input->getOption(self::OPTION_IGNORE_PATH);
         if ($ignorePathPatterns) {
             $container->set('ignorePathPatterns', $ignorePathPatterns);
         }
-        $ignoreErrors = $input->getOption('ignore-error');
+        $ignoreErrors = $input->getOption(self::OPTION_IGNORE_ERROR);
 
         if ($ignoreErrors) {
             $container->set('ignoreErrors', $ignoreErrors);
@@ -118,20 +125,21 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
             break;
         }
 
-        $rules = $input->getOption('rule');
+        $rules = $input->getOption(self::OPTION_RULE);
         if (!$rules) {
             $rules = RegistryFactory::getRuleArgList($levelOption);
         }
 
-        $excludeRules = $input->getOption('exclude-rule');
+        $excludeRules = $input->getOption(self::OPTION_EXCLUED_RULE);
         if ($excludeRules) {
             $rules = array_values(array_diff($rules, $excludeRules));
         }
 
         RegistryFactory::setRules($rules);
 
+        $showProgress = !$input->getOption(self::OPTION_NO_PROGRESS);
         $stderr = ($output instanceof ConsoleOutputInterface) ? $output->getErrorOutput() : $output;
-        $errorStyle = new ErrorsConsoleStyle($input, $stderr);
+        $errorStyle = new ErrorsConsoleStyle($input, $stderr, $showProgress);
         $consoleStyle = new ErrorsConsoleStyle($input, $output);
         $memoryLimitFile = $container->get('memoryLimitFile');
         if (file_exists($memoryLimitFile)) {

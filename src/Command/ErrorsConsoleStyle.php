@@ -9,8 +9,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 {
-    const OPTION_NO_PROGRESS = 'no-progress';
-
     /** @var bool */
     private $showProgress;
 
@@ -20,44 +18,11 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
     /** @var \Symfony\Component\Console\Helper\ProgressBar|null */
     private $progressBar;
 
-    public function __construct(InputInterface $input, OutputInterface $output)
+    public function __construct(InputInterface $input, OutputInterface $output, bool $showProgress = true)
     {
         parent::__construct($input, $output);
-        $this->showProgress = !$input->getOption(self::OPTION_NO_PROGRESS);
         $this->output = $output;
-    }
-
-    public function table(array $headers, array $rows)
-    {
-        $application = new Application();
-        $dimensions = $application->getTerminalDimensions();
-        $terminalWidth = $dimensions[0] ?: self::MAX_LINE_LENGTH;
-        $maxHeaderWidth = strlen($headers[0]);
-        foreach ($rows as $row) {
-            $length = strlen($row[0]);
-            if ($maxHeaderWidth === null || $length > $maxHeaderWidth) {
-                $maxHeaderWidth = $length;
-            }
-        }
-
-        $wrap = function ($rows) use ($terminalWidth, $maxHeaderWidth) {
-            return array_map(function ($row) use ($terminalWidth, $maxHeaderWidth) {
-                return array_map(function ($s) use ($terminalWidth, $maxHeaderWidth) {
-                    if ($terminalWidth > $maxHeaderWidth + 5) {
-                        return wordwrap(
-                            $s,
-                            $terminalWidth - $maxHeaderWidth - 5,
-                            "\n",
-                            true
-                        );
-                    }
-
-                    return $s;
-                }, $row);
-            }, $rows);
-        };
-
-        parent::table($headers, $wrap($rows));
+        $this->showProgress = $showProgress;
     }
 
     /**
