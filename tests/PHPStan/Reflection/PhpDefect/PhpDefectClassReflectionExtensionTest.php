@@ -246,6 +246,20 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 		];
 	}
 
+	public function dataDomProcessingInstructionProperties(): array
+	{
+		return [
+			[
+				\DOMProcessingInstruction::class,
+				\DOMProcessingInstruction::class,
+				[
+					'target' => 'string',
+					'data' => 'string',
+				],
+			],
+		];
+	}
+
 	public function dataXmlReaderProperties(): array
 	{
 		return [
