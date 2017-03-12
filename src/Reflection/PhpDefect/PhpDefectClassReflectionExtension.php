@@ -29,6 +29,10 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 			'specified' => 'bool',
 			'value' => 'string',
 		],
+		'DOMCharacterData' => [ // extends DOMNode
+			'data' => 'string',
+			'length' => 'int',
+		],
 		'DOMDocument' => [
 			'actualEncoding' => 'string',
 			'config' => 'DOMConfiguration',

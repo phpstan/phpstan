@@ -83,6 +83,20 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 		];
 	}
 
+	public function dataDomCharacterDataProperties(): array
+	{
+		return [
+			[
+				\DOMCharacterData::class,
+				\DOMCharacterData::class,
+				[
+					'data' => 'string',
+					'length' => 'int',
+				],
+			],
+		];
+	}
+
 	public function dataDomDocumentProperties(): array
 	{
 		return [
