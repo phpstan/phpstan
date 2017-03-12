@@ -178,6 +178,19 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 		];
 	}
 
+	public function dataDomNamedNodeMapProperties(): array
+	{
+		return [
+			[
+				\DOMNamedNodeMap::class,
+				\DOMNamedNodeMap::class,
+				[
+					'length' => 'int',
+				],
+			],
+		];
+	}
+
 	public function dataDomNodeProperties(): array
 	{
 		return [
