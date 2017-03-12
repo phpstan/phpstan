@@ -191,6 +191,19 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 		];
 	}
 
+	public function dataDomNodeListProperties(): array
+	{
+		return [
+			[
+				\DOMNodeList::class,
+				\DOMNodeList::class,
+				[
+					'length' => 'int',
+				],
+			],
+		];
+	}
+
 	public function dataDomNodeProperties(): array
 	{
 		return [
