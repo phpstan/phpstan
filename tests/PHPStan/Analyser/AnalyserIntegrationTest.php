@@ -43,6 +43,12 @@ class AnalyserIntegrationTest extends \PHPStan\TestCase
 		$this->assertNull($error->getLine());
 	}
 
+	public function testAnonymousClassWithInheritedConstructor()
+	{
+		$errors = $this->runAnalyse(__DIR__ . '/data/anonymous-class-with-inherited-constructor.php');
+		$this->assertCount(0, $errors);
+	}
+
 	/**
 	 * @param string $file
 	 * @return \PHPStan\Analyser\Error[]|string[]

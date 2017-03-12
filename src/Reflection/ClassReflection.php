@@ -151,6 +151,11 @@ class ClassReflection
 		return $this->reflection->isTrait();
 	}
 
+	public function isAnonymous(): bool
+	{
+		return $this->reflection->isAnonymous();
+	}
+
 	public function isSubclassOf(string $className): bool
 	{
 		return $this->reflection->isSubclassOf($className);

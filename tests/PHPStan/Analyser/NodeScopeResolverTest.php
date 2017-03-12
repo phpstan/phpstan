@@ -35,6 +35,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class), true),
 			new TypeSpecifier($this->printer),
 			new FileExcluder($this->createMock(FileHelper::class), []),
+			new \PhpParser\BuilderFactory(),
 			true,
 			true,
 			false,

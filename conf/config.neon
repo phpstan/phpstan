@@ -26,6 +26,9 @@ services:
 			namespace: PHPStan
 
 	-
+		class: PhpParser\BuilderFactory
+
+	-
 		class: PhpParser\Lexer
 
 	-

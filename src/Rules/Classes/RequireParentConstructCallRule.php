@@ -28,7 +28,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 		}
 
 		$classReflection = $scope->getClassReflection();
-		if ($classReflection->isInterface()) {
+		if ($classReflection->isInterface() || $classReflection->isAnonymous()) {
 			return [];
 		}
 

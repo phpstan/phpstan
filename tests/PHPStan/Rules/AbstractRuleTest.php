@@ -45,6 +45,7 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 					new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class), true),
 					new TypeSpecifier($printer),
 					$fileExcluder,
+					new \PhpParser\BuilderFactory(),
 					false,
 					false,
 					false,

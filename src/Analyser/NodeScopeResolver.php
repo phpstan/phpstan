@@ -82,6 +82,9 @@ class NodeScopeResolver
 	/** @var \PHPStan\File\FileExcluder */
 	private $fileExcluder;
 
+	/** @var \PhpParser\BuilderFactory */
+	private $builderFactory;
+
 	/** @var bool */
 	private $polluteScopeWithLoopInitialAssignments;
 
@@ -107,6 +110,7 @@ class NodeScopeResolver
 		FileTypeMapper $fileTypeMapper,
 		TypeSpecifier $typeSpecifier,
 		FileExcluder $fileExcluder,
+		\PhpParser\BuilderFactory $builderFactory,
 		bool $polluteScopeWithLoopInitialAssignments,
 		bool $polluteCatchScopeWithTryAssignments,
 		bool $defineVariablesWithoutDefaultBranch,
@@ -119,6 +123,7 @@ class NodeScopeResolver
 		$this->fileTypeMapper = $fileTypeMapper;
 		$this->typeSpecifier = $typeSpecifier;
 		$this->fileExcluder = $fileExcluder;
+		$this->builderFactory = $builderFactory;
 		$this->polluteScopeWithLoopInitialAssignments = $polluteScopeWithLoopInitialAssignments;
 		$this->polluteCatchScopeWithTryAssignments = $polluteCatchScopeWithTryAssignments;
 		$this->defineVariablesWithoutDefaultBranch = $defineVariablesWithoutDefaultBranch;
@@ -499,6 +504,11 @@ class NodeScopeResolver
 					break;
 				}
 			}
+
+			$node->class->stmts[] = $this->builderFactory
+				->method('__construct')
+				->makePublic()
+				->getNode();
 
 			$code = $this->printer->prettyPrint([$node]);
 			$classReflection = new \ReflectionClass(eval(sprintf('return %s', $code)));
