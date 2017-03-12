@@ -22,6 +22,13 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 			'invert' => 'int',
 			'days' => 'mixed',
 		],
+		'DOMAttr' => [ // extends DOMNode
+			'name' => 'string',
+			'ownerElement' => 'DOMElement',
+			'schemaTypeInfo' => 'bool',
+			'specified' => 'bool',
+			'value' => 'string',
+		],
 		'DOMDocument' => [
 			'actualEncoding' => 'string',
 			'config' => 'DOMConfiguration',
