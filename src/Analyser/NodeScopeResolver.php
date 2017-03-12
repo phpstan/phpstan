@@ -48,7 +48,6 @@ use PhpParser\Node\Stmt\TryCatch;
 use PhpParser\Node\Stmt\Unset_;
 use PhpParser\Node\Stmt\While_;
 use PHPStan\Broker\Broker;
-use PHPStan\File\FileExcluder;
 use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\PhpDocBlock;
 use PHPStan\Type\ArrayType;
@@ -79,9 +78,6 @@ class NodeScopeResolver
     /** @var \PHPStan\Analyser\TypeSpecifier */
     private $typeSpecifier;
 
-    /** @var \PHPStan\File\FileExcluder */
-    private $fileExcluder;
-
     /** @var bool */
     private $polluteScopeWithLoopInitialAssignments;
 
@@ -106,7 +102,6 @@ class NodeScopeResolver
         \PhpParser\PrettyPrinter\Standard $printer,
         FileTypeMapper $fileTypeMapper,
         TypeSpecifier $typeSpecifier,
-        FileExcluder $fileExcluder,
         bool $polluteScopeWithLoopInitialAssignments,
         bool $polluteCatchScopeWithTryAssignments,
         bool $defineVariablesWithoutDefaultBranch,
@@ -117,7 +112,6 @@ class NodeScopeResolver
         $this->printer = $printer;
         $this->fileTypeMapper = $fileTypeMapper;
         $this->typeSpecifier = $typeSpecifier;
-        $this->fileExcluder = $fileExcluder;
         $this->polluteScopeWithLoopInitialAssignments = $polluteScopeWithLoopInitialAssignments;
         $this->polluteCatchScopeWithTryAssignments = $polluteCatchScopeWithTryAssignments;
         $this->defineVariablesWithoutDefaultBranch = $defineVariablesWithoutDefaultBranch;
@@ -1095,9 +1089,6 @@ class NodeScopeResolver
             }
             $traitReflection = $this->broker->getClass($traitName);
             $fileName = $traitReflection->getNativeReflection()->getFileName();
-            if ($this->fileExcluder->isExcludedFromAnalysing($fileName)) {
-                return;
-            }
             if (!isset($this->analysedFiles[$fileName])) {
                 return;
             }

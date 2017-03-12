@@ -3,7 +3,6 @@
 namespace PHPStan\Command;
 
 use PhpParser\Node\Stmt\Catch_;
-use PHPStan\File\FileHelper;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -56,11 +55,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
             }
         }
 
-        $currentWorkingDirectory = getcwd();
-
-        $fileHelper = new FileHelper($currentWorkingDirectory);
-
-        $rootDir = $fileHelper->normalizePath(__DIR__ . '/../..');
+        $rootDir = __DIR__ . '/../..';
         $confDir = $rootDir . '/conf';
 
         $builder = new \DI\ContainerBuilder();
@@ -93,9 +88,6 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
         $container = $builder->build();
         $container->set(\Interop\Container\ContainerInterface::class, $container);
-        $container->set('rootDir', $rootDir);
-        $container->set('currentWorkingDirectory', $currentWorkingDirectory);
-        $container->set('defaultExtensions', []);
 
         $ignorePathPatterns = $input->getOption('ignore-path');
         if ($ignorePathPatterns) {

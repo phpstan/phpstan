@@ -27,33 +27,26 @@ $parameters = [
     'tmpDir' => sys_get_temp_dir(),
     'bootstrap' => null,
     'bootstrapFile' => null,
-    'excludes_analyse' => [],
     'ignorePathPatterns' => [],
     'fileExtensions' => [ 'php', ],
-    'checkFunctionArgumentTypes' => false,
-    'enableUnionTypes' => false,
     'polluteScopeWithLoopInitialAssignments' => false,
     'polluteCatchScopeWithTryAssignments' => false,
     'defineVariablesWithoutDefaultBranch' => false,
     'ignoreErrors' => [],
     'reportUnmatchedIgnoredErrors' =>  true,
+    'earlyTerminatingMethodCalls' => [],
+    'memoryLimitFile' => DI\string('{tmpDir}/.memory_limit'),
+    'customRulesetUsed' => false,
+    'checkThisOnly' => true,
+    'checkFunctionArgumentTypes' => true,
+    'enableUnionTypes' => true,
+    'cacheOptions' => [
+        'path' => DI\string('{tmpDir}/phpstan'),
+    ],
     'universalObjectCratesClasses' => [
         'stdClass',
         'SimpleXMLElement',
     ],
-    'earlyTerminatingMethodCalls' => [],
-    'customRulesetUsed' => false,
-    'checkThisOnly' => true,
-    'checkFunctionArgumentTypes' => true,
-    'enableUnionTypes' => true,
-    'memoryLimitFile' => DI\string('{tmpDir}/.memory_limit'),
-    'cacheOptions' => [
-        'path' => DI\string('{tmpDir}/phpstan'),
-    ],
-    'customRulesetUsed' => false,
-    'checkThisOnly' => true,
-    'checkFunctionArgumentTypes' => true,
-    'enableUnionTypes' => true,
 ];
 
 $services = [
@@ -83,14 +76,6 @@ $services = [
         'memoryLimitFile',
         'fileExtensions',
         'ignorePathPatterns',
-    ]),
-
-    PHPStan\File\FileHelper::class => $obj([
-        'workingDirectory' => 'currentWorkingDirectory',
-    ]),
-
-    PHPStan\File\FileExcluder::class => $obj([
-        'analyseExcludes' => 'excludes_analyse',
     ]),
 
     PHPStan\Parser\CachedParser::class => $obj([
@@ -147,7 +132,7 @@ $services = [
 
     PHPStan\Rules\Registry::class => DI\factory([PHPStan\Rules\RegistryFactory::class, 'create']),
 
-    // rules
+    // rules cannot be autowiring
     PHPStan\Rules\Classes\AccessPropertiesRule::class => $obj([
         'checkThisOnly',
     ]),

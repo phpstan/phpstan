@@ -3,8 +3,6 @@
 namespace PHPStan\Analyser;
 
 use PHPStan\Broker\Broker;
-use PHPStan\File\FileExcluder;
-use PHPStan\File\FileHelper;
 use PHPStan\Parser\Parser;
 use PHPStan\Rules\Registry;
 
@@ -37,11 +35,6 @@ class Analyser
     private $printer;
 
     /**
-     * @var \PHPStan\File\FileExcluder
-     */
-    private $fileExcluder;
-
-    /**
      * @var string[]
      */
     private $ignoreErrors;
@@ -50,11 +43,6 @@ class Analyser
      * @var string|null
      */
     private $bootstrapFile;
-
-    /**
-     * @var \PHPStan\File\FileHelper
-     */
-    private $fileHelper;
 
     /**
      * @var bool
@@ -67,10 +55,8 @@ class Analyser
      * @param \PHPStan\Rules\Registry $registry
      * @param \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver
      * @param \PhpParser\PrettyPrinter\Standard $printer
-     * @param \PHPStan\File\FileExcluder $fileExcluder
      * @param string[] $ignoreErrors
      * @param string|null $bootstrapFile
-     * @param \PHPStan\File\FileHelper $fileHelper
      * @param bool $reportUnmatchedIgnoredErrors
      */
     public function __construct(
@@ -79,10 +65,8 @@ class Analyser
         Registry $registry,
         NodeScopeResolver $nodeScopeResolver,
         \PhpParser\PrettyPrinter\Standard $printer,
-        FileExcluder $fileExcluder,
         array $ignoreErrors,
         string $bootstrapFile = null,
-        FileHelper $fileHelper,
         bool $reportUnmatchedIgnoredErrors
     ) {
         $this->broker = $broker;
@@ -90,10 +74,8 @@ class Analyser
         $this->registry = $registry;
         $this->nodeScopeResolver = $nodeScopeResolver;
         $this->printer = $printer;
-        $this->fileExcluder = $fileExcluder;
         $this->ignoreErrors = $ignoreErrors;
         $this->bootstrapFile = $bootstrapFile;
-        $this->fileHelper = $fileHelper;
         $this->reportUnmatchedIgnoredErrors = $reportUnmatchedIgnoredErrors;
     }
 
@@ -126,17 +108,7 @@ class Analyser
 
         $this->nodeScopeResolver->setAnalysedFiles($files);
         foreach ($files as $file) {
-            $file = $this->fileHelper->normalizePath($file);
-
             try {
-                if ($this->fileExcluder->isExcludedFromAnalysing($file)) {
-                    if ($progressCallback !== null) {
-                        $progressCallback($file);
-                    }
-
-                    continue;
-                }
-
                 $fileErrors = [];
                 $this->nodeScopeResolver->processNodes(
                     $this->parser->parseFile($file),

@@ -6,8 +6,6 @@ use PHPStan\Analyser\Analyser;
 use PHPStan\Analyser\Error;
 use PHPStan\Analyser\NodeScopeResolver;
 use PHPStan\Analyser\TypeSpecifier;
-use PHPStan\File\FileExcluder;
-use PHPStan\File\FileHelper;
 use PHPStan\Type\FileTypeMapper;
 
 abstract class AbstractRuleTest extends \PHPStan\TestCase
@@ -15,11 +13,6 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 
     /** @var \PHPStan\Analyser\Analyser */
     private $analyser;
-
-    /**
-     * @var \PHPStan\File\FileHelper
-     */
-    private $fileHelper;
 
     abstract protected function getRule(): Rule;
 
@@ -32,8 +25,6 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 
             $broker = $this->createBroker();
             $printer = new \PhpParser\PrettyPrinter\Standard();
-            $fileHelper = $this->getFileHelper();
-            $fileExcluder = new FileExcluder($fileHelper, []);
             $this->analyser = new Analyser(
                 $broker,
                 $this->getParser(),
@@ -44,17 +35,14 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
                     $printer,
                     new FileTypeMapper($this->getParser(), new \Stash\Pool(new \Stash\Driver\Ephemeral()), true),
                     new TypeSpecifier($printer),
-                    $fileExcluder,
                     false,
                     false,
                     false,
                     []
                 ),
                 $printer,
-                $fileExcluder,
                 [],
                 null,
-                $fileHelper,
                 true
             );
         }
@@ -62,18 +50,9 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
         return $this->analyser;
     }
 
-    private function getFileHelper(): FileHelper
-    {
-        if ($this->fileHelper === null) {
-            $this->fileHelper = $this->getContainer()->get(FileHelper::class);
-        }
-
-        return $this->fileHelper;
-    }
-
     private function assertError(string $message, string $file, bool $exactMatch, int $line = null, Error $error)
     {
-        $this->assertSame($this->getFileHelper()->normalizePath($file), $error->getFile(), $error->getMessage());
+        $this->assertSame($file, $error->getFile(), $error->getMessage());
         $this->assertSame($line, $error->getLine(), $error->getMessage());
 
         if ($exactMatch) {

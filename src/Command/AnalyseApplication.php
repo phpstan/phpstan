@@ -4,7 +4,6 @@ namespace PHPStan\Command;
 
 use PHPStan\Analyser\Analyser;
 use PHPStan\Analyser\Error;
-use PHPStan\File\FileHelper;
 use Symfony\Component\Console\Style\StyleInterface;
 use Symfony\Component\Finder\Finder;
 
@@ -26,9 +25,6 @@ class AnalyseApplication
      */
     private $fileExtensions;
 
-    /** @var \PHPStan\File\FileHelper */
-    private $fileHelper;
-
     /**
      * @var string[]
      */
@@ -37,14 +33,12 @@ class AnalyseApplication
     public function __construct(
         Analyser $analyser,
         string $memoryLimitFile,
-        FileHelper $fileHelper,
         array $ignorePathPatterns,
         array $fileExtensions
     ) {
         $this->analyser = $analyser;
         $this->memoryLimitFile = $memoryLimitFile;
         $this->fileExtensions = $fileExtensions;
-        $this->fileHelper = $fileHelper;
         $this->ignorePathPatterns = $ignorePathPatterns;
     }
 
@@ -60,10 +54,6 @@ class AnalyseApplication
         $files = [];
 
         $this->updateMemoryLimitFile();
-
-        $paths = array_map(function (string $path): string {
-            return $this->fileHelper->absolutizePath($path);
-        }, $paths);
 
         $onlyFiles = true;
         foreach ($paths as $path) {
@@ -125,7 +115,7 @@ class AnalyseApplication
             return 0;
         }
 
-        $currentDir = $this->fileHelper->normalizePath(dirname($paths[0]));
+        $currentDir = dirname($paths[0]);
         $cropFilename = function (string $filename) use ($currentDir): string {
             if ($currentDir !== '' && strpos($filename, $currentDir) === 0) {
                 return substr($filename, strlen($currentDir) + 1);

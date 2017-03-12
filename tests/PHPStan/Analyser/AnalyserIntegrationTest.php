@@ -2,8 +2,6 @@
 
 namespace PHPStan\Analyser;
 
-use PHPStan\File\FileHelper;
-
 class AnalyserIntegrationTest extends \PHPStan\TestCase
 {
     public function testUndefinedVariableFromAssignErrorHasLine()
@@ -50,11 +48,9 @@ class AnalyserIntegrationTest extends \PHPStan\TestCase
     {
         /** @var \PHPStan\Analyser\Analyser $analyser */
         $analyser = $this->getContainer()->get(Analyser::class);
-        /** @var \PHPStan\File\FileHelper $fileHelper */
-        $fileHelper = $this->getContainer()->get(FileHelper::class);
         $errors = $analyser->analyse([$file], false);
         foreach ($errors as $error) {
-            $this->assertSame($fileHelper->normalizePath($file), $error->getFile());
+            $this->assertSame($file, $error->getFile());
         }
 
         return $errors;

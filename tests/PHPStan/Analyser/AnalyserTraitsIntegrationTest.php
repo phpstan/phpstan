@@ -2,21 +2,8 @@
 
 namespace PHPStan\Analyser;
 
-use PHPStan\File\FileHelper;
-
 class AnalyserTraitsIntegrationTest extends \PHPStan\TestCase
 {
-
-    /**
-     * @var \PHPStan\File\FileHelper
-     */
-    private $fileHelper;
-
-    protected function setUp()
-    {
-        $this->fileHelper = $this->getContainer()->get(FileHelper::class);
-    }
-
     public function testMethodIsInClassUsingTrait()
     {
         $errors = $this->runAnalyse([
@@ -36,7 +23,7 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\TestCase
         $error = $errors[0];
         $this->assertSame('Call to an undefined method AnalyseTraits\Bar::doFoo().', $error->getMessage());
         $this->assertSame(
-            sprintf('%s (in context of class AnalyseTraits\Bar)', $this->fileHelper->normalizePath(__DIR__ . '/traits/FooTrait.php')),
+            sprintf('%s (in context of class AnalyseTraits\Bar)', __DIR__ . '/traits/FooTrait.php'),
             $error->getFile()
         );
         $this->assertSame(9, $error->getLine());
@@ -53,7 +40,7 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\TestCase
         $firstError = $errors[0];
         $this->assertSame('Call to an undefined method AnalyseTraits\NestedBar::doFoo().', $firstError->getMessage());
         $this->assertSame(
-            sprintf('%s (in context of class AnalyseTraits\NestedBar)', $this->fileHelper->normalizePath(__DIR__ . '/traits/FooTrait.php')),
+            sprintf('%s (in context of class AnalyseTraits\NestedBar)', __DIR__ . '/traits/FooTrait.php'),
             $firstError->getFile()
         );
         $this->assertSame(9, $firstError->getLine());
@@ -61,7 +48,7 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\TestCase
         $secondError = $errors[1];
         $this->assertSame('Call to an undefined method AnalyseTraits\NestedBar::doNestedFoo().', $secondError->getMessage());
         $this->assertSame(
-            sprintf('%s (in context of class AnalyseTraits\NestedBar)', $this->fileHelper->normalizePath(__DIR__ . '/traits/NestedFooTrait.php')),
+            sprintf('%s (in context of class AnalyseTraits\NestedBar)', __DIR__ . '/traits/NestedFooTrait.php'),
             $secondError->getFile()
         );
         $this->assertSame(11, $secondError->getLine());
