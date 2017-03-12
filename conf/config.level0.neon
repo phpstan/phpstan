@@ -76,6 +76,11 @@ services:
 			- phpstan.rules.rule
 
 	-
+		class: PHPStan\Rules\Functions\NonExistentDefinedFunctionRule
+		tags:
+			- phpstan.rules.rule
+
+	-
 		class: PHPStan\Rules\Functions\PrintfParametersRule
 		tags:
 			- phpstan.rules.rule

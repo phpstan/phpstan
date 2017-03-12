@@ -64,8 +64,12 @@ class FunctionDefinitionCheck
 			if (isset($function->namespacedName)) {
 				$functionName = $function->namespacedName;
 			}
+			$functionNameName = new Name($functionName);
+			if (!$this->broker->hasFunction($functionNameName)) {
+				return [];
+			}
 			return $this->checkParametersAcceptor(
-				$this->broker->getFunction(new Name($functionName)),
+				$this->broker->getFunction($functionNameName),
 				$parameterMessage,
 				$returnMessage
 			);

@@ -187,7 +187,7 @@ class Broker
 		return $this->functionReflections[$lowerCasedFunctionName];
 	}
 
-	public function hasFunction(\PhpParser\Node\Name $nameNode, Scope $scope): bool
+	public function hasFunction(\PhpParser\Node\Name $nameNode, Scope $scope = null): bool
 	{
 		return $this->resolveFunctionName($nameNode, $scope) !== null;
 	}

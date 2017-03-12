@@ -37,10 +37,11 @@ class AnalyserIntegrationTest extends \PHPStan\TestCase
 	public function testMissingFunctionErrorAboutMisconfiguredAutoloader()
 	{
 		$errors = $this->runAnalyse(__DIR__ . '/../../notAutoloaded/functionFoo.php');
-		$this->assertCount(1, $errors);
-		$error = $errors[0];
-		$this->assertSame('Function PHPStan\Tests\foo not found while trying to analyse it - autoloading is probably not configured properly.', $error->getMessage());
-		$this->assertNull($error->getLine());
+		$this->assertCount(2, $errors);
+		$this->assertSame('Function PHPStan\Tests\foo not found while trying to analyse it - autoloading is probably not configured properly.', $errors[0]->getMessage());
+		$this->assertSame(5, $errors[0]->getLine());
+		$this->assertSame('Function doSomething not found.', $errors[1]->getMessage());
+		$this->assertSame(7, $errors[1]->getLine());
 	}
 
 	public function testAnonymousClassWithInheritedConstructor()
