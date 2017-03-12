@@ -160,6 +160,24 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 		];
 	}
 
+	public function dataDomEntityProperties(): array
+	{
+		return [
+			[
+				\DOMEntity::class,
+				\DOMEntity::class,
+				[
+					'publicId' => 'string',
+					'systemId' => 'string',
+					'notationName' => 'string',
+					'actualEncoding' => 'string',
+					'encoding' => 'string',
+					'version' => 'string',
+				],
+			],
+		];
+	}
+
 	public function dataDomNodeProperties(): array
 	{
 		return [

@@ -66,6 +66,14 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 			'schemaTypeInfo' => 'bool',
 			'tagName' => 'string',
 		],
+		'DOMEntity' => [ // extends DOMNode
+			'publicId' => 'string',
+			'systemId' => 'string',
+			'notationName' => 'string',
+			'actualEncoding' => 'string',
+			'encoding' => 'string',
+			'version' => 'string',
+		],
 		'DOMNode' => [
 			'nodeName' => 'string',
 			'nodeValue' => 'string',
