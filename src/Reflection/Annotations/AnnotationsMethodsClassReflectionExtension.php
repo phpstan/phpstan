@@ -59,11 +59,12 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 
 		$typeMap = $this->fileTypeMapper->getTypeMap($fileName);
 
-		preg_match_all('#@method\s+(?:(.*)\s+)?([a-zA-Z0-9_]+)\(.*\)#', $docComment, $matches, PREG_SET_ORDER);
+		preg_match_all('#@method\s+(?:(?P<IsStatic>static)\s+)?(?:(?P<Type>[^\s]*)\s+)?(?P<MethodName>[a-zA-Z0-9_]+)\(.*\)#', $docComment, $matches, PREG_SET_ORDER);
 		foreach ($matches as $match) {
-			$typeStringCandidate = $match[1];
-			if (preg_match('#' . FileTypeMapper::TYPE_PATTERN . '#', $typeStringCandidate, $typeStringMatches)) {
-				$typeString = $typeStringMatches[1];
+			$isStatic = $match['IsStatic'] === 'static';
+			$typeStringCandidate = $match['Type'];
+			if (preg_match('#(?P<Type>' . FileTypeMapper::TYPE_PATTERN . ')#', $typeStringCandidate, $typeStringMatches)) {
+				$typeString = $typeStringMatches['Type'];
 				if (!isset($typeMap[$typeString])) {
 					continue;
 				}
@@ -71,8 +72,8 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 			} else {
 				$returnType = new MixedType();
 			}
-			$methodName = $match[2];
-			$methods[$methodName] = new AnnotationMethodReflection($methodName, $classReflection, $returnType);
+			$methodName = $match['MethodName'];
+			$methods[$methodName] = new AnnotationMethodReflection($methodName, $classReflection, $returnType, $isStatic);
 		}
 		return $methods;
 	}

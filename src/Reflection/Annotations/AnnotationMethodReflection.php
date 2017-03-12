@@ -18,11 +18,15 @@ class AnnotationMethodReflection implements MethodReflection
 	/** @var  Type */
 	private $returnType;
 
-	public function __construct(string $name, ClassReflection $declaringClass, Type $returnType)
+	/** @var bool */
+	private $isStatic;
+
+	public function __construct(string $name, ClassReflection $declaringClass, Type $returnType, bool $isStatic)
 	{
 		$this->name = $name;
 		$this->declaringClass = $declaringClass;
 		$this->returnType = $returnType;
+		$this->isStatic = $isStatic;
 	}
 
 	public function getDeclaringClass(): ClassReflection
@@ -37,7 +41,7 @@ class AnnotationMethodReflection implements MethodReflection
 
 	public function isStatic(): bool
 	{
-		return false;
+		return $this->isStatic;
 	}
 
 	public function getParameters(): array
