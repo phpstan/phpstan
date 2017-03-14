@@ -57,7 +57,9 @@ class TableErrorFormatter implements ErrorFormatter
 		}
 
 		if (count($analysisResult->getNotFileSpecificErrors()) > 0) {
-			$style->table(['Error'], $analysisResult->getNotFileSpecificErrors());
+			$style->table(['Error'], array_map(function (string $error): array {
+				return [$error];
+			}, $analysisResult->getNotFileSpecificErrors()));
 		}
 
 		$style->error(sprintf($analysisResult->getTotalErrorsCount() === 1 ? 'Found %d error' : 'Found %d errors', $analysisResult->getTotalErrorsCount()));
