@@ -7,7 +7,11 @@ class TypeCombinator
 
 	public static function addNull(Type $type): Type
 	{
-		if ($type instanceof MixedType || $type instanceof NullType) {
+		if (
+			$type instanceof MixedType
+			|| $type instanceof NullType
+			|| $type instanceof VoidType
+		) {
 			return $type;
 		}
 

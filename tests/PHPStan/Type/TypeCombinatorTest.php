@@ -19,6 +19,11 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 				'null',
 			],
 			[
+				new VoidType(),
+				VoidType::class,
+				'void',
+			],
+			[
 				new StringType(false),
 				CommonUnionType::class,
 				'string|null',
@@ -87,6 +92,11 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 				new NullType(),
 				NullType::class,
 				'null',
+			],
+			[
+				new VoidType(),
+				VoidType::class,
+				'void',
 			],
 			[
 				new StringType(false),
