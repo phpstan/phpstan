@@ -35,6 +35,7 @@ use SomeNamespace\Consecteur;
  * @param true $boolTrue
  * @param false $boolFalse
  * @param bool $trueBoolean
+ * @param bool $parameterWithDefaultValueFalse
  * @return Foo
  */
 function doFoo(
@@ -66,7 +67,8 @@ function doFoo(
 	$false,
 	bool $boolTrue,
 	bool $boolFalse,
-	bool $trueBoolean
+	bool $trueBoolean,
+	$parameterWithDefaultValueFalse = false
 )
 {
 	$fooFunctionResult = doFoo();

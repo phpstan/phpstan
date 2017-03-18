@@ -69,7 +69,11 @@ class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\Parame
 		if ($this->type === null) {
 			$phpDocType = $this->phpDocType;
 			if ($phpDocType !== null && $this->defaultValue !== null) {
-				if ($this->defaultValue instanceof ConstFetch && $this->defaultValue->name instanceof Name) {
+				if (
+					$this->defaultValue instanceof ConstFetch
+					&& $this->defaultValue->name instanceof Name
+					&& strtolower((string) $this->defaultValue->name) === 'null'
+				) {
 					$phpDocType = $phpDocType->makeNullable();
 				}
 			}

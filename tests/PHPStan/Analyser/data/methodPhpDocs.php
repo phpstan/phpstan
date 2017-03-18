@@ -48,6 +48,7 @@ class Foo extends FooParent
 	 * @param true $boolTrue
 	 * @param false $boolFalse
 	 * @param bool $trueBoolean
+	 * @param bool $parameterWithDefaultValueFalse
 	 * @return Foo
 	 */
 	public function doFoo(
@@ -81,7 +82,8 @@ class Foo extends FooParent
 		$false,
 		bool $boolTrue,
 		bool $boolFalse,
-		bool $trueBoolean
+		bool $trueBoolean,
+		$parameterWithDefaultValueFalse = false
 	)
 	{
 		$parent = new FooParent();

@@ -1216,7 +1216,10 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'bool',
 				'$trueBoolean',
 			],
-
+			[
+				'bool',
+				'$parameterWithDefaultValueFalse',
+			],
 		];
 	}
 
