@@ -160,10 +160,7 @@ abstract class BaseTypeX implements TypeX
 
 	public function getOffsetValueType(TypeX $offsetType): TypeX
 	{
-		if ($this instanceof ArrayType) {
-			return $this->getIterableValueType();
-
-		} elseif ($this->canAccessOffset() !== self::RESULT_NO) {
+		if ($this->canAccessOffset() !== self::RESULT_NO) {
 			return $this->factory->createMixedType(); // TODO!
 
 		} else {
