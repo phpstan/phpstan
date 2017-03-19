@@ -103,7 +103,7 @@ class ArrayType extends BaseTypeX implements StaticResolvableType
 			return $this->valueType;
 		}
 
-		return $this->factory->createErrorType();
+		return $this->factory->createErrorType(ErrorType::UNDEFINED_OFFSET);
 	}
 
 	public function setOffsetValueType(TypeX $offsetType = null, TypeX $valueType): TypeX

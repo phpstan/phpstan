@@ -4,6 +4,8 @@ namespace PHPStan\TypeX;
 
 class ErrorType extends BaseTypeX
 {
+	const UNDEFINED_OFFSET = 'undefined offset';
+
 	/** @var string */
 	private $message;
 

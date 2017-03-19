@@ -136,7 +136,12 @@ class ConstantArrayType extends ArrayType implements ConstantType, StaticResolva
 			}
 		}
 
-		return $this->factory->createUnionType(...$matchingValueTypes);
+		if ($matchingValueTypes) {
+			return $this->factory->createUnionType(...$matchingValueTypes);
+
+		} else {
+			return $this->factory->createErrorType(ErrorType::UNDEFINED_OFFSET);
+		}
 	}
 
 	public function setOffsetValueType(TypeX $offsetType = null, TypeX $valueType): TypeX
