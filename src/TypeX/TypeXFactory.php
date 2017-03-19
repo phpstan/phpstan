@@ -15,9 +15,9 @@ class TypeXFactory
 		$this->broker = $broker;
 	}
 
-	public function createErrorType(): ErrorType
+	public function createErrorType(string $message = 'error'): ErrorType
 	{
-		return new ErrorType($this);
+		return new ErrorType($this, $message);
 	}
 
 	public function createNeverType(): NeverType

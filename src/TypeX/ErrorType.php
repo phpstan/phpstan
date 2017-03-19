@@ -4,10 +4,18 @@ namespace PHPStan\TypeX;
 
 class ErrorType extends BaseTypeX
 {
+	/** @var string */
+	private $message;
+
+	public function __construct(TypeXFactory $factory, string $message = 'error')
+	{
+		parent::__construct($factory);
+		$this->message = $message;
+	}
 
 	public function describe(): string
 	{
-		return '*ERROR*';
+		return sprintf('*%s*', strtoupper($this->message));
 	}
 
 	public function acceptsX(TypeX $otherType): bool
