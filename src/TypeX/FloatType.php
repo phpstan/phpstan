@@ -2,7 +2,7 @@
 
 namespace PHPStan\TypeX;
 
-class FloatType extends BaseTypeX
+class FloatType extends BaseTypeX implements ScalarType
 {
 	public function describe(): string
 	{

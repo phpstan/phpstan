@@ -3,7 +3,7 @@
 namespace PHPStan\TypeX;
 
 
-interface ConstantScalarType extends ConstantType
+interface ConstantScalarType extends ConstantType, ScalarType
 {
 	public function getValue();
 }

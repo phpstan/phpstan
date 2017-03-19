@@ -2,7 +2,7 @@
 
 namespace PHPStan\TypeX;
 
-class BooleanType extends BaseTypeX
+class BooleanType extends BaseTypeX implements ScalarType
 {
 	public function describe(): string
 	{

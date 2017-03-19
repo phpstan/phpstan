@@ -2,7 +2,7 @@
 
 namespace PHPStan\TypeX;
 
-class StringType extends BaseTypeX
+class StringType extends BaseTypeX implements ScalarType
 {
 	public function describe(): string
 	{
