@@ -11,7 +11,7 @@ class IntegerType extends BaseTypeX
 
 	public function acceptsX(TypeX $otherType): bool
 	{
-		return $otherType instanceof self || $otherType instanceof ConstantIntegerType;
+		return $otherType instanceof self;
 	}
 
 	public function isAssignable(): int

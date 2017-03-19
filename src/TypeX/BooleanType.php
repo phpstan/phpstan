@@ -11,7 +11,7 @@ class BooleanType extends BaseTypeX
 
 	public function acceptsX(TypeX $otherType): bool
 	{
-		return $otherType instanceof self || $otherType instanceof TrueType || $otherType instanceof FalseType;
+		return $otherType instanceof self;
 	}
 
 	public function isAssignable(): int

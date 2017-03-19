@@ -47,7 +47,7 @@ class ArrayType extends BaseTypeX implements StaticResolvableType
 
 	public function acceptsX(TypeX $otherType): bool
 	{
-		return ($otherType instanceof self || $otherType instanceof ConstantArrayType)
+		return $otherType instanceof self
 			&& $this->getIterableKeyType()->acceptsX($otherType->getIterableKeyType())
 			&& $this->getIterableValueType()->acceptsX($otherType->getIterableValueType());
 	}

@@ -11,7 +11,7 @@ class StringType extends BaseTypeX
 
 	public function acceptsX(TypeX $otherType): bool
 	{
-		return $otherType instanceof self || $otherType instanceof ConstantStringType;
+		return $otherType instanceof self;
 	}
 
 	public function isAssignable(): int

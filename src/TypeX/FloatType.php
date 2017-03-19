@@ -11,7 +11,7 @@ class FloatType extends BaseTypeX
 
 	public function acceptsX(TypeX $otherType): bool
 	{
-		return $otherType instanceof self || $otherType instanceof ConstantFloatType;
+		return $otherType instanceof self;
 	}
 
 	public function isAssignable(): int
