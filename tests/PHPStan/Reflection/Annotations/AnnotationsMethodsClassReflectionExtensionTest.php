@@ -155,11 +155,6 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
 				'returnType' => 'AnnotationsMethods\Foo|AnnotationsMethods\Bar',
 				'isStatic' => false,
 			],
-//					'methodWithNoReturnTypeWithDescriptionNoParams' => [
-//						'class' => \AnnotationsMethods\Foo::class,
-//						'returnType' => 'mixed',
-//						'isStatic' => false,
-//					],
 			'getIntegerStaticallyWithDescriptionNoParams' => [
 				'class' => \AnnotationsMethods\Foo::class,
 				'returnType' => 'int',
@@ -175,11 +170,6 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
 				'returnType' => 'AnnotationsMethods\Foo|AnnotationsMethods\Bar',
 				'isStatic' => true,
 			],
-//					'methodWithNoReturnTypeStaticallyWithDescriptionNoParams' => [
-//						'class' => \AnnotationsMethods\Foo::class,
-//						'returnType' => 'mixed',
-//						'isStatic' => true,
-//					],
 			'aStaticMethodThatHasAUniqueReturnTypeInThisClassNoParams' => [
 				'class' => \AnnotationsMethods\Foo::class,
 				'returnType' => 'bool|string',
