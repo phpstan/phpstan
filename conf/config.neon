@@ -163,3 +163,6 @@ services:
 
 	errorFormatter.table:
 		class: PHPStan\Command\ErrorFormatter\TableErrorFormatter
+
+	errorFormatter.junit:
+		class: PHPStan\Command\ErrorFormatter\JunitErrorFormatter
