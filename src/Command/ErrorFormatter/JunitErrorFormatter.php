@@ -13,64 +13,64 @@ class JunitErrorFormatter implements ErrorFormatter
 		\Symfony\Component\Console\Style\OutputStyle $style
 	): int
 	{
-        $dom = new \DOMDocument('1.0', 'UTF-8');
-        $testsuites = $dom->appendChild($dom->createElement('testsuites'));
-        /** @var \DomElement $testsuite */
-        $testsuite = $testsuites->appendChild($dom->createElement('testsuite'));
-        $testsuite->setAttribute('name', 'PHPStan');
+		$dom = new \DOMDocument('1.0', 'UTF-8');
+		$testsuites = $dom->appendChild($dom->createElement('testsuites'));
+		/** @var \DomElement $testsuite */
+		$testsuite = $testsuites->appendChild($dom->createElement('testsuite'));
+		$testsuite->setAttribute('name', 'PHPStan');
 
-        $returnCode = 1;
+		$returnCode = 1;
 
 		if (!$analysisResult->hasErrors()) {
-            $testcase = $dom->createElement('testcase');
-            $testsuite->appendChild($testcase);
-            $testsuite->setAttribute('tests', '1');
-            $testsuite->setAttribute('failures', '0');
+			$testcase = $dom->createElement('testcase');
+			$testsuite->appendChild($testcase);
+			$testsuite->setAttribute('tests', '1');
+			$testsuite->setAttribute('failures', '0');
 
-            $returnCode = 0;
+			$returnCode = 0;
 		} else {
-            $currentDirectory = $analysisResult->getCurrentDirectory();
-            $cropFilename = function (string $filename) use ($currentDirectory): string {
-                if ($currentDirectory !== '' && strpos($filename, $currentDirectory) === 0) {
-                    return substr($filename, strlen($currentDirectory) + 1);
-                }
+			$currentDirectory = $analysisResult->getCurrentDirectory();
+			$cropFilename = function (string $filename) use ($currentDirectory): string {
+				if ($currentDirectory !== '' && strpos($filename, $currentDirectory) === 0) {
+					return substr($filename, strlen($currentDirectory) + 1);
+				}
 
-                return $filename;
-            };
+				return $filename;
+			};
 
-            /** @var \PHPStan\Analyser\Error[][] $fileErrors */
-            $fileErrors = [];
-            foreach ($analysisResult->getFileSpecificErrors() as $fileSpecificError) {
-                if (!isset($fileErrors[$fileSpecificError->getFile()])) {
-                    $fileErrors[$fileSpecificError->getFile()] = [];
-                }
+			/** @var \PHPStan\Analyser\Error[][] $fileErrors */
+			$fileErrors = [];
+			foreach ($analysisResult->getFileSpecificErrors() as $fileSpecificError) {
+				if (!isset($fileErrors[$fileSpecificError->getFile()])) {
+					$fileErrors[$fileSpecificError->getFile()] = [];
+				}
 
-                $fileErrors[$fileSpecificError->getFile()][] = $fileSpecificError;
-            }
+				$fileErrors[$fileSpecificError->getFile()][] = $fileSpecificError;
+			}
 
-            foreach ($fileErrors as $file => $errors) {
+			foreach ($fileErrors as $file => $errors) {
 
-                $testcase = $dom->createElement('testcase');
-                $testcase->setAttribute('file', $cropFilename($file));
-                $testcase->setAttribute('failures', (string) count($errors));
-                $testcase->setAttribute('errors', (string) count($errors));
-                $testcase->setAttribute('tests', (string) count($errors));
+				$testcase = $dom->createElement('testcase');
+				$testcase->setAttribute('file', $cropFilename($file));
+				$testcase->setAttribute('failures', (string) count($errors));
+				$testcase->setAttribute('errors', (string) count($errors));
+				$testcase->setAttribute('tests', (string) count($errors));
 
-                foreach ($errors as $error) {
+				foreach ($errors as $error) {
 
-                    $failure = $dom->createElement('failure', sprintf('On line %d', $error->getLine()));
-                    $failure->setAttribute('type', 'error');
-                    $failure->setAttribute('message', $error->getMessage());
-                    $testcase->appendChild($failure);
-                }
+					$failure = $dom->createElement('failure', sprintf('On line %d', $error->getLine()));
+					$failure->setAttribute('type', 'error');
+					$failure->setAttribute('message', $error->getMessage());
+					$testcase->appendChild($failure);
+				}
 
-                $testsuite->appendChild($testcase);
-            }
-        }
+				$testsuite->appendChild($testcase);
+			}
+		}
 
-        $dom->formatOutput = true;
+		$dom->formatOutput = true;
 
-        $style->write($style->isDecorated() ? OutputFormatter::escape($dom->saveXML()) : $dom->saveXML());
+		$style->write($style->isDecorated() ? OutputFormatter::escape($dom->saveXML()) : $dom->saveXML());
 
 		return $returnCode;
 	}
