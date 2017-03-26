@@ -40,7 +40,7 @@ class NamespacedNameProperty implements \PHPStan\Reflection\PropertyReflection
 
 	public function getType(): Type
 	{
-		return new ObjectType(Name::class, false);
+		return new ObjectType(Name::class);
 	}
 
 }

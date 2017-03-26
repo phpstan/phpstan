@@ -79,4 +79,10 @@ class SpecifiedTypes
 		);
 	}
 
+	public function hasVariableSureType(string $variableName): bool
+	{
+		$exprString = sprintf('$%s', $variableName);
+		return isset($this->sureNotTypes[$exprString]);
+	}
+
 }

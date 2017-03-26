@@ -8,16 +8,35 @@ class CommonUnionType implements UnionType
 	/** @var \PHPStan\Type\Type[] */
 	private $types;
 
-	/** @var bool */
-	private $isNullable;
-
 	public function __construct(
-		array $types,
-		bool $isNullable
+		array $types
 	)
 	{
-		$this->types = $types;
-		$this->isNullable = $isNullable;
+		$throwException = function () use ($types) {
+			throw new \PHPStan\ShouldNotHappenException(sprintf(
+				'Cannot create %s with: %s',
+				self::class,
+				implode(', ', array_map(function (Type $type): string {
+					return $type->describe();
+				}, $types))
+			));
+		};
+		if (count($types) < 2) {
+			$throwException();
+		}
+		$iterableTypesCount = 0;
+		foreach ($types as $type) {
+			if ($type instanceof IterableType) {
+				$iterableTypesCount++;
+			}
+			if ($type instanceof UnionType) {
+				$throwException();
+			}
+		}
+		if ($iterableTypesCount === 1) {
+			$throwException();
+		}
+		$this->types = UnionTypeHelper::sortTypes($types);
 	}
 
 	/**
@@ -44,39 +63,9 @@ class CommonUnionType implements UnionType
 		return UnionTypeHelper::getReferencedClasses($this->getTypes());
 	}
 
-	public function isNullable(): bool
-	{
-		return $this->isNullable;
-	}
-
 	public function combineWith(Type $otherType): Type
 	{
-		if ($otherType instanceof NullType) {
-			return $this->makeNullable();
-		}
-
-		$types = $this->getTypes();
-		if ($otherType instanceof UnionType) {
-			$otherTypesTemp = [];
-			foreach ($this->getTypes() as $otherOtherType) {
-				$otherTypesTemp[$otherOtherType->describe()] = $otherOtherType;
-			}
-			foreach ($otherType->getTypes() as $otherOtherType) {
-				$otherTypesTemp[$otherOtherType->describe()] = $otherOtherType;
-			}
-
-			$types = array_values($otherTypesTemp);
-		}
-
-		return new self(
-			$types,
-			$this->isNullable() || $otherType->isNullable()
-		);
-	}
-
-	public function makeNullable(): Type
-	{
-		return new self($this->getTypes(), true);
+		return TypeCombinator::combine($this, $otherType);
 	}
 
 	public function accepts(Type $type): bool
@@ -85,13 +74,13 @@ class CommonUnionType implements UnionType
 			return true;
 		}
 
-		if ($this->isNullable() && $type instanceof NullType) {
-			return true;
-		}
-
 		$accepts = UnionTypeHelper::accepts($this, $type);
 		if ($accepts !== null) {
 			return $accepts;
+		}
+
+		if (TypeCombinator::shouldSkipUnionTypeAccepts($this)) {
+			return true;
 		}
 
 		foreach ($this->getTypes() as $otherType) {
@@ -105,7 +94,7 @@ class CommonUnionType implements UnionType
 
 	public function describe(): string
 	{
-		return UnionTypeHelper::describe($this->getTypes(), $this->isNullable());
+		return UnionTypeHelper::describe($this->getTypes());
 	}
 
 	public function canAccessProperties(): bool
@@ -125,12 +114,12 @@ class CommonUnionType implements UnionType
 
 	public function resolveStatic(string $className): Type
 	{
-		return new self(UnionTypeHelper::resolveStatic($className, $this->getTypes()), $this->isNullable());
+		return new self(UnionTypeHelper::resolveStatic($className, $this->getTypes()));
 	}
 
 	public function changeBaseClass(string $className): StaticResolvableType
 	{
-		return new self(UnionTypeHelper::changeBaseClass($className, $this->getTypes()), $this->isNullable());
+		return new self(UnionTypeHelper::changeBaseClass($className, $this->getTypes()));
 	}
 
 }

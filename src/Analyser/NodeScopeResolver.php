@@ -77,9 +77,6 @@ class NodeScopeResolver
 	/** @var \PHPStan\Type\FileTypeMapper */
 	private $fileTypeMapper;
 
-	/** @var \PHPStan\Analyser\TypeSpecifier */
-	private $typeSpecifier;
-
 	/** @var \PHPStan\File\FileExcluder */
 	private $fileExcluder;
 
@@ -112,7 +109,6 @@ class NodeScopeResolver
 		Parser $parser,
 		\PhpParser\PrettyPrinter\Standard $printer,
 		FileTypeMapper $fileTypeMapper,
-		TypeSpecifier $typeSpecifier,
 		FileExcluder $fileExcluder,
 		\PhpParser\BuilderFactory $builderFactory,
 		FileHelper $fileHelper,
@@ -126,7 +122,6 @@ class NodeScopeResolver
 		$this->parser = $parser;
 		$this->printer = $printer;
 		$this->fileTypeMapper = $fileTypeMapper;
-		$this->typeSpecifier = $typeSpecifier;
 		$this->fileExcluder = $fileExcluder;
 		$this->builderFactory = $builderFactory;
 		$this->fileHelper = $fileHelper;
@@ -193,7 +188,7 @@ class NodeScopeResolver
 
 			if ($node instanceof If_) {
 				if ($this->findEarlyTermination($node->stmts, $scope) !== null) {
-					$scope = $this->lookForTypeSpecificationsInEarlyTermination($scope, $node->cond);
+					$scope = $scope->lookForTypeSpecificationsInEarlyTermination($node->cond);
 					$this->processNode($node->cond, $scope, function (Node $node, Scope $inScope) use (&$scope) {
 						$this->specifyFetchedPropertyForInnerScope($node, $inScope, true, $scope);
 					});
@@ -216,7 +211,7 @@ class NodeScopeResolver
 				&& (string) $node->name === 'assert'
 				&& isset($node->args[0])
 			) {
-				$scope = $this->lookForTypeSpecifications($scope, $node->args[0]->value);
+				$scope = $scope->lookForTypeSpecifications($node->args[0]->value);
 			}
 		}
 	}
@@ -339,10 +334,7 @@ class NodeScopeResolver
 					&& $argValue->name === 'class'
 					&& $argValue->class instanceof Name
 				) {
-					$resolvedName = $scope->resolveName($argValue->class);
-					if ($resolvedName !== null) {
-						$scopeClass = $resolvedName;
-					}
+					$scopeClass = $scope->resolveName($argValue->class);
 				} elseif ($argValue instanceof Node\Scalar\String_) {
 					$scopeClass = $argValue->value;
 				}
@@ -355,7 +347,11 @@ class NodeScopeResolver
 				$scope = $scope->enterForeach(
 					$node->expr,
 					$node->valueVar->name,
-					$node->keyVar !== null && $node->keyVar instanceof Variable ? $node->keyVar->name : null
+					$node->keyVar !== null
+						&& $node->keyVar instanceof Variable
+						&& is_string($node->keyVar->name)
+							? $node->keyVar->name
+							: null
 				);
 			} else {
 				if ($node->keyVar !== null && $node->keyVar instanceof Variable && is_string($node->keyVar->name)) {
@@ -407,7 +403,7 @@ class NodeScopeResolver
 			$scope = $this->lookForAssigns($scope, $node->cond)->exitFirstLevelStatements();
 			$ifScope = $scope;
 			$this->processNode($node->cond, $scope, $nodeCallback);
-			$scope = $this->lookForTypeSpecifications($scope, $node->cond);
+			$scope = $scope->lookForTypeSpecifications($node->cond);
 
 			$specifyFetchedProperty = function (Node $node, Scope $inScope) use (&$scope) {
 				$this->specifyFetchedPropertyForInnerScope($node, $inScope, false, $scope);
@@ -420,7 +416,7 @@ class NodeScopeResolver
 				$scope = $elseifScope;
 				$scope = $this->lookForAssigns($scope, $elseif->cond)->exitFirstLevelStatements();
 				$this->processNode($elseif->cond, $scope, $nodeCallback);
-				$scope = $this->lookForTypeSpecifications($scope, $elseif->cond);
+				$scope = $scope->lookForTypeSpecifications($elseif->cond);
 				$this->processNode($elseif->cond, $scope, $specifyFetchedProperty);
 				$this->processNodes($elseif->stmts, $scope->enterFirstLevelStatements(), $nodeCallback);
 				$elseifScope = $this->lookForAssigns($elseifScope, $elseif->cond);
@@ -450,7 +446,7 @@ class NodeScopeResolver
 					$switchScope = $this->lookForAssigns($switchScope, $caseNode->cond);
 
 					if ($switchConditionIsTrue) {
-						$switchScope = $this->lookForTypeSpecifications($switchScope, $caseNode->cond);
+						$switchScope = $switchScope->lookForTypeSpecifications($caseNode->cond);
 					} elseif (
 						$switchConditionGetClassExpression !== null
 						&& $caseNode->cond instanceof Expr\ClassConstFetch
@@ -459,7 +455,7 @@ class NodeScopeResolver
 					) {
 						$switchScope = $switchScope->specifyExpressionType(
 							$switchConditionGetClassExpression,
-							new ObjectType((string) $caseNode->cond->class, false)
+							new ObjectType((string) $caseNode->cond->class)
 						);
 					}
 				}
@@ -549,7 +545,7 @@ class NodeScopeResolver
 					$scope = $this->lookForAssigns($scope, $node->expr);
 				}
 				if ($node instanceof While_ && $subNodeName === 'stmts') {
-					$scope = $this->lookForTypeSpecifications($scope, $node->cond);
+					$scope = $scope->lookForTypeSpecifications($node->cond);
 				}
 
 				if ($node instanceof Isset_ && $subNodeName === 'vars') {
@@ -570,12 +566,12 @@ class NodeScopeResolver
 
 				if ($node instanceof Ternary) {
 					if ($subNodeName === 'if') {
-						$scope = $this->lookForTypeSpecifications($scope, $node->cond);
+						$scope = $scope->lookForTypeSpecifications($node->cond);
 						$this->processNode($node->cond, $scope, function (Node $node, Scope $inScope) use (&$scope) {
 							$this->specifyFetchedPropertyForInnerScope($node, $inScope, false, $scope);
 						});
 					} elseif ($subNodeName === 'else') {
-						$scope = $this->lookForTypeSpecificationsInEarlyTermination($scope, $node->cond);
+						$scope = $scope->lookForTypeSpecificationsInEarlyTermination($node->cond);
 						$this->processNode($node->cond, $scope, function (Node $node, Scope $inScope) use (&$scope) {
 							$this->specifyFetchedPropertyForInnerScope($node, $inScope, true, $scope);
 						});
@@ -583,10 +579,10 @@ class NodeScopeResolver
 				}
 
 				if ($node instanceof BooleanAnd && $subNodeName === 'right') {
-					$scope = $this->lookForTypeSpecifications($scope, $node->left);
+					$scope = $scope->lookForTypeSpecifications($node->left);
 				}
 				if ($node instanceof BooleanOr && $subNodeName === 'right') {
-					$scope = $this->lookForTypeSpecificationsInEarlyTermination($scope, $node->left);
+					$scope = $scope->lookForTypeSpecificationsInEarlyTermination($node->left);
 				}
 
 				if (($node instanceof Assign || $node instanceof AssignRef) && $subNodeName === 'var') {
@@ -660,26 +656,6 @@ class NodeScopeResolver
 		return $scope;
 	}
 
-	private function lookForTypeSpecifications(Scope $scope, Node $node): Scope
-	{
-		$types = $this->typeSpecifier->specifyTypesInCondition(new SpecifiedTypes(), $scope, $node);
-		foreach ($types->getSureTypes() as $type) {
-			$scope = $scope->specifyExpressionType($type[0], $type[1]);
-		}
-
-		return $scope;
-	}
-
-	private function lookForTypeSpecificationsInEarlyTermination(Scope $scope, Node $node): Scope
-	{
-		$types = $this->typeSpecifier->specifyTypesInCondition(new SpecifiedTypes(), $scope, $node);
-		foreach ($types->getSureNotTypes() as $type) {
-			$scope = $scope->specifyExpressionType($type[0], $type[1]);
-		}
-
-		return $scope;
-	}
-
 	private function lookForAssigns(Scope $scope, \PhpParser\Node $node): Scope
 	{
 		if ($node instanceof StaticVar) {
@@ -690,13 +666,23 @@ class NodeScopeResolver
 			}
 		} elseif ($node instanceof If_) {
 			$scope = $this->lookForAssigns($scope, $node->cond);
-			$statements = [
-				new StatementList($scope, array_merge([$node->cond], $node->stmts)),
-				new StatementList($scope, $node->else !== null ? $node->else->stmts : ($this->defineVariablesWithoutDefaultBranch ? null : [])),
-			];
+			$ifStatement = new StatementList(
+				$scope->lookForTypeSpecifications($node->cond),
+				array_merge([$node->cond], $node->stmts)
+			);
+
+			$elseIfScope = $scope->lookForTypeSpecificationsInEarlyTermination($node->cond);
+			$elseIfStatements = [];
 			foreach ($node->elseifs as $elseIf) {
-				$statements[] = new StatementList($scope, array_merge([$elseIf->cond], $elseIf->stmts));
+				$elseIfStatements[] = new StatementList($elseIfScope, array_merge([$elseIf->cond], $elseIf->stmts));
+				$elseIfScope = $elseIfScope->lookForTypeSpecificationsInEarlyTermination($elseIf->cond);
 			}
+
+			$statements = [
+				$ifStatement,
+				new StatementList($elseIfScope, $node->else !== null ? $node->else->stmts : ($this->defineVariablesWithoutDefaultBranch ? null : [])),
+			];
+			$statements = array_merge($statements, $elseIfStatements);
 
 			$scope = $this->lookForAssignsInBranches($scope, $statements);
 		} elseif ($node instanceof TryCatch) {
@@ -757,7 +743,7 @@ class NodeScopeResolver
 					'file_get_contents',
 				], true)
 			) {
-				$scope = $scope->assignVariable('http_response_header', new ArrayType(new StringType(false), false));
+				$scope = $scope->assignVariable('http_response_header', new ArrayType(new StringType(), false));
 			}
 		} elseif ($node instanceof BinaryOp) {
 			$scope = $this->lookForAssigns($scope, $node->left);

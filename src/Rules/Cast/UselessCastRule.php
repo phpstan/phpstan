@@ -7,6 +7,7 @@ use PhpParser\Node\Expr\Cast;
 use PhpParser\Node\Expr\Cast\Object_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\FloatType;
+use PHPStan\Type\UnionType;
 
 class UselessCastRule implements \PHPStan\Rules\Rule
 {
@@ -28,7 +29,7 @@ class UselessCastRule implements \PHPStan\Rules\Rule
 		}
 
 		$expressionType = $scope->getType($node->expr);
-		if ($expressionType->isNullable()) {
+		if ($expressionType instanceof UnionType) {
 			return [];
 		}
 

@@ -15,11 +15,7 @@ interface Type
 	 */
 	public function getReferencedClasses(): array;
 
-	public function isNullable(): bool;
-
 	public function combineWith(Type $otherType): Type;
-
-	public function makeNullable(): Type;
 
 	public function accepts(Type $type): bool;
 

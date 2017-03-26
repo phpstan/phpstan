@@ -21,19 +21,9 @@ class NullType implements Type
 		return [];
 	}
 
-	public function isNullable(): bool
-	{
-		return true;
-	}
-
 	public function combineWith(Type $otherType): Type
 	{
-		return $otherType->makeNullable();
-	}
-
-	public function makeNullable(): Type
-	{
-		return $this;
+		return TypeCombinator::addNull($otherType);
 	}
 
 	public function accepts(Type $type): bool

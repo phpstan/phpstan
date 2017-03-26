@@ -15,6 +15,10 @@ class VariableCloningRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		require_once __DIR__ . '/data/variable-cloning.php';
 		$this->analyse([__DIR__ . '/data/variable-cloning.php'], [
 			[
+				'Cannot clone int|string.',
+				11,
+			],
+			[
 				'Cannot clone non-object variable $stringData of type string.',
 				14,
 			],

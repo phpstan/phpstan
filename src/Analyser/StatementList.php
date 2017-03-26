@@ -11,7 +11,10 @@ class StatementList
 	/** @var \PhpParser\Node[]|null */
 	private $statements;
 
-	public function __construct(Scope $scope, array $statements = null)
+	public function __construct(
+		Scope $scope,
+		array $statements = null
+	)
 	{
 		$this->scope = $scope;
 		$this->statements = $statements;

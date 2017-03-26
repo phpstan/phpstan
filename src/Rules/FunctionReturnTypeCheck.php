@@ -5,9 +5,9 @@ namespace PHPStan\Rules;
 use PhpParser\Node\Expr;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\MixedType;
-use PHPStan\Type\NullType;
 use PHPStan\Type\ThisType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\VoidType;
 
 class FunctionReturnTypeCheck
@@ -61,8 +61,11 @@ class FunctionReturnTypeCheck
 		}
 
 		$returnValueType = $scope->getType($returnValue);
-		if ($returnType instanceof ThisType && !$returnValueType instanceof ThisType) {
-			if ($returnType->isNullable() && $returnValueType instanceof NullType) {
+		if (
+			TypeCombinator::removeNull($returnType) instanceof ThisType
+			&& !$returnValueType instanceof ThisType
+		) {
+			if (TypeCombinator::containsNull($returnType) && $returnValueType instanceof \PHPStan\Type\NullType) {
 				return [];
 			}
 			if (

@@ -5,14 +5,6 @@ namespace PHPStan\Type;
 class CallableType implements Type
 {
 
-	/** @var bool */
-	private $nullable;
-
-	public function __construct(bool $nullable)
-	{
-		$this->nullable = $nullable;
-	}
-
 	/**
 	 * @return string|null
 	 */
@@ -29,40 +21,22 @@ class CallableType implements Type
 		return [];
 	}
 
-	public function isNullable(): bool
-	{
-		return $this->nullable;
-	}
-
 	public function combineWith(Type $otherType): Type
 	{
 		if ($otherType instanceof self) {
-			return new self($this->isNullable() || $otherType->isNullable());
+			return $this;
 		}
 
 		if ($otherType instanceof ArrayType && $otherType->isPossiblyCallable()) {
 			return $this;
 		}
 
-		if ($otherType instanceof NullType) {
-			return $this->makeNullable();
-		}
-
-		return new MixedType();
-	}
-
-	public function makeNullable(): Type
-	{
-		return new self(true);
+		return TypeCombinator::combine($this, $otherType);
 	}
 
 	public function accepts(Type $type): bool
 	{
 		if ($type instanceof self) {
-			return true;
-		}
-
-		if ($this->isNullable() && $type instanceof NullType) {
 			return true;
 		}
 
@@ -91,7 +65,7 @@ class CallableType implements Type
 
 	public function describe(): string
 	{
-		return 'callable' . ($this->nullable ? '|null' : '');
+		return 'callable';
 	}
 
 	public function canAccessProperties(): bool

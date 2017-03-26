@@ -10,13 +10,9 @@ class ObjectType implements Type
 	/** @var string */
 	private $class;
 
-	/** @var bool */
-	private $nullable;
-
-	public function __construct(string $class, bool $nullable)
+	public function __construct(string $class)
 	{
 		$this->class = $class;
-		$this->nullable = $nullable;
 	}
 
 	public function getClass(): string
@@ -32,36 +28,18 @@ class ObjectType implements Type
 		return [$this->getClass()];
 	}
 
-	public function isNullable(): bool
-	{
-		return $this->nullable;
-	}
-
 	public function combineWith(Type $otherType): Type
 	{
 		if ($otherType instanceof self && $this->getClass() === $otherType->getClass()) {
-			return new self($this->getClass(), $this->isNullable() || $otherType->isNullable());
+			return new self($this->getClass());
 		}
 
-		if ($otherType instanceof NullType) {
-			return $this->makeNullable();
-		}
-
-		return new MixedType();
-	}
-
-	public function makeNullable(): Type
-	{
-		return new self($this->getClass(), true);
+		return TypeCombinator::combine($this, $otherType);
 	}
 
 	public function accepts(Type $type): bool
 	{
 		if ($type instanceof MixedType) {
-			return true;
-		}
-
-		if ($this->isNullable() && $type instanceof NullType) {
 			return true;
 		}
 
@@ -107,7 +85,7 @@ class ObjectType implements Type
 
 	public function describe(): string
 	{
-		return $this->class . ($this->nullable ? '|null' : '');
+		return $this->class;
 	}
 
 	public function canAccessProperties(): bool

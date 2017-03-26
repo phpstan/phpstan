@@ -38,7 +38,11 @@ class DirectParser implements Parser
 	 */
 	public function parseString(string $sourceCode): array
 	{
-		return $this->traverser->traverse($this->parser->parse($sourceCode));
+		$nodes = $this->parser->parse($sourceCode);
+		if ($nodes === null) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+		return $this->traverser->traverse($nodes);
 	}
 
 }

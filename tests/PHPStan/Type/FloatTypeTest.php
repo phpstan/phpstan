@@ -7,23 +7,23 @@ class FloatTypeTest extends \PHPStan\TestCase
 
 	public function testAccepts()
 	{
-		$floatType = new FloatType(true);
+		$floatType = new FloatType();
 
-		$this->assertTrue($floatType->accepts(new FloatType(false)));
-		$this->assertTrue($floatType->accepts(new IntegerType(false)));
-		$this->assertTrue($floatType->accepts(new NullType()));
-		$this->assertFalse((new FloatType(false))->accepts(new NullType()));
-		$this->assertFalse($floatType->accepts(new StringType(false)));
+		$this->assertTrue($floatType->accepts(new FloatType()));
+		$this->assertFalse($floatType->accepts(new NullType()));
+		$this->assertTrue($floatType->accepts(new MixedType()));
+		$this->assertTrue($floatType->accepts(new IntegerType()));
+		$this->assertFalse($floatType->accepts(new StringType()));
 	}
 
 	public function testCombineWith()
 	{
-		$floatType = new FloatType(false);
+		$floatType = new FloatType();
 
-		$this->assertInstanceOf(FloatType::class, $floatType->combineWith(new FloatType(false)));
-		$this->assertInstanceOf(FloatType::class, $floatType->combineWith(new IntegerType(false)));
-		$this->assertInstanceOf(FloatType::class, $floatType->combineWith(new NullType()));
-		$this->assertInstanceOf(MixedType::class, $floatType->combineWith(new StringType(false)));
+		$this->assertSame('float', $floatType->combineWith(new FloatType())->describe());
+		$this->assertSame('float', $floatType->combineWith(new IntegerType())->describe());
+		$this->assertSame('float|null', $floatType->combineWith(new NullType())->describe());
+		$this->assertSame('float|string', $floatType->combineWith(new StringType())->describe());
 	}
 
 }

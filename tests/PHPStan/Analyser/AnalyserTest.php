@@ -192,6 +192,7 @@ class AnalyserTest extends \PHPStan\TestCase
 		$printer = new \PhpParser\PrettyPrinter\Standard();
 		$fileHelper = $this->getContainer()->getByType(FileHelper::class);
 		$fileExcluder = new FileExcluder($fileHelper, $analyseExcludes);
+		$typeSpecifier = new TypeSpecifier($printer);
 		$analyser = new Analyser(
 			$broker,
 			new DirectParser(new \PhpParser\Parser\Php7(new \PhpParser\Lexer()), $traverser),
@@ -200,8 +201,7 @@ class AnalyserTest extends \PHPStan\TestCase
 				$broker,
 				$this->getParser(),
 				$printer,
-				new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class), true),
-				new TypeSpecifier($printer),
+				new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class)),
 				$fileExcluder,
 				new \PhpParser\BuilderFactory(),
 				$fileHelper,
@@ -211,6 +211,7 @@ class AnalyserTest extends \PHPStan\TestCase
 				[]
 			),
 			$printer,
+			$typeSpecifier,
 			$fileExcluder,
 			$ignoreErrors,
 			$bootstrapFile,

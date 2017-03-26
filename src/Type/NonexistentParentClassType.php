@@ -9,7 +9,7 @@ class NonexistentParentClassType implements Type
 
 	public function describe(): string
 	{
-		return 'parent' . ($this->nullable ? '|null' : '');
+		return 'parent';
 	}
 
 	public function canAccessProperties(): bool

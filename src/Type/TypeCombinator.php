@@ -5,37 +5,30 @@ namespace PHPStan\Type;
 class TypeCombinator
 {
 
+	/** @var bool|null */
+	private static $unionTypesEnabled;
+
+	public static function setUnionTypesEnabled(bool $enabled)
+	{
+		if (self::$unionTypesEnabled !== null) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		self::$unionTypesEnabled = $enabled;
+	}
+
+	public static function isUnionTypesEnabled(): bool
+	{
+		if (self::$unionTypesEnabled === null) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		return self::$unionTypesEnabled;
+	}
+
 	public static function addNull(Type $type): Type
 	{
-		if (
-			$type instanceof MixedType
-			|| $type instanceof NullType
-			|| $type instanceof VoidType
-		) {
-			return $type;
-		}
-
-		if (!$type instanceof UnionType) {
-			return new CommonUnionType([$type, new NullType()], false);
-		}
-
-		if (!self::containsNull($type)) {
-			$innerTypes = array_merge($type->getTypes(), [new NullType()]);
-			if ($type instanceof UnionIterableType) {
-				return new UnionIterableType(
-					$type->getItemType(),
-					false,
-					$innerTypes
-				);
-			}
-
-			return new CommonUnionType(
-				$innerTypes,
-				false
-			);
-		}
-
-		return $type;
+		return self::combine($type, new NullType());
 	}
 
 	public static function removeNull(Type $type): Type
@@ -58,21 +51,117 @@ class TypeCombinator
 		}
 
 		if ($type instanceof UnionIterableType) {
-			return new UnionIterableType($type->getItemType(), false, $newInnerTypes);
+			if (count($newInnerTypes) === 0) {
+				return new ArrayType($type->getItemType());
+			}
+			return new UnionIterableType($type->getItemType(), $newInnerTypes);
 		}
 
-		return new CommonUnionType($newInnerTypes, false);
+		if (count($newInnerTypes) === 1) {
+			return $newInnerTypes[0];
+		}
+
+		return new CommonUnionType($newInnerTypes);
 	}
 
-	private static function containsNull(UnionType $unionType): bool
+	public static function containsNull(Type $type): bool
 	{
-		foreach ($unionType->getTypes() as $type) {
-			if ($type instanceof NullType) {
-				return true;
+		if ($type instanceof UnionType) {
+			foreach ($type->getTypes() as $innerType) {
+				if ($innerType instanceof NullType) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		return $type instanceof NullType;
+	}
+
+	public static function combine(Type $firstType, Type $secondType): Type
+	{
+		$types = [];
+		$iterableTypes = [];
+
+		foreach ([$firstType, $secondType] as $type) {
+			$alreadyAdded = false;
+			if ($type instanceof UnionType) {
+				$alreadyAdded = true;
+				foreach ($type->getTypes() as $innerType) {
+					if ($innerType instanceof IterableType) {
+						$iterableTypes[$innerType->describe()] = $innerType;
+					} else {
+						$types[$innerType->describe()] = $innerType;
+					}
+				}
+			}
+			if ($type instanceof IterableType) {
+				$alreadyAdded = true;
+				$iterableTypes[$type->getItemType()->describe()] = new ArrayType($type->getItemType());
+			}
+			if (!$alreadyAdded) {
+				$types[$type->describe()] = $type;
 			}
 		}
 
-		return false;
+		/** @var \PHPStan\Type\Type|null $boolType */
+		$boolType = null;
+		foreach (['bool', 'true', 'false'] as $boolTypeKey) {
+			if (!array_key_exists($boolTypeKey, $types)) {
+				continue;
+			}
+			if ($boolType === null) {
+				$boolType = $types[$boolTypeKey];
+			} else {
+				$boolType = $boolType->combineWith($types[$boolTypeKey]);
+			}
+			unset($types[$boolTypeKey]);
+		}
+		if ($boolType !== null) {
+			$types[$boolType->describe()] = $boolType;
+		}
+
+		if (count($types) === 2 && count($iterableTypes) === 0) {
+			if (
+				array_key_exists('null', $types)
+				&& (
+					array_key_exists('mixed', $types)
+					|| array_key_exists('void', $types)
+				)
+			) {
+				unset($types['null']);
+				$types = array_values($types);
+				return $types[0];
+			}
+		}
+
+		/** @var \PHPStan\Type\Type[] $types */
+		$types = array_values($types);
+		/** @var \PHPStan\Type\IterableType[] $iterableTypes */
+		$iterableTypes = array_values($iterableTypes);
+
+		if (count($iterableTypes) === 1) {
+			if (count($types) > 0) {
+				return new UnionIterableType($iterableTypes[0]->getItemType(), $types);
+			}
+			return $iterableTypes[0];
+		}
+		$types = array_merge($types, $iterableTypes);
+		if (count($types) > 1) {
+			return new CommonUnionType($types);
+		}
+		if (count($types) === 1) {
+			return $types[0];
+		}
+
+		throw new \PHPStan\ShouldNotHappenException();
+	}
+
+	public static function shouldSkipUnionTypeAccepts(UnionType $unionType): bool
+	{
+		$typesLimit = self::containsNull($unionType) ? 2 : 1;
+		return !self::isUnionTypesEnabled() && count($unionType->getTypes()) > $typesLimit;
 	}
 
 }

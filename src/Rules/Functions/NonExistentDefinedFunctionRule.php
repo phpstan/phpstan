@@ -33,7 +33,7 @@ class NonExistentDefinedFunctionRule implements \PHPStan\Rules\Rule
 	{
 		$functionName = $node->name;
 		if (isset($node->namespacedName)) {
-			$functionName = $node->namespacedName;
+			$functionName = (string) $node->namespacedName;
 		}
 		$functionNameName = new Name($functionName);
 		if ($this->broker->hasFunction($functionNameName)) {

@@ -24,37 +24,37 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 				'void',
 			],
 			[
-				new StringType(false),
+				new StringType(),
 				CommonUnionType::class,
 				'string|null',
 			],
 			[
 				new CommonUnionType([
-					new StringType(false),
-					new IntegerType(false),
-				], false),
+					new StringType(),
+					new IntegerType(),
+				]),
 				CommonUnionType::class,
-				'string|int|null',
+				'int|string|null',
 			],
 			[
 				new CommonUnionType([
-					new StringType(false),
-					new IntegerType(false),
+					new StringType(),
+					new IntegerType(),
 					new NullType(),
-				], false),
+				]),
 				CommonUnionType::class,
-				'string|int|null',
+				'int|string|null',
 			],
 			[
-				new UnionIterableType(new StringType(false), false, [
-					new ObjectType('Doctrine\Common\Collections\Collection', false),
+				new UnionIterableType(new StringType(), [
+					new ObjectType('Doctrine\Common\Collections\Collection'),
 				]),
 				UnionIterableType::class,
 				'string[]|Doctrine\Common\Collections\Collection|null',
 			],
 			[
-				new UnionIterableType(new StringType(false), false, [
-					new ObjectType('Doctrine\Common\Collections\Collection', false),
+				new UnionIterableType(new StringType(), [
+					new ObjectType('Doctrine\Common\Collections\Collection'),
 					new NullType(),
 				]),
 				UnionIterableType::class,
@@ -80,6 +80,23 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 		$this->assertSame($expectedTypeDescription, $result->describe());
 	}
 
+	/**
+	 * @dataProvider dataAddNull
+	 * @param \PHPStan\Type\Type $type
+	 * @param string $expectedTypeClass
+	 * @param string $expectedTypeDescription
+	 */
+	public function testCombineAddNull(
+		Type $type,
+		string $expectedTypeClass,
+		string $expectedTypeDescription
+	)
+	{
+		$result = TypeCombinator::combine($type, new NullType());
+		$this->assertInstanceOf($expectedTypeClass, $result);
+		$this->assertSame($expectedTypeDescription, $result->describe());
+	}
+
 	public function dataRemoveNull(): array
 	{
 		return [
@@ -99,41 +116,59 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 				'void',
 			],
 			[
-				new StringType(false),
+				new StringType(),
 				StringType::class,
 				'string',
 			],
 			[
 				new CommonUnionType([
-					new StringType(false),
-					new IntegerType(false),
+					new StringType(),
+					new IntegerType(),
 					new NullType(),
-				], false),
+				]),
 				CommonUnionType::class,
-				'string|int',
+				'int|string',
 			],
 			[
 				new CommonUnionType([
-					new StringType(false),
-					new IntegerType(false),
-				], false),
+					new StringType(),
+					new IntegerType(),
+				]),
 				CommonUnionType::class,
-				'string|int',
+				'int|string',
 			],
 			[
-				new UnionIterableType(new StringType(false), false, [
-					new ObjectType('Doctrine\Common\Collections\Collection', false),
+				new UnionIterableType(new StringType(), [
+					new ObjectType('Doctrine\Common\Collections\Collection'),
 					new NullType(),
 				]),
 				UnionIterableType::class,
 				'string[]|Doctrine\Common\Collections\Collection',
 			],
 			[
-				new UnionIterableType(new StringType(false), false, [
-					new ObjectType('Doctrine\Common\Collections\Collection', false),
+				new UnionIterableType(new StringType(), [
+					new ObjectType('Doctrine\Common\Collections\Collection'),
 				]),
 				UnionIterableType::class,
 				'string[]|Doctrine\Common\Collections\Collection',
+			],
+			[
+				new CommonUnionType([
+					new ThisType('Foo'),
+					new NullType(),
+				]),
+				ThisType::class,
+				'$this(Foo)',
+			],
+			[
+				new UnionIterableType(
+					new StringType(),
+					[
+						new NullType(),
+					]
+				),
+				ArrayType::class,
+				'string[]',
 			],
 		];
 	}
@@ -151,6 +186,148 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 	)
 	{
 		$result = TypeCombinator::removeNull($type);
+		$this->assertInstanceOf($expectedTypeClass, $result);
+		$this->assertSame($expectedTypeDescription, $result->describe());
+	}
+
+	public function dataCombine(): array
+	{
+		return [
+			[
+				new StringType(),
+				new NullType(),
+				CommonUnionType::class,
+				'string|null',
+			],
+			[
+				new StringType(),
+				new IntegerType(),
+				CommonUnionType::class,
+				'int|string',
+			],
+			[
+				new CommonUnionType([
+					new StringType(),
+					new IntegerType(),
+				]),
+				new StringType(),
+				CommonUnionType::class,
+				'int|string',
+			],
+			[
+				new CommonUnionType([
+					new StringType(),
+					new IntegerType(),
+				]),
+				new TrueBooleanType(),
+				CommonUnionType::class,
+				'int|string|true',
+			],
+			[
+				new CommonUnionType([
+					new StringType(),
+					new IntegerType(),
+				]),
+				new NullType(),
+				CommonUnionType::class,
+				'int|string|null',
+			],
+			[
+				new CommonUnionType([
+					new StringType(),
+					new IntegerType(),
+					new NullType(),
+				]),
+				new NullType(),
+				CommonUnionType::class,
+				'int|string|null',
+			],
+			[
+				new CommonUnionType([
+					new StringType(),
+					new IntegerType(),
+				]),
+				new StringType(),
+				CommonUnionType::class,
+				'int|string',
+			],
+			[
+				new UnionIterableType(
+					new IntegerType(),
+					[
+						new ObjectType('Doctrine\Common\Collections\Collection'),
+					]
+				),
+				new StringType(),
+				UnionIterableType::class,
+				'int[]|Doctrine\Common\Collections\Collection|string',
+			],
+			[
+				new UnionIterableType(
+					new IntegerType(),
+					[
+						new ObjectType('Doctrine\Common\Collections\Collection'),
+					]
+				),
+				new ArrayType(new StringType()),
+				CommonUnionType::class,
+				'Doctrine\Common\Collections\Collection|int[]|string[]',
+			],
+			[
+				new CommonUnionType([
+					new TrueBooleanType(),
+					new IntegerType(),
+				]),
+				new ArrayType(new StringType()),
+				UnionIterableType::class,
+				'string[]|int|true',
+			],
+			[
+				new CommonUnionType([
+					new ArrayType(new ObjectType('Foo')),
+					new ArrayType(new ObjectType('Bar')),
+				]),
+				new ArrayType(new MixedType()),
+				CommonUnionType::class,
+				'Bar[]|Foo[]|mixed[]',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataCombine
+	 * @param \PHPStan\Type\Type $firstType
+	 * @param \PHPStan\Type\Type $secondType
+	 * @param string $expectedTypeClass
+	 * @param string $expectedTypeDescription
+	 */
+	public function testCombine(
+		Type $firstType,
+		Type $secondType,
+		string $expectedTypeClass,
+		string $expectedTypeDescription
+	)
+	{
+		$result = TypeCombinator::combine($firstType, $secondType);
+		$this->assertInstanceOf($expectedTypeClass, $result);
+		$this->assertSame($expectedTypeDescription, $result->describe());
+	}
+
+	/**
+	 * @dataProvider dataCombine
+	 * @param \PHPStan\Type\Type $firstType
+	 * @param \PHPStan\Type\Type $secondType
+	 * @param string $expectedTypeClass
+	 * @param string $expectedTypeDescription
+	 */
+	public function testCombineInversed(
+		Type $firstType,
+		Type $secondType,
+		string $expectedTypeClass,
+		string $expectedTypeDescription
+	)
+	{
+		$result = TypeCombinator::combine($secondType, $firstType);
 		$this->assertInstanceOf($expectedTypeClass, $result);
 		$this->assertSame($expectedTypeDescription, $result->describe());
 	}

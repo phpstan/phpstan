@@ -21,23 +21,13 @@ class VoidType implements Type
 		return [];
 	}
 
-	public function isNullable(): bool
-	{
-		return false;
-	}
-
 	public function combineWith(Type $otherType): Type
 	{
 		if ($otherType instanceof self) {
 			return $this;
 		}
 
-		return new MixedType();
-	}
-
-	public function makeNullable(): Type
-	{
-		return $this;
+		return TypeCombinator::combine($this, $otherType);
 	}
 
 	public function accepts(Type $type): bool

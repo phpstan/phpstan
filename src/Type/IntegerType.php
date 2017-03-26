@@ -10,23 +10,19 @@ class IntegerType implements Type
 	public function combineWith(Type $otherType): Type
 	{
 		if ($otherType instanceof self) {
-			return new self($this->isNullable() || $otherType->isNullable());
+			return new self();
 		}
 
 		if ($otherType instanceof FloatType) {
-			return new FloatType($this->isNullable() || $otherType->isNullable());
+			return new FloatType();
 		}
 
-		if ($otherType instanceof NullType) {
-			return $this->makeNullable();
-		}
-
-		return new MixedType();
+		return TypeCombinator::combine($this, $otherType);
 	}
 
 	public function describe(): string
 	{
-		return 'int' . ($this->nullable ? '|null' : '');
+		return 'int';
 	}
 
 	public function canAccessProperties(): bool

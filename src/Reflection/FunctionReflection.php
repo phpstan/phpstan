@@ -10,6 +10,7 @@ use PHPStan\Reflection\Php\PhpParameterReflection;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypehintHelper;
 
 class FunctionReflection implements ParametersAcceptor
@@ -85,7 +86,7 @@ class FunctionReflection implements ParametersAcceptor
 				// PHP bug #70960
 				$this->parameters[] = new DummyParameter(
 					'sort_flags',
-					new IntegerType(false),
+					new IntegerType(),
 					true
 				);
 			}
@@ -95,7 +96,7 @@ class FunctionReflection implements ParametersAcceptor
 			) {
 				$this->parameters[] = new DummyParameter(
 					'escape_char',
-					new StringType(false),
+					new StringType(),
 					true
 				);
 			}
@@ -105,7 +106,7 @@ class FunctionReflection implements ParametersAcceptor
 			) {
 				$this->parameters[2] = new DummyParameter(
 					'offset',
-					new IntegerType(false),
+					new IntegerType(),
 					true
 				);
 			}
@@ -115,12 +116,12 @@ class FunctionReflection implements ParametersAcceptor
 			) {
 				$this->parameters[] = new DummyParameter(
 					'quality',
-					new IntegerType(false),
+					new IntegerType(),
 					true
 				);
 				$this->parameters[] = new DummyParameter(
 					'filters',
-					new IntegerType(false),
+					new IntegerType(),
 					true
 				);
 			}
@@ -194,7 +195,7 @@ class FunctionReflection implements ParametersAcceptor
 			if (
 				$returnType !== null
 				&& $phpDocReturnType !== null
-				&& $returnType->allowsNull() !== $phpDocReturnType->isNullable()
+				&& $returnType->allowsNull() !== TypeCombinator::containsNull($phpDocReturnType)
 			) {
 				$phpDocReturnType = null;
 			}

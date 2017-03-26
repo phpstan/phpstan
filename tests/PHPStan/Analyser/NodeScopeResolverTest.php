@@ -32,8 +32,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			$this->createBroker(),
 			$this->getParser(),
 			$this->printer,
-			new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class), true),
-			new TypeSpecifier($this->printer),
+			new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class)),
 			new FileExcluder($this->createMock(FileHelper::class), []),
 			new \PhpParser\BuilderFactory(),
 			new FileHelper('/'),
@@ -118,7 +117,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$this->assertArrayHasKey('anotherNullableIntegerFromTryCatch', $variables);
 				$this->assertSame('int|null', $variables['anotherNullableIntegerFromTryCatch']->describe());
 
-				$this->assertSame('int|null[]', $variables['nullableIntegers']->describe());
+				$this->assertSame('mixed[]', $variables['nullableIntegers']->describe());
 				$this->assertSame('mixed[]', $variables['mixeds']->describe());
 
 				/** @var $mixeds \PHPStan\Type\ArrayType */
@@ -158,6 +157,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$this->assertArrayNotHasKey('nonexistentVariableOutsideForeach', $variables);
 				$this->assertArrayHasKey('integerOrNullFromForeach', $variables);
 				$this->assertSame('int|null', $variables['integerOrNullFromForeach']->describe());
+				$this->assertArrayHasKey('notNullableString', $variables);
+				$this->assertSame('string', $variables['notNullableString']->describe());
+				$this->assertArrayHasKey('nullableString', $variables);
+				$this->assertSame('string|null', $variables['nullableString']->describe());
+				$this->assertArrayHasKey('alsoNotNullableString', $variables);
+				$this->assertSame('string', $variables['alsoNotNullableString']->describe());
 			}
 		});
 	}
@@ -1632,7 +1637,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 							return $methodReflection->getReturnType();
 						}
 
-						return new ObjectType((string) $arg->class, false);
+						return new ObjectType((string) $arg->class);
 					}
 				},
 			],
@@ -1665,7 +1670,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 							return $methodReflection->getReturnType();
 						}
 
-						return new ObjectType((string) $arg->class, false);
+						return new ObjectType((string) $arg->class);
 					}
 				},
 			]
@@ -2201,6 +2206,41 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+	public function dataTernary(): array
+	{
+		return [
+			[
+				'bool|null',
+				'$boolOrNull',
+			],
+			[
+				'bool',
+				'$boolOrNull !== null ? $boolOrNull : false',
+			],
+			[
+				'bool',
+				'$bool',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataTernary
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testTernary(
+		string $description,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/ternary.php',
+			$description,
+			$expression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $description,
@@ -2227,6 +2267,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			new Scope(
 				$this->createBroker($dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions),
 				$this->printer,
+				new TypeSpecifier($this->printer),
 				$file
 			),
 			$callback

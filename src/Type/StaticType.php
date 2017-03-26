@@ -8,13 +8,9 @@ class StaticType implements StaticResolvableType
 	/** @var string */
 	private $baseClass;
 
-	/** @var bool */
-	private $nullable;
-
-	public function __construct(string $baseClass, bool $nullable)
+	public function __construct(string $baseClass)
 	{
 		$this->baseClass = $baseClass;
-		$this->nullable = $nullable;
 	}
 
 	/**
@@ -38,29 +34,19 @@ class StaticType implements StaticResolvableType
 		return $this->baseClass;
 	}
 
-	public function isNullable(): bool
-	{
-		return $this->nullable;
-	}
-
 	public function combineWith(Type $otherType): Type
 	{
-		return new self($this->baseClass, $this->isNullable() || $otherType->isNullable());
-	}
-
-	public function makeNullable(): Type
-	{
-		return new self($this->baseClass, true);
+		return new self($this->baseClass);
 	}
 
 	public function accepts(Type $type): bool
 	{
-		return (new ObjectType($this->baseClass, $this->isNullable()))->accepts($type);
+		return (new ObjectType($this->baseClass))->accepts($type);
 	}
 
 	public function describe(): string
 	{
-		return sprintf('static(%s)', $this->baseClass) . ($this->nullable ? '|null' : '');
+		return sprintf('static(%s)', $this->baseClass);
 	}
 
 	public function canAccessProperties(): bool
@@ -80,13 +66,13 @@ class StaticType implements StaticResolvableType
 
 	public function resolveStatic(string $className): Type
 	{
-		return new ObjectType($className, $this->isNullable());
+		return new ObjectType($className);
 	}
 
 	public function changeBaseClass(string $className): StaticResolvableType
 	{
 		$thisClass = get_class($this);
-		return new $thisClass($className, $this->isNullable());
+		return new $thisClass($className);
 	}
 
 }

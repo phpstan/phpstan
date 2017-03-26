@@ -193,6 +193,15 @@ class Foo extends FooParent implements FooInterface
 		yield 1;
 		return;
 	}
+
+	public function returnsNullInTernary(): int
+	{
+		/** @var int|null $intOrNull */
+		$intOrNull = doFoo();
+		return $intOrNull;
+		return $intOrNull !== null ? $intOrNull : 5;
+		return $intOrNull !== null ? $intOrNull : null;
+	}
 }
 
 class FooChild extends Foo

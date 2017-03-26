@@ -11,41 +11,41 @@ class Foo
 	public function doFoo()
 	{
 		$foo = new self();
-		if (is_null($this->fooProperty) && $this->fooProperty->fooProperty) {
+		if (is_null($foo) && $foo->fooProperty) {
 
 		}
-		if (is_null($this->fooProperty) || $this->fooProperty->fooProperty) {
+		if (is_null($foo) || $foo->fooProperty) {
 
 		}
-		if (!is_null($this->fooProperty) && $this->fooProperty->fooProperty) {
+		if (!is_null($foo) && $foo->fooProperty) {
 
 		}
-		if (!is_null($this->fooProperty) || $this->fooProperty->fooProperty) {
+		if (!is_null($foo) || $foo->fooProperty) {
 
 		}
-		if (is_null($this->fooProperty) || $this->fooProperty->barProperty) {
+		if (is_null($foo) || $foo->barProperty) {
 
 		}
-		if (!is_null($this->fooProperty) && $this->fooProperty->barProperty) {
+		if (!is_null($foo) && $foo->barProperty) {
 
 		}
 
-		while (is_null($this->fooProperty) && $this->fooProperty->fooProperty) {
+		while (is_null($foo) && $foo->fooProperty) {
 
 		}
-		while (is_null($this->fooProperty) || $this->fooProperty->fooProperty) {
+		while (is_null($foo) || $foo->fooProperty) {
 
 		}
-		while (!is_null($this->fooProperty) && $this->fooProperty->fooProperty) {
+		while (!is_null($foo) && $foo->fooProperty) {
 
 		}
-		while (!is_null($this->fooProperty) || $this->fooProperty->fooProperty) {
+		while (!is_null($foo) || $foo->fooProperty) {
 
 		}
-		while (is_null($this->fooProperty) || $this->fooProperty->barProperty) {
+		while (is_null($foo) || $foo->barProperty) {
 
 		}
-		while (!is_null($this->fooProperty) && $this->fooProperty->barProperty) {
+		while (!is_null($foo) && $foo->barProperty) {
 
 		}
 	}

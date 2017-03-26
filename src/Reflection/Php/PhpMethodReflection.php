@@ -14,6 +14,7 @@ use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypehintHelper;
 
 class PhpMethodReflection implements MethodReflection
@@ -127,12 +128,12 @@ class PhpMethodReflection implements MethodReflection
 				// PHP bug #71077
 				$this->parameters[] = new DummyParameter(
 					'flags',
-					new IntegerType(false),
+					new IntegerType(),
 					true
 				);
 				$this->parameters[] = new DummyParameter(
 					'iterator_class',
-					new StringType(false),
+					new StringType(),
 					true
 				);
 			}
@@ -159,12 +160,12 @@ class PhpMethodReflection implements MethodReflection
 			) {
 				$this->parameters[] = new DummyParameter(
 					'statement',
-					new StringType(false),
+					new StringType(),
 					false
 				);
 				$this->parameters[] = new DummyParameter(
 					'fetchColumn',
-					new IntegerType(false),
+					new IntegerType(),
 					true
 				);
 				$this->parameters[] = new DummyParameter(
@@ -185,7 +186,7 @@ class PhpMethodReflection implements MethodReflection
 			) {
 				$this->parameters[] = new DummyParameter(
 					'options',
-					new IntegerType(false),
+					new IntegerType(),
 					true
 				);
 			}
@@ -323,7 +324,7 @@ class PhpMethodReflection implements MethodReflection
 			if (
 				$returnType !== null
 				&& $phpDocReturnType !== null
-				&& $returnType->allowsNull() !== $phpDocReturnType->isNullable()
+				&& $returnType->allowsNull() !== TypeCombinator::containsNull($phpDocReturnType)
 			) {
 				$phpDocReturnType = null;
 			}

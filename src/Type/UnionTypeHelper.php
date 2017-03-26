@@ -7,20 +7,13 @@ class UnionTypeHelper
 
 	/**
 	 * @param \PHPStan\Type\Type[] $types
-	 * @param bool $isNullable
 	 * @return string
 	 */
-	public static function describe(array $types, bool $isNullable): string
+	public static function describe(array $types): string
 	{
-		$description = implode('|', array_map(function (Type $type): string {
+		return implode('|', array_map(function (Type $type): string {
 			return $type->describe();
 		}, $types));
-
-		if ($isNullable) {
-			$description .= '|null';
-		}
-
-		return $description;
 	}
 
 	/**
@@ -155,6 +148,24 @@ class UnionTypeHelper
 		}
 
 		return true;
+	}
+
+	/**
+	 * @param \PHPStan\Type\Type[] $types
+	 * @return \PHPStan\Type\Type[]
+	 */
+	public static function sortTypes(array $types): array
+	{
+		usort($types, function (Type $a, Type $b): int {
+			if ($a instanceof NullType) {
+				return 1;
+			} elseif ($b instanceof NullType) {
+				return -1;
+			}
+
+			return strcasecmp($a->describe(), $b->describe());
+		});
+		return $types;
 	}
 
 }

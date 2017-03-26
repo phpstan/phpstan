@@ -7,7 +7,7 @@ class ThisType extends StaticType
 
 	public function describe(): string
 	{
-		return sprintf('$this(%s)', $this->getBaseClass()) . ($this->isNullable() ? '|null' : '');
+		return sprintf('$this(%s)', $this->getBaseClass());
 	}
 
 }

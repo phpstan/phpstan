@@ -36,6 +36,11 @@ class Analyser
 	private $printer;
 
 	/**
+	 * @var \PHPStan\Analyser\TypeSpecifier
+	 */
+	private $typeSpecifier;
+
+	/**
 	 * @var \PHPStan\File\FileExcluder
 	 */
 	private $fileExcluder;
@@ -61,6 +66,7 @@ class Analyser
 	 * @param \PHPStan\Rules\Registry $registry
 	 * @param \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver
 	 * @param \PhpParser\PrettyPrinter\Standard $printer
+	 * @param \PHPStan\Analyser\TypeSpecifier $typeSpecifier
 	 * @param \PHPStan\File\FileExcluder $fileExcluder
 	 * @param string[] $ignoreErrors
 	 * @param string|null $bootstrapFile
@@ -72,6 +78,7 @@ class Analyser
 		Registry $registry,
 		NodeScopeResolver $nodeScopeResolver,
 		\PhpParser\PrettyPrinter\Standard $printer,
+		TypeSpecifier $typeSpecifier,
 		FileExcluder $fileExcluder,
 		array $ignoreErrors,
 		string $bootstrapFile = null,
@@ -83,6 +90,7 @@ class Analyser
 		$this->registry = $registry;
 		$this->nodeScopeResolver = $nodeScopeResolver;
 		$this->printer = $printer;
+		$this->typeSpecifier = $typeSpecifier;
 		$this->fileExcluder = $fileExcluder;
 		$this->ignoreErrors = $ignoreErrors;
 		$this->bootstrapFile = $bootstrapFile;
@@ -138,7 +146,7 @@ class Analyser
 				$fileErrors = [];
 				$this->nodeScopeResolver->processNodes(
 					$this->parser->parseFile($file),
-					new Scope($this->broker, $this->printer, $file),
+					new Scope($this->broker, $this->printer, $this->typeSpecifier, $file),
 					function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors) {
 						if ($node instanceof \PhpParser\Node\Stmt\Trait_) {
 							return;

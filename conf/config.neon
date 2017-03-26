@@ -137,8 +137,6 @@ services:
 
 	-
 		class: PHPStan\Type\FileTypeMapper
-		arguments:
-			enableUnionTypes: %enableUnionTypes%
 
 	broker:
 		class: PHPStan\Broker\Broker

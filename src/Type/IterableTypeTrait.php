@@ -8,9 +8,6 @@ trait IterableTypeTrait
 	/** @var \PHPStan\Type\Type */
 	private $itemType;
 
-	/** @var bool */
-	private $nullable;
-
 	public function getNestedItemType(): NestedArrayItemType
 	{
 		$depth = 0;
@@ -35,11 +32,6 @@ trait IterableTypeTrait
 	public function getClass()
 	{
 		return null;
-	}
-
-	public function isNullable(): bool
-	{
-		return $this->nullable;
 	}
 
 	public function canAccessProperties(): bool

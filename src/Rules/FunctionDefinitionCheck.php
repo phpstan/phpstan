@@ -62,7 +62,7 @@ class FunctionDefinitionCheck
 		if ($function instanceof Function_) {
 			$functionName = $function->name;
 			if (isset($function->namespacedName)) {
-				$functionName = $function->namespacedName;
+				$functionName = (string) $function->namespacedName;
 			}
 			$functionNameName = new Name($functionName);
 			if (!$this->broker->hasFunction($functionNameName)) {

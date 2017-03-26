@@ -15,13 +15,14 @@ class ArrayType implements IterableType
 
 	public function __construct(
 		Type $itemType,
-		bool $nullable,
 		bool $itemTypeInferredFromLiteralArray = false,
 		bool $possiblyCallable = false
 	)
 	{
+		if ($itemType instanceof UnionType) {
+			$itemType = new MixedType();
+		}
 		$this->itemType = $itemType;
-		$this->nullable = $nullable;
 		$this->itemTypeInferredFromLiteralArray = $itemTypeInferredFromLiteralArray;
 		$this->possiblyCallable = $possiblyCallable;
 	}
@@ -65,22 +66,12 @@ class ArrayType implements IterableType
 			}
 			return new self(
 				$this->getItemType()->combineWith($otherType->getItemType()),
-				$this->isNullable() || $otherType->isNullable(),
 				$isItemInferredFromLiteralArray,
 				$isPossiblyCallable
 			);
 		}
 
-		if ($otherType instanceof NullType) {
-			return $this->makeNullable();
-		}
-
-		return new MixedType();
-	}
-
-	public function makeNullable(): Type
-	{
-		return new self($this->getItemType(), true, $this->isItemTypeInferredFromLiteralArray(), $this->isPossiblyCallable());
+		return TypeCombinator::combine($this, $otherType);
 	}
 
 	public function accepts(Type $type): bool
@@ -93,10 +84,6 @@ class ArrayType implements IterableType
 			return true;
 		}
 
-		if ($this->isNullable() && $type instanceof NullType) {
-			return true;
-		}
-
 		if ($type instanceof UnionType && UnionTypeHelper::acceptsAll($this, $type)) {
 			return true;
 		}
@@ -106,7 +93,7 @@ class ArrayType implements IterableType
 
 	public function describe(): string
 	{
-		return sprintf('%s[]', $this->getItemType()->describe()) . ($this->nullable ? '|null' : '');
+		return sprintf('%s[]', $this->getItemType()->describe());
 	}
 
 	public function isDocumentableNatively(): bool
@@ -119,7 +106,6 @@ class ArrayType implements IterableType
 		if ($this->getItemType() instanceof StaticResolvableType) {
 			return new self(
 				$this->getItemType()->resolveStatic($className),
-				$this->isNullable(),
 				$this->isItemTypeInferredFromLiteralArray(),
 				$this->isPossiblyCallable()
 			);
@@ -133,7 +119,6 @@ class ArrayType implements IterableType
 		if ($this->getItemType() instanceof StaticResolvableType) {
 			return new self(
 				$this->getItemType()->changeBaseClass($className),
-				$this->isNullable(),
 				$this->isItemTypeInferredFromLiteralArray(),
 				$this->isPossiblyCallable()
 			);

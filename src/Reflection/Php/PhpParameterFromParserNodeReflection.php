@@ -74,7 +74,7 @@ class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\Parame
 					&& $this->defaultValue->name instanceof Name
 					&& strtolower((string) $this->defaultValue->name) === 'null'
 				) {
-					$phpDocType = $phpDocType->makeNullable();
+					$phpDocType = \PHPStan\Type\TypeCombinator::addNull($phpDocType);
 				}
 			}
 			$this->type = TypehintHelper::decideType($this->realType, $phpDocType);

@@ -26,4 +26,5 @@ $configurator->addParameters([
 $container = $configurator->createContainer();
 
 PHPStan\TestCase::setContainer($container);
+PHPStan\Type\TypeCombinator::setUnionTypesEnabled(true);
 require_once __DIR__ . '/phpstan-bootstrap.php';

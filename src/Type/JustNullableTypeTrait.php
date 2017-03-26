@@ -5,14 +5,6 @@ namespace PHPStan\Type;
 trait JustNullableTypeTrait
 {
 
-	/** @var bool */
-	private $nullable;
-
-	public function __construct(bool $nullable)
-	{
-		$this->nullable = $nullable;
-	}
-
 	/**
 	 * @return string|null
 	 */
@@ -29,38 +21,20 @@ trait JustNullableTypeTrait
 		return [];
 	}
 
-	public function isNullable(): bool
-	{
-		return $this->nullable;
-	}
-
 	public function combineWith(Type $otherType): Type
 	{
 		if ($otherType instanceof $this) {
-			$thisClass = get_class($this);
-			return new $thisClass($this->isNullable() || $otherType->isNullable());
+			return new self();
 		}
 
-		if ($otherType instanceof NullType) {
-			return $this->makeNullable();
-		}
-
-		return new MixedType();
-	}
-
-	public function makeNullable(): Type
-	{
-		$thisClass = get_class($this);
-		return new $thisClass(true);
+		/** @var \PHPStan\Type\Type $thisType */
+		$thisType = $this;
+		return TypeCombinator::combine($thisType, $otherType);
 	}
 
 	public function accepts(Type $type): bool
 	{
 		if ($type instanceof $this) {
-			return true;
-		}
-
-		if ($this->isNullable() && $type instanceof NullType) {
 			return true;
 		}
 

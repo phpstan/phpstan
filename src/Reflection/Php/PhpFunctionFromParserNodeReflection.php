@@ -5,6 +5,7 @@ namespace PHPStan\Reflection\Php;
 use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypehintHelper;
 
 class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\ParametersAcceptor
@@ -122,7 +123,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Paramet
 			if (
 				$this->realReturnTypePresent
 				&& $phpDocReturnType !== null
-				&& $this->realReturnType->isNullable() !== $phpDocReturnType->isNullable()
+				&& TypeCombinator::containsNull($this->realReturnType) !== TypeCombinator::containsNull($phpDocReturnType)
 			) {
 				$phpDocReturnType = null;
 			}

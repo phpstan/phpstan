@@ -72,7 +72,7 @@ class ReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				103,
 			],
 			[
-				'Method ReturnTypes\Foo::returnUnionIterableType() should return ReturnTypes\Foo[]|ReturnTypes\Collection but returns ReturnTypes\Foo[]|ReturnTypes\Collection|ReturnTypes\AnotherCollection.',
+				'Method ReturnTypes\Foo::returnUnionIterableType() should return ReturnTypes\Foo[]|ReturnTypes\Collection but returns ReturnTypes\Foo[]|ReturnTypes\AnotherCollection|ReturnTypes\Collection.',
 				107,
 			],
 			[
@@ -124,8 +124,16 @@ class ReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				173,
 			],
 			[
-				'Method ReturnTypes\Foo::returnScalar() should return int|float|string|bool but returns stdClass.',
+				'Method ReturnTypes\Foo::returnScalar() should return bool|float|int|string but returns stdClass.',
 				185,
+			],
+			[
+				'Method ReturnTypes\Foo::returnsNullInTernary() should return int but returns int|null.',
+				201,
+			],
+			[
+				'Method ReturnTypes\Foo::returnsNullInTernary() should return int but returns int|null.',
+				203,
 			],
 		]);
 	}

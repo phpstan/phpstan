@@ -11,7 +11,6 @@ class TypehintHelper
 
 	public static function getTypeObjectFromTypehint(
 		string $typehintString,
-		bool $isNullable,
 		string $selfClass = null,
 		NameScope $nameScope = null
 	): Type
@@ -19,62 +18,61 @@ class TypehintHelper
 		if (strrpos($typehintString, '[]') === strlen($typehintString) - 2) {
 			$arr = new ArrayType(self::getTypeObjectFromTypehint(
 				substr($typehintString, 0, -2),
-				false,
 				$selfClass,
 				$nameScope
-			), $isNullable);
+			));
 			return $arr;
 		}
 
 		if ($selfClass !== null) {
 			if ($typehintString === 'static') {
-				return new StaticType($selfClass, $isNullable);
+				return new StaticType($selfClass);
 			} elseif ($typehintString === 'self') {
-				return new ObjectType($selfClass, $isNullable);
+				return new ObjectType($selfClass);
 			} elseif ($typehintString === '$this') {
-				return new ThisType($selfClass, $isNullable);
+				return new ThisType($selfClass);
 			} elseif ($typehintString === 'parent') {
 				if (self::exists($selfClass)) {
 					$classReflection = new \ReflectionClass($selfClass);
 					if ($classReflection->getParentClass() !== false) {
-						return new ObjectType($classReflection->getParentClass()->getName(), false);
+						return new ObjectType($classReflection->getParentClass()->getName());
 					}
 				}
 
-				return new NonexistentParentClassType(false);
+				return new NonexistentParentClassType();
 			}
 		} elseif ($typehintString === 'parent') {
-			return new NonexistentParentClassType(false);
+			return new NonexistentParentClassType();
 		}
 
 		$lowercasedTypehintString = strtolower($typehintString);
 		switch ($lowercasedTypehintString) {
 			case 'int':
 			case 'integer':
-				return new IntegerType($isNullable);
+				return new IntegerType();
 			case 'bool':
 			case 'boolean':
-				return new TrueOrFalseBooleanType($isNullable);
+				return new TrueOrFalseBooleanType();
 			case 'true':
-				return new TrueBooleanType($isNullable);
+				return new TrueBooleanType();
 			case 'false':
-				return new FalseBooleanType($isNullable);
+				return new FalseBooleanType();
 			case 'string':
-				return new StringType($isNullable);
+				return new StringType();
 			case 'float':
-				return new FloatType($isNullable);
+				return new FloatType();
 			case 'scalar':
-				return new CommonUnionType([new IntegerType(false), new FloatType(false), new StringType(false), new TrueOrFalseBooleanType(false)], $isNullable);
+				return new CommonUnionType([new IntegerType(), new FloatType(), new StringType(), new TrueOrFalseBooleanType()]);
 			case 'array':
-				return new ArrayType(new MixedType(), $isNullable);
+				return new ArrayType(new MixedType());
 			case 'iterable':
-				return new IterableIterableType(new MixedType(), $isNullable);
+				return new IterableIterableType(new MixedType());
 			case 'callable':
-				return new CallableType($isNullable);
+				return new CallableType();
 			case 'null':
 				return new NullType();
 			case 'resource':
-				return new ResourceType($isNullable);
+				return new ResourceType();
 			case 'object':
 			case 'mixed':
 				return new MixedType();
@@ -85,7 +83,7 @@ class TypehintHelper
 				if ($nameScope !== null) {
 					$className = $nameScope->resolveStringName($className);
 				}
-				return new ObjectType($className, $isNullable);
+				return new ObjectType($className);
 		}
 	}
 
@@ -107,9 +105,11 @@ class TypehintHelper
 
 		$type = self::getTypeObjectFromTypehint(
 			$reflectionTypeString,
-			$reflectionType->allowsNull(),
 			$selfClass
 		);
+		if ($reflectionType->allowsNull()) {
+			$type = TypeCombinator::addNull($type);
+		}
 
 		return self::decideType($type, $phpDocType);
 	}
@@ -122,15 +122,9 @@ class TypehintHelper
 		if ($phpDocType !== null) {
 			if ($type instanceof IterableType && $phpDocType instanceof ArrayType) {
 				if ($type instanceof IterableIterableType) {
-					$phpDocType = new IterableIterableType(
-						$phpDocType->getItemType(),
-						$type->isNullable() || $phpDocType->isNullable()
-					);
+					$phpDocType = new IterableIterableType($phpDocType->getItemType());
 				} elseif ($type instanceof ArrayType) {
-					$type = new ArrayType(
-						$phpDocType->getItemType(),
-						$type->isNullable() || $phpDocType->isNullable()
-					);
+					$type = new ArrayType($phpDocType->getItemType());
 				}
 			} elseif ($phpDocType instanceof UnionType) {
 				if ($phpDocType->accepts($type)) {

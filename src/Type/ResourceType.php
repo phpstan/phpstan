@@ -9,7 +9,7 @@ class ResourceType implements Type
 
 	public function describe(): string
 	{
-		return 'resource' . ($this->nullable ? '|null' : '');
+		return 'resource';
 	}
 
 	public function canAccessProperties(): bool

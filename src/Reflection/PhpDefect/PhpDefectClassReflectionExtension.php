@@ -152,7 +152,7 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 		$typeString = $this->properties[$classWithProperties->getName()][$propertyName];
 		return new PhpDefectPropertyReflection(
 			$classWithProperties,
-			TypehintHelper::getTypeObjectFromTypehint($typeString, false)
+			TypehintHelper::getTypeObjectFromTypehint($typeString)
 		);
 	}
 

@@ -12,13 +12,30 @@ class UnionIterableType implements IterableType, UnionType
 
 	public function __construct(
 		Type $itemType,
-		bool $nullable,
 		array $types
 	)
 	{
 		$this->itemType = $itemType;
-		$this->nullable = $nullable;
-		$this->types = $types;
+
+		$throwException = function () use ($itemType, $types) {
+			throw new \PHPStan\ShouldNotHappenException(sprintf(
+				'Cannot create %s with: %s, %s',
+				self::class,
+				$itemType->describe(),
+				implode(', ', array_map(function (Type $type): string {
+					return $type->describe();
+				}, $types))
+			));
+		};
+		if (count($types) < 1) {
+			$throwException();
+		}
+		foreach ($types as $type) {
+			if ($type instanceof IterableType || $type instanceof UnionType) {
+				$throwException();
+			}
+		}
+		$this->types = UnionTypeHelper::sortTypes($types);
 	}
 
 	/**
@@ -50,45 +67,12 @@ class UnionIterableType implements IterableType, UnionType
 
 	public function combineWith(Type $otherType): Type
 	{
-		if ($otherType instanceof IterableType) {
-			$types = $this->getTypes();
-			if ($otherType instanceof UnionType) {
-				$otherTypesTemp = [];
-				foreach ($this->getTypes() as $otherOtherType) {
-					$otherTypesTemp[$otherOtherType->describe()] = $otherOtherType;
-				}
-				foreach ($otherType->getTypes() as $otherOtherType) {
-					$otherTypesTemp[$otherOtherType->describe()] = $otherOtherType;
-				}
-
-				$types = array_values($otherTypesTemp);
-			}
-			return new self(
-				$this->getItemType()->combineWith($otherType->getItemType()),
-				$this->isNullable() || $otherType->isNullable(),
-				$types
-			);
-		}
-
-		if ($otherType instanceof NullType) {
-			return $this->makeNullable();
-		}
-
-		return new MixedType();
-	}
-
-	public function makeNullable(): Type
-	{
-		return new self($this->getItemType(), true, $this->types);
+		return TypeCombinator::combine($this, $otherType);
 	}
 
 	public function accepts(Type $type): bool
 	{
 		if ($type instanceof MixedType) {
-			return true;
-		}
-
-		if ($this->isNullable() && $type instanceof NullType) {
 			return true;
 		}
 
@@ -99,6 +83,10 @@ class UnionIterableType implements IterableType, UnionType
 
 		if ($type instanceof IterableType) {
 			return $this->getItemType()->accepts($type->getItemType());
+		}
+
+		if (TypeCombinator::shouldSkipUnionTypeAccepts($this)) {
+			return true;
 		}
 
 		foreach ($this->getTypes() as $otherType) {
@@ -112,7 +100,7 @@ class UnionIterableType implements IterableType, UnionType
 
 	public function describe(): string
 	{
-		return sprintf('%s[]|%s', $this->getItemType()->describe(), UnionTypeHelper::describe($this->getTypes(), $this->isNullable()));
+		return sprintf('%s[]|%s', $this->getItemType()->describe(), UnionTypeHelper::describe($this->getTypes()));
 	}
 
 	public function canAccessProperties(): bool
@@ -139,7 +127,6 @@ class UnionIterableType implements IterableType, UnionType
 
 		return new self(
 			$itemType,
-			$this->isNullable(),
 			UnionTypeHelper::resolveStatic($className, $this->getTypes())
 		);
 	}
@@ -153,7 +140,6 @@ class UnionIterableType implements IterableType, UnionType
 
 		return new self(
 			$itemType,
-			$this->isNullable(),
 			UnionTypeHelper::changeBaseClass($className, $this->getTypes())
 		);
 	}

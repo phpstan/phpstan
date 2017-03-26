@@ -8,12 +8,10 @@ class IterableIterableType implements IterableType
 	use ClassTypeHelperTrait, IterableTypeTrait;
 
 	public function __construct(
-		Type $itemType,
-		bool $nullable
+		Type $itemType
 	)
 	{
 		$this->itemType = $itemType;
-		$this->nullable = $nullable;
 	}
 
 	/**
@@ -28,21 +26,11 @@ class IterableIterableType implements IterableType
 	{
 		if ($otherType instanceof IterableType) {
 			return new self(
-				$this->getItemType()->combineWith($otherType->getItemType()),
-				$this->isNullable() || $otherType->isNullable()
+				$this->getItemType()->combineWith($otherType->getItemType())
 			);
 		}
 
-		if ($otherType instanceof NullType) {
-			return $this->makeNullable();
-		}
-
-		return new MixedType();
-	}
-
-	public function makeNullable(): Type
-	{
-		return new self($this->getItemType(), true);
+		return TypeCombinator::combine($this, $otherType);
 	}
 
 	public function accepts(Type $type): bool
@@ -60,10 +48,6 @@ class IterableIterableType implements IterableType
 			return true;
 		}
 
-		if ($this->isNullable() && $type instanceof NullType) {
-			return true;
-		}
-
 		if ($type instanceof UnionType && UnionTypeHelper::acceptsAll($this, $type)) {
 			return true;
 		}
@@ -73,7 +57,7 @@ class IterableIterableType implements IterableType
 
 	public function describe(): string
 	{
-		return sprintf('iterable(%s[])', $this->getItemType()->describe()) . ($this->nullable ? '|null' : '');
+		return sprintf('iterable(%s[])', $this->getItemType()->describe());
 	}
 
 	public function isDocumentableNatively(): bool
@@ -85,8 +69,7 @@ class IterableIterableType implements IterableType
 	{
 		if ($this->getItemType() instanceof StaticResolvableType) {
 			return new self(
-				$this->getItemType()->resolveStatic($className),
-				$this->isNullable()
+				$this->getItemType()->resolveStatic($className)
 			);
 		}
 
@@ -97,8 +80,7 @@ class IterableIterableType implements IterableType
 	{
 		if ($this->getItemType() instanceof StaticResolvableType) {
 			return new self(
-				$this->getItemType()->changeBaseClass($className),
-				$this->isNullable()
+				$this->getItemType()->changeBaseClass($className)
 			);
 		}
 

@@ -5,6 +5,7 @@ namespace PHPStan\Analyser;
 use PhpParser\Node;
 use PhpParser\Node\Expr\BinaryOp\BooleanAnd;
 use PhpParser\Node\Expr\BinaryOp\BooleanOr;
+use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\Instanceof_;
 use PhpParser\Node\Name;
@@ -49,11 +50,11 @@ class TypeSpecifier
 		if ($expr instanceof Instanceof_ && $expr->class instanceof Name) {
 			$class = (string) $expr->class;
 			if ($class === 'self' && $scope->isInClass()) {
-				$type = new ObjectType($scope->getClassReflection()->getName(), false);
+				$type = new ObjectType($scope->getClassReflection()->getName());
 			} elseif ($class === 'static' && $scope->isInClass()) {
-				$type = new StaticType($scope->getClassReflection()->getName(), false);
+				$type = new StaticType($scope->getClassReflection()->getName());
 			} else {
-				$type = new ObjectType($class, false);
+				$type = new ObjectType($class);
 			}
 
 			$printedExpr = $this->printer->prettyPrintExpr($expr->expr);
@@ -67,6 +68,36 @@ class TypeSpecifier
 
 			return $types->addSureType($expr->expr, $printedExpr, $type);
 		} elseif (
+			$expr instanceof Node\Expr\BinaryOp\NotIdentical
+			&& $expr->right instanceof ConstFetch
+			&& $expr->right->name instanceof Name
+			&& strtolower((string) $expr->right->name) === 'null'
+		) {
+			$printedExpr = $this->printer->prettyPrintExpr($expr->left);
+			if ($negated) {
+				if ($source === self::SOURCE_FROM_AND) {
+					return $types;
+				}
+				return $types->addSureType($expr->left, $printedExpr, new NullType());
+			}
+
+			return $types->addSureNotType($expr->left, $printedExpr, new NullType());
+		} elseif (
+			$expr instanceof Node\Expr\BinaryOp\Identical
+			&& $expr->right instanceof ConstFetch
+			&& $expr->right->name instanceof Name
+			&& strtolower((string) $expr->right->name) === 'null'
+		) {
+			$printedExpr = $this->printer->prettyPrintExpr($expr->left);
+			if ($negated) {
+				if ($source === self::SOURCE_FROM_AND) {
+					return $types;
+				}
+				return $types->addSureNotType($expr->left, $printedExpr, new NullType());
+			}
+
+			return $types->addSureType($expr->left, $printedExpr, new NullType());
+		} elseif (
 			$expr instanceof FuncCall
 			&& $expr->name instanceof Name
 			&& isset($expr->args[0])
@@ -79,27 +110,27 @@ class TypeSpecifier
 				'is_integer',
 				'is_long',
 			], true)) {
-				$specifiedType = new IntegerType(false);
+				$specifiedType = new IntegerType();
 			} elseif (in_array($functionName, [
 				'is_float',
 				'is_double',
 				'is_real',
 			], true)) {
-				$specifiedType = new FloatType(false);
+				$specifiedType = new FloatType();
 			} elseif ($functionName === 'is_null') {
 				$specifiedType = new NullType();
 			} elseif ($functionName === 'is_array') {
-				$specifiedType = new ArrayType(new MixedType(), false);
+				$specifiedType = new ArrayType(new MixedType());
 			} elseif ($functionName === 'is_bool') {
-				$specifiedType = new TrueOrFalseBooleanType(false);
+				$specifiedType = new TrueOrFalseBooleanType();
 			} elseif ($functionName === 'is_callable') {
-				$specifiedType = new CallableType(false);
+				$specifiedType = new CallableType();
 			} elseif ($functionName === 'is_resource') {
-				$specifiedType = new ResourceType(false);
+				$specifiedType = new ResourceType();
 			} elseif ($functionName === 'is_iterable') {
-				$specifiedType = new IterableIterableType(new MixedType(), false);
+				$specifiedType = new IterableIterableType(new MixedType());
 			} elseif ($functionName === 'is_string') {
-				$specifiedType = new StringType(false);
+				$specifiedType = new StringType();
 			}
 
 			if ($specifiedType !== null) {

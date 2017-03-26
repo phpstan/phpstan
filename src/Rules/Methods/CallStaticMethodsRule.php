@@ -80,6 +80,10 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 				];
 			}
 
+			if ($scope->getFunctionName() === null) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+
 			$currentMethodReflection = $scope->getClassReflection()->getMethod(
 				$scope->getFunctionName(),
 				$scope

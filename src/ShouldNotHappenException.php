@@ -5,9 +5,9 @@ namespace PHPStan;
 final class ShouldNotHappenException extends \Exception
 {
 
-	public function __construct()
+	public function __construct(string $message = 'Internal error.')
 	{
-		parent::__construct('Internal error.');
+		parent::__construct($message);
 	}
 
 }

@@ -23,7 +23,7 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCas
 					],
 					'fooOrBar' => [
 						'class' => \AnnotationsProperties\Foo::class,
-						'type' => 'AnnotationsProperties\Foo|AnnotationsProperties\Bar',
+						'type' => 'AnnotationsProperties\Bar|AnnotationsProperties\Foo',
 					],
 					'conflictingProperty' => [
 						'class' => \AnnotationsProperties\Foo::class,
@@ -44,7 +44,7 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCas
 					],
 					'fooOrBar' => [
 						'class' => \AnnotationsProperties\Foo::class,
-						'type' => 'AnnotationsProperties\Foo|AnnotationsProperties\Bar',
+						'type' => 'AnnotationsProperties\Bar|AnnotationsProperties\Foo',
 					],
 					'conflictingProperty' => [
 						'class' => \AnnotationsProperties\Foo::class,
@@ -65,7 +65,7 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCas
 					],
 					'fooOrBar' => [
 						'class' => \AnnotationsProperties\Foo::class,
-						'type' => 'AnnotationsProperties\Foo|AnnotationsProperties\Bar',
+						'type' => 'AnnotationsProperties\Bar|AnnotationsProperties\Foo',
 					],
 					'conflictingProperty' => [
 						'class' => \AnnotationsProperties\Baz::class,
@@ -90,7 +90,7 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCas
 					],
 					'fooOrBar' => [
 						'class' => \AnnotationsProperties\Foo::class,
-						'type' => 'AnnotationsProperties\Foo|AnnotationsProperties\Bar',
+						'type' => 'AnnotationsProperties\Bar|AnnotationsProperties\Foo',
 					],
 					'conflictingProperty' => [
 						'class' => \AnnotationsProperties\Baz::class,

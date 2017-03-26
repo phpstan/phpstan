@@ -9,7 +9,7 @@ class StringType implements Type
 
 	public function describe(): string
 	{
-		return 'string' . ($this->nullable ? '|null' : '');
+		return 'string';
 	}
 
 	public function canAccessProperties(): bool

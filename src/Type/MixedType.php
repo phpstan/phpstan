@@ -21,17 +21,7 @@ class MixedType implements Type
 		return [];
 	}
 
-	public function isNullable(): bool
-	{
-		return true;
-	}
-
 	public function combineWith(Type $otherType): Type
-	{
-		return $this;
-	}
-
-	public function makeNullable(): Type
 	{
 		return $this;
 	}
