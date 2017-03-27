@@ -163,6 +163,8 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$this->assertSame('string|null', $variables['nullableString']->describe());
 				$this->assertArrayHasKey('alsoNotNullableString', $variables);
 				$this->assertSame('string', $variables['alsoNotNullableString']->describe());
+				$this->assertArrayHasKey('arrayOfIntegers', $variables);
+				$this->assertSame('int[]', $variables['arrayOfIntegers']->describe());
 			}
 		});
 	}

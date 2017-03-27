@@ -209,6 +209,8 @@ if ($nullableString !== null) {
 	return;
 }
 
+$arrayOfIntegers = [1, 2, 3];
+
 try {
 	$inTryTwo = 1;
 } catch (\Exception $e) {
@@ -218,7 +220,9 @@ try {
 	} elseif (foo() || $foo = exists() || preg_match('#.*#', $subject, $matches2) || isset($issetBar)) {
 		for ($i = 0; $i < 5; $i++, $f = $i) {
 			foreach ($arr as list($listOne, $listTwo)) {
-				(bool) preg_match('~.*~', $attributes, $ternaryMatches) ? die : null;
+				if (is_array($arrayOfIntegers)) {
+					(bool)preg_match('~.*~', $attributes, $ternaryMatches) ? die : null;
+				}
 			}
 		}
 	}

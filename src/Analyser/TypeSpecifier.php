@@ -119,7 +119,7 @@ class TypeSpecifier
 				$specifiedType = new FloatType();
 			} elseif ($functionName === 'is_null') {
 				$specifiedType = new NullType();
-			} elseif ($functionName === 'is_array') {
+			} elseif ($functionName === 'is_array' && !($scope->getType($argumentExpression) instanceof ArrayType)) {
 				$specifiedType = new ArrayType(new MixedType());
 			} elseif ($functionName === 'is_bool') {
 				$specifiedType = new TrueOrFalseBooleanType();
