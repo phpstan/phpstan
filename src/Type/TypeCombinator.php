@@ -33,9 +33,11 @@ class TypeCombinator
 
 	public static function removeNull(Type $type): Type
 	{
+		if ($type instanceof NullType) {
+			return new MixedType();
+		}
 		if (
 			$type instanceof MixedType
-			|| $type instanceof NullType
 			|| !$type instanceof UnionType
 		) {
 			return $type;

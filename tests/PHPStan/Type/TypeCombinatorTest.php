@@ -107,8 +107,8 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 			],
 			[
 				new NullType(),
-				NullType::class,
-				'null',
+				MixedType::class,
+				'mixed',
 			],
 			[
 				new VoidType(),
