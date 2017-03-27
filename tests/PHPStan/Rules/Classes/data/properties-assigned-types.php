@@ -48,6 +48,10 @@ class Foo extends Ipsum
 		$this->parentStringProperty = 1;
 		self::$parentStaticStringProperty = 'foo';
 		self::$parentStaticStringProperty = 1;
+
+		if ($this->intProperty === null) {
+			$this->intProperty = 1;
+		}
 	}
 
 }
@@ -60,5 +64,17 @@ class Ipsum
 
 	/** @var string */
 	protected static $parentStaticStringProperty;
+
+	/** @var int|null */
+	private $nullableIntProperty;
+
+	public function doIpsum()
+	{
+		if ($this->nullableIntProperty === null) {
+			return;
+		}
+
+		$this->nullableIntProperty = null;
+	}
 
 }

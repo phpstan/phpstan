@@ -1284,18 +1284,6 @@ class Scope
 
 	public function specifyExpressionType(Expr $expr, Type $type): self
 	{
-		if (
-			$type instanceof NullType
-			&& (
-				$expr instanceof PropertyFetch
-				|| $expr instanceof Expr\StaticPropertyFetch
-			)
-		) {
-			$originalExprType = $this->getType($expr);
-			if (!$originalExprType instanceof MixedType) {
-				$type = TypeCombinator::combine($originalExprType, $type);
-			}
-		}
 		if ($expr instanceof Variable && is_string($expr->name)) {
 			$variableName = $expr->name;
 

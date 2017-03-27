@@ -39,8 +39,12 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 
 		/** @var \PhpParser\Node\Expr\PropertyFetch|\PhpParser\Node\Expr\StaticPropertyFetch $propertyFetch */
 		$propertyFetch = $node->var;
+		$propertyReflection = $this->findPropertyReflectionFromNode($propertyFetch, $scope);
+		if ($propertyReflection === null) {
+			return [];
+		}
 
-		$propertyType = $scope->getType($propertyFetch);
+		$propertyType = $propertyReflection->getType();
 		$assignedValueType = $scope->getType($node->expr);
 
 		if (!$propertyType->accepts($assignedValueType)) {
@@ -69,6 +73,23 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 	 */
 	private function describeProperty($propertyFetch, Scope $scope)
 	{
+		$property = $this->findPropertyReflectionFromNode($propertyFetch, $scope);
+		if ($propertyFetch instanceof Node\Expr\PropertyFetch) {
+			return sprintf('Property %s::$%s', $property->getDeclaringClass()->getName(), $propertyFetch->name);
+		} elseif ($propertyFetch instanceof Node\Expr\StaticPropertyFetch) {
+			return sprintf('Static property %s::$%s', $property->getDeclaringClass()->getName(), $propertyFetch->name);
+		}
+
+		return null;
+	}
+
+	/**
+	 * @param \PhpParser\Node\Expr\PropertyFetch|\PhpParser\Node\Expr\StaticPropertyFetch $propertyFetch
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @return \PHPStan\Reflection\PropertyReflection|null
+	 */
+	private function findPropertyReflectionFromNode($propertyFetch, Scope $scope)
+	{
 		if ($propertyFetch instanceof Node\Expr\PropertyFetch) {
 			if (!is_string($propertyFetch->name)) {
 				return null;
@@ -78,12 +99,7 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 				return null;
 			}
 
-			$property = $this->findPropertyReflection($propertyHolderType->getClass(), $propertyFetch->name, $scope);
-			if ($property === null) {
-				return null;
-			}
-
-			return sprintf('Property %s::$%s', $property->getDeclaringClass()->getName(), $propertyFetch->name);
+			return $this->findPropertyReflection($propertyHolderType->getClass(), $propertyFetch->name, $scope);
 		} elseif ($propertyFetch instanceof Node\Expr\StaticPropertyFetch) {
 			if (
 				!($propertyFetch->class instanceof Node\Name)
@@ -92,12 +108,7 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 				return null;
 			}
 
-			$property = $this->findPropertyReflection($scope->resolveName($propertyFetch->class), $propertyFetch->name, $scope);
-			if ($property === null) {
-				return null;
-			}
-
-			return sprintf('Static property %s::$%s', $property->getDeclaringClass()->getName(), $propertyFetch->name);
+			return $this->findPropertyReflection($scope->resolveName($propertyFetch->class), $propertyFetch->name, $scope);
 		}
 
 		return null;
