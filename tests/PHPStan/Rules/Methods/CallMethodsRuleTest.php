@@ -12,13 +12,17 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	/** @var bool */
 	private $checkThisOnly;
 
+	/** @var bool */
+	private $checkNullables;
+
 	protected function getRule(): Rule
 	{
 		$broker = $this->createBroker();
+		$ruleLevelHelper = new RuleLevelHelper($this->checkNullables);
 		return new CallMethodsRule(
 			$broker,
-			new FunctionCallParametersCheck($broker, true),
-			new RuleLevelHelper(),
+			new FunctionCallParametersCheck($broker, $ruleLevelHelper, true),
+			$ruleLevelHelper,
 			$this->checkThisOnly
 		);
 	}
@@ -26,6 +30,7 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	public function testCallMethods()
 	{
 		$this->checkThisOnly = false;
+		$this->checkNullables = true;
 		$this->analyse([ __DIR__ . '/data/call-methods.php'], [
 			[
 				'Call to an undefined method Test\Foo::protectedMethodFromChild().',
@@ -129,6 +134,7 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	public function testCallMethodsOnThisOnly()
 	{
 		$this->checkThisOnly = true;
+		$this->checkNullables = true;
 		$this->analyse([ __DIR__ . '/data/call-methods.php'], [
 			[
 				'Call to an undefined method Test\Foo::protectedMethodFromChild().',
@@ -216,6 +222,7 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	public function testCallTraitMethods()
 	{
 		$this->checkThisOnly = false;
+		$this->checkNullables = true;
 		$this->analyse([__DIR__ . '/data/call-trait-methods.php'], [
 			[
 				'Call to an undefined method Baz::unexistentMethod().',
@@ -227,6 +234,7 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	public function testCallInterfaceMethods()
 	{
 		$this->checkThisOnly = false;
+		$this->checkNullables = true;
 		$this->analyse([__DIR__ . '/data/call-interface-methods.php'], [
 			[
 				'Call to an undefined method Baz::barMethod().',
@@ -238,6 +246,7 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	public function testClosureBind()
 	{
 		$this->checkThisOnly = false;
+		$this->checkNullables = true;
 		$this->analyse([__DIR__ . '/data/closure-bind.php'], [
 			[
 				'Call to an undefined method CallClosureBind\Foo::nonexistentMethod().',
@@ -273,6 +282,7 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	public function testCallVariadicMethods()
 	{
 		$this->checkThisOnly = false;
+		$this->checkNullables = true;
 		$this->analyse([__DIR__ . '/data/call-variadic-methods.php'], [
 			[
 				'Method CallVariadicMethods\Foo::baz() invoked with 0 parameters, at least 1 required.',
@@ -308,6 +318,7 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	public function testCallToIncorrectCaseMethodName()
 	{
 		$this->checkThisOnly = false;
+		$this->checkNullables = true;
 		$this->analyse([__DIR__ . '/data/incorrect-method-case.php'], [
 			[
 				'Call to method IncorrectMethodCase\Foo::fooBar() with incorrect case: foobar',
@@ -325,6 +336,7 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			$this->markTestSkipped('Test requires PHP-Parser ^3.0.0');
 		}
 		$this->checkThisOnly = false;
+		$this->checkNullables = true;
 		$this->analyse([__DIR__ . '/data/nullable-parameters.php'], [
 			[
 				'Method NullableParameters\Foo::doFoo() invoked with 0 parameters, 2 required.',
@@ -344,24 +356,28 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	public function testProtectedMethodCallFromParent()
 	{
 		$this->checkThisOnly = false;
+		$this->checkNullables = true;
 		$this->analyse([__DIR__ . '/data/protected-method-call-from-parent.php'], []);
 	}
 
 	public function testSiblingMethodPrototype()
 	{
 		$this->checkThisOnly = false;
+		$this->checkNullables = true;
 		$this->analyse([__DIR__ . '/data/sibling-method-prototype.php'], []);
 	}
 
 	public function testOverridenMethodPrototype()
 	{
 		$this->checkThisOnly = false;
+		$this->checkNullables = true;
 		$this->analyse([__DIR__ . '/data/overriden-method-prototype.php'], []);
 	}
 
 	public function testCallMethodWithInheritDoc()
 	{
 		$this->checkThisOnly = false;
+		$this->checkNullables = true;
 		$this->analyse([__DIR__ . '/data/calling-method-with-inheritdoc.php'], [
 			[
 				'Parameter #1 $i of method MethodWithInheritDoc\Baz::doFoo() expects int, string given.',
@@ -377,16 +393,46 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	public function testNegatedInstanceof()
 	{
 		$this->checkThisOnly = false;
+		$this->checkNullables = true;
 		$this->analyse([__DIR__ . '/data/negated-instanceof.php'], []);
 	}
 
 	public function testInvokeMagicInvokeMethod()
 	{
 		$this->checkThisOnly = false;
+		$this->checkNullables = true;
 		$this->analyse([__DIR__ . '/data/invoke-magic-method.php'], [
 			[
 				'Parameter #1 $foo of method InvokeMagicInvokeMethod\ClassForCallable::doFoo() expects callable, InvokeMagicInvokeMethod\ClassForCallable given.',
 				27,
+			],
+		]);
+	}
+
+	public function testCheckNullables()
+	{
+		$this->checkThisOnly = false;
+		$this->checkNullables = true;
+		$this->analyse([__DIR__ . '/data/check-nullables.php'], [
+			[
+				'Parameter #1 $foo of method CheckNullables\Foo::doFoo() expects string, null given.',
+				11,
+			],
+			[
+				'Parameter #1 $foo of method CheckNullables\Foo::doFoo() expects string, string|null given.',
+				15,
+			],
+		]);
+	}
+
+	public function testDoNotCheckNullables()
+	{
+		$this->checkThisOnly = false;
+		$this->checkNullables = false;
+		$this->analyse([__DIR__ . '/data/check-nullables.php'], [
+			[
+				'Parameter #1 $foo of method CheckNullables\Foo::doFoo() expects string, null given.',
+				11,
 			],
 		]);
 	}

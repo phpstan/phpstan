@@ -5,10 +5,19 @@ namespace PHPStan\Rules\Arrays;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ArrayType;
 
 class AppendedArrayItemTypeRule implements \PHPStan\Rules\Rule
 {
+
+	/** @var \PHPStan\Rules\RuleLevelHelper */
+	private $ruleLevelHelper;
+
+	public function __construct(RuleLevelHelper $ruleLevelHelper)
+	{
+		$this->ruleLevelHelper = $ruleLevelHelper;
+	}
 
 	public function getNodeType(): string
 	{
@@ -36,7 +45,7 @@ class AppendedArrayItemTypeRule implements \PHPStan\Rules\Rule
 		}
 
 		$assignedValueType = $scope->getType($node->expr);
-		if (!$assignedToType->getItemType()->accepts($assignedValueType)) {
+		if (!$this->ruleLevelHelper->accepts($assignedToType->getItemType(), $assignedValueType)) {
 			return [
 				sprintf(
 					'Array (%s) does not accept %s.',

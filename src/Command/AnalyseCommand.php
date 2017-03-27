@@ -172,7 +172,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			$robotLoader->register();
 		}
 
-		TypeCombinator::setUnionTypesEnabled($container->parameters['enableUnionTypes']);
+		TypeCombinator::setUnionTypesEnabled($container->parameters['checkUnionTypes']);
 
 		/** @var \PHPStan\Command\AnalyseApplication $application */
 		$application = $container->getByType(AnalyseApplication::class);

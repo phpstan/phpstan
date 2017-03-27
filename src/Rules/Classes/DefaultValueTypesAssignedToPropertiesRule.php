@@ -5,9 +5,18 @@ namespace PHPStan\Rules\Classes;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleLevelHelper;
 
 class DefaultValueTypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 {
+
+	/** @var \PHPStan\Rules\RuleLevelHelper */
+	private $ruleLevelHelper;
+
+	public function __construct(RuleLevelHelper $ruleLevelHelper)
+	{
+		$this->ruleLevelHelper = $ruleLevelHelper;
+	}
 
 	public function getNodeType(): string
 	{
@@ -36,7 +45,7 @@ class DefaultValueTypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 			$propertyReflection = $classReflection->getProperty($property->name, $scope);
 			$propertyType = $propertyReflection->getType();
 			$defaultValueType = $scope->getType($property->default);
-			if ($propertyType->accepts($defaultValueType)) {
+			if ($this->ruleLevelHelper->accepts($propertyType, $defaultValueType)) {
 				continue;
 			}
 

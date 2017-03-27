@@ -1,0 +1,5 @@
+includes:
+	- config.level6.neon
+
+parameters:
+	checkNullables: true

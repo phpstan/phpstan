@@ -3,13 +3,14 @@
 namespace PHPStan\Rules\Classes;
 
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleLevelHelper;
 
 class DefaultValueTypesAssignedToPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 {
 
 	protected function getRule(): Rule
 	{
-		return new DefaultValueTypesAssignedToPropertiesRule();
+		return new DefaultValueTypesAssignedToPropertiesRule(new RuleLevelHelper(true));
 	}
 
 	public function testDefaultValueTypesAssignedToProperties()

@@ -2,12 +2,14 @@
 
 namespace PHPStan\Rules\Classes;
 
+use PHPStan\Rules\RuleLevelHelper;
+
 class TypesAssignedToPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new TypesAssignedToPropertiesRule($this->createBroker());
+		return new TypesAssignedToPropertiesRule($this->createBroker(), new RuleLevelHelper(true));
 	}
 
 	public function testTypesAssignedToProperties()

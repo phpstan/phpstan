@@ -17,15 +17,20 @@ class FunctionCallParametersCheck
 	/** @var \PHPStan\Broker\Broker */
 	private $broker;
 
+	/** @var \PHPStan\Rules\RuleLevelHelper */
+	private $ruleLevelHelper;
+
 	/** @var bool */
 	private $checkArgumentTypes;
 
 	public function __construct(
 		Broker $broker,
+		RuleLevelHelper $ruleLevelHelper,
 		bool $checkArgumentTypes
 	)
 	{
 		$this->broker = $broker;
+		$this->ruleLevelHelper = $ruleLevelHelper;
 		$this->checkArgumentTypes = $checkArgumentTypes;
 	}
 
@@ -145,7 +150,7 @@ class FunctionCallParametersCheck
 			$argumentValueType = $scope->getType($argument->value);
 
 			if (
-				!$parameterType->accepts($argumentValueType)
+				!$this->ruleLevelHelper->accepts($parameterType, $argumentValueType)
 				&& (
 					!($parameterType instanceof StringType)
 					|| !(

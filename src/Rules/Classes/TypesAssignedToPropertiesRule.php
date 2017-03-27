@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Rules\RuleLevelHelper;
 
 class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 {
@@ -13,9 +14,16 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 	/** @var \PHPStan\Broker\Broker */
 	private $broker;
 
-	public function __construct(Broker $broker)
+	/** @var \PHPStan\Rules\RuleLevelHelper */
+	private $ruleLevelHelper;
+
+	public function __construct(
+		Broker $broker,
+		RuleLevelHelper $ruleLevelHelper
+	)
 	{
 		$this->broker = $broker;
+		$this->ruleLevelHelper = $ruleLevelHelper;
 	}
 
 	public function getNodeType(): string
@@ -46,8 +54,7 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 
 		$propertyType = $propertyReflection->getType();
 		$assignedValueType = $scope->getType($node->expr);
-
-		if (!$propertyType->accepts($assignedValueType)) {
+		if (!$this->ruleLevelHelper->accepts($propertyType, $assignedValueType)) {
 			$propertyDescription = $this->describeProperty($propertyFetch, $scope);
 			if ($propertyDescription === null) {
 				return [];

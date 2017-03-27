@@ -2,12 +2,14 @@
 
 namespace PHPStan\Rules\Arrays;
 
+use PHPStan\Rules\RuleLevelHelper;
+
 class AppendedArrayItemTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new AppendedArrayItemTypeRule();
+		return new AppendedArrayItemTypeRule(new RuleLevelHelper(true));
 	}
 
 	public function testAppendedArrayItemType()

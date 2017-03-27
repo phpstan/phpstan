@@ -3,4 +3,3 @@ includes:
 
 parameters:
 	checkFunctionArgumentTypes: true
-	enableUnionTypes: true

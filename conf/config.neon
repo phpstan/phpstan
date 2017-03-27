@@ -6,7 +6,8 @@ parameters:
 	fileExtensions:
 		- php
 	checkFunctionArgumentTypes: false
-	enableUnionTypes: false
+	checkNullables: false
+	checkUnionTypes: false
 	polluteScopeWithLoopInitialAssignments: false
 	polluteCatchScopeWithTryAssignments: false
 	defineVariablesWithoutDefaultBranch: false
@@ -131,6 +132,8 @@ services:
 
 	-
 		class: PHPStan\Rules\RuleLevelHelper
+		arguments:
+			checkNullables: %checkNullables%
 
 	-
 		class: PHPStan\Rules\UnusedFunctionParametersCheck
