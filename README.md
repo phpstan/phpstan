@@ -581,3 +581,17 @@ This will be solved in the future by prefixing the namespaces of PHPStan's depen
 ## Code of Conduct
 
 This project adheres to a [Contributor Code of Conduct](https://github.com/phpstan/phpstan/blob/master/CODE_OF_CONDUCT.md). By participating in this project and its community, you are expected to uphold this code.
+
+## Contributing
+
+Any contributions are welcome. 
+
+### Building
+
+You can either run the whole build including linting and coding standards using
+
+`vendor/bin/phing`
+ 
+or run only tests using
+
+`vendor/bin/phing tests`
