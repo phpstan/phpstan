@@ -996,6 +996,10 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			],
 			[
 				'string',
+				"null ?? 'foo'"
+			],
+			[
+				'string',
 				'\Foo::class',
 			],
 		];
