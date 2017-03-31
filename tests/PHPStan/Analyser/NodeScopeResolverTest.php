@@ -991,8 +991,36 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'12 ?: null',
 			],
 			[
+				'string|int',
+				'$string ?: 12',
+			],
+			[
+				'string|int',
+				'$stringOrNull ?: 12',
+			],
+			[
+				'int',
+				'$integer ?: 12',
+			],
+			[
 				'string|null',
 				"'foo' ?? null",
+			],
+			[
+				'string',
+				'$string ?? \'foo\'',
+			],
+			[
+				'string',
+				'$stringOrNull ?? \'foo\'',
+			],
+			[
+				'string|int',
+				'$string ?? $integer',
+			],
+			[
+				'string|int',
+				'$stringOrNull ?? $integer',
 			],
 			[
 				'string',

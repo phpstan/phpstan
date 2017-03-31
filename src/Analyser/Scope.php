@@ -336,7 +336,9 @@ class Scope
 		if ($node instanceof Expr\Ternary) {
 			$elseType = $this->getType($node->else);
 			if ($node->if === null) {
-				return $this->getType($node->cond)->combineWith($elseType);
+				return TypeCombinator::removeNull(
+					$this->getType($node->cond)
+				)->combineWith($elseType);
 			}
 
 			$conditionScope = $this->lookForTypeSpecifications($node->cond);
@@ -348,7 +350,9 @@ class Scope
 		}
 
 		if ($node instanceof Expr\BinaryOp\Coalesce) {
-			return $this->getType($node->left)->combineWith($this->getType($node->right));
+			return TypeCombinator::removeNull(
+				$this->getType($node->left)
+			)->combineWith($this->getType($node->right));
 		}
 
 		if ($node instanceof Expr\Clone_) {
