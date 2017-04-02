@@ -370,7 +370,7 @@ errorFormatter.awesome:
 Use the name part after `errorFormatter.` as the CLI option value:
 
 ```
-vendor/bin/phpstan analyse -c phpstan.neon -l 4 --errorFormatter awesome src tests
+vendor/bin/phpstan analyse -c phpstan.neon -l 4 --errorFormat awesome src tests
 ```
 
 ## Class reflection extensions
