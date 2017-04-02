@@ -33,3 +33,7 @@ sprintf('%%s'); // ok
 sscanf($str, "%20[^\n]\n%d", $string, $number); // ok
 sscanf($str, "%20[^\n]\r\n%d", $string, $number); // ok
 sscanf($str, "%20[^abcde]a%d", $string, $number); // ok
+printf("%.E", 3.14159); // ok
+sprintf("%.E", 3.14159); // ok
+sscanf($str, '%.E', $number); // ok
+fscanf($str, '%.E', $number); // ok

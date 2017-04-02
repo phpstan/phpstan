@@ -82,7 +82,7 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 	private function getPlaceholdersCount(string $functionName, string $format): int
 	{
 		$specifiers = in_array($functionName, ['sprintf', 'printf'], true) ? '[bcdeEfFgGosuxX]' : '(?:[cdDeEfinosuxX]|\[\^[^\]]+\])';
-		$pattern = '~(?<before>%*)%(?:(?<position>\d+)\$)?[-+]?(?:[ 0]|(?:\'[^%]))?-?\d*(?:\.\d+)?' . $specifiers . '~';
+		$pattern = '~(?<before>%*)%(?:(?<position>\d+)\$)?[-+]?(?:[ 0]|(?:\'[^%]))?-?\d*(?:\.\d*)?' . $specifiers . '~';
 
 		if (!preg_match_all($pattern, $format, $matches, PREG_SET_ORDER)) {
 			return 0;
