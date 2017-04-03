@@ -50,7 +50,7 @@ You can also install already created framework-specific extensions:
 
 Other framework-specific extension will be coming soon!
 
-## Prerequisities
+## Prerequisites
 
 PHPStan requires PHP >= 7.0. You have to run it in environment with PHP 7.x but the actual code does not have to use
 PHP 7.x features. (Code written for PHP 5.6 and earlier can run on 7.x mostly unmodified.)
@@ -75,9 +75,9 @@ You can also use [PHPStan via Docker](https://github.com/phpstan/docker-image).
 
 ## First run
 
-To let PHPStan analyse your codebase, you have use the `analyse` commmand and point it to the right directories.
+To let PHPStan analyse your codebase, you have use the `analyse` command and point it to the right directories.
 
-So for example if you have your classes in directories `src` and `tests`, you can run PHPStan like this:
+So, for example if you have your classes in directories `src` and `tests`, you can run PHPStan like this:
 
 ```
 vendor/bin/phpstan analyse src tests
@@ -93,7 +93,7 @@ on the first run tend to be:
 
 After fixing the obvious mistakes in the code, look to the following section
 for all the configuration options that will bring the number of reported errors to zero
-making PHPStan suitable to run as part of your continous integration script.
+making PHPStan suitable to run as part of your continuous integration script.
 
 ## Rule levels
 
@@ -130,7 +130,7 @@ is through the `autoload`/`autoload-dev` sections in composer.json.
 
 #### Specify paths to scan
 
-If PHPStan complains about some nonexistent classes and you're sure the classes
+If PHPStan complains about some non-existent classes and you're sure the classes
 exist in the codebase AND you don't want to use Composer autoloader for some reason,
 you can specify directories to scan and concrete files to include using
 `autoload_directories` and `autoload_files` array parameters:
@@ -309,7 +309,7 @@ parameters:
 
 If some of the patterns do not occur in the result anymore, PHPStan will let you know
 and you will have to remove the pattern from the configuration. You can turn off
-this behavior by setting `reportUnmatchedIgnoredErrors` to `false` in PHPStan configuration.
+this behaviour by setting `reportUnmatchedIgnoredErrors` to `false` in PHPStan configuration.
 
 ### Bootstrap file
 
@@ -573,7 +573,7 @@ PHPStan will throw `Cannot redeclare class` error. Use the `_once` variants to a
 because of a low memory limit set on your system. **Run PHPStan again** to read a couple of hints
 what you can do to prevent the crashes.
 * If you install PHPStan globally on your system, you can experience errors resulting from
-using different versions of dependencies than PHPStan uses. For example if PHPStan's
+using different versions of dependencies than PHPStan uses. For example, if PHPStan's
 version of Symfony Console has a method with different arguments than your version
 of Symfony Console and you use this method in the analysed code, PHPStan can mark that as error.
 This will be solved in the future by prefixing the namespaces of PHPStan's dependencies.
