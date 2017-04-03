@@ -135,7 +135,7 @@ exist in the codebase AND you don't want to use Composer autoloader for some rea
 you can specify directories to scan and concrete files to include using
 `autoload_directories` and `autoload_files` array parameters:
 
-```yaml
+```
 parameters:
 	autoload_directories:
 		- %rootDir%/../../../build
@@ -171,7 +171,7 @@ If your codebase contains some files that are broken on purpose
 you can exclude them using the `excludes_analyse` array parameter. String at each line
 is used as a pattern for the [`fnmatch`](https://secure.php.net/manual/en/function.fnmatch.php) function.
 
-```yaml
+```
 parameters:
 	excludes_analyse:
 		- %rootDir%/../../../tests/*/data/*
@@ -182,7 +182,7 @@ parameters:
 If your codebase contains php files with extensions other than the standard .php extension then you can add them
 to the `fileExtensions` array parameter:
 
-```yaml
+```
 parameters:
 	fileExtensions:
 		- php
@@ -198,7 +198,7 @@ include `stdClass`, `SimpleXMLElement` (these are enabled by default), objects w
 Use `universalObjectCratesClasses` array parameter to let PHPStan know which classes
 with these characteristics are used in your codebase:
 
-```yaml
+```
 parameters:
 	universalObjectCratesClasses:
 		- Dibi\Row
@@ -283,7 +283,7 @@ doFoo($foo);
 
 These methods can be configured by specifying a class on whose instance they are called like this:
 
-```yaml
+```
 parameters:
 	earlyTerminatingMethodCalls:
 		Nette\Application\UI\Presenter:
@@ -298,7 +298,7 @@ parameters:
 If some issue in your code base is not easy to fix or just simply want to deal with it later,
 you can exclude error messages from the analysis result with regular expressions:
 
-```yaml
+```
 parameters:
 	ignoreErrors:
 		- '#Call to an undefined method [a-zA-Z0-9\\_]+::method\(\)#'
@@ -316,7 +316,7 @@ this behaviour by setting `reportUnmatchedIgnoredErrors` to `false` in PHPStan c
 If you need to initialize something in PHP runtime before PHPStan runs (like your own autoloader),
 you can provide your own bootstrap file:
 
-```yaml
+```
 parameters:
 	bootstrap: %rootDir%/../../../phpstan-bootstrap.php
 ```
@@ -326,7 +326,7 @@ parameters:
 PHPStan allows writing custom rules to check for specific situations in your own codebase. Your rule class
 needs to implement the `PHPStan\Rules\Rule` interface and registered as a service in the configuration file:
 
-```yaml
+```
 services:
 	-
 		class: MyApp\PHPStan\Rules\DefaultValueTypesAssignedToPropertiesRule
@@ -362,7 +362,7 @@ interface ErrorFormatter
 
 Register the formatter in your `phpstan.neon`:
 
-```yaml
+```
 errorFormatter.awesome:
 	class: App\PHPStan\AwesomeErrorFormatter
 ```
@@ -422,7 +422,7 @@ interface PropertyReflection
 
 This is how you register the extension in project's PHPStan config file:
 
-```yaml
+```
 services:
 	-
 		class: App\PHPStan\PropertiesFromAnnotationsClassReflectionExtension
@@ -481,7 +481,7 @@ interface MethodReflection
 
 This is how you register the extension in project's PHPStan config file:
 
-```yaml
+```
 services:
 	-
 		class: App\PHPStan\EnumMethodsClassReflectionExtension
@@ -554,7 +554,7 @@ public function getTypeFromMethodCall(MethodReflection $methodReflection, Method
 
 And finally, register the extension to PHPStan in the project's config file:
 
-```yaml
+```
 services:
 	-
 		class: App\PHPStan\EntityManagerDynamicReturnTypeExtension
