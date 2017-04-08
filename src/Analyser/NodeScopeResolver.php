@@ -411,7 +411,7 @@ class NodeScopeResolver
 			$this->processNode($node->cond, $scope, $specifyFetchedProperty);
 			$this->processNodes($node->stmts, $scope->enterFirstLevelStatements(), $nodeCallback);
 
-			$elseifScope = $ifScope;
+			$elseifScope = $ifScope->lookForTypeSpecificationsInEarlyTermination($node->cond);
 			foreach ($node->elseifs as $elseif) {
 				$scope = $elseifScope;
 				$scope = $this->lookForAssigns($scope, $elseif->cond)->exitFirstLevelStatements();
@@ -419,7 +419,8 @@ class NodeScopeResolver
 				$scope = $scope->lookForTypeSpecifications($elseif->cond);
 				$this->processNode($elseif->cond, $scope, $specifyFetchedProperty);
 				$this->processNodes($elseif->stmts, $scope->enterFirstLevelStatements(), $nodeCallback);
-				$elseifScope = $this->lookForAssigns($elseifScope, $elseif->cond);
+				$elseifScope = $this->lookForAssigns($elseifScope, $elseif->cond)
+					->lookForTypeSpecificationsInEarlyTermination($elseif->cond);
 			}
 			if ($node->else !== null) {
 				$this->processNode($node->else, $elseifScope, $nodeCallback);

@@ -2,57 +2,96 @@
 
 namespace TypeElimination;
 
-/** @var Foo|null $foo */
-$foo = doFoo();
+class Foo
+{
 
-if ($foo === null) {
-	'nullForSure';
+	public function getValue(): string
+	{
+
+	}
+
 }
 
-if ($foo !== null) {
-	'notNullForSure';
-}
+function () {
+	/** @var Foo|null $foo */
+	$foo = doFoo();
 
-if (null === $foo) {
-	'yodaNullForSure';
-}
+	if ($foo === null) {
+		'nullForSure';
+	}
 
-if (null !== $foo) {
-	'yodaNotNullForSure';
-}
+	if ($foo !== null) {
+		'notNullForSure';
+	}
 
-/** @var int|false $intOrFalse */
-$intOrFalse = doFoo();
-if ($intOrFalse === false) {
-	'falseForSure';
-}
+	if (null === $foo) {
+		'yodaNullForSure';
+	}
 
-if ($intOrFalse !== false) {
-	'intForSure';
-}
+	if (null !== $foo) {
+		'yodaNotNullForSure';
+	}
 
-if (false === $intOrFalse) {
-	'yodaFalseForSure';
-}
+	/** @var int|false $intOrFalse */
+	$intOrFalse = doFoo();
+	if ($intOrFalse === false) {
+		'falseForSure';
+	}
 
-if (false !== $intOrFalse) {
-	'yodaIntForSure';
-}
+	if ($intOrFalse !== false) {
+		'intForSure';
+	}
 
-/** @var int|true $intOrTrue */
-$intOrTrue = doFoo();
-if ($intOrTrue === true) {
-	'trueForSure';
-}
+	if (false === $intOrFalse) {
+		'yodaFalseForSure';
+	}
 
-if ($intOrTrue !== true) {
-	'anotherIntForSure';
-}
+	if (false !== $intOrFalse) {
+		'yodaIntForSure';
+	}
 
-if (true === $intOrTrue) {
-	'yodaTrueForSure';
-}
+	/** @var int|true $intOrTrue */
+	$intOrTrue = doFoo();
+	if ($intOrTrue === true) {
+		'trueForSure';
+	}
 
-if (true !== $intOrTrue) {
-	'yodaAnotherIntForSure';
-}
+	if ($intOrTrue !== true) {
+		'anotherIntForSure';
+	}
+
+	if (true === $intOrTrue) {
+		'yodaTrueForSure';
+	}
+
+	if (true !== $intOrTrue) {
+		'yodaAnotherIntForSure';
+	}
+
+	/** @var Foo|Bar|Baz $fooOrBarOrBaz */
+	$fooOrBarOrBaz = doFoo();
+	if ($fooOrBarOrBaz instanceof Foo) {
+		'fooForSure';
+	} else {
+		'barOrBazForSure';
+	}
+
+	if ($fooOrBarOrBaz instanceof Foo) {
+		// already tested
+	} elseif ($fooOrBarOrBaz instanceof Bar) {
+		'barForSure';
+	} else {
+		'bazForSure';
+	}
+
+	if (!$fooOrBarOrBaz instanceof Foo) {
+		'anotherBarOrBazForSure';
+	} else {
+		'anotherFooForSure';
+	}
+
+	/** @var Foo|string|null $value */
+	$value = doFoo();
+	$result = $value instanceof Foo ? $value->getValue() : $value;
+	'stringOrNullForSure';
+};

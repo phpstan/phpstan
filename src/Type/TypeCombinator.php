@@ -33,7 +33,8 @@ class TypeCombinator
 
 	public static function remove(Type $fromType, Type $type): Type
 	{
-		if ($fromType instanceof $type) {
+		$typeDescription = $type->describe();
+		if ($fromType->describe() === $typeDescription) {
 			return new MixedType();
 		}
 		if (
@@ -44,26 +45,37 @@ class TypeCombinator
 		}
 
 		$newInnerTypes = [];
+		$newIterableTypes = [];
+		if ($fromType instanceof IterableType) {
+			$newIterableTypes[] = $fromType;
+		}
 		foreach ($fromType->getTypes() as $innerType) {
-			if ($innerType instanceof $type) {
+			if ($innerType->describe() === $typeDescription) {
 				continue;
 			}
 
-			$newInnerTypes[] = $innerType;
-		}
-
-		if ($fromType instanceof UnionIterableType) {
-			if (count($newInnerTypes) === 0) {
-				return new ArrayType($fromType->getItemType());
+			if ($innerType instanceof IterableType) {
+				$newIterableTypes[] = $innerType;
+			} else {
+				$newInnerTypes[] = $innerType;
 			}
-			return new UnionIterableType($fromType->getItemType(), $newInnerTypes);
 		}
 
-		if (count($newInnerTypes) === 1) {
+		if (count($newIterableTypes) === 1) {
+			if (count($newInnerTypes) === 0) {
+				return new ArrayType($newIterableTypes[0]->getItemType());
+			}
+			return new UnionIterableType($newIterableTypes[0]->getItemType(), $newInnerTypes);
+		}
+
+		$newInnerTypes = array_merge($newInnerTypes, $newIterableTypes);
+		if (count($newInnerTypes) > 1) {
+			return new CommonUnionType($newInnerTypes);
+		} elseif (count($newInnerTypes) === 1) {
 			return $newInnerTypes[0];
 		}
 
-		return new CommonUnionType($newInnerTypes);
+		throw new \PHPStan\ShouldNotHappenException();
 	}
 
 	public static function removeNull(Type $type): Type

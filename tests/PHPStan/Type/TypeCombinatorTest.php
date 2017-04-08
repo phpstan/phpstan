@@ -350,6 +350,35 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 				IntegerType::class,
 				'int',
 			],
+			[
+				new CommonUnionType([
+					new ObjectType('Foo'),
+					new ObjectType('Bar'),
+				]),
+				new ObjectType('Foo'),
+				ObjectType::class,
+				'Bar',
+			],
+			[
+				new CommonUnionType([
+					new ObjectType('Foo'),
+					new ObjectType('Bar'),
+					new ObjectType('Baz'),
+				]),
+				new ObjectType('Foo'),
+				CommonUnionType::class,
+				'Bar|Baz',
+			],
+			[
+				new CommonUnionType([
+					new ArrayType(new StringType()),
+					new ArrayType(new IntegerType()),
+					new ObjectType('Doctrine\Common\Collections\Collection'),
+				]),
+				new ArrayType(new IntegerType()),
+				UnionIterableType::class,
+				'string[]|Doctrine\Common\Collections\Collection',
+			],
 		];
 	}
 

@@ -2364,6 +2364,41 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$intOrTrue',
 				"'yodaAnotherIntForSure';",
 			],
+			[
+				'TypeElimination\Foo',
+				'$fooOrBarOrBaz',
+				"'fooForSure';",
+			],
+			[
+				'TypeElimination\Bar|TypeElimination\Baz',
+				'$fooOrBarOrBaz',
+				"'barOrBazForSure';",
+			],
+			[
+				'TypeElimination\Bar',
+				'$fooOrBarOrBaz',
+				"'barForSure';",
+			],
+			[
+				'TypeElimination\Baz',
+				'$fooOrBarOrBaz',
+				"'bazForSure';",
+			],
+			[
+				'TypeElimination\Bar|TypeElimination\Baz',
+				'$fooOrBarOrBaz',
+				"'anotherBarOrBazForSure';",
+			],
+			[
+				'TypeElimination\Foo',
+				'$fooOrBarOrBaz',
+				"'anotherFooForSure';",
+			],
+			[
+				'string|null',
+				'$result',
+				"'stringOrNullForSure';",
+			],
 		];
 	}
 

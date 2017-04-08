@@ -1323,14 +1323,6 @@ class Scope
 
 	public function removeTypeFromExpression(Expr $expr, Type $type): self
 	{
-		if (
-			!$type instanceof NullType
-			&& !$type instanceof \PHPStan\Type\TrueBooleanType
-			&& !$type instanceof \PHPStan\Type\FalseBooleanType
-		) {
-			return $this;
-		}
-
 		return $this->specifyExpressionType(
 			$expr,
 			TypeCombinator::remove($this->getType($expr), $type)
