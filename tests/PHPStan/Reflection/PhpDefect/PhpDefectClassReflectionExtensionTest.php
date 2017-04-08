@@ -80,6 +80,29 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 					'value' => 'string',
 				],
 			],
+			[
+				// inherited properties from DOMNode
+				\DOMAttr::class,
+				\DOMNode::class,
+				[
+					'nodeName' => 'string',
+					'nodeValue' => 'string',
+					'nodeType' => 'int',
+					'parentNode' => 'DOMNode',
+					'childNodes' => 'DOMNodeList',
+					'firstChild' => 'DOMNode',
+					'lastChild' => 'DOMNode',
+					'previousSibling' => 'DOMNode',
+					'nextSibling' => 'DOMNode',
+					'attributes' => 'DOMNamedNodeMap',
+					'ownerDocument' => 'DOMDocument',
+					'namespaceURI' => 'string',
+					'prefix' => 'string',
+					'localName' => 'string',
+					'baseURI' => 'string',
+					'textContent' => 'string',
+				],
+			],
 		];
 	}
 
@@ -92,6 +115,29 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 				[
 					'data' => 'string',
 					'length' => 'int',
+				],
+			],
+			[
+				// inherited properties from DOMNode
+				\DOMCharacterData::class,
+				\DOMNode::class,
+				[
+					'nodeName' => 'string',
+					'nodeValue' => 'string',
+					'nodeType' => 'int',
+					'parentNode' => 'DOMNode',
+					'childNodes' => 'DOMNodeList',
+					'firstChild' => 'DOMNode',
+					'lastChild' => 'DOMNode',
+					'previousSibling' => 'DOMNode',
+					'nextSibling' => 'DOMNode',
+					'attributes' => 'DOMNamedNodeMap',
+					'ownerDocument' => 'DOMDocument',
+					'namespaceURI' => 'string',
+					'prefix' => 'string',
+					'localName' => 'string',
+					'baseURI' => 'string',
+					'textContent' => 'string',
 				],
 			],
 		];
@@ -125,6 +171,29 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 					'xmlVersion' => 'string',
 				],
 			],
+			[
+				// inherited properties from DOMNode
+				\DOMDocument::class,
+				\DOMNode::class,
+				[
+					'nodeName' => 'string',
+					'nodeValue' => 'string',
+					'nodeType' => 'int',
+					'parentNode' => 'DOMNode',
+					'childNodes' => 'DOMNodeList',
+					'firstChild' => 'DOMNode',
+					'lastChild' => 'DOMNode',
+					'previousSibling' => 'DOMNode',
+					'nextSibling' => 'DOMNode',
+					'attributes' => 'DOMNamedNodeMap',
+					'ownerDocument' => 'DOMDocument',
+					'namespaceURI' => 'string',
+					'prefix' => 'string',
+					'localName' => 'string',
+					'baseURI' => 'string',
+					'textContent' => 'string',
+				],
+			],
 		];
 	}
 
@@ -143,6 +212,29 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 					'internalSubset' => 'string',
 				],
 			],
+			[
+				// inherited properties from DOMNode
+				\DOMDocumentType::class,
+				\DOMNode::class,
+				[
+					'nodeName' => 'string',
+					'nodeValue' => 'string',
+					'nodeType' => 'int',
+					'parentNode' => 'DOMNode',
+					'childNodes' => 'DOMNodeList',
+					'firstChild' => 'DOMNode',
+					'lastChild' => 'DOMNode',
+					'previousSibling' => 'DOMNode',
+					'nextSibling' => 'DOMNode',
+					'attributes' => 'DOMNamedNodeMap',
+					'ownerDocument' => 'DOMDocument',
+					'namespaceURI' => 'string',
+					'prefix' => 'string',
+					'localName' => 'string',
+					'baseURI' => 'string',
+					'textContent' => 'string',
+				],
+			],
 		];
 	}
 
@@ -155,6 +247,29 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 				[
 					'schemaTypeInfo' => 'bool',
 					'tagName' => 'string',
+				],
+			],
+			[
+				// inherited properties from DOMNode
+				\DOMElement::class,
+				\DOMNode::class,
+				[
+					'nodeName' => 'string',
+					'nodeValue' => 'string',
+					'nodeType' => 'int',
+					'parentNode' => 'DOMNode',
+					'childNodes' => 'DOMNodeList',
+					'firstChild' => 'DOMNode',
+					'lastChild' => 'DOMNode',
+					'previousSibling' => 'DOMNode',
+					'nextSibling' => 'DOMNode',
+					'attributes' => 'DOMNamedNodeMap',
+					'ownerDocument' => 'DOMDocument',
+					'namespaceURI' => 'string',
+					'prefix' => 'string',
+					'localName' => 'string',
+					'baseURI' => 'string',
+					'textContent' => 'string',
 				],
 			],
 		];
@@ -173,6 +288,29 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 					'actualEncoding' => 'string',
 					'encoding' => 'string',
 					'version' => 'string',
+				],
+			],
+			[
+				// inherited properties from DOMNode
+				\DOMEntity::class,
+				\DOMNode::class,
+				[
+					'nodeName' => 'string',
+					'nodeValue' => 'string',
+					'nodeType' => 'int',
+					'parentNode' => 'DOMNode',
+					'childNodes' => 'DOMNodeList',
+					'firstChild' => 'DOMNode',
+					'lastChild' => 'DOMNode',
+					'previousSibling' => 'DOMNode',
+					'nextSibling' => 'DOMNode',
+					'attributes' => 'DOMNamedNodeMap',
+					'ownerDocument' => 'DOMDocument',
+					'namespaceURI' => 'string',
+					'prefix' => 'string',
+					'localName' => 'string',
+					'baseURI' => 'string',
+					'textContent' => 'string',
 				],
 			],
 		];
@@ -243,6 +381,29 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 					'systemId' => 'string',
 				],
 			],
+			[
+				// inherited properties from DOMNode
+				\DOMNotation::class,
+				\DOMNode::class,
+				[
+					'nodeName' => 'string',
+					'nodeValue' => 'string',
+					'nodeType' => 'int',
+					'parentNode' => 'DOMNode',
+					'childNodes' => 'DOMNodeList',
+					'firstChild' => 'DOMNode',
+					'lastChild' => 'DOMNode',
+					'previousSibling' => 'DOMNode',
+					'nextSibling' => 'DOMNode',
+					'attributes' => 'DOMNamedNodeMap',
+					'ownerDocument' => 'DOMDocument',
+					'namespaceURI' => 'string',
+					'prefix' => 'string',
+					'localName' => 'string',
+					'baseURI' => 'string',
+					'textContent' => 'string',
+				],
+			],
 		];
 	}
 
@@ -257,6 +418,29 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 					'data' => 'string',
 				],
 			],
+			[
+				// inherited properties from DOMNode
+				\DOMProcessingInstruction::class,
+				\DOMNode::class,
+				[
+					'nodeName' => 'string',
+					'nodeValue' => 'string',
+					'nodeType' => 'int',
+					'parentNode' => 'DOMNode',
+					'childNodes' => 'DOMNodeList',
+					'firstChild' => 'DOMNode',
+					'lastChild' => 'DOMNode',
+					'previousSibling' => 'DOMNode',
+					'nextSibling' => 'DOMNode',
+					'attributes' => 'DOMNamedNodeMap',
+					'ownerDocument' => 'DOMDocument',
+					'namespaceURI' => 'string',
+					'prefix' => 'string',
+					'localName' => 'string',
+					'baseURI' => 'string',
+					'textContent' => 'string',
+				],
+			],
 		];
 	}
 
@@ -268,6 +452,38 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 				\DOMText::class,
 				[
 					'wholeText' => 'string',
+				],
+			],
+			[
+				// inherited properties from DOMNode
+				\DOMText::class,
+				\DOMNode::class,
+				[
+					'nodeName' => 'string',
+					'nodeValue' => 'string',
+					'nodeType' => 'int',
+					'parentNode' => 'DOMNode',
+					'childNodes' => 'DOMNodeList',
+					'firstChild' => 'DOMNode',
+					'lastChild' => 'DOMNode',
+					'previousSibling' => 'DOMNode',
+					'nextSibling' => 'DOMNode',
+					'attributes' => 'DOMNamedNodeMap',
+					'ownerDocument' => 'DOMDocument',
+					'namespaceURI' => 'string',
+					'prefix' => 'string',
+					'localName' => 'string',
+					'baseURI' => 'string',
+					'textContent' => 'string',
+				],
+			],
+			[
+				// inherited properties from DOMCharacterData
+				\DOMText::class,
+				\DOMCharacterData::class,
+				[
+					'data' => 'string',
+					'length' => 'int',
 				],
 			],
 		];

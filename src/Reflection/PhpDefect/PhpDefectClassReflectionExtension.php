@@ -139,16 +139,13 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 
 	public function hasProperty(ClassReflection $classReflection, string $propertyName): bool
 	{
-		$classWithProperties = $this->getClassWithProperties($classReflection);
-		if ($classWithProperties === null) {
-			return false;
-		}
-		return isset($this->properties[$classWithProperties->getName()][$propertyName]);
+		$classWithProperties = $this->getClassWithProperties($classReflection, $propertyName);
+		return $classWithProperties !== null;
 	}
 
 	public function getProperty(ClassReflection $classReflection, string $propertyName): PropertyReflection
 	{
-		$classWithProperties = $this->getClassWithProperties($classReflection);
+		$classWithProperties = $this->getClassWithProperties($classReflection, $propertyName);
 		$typeString = $this->properties[$classWithProperties->getName()][$propertyName];
 		return new PhpDefectPropertyReflection(
 			$classWithProperties,
@@ -158,16 +155,17 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 
 	/**
 	 * @param \PHPStan\Reflection\ClassReflection $classReflection
+	 * @param string $propertyName
 	 * @return \PHPStan\Reflection\ClassReflection|null
 	 */
-	private function getClassWithProperties(ClassReflection $classReflection)
+	private function getClassWithProperties(ClassReflection $classReflection, string $propertyName)
 	{
-		if (isset($this->properties[$classReflection->getName()])) {
+		if (isset($this->properties[$classReflection->getName()][$propertyName])) {
 			return $classReflection;
 		}
 
 		foreach ($classReflection->getParents() as $parentClass) {
-			if (isset($this->properties[$parentClass->getName()])) {
+			if (isset($this->properties[$parentClass->getName()][$propertyName])) {
 				return $parentClass;
 			}
 		}

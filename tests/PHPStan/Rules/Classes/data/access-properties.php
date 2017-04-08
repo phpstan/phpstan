@@ -81,6 +81,14 @@ class BazAccessProperties
 		empty($foo->anotherEmptyNonexistent) ? null : $foo->anotherEmptyNonexistent;
 		!empty($foo->anotherEmptyNonexistent) ? $foo->anotherEmptyNonexistent : null;
 		!empty($foo->anotherEmptyNonexistent) ? null : $foo->anotherEmptyNonexistent;
+
+		$doc = new \DOMDocument();
+		$doc->firstChild;
+		$doc->childNodes[0];
+
+		/** @var \DOMElement $el */
+		$el = doFoo();
+		$el->textContent;
 	}
 
 }
