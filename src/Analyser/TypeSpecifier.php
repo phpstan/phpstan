@@ -75,26 +75,31 @@ class TypeSpecifier
 			if ($expressions === null) {
 				return $types;
 			}
-			if (strtolower((string) $expressions[1]->name) !== 'null') {
+			if (!in_array(strtolower((string) $expressions[1]->name), [
+				'null',
+				'true',
+				'false',
+			], true)) {
 				return $types;
 			}
+			$sureType = $scope->getType($expressions[1]);
 			$printedExpr = $this->printer->prettyPrintExpr($expressions[0]);
 			if ($negated) {
 				if ($source === self::SOURCE_FROM_AND) {
 					return $types;
 				}
 				if ($expr instanceof Node\Expr\BinaryOp\Identical) {
-					return $types->addSureNotType($expressions[0], $printedExpr, new NullType());
+					return $types->addSureNotType($expressions[0], $printedExpr, $sureType);
 				} else {
-					return $types->addSureType($expressions[0], $printedExpr, new NullType());
+					return $types->addSureType($expressions[0], $printedExpr, $sureType);
 				}
 			}
 
 			if ($expr instanceof Node\Expr\BinaryOp\Identical) {
-				return $types->addSureType($expressions[0], $printedExpr, new NullType());
+				return $types->addSureType($expressions[0], $printedExpr, $sureType);
 			}
 
-			return $types->addSureNotType($expressions[0], $printedExpr, new NullType());
+			return $types->addSureNotType($expressions[0], $printedExpr, $sureType);
 		} elseif (
 			$expr instanceof FuncCall
 			&& $expr->name instanceof Name

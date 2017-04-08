@@ -2324,6 +2324,46 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$foo',
 				"'yodaNotNullForSure';",
 			],
+			[
+				'false',
+				'$intOrFalse',
+				"'falseForSure';",
+			],
+			[
+				'int',
+				'$intOrFalse',
+				"'intForSure';",
+			],
+			[
+				'false',
+				'$intOrFalse',
+				"'yodaFalseForSure';",
+			],
+			[
+				'int',
+				'$intOrFalse',
+				"'yodaIntForSure';",
+			],
+			[
+				'true',
+				'$intOrTrue',
+				"'trueForSure';",
+			],
+			[
+				'int',
+				'$intOrTrue',
+				"'anotherIntForSure';",
+			],
+			[
+				'true',
+				'$intOrTrue',
+				"'yodaTrueForSure';",
+			],
+			[
+				'int',
+				'$intOrTrue',
+				"'yodaAnotherIntForSure';",
+			],
 		];
 	}
 

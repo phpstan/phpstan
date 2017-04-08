@@ -20,3 +20,39 @@ if (null === $foo) {
 if (null !== $foo) {
 	'yodaNotNullForSure';
 }
+
+/** @var int|false $intOrFalse */
+$intOrFalse = doFoo();
+if ($intOrFalse === false) {
+	'falseForSure';
+}
+
+if ($intOrFalse !== false) {
+	'intForSure';
+}
+
+if (false === $intOrFalse) {
+	'yodaFalseForSure';
+}
+
+if (false !== $intOrFalse) {
+	'yodaIntForSure';
+}
+
+/** @var int|true $intOrTrue */
+$intOrTrue = doFoo();
+if ($intOrTrue === true) {
+	'trueForSure';
+}
+
+if ($intOrTrue !== true) {
+	'anotherIntForSure';
+}
+
+if (true === $intOrTrue) {
+	'yodaTrueForSure';
+}
+
+if (true !== $intOrTrue) {
+	'yodaAnotherIntForSure';
+}

@@ -31,32 +31,32 @@ class TypeCombinator
 		return self::combine($type, new NullType());
 	}
 
-	public static function removeNull(Type $type): Type
+	public static function remove(Type $fromType, Type $type): Type
 	{
-		if ($type instanceof NullType) {
+		if ($fromType instanceof $type) {
 			return new MixedType();
 		}
 		if (
-			$type instanceof MixedType
-			|| !$type instanceof UnionType
+			$fromType instanceof MixedType
+			|| !$fromType instanceof UnionType
 		) {
-			return $type;
+			return $fromType;
 		}
 
 		$newInnerTypes = [];
-		foreach ($type->getTypes() as $innerType) {
-			if ($innerType instanceof NullType) {
+		foreach ($fromType->getTypes() as $innerType) {
+			if ($innerType instanceof $type) {
 				continue;
 			}
 
 			$newInnerTypes[] = $innerType;
 		}
 
-		if ($type instanceof UnionIterableType) {
+		if ($fromType instanceof UnionIterableType) {
 			if (count($newInnerTypes) === 0) {
-				return new ArrayType($type->getItemType());
+				return new ArrayType($fromType->getItemType());
 			}
-			return new UnionIterableType($type->getItemType(), $newInnerTypes);
+			return new UnionIterableType($fromType->getItemType(), $newInnerTypes);
 		}
 
 		if (count($newInnerTypes) === 1) {
@@ -64,6 +64,11 @@ class TypeCombinator
 		}
 
 		return new CommonUnionType($newInnerTypes);
+	}
+
+	public static function removeNull(Type $type): Type
+	{
+		return self::remove($type, new NullType());
 	}
 
 	public static function containsNull(Type $type): bool

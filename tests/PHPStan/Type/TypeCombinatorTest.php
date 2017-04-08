@@ -332,4 +332,44 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 		$this->assertSame($expectedTypeDescription, $result->describe());
 	}
 
+	public function dataRemove(): array
+	{
+		return [
+			[
+				new TrueBooleanType(),
+				new TrueBooleanType(),
+				MixedType::class,
+				'mixed',
+			],
+			[
+				new CommonUnionType([
+					new IntegerType(),
+					new TrueBooleanType(),
+				]),
+				new TrueBooleanType(),
+				IntegerType::class,
+				'int',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataRemove
+	 * @param \PHPStan\Type\Type $fromType
+	 * @param \PHPStan\Type\Type $type
+	 * @param string $expectedTypeClass
+	 * @param string $expectedTypeDescription
+	 */
+	public function testRemove(
+		Type $fromType,
+		Type $type,
+		string $expectedTypeClass,
+		string $expectedTypeDescription
+	)
+	{
+		$result = TypeCombinator::remove($fromType, $type);
+		$this->assertInstanceOf($expectedTypeClass, $result);
+		$this->assertSame($expectedTypeDescription, $result->describe());
+	}
+
 }
