@@ -2301,6 +2301,45 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+	public function dataTypeElimination(): array
+	{
+		return [
+			[
+				'null',
+				'$foo',
+				"'nullForSure';",
+			],
+			[
+				'TypeElimination\Foo',
+				'$foo',
+				"'notNullForSure';",
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataTypeElimination
+	 * @param string $description
+	 * @param string $expression
+	 * @param string $evaluatedPointExpression
+	 */
+	public function testTypeElimination(
+		string $description,
+		string $expression,
+		string $evaluatedPointExpression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/type-elimination.php',
+			$description,
+			$expression,
+			[],
+			[],
+			$evaluatedPointExpression
+		);
+	}
+
+
 	private function assertTypes(
 		string $file,
 		string $description,
