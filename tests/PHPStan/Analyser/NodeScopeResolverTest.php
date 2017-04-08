@@ -2314,6 +2314,16 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$foo',
 				"'notNullForSure';",
 			],
+			[
+				'null',
+				'$foo',
+				"'yodaNullForSure';",
+			],
+			[
+				'TypeElimination\Foo',
+				'$foo',
+				"'yodaNotNullForSure';",
+			],
 		];
 	}
 

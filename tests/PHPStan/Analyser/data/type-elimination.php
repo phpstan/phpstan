@@ -12,3 +12,11 @@ if ($foo === null) {
 if ($foo !== null) {
 	'notNullForSure';
 }
+
+if (null === $foo) {
+	'yodaNullForSure';
+}
+
+if (null !== $foo) {
+	'yodaNotNullForSure';
+}

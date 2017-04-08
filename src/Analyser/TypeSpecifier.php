@@ -69,34 +69,32 @@ class TypeSpecifier
 			return $types->addSureType($expr->expr, $printedExpr, $type);
 		} elseif (
 			$expr instanceof Node\Expr\BinaryOp\NotIdentical
-			&& $expr->right instanceof ConstFetch
-			&& $expr->right->name instanceof Name
-			&& strtolower((string) $expr->right->name) === 'null'
+			|| $expr instanceof Node\Expr\BinaryOp\Identical
 		) {
-			$printedExpr = $this->printer->prettyPrintExpr($expr->left);
+			$expressions = $this->findTypeExpressionsFromBinaryOperation($expr);
+			if ($expressions === null) {
+				return $types;
+			}
+			if (strtolower((string) $expressions[1]->name) !== 'null') {
+				return $types;
+			}
+			$printedExpr = $this->printer->prettyPrintExpr($expressions[0]);
 			if ($negated) {
 				if ($source === self::SOURCE_FROM_AND) {
 					return $types;
 				}
-				return $types->addSureType($expr->left, $printedExpr, new NullType());
-			}
-
-			return $types->addSureNotType($expr->left, $printedExpr, new NullType());
-		} elseif (
-			$expr instanceof Node\Expr\BinaryOp\Identical
-			&& $expr->right instanceof ConstFetch
-			&& $expr->right->name instanceof Name
-			&& strtolower((string) $expr->right->name) === 'null'
-		) {
-			$printedExpr = $this->printer->prettyPrintExpr($expr->left);
-			if ($negated) {
-				if ($source === self::SOURCE_FROM_AND) {
-					return $types;
+				if ($expr instanceof Node\Expr\BinaryOp\Identical) {
+					return $types->addSureNotType($expressions[0], $printedExpr, new NullType());
+				} else {
+					return $types->addSureType($expressions[0], $printedExpr, new NullType());
 				}
-				return $types->addSureNotType($expr->left, $printedExpr, new NullType());
 			}
 
-			return $types->addSureType($expr->left, $printedExpr, new NullType());
+			if ($expr instanceof Node\Expr\BinaryOp\Identical) {
+				return $types->addSureType($expressions[0], $printedExpr, new NullType());
+			}
+
+			return $types->addSureNotType($expressions[0], $printedExpr, new NullType());
 		} elseif (
 			$expr instanceof FuncCall
 			&& $expr->name instanceof Name
@@ -163,6 +161,21 @@ class TypeSpecifier
 		}
 
 		return $types;
+	}
+
+	/**
+	 * @param \PhpParser\Node\Expr\BinaryOp $binaryOperation
+	 * @return array|null
+	 */
+	private function findTypeExpressionsFromBinaryOperation(Node\Expr\BinaryOp $binaryOperation)
+	{
+		if ($binaryOperation->left instanceof ConstFetch) {
+			return [$binaryOperation->right, $binaryOperation->left];
+		} elseif ($binaryOperation->right instanceof ConstFetch) {
+			return [$binaryOperation->left, $binaryOperation->right];
+		}
+
+		return null;
 	}
 
 }
