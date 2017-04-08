@@ -391,4 +391,15 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		]);
 	}
 
+	public function testStaticAssignmentAfterIsNull()
+	{
+		$this->checkThisOnly = false;
+		$this->analyse([__DIR__ . '/data/static-assignment-after-is-null.php'], [
+			[
+				'',
+				15,
+			],
+		]);
+	}
+
 }
