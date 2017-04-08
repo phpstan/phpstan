@@ -2271,6 +2271,37 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+	public function dataHeredoc(): array
+	{
+		return [
+			[
+				'string',
+				'$heredoc',
+			],
+			[
+				'string',
+				'$nowdoc',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataHeredoc
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testHeredoc(
+		string $description,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/heredoc.php',
+			$description,
+			$expression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $description,
