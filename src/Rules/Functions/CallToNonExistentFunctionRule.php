@@ -36,7 +36,7 @@ class CallToNonExistentFunctionRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		if (strpos((string) $node->name, 'apache_') === 0) {
+		if (strpos((string) $node->name, 'apache_') === 0 || strpos((string) $node->name, 'fastcgi_') === 0) {
 			return [];
 		}
 
