@@ -336,7 +336,8 @@ class Scope
 		if ($node instanceof Expr\Ternary) {
 			$elseType = $this->getType($node->else);
 			if ($node->if === null) {
-				return $this->getType($node->cond)->combineWith($elseType);
+				$type = $this->getType($node->cond)->combineWith($elseType);
+				return $this->removeNullIfNotAcceptedBySubType($type, $elseType);
 			}
 
 			$conditionScope = $this->lookForTypeSpecifications($node->cond);
@@ -348,7 +349,9 @@ class Scope
 		}
 
 		if ($node instanceof Expr\BinaryOp\Coalesce) {
-			return $this->getType($node->left)->combineWith($this->getType($node->right));
+			$rightType = $this->getType($node->right);
+			$type = $this->getType($node->left)->combineWith($rightType);
+			return $this->removeNullIfNotAcceptedBySubType($type, $rightType);
 		}
 
 		if ($node instanceof Expr\Clone_) {
@@ -1527,6 +1530,16 @@ class Scope
 		}
 
 		return $classMemberReflection->getDeclaringClass()->isSubclassOf($currentClassReflection->getName());
+	}
+
+
+	private function removeNullIfNotAcceptedBySubType(Type $type, Type $subType): Type
+	{
+		if (!$subType->accepts(new NullType())) {
+			return TypeCombinator::removeNull($type);
+		}
+
+		return $type;
 	}
 
 }

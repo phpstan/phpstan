@@ -991,6 +991,10 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'12 ?: null',
 			],
 			[
+				'int',
+				'null ?: 12',
+			],
+			[
 				'string|null',
 				"'foo' ?? null",
 			],
