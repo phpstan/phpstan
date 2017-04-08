@@ -31,10 +31,16 @@ class TypeCombinator
 		return self::combine($type, new NullType());
 	}
 
-	public static function remove(Type $fromType, Type $type): Type
+	public static function remove(Type $fromType, Type $typeToRemove): Type
 	{
-		$typeDescription = $type->describe();
-		if ($fromType->describe() === $typeDescription) {
+		$typeToRemoveDescription = $typeToRemove->describe();
+		if ($fromType->describe() === $typeToRemoveDescription) {
+			return new MixedType();
+		}
+		if (
+			$fromType instanceof BooleanType
+			&& $typeToRemove instanceof TrueOrFalseBooleanType
+		) {
 			return new MixedType();
 		}
 		if (
@@ -44,35 +50,41 @@ class TypeCombinator
 			return $fromType;
 		}
 
-		$newInnerTypes = [];
-		$newIterableTypes = [];
+		$types = [];
+		$iterableTypes = [];
 		if ($fromType instanceof IterableType) {
-			$newIterableTypes[] = $fromType;
+			$iterableTypes[] = $fromType;
 		}
 		foreach ($fromType->getTypes() as $innerType) {
-			if ($innerType->describe() === $typeDescription) {
+			if ($innerType->describe() === $typeToRemoveDescription) {
+				continue;
+			}
+			if (
+				$innerType instanceof BooleanType
+				&& $typeToRemove instanceof TrueOrFalseBooleanType
+			) {
 				continue;
 			}
 
 			if ($innerType instanceof IterableType) {
-				$newIterableTypes[] = $innerType;
+				$iterableTypes[] = $innerType;
 			} else {
-				$newInnerTypes[] = $innerType;
+				$types[] = $innerType;
 			}
 		}
 
-		if (count($newIterableTypes) === 1) {
-			if (count($newInnerTypes) === 0) {
-				return new ArrayType($newIterableTypes[0]->getItemType());
+		if (count($iterableTypes) === 1) {
+			if (count($types) === 0) {
+				return new ArrayType($iterableTypes[0]->getItemType());
 			}
-			return new UnionIterableType($newIterableTypes[0]->getItemType(), $newInnerTypes);
+			return new UnionIterableType($iterableTypes[0]->getItemType(), $types);
 		}
 
-		$newInnerTypes = array_merge($newInnerTypes, $newIterableTypes);
-		if (count($newInnerTypes) > 1) {
-			return new CommonUnionType($newInnerTypes);
-		} elseif (count($newInnerTypes) === 1) {
-			return $newInnerTypes[0];
+		$types = array_merge($types, $iterableTypes);
+		if (count($types) > 1) {
+			return new CommonUnionType($types);
+		} elseif (count($types) === 1) {
+			return $types[0];
 		}
 
 		throw new \PHPStan\ShouldNotHappenException();

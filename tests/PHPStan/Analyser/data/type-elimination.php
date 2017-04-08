@@ -50,6 +50,10 @@ function () {
 		'yodaIntForSure';
 	}
 
+	if (!is_bool($intOrFalse)) {
+		'yetAnotherIntForSure';
+	}
+
 	/** @var int|true $intOrTrue */
 	$intOrTrue = doFoo();
 	if ($intOrTrue === true) {
@@ -66,6 +70,10 @@ function () {
 
 	if (true !== $intOrTrue) {
 		'yodaAnotherIntForSure';
+	}
+
+	if (!is_bool($intOrTrue)) {
+		'yetYetAnotherIntForSure';
 	}
 
 	/** @var Foo|Bar|Baz $fooOrBarOrBaz */

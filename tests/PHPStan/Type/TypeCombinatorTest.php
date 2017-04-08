@@ -379,6 +379,48 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 				UnionIterableType::class,
 				'string[]|Doctrine\Common\Collections\Collection',
 			],
+			[
+				new TrueBooleanType(),
+				new FalseBooleanType(),
+				TrueBooleanType::class,
+				'true',
+			],
+			[
+				new FalseBooleanType(),
+				new TrueBooleanType(),
+				FalseBooleanType::class,
+				'false',
+			],
+			[
+				new TrueBooleanType(),
+				new TrueOrFalseBooleanType(),
+				MixedType::class,
+				'mixed',
+			],
+			[
+				new FalseBooleanType(),
+				new TrueOrFalseBooleanType(),
+				MixedType::class,
+				'mixed',
+			],
+			[
+				new CommonUnionType([
+					new TrueBooleanType(),
+					new IntegerType(),
+				]),
+				new TrueOrFalseBooleanType(),
+				IntegerType::class,
+				'int',
+			],
+			[
+				new CommonUnionType([
+					new FalseBooleanType(),
+					new IntegerType(),
+				]),
+				new TrueOrFalseBooleanType(),
+				IntegerType::class,
+				'int',
+			],
 		];
 	}
 
