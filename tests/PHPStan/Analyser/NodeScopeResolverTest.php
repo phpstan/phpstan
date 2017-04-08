@@ -4,7 +4,6 @@ namespace PHPStan\Analyser;
 
 use PhpParser\Node\Expr\Exit_;
 use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\StaticCall;
 use PHPStan\File\FileExcluder;
 use PHPStan\File\FileHelper;
@@ -1713,17 +1712,17 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			[
 				'mixed',
 				'$var',
-				New_::class,
+				'new \OverwritingVariable\Bar();',
 			],
 			[
 				'OverwritingVariable\Bar',
 				'$var',
-				MethodCall::class,
+				'$var->methodFoo();',
 			],
 			[
 				'OverwritingVariable\Foo',
 				'$var',
-				Exit_::class,
+				'die;',
 			],
 		];
 	}
@@ -2308,11 +2307,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		string $expression,
 		array $dynamicMethodReturnTypeExtensions = [],
 		array $dynamicStaticMethodReturnTypeExtensions = [],
-		string $evaluatedPointExpressionType = Exit_::class
+		string $evaluatedPointExpression = 'die;'
 	)
 	{
-		$this->processFile($file, function (\PhpParser\Node $node, Scope $scope) use ($description, $expression, $evaluatedPointExpressionType) {
-			if ($node instanceof $evaluatedPointExpressionType) {
+		$this->processFile($file, function (\PhpParser\Node $node, Scope $scope) use ($description, $expression, $evaluatedPointExpression) {
+			$printedNode = $this->printer->prettyPrint([$node]);
+			if ($printedNode === $evaluatedPointExpression) {
 				/** @var \PhpParser\Node\Expr $expression */
 				$expression = $this->getParser()->parseString(sprintf('<?php %s;', $expression))[0];
 				$type = $scope->getType($expression);
