@@ -141,6 +141,16 @@ class UnionTypeHelper
 
 	public static function acceptsAll(Type $type, UnionType $unionType): bool
 	{
+		if (TypeCombinator::shouldSkipUnionTypeAccepts($unionType)) {
+			foreach ($unionType->getTypes() as $otherType) {
+				if ($type->accepts($otherType)) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		foreach ($unionType->getTypes() as $otherType) {
 			if (!$type->accepts($otherType)) {
 				return false;
