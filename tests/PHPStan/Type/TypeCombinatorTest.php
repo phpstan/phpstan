@@ -421,6 +421,19 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 				IntegerType::class,
 				'int',
 			],
+			[
+				new CommonUnionType([
+					new StringType(),
+					new IntegerType(),
+					new NullType(),
+				]),
+				new CommonUnionType([
+					new NullType(),
+					new StringType(),
+				]),
+				IntegerType::class,
+				'int',
+			],
 		];
 	}
 

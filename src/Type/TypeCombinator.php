@@ -33,6 +33,13 @@ class TypeCombinator
 
 	public static function remove(Type $fromType, Type $typeToRemove): Type
 	{
+		if ($typeToRemove instanceof UnionType) {
+			foreach ($typeToRemove->getTypes() as $unionTypeToRemove) {
+				$fromType = self::remove($fromType, $unionTypeToRemove);
+			}
+
+			return $fromType;
+		}
 		$typeToRemoveDescription = $typeToRemove->describe();
 		if ($fromType->describe() === $typeToRemoveDescription) {
 			return new MixedType();

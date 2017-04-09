@@ -102,4 +102,15 @@ function () {
 	$value = doFoo();
 	$result = $value instanceof Foo ? $value->getValue() : $value;
 	'stringOrNullForSure';
+
+	/** @var Foo|string|null $fooOrStringOrNull */
+	$fooOrStringOrNull = doFoo();
+	if ($fooOrStringOrNull === null || $fooOrStringOrNull instanceof Foo) {
+		'fooOrNull';
+		return;
+	} else {
+		'stringForSure';
+	}
+
+	'anotherStringForSure';
 };

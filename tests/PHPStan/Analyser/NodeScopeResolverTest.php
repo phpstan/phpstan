@@ -2409,6 +2409,21 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$intOrTrue',
 				"'yetYetAnotherIntForSure';",
 			],
+			[
+				'TypeElimination\Foo|null',
+				'$fooOrStringOrNull',
+				"'fooOrNull';",
+			],
+			[
+				'string',
+				'$fooOrStringOrNull',
+				"'stringForSure';",
+			],
+			[
+				'string',
+				'$fooOrStringOrNull',
+				"'anotherStringForSure';",
+			],
 		];
 	}
 
