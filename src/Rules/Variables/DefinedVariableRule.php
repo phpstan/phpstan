@@ -35,7 +35,6 @@ class DefinedVariableRule implements \PHPStan\Rules\Rule
 			'_SESSION',
 			'_REQUEST',
 			'_ENV',
-			'http_response_header',
 			'argc',
 			'argv',
 		], true)) {
