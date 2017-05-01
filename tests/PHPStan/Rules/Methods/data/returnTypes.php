@@ -202,6 +202,27 @@ class Foo extends FooParent implements FooInterface
 		return $intOrNull !== null ? $intOrNull : 5;
 		return $intOrNull !== null ? $intOrNull : null;
 	}
+
+	public function misleadingBoolReturnType(): boolean
+	{
+		return true;
+		return 1;
+		return new boolean();
+	}
+
+	public function misleadingIntReturnType(): integer
+	{
+		return 1;
+		return true;
+		return new integer();
+	}
+
+	public function misleadingMixedReturnType(): mixed
+	{
+		return 1;
+		return true;
+		return new mixed();
+	}
 }
 
 class FooChild extends Foo
