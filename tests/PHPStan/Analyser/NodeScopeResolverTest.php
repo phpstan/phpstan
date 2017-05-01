@@ -2449,6 +2449,71 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+	public function dataMisleadingTypes(): array
+	{
+		return [
+			[
+				'MisleadingTypes\boolean',
+				'$foo->misleadingBoolReturnType()',
+			],
+			[
+				'MisleadingTypes\integer',
+				'$foo->misleadingIntReturnType()',
+			],
+			[
+				'MisleadingTypes\mixed',
+				'$foo->misleadingMixedReturnType()',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataMisleadingTypes
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testMisleadingTypes(
+		string $description,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/misleading-types.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataMisleadingTypesWithoutNamespace(): array
+	{
+		return [
+			[
+				'boolean', // would have been "bool" for a real boolean
+				'$foo->misleadingBoolReturnType()',
+			],
+			[
+				'integer',
+				'$foo->misleadingIntReturnType()',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataMisleadingTypesWithoutNamespace
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testMisleadingTypesWithoutNamespace(
+		string $description,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/misleading-types-without-namespace.php',
+			$description,
+			$expression
+		);
+	}
 
 	private function assertTypes(
 		string $file,

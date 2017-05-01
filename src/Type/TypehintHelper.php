@@ -12,10 +12,14 @@ class TypehintHelper
 	public static function getTypeObjectFromTypehint(
 		string $typehintString,
 		string $selfClass = null,
-		NameScope $nameScope = null
+		NameScope $nameScope = null,
+		bool $fromReflection = false
 	): Type
 	{
-		if (strrpos($typehintString, '[]') === strlen($typehintString) - 2) {
+		if (
+			!$fromReflection
+			&& strrpos($typehintString, '[]') === strlen($typehintString) - 2
+		) {
 			$arr = new ArrayType(self::getTypeObjectFromTypehint(
 				substr($typehintString, 0, -2),
 				$selfClass,
@@ -46,37 +50,37 @@ class TypehintHelper
 		}
 
 		$lowercasedTypehintString = strtolower($typehintString);
-		switch ($lowercasedTypehintString) {
-			case 'int':
-			case 'integer':
+		switch (true) {
+			case $lowercasedTypehintString === 'int':
+			case $lowercasedTypehintString === 'integer' && !$fromReflection:
 				return new IntegerType();
-			case 'bool':
-			case 'boolean':
+			case $lowercasedTypehintString === 'bool':
+			case $lowercasedTypehintString === 'boolean' && !$fromReflection:
 				return new TrueOrFalseBooleanType();
-			case 'true':
+			case $lowercasedTypehintString === 'true' && !$fromReflection:
 				return new TrueBooleanType();
-			case 'false':
+			case $lowercasedTypehintString === 'false' && !$fromReflection:
 				return new FalseBooleanType();
-			case 'string':
+			case $lowercasedTypehintString === 'string':
 				return new StringType();
-			case 'float':
+			case $lowercasedTypehintString === 'float':
 				return new FloatType();
-			case 'scalar':
+			case $lowercasedTypehintString === 'scalar' && !$fromReflection:
 				return new CommonUnionType([new IntegerType(), new FloatType(), new StringType(), new TrueOrFalseBooleanType()]);
-			case 'array':
+			case $lowercasedTypehintString === 'array':
 				return new ArrayType(new MixedType());
-			case 'iterable':
+			case $lowercasedTypehintString === 'iterable':
 				return new IterableIterableType(new MixedType());
-			case 'callable':
+			case $lowercasedTypehintString === 'callable':
 				return new CallableType();
-			case 'null':
+			case $lowercasedTypehintString === 'null' && !$fromReflection:
 				return new NullType();
-			case 'resource':
+			case $lowercasedTypehintString === 'resource' && !$fromReflection:
 				return new ResourceType();
-			case 'object':
-			case 'mixed':
+			case $lowercasedTypehintString === 'object' && !$fromReflection:
+			case $lowercasedTypehintString === 'mixed' && !$fromReflection:
 				return new MixedType();
-			case 'void':
+			case $lowercasedTypehintString === 'void':
 				return new VoidType();
 			default:
 				$className = $typehintString;
@@ -99,14 +103,16 @@ class TypehintHelper
 		}
 
 		$reflectionTypeString = (string) $reflectionType;
-		if ($isVariadic) {
-			$reflectionTypeString .= '[]';
-		}
-
 		$type = self::getTypeObjectFromTypehint(
 			$reflectionTypeString,
-			$selfClass
+			$selfClass,
+			null,
+			true
 		);
+		if ($isVariadic) {
+			$type = new ArrayType($type);
+		}
+
 		if ($reflectionType->allowsNull()) {
 			$type = TypeCombinator::addNull($type);
 		}
