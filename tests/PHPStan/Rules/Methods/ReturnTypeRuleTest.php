@@ -177,4 +177,34 @@ class ReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		]);
 	}
 
+	public function testMisleadingTypehintsInClassWithoutNamespace()
+	{
+		$this->analyse([__DIR__ . '/data/misleadingTypehints.php'], [
+			[
+				'Method FooWithoutNamespace::misleadingBoolReturnType() should return boolean but returns true.',
+				8,
+			],
+			[
+				'Method FooWithoutNamespace::misleadingBoolReturnType() should return boolean but returns int.',
+				9,
+			],
+			[
+				'Method FooWithoutNamespace::misleadingIntReturnType() should return integer but returns int.',
+				15,
+			],
+			[
+				'Method FooWithoutNamespace::misleadingIntReturnType() should return integer but returns true.',
+				16,
+			],
+			[
+				'Method FooWithoutNamespace::misleadingMixedReturnType() should return mixed but returns int.',
+				22,
+			],
+			[
+				'Method FooWithoutNamespace::misleadingMixedReturnType() should return mixed but returns true.',
+				23,
+			],
+		]);
+	}
+
 }
