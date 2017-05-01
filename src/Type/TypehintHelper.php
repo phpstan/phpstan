@@ -28,14 +28,15 @@ class TypehintHelper
 			return $arr;
 		}
 
+		$lowercasedTypehintString = strtolower($typehintString);
 		if ($selfClass !== null) {
-			if ($typehintString === 'static') {
+			if ($lowercasedTypehintString === 'static' && !$fromReflection) {
 				return new StaticType($selfClass);
-			} elseif ($typehintString === 'self') {
+			} elseif ($lowercasedTypehintString === 'self') {
 				return new ObjectType($selfClass);
-			} elseif ($typehintString === '$this') {
+			} elseif ($typehintString === '$this' && !$fromReflection) {
 				return new ThisType($selfClass);
-			} elseif ($typehintString === 'parent') {
+			} elseif ($lowercasedTypehintString === 'parent') {
 				if (self::exists($selfClass)) {
 					$classReflection = new \ReflectionClass($selfClass);
 					if ($classReflection->getParentClass() !== false) {
@@ -45,11 +46,10 @@ class TypehintHelper
 
 				return new NonexistentParentClassType();
 			}
-		} elseif ($typehintString === 'parent') {
+		} elseif ($lowercasedTypehintString === 'parent') {
 			return new NonexistentParentClassType();
 		}
 
-		$lowercasedTypehintString = strtolower($typehintString);
 		switch (true) {
 			case $lowercasedTypehintString === 'int':
 			case $lowercasedTypehintString === 'integer' && !$fromReflection:

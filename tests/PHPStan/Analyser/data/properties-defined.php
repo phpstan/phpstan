@@ -17,7 +17,7 @@ class Bar
 	 */
 	protected $inheritDocProperty;
 
-	public function doBar(): self
+	public function doBar(): Self
 	{
 
 	}

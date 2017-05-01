@@ -8,7 +8,7 @@ class FooParent
 {
 
 	/**
-	 * @return static
+	 * @return Static
 	 */
 	public function doLorem()
 	{
