@@ -37,3 +37,4 @@ printf("%.E", 3.14159); // ok
 sprintf("%.E", 3.14159); // ok
 sscanf($str, '%.E', $number); // ok
 fscanf($str, '%.E', $number); // ok
+sscanf($str, '%[A-Z]%d', $char, $number); // ok
