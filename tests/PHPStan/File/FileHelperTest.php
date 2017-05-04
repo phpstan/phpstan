@@ -115,6 +115,8 @@ class FileHelperTest extends \PHPStan\TestCase
 			['/home/users/./phpstan', '/home/users/phpstan'],
 			['/home/users/../../phpstan/', '/phpstan'],
 			['./phpstan/', 'phpstan'],
+			['phar:///usr/local/bin/phpstan.phar/tmp/cache/../..', 'phar:///usr/local/bin/phpstan.phar'],
+			['phar:///usr/local/bin/phpstan.phar/tmp/cache/../../..', '/usr/local/bin'],
 		];
 	}
 
