@@ -33,8 +33,15 @@ class FileHelper
 		return rtrim($this->getWorkingDirectory(), '/\\') . DIRECTORY_SEPARATOR . ltrim($path, '/\\');
 	}
 
-	public function normalizePath(string $path): string
+	public function normalizePath(string $originalPath): string
 	{
+		if (preg_match('~^([a-z]+)\\:\\/\\/(.+)~', $originalPath, $m)) {
+			list(, $scheme, $path) = $m;
+		} else {
+			$scheme = null;
+			$path = $originalPath;
+		}
+
 		$path = str_replace('\\', '/', $path);
 		$path = preg_replace('~/{2,}~', '/', $path);
 
@@ -47,13 +54,17 @@ class FileHelper
 				continue;
 			}
 			if ($pathPart === '..') {
-				array_pop($normalizedPathParts);
+				$removedPart = array_pop($normalizedPathParts);
+				if ($scheme === 'phar' && substr($removedPart, -5) === '.phar') {
+					$scheme = null;
+				}
+
 			} else {
 				$normalizedPathParts[] = $pathPart;
 			}
 		}
 
-		return $pathRoot . implode(DIRECTORY_SEPARATOR, $normalizedPathParts);
+		return ($scheme !== null ? $scheme . '://' : '') . $pathRoot . implode(DIRECTORY_SEPARATOR, $normalizedPathParts);
 	}
 
 }
