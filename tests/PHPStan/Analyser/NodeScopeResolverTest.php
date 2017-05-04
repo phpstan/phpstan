@@ -119,7 +119,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$this->assertSame('mixed[]', $variables['nullableIntegers']->describe());
 				$this->assertSame('mixed[]', $variables['mixeds']->describe());
 
-				/** @var $mixeds \PHPStan\Type\ArrayType */
+				/** @var \PHPStan\Type\ArrayType $mixeds */
 				$mixeds = $variables['mixeds'];
 				$this->assertInstanceOf(MixedType::class, $mixeds->getItemType());
 
