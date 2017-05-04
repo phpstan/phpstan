@@ -46,6 +46,8 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
+		$consoleStyle = new ErrorsConsoleStyle($input, $output);
+
 		$autoloadFile = $input->getOption('autoload-file');
 		if ($autoloadFile !== null && is_file($autoloadFile)) {
 			require_once $autoloadFile;
@@ -58,14 +60,6 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		$rootDir = $fileHelper->normalizePath(__DIR__ . '/../..');
 		$tmpDir = $rootDir . '/tmp';
 		$confDir = $rootDir . '/conf';
-
-		$configurator = new Configurator();
-		$configurator->defaultExtensions = [
-			'php' => PhpExtension::class,
-			'extensions' => ExtensionsExtension::class,
-		];
-		$configurator->setDebugMode(true);
-		$configurator->setTempDirectory($tmpDir);
 
 		$projectConfigFile = $input->getOption('configuration');
 		$levelOption = $input->getOption(self::OPTION_LEVEL);
@@ -95,6 +89,14 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			$configFiles[] = $projectConfigFile;
 		}
 
+		$configurator = new Configurator();
+		$configurator->defaultExtensions = [
+			'php' => PhpExtension::class,
+			'extensions' => ExtensionsExtension::class,
+		];
+		$configurator->setDebugMode(true);
+		$configurator->setTempDirectory($tmpDir);
+
 		foreach ($configFiles as $configFile) {
 			$configurator->addConfig($configFile);
 		}
@@ -108,7 +110,6 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 		$configurator->addParameters($parameters);
 		$container = $configurator->createContainer();
-		$consoleStyle = new ErrorsConsoleStyle($input, $output);
 		$memoryLimitFile = $container->parameters['memoryLimitFile'];
 		if (file_exists($memoryLimitFile)) {
 			$consoleStyle->note(sprintf(
