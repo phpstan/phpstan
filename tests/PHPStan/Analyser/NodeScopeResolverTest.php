@@ -2537,13 +2537,15 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 
 	private function processFile(string $file, \Closure $callback, array $dynamicMethodReturnTypeExtensions = [], array $dynamicStaticMethodReturnTypeExtensions = [])
 	{
+		$resolvedTypes = [];
 		$this->resolver->processNodes(
 			$this->getParser()->parseFile($file),
 			new Scope(
 				$this->createBroker($dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions),
 				$this->printer,
 				new TypeSpecifier($this->printer),
-				$file
+				$file,
+				$resolvedTypes
 			),
 			$callback
 		);
