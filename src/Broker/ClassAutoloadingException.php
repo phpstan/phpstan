@@ -10,15 +10,23 @@ class ClassAutoloadingException extends \PHPStan\AnalysedCodeException
 
 	public function __construct(
 		string $functionName,
-		\Throwable $previous
+		\Throwable $previous = null
 	)
 	{
-		parent::__construct(sprintf(
-			'%s (%s) thrown while autoloading class %s.',
-			get_class($previous),
-			$previous->getMessage(),
-			$functionName
-		), 0, $previous);
+		if ($previous !== null) {
+			parent::__construct(sprintf(
+				'%s (%s) thrown while autoloading class %s.',
+				get_class($previous),
+				$previous->getMessage(),
+				$functionName
+			), 0, $previous);
+		} else {
+			parent::__construct(sprintf(
+				'Class %s not found and could not be autoloaded.',
+				$functionName
+			), 0, $previous);
+		}
+
 		$this->className = $functionName;
 	}
 
