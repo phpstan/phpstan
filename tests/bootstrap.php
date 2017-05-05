@@ -9,7 +9,7 @@ require_once __DIR__ . '/PHPStan/Rules/AlwaysFailRule.php';
 require_once __DIR__ . '/PHPStan/Rules/DummyRule.php';
 
 $rootDir = __DIR__ . '/..';
-$tmpDir = $rootDir . '/tmp';
+$tmpDir = sys_get_temp_dir();
 $confDir = $rootDir . '/conf';
 
 $configurator = new Configurator();
