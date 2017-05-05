@@ -73,6 +73,11 @@ class Scope
 	private $file;
 
 	/**
+	 * @var \PHPStan\Type\Type[]
+	 */
+	private $resolvedTypes = [];
+
+	/**
 	 * @var string
 	 */
 	private $analysedContextFile;
@@ -304,6 +309,15 @@ class Scope
 	}
 
 	public function getType(Expr $node): Type
+	{
+		$key = $this->printer->prettyPrintExpr($node);
+		if (!array_key_exists($key, $this->resolvedTypes)) {
+			$this->resolvedTypes[$key] = $this->resolveType($node);
+		}
+		return $this->resolvedTypes[$key];
+	}
+
+	public function resolveType(Expr $node): Type
 	{
 		if (
 			$node instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd
