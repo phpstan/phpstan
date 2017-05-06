@@ -7,7 +7,9 @@ use PHPStan\Parser\FunctionCallStatementFinder;
 use PHPStan\Parser\Parser;
 use PHPStan\Reflection\Php\DummyParameter;
 use PHPStan\Reflection\Php\PhpParameterReflection;
+use PHPStan\Type\ArrayType;
 use PHPStan\Type\IntegerType;
+use PHPStan\Type\MixedType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
@@ -122,6 +124,17 @@ class FunctionReflection implements ParametersAcceptor
 				$this->parameters[] = new DummyParameter(
 					'filters',
 					new IntegerType(),
+					true
+				);
+			}
+
+			if (
+				$this->reflection->getName() === 'session_start'
+				&& count($this->parameters) === 0
+			) {
+				$this->parameters[] = new DummyParameter(
+					'options',
+					new ArrayType(new MixedType()),
 					true
 				);
 			}
