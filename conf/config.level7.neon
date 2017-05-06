@@ -3,3 +3,11 @@ includes:
 
 parameters:
 	checkNullables: true
+
+services:
+	-
+		class: PHPStan\Rules\Methods\CallMethodsOnPossiblyNullRule
+		arguments:
+			checkThisOnly: %checkThisOnly%
+		tags:
+			- phpstan.rules.rule

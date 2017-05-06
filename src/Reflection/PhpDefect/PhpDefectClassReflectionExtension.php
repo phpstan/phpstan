@@ -145,6 +145,7 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 
 	public function getProperty(ClassReflection $classReflection, string $propertyName): PropertyReflection
 	{
+		/** @var \PHPStan\Reflection\ClassReflection $classWithProperties */
 		$classWithProperties = $this->getClassWithProperties($classReflection, $propertyName);
 		$typeString = $this->properties[$classWithProperties->getName()][$propertyName];
 		return new PhpDefectPropertyReflection(

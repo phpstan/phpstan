@@ -18,7 +18,7 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 	/** @var \Symfony\Component\Console\Output\OutputInterface */
 	private $output;
 
-	/** @var \Symfony\Component\Console\Helper\ProgressBar|null */
+	/** @var \Symfony\Component\Console\Helper\ProgressBar */
 	private $progressBar;
 
 	public function __construct(InputInterface $input, OutputInterface $output)

@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Rules\RuleLevelHelper;
 
 class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
@@ -55,7 +56,7 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 		$propertyType = $propertyReflection->getType();
 		$assignedValueType = $scope->getType($node->expr);
 		if (!$this->ruleLevelHelper->accepts($propertyType, $assignedValueType)) {
-			$propertyDescription = $this->describeProperty($propertyFetch, $scope);
+			$propertyDescription = $this->describeProperty($propertyReflection, $propertyFetch);
 			if ($propertyDescription === null) {
 				return [];
 			}
@@ -74,13 +75,12 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
+	 * @param \PHPStan\Reflection\PropertyReflection $property
 	 * @param \PhpParser\Node\Expr\PropertyFetch|\PhpParser\Node\Expr\StaticPropertyFetch $propertyFetch
-	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string|null
 	 */
-	private function describeProperty($propertyFetch, Scope $scope)
+	private function describeProperty(PropertyReflection $property, $propertyFetch)
 	{
-		$property = $this->findPropertyReflectionFromNode($propertyFetch, $scope);
 		if ($propertyFetch instanceof Node\Expr\PropertyFetch) {
 			return sprintf('Property %s::$%s', $property->getDeclaringClass()->getName(), $propertyFetch->name);
 		} elseif ($propertyFetch instanceof Node\Expr\StaticPropertyFetch) {

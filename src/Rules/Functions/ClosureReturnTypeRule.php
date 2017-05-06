@@ -34,6 +34,7 @@ class ClosureReturnTypeRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
+		/** @var \PHPStan\Type\Type $returnType */
 		$returnType = $scope->getAnonymousFunctionReturnType();
 
 		return $this->returnTypeCheck->checkReturnType(
