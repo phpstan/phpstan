@@ -144,3 +144,20 @@ class StaticCallOnAVariable extends FooCallToParentConstructor
 	}
 
 }
+
+abstract class AbstractClassWithAbstractConstructor
+{
+
+	abstract public function __construct();
+
+}
+
+class ClassThatExtendsAbstractClassWithAbstractConstructor extends AbstractClassWithAbstractConstructor
+{
+
+	public function __construct()
+	{
+
+	}
+
+}

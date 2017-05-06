@@ -99,13 +99,17 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 	private function getParentConstructorClass(ClassReflection $classReflection, Scope $scope)
 	{
 		while ($classReflection->getParentClass() !== false) {
+			$constructor = $classReflection->getParentClass()->hasMethod('__construct') ? $classReflection->getParentClass()->getMethod('__construct', $scope) : null;
+			$constructorWithClassName = $classReflection->getParentClass()->hasMethod($classReflection->getParentClass()->getName()) ? $classReflection->getParentClass()->getMethod($classReflection->getParentClass()->getName(), $scope) : null;
 			if (
 				(
-					$classReflection->getParentClass()->hasMethod('__construct')
-					&& $classReflection->getParentClass()->getMethod('__construct', $scope)->getDeclaringClass()->getName() === $classReflection->getParentClass()->getName()
+					$constructor !== null
+					&& $constructor->getDeclaringClass()->getName() === $classReflection->getParentClass()->getName()
+					&& !$constructor->isAbstract()
 				) || (
-					$classReflection->getParentClass()->hasMethod($classReflection->getParentClass()->getName())
-					&& $classReflection->getParentClass()->getMethod($classReflection->getParentClass()->getName(), $scope)->getDeclaringClass()->getName() === $classReflection->getParentClass()->getName()
+					$constructorWithClassName !== null
+					&& $constructorWithClassName->getDeclaringClass()->getName() === $classReflection->getParentClass()->getName()
+					&& !$constructorWithClassName->isAbstract()
 				)
 			) {
 				return $classReflection->getParentClass();
