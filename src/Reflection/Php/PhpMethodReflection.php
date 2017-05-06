@@ -338,4 +338,9 @@ class PhpMethodReflection implements MethodReflection
 		return $this->returnType;
 	}
 
+	public function isAbstract(): bool
+	{
+		return $this->reflection->isAbstract();
+	}
+
 }
