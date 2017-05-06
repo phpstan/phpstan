@@ -64,6 +64,7 @@ class TypehintHelper
 			case $lowercasedTypehintString === 'string':
 				return new StringType();
 			case $lowercasedTypehintString === 'float':
+			case $lowercasedTypehintString === 'double' && !$fromReflection:
 				return new FloatType();
 			case $lowercasedTypehintString === 'scalar' && !$fromReflection:
 				return new CommonUnionType([new IntegerType(), new FloatType(), new StringType(), new TrueOrFalseBooleanType()]);
