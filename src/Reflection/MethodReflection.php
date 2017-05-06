@@ -7,6 +7,4 @@ interface MethodReflection extends ParametersAcceptor, ClassMemberReflection
 
 	public function getPrototype(): self;
 
-	public function isAbstract(): bool;
-
 }

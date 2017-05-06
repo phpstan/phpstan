@@ -6,7 +6,6 @@ use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ClassReflection;
 
 class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 {
@@ -27,7 +26,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		$classReflection = $scope->getClassReflection();
+		$classReflection = $scope->getClassReflection()->getNativeReflection();
 		if ($classReflection->isInterface() || $classReflection->isAnonymous()) {
 			return [];
 		}
@@ -42,7 +41,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 				];
 			}
 
-			if ($this->getParentConstructorClass($classReflection, $scope) === false) {
+			if ($this->getParentConstructorClass($classReflection) === false) {
 				return [
 					sprintf(
 						'%s::__construct() calls parent constructor but parent does not have one.',
@@ -51,7 +50,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 				];
 			}
 		} else {
-			$parentClass = $this->getParentConstructorClass($classReflection, $scope);
+			$parentClass = $this->getParentConstructorClass($classReflection);
 			if ($parentClass !== false) {
 				return [
 					sprintf(
@@ -92,15 +91,14 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PHPStan\Reflection\ClassReflection $classReflection
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return \PHPStan\Reflection\ClassReflection|bool
+	 * @param \ReflectionClass $classReflection
+	 * @return \ReflectionClass|bool
 	 */
-	private function getParentConstructorClass(ClassReflection $classReflection, Scope $scope)
+	private function getParentConstructorClass(\ReflectionClass $classReflection)
 	{
 		while ($classReflection->getParentClass() !== false) {
-			$constructor = $classReflection->getParentClass()->hasMethod('__construct') ? $classReflection->getParentClass()->getMethod('__construct', $scope) : null;
-			$constructorWithClassName = $classReflection->getParentClass()->hasMethod($classReflection->getParentClass()->getName()) ? $classReflection->getParentClass()->getMethod($classReflection->getParentClass()->getName(), $scope) : null;
+			$constructor = $classReflection->getParentClass()->hasMethod('__construct') ? $classReflection->getParentClass()->getMethod('__construct') : null;
+			$constructorWithClassName = $classReflection->getParentClass()->hasMethod($classReflection->getParentClass()->getName()) ? $classReflection->getParentClass()->getMethod($classReflection->getParentClass()->getName()) : null;
 			if (
 				(
 					$constructor !== null

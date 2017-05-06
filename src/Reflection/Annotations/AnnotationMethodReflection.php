@@ -74,9 +74,4 @@ class AnnotationMethodReflection implements MethodReflection
 		return $this->returnType;
 	}
 
-	public function isAbstract(): bool
-	{
-		return false;
-	}
-
 }
