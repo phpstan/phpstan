@@ -1025,6 +1025,14 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'string',
 				'\Foo::class',
 			],
+			[
+				'int',
+				'__LINE__',
+			],
+			[
+				'string',
+				'__DIR__',
+			],
 		];
 	}
 

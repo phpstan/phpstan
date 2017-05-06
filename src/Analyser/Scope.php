@@ -478,6 +478,10 @@ class Scope
 			return new StringType();
 		} elseif ($node instanceof \PhpParser\Node\Expr\Cast\Array_) {
 			return new ArrayType(new MixedType());
+		} elseif ($node instanceof Node\Scalar\MagicConst\Line) {
+			return new IntegerType();
+		} elseif ($node instanceof Node\Scalar\MagicConst) {
+			return new StringType();
 		} elseif ($node instanceof Object_) {
 			return new ObjectType('stdClass');
 		} elseif ($node instanceof Unset_) {
