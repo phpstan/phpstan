@@ -38,3 +38,5 @@ sprintf("%.E", 3.14159); // ok
 sscanf($str, '%.E', $number); // ok
 fscanf($str, '%.E', $number); // ok
 sscanf($str, '%[A-Z]%d', $char, $number); // ok
+sprintf('%s %s %s', ...[1]); // do not detect unpacked arguments
+sprintf('%s %s %s', ...[1, 2, 3]); // ok

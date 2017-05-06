@@ -57,6 +57,12 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 			return []; // inspect only literal string format
 		}
 
+		foreach ($node->args as $arg) {
+			if ($arg->unpack) {
+				return [];
+			}
+		}
+
 		$format = $formatArg->value;
 		$placeHoldersCount = $this->getPlaceholdersCount($name, $format);
 		$argsCount -= $formatArgumentPosition;
