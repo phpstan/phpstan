@@ -1,5 +1,7 @@
 <?php
 
+namespace InterfaceMethods;
+
 interface Foo
 {
 

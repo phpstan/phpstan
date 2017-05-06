@@ -95,8 +95,8 @@ class CallStaticMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	{
 		$this->analyse([__DIR__ . '/data/call-interface-methods.php'], [
 			[
-				'Call to an undefined static method Baz::barStaticMethod().',
-				25,
+				'Call to an undefined static method InterfaceMethods\Baz::barStaticMethod().',
+				27,
 			],
 		]);
 	}

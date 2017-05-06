@@ -237,8 +237,8 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$this->checkNullables = true;
 		$this->analyse([__DIR__ . '/data/call-interface-methods.php'], [
 			[
-				'Call to an undefined method Baz::barMethod().',
-				23,
+				'Call to an undefined method InterfaceMethods\Baz::barMethod().',
+				25,
 			],
 		]);
 	}
