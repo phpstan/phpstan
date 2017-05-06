@@ -9,5 +9,7 @@ services:
 
 	-
 		class: PHPStan\Rules\Comparison\StrictComparisonOfDifferentTypesRule
+		arguments:
+			checkNullables: %checkNullables%
 		tags:
 			- phpstan.rules.rule

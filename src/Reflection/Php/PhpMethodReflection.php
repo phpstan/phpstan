@@ -41,7 +41,7 @@ class PhpMethodReflection implements MethodReflection
 	/** @var \PHPStan\Type\Type[] */
 	private $phpDocParameterTypes;
 
-	/** @var \PHPStan\Type\Type */
+	/** @var \PHPStan\Type\Type|null */
 	private $phpDocReturnType;
 
 	/** @var \PHPStan\Reflection\ParameterReflection[] */
