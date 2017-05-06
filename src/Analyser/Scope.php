@@ -73,6 +73,11 @@ class Scope
 	private $file;
 
 	/**
+	 * @var \PHPStan\Type\Type[]
+	 */
+	private $resolvedTypes;
+
+	/**
 	 * @var string
 	 */
 	private $analysedContextFile;
@@ -142,6 +147,7 @@ class Scope
 	 * @param \PhpParser\PrettyPrinter\Standard $printer
 	 * @param \PHPStan\Analyser\TypeSpecifier $typeSpecifier
 	 * @param string $file
+	 * @param \PHPStan\Type\Type[] $resolvedTypes
 	 * @param string|null $analysedContextFile
 	 * @param bool $declareStrictTypes
 	 * @param \PHPStan\Reflection\ClassReflection|null $classReflection
@@ -161,6 +167,7 @@ class Scope
 		\PhpParser\PrettyPrinter\Standard $printer,
 		TypeSpecifier $typeSpecifier,
 		string $file,
+		array &$resolvedTypes,
 		string $analysedContextFile = null,
 		bool $declareStrictTypes = false,
 		ClassReflection $classReflection = null,
@@ -184,6 +191,7 @@ class Scope
 		$this->printer = $printer;
 		$this->typeSpecifier = $typeSpecifier;
 		$this->file = $file;
+		$this->resolvedTypes = $resolvedTypes;
 		$this->analysedContextFile = $analysedContextFile !== null ? $analysedContextFile : $file;
 		$this->declareStrictTypes = $declareStrictTypes;
 		$this->classReflection = $classReflection;
@@ -216,11 +224,13 @@ class Scope
 
 	public function enterDeclareStrictTypes(): self
 	{
+		$resolvedTypes = [];
 		return new self(
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
 			$this->getFile(),
+			$resolvedTypes,
 			$this->getAnalysedContextFile(),
 			true
 		);
@@ -304,6 +314,15 @@ class Scope
 	}
 
 	public function getType(Expr $node): Type
+	{
+		$key = $this->printer->prettyPrintExpr($node);
+		if (!array_key_exists($key, $this->resolvedTypes)) {
+			$this->resolvedTypes[$key] = $this->resolveType($node);
+		}
+		return $this->resolvedTypes[$key];
+	}
+
+	public function resolveType(Expr $node): Type
 	{
 		if (
 			$node instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd
@@ -740,11 +759,13 @@ class Scope
 
 	public function enterClass(ClassReflection $classReflection): self
 	{
+		$resolvedTypes = [];
 		return new self(
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
 			$this->getFile(),
+			$resolvedTypes,
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$classReflection,
@@ -758,11 +779,13 @@ class Scope
 
 	public function changeAnalysedContextFile(string $fileName): self
 	{
+		$resolvedTypes = [];
 		return new self(
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
 			$this->getFile(),
+			$resolvedTypes,
 			$fileName,
 			$this->isDeclareStrictTypes(),
 			$this->isInClass() ? $this->getClassReflection() : null,
@@ -835,11 +858,13 @@ class Scope
 			$variableTypes[$parameter->getName()] = $parameter->getType();
 		}
 
+		$resolvedTypes = [];
 		return new self(
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
 			$this->getFile(),
+			$resolvedTypes,
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->isInClass() ? $this->getClassReflection() : null,
@@ -853,11 +878,13 @@ class Scope
 
 	public function enterNamespace(string $namespaceName): self
 	{
+		$resolvedTypes = [];
 		return new self(
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
 			$this->getFile(),
+			$resolvedTypes,
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			null,
@@ -880,11 +907,13 @@ class Scope
 			$scopeClass = $this->getClassReflection()->getName();
 		}
 
+		$resolvedTypes = [];
 		return new self(
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
 			$this->getFile(),
+			$resolvedTypes,
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->isInClass() ? $this->getClassReflection() : null,
@@ -901,11 +930,13 @@ class Scope
 
 	public function enterAnonymousClass(ClassReflection $anonymousClass): self
 	{
+		$resolvedTypes = [];
 		return new self(
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
 			$this->getFile(),
+			$resolvedTypes,
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$anonymousClass,
@@ -955,11 +986,13 @@ class Scope
 
 		$returnType = $this->getFunctionType($returnTypehint, $returnTypehint === null, false);
 
+		$resolvedTypes = [];
 		return new self(
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
 			$this->getFile(),
+			$resolvedTypes,
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->isInClass() ? $this->getClassReflection() : null,
@@ -1054,11 +1087,13 @@ class Scope
 			$variableTypes[$keyName] = new MixedType();
 		}
 
+		$resolvedTypes = [];
 		return new self(
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
 			$this->getFile(),
+			$resolvedTypes,
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->isInClass() ? $this->getClassReflection() : null,
@@ -1089,11 +1124,13 @@ class Scope
 		}
 		$variableTypes[$variableName] = $type;
 
+		$resolvedTypes = [];
 		return new self(
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
 			$this->getFile(),
+			$resolvedTypes,
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->isInClass() ? $this->getClassReflection() : null,
@@ -1114,11 +1151,13 @@ class Scope
 	 */
 	public function enterFunctionCall($functionCall): self
 	{
+		$resolvedTypes = [];
 		return new self(
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
 			$this->getFile(),
+			$resolvedTypes,
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->isInClass() ? $this->getClassReflection() : null,
@@ -1139,11 +1178,13 @@ class Scope
 		$currentlyAssignedVariables = $this->currentlyAssignedVariables;
 		$currentlyAssignedVariables[] = $variableName;
 
+		$resolvedTypes = [];
 		return new self(
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
 			$this->getFile(),
+			$resolvedTypes,
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->isInClass() ? $this->getClassReflection() : null,
@@ -1175,11 +1216,13 @@ class Scope
 			? $type
 			: new MixedType();
 
+		$resolvedTypes = [];
 		return new self(
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
 			$this->getFile(),
+			$resolvedTypes,
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->isInClass() ? $this->getClassReflection() : null,
@@ -1203,11 +1246,13 @@ class Scope
 		$variableTypes = $this->getVariableTypes();
 		unset($variableTypes[$variableName]);
 
+		$resolvedTypes = [];
 		return new self(
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
 			$this->getFile(),
+			$resolvedTypes,
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->isInClass() ? $this->getClassReflection() : null,
@@ -1236,11 +1281,13 @@ class Scope
 			$intersectedVariableTypes[$name] = $variableType->combineWith($theirVariableTypes[$name]);
 		}
 
+		$resolvedTypes = [];
 		return new self(
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
 			$this->getFile(),
+			$resolvedTypes,
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->isInClass() ? $this->getClassReflection() : null,
@@ -1266,11 +1313,13 @@ class Scope
 			$variableTypes[$name] = $variableType;
 		}
 
+		$resolvedTypes = [];
 		return new self(
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
 			$this->getFile(),
+			$resolvedTypes,
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->isInClass() ? $this->getClassReflection() : null,
@@ -1294,11 +1343,13 @@ class Scope
 			$variableTypes = $this->getVariableTypes();
 			$variableTypes[$variableName] = $type;
 
+			$resolvedTypes = [];
 			return new self(
 				$this->broker,
 				$this->printer,
 				$this->typeSpecifier,
 				$this->getFile(),
+				$resolvedTypes,
 				$this->getAnalysedContextFile(),
 				$this->isDeclareStrictTypes(),
 				$this->isInClass() ? $this->getClassReflection() : null,
@@ -1377,11 +1428,13 @@ class Scope
 
 	public function enterNegation(): self
 	{
+		$resolvedTypes = [];
 		return new self(
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
 			$this->getFile(),
+			$resolvedTypes,
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->isInClass() ? $this->getClassReflection() : null,
@@ -1399,11 +1452,13 @@ class Scope
 
 	public function enterFirstLevelStatements(): self
 	{
+		$resolvedTypes = [];
 		return new self(
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
 			$this->getFile(),
+			$resolvedTypes,
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->isInClass() ? $this->getClassReflection() : null,
@@ -1422,11 +1477,13 @@ class Scope
 
 	public function exitFirstLevelStatements(): self
 	{
+		$resolvedTypes = [];
 		return new self(
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
 			$this->getFile(),
+			$resolvedTypes,
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->isInClass() ? $this->getClassReflection() : null,
@@ -1460,11 +1517,13 @@ class Scope
 			$moreSpecificTypes[$exprString] = $type;
 		}
 
+		$resolvedTypes = [];
 		return new self(
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
 			$this->getFile(),
+			$resolvedTypes,
 			$this->getAnalysedContextFile(),
 			$this->isDeclareStrictTypes(),
 			$this->isInClass() ? $this->getClassReflection() : null,

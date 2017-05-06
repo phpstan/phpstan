@@ -133,6 +133,7 @@ class Analyser
 		}
 
 		$this->nodeScopeResolver->setAnalysedFiles($files);
+		$resolvedNodeTypes = [];
 		foreach ($files as $file) {
 			try {
 				if ($this->fileExcluder->isExcludedFromAnalysing($file)) {
@@ -146,7 +147,7 @@ class Analyser
 				$fileErrors = [];
 				$this->nodeScopeResolver->processNodes(
 					$this->parser->parseFile($file),
-					new Scope($this->broker, $this->printer, $this->typeSpecifier, $file),
+					new Scope($this->broker, $this->printer, $this->typeSpecifier, $file, $resolvedNodeTypes),
 					function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors) {
 						if ($node instanceof \PhpParser\Node\Stmt\Trait_) {
 							return;
