@@ -317,7 +317,7 @@ class Scope
 		return $this->resolvedTypes[$key];
 	}
 
-	public function resolveType(Expr $node): Type
+	private function resolveType(Expr $node): Type
 	{
 		if (
 			$node instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd
