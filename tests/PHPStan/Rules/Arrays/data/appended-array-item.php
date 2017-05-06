@@ -38,6 +38,10 @@ class Foo
 		/** @var callable[] $anotherCallables */
 		$anotherCallables = $callables;
 		$anotherCallables[] = 'doFoo';
+
+		/** @var callable[] $yetAnotherCallables */
+		$yetAnotherCallables = $callables;
+		$yetAnotherCallables[] = [__CLASS__, 'classMethod'];
 	}
 
 }
