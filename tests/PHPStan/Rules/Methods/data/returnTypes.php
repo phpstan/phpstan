@@ -229,3 +229,32 @@ class FooChild extends Foo
 {
 
 }
+
+class Stock
+{
+
+	/** @var self */
+	private $stock;
+
+	public function getActualStock(): self
+	{
+		if (is_null($this->stock))
+		{
+			$this->stock = $this->findStock();
+			if (is_null($this->stock)) {
+				throw new \Exception();
+			}
+			return $this->stock;
+		}
+		return $this->stock;
+	}
+
+	/**
+	 * @return self|null
+	 */
+	private function findStock()
+	{
+		return new self();
+	}
+
+}
