@@ -39,7 +39,7 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 			'fscanf' => 3,
 		];
 
-		$name = (string) $node->name;
+		$name = strtolower((string) $node->name);
 		if (!isset($functionsArgumentPositions[$name])) {
 			return [];
 		}

@@ -105,7 +105,7 @@ class TypeSpecifier
 			&& $expr->name instanceof Name
 			&& isset($expr->args[0])
 		) {
-			$functionName = (string) $expr->name;
+			$functionName = strtolower((string) $expr->name);
 			$argumentExpression = $expr->args[0]->value;
 			$specifiedType = null;
 			if (in_array($functionName, [

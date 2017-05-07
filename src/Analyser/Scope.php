@@ -632,7 +632,7 @@ class Scope
 				'array_map' => 0,
 				'array_reduce' => 1,
 			];
-			$functionName = (string) $node->name;
+			$functionName = strtolower((string) $node->name);
 			if (
 				isset($arrayFunctionsThatDependOnClosureReturnType[$functionName])
 				&& isset($node->args[$arrayFunctionsThatDependOnClosureReturnType[$functionName]])
