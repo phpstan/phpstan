@@ -24,4 +24,7 @@
 		/>
 		<log type="coverage-clover" target="tmp/clover.xml"/>
 	</logging>
+	<php>
+		<ini name="register_argc_argv" value="1"/>
+	</php>
 </phpunit>

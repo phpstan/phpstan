@@ -39,6 +39,16 @@ class DefinedVariableRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
+		if (ini_get('register_argc_argv') && in_array($node->name, [
+			'argc',
+			'argv',
+		], true)) {
+			$isInMain = !$scope->isInClass() && !$scope->isInAnonymousFunction() && $scope->getFunction() === null;
+			if ($isInMain) {
+				return [];
+			}
+		}
+
 		if ($scope->isInVariableAssign($node->name)) {
 			return [];
 		}

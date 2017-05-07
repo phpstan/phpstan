@@ -86,6 +86,10 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Undefined variable: $assignedInKey',
 				204,
 			],
+			[
+				'Undefined variable: $argc',
+				219,
+			],
 		]);
 	}
 
