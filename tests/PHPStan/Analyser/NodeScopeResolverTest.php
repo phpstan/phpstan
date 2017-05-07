@@ -1033,6 +1033,50 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'string',
 				'__DIR__',
 			],
+			[
+				'int',
+				'min(...[1, 2, 3])',
+			],
+			[
+				'float',
+				'min(...[1.1, 2.2, 3.3])',
+			],
+			[
+				'mixed', // not currently possible to represent an array that contains a union type
+				'min(...[1.1, 2, 3])',
+			],
+			[
+				'int',
+				'max(...[1, 2, 3])',
+			],
+			[
+				'float',
+				'max(...[1.1, 2.2, 3.3])',
+			],
+			[
+				'int',
+				'min(1, 2, 3)',
+			],
+			[
+				'int',
+				'max(1, 2, 3)',
+			],
+			[
+				'float',
+				'min(1.1, 2.2, 3.3)',
+			],
+			[
+				'float',
+				'max(1.1, 2.2, 3.3)',
+			],
+			[
+				'DateTimeImmutable',
+				'max(new \DateTimeImmutable("today"), new \DateTimeImmutable("tomorrow"))',
+			],
+			[
+				'float|int',
+				'min(1, 2.2, 3.3)',
+			],
 		];
 	}
 

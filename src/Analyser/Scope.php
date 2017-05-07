@@ -676,6 +676,33 @@ class Scope
 				return new ArrayType($this->getType($argumentValue), false, true);
 			}
 
+			$functionsThatCombineAllArgumentTypes = [
+				'min' => '',
+				'max' => '',
+			];
+			if (
+				isset($functionsThatCombineAllArgumentTypes[$functionName])
+				&& isset($node->args[0])
+			) {
+				if ($node->args[0]->unpack) {
+					$argumentType = $this->getType($node->args[0]->value);
+					if ($argumentType instanceof ArrayType) {
+						return $argumentType->getItemType();
+					}
+				}
+				$argumentType = null;
+				foreach ($node->args as $arg) {
+					$argType = $this->getType($arg->value);
+					if ($argumentType === null) {
+						$argumentType = $argType;
+					} else {
+						$argumentType = $argumentType->combineWith($argType);
+					}
+				}
+
+				return $argumentType;
+			}
+
 			if (!$this->broker->hasFunction($node->name, $this)) {
 				return new MixedType();
 			}
@@ -736,8 +763,7 @@ class Scope
 			return new MixedType();
 		}
 
-		$itemType = reset($types);
-		array_shift($types);
+		$itemType = null;
 		foreach ($types as $type) {
 			if ($itemType === null) {
 				$itemType = $type;
