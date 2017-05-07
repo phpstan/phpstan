@@ -22,6 +22,10 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
+		if (strpos($scope->getAnalysedContextFile(), '(in context of ') !== false) {
+			return []; // skip traits
+		}
+
 		if ($node->name !== '__construct') {
 			return [];
 		}

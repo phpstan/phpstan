@@ -44,4 +44,9 @@ class RequireParentConstructCallRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		]);
 	}
 
+	public function testCheckInTraits()
+	{
+		$this->analyse([__DIR__ . '/data/call-to-parent-constructor-in-trait.php'], []);
+	}
+
 }
