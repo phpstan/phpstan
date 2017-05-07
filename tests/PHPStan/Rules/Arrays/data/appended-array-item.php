@@ -42,6 +42,11 @@ class Foo
 		/** @var callable[] $yetAnotherCallables */
 		$yetAnotherCallables = $callables;
 		$yetAnotherCallables[] = [__CLASS__, 'classMethod'];
+
+		$mappedStringArray = array_map(function ($item): string {
+			return 'foo';
+		}, []);
+		$mappedStringArray[] = 1;
 	}
 
 }

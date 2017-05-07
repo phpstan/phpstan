@@ -646,7 +646,7 @@ class Scope
 
 				return new ArrayType(
 					$anonymousFunctionType,
-					false
+					true
 				);
 			}
 
@@ -673,7 +673,7 @@ class Scope
 			) {
 				$argumentValue = $node->args[$arrayFunctionsThatCreateArrayBasedOnArgumentType[$functionName]]->value;
 
-				return new ArrayType($this->getType($argumentValue), false, true);
+				return new ArrayType($this->getType($argumentValue), true, true);
 			}
 
 			$functionsThatCombineAllArgumentTypes = [
