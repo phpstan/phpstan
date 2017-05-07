@@ -5,6 +5,8 @@ namespace PHPStan\Rules\Comparison;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\RuleLevelHelper;
+use PHPStan\Type\FloatType;
+use PHPStan\Type\IntegerType;
 use PHPStan\Type\NullType;
 
 class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
@@ -72,8 +74,17 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 		}
 
 		if (
-			!$this->ruleLevelHelper->accepts($leftType, $rightType)
-			&& !$this->ruleLevelHelper->accepts($rightType, $leftType)
+			(
+				!$this->ruleLevelHelper->accepts($leftType, $rightType)
+				&& !$this->ruleLevelHelper->accepts($rightType, $leftType)
+			)
+			|| (
+				$leftType instanceof IntegerType
+				&& $rightType instanceof FloatType
+			) || (
+				$rightType instanceof IntegerType
+				&& $leftType instanceof FloatType
+			)
 		) {
 			return [
 				sprintf(

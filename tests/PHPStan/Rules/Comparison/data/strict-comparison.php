@@ -42,6 +42,9 @@ class Foo
 		if ($trueOrFalseInSwitch === true) {
 
 		}
+
+		1.0 === 1;
+		1 === 1.0;
 	}
 
 }
