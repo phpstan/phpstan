@@ -1034,6 +1034,14 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'__DIR__',
 			],
 			[
+				'int', // if the only argument in min is array, lowest value in that array is returned
+				'min([1, 2, 3])',
+			],
+			[
+				'int[]',
+				'min([1, 2, 3], [4, 5, 5])',
+			],
+			[
 				'int',
 				'min(...[1, 2, 3])',
 			],

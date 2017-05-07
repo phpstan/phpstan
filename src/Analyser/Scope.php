@@ -690,6 +690,14 @@ class Scope
 						return $argumentType->getItemType();
 					}
 				}
+
+				if (count($node->args) === 1) {
+					$argumentType = $this->getType($node->args[0]->value);
+					if ($argumentType instanceof ArrayType) {
+						return $argumentType->getItemType();
+					}
+				}
+
 				$argumentType = null;
 				foreach ($node->args as $arg) {
 					$argType = $this->getType($arg->value);
