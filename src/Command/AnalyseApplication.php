@@ -74,6 +74,7 @@ class AnalyseApplication
 				$files[] = $this->fileHelper->normalizePath($path);
 			} else {
 				$finder = new Finder();
+				$finder->followLinks();
 				foreach ($finder->files()->name('*.{' . implode(',', $this->fileExtensions) . '}')->in($path) as $fileInfo) {
 					$files[] = $this->fileHelper->normalizePath($fileInfo->getPathname());
 					$onlyFiles = false;
