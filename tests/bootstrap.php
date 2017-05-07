@@ -22,6 +22,7 @@ $configurator->addParameters([
 	'rootDir' => $rootDir,
 	'tmpDir' => $tmpDir,
 	'currentWorkingDirectory' => $rootDir,
+	'cliArgumentsVariablesRegistered' => false,
 ]);
 $container = $configurator->createContainer();
 

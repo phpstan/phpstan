@@ -9,6 +9,16 @@ use PHPStan\Analyser\Scope;
 class DefinedVariableRule implements \PHPStan\Rules\Rule
 {
 
+	/**
+	 * @var bool
+	 */
+	private $cliArgumentsVariablesRegistered;
+
+	public function __construct(bool $cliArgumentsVariablesRegistered)
+	{
+		$this->cliArgumentsVariablesRegistered = $cliArgumentsVariablesRegistered;
+	}
+
 	public function getNodeType(): string
 	{
 		return Variable::class;
@@ -37,6 +47,16 @@ class DefinedVariableRule implements \PHPStan\Rules\Rule
 			'_ENV',
 		], true)) {
 			return [];
+		}
+
+		if ($this->cliArgumentsVariablesRegistered && in_array($node->name, [
+			'argc',
+			'argv',
+		], true)) {
+			$isInMain = !$scope->isInClass() && !$scope->isInAnonymousFunction() && $scope->getFunction() === null;
+			if ($isInMain) {
+				return [];
+			}
 		}
 
 		if ($scope->isInVariableAssign($node->name)) {

@@ -120,6 +120,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			'tmpDir' => $tmpDir,
 			'currentWorkingDirectory' => $currentWorkingDirectory,
 			'errorFormat' => $input->getOption('errorFormat'),
+			'cliArgumentsVariablesRegistered' => ini_get('register_argc_argv') === '1',
 		];
 
 		$configurator->addParameters($parameters);

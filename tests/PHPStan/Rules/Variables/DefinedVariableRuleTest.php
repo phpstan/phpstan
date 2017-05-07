@@ -5,14 +5,20 @@ namespace PHPStan\Rules\Variables;
 class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 {
 
+	/**
+	 * @var bool
+	 */
+	private $cliArgumentsVariablesRegistered;
+
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new DefinedVariableRule();
+		return new DefinedVariableRule($this->cliArgumentsVariablesRegistered);
 	}
 
 	public function testDefinedVariables()
 	{
 		require_once __DIR__ . '/data/defined-variables-definition.php';
+		$this->cliArgumentsVariablesRegistered = true;
 		$this->analyse([__DIR__ . '/data/defined-variables.php'], [
 			[
 				'Undefined variable: $definedLater',
@@ -97,6 +103,7 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		if (self::isObsoletePhpParserVersion()) {
 			$this->markTestSkipped('Test requires PHP-Parser ^3.0.0');
 		}
+		$this->cliArgumentsVariablesRegistered = true;
 		$this->analyse([__DIR__ . '/data/defined-variables-array-destructuring-short-syntax.php'], [
 			[
 				'Undefined variable: $f',
@@ -109,6 +116,32 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			[
 				'Undefined variable: $var3',
 				32,
+			],
+		]);
+	}
+
+	public function testCliArgumentsVariablesNotRegistered()
+	{
+		$this->cliArgumentsVariablesRegistered = false;
+		$this->analyse([__DIR__ . '/data/cli-arguments-variables.php'], [
+			[
+				'Undefined variable: $argc',
+				3,
+			],
+			[
+				'Undefined variable: $argc',
+				5,
+			],
+		]);
+	}
+
+	public function testCliArgumentsVariablesRegistered()
+	{
+		$this->cliArgumentsVariablesRegistered = true;
+		$this->analyse([__DIR__ . '/data/cli-arguments-variables.php'], [
+			[
+				'Undefined variable: $argc',
+				5,
 			],
 		]);
 	}
