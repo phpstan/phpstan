@@ -143,3 +143,19 @@ function () {
 	$reflectionClass->newInstance();
 	$reflectionClass->newInstance(1, 2, 3);
 };
+
+class ClassWithNullableProperty
+{
+
+	/** @var self|null */
+	private $foo;
+
+	public function doFoo()
+	{
+		if ($this->foo === null) {
+			$this->foo = new self();
+			$this->foo->doFoo();
+		}
+	}
+
+}

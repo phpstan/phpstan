@@ -1365,6 +1365,35 @@ class Scope
 		]);
 	}
 
+	public function unspecifyExpressionType(Expr $expr): self
+	{
+		$exprString = $this->printer->prettyPrintExpr($expr);
+		$moreSpecificTypes = $this->moreSpecificTypes;
+		if (isset($moreSpecificTypes[$exprString]) && !$moreSpecificTypes[$exprString] instanceof MixedType) {
+			unset($moreSpecificTypes[$exprString]);
+			return new self(
+				$this->broker,
+				$this->printer,
+				$this->typeSpecifier,
+				$this->getFile(),
+				$this->getAnalysedContextFile(),
+				$this->isDeclareStrictTypes(),
+				$this->isInClass() ? $this->getClassReflection() : null,
+				$this->getFunction(),
+				$this->getNamespace(),
+				$this->getVariableTypes(),
+				$this->inClosureBindScopeClass,
+				$this->getAnonymousFunctionReturnType(),
+				$this->getInFunctionCall(),
+				$this->isNegated(),
+				$moreSpecificTypes,
+				$this->inFirstLevelStatement
+			);
+		}
+
+		return $this;
+	}
+
 	public function removeTypeFromExpression(Expr $expr, Type $type): self
 	{
 		return $this->specifyExpressionType(

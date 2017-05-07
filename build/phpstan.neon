@@ -6,7 +6,6 @@ parameters:
 		- %rootDir%/tests/notAutoloaded/*
 	ignoreErrors:
 		- '#PHPUnit_Framework_MockObject_MockObject given#'
-		- '#Call to function count\(\) with argument type null will always result in number 1#'
 services:
 	-
 		class: PHPStan\Reflection\PhpParser\PhpParserNameClassReflectionExtension

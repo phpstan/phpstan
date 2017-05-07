@@ -933,6 +933,10 @@ class NodeScopeResolver
 			if (isset($var->dim)) {
 				$scope = $this->lookForAssigns($scope, $var->dim);
 			}
+		} elseif ($var instanceof PropertyFetch) {
+			$scope = $scope->unspecifyExpressionType($var);
+		} elseif ($var instanceof Expr\StaticPropertyFetch) {
+			$scope = $scope->unspecifyExpressionType($var);
 		} else {
 			$scope = $this->lookForAssigns($scope, $var);
 		}
