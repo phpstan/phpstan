@@ -68,6 +68,9 @@ class Ipsum
 	/** @var int|null */
 	private $nullableIntProperty;
 
+	/** @var mixed[]*/
+	private $mixedArrayProperty;
+
 	public function doIpsum()
 	{
 		if ($this->nullableIntProperty === null) {
@@ -75,6 +78,18 @@ class Ipsum
 		}
 
 		$this->nullableIntProperty = null;
+	}
+
+	/**
+	 * @param mixed[]|string $scope
+	 */
+	public function setScope($scope)
+	{
+		if (!is_array($scope)) {
+			$this->mixedArrayProperty = explode(',', $scope);
+		} else {
+			$this->mixedArrayProperty = $scope;
+		}
 	}
 
 }
