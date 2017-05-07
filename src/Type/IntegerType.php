@@ -13,10 +13,6 @@ class IntegerType implements Type
 			return new self();
 		}
 
-		if ($otherType instanceof FloatType) {
-			return new FloatType();
-		}
-
 		return TypeCombinator::combine($this, $otherType);
 	}
 

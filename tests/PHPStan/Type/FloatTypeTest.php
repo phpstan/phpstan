@@ -21,7 +21,7 @@ class FloatTypeTest extends \PHPStan\TestCase
 		$floatType = new FloatType();
 
 		$this->assertSame('float', $floatType->combineWith(new FloatType())->describe());
-		$this->assertSame('float', $floatType->combineWith(new IntegerType())->describe());
+		$this->assertSame('float|int', $floatType->combineWith(new IntegerType())->describe());
 		$this->assertSame('float|null', $floatType->combineWith(new NullType())->describe());
 		$this->assertSame('float|string', $floatType->combineWith(new StringType())->describe());
 	}

@@ -23,7 +23,7 @@ class FloatType implements Type
 
 	public function combineWith(Type $otherType): Type
 	{
-		if ($otherType instanceof $this || $otherType instanceof IntegerType) {
+		if ($otherType instanceof $this) {
 			return new self();
 		}
 
