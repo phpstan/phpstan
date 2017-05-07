@@ -35,7 +35,14 @@ class FileExcluder
 				return true;
 			}
 
-			if ($this->isFnmatchPattern($exclude) && fnmatch($exclude, $file, DIRECTORY_SEPARATOR === '\\' ? FNM_NOESCAPE : 0)) {
+			$isWindows = DIRECTORY_SEPARATOR === '\\';
+			if ($isWindows) {
+				$fnmatchFlags = FNM_NOESCAPE;
+			} else {
+				$fnmatchFlags = 0;
+			}
+
+			if ($this->isFnmatchPattern($exclude) && fnmatch($exclude, $file, $fnmatchFlags)) {
 				return true;
 			}
 		}
