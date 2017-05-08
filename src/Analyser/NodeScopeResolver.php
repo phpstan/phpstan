@@ -986,14 +986,14 @@ class NodeScopeResolver
 				}
 
 				if ($isSwitchCase && $previousBranchScope !== null) {
-					$intersectedScope = $branchScope->withoutTypeSpecifications()->addVariables($previousBranchScope);
+					$intersectedScope = $branchScope->addVariables($previousBranchScope);
 				} else {
-					$intersectedScope = $branchScope->withoutTypeSpecifications()->intersectVariables($intersectedScope, true);
+					$intersectedScope = $branchScope->intersectVariables($intersectedScope, true);
 				}
 			}
 
 			if ($earlyTerminationStatement === null) {
-				$previousBranchScope = $branchScope->withoutTypeSpecifications();
+				$previousBranchScope = $branchScope;
 			} else {
 				$previousBranchScope = null;
 			}

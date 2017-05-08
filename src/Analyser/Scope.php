@@ -1430,28 +1430,6 @@ class Scope
 		return $this;
 	}
 
-	public function withoutTypeSpecifications(): self
-	{
-		return new self(
-			$this->broker,
-			$this->printer,
-			$this->typeSpecifier,
-			$this->getFile(),
-			$this->getAnalysedContextFile(),
-			$this->isDeclareStrictTypes(),
-			$this->isInClass() ? $this->getClassReflection() : null,
-			$this->getFunction(),
-			$this->getNamespace(),
-			$this->getVariableTypes(),
-			$this->inClosureBindScopeClass,
-			$this->getAnonymousFunctionReturnType(),
-			$this->getInFunctionCall(),
-			$this->isNegated(),
-			[],
-			$this->inFirstLevelStatement
-		);
-	}
-
 	public function removeTypeFromExpression(Expr $expr, Type $type): self
 	{
 		return $this->specifyExpressionType(
