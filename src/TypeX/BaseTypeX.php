@@ -79,11 +79,6 @@ abstract class BaseTypeX implements TypeX
 		}
 	}
 
-	public function isNullable(): bool
-	{
-		return $this->acceptsX($this->factory->createNullType());
-	}
-
 	/**
 	 * @deprecated
 	 */
@@ -97,19 +92,6 @@ abstract class BaseTypeX implements TypeX
 	{
 		$otherTypeX = $this->factory->createFromLegacy($otherType);
 		return $this->factory->createIntersectionType($this, $otherTypeX);
-	}
-
-	/**
-	 * @deprecated
-	 */
-	public function makeNullable(bool $yes = TRUE): Type
-	{
-		if ($yes && !$this->acceptsX($this->factory->createNullType())) {
-			return $this->factory->createUnionType($this, $this->factory->createNullType());
-
-		} else {
-			return $this;
-		}
 	}
 
 	public function accepts(Type $otherType): bool

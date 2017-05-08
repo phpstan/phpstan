@@ -370,8 +370,6 @@ class TypeXFactory
 			$typeX = $this->createMixedType();
 		}
 
-		$typeX = $typeX->makeNullable($type->isNullable());
-
 		return $typeX;
 	}
 }

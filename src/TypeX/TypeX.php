@@ -68,10 +68,6 @@ interface TypeX extends Type
 //	 */
 //	public function getReferencedClasses(): array;
 //
-//	public function isNullable(): bool;
-//
 //	public function combineWith(TypeX $otherType): TypeX;
-//
-//	public function makeNullable(): TypeX;
 
 }
