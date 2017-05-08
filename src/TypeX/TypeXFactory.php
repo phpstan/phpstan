@@ -152,26 +152,39 @@ class TypeXFactory
 			}
 		}
 
-		// TODO: simplify 1 | 2 to int?
+		// transform A | A to A
+		// transform true | bool to bool
+		for ($i = 0; $i < count($types); $i++) {
+			for ($j = $i + 1; $j < count($types); $j++) {
+				if ($types[$j]->acceptsX($types[$i])) {
+					array_splice($types, $i--, 1);
+					continue 2;
 
+				} elseif ($types[$i]->acceptsX($types[$j])) {
+					array_splice($types, $j--, 1);
+					continue 1;
+				}
+			}
+		}
+
+		// remove equal types
 //		for ($i = 0; $i < count($types); $i++) {
 //			for ($j = $i + 1; $j < count($types); $j++) {
-//				if ($types[$j]->acceptsX($types[$i])) {
-//					array_splice($types, $i--, 1);
-//					continue 2;
-//
-//				} elseif ($types[$i]->acceptsX($types[$j])) {
+//				if ($types[$j]->acceptsX($types[$i]) && $types[$i]->acceptsX($types[$j])) {
 //					array_splice($types, $j--, 1);
-//					continue 1;
 //				}
 //			}
 //		}
 
-		// remove equal types
+		// simplify 1 | 2 to int
+		// simplify true | false to bool
 		for ($i = 0; $i < count($types); $i++) {
 			for ($j = $i + 1; $j < count($types); $j++) {
-				if ($types[$j]->acceptsX($types[$i]) && $types[$i]->acceptsX($types[$j])) {
-					array_splice($types, $j--, 1);
+				if ($types[$i] instanceof ConstantScalarType && get_class($types[$i]) === get_class($types[$j])) {
+					$generalizedType = $types[$i]->generalize();
+					array_splice($types, $j, 1);
+					array_splice($types, $i, 1, [$generalizedType]);
+					continue 2;
 				}
 			}
 		}
