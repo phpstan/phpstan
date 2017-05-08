@@ -217,6 +217,13 @@ class TypeXFactory
 			}
 		}
 
+		// transform A & (B & C) to A & B & C
+		foreach ($types as $i => &$type) {
+			if ($type instanceof IntersectionType) {
+				array_splice($types, $i, 1, $type->getTypes());
+			}
+		}
+
 		// transform IntegerType & ConstantIntegerType to ConstantIntegerType
 		// transform Child & Parent to Child
 		// transform Object & ~null to Object
