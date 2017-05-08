@@ -159,6 +159,10 @@ class ReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Method ReturnTypes\Foo::misleadingMixedReturnType() should return ReturnTypes\mixed but returns true.',
 				223,
 			],
+			[
+				'Method ReturnTypes\Stock::getAnotherStock() should return ReturnTypes\Stock but returns ReturnTypes\Stock|null.',
+				262,
+			],
 		]);
 	}
 

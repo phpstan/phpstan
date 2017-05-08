@@ -47,8 +47,8 @@ class ObjectType implements Type
 			return $this->checkSubclassAcceptability($type->getBaseClass());
 		}
 
-		if ($type instanceof UnionType && UnionTypeHelper::acceptsAll($this, $type)) {
-			return true;
+		if ($type instanceof UnionType) {
+			return UnionTypeHelper::acceptsAll($this, $type);
 		}
 
 		if ($type->getClass() === null) {

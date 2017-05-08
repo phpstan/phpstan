@@ -257,4 +257,9 @@ class Stock
 		return new self();
 	}
 
+	public function getAnotherStock(): self
+	{
+		return $this->findStock();
+	}
+
 }

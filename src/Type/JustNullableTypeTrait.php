@@ -38,8 +38,8 @@ trait JustNullableTypeTrait
 			return true;
 		}
 
-		if ($type instanceof UnionType && UnionTypeHelper::acceptsAll($this, $type)) {
-			return true;
+		if ($type instanceof UnionType) {
+			return UnionTypeHelper::acceptsAll($this, $type);
 		}
 
 		return $type instanceof MixedType;

@@ -296,8 +296,10 @@ class NodeScopeResolver
 			}
 			if (isset($node->namespacedName)) {
 				$scope = $scope->enterClass($this->broker->getClass((string) $node->namespacedName));
-			} else {
+			} elseif ($this->anonymousClassReflection !== null) {
 				$scope = $scope->enterAnonymousClass($this->anonymousClassReflection);
+			} else {
+				throw new \PHPStan\ShouldNotHappenException();
 			}
 		} elseif ($node instanceof Node\Stmt\TraitUse) {
 			$this->processTraitUse($node, $scope, $nodeCallback);

@@ -141,6 +141,9 @@ class FileTypeMapper
 			}
 		}
 
+		/** @var \PHPStan\Type\Type $type */
+		$type = $type;
+
 		return $type;
 	}
 

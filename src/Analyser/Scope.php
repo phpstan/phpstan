@@ -88,7 +88,7 @@ class Scope
 	private $declareStrictTypes;
 
 	/**
-	 * @var \PHPStan\Reflection\ClassReflection
+	 * @var \PHPStan\Reflection\ClassReflection|null
 	 */
 	private $classReflection;
 
@@ -238,7 +238,9 @@ class Scope
 
 	public function getClassReflection(): ClassReflection
 	{
-		return $this->classReflection;
+		/** @var \PHPStan\Reflection\ClassReflection $classReflection */
+		$classReflection = $this->classReflection;
+		return $classReflection;
 	}
 
 	/**
