@@ -262,4 +262,40 @@ class Stock
 		return $this->findStock();
 	}
 
+	public function returnSelf(): self
+	{
+		$stock = $this->findStock();
+		if ($stock === null) {
+			$stock = new self();
+		}
+
+		return $stock;
+	}
+
+	public function returnSelfAgain(): self
+	{
+		$stock = $this->findStock();
+		if ($stock === null) {
+			$stock = new self();
+		} elseif (test()) {
+			doFoo();
+		}
+
+		return $stock;
+	}
+
+	public function returnSelfYetAgain(): self
+	{
+		$stock = $this->findStock();
+		if ($stock === null) {
+			$stock = new self();
+		} elseif (test()) {
+			doFoo();
+		} else {
+			doBar();
+		}
+
+		return $stock;
+	}
+
 }

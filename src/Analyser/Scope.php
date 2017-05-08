@@ -523,17 +523,17 @@ class Scope
 			}
 		}
 
-		$exprString = $this->printer->prettyPrintExpr($node);
-		if (isset($this->moreSpecificTypes[$exprString])) {
-			return $this->moreSpecificTypes[$exprString];
-		}
-
 		if ($node instanceof Variable && is_string($node->name)) {
 			if (!$this->hasVariableType($node->name)) {
 				return new MixedType();
 			}
 
 			return $this->getVariableType($node->name);
+		}
+
+		$exprString = $this->printer->prettyPrintExpr($node);
+		if (isset($this->moreSpecificTypes[$exprString])) {
+			return $this->moreSpecificTypes[$exprString];
 		}
 
 		if ($node instanceof Expr\ArrayDimFetch && $node->dim !== null) {
@@ -1281,7 +1281,7 @@ class Scope
 		);
 	}
 
-	public function intersectVariables(Scope $otherScope): self
+	public function intersectVariables(Scope $otherScope, bool $combineVariables): self
 	{
 		$ourVariableTypes = $this->getVariableTypes();
 		$theirVariableTypes = $otherScope->getVariableTypes();
@@ -1291,7 +1291,11 @@ class Scope
 				continue;
 			}
 
-			$intersectedVariableTypes[$name] = $variableType->combineWith($theirVariableTypes[$name]);
+			if ($combineVariables) {
+				$variableType = $variableType->combineWith($theirVariableTypes[$name]);
+			}
+
+			$intersectedVariableTypes[$name] = $variableType;
 		}
 
 		return new self(
@@ -1314,12 +1318,20 @@ class Scope
 		);
 	}
 
-	public function addVariables(Scope $otherScope): self
+	public function addVariables(Scope $otherScope, bool $removeSpecified = false): self
 	{
 		$variableTypes = $this->getVariableTypes();
 		foreach ($otherScope->getVariableTypes() as $name => $variableType) {
 			if ($this->hasVariableType($name)) {
-				$variableType = $this->getVariableType($name)->combineWith($variableType);
+				$ourVariableType = $this->getVariableType($name);
+				$variableNode = new Variable($name);
+				if ($otherScope->isSpecified($variableNode) && $removeSpecified) {
+					$ourVariableType = TypeCombinator::remove($ourVariableType, $otherScope->getType($variableNode));
+				}
+
+				if (!$removeSpecified) {
+					$variableType = $ourVariableType->combineWith($variableType);
+				}
 			}
 			$variableTypes[$name] = $variableType;
 		}
@@ -1346,37 +1358,39 @@ class Scope
 
 	public function specifyExpressionType(Expr $expr, Type $type): self
 	{
+		$exprString = $this->printer->prettyPrintExpr($expr);
+
+		$scope = $this->addMoreSpecificTypes([
+			$exprString => $type,
+		]);
+
 		if ($expr instanceof Variable && is_string($expr->name)) {
 			$variableName = $expr->name;
 
-			$variableTypes = $this->getVariableTypes();
+			$variableTypes = $scope->getVariableTypes();
 			$variableTypes[$variableName] = $type;
 
 			return new self(
-				$this->broker,
-				$this->printer,
-				$this->typeSpecifier,
-				$this->getFile(),
-				$this->getAnalysedContextFile(),
-				$this->isDeclareStrictTypes(),
-				$this->isInClass() ? $this->getClassReflection() : null,
-				$this->getFunction(),
-				$this->getNamespace(),
+				$scope->broker,
+				$scope->printer,
+				$scope->typeSpecifier,
+				$scope->getFile(),
+				$scope->getAnalysedContextFile(),
+				$scope->isDeclareStrictTypes(),
+				$scope->isInClass() ? $scope->getClassReflection() : null,
+				$scope->getFunction(),
+				$scope->getNamespace(),
 				$variableTypes,
-				$this->inClosureBindScopeClass,
-				$this->getAnonymousFunctionReturnType(),
-				$this->getInFunctionCall(),
-				$this->isNegated(),
-				$this->moreSpecificTypes,
-				$this->inFirstLevelStatement
+				$scope->inClosureBindScopeClass,
+				$scope->getAnonymousFunctionReturnType(),
+				$scope->getInFunctionCall(),
+				$scope->isNegated(),
+				$scope->moreSpecificTypes,
+				$scope->inFirstLevelStatement
 			);
 		}
 
-		$exprString = $this->printer->prettyPrintExpr($expr);
-
-		return $this->addMoreSpecificTypes([
-			$exprString => $type,
-		]);
+		return $scope;
 	}
 
 	public function unspecifyExpressionType(Expr $expr): self

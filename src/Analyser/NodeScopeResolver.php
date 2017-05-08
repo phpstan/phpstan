@@ -983,19 +983,17 @@ class NodeScopeResolver
 				}
 			}
 
-			$allBranchesScope = $allBranchesScope->addVariables($branchScope);
+			$allBranchesScope = $allBranchesScope->addVariables($branchScope, !$isSwitchCase);
 
 			if ($earlyTerminationStatement === null || $earlyTerminationStatement instanceof Break_) {
 				if ($intersectedScope === null) {
-					$intersectedScope = $initialScope->addVariables($branchScope);
+					$intersectedScope = $initialScope->addVariables($branchScope, true);
 				}
 
-				if ($intersectedScope !== null) {
-					if ($isSwitchCase && $previousBranchScope !== null) {
-						$intersectedScope = $branchScope->withoutTypeSpecifications()->addVariables($previousBranchScope);
-					} else {
-						$intersectedScope = $branchScope->withoutTypeSpecifications()->intersectVariables($intersectedScope);
-					}
+				if ($isSwitchCase && $previousBranchScope !== null) {
+					$intersectedScope = $branchScope->withoutTypeSpecifications()->addVariables($previousBranchScope);
+				} else {
+					$intersectedScope = $branchScope->withoutTypeSpecifications()->intersectVariables($intersectedScope, true);
 				}
 			}
 
@@ -1007,7 +1005,11 @@ class NodeScopeResolver
 		}
 
 		if ($intersectedScope !== null) {
-			return $intersectedScope->addVariables($allBranchesScope->intersectVariables($initialScope))->addSpecificTypesFromScope($initialScope);
+			$combine = isset($earlyTerminationStatement) && $earlyTerminationStatement === null;
+			return $intersectedScope->addVariables(
+				$allBranchesScope->intersectVariables($initialScope, $combine),
+				$combine
+			)->addSpecificTypesFromScope($initialScope);
 		}
 
 		return $initialScope;
