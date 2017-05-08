@@ -327,11 +327,11 @@ class TypeXFactory
 		} elseif ($type instanceof \PHPStan\Type\TrueOrFalseBooleanType) {
 			$typeX = $this->createBooleanType();
 
-		} elseif ($type instanceof \PHPStan\Type\StaticType) {
-			$typeX = $this->createStaticType($type->getBaseClass());
-
 		} elseif ($type instanceof \PHPStan\Type\ThisType) {
 			$typeX = $this->createThisType($type->getBaseClass());
+
+		} elseif ($type instanceof \PHPStan\Type\StaticType) {
+			$typeX = $this->createStaticType($type->getBaseClass());
 
 		} elseif ($type instanceof \PHPStan\Type\NonexistentParentClassType) {
 			$typeX = $this->createErrorType(); // TODO: ???
