@@ -29,8 +29,8 @@ class IterableType extends BaseTypeX implements StaticResolvableType
 	public function acceptsX(TypeX $otherType): bool
 	{
 		return $otherType->isIterable() === self::RESULT_YES
-			&& $this->getIterableKeyType()->acceptsX($otherType->getIterableKeyType())
-			&& $this->getIterableValueType()->acceptsX($otherType->getIterableValueType());
+			&& $this->keyType->acceptsX($otherType->getIterableKeyType())
+			&& $this->valueType->acceptsX($otherType->getIterableValueType());
 	}
 
 	public function isAssignable(): int
