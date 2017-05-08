@@ -10,7 +10,6 @@ parameters:
 	checkUnionTypes: false
 	polluteScopeWithLoopInitialAssignments: false
 	polluteCatchScopeWithTryAssignments: false
-	defineVariablesWithoutDefaultBranch: false
 	ignoreErrors: []
 	reportUnmatchedIgnoredErrors: true
 	universalObjectCratesClasses:
@@ -58,7 +57,6 @@ services:
 		arguments:
 			polluteScopeWithLoopInitialAssignments: %polluteScopeWithLoopInitialAssignments%
 			polluteCatchScopeWithTryAssignments: %polluteCatchScopeWithTryAssignments%
-			defineVariablesWithoutDefaultBranch: %defineVariablesWithoutDefaultBranch%
 			earlyTerminatingMethodCalls: %earlyTerminatingMethodCalls%
 
 	-

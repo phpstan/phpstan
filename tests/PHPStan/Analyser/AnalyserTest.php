@@ -207,7 +207,6 @@ class AnalyserTest extends \PHPStan\TestCase
 				$fileHelper,
 				false,
 				false,
-				false,
 				[]
 			),
 			$printer,

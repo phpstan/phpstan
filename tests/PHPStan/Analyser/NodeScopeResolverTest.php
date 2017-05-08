@@ -37,7 +37,6 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			new FileHelper('/'),
 			true,
 			true,
-			false,
 			[
 				\EarlyTermination\Foo::class => [
 					'doFoo',

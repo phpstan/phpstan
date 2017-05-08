@@ -92,9 +92,6 @@ class NodeScopeResolver
 	/** @var bool */
 	private $polluteCatchScopeWithTryAssignments;
 
-	/** @var bool */
-	private $defineVariablesWithoutDefaultBranch;
-
 	/** @var string[][] className(string) => methods(string[]) */
 	private $earlyTerminatingMethodCalls;
 
@@ -114,7 +111,6 @@ class NodeScopeResolver
 		FileHelper $fileHelper,
 		bool $polluteScopeWithLoopInitialAssignments,
 		bool $polluteCatchScopeWithTryAssignments,
-		bool $defineVariablesWithoutDefaultBranch,
 		array $earlyTerminatingMethodCalls
 	)
 	{
@@ -127,7 +123,6 @@ class NodeScopeResolver
 		$this->fileHelper = $fileHelper;
 		$this->polluteScopeWithLoopInitialAssignments = $polluteScopeWithLoopInitialAssignments;
 		$this->polluteCatchScopeWithTryAssignments = $polluteCatchScopeWithTryAssignments;
-		$this->defineVariablesWithoutDefaultBranch = $defineVariablesWithoutDefaultBranch;
 		$this->earlyTerminatingMethodCalls = $earlyTerminatingMethodCalls;
 	}
 
@@ -683,7 +678,7 @@ class NodeScopeResolver
 
 			$statements = [
 				$ifStatement,
-				new StatementList($elseIfScope, $node->else !== null ? $node->else->stmts : ($this->defineVariablesWithoutDefaultBranch ? null : [])),
+				new StatementList($elseIfScope, $node->else !== null ? $node->else->stmts : []),
 			];
 			$statements = array_merge($statements, $elseIfStatements);
 

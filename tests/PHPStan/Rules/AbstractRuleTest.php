@@ -15,9 +15,6 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 	/** @var \PHPStan\Analyser\Analyser */
 	private $analyser;
 
-	/** @var bool */
-	protected $defineVariablesWithoutDefaultBranch = false;
-
 	abstract protected function getRule(): Rule;
 
 	private function getAnalyser(): Analyser
@@ -46,7 +43,6 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 					$fileHelper,
 					false,
 					false,
-					$this->defineVariablesWithoutDefaultBranch,
 					[]
 				),
 				$printer,

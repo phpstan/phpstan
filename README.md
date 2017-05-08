@@ -230,7 +230,7 @@ try {
 ```
 
 If you are enumerating over all possible situations in if-elseif branches
-and PHPStan complains about undefined variables after the conditions, you can either write
+and PHPStan complains about undefined variables after the conditions, you can write
 an else branch with throwing an exception:
 
 ```php
@@ -245,20 +245,7 @@ if (somethingIsTrue()) {
 doFoo($foo);
 ```
 
-Or you can set `defineVariablesWithoutDefaultBranch` boolean parameter to `true` and leave the code like this:
-
-```php
-if (somethingIsTrue()) {
-	$foo = true;
-} elseif (orSomethingElseIsTrue()) {
-	$foo = false;
-}
-
-doFoo($foo);
-```
-
-I recommend leaving `polluteScopeWithLoopInitialAssignments`, `polluteCatchScopeWithTryAssignments` and
-`defineVariablesWithoutDefaultBranch` set to `false` because it leads to a clearer and more maintainable code.
+I recommend leaving `polluteScopeWithLoopInitialAssignments` and `polluteCatchScopeWithTryAssignments` set to `false` because it leads to a clearer and more maintainable code.
 
 ### Custom early terminating method calls
 
