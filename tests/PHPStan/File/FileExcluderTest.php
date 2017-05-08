@@ -96,6 +96,21 @@ class FileExcluderTest extends \PHPStan\TestCase
 				['C:/Temp/*'],
 				false,
 			],
+			[
+				'c:\Temp\data\parse-error.php',
+				['C:/Temp/*'],
+				true,
+			],
+			[
+				'C:\Temp\data\parse-error.php',
+				['C:/temp/*'],
+				true,
+			],
+			[
+				'c:\Data\data\parse-error.php',
+				['C:/Temp/*'],
+				false,
+			],
 		];
 	}
 

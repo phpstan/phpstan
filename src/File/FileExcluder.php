@@ -37,7 +37,7 @@ class FileExcluder
 
 			$isWindows = DIRECTORY_SEPARATOR === '\\';
 			if ($isWindows) {
-				$fnmatchFlags = FNM_NOESCAPE;
+				$fnmatchFlags = FNM_NOESCAPE | FNM_CASEFOLD;
 			} else {
 				$fnmatchFlags = 0;
 			}
