@@ -36,12 +36,12 @@ class StringType extends BaseTypeX implements ScalarType
 
 	public function getIterableKeyType(): TypeX
 	{
-		return $this->factory->createErrorType();
+		return $this->factory->createErrorType(ErrorType::ITERATION_NOT_SUPPORTED);
 	}
 
 	public function getIterableValueType(): TypeX
 	{
-		return $this->factory->createErrorType();
+		return $this->factory->createErrorType(ErrorType::ITERATION_NOT_SUPPORTED);
 	}
 
 	public function canCallMethodsX(): int

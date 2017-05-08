@@ -122,7 +122,7 @@ class ObjectType extends BaseTypeX
 		}
 
 		if (!$this->broker->hasClass($this->className)) {
-			return $this->factory->createErrorType();
+			return $this->factory->createErrorType(ErrorType::ITERATION_NOT_SUPPORTED);
 		}
 
 		$classRef = $this->broker->getClass($this->className);
@@ -152,7 +152,7 @@ class ObjectType extends BaseTypeX
 		}
 
 		if (!$this->broker->hasClass($this->className)) {
-			return $this->factory->createErrorType();
+			return $this->factory->createErrorType(ErrorType::ITERATION_NOT_SUPPORTED);
 		}
 
 		$classRef = $this->broker->getClass($this->className);

@@ -5,6 +5,7 @@ namespace PHPStan\TypeX;
 class ErrorType extends BaseTypeX
 {
 	const UNDEFINED_OFFSET = 'undefined offset';
+	const ITERATION_NOT_SUPPORTED = 'iteration is not supported';
 
 	/** @var string */
 	private $message;
