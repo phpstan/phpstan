@@ -324,6 +324,10 @@ class Scope
 			|| $node instanceof \PhpParser\Node\Expr\BinaryOp\BooleanOr
 			|| $node instanceof \PhpParser\Node\Expr\BooleanNot
 			|| $node instanceof \PhpParser\Node\Expr\BinaryOp\LogicalXor
+			|| $node instanceof Expr\BinaryOp\Greater
+			|| $node instanceof Expr\BinaryOp\GreaterOrEqual
+			|| $node instanceof Expr\BinaryOp\Smaller
+			|| $node instanceof Expr\BinaryOp\SmallerOrEqual
 		) {
 			return new TrueOrFalseBooleanType();
 		}
