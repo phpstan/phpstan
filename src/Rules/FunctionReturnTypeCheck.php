@@ -16,9 +16,16 @@ class FunctionReturnTypeCheck
 	/** @var \PhpParser\PrettyPrinter\Standard */
 	private $printer;
 
-	public function __construct(\PhpParser\PrettyPrinter\Standard $printer)
+	/** @var \PHPStan\Rules\RuleLevelHelper */
+	private $ruleLevelHelper;
+
+	public function __construct(
+		\PhpParser\PrettyPrinter\Standard $printer,
+		RuleLevelHelper $ruleLevelHelper
+	)
 	{
 		$this->printer = $printer;
+		$this->ruleLevelHelper = $ruleLevelHelper;
 	}
 
 	/**
@@ -94,7 +101,7 @@ class FunctionReturnTypeCheck
 			];
 		}
 
-		if (!$returnType->accepts($returnValueType) && (!$isAnonymousFunction || $returnValueType->isDocumentableNatively())) {
+		if (!$this->ruleLevelHelper->accepts($returnType, $returnValueType) && (!$isAnonymousFunction || $returnValueType->isDocumentableNatively())) {
 			return [
 				sprintf(
 					$typeMismatchMessage,

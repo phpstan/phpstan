@@ -3,13 +3,14 @@
 namespace PHPStan\Rules\Methods;
 
 use PHPStan\Rules\FunctionReturnTypeCheck;
+use PHPStan\Rules\RuleLevelHelper;
 
 class ReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new ReturnTypeRule(new FunctionReturnTypeCheck(new \PhpParser\PrettyPrinter\Standard()));
+		return new ReturnTypeRule(new FunctionReturnTypeCheck(new \PhpParser\PrettyPrinter\Standard(), new RuleLevelHelper(true)));
 	}
 
 	public function testReturnTypeRule()
