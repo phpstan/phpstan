@@ -298,8 +298,23 @@ class TypeXFactory
 
 	public function createComplementType(TypeX $type): TypeX
 	{
+		// transform ~~A to A
 		if ($type instanceof ComplementType) {
 			return $type->getInnerType();
+		}
+
+		// transform ~(A & B) = ~A | ~B
+		if ($type instanceof IntersectionType) {
+			return $this->createUnionType(
+				...array_map([$this, 'createComplementType'], $type->getTypes())
+			);
+		}
+
+		// transform ~(A | B) = ~A & ~B
+		if ($type instanceof UnionType) {
+			return $this->createIntersectionType(
+				...array_map([$this, 'createComplementType'], $type->getTypes())
+			);
 		}
 
 		return new ComplementType($this, $type);
