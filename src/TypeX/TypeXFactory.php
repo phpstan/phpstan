@@ -40,14 +40,14 @@ class TypeXFactory
 		return new NullType($this);
 	}
 
-	public function createTrueType(): TrueType
+	public function createTrueType(): ConstantBooleanType
 	{
-		return new TrueType($this);
+		return new ConstantBooleanType($this, true);
 	}
 
-	public function createFalseType(): FalseType
+	public function createFalseType(): ConstantBooleanType
 	{
-		return new FalseType($this);
+		return new ConstantBooleanType($this, false);
 	}
 
 	public function createBooleanType(): BooleanType

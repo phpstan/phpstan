@@ -132,8 +132,7 @@ abstract class BaseTypeX implements TypeX
 	{
 		return $this instanceof VoidType
 			|| $this instanceof NullType
-			|| $this instanceof TrueType
-			|| $this instanceof FalseType
+			|| $this instanceof ConstantBooleanType
 			|| $this instanceof BooleanType
 			|| $this instanceof ConstantIntegerType
 			|| $this instanceof IntegerType
