@@ -252,7 +252,7 @@ class Stock
 	/**
 	 * @return self|null
 	 */
-	private function findStock()
+	public function findStock()
 	{
 		return new self();
 	}

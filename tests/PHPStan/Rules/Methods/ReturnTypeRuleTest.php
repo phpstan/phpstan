@@ -211,4 +211,25 @@ class ReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		]);
 	}
 
+	public function testOverridenTypeFromIfConditionShouldNotBeAppliedAfterBranch()
+	{
+		$this->defineVariablesWithoutDefaultBranch = true;
+		$this->analyse([__DIR__ . '/data/returnTypes-overridenTypeInIfCondition.php'], [
+			[
+				'Method ReturnTypes\OverridenTypeInIfCondition::getAnotherAnotherStock() should return ReturnTypes\Stock but returns ReturnTypes\Stock|null.',
+				15,
+			],
+		]);
+	}
+
+	public function testOverridenTypeFromIfConditionShouldNotBeMixedAfterBranch()
+	{
+		$this->analyse([__DIR__ . '/data/returnTypes-overridenTypeInIfCondition.php'], [
+			[
+				'Method ReturnTypes\OverridenTypeInIfCondition::getAnotherAnotherStock() should return ReturnTypes\Stock but returns ReturnTypes\Stock|null.',
+				15,
+			],
+		]);
+	}
+
 }

@@ -992,22 +992,22 @@ class NodeScopeResolver
 
 				if ($intersectedScope !== null) {
 					if ($isSwitchCase && $previousBranchScope !== null) {
-						$intersectedScope = $branchScope->addVariables($previousBranchScope);
+						$intersectedScope = $branchScope->withoutTypeSpecifications()->addVariables($previousBranchScope);
 					} else {
-						$intersectedScope = $branchScope->intersectVariables($intersectedScope);
+						$intersectedScope = $branchScope->withoutTypeSpecifications()->intersectVariables($intersectedScope);
 					}
 				}
 			}
 
 			if ($earlyTerminationStatement === null) {
-				$previousBranchScope = $branchScope;
+				$previousBranchScope = $branchScope->withoutTypeSpecifications();
 			} else {
 				$previousBranchScope = null;
 			}
 		}
 
 		if ($intersectedScope !== null) {
-			return $intersectedScope->addVariables($allBranchesScope->intersectVariables($initialScope));
+			return $intersectedScope->addVariables($allBranchesScope->intersectVariables($initialScope))->addSpecificTypesFromScope($initialScope);
 		}
 
 		return $initialScope;
