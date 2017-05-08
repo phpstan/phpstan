@@ -236,6 +236,9 @@ class Stock
 	/** @var self */
 	private $stock;
 
+	/** @var self|null */
+	private $nullableStock;
+
 	public function getActualStock(): self
 	{
 		if (is_null($this->stock))
@@ -296,6 +299,15 @@ class Stock
 		}
 
 		return $stock;
+	}
+
+	public function returnSelfYetYetAgain(): self
+	{
+		if ($this->nullableStock === null) {
+			$this->nullableStock = new self();
+		}
+
+		return $this->nullableStock;
 	}
 
 }

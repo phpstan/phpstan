@@ -1336,6 +1336,14 @@ class Scope
 			$variableTypes[$name] = $variableType;
 		}
 
+		$moreSpecificTypes = $this->moreSpecificTypes;
+		foreach ($otherScope->moreSpecificTypes as $exprString => $type) {
+			if (array_key_exists($exprString, $this->moreSpecificTypes)) {
+				$type = $type->combineWith($this->moreSpecificTypes[$exprString]);
+			}
+			$moreSpecificTypes[$exprString] = $type;
+		}
+
 		return new self(
 			$this->broker,
 			$this->printer,
@@ -1351,7 +1359,7 @@ class Scope
 			$this->getAnonymousFunctionReturnType(),
 			$this->getInFunctionCall(),
 			$this->isNegated(),
-			$this->moreSpecificTypes,
+			$moreSpecificTypes,
 			$this->inFirstLevelStatement
 		);
 	}

@@ -8,8 +8,6 @@ class Test {
 	private $date;
 
 	public function __construct() {
-		$this->date = null;
-
 		$this->date->format('Y');
 
 		if (!is_null($this->date)) {
