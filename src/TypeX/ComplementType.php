@@ -26,7 +26,8 @@ class ComplementType extends BaseTypeX
 
 	public function acceptsX(TypeX $otherType): bool
 	{
-		return !$this->innerType->acceptsX($otherType);
+		return !$this->innerType->acceptsX($otherType)
+			&& !$otherType->acceptsX($this->innerType);
 	}
 
 	public function isAssignable(): int
