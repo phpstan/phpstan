@@ -41,38 +41,29 @@ abstract class BaseTypeX implements TypeX
 	 */
 	public function getReferencedClasses(): array
 	{
-		if ($this instanceof ConstantArrayType) {
-			return array_values(array_unique(array_map(
-				function (TypeX $type) { return $type->getReferencedClasses(); },
-				array_merge($this->getKeyTypes(), $this->getValueTypes())
-			)));
+		$toClasses = function (TypeX ...$types) {
+			return Arrays::flatten(Arrays::map($types, function (TypeX $type) {
+				return $type->getReferencedClasses();
+			}));
+		};
 
-		} elseif ($this instanceof ObjectType && $this->getClassName() !== null) {
+		if ($this instanceof ObjectType && $this->getClassName() !== null) {
 			return [$this->getClassName()];
 
+		} elseif ($this instanceof ArrayType) {
+			return $toClasses($this->getKeyType(), $this->getValueType());
+
 		} elseif ($this instanceof IterableType) {
-			return array_values(array_unique(array_map(
-				function (TypeX $type) { return $type->getReferencedClasses(); },
-				[$this->getIterableKeyType(), $this->getIterableValueType()]
-			)));
+			return $toClasses($this->getIterableKeyType(), $this->getIterableValueType());
 
 		} elseif ($this instanceof CallableType) {
-			return array_values(array_unique(array_map(
-				function (TypeX $type) { return $type->getReferencedClasses(); },
-				[$this->getCallReturnType()]
-			)));
+			return $this->getCallReturnType()->getReferencedClasses();
 
 		} elseif ($this instanceof UnionType || $this instanceof IntersectionType) {
-			return array_values(array_unique(array_map(
-				function (TypeX $type) { return $type->getReferencedClasses(); },
-				[$this->getTypes()]
-			)));
+			return $toClasses(...$this->getTypes());
 
 		} elseif ($this instanceof ComplementType) {
-			return array_values(array_unique(array_map(
-				function (TypeX $type) { return $type->getReferencedClasses(); },
-				[$this->getInnerType()]
-			)));
+			return $this->getInnerType()->getReferencedClasses();
 
 		} else {
 			return [];
