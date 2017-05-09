@@ -282,7 +282,7 @@ class NodeScopeResolver
 	private function enterForeach(Scope $scope, Foreach_ $node): Scope
 	{
 		if ($node->valueVar instanceof Variable && is_string($node->valueVar->name)) {
-			return $scope->enterForeach(
+			$scope = $scope->enterForeach(
 				$node->expr,
 				$node->valueVar->name,
 				$node->keyVar !== null
@@ -294,11 +294,11 @@ class NodeScopeResolver
 		}
 
 		if ($node->keyVar !== null && $node->keyVar instanceof Variable && is_string($node->keyVar->name)) {
-			return $scope->assignVariable($node->keyVar->name);
+			$scope = $scope->assignVariable($node->keyVar->name);
 		}
 
 		if ($node->valueVar instanceof List_ || $node->valueVar instanceof Array_) {
-			return $this->lookForArrayDestructuringArray($scope, $node->valueVar);
+			$scope = $this->lookForArrayDestructuringArray($scope, $node->valueVar);
 		}
 
 		return $this->lookForAssigns($scope, $node->valueVar);

@@ -238,3 +238,7 @@ try {
 	}
 }
 echo $definedInTryCatchIfElse;
+
+foreach ($someArray as $someKey => list($destructuredAa, $destructuredBb, list($destructuredCc, $destructuredDd))) {
+
+}
