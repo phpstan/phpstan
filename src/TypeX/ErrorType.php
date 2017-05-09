@@ -6,6 +6,8 @@ class ErrorType extends BaseTypeX
 {
 	const UNDEFINED_OFFSET = 'undefined offset';
 	const ITERATION_NOT_SUPPORTED = 'iteration is not supported';
+	const CLASS_HAS_NO_PARENT = 'class has not parent';
+	const OFFSET_ACCESS_NOT_SUPPORTED = 'offset access is not supported';
 
 	/** @var string */
 	private $message;
@@ -23,6 +25,10 @@ class ErrorType extends BaseTypeX
 
 	public function acceptsX(TypeX $otherType): bool
 	{
+		if ($otherType instanceof ErrorType && $this->message === $otherType->message) {
+			return TRUE;
+		}
+
 		return FALSE;
 	}
 
