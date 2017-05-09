@@ -23,8 +23,8 @@ class ConstantArrayType extends ArrayType implements ConstantType, StaticResolva
 
 		parent::__construct(
 			$factory,
-			$factory->createUnionType(...$keyTypes),
-			$factory->createUnionType(...$valueTypes),
+			$keyTypes ? $factory->createUnionType(...$keyTypes) : $factory->createMixedType(),
+			$valueTypes ? $factory->createUnionType(...$valueTypes) : $factory->createMixedType(),
 			true
 		);
 

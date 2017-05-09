@@ -190,7 +190,7 @@ class TypeXFactory
 		}
 
 		if (count($types) === 0) {
-			return $this->createMixedType();
+			return $this->createVoidType();
 
 		} elseif (count($types) === 1) {
 			return $types[0];
