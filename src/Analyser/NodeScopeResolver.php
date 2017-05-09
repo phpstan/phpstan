@@ -1070,6 +1070,26 @@ class NodeScopeResolver
 			}
 
 			return null;
+		} elseif ($statement instanceof If_) {
+			if ($statement->else === null) {
+				return null;
+			}
+
+			if (!$this->findEarlyTermination($statement->stmts, $scope)) {
+				return null;
+			}
+
+			foreach ($statement->elseifs as $elseIfStatement) {
+				if (!$this->findEarlyTermination($elseIfStatement->stmts, $scope)) {
+					return null;
+				}
+			}
+
+			if (!$this->findEarlyTermination($statement->else->stmts, $scope)) {
+				return null;
+			}
+
+			return $statement;
 		}
 
 		return null;

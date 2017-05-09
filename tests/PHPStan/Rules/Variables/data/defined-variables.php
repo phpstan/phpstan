@@ -213,3 +213,28 @@ if (($isInstanceOf = $fooObject) instanceof Foo && $isInstanceOf) {
 echo $isInstanceOf;
 
 isset($nonexistentVariableInIsset);
+
+if (doFoo()) {
+	$definedInIfWithElseIfElse = 'foo';
+} else {
+	if (doFoo()) {
+		return;
+	} elseif (doBar()) {
+		return;
+	} else {
+		return;
+	}
+}
+
+echo $definedInIfWithElseIfElse;
+
+try {
+	$definedInTryCatchIfElse = 'foo';
+} catch (Exception $e) {
+	if (doFoo()) {
+		throw $e;
+	} else {
+		return;
+	}
+}
+echo $definedInTryCatchIfElse;
