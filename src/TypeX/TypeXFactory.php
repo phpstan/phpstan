@@ -10,6 +10,9 @@ class TypeXFactory
 	/** @var Broker */
 	private $broker;
 
+	/** @var bool */
+	private $autoSimplify = TRUE;
+
 	public function setBroker(Broker $broker)
 	{
 		assert($this->broker === null);
@@ -152,39 +155,41 @@ class TypeXFactory
 			}
 		}
 
-		// transform A | A to A
-		// transform true | bool to bool
-		for ($i = 0; $i < count($types); $i++) {
-			for ($j = $i + 1; $j < count($types); $j++) {
-				if ($types[$j]->acceptsX($types[$i])) {
-					array_splice($types, $i--, 1);
-					continue 2;
+		if ($this->autoSimplify) {
+			// transform A | A to A
+			// transform true | bool to bool
+			for ($i = 0; $i < count($types); $i++) {
+				for ($j = $i + 1; $j < count($types); $j++) {
+					if ($types[$j]->acceptsX($types[$i])) {
+						array_splice($types, $i--, 1);
+						continue 2;
 
-				} elseif ($types[$i]->acceptsX($types[$j])) {
-					array_splice($types, $j--, 1);
-					continue 1;
+					} elseif ($types[$i]->acceptsX($types[$j])) {
+						array_splice($types, $j--, 1);
+						continue 1;
+					}
 				}
 			}
-		}
 
-		// remove equal types
-//		for ($i = 0; $i < count($types); $i++) {
-//			for ($j = $i + 1; $j < count($types); $j++) {
-//				if ($types[$j]->acceptsX($types[$i]) && $types[$i]->acceptsX($types[$j])) {
-//					array_splice($types, $j--, 1);
+			// remove equal types
+//			for ($i = 0; $i < count($types); $i++) {
+//				for ($j = $i + 1; $j < count($types); $j++) {
+//					if ($types[$j]->acceptsX($types[$i]) && $types[$i]->acceptsX($types[$j])) {
+//						array_splice($types, $j--, 1);
+//					}
 //				}
 //			}
-//		}
 
-		// simplify 1 | 2 to int
-		// simplify true | false to bool
-		for ($i = 0; $i < count($types); $i++) {
-			for ($j = $i + 1; $j < count($types); $j++) {
-				if ($types[$i] instanceof ConstantScalarType && get_class($types[$i]) === get_class($types[$j])) {
-					$generalizedType = $types[$i]->generalize();
-					array_splice($types, $j, 1);
-					array_splice($types, $i, 1, [$generalizedType]);
-					continue 2;
+			// simplify 1 | 2 to int
+			// simplify true | false to bool
+			for ($i = 0; $i < count($types); $i++) {
+				for ($j = $i + 1; $j < count($types); $j++) {
+					if ($types[$i] instanceof ConstantScalarType && get_class($types[$i]) === get_class($types[$j])) {
+						$generalizedType = $types[$i]->generalize();
+						array_splice($types, $j, 1);
+						array_splice($types, $i, 1, [$generalizedType]);
+						continue 2;
+					}
 				}
 			}
 		}
@@ -224,64 +229,66 @@ class TypeXFactory
 			}
 		}
 
-		// transform IntegerType & ConstantIntegerType to ConstantIntegerType
-		// transform Child & Parent to Child
-		// transform Object & ~null to Object
-		// transform A & A to A
-		for ($i = 0; $i < count($types); $i++) {
-			for ($j = $i + 1; $j < count($types); $j++) {
-				if ($types[$j]->acceptsX($types[$i])) {
-					array_splice($types, $j--, 1);
-					continue 1;
+		if ($this->autoSimplify) {
+			// transform IntegerType & ConstantIntegerType to ConstantIntegerType
+			// transform Child & Parent to Child
+			// transform Object & ~null to Object
+			// transform A & A to A
+			for ($i = 0; $i < count($types); $i++) {
+				for ($j = $i + 1; $j < count($types); $j++) {
+					if ($types[$j]->acceptsX($types[$i])) {
+						array_splice($types, $j--, 1);
+						continue 1;
 
-				} elseif ($types[$i]->acceptsX($types[$j])) {
-					array_splice($types, $i--, 1);
-					continue 2;
+					} elseif ($types[$i]->acceptsX($types[$j])) {
+						array_splice($types, $i--, 1);
+						continue 2;
+					}
 				}
 			}
-		}
 
-		// transform int[] & string to void
-		// transform callable & int to void
-		// transform A & ~A to void
-		// transform int & string to void
-		foreach ($types as $typeA) {
-			if ($typeA instanceof ErrorType || $typeA instanceof NeverType) {
-				// not sure what to do, ignoring
+			// transform int[] & string to void
+			// transform callable & int to void
+			// transform A & ~A to void
+			// transform int & string to void
+			foreach ($types as $typeA) {
+				if ($typeA instanceof ErrorType || $typeA instanceof NeverType) {
+					// not sure what to do, ignoring
 
-			} elseif ($typeA instanceof IterableType) {
-				foreach ($types as $typeB) {
-					if ($typeB->isIterable() === TypeX::RESULT_NO) {
-						return $this->createVoidType();
-					}
-				}
-
-			} elseif ($typeA instanceof CallableType) {
-				foreach ($types as $typeB) {
-					if ($typeB->isCallable() === TypeX::RESULT_NO) {
-						return $this->createVoidType();
-					}
-				}
-
-			} elseif ($typeA instanceof ObjectType) {
-				$classRefA = $typeA->getClassRef();
-				if ($classRefA !== null && !$classRefA->isInterface()) {
+				} elseif ($typeA->isIterable() === TypeX::RESULT_YES) {
 					foreach ($types as $typeB) {
-						if ($typeB !== $typeA && $typeB instanceof ObjectType && !$typeB->getClassRef()->isInterface()) {
+						if ($typeB->isIterable() === TypeX::RESULT_NO) {
 							return $this->createVoidType();
 						}
 					}
-				}
 
-			} elseif ($typeA instanceof ComplementType) {
-				foreach ($types as $typeB) {
-					if ($typeB->acceptsX($typeA->getInnerType()) && $typeA->getInnerType()->acceptsX($typeB)) {
-						return $this->createVoidType();
+				} elseif ($typeA->isCallable() === TypeX::RESULT_YES) {
+					foreach ($types as $typeB) {
+						if ($typeB->isCallable() === TypeX::RESULT_NO) {
+							return $this->createVoidType();
+						}
 					}
-				}
 
-			} elseif (count($types) > 1) {
-				return $this->createVoidType();
+				} elseif ($typeA instanceof ObjectType) {
+					$classRefA = $typeA->getClassRef();
+					if ($classRefA !== null && !$classRefA->isInterface()) {
+						foreach ($types as $typeB) {
+							if ($typeB !== $typeA && $typeB instanceof ObjectType && $typeB->getClassRef() !== null && !$typeB->getClassRef()->isInterface()) {
+								return $this->createVoidType();
+							}
+						}
+					}
+
+				} elseif ($typeA instanceof ComplementType) {
+					foreach ($types as $typeB) {
+						if ($typeB->acceptsX($typeA->getInnerType()) && $typeA->getInnerType()->acceptsX($typeB)) {
+							return $this->createVoidType();
+						}
+					}
+
+				} elseif (count($types) > 1) {
+					return $this->createVoidType();
+				}
 			}
 		}
 
@@ -407,4 +414,17 @@ class TypeXFactory
 
 		return $typeX;
 	}
+
+	public function withoutAutoSimplify(callable $callback)
+	{
+		try {
+			$before = $this->autoSimplify;
+			$this->autoSimplify = FALSE;
+			return $callback();
+
+		} finally {
+			$this->autoSimplify = $before;
+		}
+	}
+
 }
