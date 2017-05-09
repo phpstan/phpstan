@@ -40,15 +40,15 @@ class TypesAssignedToPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				39,
 			],
 			[
-				'Property PropertiesAssignedTypes\Foo::$unionPropertySelf (PropertiesAssignedTypes\Foo[]|PropertiesAssignedTypes\Collection) does not accept PropertiesAssignedTypes\Foo.',
+				'Property PropertiesAssignedTypes\Foo::$unionPropertySelf (PropertiesAssignedTypes\Collection|PropertiesAssignedTypes\Foo[]) does not accept PropertiesAssignedTypes\Foo.',
 				44,
 			],
 			[
-				'Property PropertiesAssignedTypes\Foo::$unionPropertySelf (PropertiesAssignedTypes\Foo[]|PropertiesAssignedTypes\Collection) does not accept PropertiesAssignedTypes\Bar[].',
+				'Property PropertiesAssignedTypes\Foo::$unionPropertySelf (PropertiesAssignedTypes\Collection|PropertiesAssignedTypes\Foo[]) does not accept PropertiesAssignedTypes\Bar[].',
 				45,
 			],
 			[
-				'Property PropertiesAssignedTypes\Foo::$unionPropertySelf (PropertiesAssignedTypes\Foo[]|PropertiesAssignedTypes\Collection) does not accept PropertiesAssignedTypes\Bar.',
+				'Property PropertiesAssignedTypes\Foo::$unionPropertySelf (PropertiesAssignedTypes\Collection|PropertiesAssignedTypes\Foo[]) does not accept PropertiesAssignedTypes\Bar.',
 				46,
 			],
 			[

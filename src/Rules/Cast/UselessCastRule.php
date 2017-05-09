@@ -8,6 +8,7 @@ use PhpParser\Node\Expr\Cast\Object_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\UnionType;
+use PHPStan\TypeX\Is;
 
 class UselessCastRule implements \PHPStan\Rules\Rule
 {
@@ -34,11 +35,11 @@ class UselessCastRule implements \PHPStan\Rules\Rule
 		}
 
 		$castType = $scope->getType($node);
-		if ($castType instanceof FloatType && $node->expr instanceof Node\Expr\BinaryOp\Div) {
+		if (Is::type($castType, FloatType::class) && $node->expr instanceof Node\Expr\BinaryOp\Div) {
 			return [];
 		}
 
-		if (get_class($expressionType) === get_class($castType)) {
+		if ($castType->accepts($expressionType)) {
 			return [
 				sprintf(
 					'Casting to %s something that\'s already %s.',

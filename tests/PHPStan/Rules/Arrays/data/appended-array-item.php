@@ -33,11 +33,12 @@ class Foo
 
 		/** @var callable[] $otherCallables */
 		$otherCallables = $callables;
-		$otherCallables[] = ['Foo', 'doFoo'];
+		$otherCallables[] = [Foo::class, 'doFoo'];
 
 		/** @var callable[] $anotherCallables */
 		$anotherCallables = $callables;
-		$anotherCallables[] = 'doFoo';
+
+		$anotherCallables[] = 'AppendedArrayItem\\doFoo';
 
 		/** @var callable[] $yetAnotherCallables */
 		$yetAnotherCallables = $callables;
@@ -48,5 +49,15 @@ class Foo
 		}, []);
 		$mappedStringArray[] = 1;
 	}
+
+	public static function classMethod()
+	{
+
+	}
+
+}
+
+function doFoo()
+{
 
 }

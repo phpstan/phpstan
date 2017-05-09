@@ -192,7 +192,7 @@ class AnalyserTest extends \PHPStan\TestCase
 		$printer = new \PhpParser\PrettyPrinter\Standard();
 		$fileHelper = $this->getContainer()->getByType(FileHelper::class);
 		$fileExcluder = new FileExcluder($fileHelper, $analyseExcludes);
-		$typeSpecifier = new TypeSpecifier($printer);
+		$typeSpecifier = new TypeSpecifier($printer, $broker->getTypeFactory());
 		$analyser = new Analyser(
 			$broker,
 			new DirectParser(new \PhpParser\Parser\Php7(new \PhpParser\Lexer()), $traverser),

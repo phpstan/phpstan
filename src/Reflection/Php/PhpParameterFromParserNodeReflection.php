@@ -7,6 +7,8 @@ use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Name;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
+use PHPStan\TypeX\BaseTypeX;
+use PHPStan\TypeX\VoidType;
 
 class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\ParameterReflection
 {
@@ -77,7 +79,15 @@ class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\Parame
 					$phpDocType = \PHPStan\Type\TypeCombinator::addNull($phpDocType);
 				}
 			}
-			$this->type = TypehintHelper::decideType($this->realType, $phpDocType);
+
+			if ($this->realType instanceof BaseTypeX && $phpDocType instanceof Type) {
+				$this->type = $this->realType->intersectWith($phpDocType);
+				if ($this->type instanceof VoidType) {
+					$this->type = $this->realType; // phpDocType is broken
+				}
+			} else {
+				$this->type = TypehintHelper::decideType($this->realType, $phpDocType);
+			}
 		}
 
 		return $this->type;

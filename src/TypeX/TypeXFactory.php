@@ -13,6 +13,23 @@ class TypeXFactory
 	/** @var bool */
 	private $autoSimplify = TRUE;
 
+	/** @var null|self */
+	private static $instance;
+
+	public function __construct()
+	{
+		self::$instance = $this;
+	}
+
+	public static function getInstance(): self
+	{
+//		if (self::$instance === null) {
+//			self::$instance = new self();
+//		}
+
+		return self::$instance;
+	}
+
 	public function setBroker(Broker $broker)
 	{
 		assert($this->broker === null);
@@ -97,6 +114,8 @@ class TypeXFactory
 
 	public function createArrayType(TypeX $keyType = null, TypeX $valueType = null, bool $inferredFromLiteral = false): ArrayType
 	{
+		// TODO: generalize keyType & valueType?
+
 		return new ArrayType(
 			$this,
 			$keyType ?? $this->createUnionType($this->createStringType(), $this->createIntegerType()),

@@ -85,6 +85,12 @@ abstract class BaseTypeX implements TypeX
 		return $this->factory->createIntersectionType($this, $otherTypeX);
 	}
 
+	public function remove(Type $otherType): Type
+	{
+		$otherTypeX = $this->factory->createFromLegacy($otherType);
+		return $this->combineWith($this->factory->createComplementType($otherTypeX));
+	}
+
 	public function accepts(Type $otherType): bool
 	{
 		$otherTypeX = $this->factory->createFromLegacy($otherType);

@@ -3,6 +3,11 @@
 namespace PHPStan\Type;
 
 use PHPStan\Analyser\NameScope;
+use PHPStan\TypeX\BaseTypeX;
+use PHPStan\TypeX\ErrorType;
+use PHPStan\TypeX\TypeX;
+use PHPStan\TypeX\TypeXFactory;
+use SiblingMethodPrototype\Base;
 
 class TypehintHelper
 {
@@ -14,81 +19,87 @@ class TypehintHelper
 		string $selfClass = null,
 		NameScope $nameScope = null,
 		bool $fromReflection = false
-	): Type
+	): TypeX
 	{
+		$typeFactory = TypeXFactory::getInstance();
+
 		if (
 			!$fromReflection
 			&& strrpos($typehintString, '[]') === strlen($typehintString) - 2
 		) {
-			$arr = new ArrayType(self::getTypeObjectFromTypehint(
+			return $typeFactory->createArrayType(null, self::getTypeObjectFromTypehint(
 				substr($typehintString, 0, -2),
 				$selfClass,
 				$nameScope
 			));
-			return $arr;
 		}
 
 		$lowercasedTypehintString = strtolower($typehintString);
 		if ($selfClass !== null) {
 			if ($lowercasedTypehintString === 'static' && !$fromReflection) {
-				return new StaticType($selfClass);
+				return $typeFactory->createStaticType($selfClass);
 			} elseif ($lowercasedTypehintString === 'self') {
-				return new ObjectType($selfClass);
+				return $typeFactory->createObjectType($selfClass);
 			} elseif ($typehintString === '$this' && !$fromReflection) {
-				return new ThisType($selfClass);
+				return $typeFactory->createThisType($selfClass);
 			} elseif ($lowercasedTypehintString === 'parent') {
 				if (self::exists($selfClass)) {
 					$classReflection = new \ReflectionClass($selfClass);
 					if ($classReflection->getParentClass() !== false) {
-						return new ObjectType($classReflection->getParentClass()->getName());
+						return $typeFactory->createObjectType($classReflection->getParentClass()->getName());
 					}
 				}
 
-				return new NonexistentParentClassType();
+				return $typeFactory->createErrorType(ErrorType::CLASS_HAS_NO_PARENT);
 			}
 		} elseif ($lowercasedTypehintString === 'parent') {
-			return new NonexistentParentClassType();
+			return $typeFactory->createErrorType(ErrorType::CLASS_HAS_NO_PARENT);
 		}
 
 		switch (true) {
 			case $lowercasedTypehintString === 'int':
 			case $lowercasedTypehintString === 'integer' && !$fromReflection:
-				return new IntegerType();
+				return $typeFactory->createIntegerType();
 			case $lowercasedTypehintString === 'bool':
 			case $lowercasedTypehintString === 'boolean' && !$fromReflection:
-				return new TrueOrFalseBooleanType();
+			return $typeFactory->createBooleanType();
 			case $lowercasedTypehintString === 'true' && !$fromReflection:
-				return new TrueBooleanType();
+				return $typeFactory->createTrueType();
 			case $lowercasedTypehintString === 'false' && !$fromReflection:
-				return new FalseBooleanType();
+				return $typeFactory->createFalseType();
 			case $lowercasedTypehintString === 'string':
-				return new StringType();
+				return $typeFactory->createStringType();
 			case $lowercasedTypehintString === 'float':
 			case $lowercasedTypehintString === 'double' && !$fromReflection:
-				return new FloatType();
+				return $typeFactory->createFloatType();
 			case $lowercasedTypehintString === 'scalar' && !$fromReflection:
-				return new CommonUnionType([new IntegerType(), new FloatType(), new StringType(), new TrueOrFalseBooleanType()]);
+				return $typeFactory->createUnionType(
+					$typeFactory->createIntegerType(),
+					$typeFactory->createFloatType(),
+					$typeFactory->createStringType(),
+					$typeFactory->createBooleanType()
+				);
 			case $lowercasedTypehintString === 'array':
-				return new ArrayType(new MixedType());
+				return $typeFactory->createArrayType();
 			case $lowercasedTypehintString === 'iterable':
-				return new IterableIterableType(new MixedType());
+				return $typeFactory->createIterableType();
 			case $lowercasedTypehintString === 'callable':
-				return new CallableType();
+				return $typeFactory->createCallableType();
 			case $lowercasedTypehintString === 'null' && !$fromReflection:
-				return new NullType();
+				return $typeFactory->createNullType();
 			case $lowercasedTypehintString === 'resource' && !$fromReflection:
-				return new ResourceType();
+				return $typeFactory->createResourceType();
 			case $lowercasedTypehintString === 'object' && !$fromReflection:
 			case $lowercasedTypehintString === 'mixed' && !$fromReflection:
-				return new MixedType();
+				return $typeFactory->createMixedType();
 			case $lowercasedTypehintString === 'void':
-				return new VoidType();
+				return $typeFactory->createVoidType();
 			default:
 				$className = $typehintString;
 				if ($nameScope !== null) {
 					$className = $nameScope->resolveStringName($className);
 				}
-				return new ObjectType($className);
+				return $typeFactory->createObjectType($className);
 		}
 	}
 
@@ -126,11 +137,15 @@ class TypehintHelper
 		Type $phpDocType = null
 	): Type
 	{
+		if ($type instanceof BaseTypeX && $phpDocType instanceof BaseTypeX) {
+			return $type->intersectWith($phpDocType);
+		}
+
 		if ($phpDocType !== null) {
-			if ($type instanceof IterableType && $phpDocType instanceof ArrayType) {
+			if ($type instanceof IterableType && ($phpDocType instanceof ArrayType || $phpDocType instanceof \PHPStan\TypeX\ArrayType)) {
 				if ($type instanceof IterableIterableType) {
 					$phpDocType = new IterableIterableType($phpDocType->getItemType());
-				} elseif ($type instanceof ArrayType) {
+				} elseif ($type instanceof ArrayType || $type instanceof \PHPStan\TypeX\ArrayType) {
 					$type = new ArrayType($phpDocType->getItemType());
 				}
 			} elseif ($phpDocType instanceof UnionType) {

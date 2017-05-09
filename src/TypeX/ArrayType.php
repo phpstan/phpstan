@@ -101,6 +101,11 @@ class ArrayType extends BaseTypeX implements StaticResolvableType
 	public function getOffsetValueType(TypeX $offsetType): TypeX
 	{
 		if ($this->keyType->acceptsX($offsetType)) {
+//			return $this->factory->createUnionType(
+//				$this->valueType,
+//				$this->factory->createErrorType(ErrorType::UNDEFINED_OFFSET)
+//			);
+
 			return $this->valueType;
 		}
 

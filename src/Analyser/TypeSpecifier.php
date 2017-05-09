@@ -21,6 +21,7 @@ use PHPStan\Type\ResourceType;
 use PHPStan\Type\StaticType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\TrueOrFalseBooleanType;
+use PHPStan\TypeX\TypeXFactory;
 
 class TypeSpecifier
 {
@@ -34,9 +35,15 @@ class TypeSpecifier
 	 */
 	private $printer;
 
-	public function __construct(\PhpParser\PrettyPrinter\Standard $printer)
+	/**
+	 * @var TypeXFactory
+	 */
+	private $typeFactory;
+
+	public function __construct(\PhpParser\PrettyPrinter\Standard $printer, TypeXFactory $typeFactory)
 	{
 		$this->printer = $printer;
+		$this->typeFactory = $typeFactory;
 	}
 
 	public function specifyTypesInCondition(
@@ -50,11 +57,11 @@ class TypeSpecifier
 		if ($expr instanceof Instanceof_ && $expr->class instanceof Name) {
 			$class = (string) $expr->class;
 			if ($class === 'self' && $scope->isInClass()) {
-				$type = new ObjectType($scope->getClassReflection()->getName());
+				$type = $this->typeFactory->createObjectType($scope->getClassReflection()->getName());
 			} elseif ($class === 'static' && $scope->isInClass()) {
-				$type = new StaticType($scope->getClassReflection()->getName());
+				$type = $this->typeFactory->createStaticType($scope->getClassReflection()->getName());
 			} else {
-				$type = new ObjectType($class);
+				$type = $this->typeFactory->createObjectType($class);
 			}
 
 			$printedExpr = $this->printer->prettyPrintExpr($expr->expr);
@@ -125,7 +132,7 @@ class TypeSpecifier
 				$specifiedType = new FloatType();
 			} elseif ($functionName === 'is_null') {
 				$specifiedType = new NullType();
-			} elseif ($functionName === 'is_array' && !($scope->getType($argumentExpression) instanceof ArrayType)) {
+			} elseif ($functionName === 'is_array' && !($scope->getType($argumentExpression) instanceof ArrayType || $scope->getType($argumentExpression) instanceof \PHPStan\TypeX\ArrayType)) {
 				$specifiedType = new ArrayType(new MixedType());
 			} elseif ($functionName === 'is_bool') {
 				$specifiedType = new TrueOrFalseBooleanType();

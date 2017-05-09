@@ -2,6 +2,8 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\TypeX\Is;
+
 class UnionTypeHelper
 {
 
@@ -167,9 +169,10 @@ class UnionTypeHelper
 	public static function sortTypes(array $types): array
 	{
 		usort($types, function (Type $a, Type $b): int {
-			if ($a instanceof NullType) {
+			if (Is::type($a, NullType::class) /*|| Is::type($b, ArrayType::class)*/) {
 				return 1;
-			} elseif ($b instanceof NullType) {
+
+			} elseif (Is::type($b, NullType::class) /*|| Is::type($a, ArrayType::class)*/) {
 				return -1;
 			}
 

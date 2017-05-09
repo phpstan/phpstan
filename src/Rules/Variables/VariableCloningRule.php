@@ -9,6 +9,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
+use PHPStan\TypeX\Is;
 
 class VariableCloningRule implements \PHPStan\Rules\Rule
 {
@@ -48,11 +49,11 @@ class VariableCloningRule implements \PHPStan\Rules\Rule
 
 	private function isClonable(Type $type): bool
 	{
-		if ($type instanceof MixedType) {
+		if (Is::type($type, MixedType::class)) {
 			return true;
 		}
 
-		if ($type instanceof UnionType) {
+		if (Is::type($type, UnionType::class)) {
 			foreach ($type->getTypes() as $innerType) {
 				if ($this->isClonable($innerType)) {
 					return true;

@@ -5,7 +5,8 @@ namespace PHPStan\Rules;
 use PhpParser\Node\Expr;
 use PHPStan\Type\NullType;
 use PHPStan\Type\Type;
-use PHPStan\Type\TypeCombinator;
+use PHPStan\TypeX\TypeXFactory;
+
 
 class RuleLevelHelper
 {
@@ -33,15 +34,21 @@ class RuleLevelHelper
 
 	public function accepts(Type $acceptingType, Type $acceptedType): bool
 	{
+		$typeFactory = TypeXFactory::getInstance();
+
 		if (
 			!$this->checkNullables
 			&& !$acceptingType instanceof NullType
 			&& !$acceptedType instanceof NullType
 		) {
-			$acceptedType = TypeCombinator::removeNull($acceptedType);
+
+			$acceptedType = $typeFactory->createIntersectionType(
+				$typeFactory->createFromLegacy($acceptedType),
+				$typeFactory->createComplementType($typeFactory->createNullType())
+			);
 		}
 
-		return $acceptingType->accepts($acceptedType);
+		return $typeFactory->createFromLegacy($acceptingType)->accepts($acceptedType);
 	}
 
 }

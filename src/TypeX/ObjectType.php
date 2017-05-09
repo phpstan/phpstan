@@ -142,7 +142,8 @@ class ObjectType extends BaseTypeX
 		}
 
 		// see comment in isIterable()
-		return $this->factory->createMixedType();
+		// return $this->factory->createMixedType();
+		return $this->factory->createErrorType(ErrorType::ITERATION_NOT_SUPPORTED);
 	}
 
 	public function getIterableValueType(): TypeX
@@ -172,7 +173,8 @@ class ObjectType extends BaseTypeX
 		}
 
 		// see comment in isIterable()
-		return $this->factory->createMixedType();
+		// return $this->factory->createMixedType();
+		return $this->factory->createErrorType(ErrorType::ITERATION_NOT_SUPPORTED);
 	}
 
 	public function canCallMethodsX(): int

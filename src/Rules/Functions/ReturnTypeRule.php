@@ -49,7 +49,8 @@ class ReturnTypeRule implements \PHPStan\Rules\Rule
 		}
 
 		$reflection = null;
-		if (function_exists($function->getName())) {
+		$functionName = $function->getName();
+		if (function_exists($functionName)) {
 			$reflection = new \ReflectionFunction($function->getName());
 		}
 

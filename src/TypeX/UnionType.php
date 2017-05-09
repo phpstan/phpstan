@@ -20,7 +20,7 @@ class UnionType extends BaseTypeX implements StaticResolvableType
 		parent::__construct($factory);
 
 		assert(count($types) > 1);
-		$this->types = UnionTypeHelper::sortTypes($types);
+		$this->types = $types;
 	}
 
 	/**
@@ -35,7 +35,7 @@ class UnionType extends BaseTypeX implements StaticResolvableType
 	{
 		$typeNames = [];
 
-		foreach ($this->types as $type) {
+		foreach (UnionTypeHelper::sortTypes($this->types) as $type) {
 			$typeNames[] = $type->describe();
 		}
 

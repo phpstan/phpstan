@@ -28,7 +28,7 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 			$printer = new \PhpParser\PrettyPrinter\Standard();
 			$fileHelper = $this->getFileHelper();
 			$fileExcluder = new FileExcluder($fileHelper, []);
-			$typeSpecifier = new TypeSpecifier($printer);
+			$typeSpecifier = new TypeSpecifier($printer, $broker->getTypeFactory());
 			$this->analyser = new Analyser(
 				$broker,
 				$this->getParser(),
@@ -78,17 +78,22 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 		$this->assertInternalType('array', $result);
 		foreach ($errors as $i => $error) {
 			if (!isset($result[$i])) {
-				$this->fail(
-					sprintf(
-						'Expected %d errors, but result contains only %d. Looking for error message: %s',
-						count($errors),
-						count($result),
-						$error[0]
-					)
-				);
+				$this->fail("FOUND:\n\t" . implode("\n\t", $result));
+//				$this->fail(
+//					sprintf(
+//						'Expected %d errors, but result contains only %d. Looking for error message: %s',
+//						count($errors),
+//						count($result),
+//						$error[0]
+//					)
+//				);
 			}
 
 			$this->assertError($error[0], $files[0], $error[2] ?? true, $error[1], $result[$i]);
+		}
+
+		if (count($errors) !== count($result)) {
+			$this->fail("FOUND:\n\t" . implode("\n\t", $result));
 		}
 
 		$this->assertCount(

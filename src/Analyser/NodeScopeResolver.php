@@ -909,27 +909,76 @@ class NodeScopeResolver
 		if ($var instanceof Variable && is_string($var->name)) {
 			$scope = $scope->assignVariable($var->name, $subNodeType);
 		} elseif ($var instanceof ArrayDimFetch) {
-			$depth = 0;
+			$subNodeTypeX = $subNodeType
+				? $this->broker->getTypeFactory()->createFromLegacy($subNodeType)
+				: $this->broker->getTypeFactory()->createMixedType();
+
+			$dimExprStack = [];
 			while ($var instanceof ArrayDimFetch) {
+				$dimExprStack[] = $var->dim;
 				$var = $var->var;
-				$depth++;
+			}
+
+			// 1. eval root expr
+			$scope = $this->lookForAssigns($scope, $var);
+
+			// 2. eval dimensions
+			$dimTypes = [];
+			foreach (array_reverse($dimExprStack) as $dimExpr) {
+				if ($dimExpr === null) {
+					$dimTypes[] = null;
+
+				} else {
+					$scope = $this->lookForAssigns($scope, $dimExpr);
+					$dimTypes[] = $this->broker->getTypeFactory()->createFromLegacy($scope->getType($dimExpr));
+				}
+			}
+
+			// 3. eval assigned expr, unfortunately this was already done
+
+			// 4. compose types
+			foreach (array_reverse($dimTypes) as $dimType) {
+				$subNodeTypeX = $this->broker->getTypeFactory()->createArrayType($dimType, $subNodeTypeX);
 			}
 
 			if ($var instanceof Variable && is_string($var->name)) {
-				$arrayType = ArrayType::createDeepArrayType(
-					new NestedArrayItemType($subNodeType !== null ? $subNodeType : new MixedType(), $depth),
-					false
-				);
 				if ($scope->hasVariableType($var->name)) {
-					$arrayType = $scope->getVariableType($var->name)->combineWith($arrayType);
+					$varType = $scope->getVariableType($var->name);
+					$varTypeX = $this->broker->getTypeFactory()->createFromLegacy($varType);
+
+					$scope = $scope->assignVariable(
+						$var->name,
+						$varTypeX->setOffsetValueType($subNodeTypeX->getKeyType(), $subNodeTypeX->getValueType())
+					);
+
+				} else {
+					$scope = $scope->assignVariable(
+						$var->name,
+						$subNodeTypeX
+					);
 				}
-
-				$scope = $scope->assignVariable($var->name, $arrayType);
 			}
-
-			if (isset($var->dim)) {
-				$scope = $this->lookForAssigns($scope, $var->dim);
-			}
+//			$depth = 0;
+//			while ($var instanceof ArrayDimFetch) {
+//				$var = $var->var;
+//				$depth++;
+//			}
+//
+//			if ($var instanceof Variable && is_string($var->name)) {
+//				$arrayType = ArrayType::createDeepArrayType(
+//					new NestedArrayItemType($subNodeType !== null ? $subNodeType : new MixedType(), $depth),
+//					false
+//				);
+//				if ($scope->hasVariableType($var->name)) {
+//					$arrayType = $scope->getVariableType($var->name)->combineWith($arrayType);
+//				}
+//
+//				$scope = $scope->assignVariable($var->name, $arrayType);
+//			}
+//
+//			if (isset($var->dim)) {
+//				$scope = $this->lookForAssigns($scope, $var->dim);
+//			}
 		} elseif ($var instanceof PropertyFetch && $subNodeType !== null) {
 			$scope = $scope->specifyExpressionType($var, $subNodeType);
 		} elseif ($var instanceof Expr\StaticPropertyFetch && $subNodeType !== null) {

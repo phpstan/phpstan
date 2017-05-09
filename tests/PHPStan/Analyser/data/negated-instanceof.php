@@ -19,11 +19,11 @@ class Foo
 			return;
 		}
 
-		if ($dolor instanceof Dolor) { // still mixed after if
+		if ($dolor instanceof Dolor) {
 			return;
 		}
 
-		if (!(!$sit instanceof Sit)) { // still mixed after if
+		if (!(!$sit instanceof Sit)) {
 			return;
 		}
 

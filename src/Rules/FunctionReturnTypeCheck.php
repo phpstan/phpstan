@@ -9,6 +9,7 @@ use PHPStan\Type\ThisType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\VoidType;
+use PHPStan\TypeX\Is;
 
 class FunctionReturnTypeCheck
 {
@@ -53,8 +54,8 @@ class FunctionReturnTypeCheck
 		if ($returnValue === null) {
 			if (
 				$isGenerator
-				|| $returnType instanceof VoidType
-				|| $returnType instanceof MixedType
+				|| Is::type($returnType, VoidType::class)
+				|| Is::type($returnType, MixedType::class)
 			) {
 				return [];
 			}
@@ -92,7 +93,7 @@ class FunctionReturnTypeCheck
 			];
 		}
 
-		if ($returnType instanceof VoidType) {
+		if (Is::type($returnType, VoidType::class)) {
 			return [
 				sprintf(
 					$voidMessage,

@@ -14,7 +14,15 @@ interface TypeX extends Type
 
 	public function describe(): string;
 
+	/**
+	 * Returns true iff $otherType is guaranteed to be subset of $this.
+	 */
 	public function acceptsX(TypeX $otherType): bool;
+
+//	/**
+//	 * Returns true iff $otherType is NOT guaranteed to NOT be subset of $this
+//	 */
+//	public function maybeAccept(TypeX $otherType): bool;
 
 // --- AssignableTypeInterface -------------------------------------------------
 	public function isAssignable(): int;
@@ -39,7 +47,7 @@ interface TypeX extends Type
 	// public function getMethodCallReturnType(TypeX ...$callArgsTypes): TypeX;
 
 // --- HasPropertiesTypeInterface ----------------------------------------------
-	public function canAccessPropertiesX(): int;
+	public function canAccessPropertiesX(): int; // TODO: unify with canCallMethodsX to canAccessMembers?
 
 	// public function canAccessProperty(string $propertyName): string;
 
@@ -51,6 +59,9 @@ interface TypeX extends Type
 	public function getOffsetValueType(TypeX $offsetType): TypeX;
 
 	public function setOffsetValueType(TypeX $offsetType = null, TypeX $valueType): TypeX;
+
+// --- utils for rules ---------------------------------------------------------
+//	public function getInnerTypes(): iterable;
 
 // --- StaticResolvableTypeInterface -------------------------------------------
 //	public function resolveStatic(string $className): TypeX;
