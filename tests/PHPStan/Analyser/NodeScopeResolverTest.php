@@ -2585,6 +2585,10 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'string|null',
 				'$x',
 			],
+			[
+				'int|null',
+				'$y',
+			],
 		];
 	}
 
