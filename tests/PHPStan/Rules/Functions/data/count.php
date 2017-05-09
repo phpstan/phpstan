@@ -24,7 +24,7 @@ class Foo
 	}
 
 	/**
-	 * @param mixed[]|BarCountable
+	 * @param mixed[]|BarCountable $union
 	 */
 	public function doLorem($union)
 	{
