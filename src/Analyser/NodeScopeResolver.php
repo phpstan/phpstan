@@ -967,10 +967,6 @@ class NodeScopeResolver
 			$statements = $statementList->getStatements();
 			$branchScope = $statementList->getScope();
 
-			if ($statements === null) {
-				continue;
-			}
-
 			$earlyTerminationStatement = null;
 			foreach ($statements as $statement) {
 				$branchScope = $this->lookForAssigns($branchScope, $statement);

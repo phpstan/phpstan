@@ -8,12 +8,12 @@ class StatementList
 	/** @var \PHPStan\Analyser\Scope */
 	private $scope;
 
-	/** @var \PhpParser\Node[]|null */
+	/** @var \PhpParser\Node[] */
 	private $statements;
 
 	public function __construct(
 		Scope $scope,
-		array $statements = null
+		array $statements
 	)
 	{
 		$this->scope = $scope;
