@@ -13,4 +13,16 @@ $f = function () {
 	$stringData = 'abc';
 	clone $stringData;
 	clone 'abc';
+
+	/** @var Foo|string $bar */
+	$bar = doBar();
+	clone $bar;
+
+	/** @var Foo|Bar|null $baz */
+	$baz = doBaz();
+	clone $baz;
+
+	/** @var mixed|string $lorem */
+	$lorem = doLorem();
+	clone $lorem;
 };

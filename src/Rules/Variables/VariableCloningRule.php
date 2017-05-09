@@ -7,6 +7,8 @@ use PhpParser\Node\Expr\Clone_;
 use PhpParser\Node\Expr\Variable;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\Type;
+use PHPStan\Type\UnionType;
 
 class VariableCloningRule implements \PHPStan\Rules\Rule
 {
@@ -25,11 +27,7 @@ class VariableCloningRule implements \PHPStan\Rules\Rule
 	{
 		$type = $scope->getType($node->expr);
 
-		if ($type instanceof MixedType) {
-			return [];
-		}
-
-		if ($type->getClass() !== null) {
+		if ($this->isClonable($type)) {
 			return [];
 		}
 
@@ -46,6 +44,23 @@ class VariableCloningRule implements \PHPStan\Rules\Rule
 		return [
 			sprintf('Cannot clone %s.', $type->describe()),
 		];
+	}
+
+	private function isClonable(Type $type): bool
+	{
+		if ($type instanceof MixedType) {
+			return true;
+		}
+
+		if ($type instanceof UnionType) {
+			foreach ($type->getTypes() as $innerType) {
+				if ($this->isClonable($innerType)) {
+					return true;
+				}
+			}
+		}
+
+		return $type->getClass() !== null;
 	}
 
 }

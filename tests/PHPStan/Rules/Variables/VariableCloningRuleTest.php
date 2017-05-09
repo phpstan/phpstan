@@ -10,7 +10,7 @@ class VariableCloningRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		return new VariableCloningRule();
 	}
 
-	public function testDefinedVariables()
+	public function testClone()
 	{
 		require_once __DIR__ . '/data/variable-cloning.php';
 		$this->analyse([__DIR__ . '/data/variable-cloning.php'], [
