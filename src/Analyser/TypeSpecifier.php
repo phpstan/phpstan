@@ -95,7 +95,10 @@ class TypeSpecifier
 				}
 			}
 
-			if ($expr instanceof Node\Expr\BinaryOp\Identical) {
+			if (
+				$expr instanceof Node\Expr\BinaryOp\Identical
+				&& $source !== self::SOURCE_FROM_AND
+			) {
 				return $types->addSureType($expressions[0], $printedExpr, $sureType);
 			}
 

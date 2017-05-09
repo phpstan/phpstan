@@ -47,4 +47,17 @@ class Foo
 		1 === 1.0;
 	}
 
+	public function doBar(string $a = null, string $b = null): string
+	{
+		if ($a === null && $b === null) {
+			return 'no value';
+		}
+
+		if ($a !== null && $b !== null) {
+			return $a . $b;
+		}
+
+		return '';
+	}
+
 }
