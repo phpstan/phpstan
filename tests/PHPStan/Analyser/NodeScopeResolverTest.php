@@ -2578,6 +2578,33 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+	public function dataCombineTypes(): array
+	{
+		return [
+			[
+				'string|null',
+				'$x',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataCombineTypes
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testCombineTypes(
+		string $description,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/combine-types.php',
+			$description,
+			$expression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $description,

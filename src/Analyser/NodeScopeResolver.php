@@ -279,6 +279,31 @@ class NodeScopeResolver
 		return $scope;
 	}
 
+	private function enterForeach(Scope $scope, Foreach_ $node): Scope
+	{
+		if ($node->valueVar instanceof Variable && is_string($node->valueVar->name)) {
+			return $scope->enterForeach(
+				$node->expr,
+				$node->valueVar->name,
+				$node->keyVar !== null
+				&& $node->keyVar instanceof Variable
+				&& is_string($node->keyVar->name)
+					? $node->keyVar->name
+					: null
+			);
+		}
+
+		if ($node->keyVar !== null && $node->keyVar instanceof Variable && is_string($node->keyVar->name)) {
+			return $scope->assignVariable($node->keyVar->name);
+		}
+
+		if ($node->valueVar instanceof List_ || $node->valueVar instanceof Array_) {
+			return $this->lookForArrayDestructuringArray($scope, $node->valueVar);
+		}
+
+		return $this->lookForAssigns($scope, $node->valueVar);
+	}
+
 	private function processNode(\PhpParser\Node $node, Scope $scope, \Closure $nodeCallback)
 	{
 		$nodeCallback($node, $scope);
@@ -340,27 +365,7 @@ class NodeScopeResolver
 		} elseif ($node instanceof \PhpParser\Node\Expr\Closure) {
 			$scope = $scope->enterAnonymousFunction($node->params, $node->uses, $node->returnType);
 		} elseif ($node instanceof Foreach_) {
-			if ($node->valueVar instanceof Variable && is_string($node->valueVar->name)) {
-				$scope = $scope->enterForeach(
-					$node->expr,
-					$node->valueVar->name,
-					$node->keyVar !== null
-						&& $node->keyVar instanceof Variable
-						&& is_string($node->keyVar->name)
-							? $node->keyVar->name
-							: null
-				);
-			} else {
-				if ($node->keyVar !== null && $node->keyVar instanceof Variable && is_string($node->keyVar->name)) {
-					$scope = $scope->assignVariable($node->keyVar->name);
-				}
-
-				if ($node->valueVar instanceof List_ || $node->valueVar instanceof Array_) {
-					$scope = $this->lookForArrayDestructuringArray($scope, $node->valueVar);
-				} else {
-					$scope = $this->lookForAssigns($scope, $node->valueVar);
-				}
-			}
+			$scope = $this->enterForeach($scope, $node);
 		} elseif ($node instanceof Catch_) {
 			if (isset($node->types)) {
 				$nodeTypes = $node->types;
@@ -826,6 +831,7 @@ class NodeScopeResolver
 			$scope = $this->lookForAssigns($scope, $node->expr);
 		} elseif ($node instanceof Foreach_) {
 			$scope = $this->lookForAssigns($scope, $node->expr);
+			$scope = $this->enterForeach($scope, $node);
 			$statements = [
 				new StatementList($scope, $node->stmts),
 				new StatementList($scope, []), // in order not to add variables existing only inside the for loop
