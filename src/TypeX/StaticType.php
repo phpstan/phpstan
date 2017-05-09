@@ -19,6 +19,11 @@ class StaticType extends ObjectType implements StaticResolvableType
 		return sprintf('static(%s)', $this->className);
 	}
 
+	public function acceptsX(TypeX $otherType): bool
+	{
+		return $otherType instanceof self && parent::acceptsX($otherType);
+	}
+
 	public function resolveStatic(string $className): \PHPStan\Type\Type
 	{
 		return $this->factory->createObjectType($className);
