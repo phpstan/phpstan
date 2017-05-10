@@ -6,6 +6,7 @@ use Nette\Configurator;
 use Nette\DI\Config\Loader;
 use Nette\DI\Extensions\ExtensionsExtension;
 use Nette\DI\Extensions\PhpExtension;
+use Nette\DI\Helpers;
 use PhpParser\Node\Stmt\Catch_;
 use PHPStan\Command\ErrorFormatter\ErrorFormatter;
 use PHPStan\File\FileHelper;
@@ -61,6 +62,13 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		$rootDir = $fileHelper->normalizePath(__DIR__ . '/../..');
 		$confDir = $rootDir . '/conf';
 
+		$parameters = [
+			'rootDir' => $rootDir,
+			'currentWorkingDirectory' => $currentWorkingDirectory,
+			'errorFormat' => $input->getOption('errorFormat'),
+			'cliArgumentsVariablesRegistered' => ini_get('register_argc_argv') === '1',
+		];
+
 		$projectConfigFile = $input->getOption('configuration');
 		$levelOption = $input->getOption(self::OPTION_LEVEL);
 		$defaultLevelUsed = false;
@@ -91,7 +99,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			$loader = new Loader();
 			$projectConfig = $loader->load($projectConfigFile, null);
 			if (isset($projectConfig['parameters']['tmpDir'])) {
-				$tmpDir = $projectConfig['parameters']['tmpDir'];
+				$tmpDir = Helpers::expand($projectConfig['parameters']['tmpDir'], $parameters);
 			}
 		}
 
@@ -115,13 +123,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			$configurator->addConfig($configFile);
 		}
 
-		$parameters = [
-			'rootDir' => $rootDir,
-			'tmpDir' => $tmpDir,
-			'currentWorkingDirectory' => $currentWorkingDirectory,
-			'errorFormat' => $input->getOption('errorFormat'),
-			'cliArgumentsVariablesRegistered' => ini_get('register_argc_argv') === '1',
-		];
+		$parameters['tmpDir'] = $tmpDir;
 
 		$configurator->addParameters($parameters);
 		$container = $configurator->createContainer();
