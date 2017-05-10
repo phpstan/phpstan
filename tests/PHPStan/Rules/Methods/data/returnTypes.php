@@ -311,3 +311,37 @@ class Stock
 	}
 
 }
+
+class Issue105
+{
+	/**
+	 * @param string $type
+	 *
+	 * @return array|float|int|null|string
+	 */
+	public function manyTypes(string $type)
+	{
+
+	}
+
+	/**
+	 * @return array
+	 */
+	public function returnArray(): array
+	{
+		$result = $this->manyTypes('array');
+		$result = is_array($result) ? $result : [];
+
+		return $result;
+	}
+
+	public function returnAnotherArray(): array
+	{
+		$result = $this->manyTypes('array');
+		if (!is_array($result)) {
+			$result = [];
+		}
+
+		return $result;
+	}
+}
