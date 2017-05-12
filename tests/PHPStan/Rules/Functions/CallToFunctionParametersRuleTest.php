@@ -143,4 +143,19 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		]);
 	}
 
+	public function testPassingNonVariableToParameterPassedByReference()
+	{
+		require_once __DIR__ . '/data/passed-by-reference.php';
+		$this->analyse([__DIR__ . '/data/passed-by-reference.php'], [
+			[
+				'Parameter #1 $foo of function PassedByReference\foo is passed by reference, so it expects variables only.',
+				17,
+			],
+			[
+				'Parameter #1 $foo of function PassedByReference\foo is passed by reference, so it expects variables only.',
+				18,
+			],
+		]);
+	}
+
 }

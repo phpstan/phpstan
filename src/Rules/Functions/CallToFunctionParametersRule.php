@@ -62,6 +62,7 @@ class CallToFunctionParametersRule implements \PHPStan\Rules\Rule
 				'Function ' . $function->getName() . ' invoked with %d parameters, %d-%d required.',
 				'Parameter #%d %s of function ' . $function->getName() . ' expects %s, %s given.',
 				'Result of function ' . $function->getName() . ' (void) is used.',
+				'Parameter #%d %s of function ' . $function->getName() . ' is passed by reference, so it expects variables only.',
 			]
 		);
 	}

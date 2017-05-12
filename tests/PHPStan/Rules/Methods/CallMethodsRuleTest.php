@@ -128,6 +128,14 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Method PDO::query() invoked with 0 parameters, 1-4 required.',
 				114,
 			],
+			[
+				'Parameter #1 $bar of method Test\ClassWithNullableProperty::doBar() is passed by reference, so it expects variables only.',
+				168,
+			],
+			[
+				'Parameter #1 $bar of method Test\ClassWithNullableProperty::doBar() is passed by reference, so it expects variables only.',
+				169,
+			],
 		]);
 	}
 
@@ -215,6 +223,14 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			[
 				'Result of method Test\Bar::returnsVoid() (void) is used.',
 				91,
+			],
+			[
+				'Parameter #1 $bar of method Test\ClassWithNullableProperty::doBar() is passed by reference, so it expects variables only.',
+				168,
+			],
+			[
+				'Parameter #1 $bar of method Test\ClassWithNullableProperty::doBar() is passed by reference, so it expects variables only.',
+				169,
 			],
 		]);
 	}

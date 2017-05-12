@@ -158,4 +158,15 @@ class ClassWithNullableProperty
 		}
 	}
 
+	public function doBar(&$bar)
+	{
+		$i = 0;
+		$this->doBar($i); // ok
+
+		$arr = [1, 2, 3];
+		$this->doBar($arr[0]); // ok
+		$this->doBar(rand());
+		$this->doBar(null);
+	}
+
 }

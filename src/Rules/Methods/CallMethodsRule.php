@@ -139,6 +139,7 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 				'Method ' . $messagesMethodName . ' invoked with %d parameters, %d-%d required.',
 				'Parameter #%d %s of method ' . $messagesMethodName . ' expects %s, %s given.',
 				'Result of method ' . $messagesMethodName . ' (void) is used.',
+				'Parameter #%d %s of method ' . $messagesMethodName . ' is passed by reference, so it expects variables only.',
 			]
 		);
 

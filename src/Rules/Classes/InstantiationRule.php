@@ -123,6 +123,7 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 				'Class ' . $classReflection->getName() . ' constructor invoked with %d parameters, %d-%d required.',
 				'Parameter #%d %s of class ' . $classReflection->getName() . ' constructor expects %s, %s given.',
 				'', // constructor does not have a return type
+				'Parameter #%d %s of class ' . $classReflection->getName() . ' constructor is passed by reference, so it expects variables only',
 			]
 		);
 	}

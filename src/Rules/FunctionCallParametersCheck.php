@@ -168,6 +168,18 @@ class FunctionCallParametersCheck
 					$argumentValueType->describe()
 				);
 			}
+
+			if (
+				$parameter->isPassedByReference()
+				&& !$argument->value instanceof \PhpParser\Node\Expr\Variable
+				&& !$argument->value instanceof \PhpParser\Node\Expr\ArrayDimFetch
+			) {
+				$errors[] = sprintf(
+					$messages[8],
+					$i + 1,
+					sprintf('%s$%s', $parameter->isVariadic() ? '...' : '', $parameter->getName())
+				);
+			}
 		}
 
 		return $errors;
