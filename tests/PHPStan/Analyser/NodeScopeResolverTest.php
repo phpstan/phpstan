@@ -167,6 +167,8 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$this->assertSame(\ObjectWithArrayAccess\Foo::class, $variables['arrayAccessObject']->describe());
 				$this->assertArrayHasKey('width', $variables);
 				$this->assertSame('float', $variables['width']->describe());
+				$this->assertArrayHasKey('someVariableThatWillGetOverrideInFinally', $variables);
+				$this->assertSame('string', $variables['someVariableThatWillGetOverrideInFinally']->describe());
 			}
 		});
 	}
@@ -2642,6 +2644,33 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		}
 		$this->assertTypes(
 			__DIR__ . '/data/constants.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataFinally(): array
+	{
+		return [
+			[
+				'int|string',
+				'$integerOrString',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataFinally
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testFinally(
+		string $description,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/finally.php',
 			$description,
 			$expression
 		);

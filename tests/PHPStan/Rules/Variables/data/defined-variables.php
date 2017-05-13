@@ -242,3 +242,18 @@ echo $definedInTryCatchIfElse;
 foreach ($someArray as $someKey => list($destructuredAa, $destructuredBb, list($destructuredCc, $destructuredDd))) {
 
 }
+
+try {
+
+} catch (\FooException $e) {
+	$variableAvailableInAllCatches = 1;
+	$variableDefinedOnlyInOneCatch = 'foo';
+} catch (\BarException $e) {
+	$variableAvailableInAllCatches = 2;
+} finally {
+	echo $variableAvailableInAllCatches;
+	echo $variableDefinedOnlyInOneCatch;
+	$variableDefinedInFinally = 1;
+}
+
+echo $variableDefinedInFinally;

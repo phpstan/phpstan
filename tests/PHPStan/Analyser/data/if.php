@@ -31,6 +31,7 @@ try {
 	$mixedVarFromTryCatch = 1;
 	$nullableIntegerFromTryCatch = 1;
 	$anotherNullableIntegerFromTryCatch = null;
+	$someVariableThatWillGetOverrideInFinally = 1;
 } catch (\SomeConcreteException $e) {
 	$inTry = 1;
 	$fooObjectFromTryCatch = new InTryCatchFoo();
@@ -40,6 +41,7 @@ try {
 } catch (\Exception $e) {
 	throw $e;
 } finally {
+	$someVariableThatWillGetOverrideInFinally = 'foo';
 	restore_error_handler();
 }
 

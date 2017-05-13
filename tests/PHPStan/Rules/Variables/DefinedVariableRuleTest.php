@@ -92,6 +92,10 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Undefined variable: $assignedInKey',
 				204,
 			],
+			[
+				'Undefined variable: $variableDefinedOnlyInOneCatch',
+				255,
+			],
 		]);
 	}
 

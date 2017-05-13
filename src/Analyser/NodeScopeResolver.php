@@ -470,10 +470,38 @@ class NodeScopeResolver
 			return;
 		} elseif ($node instanceof While_) {
 			$scope = $this->lookForAssigns($scope, $node->cond);
-		} elseif ($this->polluteCatchScopeWithTryAssignments && $node instanceof TryCatch) {
-			foreach ($node->stmts as $statement) {
-				$scope = $this->lookForAssigns($scope, $statement);
+		} elseif ($node instanceof TryCatch) {
+			$this->processNodes($node->stmts, $scope->enterFirstLevelStatements(), $nodeCallback);
+			if ($this->polluteCatchScopeWithTryAssignments) {
+				foreach ($node->stmts as $statement) {
+					$scope = $this->lookForAssigns($scope, $statement);
+				}
 			}
+
+			$statements = [];
+			foreach ($node->catches as $catch) {
+				$this->processNode($catch, $scope, $nodeCallback);
+				if ($node->finally !== null) {
+					if (isset($catch->types)) {
+						$catchTypes = $catch->types;
+					} elseif (isset($catch->type)) {
+						$catchTypes = [$catch->type];
+					} else {
+						throw new \PHPStan\ShouldNotHappenException();
+					}
+					$statements[] = new StatementList($scope->enterCatch(
+						$catchTypes,
+						$catch->var
+					), $catch->stmts);
+				}
+			}
+
+			if ($node->finally !== null) {
+				$finallyScope = $this->lookForAssignsInBranches($scope, $statements);
+				$this->processNode($node->finally, $finallyScope, $nodeCallback);
+			}
+
+			return;
 		} elseif ($node instanceof Ternary) {
 			$scope = $this->lookForAssigns($scope, $node->cond);
 		} elseif ($node instanceof Do_) {
@@ -707,6 +735,11 @@ class NodeScopeResolver
 			}
 
 			$scope = $this->lookForAssignsInBranches($scope, $statements);
+			if ($node->finally !== null) {
+				foreach ($node->finally->stmts as $statement) {
+					$scope = $this->lookForAssigns($scope, $statement);
+				}
+			}
 		} elseif ($node instanceof MethodCall || $node instanceof FuncCall || $node instanceof Expr\StaticCall) {
 			if ($node instanceof MethodCall) {
 				$scope = $this->lookForAssigns($scope, $node->var);
