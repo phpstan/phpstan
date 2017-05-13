@@ -22,9 +22,8 @@ class ThisVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				24,
 			],
 			[
-				'Using $this in static method class@anonymous',
+				sprintf('Using $this in static method class@anonymous%s:27::doBar().', __DIR__ . '/data/this.php'),
 				36,
-				false,
 			],
 		]);
 	}

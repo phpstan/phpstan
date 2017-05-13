@@ -82,9 +82,9 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 	private function describeProperty(PropertyReflection $property, $propertyFetch)
 	{
 		if ($propertyFetch instanceof Node\Expr\PropertyFetch) {
-			return sprintf('Property %s::$%s', $property->getDeclaringClass()->getName(), $propertyFetch->name);
+			return sprintf('Property %s::$%s', $property->getDeclaringClass()->getDisplayName(), $propertyFetch->name);
 		} elseif ($propertyFetch instanceof Node\Expr\StaticPropertyFetch) {
-			return sprintf('Static property %s::$%s', $property->getDeclaringClass()->getName(), $propertyFetch->name);
+			return sprintf('Static property %s::$%s', $property->getDeclaringClass()->getDisplayName(), $propertyFetch->name);
 		}
 
 		return null;

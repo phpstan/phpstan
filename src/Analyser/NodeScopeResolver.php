@@ -554,7 +554,10 @@ class NodeScopeResolver
 
 			$code = $this->printer->prettyPrint([$node]);
 			$classReflection = new \ReflectionClass(eval(sprintf('return %s', $code)));
-			$this->anonymousClassReflection = $this->broker->getClassFromReflection($classReflection);
+			$this->anonymousClassReflection = $this->broker->getClassFromReflection(
+				$classReflection,
+				sprintf('class@anonymous%s:%s', $scope->getFile(), $node->getLine())
+			);
 		} elseif ($node instanceof BooleanNot) {
 			$scope = $scope->enterNegation();
 		} elseif ($node instanceof Unset_ || $node instanceof Isset_) {
@@ -1204,7 +1207,7 @@ class NodeScopeResolver
 				return;
 			}
 			$parserNodes = $this->parser->parseFile($fileName);
-			$className = sprintf('class %s', $classScope->getClassReflection()->getName());
+			$className = sprintf('class %s', $classScope->getClassReflection()->getDisplayName());
 			if ($classScope->getClassReflection()->getNativeReflection()->isAnonymous()) {
 				$className = 'anonymous class';
 			}

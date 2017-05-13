@@ -96,7 +96,7 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 						sprintf(
 							'Call to private method %s() of parent class %s.',
 							$parentClassReflection->getMethod($name, $scope)->getName(),
-							$parentClassReflection->getName()
+							$parentClassReflection->getDisplayName()
 						),
 					];
 				}
@@ -107,21 +107,21 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf(
 					'Call to an undefined method %s::%s().',
-					$methodClassReflection->getName(),
+					$methodClassReflection->getDisplayName(),
 					$name
 				),
 			];
 		}
 
 		$methodReflection = $methodClassReflection->getMethod($name, $scope);
-		$messagesMethodName = $methodReflection->getDeclaringClass()->getName() . '::' . $methodReflection->getName() . '()';
+		$messagesMethodName = $methodReflection->getDeclaringClass()->getDisplayName() . '::' . $methodReflection->getName() . '()';
 		if (!$scope->canCallMethod($methodReflection)) {
 			return [
 				sprintf(
 					'Call to %s method %s() of class %s.',
 					$methodReflection->isPrivate() ? 'private' : 'protected',
 					$methodReflection->getName(),
-					$methodReflection->getDeclaringClass()->getName()
+					$methodReflection->getDeclaringClass()->getDisplayName()
 				),
 			];
 		}

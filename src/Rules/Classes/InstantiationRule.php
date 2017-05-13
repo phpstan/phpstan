@@ -68,9 +68,9 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 				return [
 					sprintf(
 						'%s::%s() calls new parent but %s does not extend any class.',
-						$scope->getClassReflection()->getName(),
+						$scope->getClassReflection()->getDisplayName(),
 						$scope->getFunctionName(),
-						$scope->getClassReflection()->getName()
+						$scope->getClassReflection()->getDisplayName()
 					),
 				];
 			}
@@ -87,13 +87,13 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 
 		if ($classReflection->isInterface()) {
 			return [
-				sprintf('Cannot instantiate interface %s.', $classReflection->getName()),
+				sprintf('Cannot instantiate interface %s.', $classReflection->getDisplayName()),
 			];
 		}
 
 		if ($classReflection->isAbstract()) {
 			return [
-				sprintf('Instantiated class %s is abstract.', $classReflection->getName()),
+				sprintf('Instantiated class %s is abstract.', $classReflection->getDisplayName()),
 			];
 		}
 
@@ -102,7 +102,7 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 				return [
 					sprintf(
 						'Class %s does not have a constructor and must be instantiated without any parameters.',
-						$classReflection->getName()
+						$classReflection->getDisplayName()
 					),
 				];
 			}
@@ -115,15 +115,15 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 			$scope,
 			$node,
 			[
-				'Class ' . $classReflection->getName() . ' constructor invoked with %d parameter, %d required.',
-				'Class ' . $classReflection->getName() . ' constructor invoked with %d parameters, %d required.',
-				'Class ' . $classReflection->getName() . ' constructor invoked with %d parameter, at least %d required.',
-				'Class ' . $classReflection->getName() . ' constructor invoked with %d parameters, at least %d required.',
-				'Class ' . $classReflection->getName() . ' constructor invoked with %d parameter, %d-%d required.',
-				'Class ' . $classReflection->getName() . ' constructor invoked with %d parameters, %d-%d required.',
-				'Parameter #%d %s of class ' . $classReflection->getName() . ' constructor expects %s, %s given.',
+				'Class ' . $classReflection->getDisplayName() . ' constructor invoked with %d parameter, %d required.',
+				'Class ' . $classReflection->getDisplayName() . ' constructor invoked with %d parameters, %d required.',
+				'Class ' . $classReflection->getDisplayName() . ' constructor invoked with %d parameter, at least %d required.',
+				'Class ' . $classReflection->getDisplayName() . ' constructor invoked with %d parameters, at least %d required.',
+				'Class ' . $classReflection->getDisplayName() . ' constructor invoked with %d parameter, %d-%d required.',
+				'Class ' . $classReflection->getDisplayName() . ' constructor invoked with %d parameters, %d-%d required.',
+				'Parameter #%d %s of class ' . $classReflection->getDisplayName() . ' constructor expects %s, %s given.',
 				'', // constructor does not have a return type
-				'Parameter #%d %s of class ' . $classReflection->getName() . ' constructor is passed by reference, so it expects variables only',
+				'Parameter #%d %s of class ' . $classReflection->getDisplayName() . ' constructor is passed by reference, so it expects variables only',
 			]
 		);
 	}

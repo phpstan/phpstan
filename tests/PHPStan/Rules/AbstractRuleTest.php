@@ -57,16 +57,12 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 		return $this->analyser;
 	}
 
-	private function assertError(string $message, string $file, bool $exactMatch, int $line = null, Error $error)
+	private function assertError(string $message, string $file, int $line = null, Error $error)
 	{
 		$this->assertSame($this->getFileHelper()->normalizePath($file), $error->getFile(), $error->getMessage());
 		$this->assertSame($line, $error->getLine(), $error->getMessage());
 
-		if ($exactMatch) {
-			$this->assertSame($message, $error->getMessage());
-		} else {
-			$this->assertContains($message, $error->getMessage());
-		}
+		$this->assertSame($message, $error->getMessage());
 	}
 
 	public function analyse(array $files, array $errors)
@@ -88,7 +84,7 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 				);
 			}
 
-			$this->assertError($error[0], $files[0], $error[2] ?? true, $error[1], $result[$i]);
+			$this->assertError($error[0], $files[0], $error[1], $result[$i]);
 		}
 
 		$this->assertCount(

@@ -72,10 +72,10 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 				return [
 					sprintf(
 						'%s::%s() calls parent::%s() but %s does not extend any class.',
-						$scope->getClassReflection()->getName(),
+						$scope->getClassReflection()->getDisplayName(),
 						$scope->getFunctionName(),
 						$name,
-						$scope->getClassReflection()->getName()
+						$scope->getClassReflection()->getDisplayName()
 					),
 				];
 			}
@@ -129,7 +129,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf(
 					'Call to an undefined static method %s::%s().',
-					$classReflection->getName(),
+					$classReflection->getDisplayName(),
 					$name
 				),
 			];
@@ -150,7 +150,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 				return [
 					sprintf(
 						'Static call to instance method %s::%s().',
-						$method->getDeclaringClass()->getName(),
+						$method->getDeclaringClass()->getDisplayName(),
 						$method->getName()
 					),
 				];
@@ -164,7 +164,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 					$method->isPrivate() ? 'private' : 'protected',
 					$method->isStatic() ? 'static method' : 'method',
 					$method->getName(),
-					$method->getDeclaringClass()->getName()
+					$method->getDeclaringClass()->getDisplayName()
 				),
 			];
 		}
@@ -172,12 +172,12 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 		$lowercasedMethodName = sprintf(
 			'%s %s',
 			$method->isStatic() ? 'static method' : 'method',
-			$method->getDeclaringClass()->getName() . '::' . $method->getName() . '()'
+			$method->getDeclaringClass()->getDisplayName() . '::' . $method->getName() . '()'
 		);
 		$methodName = sprintf(
 			'%s %s',
 			$method->isStatic() ? 'Static method' : 'Method',
-			$method->getDeclaringClass()->getName() . '::' . $method->getName() . '()'
+			$method->getDeclaringClass()->getDisplayName() . '::' . $method->getName() . '()'
 		);
 
 		$errors = $this->check->check(

@@ -41,7 +41,7 @@ class ThisVariableRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf(
 					'Using $this in static method %s::%s().',
-					$scope->getClassReflection()->getName(),
+					$scope->getClassReflection()->getDisplayName(),
 					$function->getName()
 				),
 			];

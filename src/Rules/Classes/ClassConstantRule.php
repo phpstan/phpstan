@@ -67,7 +67,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 					sprintf(
 						'Access to parent::%s but %s does not extend any class.',
 						$constantName,
-						$currentClassReflection->getName()
+						$currentClassReflection->getDisplayName()
 					),
 				];
 			}
@@ -90,7 +90,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf(
 					'Access to undefined constant %s::%s.',
-					$classReflection->getName(),
+					$classReflection->getDisplayName(),
 					$constantName
 				),
 			];
@@ -103,7 +103,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 					'Access to %s constant %s of class %s.',
 					$constantReflection->isPrivate() ? 'private' : 'protected',
 					$constantName,
-					$constantReflection->getDeclaringClass()->getName()
+					$constantReflection->getDeclaringClass()->getDisplayName()
 				),
 			];
 		}

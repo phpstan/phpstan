@@ -63,10 +63,10 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 				return [
 					sprintf(
 						'%s::%s() accesses parent::$%s but %s does not extend any class.',
-						$scope->getClassReflection()->getName(),
+						$scope->getClassReflection()->getDisplayName(),
 						$scope->getFunctionName(),
 						$name,
-						$scope->getClassReflection()->getName()
+						$scope->getClassReflection()->getDisplayName()
 					),
 				];
 			}
@@ -106,7 +106,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf(
 					'Access to an undefined static property %s::$%s.',
-					$classReflection->getName(),
+					$classReflection->getDisplayName(),
 					$name
 				),
 			];
@@ -117,7 +117,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf(
 					'Static access to instance property %s::$%s.',
-					$property->getDeclaringClass()->getName(),
+					$property->getDeclaringClass()->getDisplayName(),
 					$name
 				),
 			];
@@ -129,7 +129,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 					'Access to %s property $%s of class %s.',
 					$property->isPrivate() ? 'private' : 'protected',
 					$name,
-					$property->getDeclaringClass()->getName()
+					$property->getDeclaringClass()->getDisplayName()
 				),
 			];
 		}

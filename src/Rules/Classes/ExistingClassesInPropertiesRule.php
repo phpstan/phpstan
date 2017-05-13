@@ -43,7 +43,7 @@ class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 
 			$errors[] = sprintf(
 				'Property %s::$%s has unknown class %s as its type.',
-				$propertyReflection->getDeclaringClass()->getName(),
+				$propertyReflection->getDeclaringClass()->getDisplayName(),
 				$node->name,
 				$referencedClass
 			);

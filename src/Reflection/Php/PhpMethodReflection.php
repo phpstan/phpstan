@@ -80,7 +80,7 @@ class PhpMethodReflection implements MethodReflection
 	{
 		try {
 			$prototypeReflection = $this->reflection->getPrototype();
-			$prototypeDeclaringClass = $this->broker->getClassFromReflection($prototypeReflection->getDeclaringClass());
+			$prototypeDeclaringClass = $this->broker->getClassFromReflection($prototypeReflection->getDeclaringClass(), $prototypeReflection->getDeclaringClass()->getName());
 
 			return new self(
 				$prototypeDeclaringClass,

@@ -55,17 +55,17 @@ class ReturnTypeRule implements \PHPStan\Rules\Rule
 			$node->expr,
 			sprintf(
 				'Method %s::%s() should return %%s but empty return statement found.',
-				$method->getDeclaringClass()->getName(),
+				$method->getDeclaringClass()->getDisplayName(),
 				$method->getName()
 			),
 			sprintf(
 				'Method %s::%s() with return type void returns %%s but should not return anything.',
-				$method->getDeclaringClass()->getName(),
+				$method->getDeclaringClass()->getDisplayName(),
 				$method->getName()
 			),
 			sprintf(
 				'Method %s::%s() should return %%s but returns %%s.',
-				$method->getDeclaringClass()->getName(),
+				$method->getDeclaringClass()->getDisplayName(),
 				$method->getName()
 			),
 			$reflection !== null && $reflection->isGenerator(),

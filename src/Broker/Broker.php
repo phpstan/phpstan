@@ -120,7 +120,7 @@ class Broker
 
 		if (!isset($this->classReflections[$className])) {
 			$reflectionClass = new ReflectionClass($className);
-			$classReflection = $this->getClassFromReflection($reflectionClass);
+			$classReflection = $this->getClassFromReflection($reflectionClass, $reflectionClass->getName());
 			$this->classReflections[$className] = $classReflection;
 			if ($className !== $reflectionClass->getName()) {
 				// class alias optimization
@@ -131,12 +131,13 @@ class Broker
 		return $this->classReflections[$className];
 	}
 
-	public function getClassFromReflection(\ReflectionClass $reflectionClass): \PHPStan\Reflection\ClassReflection
+	public function getClassFromReflection(\ReflectionClass $reflectionClass, string $displayName): \PHPStan\Reflection\ClassReflection
 	{
 		return new ClassReflection(
 			$this,
 			$this->propertiesClassReflectionExtensions,
 			$this->methodsClassReflectionExtensions,
+			$displayName,
 			$reflectionClass
 		);
 	}

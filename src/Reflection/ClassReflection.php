@@ -17,6 +17,9 @@ class ClassReflection
 	/** @var \PHPStan\Reflection\MethodsClassReflectionExtension[] */
 	private $methodsClassReflectionExtensions;
 
+	/** @var string */
+	private $displayName;
+
 	/** @var \ReflectionClass */
 	private $reflection;
 
@@ -33,12 +36,14 @@ class ClassReflection
 		Broker $broker,
 		array $propertiesClassReflectionExtensions,
 		array $methodsClassReflectionExtensions,
+		string $displayName,
 		\ReflectionClass $reflection
 	)
 	{
 		$this->broker = $broker;
 		$this->propertiesClassReflectionExtensions = $propertiesClassReflectionExtensions;
 		$this->methodsClassReflectionExtensions = $methodsClassReflectionExtensions;
+		$this->displayName = $displayName;
 		$this->reflection = $reflection;
 	}
 
@@ -62,6 +67,11 @@ class ClassReflection
 	public function getName(): string
 	{
 		return $this->reflection->getName();
+	}
+
+	public function getDisplayName(): string
+	{
+		return $this->displayName;
 	}
 
 	public function hasProperty(string $propertyName): bool

@@ -52,7 +52,7 @@ class DefaultValueTypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 			$errors[] = sprintf(
 				'%s %s::$%s (%s) does not accept default value of type %s.',
 				$node->isStatic() ? 'Static property' : 'Property',
-				$classReflection->getName(),
+				$classReflection->getDisplayName(),
 				$property->name,
 				$propertyType->describe(),
 				$defaultValueType->describe()

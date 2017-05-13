@@ -92,7 +92,7 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 						sprintf(
 							'Access to private property $%s of parent class %s.',
 							$name,
-							$parentClassReflection->getName()
+							$parentClassReflection->getDisplayName()
 						),
 					];
 				}
@@ -116,7 +116,7 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 					'Access to %s property $%s of class %s.',
 					$propertyReflection->isPrivate() ? 'private' : 'protected',
 					$name,
-					$propertyReflection->getDeclaringClass()->getName()
+					$propertyReflection->getDeclaringClass()->getDisplayName()
 				),
 			];
 		}
