@@ -6,6 +6,7 @@ use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflectionFactory;
 use PHPStan\Type\FileTypeMapper;
+use PHPStan\TypeX\TypeXFactory;
 
 class BrokerTest extends \PHPStan\TestCase
 {
@@ -15,13 +16,15 @@ class BrokerTest extends \PHPStan\TestCase
 
 	protected function setUp()
 	{
+		$typeFactory = new TypeXFactory();
 		$this->broker = new Broker(
 			[],
 			[],
 			[],
 			[],
 			$this->createMock(FunctionReflectionFactory::class),
-			new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class))
+			new FileTypeMapper($this->getParser(), $typeFactory, $this->createMock(\Nette\Caching\Cache::class)),
+			$typeFactory
 		);
 	}
 

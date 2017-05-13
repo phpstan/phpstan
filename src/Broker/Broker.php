@@ -8,6 +8,7 @@ use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\FunctionReflectionFactory;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\TypehintHelper;
+use PHPStan\TypeX\TypeXFactory;
 use ReflectionClass;
 
 class Broker
@@ -31,11 +32,14 @@ class Broker
 	/** @var \PHPStan\Reflection\FunctionReflectionFactory */
 	private $functionReflectionFactory;
 
+	/** @var \PHPStan\Reflection\FunctionReflection[] */
+	private $functionReflections = [];
+
 	/** @var \PHPStan\Type\FileTypeMapper */
 	private $fileTypeMapper;
 
-	/** @var \PHPStan\Reflection\FunctionReflection[] */
-	private $functionReflections = [];
+	/** @var \PHPStan\TypeX\TypeXFactory */
+	private $typeFactory;
 
 	/**
 	 * @param \PHPStan\Reflection\PropertiesClassReflectionExtension[] $propertiesClassReflectionExtensions
@@ -44,6 +48,7 @@ class Broker
 	 * @param \PHPStan\Type\DynamicStaticMethodReturnTypeExtension[] $dynamicStaticMethodReturnTypeExtensions
 	 * @param \PHPStan\Reflection\FunctionReflectionFactory $functionReflectionFactory
 	 * @param \PHPStan\Type\FileTypeMapper $fileTypeMapper
+	 * @param \PHPStan\TypeX\TypeXFactory $typeFactory
 	 */
 	public function __construct(
 		array $propertiesClassReflectionExtensions,
@@ -51,7 +56,8 @@ class Broker
 		array $dynamicMethodReturnTypeExtensions,
 		array $dynamicStaticMethodReturnTypeExtensions,
 		FunctionReflectionFactory $functionReflectionFactory,
-		FileTypeMapper $fileTypeMapper
+		FileTypeMapper $fileTypeMapper,
+		TypeXFactory $typeFactory
 	)
 	{
 		$this->propertiesClassReflectionExtensions = $propertiesClassReflectionExtensions;
@@ -72,6 +78,13 @@ class Broker
 
 		$this->functionReflectionFactory = $functionReflectionFactory;
 		$this->fileTypeMapper = $fileTypeMapper;
+		$this->typeFactory = $typeFactory;
+		$this->typeFactory->setBroker($this);
+	}
+
+	public function getTypeFactory(): TypeXFactory
+	{
+		return $this->typeFactory;
 	}
 
 	/**

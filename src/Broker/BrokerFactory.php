@@ -8,6 +8,7 @@ use PHPStan\Reflection\FunctionReflectionFactory;
 use PHPStan\Reflection\Php\PhpClassReflectionExtension;
 use PHPStan\Reflection\PhpDefect\PhpDefectClassReflectionExtension;
 use PHPStan\Type\FileTypeMapper;
+use PHPStan\TypeX\TypeXFactory;
 
 class BrokerFactory
 {
@@ -44,7 +45,8 @@ class BrokerFactory
 			$tagToService($this->container->findByTag(self::DYNAMIC_METHOD_RETURN_TYPE_EXTENSION_TAG)),
 			$tagToService($this->container->findByTag(self::DYNAMIC_STATIC_METHOD_RETURN_TYPE_EXTENSION_TAG)),
 			$this->container->getByType(FunctionReflectionFactory::class),
-			$this->container->getByType(FileTypeMapper::class)
+			$this->container->getByType(FileTypeMapper::class),
+			$this->container->getByType(TypeXFactory::class)
 		);
 	}
 

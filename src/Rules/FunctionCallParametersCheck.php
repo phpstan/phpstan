@@ -10,6 +10,7 @@ use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\VoidType;
+use PHPStan\TypeX\Is;
 
 class FunctionCallParametersCheck
 {
@@ -108,7 +109,7 @@ class FunctionCallParametersCheck
 		}
 
 		if (
-			$function->getReturnType() instanceof VoidType
+			Is::type($function->getReturnType(), VoidType::class)
 			&& !$scope->isInFirstLevelStatement()
 			&& !$funcCall instanceof \PhpParser\Node\Expr\New_
 		) {
@@ -128,7 +129,7 @@ class FunctionCallParametersCheck
 
 				$parameter = $parameters[count($parameters) - 1];
 				$parameterType = $parameter->getType();
-				if ($parameterType instanceof ArrayType) {
+				if (Is::type($parameterType, ArrayType::class)) {
 					if (!$argument->unpack) {
 						$parameterType = $parameterType->getItemType();
 					}
@@ -139,7 +140,7 @@ class FunctionCallParametersCheck
 				$parameter = $parameters[$i];
 				$parameterType = $parameter->getType();
 				if ($parameter->isVariadic()) {
-					if ($parameterType instanceof ArrayType && !$argument->unpack) {
+					if (Is::type($parameterType, ArrayType::class) && !$argument->unpack) {
 						$parameterType = $parameterType->getItemType();
 					}
 				} elseif ($argument->unpack) {
@@ -152,7 +153,7 @@ class FunctionCallParametersCheck
 			if (
 				!$this->ruleLevelHelper->accepts($parameterType, $argumentValueType)
 				&& (
-					!($parameterType instanceof StringType)
+					!(Is::type($parameterType, StringType::class))
 					|| !(
 						$argumentValueType->getClass() !== null
 						&& $this->broker->hasClass($argumentValueType->getClass())

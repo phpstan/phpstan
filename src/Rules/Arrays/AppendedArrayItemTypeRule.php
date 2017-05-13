@@ -36,7 +36,7 @@ class AppendedArrayItemTypeRule implements \PHPStan\Rules\Rule
 		}
 
 		$assignedToType = $scope->getType($node->var->var);
-		if (!($assignedToType instanceof ArrayType)) {
+		if (!($assignedToType instanceof ArrayType || $assignedToType instanceof \PHPStan\TypeX\ArrayType)) {
 			return [];
 		}
 

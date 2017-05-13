@@ -18,6 +18,7 @@ use PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension;
 use PHPStan\Reflection\PhpDefect\PhpDefectClassReflectionExtension;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Type;
+use PHPStan\TypeX\TypeXFactory;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
@@ -109,7 +110,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				);
 			}
 		};
-		$phpExtension = new PhpClassReflectionExtension($methodReflectionFactory, new FileTypeMapper($parser, $this->createMock(\Nette\Caching\Cache::class)));
+		$typeFactory = new TypeXFactory();
+		$phpExtension = new PhpClassReflectionExtension($methodReflectionFactory, new FileTypeMapper($parser, $typeFactory, $this->createMock(\Nette\Caching\Cache::class)));
 		$functionReflectionFactory = new class($this->getParser(), $functionCallStatementFinder, $cache) implements FunctionReflectionFactory {
 			/** @var \PHPStan\Parser\Parser */
 			private $parser;
@@ -157,7 +159,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			$dynamicMethodReturnTypeExtensions,
 			$dynamicStaticMethodReturnTypeExtensions,
 			$functionReflectionFactory,
-			new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class))
+			new FileTypeMapper($this->getParser(), $typeFactory, $this->createMock(\Nette\Caching\Cache::class)),
+			$typeFactory
 		);
 		$methodReflectionFactory->broker = $broker;
 

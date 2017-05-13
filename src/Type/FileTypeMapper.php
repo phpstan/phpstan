@@ -5,6 +5,8 @@ namespace PHPStan\Type;
 use PhpParser\Node;
 use PHPStan\Analyser\NameScope;
 use PHPStan\Parser\Parser;
+use PHPStan\TypeX\TypeX;
+use PHPStan\TypeX\TypeXFactory;
 
 class FileTypeMapper
 {
@@ -15,6 +17,9 @@ class FileTypeMapper
 	/** @var \PHPStan\Parser\Parser */
 	private $parser;
 
+	/** @var \PHPStan\TypeX\TypeXFactory */
+	private $typeFactory;
+
 	/** @var \Nette\Caching\Cache */
 	private $cache;
 
@@ -23,10 +28,12 @@ class FileTypeMapper
 
 	public function __construct(
 		Parser $parser,
+		TypeXFactory $typeFactory,
 		\Nette\Caching\Cache $cache
 	)
 	{
 		$this->parser = $parser;
+		$this->typeFactory = $typeFactory;
 		$this->cache = $cache;
 	}
 
@@ -38,8 +45,10 @@ class FileTypeMapper
 		}
 		$cachedResult = $this->cache->load($cacheKey);
 		if ($cachedResult === null) {
-			$typeMap = $this->createTypeMap($fileName);
-			$this->cache->save($cacheKey, $typeMap);
+			$typeMap = $this->typeFactory->withoutAutoSimplify(function () use ($fileName) {
+				return $this->createTypeMap($fileName);
+			});
+//			$this->cache->save($cacheKey, $typeMap);
 			$this->memoryCache[$cacheKey] = $typeMap;
 			return $typeMap;
 		}
@@ -130,21 +139,25 @@ class FileTypeMapper
 
 	private function getTypeFromTypeString(string $typeString, string $className = null, NameScope $nameScope): Type
 	{
-		/** @var \PHPStan\Type\Type|null $type */
-		$type = null;
+//		/** @var \PHPStan\Type\Type|null $type */
+//		$type = null;
+//		foreach (explode('|', $typeString) as $typePart) {
+//			$typeFromTypePart = TypehintHelper::getTypeObjectFromTypehint($typePart, $className, $nameScope);
+//			if ($type === null) {
+//				$type = $typeFromTypePart;
+//			} else {
+//				$type = TypeCombinator::combine($type, $typeFromTypePart);
+//			}
+//		}
+//
+//		return $type;
+
+		$types = [];
 		foreach (explode('|', $typeString) as $typePart) {
-			$typeFromTypePart = TypehintHelper::getTypeObjectFromTypehint($typePart, $className, $nameScope);
-			if ($type === null) {
-				$type = $typeFromTypePart;
-			} else {
-				$type = TypeCombinator::combine($type, $typeFromTypePart);
-			}
+			$types[] = TypehintHelper::getTypeObjectFromTypehint($typePart, $className, $nameScope);
 		}
 
-		/** @var \PHPStan\Type\Type $type */
-		$type = $type;
-
-		return $type;
+		return $this->typeFactory->createUnionType(...$types);
 	}
 
 	/**

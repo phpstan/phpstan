@@ -93,3 +93,16 @@ class Ipsum
 	}
 
 }
+
+class Collection implements \IteratorAggregate
+{
+
+	/**
+	 * @return \ArrayIterator
+	 */
+	public function getIterator()
+	{
+		return new \ArrayIterator();
+	}
+
+}
