@@ -2,3 +2,4 @@ parameters:
 	ignoreErrors:
 		- '#Function pcntl_signal_dispatch not found#'
 		- '#Function pcntl_signal not found#'
+		- '#Constant SIGINT not found#'
