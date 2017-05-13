@@ -479,13 +479,13 @@ class NodeScopeResolver
 				}
 			}
 
-			if ($node->finally !== null) {
+			if (isset($node->finally) || isset($node->finallyStmts)) {
 				$statements[] = new StatementList($scope, $node->stmts);
 			}
 
 			foreach ($node->catches as $catch) {
 				$this->processNode($catch, $scope, $nodeCallback);
-				if ($node->finally !== null) {
+				if (isset($node->finally) || isset($node->finallyStmts)) {
 					if (isset($catch->types)) {
 						$catchTypes = $catch->types;
 					} elseif (isset($catch->type)) {
@@ -500,9 +500,14 @@ class NodeScopeResolver
 				}
 			}
 
-			if ($node->finally !== null) {
+			if (isset($node->finally) || isset($node->finallyStmts)) {
 				$finallyScope = $this->lookForAssignsInBranches($scope, $statements);
-				$this->processNode($node->finally, $finallyScope, $nodeCallback);
+
+				if (isset($node->finally)) {
+					$this->processNode($node->finally, $finallyScope, $nodeCallback);
+				} elseif (isset($node->finallyStmts)) {
+					$this->processNodes($node->finallyStmts, $finallyScope, $nodeCallback);
+				}
 			}
 
 			return;
@@ -739,7 +744,11 @@ class NodeScopeResolver
 			}
 
 			$scope = $this->lookForAssignsInBranches($scope, $statements);
-			if ($node->finally !== null) {
+			if (isset($node->finallyStmts)) {
+				foreach ($node->finallyStmts as $statement) {
+					$scope = $this->lookForAssigns($scope, $statement);
+				}
+			} elseif (isset($node->finally)) {
 				foreach ($node->finally->stmts as $statement) {
 					$scope = $this->lookForAssigns($scope, $statement);
 				}

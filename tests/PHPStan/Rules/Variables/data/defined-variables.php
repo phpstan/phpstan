@@ -257,6 +257,7 @@ try {
 	echo $variableAvailableInAllCatches;
 	echo $variableDefinedOnlyInOneCatch;
 	$variableDefinedInFinally = 1;
+	echo $variableDefinedInFinally;
 }
 
 echo $variableDefinedInFinally;
