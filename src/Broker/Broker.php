@@ -199,15 +199,32 @@ class Broker
 	 */
 	public function resolveFunctionName(\PhpParser\Node\Name $nameNode, Scope $scope = null)
 	{
+		return $this->resolveName($nameNode, function (string $name): bool {
+			return function_exists($name);
+		}, $scope);
+	}
+
+	/**
+	 * @param \PhpParser\Node\Name $nameNode
+	 * @param \Closure $existsCallback
+	 * @param \PHPStan\Analyser\Scope|null $scope
+	 * @return string|null
+	 */
+	private function resolveName(
+		\PhpParser\Node\Name $nameNode,
+		\Closure $existsCallback,
+		Scope $scope = null
+	)
+	{
 		$name = (string) $nameNode;
 		if ($scope !== null && $scope->getNamespace() !== null && !$nameNode->isFullyQualified()) {
 			$namespacedName = sprintf('%s\\%s', $scope->getNamespace(), $name);
-			if (function_exists($namespacedName)) {
+			if ($existsCallback($namespacedName)) {
 				return $namespacedName;
 			}
 		}
 
-		if (function_exists($name)) {
+		if ($existsCallback($name)) {
 			return $name;
 		}
 
