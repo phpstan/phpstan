@@ -437,6 +437,15 @@ class Scope
 			} elseif ($constName === 'null') {
 				return new NullType();
 			}
+
+			if ($this->broker->hasConstant($node->name, $this)) {
+				$typeFromValue = $this->getTypeFromValue(
+					constant($this->broker->resolveConstantName($node->name, $this))
+				);
+				if ($typeFromValue !== null) {
+					return $typeFromValue;
+				}
+			}
 		} elseif ($node instanceof String_) {
 			return new StringType();
 		} elseif ($node instanceof DNumber) {

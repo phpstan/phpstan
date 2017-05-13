@@ -2609,6 +2609,40 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+	public function dataConstants(): array
+	{
+		return [
+			[
+				'int',
+				'$foo',
+			],
+			[
+				'mixed',
+				'NONEXISTENT_CONSTANT',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataConstants
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testConstants(
+		string $description,
+		string $expression
+	)
+	{
+		if (!defined('ConstantsForNodeScopeResolverTest\\FOO_CONSTANT')) {
+			define('ConstantsForNodeScopeResolverTest\\FOO_CONSTANT', 1);
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/constants.php',
+			$description,
+			$expression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $description,
