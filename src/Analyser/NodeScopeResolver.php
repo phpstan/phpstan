@@ -929,13 +929,10 @@ class NodeScopeResolver
 				if ($scope->hasVariableType($var->name)) {
 					$arrayDimFetchVariableType = $scope->getVariableType($var->name);
 					if (
-						$arrayDimFetchVariableType->getClass() !== null
-						&& $this->broker->hasClass($arrayDimFetchVariableType->getClass())
+						!$arrayDimFetchVariableType instanceof ArrayType
+						&& !$arrayDimFetchVariableType instanceof MixedType
 					) {
-						$arrayDimFetchClass = $this->broker->getClass($arrayDimFetchVariableType->getClass());
-						if ($arrayDimFetchClass->isSubclassOf(\ArrayAccess::class)) {
-							return $scope;
-						}
+						return $scope;
 					}
 				}
 				$arrayType = ArrayType::createDeepArrayType(
