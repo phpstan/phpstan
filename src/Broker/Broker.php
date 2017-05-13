@@ -204,6 +204,23 @@ class Broker
 		}, $scope);
 	}
 
+	public function hasConstant(\PhpParser\Node\Name $nameNode, Scope $scope): bool
+	{
+		return $this->resolveConstantName($nameNode, $scope) !== null;
+	}
+
+	/**
+	 * @param \PhpParser\Node\Name $nameNode
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @return string|null
+	 */
+	public function resolveConstantName(\PhpParser\Node\Name $nameNode, Scope $scope)
+	{
+		return $this->resolveName($nameNode, function (string $name): bool {
+			return defined($name);
+		}, $scope);
+	}
+
 	/**
 	 * @param \PhpParser\Node\Name $nameNode
 	 * @param \Closure $existsCallback

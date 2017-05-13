@@ -13,3 +13,8 @@ services:
 		class: PHPStan\Rules\Variables\DefinedVariableInAnonymousFunctionUseRule
 		tags:
 			- phpstan.rules.rule
+
+	-
+		class: PHPStan\Rules\Constants\ConstantRule
+		tags:
+			- phpstan.rules.rule
