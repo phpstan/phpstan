@@ -54,12 +54,16 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		require_once __DIR__ . '/data/function-with-variadic-parameters-definition.php';
 		$this->analyse([__DIR__ . '/data/function-with-variadic-parameters.php'], [
 			[
+				'Parameter #2 ...$foo of function FunctionWithVariadicParameters\foo expects int[], iterable(string[]) given.',
+				16,
+			],
+			[
 				'Function FunctionWithVariadicParameters\foo invoked with 0 parameters, at least 1 required.',
-				5,
+				23,
 			],
 			[
 				'Function FunctionWithVariadicParameters\bar invoked with 0 parameters, at least 1 required.',
-				9,
+				27,
 			],
 		]);
 	}

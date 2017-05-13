@@ -2,7 +2,7 @@
 
 namespace FunctionWithVariadicParameters;
 
-function foo($bar, ...$foo)
+function foo($bar, int ...$foo)
 {
 
 }

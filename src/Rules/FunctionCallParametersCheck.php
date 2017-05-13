@@ -8,6 +8,8 @@ use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\IterableIterableType;
+use PHPStan\Type\IterableType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\VoidType;
 
@@ -148,9 +150,17 @@ class FunctionCallParametersCheck
 			}
 
 			$argumentValueType = $scope->getType($argument->value);
+			$secondAccepts = null;
+			if ($parameterType instanceof IterableType && $parameter->isVariadic()) {
+				$secondAccepts = $this->ruleLevelHelper->accepts(
+					new IterableIterableType($parameterType->getItemType()),
+					$argumentValueType
+				);
+			}
 
 			if (
 				!$this->ruleLevelHelper->accepts($parameterType, $argumentValueType)
+				&& ($secondAccepts === null || !$secondAccepts)
 				&& (
 					!($parameterType instanceof StringType)
 					|| !(

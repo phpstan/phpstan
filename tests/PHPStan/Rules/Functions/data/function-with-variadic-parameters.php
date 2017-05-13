@@ -2,10 +2,29 @@
 
 namespace FunctionWithVariadicParameters;
 
-foo();
+class Foo
+{
 
-foo(1, 2);
+	/**
+	 * @param int[] $integers
+	 * @param string[] $strings
+	 * @param \Traversable $traversable
+	 */
+	public function doFoo(iterable $integers, iterable $strings, \Traversable $traversable)
+	{
+		foo('x', ...$integers);
+		foo('x', ...$strings);
+		foo('x', ...$traversable);
+	}
 
-bar();
+}
 
-bar(1, 2);
+function () {
+	foo();
+
+	foo(1, 2);
+
+	bar();
+
+	bar(1, 2);
+};
