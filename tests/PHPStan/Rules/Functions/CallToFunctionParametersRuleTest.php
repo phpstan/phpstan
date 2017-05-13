@@ -54,16 +54,26 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		require_once __DIR__ . '/data/function-with-variadic-parameters-definition.php';
 		$this->analyse([__DIR__ . '/data/function-with-variadic-parameters.php'], [
 			[
-				'Parameter #2 ...$foo of function FunctionWithVariadicParameters\foo expects int[], iterable(string[]) given.',
-				16,
-			],
-			[
 				'Function FunctionWithVariadicParameters\foo invoked with 0 parameters, at least 1 required.',
-				23,
+				6,
 			],
 			[
 				'Function FunctionWithVariadicParameters\bar invoked with 0 parameters, at least 1 required.',
-				27,
+				10,
+			],
+		]);
+	}
+
+	public function testCallToFunctionWithDynamicIterableParameters()
+	{
+		if (self::isObsoletePhpParserVersion()) {
+			$this->markTestSkipped('Test requires PHP-Parser ^3.0.0');
+		}
+		require_once __DIR__ . '/data/function-with-variadic-parameters-definition.php';
+		$this->analyse([__DIR__ . '/data/function-with-variadic-parameters-7.1.php'], [
+			[
+				'Parameter #2 ...$foo of function FunctionWithVariadicParameters\foo expects int[], iterable(string[]) given.',
+				16,
 			],
 		]);
 	}
