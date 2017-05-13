@@ -93,8 +93,12 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				204,
 			],
 			[
+				'Undefined variable: $variableAvailableInAllCatches',
+				257,
+			],
+			[
 				'Undefined variable: $variableDefinedOnlyInOneCatch',
-				255,
+				258,
 			],
 		]);
 	}

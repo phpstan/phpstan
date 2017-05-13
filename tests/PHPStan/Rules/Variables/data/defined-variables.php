@@ -244,13 +244,16 @@ foreach ($someArray as $someKey => list($destructuredAa, $destructuredBb, list($
 }
 
 try {
-
+	$variableDefinedInTryAndAllCatches = 1;
 } catch (\FooException $e) {
+	$variableDefinedInTryAndAllCatches = 1;
 	$variableAvailableInAllCatches = 1;
 	$variableDefinedOnlyInOneCatch = 'foo';
 } catch (\BarException $e) {
+	$variableDefinedInTryAndAllCatches = 1;
 	$variableAvailableInAllCatches = 2;
 } finally {
+	echo $variableDefinedInTryAndAllCatches;
 	echo $variableAvailableInAllCatches;
 	echo $variableDefinedOnlyInOneCatch;
 	$variableDefinedInFinally = 1;

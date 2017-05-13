@@ -471,6 +471,7 @@ class NodeScopeResolver
 		} elseif ($node instanceof While_) {
 			$scope = $this->lookForAssigns($scope, $node->cond);
 		} elseif ($node instanceof TryCatch) {
+			$statements = [];
 			$this->processNodes($node->stmts, $scope->enterFirstLevelStatements(), $nodeCallback);
 			if ($this->polluteCatchScopeWithTryAssignments) {
 				foreach ($node->stmts as $statement) {
@@ -478,7 +479,10 @@ class NodeScopeResolver
 				}
 			}
 
-			$statements = [];
+			if ($node->finally !== null) {
+				$statements[] = new StatementList($scope, $node->stmts);
+			}
+
 			foreach ($node->catches as $catch) {
 				$this->processNode($catch, $scope, $nodeCallback);
 				if ($node->finally !== null) {
