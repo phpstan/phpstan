@@ -13,3 +13,8 @@ $nullableString = 'foo';
 $foo = (string) $nullableString;
 
 $foo = (float) (6 / 2);
+
+$width = 1;
+$scale = 2.0;
+$width *= $scale;
+echo (int) $width;

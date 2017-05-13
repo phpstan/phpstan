@@ -165,6 +165,8 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$this->assertSame('int[]', $variables['arrayOfIntegers']->describe());
 				$this->assertArrayHasKey('arrayAccessObject', $variables);
 				$this->assertSame(\ObjectWithArrayAccess\Foo::class, $variables['arrayAccessObject']->describe());
+				$this->assertArrayHasKey('width', $variables);
+				$this->assertSame('float', $variables['width']->describe());
 			}
 		});
 	}

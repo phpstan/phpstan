@@ -864,8 +864,8 @@ class NodeScopeResolver
 
 	private function updateScopeForVariableAssign(Scope $scope, \PhpParser\Node $node): Scope
 	{
-		if ($node instanceof Assign || $node instanceof AssignRef || $node instanceof Isset_) {
-			if ($node instanceof Assign || $node instanceof AssignRef) {
+		if ($node instanceof Assign || $node instanceof AssignRef || $node instanceof Isset_ || $node instanceof Expr\AssignOp) {
+			if ($node instanceof Assign || $node instanceof AssignRef || $node instanceof Expr\AssignOp) {
 				$vars = [$node->var];
 			} elseif ($node instanceof Isset_) {
 				$vars = $node->vars;
@@ -874,11 +874,13 @@ class NodeScopeResolver
 			}
 
 			foreach ($vars as $var) {
-				$scope = $this->assignVariable(
-					$scope,
-					$var,
-					($node instanceof Assign || $node instanceof AssignRef) ? $scope->getType($node->expr) : null
-				);
+				$type = null;
+				if ($node instanceof Assign || $node instanceof AssignRef) {
+					$type = $scope->getType($node->expr);
+				} elseif ($node instanceof Expr\AssignOp) {
+					$type = $scope->getType($node);
+				}
+				$scope = $this->assignVariable($scope, $var, $type);
 			}
 
 			if ($node instanceof Assign || $node instanceof AssignRef) {

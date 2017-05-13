@@ -215,6 +215,10 @@ $arrayAccessObject = new \ObjectWithArrayAccess\Foo();
 $arrayAccessObject[] = 1;
 $arrayAccessObject[] = 2;
 
+$width = 1;
+$scale = 2.0;
+$width *= $scale;
+
 try {
 	$inTryTwo = 1;
 } catch (\Exception $e) {
