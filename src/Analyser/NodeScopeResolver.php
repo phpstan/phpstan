@@ -921,7 +921,23 @@ class NodeScopeResolver
 				$depth++;
 			}
 
+			if (isset($var->dim)) {
+				$scope = $this->lookForAssigns($scope, $var->dim);
+			}
+
 			if ($var instanceof Variable && is_string($var->name)) {
+				if ($scope->hasVariableType($var->name)) {
+					$arrayDimFetchVariableType = $scope->getVariableType($var->name);
+					if (
+						$arrayDimFetchVariableType->getClass() !== null
+						&& $this->broker->hasClass($arrayDimFetchVariableType->getClass())
+					) {
+						$arrayDimFetchClass = $this->broker->getClass($arrayDimFetchVariableType->getClass());
+						if ($arrayDimFetchClass->isSubclassOf(\ArrayAccess::class)) {
+							return $scope;
+						}
+					}
+				}
 				$arrayType = ArrayType::createDeepArrayType(
 					new NestedArrayItemType($subNodeType !== null ? $subNodeType : new MixedType(), $depth),
 					false
@@ -931,10 +947,6 @@ class NodeScopeResolver
 				}
 
 				$scope = $scope->assignVariable($var->name, $arrayType);
-			}
-
-			if (isset($var->dim)) {
-				$scope = $this->lookForAssigns($scope, $var->dim);
 			}
 		} elseif ($var instanceof PropertyFetch && $subNodeType !== null) {
 			$scope = $scope->specifyExpressionType($var, $subNodeType);
