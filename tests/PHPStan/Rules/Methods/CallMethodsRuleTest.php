@@ -470,4 +470,11 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		]);
 	}
 
+	public function testCallMethodsNullIssue()
+	{
+		$this->checkThisOnly = false;
+		$this->checkNullables = false;
+		$this->analyse([__DIR__ . '/data/order.php'], []);
+	}
+
 }
