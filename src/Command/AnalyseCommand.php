@@ -50,14 +50,16 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 	{
 		$consoleStyle = new ErrorsConsoleStyle($input, $output);
 
+		$currentWorkingDirectory = getcwd();
+		$fileHelper = new FileHelper($currentWorkingDirectory);
+
 		$autoloadFile = $input->getOption('autoload-file');
 		if ($autoloadFile !== null && is_file($autoloadFile)) {
-			require_once $autoloadFile;
+			$autoloadFile = $fileHelper->normalizePath($autoloadFile);
+			if (is_file($autoloadFile)) {
+				require_once $autoloadFile;
+			}
 		}
-
-		$currentWorkingDirectory = getcwd();
-
-		$fileHelper = new FileHelper($currentWorkingDirectory);
 
 		$rootDir = $fileHelper->normalizePath(__DIR__ . '/../..');
 		$confDir = $rootDir . '/conf';
@@ -174,7 +176,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		}
 
 		foreach ($container->parameters['autoload_files'] as $autoloadFile) {
-			require_once $autoloadFile;
+			require_once $fileHelper->normalizePath($autoloadFile);
 		}
 
 		if (count($container->parameters['autoload_directories']) > 0) {
@@ -184,7 +186,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 			$robotLoader->setTempDirectory($tmpDir);
 			foreach ($container->parameters['autoload_directories'] as $directory) {
-				$robotLoader->addDirectory($directory);
+				$robotLoader->addDirectory($fileHelper->normalizePath($directory));
 			}
 
 			$robotLoader->register();
