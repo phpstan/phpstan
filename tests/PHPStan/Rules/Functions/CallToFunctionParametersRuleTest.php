@@ -163,11 +163,11 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$this->analyse([__DIR__ . '/data/passed-by-reference.php'], [
 			[
 				'Parameter #1 $foo of function PassedByReference\foo is passed by reference, so it expects variables only.',
-				17,
+				32,
 			],
 			[
 				'Parameter #1 $foo of function PassedByReference\foo is passed by reference, so it expects variables only.',
-				18,
+				33,
 			],
 		]);
 	}

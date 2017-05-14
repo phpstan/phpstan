@@ -183,6 +183,8 @@ class FunctionCallParametersCheck
 				$parameter->isPassedByReference()
 				&& !$argument->value instanceof \PhpParser\Node\Expr\Variable
 				&& !$argument->value instanceof \PhpParser\Node\Expr\ArrayDimFetch
+				&& !$argument->value instanceof \PhpParser\Node\Expr\PropertyFetch
+				&& !$argument->value instanceof \PhpParser\Node\Expr\StaticPropertyFetch
 			) {
 				$errors[] = sprintf(
 					$messages[8],

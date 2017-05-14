@@ -7,6 +7,21 @@ function foo(&$foo)
 
 }
 
+class Bar
+{
+
+	private $barProperty;
+
+	private static $staticBarProperty;
+
+	public function doBar()
+	{
+		foo($this->barProperty); // ok
+		foo(self::$staticBarProperty); // ok
+	}
+
+}
+
 function () {
 	$i = 0;
 	foo($i); // ok
