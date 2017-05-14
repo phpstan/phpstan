@@ -48,6 +48,7 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 				$printer,
 				$typeSpecifier,
 				$fileExcluder,
+				$fileHelper,
 				[],
 				null,
 				true

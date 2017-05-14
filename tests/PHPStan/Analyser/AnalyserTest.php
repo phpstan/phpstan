@@ -212,6 +212,7 @@ class AnalyserTest extends \PHPStan\TestCase
 			$printer,
 			$typeSpecifier,
 			$fileExcluder,
+			$fileHelper,
 			$ignoreErrors,
 			$bootstrapFile,
 			$reportUnmatchedIgnoredErrors

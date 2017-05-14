@@ -4,6 +4,7 @@ namespace PHPStan\Analyser;
 
 use PHPStan\Broker\Broker;
 use PHPStan\File\FileExcluder;
+use PHPStan\File\FileHelper;
 use PHPStan\Parser\Parser;
 use PHPStan\Rules\Registry;
 
@@ -68,6 +69,7 @@ class Analyser
 	 * @param \PhpParser\PrettyPrinter\Standard $printer
 	 * @param \PHPStan\Analyser\TypeSpecifier $typeSpecifier
 	 * @param \PHPStan\File\FileExcluder $fileExcluder
+	 * @param \PHPStan\File\FileHelper $fileHelper
 	 * @param string[] $ignoreErrors
 	 * @param string|null $bootstrapFile
 	 * @param bool $reportUnmatchedIgnoredErrors
@@ -80,6 +82,7 @@ class Analyser
 		\PhpParser\PrettyPrinter\Standard $printer,
 		TypeSpecifier $typeSpecifier,
 		FileExcluder $fileExcluder,
+		FileHelper $fileHelper,
 		array $ignoreErrors,
 		string $bootstrapFile = null,
 		bool $reportUnmatchedIgnoredErrors
@@ -93,7 +96,7 @@ class Analyser
 		$this->typeSpecifier = $typeSpecifier;
 		$this->fileExcluder = $fileExcluder;
 		$this->ignoreErrors = $ignoreErrors;
-		$this->bootstrapFile = $bootstrapFile;
+		$this->bootstrapFile = $bootstrapFile !== null ? $fileHelper->normalizePath($bootstrapFile) : null;
 		$this->reportUnmatchedIgnoredErrors = $reportUnmatchedIgnoredErrors;
 	}
 
