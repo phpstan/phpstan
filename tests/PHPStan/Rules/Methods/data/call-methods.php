@@ -169,4 +169,20 @@ class ClassWithNullableProperty
 		$this->doBar(null);
 	}
 
+	public function doBaz()
+	{
+		/** @var Foo|null $foo */
+		$foo = doFoo();
+
+		/** @var Bar|null $bar */
+		$bar = doBar();
+
+		if ($foo === null && $bar === null) {
+			throw new \Exception();
+		}
+
+		$foo->ipsum();
+		$bar->ipsum();
+	}
+
 }

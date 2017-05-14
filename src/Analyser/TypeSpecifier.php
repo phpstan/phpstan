@@ -102,7 +102,14 @@ class TypeSpecifier
 				return $types->addSureType($expressions[0], $printedExpr, $sureType);
 			}
 
-			return $types->addSureNotType($expressions[0], $printedExpr, $sureType);
+			if (
+				$source !== self::SOURCE_FROM_AND
+				|| $expr instanceof Node\Expr\BinaryOp\NotIdentical
+			) {
+				return $types->addSureNotType($expressions[0], $printedExpr, $sureType);
+			}
+
+			return $types;
 		} elseif (
 			$expr instanceof FuncCall
 			&& $expr->name instanceof Name
