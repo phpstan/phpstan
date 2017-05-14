@@ -71,6 +71,8 @@ composer require --dev phpstan/phpstan
 
 Composer will install PHPStan's executable in its `bin-dir` which defaults to `vendor/bin`.
 
+If you have conflicting dependencies or you want to install PHPStan globally, the best way is via a PHAR archive. You will always find the latest stable PHAR archive below the [release notes](https://github.com/phpstan/phpstan/releases). You can also use the [phpstan/phpstan-shim](https://packagist.org/packages/phpstan/phpstan-shim) package to install PHPStan via Composer without the risk of conflicting dependencies.
+
 You can also use [PHPStan via Docker](https://github.com/phpstan/docker-image).
 
 ## First run
@@ -147,7 +149,7 @@ parameters:
 
 #### Autoloading for global installation
 
-PHPStan supports global installation using [`composer global`](https://getcomposer.org/doc/03-cli.md#global).
+PHPStan supports global installation using [`composer global`](https://getcomposer.org/doc/03-cli.md#global) or via a [PHAR archive](#installation).
 In this case, it's not part of the project autoloader, but it supports autodiscovery of the Composer autoloader
 from current working directory residing in `vendor/`:
 
@@ -559,11 +561,6 @@ PHPStan will throw `Cannot redeclare class` error. Use the `_once` variants to a
 * If PHPStan crashes without outputting any error, it's quite possible that it's
 because of a low memory limit set on your system. **Run PHPStan again** to read a couple of hints
 what you can do to prevent the crashes.
-* If you install PHPStan globally on your system, you can experience errors resulting from
-using different versions of dependencies than PHPStan uses. For example, if PHPStan's
-version of Symfony Console has a method with different arguments than your version
-of Symfony Console and you use this method in the analysed code, PHPStan can mark that as error.
-This will be solved in the future by prefixing the namespaces of PHPStan's dependencies.
 
 ## Code of Conduct
 
