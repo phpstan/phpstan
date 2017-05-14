@@ -1464,7 +1464,7 @@ class Scope
 	public function lookForTypeSpecificationsInEarlyTermination(Node $node): self
 	{
 		$scope = $this;
-		$types = $this->typeSpecifier->specifyTypesInCondition(new SpecifiedTypes(), $scope, $node);
+		$types = $this->typeSpecifier->specifyTypesInCondition(new SpecifiedTypes(), $scope, $node, false, TypeSpecifier::SOURCE_FROM_OR);
 		foreach ($types->getSureNotTypes() as $type) {
 			$scope = $scope->specifyExpressionType($type[0], $type[1]);
 		}

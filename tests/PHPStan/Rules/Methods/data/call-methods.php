@@ -185,4 +185,24 @@ class ClassWithNullableProperty
 		$bar->ipsum();
 	}
 
+	public function doIpsum(): string
+	{
+		/** @var Foo|null $foo */
+		$foo = doFoo();
+
+		/** @var Bar|null $bar */
+		$bar = doBar();
+
+		if ($foo !== null && $bar === null) {
+			return '';
+		} elseif ($bar !== null && $foo === null) {
+			return '';
+		}
+
+		$foo->ipsum();
+		$bar->ipsum();
+
+		return '';
+	}
+
 }

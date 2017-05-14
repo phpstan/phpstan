@@ -95,21 +95,11 @@ class TypeSpecifier
 				}
 			}
 
-			if (
-				$expr instanceof Node\Expr\BinaryOp\Identical
-				&& $source !== self::SOURCE_FROM_AND
-			) {
+			if ($expr instanceof Node\Expr\BinaryOp\Identical) {
 				return $types->addSureType($expressions[0], $printedExpr, $sureType);
 			}
 
-			if (
-				$source !== self::SOURCE_FROM_AND
-				|| $expr instanceof Node\Expr\BinaryOp\NotIdentical
-			) {
-				return $types->addSureNotType($expressions[0], $printedExpr, $sureType);
-			}
-
-			return $types;
+			return $types->addSureNotType($expressions[0], $printedExpr, $sureType);
 		} elseif (
 			$expr instanceof FuncCall
 			&& $expr->name instanceof Name
