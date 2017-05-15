@@ -453,4 +453,16 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		]);
 	}
 
+	public function testMysqliQuery()
+	{
+		$this->checkThisOnly = false;
+		$this->checkNullables = false;
+		$this->analyse([__DIR__ . '/data/mysqli-query.php'], [
+			[
+				'Method mysqli::query() invoked with 0 parameters, 1-2 required.',
+				4,
+			],
+		]);
+	}
+
 }
