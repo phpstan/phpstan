@@ -11,6 +11,7 @@ use PhpParser\Node\Expr\Instanceof_;
 use PhpParser\Node\Name;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\CallableType;
+use PHPStan\Type\FalseBooleanType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\IterableIterableType;
@@ -146,6 +147,20 @@ class TypeSpecifier
 				$types = $this->specifyTypesInCondition($types, $scope, $expr->expr, !$negated, $source);
 			}
 
+		} elseif ($expr instanceof Node\Expr\Variable && is_string($expr->name)) {
+			if ($negated && $source !== self::SOURCE_FROM_AND) {
+				if ($scope->hasVariableType($expr->name)) {
+					$className = $scope->getVariableType($expr->name)->getClass();
+					if ($className !== null) {
+						$printedExpr = $this->printer->prettyPrintExpr($expr);
+						$types = $types->addSureNotType($expr, $printedExpr, new ObjectType($className));
+					}
+				}
+			} elseif (!$negated && $source !== self::SOURCE_FROM_OR) {
+				$printedExpr = $this->printer->prettyPrintExpr($expr);
+				$types = $types->addSureNotType($expr, $printedExpr, new NullType());
+				$types = $types->addSureNotType($expr, $printedExpr, new FalseBooleanType());
+			}
 		}
 
 		return $types;

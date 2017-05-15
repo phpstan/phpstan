@@ -24,6 +24,18 @@ function () {
 		'notNullForSure';
 	}
 
+	if ($foo) {
+		'notNullForSure2';
+	} else {
+		'nullForSure2';
+	}
+
+	if (!$foo) {
+		'nullForSure3';
+	} else {
+		'notNullForSure3';
+	}
+
 	if (null === $foo) {
 		'yodaNullForSure';
 	}
