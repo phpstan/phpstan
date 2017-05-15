@@ -361,9 +361,9 @@ class Scope
 				)->combineWith($elseType);
 			}
 
-			$conditionScope = $this->lookForTypeSpecifications($node->cond);
+			$conditionScope = $this->filterByTruthyValue($node->cond);
 			$ifType = $conditionScope->getType($node->if);
-			$negatedConditionScope = $this->lookForTypeSpecificationsInEarlyTermination($node->cond);
+			$negatedConditionScope = $this->filterByFalseyValue($node->cond);
 			$elseType = $negatedConditionScope->getType($node->else);
 
 			return $ifType->combineWith($elseType);
@@ -1447,31 +1447,27 @@ class Scope
 		);
 	}
 
-	public function lookForTypeSpecifications(Node $node): self
+	public function filterByTruthyValue(Expr $expr): self
 	{
-		$scope = $this;
-		$types = $this->typeSpecifier->specifyTypesInCondition(new SpecifiedTypes(), $scope, $node);
-		foreach ($types->getSureTypes() as $type) {
-			$scope = $scope->specifyExpressionType($type[0], $type[1]);
-		}
-		foreach ($types->getSureNotTypes() as $type) {
-			$scope = $scope->removeTypeFromExpression($type[0], $type[1]);
-		}
-
-		return $scope;
+		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition(new SpecifiedTypes(), $this, $expr, false);
+		return $this->filterBySpecifiedTypes($specifiedTypes);
 	}
 
-	public function lookForTypeSpecificationsInEarlyTermination(Node $node): self
+	public function filterByFalseyValue(Expr $expr): self
+	{
+		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition(new SpecifiedTypes(), $this, $expr, true);
+		return $this->filterBySpecifiedTypes($specifiedTypes);
+	}
+
+	private function filterBySpecifiedTypes(SpecifiedTypes $specifiedTypes): self
 	{
 		$scope = $this;
-		$types = $this->typeSpecifier->specifyTypesInCondition(new SpecifiedTypes(), $scope, $node, true);
-		foreach ($types->getSureTypes() as $type) {
+		foreach ($specifiedTypes->getSureTypes() as $type) {
 			$scope = $scope->specifyExpressionType($type[0], $type[1]);
 		}
-		foreach ($types->getSureNotTypes() as $type) {
+		foreach ($specifiedTypes->getSureNotTypes() as $type) {
 			$scope = $scope->removeTypeFromExpression($type[0], $type[1]);
 		}
-
 		return $scope;
 	}
 
