@@ -32,7 +32,7 @@ class FileTypeMapper
 
 	public function getTypeMap(string $fileName): array
 	{
-		$cacheKey = sprintf('%s-%d-v32', $fileName, filemtime($fileName));
+		$cacheKey = sprintf('%s-%d-v33', $fileName, filemtime($fileName));
 		if (isset($this->memoryCache[$cacheKey])) {
 			return $this->memoryCache[$cacheKey];
 		}
@@ -57,7 +57,7 @@ class FileTypeMapper
 			'#@var\s+' . self::TYPE_PATTERN . '#',
 			'#@var\s+\$[a-zA-Z0-9_]+\s+' . self::TYPE_PATTERN . '#',
 			'#@return\s+' . self::TYPE_PATTERN . '#',
-			'#@property(?:-read)?\s+' . self::TYPE_PATTERN . '\s+\$[a-zA-Z0-9_]+#',
+			'#@property(?:-read|-write)?\s+' . self::TYPE_PATTERN . '\s+\$[a-zA-Z0-9_]+#',
 			'#@method\s+(?:static\s+)?' . self::TYPE_PATTERN . '\s*?[a-zA-Z0-9_]+(?:\(.*\))?#',
 		];
 

@@ -6,6 +6,7 @@ use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\PropertiesClassReflectionExtension;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Type\FileTypeMapper;
+use PHPStan\Type\TypeCombinator;
 
 class AnnotationsPropertiesClassReflectionExtension implements PropertiesClassReflectionExtension
 {
@@ -72,14 +73,23 @@ class AnnotationsPropertiesClassReflectionExtension implements PropertiesClassRe
 
 		$typeMap = $this->fileTypeMapper->getTypeMap($fileName);
 
-		preg_match_all('#@property(?:-read)?\s+' . FileTypeMapper::TYPE_PATTERN . '\s+\$([a-zA-Z0-9_]+)#', $docComment, $matches, PREG_SET_ORDER);
+		preg_match_all('#@property(-read|-write)?\s+' . FileTypeMapper::TYPE_PATTERN . '\s+\$([a-zA-Z0-9_]+)#', $docComment, $matches, PREG_SET_ORDER);
 		foreach ($matches as $match) {
-			$typeString = $match[1];
+			$typeString = $match[3];
 			if (!isset($typeMap[$typeString])) {
 				continue;
 			}
-
-			$properties[$match[2]] = new AnnotationPropertyReflection($declaringClass, $typeMap[$typeString]);
+			$readable = $writable = true;
+			if ($match[1] === '-read') {
+				$writable = false;
+			} elseif ($match[1] === '-write') {
+				$readable = false;
+			}
+			$type = $typeMap[$typeString];
+			if ($match[2] === '?') {
+				$type = TypeCombinator::addNull($type);
+			}
+			$properties[$match[4]] = new AnnotationPropertyReflection($classReflection, $type, $readable, $writable);
 		}
 
 		return $properties;

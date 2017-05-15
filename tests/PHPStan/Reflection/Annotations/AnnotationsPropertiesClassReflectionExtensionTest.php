@@ -16,22 +16,32 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCas
 					'otherTest' => [
 						'class' => \AnnotationsProperties\Foo::class,
 						'type' => 'OtherNamespace\Test',
+						'writable' => true,
+						'readable' => true,
 					],
 					'otherTestReadOnly' => [
 						'class' => \AnnotationsProperties\Foo::class,
 						'type' => 'OtherNamespace\Ipsum',
+						'writable' => false,
+						'readable' => true,
 					],
 					'fooOrBar' => [
 						'class' => \AnnotationsProperties\Foo::class,
 						'type' => 'AnnotationsProperties\Bar|AnnotationsProperties\Foo',
+						'writable' => true,
+						'readable' => true,
 					],
 					'conflictingProperty' => [
 						'class' => \AnnotationsProperties\Foo::class,
 						'type' => 'OtherNamespace\Ipsum',
+						'writable' => true,
+						'readable' => true,
 					],
 					'interfaceProperty' => [
 						'class' => \AnnotationsProperties\FooInterface::class,
 						'type' => \AnnotationsProperties\FooInterface::class,
+						'writable' => true,
+						'readable' => true,
 					],
 				],
 			],
@@ -41,18 +51,26 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCas
 					'otherTest' => [
 						'class' => \AnnotationsProperties\Foo::class,
 						'type' => 'OtherNamespace\Test',
+						'writable' => true,
+						'readable' => true,
 					],
 					'otherTestReadOnly' => [
 						'class' => \AnnotationsProperties\Foo::class,
 						'type' => 'OtherNamespace\Ipsum',
+						'writable' => false,
+						'readable' => true,
 					],
 					'fooOrBar' => [
 						'class' => \AnnotationsProperties\Foo::class,
 						'type' => 'AnnotationsProperties\Bar|AnnotationsProperties\Foo',
+						'writable' => true,
+						'readable' => true,
 					],
 					'conflictingProperty' => [
 						'class' => \AnnotationsProperties\Foo::class,
 						'type' => 'OtherNamespace\Ipsum',
+						'writable' => true,
+						'readable' => true,
 					],
 				],
 			],
@@ -62,26 +80,44 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCas
 					'otherTest' => [
 						'class' => \AnnotationsProperties\Foo::class,
 						'type' => 'OtherNamespace\Test',
+						'writable' => true,
+						'readable' => true,
 					],
 					'otherTestReadOnly' => [
 						'class' => \AnnotationsProperties\Foo::class,
 						'type' => 'OtherNamespace\Ipsum',
+						'writable' => false,
+						'readable' => true,
 					],
 					'fooOrBar' => [
 						'class' => \AnnotationsProperties\Foo::class,
 						'type' => 'AnnotationsProperties\Bar|AnnotationsProperties\Foo',
+						'writable' => true,
+						'readable' => true,
 					],
 					'conflictingProperty' => [
 						'class' => \AnnotationsProperties\Baz::class,
 						'type' => 'AnnotationsProperties\Dolor',
+						'writable' => true,
+						'readable' => true,
 					],
 					'bazProperty' => [
 						'class' => \AnnotationsProperties\Baz::class,
 						'type' => 'AnnotationsProperties\Lorem',
+						'writable' => true,
+						'readable' => true,
 					],
 					'traitProperty' => [
 						'class' => \AnnotationsProperties\Baz::class,
 						'type' => 'AnnotationsProperties\BazBaz',
+						'writable' => true,
+						'readable' => true,
+					],
+					'writeOnlyProperty' => [
+						'class' => \AnnotationsProperties\Baz::class,
+						'type' => 'AnnotationsProperties\Lorem',
+						'writable' => true,
+						'readable' => false,
 					],
 				],
 			],
@@ -91,26 +127,44 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCas
 					'otherTest' => [
 						'class' => \AnnotationsProperties\Foo::class,
 						'type' => 'OtherNamespace\Test',
+						'writable' => true,
+						'readable' => true,
 					],
 					'otherTestReadOnly' => [
 						'class' => \AnnotationsProperties\Foo::class,
 						'type' => 'OtherNamespace\Ipsum',
+						'writable' => false,
+						'readable' => true,
 					],
 					'fooOrBar' => [
 						'class' => \AnnotationsProperties\Foo::class,
 						'type' => 'AnnotationsProperties\Bar|AnnotationsProperties\Foo',
+						'writable' => true,
+						'readable' => true,
 					],
 					'conflictingProperty' => [
 						'class' => \AnnotationsProperties\Baz::class,
 						'type' => 'AnnotationsProperties\Dolor',
+						'writable' => true,
+						'readable' => true,
 					],
 					'bazProperty' => [
 						'class' => \AnnotationsProperties\Baz::class,
 						'type' => 'AnnotationsProperties\Lorem',
+						'writable' => true,
+						'readable' => true,
 					],
 					'traitProperty' => [
 						'class' => \AnnotationsProperties\Baz::class,
 						'type' => 'AnnotationsProperties\BazBaz',
+						'writable' => true,
+						'readable' => true,
+					],
+					'writeOnlyProperty' => [
+						'class' => \AnnotationsProperties\Baz::class,
+						'type' => 'AnnotationsProperties\Lorem',
+						'writable' => true,
+						'readable' => false,
 					],
 				],
 			],
@@ -124,6 +178,7 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCas
 	 */
 	public function testProperties(string $className, array $properties)
 	{
+		/** @var Broker $broker */
 		$broker = $this->getContainer()->getByType(Broker::class);
 		$class = $broker->getClass($className);
 		foreach ($properties as $propertyName => $expectedPropertyData) {
@@ -139,6 +194,16 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCas
 				$expectedPropertyData['type'],
 				$property->getType()->describe(),
 				sprintf('Type of property %s::$%s does not match.', $property->getDeclaringClass()->getName(), $propertyName)
+			);
+			$this->assertSame(
+				$expectedPropertyData['readable'],
+				$property->isReadable(),
+				sprintf('Property %s::$%s readability is not as expected.', $property->getDeclaringClass()->getName(), $propertyName)
+			);
+			$this->assertSame(
+				$expectedPropertyData['writable'],
+				$property->isWritable(),
+				sprintf('Property %s::$%s writability is not as expected.', $property->getDeclaringClass()->getName(), $propertyName)
 			);
 		}
 	}
