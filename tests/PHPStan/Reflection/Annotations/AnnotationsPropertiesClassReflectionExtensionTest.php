@@ -182,7 +182,10 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCas
 		$broker = $this->getContainer()->getByType(Broker::class);
 		$class = $broker->getClass($className);
 		foreach ($properties as $propertyName => $expectedPropertyData) {
-			$this->assertTrue($class->hasProperty($propertyName));
+			$this->assertTrue(
+				$class->hasProperty($propertyName),
+				sprintf('Class %s does not define property %s.', $className, $propertyName)
+			);
 
 			$property = $class->getProperty($propertyName);
 			$this->assertSame(
