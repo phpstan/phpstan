@@ -47,7 +47,8 @@ class SpecifiedTypes
 	{
 		$types = $this->sureTypes;
 		if (isset($types[$exprString])) {
-			$type = $types[$exprString][1]->combineWith($type);
+			unset($types[$exprString]); // because we don't have intersection types
+			return new self($types, $this->sureNotTypes);
 		}
 
 		$types[$exprString] = [
@@ -83,6 +84,32 @@ class SpecifiedTypes
 	{
 		$exprString = sprintf('$%s', $variableName);
 		return isset($this->sureNotTypes[$exprString]);
+	}
+
+	public function unionWith(SpecifiedTypes $b): self
+	{
+		$sureTypeUnion = [];
+		$sureNotTypeUnion = [];
+
+		foreach ($this->sureTypes as $sureTypeString => list($exprNode, $type)) {
+			if (isset($b->sureTypes[$sureTypeString])) {
+				$sureTypeUnion[$sureTypeString] = [
+					$exprNode,
+					$type->combineWith($b->sureTypes[$sureTypeString][1]),
+				];
+			}
+		}
+
+		foreach ($this->sureNotTypes as $sureNotTypeString => list($exprNode, $type)) {
+			if (isset($b->sureNotTypes[$sureNotTypeString])) {
+				$sureNotTypeUnion[$sureNotTypeString] = [
+					$exprNode,
+					$type->combineWith($b->sureNotTypes[$sureNotTypeString][1]),
+				];
+			}
+		}
+
+		return new self($sureTypeUnion, $sureNotTypeUnion);
 	}
 
 }
