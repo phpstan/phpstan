@@ -7,6 +7,7 @@ use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\MethodsClassReflectionExtension;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\TypeCombinator;
 
 class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflectionExtension
 {
@@ -86,9 +87,65 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 				$returnType = new MixedType();
 			}
 			$methodName = $match['MethodName'];
-			$methods[$methodName] = new AnnotationMethodReflection($methodName, $declaringClass, $returnType, $isStatic);
+			$parametersStringCandidate = trim(trim($match['Parameters'], '()'));
+			$parameters = $this->createMethodParameters($parametersStringCandidate, $typeMap);
+			$isVariadic = $this->detectMethodVariadic($parameters);
+			$methods[$methodName] = new AnnotationMethodReflection($methodName, $declaringClass, $returnType, $parameters, $isStatic, $isVariadic);
 		}
 		return $methods;
+	}
+
+	/**
+	 * @param string $parametersStringCandidate
+	 * @param \PHPStan\Type\Type[] $typeMap
+	 * @return AnnotationsMethodParameterReflection[]
+	 */
+	private function createMethodParameters(string $parametersStringCandidate, array $typeMap): array
+	{
+		$parameters = [];
+		if (!$parametersStringCandidate) {
+			return $parameters;
+		}
+
+		foreach (preg_split('#\s*,\s*#', $parametersStringCandidate) as $parameter) {
+			if (preg_match('#(?P<IsNullable>\?)?(?:(?P<Type>' . FileTypeMapper::TYPE_PATTERN . ')\s+)?(?P<IsVariadic>...)?(?P<IsPassedByReference>\&)?\$(?P<Name>[a-zA-Z0-9_]+)(?:\s+=\s+(?P<DefaultValue>.+))?#', $parameter, $parameterMatches)) {
+				$name = $parameterMatches['Name'];
+				$typeString = $parameterMatches['Type'];
+				if ($typeString) {
+					if (!isset($typeMap[$typeString])) {
+						continue;
+					}
+					$type = $typeMap[$typeString];
+					if ($parameterMatches['IsNullable'] === '?') {
+						$type = TypeCombinator::addNull($type);
+					}
+				} else {
+					$type = new MixedType();
+				}
+				$isVariadic = !empty($parameterMatches['IsVariadic']);
+				$isPassedByReference = !empty($parameterMatches['IsPassedByReference']);
+				$isOptional = !empty($parameterMatches['DefaultValue']);
+				$parameters[] = new AnnotationsMethodParameterReflection($name, $type, $isPassedByReference, $isOptional, $isVariadic);
+			}
+		}
+
+		return $parameters;
+	}
+
+	/**
+	 * @param AnnotationsMethodParameterReflection[] $parameters
+	 * @return bool
+	 */
+	private function detectMethodVariadic(array $parameters): bool
+	{
+		if ($parameters === []) {
+			return false;
+		}
+
+		$possibleVariadicParameterIndex = count($parameters) - 1;
+		$possibleVariadicParameter = $parameters[$possibleVariadicParameterIndex];
+
+		return $possibleVariadicParameter->isVariadic();
 	}
 
 }
