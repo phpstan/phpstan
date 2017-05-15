@@ -108,14 +108,14 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCas
 						'readable' => true,
 					],
 					'traitProperty' => [
-						'class' => \AnnotationsProperties\Baz::class,
+						'class' => \AnnotationsProperties\FooTrait::class,
 						'type' => 'AnnotationsProperties\BazBaz',
 						'writable' => true,
 						'readable' => true,
 					],
 					'writeOnlyProperty' => [
 						'class' => \AnnotationsProperties\Baz::class,
-						'type' => 'AnnotationsProperties\Lorem',
+						'type' => 'AnnotationsProperties\Lorem|null',
 						'writable' => true,
 						'readable' => false,
 					],
@@ -155,14 +155,14 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCas
 						'readable' => true,
 					],
 					'traitProperty' => [
-						'class' => \AnnotationsProperties\Baz::class,
+						'class' => \AnnotationsProperties\FooTrait::class,
 						'type' => 'AnnotationsProperties\BazBaz',
 						'writable' => true,
 						'readable' => true,
 					],
 					'writeOnlyProperty' => [
 						'class' => \AnnotationsProperties\Baz::class,
-						'type' => 'AnnotationsProperties\Lorem',
+						'type' => 'AnnotationsProperties\Lorem|null',
 						'writable' => true,
 						'readable' => false,
 					],

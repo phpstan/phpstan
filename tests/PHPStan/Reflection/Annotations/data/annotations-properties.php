@@ -24,7 +24,7 @@ class Bar extends Foo
 /**
  * @property   Lorem  $bazProperty
  * @property Dolor $conflictingProperty
- * @property-write Lorem $writeOnlyProperty
+ * @property-write ?Lorem $writeOnlyProperty
  */
 class Baz extends Bar
 {

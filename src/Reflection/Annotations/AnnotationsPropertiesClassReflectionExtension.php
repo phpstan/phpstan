@@ -73,7 +73,7 @@ class AnnotationsPropertiesClassReflectionExtension implements PropertiesClassRe
 
 		$typeMap = $this->fileTypeMapper->getTypeMap($fileName);
 
-		preg_match_all('#@property(-read|-write)?\s+' . FileTypeMapper::TYPE_PATTERN . '\s+\$([a-zA-Z0-9_]+)#', $docComment, $matches, PREG_SET_ORDER);
+		preg_match_all('#@property(-read|-write)?\s+(\??)' . FileTypeMapper::TYPE_PATTERN . '\s+\$([a-zA-Z0-9_]+)#', $docComment, $matches, PREG_SET_ORDER);
 		foreach ($matches as $match) {
 			$typeString = $match[3];
 			if (!isset($typeMap[$typeString])) {
