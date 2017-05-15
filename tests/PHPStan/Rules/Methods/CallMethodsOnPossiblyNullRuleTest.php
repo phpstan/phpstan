@@ -16,7 +16,7 @@ class CallMethodsOnPossiblyNullRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	{
 		$this->analyse([__DIR__ . '/data/possibly-nullable.php'], [
 			[
-				'Calling method format() on possibly nullable type DateTimeImmutable|null.',
+				'Calling method format() on possibly null value of type DateTimeImmutable|null.',
 				11,
 			],
 		]);

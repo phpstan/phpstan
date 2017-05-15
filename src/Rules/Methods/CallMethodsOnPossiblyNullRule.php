@@ -58,7 +58,7 @@ class CallMethodsOnPossiblyNullRule implements \PHPStan\Rules\Rule
 		if (\PHPStan\Type\TypeCombinator::containsNull($type)) {
 			return [
 				sprintf(
-					'Calling method %s() on possibly nullable type %s.',
+					'Calling method %s() on possibly null value of type %s.',
 					$node->name,
 					$type->describe()
 				),
