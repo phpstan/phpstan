@@ -61,6 +61,13 @@ class FunctionCallParametersCheck
 		) {
 			$functionParametersMinCount = 1;
 			$functionParametersMaxCount = 4;
+		} elseif (
+			$function instanceof MethodReflection
+			&& $function->getDeclaringClass()->getName() === 'mysqli'
+			&& $function->getName() === 'query'
+		) {
+			$functionParametersMinCount = 1;
+			$functionParametersMaxCount = 2;
 		} else {
 			$functionParametersMinCount = 0;
 			$functionParametersMaxCount = 0;
