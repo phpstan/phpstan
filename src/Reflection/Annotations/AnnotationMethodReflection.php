@@ -21,12 +21,20 @@ class AnnotationMethodReflection implements MethodReflection
 	/** @var bool */
 	private $isStatic;
 
-	public function __construct(string $name, ClassReflection $declaringClass, Type $returnType, bool $isStatic)
+	/** @var \PHPStan\Reflection\Annotations\AnnotationsMethodParameterReflection[] */
+	private $parameters;
+
+	/** @var bool */
+	private $isVariadic;
+
+	public function __construct(string $name, ClassReflection $declaringClass, Type $returnType, array $parameters, bool $isStatic, bool $isVariadic)
 	{
 		$this->name = $name;
 		$this->declaringClass = $declaringClass;
 		$this->returnType = $returnType;
+		$this->parameters = $parameters;
 		$this->isStatic = $isStatic;
+		$this->isVariadic = $isVariadic;
 	}
 
 	public function getDeclaringClass(): ClassReflection
@@ -46,12 +54,12 @@ class AnnotationMethodReflection implements MethodReflection
 
 	public function getParameters(): array
 	{
-		return [];
+		return $this->parameters;
 	}
 
 	public function isVariadic(): bool
 	{
-		return true;
+		return $this->isVariadic;
 	}
 
 	public function isPrivate(): bool

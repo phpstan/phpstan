@@ -92,6 +92,15 @@ class Baz extends Bar
  * @method static OtherTest getTestStaticallyNoParams
  * @method OtherTest getTestWithDescriptionNoParams Get a test
  * @method static OtherTest getTestStaticallyWithDescriptionNoParams Get a test statically
+ *
+ * @method void doSomethingWithSpecificScalarParamsWithoutDefault(int $a, ?int $b, int &$c, ?int &$d)
+ * @method void doSomethingWithSpecificScalarParamsWithDefault(int $a = null, ?int $b = null, int &$c = null, ?int &$d = null)
+ * @method void doSomethingWithSpecificObjectParamsWithoutDefault(Ipsum $a, ?Ipsum $b, Ipsum &$c, ?Ipsum &$d)
+ * @method void doSomethingWithSpecificObjectParamsWithDefault(Ipsum $a = null, ?Ipsum $b = null, Ipsum &$c = null, ?Ipsum &$d = null)
+ * @method void doSomethingWithSpecificVariadicScalarParamsNotNullable(int ...$a)
+ * @method void doSomethingWithSpecificVariadicScalarParamsNullable(?int ...$a)
+ * @method void doSomethingWithSpecificVariadicObjectParamsNotNullable(Ipsum ...$a)
+ * @method void doSomethingWithSpecificVariadicObjectParamsNullable(?Ipsum ...$a)
  */
 class BazBaz extends Baz
 {
