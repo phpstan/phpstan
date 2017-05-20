@@ -37,6 +37,9 @@ class Broker
 	/** @var \PHPStan\Reflection\FunctionReflection[] */
 	private $functionReflections = [];
 
+	/** @var null|self */
+	private static $instance;
+
 	/**
 	 * @param \PHPStan\Reflection\PropertiesClassReflectionExtension[] $propertiesClassReflectionExtensions
 	 * @param \PHPStan\Reflection\MethodsClassReflectionExtension[] $methodsClassReflectionExtensions
@@ -72,6 +75,14 @@ class Broker
 
 		$this->functionReflectionFactory = $functionReflectionFactory;
 		$this->fileTypeMapper = $fileTypeMapper;
+
+		self::$instance = $this;
+	}
+
+	public static function getInstance(): self
+	{
+		assert(self::$instance !== null);
+		return self::$instance;
 	}
 
 	/**
