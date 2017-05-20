@@ -206,3 +206,11 @@ class ClassWithNullableProperty
 	}
 
 }
+
+function () {
+	$dateTimeZone = new \DateTimeZone('Europe/Prague');
+	$dateTimeZone->getTransitions();
+	$dateTimeZone->getTransitions(1);
+	$dateTimeZone->getTransitions(1, 2);
+	$dateTimeZone->getTransitions(1, 2, 3);
+};

@@ -216,6 +216,22 @@ class PhpMethodReflection implements MethodReflection
 					true
 				);
 			}
+			if (
+				$this->declaringClass->getName() === 'DateTimeZone'
+				&& $this->reflection->getName() === 'getTransitions'
+				&& count($this->parameters) === 2
+			) {
+				$this->parameters[0] = new DummyParameter(
+					'timestamp_begin',
+					new IntegerType(),
+					true
+				);
+				$this->parameters[1] = new DummyParameter(
+					'timestamp_end',
+					new IntegerType(),
+					true
+				);
+			}
 		}
 
 		return $this->parameters;
