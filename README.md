@@ -47,6 +47,7 @@ You can also install already created framework-specific extensions:
 * [Guzzle](https://github.com/phpstan/phpstan-guzzle)
 * [Nette Framework](https://github.com/phpstan/phpstan-nette)
 * [Dibi - Database Abstraction Library](https://github.com/phpstan/phpstan-dibi)
+* [Guzzle](https://github.com/azzra/phpstan-guzzle)
 
 Other framework-specific extension will be coming soon!
 
