@@ -59,7 +59,7 @@ class TypeCombinator
 
 		$types = [];
 		$iterableTypes = [];
-		if ($fromType instanceof IterableType) {
+		if ($fromType->isIterable() === Type::RESULT_YES) {
 			$iterableTypes[] = $fromType;
 		}
 		foreach ($fromType->getTypes() as $innerType) {
@@ -73,7 +73,7 @@ class TypeCombinator
 				continue;
 			}
 
-			if ($innerType instanceof IterableType) {
+			if ($innerType->isIterable() === Type::RESULT_YES) {
 				$iterableTypes[] = $innerType;
 			} else {
 				$types[] = $innerType;
@@ -127,16 +127,16 @@ class TypeCombinator
 			if ($type instanceof UnionType) {
 				$alreadyAdded = true;
 				foreach ($type->getTypes() as $innerType) {
-					if ($innerType instanceof IterableType) {
+					if ($innerType->isIterable() === Type::RESULT_YES) {
 						$iterableTypes[$innerType->describe()] = $innerType;
 					} else {
 						$types[$innerType->describe()] = $innerType;
 					}
 				}
 			}
-			if ($type instanceof IterableType) {
+			if ($type->isIterable() === Type::RESULT_YES) {
 				$alreadyAdded = true;
-				$iterableTypes[$type->getItemType()->describe()] = new ArrayType($type->getItemType());
+				$iterableTypes[$type->getIterableValueType()->describe()] = new ArrayType($type->getIterableValueType());
 			}
 			if (!$alreadyAdded) {
 				$types[$type->describe()] = $type;
@@ -176,12 +176,12 @@ class TypeCombinator
 
 		/** @var \PHPStan\Type\Type[] $types */
 		$types = array_values($types);
-		/** @var \PHPStan\Type\IterableType[] $iterableTypes */
+		/** @var \PHPStan\Type\Type[] $iterableTypes */
 		$iterableTypes = array_values($iterableTypes);
 
 		if (count($iterableTypes) === 1) {
 			if (count($types) > 0) {
-				return new UnionIterableType($iterableTypes[0]->getItemType(), $types);
+				return new UnionIterableType($iterableTypes[0]->getIterableValueType(), $types);
 			}
 			return $iterableTypes[0];
 		}

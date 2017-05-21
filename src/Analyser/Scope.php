@@ -35,7 +35,6 @@ use PHPStan\Type\CallableType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\IterableIterableType;
-use PHPStan\Type\IterableType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NonexistentParentClassType;
 use PHPStan\Type\NullType;
@@ -1111,14 +1110,10 @@ class Scope
 	{
 		$iterateeType = $this->getType($iteratee);
 		$variableTypes = $this->getVariableTypes();
-		if ($iterateeType instanceof IterableType) {
-			$variableTypes[$valueName] = $iterateeType->getItemType();
-		} else {
-			$variableTypes[$valueName] = new MixedType();
-		}
+		$variableTypes[$valueName] = $iterateeType->getIterableValueType();
 
 		if ($keyName !== null) {
-			$variableTypes[$keyName] = new MixedType();
+			$variableTypes[$keyName] = $iterateeType->getIterableKeyType();
 		}
 
 		return new self(

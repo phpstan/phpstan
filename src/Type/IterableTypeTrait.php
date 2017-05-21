@@ -13,8 +13,8 @@ trait IterableTypeTrait
 		$depth = 0;
 		/** @var \PHPStan\Type\Type $itemType */
 		$itemType = $this;
-		while ($itemType instanceof IterableType) {
-			$itemType = $itemType->getItemType();
+		while ($itemType->isIterable() === Type::RESULT_YES) {
+			$itemType = $itemType->getIterableValueType();
 			$depth++;
 		}
 

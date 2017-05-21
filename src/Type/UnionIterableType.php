@@ -2,7 +2,7 @@
 
 namespace PHPStan\Type;
 
-class UnionIterableType implements IterableType, UnionType
+class UnionIterableType implements UnionType
 {
 
 	use IterableTypeTrait;
@@ -10,6 +10,10 @@ class UnionIterableType implements IterableType, UnionType
 	/** @var \PHPStan\Type\Type[] */
 	private $types;
 
+	/**
+	 * @param Type $itemType
+	 * @param Type[] $types
+	 */
 	public function __construct(
 		Type $itemType,
 		array $types
@@ -31,7 +35,7 @@ class UnionIterableType implements IterableType, UnionType
 			$throwException();
 		}
 		foreach ($types as $type) {
-			if ($type instanceof IterableType || $type instanceof UnionType) {
+			if ($type instanceof UnionType) {
 				$throwException();
 			}
 		}
@@ -81,8 +85,8 @@ class UnionIterableType implements IterableType, UnionType
 			return false;
 		}
 
-		if ($type instanceof IterableType) {
-			return $this->getItemType()->accepts($type->getItemType());
+		if ($type->isIterable() === self::RESULT_YES) {
+			return $this->getItemType()->accepts($type->getIterableValueType());
 		}
 
 		if (TypeCombinator::shouldSkipUnionTypeAccepts($this)) {
@@ -142,6 +146,21 @@ class UnionIterableType implements IterableType, UnionType
 			$itemType,
 			UnionTypeHelper::changeBaseClass($className, $this->getTypes())
 		);
+	}
+
+	public function isIterable(): int
+	{
+		return self::RESULT_YES;
+	}
+
+	public function getIterableKeyType(): Type
+	{
+		return new MixedType();
+	}
+
+	public function getIterableValueType(): Type
+	{
+		return $this->getItemType();
 	}
 
 }

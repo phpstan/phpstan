@@ -2,7 +2,7 @@
 
 namespace PHPStan\Type;
 
-class ArrayType implements IterableType
+class ArrayType implements StaticResolvableType
 {
 
 	use IterableTypeTrait;
@@ -57,7 +57,7 @@ class ArrayType implements IterableType
 
 	public function combineWith(Type $otherType): Type
 	{
-		if ($otherType instanceof IterableType) {
+		if ($otherType->isIterable() === self::RESULT_YES) {
 			$isItemInferredFromLiteralArray = $this->isItemTypeInferredFromLiteralArray();
 			$isPossiblyCallable = $this->isPossiblyCallable();
 			if ($otherType instanceof self) {
@@ -65,7 +65,7 @@ class ArrayType implements IterableType
 				$isPossiblyCallable = $isPossiblyCallable || $otherType->isPossiblyCallable();
 			}
 			return new self(
-				$this->getItemType()->combineWith($otherType->getItemType()),
+				$this->getIterableValueType()->combineWith($otherType->getIterableValueType()),
 				$isItemInferredFromLiteralArray,
 				$isPossiblyCallable
 			);
@@ -125,6 +125,21 @@ class ArrayType implements IterableType
 		}
 
 		return $this;
+	}
+
+	public function isIterable(): int
+	{
+		return self::RESULT_YES;
+	}
+
+	public function getIterableKeyType(): Type
+	{
+		return new MixedType();
+	}
+
+	public function getIterableValueType(): Type
+	{
+		return $this->getItemType();
 	}
 
 }

@@ -75,4 +75,19 @@ class StaticType implements StaticResolvableType
 		return new $thisClass($className);
 	}
 
+	public function isIterable(): int
+	{
+		return self::RESULT_NO;
+	}
+
+	public function getIterableKeyType(): Type
+	{
+		return new MixedType();
+	}
+
+	public function getIterableValueType(): Type
+	{
+		return new MixedType();
+	}
+
 }

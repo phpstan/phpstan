@@ -9,8 +9,8 @@ use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\IterableIterableType;
-use PHPStan\Type\IterableType;
 use PHPStan\Type\StringType;
+use PHPStan\Type\Type;
 use PHPStan\Type\VoidType;
 
 class FunctionCallParametersCheck
@@ -158,9 +158,9 @@ class FunctionCallParametersCheck
 
 			$argumentValueType = $scope->getType($argument->value);
 			$secondAccepts = null;
-			if ($parameterType instanceof IterableType && $parameter->isVariadic()) {
+			if ($parameterType->isIterable() === Type::RESULT_YES && $parameter->isVariadic()) {
 				$secondAccepts = $this->ruleLevelHelper->accepts(
-					new IterableIterableType($parameterType->getItemType()),
+					new IterableIterableType($parameterType->getIterableValueType()),
 					$argumentValueType
 				);
 			}
