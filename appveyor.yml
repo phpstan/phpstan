@@ -45,6 +45,7 @@ install:
   - ps: Add-Content -Path php.ini -Value 'extension=php_mbstring.dll'
   - ps: Add-Content -Path php.ini -Value 'extension=php_openssl.dll'
   - ps: Add-Content -Path php.ini -Value 'extension=php_gd2.dll'
+  - ps: Add-Content -Path php.ini -Value 'extension=php_mysqli.dll'
   - ps: php --version
 
   # Prepare composer
