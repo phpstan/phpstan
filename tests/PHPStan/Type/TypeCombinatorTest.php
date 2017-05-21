@@ -5,6 +5,12 @@ namespace PHPStan\Type;
 class TypeCombinatorTest extends \PHPStan\TestCase
 {
 
+	protected function setUp()
+	{
+		parent::setUp();
+		$this->createBroker();
+	}
+
 	public function dataAddNull(): array
 	{
 		return [

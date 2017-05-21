@@ -2,6 +2,11 @@
 
 namespace Iterables;
 
+interface Collection extends \Traversable
+{
+
+}
+
 class Foo
 {
 

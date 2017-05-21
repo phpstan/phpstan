@@ -2,6 +2,8 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Broker\Broker;
+
 class ObjectType implements Type
 {
 
@@ -105,17 +107,65 @@ class ObjectType implements Type
 
 	public function isIterable(): int
 	{
+		$broker = Broker::getInstance();
+
+		if ($broker->hasClass($this->class)) {
+			if ($broker->getClass($this->class)->isSubclassOf(\Traversable::class)) {
+				return self::RESULT_YES;
+			}
+		}
+
 		return self::RESULT_NO;
 	}
 
 	public function getIterableKeyType(): Type
 	{
-		return new MixedType();
+		$broker = Broker::getInstance();
+
+		if (!$broker->hasClass($this->class)) {
+			return new ErrorType();
+		}
+
+		$classReflection = $broker->getClass($this->class);
+
+		if ($classReflection->isSubclassOf(\Iterator::class) && $classReflection->hasMethod('key')) {
+			return $classReflection->getMethod('key')->getReturnType();
+		}
+
+		if ($classReflection->isSubclassOf(\IteratorAggregate::class) && $classReflection->hasMethod('getIterator')) {
+			return $classReflection->getMethod('getIterator')->getReturnType()->getIterableKeyType();
+		}
+
+		if ($classReflection->isSubclassOf(\Traversable::class)) {
+			return new MixedType();
+		}
+
+		return new ErrorType();
 	}
 
 	public function getIterableValueType(): Type
 	{
-		return new MixedType();
+		$broker = Broker::getInstance();
+
+		if (!$broker->hasClass($this->class)) {
+			return new ErrorType();
+		}
+
+		$classReflection = $broker->getClass($this->class);
+
+		if ($classReflection->isSubclassOf(\Iterator::class) && $classReflection->hasMethod('current')) {
+			return $classReflection->getMethod('current')->getReturnType();
+		}
+
+		if ($classReflection->isSubclassOf(\IteratorAggregate::class) && $classReflection->hasMethod('getIterator')) {
+			return $classReflection->getMethod('getIterator')->getReturnType()->getIterableValueType();
+		}
+
+		if ($classReflection->isSubclassOf(\Traversable::class)) {
+			return new MixedType();
+		}
+
+		return new ErrorType();
 	}
 
 }

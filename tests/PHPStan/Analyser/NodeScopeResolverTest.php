@@ -1977,6 +1977,60 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+	public function dataForeachObjectType(): array
+	{
+		return [
+			[
+				__DIR__ . '/data/foreach/object-type.php',
+				'ObjectType\\MyKey',
+				'$keyFromIterator',
+				"'insideFirstForeach';",
+			],
+			[
+				__DIR__ . '/data/foreach/object-type.php',
+				'ObjectType\\MyValue',
+				'$valueFromIterator',
+				"'insideFirstForeach';",
+			],
+			[
+				__DIR__ . '/data/foreach/object-type.php',
+				'ObjectType\\MyKey',
+				'$keyFromAggregate',
+				"'insideSecondForeach';",
+			],
+			[
+				__DIR__ . '/data/foreach/object-type.php',
+				'ObjectType\\MyValue',
+				'$valueFromAggregate',
+				"'insideSecondForeach';",
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataForeachObjectType
+	 * @param string $file
+	 * @param string $description
+	 * @param string $expression
+	 * @param string $evaluatedPointExpression
+	 */
+	public function testForeachObjectType(
+		string $file,
+		string $description,
+		string $expression,
+		string $evaluatedPointExpression
+	)
+	{
+		$this->assertTypes(
+			$file,
+			$description,
+			$expression,
+			[],
+			[],
+			$evaluatedPointExpression
+		);
+	}
+
 	public function dataArrayFunctions(): array
 	{
 		return [

@@ -2,6 +2,8 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Broker\Broker;
+
 class StaticType implements StaticResolvableType
 {
 
@@ -77,17 +79,65 @@ class StaticType implements StaticResolvableType
 
 	public function isIterable(): int
 	{
+		$broker = Broker::getInstance();
+
+		if ($broker->hasClass($this->baseClass)) {
+			if ($broker->getClass($this->baseClass)->isSubclassOf(\Traversable::class)) {
+				return self::RESULT_YES;
+			}
+		}
+
 		return self::RESULT_NO;
 	}
 
 	public function getIterableKeyType(): Type
 	{
-		return new MixedType();
+		$broker = Broker::getInstance();
+
+		if (!$broker->hasClass($this->baseClass)) {
+			return new ErrorType();
+		}
+
+		$classRef = $broker->getClass($this->baseClass);
+
+		if ($classRef->isSubclassOf(\Iterator::class) && $classRef->hasMethod('key')) {
+			return $classRef->getMethod('key')->getReturnType();
+		}
+
+		if ($classRef->isSubclassOf(\IteratorAggregate::class) && $classRef->hasMethod('getIterator')) {
+			return $classRef->getMethod('getIterator')->getReturnType()->getIterableKeyType();
+		}
+
+		if ($classRef->isSubclassOf(\Traversable::class)) {
+			return new MixedType();
+		}
+
+		return new ErrorType();
 	}
 
 	public function getIterableValueType(): Type
 	{
-		return new MixedType();
+		$broker = Broker::getInstance();
+
+		if (!$broker->hasClass($this->baseClass)) {
+			return new ErrorType();
+		}
+
+		$classRef = $broker->getClass($this->baseClass);
+
+		if ($classRef->isSubclassOf(\Iterator::class) && $classRef->hasMethod('current')) {
+			return $classRef->getMethod('current')->getReturnType();
+		}
+
+		if ($classRef->isSubclassOf(\IteratorAggregate::class) && $classRef->hasMethod('getIterator')) {
+			return $classRef->getMethod('getIterator')->getReturnType()->getIterableValueType();
+		}
+
+		if ($classRef->isSubclassOf(\Traversable::class)) {
+			return new MixedType();
+		}
+
+		return new ErrorType();
 	}
 
 }
