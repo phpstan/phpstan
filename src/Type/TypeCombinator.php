@@ -127,14 +127,14 @@ class TypeCombinator
 			if ($type instanceof UnionType) {
 				$alreadyAdded = true;
 				foreach ($type->getTypes() as $innerType) {
-					if ($innerType->isIterable() === Type::RESULT_YES) {
+					if ($innerType->isIterable() === Type::RESULT_YES && !$innerType instanceof ObjectType) {
 						$iterableTypes[$innerType->describe()] = $innerType;
 					} else {
 						$types[$innerType->describe()] = $innerType;
 					}
 				}
 			}
-			if ($type->isIterable() === Type::RESULT_YES) {
+			if ($type->isIterable() === Type::RESULT_YES && !$type instanceof ObjectType) {
 				$alreadyAdded = true;
 				$iterableTypes[$type->getIterableValueType()->describe()] = new ArrayType($type->getIterableValueType());
 			}

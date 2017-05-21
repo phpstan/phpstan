@@ -122,23 +122,23 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			],
 			[
 				'Call to an undefined method ArrayObject::doFoo().',
-				109,
+				108,
 			],
 			[
 				'Method PDO::query() invoked with 0 parameters, 1-4 required.',
-				114,
+				113,
+			],
+			[
+				'Parameter #1 $bar of method Test\ClassWithNullableProperty::doBar() is passed by reference, so it expects variables only.',
+				167,
 			],
 			[
 				'Parameter #1 $bar of method Test\ClassWithNullableProperty::doBar() is passed by reference, so it expects variables only.',
 				168,
 			],
 			[
-				'Parameter #1 $bar of method Test\ClassWithNullableProperty::doBar() is passed by reference, so it expects variables only.',
-				169,
-			],
-			[
 				'Method DateTimeZone::getTransitions() invoked with 3 parameters, 0-2 required.',
-				215,
+				214,
 			],
 		]);
 	}
@@ -230,11 +230,11 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			],
 			[
 				'Parameter #1 $bar of method Test\ClassWithNullableProperty::doBar() is passed by reference, so it expects variables only.',
-				168,
+				167,
 			],
 			[
 				'Parameter #1 $bar of method Test\ClassWithNullableProperty::doBar() is passed by reference, so it expects variables only.',
-				169,
+				168,
 			],
 		]);
 	}

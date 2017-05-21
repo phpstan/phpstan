@@ -25,17 +25,10 @@ class CommonUnionType implements UnionType
 		if (count($types) < 2) {
 			$throwException();
 		}
-		$iterableTypesCount = 0;
 		foreach ($types as $type) {
-			if ($type->isIterable() === self::RESULT_YES) {
-				$iterableTypesCount++;
-			}
 			if ($type instanceof UnionType) {
 				$throwException();
 			}
-		}
-		if ($iterableTypesCount === 1) {
-			$throwException();
 		}
 		$this->types = UnionTypeHelper::sortTypes($types);
 	}
