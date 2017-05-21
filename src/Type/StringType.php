@@ -22,4 +22,19 @@ class StringType implements Type
 		return false;
 	}
 
+	public function isIterable(): int
+	{
+		return self::RESULT_NO;
+	}
+
+	public function getIterableKeyType(): Type
+	{
+		return new ErrorType();
+	}
+
+	public function getIterableValueType(): Type
+	{
+		return new ErrorType();
+	}
+
 }

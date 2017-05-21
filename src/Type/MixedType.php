@@ -51,4 +51,19 @@ class MixedType implements Type
 		return true;
 	}
 
+	public function isIterable(): int
+	{
+		return self::RESULT_MAYBE;
+	}
+
+	public function getIterableKeyType(): Type
+	{
+		return new MixedType();
+	}
+
+	public function getIterableValueType(): Type
+	{
+		return new MixedType();
+	}
+
 }

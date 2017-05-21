@@ -5,6 +5,10 @@ namespace PHPStan\Type;
 interface Type
 {
 
+	const RESULT_YES = 0;
+	const RESULT_MAYBE = 1;
+	const RESULT_NO = 2;
+
 	/**
 	 * @return string|null
 	 */
@@ -26,5 +30,11 @@ interface Type
 	public function canCallMethods(): bool;
 
 	public function isDocumentableNatively(): bool;
+
+	public function isIterable(): int;
+
+	public function getIterableKeyType(): Type;
+
+	public function getIterableValueType(): Type;
 
 }

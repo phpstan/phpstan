@@ -2,7 +2,7 @@
 
 namespace PHPStan\Type;
 
-class IterableIterableType implements IterableType
+class IterableIterableType implements StaticResolvableType
 {
 
 	use ClassTypeHelperTrait, IterableTypeTrait;
@@ -24,9 +24,9 @@ class IterableIterableType implements IterableType
 
 	public function combineWith(Type $otherType): Type
 	{
-		if ($otherType instanceof IterableType) {
+		if ($otherType->isIterable() === self::RESULT_YES) {
 			return new self(
-				$this->getItemType()->combineWith($otherType->getItemType())
+				$this->getIterableValueType()->combineWith($otherType->getIterableValueType())
 			);
 		}
 
@@ -35,8 +35,8 @@ class IterableIterableType implements IterableType
 
 	public function accepts(Type $type): bool
 	{
-		if ($type instanceof IterableType) {
-			return $this->getItemType()->accepts($type->getItemType());
+		if ($type->isIterable() === self::RESULT_YES) {
+			return $this->getIterableValueType()->accepts($type->getIterableValueType());
 		}
 
 		if ($type->getClass() !== null && $this->exists($type->getClass())) {
@@ -85,6 +85,21 @@ class IterableIterableType implements IterableType
 		}
 
 		return $this;
+	}
+
+	public function isIterable(): int
+	{
+		return self::RESULT_YES;
+	}
+
+	public function getIterableKeyType(): Type
+	{
+		return new MixedType();
+	}
+
+	public function getIterableValueType(): Type
+	{
+		return $this->getItemType();
 	}
 
 }

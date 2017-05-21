@@ -8,9 +8,10 @@ class CommonUnionType implements UnionType
 	/** @var \PHPStan\Type\Type[] */
 	private $types;
 
-	public function __construct(
-		array $types
-	)
+	/**
+	 * @param Type[] $types
+	 */
+	public function __construct(array $types)
 	{
 		$throwException = function () use ($types) {
 			throw new \PHPStan\ShouldNotHappenException(sprintf(
@@ -26,7 +27,7 @@ class CommonUnionType implements UnionType
 		}
 		$iterableTypesCount = 0;
 		foreach ($types as $type) {
-			if ($type instanceof IterableType) {
+			if ($type->isIterable() === self::RESULT_YES) {
 				$iterableTypesCount++;
 			}
 			if ($type instanceof UnionType) {
@@ -120,6 +121,21 @@ class CommonUnionType implements UnionType
 	public function changeBaseClass(string $className): StaticResolvableType
 	{
 		return new self(UnionTypeHelper::changeBaseClass($className, $this->getTypes()));
+	}
+
+	public function isIterable(): int
+	{
+		return self::RESULT_NO;
+	}
+
+	public function getIterableKeyType(): Type
+	{
+		return new MixedType();
+	}
+
+	public function getIterableValueType(): Type
+	{
+		return new MixedType();
 	}
 
 }
