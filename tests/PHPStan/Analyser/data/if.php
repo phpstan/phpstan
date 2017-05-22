@@ -181,8 +181,8 @@ foreach ($someArray as $someValue) {
 $nullableIntegers = [1, 2, 3];
 $nullableIntegers[] = null;
 
-$mixeds = [1, 2, 3];
-$mixeds[] = 'foo';
+$union = [1, 2, 3];
+$union[] = 'foo';
 
 $$lorem = 'ipsum';
 

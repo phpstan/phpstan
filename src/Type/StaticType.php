@@ -15,10 +15,7 @@ class StaticType implements StaticResolvableType
 		$this->baseClass = $baseClass;
 	}
 
-	/**
-	 * @return string|null
-	 */
-	public function getClass()
+	public function getClass(): string
 	{
 		return $this->baseClass;
 	}

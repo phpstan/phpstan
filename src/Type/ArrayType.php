@@ -19,9 +19,6 @@ class ArrayType implements StaticResolvableType
 		bool $possiblyCallable = false
 	)
 	{
-		if ($itemType instanceof UnionType) {
-			$itemType = new MixedType();
-		}
 		$this->itemType = $itemType;
 		$this->itemTypeInferredFromLiteralArray = $itemTypeInferredFromLiteralArray;
 		$this->possiblyCallable = $possiblyCallable;
@@ -93,7 +90,8 @@ class ArrayType implements StaticResolvableType
 
 	public function describe(): string
 	{
-		return sprintf('%s[]', $this->getItemType()->describe());
+		$format = $this->itemType instanceof UnionType ? '(%s)[]' : '%s[]';
+		return sprintf($format, $this->getItemType()->describe());
 	}
 
 	public function isDocumentableNatively(): bool
