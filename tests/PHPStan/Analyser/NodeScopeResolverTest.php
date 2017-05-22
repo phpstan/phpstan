@@ -115,12 +115,9 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$this->assertArrayHasKey('anotherNullableIntegerFromTryCatch', $variables);
 				$this->assertSame('int|null', $variables['anotherNullableIntegerFromTryCatch']->describe());
 
-				$this->assertSame('mixed[]', $variables['nullableIntegers']->describe());
-				$this->assertSame('mixed[]', $variables['mixeds']->describe());
-
-				/** @var \PHPStan\Type\ArrayType $mixeds */
-				$mixeds = $variables['mixeds'];
-				$this->assertInstanceOf(MixedType::class, $mixeds->getItemType());
+				$this->assertSame('(int|null)[]', $variables['nullableIntegers']->describe());
+				$this->assertSame('(int|string)[]', $variables['union']->describe());
+				$this->assertSame('int|string', $variables['union']->getIterableValueType()->describe());
 
 				$this->assertArrayHasKey('trueOrFalse', $variables);
 				$this->assertSame('bool', $variables['trueOrFalse']->describe());
@@ -1055,7 +1052,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'min(...[1.1, 2.2, 3.3])',
 			],
 			[
-				'mixed', // not currently possible to represent an array that contains a union type
+				'float|int',
 				'min(...[1.1, 2, 3])',
 			],
 			[
@@ -1153,7 +1150,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$emptyArray[0]',
 			],
 			[
-				'mixed',
+				'int|string',
 				'$mixedArray[0]',
 			],
 			[
@@ -1932,7 +1929,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			],
 			[
 				__DIR__ . '/data/foreach/array-object-type.php',
-				'mixed',
+				'int|string',
 				'self::MIXED_CONSTANT[0]',
 			],
 			[
