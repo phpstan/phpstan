@@ -7,6 +7,8 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
+use PHPStan\Type\CommonUnionType;
+use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 
 class TypeSpecifierTest extends \PHPStan\TestCase
@@ -28,6 +30,7 @@ class TypeSpecifierTest extends \PHPStan\TestCase
 		$this->typeSpecifier = new TypeSpecifier($this->printer);
 		$this->scope = new Scope($broker, $this->printer, $this->typeSpecifier, '');
 		$this->scope = $this->scope->assignVariable('bar', new ObjectType('Bar'));
+		$this->scope = $this->scope->assignVariable('barOrNull', new CommonUnionType([new ObjectType('Bar'), new NullType()]));
 	}
 
 	/**
@@ -164,6 +167,17 @@ class TypeSpecifierTest extends \PHPStan\TestCase
 				),
 				[],
 				['$foo' => '~int', '$bar' => '~string'],
+			],
+			[
+				new Expr\BinaryOp\Identical(
+					new Expr\ConstFetch(new Name('null')),
+					new Expr\Assign(
+						new Variable('foo'),
+						new Variable('barOrNull')
+					)
+				),
+				['foo' => 'Bar'],
+				[],
 			],
 		];
 	}
