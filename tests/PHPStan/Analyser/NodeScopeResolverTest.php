@@ -2805,10 +2805,14 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		$this->processFile($file, function (\PhpParser\Node $node, Scope $scope) use ($description, $expression, $evaluatedPointExpression) {
 			$printedNode = $this->printer->prettyPrint([$node]);
 			if ($printedNode === $evaluatedPointExpression) {
-				/** @var \PhpParser\Node\Expr $expression */
-				$expression = $this->getParser()->parseString(sprintf('<?php %s;', $expression))[0];
-				$type = $scope->getType($expression);
-				$this->assertTypeDescribe($description, $type->describe());
+				/** @var \PhpParser\Node\Expr $expressionNode */
+				$expressionNode = $this->getParser()->parseString(sprintf('<?php %s;', $expression))[0];
+				$type = $scope->getType($expressionNode);
+				$this->assertTypeDescribe(
+					$description,
+					$type->describe(),
+					sprintf('%s at %s', $expression, $evaluatedPointExpression)
+				);
 			}
 		}, $dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions);
 	}
@@ -2869,12 +2873,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		});
 	}
 
-	private function assertTypeDescribe(string $expectedDescription, string $actualDescription)
+	private function assertTypeDescribe(string $expectedDescription, string $actualDescription, string $label = '')
 	{
 		$this->assertEquals(
 			explode('|', $expectedDescription),
 			explode('|', $actualDescription),
-			'',
+			$label,
 			0.0,
 			10,
 			true
