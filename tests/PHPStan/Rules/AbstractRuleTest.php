@@ -58,45 +58,27 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 		return $this->analyser;
 	}
 
-	private function assertError(string $message, string $file, int $line = null, Error $error)
+	public function analyse(array $files, array $expectedErrors)
 	{
-		$this->assertSame($this->getFileHelper()->normalizePath($file), $error->getFile(), $error->getMessage());
-		$this->assertSame($line, $error->getLine(), $error->getMessage());
+		$files = array_map([$this->getFileHelper(), 'normalizePath'], $files);
+		$actualErrors = $this->getAnalyser()->analyse($files, false);
+		$this->assertInternalType('array', $actualErrors);
 
-		$this->assertSame($message, $error->getMessage());
-	}
-
-	public function analyse(array $files, array $errors)
-	{
-		$files = array_map(function (string $file): string {
-			return $this->getFileHelper()->normalizePath($file);
-		}, $files);
-		$result = $this->getAnalyser()->analyse($files, false);
-		$this->assertInternalType('array', $result);
-		foreach ($errors as $i => $error) {
-			if (!isset($result[$i])) {
-				$this->fail(
-					sprintf(
-						'Expected %d errors, but result contains only %d. Looking for error message: %s',
-						count($errors),
-						count($result),
-						$error[0]
-					)
-				);
-			}
-
-			$this->assertError($error[0], $files[0], $error[1], $result[$i]);
-		}
-
-		$this->assertCount(
-			count($errors),
-			$result,
-			sprintf(
-				'Expected only %d errors, but result contains %d.',
-				count($errors),
-				count($result)
-			)
+		$expectedErrors = array_map(
+			function (array $error): string {
+				return sprintf('%02d: %s', $error[1], $error[0]);
+			},
+			$expectedErrors
 		);
+
+		$actualErrors = array_map(
+			function (Error $error): string {
+				return sprintf('%02d: %s', $error->getLine(), $error->getMessage());
+			},
+			$actualErrors
+		);
+
+		$this->assertSame(implode("\n", $expectedErrors), implode("\n", $actualErrors));
 	}
 
 }
