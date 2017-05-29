@@ -47,6 +47,7 @@ use PHPStan\Type\ThisType;
 use PHPStan\Type\TrueOrFalseBooleanType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\UnionTypeHelper;
 use PHPStan\Type\VoidType;
 
 class Scope
@@ -321,6 +322,8 @@ class Scope
 
 	private function resolveType(Expr $node): Type
 	{
+		return NodeScopeResolver::getInstance()->getExprType($node, $this);
+
 		if (
 			$node instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd
 			|| $node instanceof \PhpParser\Node\Expr\BinaryOp\BooleanOr
@@ -775,7 +778,7 @@ class Scope
 	 * @param mixed $value
 	 * @return Type|null
 	 */
-	private function getTypeFromValue($value)
+	public function getTypeFromValue($value)
 	{
 		if (is_int($value)) {
 			return new IntegerType();
@@ -1074,7 +1077,7 @@ class Scope
 	 * @param bool $isVariadic
 	 * @return Type
 	 */
-	private function getFunctionType($type = null, bool $isNullable, bool $isVariadic): Type
+	public function getFunctionType($type = null, bool $isNullable, bool $isVariadic): Type
 	{
 		if ($isNullable) {
 			return TypeCombinator::addNull(
@@ -1487,6 +1490,11 @@ class Scope
 		return $scope;
 	}
 
+	public function lookForTypeSpecificationsInEarlyTermination(Node $node): self
+	{
+		return $this->lookForTypeSpecifications($node, true);
+	}
+
 	public function specifyFetchedPropertyFromIsset(PropertyFetch $expr): self
 	{
 		$exprString = $this->printer->prettyPrintExpr($expr);
@@ -1685,6 +1693,69 @@ class Scope
 	public function canAccessConstant(ClassConstantReflection $constantReflection): bool
 	{
 		return $this->canAccessClassMember($constantReflection);
+	}
+
+	public function mergeWith(Scope $otherScope = null): Scope
+	{
+		if ($otherScope !== null) {
+			return $this->intersectVariables($otherScope, true);
+
+			$ourVariableTypes = $this->getVariableTypes();
+			$theirVariableTypes = $otherScope->getVariableTypes();
+			$mergedVariableTypes = [];
+
+			foreach ($ourVariableTypes as $name => $variableType) {
+				$variableType = $variableType->combineWith($theirVariableTypes[$name] ?? new MixedType());
+				$mergedVariableTypes[$name] = $variableType;
+				unset($theirVariableTypes[$name]);
+			}
+
+			foreach ($theirVariableTypes as $name => $variableType) {
+				$variableType = $variableType->combineWith($ourVariableTypes[$name] ?? new MixedType());
+				$mergedVariableTypes[$name] = $variableType;
+			}
+
+			return new self(
+				$this->broker,
+				$this->printer,
+				$this->typeSpecifier,
+				$this->getFile(),
+				$this->getAnalysedContextFile(),
+				$this->isDeclareStrictTypes(),
+				$this->isInClass() ? $this->getClassReflection() : null,
+				$this->getFunction(),
+				$this->getNamespace(),
+				$mergedVariableTypes,
+				$this->inClosureBindScopeClass,
+				$this->getAnonymousFunctionReturnType(),
+				$this->getInFunctionCall(),
+				$this->isNegated(),
+				$this->moreSpecificTypes,
+				$this->inFirstLevelStatement
+			);
+
+//			return $this->intersectVariables($otherScope, true); // TODO
+
+		} else {
+			return $this;
+		}
+	}
+
+	public function isEqual(Scope $other): bool
+	{
+		if ($this->file !== $other->file) {
+			return false;
+		}
+
+		if (UnionTypeHelper::describe($this->variableTypes) !== UnionTypeHelper::describe($other->variableTypes)) {
+			return false;
+		}
+
+		if (UnionTypeHelper::describe($this->moreSpecificTypes) !== UnionTypeHelper::describe($other->moreSpecificTypes)) {
+			return false;
+		}
+
+		return true;
 	}
 
 	private function canAccessClassMember(ClassMemberReflection $classMemberReflection): bool

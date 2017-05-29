@@ -68,6 +68,21 @@ class TypeSpecifier
 				new Node\Expr\BinaryOp\Identical($expr->left, $expr->right),
 				!$negated
 			);
+		} elseif ($expr instanceof Node\Expr\BinaryOp\Equal) {
+			$expressions = $this->findTypeExpressionsFromBinaryOperation($expr);
+			if ($expressions !== null) {
+				if (strtolower((string) $expressions[1]->name) === 'true') {
+					return $this->specifyTypesInCondition($scope, $expressions[0], $negated);
+				} elseif (strtolower((string) $expressions[1]->name) === 'false') {
+					return $this->specifyTypesInCondition($scope, $expressions[0], !$negated);
+				}
+			} elseif ($expr->left instanceof FuncCall && $expr->right instanceof Node\Expr\ClassConstFetch) {
+				if ((string) $expr->left->name === 'get_class' && $expr->right->name === 'class' && $expr->right->class instanceof Name) {
+					$argExpr = $expr->left->args[0]->value;
+					$argType = new ObjectType($scope->resolveName($expr->right->class));
+					return $this->create($argExpr, $argType, $negated);
+				}
+			}
 		} elseif (
 			$expr instanceof FuncCall
 			&& $expr->name instanceof Name

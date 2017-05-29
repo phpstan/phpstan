@@ -27,22 +27,6 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	protected function setUp()
 	{
 		$this->printer = new \PhpParser\PrettyPrinter\Standard();
-		$this->resolver = new NodeScopeResolver(
-			$this->createBroker(),
-			$this->getParser(),
-			$this->printer,
-			new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class)),
-			new FileExcluder($this->createMock(FileHelper::class), []),
-			new \PhpParser\BuilderFactory(),
-			new FileHelper('/'),
-			true,
-			true,
-			[
-				\EarlyTermination\Foo::class => [
-					'doFoo',
-				],
-			]
-		);
 	}
 
 	public function testClassMethodScope()
@@ -69,7 +53,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		$this->processFile(__DIR__ . '/data/if.php', function (\PhpParser\Node $node, Scope $scope) {
 			if ($node instanceof Exit_) {
 				$variables = $scope->getVariableTypes();
-				$this->assertArrayHasKey('foo', $variables);
+				$this->assertArrayNotHasKey('foo', $variables);
 				$this->assertArrayHasKey('lorem', $variables);
 				$this->assertArrayHasKey('callParameter', $variables);
 				$this->assertArrayHasKey('arrOne', $variables);
@@ -81,22 +65,22 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$this->assertArrayHasKey('listedFour', $variables);
 				$this->assertArrayHasKey('inArray', $variables);
 				$this->assertArrayHasKey('i', $variables);
-				$this->assertArrayHasKey('f', $variables);
+				$this->assertArrayNotHasKey('f', $variables);
 				$this->assertArrayHasKey('matches', $variables);
 				$this->assertArrayHasKey('anotherArray', $variables);
 				$this->assertArrayHasKey('ifVar', $variables);
 				$this->assertArrayNotHasKey('ifNotVar', $variables);
 				$this->assertArrayHasKey('ifNestedVar', $variables);
 				$this->assertArrayNotHasKey('ifNotNestedVar', $variables);
-				$this->assertArrayHasKey('matches2', $variables);
+				$this->assertArrayNotHasKey('matches2', $variables);
 				$this->assertArrayHasKey('inTry', $variables);
 				$this->assertArrayHasKey('matches3', $variables);
 				$this->assertArrayNotHasKey('matches4', $variables);
-				$this->assertArrayHasKey('issetBar', $variables);
+				$this->assertArrayNotHasKey('issetBar', $variables);
 				$this->assertArrayHasKey('doWhileVar', $variables);
 				$this->assertArrayHasKey('switchVar', $variables);
 				$this->assertArrayNotHasKey('noSwitchVar', $variables);
-				$this->assertArrayHasKey('inTryTwo', $variables);
+				$this->assertArrayNotHasKey('inTryTwo', $variables);
 				$this->assertArrayHasKey('ternaryMatches', $variables);
 				$this->assertArrayHasKey('previousI', $variables);
 				$this->assertArrayHasKey('previousJ', $variables);
@@ -137,7 +121,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$this->assertArrayHasKey('trueOrFalseInSwitchInAllCasesWithDefault', $variables);
 				$this->assertSame('bool', $variables['trueOrFalseInSwitchInAllCasesWithDefault']->describe());
 				$this->assertArrayHasKey('trueOrFalseInSwitchInAllCasesWithDefaultCase', $variables);
-				$this->assertSame('bool', $variables['trueOrFalseInSwitchInAllCasesWithDefaultCase']->describe());
+				$this->assertSame('true', $variables['trueOrFalseInSwitchInAllCasesWithDefaultCase']->describe());
 				$this->assertArrayHasKey('variableDefinedInSwitchWithOtherCasesWithEarlyTermination', $variables);
 				$this->assertArrayHasKey('anotherVariableDefinedInSwitchWithOtherCasesWithEarlyTermination', $variables);
 				$this->assertArrayNotHasKey('variableDefinedOnlyInEarlyTerminatingSwitchCases', $variables);
@@ -155,7 +139,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$this->assertArrayHasKey('notNullableString', $variables);
 				$this->assertSame('string', $variables['notNullableString']->describe());
 				$this->assertArrayHasKey('nullableString', $variables);
-				$this->assertSame('string|null', $variables['nullableString']->describe());
+				$this->assertSame('string', $variables['nullableString']->describe());
 				$this->assertArrayHasKey('alsoNotNullableString', $variables);
 				$this->assertSame('string', $variables['alsoNotNullableString']->describe());
 				$this->assertArrayHasKey('arrayOfIntegers', $variables);
@@ -1545,18 +1529,55 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
-	public function testNotSwitchInstanceof()
+	public function dataNotSwitchInstanceof(): array
+	{
+		return [
+			[
+				'mixed',
+				'$foo',
+			],
+			[
+				'SwitchInstanceOfNot\Bar',
+				'$bar',
+			],
+			[
+				'SwitchInstanceOfNot\Baz',
+				'$baz',
+				"'bazForSure';",
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataNotSwitchInstanceof
+	 * @param string $description
+	 * @param string $expression
+	 * @param string $evaluatedPointExpression
+	 */
+	public function testNotSwitchInstanceof(
+		string $description,
+		string $expression,
+		string $evaluatedPointExpression = 'die;'
+	)
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/switch-instanceof-not.php',
-			'mixed',
-			'$foo'
+			$description,
+			$expression,
+			[],
+			[],
+			$evaluatedPointExpression
 		);
 	}
 
 	public function dataSwitchInstanceOf(): array
 	{
 		return [
+			[
+				'SwitchInstanceOf\Foo',
+				'$foo',
+				"'fooForSure';",
+			],
 			[
 				'mixed',
 				'$foo',
@@ -1566,7 +1587,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$bar',
 			],
 			[
-				'SwitchInstanceOf\Baz',
+				'SwitchInstanceOf\Bar|SwitchInstanceOf\Baz',
 				'$baz',
 			],
 		];
@@ -1576,16 +1597,21 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	 * @dataProvider dataSwitchInstanceOf
 	 * @param string $description
 	 * @param string $expression
+	 * @param string $evaluatedPointExpression
 	 */
 	public function testSwitchInstanceof(
 		string $description,
-		string $expression
+		string $expression,
+		string $evaluatedPointExpression = 'die;'
 	)
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/switch-instanceof.php',
 			$description,
-			$expression
+			$expression,
+			[],
+			[],
+			$evaluatedPointExpression
 		);
 	}
 
@@ -1616,9 +1642,136 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+	public function dataSwitchFallThrough(): array
+	{
+		return [
+			[
+				'SwitchFallThrough\A',
+				'$expr',
+				"'1stCaseBranch';",
+			],
+			[
+				'true',
+				'$case1',
+				"'1stCaseBranch';",
+			],
+			[
+				'SwitchFallThrough\A|SwitchFallThrough\B',
+				'$expr',
+				"'2ndCaseBranch';",
+			],
+			[
+				'bool',
+				'$case1',
+				"'2ndCaseBranch';",
+			],
+			[
+				'true',
+				'$case2',
+				"'2ndCaseBranch';",
+			],
+			[
+				'SwitchFallThrough\A|SwitchFallThrough\B|SwitchFallThrough\D',
+				'$expr',
+				"'defaultBranch';",
+			],
+			[
+				'bool',
+				'$case1',
+				"'defaultBranch';",
+			],
+			[
+				'bool',
+				'$case2',
+				"'defaultBranch';",
+			],
+			[
+				'true',
+				'$default',
+				"'defaultBranch';",
+			],
+			[
+				'false',
+				'$case3',
+				"'defaultBranch';",
+			],
+			[
+				'SwitchFallThrough\A|SwitchFallThrough\B|SwitchFallThrough\C|SwitchFallThrough\D',
+				'$expr',
+				"'3rdCaseBranch';",
+			],
+			[
+				'bool',
+				'$case1',
+				"'3rdCaseBranch';",
+			],
+			[
+				'bool',
+				'$case2',
+				"'3rdCaseBranch';",
+			],
+			[
+				'bool',
+				'$default',
+				"'3rdCaseBranch';",
+			],
+			[
+				'true',
+				'$case3',
+				"'3rdCaseBranch';",
+			],
+			[
+				'bool',
+				'$case1',
+				"'afterSwitch';",
+			],
+			[
+				'bool',
+				'$case2',
+				"'afterSwitch';",
+			],
+			[
+				'bool',
+				'$default',
+				"'afterSwitch';",
+			],
+			[
+				'true',
+				'$case3',
+				"'afterSwitch';",
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataSwitchFallThrough
+	 * @param string $description
+	 * @param string $expression
+	 * @param string $evaluatedPointExpression
+	 */
+	public function testSwitchFallThrough(
+		string $description,
+		string $expression,
+		string $evaluatedPointExpression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/switch-fall-through.php',
+			$description,
+			$expression,
+			[],
+			[],
+			$evaluatedPointExpression
+		);
+	}
+
 	public function dataDynamicMethodReturnTypeExtensions(): array
 	{
 		return [
+			[
+				'DynamicMethodReturnTypesNamespace\Foo',
+				'$em->getByPrimary(DynamicMethodReturnTypesNamespace\Foo::class)',
+			],
 			[
 				'mixed',
 				'$em->getByFoo($foo)',
@@ -2425,6 +2578,11 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
+				'TypeElimination\Foo',
+				'$fooOrBarOrBaz',
+				"'fooForSure';",
+			],
+			[
 				'null',
 				'$foo',
 				"'nullForSure';",
@@ -2804,10 +2962,29 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 
 	private function processFile(string $file, \Closure $callback, array $dynamicMethodReturnTypeExtensions = [], array $dynamicStaticMethodReturnTypeExtensions = [])
 	{
+		$broker = $this->createBroker($dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions);
+
+		$this->resolver = new NodeScopeResolver(
+			$broker,
+			$this->getParser(),
+			$this->printer,
+			new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class)),
+			new FileExcluder($this->createMock(FileHelper::class), []),
+			new \PhpParser\BuilderFactory(),
+			new FileHelper('/'),
+			true,
+			true,
+			[
+				\EarlyTermination\Foo::class => [
+					'doFoo',
+				],
+			]
+		);
+
 		$this->resolver->processNodes(
 			$this->getParser()->parseFile($file),
 			new Scope(
-				$this->createBroker($dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions),
+				$broker,
 				$this->printer,
 				new TypeSpecifier($this->printer),
 				$file
@@ -2853,7 +3030,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		$this->processFile(__DIR__ . '/data/early-termination.php', function (\PhpParser\Node $node, Scope $scope) {
 			if ($node instanceof Exit_) {
 				$this->assertTrue($scope->hasVariableType('something'));
-				$this->assertTrue($scope->hasVariableType('var'));
+				$this->assertFalse($scope->hasVariableType('var'));
 			}
 		});
 	}
