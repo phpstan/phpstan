@@ -2,6 +2,15 @@
 
 namespace AnalyseTraits;
 
+class SomeClass
+{
+
+	use FooTrait;
+
+}
+
+
+
 trait FooTrait
 {
 
@@ -9,6 +18,8 @@ trait FooTrait
 	{
 		$this->doFoo();
 	}
+
+
 
 	public function conflictingMethodWithDifferentArgumentNames(string $string)
 	{
