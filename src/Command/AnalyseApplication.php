@@ -48,13 +48,15 @@ class AnalyseApplication
 	 * @param \Symfony\Component\Console\Style\OutputStyle $style
 	 * @param \PHPStan\Command\ErrorFormatter\ErrorFormatter $errorFormatter
 	 * @param bool $defaultLevelUsed
+	 * @param int $errorsThreshold
 	 * @return int Error code.
 	 */
 	public function analyse(
 		array $paths,
 		OutputStyle $style,
 		ErrorFormatter $errorFormatter,
-		bool $defaultLevelUsed
+		bool $defaultLevelUsed,
+		int $errorsThreshold = 0
 	): int
 	{
 		$errors = [];
@@ -126,7 +128,8 @@ class AnalyseApplication
 				$defaultLevelUsed,
 				$this->fileHelper->normalizePath(dirname($paths[0]))
 			),
-			$style
+			$style,
+			$errorsThreshold
 		);
 	}
 

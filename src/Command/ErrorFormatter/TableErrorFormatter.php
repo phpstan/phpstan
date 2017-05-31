@@ -10,7 +10,8 @@ class TableErrorFormatter implements ErrorFormatter
 
 	public function formatErrors(
 		AnalysisResult $analysisResult,
-		\Symfony\Component\Console\Style\OutputStyle $style
+		\Symfony\Component\Console\Style\OutputStyle $style,
+		int $errorsThreshold = 0
 	): int
 	{
 		if (!$analysisResult->hasErrors()) {
@@ -63,7 +64,8 @@ class TableErrorFormatter implements ErrorFormatter
 		}
 
 		$style->error(sprintf($analysisResult->getTotalErrorsCount() === 1 ? 'Found %d error' : 'Found %d errors', $analysisResult->getTotalErrorsCount()));
-		return 1;
+
+		return $analysisResult->getTotalErrorsCount() > $errorsThreshold ? 1 : 0;
 	}
 
 }

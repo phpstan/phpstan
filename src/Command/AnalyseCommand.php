@@ -37,6 +37,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				new InputOption(ErrorsConsoleStyle::OPTION_NO_PROGRESS, null, InputOption::VALUE_NONE, 'Do not show progress bar, only results'),
 				new InputOption('autoload-file', 'a', InputOption::VALUE_OPTIONAL, 'Project\'s additional autoload file path'),
 				new InputOption('errorFormat', null, InputOption::VALUE_REQUIRED, 'Format in which to print the result of the analysis', 'table'),
+				new InputOption('error-tolerance', null, InputOption::VALUE_REQUIRED, 'How many errors consider to be critical and return exit code 1', 0),
 			]);
 	}
 

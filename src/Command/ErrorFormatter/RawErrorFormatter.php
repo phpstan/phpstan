@@ -9,7 +9,8 @@ class RawErrorFormatter implements ErrorFormatter
 
 	public function formatErrors(
 		AnalysisResult $analysisResult,
-		\Symfony\Component\Console\Style\OutputStyle $style
+		\Symfony\Component\Console\Style\OutputStyle $style,
+		int $errorsThreshold = 0
 	): int
 	{
 		if (!$analysisResult->hasErrors()) {
@@ -25,13 +26,13 @@ class RawErrorFormatter implements ErrorFormatter
 				sprintf(
 					'%s:%d:%s',
 					$fileSpecificError->getFile(),
-					$fileSpecificError->getLine() !== null ? $fileSpecificError->getLine() : '?',
+					$fileSpecificError->getLine() ?? '?',
 					$fileSpecificError->getMessage()
 				)
 			);
 		}
 
-		return 1;
+		return $analysisResult->getTotalErrorsCount() > $errorsThreshold ? 1 : 0;
 	}
 
 }
