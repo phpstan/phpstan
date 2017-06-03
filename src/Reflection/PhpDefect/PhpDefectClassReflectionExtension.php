@@ -138,11 +138,21 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 	];
 
 	/** @var string[][] */
+	private static $properties71 = [
+		\DateInterval::class => [
+			'f' => 'float',
+		],
+	];
+
+	/** @var string[][] */
 	private $properties = [];
 
 	public function __construct()
 	{
 		$this->properties = self::$defaultProperties;
+		if (PHP_VERSION_ID >= 70100) { // since PHP 7.1
+			$this->properties = array_merge_recursive($this->properties, self::$properties71);
+		}
 	}
 
 	public function hasProperty(ClassReflection $classReflection, string $propertyName): bool

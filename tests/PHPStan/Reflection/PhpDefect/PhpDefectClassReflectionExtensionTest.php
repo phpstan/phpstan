@@ -546,4 +546,54 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 		];
 	}
 
+	/**
+	 * @requires PHP 7.1
+	 *
+	 * @dataProvider dataDateInterval71Properties
+	 *
+	 * @param string $className
+	 * @param string $declaringClassName
+	 * @param array $data
+	 */
+	public function test71Properties(string $className, string $declaringClassName, array $data)
+	{
+		$this->testProperties($className, $declaringClassName, $data);
+	}
+
+	public function dataDateInterval71Properties(): array
+	{
+		return [
+			[
+				\DateInterval::class,
+				\DateInterval::class,
+				[
+					'y' => 'int',
+					'm' => 'int',
+					'd' => 'int',
+					'h' => 'int',
+					'i' => 'int',
+					's' => 'int',
+					'f' => 'float',
+					'invert' => 'int',
+					'days' => 'mixed',
+				],
+			],
+			[
+				\PhpDefectClasses\DateIntervalChild::class,
+				\DateInterval::class,
+				[
+					'y' => 'int',
+					'm' => 'int',
+					'd' => 'int',
+					'h' => 'int',
+					'i' => 'int',
+					's' => 'int',
+					'f' => 'float',
+					'invert' => 'int',
+					'days' => 'mixed',
+				],
+			],
+		];
+	}
+
 }
