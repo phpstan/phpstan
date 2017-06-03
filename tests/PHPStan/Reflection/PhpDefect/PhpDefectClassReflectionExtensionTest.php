@@ -22,6 +22,7 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 	public function testProperties(string $className, string $declaringClassName, array $data)
 	{
 		foreach ($data as $propertyName => $typeDescription) {
+			/** @var \PHPStan\Broker\Broker $broker */
 			$broker = $this->getContainer()->getByType(Broker::class);
 			$classReflection = $broker->getClass($className);
 			$this->assertTrue($classReflection->hasProperty($propertyName), sprintf('%s::$%s', $className, $propertyName));
