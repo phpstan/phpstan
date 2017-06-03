@@ -11,7 +11,7 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 {
 
 	/** @var string[][] */
-	private $properties = [
+	private static $defaultProperties = [
 		'DateInterval' => [
 			'y' => 'int',
 			'm' => 'int',
@@ -136,6 +136,14 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 			'comment' => 'string',
 		],
 	];
+
+	/** @var string[][] */
+	private $properties = [];
+
+	public function __construct()
+	{
+		$this->properties = self::$defaultProperties;
+	}
 
 	public function hasProperty(ClassReflection $classReflection, string $propertyName): bool
 	{
