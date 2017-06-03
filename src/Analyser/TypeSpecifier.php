@@ -102,6 +102,16 @@ class TypeSpecifier
 					return $this->addSureType($types, $negated, $source, $argExpr, $argType);
 				}
 			}
+		} elseif ($expr instanceof Node\Expr\Isset_) {
+			if (!$negated) {
+				foreach ($expr->vars as $var) {
+					$types = $this->addSureType($types, $negated, $source, $var, new MixedType());
+				}
+			}
+		} elseif ($expr instanceof Node\Expr\Empty_) {
+			if ($negated) {
+				$types = $this->addSureType($types, $negated, $source, $expr->expr, new MixedType());
+			}
 		} elseif (
 			$expr instanceof FuncCall
 			&& $expr->name instanceof Name

@@ -19,6 +19,7 @@ use PhpParser\Node\Expr\Cast;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\Clone_;
 use PhpParser\Node\Expr\ConstFetch;
+use PhpParser\Node\Expr\Empty_;
 use PhpParser\Node\Expr\Exit_;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\Instanceof_;
@@ -131,6 +132,12 @@ class NodeScopeResolver
 
 	/** @var bool[] filePath(string) => bool(true) */
 	private $analysedFiles;
+
+	/** @var null|bool */
+	private $scopeFilteringMode;
+
+	/** @var int */
+	private $exprLevel = 0;
 
 	/** @var null|self */
 	private static $instance;
@@ -377,6 +384,9 @@ class NodeScopeResolver
 		} elseif ($node instanceof Isset_) {
 			return $this->processIssetNode($node, $scope, $nodeCallback, $resultType);
 
+		} elseif ($node instanceof Empty_) {
+			return $this->processEmptyNode($node, $scope, $nodeCallback, $resultType);
+
 		} elseif ($node instanceof Exit_) {
 			return $this->processExitNode($node, $scope, $nodeCallback, $resultType);
 
@@ -449,8 +459,8 @@ class NodeScopeResolver
 		assert(isset($node->namespacedName));
 		$classReflection = $this->broker->getClass((string) $node->namespacedName);
 
-		$scope = $scope->enterClass($classReflection);
-		$scope = $this->processNodes($node->stmts, $scope, $nodeCallback);
+		$classScope = $scope->enterClass($classReflection);
+		$this->processNodes($node->stmts, $classScope, $nodeCallback);
 
 		return $scope;
 	}
@@ -460,8 +470,8 @@ class NodeScopeResolver
 		assert(isset($node->namespacedName));
 		$classReflection = $this->broker->getClass((string) $node->namespacedName);
 
-		$scope = $scope->enterClass($classReflection);
-		$scope = $this->processNodes($node->stmts, $scope, $nodeCallback);
+		$classScope = $scope->enterClass($classReflection);
+		$this->processNodes($node->stmts, $classScope, $nodeCallback);
 
 		return $scope;
 	}
@@ -657,6 +667,8 @@ class NodeScopeResolver
 		$finalScope = $earlyTerminated ? null : $branchScope;
 
 		foreach ($node->catches as $catchNode) {
+			$nodeCallback($catchNode, $scope);
+
 			$exceptionTypes = [];
 			foreach ($catchNode->types as $catchNodeTypeName) {
 				$exceptionTypes[] = new ObjectType((string) $catchNodeTypeName);
@@ -929,7 +941,7 @@ class NodeScopeResolver
 
 			if ($varType->getClass() !== null) {
 				$className = $varType->getClass();
-				if ($this->broker->getClass($className)) {
+				if ($this->broker->hasClass($className)) {
 					$classReflection = $this->broker->getClass($className);
 					if ($classReflection->hasMethod($methodName)) {
 						$methodReflection = $classReflection->getMethod($methodName, $scope);
@@ -981,9 +993,26 @@ class NodeScopeResolver
 
 		} elseif (is_string($node->name)) {
 			$methodName = $node->name;
-			$scope = $this->processNodes($node->args, $scope, $nodeCallback);
 
-			if ($className !== null && $this->broker->hasClass($className)) {
+			if ($className === 'Closure' && $methodName === 'bind' && count($node->args) > 2 && $node->args[0]->value instanceof Expr\Closure) {
+				$argTypes = [];
+				for ($i = 1; $i < count($node->args); $i++) {
+					$scope = $this->processArgNode($node->args[$i], $scope, $nodeCallback, $argTypes[$i]);
+				}
+
+				if ($argTypes[1] instanceof NullType) {
+					
+				}
+
+				$closureThisType = $argTypes[1] instanceof NullType ? $argTypes[2] : $argTypes[1];
+				$closureScope =
+				$scope = $this->processNodes($node->args, $scope, $nodeCallback);
+
+//				$scope->enterClosureBind()
+
+			} elseif ($className !== null && $this->broker->hasClass($className)) {
+				$scope = $this->processNodes($node->args, $scope, $nodeCallback);
+
 				if ($this->broker->getClass($className)) {
 					$classReflection = $this->broker->getClass($className);
 					if ($classReflection->hasMethod($methodName)) {
@@ -1007,6 +1036,9 @@ class NodeScopeResolver
 						}
 					}
 				}
+
+			} else {
+				$scope = $this->processNodes($node->args, $scope, $nodeCallback);
 			}
 
 		} else {
@@ -1030,7 +1062,7 @@ class NodeScopeResolver
 
 			if ($varType->getClass() !== null) {
 				$className = $varType->getClass();
-				if ($this->broker->getClass($className)) {
+				if ($this->broker->hasClass($className)) {
 					$classReflection = $this->broker->getClass($className);
 					if ($classReflection->hasProperty($propertyName)) {
 						$propertyReflection = $classReflection->getProperty($propertyName, $scope);
@@ -1213,11 +1245,28 @@ class NodeScopeResolver
 
 	private function processIssetNode(Isset_ $node, Scope $scope, callable $nodeCallback, Type &$resultType = NULL): Scope
 	{
+		$issetScope = $scope;
 		foreach ($node->vars as $varNode) {
-			$scope = $this->specifyProperty($scope, $varNode);
-			$scope = $this->processExprNode($varNode, $scope, $nodeCallback, $varType);
+			$issetScope = $this->specifyProperty($issetScope, $varNode);
+			$issetScope = $this->processExprNode($varNode, $issetScope, $nodeCallback, $varType);
 		}
 
+//		if ($this->filteredScope !== null) {
+//			foreach ($node->vars as $varNode) {
+//				$this->filteredScope = $this->specifyProperty($this->filteredScope, $varNode);
+//			}
+//		}
+
+		$resultType = new TrueOrFalseBooleanType();
+
+		return $scope;
+	}
+
+	private function processEmptyNode(Empty_ $node, Scope $scope, callable $nodeCallback, Type &$resultType = NULL): Scope
+	{
+		$emptyScope = $scope;
+		$emptyScope = $this->specifyProperty($emptyScope, $node->expr);
+		$emptyScope = $this->processExprNode($node->expr, $emptyScope, $nodeCallback, $exprType);
 		$resultType = new TrueOrFalseBooleanType();
 
 		return $scope;
@@ -1705,10 +1754,10 @@ class NodeScopeResolver
 		if ($node->class instanceof Name) {
 			$className = (string) $node->class;
 
-			if ($className === 'static') {
+			if ($scope->isInClass() && $className === 'static') {
 				$resultType = new StaticType($scope->getClassReflection()->getName());
 
-			} elseif ($className === 'self') {
+			} elseif ($scope->isInClass() && $className === 'self') {
 				$resultType = new ObjectType($scope->getClassReflection()->getName());
 
 			} else {
@@ -2997,6 +3046,48 @@ class NodeScopeResolver
 		$extractedType = $fileTypeMap[$typeDescription];
 		return true;
 	}
+
+
+	private function processTruthyFilteringExpr(Expr $node, Scope $scope, callable $nodeCallback, Type &$resultType = NULL): Scope
+	{
+		$backup = $this->scopeFilteringMode;
+		$this->scopeFilteringMode = true;
+
+		$scope = $this->processExprNode($node, $scope, $nodeCallback, $resultType);
+
+		$this->scopeFilteringMode = $backup;
+
+		return $scope;
+	}
+
+
+	private function processFalseyFilteringExpr(Expr $node, Scope $scope, callable $nodeCallback, Type &$resultType = NULL): Scope
+	{
+		$backup = $this->scopeFilteringMode;
+		$this->scopeFilteringMode = false;
+
+		$scope = $this->processExprNode($node, $scope, $nodeCallback, $resultType);
+
+		$this->scopeFilteringMode = $backup;
+
+		return $scope;
+	}
+
+	public function filterScope(Expr $node, Scope $scope, Type $type): Scope
+	{
+		if ($this->scopeFilteringMode === true) {
+			$scope = $scope->specifyExpressionType($node, $type);
+
+		} elseif ($this->scopeFilteringMode === false) {
+			$scope = $scope->removeTypeFromExpression($node, $type);
+
+		} else {
+			throw new \LogicException();
+		}
+
+		return $scope;
+	}
+
 //
 //	private function enterFunction(Scope $scope, Node\Stmt\Function_ $function): Scope
 //	{
