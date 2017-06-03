@@ -11,7 +11,19 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 
 	/**
 	 * @dataProvider dataDateIntervalProperties
+	 * @dataProvider dataDomAttrProperties
+	 * @dataProvider dataDomCharacterDataProperties
 	 * @dataProvider dataDomDocumentProperties
+	 * @dataProvider dataDomDocumentTypeProperties
+	 * @dataProvider dataDomElementProperties
+	 * @dataProvider dataDomEntityProperties
+	 * @dataProvider dataDomNamedNodeMapProperties
+	 * @dataProvider dataDomNodeListProperties
+	 * @dataProvider dataDomNodeProperties
+	 * @dataProvider dataDomNotationProperties
+	 * @dataProvider dataDomTextProperties
+	 * @dataProvider dataDomProcessingInstructionProperties
+	 * @dataProvider dataDomXPathProperties
 	 * @dataProvider dataXmlReaderProperties
 	 * @dataProvider dataZipArchiveProperties
 	 *
