@@ -14,6 +14,7 @@
 	},
 	"require": {
 		"php": "~7.0",
+		"ext-dom": "*",
 		"nette/bootstrap": "^2.4 || ^3.0",
 		"nette/caching": "^2.4 || ^3.0",
 		"nette/di": "^2.4 || ^3.0",
