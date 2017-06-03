@@ -56,11 +56,11 @@ class CallableType implements Type
 			return true;
 		}
 
-		if ($type instanceof UnionType) {
-			return UnionTypeHelper::acceptsAll($this, $type);
+		if ($type instanceof CompoundType) {
+			return CompoundTypeHelper::accepts($type, $this);
 		}
 
-		return $type instanceof MixedType;
+		return false;
 	}
 
 	public function describe(): string

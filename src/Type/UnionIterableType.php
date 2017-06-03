@@ -76,10 +76,6 @@ class UnionIterableType implements UnionType
 
 	public function accepts(Type $type): bool
 	{
-		if ($type instanceof MixedType) {
-			return true;
-		}
-
 		$accepts = UnionTypeHelper::accepts($this, $type);
 		if ($accepts !== null && !$accepts) {
 			return false;
@@ -91,6 +87,10 @@ class UnionIterableType implements UnionType
 
 		if (TypeCombinator::shouldSkipUnionTypeAccepts($this)) {
 			return true;
+		}
+
+		if ($type instanceof CompoundType) {
+			return CompoundTypeHelper::accepts($type, $this);
 		}
 
 		foreach ($this->getTypes() as $otherType) {

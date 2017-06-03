@@ -54,7 +54,11 @@ class FalseBooleanType implements BooleanType
 			return true;
 		}
 
-		return $type instanceof MixedType;
+		if ($type instanceof CompoundType) {
+			return CompoundTypeHelper::accepts($type, $this);
+		}
+
+		return false;
 	}
 
 	public function isDocumentableNatively(): bool

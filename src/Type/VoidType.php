@@ -32,7 +32,7 @@ class VoidType implements Type
 
 	public function accepts(Type $type): bool
 	{
-		return $type instanceof self || $type instanceof MixedType;
+		return $type instanceof self;
 	}
 
 	public function describe(): string

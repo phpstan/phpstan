@@ -35,6 +35,10 @@ class IterableIterableType implements StaticResolvableType
 
 	public function accepts(Type $type): bool
 	{
+		if ($type instanceof CompoundType) {
+			return CompoundTypeHelper::accepts($type, $this);
+		}
+
 		if ($type->isIterable() === TrinaryLogic::YES) {
 			return $this->getIterableValueType()->accepts($type->getIterableValueType());
 		}
@@ -42,14 +46,6 @@ class IterableIterableType implements StaticResolvableType
 		if ($type->getClass() !== null && $this->exists($type->getClass())) {
 			$classReflection = new \ReflectionClass($type->getClass());
 			return $classReflection->implementsInterface(\Traversable::class);
-		}
-
-		if ($type instanceof MixedType) {
-			return true;
-		}
-
-		if ($type instanceof UnionType) {
-			return UnionTypeHelper::acceptsAll($this, $type);
 		}
 
 		return false;
