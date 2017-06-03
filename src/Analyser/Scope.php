@@ -1698,43 +1698,46 @@ class Scope
 	public function mergeWith(Scope $otherScope = null): Scope
 	{
 		if ($otherScope !== null) {
-			return $this->intersectVariables($otherScope, true);
+			$mergedScope = $this->intersectVariables($otherScope, true);
+			$mergedScope = $mergedScope->removeDifferenceInSpecificTypes($this, $otherScope);
 
-			$ourVariableTypes = $this->getVariableTypes();
-			$theirVariableTypes = $otherScope->getVariableTypes();
-			$mergedVariableTypes = [];
+			return $mergedScope;
 
-			foreach ($ourVariableTypes as $name => $variableType) {
-				$variableType = $variableType->combineWith($theirVariableTypes[$name] ?? new MixedType());
-				$mergedVariableTypes[$name] = $variableType;
-				unset($theirVariableTypes[$name]);
-			}
-
-			foreach ($theirVariableTypes as $name => $variableType) {
-				$variableType = $variableType->combineWith($ourVariableTypes[$name] ?? new MixedType());
-				$mergedVariableTypes[$name] = $variableType;
-			}
-
-			return new self(
-				$this->broker,
-				$this->printer,
-				$this->typeSpecifier,
-				$this->getFile(),
-				$this->getAnalysedContextFile(),
-				$this->isDeclareStrictTypes(),
-				$this->isInClass() ? $this->getClassReflection() : null,
-				$this->getFunction(),
-				$this->getNamespace(),
-				$mergedVariableTypes,
-				$this->inClosureBindScopeClass,
-				$this->getAnonymousFunctionReturnType(),
-				$this->getInFunctionCall(),
-				$this->isNegated(),
-				$this->moreSpecificTypes,
-				$this->inFirstLevelStatement
-			);
-
-//			return $this->intersectVariables($otherScope, true); // TODO
+//			$ourVariableTypes = $this->getVariableTypes();
+//			$theirVariableTypes = $otherScope->getVariableTypes();
+//			$mergedVariableTypes = [];
+//
+//			foreach ($ourVariableTypes as $name => $variableType) {
+//				$variableType = $variableType->combineWith($theirVariableTypes[$name] ?? new MixedType());
+//				$mergedVariableTypes[$name] = $variableType;
+//				unset($theirVariableTypes[$name]);
+//			}
+//
+//			foreach ($theirVariableTypes as $name => $variableType) {
+//				$variableType = $variableType->combineWith($ourVariableTypes[$name] ?? new MixedType());
+//				$mergedVariableTypes[$name] = $variableType;
+//			}
+//
+//			return new self(
+//				$this->broker,
+//				$this->printer,
+//				$this->typeSpecifier,
+//				$this->getFile(),
+//				$this->getAnalysedContextFile(),
+//				$this->isDeclareStrictTypes(),
+//				$this->isInClass() ? $this->getClassReflection() : null,
+//				$this->getFunction(),
+//				$this->getNamespace(),
+//				$mergedVariableTypes,
+//				$this->inClosureBindScopeClass,
+//				$this->getAnonymousFunctionReturnType(),
+//				$this->getInFunctionCall(),
+//				$this->isNegated(),
+//				$this->moreSpecificTypes,
+//				$this->inFirstLevelStatement
+//			);
+//
+////			return $this->intersectVariables($otherScope, true); // TODO
 
 		} else {
 			return $this;
