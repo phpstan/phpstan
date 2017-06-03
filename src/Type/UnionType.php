@@ -2,7 +2,7 @@
 
 namespace PHPStan\Type;
 
-interface UnionType extends StaticResolvableType
+interface UnionType extends CompoundType, StaticResolvableType
 {
 
 	/**

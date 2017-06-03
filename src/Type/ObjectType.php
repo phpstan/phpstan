@@ -41,16 +41,12 @@ class ObjectType implements Type
 
 	public function accepts(Type $type): bool
 	{
-		if ($type instanceof MixedType) {
-			return true;
-		}
-
 		if ($type instanceof StaticType) {
 			return $this->checkSubclassAcceptability($type->getBaseClass());
 		}
 
-		if ($type instanceof UnionType) {
-			return UnionTypeHelper::acceptsAll($this, $type);
+		if ($type instanceof CompoundType) {
+			return CompoundTypeHelper::accepts($type, $this);
 		}
 
 		if ($type->getClass() === null) {

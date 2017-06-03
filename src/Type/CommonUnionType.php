@@ -64,13 +64,8 @@ class CommonUnionType implements UnionType
 
 	public function accepts(Type $type): bool
 	{
-		if ($type instanceof MixedType) {
-			return true;
-		}
-
-		$accepts = UnionTypeHelper::accepts($this, $type);
-		if ($accepts !== null) {
-			return $accepts;
+		if ($type instanceof CompoundType) {
+			return CompoundTypeHelper::accepts($type, $this);
 		}
 
 		if (TypeCombinator::shouldSkipUnionTypeAccepts($this)) {

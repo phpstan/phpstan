@@ -2,7 +2,7 @@
 
 namespace PHPStan\Type;
 
-class MixedType implements Type
+class MixedType implements CompoundType
 {
 
 	/**

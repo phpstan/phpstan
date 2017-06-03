@@ -28,7 +28,15 @@ class NullType implements Type
 
 	public function accepts(Type $type): bool
 	{
-		return $type instanceof self || $type instanceof MixedType;
+		if ($type instanceof self) {
+			return true;
+		}
+
+		if ($type instanceof CompoundType) {
+			return CompoundTypeHelper::accepts($type, $this);
+		}
+
+		return false;
 	}
 
 	public function describe(): string
