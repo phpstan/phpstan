@@ -565,7 +565,7 @@ class Scope
 				}
 
 				$methodReflection = $methodClassReflection->getMethod($node->name, $this);
-				foreach ($this->broker->getDynamicMethodReturnTypeExtensionsForClass($methodCalledOnType->getClass()) as $dynamicMethodReturnTypeExtension) {
+				foreach ($this->broker->getDynamicMethodReturnTypeExtensionsForClass($methodClassReflection->getName()) as $dynamicMethodReturnTypeExtension) {
 					if (!$dynamicMethodReturnTypeExtension->isMethodSupported($methodReflection)) {
 						continue;
 					}
@@ -575,7 +575,7 @@ class Scope
 
 				$calledOnThis = $node->var instanceof Variable && is_string($node->var->name) && $node->var->name === 'this';
 				if (!$calledOnThis && $methodReflection->getReturnType() instanceof StaticResolvableType) {
-					return $methodReflection->getReturnType()->resolveStatic($methodCalledOnType->getClass());
+					return $methodReflection->getReturnType()->resolveStatic($methodClassReflection->getName());
 				}
 
 				return $methodReflection->getReturnType();
@@ -595,7 +595,7 @@ class Scope
 					return new MixedType();
 				}
 				$staticMethodReflection = $staticMethodClassReflection->getMethod($node->name, $this);
-				foreach ($this->broker->getDynamicStaticMethodReturnTypeExtensionsForClass($calleeClass) as $dynamicStaticMethodReturnTypeExtension) {
+				foreach ($this->broker->getDynamicStaticMethodReturnTypeExtensionsForClass($staticMethodClassReflection->getName()) as $dynamicStaticMethodReturnTypeExtension) {
 					if (!$dynamicStaticMethodReturnTypeExtension->isStaticMethodSupported($staticMethodReflection)) {
 						continue;
 					}
@@ -610,7 +610,7 @@ class Scope
 						}
 					}
 
-					return $staticMethodReflection->getReturnType()->resolveStatic($calleeClass);
+					return $staticMethodReflection->getReturnType()->resolveStatic($staticMethodClassReflection->getName());
 				}
 				return $staticMethodReflection->getReturnType();
 			}
