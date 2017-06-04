@@ -323,436 +323,436 @@ class Scope
 	{
 		return NodeScopeResolver::getInstance()->getExprType($node, $this);
 
-		if (
-			$node instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd
-			|| $node instanceof \PhpParser\Node\Expr\BinaryOp\BooleanOr
-			|| $node instanceof \PhpParser\Node\Expr\BooleanNot
-			|| $node instanceof \PhpParser\Node\Expr\BinaryOp\LogicalXor
-			|| $node instanceof Expr\BinaryOp\Greater
-			|| $node instanceof Expr\BinaryOp\GreaterOrEqual
-			|| $node instanceof Expr\BinaryOp\Smaller
-			|| $node instanceof Expr\BinaryOp\SmallerOrEqual
-		) {
-			return new TrueOrFalseBooleanType();
-		}
-
-		if (
-			$node instanceof Node\Expr\UnaryMinus
-			|| $node instanceof Node\Expr\UnaryPlus
-		) {
-			return $this->getType($node->expr);
-		}
-
-		if ($node instanceof Node\Expr\BinaryOp\Mod) {
-			return new IntegerType();
-		}
-
-		if ($node instanceof Expr\BinaryOp\Concat) {
-			return new StringType();
-		}
-
-		if ($node instanceof Expr\BinaryOp\Spaceship) {
-			return new IntegerType();
-		}
-
-		if ($node instanceof Expr\Ternary) {
-			$elseType = $this->getType($node->else);
-			if ($node->if === null) {
-				return TypeCombinator::removeNull(
-					$this->getType($node->cond)
-				)->combineWith($elseType);
-			}
-
-			$conditionScope = $this->filterByTruthyValue($node->cond);
-			$ifType = $conditionScope->getType($node->if);
-			$negatedConditionScope = $this->filterByFalseyValue($node->cond);
-			$elseType = $negatedConditionScope->getType($node->else);
-
-			return $ifType->combineWith($elseType);
-		}
-
-		if ($node instanceof Expr\BinaryOp\Coalesce) {
-			return TypeCombinator::removeNull(
-				$this->getType($node->left)
-			)->combineWith($this->getType($node->right));
-		}
-
-		if ($node instanceof Expr\Clone_) {
-			return $this->getType($node->expr);
-		}
-
-		if (
-			$node instanceof Node\Expr\BinaryOp\Plus
-			|| $node instanceof Node\Expr\BinaryOp\Minus
-			|| $node instanceof Node\Expr\BinaryOp\Mul
-			|| $node instanceof Node\Expr\BinaryOp\Pow
-			|| $node instanceof Node\Expr\BinaryOp\Div
-			|| $node instanceof Node\Expr\AssignOp
-		) {
-			if ($node instanceof Node\Expr\AssignOp) {
-				$left = $node->var;
-				$right = $node->expr;
-			} elseif ($node instanceof Node\Expr\BinaryOp) {
-				$left = $node->left;
-				$right = $node->right;
-			} else {
-				throw new \PHPStan\ShouldNotHappenException();
-			}
-
-			$leftType = $this->getType($left);
-			$rightType = $this->getType($right);
-
-			if ($leftType instanceof BooleanType) {
-				$leftType = new IntegerType();
-			}
-
-			if ($rightType instanceof BooleanType) {
-				$rightType = new IntegerType();
-			}
-
-			if ($node instanceof Expr\AssignOp\Div || $node instanceof Expr\BinaryOp\Div) {
-				if (!$leftType instanceof MixedType && !$rightType instanceof MixedType) {
-					return new FloatType();
-				}
-			}
-
-			if (
-				($leftType instanceof FloatType && !$rightType instanceof MixedType)
-				|| ($rightType instanceof FloatType && !$leftType instanceof MixedType)
-			) {
-				return new FloatType();
-			}
-
-			if ($leftType instanceof IntegerType && $rightType instanceof IntegerType) {
-				return new IntegerType();
-			}
-		}
-
-		if ($node instanceof LNumber) {
-			return new IntegerType();
-		} elseif ($node instanceof ConstFetch) {
-			$constName = strtolower((string) $node->name);
-			if ($constName === 'true') {
-				return new \PHPStan\Type\TrueBooleanType();
-			} elseif ($constName === 'false') {
-				return new \PHPStan\Type\FalseBooleanType();
-			} elseif ($constName === 'null') {
-				return new NullType();
-			}
-
-			if ($this->broker->hasConstant($node->name, $this)) {
-				$typeFromValue = $this->getTypeFromValue(
-					constant($this->broker->resolveConstantName($node->name, $this))
-				);
-				if ($typeFromValue !== null) {
-					return $typeFromValue;
-				}
-			}
-		} elseif ($node instanceof String_) {
-			return new StringType();
-		} elseif ($node instanceof DNumber) {
-			return new FloatType();
-		} elseif ($node instanceof Expr\Closure) {
-			return new ObjectType('Closure');
-		} elseif ($node instanceof New_) {
-			if ($node->class instanceof Name) {
-				if (
-					count($node->class->parts) === 1
-				) {
-					if ($node->class->parts[0] === 'static') {
-						return new StaticType($this->getClassReflection()->getName());
-					} elseif ($node->class->parts[0] === 'self') {
-						return new ObjectType($this->getClassReflection()->getName());
-					}
-				}
-
-				return new ObjectType((string) $node->class);
-			}
-		} elseif ($node instanceof Array_) {
-			$possiblyCallable = false;
-			if (count($node->items) === 2) {
-				$firstItem = $node->items[0]->value;
-				if (
-					(
-						$this->getType($firstItem)->getClass() !== null
-						|| $this->getType($firstItem) instanceof StringType
-					)
-					&& $this->getType($node->items[1]->value) instanceof StringType
-				) {
-					$possiblyCallable = true;
-				}
-			}
-			return new ArrayType($this->getCombinedType(array_map(function (Expr\ArrayItem $item): Type {
-				return $this->getType($item->value);
-			}, $node->items)), true, $possiblyCallable);
-		} elseif ($node instanceof Int_) {
-				return new IntegerType();
-		} elseif ($node instanceof Bool_) {
-			return new TrueOrFalseBooleanType();
-		} elseif ($node instanceof Double) {
-			return new FloatType();
-		} elseif ($node instanceof \PhpParser\Node\Expr\Cast\String_) {
-			return new StringType();
-		} elseif ($node instanceof \PhpParser\Node\Expr\Cast\Array_) {
-			return new ArrayType(new MixedType());
-		} elseif ($node instanceof Node\Scalar\MagicConst\Line) {
-			return new IntegerType();
-		} elseif ($node instanceof Node\Scalar\MagicConst) {
-			return new StringType();
-		} elseif ($node instanceof Object_) {
-			return new ObjectType('stdClass');
-		} elseif ($node instanceof Unset_) {
-			return new NullType();
-		} elseif ($node instanceof Node\Expr\ClassConstFetch) {
-			if ($node->class instanceof Name) {
-				$constantClass = (string) $node->class;
-				if ($constantClass === 'self') {
-					$constantClass = $this->getClassReflection()->getName();
-				}
-			} elseif ($node->class instanceof Expr) {
-				$constantClassType = $this->getType($node->class);
-				if ($constantClassType->getClass() !== null) {
-					$constantClass = $constantClassType->getClass();
-				}
-			}
-
-			if (isset($constantClass) && is_string($node->name)) {
-				$constantName = $node->name;
-				if (strtolower($constantName) === 'class') {
-					return new StringType();
-				}
-				if ($this->broker->hasClass($constantClass)) {
-					$constantClassReflection = $this->broker->getClass($constantClass);
-					if ($constantClassReflection->hasConstant($constantName)) {
-						$constant = $constantClassReflection->getConstant($constantName);
-						$typeFromValue = $this->getTypeFromValue($constant->getValue());
-						if ($typeFromValue !== null) {
-							return $typeFromValue;
-						}
-					}
-				}
-			}
-		}
-
-		if ($node instanceof Variable && is_string($node->name)) {
-			if (!$this->hasVariableType($node->name)) {
-				return new MixedType();
-			}
-
-			return $this->getVariableType($node->name);
-		}
-
-		$exprString = $this->printer->prettyPrintExpr($node);
-		if (isset($this->moreSpecificTypes[$exprString])) {
-			return $this->moreSpecificTypes[$exprString];
-		}
-
-		if ($node instanceof Expr\ArrayDimFetch && $node->dim !== null) {
-			$arrayType = $this->getType($node->var);
-			if ($arrayType instanceof ArrayType) {
-				return $arrayType->getItemType();
-			}
-		}
-
-		if ($node instanceof MethodCall && is_string($node->name)) {
-			$methodCalledOnType = $this->getType($node->var);
-			if (
-				$methodCalledOnType->getClass() !== null
-				&& $this->broker->hasClass($methodCalledOnType->getClass())
-			) {
-				$methodClassReflection = $this->broker->getClass(
-					$methodCalledOnType->getClass()
-				);
-				if (!$methodClassReflection->hasMethod($node->name)) {
-					return new MixedType();
-				}
-
-				$methodReflection = $methodClassReflection->getMethod($node->name, $this);
-				foreach ($this->broker->getDynamicMethodReturnTypeExtensionsForClass($methodClassReflection->getName()) as $dynamicMethodReturnTypeExtension) {
-					if (!$dynamicMethodReturnTypeExtension->isMethodSupported($methodReflection)) {
-						continue;
-					}
-
-					return $dynamicMethodReturnTypeExtension->getTypeFromMethodCall($methodReflection, $node, $this);
-				}
-
-				$calledOnThis = $node->var instanceof Variable && is_string($node->var->name) && $node->var->name === 'this';
-				$methodReturnType = $methodReflection->getReturnType();
-				if ($methodReturnType instanceof StaticResolvableType) {
-					if ($calledOnThis) {
-						if ($this->isInClass()) {
-							return $methodReturnType->changeBaseClass($this->getClassReflection()->getName());
-						}
-					} else {
-						return $methodReturnType->resolveStatic($methodClassReflection->getName());
-					}
-				}
-
-				return $methodReflection->getReturnType();
-			}
-		}
-
-		if ($node instanceof Expr\StaticCall && is_string($node->name)) {
-			if ($node->class instanceof Name) {
-				$calleeClass = $this->resolveName($node->class);
-			} else {
-				$calleeClass = $this->getType($node->class)->getClass();
-			}
-
-			if ($calleeClass !== null && $this->broker->hasClass($calleeClass)) {
-				$staticMethodClassReflection = $this->broker->getClass($calleeClass);
-				if (!$staticMethodClassReflection->hasMethod($node->name)) {
-					return new MixedType();
-				}
-				$staticMethodReflection = $staticMethodClassReflection->getMethod($node->name, $this);
-				foreach ($this->broker->getDynamicStaticMethodReturnTypeExtensionsForClass($staticMethodClassReflection->getName()) as $dynamicStaticMethodReturnTypeExtension) {
-					if (!$dynamicStaticMethodReturnTypeExtension->isStaticMethodSupported($staticMethodReflection)) {
-						continue;
-					}
-
-					return $dynamicStaticMethodReturnTypeExtension->getTypeFromStaticMethodCall($staticMethodReflection, $node, $this);
-				}
-				if ($staticMethodReflection->getReturnType() instanceof StaticResolvableType) {
-					if ($node->class instanceof Name) {
-						$nodeClassString = strtolower((string) $node->class);
-						if (in_array($nodeClassString, [
-							'self',
-							'static',
-							'parent',
-						], true) && $this->isInClass()) {
-							return $staticMethodReflection->getReturnType()->changeBaseClass($this->getClassReflection()->getName());
-						}
-					}
-
-					return $staticMethodReflection->getReturnType()->resolveStatic($staticMethodClassReflection->getName());
-				}
-				return $staticMethodReflection->getReturnType();
-			}
-		}
-
-		if ($node instanceof PropertyFetch && is_string($node->name)) {
-			$propertyFetchedOnType = $this->getType($node->var);
-			if (
-				$propertyFetchedOnType->getClass() !== null
-				&& $this->broker->hasClass($propertyFetchedOnType->getClass())
-			) {
-				$propertyClassReflection = $this->broker->getClass(
-					$propertyFetchedOnType->getClass()
-				);
-				if (!$propertyClassReflection->hasProperty($node->name)) {
-					return new MixedType();
-				}
-
-				return $propertyClassReflection->getProperty($node->name, $this)->getType();
-			}
-		}
-
-		if ($node instanceof Expr\StaticPropertyFetch && is_string($node->name) && $node->class instanceof Name) {
-			$staticPropertyHolderClass = $this->resolveName($node->class);
-			if ($this->broker->hasClass($staticPropertyHolderClass)) {
-				$staticPropertyClassReflection = $this->broker->getClass(
-					$staticPropertyHolderClass
-				);
-				if (!$staticPropertyClassReflection->hasProperty($node->name)) {
-					return new MixedType();
-				}
-
-				return $staticPropertyClassReflection->getProperty($node->name, $this)->getType();
-			}
-		}
-
-		if ($node instanceof FuncCall && $node->name instanceof Name) {
-			$arrayFunctionsThatDependOnClosureReturnType = [
-				'array_map' => 0,
-				'array_reduce' => 1,
-			];
-			$functionName = strtolower((string) $node->name);
-			if (
-				isset($arrayFunctionsThatDependOnClosureReturnType[$functionName])
-				&& isset($node->args[$arrayFunctionsThatDependOnClosureReturnType[$functionName]])
-				&& $node->args[$arrayFunctionsThatDependOnClosureReturnType[$functionName]]->value instanceof Expr\Closure
-			) {
-				$closure = $node->args[$arrayFunctionsThatDependOnClosureReturnType[$functionName]]->value;
-				$anonymousFunctionType = $this->getFunctionType($closure->returnType, $closure->returnType === null, false);
-				if ($functionName === 'array_reduce') {
-					return $anonymousFunctionType;
-				}
-
-				return new ArrayType(
-					$anonymousFunctionType,
-					true
-				);
-			}
-
-			$arrayFunctionsThatDependOnArgumentType = [
-				'array_filter' => 0,
-				'array_unique' => 0,
-				'array_reverse' => 0,
-			];
-			if (
-				isset($arrayFunctionsThatDependOnArgumentType[$functionName])
-				&& isset($node->args[$arrayFunctionsThatDependOnArgumentType[$functionName]])
-			) {
-				$argumentValue = $node->args[$arrayFunctionsThatDependOnArgumentType[$functionName]]->value;
-				return $this->getType($argumentValue);
-			}
-
-			$arrayFunctionsThatCreateArrayBasedOnArgumentType = [
-				'array_fill' => 2,
-				'array_fill_keys' => 1,
-			];
-			if (
-				isset($arrayFunctionsThatCreateArrayBasedOnArgumentType[$functionName])
-				&& isset($node->args[$arrayFunctionsThatCreateArrayBasedOnArgumentType[$functionName]])
-			) {
-				$argumentValue = $node->args[$arrayFunctionsThatCreateArrayBasedOnArgumentType[$functionName]]->value;
-
-				return new ArrayType($this->getType($argumentValue), true, true);
-			}
-
-			$functionsThatCombineAllArgumentTypes = [
-				'min' => '',
-				'max' => '',
-			];
-			if (
-				isset($functionsThatCombineAllArgumentTypes[$functionName])
-				&& isset($node->args[0])
-			) {
-				if ($node->args[0]->unpack) {
-					$argumentType = $this->getType($node->args[0]->value);
-					if ($argumentType instanceof ArrayType) {
-						return $argumentType->getItemType();
-					}
-				}
-
-				if (count($node->args) === 1) {
-					$argumentType = $this->getType($node->args[0]->value);
-					if ($argumentType instanceof ArrayType) {
-						return $argumentType->getItemType();
-					}
-				}
-
-				$argumentType = null;
-				foreach ($node->args as $arg) {
-					$argType = $this->getType($arg->value);
-					if ($argumentType === null) {
-						$argumentType = $argType;
-					} else {
-						$argumentType = $argumentType->combineWith($argType);
-					}
-				}
-
-				return $argumentType;
-			}
-
-			if (!$this->broker->hasFunction($node->name, $this)) {
-				return new MixedType();
-			}
-
-			return $this->broker->getFunction($node->name, $this)->getReturnType();
-		}
-
-		return new MixedType();
+//		if (
+//			$node instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd
+//			|| $node instanceof \PhpParser\Node\Expr\BinaryOp\BooleanOr
+//			|| $node instanceof \PhpParser\Node\Expr\BooleanNot
+//			|| $node instanceof \PhpParser\Node\Expr\BinaryOp\LogicalXor
+//			|| $node instanceof Expr\BinaryOp\Greater
+//			|| $node instanceof Expr\BinaryOp\GreaterOrEqual
+//			|| $node instanceof Expr\BinaryOp\Smaller
+//			|| $node instanceof Expr\BinaryOp\SmallerOrEqual
+//		) {
+//			return new TrueOrFalseBooleanType();
+//		}
+//
+//		if (
+//			$node instanceof Node\Expr\UnaryMinus
+//			|| $node instanceof Node\Expr\UnaryPlus
+//		) {
+//			return $this->getType($node->expr);
+//		}
+//
+//		if ($node instanceof Node\Expr\BinaryOp\Mod) {
+//			return new IntegerType();
+//		}
+//
+//		if ($node instanceof Expr\BinaryOp\Concat) {
+//			return new StringType();
+//		}
+//
+//		if ($node instanceof Expr\BinaryOp\Spaceship) {
+//			return new IntegerType();
+//		}
+//
+//		if ($node instanceof Expr\Ternary) {
+//			$elseType = $this->getType($node->else);
+//			if ($node->if === null) {
+//				return TypeCombinator::removeNull(
+//					$this->getType($node->cond)
+//				)->combineWith($elseType);
+//			}
+//
+//			$conditionScope = $this->filterByTruthyValue($node->cond);
+//			$ifType = $conditionScope->getType($node->if);
+//			$negatedConditionScope = $this->filterByFalseyValue($node->cond);
+//			$elseType = $negatedConditionScope->getType($node->else);
+//
+//			return $ifType->combineWith($elseType);
+//		}
+//
+//		if ($node instanceof Expr\BinaryOp\Coalesce) {
+//			return TypeCombinator::removeNull(
+//				$this->getType($node->left)
+//			)->combineWith($this->getType($node->right));
+//		}
+//
+//		if ($node instanceof Expr\Clone_) {
+//			return $this->getType($node->expr);
+//		}
+//
+//		if (
+//			$node instanceof Node\Expr\BinaryOp\Plus
+//			|| $node instanceof Node\Expr\BinaryOp\Minus
+//			|| $node instanceof Node\Expr\BinaryOp\Mul
+//			|| $node instanceof Node\Expr\BinaryOp\Pow
+//			|| $node instanceof Node\Expr\BinaryOp\Div
+//			|| $node instanceof Node\Expr\AssignOp
+//		) {
+//			if ($node instanceof Node\Expr\AssignOp) {
+//				$left = $node->var;
+//				$right = $node->expr;
+//			} elseif ($node instanceof Node\Expr\BinaryOp) {
+//				$left = $node->left;
+//				$right = $node->right;
+//			} else {
+//				throw new \PHPStan\ShouldNotHappenException();
+//			}
+//
+//			$leftType = $this->getType($left);
+//			$rightType = $this->getType($right);
+//
+//			if ($leftType instanceof BooleanType) {
+//				$leftType = new IntegerType();
+//			}
+//
+//			if ($rightType instanceof BooleanType) {
+//				$rightType = new IntegerType();
+//			}
+//
+//			if ($node instanceof Expr\AssignOp\Div || $node instanceof Expr\BinaryOp\Div) {
+//				if (!$leftType instanceof MixedType && !$rightType instanceof MixedType) {
+//					return new FloatType();
+//				}
+//			}
+//
+//			if (
+//				($leftType instanceof FloatType && !$rightType instanceof MixedType)
+//				|| ($rightType instanceof FloatType && !$leftType instanceof MixedType)
+//			) {
+//				return new FloatType();
+//			}
+//
+//			if ($leftType instanceof IntegerType && $rightType instanceof IntegerType) {
+//				return new IntegerType();
+//			}
+//		}
+//
+//		if ($node instanceof LNumber) {
+//			return new IntegerType();
+//		} elseif ($node instanceof ConstFetch) {
+//			$constName = strtolower((string) $node->name);
+//			if ($constName === 'true') {
+//				return new \PHPStan\Type\TrueBooleanType();
+//			} elseif ($constName === 'false') {
+//				return new \PHPStan\Type\FalseBooleanType();
+//			} elseif ($constName === 'null') {
+//				return new NullType();
+//			}
+//
+//			if ($this->broker->hasConstant($node->name, $this)) {
+//				$typeFromValue = $this->getTypeFromValue(
+//					constant($this->broker->resolveConstantName($node->name, $this))
+//				);
+//				if ($typeFromValue !== null) {
+//					return $typeFromValue;
+//				}
+//			}
+//		} elseif ($node instanceof String_) {
+//			return new StringType();
+//		} elseif ($node instanceof DNumber) {
+//			return new FloatType();
+//		} elseif ($node instanceof Expr\Closure) {
+//			return new ObjectType('Closure');
+//		} elseif ($node instanceof New_) {
+//			if ($node->class instanceof Name) {
+//				if (
+//					count($node->class->parts) === 1
+//				) {
+//					if ($node->class->parts[0] === 'static') {
+//						return new StaticType($this->getClassReflection()->getName());
+//					} elseif ($node->class->parts[0] === 'self') {
+//						return new ObjectType($this->getClassReflection()->getName());
+//					}
+//				}
+//
+//				return new ObjectType((string) $node->class);
+//			}
+//		} elseif ($node instanceof Array_) {
+//			$possiblyCallable = false;
+//			if (count($node->items) === 2) {
+//				$firstItem = $node->items[0]->value;
+//				if (
+//					(
+//						$this->getType($firstItem)->getClass() !== null
+//						|| $this->getType($firstItem) instanceof StringType
+//					)
+//					&& $this->getType($node->items[1]->value) instanceof StringType
+//				) {
+//					$possiblyCallable = true;
+//				}
+//			}
+//			return new ArrayType($this->getCombinedType(array_map(function (Expr\ArrayItem $item): Type {
+//				return $this->getType($item->value);
+//			}, $node->items)), true, $possiblyCallable);
+//		} elseif ($node instanceof Int_) {
+//				return new IntegerType();
+//		} elseif ($node instanceof Bool_) {
+//			return new TrueOrFalseBooleanType();
+//		} elseif ($node instanceof Double) {
+//			return new FloatType();
+//		} elseif ($node instanceof \PhpParser\Node\Expr\Cast\String_) {
+//			return new StringType();
+//		} elseif ($node instanceof \PhpParser\Node\Expr\Cast\Array_) {
+//			return new ArrayType(new MixedType());
+//		} elseif ($node instanceof Node\Scalar\MagicConst\Line) {
+//			return new IntegerType();
+//		} elseif ($node instanceof Node\Scalar\MagicConst) {
+//			return new StringType();
+//		} elseif ($node instanceof Object_) {
+//			return new ObjectType('stdClass');
+//		} elseif ($node instanceof Unset_) {
+//			return new NullType();
+//		} elseif ($node instanceof Node\Expr\ClassConstFetch) {
+//			if ($node->class instanceof Name) {
+//				$constantClass = (string) $node->class;
+//				if ($constantClass === 'self') {
+//					$constantClass = $this->getClassReflection()->getName();
+//				}
+//			} elseif ($node->class instanceof Expr) {
+//				$constantClassType = $this->getType($node->class);
+//				if ($constantClassType->getClass() !== null) {
+//					$constantClass = $constantClassType->getClass();
+//				}
+//			}
+//
+//			if (isset($constantClass) && is_string($node->name)) {
+//				$constantName = $node->name;
+//				if (strtolower($constantName) === 'class') {
+//					return new StringType();
+//				}
+//				if ($this->broker->hasClass($constantClass)) {
+//					$constantClassReflection = $this->broker->getClass($constantClass);
+//					if ($constantClassReflection->hasConstant($constantName)) {
+//						$constant = $constantClassReflection->getConstant($constantName);
+//						$typeFromValue = $this->getTypeFromValue($constant->getValue());
+//						if ($typeFromValue !== null) {
+//							return $typeFromValue;
+//						}
+//					}
+//				}
+//			}
+//		}
+//
+//		if ($node instanceof Variable && is_string($node->name)) {
+//			if (!$this->hasVariableType($node->name)) {
+//				return new MixedType();
+//			}
+//
+//			return $this->getVariableType($node->name);
+//		}
+//
+//		$exprString = $this->printer->prettyPrintExpr($node);
+//		if (isset($this->moreSpecificTypes[$exprString])) {
+//			return $this->moreSpecificTypes[$exprString];
+//		}
+//
+//		if ($node instanceof Expr\ArrayDimFetch && $node->dim !== null) {
+//			$arrayType = $this->getType($node->var);
+//			if ($arrayType instanceof ArrayType) {
+//				return $arrayType->getItemType();
+//			}
+//		}
+//
+//		if ($node instanceof MethodCall && is_string($node->name)) {
+//			$methodCalledOnType = $this->getType($node->var);
+//			if (
+//				$methodCalledOnType->getClass() !== null
+//				&& $this->broker->hasClass($methodCalledOnType->getClass())
+//			) {
+//				$methodClassReflection = $this->broker->getClass(
+//					$methodCalledOnType->getClass()
+//				);
+//				if (!$methodClassReflection->hasMethod($node->name)) {
+//					return new MixedType();
+//				}
+//
+//				$methodReflection = $methodClassReflection->getMethod($node->name, $this);
+//				foreach ($this->broker->getDynamicMethodReturnTypeExtensionsForClass($methodClassReflection->getName()) as $dynamicMethodReturnTypeExtension) {
+//					if (!$dynamicMethodReturnTypeExtension->isMethodSupported($methodReflection)) {
+//						continue;
+//					}
+//
+//					return $dynamicMethodReturnTypeExtension->getTypeFromMethodCall($methodReflection, $node, $this);
+//				}
+//
+//				$calledOnThis = $node->var instanceof Variable && is_string($node->var->name) && $node->var->name === 'this';
+//				$methodReturnType = $methodReflection->getReturnType();
+//				if ($methodReturnType instanceof StaticResolvableType) {
+//					if ($calledOnThis) {
+//						if ($this->isInClass()) {
+//							return $methodReturnType->changeBaseClass($this->getClassReflection()->getName());
+//						}
+//					} else {
+//						return $methodReturnType->resolveStatic($methodClassReflection->getName());
+//					}
+//				}
+//
+//				return $methodReflection->getReturnType();
+//			}
+//		}
+//
+//		if ($node instanceof Expr\StaticCall && is_string($node->name)) {
+//			if ($node->class instanceof Name) {
+//				$calleeClass = $this->resolveName($node->class);
+//			} else {
+//				$calleeClass = $this->getType($node->class)->getClass();
+//			}
+//
+//			if ($calleeClass !== null && $this->broker->hasClass($calleeClass)) {
+//				$staticMethodClassReflection = $this->broker->getClass($calleeClass);
+//				if (!$staticMethodClassReflection->hasMethod($node->name)) {
+//					return new MixedType();
+//				}
+//				$staticMethodReflection = $staticMethodClassReflection->getMethod($node->name, $this);
+//				foreach ($this->broker->getDynamicStaticMethodReturnTypeExtensionsForClass($staticMethodClassReflection->getName()) as $dynamicStaticMethodReturnTypeExtension) {
+//					if (!$dynamicStaticMethodReturnTypeExtension->isStaticMethodSupported($staticMethodReflection)) {
+//						continue;
+//					}
+//
+//					return $dynamicStaticMethodReturnTypeExtension->getTypeFromStaticMethodCall($staticMethodReflection, $node, $this);
+//				}
+//				if ($staticMethodReflection->getReturnType() instanceof StaticResolvableType) {
+//					if ($node->class instanceof Name) {
+//						$nodeClassString = strtolower((string) $node->class);
+//						if (in_array($nodeClassString, [
+//							'self',
+//							'static',
+//							'parent',
+//						], true) && $this->isInClass()) {
+//							return $staticMethodReflection->getReturnType()->changeBaseClass($this->getClassReflection()->getName());
+//						}
+//					}
+//
+//					return $staticMethodReflection->getReturnType()->resolveStatic($staticMethodClassReflection->getName());
+//				}
+//				return $staticMethodReflection->getReturnType();
+//			}
+//		}
+//
+//		if ($node instanceof PropertyFetch && is_string($node->name)) {
+//			$propertyFetchedOnType = $this->getType($node->var);
+//			if (
+//				$propertyFetchedOnType->getClass() !== null
+//				&& $this->broker->hasClass($propertyFetchedOnType->getClass())
+//			) {
+//				$propertyClassReflection = $this->broker->getClass(
+//					$propertyFetchedOnType->getClass()
+//				);
+//				if (!$propertyClassReflection->hasProperty($node->name)) {
+//					return new MixedType();
+//				}
+//
+//				return $propertyClassReflection->getProperty($node->name, $this)->getType();
+//			}
+//		}
+//
+//		if ($node instanceof Expr\StaticPropertyFetch && is_string($node->name) && $node->class instanceof Name) {
+//			$staticPropertyHolderClass = $this->resolveName($node->class);
+//			if ($this->broker->hasClass($staticPropertyHolderClass)) {
+//				$staticPropertyClassReflection = $this->broker->getClass(
+//					$staticPropertyHolderClass
+//				);
+//				if (!$staticPropertyClassReflection->hasProperty($node->name)) {
+//					return new MixedType();
+//				}
+//
+//				return $staticPropertyClassReflection->getProperty($node->name, $this)->getType();
+//			}
+//		}
+//
+//		if ($node instanceof FuncCall && $node->name instanceof Name) {
+//			$arrayFunctionsThatDependOnClosureReturnType = [
+//				'array_map' => 0,
+//				'array_reduce' => 1,
+//			];
+//			$functionName = strtolower((string) $node->name);
+//			if (
+//				isset($arrayFunctionsThatDependOnClosureReturnType[$functionName])
+//				&& isset($node->args[$arrayFunctionsThatDependOnClosureReturnType[$functionName]])
+//				&& $node->args[$arrayFunctionsThatDependOnClosureReturnType[$functionName]]->value instanceof Expr\Closure
+//			) {
+//				$closure = $node->args[$arrayFunctionsThatDependOnClosureReturnType[$functionName]]->value;
+//				$anonymousFunctionType = $this->getFunctionType($closure->returnType, $closure->returnType === null, false);
+//				if ($functionName === 'array_reduce') {
+//					return $anonymousFunctionType;
+//				}
+//
+//				return new ArrayType(
+//					$anonymousFunctionType,
+//					true
+//				);
+//			}
+//
+//			$arrayFunctionsThatDependOnArgumentType = [
+//				'array_filter' => 0,
+//				'array_unique' => 0,
+//				'array_reverse' => 0,
+//			];
+//			if (
+//				isset($arrayFunctionsThatDependOnArgumentType[$functionName])
+//				&& isset($node->args[$arrayFunctionsThatDependOnArgumentType[$functionName]])
+//			) {
+//				$argumentValue = $node->args[$arrayFunctionsThatDependOnArgumentType[$functionName]]->value;
+//				return $this->getType($argumentValue);
+//			}
+//
+//			$arrayFunctionsThatCreateArrayBasedOnArgumentType = [
+//				'array_fill' => 2,
+//				'array_fill_keys' => 1,
+//			];
+//			if (
+//				isset($arrayFunctionsThatCreateArrayBasedOnArgumentType[$functionName])
+//				&& isset($node->args[$arrayFunctionsThatCreateArrayBasedOnArgumentType[$functionName]])
+//			) {
+//				$argumentValue = $node->args[$arrayFunctionsThatCreateArrayBasedOnArgumentType[$functionName]]->value;
+//
+//				return new ArrayType($this->getType($argumentValue), true, true);
+//			}
+//
+//			$functionsThatCombineAllArgumentTypes = [
+//				'min' => '',
+//				'max' => '',
+//			];
+//			if (
+//				isset($functionsThatCombineAllArgumentTypes[$functionName])
+//				&& isset($node->args[0])
+//			) {
+//				if ($node->args[0]->unpack) {
+//					$argumentType = $this->getType($node->args[0]->value);
+//					if ($argumentType instanceof ArrayType) {
+//						return $argumentType->getItemType();
+//					}
+//				}
+//
+//				if (count($node->args) === 1) {
+//					$argumentType = $this->getType($node->args[0]->value);
+//					if ($argumentType instanceof ArrayType) {
+//						return $argumentType->getItemType();
+//					}
+//				}
+//
+//				$argumentType = null;
+//				foreach ($node->args as $arg) {
+//					$argType = $this->getType($arg->value);
+//					if ($argumentType === null) {
+//						$argumentType = $argType;
+//					} else {
+//						$argumentType = $argumentType->combineWith($argType);
+//					}
+//				}
+//
+//				return $argumentType;
+//			}
+//
+//			if (!$this->broker->hasFunction($node->name, $this)) {
+//				return new MixedType();
+//			}
+//
+//			return $this->broker->getFunction($node->name, $this)->getReturnType();
+//		}
+//
+//		return new MixedType();
 	}
 
 	public function resolveName(Name $name): string
