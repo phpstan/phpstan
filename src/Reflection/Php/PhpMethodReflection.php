@@ -12,6 +12,7 @@ use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
@@ -240,6 +241,18 @@ class PhpMethodReflection implements MethodReflection
 				$this->parameters[1] = new DummyParameter(
 					'in_locale',
 					new StringType(),
+					true
+				);
+			}
+
+			if (
+				$this->declaringClass->getName() === 'DOMDocument'
+				&& $this->reflection->getName() === 'saveHTML'
+				&& count($this->parameters) === 0
+			) {
+				$this->parameters[] = new DummyParameter(
+					'node',
+					TypeCombinator::addNull(new ObjectType('DOMNode')),
 					true
 				);
 			}

@@ -212,4 +212,9 @@ function () {
 	$dateTimeZone->getTransitions(1);
 	$dateTimeZone->getTransitions(1, 2);
 	$dateTimeZone->getTransitions(1, 2, 3);
+
+	$domDocument = new \DOMDocument('1.0');
+	$domDocument->saveHTML();
+	$domDocument->saveHTML(new \DOMNode());
+	$domDocument->saveHTML(null);
 };
