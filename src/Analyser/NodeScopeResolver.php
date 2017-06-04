@@ -645,9 +645,8 @@ class NodeScopeResolver
 					? $node->keyVar->name
 					: null
 			);
-		}
 
-		if ($node->keyVar !== null && $node->keyVar instanceof Variable && is_string($node->keyVar->name)) {
+		} elseif ($node->keyVar !== null && $node->keyVar instanceof Variable && is_string($node->keyVar->name)) {
 			$scope = $scope->assignVariable($node->keyVar->name);
 		}
 
@@ -956,7 +955,11 @@ class NodeScopeResolver
 
 						if ($resultType instanceof StaticResolvableType) {
 							$calledOnThis = $node->var instanceof Variable && is_string($node->var->name) && $node->var->name === 'this';
-							if (!$calledOnThis) {
+							if ($calledOnThis) {
+								if ($scope->isInClass()) {
+									$resultType = $resultType->changeBaseClass($scope->getClassReflection()->getName());
+								}
+							} else {
 								$resultType = $resultType->resolveStatic($className);
 							}
 						}
@@ -994,14 +997,14 @@ class NodeScopeResolver
 		} elseif (is_string($node->name)) {
 			$methodName = $node->name;
 
-			if ($className === 'Closure' && $methodName === 'bind' && count($node->args) > 2 && $node->args[0]->value instanceof Expr\Closure) {
+			/*if ($className === 'Closure' && $methodName === 'bind' && count($node->args) > 2 && $node->args[0]->value instanceof Expr\Closure) {
 				$argTypes = [];
 				for ($i = 1; $i < count($node->args); $i++) {
 					$scope = $this->processArgNode($node->args[$i], $scope, $nodeCallback, $argTypes[$i]);
 				}
 
 				if ($argTypes[1] instanceof NullType) {
-					
+
 				}
 
 				$closureThisType = $argTypes[1] instanceof NullType ? $argTypes[2] : $argTypes[1];
@@ -1010,7 +1013,7 @@ class NodeScopeResolver
 
 //				$scope->enterClosureBind()
 
-			} elseif ($className !== null && $this->broker->hasClass($className)) {
+			} else*/if ($className !== null && $this->broker->hasClass($className)) {
 				$scope = $this->processNodes($node->args, $scope, $nodeCallback);
 
 				if ($this->broker->getClass($className)) {
@@ -1027,9 +1030,11 @@ class NodeScopeResolver
 						}
 
 						if ($resultType instanceof StaticResolvableType) {
-							if ($node->class instanceof Name && $node->class->toString() === 'parent' && $scope->isInClass()) {
-								$resultType = $resultType->changeBaseClass($scope->getClassReflection()->getName());
-
+							if ($node->class instanceof Name) {
+								$nodeClassString = strtolower((string) $node->class);
+								if ($scope->isInClass() && in_array($nodeClassString, ['self', 'static', 'parent'], true)) {
+									$resultType = $resultType->changeBaseClass($scope->getClassReflection()->getName());
+								}
 							} else {
 								$resultType = $resultType->resolveStatic($className);
 							}
