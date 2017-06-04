@@ -46,6 +46,9 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 		foreach ($classReflection->getParents() as $parentClass) {
 			$methods += $this->createMethods($parentClass);
 		}
+		foreach ($classReflection->getInterfaces() as $interfaceClass) {
+			$methods += $this->createMethods($interfaceClass);
+		}
 
 		$fileName = $classReflection->getNativeReflection()->getFileName();
 		if ($fileName === false) {

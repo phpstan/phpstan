@@ -180,6 +180,11 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
 				'returnType' => 'float|string',
 				'isStatic' => true,
 			],
+			'methodFromInterface' => [
+				'class' => \AnnotationsMethods\FooInterface::class,
+				'returnType' => \AnnotationsMethods\FooInterface::class,
+				'isStatic' => false,
+			],
 		];
 		$barMethods = $fooMethods;
 		$bazMethods = array_merge(

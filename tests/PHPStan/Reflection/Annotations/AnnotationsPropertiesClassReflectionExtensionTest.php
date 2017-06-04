@@ -29,6 +29,10 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCas
 						'class' => \AnnotationsProperties\Foo::class,
 						'type' => 'OtherNamespace\Ipsum',
 					],
+					'interfaceProperty' => [
+						'class' => \AnnotationsProperties\FooInterface::class,
+						'type' => \AnnotationsProperties\FooInterface::class,
+					],
 				],
 			],
 			[

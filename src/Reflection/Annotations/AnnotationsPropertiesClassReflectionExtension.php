@@ -46,6 +46,10 @@ class AnnotationsPropertiesClassReflectionExtension implements PropertiesClassRe
 			$properties += $this->createProperties($parentClass);
 		}
 
+		foreach ($classReflection->getInterfaces() as $interfaceClass) {
+			$properties += $this->createProperties($interfaceClass);
+		}
+
 		$fileName = $classReflection->getNativeReflection()->getFileName();
 		if ($fileName === false) {
 			return $properties;

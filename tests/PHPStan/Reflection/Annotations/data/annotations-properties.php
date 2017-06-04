@@ -11,7 +11,7 @@ use OtherNamespace\Ipsum;
  * @property self|Bar $fooOrBar
  * @property Ipsum $conflictingProperty
  */
-class Foo
+class Foo implements FooInterface
 {
 
 }
@@ -31,6 +31,14 @@ class Baz extends Bar
 }
 
 class BazBaz extends Baz
+{
+
+}
+
+/**
+ * @property FooInterface $interfaceProperty
+ */
+interface FooInterface
 {
 
 }

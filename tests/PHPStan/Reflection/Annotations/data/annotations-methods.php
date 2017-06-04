@@ -48,7 +48,7 @@ use OtherNamespace\Test as OtherTest;
  * 1. methodWithNoReturnTypeWithDescriptionNoParams __Do__ something with a description but what, who knows!
  * 2. static methodWithNoReturnTypeStaticallyWithDescriptionNoParams __Do__ something with a description statically, but what, who knows!
  */
-class Foo
+class Foo implements FooInterface
 {
 
 }
@@ -92,6 +92,14 @@ class Baz extends Bar
  * @method static OtherTest getTestStaticallyWithDescriptionNoParams Get a test statically
  */
 class BazBaz extends Baz
+{
+
+}
+
+/**
+ * @method FooInterface methodFromInterface()
+ */
+interface FooInterface
 {
 
 }
