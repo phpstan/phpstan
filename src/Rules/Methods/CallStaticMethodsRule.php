@@ -23,10 +23,20 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 	 */
 	private $check;
 
-	public function __construct(Broker $broker, FunctionCallParametersCheck $check)
+	/**
+	 * @var bool
+	 */
+	private $checkThisOnly;
+
+	public function __construct(
+		Broker $broker,
+		FunctionCallParametersCheck $check,
+		bool $checkThisOnly
+	)
 	{
 		$this->broker = $broker;
 		$this->check = $check;
+		$this->checkThisOnly = $checkThisOnly;
 	}
 
 	public function getNodeType(): string
@@ -41,12 +51,22 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		if (!is_string($node->name) || !($node->class instanceof Name)) {
+		if (!is_string($node->name)) {
+			return [];
+		}
+
+		if ($node->class instanceof Name) {
+			$class = (string) $node->class;
+		} elseif (!$this->checkThisOnly) {
+			$class = $scope->getType($node->class)->getClass();
+			if ($class === null) {
+				return [];
+			}
+		} else {
 			return [];
 		}
 
 		$name = $node->name;
-		$class = (string) $node->class;
 		if ($class === 'self' || $class === 'static') {
 			if (!$scope->isInClass()) {
 				return [

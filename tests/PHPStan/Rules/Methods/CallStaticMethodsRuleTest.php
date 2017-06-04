@@ -8,17 +8,24 @@ use PHPStan\Rules\RuleLevelHelper;
 class CallStaticMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 {
 
+	/**
+	 * @var bool
+	 */
+	private $checkThisOnly;
+
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
 		$broker = $this->createBroker();
 		return new CallStaticMethodsRule(
 			$broker,
-			new FunctionCallParametersCheck($broker, new RuleLevelHelper(true), true)
+			new FunctionCallParametersCheck($broker, new RuleLevelHelper(true), true),
+			$this->checkThisOnly
 		);
 	}
 
 	public function testCallStaticMethods()
 	{
+		$this->checkThisOnly = false;
 		$this->analyse([__DIR__ . '/data/call-static-methods.php'], [
 			[
 				'Call to an undefined static method CallStaticMethods\Foo::bar().',
@@ -97,6 +104,7 @@ class CallStaticMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	public function testCallInterfaceMethods()
 	{
+		$this->checkThisOnly = false;
 		$this->analyse([__DIR__ . '/data/call-interface-methods.php'], [
 			[
 				'Call to an undefined static method InterfaceMethods\Baz::barStaticMethod().',
@@ -107,6 +115,7 @@ class CallStaticMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	public function testCallToIncorrectCaseMethodName()
 	{
+		$this->checkThisOnly = false;
 		$this->analyse([__DIR__ . '/data/incorrect-static-method-case.php'], [
 			[
 				'Call to static method IncorrectStaticMethodCase\Foo::fooBar() with incorrect case: foobar',
@@ -117,6 +126,7 @@ class CallStaticMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	public function testStaticCallsToInstanceMethods()
 	{
+		$this->checkThisOnly = false;
 		$this->analyse([__DIR__ . '/data/static-calls-to-instance-methods.php'], [
 			[
 				'Static call to instance method StaticCallsToInstanceMethods\Foo::doFoo().',
@@ -147,6 +157,23 @@ class CallStaticMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				48,
 			],
 		]);
+	}
+
+	public function testStaticCallOnExpression()
+	{
+		$this->checkThisOnly = false;
+		$this->analyse([__DIR__ . '/data/static-call-on-expression.php'], [
+			[
+				'Call to an undefined static method StaticCallOnExpression\Foo::doBar().',
+				16,
+			],
+		]);
+	}
+
+	public function testStaticCallOnExpressionWithCheckDisabled()
+	{
+		$this->checkThisOnly = true;
+		$this->analyse([__DIR__ . '/data/static-call-on-expression.php'], []);
 	}
 
 }
