@@ -170,7 +170,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			$output->writeln(sprintf('* create your own <info>custom ruleset</info> by selecting which rules you want to check by copying the service definitions from the built-in config level files in <options=bold>%s</>.', $fileHelper->normalizePath(__DIR__ . '/../../conf')));
 			$output->writeln('  * in this case, don\'t forget to define parameter <options=bold>customRulesetUsed</> in your config file.');
 			$output->writeln('');
-			return $this->handleReturn(1, $memoryLimitFile);
+			return 1;
 		} elseif ($container->parameters['customRulesetUsed']) {
 			$defaultLevelUsed = false;
 		}
