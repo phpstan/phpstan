@@ -176,4 +176,15 @@ class CallStaticMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$this->analyse([__DIR__ . '/data/static-call-on-expression.php'], []);
 	}
 
+	public function testReturnStatic()
+	{
+		$this->checkThisOnly = false;
+		$this->analyse([__DIR__ . '/data/return-static-static-method.php'], [
+			[
+				'Call to an undefined static method ReturnStaticStaticMethod\Bar::doBaz().',
+				24,
+			],
+		]);
+	}
+
 }

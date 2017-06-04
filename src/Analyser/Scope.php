@@ -582,10 +582,14 @@ class Scope
 			}
 		}
 
-		if ($node instanceof Expr\StaticCall && is_string($node->name) && $node->class instanceof Name) {
-			$calleeClass = $this->resolveName($node->class);
+		if ($node instanceof Expr\StaticCall && is_string($node->name)) {
+			if ($node->class instanceof Name) {
+				$calleeClass = $this->resolveName($node->class);
+			} else {
+				$calleeClass = $this->getType($node->class)->getClass();
+			}
 
-			if ($this->broker->hasClass($calleeClass)) {
+			if ($calleeClass !== null && $this->broker->hasClass($calleeClass)) {
 				$staticMethodClassReflection = $this->broker->getClass($calleeClass);
 				if (!$staticMethodClassReflection->hasMethod($node->name)) {
 					return new MixedType();
@@ -599,9 +603,11 @@ class Scope
 					return $dynamicStaticMethodReturnTypeExtension->getTypeFromStaticMethodCall($staticMethodReflection, $node, $this);
 				}
 				if ($staticMethodReflection->getReturnType() instanceof StaticResolvableType) {
-					$nodeClassString = (string) $node->class;
-					if ($nodeClassString === 'parent' && $this->isInClass()) {
-						return $staticMethodReflection->getReturnType()->changeBaseClass($this->getClassReflection()->getName());
+					if ($node->class instanceof Name) {
+						$nodeClassString = strtolower((string) $node->class);
+						if ($nodeClassString === 'parent' && $this->isInClass()) {
+							return $staticMethodReflection->getReturnType()->changeBaseClass($this->getClassReflection()->getName());
+						}
 					}
 
 					return $staticMethodReflection->getReturnType()->resolveStatic($calleeClass);
@@ -738,7 +744,10 @@ class Scope
 	public function resolveName(Name $name): string
 	{
 		$originalClass = (string) $name;
-		if ($originalClass === 'self' || $originalClass === 'static') {
+		if (in_array(strtolower($originalClass), [
+			'self',
+			'static',
+		], true)) {
 			return $this->getClassReflection()->getName();
 		} elseif ($originalClass === 'parent' && $this->isInClass()) {
 			$currentClassReflection = $this->getClassReflection();
