@@ -196,6 +196,25 @@ class TypeCombinator
 		throw new \PHPStan\ShouldNotHappenException();
 	}
 
+	public static function union(array $types): Type
+	{
+		if (count($types) === 0) {
+			return new MixedType();
+		}
+
+		$itemType = null;
+		foreach ($types as $type) {
+			if ($itemType === null) {
+				$itemType = $type;
+
+			} else {
+				$itemType = $itemType->combineWith($type);
+			}
+		}
+
+		return $itemType;
+	}
+
 	public static function shouldSkipUnionTypeAccepts(UnionType $unionType): bool
 	{
 		$typesLimit = self::containsNull($unionType) ? 2 : 1;

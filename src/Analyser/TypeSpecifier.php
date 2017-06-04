@@ -59,7 +59,7 @@ class TypeSpecifier
 				$type = new ObjectType($class);
 			}
 
-			return $this->apply($types, $expr->expr, $negated, $source, $type);
+			return $this->addSureType($types, $negated, $source, $expr->expr, $type);
 		} elseif ($expr instanceof Node\Expr\BinaryOp\Identical) {
 			$expressions = $this->findTypeExpressionsFromBinaryOperation($expr);
 			if ($expressions === null) {
@@ -73,7 +73,7 @@ class TypeSpecifier
 				return $types;
 			}
 			$sureType = $scope->getType($expressions[1]);
-			return $this->apply($types, $expressions[0], $negated, $source, $sureType);
+			return $this->addSureType($types, $negated, $source, $expressions[0], $sureType);
 		} elseif ($expr instanceof Node\Expr\BinaryOp\NotIdentical) {
 			return $this->specifyTypesInCondition(
 				$types,
@@ -87,6 +87,31 @@ class TypeSpecifier
 				$negated,
 				$source
 			);
+		} elseif ($expr instanceof Node\Expr\BinaryOp\Equal) {
+			$expressions = $this->findTypeExpressionsFromBinaryOperation($expr);
+			if ($expressions !== null) {
+				if (strtolower((string) $expressions[1]->name) === 'true') {
+					$types = $this->specifyTypesInCondition($types, $scope, $expressions[0], $negated, $source);
+				} elseif (strtolower((string) $expressions[1]->name) === 'false') {
+					$types = $this->specifyTypesInCondition($types, $scope, new Node\Expr\BooleanNot($expressions[0]), $negated, $source);
+				}
+			} elseif ($expr->left instanceof FuncCall && $expr->right instanceof Node\Expr\ClassConstFetch) {
+				if ((string) $expr->left->name === 'get_class' && $expr->right->name === 'class' && $expr->right->class instanceof Name) {
+					$argExpr = $expr->left->args[0]->value;
+					$argType = new ObjectType($scope->resolveName($expr->right->class));
+					return $this->addSureType($types, $negated, $source, $argExpr, $argType);
+				}
+			}
+		} elseif ($expr instanceof Node\Expr\Isset_) {
+			if (!$negated) {
+				foreach ($expr->vars as $var) {
+					$types = $this->addSureType($types, $negated, $source, $var, new MixedType());
+				}
+			}
+		} elseif ($expr instanceof Node\Expr\Empty_) {
+			if ($negated) {
+				$types = $this->addSureType($types, $negated, $source, $expr->expr, new MixedType());
+			}
 		} elseif (
 			$expr instanceof FuncCall
 			&& $expr->name instanceof Name
@@ -124,7 +149,7 @@ class TypeSpecifier
 			}
 
 			if ($specifiedType !== null) {
-				return $this->apply($types, $argumentExpression, $negated, $source, $specifiedType);
+				return $this->addSureType($types, $negated, $source, $argumentExpression, $specifiedType);
 			}
 		} elseif ($expr instanceof BooleanAnd) {
 			if ($source !== self::SOURCE_FROM_OR) {
@@ -187,7 +212,7 @@ class TypeSpecifier
 		return null;
 	}
 
-	private function apply(SpecifiedTypes $types, Node\Expr $expr, bool $negated, int $source, Type $type): SpecifiedTypes
+	private function addSureType(SpecifiedTypes $types, bool $negated, int $source, Node\Expr $expr, Type $type): SpecifiedTypes
 	{
 		$printedExpr = $this->printer->prettyPrintExpr($expr);
 
