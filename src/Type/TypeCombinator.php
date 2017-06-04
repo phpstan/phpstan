@@ -42,13 +42,13 @@ class TypeCombinator
 		}
 		$typeToRemoveDescription = $typeToRemove->describe();
 		if ($fromType->describe() === $typeToRemoveDescription) {
-			return new MixedType();
+			return new ErrorType();
 		}
 		if (
 			$fromType instanceof BooleanType
 			&& $typeToRemove instanceof TrueOrFalseBooleanType
 		) {
-			return new MixedType();
+			return new ErrorType();
 		}
 		if (
 			$fromType instanceof MixedType

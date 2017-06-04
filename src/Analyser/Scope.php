@@ -32,6 +32,7 @@ use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
+use PHPStan\Type\ErrorType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\IterableIterableType;
@@ -533,7 +534,7 @@ class Scope
 
 		if ($node instanceof Variable && is_string($node->name)) {
 			if (!$this->hasVariableType($node->name)) {
-				return new MixedType();
+				return new ErrorType();
 			}
 
 			return $this->getVariableType($node->name);
@@ -561,7 +562,7 @@ class Scope
 					$methodCalledOnType->getClass()
 				);
 				if (!$methodClassReflection->hasMethod($node->name)) {
-					return new MixedType();
+					return new ErrorType();
 				}
 
 				$methodReflection = $methodClassReflection->getMethod($node->name, $this);
@@ -599,7 +600,7 @@ class Scope
 			if ($calleeClass !== null && $this->broker->hasClass($calleeClass)) {
 				$staticMethodClassReflection = $this->broker->getClass($calleeClass);
 				if (!$staticMethodClassReflection->hasMethod($node->name)) {
-					return new MixedType();
+					return new ErrorType();
 				}
 				$staticMethodReflection = $staticMethodClassReflection->getMethod($node->name, $this);
 				foreach ($this->broker->getDynamicStaticMethodReturnTypeExtensionsForClass($staticMethodClassReflection->getName()) as $dynamicStaticMethodReturnTypeExtension) {
@@ -637,7 +638,7 @@ class Scope
 					$propertyFetchedOnType->getClass()
 				);
 				if (!$propertyClassReflection->hasProperty($node->name)) {
-					return new MixedType();
+					return new ErrorType();
 				}
 
 				return $propertyClassReflection->getProperty($node->name, $this)->getType();
@@ -651,7 +652,7 @@ class Scope
 					$staticPropertyHolderClass
 				);
 				if (!$staticPropertyClassReflection->hasProperty($node->name)) {
-					return new MixedType();
+					return new ErrorType();
 				}
 
 				return $staticPropertyClassReflection->getProperty($node->name, $this)->getType();
@@ -743,7 +744,7 @@ class Scope
 			}
 
 			if (!$this->broker->hasFunction($node->name, $this)) {
-				return new MixedType();
+				return new ErrorType();
 			}
 
 			return $this->broker->getFunction($node->name, $this)->getReturnType();
