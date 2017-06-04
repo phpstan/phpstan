@@ -98,4 +98,8 @@ function () {
 	Foo::bar();
 	Foo::loremIpsum();
 	Foo::dolor();
+
+	\Locale::getDisplayLanguage('cs_CZ'); // OK
+	\Locale::getDisplayLanguage('cs_CZ', 'en'); // OK
+	\Locale::getDisplayLanguage('cs_CZ', 'en', 'foo'); // should report 3 parameters given, 1-2 required
 };

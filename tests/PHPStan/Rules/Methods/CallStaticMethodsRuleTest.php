@@ -88,6 +88,10 @@ class CallStaticMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Call to private static method dolor() of class CallStaticMethods\Foo.',
 				100,
 			],
+			[
+				'Static method Locale::getDisplayLanguage() invoked with 3 parameters, 1-2 required.',
+				104,
+			],
 		]);
 	}
 

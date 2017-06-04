@@ -24,3 +24,7 @@ session_start([
 	'cookie_secure' => '',
 	'cookie_domain' => '',
 ]);
+
+locale_get_display_language('cs_CZ'); // OK
+locale_get_display_language('cs_CZ', 'en'); // OK
+locale_get_display_language('cs_CZ', 'en', 'foo'); // should report 3 parameters given, 1-2 required

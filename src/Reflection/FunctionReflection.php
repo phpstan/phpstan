@@ -138,6 +138,14 @@ class FunctionReflection implements ParametersAcceptor
 					true
 				);
 			}
+
+			if ($this->reflection->getName() === 'locale_get_display_language') {
+				$this->parameters[1] = new DummyParameter(
+					'in_locale',
+					new StringType(),
+					true
+				);
+			}
 		}
 
 		return $this->parameters;

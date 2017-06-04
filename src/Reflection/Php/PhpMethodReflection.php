@@ -232,6 +232,17 @@ class PhpMethodReflection implements MethodReflection
 					true
 				);
 			}
+
+			if (
+				$this->declaringClass->getName() === 'Locale'
+				&& $this->reflection->getName() === 'getDisplayLanguage'
+			) {
+				$this->parameters[1] = new DummyParameter(
+					'in_locale',
+					new StringType(),
+					true
+				);
+			}
 		}
 
 		return $this->parameters;

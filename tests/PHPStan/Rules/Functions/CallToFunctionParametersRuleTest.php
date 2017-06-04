@@ -124,6 +124,10 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Function imagepng invoked with 5 parameters, 1-4 required.',
 				19,
 			],
+			[
+				'Function locale_get_display_language invoked with 3 parameters, 1-2 required.',
+				30,
+			],
 		]);
 	}
 
