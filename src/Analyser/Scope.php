@@ -574,8 +574,15 @@ class Scope
 				}
 
 				$calledOnThis = $node->var instanceof Variable && is_string($node->var->name) && $node->var->name === 'this';
-				if (!$calledOnThis && $methodReflection->getReturnType() instanceof StaticResolvableType) {
-					return $methodReflection->getReturnType()->resolveStatic($methodClassReflection->getName());
+				$methodReturnType = $methodReflection->getReturnType();
+				if ($methodReturnType instanceof StaticResolvableType) {
+					if ($calledOnThis) {
+						if ($this->isInClass()) {
+							return $methodReturnType->changeBaseClass($this->getClassReflection()->getName());
+						}
+					} else {
+						return $methodReturnType->resolveStatic($methodClassReflection->getName());
+					}
 				}
 
 				return $methodReflection->getReturnType();
@@ -605,7 +612,11 @@ class Scope
 				if ($staticMethodReflection->getReturnType() instanceof StaticResolvableType) {
 					if ($node->class instanceof Name) {
 						$nodeClassString = strtolower((string) $node->class);
-						if ($nodeClassString === 'parent' && $this->isInClass()) {
+						if (in_array($nodeClassString, [
+							'self',
+							'static',
+							'parent',
+						], true) && $this->isInClass()) {
 							return $staticMethodReflection->getReturnType()->changeBaseClass($this->getClassReflection()->getName());
 						}
 					}

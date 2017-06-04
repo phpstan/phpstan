@@ -222,4 +222,9 @@ class ReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		]);
 	}
 
+	public function testReturnStaticFromParent()
+	{
+		$this->analyse([__DIR__ . '/data/return-static-from-parent.php'], []);
+	}
+
 }
