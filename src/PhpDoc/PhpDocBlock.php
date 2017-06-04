@@ -98,19 +98,19 @@ class PhpDocBlock
 				if ($phpDocBlockFromClass !== null) {
 					return $phpDocBlockFromClass;
 				}
-			} else {
-				foreach ($classReflection->getInterfaces() as $interface) {
-					$phpDocBlockFromClass = self::resolvePhpDocBlockFromClass(
-						$broker,
-						$interface->getNativeReflection(),
-						$name,
-						$hasMethodName,
-						$getMethodName,
-						$resolveMethodName
-					);
-					if ($phpDocBlockFromClass !== null) {
-						return $phpDocBlockFromClass;
-					}
+			}
+
+			foreach ($classReflection->getInterfaces() as $interface) {
+				$phpDocBlockFromClass = self::resolvePhpDocBlockFromClass(
+					$broker,
+					$interface->getNativeReflection(),
+					$name,
+					$hasMethodName,
+					$getMethodName,
+					$resolveMethodName
+				);
+				if ($phpDocBlockFromClass !== null) {
+					return $phpDocBlockFromClass;
 				}
 			}
 		}

@@ -2754,6 +2754,33 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+	public function dataInheritDocFromInterface(): array
+	{
+		return [
+			[
+				'string',
+				'$string',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataInheritDocFromInterface
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testInheritDocFromInterface(
+		string $description,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/inheritdoc-from-interface.php',
+			$description,
+			$expression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $description,
