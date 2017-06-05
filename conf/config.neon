@@ -165,3 +165,6 @@ services:
 
 	errorFormatter.checkstyle:
 		class: PHPStan\Command\ErrorFormatter\CheckstyleErrorFormatter
+
+	errorFormatter.summary:
+		class: PHPStan\Command\ErrorFormatter\SummaryErrorFormatter
