@@ -179,6 +179,17 @@ parameters:
 		- %rootDir%/../../../tests/*/data/*
 ```
 
+### Tolerate errors
+
+If your codebase is not yet fully ready for phpstan but you would like to have it already you can allow "error tolerance".
+This way phpstan will exit with code 0 if number errors does not exceed tolerance number. Example:
+
+```bash
+phpstan analyse --error-tolerance=5 src
+```
+
+This is useful to include in CI on early stages of phpstan adoption and incrementally fix errors and reduce error tolerance.
+
 ### Include custom extensions
 
 If your codebase contains php files with extensions other than the standard .php extension then you can add them
@@ -282,7 +293,7 @@ parameters:
 			- sendResponse
 ```
 
-### Ignore error messages with regular expresions
+### Ignore error messages with regular expressions
 
 If some issue in your code base is not easy to fix or just simply want to deal with it later,
 you can exclude error messages from the analysis result with regular expressions:
@@ -339,11 +350,13 @@ interface ErrorFormatter
 	 *
 	 * @param \PHPStan\Command\AnalysisResult $analysisResult
 	 * @param \Symfony\Component\Console\Style\OutputStyle $style
+	 * @param int $errorsThreshold of errors which can be considered as ok
 	 * @return int Error code.
 	 */
 	public function formatErrors(
 		AnalysisResult $analysisResult,
-		\Symfony\Component\Console\Style\OutputStyle $style
+		\Symfony\Component\Console\Style\OutputStyle $style,
+		int $errorsThreshold = 0
 	): int;
 
 }
@@ -397,7 +410,7 @@ interface PropertyReflection
 {
 
 	public function getType(): Type;
-	
+
 	public function getDeclaringClass(): ClassReflection;
 
 	public function isStatic(): bool;
@@ -453,7 +466,7 @@ interface MethodReflection
 	public function isPrivate(): bool;
 
 	public function isPublic(): bool;
-	
+
 	public function getName(): string;
 
 	/**
@@ -568,14 +581,14 @@ This project adheres to a [Contributor Code of Conduct](https://github.com/phpst
 
 ## Contributing
 
-Any contributions are welcome. 
+Any contributions are welcome.
 
 ### Building
 
 You can either run the whole build including linting and coding standards using
 
 `vendor/bin/phing`
- 
+
 or run only tests using
 
 `vendor/bin/phing tests`

@@ -12,11 +12,13 @@ interface ErrorFormatter
 	 *
 	 * @param \PHPStan\Command\AnalysisResult $analysisResult
 	 * @param \Symfony\Component\Console\Style\OutputStyle $style
+	 * @param int $errorsThreshold of errors which can be considered as ok
 	 * @return int Error code.
 	 */
 	public function formatErrors(
 		AnalysisResult $analysisResult,
-		\Symfony\Component\Console\Style\OutputStyle $style
+		\Symfony\Component\Console\Style\OutputStyle $style,
+		int $errorsThreshold = 0
 	): int;
 
 }
