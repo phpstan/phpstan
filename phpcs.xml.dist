@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<ruleset name="PHPStan">
+    <rule ref="build/ruleset.xml"/>
+</ruleset>
