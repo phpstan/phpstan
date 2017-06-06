@@ -53,18 +53,18 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 			],
 			[
 				new UnionIterableType(new StringType(), [
-					new ObjectType('Doctrine\Common\Collections\Collection'),
+					new ObjectType('ArrayObject'),
 				]),
 				UnionIterableType::class,
-				'string[]|Doctrine\Common\Collections\Collection|null',
+				'string[]|ArrayObject|null',
 			],
 			[
 				new UnionIterableType(new StringType(), [
-					new ObjectType('Doctrine\Common\Collections\Collection'),
+					new ObjectType('ArrayObject'),
 					new NullType(),
 				]),
 				UnionIterableType::class,
-				'string[]|Doctrine\Common\Collections\Collection|null',
+				'string[]|ArrayObject|null',
 			],
 		];
 	}
@@ -145,18 +145,18 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 			],
 			[
 				new UnionIterableType(new StringType(), [
-					new ObjectType('Doctrine\Common\Collections\Collection'),
+					new ObjectType('ArrayObject'),
 					new NullType(),
 				]),
 				UnionIterableType::class,
-				'string[]|Doctrine\Common\Collections\Collection',
+				'string[]|ArrayObject',
 			],
 			[
 				new UnionIterableType(new StringType(), [
-					new ObjectType('Doctrine\Common\Collections\Collection'),
+					new ObjectType('ArrayObject'),
 				]),
 				UnionIterableType::class,
-				'string[]|Doctrine\Common\Collections\Collection',
+				'string[]|ArrayObject',
 			],
 			[
 				new CommonUnionType([
@@ -261,23 +261,23 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 				new UnionIterableType(
 					new IntegerType(),
 					[
-						new ObjectType('Doctrine\Common\Collections\Collection'),
+						new ObjectType('ArrayObject'),
 					]
 				),
 				new StringType(),
 				UnionIterableType::class,
-				'int[]|Doctrine\Common\Collections\Collection|string',
+				'int[]|ArrayObject|string',
 			],
 			[
 				new UnionIterableType(
 					new IntegerType(),
 					[
-						new ObjectType('Doctrine\Common\Collections\Collection'),
+						new ObjectType('ArrayObject'),
 					]
 				),
 				new ArrayType(new StringType()),
 				CommonUnionType::class,
-				'Doctrine\Common\Collections\Collection|int[]|string[]',
+				'ArrayObject|int[]|string[]',
 			],
 			[
 				new CommonUnionType([
@@ -379,11 +379,11 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 				new CommonUnionType([
 					new ArrayType(new StringType()),
 					new ArrayType(new IntegerType()),
-					new ObjectType('Doctrine\Common\Collections\Collection'),
+					new ObjectType('ArrayObject'),
 				]),
 				new ArrayType(new IntegerType()),
 				UnionIterableType::class,
-				'string[]|Doctrine\Common\Collections\Collection',
+				'string[]|ArrayObject',
 			],
 			[
 				new TrueBooleanType(),
