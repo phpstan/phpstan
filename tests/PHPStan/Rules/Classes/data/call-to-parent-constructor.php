@@ -161,3 +161,13 @@ class ClassThatExtendsAbstractClassWithAbstractConstructor extends AbstractClass
 	}
 
 }
+
+class BarCallToMutedParentConstructor extends FooCallToParentConstructor
+{
+
+	public function __construct()
+	{
+		@parent::__construct();
+	}
+
+}

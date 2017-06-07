@@ -76,6 +76,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 		}
 
 		foreach ($parserNode->stmts as $statement) {
+			$statement = $this->ignoreErrorSuppression($statement);
 			if ($statement instanceof \PhpParser\Node\Expr\StaticCall) {
 				if (
 					$statement->class instanceof Name
@@ -121,6 +122,16 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 		}
 
 		return false;
+	}
+
+	private function ignoreErrorSuppression(Node $statement): Node
+	{
+		if ($statement instanceof Node\Expr\ErrorSuppress) {
+
+			return $statement->expr;
+		}
+
+		return $statement;
 	}
 
 }
