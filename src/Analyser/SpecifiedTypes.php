@@ -100,15 +100,6 @@ class SpecifiedTypes
 			}
 		}
 
-		foreach ($this->sureNotTypes as $sureNotTypeString => list($exprNode, $type)) {
-			if (isset($b->sureNotTypes[$sureNotTypeString])) {
-				$sureNotTypeUnion[$sureNotTypeString] = [
-					$exprNode,
-					$type->combineWith($b->sureNotTypes[$sureNotTypeString][1]),
-				];
-			}
-		}
-
 		return new self($sureTypeUnion, $sureNotTypeUnion);
 	}
 

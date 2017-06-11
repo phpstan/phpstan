@@ -165,6 +165,61 @@ class TypeSpecifierTest extends \PHPStan\TestCase
 				[],
 				['$foo' => '~int', '$bar' => '~string'],
 			],
+			[
+				new Expr\BinaryOp\BooleanAnd(
+					new Expr\BinaryOp\BooleanOr(
+						$this->createFunctionCall('is_int', 'foo'),
+						$this->createFunctionCall('is_string', 'foo')
+					),
+					$this->createFunctionCall('random')
+				),
+				['$foo' => 'int|string'],
+				[],
+			],
+			[
+				new Expr\BinaryOp\BooleanOr(
+					new Expr\BinaryOp\BooleanAnd(
+						$this->createFunctionCall('is_int', 'foo'),
+						$this->createFunctionCall('is_string', 'foo')
+					),
+					$this->createFunctionCall('random')
+				),
+				[],
+				[],
+			],
+			[
+				new Expr\BinaryOp\BooleanOr(
+					new Expr\BinaryOp\BooleanAnd(
+						$this->createFunctionCall('is_int', 'foo'),
+						$this->createFunctionCall('is_string', 'bar')
+					),
+					$this->createFunctionCall('random')
+				),
+				[],
+				[],
+			],
+			[
+				new Expr\BinaryOp\BooleanOr(
+					new Expr\BinaryOp\BooleanAnd(
+						new Expr\BooleanNot($this->createFunctionCall('is_int', 'foo')),
+						new Expr\BooleanNot($this->createFunctionCall('is_string', 'foo'))
+					),
+					$this->createFunctionCall('random')
+				),
+				[],
+				['$foo' => 'int|string'],
+			],
+			[
+				new Expr\BinaryOp\BooleanAnd(
+					new Expr\BinaryOp\BooleanOr(
+						new Expr\BooleanNot($this->createFunctionCall('is_int', 'foo')),
+						new Expr\BooleanNot($this->createFunctionCall('is_string', 'foo'))
+					),
+					$this->createFunctionCall('random')
+				),
+				[],
+				[],
+			],
 		];
 	}
 

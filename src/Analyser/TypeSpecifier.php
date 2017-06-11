@@ -127,21 +127,22 @@ class TypeSpecifier
 				return $this->apply($types, $argumentExpression, $negated, $source, $specifiedType);
 			}
 		} elseif ($expr instanceof BooleanAnd) {
-			if ($source !== self::SOURCE_FROM_OR) {
+			if ($negated) {
+				$leftTypes = $this->specifyTypesInCondition($types, $scope, $expr->left, $negated, $source);
+				$rightTypes = $this->specifyTypesInCondition($types, $scope, $expr->right, $negated, $source);
+				$types = $leftTypes->unionWith($rightTypes);
+			} else {
 				$types = $this->specifyTypesInCondition($types, $scope, $expr->left, $negated, self::SOURCE_FROM_AND);
 				$types = $this->specifyTypesInCondition($types, $scope, $expr->right, $negated, self::SOURCE_FROM_AND);
 			}
-
 		} elseif ($expr instanceof BooleanOr) {
-			if ($source !== self::SOURCE_FROM_AND) {
-				if ($negated) {
-					$types = $this->specifyTypesInCondition($types, $scope, $expr->left, $negated, self::SOURCE_FROM_OR);
-					$types = $this->specifyTypesInCondition($types, $scope, $expr->right, $negated, self::SOURCE_FROM_OR);
-				} else {
-					$leftTypes = $this->specifyTypesInCondition($types, $scope, $expr->left, $negated, $source);
-					$rightTypes = $this->specifyTypesInCondition($types, $scope, $expr->right, $negated, $source);
-					$types = $leftTypes->unionWith($rightTypes);
-				}
+			if ($negated) {
+				$types = $this->specifyTypesInCondition($types, $scope, $expr->left, $negated, self::SOURCE_FROM_OR);
+				$types = $this->specifyTypesInCondition($types, $scope, $expr->right, $negated, self::SOURCE_FROM_OR);
+			} else {
+				$leftTypes = $this->specifyTypesInCondition($types, $scope, $expr->left, $negated, $source);
+				$rightTypes = $this->specifyTypesInCondition($types, $scope, $expr->right, $negated, $source);
+				$types = $leftTypes->unionWith($rightTypes);
 			}
 
 		} elseif ($expr instanceof Node\Expr\BooleanNot) {
