@@ -3,3 +3,4 @@
 /conf/config.local.yml
 /vendor
 /.idea
+/tests/tmp
