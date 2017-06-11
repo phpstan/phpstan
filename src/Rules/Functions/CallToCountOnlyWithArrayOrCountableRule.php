@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\CommonUnionType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 
@@ -48,10 +49,12 @@ class CallToCountOnlyWithArrayOrCountableRule implements \PHPStan\Rules\Rule
 		}
 
 		$argumentType = $scope->getType($node->args[0]->value);
-		if (
-			!$this->ruleLevelHelper->accepts(new ArrayType(new MixedType()), $argumentType)
-			&& !$this->ruleLevelHelper->accepts(new ObjectType(\Countable::class), $argumentType)
-		) {
+		$requiredType = new CommonUnionType([
+			new ArrayType(new MixedType()),
+			new ObjectType(\Countable::class),
+		]);
+
+		if (!$this->ruleLevelHelper->accepts($requiredType, $argumentType)) {
 			return [
 				sprintf(
 					'Call to function count() with argument type %s will always result in number 1.',
