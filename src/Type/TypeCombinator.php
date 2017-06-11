@@ -59,7 +59,7 @@ class TypeCombinator
 
 		$types = [];
 		$iterableTypes = [];
-		if ($fromType->isIterable() === Type::RESULT_YES && !$fromType instanceof ObjectType && !$fromType instanceof StaticType) {
+		if ($fromType->isIterable() === TrinaryLogic::YES && !$fromType instanceof ObjectType && !$fromType instanceof StaticType) {
 			$iterableTypes[] = $fromType;
 		}
 		foreach ($fromType->getTypes() as $innerType) {
@@ -73,7 +73,7 @@ class TypeCombinator
 				continue;
 			}
 
-			if ($innerType->isIterable() === Type::RESULT_YES && !$innerType instanceof ObjectType && !$innerType instanceof StaticType) {
+			if ($innerType->isIterable() === TrinaryLogic::YES && !$innerType instanceof ObjectType && !$innerType instanceof StaticType) {
 				$iterableTypes[] = $innerType;
 			} else {
 				$types[] = $innerType;
@@ -127,14 +127,14 @@ class TypeCombinator
 			if ($type instanceof UnionType) {
 				$alreadyAdded = true;
 				foreach ($type->getTypes() as $innerType) {
-					if ($innerType->isIterable() === Type::RESULT_YES && !$innerType instanceof ObjectType && !$innerType instanceof StaticType) {
+					if ($innerType->isIterable() === TrinaryLogic::YES && !$innerType instanceof ObjectType && !$innerType instanceof StaticType) {
 						$iterableTypes[$innerType->describe()] = $innerType;
 					} else {
 						$types[$innerType->describe()] = $innerType;
 					}
 				}
 			}
-			if ($type->isIterable() === Type::RESULT_YES && !$type instanceof ObjectType && !$type instanceof StaticType) {
+			if ($type->isIterable() === TrinaryLogic::YES && !$type instanceof ObjectType && !$type instanceof StaticType) {
 				$alreadyAdded = true;
 				$iterableTypes[$type->getIterableValueType()->describe()] = new ArrayType($type->getIterableValueType());
 			}
