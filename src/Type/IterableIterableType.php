@@ -43,11 +43,6 @@ class IterableIterableType implements StaticResolvableType
 			return $this->getIterableValueType()->accepts($type->getIterableValueType());
 		}
 
-		if ($type->getClass() !== null && $this->exists($type->getClass())) {
-			$classReflection = new \ReflectionClass($type->getClass());
-			return $classReflection->implementsInterface(\Traversable::class);
-		}
-
 		return false;
 	}
 
