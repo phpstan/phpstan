@@ -245,8 +245,8 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$this->checkNullables = true;
 		$this->analyse([__DIR__ . '/data/call-trait-methods.php'], [
 			[
-				'Call to an undefined method Baz::unexistentMethod().',
-				24,
+				'Call to an undefined method CallTraitMethods\Baz::unexistentMethod().',
+				26,
 			],
 		]);
 	}

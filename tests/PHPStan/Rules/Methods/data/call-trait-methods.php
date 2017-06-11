@@ -1,5 +1,7 @@
 <?php
 
+namespace CallTraitMethods;
+
 trait Foo {
 
 	public function fooMethod()
