@@ -104,12 +104,12 @@ class UnionTypeHelper
 	 */
 	public static function getReferencedClasses(array $types): array
 	{
-		$classes = [];
+		$subTypeClasses = [];
 		foreach ($types as $type) {
-			$classes = array_merge($classes, $type->getReferencedClasses());
+			$subTypeClasses[] = $type->getReferencedClasses();
 		}
 
-		return $classes;
+		return array_merge(...$subTypeClasses);
 	}
 
 	/**
