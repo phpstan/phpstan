@@ -8,21 +8,30 @@ your experience and know-how with other backers.
 Check out all the tiers - higher ones include additional goodies like placing
 the logo of your company in PHPStan's README.
 
-# $30+
-
-* Tomáš Votruba
-
 # $5+
 
-* Adam Žurek
-* Haralan Dobrev
+* Sebastian Bergmann
+* Vašek Brychta
 * Jobs Dev
-* Pavel Vondrášek
-* Tomas Pesek
-* Oldrich Salek
+* Haralan Dobrev
 * Jan Kuchař
+* Adam Lundrigan
+* Tommy Muehle
+* Tomas Pesek
+* Oleg Samorai
+* Lukas Unger
+* Pavel Vondrášek
+* Tomáš Votruba
+* Holger Woltersdorf
+* Masaru Yamagishi
+* Adam Žurek
 
 # $1+
 
+* augmenter
 * Bronek Bialek
-* Christian Burgas
+* Jon C.
+* Rudolph Gottesheim
+* Ian Den Hartog
+* korchasa
+* Oldrich Salek
