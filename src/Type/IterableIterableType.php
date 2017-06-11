@@ -24,7 +24,7 @@ class IterableIterableType implements StaticResolvableType
 
 	public function combineWith(Type $otherType): Type
 	{
-		if ($otherType->isIterable() === self::RESULT_YES) {
+		if ($otherType->isIterable() === TrinaryLogic::YES) {
 			return new self(
 				$this->getIterableValueType()->combineWith($otherType->getIterableValueType())
 			);
@@ -35,7 +35,7 @@ class IterableIterableType implements StaticResolvableType
 
 	public function accepts(Type $type): bool
 	{
-		if ($type->isIterable() === self::RESULT_YES) {
+		if ($type->isIterable() === TrinaryLogic::YES) {
 			return $this->getIterableValueType()->accepts($type->getIterableValueType());
 		}
 
@@ -89,7 +89,7 @@ class IterableIterableType implements StaticResolvableType
 
 	public function isIterable(): int
 	{
-		return self::RESULT_YES;
+		return TrinaryLogic::YES;
 	}
 
 	public function getIterableKeyType(): Type

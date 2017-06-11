@@ -111,11 +111,11 @@ class ObjectType implements Type
 
 		if ($broker->hasClass($this->class)) {
 			if ($broker->getClass($this->class)->isSubclassOf(\Traversable::class)) {
-				return self::RESULT_YES;
+				return TrinaryLogic::YES;
 			}
 		}
 
-		return self::RESULT_NO;
+		return TrinaryLogic::NO;
 	}
 
 	public function getIterableKeyType(): Type

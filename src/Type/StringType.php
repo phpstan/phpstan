@@ -24,7 +24,7 @@ class StringType implements Type
 
 	public function isIterable(): int
 	{
-		return self::RESULT_NO;
+		return TrinaryLogic::NO;
 	}
 
 	public function getIterableKeyType(): Type

@@ -80,11 +80,11 @@ class StaticType implements StaticResolvableType
 
 		if ($broker->hasClass($this->baseClass)) {
 			if ($broker->getClass($this->baseClass)->isSubclassOf(\Traversable::class)) {
-				return self::RESULT_YES;
+				return TrinaryLogic::YES;
 			}
 		}
 
-		return self::RESULT_NO;
+		return TrinaryLogic::NO;
 	}
 
 	public function getIterableKeyType(): Type

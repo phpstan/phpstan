@@ -54,7 +54,7 @@ class ArrayType implements StaticResolvableType
 
 	public function combineWith(Type $otherType): Type
 	{
-		if ($otherType->isIterable() === self::RESULT_YES) {
+		if ($otherType->isIterable() === TrinaryLogic::YES) {
 			$isItemInferredFromLiteralArray = $this->isItemTypeInferredFromLiteralArray();
 			$isPossiblyCallable = $this->isPossiblyCallable();
 			if ($otherType instanceof self) {
@@ -127,7 +127,7 @@ class ArrayType implements StaticResolvableType
 
 	public function isIterable(): int
 	{
-		return self::RESULT_YES;
+		return TrinaryLogic::YES;
 	}
 
 	public function getIterableKeyType(): Type

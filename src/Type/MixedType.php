@@ -53,7 +53,7 @@ class MixedType implements Type
 
 	public function isIterable(): int
 	{
-		return self::RESULT_MAYBE;
+		return TrinaryLogic::MAYBE;
 	}
 
 	public function getIterableKeyType(): Type

@@ -85,7 +85,7 @@ class UnionIterableType implements UnionType
 			return false;
 		}
 
-		if ($type->isIterable() === self::RESULT_YES) {
+		if ($type->isIterable() === TrinaryLogic::YES) {
 			return $this->getItemType()->accepts($type->getIterableValueType());
 		}
 
@@ -150,7 +150,7 @@ class UnionIterableType implements UnionType
 
 	public function isIterable(): int
 	{
-		return self::RESULT_YES;
+		return TrinaryLogic::YES;
 	}
 
 	public function getIterableKeyType(): Type
