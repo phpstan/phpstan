@@ -105,10 +105,12 @@ class ObjectType implements Type
 	{
 		$broker = Broker::getInstance();
 
-		if ($broker->hasClass($this->class)) {
-			if ($broker->getClass($this->class)->isSubclassOf(\Traversable::class)) {
-				return TrinaryLogic::YES;
-			}
+		if (!$broker->hasClass($this->class)) {
+			return TrinaryLogic::MAYBE;
+		}
+
+		if ($broker->getClass($this->class)->isSubclassOf(\Traversable::class) || $this->class === \Traversable::class) {
+			return TrinaryLogic::YES;
 		}
 
 		return TrinaryLogic::NO;
