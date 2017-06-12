@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/6.2/phpunit.xsd"
-         bootstrap="bootstrap.php"
-         colors="true"
-         failOnRisky="true"
-         failOnWarning="true"
-         beStrictAboutChangesToGlobalState="true"
-         beStrictAboutCoversAnnotation="true"
-         beStrictAboutOutputDuringTests="true"
-         beStrictAboutTodoAnnotatedTests="true"
-         verbose="true">
-    <testsuite>
-        <directory suffix="Test.php">.</directory>
-    </testsuite>
+	xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/6.2/phpunit.xsd"
+	bootstrap="bootstrap.php"
+	colors="true"
+	failOnRisky="true"
+	failOnWarning="true"
+	beStrictAboutChangesToGlobalState="true"
+	beStrictAboutCoversAnnotation="true"
+	beStrictAboutOutputDuringTests="true"
+	beStrictAboutTodoAnnotatedTests="true"
+	verbose="true">
+	<testsuite>
+		<directory suffix="Test.php">.</directory>
+	</testsuite>
 
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">../src</directory>
-        </whitelist>
-    </filter>
+	<filter>
+		<whitelist processUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">../src</directory>
+		</whitelist>
+	</filter>
 
-    <logging>
-        <log type="coverage-text" target="php://stdout" showUncoveredFiles="true" showOnlySummary="true"/>
-        <log type="coverage-clover" target="tmp/clover.xml"/>
-    </logging>
+	<logging>
+		<log type="coverage-text" target="php://stdout" showUncoveredFiles="true" showOnlySummary="true"/>
+		<log type="coverage-clover" target="tmp/clover.xml"/>
+	</logging>
 </phpunit>
 
