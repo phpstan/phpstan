@@ -133,7 +133,9 @@ class ObjectType implements Type
 		}
 
 		if ($classReflection->isSubclassOf(\IteratorAggregate::class) && $classReflection->hasMethod('getIterator')) {
-			return $classReflection->getMethod('getIterator')->getReturnType()->getIterableKeyType();
+			return RecursionGuard::run($this, function () use ($classReflection) {
+				return $classReflection->getMethod('getIterator')->getReturnType()->getIterableKeyType();
+			});
 		}
 
 		if ($classReflection->isSubclassOf(\Traversable::class)) {
@@ -158,7 +160,9 @@ class ObjectType implements Type
 		}
 
 		if ($classReflection->isSubclassOf(\IteratorAggregate::class) && $classReflection->hasMethod('getIterator')) {
-			return $classReflection->getMethod('getIterator')->getReturnType()->getIterableValueType();
+			return RecursionGuard::run($this, function () use ($classReflection) {
+				return $classReflection->getMethod('getIterator')->getReturnType()->getIterableValueType();
+			});
 		}
 
 		if ($classReflection->isSubclassOf(\Traversable::class)) {
