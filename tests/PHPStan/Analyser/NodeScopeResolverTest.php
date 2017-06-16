@@ -2004,6 +2004,18 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$valueFromAggregate',
 				"'insideSecondForeach';",
 			],
+			[
+				__DIR__ . '/data/foreach/object-type.php',
+				'mixed', // *ERROR*
+				'$keyFromRecursiveAggregate',
+				"'insideThirdForeach';",
+			],
+			[
+				__DIR__ . '/data/foreach/object-type.php',
+				'mixed', // *ERROR*
+				'$valueFromRecursiveAggregate',
+				"'insideThirdForeach';",
+			],
 		];
 	}
 

@@ -28,7 +28,14 @@ interface MyIteratorAggregate extends \IteratorAggregate
 
 }
 
-function test(MyIterator $iterator, MyIteratorAggregate $iteratorAggregate)
+interface MyIteratorAggregateRecursive extends \IteratorAggregate
+{
+
+	public function getIterator(): MyIteratorAggregateRecursive;
+
+}
+
+function test(MyIterator $iterator, MyIteratorAggregate $iteratorAggregate, MyIteratorAggregateRecursive $iteratorAggregateRecursive)
 {
 	foreach ($iterator as $keyFromIterator => $valueFromIterator) {
 		'insideFirstForeach';
@@ -36,5 +43,9 @@ function test(MyIterator $iterator, MyIteratorAggregate $iteratorAggregate)
 
 	foreach ($iteratorAggregate as $keyFromAggregate => $valueFromAggregate) {
 		'insideSecondForeach';
+	}
+
+	foreach ($iteratorAggregateRecursive as $keyFromRecursiveAggregate => $valueFromRecursiveAggregate) {
+		'insideThirdForeach';
 	}
 }
