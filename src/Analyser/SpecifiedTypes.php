@@ -2,9 +2,6 @@
 
 namespace PHPStan\Analyser;
 
-use PhpParser\Node;
-use PHPStan\Type\Type;
-
 class SpecifiedTypes
 {
 
@@ -18,10 +15,11 @@ class SpecifiedTypes
 	 */
 	private $sureNotTypes;
 
-	public function __construct(
-		array $sureTypes = [],
-		array $sureNotTypes = []
-	)
+	/**
+	 * @param mixed[] $sureTypes
+	 * @param mixed[] $sureNotTypes
+	 */
+	public function __construct(array $sureTypes = [], array $sureNotTypes = [])
 	{
 		$this->sureTypes = $sureTypes;
 		$this->sureNotTypes = $sureNotTypes;
@@ -43,59 +41,34 @@ class SpecifiedTypes
 		return $this->sureNotTypes;
 	}
 
-	public function addSureType(Node $expr, string $exprString, Type $type): self
-	{
-		$types = $this->sureTypes;
-		if (isset($types[$exprString])) {
-			unset($types[$exprString]); // because we don't have intersection types
-			return new self($types, $this->sureNotTypes);
-		}
-
-		$types[$exprString] = [
-			$expr,
-			$type,
-		];
-
-		return new self(
-			$types,
-			$this->sureNotTypes
-		);
-	}
-
-	public function addSureNotType(Node $expr, string $exprString, Type $type): self
-	{
-		$types = $this->sureNotTypes;
-		if (isset($types[$exprString])) {
-			$type = $types[$exprString][1]->combineWith($type);
-		}
-
-		$types[$exprString] = [
-			$expr,
-			$type,
-		];
-
-		return new self(
-			$this->sureTypes,
-			$types
-		);
-	}
-
-	public function hasVariableSureType(string $variableName): bool
-	{
-		$exprString = sprintf('$%s', $variableName);
-		return isset($this->sureNotTypes[$exprString]);
-	}
-
-	public function unionWith(SpecifiedTypes $b): self
+	public function intersectWith(SpecifiedTypes $other): self
 	{
 		$sureTypeUnion = [];
 		$sureNotTypeUnion = [];
 
-		foreach ($this->sureTypes as $sureTypeString => list($exprNode, $type)) {
-			if (isset($b->sureTypes[$sureTypeString])) {
-				$sureTypeUnion[$sureTypeString] = [
+		foreach ($this->sureTypes as $exprString => list($exprNode, $type)) {
+			if (isset($other->sureTypes[$exprString])) {
+				$sureTypeUnion[$exprString] = [
 					$exprNode,
-					$type->combineWith($b->sureTypes[$sureTypeString][1]),
+					$type->combineWith($other->sureTypes[$exprString][1]),
+				];
+			}
+		}
+
+		return new self($sureTypeUnion, $sureNotTypeUnion);
+	}
+
+
+	public function unionWith(SpecifiedTypes $other): self
+	{
+		$sureTypeUnion = $this->sureTypes + $other->sureTypes;
+		$sureNotTypeUnion = $this->sureNotTypes + $other->sureNotTypes;
+
+		foreach ($this->sureNotTypes as $exprString => list($exprNode, $type)) {
+			if (isset($other->sureNotTypes[$exprString])) {
+				$sureNotTypeUnion[$exprString] = [
+					$exprNode,
+					$type->combineWith($other->sureNotTypes[$exprString][1]),
 				];
 			}
 		}
