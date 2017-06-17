@@ -827,6 +827,12 @@ class Scope
 		return isset($this->moreSpecificTypes[$exprString]);
 	}
 
+	public function getSpecifiedType(Expr $node): Type
+	{
+		$exprString = $this->printer->prettyPrintExpr($node);
+		return $this->moreSpecificTypes[$exprString];
+	}
+
 	public function enterClass(ClassReflection $classReflection): self
 	{
 		return new self(
@@ -1698,7 +1704,15 @@ class Scope
 	{
 		if ($otherScope !== null) {
 			$mergedScope = $this->intersectVariables($otherScope, true);
-			$mergedScope = $mergedScope->removeDifferenceInSpecificTypes($this, $otherScope);
+
+			$mergedScope->moreSpecificTypes = [];
+			$specifiedTypesIntersection = array_intersect_key($this->moreSpecificTypes, $otherScope->moreSpecificTypes);
+
+			foreach ($specifiedTypesIntersection as $exprString => $type) {
+				if ($this->moreSpecificTypes[$exprString]->describe() === $otherScope->moreSpecificTypes[$exprString]->describe()) {
+					$mergedScope->moreSpecificTypes[$exprString] = $this->moreSpecificTypes[$exprString];
+				}
+			}
 
 			return $mergedScope;
 

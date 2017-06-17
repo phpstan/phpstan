@@ -38,6 +38,7 @@ use PhpParser\Node\Expr\Ternary;
 use PhpParser\Node\Expr\UnaryMinus;
 use PhpParser\Node\Expr\UnaryPlus;
 use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Expr\Yield_;
 use PhpParser\Node\Name;
 use PhpParser\Node\Param;
 use PhpParser\Node\Scalar;
@@ -321,6 +322,11 @@ class NodeScopeResolver
 	{
 		$nodeCallback($node, $scope);
 
+		if ($scope->isSpecified($node)) {
+			$resultType = $scope->getSpecifiedType($node);
+			return $scope;
+		}
+
 		if ($node instanceof BinaryOp) {
 			return $this->processBinaryOpNode($node, $scope, $nodeCallback, $resultType);
 
@@ -390,6 +396,9 @@ class NodeScopeResolver
 		} elseif ($node instanceof Exit_) {
 			return $this->processExitNode($node, $scope, $nodeCallback, $resultType);
 
+		} elseif ($node instanceof Yield_) {
+			return $this->processYieldNode($node, $scope, $nodeCallback, $resultType);
+
 		} elseif ($node instanceof BooleanNot) {
 			return $this->processBooleanNotNode($node, $scope, $nodeCallback, $resultType);
 
@@ -456,11 +465,25 @@ class NodeScopeResolver
 
 	private function processClassNode(Class_ $node, Scope $scope, callable $nodeCallback): Scope
 	{
-		assert(isset($node->namespacedName));
-		$classReflection = $this->broker->getClass((string) $node->namespacedName);
+		if (isset($node->namespacedName)) {
+			$classReflection = $this->broker->getClass((string) $node->namespacedName);
+			$classScope = $scope->enterClass($classReflection);
+			$this->processNodes($node->stmts, $classScope, $nodeCallback);
 
-		$classScope = $scope->enterClass($classReflection);
-		$this->processNodes($node->stmts, $classScope, $nodeCallback);
+		} elseif ($node->name === null) {
+			$code = $this->printer->prettyPrint([$node]);
+			$classReflection = new \ReflectionClass(eval(sprintf('return new %s;', $code)));
+			$classReflection = $this->broker->getClassFromReflection(
+				$classReflection,
+				sprintf('class@anonymous%s:%s', $scope->getFile(), $node->getLine())
+			);
+
+			$classScope = $scope->enterAnonymousClass($classReflection);
+			$this->processNodes($node->stmts, $classScope, $nodeCallback);
+
+		} else {
+			throw new \Exception();
+		}
 
 		return $scope;
 	}
@@ -1093,7 +1116,12 @@ class NodeScopeResolver
 			$className = $classType->getClass();
 
 		} elseif ($node->class instanceof Name) {
-			$className = $scope->resolveName($node->class);
+			if ($scope->isInClass()) {
+				$className = $scope->resolveName($node->class);
+
+			} else {
+				$className = (string) $node->class;
+			}
 
 		} else {
 			throw new \Exception();
@@ -1203,6 +1231,17 @@ class NodeScopeResolver
 
 			$scope = $scope->specifyExpressionType($node->var, $assignedType);
 
+		} elseif ($node->var instanceof StaticPropertyFetch) {
+			if ($node->var->class instanceof Expr) {
+				$scope = $this->processExprNode($node->var->class, $scope, $nodeCallback, $classType);
+			}
+
+			if ($node->var->name instanceof Expr) {
+				$scope = $this->processExprNode($node->var->name, $scope, $nodeCallback, $nameType);
+			}
+
+			$scope = $scope->specifyExpressionType($node->var, $assignedType);
+
 		} else {
 			throw new \Exception(sprintf('Unsupported Assign node %s', get_class($node->var)));
 		}
@@ -1285,6 +1324,21 @@ class NodeScopeResolver
 
 		// TODO: $resultType = new NeverType();
 		$resultType = new VoidType();
+
+		return $scope;
+	}
+
+	private function processYieldNode(Yield_ $node, Scope $scope, callable $nodeCallback, Type &$resultType = NULL): Scope
+	{
+		if ($node->key) {
+			$scope = $this->processExprNode($node->key, $scope, $nodeCallback, $keyType);
+		}
+
+		if ($node->value) {
+			$scope = $this->processExprNode($node->value, $scope, $nodeCallback, $keyType);
+		}
+
+		$resultType = new MixedType();
 
 		return $scope;
 	}
@@ -1709,6 +1763,17 @@ class NodeScopeResolver
 		} elseif ($node instanceof Scalar\String_) {
 			$resultType = new StringType();
 
+		} elseif ($node instanceof Scalar\Encapsed) {
+			foreach ($node->parts as $partExpr) {
+				if (!$partExpr instanceof Scalar\EncapsedStringPart) { // Call to undefined method PhpParser\PrettyPrinter\Standard::pScalar_EncapsedStringPart()
+					$scope = $this->processExprNode($partExpr, $scope, $nodeCallback, $partExprType);
+				}
+			}
+			$resultType = new StringType();
+
+		} elseif ($node instanceof Scalar\EncapsedStringPart) {
+			$resultType = new StringType();
+
 		} elseif ($node instanceof Scalar\MagicConst\Line) {
 			$resultType = new IntegerType();
 
@@ -1774,6 +1839,7 @@ class NodeScopeResolver
 			$resultType = new MixedType();
 
 		} elseif ($node->class instanceof Class_) {
+			$this->processNode($node->class, $scope, $nodeCallback);
 			$resultType = new MixedType();
 
 		} else {
