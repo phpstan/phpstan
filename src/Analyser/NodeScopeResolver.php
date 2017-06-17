@@ -31,6 +31,7 @@ use PhpParser\Node\Expr\PostDec;
 use PhpParser\Node\Expr\PostInc;
 use PhpParser\Node\Expr\PreDec;
 use PhpParser\Node\Expr\PreInc;
+use PhpParser\Node\Expr\Print_;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\StaticPropertyFetch;
@@ -399,6 +400,9 @@ class NodeScopeResolver
 		} elseif ($node instanceof Yield_) {
 			return $this->processYieldNode($node, $scope, $nodeCallback, $resultType);
 
+		} elseif ($node instanceof Print_) {
+			return $this->processPrintNode($node, $scope, $nodeCallback, $resultType);
+
 		} elseif ($node instanceof BooleanNot) {
 			return $this->processBooleanNotNode($node, $scope, $nodeCallback, $resultType);
 
@@ -549,7 +553,7 @@ class NodeScopeResolver
 			$finalScope = $earlyTerminated ? $finalScope : $branchScope->mergeWith($finalScope);
 		}
 
-		return $finalScope;
+		return $finalScope ?? $scope; // TODO: how to handle empty finalScope? Should propagate earlyTermination up?
 	}
 
 	private function processSwitchNode(Switch_ $node, Scope $scope, callable $nodeCallback): Scope
@@ -914,26 +918,23 @@ class NodeScopeResolver
 				}
 
 			} elseif ($this->broker->hasFunction($node->name, $scope)) {
-				$scope = $this->processNodes($node->args, $scope, $nodeCallback);
 				$functionReflection = $this->broker->getFunction($node->name, $scope);
-				$resultType = $functionReflection->getReturnType();
+				$parameterReflections = $functionReflection->getParameters();
 
-				foreach ($functionReflection->getParameters() as $i => $parameterReflection) {
-					if (!isset($node->args[$i])) {
-						break;
-
-					} elseif (!$parameterReflection->isPassedByReference()) {
-						continue;
-
-					} elseif (!$node->args[$i]->value instanceof Variable || !is_string($node->args[$i]->value->name)) {
-						continue;
+				foreach ($node->args as $i => $arg) {
+					if (isset($parameterReflections[$i])
+						&& $parameterReflections[$i]->isPassedByReference()
+						&& $arg->value instanceof Variable
+						&& is_string($arg->value->name)
+						&& !$scope->hasVariableType($arg->value->name)
+					) {
+						$scope = $scope->assignVariable($arg->value->name, new NullType());
 					}
 
-					$varName = $node->args[$i]->value->name;
-					if (!$scope->hasVariableType($varName)) {
-						$scope = $scope->assignVariable($varName, new NullType());
-					}
+					$scope = $this->processExprNode($arg->value, $scope, $nodeCallback, $argumentType);
 				}
+
+				$resultType = $functionReflection->getReturnType();
 
 			} else {
 				$scope = $this->processNodes($node->args, $scope, $nodeCallback);
@@ -959,7 +960,6 @@ class NodeScopeResolver
 
 		} elseif (is_string($node->name)) {
 			$methodName = $node->name;
-			$scope = $this->processNodes($node->args, $scope, $nodeCallback);
 
 			if ($varType->getClass() !== null) {
 				$className = $varType->getClass();
@@ -967,6 +967,21 @@ class NodeScopeResolver
 					$classReflection = $this->broker->getClass($className);
 					if ($classReflection->hasMethod($methodName)) {
 						$methodReflection = $classReflection->getMethod($methodName, $scope);
+						$parameterReflections = $methodReflection->getParameters();
+
+						foreach ($node->args as $i => $arg) {
+							if (isset($parameterReflections[$i])
+								&& $parameterReflections[$i]->isPassedByReference()
+								&& $arg->value instanceof Variable
+								&& is_string($arg->value->name)
+								&& !$scope->hasVariableType($arg->value->name)
+							) {
+								$scope = $scope->assignVariable($arg->value->name, new NullType());
+							}
+
+							$scope = $this->processExprNode($arg->value, $scope, $nodeCallback, $argumentType);
+						}
+
 						$resultType = $methodReflection->getReturnType();
 
 						foreach ($this->broker->getDynamicMethodReturnTypeExtensionsForClass($className) as $dynamicMethodReturnTypeExtension) {
@@ -988,6 +1003,10 @@ class NodeScopeResolver
 						}
 					}
 				}
+			}
+
+			if (!isset($parameterReflections)) {
+				$scope = $this->processNodes($node->args, $scope, $nodeCallback);
 			}
 
 		} else {
@@ -1186,6 +1205,7 @@ class NodeScopeResolver
 
 		if ($node->var instanceof Variable) {
 			if (is_string($node->var->name)) {
+				// $scope = $scope->enterVariableAssign($node->var->name);
 				$scope = $scope->assignVariable($node->var->name, $assignedType);
 			}
 
@@ -1339,6 +1359,14 @@ class NodeScopeResolver
 		}
 
 		$resultType = new MixedType();
+
+		return $scope;
+	}
+
+	private function processPrintNode(Print_ $node, Scope $scope, callable $nodeCallback, Type &$resultType = NULL): Scope
+	{
+		$scope = $this->processExprNode($node->expr, $scope, $nodeCallback, $exprType);
+		$resultType = new IntegerType();
 
 		return $scope;
 	}
