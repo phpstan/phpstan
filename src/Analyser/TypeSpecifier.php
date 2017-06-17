@@ -117,21 +117,17 @@ class TypeSpecifier
 			return $negated ? $leftTypes->unionWith($rightTypes) : $leftTypes->intersectWith($rightTypes);
 		} elseif ($expr instanceof Node\Expr\BooleanNot) {
 			return $this->specifyTypesInCondition($scope, $expr->expr, !$negated);
-		} elseif ($expr instanceof Node\Expr\Variable && is_string($expr->name)) {
-			if ($negated) {
-				if ($scope->hasVariableType($expr->name)) {
-					$className = $scope->getVariableType($expr->name)->getClass();
-					if ($className !== null) {
-						return $this->create($expr, new ObjectType($className), true);
-					}
-				}
-			} else {
-				return $this->create(
-					$expr,
-					new CommonUnionType([new NullType(), new FalseBooleanType()]),
-					true
-				);
+		} elseif ($negated) {
+			$className = $scope->getType($expr)->getClass();
+			if ($className !== null) {
+				return $this->create($expr, new ObjectType($className), true);
 			}
+		} else {
+			return $this->create(
+				$expr,
+				new CommonUnionType([new NullType(), new FalseBooleanType()]),
+				true
+			);
 		}
 
 		return new SpecifiedTypes();
@@ -154,13 +150,26 @@ class TypeSpecifier
 
 	private function create(Expr $expr, Type $type, bool $negated): SpecifiedTypes
 	{
-		$printedExpr = $this->printer->prettyPrintExpr($expr);
+		$sureTypes = [];
+		$sureNotTypes = [];
 
-		if ($negated) {
-			return new SpecifiedTypes([], [$printedExpr => [$expr, $type]]);
-		} else {
-			return new SpecifiedTypes([$printedExpr => [$expr, $type]], []);
+		if ($expr instanceof Node\Expr\Variable
+			|| $expr instanceof Node\Expr\FuncCall
+			|| $expr instanceof Node\Expr\MethodCall
+			|| $expr instanceof Node\Expr\StaticCall
+			|| $expr instanceof Node\Expr\PropertyFetch
+			|| $expr instanceof Node\Expr\StaticPropertyFetch
+			|| $expr instanceof Node\Expr\ArrayDimFetch
+		) {
+			$exprString = $this->printer->prettyPrintExpr($expr);
+			if ($negated) {
+				$sureNotTypes[$exprString] = [$expr, $type];
+			} else {
+				$sureTypes[$exprString] = [$expr, $type];
+			}
 		}
+
+		return new SpecifiedTypes($sureTypes, $sureNotTypes);
 	}
 
 }

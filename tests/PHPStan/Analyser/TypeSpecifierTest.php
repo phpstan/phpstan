@@ -5,6 +5,7 @@ namespace PHPStan\Analyser;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
 use PHPStan\Type\ObjectType;
@@ -136,6 +137,33 @@ class TypeSpecifierTest extends \PHPStan\TestCase
 				new Expr\BooleanNot(new Variable('bar')),
 				['$bar' => '~Bar'],
 				['$bar' => '~false|null'],
+			],
+
+			[
+				new PropertyFetch(new Variable('this'), 'foo'),
+				['$this->foo' => '~false|null'],
+				[],
+			],
+			[
+				new Expr\BinaryOp\BooleanAnd(
+					new PropertyFetch(new Variable('this'), 'foo'),
+					$this->createFunctionCall('random')
+				),
+				['$this->foo' => '~false|null'],
+				[],
+			],
+			[
+				new Expr\BinaryOp\BooleanOr(
+					new PropertyFetch(new Variable('this'), 'foo'),
+					$this->createFunctionCall('random')
+				),
+				[],
+				[],
+			],
+			[
+				new Expr\BooleanNot(new PropertyFetch(new Variable('this'), 'foo')),
+				[],
+				['$this->foo' => '~false|null'],
 			],
 
 			[
