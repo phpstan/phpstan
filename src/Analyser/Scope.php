@@ -503,22 +503,24 @@ class Scope
 				return new ObjectType((string) $node->class);
 			}
 		} elseif ($node instanceof Array_) {
-			$possiblyCallable = false;
-			if (count($node->items) === 2) {
-				$firstItem = $node->items[0]->value;
+			$itemTypes = array_map(
+				function (Expr\ArrayItem $item): Type {
+					return $this->getType($item->value);
+				},
+				$node->items
+			);
+
+			$callable = TrinaryLogic::createNo();
+			if (count($itemTypes) === 2) {
 				if (
-					(
-						$this->getType($firstItem)->getClass() !== null
-						|| $this->getType($firstItem) instanceof StringType
-					)
-					&& $this->getType($node->items[1]->value) instanceof StringType
+					($itemTypes[0]->accepts(new StringType()) || $itemTypes[0]->getClass() !== null)
+					&& $itemTypes[1]->accepts(new StringType())
 				) {
-					$possiblyCallable = true;
+					$callable = TrinaryLogic::createMaybe();
 				}
 			}
-			return new ArrayType($this->getCombinedType(array_map(function (Expr\ArrayItem $item): Type {
-				return $this->getType($item->value);
-			}, $node->items)), true, $possiblyCallable);
+
+			return new ArrayType($this->getCombinedType($itemTypes), true, $callable);
 		} elseif ($node instanceof Int_) {
 				return new IntegerType();
 		} elseif ($node instanceof Bool_) {
@@ -741,7 +743,7 @@ class Scope
 			) {
 				$argumentValue = $node->args[$arrayFunctionsThatCreateArrayBasedOnArgumentType[$functionName]]->value;
 
-				return new ArrayType($this->getType($argumentValue), true, true);
+				return new ArrayType($this->getType($argumentValue), true);
 			}
 
 			$functionsThatCombineAllArgumentTypes = [

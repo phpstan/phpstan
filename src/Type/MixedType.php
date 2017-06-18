@@ -78,6 +78,11 @@ class MixedType implements CompoundType
 		return new MixedType();
 	}
 
+	public function isCallable(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
+	}
+
 	public function isExplicitMixed(): bool
 	{
 		return $this->isExplicitMixed;

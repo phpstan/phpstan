@@ -80,6 +80,11 @@ class FloatType implements Type
 		return new ErrorType();
 	}
 
+	public function isCallable(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
+	}
+
 	public static function __set_state(array $properties): Type
 	{
 		return new self();

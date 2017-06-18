@@ -2,6 +2,8 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\TrinaryLogic;
+
 class IntegerType implements Type
 {
 
@@ -29,6 +31,11 @@ class IntegerType implements Type
 	public function canCallMethods(): bool
 	{
 		return false;
+	}
+
+	public function isCallable(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
 	}
 
 	public static function __set_state(array $properties): Type

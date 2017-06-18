@@ -128,9 +128,21 @@ class CommonUnionType implements UnionType
 		return new MixedType();
 	}
 
+	public function isCallable(): TrinaryLogic
+	{
+		return $this->unionResults(function (Type $type): TrinaryLogic {
+			return $type->isCallable();
+		});
+	}
+
 	public static function __set_state(array $properties): Type
 	{
 		return new self($properties['types']);
+	}
+
+	private function unionResults(callable $getResult): TrinaryLogic
+	{
+		return TrinaryLogic::extremeIdentity(...array_map($getResult, $this->types));
 	}
 
 }

@@ -138,6 +138,21 @@ class StaticType implements StaticResolvableType
 		return new ErrorType();
 	}
 
+	public function isCallable(): TrinaryLogic
+	{
+		$broker = Broker::getInstance();
+
+		if (!$broker->hasClass($this->baseClass)) {
+			return TrinaryLogic::createMaybe();
+		}
+
+		if ($broker->getClass($this->baseClass)->hasMethod('__invoke')) {
+			return TrinaryLogic::createYes();
+		}
+
+		return TrinaryLogic::createNo();
+	}
+
 	public static function __set_state(array $properties): Type
 	{
 		return new self($properties['baseClass']);

@@ -12,13 +12,13 @@ class ArrayType implements StaticResolvableType
 	/** @var bool */
 	private $itemTypeInferredFromLiteralArray;
 
-	/** @var bool */
-	private $possiblyCallable;
+	/** @var TrinaryLogic */
+	private $callable;
 
 	public function __construct(
 		Type $itemType,
 		bool $itemTypeInferredFromLiteralArray = false,
-		bool $possiblyCallable = false
+		TrinaryLogic $callable = null
 	)
 	{
 		if ($itemType instanceof UnionType && !TypeCombinator::isUnionTypesEnabled()) {
@@ -26,7 +26,7 @@ class ArrayType implements StaticResolvableType
 		}
 		$this->itemType = $itemType;
 		$this->itemTypeInferredFromLiteralArray = $itemTypeInferredFromLiteralArray;
-		$this->possiblyCallable = $possiblyCallable;
+		$this->callable = $callable ?? TrinaryLogic::createNo();
 	}
 
 	/**
@@ -52,24 +52,19 @@ class ArrayType implements StaticResolvableType
 		return $this->itemTypeInferredFromLiteralArray;
 	}
 
-	public function isPossiblyCallable(): bool
-	{
-		return $this->possiblyCallable;
-	}
-
 	public function combineWith(Type $otherType): Type
 	{
 		if ($otherType->isIterable()->yes()) {
 			$isItemInferredFromLiteralArray = $this->isItemTypeInferredFromLiteralArray();
-			$isPossiblyCallable = $this->isPossiblyCallable();
+			$callable = $this->callable;
 			if ($otherType instanceof self) {
 				$isItemInferredFromLiteralArray = $isItemInferredFromLiteralArray || $otherType->isItemTypeInferredFromLiteralArray();
-				$isPossiblyCallable = $isPossiblyCallable || $otherType->isPossiblyCallable();
+				$callable = $this->callable->and($otherType->callable);
 			}
 			return new self(
 				$this->getIterableValueType()->combineWith($otherType->getIterableValueType()),
 				$isItemInferredFromLiteralArray,
-				$isPossiblyCallable
+				$callable
 			);
 		}
 
@@ -106,7 +101,7 @@ class ArrayType implements StaticResolvableType
 			return new self(
 				$this->getItemType()->resolveStatic($className),
 				$this->isItemTypeInferredFromLiteralArray(),
-				$this->isPossiblyCallable()
+				$this->callable
 			);
 		}
 
@@ -119,7 +114,7 @@ class ArrayType implements StaticResolvableType
 			return new self(
 				$this->getItemType()->changeBaseClass($className),
 				$this->isItemTypeInferredFromLiteralArray(),
-				$this->isPossiblyCallable()
+				$this->callable
 			);
 		}
 
@@ -141,9 +136,14 @@ class ArrayType implements StaticResolvableType
 		return $this->getItemType();
 	}
 
+	public function isCallable(): TrinaryLogic
+	{
+		return $this->callable;
+	}
+
 	public static function __set_state(array $properties): Type
 	{
-		return new self($properties['itemType'], $properties['itemTypeInferredFromLiteralArray'], $properties['possiblyCallable']);
+		return new self($properties['itemType'], $properties['itemTypeInferredFromLiteralArray'], $properties['callable']);
 	}
 
 }

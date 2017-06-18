@@ -166,9 +166,21 @@ class UnionIterableType implements UnionType
 		return $this->getItemType();
 	}
 
+	public function isCallable(): TrinaryLogic
+	{
+		return $this->unionResults(function (Type $type): TrinaryLogic {
+			return $type->isCallable();
+		});
+	}
+
 	public static function __set_state(array $properties): Type
 	{
 		return new self($properties['itemType'], $properties['types']);
+	}
+
+	private function unionResults(callable $getResult): TrinaryLogic
+	{
+		return TrinaryLogic::createYes()->and(...array_map($getResult, $this->types));
 	}
 
 }

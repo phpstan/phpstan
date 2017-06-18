@@ -2,6 +2,8 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\TrinaryLogic;
+
 class ResourceType implements Type
 {
 
@@ -20,6 +22,11 @@ class ResourceType implements Type
 	public function canCallMethods(): bool
 	{
 		return false;
+	}
+
+	public function isCallable(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
 	}
 
 	public static function __set_state(array $properties): Type
