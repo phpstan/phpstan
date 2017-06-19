@@ -7,7 +7,7 @@ use PhpParser\Node\Stmt\Catch_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 
-class CatchedExceptionExistenceRule implements \PHPStan\Rules\Rule
+class CaughtExceptionExistenceRule implements \PHPStan\Rules\Rule
 {
 
 	/**
@@ -43,13 +43,13 @@ class CatchedExceptionExistenceRule implements \PHPStan\Rules\Rule
 		foreach ($classes as $className) {
 			$class = (string) $className;
 			if (!$this->broker->hasClass($class)) {
-				$errors[] = sprintf('Catched class %s not found.', $class);
+				$errors[] = sprintf('Caught class %s not found.', $class);
 				continue;
 			}
 
 			$classReflection = $this->broker->getClass($class);
 			if (!$classReflection->isInterface() && !$classReflection->getNativeReflection()->implementsInterface(\Throwable::class)) {
-				$errors[] = sprintf('Catched class %s is not an exception.', $classReflection->getDisplayName());
+				$errors[] = sprintf('Caught class %s is not an exception.', $classReflection->getDisplayName());
 			}
 		}
 

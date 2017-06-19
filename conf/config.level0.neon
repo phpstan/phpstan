@@ -46,7 +46,7 @@ services:
 			- phpstan.rules.rule
 
 	-
-		class: PHPStan\Rules\Exceptions\CatchedExceptionExistenceRule
+		class: PHPStan\Rules\Exceptions\CaughtExceptionExistenceRule
 		tags:
 			- phpstan.rules.rule
 
