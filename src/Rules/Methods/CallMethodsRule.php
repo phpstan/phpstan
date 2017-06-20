@@ -5,6 +5,7 @@ namespace PHPStan\Rules\Methods;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Analyser\Scope;
+use PHPStan\Type;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\FunctionCallParametersCheck;
 use PHPStan\Rules\RuleLevelHelper;
@@ -71,6 +72,28 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 				sprintf('Cannot call method %s() on %s.', $node->name, $type->describe()),
 			];
 		}
+
+		if ($type instanceof Type\UnionType) {
+			$errors = [];
+			foreach ($type->getTypes() as $t) {
+				foreach ($this->checkMethodCall($node, $scope, $t) as $error) {
+					$errors[] = sprintf(
+						'%s in union type %s.',
+						substr($error, 0, -1),
+						$type->describe()
+					);
+				}
+			}
+			return $errors;
+		} else {
+			return $this->checkMethodCall($node, $scope, $type);
+		}
+	}
+
+
+
+	private function checkMethodCall(Node $node, Scope $scope, Type\Type $type)
+	{
 		$methodClass = $type->getClass();
 		if ($methodClass === null) {
 			return [];
