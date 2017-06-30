@@ -2,6 +2,7 @@ language: php
 php:
   - 7.0
   - 7.1
+  - master
 matrix:
   include:
     - php: 7.0
@@ -11,6 +12,15 @@ matrix:
     - php: 7.1
       env: dependencies=lowest
     - php: 7.1
+      env: dependencies=highest
+    - php: master
+      env: dependencies=lowest
+    - php: master
+      env: dependencies=highest
+  allow_failures:
+    - php: master
+      env: dependencies=lowest
+    - php: master
       env: dependencies=highest
 before_script:
   - composer self-update
