@@ -19,6 +19,7 @@ matrix:
       env: dependencies=highest
   allow_failures:
     - php: master
+    - php: master
       env: dependencies=lowest
     - php: master
       env: dependencies=highest
