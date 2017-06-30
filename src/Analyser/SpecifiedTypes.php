@@ -2,6 +2,8 @@
 
 namespace PHPStan\Analyser;
 
+use PHPStan\Type\TypeCombinator;
+
 class SpecifiedTypes
 {
 
@@ -55,6 +57,15 @@ class SpecifiedTypes
 			}
 		}
 
+		foreach ($this->sureNotTypes as $exprString => list($exprNode, $type)) {
+			if (isset($other->sureNotTypes[$exprString])) {
+				$sureNotTypeUnion[$exprString] = [
+					$exprNode,
+					TypeCombinator::intersect($type, $other->sureNotTypes[$exprString][1]),
+				];
+			}
+		}
+
 		return new self($sureTypeUnion, $sureNotTypeUnion);
 	}
 
@@ -68,7 +79,7 @@ class SpecifiedTypes
 			if (isset($other->sureTypes[$exprString])) {
 				$sureTypeUnion[$exprString] = [
 					$exprNode,
-					$type->combineWith($other->sureTypes[$exprString][1]),
+					TypeCombinator::intersect($type, $other->sureTypes[$exprString][1]),
 				];
 			}
 		}
