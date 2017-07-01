@@ -108,9 +108,6 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	 */
 	public function testDefinedVariablesInShortArrayDestructuringSyntax()
 	{
-		if (self::isObsoletePhpParserVersion()) {
-			$this->markTestSkipped('Test requires PHP-Parser ^3.0.0');
-		}
 		$this->cliArgumentsVariablesRegistered = true;
 		$this->analyse([__DIR__ . '/data/defined-variables-array-destructuring-short-syntax.php'], [
 			[

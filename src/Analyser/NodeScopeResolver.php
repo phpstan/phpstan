@@ -253,21 +253,13 @@ class NodeScopeResolver
 		} elseif ($node instanceof ArrayDimFetch && $node->var instanceof Variable && is_string($node->var->name)) {
 			$scope = $scope->assignVariable($node->var->name);
 		} elseif ($node instanceof List_) {
-			if (isset($node->items)) {
-				$nodeItems = $node->items;
-			} elseif (isset($node->vars)) {
-				$nodeItems = $node->vars;
-			} else {
-				throw new \PHPStan\ShouldNotHappenException();
-			}
-			foreach ($nodeItems as $item) {
-				if ($item === null) {
+			foreach ($node->items as $item) {
+				/** @var \PhpParser\Node\Expr\ArrayItem|null $itemValue */
+				$itemValue = $item;
+				if ($itemValue === null) {
 					continue;
 				}
-				$itemValue = $item;
-				if ($itemValue instanceof ArrayItem) {
-					$itemValue = $itemValue->value;
-				}
+				$itemValue = $itemValue->value;
 				if ($itemValue instanceof Variable && is_string($itemValue->name)) {
 					$scope = $scope->assignVariable($itemValue->name);
 				} else {
@@ -367,15 +359,8 @@ class NodeScopeResolver
 		} elseif ($node instanceof Foreach_) {
 			$scope = $this->enterForeach($scope, $node);
 		} elseif ($node instanceof Catch_) {
-			if (isset($node->types)) {
-				$nodeTypes = $node->types;
-			} elseif (isset($node->type)) {
-				$nodeTypes = [$node->type];
-			} else {
-				throw new \PHPStan\ShouldNotHappenException();
-			}
 			$scope = $scope->enterCatch(
-				$nodeTypes,
+				$node->types,
 				$node->var
 			);
 		} elseif ($node instanceof For_) {
@@ -479,35 +464,24 @@ class NodeScopeResolver
 				}
 			}
 
-			if (isset($node->finally) || isset($node->finallyStmts)) {
+			if ($node->finally !== null) {
 				$statements[] = new StatementList($scope, $node->stmts, true);
 			}
 
 			foreach ($node->catches as $catch) {
 				$this->processNode($catch, $scope, $nodeCallback);
-				if (isset($node->finally) || isset($node->finallyStmts)) {
-					if (isset($catch->types)) {
-						$catchTypes = $catch->types;
-					} elseif (isset($catch->type)) {
-						$catchTypes = [$catch->type];
-					} else {
-						throw new \PHPStan\ShouldNotHappenException();
-					}
+				if ($node->finally !== null) {
 					$statements[] = new StatementList($scope->enterCatch(
-						$catchTypes,
+						$catch->types,
 						$catch->var
 					), $catch->stmts, true);
 				}
 			}
 
-			if (isset($node->finally) || isset($node->finallyStmts)) {
+			if ($node->finally !== null) {
 				$finallyScope = $this->lookForAssignsInBranches($scope, $statements);
 
-				if (isset($node->finally)) {
-					$this->processNode($node->finally, $finallyScope, $nodeCallback);
-				} elseif (isset($node->finallyStmts)) {
-					$this->processNodes($node->finallyStmts, $finallyScope, $nodeCallback);
-				}
+				$this->processNode($node->finally, $finallyScope, $nodeCallback);
 			}
 
 			return;
@@ -683,8 +657,7 @@ class NodeScopeResolver
 				$scope = $scope->enterVariableAssign($node->name);
 			}
 		} elseif ($node instanceof List_ || $node instanceof Array_) {
-			$listItems = isset($node->items) ? $node->items : $node->vars;
-			foreach ($listItems as $listItem) {
+			foreach ($node->items as $listItem) {
 				if ($listItem === null) {
 					continue;
 				}
@@ -734,25 +707,14 @@ class NodeScopeResolver
 				new StatementList($scope, $node->stmts, true),
 			];
 			foreach ($node->catches as $catch) {
-				if (isset($catch->types)) {
-					$catchTypes = $catch->types;
-				} elseif (isset($catch->type)) {
-					$catchTypes = [$catch->type];
-				} else {
-					throw new \PHPStan\ShouldNotHappenException();
-				}
 				$statements[] = new StatementList($scope->enterCatch(
-					$catchTypes,
+					$catch->types,
 					$catch->var
 				), $catch->stmts, true);
 			}
 
 			$scope = $this->lookForAssignsInBranches($scope, $statements);
-			if (isset($node->finallyStmts)) {
-				foreach ($node->finallyStmts as $statement) {
-					$scope = $this->lookForAssigns($scope, $statement);
-				}
-			} elseif (isset($node->finally)) {
+			if ($node->finally !== null) {
 				foreach ($node->finally->stmts as $statement) {
 					$scope = $this->lookForAssigns($scope, $statement);
 				}

@@ -66,9 +66,6 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	public function testCallToFunctionWithDynamicIterableParameters()
 	{
-		if (self::isObsoletePhpParserVersion()) {
-			$this->markTestSkipped('Test requires PHP-Parser ^3.0.0');
-		}
 		require_once __DIR__ . '/data/function-with-variadic-parameters-definition.php';
 		$this->analyse([__DIR__ . '/data/function-with-variadic-parameters-7.1.php'], [
 			[

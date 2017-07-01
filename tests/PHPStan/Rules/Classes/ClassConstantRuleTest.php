@@ -53,9 +53,6 @@ class ClassConstantRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	 */
 	public function testClassConstantVisibility()
 	{
-		if (self::isObsoletePhpParserVersion()) {
-			$this->markTestSkipped('Test requires PHP-Parser ^3.0.0');
-		}
 		$this->analyse([__DIR__ . '/data/class-constant-visibility.php'], [
 			[
 				'Access to private constant PRIVATE_BAR of class ClassConstantVisibility\Bar.',
