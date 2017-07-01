@@ -28,6 +28,8 @@ class Bar extends Foo
 class Baz extends Bar
 {
 
+	use FooTrait;
+
 }
 
 class BazBaz extends Baz
@@ -39,6 +41,14 @@ class BazBaz extends Baz
  * @property FooInterface $interfaceProperty
  */
 interface FooInterface
+{
+
+}
+
+/**
+ * @property BazBaz $traitProperty
+ */
+trait FooTrait
 {
 
 }

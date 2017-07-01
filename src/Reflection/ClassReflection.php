@@ -197,6 +197,16 @@ class ClassReflection
 	}
 
 	/**
+	 * @return \PHPStan\Reflection\ClassReflection[]
+	 */
+	public function getTraits(): array
+	{
+		return array_map(function (\ReflectionClass $trait) {
+			return $this->broker->getClass($trait->getName());
+		}, $this->getNativeReflection()->getTraits());
+	}
+
+	/**
 	 * @return string[]
 	 */
 	public function getParentClassesNames(): array

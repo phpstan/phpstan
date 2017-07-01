@@ -79,6 +79,8 @@ class Bar extends Foo
 class Baz extends Bar
 {
 
+	use FooTrait;
+
 }
 
 /**
@@ -100,6 +102,14 @@ class BazBaz extends Baz
  * @method FooInterface methodFromInterface()
  */
 interface FooInterface
+{
+
+}
+
+/**
+ * @method BazBaz methodFromTrait()
+ */
+trait FooTrait
 {
 
 }

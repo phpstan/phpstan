@@ -79,6 +79,10 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCas
 						'class' => \AnnotationsProperties\Baz::class,
 						'type' => 'AnnotationsProperties\Lorem',
 					],
+					'traitProperty' => [
+						'class' => \AnnotationsProperties\Baz::class,
+						'type' => 'AnnotationsProperties\BazBaz',
+					],
 				],
 			],
 			[
@@ -103,6 +107,10 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCas
 					'bazProperty' => [
 						'class' => \AnnotationsProperties\Baz::class,
 						'type' => 'AnnotationsProperties\Lorem',
+					],
+					'traitProperty' => [
+						'class' => \AnnotationsProperties\Baz::class,
+						'type' => 'AnnotationsProperties\BazBaz',
 					],
 				],
 			],

@@ -250,6 +250,11 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
 					'returnType' => 'void',
 					'isStatic' => true,
 				],
+				'methodFromTrait' => [
+					'class' => \AnnotationsMethods\Baz::class,
+					'returnType' => \AnnotationsMethods\BazBaz::class,
+					'isStatic' => false,
+				],
 			]
 		);
 		$bazBazMethods = array_merge(

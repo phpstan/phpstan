@@ -25,7 +25,7 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 	public function hasMethod(ClassReflection $classReflection, string $methodName): bool
 	{
 		if (!isset($this->methods[$classReflection->getName()])) {
-			$this->methods[$classReflection->getName()] = $this->createMethods($classReflection);
+			$this->methods[$classReflection->getName()] = $this->createMethods($classReflection, $classReflection);
 		}
 
 		return isset($this->methods[$classReflection->getName()][$methodName]);
@@ -38,16 +38,26 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 
 	/**
 	 * @param ClassReflection $classReflection
+	 * @param ClassReflection $declaringClass
 	 * @return MethodReflection[]
 	 */
-	private function createMethods(ClassReflection $classReflection): array
+	private function createMethods(
+		ClassReflection $classReflection,
+		ClassReflection $declaringClass
+	): array
 	{
 		$methods = [];
+		foreach ($classReflection->getTraits() as $traitClass) {
+			$methods += $this->createMethods($traitClass, $classReflection);
+		}
 		foreach ($classReflection->getParents() as $parentClass) {
-			$methods += $this->createMethods($parentClass);
+			$methods += $this->createMethods($parentClass, $parentClass);
+			foreach ($parentClass->getTraits() as $traitClass) {
+				$methods += $this->createMethods($traitClass, $parentClass);
+			}
 		}
 		foreach ($classReflection->getInterfaces() as $interfaceClass) {
-			$methods += $this->createMethods($interfaceClass);
+			$methods += $this->createMethods($interfaceClass, $interfaceClass);
 		}
 
 		$fileName = $classReflection->getNativeReflection()->getFileName();
@@ -76,7 +86,7 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 				$returnType = new MixedType();
 			}
 			$methodName = $match['MethodName'];
-			$methods[$methodName] = new AnnotationMethodReflection($methodName, $classReflection, $returnType, $isStatic);
+			$methods[$methodName] = new AnnotationMethodReflection($methodName, $declaringClass, $returnType, $isStatic);
 		}
 		return $methods;
 	}
