@@ -25,15 +25,20 @@ class FunctionCallParametersCheck
 	/** @var bool */
 	private $checkArgumentTypes;
 
+	/** @var bool */
+	private $checkArgumentsPassedByReference;
+
 	public function __construct(
 		Broker $broker,
 		RuleLevelHelper $ruleLevelHelper,
-		bool $checkArgumentTypes
+		bool $checkArgumentTypes,
+		bool $checkArgumentsPassedByReference
 	)
 	{
 		$this->broker = $broker;
 		$this->ruleLevelHelper = $ruleLevelHelper;
 		$this->checkArgumentTypes = $checkArgumentTypes;
+		$this->checkArgumentsPassedByReference = $checkArgumentsPassedByReference;
 	}
 
 	/**
@@ -124,7 +129,7 @@ class FunctionCallParametersCheck
 			$errors[] = $messages[7];
 		}
 
-		if (!$this->checkArgumentTypes) {
+		if (!$this->checkArgumentTypes && !$this->checkArgumentsPassedByReference) {
 			return $errors;
 		}
 
@@ -166,7 +171,8 @@ class FunctionCallParametersCheck
 			}
 
 			if (
-				!$this->ruleLevelHelper->accepts($parameterType, $argumentValueType)
+				$this->checkArgumentTypes
+				&& !$this->ruleLevelHelper->accepts($parameterType, $argumentValueType)
 				&& ($secondAccepts === null || !$secondAccepts)
 				&& (
 					!($parameterType instanceof StringType)
@@ -187,7 +193,8 @@ class FunctionCallParametersCheck
 			}
 
 			if (
-				$parameter->isPassedByReference()
+				$this->checkArgumentsPassedByReference
+				&& $parameter->isPassedByReference()
 				&& !$argument->value instanceof \PhpParser\Node\Expr\Variable
 				&& !$argument->value instanceof \PhpParser\Node\Expr\ArrayDimFetch
 				&& !$argument->value instanceof \PhpParser\Node\Expr\PropertyFetch

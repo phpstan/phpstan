@@ -3,6 +3,7 @@ includes:
 
 parameters:
 	checkFunctionArgumentTypes: true
+	checkArgumentsPassedByReference: true
 
 services:
 	-

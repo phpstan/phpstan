@@ -6,6 +6,7 @@ parameters:
 	fileExtensions:
 		- php
 	checkFunctionArgumentTypes: false
+	checkArgumentsPassedByReference: false
 	checkNullables: false
 	checkUnionTypes: false
 	polluteScopeWithLoopInitialAssignments: false
@@ -118,6 +119,7 @@ services:
 		class: PHPStan\Rules\FunctionCallParametersCheck
 		arguments:
 			checkArgumentTypes: %checkFunctionArgumentTypes%
+			checkArgumentsPassedByReference: %checkArgumentsPassedByReference%
 
 	-
 		class: PHPStan\Rules\FunctionDefinitionCheck

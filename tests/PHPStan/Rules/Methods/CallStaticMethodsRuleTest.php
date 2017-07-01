@@ -18,7 +18,7 @@ class CallStaticMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$broker = $this->createBroker();
 		return new CallStaticMethodsRule(
 			$broker,
-			new FunctionCallParametersCheck($broker, new RuleLevelHelper(true), true),
+			new FunctionCallParametersCheck($broker, new RuleLevelHelper(true), true, true),
 			$this->checkThisOnly
 		);
 	}
