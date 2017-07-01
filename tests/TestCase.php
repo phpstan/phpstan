@@ -164,11 +164,6 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		return $broker;
 	}
 
-	public static function isObsoletePhpParserVersion(): bool
-	{
-		return !property_exists(\PhpParser\Node\Stmt\Catch_::class, 'types');
-	}
-
 	public function getFileHelper(): FileHelper
 	{
 		if ($this->fileHelper === null) {

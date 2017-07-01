@@ -35,9 +35,6 @@ class ExistingClassesInClosureTypehintsRuleTest extends \PHPStan\Rules\AbstractR
 	 */
 	public function testValidTypehint()
 	{
-		if (self::isObsoletePhpParserVersion()) {
-			$this->markTestSkipped('Test requires PHP-Parser ^3.0.0');
-		}
 		$this->analyse([__DIR__ . '/data/closure-7.1-typehints.php'], [
 			[
 				'Parameter $bar of anonymous function has invalid typehint type TestClosureFunctionTypehintsPhp71\NonexistentClass.',
