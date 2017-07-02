@@ -51,6 +51,21 @@ use PHPStan\Type\VoidType;
 
 class Scope
 {
+	const CONTEXT_CLASS = (1 << 0);
+	const CONTEXT_METHOD = (1 << 1);
+	const CONTEXT_ISSET = (1 << 2);
+	const CONTEXT_EMPTY = (1 << 3);
+
+
+	/**
+	 * @var int
+	 */
+	private $context = 0;
+
+	/**
+	 * @var \PhpParser\Node\Expr\Variable[]
+	 */
+	private $suppressedUndefinedVariables = [];
 
 	/**
 	 * @var \PHPStan\Broker\Broker
@@ -217,6 +232,39 @@ class Scope
 	public function isDeclareStrictTypes(): bool
 	{
 		return $this->declareStrictTypes;
+	}
+
+	public function enterContext(int $context): self
+	{
+		$scope = clone $this;
+		$scope->context |= $context;
+
+		return $scope;
+	}
+
+	public function exitContext(int $context): self
+	{
+		$scope = clone $this;
+		$scope->context &= ~$context;
+
+		return $scope;
+	}
+
+	public function enterIssetContext(Expr $expr): self
+	{
+		if ($expr instanceof Variable) {
+			$this->suppressedUndefinedVariables[] = $expr;
+
+		} elseif ($expr instanceof Expr\ArrayDimFetch) {
+			if ($expr->var instanceof Variable) {
+				$this->suppressedUndefinedVariables[] = $expr;
+			}
+		}
+	}
+
+	public function isInContext(int $context): bool
+	{
+		return (bool) ($this->context & $context);
 	}
 
 	public function enterDeclareStrictTypes(): self

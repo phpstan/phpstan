@@ -1310,30 +1310,28 @@ class NodeScopeResolver
 	private function processIssetNode(Isset_ $node, Scope $scope, callable $nodeCallback, Type &$resultType = NULL): Scope
 	{
 		$issetScope = $scope;
+		$issetScope = $issetScope->enterContext(Scope::CONTEXT_ISSET);
+
 		foreach ($node->vars as $varNode) {
-			$issetScope = $this->specifyProperty($issetScope, $varNode);
 			$issetScope = $this->processExprNode($varNode, $issetScope, $nodeCallback, $varType);
 		}
 
-//		if ($this->filteredScope !== null) {
-//			foreach ($node->vars as $varNode) {
-//				$this->filteredScope = $this->specifyProperty($this->filteredScope, $varNode);
-//			}
-//		}
-
+		$issetScope = $issetScope->exitContext(Scope::CONTEXT_ISSET);
 		$resultType = new TrueOrFalseBooleanType();
 
-		return $scope;
+		return $issetScope;
 	}
 
 	private function processEmptyNode(Empty_ $node, Scope $scope, callable $nodeCallback, Type &$resultType = NULL): Scope
 	{
 		$emptyScope = $scope;
-		$emptyScope = $this->specifyProperty($emptyScope, $node->expr);
+		$emptyScope = $emptyScope->enterContext(Scope::CONTEXT_EMPTY);
 		$emptyScope = $this->processExprNode($node->expr, $emptyScope, $nodeCallback, $exprType);
+		$emptyScope = $emptyScope->exitContext(Scope::CONTEXT_EMPTY);
+
 		$resultType = new TrueOrFalseBooleanType();
 
-		return $scope;
+		return $emptyScope;
 	}
 
 	private function processExitNode(Exit_ $node, Scope $scope, callable $nodeCallback, Type &$resultType = NULL): Scope
@@ -1501,10 +1499,22 @@ class NodeScopeResolver
 			return $leftScope->mergeWith($rightScope);
 
 		} elseif ($node instanceof Coalesce) {
-			$leftScope = $this->processExprNode($node->left, $scope, $nodeCallback, $leftType);
-			$rightScope = $this->processExprNode($node->right, $leftScope, $nodeCallback, $rightType);
+			$condExpr = new BinaryOp\NotIdentical($node->left, new ConstFetch(new Name('null')));
 
-			$resultType = TypeCombinator::removeNull($leftType)->combineWith($rightType);
+			$leftScope = $scope;
+			$leftScope = $leftScope->enterContext(Scope::CONTEXT_ISSET);
+			$leftScope = $leftScope->filterByTruthyValue($condExpr);
+			$leftScope = $this->processExprNode($node->left, $leftScope, $nodeCallback, $leftType);
+			$leftScope = $leftScope->exitContext(Scope::CONTEXT_ISSET);
+
+			$rightScope = $scope;
+			$rightScope = $rightScope->enterContext(Scope::CONTEXT_ISSET);
+//			$rightScope = $rightScope->filterByFalseyValue($condExpr);
+			$rightScope = $this->processExprNode($node->left, $rightScope, $nodeCallback);
+			$rightScope = $rightScope->exitContext(Scope::CONTEXT_ISSET);
+			$rightScope = $this->processExprNode($node->right, $rightScope, $nodeCallback, $rightType);
+
+			$resultType = $leftType->combineWith($rightType);
 			return $leftScope->mergeWith($rightScope);
 		}
 
@@ -2022,12 +2032,16 @@ class NodeScopeResolver
 	{
 		if ($expr instanceof PropertyFetch) {
 			return $scope->specifyFetchedPropertyFromIsset($expr);
+
 		} elseif (
 			$expr instanceof Expr\StaticPropertyFetch
 			&& $expr->class instanceof Name
 			&& (string) $expr->class === 'static'
 		) {
 			return $scope->specifyFetchedStaticPropertyFromIsset($expr);
+
+		} else {
+			$scope = $scope->specifyExpressionType($expr, new MixedType());
 		}
 
 		return $scope;

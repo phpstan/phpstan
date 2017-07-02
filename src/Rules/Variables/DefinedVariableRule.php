@@ -63,6 +63,10 @@ class DefinedVariableRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
+		if ($scope->isInContext(Scope::CONTEXT_ISSET) || $scope->isInContext(Scope::CONTEXT_EMPTY)) {
+			return [];
+		}
+
 		if (!$scope->hasVariableType($node->name)) {
 			return [
 				sprintf('Undefined variable: $%s', $node->name),
