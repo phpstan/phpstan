@@ -85,13 +85,14 @@ class TypeSpecifier
 			}
 		} elseif ($expr instanceof Node\Expr\Isset_) {
 			if (!$negated) {
+				$types = new SpecifiedTypes();
 				foreach ($expr->vars as $var) {
-					$types = $this->addSureType($types, $negated, $source, $var, new MixedType());
+					$types = $types->intersectWith($this->create($var, new MixedType(), $negated));
 				}
 			}
 		} elseif ($expr instanceof Node\Expr\Empty_) {
 			if ($negated) {
-				$types = $this->addSureType($types, $negated, $source, $expr->expr, new MixedType());
+				return $this->create($expr->expr, new MixedType(), $negated);
 			}
 		} elseif (
 			$expr instanceof FuncCall
