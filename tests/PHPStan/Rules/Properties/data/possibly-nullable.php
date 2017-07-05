@@ -1,6 +1,6 @@
 <?php
 
-namespace CallingMethodOnPossiblyNullable;
+namespace AccessingPropertiesOnPossiblyNull;
 
 class Test {
 
@@ -8,10 +8,10 @@ class Test {
 	private $date;
 
 	public function __construct() {
-		$this->date->format('Y');
+		$this->date->foo;
 
 		if (!is_null($this->date)) {
-			$this->date->format('Y');
+			$this->date->foo;
 		}
 	}
 
