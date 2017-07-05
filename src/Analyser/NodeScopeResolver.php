@@ -1038,7 +1038,7 @@ class NodeScopeResolver
 				$scope = $scope->removeDifferenceInSpecificTypes($removeKeysFromScope, $initialScope);
 			}
 
-			return $scope->addSpecificTypesFromScope($initialScope);
+			return $scope;
 		}
 
 		return $initialScope;

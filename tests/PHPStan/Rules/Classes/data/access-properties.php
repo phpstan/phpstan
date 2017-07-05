@@ -92,3 +92,26 @@ class BazAccessProperties
 	}
 
 }
+
+class NullPropertyIssue
+{
+
+	/** @var FooAccessProperties|null */
+	private $fooOrNull;
+
+	public function doFoo()
+	{
+		if ($this->fooOrNull !== null) {
+			return $this->fooOrNull;
+		}
+
+		if (doSomething()) {
+			$this->fooOrNull = new FooAccessProperties();
+		} else {
+			$this->fooOrNull = new FooAccessProperties();
+		}
+
+		$this->fooOrNull->ipsum;
+	}
+
+}
