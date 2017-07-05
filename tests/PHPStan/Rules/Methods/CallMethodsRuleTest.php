@@ -140,6 +140,10 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Method DateTimeZone::getTransitions() invoked with 3 parameters, 0-2 required.',
 				214,
 			],
+			[
+				'Result of method Test\ReturningSomethingFromConstructor::__construct() (void) is used.',
+				234,
+			],
 		]);
 	}
 

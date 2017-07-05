@@ -345,3 +345,13 @@ class Issue105
 		return $result;
 	}
 }
+
+class ReturningSomethingFromConstructor
+{
+
+	public function __construct()
+	{
+		return new Foo();
+	}
+
+}

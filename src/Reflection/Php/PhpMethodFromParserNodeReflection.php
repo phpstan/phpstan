@@ -6,6 +6,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\Type;
+use PHPStan\Type\VoidType;
 
 class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflection implements MethodReflection
 {
@@ -64,6 +65,15 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 	public function isPublic(): bool
 	{
 		return $this->getClassMethod()->isPublic();
+	}
+
+	public function getReturnType(): Type
+	{
+		if ($this->getName() === '__construct') {
+			return new VoidType();
+		}
+
+		return parent::getReturnType();
 	}
 
 }

@@ -17,6 +17,7 @@ use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypehintHelper;
+use PHPStan\Type\VoidType;
 
 class PhpMethodReflection implements MethodReflection
 {
@@ -359,6 +360,9 @@ class PhpMethodReflection implements MethodReflection
 	public function getReturnType(): Type
 	{
 		if ($this->returnType === null) {
+			if ($this->getName() === '__construct') {
+				return $this->returnType = new VoidType();
+			}
 			$returnType = $this->reflection->getReturnType();
 			$phpDocReturnType = $this->phpDocReturnType;
 			if (

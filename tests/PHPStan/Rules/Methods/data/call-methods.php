@@ -218,3 +218,18 @@ function () {
 	$domDocument->saveHTML(new \DOMNode());
 	$domDocument->saveHTML(null);
 };
+
+class ReturningSomethingFromConstructor
+{
+
+	public function __construct()
+	{
+		return new Foo();
+	}
+
+}
+
+function () {
+	$obj = new ReturningSomethingFromConstructor();
+	$foo = $obj->__construct();
+};
