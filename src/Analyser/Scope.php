@@ -1691,4 +1691,24 @@ class Scope
 		return $classMemberReflection->getDeclaringClass()->isSubclassOf($currentClassReflection->getName());
 	}
 
+	/**
+	 * @return string[]
+	 */
+	public function debug(): array
+	{
+		$descriptions = [];
+		foreach ($this->getVariableTypes() as $name => $variableType) {
+			$descriptions[sprintf('$%s', $name)] = $variableType->describe();
+		}
+		foreach ($this->moreSpecificTypes as $exprString => $type) {
+			$key = $exprString;
+			if (isset($descriptions[$key])) {
+				$key .= '-specified';
+			}
+			$descriptions[$key] = $type->describe();
+		}
+
+		return $descriptions;
+	}
+
 }
