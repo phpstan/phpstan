@@ -45,6 +45,10 @@ class Foo
 
 		1.0 === 1;
 		1 === 1.0;
+
+		/** @var string|mixed $stringOrMixed */
+		$stringOrMixed = doFoo();
+		$stringOrMixed === 'foo';
 	}
 
 	public function doBar(string $a = null, string $b = null): string

@@ -18,3 +18,7 @@ $width = 1;
 $scale = 2.0;
 $width *= $scale;
 echo (int) $width;
+
+/** @var string|mixed $stringOrMixed */
+$stringOrMixed = doFoo();
+(string) $stringOrMixed;
