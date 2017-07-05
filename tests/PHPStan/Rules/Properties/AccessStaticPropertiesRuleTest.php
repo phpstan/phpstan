@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace PHPStan\Rules\Classes;
+namespace PHPStan\Rules\Properties;
 
 class AccessStaticPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 {

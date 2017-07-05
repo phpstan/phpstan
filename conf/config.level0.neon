@@ -4,29 +4,12 @@ parameters:
 
 services:
 	-
-		class: PHPStan\Rules\Classes\AccessPropertiesRule
-		arguments:
-			checkThisOnly: %checkThisOnly%
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Classes\AccessStaticPropertiesRule
-		tags:
-			- phpstan.rules.rule
-
-	-
 		class: PHPStan\Rules\Classes\ClassConstantRule
 		tags:
 			- phpstan.rules.rule
 
 	-
 		class: PHPStan\Rules\Classes\ExistingClassInInstanceOfRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Classes\ExistingClassesInPropertiesRule
 		tags:
 			- phpstan.rules.rule
 
@@ -106,6 +89,23 @@ services:
 
 	-
 		class: PHPStan\Rules\Methods\ExistingClassesInTypehintsRule
+		tags:
+			- phpstan.rules.rule
+
+	-
+		class: PHPStan\Rules\Properties\AccessPropertiesRule
+		arguments:
+			checkThisOnly: %checkThisOnly%
+		tags:
+			- phpstan.rules.rule
+
+	-
+		class: PHPStan\Rules\Properties\AccessStaticPropertiesRule
+		tags:
+			- phpstan.rules.rule
+
+	-
+		class: PHPStan\Rules\Properties\ExistingClassesInPropertiesRule
 		tags:
 			- phpstan.rules.rule
 

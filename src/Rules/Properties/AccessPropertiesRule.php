@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace PHPStan\Rules\Classes;
+namespace PHPStan\Rules\Properties;
 
 use PhpParser\Node\Expr\PropertyFetch;
 use PHPStan\Analyser\Scope;

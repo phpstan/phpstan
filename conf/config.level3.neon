@@ -8,16 +8,6 @@ services:
 			- phpstan.rules.rule
 
 	-
-		class: PHPStan\Rules\Classes\DefaultValueTypesAssignedToPropertiesRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Classes\TypesAssignedToPropertiesRule
-		tags:
-			- phpstan.rules.rule
-
-	-
 		class: PHPStan\Rules\Functions\ClosureReturnTypeRule
 		tags:
 			- phpstan.rules.rule
@@ -29,6 +19,16 @@ services:
 
 	-
 		class: PHPStan\Rules\Methods\ReturnTypeRule
+		tags:
+			- phpstan.rules.rule
+
+	-
+		class: PHPStan\Rules\Properties\DefaultValueTypesAssignedToPropertiesRule
+		tags:
+			- phpstan.rules.rule
+
+	-
+		class: PHPStan\Rules\Properties\TypesAssignedToPropertiesRule
 		tags:
 			- phpstan.rules.rule
 
