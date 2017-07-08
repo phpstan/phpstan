@@ -43,3 +43,7 @@ echo $l;
 list($m) = [$n] = doFoo();
 echo $m;
 echo $n;
+
+[, $variableInListWithMissingItem] = [, $anotherVariableInListWithMissingItem] = $array;
+echo $variableInListWithMissingItem;
+echo $anotherVariableInListWithMissingItem;

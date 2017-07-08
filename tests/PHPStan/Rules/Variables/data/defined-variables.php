@@ -261,3 +261,6 @@ try {
 }
 
 echo $variableDefinedInFinally;
+
+list(, $variableInListWithMissingItem) = $someArray;
+echo $variableInListWithMissingItem;

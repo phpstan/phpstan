@@ -7,6 +7,7 @@ parameters:
 	ignoreErrors:
 		- '#PHPUnit_Framework_MockObject_MockObject given#'
 		- '#Constant PHPSTAN_TEST_CONSTANT not found#'
+		- '#Strict comparison using === between PhpParser\\Node\\Expr\\ArrayItem and null will always evaluate to false#'
 services:
 	-
 		class: PHPStan\Reflection\PhpParser\PhpParserNameClassReflectionExtension

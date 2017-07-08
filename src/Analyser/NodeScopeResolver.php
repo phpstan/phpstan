@@ -246,6 +246,9 @@ class NodeScopeResolver
 	{
 		if ($node instanceof Array_) {
 			foreach ($node->items as $item) {
+				if ($item === null) {
+					continue;
+				}
 				$scope = $this->lookForArrayDestructuringArray($scope, $item->value);
 			}
 		} elseif ($node instanceof Variable && is_string($node->name)) {
@@ -378,6 +381,9 @@ class NodeScopeResolver
 		} elseif ($node instanceof Array_) {
 			$scope = $scope->exitFirstLevelStatements();
 			foreach ($node->items as $item) {
+				if ($item === null) {
+					continue;
+				}
 				$this->processNode($item, $scope, $nodeCallback);
 				if ($item->key !== null) {
 					$scope = $this->lookForAssigns($scope, $item->key);
@@ -506,6 +512,9 @@ class NodeScopeResolver
 			$scope = $scope->enterFunctionCall($node);
 		} elseif ($node instanceof Array_) {
 			foreach ($node->items as $item) {
+				if ($item === null) {
+					continue;
+				}
 				$scope = $this->lookForAssigns($scope, $item->value);
 			}
 		} elseif ($node instanceof New_ && $node->class instanceof Class_) {
@@ -771,6 +780,9 @@ class NodeScopeResolver
 			$scope = $this->lookForAssigns($scope, $node->cond);
 		} elseif ($node instanceof Array_) {
 			foreach ($node->items as $item) {
+				if ($item === null) {
+					continue;
+				}
 				if ($item->key !== null) {
 					$scope = $this->lookForAssigns($scope, $item->key);
 				}
