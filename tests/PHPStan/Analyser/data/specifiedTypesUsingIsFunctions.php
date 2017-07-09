@@ -52,6 +52,12 @@ if (!is_int($mixedInteger) && !ctype_digit($whatever)) {
 	return;
 }
 
+/** @var int|\stdClass $intOrStdClass */
+$intOrStdClass = doFoo();
+if (!is_numeric($intOrStdClass)) {
+	return;
+}
+
 assert(is_int($yetAnotherInteger));
 
 die;

@@ -133,6 +133,12 @@ class TypeSpecifier
 					return $this->create($expr, new IterableIterableType(new MixedType()), $negated);
 				case 'is_string':
 					return $this->create($expr, new StringType(), $negated);
+				case 'is_numeric':
+					return $this->create($expr, new UnionType([
+						new StringType(),
+						new IntegerType(),
+						new FloatType(),
+					]), $negated);
 			}
 		} elseif ($expr instanceof BooleanAnd) {
 			$leftTypes = $this->specifyTypesInCondition($scope, $expr->left, $negated);
