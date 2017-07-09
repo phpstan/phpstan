@@ -532,17 +532,17 @@ class Scope
 			}
 		}
 
+		$exprString = $this->printer->prettyPrintExpr($node);
+		if (isset($this->moreSpecificTypes[$exprString])) {
+			return $this->moreSpecificTypes[$exprString];
+		}
+
 		if ($node instanceof Variable && is_string($node->name)) {
 			if (!$this->hasVariableType($node->name)) {
 				return new ErrorType();
 			}
 
 			return $this->getVariableType($node->name);
-		}
-
-		$exprString = $this->printer->prettyPrintExpr($node);
-		if (isset($this->moreSpecificTypes[$exprString])) {
-			return $this->moreSpecificTypes[$exprString];
 		}
 
 		if ($node instanceof Expr\ArrayDimFetch && $node->dim !== null) {
@@ -739,6 +739,9 @@ class Scope
 						$argumentType = $argumentType->combineWith($argType);
 					}
 				}
+
+				/** @var \PHPStan\Type\Type $argumentType */
+				$argumentType = $argumentType;
 
 				return $argumentType;
 			}
@@ -1258,6 +1261,12 @@ class Scope
 			? $type
 			: new MixedType();
 
+		$exprString = $this->printer->prettyPrintExpr(new Variable($variableName));
+		$moreSpecificTypes = $this->moreSpecificTypes;
+		if (array_key_exists($exprString, $moreSpecificTypes)) {
+			unset($moreSpecificTypes[$exprString]);
+		}
+
 		return new self(
 			$this->broker,
 			$this->printer,
@@ -1273,7 +1282,7 @@ class Scope
 			$this->getAnonymousFunctionReturnType(),
 			$this->getInFunctionCall(),
 			$this->isNegated(),
-			$this->moreSpecificTypes,
+			$moreSpecificTypes,
 			$this->inFirstLevelStatement
 		);
 	}
@@ -1306,7 +1315,7 @@ class Scope
 		);
 	}
 
-	public function intersectVariables(Scope $otherScope, bool $combineVariables): self
+	public function intersectVariables(Scope $otherScope): self
 	{
 		$ourVariableTypes = $this->getVariableTypes();
 		$theirVariableTypes = $otherScope->getVariableTypes();
@@ -1316,11 +1325,21 @@ class Scope
 				continue;
 			}
 
-			if ($combineVariables) {
+			if (!$this->isSpecified(new Variable($name))) {
 				$variableType = $variableType->combineWith($theirVariableTypes[$name]);
 			}
 
 			$intersectedVariableTypes[$name] = $variableType;
+		}
+
+		$theirSpecifiedTypes = $otherScope->moreSpecificTypes;
+		$intersectedSpecifiedTypes = [];
+		foreach ($this->moreSpecificTypes as $exprString => $specificType) {
+			if (!isset($theirSpecifiedTypes[$exprString])) {
+				continue;
+			}
+
+			$intersectedSpecifiedTypes[$exprString] = $specificType->combineWith($theirSpecifiedTypes[$exprString]);
 		}
 
 		return new self(
@@ -1338,35 +1357,147 @@ class Scope
 			$this->getAnonymousFunctionReturnType(),
 			$this->getInFunctionCall(),
 			$this->isNegated(),
-			$this->moreSpecificTypes,
+			$intersectedSpecifiedTypes,
 			$this->inFirstLevelStatement
 		);
 	}
 
-	public function addVariables(Scope $otherScope, bool $removeSpecified = false): self
+	public function createIntersectedScope(self $otherScope): self
 	{
-		$variableTypes = $this->getVariableTypes();
+		$variableTypes = [];
 		foreach ($otherScope->getVariableTypes() as $name => $variableType) {
-			if ($this->hasVariableType($name)) {
-				$ourVariableType = $this->getVariableType($name);
-				$variableNode = new Variable($name);
-				if ($otherScope->isSpecified($variableNode) && $removeSpecified) {
-					$ourVariableType = TypeCombinator::remove($ourVariableType, $otherScope->getType($variableNode));
-				}
-
-				if (!$removeSpecified) {
-					$variableType = $ourVariableType->combineWith($variableType);
-				}
-			}
 			$variableTypes[$name] = $variableType;
 		}
 
-		$moreSpecificTypes = $this->moreSpecificTypes;
-		foreach ($otherScope->moreSpecificTypes as $exprString => $type) {
-			if (array_key_exists($exprString, $this->moreSpecificTypes)) {
-				$type = $type->combineWith($this->moreSpecificTypes[$exprString]);
+		$specifiedTypes = [];
+		foreach ($otherScope->moreSpecificTypes as $exprString => $specificType) {
+			$specifiedTypes[$exprString] = $specificType;
+		}
+
+		return new self(
+			$this->broker,
+			$this->printer,
+			$this->typeSpecifier,
+			$this->getFile(),
+			$this->getAnalysedContextFile(),
+			$this->isDeclareStrictTypes(),
+			$this->isInClass() ? $this->getClassReflection() : null,
+			$this->getFunction(),
+			$this->getNamespace(),
+			$variableTypes,
+			$this->inClosureBindScopeClass,
+			$this->getAnonymousFunctionReturnType(),
+			$this->getInFunctionCall(),
+			$this->isNegated(),
+			$specifiedTypes,
+			$this->inFirstLevelStatement
+		);
+	}
+
+	public function mergeWithIntersectedScope(self $intersectedScope): self
+	{
+		$variableTypes = $this->variableTypes;
+		$specifiedTypes = $this->moreSpecificTypes;
+		foreach ($intersectedScope->getVariableTypes() as $name => $variableType) {
+			$variableTypes[$name] = $variableType;
+
+			$exprString = $this->printer->prettyPrintExpr(new Variable($name));
+			unset($specifiedTypes[$exprString]);
+		}
+
+		foreach ($intersectedScope->moreSpecificTypes as $exprString => $specificType) {
+			if (preg_match('#^\$([a-zA-Z_][a-zA-Z0-9_]*)$#', $exprString, $matches) === 1) {
+				$variableName = $matches[1];
+				$variableTypes[$variableName] = $specificType;
+				continue;
 			}
-			$moreSpecificTypes[$exprString] = $type;
+			$specifiedTypes[$exprString] = $specificType;
+		}
+
+		return new self(
+			$this->broker,
+			$this->printer,
+			$this->typeSpecifier,
+			$this->getFile(),
+			$this->getAnalysedContextFile(),
+			$this->isDeclareStrictTypes(),
+			$this->isInClass() ? $this->getClassReflection() : null,
+			$this->getFunction(),
+			$this->getNamespace(),
+			$variableTypes,
+			$this->inClosureBindScopeClass,
+			$this->getAnonymousFunctionReturnType(),
+			$this->getInFunctionCall(),
+			$this->isNegated(),
+			$specifiedTypes,
+			$this->inFirstLevelStatement
+		);
+	}
+
+	public function addVariables(Scope $otherScope): self
+	{
+		$variableTypes = $this->getVariableTypes();
+		foreach ($otherScope->getVariableTypes() as $name => $theirVariableType) {
+			if ($this->hasVariableType($name)) {
+				$ourVariableType = $this->getVariableType($name);
+				$theirVariableType = $ourVariableType->combineWith($theirVariableType);
+			}
+			$variableTypes[$name] = $theirVariableType;
+		}
+
+		$moreSpecificTypes = $this->moreSpecificTypes;
+		foreach ($otherScope->moreSpecificTypes as $exprString => $theirSpecifiedType) {
+			if (array_key_exists($exprString, $this->moreSpecificTypes)) {
+				$ourSpecifiedType = $this->moreSpecificTypes[$exprString];
+				$theirSpecifiedType = $ourSpecifiedType->combineWith($theirSpecifiedType);
+			}
+			$moreSpecificTypes[$exprString] = $theirSpecifiedType;
+		}
+
+		return new self(
+			$this->broker,
+			$this->printer,
+			$this->typeSpecifier,
+			$this->getFile(),
+			$this->getAnalysedContextFile(),
+			$this->isDeclareStrictTypes(),
+			$this->isInClass() ? $this->getClassReflection() : null,
+			$this->getFunction(),
+			$this->getNamespace(),
+			$variableTypes,
+			$this->inClosureBindScopeClass,
+			$this->getAnonymousFunctionReturnType(),
+			$this->getInFunctionCall(),
+			$this->isNegated(),
+			$moreSpecificTypes,
+			$this->inFirstLevelStatement
+		);
+	}
+
+	public function removeVariables(self $otherScope, bool $all): self
+	{
+		$variableTypes = $this->getVariableTypes();
+		foreach ($otherScope->getVariableTypes() as $name => $variableType) {
+			if ($all) {
+				unset($variableTypes[$name]);
+			} else {
+				if (
+					isset($variableTypes[$name])
+					&& (
+						$variableType->describe() === $variableTypes[$name]->describe()
+						|| $this->isSpecified(new Variable($name))
+					)
+				) {
+					unset($variableTypes[$name]);
+				}
+			}
+		}
+
+		$moreSpecificTypes = $this->moreSpecificTypes;
+		foreach ($otherScope->moreSpecificTypes as $exprString => $specifiedType) {
+			if (isset($moreSpecificTypes[$exprString]) && $specifiedType->describe() === $moreSpecificTypes[$exprString]->describe()) {
+				unset($moreSpecificTypes[$exprString]);
+			}
 		}
 
 		return new self(
@@ -1615,6 +1746,9 @@ class Scope
 		$difference = array_diff_key($otherScope->moreSpecificTypes, $initialScope->moreSpecificTypes);
 		$moreSpecificTypes = $this->moreSpecificTypes;
 		foreach ($difference as $exprString => $type) {
+			if (!isset($moreSpecificTypes[$exprString])) {
+				continue;
+			}
 			if ($moreSpecificTypes[$exprString]->describe() !== $type->describe()) {
 				continue;
 			}

@@ -233,3 +233,25 @@ function () {
 	$obj = new ReturningSomethingFromConstructor();
 	$foo = $obj->__construct();
 };
+
+class IssueWithEliminatingTypes
+{
+
+	public function doBar()
+	{
+		/** @var \DateTimeImmutable|null $date */
+		$date = makeDate();
+		if ($date !== null) {
+			return;
+		}
+
+		if (something()) {
+			$date = 'foo';
+		} else {
+			$date = 1;
+		}
+
+		echo $date->foo(); // is surely string|int
+	}
+
+}

@@ -15,4 +15,19 @@ class Test {
 		}
 	}
 
+	public function doFoo()
+	{
+		if ($this->date !== null) {
+			return;
+		}
+
+		if (something()) {
+			$this->date = 'foo';
+		} else {
+			$this->date = 1;
+		}
+
+		echo $this->date->foo; // is surely string|int
+	}
+
 }

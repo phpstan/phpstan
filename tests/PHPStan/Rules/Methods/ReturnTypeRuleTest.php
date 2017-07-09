@@ -165,8 +165,12 @@ class ReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				265,
 			],
 			[
+				'Method ReturnTypes\Stock::returnSelfAgainError() should return ReturnTypes\Stock but returns ReturnTypes\Stock|null.',
+				320,
+			],
+			[
 				'Method ReturnTypes\ReturningSomethingFromConstructor::__construct() with return type void returns ReturnTypes\Foo but should not return anything.',
-				354,
+				364,
 			],
 		]);
 	}

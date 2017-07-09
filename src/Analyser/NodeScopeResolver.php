@@ -464,6 +464,8 @@ class NodeScopeResolver
 		} elseif ($node instanceof TryCatch) {
 			$statements = [];
 			$this->processNodes($node->stmts, $scope->enterFirstLevelStatements(), $nodeCallback);
+
+			$scopeForLookForAssignsInBranches = $scope;
 			if ($this->polluteCatchScopeWithTryAssignments) {
 				foreach ($node->stmts as $statement) {
 					$scope = $this->lookForAssigns($scope, $statement);
@@ -485,7 +487,7 @@ class NodeScopeResolver
 			}
 
 			if ($node->finally !== null) {
-				$finallyScope = $this->lookForAssignsInBranches($scope, $statements);
+				$finallyScope = $this->lookForAssignsInBranches($scopeForLookForAssignsInBranches, $statements);
 
 				$this->processNode($node->finally, $finallyScope, $nodeCallback);
 			}
@@ -855,12 +857,13 @@ class NodeScopeResolver
 			$scope = $this->lookForAssigns($scope, $node->expr);
 		} elseif ($node instanceof Foreach_) {
 			$scope = $this->lookForAssigns($scope, $node->expr);
+			$initialScope = $scope;
 			$scope = $this->enterForeach($scope, $node);
 			$statements = [
 				new StatementList($scope, $node->stmts, true),
 				new StatementList($scope, [], true), // in order not to add variables existing only inside the for loop
 			];
-			$scope = $this->lookForAssignsInBranches($scope, $statements);
+			$scope = $this->lookForAssignsInBranches($initialScope, $statements);
 		} elseif ($node instanceof Isset_) {
 			foreach ($node->vars as $var) {
 				$scope = $this->lookForAssigns($scope, $var);
@@ -993,59 +996,64 @@ class NodeScopeResolver
 		/** @var \PHPStan\Analyser\Scope|null $intersectedScope */
 		$intersectedScope = null;
 
+		/** @var \PHPStan\Analyser\Scope|null $allBranchesScope */
+		$allBranchesScope = null;
+
 		/** @var \PHPStan\Analyser\Scope|null $previousBranchScope */
 		$previousBranchScope = null;
-
-		$allBranchesScope = $initialScope;
 
 		$removeKeysFromScope = null;
 		foreach ($statementsLists as $i => $statementList) {
 			$statements = $statementList->getStatements();
 			$branchScope = $statementList->getScope();
+			$branchScopeWithInitialScopeRemoved = $branchScope->removeVariables($initialScope, true);
 
 			$earlyTerminationStatement = null;
 			foreach ($statements as $j => $statement) {
 				$branchScope = $this->lookForAssigns($branchScope, $statement);
+				$branchScopeWithInitialScopeRemoved = $branchScope->removeVariables($initialScope, false);
 				if (!$statementList->shouldCarryOverSpecificTypes() && $j === 0) {
 					$removeKeysFromScope = $branchScope;
 				}
 				$earlyTerminationStatement = $this->findStatementEarlyTermination($statement, $branchScope);
 				if ($earlyTerminationStatement !== null) {
 					if (!$isSwitchCase) {
-						$allBranchesScope = $allBranchesScope->addVariables($branchScope);
 						continue 2;
 					}
 					break;
 				}
 			}
 
-			$allBranchesScope = $allBranchesScope->addVariables($branchScope, !$isSwitchCase);
-
 			if ($earlyTerminationStatement === null || $earlyTerminationStatement instanceof Break_) {
 				if ($intersectedScope === null) {
-					$intersectedScope = $initialScope->addVariables($branchScope, true);
+					$intersectedScope = $initialScope->createIntersectedScope($branchScopeWithInitialScopeRemoved);
+				}
+				if ($allBranchesScope === null) {
+					$allBranchesScope = $initialScope->createIntersectedScope($branchScopeWithInitialScopeRemoved);
 				}
 
 				if ($isSwitchCase && $previousBranchScope !== null) {
-					$intersectedScope = $branchScope->addVariables($previousBranchScope);
+					$intersectedScope = $branchScopeWithInitialScopeRemoved->addVariables($previousBranchScope);
+					$allBranchesScope = $allBranchesScope->addVariables($previousBranchScope);
 				} else {
-					$intersectedScope = $branchScope->intersectVariables($intersectedScope, true);
+					$intersectedScope = $intersectedScope->intersectVariables($branchScopeWithInitialScopeRemoved);
+					$allBranchesScope = $allBranchesScope->addVariables($branchScopeWithInitialScopeRemoved);
 				}
 			}
 
 			if ($earlyTerminationStatement === null) {
-				$previousBranchScope = $branchScope;
+				$previousBranchScope = $branchScopeWithInitialScopeRemoved;
 			} else {
 				$previousBranchScope = null;
 			}
 		}
 
-		if ($intersectedScope !== null) {
-			$combine = isset($earlyTerminationStatement) && $earlyTerminationStatement === null;
-			$scope = $intersectedScope->addVariables(
-				$allBranchesScope->intersectVariables($initialScope, $combine),
-				$combine
-			);
+		if ($intersectedScope !== null && $allBranchesScope !== null) {
+			$allBranchesScope = $allBranchesScope->removeVariables($intersectedScope, true);
+			$allBranchesScope = $allBranchesScope->intersectVariables($initialScope);
+			$scope = $initialScope
+				->mergeWithIntersectedScope($intersectedScope)
+				->mergeWithIntersectedScope($allBranchesScope);
 			if ($removeKeysFromScope !== null) {
 				$scope = $scope->removeDifferenceInSpecificTypes($removeKeysFromScope, $initialScope);
 			}

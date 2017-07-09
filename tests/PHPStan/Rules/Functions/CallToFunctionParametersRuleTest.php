@@ -173,4 +173,10 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		]);
 	}
 
+	public function testVariableIsNotNullAfterSeriesOfConditions()
+	{
+		require_once __DIR__ . '/data/variable-is-not-null-after-conditions.php';
+		$this->analyse([__DIR__ . '/data/variable-is-not-null-after-conditions.php'], []);
+	}
+
 }

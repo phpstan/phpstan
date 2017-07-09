@@ -144,6 +144,10 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Result of method Test\ReturningSomethingFromConstructor::__construct() (void) is used.',
 				234,
 			],
+			[
+				'Cannot call method foo() on int|string.',
+				254,
+			],
 		]);
 	}
 

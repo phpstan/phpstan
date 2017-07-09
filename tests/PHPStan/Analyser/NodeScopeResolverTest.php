@@ -137,7 +137,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$this->assertArrayHasKey('trueOrFalseInSwitchInAllCasesWithDefault', $variables);
 				$this->assertSame('bool', $variables['trueOrFalseInSwitchInAllCasesWithDefault']->describe());
 				$this->assertArrayHasKey('trueOrFalseInSwitchInAllCasesWithDefaultCase', $variables);
-				$this->assertSame('bool', $variables['trueOrFalseInSwitchInAllCasesWithDefaultCase']->describe());
+				$this->assertSame('true', $variables['trueOrFalseInSwitchInAllCasesWithDefaultCase']->describe());
 				$this->assertArrayHasKey('variableDefinedInSwitchWithOtherCasesWithEarlyTermination', $variables);
 				$this->assertArrayHasKey('anotherVariableDefinedInSwitchWithOtherCasesWithEarlyTermination', $variables);
 				$this->assertArrayNotHasKey('variableDefinedOnlyInEarlyTerminatingSwitchCases', $variables);
@@ -154,6 +154,8 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$this->assertSame('int|null', $variables['integerOrNullFromForeach']->describe());
 				$this->assertArrayHasKey('notNullableString', $variables);
 				$this->assertSame('string', $variables['notNullableString']->describe());
+				$this->assertArrayHasKey('anotherNotNullableString', $variables);
+				$this->assertSame('string', $variables['anotherNotNullableString']->describe());
 				$this->assertArrayHasKey('nullableString', $variables);
 				$this->assertSame('string|null', $variables['nullableString']->describe());
 				$this->assertArrayHasKey('alsoNotNullableString', $variables);

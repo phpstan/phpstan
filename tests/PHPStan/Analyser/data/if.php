@@ -203,12 +203,18 @@ if ($notNullableString === null) {
 	return;
 }
 
+/** @var string|null $anotherNotNullableString */
+$anotherNotNullableString = 'foo';
+if ($anotherNotNullableString !== null) {
+	$alsoNotNullableString = $anotherNotNullableString;
+} else {
+	return;
+}
+
 /** @var string|null $nullableString */
 $nullableString = 'foo';
 if ($nullableString !== null) {
-	$alsoNotNullableString = $nullableString;
-} else {
-	return;
+	$whatever = $nullableString;
 }
 
 $arrayOfIntegers = [1, 2, 3];

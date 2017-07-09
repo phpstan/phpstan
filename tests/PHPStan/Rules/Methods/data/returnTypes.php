@@ -310,6 +310,16 @@ class Stock
 		return $this->nullableStock;
 	}
 
+	public function returnSelfAgainError(): self
+	{
+		$stock = $this->findStock();
+		if (doFoo()) {
+			$stock = new self();
+		}
+
+		return $stock; // still possible null
+	}
+
 }
 
 class Issue105
