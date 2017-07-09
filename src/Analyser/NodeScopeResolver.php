@@ -487,7 +487,7 @@ class NodeScopeResolver
 			}
 
 			if ($node->finally !== null) {
-				$finallyScope = $this->lookForAssignsInBranches($scopeForLookForAssignsInBranches, $statements);
+				$finallyScope = $this->lookForAssignsInBranches($scopeForLookForAssignsInBranches, $statements, false, false);
 
 				$this->processNode($node->finally, $finallyScope, $nodeCallback);
 			}
@@ -988,9 +988,15 @@ class NodeScopeResolver
 	 * @param \PHPStan\Analyser\Scope $initialScope
 	 * @param \PHPStan\Analyser\StatementList[] $statementsLists
 	 * @param bool $isSwitchCase
+	 * @param bool $respectEarlyTermination
 	 * @return Scope
 	 */
-	private function lookForAssignsInBranches(Scope $initialScope, array $statementsLists, bool $isSwitchCase = false): Scope
+	private function lookForAssignsInBranches(
+		Scope $initialScope,
+		array $statementsLists,
+		bool $isSwitchCase = false,
+		bool $respectEarlyTermination = true
+	): Scope
 	{
 		/** @var \PHPStan\Analyser\Scope|null $intersectedScope */
 		$intersectedScope = null;
@@ -1012,14 +1018,14 @@ class NodeScopeResolver
 				$branchScopeWithInitialScopeRemoved = $branchScope->removeVariables($initialScope, false);
 				$earlyTerminationStatement = $this->findStatementEarlyTermination($statement, $branchScope);
 				if ($earlyTerminationStatement !== null) {
-					if (!$isSwitchCase) {
+					if (!$isSwitchCase && $respectEarlyTermination) {
 						continue 2;
 					}
 					break;
 				}
 			}
 
-			if ($earlyTerminationStatement === null || $earlyTerminationStatement instanceof Break_) {
+			if ($earlyTerminationStatement === null || $earlyTerminationStatement instanceof Break_ || !$respectEarlyTermination) {
 				if ($intersectedScope === null) {
 					$intersectedScope = $initialScope->createIntersectedScope($branchScopeWithInitialScopeRemoved);
 				}

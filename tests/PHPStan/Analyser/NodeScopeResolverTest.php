@@ -2788,6 +2788,23 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+	/**
+	 * @dataProvider dataFinally
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testFinallyWithEarlyTermination(
+		string $description,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/finally-with-early-termination.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataInheritDocFromInterface(): array
 	{
 		return [
