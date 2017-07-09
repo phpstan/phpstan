@@ -170,7 +170,7 @@ class ReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			],
 			[
 				'Method ReturnTypes\ReturningSomethingFromConstructor::__construct() with return type void returns ReturnTypes\Foo but should not return anything.',
-				364,
+				377,
 			],
 		]);
 	}

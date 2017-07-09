@@ -320,6 +320,19 @@ class Stock
 		return $stock; // still possible null
 	}
 
+	public function returnsSelfAgainAgain(): self {
+		while (true) {
+			try {
+				if ($this->getActualStock() === null) {
+					continue;
+				}
+			} catch (\Exception $ex) {
+				continue;
+			}
+			return $this->getActualStock();
+		}
+	}
+
 }
 
 class Issue105
