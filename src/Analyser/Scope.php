@@ -1741,40 +1741,6 @@ class Scope
 		);
 	}
 
-	public function removeDifferenceInSpecificTypes(Scope $otherScope, Scope $initialScope): self
-	{
-		$difference = array_diff_key($otherScope->moreSpecificTypes, $initialScope->moreSpecificTypes);
-		$moreSpecificTypes = $this->moreSpecificTypes;
-		foreach ($difference as $exprString => $type) {
-			if (!isset($moreSpecificTypes[$exprString])) {
-				continue;
-			}
-			if ($moreSpecificTypes[$exprString]->describe() !== $type->describe()) {
-				continue;
-			}
-			unset($moreSpecificTypes[$exprString]);
-		}
-
-		return new self(
-			$this->broker,
-			$this->printer,
-			$this->typeSpecifier,
-			$this->getFile(),
-			$this->getAnalysedContextFile(),
-			$this->isDeclareStrictTypes(),
-			$this->isInClass() ? $this->getClassReflection() : null,
-			$this->getFunction(),
-			$this->getNamespace(),
-			$this->getVariableTypes(),
-			$this->inClosureBindScopeClass,
-			$this->getAnonymousFunctionReturnType(),
-			$this->getInFunctionCall(),
-			$this->isNegated(),
-			$moreSpecificTypes,
-			$this->inFirstLevelStatement
-		);
-	}
-
 	public function canAccessProperty(PropertyReflection $propertyReflection): bool
 	{
 		return $this->canAccessClassMember($propertyReflection);

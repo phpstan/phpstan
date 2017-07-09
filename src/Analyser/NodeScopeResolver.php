@@ -473,7 +473,7 @@ class NodeScopeResolver
 			}
 
 			if ($node->finally !== null) {
-				$statements[] = new StatementList($scope, $node->stmts, true);
+				$statements[] = new StatementList($scope, $node->stmts);
 			}
 
 			foreach ($node->catches as $catch) {
@@ -482,7 +482,7 @@ class NodeScopeResolver
 					$statements[] = new StatementList($scope->enterCatch(
 						$catch->types,
 						$catch->var
-					), $catch->stmts, true);
+					), $catch->stmts);
 				}
 			}
 
@@ -695,33 +695,32 @@ class NodeScopeResolver
 			$scope = $this->lookForAssigns($scope, $node->cond);
 			$ifStatement = new StatementList(
 				$scope->filterByTruthyValue($node->cond),
-				array_merge([$node->cond], $node->stmts),
-				false
+				array_merge([$node->cond], $node->stmts)
 			);
 
 			$elseIfScope = $scope->filterByFalseyValue($node->cond);
 			$elseIfStatements = [];
 			foreach ($node->elseifs as $elseIf) {
-				$elseIfStatements[] = new StatementList($elseIfScope, array_merge([$elseIf->cond], $elseIf->stmts), false);
+				$elseIfStatements[] = new StatementList($elseIfScope, array_merge([$elseIf->cond], $elseIf->stmts));
 				$elseIfScope = $elseIfScope->filterByFalseyValue($elseIf->cond);
 			}
 
 			$statements = [
 				$ifStatement,
-				new StatementList($elseIfScope, $node->else !== null ? $node->else->stmts : [], true),
+				new StatementList($elseIfScope, $node->else !== null ? $node->else->stmts : []),
 			];
 			$statements = array_merge($statements, $elseIfStatements);
 
 			$scope = $this->lookForAssignsInBranches($scope, $statements);
 		} elseif ($node instanceof TryCatch) {
 			$statements = [
-				new StatementList($scope, $node->stmts, true),
+				new StatementList($scope, $node->stmts),
 			];
 			foreach ($node->catches as $catch) {
 				$statements[] = new StatementList($scope->enterCatch(
 					$catch->types,
 					$catch->var
-				), $catch->stmts, true);
+				), $catch->stmts);
 			}
 
 			$scope = $this->lookForAssignsInBranches($scope, $statements);
@@ -805,11 +804,11 @@ class NodeScopeResolver
 				if ($case->cond === null) {
 					$hasDefault = true;
 				}
-				$statements[] = new StatementList($scope, $case->stmts, true);
+				$statements[] = new StatementList($scope, $case->stmts);
 			}
 
 			if (!$hasDefault) {
-				$statements[] = new StatementList($scope, [], true);
+				$statements[] = new StatementList($scope, []);
 			}
 
 			$scope = $this->lookForAssignsInBranches($scope, $statements, true);
@@ -827,8 +826,8 @@ class NodeScopeResolver
 			}
 
 			$statements = [
-				new StatementList($scope, $node->stmts, true),
-				new StatementList($scope, [], true), // in order not to add variables existing only inside the for loop
+				new StatementList($scope, $node->stmts),
+				new StatementList($scope, []), // in order not to add variables existing only inside the for loop
 			];
 			$scope = $this->lookForAssignsInBranches($scope, $statements);
 		} elseif ($node instanceof While_) {
@@ -837,8 +836,8 @@ class NodeScopeResolver
 			}
 
 			$statements = [
-				new StatementList($scope, $node->stmts, true),
-				new StatementList($scope, [], true), // in order not to add variables existing only inside the for loop
+				new StatementList($scope, $node->stmts),
+				new StatementList($scope, []), // in order not to add variables existing only inside the for loop
 			];
 			$scope = $this->lookForAssignsInBranches($scope, $statements);
 		} elseif ($node instanceof ErrorSuppress) {
@@ -860,8 +859,8 @@ class NodeScopeResolver
 			$initialScope = $scope;
 			$scope = $this->enterForeach($scope, $node);
 			$statements = [
-				new StatementList($scope, $node->stmts, true),
-				new StatementList($scope, [], true), // in order not to add variables existing only inside the for loop
+				new StatementList($scope, $node->stmts),
+				new StatementList($scope, []), // in order not to add variables existing only inside the for loop
 			];
 			$scope = $this->lookForAssignsInBranches($initialScope, $statements);
 		} elseif ($node instanceof Isset_) {
@@ -1002,19 +1001,15 @@ class NodeScopeResolver
 		/** @var \PHPStan\Analyser\Scope|null $previousBranchScope */
 		$previousBranchScope = null;
 
-		$removeKeysFromScope = null;
 		foreach ($statementsLists as $i => $statementList) {
 			$statements = $statementList->getStatements();
 			$branchScope = $statementList->getScope();
 			$branchScopeWithInitialScopeRemoved = $branchScope->removeVariables($initialScope, true);
 
 			$earlyTerminationStatement = null;
-			foreach ($statements as $j => $statement) {
+			foreach ($statements as $statement) {
 				$branchScope = $this->lookForAssigns($branchScope, $statement);
 				$branchScopeWithInitialScopeRemoved = $branchScope->removeVariables($initialScope, false);
-				if (!$statementList->shouldCarryOverSpecificTypes() && $j === 0) {
-					$removeKeysFromScope = $branchScope;
-				}
 				$earlyTerminationStatement = $this->findStatementEarlyTermination($statement, $branchScope);
 				if ($earlyTerminationStatement !== null) {
 					if (!$isSwitchCase) {
@@ -1054,9 +1049,6 @@ class NodeScopeResolver
 			$scope = $initialScope
 				->mergeWithIntersectedScope($intersectedScope)
 				->mergeWithIntersectedScope($allBranchesScope);
-			if ($removeKeysFromScope !== null) {
-				$scope = $scope->removeDifferenceInSpecificTypes($removeKeysFromScope, $initialScope);
-			}
 
 			return $scope;
 		}
