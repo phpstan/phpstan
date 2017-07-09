@@ -1978,6 +1978,36 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+	public function dataOverridingSpecifiedType(): array
+	{
+		return [
+			[
+				__DIR__ . '/data/catch-specified-variable.php',
+				'TryCatchWithSpecifiedVariable\FooException',
+				'$foo',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataOverridingSpecifiedType
+	 * @param string $file
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testOverridingSpecifiedType(
+		string $file,
+		string $description,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			$file,
+			$description,
+			$expression
+		);
+	}
+
 	public function dataForeachObjectType(): array
 	{
 		return [

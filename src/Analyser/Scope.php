@@ -1149,32 +1149,13 @@ class Scope
 	 */
 	public function enterCatch(array $classes, string $variableName): self
 	{
-		$variableTypes = $this->getVariableTypes();
-
 		if (count($classes) === 1) {
 			$type = new ObjectType((string) $classes[0]);
 		} else {
 			$type = new MixedType();
 		}
-		$variableTypes[$variableName] = $type;
 
-		return new self(
-			$this->broker,
-			$this->printer,
-			$this->typeSpecifier,
-			$this->getFile(),
-			$this->getAnalysedContextFile(),
-			$this->isDeclareStrictTypes(),
-			$this->isInClass() ? $this->getClassReflection() : null,
-			$this->getFunction(),
-			$this->getNamespace(),
-			$variableTypes,
-			$this->inClosureBindScopeClass,
-			$this->getAnonymousFunctionReturnType(),
-			null,
-			$this->isNegated(),
-			$this->moreSpecificTypes
-		);
+		return $this->assignVariable($variableName, $type);
 	}
 
 	/**
