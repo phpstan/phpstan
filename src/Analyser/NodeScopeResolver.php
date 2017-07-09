@@ -904,6 +904,13 @@ class NodeScopeResolver
 				if ($node instanceof Assign || $node instanceof AssignRef) {
 					$type = $scope->getType($node->expr);
 				} elseif ($node instanceof Expr\AssignOp) {
+					if (
+						$node->var instanceof Variable
+						&& is_string($node->var->name)
+						&& !$scope->hasVariableType($node->var->name)
+					) {
+						continue;
+					}
 					$type = $scope->getType($node);
 				}
 				$scope = $this->assignVariable($scope, $var, $type);
