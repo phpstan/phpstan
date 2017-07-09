@@ -913,7 +913,13 @@ class NodeScopeResolver
 				if ($node->var instanceof Array_ || $node->var instanceof List_) {
 					$scope = $this->lookForArrayDestructuringArray($scope, $node->var);
 				}
+			}
+
+			if (!$node instanceof Isset_) {
 				$scope = $this->lookForAssigns($scope, $node->expr);
+			}
+
+			if ($node instanceof Assign || $node instanceof AssignRef) {
 				$comment = CommentHelper::getDocComment($node);
 				if ($comment !== null && $node->var instanceof Variable && is_string($node->var->name)) {
 					$variableName = $node->var->name;

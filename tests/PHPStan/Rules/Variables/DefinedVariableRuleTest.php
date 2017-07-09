@@ -100,6 +100,10 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Undefined variable: $variableDefinedOnlyInOneCatch',
 				258,
 			],
+			[
+				'Undefined variable: $variableInBitwiseAndAssign',
+				268,
+			],
 		]);
 	}
 

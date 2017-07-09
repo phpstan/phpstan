@@ -264,3 +264,7 @@ echo $variableDefinedInFinally;
 
 list(, $variableInListWithMissingItem) = $someArray;
 echo $variableInListWithMissingItem;
+
+$variableInBitwiseAndAssign &= $anotherVariableBitwiseAndAssign = doFoo();
+echo $variableInBitwiseAndAssign;
+echo $anotherVariableBitwiseAndAssign;
