@@ -19,6 +19,9 @@ class ArrayType implements StaticResolvableType
 		bool $possiblyCallable = false
 	)
 	{
+		if ($itemType instanceof UnionType && !TypeCombinator::isUnionTypesEnabled()) {
+			$itemType = new MixedType();
+		}
 		$this->itemType = $itemType;
 		$this->itemTypeInferredFromLiteralArray = $itemTypeInferredFromLiteralArray;
 		$this->possiblyCallable = $possiblyCallable;
