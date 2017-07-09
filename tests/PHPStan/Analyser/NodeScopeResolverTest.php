@@ -1951,6 +1951,11 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'int',
 				'$integer',
 			],
+			[
+				__DIR__ . '/data/foreach/reusing-specified-variable.php',
+				'int',
+				'$business',
+			],
 		];
 	}
 
