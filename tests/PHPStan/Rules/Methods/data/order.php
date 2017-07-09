@@ -91,3 +91,23 @@ class Baz
 	}
 
 }
+
+class Dolor
+{
+	public function getTime(): \DateTimeImmutable
+	{
+		return new \DateTimeImmutable();
+	}
+
+	public function process(): void
+	{
+		if (true && $this->getTime() === null) {
+			// nothing
+
+		} elseif (false) {
+			// nothing
+		}
+
+		$this->getTime()->getTimestamp();
+	}
+}
