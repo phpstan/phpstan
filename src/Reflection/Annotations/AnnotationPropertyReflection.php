@@ -15,13 +15,23 @@ class AnnotationPropertyReflection implements PropertyReflection
 	/** @var \PHPStan\Type\Type */
 	private $type;
 
+	/** @var bool */
+	private $readable;
+
+	/** @var bool */
+	private $writable;
+
 	public function __construct(
 		ClassReflection $declaringClass,
-		Type $type
+		Type $type,
+		bool $readable = true,
+		bool $writable = true
 	)
 	{
 		$this->declaringClass = $declaringClass;
 		$this->type = $type;
+		$this->readable = $readable;
+		$this->writable = $writable;
 	}
 
 	public function getDeclaringClass(): ClassReflection
@@ -47,6 +57,16 @@ class AnnotationPropertyReflection implements PropertyReflection
 	public function getType(): Type
 	{
 		return $this->type;
+	}
+
+	public function isReadable(): bool
+	{
+		return $this->readable;
+	}
+
+	public function isWritable(): bool
+	{
+		return $this->writable;
 	}
 
 }

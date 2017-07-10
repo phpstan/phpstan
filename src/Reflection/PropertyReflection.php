@@ -9,4 +9,8 @@ interface PropertyReflection extends ClassMemberReflection
 
 	public function getType(): Type;
 
+	public function isReadable(): bool;
+
+	public function isWritable(): bool;
+
 }

@@ -43,4 +43,14 @@ class NamespacedNameProperty implements \PHPStan\Reflection\PropertyReflection
 		return new ObjectType(Name::class);
 	}
 
+	public function isReadable(): bool
+	{
+		return true;
+	}
+
+	public function isWritable(): bool
+	{
+		return true;
+	}
+
 }
