@@ -375,6 +375,21 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
 				'isVariadic' => false,
 				'parameters' => [],
 			],
+			'publish' => [
+				'class' => \AnnotationsMethods\Foo::class,
+				'returnType' => 'Aws\Result',
+				'isStatic' => false,
+				'isVariadic' => false,
+				'parameters' => [
+					[
+						'name' => 'args',
+						'type' => 'mixed[]',
+						'isPassedByReference' => false,
+						'isOptional' => true,
+						'isVariadic' => false,
+					],
+				],
+			],
 		];
 		$barMethods = $fooMethods;
 		$bazMethods = array_merge(
