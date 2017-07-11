@@ -56,12 +56,12 @@ class PhpPropertyReflection implements PropertyReflection
 
 	public function isReadable(): bool
 	{
-		return $this->reflection->isPublic();
+		return true;
 	}
 
 	public function isWritable(): bool
 	{
-		return $this->reflection->isPublic();
+		return true;
 	}
 
 }
