@@ -41,6 +41,7 @@ use OtherNamespace\Test as OtherTest;
  * @method static bool|string aStaticMethodThatHasAUniqueReturnTypeInThisClassNoParams
  * @method static string|float aStaticMethodThatHasAUniqueReturnTypeInThisClassWithDescriptionNoParams A Description.
  * @method \Aws\Result publish(array $args = [])
+ * @method Image rotate(float $angle, $backgroundColor)
  *
  * Problem signatures
  * ==================

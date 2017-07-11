@@ -390,6 +390,28 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
 					],
 				],
 			],
+			'rotate' => [
+				'class' => \AnnotationsMethods\Foo::class,
+				'returnType' => 'AnnotationsMethods\Image',
+				'isStatic' => false,
+				'isVariadic' => false,
+				'parameters' => [
+					[
+						'name' => 'angle',
+						'type' => 'float',
+						'isPassedByReference' => false,
+						'isOptional' => false,
+						'isVariadic' => false,
+					],
+					[
+						'name' => 'backgroundColor',
+						'type' => 'float',
+						'isPassedByReference' => false,
+						'isOptional' => false,
+						'isVariadic' => false,
+					],
+				],
+			],
 		];
 		$barMethods = $fooMethods;
 		$bazMethods = array_merge(
