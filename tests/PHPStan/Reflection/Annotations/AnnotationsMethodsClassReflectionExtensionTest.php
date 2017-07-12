@@ -405,7 +405,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
 					],
 					[
 						'name' => 'backgroundColor',
-						'type' => 'float',
+						'type' => 'mixed',
 						'isPassedByReference' => false,
 						'isOptional' => false,
 						'isVariadic' => false,
