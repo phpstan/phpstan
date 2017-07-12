@@ -67,6 +67,10 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 		$placeHoldersCount = $this->getPlaceholdersCount($name, $format);
 		$argsCount -= $formatArgumentPosition;
 
+		if ($placeHoldersCount === 0 && $argsCount === 1) {
+			return [sprintf('Call to %s without any placeholder.', $name)];
+		}
+
 		if ($argsCount !== $placeHoldersCount + 1) {
 			return [
 				sprintf(

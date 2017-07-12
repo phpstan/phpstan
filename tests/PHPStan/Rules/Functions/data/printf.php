@@ -29,7 +29,7 @@ sprintf('%-02d', 1); // ok
 sprintf('%-02d %d', 1); // one parameter missing
 sprintf('<info>% -20s</info> : %s', 'id', 42); // ok
 sprintf('%-s', 'x'); // ok
-sprintf('%%s'); // ok
+sprintf('%%s'); // useless sprintf
 sscanf($str, "%20[^\n]\n%d", $string, $number); // ok
 sscanf($str, "%20[^\n]\r\n%d", $string, $number); // ok
 sscanf($str, "%20[^abcde]a%d", $string, $number); // ok
