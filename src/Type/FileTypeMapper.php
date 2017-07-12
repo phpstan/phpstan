@@ -58,7 +58,7 @@ class FileTypeMapper
 			'#@var\s+\$[a-zA-Z0-9_]+\s+' . self::TYPE_PATTERN . '#',
 			'#@return\s+' . self::TYPE_PATTERN . '#',
 			'#@property(?:-read|-write)?\s+' . self::TYPE_PATTERN . '\s+\$[a-zA-Z0-9_]+#',
-			'#@method\s+(?:static\s+)?' . self::TYPE_PATTERN . '\s*?[a-zA-Z0-9_]+(?:\(.*\))?#',
+			'#@method\s+(?:static\s+)?' . self::TYPE_PATTERN . '\s*?[a-zA-Z0-9_]+(?:\((?:(?:\?)?(?:' . self::TYPE_PATTERN . '\s+)?(?:...)?(?:\&)?\$[a-zA-Z0-9_]+(?:\s*=\s*(?:.+))?,?)*\))?#',
 		];
 
 		/** @var \PhpParser\Node\Stmt\ClassLike|null $lastClass */
@@ -110,16 +110,18 @@ class FileTypeMapper
 				foreach ($patterns as $pattern) {
 					preg_match_all($pattern, $comment, $matches, PREG_SET_ORDER);
 					foreach ($matches as $match) {
-						$typeString = $match[1];
-						if (isset($typeMap[$typeString])) {
-							continue;
-						}
+						unset($match[0]); // Original string
+						foreach ($match as $typeString) {
+							if (isset($typeMap[$typeString])) {
+								continue;
+							}
 
-						if ($nameScope === null) {
-							$nameScope = new NameScope($namespace, $uses);
-						}
+							if ($nameScope === null) {
+								$nameScope = new NameScope($namespace, $uses);
+							}
 
-						$typeMap[$typeString] = $this->getTypeFromTypeString($typeString, $className, $nameScope);
+							$typeMap[$typeString] = $this->getTypeFromTypeString($typeString, $className, $nameScope);
+						}
 					}
 				}
 			}
