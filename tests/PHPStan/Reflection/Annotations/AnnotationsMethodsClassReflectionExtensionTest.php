@@ -375,6 +375,43 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
 				'isVariadic' => false,
 				'parameters' => [],
 			],
+			'publish' => [
+				'class' => \AnnotationsMethods\Foo::class,
+				'returnType' => 'Aws\Result',
+				'isStatic' => false,
+				'isVariadic' => false,
+				'parameters' => [
+					[
+						'name' => 'args',
+						'type' => 'mixed[]',
+						'isPassedByReference' => false,
+						'isOptional' => true,
+						'isVariadic' => false,
+					],
+				],
+			],
+			'rotate' => [
+				'class' => \AnnotationsMethods\Foo::class,
+				'returnType' => 'AnnotationsMethods\Image',
+				'isStatic' => false,
+				'isVariadic' => false,
+				'parameters' => [
+					[
+						'name' => 'angle',
+						'type' => 'float',
+						'isPassedByReference' => false,
+						'isOptional' => false,
+						'isVariadic' => false,
+					],
+					[
+						'name' => 'backgroundColor',
+						'type' => 'mixed',
+						'isPassedByReference' => false,
+						'isOptional' => false,
+						'isVariadic' => false,
+					],
+				],
+			],
 		];
 		$barMethods = $fooMethods;
 		$bazMethods = array_merge(

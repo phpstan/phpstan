@@ -108,7 +108,7 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 		}
 
 		foreach (preg_split('#\s*,\s*#', $parametersStringCandidate) as $parameter) {
-			if (preg_match('#(?P<IsNullable>\?)?(?:(?P<Type>' . FileTypeMapper::TYPE_PATTERN . ')\s+)?(?P<IsVariadic>...)?(?P<IsPassedByReference>\&)?\$(?P<Name>[a-zA-Z0-9_]+)(?:\s+=\s+(?P<DefaultValue>.+))?#', $parameter, $parameterMatches)) {
+			if (preg_match('#(?P<IsNullable>\?)?(?:(?P<Type>' . FileTypeMapper::TYPE_PATTERN . ')\s+)?(?P<IsVariadic>...)?(?P<IsPassedByReference>\&)?\$(?P<Name>[a-zA-Z0-9_]+)(?:\s*=\s*(?P<DefaultValue>.+))?#', $parameter, $parameterMatches)) {
 				$name = $parameterMatches['Name'];
 				$typeString = $parameterMatches['Type'];
 				if ($typeString) {
