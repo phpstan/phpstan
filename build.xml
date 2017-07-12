@@ -48,8 +48,7 @@
 			<arg value="--extensions=php"/>
 			<arg value="--encoding=utf-8"/>
 			<arg value="--tab-width=4"/>
-			<arg value="--ignore=tests/*/data"/>
-			<arg value="--ignore=tests/*/traits"/>
+			<arg value="--ignore=tests/*/data,tests/*/traits"/>
 			<arg value="-sp"/>
 			<arg path="src"/>
 			<arg path="tests"/>
@@ -66,8 +65,7 @@
 			<arg value="--extensions=php"/>
 			<arg value="--encoding=utf-8"/>
 			<arg value="--tab-width=4"/>
-			<arg value="--ignore=tests/*/data"/>
-			<arg value="--ignore=tests/*/traits"/>
+			<arg value="--ignore=tests/*/data,tests/*/traits"/>
 			<arg value="-sp"/>
 			<arg path="src"/>
 			<arg path="tests"/>
