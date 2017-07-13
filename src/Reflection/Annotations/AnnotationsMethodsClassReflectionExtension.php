@@ -7,6 +7,7 @@ use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\MethodsClassReflectionExtension;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\NullType;
 use PHPStan\Type\TypeCombinator;
 
 class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflectionExtension
@@ -111,20 +112,24 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 			if (preg_match('#(?P<IsNullable>\?)?(?:(?P<Type>' . FileTypeMapper::TYPE_PATTERN . ')\s+)?(?P<IsVariadic>...)?(?P<IsPassedByReference>\&)?\$(?P<Name>[a-zA-Z0-9_]+)(?:\s*=\s*(?P<DefaultValue>.+))?#', $parameter, $parameterMatches)) {
 				$name = $parameterMatches['Name'];
 				$typeString = $parameterMatches['Type'];
+				$defaultValue = $parameterMatches['DefaultValue'] ?? null;
 				if ($typeString) {
-					if (!isset($typeMap[$typeString])) {
-						continue;
+					$type = null;
+					foreach (explode('|', $typeString) as $typePart) {
+						if (!isset($typeMap[$typePart])) {
+							continue;
+						}
+						$type = $type ? TypeCombinator::combine($type, $typeMap[$typePart]) : $typeMap[$typePart];
 					}
-					$type = $typeMap[$typeString];
-					if ($parameterMatches['IsNullable'] === '?') {
-						$type = TypeCombinator::addNull($type);
+					if ($parameterMatches['IsNullable'] === '?' || $defaultValue === 'null') {
+						$type = $type ? TypeCombinator::addNull($type) : new NullType();
 					}
 				} else {
 					$type = new MixedType();
 				}
 				$isVariadic = !empty($parameterMatches['IsVariadic']);
 				$isPassedByReference = !empty($parameterMatches['IsPassedByReference']);
-				$isOptional = !empty($parameterMatches['DefaultValue']);
+				$isOptional = !empty($defaultValue);
 				$parameters[] = new AnnotationsMethodParameterReflection($name, $type, $isPassedByReference, $isOptional, $isVariadic);
 			}
 		}
