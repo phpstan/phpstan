@@ -103,6 +103,7 @@ class Baz extends Bar
  * @method void doSomethingWithSpecificVariadicScalarParamsNullable(?int ...$a)
  * @method void doSomethingWithSpecificVariadicObjectParamsNotNullable(Ipsum ...$a)
  * @method void doSomethingWithSpecificVariadicObjectParamsNullable(?Ipsum ...$a)
+ * @method void doSomethingWithComplicatedParameters($a, $b = null, string|bool|int|float|OtherTest $c, string|bool|int|float|OtherTest $d = null)
  */
 class BazBaz extends Baz
 {
