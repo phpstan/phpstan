@@ -110,12 +110,12 @@ class TypehintHelper
 			null,
 			true
 		);
-		if ($isVariadic) {
-			$type = new ArrayType($type);
-		}
-
 		if ($reflectionType->allowsNull()) {
 			$type = TypeCombinator::addNull($type);
+		}
+
+		if ($isVariadic) {
+			$type = new ArrayType($type);
 		}
 
 		return self::decideType($type, $phpDocType);
