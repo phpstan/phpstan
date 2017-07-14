@@ -1,6 +1,6 @@
 <?php
 
-namespace FunctionWithVariadicParameters;
+namespace FunctionWithNullableVariadicParameters;
 
 function () {
 	foo();
@@ -11,7 +11,4 @@ function () {
 
 	foo(1, 2, null);
 
-	bar();
-
-	bar(1, 2);
 };

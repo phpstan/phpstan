@@ -58,8 +58,26 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				6,
 			],
 			[
+				'Parameter #3 ...$foo of function FunctionWithVariadicParameters\foo expects int, null given.',
+				12,
+			],
+			[
 				'Function FunctionWithVariadicParameters\bar invoked with 0 parameters, at least 1 required.',
-				10,
+				14,
+			],
+		]);
+	}
+
+	/**
+	 * @requires PHP 7.1.0
+	 */
+	public function testCallToFunctionWithNullableDynamicParameters()
+	{
+		require_once __DIR__ . '/data/function-with-nullable-variadic-parameters-definition.php';
+		$this->analyse([__DIR__ . '/data/function-with-nullable-variadic-parameters.php'], [
+			[
+				'Function FunctionWithNullableVariadicParameters\foo invoked with 0 parameters, at least 1 required.',
+				6,
 			],
 		]);
 	}
