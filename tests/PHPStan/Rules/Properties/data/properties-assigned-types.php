@@ -52,6 +52,9 @@ class Foo extends Ipsum
 		if ($this->intProperty === null) {
 			$this->intProperty = 1;
 		}
+
+		$this->intProperty += 1; // OK
+		$this->intProperty .= 'test'; // property will be string, report error
 	}
 
 }

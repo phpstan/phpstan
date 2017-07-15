@@ -59,6 +59,10 @@ class TypesAssignedToPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Static property PropertiesAssignedTypes\Ipsum::$parentStaticStringProperty (string) does not accept int.',
 				50,
 			],
+			[
+				'Property PropertiesAssignedTypes\Foo::$intProperty (int) does not accept string.',
+				57,
+			],
 		]);
 	}
 

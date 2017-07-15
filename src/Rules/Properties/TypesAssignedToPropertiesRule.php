@@ -3,7 +3,6 @@
 namespace PHPStan\Rules\Properties;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\PropertyReflection;
@@ -29,16 +28,23 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 
 	public function getNodeType(): string
 	{
-		return Assign::class;
+		return \PhpParser\NodeAbstract::class;
 	}
 
 	/**
-	 * @param \PhpParser\Node\Expr\Assign $node
+	 * @param \PhpParser\NodeAbstract $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
+		if (
+			!$node instanceof Node\Expr\Assign
+			&& !$node instanceof Node\Expr\AssignOp
+		) {
+			return [];
+		}
+
 		if (
 			!($node->var instanceof Node\Expr\PropertyFetch)
 			&& !($node->var instanceof Node\Expr\StaticPropertyFetch)
@@ -54,7 +60,12 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 		}
 
 		$propertyType = $propertyReflection->getType();
-		$assignedValueType = $scope->getType($node->expr);
+
+		if ($node instanceof Node\Expr\Assign) {
+			$assignedValueType = $scope->getType($node->expr);
+		} else {
+			$assignedValueType = $scope->getType($node);
+		}
 		if (!$this->ruleLevelHelper->accepts($propertyType, $assignedValueType)) {
 			$propertyDescription = $this->describeProperty($propertyReflection, $propertyFetch);
 			if ($propertyDescription === null) {
