@@ -15,4 +15,13 @@ class Test {
 		}
 	}
 
+	public function test()
+	{
+		if (null === ($date = $this->date)) {
+			$date = new \DateTimeImmutable();
+		}
+
+		$date->format('Y');
+	}
+
 }
