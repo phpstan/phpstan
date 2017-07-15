@@ -379,6 +379,18 @@ class Scope
 			return $this->getType($node->expr);
 		}
 
+		if ($node instanceof Expr\AssignOp\Concat) {
+			return new StringType();
+		}
+
+		if (
+			$node instanceof Expr\AssignOp\ShiftLeft
+			|| $node instanceof Expr\AssignOp\ShiftRight
+			|| $node instanceof Expr\AssignOp\Mod
+		) {
+			return new IntegerType();
+		}
+
 		if (
 			$node instanceof Node\Expr\BinaryOp\Plus
 			|| $node instanceof Node\Expr\BinaryOp\Minus

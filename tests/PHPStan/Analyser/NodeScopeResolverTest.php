@@ -1090,6 +1090,18 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'string',
 				'"Hello $world"',
 			],
+			[
+				'string',
+				'$string .= "str"',
+			],
+			[
+				'int',
+				'$integer <<= 2.2',
+			],
+			[
+				'int',
+				'$float >>= 2.2',
+			],
 		];
 	}
 
