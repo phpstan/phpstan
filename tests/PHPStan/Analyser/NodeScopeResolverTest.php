@@ -1086,6 +1086,10 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'float|int',
 				'min(1, 2.2, 3.3)',
 			],
+			[
+				'string',
+				'"Hello $world"',
+			],
 		];
 	}
 

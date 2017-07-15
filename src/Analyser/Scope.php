@@ -446,7 +446,7 @@ class Scope
 					return $typeFromValue;
 				}
 			}
-		} elseif ($node instanceof String_) {
+		} elseif ($node instanceof String_ || $node instanceof Node\Scalar\Encapsed) {
 			return new StringType();
 		} elseif ($node instanceof DNumber) {
 			return new FloatType();

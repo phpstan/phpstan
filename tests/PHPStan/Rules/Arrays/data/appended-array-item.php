@@ -47,6 +47,11 @@ class Foo
 			return 'foo';
 		}, []);
 		$mappedStringArray[] = 1;
+
+		/** @var callable[] $yetAnotherAnotherCallables */
+		$yetAnotherAnotherCallables = $callables;
+		$world = 'world';
+		$yetAnotherAnotherCallables[] = ['Foo', "Hello $world"];
 	}
 
 }
