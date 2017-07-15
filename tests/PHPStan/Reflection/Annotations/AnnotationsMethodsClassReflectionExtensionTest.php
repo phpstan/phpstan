@@ -677,7 +677,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
 					'parameters' => [
 						[
 							'name' => 'a',
-							'type' => 'int',
+							'type' => 'int|null',
 							'isPassedByReference' => false,
 							'isOptional' => true,
 							'isVariadic' => false,
@@ -691,7 +691,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
 						],
 						[
 							'name' => 'c',
-							'type' => 'int',
+							'type' => 'int|null',
 							'isPassedByReference' => true,
 							'isOptional' => true,
 							'isVariadic' => false,
@@ -749,7 +749,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
 					'parameters' => [
 						[
 							'name' => 'a',
-							'type' => 'OtherNamespace\Ipsum',
+							'type' => 'OtherNamespace\Ipsum|null',
 							'isPassedByReference' => false,
 							'isOptional' => true,
 							'isVariadic' => false,
@@ -763,7 +763,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
 						],
 						[
 							'name' => 'c',
-							'type' => 'OtherNamespace\Ipsum',
+							'type' => 'OtherNamespace\Ipsum|null',
 							'isPassedByReference' => true,
 							'isOptional' => true,
 							'isVariadic' => false,
@@ -834,6 +834,42 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
 							'isPassedByReference' => false,
 							'isOptional' => false,
 							'isVariadic' => true,
+						],
+					],
+				],
+				'doSomethingWithComplicatedParameters' => [
+					'class' => \AnnotationsMethods\BazBaz::class,
+					'returnType' => 'void',
+					'isStatic' => false,
+					'isVariadic' => false,
+					'parameters' => [
+						[
+							'name' => 'a',
+							'type' => 'mixed',
+							'isPassedByReference' => false,
+							'isOptional' => false,
+							'isVariadic' => false,
+						],
+						[
+							'name' => 'b',
+							'type' => 'mixed',
+							'isPassedByReference' => false,
+							'isOptional' => true,
+							'isVariadic' => false,
+						],
+						[
+							'name' => 'c',
+							'type' => 'bool|float|int|OtherNamespace\\Test|string',
+							'isPassedByReference' => false,
+							'isOptional' => false,
+							'isVariadic' => false,
+						],
+						[
+							'name' => 'd',
+							'type' => 'bool|float|int|OtherNamespace\\Test|string|null',
+							'isPassedByReference' => false,
+							'isOptional' => true,
+							'isVariadic' => false,
 						],
 					],
 				],
