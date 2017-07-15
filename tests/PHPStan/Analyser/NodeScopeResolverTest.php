@@ -2605,6 +2605,16 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$fooOrStringOrNull',
 				"'anotherStringForSure';",
 			],
+			[
+				'null',
+				'$this->bar',
+				"'propertyNullForSure';",
+			],
+			[
+				'TypeElimination\Bar',
+				'$this->bar',
+				"'propertyNotNullForSure';",
+			],
 		];
 	}
 
