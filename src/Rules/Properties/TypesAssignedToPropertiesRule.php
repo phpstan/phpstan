@@ -5,7 +5,6 @@ namespace PHPStan\Rules\Properties;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
-use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Rules\RuleLevelHelper;
 
 class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
@@ -17,13 +16,18 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 	/** @var \PHPStan\Rules\RuleLevelHelper */
 	private $ruleLevelHelper;
 
+	/** @var \PHPStan\Rules\Properties\PropertyDescriptor */
+	private $propertyDescriptor;
+
 	public function __construct(
 		Broker $broker,
-		RuleLevelHelper $ruleLevelHelper
+		RuleLevelHelper $ruleLevelHelper,
+		PropertyDescriptor $propertyDescriptor
 	)
 	{
 		$this->broker = $broker;
 		$this->ruleLevelHelper = $ruleLevelHelper;
+		$this->propertyDescriptor = $propertyDescriptor;
 	}
 
 	public function getNodeType(): string
@@ -67,7 +71,7 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 			$assignedValueType = $scope->getType($node);
 		}
 		if (!$this->ruleLevelHelper->accepts($propertyType, $assignedValueType)) {
-			$propertyDescription = $this->describeProperty($propertyReflection, $propertyFetch);
+			$propertyDescription = $this->propertyDescriptor->describeProperty($propertyReflection, $propertyFetch);
 			if ($propertyDescription === null) {
 				return [];
 			}
@@ -83,22 +87,6 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 		}
 
 		return [];
-	}
-
-	/**
-	 * @param \PHPStan\Reflection\PropertyReflection $property
-	 * @param \PhpParser\Node\Expr\PropertyFetch|\PhpParser\Node\Expr\StaticPropertyFetch $propertyFetch
-	 * @return string|null
-	 */
-	private function describeProperty(PropertyReflection $property, $propertyFetch)
-	{
-		if ($propertyFetch instanceof Node\Expr\PropertyFetch) {
-			return sprintf('Property %s::$%s', $property->getDeclaringClass()->getDisplayName(), $propertyFetch->name);
-		} elseif ($propertyFetch instanceof Node\Expr\StaticPropertyFetch) {
-			return sprintf('Static property %s::$%s', $property->getDeclaringClass()->getDisplayName(), $propertyFetch->name);
-		}
-
-		return null;
 	}
 
 	/**

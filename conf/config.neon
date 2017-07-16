@@ -128,6 +128,9 @@ services:
 		class: PHPStan\Rules\FunctionReturnTypeCheck
 
 	-
+		class: PHPStan\Rules\Properties\PropertyDescriptor
+
+	-
 		class: PHPStan\Rules\RegistryFactory
 
 	-

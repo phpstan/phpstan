@@ -9,7 +9,7 @@ class TypesAssignedToPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new TypesAssignedToPropertiesRule($this->createBroker(), new RuleLevelHelper(true));
+		return new TypesAssignedToPropertiesRule($this->createBroker(), new RuleLevelHelper(true), new PropertyDescriptor());
 	}
 
 	public function testTypesAssignedToProperties()
