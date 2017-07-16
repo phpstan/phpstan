@@ -8,6 +8,7 @@ use PHPStan\File\FileHelper;
 use PHPStan\Parser\DirectParser;
 use PHPStan\Parser\FunctionCallStatementFinder;
 use PHPStan\Parser\Parser;
+use PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\FunctionReflectionFactory;
@@ -109,7 +110,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				);
 			}
 		};
-		$phpExtension = new PhpClassReflectionExtension($methodReflectionFactory, new FileTypeMapper($parser, $this->createMock(\Nette\Caching\Cache::class)));
+		$fileTypeMapper = new FileTypeMapper($parser, $this->createMock(\Nette\Caching\Cache::class));
+		$phpExtension = new PhpClassReflectionExtension($methodReflectionFactory, $fileTypeMapper);
 		$functionReflectionFactory = new class($this->getParser(), $functionCallStatementFinder, $cache) implements FunctionReflectionFactory {
 			/** @var \PHPStan\Parser\Parser */
 			private $parser;
@@ -150,6 +152,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		$broker = new Broker(
 			[
 				$phpExtension,
+				new AnnotationsPropertiesClassReflectionExtension($fileTypeMapper),
 				new UniversalObjectCratesClassReflectionExtension([\stdClass::class]),
 				new PhpDefectClassReflectionExtension(),
 			],
