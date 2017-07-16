@@ -131,6 +131,9 @@ services:
 		class: PHPStan\Rules\Properties\PropertyDescriptor
 
 	-
+		class: PHPStan\Rules\Properties\PropertyReflectionFinder
+
+	-
 		class: PHPStan\Rules\RegistryFactory
 
 	-

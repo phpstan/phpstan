@@ -4,14 +4,10 @@ namespace PHPStan\Rules\Properties;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
-use PHPStan\Broker\Broker;
 use PHPStan\Rules\RuleLevelHelper;
 
 class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 {
-
-	/** @var \PHPStan\Broker\Broker */
-	private $broker;
 
 	/** @var \PHPStan\Rules\RuleLevelHelper */
 	private $ruleLevelHelper;
@@ -19,15 +15,18 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 	/** @var \PHPStan\Rules\Properties\PropertyDescriptor */
 	private $propertyDescriptor;
 
+	/** @var \PHPStan\Rules\Properties\PropertyReflectionFinder */
+	private $propertyReflectionFinder;
+
 	public function __construct(
-		Broker $broker,
 		RuleLevelHelper $ruleLevelHelper,
-		PropertyDescriptor $propertyDescriptor
+		PropertyDescriptor $propertyDescriptor,
+		PropertyReflectionFinder $propertyReflectionFinder
 	)
 	{
-		$this->broker = $broker;
 		$this->ruleLevelHelper = $ruleLevelHelper;
 		$this->propertyDescriptor = $propertyDescriptor;
+		$this->propertyReflectionFinder = $propertyReflectionFinder;
 	}
 
 	public function getNodeType(): string
@@ -58,7 +57,7 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 
 		/** @var \PhpParser\Node\Expr\PropertyFetch|\PhpParser\Node\Expr\StaticPropertyFetch $propertyFetch */
 		$propertyFetch = $node->var;
-		$propertyReflection = $this->findPropertyReflectionFromNode($propertyFetch, $scope);
+		$propertyReflection = $this->propertyReflectionFinder->findPropertyReflectionFromNode($propertyFetch, $scope);
 		if ($propertyReflection === null) {
 			return [];
 		}
@@ -87,56 +86,6 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 		}
 
 		return [];
-	}
-
-	/**
-	 * @param \PhpParser\Node\Expr\PropertyFetch|\PhpParser\Node\Expr\StaticPropertyFetch $propertyFetch
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return \PHPStan\Reflection\PropertyReflection|null
-	 */
-	private function findPropertyReflectionFromNode($propertyFetch, Scope $scope)
-	{
-		if ($propertyFetch instanceof Node\Expr\PropertyFetch) {
-			if (!is_string($propertyFetch->name)) {
-				return null;
-			}
-			$propertyHolderType = $scope->getType($propertyFetch->var);
-			if ($propertyHolderType->getClass() === null) {
-				return null;
-			}
-
-			return $this->findPropertyReflection($propertyHolderType->getClass(), $propertyFetch->name, $scope);
-		} elseif ($propertyFetch instanceof Node\Expr\StaticPropertyFetch) {
-			if (
-				!($propertyFetch->class instanceof Node\Name)
-				|| !is_string($propertyFetch->name)
-			) {
-				return null;
-			}
-
-			return $this->findPropertyReflection($scope->resolveName($propertyFetch->class), $propertyFetch->name, $scope);
-		}
-
-		return null;
-	}
-
-	/**
-	 * @param string $className
-	 * @param string $propertyName
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return \PHPStan\Reflection\PropertyReflection|null
-	 */
-	private function findPropertyReflection(string $className, string $propertyName, Scope $scope)
-	{
-		if (!$this->broker->hasClass($className)) {
-			return null;
-		}
-		$propertyClass = $this->broker->getClass($className);
-		if (!$propertyClass->hasProperty($propertyName)) {
-			return null;
-		}
-
-		return $propertyClass->getProperty($propertyName, $scope);
 	}
 
 }
