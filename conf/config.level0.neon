@@ -4,6 +4,11 @@ parameters:
 
 services:
 	-
+		class: PHPStan\Rules\Arrays\DuplicateKeysInLiteralArraysRule
+		tags:
+			- phpstan.rules.rule
+
+	-
 		class: PHPStan\Rules\Classes\ClassConstantRule
 		tags:
 			- phpstan.rules.rule
