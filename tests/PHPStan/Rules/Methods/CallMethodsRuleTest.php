@@ -259,6 +259,13 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		]);
 	}
 
+	public function testCallTraitOverridenMethods()
+	{
+		$this->checkThisOnly = false;
+		$this->checkNullables = true;
+		$this->analyse([__DIR__ . '/data/call-trait-overridden-methods.php'], []);
+	}
+
 	public function testCallInterfaceMethods()
 	{
 		$this->checkThisOnly = false;
