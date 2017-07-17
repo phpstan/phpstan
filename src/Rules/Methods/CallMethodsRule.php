@@ -144,10 +144,32 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 		);
 
 		if (strtolower($methodReflection->getName()) === strtolower($name) && $methodReflection->getName() !== $name) {
-			$errors[] = sprintf('Call to method %s with incorrect case: %s', $messagesMethodName, $name);
+			$isValidAlias = false;
+			foreach ($methodClassReflection->getNativeReflection()->getTraitAliases() as $traitTarget) {
+				if ($this->isMethodTraitAlias($name, $traitTarget)) {
+					$isValidAlias = true;
+					break;
+				}
+			}
+
+			if (!$isValidAlias) {
+				$errors[] = sprintf('Call to method %s with incorrect case: %s', $messagesMethodName, $name);
+			}
 		}
 
 		return $errors;
+	}
+
+	private function isMethodTraitAlias(string $methodName, string $traitTarget): bool
+	{
+		list ($trait, $method) = explode('::', $traitTarget);
+		foreach ($this->broker->getClass($trait)->getNativeReflection()->getTraitAliases() as $methodAlias => $traitTarget) {
+			if ($methodName === $methodAlias || $this->isMethodTraitAlias($methodName, $traitTarget)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 }
