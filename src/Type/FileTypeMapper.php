@@ -10,7 +10,7 @@ class FileTypeMapper
 {
 
 	const CONST_FETCH_CONSTANT = '__PHPSTAN_CLASS_REFLECTION_CONSTANT__';
-	const TYPE_PATTERN = '((?:(?:\$this|\\\?[0-9a-zA-Z_]+)(?:\[\])*(?:\|)?)+)';
+	const TYPE_PATTERN = '((?:(?:\$this|\\??\\\?[0-9a-zA-Z_][0-9a-zA-Z_\\\]+)(?:\[\])*(?:\|)?)+)';
 
 	/** @var \PHPStan\Parser\Parser */
 	private $parser;
@@ -58,7 +58,7 @@ class FileTypeMapper
 			'#@var\s+\$[a-zA-Z0-9_]+\s+' . self::TYPE_PATTERN . '#',
 			'#@return\s+' . self::TYPE_PATTERN . '#',
 			'#@property(?:-read|-write)?\s+' . self::TYPE_PATTERN . '\s+\$[a-zA-Z0-9_]+#',
-			'#@method\s+(?:static\s+)?' . self::TYPE_PATTERN . '\s*?[a-zA-Z0-9_]+(?:\((?P<Parameters>(?:(?:\?)?(?:' . self::TYPE_PATTERN . '\s+)?(?:...)?(?:\&)?\$[a-zA-Z0-9_]+(?:\s*=\s*(?:.+))?(?:,\s*)?)*)\))?#',
+			'#@method\s+(?:static\s+)?' . self::TYPE_PATTERN . '\s*?[a-zA-Z0-9_]+(?:\((?P<Parameters>(?:(?:' . self::TYPE_PATTERN . '\s+)?(?:...)?(?:\&)?\$[a-zA-Z0-9_]+(?:\s*=\s*(?:.+))?(?:,\s*)?)*)\))?#',
 		];
 
 		/** @var \PhpParser\Node\Stmt\ClassLike|null $lastClass */
@@ -120,10 +120,10 @@ class FileTypeMapper
 						}
 						if (isset($match['Parameters'])) {
 							foreach (preg_split('#\s*,\s*#', $match['Parameters']) as $parameter) {
-								if (preg_match('#(?P<IsNullable>\?)?(?:(?P<Type>' . FileTypeMapper::TYPE_PATTERN . ')\s+)?(?P<IsVariadic>...)?(?P<IsPassedByReference>\&)?\$(?P<Name>[a-zA-Z0-9_]+)(?:\s*=\s*(?P<DefaultValue>.+))?#', $parameter, $parameterMatches)) {
+								if (preg_match('#(?:(?P<Type>' . FileTypeMapper::TYPE_PATTERN . ')\s+)?(?P<IsVariadic>...)?(?P<IsPassedByReference>\&)?\$(?P<Name>[a-zA-Z0-9_]+)(?:\s*=\s*(?P<DefaultValue>.+))?#', $parameter, $parameterMatches)) {
 									$typeString = $parameterMatches['Type'];
 
-									if (isset($typeMap[$typeString])) {
+									if ($typeString === '' || isset($typeMap[$typeString])) {
 										continue;
 									}
 									if ($nameScope === null) {
@@ -147,6 +147,10 @@ class FileTypeMapper
 		/** @var \PHPStan\Type\Type|null $type */
 		$type = null;
 		foreach (explode('|', $typeString) as $typePart) {
+			if (substr($typePart, 0, 1) === '?') {
+				$typePart = substr($typePart, 1);
+				$type = $type ? TypeCombinator::addNull($type) : new NullType();
+			}
 			$typeFromTypePart = TypehintHelper::getTypeObjectFromTypehint($typePart, $className, $nameScope);
 			if ($type === null) {
 				$type = $typeFromTypePart;
