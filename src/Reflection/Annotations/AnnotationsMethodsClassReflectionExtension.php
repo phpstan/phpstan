@@ -74,7 +74,7 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 
 		$typeMap = $this->fileTypeMapper->getTypeMap($fileName);
 
-		preg_match_all('#@method\s+(?:(?P<IsStatic>static)\s+)?(?:(?P<Type>[^\s(]*)\s+)?(?P<MethodName>[a-zA-Z0-9_]+)(?P<Parameters>(?:\([^)]*\))?)#', $docComment, $matches, PREG_SET_ORDER);
+		preg_match_all('#@method\s+(?:(?P<IsStatic>static)\s+)?(?:(?P<Type>[^\s\(]*)\s+)?(?P<MethodName>[a-zA-Z0-9_]+)(?P<Parameters>(?:\([^\)]*\))?)#', $docComment, $matches, PREG_SET_ORDER);
 		foreach ($matches as $match) {
 			$isStatic = $match['IsStatic'] === 'static';
 			$typeStringCandidate = $match['Type'];
@@ -109,7 +109,7 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 		}
 
 		foreach (preg_split('#\s*,\s*#', $parametersStringCandidate) as $parameter) {
-			if (preg_match('#(?P<IsNullable>\?)?(?:(?P<Type>' . FileTypeMapper::TYPE_PATTERN . ')\s+)?(?P<IsVariadic>...)?(?P<IsPassedByReference>\&)?\$(?P<Name>[a-zA-Z0-9_]+)(?:\s*=\s*(?P<DefaultValue>.+))?#', $parameter, $parameterMatches)) {
+			if (preg_match('#(?:(?P<Type>' . FileTypeMapper::TYPE_PATTERN . ')\s+)?(?P<IsVariadic>...)?(?P<IsPassedByReference>\&)?\$(?P<Name>[a-zA-Z0-9_]+)(?:\s*=\s*(?P<DefaultValue>.+))?#', $parameter, $parameterMatches)) {
 				$name = $parameterMatches['Name'];
 				$typeString = $parameterMatches['Type'];
 				$defaultValue = $parameterMatches['DefaultValue'] ?? null;
@@ -118,7 +118,7 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 						continue;
 					}
 					$type = $typeMap[$typeString];
-					if ($parameterMatches['IsNullable'] === '?' || $defaultValue === 'null') {
+					if ($defaultValue === 'null') {
 						$type = $type !== null ? TypeCombinator::addNull($type) : new NullType();
 					}
 				} else {
