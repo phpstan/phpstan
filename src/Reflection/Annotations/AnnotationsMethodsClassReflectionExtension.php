@@ -114,13 +114,10 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 				$typeString = $parameterMatches['Type'];
 				$defaultValue = $parameterMatches['DefaultValue'] ?? null;
 				if ($typeString !== '') {
-					$type = null;
-					foreach (explode('|', $typeString) as $typePart) {
-						if (!isset($typeMap[$typePart])) {
-							continue;
-						}
-						$type = $type !== null ? TypeCombinator::combine($type, $typeMap[$typePart]) : $typeMap[$typePart];
+					if (!isset($typeMap[$typeString])) {
+						continue;
 					}
+					$type = $typeMap[$typeString];
 					if ($parameterMatches['IsNullable'] === '?' || $defaultValue === 'null') {
 						$type = $type !== null ? TypeCombinator::addNull($type) : new NullType();
 					}
@@ -131,8 +128,6 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 				$isPassedByReference = !empty($parameterMatches['IsPassedByReference']);
 				$isOptional = !empty($defaultValue);
 
-				/** @var \PHPStan\Type\Type $type */
-				$type = $type;
 				$parameters[] = new AnnotationsMethodParameterReflection($name, $type, $isPassedByReference, $isOptional, $isVariadic);
 			}
 		}

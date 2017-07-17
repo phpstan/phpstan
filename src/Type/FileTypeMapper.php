@@ -32,7 +32,7 @@ class FileTypeMapper
 
 	public function getTypeMap(string $fileName): array
 	{
-		$cacheKey = sprintf('%s-%d-v33', $fileName, filemtime($fileName));
+		$cacheKey = sprintf('%s-%d-v34', $fileName, filemtime($fileName));
 		if (isset($this->memoryCache[$cacheKey])) {
 			return $this->memoryCache[$cacheKey];
 		}
@@ -58,7 +58,7 @@ class FileTypeMapper
 			'#@var\s+\$[a-zA-Z0-9_]+\s+' . self::TYPE_PATTERN . '#',
 			'#@return\s+' . self::TYPE_PATTERN . '#',
 			'#@property(?:-read|-write)?\s+' . self::TYPE_PATTERN . '\s+\$[a-zA-Z0-9_]+#',
-			'#@method\s+(?:static\s+)?' . self::TYPE_PATTERN . '\s*?[a-zA-Z0-9_]+(?:\((?:(?:\?)?(?:' . self::TYPE_PATTERN . '\s+)?(?:...)?(?:\&)?\$[a-zA-Z0-9_]+(?:\s*=\s*(?:.+))?,?)*\))?#',
+			'#@method\s+(?:static\s+)?' . self::TYPE_PATTERN . '\s*?[a-zA-Z0-9_]+(?:\((?P<Parameters>(?:(?:\?)?(?:' . self::TYPE_PATTERN . '\s+)?(?:...)?(?:\&)?\$[a-zA-Z0-9_]+(?:\s*=\s*(?:.+))?(?:,\s*)?)*)\))?#',
 		];
 
 		/** @var \PhpParser\Node\Stmt\ClassLike|null $lastClass */
@@ -110,17 +110,29 @@ class FileTypeMapper
 				foreach ($patterns as $pattern) {
 					preg_match_all($pattern, $comment, $matches, PREG_SET_ORDER);
 					foreach ($matches as $match) {
-						unset($match[0]); // Original string
-						foreach ($match as $typeString) {
-							if (isset($typeMap[$typeString])) {
-								continue;
-							}
-
+						$typeString = $match[1];
+						if (!isset($typeMap[$typeString])) {
 							if ($nameScope === null) {
 								$nameScope = new NameScope($namespace, $uses);
 							}
 
 							$typeMap[$typeString] = $this->getTypeFromTypeString($typeString, $className, $nameScope);
+						}
+						if (isset($match['Parameters'])) {
+							foreach (preg_split('#\s*,\s*#', $match['Parameters']) as $parameter) {
+								if (preg_match('#(?P<IsNullable>\?)?(?:(?P<Type>' . FileTypeMapper::TYPE_PATTERN . ')\s+)?(?P<IsVariadic>...)?(?P<IsPassedByReference>\&)?\$(?P<Name>[a-zA-Z0-9_]+)(?:\s*=\s*(?P<DefaultValue>.+))?#', $parameter, $parameterMatches)) {
+									$typeString = $parameterMatches['Type'];
+
+									if (isset($typeMap[$typeString])) {
+										continue;
+									}
+									if ($nameScope === null) {
+										$nameScope = new NameScope($namespace, $uses);
+									}
+
+									$typeMap[$typeString] = $this->getTypeFromTypeString($typeString, $className, $nameScope);
+								}
+							}
 						}
 					}
 				}
@@ -143,10 +155,7 @@ class FileTypeMapper
 			}
 		}
 
-		/** @var \PHPStan\Type\Type $type */
-		$type = $type;
-
-		return $type;
+		return $type ?: TypehintHelper::getTypeObjectFromTypehint($typeString, $className, $nameScope);
 	}
 
 	/**
