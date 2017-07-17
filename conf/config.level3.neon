@@ -8,6 +8,16 @@ services:
 			- phpstan.rules.rule
 
 	-
+		class: PHPStan\Rules\Arrays\InvalidKeyInArrayDimFetchRule
+		tags:
+			- phpstan.rules.rule
+
+	-
+		class: PHPStan\Rules\Arrays\InvalidKeyInArrayItemRule
+		tags:
+			- phpstan.rules.rule
+
+	-
 		class: PHPStan\Rules\Functions\ClosureReturnTypeRule
 		tags:
 			- phpstan.rules.rule
