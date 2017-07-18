@@ -40,7 +40,6 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 					$this->getParser(),
 					$printer,
 					new FileTypeMapper($this->getParser(), $this->getContainer()->getByType(PhpDocStringResolver::class), $this->createMock(Cache::class)),
-					new \PhpParser\BuilderFactory(),
 					$fileHelper,
 					$this->shouldPolluteScopeWithLoopInitialAssignments(),
 					$this->shouldPolluteCatchScopeWithTryAssignments(),

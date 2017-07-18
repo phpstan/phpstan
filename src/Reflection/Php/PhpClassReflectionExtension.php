@@ -117,7 +117,7 @@ class PhpClassReflectionExtension
 		}
 		if ($propertyReflection->getDocComment() === false) {
 			$type = new MixedType();
-		} elseif (!$declaringClassReflection->getNativeReflection()->isAnonymous() && $declaringClassReflection->getNativeReflection()->getFileName() !== false) {
+		} elseif (!$classReflection->isAnonymous() && !$declaringClassReflection->isAnonymous() && $declaringClassReflection->getNativeReflection()->getFileName() !== false) {
 			$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForProperty(
 				$this->broker,
 				$propertyReflection->getDocComment(),
@@ -214,7 +214,7 @@ class PhpClassReflectionExtension
 
 		$phpDocParameterTypes = [];
 		$phpDocReturnType = null;
-		if (!$declaringClass->getNativeReflection()->isAnonymous() && $declaringClass->getNativeReflection()->getFileName() !== false) {
+		if (!$classReflection->isAnonymous() && !$declaringClass->isAnonymous() && $declaringClass->getNativeReflection()->getFileName() !== false) {
 			if ($methodReflection->getDocComment() !== false) {
 				$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForMethod(
 					$this->broker,

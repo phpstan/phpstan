@@ -87,7 +87,11 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 	{
 		try {
 			$prototypeReflection = $this->reflection->getPrototype();
-			$prototypeDeclaringClass = $this->broker->getClassFromReflection($prototypeReflection->getDeclaringClass(), $prototypeReflection->getDeclaringClass()->getName());
+			$prototypeDeclaringClass = $this->broker->getClassFromReflection(
+				$prototypeReflection->getDeclaringClass(),
+				$prototypeReflection->getDeclaringClass()->getName(),
+				$prototypeReflection->getDeclaringClass()->isAnonymous()
+			);
 
 			return new self(
 				$prototypeDeclaringClass,

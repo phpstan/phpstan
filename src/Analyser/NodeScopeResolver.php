@@ -81,9 +81,6 @@ class NodeScopeResolver
 	/** @var \PHPStan\Type\FileTypeMapper */
 	private $fileTypeMapper;
 
-	/** @var \PhpParser\BuilderFactory */
-	private $builderFactory;
-
 	/** @var \PHPStan\File\FileHelper */
 	private $fileHelper;
 
@@ -107,7 +104,6 @@ class NodeScopeResolver
 		Parser $parser,
 		\PhpParser\PrettyPrinter\Standard $printer,
 		FileTypeMapper $fileTypeMapper,
-		\PhpParser\BuilderFactory $builderFactory,
 		FileHelper $fileHelper,
 		bool $polluteScopeWithLoopInitialAssignments,
 		bool $polluteCatchScopeWithTryAssignments,
@@ -118,7 +114,6 @@ class NodeScopeResolver
 		$this->parser = $parser;
 		$this->printer = $printer;
 		$this->fileTypeMapper = $fileTypeMapper;
-		$this->builderFactory = $builderFactory;
 		$this->fileHelper = $fileHelper;
 		$this->polluteScopeWithLoopInitialAssignments = $polluteScopeWithLoopInitialAssignments;
 		$this->polluteCatchScopeWithTryAssignments = $polluteCatchScopeWithTryAssignments;
@@ -594,27 +589,19 @@ class NodeScopeResolver
 			$scope = $scope->enterFunctionCall($node);
 		} elseif ($node instanceof New_ && $node->class instanceof Class_) {
 			$node->args = [];
-			foreach ($node->class->stmts as $i => $statement) {
-				if (
-					$statement instanceof Node\Stmt\ClassMethod
-					&& $statement->name === '__construct'
-				) {
-					unset($node->class->stmts[$i]);
-					$node->class->stmts = array_values($node->class->stmts);
-					break;
-				}
-			}
-
-			$node->class->stmts[] = $this->builderFactory
-				->method('__construct')
-				->makePublic()
-				->getNode();
-
 			$code = $this->printer->prettyPrint([$node]);
-			$classReflection = new \ReflectionClass(eval(sprintf('return %s', $code)));
+
+			do {
+				$uniqidClass = 'AnonymousClass' . uniqid();
+			} while (class_exists('\\' . $uniqidClass));
+
+			$code = 'class ' . $uniqidClass . ' ' . substr($code, strlen('new class '));
+			eval($code);
+			$classReflection = new \ReflectionClass('\\' . $uniqidClass);
 			$this->anonymousClassReflection = $this->broker->getClassFromReflection(
 				$classReflection,
-				sprintf('class@anonymous%s:%s', $scope->getFile(), $node->getLine())
+				sprintf('class@anonymous%s:%s', $scope->getFile(), $node->getLine()),
+				true
 			);
 		} elseif ($node instanceof BooleanNot) {
 			$scope = $scope->enterNegation();
@@ -1370,7 +1357,7 @@ class NodeScopeResolver
 			}
 			$parserNodes = $this->parser->parseFile($fileName);
 			$className = sprintf('class %s', $classScope->getClassReflection()->getDisplayName());
-			if ($classScope->getClassReflection()->getNativeReflection()->isAnonymous()) {
+			if ($classScope->getClassReflection()->isAnonymous()) {
 				$className = 'anonymous class';
 			}
 			$classScope = $classScope->changeAnalysedContextFile(

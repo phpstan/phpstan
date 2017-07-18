@@ -145,7 +145,6 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 				$this->getParser(),
 				$printer,
 				new FileTypeMapper($this->getParser(), $phpDocStringResolver, $this->createMock(Cache::class)),
-				new \PhpParser\BuilderFactory(),
 				$fileHelper,
 				false,
 				false,
