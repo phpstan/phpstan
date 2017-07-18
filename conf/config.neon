@@ -52,6 +52,10 @@ services:
 			ignoreErrors: %ignoreErrors%
 			reportUnmatchedIgnoredErrors: %reportUnmatchedIgnoredErrors%
 			bootstrapFile: %bootstrap%
+	-
+		class: PHPStan\Analyser\CoverageReporter
+		arguments:
+			bootstrapFile: %bootstrap%
 
 	-
 		class: PHPStan\Analyser\NodeScopeResolver
@@ -68,6 +72,12 @@ services:
 
 	-
 		class: PHPStan\Command\AnalyseApplication
+		arguments:
+			memoryLimitFile: %memoryLimitFile%
+			fileExtensions: %fileExtensions%
+
+	-
+		class: PHPStan\Command\CoverageApplication
 		arguments:
 			memoryLimitFile: %memoryLimitFile%
 			fileExtensions: %fileExtensions%
