@@ -16,3 +16,21 @@ class Foo
 	}
 
 }
+
+abstract class AbstractFoo
+{
+	public function AbstractFooMethod()
+	{
+		static::LOREM;
+	}
+}
+
+class FooBar extends AbstractFoo
+{
+	const LOREM = 1;
+
+	public function FooBarMethod()
+	{
+		static::IPSUM;
+	}
+}

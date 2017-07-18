@@ -44,6 +44,10 @@ class ClassConstantRuleTest extends \PHPStan\Rules\AbstractRuleTest
 					'Using parent outside of class scope.',
 					19,
 				],
+				[
+					'Access to undefined constant ClassConstantNamespace\FooBar::IPSUM.',
+					34,
+				],
 			]
 		);
 	}

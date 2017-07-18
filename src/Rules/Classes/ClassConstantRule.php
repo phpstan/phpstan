@@ -87,6 +87,9 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 		}
 
 		if (!$classReflection->hasConstant($constantName)) {
+			if ($className === 'static' && $classReflection->isAbstract()) {
+				return [];
+			}
 			return [
 				sprintf(
 					'Access to undefined constant %s::%s.',
