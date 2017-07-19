@@ -140,7 +140,7 @@ class Scope
 	/**
 	 * @var string[]
 	 */
-	private $currentlyAssignedVariables = [];
+	private $currentlyAssignedExpressions = [];
 
 	/**
 	 * @param \PHPStan\Broker\Broker $broker
@@ -159,7 +159,7 @@ class Scope
 	 * @param bool $negated
 	 * @param \PHPStan\Type\Type[] $moreSpecificTypes
 	 * @param bool $inFirstLevelStatement
-	 * @param string[] $currentlyAssignedVariables
+	 * @param string[] $currentlyAssignedExpressions
 	 */
 	public function __construct(
 		Broker $broker,
@@ -178,7 +178,7 @@ class Scope
 		bool $negated = false,
 		array $moreSpecificTypes = [],
 		bool $inFirstLevelStatement = true,
-		array $currentlyAssignedVariables = []
+		array $currentlyAssignedExpressions = []
 	)
 	{
 		if ($namespace === '') {
@@ -201,7 +201,7 @@ class Scope
 		$this->negated = $negated;
 		$this->moreSpecificTypes = $moreSpecificTypes;
 		$this->inFirstLevelStatement = $inFirstLevelStatement;
-		$this->currentlyAssignedVariables = $currentlyAssignedVariables;
+		$this->currentlyAssignedExpressions = $currentlyAssignedExpressions;
 	}
 
 	public function getFile(): string
@@ -1196,10 +1196,10 @@ class Scope
 		);
 	}
 
-	public function enterVariableAssign(string $variableName): self
+	public function enterExpressionAssign(Expr $expr): self
 	{
-		$currentlyAssignedVariables = $this->currentlyAssignedVariables;
-		$currentlyAssignedVariables[] = $variableName;
+		$currentlyAssignedExpressions = $this->currentlyAssignedExpressions;
+		$currentlyAssignedExpressions[] = $this->printer->prettyPrintExpr($expr);
 
 		return new self(
 			$this->broker,
@@ -1218,13 +1218,14 @@ class Scope
 			$this->isNegated(),
 			$this->moreSpecificTypes,
 			$this->isInFirstLevelStatement(),
-			$currentlyAssignedVariables
+			$currentlyAssignedExpressions
 		);
 	}
 
-	public function isInVariableAssign(string $variableName): bool
+	public function isInExpressionAssign(Expr $expr): bool
 	{
-		return in_array($variableName, $this->currentlyAssignedVariables, true);
+		$exprString = $this->printer->prettyPrintExpr($expr);
+		return in_array($exprString, $this->currentlyAssignedExpressions, true);
 	}
 
 	public function assignVariable(
@@ -1653,7 +1654,7 @@ class Scope
 			$this->isNegated(),
 			$this->moreSpecificTypes,
 			true,
-			$this->currentlyAssignedVariables
+			$this->currentlyAssignedExpressions
 		);
 	}
 
@@ -1676,7 +1677,7 @@ class Scope
 			$this->isNegated(),
 			$this->moreSpecificTypes,
 			false,
-			$this->currentlyAssignedVariables
+			$this->currentlyAssignedExpressions
 		);
 	}
 

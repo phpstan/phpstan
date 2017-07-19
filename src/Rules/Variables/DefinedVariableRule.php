@@ -59,7 +59,7 @@ class DefinedVariableRule implements \PHPStan\Rules\Rule
 			}
 		}
 
-		if ($scope->isInVariableAssign($node->name)) {
+		if ($scope->isInExpressionAssign($node)) {
 			return [];
 		}
 

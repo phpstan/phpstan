@@ -547,9 +547,7 @@ class NodeScopeResolver
 			$scope = $scope->enterNegation();
 		} elseif ($node instanceof Unset_ || $node instanceof Isset_) {
 			foreach ($node->vars as $unsetVar) {
-				if ($unsetVar instanceof Variable && is_string($unsetVar->name)) {
-					$scope = $scope->enterVariableAssign($unsetVar->name);
-				}
+				$scope = $scope->enterExpressionAssign($unsetVar);
 			}
 		}
 
@@ -657,15 +655,15 @@ class NodeScopeResolver
 
 	private function lookForEnterVariableAssign(Scope $scope, Node $node): Scope
 	{
-		if ($node instanceof Variable && is_string($node->name)) {
-			$scope = $scope->enterVariableAssign($node->name);
+		if ($node instanceof Variable) {
+			$scope = $scope->enterExpressionAssign($node);
 		} elseif ($node instanceof ArrayDimFetch) {
 			while ($node instanceof ArrayDimFetch) {
 				$node = $node->var;
 			}
 
-			if ($node instanceof Variable && is_string($node->name)) {
-				$scope = $scope->enterVariableAssign($node->name);
+			if ($node instanceof Variable) {
+				$scope = $scope->enterExpressionAssign($node);
 			}
 		} elseif ($node instanceof List_ || $node instanceof Array_) {
 			foreach ($node->items as $listItem) {
