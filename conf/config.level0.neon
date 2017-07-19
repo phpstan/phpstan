@@ -122,6 +122,13 @@ services:
 			- phpstan.rules.rule
 
 	-
+		class: PHPStan\Rules\Properties\ReadingWriteOnlyPropertiesRule
+		arguments:
+			checkThisOnly: %checkThisOnly%
+		tags:
+			- phpstan.rules.rule
+
+	-
 		class: PHPStan\Rules\Variables\ThisVariableRule
 		tags:
 			- phpstan.rules.rule

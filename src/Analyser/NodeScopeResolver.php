@@ -653,7 +653,7 @@ class NodeScopeResolver
 		}
 	}
 
-	private function lookForEnterVariableAssign(Scope $scope, Node $node): Scope
+	private function lookForEnterVariableAssign(Scope $scope, Expr $node): Scope
 	{
 		if ($node instanceof Variable) {
 			$scope = $scope->enterExpressionAssign($node);
@@ -676,6 +676,8 @@ class NodeScopeResolver
 				}
 				$scope = $this->lookForEnterVariableAssign($scope, $listItemValue);
 			}
+		} else {
+			$scope = $scope->enterExpressionAssign($node);
 		}
 
 		return $scope;
