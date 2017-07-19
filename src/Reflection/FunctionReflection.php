@@ -146,6 +146,17 @@ class FunctionReflection implements ParametersAcceptor
 					true
 				);
 			}
+
+			if (
+				$this->reflection->getName() === 'imagewebp'
+				&& count($this->parameters) === 2
+			) {
+				$this->parameters[] = new DummyParameter(
+					'quality',
+					new IntegerType(),
+					true
+				);
+			}
 		}
 
 		return $this->parameters;
