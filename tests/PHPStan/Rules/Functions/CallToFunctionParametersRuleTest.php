@@ -143,6 +143,10 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Function locale_get_display_language invoked with 3 parameters, 1-2 required.',
 				30,
 			],
+			[
+				'Function imagewebp invoked with 1 parameter, 2-3 required.',
+				34,
+			],
 		]);
 	}
 
