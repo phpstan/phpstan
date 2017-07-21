@@ -74,7 +74,7 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 
 		$typeMap = $this->fileTypeMapper->getTypeMap($fileName);
 
-		preg_match_all('#@method\s+(?:(?P<IsStatic>static)\s+)?(?:(?P<Type>[^\s\(]*)\s+)?(?P<MethodName>[a-zA-Z0-9_]+)(?P<Parameters>(?:\([^\)]*\))?)#', $docComment, $matches, PREG_SET_ORDER);
+		preg_match_all('#@method\s+(?:(?P<IsStatic>static)\s+)?(?:(?P<Type>[^\(\*]+?)(?<!\|)\s+)?(?P<MethodName>[a-zA-Z0-9_]+)(?P<Parameters>(?:\([^\)]*\))?)#', $docComment, $matches, PREG_SET_ORDER);
 		foreach ($matches as $match) {
 			$isStatic = $match['IsStatic'] === 'static';
 			$typeStringCandidate = $match['Type'];

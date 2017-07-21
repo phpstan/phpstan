@@ -10,7 +10,7 @@ class FileTypeMapper
 {
 
 	const CONST_FETCH_CONSTANT = '__PHPSTAN_CLASS_REFLECTION_CONSTANT__';
-	const TYPE_PATTERN = '((?:(?:\$this|\\??\\\?[0-9a-zA-Z_][0-9a-zA-Z_\\\]+)(?:\[\])*(?:\|)?)+)';
+	const TYPE_PATTERN = '((?:(?:\$this|\\??\\\?[0-9a-zA-Z_][0-9a-zA-Z_\\\]+)(?:\[\])*(?:\s*\|\s*)?)+)';
 
 	/** @var \PHPStan\Parser\Parser */
 	private $parser;
@@ -32,7 +32,7 @@ class FileTypeMapper
 
 	public function getTypeMap(string $fileName): array
 	{
-		$cacheKey = sprintf('%s-%d-v35', $fileName, filemtime($fileName));
+		$cacheKey = sprintf('%s-%d-v36', $fileName, filemtime($fileName));
 		if (isset($this->memoryCache[$cacheKey])) {
 			return $this->memoryCache[$cacheKey];
 		}
@@ -147,6 +147,7 @@ class FileTypeMapper
 		/** @var \PHPStan\Type\Type|null $type */
 		$type = null;
 		foreach (explode('|', $typeString) as $typePart) {
+			$typePart = trim($typePart);
 			if (substr($typePart, 0, 1) === '?') {
 				$typePart = substr($typePart, 1);
 				$type = $type ? TypeCombinator::addNull($type) : new NullType();

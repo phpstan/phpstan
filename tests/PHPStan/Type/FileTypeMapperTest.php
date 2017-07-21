@@ -14,6 +14,7 @@ class FileTypeMapperTest extends \PHPStan\TestCase
 		$typeMap = $fileTypeMapper->getTypeMap(__DIR__ . '/data/annotations.php');
 
 		$expected = [
+			'int | float' => 'float|int',
 			'void' => 'void',
 			'string' => 'string',
 			'?float' => 'float|null',
@@ -23,6 +24,8 @@ class FileTypeMapperTest extends \PHPStan\TestCase
 			'string|?int' => 'int|string|null',
 			'Image' => 'Image',
 			'float' => 'float',
+			'string | null' => 'string|null',
+			'stdClass | null' => 'stdClass|null',
 		];
 
 		$this->assertEquals(array_keys($expected), array_keys($typeMap));

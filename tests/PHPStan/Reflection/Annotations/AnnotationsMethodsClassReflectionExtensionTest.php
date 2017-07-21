@@ -873,6 +873,28 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
 						],
 					],
 				],
+				'paramMultipleTypesWithExtraSpaces' => [
+					'class' => \AnnotationsMethods\BazBaz::class,
+					'returnType' => 'float|int',
+					'isStatic' => false,
+					'isVariadic' => false,
+					'parameters' => [
+						[
+							'name' => 'string',
+							'type' => 'string|null',
+							'isPassedByReference' => false,
+							'isOptional' => false,
+							'isVariadic' => false,
+						],
+						[
+							'name' => 'object',
+							'type' => 'OtherNamespace\\Test|null',
+							'isPassedByReference' => false,
+							'isOptional' => false,
+							'isVariadic' => false,
+						],
+					],
+				],
 			]
 		);
 
