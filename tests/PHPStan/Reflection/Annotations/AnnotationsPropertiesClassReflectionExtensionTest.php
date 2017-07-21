@@ -166,6 +166,12 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCas
 						'writable' => true,
 						'readable' => false,
 					],
+					'numericBazBazProperty' => [
+						'class' => \AnnotationsProperties\BazBaz::class,
+						'type' => 'float|int',
+						'writable' => true,
+						'readable' => true,
+					],
 				],
 			],
 		];

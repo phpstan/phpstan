@@ -33,6 +33,9 @@ class Baz extends Bar
 
 }
 
+/**
+ * @property int | float $numericBazBazProperty
+ */
 class BazBaz extends Baz
 {
 
