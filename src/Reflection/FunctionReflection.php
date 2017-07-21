@@ -93,6 +93,26 @@ class FunctionReflection implements ParametersAcceptor
 				);
 			}
 			if (
+				(
+					in_array($this->reflection->getName(), ['array_udiff', 'array_udiff_assoc'], true)
+					&& count($this->parameters) === 3
+				)
+				|| (
+					$this->reflection->getName() === 'array_udiff_uassoc'
+					&& count($this->parameters) === 4
+				)
+			) {
+				array_splice($this->parameters, 2, 0, [
+					new DummyParameter(
+						'arr',
+						new ArrayType(new MixedType(), false),
+						true,
+						false,
+						true
+					),
+				]);
+			}
+			if (
 				$this->reflection->getName() === 'fputcsv'
 				&& count($this->parameters) === 4
 			) {
@@ -165,12 +185,17 @@ class FunctionReflection implements ParametersAcceptor
 	public function isVariadic(): bool
 	{
 		$isNativelyVariadic = $this->reflection->isVariadic();
-		if (!$isNativelyVariadic && $this->reflection->getFileName() !== false) {
+		if (!$isNativelyVariadic) {
 			$key = sprintf('variadic-function-%s-v2', $this->reflection->getName());
 			$cachedResult = $this->cache->load($key);
 			if ($cachedResult === null) {
-				$nodes = $this->parser->parseFile($this->reflection->getFileName());
-				$result = $this->callsFuncGetArgs($nodes);
+				if ($this->reflection->getFileName() !== false) {
+					$nodes = $this->parser->parseFile($this->reflection->getFileName());
+					$result = $this->callsFuncGetArgs($nodes);
+				} else {
+					$result = $this->hasVariadicParameter();
+				}
+
 				$this->cache->save($key, $result);
 				return $result;
 			}
@@ -212,6 +237,17 @@ class FunctionReflection implements ParametersAcceptor
 			}
 
 			if ($this->callsFuncGetArgs($node)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private function hasVariadicParameter(): bool
+	{
+		foreach ($this->getParameters() as $parameter) {
+			if ($parameter->isVariadic()) {
 				return true;
 			}
 		}
