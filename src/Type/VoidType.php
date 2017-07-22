@@ -70,4 +70,9 @@ class VoidType implements Type
 		return new ErrorType();
 	}
 
+	public static function __set_state(array $properties): Type
+	{
+		return new self();
+	}
+
 }

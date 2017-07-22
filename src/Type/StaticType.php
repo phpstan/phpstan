@@ -137,4 +137,9 @@ class StaticType implements StaticResolvableType
 		return new ErrorType();
 	}
 
+	public static function __set_state(array $properties): Type
+	{
+		return new self($properties['baseClass']);
+	}
+
 }

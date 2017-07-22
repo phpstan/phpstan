@@ -31,4 +31,9 @@ class IntegerType implements Type
 		return false;
 	}
 
+	public static function __set_state(array $properties): Type
+	{
+		return new self();
+	}
+
 }

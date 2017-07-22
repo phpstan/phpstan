@@ -33,4 +33,6 @@ interface Type
 
 	public function getIterableValueType(): Type;
 
+	public static function __set_state(array $properties): self;
+
 }
