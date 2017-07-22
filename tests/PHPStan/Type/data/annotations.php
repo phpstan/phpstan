@@ -14,4 +14,11 @@
 class Foo
 {
 
+
+	public function doSomething()
+	{
+		/** @var Bar */
+		$number = $this;
+	}
+
 }
