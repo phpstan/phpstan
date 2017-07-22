@@ -163,4 +163,9 @@ class UnionIterableType implements UnionType
 		return $this->getItemType();
 	}
 
+	public static function __set_state(array $properties): Type
+	{
+		return new self($properties['itemType'], $properties['types']);
+	}
+
 }
