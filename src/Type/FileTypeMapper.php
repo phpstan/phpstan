@@ -4,6 +4,7 @@ namespace PHPStan\Type;
 
 use PhpParser\Node;
 use PHPStan\Analyser\NameScope;
+use PHPStan\Cache\Cache;
 use PHPStan\Parser\Parser;
 
 class FileTypeMapper
@@ -15,7 +16,7 @@ class FileTypeMapper
 	/** @var \PHPStan\Parser\Parser */
 	private $parser;
 
-	/** @var \Nette\Caching\Cache */
+	/** @var \PHPStan\Cache\Cache */
 	private $cache;
 
 	/** @var mixed[] */
@@ -23,7 +24,7 @@ class FileTypeMapper
 
 	public function __construct(
 		Parser $parser,
-		\Nette\Caching\Cache $cache
+		Cache $cache
 	)
 	{
 		$this->parser = $parser;
@@ -32,7 +33,7 @@ class FileTypeMapper
 
 	public function getTypeMap(string $fileName): array
 	{
-		$cacheKey = sprintf('%s-%d-v36', $fileName, filemtime($fileName));
+		$cacheKey = sprintf('%s-%d-v0', $fileName, filemtime($fileName));
 		if (isset($this->memoryCache[$cacheKey])) {
 			return $this->memoryCache[$cacheKey];
 		}

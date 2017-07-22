@@ -21,12 +21,6 @@ parameters:
 
 services:
 	-
-		class: Nette\Caching\Cache
-		arguments:
-			storage: @cachingStorage
-			namespace: PHPStan
-
-	-
 		class: PhpParser\BuilderFactory
 
 	-
@@ -65,6 +59,11 @@ services:
 
 	-
 		class: PHPStan\Broker\BrokerFactory
+
+	-
+		class: PHPStan\Cache\Cache
+		arguments:
+			storage: @cacheStorage
 
 	-
 		class: PHPStan\Command\AnalyseApplication
@@ -151,10 +150,10 @@ services:
 		class: PHPStan\Broker\Broker
 		factory: @PHPStan\Broker\BrokerFactory::create
 
-	cachingStorage:
-		class: Nette\Caching\Storages\FileStorage
+	cacheStorage:
+		class: PHPStan\Cache\FileCacheStorage
 		arguments:
-			dir: %tmpDir%/cache
+			directory: %tmpDir%/cache/PHPStan
 		autowired: no
 
 	directParser:

@@ -3,6 +3,7 @@
 namespace PHPStan\Reflection;
 
 use PhpParser\Node\Stmt\Function_;
+use PHPStan\Cache\Cache;
 use PHPStan\Parser\FunctionCallStatementFinder;
 use PHPStan\Parser\Parser;
 use PHPStan\Reflection\Php\DummyParameter;
@@ -27,7 +28,7 @@ class FunctionReflection implements ParametersAcceptor
 	/** @var \PHPStan\Parser\FunctionCallStatementFinder */
 	private $functionCallStatementFinder;
 
-	/** @var \Nette\Caching\Cache */
+	/** @var \PHPStan\Cache\Cache */
 	private $cache;
 
 	/** @var \PHPStan\Type\Type[] */
@@ -46,7 +47,7 @@ class FunctionReflection implements ParametersAcceptor
 		\ReflectionFunction $reflection,
 		Parser $parser,
 		FunctionCallStatementFinder $functionCallStatementFinder,
-		\Nette\Caching\Cache $cache,
+		Cache $cache,
 		array $phpDocParameterTypes,
 		Type $phpDocReturnType = null
 	)
@@ -166,7 +167,7 @@ class FunctionReflection implements ParametersAcceptor
 	{
 		$isNativelyVariadic = $this->reflection->isVariadic();
 		if (!$isNativelyVariadic && $this->reflection->getFileName() !== false) {
-			$key = sprintf('variadic-function-%s-v2', $this->reflection->getName());
+			$key = sprintf('variadic-function-%s-v0', $this->reflection->getName());
 			$cachedResult = $this->cache->load($key);
 			if ($cachedResult === null) {
 				$nodes = $this->parser->parseFile($this->reflection->getFileName());

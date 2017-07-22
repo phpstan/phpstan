@@ -4,6 +4,7 @@ namespace PHPStan\Broker;
 
 use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
+use PHPStan\Cache\Cache;
 use PHPStan\Reflection\FunctionReflectionFactory;
 use PHPStan\Type\FileTypeMapper;
 
@@ -21,7 +22,7 @@ class BrokerTest extends \PHPStan\TestCase
 			[],
 			[],
 			$this->createMock(FunctionReflectionFactory::class),
-			new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class))
+			new FileTypeMapper($this->getParser(), $this->createMock(Cache::class))
 		);
 	}
 

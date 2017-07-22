@@ -2,6 +2,7 @@
 
 namespace PHPStan\Analyser;
 
+use PHPStan\Cache\Cache;
 use PHPStan\File\FileExcluder;
 use PHPStan\File\FileHelper;
 use PHPStan\Parser\DirectParser;
@@ -201,7 +202,7 @@ class AnalyserTest extends \PHPStan\TestCase
 				$broker,
 				$this->getParser(),
 				$printer,
-				new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class)),
+				new FileTypeMapper($this->getParser(), $this->createMock(Cache::class)),
 				$fileExcluder,
 				new \PhpParser\BuilderFactory(),
 				$fileHelper,

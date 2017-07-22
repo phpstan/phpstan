@@ -5,6 +5,7 @@ namespace PHPStan\Analyser;
 use PhpParser\Node\Expr\Exit_;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
+use PHPStan\Cache\Cache;
 use PHPStan\File\FileExcluder;
 use PHPStan\File\FileHelper;
 use PHPStan\Reflection\MethodReflection;
@@ -31,7 +32,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			$this->createBroker(),
 			$this->getParser(),
 			$this->printer,
-			new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class)),
+			new FileTypeMapper($this->getParser(), $this->createMock(Cache::class)),
 			new FileExcluder($this->createMock(FileHelper::class), []),
 			new \PhpParser\BuilderFactory(),
 			new FileHelper('/'),

@@ -4,6 +4,7 @@ namespace PHPStan\Reflection\Php;
 
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Broker\Broker;
+use PHPStan\Cache\Cache;
 use PHPStan\Parser\FunctionCallStatementFinder;
 use PHPStan\Parser\Parser;
 use PHPStan\Reflection\ClassReflection;
@@ -37,7 +38,7 @@ class PhpMethodReflection implements MethodReflection
 	/** @var \PHPStan\Parser\FunctionCallStatementFinder */
 	private $functionCallStatementFinder;
 
-	/** @var \Nette\Caching\Cache */
+	/** @var \PHPStan\Cache\Cache */
 	private $cache;
 
 	/** @var \PHPStan\Type\Type[] */
@@ -58,7 +59,7 @@ class PhpMethodReflection implements MethodReflection
 		Broker $broker,
 		Parser $parser,
 		FunctionCallStatementFinder $functionCallStatementFinder,
-		\Nette\Caching\Cache $cache,
+		Cache $cache,
 		array $phpDocParameterTypes,
 		Type $phpDocReturnType = null
 	)
@@ -322,7 +323,7 @@ class PhpMethodReflection implements MethodReflection
 		}
 
 		if (!$isNativelyVariadic && $this->declaringClass->getNativeReflection()->getFileName() !== false) {
-			$key = sprintf('variadic-method-%s-%s-v2', $this->declaringClass->getName(), $this->reflection->getName());
+			$key = sprintf('variadic-method-%s-%s-v0', $this->declaringClass->getName(), $this->reflection->getName());
 			$cachedResult = $this->cache->load($key);
 			if ($cachedResult === null) {
 				$nodes = $this->parser->parseFile($this->declaringClass->getNativeReflection()->getFileName());
