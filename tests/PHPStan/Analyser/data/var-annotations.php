@@ -93,4 +93,48 @@ class Foo
 		die;
 	}
 
+	public function doFooBar()
+	{
+		/** @var int */
+		$integer = getFoo();
+
+		/** @var bool */
+		$boolean = getFoo();
+
+		/** @var string */
+		$string = getFoo();
+
+		/** @var float */
+		$float = getFoo();
+
+		/** @var Lorem */
+		$loremObject = getFoo();
+
+		/** @var \AnotherNamespace\Bar */
+		$barObject = getFoo();
+
+		/** @var */
+		$mixed = getFoo();
+
+		/** @var array */
+		$array = getFoo();
+
+		/** @var bool|null */
+		$isNullable = getFoo();
+
+		/** @var callable */
+		$callable = getFoo();
+
+		/** @var self */
+		$self = getFoo();
+
+		/** @var float */
+		$invalidInteger = 1.0;
+
+		/** @var static */
+		$static = getFoo();
+
+		die;
+	}
+
 }

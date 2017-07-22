@@ -943,6 +943,8 @@ class NodeScopeResolver
 						$scope = $processVarAnnotation($matches[1], $matches[2]);
 					} elseif (preg_match('#@var\s+\$([a-zA-Z0-9_]+)\s+' . FileTypeMapper::TYPE_PATTERN . '#', $comment, $matches)) {
 						$scope = $processVarAnnotation($matches[2], $matches[1]);
+					} elseif (preg_match('#@var\s+' . FileTypeMapper::TYPE_PATTERN . '(?!\s+\$[a-zA-Z0-9_]+)#', $comment, $matches)) {
+						$scope = $processVarAnnotation($matches[1], $variableName);
 					}
 				}
 			}
