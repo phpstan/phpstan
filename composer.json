@@ -15,7 +15,6 @@
 	"require": {
 		"php": "~7.0",
 		"nette/bootstrap": "^2.4 || ^3.0",
-		"nette/caching": "^2.5 || ^3.0",
 		"nette/di": "^2.4 || ^3.0",
 		"nette/robot-loader": "^3.0.1",
 		"nette/utils": "^2.4 || ^3.0",

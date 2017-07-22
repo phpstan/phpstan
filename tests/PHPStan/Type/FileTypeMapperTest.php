@@ -2,13 +2,15 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Cache\Cache;
+
 class FileTypeMapperTest extends \PHPStan\TestCase
 {
 
 	public function testAccepts()
 	{
 		$this->createBroker();
-		$fileTypeMapper = new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class));
+		$fileTypeMapper = new FileTypeMapper($this->getParser(), $this->createMock(Cache::class));
 
 		/** @var Type[] $typeMap */
 		$typeMap = $fileTypeMapper->getTypeMap(__DIR__ . '/data/annotations.php');

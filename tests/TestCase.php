@@ -4,6 +4,8 @@ namespace PHPStan;
 
 use Nette\DI\Container;
 use PHPStan\Broker\Broker;
+use PHPStan\Cache\Cache;
+use PHPStan\Cache\MemoryCacheStorage;
 use PHPStan\File\FileHelper;
 use PHPStan\Parser\DirectParser;
 use PHPStan\Parser\FunctionCallStatementFinder;
@@ -66,7 +68,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	{
 		$functionCallStatementFinder = new FunctionCallStatementFinder();
 		$parser = $this->getParser();
-		$cache = new \Nette\Caching\Cache(new \Nette\Caching\Storages\MemoryStorage());
+		$cache = new Cache(new MemoryCacheStorage());
 		$methodReflectionFactory = new class($parser, $functionCallStatementFinder, $cache) implements PhpMethodReflectionFactory {
 			/** @var \PHPStan\Parser\Parser */
 			private $parser;
@@ -74,7 +76,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			/** @var \PHPStan\Parser\FunctionCallStatementFinder */
 			private $functionCallStatementFinder;
 
-			/** @var \Nette\Caching\Cache */
+			/** @var \PHPStan\Cache\Cache */
 			private $cache;
 
 			/** @var \PHPStan\Broker\Broker */
@@ -83,7 +85,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			public function __construct(
 				Parser $parser,
 				FunctionCallStatementFinder $functionCallStatementFinder,
-				\Nette\Caching\Cache $cache
+				Cache $cache
 			)
 			{
 				$this->parser = $parser;
@@ -110,7 +112,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				);
 			}
 		};
-		$fileTypeMapper = new FileTypeMapper($parser, $this->createMock(\Nette\Caching\Cache::class));
+		$fileTypeMapper = new FileTypeMapper($parser, $this->createMock(Cache::class));
 		$phpExtension = new PhpClassReflectionExtension($methodReflectionFactory, $fileTypeMapper);
 		$functionReflectionFactory = new class($this->getParser(), $functionCallStatementFinder, $cache) implements FunctionReflectionFactory {
 			/** @var \PHPStan\Parser\Parser */
@@ -119,13 +121,13 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			/** @var \PHPStan\Parser\FunctionCallStatementFinder */
 			private $functionCallStatementFinder;
 
-			/** @var \Nette\Caching\Cache */
+			/** @var \PHPStan\Cache\Cache */
 			private $cache;
 
 			public function __construct(
 				Parser $parser,
 				FunctionCallStatementFinder $functionCallStatementFinder,
-				\Nette\Caching\Cache $cache
+				Cache $cache
 			)
 			{
 				$this->parser = $parser;
@@ -160,7 +162,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			$dynamicMethodReturnTypeExtensions,
 			$dynamicStaticMethodReturnTypeExtensions,
 			$functionReflectionFactory,
-			new FileTypeMapper($this->getParser(), $this->createMock(\Nette\Caching\Cache::class))
+			new FileTypeMapper($this->getParser(), $this->createMock(Cache::class))
 		);
 		$methodReflectionFactory->broker = $broker;
 
