@@ -488,4 +488,33 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$this->analyse([__DIR__ . '/data/order.php'], []);
 	}
 
+	public function dataIterableNotCheckingTypeIssue(): array
+	{
+		return [
+			[
+				true,
+			],
+			[
+				false,
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataIterableNotCheckingTypeIssue
+	 * @requires PHP 7.1
+	 * @param bool $checkNullables
+	 */
+	public function testIterableNotCheckingTypeIssue(bool $checkNullables)
+	{
+		$this->checkThisOnly = false;
+		$this->checkNullables = $checkNullables;
+		$this->analyse([__DIR__ . '/data/call-methods-iterable.php'], [
+			[
+				'Parameter #1 $ids of method CallMethodsIterableNotCheckingTypeIssue\Uuid::bar() expects iterable(CallMethodsIterableNotCheckingTypeIssue\Uuid[]), null[] given.',
+				14,
+			],
+		]);
+	}
+
 }
