@@ -14,6 +14,7 @@ PHPStan moves PHP closer to compiled languages in the sense that the correctness
 can be checked before you run the actual line.
 
 **[Read more about PHPStan on Medium.com »](https://medium.com/@ondrejmirtes/phpstan-2939cd0ad0e3)**
+
 **[Try out PHPStan on the on-line playground! »](https://phpstan.org/)**
 
 ## Is PHPStan helping you to avoid bugs in production?
