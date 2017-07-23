@@ -53,7 +53,7 @@ class ClassReflection
 	}
 
 	/**
-	 * @return bool|\PHPStan\Reflection\ClassReflection
+	 * @return false|\PHPStan\Reflection\ClassReflection
 	 */
 	public function getParentClass()
 	{
