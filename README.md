@@ -371,6 +371,8 @@ class methods like `__get`, `__set` and `__call`. Because PHPStan is all about s
 When PHPStan stumbles upon a property or a method that is unknown to built-in class reflection, it iterates
 over all registered class reflection extensions until it finds one that defines the property or method.
 
+Class reflection extension cannot have `PHPStan\Broker\Broker` (service for obtaining class reflections) injected in the constructor due to circular reference issue, but the extensions can implement `PHPStan\Reflection\BrokerAwareClassReflectionExtension` interface to obtain Broker via a setter.
+
 ### Properties class reflection extensions
 
 This extension type must implement the following interface:
