@@ -117,12 +117,12 @@ class TypeCombinator
 		return $type instanceof NullType;
 	}
 
-	public static function combine(Type $firstType, Type $secondType): Type
+	public static function combine(Type ...$typesToCombine): Type
 	{
 		$types = [];
 		$iterableTypes = [];
 
-		foreach ([$firstType, $secondType] as $type) {
+		foreach ($typesToCombine as $type) {
 			$alreadyAdded = false;
 			if ($type instanceof UnionType) {
 				$alreadyAdded = true;
