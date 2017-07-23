@@ -235,4 +235,21 @@ class ReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$this->analyse([__DIR__ . '/data/return-static-from-parent.php'], []);
 	}
 
+	/**
+	 * @requires PHP 7.1
+	 */
+	public function testReturnIterable()
+	{
+		$this->analyse([__DIR__ . '/data/returnTypes-iterable.php'], [
+			[
+				'Method ReturnTypesIterable\Foo::stringIterable() should return iterable(string[]) but returns int[].',
+				27,
+			],
+			[
+				'Method ReturnTypesIterable\Foo::stringIterablePipe() should return iterable(string[]) but returns int[].',
+				36,
+			],
+		]);
+	}
+
 }

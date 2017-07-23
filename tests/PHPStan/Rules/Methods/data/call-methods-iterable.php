@@ -1,6 +1,6 @@
 <?php // lint >= 7.1
 
-namespace CallMethodsIterableNotCheckingTypeIssue;
+namespace CallMethodsIterables;
 
 class Uuid
 {
@@ -14,4 +14,83 @@ class Uuid
 		$id->bar([null]);
 
 	}
+}
+
+class Foo
+{
+
+	/**
+	 * @return self[]|iterable
+	 */
+	public function getIterable(): iterable
+	{
+
+	}
+
+	/**
+	 * @return Bar[]|iterable
+	 */
+	public function getOtherIterable(): iterable
+	{
+
+	}
+
+	/**
+	 * @param array|\Traversable $iterable
+	 */
+	public function acceptsArrayOrTraversable($iterable)
+	{
+
+	}
+
+	/**
+	 * @param self[]|iterable $iterable
+	 */
+	public function acceptsSelfIterable(iterable $iterable)
+	{
+
+	}
+
+	public function test()
+	{
+		$this->acceptsArrayOrTraversable($this->getIterable());
+		$this->acceptsSelfIterable($this->getIterable());
+		$this->acceptsArrayOrTraversable($this->getOtherIterable());
+		$this->acceptsSelfIterable($this->getOtherIterable());
+		$this->acceptsSelfIterable('foo');
+
+		$this->doFoo(1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+	}
+
+	/**
+	 * @param iterable $iterableWithIterableTypehint
+	 * @param Bar[] $iterableWithConcreteTypehint
+	 * @param iterable $arrayWithIterableTypehint
+	 * @param Bar[]|Collection $unionIterableType
+	 * @param Foo[]|Bar[]|Collection $mixedUnionIterableType
+	 * @param Bar[]|Collection $unionIterableIterableType
+	 * @param int[]|iterable $integers
+	 * @param mixed[]|iterable $mixeds
+	 */
+	public function doFoo(
+		iterable $iterableWithoutTypehint,
+		iterable $iterableWithIterableTypehint,
+		iterable $iterableWithConcreteTypehint,
+		array $arrayWithIterableTypehint,
+		Collection $unionIterableType,
+		array $mixedUnionIterableType,
+		iterable $unionIterableIterableType,
+		$iterableSpecifiedLater,
+		iterable $integers,
+		iterable $mixeds
+	)
+	{
+
+	}
+
+}
+
+class Bar
+{
+
 }

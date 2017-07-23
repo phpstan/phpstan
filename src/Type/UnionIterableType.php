@@ -104,7 +104,8 @@ class UnionIterableType implements UnionType
 
 	public function describe(): string
 	{
-		return sprintf('%s[]|%s', $this->getItemType()->describe(), UnionTypeHelper::describe($this->getTypes()));
+		$format = $this->getItemType() instanceof UnionType ? '(%s)[]|%s' : '%s[]|%s';
+		return sprintf($format, $this->getItemType()->describe(), UnionTypeHelper::describe($this->getTypes()));
 	}
 
 	public function canAccessProperties(): bool

@@ -992,11 +992,11 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'12 ?: null',
 			],
 			[
-				'string|int',
+				'int|string',
 				'$string ?: 12',
 			],
 			[
-				'string|int',
+				'int|string',
 				'$stringOrNull ?: 12',
 			],
 			[
@@ -1016,11 +1016,11 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$stringOrNull ?? \'foo\'',
 			],
 			[
-				'string|int',
+				'int|string',
 				'$string ?? $integer',
 			],
 			[
-				'string|int',
+				'int|string',
 				'$stringOrNull ?? $integer',
 			],
 			[
@@ -2229,7 +2229,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				'mixed[]', // should be iterable(mixed[])
+				'iterable(mixed[])',
 				'$this->iterableProperty',
 			],
 			[
@@ -2297,8 +2297,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$unionBar',
 			],
 			[
-				'Iterables\Foo[]|Iterables\Bar[]|Iterables\Collection',
+				'Iterables\Bar[]|Iterables\Collection|Iterables\Foo[]',
 				'$mixedUnionIterableType',
+			],
+			[
+				'Iterables\Bar[]|Iterables\Collection',
+				'$unionIterableIterableType',
 			],
 			[
 				'mixed',
@@ -2311,6 +2315,38 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			[
 				'Iterables\Bar',
 				'$unionBarFromMethod',
+			],
+			[
+				'iterable(string[])',
+				'$this->stringIterableProperty',
+			],
+			[
+				'iterable(mixed[])',
+				'$this->mixedIterableProperty',
+			],
+			[
+				'iterable(int[])',
+				'$integers',
+			],
+			[
+				'iterable(mixed[])',
+				'$mixeds',
+			],
+			[
+				'iterable(mixed[])',
+				'$this->returnIterableMixed()',
+			],
+			[
+				'iterable(string[])',
+				'$this->returnIterableString()',
+			],
+			[
+				'int|iterable(string[])',
+				'$this->iterablePropertyAlsoWithSomethingElse',
+			],
+			[
+				'int|iterable(int[]|string[])',
+				'$this->iterablePropertyWithTwoItemTypes',
 			],
 		];
 	}
@@ -2942,12 +2978,9 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	private function assertTypeDescribe(string $expectedDescription, string $actualDescription, string $label = '')
 	{
 		$this->assertEquals(
-			explode('|', $expectedDescription),
-			explode('|', $actualDescription),
-			$label,
-			0.0,
-			10,
-			true
+			$expectedDescription,
+			$actualDescription,
+			$label
 		);
 	}
 

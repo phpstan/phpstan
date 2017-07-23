@@ -48,7 +48,14 @@ class IterableIterableType implements StaticResolvableType
 
 	public function describe(): string
 	{
-		return sprintf('iterable(%s[])', $this->getItemType()->describe());
+		if ($this->getItemType() instanceof UnionType) {
+			$description = implode('|', array_map(function (Type $type): string {
+				return sprintf('%s[]', $type->describe());
+			}, $this->getItemType()->getTypes()));
+		} else {
+			$description = sprintf('%s[]', $this->getItemType()->describe());
+		}
+		return sprintf('iterable(%s)', $description);
 	}
 
 	public function isDocumentableNatively(): bool

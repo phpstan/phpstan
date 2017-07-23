@@ -319,6 +319,48 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 				CommonUnionType::class,
 				'Bar[]|Foo[]|mixed[]',
 			],
+			[
+				[
+					new IterableIterableType(new MixedType()),
+					new ArrayType(new StringType()),
+				],
+				IterableIterableType::class,
+				'iterable(string[])',
+			],
+			[
+				[
+					new IterableIterableType(new MixedType()),
+					new ArrayType(new MixedType()),
+				],
+				IterableIterableType::class,
+				'iterable(mixed[])',
+			],
+			[
+				[
+					new ArrayType(new StringType()),
+				],
+				ArrayType::class,
+				'string[]',
+			],
+			[
+				[
+					new ObjectType('ArrayObject'),
+					new ObjectType('ArrayIterator'),
+					new ArrayType(new StringType()),
+				],
+				UnionIterableType::class,
+				'string[]|ArrayIterator|ArrayObject',
+			],
+			[
+				[
+					new ObjectType('ArrayObject'),
+					new ObjectType('ArrayIterator'),
+					new ArrayType(new StringType()),
+					new ArrayType(new IntegerType()),
+				],
+				CommonUnionType::class,
+				'ArrayIterator|ArrayObject|int[]|string[]',
+			],
 		];
 	}
 

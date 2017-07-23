@@ -74,6 +74,12 @@ class Ipsum
 	/** @var mixed[]*/
 	private $mixedArrayProperty;
 
+	/** @var mixed[]|iterable */
+	private $iterableProperty;
+
+	/** @var iterable */
+	private $iterableData;
+
 	public function doIpsum()
 	{
 		if ($this->nullableIntProperty === null) {
@@ -93,6 +99,33 @@ class Ipsum
 		} else {
 			$this->mixedArrayProperty = $scope;
 		}
+	}
+
+	/**
+	 * @param int[]|iterable $integers
+	 * @param string[]|iterable $strings
+	 * @param mixed[]|iterable $mixeds
+	 * @param iterable $justIterableInPhpDoc
+	 * @param iterable $justIterableInPhpDocWithCheck
+	 */
+	public function setIterable(
+		iterable $integers,
+		iterable $strings,
+		iterable $mixeds,
+		$justIterableInPhpDoc,
+		$justIterableInPhpDocWithCheck
+	)
+	{
+		$this->iterableProperty = $integers;
+		$this->iterableProperty = $strings;
+		$this->iterableProperty = $mixeds;
+		$this->iterableData = $justIterableInPhpDoc;
+
+		if (!is_iterable($justIterableInPhpDocWithCheck)) {
+			throw new \Exception();
+		}
+
+		$this->iterableData = $justIterableInPhpDocWithCheck;
 	}
 
 }

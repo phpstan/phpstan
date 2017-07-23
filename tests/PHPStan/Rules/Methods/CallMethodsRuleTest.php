@@ -488,7 +488,7 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$this->analyse([__DIR__ . '/data/order.php'], []);
 	}
 
-	public function dataIterableNotCheckingTypeIssue(): array
+	public function dataIterable(): array
 	{
 		return [
 			[
@@ -501,18 +501,62 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	}
 
 	/**
-	 * @dataProvider dataIterableNotCheckingTypeIssue
+	 * @dataProvider dataIterable
 	 * @requires PHP 7.1
 	 * @param bool $checkNullables
 	 */
-	public function testIterableNotCheckingTypeIssue(bool $checkNullables)
+	public function testIterables(bool $checkNullables)
 	{
 		$this->checkThisOnly = false;
 		$this->checkNullables = $checkNullables;
 		$this->analyse([__DIR__ . '/data/call-methods-iterable.php'], [
 			[
-				'Parameter #1 $ids of method CallMethodsIterableNotCheckingTypeIssue\Uuid::bar() expects iterable(CallMethodsIterableNotCheckingTypeIssue\Uuid[]), null[] given.',
+				'Parameter #1 $ids of method CallMethodsIterables\Uuid::bar() expects iterable(CallMethodsIterables\Uuid[]), null[] given.',
 				14,
+			],
+			[
+				'Parameter #1 $iterable of method CallMethodsIterables\Foo::acceptsSelfIterable() expects iterable(CallMethodsIterables\Foo[]), iterable(CallMethodsIterables\Bar[]) given.',
+				59,
+			],
+			[
+				'Parameter #1 $iterable of method CallMethodsIterables\Foo::acceptsSelfIterable() expects iterable(CallMethodsIterables\Foo[]), string given.',
+				60,
+			],
+			[
+				'Parameter #1 $iterableWithoutTypehint of method CallMethodsIterables\Foo::doFoo() expects iterable(mixed[]), int given.',
+				62,
+			],
+			[
+				'Parameter #2 $iterableWithIterableTypehint of method CallMethodsIterables\Foo::doFoo() expects iterable(mixed[]), int given.',
+				62,
+			],
+			[
+				'Parameter #3 $iterableWithConcreteTypehint of method CallMethodsIterables\Foo::doFoo() expects iterable(CallMethodsIterables\Bar[]), int given.',
+				62,
+			],
+			[
+				'Parameter #4 $arrayWithIterableTypehint of method CallMethodsIterables\Foo::doFoo() expects mixed[], int given.',
+				62,
+			],
+			[
+				'Parameter #5 $unionIterableType of method CallMethodsIterables\Foo::doFoo() expects CallMethodsIterables\Bar[]|CallMethodsIterables\Collection, int given.',
+				62,
+			],
+			[
+				'Parameter #6 $mixedUnionIterableType of method CallMethodsIterables\Foo::doFoo() expects CallMethodsIterables\Bar[]|CallMethodsIterables\Collection|CallMethodsIterables\Foo[], int given.',
+				62,
+			],
+			[
+				'Parameter #7 $unionIterableIterableType of method CallMethodsIterables\Foo::doFoo() expects CallMethodsIterables\Bar[]|CallMethodsIterables\Collection, int given.',
+				62,
+			],
+			[
+				'Parameter #9 $integers of method CallMethodsIterables\Foo::doFoo() expects iterable(int[]), int given.',
+				62,
+			],
+			[
+				'Parameter #10 $mixeds of method CallMethodsIterables\Foo::doFoo() expects iterable(mixed[]), int given.',
+				62,
 			],
 		]);
 	}

@@ -16,12 +16,34 @@ class Foo
 	private $iterableProperty;
 
 	/**
+	 * @var string[]|iterable
+	 */
+	private $stringIterableProperty;
+
+	/**
+	 * @var mixed[]|iterable
+	 */
+	private $mixedIterableProperty;
+
+	/**
+	 * @var string[]|iterable|int
+	 */
+	private $iterablePropertyAlsoWithSomethingElse;
+
+	/**
+	 * @var string[]|int[]|iterable|int
+	 */
+	private $iterablePropertyWithTwoItemTypes;
+
+	/**
 	 * @param iterable $iterableWithIterableTypehint
 	 * @param Bar[] $iterableWithConcreteTypehint
 	 * @param iterable $arrayWithIterableTypehint
 	 * @param Bar[]|Collection $unionIterableType
 	 * @param Foo[]|Bar[]|Collection $mixedUnionIterableType
 	 * @param Bar[]|Collection $unionIterableIterableType
+	 * @param int[]|iterable $integers
+	 * @param mixed[]|iterable $mixeds
 	 */
 	public function doFoo(
 		iterable $iterableWithoutTypehint,
@@ -31,7 +53,9 @@ class Foo
 		Collection $unionIterableType,
 		array $mixedUnionIterableType,
 		iterable $unionIterableIterableType,
-		$iterableSpecifiedLater
+		$iterableSpecifiedLater,
+		iterable $integers,
+		iterable $mixeds
 	)
 	{
 		if (!is_iterable($iterableSpecifiedLater)) {
@@ -75,6 +99,22 @@ class Foo
 	 * @return Bar[]|\Traversable
 	 */
 	public function doUnionIterableWithPhpDoc(): \Traversable
+	{
+
+	}
+
+	/**
+	 * @return iterable|mixed[]
+	 */
+	public function returnIterableMixed(): iterable
+	{
+
+	}
+
+	/**
+	 * @return iterable|string[]
+	 */
+	public function returnIterableString(): iterable
 	{
 
 	}
