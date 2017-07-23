@@ -59,6 +59,14 @@ class AnalyserIntegrationTest extends \PHPStan\TestCase
 		$this->assertCount(0, $errors);
 	}
 
+	public function testExtendingUnknownClass()
+	{
+		$errors = $this->runAnalyse(__DIR__ . '/data/extending-unknown-class.php');
+		$this->assertCount(1, $errors);
+		$this->assertNull($errors[0]->getLine());
+		$this->assertSame('Class ExtendingUnknownClass\Bar not found and could not be autoloaded.', $errors[0]->getMessage());
+	}
+
 	/**
 	 * @param string $file
 	 * @return \PHPStan\Analyser\Error[]|string[]
