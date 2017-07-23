@@ -82,8 +82,8 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 	)
 	{
 		$result = TypeCombinator::addNull($type);
-		$this->assertInstanceOf($expectedTypeClass, $result);
 		$this->assertSame($expectedTypeDescription, $result->describe());
+		$this->assertInstanceOf($expectedTypeClass, $result);
 	}
 
 	/**
@@ -99,8 +99,8 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 	)
 	{
 		$result = TypeCombinator::combine($type, new NullType());
-		$this->assertInstanceOf($expectedTypeClass, $result);
 		$this->assertSame($expectedTypeDescription, $result->describe());
+		$this->assertInstanceOf($expectedTypeClass, $result);
 	}
 
 	public function dataRemoveNull(): array
@@ -192,8 +192,8 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 	)
 	{
 		$result = TypeCombinator::removeNull($type);
-		$this->assertInstanceOf($expectedTypeClass, $result);
 		$this->assertSame($expectedTypeDescription, $result->describe());
+		$this->assertInstanceOf($expectedTypeClass, $result);
 	}
 
 	public function dataCombine(): array
@@ -335,8 +335,8 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 	)
 	{
 		$result = TypeCombinator::combine(...$types);
-		$this->assertInstanceOf($expectedTypeClass, $result);
 		$this->assertSame($expectedTypeDescription, $result->describe());
+		$this->assertInstanceOf($expectedTypeClass, $result);
 	}
 
 	/**
@@ -352,8 +352,8 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 	)
 	{
 		$result = TypeCombinator::combine(...array_reverse($types));
-		$this->assertInstanceOf($expectedTypeClass, $result);
 		$this->assertSame($expectedTypeDescription, $result->describe());
+		$this->assertInstanceOf($expectedTypeClass, $result);
 	}
 
 	public function dataRemove(): array
@@ -476,8 +476,8 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 	)
 	{
 		$result = TypeCombinator::remove($fromType, $type);
-		$this->assertInstanceOf($expectedTypeClass, $result);
 		$this->assertSame($expectedTypeDescription, $result->describe());
+		$this->assertInstanceOf($expectedTypeClass, $result);
 	}
 
 }
