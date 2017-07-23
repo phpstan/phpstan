@@ -197,4 +197,10 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$this->analyse([__DIR__ . '/data/variable-is-not-null-after-conditions.php'], []);
 	}
 
+	public function testUnionIterableTypeShouldAcceptTypeFromOtherTypes()
+	{
+		require_once __DIR__ . '/data/union-iterable-type-issue.php';
+		$this->analyse([__DIR__ . '/data/union-iterable-type-issue.php'], []);
+	}
+
 }

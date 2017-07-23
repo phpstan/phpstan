@@ -72,3 +72,15 @@ function containsYield()
 	yield 1;
 	return;
 }
+
+/**
+ * @return mixed[]|string|null
+ */
+function returnUnionIterable()
+{
+	if (something()) {
+		return 'foo';
+	}
+
+	return [];
+}
