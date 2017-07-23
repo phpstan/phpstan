@@ -33,7 +33,7 @@ class FileTypeMapper
 
 	public function getTypeMap(string $fileName): array
 	{
-		$cacheKey = sprintf('%s-%d-v0', $fileName, filemtime($fileName));
+		$cacheKey = sprintf('%s-%d-v1', $fileName, filemtime($fileName));
 		if (isset($this->memoryCache[$cacheKey])) {
 			return $this->memoryCache[$cacheKey];
 		}
@@ -145,23 +145,18 @@ class FileTypeMapper
 
 	private function getTypeFromTypeString(string $typeString, string $className = null, NameScope $nameScope): Type
 	{
-		/** @var \PHPStan\Type\Type|null $type */
-		$type = null;
+		/** @var \PHPStan\Type\Type[] $types */
+		$types = [];
 		foreach (explode('|', $typeString) as $typePart) {
 			$typePart = trim($typePart);
 			if (substr($typePart, 0, 1) === '?') {
 				$typePart = substr($typePart, 1);
-				$type = $type ? TypeCombinator::addNull($type) : new NullType();
+				$types[] = new NullType();
 			}
-			$typeFromTypePart = TypehintHelper::getTypeObjectFromTypehint($typePart, $className, $nameScope);
-			if ($type === null) {
-				$type = $typeFromTypePart;
-			} else {
-				$type = TypeCombinator::combine($type, $typeFromTypePart);
-			}
+			$types[] = TypehintHelper::getTypeObjectFromTypehint($typePart, $className, $nameScope);
 		}
 
-		return $type ?: TypehintHelper::getTypeObjectFromTypehint($typeString, $className, $nameScope);
+		return TypeCombinator::combine(...$types);
 	}
 
 	/**

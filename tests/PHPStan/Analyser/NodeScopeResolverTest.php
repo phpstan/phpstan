@@ -2229,7 +2229,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				'iterable(mixed[])',
+				'mixed[]', // should be iterable(mixed[])
 				'$this->iterableProperty',
 			],
 			[
