@@ -14,6 +14,7 @@ class UniversalObjectCratesClassReflectionExtensionTest extends \PHPStan\TestCas
 			'NonexistentClass',
 			'stdClass',
 		]);
+		$extension->setBroker($broker);
 		$this->assertTrue($extension->hasProperty($broker->getClass(\stdClass::class), 'foo'));
 	}
 

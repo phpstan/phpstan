@@ -7,8 +7,6 @@ use PHPStan\Broker\Broker;
 class ObjectType implements Type
 {
 
-	use ClassTypeHelperTrait;
-
 	/** @var string */
 	private $class;
 
@@ -62,12 +60,14 @@ class ObjectType implements Type
 			return true;
 		}
 
-		if (!$this->exists($this->getClass()) || !$this->exists($thatClass)) {
+		$broker = Broker::getInstance();
+
+		if (!$broker->hasClass($this->getClass()) || !$broker->hasClass($thatClass)) {
 			return false;
 		}
 
-		$thisReflection = new \ReflectionClass($this->getClass());
-		$thatReflection = new \ReflectionClass($thatClass);
+		$thisReflection = $broker->getClass($this->getClass());
+		$thatReflection = $broker->getClass($thatClass);
 
 		if ($thisReflection->getName() === $thatReflection->getName()) {
 			// class alias
@@ -75,7 +75,7 @@ class ObjectType implements Type
 		}
 
 		if ($thisReflection->isInterface() && $thatReflection->isInterface()) {
-			return $thatReflection->implementsInterface($this->getClass());
+			return $thatReflection->getNativeReflection()->implementsInterface($this->getClass());
 		}
 
 		return $thatReflection->isSubclassOf($this->getClass());

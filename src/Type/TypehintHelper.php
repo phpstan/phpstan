@@ -3,11 +3,10 @@
 namespace PHPStan\Type;
 
 use PHPStan\Analyser\NameScope;
+use PHPStan\Broker\Broker;
 
 class TypehintHelper
 {
-
-	use ClassTypeHelperTrait;
 
 	public static function getTypeObjectFromTypehint(
 		string $typehintString,
@@ -37,8 +36,9 @@ class TypehintHelper
 			} elseif ($typehintString === '$this' && !$fromReflection) {
 				return new ThisType($selfClass);
 			} elseif ($lowercasedTypehintString === 'parent') {
-				if (self::exists($selfClass)) {
-					$classReflection = new \ReflectionClass($selfClass);
+				$broker = Broker::getInstance();
+				if ($broker->hasClass($selfClass)) {
+					$classReflection = $broker->getClass($selfClass);
 					if ($classReflection->getParentClass() !== false) {
 						return new ObjectType($classReflection->getParentClass()->getName());
 					}

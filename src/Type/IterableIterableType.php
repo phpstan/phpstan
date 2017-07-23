@@ -5,7 +5,7 @@ namespace PHPStan\Type;
 class IterableIterableType implements StaticResolvableType
 {
 
-	use ClassTypeHelperTrait, IterableTypeTrait;
+	use IterableTypeTrait;
 
 	public function __construct(
 		Type $itemType
