@@ -532,9 +532,7 @@ class NodeScopeResolver
 
 			$code = 'class ' . $uniqidClass . ' ' . substr($code, 10);
 			eval($code);
-
-			$classReflection = new \ReflectionClass('\\' . $uniqidClass);
-
+			$classReflection = new \PHPStan\Reflection\Php\DummyAnonymousClassReflection('\\' . $uniqidClass);
 			$this->anonymousClassReflection = $this->broker->getClassFromReflection(
 				$classReflection,
 				sprintf('class@anonymous%s:%s', $scope->getFile(), $node->getLine())
