@@ -23,6 +23,7 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\ResourceType;
 use PHPStan\Type\StaticType;
 use PHPStan\Type\StringType;
+use PHPStan\Type\TrinaryLogic;
 use PHPStan\Type\TrueOrFalseBooleanType;
 use PHPStan\Type\Type;
 
@@ -49,6 +50,17 @@ class TypeSpecifier
 				$type = new StaticType($scope->getClassReflection()->getName());
 			} else {
 				$type = new ObjectType($class);
+				$currentType = $scope->getType($expr->expr);
+				if (
+					$type->isAbleOfMultipleInheritance() === TrinaryLogic::YES
+					|| $currentType->isAbleOfMultipleInheritance() === TrinaryLogic::YES
+				) {
+					if ($type->accepts($currentType)) {
+						$type = $currentType;
+					} elseif (!$currentType->accepts($type)) {
+						$type = $currentType->combineWith($type);
+					}
+				}
 			}
 
 			return $this->create($expr->expr, $type, $negated);

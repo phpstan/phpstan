@@ -153,6 +153,16 @@ class UnionIterableType implements UnionType
 		return TrinaryLogic::YES;
 	}
 
+	public function isAbleOfMultipleInheritance(): int
+	{
+		$isAble = TrinaryLogic::NO;
+		foreach ($this->types as $type) {
+			$isAble = TrinaryLogic::or($isAble, $type->isAbleOfMultipleInheritance());
+		}
+
+		return $isAble;
+	}
+
 	public function getIterableKeyType(): Type
 	{
 		return new MixedType();

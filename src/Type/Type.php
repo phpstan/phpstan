@@ -29,6 +29,8 @@ interface Type
 
 	public function isIterable(): int;
 
+	public function isAbleOfMultipleInheritance(): int;
+
 	public function getIterableKeyType(): Type;
 
 	public function getIterableValueType(): Type;
