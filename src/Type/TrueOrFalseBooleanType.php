@@ -68,6 +68,11 @@ class TrueOrFalseBooleanType implements BooleanType
 		return TrinaryLogic::NO;
 	}
 
+	public function isAbleOfMultipleInheritance(): int
+	{
+		return TrinaryLogic::NO;
+	}
+
 	public function getIterableKeyType(): Type
 	{
 		return new ErrorType();

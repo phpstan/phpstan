@@ -129,6 +129,11 @@ class ArrayType implements StaticResolvableType
 		return TrinaryLogic::YES;
 	}
 
+	public function isAbleOfMultipleInheritance(): int
+	{
+		return TrinaryLogic::NO;
+	}
+
 	public function getIterableKeyType(): Type
 	{
 		return new MixedType();

@@ -88,6 +88,11 @@ class CallableType implements Type
 		return TrinaryLogic::MAYBE;
 	}
 
+	public function isAbleOfMultipleInheritance(): int
+	{
+		return TrinaryLogic::NO;
+	}
+
 	public function getIterableKeyType(): Type
 	{
 		return new MixedType();

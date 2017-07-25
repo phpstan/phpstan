@@ -116,6 +116,22 @@ class ObjectType implements Type
 		return TrinaryLogic::NO;
 	}
 
+	public function isAbleOfMultipleInheritance(): int
+	{
+		$broker = Broker::getInstance();
+
+		if (!$broker->hasClass($this->class)) {
+			return TrinaryLogic::MAYBE;
+		}
+
+		$class = $broker->getClass($this->class);
+		if ($class->isInterface() || $class->isTrait()) {
+			return TrinaryLogic::YES;
+		}
+
+		return TrinaryLogic::NO;
+	}
+
 	public function getIterableKeyType(): Type
 	{
 		$broker = Broker::getInstance();

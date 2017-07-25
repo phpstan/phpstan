@@ -87,6 +87,20 @@ class StaticType implements StaticResolvableType
 		return TrinaryLogic::NO;
 	}
 
+	public function isAbleOfMultipleInheritance(): int
+	{
+		$broker = Broker::getInstance();
+
+		if ($broker->hasClass($this->baseClass)) {
+			$baseClass = $broker->getClass($this->baseClass);
+			if ($baseClass->isInterface() || $baseClass->isTrait()) {
+				return TrinaryLogic::YES;
+			}
+		}
+
+		return TrinaryLogic::NO;
+	}
+
 	public function getIterableKeyType(): Type
 	{
 		$broker = Broker::getInstance();

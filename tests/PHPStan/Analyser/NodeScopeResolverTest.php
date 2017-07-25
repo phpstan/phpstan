@@ -1564,6 +1564,46 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+
+	public function dataInstanceOfMultiInheritance(): array
+	{
+		return [
+			[
+				'Throwable',
+				'$error',
+			],
+			[
+				'Exception',
+				'$exception',
+			],
+			[
+				'Exception|InstanceOfNamespace\HasType',
+				'$hasType',
+			],
+			[
+				'Exception|InstanceOfNamespace\HasType|InstanceOfNamespace\ReturnsType',
+				'$returnsType',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataInstanceOfMultiInheritance
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testInstanceOfMultiInheritance(
+		string $description,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/instanceof-multi-inheritance.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function testNotSwitchInstanceof()
 	{
 		$this->assertTypes(

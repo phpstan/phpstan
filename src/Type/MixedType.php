@@ -56,6 +56,11 @@ class MixedType implements CompoundType
 		return TrinaryLogic::MAYBE;
 	}
 
+	public function isAbleOfMultipleInheritance(): int
+	{
+		return TrinaryLogic::MAYBE;
+	}
+
 	public function getIterableKeyType(): Type
 	{
 		return new MixedType();
