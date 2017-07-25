@@ -57,6 +57,7 @@ use PHPStan\Type\CommentHelper;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NestedArrayItemType;
+use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
@@ -973,6 +974,7 @@ class NodeScopeResolver
 					$arrayDimFetchVariableType = $scope->getVariableType($var->name);
 					if (
 						!$arrayDimFetchVariableType instanceof ArrayType
+						&& !$arrayDimFetchVariableType instanceof NullType
 						&& !$arrayDimFetchVariableType instanceof MixedType
 					) {
 						return $scope;
@@ -983,7 +985,9 @@ class NodeScopeResolver
 					false
 				);
 				if ($scope->hasVariableType($var->name)) {
-					$arrayType = $scope->getVariableType($var->name)->combineWith($arrayType);
+					if ($scope->getVariableType($var->name) instanceof ArrayType) {
+						$arrayType = $scope->getVariableType($var->name)->combineWith($arrayType);
+					}
 				}
 
 				$scope = $scope->assignVariable($var->name, $arrayType);
