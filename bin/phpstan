@@ -2,6 +2,7 @@
 <?php declare(strict_types=1);
 
 use PHPStan\Command\AnalyseCommand;
+use PHPStan\Command\CoverageCommand;
 use PHPStan\FileHelper;
 
 gc_disable(); // performance boost
@@ -23,4 +24,5 @@ if (!class_exists('PHPStan\Command\AnalyseCommand', true)) {
 $application = new \Symfony\Component\Console\Application('PHPStan - PHP Static Analysis Tool', 'Version unknown');
 $application->setCatchExceptions(false);
 $application->add(new AnalyseCommand());
+$application->add(new CoverageCommand());
 $application->run();
