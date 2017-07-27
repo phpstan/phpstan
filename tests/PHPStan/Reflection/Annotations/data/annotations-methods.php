@@ -52,7 +52,13 @@ use OtherNamespace\Test as OtherTest;
  */
 class Foo implements FooInterface
 {
-
+	/**
+	 * @return string
+	 */
+	public function getIpsum($a)
+	{
+		return '';
+	}
 }
 
 class Bar extends Foo
@@ -61,7 +67,7 @@ class Bar extends Foo
 }
 
 /**
- * @method Ipsum  getIpsum($a)
+ * @method Ipsum getIpsum($a)
  * @method void doSomething(int $a, $b)
  * @method static Ipsum  getIpsumStatically($a)
  * @method static void doSomethingStatically(int $a, $b)
