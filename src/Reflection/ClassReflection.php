@@ -109,7 +109,7 @@ class ClassReflection
 					if ($scope !== null && $scope->canCallMethod($method)) {
 						return $this->methods[$key] = $method;
 					}
-					$this->methods[$key] = $method;
+					$this->methods[$key] = $this->methods[$key] ?? $method;
 				}
 			}
 		}
