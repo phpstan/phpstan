@@ -56,3 +56,7 @@ class ChildInstantiatingClass extends InstantiatingClass
 	}
 
 }
+
+function () {
+	new \SoapFault('', '', '', '');
+};

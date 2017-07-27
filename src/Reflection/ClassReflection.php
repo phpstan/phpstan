@@ -121,6 +121,11 @@ class ClassReflection
 		return $this->methods[$key];
 	}
 
+	public function getConstructor(Scope $scope = null): MethodReflection
+	{
+		return $this->getMethod($this->getNativeReflection()->getConstructor()->getName(), $scope);
+	}
+
 	public function getProperty(string $propertyName, Scope $scope = null): PropertyReflection
 	{
 		$key = $propertyName;
