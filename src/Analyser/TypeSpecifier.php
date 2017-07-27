@@ -73,6 +73,22 @@ class TypeSpecifier
 				new Node\Expr\BinaryOp\Identical($expr->left, $expr->right),
 				!$negated
 			);
+		} elseif ($expr instanceof Node\Expr\BinaryOp\Equal) {
+			$expressions = $this->findTypeExpressionsFromBinaryOperation($expr);
+			if ($expressions !== null) {
+				$constantName = strtolower((string) $expressions[1]->name);
+				if ($constantName === 'false') {
+					return $this->specifyTypesInCondition($scope, $expressions[0], !$negated);
+				} elseif ($constantName === 'true') {
+					return $this->specifyTypesInCondition($scope, $expressions[0], $negated);
+				}
+			}
+		} elseif ($expr instanceof Node\Expr\BinaryOp\NotEqual) {
+			return $this->specifyTypesInCondition(
+				$scope,
+				new Node\Expr\BinaryOp\Equal($expr->left, $expr->right),
+				!$negated
+			);
 		} elseif (
 			$expr instanceof FuncCall
 			&& $expr->name instanceof Name
