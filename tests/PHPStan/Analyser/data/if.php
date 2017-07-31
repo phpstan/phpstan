@@ -53,6 +53,8 @@ doSomething($one, $callParameter = 3);
 $arrTwo[] = new Foo([
 	$inArray = 1,
 ]);
+$arrThree = null;
+$arrThree[] = 'three';
 preg_match('#.*#', 'foo', $matches);
 if ((bool) preg_match('#.*#', 'foo', $matches3)) {
 	foo();

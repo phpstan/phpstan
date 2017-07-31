@@ -76,6 +76,8 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$this->assertArrayHasKey('arrOne', $variables);
 				$this->assertArrayHasKey('arrTwo', $variables);
 				$this->assertArrayHasKey('arrTwo', $variables);
+				$this->assertArrayHasKey('arrThree', $variables);
+				$this->assertSame('string[]', $variables['arrThree']->describe());
 				$this->assertArrayHasKey('listedOne', $variables);
 				$this->assertArrayHasKey('listedTwo', $variables);
 				$this->assertArrayHasKey('listedThree', $variables);

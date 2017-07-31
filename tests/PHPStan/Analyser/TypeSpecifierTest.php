@@ -4,6 +4,8 @@ namespace PHPStan\Analyser;
 
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\BinaryOp\Equal;
+use PhpParser\Node\Expr\BinaryOp\Identical;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
@@ -247,6 +249,39 @@ class TypeSpecifierTest extends \PHPStan\TestCase
 				),
 				[],
 				[],
+			],
+
+			[
+				new Identical(
+					$this->createFunctionCall('is_int'),
+					new Expr\ConstFetch(new Name('true'))
+				),
+				['$foo' => 'int', 'is_int($foo)' => 'true'],
+				['$foo' => '~int', 'is_int($foo)' => '~true'],
+			],
+			[
+				new Identical(
+					$this->createFunctionCall('is_int'),
+					new Expr\ConstFetch(new Name('false'))
+				),
+				['is_int($foo)' => 'false', '$foo' => '~int'],
+				['$foo' => 'int', 'is_int($foo)' => '~false'],
+			],
+			[
+				new Equal(
+					$this->createFunctionCall('is_int'),
+					new Expr\ConstFetch(new Name('true'))
+				),
+				['$foo' => 'int'],
+				['$foo' => '~int'],
+			],
+			[
+				new Equal(
+					$this->createFunctionCall('is_int'),
+					new Expr\ConstFetch(new Name('false'))
+				),
+				['$foo' => '~int'],
+				['$foo' => 'int'],
 			],
 		];
 	}

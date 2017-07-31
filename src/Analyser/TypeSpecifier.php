@@ -23,6 +23,7 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\ResourceType;
 use PHPStan\Type\StaticType;
 use PHPStan\Type\StringType;
+use PHPStan\Type\TrueBooleanType;
 use PHPStan\Type\TrueOrFalseBooleanType;
 use PHPStan\Type\Type;
 
@@ -54,18 +55,38 @@ class TypeSpecifier
 			return $this->create($expr->expr, $type, $negated);
 		} elseif ($expr instanceof Node\Expr\BinaryOp\Identical) {
 			$expressions = $this->findTypeExpressionsFromBinaryOperation($expr);
-			if ($expressions && in_array(strtolower((string) $expressions[1]->name), [
-				'null',
-				'true',
-				'false',
-			], true)) {
-				$sureType = $scope->getType($expressions[1]);
-				return $this->create($expressions[0], $sureType, $negated);
+			if ($expressions !== null) {
+				$constantName = strtolower((string) $expressions[1]->name);
+				if ($constantName === 'false') {
+					$types = $this->specifyTypesInCondition($scope, $expressions[0], !$negated);
+					return $types->unionWith($this->create($expressions[0], new FalseBooleanType(), $negated));
+				} elseif ($constantName === 'true') {
+					$types = $this->specifyTypesInCondition($scope, $expressions[0], $negated);
+					return $types->unionWith($this->create($expressions[0], new TrueBooleanType(), $negated));
+				} elseif ($constantName === 'null') {
+					return $this->create($expressions[0], new NullType(), $negated);
+				}
 			}
 		} elseif ($expr instanceof Node\Expr\BinaryOp\NotIdentical) {
 			return $this->specifyTypesInCondition(
 				$scope,
 				new Node\Expr\BinaryOp\Identical($expr->left, $expr->right),
+				!$negated
+			);
+		} elseif ($expr instanceof Node\Expr\BinaryOp\Equal) {
+			$expressions = $this->findTypeExpressionsFromBinaryOperation($expr);
+			if ($expressions !== null) {
+				$constantName = strtolower((string) $expressions[1]->name);
+				if ($constantName === 'false') {
+					return $this->specifyTypesInCondition($scope, $expressions[0], !$negated);
+				} elseif ($constantName === 'true') {
+					return $this->specifyTypesInCondition($scope, $expressions[0], $negated);
+				}
+			}
+		} elseif ($expr instanceof Node\Expr\BinaryOp\NotEqual) {
+			return $this->specifyTypesInCondition(
+				$scope,
+				new Node\Expr\BinaryOp\Equal($expr->left, $expr->right),
 				!$negated
 			);
 		} elseif (
