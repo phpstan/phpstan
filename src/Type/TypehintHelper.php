@@ -80,7 +80,7 @@ class TypehintHelper
 				return new ResourceType();
 			case $lowercasedTypehintString === 'object' && !$fromReflection:
 			case $lowercasedTypehintString === 'mixed' && !$fromReflection:
-				return new MixedType();
+				return new MixedType(true);
 			case $lowercasedTypehintString === 'void':
 				return new VoidType();
 			default:
