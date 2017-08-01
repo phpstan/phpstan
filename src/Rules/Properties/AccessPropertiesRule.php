@@ -6,6 +6,9 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\RuleLevelHelper;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\ObjectType;
+use PHPStan\Type\TrinaryLogic;
 
 class AccessPropertiesRule implements \PHPStan\Rules\Rule
 {
@@ -57,66 +60,40 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 		}
 
 		$type = $scope->getType($node->var);
+
+		if ($type instanceof MixedType) {
+			return [];
+		}
+
 		if (!$type->canAccessProperties()) {
 			return [
 				sprintf('Cannot access property $%s on %s.', $node->name, $type->describe()),
 			];
 		}
-		$propertyClass = $type->getClass();
-		if ($propertyClass === null) {
+
+		$propertyName = $node->name;
+		$scopeName = $scope->getName();
+
+		if ($scope->isSpecified($node) || !$type instanceof ObjectType) {
 			return [];
 		}
 
-		$name = $node->name;
-		if (!$this->broker->hasClass($propertyClass)) {
+		if ($type->hasProperty($propertyName, $scopeName) === TrinaryLogic::NO) {
 			return [
 				sprintf(
-					'Access to property $%s on an unknown class %s.',
-					$name,
-					$propertyClass
+					'Access to unknown property $%s on type %s.',
+					$propertyName,
+					$type->describe()
 				),
 			];
 		}
 
-		$propertyClassReflection = $this->broker->getClass($propertyClass);
-
-		if (!$propertyClassReflection->hasProperty($name)) {
-			if ($scope->isSpecified($node)) {
-				return [];
-			}
-
-			$parentClassReflection = $propertyClassReflection->getParentClass();
-			while ($parentClassReflection !== false) {
-				if ($parentClassReflection->hasProperty($name)) {
-					return [
-						sprintf(
-							'Access to private property $%s of parent class %s.',
-							$name,
-							$parentClassReflection->getDisplayName()
-						),
-					];
-				}
-
-				$parentClassReflection = $parentClassReflection->getParentClass();
-			}
-
+		if ($type->hasProperty($propertyName, $scopeName) === TrinaryLogic::MAYBE) {
 			return [
 				sprintf(
-					'Access to an undefined property %s::$%s.',
-					$propertyClass,
-					$name
-				),
-			];
-		}
-
-		$propertyReflection = $propertyClassReflection->getProperty($name, $scope);
-		if (!$scope->canAccessProperty($propertyReflection)) {
-			return [
-				sprintf(
-					'Access to %s property $%s of class %s.',
-					$propertyReflection->isPrivate() ? 'private' : 'protected',
-					$name,
-					$propertyReflection->getDeclaringClass()->getDisplayName()
+					'Access to maybe unknown property $%s on type %s.',
+					$propertyName,
+					$type->describe()
 				),
 			];
 		}
