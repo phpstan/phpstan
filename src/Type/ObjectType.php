@@ -31,7 +31,7 @@ class ObjectType implements Type
 	public function combineWith(Type $otherType): Type
 	{
 		if ($otherType instanceof self && $this->getClass() === $otherType->getClass()) {
-			return new self($this->getClass());
+			return new static($this->getClass());
 		}
 
 		return TypeCombinator::combine($this, $otherType);
@@ -39,10 +39,6 @@ class ObjectType implements Type
 
 	public function accepts(Type $type): bool
 	{
-		if ($type instanceof StaticType) {
-			return $this->checkSubclassAcceptability($type->getBaseClass());
-		}
-
 		if ($type instanceof CompoundType) {
 			return CompoundTypeHelper::accepts($type, $this);
 		}
@@ -172,7 +168,7 @@ class ObjectType implements Type
 
 	public static function __set_state(array $properties): Type
 	{
-		return new self($properties['class']);
+		return new static($properties['class']);
 	}
 
 }

@@ -7,7 +7,7 @@ class ThisType extends StaticType
 
 	public function describe(): string
 	{
-		return sprintf('$this(%s)', $this->getBaseClass());
+		return sprintf('$this(%s)', $this->getClass());
 	}
 
 }
