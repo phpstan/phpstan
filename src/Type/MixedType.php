@@ -6,6 +6,20 @@ class MixedType implements CompoundType
 {
 
 	/**
+	 * @var bool
+	 */
+	private $isExplicitMixed;
+
+	/**
+	 * @param bool $isExplicitMixed True if this type was explicitly declared, false
+	 *   if it has just been assumed as a safe default.
+	 */
+	public function __construct(bool $isExplicitMixed = false)
+	{
+		$this->isExplicitMixed = $isExplicitMixed;
+	}
+
+	/**
 	 * @return string|null
 	 */
 	public function getClass()
@@ -66,9 +80,14 @@ class MixedType implements CompoundType
 		return new MixedType();
 	}
 
+	public function isExplicitMixed(): bool
+	{
+		return $this->isExplicitMixed;
+	}
+
 	public static function __set_state(array $properties): Type
 	{
-		return new self();
+		return new self($properties['isExplicitMixed']);
 	}
 
 }

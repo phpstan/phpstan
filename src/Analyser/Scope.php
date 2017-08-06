@@ -1014,7 +1014,7 @@ class Scope
 			null,
 			$this->getNamespace(),
 			[
-				'this' => new MixedType(),
+				'this' => new MixedType(true),
 			],
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
