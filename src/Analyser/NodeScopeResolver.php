@@ -81,7 +81,10 @@ class NodeScopeResolver
 	/** @var \PHPStan\File\FileExcluder */
 	private $fileExcluder;
 
-	/** @var \PhpParser\BuilderFactory */
+	/**
+	 * @phpcsSuppress SlevomatCodingStandard.Classes.UnusedPrivateElements.WriteOnlyProperty
+	 * @var \PhpParser\BuilderFactory
+	 */
 	private $builderFactory;
 
 	/** @var \PHPStan\File\FileHelper */
@@ -522,24 +525,15 @@ class NodeScopeResolver
 			}
 		} elseif ($node instanceof New_ && $node->class instanceof Class_) {
 			$node->args = [];
-			foreach ($node->class->stmts as $i => $statement) {
-				if (
-					$statement instanceof Node\Stmt\ClassMethod
-					&& $statement->name === '__construct'
-				) {
-					unset($node->class->stmts[$i]);
-					$node->class->stmts = array_values($node->class->stmts);
-					break;
-				}
-			}
-
-			$node->class->stmts[] = $this->builderFactory
-				->method('__construct')
-				->makePublic()
-				->getNode();
-
 			$code = $this->printer->prettyPrint([$node]);
-			$classReflection = new \ReflectionClass(eval(sprintf('return %s', $code)));
+
+			do {
+				$uniqidClass = 'AnonymousClass' . uniqid();
+			} while (class_exists('\\' . $uniqidClass));
+
+			$code = 'class ' . $uniqidClass . ' ' . substr($code, 10);
+			eval($code);
+			$classReflection = new \PHPStan\Reflection\Php\DummyAnonymousClassReflection('\\' . $uniqidClass);
 			$this->anonymousClassReflection = $this->broker->getClassFromReflection(
 				$classReflection,
 				sprintf('class@anonymous%s:%s', $scope->getFile(), $node->getLine())

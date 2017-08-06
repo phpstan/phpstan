@@ -68,12 +68,13 @@ class PhpClassReflectionExtension
 	private function createProperties(ClassReflection $classReflection): array
 	{
 		$properties = [];
+		$anonymousClass = $classReflection->getNativeReflection()->isAnonymous();
 		foreach ($classReflection->getNativeReflection()->getProperties() as $propertyReflection) {
 			$propertyName = $propertyReflection->getName();
 			$declaringClassReflection = $this->broker->getClass($propertyReflection->getDeclaringClass()->getName());
 			if ($propertyReflection->getDocComment() === false) {
 				$type = new MixedType();
-			} elseif (!$declaringClassReflection->getNativeReflection()->isAnonymous() && $declaringClassReflection->getNativeReflection()->getFileName() !== false) {
+			} elseif (!$anonymousClass && !$declaringClassReflection->getNativeReflection()->isAnonymous() && $declaringClassReflection->getNativeReflection()->getFileName() !== false) {
 				$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForProperty(
 					$this->broker,
 					$propertyReflection->getDocComment(),
@@ -81,7 +82,9 @@ class PhpClassReflectionExtension
 					$propertyName,
 					$declaringClassReflection->getNativeReflection()->getFileName()
 				);
+
 				$typeMap = $this->fileTypeMapper->getTypeMap($phpDocBlock->getFile());
+
 				$typeString = $this->getPropertyAnnotationTypeString($phpDocBlock->getDocComment());
 				if (isset($typeMap[$typeString])) {
 					$type = $typeMap[$typeString];
