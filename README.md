@@ -108,11 +108,6 @@ and PHPStan's strict checks, you can choose from currently 8 levels
 This feature enables incremental adoption of PHPStan checks. You can start using PHPStan
 with a lower rule level and increase it when you feel like it.
 
-There's also **experimental** level 5 that currently enables:
-
-* Union types (Foo|Bar will be a specified type with checks performed on it instead of mixed)
-* Checking function and method argument types when calling them
-
 ## Configuration
 
 Config file is passed to the `phpstan` executable with `-c` option:
