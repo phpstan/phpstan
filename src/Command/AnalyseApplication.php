@@ -5,6 +5,7 @@ namespace PHPStan\Command;
 use PHPStan\Analyser\Analyser;
 use PHPStan\Analyser\Error;
 use PHPStan\Command\ErrorFormatter\ErrorFormatter;
+use PHPStan\File\FileExcluder;
 use PHPStan\File\FileHelper;
 use Symfony\Component\Console\Style\OutputStyle;
 use Symfony\Component\Finder\Finder;
@@ -30,17 +31,22 @@ class AnalyseApplication
 	/** @var \PHPStan\File\FileHelper */
 	private $fileHelper;
 
+	/** @var \PHPStan\File\FileExcluder */
+	private $fileExcluder;
+
 	public function __construct(
 		Analyser $analyser,
 		string $memoryLimitFile,
 		FileHelper $fileHelper,
-		array $fileExtensions
+		array $fileExtensions,
+		FileExcluder $fileExcluder
 	)
 	{
 		$this->analyser = $analyser;
 		$this->memoryLimitFile = $memoryLimitFile;
 		$this->fileExtensions = $fileExtensions;
 		$this->fileHelper = $fileHelper;
+		$this->fileExcluder = $fileExcluder;
 	}
 
 	/**
@@ -81,6 +87,10 @@ class AnalyseApplication
 				}
 			}
 		}
+
+		$files = array_filter($files, function (string $file): bool {
+			return !$this->fileExcluder->isExcludedFromAnalysing($file);
+		});
 
 		$this->updateMemoryLimitFile();
 
