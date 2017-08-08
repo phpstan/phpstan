@@ -20,7 +20,8 @@
 		"nette/utils": "^2.4 || ^3.0",
 		"nikic/php-parser": "^3.0.2",
 		"symfony/console": "~2.7 || ~3.0",
-		"symfony/finder": "~2.7 || ~3.0"
+		"symfony/finder": "~2.7 || ~3.0",
+		"jean85/pretty-package-versions": "^1.0"
 	},
 	"require-dev": {
 		"consistence/coding-standard": "^2.0.0",
