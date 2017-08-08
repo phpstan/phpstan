@@ -48,7 +48,6 @@ use PhpParser\Node\Stmt\TryCatch;
 use PhpParser\Node\Stmt\Unset_;
 use PhpParser\Node\Stmt\While_;
 use PHPStan\Broker\Broker;
-use PHPStan\File\FileExcluder;
 use PHPStan\File\FileHelper;
 use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\PhpDocBlock;
@@ -78,9 +77,6 @@ class NodeScopeResolver
 	/** @var \PHPStan\Type\FileTypeMapper */
 	private $fileTypeMapper;
 
-	/** @var \PHPStan\File\FileExcluder */
-	private $fileExcluder;
-
 	/** @var \PhpParser\BuilderFactory */
 	private $builderFactory;
 
@@ -107,7 +103,6 @@ class NodeScopeResolver
 		Parser $parser,
 		\PhpParser\PrettyPrinter\Standard $printer,
 		FileTypeMapper $fileTypeMapper,
-		FileExcluder $fileExcluder,
 		\PhpParser\BuilderFactory $builderFactory,
 		FileHelper $fileHelper,
 		bool $polluteScopeWithLoopInitialAssignments,
@@ -119,7 +114,6 @@ class NodeScopeResolver
 		$this->parser = $parser;
 		$this->printer = $printer;
 		$this->fileTypeMapper = $fileTypeMapper;
-		$this->fileExcluder = $fileExcluder;
 		$this->builderFactory = $builderFactory;
 		$this->fileHelper = $fileHelper;
 		$this->polluteScopeWithLoopInitialAssignments = $polluteScopeWithLoopInitialAssignments;
@@ -1209,9 +1203,6 @@ class NodeScopeResolver
 			}
 			$traitReflection = $this->broker->getClass($traitName);
 			$fileName = $this->fileHelper->normalizePath($traitReflection->getNativeReflection()->getFileName());
-			if ($this->fileExcluder->isExcludedFromAnalysing($fileName)) {
-				return;
-			}
 			if (!isset($this->analysedFiles[$fileName])) {
 				return;
 			}

@@ -6,7 +6,6 @@ use PhpParser\Node\Expr\Exit_;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Cache\Cache;
-use PHPStan\File\FileExcluder;
 use PHPStan\File\FileHelper;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
@@ -33,7 +32,6 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			$this->getParser(),
 			$this->printer,
 			new FileTypeMapper($this->getParser(), $this->createMock(Cache::class)),
-			new FileExcluder($this->createMock(FileHelper::class), []),
 			new \PhpParser\BuilderFactory(),
 			new FileHelper('/'),
 			true,
