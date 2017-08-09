@@ -100,6 +100,12 @@ services:
 			fileExtensions: %fileExtensions%
 
 	-
+		class: PHPStan\Dependency\DependencyManager
+
+	-
+		class: PHPStan\Dependency\DependencyResolver
+
+	-
 		class: PHPStan\File\FileHelper
 		arguments:
 			workingDirectory: %currentWorkingDirectory%
@@ -229,6 +235,9 @@ services:
 	directParser:
 		class: PHPStan\Parser\DirectParser
 		autowired: no
+
+	modifiedFilesDetector:
+		class: PHPStan\File\ModifiedFilesBasedOnLastModifiedTimeDetector
 
 	registry:
 		class: PHPStan\Rules\Registry

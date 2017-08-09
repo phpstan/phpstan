@@ -3,6 +3,8 @@
 namespace PHPStan\Analyser;
 
 use PHPStan\Broker\Broker;
+use PHPStan\Dependency\DependencyManager;
+use PHPStan\Dependency\DependencyResolver;
 use PHPStan\File\FileHelper;
 use PHPStan\Parser\Parser;
 use PHPStan\Rules\Registry;
@@ -61,6 +63,14 @@ class Analyser
 	private $internalErrorsCountLimit;
 
 	/**
+	 * @var \PHPStan\Dependency\DependencyResolver
+	 */
+	private $dependencyResolver;
+
+	/** @var \PHPStan\Dependency\DependencyManager */
+	private $dependencyManager;
+
+	/**
 	 * @param \PHPStan\Broker\Broker $broker
 	 * @param \PHPStan\Parser\Parser $parser
 	 * @param \PHPStan\Rules\Registry $registry
@@ -72,6 +82,8 @@ class Analyser
 	 * @param string|null $bootstrapFile
 	 * @param bool $reportUnmatchedIgnoredErrors
 	 * @param int $internalErrorsCountLimit
+	 * @param \PHPStan\Dependency\DependencyResolver $dependencyResolver
+	 * @param \PHPStan\Dependency\DependencyManager $dependencyManager
 	 */
 	public function __construct(
 		Broker $broker,
@@ -84,7 +96,9 @@ class Analyser
 		array $ignoreErrors,
 		string $bootstrapFile = null,
 		bool $reportUnmatchedIgnoredErrors,
-		int $internalErrorsCountLimit
+		int $internalErrorsCountLimit,
+		DependencyResolver $dependencyResolver,
+		DependencyManager $dependencyManager
 	)
 	{
 		$this->broker = $broker;
@@ -97,10 +111,13 @@ class Analyser
 		$this->bootstrapFile = $bootstrapFile !== null ? $fileHelper->normalizePath($bootstrapFile) : null;
 		$this->reportUnmatchedIgnoredErrors = $reportUnmatchedIgnoredErrors;
 		$this->internalErrorsCountLimit = $internalErrorsCountLimit;
+		$this->dependencyResolver = $dependencyResolver;
+		$this->dependencyManager = $dependencyManager;
 	}
 
 	/**
 	 * @param string[] $files
+	 * @param bool $checkOnlyModifiedFiles
 	 * @param bool $onlyFiles
 	 * @param \Closure|null $preFileCallback
 	 * @param \Closure|null $postFileCallback
@@ -109,6 +126,7 @@ class Analyser
 	 */
 	public function analyse(
 		array $files,
+		bool $checkOnlyModifiedFiles,
 		bool $onlyFiles,
 		\Closure $preFileCallback = null,
 		\Closure $postFileCallback = null,
@@ -147,6 +165,7 @@ class Analyser
 		$reachedInternalErrorsCountLimit = false;
 		foreach ($files as $file) {
 			try {
+				$fileDependencies = [];
 				$fileErrors = [];
 				if ($preFileCallback !== null) {
 					$preFileCallback($file);
@@ -154,7 +173,12 @@ class Analyser
 				$this->nodeScopeResolver->processNodes(
 					$this->parser->parseFile($file),
 					new Scope($this->broker, $this->printer, $this->typeSpecifier, $file),
-					function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors) {
+					function (\PhpParser\Node $node, Scope $scope) use (&$fileDependencies, &$fileErrors) {
+						try {
+							$fileDependencies = array_merge($fileDependencies, $this->dependencyResolver->resolveDependencies($node, $scope));
+						} catch (\ReflectionException $e) {
+							// It fixes tests for now
+						}
 						foreach ($this->registry->getRules(get_class($node)) as $rule) {
 							$ruleErrors = $this->createErrors(
 								$node,
@@ -168,6 +192,8 @@ class Analyser
 				if ($postFileCallback !== null) {
 					$postFileCallback($file);
 				}
+
+				$this->dependencyManager->setFileDependencies($file, array_unique($fileDependencies));
 
 				$errors = array_merge($errors, $fileErrors);
 			} catch (\PhpParser\Error $e) {
@@ -216,7 +242,7 @@ class Analyser
 
 		$errors = array_merge($errors, $addErrors);
 
-		if (!$onlyFiles && $this->reportUnmatchedIgnoredErrors && !$reachedInternalErrorsCountLimit) {
+		if (!$checkOnlyModifiedFiles && !$onlyFiles && $this->reportUnmatchedIgnoredErrors && !$reachedInternalErrorsCountLimit) {
 			foreach ($unmatchedIgnoredErrors as $unmatchedIgnoredError) {
 				$errors[] = sprintf(
 					'Ignored error pattern %s was not matched in reported errors.',

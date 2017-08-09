@@ -37,6 +37,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				new InputOption('autoload-file', 'a', InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path'),
 				new InputOption('errorFormat', null, InputOption::VALUE_REQUIRED, 'Format in which to print the result of the analysis', 'table'),
 				new InputOption('memory-limit', null, InputOption::VALUE_REQUIRED, 'Memory limit for analysis'),
+				new InputOption('only-modified', 'm', InputOption::VALUE_NONE, 'Check only modified files'),
 			]);
 	}
 
@@ -190,6 +191,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		return $this->handleReturn(
 			$application->analyse(
 				$input->getArgument('paths'),
+				$input->getOption('only-modified'),
 				$consoleStyle,
 				$errorFormatter,
 				$defaultLevelUsed,

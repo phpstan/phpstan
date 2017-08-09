@@ -5,8 +5,10 @@ namespace PHPStan\Command;
 use PHPStan\Analyser\Analyser;
 use PHPStan\Analyser\Error;
 use PHPStan\Command\ErrorFormatter\ErrorFormatter;
+use PHPStan\Dependency\DependencyManager;
 use PHPStan\File\FileExcluder;
 use PHPStan\File\FileHelper;
+use PHPStan\File\ModifiedFilesDetector;
 use Symfony\Component\Console\Style\OutputStyle;
 use Symfony\Component\Finder\Finder;
 
@@ -34,12 +36,20 @@ class AnalyseApplication
 	/** @var \PHPStan\File\FileExcluder */
 	private $fileExcluder;
 
+	/** @var \PHPStan\File\ModifiedFilesDetector */
+	private $modifiedFilesDetector;
+
+	/** @var \PHPStan\Dependency\DependencyManager */
+	private $dependencyManager;
+
 	public function __construct(
 		Analyser $analyser,
 		string $memoryLimitFile,
 		FileHelper $fileHelper,
 		array $fileExtensions,
-		FileExcluder $fileExcluder
+		FileExcluder $fileExcluder,
+		ModifiedFilesDetector $modifiedFilesDetector,
+		DependencyManager $dependencyManager
 	)
 	{
 		$this->analyser = $analyser;
@@ -47,10 +57,13 @@ class AnalyseApplication
 		$this->fileExtensions = $fileExtensions;
 		$this->fileHelper = $fileHelper;
 		$this->fileExcluder = $fileExcluder;
+		$this->modifiedFilesDetector = $modifiedFilesDetector;
+		$this->dependencyManager = $dependencyManager;
 	}
 
 	/**
 	 * @param string[] $paths
+	 * @param bool $checkOnlyModifiedFiles
 	 * @param \Symfony\Component\Console\Style\OutputStyle $style
 	 * @param \PHPStan\Command\ErrorFormatter\ErrorFormatter $errorFormatter
 	 * @param bool $defaultLevelUsed
@@ -59,6 +72,7 @@ class AnalyseApplication
 	 */
 	public function analyse(
 		array $paths,
+		bool $checkOnlyModifiedFiles,
 		OutputStyle $style,
 		ErrorFormatter $errorFormatter,
 		bool $defaultLevelUsed,
@@ -94,15 +108,38 @@ class AnalyseApplication
 			return !$this->fileExcluder->isExcludedFromAnalysing($file);
 		});
 
+		$this->dependencyManager->updateFiles($files);
+
+		if ($checkOnlyModifiedFiles) {
+			$filesToAnalyze = $this->modifiedFilesDetector->getAddedFiles($files);
+			foreach ($this->modifiedFilesDetector->getChangedFiles() as $changedFile) {
+				if (in_array($changedFile, $files, true)) {
+					$filesToAnalyze[$changedFile] = $changedFile;
+				}
+
+				foreach ($this->dependencyManager->getFilesDependentOn($changedFile) as $dependentFile) {
+					$filesToAnalyze[$dependentFile] = $dependentFile;
+				}
+			}
+			foreach ($this->modifiedFilesDetector->getRemovedFiles() as $removedFile) {
+				foreach ($this->dependencyManager->getFilesDependentOn($removedFile) as $dependentFile) {
+					$filesToAnalyze[$dependentFile] = $dependentFile;
+				}
+			}
+			$filesToAnalyze = array_values($filesToAnalyze);
+		} else {
+			$filesToAnalyze = $files;
+		}
+
 		$this->updateMemoryLimitFile();
 
 		if (!$debug) {
 			$progressStarted = false;
 			$fileOrder = 0;
 			$preFileCallback = null;
-			$postFileCallback = function () use ($style, &$progressStarted, $files, &$fileOrder) {
+			$postFileCallback = function () use ($style, &$progressStarted, $filesToAnalyze, &$fileOrder) {
 				if (!$progressStarted) {
-					$style->progressStart(count($files));
+					$style->progressStart(count($filesToAnalyze));
 					$progressStarted = true;
 				}
 				$style->progressAdvance();
@@ -119,7 +156,8 @@ class AnalyseApplication
 		}
 
 		$errors = array_merge($errors, $this->analyser->analyse(
-			$files,
+			$filesToAnalyze,
+			$checkOnlyModifiedFiles,
 			$onlyFiles,
 			$preFileCallback,
 			$postFileCallback,
@@ -129,6 +167,19 @@ class AnalyseApplication
 		if (isset($progressStarted) && $progressStarted) {
 			$style->progressFinish();
 		}
+
+		$this->dependencyManager->saveToCache();
+
+		$dependencies = $this->dependencyManager->getDependencies();
+		$filesToCheck = array_combine($files, $files);
+		foreach ($dependencies as $file => $fileDependencies) {
+			$filesToCheck[$file] = $file;
+			foreach ($fileDependencies as $fileDependency) {
+				$filesToCheck[$fileDependency] = $fileDependency;
+			}
+		}
+
+		$this->modifiedFilesDetector->updateFiles(array_values($filesToCheck));
 
 		$fileSpecificErrors = [];
 		$notFileSpecificErrors = [];

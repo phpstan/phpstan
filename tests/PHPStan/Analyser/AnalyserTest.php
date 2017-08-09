@@ -3,6 +3,8 @@
 namespace PHPStan\Analyser;
 
 use PHPStan\Cache\Cache;
+use PHPStan\Dependency\DependencyManager;
+use PHPStan\Dependency\DependencyResolver;
 use PHPStan\File\FileHelper;
 use PHPStan\Parser\DirectParser;
 use PHPStan\PhpDoc\PhpDocStringResolver;
@@ -109,7 +111,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 			$bootstrapFile,
 			$reportUnmatchedIgnoredErrors
 		);
-		return $analyser->analyse([$this->getFileHelper()->normalizePath($filePath)], $onlyFiles);
+		return $analyser->analyse([$this->getFileHelper()->normalizePath($filePath)], false, $onlyFiles);
 	}
 
 	/**
@@ -156,7 +158,9 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 			$ignoreErrors,
 			$bootstrapFile,
 			$reportUnmatchedIgnoredErrors,
-			50
+			50,
+			$this->createMock(DependencyResolver::class),
+			$this->createMock(DependencyManager::class)
 		);
 
 		return $analyser;

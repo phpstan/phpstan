@@ -121,7 +121,7 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 		/** @var \PHPStan\Analyser\Analyser $analyser */
 		$analyser = $this->getContainer()->getByType(Analyser::class);
 		/** @var \PHPStan\Analyser\Error[] $errors */
-		$errors = $analyser->analyse($files, false);
+		$errors = $analyser->analyse($files, false, false);
 		return $errors;
 	}
 

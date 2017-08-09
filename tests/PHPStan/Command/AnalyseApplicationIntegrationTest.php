@@ -58,6 +58,7 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\Testing\TestCase
 
 		$statusCode = $analyserApplication->analyse(
 			[$path],
+			false,
 			$style,
 			new TableErrorFormatter(),
 			false,

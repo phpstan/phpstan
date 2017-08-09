@@ -7,6 +7,8 @@ use PHPStan\Analyser\Error;
 use PHPStan\Analyser\NodeScopeResolver;
 use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Cache\Cache;
+use PHPStan\Dependency\DependencyManager;
+use PHPStan\Dependency\DependencyResolver;
 use PHPStan\PhpDoc\PhpDocStringResolver;
 use PHPStan\Rules\Registry;
 use PHPStan\Rules\Rule;
@@ -51,7 +53,9 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 				[],
 				null,
 				true,
-				50
+				50,
+				$this->createMock(DependencyResolver::class),
+				$this->createMock(DependencyManager::class)
 			);
 		}
 
@@ -61,7 +65,7 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 	public function analyse(array $files, array $expectedErrors)
 	{
 		$files = array_map([$this->getFileHelper(), 'normalizePath'], $files);
-		$actualErrors = $this->getAnalyser()->analyse($files, false);
+		$actualErrors = $this->getAnalyser()->analyse($files, false, false);
 		$this->assertInternalType('array', $actualErrors);
 
 		$strictlyTypedSprintf = function (int $line, string $message): string {
