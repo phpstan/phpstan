@@ -223,6 +223,7 @@ services:
 		class: PHPStan\Cache\FileCacheStorage
 		arguments:
 			directory: %tmpDir%/cache/PHPStan
+			prefix: %currentWorkingDirectory%
 		autowired: no
 
 	directParser:

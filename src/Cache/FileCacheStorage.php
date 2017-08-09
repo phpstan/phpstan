@@ -8,12 +8,15 @@ class FileCacheStorage implements CacheStorage
 	/** @var string */
 	private $directory;
 
-	public function __construct(string $directory)
+	public function __construct(string $directory, string $prefix)
 	{
-		$this->directory = $directory;
+		if (@mkdir($directory) && !is_dir($directory)) {
+			throw new \InvalidArgumentException(sprintf('Directory "%s" doesn\'t exist.', $directory));
+		}
 
+		$this->directory = sprintf('%s/%s', $directory, $this->toAscii($prefix));
 		if (@mkdir($this->directory) && !is_dir($this->directory)) {
-			throw new \InvalidArgumentException(sprintf('Directory "%s" doesn\'t exist.', $this->directory));
+			throw new \InvalidArgumentException(sprintf('Directory "%s" cannot be created.', $this->directory));
 		}
 	}
 
@@ -43,9 +46,14 @@ class FileCacheStorage implements CacheStorage
 		return $writtenBytes !== false;
 	}
 
+	private function toAscii(string $string): string
+	{
+		return preg_replace('~[^-\\w]~', '_', $string);
+	}
+
 	private function getFilePath(string $key): string
 	{
-		return sprintf('%s/%s.php', $this->directory, preg_replace('~[^-\\w]~', '_', $key));
+		return sprintf('%s/%s.php', $this->directory, $this->toAscii($key));
 	}
 
 }
