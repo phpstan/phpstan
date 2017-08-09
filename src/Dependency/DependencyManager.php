@@ -22,7 +22,7 @@ class DependencyManager
 
 		$dependencies = $this->cache->load($this->getCacheKey());
 		if ($dependencies !== null) {
-			$this->dependencies = $dependencies;
+			$this->dependencies = $this->unpack($dependencies);
 		}
 	}
 
@@ -78,7 +78,50 @@ class DependencyManager
 
 	public function saveToCache()
 	{
-		$this->cache->save($this->getCacheKey(), $this->dependencies);
+		$this->cache->save($this->getCacheKey(), $this->pack($this->dependencies));
+	}
+
+	private function pack(array $dependencies): array
+	{
+		$files = [];
+		foreach ($dependencies as $file => $fileDependencies) {
+			$files[$file] = $file;
+			foreach ($fileDependencies as $fileDependency) {
+				$files[$fileDependency] = $fileDependency;
+			}
+		}
+		$files = array_values($files);
+		$filesNumbers = array_flip($files);
+
+		$packedDependencies = [];
+		foreach ($dependencies as $file => $fileDependencies) {
+			$packedFileDependencies = [];
+			foreach ($fileDependencies as $fileDependencyNumber => $fileDependency) {
+				$packedFileDependencies[$fileDependencyNumber] = $filesNumbers[$fileDependency];
+			}
+			if (count($packedFileDependencies) > 0) {
+				$packedDependencies[$filesNumbers[$file]] = $packedFileDependencies;
+			}
+		}
+
+		return [$files, $packedDependencies];
+	}
+
+	private function unpack(array $data): array
+	{
+		list($files, $packedDependencies) = $data;
+
+		$dependencies = [];
+		foreach ($files as $fileNumber => $file) {
+			$dependencies[$file] = [];
+			if (array_key_exists($fileNumber, $packedDependencies)) {
+				foreach ($packedDependencies[$fileNumber] as $fileDependencyNumber) {
+					$dependencies[$file][] = $files[$fileDependencyNumber];
+				}
+			}
+		}
+
+		return $dependencies;
 	}
 
 	private function getCacheKey(): string
