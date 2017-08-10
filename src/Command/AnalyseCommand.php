@@ -210,17 +210,9 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		);
 
 		$configurationChangeDetector->saveToCache();
-
-		return $this->handleReturn(
-			$analyseResultCode,
-			$memoryLimitFile
-		);
-	}
-
-	private function handleReturn(int $code, string $memoryLimitFile): int
-	{
 		unlink($memoryLimitFile);
-		return $code;
+
+		return $analyseResultCode;
 	}
 
 	private function setUpSignalHandler(StyleInterface $consoleStyle, string $memoryLimitFile)
