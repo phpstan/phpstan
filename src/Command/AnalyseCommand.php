@@ -5,7 +5,9 @@ namespace PHPStan\Command;
 use Nette\DI\Config\Loader;
 use Nette\DI\Helpers;
 use PhpParser\Node\Stmt\Catch_;
+use PHPStan\Cache\Cache;
 use PHPStan\Command\ErrorFormatter\ErrorFormatter;
+use PHPStan\Configuration\ConfigurationChangeDetector;
 use PHPStan\DependencyInjection\ContainerFactory;
 use PHPStan\File\FileHelper;
 use PHPStan\Type\TypeCombinator;
@@ -122,6 +124,16 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		}
 
 		$container = $containerFactory->create($tmpDir, $additionalConfigFiles);
+
+		/** @var bool $checkOnlyModifiedFiles */
+		$checkOnlyModifiedFiles = $input->getOption('only-modified');
+
+		$configurationChangeDetector = new ConfigurationChangeDetector($container->getByType(Cache::class), $container->getParameters());
+		if ($checkOnlyModifiedFiles && $configurationChangeDetector->hasConfigurationChanged()) {
+			$checkOnlyModifiedFiles = false;
+			$consoleStyle->note('Detected change in configuration, complete analysis is performed.');
+		}
+
 		$memoryLimitFile = $container->parameters['memoryLimitFile'];
 		if (file_exists($memoryLimitFile)) {
 			$consoleStyle->note(sprintf(
@@ -188,15 +200,19 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 		/** @var \PHPStan\Command\AnalyseApplication $application */
 		$application = $container->getByType(AnalyseApplication::class);
+		$analyseResultCode = $application->analyse(
+			$input->getArgument('paths'),
+			$checkOnlyModifiedFiles,
+			$consoleStyle,
+			$errorFormatter,
+			$defaultLevelUsed,
+			$input->getOption('debug')
+		);
+
+		$configurationChangeDetector->saveToCache();
+
 		return $this->handleReturn(
-			$application->analyse(
-				$input->getArgument('paths'),
-				$input->getOption('only-modified'),
-				$consoleStyle,
-				$errorFormatter,
-				$defaultLevelUsed,
-				$input->getOption('debug')
-			),
+			$analyseResultCode,
 			$memoryLimitFile
 		);
 	}
