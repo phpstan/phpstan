@@ -28,7 +28,7 @@
 		"satooshi/php-coveralls": "^1.0",
 		"phing/phing": "^2.16.0",
 		"phpunit/phpunit": "^6.0.7",
-		"slevomat/coding-standard": "^3.0.0"
+		"slevomat/coding-standard": "^3.1.0"
 	},
 	"autoload": {
 		"psr-4": {"PHPStan\\": "src/"}
