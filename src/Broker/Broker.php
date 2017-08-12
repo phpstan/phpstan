@@ -40,6 +40,9 @@ class Broker
 	/** @var null|self */
 	private static $instance;
 
+	/** @var bool[] */
+	private $hasClassCache;
+
 	/**
 	 * @param \PHPStan\Reflection\PropertiesClassReflectionExtension[] $propertiesClassReflectionExtensions
 	 * @param \PHPStan\Reflection\MethodsClassReflectionExtension[] $methodsClassReflectionExtensions
@@ -155,6 +158,10 @@ class Broker
 
 	public function hasClass(string $className): bool
 	{
+		if (isset($this->hasClassCache[$className])) {
+			return $this->hasClassCache[$className];
+		}
+
 		spl_autoload_register($autoloader = function (string $autoloadedClassName) use ($className) {
 			if ($autoloadedClassName !== $className) {
 				throw new \PHPStan\Broker\ClassAutoloadingException($autoloadedClassName);
@@ -162,7 +169,7 @@ class Broker
 		});
 
 		try {
-			return class_exists($className) || interface_exists($className) || trait_exists($className);
+			return $this->hasClassCache[$className] = class_exists($className) || interface_exists($className) || trait_exists($className);
 		} catch (\PHPStan\Broker\ClassAutoloadingException $e) {
 			throw $e;
 		} catch (\Throwable $t) {
