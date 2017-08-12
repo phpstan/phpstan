@@ -204,6 +204,14 @@ class Scope
 		$this->currentlyAssignedExpressions = $currentlyAssignedExpressions;
 	}
 
+	/**
+	 * @return string|null
+	 */
+	public function getName()
+	{
+		return $this->classReflection ? $this->classReflection->getName() : null;
+	}
+
 	public function getFile(): string
 	{
 		return $this->file;

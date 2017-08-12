@@ -2,6 +2,9 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\PropertyReflection;
+
 interface Type
 {
 
@@ -32,6 +35,20 @@ interface Type
 	public function getIterableKeyType(): Type;
 
 	public function getIterableValueType(): Type;
+
+	/**
+	 * @param string $name
+	 * @param string|null $scope
+	 * @return int
+	 */
+	// public function hasProperty(string $name, $scope): int;
+
+	/**
+	 * @param string $name
+	 * @param string|null $scope
+	 * @return PropertyReflection
+	 */
+	// public function getProperty(string $name, $scope): PropertyReflection;
 
 	public static function __set_state(array $properties): self;
 

@@ -3,6 +3,8 @@
 namespace PHPStan\Type;
 
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\PropertyReflection;
+use PHPStan\ShouldNotHappenException;
 
 class ObjectType implements Type
 {
@@ -31,7 +33,7 @@ class ObjectType implements Type
 	public function combineWith(Type $otherType): Type
 	{
 		if ($otherType instanceof self && $this->getClass() === $otherType->getClass()) {
-			return new self($this->getClass());
+			return new static($this->getClass());
 		}
 
 		return TypeCombinator::combine($this, $otherType);
@@ -39,10 +41,6 @@ class ObjectType implements Type
 
 	public function accepts(Type $type): bool
 	{
-		if ($type instanceof StaticType) {
-			return $this->checkSubclassAcceptability($type->getBaseClass());
-		}
-
 		if ($type instanceof CompoundType) {
 			return CompoundTypeHelper::accepts($type, $this);
 		}
@@ -89,6 +87,46 @@ class ObjectType implements Type
 	public function canAccessProperties(): bool
 	{
 		return true;
+	}
+
+	public function hasProperty(string $name, $scope): int
+	{
+		$broker = Broker::getInstance();
+
+		if (!$broker->hasClass($this->class)) {
+			return TrinaryLogic::MAYBE;
+		}
+
+		$classReflection = $broker->getClass($this->class);
+		if ($classReflection->hasProperty($name)) {
+			$propertyReflection = $classReflection->getProperty($name);
+			if ($propertyReflection->isPublic() || $classReflection->getName() === $scope) { // TODO: check for inheritance?
+				return TrinaryLogic::YES;
+			}
+		}
+
+		return TrinaryLogic::NO;
+	}
+
+	public function getProperty(string $name, $scope): PropertyReflection
+	{
+		$broker = Broker::getInstance();
+
+		if (!$broker->hasClass($this->class)) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		$classReflection = $broker->getClass($this->class);
+		if (!$classReflection->hasProperty($name)) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		$propertyReflection = $classReflection->getProperty($name);
+		if (!$propertyReflection->isPublic() && $classReflection->getName() !== $scope) { // TODO: check for inheritance?
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		return $propertyReflection;
 	}
 
 	public function canCallMethods(): bool
@@ -172,7 +210,7 @@ class ObjectType implements Type
 
 	public static function __set_state(array $properties): Type
 	{
-		return new self($properties['class']);
+		return new static($properties['class']);
 	}
 
 }
