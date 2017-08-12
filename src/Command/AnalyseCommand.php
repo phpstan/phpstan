@@ -37,6 +37,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				new InputOption(ErrorsConsoleStyle::OPTION_NO_PROGRESS, null, InputOption::VALUE_NONE, 'Do not show progress bar, only results'),
 				new InputOption('autoload-file', 'a', InputOption::VALUE_OPTIONAL, 'Project\'s additional autoload file path'),
 				new InputOption('errorFormat', null, InputOption::VALUE_REQUIRED, 'Format in which to print the result of the analysis', 'table'),
+				new InputOption('memory-limit', null, InputOption::VALUE_REQUIRED, 'Memory limit for analysis'),
 			]);
 	}
 
@@ -49,6 +50,18 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
 		$consoleStyle = new ErrorsConsoleStyle($input, $output);
+
+		$memoryLimit = $input->getOption('memory-limit');
+		if ($memoryLimit !== null) {
+			if (!preg_match('#^\d+[kMG]?$#i', $memoryLimit)) {
+				$consoleStyle->error(sprintf('Invalid memory limit format "%s".', $memoryLimit));
+				return 1;
+			}
+			if (ini_set('memory_limit', $memoryLimit) === false) {
+				$consoleStyle->error(sprintf('Memory limit "%s" cannot be set.', $memoryLimit));
+				return 1;
+			}
+		}
 
 		$currentWorkingDirectory = getcwd();
 		$fileHelper = new FileHelper($currentWorkingDirectory);
@@ -132,10 +145,8 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		$memoryLimitFile = $container->parameters['memoryLimitFile'];
 		if (file_exists($memoryLimitFile)) {
 			$consoleStyle->note(sprintf(
-				"PHPStan crashed in the previous run probably because of excessive memory consumption.\nIt consumed around %s of memory.\n\nTo avoid this issue, increase the memory_limit directive in your php.ini file here:\n%s\n\nIf you can't or don't want to change the system-wide memory limit, run PHPStan like this:\n%s",
-				file_get_contents($memoryLimitFile),
-				php_ini_loaded_file(),
-				sprintf('php -d memory_limit=XX %s', implode(' ', $_SERVER['argv']))
+				"PHPStan crashed in the previous run probably because of excessive memory consumption.\nIt consumed around %s of memory.\n\nTo avoid this issue, allow to use more memory with the --memory-limit option.",
+				file_get_contents($memoryLimitFile)
 			));
 			unlink($memoryLimitFile);
 		}
