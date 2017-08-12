@@ -14,6 +14,11 @@ class Foo
 		$bar = $foo;
 		$baz = doFoo();
 
+		$mixed = doFoo();
+		if ($mixed instanceof Foo) {
+
+		}
+
 		if ($baz instanceof Foo) {
 			// ...
 		} else {

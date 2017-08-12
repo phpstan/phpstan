@@ -1544,6 +1544,10 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'static(InstanceOfNamespace\Foo)',
 				'clone $static',
 			],
+			[
+				'mixed',
+				'$mixed',
+			],
 		];
 	}
 
