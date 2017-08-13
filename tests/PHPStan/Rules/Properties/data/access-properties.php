@@ -115,3 +115,22 @@ class NullPropertyIssue
 	}
 
 }
+
+class IssetIssue
+{
+
+	public function doFoo($data)
+	{
+		$data = $this->returnMixed();
+
+		isset($data['action']['test']) ? 'foo' : 'bar';
+		isset($data->element[0]['foo']) ? (string) $data->element[0]['bar'] : '';
+		isset($data->anotherElement[0]['code']) ? (string) $data->anotherElement[0]['code'] : '';
+	}
+
+	public function returnMixed()
+	{
+
+	}
+
+}

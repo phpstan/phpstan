@@ -979,7 +979,10 @@ class NodeScopeResolver
 					false
 				);
 				if ($scope->hasVariableType($var->name)) {
-					if ($scope->getVariableType($var->name) instanceof ArrayType) {
+					if (
+						!isset($arrayDimFetchVariableType)
+						|| !$arrayDimFetchVariableType instanceof NullType
+					) {
 						$arrayType = $scope->getVariableType($var->name)->combineWith($arrayType);
 					}
 				}
