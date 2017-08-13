@@ -19,10 +19,16 @@ if (!class_exists('PHPStan\Command\AnalyseCommand', true)) {
 	require_once $composerAutoloadFile;
 }
 
+$version = 'Version unknown';
+try {
+	$version = \Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPrettyVersion();
+} catch (\OutOfBoundsException $e) {
+
+}
 
 $application = new \Symfony\Component\Console\Application(
 	'PHPStan - PHP Static Analysis Tool',
-	\Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPrettyVersion()
+	$version
 );
 $application->setCatchExceptions(false);
 $application->add(new AnalyseCommand());
