@@ -378,3 +378,17 @@ class ReturningSomethingFromConstructor
 	}
 
 }
+
+class WeirdReturnFormat
+{
+
+	/**
+	 * @return \PHPStan\Foo\Bar |
+	 *         \PHPStan\Foo\Baz
+	 */
+	public function test()
+	{
+		return 1;
+	}
+
+}

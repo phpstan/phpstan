@@ -33,7 +33,7 @@ class FileTypeMapper
 
 	public function getTypeMap(string $fileName): array
 	{
-		$cacheKey = sprintf('%s-%d-v3', $fileName, filemtime($fileName));
+		$cacheKey = sprintf('%s-%d-v4', $fileName, filemtime($fileName));
 		if (isset($this->memoryCache[$cacheKey])) {
 			return $this->memoryCache[$cacheKey];
 		}
@@ -149,6 +149,9 @@ class FileTypeMapper
 		$types = [];
 		foreach (explode('|', $typeString) as $typePart) {
 			$typePart = trim($typePart);
+			if ($typePart === '') {
+				continue;
+			}
 			if (substr($typePart, 0, 1) === '?') {
 				$typePart = substr($typePart, 1);
 				$types[] = new NullType();
