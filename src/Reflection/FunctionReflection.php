@@ -158,6 +158,17 @@ class FunctionReflection implements ParametersAcceptor
 					true
 				);
 			}
+
+			if (
+				$this->reflection->getName() === 'setproctitle'
+				&& count($this->parameters) === 0
+			) {
+				$this->parameters[] = new DummyParameter(
+					'title',
+					new StringType(),
+					false
+				);
+			}
 		}
 
 		return $this->parameters;
