@@ -255,3 +255,32 @@ class IssueWithEliminatingTypes
 	}
 
 }
+
+interface FirstInterface
+{
+
+	public function firstMethod();
+
+}
+
+interface SecondInterface
+{
+
+	public function secondMethod();
+
+}
+
+class UnionInsteadOfIntersection
+{
+
+	public function doFoo($object)
+	{
+		while ($object instanceof FirstInterface && $object instanceof SecondInterface) {
+			$object->firstMethod();
+			$object->secondMethod();
+			$object->firstMethod(1); // call not checked yet
+			$object->secondMethod(1); // call not checked yet
+		}
+	}
+
+}
