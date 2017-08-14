@@ -19,6 +19,9 @@ class Foo
 	{
 		/** @var Bar */
 		$number = $this;
+
+		/** @var Foo $something */
+		$something = &$number;
 	}
 
 }

@@ -33,7 +33,7 @@ class FileTypeMapper
 
 	public function getTypeMap(string $fileName): array
 	{
-		$cacheKey = sprintf('%s-%d-v4', $fileName, filemtime($fileName));
+		$cacheKey = sprintf('%s-%d-v5', $fileName, filemtime($fileName));
 		if (isset($this->memoryCache[$cacheKey])) {
 			return $this->memoryCache[$cacheKey];
 		}
@@ -93,6 +93,7 @@ class FileTypeMapper
 					Node\Stmt\ClassMethod::class,
 					Node\Stmt\Function_::class,
 					Node\Expr\Assign::class,
+					Node\Expr\AssignRef::class,
 					Node\Stmt\Class_::class,
 				], true)) {
 					return;
