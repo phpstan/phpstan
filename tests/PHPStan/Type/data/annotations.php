@@ -24,4 +24,14 @@ class Foo
 		$something = &$number;
 	}
 
+	public function arrays()
+	{
+		$array = [];
+
+		/** @var int[] $value */
+		foreach ($array as $value) {
+
+		}
+	}
+
 }

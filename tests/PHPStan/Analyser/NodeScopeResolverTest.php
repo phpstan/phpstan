@@ -1973,6 +1973,31 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'int',
 				'$business',
 			],
+			[
+				__DIR__ . '/data/foreach/type-in-comment-variable-first.php',
+				'callable',
+				'$value',
+			],
+			[
+				__DIR__ . '/data/foreach/type-in-comment-variable-second.php',
+				'stdClass',
+				'$value',
+			],
+			[
+				__DIR__ . '/data/foreach/type-in-comment-no-variable.php',
+				'mixed',
+				'$value',
+			],
+			[
+				__DIR__ . '/data/foreach/type-in-comment-wrong-variable.php',
+				'mixed',
+				'$value',
+			],
+			[
+				__DIR__ . '/data/foreach/type-in-comment-variable-with-reference.php',
+				'string',
+				'$value',
+			],
 		];
 	}
 
