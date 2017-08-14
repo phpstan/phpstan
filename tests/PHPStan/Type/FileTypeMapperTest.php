@@ -30,6 +30,7 @@ class FileTypeMapperTest extends \PHPStan\TestCase
 			'stdClass | null' => 'stdClass|null',
 			'Bar' => 'Bar',
 			'Foo' => 'Foo',
+			'int[]' => 'int[]',
 		];
 
 		$this->assertEquals(array_keys($expected), array_keys($typeMap));

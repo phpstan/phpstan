@@ -285,6 +285,10 @@ class NodeScopeResolver
 					? $node->keyVar->name
 					: null
 			);
+			$comment = CommentHelper::getDocComment($node);
+			if ($comment !== null) {
+				$scope = $this->processVarAnnotation($scope, $node->valueVar->name, $comment, true);
+			}
 		}
 
 		if ($node->valueVar instanceof List_ || $node->valueVar instanceof Array_) {
@@ -922,30 +926,38 @@ class NodeScopeResolver
 			}
 
 			if ($node instanceof Assign || $node instanceof AssignRef) {
-				$comment = CommentHelper::getDocComment($node);
-				if ($comment !== null && $node->var instanceof Variable && is_string($node->var->name)) {
-					$variableName = $node->var->name;
-					$processVarAnnotation = function (string $matchedType, string $matchedVariableName) use ($scope, $variableName): Scope {
-						$fileTypeMap = $this->fileTypeMapper->getTypeMap($scope->getFile());
-						if (isset($fileTypeMap[$matchedType]) && $matchedVariableName === $variableName) {
-							return $scope->assignVariable($matchedVariableName, $fileTypeMap[$matchedType]);
-						}
-
-						return $scope;
-					};
-
-					if (preg_match('#@var\s+' . FileTypeMapper::TYPE_PATTERN . '\s+\$([a-zA-Z0-9_]+)#', $comment, $matches)) {
-						$scope = $processVarAnnotation($matches[1], $matches[2]);
-					} elseif (preg_match('#@var\s+\$([a-zA-Z0-9_]+)\s+' . FileTypeMapper::TYPE_PATTERN . '#', $comment, $matches)) {
-						$scope = $processVarAnnotation($matches[2], $matches[1]);
-					} elseif (preg_match('#@var\s+' . FileTypeMapper::TYPE_PATTERN . '(?!\s+\$[a-zA-Z0-9_]+)#', $comment, $matches)) {
-						$scope = $processVarAnnotation($matches[1], $variableName);
+				if ($node->var instanceof Variable && is_string($node->var->name)) {
+					$comment = CommentHelper::getDocComment($node);
+					if ($comment !== null) {
+						$scope = $this->processVarAnnotation($scope, $node->var->name, $comment, false);
 					}
 				}
 			}
 		}
 
 		return $scope;
+	}
+
+	private function processVarAnnotation(Scope $scope, string $variableName, string $comment, bool $strict): Scope
+	{
+		$process = function (string $matchedType, string $matchedVariableName) use ($scope, $variableName): Scope {
+			$fileTypeMap = $this->fileTypeMapper->getTypeMap($scope->getFile());
+			if (isset($fileTypeMap[$matchedType]) && $matchedVariableName === $variableName) {
+				return $scope->assignVariable($matchedVariableName, $fileTypeMap[$matchedType]);
+			}
+
+			return $scope;
+		};
+
+		if (preg_match('#@var\s+' . FileTypeMapper::TYPE_PATTERN . '\s+\$([a-zA-Z0-9_]+)#', $comment, $matches)) {
+			return $process($matches[1], $matches[2]);
+		} elseif (preg_match('#@var\s+\$([a-zA-Z0-9_]+)\s+' . FileTypeMapper::TYPE_PATTERN . '#', $comment, $matches)) {
+			return $process($matches[2], $matches[1]);
+		} elseif (!$strict && preg_match('#@var\s+' . FileTypeMapper::TYPE_PATTERN . '(?!\s+\$[a-zA-Z0-9_]+)#', $comment, $matches)) {
+			return $process($matches[1], $variableName);
+		} else {
+			return $scope;
+		}
 	}
 
 	private function assignVariable(Scope $scope, Node $var, Type $subNodeType = null): Scope
