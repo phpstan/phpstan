@@ -11,10 +11,17 @@ class ErrorTest extends \PHPStan\TestCase
 		$this->assertSame('Message', $error->getMessage());
 		$this->assertSame('file', $error->getFile());
 		$this->assertSame(10, $error->getLine());
+		$this->assertNull($error->getRule());
 		$this->assertSame(
 			'Message in file on line 10',
 			(string) $error
 		);
+	}
+
+	public function testErrorWithRule()
+	{
+		$error = new Error('Message', 'file', 10, 'rule');
+		$this->assertSame('rule', $error->getRule());
 	}
 
 	public function testErrorToStringWithoutLine()

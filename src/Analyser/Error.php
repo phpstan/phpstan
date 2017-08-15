@@ -20,11 +20,17 @@ class Error
 	 */
 	private $line;
 
-	public function __construct(string $message, string $file, int $line = null)
+	/**
+	 * @var string|null
+	 */
+	private $rule;
+
+	public function __construct(string $message, string $file, int $line = null, string $rule = null)
 	{
 		$this->message = $message;
 		$this->file = $file;
 		$this->line = $line;
+		$this->rule = $rule;
 	}
 
 	public function getMessage(): string
@@ -43,6 +49,14 @@ class Error
 	public function getLine()
 	{
 		return $this->line;
+	}
+
+	/**
+	 * @return string|null
+	 */
+	public function getRule()
+	{
+		return $this->rule;
 	}
 
 	public function __toString(): string

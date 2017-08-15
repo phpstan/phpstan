@@ -142,7 +142,8 @@ class Analyser
 							$ruleErrors = $this->createErrors(
 								$node,
 								$scope->getAnalysedContextFile(),
-								$rule->processNode($node, $scope)
+								$rule->processNode($node, $scope),
+								get_class($rule)
 							);
 							$fileErrors = array_merge($fileErrors, $ruleErrors);
 						}
@@ -190,13 +191,14 @@ class Analyser
 	 * @param \PhpParser\Node $node
 	 * @param string $file
 	 * @param string[] $messages
+	 * @param string $rule
 	 * @return \PHPStan\Analyser\Error[]
 	 */
-	private function createErrors(\PhpParser\Node $node, string $file, array $messages): array
+	private function createErrors(\PhpParser\Node $node, string $file, array $messages, string $rule): array
 	{
 		$errors = [];
 		foreach ($messages as $message) {
-			$errors[] = new Error($message, $file, $node->getLine());
+			$errors[] = new Error($message, $file, $node->getLine(), $rule);
 		}
 
 		return $errors;
