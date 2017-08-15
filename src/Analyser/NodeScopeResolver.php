@@ -941,9 +941,11 @@ class NodeScopeResolver
 	private function processVarAnnotation(Scope $scope, string $variableName, string $comment, bool $strict): Scope
 	{
 		$process = function (string $matchedType, string $matchedVariableName) use ($scope, $variableName): Scope {
-			$fileTypeMap = $this->fileTypeMapper->getTypeMap($scope->getFile());
-			if (isset($fileTypeMap[$matchedType]) && $matchedVariableName === $variableName) {
-				return $scope->assignVariable($matchedVariableName, $fileTypeMap[$matchedType]);
+			if ($matchedVariableName === $variableName) {
+				$fileTypeMap = $this->fileTypeMapper->getTypeMap($scope->getFile());
+				if (isset($fileTypeMap[$matchedType])) {
+					return $scope->assignVariable($matchedVariableName, $fileTypeMap[$matchedType]);
+				}
 			}
 
 			return $scope;
