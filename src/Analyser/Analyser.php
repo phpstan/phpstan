@@ -163,9 +163,9 @@ class Analyser
 		}
 
 		$unmatchedIgnoredErrors = $this->ignoreErrors;
-		$errors = array_values(array_filter($errors, function (string $error) use (&$unmatchedIgnoredErrors): bool {
+		$errors = array_values(array_filter($errors, function (Error $error) use (&$unmatchedIgnoredErrors): bool {
 			foreach ($this->ignoreErrors as $i => $ignore) {
-				if (\Nette\Utils\Strings::match($error, $ignore) !== null) {
+				if (\Nette\Utils\Strings::match($error->getMessage(), $ignore) !== null) {
 					unset($unmatchedIgnoredErrors[$i]);
 					return false;
 				}

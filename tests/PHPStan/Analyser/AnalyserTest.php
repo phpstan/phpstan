@@ -70,6 +70,13 @@ class AnalyserTest extends \PHPStan\TestCase
 		], $result);
 	}
 
+	public function testFileWithAnIgnoredError()
+	{
+		$result = $this->runAnalyser(['#Fail\.#'], null, true, __DIR__ . '/data/bootstrap-error.php', false);
+		$this->assertInternalType('array', $result);
+		$this->assertEmpty($result);
+	}
+
 	/**
 	 * @param string[] $ignoreErrors
 	 * @param string|null $bootstrapFile

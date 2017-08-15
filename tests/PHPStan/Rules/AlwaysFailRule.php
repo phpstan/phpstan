@@ -10,7 +10,7 @@ class AlwaysFailRule implements \PHPStan\Rules\Rule
 
 	public function getNodeType(): string
 	{
-		return 'PHPParser_Node_Expr_FuncCall';
+		return Node\Expr\FuncCall::class;
 	}
 
 	/**
@@ -20,7 +20,7 @@ class AlwaysFailRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		return ['Fail'];
+		return ['Fail.'];
 	}
 
 }

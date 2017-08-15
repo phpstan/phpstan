@@ -45,14 +45,4 @@ class Error
 		return $this->line;
 	}
 
-	public function __toString(): string
-	{
-		$message = trim($this->message, '.');
-		if ($this->line !== null) {
-			return sprintf('%s in %s on line %d', $message, $this->file, $this->line);
-		}
-
-		return sprintf('%s in %s', $message, $this->file);
-	}
-
 }
