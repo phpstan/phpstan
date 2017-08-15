@@ -15,3 +15,6 @@ $a[false];
 /** @var string|null $stringOrNull */
 $stringOrNull = doFoo();
 $a[$stringOrNull];
+
+$obj = new \SplObjectStorage();
+$obj[new \stdClass()] = 1;
