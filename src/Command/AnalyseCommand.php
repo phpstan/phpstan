@@ -36,7 +36,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				new InputOption(self::OPTION_LEVEL, 'l', InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter'),
 				new InputOption(ErrorsConsoleStyle::OPTION_NO_PROGRESS, null, InputOption::VALUE_NONE, 'Do not show progress bar, only results'),
 				new InputOption('autoload-file', 'a', InputOption::VALUE_OPTIONAL, 'Project\'s additional autoload file path'),
-				new InputOption('errorFormat', null, InputOption::VALUE_REQUIRED, 'Format in which to print the result of the analysis', 'table'),
+				new InputOption('error-format', null, InputOption::VALUE_REQUIRED, 'Format in which to print the result of the analysis', 'table'),
 				new InputOption('memory-limit', null, InputOption::VALUE_REQUIRED, 'Memory limit for analysis'),
 			]);
 	}
@@ -80,7 +80,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		$parameters = [
 			'rootDir' => $rootDir,
 			'currentWorkingDirectory' => $currentWorkingDirectory,
-			'errorFormat' => $input->getOption('errorFormat'),
+			'errorFormat' => $input->getOption('error-format'),
 			'cliArgumentsVariablesRegistered' => ini_get('register_argc_argv') === '1',
 		];
 
@@ -155,7 +155,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				'You\'re running PHP >= 7.1, but you still have PHP-Parser version 2.x. This will lead to parse errors in case you use PHP 7.1 syntax like nullable parameters, iterable and void typehints, union exception types, or class constant visibility. Update to PHP-Parser 3.x to dismiss this message.'
 			);
 		}
-		$errorFormat = $input->getOption('errorFormat');
+		$errorFormat = $input->getOption('error-format');
 		$errorFormatterServiceName = sprintf('errorFormatter.%s', $errorFormat);
 		if (!$container->hasService($errorFormatterServiceName)) {
 			$consoleStyle->error(sprintf(
