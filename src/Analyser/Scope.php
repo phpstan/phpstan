@@ -29,6 +29,7 @@ use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\Php\PhpFunctionFromParserNodeReflection;
 use PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection;
 use PHPStan\Reflection\PropertyReflection;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
@@ -103,7 +104,7 @@ class Scope
 	private $namespace;
 
 	/**
-	 * @var \PHPStan\Type\Type[]
+	 * @var \PHPStan\Analyser\VariableTypeHolder[]
 	 */
 	private $variableTypes;
 
@@ -152,7 +153,7 @@ class Scope
 	 * @param \PHPStan\Reflection\ClassReflection|null $classReflection
 	 * @param \PHPStan\Reflection\ParametersAcceptor|null $function
 	 * @param string|null $namespace
-	 * @param \PHPStan\Type\Type[] $variablesTypes
+	 * @param \PHPStan\Analyser\VariableTypeHolder[] $variablesTypes
 	 * @param string|null $inClosureBindScopeClass
 	 * @param \PHPStan\Type\Type|null $inAnonymousFunctionReturnType
 	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null $inFunctionCall
@@ -268,25 +269,29 @@ class Scope
 	}
 
 	/**
-	 * @return \PHPStan\Type\Type[]
+	 * @return \PHPStan\Analyser\VariableTypeHolder[]
 	 */
-	public function getVariableTypes(): array
+	private function getVariableTypes(): array
 	{
 		return $this->variableTypes;
 	}
 
-	public function hasVariableType(string $variableName): bool
+	public function hasVariableType(string $variableName): TrinaryLogic
 	{
-		return isset($this->variableTypes[$variableName]);
+		if (!isset($this->variableTypes[$variableName])) {
+			return TrinaryLogic::createNo();
+		}
+
+		return $this->variableTypes[$variableName]->getCertainty();
 	}
 
 	public function getVariableType(string $variableName): Type
 	{
-		if (!$this->hasVariableType($variableName)) {
+		if ($this->hasVariableType($variableName)->no()) {
 			throw new \PHPStan\Analyser\UndefinedVariableException($this, $variableName);
 		}
 
-		return $this->variableTypes[$variableName];
+		return $this->variableTypes[$variableName]->getType();
 	}
 
 	public function isInAnonymousFunction(): bool
@@ -550,7 +555,7 @@ class Scope
 		}
 
 		if ($node instanceof Variable && is_string($node->name)) {
-			if (!$this->hasVariableType($node->name)) {
+			if (!$this->hasVariableType($node->name)->yes()) {
 				return new ErrorType();
 			}
 
@@ -853,7 +858,7 @@ class Scope
 			null,
 			$this->getNamespace(),
 			[
-				'this' => new ThisType($classReflection->getName()),
+				'this' => VariableTypeHolder::createYes(new ThisType($classReflection->getName())),
 			]
 		);
 	}
@@ -934,7 +939,7 @@ class Scope
 	{
 		$variableTypes = $this->getVariableTypes();
 		foreach ($functionReflection->getParameters() as $parameter) {
-			$variableTypes[$parameter->getName()] = $parameter->getType();
+			$variableTypes[$parameter->getName()] = VariableTypeHolder::createYes($parameter->getType());
 		}
 
 		return new self(
@@ -973,7 +978,7 @@ class Scope
 		$variableTypes = $this->getVariableTypes();
 
 		if ($thisType !== null) {
-			$variableTypes['this'] = $thisType;
+			$variableTypes['this'] = VariableTypeHolder::createYes($thisType);
 		} else {
 			unset($variableTypes['this']);
 		}
@@ -1014,7 +1019,7 @@ class Scope
 			null,
 			$this->getNamespace(),
 			[
-				'this' => new MixedType(true),
+				'this' => VariableTypeHolder::createYes(new MixedType(true)),
 			],
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
@@ -1038,21 +1043,23 @@ class Scope
 		foreach ($parameters as $parameter) {
 			$isNullable = $this->isParameterValueNullable($parameter);
 
-			$variableTypes[$parameter->name] = $this->getFunctionType($parameter->type, $isNullable, $parameter->variadic);
+			$variableTypes[$parameter->name] = VariableTypeHolder::createYes(
+				$this->getFunctionType($parameter->type, $isNullable, $parameter->variadic)
+			);
 		}
 
 		foreach ($uses as $use) {
-			if (!$this->hasVariableType($use->var)) {
+			if (!$this->hasVariableType($use->var)->yes()) {
 				if ($use->byRef) {
-					$variableTypes[$use->var] = new MixedType();
+					$variableTypes[$use->var] = VariableTypeHolder::createYes(new MixedType());
 				}
 				continue;
 			}
-			$variableTypes[$use->var] = $this->getVariableType($use->var);
+			$variableTypes[$use->var] = VariableTypeHolder::createYes($this->getVariableType($use->var));
 		}
 
-		if ($this->hasVariableType('this')) {
-			$variableTypes['this'] = $this->getVariableType('this');
+		if ($this->hasVariableType('this')->yes()) {
+			$variableTypes['this'] = VariableTypeHolder::createYes($this->getVariableType('this'));
 		}
 
 		$returnType = $this->getFunctionType($returnTypehint, $returnTypehint === null, false);
@@ -1234,9 +1241,9 @@ class Scope
 	): self
 	{
 		$variableTypes = $this->getVariableTypes();
-		$variableTypes[$variableName] = $type !== null
-			? $type
-			: new MixedType();
+		$variableTypes[$variableName] = VariableTypeHolder::createYes(
+			$type !== null ? $type : new MixedType()
+		);
 
 		$exprString = $this->printer->prettyPrintExpr(new Variable($variableName));
 		$moreSpecificTypes = $this->moreSpecificTypes;
@@ -1266,7 +1273,7 @@ class Scope
 
 	public function unsetVariable(string $variableName): self
 	{
-		if (!$this->hasVariableType($variableName)) {
+		if ($this->hasVariableType($variableName)->no()) {
 			return $this;
 		}
 		$variableTypes = $this->getVariableTypes();
@@ -1297,16 +1304,16 @@ class Scope
 		$ourVariableTypes = $this->getVariableTypes();
 		$theirVariableTypes = $otherScope->getVariableTypes();
 		$intersectedVariableTypes = [];
-		foreach ($ourVariableTypes as $name => $variableType) {
+		foreach ($ourVariableTypes as $name => $variableTypeHolder) {
 			if (!isset($theirVariableTypes[$name])) {
 				continue;
 			}
 
 			if (!$this->isSpecified(new Variable($name))) {
-				$variableType = $variableType->combineWith($theirVariableTypes[$name]);
+				$variableTypeHolder = VariableTypeHolder::createYes($variableTypeHolder->getType()->combineWith($theirVariableTypes[$name]->getType()));
 			}
 
-			$intersectedVariableTypes[$name] = $variableType;
+			$intersectedVariableTypes[$name] = $variableTypeHolder;
 		}
 
 		$theirSpecifiedTypes = $otherScope->moreSpecificTypes;
@@ -1342,8 +1349,8 @@ class Scope
 	public function createIntersectedScope(self $otherScope): self
 	{
 		$variableTypes = [];
-		foreach ($otherScope->getVariableTypes() as $name => $variableType) {
-			$variableTypes[$name] = $variableType;
+		foreach ($otherScope->getVariableTypes() as $name => $variableTypeHolder) {
+			$variableTypes[$name] = $variableTypeHolder;
 		}
 
 		$specifiedTypes = [];
@@ -1375,8 +1382,8 @@ class Scope
 	{
 		$variableTypes = $this->variableTypes;
 		$specifiedTypes = $this->moreSpecificTypes;
-		foreach ($intersectedScope->getVariableTypes() as $name => $variableType) {
-			$variableTypes[$name] = $variableType;
+		foreach ($intersectedScope->getVariableTypes() as $name => $variableTypeHolder) {
+			$variableTypes[$name] = $variableTypeHolder;
 
 			$exprString = $this->printer->prettyPrintExpr(new Variable($name));
 			unset($specifiedTypes[$exprString]);
@@ -1385,7 +1392,7 @@ class Scope
 		foreach ($intersectedScope->moreSpecificTypes as $exprString => $specificType) {
 			if (preg_match('#^\$([a-zA-Z_][a-zA-Z0-9_]*)$#', $exprString, $matches) === 1) {
 				$variableName = $matches[1];
-				$variableTypes[$variableName] = $specificType;
+				$variableTypes[$variableName] = VariableTypeHolder::createYes($specificType);
 				continue;
 			}
 			$specifiedTypes[$exprString] = $specificType;
@@ -1414,12 +1421,12 @@ class Scope
 	public function addVariables(Scope $otherScope): self
 	{
 		$variableTypes = $this->getVariableTypes();
-		foreach ($otherScope->getVariableTypes() as $name => $theirVariableType) {
-			if ($this->hasVariableType($name)) {
+		foreach ($otherScope->getVariableTypes() as $name => $theirVariableTypeHolder) {
+			if ($this->hasVariableType($name)->yes()) {
 				$ourVariableType = $this->getVariableType($name);
-				$theirVariableType = $ourVariableType->combineWith($theirVariableType);
+				$theirVariableTypeHolder = VariableTypeHolder::createYes($ourVariableType->combineWith($theirVariableTypeHolder->getType()));
 			}
-			$variableTypes[$name] = $theirVariableType;
+			$variableTypes[$name] = $theirVariableTypeHolder;
 		}
 
 		$moreSpecificTypes = $this->moreSpecificTypes;
@@ -1454,14 +1461,14 @@ class Scope
 	public function removeVariables(self $otherScope, bool $all): self
 	{
 		$variableTypes = $this->getVariableTypes();
-		foreach ($otherScope->getVariableTypes() as $name => $variableType) {
+		foreach ($otherScope->getVariableTypes() as $name => $variableTypeHolder) {
 			if ($all) {
 				unset($variableTypes[$name]);
 			} else {
 				if (
 					isset($variableTypes[$name])
 					&& (
-						$variableType->describe() === $variableTypes[$name]->describe()
+						$variableTypeHolder->getType()->describe() === $variableTypes[$name]->getType()->describe()
 						|| $this->isSpecified(new Variable($name))
 					)
 				) {
@@ -1509,7 +1516,7 @@ class Scope
 			$variableName = $expr->name;
 
 			$variableTypes = $scope->getVariableTypes();
-			$variableTypes[$variableName] = $type;
+			$variableTypes[$variableName] = VariableTypeHolder::createYes($type);
 
 			return new self(
 				$scope->broker,
@@ -1774,8 +1781,8 @@ class Scope
 	public function debug(): array
 	{
 		$descriptions = [];
-		foreach ($this->getVariableTypes() as $name => $variableType) {
-			$descriptions[sprintf('$%s', $name)] = $variableType->describe();
+		foreach ($this->getVariableTypes() as $name => $variableTypeHolder) {
+			$descriptions[sprintf('$%s', $name)] = $variableTypeHolder->getType()->describe();
 		}
 		foreach ($this->moreSpecificTypes as $exprString => $type) {
 			$key = $exprString;

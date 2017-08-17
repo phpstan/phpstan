@@ -25,7 +25,7 @@ class DefinedVariableInAnonymousFunctionUseRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		if (!$scope->hasVariableType($node->var)) {
+		if (!$scope->hasVariableType($node->var)->yes()) {
 			return [
 				sprintf('Undefined variable: $%s', $node->var),
 			];

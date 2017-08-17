@@ -872,7 +872,7 @@ class NodeScopeResolver
 			$scope = $this->lookForAssigns($scope, $node->dim);
 		} elseif ($node instanceof Expr\Closure) {
 			foreach ($node->uses as $closureUse) {
-				if (!$closureUse->byRef || $scope->hasVariableType($closureUse->var)) {
+				if (!$closureUse->byRef || $scope->hasVariableType($closureUse->var)->yes()) {
 					continue;
 				}
 
@@ -906,7 +906,7 @@ class NodeScopeResolver
 					if (
 						$node->var instanceof Variable
 						&& is_string($node->var->name)
-						&& !$scope->hasVariableType($node->var->name)
+						&& !$scope->hasVariableType($node->var->name)->yes()
 					) {
 						continue;
 					}
@@ -978,7 +978,7 @@ class NodeScopeResolver
 			}
 
 			if ($var instanceof Variable && is_string($var->name)) {
-				if ($scope->hasVariableType($var->name)) {
+				if ($scope->hasVariableType($var->name)->yes()) {
 					$arrayDimFetchVariableType = $scope->getVariableType($var->name);
 					if (
 						!$arrayDimFetchVariableType instanceof ArrayType
@@ -992,7 +992,7 @@ class NodeScopeResolver
 					new NestedArrayItemType($subNodeType !== null ? $subNodeType : new MixedType(), $depth),
 					false
 				);
-				if ($scope->hasVariableType($var->name)) {
+				if ($scope->hasVariableType($var->name)->yes()) {
 					if (
 						!isset($arrayDimFetchVariableType)
 						|| !$arrayDimFetchVariableType instanceof NullType
