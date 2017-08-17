@@ -2,6 +2,8 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\TrinaryLogic;
+
 class CallableType implements Type
 {
 
@@ -83,9 +85,9 @@ class CallableType implements Type
 		return true;
 	}
 
-	public function isIterable(): int
+	public function isIterable(): TrinaryLogic
 	{
-		return TrinaryLogic::MAYBE;
+		return TrinaryLogic::createMaybe();
 	}
 
 	public function getIterableKeyType(): Type

@@ -2,6 +2,8 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\TrinaryLogic;
+
 class MixedType implements CompoundType
 {
 
@@ -61,9 +63,9 @@ class MixedType implements CompoundType
 		return true;
 	}
 
-	public function isIterable(): int
+	public function isIterable(): TrinaryLogic
 	{
-		return TrinaryLogic::MAYBE;
+		return TrinaryLogic::createMaybe();
 	}
 
 	public function getIterableKeyType(): Type

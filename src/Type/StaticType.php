@@ -3,6 +3,7 @@
 namespace PHPStan\Type;
 
 use PHPStan\Broker\Broker;
+use PHPStan\TrinaryLogic;
 
 class StaticType implements StaticResolvableType
 {
@@ -74,17 +75,17 @@ class StaticType implements StaticResolvableType
 		return new $thisClass($className);
 	}
 
-	public function isIterable(): int
+	public function isIterable(): TrinaryLogic
 	{
 		$broker = Broker::getInstance();
 
 		if ($broker->hasClass($this->baseClass)) {
 			if ($broker->getClass($this->baseClass)->isSubclassOf(\Traversable::class)) {
-				return TrinaryLogic::YES;
+				return TrinaryLogic::createYes();
 			}
 		}
 
-		return TrinaryLogic::NO;
+		return TrinaryLogic::createNo();
 	}
 
 	public function getIterableKeyType(): Type

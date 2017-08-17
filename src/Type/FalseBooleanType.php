@@ -2,6 +2,8 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\TrinaryLogic;
+
 class FalseBooleanType implements BooleanType
 {
 
@@ -66,9 +68,9 @@ class FalseBooleanType implements BooleanType
 		return true;
 	}
 
-	public function isIterable(): int
+	public function isIterable(): TrinaryLogic
 	{
-		return TrinaryLogic::NO;
+		return TrinaryLogic::createNo();
 	}
 
 	public function getIterableKeyType(): Type

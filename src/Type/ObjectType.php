@@ -3,6 +3,7 @@
 namespace PHPStan\Type;
 
 use PHPStan\Broker\Broker;
+use PHPStan\TrinaryLogic;
 
 class ObjectType implements Type
 {
@@ -101,19 +102,19 @@ class ObjectType implements Type
 		return true;
 	}
 
-	public function isIterable(): int
+	public function isIterable(): TrinaryLogic
 	{
 		$broker = Broker::getInstance();
 
 		if (!$broker->hasClass($this->class)) {
-			return TrinaryLogic::MAYBE;
+			return TrinaryLogic::createMaybe();
 		}
 
 		if ($broker->getClass($this->class)->isSubclassOf(\Traversable::class) || $this->class === \Traversable::class) {
-			return TrinaryLogic::YES;
+			return TrinaryLogic::createYes();
 		}
 
-		return TrinaryLogic::NO;
+		return TrinaryLogic::createNo();
 	}
 
 	public function getIterableKeyType(): Type

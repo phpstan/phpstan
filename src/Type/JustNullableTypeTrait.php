@@ -2,6 +2,8 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\TrinaryLogic;
+
 trait JustNullableTypeTrait
 {
 
@@ -50,9 +52,9 @@ trait JustNullableTypeTrait
 		return true;
 	}
 
-	public function isIterable(): int
+	public function isIterable(): TrinaryLogic
 	{
-		return TrinaryLogic::NO;
+		return TrinaryLogic::createNo();
 	}
 
 	public function getIterableKeyType(): Type

@@ -2,6 +2,8 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\TrinaryLogic;
+
 class UnionIterableType implements UnionType
 {
 
@@ -81,7 +83,7 @@ class UnionIterableType implements UnionType
 			return false;
 		}
 
-		if ($type->isIterable() === TrinaryLogic::YES) {
+		if ($type->isIterable()->yes()) {
 			return $this->getItemType()->accepts($type->getIterableValueType());
 		}
 
@@ -149,9 +151,9 @@ class UnionIterableType implements UnionType
 		);
 	}
 
-	public function isIterable(): int
+	public function isIterable(): TrinaryLogic
 	{
-		return TrinaryLogic::YES;
+		return TrinaryLogic::createYes();
 	}
 
 	public function getIterableKeyType(): Type

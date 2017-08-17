@@ -13,7 +13,7 @@ trait IterableTypeTrait
 		$depth = 0;
 		/** @var \PHPStan\Type\Type $itemType */
 		$itemType = $this;
-		while ($itemType->isIterable() === TrinaryLogic::YES) {
+		while ($itemType->isIterable()->yes()) {
 			$itemType = $itemType->getIterableValueType();
 			$depth++;
 		}

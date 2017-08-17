@@ -2,6 +2,8 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\TrinaryLogic;
+
 class IterableIterableType implements StaticResolvableType
 {
 
@@ -24,7 +26,7 @@ class IterableIterableType implements StaticResolvableType
 
 	public function combineWith(Type $otherType): Type
 	{
-		if ($otherType->isIterable() === TrinaryLogic::YES) {
+		if ($otherType->isIterable()->yes()) {
 			return new self(
 				$this->getIterableValueType()->combineWith($otherType->getIterableValueType())
 			);
@@ -39,7 +41,7 @@ class IterableIterableType implements StaticResolvableType
 			return CompoundTypeHelper::accepts($type, $this);
 		}
 
-		if ($type->isIterable() === TrinaryLogic::YES) {
+		if ($type->isIterable()->yes()) {
 			return $this->getIterableValueType()->accepts($type->getIterableValueType());
 		}
 
@@ -85,9 +87,9 @@ class IterableIterableType implements StaticResolvableType
 		return $this;
 	}
 
-	public function isIterable(): int
+	public function isIterable(): TrinaryLogic
 	{
-		return TrinaryLogic::YES;
+		return TrinaryLogic::createYes();
 	}
 
 	public function getIterableKeyType(): Type

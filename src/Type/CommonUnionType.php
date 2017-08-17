@@ -2,6 +2,8 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\TrinaryLogic;
+
 class CommonUnionType implements UnionType
 {
 
@@ -111,9 +113,9 @@ class CommonUnionType implements UnionType
 		return new self(UnionTypeHelper::changeBaseClass($className, $this->getTypes()));
 	}
 
-	public function isIterable(): int
+	public function isIterable(): TrinaryLogic
 	{
-		return TrinaryLogic::NO;
+		return TrinaryLogic::createNo();
 	}
 
 	public function getIterableKeyType(): Type

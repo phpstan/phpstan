@@ -2,6 +2,8 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\TrinaryLogic;
+
 interface Type
 {
 
@@ -27,7 +29,7 @@ interface Type
 
 	public function isDocumentableNatively(): bool;
 
-	public function isIterable(): int;
+	public function isIterable(): TrinaryLogic;
 
 	public function getIterableKeyType(): Type;
 

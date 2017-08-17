@@ -127,7 +127,7 @@ class TypehintHelper
 	): Type
 	{
 		if ($phpDocType !== null) {
-			if ($type->isIterable() === TrinaryLogic::YES && $phpDocType instanceof ArrayType) {
+			if ($type->isIterable()->yes() && $phpDocType instanceof ArrayType) {
 				if ($type instanceof IterableIterableType) {
 					$phpDocType = new IterableIterableType($phpDocType->getItemType());
 				} elseif ($type instanceof ArrayType) {

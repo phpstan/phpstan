@@ -10,7 +10,6 @@ use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\IterableIterableType;
 use PHPStan\Type\StringType;
-use PHPStan\Type\TrinaryLogic;
 use PHPStan\Type\VoidType;
 
 class FunctionCallParametersCheck
@@ -163,7 +162,7 @@ class FunctionCallParametersCheck
 
 			$argumentValueType = $scope->getType($argument->value);
 			$secondAccepts = null;
-			if ($parameterType->isIterable() === TrinaryLogic::YES && $parameter->isVariadic()) {
+			if ($parameterType->isIterable()->yes() && $parameter->isVariadic()) {
 				$secondAccepts = $this->ruleLevelHelper->accepts(
 					new IterableIterableType($parameterType->getIterableValueType()),
 					$argumentValueType
