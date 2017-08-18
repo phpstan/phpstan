@@ -284,6 +284,14 @@ class TypeSpecifierTest extends \PHPStan\TestCase
 				['$foo' => '~int'],
 				['$foo' => 'int'],
 			],
+			[
+				new Expr\BinaryOp\Identical(
+					new Variable('foo'),
+					new Variable('bar')
+				),
+				['$foo' => 'Bar', '$bar' => 'Bar'],
+				[],
+			],
 		];
 	}
 

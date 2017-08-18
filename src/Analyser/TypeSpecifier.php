@@ -26,6 +26,7 @@ use PHPStan\Type\StringType;
 use PHPStan\Type\TrueBooleanType;
 use PHPStan\Type\TrueOrFalseBooleanType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeCombinator;
 
 class TypeSpecifier
 {
@@ -66,6 +67,11 @@ class TypeSpecifier
 				} elseif ($constantName === 'null') {
 					return $this->create($expressions[0], new NullType(), $negated);
 				}
+			} elseif (!$negated) {
+				$type = TypeCombinator::intersect($scope->getType($expr->right), $scope->getType($expr->left));
+				$leftTypes = $this->create($expr->left, $type, $negated);
+				$rightTypes = $this->create($expr->right, $type, $negated);
+				return $leftTypes->unionWith($rightTypes);
 			}
 		} elseif ($expr instanceof Node\Expr\BinaryOp\NotIdentical) {
 			return $this->specifyTypesInCondition(
