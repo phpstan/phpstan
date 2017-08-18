@@ -4,8 +4,6 @@ namespace PHPStan\Rules\Comparison;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
-use PHPStan\Type\FloatType;
-use PHPStan\Type\IntegerType;
 use PHPStan\Type\NullType;
 
 class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
@@ -50,16 +48,7 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		if (
-			(!$leftType->accepts($rightType) && !$rightType->accepts($leftType))
-			|| (
-				$leftType instanceof IntegerType
-				&& $rightType instanceof FloatType
-			) || (
-				$rightType instanceof IntegerType
-				&& $leftType instanceof FloatType
-			)
-		) {
+		if ($leftType->isSupersetOf($rightType)->no()) {
 			return [
 				sprintf(
 					'Strict comparison using %s between %s and %s will always evaluate to %s.',
