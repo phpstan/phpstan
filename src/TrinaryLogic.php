@@ -80,6 +80,16 @@ class TrinaryLogic
 		return $this->value === $other->value;
 	}
 
+	public function addMaybe(): self
+	{
+		$value = $this->value;
+		if ($value === self::NO) {
+			$value = self::MAYBE;
+		}
+
+		return new self($value);
+	}
+
 	public function describe(): string
 	{
 		$labels = [

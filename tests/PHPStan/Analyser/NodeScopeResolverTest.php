@@ -51,6 +51,11 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		return [
 			[
 				$testScope,
+				'nonexistentVariable',
+				TrinaryLogic::createNo(),
+			],
+			[
+				$testScope,
 				'foo',
 				TrinaryLogic::createYes(),
 				'bool', // mixed?
@@ -148,7 +153,8 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			[
 				$testScope,
 				'ifNotVar',
-				TrinaryLogic::createNo(),
+				TrinaryLogic::createMaybe(),
+				'int',
 			],
 			[
 				$testScope,
@@ -159,6 +165,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			[
 				$testScope,
 				'ifNotNestedVar',
+				TrinaryLogic::createMaybe(),
+				'int',
+			],
+			[
+				$testScope,
+				'variableOnlyInEarlyTerminatingElse',
 				TrinaryLogic::createNo(),
 			],
 			[
@@ -182,7 +194,8 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			[
 				$testScope,
 				'matches4',
-				TrinaryLogic::createNo(),
+				TrinaryLogic::createMaybe(),
+				'mixed', // string[]
 			],
 			[
 				$testScope,
@@ -205,7 +218,8 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			[
 				$testScope,
 				'noSwitchVar',
-				TrinaryLogic::createNo(),
+				TrinaryLogic::createMaybe(),
+				'int',
 			],
 			[
 				$testScope,
@@ -264,7 +278,8 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			[
 				$testScope,
 				'inTryNotInCatch',
-				TrinaryLogic::createNo(),
+				TrinaryLogic::createMaybe(),
+				'int',
 			],
 			[
 				$testScope,
@@ -383,7 +398,8 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			[
 				$testScope,
 				'nonexistentVariableOutsideFor',
-				TrinaryLogic::createNo(),
+				TrinaryLogic::createMaybe(),
+				'int',
 			],
 			[
 				$testScope,
@@ -394,7 +410,8 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			[
 				$testScope,
 				'nonexistentVariableOutsideWhile',
-				TrinaryLogic::createNo(),
+				TrinaryLogic::createMaybe(),
+				'int',
 			],
 			[
 				$testScope,
@@ -405,7 +422,8 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			[
 				$testScope,
 				'nonexistentVariableOutsideForeach',
-				TrinaryLogic::createNo(),
+				TrinaryLogic::createMaybe(),
+				'null',
 			],
 			[
 				$testScope,

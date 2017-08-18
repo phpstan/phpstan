@@ -1299,21 +1299,27 @@ class Scope
 		);
 	}
 
-	public function intersectVariables(Scope $otherScope): self
+	public function intersectVariables(Scope $otherScope, bool $addMaybes): self
 	{
-		$ourVariableTypes = $this->getVariableTypes();
-		$theirVariableTypes = $otherScope->getVariableTypes();
-		$intersectedVariableTypes = [];
-		foreach ($ourVariableTypes as $name => $variableTypeHolder) {
-			if (!isset($theirVariableTypes[$name])) {
+		$ourVariableTypeHolders = $this->getVariableTypes();
+		$theirVariableTypeHolders = $otherScope->getVariableTypes();
+		$intersectedVariableTypeHolders = [];
+		foreach ($theirVariableTypeHolders as $name => $variableTypeHolder) {
+			if (!$this->isSpecified(new Variable($name))) {
+				if (isset($ourVariableTypeHolders[$name])) {
+					$intersectedVariableTypeHolders[$name] = $ourVariableTypeHolders[$name]->and($variableTypeHolder);
+				} elseif ($addMaybes) {
+					$intersectedVariableTypeHolders[$name] = VariableTypeHolder::createMaybe($variableTypeHolder->getType());
+				}
+			}
+		}
+
+		foreach ($ourVariableTypeHolders as $name => $variableTypeHolder) {
+			if (isset($theirVariableTypeHolders[$name])) {
 				continue;
 			}
 
-			if (!$this->isSpecified(new Variable($name))) {
-				$variableTypeHolder = VariableTypeHolder::createYes($variableTypeHolder->getType()->combineWith($theirVariableTypes[$name]->getType()));
-			}
-
-			$intersectedVariableTypes[$name] = $variableTypeHolder;
+			$intersectedVariableTypeHolders[$name] = VariableTypeHolder::createMaybe($variableTypeHolder->getType());
 		}
 
 		$theirSpecifiedTypes = $otherScope->moreSpecificTypes;
@@ -1336,7 +1342,7 @@ class Scope
 			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
-			$intersectedVariableTypes,
+			$intersectedVariableTypeHolders,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->getInFunctionCall(),
@@ -1380,10 +1386,17 @@ class Scope
 
 	public function mergeWithIntersectedScope(self $intersectedScope): self
 	{
-		$variableTypes = $this->variableTypes;
+		$variableTypeHolders = $this->variableTypes;
 		$specifiedTypes = $this->moreSpecificTypes;
-		foreach ($intersectedScope->getVariableTypes() as $name => $variableTypeHolder) {
-			$variableTypes[$name] = $variableTypeHolder;
+		foreach ($intersectedScope->getVariableTypes() as $name => $theirVariableTypeHolder) {
+			if (isset($variableTypeHolders[$name])) {
+				$theirVariableTypeHolder = new VariableTypeHolder(
+					$theirVariableTypeHolder->getType(),
+					$theirVariableTypeHolder->getCertainty()->or($variableTypeHolders[$name]->getCertainty())
+				);
+			}
+
+			$variableTypeHolders[$name] = $theirVariableTypeHolder->addMaybe();
 
 			$exprString = $this->printer->prettyPrintExpr(new Variable($name));
 			unset($specifiedTypes[$exprString]);
@@ -1392,7 +1405,7 @@ class Scope
 		foreach ($intersectedScope->moreSpecificTypes as $exprString => $specificType) {
 			if (preg_match('#^\$([a-zA-Z_][a-zA-Z0-9_]*)$#', $exprString, $matches) === 1) {
 				$variableName = $matches[1];
-				$variableTypes[$variableName] = VariableTypeHolder::createYes($specificType);
+				$variableTypeHolders[$variableName] = VariableTypeHolder::createYes($specificType);
 				continue;
 			}
 			$specifiedTypes[$exprString] = $specificType;
@@ -1408,7 +1421,7 @@ class Scope
 			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
-			$variableTypes,
+			$variableTypeHolders,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->getInFunctionCall(),
@@ -1422,9 +1435,9 @@ class Scope
 	{
 		$variableTypes = $this->getVariableTypes();
 		foreach ($otherScope->getVariableTypes() as $name => $theirVariableTypeHolder) {
-			if ($this->hasVariableType($name)->yes()) {
-				$ourVariableType = $this->getVariableType($name);
-				$theirVariableTypeHolder = VariableTypeHolder::createYes($ourVariableType->combineWith($theirVariableTypeHolder->getType()));
+			if (!$this->hasVariableType($name)->no()) {
+				$ourVariableTypeHolder = $this->variableTypes[$name];
+				$theirVariableTypeHolder = $ourVariableTypeHolder->and($theirVariableTypeHolder);
 			}
 			$variableTypes[$name] = $theirVariableTypeHolder;
 		}
@@ -1460,19 +1473,24 @@ class Scope
 
 	public function removeVariables(self $otherScope, bool $all): self
 	{
-		$variableTypes = $this->getVariableTypes();
-		foreach ($otherScope->getVariableTypes() as $name => $variableTypeHolder) {
+		$ourVariableTypeHolders = $this->getVariableTypes();
+		foreach ($otherScope->getVariableTypes() as $name => $theirVariableTypeHolder) {
 			if ($all) {
-				unset($variableTypes[$name]);
+				if (
+					isset($ourVariableTypeHolders[$name])
+					&& $ourVariableTypeHolders[$name]->getCertainty()->equals($theirVariableTypeHolder->getCertainty())
+				) {
+					unset($ourVariableTypeHolders[$name]);
+				}
 			} else {
 				if (
-					isset($variableTypes[$name])
+					isset($ourVariableTypeHolders[$name])
 					&& (
-						$variableTypeHolder->getType()->describe() === $variableTypes[$name]->getType()->describe()
+						$theirVariableTypeHolder->getType()->describe() === $ourVariableTypeHolders[$name]->getType()->describe()
 						|| $this->isSpecified(new Variable($name))
 					)
 				) {
-					unset($variableTypes[$name]);
+					unset($ourVariableTypeHolders[$name]);
 				}
 			}
 		}
@@ -1494,7 +1512,7 @@ class Scope
 			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
-			$variableTypes,
+			$ourVariableTypeHolders,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->getInFunctionCall(),

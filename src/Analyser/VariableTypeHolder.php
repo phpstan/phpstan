@@ -32,6 +32,27 @@ class VariableTypeHolder
 		return new self($type, TrinaryLogic::createYes());
 	}
 
+	public static function createMaybe(Type $type): self
+	{
+		return new self($type, TrinaryLogic::createMaybe());
+	}
+
+	public function and(self $other): self
+	{
+		return new self(
+			$this->getType()->combineWith($other->getType()),
+			$this->getCertainty()->and($other->getCertainty())
+		);
+	}
+
+	public function addMaybe(): self
+	{
+		return new self(
+			$this->getType(),
+			$this->getCertainty()->addMaybe()
+		);
+	}
+
 	public function getType(): Type
 	{
 		return $this->type;

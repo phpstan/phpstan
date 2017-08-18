@@ -1067,7 +1067,7 @@ class NodeScopeResolver
 					$intersectedScope = $branchScopeWithInitialScopeRemoved->addVariables($previousBranchScope);
 					$allBranchesScope = $allBranchesScope->addVariables($previousBranchScope);
 				} else {
-					$intersectedScope = $intersectedScope->intersectVariables($branchScopeWithInitialScopeRemoved);
+					$intersectedScope = $intersectedScope->intersectVariables($branchScopeWithInitialScopeRemoved, true);
 					$allBranchesScope = $allBranchesScope->addVariables($branchScopeWithInitialScopeRemoved);
 				}
 			}
@@ -1081,7 +1081,7 @@ class NodeScopeResolver
 
 		if ($intersectedScope !== null && $allBranchesScope !== null) {
 			$allBranchesScope = $allBranchesScope->removeVariables($intersectedScope, true);
-			$allBranchesScope = $allBranchesScope->intersectVariables($initialScope);
+			$allBranchesScope = $allBranchesScope->intersectVariables($initialScope, false);
 			$scope = $initialScope
 				->mergeWithIntersectedScope($intersectedScope)
 				->mergeWithIntersectedScope($allBranchesScope);

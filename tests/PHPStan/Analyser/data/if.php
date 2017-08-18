@@ -7,6 +7,7 @@ if (foo()) {
 		$ifNotNestedVar = 1;
 	} elseif (fooBar()) {
 		$ifNotNestedVar = 2;
+		$variableOnlyInEarlyTerminatingElse = 1;
 		throw $e;
 	} else {
 		$ifNestedVar = 2;
@@ -21,6 +22,7 @@ if (foo()) {
 	$ifVar = 3;
 	$ifNotNestedVar = 3;
 } else {
+	$variableOnlyInEarlyTerminatingElse = 1;
 	return;
 }
 
