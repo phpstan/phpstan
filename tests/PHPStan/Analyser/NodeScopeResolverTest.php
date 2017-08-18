@@ -2002,7 +2002,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$foo',
 			],
 			[
-				'PhpParser\Node\Stmt\Function_',
+				'PhpParser\Node\Expr',
 				'$bar',
 			],
 			[

@@ -1643,11 +1643,12 @@ class Scope
 	private function filterBySpecifiedTypes(SpecifiedTypes $specifiedTypes): self
 	{
 		$scope = $this;
-		foreach ($specifiedTypes->getSureTypes() as $type) {
-			$scope = $scope->specifyExpressionType($type[0], $type[1]);
+		foreach ($specifiedTypes->getSureTypes() as list($expr, $type)) {
+			$type = TypeCombinator::intersect($type, $this->getType($expr));
+			$scope = $scope->specifyExpressionType($expr, $type);
 		}
-		foreach ($specifiedTypes->getSureNotTypes() as $type) {
-			$scope = $scope->removeTypeFromExpression($type[0], $type[1]);
+		foreach ($specifiedTypes->getSureNotTypes() as list($expr, $type)) {
+			$scope = $scope->removeTypeFromExpression($expr, $type);
 		}
 		return $scope;
 	}

@@ -2,15 +2,14 @@
 
 namespace InstanceOfNamespace;
 
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayDimFetch;
-use PhpParser\Node\Stmt\Function_;
 
 class Foo
 {
 
-	public function someMethod()
+	public function someMethod(Expr $foo)
 	{
-		$foo = new Function_();
 		$bar = $foo;
 		$baz = doFoo();
 
