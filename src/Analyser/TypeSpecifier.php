@@ -12,7 +12,6 @@ use PhpParser\Node\Expr\Instanceof_;
 use PhpParser\Node\Name;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\CallableType;
-use PHPStan\Type\CommonUnionType;
 use PHPStan\Type\FalseBooleanType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
@@ -27,6 +26,7 @@ use PHPStan\Type\TrueBooleanType;
 use PHPStan\Type\TrueOrFalseBooleanType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\UnionType;
 
 class TypeSpecifier
 {
@@ -144,7 +144,7 @@ class TypeSpecifier
 		} else {
 			return $this->create(
 				$expr,
-				new CommonUnionType([new NullType(), new FalseBooleanType()]),
+				new UnionType([new NullType(), new FalseBooleanType()]),
 				true
 			);
 		}

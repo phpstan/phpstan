@@ -27,17 +27,17 @@ class CallableTypeTest extends \PHPStan\TestCase
 			],
 			[
 				new CallableType(),
-				new CommonUnionType([new CallableType(), new NullType()]),
+				new UnionType([new CallableType(), new NullType()]),
 				TrinaryLogic::createYes(),
 			],
 			[
 				new CallableType(),
-				new CommonUnionType([new StringType(), new NullType()]),
+				new UnionType([new StringType(), new NullType()]),
 				TrinaryLogic::createMaybe(),
 			],
 			[
 				new CallableType(),
-				new CommonUnionType([new IntegerType(), new NullType()]),
+				new UnionType([new IntegerType(), new NullType()]),
 				TrinaryLogic::createNo(),
 			],
 			[

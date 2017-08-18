@@ -26,29 +26,29 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 			],
 			[
 				new VoidType(),
-				CommonUnionType::class,
+				UnionType::class,
 				'void|null',
 			],
 			[
 				new StringType(),
-				CommonUnionType::class,
+				UnionType::class,
 				'string|null',
 			],
 			[
-				new CommonUnionType([
+				new UnionType([
 					new StringType(),
 					new IntegerType(),
 				]),
-				CommonUnionType::class,
+				UnionType::class,
 				'int|string|null',
 			],
 			[
-				new CommonUnionType([
+				new UnionType([
 					new StringType(),
 					new IntegerType(),
 					new NullType(),
 				]),
-				CommonUnionType::class,
+				UnionType::class,
 				'int|string|null',
 			],
 			[
@@ -56,18 +56,18 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 					new IterableIterableType(new StringType()),
 					new ObjectType('ArrayObject'),
 				]),
-				CommonUnionType::class,
+				UnionType::class,
 				'(ArrayObject&iterable(string[]))|null',
 			],
 			[
-				new CommonUnionType([
+				new UnionType([
 					new IntersectionType([
 						new IterableIterableType(new StringType()),
 						new ObjectType('ArrayObject'),
 					]),
 					new NullType(),
 				]),
-				CommonUnionType::class,
+				UnionType::class,
 				'(ArrayObject&iterable(string[]))|null',
 			],
 		];
@@ -131,24 +131,24 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 				'string',
 			],
 			[
-				new CommonUnionType([
+				new UnionType([
 					new StringType(),
 					new IntegerType(),
 					new NullType(),
 				]),
-				CommonUnionType::class,
+				UnionType::class,
 				'int|string',
 			],
 			[
-				new CommonUnionType([
+				new UnionType([
 					new StringType(),
 					new IntegerType(),
 				]),
-				CommonUnionType::class,
+				UnionType::class,
 				'int|string',
 			],
 			[
-				new CommonUnionType([
+				new UnionType([
 					new IntersectionType([
 						new IterableIterableType(new StringType()),
 						new ObjectType('ArrayObject'),
@@ -167,7 +167,7 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 				'ArrayObject&iterable(string[])',
 			],
 			[
-				new CommonUnionType([
+				new UnionType([
 					new ThisType('Foo'),
 					new NullType(),
 				]),
@@ -175,7 +175,7 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 				'$this(Foo)',
 			],
 			[
-				new CommonUnionType([
+				new UnionType([
 					new IterableIterableType(new StringType()),
 					new NullType(),
 				]),
@@ -210,7 +210,7 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 					new StringType(),
 					new NullType(),
 				],
-				CommonUnionType::class,
+				UnionType::class,
 				'string|null',
 			],
 			[
@@ -226,63 +226,63 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 					new StringType(),
 					new IntegerType(),
 				],
-				CommonUnionType::class,
+				UnionType::class,
 				'int|string',
 			],
 			[
 				[
-					new CommonUnionType([
+					new UnionType([
 						new StringType(),
 						new IntegerType(),
 					]),
 					new StringType(),
 				],
-				CommonUnionType::class,
+				UnionType::class,
 				'int|string',
 			],
 			[
 				[
-					new CommonUnionType([
+					new UnionType([
 						new StringType(),
 						new IntegerType(),
 					]),
 					new TrueBooleanType(),
 				],
-				CommonUnionType::class,
+				UnionType::class,
 				'int|string|true',
 			],
 			[
 				[
-					new CommonUnionType([
+					new UnionType([
 						new StringType(),
 						new IntegerType(),
 					]),
 					new NullType(),
 				],
-				CommonUnionType::class,
+				UnionType::class,
 				'int|string|null',
 			],
 			[
 				[
-					new CommonUnionType([
+					new UnionType([
 						new StringType(),
 						new IntegerType(),
 						new NullType(),
 					]),
 					new NullType(),
 				],
-				CommonUnionType::class,
+				UnionType::class,
 				'int|string|null',
 			],
 			[
 				[
-					new CommonUnionType([
+					new UnionType([
 						new StringType(),
 						new IntegerType(),
 					]),
 					new StringType(),
 				],
-				CommonUnionType::class,
+				UnionType::class,
 				'int|string',
 			],
 			[
@@ -293,7 +293,7 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 					]),
 					new StringType(),
 				],
-				CommonUnionType::class,
+				UnionType::class,
 				'(ArrayObject&iterable(int[]))|string',
 			],
 			[
@@ -304,23 +304,23 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 					]),
 					new ArrayType(new StringType()),
 				],
-				CommonUnionType::class,
+				UnionType::class,
 				'(ArrayObject&iterable(int[]))|string[]',
 			],
 			[
 				[
-						new CommonUnionType([
+						new UnionType([
 						new TrueBooleanType(),
 						new IntegerType(),
 						]),
 					new ArrayType(new StringType()),
 				],
-				CommonUnionType::class,
+				UnionType::class,
 				'int|string[]|true',
 			],
 			[
 				[
-					new CommonUnionType([
+					new UnionType([
 						new ArrayType(new ObjectType('Foo')),
 						new ArrayType(new ObjectType('Bar')),
 					]),
@@ -358,7 +358,7 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 					new ObjectType('ArrayIterator'),
 					new ArrayType(new StringType()),
 				],
-				CommonUnionType::class,
+				UnionType::class,
 				'ArrayIterator|ArrayObject|string[]',
 			],
 			[
@@ -368,7 +368,7 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 					new ArrayType(new StringType()),
 					new ArrayType(new IntegerType()),
 				],
-				CommonUnionType::class,
+				UnionType::class,
 				'(int|string)[]|ArrayIterator|ArrayObject',
 			],
 			[
@@ -379,7 +379,7 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 					]),
 					new ArrayType(new IntegerType()),
 				],
-				CommonUnionType::class,
+				UnionType::class,
 				'(ArrayObject&iterable(int[]))|int[]',
 			],
 			[
@@ -449,20 +449,20 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 			],
 			[
 				[
-					new CommonUnionType([
+					new UnionType([
 						new StringType(),
 						new NullType(),
 					]),
-					new CommonUnionType([
+					new UnionType([
 						new StringType(),
 						new NullType(),
 					]),
-					new CommonUnionType([
+					new UnionType([
 						new ObjectType('Unknown'),
 						new NullType(),
 					]),
 				],
-				CommonUnionType::class,
+				UnionType::class,
 				'string|Unknown|null',
 			],
 		];
@@ -548,10 +548,10 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 			],
 			[
 				[
-					new CommonUnionType([new ObjectType('UnknownClassA'), new ObjectType('UnknownClassB')]),
-					new CommonUnionType([new ObjectType('UnknownClassA'), new ObjectType('UnknownClassB')]),
+					new UnionType([new ObjectType('UnknownClassA'), new ObjectType('UnknownClassB')]),
+					new UnionType([new ObjectType('UnknownClassA'), new ObjectType('UnknownClassB')]),
 				],
-				CommonUnionType::class,
+				UnionType::class,
 				'UnknownClassA|UnknownClassB',
 			],
 			[
@@ -660,7 +660,7 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 				'*NEVER*',
 			],
 			[
-				new CommonUnionType([
+				new UnionType([
 					new IntegerType(),
 					new TrueBooleanType(),
 				]),
@@ -669,7 +669,7 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 				'int',
 			],
 			[
-				new CommonUnionType([
+				new UnionType([
 					new ObjectType('Foo'),
 					new ObjectType('Bar'),
 				]),
@@ -678,23 +678,23 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 				'Bar',
 			],
 			[
-				new CommonUnionType([
+				new UnionType([
 					new ObjectType('Foo'),
 					new ObjectType('Bar'),
 					new ObjectType('Baz'),
 				]),
 				new ObjectType('Foo'),
-				CommonUnionType::class,
+				UnionType::class,
 				'Bar|Baz',
 			],
 			[
-				new CommonUnionType([
+				new UnionType([
 					new ArrayType(new StringType()),
 					new ArrayType(new IntegerType()),
 					new ObjectType('ArrayObject'),
 				]),
 				new ArrayType(new IntegerType()),
-				CommonUnionType::class,
+				UnionType::class,
 				'ArrayObject|string[]',
 			],
 			[
@@ -740,7 +740,7 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 				'*NEVER*',
 			],
 			[
-				new CommonUnionType([
+				new UnionType([
 					new TrueBooleanType(),
 					new IntegerType(),
 				]),
@@ -749,7 +749,7 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 				'int',
 			],
 			[
-				new CommonUnionType([
+				new UnionType([
 					new FalseBooleanType(),
 					new IntegerType(),
 				]),
@@ -758,30 +758,30 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 				'int',
 			],
 			[
-				new CommonUnionType([
+				new UnionType([
 					new TrueOrFalseBooleanType(),
 					new IntegerType(),
 				]),
 				new TrueBooleanType(),
-				CommonUnionType::class,
+				UnionType::class,
 				'false|int',
 			],
 			[
-				new CommonUnionType([
+				new UnionType([
 					new TrueOrFalseBooleanType(),
 					new IntegerType(),
 				]),
 				new FalseBooleanType(),
-				CommonUnionType::class,
+				UnionType::class,
 				'int|true',
 			],
 			[
-				new CommonUnionType([
+				new UnionType([
 					new StringType(),
 					new IntegerType(),
 					new NullType(),
 				]),
-				new CommonUnionType([
+				new UnionType([
 					new NullType(),
 					new StringType(),
 				]),

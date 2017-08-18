@@ -67,9 +67,9 @@ class TypehintHelper
 			case $lowercasedTypehintString === 'double' && !$fromReflection:
 				return new FloatType();
 			case $lowercasedTypehintString === 'number' && !$fromReflection:
-				return new CommonUnionType([new IntegerType(), new FloatType()]);
+				return new UnionType([new IntegerType(), new FloatType()]);
 			case $lowercasedTypehintString === 'scalar' && !$fromReflection:
-				return new CommonUnionType([new IntegerType(), new FloatType(), new StringType(), new TrueOrFalseBooleanType()]);
+				return new UnionType([new IntegerType(), new FloatType(), new StringType(), new TrueOrFalseBooleanType()]);
 			case $lowercasedTypehintString === 'array':
 				return new ArrayType(new MixedType());
 			case $lowercasedTypehintString === 'iterable':
@@ -134,7 +134,7 @@ class TypehintHelper
 			}
 
 			if (TypeCombinator::removeNull($type) instanceof IterableIterableType) {
-				if ($phpDocType instanceof CommonUnionType) {
+				if ($phpDocType instanceof UnionType) {
 					$innerTypes = [];
 					foreach ($phpDocType->getTypes() as $innerType) {
 						if ($innerType instanceof ArrayType) {
@@ -143,7 +143,7 @@ class TypehintHelper
 							$innerTypes[] = $innerType;
 						}
 					}
-					$phpDocType = new CommonUnionType($innerTypes);
+					$phpDocType = new UnionType($innerTypes);
 				} elseif ($phpDocType instanceof ArrayType) {
 					$phpDocType = new IterableIterableType($phpDocType->getIterableValueType());
 				}

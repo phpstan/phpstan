@@ -226,7 +226,7 @@ class IntersectionTypeTest extends \PHPStan\TestCase
 
 		yield [
 			$intersectionTypeC,
-			new CommonUnionType([new IntegerType(), new StringType()]),
+			new UnionType([new IntegerType(), new StringType()]),
 			TrinaryLogic::createYes(),
 		];
 
@@ -243,7 +243,7 @@ class IntersectionTypeTest extends \PHPStan\TestCase
 
 		yield [
 			$intersectionTypeD,
-			new CommonUnionType([
+			new UnionType([
 				$intersectionTypeD,
 				new IntegerType(),
 			]),

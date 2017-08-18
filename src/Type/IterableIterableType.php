@@ -46,7 +46,7 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 	public function isSubsetOf(Type $otherType): TrinaryLogic
 	{
 		if ($otherType instanceof IntersectionType || $otherType instanceof UnionType) {
-			return $otherType->isSupersetOf(new CommonUnionType([
+			return $otherType->isSupersetOf(new UnionType([
 				new ArrayType($this->itemType),
 				new IntersectionType([
 					new ObjectType(\Traversable::class),

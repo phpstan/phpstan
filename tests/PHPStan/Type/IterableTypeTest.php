@@ -32,32 +32,32 @@ class IterableTypeTest extends \PHPStan\TestCase
 			],
 			[
 				new IterableIterableType(new StringType()),
-				new CommonUnionType([new IterableIterableType(new StringType()), new NullType()]),
+				new UnionType([new IterableIterableType(new StringType()), new NullType()]),
 				TrinaryLogic::createYes(),
 			],
 			[
 				new IterableIterableType(new StringType()),
-				new CommonUnionType([new ArrayType(new MixedType()), new ObjectType('Traversable')]),
+				new UnionType([new ArrayType(new MixedType()), new ObjectType('Traversable')]),
 				TrinaryLogic::createYes(),
 			],
 			[
 				new IterableIterableType(new StringType()),
-				new CommonUnionType([new ArrayType(new StringType()), new ObjectType('Traversable')]),
+				new UnionType([new ArrayType(new StringType()), new ObjectType('Traversable')]),
 				TrinaryLogic::createYes(),
 			],
 			[
 				new IterableIterableType(new StringType()),
-				new CommonUnionType([new ObjectType('Unknown'), new NullType()]),
+				new UnionType([new ObjectType('Unknown'), new NullType()]),
 				TrinaryLogic::createMaybe(),
 			],
 			[
 				new IterableIterableType(new StringType()),
-				new CommonUnionType([new IntegerType(), new NullType()]),
+				new UnionType([new IntegerType(), new NullType()]),
 				TrinaryLogic::createNo(),
 			],
 			[
 				new IterableIterableType(new StringType()),
-				new CommonUnionType([new IterableIterableType(new IntegerType()), new NullType()]),
+				new UnionType([new IterableIterableType(new IntegerType()), new NullType()]),
 				TrinaryLogic::createNo(),
 			],
 		];

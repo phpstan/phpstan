@@ -110,7 +110,7 @@ class StaticTypeTest extends \PHPStan\TestCase
 			],
 			[
 				new StaticType(\DateTimeImmutable::class),
-				new CommonUnionType([
+				new UnionType([
 					new ObjectType(\DateTimeImmutable::class),
 					new StringType(),
 				]),
@@ -118,7 +118,7 @@ class StaticTypeTest extends \PHPStan\TestCase
 			],
 			[
 				new StaticType(\DateTimeImmutable::class),
-				new CommonUnionType([
+				new UnionType([
 					new ObjectType(\ArrayObject::class),
 					new StringType(),
 				]),
@@ -176,7 +176,7 @@ class StaticTypeTest extends \PHPStan\TestCase
 			],
 			[
 				new StaticType(\DateTimeImmutable::class),
-				new CommonUnionType([
+				new UnionType([
 					new StaticType(\DateTimeImmutable::class),
 					new StaticType(\DateTimeImmutable::class),
 				]),
@@ -184,7 +184,7 @@ class StaticTypeTest extends \PHPStan\TestCase
 			],
 			[
 				new StaticType(\DateTimeImmutable::class),
-				new CommonUnionType([
+				new UnionType([
 					new StaticType(\DateTimeImmutable::class),
 					new StringType(),
 				]),
@@ -192,7 +192,7 @@ class StaticTypeTest extends \PHPStan\TestCase
 			],
 			[
 				new StaticType(\DateTimeImmutable::class),
-				new CommonUnionType([
+				new UnionType([
 					new StaticType(\ArrayObject::class),
 					new StringType(),
 				]),

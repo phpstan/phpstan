@@ -6,9 +6,9 @@ use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ArrayType;
-use PHPStan\Type\CommonUnionType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\UnionType;
 
 class CallToCountOnlyWithArrayOrCountableRule implements \PHPStan\Rules\Rule
 {
@@ -49,7 +49,7 @@ class CallToCountOnlyWithArrayOrCountableRule implements \PHPStan\Rules\Rule
 		}
 
 		$argumentType = $scope->getType($node->args[0]->value);
-		$requiredType = new CommonUnionType([
+		$requiredType = new UnionType([
 			new ArrayType(new MixedType()),
 			new ObjectType(\Countable::class),
 		]);

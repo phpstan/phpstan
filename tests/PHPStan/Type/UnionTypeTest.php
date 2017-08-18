@@ -11,21 +11,21 @@ class UnionTypeTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				new CommonUnionType([
+				new UnionType([
 					new ArrayType(new MixedType(), false, TrinaryLogic::createYes()),
 					new StringType(),
 				]),
 				TrinaryLogic::createMaybe(),
 			],
 			[
-				new CommonUnionType([
+				new UnionType([
 					new ArrayType(new MixedType(), false, TrinaryLogic::createYes()),
 					new ObjectType('Closure'),
 				]),
 				TrinaryLogic::createYes(),
 			],
 			[
-				new CommonUnionType([
+				new UnionType([
 					new StringType(),
 					new IntegerType(),
 				]),
@@ -55,7 +55,7 @@ class UnionTypeTest extends \PHPStan\TestCase
 	{
 		$this->createBroker();
 
-		$unionTypeA = new CommonUnionType([
+		$unionTypeA = new UnionType([
 			new IntegerType(),
 			new StringType(),
 		]);
@@ -98,13 +98,13 @@ class UnionTypeTest extends \PHPStan\TestCase
 
 		yield [
 			$unionTypeA,
-			new CommonUnionType([new IntegerType(), new FloatType()]),
+			new UnionType([new IntegerType(), new FloatType()]),
 			TrinaryLogic::createMaybe(),
 		];
 
 		yield [
 			$unionTypeA,
-			new CommonUnionType([new CallableType(), new FloatType()]),
+			new UnionType([new CallableType(), new FloatType()]),
 			TrinaryLogic::createMaybe(),
 		];
 
@@ -122,7 +122,7 @@ class UnionTypeTest extends \PHPStan\TestCase
 
 		yield [
 			$unionTypeA,
-			new CommonUnionType([new TrueBooleanType(), new FloatType()]),
+			new UnionType([new TrueBooleanType(), new FloatType()]),
 			TrinaryLogic::createNo(),
 		];
 
@@ -138,7 +138,7 @@ class UnionTypeTest extends \PHPStan\TestCase
 			TrinaryLogic::createNo(),
 		];
 
-		$unionTypeB = new CommonUnionType([
+		$unionTypeB = new UnionType([
 			new IntersectionType([
 				new ObjectType('ArrayObject'),
 				new IterableIterableType(new ObjectType('DatePeriod')),
@@ -253,7 +253,7 @@ class UnionTypeTest extends \PHPStan\TestCase
 	{
 		$this->createBroker();
 
-		$unionTypeA = new CommonUnionType([
+		$unionTypeA = new UnionType([
 			new IntegerType(),
 			new StringType(),
 		]);
@@ -266,7 +266,7 @@ class UnionTypeTest extends \PHPStan\TestCase
 
 		yield [
 			$unionTypeA,
-			new CommonUnionType(array_merge($unionTypeA->getTypes(), [new ResourceType()])),
+			new UnionType(array_merge($unionTypeA->getTypes(), [new ResourceType()])),
 			TrinaryLogic::createYes(),
 		];
 
@@ -296,13 +296,13 @@ class UnionTypeTest extends \PHPStan\TestCase
 
 		yield [
 			$unionTypeA,
-			new CommonUnionType([new IntegerType(), new FloatType()]),
+			new UnionType([new IntegerType(), new FloatType()]),
 			TrinaryLogic::createMaybe(),
 		];
 
 		yield [
 			$unionTypeA,
-			new CommonUnionType([new CallableType(), new FloatType()]),
+			new UnionType([new CallableType(), new FloatType()]),
 			TrinaryLogic::createMaybe(),
 		];
 
@@ -326,7 +326,7 @@ class UnionTypeTest extends \PHPStan\TestCase
 
 		yield [
 			$unionTypeA,
-			new CommonUnionType([new TrueBooleanType(), new FloatType()]),
+			new UnionType([new TrueBooleanType(), new FloatType()]),
 			TrinaryLogic::createNo(),
 		];
 
@@ -342,7 +342,7 @@ class UnionTypeTest extends \PHPStan\TestCase
 			TrinaryLogic::createNo(),
 		];
 
-		$unionTypeB = new CommonUnionType([
+		$unionTypeB = new UnionType([
 			new IntersectionType([
 				new ObjectType('ArrayObject'),
 				new IterableIterableType(new ObjectType('Item')),
@@ -359,7 +359,7 @@ class UnionTypeTest extends \PHPStan\TestCase
 
 		yield [
 			$unionTypeB,
-			new CommonUnionType(array_merge($unionTypeB->getTypes(), [new StringType()])),
+			new UnionType(array_merge($unionTypeB->getTypes(), [new StringType()])),
 			TrinaryLogic::createYes(),
 		];
 

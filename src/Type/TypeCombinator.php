@@ -144,7 +144,7 @@ class TypeCombinator
 			return $types[0];
 		}
 
-		return new CommonUnionType($types);
+		return new UnionType($types);
 	}
 
 	public static function intersect(Type ...$types): Type
