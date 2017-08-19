@@ -200,6 +200,8 @@ class TypeSpecifier
 			return ($context & self::CONTEXT_TRUE) ? $leftTypes->intersectWith($rightTypes) : $leftTypes->unionWith($rightTypes);
 		} elseif ($expr instanceof Node\Expr\BooleanNot) {
 			return $this->specifyTypesInCondition($scope, $expr->expr, ~$context);
+		} elseif ($expr instanceof Node\Expr\Assign) {
+			return $this->specifyTypesInCondition($scope, $expr->var, $context);
 		} elseif (($context & self::CONTEXT_TRUTHY) === 0) {
 			$type = new ObjectWithoutClassType();
 			return $this->create($expr, $type, self::CONTEXT_FALSE);

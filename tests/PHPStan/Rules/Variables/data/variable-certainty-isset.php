@@ -103,9 +103,9 @@ do {
 );
 
 switch (true) {
-	case $variableInFirstCase = false:
+	case $variableInFirstCase = true:
 		isset($variableInSecondCase); // does not exist yet
-	case $variableInSecondCase = false:
+	case $variableInSecondCase = true:
 		isset($variableInFirstCase); // always defined
 		$variableAssignedInSecondCase = true;
 		break;
