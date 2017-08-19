@@ -3376,6 +3376,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			if ($node instanceof Exit_) {
 				$this->assertTrue($scope->hasVariableType('something')->yes());
 				$this->assertTrue($scope->hasVariableType('var')->yes());
+				$this->assertTrue($scope->hasVariableType('foo')->no());
 			}
 		});
 	}
