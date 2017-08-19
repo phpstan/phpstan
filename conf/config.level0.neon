@@ -129,6 +129,21 @@ services:
 			- phpstan.rules.rule
 
 	-
+		class: PHPStan\Rules\Variables\DefinedVariableRule
+		arguments:
+			cliArgumentsVariablesRegistered: %cliArgumentsVariablesRegistered%
+			checkMaybeUndefinedVariables: %checkMaybeUndefinedVariables%
+		tags:
+			- phpstan.rules.rule
+
+	-
+		class: PHPStan\Rules\Variables\DefinedVariableInAnonymousFunctionUseRule
+		arguments:
+			checkMaybeUndefinedVariables: %checkMaybeUndefinedVariables%
+		tags:
+			- phpstan.rules.rule
+
+	-
 		class: PHPStan\Rules\Variables\ThisVariableRule
 		tags:
 			- phpstan.rules.rule

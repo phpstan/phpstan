@@ -5,13 +5,19 @@ namespace PHPStan\Rules\Variables;
 class DefinedVariableInAnonymousFunctionUseRuleTest extends \PHPStan\Rules\AbstractRuleTest
 {
 
+	/**
+	 * @var bool
+	 */
+	private $checkMaybeUndefinedVariables;
+
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new DefinedVariableInAnonymousFunctionUseRule();
+		return new DefinedVariableInAnonymousFunctionUseRule($this->checkMaybeUndefinedVariables);
 	}
 
 	public function testDefinedVariables()
 	{
+		$this->checkMaybeUndefinedVariables = true;
 		$this->analyse([__DIR__ . '/data/defined-variables-anonymous-function-use.php'], [
 			[
 				'Undefined variable: $bar',
@@ -19,7 +25,19 @@ class DefinedVariableInAnonymousFunctionUseRuleTest extends \PHPStan\Rules\Abstr
 			],
 			[
 				'Undefined variable: $wrongErrorHandler',
-				13,
+				22,
+			],
+			[
+				'Variable $onlyInIf might not be defined.',
+				23,
+			],
+			[
+				'Undefined variable: $forI',
+				24,
+			],
+			[
+				'Undefined variable: $forJ',
+				25,
 			],
 		]);
 	}

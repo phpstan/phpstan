@@ -14,9 +14,18 @@ class DefinedVariableRule implements \PHPStan\Rules\Rule
 	 */
 	private $cliArgumentsVariablesRegistered;
 
-	public function __construct(bool $cliArgumentsVariablesRegistered)
+	/**
+	 * @var bool
+	 */
+	private $checkMaybeUndefinedVariables;
+
+	public function __construct(
+		bool $cliArgumentsVariablesRegistered,
+		bool $checkMaybeUndefinedVariables
+	)
 	{
 		$this->cliArgumentsVariablesRegistered = $cliArgumentsVariablesRegistered;
+		$this->checkMaybeUndefinedVariables = $checkMaybeUndefinedVariables;
 	}
 
 	public function getNodeType(): string
@@ -63,9 +72,16 @@ class DefinedVariableRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		if (!$scope->hasVariableType($node->name)->yes()) {
+		if ($scope->hasVariableType($node->name)->no()) {
 			return [
 				sprintf('Undefined variable: $%s', $node->name),
+			];
+		} elseif (
+			$this->checkMaybeUndefinedVariables
+			&& !$scope->hasVariableType($node->name)->yes()
+		) {
+			return [
+				sprintf('Variable $%s might not be defined.', $node->name),
 			];
 		}
 

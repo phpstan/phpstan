@@ -9,6 +9,18 @@ use PHPStan\Analyser\Scope;
 class DefinedVariableInAnonymousFunctionUseRule implements \PHPStan\Rules\Rule
 {
 
+	/**
+	 * @var bool
+	 */
+	private $checkMaybeUndefinedVariables;
+
+	public function __construct(
+		bool $checkMaybeUndefinedVariables
+	)
+	{
+		$this->checkMaybeUndefinedVariables = $checkMaybeUndefinedVariables;
+	}
+
 	public function getNodeType(): string
 	{
 		return ClosureUse::class;
@@ -25,9 +37,16 @@ class DefinedVariableInAnonymousFunctionUseRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		if (!$scope->hasVariableType($node->var)->yes()) {
+		if ($scope->hasVariableType($node->var)->no()) {
 			return [
 				sprintf('Undefined variable: $%s', $node->var),
+			];
+		} elseif (
+			$this->checkMaybeUndefinedVariables
+			&& !$scope->hasVariableType($node->var)->yes()
+		) {
+			return [
+				sprintf('Variable $%s might not be defined.', $node->var),
 			];
 		}
 

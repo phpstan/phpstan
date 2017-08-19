@@ -10,6 +10,19 @@ function () use (&$errorHandler) {
 
 };
 
-$wrongErrorHandler = function () use ($wrongErrorHandler) {
+if (foo()) {
+	$onlyInIf = 1;
+}
+
+for ($forI = 0; $forI < 10; $forI++, $forJ = $forI) {
+
+}
+
+$wrongErrorHandler = function () use (
+	$wrongErrorHandler,
+	$onlyInIf,
+	$forI,
+	$forJ
+) {
 
 };

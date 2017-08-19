@@ -7,6 +7,7 @@ parameters:
 		- php
 	checkFunctionArgumentTypes: false
 	checkArgumentsPassedByReference: false
+	checkMaybeUndefinedVariables: false
 	checkNullables: false
 	checkUnionTypes: false
 	polluteScopeWithLoopInitialAssignments: false

@@ -13,6 +13,11 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	/**
 	 * @var bool
 	 */
+	private $checkMaybeUndefinedVariables;
+
+	/**
+	 * @var bool
+	 */
 	private $polluteScopeWithLoopInitialAssignments;
 
 	/**
@@ -22,7 +27,10 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new DefinedVariableRule($this->cliArgumentsVariablesRegistered);
+		return new DefinedVariableRule(
+			$this->cliArgumentsVariablesRegistered,
+			$this->checkMaybeUndefinedVariables
+		);
 	}
 
 	protected function shouldPolluteScopeWithLoopInitialAssignments(): bool
@@ -41,17 +49,18 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$this->cliArgumentsVariablesRegistered = true;
 		$this->polluteScopeWithLoopInitialAssignments = false;
 		$this->polluteCatchScopeWithTryAssignments = false;
+		$this->checkMaybeUndefinedVariables = true;
 		$this->analyse([__DIR__ . '/data/defined-variables.php'], [
 			[
 				'Undefined variable: $definedLater',
 				5,
 			],
 			[
-				'Undefined variable: $definedInIfOnly',
+				'Variable $definedInIfOnly might not be defined.',
 				10,
 			],
 			[
-				'Undefined variable: $definedInCases',
+				'Variable $definedInCases might not be defined.',
 				21,
 			],
 			[
@@ -123,11 +132,11 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				251,
 			],
 			[
-				'Undefined variable: $variableAvailableInAllCatches',
+				'Variable $variableAvailableInAllCatches might not be defined.',
 				264,
 			],
 			[
-				'Undefined variable: $variableDefinedOnlyInOneCatch',
+				'Variable $variableDefinedOnlyInOneCatch might not be defined.',
 				265,
 			],
 			[
@@ -149,6 +158,7 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$this->cliArgumentsVariablesRegistered = true;
 		$this->polluteScopeWithLoopInitialAssignments = false;
 		$this->polluteCatchScopeWithTryAssignments = false;
+		$this->checkMaybeUndefinedVariables = true;
 		$this->analyse([__DIR__ . '/data/defined-variables-array-destructuring-short-syntax.php'], [
 			[
 				'Undefined variable: $f',
@@ -159,7 +169,7 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				14,
 			],
 			[
-				'Undefined variable: $var3',
+				'Variable $var3 might not be defined.',
 				32,
 			],
 		]);
@@ -170,6 +180,7 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$this->cliArgumentsVariablesRegistered = false;
 		$this->polluteScopeWithLoopInitialAssignments = false;
 		$this->polluteCatchScopeWithTryAssignments = false;
+		$this->checkMaybeUndefinedVariables = true;
 		$this->analyse([__DIR__ . '/data/cli-arguments-variables.php'], [
 			[
 				'Undefined variable: $argc',
@@ -187,6 +198,7 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$this->cliArgumentsVariablesRegistered = true;
 		$this->polluteScopeWithLoopInitialAssignments = false;
 		$this->polluteCatchScopeWithTryAssignments = false;
+		$this->checkMaybeUndefinedVariables = true;
 		$this->analyse([__DIR__ . '/data/cli-arguments-variables.php'], [
 			[
 				'Undefined variable: $argc',

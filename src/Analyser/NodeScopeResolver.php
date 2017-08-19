@@ -356,8 +356,6 @@ class NodeScopeResolver
 				}
 			}
 			$closureBindScope = $scope->enterClosureBind($thisType, $scopeClass);
-		} elseif ($node instanceof \PhpParser\Node\Expr\Closure) {
-			$scope = $scope->enterAnonymousFunction($node->params, $node->uses, $node->returnType);
 		} elseif ($node instanceof Foreach_) {
 			$scope = $this->enterForeach($scope, $node);
 		} elseif ($node instanceof Catch_) {
@@ -581,6 +579,13 @@ class NodeScopeResolver
 
 				if ($node instanceof MethodCall && $subNodeName === 'args') {
 					$scope = $this->lookForAssigns($scope, $node->var);
+				}
+
+				if (
+					$node instanceof \PhpParser\Node\Expr\Closure
+					&& $subNodeName === 'stmts'
+				) {
+					$scope = $scope->enterAnonymousFunction($node->params, $node->uses, $node->returnType);
 				}
 
 				$this->processNodes($subNode, $scope, $nodeCallback, $argClosureBindScope);
