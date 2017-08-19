@@ -10,6 +10,7 @@ use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\ObjectType;
 
 class TypeSpecifierTest extends \PHPStan\TestCase
@@ -30,7 +31,7 @@ class TypeSpecifierTest extends \PHPStan\TestCase
 		$this->printer = new \PhpParser\PrettyPrinter\Standard();
 		$this->typeSpecifier = new TypeSpecifier($this->printer);
 		$this->scope = new Scope($broker, $this->printer, $this->typeSpecifier, '');
-		$this->scope = $this->scope->assignVariable('bar', new ObjectType('Bar'));
+		$this->scope = $this->scope->assignVariable('bar', new ObjectType('Bar'), TrinaryLogic::createYes());
 	}
 
 	/**

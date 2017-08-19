@@ -32,7 +32,7 @@ class DefinedVariableInAnonymousFunctionUseRuleTest extends \PHPStan\Rules\Abstr
 				23,
 			],
 			[
-				'Undefined variable: $forI',
+				'Variable $forI might not be defined.',
 				24,
 			],
 			[

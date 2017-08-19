@@ -1152,10 +1152,10 @@ class Scope
 	public function enterForeach(Expr $iteratee, string $valueName, string $keyName = null): self
 	{
 		$iterateeType = $this->getType($iteratee);
-		$scope = $this->assignVariable($valueName, $iterateeType->getIterableValueType());
+		$scope = $this->assignVariable($valueName, $iterateeType->getIterableValueType(), TrinaryLogic::createYes());
 
 		if ($keyName !== null) {
-			$scope = $scope->assignVariable($keyName, $iterateeType->getIterableKeyType());
+			$scope = $scope->assignVariable($keyName, $iterateeType->getIterableKeyType(), TrinaryLogic::createYes());
 		}
 
 		return $scope;
@@ -1174,7 +1174,7 @@ class Scope
 			$type = new MixedType();
 		}
 
-		return $this->assignVariable($variableName, $type);
+		return $this->assignVariable($variableName, $type, TrinaryLogic::createYes());
 	}
 
 	/**
@@ -1237,13 +1237,12 @@ class Scope
 
 	public function assignVariable(
 		string $variableName,
-		Type $type = null
+		Type $type,
+		TrinaryLogic $certainty
 	): self
 	{
 		$variableTypes = $this->getVariableTypes();
-		$variableTypes[$variableName] = VariableTypeHolder::createYes(
-			$type !== null ? $type : new MixedType()
-		);
+		$variableTypes[$variableName] = new VariableTypeHolder($type, $certainty);
 
 		$exprString = $this->printer->prettyPrintExpr(new Variable($variableName));
 		$moreSpecificTypes = $this->moreSpecificTypes;

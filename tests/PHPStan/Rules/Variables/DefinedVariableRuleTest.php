@@ -124,7 +124,7 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				204,
 			],
 			[
-				'Undefined variable: $forI',
+				'Variable $forI might not be defined.',
 				250,
 			],
 			[
@@ -205,6 +205,60 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				5,
 			],
 		]);
+	}
+
+	public function dataLoopInitialAssignments(): array
+	{
+		return [
+			[
+				false,
+				false,
+				[],
+			],
+			[
+				false,
+				true,
+				[
+					[
+						'Variable $i might not be defined.',
+						7,
+					],
+					[
+						'Variable $whileVar might not be defined.',
+						13,
+					],
+				],
+			],
+			[
+				true,
+				false,
+				[],
+			],
+			[
+				true,
+				true,
+				[],
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataLoopInitialAssignments
+	 * @param bool $polluteScopeWithLoopInitialAssignments
+	 * @param bool $checkMaybeUndefinedVariables
+	 * @param mixed[][] $expectedErrors
+	 */
+	public function testLoopInitialAssignments(
+		bool $polluteScopeWithLoopInitialAssignments,
+		bool $checkMaybeUndefinedVariables,
+		array $expectedErrors
+	)
+	{
+		$this->cliArgumentsVariablesRegistered = false;
+		$this->polluteCatchScopeWithTryAssignments = false;
+		$this->polluteScopeWithLoopInitialAssignments = $polluteScopeWithLoopInitialAssignments;
+		$this->checkMaybeUndefinedVariables = $checkMaybeUndefinedVariables;
+		$this->analyse([__DIR__ . '/data/loop-initial-assignments.php'], $expectedErrors);
 	}
 
 }
