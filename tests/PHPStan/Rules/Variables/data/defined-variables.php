@@ -243,6 +243,13 @@ foreach ($someArray as $someKey => list($destructuredAa, $destructuredBb, list($
 
 }
 
+for ($forI = 0; $forI < 10; $forI++, $forJ = $forI) {
+	echo $forI;
+}
+
+echo $forI;
+echo $forJ;
+
 try {
 	$variableDefinedInTryAndAllCatches = 1;
 } catch (\FooException $e) {

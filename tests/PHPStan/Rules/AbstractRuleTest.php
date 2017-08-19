@@ -39,8 +39,8 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 					new FileTypeMapper($this->getParser(), $this->createMock(Cache::class)),
 					new \PhpParser\BuilderFactory(),
 					$fileHelper,
-					false,
-					false,
+					$this->shouldPolluteScopeWithLoopInitialAssignments(),
+					$this->shouldPolluteCatchScopeWithTryAssignments(),
 					[]
 				),
 				$printer,
@@ -76,6 +76,16 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 		);
 
 		$this->assertSame(implode("\n", $expectedErrors), implode("\n", $actualErrors));
+	}
+
+	protected function shouldPolluteScopeWithLoopInitialAssignments(): bool
+	{
+		return false;
+	}
+
+	protected function shouldPolluteCatchScopeWithTryAssignments(): bool
+	{
+		return false;
 	}
 
 }

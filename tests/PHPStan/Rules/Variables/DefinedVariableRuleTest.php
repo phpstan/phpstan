@@ -10,15 +10,37 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	 */
 	private $cliArgumentsVariablesRegistered;
 
+	/**
+	 * @var bool
+	 */
+	private $polluteScopeWithLoopInitialAssignments;
+
+	/**
+	 * @var bool
+	 */
+	private $polluteCatchScopeWithTryAssignments;
+
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
 		return new DefinedVariableRule($this->cliArgumentsVariablesRegistered);
+	}
+
+	protected function shouldPolluteScopeWithLoopInitialAssignments(): bool
+	{
+		return $this->polluteScopeWithLoopInitialAssignments;
+	}
+
+	protected function shouldPolluteCatchScopeWithTryAssignments(): bool
+	{
+		return $this->polluteCatchScopeWithTryAssignments;
 	}
 
 	public function testDefinedVariables()
 	{
 		require_once __DIR__ . '/data/defined-variables-definition.php';
 		$this->cliArgumentsVariablesRegistered = true;
+		$this->polluteScopeWithLoopInitialAssignments = false;
+		$this->polluteCatchScopeWithTryAssignments = false;
 		$this->analyse([__DIR__ . '/data/defined-variables.php'], [
 			[
 				'Undefined variable: $definedLater',
@@ -93,20 +115,28 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				204,
 			],
 			[
+				'Undefined variable: $forI',
+				250,
+			],
+			[
+				'Undefined variable: $forJ',
+				251,
+			],
+			[
 				'Undefined variable: $variableAvailableInAllCatches',
-				257,
+				264,
 			],
 			[
 				'Undefined variable: $variableDefinedOnlyInOneCatch',
-				258,
+				265,
 			],
 			[
 				'Undefined variable: $variableInBitwiseAndAssign',
-				268,
+				275,
 			],
 			[
 				'Undefined variable: $variableInBitwiseAndAssign',
-				269,
+				276,
 			],
 		]);
 	}
@@ -117,6 +147,8 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	public function testDefinedVariablesInShortArrayDestructuringSyntax()
 	{
 		$this->cliArgumentsVariablesRegistered = true;
+		$this->polluteScopeWithLoopInitialAssignments = false;
+		$this->polluteCatchScopeWithTryAssignments = false;
 		$this->analyse([__DIR__ . '/data/defined-variables-array-destructuring-short-syntax.php'], [
 			[
 				'Undefined variable: $f',
@@ -136,6 +168,8 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	public function testCliArgumentsVariablesNotRegistered()
 	{
 		$this->cliArgumentsVariablesRegistered = false;
+		$this->polluteScopeWithLoopInitialAssignments = false;
+		$this->polluteCatchScopeWithTryAssignments = false;
 		$this->analyse([__DIR__ . '/data/cli-arguments-variables.php'], [
 			[
 				'Undefined variable: $argc',
@@ -151,6 +185,8 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	public function testCliArgumentsVariablesRegistered()
 	{
 		$this->cliArgumentsVariablesRegistered = true;
+		$this->polluteScopeWithLoopInitialAssignments = false;
+		$this->polluteCatchScopeWithTryAssignments = false;
 		$this->analyse([__DIR__ . '/data/cli-arguments-variables.php'], [
 			[
 				'Undefined variable: $argc',
