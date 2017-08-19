@@ -237,6 +237,9 @@ try {
 		bar();
 	} elseif (foo() || $foo = exists() || preg_match('#.*#', $subject, $matches2) || isset($issetBar)) {
 		for ($i = 0; $i < 5; $i++, $f = $i) {
+			$arr = [
+				[1, 2],
+			];
 			foreach ($arr as list($listOne, $listTwo)) {
 				if (is_array($arrayOfIntegers)) {
 					(bool)preg_match('~.*~', $attributes, $ternaryMatches) ? die : null;

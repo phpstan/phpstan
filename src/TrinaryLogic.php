@@ -80,4 +80,15 @@ class TrinaryLogic
 		return $this->value === $other->value;
 	}
 
+	public function describe(): string
+	{
+		$labels = [
+			self::NO => 'No',
+			self::MAYBE => 'Maybe',
+			self::YES => 'Yes',
+		];
+
+		return $labels[$this->value];
+	}
+
 }

@@ -8,6 +8,7 @@ use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Cache\Cache;
 use PHPStan\File\FileHelper;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Type\DynamicStaticMethodReturnTypeExtension;
 use PHPStan\Type\FileTypeMapper;
@@ -17,32 +18,6 @@ use SomeNodeScopeResolverNamespace\Foo;
 
 class NodeScopeResolverTest extends \PHPStan\TestCase
 {
-
-	/** @var \PHPStan\Analyser\NodeScopeResolver */
-	private $resolver;
-
-	/** @var \PhpParser\PrettyPrinter\Standard */
-	private $printer;
-
-	protected function setUp()
-	{
-		$this->printer = new \PhpParser\PrettyPrinter\Standard();
-		$this->resolver = new NodeScopeResolver(
-			$this->createBroker(),
-			$this->getParser(),
-			$this->printer,
-			new FileTypeMapper($this->getParser(), $this->createMock(Cache::class)),
-			new \PhpParser\BuilderFactory(),
-			new FileHelper('/'),
-			true,
-			true,
-			[
-				\EarlyTermination\Foo::class => [
-					'doFoo',
-				],
-			]
-		);
-	}
 
 	public function testClassMethodScope()
 	{
@@ -63,113 +38,485 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		});
 	}
 
-	public function testAssignInIf()
+	public function dataAssignInIf(): array
 	{
-		$this->processFile(__DIR__ . '/data/if.php', function (\PhpParser\Node $node, Scope $scope) {
+		/** @var \PHPStan\Analyser\Scope $testScope */
+		$testScope = null;
+		$this->processFile(__DIR__ . '/data/if.php', function (\PhpParser\Node $node, Scope $scope) use (&$testScope) {
 			if ($node instanceof Exit_) {
-				$this->assertTrue($scope->hasVariableType('foo')->yes());
-				$this->assertTrue($scope->hasVariableType('lorem')->yes());
-				$this->assertTrue($scope->hasVariableType('callParameter')->yes());
-				$this->assertTrue($scope->hasVariableType('arrOne')->yes());
-				$this->assertTrue($scope->hasVariableType('arrTwo')->yes());
-				$this->assertTrue($scope->hasVariableType('arrTwo')->yes());
-				$this->assertTrue($scope->hasVariableType('arrThree')->yes());
-				$this->assertSame('string[]', $scope->getVariableType('arrThree')->describe());
-				$this->assertTrue($scope->hasVariableType('listedOne')->yes());
-				$this->assertTrue($scope->hasVariableType('listedTwo')->yes());
-				$this->assertTrue($scope->hasVariableType('listedThree')->yes());
-				$this->assertTrue($scope->hasVariableType('listedFour')->yes());
-				$this->assertTrue($scope->hasVariableType('inArray')->yes());
-				$this->assertTrue($scope->hasVariableType('i')->yes());
-				$this->assertTrue($scope->hasVariableType('f')->yes());
-				$this->assertTrue($scope->hasVariableType('matches')->yes());
-				$this->assertTrue($scope->hasVariableType('anotherArray')->yes());
-				$this->assertTrue($scope->hasVariableType('ifVar')->yes());
-				$this->assertTrue($scope->hasVariableType('ifNotVar')->no());
-				$this->assertTrue($scope->hasVariableType('ifNestedVar')->yes());
-				$this->assertTrue($scope->hasVariableType('ifNotNestedVar')->no());
-				$this->assertTrue($scope->hasVariableType('matches2')->yes());
-				$this->assertTrue($scope->hasVariableType('inTry')->yes());
-				$this->assertTrue($scope->hasVariableType('matches3')->yes());
-				$this->assertTrue($scope->hasVariableType('matches4')->no());
-				$this->assertTrue($scope->hasVariableType('issetBar')->yes());
-				$this->assertTrue($scope->hasVariableType('doWhileVar')->yes());
-				$this->assertTrue($scope->hasVariableType('switchVar')->yes());
-				$this->assertTrue($scope->hasVariableType('noSwitchVar')->no());
-				$this->assertTrue($scope->hasVariableType('inTryTwo')->yes());
-				$this->assertTrue($scope->hasVariableType('ternaryMatches')->yes());
-				$this->assertTrue($scope->hasVariableType('previousI')->yes());
-				$this->assertTrue($scope->hasVariableType('previousJ')->yes());
-				$this->assertTrue($scope->hasVariableType('frame')->yes());
-				$this->assertTrue($scope->hasVariableType('listOne')->yes());
-				$this->assertTrue($scope->hasVariableType('listTwo')->yes());
-				$this->assertTrue($scope->hasVariableType('e')->yes());
-				$this->assertTrue($scope->hasVariableType('exception')->yes());
-				$this->assertTrue($scope->hasVariableType('inTryNotInCatch')->no());
-				$this->assertTrue($scope->hasVariableType('fooObjectFromTryCatch')->yes());
-				$this->assertSame('InTryCatchFoo', $scope->getVariableType('fooObjectFromTryCatch')->describe());
-				$this->assertTrue($scope->hasVariableType('mixedVarFromTryCatch')->yes());
-				$this->assertSame('float|int', $scope->getVariableType('mixedVarFromTryCatch')->describe());
-				$this->assertTrue($scope->hasVariableType('nullableIntegerFromTryCatch')->yes());
-				$this->assertSame('int|null', $scope->getVariableType('nullableIntegerFromTryCatch')->describe());
-				$this->assertTrue($scope->hasVariableType('anotherNullableIntegerFromTryCatch')->yes());
-				$this->assertSame('int|null', $scope->getVariableType('anotherNullableIntegerFromTryCatch')->describe());
-
-				$this->assertSame('(int|null)[]', $scope->getVariableType('nullableIntegers')->describe());
-				$this->assertSame('(int|string)[]', $scope->getVariableType('union')->describe());
-				$this->assertSame('int|string', $scope->getVariableType('union')->getIterableValueType()->describe());
-
-				$this->assertTrue($scope->hasVariableType('trueOrFalse')->yes());
-				$this->assertSame('bool', $scope->getVariableType('trueOrFalse')->describe());
-				$this->assertTrue($scope->hasVariableType('falseOrTrue')->yes());
-				$this->assertSame('bool', $scope->getVariableType('falseOrTrue')->describe());
-				$this->assertTrue($scope->hasVariableType('true')->yes());
-				$this->assertSame('true', $scope->getVariableType('true')->describe());
-				$this->assertTrue($scope->hasVariableType('false')->yes());
-				$this->assertSame('false', $scope->getVariableType('false')->describe());
-
-				$this->assertTrue($scope->hasVariableType('trueOrFalseFromSwitch')->yes());
-				$this->assertSame('bool', $scope->getVariableType('trueOrFalseFromSwitch')->describe());
-				$this->assertTrue($scope->hasVariableType('trueOrFalseInSwitchWithDefault')->yes());
-				$this->assertSame('bool', $scope->getVariableType('trueOrFalseInSwitchWithDefault')->describe());
-				$this->assertTrue($scope->hasVariableType('trueOrFalseInSwitchInAllCases')->yes());
-				$this->assertSame('bool', $scope->getVariableType('trueOrFalseInSwitchInAllCases')->describe());
-				$this->assertTrue($scope->hasVariableType('trueOrFalseInSwitchInAllCasesWithDefault')->yes());
-				$this->assertSame('bool', $scope->getVariableType('trueOrFalseInSwitchInAllCasesWithDefault')->describe());
-				$this->assertTrue($scope->hasVariableType('trueOrFalseInSwitchInAllCasesWithDefaultCase')->yes());
-				$this->assertSame('true', $scope->getVariableType('trueOrFalseInSwitchInAllCasesWithDefaultCase')->describe());
-				$this->assertTrue($scope->hasVariableType('variableDefinedInSwitchWithOtherCasesWithEarlyTermination')->yes());
-				$this->assertTrue($scope->hasVariableType('anotherVariableDefinedInSwitchWithOtherCasesWithEarlyTermination')->yes());
-				$this->assertTrue($scope->hasVariableType('variableDefinedOnlyInEarlyTerminatingSwitchCases')->no());
-				$this->assertTrue($scope->hasVariableType('nullableTrueOrFalse')->yes());
-				$this->assertSame('bool|null', $scope->getVariableType('nullableTrueOrFalse')->describe());
-				$this->assertTrue($scope->hasVariableType('nonexistentVariableOutsideFor')->no());
-				$this->assertTrue($scope->hasVariableType('integerOrNullFromFor')->yes());
-				$this->assertSame('int|null', $scope->getVariableType('integerOrNullFromFor')->describe());
-				$this->assertTrue($scope->hasVariableType('nonexistentVariableOutsideWhile')->no());
-				$this->assertTrue($scope->hasVariableType('integerOrNullFromWhile')->yes());
-				$this->assertSame('int|null', $scope->getVariableType('integerOrNullFromWhile')->describe());
-				$this->assertTrue($scope->hasVariableType('nonexistentVariableOutsideForeach')->no());
-				$this->assertTrue($scope->hasVariableType('integerOrNullFromForeach')->yes());
-				$this->assertSame('int|null', $scope->getVariableType('integerOrNullFromForeach')->describe());
-				$this->assertTrue($scope->hasVariableType('notNullableString')->yes());
-				$this->assertSame('string', $scope->getVariableType('notNullableString')->describe());
-				$this->assertTrue($scope->hasVariableType('anotherNotNullableString')->yes());
-				$this->assertSame('string', $scope->getVariableType('anotherNotNullableString')->describe());
-				$this->assertTrue($scope->hasVariableType('nullableString')->yes());
-				$this->assertSame('string|null', $scope->getVariableType('nullableString')->describe());
-				$this->assertTrue($scope->hasVariableType('alsoNotNullableString')->yes());
-				$this->assertSame('string', $scope->getVariableType('alsoNotNullableString')->describe());
-				$this->assertTrue($scope->hasVariableType('arrayOfIntegers')->yes());
-				$this->assertSame('int[]', $scope->getVariableType('arrayOfIntegers')->describe());
-				$this->assertTrue($scope->hasVariableType('arrayAccessObject')->yes());
-				$this->assertSame(\ObjectWithArrayAccess\Foo::class, $scope->getVariableType('arrayAccessObject')->describe());
-				$this->assertTrue($scope->hasVariableType('width')->yes());
-				$this->assertSame('float', $scope->getVariableType('width')->describe());
-				$this->assertTrue($scope->hasVariableType('someVariableThatWillGetOverrideInFinally')->yes());
-				$this->assertSame('string', $scope->getVariableType('someVariableThatWillGetOverrideInFinally')->describe());
+				$testScope = $scope;
 			}
 		});
+
+		return [
+			[
+				$testScope,
+				'foo',
+				TrinaryLogic::createYes(),
+				'bool', // mixed?
+			],
+			[
+				$testScope,
+				'lorem',
+				TrinaryLogic::createYes(),
+				'int',
+			],
+			[
+				$testScope,
+				'callParameter',
+				TrinaryLogic::createYes(),
+				'int',
+			],
+			[
+				$testScope,
+				'arrOne',
+				TrinaryLogic::createYes(),
+				'string[]',
+			],
+			[
+				$testScope,
+				'arrTwo',
+				TrinaryLogic::createYes(),
+				'(Foo|string)[]',
+			],
+			[
+				$testScope,
+				'arrThree',
+				TrinaryLogic::createYes(),
+				'string[]',
+			],
+			[
+				$testScope,
+				'listedOne',
+				TrinaryLogic::createYes(),
+				'mixed',
+			],
+			[
+				$testScope,
+				'listedTwo',
+				TrinaryLogic::createYes(),
+				'mixed',
+			],
+			[
+				$testScope,
+				'listedThree',
+				TrinaryLogic::createYes(),
+				'mixed',
+			],
+			[
+				$testScope,
+				'listedFour',
+				TrinaryLogic::createYes(),
+				'mixed',
+			],
+			[
+				$testScope,
+				'inArray',
+				TrinaryLogic::createYes(),
+				'int',
+			],
+			[
+				$testScope,
+				'i',
+				TrinaryLogic::createYes(),
+				'int',
+			],
+			[
+				$testScope,
+				'f',
+				TrinaryLogic::createYes(),
+				'int',
+			],
+			[
+				$testScope,
+				'matches',
+				TrinaryLogic::createYes(),
+				'mixed', // string[]
+			],
+			[
+				$testScope,
+				'anotherArray',
+				TrinaryLogic::createYes(),
+				'string[][]',
+			],
+			[
+				$testScope,
+				'ifVar',
+				TrinaryLogic::createYes(),
+				'int',
+			],
+			[
+				$testScope,
+				'ifNotVar',
+				TrinaryLogic::createNo(),
+			],
+			[
+				$testScope,
+				'ifNestedVar',
+				TrinaryLogic::createYes(),
+				'int|mixed',
+			],
+			[
+				$testScope,
+				'ifNotNestedVar',
+				TrinaryLogic::createNo(),
+			],
+			[
+				$testScope,
+				'matches2',
+				TrinaryLogic::createYes(),
+				'mixed', // string[]
+			],
+			[
+				$testScope,
+				'inTry',
+				TrinaryLogic::createYes(),
+				'int',
+			],
+			[
+				$testScope,
+				'matches3',
+				TrinaryLogic::createYes(),
+				'mixed', // string[]
+			],
+			[
+				$testScope,
+				'matches4',
+				TrinaryLogic::createNo(),
+			],
+			[
+				$testScope,
+				'issetBar',
+				TrinaryLogic::createYes(),
+				'mixed',
+			],
+			[
+				$testScope,
+				'doWhileVar',
+				TrinaryLogic::createYes(),
+				'int',
+			],
+			[
+				$testScope,
+				'switchVar',
+				TrinaryLogic::createYes(),
+				'int',
+			],
+			[
+				$testScope,
+				'noSwitchVar',
+				TrinaryLogic::createNo(),
+			],
+			[
+				$testScope,
+				'inTryTwo',
+				TrinaryLogic::createYes(),
+				'int',
+			],
+			[
+				$testScope,
+				'ternaryMatches',
+				TrinaryLogic::createYes(),
+				'mixed', // string[]
+			],
+			[
+				$testScope,
+				'previousI',
+				TrinaryLogic::createYes(),
+				'int',
+			],
+			[
+				$testScope,
+				'previousJ',
+				TrinaryLogic::createYes(),
+				'int',
+			],
+			[
+				$testScope,
+				'frame',
+				TrinaryLogic::createYes(),
+				'mixed',
+			],
+			[
+				$testScope,
+				'listOne',
+				TrinaryLogic::createYes(),
+				'mixed', // int
+			],
+			[
+				$testScope,
+				'listTwo',
+				TrinaryLogic::createYes(),
+				'mixed', // int
+			],
+			[
+				$testScope,
+				'e',
+				TrinaryLogic::createYes(),
+				'Exception',
+			],
+			[
+				$testScope,
+				'exception',
+				TrinaryLogic::createYes(),
+				'Exception',
+			],
+			[
+				$testScope,
+				'inTryNotInCatch',
+				TrinaryLogic::createNo(),
+			],
+			[
+				$testScope,
+				'fooObjectFromTryCatch',
+				TrinaryLogic::createYes(),
+				'InTryCatchFoo',
+			],
+			[
+				$testScope,
+				'mixedVarFromTryCatch',
+				TrinaryLogic::createYes(),
+				'float|int',
+			],
+			[
+				$testScope,
+				'nullableIntegerFromTryCatch',
+				TrinaryLogic::createYes(),
+				'int|null',
+			],
+			[
+				$testScope,
+				'anotherNullableIntegerFromTryCatch',
+				TrinaryLogic::createYes(),
+				'int|null',
+			],
+			[
+				$testScope,
+				'nullableIntegers',
+				TrinaryLogic::createYes(),
+				'(int|null)[]',
+			],
+			[
+				$testScope,
+				'union',
+				TrinaryLogic::createYes(),
+				'(int|string)[]',
+				'int|string',
+			],
+			[
+				$testScope,
+				'trueOrFalse',
+				TrinaryLogic::createYes(),
+				'bool',
+			],
+			[
+				$testScope,
+				'falseOrTrue',
+				TrinaryLogic::createYes(),
+				'bool',
+			],
+			[
+				$testScope,
+				'true',
+				TrinaryLogic::createYes(),
+				'true',
+			],
+			[
+				$testScope,
+				'false',
+				TrinaryLogic::createYes(),
+				'false',
+			],
+			[
+				$testScope,
+				'trueOrFalseFromSwitch',
+				TrinaryLogic::createYes(),
+				'bool',
+			],
+			[
+				$testScope,
+				'trueOrFalseInSwitchWithDefault',
+				TrinaryLogic::createYes(),
+				'bool',
+			],
+			[
+				$testScope,
+				'trueOrFalseInSwitchInAllCases',
+				TrinaryLogic::createYes(),
+				'bool',
+			],
+			[
+				$testScope,
+				'trueOrFalseInSwitchInAllCasesWithDefault',
+				TrinaryLogic::createYes(),
+				'bool',
+			],
+			[
+				$testScope,
+				'trueOrFalseInSwitchInAllCasesWithDefaultCase',
+				TrinaryLogic::createYes(),
+				'true',
+			],
+			[
+				$testScope,
+				'variableDefinedInSwitchWithOtherCasesWithEarlyTermination',
+				TrinaryLogic::createYes(),
+				'true',
+			],
+			[
+				$testScope,
+				'anotherVariableDefinedInSwitchWithOtherCasesWithEarlyTermination',
+				TrinaryLogic::createYes(),
+				'true',
+			],
+			[
+				$testScope,
+				'variableDefinedOnlyInEarlyTerminatingSwitchCases',
+				TrinaryLogic::createNo(),
+			],
+			[
+				$testScope,
+				'nullableTrueOrFalse',
+				TrinaryLogic::createYes(),
+				'bool|null',
+			],
+			[
+				$testScope,
+				'nonexistentVariableOutsideFor',
+				TrinaryLogic::createNo(),
+			],
+			[
+				$testScope,
+				'integerOrNullFromFor',
+				TrinaryLogic::createYes(),
+				'int|null',
+			],
+			[
+				$testScope,
+				'nonexistentVariableOutsideWhile',
+				TrinaryLogic::createNo(),
+			],
+			[
+				$testScope,
+				'integerOrNullFromWhile',
+				TrinaryLogic::createYes(),
+				'int|null',
+			],
+			[
+				$testScope,
+				'nonexistentVariableOutsideForeach',
+				TrinaryLogic::createNo(),
+			],
+			[
+				$testScope,
+				'integerOrNullFromForeach',
+				TrinaryLogic::createYes(),
+				'int|null',
+			],
+			[
+				$testScope,
+				'notNullableString',
+				TrinaryLogic::createYes(),
+				'string',
+			],
+			[
+				$testScope,
+				'anotherNotNullableString',
+				TrinaryLogic::createYes(),
+				'string',
+			],
+			[
+				$testScope,
+				'nullableString',
+				TrinaryLogic::createYes(),
+				'string|null',
+			],
+			[
+				$testScope,
+				'alsoNotNullableString',
+				TrinaryLogic::createYes(),
+				'string',
+			],
+			[
+				$testScope,
+				'arrayOfIntegers',
+				TrinaryLogic::createYes(),
+				'int[]',
+			],
+			[
+				$testScope,
+				'arrayAccessObject',
+				TrinaryLogic::createYes(),
+				\ObjectWithArrayAccess\Foo::class,
+			],
+			[
+				$testScope,
+				'width',
+				TrinaryLogic::createYes(),
+				'float',
+			],
+			[
+				$testScope,
+				'someVariableThatWillGetOverrideInFinally',
+				TrinaryLogic::createYes(),
+				'string',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataAssignInIf
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param string $variableName
+	 * @param \PHPStan\TrinaryLogic $expectedCertainty
+	 * @param string|null $typeDescription
+	 * @param string|null $iterableValueTypeDescription
+	 */
+	public function testAssignInIf(
+		Scope $scope,
+		string $variableName,
+		TrinaryLogic $expectedCertainty,
+		string $typeDescription = null,
+		string $iterableValueTypeDescription = null
+	)
+	{
+		$certainty = $scope->hasVariableType($variableName);
+		$this->assertTrue(
+			$expectedCertainty->equals($certainty),
+			sprintf(
+				'Certainty of variable $%s is %s, expected %s',
+				$variableName,
+				$certainty->describe(),
+				$expectedCertainty->describe()
+			)
+		);
+		if (!$expectedCertainty->no()) {
+			if ($typeDescription === null) {
+				$this->fail(sprintf('Missing expected type for defined variable $%s.', $variableName));
+			}
+
+			$this->assertSame(
+				$typeDescription,
+				$scope->getVariableType($variableName)->describe(),
+				sprintf('Type of variable $%s does not match the expected one.', $variableName)
+			);
+
+			if ($iterableValueTypeDescription !== null) {
+				$this->assertSame(
+					$iterableValueTypeDescription,
+					$scope->getVariableType($variableName)->getIterableValueType()->describe(),
+					sprintf('Iterable value type of variable $%s does not match the expected one.', $variableName)
+				);
+			}
+		} elseif ($typeDescription !== null) {
+			$this->fail(
+				sprintf(
+					'No type should be asserted for an undefined variable $%s, %s given.',
+					$variableName,
+					$typeDescription
+				)
+			);
+		}
 	}
 
 	/**
@@ -2928,7 +3275,8 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	)
 	{
 		$this->processFile($file, function (\PhpParser\Node $node, Scope $scope) use ($description, $expression, $evaluatedPointExpression) {
-			$printedNode = $this->printer->prettyPrint([$node]);
+			$printer = new \PhpParser\PrettyPrinter\Standard();
+			$printedNode = $printer->prettyPrint([$node]);
 			if ($printedNode === $evaluatedPointExpression) {
 				/** @var \PhpParser\Node\Expr $expressionNode */
 				$expressionNode = $this->getParser()->parseString(sprintf('<?php %s;', $expression))[0];
@@ -2944,12 +3292,28 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 
 	private function processFile(string $file, \Closure $callback, array $dynamicMethodReturnTypeExtensions = [], array $dynamicStaticMethodReturnTypeExtensions = [])
 	{
-		$this->resolver->processNodes(
+		$printer = new \PhpParser\PrettyPrinter\Standard();
+		$resolver = new NodeScopeResolver(
+			$this->createBroker(),
+			$this->getParser(),
+			$printer,
+			new FileTypeMapper($this->getParser(), $this->createMock(Cache::class)),
+			new \PhpParser\BuilderFactory(),
+			new FileHelper('/'),
+			true,
+			true,
+			[
+				\EarlyTermination\Foo::class => [
+					'doFoo',
+				],
+			]
+		);
+		$resolver->processNodes(
 			$this->getParser()->parseFile($file),
 			new Scope(
 				$this->createBroker($dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions),
-				$this->printer,
-				new TypeSpecifier($this->printer),
+				$printer,
+				new TypeSpecifier($printer),
 				$file
 			),
 			$callback
