@@ -2,6 +2,7 @@
 
 if (foo()) {
 	$ifVar = 1;
+	$issetFoo = new Foo();
 	if ($test) {
 		$ifNestedVar = 1;
 		$ifNotNestedVar = 1;
@@ -15,6 +16,7 @@ if (foo()) {
 	$ifNotVar = 1;
 } elseif (bar()) {
 	$ifVar = 2;
+	$issetFoo = null;
 	$ifNestedVar = 2;
 	$ifNotNestedVar = 2;
 	$ifNotVar = 2;
@@ -237,7 +239,7 @@ try {
 	$exception = $e;
 	if (something()) {
 		bar();
-	} elseif (foo() || $foo = exists() || preg_match('#.*#', $subject, $matches2) || isset($issetBar)) {
+	} elseif (foo() || $foo = exists() || preg_match('#.*#', $subject, $matches2) || isset($issetFoo, $issetBar)) {
 		for ($i = 0; $i < 5; $i++, $f = $i) {
 			$arr = [
 				[1, 2],

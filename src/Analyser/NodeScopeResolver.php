@@ -61,6 +61,7 @@ use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypehintHelper;
 
 class NodeScopeResolver
@@ -945,6 +946,14 @@ class NodeScopeResolver
 						continue;
 					}
 					$type = $scope->getType($node);
+				} elseif ($node instanceof Isset_) {
+					if (
+						$var instanceof Variable
+						&& is_string($var->name)
+						&& !$scope->hasVariableType($var->name)->no()
+					) {
+						$type = TypeCombinator::removeNull($scope->getVariableType($var->name));
+					}
 				}
 				$scope = $this->assignVariable($scope, $var, $certainty, $type);
 			}
