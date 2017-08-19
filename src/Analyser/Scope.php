@@ -1782,7 +1782,8 @@ class Scope
 	{
 		$descriptions = [];
 		foreach ($this->getVariableTypes() as $name => $variableTypeHolder) {
-			$descriptions[sprintf('$%s', $name)] = $variableTypeHolder->getType()->describe();
+			$key = sprintf('$%s (%s)', $name, $variableTypeHolder->getCertainty()->describe());
+			$descriptions[$key] = $variableTypeHolder->getType()->describe();
 		}
 		foreach ($this->moreSpecificTypes as $exprString => $type) {
 			$key = $exprString;
