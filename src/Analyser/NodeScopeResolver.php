@@ -487,10 +487,9 @@ class NodeScopeResolver
 			$this->processNodes($node->stmts, $scope->enterFirstLevelStatements(), $nodeCallback);
 
 			$scopeForLookForAssignsInBranches = $scope;
-			if ($this->polluteCatchScopeWithTryAssignments) {
-				foreach ($node->stmts as $statement) {
-					$scope = $this->lookForAssigns($scope, $statement, TrinaryLogic::createYes());
-				}
+			$tryAssignmentsCertainty = $this->polluteCatchScopeWithTryAssignments ? TrinaryLogic::createYes() : TrinaryLogic::createMaybe();
+			foreach ($node->stmts as $statement) {
+				$scope = $this->lookForAssigns($scope, $statement, $tryAssignmentsCertainty);
 			}
 
 			if ($node->finally !== null) {

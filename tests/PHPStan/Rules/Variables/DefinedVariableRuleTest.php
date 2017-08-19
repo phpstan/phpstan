@@ -132,20 +132,24 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				251,
 			],
 			[
+				'Variable $variableDefinedInTry might not be defined.',
+				260,
+			],
+			[
 				'Variable $variableAvailableInAllCatches might not be defined.',
-				264,
+				266,
 			],
 			[
 				'Variable $variableDefinedOnlyInOneCatch might not be defined.',
-				265,
+				267,
 			],
 			[
 				'Undefined variable: $variableInBitwiseAndAssign',
-				275,
+				277,
 			],
 			[
 				'Undefined variable: $variableInBitwiseAndAssign',
-				276,
+				278,
 			],
 		]);
 	}
@@ -259,6 +263,56 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$this->polluteScopeWithLoopInitialAssignments = $polluteScopeWithLoopInitialAssignments;
 		$this->checkMaybeUndefinedVariables = $checkMaybeUndefinedVariables;
 		$this->analyse([__DIR__ . '/data/loop-initial-assignments.php'], $expectedErrors);
+	}
+
+	public function dataCatchScopePollutedWithTryAssignments(): array
+	{
+		return [
+			[
+				false,
+				false,
+				[],
+			],
+			[
+				false,
+				true,
+				[
+					[
+						'Variable $variableInTry might not be defined.',
+						6,
+					],
+				],
+			],
+			[
+				true,
+				false,
+				[],
+			],
+			[
+				true,
+				true,
+				[],
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataCatchScopePollutedWithTryAssignments
+	 * @param bool $polluteCatchScopeWithTryAssignments
+	 * @param bool $checkMaybeUndefinedVariables
+	 * @param mixed[][] $expectedErrors
+	 */
+	public function testCatchScopePollutedWithTryAssignments(
+		bool $polluteCatchScopeWithTryAssignments,
+		bool $checkMaybeUndefinedVariables,
+		array $expectedErrors
+	)
+	{
+		$this->cliArgumentsVariablesRegistered = false;
+		$this->polluteScopeWithLoopInitialAssignments = false;
+		$this->polluteCatchScopeWithTryAssignments = $polluteCatchScopeWithTryAssignments;
+		$this->checkMaybeUndefinedVariables = $checkMaybeUndefinedVariables;
+		$this->analyse([__DIR__ . '/data/catch-scope-polluted-with-try-assignments.php'], $expectedErrors);
 	}
 
 }

@@ -251,11 +251,13 @@ echo $forI;
 echo $forJ;
 
 try {
+	$variableDefinedInTry = 1;
 	$variableDefinedInTryAndAllCatches = 1;
 } catch (\FooException $e) {
 	$variableDefinedInTryAndAllCatches = 1;
 	$variableAvailableInAllCatches = 1;
 	$variableDefinedOnlyInOneCatch = 'foo';
+	echo $variableDefinedInTry;
 } catch (\BarException $e) {
 	$variableDefinedInTryAndAllCatches = 1;
 	$variableAvailableInAllCatches = 2;
