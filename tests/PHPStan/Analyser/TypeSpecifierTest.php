@@ -12,7 +12,11 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\FalseBooleanType;
+use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\StringType;
+use PHPStan\Type\UnionType;
 
 class TypeSpecifierTest extends \PHPStan\TestCase
 {
@@ -33,6 +37,8 @@ class TypeSpecifierTest extends \PHPStan\TestCase
 		$this->typeSpecifier = new TypeSpecifier($this->printer);
 		$this->scope = new Scope($broker, $this->printer, $this->typeSpecifier, '');
 		$this->scope = $this->scope->assignVariable('bar', new ObjectType('Bar'), TrinaryLogic::createYes());
+		$this->scope = $this->scope->assignVariable('stringOrNull', new UnionType([new StringType(), new NullType()]), TrinaryLogic::createYes());
+		$this->scope = $this->scope->assignVariable('stringOrFalse', new UnionType([new StringType(), new FalseBooleanType()]), TrinaryLogic::createYes());
 	}
 
 	/**
@@ -372,6 +378,30 @@ class TypeSpecifierTest extends \PHPStan\TestCase
 				]),
 				['$foo' => 'object|string'],
 				[],
+			],
+			[
+				new Expr\Assign(
+					new Variable('foo'),
+					new Variable('stringOrNull')
+				),
+				['$foo' => '~false|null'],
+				['$foo' => '~object'],
+			],
+			[
+				new Expr\Assign(
+					new Variable('foo'),
+					new Variable('stringOrFalse')
+				),
+				['$foo' => '~false|null'],
+				['$foo' => '~object'],
+			],
+			[
+				new Expr\Assign(
+					new Variable('foo'),
+					new Variable('bar')
+				),
+				['$foo' => '~false|null'],
+				['$foo' => '~object'],
 			],
 		];
 	}
