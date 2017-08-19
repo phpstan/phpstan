@@ -1241,6 +1241,9 @@ class Scope
 		TrinaryLogic $certainty
 	): self
 	{
+		if ($certainty->no()) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
 		$variableTypes = $this->getVariableTypes();
 		$variableTypes[$variableName] = new VariableTypeHolder($type, $certainty);
 
