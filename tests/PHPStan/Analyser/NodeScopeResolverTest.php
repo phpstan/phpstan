@@ -1536,6 +1536,10 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'int',
 				'@count($arrayOfIntegers)',
 			],
+			[
+				'int[]',
+				'$anotherArray = $arrayOfIntegers',
+			],
 		];
 	}
 
