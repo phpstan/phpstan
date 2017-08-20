@@ -10,4 +10,6 @@ $stringOrNull = doFoo();
 
 $arrayOfIntegers = [1, 2, 3];
 
+$foo = new Foo();
+
 die;

@@ -1480,6 +1480,42 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'int',
 				'count($arrayOfIntegers) + count($arrayOfIntegers)',
 			],
+			[
+				'bool',
+				'$string === "foo"',
+			],
+			[
+				'bool',
+				'$string !== "foo"',
+			],
+			[
+				'bool',
+				'$string == "foo"',
+			],
+			[
+				'bool',
+				'$string != "foo"',
+			],
+			[
+				'bool',
+				'$foo instanceof Foo',
+			],
+			[
+				'bool',
+				'isset($foo)',
+			],
+			[
+				'bool',
+				'!isset($foo)',
+			],
+			[
+				'bool',
+				'empty($foo)',
+			],
+			[
+				'bool',
+				'!empty($foo)',
+			],
 		];
 	}
 
