@@ -330,6 +330,13 @@ class Scope
 			|| $node instanceof Expr\BinaryOp\GreaterOrEqual
 			|| $node instanceof Expr\BinaryOp\Smaller
 			|| $node instanceof Expr\BinaryOp\SmallerOrEqual
+			|| $node instanceof Expr\BinaryOp\Identical
+			|| $node instanceof Expr\BinaryOp\NotIdentical
+			|| $node instanceof Expr\BinaryOp\Equal
+			|| $node instanceof Expr\BinaryOp\NotEqual
+			|| $node instanceof Expr\Instanceof_
+			|| $node instanceof Expr\Isset_
+			|| $node instanceof Expr\Empty_
 		) {
 			return new TrueOrFalseBooleanType();
 		}
