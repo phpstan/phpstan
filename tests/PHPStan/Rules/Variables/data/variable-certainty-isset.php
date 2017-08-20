@@ -39,3 +39,7 @@ if (isset($anotherAlwaysDefinedNotNullable['test']['test'])) { // fine, variable
 if (isset($anotherNeverDefinedVariable['test']['test']->test['test']['test'])) { // always false
 
 }
+
+if (isset($yetAnotherNeverDefinedVariable::$test['test'])) { // always false
+
+}
