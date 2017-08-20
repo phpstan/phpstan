@@ -415,12 +415,12 @@ class NodeScopeResolver
 			$elseifScope = $ifScope->filterByFalseyValue($node->cond);
 			foreach ($node->elseifs as $elseif) {
 				$scope = $elseifScope;
+				$this->processNode($elseif->cond, $scope->exitFirstLevelStatements(), $nodeCallback);
 				$scope = $this->lookForAssigns(
 					$scope,
 					$elseif->cond,
 					TrinaryLogic::createYes()
-				)->exitFirstLevelStatements();
-				$this->processNode($elseif->cond, $scope, $nodeCallback);
+				);
 				$scope = $scope->filterByTruthyValue($elseif->cond);
 				$this->processNode($elseif->cond, $scope, $specifyFetchedProperty);
 				$this->processNodes($elseif->stmts, $scope->enterFirstLevelStatements(), $nodeCallback);

@@ -47,3 +47,19 @@ if (isset($yetAnotherNeverDefinedVariable::$test['test'])) { // always false
 if (isset($_COOKIE['test'])) { // fine
 
 }
+
+if (something()) {
+
+} elseif (isset($yetYetAnotherNeverDefinedVariableInIsset)) { // always false
+
+}
+
+if (doFoo()) {
+	$yetAnotherVariableThatSometimesExists = 1;
+}
+
+if (something()) {
+
+} elseif (isset($yetAnotherVariableThatSometimesExists)) { // fine
+
+}

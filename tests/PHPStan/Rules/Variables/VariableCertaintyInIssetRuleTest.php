@@ -29,6 +29,10 @@ class VariableCertaintyInIssetRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Variable $yetAnotherNeverDefinedVariable in isset() is never defined.',
 				43,
 			],
+			[
+				'Variable $yetYetAnotherNeverDefinedVariableInIsset in isset() is never defined.',
+				53,
+			],
 		]);
 	}
 
