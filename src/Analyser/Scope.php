@@ -1320,22 +1320,25 @@ class Scope
 		);
 	}
 
-	public function intersectVariables(Scope $otherScope, bool $addMaybes): self
+	public function intersectVariables(Scope $otherScope): self
 	{
 		$ourVariableTypeHolders = $this->getVariableTypes();
 		$theirVariableTypeHolders = $otherScope->getVariableTypes();
 		$intersectedVariableTypeHolders = [];
 		foreach ($theirVariableTypeHolders as $name => $variableTypeHolder) {
-			if (!$this->isSpecified(new Variable($name))) {
-				if (isset($ourVariableTypeHolders[$name])) {
-					$intersectedVariableTypeHolders[$name] = $ourVariableTypeHolders[$name]->and($variableTypeHolder);
-				} elseif ($addMaybes) {
-					$intersectedVariableTypeHolders[$name] = VariableTypeHolder::createMaybe($variableTypeHolder->getType());
-				}
+			if (isset($ourVariableTypeHolders[$name])) {
+				$intersectedVariableTypeHolders[$name] = $ourVariableTypeHolders[$name]->and($variableTypeHolder);
+			} else {
+				$intersectedVariableTypeHolders[$name] = VariableTypeHolder::createMaybe($variableTypeHolder->getType());
 			}
 		}
 
 		foreach ($ourVariableTypeHolders as $name => $variableTypeHolder) {
+			$variableNode = new Variable($name);
+			if ($otherScope->isSpecified($variableNode)) {
+				$intersectedVariableTypeHolders[$name] = VariableTypeHolder::createYes($otherScope->getType($variableNode));
+				continue;
+			}
 			if (isset($theirVariableTypeHolders[$name])) {
 				continue;
 			}
@@ -1411,8 +1414,12 @@ class Scope
 		$specifiedTypes = $this->moreSpecificTypes;
 		foreach ($intersectedScope->getVariableTypes() as $name => $theirVariableTypeHolder) {
 			if (isset($variableTypeHolders[$name])) {
+				$type = $theirVariableTypeHolder->getType();
+				if ($theirVariableTypeHolder->getCertainty()->maybe()) {
+					$type = $type->combineWith($variableTypeHolders[$name]->getType());
+				}
 				$theirVariableTypeHolder = new VariableTypeHolder(
-					$theirVariableTypeHolder->getType(),
+					$type,
 					$theirVariableTypeHolder->getCertainty()->or($variableTypeHolders[$name]->getCertainty())
 				);
 			}
@@ -1506,10 +1513,7 @@ class Scope
 			} else {
 				if (
 					isset($ourVariableTypeHolders[$name])
-					&& (
-						$theirVariableTypeHolder->getType()->describe() === $ourVariableTypeHolders[$name]->getType()->describe()
-						|| $this->isSpecified(new Variable($name))
-					)
+					&& $theirVariableTypeHolder->getType()->describe() === $ourVariableTypeHolders[$name]->getType()->describe()
 					&& $ourVariableTypeHolders[$name]->getCertainty()->equals($theirVariableTypeHolder->getCertainty())
 				) {
 					unset($ourVariableTypeHolders[$name]);

@@ -1079,15 +1079,15 @@ class NodeScopeResolver
 		/** @var \PHPStan\Analyser\Scope|null $intersectedScope */
 		$intersectedScope = null;
 
-		/** @var \PHPStan\Analyser\Scope|null $allBranchesScope */
-		$allBranchesScope = null;
-
 		/** @var \PHPStan\Analyser\Scope|null $previousBranchScope */
 		$previousBranchScope = null;
 
 		foreach ($statementsLists as $i => $statementList) {
 			$statements = $statementList->getStatements();
 			$branchScope = $statementList->getScope();
+			if ($previousBranchScope !== null) {
+				$branchScope = $branchScope->addVariables($previousBranchScope);
+			}
 			$branchScopeWithInitialScopeRemoved = $branchScope->removeVariables($initialScope, true);
 
 			$earlyTerminationStatement = null;
@@ -1107,32 +1107,25 @@ class NodeScopeResolver
 				if ($intersectedScope === null) {
 					$intersectedScope = $initialScope->createIntersectedScope($branchScopeWithInitialScopeRemoved);
 				}
-				if ($allBranchesScope === null) {
-					$allBranchesScope = $initialScope->createIntersectedScope($branchScopeWithInitialScopeRemoved);
-				}
 
-				if ($isSwitchCase && $previousBranchScope !== null) {
-					$intersectedScope = $branchScopeWithInitialScopeRemoved->addVariables($previousBranchScope);
-					$allBranchesScope = $allBranchesScope->addVariables($previousBranchScope);
+				if ($isSwitchCase && $earlyTerminationStatement === null) {
+					$previousBranchScope = $branchScopeWithInitialScopeRemoved;
 				} else {
-					$intersectedScope = $intersectedScope->intersectVariables($branchScopeWithInitialScopeRemoved, true);
-					$allBranchesScope = $allBranchesScope->addVariables($branchScopeWithInitialScopeRemoved);
+					if ($previousBranchScope !== null) {
+						$intersectedScope = $intersectedScope->addVariables($previousBranchScope);
+					}
+					$intersectedScope = $intersectedScope->intersectVariables($branchScopeWithInitialScopeRemoved);
+					$previousBranchScope = null;
 				}
-			}
-
-			if ($earlyTerminationStatement === null) {
-				$previousBranchScope = $branchScopeWithInitialScopeRemoved;
-			} else {
-				$previousBranchScope = null;
 			}
 		}
 
-		if ($intersectedScope !== null && $allBranchesScope !== null) {
-			$allBranchesScope = $allBranchesScope->removeVariables($intersectedScope, true);
-			$allBranchesScope = $allBranchesScope->intersectVariables($initialScope, false);
-			$scope = $initialScope
-				->mergeWithIntersectedScope($intersectedScope)
-				->mergeWithIntersectedScope($allBranchesScope);
+		if ($previousBranchScope !== null && $intersectedScope !== null) {
+			$intersectedScope = $intersectedScope->intersectVariables($previousBranchScope);
+		}
+
+		if ($intersectedScope !== null) {
+			$scope = $initialScope->mergeWithIntersectedScope($intersectedScope);
 
 			return $scope;
 		}
