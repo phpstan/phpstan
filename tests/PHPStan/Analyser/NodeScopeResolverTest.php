@@ -506,6 +506,34 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		];
 	}
 
+	public function dataUnionInCatch(): array
+	{
+		return [
+			[
+				'CatchUnion\BarException|CatchUnion\FooException',
+				'$e',
+			],
+		];
+	}
+
+	/**
+	 * @requires PHP 7.1
+	 * @dataProvider dataUnionInCatch
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testUnionInCatch(
+		string $description,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/catch-union.php',
+			$description,
+			$expression
+		);
+	}
+
 	/**
 	 * @dataProvider dataAssignInIf
 	 * @param \PHPStan\Analyser\Scope $scope

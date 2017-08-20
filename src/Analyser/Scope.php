@@ -1187,11 +1187,9 @@ class Scope
 	 */
 	public function enterCatch(array $classes, string $variableName): self
 	{
-		if (count($classes) === 1) {
-			$type = new ObjectType((string) $classes[0]);
-		} else {
-			$type = new MixedType();
-		}
+		$type = TypeCombinator::combine(...array_map(function (string $class): ObjectType {
+			return new ObjectType($class);
+		}, $classes));
 
 		return $this->assignVariable($variableName, $type, TrinaryLogic::createYes());
 	}
