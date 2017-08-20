@@ -26,6 +26,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\Print_;
 use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Expr\Ternary;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
@@ -396,13 +397,13 @@ class NodeScopeResolver
 
 			return;
 		} elseif ($node instanceof If_) {
+			$this->processNode($node->cond, $scope->exitFirstLevelStatements(), $nodeCallback);
 			$scope = $this->lookForAssigns(
 				$scope,
 				$node->cond,
 				TrinaryLogic::createYes()
-			)->exitFirstLevelStatements();
+			);
 			$ifScope = $scope;
-			$this->processNode($node->cond, $scope, $nodeCallback);
 			$scope = $scope->filterByTruthyValue($node->cond);
 
 			$specifyFetchedProperty = function (Node $node, Scope $inScope) use (&$scope) {
@@ -568,6 +569,19 @@ class NodeScopeResolver
 			$scope = $scope->enterNegation();
 		} elseif ($node instanceof Unset_ || $node instanceof Isset_) {
 			foreach ($node->vars as $unsetVar) {
+				while (
+					$unsetVar instanceof ArrayDimFetch
+					|| $unsetVar instanceof PropertyFetch
+				) {
+					$unsetVar = $unsetVar->var;
+				}
+
+				while (
+					$unsetVar instanceof StaticPropertyFetch
+					&& $unsetVar->class instanceof Expr
+				) {
+					$unsetVar = $unsetVar->class;
+				}
 				$scope = $scope->enterExpressionAssign($unsetVar);
 			}
 		}
