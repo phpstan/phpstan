@@ -3,6 +3,7 @@
 if (foo()) {
 	$ifVar = 1;
 	$issetFoo = new Foo();
+	$maybeDefinedButLaterCertainlyDefined = 1;
 	if ($test) {
 		$ifNestedVar = 1;
 		$ifNotNestedVar = 1;
@@ -26,6 +27,12 @@ if (foo()) {
 } else {
 	$variableOnlyInEarlyTerminatingElse = 1;
 	return;
+}
+
+if (foo()) {
+	$maybeDefinedButLaterCertainlyDefined = 2;
+} else {
+	$maybeDefinedButLaterCertainlyDefined = 3;
 }
 
 try {

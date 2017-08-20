@@ -1510,6 +1510,7 @@ class Scope
 						$theirVariableTypeHolder->getType()->describe() === $ourVariableTypeHolders[$name]->getType()->describe()
 						|| $this->isSpecified(new Variable($name))
 					)
+					&& $ourVariableTypeHolders[$name]->getCertainty()->equals($theirVariableTypeHolder->getCertainty())
 				) {
 					unset($ourVariableTypeHolders[$name]);
 				}
