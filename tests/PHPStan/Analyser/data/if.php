@@ -86,6 +86,8 @@ switch (foo()) {
 		$switchVar = 2;
 		break;
 	case 3:
+		$anotherNoSwitchVar = 1;
+	case 4:
 	default:
 		$switchVar = 3;
 }

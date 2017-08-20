@@ -229,6 +229,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			],
 			[
 				$testScope,
+				'anotherNoSwitchVar',
+				TrinaryLogic::createMaybe(),
+				'int',
+			],
+			[
+				$testScope,
 				'inTryTwo',
 				TrinaryLogic::createYes(),
 				'int',
