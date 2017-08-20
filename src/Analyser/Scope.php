@@ -344,6 +344,7 @@ class Scope
 		if (
 			$node instanceof Node\Expr\UnaryMinus
 			|| $node instanceof Node\Expr\UnaryPlus
+			|| $node instanceof Expr\ErrorSuppress
 		) {
 			return $this->getType($node->expr);
 		}

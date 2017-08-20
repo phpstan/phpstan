@@ -1163,6 +1163,10 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'mixed',
 				'$arrayOfIntegers += "foo"',
 			],
+			[
+				'int',
+				'@count($arrayOfIntegers)',
+			],
 		];
 	}
 
