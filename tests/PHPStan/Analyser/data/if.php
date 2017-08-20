@@ -226,6 +226,12 @@ if ($anotherNotNullableString !== null) {
 	return;
 }
 
+/** @var Foo|null $notNullableObject */
+$notNullableObject = doFoo();
+if ($notNullableObject === null) {
+	$notNullableObject = new Foo();
+}
+
 /** @var string|null $nullableString */
 $nullableString = 'foo';
 if ($nullableString !== null) {

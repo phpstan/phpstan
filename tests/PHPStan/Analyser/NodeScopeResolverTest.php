@@ -457,6 +457,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			],
 			[
 				$testScope,
+				'notNullableObject',
+				TrinaryLogic::createYes(),
+				'Foo',
+			],
+			[
+				$testScope,
 				'nullableString',
 				TrinaryLogic::createYes(),
 				'string|null',
