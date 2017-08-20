@@ -443,6 +443,16 @@ class Scope
 			if ($leftType instanceof IntegerType && $rightType instanceof IntegerType) {
 				return new IntegerType();
 			}
+
+			if (
+				($node instanceof Expr\AssignOp\Plus || $node instanceof Expr\BinaryOp\Plus)
+				&& $leftType instanceof ArrayType
+				&& $rightType instanceof ArrayType
+			) {
+				return new ArrayType(
+					$leftType->getItemType()->combineWith($rightType->getItemType())
+				);
+			}
 		}
 
 		if ($node instanceof LNumber) {

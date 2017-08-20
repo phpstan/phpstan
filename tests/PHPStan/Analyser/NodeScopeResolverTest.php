@@ -1147,6 +1147,22 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'bool',
 				'!empty($foo)',
 			],
+			[
+				'int[]',
+				'$arrayOfIntegers + $arrayOfIntegers',
+			],
+			[
+				'int[]',
+				'$arrayOfIntegers += $arrayOfIntegers',
+			],
+			[
+				'(int|string)[]',
+				'$arrayOfIntegers += ["foo"]',
+			],
+			[
+				'mixed',
+				'$arrayOfIntegers += "foo"',
+			],
 		];
 	}
 
