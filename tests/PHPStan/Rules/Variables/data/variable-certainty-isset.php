@@ -43,3 +43,7 @@ if (isset($anotherNeverDefinedVariable['test']['test']->test['test']['test'])) {
 if (isset($yetAnotherNeverDefinedVariable::$test['test'])) { // always false
 
 }
+
+if (isset($_COOKIE['test'])) { // fine
+
+}

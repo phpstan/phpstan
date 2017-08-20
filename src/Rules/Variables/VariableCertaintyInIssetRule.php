@@ -44,6 +44,10 @@ class VariableCertaintyInIssetRule implements \PHPStan\Rules\Rule
 				continue;
 			}
 
+			if (DefinedVariableRule::isGlobalVariable($var->name)) {
+				continue;
+			}
+
 			$certainty = $scope->hasVariableType($var->name);
 			if ($certainty->no()) {
 				$messages[] = sprintf('Variable $%s in isset() is never defined.', $var->name);

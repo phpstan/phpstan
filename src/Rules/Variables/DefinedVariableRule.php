@@ -33,6 +33,21 @@ class DefinedVariableRule implements \PHPStan\Rules\Rule
 		return Variable::class;
 	}
 
+	public static function isGlobalVariable(string $variableName): bool
+	{
+		return in_array($variableName, [
+			'GLOBALS',
+			'_SERVER',
+			'_GET',
+			'_POST',
+			'_FILES',
+			'_COOKIE',
+			'_SESSION',
+			'_REQUEST',
+			'_ENV',
+		], true);
+	}
+
 	/**
 	 * @param \PhpParser\Node\Expr\Variable $node
 	 * @param \PHPStan\Analyser\Scope $scope
@@ -44,17 +59,7 @@ class DefinedVariableRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		if (in_array($node->name, [
-			'GLOBALS',
-			'_SERVER',
-			'_GET',
-			'_POST',
-			'_FILES',
-			'_COOKIE',
-			'_SESSION',
-			'_REQUEST',
-			'_ENV',
-		], true)) {
+		if (self::isGlobalVariable($node->name)) {
 			return [];
 		}
 
