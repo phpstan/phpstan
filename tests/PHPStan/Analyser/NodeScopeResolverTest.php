@@ -1103,6 +1103,14 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'int',
 				'$float >>= 2.2',
 			],
+			[
+				'int',
+				'count($arrayOfIntegers)',
+			],
+			[
+				'int',
+				'count($arrayOfIntegers) + count($arrayOfIntegers)',
+			],
 		];
 	}
 

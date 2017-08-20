@@ -234,6 +234,9 @@ class FunctionReflection implements ParametersAcceptor
 	public function getReturnType(): Type
 	{
 		if ($this->returnType === null) {
+			if ($this->reflection->getName() === 'count') {
+				return $this->returnType = new IntegerType();
+			}
 			$returnType = $this->reflection->getReturnType();
 			$phpDocReturnType = $this->phpDocReturnType;
 			if (
