@@ -8,4 +8,6 @@ $string = 'foo';
 /** @var string|null $stringOrNull */
 $stringOrNull = doFoo();
 
+$arrayOfIntegers = [1, 2, 3];
+
 die;
