@@ -8,6 +8,11 @@ services:
 			- phpstan.rules.rule
 
 	-
+		class: PHPStan\Rules\Classes\ImpossibleInstanceOfRule
+		tags:
+			- phpstan.rules.rule
+
+	-
 		class: PHPStan\Rules\Comparison\StrictComparisonOfDifferentTypesRule
 		arguments:
 			checkNullables: %checkNullables%
