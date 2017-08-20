@@ -345,6 +345,7 @@ class Scope
 			$node instanceof Node\Expr\UnaryMinus
 			|| $node instanceof Node\Expr\UnaryPlus
 			|| $node instanceof Expr\ErrorSuppress
+			|| $node instanceof Expr\Assign
 		) {
 			return $this->getType($node->expr);
 		}
