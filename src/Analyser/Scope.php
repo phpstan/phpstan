@@ -1261,6 +1261,12 @@ class Scope
 		if ($certainty->no()) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
+
+		$existingCertainty = $this->hasVariableType($variableName);
+		if (!$existingCertainty->no()) {
+			$certainty = $certainty->or($existingCertainty);
+		}
+
 		$variableTypes = $this->getVariableTypes();
 		$variableTypes[$variableName] = new VariableTypeHolder($type, $certainty);
 

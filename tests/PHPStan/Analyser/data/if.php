@@ -255,7 +255,8 @@ try {
 	if (something()) {
 		bar();
 	} elseif (foo() || $foo = exists() || preg_match('#.*#', $subject, $matches2) || isset($issetFoo, $issetBar)) {
-		for ($i = 0; $i < 5; $i++, $f = $i) {
+		$anotherF = 1;
+		for ($i = 0; $i < 5; $i++, $f = $i, $anotherF = $i) {
 			$arr = [
 				[1, 2],
 			];
