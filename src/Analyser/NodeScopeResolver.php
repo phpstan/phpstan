@@ -515,8 +515,6 @@ class NodeScopeResolver
 			}
 
 			return;
-		} elseif ($node instanceof Ternary) {
-			$scope = $this->lookForAssigns($scope, $node->cond, TrinaryLogic::createYes());
 		} elseif ($node instanceof Do_) {
 			foreach ($node->stmts as $statement) {
 				$scope = $this->lookForAssigns($scope, $statement, TrinaryLogic::createYes());
@@ -672,6 +670,13 @@ class NodeScopeResolver
 					&& $node->key !== null
 				) {
 					$scope = $this->lookForAssigns($scope, $node->key, TrinaryLogic::createYes());
+				}
+
+				if (
+					$node instanceof Ternary
+					&& ($subNodeName === 'if' || $subNodeName === 'else')
+				) {
+					$scope = $this->lookForAssigns($scope, $node->cond, TrinaryLogic::createYes());
 				}
 
 				$nodeScope = $scope->exitFirstLevelStatements();

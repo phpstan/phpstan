@@ -63,3 +63,7 @@ if (something()) {
 } elseif (isset($yetAnotherVariableThatSometimesExists)) { // fine
 
 }
+
+/** @var string|null $nullableVariableUsedInTernary */
+$nullableVariableUsedInTernary = doFoo();
+echo isset($nullableVariableUsedInTernary) ? 'foo' : 'bar'; // fine
