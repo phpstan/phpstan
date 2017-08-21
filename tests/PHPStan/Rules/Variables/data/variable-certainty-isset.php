@@ -67,3 +67,16 @@ if (something()) {
 /** @var string|null $nullableVariableUsedInTernary */
 $nullableVariableUsedInTernary = doFoo();
 echo isset($nullableVariableUsedInTernary) ? 'foo' : 'bar'; // fine
+
+/** @var int|null $forVariableInit */
+$forVariableInit = doFoo();
+
+/** @var int|null $forVariableCond */
+$forVariableCond = doFoo();
+
+/** @var int|null $forVariableLoop */
+$forVariableLoop = doFoo();
+
+for ($i = 0, $init = isset($forVariableInit); $i < 10 && isset($forVariableCond); $i++, $loop = isset($forVariableLoop)) {
+
+}

@@ -370,18 +370,6 @@ class NodeScopeResolver
 				$node->types,
 				$node->var
 			);
-		} elseif ($node instanceof For_) {
-			foreach ($node->init as $initExpr) {
-				$scope = $this->lookForAssigns($scope, $initExpr, TrinaryLogic::createYes());
-			}
-
-			foreach ($node->cond as $condExpr) {
-				$scope = $this->lookForAssigns($scope, $condExpr, TrinaryLogic::createYes());
-			}
-
-			foreach ($node->loop as $loopExpr) {
-				$scope = $this->lookForAssigns($scope, $loopExpr, TrinaryLogic::createMaybe());
-			}
 		} elseif ($node instanceof Array_) {
 			$scope = $scope->exitFirstLevelStatements();
 			foreach ($node->items as $item) {
@@ -622,6 +610,26 @@ class NodeScopeResolver
 					&& $subNodeName === 'stmts'
 				) {
 					$scope = $scope->enterAnonymousFunction($node->params, $node->uses, $node->returnType);
+				}
+
+				if ($node instanceof For_) {
+					if ($subNodeName === 'stmts' || $subNodeName === 'cond' || $subNodeName === 'loop') {
+						foreach ($node->init as $initExpr) {
+							$scope = $this->lookForAssigns($scope, $initExpr, TrinaryLogic::createYes());
+						}
+					}
+
+					if ($subNodeName === 'stmts' || $subNodeName === 'loop') {
+						foreach ($node->cond as $condExpr) {
+							$scope = $this->lookForAssigns($scope, $condExpr, TrinaryLogic::createYes());
+						}
+					}
+
+					if ($subNodeName === 'stmts') {
+						foreach ($node->loop as $loopExpr) {
+							$scope = $this->lookForAssigns($scope, $loopExpr, TrinaryLogic::createMaybe());
+						}
+					}
 				}
 
 				$this->processNodes($subNode, $scope, $nodeCallback, $argClosureBindScope);

@@ -243,7 +243,7 @@ foreach ($someArray as $someKey => list($destructuredAa, $destructuredBb, list($
 
 }
 
-for ($forI = 0; $forI < 10; $forI++, $forJ = $forI) {
+for ($forI = 0; $forI < 10, $forK = 5; $forI++, $forK++, $forJ = $forI) {
 	echo $forI;
 }
 
