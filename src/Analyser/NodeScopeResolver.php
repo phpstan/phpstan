@@ -380,7 +380,7 @@ class NodeScopeResolver
 			}
 
 			foreach ($node->loop as $loopExpr) {
-				$scope = $this->lookForAssigns($scope, $loopExpr, TrinaryLogic::createYes());
+				$scope = $this->lookForAssigns($scope, $loopExpr, TrinaryLogic::createMaybe());
 			}
 		} elseif ($node instanceof Array_) {
 			$scope = $scope->exitFirstLevelStatements();

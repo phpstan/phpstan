@@ -129,7 +129,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			[
 				$testScope,
 				'f',
-				TrinaryLogic::createYes(),
+				TrinaryLogic::createMaybe(),
 				'int',
 			],
 			[
