@@ -80,3 +80,11 @@ $forVariableLoop = doFoo();
 for ($i = 0, $init = isset($forVariableInit); $i < 10 && isset($forVariableCond); $i++, $loop = isset($forVariableLoop)) {
 
 }
+
+if (something()) {
+	$variableInWhile = 1;
+}
+
+while (isset($variableInWhile)) {
+	unset($variableInWhile);
+}

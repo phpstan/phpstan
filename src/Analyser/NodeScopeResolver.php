@@ -470,8 +470,6 @@ class NodeScopeResolver
 				}
 			}
 			return;
-		} elseif ($node instanceof While_) {
-			$scope = $this->lookForAssigns($scope, $node->cond, TrinaryLogic::createYes());
 		} elseif ($node instanceof TryCatch) {
 			$statements = [];
 			$this->processNodes($node->stmts, $scope->enterFirstLevelStatements(), $nodeCallback);
@@ -586,6 +584,7 @@ class NodeScopeResolver
 				}
 				if ($node instanceof While_ && $subNodeName === 'stmts') {
 					$scope = $scope->filterByTruthyValue($node->cond);
+					$scope = $this->lookForAssigns($scope, $node->cond, TrinaryLogic::createYes());
 				}
 
 				if ($node instanceof Isset_ && $subNodeName === 'vars') {
