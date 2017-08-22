@@ -37,6 +37,34 @@ class VariableCertaintyInIssetRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Variable $anotherVariableInDoWhile in isset() always exists and is not nullable.',
 				101,
 			],
+			[
+				'Variable $variableInSecondCase in isset() is never defined.',
+				107,
+			],
+			[
+				'Variable $variableInFirstCase in isset() always exists and is not nullable.',
+				109,
+			],
+			[
+				'Variable $variableInFirstCase in isset() always exists and is not nullable.',
+				113,
+			],
+			[
+				'Variable $variableInSecondCase in isset() always exists and is not nullable.',
+				114,
+			],
+			[
+				'Variable $variableAssignedInSecondCase in isset() is never defined.',
+				116,
+			],
+			[
+				'Variable $alwaysDefinedForSwitchCondition in isset() always exists and is not nullable.',
+				136,
+			],
+			[
+				'Variable $alwaysDefinedForCaseNodeCondition in isset() always exists and is not nullable.',
+				137,
+			],
 		]);
 	}
 

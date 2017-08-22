@@ -101,3 +101,39 @@ do {
 	&& isset($anotherVariableInDoWhile) // always defined
 	&& ($yetAnotherVariableInDoWhile = 1)
 );
+
+switch (true) {
+	case $variableInFirstCase = false:
+		isset($variableInSecondCase); // does not exist yet
+	case $variableInSecondCase = false:
+		isset($variableInFirstCase); // always defined
+		$variableAssignedInSecondCase = true;
+		break;
+	case whatever():
+		isset($variableInFirstCase); // always defined
+		isset($variableInSecondCase); // always defined
+		$variableInFallthroughCase = true;
+		isset($variableAssignedInSecondCase); // surely undefined
+	case foo():
+		isset($variableInFallthroughCase); // fine
+	default:
+
+}
+
+if (foo()) {
+	$mightBeUndefinedForSwitchCondition = 1;
+	$mightBeUndefinedForCaseNodeCondition = 1;
+}
+
+switch (isset($mightBeUndefinedForSwitchCondition)) { // fine
+	case isset($mightBeUndefinedForCaseNodeCondition): // fine
+		break;
+}
+
+$alwaysDefinedForSwitchCondition = 1;
+$alwaysDefinedForCaseNodeCondition = 1;
+
+switch (isset($alwaysDefinedForSwitchCondition)) {
+	case isset($alwaysDefinedForCaseNodeCondition):
+		break;
+}
