@@ -155,6 +155,22 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Variable $mightBeUndefinedInDoWhile might not be defined.',
 				282,
 			],
+			[
+				'Undefined variable: $variableInSecondCase',
+				290,
+			],
+			[
+				'Undefined variable: $variableAssignedInSecondCase',
+				300,
+			],
+			[
+				'Variable $variableInFallthroughCase might not be defined.',
+				302,
+			],
+			[
+				'Variable $variableFromDefaultFirst might not be defined.',
+				312,
+			],
 		]);
 	}
 

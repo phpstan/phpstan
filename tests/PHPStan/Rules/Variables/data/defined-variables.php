@@ -284,3 +284,30 @@ do {
 } while ($mightBeUndefinedInDoWhile = 1);
 
 echo $definedInDoWhile;
+
+switch (true) {
+	case $variableInFirstCase = false:
+		echo $variableInSecondCase; // does not exist yet
+	case $variableInSecondCase = false:
+		echo $variableInFirstCase;
+		echo $variableInSecondCase;
+		echo $variableAssignedInSecondCase = true;
+		break;
+	case whatever():
+		echo $variableInFirstCase;
+		echo $variableInSecondCase;
+		$variableInFallthroughCase = true;
+		echo $variableAssignedInSecondCase; // surely undefined
+	case foo():
+		echo $variableInFallthroughCase; // might be undefined
+		echo $variableInFirstCase;
+	default:
+
+}
+
+switch (true) {
+	default:
+		$variableFromDefaultFirst = true;
+	case 1:
+		echo $variableFromDefaultFirst; // might be undefined
+}

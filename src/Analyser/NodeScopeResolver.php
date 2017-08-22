@@ -444,8 +444,14 @@ class NodeScopeResolver
 			}
 			foreach ($node->cases as $caseNode) {
 				if ($caseNode->cond !== null) {
+					$this->processNode($caseNode->cond, $switchScope, $nodeCallback);
 					$switchScope = $this->lookForAssigns(
 						$switchScope,
+						$caseNode->cond,
+						TrinaryLogic::createYes()
+					);
+					$scope = $this->lookForAssigns(
+						$scope,
 						$caseNode->cond,
 						TrinaryLogic::createYes()
 					);
@@ -464,8 +470,16 @@ class NodeScopeResolver
 						);
 					}
 				}
-				$this->processNode($caseNode, $switchScope, $nodeCallback);
-				if ($this->findEarlyTermination($caseNode->stmts, $switchScope) !== null) {
+				$this->processNodes(
+					$caseNode->stmts,
+					$switchScope->enterFirstLevelStatements(),
+					$nodeCallback
+				);
+				if ($this->findEarlyTermination($caseNode->stmts, $switchScope) === null) {
+					foreach ($caseNode->stmts as $statement) {
+						$switchScope = $this->lookForAssigns($switchScope, $statement, TrinaryLogic::createMaybe());
+					}
+				} else {
 					$switchScope = $scope;
 				}
 			}
