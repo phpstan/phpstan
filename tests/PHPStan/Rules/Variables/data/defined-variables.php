@@ -277,3 +277,10 @@ echo $variableInListWithMissingItem;
 $variableInBitwiseAndAssign &= $anotherVariableBitwiseAndAssign = doFoo();
 echo $variableInBitwiseAndAssign;
 echo $anotherVariableBitwiseAndAssign;
+
+do {
+ echo $mightBeUndefinedInDoWhile;
+ $definedInDoWhile = 1;
+} while ($mightBeUndefinedInDoWhile = 1);
+
+echo $definedInDoWhile;

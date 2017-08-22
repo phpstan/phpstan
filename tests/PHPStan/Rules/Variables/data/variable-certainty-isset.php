@@ -88,3 +88,16 @@ if (something()) {
 while (isset($variableInWhile)) {
 	unset($variableInWhile);
 }
+
+if (something()) {
+	$variableInDoWhile = 1;
+}
+
+do {
+	$anotherVariableInDoWhile = 1;
+	echo isset($yetAnotherVariableInDoWhile); // fine
+} while (
+	isset($variableInDoWhile) // fine
+	&& isset($anotherVariableInDoWhile) // always defined
+	&& ($yetAnotherVariableInDoWhile = 1)
+);

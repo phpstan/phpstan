@@ -151,6 +151,10 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Undefined variable: $variableInBitwiseAndAssign',
 				278,
 			],
+			[
+				'Variable $mightBeUndefinedInDoWhile might not be defined.',
+				282,
+			],
 		]);
 	}
 

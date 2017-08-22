@@ -501,10 +501,6 @@ class NodeScopeResolver
 			}
 
 			return;
-		} elseif ($node instanceof Do_) {
-			foreach ($node->stmts as $statement) {
-				$scope = $this->lookForAssigns($scope, $statement, TrinaryLogic::createYes());
-			}
 		} elseif ($node instanceof FuncCall) {
 			$scope = $scope->enterFunctionCall($node);
 		} elseif ($node instanceof Expr\StaticCall) {
@@ -624,6 +620,10 @@ class NodeScopeResolver
 					}
 				}
 
+				if ($node instanceof Do_ && $subNodeName === 'stmts') {
+					$scope = $this->lookForAssigns($scope, $node->cond, TrinaryLogic::createMaybe());
+				}
+
 				$this->processNodes($subNode, $scope, $nodeCallback, $argClosureBindScope);
 			} elseif ($subNode instanceof \PhpParser\Node) {
 				if ($node instanceof Coalesce && $subNodeName === 'left') {
@@ -677,6 +677,12 @@ class NodeScopeResolver
 					&& ($subNodeName === 'if' || $subNodeName === 'else')
 				) {
 					$scope = $this->lookForAssigns($scope, $node->cond, TrinaryLogic::createYes());
+				}
+
+				if ($node instanceof Do_ && $subNodeName === 'cond') {
+					foreach ($node->stmts as $statement) {
+						$scope = $this->lookForAssigns($scope, $statement, TrinaryLogic::createYes());
+					}
 				}
 
 				$nodeScope = $scope->exitFirstLevelStatements();
