@@ -2,14 +2,12 @@
 
 namespace PHPStan\Rules\Comparison;
 
-use PHPStan\Rules\RuleLevelHelper;
-
 class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new StrictComparisonOfDifferentTypesRule(new RuleLevelHelper(true), true);
+		return new StrictComparisonOfDifferentTypesRule();
 	}
 
 	public function testUselessCast()
@@ -52,6 +50,14 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Rules\AbstractRu
 				[
 					'Strict comparison using === between int and float will always evaluate to false.',
 					47,
+				],
+				[
+					'Strict comparison using === between string and null will always evaluate to false.',
+					69,
+				],
+				[
+					'Strict comparison using !== between string and null will always evaluate to true.',
+					76,
 				],
 			]
 		);

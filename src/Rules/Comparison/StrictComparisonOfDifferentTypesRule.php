@@ -4,25 +4,12 @@ namespace PHPStan\Rules\Comparison;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
-use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\NullType;
 
 class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 {
-
-	/** @var \PHPStan\Rules\RuleLevelHelper */
-	private $ruleLevelHelper;
-
-	/** @var bool */
-	private $checkNullables;
-
-	public function __construct(RuleLevelHelper $ruleLevelHelper, bool $checkNullables)
-	{
-		$this->ruleLevelHelper = $ruleLevelHelper;
-		$this->checkNullables = $checkNullables;
-	}
 
 	public function getNodeType(): string
 	{
@@ -42,16 +29,6 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 
 		$leftType = $scope->getType($node->left);
 		$rightType = $scope->getType($node->right);
-
-		if (
-			!$this->checkNullables
-			&& (
-				$leftType instanceof NullType
-				|| $rightType instanceof NullType
-			)
-		) {
-			return [];
-		}
 
 		if (
 			(
@@ -74,10 +51,7 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 		}
 
 		if (
-			(
-				!$this->ruleLevelHelper->accepts($leftType, $rightType)
-				&& !$this->ruleLevelHelper->accepts($rightType, $leftType)
-			)
+			(!$leftType->accepts($rightType) && !$rightType->accepts($leftType))
 			|| (
 				$leftType instanceof IntegerType
 				&& $rightType instanceof FloatType

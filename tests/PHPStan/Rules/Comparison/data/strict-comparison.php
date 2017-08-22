@@ -64,4 +64,18 @@ class Foo
 		return '';
 	}
 
+	public function acceptsString(string $a)
+	{
+		if ($a === null) {
+
+		}
+	}
+
+	public function anotherAcceptsString(string $a)
+	{
+		if ($a !== null) {
+
+		}
+	}
+
 }
