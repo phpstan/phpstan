@@ -102,7 +102,7 @@ making PHPStan suitable to run as part of your continuous integration script.
 
 ## Rule levels
 
-Rule levels. If you want to use PHPStan but your codebase isn't up to speed with strong typing
+If you want to use PHPStan but your codebase isn't up to speed with strong typing
 and PHPStan's strict checks, you can choose from currently 8 levels
 (0 is the loosest and 7 is the strictest) by passing `--level` to `analyse` command. Default level is `0`.
 
