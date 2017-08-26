@@ -12,6 +12,8 @@
 		<exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableParameterTypeHintSpecification"/>
 		<exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableReturnTypeHintSpecification"/>
 		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation.NonFullyQualifiedClassName"/>
+		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalConstants"/>
+		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalFunctions"/>
 		<exclude name="SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue"/>
 	</rule>
 	<rule ref="Squiz.PHP.InnerFunctions.NotAllowed">
