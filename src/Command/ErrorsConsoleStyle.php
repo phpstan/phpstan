@@ -33,7 +33,7 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 		$maxHeaderWidth = strlen($headers[0]);
 		foreach ($rows as $row) {
 			$length = strlen($row[0]);
-			if ($maxHeaderWidth === null || $length > $maxHeaderWidth) {
+			if ($maxHeaderWidth === 0 || $length > $maxHeaderWidth) {
 				$maxHeaderWidth = $length;
 			}
 		}

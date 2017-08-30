@@ -700,89 +700,21 @@ class Scope
 		}
 
 		if ($node instanceof FuncCall && $node->name instanceof Name) {
-			$arrayFunctionsThatDependOnClosureReturnType = [
-				'array_map' => 0,
-				'array_reduce' => 1,
-			];
-			$functionName = strtolower((string) $node->name);
-			if (
-				isset($arrayFunctionsThatDependOnClosureReturnType[$functionName])
-				&& isset($node->args[$arrayFunctionsThatDependOnClosureReturnType[$functionName]])
-				&& $node->args[$arrayFunctionsThatDependOnClosureReturnType[$functionName]]->value instanceof Expr\Closure
-			) {
-				$closure = $node->args[$arrayFunctionsThatDependOnClosureReturnType[$functionName]]->value;
-				$anonymousFunctionType = $this->getFunctionType($closure->returnType, $closure->returnType === null, false);
-				if ($functionName === 'array_reduce') {
-					return $anonymousFunctionType;
-				}
-
-				return new ArrayType(
-					$anonymousFunctionType,
-					true
-				);
-			}
-
-			$arrayFunctionsThatDependOnArgumentType = [
-				'array_filter' => 0,
-				'array_unique' => 0,
-				'array_reverse' => 0,
-			];
-			if (
-				isset($arrayFunctionsThatDependOnArgumentType[$functionName])
-				&& isset($node->args[$arrayFunctionsThatDependOnArgumentType[$functionName]])
-			) {
-				$argumentValue = $node->args[$arrayFunctionsThatDependOnArgumentType[$functionName]]->value;
-				return $this->getType($argumentValue);
-			}
-
-			$arrayFunctionsThatCreateArrayBasedOnArgumentType = [
-				'array_fill' => 2,
-				'array_fill_keys' => 1,
-			];
-			if (
-				isset($arrayFunctionsThatCreateArrayBasedOnArgumentType[$functionName])
-				&& isset($node->args[$arrayFunctionsThatCreateArrayBasedOnArgumentType[$functionName]])
-			) {
-				$argumentValue = $node->args[$arrayFunctionsThatCreateArrayBasedOnArgumentType[$functionName]]->value;
-
-				return new ArrayType($this->getType($argumentValue), true);
-			}
-
-			$functionsThatCombineAllArgumentTypes = [
-				'min' => '',
-				'max' => '',
-			];
-			if (
-				isset($functionsThatCombineAllArgumentTypes[$functionName])
-				&& isset($node->args[0])
-			) {
-				if ($node->args[0]->unpack) {
-					$argumentType = $this->getType($node->args[0]->value);
-					if ($argumentType instanceof ArrayType) {
-						return $argumentType->getItemType();
-					}
-				}
-
-				if (count($node->args) === 1) {
-					$argumentType = $this->getType($node->args[0]->value);
-					if ($argumentType instanceof ArrayType) {
-						return $argumentType->getItemType();
-					}
-				}
-
-				$argumentTypes = [];
-				foreach ($node->args as $arg) {
-					$argumentTypes[] = $this->getType($arg->value);
-				}
-
-				return TypeCombinator::union(...$argumentTypes);
-			}
-
 			if (!$this->broker->hasFunction($node->name, $this)) {
 				return new ErrorType();
 			}
 
-			return $this->broker->getFunction($node->name, $this)->getReturnType();
+			$functionReflection = $this->broker->getFunction($node->name, $this);
+
+			foreach ($this->broker->getDynamicFunctionReturnTypeExtensions() as $dynamicFunctionReturnTypeExtension) {
+				if (!$dynamicFunctionReturnTypeExtension->isFunctionSupported($functionReflection)) {
+					continue;
+				}
+
+				return $dynamicFunctionReturnTypeExtension->getTypeFromFunctionCall($functionReflection, $node, $this);
+			}
+
+			return $functionReflection->getReturnType();
 		}
 
 		return new MixedType();
@@ -1109,7 +1041,7 @@ class Scope
 	 * @param bool $isVariadic
 	 * @return Type
 	 */
-	private function getFunctionType($type = null, bool $isNullable, bool $isVariadic): Type
+	public function getFunctionType($type = null, bool $isNullable, bool $isVariadic): Type
 	{
 		if ($isNullable) {
 			return TypeCombinator::addNull(

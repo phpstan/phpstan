@@ -159,6 +159,31 @@ services:
 	-
 		class: PHPStan\Type\FileTypeMapper
 
+	-
+		class: PHPStan\Type\Php\AllArgumentBasedFunctionReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	-
+		class: PHPStan\Type\Php\ArgumentBasedArrayFunctionReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	-
+		class: PHPStan\Type\Php\ArgumentBasedFunctionReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	-
+		class: PHPStan\Type\Php\CallbackBasedArrayFunctionReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	-
+		class: PHPStan\Type\Php\CallbackBasedFunctionReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
 	broker:
 		class: PHPStan\Broker\Broker
 		factory: @PHPStan\Broker\BrokerFactory::create
