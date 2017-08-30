@@ -22,143 +22,143 @@ parameters:
 
 services:
 	-
-		class: PhpParser\BuilderFactory
+		factory: PhpParser\BuilderFactory
 
 	-
-		class: PhpParser\Lexer
+		factory: PhpParser\Lexer
 
 	-
-		class: PhpParser\NodeTraverser
+		factory: PhpParser\NodeTraverser
 		setup:
 			- addVisitor(@PhpParser\NodeVisitor\NameResolver)
 
 	-
-		class: PhpParser\NodeVisitor\NameResolver
+		factory: PhpParser\NodeVisitor\NameResolver
 
 	-
-		class: PhpParser\Parser\Php7
+		factory: PhpParser\Parser\Php7
 
 	-
-		class: PhpParser\PrettyPrinter\Standard
+		factory: PhpParser\PrettyPrinter\Standard
 
 	-
-		class: PHPStan\Analyser\Analyser
+		factory: PHPStan\Analyser\Analyser
 		arguments:
 			ignoreErrors: %ignoreErrors%
 			reportUnmatchedIgnoredErrors: %reportUnmatchedIgnoredErrors%
 			bootstrapFile: %bootstrap%
 
 	-
-		class: PHPStan\Analyser\NodeScopeResolver
+		factory: PHPStan\Analyser\NodeScopeResolver
 		arguments:
 			polluteScopeWithLoopInitialAssignments: %polluteScopeWithLoopInitialAssignments%
 			polluteCatchScopeWithTryAssignments: %polluteCatchScopeWithTryAssignments%
 			earlyTerminatingMethodCalls: %earlyTerminatingMethodCalls%
 
 	-
-		class: PHPStan\Analyser\TypeSpecifier
+		factory: PHPStan\Analyser\TypeSpecifier
 
 	-
-		class: PHPStan\Broker\BrokerFactory
+		factory: PHPStan\Broker\BrokerFactory
 
 	-
-		class: PHPStan\Cache\Cache
+		factory: PHPStan\Cache\Cache
 		arguments:
 			storage: @cacheStorage
 
 	-
-		class: PHPStan\Command\AnalyseApplication
+		factory: PHPStan\Command\AnalyseApplication
 		arguments:
 			memoryLimitFile: %memoryLimitFile%
 			fileExtensions: %fileExtensions%
 
 	-
-		class: PHPStan\File\FileHelper
+		factory: PHPStan\File\FileHelper
 		arguments:
 			workingDirectory: %currentWorkingDirectory%
 
 	-
-		class: PHPStan\File\FileExcluder
+		factory: PHPStan\File\FileExcluder
 		arguments:
 			analyseExcludes: %excludes_analyse%
 
 	-
-		class: PHPStan\Parser\CachedParser
+		factory: PHPStan\Parser\CachedParser
 		arguments:
 			originalParser: @directParser
 
 	-
-		class: PHPStan\Parser\FunctionCallStatementFinder
+		factory: PHPStan\Parser\FunctionCallStatementFinder
 
 	-
 		implement: PHPStan\Reflection\FunctionReflectionFactory
 
 	-
-		class: PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension
+		factory: PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension
 
 	-
-		class: PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension
+		factory: PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension
 
 	-
-		class: PHPStan\Reflection\Php\PhpClassReflectionExtension
+		factory: PHPStan\Reflection\Php\PhpClassReflectionExtension
 
 	-
-		class: PHPStan\Reflection\PhpDefect\PhpDefectClassReflectionExtension
+		factory: PHPStan\Reflection\PhpDefect\PhpDefectClassReflectionExtension
 
 	-
 		implement: PHPStan\Reflection\Php\PhpMethodReflectionFactory
 
 	-
-		class: PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension
+		factory: PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension
 		tags:
 			- phpstan.broker.propertiesClassReflectionExtension
 		arguments:
 			classes: %universalObjectCratesClasses%
 
 	-
-		class: PHPStan\Rules\FunctionCallParametersCheck
+		factory: PHPStan\Rules\FunctionCallParametersCheck
 		arguments:
 			checkArgumentTypes: %checkFunctionArgumentTypes%
 			checkArgumentsPassedByReference: %checkArgumentsPassedByReference%
 
 	-
-		class: PHPStan\Rules\FunctionDefinitionCheck
+		factory: PHPStan\Rules\FunctionDefinitionCheck
 
 	-
-		class: PHPStan\Rules\FunctionReturnTypeCheck
+		factory: PHPStan\Rules\FunctionReturnTypeCheck
 
 	-
-		class: PHPStan\Rules\Properties\PropertyDescriptor
+		factory: PHPStan\Rules\Properties\PropertyDescriptor
 
 	-
-		class: PHPStan\Rules\Properties\PropertyReflectionFinder
+		factory: PHPStan\Rules\Properties\PropertyReflectionFinder
 
 	-
-		class: PHPStan\Rules\RegistryFactory
+		factory: PHPStan\Rules\RegistryFactory
 
 	-
-		class: PHPStan\Rules\RuleLevelHelper
+		factory: PHPStan\Rules\RuleLevelHelper
 		arguments:
 			checkNullables: %checkNullables%
 
 	-
-		class: PHPStan\Rules\UnusedFunctionParametersCheck
+		factory: PHPStan\Rules\UnusedFunctionParametersCheck
 
 	-
-		class: PHPStan\Type\FileTypeMapper
+		factory: PHPStan\Type\FileTypeMapper
 
 	broker:
 		class: PHPStan\Broker\Broker
 		factory: @PHPStan\Broker\BrokerFactory::create
 
 	cacheStorage:
-		class: PHPStan\Cache\FileCacheStorage
+		factory: PHPStan\Cache\FileCacheStorage
 		arguments:
 			directory: %tmpDir%/cache/PHPStan
 		autowired: no
 
 	directParser:
-		class: PHPStan\Parser\DirectParser
+		factory: PHPStan\Parser\DirectParser
 		autowired: no
 
 	registry:
@@ -166,10 +166,10 @@ services:
 		factory: @PHPStan\Rules\RegistryFactory::create
 
 	errorFormatter.raw:
-		class: PHPStan\Command\ErrorFormatter\RawErrorFormatter
+		factory: PHPStan\Command\ErrorFormatter\RawErrorFormatter
 
 	errorFormatter.table:
-		class: PHPStan\Command\ErrorFormatter\TableErrorFormatter
+		factory: PHPStan\Command\ErrorFormatter\TableErrorFormatter
 
 	errorFormatter.checkstyle:
-		class: PHPStan\Command\ErrorFormatter\CheckstyleErrorFormatter
+		factory: PHPStan\Command\ErrorFormatter\CheckstyleErrorFormatter

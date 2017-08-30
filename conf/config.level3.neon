@@ -3,51 +3,51 @@ includes:
 
 services:
 	-
-		class: PHPStan\Rules\Arrays\AppendedArrayItemTypeRule
+		factory: PHPStan\Rules\Arrays\AppendedArrayItemTypeRule
 		tags:
 			- phpstan.rules.rule
 
 	-
-		class: PHPStan\Rules\Arrays\InvalidKeyInArrayDimFetchRule
+		factory: PHPStan\Rules\Arrays\InvalidKeyInArrayDimFetchRule
 		tags:
 			- phpstan.rules.rule
 
 	-
-		class: PHPStan\Rules\Arrays\InvalidKeyInArrayItemRule
+		factory: PHPStan\Rules\Arrays\InvalidKeyInArrayItemRule
 		tags:
 			- phpstan.rules.rule
 
 	-
-		class: PHPStan\Rules\Arrays\IterableInForeachRule
+		factory: PHPStan\Rules\Arrays\IterableInForeachRule
 		tags:
 			- phpstan.rules.rule
 
 	-
-		class: PHPStan\Rules\Functions\ClosureReturnTypeRule
+		factory: PHPStan\Rules\Functions\ClosureReturnTypeRule
 		tags:
 			- phpstan.rules.rule
 
 	-
-		class: PHPStan\Rules\Functions\ReturnTypeRule
+		factory: PHPStan\Rules\Functions\ReturnTypeRule
 		tags:
 			- phpstan.rules.rule
 
 	-
-		class: PHPStan\Rules\Methods\ReturnTypeRule
+		factory: PHPStan\Rules\Methods\ReturnTypeRule
 		tags:
 			- phpstan.rules.rule
 
 	-
-		class: PHPStan\Rules\Properties\DefaultValueTypesAssignedToPropertiesRule
+		factory: PHPStan\Rules\Properties\DefaultValueTypesAssignedToPropertiesRule
 		tags:
 			- phpstan.rules.rule
 
 	-
-		class: PHPStan\Rules\Properties\TypesAssignedToPropertiesRule
+		factory: PHPStan\Rules\Properties\TypesAssignedToPropertiesRule
 		tags:
 			- phpstan.rules.rule
 
 	-
-		class: PHPStan\Rules\Variables\VariableCloningRule
+		factory: PHPStan\Rules\Variables\VariableCloningRule
 		tags:
 			- phpstan.rules.rule

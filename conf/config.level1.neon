@@ -6,11 +6,11 @@ parameters:
 
 services:
 	-
-		class: PHPStan\Rules\Constants\ConstantRule
+		factory: PHPStan\Rules\Constants\ConstantRule
 		tags:
 			- phpstan.rules.rule
 
 	-
-		class: PHPStan\Rules\Variables\VariableCertaintyInIssetRule
+		factory: PHPStan\Rules\Variables\VariableCertaintyInIssetRule
 		tags:
 			- phpstan.rules.rule

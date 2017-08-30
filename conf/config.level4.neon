@@ -3,16 +3,16 @@ includes:
 
 services:
 	-
-		class: PHPStan\Rules\Cast\UselessCastRule
+		factory: PHPStan\Rules\Cast\UselessCastRule
 		tags:
 			- phpstan.rules.rule
 
 	-
-		class: PHPStan\Rules\Classes\ImpossibleInstanceOfRule
+		factory: PHPStan\Rules\Classes\ImpossibleInstanceOfRule
 		tags:
 			- phpstan.rules.rule
 
 	-
-		class: PHPStan\Rules\Comparison\StrictComparisonOfDifferentTypesRule
+		factory: PHPStan\Rules\Comparison\StrictComparisonOfDifferentTypesRule
 		tags:
 			- phpstan.rules.rule
