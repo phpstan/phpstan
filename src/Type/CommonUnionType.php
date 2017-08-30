@@ -59,11 +59,6 @@ class CommonUnionType implements UnionType
 		return UnionTypeHelper::getReferencedClasses($this->getTypes());
 	}
 
-	public function combineWith(Type $otherType): Type
-	{
-		return TypeCombinator::union($this, $otherType);
-	}
-
 	public function accepts(Type $type): bool
 	{
 		if ($type instanceof CompoundType) {

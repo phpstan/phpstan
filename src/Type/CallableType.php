@@ -23,15 +23,6 @@ class CallableType implements CompoundType
 		return [];
 	}
 
-	public function combineWith(Type $otherType): Type
-	{
-		if (!$otherType->isCallable()->no()) {
-			return $this;
-		}
-
-		return TypeCombinator::union($this, $otherType);
-	}
-
 	public function accepts(Type $type): bool
 	{
 		if ($type instanceof CompoundType) {

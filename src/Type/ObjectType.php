@@ -29,15 +29,6 @@ class ObjectType implements Type
 		return [$this->getClass()];
 	}
 
-	public function combineWith(Type $otherType): Type
-	{
-		if ($otherType instanceof self && $this->getClass() === $otherType->getClass()) {
-			return new self($this->getClass());
-		}
-
-		return TypeCombinator::union($this, $otherType);
-	}
-
 	public function accepts(Type $type): bool
 	{
 		if ($type instanceof StaticType) {

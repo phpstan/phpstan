@@ -23,11 +23,6 @@ class NullType implements Type
 		return [];
 	}
 
-	public function combineWith(Type $otherType): Type
-	{
-		return TypeCombinator::addNull($otherType);
-	}
-
 	public function accepts(Type $type): bool
 	{
 		if ($type instanceof self) {

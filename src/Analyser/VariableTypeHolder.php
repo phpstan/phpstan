@@ -4,6 +4,7 @@ namespace PHPStan\Analyser;
 
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeCombinator;
 
 class VariableTypeHolder
 {
@@ -40,7 +41,7 @@ class VariableTypeHolder
 	public function and(self $other): self
 	{
 		return new self(
-			$this->getType()->combineWith($other->getType()),
+			TypeCombinator::union($this->getType(), $other->getType()),
 			$this->getCertainty()->and($other->getCertainty())
 		);
 	}

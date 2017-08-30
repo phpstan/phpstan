@@ -52,25 +52,6 @@ class ArrayType implements StaticResolvableType
 		return $this->itemTypeInferredFromLiteralArray;
 	}
 
-	public function combineWith(Type $otherType): Type
-	{
-		if ($otherType->isIterable()->yes()) {
-			$isItemInferredFromLiteralArray = $this->isItemTypeInferredFromLiteralArray();
-			$callable = $this->callable;
-			if ($otherType instanceof self) {
-				$isItemInferredFromLiteralArray = $isItemInferredFromLiteralArray || $otherType->isItemTypeInferredFromLiteralArray();
-				$callable = $this->callable->and($otherType->callable);
-			}
-			return new self(
-				$this->getIterableValueType()->combineWith($otherType->getIterableValueType()),
-				$isItemInferredFromLiteralArray,
-				$callable
-			);
-		}
-
-		return TypeCombinator::union($this, $otherType);
-	}
-
 	public function accepts(Type $type): bool
 	{
 		if ($type instanceof self) {

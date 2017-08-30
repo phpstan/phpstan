@@ -52,7 +52,7 @@ class SpecifiedTypes
 			if (isset($other->sureTypes[$exprString])) {
 				$sureTypeUnion[$exprString] = [
 					$exprNode,
-					$type->combineWith($other->sureTypes[$exprString][1]),
+					TypeCombinator::union($type, $other->sureTypes[$exprString][1]),
 				];
 			}
 		}
@@ -88,7 +88,7 @@ class SpecifiedTypes
 			if (isset($other->sureNotTypes[$exprString])) {
 				$sureNotTypeUnion[$exprString] = [
 					$exprNode,
-					$type->combineWith($other->sureNotTypes[$exprString][1]),
+					TypeCombinator::union($type, $other->sureNotTypes[$exprString][1]),
 				];
 			}
 		}

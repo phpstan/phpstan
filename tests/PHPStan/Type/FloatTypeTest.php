@@ -16,14 +16,4 @@ class FloatTypeTest extends \PHPStan\TestCase
 		$this->assertFalse($floatType->accepts(new StringType()));
 	}
 
-	public function testCombineWith()
-	{
-		$floatType = new FloatType();
-
-		$this->assertSame('float', $floatType->combineWith(new FloatType())->describe());
-		$this->assertSame('float|int', $floatType->combineWith(new IntegerType())->describe());
-		$this->assertSame('float|null', $floatType->combineWith(new NullType())->describe());
-		$this->assertSame('float|string', $floatType->combineWith(new StringType())->describe());
-	}
-
 }

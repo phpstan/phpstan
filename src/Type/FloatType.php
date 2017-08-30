@@ -23,15 +23,6 @@ class FloatType implements Type
 		return [];
 	}
 
-	public function combineWith(Type $otherType): Type
-	{
-		if ($otherType instanceof $this) {
-			return new self();
-		}
-
-		return TypeCombinator::union($this, $otherType);
-	}
-
 	public function accepts(Type $type): bool
 	{
 		if ($type instanceof self || $type instanceof IntegerType) {

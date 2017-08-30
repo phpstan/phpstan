@@ -17,8 +17,6 @@ interface Type
 	 */
 	public function getReferencedClasses(): array;
 
-	public function combineWith(Type $otherType): Type;
-
 	public function accepts(Type $type): bool;
 
 	public function isSupersetOf(Type $type): TrinaryLogic;

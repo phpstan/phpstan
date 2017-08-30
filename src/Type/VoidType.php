@@ -23,15 +23,6 @@ class VoidType implements Type
 		return [];
 	}
 
-	public function combineWith(Type $otherType): Type
-	{
-		if ($otherType instanceof self) {
-			return $this;
-		}
-
-		return TypeCombinator::union($this, $otherType);
-	}
-
 	public function accepts(Type $type): bool
 	{
 		return $type instanceof self;

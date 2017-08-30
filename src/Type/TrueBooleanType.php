@@ -38,18 +38,6 @@ class TrueBooleanType implements BooleanType
 		return [];
 	}
 
-	public function combineWith(Type $otherType): Type
-	{
-		if ($otherType instanceof self) {
-			return new self();
-		}
-		if ($otherType instanceof BooleanType) {
-			return new TrueOrFalseBooleanType();
-		}
-
-		return TypeCombinator::union($this, $otherType);
-	}
-
 	public function accepts(Type $type): bool
 	{
 		if ($type instanceof self) {

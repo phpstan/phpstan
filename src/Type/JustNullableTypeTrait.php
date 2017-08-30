@@ -23,17 +23,6 @@ trait JustNullableTypeTrait
 		return [];
 	}
 
-	public function combineWith(Type $otherType): Type
-	{
-		if ($otherType instanceof $this) {
-			return new self();
-		}
-
-		/** @var \PHPStan\Type\Type $thisType */
-		$thisType = $this;
-		return TypeCombinator::union($thisType, $otherType);
-	}
-
 	public function accepts(Type $type): bool
 	{
 		if ($type instanceof $this) {

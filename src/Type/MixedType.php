@@ -33,11 +33,6 @@ class MixedType implements CompoundType
 		return [];
 	}
 
-	public function combineWith(Type $otherType): Type
-	{
-		return $this;
-	}
-
 	public function accepts(Type $type): bool
 	{
 		return true;

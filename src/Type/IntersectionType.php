@@ -42,11 +42,6 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		return UnionTypeHelper::getReferencedClasses($this->types);
 	}
 
-	public function combineWith(Type $otherType): Type
-	{
-		return TypeCombinator::union($this, $otherType);
-	}
-
 	public function accepts(Type $otherType): bool
 	{
 		foreach ($this->types as $type) {

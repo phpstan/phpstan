@@ -34,11 +34,6 @@ class StaticType implements StaticResolvableType
 		return $this->baseClass;
 	}
 
-	public function combineWith(Type $otherType): Type
-	{
-		return new self($this->baseClass);
-	}
-
 	public function accepts(Type $type): bool
 	{
 		return (new ObjectType($this->baseClass))->accepts($type);

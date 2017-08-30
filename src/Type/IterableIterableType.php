@@ -24,17 +24,6 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 		return $this->getItemType()->getReferencedClasses();
 	}
 
-	public function combineWith(Type $otherType): Type
-	{
-		if ($otherType->isIterable()->yes()) {
-			return new self(
-				$this->getIterableValueType()->combineWith($otherType->getIterableValueType())
-			);
-		}
-
-		return TypeCombinator::union($this, $otherType);
-	}
-
 	public function accepts(Type $type): bool
 	{
 		if ($type instanceof CompoundType) {

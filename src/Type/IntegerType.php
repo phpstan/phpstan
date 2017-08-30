@@ -9,15 +9,6 @@ class IntegerType implements Type
 
 	use JustNullableTypeTrait;
 
-	public function combineWith(Type $otherType): Type
-	{
-		if ($otherType instanceof self) {
-			return new self();
-		}
-
-		return TypeCombinator::union($this, $otherType);
-	}
-
 	public function describe(): string
 	{
 		return 'int';

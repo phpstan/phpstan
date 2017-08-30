@@ -370,9 +370,10 @@ class Scope
 		if ($node instanceof Expr\Ternary) {
 			$elseType = $this->getType($node->else);
 			if ($node->if === null) {
-				return TypeCombinator::removeNull(
-					$this->getType($node->cond)
-				)->combineWith($elseType);
+				return TypeCombinator::union(
+					TypeCombinator::removeNull($this->getType($node->cond)),
+					$elseType
+				);
 			}
 
 			$conditionScope = $this->filterByTruthyValue($node->cond);
@@ -380,13 +381,14 @@ class Scope
 			$negatedConditionScope = $this->filterByFalseyValue($node->cond);
 			$elseType = $negatedConditionScope->getType($node->else);
 
-			return $ifType->combineWith($elseType);
+			return TypeCombinator::union($ifType, $elseType);
 		}
 
 		if ($node instanceof Expr\BinaryOp\Coalesce) {
-			return TypeCombinator::removeNull(
-				$this->getType($node->left)
-			)->combineWith($this->getType($node->right));
+			return TypeCombinator::union(
+				TypeCombinator::removeNull($this->getType($node->left)),
+				$this->getType($node->right)
+			);
 		}
 
 		if ($node instanceof Expr\Clone_) {
@@ -457,7 +459,8 @@ class Scope
 				&& $rightType instanceof ArrayType
 			) {
 				return new ArrayType(
-					$leftType->getItemType()->combineWith($rightType->getItemType())
+					TypeCombinator::union($leftType->getItemType(), $rightType->getItemType()),
+					$leftType->isItemTypeInferredFromLiteralArray() || $rightType->isItemTypeInferredFromLiteralArray()
 				);
 			}
 		}
@@ -516,7 +519,7 @@ class Scope
 					($itemTypes[0]->accepts(new StringType()) || $itemTypes[0]->getClass() !== null)
 					&& $itemTypes[1]->accepts(new StringType())
 				) {
-					$callable = TrinaryLogic::createMaybe();
+					$callable = TrinaryLogic::createYes();
 				}
 			}
 
@@ -768,20 +771,12 @@ class Scope
 					}
 				}
 
-				$argumentType = null;
+				$argumentTypes = [];
 				foreach ($node->args as $arg) {
-					$argType = $this->getType($arg->value);
-					if ($argumentType === null) {
-						$argumentType = $argType;
-					} else {
-						$argumentType = $argumentType->combineWith($argType);
-					}
+					$argumentTypes[] = $this->getType($arg->value);
 				}
 
-				/** @var \PHPStan\Type\Type $argumentType */
-				$argumentType = $argumentType;
-
-				return $argumentType;
+				return TypeCombinator::union(...$argumentTypes);
 			}
 
 			if (!$this->broker->hasFunction($node->name, $this)) {
@@ -831,7 +826,7 @@ class Scope
 		} elseif (is_array($value)) {
 			return new ArrayType($this->getCombinedType(array_map(function ($value): Type {
 				return $this->getTypeFromValue($value);
-			}, $value)), false);
+			}, array_values($value))), false);
 		}
 
 		return null;
@@ -847,16 +842,7 @@ class Scope
 			return new MixedType();
 		}
 
-		$itemType = null;
-		foreach ($types as $type) {
-			if ($itemType === null) {
-				$itemType = $type;
-				continue;
-			}
-			$itemType = $itemType->combineWith($type);
-		}
-
-		return $itemType;
+		return TypeCombinator::union(...$types);
 	}
 
 	public function isSpecified(Expr $node): bool
@@ -1359,7 +1345,10 @@ class Scope
 				continue;
 			}
 
-			$intersectedSpecifiedTypes[$exprString] = $specificType->combineWith($theirSpecifiedTypes[$exprString]);
+			$intersectedSpecifiedTypes[$exprString] = TypeCombinator::union(
+				$specificType,
+				$theirSpecifiedTypes[$exprString]
+			);
 		}
 
 		return new self(
@@ -1422,7 +1411,7 @@ class Scope
 			if (isset($variableTypeHolders[$name])) {
 				$type = $theirVariableTypeHolder->getType();
 				if ($theirVariableTypeHolder->getCertainty()->maybe()) {
-					$type = $type->combineWith($variableTypeHolders[$name]->getType());
+					$type = TypeCombinator::union($type, $variableTypeHolders[$name]->getType());
 				}
 				$theirVariableTypeHolder = new VariableTypeHolder(
 					$type,
@@ -1480,7 +1469,7 @@ class Scope
 		foreach ($otherScope->moreSpecificTypes as $exprString => $theirSpecifiedType) {
 			if (array_key_exists($exprString, $this->moreSpecificTypes)) {
 				$ourSpecifiedType = $this->moreSpecificTypes[$exprString];
-				$theirSpecifiedType = $ourSpecifiedType->combineWith($theirSpecifiedType);
+				$theirSpecifiedType = TypeCombinator::union($ourSpecifiedType, $theirSpecifiedType);
 			}
 			$moreSpecificTypes[$exprString] = $theirSpecifiedType;
 		}
