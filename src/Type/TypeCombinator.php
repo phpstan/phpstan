@@ -92,6 +92,7 @@ class TypeCombinator
 		}
 
 		// simplify true | false to bool
+		// simplify string[] | int[] to (string|int)[]
 		for ($i = 0; $i < count($types); $i++) {
 			for ($j = $i + 1; $j < count($types); $j++) {
 				if ($types[$i] instanceof TrueBooleanType && $types[$j] instanceof FalseBooleanType) {
@@ -100,6 +101,20 @@ class TypeCombinator
 					continue 2;
 				} elseif ($types[$i] instanceof FalseBooleanType && $types[$j] instanceof TrueBooleanType) {
 					$types[$i] = new TrueOrFalseBooleanType();
+					array_splice($types, $j, 1);
+					continue 2;
+				} elseif ($types[$i] instanceof ArrayType && $types[$j] instanceof ArrayType) {
+					$types[$i] = new ArrayType(
+						self::union($types[$i]->getIterableValueType(), $types[$j]->getIterableValueType()),
+						$types[$i]->isItemTypeInferredFromLiteralArray() || $types[$j]->isItemTypeInferredFromLiteralArray(),
+						$types[$i]->isCallable()->and($types[$j]->isCallable())
+					);
+					array_splice($types, $j, 1);
+					continue 2;
+				} elseif ($types[$i] instanceof IterableIterableType && $types[$j] instanceof IterableIterableType) {
+					$types[$i] = new IterableIterableType(
+						self::union($types[$i]->getIterableValueType(), $types[$j]->getIterableValueType())
+					);
 					array_splice($types, $j, 1);
 					continue 2;
 				}

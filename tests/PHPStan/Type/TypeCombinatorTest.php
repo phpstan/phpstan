@@ -369,7 +369,7 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 					new ArrayType(new IntegerType()),
 				],
 				CommonUnionType::class,
-				'ArrayIterator|ArrayObject|int[]|string[]',
+				'(int|string)[]|ArrayIterator|ArrayObject',
 			],
 			[
 				[
@@ -444,8 +444,8 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 					new IterableIterableType(new IntegerType()),
 					new IterableIterableType(new StringType()),
 				],
-				CommonUnionType::class,
-				'iterable(int[])|iterable(string[])', // this is correct but 'iterable(int|string[])' would be better
+				IterableIterableType::class,
+				'iterable(int[]|string[])',
 			],
 			[
 				[
