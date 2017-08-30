@@ -37,34 +37,29 @@ class TypeCombinator
 			foreach ($typeToRemove->getTypes() as $unionTypeToRemove) {
 				$fromType = self::remove($fromType, $unionTypeToRemove);
 			}
-
-			return $fromType;
-		}
-		$typeToRemoveDescription = $typeToRemove->describe();
-		if ($fromType->describe() === $typeToRemoveDescription) {
-			return new ErrorType();
-		}
-		if (
-			$fromType instanceof BooleanType
-			&& $typeToRemove instanceof TrueOrFalseBooleanType
-		) {
-			return new ErrorType();
-		}
-		if (
-			$fromType instanceof MixedType
-			|| !$fromType instanceof UnionType
-		) {
 			return $fromType;
 		}
 
-		$types = [];
-		foreach ($fromType->getTypes() as $innerType) {
-			if (!$typeToRemove->isSupersetOf($innerType)->yes()) {
-				$types[] = $innerType;
+		if ($fromType instanceof TrueOrFalseBooleanType) {
+			if ($typeToRemove instanceof TrueBooleanType) {
+				return new FalseBooleanType();
+			} elseif ($typeToRemove instanceof FalseBooleanType) {
+				return new TrueBooleanType();
 			}
+		} elseif ($fromType instanceof UnionType) {
+			$innerTypes = [];
+			foreach ($fromType->getTypes() as $innerType) {
+				$innerTypes[] = self::remove($innerType, $typeToRemove);
+			}
+
+			return self::union(...$innerTypes);
 		}
 
-		return self::union(...$types);
+		if ($typeToRemove->isSupersetOf($fromType)->yes()) {
+			return new NeverType();
+		}
+
+		return $fromType;
 	}
 
 	public static function removeNull(Type $type): Type

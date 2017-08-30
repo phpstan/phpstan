@@ -117,8 +117,8 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 			],
 			[
 				new NullType(),
-				MixedType::class,
-				'mixed',
+				NeverType::class,
+				'*NEVER*',
 			],
 			[
 				new VoidType(),
@@ -656,8 +656,8 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 			[
 				new TrueBooleanType(),
 				new TrueBooleanType(),
-				MixedType::class,
-				'mixed',
+				NeverType::class,
+				'*NEVER*',
 			],
 			[
 				new CommonUnionType([
@@ -712,14 +712,32 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 			[
 				new TrueBooleanType(),
 				new TrueOrFalseBooleanType(),
-				MixedType::class,
-				'mixed',
+				NeverType::class,
+				'*NEVER*',
 			],
 			[
 				new FalseBooleanType(),
 				new TrueOrFalseBooleanType(),
-				MixedType::class,
-				'mixed',
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				new TrueOrFalseBooleanType(),
+				new TrueBooleanType(),
+				FalseBooleanType::class,
+				'false',
+			],
+			[
+				new TrueOrFalseBooleanType(),
+				new FalseBooleanType(),
+				TrueBooleanType::class,
+				'true',
+			],
+			[
+				new TrueOrFalseBooleanType(),
+				new TrueOrFalseBooleanType(),
+				NeverType::class,
+				'*NEVER*',
 			],
 			[
 				new CommonUnionType([
@@ -738,6 +756,24 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 				new TrueOrFalseBooleanType(),
 				IntegerType::class,
 				'int',
+			],
+			[
+				new CommonUnionType([
+					new TrueOrFalseBooleanType(),
+					new IntegerType(),
+				]),
+				new TrueBooleanType(),
+				CommonUnionType::class,
+				'false|int',
+			],
+			[
+				new CommonUnionType([
+					new TrueOrFalseBooleanType(),
+					new IntegerType(),
+				]),
+				new FalseBooleanType(),
+				CommonUnionType::class,
+				'int|true',
 			],
 			[
 				new CommonUnionType([
