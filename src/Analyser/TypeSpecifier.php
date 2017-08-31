@@ -59,11 +59,19 @@ class TypeSpecifier
 			if ($expressions !== null) {
 				$constantName = strtolower((string) $expressions[1]->name);
 				if ($constantName === 'false') {
-					$types = $this->specifyTypesInCondition($scope, $expressions[0], !$negated);
-					return $types->unionWith($this->create($expressions[0], new FalseBooleanType(), $negated));
+					$types = $this->create($expressions[0], new FalseBooleanType(), $negated);
+					if ($negated) {
+						return $types;
+					} else {
+						return $types->unionWith($this->specifyTypesInCondition($scope, $expressions[0], !$negated));
+					}
 				} elseif ($constantName === 'true') {
-					$types = $this->specifyTypesInCondition($scope, $expressions[0], $negated);
-					return $types->unionWith($this->create($expressions[0], new TrueBooleanType(), $negated));
+					$types = $this->create($expressions[0], new TrueBooleanType(), $negated);
+					if ($negated) {
+						return $types;
+					} else {
+						return $types->unionWith($this->specifyTypesInCondition($scope, $expressions[0], $negated));
+					}
 				} elseif ($constantName === 'null') {
 					return $this->create($expressions[0], new NullType(), $negated);
 				}

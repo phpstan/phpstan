@@ -254,11 +254,27 @@ class TypeSpecifierTest extends \PHPStan\TestCase
 
 			[
 				new Identical(
+					new Variable('foo'),
+					new Expr\ConstFetch(new Name('true'))
+				),
+				['$foo' => 'true & ~false|null'],
+				['$foo' => '~true'],
+			],
+			[
+				new Identical(
+					new Variable('foo'),
+					new Expr\ConstFetch(new Name('false'))
+				),
+				['$foo' => 'false'],
+				['$foo' => '~false'],
+			],
+			[
+				new Identical(
 					$this->createFunctionCall('is_int'),
 					new Expr\ConstFetch(new Name('true'))
 				),
-				['$foo' => 'int', 'is_int($foo)' => 'true'],
-				['$foo' => '~int', 'is_int($foo)' => '~true'],
+				['is_int($foo)' => 'true', '$foo' => 'int'],
+				['is_int($foo)' => '~true'],
 			],
 			[
 				new Identical(
@@ -266,7 +282,7 @@ class TypeSpecifierTest extends \PHPStan\TestCase
 					new Expr\ConstFetch(new Name('false'))
 				),
 				['is_int($foo)' => 'false', '$foo' => '~int'],
-				['$foo' => 'int', 'is_int($foo)' => '~false'],
+				['is_int($foo)' => '~false'],
 			],
 			[
 				new Equal(
@@ -300,11 +316,15 @@ class TypeSpecifierTest extends \PHPStan\TestCase
 		$typesDescription = [];
 
 		foreach ($specifiedTypes->getSureTypes() as $exprString => list($exprNode, $exprType)) {
-			$typesDescription[$exprString] = $exprType->describe();
+			$typesDescription[$exprString][] = $exprType->describe();
 		}
 
 		foreach ($specifiedTypes->getSureNotTypes() as $exprString => list($exprNode, $exprType)) {
-			$typesDescription[$exprString] = '~' . $exprType->describe();
+			$typesDescription[$exprString][] = '~' . $exprType->describe();
+		}
+
+		foreach ($typesDescription as $exprString => $exprTypes) {
+			$typesDescription[$exprString] = implode(' & ', $exprTypes);
 		}
 
 		return $typesDescription;
