@@ -20,6 +20,7 @@ use PHPStan\Reflection\Php\PhpMethodReflectionFactory;
 use PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension;
 use PHPStan\Reflection\PhpDefect\PhpDefectClassReflectionExtension;
 use PHPStan\Type\FileTypeMapper;
+use PHPStan\Type\Php\PhpCoreFunctionsReturnTypeExtension;
 use PHPStan\Type\Type;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
@@ -166,7 +167,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			[$phpExtension],
 			$dynamicMethodReturnTypeExtensions,
 			$dynamicStaticMethodReturnTypeExtensions,
-			$dynamicfunctionReturnTypeExtensions,
+			[new PhpCoreFunctionsReturnTypeExtension()],
 			$functionReflectionFactory,
 			new FileTypeMapper($this->getParser(), $this->createMock(Cache::class))
 		);

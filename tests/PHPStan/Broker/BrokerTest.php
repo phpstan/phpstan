@@ -7,6 +7,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Cache\Cache;
 use PHPStan\Reflection\FunctionReflectionFactory;
 use PHPStan\Type\FileTypeMapper;
+use PHPStan\Type\Php\PhpCoreFunctionsReturnTypeExtension;
 
 class BrokerTest extends \PHPStan\TestCase
 {
@@ -21,7 +22,7 @@ class BrokerTest extends \PHPStan\TestCase
 			[],
 			[],
 			[],
-			[],
+			[new PhpCoreFunctionsReturnTypeExtension()],
 			$this->createMock(FunctionReflectionFactory::class),
 			new FileTypeMapper($this->getParser(), $this->createMock(Cache::class))
 		);

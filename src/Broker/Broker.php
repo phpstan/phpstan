@@ -7,7 +7,6 @@ use PHPStan\Reflection\BrokerAwareClassReflectionExtension;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\FunctionReflectionFactory;
 use PHPStan\Type\FileTypeMapper;
-use PHPStan\Type\Php\PhpCoreFunctionsReturnTypeExtension;
 use PHPStan\Type\TypehintHelper;
 use ReflectionClass;
 
@@ -66,8 +65,6 @@ class Broker
 		FileTypeMapper $fileTypeMapper
 	)
 	{
-		$dynamicFunctionReturnTypeExtensions[] = new PhpCoreFunctionsReturnTypeExtension();
-
 		$this->propertiesClassReflectionExtensions = $propertiesClassReflectionExtensions;
 		$this->methodsClassReflectionExtensions = $methodsClassReflectionExtensions;
 		foreach (array_merge($propertiesClassReflectionExtensions, $methodsClassReflectionExtensions, $dynamicMethodReturnTypeExtensions) as $extension) {
