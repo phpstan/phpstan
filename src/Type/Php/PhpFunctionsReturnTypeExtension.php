@@ -9,7 +9,7 @@ use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\Type;
 
-class PhpCoreFunctionsReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
+class PhpFunctionsReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
 
 	/** @var int[] */

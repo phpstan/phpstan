@@ -148,7 +148,7 @@ services:
 		class: PHPStan\Type\FileTypeMapper
 
 	-
-		class: PHPStan\Type\Php\PhpCoreFunctionsReturnTypeExtension
+		class: PHPStan\Type\Php\PhpFunctionsReturnTypeExtension
 
 	broker:
 		class: PHPStan\Broker\Broker
