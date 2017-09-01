@@ -13,24 +13,24 @@ class PhpFunctionsReturnTypeExtension implements \PHPStan\Type\DynamicFunctionRe
 {
 
 	/** @var int[] */
-	private $arrayFunctionsThatCreateArrayBasedOnClosureReturnType = [
+	private $functionsReturningArrayBasedOnCallbackReturnType = [
 		'array_map' => 0,
 	];
 
 	/** @var int[] */
-	private $arrayFunctionsThatDependOnClosureReturnType = [
+	private $functionsReturningCallbackReturnType = [
 		'array_reduce' => 1,
 	];
 
 	/** @var int[] */
-	private $arrayFunctionsThatDependOnArgumentType = [
+	private $functionsReturningTypeBasedOnArgumentType = [
 		'array_filter' => 0,
 		'array_unique' => 0,
 		'array_reverse' => 0,
 	];
 
 	/** @var int[] */
-	private $arrayFunctionsThatCreateArrayBasedOnArgumentType = [
+	private $functionsReturningArrayOfTypesBasedOnArgumentType = [
 		'array_fill' => 2,
 		'array_fill_keys' => 1,
 	];
@@ -45,10 +45,10 @@ class PhpFunctionsReturnTypeExtension implements \PHPStan\Type\DynamicFunctionRe
 	{
 		$functionName = strtolower($functionReflection->getName());
 
-		return isset($this->arrayFunctionsThatCreateArrayBasedOnClosureReturnType[$functionName])
-			|| isset($this->arrayFunctionsThatDependOnClosureReturnType[$functionName])
-			|| isset($this->arrayFunctionsThatDependOnArgumentType[$functionName])
-			|| isset($this->arrayFunctionsThatCreateArrayBasedOnArgumentType[$functionName])
+		return isset($this->functionsReturningArrayBasedOnCallbackReturnType[$functionName])
+			|| isset($this->functionsReturningCallbackReturnType[$functionName])
+			|| isset($this->functionsReturningTypeBasedOnArgumentType[$functionName])
+			|| isset($this->functionsReturningArrayOfTypesBasedOnArgumentType[$functionName])
 			|| isset($this->functionsThatCombineAllArgumentTypes[$functionName]);
 	}
 
@@ -56,12 +56,12 @@ class PhpFunctionsReturnTypeExtension implements \PHPStan\Type\DynamicFunctionRe
 	{
 		$functionName = strtolower($functionReflection->getName());
 
-		if (isset($this->arrayFunctionsThatCreateArrayBasedOnClosureReturnType[$functionName])) {
-			if (!isset($functionCall->args[$this->arrayFunctionsThatCreateArrayBasedOnClosureReturnType[$functionName]])) {
+		if (isset($this->functionsReturningArrayBasedOnCallbackReturnType[$functionName])) {
+			if (!isset($functionCall->args[$this->functionsReturningArrayBasedOnCallbackReturnType[$functionName]])) {
 				return $functionReflection->getReturnType();
 			}
 
-			$argumentValue = $functionCall->args[$this->arrayFunctionsThatCreateArrayBasedOnClosureReturnType[$functionName]]->value;
+			$argumentValue = $functionCall->args[$this->functionsReturningArrayBasedOnCallbackReturnType[$functionName]]->value;
 			if (!$argumentValue instanceof Closure) {
 				return $functionReflection->getReturnType();
 			}
@@ -71,12 +71,12 @@ class PhpFunctionsReturnTypeExtension implements \PHPStan\Type\DynamicFunctionRe
 			return new ArrayType($anonymousFunctionType, true);
 		}
 
-		if (isset($this->arrayFunctionsThatDependOnClosureReturnType[$functionName])) {
-			if (!isset($functionCall->args[$this->arrayFunctionsThatDependOnClosureReturnType[$functionName]])) {
+		if (isset($this->functionsReturningCallbackReturnType[$functionName])) {
+			if (!isset($functionCall->args[$this->functionsReturningCallbackReturnType[$functionName]])) {
 				return $functionReflection->getReturnType();
 			}
 
-			$argumentValue = $functionCall->args[$this->arrayFunctionsThatDependOnClosureReturnType[$functionName]]->value;
+			$argumentValue = $functionCall->args[$this->functionsReturningCallbackReturnType[$functionName]]->value;
 			if (!$argumentValue instanceof Closure) {
 				return $functionReflection->getReturnType();
 			}
@@ -84,21 +84,21 @@ class PhpFunctionsReturnTypeExtension implements \PHPStan\Type\DynamicFunctionRe
 			return $scope->getFunctionType($argumentValue->returnType, $argumentValue->returnType === null, false);
 		}
 
-		if (isset($this->arrayFunctionsThatDependOnArgumentType[$functionName])) {
-			if (!isset($functionCall->args[$this->arrayFunctionsThatDependOnArgumentType[$functionName]])) {
+		if (isset($this->functionsReturningTypeBasedOnArgumentType[$functionName])) {
+			if (!isset($functionCall->args[$this->functionsReturningTypeBasedOnArgumentType[$functionName]])) {
 				return $functionReflection->getReturnType();
 			}
 
-			$argumentValue = $functionCall->args[$this->arrayFunctionsThatDependOnArgumentType[$functionName]]->value;
+			$argumentValue = $functionCall->args[$this->functionsReturningTypeBasedOnArgumentType[$functionName]]->value;
 			return $scope->getType($argumentValue);
 		}
 
-		if (isset($this->arrayFunctionsThatCreateArrayBasedOnArgumentType[$functionName])) {
-			if (!isset($functionCall->args[$this->arrayFunctionsThatCreateArrayBasedOnArgumentType[$functionName]])) {
+		if (isset($this->functionsReturningArrayOfTypesBasedOnArgumentType[$functionName])) {
+			if (!isset($functionCall->args[$this->functionsReturningArrayOfTypesBasedOnArgumentType[$functionName]])) {
 				return $functionReflection->getReturnType();
 			}
 
-			$argumentValue = $functionCall->args[$this->arrayFunctionsThatCreateArrayBasedOnArgumentType[$functionName]]->value;
+			$argumentValue = $functionCall->args[$this->functionsReturningArrayOfTypesBasedOnArgumentType[$functionName]]->value;
 			return new ArrayType($scope->getType($argumentValue), true, true);
 		}
 
