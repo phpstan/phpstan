@@ -5,13 +5,12 @@ namespace PHPStan\Type\Php;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\StringType;
 
-class PhpFunctionsReturnTypeExtensionTest extends \PHPStan\TestCase
+class CallbackBasedArrayFunctionReturnTypeExtensionTest extends \PHPStan\TestCase
 {
 
 	/**
@@ -29,37 +28,6 @@ class PhpFunctionsReturnTypeExtensionTest extends \PHPStan\TestCase
 				],
 				'string[]',
 			],
-			[
-				'array_reduce',
-				[
-					1 => new Arg(new Closure([
-						'returnType' => 'string',
-					])),
-				],
-				'string',
-			],
-			[
-				'array_filter',
-				[
-					new Arg(new Variable('foo')),
-				],
-				'string',
-			],
-			[
-				'array_fill',
-				[
-					2 => new Arg(new Variable('foo')),
-				],
-				'string[]',
-			],
-			[
-				'min',
-				[
-					new Arg(new Variable('foo')),
-					new Arg(new Variable('bar')),
-				],
-				'string',
-			],
 		];
 	}
 
@@ -72,7 +40,7 @@ class PhpFunctionsReturnTypeExtensionTest extends \PHPStan\TestCase
 	public function testFunctions(string $functionName, array $functionArguments, string $expectedDescription)
 	{
 		$functionCall = new FuncCall(new Name($functionName), $functionArguments);
-		$extension = new PhpFunctionsReturnTypeExtension();
+		$extension = new CallbackBasedArrayFunctionReturnTypeExtension();
 
 		$functionReflectionMock = $this->createMock(FunctionReflection::class);
 		$functionReflectionMock

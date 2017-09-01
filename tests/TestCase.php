@@ -20,7 +20,11 @@ use PHPStan\Reflection\Php\PhpMethodReflectionFactory;
 use PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension;
 use PHPStan\Reflection\PhpDefect\PhpDefectClassReflectionExtension;
 use PHPStan\Type\FileTypeMapper;
-use PHPStan\Type\Php\PhpFunctionsReturnTypeExtension;
+use PHPStan\Type\Php\AllArgumentBasedFunctionReturnTypeExtension;
+use PHPStan\Type\Php\ArgumentBasedArrayFunctionReturnTypeExtension;
+use PHPStan\Type\Php\ArgumentBasedFunctionReturnTypeExtension;
+use PHPStan\Type\Php\CallbackBasedArrayFunctionReturnTypeExtension;
+use PHPStan\Type\Php\CallbackBasedFunctionReturnTypeExtension;
 use PHPStan\Type\Type;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
@@ -63,13 +67,11 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	/**
 	 * @param \PHPStan\Type\DynamicMethodReturnTypeExtension[] $dynamicMethodReturnTypeExtensions
 	 * @param \PHPStan\Type\DynamicStaticMethodReturnTypeExtension[] $dynamicStaticMethodReturnTypeExtensions
-	 * @param \PHPStan\Type\DynamicFunctionReturnTypeExtension[] $dynamicfunctionReturnTypeExtensions
 	 * @return \PHPStan\Broker\Broker
 	 */
 	public function createBroker(
 		array $dynamicMethodReturnTypeExtensions = [],
-		array $dynamicStaticMethodReturnTypeExtensions = [],
-		array $dynamicfunctionReturnTypeExtensions = []
+		array $dynamicStaticMethodReturnTypeExtensions = []
 	): Broker
 	{
 		$functionCallStatementFinder = new FunctionCallStatementFinder();
@@ -167,7 +169,13 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			[$phpExtension],
 			$dynamicMethodReturnTypeExtensions,
 			$dynamicStaticMethodReturnTypeExtensions,
-			[new PhpFunctionsReturnTypeExtension()],
+			[
+				new AllArgumentBasedFunctionReturnTypeExtension(),
+				new ArgumentBasedArrayFunctionReturnTypeExtension(),
+				new ArgumentBasedFunctionReturnTypeExtension(),
+				new CallbackBasedArrayFunctionReturnTypeExtension(),
+				new CallbackBasedFunctionReturnTypeExtension(),
+			],
 			$functionReflectionFactory,
 			new FileTypeMapper($this->getParser(), $this->createMock(Cache::class))
 		);

@@ -148,7 +148,19 @@ services:
 		class: PHPStan\Type\FileTypeMapper
 
 	-
-		class: PHPStan\Type\Php\PhpFunctionsReturnTypeExtension
+		class: PHPStan\Type\Php\AllArgumentBasedFunctionReturnTypeExtension
+
+	-
+		class: PHPStan\Type\Php\ArgumentBasedArrayFunctionReturnTypeExtension
+
+	-
+		class: PHPStan\Type\Php\ArgumentBasedFunctionReturnTypeExtension
+
+	-
+		class: PHPStan\Type\Php\CallbackBasedArrayFunctionReturnTypeExtension
+
+	-
+		class: PHPStan\Type\Php\CallbackBasedFunctionReturnTypeExtension
 
 	broker:
 		class: PHPStan\Broker\Broker
