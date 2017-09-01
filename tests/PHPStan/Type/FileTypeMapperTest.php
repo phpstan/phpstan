@@ -17,6 +17,7 @@ class FileTypeMapperTest extends \PHPStan\TestCase
 
 		$expected = [
 			'int | float' => 'float|int',
+			'X' => 'X',
 			'void' => 'void',
 			'string' => 'string',
 			'?float' => 'float|null',
