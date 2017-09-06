@@ -123,6 +123,12 @@ class TypeSpecifier
 				$specifiedType = new IterableIterableType(new MixedType());
 			} elseif ($functionName === 'is_string') {
 				$specifiedType = new StringType();
+			} elseif ($functionName === 'is_numeric') {
+				$specifiedType = new CommonUnionType([
+					new StringType(),
+					new IntegerType(),
+					new FloatType(),
+				]);
 			}
 
 			if ($specifiedType !== null) {

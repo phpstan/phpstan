@@ -59,7 +59,11 @@ class TypeSpecifierTest extends \PHPStan\TestCase
 				['$foo' => 'int'],
 				['$foo' => '~int'],
 			],
-
+			[
+				$this->createFunctionCall('is_numeric'),
+				['$foo' => 'float|int|string'],
+				['$foo' => '~float|int|string'],
+			],
 			[
 				new Expr\BinaryOp\BooleanAnd(
 					$this->createFunctionCall('is_int'),
