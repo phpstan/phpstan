@@ -25,6 +25,9 @@ class Broker
 	/** @var \PHPStan\Type\DynamicStaticMethodReturnTypeExtension[] */
 	private $dynamicStaticMethodReturnTypeExtensions = [];
 
+	/** @var \PHPStan\Type\DynamicFunctionReturnTypeExtension[] */
+	private $dynamicFunctionReturnTypeExtensions = [];
+
 	/** @var \PHPStan\Reflection\ClassReflection[] */
 	private $classReflections = [];
 
@@ -48,6 +51,7 @@ class Broker
 	 * @param \PHPStan\Reflection\MethodsClassReflectionExtension[] $methodsClassReflectionExtensions
 	 * @param \PHPStan\Type\DynamicMethodReturnTypeExtension[] $dynamicMethodReturnTypeExtensions
 	 * @param \PHPStan\Type\DynamicStaticMethodReturnTypeExtension[] $dynamicStaticMethodReturnTypeExtensions
+	 * @param \PHPStan\Type\DynamicFunctionReturnTypeExtension[] $dynamicFunctionReturnTypeExtensions
 	 * @param \PHPStan\Reflection\FunctionReflectionFactory $functionReflectionFactory
 	 * @param \PHPStan\Type\FileTypeMapper $fileTypeMapper
 	 */
@@ -56,6 +60,7 @@ class Broker
 		array $methodsClassReflectionExtensions,
 		array $dynamicMethodReturnTypeExtensions,
 		array $dynamicStaticMethodReturnTypeExtensions,
+		array $dynamicFunctionReturnTypeExtensions,
 		FunctionReflectionFactory $functionReflectionFactory,
 		FileTypeMapper $fileTypeMapper
 	)
@@ -74,6 +79,10 @@ class Broker
 
 		foreach ($dynamicStaticMethodReturnTypeExtensions as $dynamicStaticMethodReturnTypeExtension) {
 			$this->dynamicStaticMethodReturnTypeExtensions[$dynamicStaticMethodReturnTypeExtension->getClass()][] = $dynamicStaticMethodReturnTypeExtension;
+		}
+
+		foreach ($dynamicFunctionReturnTypeExtensions as $functionReturnTypeExtension) {
+			$this->dynamicFunctionReturnTypeExtensions[] = $functionReturnTypeExtension;
 		}
 
 		$this->functionReflectionFactory = $functionReflectionFactory;
@@ -104,6 +113,14 @@ class Broker
 	public function getDynamicStaticMethodReturnTypeExtensionsForClass(string $className): array
 	{
 		return $this->getDynamicExtensionsForType($this->dynamicStaticMethodReturnTypeExtensions, $className);
+	}
+
+	/**
+	 * @return \PHPStan\Type\DynamicFunctionReturnTypeExtension[]
+	 */
+	public function getDynamicFunctionReturnTypeExtensions(): array
+	{
+		return $this->dynamicFunctionReturnTypeExtensions;
 	}
 
 	/**
