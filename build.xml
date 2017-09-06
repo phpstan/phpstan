@@ -2,14 +2,26 @@
 <project name="PHPStan" default="check">
 
 	<target name="check" depends="
-		composer,
+		composer-validate,
+		composer-install,
 		lint,
 		cs,
 		tests,
 		phpstan
 	"/>
 
-	<target name="composer">
+	<target name="composer-validate">
+		<exec
+				executable="composer"
+				logoutput="true"
+				passthru="true"
+				checkreturn="true"
+		>
+			<arg value="validate"/>
+		</exec>
+	</target>
+
+	<target name="composer-install">
 		<exec
 				executable="composer"
 				logoutput="true"
