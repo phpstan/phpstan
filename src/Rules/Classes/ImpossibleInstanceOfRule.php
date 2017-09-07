@@ -4,21 +4,10 @@ namespace PHPStan\Rules\Classes;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
-use PHPStan\Broker\Broker;
 use PHPStan\Type\ObjectType;
 
 class ImpossibleInstanceOfRule implements \PHPStan\Rules\Rule
 {
-
-	/**
-	 * @var \PHPStan\Broker\Broker
-	 */
-	private $broker;
-
-	public function __construct(Broker $broker)
-	{
-		$this->broker = $broker;
-	}
 
 	public function getNodeType(): string
 	{
@@ -39,25 +28,10 @@ class ImpossibleInstanceOfRule implements \PHPStan\Rules\Rule
 			$type = $scope->getType($node->class);
 		}
 
-		if ($type->getClass() === null) {
-			return [];
-		}
-
 		$expressionType = $scope->getType($node->expr);
-		if ($expressionType->getClass() === null) {
-			return [];
-		}
+		$isSuperset = $type->isSupersetOf($expressionType);
 
-		if (!$this->broker->hasClass($expressionType->getClass())) {
-			return [];
-		}
-
-		$expressionClassReflection = $this->broker->getClass($expressionType->getClass());
-		if (!$this->broker->hasClass($type->getClass())) {
-			return [];
-		}
-
-		if ($expressionClassReflection->isSubclassOf($type->getClass())) {
+		if ($isSuperset->yes()) {
 			return [
 				sprintf(
 					'Instanceof between %s and %s will always evaluate to true.',
@@ -65,14 +39,7 @@ class ImpossibleInstanceOfRule implements \PHPStan\Rules\Rule
 					$type->describe()
 				),
 			];
-		}
-
-		$classReflection = $this->broker->getClass($type->getClass());
-		if ($classReflection->isInterface() || $expressionClassReflection->isInterface()) {
-			return [];
-		}
-
-		if (!$expressionType->accepts($type)) {
+		} elseif ($isSuperset->no()) {
 			return [
 				sprintf(
 					'Instanceof between %s and %s will always evaluate to false.',
