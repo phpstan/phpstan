@@ -145,6 +145,7 @@ class NodeScopeResolver
 		Scope $closureBindScope = null
 	)
 	{
+		/** @var \PhpParser\Node|string $node */
 		foreach ($nodes as $i => $node) {
 			if (!($node instanceof \PhpParser\Node)) {
 				continue;
@@ -189,8 +190,7 @@ class NodeScopeResolver
 			} elseif ($node instanceof Node\Stmt\Declare_) {
 				foreach ($node->declares as $declare) {
 					if (
-						$declare instanceof Node\Stmt\DeclareDeclare
-						&& $declare->key === 'strict_types'
+						$declare->key === 'strict_types'
 						&& $declare->value instanceof Node\Scalar\LNumber
 						&& $declare->value->value === 1
 					) {

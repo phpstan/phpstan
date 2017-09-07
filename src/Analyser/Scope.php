@@ -548,7 +548,7 @@ class Scope
 				if ($constantClass === 'self') {
 					$constantClass = $this->getClassReflection()->getName();
 				}
-			} elseif ($node->class instanceof Expr) {
+			} else {
 				$constantClassType = $this->getType($node->class);
 				if ($constantClassType->getClass() !== null) {
 					$constantClass = $constantClassType->getClass();
@@ -1090,7 +1090,7 @@ class Scope
 
 	private function isParameterValueNullable(Node\Param $parameter): bool
 	{
-		if ($parameter->default instanceof ConstFetch && $parameter->default->name instanceof Name) {
+		if ($parameter->default instanceof ConstFetch) {
 			return strtolower((string) $parameter->default->name) === 'null';
 		}
 

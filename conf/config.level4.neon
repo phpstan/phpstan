@@ -9,6 +9,8 @@ services:
 
 	-
 		class: PHPStan\Rules\Classes\ImpossibleInstanceOfRule
+		arguments:
+			checkAlwaysTrueInstanceof: %checkAlwaysTrueInstanceof%
 		tags:
 			- phpstan.rules.rule
 
