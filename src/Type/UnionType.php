@@ -104,17 +104,39 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function describe(): string
 	{
-		return UnionTypeHelper::describe($this->getTypes());
+		$typeNames = [];
+
+		foreach ($this->types as $type) {
+			if ($type instanceof IntersectionType) {
+				$typeNames[] = sprintf('(%s)', $type->describe());
+			} else {
+				$typeNames[] = $type->describe();
+			}
+		}
+
+		return implode('|', $typeNames);
 	}
 
 	public function canAccessProperties(): bool
 	{
-		return UnionTypeHelper::canAccessProperties($this->getTypes());
+		foreach ($this->types as $type) {
+			if ($type->canAccessProperties()) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	public function canCallMethods(): bool
 	{
-		return UnionTypeHelper::canCallMethods($this->getTypes());
+		foreach ($this->types as $type) {
+			if ($type->canCallMethods()) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	public function isDocumentableNatively(): bool

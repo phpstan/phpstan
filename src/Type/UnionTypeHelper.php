@@ -6,51 +6,6 @@ class UnionTypeHelper
 {
 
 	/**
-	 * @param \PHPStan\Type\Type[] $types
-	 * @return string
-	 */
-	public static function describe(array $types): string
-	{
-		return implode('|', array_map(function (Type $type): string {
-			if ($type instanceof IntersectionType) {
-				return sprintf('(%s)', $type->describe());
-			} else {
-				return $type->describe();
-			}
-		}, $types));
-	}
-
-	/**
-	 * @param \PHPStan\Type\Type[] $types
-	 * @return bool
-	 */
-	public static function canAccessProperties(array $types): bool
-	{
-		foreach ($types as $type) {
-			if ($type->canAccessProperties()) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	 * @param \PHPStan\Type\Type[] $types
-	 * @return bool
-	 */
-	public static function canCallMethods(array $types): bool
-	{
-		foreach ($types as $type) {
-			if ($type->canCallMethods()) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	/**
 	 * @param string $className
 	 * @param \PHPStan\Type\Type[] $types
 	 * @return \PHPStan\Type\Type[]
