@@ -81,6 +81,15 @@ class TrinaryLogic
 		return new self($min === $max ? $min : self::MAYBE);
 	}
 
+	public static function maxMin(self ...$operands): self
+	{
+		$operandValues = array_map(function (self $trinaryLogic): int {
+			return $trinaryLogic->value;
+		}, $operands);
+
+		return new self(max($operandValues) ?: min($operandValues));
+	}
+
 	public function negate(): self
 	{
 		return new self(-$this->value);

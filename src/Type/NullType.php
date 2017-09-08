@@ -41,6 +41,19 @@ class NullType implements Type
 		return false;
 	}
 
+	public function isSupersetOf(Type $type): TrinaryLogic
+	{
+		if ($type instanceof self) {
+			return TrinaryLogic::createYes();
+		}
+
+		if ($type instanceof CompoundType) {
+			return $type->isSubsetOf($this);
+		}
+
+		return TrinaryLogic::createNo();
+	}
+
 	public function describe(): string
 	{
 		return 'null';

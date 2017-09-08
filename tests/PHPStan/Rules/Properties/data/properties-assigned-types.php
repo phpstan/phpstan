@@ -17,7 +17,7 @@ class Foo extends Ipsum
 	/** @var string */
 	private static $staticStringProperty;
 
-	/** @var self[]|Collection */
+	/** @var self[]|Collection|array */
 	private $unionPropertySelf;
 
 	/** @var Bar[]|self */
@@ -126,6 +126,16 @@ class Ipsum
 		}
 
 		$this->iterableData = $justIterableInPhpDocWithCheck;
+	}
+
+}
+
+class Collection implements \IteratorAggregate
+{
+
+	public function getIterator()
+	{
+		return new \ArrayIterator([]);
 	}
 
 }

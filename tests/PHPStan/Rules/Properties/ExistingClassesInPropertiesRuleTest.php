@@ -28,11 +28,11 @@ class ExistingClassesInPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTes
 					18,
 				],
 				[
-					'Property PropertiesTypes\Foo::$dolors has unknown class PropertiesTypes\Ipsum as its type.',
+					'Property PropertiesTypes\Foo::$dolors has unknown class PropertiesTypes\Dolor as its type.',
 					21,
 				],
 				[
-					'Property PropertiesTypes\Foo::$dolors has unknown class PropertiesTypes\Dolor as its type.',
+					'Property PropertiesTypes\Foo::$dolors has unknown class PropertiesTypes\Ipsum as its type.',
 					21,
 				],
 			]

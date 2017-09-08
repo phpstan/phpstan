@@ -9,11 +9,9 @@ class CompoundTypeHelper
 	{
 		if ($compoundType instanceof MixedType) {
 			return true;
-		} elseif ($compoundType instanceof UnionType) {
-			return UnionTypeHelper::acceptsAll($otherType, $compoundType);
 		}
 
-		throw new \PHPStan\ShouldNotHappenException();
+		return $compoundType->isSubsetOf($otherType)->yes();
 	}
 
 }

@@ -12,7 +12,11 @@ class UnionTypeHelper
 	public static function describe(array $types): string
 	{
 		return implode('|', array_map(function (Type $type): string {
-			return $type->describe();
+			if ($type instanceof IntersectionType) {
+				return sprintf('(%s)', $type->describe());
+			} else {
+				return $type->describe();
+			}
 		}, $types));
 	}
 
@@ -110,54 +114,6 @@ class UnionTypeHelper
 		}
 
 		return array_merge(...$subTypeClasses);
-	}
-
-	/**
-	 * @param \PHPStan\Type\UnionType $unionType
-	 * @param \PHPStan\Type\Type $type
-	 * @return bool|null
-	 */
-	public static function accepts(UnionType $unionType, Type $type)
-	{
-		if ($type instanceof UnionType) {
-			foreach ($type->getTypes() as $otherOtherType) {
-				$matchesAtLeastOne = false;
-				foreach ($unionType->getTypes() as $otherType) {
-					if ($otherType->accepts($otherOtherType)) {
-						$matchesAtLeastOne = true;
-						break;
-					}
-				}
-				if (!$matchesAtLeastOne) {
-					return false;
-				}
-			}
-
-			return true;
-		}
-
-		return null;
-	}
-
-	public static function acceptsAll(Type $type, UnionType $unionType): bool
-	{
-		if (TypeCombinator::shouldSkipUnionTypeAccepts($unionType)) {
-			foreach ($unionType->getTypes() as $otherType) {
-				if ($type->accepts($otherType)) {
-					return true;
-				}
-			}
-
-			return false;
-		}
-
-		foreach ($unionType->getTypes() as $otherType) {
-			if (!$type->accepts($otherType)) {
-				return false;
-			}
-		}
-
-		return true;
 	}
 
 	/**

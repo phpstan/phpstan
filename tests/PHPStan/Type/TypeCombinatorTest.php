@@ -26,8 +26,8 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 			],
 			[
 				new VoidType(),
-				VoidType::class,
-				'void',
+				CommonUnionType::class,
+				'void|null',
 			],
 			[
 				new StringType(),
@@ -52,19 +52,23 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 				'int|string|null',
 			],
 			[
-				new UnionIterableType(new StringType(), [
+				new IntersectionType([
+					new IterableIterableType(new StringType()),
 					new ObjectType('ArrayObject'),
 				]),
-				UnionIterableType::class,
-				'string[]|ArrayObject|null',
+				CommonUnionType::class,
+				'(ArrayObject&iterable(string[]))|null',
 			],
 			[
-				new UnionIterableType(new StringType(), [
-					new ObjectType('ArrayObject'),
+				new CommonUnionType([
+					new IntersectionType([
+						new IterableIterableType(new StringType()),
+						new ObjectType('ArrayObject'),
+					]),
 					new NullType(),
 				]),
-				UnionIterableType::class,
-				'string[]|ArrayObject|null',
+				CommonUnionType::class,
+				'(ArrayObject&iterable(string[]))|null',
 			],
 		];
 	}
@@ -92,13 +96,13 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 	 * @param string $expectedTypeClass
 	 * @param string $expectedTypeDescription
 	 */
-	public function testCombineAddNull(
+	public function testUnionWithNull(
 		Type $type,
 		string $expectedTypeClass,
 		string $expectedTypeDescription
 	)
 	{
-		$result = TypeCombinator::combine($type, new NullType());
+		$result = TypeCombinator::union($type, new NullType());
 		$this->assertSame($expectedTypeDescription, $result->describe());
 		$this->assertInstanceOf($expectedTypeClass, $result);
 	}
@@ -144,19 +148,23 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 				'int|string',
 			],
 			[
-				new UnionIterableType(new StringType(), [
-					new ObjectType('ArrayObject'),
+				new CommonUnionType([
+					new IntersectionType([
+						new IterableIterableType(new StringType()),
+						new ObjectType('ArrayObject'),
+					]),
 					new NullType(),
 				]),
-				UnionIterableType::class,
-				'string[]|ArrayObject',
+				IntersectionType::class,
+				'ArrayObject&iterable(string[])',
 			],
 			[
-				new UnionIterableType(new StringType(), [
+				new IntersectionType([
+					new IterableIterableType(new StringType()),
 					new ObjectType('ArrayObject'),
 				]),
-				UnionIterableType::class,
-				'string[]|ArrayObject',
+				IntersectionType::class,
+				'ArrayObject&iterable(string[])',
 			],
 			[
 				new CommonUnionType([
@@ -167,14 +175,12 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 				'$this(Foo)',
 			],
 			[
-				new UnionIterableType(
-					new StringType(),
-					[
-						new NullType(),
-					]
-				),
-				ArrayType::class,
-				'string[]',
+				new CommonUnionType([
+					new IterableIterableType(new StringType()),
+					new NullType(),
+				]),
+				IterableIterableType::class,
+				'iterable(string[])',
 			],
 		];
 	}
@@ -196,7 +202,7 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 		$this->assertInstanceOf($expectedTypeClass, $result);
 	}
 
-	public function dataCombine(): array
+	public function dataUnion(): array
 	{
 		return [
 			[
@@ -206,6 +212,14 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 				],
 				CommonUnionType::class,
 				'string|null',
+			],
+			[
+				[
+					new TrueBooleanType(),
+					new FalseBooleanType(),
+				],
+				TrueOrFalseBooleanType::class,
+				'bool',
 			],
 			[
 				[
@@ -273,40 +287,36 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 			],
 			[
 				[
-					new UnionIterableType(
-						new IntegerType(),
-						[
-							new ObjectType('ArrayObject'),
-						]
-					),
+					new IntersectionType([
+						new IterableIterableType(new IntegerType()),
+						new ObjectType('ArrayObject'),
+					]),
 					new StringType(),
 				],
-				UnionIterableType::class,
-				'int[]|ArrayObject|string',
-			],
-			[
-				[
-					new UnionIterableType(
-						new IntegerType(),
-						[
-							new ObjectType('ArrayObject'),
-						]
-					),
-					new ArrayType(new StringType()),
-				],
 				CommonUnionType::class,
-				'ArrayObject|int[]|string[]',
+				'(ArrayObject&iterable(int[]))|string',
 			],
 			[
 				[
-					new CommonUnionType([
-						new TrueBooleanType(),
-						new IntegerType(),
+					new IntersectionType([
+						new IterableIterableType(new IntegerType()),
+						new ObjectType('ArrayObject'),
 					]),
 					new ArrayType(new StringType()),
 				],
-				UnionIterableType::class,
-				'string[]|int|true',
+				CommonUnionType::class,
+				'(ArrayObject&iterable(int[]))|string[]',
+			],
+			[
+				[
+						new CommonUnionType([
+						new TrueBooleanType(),
+						new IntegerType(),
+						]),
+					new ArrayType(new StringType()),
+				],
+				CommonUnionType::class,
+				'int|string[]|true',
 			],
 			[
 				[
@@ -316,8 +326,8 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 					]),
 					new ArrayType(new MixedType()),
 				],
-				CommonUnionType::class,
-				'Bar[]|Foo[]|mixed[]',
+				ArrayType::class,
+				'mixed[]',
 			],
 			[
 				[
@@ -325,7 +335,7 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 					new ArrayType(new StringType()),
 				],
 				IterableIterableType::class,
-				'iterable(string[])',
+				'iterable(mixed[])',
 			],
 			[
 				[
@@ -348,8 +358,8 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 					new ObjectType('ArrayIterator'),
 					new ArrayType(new StringType()),
 				],
-				UnionIterableType::class,
-				'string[]|ArrayIterator|ArrayObject',
+				CommonUnionType::class,
+				'ArrayIterator|ArrayObject|string[]',
 			],
 			[
 				[
@@ -361,41 +371,283 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 				CommonUnionType::class,
 				'ArrayIterator|ArrayObject|int[]|string[]',
 			],
+			[
+				[
+					new IntersectionType([
+						new IterableIterableType(new IntegerType()),
+						new ObjectType('ArrayObject'),
+					]),
+					new ArrayType(new IntegerType()),
+				],
+				CommonUnionType::class,
+				'(ArrayObject&iterable(int[]))|int[]',
+			],
+			[
+				[
+					new ObjectType('UnknownClass'),
+					new ObjectType('UnknownClass'),
+				],
+				ObjectType::class,
+				'UnknownClass',
+			],
+			[
+				[
+					new IntersectionType([
+						new ObjectType('DateTimeInterface'),
+						new ObjectType('Traversable'),
+					]),
+					new IntersectionType([
+						new ObjectType('DateTimeInterface'),
+						new ObjectType('Traversable'),
+					]),
+				],
+				IntersectionType::class,
+				'DateTimeInterface&Traversable',
+			],
+			[
+				[
+					new ObjectType('UnknownClass'),
+					new ObjectType('UnknownClass'),
+				],
+				ObjectType::class,
+				'UnknownClass',
+			],
+			[
+				[
+					new StringType(),
+					new NeverType(),
+				],
+				StringType::class,
+				'string',
+			],
+			[
+				[
+					new IntersectionType([
+						new ObjectType('ArrayObject'),
+						new IterableIterableType(new StringType()),
+					]),
+					new NeverType(),
+				],
+				IntersectionType::class,
+				'ArrayObject&iterable(string[])',
+			],
+			[
+				[
+					new IterableIterableType(new MixedType()),
+					new IterableIterableType(new StringType()),
+				],
+				IterableIterableType::class,
+				'iterable(mixed[])',
+			],
+			[
+				[
+					new IterableIterableType(new IntegerType()),
+					new IterableIterableType(new StringType()),
+				],
+				CommonUnionType::class,
+				'iterable(int[])|iterable(string[])', // this is correct but 'iterable(int|string[])' would be better
+			],
+			[
+				[
+					new CommonUnionType([
+						new StringType(),
+						new NullType(),
+					]),
+					new CommonUnionType([
+						new StringType(),
+						new NullType(),
+					]),
+					new CommonUnionType([
+						new ObjectType('Unknown'),
+						new NullType(),
+					]),
+				],
+				CommonUnionType::class,
+				'string|Unknown|null',
+			],
 		];
 	}
 
 	/**
-	 * @dataProvider dataCombine
+	 * @dataProvider dataUnion
 	 * @param \PHPStan\Type\Type[] $types
 	 * @param string $expectedTypeClass
 	 * @param string $expectedTypeDescription
 	 */
-	public function testCombine(
+	public function testUnion(
 		array $types,
 		string $expectedTypeClass,
 		string $expectedTypeDescription
 	)
 	{
-		$result = TypeCombinator::combine(...$types);
+		$result = TypeCombinator::union(...$types);
 		$this->assertSame($expectedTypeDescription, $result->describe());
 		$this->assertInstanceOf($expectedTypeClass, $result);
 	}
 
 	/**
-	 * @dataProvider dataCombine
+	 * @dataProvider dataUnion
 	 * @param \PHPStan\Type\Type[] $types
 	 * @param string $expectedTypeClass
 	 * @param string $expectedTypeDescription
 	 */
-	public function testCombineInversed(
+	public function testUnionInversed(
 		array $types,
 		string $expectedTypeClass,
 		string $expectedTypeDescription
 	)
 	{
-		$result = TypeCombinator::combine(...array_reverse($types));
+		$result = TypeCombinator::union(...array_reverse($types));
 		$this->assertSame($expectedTypeDescription, $result->describe());
 		$this->assertInstanceOf($expectedTypeClass, $result);
+	}
+
+	public function dataIntersect(): array
+	{
+		return [
+			[
+				[
+					new IterableIterableType(new StringType()),
+					new ObjectType('ArrayObject'),
+				],
+				IntersectionType::class,
+				'ArrayObject&iterable(string[])',
+			],
+			[
+				[
+					new IterableIterableType(new StringType()),
+					new ArrayType(new StringType()),
+				],
+				ArrayType::class,
+				'string[]',
+			],
+			[
+				[
+					new ObjectType('Foo'),
+					new StaticType('Foo'),
+				],
+				StaticType::class,
+				'static(Foo)',
+			],
+			[
+				[
+					new VoidType(),
+					new MixedType(),
+				],
+				VoidType::class,
+				'void',
+			],
+
+			[
+				[
+					new ObjectType('UnknownClass'),
+					new ObjectType('UnknownClass'),
+				],
+				ObjectType::class,
+				'UnknownClass',
+			],
+			[
+				[
+					new CommonUnionType([new ObjectType('UnknownClassA'), new ObjectType('UnknownClassB')]),
+					new CommonUnionType([new ObjectType('UnknownClassA'), new ObjectType('UnknownClassB')]),
+				],
+				CommonUnionType::class,
+				'UnknownClassA|UnknownClassB',
+			],
+			[
+				[
+					new TrueBooleanType(),
+					new TrueOrFalseBooleanType(),
+				],
+				TrueBooleanType::class,
+				'true',
+			],
+			[
+				[
+					new StringType(),
+					new NeverType(),
+				],
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				[
+					new ObjectType('Iterator'),
+					new ObjectType('Countable'),
+					new ObjectType('Traversable'),
+				],
+				IntersectionType::class,
+				'Countable&Iterator',
+			],
+			[
+				[
+					new ObjectType('Iterator'),
+					new ObjectType('Traversable'),
+					new ObjectType('Countable'),
+				],
+				IntersectionType::class,
+				'Countable&Iterator',
+			],
+			[
+				[
+					new ObjectType('Traversable'),
+					new ObjectType('Iterator'),
+					new ObjectType('Countable'),
+				],
+				IntersectionType::class,
+				'Countable&Iterator',
+			],
+			[
+				[
+					new IterableIterableType(new MixedType()),
+					new IterableIterableType(new StringType()),
+				],
+				IterableIterableType::class,
+				'iterable(string[])',
+			],
+			[
+				[
+					new ArrayType(new MixedType()),
+					new IterableIterableType(new StringType()),
+				],
+				IntersectionType::class,
+				'iterable(string[])&mixed[]', // this is correct but 'string[]' would be better
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataIntersect
+	 * @param \PHPStan\Type\Type[] $types
+	 * @param string $expectedTypeClass
+	 * @param string $expectedTypeDescription
+	 */
+	public function testIntersect(
+		array $types,
+		string $expectedTypeClass,
+		string $expectedTypeDescription
+	)
+	{
+		$result = TypeCombinator::intersect(...$types);
+		$this->assertInstanceOf($expectedTypeClass, $result);
+		$this->assertSame($expectedTypeDescription, $result->describe());
+	}
+
+	/**
+	 * @dataProvider dataIntersect
+	 * @param \PHPStan\Type\Type[] $types
+	 * @param string $expectedTypeClass
+	 * @param string $expectedTypeDescription
+	 */
+	public function testIntersectInversed(
+		array $types,
+		string $expectedTypeClass,
+		string $expectedTypeDescription
+	)
+	{
+		$result = TypeCombinator::intersect(...array_reverse($types));
+		$this->assertInstanceOf($expectedTypeClass, $result);
+		$this->assertSame($expectedTypeDescription, $result->describe());
 	}
 
 	public function dataRemove(): array
@@ -442,8 +694,8 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 					new ObjectType('ArrayObject'),
 				]),
 				new ArrayType(new IntegerType()),
-				UnionIterableType::class,
-				'string[]|ArrayObject',
+				CommonUnionType::class,
+				'ArrayObject|string[]',
 			],
 			[
 				new TrueBooleanType(),

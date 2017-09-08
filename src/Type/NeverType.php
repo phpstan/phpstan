@@ -33,6 +33,20 @@ class NeverType implements CompoundType
 		return true;
 	}
 
+	public function isSupersetOf(Type $type): TrinaryLogic
+	{
+		if ($type instanceof self) {
+			return TrinaryLogic::createYes();
+		}
+
+		return TrinaryLogic::createNo();
+	}
+
+	public function isSubsetOf(Type $otherType): TrinaryLogic
+	{
+		return TrinaryLogic::createYes();
+	}
+
 	public function describe(): string
 	{
 		return '*NEVER*';

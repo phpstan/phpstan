@@ -35,7 +35,7 @@ class ObjectType implements Type
 			return new self($this->getClass());
 		}
 
-		return TypeCombinator::combine($this, $otherType);
+		return TypeCombinator::union($this, $otherType);
 	}
 
 	public function accepts(Type $type): bool
@@ -53,6 +53,55 @@ class ObjectType implements Type
 		}
 
 		return $this->checkSubclassAcceptability($type->getClass());
+	}
+
+	public function isSupersetOf(Type $type): TrinaryLogic
+	{
+		if ($type instanceof CompoundType) {
+			return $type->isSubsetOf($this);
+		}
+
+		$thisClassName = $this->class;
+		$thatClassName = $type->getClass();
+
+		if ($thatClassName === null) {
+			return TrinaryLogic::createNo();
+		}
+
+		if ($thatClassName === $thisClassName) {
+			return TrinaryLogic::createYes();
+		}
+
+		$broker = Broker::getInstance();
+
+		if (!$broker->hasClass($thisClassName) || !$broker->hasClass($thatClassName)) {
+			return TrinaryLogic::createMaybe();
+		}
+
+		$thisClassReflection = $broker->getClass($thisClassName);
+		$thatClassReflection = $broker->getClass($thatClassName);
+
+		if ($thisClassReflection->getName() === $thatClassReflection->getName()) {
+			return TrinaryLogic::createYes();
+		}
+
+		if ($thatClassReflection->isSubclassOf($thisClassName)) {
+			return TrinaryLogic::createYes();
+		}
+
+		if ($thisClassReflection->isSubclassOf($thatClassName)) {
+			return TrinaryLogic::createMaybe();
+		}
+
+		if ($thisClassReflection->isInterface() && !$thatClassReflection->getNativeReflection()->isFinal()) {
+			return TrinaryLogic::createMaybe();
+		}
+
+		if ($thatClassReflection->isInterface() && !$thisClassReflection->getNativeReflection()->isFinal()) {
+			return TrinaryLogic::createMaybe();
+		}
+
+		return TrinaryLogic::createNo();
 	}
 
 	private function checkSubclassAcceptability(string $thatClass): bool

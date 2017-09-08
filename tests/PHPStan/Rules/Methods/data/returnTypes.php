@@ -81,7 +81,7 @@ class Foo extends FooParent implements FooInterface
 
 	/**
 	 * @param self[]|Collection $collection
-	 * @return self[]|Collection
+	 * @return self[]|Collection|array
 	 */
 	public function returnUnionIterableType($collection)
 	{
@@ -115,7 +115,7 @@ class Foo extends FooParent implements FooInterface
 
 	/**
 	 * @param self[]|Collection $collection
-	 * @return self[]|Collection|OtherCollection|null
+	 * @return self[]|Collection|AnotherCollection|null
 	 */
 	public function returnUnionIterableLooserReturnType($collection)
 	{
@@ -389,6 +389,26 @@ class WeirdReturnFormat
 	public function test()
 	{
 		return 1;
+	}
+
+}
+
+class Collection implements \IteratorAggregate
+{
+
+	public function getIterator()
+	{
+		return new \ArrayIterator([]);
+	}
+
+}
+
+class AnotherCollection implements \IteratorAggregate
+{
+
+	public function getIterator()
+	{
+		return new \ArrayIterator([]);
 	}
 
 }

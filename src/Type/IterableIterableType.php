@@ -4,7 +4,7 @@ namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
 
-class IterableIterableType implements StaticResolvableType
+class IterableIterableType implements StaticResolvableType, CompoundType
 {
 
 	use IterableTypeTrait;
@@ -32,7 +32,7 @@ class IterableIterableType implements StaticResolvableType
 			);
 		}
 
-		return TypeCombinator::combine($this, $otherType);
+		return TypeCombinator::union($this, $otherType);
 	}
 
 	public function accepts(Type $type): bool
@@ -46,6 +46,36 @@ class IterableIterableType implements StaticResolvableType
 		}
 
 		return false;
+	}
+
+	public function isSupersetOf(Type $type): TrinaryLogic
+	{
+		return $type->isIterable()
+			->and($this->getIterableValueType()->isSupersetOf($type->getIterableValueType()));
+	}
+
+	public function isSubsetOf(Type $otherType): TrinaryLogic
+	{
+		if ($otherType instanceof IntersectionType || $otherType instanceof UnionType) {
+			return $otherType->isSupersetOf(new CommonUnionType([
+				new ArrayType($this->itemType),
+				new IntersectionType([
+					new ObjectType(\Traversable::class),
+					$this,
+				]),
+			]));
+		}
+
+		if ($otherType instanceof self) {
+			$limit = TrinaryLogic::createYes();
+		} else {
+			$limit = TrinaryLogic::createMaybe();
+		}
+
+		return $limit->and(
+			$otherType->isIterable(),
+			$otherType->getIterableValueType()->isSupersetOf($this->itemType)
+		);
 	}
 
 	public function describe(): string

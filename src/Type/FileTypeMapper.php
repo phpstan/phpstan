@@ -33,7 +33,7 @@ class FileTypeMapper
 
 	public function getTypeMap(string $fileName): array
 	{
-		$cacheKey = sprintf('%s-%d-v9', $fileName, filemtime($fileName));
+		$cacheKey = sprintf('%s-%d-v10', $fileName, filemtime($fileName));
 		if (isset($this->memoryCache[$cacheKey])) {
 			return $this->memoryCache[$cacheKey];
 		}
@@ -147,8 +147,12 @@ class FileTypeMapper
 
 	private function getTypeFromTypeString(string $typeString, string $className = null, NameScope $nameScope): Type
 	{
-		/** @var \PHPStan\Type\Type[] $types */
+		/** @var Type[] $types */
 		$types = [];
+
+		/** @var Type[] $iterableValueTypes */
+		$iterableValueTypes = [];
+
 		foreach (explode('|', $typeString) as $typePart) {
 			$typePart = trim($typePart);
 			if ($typePart === '') {
@@ -158,10 +162,48 @@ class FileTypeMapper
 				$typePart = substr($typePart, 1);
 				$types[] = new NullType();
 			}
-			$types[] = TypehintHelper::getTypeObjectFromTypehint($typePart, $className, $nameScope);
+
+			$innerType = TypehintHelper::getTypeObjectFromTypehint($typePart, $className, $nameScope);
+
+			if (substr($typePart, -2) === '[]') {
+				$iterableValueTypes[] = $innerType->getIterableValueType();
+			} else {
+				$types[] = $innerType;
+			}
 		}
 
-		return TypeCombinator::combine(...$types);
+		if ($iterableValueTypes) {
+			$iterableValueType = TypeCombinator::union(...$iterableValueTypes);
+			$addArray = true;
+
+			foreach ($types as &$type) {
+				if ($type->isIterable()->yes()) {
+					if ($type instanceof ObjectType) {
+						$type = new IntersectionType([$type, new IterableIterableType($iterableValueType)]);
+					} elseif ($type instanceof ArrayType) {
+						$type = new ArrayType($iterableValueType);
+					} elseif ($type instanceof IterableIterableType) {
+						$type = new IterableIterableType($iterableValueType);
+					} else {
+						continue;
+					}
+
+					$addArray = false;
+				}
+			}
+
+			if ($addArray) {
+				$types[] = new ArrayType($iterableValueType);
+			}
+		}
+
+		if (count($types) === 0) {
+			return new MixedType();
+		} elseif (count($types) === 1) {
+			return $types[0];
+		} else {
+			return TypeCombinator::union(...$types);
+		}
 	}
 
 	/**

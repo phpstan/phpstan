@@ -61,7 +61,7 @@ class CommonUnionType implements UnionType
 
 	public function combineWith(Type $otherType): Type
 	{
-		return TypeCombinator::combine($this, $otherType);
+		return TypeCombinator::union($this, $otherType);
 	}
 
 	public function accepts(Type $type): bool
@@ -81,6 +81,30 @@ class CommonUnionType implements UnionType
 		}
 
 		return false;
+	}
+
+	public function isSupersetOf(Type $otherType): TrinaryLogic
+	{
+		if ($otherType instanceof self || $otherType instanceof IterableIterableType) {
+			return $otherType->isSubsetOf($this);
+		}
+
+		$results = [];
+		foreach ($this->getTypes() as $innerType) {
+			$results[] = $innerType->isSupersetOf($otherType);
+		}
+
+		return TrinaryLogic::createNo()->or(...$results);
+	}
+
+	public function isSubsetOf(Type $otherType): TrinaryLogic
+	{
+		$results = [];
+		foreach ($this->getTypes() as $innerType) {
+			$results[] = $otherType->isSupersetOf($innerType);
+		}
+
+		return TrinaryLogic::extremeIdentity(...$results);
 	}
 
 	public function describe(): string
@@ -115,17 +139,23 @@ class CommonUnionType implements UnionType
 
 	public function isIterable(): TrinaryLogic
 	{
-		return TrinaryLogic::createNo();
+		return $this->unionResults(function (Type $type): TrinaryLogic {
+			return $type->isIterable();
+		});
 	}
 
 	public function getIterableKeyType(): Type
 	{
-		return new MixedType();
+		return $this->unionTypes(function (Type $type): Type {
+			return $type->getIterableKeyType();
+		});
 	}
 
 	public function getIterableValueType(): Type
 	{
-		return new MixedType();
+		return $this->unionTypes(function (Type $type): Type {
+			return $type->getIterableValueType();
+		});
 	}
 
 	public function isCallable(): TrinaryLogic
@@ -143,6 +173,11 @@ class CommonUnionType implements UnionType
 	private function unionResults(callable $getResult): TrinaryLogic
 	{
 		return TrinaryLogic::extremeIdentity(...array_map($getResult, $this->types));
+	}
+
+	private function unionTypes(callable $getType): Type
+	{
+		return TypeCombinator::union(...array_map($getType, $this->types));
 	}
 
 }

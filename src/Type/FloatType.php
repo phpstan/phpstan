@@ -29,7 +29,7 @@ class FloatType implements Type
 			return new self();
 		}
 
-		return TypeCombinator::combine($this, $otherType);
+		return TypeCombinator::union($this, $otherType);
 	}
 
 	public function accepts(Type $type): bool
@@ -43,6 +43,19 @@ class FloatType implements Type
 		}
 
 		return false;
+	}
+
+	public function isSupersetOf(Type $type): TrinaryLogic
+	{
+		if ($type instanceof self) {
+			return TrinaryLogic::createYes();
+		}
+
+		if ($type instanceof CompoundType) {
+			return $type->isSubsetOf($this);
+		}
+
+		return TrinaryLogic::createNo();
 	}
 
 	public function describe(): string

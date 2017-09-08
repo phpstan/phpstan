@@ -113,35 +113,35 @@ class AccessPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$this->analyse([__DIR__ . '/data/access-properties-after-isnull.php'], [
 			[
 				'Cannot access property $fooProperty on null.',
-				14,
+				16,
 			],
 			[
 				'Cannot access property $fooProperty on null.',
-				23,
+				25,
 			],
 			[
 				'Access to an undefined property AccessPropertiesAfterIsNull\Foo::$barProperty.',
-				26,
+				28,
 			],
 			[
 				'Access to an undefined property AccessPropertiesAfterIsNull\Foo::$barProperty.',
-				29,
+				31,
 			],
 			[
 				'Cannot access property $fooProperty on null.',
-				33,
+				35,
 			],
 			[
 				'Cannot access property $fooProperty on null.',
-				42,
+				44,
 			],
 			[
 				'Access to an undefined property AccessPropertiesAfterIsNull\Foo::$barProperty.',
-				45,
+				47,
 			],
 			[
 				'Access to an undefined property AccessPropertiesAfterIsNull\Foo::$barProperty.',
-				48,
+				50,
 			],
 		]);
 	}

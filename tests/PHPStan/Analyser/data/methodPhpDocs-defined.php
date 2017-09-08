@@ -40,9 +40,9 @@ class Bar
 	}
 
 	/**
-	 * @return static[]|static|Foo
+	 * @return static[]|Collection
 	 */
-	public function doFluentUnionIterable()
+	public function doFluentUnionIterable(): Collection
 	{
 
 	}

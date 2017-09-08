@@ -8,9 +8,11 @@ class Foo
 	/** @var self */
 	private $fooProperty;
 
-	public function doFoo()
+	/**
+	 * @param self|null $foo
+	 */
+	public function doFoo($foo)
 	{
-		$foo = new self();
 		if (is_null($foo) && $foo->fooProperty) {
 
 		}

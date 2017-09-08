@@ -15,7 +15,7 @@ class IntegerType implements Type
 			return new self();
 		}
 
-		return TypeCombinator::combine($this, $otherType);
+		return TypeCombinator::union($this, $otherType);
 	}
 
 	public function describe(): string

@@ -1189,7 +1189,7 @@ class Scope
 	 */
 	public function enterCatch(array $classes, string $variableName): self
 	{
-		$type = TypeCombinator::combine(...array_map(function (string $class): ObjectType {
+		$type = TypeCombinator::union(...array_map(function (string $class): ObjectType {
 			return new ObjectType($class);
 		}, $classes));
 

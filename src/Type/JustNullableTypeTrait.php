@@ -31,7 +31,7 @@ trait JustNullableTypeTrait
 
 		/** @var \PHPStan\Type\Type $thisType */
 		$thisType = $this;
-		return TypeCombinator::combine($thisType, $otherType);
+		return TypeCombinator::union($thisType, $otherType);
 	}
 
 	public function accepts(Type $type): bool
@@ -45,6 +45,19 @@ trait JustNullableTypeTrait
 		}
 
 		return false;
+	}
+
+	public function isSupersetOf(Type $type): TrinaryLogic
+	{
+		if ($type instanceof self) {
+			return TrinaryLogic::createYes();
+		}
+
+		if ($type instanceof CompoundType) {
+			return $type->isSubsetOf($this);
+		}
+
+		return TrinaryLogic::createNo();
 	}
 
 	public function isDocumentableNatively(): bool

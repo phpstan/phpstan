@@ -539,15 +539,15 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				62,
 			],
 			[
-				'Parameter #5 $unionIterableType of method CallMethodsIterables\Foo::doFoo() expects CallMethodsIterables\Bar[]|CallMethodsIterables\Collection, int given.',
+				'Parameter #5 $unionIterableType of method CallMethodsIterables\Foo::doFoo() expects CallMethodsIterables\Collection&iterable(CallMethodsIterables\Bar[]), int given.',
 				62,
 			],
 			[
-				'Parameter #6 $mixedUnionIterableType of method CallMethodsIterables\Foo::doFoo() expects CallMethodsIterables\Bar[]|CallMethodsIterables\Collection|CallMethodsIterables\Foo[], int given.',
+				'Parameter #6 $mixedUnionIterableType of method CallMethodsIterables\Foo::doFoo() expects (CallMethodsIterables\Bar|CallMethodsIterables\Foo)[], int given.',
 				62,
 			],
 			[
-				'Parameter #7 $unionIterableIterableType of method CallMethodsIterables\Foo::doFoo() expects CallMethodsIterables\Bar[]|CallMethodsIterables\Collection, int given.',
+				'Parameter #7 $unionIterableIterableType of method CallMethodsIterables\Foo::doFoo() expects CallMethodsIterables\Collection&iterable(CallMethodsIterables\Bar[]), int given.',
 				62,
 			],
 			[

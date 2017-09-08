@@ -27,7 +27,7 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCas
 					],
 					'fooOrBar' => [
 						'class' => \AnnotationsProperties\Foo::class,
-						'type' => 'AnnotationsProperties\Bar|AnnotationsProperties\Foo',
+						'type' => 'AnnotationsProperties\Foo',
 						'writable' => true,
 						'readable' => true,
 					],
@@ -62,7 +62,7 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCas
 					],
 					'fooOrBar' => [
 						'class' => \AnnotationsProperties\Foo::class,
-						'type' => 'AnnotationsProperties\Bar|AnnotationsProperties\Foo',
+						'type' => 'AnnotationsProperties\Foo',
 						'writable' => true,
 						'readable' => true,
 					],
@@ -91,7 +91,7 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCas
 					],
 					'fooOrBar' => [
 						'class' => \AnnotationsProperties\Foo::class,
-						'type' => 'AnnotationsProperties\Bar|AnnotationsProperties\Foo',
+						'type' => 'AnnotationsProperties\Foo',
 						'writable' => true,
 						'readable' => true,
 					],
@@ -138,7 +138,7 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCas
 					],
 					'fooOrBar' => [
 						'class' => \AnnotationsProperties\Foo::class,
-						'type' => 'AnnotationsProperties\Bar|AnnotationsProperties\Foo',
+						'type' => 'AnnotationsProperties\Foo',
 						'writable' => true,
 						'readable' => true,
 					],

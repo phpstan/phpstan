@@ -2,7 +2,11 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\TrinaryLogic;
+
 interface CompoundType extends Type
 {
+
+	public function isSubsetOf(Type $otherType): TrinaryLogic;
 
 }

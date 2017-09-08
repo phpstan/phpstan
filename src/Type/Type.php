@@ -21,6 +21,8 @@ interface Type
 
 	public function accepts(Type $type): bool;
 
+	public function isSupersetOf(Type $type): TrinaryLogic;
+
 	public function describe(): string;
 
 	public function canAccessProperties(): bool;

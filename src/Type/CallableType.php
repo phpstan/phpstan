@@ -4,7 +4,7 @@ namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
 
-class CallableType implements Type
+class CallableType implements CompoundType
 {
 
 	/**
@@ -29,7 +29,7 @@ class CallableType implements Type
 			return $this;
 		}
 
-		return TypeCombinator::combine($this, $otherType);
+		return TypeCombinator::union($this, $otherType);
 	}
 
 	public function accepts(Type $type): bool
@@ -43,6 +43,21 @@ class CallableType implements Type
 		}
 
 		return false;
+	}
+
+	public function isSupersetOf(Type $type): TrinaryLogic
+	{
+		return $type->isCallable();
+	}
+
+	public function isSubsetOf(Type $otherType): TrinaryLogic
+	{
+		if ($otherType instanceof IntersectionType || $otherType instanceof UnionType) {
+			return $otherType->isSupersetOf($this);
+		}
+
+		return $otherType->isCallable()
+			->and($otherType instanceof self ? TrinaryLogic::createYes() : TrinaryLogic::createMaybe());
 	}
 
 	public function describe(): string
