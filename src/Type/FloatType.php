@@ -30,7 +30,10 @@ class FloatType implements Type
 		}
 
 		if ($type instanceof CompoundType) {
-			return CompoundTypeHelper::accepts($type, $this);
+			return CompoundTypeHelper::accepts($type, new UnionType([
+				$this,
+				new IntegerType(),
+			]));
 		}
 
 		return false;
