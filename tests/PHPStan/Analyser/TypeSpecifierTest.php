@@ -216,7 +216,7 @@ class TypeSpecifierTest extends \PHPStan\TestCase
 					$this->createFunctionCall('random')
 				),
 				[],
-				[],
+				['$foo' => '~*NEVER*'],
 			],
 			[
 				new Expr\BinaryOp\BooleanOr(
@@ -248,7 +248,7 @@ class TypeSpecifierTest extends \PHPStan\TestCase
 					),
 					$this->createFunctionCall('random')
 				),
-				[],
+				['$foo' => '~*NEVER*'],
 				[],
 			],
 
@@ -283,6 +283,14 @@ class TypeSpecifierTest extends \PHPStan\TestCase
 				),
 				['$foo' => '~int'],
 				['$foo' => 'int'],
+			],
+			[
+				new Expr\BinaryOp\Identical(
+					new Variable('foo'),
+					new Variable('bar')
+				),
+				['$foo' => 'Bar', '$bar' => 'Bar'],
+				[],
 			],
 		];
 	}

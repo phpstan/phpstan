@@ -4,7 +4,7 @@ namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
 
-class CallableType implements Type
+class CallableType implements CompoundType
 {
 
 	/**
@@ -23,46 +23,32 @@ class CallableType implements Type
 		return [];
 	}
 
-	public function combineWith(Type $otherType): Type
-	{
-		if ($otherType instanceof self) {
-			return $this;
-		}
-
-		if ($otherType instanceof ArrayType && $otherType->isPossiblyCallable()) {
-			return $this;
-		}
-
-		return TypeCombinator::combine($this, $otherType);
-	}
-
 	public function accepts(Type $type): bool
 	{
-		if ($type instanceof self) {
-			return true;
-		}
-
-		if ($type instanceof ArrayType && $type->isPossiblyCallable()) {
-			return true;
-		}
-
-		if ($type instanceof StringType) {
-			return true;
-		}
-
-		if ($type->getClass() === 'Closure') {
-			return true;
-		}
-
-		if ($type->getClass() !== null && method_exists($type->getClass(), '__invoke')) {
-			return true;
-		}
-
 		if ($type instanceof CompoundType) {
 			return CompoundTypeHelper::accepts($type, $this);
 		}
 
+		if (!$type->isCallable()->no()) {
+			return true;
+		}
+
 		return false;
+	}
+
+	public function isSupersetOf(Type $type): TrinaryLogic
+	{
+		return $type->isCallable();
+	}
+
+	public function isSubsetOf(Type $otherType): TrinaryLogic
+	{
+		if ($otherType instanceof IntersectionType || $otherType instanceof UnionType) {
+			return $otherType->isSupersetOf($this);
+		}
+
+		return $otherType->isCallable()
+			->and($otherType instanceof self ? TrinaryLogic::createYes() : TrinaryLogic::createMaybe());
 	}
 
 	public function describe(): string
@@ -98,6 +84,11 @@ class CallableType implements Type
 	public function getIterableValueType(): Type
 	{
 		return new MixedType();
+	}
+
+	public function isCallable(): TrinaryLogic
+	{
+		return TrinaryLogic::createYes();
 	}
 
 	public static function __set_state(array $properties): Type

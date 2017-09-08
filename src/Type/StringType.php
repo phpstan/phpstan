@@ -39,6 +39,11 @@ class StringType implements Type
 		return new ErrorType();
 	}
 
+	public function isCallable(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
+	}
+
 	public static function __set_state(array $properties): Type
 	{
 		return new self();

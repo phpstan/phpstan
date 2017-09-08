@@ -1084,7 +1084,10 @@ class NodeScopeResolver
 						!isset($arrayDimFetchVariableType)
 						|| !$arrayDimFetchVariableType instanceof NullType
 					) {
-						$arrayType = $scope->getVariableType($var->name)->combineWith($arrayType);
+						$arrayType = TypeCombinator::union(
+							$scope->getVariableType($var->name),
+							$arrayType
+						);
 					}
 				}
 

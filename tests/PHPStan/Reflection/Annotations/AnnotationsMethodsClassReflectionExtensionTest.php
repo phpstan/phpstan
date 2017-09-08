@@ -56,7 +56,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
 			],
 			'getFooOrBar' => [
 				'class' => \AnnotationsMethods\Foo::class,
-				'returnType' => 'AnnotationsMethods\Bar|AnnotationsMethods\Foo',
+				'returnType' => 'AnnotationsMethods\Foo',
 				'isStatic' => false,
 				'isVariadic' => false,
 				'parameters' => [],
@@ -114,7 +114,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
 			],
 			'getFooOrBarStatically' => [
 				'class' => \AnnotationsMethods\Foo::class,
-				'returnType' => 'AnnotationsMethods\Bar|AnnotationsMethods\Foo',
+				'returnType' => 'AnnotationsMethods\Foo',
 				'isStatic' => true,
 				'isVariadic' => false,
 				'parameters' => [],
@@ -172,7 +172,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
 			],
 			'getFooOrBarWithDescription' => [
 				'class' => \AnnotationsMethods\Foo::class,
-				'returnType' => 'AnnotationsMethods\Bar|AnnotationsMethods\Foo',
+				'returnType' => 'AnnotationsMethods\Foo',
 				'isStatic' => false,
 				'isVariadic' => false,
 				'parameters' => [],
@@ -230,7 +230,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
 			],
 			'getFooOrBarStaticallyWithDescription' => [
 				'class' => \AnnotationsMethods\Foo::class,
-				'returnType' => 'AnnotationsMethods\Bar|AnnotationsMethods\Foo',
+				'returnType' => 'AnnotationsMethods\Foo',
 				'isStatic' => true,
 				'isVariadic' => false,
 				'parameters' => [],
@@ -272,7 +272,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
 			],
 			'getFooOrBarNoParams' => [
 				'class' => \AnnotationsMethods\Foo::class,
-				'returnType' => 'AnnotationsMethods\Bar|AnnotationsMethods\Foo',
+				'returnType' => 'AnnotationsMethods\Foo',
 				'isStatic' => false,
 				'isVariadic' => false,
 				'parameters' => [],
@@ -300,7 +300,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
 			],
 			'getFooOrBarStaticallyNoParams' => [
 				'class' => \AnnotationsMethods\Foo::class,
-				'returnType' => 'AnnotationsMethods\Bar|AnnotationsMethods\Foo',
+				'returnType' => 'AnnotationsMethods\Foo',
 				'isStatic' => true,
 				'isVariadic' => false,
 				'parameters' => [],
@@ -328,7 +328,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
 			],
 			'getFooOrBarWithDescriptionNoParams' => [
 				'class' => \AnnotationsMethods\Foo::class,
-				'returnType' => 'AnnotationsMethods\Bar|AnnotationsMethods\Foo',
+				'returnType' => 'AnnotationsMethods\Foo',
 				'isStatic' => false,
 				'isVariadic' => false,
 				'parameters' => [],
@@ -349,7 +349,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
 			],
 			'getFooOrBarStaticallyWithDescriptionNoParams' => [
 				'class' => \AnnotationsMethods\Foo::class,
-				'returnType' => 'AnnotationsMethods\Bar|AnnotationsMethods\Foo',
+				'returnType' => 'AnnotationsMethods\Foo',
 				'isStatic' => true,
 				'isVariadic' => false,
 				'parameters' => [],

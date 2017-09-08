@@ -28,7 +28,7 @@ class TypeCombinator
 
 	public static function addNull(Type $type): Type
 	{
-		return self::combine($type, new NullType());
+		return self::union($type, new NullType());
 	}
 
 	public static function remove(Type $fromType, Type $typeToRemove): Type
@@ -37,64 +37,29 @@ class TypeCombinator
 			foreach ($typeToRemove->getTypes() as $unionTypeToRemove) {
 				$fromType = self::remove($fromType, $unionTypeToRemove);
 			}
-
-			return $fromType;
-		}
-		$typeToRemoveDescription = $typeToRemove->describe();
-		if ($fromType->describe() === $typeToRemoveDescription) {
-			return new ErrorType();
-		}
-		if (
-			$fromType instanceof BooleanType
-			&& $typeToRemove instanceof TrueOrFalseBooleanType
-		) {
-			return new ErrorType();
-		}
-		if (
-			$fromType instanceof MixedType
-			|| !$fromType instanceof UnionType
-		) {
 			return $fromType;
 		}
 
-		$types = [];
-		$iterableTypes = [];
-		if ($fromType->isIterable()->yes() && !$fromType instanceof ObjectType && !$fromType instanceof StaticType) {
-			$iterableTypes[] = $fromType;
-		}
-		foreach ($fromType->getTypes() as $innerType) {
-			if ($innerType->describe() === $typeToRemoveDescription) {
-				continue;
+		if ($fromType instanceof TrueOrFalseBooleanType) {
+			if ($typeToRemove instanceof TrueBooleanType) {
+				return new FalseBooleanType();
+			} elseif ($typeToRemove instanceof FalseBooleanType) {
+				return new TrueBooleanType();
 			}
-			if (
-				$innerType instanceof BooleanType
-				&& $typeToRemove instanceof TrueOrFalseBooleanType
-			) {
-				continue;
+		} elseif ($fromType instanceof UnionType) {
+			$innerTypes = [];
+			foreach ($fromType->getTypes() as $innerType) {
+				$innerTypes[] = self::remove($innerType, $typeToRemove);
 			}
 
-			if ($innerType->isIterable()->yes() && !$innerType instanceof ObjectType && !$innerType instanceof StaticType) {
-				$iterableTypes[] = $innerType;
-			} else {
-				$types[] = $innerType;
-			}
+			return self::union(...$innerTypes);
 		}
 
-		if (count($iterableTypes) === 1) {
-			if (count($types) === 0) {
-				return new ArrayType($iterableTypes[0]->getItemType());
-			}
-			return new UnionIterableType($iterableTypes[0]->getItemType(), $types);
+		if ($typeToRemove->isSupersetOf($fromType)->yes()) {
+			return new NeverType();
 		}
 
-		$types = array_merge($types, $iterableTypes);
-		if (count($types) > 1) {
-			return new CommonUnionType($types);
-		} elseif (count($types) === 1) {
-			return $types[0];
-		}
-
-		throw new \PHPStan\ShouldNotHappenException();
+		return $fromType;
 	}
 
 	public static function removeNull(Type $type): Type
@@ -117,125 +82,132 @@ class TypeCombinator
 		return $type instanceof NullType;
 	}
 
-	public static function combine(Type ...$typesToCombine): Type
+	public static function union(Type ...$types): Type
 	{
-		if (count($typesToCombine) === 1) {
-			return $typesToCombine[0];
+		// transform A | (B | C) to A | B | C
+		for ($i = 0; $i < count($types); $i++) {
+			if ($types[$i] instanceof UnionType) {
+				array_splice($types, $i, 1, $types[$i]->getTypes());
+			}
 		}
 
-		$types = [];
-		$iterableTypes = [];
-		$iterableIterableTypes = [];
-
-		foreach ($typesToCombine as $type) {
-			$alreadyAdded = false;
-			if ($type instanceof UnionType) {
-				$alreadyAdded = true;
-				foreach ($type->getTypes() as $innerType) {
-					if ($innerType->isIterable()->yes() && !$innerType instanceof ObjectType && !$innerType instanceof StaticType) {
-						$iterableIterableTypes[$innerType->describe()] = $innerType;
-						$iterableTypes[$innerType->getIterableValueType()->describe()] = $innerType->getIterableValueType();
-					} else {
-						$types[$innerType->describe()] = $innerType;
-					}
+		// simplify true | false to bool
+		// simplify string[] | int[] to (string|int)[]
+		for ($i = 0; $i < count($types); $i++) {
+			for ($j = $i + 1; $j < count($types); $j++) {
+				if ($types[$i] instanceof TrueBooleanType && $types[$j] instanceof FalseBooleanType) {
+					$types[$i] = new TrueOrFalseBooleanType();
+					array_splice($types, $j, 1);
+					continue 2;
+				} elseif ($types[$i] instanceof FalseBooleanType && $types[$j] instanceof TrueBooleanType) {
+					$types[$i] = new TrueOrFalseBooleanType();
+					array_splice($types, $j, 1);
+					continue 2;
+				} elseif ($types[$i] instanceof ArrayType && $types[$j] instanceof ArrayType) {
+					$types[$i] = new ArrayType(
+						self::union($types[$i]->getIterableValueType(), $types[$j]->getIterableValueType()),
+						$types[$i]->isItemTypeInferredFromLiteralArray() || $types[$j]->isItemTypeInferredFromLiteralArray(),
+						$types[$i]->isCallable()->and($types[$j]->isCallable())
+					);
+					array_splice($types, $j, 1);
+					continue 2;
+				} elseif ($types[$i] instanceof IterableIterableType && $types[$j] instanceof IterableIterableType) {
+					$types[$i] = new IterableIterableType(
+						self::union($types[$i]->getIterableValueType(), $types[$j]->getIterableValueType())
+					);
+					array_splice($types, $j, 1);
+					continue 2;
 				}
 			}
-			if ($type->isIterable()->yes() && !$type instanceof ObjectType && !$type instanceof StaticType) {
-				$alreadyAdded = true;
-				$iterableIterableTypes[$type->describe()] = $type;
-				$iterableTypes[$type->getIterableValueType()->describe()] = $type->getIterableValueType();
-			}
-			if (!$alreadyAdded) {
-				$types[$type->describe()] = $type;
-			}
 		}
 
-		/** @var \PHPStan\Type\Type|null $boolType */
-		$boolType = null;
-		foreach (['bool', 'true', 'false'] as $boolTypeKey) {
-			if (!array_key_exists($boolTypeKey, $types)) {
-				continue;
-			}
-			if ($boolType === null) {
-				$boolType = $types[$boolTypeKey];
-			} else {
-				$boolType = $boolType->combineWith($types[$boolTypeKey]);
-			}
-			unset($types[$boolTypeKey]);
-		}
-		if ($boolType !== null) {
-			$types[$boolType->describe()] = $boolType;
-		}
+		// transform A | A to A
+		// transform A | never to A
+		// transform true | bool to bool
+		for ($i = 0; $i < count($types); $i++) {
+			for ($j = $i + 1; $j < count($types); $j++) {
+				if ($types[$j]->isSupersetOf($types[$i])->yes()) {
+					array_splice($types, $i--, 1);
+					continue 2;
 
-		if (count($types) === 2 && count($iterableTypes) === 0) {
-			if (
-				array_key_exists('null', $types)
-				&& (
-					array_key_exists('mixed', $types)
-					|| array_key_exists('void', $types)
-				)
-			) {
-				unset($types['null']);
-				$types = array_values($types);
-				return $types[0];
-			}
-		}
-
-		/** @var \PHPStan\Type\Type[] $types */
-		$types = array_values($types);
-		/** @var \PHPStan\Type\Type[] $iterableTypes */
-		$iterableTypes = array_values($iterableTypes);
-		/** @var \PHPStan\Type\Type[] $iterableTypes */
-		$iterableIterableTypes = array_values($iterableIterableTypes);
-
-		$exactlyOneIterableIterableType = null;
-		$otherIterableTypes = [];
-		foreach ($iterableIterableTypes as $iterableIterableType) {
-			if ($iterableIterableType instanceof IterableIterableType && $iterableIterableType->getIterableValueType() instanceof MixedType) {
-				if ($exactlyOneIterableIterableType === null) {
-					$exactlyOneIterableIterableType = $iterableIterableType;
-				} else {
-					$exactlyOneIterableIterableType = null;
-					break;
+				} elseif ($types[$i]->isSupersetOf($types[$j])->yes()) {
+					array_splice($types, $j--, 1);
+					continue 1;
 				}
-			} else {
-				$otherIterableTypes[] = $iterableIterableType;
 			}
 		}
 
-		if (
-			$exactlyOneIterableIterableType !== null
-			&& count($otherIterableTypes) > 0
-		) {
+		if (count($types) === 0) {
+			return new NeverType();
 
-			$iterableIterableType = new IterableIterableType(
-				count($otherIterableTypes) === 1
-					? $otherIterableTypes[0]->getIterableValueType()
-					: new CommonUnionType(array_map(function (Type $iterableType): Type {
-						return $iterableType->getIterableValueType();
-					}, $otherIterableTypes))
-			);
-			if (count($types) === 0) {
-				return $iterableIterableType;
-			}
-			return new CommonUnionType(array_merge($types, [$iterableIterableType]));
-		} elseif (count($iterableIterableTypes) === 1) {
-			if (count($types) > 0) {
-				return new UnionIterableType($iterableIterableTypes[0]->getIterableValueType(), $types);
-			}
-			return $iterableIterableTypes[0];
-		}
-		$types = array_merge($types, array_map(function (Type $type): Type {
-			return new ArrayType($type);
-		}, $iterableTypes));
-		if (count($types) > 1) {
-			return new CommonUnionType($types);
-		}
-		if (count($types) === 1) {
+		} elseif (count($types) === 1) {
 			return $types[0];
 		}
 
-		throw new \PHPStan\ShouldNotHappenException();
+		return new UnionType($types);
+	}
+
+	public static function intersect(Type ...$types): Type
+	{
+		// transform A & (B | C) to (A & B) | (A & C)
+		foreach ($types as $i => $type) {
+			if ($type instanceof UnionType) {
+				$topLevelUnionSubTypes = [];
+				foreach ($type->getTypes() as $innerUnionSubType) {
+					$topLevelUnionSubTypes[] = self::intersect(
+						$innerUnionSubType,
+						...array_slice($types, 0, $i),
+						...array_slice($types, $i + 1)
+					);
+				}
+
+				return self::union(...$topLevelUnionSubTypes);
+			}
+		}
+
+		// transform A & (B & C) to A & B & C
+		foreach ($types as $i => &$type) {
+			if ($type instanceof IntersectionType) {
+				array_splice($types, $i, 1, $type->getTypes());
+			}
+		}
+
+		// transform IntegerType & ConstantIntegerType to ConstantIntegerType
+		// transform Child & Parent to Child
+		// transform Object & ~null to Object
+		// transform A & A to A
+		// transform int[] & string to never
+		// transform callable & int to never
+		// transform A & ~A to never
+		// transform int & string to never
+		for ($i = 0; $i < count($types); $i++) {
+			for ($j = $i + 1; $j < count($types); $j++) {
+				$isSupersetA = $types[$j]->isSupersetOf($types[$i]);
+				if ($isSupersetA->no()) {
+					return new NeverType();
+
+				} elseif ($isSupersetA->yes()) {
+					array_splice($types, $j--, 1);
+					continue;
+				}
+
+				$isSupersetB = $types[$i]->isSupersetOf($types[$j]);
+				if ($isSupersetB->maybe()) {
+					continue;
+
+				} elseif ($isSupersetB->yes()) {
+					array_splice($types, $i--, 1);
+					continue 2;
+				}
+			}
+		}
+
+		if (count($types) === 1) {
+			return $types[0];
+
+		} else {
+			return new IntersectionType($types);
+		}
 	}
 
 	public static function shouldSkipUnionTypeAccepts(UnionType $unionType): bool

@@ -23,15 +23,6 @@ class FloatType implements Type
 		return [];
 	}
 
-	public function combineWith(Type $otherType): Type
-	{
-		if ($otherType instanceof $this) {
-			return new self();
-		}
-
-		return TypeCombinator::combine($this, $otherType);
-	}
-
 	public function accepts(Type $type): bool
 	{
 		if ($type instanceof self || $type instanceof IntegerType) {
@@ -43,6 +34,19 @@ class FloatType implements Type
 		}
 
 		return false;
+	}
+
+	public function isSupersetOf(Type $type): TrinaryLogic
+	{
+		if ($type instanceof self) {
+			return TrinaryLogic::createYes();
+		}
+
+		if ($type instanceof CompoundType) {
+			return $type->isSubsetOf($this);
+		}
+
+		return TrinaryLogic::createNo();
 	}
 
 	public function describe(): string
@@ -78,6 +82,11 @@ class FloatType implements Type
 	public function getIterableValueType(): Type
 	{
 		return new ErrorType();
+	}
+
+	public function isCallable(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
 	}
 
 	public static function __set_state(array $properties): Type

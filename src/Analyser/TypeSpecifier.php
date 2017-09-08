@@ -12,7 +12,6 @@ use PhpParser\Node\Expr\Instanceof_;
 use PhpParser\Node\Name;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\CallableType;
-use PHPStan\Type\CommonUnionType;
 use PHPStan\Type\FalseBooleanType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
@@ -26,6 +25,8 @@ use PHPStan\Type\StringType;
 use PHPStan\Type\TrueBooleanType;
 use PHPStan\Type\TrueOrFalseBooleanType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\UnionType;
 
 class TypeSpecifier
 {
@@ -43,13 +44,13 @@ class TypeSpecifier
 	public function specifyTypesInCondition(Scope $scope, Expr $expr, bool $negated = false): SpecifiedTypes
 	{
 		if ($expr instanceof Instanceof_ && $expr->class instanceof Name) {
-			$class = (string) $expr->class;
-			if ($class === 'self' && $scope->isInClass()) {
+			$className = (string) $expr->class;
+			if ($className === 'self' && $scope->isInClass()) {
 				$type = new ObjectType($scope->getClassReflection()->getName());
-			} elseif ($class === 'static' && $scope->isInClass()) {
+			} elseif ($className === 'static' && $scope->isInClass()) {
 				$type = new StaticType($scope->getClassReflection()->getName());
 			} else {
-				$type = new ObjectType($class);
+				$type = new ObjectType($className);
 			}
 
 			return $this->create($expr->expr, $type, $negated);
@@ -66,6 +67,11 @@ class TypeSpecifier
 				} elseif ($constantName === 'null') {
 					return $this->create($expressions[0], new NullType(), $negated);
 				}
+			} elseif (!$negated) {
+				$type = TypeCombinator::intersect($scope->getType($expr->right), $scope->getType($expr->left));
+				$leftTypes = $this->create($expr->left, $type, $negated);
+				$rightTypes = $this->create($expr->right, $type, $negated);
+				return $leftTypes->unionWith($rightTypes);
 			}
 		} elseif ($expr instanceof Node\Expr\BinaryOp\NotIdentical) {
 			return $this->specifyTypesInCondition(
@@ -95,38 +101,30 @@ class TypeSpecifier
 			&& isset($expr->args[0])
 		) {
 			$functionName = strtolower((string) $expr->name);
-			$argumentExpression = $expr->args[0]->value;
-			$specifiedType = null;
-			if (in_array($functionName, [
-				'is_int',
-				'is_integer',
-				'is_long',
-			], true)) {
-				$specifiedType = new IntegerType();
-			} elseif (in_array($functionName, [
-				'is_float',
-				'is_double',
-				'is_real',
-			], true)) {
-				$specifiedType = new FloatType();
-			} elseif ($functionName === 'is_null') {
-				$specifiedType = new NullType();
-			} elseif ($functionName === 'is_array' && !($scope->getType($argumentExpression) instanceof ArrayType)) {
-				$specifiedType = new ArrayType(new MixedType());
-			} elseif ($functionName === 'is_bool') {
-				$specifiedType = new TrueOrFalseBooleanType();
-			} elseif ($functionName === 'is_callable') {
-				$specifiedType = new CallableType();
-			} elseif ($functionName === 'is_resource') {
-				$specifiedType = new ResourceType();
-			} elseif ($functionName === 'is_iterable') {
-				$specifiedType = new IterableIterableType(new MixedType());
-			} elseif ($functionName === 'is_string') {
-				$specifiedType = new StringType();
-			}
-
-			if ($specifiedType !== null) {
-				return $this->create($argumentExpression, $specifiedType, $negated);
+			$expr = $expr->args[0]->value;
+			switch ($functionName) {
+				case 'is_int':
+				case 'is_integer':
+				case 'is_long':
+					return $this->create($expr, new IntegerType(), $negated);
+				case 'is_float':
+				case 'is_double':
+				case 'is_real':
+					return $this->create($expr, new FloatType(), $negated);
+				case 'is_null':
+					return $this->create($expr, new NullType(), $negated);
+				case 'is_array':
+					return $this->create($expr, new ArrayType(new MixedType()), $negated);
+				case 'is_bool':
+					return $this->create($expr, new TrueOrFalseBooleanType(), $negated);
+				case 'is_callable':
+					return $this->create($expr, new CallableType(), $negated);
+				case 'is_resource':
+					return $this->create($expr, new ResourceType(), $negated);
+				case 'is_iterable':
+					return $this->create($expr, new IterableIterableType(new MixedType()), $negated);
+				case 'is_string':
+					return $this->create($expr, new StringType(), $negated);
 			}
 		} elseif ($expr instanceof BooleanAnd) {
 			$leftTypes = $this->specifyTypesInCondition($scope, $expr->left, $negated);
@@ -146,7 +144,7 @@ class TypeSpecifier
 		} else {
 			return $this->create(
 				$expr,
-				new CommonUnionType([new NullType(), new FalseBooleanType()]),
+				new UnionType([new NullType(), new FalseBooleanType()]),
 				true
 			);
 		}

@@ -34,14 +34,26 @@ class StaticType implements StaticResolvableType
 		return $this->baseClass;
 	}
 
-	public function combineWith(Type $otherType): Type
-	{
-		return new self($this->baseClass);
-	}
-
 	public function accepts(Type $type): bool
 	{
 		return (new ObjectType($this->baseClass))->accepts($type);
+	}
+
+	public function isSupersetOf(Type $type): TrinaryLogic
+	{
+		if ($type instanceof self) {
+			return (new ObjectType($this->baseClass))->isSupersetOf($type);
+		}
+
+		if ($type instanceof ObjectType) {
+			return TrinaryLogic::createMaybe()->and((new ObjectType($this->baseClass))->isSupersetOf($type));
+		}
+
+		if ($type instanceof CompoundType) {
+			return $type->isSubsetOf($this);
+		}
+
+		return TrinaryLogic::createNo();
 	}
 
 	public function describe(): string
@@ -79,10 +91,12 @@ class StaticType implements StaticResolvableType
 	{
 		$broker = Broker::getInstance();
 
-		if ($broker->hasClass($this->baseClass)) {
-			if ($broker->getClass($this->baseClass)->isSubclassOf(\Traversable::class)) {
-				return TrinaryLogic::createYes();
-			}
+		if (!$broker->hasClass($this->baseClass)) {
+			return TrinaryLogic::createMaybe();
+		}
+
+		if ($broker->getClass($this->baseClass)->isSubclassOf(\Traversable::class) || $this->baseClass === \Traversable::class) {
+			return TrinaryLogic::createYes();
 		}
 
 		return TrinaryLogic::createNo();
@@ -96,17 +110,19 @@ class StaticType implements StaticResolvableType
 			return new ErrorType();
 		}
 
-		$classRef = $broker->getClass($this->baseClass);
+		$classReflection = $broker->getClass($this->baseClass);
 
-		if ($classRef->isSubclassOf(\Iterator::class) && $classRef->hasMethod('key')) {
-			return $classRef->getMethod('key')->getReturnType();
+		if ($classReflection->isSubclassOf(\Iterator::class) && $classReflection->hasMethod('key')) {
+			return $classReflection->getMethod('key')->getReturnType();
 		}
 
-		if ($classRef->isSubclassOf(\IteratorAggregate::class) && $classRef->hasMethod('getIterator')) {
-			return $classRef->getMethod('getIterator')->getReturnType()->getIterableKeyType();
+		if ($classReflection->isSubclassOf(\IteratorAggregate::class) && $classReflection->hasMethod('getIterator')) {
+			return RecursionGuard::run($this, function () use ($classReflection) {
+				return $classReflection->getMethod('getIterator')->getReturnType()->getIterableKeyType();
+			});
 		}
 
-		if ($classRef->isSubclassOf(\Traversable::class)) {
+		if ($classReflection->isSubclassOf(\Traversable::class)) {
 			return new MixedType();
 		}
 
@@ -121,21 +137,38 @@ class StaticType implements StaticResolvableType
 			return new ErrorType();
 		}
 
-		$classRef = $broker->getClass($this->baseClass);
+		$classReflection = $broker->getClass($this->baseClass);
 
-		if ($classRef->isSubclassOf(\Iterator::class) && $classRef->hasMethod('current')) {
-			return $classRef->getMethod('current')->getReturnType();
+		if ($classReflection->isSubclassOf(\Iterator::class) && $classReflection->hasMethod('current')) {
+			return $classReflection->getMethod('current')->getReturnType();
 		}
 
-		if ($classRef->isSubclassOf(\IteratorAggregate::class) && $classRef->hasMethod('getIterator')) {
-			return $classRef->getMethod('getIterator')->getReturnType()->getIterableValueType();
+		if ($classReflection->isSubclassOf(\IteratorAggregate::class) && $classReflection->hasMethod('getIterator')) {
+			return RecursionGuard::run($this, function () use ($classReflection) {
+				return $classReflection->getMethod('getIterator')->getReturnType()->getIterableValueType();
+			});
 		}
 
-		if ($classRef->isSubclassOf(\Traversable::class)) {
+		if ($classReflection->isSubclassOf(\Traversable::class)) {
 			return new MixedType();
 		}
 
 		return new ErrorType();
+	}
+
+	public function isCallable(): TrinaryLogic
+	{
+		$broker = Broker::getInstance();
+
+		if (!$broker->hasClass($this->baseClass)) {
+			return TrinaryLogic::createMaybe();
+		}
+
+		if ($broker->getClass($this->baseClass)->hasMethod('__invoke')) {
+			return TrinaryLogic::createYes();
+		}
+
+		return TrinaryLogic::createNo();
 	}
 
 	public static function __set_state(array $properties): Type

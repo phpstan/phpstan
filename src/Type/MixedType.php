@@ -33,14 +33,23 @@ class MixedType implements CompoundType
 		return [];
 	}
 
-	public function combineWith(Type $otherType): Type
-	{
-		return $this;
-	}
-
 	public function accepts(Type $type): bool
 	{
 		return true;
+	}
+
+	public function isSupersetOf(Type $type): TrinaryLogic
+	{
+		return TrinaryLogic::createYes();
+	}
+
+	public function isSubsetOf(Type $otherType): TrinaryLogic
+	{
+		if ($otherType instanceof self) {
+			return TrinaryLogic::createYes();
+		}
+
+		return TrinaryLogic::createMaybe();
 	}
 
 	public function describe(): string
@@ -76,6 +85,11 @@ class MixedType implements CompoundType
 	public function getIterableValueType(): Type
 	{
 		return new MixedType();
+	}
+
+	public function isCallable(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
 	}
 
 	public function isExplicitMixed(): bool

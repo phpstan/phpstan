@@ -17,9 +17,9 @@ interface Type
 	 */
 	public function getReferencedClasses(): array;
 
-	public function combineWith(Type $otherType): Type;
-
 	public function accepts(Type $type): bool;
+
+	public function isSupersetOf(Type $type): TrinaryLogic;
 
 	public function describe(): string;
 
@@ -34,6 +34,8 @@ interface Type
 	public function getIterableKeyType(): Type;
 
 	public function getIterableValueType(): Type;
+
+	public function isCallable(): TrinaryLogic;
 
 	public static function __set_state(array $properties): self;
 

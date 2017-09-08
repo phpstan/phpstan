@@ -67,9 +67,9 @@ class TypehintHelper
 			case $lowercasedTypehintString === 'double' && !$fromReflection:
 				return new FloatType();
 			case $lowercasedTypehintString === 'number' && !$fromReflection:
-				return new CommonUnionType([new IntegerType(), new FloatType()]);
+				return new UnionType([new IntegerType(), new FloatType()]);
 			case $lowercasedTypehintString === 'scalar' && !$fromReflection:
-				return new CommonUnionType([new IntegerType(), new FloatType(), new StringType(), new TrueOrFalseBooleanType()]);
+				return new UnionType([new IntegerType(), new FloatType(), new StringType(), new TrueOrFalseBooleanType()]);
 			case $lowercasedTypehintString === 'array':
 				return new ArrayType(new MixedType());
 			case $lowercasedTypehintString === 'iterable':
@@ -129,20 +129,28 @@ class TypehintHelper
 	): Type
 	{
 		if ($phpDocType !== null) {
-			if ($type->isIterable()->yes() && $phpDocType instanceof ArrayType) {
-				if ($type instanceof IterableIterableType) {
-					$phpDocType = new IterableIterableType($phpDocType->getItemType());
-				} elseif ($type instanceof ArrayType) {
-					$type = new ArrayType($phpDocType->getItemType());
-				}
-			} elseif ($phpDocType instanceof UnionType) {
-				if ($phpDocType->accepts($type)) {
-					return $phpDocType;
+			if ($type instanceof VoidType || $phpDocType instanceof VoidType) {
+				return new VoidType();
+			}
+
+			if (TypeCombinator::removeNull($type) instanceof IterableIterableType) {
+				if ($phpDocType instanceof UnionType) {
+					$innerTypes = [];
+					foreach ($phpDocType->getTypes() as $innerType) {
+						if ($innerType instanceof ArrayType) {
+							$innerTypes[] = new IterableIterableType($innerType->getIterableValueType());
+						} else {
+							$innerTypes[] = $innerType;
+						}
+					}
+					$phpDocType = new UnionType($innerTypes);
+				} elseif ($phpDocType instanceof ArrayType) {
+					$phpDocType = new IterableIterableType($phpDocType->getIterableValueType());
 				}
 			}
-			if ($type->accepts($phpDocType)) {
-				return $phpDocType;
-			}
+
+			$intersection = TypeCombinator::intersect($type, $phpDocType);
+			return $intersection instanceof NeverType ? $type : $intersection;
 		}
 
 		return $type;

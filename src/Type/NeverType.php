@@ -4,7 +4,7 @@ namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
 
-class VoidType implements Type
+class NeverType implements CompoundType
 {
 
 	/**
@@ -25,7 +25,7 @@ class VoidType implements Type
 
 	public function accepts(Type $type): bool
 	{
-		return $type instanceof self;
+		return true;
 	}
 
 	public function isSupersetOf(Type $type): TrinaryLogic
@@ -34,26 +34,27 @@ class VoidType implements Type
 			return TrinaryLogic::createYes();
 		}
 
-		if ($type instanceof CompoundType) {
-			return $type->isSubsetOf($this);
-		}
-
 		return TrinaryLogic::createNo();
+	}
+
+	public function isSubsetOf(Type $otherType): TrinaryLogic
+	{
+		return TrinaryLogic::createYes();
 	}
 
 	public function describe(): string
 	{
-		return 'void';
+		return '*NEVER*';
 	}
 
 	public function canAccessProperties(): bool
 	{
-		return false;
+		return true;
 	}
 
 	public function canCallMethods(): bool
 	{
-		return false;
+		return true;
 	}
 
 	public function isDocumentableNatively(): bool
@@ -63,22 +64,22 @@ class VoidType implements Type
 
 	public function isIterable(): TrinaryLogic
 	{
-		return TrinaryLogic::createNo();
+		return TrinaryLogic::createYes();
 	}
 
 	public function getIterableKeyType(): Type
 	{
-		return new ErrorType();
+		return new NeverType();
 	}
 
 	public function getIterableValueType(): Type
 	{
-		return new ErrorType();
+		return new NeverType();
 	}
 
 	public function isCallable(): TrinaryLogic
 	{
-		return TrinaryLogic::createNo();
+		return TrinaryLogic::createYes();
 	}
 
 	public static function __set_state(array $properties): Type

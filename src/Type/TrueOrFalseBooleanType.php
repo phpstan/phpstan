@@ -38,15 +38,6 @@ class TrueOrFalseBooleanType implements BooleanType
 		return [];
 	}
 
-	public function combineWith(Type $otherType): Type
-	{
-		if ($otherType instanceof BooleanType) {
-			return new self();
-		}
-
-		return TypeCombinator::combine($this, $otherType);
-	}
-
 	public function accepts(Type $type): bool
 	{
 		if ($type instanceof BooleanType) {
@@ -58,6 +49,19 @@ class TrueOrFalseBooleanType implements BooleanType
 		}
 
 		return false;
+	}
+
+	public function isSupersetOf(Type $type): TrinaryLogic
+	{
+		if ($type instanceof BooleanType) {
+			return TrinaryLogic::createYes();
+		}
+
+		if ($type instanceof CompoundType) {
+			return $type->isSubsetOf($this);
+		}
+
+		return TrinaryLogic::createNo();
 	}
 
 	public function isDocumentableNatively(): bool
@@ -78,6 +82,11 @@ class TrueOrFalseBooleanType implements BooleanType
 	public function getIterableValueType(): Type
 	{
 		return new ErrorType();
+	}
+
+	public function isCallable(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
 	}
 
 	public static function __set_state(array $properties): Type

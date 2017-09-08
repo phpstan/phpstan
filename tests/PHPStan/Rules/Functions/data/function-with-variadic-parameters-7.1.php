@@ -8,7 +8,7 @@ class Foo
 	/**
 	 * @param int[] $integers
 	 * @param string[] $strings
-	 * @param \Traversable $traversable
+	 * @param int[]|\Traversable $traversable
 	 */
 	public function doFoo(iterable $integers, iterable $strings, \Traversable $traversable)
 	{

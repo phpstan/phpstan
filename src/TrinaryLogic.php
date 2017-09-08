@@ -70,6 +70,26 @@ class TrinaryLogic
 		return new self(max($operandValues));
 	}
 
+	public static function extremeIdentity(self ...$operands): self
+	{
+		$operandValues = array_map(function (self $trinaryLogic): int {
+			return $trinaryLogic->value;
+		}, $operands);
+
+		$min = min($operandValues);
+		$max = max($operandValues);
+		return new self($min === $max ? $min : self::MAYBE);
+	}
+
+	public static function maxMin(self ...$operands): self
+	{
+		$operandValues = array_map(function (self $trinaryLogic): int {
+			return $trinaryLogic->value;
+		}, $operands);
+
+		return new self(max($operandValues) ?: min($operandValues));
+	}
+
 	public function negate(): self
 	{
 		return new self(-$this->value);
@@ -99,6 +119,11 @@ class TrinaryLogic
 		];
 
 		return $labels[$this->value];
+	}
+
+	public static function __set_state(array $properties): self
+	{
+		return new self($properties['value']);
 	}
 
 }

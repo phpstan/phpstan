@@ -370,9 +370,10 @@ class Scope
 		if ($node instanceof Expr\Ternary) {
 			$elseType = $this->getType($node->else);
 			if ($node->if === null) {
-				return TypeCombinator::removeNull(
-					$this->getType($node->cond)
-				)->combineWith($elseType);
+				return TypeCombinator::union(
+					TypeCombinator::removeNull($this->getType($node->cond)),
+					$elseType
+				);
 			}
 
 			$conditionScope = $this->filterByTruthyValue($node->cond);
@@ -380,13 +381,14 @@ class Scope
 			$negatedConditionScope = $this->filterByFalseyValue($node->cond);
 			$elseType = $negatedConditionScope->getType($node->else);
 
-			return $ifType->combineWith($elseType);
+			return TypeCombinator::union($ifType, $elseType);
 		}
 
 		if ($node instanceof Expr\BinaryOp\Coalesce) {
-			return TypeCombinator::removeNull(
-				$this->getType($node->left)
-			)->combineWith($this->getType($node->right));
+			return TypeCombinator::union(
+				TypeCombinator::removeNull($this->getType($node->left)),
+				$this->getType($node->right)
+			);
 		}
 
 		if ($node instanceof Expr\Clone_) {
@@ -457,7 +459,8 @@ class Scope
 				&& $rightType instanceof ArrayType
 			) {
 				return new ArrayType(
-					$leftType->getItemType()->combineWith($rightType->getItemType())
+					TypeCombinator::union($leftType->getItemType(), $rightType->getItemType()),
+					$leftType->isItemTypeInferredFromLiteralArray() || $rightType->isItemTypeInferredFromLiteralArray()
 				);
 			}
 		}
@@ -503,22 +506,24 @@ class Scope
 				return new ObjectType((string) $node->class);
 			}
 		} elseif ($node instanceof Array_) {
-			$possiblyCallable = false;
-			if (count($node->items) === 2) {
-				$firstItem = $node->items[0]->value;
+			$itemTypes = array_map(
+				function (Expr\ArrayItem $item): Type {
+					return $this->getType($item->value);
+				},
+				$node->items
+			);
+
+			$callable = TrinaryLogic::createNo();
+			if (count($itemTypes) === 2) {
 				if (
-					(
-						$this->getType($firstItem)->getClass() !== null
-						|| $this->getType($firstItem) instanceof StringType
-					)
-					&& $this->getType($node->items[1]->value) instanceof StringType
+					($itemTypes[0]->accepts(new StringType()) || $itemTypes[0]->getClass() !== null)
+					&& $itemTypes[1]->accepts(new StringType())
 				) {
-					$possiblyCallable = true;
+					$callable = TrinaryLogic::createYes();
 				}
 			}
-			return new ArrayType($this->getCombinedType(array_map(function (Expr\ArrayItem $item): Type {
-				return $this->getType($item->value);
-			}, $node->items)), true, $possiblyCallable);
+
+			return new ArrayType($this->getCombinedType($itemTypes), true, $callable);
 		} elseif ($node instanceof Int_) {
 				return new IntegerType();
 		} elseif ($node instanceof Bool_) {
@@ -741,7 +746,7 @@ class Scope
 			) {
 				$argumentValue = $node->args[$arrayFunctionsThatCreateArrayBasedOnArgumentType[$functionName]]->value;
 
-				return new ArrayType($this->getType($argumentValue), true, true);
+				return new ArrayType($this->getType($argumentValue), true);
 			}
 
 			$functionsThatCombineAllArgumentTypes = [
@@ -766,20 +771,12 @@ class Scope
 					}
 				}
 
-				$argumentType = null;
+				$argumentTypes = [];
 				foreach ($node->args as $arg) {
-					$argType = $this->getType($arg->value);
-					if ($argumentType === null) {
-						$argumentType = $argType;
-					} else {
-						$argumentType = $argumentType->combineWith($argType);
-					}
+					$argumentTypes[] = $this->getType($arg->value);
 				}
 
-				/** @var \PHPStan\Type\Type $argumentType */
-				$argumentType = $argumentType;
-
-				return $argumentType;
+				return TypeCombinator::union(...$argumentTypes);
 			}
 
 			if (!$this->broker->hasFunction($node->name, $this)) {
@@ -829,7 +826,7 @@ class Scope
 		} elseif (is_array($value)) {
 			return new ArrayType($this->getCombinedType(array_map(function ($value): Type {
 				return $this->getTypeFromValue($value);
-			}, $value)), false);
+			}, array_values($value))), false);
 		}
 
 		return null;
@@ -845,16 +842,7 @@ class Scope
 			return new MixedType();
 		}
 
-		$itemType = null;
-		foreach ($types as $type) {
-			if ($itemType === null) {
-				$itemType = $type;
-				continue;
-			}
-			$itemType = $itemType->combineWith($type);
-		}
-
-		return $itemType;
+		return TypeCombinator::union(...$types);
 	}
 
 	public function isSpecified(Expr $node): bool
@@ -1187,7 +1175,7 @@ class Scope
 	 */
 	public function enterCatch(array $classes, string $variableName): self
 	{
-		$type = TypeCombinator::combine(...array_map(function (string $class): ObjectType {
+		$type = TypeCombinator::union(...array_map(function (string $class): ObjectType {
 			return new ObjectType($class);
 		}, $classes));
 
@@ -1357,7 +1345,10 @@ class Scope
 				continue;
 			}
 
-			$intersectedSpecifiedTypes[$exprString] = $specificType->combineWith($theirSpecifiedTypes[$exprString]);
+			$intersectedSpecifiedTypes[$exprString] = TypeCombinator::union(
+				$specificType,
+				$theirSpecifiedTypes[$exprString]
+			);
 		}
 
 		return new self(
@@ -1420,7 +1411,7 @@ class Scope
 			if (isset($variableTypeHolders[$name])) {
 				$type = $theirVariableTypeHolder->getType();
 				if ($theirVariableTypeHolder->getCertainty()->maybe()) {
-					$type = $type->combineWith($variableTypeHolders[$name]->getType());
+					$type = TypeCombinator::union($type, $variableTypeHolders[$name]->getType());
 				}
 				$theirVariableTypeHolder = new VariableTypeHolder(
 					$type,
@@ -1478,7 +1469,7 @@ class Scope
 		foreach ($otherScope->moreSpecificTypes as $exprString => $theirSpecifiedType) {
 			if (array_key_exists($exprString, $this->moreSpecificTypes)) {
 				$ourSpecifiedType = $this->moreSpecificTypes[$exprString];
-				$theirSpecifiedType = $ourSpecifiedType->combineWith($theirSpecifiedType);
+				$theirSpecifiedType = TypeCombinator::union($ourSpecifiedType, $theirSpecifiedType);
 			}
 			$moreSpecificTypes[$exprString] = $theirSpecifiedType;
 		}
@@ -1641,11 +1632,12 @@ class Scope
 	private function filterBySpecifiedTypes(SpecifiedTypes $specifiedTypes): self
 	{
 		$scope = $this;
-		foreach ($specifiedTypes->getSureTypes() as $type) {
-			$scope = $scope->specifyExpressionType($type[0], $type[1]);
+		foreach ($specifiedTypes->getSureTypes() as list($expr, $type)) {
+			$type = TypeCombinator::intersect($type, $this->getType($expr));
+			$scope = $scope->specifyExpressionType($expr, $type);
 		}
-		foreach ($specifiedTypes->getSureNotTypes() as $type) {
-			$scope = $scope->removeTypeFromExpression($type[0], $type[1]);
+		foreach ($specifiedTypes->getSureNotTypes() as list($expr, $type)) {
+			$scope = $scope->removeTypeFromExpression($expr, $type);
 		}
 		return $scope;
 	}

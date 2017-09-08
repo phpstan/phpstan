@@ -166,7 +166,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$testScope,
 				'ifNestedVar',
 				TrinaryLogic::createYes(),
-				'int|mixed',
+				'mixed',
 			],
 			[
 				$testScope,
@@ -1774,7 +1774,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$moreSpecifiedObject->doFluentArray()[0]',
 			],
 			[
-				'MethodPhpDocsNamespace\Baz[]|MethodPhpDocsNamespace\Baz|MethodPhpDocsNamespace\Foo',
+				'iterable(MethodPhpDocsNamespace\Baz[])&MethodPhpDocsNamespace\Collection',
 				'$moreSpecifiedObject->doFluentUnionIterable()',
 			],
 			[
@@ -2002,7 +2002,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$foo',
 			],
 			[
-				'PhpParser\Node\Stmt\Function_',
+				'PhpParser\Node\Expr',
 				'$bar',
 			],
 			[
@@ -2803,7 +2803,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$arrayWithIterableTypehint[0]',
 			],
 			[
-				'Iterables\Bar[]|Iterables\Collection',
+				'iterable(Iterables\Bar[])&Iterables\Collection',
 				'$unionIterableType',
 			],
 			[
@@ -2811,15 +2811,15 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$unionBar',
 			],
 			[
-				'Iterables\Bar[]|Iterables\Collection|Iterables\Foo[]',
+				'(Iterables\Bar|Iterables\Foo)[]',
 				'$mixedUnionIterableType',
 			],
 			[
-				'Iterables\Bar[]|Iterables\Collection',
+				'iterable(Iterables\Bar[])&Iterables\Collection',
 				'$unionIterableIterableType',
 			],
 			[
-				'mixed',
+				'Iterables\Bar|Iterables\Foo',
 				'$mixedBar',
 			],
 			[

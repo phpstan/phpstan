@@ -40,7 +40,7 @@ class Foo
 	 * @param Bar[] $iterableWithConcreteTypehint
 	 * @param iterable $arrayWithIterableTypehint
 	 * @param Bar[]|Collection $unionIterableType
-	 * @param Foo[]|Bar[]|Collection $mixedUnionIterableType
+	 * @param Foo[]|Bar[]|Collection|array $mixedUnionIterableType
 	 * @param Bar[]|Collection $unionIterableIterableType
 	 * @param int[]|iterable $integers
 	 * @param mixed[]|iterable $mixeds
