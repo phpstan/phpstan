@@ -5,15 +5,63 @@ namespace PHPStan\Type;
 class FloatTypeTest extends \PHPStan\TestCase
 {
 
-	public function testAccepts()
+	public function dataAccepts(): array
 	{
-		$floatType = new FloatType();
+		return [
+			[
+				new FloatType(),
+				true,
+			],
+			[
+				new IntegerType(),
+				true,
+			],
+			[
+				new MixedType(),
+				true,
+			],
+			[
+				new UnionType([
+					new IntegerType(),
+					new FloatType(),
+				]),
+				true,
+			],
+			[
+				new NullType(),
+				false,
+			],
+			[
+				new StringType(),
+				false,
+			],
+			[
+				new UnionType([
+					new IntegerType(),
+					new FloatType(),
+					new StringType(),
+				]),
+				false,
+			],
+		];
+	}
 
-		$this->assertTrue($floatType->accepts(new FloatType()));
-		$this->assertFalse($floatType->accepts(new NullType()));
-		$this->assertTrue($floatType->accepts(new MixedType()));
-		$this->assertTrue($floatType->accepts(new IntegerType()));
-		$this->assertFalse($floatType->accepts(new StringType()));
+	/**
+	 * @dataProvider dataAccepts
+	 * @param Type $otherType
+	 * @param bool $expectedResult
+	 */
+	public function testAccepts(Type $otherType, bool $expectedResult)
+	{
+		$this->createBroker();
+
+		$type = new FloatType();
+		$actualResult = $type->accepts($otherType);
+		$this->assertSame(
+			$expectedResult,
+			$actualResult,
+			sprintf('%s -> accepts(%s)', $type->describe(), $otherType->describe())
+		);
 	}
 
 }
