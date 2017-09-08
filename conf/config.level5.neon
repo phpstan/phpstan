@@ -7,6 +7,6 @@ parameters:
 
 services:
 	-
-		class: PHPStan\Rules\Functions\CallToCountOnlyWithArrayOrCountableRule
+		factory: PHPStan\Rules\Functions\CallToCountOnlyWithArrayOrCountableRule
 		tags:
 			- phpstan.rules.rule

@@ -6,14 +6,14 @@ parameters:
 
 services:
 	-
-		class: PHPStan\Rules\Properties\AccessPropertiesOnPossiblyNullRule
+		factory: PHPStan\Rules\Properties\AccessPropertiesOnPossiblyNullRule
 		arguments:
 			checkThisOnly: %checkThisOnly%
 		tags:
 			- phpstan.rules.rule
 
 	-
-		class: PHPStan\Rules\Methods\CallMethodsOnPossiblyNullRule
+		factory: PHPStan\Rules\Methods\CallMethodsOnPossiblyNullRule
 		arguments:
 			checkThisOnly: %checkThisOnly%
 		tags:
