@@ -1179,7 +1179,11 @@ class Scope
 			return new ObjectType($class);
 		}, $classes));
 
-		return $this->assignVariable($variableName, $type, TrinaryLogic::createYes());
+		return $this->assignVariable(
+			$variableName,
+			TypeCombinator::intersect($type, new ObjectType(\Throwable::class)),
+			TrinaryLogic::createYes()
+		);
 	}
 
 	/**

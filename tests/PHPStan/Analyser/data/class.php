@@ -2,6 +2,11 @@
 
 namespace SomeNodeScopeResolverNamespace;
 
+class InvalidArgumentException extends \Exception
+{
+
+}
+
 class Foo
 {
 

@@ -561,4 +561,28 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		]);
 	}
 
+	public function testAcceptThrowable()
+	{
+		$this->checkThisOnly = false;
+		$this->checkNullables = true;
+		$this->analyse([__DIR__ . '/data/accept-throwable.php'], [
+			[
+				'Parameter #1 $i of method AcceptThrowable\Foo::doBar() expects int, AcceptThrowable\SomeInterface&Throwable given.',
+				41,
+			],
+			[
+				'Parameter #1 $i of method AcceptThrowable\Foo::doBar() expects int, AcceptThrowable\InterfaceExtendingThrowable given.',
+				44,
+			],
+			[
+				'Parameter #1 $i of method AcceptThrowable\Foo::doBar() expects int, AcceptThrowable\NonExceptionClass&Throwable given.',
+				47,
+			],
+			[
+				'Parameter #1 $i of method AcceptThrowable\Foo::doBar() expects int, Exception given.',
+				50,
+			],
+		]);
+	}
+
 }

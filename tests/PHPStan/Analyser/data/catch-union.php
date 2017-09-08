@@ -2,8 +2,20 @@
 
 namespace CatchUnion;
 
-try {
+class FooException extends \Exception
+{
 
-} catch (FooException | BarException $e) {
-	die;
 }
+
+class BarException extends \Exception
+{
+
+}
+
+function () {
+	try {
+
+	} catch (FooException | BarException $e) {
+		die;
+	}
+};

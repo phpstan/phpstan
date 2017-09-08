@@ -2,14 +2,21 @@
 
 namespace TryCatchWithSpecifiedVariable;
 
-/** @var string|null $foo */
-$foo = doFoo();
-if ($foo !== null) {
-	return;
+class FooException extends \Exception
+{
+
 }
 
-try {
+function () {
+	/** @var string|null $foo */
+	$foo = doFoo();
+	if ($foo !== null) {
+		return;
+	}
 
-} catch (FooException $foo) {
-	die;
-}
+	try {
+
+	} catch (FooException $foo) {
+		die;
+	}
+};

@@ -3342,7 +3342,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$integerOrString',
 			],
 			[
-				'BarException|FooException|null',
+				'FinallyNamespace\BarException|FinallyNamespace\FooException|null',
 				'$fooOrBarException',
 			],
 		];
