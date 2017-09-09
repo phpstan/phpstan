@@ -5,6 +5,11 @@ namespace InstanceOfNamespace;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayDimFetch;
 
+interface BarInterface
+{
+
+}
+
 class Foo
 {
 
@@ -12,6 +17,7 @@ class Foo
 	{
 		$bar = $foo;
 		$baz = doFoo();
+		$intersected = new Foo();
 
 		if ($baz instanceof Foo) {
 			// ...
@@ -21,7 +27,11 @@ class Foo
 				if ($dolor instanceof Dolor && $sit instanceof Sit) {
 					if ($static instanceof static) {
 						if ($self instanceof self) {
-							die;
+							if ($intersected instanceof BarInterface) {
+								if ($this instanceof BarInterface) {
+									die;
+								}
+							}
 						}
 					}
 				}

@@ -2033,6 +2033,14 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'static(InstanceOfNamespace\Foo)',
 				'clone $static',
 			],
+			[
+				'InstanceOfNamespace\BarInterface&InstanceOfNamespace\Foo',
+				'$intersected',
+			],
+			[
+				'$this(InstanceOfNamespace\Foo)&InstanceOfNamespace\BarInterface',
+				'$this',
+			],
 		];
 	}
 
