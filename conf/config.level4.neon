@@ -15,6 +15,13 @@ services:
 			- phpstan.rules.rule
 
 	-
+		class: PHPStan\Rules\Comparison\ImpossibleCheckTypeFunctionCallRule
+		arguments:
+			checkAlwaysTrueCheckTypeFunctionCall: %checkAlwaysTrueCheckTypeFunctionCall%
+		tags:
+			- phpstan.rules.rule
+
+	-
 		class: PHPStan\Rules\Comparison\StrictComparisonOfDifferentTypesRule
 		tags:
 			- phpstan.rules.rule

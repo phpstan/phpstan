@@ -332,7 +332,7 @@ class NodeScopeResolver
 			$scope = $scope->enterNamespace((string) $node->name);
 		} elseif (
 			$node instanceof \PhpParser\Node\Expr\StaticCall
-			&& (is_string($node->class) || $node->class instanceof \PhpParser\Node\Name)
+			&& $node->class instanceof \PhpParser\Node\Name
 			&& is_string($node->name)
 			&& (string) $node->class === 'Closure'
 			&& $node->name === 'bind'

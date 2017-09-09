@@ -5,6 +5,7 @@ parameters:
 	autoload_files: []
 	fileExtensions:
 		- php
+	checkAlwaysTrueCheckTypeFunctionCall: false
 	checkAlwaysTrueInstanceof: false
 	checkFunctionArgumentTypes: false
 	checkArgumentsPassedByReference: false
