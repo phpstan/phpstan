@@ -10,7 +10,7 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Rules\AbstractRu
 		return new StrictComparisonOfDifferentTypesRule();
 	}
 
-	public function testUselessCast()
+	public function testStrictComparison()
 	{
 		$this->analyse(
 			[__DIR__ . '/data/strict-comparison.php'],
@@ -61,6 +61,14 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Rules\AbstractRu
 				],
 			]
 		);
+	}
+
+	/**
+	 * @requires PHP 7.1
+	 */
+	public function testStrictComparisonPhp71()
+	{
+		$this->analyse([__DIR__ . '/data/strict-comparison-71.php'], []);
 	}
 
 }
