@@ -168,8 +168,13 @@ class ObjectType implements Type
 			return TrinaryLogic::createMaybe();
 		}
 
-		if ($broker->getClass($this->class)->isSubclassOf(\Traversable::class) || $this->class === \Traversable::class) {
+		$classReflection = $broker->getClass($this->class);
+		if ($classReflection->isSubclassOf(\Traversable::class) || $classReflection->getName() === \Traversable::class) {
 			return TrinaryLogic::createYes();
+		}
+
+		if ($classReflection->isInterface()) {
+			return TrinaryLogic::createMaybe();
 		}
 
 		return TrinaryLogic::createNo();

@@ -77,6 +77,17 @@ class Test
 		if ($barChild instanceof Bar) {
 
 		}
+
+		/** @var Collection|mixed[] $collection */
+		$collection = doFoo();
+		if ($collection instanceof Foo) {
+
+		}
 	}
+
+}
+
+interface Collection extends \IteratorAggregate
+{
 
 }
