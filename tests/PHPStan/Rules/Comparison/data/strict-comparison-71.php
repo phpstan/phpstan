@@ -22,4 +22,15 @@ class Foo
 		return 4;
 	}
 
+	public function doCheckNullableAndAddString(?int $memoryLimit): void
+	{
+		if ($memoryLimit === null) {
+			$memoryLimit = 'abc';
+		}
+
+		if ($memoryLimit === 'abc') {
+			// doSomething
+		}
+	}
+
 }
