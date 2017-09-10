@@ -97,7 +97,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \ReflectionClass $classReflection
-	 * @return \ReflectionClass|bool
+	 * @return \ReflectionClass|false
 	 */
 	private function getParentConstructorClass(\ReflectionClass $classReflection)
 	{

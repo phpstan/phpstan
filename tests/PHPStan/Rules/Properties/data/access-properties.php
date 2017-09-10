@@ -147,3 +147,51 @@ class PropertiesWithUnknownClasses
 	}
 
 }
+
+class WithFooProperty
+{
+
+	public $foo;
+
+}
+
+class WithFooAndBarProperty
+{
+
+	public $foo;
+
+	public $bar;
+
+}
+
+class PropertiesOnUnionType
+{
+
+	/** @var WithFooProperty|WithFooAndBarProperty */
+	private $object;
+
+	public function doFoo()
+	{
+		$this->object->foo; // fine
+		$this->object->bar; // WithFooProperty does not have $bar
+	}
+
+}
+
+interface SomeInterface
+{
+
+}
+
+class PropertiesOnIntersectionType
+{
+
+	public function doFoo(WithFooProperty $foo)
+	{
+		if ($foo instanceof SomeInterface) {
+			$foo->foo;
+			$foo->bar;
+		}
+	}
+
+}

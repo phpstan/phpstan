@@ -6,6 +6,9 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\RuleLevelHelper;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\NeverType;
+use PHPStan\Type\StaticType;
 
 class AccessPropertiesRule implements \PHPStan\Rules\Rule
 {
@@ -57,6 +60,13 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 		}
 
 		$type = $scope->getType($node->var);
+		if ($type instanceof MixedType || $type instanceof NeverType) {
+			return [];
+		}
+		if ($type instanceof StaticType) {
+			$type = $type->resolveStatic($type->getBaseClass());
+		}
+
 		if (!$type->canAccessProperties()) {
 			return [
 				sprintf('Cannot access property $%s on %s.', $node->name, $type->describe()),
@@ -65,7 +75,8 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 
 		$name = $node->name;
 		$errors = [];
-		foreach ($type->getReferencedClasses() as $referencedClass) {
+		$referencedClasses = $type->getReferencedClasses();
+		foreach ($referencedClasses as $referencedClass) {
 			if (!$this->broker->hasClass($referencedClass)) {
 				$errors[] = sprintf(
 					'Access to property $%s on an unknown class %s.',
@@ -79,50 +90,47 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 			return $errors;
 		}
 
-		$propertyClass = $type->getClass();
-		if ($propertyClass === null) {
-			return [];
-		}
-
-		$propertyClassReflection = $this->broker->getClass($propertyClass);
-
-		if (!$propertyClassReflection->hasProperty($name)) {
+		if (!$type->hasProperty($name)) {
 			if ($scope->isSpecified($node)) {
 				return [];
 			}
 
-			$parentClassReflection = $propertyClassReflection->getParentClass();
-			while ($parentClassReflection !== false) {
-				if ($parentClassReflection->hasProperty($name)) {
-					return [
-						sprintf(
-							'Access to private property $%s of parent class %s.',
-							$name,
-							$parentClassReflection->getDisplayName()
-						),
-					];
-				}
+			if (count($referencedClasses) === 1) {
+				$referencedClass = $referencedClasses[0];
+				$propertyClassReflection = $this->broker->getClass($referencedClass);
+				$parentClassReflection = $propertyClassReflection->getParentClass();
+				while ($parentClassReflection !== false) {
+					if ($parentClassReflection->hasProperty($name)) {
+						return [
+							sprintf(
+								'Access to private property $%s of parent class %s.',
+								$name,
+								$parentClassReflection->getDisplayName()
+							),
+						];
+					}
 
-				$parentClassReflection = $parentClassReflection->getParentClass();
+					$parentClassReflection = $parentClassReflection->getParentClass();
+				}
 			}
 
 			return [
 				sprintf(
 					'Access to an undefined property %s::$%s.',
-					$propertyClass,
+					$type->describe(),
 					$name
 				),
 			];
 		}
 
-		$propertyReflection = $propertyClassReflection->getProperty($name, $scope);
+		$propertyReflection = $type->getProperty($name, $scope);
 		if (!$scope->canAccessProperty($propertyReflection)) {
 			return [
 				sprintf(
-					'Access to %s property $%s of class %s.',
+					'Access to %s property %s::$%s.',
 					$propertyReflection->isPrivate() ? 'private' : 'protected',
-					$name,
-					$propertyReflection->getDeclaringClass()->getDisplayName()
+					$type->describe(),
+					$name
 				),
 			];
 		}

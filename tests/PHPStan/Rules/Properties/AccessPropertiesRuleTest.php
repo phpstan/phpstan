@@ -34,11 +34,11 @@ class AccessPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 					31,
 				],
 				[
-					'Access to private property $foo of class TestAccessProperties\FooAccessProperties.',
+					'Access to private property TestAccessProperties\FooAccessProperties::$foo.',
 					42,
 				],
 				[
-					'Access to protected property $bar of class TestAccessProperties\FooAccessProperties.',
+					'Access to protected property TestAccessProperties\FooAccessProperties::$bar.',
 					43,
 				],
 				[
@@ -50,11 +50,11 @@ class AccessPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 					52,
 				],
 				[
-					'Access to private property $foo of class TestAccessProperties\FooAccessProperties.',
+					'Access to private property TestAccessProperties\FooAccessPropertiesAlias::$foo.',
 					58,
 				],
 				[
-					'Access to protected property $bar of class TestAccessProperties\FooAccessProperties.',
+					'Access to protected property TestAccessProperties\FooAccessPropertiesAlias::$bar.',
 					59,
 				],
 				[
@@ -92,6 +92,14 @@ class AccessPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				[
 					'Access to property $test on an unknown class TestAccessProperties\SecondUnknownClass.',
 					146,
+				],
+				[
+					'Access to an undefined property TestAccessProperties\WithFooAndBarProperty|TestAccessProperties\WithFooProperty::$bar.',
+					176,
+				],
+				[
+					'Access to an undefined property TestAccessProperties\SomeInterface&TestAccessProperties\WithFooProperty::$bar.',
+					193,
 				],
 			]
 		);

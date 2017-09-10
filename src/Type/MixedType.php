@@ -2,6 +2,8 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 
 class MixedType implements CompoundType
@@ -60,6 +62,16 @@ class MixedType implements CompoundType
 	public function canAccessProperties(): bool
 	{
 		return true;
+	}
+
+	public function hasProperty(string $propertyName): bool
+	{
+		return false;
+	}
+
+	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	{
+		throw new \PHPStan\ShouldNotHappenException();
 	}
 
 	public function canCallMethods(): bool

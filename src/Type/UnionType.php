@@ -2,6 +2,8 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 
 class UnionType implements CompoundType, StaticResolvableType
@@ -129,6 +131,26 @@ class UnionType implements CompoundType, StaticResolvableType
 		}
 
 		return true;
+	}
+
+	public function hasProperty(string $propertyName): bool
+	{
+		foreach ($this->types as $type) {
+			if (!$type->hasProperty($propertyName)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	{
+		foreach ($this->types as $type) {
+			return $type->getProperty($propertyName, $scope);
+		}
+
+		throw new \PHPStan\ShouldNotHappenException();
 	}
 
 	public function canCallMethods(): bool

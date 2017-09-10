@@ -2,6 +2,8 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 
 class TrueBooleanType implements BooleanType
@@ -15,6 +17,16 @@ class TrueBooleanType implements BooleanType
 	public function canAccessProperties(): bool
 	{
 		return false;
+	}
+
+	public function hasProperty(string $propertyName): bool
+	{
+		return false;
+	}
+
+	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	{
+		throw new \PHPStan\ShouldNotHappenException();
 	}
 
 	public function canCallMethods(): bool

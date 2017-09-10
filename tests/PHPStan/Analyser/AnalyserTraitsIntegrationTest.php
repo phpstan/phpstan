@@ -89,7 +89,7 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\TestCase
 
 	/**
 	 * @param string[] $files
-	 * @return \PHPStan\Analyser\Error[]|string[]
+	 * @return \PHPStan\Analyser\Error[]
 	 */
 	private function runAnalyse(array $files): array
 	{
@@ -98,7 +98,9 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\TestCase
 		}, $files);
 		/** @var \PHPStan\Analyser\Analyser $analyser */
 		$analyser = $this->getContainer()->getByType(Analyser::class);
-		return $analyser->analyse($files, false);
+		/** @var \PHPStan\Analyser\Error[] $errors */
+		$errors = $analyser->analyse($files, false);
+		return $errors;
 	}
 
 }

@@ -4,6 +4,7 @@ namespace PHPStan\Type;
 
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 
 class StaticType implements StaticResolvableType
@@ -68,7 +69,17 @@ class StaticType implements StaticResolvableType
 
 	public function canAccessProperties(): bool
 	{
-		return true;
+		return $this->staticObjectType->canAccessProperties();
+	}
+
+	public function hasProperty(string $propertyName): bool
+	{
+		return $this->staticObjectType->hasProperty($propertyName);
+	}
+
+	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	{
+		return $this->staticObjectType->getProperty($propertyName, $scope);
 	}
 
 	public function canCallMethods(): bool

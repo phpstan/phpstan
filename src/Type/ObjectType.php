@@ -2,7 +2,9 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 
 class ObjectType implements Type
@@ -19,6 +21,22 @@ class ObjectType implements Type
 	public function getClass(): string
 	{
 		return $this->class;
+	}
+
+	public function hasProperty(string $propertyName): bool
+	{
+		$broker = Broker::getInstance();
+		if (!$broker->hasClass($this->class)) {
+			return false;
+		}
+
+		return $broker->getClass($this->class)->hasProperty($propertyName);
+	}
+
+	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	{
+		$broker = Broker::getInstance();
+		return $broker->getClass($this->class)->getProperty($propertyName, $scope);
 	}
 
 	/**

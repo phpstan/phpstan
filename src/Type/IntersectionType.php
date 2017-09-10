@@ -2,6 +2,8 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 
 class IntersectionType implements CompoundType, StaticResolvableType
@@ -95,6 +97,28 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		});
 
 		return $result->yes();
+	}
+
+	public function hasProperty(string $propertyName): bool
+	{
+		foreach ($this->types as $type) {
+			if ($type->hasProperty($propertyName)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	{
+		foreach ($this->types as $type) {
+			if ($type->hasProperty($propertyName)) {
+				return $type->getProperty($propertyName, $scope);
+			}
+		}
+
+		throw new \PHPStan\ShouldNotHappenException();
 	}
 
 	public function canCallMethods(): bool

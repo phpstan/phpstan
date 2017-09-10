@@ -2,6 +2,8 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 
 interface Type
@@ -24,6 +26,10 @@ interface Type
 	public function describe(): string;
 
 	public function canAccessProperties(): bool;
+
+	public function hasProperty(string $propertyName): bool;
+
+	public function getProperty(string $propertyName, Scope $scope): PropertyReflection;
 
 	public function canCallMethods(): bool;
 
