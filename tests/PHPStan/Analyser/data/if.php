@@ -244,6 +244,12 @@ if ($integerOrString === null) {
 	$integerOrString = 'str';
 }
 
+/** @var int|null $stillNullableInteger */
+$stillNullableInteger = 1;
+if (is_int($stillNullableInteger)) {
+	$stillNullableInteger = 2;
+}
+
 /** @var int|null $nullableIntegerAfterNeverCondition */
 $nullableIntegerAfterNeverCondition = 1;
 if ($nullableIntegerAfterNeverCondition === false) {

@@ -493,6 +493,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			],
 			[
 				$testScope,
+				'stillNullableInteger',
+				TrinaryLogic::createYes(),
+				'int|null',
+			],
+			[
+				$testScope,
 				'arrayOfIntegers',
 				TrinaryLogic::createYes(),
 				'int[]',
