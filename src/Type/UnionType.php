@@ -136,6 +136,9 @@ class UnionType implements CompoundType, StaticResolvableType
 	public function hasProperty(string $propertyName): bool
 	{
 		foreach ($this->types as $type) {
+			if ($type instanceof NullType) {
+				continue;
+			}
 			if (!$type->hasProperty($propertyName)) {
 				return false;
 			}

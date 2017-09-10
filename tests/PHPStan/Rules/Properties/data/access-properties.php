@@ -195,3 +195,16 @@ class PropertiesOnIntersectionType
 	}
 
 }
+
+class IgnoreNullableUnionProperty
+{
+
+	/** @var FooAccessProperties|null  */
+	private $foo;
+
+	public function doFoo()
+	{
+		$this->foo->ipsum;
+	}
+
+}
