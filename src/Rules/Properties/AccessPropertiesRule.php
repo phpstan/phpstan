@@ -9,6 +9,7 @@ use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\StaticType;
+use PHPStan\Type\UnionType;
 
 class AccessPropertiesRule implements \PHPStan\Rules\Rule
 {
@@ -28,15 +29,22 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 	 */
 	private $checkThisOnly;
 
+	/**
+	 * @var bool
+	 */
+	private $checkUnionTypes;
+
 	public function __construct(
 		Broker $broker,
 		RuleLevelHelper $ruleLevelHelper,
-		bool $checkThisOnly
+		bool $checkThisOnly,
+		bool $checkUnionTypes
 	)
 	{
 		$this->broker = $broker;
 		$this->ruleLevelHelper = $ruleLevelHelper;
 		$this->checkThisOnly = $checkThisOnly;
+		$this->checkUnionTypes = $checkUnionTypes;
 	}
 
 	public function getNodeType(): string
@@ -67,12 +75,6 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 			$type = $type->resolveStatic($type->getBaseClass());
 		}
 
-		if (!$type->canAccessProperties()) {
-			return [
-				sprintf('Cannot access property $%s on %s.', $node->name, $type->describe()),
-			];
-		}
-
 		$name = $node->name;
 		$errors = [];
 		$referencedClasses = $type->getReferencedClasses();
@@ -88,6 +90,16 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 
 		if (count($errors) > 0) {
 			return $errors;
+		}
+
+		if (!$this->checkUnionTypes && $type instanceof UnionType) {
+			return [];
+		}
+
+		if (!$type->canAccessProperties()) {
+			return [
+				sprintf('Cannot access property $%s on %s.', $node->name, $type->describe()),
+			];
 		}
 
 		if (!$type->hasProperty($name)) {

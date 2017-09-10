@@ -101,6 +101,7 @@ services:
 		class: PHPStan\Rules\Properties\AccessPropertiesRule
 		arguments:
 			checkThisOnly: %checkThisOnly%
+			checkUnionTypes: %checkUnionTypes%
 		tags:
 			- phpstan.rules.rule
 

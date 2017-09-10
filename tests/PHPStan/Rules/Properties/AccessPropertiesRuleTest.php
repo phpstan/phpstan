@@ -10,14 +10,20 @@ class AccessPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	/** @var bool */
 	private $checkThisOnly;
 
+	/**
+	 * @var bool
+	 */
+	private $checkUnionTypes;
+
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new AccessPropertiesRule($this->createBroker(), new RuleLevelHelper(true), $this->checkThisOnly);
+		return new AccessPropertiesRule($this->createBroker(), new RuleLevelHelper(true), $this->checkThisOnly, $this->checkUnionTypes);
 	}
 
 	public function testAccessProperties()
 	{
 		$this->checkThisOnly = false;
+		$this->checkUnionTypes = true;
 		$this->analyse(
 			[__DIR__ . '/data/access-properties.php'],
 			[
@@ -105,9 +111,97 @@ class AccessPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		);
 	}
 
+	public function testAccessPropertiesWithoutUnionTypes()
+	{
+		$this->checkThisOnly = false;
+		$this->checkUnionTypes = false;
+		$this->analyse(
+			[__DIR__ . '/data/access-properties.php'],
+			[
+				[
+					'Access to an undefined property TestAccessProperties\BarAccessProperties::$loremipsum.',
+					23,
+				],
+				[
+					'Access to private property $foo of parent class TestAccessProperties\FooAccessProperties.',
+					24,
+				],
+				[
+					'Cannot access property $propertyOnString on string.',
+					31,
+				],
+				[
+					'Access to private property TestAccessProperties\FooAccessProperties::$foo.',
+					42,
+				],
+				[
+					'Access to protected property TestAccessProperties\FooAccessProperties::$bar.',
+					43,
+				],
+				[
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$baz.',
+					49,
+				],
+				[
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$nonexistent.',
+					52,
+				],
+				[
+					'Access to private property TestAccessProperties\FooAccessPropertiesAlias::$foo.',
+					58,
+				],
+				[
+					'Access to protected property TestAccessProperties\FooAccessPropertiesAlias::$bar.',
+					59,
+				],
+				[
+					'Access to property $foo on an unknown class TestAccessProperties\UnknownClass.',
+					63,
+				],
+				[
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$emptyBaz.',
+					68,
+				],
+				[
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$emptyNonexistent.',
+					70,
+				],
+				[
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherNonexistent.',
+					76,
+				],
+				[
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherNonexistent.',
+					77,
+				],
+				[
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherEmptyNonexistent.',
+					80,
+				],
+				[
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherEmptyNonexistent.',
+					83,
+				],
+				[
+					'Access to property $test on an unknown class TestAccessProperties\FirstUnknownClass.',
+					146,
+				],
+				[
+					'Access to property $test on an unknown class TestAccessProperties\SecondUnknownClass.',
+					146,
+				],
+				[
+					'Access to an undefined property TestAccessProperties\SomeInterface&TestAccessProperties\WithFooProperty::$bar.',
+					193,
+				],
+			]
+		);
+	}
+
 	public function testAccessPropertiesOnThisOnly()
 	{
 		$this->checkThisOnly = true;
+		$this->checkUnionTypes = true;
 		$this->analyse(
 			[__DIR__ . '/data/access-properties.php'],
 			[
@@ -126,6 +220,7 @@ class AccessPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	public function testAccessPropertiesAfterIsNullInBooleanOr()
 	{
 		$this->checkThisOnly = false;
+		$this->checkUnionTypes = true;
 		$this->analyse([__DIR__ . '/data/access-properties-after-isnull.php'], [
 			[
 				'Cannot access property $fooProperty on null.',
@@ -165,6 +260,7 @@ class AccessPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	public function testDateIntervalChildProperties()
 	{
 		$this->checkThisOnly = false;
+		$this->checkUnionTypes = true;
 		$this->analyse([__DIR__ . '/data/date-interval-child-properties.php'], [
 			[
 				'Access to an undefined property AccessPropertiesDateIntervalChild\DateIntervalChild::$nonexistent.',
