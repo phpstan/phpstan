@@ -284,3 +284,19 @@ class UnionInsteadOfIntersection
 	}
 
 }
+
+class CallingOnNull
+{
+
+	public function doFoo()
+	{
+		$object = null;
+
+		if ($object === null) {
+			// nothing
+		}
+
+		$object->foo();
+	}
+
+}

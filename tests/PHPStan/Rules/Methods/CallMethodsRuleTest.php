@@ -148,6 +148,10 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Cannot call method foo() on int|string.',
 				254,
 			],
+			[
+				'Cannot call method foo() on null.',
+				299,
+			],
 		]);
 	}
 
