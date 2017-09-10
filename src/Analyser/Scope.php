@@ -1332,7 +1332,12 @@ class Scope
 		foreach ($ourVariableTypeHolders as $name => $variableTypeHolder) {
 			$variableNode = new Variable($name);
 			if ($otherScope->isSpecified($variableNode)) {
-				$intersectedVariableTypeHolders[$name] = VariableTypeHolder::createYes($otherScope->getType($variableNode));
+				$intersectedVariableTypeHolders[$name] = VariableTypeHolder::createYes(
+					TypeCombinator::union(
+						$otherScope->getType($variableNode),
+						$variableTypeHolder->getType()
+					)
+				);
 				continue;
 			}
 			if (isset($theirVariableTypeHolders[$name])) {

@@ -169,12 +169,16 @@ class ReturnTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				320,
 			],
 			[
+				'Method ReturnTypes\Stock::returnYetSelfAgainError() should return ReturnTypes\Stock but returns ReturnTypes\Stock|null.',
+				344,
+			],
+			[
 				'Method ReturnTypes\ReturningSomethingFromConstructor::__construct() with return type void returns ReturnTypes\Foo but should not return anything.',
-				377,
+				388,
 			],
 			[
 				'Method ReturnTypes\WeirdReturnFormat::test() should return PHPStan\Foo\Bar but returns int.',
-				391,
+				402,
 			],
 		]);
 	}

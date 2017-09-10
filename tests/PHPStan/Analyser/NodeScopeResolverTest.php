@@ -481,6 +481,18 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			],
 			[
 				$testScope,
+				'integerOrString',
+				TrinaryLogic::createYes(),
+				'int|string',
+			],
+			[
+				$testScope,
+				'nullableIntegerAfterNeverCondition',
+				TrinaryLogic::createYes(),
+				'int|null',
+			],
+			[
+				$testScope,
 				'arrayOfIntegers',
 				TrinaryLogic::createYes(),
 				'int[]',

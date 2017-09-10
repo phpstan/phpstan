@@ -238,6 +238,18 @@ if ($nullableString !== null) {
 	$whatever = $nullableString;
 }
 
+/** @var int|null $integerOrString */
+$integerOrString = 1;
+if ($integerOrString === null) {
+	$integerOrString = 'str';
+}
+
+/** @var int|null $nullableIntegerAfterNeverCondition */
+$nullableIntegerAfterNeverCondition = 1;
+if ($nullableIntegerAfterNeverCondition === false) {
+	$nullableIntegerAfterNeverCondition = 1;
+}
+
 $arrayOfIntegers = [1, 2, 3];
 
 $arrayAccessObject = new \ObjectWithArrayAccess\Foo();

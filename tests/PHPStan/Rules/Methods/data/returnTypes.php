@@ -320,7 +320,8 @@ class Stock
 		return $stock; // still possible null
 	}
 
-	public function returnsSelfAgainAgain(): self {
+	public function returnsSelfAgainAgain(): self
+	{
 		while (true) {
 			try {
 				if ($this->getActualStock() === null) {
@@ -331,6 +332,16 @@ class Stock
 			}
 			return $this->getActualStock();
 		}
+	}
+
+	public function returnYetSelfAgainError(): self
+	{
+		$stock = $this->findStock();
+		if ($stock === false) {
+			$stock = new self();
+		}
+
+		return $stock; // still possible null
 	}
 
 }
