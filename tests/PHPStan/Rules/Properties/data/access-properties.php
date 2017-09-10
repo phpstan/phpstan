@@ -208,3 +208,16 @@ class IgnoreNullableUnionProperty
 	}
 
 }
+
+class AccessNullProperty
+{
+
+	/** @var null */
+	private $test;
+
+	public function doFoo()
+	{
+		$this->test->foo;
+	}
+
+}

@@ -8,6 +8,7 @@ use PHPStan\Broker\Broker;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
+use PHPStan\Type\NullType;
 use PHPStan\Type\StaticType;
 use PHPStan\Type\UnionType;
 
@@ -68,6 +69,9 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 		}
 
 		$type = $scope->getType($node->var);
+		if (!$type instanceof NullType) {
+			$type = \PHPStan\Type\TypeCombinator::removeNull($type);
+		}
 		if ($type instanceof MixedType || $type instanceof NeverType) {
 			return [];
 		}

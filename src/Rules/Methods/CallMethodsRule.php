@@ -8,6 +8,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\FunctionCallParametersCheck;
 use PHPStan\Rules\RuleLevelHelper;
+use PHPStan\Type\NullType;
 
 class CallMethodsRule implements \PHPStan\Rules\Rule
 {
@@ -66,6 +67,9 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 		}
 
 		$type = $scope->getType($node->var);
+		if (!$type instanceof NullType) {
+			$type = \PHPStan\Type\TypeCombinator::removeNull($type);
+		}
 		if (!$type->canCallMethods()) {
 			return [
 				sprintf('Cannot call method %s() on %s.', $node->name, $type->describe()),

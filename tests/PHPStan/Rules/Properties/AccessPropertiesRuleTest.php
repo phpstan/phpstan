@@ -107,6 +107,10 @@ class AccessPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 					'Access to an undefined property TestAccessProperties\SomeInterface&TestAccessProperties\WithFooProperty::$bar.',
 					193,
 				],
+				[
+					'Cannot access property $foo on null.',
+					220,
+				],
 			]
 		);
 	}
@@ -193,6 +197,10 @@ class AccessPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				[
 					'Access to an undefined property TestAccessProperties\SomeInterface&TestAccessProperties\WithFooProperty::$bar.',
 					193,
+				],
+				[
+					'Cannot access property $foo on null.',
+					220,
 				],
 			]
 		);

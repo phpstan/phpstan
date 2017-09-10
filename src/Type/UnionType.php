@@ -122,9 +122,6 @@ class UnionType implements CompoundType, StaticResolvableType
 	public function canAccessProperties(): bool
 	{
 		foreach ($this->types as $type) {
-			if ($type instanceof NullType) {
-				continue;
-			}
 			if (!$type->canAccessProperties()) {
 				return false;
 			}
@@ -136,9 +133,6 @@ class UnionType implements CompoundType, StaticResolvableType
 	public function hasProperty(string $propertyName): bool
 	{
 		foreach ($this->types as $type) {
-			if ($type instanceof NullType) {
-				continue;
-			}
 			if (!$type->hasProperty($propertyName)) {
 				return false;
 			}
@@ -159,9 +153,6 @@ class UnionType implements CompoundType, StaticResolvableType
 	public function canCallMethods(): bool
 	{
 		foreach ($this->types as $type) {
-			if ($type instanceof NullType) {
-				continue;
-			}
 			if (!$type->canCallMethods()) {
 				return false;
 			}
