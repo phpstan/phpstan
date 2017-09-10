@@ -8,7 +8,11 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\FunctionCallParametersCheck;
 use PHPStan\Rules\RuleLevelHelper;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\NeverType;
 use PHPStan\Type\NullType;
+use PHPStan\Type\StaticType;
+use PHPStan\Type\UnionType;
 
 class CallMethodsRule implements \PHPStan\Rules\Rule
 {
@@ -33,17 +37,24 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 	 */
 	private $checkThisOnly;
 
+	/**
+	 * @var bool
+	 */
+	private $checkUnionTypes;
+
 	public function __construct(
 		Broker $broker,
 		FunctionCallParametersCheck $check,
 		RuleLevelHelper $ruleLevelHelper,
-		bool $checkThisOnly
+		bool $checkThisOnly,
+		bool $checkUnionTypes
 	)
 	{
 		$this->broker = $broker;
 		$this->check = $check;
 		$this->ruleLevelHelper = $ruleLevelHelper;
 		$this->checkThisOnly = $checkThisOnly;
+		$this->checkUnionTypes = $checkUnionTypes;
 	}
 
 	public function getNodeType(): string
@@ -70,16 +81,17 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 		if (!$type instanceof NullType) {
 			$type = \PHPStan\Type\TypeCombinator::removeNull($type);
 		}
-		if (!$type->canCallMethods()) {
-			return [
-				sprintf('Cannot call method %s() on %s.', $node->name, $type->describe()),
-			];
+		if ($type instanceof MixedType || $type instanceof NeverType) {
+			return [];
+		}
+		if ($type instanceof StaticType) {
+			$type = $type->resolveStatic($type->getBaseClass());
 		}
 
 		$name = $node->name;
-
 		$errors = [];
-		foreach ($type->getReferencedClasses() as $referencedClass) {
+		$referencedClasses = $type->getReferencedClasses();
+		foreach ($referencedClasses as $referencedClass) {
 			if (!$this->broker->hasClass($referencedClass)) {
 				$errors[] = sprintf(
 					'Call to method %s() on an unknown class %s.',
@@ -93,53 +105,46 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 			return $errors;
 		}
 
-		$methodClass = $type->getClass();
-		if ($methodClass === null) {
+		if (!$this->checkUnionTypes && $type instanceof UnionType) {
 			return [];
 		}
 
-		if (!$this->broker->hasClass($methodClass)) {
+		if (!$type->canCallMethods()) {
 			return [
-				sprintf(
-					'Call to method %s() on an unknown class %s.',
-					$name,
-					$methodClass
-				),
+				sprintf('Cannot call method %s() on %s.', $node->name, $type->describe()),
 			];
 		}
 
-		$methodClass = $type->getClass();
-		if ($methodClass === null) {
-			return [];
-		}
+		if (!$type->hasMethod($name)) {
+			if (count($referencedClasses) === 1) {
+				$referencedClass = $referencedClasses[0];
+				$methodClassReflection = $this->broker->getClass($referencedClass);
+				$parentClassReflection = $methodClassReflection->getParentClass();
+				while ($parentClassReflection !== false) {
+					if ($parentClassReflection->hasMethod($name)) {
+						return [
+							sprintf(
+								'Call to private method %s() of parent class %s.',
+								$parentClassReflection->getMethod($name, $scope)->getName(),
+								$parentClassReflection->getDisplayName()
+							),
+						];
+					}
 
-		$methodClassReflection = $this->broker->getClass($methodClass);
-		if (!$methodClassReflection->hasMethod($name)) {
-			$parentClassReflection = $methodClassReflection->getParentClass();
-			while ($parentClassReflection !== false) {
-				if ($parentClassReflection->hasMethod($name)) {
-					return [
-						sprintf(
-							'Call to private method %s() of parent class %s.',
-							$parentClassReflection->getMethod($name, $scope)->getName(),
-							$parentClassReflection->getDisplayName()
-						),
-					];
+					$parentClassReflection = $parentClassReflection->getParentClass();
 				}
-
-				$parentClassReflection = $parentClassReflection->getParentClass();
 			}
 
 			return [
 				sprintf(
 					'Call to an undefined method %s::%s().',
-					$methodClassReflection->getDisplayName(),
+					$type->describe(),
 					$name
 				),
 			];
 		}
 
-		$methodReflection = $methodClassReflection->getMethod($name, $scope);
+		$methodReflection = $type->getMethod($name, $scope);
 		$messagesMethodName = $methodReflection->getDeclaringClass()->getDisplayName() . '::' . $methodReflection->getName() . '()';
 		if (!$scope->canCallMethod($methodReflection)) {
 			return [

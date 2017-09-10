@@ -4,6 +4,7 @@ namespace PHPStan\Type;
 
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 
@@ -153,6 +154,22 @@ class ObjectType implements Type
 	public function canCallMethods(): bool
 	{
 		return strtolower($this->class) !== 'stdclass';
+	}
+
+	public function hasMethod(string $methodName): bool
+	{
+		$broker = Broker::getInstance();
+		if (!$broker->hasClass($this->class)) {
+			return false;
+		}
+
+		return $broker->getClass($this->class)->hasMethod($methodName);
+	}
+
+	public function getMethod(string $methodName, Scope $scope): MethodReflection
+	{
+		$broker = Broker::getInstance();
+		return $broker->getClass($this->class)->getMethod($methodName, $scope);
 	}
 
 	public function isDocumentableNatively(): bool

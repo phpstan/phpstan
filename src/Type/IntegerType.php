@@ -3,6 +3,7 @@
 namespace PHPStan\Type;
 
 use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 
@@ -34,6 +35,16 @@ class IntegerType implements Type
 	public function canCallMethods(): bool
 	{
 		return false;
+	}
+
+	public function hasMethod(string $methodName): bool
+	{
+		return false;
+	}
+
+	public function getMethod(string $methodName, Scope $scope): MethodReflection
+	{
+		throw new \PHPStan\ShouldNotHappenException();
 	}
 
 	public function isCallable(): TrinaryLogic

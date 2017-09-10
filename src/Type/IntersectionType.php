@@ -3,6 +3,7 @@
 namespace PHPStan\Type;
 
 use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 
@@ -128,6 +129,28 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		});
 
 		return $result->yes();
+	}
+
+	public function hasMethod(string $methodName): bool
+	{
+		foreach ($this->types as $type) {
+			if ($type->hasMethod($methodName)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public function getMethod(string $methodName, Scope $scope): MethodReflection
+	{
+		foreach ($this->types as $type) {
+			if ($type->hasMethod($methodName)) {
+				return $type->getMethod($methodName, $scope);
+			}
+		}
+
+		throw new \PHPStan\ShouldNotHappenException();
 	}
 
 	public function isDocumentableNatively(): bool

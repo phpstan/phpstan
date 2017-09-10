@@ -82,6 +82,7 @@ services:
 		class: PHPStan\Rules\Methods\CallMethodsRule
 		arguments:
 			checkThisOnly: %checkThisOnly%
+			checkUnionTypes: %checkUnionTypes%
 		tags:
 			- phpstan.rules.rule
 

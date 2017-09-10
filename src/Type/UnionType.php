@@ -3,6 +3,7 @@
 namespace PHPStan\Type;
 
 use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 
@@ -159,6 +160,26 @@ class UnionType implements CompoundType, StaticResolvableType
 		}
 
 		return true;
+	}
+
+	public function hasMethod(string $methodName): bool
+	{
+		foreach ($this->types as $type) {
+			if (!$type->hasMethod($methodName)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public function getMethod(string $methodName, Scope $scope): MethodReflection
+	{
+		foreach ($this->types as $type) {
+			return $type->getMethod($methodName, $scope);
+		}
+
+		throw new \PHPStan\ShouldNotHappenException();
 	}
 
 	public function isDocumentableNatively(): bool

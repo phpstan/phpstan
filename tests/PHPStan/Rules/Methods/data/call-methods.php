@@ -278,8 +278,8 @@ class UnionInsteadOfIntersection
 		while ($object instanceof FirstInterface && $object instanceof SecondInterface) {
 			$object->firstMethod();
 			$object->secondMethod();
-			$object->firstMethod(1); // call not checked yet
-			$object->secondMethod(1); // call not checked yet
+			$object->firstMethod(1);
+			$object->secondMethod(1);
 		}
 	}
 
@@ -310,6 +310,67 @@ class MethodsWithUnknownClasses
 	public function doFoo()
 	{
 		$this->foo->test();
+	}
+
+}
+
+class IgnoreNullableUnionProperty
+{
+
+	/** @var Foo|null */
+	private $foo;
+
+	public function doFoo()
+	{
+		$this->foo->ipsum();
+	}
+
+}
+
+interface WithFooMethod
+{
+
+	public function foo();
+
+}
+
+interface WithFooAndBarMethod
+{
+
+	public function foo();
+
+	public function bar();
+
+}
+
+class MethodsOnUnionType
+{
+
+	/** @var WithFooMethod|WithFooAndBarMethod */
+	private $object;
+
+	public function doFoo()
+	{
+		$this->object->foo(); // fine
+		$this->object->bar(); // WithFooMethod does not have bar()
+	}
+
+}
+
+interface SomeInterface
+{
+
+}
+
+class MethodsOnIntersectionType
+{
+
+	public function doFoo(WithFooMethod $foo)
+	{
+		if ($foo instanceof SomeInterface) {
+			$foo->foo();
+			$foo->bar();
+		}
 	}
 
 }

@@ -3,6 +3,7 @@
 namespace PHPStan\Type;
 
 use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 
@@ -32,6 +33,10 @@ interface Type
 	public function getProperty(string $propertyName, Scope $scope): PropertyReflection;
 
 	public function canCallMethods(): bool;
+
+	public function hasMethod(string $methodName): bool;
+
+	public function getMethod(string $methodName, Scope $scope): MethodReflection;
 
 	public function isDocumentableNatively(): bool;
 
