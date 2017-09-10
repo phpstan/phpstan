@@ -2,6 +2,7 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\TrinaryLogic;
 
@@ -11,9 +12,13 @@ class StaticType implements StaticResolvableType
 	/** @var string */
 	private $baseClass;
 
+	/** @var \PHPStan\Type\ObjectType */
+	private $staticObjectType;
+
 	public function __construct(string $baseClass)
 	{
 		$this->baseClass = $baseClass;
+		$this->staticObjectType = new ObjectType($baseClass);
 	}
 
 	public function getClass(): string
@@ -26,7 +31,7 @@ class StaticType implements StaticResolvableType
 	 */
 	public function getReferencedClasses(): array
 	{
-		return [$this->getClass()];
+		return $this->staticObjectType->getReferencedClasses();
 	}
 
 	public function getBaseClass(): string
@@ -36,17 +41,17 @@ class StaticType implements StaticResolvableType
 
 	public function accepts(Type $type): bool
 	{
-		return (new ObjectType($this->baseClass))->accepts($type);
+		return $this->staticObjectType->accepts($type);
 	}
 
 	public function isSupersetOf(Type $type): TrinaryLogic
 	{
 		if ($type instanceof self) {
-			return (new ObjectType($this->baseClass))->isSupersetOf($type);
+			return $this->staticObjectType->isSupersetOf($type);
 		}
 
 		if ($type instanceof ObjectType) {
-			return TrinaryLogic::createMaybe()->and((new ObjectType($this->baseClass))->isSupersetOf($type));
+			return TrinaryLogic::createMaybe()->and($this->staticObjectType->isSupersetOf($type));
 		}
 
 		if ($type instanceof CompoundType) {
@@ -68,12 +73,12 @@ class StaticType implements StaticResolvableType
 
 	public function canCallMethods(): bool
 	{
-		return true;
+		return $this->staticObjectType->canCallMethods();
 	}
 
 	public function isDocumentableNatively(): bool
 	{
-		return true;
+		return $this->staticObjectType->isDocumentableNatively();
 	}
 
 	public function resolveStatic(string $className): Type
