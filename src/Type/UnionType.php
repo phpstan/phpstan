@@ -120,23 +120,29 @@ class UnionType implements CompoundType, StaticResolvableType
 	public function canAccessProperties(): bool
 	{
 		foreach ($this->types as $type) {
-			if ($type->canAccessProperties()) {
-				return true;
+			if ($type instanceof NullType) {
+				continue;
+			}
+			if (!$type->canAccessProperties()) {
+				return false;
 			}
 		}
 
-		return false;
+		return true;
 	}
 
 	public function canCallMethods(): bool
 	{
 		foreach ($this->types as $type) {
-			if ($type->canCallMethods()) {
-				return true;
+			if ($type instanceof NullType) {
+				continue;
+			}
+			if (!$type->canCallMethods()) {
+				return false;
 			}
 		}
 
-		return false;
+		return true;
 	}
 
 	public function isDocumentableNatively(): bool
