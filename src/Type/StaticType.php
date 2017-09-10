@@ -111,7 +111,8 @@ class StaticType implements StaticResolvableType
 			return TrinaryLogic::createMaybe();
 		}
 
-		if ($broker->getClass($this->baseClass)->isSubclassOf(\Traversable::class) || $this->baseClass === \Traversable::class) {
+		$classReflection = $broker->getClass($this->baseClass);
+		if ($classReflection->isSubclassOf(\Traversable::class) || $classReflection->getName() === \Traversable::class) {
 			return TrinaryLogic::createYes();
 		}
 
