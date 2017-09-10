@@ -215,6 +215,14 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 			],
 			[
 				[
+					new MixedType(),
+					new IntegerType(),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
 					new TrueBooleanType(),
 					new FalseBooleanType(),
 				],
