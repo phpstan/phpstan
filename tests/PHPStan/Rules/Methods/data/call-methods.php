@@ -300,3 +300,16 @@ class CallingOnNull
 	}
 
 }
+
+class MethodsWithUnknownClasses
+{
+
+	/** @var FirstUnknownClass|SecondUnknownClass */
+	private $foo;
+
+	public function doFoo()
+	{
+		$this->foo->test();
+	}
+
+}

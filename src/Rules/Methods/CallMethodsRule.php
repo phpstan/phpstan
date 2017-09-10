@@ -71,12 +71,29 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 				sprintf('Cannot call method %s() on %s.', $node->name, $type->describe()),
 			];
 		}
+
+		$name = $node->name;
+
+		$errors = [];
+		foreach ($type->getReferencedClasses() as $referencedClass) {
+			if (!$this->broker->hasClass($referencedClass)) {
+				$errors[] = sprintf(
+					'Call to method %s() on an unknown class %s.',
+					$name,
+					$referencedClass
+				);
+			}
+		}
+
+		if (count($errors) > 0) {
+			return $errors;
+		}
+
 		$methodClass = $type->getClass();
 		if ($methodClass === null) {
 			return [];
 		}
 
-		$name = $node->name;
 		if (!$this->broker->hasClass($methodClass)) {
 			return [
 				sprintf(
@@ -85,6 +102,11 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 					$methodClass
 				),
 			];
+		}
+
+		$methodClass = $type->getClass();
+		if ($methodClass === null) {
+			return [];
 		}
 
 		$methodClassReflection = $this->broker->getClass($methodClass);

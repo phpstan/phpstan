@@ -152,6 +152,14 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Cannot call method foo() on null.',
 				299,
 			],
+			[
+				'Call to method test() on an unknown class Test\FirstUnknownClass.',
+				312,
+			],
+			[
+				'Call to method test() on an unknown class Test\SecondUnknownClass.',
+				312,
+			],
 		]);
 	}
 
