@@ -62,20 +62,26 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 				sprintf('Cannot access property $%s on %s.', $node->name, $type->describe()),
 			];
 		}
+
+		$name = $node->name;
+		$errors = [];
+		foreach ($type->getReferencedClasses() as $referencedClass) {
+			if (!$this->broker->hasClass($referencedClass)) {
+				$errors[] = sprintf(
+					'Access to property $%s on an unknown class %s.',
+					$name,
+					$referencedClass
+				);
+			}
+		}
+
+		if (count($errors) > 0) {
+			return $errors;
+		}
+
 		$propertyClass = $type->getClass();
 		if ($propertyClass === null) {
 			return [];
-		}
-
-		$name = $node->name;
-		if (!$this->broker->hasClass($propertyClass)) {
-			return [
-				sprintf(
-					'Access to property $%s on an unknown class %s.',
-					$name,
-					$propertyClass
-				),
-			];
 		}
 
 		$propertyClassReflection = $this->broker->getClass($propertyClass);

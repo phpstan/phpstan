@@ -134,3 +134,16 @@ class IssetIssue
 	}
 
 }
+
+class PropertiesWithUnknownClasses
+{
+
+	/** @var FirstUnknownClass|SecondUnknownClass */
+	private $foo;
+
+	public function doFoo()
+	{
+		$this->foo->test;
+	}
+
+}
