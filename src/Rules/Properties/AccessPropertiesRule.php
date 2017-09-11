@@ -6,11 +6,7 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\RuleLevelHelper;
-use PHPStan\Type\MixedType;
-use PHPStan\Type\NeverType;
-use PHPStan\Type\NullType;
-use PHPStan\Type\StaticType;
-use PHPStan\Type\UnionType;
+use PHPStan\Type\ErrorType;
 
 class AccessPropertiesRule implements \PHPStan\Rules\Rule
 {
@@ -25,27 +21,13 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 	 */
 	private $ruleLevelHelper;
 
-	/**
-	 * @var bool
-	 */
-	private $checkThisOnly;
-
-	/**
-	 * @var bool
-	 */
-	private $checkUnionTypes;
-
 	public function __construct(
 		Broker $broker,
-		RuleLevelHelper $ruleLevelHelper,
-		bool $checkThisOnly,
-		bool $checkUnionTypes
+		RuleLevelHelper $ruleLevelHelper
 	)
 	{
 		$this->broker = $broker;
 		$this->ruleLevelHelper = $ruleLevelHelper;
-		$this->checkThisOnly = $checkThisOnly;
-		$this->checkUnionTypes = $checkUnionTypes;
 	}
 
 	public function getNodeType(): string
@@ -64,45 +46,19 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		if ($this->checkThisOnly && !$this->ruleLevelHelper->isThis($node->var)) {
-			return [];
-		}
-
-		$type = $scope->getType($node->var);
-		if (!$type instanceof NullType) {
-			$type = \PHPStan\Type\TypeCombinator::removeNull($type);
-		}
-		if ($type instanceof MixedType || $type instanceof NeverType) {
-			return [];
-		}
-		if ($type instanceof StaticType) {
-			$type = $type->resolveStatic($type->getBaseClass());
-		}
-
 		$name = $node->name;
-		$errors = [];
-		$referencedClasses = $type->getReferencedClasses();
-		foreach ($referencedClasses as $referencedClass) {
-			if (!$this->broker->hasClass($referencedClass)) {
-				$errors[] = sprintf(
-					'Access to property $%s on an unknown class %s.',
-					$name,
-					$referencedClass
-				);
-			}
+		$typeResult = $this->ruleLevelHelper->findTypeToCheck(
+			$scope,
+			$node->var,
+			sprintf('Access to property $%s on an unknown class %%s.', $name)
+		);
+		$type = $typeResult->getType();
+		if ($type instanceof ErrorType) {
+			return $typeResult->getUnknownClassErrors();
 		}
-
-		if (count($errors) > 0) {
-			return $errors;
-		}
-
-		if (!$this->checkUnionTypes && $type instanceof UnionType) {
-			return [];
-		}
-
 		if (!$type->canAccessProperties()) {
 			return [
-				sprintf('Cannot access property $%s on %s.', $node->name, $type->describe()),
+				sprintf('Cannot access property $%s on %s.', $name, $type->describe()),
 			];
 		}
 
@@ -111,8 +67,8 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 				return [];
 			}
 
-			if (count($referencedClasses) === 1) {
-				$referencedClass = $referencedClasses[0];
+			if (count($typeResult->getReferencedClasses()) === 1) {
+				$referencedClass = $typeResult->getReferencedClasses()[0];
 				$propertyClassReflection = $this->broker->getClass($referencedClass);
 				$parentClassReflection = $propertyClassReflection->getParentClass();
 				while ($parentClassReflection !== false) {

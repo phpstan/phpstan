@@ -11,6 +11,7 @@ parameters:
 	checkArgumentsPassedByReference: false
 	checkMaybeUndefinedVariables: false
 	checkNullables: false
+	checkThisOnly: true
 	checkUnionTypes: false
 	polluteScopeWithLoopInitialAssignments: false
 	polluteCatchScopeWithTryAssignments: false
@@ -142,6 +143,8 @@ services:
 		class: PHPStan\Rules\RuleLevelHelper
 		arguments:
 			checkNullables: %checkNullables%
+			checkThisOnly: %checkThisOnly%
+			checkUnionTypes: %checkUnionTypes%
 
 	-
 		class: PHPStan\Rules\UnusedFunctionParametersCheck

@@ -1,6 +1,5 @@
 parameters:
 	customRulesetUsed: false
-	checkThisOnly: true
 
 services:
 	-
@@ -80,9 +79,6 @@ services:
 
 	-
 		class: PHPStan\Rules\Methods\CallMethodsRule
-		arguments:
-			checkThisOnly: %checkThisOnly%
-			checkUnionTypes: %checkUnionTypes%
 		tags:
 			- phpstan.rules.rule
 
@@ -100,9 +96,6 @@ services:
 
 	-
 		class: PHPStan\Rules\Properties\AccessPropertiesRule
-		arguments:
-			checkThisOnly: %checkThisOnly%
-			checkUnionTypes: %checkUnionTypes%
 		tags:
 			- phpstan.rules.rule
 

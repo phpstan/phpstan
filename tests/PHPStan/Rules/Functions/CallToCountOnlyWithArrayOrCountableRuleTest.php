@@ -9,7 +9,7 @@ class CallToCountOnlyWithArrayOrCountableRuleTest extends \PHPStan\Rules\Abstrac
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new CallToCountOnlyWithArrayOrCountableRule(new RuleLevelHelper(true));
+		return new CallToCountOnlyWithArrayOrCountableRule(new RuleLevelHelper($this->createBroker(), true, false, true));
 	}
 
 	public function testCallToCountOnlyWithArrayOrCountable()

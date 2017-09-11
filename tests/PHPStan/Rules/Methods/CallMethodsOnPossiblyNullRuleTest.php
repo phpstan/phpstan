@@ -9,7 +9,7 @@ class CallMethodsOnPossiblyNullRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new CallMethodsOnPossiblyNullRule(new RuleLevelHelper(true), false);
+		return new CallMethodsOnPossiblyNullRule(new RuleLevelHelper($this->createBroker(), true, false, true), false);
 	}
 
 	public function testExistingClassInTypehint()

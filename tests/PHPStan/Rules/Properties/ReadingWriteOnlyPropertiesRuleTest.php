@@ -12,7 +12,7 @@ class ReadingWriteOnlyPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new ReadingWriteOnlyPropertiesRule(new PropertyDescriptor(), new PropertyReflectionFinder(), new RuleLevelHelper(true), $this->checkThisOnly);
+		return new ReadingWriteOnlyPropertiesRule(new PropertyDescriptor(), new PropertyReflectionFinder(), new RuleLevelHelper($this->createBroker(), true, $this->checkThisOnly, true), $this->checkThisOnly);
 	}
 
 	public function testPropertyMustBeReadableInAssignOp()

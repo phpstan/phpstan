@@ -17,7 +17,8 @@ class AccessPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new AccessPropertiesRule($this->createBroker(), new RuleLevelHelper(true), $this->checkThisOnly, $this->checkUnionTypes);
+		$broker = $this->createBroker();
+		return new AccessPropertiesRule($broker, new RuleLevelHelper($broker, true, $this->checkThisOnly, $this->checkUnionTypes));
 	}
 
 	public function testAccessProperties()
