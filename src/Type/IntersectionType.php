@@ -154,6 +154,15 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		throw new \PHPStan\ShouldNotHappenException();
 	}
 
+	public function canAccessConstants(): bool
+	{
+		$result = $this->intersectResults(function (Type $type): TrinaryLogic {
+			return $type->canAccessConstants() ? TrinaryLogic::createYes() : TrinaryLogic::createNo();
+		});
+
+		return $result->yes();
+	}
+
 	public function hasConstant(string $constantName): bool
 	{
 		foreach ($this->types as $type) {

@@ -96,6 +96,12 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 			}
 		}
 
+		if (!$classType->canAccessConstants()) {
+			return [
+				sprintf('Cannot access constant %s on %s.', $constantName, $classType->describe()),
+			];
+		}
+
 		if ($constantName === 'class') {
 			return [];
 		}

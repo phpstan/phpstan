@@ -99,6 +99,11 @@ class StaticType implements StaticResolvableType
 		return $this->staticObjectType->getMethod($methodName, $scope);
 	}
 
+	public function canAccessConstants(): bool
+	{
+		return $this->staticObjectType->canAccessConstants();
+	}
+
 	public function hasConstant(string $constantName): bool
 	{
 		return $this->staticObjectType->hasConstant($constantName);

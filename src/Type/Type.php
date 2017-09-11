@@ -39,6 +39,8 @@ interface Type
 
 	public function getMethod(string $methodName, Scope $scope): MethodReflection;
 
+	public function canAccessConstants(): bool;
+
 	public function hasConstant(string $constantName): bool;
 
 	public function getConstant(string $constantName): ClassConstantReflection;

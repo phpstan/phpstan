@@ -183,6 +183,17 @@ class UnionType implements CompoundType, StaticResolvableType
 		throw new \PHPStan\ShouldNotHappenException();
 	}
 
+	public function canAccessConstants(): bool
+	{
+		foreach ($this->types as $type) {
+			if (!$type->canAccessConstants()) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	public function hasConstant(string $constantName): bool
 	{
 		foreach ($this->types as $type) {

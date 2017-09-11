@@ -109,6 +109,10 @@ class Ipsum
 		$this->union::BAR;
 
 		$this->unknown::FOO;
+
+		/** @var string|int $stringOrInt */
+		$stringOrInt = doFoo();
+		$stringOrInt::FOO;
 	}
 
 }

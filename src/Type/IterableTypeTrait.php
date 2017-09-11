@@ -69,6 +69,11 @@ trait IterableTypeTrait
 		throw new \PHPStan\ShouldNotHappenException();
 	}
 
+	public function canAccessConstants(): bool
+	{
+		return false;
+	}
+
 	public function hasConstant(string $constantName): bool
 	{
 		return false;

@@ -100,6 +100,10 @@ class ClassConstantRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Access to constant FOO on an unknown class ClassConstantVisibility\UnknownClassSecond.',
 				111,
 			],
+			[
+				'Cannot access constant FOO on int|string.',
+				115,
+			],
 		]);
 	}
 

@@ -173,6 +173,11 @@ class ObjectType implements Type
 		return $broker->getClass($this->class)->getMethod($methodName, $scope);
 	}
 
+	public function canAccessConstants(): bool
+	{
+		return true;
+	}
+
 	public function hasConstant(string $constantName): bool
 	{
 		$broker = Broker::getInstance();
