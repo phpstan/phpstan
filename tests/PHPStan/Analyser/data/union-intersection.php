@@ -2,15 +2,20 @@
 
 namespace UnionIntersection;
 
-class WithFooProperty
+class WithFoo
 {
 
 	/** @var Foo */
 	public $foo;
 
+	public function doFoo(): Foo
+	{
+
+	}
+
 }
 
-class WithFooAndBarProperty
+class WithFooAndBar
 {
 
 	/** @var AnotherFoo */
@@ -18,6 +23,16 @@ class WithFooAndBarProperty
 
 	/** @var Bar */
 	public $bar;
+
+	public function doFoo(): AnotherFoo
+	{
+
+	}
+
+	public function doBar(): Bar
+	{
+
+	}
 
 }
 
@@ -29,10 +44,10 @@ interface SomeInterface
 class Ipsum
 {
 
-	/** @var WithFooAndBarProperty|WithFooProperty */
+	/** @var WithFoo|WithFooAndBar */
 	private $union;
 
-	public function doFoo(WithFooProperty $foo)
+	public function doFoo(WithFoo $foo)
 	{
 		if ($foo instanceof SomeInterface) {
 			die;

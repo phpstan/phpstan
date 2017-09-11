@@ -562,7 +562,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				'UnionIntersection\AnotherFoo',
+				'UnionIntersection\Foo',
 				'$this->union->foo',
 			],
 			[
@@ -576,6 +576,22 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			[
 				'mixed',
 				'$foo->bar',
+			],
+			[
+				'UnionIntersection\Foo',
+				'$this->union->doFoo()',
+			],
+			[
+				'mixed',
+				'$this->union->doBar()',
+			],
+			[
+				'UnionIntersection\Foo',
+				'$foo->doFoo()',
+			],
+			[
+				'mixed',
+				'$foo->doBar()',
 			],
 		];
 	}

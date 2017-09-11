@@ -595,13 +595,12 @@ class Scope
 
 		if ($node instanceof MethodCall && is_string($node->name)) {
 			$methodCalledOnType = $this->getType($node->var);
+			$referencedClasses = $methodCalledOnType->getReferencedClasses();
 			if (
-				$methodCalledOnType->getClass() !== null
-				&& $this->broker->hasClass($methodCalledOnType->getClass())
+				count($referencedClasses) === 1
+				&& $this->broker->hasClass($referencedClasses[0])
 			) {
-				$methodClassReflection = $this->broker->getClass(
-					$methodCalledOnType->getClass()
-				);
+				$methodClassReflection = $this->broker->getClass($referencedClasses[0]);
 				if (!$methodClassReflection->hasMethod($node->name)) {
 					return new ErrorType();
 				}
@@ -614,21 +613,26 @@ class Scope
 
 					return $dynamicMethodReturnTypeExtension->getTypeFromMethodCall($methodReflection, $node, $this);
 				}
-
-				$calledOnThis = $node->var instanceof Variable && is_string($node->var->name) && $node->var->name === 'this';
-				$methodReturnType = $methodReflection->getReturnType();
-				if ($methodReturnType instanceof StaticResolvableType) {
-					if ($calledOnThis) {
-						if ($this->isInClass()) {
-							return $methodReturnType->changeBaseClass($this->getClassReflection()->getName());
-						}
-					} else {
-						return $methodReturnType->resolveStatic($methodClassReflection->getName());
-					}
-				}
-
-				return $methodReflection->getReturnType();
 			}
+
+			if (!$methodCalledOnType->hasMethod($node->name)) {
+				return new ErrorType();
+			}
+			$methodReflection = $methodCalledOnType->getMethod($node->name, $this);
+
+			$calledOnThis = $node->var instanceof Variable && is_string($node->var->name) && $node->var->name === 'this';
+			$methodReturnType = $methodReflection->getReturnType();
+			if ($methodReturnType instanceof StaticResolvableType) {
+				if ($calledOnThis) {
+					if ($this->isInClass()) {
+						return $methodReturnType->changeBaseClass($this->getClassReflection()->getName());
+					}
+				} elseif (count($referencedClasses) === 1) {
+					return $methodReturnType->resolveStatic($referencedClasses[0]);
+				}
+			}
+
+			return $methodReflection->getReturnType();
 		}
 
 		if ($node instanceof Expr\StaticCall && is_string($node->name)) {
