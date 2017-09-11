@@ -558,6 +558,45 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+	public function dataUnionAndIntersection(): array
+	{
+		return [
+			[
+				'UnionIntersection\AnotherFoo',
+				'$this->union->foo',
+			],
+			[
+				'mixed',
+				'$this->union->bar',
+			],
+			[
+				'UnionIntersection\Foo',
+				'$foo->foo',
+			],
+			[
+				'mixed',
+				'$foo->bar',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataUnionAndIntersection
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testUnionAndIntersection(
+		string $description,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/union-intersection.php',
+			$description,
+			$expression
+		);
+	}
+
 	/**
 	 * @dataProvider dataAssignInIf
 	 * @param \PHPStan\Analyser\Scope $scope

@@ -671,19 +671,11 @@ class Scope
 
 		if ($node instanceof PropertyFetch && is_string($node->name)) {
 			$propertyFetchedOnType = $this->getType($node->var);
-			if (
-				$propertyFetchedOnType->getClass() !== null
-				&& $this->broker->hasClass($propertyFetchedOnType->getClass())
-			) {
-				$propertyClassReflection = $this->broker->getClass(
-					$propertyFetchedOnType->getClass()
-				);
-				if (!$propertyClassReflection->hasProperty($node->name)) {
-					return new ErrorType();
-				}
-
-				return $propertyClassReflection->getProperty($node->name, $this)->getType();
+			if (!$propertyFetchedOnType->hasProperty($node->name)) {
+				return new ErrorType();
 			}
+
+			return $propertyFetchedOnType->getProperty($node->name, $this)->getType();
 		}
 
 		if ($node instanceof Expr\StaticPropertyFetch && is_string($node->name) && $node->class instanceof Name) {
