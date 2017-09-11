@@ -9,7 +9,7 @@ class TypesAssignedToPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new TypesAssignedToPropertiesRule(new RuleLevelHelper(true), new PropertyDescriptor(), new PropertyReflectionFinder($this->createBroker()));
+		return new TypesAssignedToPropertiesRule(new RuleLevelHelper(true), new PropertyDescriptor(), new PropertyReflectionFinder());
 	}
 
 	public function testTypesAssignedToProperties()
@@ -62,6 +62,14 @@ class TypesAssignedToPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			[
 				'Property PropertiesAssignedTypes\Foo::$intProperty (int) does not accept string.',
 				57,
+			],
+			[
+				'Property PropertiesAssignedTypes\Ipsum::$foo (PropertiesAssignedTypes\Ipsum) does not accept PropertiesAssignedTypes\Bar.',
+				140,
+			],
+			[
+				'Static property PropertiesAssignedTypes\Ipsum::$fooStatic (PropertiesAssignedTypes\Ipsum) does not accept PropertiesAssignedTypes\Bar.',
+				141,
 			],
 		]);
 	}

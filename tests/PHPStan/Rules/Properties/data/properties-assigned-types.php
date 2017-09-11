@@ -80,6 +80,12 @@ class Ipsum
 	/** @var iterable */
 	private $iterableData;
 
+	/** @var Ipsum */
+	private $foo;
+
+	/** @var Ipsum */
+	private static $fooStatic;
+
 	public function doIpsum()
 	{
 		if ($this->nullableIntProperty === null) {
@@ -127,6 +133,19 @@ class Ipsum
 
 		$this->iterableData = $justIterableInPhpDocWithCheck;
 	}
+
+	public function doIntersection()
+	{
+		if ($this->foo instanceof SomeInterface) {
+			$this->foo->foo = new Bar();
+			self::$fooStatic::$fooStatic = new Bar();
+		}
+	}
+
+}
+
+interface SomeInterface
+{
 
 }
 

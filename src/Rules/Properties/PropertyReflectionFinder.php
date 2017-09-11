@@ -3,18 +3,11 @@
 namespace PHPStan\Rules\Properties;
 
 use PHPStan\Analyser\Scope;
-use PHPStan\Broker\Broker;
+use PHPStan\Type\ObjectType;
+use PHPStan\Type\Type;
 
 class PropertyReflectionFinder
 {
-
-	/** @var \PHPStan\Broker\Broker */
-	private $broker;
-
-	public function __construct(Broker $broker)
-	{
-		$this->broker = $broker;
-	}
 
 	/**
 	 * @param \PhpParser\Node\Expr\PropertyFetch|\PhpParser\Node\Expr\StaticPropertyFetch $propertyFetch
@@ -28,42 +21,36 @@ class PropertyReflectionFinder
 				return null;
 			}
 			$propertyHolderType = $scope->getType($propertyFetch->var);
-			if ($propertyHolderType->getClass() === null) {
-				return null;
-			}
-
-			return $this->findPropertyReflection($propertyHolderType->getClass(), $propertyFetch->name, $scope);
+			return $this->findPropertyReflection($propertyHolderType, $propertyFetch->name, $scope);
 		} elseif ($propertyFetch instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
-			if (
-				!($propertyFetch->class instanceof \PhpParser\Node\Name)
-				|| !is_string($propertyFetch->name)
-			) {
+			if (!is_string($propertyFetch->name)) {
 				return null;
 			}
+			if ($propertyFetch->class instanceof \PhpParser\Node\Name) {
+				$propertyHolderType = new ObjectType($scope->resolveName($propertyFetch->class));
+			} else {
+				$propertyHolderType = $scope->getType($propertyFetch->class);
+			}
 
-			return $this->findPropertyReflection($scope->resolveName($propertyFetch->class), $propertyFetch->name, $scope);
+			return $this->findPropertyReflection($propertyHolderType, $propertyFetch->name, $scope);
 		}
 
 		return null;
 	}
 
 	/**
-	 * @param string $className
+	 * @param \PHPStan\Type\Type $propertyHolderType
 	 * @param string $propertyName
 	 * @param Scope $scope
 	 * @return \PHPStan\Reflection\PropertyReflection|null
 	 */
-	private function findPropertyReflection(string $className, string $propertyName, Scope $scope)
+	private function findPropertyReflection(Type $propertyHolderType, string $propertyName, Scope $scope)
 	{
-		if (!$this->broker->hasClass($className)) {
-			return null;
-		}
-		$propertyClass = $this->broker->getClass($className);
-		if (!$propertyClass->hasProperty($propertyName)) {
+		if (!$propertyHolderType->hasProperty($propertyName)) {
 			return null;
 		}
 
-		return $propertyClass->getProperty($propertyName, $scope);
+		return $propertyHolderType->getProperty($propertyName, $scope);
 	}
 
 }
