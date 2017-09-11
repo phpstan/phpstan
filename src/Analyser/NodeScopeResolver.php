@@ -354,7 +354,7 @@ class NodeScopeResolver
 					$scopeClass = $argValueType->getClass();
 				} elseif (
 					$argValue instanceof Expr\ClassConstFetch
-					&& $argValue->name === 'class'
+					&& strtolower($argValue->name) === 'class'
 					&& $argValue->class instanceof Name
 				) {
 					$scopeClass = $scope->resolveName($argValue->class);
