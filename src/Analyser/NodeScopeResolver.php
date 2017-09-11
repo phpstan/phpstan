@@ -1280,8 +1280,8 @@ class NodeScopeResolver
 			$className = (string) $functionCall->class;
 			if ($this->broker->hasClass($className)) {
 				$classReflection = $this->broker->getClass($className);
-				if ($classReflection->hasMethod($functionCall->name)) {
-					return $classReflection->getMethod($functionCall->name, $scope);
+				if ($classReflection->hasExtendedMethod($functionCall->name)) {
+					return $classReflection->getExtendedMethod($functionCall->name, $scope);
 				}
 			}
 		}
@@ -1297,19 +1297,21 @@ class NodeScopeResolver
 				continue;
 			}
 			$traitReflection = $this->broker->getClass($traitName);
-			$fileName = $this->fileHelper->normalizePath($traitReflection->getNativeReflection()->getFileName());
-			if (!isset($this->analysedFiles[$fileName])) {
+			/** @var string $fileName */
+			$fileName = $traitReflection->getFileName();
+			$normalizedFileName = $this->fileHelper->normalizePath($fileName);
+			if (!isset($this->analysedFiles[$normalizedFileName])) {
 				return;
 			}
-			$parserNodes = $this->parser->parseFile($fileName);
+			$parserNodes = $this->parser->parseFile($normalizedFileName);
 			$className = sprintf('class %s', $classScope->getClassReflection()->getDisplayName());
-			if ($classScope->getClassReflection()->getNativeReflection()->isAnonymous()) {
+			if ($classScope->getClassReflection()->isAnonymous()) {
 				$className = 'anonymous class';
 			}
 			$classScope = $classScope->changeAnalysedContextFile(
 				sprintf(
 					'%s (in context of %s)',
-					$fileName,
+					$normalizedFileName,
 					$className
 				)
 			);

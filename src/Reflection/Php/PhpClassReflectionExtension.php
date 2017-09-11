@@ -49,7 +49,7 @@ class PhpClassReflectionExtension
 
 	public function hasProperty(ClassReflection $classReflection, string $propertyName): bool
 	{
-		return $classReflection->getNativeReflection()->hasProperty($propertyName);
+		return $classReflection->hasProperty($propertyName);
 	}
 
 	public function getProperty(ClassReflection $classReflection, string $propertyName): PropertyReflection
@@ -68,18 +68,20 @@ class PhpClassReflectionExtension
 	private function createProperties(ClassReflection $classReflection): array
 	{
 		$properties = [];
-		foreach ($classReflection->getNativeReflection()->getProperties() as $propertyReflection) {
+		foreach ($classReflection->getProperties() as $propertyReflection) {
 			$propertyName = $propertyReflection->getName();
 			$declaringClassReflection = $this->broker->getClass($propertyReflection->getDeclaringClass()->getName());
 			if ($propertyReflection->getDocComment() === false) {
 				$type = new MixedType();
-			} elseif (!$declaringClassReflection->getNativeReflection()->isAnonymous() && $declaringClassReflection->getNativeReflection()->getFileName() !== false) {
+			} elseif (!$declaringClassReflection->isAnonymous() && !$declaringClassReflection->isInternal()) {
+				/** @var string $fileName */
+				$fileName = $declaringClassReflection->getFileName();
 				$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForProperty(
 					$this->broker,
 					$propertyReflection->getDocComment(),
 					$declaringClassReflection->getName(),
 					$propertyName,
-					$declaringClassReflection->getNativeReflection()->getFileName()
+					$fileName
 				);
 				$typeMap = $this->fileTypeMapper->getTypeMap($phpDocBlock->getFile());
 				$typeString = $this->getPropertyAnnotationTypeString($phpDocBlock->getDocComment());
@@ -118,7 +120,7 @@ class PhpClassReflectionExtension
 
 	public function hasMethod(ClassReflection $classReflection, string $methodName): bool
 	{
-		return $classReflection->getNativeReflection()->hasMethod($methodName);
+		return $classReflection->hasMethod($methodName);
 	}
 
 	public function getMethod(ClassReflection $classReflection, string $methodName): MethodReflection
@@ -127,7 +129,7 @@ class PhpClassReflectionExtension
 			$this->methods[$classReflection->getName()] = $this->createMethods($classReflection);
 		}
 
-		$nativeMethodReflection = $classReflection->getNativeReflection()->getMethod($methodName);
+		$nativeMethodReflection = $classReflection->getMethod($methodName);
 
 		return $this->methods[$classReflection->getName()][$nativeMethodReflection->getName()];
 	}
@@ -139,7 +141,7 @@ class PhpClassReflectionExtension
 	private function createMethods(ClassReflection $classReflection): array
 	{
 		$methods = [];
-		$reflectionMethods = $classReflection->getNativeReflection()->getMethods();
+		$reflectionMethods = $classReflection->getMethods();
 		if ($classReflection->getName() === \Closure::class || $classReflection->isSubclassOf(\Closure::class)) {
 			$hasInvokeMethod = false;
 			foreach ($reflectionMethods as $reflectionMethod) {
@@ -149,7 +151,7 @@ class PhpClassReflectionExtension
 				}
 			}
 			if (!$hasInvokeMethod) {
-				$reflectionMethods[] = $classReflection->getNativeReflection()->getMethod('__invoke');
+				$reflectionMethods[] = $classReflection->getMethod('__invoke');
 			}
 		}
 		foreach ($reflectionMethods as $methodReflection) {
@@ -157,14 +159,16 @@ class PhpClassReflectionExtension
 
 			$phpDocParameterTypes = [];
 			$phpDocReturnType = null;
-			if (!$declaringClass->getNativeReflection()->isAnonymous() && $declaringClass->getNativeReflection()->getFileName() !== false) {
+			if (!$declaringClass->isAnonymous() && !$declaringClass->isInternal()) {
 				if ($methodReflection->getDocComment() !== false) {
+					/** @var string $fileName */
+					$fileName = $declaringClass->getFileName();
 					$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForMethod(
 						$this->broker,
 						$methodReflection->getDocComment(),
 						$declaringClass->getName(),
 						$methodReflection->getName(),
-						$declaringClass->getNativeReflection()->getFileName()
+						$fileName
 					);
 					$typeMap = $this->fileTypeMapper->getTypeMap($phpDocBlock->getFile());
 					$phpDocParameterTypes = TypehintHelper::getParameterTypesFromPhpDoc(

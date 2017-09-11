@@ -61,11 +61,6 @@ class FunctionReflection implements ParametersAcceptor
 		$this->phpDocReturnType = $phpDocReturnType;
 	}
 
-	public function getNativeReflection(): \ReflectionFunction
-	{
-		return $this->reflection;
-	}
-
 	public function getName(): string
 	{
 		return $this->reflection->getName();

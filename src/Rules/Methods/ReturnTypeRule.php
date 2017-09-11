@@ -45,8 +45,8 @@ class ReturnTypeRule implements \PHPStan\Rules\Rule
 		}
 
 		$reflection = null;
-		if ($method->getDeclaringClass()->getNativeReflection()->hasMethod($method->getName())) {
-			$reflection = $method->getDeclaringClass()->getNativeReflection()->getMethod($method->getName());
+		if ($method->getDeclaringClass()->hasMethod($method->getName())) {
+			$reflection = $method->getDeclaringClass()->getMethod($method->getName());
 		}
 
 		return $this->returnTypeCheck->checkReturnType(

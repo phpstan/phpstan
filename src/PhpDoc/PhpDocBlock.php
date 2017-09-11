@@ -3,6 +3,7 @@
 namespace PHPStan\PhpDoc;
 
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ClassReflection;
 
 class PhpDocBlock
 {
@@ -86,7 +87,7 @@ class PhpDocBlock
 		) {
 			$classReflection = $broker->getClass($class);
 			if ($classReflection->getParentClass() !== false) {
-				$parentClassReflection = $classReflection->getParentClass()->getNativeReflection();
+				$parentClassReflection = $classReflection->getParentClass();
 				$phpDocBlockFromClass = self::resolvePhpDocBlockFromClass(
 					$broker,
 					$parentClassReflection,
@@ -103,7 +104,7 @@ class PhpDocBlock
 			foreach ($classReflection->getInterfaces() as $interface) {
 				$phpDocBlockFromClass = self::resolvePhpDocBlockFromClass(
 					$broker,
-					$interface->getNativeReflection(),
+					$interface,
 					$name,
 					$hasMethodName,
 					$getMethodName,
@@ -120,7 +121,7 @@ class PhpDocBlock
 
 	/**
 	 * @param \PHPStan\Broker\Broker $broker
-	 * @param \ReflectionClass $classReflection
+	 * @param \PHPStan\Reflection\ClassReflection $classReflection
 	 * @param string $name
 	 * @param string $hasMethodName
 	 * @param string $getMethodName
@@ -129,14 +130,14 @@ class PhpDocBlock
 	 */
 	private static function resolvePhpDocBlockFromClass(
 		Broker $broker,
-		\ReflectionClass $classReflection,
+		ClassReflection $classReflection,
 		string $name,
 		string $hasMethodName,
 		string $getMethodName,
 		string $resolveMethodName
 	)
 	{
-		if ($classReflection->getFileName() !== false && $classReflection->$hasMethodName($name)) {
+		if (!$classReflection->isInternal() && $classReflection->$hasMethodName($name)) {
 			$parentMethodReflection = $classReflection->$getMethodName($name);
 			if ($parentMethodReflection->getDocComment() !== false) {
 				return self::$resolveMethodName(

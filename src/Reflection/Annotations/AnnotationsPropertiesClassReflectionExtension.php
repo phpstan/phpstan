@@ -60,16 +60,17 @@ class AnnotationsPropertiesClassReflectionExtension implements PropertiesClassRe
 			$properties += $this->createProperties($interfaceClass, $interfaceClass);
 		}
 
-		$fileName = $classReflection->getNativeReflection()->getFileName();
-		if ($fileName === false) {
+		if ($classReflection->isInternal()) {
 			return $properties;
 		}
 
-		$docComment = $classReflection->getNativeReflection()->getDocComment();
-		if ($docComment === false) {
+		$docComment = $classReflection->getDocComment();
+		if ($docComment === null) {
 			return $properties;
 		}
 
+		/** @var string $fileName */
+		$fileName = $classReflection->getFileName();
 		$typeMap = $this->fileTypeMapper->getTypeMap($fileName);
 
 		preg_match_all('#@property(-read|-write)?\s+' . FileTypeMapper::TYPE_PATTERN . '\s+\$([a-zA-Z0-9_]+)#', $docComment, $matches, PREG_SET_ORDER);

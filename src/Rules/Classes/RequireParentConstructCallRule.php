@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
 
 class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 {
@@ -30,7 +31,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		$classReflection = $scope->getClassReflection()->getNativeReflection();
+		$classReflection = $scope->getClassReflection();
 		if ($classReflection->isInterface() || $classReflection->isAnonymous()) {
 			return [];
 		}
@@ -96,10 +97,10 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \ReflectionClass $classReflection
-	 * @return \ReflectionClass|false
+	 * @param \PHPStan\Reflection\ClassReflection $classReflection
+	 * @return \PHPStan\Reflection\ClassReflection|false
 	 */
-	private function getParentConstructorClass(\ReflectionClass $classReflection)
+	private function getParentConstructorClass(ClassReflection $classReflection)
 	{
 		while ($classReflection->getParentClass() !== false) {
 			$constructor = $classReflection->getParentClass()->hasMethod('__construct') ? $classReflection->getParentClass()->getMethod('__construct') : null;
