@@ -330,7 +330,7 @@ class IgnoreNullableUnionProperty
 interface WithFooMethod
 {
 
-	public function foo();
+	public function foo(): Foo;
 
 }
 
@@ -370,6 +370,7 @@ class MethodsOnIntersectionType
 		if ($foo instanceof SomeInterface) {
 			$foo->foo();
 			$foo->bar();
+			$foo->foo()->test();
 		}
 	}
 

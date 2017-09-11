@@ -181,6 +181,10 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Call to an undefined method Test\SomeInterface&Test\WithFooMethod::bar().',
 				372,
 			],
+			[
+				'Method Test\Foo::test() invoked with 0 parameters, 1 required.',
+				373,
+			],
 		]);
 	}
 
