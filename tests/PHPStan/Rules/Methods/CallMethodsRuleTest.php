@@ -24,7 +24,7 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$ruleLevelHelper = new RuleLevelHelper($this->checkNullables);
 		return new CallMethodsRule(
 			$broker,
-			new FunctionCallParametersCheck($broker, $ruleLevelHelper, true, true),
+			new FunctionCallParametersCheck($ruleLevelHelper, true, true),
 			$ruleLevelHelper,
 			$this->checkThisOnly,
 			$this->checkUnionTypes

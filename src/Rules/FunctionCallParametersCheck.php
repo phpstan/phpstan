@@ -3,7 +3,6 @@
 namespace PHPStan\Rules;
 
 use PHPStan\Analyser\Scope;
-use PHPStan\Broker\Broker;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptor;
@@ -15,9 +14,6 @@ use PHPStan\Type\VoidType;
 class FunctionCallParametersCheck
 {
 
-	/** @var \PHPStan\Broker\Broker */
-	private $broker;
-
 	/** @var \PHPStan\Rules\RuleLevelHelper */
 	private $ruleLevelHelper;
 
@@ -28,13 +24,11 @@ class FunctionCallParametersCheck
 	private $checkArgumentsPassedByReference;
 
 	public function __construct(
-		Broker $broker,
 		RuleLevelHelper $ruleLevelHelper,
 		bool $checkArgumentTypes,
 		bool $checkArgumentsPassedByReference
 	)
 	{
-		$this->broker = $broker;
 		$this->ruleLevelHelper = $ruleLevelHelper;
 		$this->checkArgumentTypes = $checkArgumentTypes;
 		$this->checkArgumentsPassedByReference = $checkArgumentsPassedByReference;
@@ -175,11 +169,7 @@ class FunctionCallParametersCheck
 				&& ($secondAccepts === null || !$secondAccepts)
 				&& (
 					!($parameterType instanceof StringType)
-					|| !(
-						$argumentValueType->getClass() !== null
-						&& $this->broker->hasClass($argumentValueType->getClass())
-						&& $this->broker->getClass($argumentValueType->getClass())->hasMethod('__toString')
-					)
+					|| !$argumentValueType->hasMethod('__toString')
 				)
 			) {
 				$errors[] = sprintf(
