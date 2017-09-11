@@ -51,6 +51,13 @@ class Bar extends Foo
 		self::ANOTHER_PUBLIC_CONST_FOO;
 		Foo::ANOTHER_PUBLIC_CONST_FOO;
 		parent::ANOTHER_PUBLIC_CONST_FOO;
+
+		$bar = new self();
+		$bar::PUBLIC_CONST_BAR;
+		$bar::PROTECTED_BAR;
+		$bar::PRIVATE_BAR;
+		$bar::PUBLIC_CONST_FOO;
+		$bar::PRIVATE_FOO;
 	}
 
 }

@@ -75,8 +75,12 @@ class ClassConstantRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				47,
 			],
 			[
+				'Access to undefined constant ClassConstantVisibility\Bar::PRIVATE_FOO.',
+				60,
+			],
+			[
 				'Access to protected constant PROTECTED_FOO of class ClassConstantVisibility\Foo.',
-				63,
+				70,
 			],
 		]);
 	}
