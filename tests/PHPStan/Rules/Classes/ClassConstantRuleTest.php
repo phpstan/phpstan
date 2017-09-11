@@ -3,13 +3,15 @@
 namespace PHPStan\Rules\Classes;
 
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleLevelHelper;
 
 class ClassConstantRuleTest extends \PHPStan\Rules\AbstractRuleTest
 {
 
 	protected function getRule(): Rule
 	{
-		return new ClassConstantRule($this->createBroker());
+		$broker = $this->createBroker();
+		return new ClassConstantRule($broker, new RuleLevelHelper($broker, true, false, true));
 	}
 
 	public function testClassConstant()
@@ -81,6 +83,22 @@ class ClassConstantRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			[
 				'Access to protected constant PROTECTED_FOO of class ClassConstantVisibility\Foo.',
 				70,
+			],
+			[
+				'Access to undefined constant ClassConstantVisibility\WithFooAndBarConstant&ClassConstantVisibility\WithFooConstant::BAZ.',
+				105,
+			],
+			[
+				'Access to undefined constant ClassConstantVisibility\WithFooAndBarConstant|ClassConstantVisibility\WithFooConstant::BAR.',
+				109,
+			],
+			[
+				'Access to constant FOO on an unknown class ClassConstantVisibility\UnknownClassFirst.',
+				111,
+			],
+			[
+				'Access to constant FOO on an unknown class ClassConstantVisibility\UnknownClassSecond.',
+				111,
 			],
 		]);
 	}

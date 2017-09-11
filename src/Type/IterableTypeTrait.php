@@ -3,6 +3,7 @@
 namespace PHPStan\Type;
 
 use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 
@@ -64,6 +65,16 @@ trait IterableTypeTrait
 	}
 
 	public function getMethod(string $methodName, Scope $scope): MethodReflection
+	{
+		throw new \PHPStan\ShouldNotHappenException();
+	}
+
+	public function hasConstant(string $constantName): bool
+	{
+		return false;
+	}
+
+	public function getConstant(string $constantName): ClassConstantReflection
 	{
 		throw new \PHPStan\ShouldNotHappenException();
 	}

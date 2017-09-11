@@ -3,6 +3,7 @@
 namespace PHPStan\Type;
 
 use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
@@ -37,6 +38,10 @@ interface Type
 	public function hasMethod(string $methodName): bool;
 
 	public function getMethod(string $methodName, Scope $scope): MethodReflection;
+
+	public function hasConstant(string $constantName): bool;
+
+	public function getConstant(string $constantName): ClassConstantReflection;
 
 	public function isDocumentableNatively(): bool;
 

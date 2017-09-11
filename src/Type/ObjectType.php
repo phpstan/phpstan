@@ -4,6 +4,7 @@ namespace PHPStan\Type;
 
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ClassConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
@@ -170,6 +171,22 @@ class ObjectType implements Type
 	{
 		$broker = Broker::getInstance();
 		return $broker->getClass($this->class)->getMethod($methodName, $scope);
+	}
+
+	public function hasConstant(string $constantName): bool
+	{
+		$broker = Broker::getInstance();
+		if (!$broker->hasClass($this->class)) {
+			return false;
+		}
+
+		return $broker->getClass($this->class)->hasConstant($constantName);
+	}
+
+	public function getConstant(string $constantName): ClassConstantReflection
+	{
+		$broker = Broker::getInstance();
+		return $broker->getClass($this->class)->getConstant($constantName);
 	}
 
 	public function isDocumentableNatively(): bool

@@ -4,6 +4,7 @@ namespace PHPStan\Type;
 
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ClassConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
@@ -96,6 +97,16 @@ class StaticType implements StaticResolvableType
 	public function getMethod(string $methodName, Scope $scope): MethodReflection
 	{
 		return $this->staticObjectType->getMethod($methodName, $scope);
+	}
+
+	public function hasConstant(string $constantName): bool
+	{
+		return $this->staticObjectType->hasConstant($constantName);
+	}
+
+	public function getConstant(string $constantName): ClassConstantReflection
+	{
+		return $this->staticObjectType->getConstant($constantName);
 	}
 
 	public function isDocumentableNatively(): bool

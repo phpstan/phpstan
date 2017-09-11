@@ -71,3 +71,44 @@ class Baz
 	}
 
 }
+
+class WithFooConstant
+{
+
+	const FOO = 'foo';
+
+}
+
+interface WithFooAndBarConstant
+{
+
+	const FOO = 'foo';
+
+	const BAR = 'bar';
+
+}
+
+class Ipsum
+{
+
+	/** @var WithFooAndBarConstant|WithFooConstant */
+	private $union;
+
+	/** @var UnknownClassFirst|UnknownClassSecond */
+	private $unknown;
+
+	public function doIpsum(WithFooConstant $foo)
+	{
+		if ($foo instanceof WithFooAndBarConstant) {
+			$foo::FOO;
+			$foo::BAR;
+			$foo::BAZ;
+		}
+
+		$this->union::FOO;
+		$this->union::BAR;
+
+		$this->unknown::FOO;
+	}
+
+}
