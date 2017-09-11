@@ -46,7 +46,14 @@ interface SomeInterface
 
 }
 
-class Ipsum
+class Dolor
+{
+
+	const PARENT_CONSTANT = [1, 2, 3];
+
+}
+
+class Ipsum extends Dolor
 {
 
 	const IPSUM_CONSTANT = 'foo';

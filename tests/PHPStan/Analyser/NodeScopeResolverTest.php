@@ -613,6 +613,10 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'string',
 				'self::IPSUM_CONSTANT',
 			],
+			[
+				'int[]',
+				'parent::PARENT_CONSTANT',
+			],
 		];
 	}
 

@@ -546,8 +546,12 @@ class Scope
 			if ($node->class instanceof Name) {
 				$constantClass = (string) $node->class;
 				$constantClassType = new ObjectType($constantClass);
-				if ($constantClass === 'self') {
-					$constantClassType = new ObjectType($this->getClassReflection()->getName());
+				if (in_array(strtolower($constantClass), [
+					'self',
+					'parent',
+				], true)) {
+					$resolvedName = $this->resolveName($node->class);
+					$constantClassType = new ObjectType($resolvedName);
 				}
 			} else {
 				$constantClassType = $this->getType($node->class);
