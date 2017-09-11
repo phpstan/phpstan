@@ -542,33 +542,26 @@ class Scope
 			return new ObjectType('stdClass');
 		} elseif ($node instanceof Unset_) {
 			return new NullType();
-		} elseif ($node instanceof Node\Expr\ClassConstFetch) {
+		} elseif ($node instanceof Node\Expr\ClassConstFetch && is_string($node->name)) {
 			if ($node->class instanceof Name) {
 				$constantClass = (string) $node->class;
+				$constantClassType = new ObjectType($constantClass);
 				if ($constantClass === 'self') {
-					$constantClass = $this->getClassReflection()->getName();
+					$constantClassType = new ObjectType($this->getClassReflection()->getName());
 				}
 			} else {
 				$constantClassType = $this->getType($node->class);
-				if ($constantClassType->getClass() !== null) {
-					$constantClass = $constantClassType->getClass();
-				}
 			}
 
-			if (isset($constantClass) && is_string($node->name)) {
-				$constantName = $node->name;
-				if (strtolower($constantName) === 'class') {
-					return new StringType();
-				}
-				if ($this->broker->hasClass($constantClass)) {
-					$constantClassReflection = $this->broker->getClass($constantClass);
-					if ($constantClassReflection->hasConstant($constantName)) {
-						$constant = $constantClassReflection->getConstant($constantName);
-						$typeFromValue = $this->getTypeFromValue($constant->getValue());
-						if ($typeFromValue !== null) {
-							return $typeFromValue;
-						}
-					}
+			$constantName = $node->name;
+			if (strtolower($constantName) === 'class') {
+				return new StringType();
+			}
+			if ($constantClassType->hasConstant($constantName)) {
+				$constant = $constantClassType->getConstant($constantName);
+				$typeFromValue = $this->getTypeFromValue($constant->getValue());
+				if ($typeFromValue !== null) {
+					return $typeFromValue;
 				}
 			}
 		}

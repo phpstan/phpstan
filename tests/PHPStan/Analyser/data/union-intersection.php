@@ -5,6 +5,8 @@ namespace UnionIntersection;
 class WithFoo
 {
 
+	const FOO_CONSTANT = 1;
+
 	/** @var Foo */
 	public $foo;
 
@@ -17,6 +19,9 @@ class WithFoo
 
 class WithFooAndBar
 {
+
+	const FOO_CONSTANT = 1;
+	const BAR_CONSTANT = 1;
 
 	/** @var AnotherFoo */
 	public $foo;
@@ -43,6 +48,8 @@ interface SomeInterface
 
 class Ipsum
 {
+
+	const IPSUM_CONSTANT = 'foo';
 
 	/** @var WithFoo|WithFooAndBar */
 	private $union;

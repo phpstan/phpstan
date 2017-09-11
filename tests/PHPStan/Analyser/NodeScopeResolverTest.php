@@ -593,6 +593,26 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'mixed',
 				'$foo->doBar()',
 			],
+			[
+				'int',
+				'$this->union::FOO_CONSTANT',
+			],
+			[
+				'mixed',
+				'$this->union::BAR_CONSTANT',
+			],
+			[
+				'int',
+				'$foo::FOO_CONSTANT',
+			],
+			[
+				'mixed',
+				'$foo::BAR_CONSTANT',
+			],
+			[
+				'string',
+				'self::IPSUM_CONSTANT',
+			],
 		];
 	}
 
