@@ -634,17 +634,21 @@ class Scope
 
 		if ($node instanceof Expr\StaticCall && is_string($node->name)) {
 			if ($node->class instanceof Name) {
-				$calleeClass = $this->resolveName($node->class);
+				$calleeType = new ObjectType($this->resolveName($node->class));
 			} else {
-				$calleeClass = $this->getType($node->class)->getClass();
+				$calleeType = $this->getType($node->class);
 			}
 
-			if ($calleeClass !== null && $this->broker->hasClass($calleeClass)) {
-				$staticMethodClassReflection = $this->broker->getClass($calleeClass);
-				if (!$staticMethodClassReflection->hasMethod($node->name)) {
-					return new ErrorType();
-				}
-				$staticMethodReflection = $staticMethodClassReflection->getMethod($node->name, $this);
+			if (!$calleeType->hasMethod($node->name)) {
+				return new ErrorType();
+			}
+			$staticMethodReflection = $calleeType->getMethod($node->name, $this);
+			$referencedClasses = $calleeType->getReferencedClasses();
+			if (
+				count($calleeType->getReferencedClasses()) === 1
+				&& $this->broker->hasClass($referencedClasses[0])
+			) {
+				$staticMethodClassReflection = $this->broker->getClass($referencedClasses[0]);
 				foreach ($this->broker->getDynamicStaticMethodReturnTypeExtensionsForClass($staticMethodClassReflection->getName()) as $dynamicStaticMethodReturnTypeExtension) {
 					if (!$dynamicStaticMethodReturnTypeExtension->isStaticMethodSupported($staticMethodReflection)) {
 						continue;
@@ -652,22 +656,22 @@ class Scope
 
 					return $dynamicStaticMethodReturnTypeExtension->getTypeFromStaticMethodCall($staticMethodReflection, $node, $this);
 				}
-				if ($staticMethodReflection->getReturnType() instanceof StaticResolvableType) {
-					if ($node->class instanceof Name) {
-						$nodeClassString = strtolower((string) $node->class);
-						if (in_array($nodeClassString, [
-							'self',
-							'static',
-							'parent',
-						], true) && $this->isInClass()) {
-							return $staticMethodReflection->getReturnType()->changeBaseClass($this->getClassReflection()->getName());
-						}
-					}
-
-					return $staticMethodReflection->getReturnType()->resolveStatic($staticMethodClassReflection->getName());
-				}
-				return $staticMethodReflection->getReturnType();
 			}
+			if ($staticMethodReflection->getReturnType() instanceof StaticResolvableType) {
+				if ($node->class instanceof Name) {
+					$nodeClassString = strtolower((string) $node->class);
+					if (in_array($nodeClassString, [
+						'self',
+						'static',
+						'parent',
+					], true) && $this->isInClass()) {
+						return $staticMethodReflection->getReturnType()->changeBaseClass($this->getClassReflection()->getName());
+					}
+				} elseif (count($referencedClasses) === 1) {
+					return $staticMethodReflection->getReturnType()->resolveStatic($referencedClasses[0]);
+				}
+			}
+			return $staticMethodReflection->getReturnType();
 		}
 
 		if ($node instanceof PropertyFetch && is_string($node->name)) {

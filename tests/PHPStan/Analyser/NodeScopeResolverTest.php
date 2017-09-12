@@ -617,6 +617,22 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'int[]',
 				'parent::PARENT_CONSTANT',
 			],
+			[
+				'UnionIntersection\Foo',
+				'$foo::doStaticFoo()',
+			],
+			[
+				'mixed',
+				'$foo::doStaticBar()',
+			],
+			[
+				'UnionIntersection\Foo',
+				'$this->union::doStaticFoo()',
+			],
+			[
+				'mixed',
+				'$this->union::doStaticBar()',
+			],
 		];
 	}
 

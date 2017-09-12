@@ -15,6 +15,11 @@ class WithFoo
 
 	}
 
+	public static function doStaticFoo(): Foo
+	{
+
+	}
+
 }
 
 class WithFooAndBar
@@ -34,7 +39,17 @@ class WithFooAndBar
 
 	}
 
+	public static function doStaticFoo(): AnotherFoo
+	{
+
+	}
+
 	public function doBar(): Bar
+	{
+
+	}
+
+	public static function doStaticBar(): Bar
 	{
 
 	}
