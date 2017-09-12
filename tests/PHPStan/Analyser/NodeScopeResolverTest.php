@@ -3558,6 +3558,37 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		);
 	}
 
+	public function dataResolveStatic(): array
+	{
+		return [
+			[
+				'ResolveStatic\Foo',
+				'\ResolveStatic\Foo::create()',
+			],
+			[
+				'ResolveStatic\Bar',
+				'\ResolveStatic\Bar::create()',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataResolveStatic
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testResolveStatic(
+		string $description,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/resolve-static.php',
+			$description,
+			$expression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $description,

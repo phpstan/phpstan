@@ -667,7 +667,8 @@ class Scope
 					], true) && $this->isInClass()) {
 						return $staticMethodReflection->getReturnType()->changeBaseClass($this->getClassReflection()->getName());
 					}
-				} elseif (count($referencedClasses) === 1) {
+				}
+				if (count($referencedClasses) === 1) {
 					return $staticMethodReflection->getReturnType()->resolveStatic($referencedClasses[0]);
 				}
 			}
