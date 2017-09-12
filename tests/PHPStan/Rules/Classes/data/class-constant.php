@@ -17,3 +17,5 @@ $foo::DOLOR;
 
 static::LOREM;
 parent::LOREM;
+
+UnknownClass::FOO;

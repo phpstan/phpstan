@@ -46,6 +46,10 @@ class ClassConstantRuleTest extends \PHPStan\Rules\AbstractRuleTest
 					'Using parent outside of class scope.',
 					19,
 				],
+				[
+					'Access to constant FOO on an unknown class ClassConstantNamespace\UnknownClass.',
+					21,
+				],
 			]
 		);
 	}

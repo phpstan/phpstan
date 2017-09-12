@@ -78,8 +78,14 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 				}
 				$className = $currentClassReflection->getParentClass()->getName();
 			} elseif (!$this->broker->hasClass($className)) {
+				if (strtolower($constantName) === 'class') {
+					return [
+						sprintf('Class %s not found.', $className),
+					];
+				}
+
 				return [
-					sprintf('Class %s not found.', $className),
+					sprintf('Access to constant %s on an unknown class %s.', $constantName, $className),
 				];
 			}
 
