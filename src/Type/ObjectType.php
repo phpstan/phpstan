@@ -9,36 +9,36 @@ use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 
-class ObjectType implements Type
+class ObjectType implements TypeWithClassName
 {
 
 	/** @var string */
-	private $class;
+	private $className;
 
-	public function __construct(string $class)
+	public function __construct(string $className)
 	{
-		$this->class = $class;
+		$this->className = $className;
 	}
 
-	public function getClass(): string
+	public function getClassName(): string
 	{
-		return $this->class;
+		return $this->className;
 	}
 
 	public function hasProperty(string $propertyName): bool
 	{
 		$broker = Broker::getInstance();
-		if (!$broker->hasClass($this->class)) {
+		if (!$broker->hasClass($this->className)) {
 			return false;
 		}
 
-		return $broker->getClass($this->class)->hasProperty($propertyName);
+		return $broker->getClass($this->className)->hasProperty($propertyName);
 	}
 
 	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
 	{
 		$broker = Broker::getInstance();
-		return $broker->getClass($this->class)->getProperty($propertyName, $scope);
+		return $broker->getClass($this->className)->getProperty($propertyName, $scope);
 	}
 
 	/**
@@ -46,7 +46,7 @@ class ObjectType implements Type
 	 */
 	public function getReferencedClasses(): array
 	{
-		return [$this->getClass()];
+		return [$this->className];
 	}
 
 	public function accepts(Type $type): bool
@@ -59,11 +59,11 @@ class ObjectType implements Type
 			return CompoundTypeHelper::accepts($type, $this);
 		}
 
-		if ($type->getClass() === null) {
+		if (!$type instanceof TypeWithClassName) {
 			return false;
 		}
 
-		return $this->checkSubclassAcceptability($type->getClass());
+		return $this->checkSubclassAcceptability($type->getClassName());
 	}
 
 	public function isSupersetOf(Type $type): TrinaryLogic
@@ -72,12 +72,12 @@ class ObjectType implements Type
 			return $type->isSubsetOf($this);
 		}
 
-		$thisClassName = $this->class;
-		$thatClassName = $type->getClass();
-
-		if ($thatClassName === null) {
+		if (!$type instanceof TypeWithClassName) {
 			return TrinaryLogic::createNo();
 		}
+
+		$thisClassName = $this->className;
+		$thatClassName = $type->getClassName();
 
 		if ($thatClassName === $thisClassName) {
 			return TrinaryLogic::createYes();
@@ -117,17 +117,17 @@ class ObjectType implements Type
 
 	private function checkSubclassAcceptability(string $thatClass): bool
 	{
-		if ($this->getClass() === $thatClass) {
+		if ($this->className === $thatClass) {
 			return true;
 		}
 
 		$broker = Broker::getInstance();
 
-		if (!$broker->hasClass($this->getClass()) || !$broker->hasClass($thatClass)) {
+		if (!$broker->hasClass($this->className) || !$broker->hasClass($thatClass)) {
 			return false;
 		}
 
-		$thisReflection = $broker->getClass($this->getClass());
+		$thisReflection = $broker->getClass($this->className);
 		$thatReflection = $broker->getClass($thatClass);
 
 		if ($thisReflection->getName() === $thatReflection->getName()) {
@@ -136,15 +136,15 @@ class ObjectType implements Type
 		}
 
 		if ($thisReflection->isInterface() && $thatReflection->isInterface()) {
-			return $thatReflection->getNativeReflection()->implementsInterface($this->getClass());
+			return $thatReflection->getNativeReflection()->implementsInterface($this->className);
 		}
 
-		return $thatReflection->isSubclassOf($this->getClass());
+		return $thatReflection->isSubclassOf($this->className);
 	}
 
 	public function describe(): string
 	{
-		return $this->class;
+		return $this->className;
 	}
 
 	public function canAccessProperties(): bool
@@ -154,23 +154,23 @@ class ObjectType implements Type
 
 	public function canCallMethods(): bool
 	{
-		return strtolower($this->class) !== 'stdclass';
+		return strtolower($this->className) !== 'stdclass';
 	}
 
 	public function hasMethod(string $methodName): bool
 	{
 		$broker = Broker::getInstance();
-		if (!$broker->hasClass($this->class)) {
+		if (!$broker->hasClass($this->className)) {
 			return false;
 		}
 
-		return $broker->getClass($this->class)->hasMethod($methodName);
+		return $broker->getClass($this->className)->hasMethod($methodName);
 	}
 
 	public function getMethod(string $methodName, Scope $scope): MethodReflection
 	{
 		$broker = Broker::getInstance();
-		return $broker->getClass($this->class)->getMethod($methodName, $scope);
+		return $broker->getClass($this->className)->getMethod($methodName, $scope);
 	}
 
 	public function canAccessConstants(): bool
@@ -181,17 +181,17 @@ class ObjectType implements Type
 	public function hasConstant(string $constantName): bool
 	{
 		$broker = Broker::getInstance();
-		if (!$broker->hasClass($this->class)) {
+		if (!$broker->hasClass($this->className)) {
 			return false;
 		}
 
-		return $broker->getClass($this->class)->hasConstant($constantName);
+		return $broker->getClass($this->className)->hasConstant($constantName);
 	}
 
 	public function getConstant(string $constantName): ClassConstantReflection
 	{
 		$broker = Broker::getInstance();
-		return $broker->getClass($this->class)->getConstant($constantName);
+		return $broker->getClass($this->className)->getConstant($constantName);
 	}
 
 	public function isDocumentableNatively(): bool
@@ -203,11 +203,11 @@ class ObjectType implements Type
 	{
 		$broker = Broker::getInstance();
 
-		if (!$broker->hasClass($this->class)) {
+		if (!$broker->hasClass($this->className)) {
 			return TrinaryLogic::createMaybe();
 		}
 
-		$classReflection = $broker->getClass($this->class);
+		$classReflection = $broker->getClass($this->className);
 		if ($classReflection->isSubclassOf(\Traversable::class) || $classReflection->getName() === \Traversable::class) {
 			return TrinaryLogic::createYes();
 		}
@@ -223,11 +223,11 @@ class ObjectType implements Type
 	{
 		$broker = Broker::getInstance();
 
-		if (!$broker->hasClass($this->class)) {
+		if (!$broker->hasClass($this->className)) {
 			return new ErrorType();
 		}
 
-		$classReflection = $broker->getClass($this->class);
+		$classReflection = $broker->getClass($this->className);
 
 		if ($classReflection->isSubclassOf(\Iterator::class) && $classReflection->hasMethod('key')) {
 			return $classReflection->getMethod('key')->getReturnType();
@@ -250,11 +250,11 @@ class ObjectType implements Type
 	{
 		$broker = Broker::getInstance();
 
-		if (!$broker->hasClass($this->class)) {
+		if (!$broker->hasClass($this->className)) {
 			return new ErrorType();
 		}
 
-		$classReflection = $broker->getClass($this->class);
+		$classReflection = $broker->getClass($this->className);
 
 		if ($classReflection->isSubclassOf(\Iterator::class) && $classReflection->hasMethod('current')) {
 			return $classReflection->getMethod('current')->getReturnType();
@@ -277,11 +277,11 @@ class ObjectType implements Type
 	{
 		$broker = Broker::getInstance();
 
-		if (!$broker->hasClass($this->class)) {
+		if (!$broker->hasClass($this->className)) {
 			return TrinaryLogic::createMaybe();
 		}
 
-		if ($broker->getClass($this->class)->hasMethod('__invoke')) {
+		if ($broker->getClass($this->className)->hasMethod('__invoke')) {
 			return TrinaryLogic::createYes();
 		}
 
@@ -295,7 +295,7 @@ class ObjectType implements Type
 
 	public static function __set_state(array $properties): Type
 	{
-		return new self($properties['class']);
+		return new self($properties['className']);
 	}
 
 }

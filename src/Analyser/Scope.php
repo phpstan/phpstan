@@ -516,7 +516,7 @@ class Scope
 			$callable = TrinaryLogic::createNo();
 			if (count($itemTypes) === 2) {
 				if (
-					($itemTypes[0]->accepts(new StringType()) || $itemTypes[0]->getClass() !== null)
+					($itemTypes[0]->accepts(new StringType()) || count($itemTypes[0]->getReferencedClasses()) > 0)
 					&& $itemTypes[1]->accepts(new StringType())
 				) {
 					$callable = TrinaryLogic::createYes();

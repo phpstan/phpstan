@@ -31,14 +31,6 @@ trait IterableTypeTrait
 		return $this->itemType;
 	}
 
-	/**
-	 * @return string|null
-	 */
-	public function getClass()
-	{
-		return null;
-	}
-
 	public function canAccessProperties(): bool
 	{
 		return false;

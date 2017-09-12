@@ -12,11 +12,6 @@ interface Type
 {
 
 	/**
-	 * @return string|null
-	 */
-	public function getClass();
-
-	/**
 	 * @return string[]
 	 */
 	public function getReferencedClasses(): array;

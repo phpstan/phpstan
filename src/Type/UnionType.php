@@ -48,14 +48,6 @@ class UnionType implements CompoundType, StaticResolvableType
 	}
 
 	/**
-	 * @return string|null
-	 */
-	public function getClass()
-	{
-		return UnionTypeHelper::getClass($this->getTypes());
-	}
-
-	/**
 	 * @return string[]
 	 */
 	public function getReferencedClasses(): array

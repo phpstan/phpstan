@@ -26,13 +26,13 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				$this->assertSame('SomeNodeScopeResolverNamespace', $scope->getNamespace());
 				$this->assertSame(Foo::class, $scope->getClassReflection()->getName());
 				$this->assertSame('doFoo', $scope->getFunctionName());
-				$this->assertSame(Foo::class, $scope->getVariableType('this')->getClass());
+				$this->assertSame('$this(SomeNodeScopeResolverNamespace\Foo)', $scope->getVariableType('this')->describe());
 				$this->assertTrue($scope->hasVariableType('baz')->yes());
 				$this->assertTrue($scope->hasVariableType('lorem')->yes());
 				$this->assertFalse($scope->hasVariableType('ipsum')->yes());
 				$this->assertTrue($scope->hasVariableType('i')->yes());
 				$this->assertTrue($scope->hasVariableType('val')->yes());
-				$this->assertSame('SomeNodeScopeResolverNamespace\InvalidArgumentException', $scope->getVariableType('exception')->getClass());
+				$this->assertSame('SomeNodeScopeResolverNamespace\InvalidArgumentException', $scope->getVariableType('exception')->describe());
 				$this->assertTrue($scope->hasVariableType('staticVariable')->yes());
 			}
 		});

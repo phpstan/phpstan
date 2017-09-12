@@ -350,8 +350,8 @@ class NodeScopeResolver
 			if (isset($node->args[2])) {
 				$argValue = $node->args[2]->value;
 				$argValueType = $scope->getType($argValue);
-				if ($argValueType->getClass() !== null) {
-					$scopeClass = $argValueType->getClass();
+				if (count($argValueType->getReferencedClasses()) === 1) {
+					$scopeClass = $argValueType->getReferencedClasses()[0];
 				} elseif (
 					$argValue instanceof Expr\ClassConstFetch
 					&& strtolower($argValue->name) === 'class'
@@ -521,7 +521,7 @@ class NodeScopeResolver
 			$scope = $scope->enterFunctionCall($node);
 		} elseif ($node instanceof MethodCall) {
 			if (
-				$scope->getType($node->var)->getClass() === 'Closure'
+				$scope->getType($node->var)->describe() === \Closure::class
 				&& $node->name === 'call'
 				&& isset($node->args[0])
 			) {
@@ -1213,22 +1213,20 @@ class NodeScopeResolver
 			}
 
 			$methodCalledOnType = $scope->getType($statement->var);
-			if ($methodCalledOnType->getClass() === null) {
-				return null;
-			}
-
-			if (!$this->broker->hasClass($methodCalledOnType->getClass())) {
-				return null;
-			}
-
-			$classReflection = $this->broker->getClass($methodCalledOnType->getClass());
-			foreach (array_merge([$methodCalledOnType->getClass()], $classReflection->getParentClassesNames()) as $className) {
-				if (!isset($this->earlyTerminatingMethodCalls[$className])) {
+			foreach ($methodCalledOnType->getReferencedClasses() as $referencedClass) {
+				if (!$this->broker->hasClass($referencedClass)) {
 					continue;
 				}
 
-				if (in_array($statement->name, $this->earlyTerminatingMethodCalls[$className], true)) {
-					return $statement;
+				$classReflection = $this->broker->getClass($referencedClass);
+				foreach (array_merge([$referencedClass], $classReflection->getParentClassesNames()) as $className) {
+					if (!isset($this->earlyTerminatingMethodCalls[$className])) {
+						continue;
+					}
+
+					if (in_array($statement->name, $this->earlyTerminatingMethodCalls[$className], true)) {
+						return $statement;
+					}
 				}
 			}
 
@@ -1271,12 +1269,9 @@ class NodeScopeResolver
 			}
 		} elseif ($functionCall instanceof MethodCall && is_string($functionCall->name)) {
 			$type = $scope->getType($functionCall->var);
-			if ($type->getClass() !== null && $this->broker->hasClass($type->getClass())) {
-				$classReflection = $this->broker->getClass($type->getClass());
-				$methodName = $functionCall->name;
-				if ($classReflection->hasMethod($methodName)) {
-					return $classReflection->getMethod($methodName, $scope);
-				}
+			$methodName = $functionCall->name;
+			if ($type->hasMethod($methodName)) {
+				return $type->getMethod($methodName, $scope);
 			}
 		} elseif (
 			$functionCall instanceof Expr\StaticCall

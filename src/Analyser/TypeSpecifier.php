@@ -26,6 +26,7 @@ use PHPStan\Type\TrueBooleanType;
 use PHPStan\Type\TrueOrFalseBooleanType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
 
 class TypeSpecifier
@@ -151,9 +152,9 @@ class TypeSpecifier
 		} elseif ($expr instanceof Node\Expr\BooleanNot) {
 			return $this->specifyTypesInCondition($scope, $expr->expr, !$negated);
 		} elseif ($negated) {
-			$className = $scope->getType($expr)->getClass();
-			if ($className !== null) {
-				return $this->create($expr, new ObjectType($className), true);
+			$classType = TypeCombinator::removeNull($scope->getType($expr));
+			if ($classType instanceof TypeWithClassName) {
+				return $this->create($expr, new ObjectType($classType->getClassName()), true);
 			}
 		} else {
 			return $this->create(

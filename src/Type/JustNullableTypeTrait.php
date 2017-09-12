@@ -8,14 +8,6 @@ trait JustNullableTypeTrait
 {
 
 	/**
-	 * @return string|null
-	 */
-	public function getClass()
-	{
-		return null;
-	}
-
-	/**
 	 * @return string[]
 	 */
 	public function getReferencedClasses(): array

@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\FunctionReturnTypeCheck;
+use PHPStan\Type\ObjectType;
 
 class ClosureReturnTypeRule implements \PHPStan\Rules\Rule
 {
@@ -36,6 +37,7 @@ class ClosureReturnTypeRule implements \PHPStan\Rules\Rule
 
 		/** @var \PHPStan\Type\Type $returnType */
 		$returnType = $scope->getAnonymousFunctionReturnType();
+		$generatorType = new ObjectType(\Generator::class);
 
 		return $this->returnTypeCheck->checkReturnType(
 			$scope,
@@ -44,7 +46,7 @@ class ClosureReturnTypeRule implements \PHPStan\Rules\Rule
 			'Anonymous function should return %s but empty return statement found.',
 			'Anonymous function with return type void returns %s but should not return anything.',
 			'Anonymous function should return %s but returns %s.',
-			$returnType->getClass() !== null && $returnType->getClass() === \Generator::class,
+			!$generatorType->isSupersetOf($returnType)->no(),
 			true
 		);
 	}

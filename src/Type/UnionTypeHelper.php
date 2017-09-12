@@ -39,26 +39,6 @@ class UnionTypeHelper
 
 	/**
 	 * @param \PHPStan\Type\Type[] $types
-	 * @return string|null
-	 */
-	public static function getClass(array $types)
-	{
-		$uniqueTypeClass = null;
-		foreach ($types as $type) {
-			if ($type->getClass() !== null) {
-				if ($uniqueTypeClass !== null) {
-					return null;
-				}
-
-				$uniqueTypeClass = $type->getClass();
-			}
-		}
-
-		return $uniqueTypeClass;
-	}
-
-	/**
-	 * @param \PHPStan\Type\Type[] $types
 	 * @return string[]
 	 */
 	public static function getReferencedClasses(array $types): array

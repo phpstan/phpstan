@@ -9,7 +9,7 @@ use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 
-class StaticType implements StaticResolvableType
+class StaticType implements StaticResolvableType, TypeWithClassName
 {
 
 	/** @var string */
@@ -24,7 +24,7 @@ class StaticType implements StaticResolvableType
 		$this->staticObjectType = new ObjectType($baseClass);
 	}
 
-	public function getClass(): string
+	public function getClassName(): string
 	{
 		return $this->baseClass;
 	}

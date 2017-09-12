@@ -62,14 +62,6 @@ class TrueOrFalseBooleanType implements BooleanType
 	}
 
 	/**
-	 * @return string|null
-	 */
-	public function getClass()
-	{
-		return null;
-	}
-
-	/**
 	 * @return string[]
 	 */
 	public function getReferencedClasses(): array

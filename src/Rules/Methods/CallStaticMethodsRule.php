@@ -12,6 +12,7 @@ use PHPStan\Rules\FunctionCallParametersCheck;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\TypeWithClassName;
 
 class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 {
@@ -173,9 +174,9 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 				|| $function->isStatic()
 				|| !$scope->isInClass()
 				|| (
-					$classType->getClass() !== null
-					&& $scope->getClassReflection()->getName() !== $classType->getClass()
-					&& !$scope->getClassReflection()->isSubclassOf($classType->getClass())
+					$classType instanceof TypeWithClassName
+					&& $scope->getClassReflection()->getName() !== $classType->getClassName()
+					&& !$scope->getClassReflection()->isSubclassOf($classType->getClassName())
 				)
 			) {
 				return [
