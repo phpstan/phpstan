@@ -96,3 +96,16 @@ function () {
 	$bar = new NonexistentClass();
 	$bar::$test;
 };
+
+interface SomeInterface
+{
+
+}
+
+function (FooAccessStaticProperties $foo) {
+	if ($foo instanceof SomeInterface) {
+		$foo::$test;
+		$foo::$nonexistent;
+	}
+
+};

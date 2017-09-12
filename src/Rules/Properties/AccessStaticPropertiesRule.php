@@ -7,6 +7,9 @@ use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Rules\RuleLevelHelper;
+use PHPStan\Type\ErrorType;
+use PHPStan\Type\ObjectType;
 
 class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 {
@@ -16,9 +19,18 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 	 */
 	private $broker;
 
-	public function __construct(Broker $broker)
+	/**
+	 * @var \PHPStan\Rules\RuleLevelHelper
+	 */
+	private $ruleLevelHelper;
+
+	public function __construct(
+		Broker $broker,
+		RuleLevelHelper $ruleLevelHelper
+	)
 	{
 		$this->broker = $broker;
+		$this->ruleLevelHelper = $ruleLevelHelper;
 	}
 
 	public function getNodeType(): string
@@ -50,7 +62,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 						),
 					];
 				}
-				$classReflection = $scope->getClassReflection();
+				$className = $scope->getClassReflection()->getName();
 			} elseif ($class === 'parent') {
 				if (!$scope->isInClass()) {
 					return [
@@ -86,7 +98,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 					return [];
 				}
 
-				$classReflection = $scope->getClassReflection()->getParentClass();
+				$className = $scope->getClassReflection()->getParentClass()->getName();
 			} else {
 				if (!$this->broker->hasClass($class)) {
 					return [
@@ -97,26 +109,23 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 						),
 					];
 				}
-				$classReflection = $this->broker->getClass($class);
+				$className = $class;
 			}
+
+			$classType = new ObjectType($className);
 		} else {
-			$classType = $scope->getType($node->class);
-			if ($classType->getClass() === null) {
-				return [];
+			$classTypeResult = $this->ruleLevelHelper->findTypeToCheck(
+				$scope,
+				$node->class,
+				sprintf('Access to static property $%s on an unknown class %%s.', $name)
+			);
+			$classType = $classTypeResult->getType();
+			if ($classType instanceof ErrorType) {
+				return $classTypeResult->getUnknownClassErrors();
 			}
-			if (!$this->broker->hasClass($classType->getClass())) {
-				return [
-					sprintf(
-						'Access to static property $%s on an unknown class %s.',
-						$name,
-						$classType->getClass()
-					),
-				];
-			}
-			$classReflection = $this->broker->getClass($classType->getClass());
 		}
 
-		if (!$classReflection->hasProperty($name)) {
+		if (!$classType->hasProperty($name)) {
 			if ($scope->isSpecified($node)) {
 				return [];
 			}
@@ -124,13 +133,13 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf(
 					'Access to an undefined static property %s::$%s.',
-					$classReflection->getDisplayName(),
+					$classType->describe(),
 					$name
 				),
 			];
 		}
 
-		$property = $classReflection->getProperty($name, $scope);
+		$property = $classType->getProperty($name, $scope);
 		if (!$property->isStatic()) {
 			return [
 				sprintf(

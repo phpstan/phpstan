@@ -2,13 +2,17 @@
 
 namespace PHPStan\Rules\Properties;
 
+use PHPStan\Rules\RuleLevelHelper;
+
 class AccessStaticPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
+		$broker = $this->createBroker();
 		return new AccessStaticPropertiesRule(
-			$this->createBroker()
+			$broker,
+			new RuleLevelHelper($broker, true, false, true)
 		);
 	}
 
@@ -102,6 +106,10 @@ class AccessStaticPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			[
 				'Access to static property $test on an unknown class NonexistentClass.',
 				97,
+			],
+			[
+				'Access to an undefined static property FooAccessStaticProperties&SomeInterface::$nonexistent.',
+				108,
 			],
 		]);
 	}
