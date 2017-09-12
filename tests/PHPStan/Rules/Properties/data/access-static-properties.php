@@ -108,4 +108,7 @@ function (FooAccessStaticProperties $foo) {
 		$foo::$nonexistent;
 	}
 
+	/** @var string|int $stringOrInt */
+	$stringOrInt = doFoo();
+	$stringOrInt::$foo;
 };

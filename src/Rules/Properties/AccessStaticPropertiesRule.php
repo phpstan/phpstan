@@ -125,6 +125,12 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 			}
 		}
 
+		if (!$classType->canAccessProperties()) {
+			return [
+				sprintf('Cannot access static property $%s on %s.', $name, $classType->describe()),
+			];
+		}
+
 		if (!$classType->hasProperty($name)) {
 			if ($scope->isSpecified($node)) {
 				return [];

@@ -111,6 +111,10 @@ class AccessStaticPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Access to an undefined static property FooAccessStaticProperties&SomeInterface::$nonexistent.',
 				108,
 			],
+			[
+				'Cannot access static property $foo on int|string.',
+				113,
+			],
 		]);
 	}
 
