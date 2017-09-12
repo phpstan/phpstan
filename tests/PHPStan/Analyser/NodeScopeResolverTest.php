@@ -594,6 +594,14 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$foo->doBar()',
 			],
 			[
+				'UnionIntersection\Foo',
+				'$foobar->doFoo()',
+			],
+			[
+				'UnionIntersection\Bar',
+				'$foobar->doBar()',
+			],
+			[
 				'int',
 				'$this->union::FOO_CONSTANT',
 			],
@@ -610,6 +618,14 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'$foo::BAR_CONSTANT',
 			],
 			[
+				'int',
+				'$foobar::FOO_CONSTANT',
+			],
+			[
+				'int',
+				'$foobar::BAR_CONSTANT',
+			],
+			[
 				'string',
 				'self::IPSUM_CONSTANT',
 			],
@@ -624,6 +640,14 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			[
 				'mixed',
 				'$foo::doStaticBar()',
+			],
+			[
+				'UnionIntersection\Foo',
+				'$foobar::doStaticFoo()',
+			],
+			[
+				'UnionIntersection\Bar',
+				'$foobar::doStaticBar()',
 			],
 			[
 				'UnionIntersection\Foo',

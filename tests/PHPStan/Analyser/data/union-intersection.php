@@ -56,6 +56,22 @@ class WithFooAndBar
 
 }
 
+interface WithFooAndBarInterface
+{
+
+	const FOO_CONSTANT = 1;
+	const BAR_CONSTANT = 1;
+
+	public function doFoo(): AnotherFoo;
+
+	public static function doStaticFoo(): AnotherFoo;
+
+	public function doBar(): Bar;
+
+	public static function doStaticBar(): Bar;
+
+}
+
 interface SomeInterface
 {
 
@@ -76,10 +92,12 @@ class Ipsum extends Dolor
 	/** @var WithFoo|WithFooAndBar */
 	private $union;
 
-	public function doFoo(WithFoo $foo)
+	public function doFoo(WithFoo $foo, WithFoo $foobar)
 	{
 		if ($foo instanceof SomeInterface) {
-			die;
+			if ($foobar instanceof WithFooAndBarInterface) {
+				die;
+			}
 		}
 	}
 
