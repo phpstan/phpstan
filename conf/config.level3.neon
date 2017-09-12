@@ -49,5 +49,7 @@ services:
 
 	-
 		class: PHPStan\Rules\Variables\VariableCloningRule
+		arguments:
+			checkNullables: %checkNullables%
 		tags:
 			- phpstan.rules.rule

@@ -83,6 +83,11 @@ class StringType implements Type
 		return TrinaryLogic::createMaybe();
 	}
 
+	public function isClonable(): bool
+	{
+		return false;
+	}
+
 	public static function __set_state(array $properties): Type
 	{
 		return new self();

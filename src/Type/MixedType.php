@@ -131,6 +131,11 @@ class MixedType implements CompoundType
 		return TrinaryLogic::createMaybe();
 	}
 
+	public function isClonable(): bool
+	{
+		return true;
+	}
+
 	public function isExplicitMixed(): bool
 	{
 		return $this->isExplicitMixed;

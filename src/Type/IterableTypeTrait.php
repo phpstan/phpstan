@@ -84,4 +84,9 @@ trait IterableTypeTrait
 		throw new \PHPStan\ShouldNotHappenException();
 	}
 
+	public function isClonable(): bool
+	{
+		return false;
+	}
+
 }

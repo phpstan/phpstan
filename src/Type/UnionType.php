@@ -257,6 +257,17 @@ class UnionType implements CompoundType, StaticResolvableType
 		});
 	}
 
+	public function isClonable(): bool
+	{
+		foreach ($this->types as $type) {
+			if (!$type->isClonable()) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	public static function __set_state(array $properties): Type
 	{
 		return new self($properties['types']);

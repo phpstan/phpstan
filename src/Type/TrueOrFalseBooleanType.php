@@ -128,6 +128,11 @@ class TrueOrFalseBooleanType implements BooleanType
 		return TrinaryLogic::createNo();
 	}
 
+	public function isClonable(): bool
+	{
+		return false;
+	}
+
 	public static function __set_state(array $properties): Type
 	{
 		return new self();

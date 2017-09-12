@@ -218,6 +218,17 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		});
 	}
 
+	public function isClonable(): bool
+	{
+		foreach ($this->types as $type) {
+			if ($type->isClonable()) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public function resolveStatic(string $className): Type
 	{
 		return new self(UnionTypeHelper::resolveStatic($className, $this->getTypes()));

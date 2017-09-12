@@ -6,12 +6,18 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Clone_;
 use PhpParser\Node\Expr\Variable;
 use PHPStan\Analyser\Scope;
-use PHPStan\Type\MixedType;
-use PHPStan\Type\Type;
-use PHPStan\Type\UnionType;
+use PHPStan\Type\NullType;
 
 class VariableCloningRule implements \PHPStan\Rules\Rule
 {
+
+	/** @var bool */
+	private $checkNullables;
+
+	public function __construct(bool $checkNullables)
+	{
+		$this->checkNullables = $checkNullables;
+	}
 
 	public function getNodeType(): string
 	{
@@ -27,7 +33,11 @@ class VariableCloningRule implements \PHPStan\Rules\Rule
 	{
 		$type = $scope->getType($node->expr);
 
-		if ($this->isClonable($type)) {
+		if (!$this->checkNullables && !$type instanceof NullType) {
+			$type = \PHPStan\Type\TypeCombinator::removeNull($type);
+		}
+
+		if ($type->isClonable()) {
 			return [];
 		}
 
@@ -44,23 +54,6 @@ class VariableCloningRule implements \PHPStan\Rules\Rule
 		return [
 			sprintf('Cannot clone %s.', $type->describe()),
 		];
-	}
-
-	private function isClonable(Type $type): bool
-	{
-		if ($type instanceof MixedType) {
-			return true;
-		}
-
-		if ($type instanceof UnionType) {
-			foreach ($type->getTypes() as $innerType) {
-				if ($this->isClonable($innerType)) {
-					return true;
-				}
-			}
-		}
-
-		return $type->getClass() !== null;
 	}
 
 }

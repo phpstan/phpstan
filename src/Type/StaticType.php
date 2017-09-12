@@ -215,6 +215,11 @@ class StaticType implements StaticResolvableType
 		return TrinaryLogic::createNo();
 	}
 
+	public function isClonable(): bool
+	{
+		return true;
+	}
+
 	public static function __set_state(array $properties): Type
 	{
 		return new self($properties['baseClass']);
