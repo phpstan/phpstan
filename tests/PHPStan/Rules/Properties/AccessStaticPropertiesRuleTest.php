@@ -95,6 +95,14 @@ class AccessStaticPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Static access to instance property FooAccessStaticProperties::$loremIpsum.',
 				90,
 			],
+			[
+				'Access to an undefined static property FooAccessStaticProperties::$nonexistent.',
+				94,
+			],
+			[
+				'Access to static property $test on an unknown class NonexistentClass.',
+				97,
+			],
 		]);
 	}
 

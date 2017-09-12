@@ -88,4 +88,11 @@ function () {
 	FooAccessStaticProperties::$test;
 	FooAccessStaticProperties::$foo;
 	FooAccessStaticProperties::$loremIpsum;
+
+	$foo = new FooAccessStaticProperties();
+	$foo::$test;
+	$foo::$nonexistent;
+
+	$bar = new NonexistentClass();
+	$bar::$test;
 };

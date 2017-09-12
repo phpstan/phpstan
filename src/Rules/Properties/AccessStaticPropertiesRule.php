@@ -4,6 +4,7 @@ namespace PHPStan\Rules\Properties;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticPropertyFetch;
+use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 
@@ -32,70 +33,87 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		if (!is_string($node->name) || !($node->class instanceof Node\Name)) {
+		if (!is_string($node->name)) {
 			return [];
 		}
 
 		$name = $node->name;
-		$class = (string) $node->class;
-		if ($class === 'self' || $class === 'static') {
-			if (!$scope->isInClass()) {
-				return [
-					sprintf(
-						'Accessing %s::$%s outside of class scope.',
-						$class,
-						$name
-					),
-				];
-			}
-			$classReflection = $scope->getClassReflection();
-		} elseif ($class === 'parent') {
-			if (!$scope->isInClass()) {
-				return [
-					sprintf(
-						'Accessing %s::$%s outside of class scope.',
-						$class,
-						$name
-					),
-				];
-			}
-			if ($scope->getClassReflection()->getParentClass() === false) {
-				return [
-					sprintf(
-						'%s::%s() accesses parent::$%s but %s does not extend any class.',
-						$scope->getClassReflection()->getDisplayName(),
-						$scope->getFunctionName(),
-						$name,
-						$scope->getClassReflection()->getDisplayName()
-					),
-				];
-			}
+		if ($node->class instanceof Name) {
+			$class = (string) $node->class;
+			if ($class === 'self' || $class === 'static') {
+				if (!$scope->isInClass()) {
+					return [
+						sprintf(
+							'Accessing %s::$%s outside of class scope.',
+							$class,
+							$name
+						),
+					];
+				}
+				$classReflection = $scope->getClassReflection();
+			} elseif ($class === 'parent') {
+				if (!$scope->isInClass()) {
+					return [
+						sprintf(
+							'Accessing %s::$%s outside of class scope.',
+							$class,
+							$name
+						),
+					];
+				}
+				if ($scope->getClassReflection()->getParentClass() === false) {
+					return [
+						sprintf(
+							'%s::%s() accesses parent::$%s but %s does not extend any class.',
+							$scope->getClassReflection()->getDisplayName(),
+							$scope->getFunctionName(),
+							$name,
+							$scope->getClassReflection()->getDisplayName()
+						),
+					];
+				}
 
-			if ($scope->getFunctionName() === null) {
-				throw new \PHPStan\ShouldNotHappenException();
-			}
+				if ($scope->getFunctionName() === null) {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
 
-			$currentMethodReflection = $scope->getClassReflection()->getMethod(
-				$scope->getFunctionName(),
-				$scope
-			);
-			if (!$currentMethodReflection->isStatic()) {
-				// calling parent::method() from instance method
+				$currentMethodReflection = $scope->getClassReflection()->getMethod(
+					$scope->getFunctionName(),
+					$scope
+				);
+				if (!$currentMethodReflection->isStatic()) {
+					// calling parent::method() from instance method
+					return [];
+				}
+
+				$classReflection = $scope->getClassReflection()->getParentClass();
+			} else {
+				if (!$this->broker->hasClass($class)) {
+					return [
+						sprintf(
+							'Access to static property $%s on an unknown class %s.',
+							$name,
+							$class
+						),
+					];
+				}
+				$classReflection = $this->broker->getClass($class);
+			}
+		} else {
+			$classType = $scope->getType($node->class);
+			if ($classType->getClass() === null) {
 				return [];
 			}
-
-			$classReflection = $scope->getClassReflection()->getParentClass();
-		} else {
-			if (!$this->broker->hasClass($class)) {
+			if (!$this->broker->hasClass($classType->getClass())) {
 				return [
 					sprintf(
 						'Access to static property $%s on an unknown class %s.',
 						$name,
-						$class
+						$classType->getClass()
 					),
 				];
 			}
-			$classReflection = $this->broker->getClass($class);
+			$classReflection = $this->broker->getClass($classType->getClass());
 		}
 
 		if (!$classReflection->hasProperty($name)) {
