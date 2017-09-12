@@ -16,10 +16,11 @@ class CallStaticMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
 		$broker = $this->createBroker();
+		$ruleLevelHelper = new RuleLevelHelper($broker, true, $this->checkThisOnly, true);
 		return new CallStaticMethodsRule(
 			$broker,
-			new FunctionCallParametersCheck(new RuleLevelHelper($broker, true, $this->checkThisOnly, true), true, true),
-			$this->checkThisOnly
+			new FunctionCallParametersCheck($ruleLevelHelper, true, true),
+			$ruleLevelHelper
 		);
 	}
 
@@ -98,6 +99,14 @@ class CallStaticMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			[
 				'Static method Locale::getDisplayLanguage() invoked with 3 parameters, 1-2 required.',
 				104,
+			],
+			[
+				'Static method CallStaticMethods\Foo::test() invoked with 3 parameters, 0 required.',
+				115,
+			],
+			[
+				'Cannot call static method foo() on int|string.',
+				120,
 			],
 		]);
 	}

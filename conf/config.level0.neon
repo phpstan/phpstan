@@ -84,8 +84,6 @@ services:
 
 	-
 		class: PHPStan\Rules\Methods\CallStaticMethodsRule
-		arguments:
-			checkThisOnly: %checkThisOnly%
 		tags:
 			- phpstan.rules.rule
 

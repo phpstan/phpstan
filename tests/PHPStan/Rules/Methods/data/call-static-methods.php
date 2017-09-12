@@ -103,3 +103,19 @@ function () {
 	\Locale::getDisplayLanguage('cs_CZ', 'en'); // OK
 	\Locale::getDisplayLanguage('cs_CZ', 'en', 'foo'); // should report 3 parameters given, 1-2 required
 };
+
+interface SomeInterface
+{
+
+}
+
+function (Foo $foo) {
+	if ($foo instanceof SomeInterface) {
+		$foo::test();
+		$foo::test(1, 2, 3);
+	}
+
+	/** @var string|int $stringOrInt */
+	$stringOrInt = doFoo();
+	$stringOrInt::foo();
+};

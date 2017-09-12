@@ -9,6 +9,9 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Rules\FunctionCallParametersCheck;
+use PHPStan\Rules\RuleLevelHelper;
+use PHPStan\Type\ErrorType;
+use PHPStan\Type\ObjectType;
 
 class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 {
@@ -24,19 +27,19 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 	private $check;
 
 	/**
-	 * @var bool
+	 * @var \PHPStan\Rules\RuleLevelHelper
 	 */
-	private $checkThisOnly;
+	private $ruleLevelHelper;
 
 	public function __construct(
 		Broker $broker,
 		FunctionCallParametersCheck $check,
-		bool $checkThisOnly
+		RuleLevelHelper $ruleLevelHelper
 	)
 	{
 		$this->broker = $broker;
 		$this->check = $check;
-		$this->checkThisOnly = $checkThisOnly;
+		$this->ruleLevelHelper = $ruleLevelHelper;
 	}
 
 	public function getNodeType(): string
@@ -51,111 +54,118 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		if (!is_string($node->name)) {
+		$methodName = $node->name;
+		if (!is_string($methodName)) {
 			return [];
 		}
 
-		if ($node->class instanceof Name) {
-			$class = (string) $node->class;
-		} elseif (!$this->checkThisOnly) {
-			$class = $scope->getType($node->class)->getClass();
-			if ($class === null) {
-				return [];
-			}
-		} else {
-			return [];
-		}
-
-		$name = $node->name;
-		if ($class === 'self' || $class === 'static') {
-			if (!$scope->isInClass()) {
-				return [
-					sprintf(
-						'Calling %s::%s() outside of class scope.',
-						$class,
-						$name
-					),
-				];
-			}
-			$classReflection = $scope->getClassReflection();
-		} elseif ($class === 'parent') {
-			if (!$scope->isInClass()) {
-				return [
-					sprintf(
-						'Calling %s::%s() outside of class scope.',
-						$class,
-						$name
-					),
-				];
-			}
-			if ($scope->getClassReflection()->getParentClass() === false) {
-				return [
-					sprintf(
-						'%s::%s() calls parent::%s() but %s does not extend any class.',
-						$scope->getClassReflection()->getDisplayName(),
-						$scope->getFunctionName(),
-						$name,
-						$scope->getClassReflection()->getDisplayName()
-					),
-				];
-			}
-
-			if ($scope->getFunctionName() === null) {
-				throw new \PHPStan\ShouldNotHappenException();
-			}
-
-			$currentMethodReflection = $scope->getClassReflection()->getMethod(
-				$scope->getFunctionName(),
-				$scope
-			);
-			if (!$currentMethodReflection->isStatic()) {
-				if ($name === '__construct' && $scope->getClassReflection()->getParentClass()->hasMethod('__construct')) {
-					return $this->check->check(
-						$scope->getClassReflection()->getParentClass()->getMethod('__construct', $scope),
-						$scope,
-						$node,
-						[
-							'Parent constructor invoked with %d parameter, %d required.',
-							'Parent constructor invoked with %d parameters, %d required.',
-							'Parent constructor invoked with %d parameter, at least %d required.',
-							'Parent constructor invoked with %d parameters, at least %d required.',
-							'Parent constructor invoked with %d parameter, %d-%d required.',
-							'Parent constructor invoked with %d parameters, %d-%d required.',
-							'Parameter #%d %s of parent constructor expects %s, %s given.',
-							'', // constructor does not have a return type
-							'Parameter #%d %s of parent constructor is passed by reference, so it expects variables only.',
-						]
-					);
+		$class = $node->class;
+		if ($class instanceof Name) {
+			$className = (string) $class;
+			if ($className === 'self' || $className === 'static') {
+				if (!$scope->isInClass()) {
+					return [
+						sprintf(
+							'Calling %s::%s() outside of class scope.',
+							$class,
+							$methodName
+						),
+					];
+				}
+				$className = $scope->getClassReflection()->getName();
+			} elseif ($className === 'parent') {
+				if (!$scope->isInClass()) {
+					return [
+						sprintf(
+							'Calling %s::%s() outside of class scope.',
+							$className,
+							$methodName
+						),
+					];
+				}
+				$currentClassReflection = $scope->getClassReflection();
+				if ($currentClassReflection->getParentClass() === false) {
+					return [
+						sprintf(
+							'%s::%s() calls parent::%s() but %s does not extend any class.',
+							$scope->getClassReflection()->getDisplayName(),
+							$scope->getFunctionName(),
+							$methodName,
+							$scope->getClassReflection()->getDisplayName()
+						),
+					];
 				}
 
-				return [];
+				if ($scope->getFunctionName() === null) {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
+
+				$currentMethodReflection = $currentClassReflection->getMethod(
+					$scope->getFunctionName(),
+					$scope
+				);
+				if (!$currentMethodReflection->isStatic()) {
+					if ($methodName === '__construct' && $currentClassReflection->getParentClass()->hasMethod('__construct')) {
+						return $this->check->check(
+							$currentClassReflection->getParentClass()->getMethod('__construct', $scope),
+							$scope,
+							$node,
+							[
+								'Parent constructor invoked with %d parameter, %d required.',
+								'Parent constructor invoked with %d parameters, %d required.',
+								'Parent constructor invoked with %d parameter, at least %d required.',
+								'Parent constructor invoked with %d parameters, at least %d required.',
+								'Parent constructor invoked with %d parameter, %d-%d required.',
+								'Parent constructor invoked with %d parameters, %d-%d required.',
+								'Parameter #%d %s of parent constructor expects %s, %s given.',
+								'', // constructor does not have a return type
+								'Parameter #%d %s of parent constructor is passed by reference, so it expects variables only.',
+							]
+						);
+					}
+
+					return [];
+				}
+
+				$className = $currentClassReflection->getParentClass()->getName();
 			}
 
-			$classReflection = $scope->getClassReflection()->getParentClass();
-		} else {
-			if (!$this->broker->hasClass($class)) {
+			if (!$this->broker->hasClass($className)) {
 				return [
-					sprintf(
-						'Call to static method %s() on an unknown class %s.',
-						$name,
-						$class
-					),
+					sprintf('Call to static method %s() on an unknown class %s.', $methodName, $className),
 				];
 			}
-			$classReflection = $this->broker->getClass($class);
+
+			$classType = new ObjectType($className);
+		} else {
+			$classTypeResult = $this->ruleLevelHelper->findTypeToCheck(
+				$scope,
+				$class,
+				sprintf('Call to static method %s() on an unknown class %%s.', $methodName)
+			);
+			$classType = $classTypeResult->getType();
+			if ($classType instanceof ErrorType) {
+				return $classTypeResult->getUnknownClassErrors();
+			}
 		}
 
-		if (!$classReflection->hasMethod($name)) {
+		if (!$classType->canCallMethods()) {
+			return [
+				sprintf('Cannot call static method %s() on %s.', $methodName, $classType->describe()),
+			];
+		}
+
+		if (!$classType->hasMethod($methodName)) {
 			return [
 				sprintf(
 					'Call to an undefined static method %s::%s().',
-					$classReflection->getDisplayName(),
-					$name
+					$classType->describe(),
+					$methodName
 				),
 			];
 		}
 
-		$method = $classReflection->getMethod($name, $scope);
+		$method = $classType->getMethod($methodName, $scope);
 		if (!$method->isStatic()) {
 			$function = $scope->getFunction();
 			if (
@@ -163,8 +173,9 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 				|| $function->isStatic()
 				|| !$scope->isInClass()
 				|| (
-					$scope->getClassReflection()->getName() !== $classReflection->getName()
-					&& !$scope->getClassReflection()->isSubclassOf($classReflection->getName())
+					$classType->getClass() !== null
+					&& $scope->getClassReflection()->getName() !== $classType->getClass()
+					&& !$scope->getClassReflection()->isSubclassOf($classType->getClass())
 				)
 			) {
 				return [
@@ -194,7 +205,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 			$method->isStatic() ? 'static method' : 'method',
 			$method->getDeclaringClass()->getDisplayName() . '::' . $method->getName() . '()'
 		);
-		$methodName = sprintf(
+		$displayMethodName = sprintf(
 			'%s %s',
 			$method->isStatic() ? 'Static method' : 'Method',
 			$method->getDeclaringClass()->getDisplayName() . '::' . $method->getName() . '()'
@@ -205,20 +216,20 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 			$scope,
 			$node,
 			[
-				$methodName . ' invoked with %d parameter, %d required.',
-				$methodName . ' invoked with %d parameters, %d required.',
-				$methodName . ' invoked with %d parameter, at least %d required.',
-				$methodName . ' invoked with %d parameters, at least %d required.',
-				$methodName . ' invoked with %d parameter, %d-%d required.',
-				$methodName . ' invoked with %d parameters, %d-%d required.',
+				$displayMethodName . ' invoked with %d parameter, %d required.',
+				$displayMethodName . ' invoked with %d parameters, %d required.',
+				$displayMethodName . ' invoked with %d parameter, at least %d required.',
+				$displayMethodName . ' invoked with %d parameters, at least %d required.',
+				$displayMethodName . ' invoked with %d parameter, %d-%d required.',
+				$displayMethodName . ' invoked with %d parameters, %d-%d required.',
 				'Parameter #%d %s of ' . $lowercasedMethodName . ' expects %s, %s given.',
 				'Result of ' . $lowercasedMethodName . ' (void) is used.',
 				'Parameter #%d %s of ' . $lowercasedMethodName . ' is passed by reference, so it expects variables only.',
 			]
 		);
 
-		if ($method->getName() !== $name) {
-			$errors[] = sprintf('Call to %s with incorrect case: %s', $lowercasedMethodName, $name);
+		if ($method->getName() !== $methodName) {
+			$errors[] = sprintf('Call to %s with incorrect case: %s', $lowercasedMethodName, $methodName);
 		}
 
 		return $errors;
