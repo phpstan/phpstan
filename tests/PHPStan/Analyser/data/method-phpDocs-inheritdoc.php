@@ -43,7 +43,9 @@ class FooInheritDocChild extends Foo
 		bool $boolTrue,
 		bool $boolFalse,
 		bool $trueBoolean,
-		$parameterWithDefaultValueFalse = false
+		$parameterWithDefaultValueFalse = false,
+		$objectWithoutNativeTypehint,
+		object $objectWithNativeTypehint
 	)
 	{
 		$parent = new FooParent();

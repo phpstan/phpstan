@@ -375,3 +375,20 @@ class MethodsOnIntersectionType
 	}
 
 }
+
+class ObjectTypehint
+{
+
+	public function doFoo(object $object)
+	{
+		$this->doFoo($object);
+		$this->doBar($object);
+	}
+
+	public function doBar(Foo $foo)
+	{
+		$this->doFoo($foo);
+		$this->doBar($foo);
+	}
+
+}

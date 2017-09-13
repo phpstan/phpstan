@@ -49,6 +49,8 @@ class Foo extends FooParent
 	 * @param false $boolFalse
 	 * @param bool $trueBoolean
 	 * @param bool $parameterWithDefaultValueFalse
+	 * @param object $objectWithoutNativeTypehint
+	 * @param object $objectWithNativeTypehint
 	 * @return Foo
 	 */
 	public function doFoo(
@@ -83,7 +85,9 @@ class Foo extends FooParent
 		bool $boolTrue,
 		bool $boolFalse,
 		bool $trueBoolean,
-		$parameterWithDefaultValueFalse = false
+		$parameterWithDefaultValueFalse = false,
+		$objectWithoutNativeTypehint,
+		object $objectWithNativeTypehint
 	)
 	{
 		$parent = new FooParent();
@@ -118,6 +122,11 @@ class Foo extends FooParent
 	 * @return NULL[]
 	 */
 	public function returnNulls(): array
+	{
+
+	}
+
+	public function returnObject(): object
 	{
 
 	}

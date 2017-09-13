@@ -83,6 +83,12 @@ class Test
 		if ($collection instanceof Foo) {
 
 		}
+
+		/** @var object $object */
+		$object = doFoo();
+		if ($object instanceof Foo) {
+
+		}
 	}
 
 }

@@ -183,6 +183,10 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Method Test\Foo::test() invoked with 0 parameters, 1 required.',
 				373,
 			],
+			[
+				'Parameter #1 $foo of method Test\ObjectTypehint::doBar() expects Test\Foo, object given.',
+				385,
+			],
 		]);
 	}
 
@@ -279,6 +283,10 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			[
 				'Parameter #1 $bar of method Test\ClassWithNullableProperty::doBar() is passed by reference, so it expects variables only.',
 				168,
+			],
+			[
+				'Parameter #1 $foo of method Test\ObjectTypehint::doBar() expects Test\Foo, object given.',
+				385,
 			],
 		]);
 	}

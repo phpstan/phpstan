@@ -72,6 +72,10 @@ class ObjectType implements TypeWithClassName
 			return $type->isSubsetOf($this);
 		}
 
+		if ($type instanceof ObjectWithoutClassType) {
+			return TrinaryLogic::createMaybe();
+		}
+
 		if (!$type instanceof TypeWithClassName) {
 			return TrinaryLogic::createNo();
 		}

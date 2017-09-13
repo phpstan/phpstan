@@ -657,6 +657,14 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'mixed',
 				'$this->union::doStaticBar()',
 			],
+			[
+				'object',
+				'$this->objectUnion',
+			],
+			[
+				'UnionIntersection\SomeInterface',
+				'$object',
+			],
 		];
 	}
 
@@ -2113,6 +2121,18 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			[
 				'null[]',
 				'$this->returnNulls()',
+			],
+			[
+				'object',
+				'$objectWithoutNativeTypehint',
+			],
+			[
+				'object',
+				'$objectWithNativeTypehint',
+			],
+			[
+				'object',
+				'$this->returnObject()',
 			],
 		];
 	}

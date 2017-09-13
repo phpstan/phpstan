@@ -80,11 +80,12 @@ class TypehintHelper
 				return new NullType();
 			case $lowercasedTypehintString === 'resource' && !$fromReflection:
 				return new ResourceType();
-			case $lowercasedTypehintString === 'object' && !$fromReflection:
 			case $lowercasedTypehintString === 'mixed' && !$fromReflection:
 				return new MixedType(true);
 			case $lowercasedTypehintString === 'void':
 				return new VoidType();
+			case $lowercasedTypehintString === 'object':
+				return new ObjectWithoutClassType();
 			default:
 				$className = $typehintString;
 				if ($nameScope !== null) {
@@ -106,6 +107,9 @@ class TypehintHelper
 		}
 
 		$reflectionTypeString = (string) $reflectionType;
+		if (\Nette\Utils\Strings::endsWith(strtolower($reflectionTypeString), '\\object')) {
+			$reflectionTypeString = 'object';
+		}
 		$type = self::getTypeObjectFromTypehint(
 			$reflectionTypeString,
 			$selfClass,

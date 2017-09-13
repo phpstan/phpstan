@@ -25,4 +25,8 @@ $f = function () {
 	/** @var mixed|string $lorem */
 	$lorem = doLorem();
 	clone $lorem;
+
+	/** @var object $object */
+	$object = doFoo();
+	clone $object;
 };

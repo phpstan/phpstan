@@ -92,11 +92,16 @@ class Ipsum extends Dolor
 	/** @var WithFoo|WithFooAndBar */
 	private $union;
 
-	public function doFoo(WithFoo $foo, WithFoo $foobar)
+	/** @var WithFoo|object */
+	private $objectUnion;
+
+	public function doFoo(WithFoo $foo, WithFoo $foobar, object $object)
 	{
 		if ($foo instanceof SomeInterface) {
 			if ($foobar instanceof WithFooAndBarInterface) {
-				die;
+				if ($object instanceof SomeInterface) {
+					die;
+				}
 			}
 		}
 	}

@@ -41,6 +41,7 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\NonexistentParentClassType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\StaticResolvableType;
 use PHPStan\Type\StaticType;
 use PHPStan\Type\StringType;
@@ -1147,6 +1148,8 @@ class Scope
 			return new IterableIterableType(new MixedType());
 		} elseif ($type === 'void') {
 			return new VoidType();
+		} elseif ($type === 'object') {
+			return new ObjectWithoutClassType();
 		} elseif ($type instanceof Node\NullableType) {
 			return $this->getFunctionType($type->type, true, $isVariadic);
 		}
