@@ -1014,10 +1014,6 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'stdClass',
 				'$castedObject',
 			],
-			[
-				'null',
-				'$castedNull',
-			],
 		];
 	}
 
@@ -1033,6 +1029,38 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/casts.php',
+			$desciptiion,
+			$expression
+		);
+	}
+
+	public function dataUnsetCast(): array
+	{
+		return [
+			[
+				'null',
+				'$castedNull',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataUnsetCast
+	 * @param string $desciptiion
+	 * @param string $expression
+	 */
+	public function testUnsetCast(
+		string $desciptiion,
+		string $expression
+	)
+	{
+		if (PHP_VERSION_ID >= 70200) {
+			$this->markTestSkipped(
+				'Test cannot be run on PHP 7.2 and higher - (unset) cast is deprecated.'
+			);
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/cast-unset.php',
 			$desciptiion,
 			$expression
 		);

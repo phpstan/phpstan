@@ -13,7 +13,6 @@ class Foo
 		$castedString = (string) foo();
 		$castedArray = (array) foo();
 		$castedObject = (object) foo();
-		$castedNull = (unset) foo();
 		die;
 	}
 
