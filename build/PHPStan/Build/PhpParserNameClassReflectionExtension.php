@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace PHPStan\Reflection\PhpParser;
+namespace PHPStan\Build;
 
 use PhpParser\Node;
 use PHPStan\Reflection\ClassReflection;
