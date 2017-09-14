@@ -10,6 +10,10 @@ parameters:
 		- '#Strict comparison using === between PhpParser\\Node\\Expr\\ArrayItem and null will always evaluate to false#'
 services:
 	-
+		class: PHPStan\Build\ServiceLocatorDynamicReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicMethodReturnTypeExtension
+	-
 		class: PHPStan\Reflection\PhpParser\PhpParserNameClassReflectionExtension
 		tags:
 			- phpstan.broker.propertiesClassReflectionExtension
