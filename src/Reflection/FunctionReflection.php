@@ -11,6 +11,7 @@ use PHPStan\Reflection\Php\PhpParameterReflection;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
@@ -168,6 +169,18 @@ class FunctionReflection implements ParametersAcceptor
 					new StringType(),
 					false
 				);
+			}
+
+			if (
+				$this->reflection->getName() === 'get_class'
+			) {
+				$this->parameters = [
+					new DummyParameter(
+						'object',
+						new ObjectWithoutClassType(),
+						true
+					),
+				];
 			}
 		}
 

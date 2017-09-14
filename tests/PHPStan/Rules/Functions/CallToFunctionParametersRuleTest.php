@@ -46,6 +46,14 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Function CallToFunctionWithOptionalParameters\foo invoked with 3 parameters, 1-2 required.',
 				9,
 			],
+			[
+				'Parameter #1 $object of function get_class expects object, null given.',
+				12,
+			],
+			[
+				'Parameter #1 $object of function get_class expects object, object|null given.',
+				16,
+			],
 		]);
 	}
 
