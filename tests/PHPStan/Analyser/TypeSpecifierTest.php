@@ -44,11 +44,11 @@ class TypeSpecifierTest extends \PHPStan\TestCase
 	{
 		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this->scope, $expr);
 		$actualResult = $this->toReadableResult($specifiedTypes);
-		$this->assertSame($expectedPositiveResult, $actualResult);
+		$this->assertSame($expectedPositiveResult, $actualResult, sprintf('if (%s)', $this->printer->prettyPrintExpr($expr)));
 
 		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this->scope, $expr, true);
 		$actualResult = $this->toReadableResult($specifiedTypes);
-		$this->assertSame($expectedNegatedResult, $actualResult);
+		$this->assertSame($expectedNegatedResult, $actualResult, sprintf('if not (%s)', $this->printer->prettyPrintExpr($expr)));
 	}
 
 	public function dataCondition(): array
@@ -118,11 +118,19 @@ class TypeSpecifierTest extends \PHPStan\TestCase
 				['$foo' => '~Foo'],
 				['$foo' => 'Foo'],
 			],
+			[
+				new Expr\Instanceof_(
+					new Variable('foo'),
+					new Variable('className')
+				),
+				['$foo' => 'object'],
+				[],
+			],
 
 			[
 				new Variable('foo'),
 				['$foo' => '~false|null'],
-				[],
+				['$foo' => '~object'],
 			],
 			[
 				new Expr\BinaryOp\BooleanAnd(
@@ -138,18 +146,18 @@ class TypeSpecifierTest extends \PHPStan\TestCase
 					$this->createFunctionCall('random')
 				),
 				[],
-				[],
+				['$foo' => '~object'],
 			],
 			[
 				new Expr\BooleanNot(new Variable('bar')),
-				['$bar' => '~Bar'],
+				['$bar' => '~object'],
 				['$bar' => '~false|null'],
 			],
 
 			[
 				new PropertyFetch(new Variable('this'), 'foo'),
 				['$this->foo' => '~false|null'],
-				[],
+				['$this->foo' => '~object'],
 			],
 			[
 				new Expr\BinaryOp\BooleanAnd(
@@ -165,11 +173,11 @@ class TypeSpecifierTest extends \PHPStan\TestCase
 					$this->createFunctionCall('random')
 				),
 				[],
-				[],
+				['$this->foo' => '~object'],
 			],
 			[
 				new Expr\BooleanNot(new PropertyFetch(new Variable('this'), 'foo')),
-				[],
+				['$this->foo' => '~object'],
 				['$this->foo' => '~false|null'],
 			],
 
@@ -269,7 +277,7 @@ class TypeSpecifierTest extends \PHPStan\TestCase
 					new Variable('foo'),
 					new Expr\ConstFetch(new Name('false'))
 				),
-				['$foo' => 'false'],
+				['$foo' => 'false & ~object'],
 				['$foo' => '~false'],
 			],
 			[
