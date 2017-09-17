@@ -19,6 +19,7 @@ use PHPStan\Type\IterableIterableType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\ResourceType;
 use PHPStan\Type\StaticType;
 use PHPStan\Type\StringType;
@@ -26,7 +27,6 @@ use PHPStan\Type\TrueBooleanType;
 use PHPStan\Type\TrueOrFalseBooleanType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
-use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
 
 class TypeSpecifier
@@ -44,17 +44,20 @@ class TypeSpecifier
 
 	public function specifyTypesInCondition(Scope $scope, Expr $expr, bool $negated = false): SpecifiedTypes
 	{
-		if ($expr instanceof Instanceof_ && $expr->class instanceof Name) {
-			$className = (string) $expr->class;
-			if ($className === 'self' && $scope->isInClass()) {
-				$type = new ObjectType($scope->getClassReflection()->getName());
-			} elseif ($className === 'static' && $scope->isInClass()) {
-				$type = new StaticType($scope->getClassReflection()->getName());
-			} else {
-				$type = new ObjectType($className);
+		if ($expr instanceof Instanceof_) {
+			if ($expr->class instanceof Name) {
+				$className = (string) $expr->class;
+				if ($className === 'self' && $scope->isInClass()) {
+					$type = new ObjectType($scope->getClassReflection()->getName());
+				} elseif ($className === 'static' && $scope->isInClass()) {
+					$type = new StaticType($scope->getClassReflection()->getName());
+				} else {
+					$type = new ObjectType($className);
+				}
+				return $this->create($expr->expr, $type, $negated);
+			} elseif (!$negated) {
+				return $this->create($expr->expr, new ObjectWithoutClassType(), $negated);
 			}
-
-			return $this->create($expr->expr, $type, $negated);
 		} elseif ($expr instanceof Node\Expr\BinaryOp\Identical) {
 			$expressions = $this->findTypeExpressionsFromBinaryOperation($expr);
 			if ($expressions !== null) {
@@ -134,6 +137,8 @@ class TypeSpecifier
 					return $this->create($expr, new IterableIterableType(new MixedType()), $negated);
 				case 'is_string':
 					return $this->create($expr, new StringType(), $negated);
+				case 'is_object':
+					return $this->create($expr, new ObjectWithoutClassType(), $negated);
 				case 'is_numeric':
 					return $this->create($expr, new UnionType([
 						new StringType(),
@@ -152,10 +157,7 @@ class TypeSpecifier
 		} elseif ($expr instanceof Node\Expr\BooleanNot) {
 			return $this->specifyTypesInCondition($scope, $expr->expr, !$negated);
 		} elseif ($negated) {
-			$classType = TypeCombinator::removeNull($scope->getType($expr));
-			if ($classType instanceof TypeWithClassName) {
-				return $this->create($expr, new ObjectType($classType->getClassName()), true);
-			}
+			return $this->create($expr, new ObjectWithoutClassType(), true);
 		} else {
 			return $this->create(
 				$expr,
