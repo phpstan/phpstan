@@ -128,38 +128,59 @@ class TypeSpecifier
 			&& isset($expr->args[0])
 		) {
 			$functionName = strtolower((string) $expr->name);
-			$expr = $expr->args[0]->value;
+			$innerExpr = $expr->args[0]->value;
 			switch ($functionName) {
 				case 'is_int':
 				case 'is_integer':
 				case 'is_long':
-					return $this->create($expr, new IntegerType(), $context);
+					return $this->create($innerExpr, new IntegerType(), $context);
 				case 'is_float':
 				case 'is_double':
 				case 'is_real':
-					return $this->create($expr, new FloatType(), $context);
+					return $this->create($innerExpr, new FloatType(), $context);
 				case 'is_null':
-					return $this->create($expr, new NullType(), $context);
+					return $this->create($innerExpr, new NullType(), $context);
 				case 'is_array':
-					return $this->create($expr, new ArrayType(new MixedType()), $context);
+					return $this->create($innerExpr, new ArrayType(new MixedType()), $context);
 				case 'is_bool':
-					return $this->create($expr, new TrueOrFalseBooleanType(), $context);
+					return $this->create($innerExpr, new TrueOrFalseBooleanType(), $context);
 				case 'is_callable':
-					return $this->create($expr, new CallableType(), $context);
+					return $this->create($innerExpr, new CallableType(), $context);
 				case 'is_resource':
-					return $this->create($expr, new ResourceType(), $context);
+					return $this->create($innerExpr, new ResourceType(), $context);
 				case 'is_iterable':
-					return $this->create($expr, new IterableIterableType(new MixedType()), $context);
+					return $this->create($innerExpr, new IterableIterableType(new MixedType()), $context);
 				case 'is_string':
-					return $this->create($expr, new StringType(), $context);
+					return $this->create($innerExpr, new StringType(), $context);
 				case 'is_object':
-					return $this->create($expr, new ObjectWithoutClassType(), $context);
+					return $this->create($innerExpr, new ObjectWithoutClassType(), $context);
 				case 'is_numeric':
-					return $this->create($expr, new UnionType([
+					return $this->create($innerExpr, new UnionType([
 						new StringType(),
 						new IntegerType(),
 						new FloatType(),
 					]), $context);
+				case 'is_a':
+					if (isset($expr->args[1])) {
+						$classNameArgExpr = $expr->args[1]->value;
+						if ($classNameArgExpr instanceof Node\Scalar\String_) {
+							$objectType = new ObjectType($classNameArgExpr->value);
+							$types = $this->create($innerExpr, $objectType, $context);
+						} elseif ($context & self::CONTEXT_TRUE) {
+							$objectType = new ObjectWithoutClassType();
+							$types = $this->create($innerExpr, $objectType, $context);
+						} else {
+							$types = new SpecifiedTypes();
+						}
+
+						if (isset($expr->args[2]) && ($context & self::CONTEXT_TRUE)) {
+							if (!$scope->getType($expr->args[2]->value)->isSupersetOf(new TrueBooleanType())->no()) {
+								$types = $types->intersectWith($this->create($innerExpr, new StringType(), $context));
+							}
+						}
+
+						return $types;
+					}
 			}
 		} elseif ($expr instanceof BooleanAnd) {
 			$leftTypes = $this->specifyTypesInCondition($scope, $expr->left, $context);
