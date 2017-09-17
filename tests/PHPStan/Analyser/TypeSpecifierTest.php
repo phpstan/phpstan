@@ -10,6 +10,7 @@ use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
+use PhpParser\Node\Scalar\String_;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\ObjectType;
 
@@ -318,6 +319,58 @@ class TypeSpecifierTest extends \PHPStan\TestCase
 					new Variable('bar')
 				),
 				['$foo' => 'Bar', '$bar' => 'Bar'],
+				[],
+			],
+			[
+				new FuncCall(new Name('is_a'), [
+					new Arg(new Variable('foo')),
+					new Arg(new String_('Foo')),
+				]),
+				['$foo' => 'Foo'],
+				['$foo' => '~Foo'],
+			],
+			[
+				new FuncCall(new Name('is_a'), [
+					new Arg(new Variable('foo')),
+					new Arg(new Variable('className')),
+				]),
+				['$foo' => 'object'],
+				[],
+			],
+			[
+				new FuncCall(new Name('is_a'), [
+					new Arg(new Variable('foo')),
+					new Arg(new String_('Foo')),
+					new Arg(new Expr\ConstFetch(new Name('true'))),
+				]),
+				['$foo' => 'Foo|string'],
+				['$foo' => '~Foo'],
+			],
+			[
+				new FuncCall(new Name('is_a'), [
+					new Arg(new Variable('foo')),
+					new Arg(new Variable('className')),
+					new Arg(new Expr\ConstFetch(new Name('true'))),
+				]),
+				['$foo' => 'object|string'],
+				[],
+			],
+			[
+				new FuncCall(new Name('is_a'), [
+					new Arg(new Variable('foo')),
+					new Arg(new String_('Foo')),
+					new Arg(new Variable('unknown')),
+				]),
+				['$foo' => 'Foo|string'],
+				['$foo' => '~Foo'],
+			],
+			[
+				new FuncCall(new Name('is_a'), [
+					new Arg(new Variable('foo')),
+					new Arg(new Variable('className')),
+					new Arg(new Variable('unknown')),
+				]),
+				['$foo' => 'object|string'],
 				[],
 			],
 		];
