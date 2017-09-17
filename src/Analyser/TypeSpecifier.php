@@ -32,6 +32,13 @@ use PHPStan\Type\UnionType;
 class TypeSpecifier
 {
 
+	const CONTEXT_TRUE = 0b0001;
+	const CONTEXT_TRUTHY_BUT_NOT_TRUE = 0b0010;
+	const CONTEXT_TRUTHY = self::CONTEXT_TRUE | self::CONTEXT_TRUTHY_BUT_NOT_TRUE;
+	const CONTEXT_FALSE = 0b0100;
+	const CONTEXT_FALSEY_BUT_NOT_FALSE = 0b1000;
+	const CONTEXT_FALSEY = self::CONTEXT_FALSE | self::CONTEXT_FALSEY_BUT_NOT_FALSE;
+
 	/**
 	 * @var \PhpParser\PrettyPrinter\Standard
 	 */
@@ -42,7 +49,7 @@ class TypeSpecifier
 		$this->printer = $printer;
 	}
 
-	public function specifyTypesInCondition(Scope $scope, Expr $expr, bool $negated = false): SpecifiedTypes
+	public function specifyTypesInCondition(Scope $scope, Expr $expr, int $context = self::CONTEXT_TRUTHY): SpecifiedTypes
 	{
 		if ($expr instanceof Instanceof_) {
 			if ($expr->class instanceof Name) {
@@ -54,58 +61,66 @@ class TypeSpecifier
 				} else {
 					$type = new ObjectType($className);
 				}
-				return $this->create($expr->expr, $type, $negated);
-			} elseif (!$negated) {
-				return $this->create($expr->expr, new ObjectWithoutClassType(), $negated);
+				return $this->create($expr->expr, $type, $context);
+			} elseif ($context & self::CONTEXT_TRUE) {
+				return $this->create($expr->expr, new ObjectWithoutClassType(), $context);
 			}
 		} elseif ($expr instanceof Node\Expr\BinaryOp\Identical) {
 			$expressions = $this->findTypeExpressionsFromBinaryOperation($expr);
 			if ($expressions !== null) {
 				$constantName = strtolower((string) $expressions[1]->name);
 				if ($constantName === 'false') {
-					$types = $this->create($expressions[0], new FalseBooleanType(), $negated);
-					if ($negated) {
-						return $types;
-					} else {
-						return $types->unionWith($this->specifyTypesInCondition($scope, $expressions[0], !$negated));
-					}
+					$types = $this->create($expressions[0], new FalseBooleanType(), $context);
+					return $types->unionWith($this->specifyTypesInCondition(
+						$scope,
+						$expressions[0],
+						($context & self::CONTEXT_TRUE) ? self::CONTEXT_FALSE : ~self::CONTEXT_FALSE
+					));
 				} elseif ($constantName === 'true') {
-					$types = $this->create($expressions[0], new TrueBooleanType(), $negated);
-					if ($negated) {
-						return $types;
-					} else {
-						return $types->unionWith($this->specifyTypesInCondition($scope, $expressions[0], $negated));
-					}
+					$types = $this->create($expressions[0], new TrueBooleanType(), $context);
+					return $types->unionWith($this->specifyTypesInCondition(
+						$scope,
+						$expressions[0],
+						($context & self::CONTEXT_TRUE) ? self::CONTEXT_TRUE : ~self::CONTEXT_TRUE
+					));
 				} elseif ($constantName === 'null') {
-					return $this->create($expressions[0], new NullType(), $negated);
+					return $this->create($expressions[0], new NullType(), $context);
 				}
-			} elseif (!$negated) {
+			} elseif ($context & self::CONTEXT_TRUE) {
 				$type = TypeCombinator::intersect($scope->getType($expr->right), $scope->getType($expr->left));
-				$leftTypes = $this->create($expr->left, $type, $negated);
-				$rightTypes = $this->create($expr->right, $type, $negated);
+				$leftTypes = $this->create($expr->left, $type, $context);
+				$rightTypes = $this->create($expr->right, $type, $context);
 				return $leftTypes->unionWith($rightTypes);
 			}
 		} elseif ($expr instanceof Node\Expr\BinaryOp\NotIdentical) {
 			return $this->specifyTypesInCondition(
 				$scope,
-				new Node\Expr\BinaryOp\Identical($expr->left, $expr->right),
-				!$negated
+				new Node\Expr\BooleanNot(new Node\Expr\BinaryOp\Identical($expr->left, $expr->right)),
+				$context
 			);
 		} elseif ($expr instanceof Node\Expr\BinaryOp\Equal) {
 			$expressions = $this->findTypeExpressionsFromBinaryOperation($expr);
 			if ($expressions !== null) {
 				$constantName = strtolower((string) $expressions[1]->name);
 				if ($constantName === 'false') {
-					return $this->specifyTypesInCondition($scope, $expressions[0], !$negated);
+					return $this->specifyTypesInCondition(
+						$scope,
+						$expressions[0],
+						($context & self::CONTEXT_TRUE) ? self::CONTEXT_FALSEY : ~self::CONTEXT_FALSEY
+					);
 				} elseif ($constantName === 'true') {
-					return $this->specifyTypesInCondition($scope, $expressions[0], $negated);
+					return $this->specifyTypesInCondition(
+						$scope,
+						$expressions[0],
+						($context & self::CONTEXT_TRUE) ? self::CONTEXT_TRUTHY : ~self::CONTEXT_TRUTHY
+					);
 				}
 			}
 		} elseif ($expr instanceof Node\Expr\BinaryOp\NotEqual) {
 			return $this->specifyTypesInCondition(
 				$scope,
-				new Node\Expr\BinaryOp\Equal($expr->left, $expr->right),
-				!$negated
+				new Node\Expr\BooleanNot(new Node\Expr\BinaryOp\Equal($expr->left, $expr->right)),
+				$context
 			);
 		} elseif (
 			$expr instanceof FuncCall
@@ -118,52 +133,50 @@ class TypeSpecifier
 				case 'is_int':
 				case 'is_integer':
 				case 'is_long':
-					return $this->create($expr, new IntegerType(), $negated);
+					return $this->create($expr, new IntegerType(), $context);
 				case 'is_float':
 				case 'is_double':
 				case 'is_real':
-					return $this->create($expr, new FloatType(), $negated);
+					return $this->create($expr, new FloatType(), $context);
 				case 'is_null':
-					return $this->create($expr, new NullType(), $negated);
+					return $this->create($expr, new NullType(), $context);
 				case 'is_array':
-					return $this->create($expr, new ArrayType(new MixedType()), $negated);
+					return $this->create($expr, new ArrayType(new MixedType()), $context);
 				case 'is_bool':
-					return $this->create($expr, new TrueOrFalseBooleanType(), $negated);
+					return $this->create($expr, new TrueOrFalseBooleanType(), $context);
 				case 'is_callable':
-					return $this->create($expr, new CallableType(), $negated);
+					return $this->create($expr, new CallableType(), $context);
 				case 'is_resource':
-					return $this->create($expr, new ResourceType(), $negated);
+					return $this->create($expr, new ResourceType(), $context);
 				case 'is_iterable':
-					return $this->create($expr, new IterableIterableType(new MixedType()), $negated);
+					return $this->create($expr, new IterableIterableType(new MixedType()), $context);
 				case 'is_string':
-					return $this->create($expr, new StringType(), $negated);
+					return $this->create($expr, new StringType(), $context);
 				case 'is_object':
-					return $this->create($expr, new ObjectWithoutClassType(), $negated);
+					return $this->create($expr, new ObjectWithoutClassType(), $context);
 				case 'is_numeric':
 					return $this->create($expr, new UnionType([
 						new StringType(),
 						new IntegerType(),
 						new FloatType(),
-					]), $negated);
+					]), $context);
 			}
 		} elseif ($expr instanceof BooleanAnd) {
-			$leftTypes = $this->specifyTypesInCondition($scope, $expr->left, $negated);
-			$rightTypes = $this->specifyTypesInCondition($scope, $expr->right, $negated);
-			return $negated ? $leftTypes->intersectWith($rightTypes) : $leftTypes->unionWith($rightTypes);
+			$leftTypes = $this->specifyTypesInCondition($scope, $expr->left, $context);
+			$rightTypes = $this->specifyTypesInCondition($scope, $expr->right, $context);
+			return ($context & self::CONTEXT_TRUE) ? $leftTypes->unionWith($rightTypes) : $leftTypes->intersectWith($rightTypes);
 		} elseif ($expr instanceof BooleanOr) {
-			$leftTypes = $this->specifyTypesInCondition($scope, $expr->left, $negated);
-			$rightTypes = $this->specifyTypesInCondition($scope, $expr->right, $negated);
-			return $negated ? $leftTypes->unionWith($rightTypes) : $leftTypes->intersectWith($rightTypes);
+			$leftTypes = $this->specifyTypesInCondition($scope, $expr->left, $context);
+			$rightTypes = $this->specifyTypesInCondition($scope, $expr->right, $context);
+			return ($context & self::CONTEXT_TRUE) ? $leftTypes->intersectWith($rightTypes) : $leftTypes->unionWith($rightTypes);
 		} elseif ($expr instanceof Node\Expr\BooleanNot) {
-			return $this->specifyTypesInCondition($scope, $expr->expr, !$negated);
-		} elseif ($negated) {
-			return $this->create($expr, new ObjectWithoutClassType(), true);
-		} else {
-			return $this->create(
-				$expr,
-				new UnionType([new NullType(), new FalseBooleanType()]),
-				true
-			);
+			return $this->specifyTypesInCondition($scope, $expr->expr, ~$context);
+		} elseif (($context & self::CONTEXT_TRUTHY) === 0) {
+			$type = new ObjectWithoutClassType();
+			return $this->create($expr, $type, self::CONTEXT_FALSE);
+		} elseif (($context & self::CONTEXT_FALSEY) === 0) {
+			$type = new UnionType([new NullType(), new FalseBooleanType()]);
+			return $this->create($expr, $type, self::CONTEXT_FALSE);
 		}
 
 		return new SpecifiedTypes();
@@ -184,7 +197,7 @@ class TypeSpecifier
 		return null;
 	}
 
-	private function create(Expr $expr, Type $type, bool $negated): SpecifiedTypes
+	private function create(Expr $expr, Type $type, int $context): SpecifiedTypes
 	{
 		$sureTypes = [];
 		$sureNotTypes = [];
@@ -198,9 +211,9 @@ class TypeSpecifier
 			|| $expr instanceof Node\Expr\ArrayDimFetch
 		) {
 			$exprString = $this->printer->prettyPrintExpr($expr);
-			if ($negated) {
+			if ($context & self::CONTEXT_FALSE) {
 				$sureNotTypes[$exprString] = [$expr, $type];
-			} else {
+			} elseif ($context & self::CONTEXT_TRUE) {
 				$sureTypes[$exprString] = [$expr, $type];
 			}
 		}

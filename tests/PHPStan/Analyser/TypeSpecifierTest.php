@@ -42,11 +42,11 @@ class TypeSpecifierTest extends \PHPStan\TestCase
 	 */
 	public function testCondition(Expr $expr, array $expectedPositiveResult, array $expectedNegatedResult)
 	{
-		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this->scope, $expr);
+		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this->scope, $expr, TypeSpecifier::CONTEXT_TRUTHY);
 		$actualResult = $this->toReadableResult($specifiedTypes);
 		$this->assertSame($expectedPositiveResult, $actualResult, sprintf('if (%s)', $this->printer->prettyPrintExpr($expr)));
 
-		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this->scope, $expr, true);
+		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this->scope, $expr, TypeSpecifier::CONTEXT_FALSEY);
 		$actualResult = $this->toReadableResult($specifiedTypes);
 		$this->assertSame($expectedNegatedResult, $actualResult, sprintf('if not (%s)', $this->printer->prettyPrintExpr($expr)));
 	}
@@ -286,7 +286,7 @@ class TypeSpecifierTest extends \PHPStan\TestCase
 					new Expr\ConstFetch(new Name('true'))
 				),
 				['is_int($foo)' => 'true', '$foo' => 'int'],
-				['is_int($foo)' => '~true'],
+				['is_int($foo)' => '~true', '$foo' => '~int'],
 			],
 			[
 				new Identical(
@@ -294,7 +294,7 @@ class TypeSpecifierTest extends \PHPStan\TestCase
 					new Expr\ConstFetch(new Name('false'))
 				),
 				['is_int($foo)' => 'false', '$foo' => '~int'],
-				['is_int($foo)' => '~false'],
+				['$foo' => 'int', 'is_int($foo)' => '~false'],
 			],
 			[
 				new Equal(

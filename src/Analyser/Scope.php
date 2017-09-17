@@ -1629,13 +1629,13 @@ class Scope
 
 	public function filterByTruthyValue(Expr $expr): self
 	{
-		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this, $expr, false);
+		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this, $expr, TypeSpecifier::CONTEXT_TRUTHY);
 		return $this->filterBySpecifiedTypes($specifiedTypes);
 	}
 
 	public function filterByFalseyValue(Expr $expr): self
 	{
-		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this, $expr, true);
+		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this, $expr, TypeSpecifier::CONTEXT_FALSEY);
 		return $this->filterBySpecifiedTypes($specifiedTypes);
 	}
 
