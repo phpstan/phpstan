@@ -2,7 +2,6 @@
 
 namespace PHPStan\DependencyInjection;
 
-use Nette\Configurator;
 use Nette\DI\Extensions\PhpExtension;
 use PHPStan\File\FileHelper;
 
@@ -37,7 +36,7 @@ class ContainerFactory
 		array $additionalConfigFiles
 	): \Nette\DI\Container
 	{
-		$configurator = new Configurator();
+		$configurator = new Configurator(new LoaderFactory());
 		$configurator->defaultExtensions = [
 			'php' => PhpExtension::class,
 			'extensions' => \Nette\DI\Extensions\ExtensionsExtension::class,

@@ -2,11 +2,11 @@
 
 namespace PHPStan\Command;
 
-use Nette\DI\Config\Loader;
 use Nette\DI\Helpers;
 use PhpParser\Node\Stmt\Catch_;
 use PHPStan\Command\ErrorFormatter\ErrorFormatter;
 use PHPStan\DependencyInjection\ContainerFactory;
+use PHPStan\DependencyInjection\LoaderFactory;
 use PHPStan\File\FileHelper;
 use PHPStan\Type\TypeCombinator;
 use Symfony\Component\Console\Input\InputArgument;
@@ -74,6 +74,17 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		}
 
 		$projectConfigFile = $input->getOption('configuration');
+		if ($projectConfigFile === null) {
+			foreach (['phpstan.neon', 'phpstan.neon.dist'] as $discoverableConfigName) {
+				$discoverableConfigFile = $currentWorkingDirectory . DIRECTORY_SEPARATOR . $discoverableConfigName;
+				if (is_file($discoverableConfigFile)) {
+					$projectConfigFile = $discoverableConfigFile;
+					$output->writeln(sprintf('Note: Using configuration file %s.', $projectConfigFile));
+					break;
+				}
+			}
+		}
+
 		$levelOption = $input->getOption(self::OPTION_LEVEL);
 		$defaultLevelUsed = false;
 		if ($projectConfigFile === null && $levelOption === null) {
@@ -102,7 +113,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 			$additionalConfigFiles[] = $projectConfigFile;
 
-			$loader = new Loader();
+			$loader = (new LoaderFactory())->createLoader();
 			$projectConfig = $loader->load($projectConfigFile, null);
 			if (isset($projectConfig['parameters']['tmpDir'])) {
 				$tmpDir = Helpers::expand($projectConfig['parameters']['tmpDir'], [
