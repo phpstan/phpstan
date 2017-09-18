@@ -140,6 +140,15 @@ vendor/bin/phpstan analyse -l 4 -c phpstan.neon src tests
 When using a custom project config file, you have to pass the `--level` (`-l`)
 option to `analyse` command (default value does not apply here).
 
+If you do not provide config file explicitly, PHPStan will look for
+files named `phpstan.neon` or `phpstan.neon.dist` in current directory.
+
+The resolution priority is as such:
+1. If config file is provided on command line, it is used.
+2. If config file `phpstan.neon` exists in current directory, it will be used.
+3. If config file `phpstan.neon.dist` exists in current directory, it will be used.
+4. If none of the above is true, no config will be used.
+
 [NEON file format](https://ne-on.org/) is very similar to YAML.
 All the following options are part of the `parameters` section.
 
