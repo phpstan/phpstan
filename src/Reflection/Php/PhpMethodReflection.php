@@ -397,7 +397,13 @@ class PhpMethodReflection implements MethodReflection
 	public function getReturnType(): Type
 	{
 		if ($this->returnType === null) {
-			if ($this->getName() === '__construct') {
+			static $methodsAlwaysWithVoid = [
+				'__construct' => null,
+				'__destruct' => null,
+				'__clone' => null,
+			];
+
+			if (array_key_exists(strtolower($this->getName()), $methodsAlwaysWithVoid)) {
 				return $this->returnType = new VoidType();
 			}
 			$returnType = $this->reflection->getReturnType();

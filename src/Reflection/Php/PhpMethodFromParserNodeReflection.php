@@ -69,7 +69,13 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 
 	public function getReturnType(): Type
 	{
-		if ($this->getName() === '__construct') {
+		static $methodsAlwaysWithVoid = [
+			'__construct' => null,
+			'__destruct' => null,
+			'__clone' => null,
+		];
+
+		if (array_key_exists(strtolower($this->getName()), $methodsAlwaysWithVoid)) {
 			return new VoidType();
 		}
 
