@@ -10,11 +10,11 @@ trim_trailing_whitespace = true
 indent_style = tab
 indent_size = 4
 
-[*.{xml}]
+[*.xml]
 indent_style = tab
 indent_size = 4
 
-[*.{neon}]
+[*.neon]
 indent_style = tab
 indent_size = 4
 
@@ -22,6 +22,6 @@ indent_size = 4
 indent_style = space
 indent_size = 2
 
-[{composer.json}]
+[composer.json]
 indent_style = tab
 indent_size = 4
