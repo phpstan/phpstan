@@ -47,11 +47,6 @@ class ClassReflection
 		$this->reflection = $reflection;
 	}
 
-	public function getNativeReflection(): \ReflectionClass
-	{
-		return $this->reflection;
-	}
-
 	/**
 	 * @return false|\PHPStan\Reflection\ClassReflection
 	 */
@@ -74,7 +69,7 @@ class ClassReflection
 		return $this->displayName;
 	}
 
-	public function hasProperty(string $propertyName): bool
+	public function hasExtendedProperty(string $propertyName): bool
 	{
 		foreach ($this->propertiesClassReflectionExtensions as $extension) {
 			if ($extension->hasProperty($this, $propertyName)) {
@@ -85,7 +80,12 @@ class ClassReflection
 		return false;
 	}
 
-	public function hasMethod(string $methodName): bool
+	public function hasProperty(string $propertyName): bool
+	{
+		return $this->reflection->hasProperty($propertyName);
+	}
+
+	public function hasExtendedMethod(string $methodName): bool
 	{
 		foreach ($this->methodsClassReflectionExtensions as $extension) {
 			if ($extension->hasMethod($this, $methodName)) {
@@ -96,7 +96,12 @@ class ClassReflection
 		return false;
 	}
 
-	public function getMethod(string $methodName, Scope $scope = null): MethodReflection
+	public function hasMethod(string $methodName): bool
+	{
+		return $this->reflection->hasMethod($methodName);
+	}
+
+	public function getExtendedMethod(string $methodName, Scope $scope = null): MethodReflection
 	{
 		$key = $methodName;
 		if ($scope !== null && $scope->isInClass()) {
@@ -121,7 +126,20 @@ class ClassReflection
 		return $this->methods[$key];
 	}
 
-	public function getProperty(string $propertyName, Scope $scope = null): PropertyReflection
+	public function getMethod(string $methodName): \ReflectionMethod
+	{
+		return $this->reflection->getMethod($methodName);
+	}
+
+	/**
+	 * @return \ReflectionMethod[]
+	 */
+	public function getMethods(): array
+	{
+		return $this->reflection->getMethods();
+	}
+
+	public function getExtendedProperty(string $propertyName, Scope $scope = null): PropertyReflection
 	{
 		$key = $propertyName;
 		if ($scope !== null && $scope->isInClass()) {
@@ -146,6 +164,24 @@ class ClassReflection
 		return $this->properties[$key];
 	}
 
+	public function getProperty(string $propertyName): \ReflectionProperty
+	{
+		return $this->reflection->getProperty($propertyName);
+	}
+
+	/**
+	 * @return \ReflectionProperty[]
+	 */
+	public function getProperties(): array
+	{
+		return $this->reflection->getProperties();
+	}
+
+	public function isFinal(): bool
+	{
+		return $this->reflection->isFinal();
+	}
+
 	public function isAbstract(): bool
 	{
 		return $this->reflection->isAbstract();
@@ -164,6 +200,11 @@ class ClassReflection
 	public function isAnonymous(): bool
 	{
 		return $this->reflection->isAnonymous();
+	}
+
+	public function isInternal(): bool
+	{
+		return $this->reflection->isInternal();
 	}
 
 	public function isSubclassOf(string $className): bool
@@ -193,7 +234,7 @@ class ClassReflection
 	{
 		return array_map(function (\ReflectionClass $interface) {
 			return $this->broker->getClass($interface->getName());
-		}, $this->getNativeReflection()->getInterfaces());
+		}, $this->reflection->getInterfaces());
 	}
 
 	/**
@@ -203,7 +244,7 @@ class ClassReflection
 	{
 		return array_map(function (\ReflectionClass $trait) {
 			return $this->broker->getClass($trait->getName());
-		}, $this->getNativeReflection()->getTraits());
+		}, $this->reflection->getTraits());
 	}
 
 	/**
@@ -223,7 +264,7 @@ class ClassReflection
 
 	public function hasConstant(string $name): bool
 	{
-		return $this->getNativeReflection()->hasConstant($name);
+		return $this->reflection->hasConstant($name);
 	}
 
 	public function getConstant(string $name): ClassConstantReflection
@@ -233,10 +274,10 @@ class ClassReflection
 				$this->constants[$name] = new ObsoleteClassConstantReflection(
 					$this,
 					$name,
-					$this->getNativeReflection()->getConstant($name)
+					$this->reflection->getConstant($name)
 				);
 			} else {
-				$reflectionConstant = $this->getNativeReflection()->getReflectionConstant($name);
+				$reflectionConstant = $this->reflection->getReflectionConstant($name);
 				$this->constants[$name] = new ClassConstantWithVisibilityReflection(
 					$this->broker->getClass($reflectionConstant->getDeclaringClass()->getName()),
 					$reflectionConstant
@@ -261,6 +302,43 @@ class ClassReflection
 		}
 
 		return $traitNames;
+	}
+
+	/**
+	 * @return string[]
+	 */
+	public function getTraitAliases(): array
+	{
+		return $this->reflection->getTraitAliases();
+	}
+
+	public function implementsInterface(string $interface): bool
+	{
+		return $this->reflection->implementsInterface($interface);
+	}
+
+	/**
+	 * @return string[]
+	 */
+	public function getInterfaceNames(): array
+	{
+		return $this->reflection->getInterfaceNames();
+	}
+
+	/**
+	 * @return string|null
+	 */
+	public function getFileName()
+	{
+		return $this->reflection->getFileName() ?: null;
+	}
+
+	/**
+	 * @return string|null
+	 */
+	public function getDocComment()
+	{
+		return $this->reflection->getDocComment() ?: null;
 	}
 
 }

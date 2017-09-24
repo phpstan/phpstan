@@ -77,11 +77,11 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 				$methodClassReflection = $this->broker->getClass($referencedClass);
 				$parentClassReflection = $methodClassReflection->getParentClass();
 				while ($parentClassReflection !== false) {
-					if ($parentClassReflection->hasMethod($name)) {
+					if ($parentClassReflection->hasExtendedMethod($name)) {
 						return [
 							sprintf(
 								'Call to private method %s() of parent class %s.',
-								$parentClassReflection->getMethod($name, $scope)->getName(),
+								$parentClassReflection->getExtendedMethod($name, $scope)->getName(),
 								$parentClassReflection->getDisplayName()
 							),
 						];

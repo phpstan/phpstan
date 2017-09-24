@@ -599,11 +599,11 @@ class Scope
 				&& $this->broker->hasClass($referencedClasses[0])
 			) {
 				$methodClassReflection = $this->broker->getClass($referencedClasses[0]);
-				if (!$methodClassReflection->hasMethod($node->name)) {
+				if (!$methodClassReflection->hasExtendedMethod($node->name)) {
 					return new ErrorType();
 				}
 
-				$methodReflection = $methodClassReflection->getMethod($node->name, $this);
+				$methodReflection = $methodClassReflection->getExtendedMethod($node->name, $this);
 				foreach ($this->broker->getDynamicMethodReturnTypeExtensionsForClass($methodClassReflection->getName()) as $dynamicMethodReturnTypeExtension) {
 					if (!$dynamicMethodReturnTypeExtension->isMethodSupported($methodReflection)) {
 						continue;
@@ -691,11 +691,11 @@ class Scope
 				$staticPropertyClassReflection = $this->broker->getClass(
 					$staticPropertyHolderClass
 				);
-				if (!$staticPropertyClassReflection->hasProperty($node->name)) {
+				if (!$staticPropertyClassReflection->hasExtendedProperty($node->name)) {
 					return new ErrorType();
 				}
 
-				return $staticPropertyClassReflection->getProperty($node->name, $this)->getType();
+				return $staticPropertyClassReflection->getExtendedProperty($node->name, $this)->getType();
 			}
 		}
 

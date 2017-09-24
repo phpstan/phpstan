@@ -101,14 +101,14 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 					throw new \PHPStan\ShouldNotHappenException();
 				}
 
-				$currentMethodReflection = $currentClassReflection->getMethod(
+				$currentMethodReflection = $currentClassReflection->getExtendedMethod(
 					$scope->getFunctionName(),
 					$scope
 				);
 				if (!$currentMethodReflection->isStatic()) {
-					if ($methodName === '__construct' && $currentClassReflection->getParentClass()->hasMethod('__construct')) {
+					if ($methodName === '__construct' && $currentClassReflection->getParentClass()->hasExtendedMethod('__construct')) {
 						return $this->check->check(
-							$currentClassReflection->getParentClass()->getMethod('__construct', $scope),
+							$currentClassReflection->getParentClass()->getExtendedMethod('__construct', $scope),
 							$scope,
 							$node,
 							[

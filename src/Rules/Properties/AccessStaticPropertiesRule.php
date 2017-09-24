@@ -89,7 +89,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 					throw new \PHPStan\ShouldNotHappenException();
 				}
 
-				$currentMethodReflection = $scope->getClassReflection()->getMethod(
+				$currentMethodReflection = $scope->getClassReflection()->getExtendedMethod(
 					$scope->getFunctionName(),
 					$scope
 				);

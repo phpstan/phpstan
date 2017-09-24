@@ -97,7 +97,7 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 			];
 		}
 
-		if (!$classReflection->hasMethod('__construct') && !$classReflection->hasMethod($class)) {
+		if (!$classReflection->hasExtendedMethod('__construct') && !$classReflection->hasExtendedMethod($class)) {
 			if (count($node->args) > 0) {
 				return [
 					sprintf(
@@ -111,7 +111,7 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 		}
 
 		return $this->check->check(
-			$classReflection->hasMethod('__construct') ? $classReflection->getMethod('__construct', $scope) : $classReflection->getMethod($class),
+			$classReflection->hasExtendedMethod('__construct') ? $classReflection->getExtendedMethod('__construct', $scope) : $classReflection->getExtendedMethod($class),
 			$scope,
 			$node,
 			[

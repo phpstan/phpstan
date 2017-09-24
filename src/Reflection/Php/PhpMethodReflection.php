@@ -111,7 +111,7 @@ class PhpMethodReflection implements MethodReflection
 		$lowercaseName = strtolower($name);
 		if ($lowercaseName === $name) {
 			// fix for https://bugs.php.net/bug.php?id=74939
-			foreach ($this->getDeclaringClass()->getNativeReflection()->getTraitAliases() as $traitTarget) {
+			foreach ($this->getDeclaringClass()->getTraitAliases() as $traitTarget) {
 				$correctName = $this->getMethodNameWithCorrectCase($name, $traitTarget);
 				if ($correctName !== null) {
 					$name = $correctName;
@@ -131,7 +131,7 @@ class PhpMethodReflection implements MethodReflection
 	private function getMethodNameWithCorrectCase(string $lowercaseMethodName, string $traitTarget)
 	{
 		list ($trait, $method) = explode('::', $traitTarget);
-		$traitReflection = $this->broker->getClass($trait)->getNativeReflection();
+		$traitReflection = $this->broker->getClass($trait);
 		foreach ($traitReflection->getTraitAliases() as $methodAlias => $traitTarget) {
 			if ($lowercaseMethodName === strtolower($methodAlias)) {
 				return $methodAlias;
@@ -322,11 +322,13 @@ class PhpMethodReflection implements MethodReflection
 			return true;
 		}
 
-		if (!$isNativelyVariadic && $this->declaringClass->getNativeReflection()->getFileName() !== false) {
+		if (!$isNativelyVariadic && !$this->declaringClass->isInternal()) {
 			$key = sprintf('variadic-method-%s-%s-v0', $this->declaringClass->getName(), $this->reflection->getName());
 			$cachedResult = $this->cache->load($key);
 			if ($cachedResult === null) {
-				$nodes = $this->parser->parseFile($this->declaringClass->getNativeReflection()->getFileName());
+				/** @var string $fileName */
+				$fileName = $this->declaringClass->getFileName();
+				$nodes = $this->parser->parseFile($fileName);
 				$result = $this->callsFuncGetArgs($nodes);
 				$this->cache->save($key, $result);
 				return $result;

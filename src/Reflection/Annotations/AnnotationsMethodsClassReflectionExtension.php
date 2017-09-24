@@ -62,16 +62,17 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 			$methods += $this->createMethods($interfaceClass, $interfaceClass);
 		}
 
-		$fileName = $classReflection->getNativeReflection()->getFileName();
-		if ($fileName === false) {
+		if ($classReflection->isInternal()) {
 			return $methods;
 		}
 
-		$docComment = $classReflection->getNativeReflection()->getDocComment();
-		if ($docComment === false) {
+		$docComment = $classReflection->getDocComment();
+		if ($docComment === null) {
 			return $methods;
 		}
 
+		/** @var string $fileName */
+		$fileName = $classReflection->getFileName();
 		$typeMap = $this->fileTypeMapper->getTypeMap($fileName);
 
 		preg_match_all('#@method\s+(?:(?P<IsStatic>static)\s+)?(?:(?P<Type>[^\(\*]+?)(?<!\|)\s+)?(?P<MethodName>[a-zA-Z0-9_]+)(?P<Parameters>(?:\([^\)]*\))?)#', $docComment, $matches, PREG_SET_ORDER);

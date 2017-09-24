@@ -156,13 +156,13 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 
 		$classReflection = $broker->getClass($this->baseClass);
 
-		if ($classReflection->isSubclassOf(\Iterator::class) && $classReflection->hasMethod('key')) {
-			return $classReflection->getMethod('key')->getReturnType();
+		if ($classReflection->isSubclassOf(\Iterator::class) && $classReflection->hasExtendedMethod('key')) {
+			return $classReflection->getExtendedMethod('key')->getReturnType();
 		}
 
-		if ($classReflection->isSubclassOf(\IteratorAggregate::class) && $classReflection->hasMethod('getIterator')) {
+		if ($classReflection->isSubclassOf(\IteratorAggregate::class) && $classReflection->hasExtendedMethod('getIterator')) {
 			return RecursionGuard::run($this, function () use ($classReflection) {
-				return $classReflection->getMethod('getIterator')->getReturnType()->getIterableKeyType();
+				return $classReflection->getExtendedMethod('getIterator')->getReturnType()->getIterableKeyType();
 			});
 		}
 
@@ -183,13 +183,13 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 
 		$classReflection = $broker->getClass($this->baseClass);
 
-		if ($classReflection->isSubclassOf(\Iterator::class) && $classReflection->hasMethod('current')) {
-			return $classReflection->getMethod('current')->getReturnType();
+		if ($classReflection->isSubclassOf(\Iterator::class) && $classReflection->hasExtendedMethod('current')) {
+			return $classReflection->getExtendedMethod('current')->getReturnType();
 		}
 
-		if ($classReflection->isSubclassOf(\IteratorAggregate::class) && $classReflection->hasMethod('getIterator')) {
+		if ($classReflection->isSubclassOf(\IteratorAggregate::class) && $classReflection->hasExtendedMethod('getIterator')) {
 			return RecursionGuard::run($this, function () use ($classReflection) {
-				return $classReflection->getMethod('getIterator')->getReturnType()->getIterableValueType();
+				return $classReflection->getExtendedMethod('getIterator')->getReturnType()->getIterableValueType();
 			});
 		}
 
@@ -208,7 +208,7 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 			return TrinaryLogic::createMaybe();
 		}
 
-		if ($broker->getClass($this->baseClass)->hasMethod('__invoke')) {
+		if ($broker->getClass($this->baseClass)->hasExtendedMethod('__invoke')) {
 			return TrinaryLogic::createYes();
 		}
 

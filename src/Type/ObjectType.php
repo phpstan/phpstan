@@ -32,13 +32,13 @@ class ObjectType implements TypeWithClassName
 			return false;
 		}
 
-		return $broker->getClass($this->className)->hasProperty($propertyName);
+		return $broker->getClass($this->className)->hasExtendedProperty($propertyName);
 	}
 
 	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
 	{
 		$broker = Broker::getInstance();
-		return $broker->getClass($this->className)->getProperty($propertyName, $scope);
+		return $broker->getClass($this->className)->getExtendedProperty($propertyName, $scope);
 	}
 
 	/**
@@ -108,11 +108,11 @@ class ObjectType implements TypeWithClassName
 			return TrinaryLogic::createMaybe();
 		}
 
-		if ($thisClassReflection->isInterface() && !$thatClassReflection->getNativeReflection()->isFinal()) {
+		if ($thisClassReflection->isInterface() && !$thatClassReflection->isFinal()) {
 			return TrinaryLogic::createMaybe();
 		}
 
-		if ($thatClassReflection->isInterface() && !$thisClassReflection->getNativeReflection()->isFinal()) {
+		if ($thatClassReflection->isInterface() && !$thisClassReflection->isFinal()) {
 			return TrinaryLogic::createMaybe();
 		}
 
@@ -140,7 +140,7 @@ class ObjectType implements TypeWithClassName
 		}
 
 		if ($thisReflection->isInterface() && $thatReflection->isInterface()) {
-			return $thatReflection->getNativeReflection()->implementsInterface($this->className);
+			return $thatReflection->implementsInterface($this->className);
 		}
 
 		return $thatReflection->isSubclassOf($this->className);
@@ -168,13 +168,13 @@ class ObjectType implements TypeWithClassName
 			return false;
 		}
 
-		return $broker->getClass($this->className)->hasMethod($methodName);
+		return $broker->getClass($this->className)->hasExtendedMethod($methodName);
 	}
 
 	public function getMethod(string $methodName, Scope $scope): MethodReflection
 	{
 		$broker = Broker::getInstance();
-		return $broker->getClass($this->className)->getMethod($methodName, $scope);
+		return $broker->getClass($this->className)->getExtendedMethod($methodName, $scope);
 	}
 
 	public function canAccessConstants(): bool
@@ -233,13 +233,13 @@ class ObjectType implements TypeWithClassName
 
 		$classReflection = $broker->getClass($this->className);
 
-		if ($classReflection->isSubclassOf(\Iterator::class) && $classReflection->hasMethod('key')) {
-			return $classReflection->getMethod('key')->getReturnType();
+		if ($classReflection->isSubclassOf(\Iterator::class) && $classReflection->hasExtendedMethod('key')) {
+			return $classReflection->getExtendedMethod('key')->getReturnType();
 		}
 
-		if ($classReflection->isSubclassOf(\IteratorAggregate::class) && $classReflection->hasMethod('getIterator')) {
+		if ($classReflection->isSubclassOf(\IteratorAggregate::class) && $classReflection->hasExtendedMethod('getIterator')) {
 			return RecursionGuard::run($this, function () use ($classReflection) {
-				return $classReflection->getMethod('getIterator')->getReturnType()->getIterableKeyType();
+				return $classReflection->getExtendedMethod('getIterator')->getReturnType()->getIterableKeyType();
 			});
 		}
 
@@ -260,13 +260,13 @@ class ObjectType implements TypeWithClassName
 
 		$classReflection = $broker->getClass($this->className);
 
-		if ($classReflection->isSubclassOf(\Iterator::class) && $classReflection->hasMethod('current')) {
-			return $classReflection->getMethod('current')->getReturnType();
+		if ($classReflection->isSubclassOf(\Iterator::class) && $classReflection->hasExtendedMethod('current')) {
+			return $classReflection->getExtendedMethod('current')->getReturnType();
 		}
 
-		if ($classReflection->isSubclassOf(\IteratorAggregate::class) && $classReflection->hasMethod('getIterator')) {
+		if ($classReflection->isSubclassOf(\IteratorAggregate::class) && $classReflection->hasExtendedMethod('getIterator')) {
 			return RecursionGuard::run($this, function () use ($classReflection) {
-				return $classReflection->getMethod('getIterator')->getReturnType()->getIterableValueType();
+				return $classReflection->getExtendedMethod('getIterator')->getReturnType()->getIterableValueType();
 			});
 		}
 
@@ -285,7 +285,7 @@ class ObjectType implements TypeWithClassName
 			return TrinaryLogic::createMaybe();
 		}
 
-		if ($broker->getClass($this->className)->hasMethod('__invoke')) {
+		if ($broker->getClass($this->className)->hasExtendedMethod('__invoke')) {
 			return TrinaryLogic::createYes();
 		}
 
