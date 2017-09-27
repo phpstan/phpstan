@@ -2,6 +2,7 @@
 
 namespace PHPStan\Reflection\Annotations;
 
+use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 
 class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
@@ -916,10 +917,12 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
 		/** @var Broker $broker */
 		$broker = $this->getContainer()->getByType(Broker::class);
 		$class = $broker->getClass($className);
+		$scope = $this->createMock(Scope::class);
+		$scope->method('isInClass')->willReturn(false);
 		foreach ($methods as $methodName => $expectedMethodData) {
 			$this->assertTrue($class->hasMethod($methodName), sprintf('Method %s not found in class %s.', $methodName, $className));
 
-			$method = $class->getMethod($methodName);
+			$method = $class->getMethod($methodName, $scope);
 			$this->assertSame(
 				$expectedMethodData['class'],
 				$method->getDeclaringClass()->getName(),

@@ -233,13 +233,13 @@ class ObjectType implements TypeWithClassName
 
 		$classReflection = $broker->getClass($this->className);
 
-		if ($classReflection->isSubclassOf(\Iterator::class) && $classReflection->hasMethod('key')) {
-			return $classReflection->getMethod('key')->getReturnType();
+		if ($classReflection->isSubclassOf(\Iterator::class) && $classReflection->hasNativeMethod('key')) {
+			return $classReflection->getNativeMethod('key')->getReturnType();
 		}
 
-		if ($classReflection->isSubclassOf(\IteratorAggregate::class) && $classReflection->hasMethod('getIterator')) {
+		if ($classReflection->isSubclassOf(\IteratorAggregate::class) && $classReflection->hasNativeMethod('getIterator')) {
 			return RecursionGuard::run($this, function () use ($classReflection) {
-				return $classReflection->getMethod('getIterator')->getReturnType()->getIterableKeyType();
+				return $classReflection->getNativeMethod('getIterator')->getReturnType()->getIterableKeyType();
 			});
 		}
 
@@ -260,13 +260,13 @@ class ObjectType implements TypeWithClassName
 
 		$classReflection = $broker->getClass($this->className);
 
-		if ($classReflection->isSubclassOf(\Iterator::class) && $classReflection->hasMethod('current')) {
-			return $classReflection->getMethod('current')->getReturnType();
+		if ($classReflection->isSubclassOf(\Iterator::class) && $classReflection->hasNativeMethod('current')) {
+			return $classReflection->getNativeMethod('current')->getReturnType();
 		}
 
-		if ($classReflection->isSubclassOf(\IteratorAggregate::class) && $classReflection->hasMethod('getIterator')) {
+		if ($classReflection->isSubclassOf(\IteratorAggregate::class) && $classReflection->hasNativeMethod('getIterator')) {
 			return RecursionGuard::run($this, function () use ($classReflection) {
-				return $classReflection->getMethod('getIterator')->getReturnType()->getIterableValueType();
+				return $classReflection->getNativeMethod('getIterator')->getReturnType()->getIterableValueType();
 			});
 		}
 

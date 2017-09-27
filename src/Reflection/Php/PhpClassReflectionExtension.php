@@ -30,7 +30,7 @@ class PhpClassReflectionExtension
 	/** @var \PHPStan\Reflection\PropertyReflection[][] */
 	private $properties = [];
 
-	/** @var \PHPStan\Reflection\MethodReflection[][] */
+	/** @var \PHPStan\Reflection\Php\PhpMethodReflection[][] */
 	private $methods = [];
 
 	public function __construct(
@@ -121,6 +121,11 @@ class PhpClassReflectionExtension
 		return $classReflection->getNativeReflection()->hasMethod($methodName);
 	}
 
+	/**
+	 * @param \PHPStan\Reflection\ClassReflection $classReflection
+	 * @param string $methodName
+	 * @return \PHPStan\Reflection\Php\PhpMethodReflection
+	 */
 	public function getMethod(ClassReflection $classReflection, string $methodName): MethodReflection
 	{
 		if (!isset($this->methods[$classReflection->getName()])) {
@@ -134,7 +139,7 @@ class PhpClassReflectionExtension
 
 	/**
 	 * @param \PHPStan\Reflection\ClassReflection $classReflection
-	 * @return \PHPStan\Reflection\MethodReflection[]
+	 * @return \PHPStan\Reflection\Php\PhpMethodReflection[]
 	 */
 	private function createMethods(ClassReflection $classReflection): array
 	{

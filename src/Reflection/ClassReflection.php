@@ -4,6 +4,8 @@ namespace PHPStan\Reflection;
 
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\Php\PhpClassReflectionExtension;
+use PHPStan\Reflection\Php\PhpMethodReflection;
 
 class ClassReflection
 {
@@ -96,17 +98,17 @@ class ClassReflection
 		return false;
 	}
 
-	public function getMethod(string $methodName, Scope $scope = null): MethodReflection
+	public function getMethod(string $methodName, Scope $scope): MethodReflection
 	{
 		$key = $methodName;
-		if ($scope !== null && $scope->isInClass()) {
+		if ($scope->isInClass()) {
 			$key = sprintf('%s-%s', $key, $scope->getClassReflection()->getName());
 		}
 		if (!isset($this->methods[$key])) {
 			foreach ($this->methodsClassReflectionExtensions as $extension) {
 				if ($extension->hasMethod($this, $methodName)) {
 					$method = $extension->getMethod($this, $methodName);
-					if ($scope !== null && $scope->canCallMethod($method)) {
+					if ($scope->canCallMethod($method)) {
 						return $this->methods[$key] = $method;
 					}
 					$this->methods[$key] = $method;
@@ -119,6 +121,26 @@ class ClassReflection
 		}
 
 		return $this->methods[$key];
+	}
+
+	public function hasNativeMethod(string $methodName): bool
+	{
+		return $this->getPhpExtension()->hasMethod($this, $methodName);
+	}
+
+	public function getNativeMethod(string $methodName): PhpMethodReflection
+	{
+		return $this->getPhpExtension()->getMethod($this, $methodName);
+	}
+
+	private function getPhpExtension(): PhpClassReflectionExtension
+	{
+		$extension = $this->methodsClassReflectionExtensions[0];
+		if (!$extension instanceof PhpClassReflectionExtension) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		return $extension;
 	}
 
 	public function getProperty(string $propertyName, Scope $scope = null): PropertyReflection
