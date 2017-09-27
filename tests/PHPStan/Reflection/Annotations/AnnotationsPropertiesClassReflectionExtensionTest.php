@@ -2,6 +2,7 @@
 
 namespace PHPStan\Reflection\Annotations;
 
+use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 
 class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCase
@@ -187,13 +188,15 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCas
 		/** @var Broker $broker */
 		$broker = $this->getContainer()->getByType(Broker::class);
 		$class = $broker->getClass($className);
+		$scope = $this->createMock(Scope::class);
+		$scope->method('isInClass')->willReturn(false);
 		foreach ($properties as $propertyName => $expectedPropertyData) {
 			$this->assertTrue(
 				$class->hasProperty($propertyName),
 				sprintf('Class %s does not define property %s.', $className, $propertyName)
 			);
 
-			$property = $class->getProperty($propertyName);
+			$property = $class->getProperty($propertyName, $scope);
 			$this->assertSame(
 				$expectedPropertyData['class'],
 				$property->getDeclaringClass()->getName(),

@@ -2,6 +2,7 @@
 
 namespace PHPStan\Reflection\PhpDefect;
 
+use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use XMLReader;
 use ZipArchive;
@@ -33,12 +34,14 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 	 */
 	public function testProperties(string $className, string $declaringClassName, array $data)
 	{
+		$scope = $this->createMock(Scope::class);
+		$scope->method('isInClass')->willReturn(false);
 		foreach ($data as $propertyName => $typeDescription) {
 			/** @var \PHPStan\Broker\Broker $broker */
 			$broker = $this->getContainer()->getByType(Broker::class);
 			$classReflection = $broker->getClass($className);
 			$this->assertTrue($classReflection->hasProperty($propertyName), sprintf('%s::$%s', $className, $propertyName));
-			$propertyReflection = $classReflection->getProperty($propertyName);
+			$propertyReflection = $classReflection->getProperty($propertyName, $scope);
 			$this->assertInstanceOf(PhpDefectPropertyReflection::class, $propertyReflection);
 			$this->assertSame($declaringClassName, $propertyReflection->getDeclaringClass()->getName());
 			$this->assertSame($typeDescription, $propertyReflection->getType()->describe(), sprintf('%s::$%s', $className, $propertyName));

@@ -6,6 +6,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\Php\PhpClassReflectionExtension;
 use PHPStan\Reflection\Php\PhpMethodReflection;
+use PHPStan\Reflection\Php\PhpPropertyReflection;
 
 class ClassReflection
 {
@@ -143,17 +144,17 @@ class ClassReflection
 		return $extension;
 	}
 
-	public function getProperty(string $propertyName, Scope $scope = null): PropertyReflection
+	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
 	{
 		$key = $propertyName;
-		if ($scope !== null && $scope->isInClass()) {
+		if ($scope->isInClass()) {
 			$key = sprintf('%s-%s', $key, $scope->getClassReflection()->getName());
 		}
 		if (!isset($this->properties[$key])) {
 			foreach ($this->propertiesClassReflectionExtensions as $extension) {
 				if ($extension->hasProperty($this, $propertyName)) {
 					$property = $extension->getProperty($this, $propertyName);
-					if ($scope !== null && $scope->canAccessProperty($property)) {
+					if ($scope->canAccessProperty($property)) {
 						return $this->properties[$key] = $property;
 					}
 					$this->properties[$key] = $property;
@@ -166,6 +167,16 @@ class ClassReflection
 		}
 
 		return $this->properties[$key];
+	}
+
+	public function hasNativeProperty(string $propertyName): bool
+	{
+		return $this->getPhpExtension()->hasProperty($this, $propertyName);
+	}
+
+	public function getNativeProperty(string $propertyName): PhpPropertyReflection
+	{
+		return $this->getPhpExtension()->getProperty($this, $propertyName);
 	}
 
 	public function isAbstract(): bool

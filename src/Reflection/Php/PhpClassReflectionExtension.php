@@ -27,7 +27,7 @@ class PhpClassReflectionExtension
 	/** @var \PHPStan\Broker\Broker */
 	private $broker;
 
-	/** @var \PHPStan\Reflection\PropertyReflection[][] */
+	/** @var \PHPStan\Reflection\Php\PhpPropertyReflection[][] */
 	private $properties = [];
 
 	/** @var \PHPStan\Reflection\Php\PhpMethodReflection[][] */
@@ -52,6 +52,11 @@ class PhpClassReflectionExtension
 		return $classReflection->getNativeReflection()->hasProperty($propertyName);
 	}
 
+	/**
+	 * @param \PHPStan\Reflection\ClassReflection $classReflection
+	 * @param string $propertyName
+	 * @return \PHPStan\Reflection\Php\PhpPropertyReflection
+	 */
 	public function getProperty(ClassReflection $classReflection, string $propertyName): PropertyReflection
 	{
 		if (!isset($this->properties[$classReflection->getName()])) {
@@ -63,7 +68,7 @@ class PhpClassReflectionExtension
 
 	/**
 	 * @param \PHPStan\Reflection\ClassReflection $classReflection
-	 * @return \PHPStan\Reflection\PropertyReflection[]
+	 * @return \PHPStan\Reflection\Php\PhpPropertyReflection[]
 	 */
 	private function createProperties(ClassReflection $classReflection): array
 	{
