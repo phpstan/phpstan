@@ -218,9 +218,9 @@ class PhpClassReflectionExtension
 				$reflectionMethods[] = $classReflection->getNativeReflection()->getMethod('__invoke');
 			}
 		}
-		$hierarchyDistances = $classReflection->getClassHierarchyDistances();
 		foreach ($reflectionMethods as $methodReflection) {
 			if ($includingAnnotations && $this->annotationsMethodsClassReflectionExtension->hasMethod($classReflection, $methodReflection->getName())) {
+				$hierarchyDistances = $classReflection->getClassHierarchyDistances();
 				$annotationMethod = $this->annotationsMethodsClassReflectionExtension->getMethod($classReflection, $methodReflection->getName());
 				if (!isset($hierarchyDistances[$annotationMethod->getDeclaringClass()->getName()])) {
 					throw new \PHPStan\ShouldNotHappenException();
