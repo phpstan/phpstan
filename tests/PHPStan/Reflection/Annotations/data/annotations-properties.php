@@ -10,14 +10,28 @@ use OtherNamespace\Ipsum;
  * @property-read Ipsum $otherTestReadOnly
  * @property self|Bar $fooOrBar
  * @property Ipsum $conflictingProperty
+ * @property Foo $overridenProperty
  */
 class Foo implements FooInterface
 {
 
+	/** @var Foo */
+	public $overridenPropertyWithAnnotation;
+
 }
 
+/**
+ * @property Bar $overridenPropertyWithAnnotation
+ * @property Foo $conflictingAnnotationProperty
+ */
 class Bar extends Foo
 {
+
+	/** @var Bar */
+	public $overridenProperty;
+
+	/** @var Bar */
+	public $conflictingAnnotationProperty;
 
 }
 

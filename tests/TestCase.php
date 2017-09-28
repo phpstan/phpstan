@@ -114,7 +114,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			}
 		};
 		$fileTypeMapper = new FileTypeMapper($parser, $this->createMock(Cache::class));
-		$phpExtension = new PhpClassReflectionExtension($methodReflectionFactory, $fileTypeMapper, new AnnotationsMethodsClassReflectionExtension($fileTypeMapper));
+		$annotationsPropertiesClassReflectionExtension = new AnnotationsPropertiesClassReflectionExtension($fileTypeMapper);
+		$phpExtension = new PhpClassReflectionExtension($methodReflectionFactory, $fileTypeMapper, new AnnotationsMethodsClassReflectionExtension($fileTypeMapper), $annotationsPropertiesClassReflectionExtension);
 		$functionReflectionFactory = new class($this->getParser(), $functionCallStatementFinder, $cache) implements FunctionReflectionFactory {
 			/** @var \PHPStan\Parser\Parser */
 			private $parser;
@@ -155,7 +156,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		$broker = new Broker(
 			[
 				$phpExtension,
-				new AnnotationsPropertiesClassReflectionExtension($fileTypeMapper),
+				$annotationsPropertiesClassReflectionExtension,
 				new UniversalObjectCratesClassReflectionExtension([\stdClass::class]),
 				new PhpDefectClassReflectionExtension(),
 			],

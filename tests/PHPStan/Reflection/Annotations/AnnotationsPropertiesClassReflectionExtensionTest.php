@@ -4,6 +4,7 @@ namespace PHPStan\Reflection\Annotations;
 
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\Php\PhpPropertyReflection;
 
 class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCase
 {
@@ -44,6 +45,18 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCas
 						'writable' => true,
 						'readable' => true,
 					],
+					'overridenProperty' => [
+						'class' => \AnnotationsProperties\Foo::class,
+						'type' => \AnnotationsProperties\Foo::class,
+						'writable' => true,
+						'readable' => true,
+					],
+					'overridenPropertyWithAnnotation' => [
+						'class' => \AnnotationsProperties\Foo::class,
+						'type' => \AnnotationsProperties\Foo::class,
+						'writable' => true,
+						'readable' => true,
+					],
 				],
 			],
 			[
@@ -70,6 +83,24 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCas
 					'conflictingProperty' => [
 						'class' => \AnnotationsProperties\Foo::class,
 						'type' => 'OtherNamespace\Ipsum',
+						'writable' => true,
+						'readable' => true,
+					],
+					'overridenProperty' => [
+						'class' => \AnnotationsProperties\Bar::class,
+						'type' => \AnnotationsProperties\Bar::class,
+						'writable' => true,
+						'readable' => true,
+					],
+					'overridenPropertyWithAnnotation' => [
+						'class' => \AnnotationsProperties\Bar::class,
+						'type' => \AnnotationsProperties\Bar::class,
+						'writable' => true,
+						'readable' => true,
+					],
+					'conflictingAnnotationProperty' => [
+						'class' => \AnnotationsProperties\Bar::class,
+						'type' => \AnnotationsProperties\Bar::class,
 						'writable' => true,
 						'readable' => true,
 					],
@@ -189,7 +220,9 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCas
 		$broker = $this->getContainer()->getByType(Broker::class);
 		$class = $broker->getClass($className);
 		$scope = $this->createMock(Scope::class);
-		$scope->method('isInClass')->willReturn(false);
+		$scope->method('isInClass')->willReturn(true);
+		$scope->method('getClassReflection')->willReturn($class);
+		$scope->method('canAccessProperty')->willReturn(true);
 		foreach ($properties as $propertyName => $expectedPropertyData) {
 			$this->assertTrue(
 				$class->hasProperty($propertyName),
@@ -218,6 +251,14 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCas
 				sprintf('Property %s::$%s writability is not as expected.', $property->getDeclaringClass()->getName(), $propertyName)
 			);
 		}
+	}
+
+	public function testOverridingNativePropertiesWithAnnotationsDoesNotBreakGetNativeProperty()
+	{
+		$broker = $this->getContainer()->getByType(Broker::class);
+		$class = $broker->getClass(\AnnotationsProperties\Bar::class);
+		$this->assertTrue($class->hasNativeProperty('overridenPropertyWithAnnotation'));
+		$this->assertInstanceOf(PhpPropertyReflection::class, $class->getNativeProperty('overridenPropertyWithAnnotation'));
 	}
 
 }

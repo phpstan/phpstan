@@ -213,7 +213,7 @@ class ClassReflection
 
 	public function getNativeProperty(string $propertyName): PhpPropertyReflection
 	{
-		return $this->getPhpExtension()->getProperty($this, $propertyName);
+		return $this->getPhpExtension()->getNativeProperty($this, $propertyName);
 	}
 
 	public function isAbstract(): bool

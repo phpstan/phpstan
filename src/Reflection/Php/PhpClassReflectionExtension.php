@@ -5,6 +5,7 @@ namespace PHPStan\Reflection\Php;
 use PHPStan\Broker\Broker;
 use PHPStan\PhpDoc\PhpDocBlock;
 use PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension;
+use PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension;
 use PHPStan\Reflection\BrokerAwareClassReflectionExtension;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
@@ -28,11 +29,17 @@ class PhpClassReflectionExtension
 	/** @var \PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension */
 	private $annotationsMethodsClassReflectionExtension;
 
+	/** @var \PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension */
+	private $annotationsPropertiesClassReflectionExtension;
+
 	/** @var \PHPStan\Broker\Broker */
 	private $broker;
 
+	/** @var \PHPStan\Reflection\PropertyReflection[][] */
+	private $propertiesIncludingAnnotations = [];
+
 	/** @var \PHPStan\Reflection\Php\PhpPropertyReflection[][] */
-	private $properties = [];
+	private $nativeProperties;
 
 	/** @var \PHPStan\Reflection\MethodReflection[][] */
 	private $methodsIncludingAnnotations = [];
@@ -43,12 +50,14 @@ class PhpClassReflectionExtension
 	public function __construct(
 		PhpMethodReflectionFactory $methodReflectionFactory,
 		FileTypeMapper $fileTypeMapper,
-		AnnotationsMethodsClassReflectionExtension $annotationsMethodsClassReflectionExtension
+		AnnotationsMethodsClassReflectionExtension $annotationsMethodsClassReflectionExtension,
+		AnnotationsPropertiesClassReflectionExtension $annotationsPropertiesClassReflectionExtension
 	)
 	{
 		$this->methodReflectionFactory = $methodReflectionFactory;
 		$this->fileTypeMapper = $fileTypeMapper;
 		$this->annotationsMethodsClassReflectionExtension = $annotationsMethodsClassReflectionExtension;
+		$this->annotationsPropertiesClassReflectionExtension = $annotationsPropertiesClassReflectionExtension;
 	}
 
 	public function setBroker(Broker $broker)
@@ -61,30 +70,56 @@ class PhpClassReflectionExtension
 		return $classReflection->getNativeReflection()->hasProperty($propertyName);
 	}
 
-	/**
-	 * @param \PHPStan\Reflection\ClassReflection $classReflection
-	 * @param string $propertyName
-	 * @return \PHPStan\Reflection\Php\PhpPropertyReflection
-	 */
 	public function getProperty(ClassReflection $classReflection, string $propertyName): PropertyReflection
 	{
-		if (!isset($this->properties[$classReflection->getName()])) {
-			$this->properties[$classReflection->getName()] = $this->createProperties($classReflection);
+		if (!isset($this->propertiesIncludingAnnotations[$classReflection->getName()])) {
+			$this->propertiesIncludingAnnotations[$classReflection->getName()] = $this->createProperties($classReflection, true);
 		}
 
-		return $this->properties[$classReflection->getName()][$propertyName];
+		return $this->propertiesIncludingAnnotations[$classReflection->getName()][$propertyName];
+	}
+
+	public function getNativeProperty(ClassReflection $classReflection, string $propertyName): PhpPropertyReflection
+	{
+		if (!isset($this->nativeProperties[$classReflection->getName()])) {
+			/** @var \PHPStan\Reflection\Php\PhpPropertyReflection[] $properties */
+			$properties = $this->createProperties($classReflection, false);
+			$this->nativeProperties[$classReflection->getName()] = $properties;
+		}
+
+		return $this->nativeProperties[$classReflection->getName()][$propertyName];
 	}
 
 	/**
 	 * @param \PHPStan\Reflection\ClassReflection $classReflection
-	 * @return \PHPStan\Reflection\Php\PhpPropertyReflection[]
+	 * @param bool $includingAnnotations
+	 * @return \PHPStan\Reflection\PropertyReflection[]
 	 */
-	private function createProperties(ClassReflection $classReflection): array
+	private function createProperties(
+		ClassReflection $classReflection,
+		bool $includingAnnotations
+	): array
 	{
 		$properties = [];
 		foreach ($classReflection->getNativeReflection()->getProperties() as $propertyReflection) {
 			$propertyName = $propertyReflection->getName();
 			$declaringClassReflection = $this->broker->getClass($propertyReflection->getDeclaringClass()->getName());
+
+			if ($includingAnnotations && $this->annotationsPropertiesClassReflectionExtension->hasProperty($classReflection, $propertyName)) {
+				$hierarchyDistances = $classReflection->getClassHierarchyDistances();
+				$annotationProperty = $this->annotationsPropertiesClassReflectionExtension->getProperty($classReflection, $propertyName);
+				if (!isset($hierarchyDistances[$annotationProperty->getDeclaringClass()->getName()])) {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
+				if (!isset($hierarchyDistances[$propertyReflection->getDeclaringClass()->getName()])) {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
+
+				if ($hierarchyDistances[$annotationProperty->getDeclaringClass()->getName()] < $hierarchyDistances[$propertyReflection->getDeclaringClass()->getName()]) {
+					$properties[$propertyReflection->getName()] = $annotationProperty;
+					continue;
+				}
+			}
 			if ($propertyReflection->getDocComment() === false) {
 				$type = new MixedType();
 			} elseif (!$declaringClassReflection->getNativeReflection()->isAnonymous() && $declaringClassReflection->getNativeReflection()->getFileName() !== false) {
