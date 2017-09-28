@@ -42,6 +42,7 @@ use OtherNamespace\Test as OtherTest;
  * @method static string|float aStaticMethodThatHasAUniqueReturnTypeInThisClassWithDescriptionNoParams A Description.
  * @method \Aws\Result publish(array $args = [])
  * @method Image rotate(float $angle, $backgroundColor)
+ * @method Foo overridenMethod()
  *
  * Problem signatures
  * ==================
@@ -53,10 +54,29 @@ use OtherNamespace\Test as OtherTest;
 class Foo implements FooInterface
 {
 
+	public function overridenMethodWithAnnotation(): Foo
+	{
+
+	}
+
 }
 
+/**
+ * @method Bar overridenMethodWithAnnotation()
+ * @method Foo conflictingMethod()
+ */
 class Bar extends Foo
 {
+
+	public function overridenMethod(): Bar
+	{
+
+	}
+
+	public function conflictingMethod(): Bar
+	{
+
+	}
 
 }
 

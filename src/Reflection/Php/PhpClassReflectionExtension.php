@@ -4,6 +4,7 @@ namespace PHPStan\Reflection\Php;
 
 use PHPStan\Broker\Broker;
 use PHPStan\PhpDoc\PhpDocBlock;
+use PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension;
 use PHPStan\Reflection\BrokerAwareClassReflectionExtension;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
@@ -24,22 +25,30 @@ class PhpClassReflectionExtension
 	/** @var \PHPStan\Type\FileTypeMapper */
 	private $fileTypeMapper;
 
+	/** @var \PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension */
+	private $annotationsMethodsClassReflectionExtension;
+
 	/** @var \PHPStan\Broker\Broker */
 	private $broker;
 
 	/** @var \PHPStan\Reflection\Php\PhpPropertyReflection[][] */
 	private $properties = [];
 
+	/** @var \PHPStan\Reflection\MethodReflection[][] */
+	private $methodsIncludingAnnotations = [];
+
 	/** @var \PHPStan\Reflection\Php\PhpMethodReflection[][] */
-	private $methods = [];
+	private $nativeMethods = [];
 
 	public function __construct(
 		PhpMethodReflectionFactory $methodReflectionFactory,
-		FileTypeMapper $fileTypeMapper
+		FileTypeMapper $fileTypeMapper,
+		AnnotationsMethodsClassReflectionExtension $annotationsMethodsClassReflectionExtension
 	)
 	{
 		$this->methodReflectionFactory = $methodReflectionFactory;
 		$this->fileTypeMapper = $fileTypeMapper;
+		$this->annotationsMethodsClassReflectionExtension = $annotationsMethodsClassReflectionExtension;
 	}
 
 	public function setBroker(Broker $broker)
@@ -126,27 +135,39 @@ class PhpClassReflectionExtension
 		return $classReflection->getNativeReflection()->hasMethod($methodName);
 	}
 
-	/**
-	 * @param \PHPStan\Reflection\ClassReflection $classReflection
-	 * @param string $methodName
-	 * @return \PHPStan\Reflection\Php\PhpMethodReflection
-	 */
 	public function getMethod(ClassReflection $classReflection, string $methodName): MethodReflection
 	{
-		if (!isset($this->methods[$classReflection->getName()])) {
-			$this->methods[$classReflection->getName()] = $this->createMethods($classReflection);
+		if (!isset($this->methodsIncludingAnnotations[$classReflection->getName()])) {
+			$this->methodsIncludingAnnotations[$classReflection->getName()] = $this->createMethods($classReflection, true);
 		}
 
 		$nativeMethodReflection = $classReflection->getNativeReflection()->getMethod($methodName);
 
-		return $this->methods[$classReflection->getName()][$nativeMethodReflection->getName()];
+		return $this->methodsIncludingAnnotations[$classReflection->getName()][$nativeMethodReflection->getName()];
+	}
+
+	public function getNativeMethod(ClassReflection $classReflection, string $methodName): PhpMethodReflection
+	{
+		if (!isset($this->nativeMethods[$classReflection->getName()])) {
+			/** @var \PHPStan\Reflection\Php\PhpMethodReflection[] $methods */
+			$methods = $this->createMethods($classReflection, false);
+			$this->nativeMethods[$classReflection->getName()] = $methods;
+		}
+
+		$nativeMethodReflection = $classReflection->getNativeReflection()->getMethod($methodName);
+
+		return $this->nativeMethods[$classReflection->getName()][$nativeMethodReflection->getName()];
 	}
 
 	/**
 	 * @param \PHPStan\Reflection\ClassReflection $classReflection
-	 * @return \PHPStan\Reflection\Php\PhpMethodReflection[]
+	 * @param bool $includingAnnotations
+	 * @return \PHPStan\Reflection\MethodReflection[]
 	 */
-	private function createMethods(ClassReflection $classReflection): array
+	private function createMethods(
+		ClassReflection $classReflection,
+		bool $includingAnnotations
+	): array
 	{
 		$methods = [];
 		$reflectionMethods = $classReflection->getNativeReflection()->getMethods();
@@ -162,7 +183,22 @@ class PhpClassReflectionExtension
 				$reflectionMethods[] = $classReflection->getNativeReflection()->getMethod('__invoke');
 			}
 		}
+		$hierarchyDistances = $classReflection->getClassHierarchyDistances();
 		foreach ($reflectionMethods as $methodReflection) {
+			if ($includingAnnotations && $this->annotationsMethodsClassReflectionExtension->hasMethod($classReflection, $methodReflection->getName())) {
+				$annotationMethod = $this->annotationsMethodsClassReflectionExtension->getMethod($classReflection, $methodReflection->getName());
+				if (!isset($hierarchyDistances[$annotationMethod->getDeclaringClass()->getName()])) {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
+				if (!isset($hierarchyDistances[$methodReflection->getDeclaringClass()->getName()])) {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
+
+				if ($hierarchyDistances[$annotationMethod->getDeclaringClass()->getName()] < $hierarchyDistances[$methodReflection->getDeclaringClass()->getName()]) {
+					$methods[$methodReflection->getName()] = $annotationMethod;
+					continue;
+				}
+			}
 			$declaringClass = $this->broker->getClass($methodReflection->getDeclaringClass()->getName());
 
 			$phpDocParameterTypes = [];

@@ -168,7 +168,7 @@ class ClassReflection
 
 	public function getNativeMethod(string $methodName): PhpMethodReflection
 	{
-		return $this->getPhpExtension()->getMethod($this, $methodName);
+		return $this->getPhpExtension()->getNativeMethod($this, $methodName);
 	}
 
 	private function getPhpExtension(): PhpClassReflectionExtension

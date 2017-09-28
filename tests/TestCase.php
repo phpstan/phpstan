@@ -10,6 +10,7 @@ use PHPStan\File\FileHelper;
 use PHPStan\Parser\DirectParser;
 use PHPStan\Parser\FunctionCallStatementFinder;
 use PHPStan\Parser\Parser;
+use PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension;
 use PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\FunctionReflection;
@@ -113,7 +114,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			}
 		};
 		$fileTypeMapper = new FileTypeMapper($parser, $this->createMock(Cache::class));
-		$phpExtension = new PhpClassReflectionExtension($methodReflectionFactory, $fileTypeMapper);
+		$phpExtension = new PhpClassReflectionExtension($methodReflectionFactory, $fileTypeMapper, new AnnotationsMethodsClassReflectionExtension($fileTypeMapper));
 		$functionReflectionFactory = new class($this->getParser(), $functionCallStatementFinder, $cache) implements FunctionReflectionFactory {
 			/** @var \PHPStan\Parser\Parser */
 			private $parser;

@@ -4,6 +4,7 @@ namespace PHPStan\Reflection\Annotations;
 
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\Php\PhpMethodReflection;
 
 class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
 {
@@ -413,10 +414,49 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
 					],
 				],
 			],
+			'overridenMethod' => [
+				'class' => \AnnotationsMethods\Foo::class,
+				'returnType' => \AnnotationsMethods\Foo::class,
+				'isStatic' => false,
+				'isVariadic' => false,
+				'parameters' => [],
+			],
+			'overridenMethodWithAnnotation' => [
+				'class' => \AnnotationsMethods\Foo::class,
+				'returnType' => \AnnotationsMethods\Foo::class,
+				'isStatic' => false,
+				'isVariadic' => false,
+				'parameters' => [],
+			],
 		];
-		$barMethods = $fooMethods;
-		$bazMethods = array_merge(
+		$barMethods = array_merge(
 			$fooMethods,
+			[
+				'overridenMethod' => [
+					'class' => \AnnotationsMethods\Bar::class,
+					'returnType' => \AnnotationsMethods\Bar::class,
+					'isStatic' => false,
+					'isVariadic' => false,
+					'parameters' => [],
+				],
+				'overridenMethodWithAnnotation' => [
+					'class' => \AnnotationsMethods\Bar::class,
+					'returnType' => \AnnotationsMethods\Bar::class,
+					'isStatic' => false,
+					'isVariadic' => false,
+					'parameters' => [],
+				],
+				'conflictingMethod' => [
+					'class' => \AnnotationsMethods\Bar::class,
+					'returnType' => \AnnotationsMethods\Bar::class,
+					'isStatic' => false,
+					'isVariadic' => false,
+					'parameters' => [],
+				],
+			]
+		);
+		$bazMethods = array_merge(
+			$barMethods,
 			[
 				'doSomething' => [
 					'class' => \AnnotationsMethods\Baz::class,
@@ -918,35 +958,37 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
 		$broker = $this->getContainer()->getByType(Broker::class);
 		$class = $broker->getClass($className);
 		$scope = $this->createMock(Scope::class);
-		$scope->method('isInClass')->willReturn(false);
+		$scope->method('isInClass')->willReturn(true);
+		$scope->method('getClassReflection')->willReturn($class);
+		$scope->method('canCallMethod')->willReturn(true);
 		foreach ($methods as $methodName => $expectedMethodData) {
-			$this->assertTrue($class->hasMethod($methodName), sprintf('Method %s not found in class %s.', $methodName, $className));
+			$this->assertTrue($class->hasMethod($methodName), sprintf('Method %s() not found in class %s.', $methodName, $className));
 
 			$method = $class->getMethod($methodName, $scope);
 			$this->assertSame(
 				$expectedMethodData['class'],
 				$method->getDeclaringClass()->getName(),
-				sprintf('Declaring class of method $%s does not match.', $methodName)
+				sprintf('Declaring class of method %s() does not match.', $methodName)
 			);
 			$this->assertEquals(
 				$expectedMethodData['returnType'],
 				$method->getReturnType()->describe(),
-				sprintf('Return type of method %s::%s does not match', $className, $methodName)
+				sprintf('Return type of method %s::%s() does not match', $className, $methodName)
 			);
 			$this->assertEquals(
 				$expectedMethodData['isStatic'],
 				$method->isStatic(),
-				sprintf('Scope of method %s::%s does not match', $className, $methodName)
+				sprintf('Scope of method %s::%s() does not match', $className, $methodName)
 			);
 			$this->assertEquals(
 				$expectedMethodData['isVariadic'],
 				$method->isVariadic(),
-				sprintf('Method %s::%s does not match expected variadicity', $className, $methodName)
+				sprintf('Method %s::%s() does not match expected variadicity', $className, $methodName)
 			);
 			$this->assertCount(
 				count($expectedMethodData['parameters']),
 				$method->getParameters(),
-				sprintf('Method %s::%s does not match expected count of parameters', $className, $methodName)
+				sprintf('Method %s::%s() does not match expected count of parameters', $className, $methodName)
 			);
 			foreach ($method->getParameters() as $i => $parameter) {
 				$this->assertEquals(
@@ -971,6 +1013,14 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
 				);
 			}
 		}
+	}
+
+	public function testOverridingNativeMethodsWithAnnotationsDoesNotBreakGetNativeMethod()
+	{
+		$broker = $this->getContainer()->getByType(Broker::class);
+		$class = $broker->getClass(\AnnotationsMethods\Bar::class);
+		$this->assertTrue($class->hasNativeMethod('overridenMethodWithAnnotation'));
+		$this->assertInstanceOf(PhpMethodReflection::class, $class->getNativeMethod('overridenMethodWithAnnotation'));
 	}
 
 }
