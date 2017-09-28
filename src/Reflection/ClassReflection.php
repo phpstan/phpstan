@@ -35,6 +35,9 @@ class ClassReflection
 	/** @var \PHPStan\Reflection\ClassConstantReflection[] */
 	private $constants;
 
+	/** @var int[]|null */
+	private $classHierarchyDistances;
+
 	public function __construct(
 		Broker $broker,
 		array $propertiesClassReflectionExtensions,
@@ -75,6 +78,40 @@ class ClassReflection
 	public function getDisplayName(): string
 	{
 		return $this->displayName;
+	}
+
+	/**
+	 * @return int[]
+	 */
+	public function getClassHierarchyDistances(): array
+	{
+		if ($this->classHierarchyDistances === null) {
+			$distance = 0;
+			$distances = [
+				$this->getName() => $distance,
+			];
+			$currentClassReflection = $this->getNativeReflection();
+			while ($currentClassReflection->getParentClass() !== false) {
+				$distance++;
+				$parentClassName = $currentClassReflection->getParentClass()->getName();
+				if (!array_key_exists($parentClassName, $distances)) {
+					$distances[$parentClassName] = $distance;
+				}
+				$currentClassReflection = $currentClassReflection->getParentClass();
+			}
+			foreach ($this->getNativeReflection()->getInterfaces() as $interface) {
+				$distance++;
+				if (array_key_exists($interface->getName(), $distances)) {
+					continue;
+				}
+
+				$distances[$interface->getName()] = $distance;
+			}
+
+			$this->classHierarchyDistances = $distances;
+		}
+
+		return $this->classHierarchyDistances;
 	}
 
 	public function hasProperty(string $propertyName): bool
