@@ -38,7 +38,7 @@ install:
   - ps: New-Item -Path $Env:php_directory -ItemType 'directory'
   - ps: cd $Env:php_directory
   - ps: 7z x $php_version_file
-  - ps: Copy-Item php.ini-production -Destination php.init
+  - ps: Copy-Item php.ini-production -Destination php.ini
   - ps: Add-Content -Path php.ini -Value 'date.timezone="UTC"'
   - ps: Add-Content -Path php.ini -Value 'extension_dir=ext'
   - ps: Add-Content -Path php.ini -Value 'extension=php_curl.dll'
