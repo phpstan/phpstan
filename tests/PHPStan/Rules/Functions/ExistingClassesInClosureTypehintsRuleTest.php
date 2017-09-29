@@ -2,6 +2,7 @@
 
 namespace PHPStan\Rules\Functions;
 
+use PHPStan\Rules\ClassCaseSensitivityCheck;
 use PHPStan\Rules\FunctionDefinitionCheck;
 
 class ExistingClassesInClosureTypehintsRuleTest extends \PHPStan\Rules\AbstractRuleTest
@@ -9,7 +10,8 @@ class ExistingClassesInClosureTypehintsRuleTest extends \PHPStan\Rules\AbstractR
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new ExistingClassesInClosureTypehintsRule(new FunctionDefinitionCheck($this->createBroker()));
+		$broker = $this->createBroker();
+		return new ExistingClassesInClosureTypehintsRule(new FunctionDefinitionCheck($broker, new ClassCaseSensitivityCheck($broker)));
 	}
 
 	public function testExistingClassInTypehint()
@@ -26,6 +28,14 @@ class ExistingClassesInClosureTypehintsRuleTest extends \PHPStan\Rules\AbstractR
 			[
 				'Return typehint of anonymous function has invalid type parent.',
 				25,
+			],
+			[
+				'Class TestClosureFunctionTypehints\FooFunctionTypehints referenced with incorrect case: TestClosureFunctionTypehints\fOOfUnctionTypehints.',
+				30,
+			],
+			[
+				'Class TestClosureFunctionTypehints\FooFunctionTypehints referenced with incorrect case: TestClosureFunctionTypehints\FOOfUnctionTypehintS.',
+				30,
 			],
 		]);
 	}

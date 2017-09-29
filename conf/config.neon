@@ -119,6 +119,9 @@ services:
 			classes: %universalObjectCratesClasses%
 
 	-
+		class: PHPStan\Rules\ClassCaseSensitivityCheck
+
+	-
 		class: PHPStan\Rules\FunctionCallParametersCheck
 		arguments:
 			checkArgumentTypes: %checkFunctionArgumentTypes%

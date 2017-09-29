@@ -29,3 +29,8 @@ function returnParent()
 {
 
 }
+
+function badCaseTypehints(fOOFunctionTypehints $foo): fOOFunctionTypehintS
+{
+
+}

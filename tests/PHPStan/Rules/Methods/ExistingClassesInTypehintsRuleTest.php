@@ -2,6 +2,7 @@
 
 namespace PHPStan\Rules\Methods;
 
+use PHPStan\Rules\ClassCaseSensitivityCheck;
 use PHPStan\Rules\FunctionDefinitionCheck;
 
 class ExistingClassesInTypehintsRuleTest extends \PHPStan\Rules\AbstractRuleTest
@@ -9,7 +10,8 @@ class ExistingClassesInTypehintsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new ExistingClassesInTypehintsRule(new FunctionDefinitionCheck($this->createBroker()));
+		$broker = $this->createBroker();
+		return new ExistingClassesInTypehintsRule(new FunctionDefinitionCheck($broker, new ClassCaseSensitivityCheck($broker)));
 	}
 
 	public function testExistingClassInTypehint()
@@ -62,6 +64,30 @@ class ExistingClassesInTypehintsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			[
 				'Return typehint of method TestMethodTypehints\FooMethodTypehints::phpDocParentWithoutParent() has invalid type parent.',
 				62,
+			],
+			[
+				'Class TestMethodTypehints\FooMethodTypehints referenced with incorrect case: TestMethodTypehints\fOOMethodTypehints.',
+				67,
+			],
+			[
+				'Class TestMethodTypehints\FooMethodTypehints referenced with incorrect case: TestMethodTypehints\fOOMethodTypehintS.',
+				67,
+			],
+			[
+				'Class stdClass referenced with incorrect case: STDClass.',
+				76,
+			],
+			[
+				'Class TestMethodTypehints\FooMethodTypehints referenced with incorrect case: TestMethodTypehints\fOOMethodTypehints.',
+				76,
+			],
+			[
+				'Class stdClass referenced with incorrect case: stdclass.',
+				76,
+			],
+			[
+				'Class TestMethodTypehints\FooMethodTypehints referenced with incorrect case: TestMethodTypehints\fOOMethodTypehintS.',
+				76,
 			],
 		]);
 	}

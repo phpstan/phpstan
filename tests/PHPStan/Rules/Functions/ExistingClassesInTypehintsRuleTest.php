@@ -2,6 +2,7 @@
 
 namespace PHPStan\Rules\Functions;
 
+use PHPStan\Rules\ClassCaseSensitivityCheck;
 use PHPStan\Rules\FunctionDefinitionCheck;
 
 class ExistingClassesInTypehintsRuleTest extends \PHPStan\Rules\AbstractRuleTest
@@ -9,7 +10,8 @@ class ExistingClassesInTypehintsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new ExistingClassesInTypehintsRule(new FunctionDefinitionCheck($this->createBroker()));
+		$broker = $this->createBroker();
+		return new ExistingClassesInTypehintsRule(new FunctionDefinitionCheck($broker, new ClassCaseSensitivityCheck($broker)));
 	}
 
 	public function testExistingClassInTypehint()
@@ -27,6 +29,14 @@ class ExistingClassesInTypehintsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			[
 				'Return typehint of function TestFunctionTypehints\returnParent() has invalid type parent.',
 				28,
+			],
+			[
+				'Class TestFunctionTypehints\FooFunctionTypehints referenced with incorrect case: TestFunctionTypehints\fOOFunctionTypehints.',
+				33,
+			],
+			[
+				'Class TestFunctionTypehints\FooFunctionTypehints referenced with incorrect case: TestFunctionTypehints\fOOFunctionTypehintS.',
+				33,
 			],
 		]);
 	}

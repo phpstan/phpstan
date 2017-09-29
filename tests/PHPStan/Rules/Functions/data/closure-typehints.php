@@ -26,3 +26,13 @@ $callback = function (): parent
 {
 
 };
+
+$callback = function (fOOfUnctionTypehints $foo): FOOfUnctionTypehintS
+{
+
+};
+
+$callback = function (\ReturnTypes\FooAliaS $ignoreAlias)
+{
+
+};

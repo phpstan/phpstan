@@ -64,4 +64,18 @@ class FooMethodTypehints
 
 	}
 
+	function badCaseTypehints(fOOMethodTypehints $foo): fOOMethodTypehintS
+	{
+
+	}
+
+	/**
+	 * @param fOOMethodTypehints|\STDClass $foo
+	 * @return fOOMethodTypehintS|\stdclass
+	 */
+	function unionTypeBadCaseTypehints($foo)
+	{
+
+	}
+
 }
