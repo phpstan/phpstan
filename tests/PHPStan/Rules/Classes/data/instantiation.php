@@ -56,3 +56,9 @@ class ChildInstantiatingClass extends InstantiatingClass
 	}
 
 }
+
+function () {
+	new FOOInstantiation(1, 2, 3);
+	new BARInstantiation();
+	new BARInstantiation(1);
+};

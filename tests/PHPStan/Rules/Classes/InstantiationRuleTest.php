@@ -2,6 +2,7 @@
 
 namespace PHPStan\Rules\Classes;
 
+use PHPStan\Rules\ClassCaseSensitivityCheck;
 use PHPStan\Rules\FunctionCallParametersCheck;
 use PHPStan\Rules\RuleLevelHelper;
 
@@ -13,7 +14,8 @@ class InstantiationRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$broker = $this->createBroker();
 		return new InstantiationRule(
 			$broker,
-			new FunctionCallParametersCheck(new RuleLevelHelper($broker, true, false, true), true, true)
+			new FunctionCallParametersCheck(new RuleLevelHelper($broker, true, false, true), true, true),
+			new ClassCaseSensitivityCheck($broker)
 		);
 	}
 
@@ -69,6 +71,26 @@ class InstantiationRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				[
 					'Class TestInstantiation\InstantiatingClass constructor invoked with 0 parameters, 1 required.',
 					54,
+				],
+				[
+					'Class TestInstantiation\FooInstantiation referenced with incorrect case: TestInstantiation\FOOInstantiation.',
+					61,
+				],
+				[
+					'Class TestInstantiation\FooInstantiation does not have a constructor and must be instantiated without any parameters.',
+					61,
+				],
+				[
+					'Class TestInstantiation\BarInstantiation referenced with incorrect case: TestInstantiation\BARInstantiation.',
+					62,
+				],
+				[
+					'Class TestInstantiation\BarInstantiation constructor invoked with 0 parameters, 1 required.',
+					62,
+				],
+				[
+					'Class TestInstantiation\BarInstantiation referenced with incorrect case: TestInstantiation\BARInstantiation.',
+					63,
 				],
 			]
 		);

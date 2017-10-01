@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\New_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Rules\ClassCaseSensitivityCheck;
 use PHPStan\Rules\FunctionCallParametersCheck;
 
 class InstantiationRule implements \PHPStan\Rules\Rule
@@ -21,10 +22,20 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 	 */
 	private $check;
 
-	public function __construct(Broker $broker, FunctionCallParametersCheck $check)
+	/**
+	 * @var \PHPStan\Rules\ClassCaseSensitivityCheck
+	 */
+	private $classCaseSensitivityCheck;
+
+	public function __construct(
+		Broker $broker,
+		FunctionCallParametersCheck $check,
+		ClassCaseSensitivityCheck $classCaseSensitivityCheck
+	)
 	{
 		$this->broker = $broker;
 		$this->check = $check;
+		$this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
 	}
 
 	public function getNodeType(): string
@@ -44,6 +55,7 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 		}
 
 		$class = (string) $node->class;
+		$messages = [];
 		if ($class === 'static') {
 			if (!$scope->isInClass()) {
 				return [
@@ -80,6 +92,8 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 				return [
 					sprintf('Instantiated class %s not found.', $class),
 				];
+			} else {
+				$messages = $this->classCaseSensitivityCheck->checkClassNames([$class]);
 			}
 
 			$classReflection = $this->broker->getClass($class);
@@ -99,18 +113,18 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 
 		if (!$classReflection->hasNativeMethod('__construct') && !$classReflection->hasNativeMethod($class)) {
 			if (count($node->args) > 0) {
-				return [
+				return array_merge($messages, [
 					sprintf(
 						'Class %s does not have a constructor and must be instantiated without any parameters.',
 						$classReflection->getDisplayName()
 					),
-				];
+				]);
 			}
 
 			return [];
 		}
 
-		return $this->check->check(
+		return array_merge($messages, $this->check->check(
 			$classReflection->hasNativeMethod('__construct') ? $classReflection->getNativeMethod('__construct') : $classReflection->getNativeMethod($class),
 			$scope,
 			$node,
@@ -125,7 +139,7 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 				'', // constructor does not have a return type
 				'Parameter #%d %s of class ' . $classReflection->getDisplayName() . ' constructor is passed by reference, so it expects variables only',
 			]
-		);
+		));
 	}
 
 }
