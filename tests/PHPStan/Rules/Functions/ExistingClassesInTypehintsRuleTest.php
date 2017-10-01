@@ -11,7 +11,7 @@ class ExistingClassesInTypehintsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
 		$broker = $this->createBroker();
-		return new ExistingClassesInTypehintsRule(new FunctionDefinitionCheck($broker, new ClassCaseSensitivityCheck($broker)));
+		return new ExistingClassesInTypehintsRule(new FunctionDefinitionCheck($broker, new ClassCaseSensitivityCheck($broker), true));
 	}
 
 	public function testExistingClassInTypehint()

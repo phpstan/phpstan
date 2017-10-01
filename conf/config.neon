@@ -7,6 +7,7 @@ parameters:
 		- php
 	checkAlwaysTrueCheckTypeFunctionCall: false
 	checkAlwaysTrueInstanceof: false
+	checkClassCaseSensitivity: false
 	checkFunctionArgumentTypes: false
 	checkArgumentsPassedByReference: false
 	checkMaybeUndefinedVariables: false
@@ -129,6 +130,8 @@ services:
 
 	-
 		class: PHPStan\Rules\FunctionDefinitionCheck
+		arguments:
+			checkClassCaseSensitivity: %checkClassCaseSensitivity%
 
 	-
 		class: PHPStan\Rules\FunctionReturnTypeCheck

@@ -38,13 +38,20 @@ class FunctionDefinitionCheck
 	 */
 	private $classCaseSensitivityCheck;
 
+	/**
+	 * @var bool
+	 */
+	private $checkClassCaseSensitivity;
+
 	public function __construct(
 		Broker $broker,
-		ClassCaseSensitivityCheck $classCaseSensitivityCheck
+		ClassCaseSensitivityCheck $classCaseSensitivityCheck,
+		bool $checkClassCaseSensitivity
 	)
 	{
 		$this->broker = $broker;
 		$this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
+		$this->checkClassCaseSensitivity = $checkClassCaseSensitivity;
 	}
 
 	/**
@@ -95,7 +102,7 @@ class FunctionDefinitionCheck
 
 			if (!$this->broker->hasClass($class)) {
 				$errors[] = sprintf($parameterMessage, $param->name, $class);
-			} else {
+			} elseif ($this->checkClassCaseSensitivity) {
 				$errors = array_merge(
 					$errors,
 					$this->classCaseSensitivityCheck->checkClassNames([$class])
@@ -113,7 +120,7 @@ class FunctionDefinitionCheck
 		) {
 			if (!$this->broker->hasClass($returnType)) {
 				$errors[] = sprintf($returnMessage, $returnType);
-			} else {
+			} elseif ($this->checkClassCaseSensitivity) {
 				$errors = array_merge(
 					$errors,
 					$this->classCaseSensitivityCheck->checkClassNames([$returnType])
@@ -138,10 +145,13 @@ class FunctionDefinitionCheck
 					$errors[] = sprintf($parameterMessage, $parameter->getName(), $class);
 				}
 			}
-			$errors = array_merge(
-				$errors,
-				$this->classCaseSensitivityCheck->checkClassNames($referencedClasses)
-			);
+
+			if ($this->checkClassCaseSensitivity) {
+				$errors = array_merge(
+					$errors,
+					$this->classCaseSensitivityCheck->checkClassNames($referencedClasses)
+				);
+			}
 			if ($parameter->getType() instanceof NonexistentParentClassType) {
 				$errors[] = sprintf($parameterMessage, $parameter->getName(), $parameter->getType()->describe());
 			}
@@ -153,10 +163,13 @@ class FunctionDefinitionCheck
 				$errors[] = sprintf($returnMessage, $class);
 			}
 		}
-		$errors = array_merge(
-			$errors,
-			$this->classCaseSensitivityCheck->checkClassNames($returnTypeReferencedClasses)
-		);
+
+		if ($this->checkClassCaseSensitivity) {
+			$errors = array_merge(
+				$errors,
+				$this->classCaseSensitivityCheck->checkClassNames($returnTypeReferencedClasses)
+			);
+		}
 		if ($parametersAcceptor->getReturnType() instanceof NonexistentParentClassType) {
 			$errors[] = sprintf($returnMessage, $parametersAcceptor->getReturnType()->describe());
 		}

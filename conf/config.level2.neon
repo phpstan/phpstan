@@ -2,4 +2,5 @@ includes:
 	- config.level1.neon
 
 parameters:
+	checkClassCaseSensitivity: true
 	checkThisOnly: false
