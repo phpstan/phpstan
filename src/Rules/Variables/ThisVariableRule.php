@@ -26,6 +26,10 @@ class ThisVariableRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
+		if ($scope->isInClosureBind()) {
+			return [];
+		}
+
 		if (!$scope->isInClass()) {
 			return [
 				'Using $this outside a class.',

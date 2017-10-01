@@ -37,3 +37,9 @@ new class () {
 	}
 
 };
+
+function () {
+	\Closure::bind(function (int $time) {
+		$this->setTimestamp($time);
+	}, new \DateTime());
+};

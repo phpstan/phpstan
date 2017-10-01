@@ -1012,6 +1012,11 @@ class Scope
 		);
 	}
 
+	public function isInClosureBind(): bool
+	{
+		return $this->inClosureBindScopeClass !== null;
+	}
+
 	public function enterAnonymousClass(ClassReflection $anonymousClass): self
 	{
 		return new self(
