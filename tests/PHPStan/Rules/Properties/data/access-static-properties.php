@@ -112,3 +112,12 @@ function (FooAccessStaticProperties $foo) {
 	$stringOrInt = doFoo();
 	$stringOrInt::$foo;
 };
+
+function (FOOAccessStaticPropertieS $foo) {
+	$foo::$test; // do not report case mismatch
+
+	FOOAccessStaticPropertieS::$unknownProperties;
+	FOOAccessStaticPropertieS::$loremIpsum;
+	FOOAccessStaticPropertieS::$foo;
+	FOOAccessStaticPropertieS::$test;
+};

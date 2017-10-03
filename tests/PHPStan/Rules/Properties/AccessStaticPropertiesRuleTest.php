@@ -2,6 +2,7 @@
 
 namespace PHPStan\Rules\Properties;
 
+use PHPStan\Rules\ClassCaseSensitivityCheck;
 use PHPStan\Rules\RuleLevelHelper;
 
 class AccessStaticPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
@@ -12,7 +13,8 @@ class AccessStaticPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$broker = $this->createBroker();
 		return new AccessStaticPropertiesRule(
 			$broker,
-			new RuleLevelHelper($broker, true, false, true)
+			new RuleLevelHelper($broker, true, false, true),
+			new ClassCaseSensitivityCheck($broker)
 		);
 	}
 
@@ -114,6 +116,34 @@ class AccessStaticPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			[
 				'Cannot access static property $foo on int|string.',
 				113,
+			],
+			[
+				'Class FooAccessStaticProperties referenced with incorrect case: FOOAccessStaticPropertieS.',
+				119,
+			],
+			[
+				'Access to an undefined static property FooAccessStaticProperties::$unknownProperties.',
+				119,
+			],
+			[
+				'Class FooAccessStaticProperties referenced with incorrect case: FOOAccessStaticPropertieS.',
+				120,
+			],
+			[
+				'Static access to instance property FooAccessStaticProperties::$loremIpsum.',
+				120,
+			],
+			[
+				'Class FooAccessStaticProperties referenced with incorrect case: FOOAccessStaticPropertieS.',
+				121,
+			],
+			[
+				'Access to protected property $foo of class FooAccessStaticProperties.',
+				121,
+			],
+			[
+				'Class FooAccessStaticProperties referenced with incorrect case: FOOAccessStaticPropertieS.',
+				122,
 			],
 		]);
 	}
