@@ -187,6 +187,10 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Parameter #1 $foo of method Test\ObjectTypehint::doBar() expects Test\Foo, object given.',
 				385,
 			],
+			[
+				'Cannot call method test() on Test\UnknownClass[].',
+				399,
+			],
 		]);
 	}
 

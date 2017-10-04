@@ -392,3 +392,9 @@ class ObjectTypehint
 	}
 
 }
+
+function () {
+	/** @var UnknownClass[] $arrayOfAnUnknownClass */
+	$arrayOfAnUnknownClass = doFoo();
+	$arrayOfAnUnknownClass->test();
+};

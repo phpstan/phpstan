@@ -5,6 +5,7 @@ namespace PHPStan\Rules;
 use PhpParser\Node\Expr;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Type\ArrayType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
@@ -94,6 +95,9 @@ class RuleLevelHelper
 		}
 		if ($type instanceof StaticType) {
 			$type = $type->resolveStatic($type->getBaseClass());
+		}
+		if ($type instanceof ArrayType) {
+			return new FoundTypeResult($type, [], []);
 		}
 
 		$errors = [];
