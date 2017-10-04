@@ -8,6 +8,7 @@ use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Rules\ClassCaseSensitivityCheck;
 use PHPStan\Rules\FunctionCallParametersCheck;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
@@ -32,15 +33,22 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 	 */
 	private $ruleLevelHelper;
 
+	/**
+	 * @var \PHPStan\Rules\ClassCaseSensitivityCheck
+	 */
+	private $classCaseSensitivityCheck;
+
 	public function __construct(
 		Broker $broker,
 		FunctionCallParametersCheck $check,
-		RuleLevelHelper $ruleLevelHelper
+		RuleLevelHelper $ruleLevelHelper,
+		ClassCaseSensitivityCheck $classCaseSensitivityCheck
 	)
 	{
 		$this->broker = $broker;
 		$this->check = $check;
 		$this->ruleLevelHelper = $ruleLevelHelper;
+		$this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
 	}
 
 	public function getNodeType(): string
@@ -61,6 +69,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 		}
 
 		$class = $node->class;
+		$errors = [];
 		if ($class instanceof Name) {
 			$className = (string) $class;
 			if ($className === 'self' || $className === 'static') {
@@ -129,12 +138,16 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 				}
 
 				$className = $currentClassReflection->getParentClass()->getName();
-			}
+			} else {
+				if (!$this->broker->hasClass($className)) {
+					return [
+						sprintf('Call to static method %s() on an unknown class %s.', $methodName, $className),
+					];
+				} else {
+					$errors = $this->classCaseSensitivityCheck->checkClassNames([$className]);
+				}
 
-			if (!$this->broker->hasClass($className)) {
-				return [
-					sprintf('Call to static method %s() on an unknown class %s.', $methodName, $className),
-				];
+				$className = $this->broker->getClass($className)->getName();
 			}
 
 			$classType = new ObjectType($className);
@@ -151,19 +164,19 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 		}
 
 		if (!$classType->canCallMethods()) {
-			return [
+			return array_merge($errors, [
 				sprintf('Cannot call static method %s() on %s.', $methodName, $classType->describe()),
-			];
+			]);
 		}
 
 		if (!$classType->hasMethod($methodName)) {
-			return [
+			return array_merge($errors, [
 				sprintf(
 					'Call to an undefined static method %s::%s().',
 					$classType->describe(),
 					$methodName
 				),
-			];
+			]);
 		}
 
 		$method = $classType->getMethod($methodName, $scope);
@@ -179,18 +192,18 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 					&& !$scope->getClassReflection()->isSubclassOf($classType->getClassName())
 				)
 			) {
-				return [
+				return array_merge($errors, [
 					sprintf(
 						'Static call to instance method %s::%s().',
 						$method->getDeclaringClass()->getDisplayName(),
 						$method->getName()
 					),
-				];
+				]);
 			}
 		}
 
 		if (!$scope->canCallMethod($method)) {
-			return [
+			return array_merge($errors, [
 				sprintf(
 					'Call to %s %s %s() of class %s.',
 					$method->isPrivate() ? 'private' : 'protected',
@@ -198,7 +211,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 					$method->getName(),
 					$method->getDeclaringClass()->getDisplayName()
 				),
-			];
+			]);
 		}
 
 		$lowercasedMethodName = sprintf(
@@ -212,7 +225,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 			$method->getDeclaringClass()->getDisplayName() . '::' . $method->getName() . '()'
 		);
 
-		$errors = $this->check->check(
+		$errors = array_merge($errors, $this->check->check(
 			$method,
 			$scope,
 			$node,
@@ -227,7 +240,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 				'Result of ' . $lowercasedMethodName . ' (void) is used.',
 				'Parameter #%d %s of ' . $lowercasedMethodName . ' is passed by reference, so it expects variables only.',
 			]
-		);
+		));
 
 		if ($method->getName() !== $methodName) {
 			$errors[] = sprintf('Call to %s with incorrect case: %s', $lowercasedMethodName, $methodName);

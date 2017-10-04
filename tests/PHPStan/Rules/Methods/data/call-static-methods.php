@@ -119,3 +119,15 @@ function (Foo $foo) {
 	$stringOrInt = doFoo();
 	$stringOrInt::foo();
 };
+
+function (FOO $foo)
+{
+	$foo::test(); // do not report case mismatch
+
+	FOO::unknownMethod();
+	FOO::loremIpsum();
+	FOO::dolor();
+	FOO::test(1, 2, 3);
+	FOO::TEST();
+	FOO::test();
+};

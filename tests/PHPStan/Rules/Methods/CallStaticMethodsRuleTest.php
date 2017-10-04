@@ -2,6 +2,7 @@
 
 namespace PHPStan\Rules\Methods;
 
+use PHPStan\Rules\ClassCaseSensitivityCheck;
 use PHPStan\Rules\FunctionCallParametersCheck;
 use PHPStan\Rules\RuleLevelHelper;
 
@@ -20,7 +21,8 @@ class CallStaticMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		return new CallStaticMethodsRule(
 			$broker,
 			new FunctionCallParametersCheck($ruleLevelHelper, true, true),
-			$ruleLevelHelper
+			$ruleLevelHelper,
+			new ClassCaseSensitivityCheck($broker)
 		);
 	}
 
@@ -107,6 +109,50 @@ class CallStaticMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			[
 				'Cannot call static method foo() on int|string.',
 				120,
+			],
+			[
+				'Class CallStaticMethods\Foo referenced with incorrect case: CallStaticMethods\FOO.',
+				127,
+			],
+			[
+				'Call to an undefined static method CallStaticMethods\Foo::unknownMethod().',
+				127,
+			],
+			[
+				'Class CallStaticMethods\Foo referenced with incorrect case: CallStaticMethods\FOO.',
+				128,
+			],
+			[
+				'Static call to instance method CallStaticMethods\Foo::loremIpsum().',
+				128,
+			],
+			[
+				'Class CallStaticMethods\Foo referenced with incorrect case: CallStaticMethods\FOO.',
+				129,
+			],
+			[
+				'Call to private static method dolor() of class CallStaticMethods\Foo.',
+				129,
+			],
+			[
+				'Class CallStaticMethods\Foo referenced with incorrect case: CallStaticMethods\FOO.',
+				130,
+			],
+			[
+				'Static method CallStaticMethods\Foo::test() invoked with 3 parameters, 0 required.',
+				130,
+			],
+			[
+				'Class CallStaticMethods\Foo referenced with incorrect case: CallStaticMethods\FOO.',
+				131,
+			],
+			[
+				'Call to static method CallStaticMethods\Foo::test() with incorrect case: TEST',
+				131,
+			],
+			[
+				'Class CallStaticMethods\Foo referenced with incorrect case: CallStaticMethods\FOO.',
+				132,
 			],
 		]);
 	}
