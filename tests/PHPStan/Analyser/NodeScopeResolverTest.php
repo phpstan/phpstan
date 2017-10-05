@@ -1321,6 +1321,14 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'PropertiesNamespace\Bar',
 				'$this->inheritDocProperty',
 			],
+			[
+				'PHPUnit_Framework_MockObject_MockObject&PropertiesNamespace\Foo',
+				'$this->phpunitProperty',
+			],
+			[
+				'PHPUnit_Framework_MockObject_MockObject&PropertiesNamespace\Foo',
+				'$this->anotherPhpunitProperty',
+			],
 		];
 	}
 
@@ -2133,6 +2141,10 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			[
 				'object',
 				'$this->returnObject()',
+			],
+			[
+				'MethodPhpDocsNamespace\Foo&PHPUnit_Framework_MockObject_MockObject',
+				'$this->returnPhpunitMock()',
 			],
 		];
 	}

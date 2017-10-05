@@ -131,4 +131,12 @@ class Foo extends FooParent
 
 	}
 
+	/**
+	 * @return \PHPUnit_Framework_MockObject_MockObject|Foo
+	 */
+	public function returnPhpunitMock(): Foo
+	{
+
+	}
+
 }

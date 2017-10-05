@@ -33,7 +33,7 @@ class FileTypeMapper
 
 	public function getTypeMap(string $fileName): array
 	{
-		$cacheKey = sprintf('%s-%d-v12', $fileName, filemtime($fileName));
+		$cacheKey = sprintf('%s-%d-v13', $fileName, filemtime($fileName));
 		if (isset($this->memoryCache[$cacheKey])) {
 			return $this->memoryCache[$cacheKey];
 		}
@@ -153,6 +153,8 @@ class FileTypeMapper
 		/** @var Type[] $iterableValueTypes */
 		$iterableValueTypes = [];
 
+		$hasPhpunitMock = false;
+
 		foreach (explode('|', $typeString) as $typePart) {
 			$typePart = trim($typePart);
 			if ($typePart === '') {
@@ -165,11 +167,19 @@ class FileTypeMapper
 
 			$innerType = TypehintHelper::getTypeObjectFromTypehint($typePart, $className, $nameScope);
 
+			if ($innerType instanceof TypeWithClassName && $innerType->getClassName() === 'PHPUnit_Framework_MockObject_MockObject') {
+				$hasPhpunitMock = true;
+			}
+
 			if (substr($typePart, -2) === '[]') {
 				$iterableValueTypes[] = $innerType->getIterableValueType();
 			} else {
 				$types[] = $innerType;
 			}
+		}
+
+		if (count($types) === 2 && $hasPhpunitMock) {
+			return TypeCombinator::intersect(...$types);
 		}
 
 		if ($iterableValueTypes) {

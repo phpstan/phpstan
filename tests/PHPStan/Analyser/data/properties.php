@@ -121,6 +121,16 @@ abstract class Foo extends Bar
 	 */
 	protected $inheritDocProperty;
 
+	/**
+	 * @var \PHPUnit_Framework_MockObject_MockObject|Foo
+	 */
+	private $phpunitProperty;
+
+	/**
+	 * @var Foo|\PHPUnit_Framework_MockObject_MockObject
+	 */
+	private $anotherPhpunitProperty;
+
 	public function doFoo()
 	{
 		die;
