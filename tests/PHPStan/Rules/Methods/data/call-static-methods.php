@@ -131,3 +131,7 @@ function (FOO $foo)
 	FOO::TEST();
 	FOO::test();
 };
+
+function (string $className) {
+	$className::foo();
+};

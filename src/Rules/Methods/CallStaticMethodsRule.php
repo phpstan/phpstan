@@ -13,6 +13,7 @@ use PHPStan\Rules\FunctionCallParametersCheck;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\StringType;
 use PHPStan\Type\TypeWithClassName;
 
 class CallStaticMethodsRule implements \PHPStan\Rules\Rule
@@ -161,6 +162,10 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 			if ($classType instanceof ErrorType) {
 				return $classTypeResult->getUnknownClassErrors();
 			}
+		}
+
+		if ($classType instanceof StringType) {
+			return [];
 		}
 
 		if (!$classType->canCallMethods()) {
