@@ -1,3 +1,6 @@
+includes:
+	- ../vendor/phpstan/phpstan-phpunit/extension.neon
+	- ../vendor/phpstan/phpstan-phpunit/rules.neon
 parameters:
 	bootstrap: %rootDir%/tests/phpstan-bootstrap.php
 	excludes_analyse:
@@ -5,7 +8,6 @@ parameters:
 		- %rootDir%/tests/PHPStan/Analyser/traits/*
 		- %rootDir%/tests/notAutoloaded/*
 	ignoreErrors:
-		- '#PHPUnit_Framework_MockObject_MockObject given#'
 		- '#Constant PHPSTAN_TEST_CONSTANT not found#'
 		- '#Strict comparison using === between PhpParser\\Node\\Expr\\ArrayItem and null will always evaluate to false#'
 services:
