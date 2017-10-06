@@ -19,3 +19,6 @@ static::LOREM;
 parent::LOREM;
 
 UnknownClass::FOO;
+
+$string = 'str';
+$string::FOO;
