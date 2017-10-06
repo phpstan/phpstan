@@ -121,3 +121,7 @@ function (FOOAccessStaticPropertieS $foo) {
 	FOOAccessStaticPropertieS::$foo;
 	FOOAccessStaticPropertieS::$test;
 };
+
+function (string $className) {
+	$className::$fooProperty;
+};
