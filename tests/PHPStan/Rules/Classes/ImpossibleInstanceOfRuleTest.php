@@ -43,6 +43,10 @@ class ImpossibleInstanceOfRuleTest extends \PHPStan\Rules\AbstractRuleTest
 					'Instanceof between ImpossibleInstanceOf\BarChild and ImpossibleInstanceOf\Bar will always evaluate to true.',
 					77,
 				],
+				[
+					'Instanceof between string and ImpossibleInstanceOf\Foo will always evaluate to false.',
+					94,
+				],
 			]
 		);
 	}
@@ -56,6 +60,10 @@ class ImpossibleInstanceOfRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				[
 					'Instanceof between ImpossibleInstanceOf\Dolor and ImpossibleInstanceOf\Lorem will always evaluate to false.',
 					71,
+				],
+				[
+					'Instanceof between string and ImpossibleInstanceOf\Foo will always evaluate to false.',
+					94,
 				],
 			]
 		);

@@ -89,6 +89,11 @@ class Test
 		if ($object instanceof Foo) {
 
 		}
+
+		$str = 'str';
+		if ($str instanceof Foo) {
+
+		}
 	}
 
 }
