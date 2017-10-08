@@ -94,6 +94,10 @@ class Test
 		if ($str instanceof Foo) {
 
 		}
+
+		if ($str instanceof $str) {
+
+		}
 	}
 
 }

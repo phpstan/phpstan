@@ -5,6 +5,7 @@ namespace PHPStan\Rules\Classes;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\ObjectWithoutClassType;
 
 class ImpossibleInstanceOfRule implements \PHPStan\Rules\Rule
 {
@@ -37,7 +38,8 @@ class ImpossibleInstanceOfRule implements \PHPStan\Rules\Rule
 		}
 
 		$expressionType = $scope->getType($node->expr);
-		$isSuperset = $type->isSupersetOf($expressionType);
+		$isSuperset = $type->isSupersetOf($expressionType)
+			->and((new ObjectWithoutClassType())->isSupersetOf($expressionType));
 
 		if ($isSuperset->no()) {
 			return [
