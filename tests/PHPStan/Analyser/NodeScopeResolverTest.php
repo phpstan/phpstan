@@ -2564,6 +2564,10 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'static(NegatedInstanceOf\Foo)',
 				'$static',
 			],
+			[
+				'NegatedInstanceOf\Foo',
+				'$anotherFoo',
+			],
 		];
 	}
 

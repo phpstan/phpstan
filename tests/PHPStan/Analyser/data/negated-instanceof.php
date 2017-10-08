@@ -42,6 +42,9 @@ class Foo
 		if (!$static instanceof static) {
 			return;
 		}
+		if ($anotherFoo instanceof Foo === false) {
+			return;
+		}
 
 		die;
 	}
