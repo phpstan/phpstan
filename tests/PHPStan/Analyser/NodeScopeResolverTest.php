@@ -2932,6 +2932,14 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'int',
 				'$intOrStdClass',
 			],
+			[
+				'Foo',
+				'$foo',
+			],
+			[
+				'Foo',
+				'$anotherFoo',
+			],
 		];
 	}
 

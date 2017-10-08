@@ -62,6 +62,16 @@ if (!is_numeric($intOrStdClass)) {
 	return;
 }
 
+$foo = doFoo();
+if (!is_a($foo, 'Foo')) {
+	return;
+}
+
+$anotherFoo = doFoo();
+if (!is_a($anotherFoo, Foo::class)) {
+	return;
+}
+
 assert(is_int($yetAnotherInteger));
 
 die;

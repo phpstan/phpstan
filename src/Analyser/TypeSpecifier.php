@@ -166,6 +166,14 @@ class TypeSpecifier
 						if ($classNameArgExpr instanceof Node\Scalar\String_) {
 							$objectType = new ObjectType($classNameArgExpr->value);
 							$types = $this->create($innerExpr, $objectType, $context);
+						} elseif (
+							$classNameArgExpr instanceof Expr\ClassConstFetch
+							&& $classNameArgExpr->class instanceof Name
+							&& is_string($classNameArgExpr->name)
+							&& strtolower($classNameArgExpr->name) === 'class'
+						) {
+							$objectType = new ObjectType($scope->resolveName($classNameArgExpr->class));
+							$types = $this->create($innerExpr, $objectType, $context);
 						} elseif ($context & self::CONTEXT_TRUE) {
 							$objectType = new ObjectWithoutClassType();
 							$types = $this->create($innerExpr, $objectType, $context);
