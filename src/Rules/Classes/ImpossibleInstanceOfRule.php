@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\ObjectWithoutClassType;
+use PHPStan\Type\StringType;
 
 class ImpossibleInstanceOfRule implements \PHPStan\Rules\Rule
 {
@@ -38,8 +39,13 @@ class ImpossibleInstanceOfRule implements \PHPStan\Rules\Rule
 		}
 
 		$expressionType = $scope->getType($node->expr);
+		$isExpressionObject = (new ObjectWithoutClassType())->isSupersetOf($expressionType);
+		if (!$isExpressionObject->no() && $type instanceof StringType) {
+			return [];
+		}
+
 		$isSuperset = $type->isSupersetOf($expressionType)
-			->and((new ObjectWithoutClassType())->isSupersetOf($expressionType));
+			->and($isExpressionObject);
 
 		if ($isSuperset->no()) {
 			return [
