@@ -12,4 +12,8 @@ if ($foo instanceof Foo) {
 
 } elseif ($foo instanceof FOO) {
 
+} elseif ($foo instanceof parent) {
+
+} elseif ($foo instanceof SELF) {
+
 }

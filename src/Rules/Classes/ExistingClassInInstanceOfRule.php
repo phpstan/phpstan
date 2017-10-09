@@ -55,11 +55,16 @@ class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
 		}
 
 		$name = (string) $class;
+		$lowercaseName = strtolower($name);
 
-		if ($name === 'self' || $name === 'static') {
+		if (in_array($lowercaseName, [
+			'self',
+			'static',
+			'parent',
+		], true)) {
 			if (!$scope->isInClass()) {
 				return [
-					sprintf('Using %s outside of class scope.', $name),
+					sprintf('Using %s outside of class scope.', $lowercaseName),
 				];
 			}
 

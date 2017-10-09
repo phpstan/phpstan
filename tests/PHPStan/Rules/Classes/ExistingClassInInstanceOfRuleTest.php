@@ -38,6 +38,14 @@ class ExistingClassInInstanceOfRuleTest extends \PHPStan\Rules\AbstractRuleTest
 					'Class InstanceOfNamespace\Foo referenced with incorrect case: InstanceOfNamespace\FOO.',
 					13,
 				],
+				[
+					'Using parent outside of class scope.',
+					15,
+				],
+				[
+					'Using self outside of class scope.',
+					17,
+				],
 			]
 		);
 	}
