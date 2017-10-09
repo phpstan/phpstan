@@ -2,6 +2,7 @@
 
 namespace PHPStan\Rules\Classes;
 
+use PHPStan\Rules\ClassCaseSensitivityCheck;
 use PHPStan\Rules\Rule;
 
 class ExistingClassInInstanceOfRuleTest extends \PHPStan\Rules\AbstractRuleTest
@@ -9,7 +10,12 @@ class ExistingClassInInstanceOfRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	protected function getRule(): Rule
 	{
-		return new ExistingClassInInstanceOfRule($this->createBroker());
+		$broker = $this->createBroker();
+		return new ExistingClassInInstanceOfRule(
+			$broker,
+			new ClassCaseSensitivityCheck($broker),
+			true
+		);
 	}
 
 	public function testClassDoesNotExist()
@@ -27,6 +33,10 @@ class ExistingClassInInstanceOfRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				[
 					'Using self outside of class scope.',
 					9,
+				],
+				[
+					'Class InstanceOfNamespace\Foo referenced with incorrect case: InstanceOfNamespace\FOO.',
+					13,
 				],
 			]
 		);

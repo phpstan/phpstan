@@ -10,4 +10,6 @@ if ($foo instanceof Foo) {
 
 } elseif ($foo instanceof $bar) {
 
+} elseif ($foo instanceof FOO) {
+
 }

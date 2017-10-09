@@ -16,6 +16,8 @@ services:
 		class: PHPStan\Rules\Classes\ExistingClassInInstanceOfRule
 		tags:
 			- phpstan.rules.rule
+		arguments:
+			checkClassCaseSensitivity: %checkClassCaseSensitivity%
 
 	-
 		class: PHPStan\Rules\Classes\InstantiationRule

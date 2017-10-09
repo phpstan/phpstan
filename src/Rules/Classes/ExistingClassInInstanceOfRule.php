@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Instanceof_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Rules\ClassCaseSensitivityCheck;
 
 class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
 {
@@ -15,9 +16,25 @@ class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
 	 */
 	private $broker;
 
-	public function __construct(Broker $broker)
+	/**
+	 * @var \PHPStan\Rules\ClassCaseSensitivityCheck
+	 */
+	private $classCaseSensitivityCheck;
+
+	/**
+	 * @var bool
+	 */
+	private $checkClassCaseSensitivity;
+
+	public function __construct(
+		Broker $broker,
+		ClassCaseSensitivityCheck $classCaseSensitivityCheck,
+		bool $checkClassCaseSensitivity
+	)
 	{
 		$this->broker = $broker;
+		$this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
+		$this->checkClassCaseSensitivity = $checkClassCaseSensitivity;
 	}
 
 	public function getNodeType(): string
@@ -53,6 +70,8 @@ class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf('Class %s not found.', $name),
 			];
+		} elseif ($this->checkClassCaseSensitivity) {
+			return $this->classCaseSensitivityCheck->checkClassNames([$name]);
 		}
 
 		return [];
