@@ -70,7 +70,7 @@ class FunctionDefinitionCheck
 	{
 		if ($function instanceof ClassMethod) {
 			return $this->checkParametersAcceptor(
-				$scope->getClassReflection()->getMethod($function->name, $scope),
+				$scope->getClassReflection()->getNativeMethod($function->name),
 				$parameterMessage,
 				$returnMessage
 			);

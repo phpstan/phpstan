@@ -32,7 +32,7 @@ class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		$propertyReflection = $scope->getClassReflection()->getProperty($node->name, $scope);
+		$propertyReflection = $scope->getClassReflection()->getNativeProperty($node->name);
 		$propertyType = $propertyReflection->getType();
 
 		$errors = [];

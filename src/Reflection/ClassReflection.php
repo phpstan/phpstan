@@ -168,6 +168,9 @@ class ClassReflection
 
 	public function getNativeMethod(string $methodName): PhpMethodReflection
 	{
+		if (!$this->hasNativeMethod($methodName)) {
+			throw new \PHPStan\Reflection\MissingMethodFromReflectionException($this->getName(), $methodName);
+		}
 		return $this->getPhpExtension()->getNativeMethod($this, $methodName);
 	}
 
@@ -213,6 +216,9 @@ class ClassReflection
 
 	public function getNativeProperty(string $propertyName): PhpPropertyReflection
 	{
+		if (!$this->hasNativeProperty($propertyName)) {
+			throw new \PHPStan\Reflection\MissingPropertyFromReflectionException($this->getName(), $propertyName);
+		}
 		return $this->getPhpExtension()->getNativeProperty($this, $propertyName);
 	}
 

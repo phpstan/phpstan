@@ -42,7 +42,7 @@ class DefaultValueTypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 				continue;
 			}
 
-			$propertyReflection = $classReflection->getProperty($property->name, $scope);
+			$propertyReflection = $classReflection->getNativeProperty($property->name);
 			$propertyType = $propertyReflection->getType();
 			$defaultValueType = $scope->getType($property->default);
 			if ($this->ruleLevelHelper->accepts($propertyType, $defaultValueType)) {

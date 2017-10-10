@@ -99,10 +99,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 					throw new \PHPStan\ShouldNotHappenException();
 				}
 
-				$currentMethodReflection = $scope->getClassReflection()->getMethod(
-					$scope->getFunctionName(),
-					$scope
-				);
+				$currentMethodReflection = $scope->getClassReflection()->getNativeMethod($scope->getFunctionName());
 				if (!$currentMethodReflection->isStatic()) {
 					// calling parent::method() from instance method
 					return [];
