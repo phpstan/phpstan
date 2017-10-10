@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\PropertyProperty;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Rules\ClassCaseSensitivityCheck;
 
 class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 {
@@ -15,9 +16,25 @@ class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 	 */
 	private $broker;
 
-	public function __construct(Broker $broker)
+	/**
+	 * @var \PHPStan\Rules\ClassCaseSensitivityCheck
+	 */
+	private $classCaseSensitivityCheck;
+
+	/**
+	 * @var bool
+	 */
+	private $checkClassCaseSensitivity;
+
+	public function __construct(
+		Broker $broker,
+		ClassCaseSensitivityCheck $classCaseSensitivityCheck,
+		bool $checkClassCaseSensitivity
+	)
 	{
 		$this->broker = $broker;
+		$this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
+		$this->checkClassCaseSensitivity = $checkClassCaseSensitivity;
 	}
 
 	public function getNodeType(): string
@@ -46,6 +63,13 @@ class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 				$propertyReflection->getDeclaringClass()->getDisplayName(),
 				$node->name,
 				$referencedClass
+			);
+		}
+
+		if ($this->checkClassCaseSensitivity) {
+			$errors = array_merge(
+				$errors,
+				$this->classCaseSensitivityCheck->checkClassNames($propertyType->getReferencedClasses())
 			);
 		}
 

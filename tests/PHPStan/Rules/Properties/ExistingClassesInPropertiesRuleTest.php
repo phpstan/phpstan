@@ -2,6 +2,7 @@
 
 namespace PHPStan\Rules\Properties;
 
+use PHPStan\Rules\ClassCaseSensitivityCheck;
 use PHPStan\Rules\Rule;
 
 class ExistingClassesInPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
@@ -9,7 +10,12 @@ class ExistingClassesInPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTes
 
 	protected function getRule(): Rule
 	{
-		return new ExistingClassesInPropertiesRule($this->createBroker());
+		$broker = $this->createBroker();
+		return new ExistingClassesInPropertiesRule(
+			$broker,
+			new ClassCaseSensitivityCheck($broker),
+			true
+		);
 	}
 
 	public function testNonexistentClass()
@@ -34,6 +40,18 @@ class ExistingClassesInPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTes
 				[
 					'Property PropertiesTypes\Foo::$dolors has unknown class PropertiesTypes\Ipsum as its type.',
 					21,
+				],
+				[
+					'Property PropertiesTypes\Foo::$fooWithWrongCase has unknown class PropertiesTypes\BAR as its type.',
+					24,
+				],
+				[
+					'Property PropertiesTypes\Foo::$fooWithWrongCase has unknown class PropertiesTypes\Fooo as its type.',
+					24,
+				],
+				[
+					'Class PropertiesTypes\Foo referenced with incorrect case: PropertiesTypes\FOO.',
+					24,
 				],
 			]
 		);

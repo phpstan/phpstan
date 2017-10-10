@@ -108,6 +108,8 @@ services:
 		class: PHPStan\Rules\Properties\ExistingClassesInPropertiesRule
 		tags:
 			- phpstan.rules.rule
+		arguments:
+			checkClassCaseSensitivity: %checkClassCaseSensitivity%
 
 	-
 		class: PHPStan\Rules\Properties\WritingToReadOnlyPropertiesRule

@@ -20,4 +20,7 @@ class Foo
 	/** @var Ipsum|Dolor[] */
 	private $dolors;
 
+	/** @var FOO|Fooo|BAR */
+	private $fooWithWrongCase;
+
 }
