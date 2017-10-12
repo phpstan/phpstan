@@ -11,7 +11,7 @@ class ExistingClassesInClosureTypehintsRuleTest extends \PHPStan\Rules\AbstractR
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
 		$broker = $this->createBroker();
-		return new ExistingClassesInClosureTypehintsRule(new FunctionDefinitionCheck($broker, new ClassCaseSensitivityCheck($broker), true));
+		return new ExistingClassesInClosureTypehintsRule(new FunctionDefinitionCheck($broker, new ClassCaseSensitivityCheck($broker), true, false));
 	}
 
 	public function testExistingClassInTypehint()

@@ -132,6 +132,7 @@ services:
 		class: PHPStan\Rules\FunctionDefinitionCheck
 		arguments:
 			checkClassCaseSensitivity: %checkClassCaseSensitivity%
+			checkThisOnly: %checkThisOnly%
 
 	-
 		class: PHPStan\Rules\FunctionReturnTypeCheck

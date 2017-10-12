@@ -17,7 +17,7 @@ use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypehintHelper;
 
-class FunctionReflection implements ParametersAcceptor
+class FunctionReflection implements ParametersAcceptorWithPhpDocs
 {
 
 	/** @var \ReflectionFunction */
@@ -43,6 +43,9 @@ class FunctionReflection implements ParametersAcceptor
 
 	/** @var \PHPStan\Type\Type */
 	private $returnType;
+
+	/** @var \PHPStan\Type\Type */
+	private $nativeReturnType;
 
 	public function __construct(
 		\ReflectionFunction $reflection,
@@ -266,6 +269,24 @@ class FunctionReflection implements ParametersAcceptor
 		}
 
 		return $this->returnType;
+	}
+
+	public function getPhpDocReturnType(): Type
+	{
+		if ($this->phpDocReturnType !== null) {
+			return $this->phpDocReturnType;
+		}
+
+		return new MixedType();
+	}
+
+	public function getNativeReturnType(): Type
+	{
+		if ($this->nativeReturnType === null) {
+			$this->nativeReturnType = TypehintHelper::decideTypeFromReflection($this->reflection->getReturnType());
+		}
+
+		return $this->nativeReturnType;
 	}
 
 }

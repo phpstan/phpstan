@@ -11,7 +11,7 @@ class ExistingClassesInTypehintsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
 		$broker = $this->createBroker();
-		return new ExistingClassesInTypehintsRule(new FunctionDefinitionCheck($broker, new ClassCaseSensitivityCheck($broker), true));
+		return new ExistingClassesInTypehintsRule(new FunctionDefinitionCheck($broker, new ClassCaseSensitivityCheck($broker), true, false));
 	}
 
 	public function testExistingClassInTypehint()
@@ -37,6 +37,22 @@ class ExistingClassesInTypehintsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			[
 				'Class TestFunctionTypehints\FooFunctionTypehints referenced with incorrect case: TestFunctionTypehints\fOOFunctionTypehintS.',
 				33,
+			],
+			[
+				'Class TestFunctionTypehints\FooFunctionTypehints referenced with incorrect case: TestFunctionTypehints\FOOFunctionTypehints.',
+				42,
+			],
+			[
+				'Class TestFunctionTypehints\FooFunctionTypehints referenced with incorrect case: TestFunctionTypehints\FOOFunctionTypehints.',
+				42,
+			],
+			[
+				'Class TestFunctionTypehints\FooFunctionTypehints referenced with incorrect case: TestFunctionTypehints\FOOFunctionTypehints.',
+				51,
+			],
+			[
+				'Class TestFunctionTypehints\FooFunctionTypehints referenced with incorrect case: TestFunctionTypehints\FOOFunctionTypehints.',
+				51,
 			],
 		]);
 	}

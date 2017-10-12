@@ -9,7 +9,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
-use PHPStan\Reflection\ParametersAcceptor;
+use PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
 use PHPStan\Type\NonexistentParentClassType;
 
 class FunctionDefinitionCheck
@@ -43,15 +43,22 @@ class FunctionDefinitionCheck
 	 */
 	private $checkClassCaseSensitivity;
 
+	/**
+	 * @var bool
+	 */
+	private $checkThisOnly;
+
 	public function __construct(
 		Broker $broker,
 		ClassCaseSensitivityCheck $classCaseSensitivityCheck,
-		bool $checkClassCaseSensitivity
+		bool $checkClassCaseSensitivity,
+		bool $checkThisOnly
 	)
 	{
 		$this->broker = $broker;
 		$this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
 		$this->checkClassCaseSensitivity = $checkClassCaseSensitivity;
+		$this->checkThisOnly = $checkThisOnly;
 	}
 
 	/**
@@ -132,14 +139,21 @@ class FunctionDefinitionCheck
 	}
 
 	private function checkParametersAcceptor(
-		ParametersAcceptor $parametersAcceptor,
+		ParametersAcceptorWithPhpDocs $parametersAcceptor,
 		string $parameterMessage,
 		string $returnMessage
 	): array
 	{
 		$errors = [];
 		foreach ($parametersAcceptor->getParameters() as $parameter) {
-			$referencedClasses = $parameter->getType()->getReferencedClasses();
+			if ($this->checkThisOnly) {
+				$referencedClasses = $parameter->getType()->getReferencedClasses();
+			} else {
+				$referencedClasses = array_merge(
+					$parameter->getNativeType()->getReferencedClasses(),
+					$parameter->getPhpDocType()->getReferencedClasses()
+				);
+			}
 			foreach ($referencedClasses as $class) {
 				if (!$this->broker->hasClass($class)) {
 					$errors[] = sprintf($parameterMessage, $parameter->getName(), $class);
@@ -157,7 +171,15 @@ class FunctionDefinitionCheck
 			}
 		}
 
-		$returnTypeReferencedClasses = $parametersAcceptor->getReturnType()->getReferencedClasses();
+		if ($this->checkThisOnly) {
+			$returnTypeReferencedClasses = $parametersAcceptor->getReturnType()->getReferencedClasses();
+		} else {
+			$returnTypeReferencedClasses = array_merge(
+				$parametersAcceptor->getNativeReturnType()->getReferencedClasses(),
+				$parametersAcceptor->getPhpDocReturnType()->getReferencedClasses()
+			);
+		}
+
 		foreach ($returnTypeReferencedClasses as $class) {
 			if (!$this->broker->hasClass($class)) {
 				$errors[] = sprintf($returnMessage, $class);

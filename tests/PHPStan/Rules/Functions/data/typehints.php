@@ -34,3 +34,21 @@ function badCaseTypehints(fOOFunctionTypehints $foo): fOOFunctionTypehintS
 {
 
 }
+
+/**
+ * @param FOOFunctionTypehints $foo
+ * @return FOOFunctionTypehints
+ */
+function badCaseInNativeAndPhpDoc(FooFunctionTypehints $foo): FooFunctionTypehints
+{
+
+}
+
+/**
+ * @param FooFunctionTypehints $foo
+ * @return FooFunctionTypehints
+ */
+function anotherBadCaseInNativeAndPhpDoc(FOOFunctionTypehints $foo): FOOFunctionTypehints
+{
+
+}

@@ -78,4 +78,22 @@ class FooMethodTypehints
 
 	}
 
+	/**
+	 * @param FOOMethodTypehints $foo
+	 * @return FOOMethodTypehints
+	 */
+	function badCaseInNativeAndPhpDoc(FooMethodTypehints $foo): FooMethodTypehints
+	{
+
+	}
+
+	/**
+	 * @param FooMethodTypehints $foo
+	 * @return FooMethodTypehints
+	 */
+	function anotherBadCaseInNativeAndPhpDoc(FOOMethodTypehints $foo): FOOMethodTypehints
+	{
+
+	}
+
 }

@@ -10,6 +10,7 @@ use PHPStan\Parser\Parser;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptor;
+use PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
@@ -20,7 +21,7 @@ use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypehintHelper;
 use PHPStan\Type\VoidType;
 
-class PhpMethodReflection implements MethodReflection
+class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhpDocs
 {
 
 	/** @var \PHPStan\Reflection\ClassReflection */
@@ -52,6 +53,9 @@ class PhpMethodReflection implements MethodReflection
 
 	/** @var \PHPStan\Type\Type */
 	private $returnType;
+
+	/** @var \PHPStan\Type\Type */
+	private $nativeReturnType;
 
 	public function __construct(
 		ClassReflection $declaringClass,
@@ -417,6 +421,28 @@ class PhpMethodReflection implements MethodReflection
 		}
 
 		return $this->returnType;
+	}
+
+	public function getPhpDocReturnType(): Type
+	{
+		if ($this->phpDocReturnType !== null) {
+			return $this->phpDocReturnType;
+		}
+
+		return new MixedType();
+	}
+
+	public function getNativeReturnType(): Type
+	{
+		if ($this->nativeReturnType === null) {
+			$this->nativeReturnType = TypehintHelper::decideTypeFromReflection(
+				$this->reflection->getReturnType(),
+				null,
+				$this->declaringClass->getName()
+			);
+		}
+
+		return $this->nativeReturnType;
 	}
 
 }
