@@ -67,6 +67,12 @@ class AnalyserIntegrationTest extends \PHPStan\TestCase
 		$this->assertSame('Class ExtendingUnknownClass\Bar not found and could not be autoloaded.', $errors[0]->getMessage());
 	}
 
+	public function testInfiniteRecursionWithCallable()
+	{
+		$errors = $this->runAnalyse(__DIR__ . '/data/Foo-callable.php');
+		$this->assertCount(0, $errors);
+	}
+
 	/**
 	 * @param string $file
 	 * @return \PHPStan\Analyser\Error[]

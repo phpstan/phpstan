@@ -473,6 +473,14 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 				UnionType::class,
 				'string|Unknown|null',
 			],
+			[
+				[
+					new ObjectType(\RecursionCallable\Foo::class),
+					new CallableType(),
+				],
+				UnionType::class,
+				'callable|RecursionCallable\Foo',
+			],
 		];
 	}
 
