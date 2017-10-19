@@ -2,6 +2,7 @@
 
 namespace PHPStan\Rules\Classes;
 
+use PHPStan\Rules\ClassCaseSensitivityCheck;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleLevelHelper;
 
@@ -11,7 +12,7 @@ class ClassConstantRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	protected function getRule(): Rule
 	{
 		$broker = $this->createBroker();
-		return new ClassConstantRule($broker, new RuleLevelHelper($broker, true, false, true));
+		return new ClassConstantRule($broker, new RuleLevelHelper($broker, true, false, true), new ClassCaseSensitivityCheck($broker));
 	}
 
 	public function testClassConstant()
@@ -49,6 +50,22 @@ class ClassConstantRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				[
 					'Access to constant FOO on an unknown class ClassConstantNamespace\UnknownClass.',
 					21,
+				],
+				[
+					'Class ClassConstantNamespace\Foo referenced with incorrect case: ClassConstantNamespace\FOO.',
+					26,
+				],
+				[
+					'Class ClassConstantNamespace\Foo referenced with incorrect case: ClassConstantNamespace\FOO.',
+					27,
+				],
+				[
+					'Access to undefined constant ClassConstantNamespace\Foo::DOLOR.',
+					27,
+				],
+				[
+					'Class ClassConstantNamespace\Foo referenced with incorrect case: ClassConstantNamespace\FOO.',
+					28,
 				],
 			]
 		);
@@ -107,6 +124,14 @@ class ClassConstantRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			[
 				'Cannot access constant FOO on int|string.',
 				115,
+			],
+			[
+				'Class ClassConstantVisibility\Foo referenced with incorrect case: ClassConstantVisibility\FOO.',
+				121,
+			],
+			[
+				'Access to private constant PRIVATE_FOO of class ClassConstantVisibility\Foo.',
+				121,
 			],
 		]);
 	}

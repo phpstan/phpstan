@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Rules\ClassCaseSensitivityCheck;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\ObjectType;
@@ -24,13 +25,20 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 	 */
 	private $ruleLevelHelper;
 
+	/**
+	 * @var \PHPStan\Rules\ClassCaseSensitivityCheck
+	 */
+	private $classCaseSensitivityCheck;
+
 	public function __construct(
 		Broker $broker,
-		RuleLevelHelper $ruleLevelHelper
+		RuleLevelHelper $ruleLevelHelper,
+		ClassCaseSensitivityCheck $classCaseSensitivityCheck
 	)
 	{
 		$this->broker = $broker;
 		$this->ruleLevelHelper = $ruleLevelHelper;
+		$this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
 	}
 
 	public function getNodeType(): string
@@ -51,6 +59,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 		}
 
 		$class = $node->class;
+		$messages = [];
 		if ($class instanceof \PhpParser\Node\Name) {
 			$className = (string) $class;
 			if ($className === 'self' || $className === 'static') {
@@ -78,16 +87,22 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 					];
 				}
 				$className = $currentClassReflection->getParentClass()->getName();
-			} elseif (!$this->broker->hasClass($className)) {
-				if (strtolower($constantName) === 'class') {
+			} else {
+				if (!$this->broker->hasClass($className)) {
+					if (strtolower($constantName) === 'class') {
+						return [
+							sprintf('Class %s not found.', $className),
+						];
+					}
+
 					return [
-						sprintf('Class %s not found.', $className),
+						sprintf('Access to constant %s on an unknown class %s.', $constantName, $className),
 					];
+				} else {
+					$messages = $this->classCaseSensitivityCheck->checkClassNames([$className]);
 				}
 
-				return [
-					sprintf('Access to constant %s on an unknown class %s.', $constantName, $className),
-				];
+				$className = $this->broker->getClass($className)->getName();
 			}
 
 			$classType = new ObjectType($className);
@@ -104,42 +119,42 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 		}
 
 		if ($classType instanceof StringType) {
-			return [];
+			return $messages;
 		}
 
 		if (!$classType->canAccessConstants()) {
-			return [
+			return array_merge($messages, [
 				sprintf('Cannot access constant %s on %s.', $constantName, $classType->describe()),
-			];
+			]);
 		}
 
 		if (strtolower($constantName) === 'class') {
-			return [];
+			return $messages;
 		}
 
 		if (!$classType->hasConstant($constantName)) {
-			return [
+			return array_merge($messages, [
 				sprintf(
 					'Access to undefined constant %s::%s.',
 					$classType->describe(),
 					$constantName
 				),
-			];
+			]);
 		}
 
 		$constantReflection = $classType->getConstant($constantName);
 		if (!$scope->canAccessConstant($constantReflection)) {
-			return [
+			return array_merge($messages, [
 				sprintf(
 					'Access to %s constant %s of class %s.',
 					$constantReflection->isPrivate() ? 'private' : 'protected',
 					$constantName,
 					$constantReflection->getDeclaringClass()->getDisplayName()
 				),
-			];
+			]);
 		}
 
-		return [];
+		return $messages;
 	}
 
 }

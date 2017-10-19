@@ -22,3 +22,7 @@ UnknownClass::FOO;
 
 $string = 'str';
 $string::FOO;
+
+FOO::class;
+FOO::DOLOR;
+FOO::LOREM;

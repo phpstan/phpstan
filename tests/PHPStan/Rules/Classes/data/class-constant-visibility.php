@@ -116,3 +116,7 @@ class Ipsum
 	}
 
 }
+
+function () {
+	FOO::PRIVATE_FOO;
+};
