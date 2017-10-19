@@ -36,5 +36,3 @@ before_script:
   - stty cols 80 # weird Travis CI issue with PHPUnit ResultPrinter https://github.com/sebastianbergmann/phpunit/issues/1976
 script:
   - vendor/bin/phing
-after_script:
-  - php vendor/bin/coveralls -v
