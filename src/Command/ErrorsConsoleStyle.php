@@ -2,7 +2,6 @@
 
 namespace PHPStan\Command;
 
-use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -30,9 +29,7 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 
 	public function table(array $headers, array $rows)
 	{
-		$application = new Application();
-		$dimensions = $application->getTerminalDimensions();
-		$terminalWidth = $dimensions[0] ?: self::MAX_LINE_LENGTH;
+		$terminalWidth = (new \Symfony\Component\Console\Terminal())->getWidth();
 		$maxHeaderWidth = strlen($headers[0]);
 		foreach ($rows as $row) {
 			$length = strlen($row[0]);
