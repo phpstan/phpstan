@@ -20,6 +20,11 @@ services:
 			checkClassCaseSensitivity: %checkClassCaseSensitivity%
 
 	-
+		class: PHPStan\Rules\Classes\ExistingClassInTraitUseRule
+		tags:
+			- phpstan.rules.rule
+
+	-
 		class: PHPStan\Rules\Classes\InstantiationRule
 		tags:
 			- phpstan.rules.rule
