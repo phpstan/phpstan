@@ -102,6 +102,11 @@ class Test
 		if ($foo instanceof $str) {
 
 		}
+
+		$self = new self();
+		if ($self instanceof self) {
+
+		}
 	}
 
 }

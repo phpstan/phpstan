@@ -32,7 +32,7 @@ class ImpossibleInstanceOfRule implements \PHPStan\Rules\Rule
 	public function processNode(Node $node, Scope $scope): array
 	{
 		if ($node->class instanceof Node\Name) {
-			$className = (string) $node->class;
+			$className = $scope->resolveName($node->class);
 			$type = new ObjectType($className);
 		} else {
 			$type = $scope->getType($node->class);
