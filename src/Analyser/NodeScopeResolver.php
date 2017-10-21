@@ -1277,7 +1277,7 @@ class NodeScopeResolver
 			$functionCall instanceof Expr\StaticCall
 			&& $functionCall->class instanceof Name
 			&& is_string($functionCall->name)) {
-			$className = (string) $functionCall->class;
+			$className = $scope->resolveName($functionCall->class);
 			if ($this->broker->hasClass($className)) {
 				$classReflection = $this->broker->getClass($className);
 				if ($classReflection->hasMethod($functionCall->name)) {

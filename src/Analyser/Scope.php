@@ -791,15 +791,17 @@ class Scope
 	public function resolveName(Name $name): string
 	{
 		$originalClass = (string) $name;
-		if (in_array(strtolower($originalClass), [
-			'self',
-			'static',
-		], true)) {
-			return $this->getClassReflection()->getName();
-		} elseif ($originalClass === 'parent' && $this->isInClass()) {
-			$currentClassReflection = $this->getClassReflection();
-			if ($currentClassReflection->getParentClass() !== false) {
-				return $currentClassReflection->getParentClass()->getName();
+		if ($this->isInClass()) {
+			if (in_array(strtolower($originalClass), [
+				'self',
+				'static',
+			], true)) {
+				return $this->getClassReflection()->getName();
+			} elseif ($originalClass === 'parent') {
+				$currentClassReflection = $this->getClassReflection();
+				if ($currentClassReflection->getParentClass() !== false) {
+					return $currentClassReflection->getParentClass()->getName();
+				}
 			}
 		}
 

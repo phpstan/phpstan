@@ -335,4 +335,13 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$this->analyse([__DIR__ . '/data/catch-scope-polluted-with-try-assignments.php'], $expectedErrors);
 	}
 
+	public function testDefineVariablesInClass()
+	{
+		$this->cliArgumentsVariablesRegistered = true;
+		$this->polluteScopeWithLoopInitialAssignments = false;
+		$this->polluteCatchScopeWithTryAssignments = false;
+		$this->checkMaybeUndefinedVariables = true;
+		$this->analyse([__DIR__ . '/data/define-variables-class.php'], []);
+	}
+
 }
