@@ -6,19 +6,20 @@ use PHPStan\Analyser\Error;
 use PHPStan\Command\AnalysisResult;
 use PHPStan\Command\ErrorsConsoleStyle;
 use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\StreamOutput;
 
-class CheckstyleErrorFormatterTest extends \PHPStan\Testing\TestCase
+class TableErrorFormatterTest extends \PHPStan\Testing\TestCase
 {
 
 	private const DIRECTORY_PATH = '/data/folder/with space/and unicode 😃/project';
 
-	/** @var CheckstyleErrorFormatter */
+	/** @var TableErrorFormatter */
 	protected $formatter;
 
 	protected function setUp(): void
 	{
-		$this->formatter = new CheckstyleErrorFormatter();
+		$this->formatter = new TableErrorFormatter();
 	}
 
 	public function testFormatErrors(): void
@@ -39,33 +40,60 @@ class CheckstyleErrorFormatterTest extends \PHPStan\Testing\TestCase
 
 		$analysisResultMock
 			->expects($this->any())
+			->method('getNotFileSpecificErrors')
+			->willReturn([
+				'first generic error',
+				'second generic error',
+			]);
+
+		$analysisResultMock
+			->expects($this->any())
 			->method('getCurrentDirectory')
 			->willReturn(self::DIRECTORY_PATH);
+
+		$analysisResultMock
+			->expects($this->any())
+			->method('getTotalErrorsCount')
+			->willReturn(4);
 
 		$resource = fopen('php://memory', 'w', false);
 		if ($resource === false) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
-		$outputStream = new StreamOutput($resource);
+		$outputStream = new StreamOutput($resource, OutputInterface::VERBOSITY_NORMAL, false);
 
 		$style = new ErrorsConsoleStyle(new StringInput(''), $outputStream);
-		$this->assertSame(1, $this->formatter->formatErrors($analysisResultMock, $style));
+
+		$this->assertEquals(1, $this->formatter->formatErrors($analysisResultMock, $style));
 
 		rewind($outputStream->getStream());
 		$output = stream_get_contents($outputStream->getStream());
 
-		$expected = '<?xml version="1.0" encoding="UTF-8"?>
-<checkstyle>
-<file name="foo.php">
- <error line="1" column="1" severity="error" message="Foo"/>
-</file>
-<file name="file name with &quot;spaces&quot; and unicode 😃.php">
- <error line="2" column="1" severity="error" message="Bar"/>
-</file>
-</checkstyle>
+		$expected = ' ------ ---------
+  Line   foo.php
+ ------ ---------
+  1      Foo
+ ------ ---------
+
+ ------ -------------------------------------------
+  Line   file name with "spaces" and unicode 😃.php
+ ------ -------------------------------------------
+  2      Bar
+ ------ -------------------------------------------
+
+ ----------------------
+  Error
+ ----------------------
+  first generic error
+  second generic error
+ ----------------------
+
+ [ERROR] Found 4 errors
+
 ';
-		$this->assertSame($expected, $output);
+
+		$this->assertEquals($expected, $this->rtrimMultiline($output));
 	}
 
 	public function testFormatErrorsEmpty(): void
@@ -81,19 +109,28 @@ class CheckstyleErrorFormatterTest extends \PHPStan\Testing\TestCase
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
-		$outputStream = new StreamOutput($resource);
+		$outputStream = new StreamOutput($resource, OutputInterface::VERBOSITY_NORMAL, false);
 		$style = new ErrorsConsoleStyle(new StringInput(''), $outputStream);
 
-		$this->assertSame(0, $this->formatter->formatErrors($analysisResultMock, $style));
+		$this->assertEquals(0, $this->formatter->formatErrors($analysisResultMock, $style));
 
 		rewind($outputStream->getStream());
 		$output = stream_get_contents($outputStream->getStream());
 
-		$expected = '<?xml version="1.0" encoding="UTF-8"?>
-<checkstyle>
-</checkstyle>
+		$expected = '
+ [OK] No errors
+
 ';
-		$this->assertSame($expected, $output);
+		$this->assertEquals($expected, $this->rtrimMultiline($output));
+	}
+
+	private function rtrimMultiline(string $output): string
+	{
+		$result = array_map(function (string $line): string {
+			return rtrim($line, " \r\n");
+		}, explode("\n", $output));
+
+		return implode("\n", $result);
 	}
 
 }

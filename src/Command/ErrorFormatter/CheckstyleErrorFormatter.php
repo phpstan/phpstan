@@ -29,7 +29,12 @@ class CheckstyleErrorFormatter implements ErrorFormatter
 
 		/** @var \PHPStan\Analyser\Error $fileSpecificError */
 		foreach ($analysisResult->getFileSpecificErrors() as $fileSpecificError) {
-			$out .= '<file name="' . $this->escape($fileSpecificError->getFile()) . '">' . "\n";
+			$relativeFilePath = RelativePathHelper::getRelativePath(
+				$analysisResult->getCurrentDirectory(),
+				$fileSpecificError->getFile()
+			);
+
+			$out .= '<file name="' . $this->escape($relativeFilePath) . '">' . "\n";
 			$out .= ' ';
 			$out .= '<error';
 			$out .= ' line="' . $this->escape((string) $fileSpecificError->getLine()) . '"';
