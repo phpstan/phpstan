@@ -466,7 +466,7 @@ class NodeScopeResolver
 					) {
 						$switchScope = $switchScope->specifyExpressionType(
 							$switchConditionGetClassExpression,
-							new ObjectType((string) $caseNode->cond->class)
+							new ObjectType($scope->resolveName($caseNode->cond->class))
 						);
 					}
 				}

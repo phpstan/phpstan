@@ -2308,6 +2308,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			[
 				'SwitchGetClass\Lorem',
 				'$lorem',
+				"'normalName';",
+			],
+			[
+				'SwitchGetClass\Foo',
+				'$lorem',
+				"'selfReferentialName';",
 			],
 		];
 	}
@@ -2316,16 +2322,21 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	 * @dataProvider dataSwitchGetClass
 	 * @param string $description
 	 * @param string $expression
+	 * @param string $evaluatedPointExpression
 	 */
 	public function testSwitchGetClass(
 		string $description,
-		string $expression
+		string $expression,
+		string $evaluatedPointExpression
 	)
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/switch-get-class.php',
 			$description,
-			$expression
+			$expression,
+			[],
+			[],
+			$evaluatedPointExpression
 		);
 	}
 

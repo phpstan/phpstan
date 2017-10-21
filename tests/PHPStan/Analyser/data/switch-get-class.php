@@ -2,12 +2,23 @@
 
 namespace SwitchGetClass;
 
-$lorem = doFoo();
+class Foo
+{
 
-switch (get_class($lorem)) {
-	case Ipsum::class:
-		break;
-	case Lorem::class:
-		die;
-		break;
+	public function doFoo()
+	{
+		$lorem = doFoo();
+
+		switch (get_class($lorem)) {
+			case Ipsum::class:
+				break;
+			case Lorem::class:
+				'normalName';
+				break;
+			case self::class:
+				'selfReferentialName';
+				break;
+		}
+	}
+
 }
