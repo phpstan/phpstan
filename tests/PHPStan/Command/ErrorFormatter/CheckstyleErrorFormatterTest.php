@@ -34,7 +34,9 @@ class CheckstyleErrorFormatterTest extends \PHPStan\Testing\TestCase
 			->method('getFileSpecificErrors')
 			->willReturn([
 				new Error('Foo', self::DIRECTORY_PATH . '/foo.php', 1),
+				new Error('Bar', self::DIRECTORY_PATH . '/foo.php', 5),
 				new Error('Bar', self::DIRECTORY_PATH . '/file name with "spaces" and unicode 😃.php', 2),
+				new Error('Foo', self::DIRECTORY_PATH . '/file name with "spaces" and unicode 😃.php', 4),
 			]);
 
 		$analysisResultMock
@@ -59,9 +61,11 @@ class CheckstyleErrorFormatterTest extends \PHPStan\Testing\TestCase
 <checkstyle>
 <file name="foo.php">
  <error line="1" column="1" severity="error" message="Foo"/>
+ <error line="5" column="1" severity="error" message="Bar"/>
 </file>
 <file name="file name with &quot;spaces&quot; and unicode 😃.php">
  <error line="2" column="1" severity="error" message="Bar"/>
+ <error line="4" column="1" severity="error" message="Foo"/>
 </file>
 </checkstyle>
 ';

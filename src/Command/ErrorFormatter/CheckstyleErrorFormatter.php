@@ -27,21 +27,15 @@ class CheckstyleErrorFormatter implements ErrorFormatter
 
 		$out = '';
 
-		/** @var \PHPStan\Analyser\Error $fileSpecificError */
-		foreach ($analysisResult->getFileSpecificErrors() as $fileSpecificError) {
-			$relativeFilePath = RelativePathHelper::getRelativePath(
-				$analysisResult->getCurrentDirectory(),
-				$fileSpecificError->getFile()
-			);
-
+		foreach ($this->groupByFile($analysisResult) as $relativeFilePath => $errors) {
 			$out .= '<file name="' . $this->escape($relativeFilePath) . '">' . "\n";
-			$out .= ' ';
-			$out .= '<error';
-			$out .= ' line="' . $this->escape((string) $fileSpecificError->getLine()) . '"';
-			$out .= ' column="1"';
-			$out .= ' severity="error"';
-			$out .= ' message="' . $this->escape($fileSpecificError->getMessage()) . '"';
-			$out .= '/>' . "\n";
+			foreach ($errors as $error) {
+				$out .= sprintf(
+					'  <error line="%d" column="1" severity="error" message="%s" />' . "\n",
+					$this->escape((string) $error->getLine()),
+					$this->escape((string) $error->getMessage())
+				);
+			}
 			$out .= '</file>' . "\n";
 		}
 
@@ -64,6 +58,30 @@ class CheckstyleErrorFormatter implements ErrorFormatter
 	protected function escape(string $string): string
 	{
 		return htmlspecialchars($string, ENT_XML1 | ENT_COMPAT, 'UTF-8');
+	}
+
+	/**
+	 * Group errors by file
+	 *
+	 * @param AnalysisResult $analysisResult
+	 * @return array<string, array> Array that have as key the relative path of file
+	 *                              and as value an array with occured errors.
+	 */
+	private function groupByFile(AnalysisResult $analysisResult): array
+	{
+		$files = [];
+
+		/** @var \PHPStan\Analyser\Error $fileSpecificError */
+		foreach ($analysisResult->getFileSpecificErrors() as $fileSpecificError) {
+			$relativeFilePath = RelativePathHelper::getRelativePath(
+				$analysisResult->getCurrentDirectory(),
+				$fileSpecificError->getFile()
+			);
+
+			$files[$relativeFilePath][] = $fileSpecificError;
+		}
+
+		return $files;
 	}
 
 }
