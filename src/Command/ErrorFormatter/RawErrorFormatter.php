@@ -3,13 +3,14 @@
 namespace PHPStan\Command\ErrorFormatter;
 
 use PHPStan\Command\AnalysisResult;
+use Symfony\Component\Console\Style\OutputStyle;
 
 class RawErrorFormatter implements ErrorFormatter
 {
 
 	public function formatErrors(
 		AnalysisResult $analysisResult,
-		\Symfony\Component\Console\Style\OutputStyle $style
+		OutputStyle $style
 	): int
 	{
 		if (!$analysisResult->hasErrors()) {
