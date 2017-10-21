@@ -65,7 +65,7 @@ class CheckstyleErrorFormatterTest extends \PHPStan\Testing\TestCase
 </file>
 </checkstyle>
 ';
-		$this->assertSame($expected, $output);
+		$this->assertXmlStringEqualsXmlString($expected, $output);
 	}
 
 	public function testFormatErrorsEmpty(): void
@@ -93,7 +93,7 @@ class CheckstyleErrorFormatterTest extends \PHPStan\Testing\TestCase
 <checkstyle>
 </checkstyle>
 ';
-		$this->assertSame($expected, $output);
+		$this->assertXmlStringEqualsXmlString($expected, $output);
 	}
 
 }
