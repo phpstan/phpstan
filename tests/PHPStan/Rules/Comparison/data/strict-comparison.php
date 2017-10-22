@@ -102,4 +102,22 @@ class Foo
 		}
 	}
 
+	/**
+	 * @param int[]|true $a
+	 */
+	public function unionOfIntegersAndTrue($a)
+	{
+		if ($a !== true) {
+			$a = [];
+		}
+
+		if ($a !== true) {
+			$a[] = 1;
+		}
+
+		if ($a !== true && count($a) === 1) {
+			$a = reset($a);
+		}
+	}
+
 }
