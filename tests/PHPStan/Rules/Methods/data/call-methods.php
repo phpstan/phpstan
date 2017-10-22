@@ -398,3 +398,15 @@ function () {
 	$arrayOfAnUnknownClass = doFoo();
 	$arrayOfAnUnknownClass->test();
 };
+
+function () {
+	$foo = false;
+	foreach ([] as $val) {
+		if ($foo === false) {
+			$foo = new Foo();
+		} else {
+			$foo->ipsum();
+			$foo->ipsum(1);
+		}
+	}
+};

@@ -191,6 +191,10 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Cannot call method test() on Test\UnknownClass[].',
 				399,
 			],
+			[
+				'Method Test\Foo::ipsum() invoked with 1 parameter, 0 required.',
+				409,
+			],
 		]);
 	}
 
