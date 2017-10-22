@@ -610,6 +610,11 @@ class NodeScopeResolver
 				if ($node instanceof While_ && $subNodeName === 'stmts') {
 					$scope = $scope->filterByTruthyValue($node->cond);
 					$scope = $this->lookForAssigns($scope, $node->cond, TrinaryLogic::createYes());
+					$scope = $this->lookForAssignsInBranches($scope, [
+						new StatementList($scope, $node->stmts),
+						new StatementList($scope, []),
+					]);
+					$scope = $this->lookForAssigns($scope->filterByTruthyValue($node->cond), $node->cond, TrinaryLogic::createYes());
 				}
 
 				if ($node instanceof Isset_ && $subNodeName === 'vars') {

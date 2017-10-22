@@ -120,4 +120,33 @@ class Foo
 		}
 	}
 
+	public function whileWithTypeChange()
+	{
+		$foo = null;
+		while (fetch()) {
+			if ($foo !== null) {
+
+			}
+			if ($foo !== 1) {
+
+			}
+
+			if (something()) {
+				$foo = new self();
+			}
+		}
+
+		while ($val = $this->returnArray()) {
+			if ($val === null) {
+
+			}
+			$val = null;
+		}
+	}
+
+	private function returnArray(): array
+	{
+
+	}
+
 }
