@@ -969,6 +969,8 @@ class NodeScopeResolver
 			}
 		} elseif ($node instanceof Instanceof_) {
 			$scope = $this->lookForAssigns($scope, $node->expr, $certainty);
+		} elseif ($node instanceof Expr\Include_) {
+			$scope = $this->lookForAssigns($scope, $node->expr, $certainty);
 		}
 
 		$scope = $this->updateScopeForVariableAssign($scope, $node, $certainty);

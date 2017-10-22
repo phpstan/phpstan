@@ -315,3 +315,9 @@ switch (true) {
 foreach ($undefinedVariableInForeach as $v) {
 
 }
+
+require $fileA='includeA.php';
+echo $fileA;
+
+include($fileB='includeB.php');
+echo $fileB;
