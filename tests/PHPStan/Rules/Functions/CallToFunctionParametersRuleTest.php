@@ -211,4 +211,15 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
 		$this->analyse([__DIR__ . '/data/union-iterable-type-issue.php'], []);
 	}
 
+	public function testCallToFunctionInForeachCondition()
+	{
+		require_once __DIR__ . '/data/foreach-condition.php';
+		$this->analyse([__DIR__ . '/data/foreach-condition.php'], [
+			[
+				'Parameter #1 $i of function CallToFunctionInForeachCondition\takesString expects string, int given.',
+				20,
+			],
+		]);
+	}
+
 }
