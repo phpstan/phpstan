@@ -109,6 +109,24 @@ class Test
 		}
 	}
 
+	public function foreachWithTypeChange()
+	{
+		$foo = null;
+		foreach ([] as $val) {
+			if ($foo instanceof self) {
+
+			}
+			if ($foo instanceof Lorem) {
+
+			}
+
+			$foo = new self();
+			if ($foo instanceof self) {
+
+			}
+		}
+	}
+
 }
 
 interface Collection extends \IteratorAggregate

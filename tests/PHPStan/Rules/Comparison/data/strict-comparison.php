@@ -78,4 +78,28 @@ class Foo
 		}
 	}
 
+	public function foreachWithTypeChange()
+	{
+		$foo = null;
+		foreach ([] as $val) {
+			if ($foo !== null) {
+
+			}
+			if ($foo !== 1) {
+
+			}
+
+			if (something()) {
+				$foo = new self();
+			}
+		}
+
+		foreach ([1, 2, 3] as $val) {
+			if ($val === null) {
+
+			}
+			$val = null;
+		}
+	}
+
 }

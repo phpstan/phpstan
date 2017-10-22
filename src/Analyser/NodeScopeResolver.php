@@ -364,7 +364,25 @@ class NodeScopeResolver
 			}
 			$closureBindScope = $scope->enterClosureBind($thisType, $scopeClass);
 		} elseif ($node instanceof Foreach_) {
+			$scope = $scope->exitFirstLevelStatements();
+			$this->processNode($node->expr, $scope, $nodeCallback);
+			$scope = $this->lookForAssigns($scope, $node->expr, TrinaryLogic::createYes());
 			$scope = $this->enterForeach($scope, $node);
+			if ($node->keyVar !== null) {
+				$this->processNode($node->keyVar, $scope, $nodeCallback);
+			}
+
+			$this->processNode($node->valueVar, $scope, $nodeCallback);
+
+			$scope = $this->lookForAssignsInBranches($scope, [
+				new StatementList($scope, $node->stmts),
+				new StatementList($scope, []),
+			]);
+			$scope = $this->enterForeach($scope, $node);
+
+			$this->processNodes($node->stmts, $scope->enterFirstLevelStatements(), $nodeCallback);
+
+			return;
 		} elseif ($node instanceof Catch_) {
 			$scope = $scope->enterCatch(
 				$node->types,
@@ -589,9 +607,6 @@ class NodeScopeResolver
 					$scope = $scope->exitFirstLevelStatements();
 				}
 
-				if ($node instanceof Foreach_ && $subNodeName === 'stmts') {
-					$scope = $this->lookForAssigns($scope, $node->expr, TrinaryLogic::createYes());
-				}
 				if ($node instanceof While_ && $subNodeName === 'stmts') {
 					$scope = $scope->filterByTruthyValue($node->cond);
 					$scope = $this->lookForAssigns($scope, $node->cond, TrinaryLogic::createYes());

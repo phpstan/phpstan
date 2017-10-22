@@ -171,6 +171,10 @@ class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Variable $variableFromDefaultFirst might not be defined.',
 				312,
 			],
+			[
+				'Undefined variable: $undefinedVariableInForeach',
+				315,
+			],
 		]);
 	}
 
