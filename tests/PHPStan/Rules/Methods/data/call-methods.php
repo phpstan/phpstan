@@ -410,3 +410,21 @@ function () {
 		}
 	}
 };
+
+class NullableInPhpDoc
+{
+
+	/**
+	 * @param string|null $test
+	 */
+	public function doFoo(string $test)
+	{
+
+	}
+
+	public function doBar()
+	{
+		$this->doFoo(null);
+	}
+
+}

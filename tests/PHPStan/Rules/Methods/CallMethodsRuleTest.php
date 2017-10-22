@@ -195,6 +195,10 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Method Test\Foo::ipsum() invoked with 1 parameter, 0 required.',
 				409,
 			],
+			[
+				'Parameter #1 $test of method Test\NullableInPhpDoc::doFoo() expects string, null given.',
+				427,
+			],
 		]);
 	}
 
@@ -295,6 +299,10 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 			[
 				'Parameter #1 $foo of method Test\ObjectTypehint::doBar() expects Test\Foo, object given.',
 				385,
+			],
+			[
+				'Parameter #1 $test of method Test\NullableInPhpDoc::doFoo() expects string, null given.',
+				427,
 			],
 		]);
 	}
