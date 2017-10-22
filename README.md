@@ -552,8 +552,11 @@ services:
 			- phpstan.broker.dynamicMethodReturnTypeExtension
 ```
 
-There's also an analogous functionality for static methods using `DynamicStaticMethodReturnTypeExtension` interface
+There's also an analogous functionality for:
+
+* **static methods** using `DynamicStaticMethodReturnTypeExtension` interface
 and `phpstan.broker.dynamicStaticMethodReturnTypeExtension` service tag.
+* **functions** using `DynamicFunctionReturnTypeExtension` interface and `phpstan.broker.dynamicFunctionReturnTypeExtension` service tag.
 
 ## Known issues
 
