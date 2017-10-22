@@ -46,7 +46,9 @@ class Foo
 			return;
 		}
 
-		die;
+		if ($fooAndBar instanceof Foo && $fooAndBar instanceof Bar) {
+			die;
+		}
 	}
 
 }

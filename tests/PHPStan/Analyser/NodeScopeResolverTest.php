@@ -2579,6 +2579,10 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				'NegatedInstanceOf\Foo',
 				'$anotherFoo',
 			],
+			[
+				'NegatedInstanceOf\Bar&NegatedInstanceOf\Foo',
+				'$fooAndBar',
+			],
 		];
 	}
 
