@@ -266,6 +266,12 @@ $width = 1;
 $scale = 2.0;
 $width *= $scale;
 
+/** @var mixed $mixed */
+$mixed = doFoo();
+if (is_bool($mixed)) {
+	$mixed = 1;
+}
+
 try {
 	$inTryTwo = 1;
 } catch (\Exception $e) {

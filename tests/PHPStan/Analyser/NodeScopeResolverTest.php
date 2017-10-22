@@ -527,6 +527,12 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 				TrinaryLogic::createYes(),
 				'int',
 			],
+			[
+				$testScope,
+				'mixed',
+				TrinaryLogic::createYes(),
+				'mixed',
+			],
 		];
 	}
 
