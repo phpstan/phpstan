@@ -13,6 +13,11 @@ services:
 			- phpstan.rules.rule
 
 	-
+		class: PHPStan\Rules\Conditions\ConstantConditionRule
+		tags:
+			- phpstan.rules.rule
+
+	-
 		class: PHPStan\Rules\Comparison\ImpossibleCheckTypeFunctionCallRule
 		arguments:
 			checkAlwaysTrueCheckTypeFunctionCall: %checkAlwaysTrueCheckTypeFunctionCall%
