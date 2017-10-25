@@ -20,7 +20,7 @@ class ArgumentBasedFunctionReturnTypeExtensionTest extends \PHPStan\TestCase
 	{
 		return [
 			[
-				'array_filter',
+				'array_unique',
 				[
 					new Arg(new Variable('foo')),
 				],
