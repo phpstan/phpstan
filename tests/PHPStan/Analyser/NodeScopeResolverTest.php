@@ -2852,6 +2852,10 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 			],
 			[
 				'int',
+				'$filteredMixed[0]',
+			],
+			[
+				'int',
 				'$uniquedIntegers[0]',
 			],
 			[
