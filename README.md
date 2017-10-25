@@ -22,6 +22,8 @@ can be checked before you run the actual line.
 ## Is PHPStan helping you to avoid bugs in production?
 ## Consider [supporting it on Patreon](https://www.patreon.com/phpstan) so I'm able to make it even more awesome!
 
+*I offer to issue invoices for contributions on PayPal and Patreon! [Contact me](mailto:ondrej@mirtes.cz) for details.*
+
 It currently performs the following checks on your code:
 
 * Existence of classes and interfaces in `instanceof`, `catch`, typehints, other language constructs and even annotations. PHP does not do this and just stays silent instead.
