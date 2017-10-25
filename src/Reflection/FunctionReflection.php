@@ -185,6 +185,17 @@ class FunctionReflection implements ParametersAcceptorWithPhpDocs
 					),
 				];
 			}
+
+			if (
+				$this->reflection->getName() === 'mysqli_fetch_all'
+				&& count($this->parameters) === 1
+			) {
+				$this->parameters[] = new DummyParameter(
+					'resulttype',
+					new IntegerType(),
+					true
+				);
+			}
 		}
 
 		return $this->parameters;
