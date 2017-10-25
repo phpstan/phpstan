@@ -28,3 +28,8 @@ session_start([
 locale_get_display_language('cs_CZ'); // OK
 locale_get_display_language('cs_CZ', 'en'); // OK
 locale_get_display_language('cs_CZ', 'en', 'foo'); // should report 3 parameters given, 1-2 required
+
+mysqli_fetch_all(); // should report 1-2 parameters
+mysqli_fetch_all(new mysqli_result()); // OK
+mysqli_fetch_all(new mysqli_result(), MYSQLI_ASSOC); // OK
+mysqli_fetch_all(new mysqli_result(), MYSQLI_ASSOC, true); // should report 3 parameters given, 1-2 required

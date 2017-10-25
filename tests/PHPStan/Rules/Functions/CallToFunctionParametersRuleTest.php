@@ -151,6 +151,14 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Function locale_get_display_language invoked with 3 parameters, 1-2 required.',
 				30,
 			],
+			[
+				'Function mysqli_fetch_all invoked with 0 parameters, 1-2 required.',
+				32,
+			],
+			[
+				'Function mysqli_fetch_all invoked with 3 parameters, 1-2 required.',
+				35,
+			],
 		]);
 	}
 
