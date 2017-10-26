@@ -185,6 +185,17 @@ class FunctionReflection implements ParametersAcceptorWithPhpDocs
 					),
 				];
 			}
+
+			if (
+				$this->reflection->getName() === 'openssl_open'
+				&& count($this->parameters) === 5
+			) {
+				$this->parameters[4] = new DummyParameter(
+					'method',
+					new StringType(),
+					true
+				);
+			}
 		}
 
 		return $this->parameters;
