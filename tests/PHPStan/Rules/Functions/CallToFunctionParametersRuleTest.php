@@ -159,6 +159,10 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
 				'Function mysqli_fetch_all invoked with 3 parameters, 1-2 required.',
 				35,
 			],
+			[
+				'Function openssl_open invoked with 6 parameters, 4-5 required.',
+				37,
+			],
 		]);
 	}
 
