@@ -28,3 +28,5 @@ session_start([
 locale_get_display_language('cs_CZ'); // OK
 locale_get_display_language('cs_CZ', 'en'); // OK
 locale_get_display_language('cs_CZ', 'en', 'foo'); // should report 3 parameters given, 1-2 required
+
+openssl_open('', $open, '', openssl_get_privatekey('')); // OK
