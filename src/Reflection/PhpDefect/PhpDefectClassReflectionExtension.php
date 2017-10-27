@@ -135,6 +135,14 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 			'filename' => 'string',
 			'comment' => 'string',
 		],
+		\LibXMLError::class => [
+			'level' => 'int',
+			'code' => 'int',
+			'column' => 'int',
+			'message' => 'string',
+			'file' => 'string',
+			'line' => 'int',
+		],
 	];
 
 	/** @var string[][] */
