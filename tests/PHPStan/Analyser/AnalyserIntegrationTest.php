@@ -73,6 +73,14 @@ class AnalyserIntegrationTest extends \PHPStan\TestCase
 		$this->assertCount(0, $errors);
 	}
 
+	public function testCoalesceInsideIf()
+	{
+		$errors = $this->runAnalyse(__DIR__ . '/data/coalesce-inside-if.php');
+		$this->assertCount(1, $errors);
+		$this->assertSame(8, $errors[0]->getFile());
+		$this->assertSame('Undefined variable: $b', $errors[0]->getMessage());
+	}
+
 	/**
 	 * @param string $file
 	 * @return \PHPStan\Analyser\Error[]
