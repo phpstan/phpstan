@@ -27,6 +27,7 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 	 * @dataProvider dataDomXPathProperties
 	 * @dataProvider dataXmlReaderProperties
 	 * @dataProvider dataZipArchiveProperties
+	 * @dataProvider dataLibXMLErrorProperties
 	 *
 	 * @param string $className
 	 * @param string $declaringClassName
@@ -556,6 +557,36 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
 					'numFiles' => 'int',
 					'filename' => 'string',
 					'comment' => 'string',
+				],
+			],
+		];
+	}
+
+	public function dataLibXMLErrorProperties(): array
+	{
+		return [
+			[
+				\LibXMLError::class,
+				\LibXMLError::class,
+				[
+					'level' => 'int',
+					'code' => 'int',
+					'column' => 'int',
+					'message' => 'string',
+					'file' => 'string',
+					'line' => 'int',
+				],
+			],
+			[
+				'\libXMLError',
+				\LibXMLError::class,
+				[
+					'level' => 'int',
+					'code' => 'int',
+					'column' => 'int',
+					'message' => 'string',
+					'file' => 'string',
+					'line' => 'int',
 				],
 			],
 		];
