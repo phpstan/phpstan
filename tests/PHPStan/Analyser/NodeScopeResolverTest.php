@@ -3702,6 +3702,76 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataLoopVariables(): array
+	{
+		return [
+			/*[
+				'LoopVariables\Lorem|LoopVariables\Foo|null',
+				'$foo',
+				"'begin';",
+			],*/
+			[
+				'LoopVariables\Foo',
+				'$foo',
+				"'afterAssign';",
+			],
+			[
+				'LoopVariables\Foo',
+				'$foo',
+				"'end';",
+			],
+			/*[
+				'LoopVariables\Bar|LoopVariables\Lorem|LoopVariables\Foo|null',
+				'$foo',
+				"'afterLoop';",
+			],*/
+		];
+	}
+
+	/**
+	 * @dataProvider dataLoopVariables
+	 * @param string $description
+	 * @param string $expression
+	 * @param string $evaluatedPointExpression
+	 */
+	public function testForeachLoopVariables(
+		string $description,
+		string $expression,
+		string $evaluatedPointExpression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/foreach-loop-variables.php',
+			$description,
+			$expression,
+			[],
+			[],
+			$evaluatedPointExpression
+		);
+	}
+
+	/**
+	 * @dataProvider dataLoopVariables
+	 * @param string $description
+	 * @param string $expression
+	 * @param string $evaluatedPointExpression
+	 */
+	public function testWhileLoopVariables(
+		string $description,
+		string $expression,
+		string $evaluatedPointExpression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/while-loop-variables.php',
+			$description,
+			$expression,
+			[],
+			[],
+			$evaluatedPointExpression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $description,
