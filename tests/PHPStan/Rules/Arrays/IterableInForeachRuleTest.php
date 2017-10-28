@@ -5,17 +5,36 @@ namespace PHPStan\Rules\Arrays;
 class IterableInForeachRuleTest extends \PHPStan\Rules\AbstractRuleTest
 {
 
+	/** @var bool */
+	private $checkUnionTypes;
+
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new IterableInForeachRule();
+		return new IterableInForeachRule($this->checkUnionTypes);
 	}
 
-	public function testInvalidKey()
+	public function testCheckWithoutUnionTypes()
 	{
+		$this->checkUnionTypes = false;
 		$this->analyse([__DIR__ . '/data/foreach-iterable.php'], [
 			[
 				'Argument of an invalid type string supplied for foreach, only iterables are supported.',
 				8,
+			],
+		]);
+	}
+
+	public function testCheckWithUnionTypes()
+	{
+		$this->checkUnionTypes = true;
+		$this->analyse([__DIR__ . '/data/foreach-iterable.php'], [
+			[
+				'Argument of an invalid type string supplied for foreach, only iterables are supported.',
+				8,
+			],
+			[
+				'Argument of an invalid type false|int[] supplied for foreach, only iterables are supported.',
+				17,
 			],
 		]);
 	}

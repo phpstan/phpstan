@@ -26,9 +26,9 @@ class StatementList
 	}
 
 	/**
-	 * @return \PhpParser\Node[]|null
+	 * @return \PhpParser\Node[]
 	 */
-	public function getStatements()
+	public function getStatements(): array
 	{
 		return $this->statements;
 	}

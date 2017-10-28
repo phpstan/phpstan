@@ -8,6 +8,16 @@ use PHPStan\Type\UnionType;
 class IterableInForeachRule implements \PHPStan\Rules\Rule
 {
 
+	/**
+	 * @var bool
+	 */
+	private $checkUnionTypes;
+
+	public function __construct(bool $checkUnionTypes)
+	{
+		$this->checkUnionTypes = $checkUnionTypes;
+	}
+
 	public function getNodeType(): string
 	{
 		return \PhpParser\Node\Stmt\Foreach_::class;
@@ -21,11 +31,11 @@ class IterableInForeachRule implements \PHPStan\Rules\Rule
 	public function processNode(\PhpParser\Node $node, Scope $scope): array
 	{
 		$iteratedExpressionType = $scope->getType($node->expr);
-		if ($iteratedExpressionType instanceof UnionType) {
+		if (!$this->checkUnionTypes && $iteratedExpressionType instanceof UnionType) {
 			return [];
 		}
 
-		if ($iteratedExpressionType->isIterable()->no()) {
+		if (!$iteratedExpressionType->isIterable()->yes()) {
 			return [
 				sprintf(
 					'Argument of an invalid type %s supplied for foreach, only iterables are supported.',
