@@ -41,7 +41,8 @@ class Analyser
 	private $typeSpecifier;
 
 	/**
-	 * @var string[]
+	 * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversablePropertyTypeHintSpecification
+	 * @var array
 	 */
 	private $ignoreErrors;
 
@@ -63,7 +64,7 @@ class Analyser
 	 * @param \PhpParser\PrettyPrinter\Standard $printer
 	 * @param \PHPStan\Analyser\TypeSpecifier $typeSpecifier
 	 * @param \PHPStan\File\FileHelper $fileHelper
-	 * @param string[] $ignoreErrors
+	 * @param array $ignoreErrors
 	 * @param string|null $bootstrapFile
 	 * @param bool $reportUnmatchedIgnoredErrors
 	 */
@@ -114,8 +115,12 @@ class Analyser
 			}
 		}
 
-		foreach ($this->ignoreErrors as $ignoreError) {
+		foreach ($this->ignoreErrors as $key => $ignoreError) {
 			try {
+				if (is_string($key)) {
+					\Nette\Utils\Strings::match('', $key);
+					$this->ignoreErrors[$key] = ['ignore' => $ignoreError, 'files' => []];
+				}
 				\Nette\Utils\Strings::match('', $ignoreError);
 			} catch (\Nette\Utils\RegexpException $e) {
 				$errors[] = $e->getMessage();
@@ -128,6 +133,12 @@ class Analyser
 
 		$this->nodeScopeResolver->setAnalysedFiles($files);
 		foreach ($files as $file) {
+			foreach ($this->ignoreErrors as $key => $ignore) {
+				if (is_string($key) && \Nette\Utils\Strings::match($file, $key) !== null) {
+					$this->ignoreErrors[$key]['files'][$file] = true;
+				}
+			}
+
 			try {
 				$fileErrors = [];
 				$this->nodeScopeResolver->processNodes(
@@ -164,9 +175,13 @@ class Analyser
 			if (!$error->canBeIgnored()) {
 				return true;
 			}
-			foreach ($this->ignoreErrors as $i => $ignore) {
-				if (\Nette\Utils\Strings::match($error->getMessage(), $ignore) !== null) {
-					unset($unmatchedIgnoredErrors[$i]);
+			foreach ($this->ignoreErrors as $key => $ignore) {
+				if (!is_string($key) && \Nette\Utils\Strings::match($error->getMessage(), $ignore) !== null) {
+					unset($unmatchedIgnoredErrors[$key]);
+					return false;
+				}
+				if (is_string($key) && \Nette\Utils\Strings::match($error->getMessage(), $ignore['ignore']) !== null && \Nette\Utils\Strings::match($error->getFile(), $key) !== null) {
+					unset($unmatchedIgnoredErrors[$key]['files'][$error->getFile()]);
 					return false;
 				}
 			}
@@ -175,11 +190,23 @@ class Analyser
 		}));
 
 		if (!$onlyFiles && $this->reportUnmatchedIgnoredErrors) {
-			foreach ($unmatchedIgnoredErrors as $unmatchedIgnoredError) {
-				$errors[] = sprintf(
-					'Ignored error pattern %s was not matched in reported errors.',
-					$unmatchedIgnoredError
-				);
+			foreach ($unmatchedIgnoredErrors as $key => $ignore) {
+				if (is_string($key)) {
+					foreach (array_keys($ignore['files']) as $file) {
+						$errors[] = new Error(
+							sprintf(
+								'Ignored error pattern %s was not matched in reported errors.',
+								$ignore['ignore']
+							),
+							$file
+						);
+					}
+				} else {
+					$errors[] = sprintf(
+						'Ignored error pattern %s was not matched in reported errors.',
+						$ignore
+					);
+				}
 			}
 		}
 
