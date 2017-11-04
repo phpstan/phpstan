@@ -1167,7 +1167,12 @@ class NodeScopeResolver
 				}
 			}
 
-			if ($earlyTerminationStatement === null || $earlyTerminationStatement instanceof Break_ || !$respectEarlyTermination) {
+			if (
+				$earlyTerminationStatement === null
+				|| $earlyTerminationStatement instanceof Break_
+				|| $earlyTerminationStatement instanceof Continue_
+				|| !$respectEarlyTermination
+			) {
 				if ($intersectedScope === null) {
 					$intersectedScope = $initialScope->createIntersectedScope($branchScopeWithInitialScopeRemoved);
 				}

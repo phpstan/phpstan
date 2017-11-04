@@ -82,6 +82,9 @@ switch (foo()) {
 		$noSwitchVar = 1;
 		$trueOrFalseFromSwitch = false;
 		break;
+	case 'foo':
+		$trueOrFalseFromSwitch = 1;
+		return;
 	case 2:
 		$switchVar = 2;
 		break;
@@ -98,7 +101,7 @@ switch ('foo') {
 	case 'foo':
 		$trueOrFalseInSwitchWithDefault = true;
 		$nullableTrueOrFalse = true;
-		break;
+		continue;
 	case 'bar';
 		$nullableTrueOrFalse = false;
 		break;
