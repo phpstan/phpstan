@@ -80,7 +80,6 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		$parameters = [
 			'rootDir' => $rootDir,
 			'currentWorkingDirectory' => $currentWorkingDirectory,
-			'errorFormat' => $input->getOption('errorFormat'),
 			'cliArgumentsVariablesRegistered' => ini_get('register_argc_argv') === '1',
 		];
 
