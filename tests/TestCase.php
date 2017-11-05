@@ -181,7 +181,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				new CallbackBasedFunctionReturnTypeExtension(),
 			],
 			$functionReflectionFactory,
-			new FileTypeMapper($this->getParser(), $this->createMock(Cache::class))
+			new FileTypeMapper($this->getParser(), $cache)
 		);
 		$methodReflectionFactory->broker = $broker;
 
