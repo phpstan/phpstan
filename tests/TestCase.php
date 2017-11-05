@@ -2,10 +2,10 @@
 
 namespace PHPStan;
 
-use Nette\DI\Container;
 use PHPStan\Broker\Broker;
 use PHPStan\Cache\Cache;
 use PHPStan\Cache\MemoryCacheStorage;
+use PHPStan\DependencyInjection\ContainerFactory;
 use PHPStan\File\FileHelper;
 use PHPStan\Parser\DirectParser;
 use PHPStan\Parser\FunctionCallStatementFinder;
@@ -47,12 +47,15 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
 	public function getContainer(): \Nette\DI\Container
 	{
-		return self::$container;
-	}
+		if (self::$container === null) {
+			$rootDir = __DIR__ . '/..';
+			$containerFactory = new ContainerFactory($rootDir);
+			self::$container = $containerFactory->create($rootDir . '/tmp', [
+				$containerFactory->getConfigDirectory() . '/config.level7.neon',
+			]);
+		}
 
-	public static function setContainer(Container $container)
-	{
-		self::$container = $container;
+		return self::$container;
 	}
 
 	public function getParser(): \PHPStan\Parser\Parser
