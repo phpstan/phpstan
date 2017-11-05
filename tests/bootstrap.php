@@ -17,7 +17,7 @@ $configurator->defaultExtensions = [];
 $configurator->setDebugMode(true);
 $configurator->setTempDirectory($tmpDir);
 $configurator->addConfig($confDir . '/config.neon');
-$configurator->addConfig($confDir . '/config.level5.neon');
+$configurator->addConfig($confDir . '/config.level7.neon');
 $configurator->addParameters([
 	'rootDir' => $rootDir,
 	'tmpDir' => $tmpDir,
