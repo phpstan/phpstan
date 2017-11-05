@@ -2,13 +2,11 @@
 
 namespace PHPStan\Command;
 
-use Nette\Configurator;
 use Nette\DI\Config\Loader;
-use Nette\DI\Extensions\ExtensionsExtension;
-use Nette\DI\Extensions\PhpExtension;
 use Nette\DI\Helpers;
 use PhpParser\Node\Stmt\Catch_;
 use PHPStan\Command\ErrorFormatter\ErrorFormatter;
+use PHPStan\DependencyInjection\ContainerFactory;
 use PHPStan\File\FileHelper;
 use PHPStan\Type\TypeCombinator;
 use Symfony\Component\Console\Input\InputArgument;
@@ -74,15 +72,6 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			}
 		}
 
-		$rootDir = $fileHelper->normalizePath(__DIR__ . '/../..');
-		$confDir = $rootDir . '/conf';
-
-		$parameters = [
-			'rootDir' => $rootDir,
-			'currentWorkingDirectory' => $currentWorkingDirectory,
-			'cliArgumentsVariablesRegistered' => ini_get('register_argc_argv') === '1',
-		];
-
 		$projectConfigFile = $input->getOption('configuration');
 		$levelOption = $input->getOption(self::OPTION_LEVEL);
 		$defaultLevelUsed = false;
@@ -91,15 +80,17 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			$defaultLevelUsed = true;
 		}
 
-		$configFiles = [$confDir . '/config.neon'];
+		$containerFactory = new ContainerFactory($currentWorkingDirectory);
+
+		$additionalConfigFiles = [];
 		if ($levelOption !== null) {
-			$levelConfigFile = sprintf('%s/config.level%s.neon', $confDir, $levelOption);
+			$levelConfigFile = sprintf('%s/config.level%s.neon', $containerFactory->getConfigDirectory(), $levelOption);
 			if (!is_file($levelConfigFile)) {
 				$output->writeln(sprintf('Level config file %s was not found.', $levelConfigFile));
 				return 1;
 			}
 
-			$configFiles[] = $levelConfigFile;
+			$additionalConfigFiles[] = $levelConfigFile;
 		}
 
 		if ($projectConfigFile !== null) {
@@ -108,12 +99,15 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				return 1;
 			}
 
-			$configFiles[] = $projectConfigFile;
+			$additionalConfigFiles[] = $projectConfigFile;
 
 			$loader = new Loader();
 			$projectConfig = $loader->load($projectConfigFile, null);
 			if (isset($projectConfig['parameters']['tmpDir'])) {
-				$tmpDir = Helpers::expand($projectConfig['parameters']['tmpDir'], $parameters);
+				$tmpDir = Helpers::expand($projectConfig['parameters']['tmpDir'], [
+					'rootDir' => $containerFactory->getRootDirectory(),
+					'currentWorkingDirectory' => $containerFactory->getCurrentWorkingDirectory(),
+				]);
 			}
 		}
 
@@ -125,22 +119,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			}
 		}
 
-		$configurator = new Configurator();
-		$configurator->defaultExtensions = [
-			'php' => PhpExtension::class,
-			'extensions' => ExtensionsExtension::class,
-		];
-		$configurator->setDebugMode(true);
-		$configurator->setTempDirectory($tmpDir);
-
-		foreach ($configFiles as $configFile) {
-			$configurator->addConfig($configFile);
-		}
-
-		$parameters['tmpDir'] = $tmpDir;
-
-		$configurator->addParameters($parameters);
-		$container = $configurator->createContainer();
+		$container = $containerFactory->create($tmpDir, $additionalConfigFiles);
 		$memoryLimitFile = $container->parameters['memoryLimitFile'];
 		if (file_exists($memoryLimitFile)) {
 			$consoleStyle->note(sprintf(
