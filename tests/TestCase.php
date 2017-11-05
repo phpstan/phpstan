@@ -7,7 +7,6 @@ use PHPStan\Cache\Cache;
 use PHPStan\Cache\MemoryCacheStorage;
 use PHPStan\DependencyInjection\ContainerFactory;
 use PHPStan\File\FileHelper;
-use PHPStan\Parser\DirectParser;
 use PHPStan\Parser\FunctionCallStatementFinder;
 use PHPStan\Parser\Parser;
 use PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension;
@@ -37,14 +36,6 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	 */
 	private static $container;
 
-	/** @var \PHPStan\Parser\Parser */
-	private $parser;
-
-	/**
-	 * @var \PHPStan\File\FileHelper
-	 */
-	private $fileHelper;
-
 	public function getContainer(): \Nette\DI\Container
 	{
 		if (self::$container === null) {
@@ -60,13 +51,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
 	public function getParser(): \PHPStan\Parser\Parser
 	{
-		if ($this->parser === null) {
-			$traverser = new \PhpParser\NodeTraverser();
-			$traverser->addVisitor(new \PhpParser\NodeVisitor\NameResolver());
-			$this->parser = new DirectParser(new \PhpParser\Parser\Php7(new \PhpParser\Lexer()), $traverser);
-		}
-
-		return $this->parser;
+		/** @var \PHPStan\Parser\Parser $parser */
+		$parser = $this->getContainer()->getService('directParser');
+		return $parser;
 	}
 
 	/**
@@ -193,11 +180,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
 	public function getFileHelper(): FileHelper
 	{
-		if ($this->fileHelper === null) {
-			$this->fileHelper = $this->getContainer()->getByType(FileHelper::class);
-		}
-
-		return $this->fileHelper;
+		return $this->getContainer()->getByType(FileHelper::class);
 	}
 
 }
