@@ -629,6 +629,14 @@ class TypeCombinatorTest extends \PHPStan\TestCase
 				IntersectionType::class,
 				'iterable(string[])&mixed[]', // this is correct but 'string[]' would be better
 			],
+			[
+				[
+					new MixedType(),
+					new IterableIterableType(new MixedType()),
+				],
+				IterableIterableType::class,
+				'iterable(mixed[])',
+			],
 		];
 	}
 

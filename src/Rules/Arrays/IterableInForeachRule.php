@@ -3,6 +3,7 @@
 namespace PHPStan\Rules\Arrays;
 
 use PHPStan\Analyser\Scope;
+use PHPStan\Type\MixedType;
 use PHPStan\Type\UnionType;
 
 class IterableInForeachRule implements \PHPStan\Rules\Rule
@@ -35,7 +36,7 @@ class IterableInForeachRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		if (!$iteratedExpressionType->isIterable()->yes()) {
+		if (!$iteratedExpressionType instanceof MixedType && !$iteratedExpressionType->isIterable()->yes()) {
 			return [
 				sprintf(
 					'Argument of an invalid type %s supplied for foreach, only iterables are supported.',
