@@ -105,7 +105,7 @@ class MixedType implements CompoundType
 
 	public function isIterable(): TrinaryLogic
 	{
-		return TrinaryLogic::createYes();
+		return TrinaryLogic::createMaybe();
 	}
 
 	public function getIterableKeyType(): Type
