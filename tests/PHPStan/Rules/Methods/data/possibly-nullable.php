@@ -15,4 +15,19 @@ class Test {
 		}
 	}
 
+	/**
+	 * @return self|null
+	 */
+	public function fetch()
+	{
+
+	}
+
+	public function doFoo()
+	{
+		while ($test = $this->fetch()) {
+			$test->fetch();
+		}
+	}
+
 }
