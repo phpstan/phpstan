@@ -20,11 +20,17 @@ class Error
 	 */
 	private $line;
 
-	public function __construct(string $message, string $file, int $line = null)
+	/**
+	 * @var bool
+	 */
+	private $canBeIgnored;
+
+	public function __construct(string $message, string $file, int $line = null, bool $canBeIgnored = true)
 	{
 		$this->message = $message;
 		$this->file = $file;
 		$this->line = $line;
+		$this->canBeIgnored = $canBeIgnored;
 	}
 
 	public function getMessage(): string
@@ -43,6 +49,11 @@ class Error
 	public function getLine()
 	{
 		return $this->line;
+	}
+
+	public function canBeIgnored(): bool
+	{
+		return $this->canBeIgnored;
 	}
 
 }

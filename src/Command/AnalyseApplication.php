@@ -75,7 +75,7 @@ class AnalyseApplication
 		$onlyFiles = true;
 		foreach ($paths as $path) {
 			if (!file_exists($path)) {
-				$errors[] = new Error(sprintf('<error>Path %s does not exist</error>', $path), $path);
+				$errors[] = new Error(sprintf('<error>Path %s does not exist</error>', $path), $path, null, false);
 			} elseif (is_file($path)) {
 				$files[] = $this->fileHelper->normalizePath($path);
 			} else {

@@ -77,6 +77,16 @@ class AnalyserTest extends \PHPStan\TestCase
 		$this->assertEmpty($result);
 	}
 
+	public function testIgnoringBrokenConfigurationDoesNotWork()
+	{
+		$result = $this->runAnalyser(['#was not found while trying to analyse it#'], null, true, __DIR__ . '/../../notAutoloaded/Baz.php', false);
+		$this->assertInternalType('array', $result);
+		$this->assertCount(2, $result);
+		assert($result[0] instanceof Error);
+		$this->assertSame('Class PHPStan\Tests\Baz was not found while trying to analyse it - autoloading is probably not configured properly.', $result[0]->getMessage());
+		$this->assertSame('Ignored error pattern #was not found while trying to analyse it# was not matched in reported errors.', $result[1]);
+	}
+
 	/**
 	 * @param string[] $ignoreErrors
 	 * @param string|null $bootstrapFile

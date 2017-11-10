@@ -151,9 +151,9 @@ class Analyser
 
 				$errors = array_merge($errors, $fileErrors);
 			} catch (\PhpParser\Error $e) {
-				$errors[] = new Error($e->getMessage(), $file, $e->getStartLine() !== -1 ? $e->getStartLine() : null);
+				$errors[] = new Error($e->getMessage(), $file, $e->getStartLine() !== -1 ? $e->getStartLine() : null, false);
 			} catch (\PHPStan\AnalysedCodeException $e) {
-				$errors[] = new Error($e->getMessage(), $file);
+				$errors[] = new Error($e->getMessage(), $file, null, false);
 			} catch (\Throwable $t) {
 				$errors[] = new Error(sprintf('Internal error: %s', $t->getMessage()), $file);
 			}
@@ -161,6 +161,9 @@ class Analyser
 
 		$unmatchedIgnoredErrors = $this->ignoreErrors;
 		$errors = array_values(array_filter($errors, function (Error $error) use (&$unmatchedIgnoredErrors): bool {
+			if (!$error->canBeIgnored()) {
+				return true;
+			}
 			foreach ($this->ignoreErrors as $i => $ignore) {
 				if (\Nette\Utils\Strings::match($error->getMessage(), $ignore) !== null) {
 					unset($unmatchedIgnoredErrors[$i]);
