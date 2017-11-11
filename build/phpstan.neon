@@ -1,4 +1,5 @@
 includes:
+	- ../vendor/phpstan/phpstan-php-parser/extension.neon
 	- ../vendor/phpstan/phpstan-phpunit/extension.neon
 	- ../vendor/phpstan/phpstan-phpunit/rules.neon
 parameters:
@@ -11,10 +12,6 @@ parameters:
 		- '#Constant PHPSTAN_TEST_CONSTANT not found#'
 		- '#Strict comparison using === between PhpParser\\Node\\Expr\\ArrayItem and null will always evaluate to false#'
 services:
-	-
-		class: PHPStan\Build\PhpParserNameClassReflectionExtension
-		tags:
-			- phpstan.broker.propertiesClassReflectionExtension
 	-
 		class: PHPStan\Build\ServiceLocatorDynamicReturnTypeExtension
 		tags:

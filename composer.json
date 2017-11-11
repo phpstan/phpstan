@@ -27,6 +27,7 @@
 		"consistence/coding-standard": "^2.0.0",
 		"jakub-onderka/php-parallel-lint": "^0.9.2",
 		"phing/phing": "^2.16.0",
+		"phpstan/phpstan-php-parser": "^0.9",
 		"phpstan/phpstan-phpunit": "^0.9",
 		"phpunit/phpunit": "^6.3",
 		"slevomat/coding-standard": "^3.3.0"

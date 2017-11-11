@@ -53,6 +53,7 @@ You can also install already created framework-specific extensions:
 * [PHPUnit](https://github.com/phpstan/phpstan-phpunit)
 * [Nette Framework](https://github.com/phpstan/phpstan-nette)
 * [Dibi - Database Abstraction Library](https://github.com/phpstan/phpstan-dibi)
+* [PHP-Parser](https://github.com/phpstan/phpstan-php-parser)
 
 Other framework-specific extension will be coming soon!
 
