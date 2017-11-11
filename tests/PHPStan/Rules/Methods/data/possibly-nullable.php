@@ -28,6 +28,12 @@ class Test {
 		while ($test = $this->fetch()) {
 			$test->fetch();
 		}
+
+		if ($test2 = $this->fetch()) {
+			$test2->fetch();
+		} elseif ($test3 = $this->fetch()) {
+			$test3->fetch();
+		}
 	}
 
 }
