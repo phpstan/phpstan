@@ -2,7 +2,7 @@
 
 namespace PHPStan\Type;
 
-class TypeCombinatorTest extends \PHPStan\TestCase
+class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 {
 
 	protected function setUp()

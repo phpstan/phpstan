@@ -4,7 +4,7 @@ namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
 
-class UnionTypeTest extends \PHPStan\TestCase
+class UnionTypeTest extends \PHPStan\Testing\TestCase
 {
 
 	public function dataIsCallable(): array

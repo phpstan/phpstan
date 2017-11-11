@@ -4,7 +4,7 @@ namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
 
-class CallableTypeTest extends \PHPStan\TestCase
+class CallableTypeTest extends \PHPStan\Testing\TestCase
 {
 
 	public function dataIsSubsetOf(): array

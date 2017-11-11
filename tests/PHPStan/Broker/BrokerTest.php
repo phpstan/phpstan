@@ -8,7 +8,7 @@ use PHPStan\Cache\Cache;
 use PHPStan\Reflection\FunctionReflectionFactory;
 use PHPStan\Type\FileTypeMapper;
 
-class BrokerTest extends \PHPStan\TestCase
+class BrokerTest extends \PHPStan\Testing\TestCase
 {
 
 	/** @var \PHPStan\Broker\Broker */

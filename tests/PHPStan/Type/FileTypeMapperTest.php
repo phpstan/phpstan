@@ -4,7 +4,7 @@ namespace PHPStan\Type;
 
 use PHPStan\Cache\Cache;
 
-class FileTypeMapperTest extends \PHPStan\TestCase
+class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 {
 
 	public function testAccepts()

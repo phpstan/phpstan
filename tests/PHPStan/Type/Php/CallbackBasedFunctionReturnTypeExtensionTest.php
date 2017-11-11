@@ -10,7 +10,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\StringType;
 
-class CallbackBasedFunctionReturnTypeExtensionTest extends \PHPStan\TestCase
+class CallbackBasedFunctionReturnTypeExtensionTest extends \PHPStan\Testing\TestCase
 {
 
 	/**

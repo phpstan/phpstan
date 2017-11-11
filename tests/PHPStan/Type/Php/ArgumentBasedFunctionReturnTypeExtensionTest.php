@@ -10,7 +10,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\StringType;
 
-class ArgumentBasedFunctionReturnTypeExtensionTest extends \PHPStan\TestCase
+class ArgumentBasedFunctionReturnTypeExtensionTest extends \PHPStan\Testing\TestCase
 {
 
 	/**

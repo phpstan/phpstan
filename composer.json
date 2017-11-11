@@ -35,6 +35,6 @@
 		"psr-4": {"PHPStan\\": ["src/", "build/PHPStan"]}
 	},
 	"autoload-dev": {
-		"classmap": ["tests/PHPStan", "tests/TestCase.php"]
+		"classmap": ["tests/PHPStan"]
 	}
 }

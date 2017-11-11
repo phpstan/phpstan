@@ -7,7 +7,7 @@ use PHPStan\Broker\Broker;
 use XMLReader;
 use ZipArchive;
 
-class PhpDefectClassReflectionExtensionTest extends \PHPStan\TestCase
+class PhpDefectClassReflectionExtensionTest extends \PHPStan\Testing\TestCase
 {
 
 	/**

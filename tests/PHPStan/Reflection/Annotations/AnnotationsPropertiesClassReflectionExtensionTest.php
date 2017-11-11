@@ -6,7 +6,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\Php\PhpPropertyReflection;
 
-class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\TestCase
+class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\Testing\TestCase
 {
 
 	public function dataProperties(): array

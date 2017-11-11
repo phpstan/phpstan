@@ -2,7 +2,7 @@
 
 namespace PHPStan\File;
 
-class FileExcluderTest extends \PHPStan\TestCase
+class FileExcluderTest extends \PHPStan\Testing\TestCase
 {
 
 	private function skipIfNotOnWindows()

@@ -4,7 +4,7 @@ namespace PHPStan\Reflection;
 
 use PHPStan\Broker\Broker;
 
-class ClassReflectionTest extends \PHPStan\TestCase
+class ClassReflectionTest extends \PHPStan\Testing\TestCase
 {
 
 	public function dataHasTraitUse(): array

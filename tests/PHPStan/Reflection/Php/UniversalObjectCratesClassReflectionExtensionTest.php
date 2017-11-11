@@ -4,7 +4,7 @@ namespace PHPStan\Reflection\Php;
 
 use PHPStan\Broker\Broker;
 
-class UniversalObjectCratesClassReflectionExtensionTest extends \PHPStan\TestCase
+class UniversalObjectCratesClassReflectionExtensionTest extends \PHPStan\Testing\TestCase
 {
 
 	public function testNonexistentClass()

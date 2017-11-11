@@ -2,7 +2,7 @@
 
 namespace PHPStan\Type;
 
-class FloatTypeTest extends \PHPStan\TestCase
+class FloatTypeTest extends \PHPStan\Testing\TestCase
 {
 
 	public function dataAccepts(): array

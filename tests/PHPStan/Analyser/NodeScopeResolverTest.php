@@ -16,7 +16,7 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use SomeNodeScopeResolverNamespace\Foo;
 
-class NodeScopeResolverTest extends \PHPStan\TestCase
+class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 {
 
 	public function testClassMethodScope()

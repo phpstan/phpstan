@@ -18,7 +18,7 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\UnionType;
 
-class TypeSpecifierTest extends \PHPStan\TestCase
+class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 {
 
 	/** @var \PhpParser\PrettyPrinter\Standard() */

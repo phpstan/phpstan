@@ -4,7 +4,7 @@ namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
 
-class ObjectTypeTest extends \PHPStan\TestCase
+class ObjectTypeTest extends \PHPStan\Testing\TestCase
 {
 
 	public function dataIsIterable(): array

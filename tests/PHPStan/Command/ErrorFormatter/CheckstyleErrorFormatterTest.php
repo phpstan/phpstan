@@ -5,11 +5,10 @@ namespace PHPStan\Command\ErrorFormatter;
 use PHPStan\Analyser\Error;
 use PHPStan\Command\AnalysisResult;
 use PHPStan\Command\ErrorsConsoleStyle;
-use PHPStan\TestCase;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\StreamOutput;
 
-class CheckstyleErrorFormatterTest extends TestCase
+class CheckstyleErrorFormatterTest extends \PHPStan\Testing\TestCase
 {
 
 	/**

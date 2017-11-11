@@ -6,7 +6,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\Php\PhpMethodReflection;
 
-class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\TestCase
+class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\Testing\TestCase
 {
 
 	public function dataMethods(): array

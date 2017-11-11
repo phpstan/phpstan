@@ -2,7 +2,7 @@
 
 namespace PHPStan\Rules;
 
-class RegistryTest extends \PHPStan\TestCase
+class RegistryTest extends \PHPStan\Testing\TestCase
 {
 
 	public function testGetRules()

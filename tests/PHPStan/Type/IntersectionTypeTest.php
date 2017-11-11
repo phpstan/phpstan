@@ -4,7 +4,7 @@ namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
 
-class IntersectionTypeTest extends \PHPStan\TestCase
+class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 {
 
 	public function dataAccepts(): \Iterator

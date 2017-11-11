@@ -9,7 +9,7 @@ use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Cache\Cache;
 use PHPStan\Type\FileTypeMapper;
 
-abstract class AbstractRuleTest extends \PHPStan\TestCase
+abstract class AbstractRuleTest extends \PHPStan\Testing\TestCase
 {
 
 	/** @var \PHPStan\Analyser\Analyser */

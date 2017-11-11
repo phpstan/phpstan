@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace PHPStan;
+namespace PHPStan\Testing;
 
 use PHPStan\Broker\Broker;
 use PHPStan\Cache\Cache;
@@ -39,7 +39,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	public function getContainer(): \Nette\DI\Container
 	{
 		if (self::$container === null) {
-			$rootDir = __DIR__ . '/..';
+			$rootDir = __DIR__ . '/../..';
 			$containerFactory = new ContainerFactory($rootDir);
 			self::$container = $containerFactory->create($rootDir . '/tmp', [
 				$containerFactory->getConfigDirectory() . '/config.level7.neon',

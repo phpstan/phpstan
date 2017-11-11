@@ -2,7 +2,7 @@
 
 namespace PHPStan\Type;
 
-class IntegerTypeTest extends \PHPStan\TestCase
+class IntegerTypeTest extends \PHPStan\Testing\TestCase
 {
 
 	public function testAccepts()

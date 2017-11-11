@@ -4,7 +4,7 @@ namespace PHPStan\Analyser;
 
 use PHPStan\File\FileHelper;
 
-class AnalyserIntegrationTest extends \PHPStan\TestCase
+class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 {
 
 	public function testUndefinedVariableFromAssignErrorHasLine()

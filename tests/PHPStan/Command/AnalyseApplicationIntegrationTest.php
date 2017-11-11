@@ -7,7 +7,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\StreamOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class AnalyseApplicationIntegrationTest extends \PHPStan\TestCase
+class AnalyseApplicationIntegrationTest extends \PHPStan\Testing\TestCase
 {
 
 	public function testExecuteOnADirectoryWithoutFiles()
