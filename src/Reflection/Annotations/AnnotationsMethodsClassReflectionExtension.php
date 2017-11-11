@@ -104,7 +104,7 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 	private function createMethodParameters(string $parametersStringCandidate, array $typeMap): array
 	{
 		$parameters = [];
-		if (!$parametersStringCandidate) {
+		if ($parametersStringCandidate === '') {
 			return $parameters;
 		}
 

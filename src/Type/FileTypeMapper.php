@@ -182,7 +182,7 @@ class FileTypeMapper
 			return TypeCombinator::intersect(...$types);
 		}
 
-		if ($iterableValueTypes) {
+		if (count($iterableValueTypes) > 0) {
 			$iterableValueType = TypeCombinator::union(...$iterableValueTypes);
 			$addArray = true;
 

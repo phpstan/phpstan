@@ -249,10 +249,7 @@ class FunctionReflection implements ParametersAcceptorWithPhpDocs
 			}
 
 			if ($node instanceof Function_) {
-				$functionName = $node->name;
-				if ((string) $node->namespacedName) {
-					$functionName = (string) $node->namespacedName;
-				}
+				$functionName = (string) $node->namespacedName;
 
 				if ($functionName === $this->reflection->getName()) {
 					return $this->functionCallStatementFinder->findFunctionCallInStatements(self::VARIADIC_FUNCTIONS, $node->getStmts()) !== null;

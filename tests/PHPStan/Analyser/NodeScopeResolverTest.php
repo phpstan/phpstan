@@ -1374,20 +1374,20 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 
 		return [
 			[
-				$typeCallback('foo' && 'bar'),
-				"'foo' && 'bar'",
+				$typeCallback(true && false),
+				'true && false',
 			],
 			[
-				$typeCallback('foo' || 'bar'),
-				"'foo' || 'bar'",
+				$typeCallback(true || false),
+				'true || false',
 			],
 			[
-				$typeCallback('foo' xor 'bar'),
-				"'foo' xor 'bar'",
+				$typeCallback(true xor false),
+				'true xor false',
 			],
 			[
-				$typeCallback(!2),
-				'!2',
+				$typeCallback(!true),
+				'!true',
 			],
 			[
 				$typeCallback(-1),

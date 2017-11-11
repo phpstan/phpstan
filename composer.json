@@ -29,6 +29,7 @@
 		"phing/phing": "^2.16.0",
 		"phpstan/phpstan-php-parser": "^0.9",
 		"phpstan/phpstan-phpunit": "^0.9",
+		"phpstan/phpstan-strict-rules": "^0.9",
 		"phpunit/phpunit": "^6.3",
 		"slevomat/coding-standard": "^3.3.0"
 	},

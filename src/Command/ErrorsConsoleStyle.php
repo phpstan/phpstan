@@ -23,7 +23,7 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 	public function __construct(InputInterface $input, OutputInterface $output)
 	{
 		parent::__construct($input, $output);
-		$this->showProgress = $input->hasOption(self::OPTION_NO_PROGRESS) && !$input->getOption(self::OPTION_NO_PROGRESS);
+		$this->showProgress = $input->hasOption(self::OPTION_NO_PROGRESS) && !((bool) $input->getOption(self::OPTION_NO_PROGRESS));
 		$this->output = $output;
 	}
 

@@ -1280,17 +1280,17 @@ class NodeScopeResolver
 				return null;
 			}
 
-			if (!$this->findEarlyTermination($statement->stmts, $scope)) {
+			if ($this->findEarlyTermination($statement->stmts, $scope) === null) {
 				return null;
 			}
 
 			foreach ($statement->elseifs as $elseIfStatement) {
-				if (!$this->findEarlyTermination($elseIfStatement->stmts, $scope)) {
+				if ($this->findEarlyTermination($elseIfStatement->stmts, $scope) === null) {
 					return null;
 				}
 			}
 
-			if (!$this->findEarlyTermination($statement->else->stmts, $scope)) {
+			if ($this->findEarlyTermination($statement->else->stmts, $scope) === null) {
 				return null;
 			}
 
