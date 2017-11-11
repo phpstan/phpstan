@@ -112,7 +112,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				);
 			}
 		};
-		$fileTypeMapper = new FileTypeMapper($parser, $this->createMock(Cache::class));
+		$fileTypeMapper = new FileTypeMapper($parser, $cache);
 		$annotationsPropertiesClassReflectionExtension = new AnnotationsPropertiesClassReflectionExtension($fileTypeMapper);
 		$phpExtension = new PhpClassReflectionExtension($methodReflectionFactory, $fileTypeMapper, new AnnotationsMethodsClassReflectionExtension($fileTypeMapper), $annotationsPropertiesClassReflectionExtension);
 		$functionReflectionFactory = new class($this->getParser(), $functionCallStatementFinder, $cache) implements FunctionReflectionFactory {
