@@ -63,9 +63,19 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 		$actualErrors = $this->getAnalyser()->analyse($files, false);
 		$this->assertInternalType('array', $actualErrors);
 
+		$strictlyTypedSprintf = function (int $line, string $message): string {
+			return sprintf('%02d: %s', $line, $message);
+		};
+
 		$expectedErrors = array_map(
-			function (array $error): string {
-				return sprintf('%02d: %s', $error[1], $error[0]);
+			function (array $error) use ($strictlyTypedSprintf): string {
+				if (!isset($error[0])) {
+					throw new \InvalidArgumentException('Missing expected error message.');
+				}
+				if (!isset($error[1])) {
+					throw new \InvalidArgumentException('Missing expected file line.');
+				}
+				return $strictlyTypedSprintf($error[1], $error[0]);
 			},
 			$expectedErrors
 		);
