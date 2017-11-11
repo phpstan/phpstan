@@ -6,7 +6,7 @@ use PHPStan\Rules\FunctionCallParametersCheck;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleLevelHelper;
 
-class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	/** @var bool */

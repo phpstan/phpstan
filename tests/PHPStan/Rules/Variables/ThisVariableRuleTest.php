@@ -2,7 +2,7 @@
 
 namespace PHPStan\Rules\Variables;
 
-class ThisVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class ThisVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule

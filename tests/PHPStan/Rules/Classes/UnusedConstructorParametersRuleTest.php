@@ -4,7 +4,7 @@ namespace PHPStan\Rules\Classes;
 
 use PHPStan\Rules\UnusedFunctionParametersCheck;
 
-class UnusedConstructorParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class UnusedConstructorParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule

@@ -2,7 +2,7 @@
 
 namespace PHPStan\Rules\Variables;
 
-class VariableCloningRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class VariableCloningRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	/** @var bool */

@@ -2,7 +2,7 @@
 
 namespace PHPStan\Rules\Classes;
 
-class ImpossibleInstanceOfRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class ImpossibleInstanceOfRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	/** @var bool */

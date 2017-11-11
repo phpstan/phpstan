@@ -2,7 +2,7 @@
 
 namespace PHPStan\Rules\Arrays;
 
-class IterableInForeachRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class IterableInForeachRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	/** @var bool */

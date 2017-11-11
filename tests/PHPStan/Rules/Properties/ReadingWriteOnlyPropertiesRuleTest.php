@@ -4,7 +4,7 @@ namespace PHPStan\Rules\Properties;
 
 use PHPStan\Rules\RuleLevelHelper;
 
-class ReadingWriteOnlyPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class ReadingWriteOnlyPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	/** @var bool */

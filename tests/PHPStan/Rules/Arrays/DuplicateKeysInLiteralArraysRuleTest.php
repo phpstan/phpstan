@@ -2,7 +2,7 @@
 
 namespace PHPStan\Rules\Arrays;
 
-class DuplicateKeysInLiteralArraysRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class DuplicateKeysInLiteralArraysRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule

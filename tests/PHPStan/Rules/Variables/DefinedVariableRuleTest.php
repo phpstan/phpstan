@@ -2,7 +2,7 @@
 
 namespace PHPStan\Rules\Variables;
 
-class DefinedVariableRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	/**

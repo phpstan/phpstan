@@ -1,15 +1,17 @@
 <?php declare(strict_types = 1);
 
-namespace PHPStan\Rules;
+namespace PHPStan\Testing;
 
 use PHPStan\Analyser\Analyser;
 use PHPStan\Analyser\Error;
 use PHPStan\Analyser\NodeScopeResolver;
 use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Cache\Cache;
+use PHPStan\Rules\Registry;
+use PHPStan\Rules\Rule;
 use PHPStan\Type\FileTypeMapper;
 
-abstract class AbstractRuleTest extends \PHPStan\Testing\TestCase
+abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 {
 
 	/** @var \PHPStan\Analyser\Analyser */

@@ -2,7 +2,7 @@
 
 namespace PHPStan\Rules\Functions;
 
-class CallToNonExistentFunctionRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class CallToNonExistentFunctionRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule

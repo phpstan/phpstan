@@ -2,7 +2,7 @@
 
 namespace PHPStan\Rules\Constants;
 
-class ConstantRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class ConstantRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule

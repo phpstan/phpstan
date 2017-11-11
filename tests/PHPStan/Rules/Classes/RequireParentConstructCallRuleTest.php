@@ -2,7 +2,7 @@
 
 namespace PHPStan\Rules\Classes;
 
-class RequireParentConstructCallRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class RequireParentConstructCallRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule

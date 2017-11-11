@@ -4,7 +4,7 @@ namespace PHPStan\Rules\Comparison;
 
 use PHPStan\Analyser\TypeSpecifier;
 
-class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	/** @var bool */

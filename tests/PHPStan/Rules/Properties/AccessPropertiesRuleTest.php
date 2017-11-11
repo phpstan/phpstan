@@ -4,7 +4,7 @@ namespace PHPStan\Rules\Properties;
 
 use PHPStan\Rules\RuleLevelHelper;
 
-class AccessPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	/** @var bool */

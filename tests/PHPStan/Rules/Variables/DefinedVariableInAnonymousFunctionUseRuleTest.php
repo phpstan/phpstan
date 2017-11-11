@@ -2,7 +2,7 @@
 
 namespace PHPStan\Rules\Variables;
 
-class DefinedVariableInAnonymousFunctionUseRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class DefinedVariableInAnonymousFunctionUseRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	/**

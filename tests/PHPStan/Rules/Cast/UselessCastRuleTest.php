@@ -2,7 +2,7 @@
 
 namespace PHPStan\Rules\Cast;
 
-class UselessCastRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class UselessCastRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule

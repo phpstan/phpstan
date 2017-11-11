@@ -2,7 +2,7 @@
 
 namespace PHPStan\Rules\Arrays;
 
-class InvalidKeyInArrayItemRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class InvalidKeyInArrayItemRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule

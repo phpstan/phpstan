@@ -6,7 +6,7 @@ use PHPStan\Rules\ClassCaseSensitivityCheck;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleLevelHelper;
 
-class ClassConstantRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class ClassConstantRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): Rule

@@ -5,7 +5,7 @@ namespace PHPStan\Rules\Properties;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleLevelHelper;
 
-class DefaultValueTypesAssignedToPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class DefaultValueTypesAssignedToPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): Rule

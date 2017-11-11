@@ -2,7 +2,7 @@
 
 namespace PHPStan\Rules\Comparison;
 
-class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule

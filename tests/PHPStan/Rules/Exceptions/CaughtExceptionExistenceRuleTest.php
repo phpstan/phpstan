@@ -2,7 +2,7 @@
 
 namespace PHPStan\Rules\Exceptions;
 
-class CaughtExceptionExistenceRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class CaughtExceptionExistenceRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule

@@ -4,7 +4,7 @@ namespace PHPStan\Rules\Functions;
 
 use PHPStan\Rules\RuleLevelHelper;
 
-class CallToCountOnlyWithArrayOrCountableRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class CallToCountOnlyWithArrayOrCountableRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule

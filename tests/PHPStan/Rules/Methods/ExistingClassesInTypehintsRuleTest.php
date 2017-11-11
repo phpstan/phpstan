@@ -5,7 +5,7 @@ namespace PHPStan\Rules\Methods;
 use PHPStan\Rules\ClassCaseSensitivityCheck;
 use PHPStan\Rules\FunctionDefinitionCheck;
 
-class ExistingClassesInTypehintsRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class ExistingClassesInTypehintsRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule

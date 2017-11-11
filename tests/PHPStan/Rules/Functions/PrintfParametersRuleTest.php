@@ -2,7 +2,7 @@
 
 namespace PHPStan\Rules\Functions;
 
-class PrintfParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class PrintfParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule

@@ -4,7 +4,7 @@ namespace PHPStan\Rules\Methods;
 
 use PHPStan\Rules\RuleLevelHelper;
 
-class CallMethodsOnPossiblyNullRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class CallMethodsOnPossiblyNullRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule

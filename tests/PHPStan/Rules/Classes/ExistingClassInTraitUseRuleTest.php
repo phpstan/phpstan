@@ -5,7 +5,7 @@ namespace PHPStan\Rules\Classes;
 use PHPStan\Rules\ClassCaseSensitivityCheck;
 use PHPStan\Rules\Rule;
 
-class ExistingClassInTraitUseRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class ExistingClassInTraitUseRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): Rule

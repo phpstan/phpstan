@@ -4,7 +4,7 @@ namespace PHPStan\Rules\Properties;
 
 use PHPStan\Rules\RuleLevelHelper;
 
-class TypesAssignedToPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class TypesAssignedToPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule

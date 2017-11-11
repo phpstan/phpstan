@@ -5,7 +5,7 @@ namespace PHPStan\Rules\Functions;
 use PHPStan\Rules\FunctionCallParametersCheck;
 use PHPStan\Rules\RuleLevelHelper;
 
-class CallToFunctionParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule

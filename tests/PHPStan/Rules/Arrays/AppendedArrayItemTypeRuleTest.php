@@ -4,7 +4,7 @@ namespace PHPStan\Rules\Arrays;
 
 use PHPStan\Rules\RuleLevelHelper;
 
-class AppendedArrayItemTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class AppendedArrayItemTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule

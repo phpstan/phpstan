@@ -2,7 +2,7 @@
 
 namespace PHPStan\Rules\Functions;
 
-class InnerFunctionRuleTest extends \PHPStan\Rules\AbstractRuleTest
+class InnerFunctionRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule
