@@ -305,9 +305,12 @@ class NodeScopeResolver
 		return $this->lookForAssigns($scope, $node->valueVar, TrinaryLogic::createYes());
 	}
 
-	private function processNode(\PhpParser\Node $node, Scope $scope, \Closure $nodeCallback)
+	private function processNode(\PhpParser\Node $node, Scope $scope, \Closure $nodeCallback, bool $stopImmediately = false)
 	{
 		$nodeCallback($node, $scope);
+		if ($stopImmediately) {
+			return;
+		}
 
 		if (
 			$node instanceof \PhpParser\Node\Stmt\ClassLike
@@ -420,6 +423,7 @@ class NodeScopeResolver
 
 			$elseifScope = $ifScope->filterByFalseyValue($node->cond);
 			foreach ($node->elseifs as $elseif) {
+				$this->processNode($elseif, $scope, $nodeCallback, true);
 				$scope = $elseifScope;
 				$this->processNode($elseif->cond, $scope->exitFirstLevelStatements(), $nodeCallback);
 				$scope = $this->lookForAssigns(
@@ -461,6 +465,7 @@ class NodeScopeResolver
 				$switchConditionGetClassExpression = $node->cond->args[0]->value;
 			}
 			foreach ($node->cases as $caseNode) {
+				$this->processNode($caseNode, $scope, $nodeCallback, true);
 				if ($caseNode->cond !== null) {
 					$this->processNode($caseNode->cond, $switchScope, $nodeCallback);
 					$switchScope = $this->lookForAssigns(
