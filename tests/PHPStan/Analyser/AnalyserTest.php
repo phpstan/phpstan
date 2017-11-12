@@ -44,6 +44,15 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		], $result);
 	}
 
+	public function testReportInvalidIgnoreKeyEarly()
+	{
+		$result = $this->runAnalyser(['#MyFile\.php' => ''], null, true, __DIR__ . '/data/parse-error.php', false);
+		$this->assertInternalType('array', $result);
+		$this->assertSame([
+			"No ending delimiter '#' found in pattern: #MyFile\.php",
+		], $result);
+	}
+
 	public function testNonexistentBootstrapFile()
 	{
 		$result = $this->runAnalyser([], __DIR__ . '/foo.php', true, __DIR__ . '/data/empty/empty.php', false);
@@ -88,7 +97,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 	}
 
 	/**
-	 * @param string[] $ignoreErrors
+	 * @param array $ignoreErrors
 	 * @param string|null $bootstrapFile
 	 * @param bool $reportUnmatchedIgnoredErrors
 	 * @param string $filePath
@@ -112,7 +121,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 	}
 
 	/**
-	 * @param string[] $ignoreErrors
+	 * @param array $ignoreErrors
 	 * @param string|null $bootstrapFile
 	 * @param bool $reportUnmatchedIgnoredErrors
 	 * @return Analyser

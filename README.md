@@ -302,6 +302,14 @@ If some of the patterns do not occur in the result anymore, PHPStan will let you
 and you will have to remove the pattern from the configuration. You can turn off
 this behaviour by setting `reportUnmatchedIgnoredErrors` to `false` in PHPStan configuration.
 
+You can also restrict the ignored errors to a specific file, by providing the filename in form of a regular expression as a key:
+
+```
+	parameters:
+		ignoreErrors:
+			'#SomeExampleFile\.php#': '#Call to an undefined method [a-zA-Z0-9\\_]+::method\(\)#'
+```
+
 ### Bootstrap file
 
 If you need to initialize something in PHP runtime before PHPStan runs (like your own autoloader),
