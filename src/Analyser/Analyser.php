@@ -95,9 +95,15 @@ class Analyser
 	 * @param string[] $files
 	 * @param bool $onlyFiles
 	 * @param \Closure|null $progressCallback
+	 * @param bool $debug
 	 * @return string[]|\PHPStan\Analyser\Error[] errors
 	 */
-	public function analyse(array $files, bool $onlyFiles, \Closure $progressCallback = null): array
+	public function analyse(
+		array $files,
+		bool $onlyFiles,
+		\Closure $progressCallback = null,
+		bool $debug = false
+	): array
 	{
 		$errors = [];
 
@@ -155,6 +161,9 @@ class Analyser
 			} catch (\PHPStan\AnalysedCodeException $e) {
 				$errors[] = new Error($e->getMessage(), $file, null, false);
 			} catch (\Throwable $t) {
+				if ($debug) {
+					throw $t;
+				}
 				$errors[] = new Error(sprintf('Internal error: %s', $t->getMessage()), $file);
 			}
 		}

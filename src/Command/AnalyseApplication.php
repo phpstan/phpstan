@@ -54,13 +54,15 @@ class AnalyseApplication
 	 * @param \Symfony\Component\Console\Style\OutputStyle $style
 	 * @param \PHPStan\Command\ErrorFormatter\ErrorFormatter $errorFormatter
 	 * @param bool $defaultLevelUsed
+	 * @param bool $debug
 	 * @return int Error code.
 	 */
 	public function analyse(
 		array $paths,
 		OutputStyle $style,
 		ErrorFormatter $errorFormatter,
-		bool $defaultLevelUsed
+		bool $defaultLevelUsed,
+		bool $debug
 	): int
 	{
 		$errors = [];
@@ -94,13 +96,10 @@ class AnalyseApplication
 
 		$this->updateMemoryLimitFile();
 
-		$progressStarted = false;
-
-		$fileOrder = 0;
-		$errors = array_merge($errors, $this->analyser->analyse(
-			$files,
-			$onlyFiles,
-			function () use ($style, &$progressStarted, $files, &$fileOrder) {
+		if (!$debug) {
+			$progressStarted = false;
+			$fileOrder = 0;
+			$progressCallback = function () use ($style, &$progressStarted, $files, &$fileOrder) {
 				if (!$progressStarted) {
 					$style->progressStart(count($files));
 					$progressStarted = true;
@@ -110,10 +109,21 @@ class AnalyseApplication
 					$this->updateMemoryLimitFile();
 				}
 				$fileOrder++;
-			}
+			};
+		} else {
+			$progressCallback = function (string $file) use ($style) {
+				$style->writeln($file);
+			};
+		}
+
+		$errors = array_merge($errors, $this->analyser->analyse(
+			$files,
+			$onlyFiles,
+			$progressCallback,
+			$debug
 		));
 
-		if ($progressStarted) {
+		if (isset($progressStarted) && $progressStarted) {
 			$style->progressFinish();
 		}
 

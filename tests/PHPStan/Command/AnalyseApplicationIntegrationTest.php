@@ -60,6 +60,7 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\Testing\TestCase
 			[$path],
 			$style,
 			new TableErrorFormatter(),
+			false,
 			false
 		);
 		if (file_exists($memoryLimitFile)) {
