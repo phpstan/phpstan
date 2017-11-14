@@ -160,7 +160,7 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 				35,
 			],
 			[
-				'Function openssl_open invoked with 6 parameters, 4-5 required.',
+				'Function openssl_open invoked with 7 parameters, 4-6 required.',
 				37,
 			],
 		]);

@@ -206,6 +206,11 @@ class FunctionReflection implements ParametersAcceptorWithPhpDocs
 					new StringType(),
 					true
 				);
+				$this->parameters[5] = new DummyParameter(
+					'iv',
+					new StringType(),
+					true
+				);
 			}
 		}
 

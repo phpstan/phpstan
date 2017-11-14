@@ -34,4 +34,4 @@ mysqli_fetch_all(new mysqli_result()); // OK
 mysqli_fetch_all(new mysqli_result(), MYSQLI_ASSOC); // OK
 mysqli_fetch_all(new mysqli_result(), MYSQLI_ASSOC, true); // should report 3 parameters given, 1-2 required
 openssl_open('', $open, '', openssl_get_privatekey('')); // OK
-openssl_open('', $open, '', openssl_get_privatekey(''), 'foo', 'bar'); // should report 6 parameters, 4-5 required.
+openssl_open('', $open, '', openssl_get_privatekey(''), 'foo', 'bar', 'baz'); // should report 7 parameters, 4-6 required.
