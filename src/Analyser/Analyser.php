@@ -160,19 +160,26 @@ class Analyser
 		}
 
 		$unmatchedIgnoredErrors = $this->ignoreErrors;
-		$errors = array_values(array_filter($errors, function (Error $error) use (&$unmatchedIgnoredErrors): bool {
-			if (!$error->canBeIgnored()) {
-				return true;
-			}
+		$addErrors = [];
+		$errors = array_values(array_filter($errors, function (Error $error) use (&$unmatchedIgnoredErrors, &$addErrors): bool {
 			foreach ($this->ignoreErrors as $i => $ignore) {
 				if (\Nette\Utils\Strings::match($error->getMessage(), $ignore) !== null) {
 					unset($unmatchedIgnoredErrors[$i]);
+					if (!$error->canBeIgnored()) {
+						$addErrors[] = sprintf(
+							'Error message "%s" cannot be ignored, use excludes_analyse instead.',
+							$error->getMessage()
+						);
+						return true;
+					}
 					return false;
 				}
 			}
 
 			return true;
 		}));
+
+		$errors = array_merge($errors, $addErrors);
 
 		if (!$onlyFiles && $this->reportUnmatchedIgnoredErrors) {
 			foreach ($unmatchedIgnoredErrors as $unmatchedIgnoredError) {

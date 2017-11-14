@@ -84,7 +84,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		$this->assertCount(2, $result);
 		assert($result[0] instanceof Error);
 		$this->assertSame('Class PHPStan\Tests\Baz was not found while trying to analyse it - autoloading is probably not configured properly.', $result[0]->getMessage());
-		$this->assertSame('Ignored error pattern #was not found while trying to analyse it# was not matched in reported errors.', $result[1]);
+		$this->assertSame('Error message "Class PHPStan\Tests\Baz was not found while trying to analyse it - autoloading is probably not configured properly." cannot be ignored, use excludes_analyse instead.', $result[1]);
 	}
 
 	/**
