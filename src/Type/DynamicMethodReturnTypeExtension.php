@@ -9,7 +9,7 @@ use PHPStan\Reflection\MethodReflection;
 interface DynamicMethodReturnTypeExtension
 {
 
-	public static function getClass(): string;
+	public function getClass(): string;
 
 	public function isMethodSupported(MethodReflection $methodReflection): bool;
 
