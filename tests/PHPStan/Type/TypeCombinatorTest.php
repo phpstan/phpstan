@@ -481,6 +481,21 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				UnionType::class,
 				'callable|RecursionCallable\Foo',
 			],
+			[
+				[
+					new IntersectionType([
+						new IterableIterableType(new ObjectType(\IterablesInfiniteRecursion\Bar::class)),
+						new ObjectType(\IterablesInfiniteRecursion\Unrelated::class),
+					]),
+					new IntersectionType([
+						new IterableIterableType(new ObjectType(\IterablesInfiniteRecursion\Bar::class)),
+						new ObjectType(\IterablesInfiniteRecursion\Foo::class),
+					]),
+				],
+				MixedType::class,
+				'mixed',
+			],
+
 		];
 	}
 
