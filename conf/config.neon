@@ -14,7 +14,7 @@ parameters:
 	checkNullables: false
 	checkThisOnly: true
 	checkUnionTypes: false
-	polluteScopeWithLoopInitialAssignments: false
+	polluteScopeWithLoopInitialAssignments: true
 	polluteCatchScopeWithTryAssignments: false
 	ignoreErrors: []
 	reportUnmatchedIgnoredErrors: true
