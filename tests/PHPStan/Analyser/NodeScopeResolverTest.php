@@ -2433,7 +2433,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				new class() implements DynamicMethodReturnTypeExtension {
 
-					public static function getClass(): string
+					public function getClass(): string
 					{
 						return \DynamicMethodReturnTypesNamespace\EntityManager::class;
 					}
@@ -2466,7 +2466,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				new class() implements DynamicStaticMethodReturnTypeExtension {
 
-					public static function getClass(): string
+					public function getClass(): string
 					{
 						return \DynamicMethodReturnTypesNamespace\EntityManager::class;
 					}

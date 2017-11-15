@@ -403,7 +403,7 @@ interface PropertyReflection
 {
 
 	public function getType(): Type;
-	
+
 	public function getDeclaringClass(): ClassReflection;
 
 	public function isStatic(): bool;
@@ -459,7 +459,7 @@ interface MethodReflection
 	public function isPrivate(): bool;
 
 	public function isPublic(): bool;
-	
+
 	public function getName(): string;
 
 	/**
@@ -510,7 +510,7 @@ use PHPStan\Reflection\MethodReflection;
 interface DynamicMethodReturnTypeExtension
 {
 
-	public static function getClass(): string;
+	public function getClass(): string;
 
 	public function isMethodSupported(MethodReflection $methodReflection): bool;
 
@@ -522,7 +522,7 @@ interface DynamicMethodReturnTypeExtension
 And this is how you'd write the extension that correctly resolves the EntityManager::merge() return type:
 
 ```php
-public static function getClass(): string
+public function getClass(): string
 {
 	return \Doctrine\ORM\EntityManager::class;
 }
@@ -577,14 +577,14 @@ This project adheres to a [Contributor Code of Conduct](https://github.com/phpst
 
 ## Contributing
 
-Any contributions are welcome. 
+Any contributions are welcome.
 
 ### Building
 
 You can either run the whole build including linting and coding standards using
 
 `vendor/bin/phing`
- 
+
 or run only tests using
 
 `vendor/bin/phing tests`
