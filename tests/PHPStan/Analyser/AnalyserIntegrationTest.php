@@ -73,6 +73,13 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertCount(0, $errors);
 	}
 
+	public function testClassExtendingNotAutoloadedClass()
+	{
+		$errors = $this->runAnalyse(__DIR__ . '/data/class-autoloading.php');
+		$this->assertCount(1, $errors);
+		$this->assertSame('Class PHPStan\Tests\Baz not found and could not be autoloaded.', $errors[0]->getMessage());
+	}
+
 	/**
 	 * @param string $file
 	 * @return \PHPStan\Analyser\Error[]
