@@ -6,6 +6,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\BrokerAwareClassReflectionExtension;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\FunctionReflectionFactory;
+use PHPStan\Type\DynamicClassReturnTypeExtension;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\TypehintHelper;
 use ReflectionClass;
@@ -75,10 +76,18 @@ class Broker
 
 		foreach ($dynamicMethodReturnTypeExtensions as $dynamicMethodReturnTypeExtension) {
 			$this->dynamicMethodReturnTypeExtensions[$dynamicMethodReturnTypeExtension->getClass()][] = $dynamicMethodReturnTypeExtension;
+
+			if ($dynamicMethodReturnTypeExtension instanceof DynamicClassReturnTypeExtension) {
+				$this->dynamicMethodReturnTypeExtensions['*'][] = $dynamicMethodReturnTypeExtension;
+			}
 		}
 
 		foreach ($dynamicStaticMethodReturnTypeExtensions as $dynamicStaticMethodReturnTypeExtension) {
 			$this->dynamicStaticMethodReturnTypeExtensions[$dynamicStaticMethodReturnTypeExtension->getClass()][] = $dynamicStaticMethodReturnTypeExtension;
+
+			if ($dynamicStaticMethodReturnTypeExtension instanceof DynamicClassReturnTypeExtension) {
+				$this->dynamicStaticMethodReturnTypeExtensions['*'][] = $dynamicStaticMethodReturnTypeExtension;
+			}
 		}
 
 		foreach ($dynamicFunctionReturnTypeExtensions as $functionReturnTypeExtension) {
@@ -132,12 +141,25 @@ class Broker
 	{
 		$extensionsForClass = [];
 		$class = $this->getClass($className);
-		foreach (array_merge([$className], $class->getParentClassesNames(), $class->getNativeReflection()->getInterfaceNames()) as $extensionClassName) {
+		$extensionClassNames = array_merge([$className], $class->getParentClassesNames(), $class->getNativeReflection()->getInterfaceNames());
+
+		foreach ($extensionClassNames as $extensionClassName) {
 			if (!isset($extensions[$extensionClassName])) {
 				continue;
 			}
 
 			$extensionsForClass = array_merge($extensionsForClass, $extensions[$extensionClassName]);
+		}
+
+		// dynamic class extensions
+		if (isset($extensions['*'])) {
+			foreach ($extensionClassNames as $extensionClassName) {
+				foreach ($extensions['*'] as $extension) {
+					if ($extension->isClassSupported($extensionClassName)) {
+						$extensionsForClass[] = $extension;
+					}
+				}
+			}
 		}
 
 		return $extensionsForClass;
