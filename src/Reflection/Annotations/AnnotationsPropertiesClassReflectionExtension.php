@@ -85,7 +85,7 @@ class AnnotationsPropertiesClassReflectionExtension implements PropertiesClassRe
 				$readable = false;
 			}
 			$type = $typeMap[$typeString];
-			$properties[$match[3]] = new AnnotationPropertyReflection($classReflection, $type, $readable, $writable);
+			$properties[$match[3]] = new AnnotationPropertyReflection($declaringClass, $type, $readable, $writable);
 		}
 
 		return $properties;

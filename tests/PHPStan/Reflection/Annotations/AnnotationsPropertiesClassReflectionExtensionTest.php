@@ -140,7 +140,7 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\Testing
 						'readable' => true,
 					],
 					'traitProperty' => [
-						'class' => \AnnotationsProperties\FooTrait::class,
+						'class' => \AnnotationsProperties\Baz::class,
 						'type' => 'AnnotationsProperties\BazBaz',
 						'writable' => true,
 						'readable' => true,
@@ -187,7 +187,7 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\Testing
 						'readable' => true,
 					],
 					'traitProperty' => [
-						'class' => \AnnotationsProperties\FooTrait::class,
+						'class' => \AnnotationsProperties\Baz::class,
 						'type' => 'AnnotationsProperties\BazBaz',
 						'writable' => true,
 						'readable' => true,
