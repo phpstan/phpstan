@@ -9,7 +9,6 @@ parameters:
 		- %rootDir%/tests/*/data/*
 		- %rootDir%/tests/PHPStan/Analyser/traits/*
 		- %rootDir%/tests/notAutoloaded/*
-		- %rootDir%/tests/PSR4/*
 	ignoreErrors:
 		- '#Constant PHPSTAN_TEST_CONSTANT not found#'
 		- '#Strict comparison using === between PhpParser\\Node\\Expr\\ArrayItem and null will always evaluate to false#'
