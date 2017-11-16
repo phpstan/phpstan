@@ -72,8 +72,8 @@ class PhpClassReflectionExtension
 
 	public function getProperty(ClassReflection $classReflection, string $propertyName): PropertyReflection
 	{
-		if (!isset($this->propertiesIncludingAnnotations[$classReflection->getName()])) {
-			$this->propertiesIncludingAnnotations[$classReflection->getName()] = $this->createProperties($classReflection, true);
+		if (!isset($this->propertiesIncludingAnnotations[$classReflection->getName()][$propertyName])) {
+			$this->propertiesIncludingAnnotations[$classReflection->getName()][$propertyName] = $this->createProperty($classReflection, $propertyName, true);
 		}
 
 		return $this->propertiesIncludingAnnotations[$classReflection->getName()][$propertyName];
@@ -81,39 +81,22 @@ class PhpClassReflectionExtension
 
 	public function getNativeProperty(ClassReflection $classReflection, string $propertyName): PhpPropertyReflection
 	{
-		if (!isset($this->nativeProperties[$classReflection->getName()])) {
-			/** @var \PHPStan\Reflection\Php\PhpPropertyReflection[] $properties */
-			$properties = $this->createProperties($classReflection, false);
-			$this->nativeProperties[$classReflection->getName()] = $properties;
+		if (!isset($this->nativeProperties[$classReflection->getName()][$propertyName])) {
+			/** @var \PHPStan\Reflection\Php\PhpPropertyReflection $property */
+			$property = $this->createProperty($classReflection, $propertyName, false);
+			$this->nativeProperties[$classReflection->getName()][$propertyName] = $property;
 		}
 
 		return $this->nativeProperties[$classReflection->getName()][$propertyName];
 	}
 
-	/**
-	 * @param \PHPStan\Reflection\ClassReflection $classReflection
-	 * @param bool $includingAnnotations
-	 * @return \PHPStan\Reflection\PropertyReflection[]
-	 */
-	private function createProperties(
-		ClassReflection $classReflection,
-		bool $includingAnnotations
-	): array
-	{
-		$properties = [];
-		foreach ($classReflection->getNativeReflection()->getProperties() as $propertyReflection) {
-			$properties[$propertyReflection->getName()] = $this->createProperty($classReflection, $propertyReflection, $includingAnnotations);
-		}
-
-		return $properties;
-	}
-
 	private function createProperty(
 		ClassReflection $classReflection,
-		\ReflectionProperty $propertyReflection,
+		string $propertyName,
 		bool $includingAnnotations
 	): PropertyReflection
 	{
+		$propertyReflection = $classReflection->getNativeReflection()->getProperty($propertyName);
 		$propertyName = $propertyReflection->getName();
 		$declaringClassReflection = $this->broker->getClass($propertyReflection->getDeclaringClass()->getName());
 
