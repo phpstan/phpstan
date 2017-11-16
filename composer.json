@@ -37,6 +37,7 @@
 		"psr-4": {"PHPStan\\": ["src/", "build/PHPStan"]}
 	},
 	"autoload-dev": {
+		"psr-4": {"PHPStan\\Tests\\PSR4\\": ["tests/PSR4"]},
 		"classmap": ["tests/PHPStan"]
 	}
 }
