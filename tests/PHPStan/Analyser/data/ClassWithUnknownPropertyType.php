@@ -3,7 +3,7 @@
 class ClassWithUnknownPropertyType
 {
 
-	/** @var \PHPStan\Tests\PSR4\ClassWithUnknownParent|null */
+	/** @var ClassWithUnknownParent|self */
 	protected $test;
 
 }
