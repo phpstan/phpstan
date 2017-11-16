@@ -94,14 +94,16 @@ class Analyser
 	/**
 	 * @param string[] $files
 	 * @param bool $onlyFiles
-	 * @param \Closure|null $progressCallback
+	 * @param \Closure|null $preFileCallback
+	 * @param \Closure|null $postFileCallback
 	 * @param bool $debug
 	 * @return string[]|\PHPStan\Analyser\Error[] errors
 	 */
 	public function analyse(
 		array $files,
 		bool $onlyFiles,
-		\Closure $progressCallback = null,
+		\Closure $preFileCallback = null,
+		\Closure $postFileCallback = null,
 		bool $debug = false
 	): array
 	{
@@ -136,6 +138,9 @@ class Analyser
 		foreach ($files as $file) {
 			try {
 				$fileErrors = [];
+				if ($preFileCallback !== null) {
+					$preFileCallback($file);
+				}
 				$this->nodeScopeResolver->processNodes(
 					$this->parser->parseFile($file),
 					new Scope($this->broker, $this->printer, $this->typeSpecifier, $file),
@@ -151,8 +156,8 @@ class Analyser
 						}
 					}
 				);
-				if ($progressCallback !== null) {
-					$progressCallback($file);
+				if ($postFileCallback !== null) {
+					$postFileCallback($file);
 				}
 
 				$errors = array_merge($errors, $fileErrors);

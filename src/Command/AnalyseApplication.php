@@ -99,7 +99,8 @@ class AnalyseApplication
 		if (!$debug) {
 			$progressStarted = false;
 			$fileOrder = 0;
-			$progressCallback = function () use ($style, &$progressStarted, $files, &$fileOrder) {
+			$preFileCallback = null;
+			$postFileCallback = function () use ($style, &$progressStarted, $files, &$fileOrder) {
 				if (!$progressStarted) {
 					$style->progressStart(count($files));
 					$progressStarted = true;
@@ -111,15 +112,17 @@ class AnalyseApplication
 				$fileOrder++;
 			};
 		} else {
-			$progressCallback = function (string $file) use ($style) {
+			$preFileCallback = function (string $file) use ($style) {
 				$style->writeln($file);
 			};
+			$postFileCallback = null;
 		}
 
 		$errors = array_merge($errors, $this->analyser->analyse(
 			$files,
 			$onlyFiles,
-			$progressCallback,
+			$preFileCallback,
+			$postFileCallback,
 			$debug
 		));
 
