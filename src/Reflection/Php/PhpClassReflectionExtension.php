@@ -102,53 +102,61 @@ class PhpClassReflectionExtension
 	{
 		$properties = [];
 		foreach ($classReflection->getNativeReflection()->getProperties() as $propertyReflection) {
-			$propertyName = $propertyReflection->getName();
-			$declaringClassReflection = $this->broker->getClass($propertyReflection->getDeclaringClass()->getName());
-
-			if ($includingAnnotations && $this->annotationsPropertiesClassReflectionExtension->hasProperty($classReflection, $propertyName)) {
-				$hierarchyDistances = $classReflection->getClassHierarchyDistances();
-				$annotationProperty = $this->annotationsPropertiesClassReflectionExtension->getProperty($classReflection, $propertyName);
-				if (!isset($hierarchyDistances[$annotationProperty->getDeclaringClass()->getName()])) {
-					throw new \PHPStan\ShouldNotHappenException();
-				}
-				if (!isset($hierarchyDistances[$propertyReflection->getDeclaringClass()->getName()])) {
-					throw new \PHPStan\ShouldNotHappenException();
-				}
-
-				if ($hierarchyDistances[$annotationProperty->getDeclaringClass()->getName()] < $hierarchyDistances[$propertyReflection->getDeclaringClass()->getName()]) {
-					$properties[$propertyReflection->getName()] = $annotationProperty;
-					continue;
-				}
-			}
-			if ($propertyReflection->getDocComment() === false) {
-				$type = new MixedType();
-			} elseif (!$declaringClassReflection->getNativeReflection()->isAnonymous() && $declaringClassReflection->getNativeReflection()->getFileName() !== false) {
-				$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForProperty(
-					$this->broker,
-					$propertyReflection->getDocComment(),
-					$declaringClassReflection->getName(),
-					$propertyName,
-					$declaringClassReflection->getNativeReflection()->getFileName()
-				);
-				$typeMap = $this->fileTypeMapper->getTypeMap($phpDocBlock->getFile());
-				$typeString = $this->getPropertyAnnotationTypeString($phpDocBlock->getDocComment());
-				if (isset($typeMap[$typeString])) {
-					$type = $typeMap[$typeString];
-				} else {
-					$type = new MixedType();
-				}
-			} else {
-				$type = new MixedType();
-			}
-
-			$properties[$propertyName] = new PhpPropertyReflection(
-				$declaringClassReflection,
-				$type,
-				$propertyReflection
-			);
+			$properties[$propertyReflection->getName()] = $this->createProperty($classReflection, $propertyReflection, $includingAnnotations);
 		}
 
 		return $properties;
+	}
+
+	private function createProperty(
+		ClassReflection $classReflection,
+		\ReflectionProperty $propertyReflection,
+		bool $includingAnnotations
+	): PropertyReflection
+	{
+		$propertyName = $propertyReflection->getName();
+		$declaringClassReflection = $this->broker->getClass($propertyReflection->getDeclaringClass()->getName());
+
+		if ($includingAnnotations && $this->annotationsPropertiesClassReflectionExtension->hasProperty($classReflection, $propertyName)) {
+			$hierarchyDistances = $classReflection->getClassHierarchyDistances();
+			$annotationProperty = $this->annotationsPropertiesClassReflectionExtension->getProperty($classReflection, $propertyName);
+			if (!isset($hierarchyDistances[$annotationProperty->getDeclaringClass()->getName()])) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+			if (!isset($hierarchyDistances[$propertyReflection->getDeclaringClass()->getName()])) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+
+			if ($hierarchyDistances[$annotationProperty->getDeclaringClass()->getName()] < $hierarchyDistances[$propertyReflection->getDeclaringClass()->getName()]) {
+				return $annotationProperty;
+			}
+		}
+		if ($propertyReflection->getDocComment() === false) {
+			$type = new MixedType();
+		} elseif (!$declaringClassReflection->getNativeReflection()->isAnonymous() && $declaringClassReflection->getNativeReflection()->getFileName() !== false) {
+			$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForProperty(
+				$this->broker,
+				$propertyReflection->getDocComment(),
+				$declaringClassReflection->getName(),
+				$propertyName,
+				$declaringClassReflection->getNativeReflection()->getFileName()
+			);
+			$typeMap = $this->fileTypeMapper->getTypeMap($phpDocBlock->getFile());
+			$typeString = $this->getPropertyAnnotationTypeString($phpDocBlock->getDocComment());
+			if (isset($typeMap[$typeString])) {
+				$type = $typeMap[$typeString];
+			} else {
+				$type = new MixedType();
+			}
+		} else {
+			$type = new MixedType();
+		}
+
+		return new PhpPropertyReflection(
+			$declaringClassReflection,
+			$type,
+			$propertyReflection
+		);
 	}
 
 	/**
@@ -219,55 +227,67 @@ class PhpClassReflectionExtension
 			}
 		}
 		foreach ($reflectionMethods as $methodReflection) {
-			if ($includingAnnotations && $this->annotationsMethodsClassReflectionExtension->hasMethod($classReflection, $methodReflection->getName())) {
-				$hierarchyDistances = $classReflection->getClassHierarchyDistances();
-				$annotationMethod = $this->annotationsMethodsClassReflectionExtension->getMethod($classReflection, $methodReflection->getName());
-				if (!isset($hierarchyDistances[$annotationMethod->getDeclaringClass()->getName()])) {
-					throw new \PHPStan\ShouldNotHappenException();
-				}
-				if (!isset($hierarchyDistances[$methodReflection->getDeclaringClass()->getName()])) {
-					throw new \PHPStan\ShouldNotHappenException();
-				}
-
-				if ($hierarchyDistances[$annotationMethod->getDeclaringClass()->getName()] < $hierarchyDistances[$methodReflection->getDeclaringClass()->getName()]) {
-					$methods[$methodReflection->getName()] = $annotationMethod;
-					continue;
-				}
-			}
-			$declaringClass = $this->broker->getClass($methodReflection->getDeclaringClass()->getName());
-
-			$phpDocParameterTypes = [];
-			$phpDocReturnType = null;
-			if (!$declaringClass->getNativeReflection()->isAnonymous() && $declaringClass->getNativeReflection()->getFileName() !== false) {
-				if ($methodReflection->getDocComment() !== false) {
-					$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForMethod(
-						$this->broker,
-						$methodReflection->getDocComment(),
-						$declaringClass->getName(),
-						$methodReflection->getName(),
-						$declaringClass->getNativeReflection()->getFileName()
-					);
-					$typeMap = $this->fileTypeMapper->getTypeMap($phpDocBlock->getFile());
-					$phpDocParameterTypes = TypehintHelper::getParameterTypesFromPhpDoc(
-						$typeMap,
-						array_map(function (\ReflectionParameter $parameterReflection): string {
-							return $parameterReflection->getName();
-						}, $methodReflection->getParameters()),
-						$phpDocBlock->getDocComment()
-					);
-					$phpDocReturnType = TypehintHelper::getReturnTypeFromPhpDoc($typeMap, $phpDocBlock->getDocComment());
-				}
-			}
-
-			$methods[$methodReflection->getName()] = $this->methodReflectionFactory->create(
-				$declaringClass,
+			$methods[$methodReflection->getName()] = $this->createMethod(
+				$classReflection,
 				$methodReflection,
-				$phpDocParameterTypes,
-				$phpDocReturnType
+				$includingAnnotations
 			);
 		}
 
 		return $methods;
+	}
+
+	private function createMethod(
+		ClassReflection $classReflection,
+		\ReflectionMethod $methodReflection,
+		bool $includingAnnotations
+	): MethodReflection
+	{
+		if ($includingAnnotations && $this->annotationsMethodsClassReflectionExtension->hasMethod($classReflection, $methodReflection->getName())) {
+			$hierarchyDistances = $classReflection->getClassHierarchyDistances();
+			$annotationMethod = $this->annotationsMethodsClassReflectionExtension->getMethod($classReflection, $methodReflection->getName());
+			if (!isset($hierarchyDistances[$annotationMethod->getDeclaringClass()->getName()])) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+			if (!isset($hierarchyDistances[$methodReflection->getDeclaringClass()->getName()])) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+
+			if ($hierarchyDistances[$annotationMethod->getDeclaringClass()->getName()] < $hierarchyDistances[$methodReflection->getDeclaringClass()->getName()]) {
+				return $annotationMethod;
+			}
+		}
+		$declaringClass = $this->broker->getClass($methodReflection->getDeclaringClass()->getName());
+
+		$phpDocParameterTypes = [];
+		$phpDocReturnType = null;
+		if (!$declaringClass->getNativeReflection()->isAnonymous() && $declaringClass->getNativeReflection()->getFileName() !== false) {
+			if ($methodReflection->getDocComment() !== false) {
+				$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForMethod(
+					$this->broker,
+					$methodReflection->getDocComment(),
+					$declaringClass->getName(),
+					$methodReflection->getName(),
+					$declaringClass->getNativeReflection()->getFileName()
+				);
+				$typeMap = $this->fileTypeMapper->getTypeMap($phpDocBlock->getFile());
+				$phpDocParameterTypes = TypehintHelper::getParameterTypesFromPhpDoc(
+					$typeMap,
+					array_map(function (\ReflectionParameter $parameterReflection): string {
+						return $parameterReflection->getName();
+					}, $methodReflection->getParameters()),
+					$phpDocBlock->getDocComment()
+				);
+				$phpDocReturnType = TypehintHelper::getReturnTypeFromPhpDoc($typeMap, $phpDocBlock->getDocComment());
+			}
+		}
+
+		return $this->methodReflectionFactory->create(
+			$declaringClass,
+			$methodReflection,
+			$phpDocParameterTypes,
+			$phpDocReturnType
+		);
 	}
 
 }
