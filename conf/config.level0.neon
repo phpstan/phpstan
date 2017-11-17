@@ -115,6 +115,11 @@ services:
 			- phpstan.rules.rule
 
 	-
+		class: PHPStan\Rules\Namespaces\ExistingNamesInGroupUseRule
+		tags:
+			- phpstan.rules.rule
+
+	-
 		class: PHPStan\Rules\Namespaces\ExistingNamesInUseRule
 		tags:
 			- phpstan.rules.rule
