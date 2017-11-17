@@ -20,7 +20,7 @@ class ExistingClassesInInterfaceExtendsRuleTest extends \PHPStan\Testing\RuleTes
 	{
 		$this->analyse([__DIR__ . '/data/extends-implements.php'], [
 			[
-				'Class ExtendsImplements\FooInterface referenced with incorrect case: ExtendsImplements\FOOInterface.',
+				'Interface ExtendsImplements\FooInterface referenced with incorrect case: ExtendsImplements\FOOInterface.',
 				30,
 			],
 		]);

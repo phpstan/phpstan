@@ -3,6 +3,7 @@
 namespace PHPStan\Rules;
 
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ClassReflection;
 
 class ClassCaseSensitivityCheck
 {
@@ -26,7 +27,8 @@ class ClassCaseSensitivityCheck
 			if (!$this->broker->hasClass($className)) {
 				continue;
 			}
-			$realClassName = $this->broker->getClass($className)->getName();
+			$classReflection = $this->broker->getClass($className);
+			$realClassName = $classReflection->getName();
 			if (strtolower($realClassName) !== strtolower($className)) {
 				continue; // skip class alias
 			}
@@ -35,13 +37,25 @@ class ClassCaseSensitivityCheck
 			}
 
 			$messages[] = sprintf(
-				'Class %s referenced with incorrect case: %s.',
+				'%s %s referenced with incorrect case: %s.',
+				$this->getTypeName($classReflection),
 				$realClassName,
 				$className
 			);
 		}
 
 		return $messages;
+	}
+
+	private function getTypeName(ClassReflection $classReflection): string
+	{
+		if ($classReflection->isInterface()) {
+			return 'Interface';
+		} elseif ($classReflection->isTrait()) {
+			return 'Trait';
+		}
+
+		return 'Class';
 	}
 
 }

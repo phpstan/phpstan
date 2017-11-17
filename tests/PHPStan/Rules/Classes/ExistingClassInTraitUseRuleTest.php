@@ -20,7 +20,7 @@ class ExistingClassInTraitUseRuleTest extends \PHPStan\Testing\RuleTestCase
 	{
 		$this->analyse([__DIR__ . '/data/trait-use.php'], [
 			[
-				'Class TraitUseCase\FooTrait referenced with incorrect case: TraitUseCase\FOOTrait.',
+				'Trait TraitUseCase\FooTrait referenced with incorrect case: TraitUseCase\FOOTrait.',
 				13,
 			],
 		]);
