@@ -912,13 +912,6 @@ class NodeScopeResolver
 				$statements[] = new StatementList($scope, $case->stmts);
 			}
 
-			if (count($statements) > 0) {
-				$lastStatementList = $statements[count($statements) - 1];
-				$lastStatements = $lastStatementList->getStatements();
-				$lastStatements[] = new Break_();
-				$statements[count($statements) - 1] = new StatementList($lastStatementList->getScope(), $lastStatements);
-			}
-
 			if (!$hasDefault) {
 				$statements[] = new StatementList($scope, []);
 			}
@@ -1174,7 +1167,7 @@ class NodeScopeResolver
 			$statements = $statementList->getStatements();
 			$branchScope = $statementList->getScope();
 			if ($previousBranchScope !== null) {
-				$branchScope = $branchScope->addVariables($previousBranchScope, TrinaryLogic::createMaybe());
+				$branchScope = $branchScope->addVariables($previousBranchScope);
 			}
 			$branchScopeWithInitialScopeRemoved = $branchScope->removeVariables($initialScope, true);
 
@@ -1205,7 +1198,7 @@ class NodeScopeResolver
 					$previousBranchScope = $branchScopeWithInitialScopeRemoved;
 				} else {
 					if ($previousBranchScope !== null) {
-						$intersectedScope = $intersectedScope->addVariables($previousBranchScope, TrinaryLogic::createYes());
+						$intersectedScope = $intersectedScope->addVariables($previousBranchScope);
 					}
 					$intersectedScope = $intersectedScope->intersectVariables($branchScopeWithInitialScopeRemoved);
 					$previousBranchScope = null;
