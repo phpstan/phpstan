@@ -174,6 +174,21 @@ switch ('foo') {
 		return;
 }
 
+switch ('foo') {
+	case 'a':
+		$variableDefinedInSwitchWithoutEarlyTermination = true;
+	case 'b':
+		$variableDefinedInSwitchWithoutEarlyTermination = false;
+}
+
+switch ('foo') {
+	case 'a':
+		$anotherVariableDefinedInSwitchWithoutEarlyTermination = true;
+		break;
+	case 'b':
+		$anotherVariableDefinedInSwitchWithoutEarlyTermination = false;
+}
+
 do {
 	$doWhileVar = 1;
 } while (something());

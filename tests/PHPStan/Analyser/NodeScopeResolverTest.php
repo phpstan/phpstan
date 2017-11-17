@@ -533,6 +533,18 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				TrinaryLogic::createYes(),
 				'mixed',
 			],
+			[
+				$testScope,
+				'variableDefinedInSwitchWithoutEarlyTermination',
+				TrinaryLogic::createMaybe(),
+				'bool',
+			],
+			[
+				$testScope,
+				'anotherVariableDefinedInSwitchWithoutEarlyTermination',
+				TrinaryLogic::createMaybe(),
+				'bool',
+			],
 		];
 	}
 

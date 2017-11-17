@@ -1403,15 +1403,11 @@ class Scope
 		);
 	}
 
-	public function addVariables(Scope $otherScope): self
+	public function addVariables(Scope $otherScope, TrinaryLogic $certainty): self
 	{
 		$variableTypes = $this->getVariableTypes();
 		foreach ($otherScope->getVariableTypes() as $name => $theirVariableTypeHolder) {
-			if (!$this->hasVariableType($name)->no()) {
-				$ourVariableTypeHolder = $this->variableTypes[$name];
-				$theirVariableTypeHolder = $ourVariableTypeHolder->and($theirVariableTypeHolder);
-			}
-			$variableTypes[$name] = $theirVariableTypeHolder;
+			$variableTypes[$name] = new VariableTypeHolder($theirVariableTypeHolder->getType(), $certainty);
 		}
 
 		$moreSpecificTypes = $this->moreSpecificTypes;
