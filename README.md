@@ -47,7 +47,7 @@ and invoking methods using `__call`.
 
 See [Class reflection extensions](#class-reflection-extensions) and [Dynamic return type extensions](#dynamic-return-type-extensions).
 
-You can also install already created framework-specific extensions:
+You can also install official framework-specific extensions:
 
 * [Doctrine](https://github.com/phpstan/phpstan-doctrine)
 * [PHPUnit](https://github.com/phpstan/phpstan-phpunit)
@@ -55,7 +55,11 @@ You can also install already created framework-specific extensions:
 * [Dibi - Database Abstraction Library](https://github.com/phpstan/phpstan-dibi)
 * [PHP-Parser](https://github.com/phpstan/phpstan-php-parser)
 
-Other framework-specific extension will be coming soon!
+Unofficial extensions for other frameworks and libraries are also available:
+
+* [Phony](https://github.com/eloquent/phpstan-phony)
+
+New extensions are becoming available on a regular basis!
 
 ## Prerequisites
 
