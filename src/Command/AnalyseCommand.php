@@ -8,6 +8,7 @@ use PhpParser\Node\Stmt\Catch_;
 use PHPStan\Command\ErrorFormatter\ErrorFormatter;
 use PHPStan\DependencyInjection\ContainerFactory;
 use PHPStan\File\FileHelper;
+use PHPStan\Library\Composer\XdebugHandler;
 use PHPStan\Type\TypeCombinator;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -48,6 +49,10 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
+		$xdebug = new XdebugHandler($output);
+		$xdebug->check();
+		unset($xdebug);
+
 		$consoleStyle = new ErrorsConsoleStyle($input, $output);
 
 		$memoryLimit = $input->getOption('memory-limit');
