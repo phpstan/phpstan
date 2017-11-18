@@ -135,3 +135,13 @@ function (FOO $foo)
 function (string $className) {
 	$className::foo();
 };
+
+class CallingNonexistentParentConstructor extends Foo
+{
+
+	public function __construct()
+	{
+		parent::__construct();
+	}
+
+}
