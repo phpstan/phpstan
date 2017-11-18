@@ -67,6 +67,10 @@ class CallStaticMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				67,
 			],
 			[
+				'Call to private constructor of class CallStaticMethods\ClassWithConstructor.',
+				87,
+			],
+			[
 				'Parent constructor invoked with 0 parameters, 1 required.',
 				87,
 			],

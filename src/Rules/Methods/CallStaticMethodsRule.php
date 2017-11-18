@@ -116,9 +116,18 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 					$scope
 				);
 				if (!$currentMethodReflection->isStatic()) {
-					if ($methodName === '__construct' && $currentClassReflection->getParentClass()->hasMethod('__construct')) {
-						return $this->check->check(
-							$currentClassReflection->getParentClass()->getMethod('__construct', $scope),
+					$parentReflection = $currentClassReflection->getParentClass();
+					if ($methodName === '__construct' && $parentReflection->hasMethod('__construct')) {
+						$parentConstructor = $parentReflection->getMethod('__construct', $scope);
+						if (!$scope->canCallMethod($parentConstructor)) {
+							$errors[] = sprintf(
+								'Call to %s constructor of class %s.',
+								$parentConstructor->isPrivate() ? 'private' : 'protected',
+								$parentConstructor->getDeclaringClass()->getDisplayName()
+							);
+						}
+						return array_merge($errors, $this->check->check(
+							$parentConstructor,
 							$scope,
 							$node,
 							[
@@ -132,7 +141,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 								'', // constructor does not have a return type
 								'Parameter #%d %s of parent constructor is passed by reference, so it expects variables only.',
 							]
-						);
+						));
 					}
 
 					return [];

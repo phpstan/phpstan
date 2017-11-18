@@ -72,7 +72,7 @@ class Ipsum
 class ClassWithConstructor
 {
 
-	public function __construct($foo)
+	private function __construct($foo)
 	{
 
 	}
