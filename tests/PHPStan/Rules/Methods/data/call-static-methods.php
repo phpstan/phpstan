@@ -145,3 +145,19 @@ class CallingNonexistentParentConstructor extends Foo
 	}
 
 }
+
+class Baz extends Foo
+{
+
+	public function doFoo()
+	{
+		parent::nonexistent();
+	}
+
+	public static function doBaz()
+	{
+		parent::nonexistent();
+		parent::loremIpsum();
+	}
+
+}
