@@ -3705,11 +3705,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function dataLoopVariables(): array
 	{
 		return [
-			/*[
-				'LoopVariables\Lorem|LoopVariables\Foo|null',
+			[
+				'LoopVariables\Foo|LoopVariables\Lorem|null',
 				'$foo',
 				"'begin';",
-			],*/
+			],
 			[
 				'LoopVariables\Foo',
 				'$foo',

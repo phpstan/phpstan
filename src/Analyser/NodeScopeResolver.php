@@ -380,7 +380,7 @@ class NodeScopeResolver
 			$scope = $this->lookForAssignsInBranches($scope, [
 				new StatementList($scope, $node->stmts),
 				new StatementList($scope, []),
-			]);
+			], false, new LookForAssignsSettings(true, false));
 			$scope = $this->enterForeach($scope, $node);
 
 			$this->processNodes($node->stmts, $scope->enterFirstLevelStatements(), $nodeCallback);
@@ -532,7 +532,7 @@ class NodeScopeResolver
 			}
 
 			if ($node->finally !== null) {
-				$finallyScope = $this->lookForAssignsInBranches($scopeForLookForAssignsInBranches, $statements, false, false);
+				$finallyScope = $this->lookForAssignsInBranches($scopeForLookForAssignsInBranches, $statements, false, new LookForAssignsSettings(false, true));
 
 				$this->processNode($node->finally, $finallyScope, $nodeCallback);
 			}
@@ -622,7 +622,7 @@ class NodeScopeResolver
 					$scope = $this->lookForAssignsInBranches($scope, [
 						new StatementList($scope, $node->stmts),
 						new StatementList($scope, []),
-					]);
+					], false, new LookForAssignsSettings(true, false));
 					$scope = $this->lookForAssigns($scope, $node->cond, TrinaryLogic::createYes());
 					$scope = $scope->filterByTruthyValue($node->cond);
 				}
@@ -783,7 +783,8 @@ class NodeScopeResolver
 	private function lookForAssigns(
 		Scope $scope,
 		\PhpParser\Node $node,
-		TrinaryLogic $certainty
+		TrinaryLogic $certainty,
+		LookForAssignsSettings $lookForAssignsSettings = null
 	): Scope
 	{
 		if ($node instanceof StaticVar) {
@@ -816,7 +817,7 @@ class NodeScopeResolver
 			];
 			$statements = array_merge($statements, $elseIfStatements);
 
-			$scope = $this->lookForAssignsInBranches($scope, $statements);
+			$scope = $this->lookForAssignsInBranches($scope, $statements, false, $lookForAssignsSettings);
 		} elseif ($node instanceof TryCatch) {
 			$statements = [
 				new StatementList($scope, $node->stmts),
@@ -828,10 +829,10 @@ class NodeScopeResolver
 				), $catch->stmts);
 			}
 
-			$scope = $this->lookForAssignsInBranches($scope, $statements);
+			$scope = $this->lookForAssignsInBranches($scope, $statements, false, $lookForAssignsSettings);
 			if ($node->finally !== null) {
 				foreach ($node->finally->stmts as $statement) {
-					$scope = $this->lookForAssigns($scope, $statement, $certainty);
+					$scope = $this->lookForAssigns($scope, $statement, $certainty, $lookForAssignsSettings);
 				}
 			}
 		} elseif ($node instanceof MethodCall || $node instanceof FuncCall || $node instanceof Expr\StaticCall) {
@@ -1147,16 +1148,19 @@ class NodeScopeResolver
 	 * @param \PHPStan\Analyser\Scope $initialScope
 	 * @param \PHPStan\Analyser\StatementList[] $statementsLists
 	 * @param bool $isSwitchCase
-	 * @param bool $respectEarlyTermination
+	 * @param \PHPStan\Analyser\LookForAssignsSettings $lookForAssignsSettings
 	 * @return Scope
 	 */
 	private function lookForAssignsInBranches(
 		Scope $initialScope,
 		array $statementsLists,
 		bool $isSwitchCase = false,
-		bool $respectEarlyTermination = true
+		LookForAssignsSettings $lookForAssignsSettings = null
 	): Scope
 	{
+		if ($lookForAssignsSettings === null) {
+			$lookForAssignsSettings = new LookForAssignsSettings(true, true);
+		}
 		/** @var \PHPStan\Analyser\Scope|null $intersectedScope */
 		$intersectedScope = null;
 
@@ -1173,11 +1177,15 @@ class NodeScopeResolver
 
 			$earlyTerminationStatement = null;
 			foreach ($statements as $statement) {
-				$branchScope = $this->lookForAssigns($branchScope, $statement, TrinaryLogic::createYes());
+				$branchScope = $this->lookForAssigns($branchScope, $statement, TrinaryLogic::createYes(), $lookForAssignsSettings);
 				$branchScopeWithInitialScopeRemoved = $branchScope->removeVariables($initialScope, false);
 				$earlyTerminationStatement = $this->findStatementEarlyTermination($statement, $branchScope);
 				if ($earlyTerminationStatement !== null) {
-					if (!$isSwitchCase && $respectEarlyTermination) {
+					if (
+						!$isSwitchCase
+						&& $lookForAssignsSettings->isRespectAllEarlyTermination()
+						&& (!$earlyTerminationStatement instanceof Continue_ || $lookForAssignsSettings->isRespectContinue())
+					) {
 						continue 2;
 					}
 					break;
@@ -1188,7 +1196,7 @@ class NodeScopeResolver
 				$earlyTerminationStatement === null
 				|| $earlyTerminationStatement instanceof Break_
 				|| $earlyTerminationStatement instanceof Continue_
-				|| !$respectEarlyTermination
+				|| !$lookForAssignsSettings->isRespectAllEarlyTermination()
 			) {
 				if ($intersectedScope === null) {
 					$intersectedScope = $initialScope->createIntersectedScope($branchScopeWithInitialScopeRemoved);
