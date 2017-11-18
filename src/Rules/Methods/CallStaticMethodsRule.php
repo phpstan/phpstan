@@ -181,7 +181,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 		}
 
 		if (!$scope->canCallMethod($method)) {
-			return array_merge($errors, [
+			$errors = array_merge($errors, [
 				sprintf(
 					'Call to %s %s %s() of class %s.',
 					$method->isPrivate() ? 'private' : 'protected',

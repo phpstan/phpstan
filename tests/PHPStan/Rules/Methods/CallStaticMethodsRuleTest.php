@@ -71,6 +71,10 @@ class CallStaticMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				87,
 			],
 			[
+				'Method CallStaticMethods\ClassWithConstructor::__construct() invoked with 0 parameters, 1 required.',
+				87,
+			],
+			[
 				'Calling self::someStaticMethod() outside of class scope.',
 				93,
 			],
