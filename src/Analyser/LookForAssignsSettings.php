@@ -102,6 +102,10 @@ class LookForAssignsSettings
 			return true;
 		}
 
+		if ($this->shouldSkipBranch($earlyTerminationStatement)) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
 		return $earlyTerminationStatement instanceof Break_
 			|| $earlyTerminationStatement instanceof Continue_
 			|| ($this->respectEarlyTermination & self::EARLY_TERMINATION_STOP) === 0;

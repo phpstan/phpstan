@@ -138,11 +138,6 @@ class LookForAssignsSettingsTest extends \PHPStan\Testing\TestCase
 				true,
 			],
 			[
-				LookForAssignsSettings::insideLoop(),
-				new \PhpParser\Node\Stmt\Break_(),
-				true,
-			],
-			[
 				LookForAssignsSettings::afterLoop(),
 				new \PhpParser\Node\Stmt\Continue_(),
 				true,
