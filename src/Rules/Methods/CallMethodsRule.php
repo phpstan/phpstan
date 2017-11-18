@@ -102,18 +102,17 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 
 		$methodReflection = $type->getMethod($name, $scope);
 		$messagesMethodName = $methodReflection->getDeclaringClass()->getDisplayName() . '::' . $methodReflection->getName() . '()';
+		$errors = [];
 		if (!$scope->canCallMethod($methodReflection)) {
-			return [
-				sprintf(
-					'Call to %s method %s() of class %s.',
-					$methodReflection->isPrivate() ? 'private' : 'protected',
-					$methodReflection->getName(),
-					$methodReflection->getDeclaringClass()->getDisplayName()
-				),
-			];
+			$errors[] = sprintf(
+				'Call to %s method %s() of class %s.',
+				$methodReflection->isPrivate() ? 'private' : 'protected',
+				$methodReflection->getName(),
+				$methodReflection->getDeclaringClass()->getDisplayName()
+			);
 		}
 
-		$errors = $this->check->check(
+		$errors = array_merge($errors, $this->check->check(
 			$methodReflection,
 			$scope,
 			$node,
@@ -128,7 +127,7 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 				'Result of method ' . $messagesMethodName . ' (void) is used.',
 				'Parameter #%d %s of method ' . $messagesMethodName . ' is passed by reference, so it expects variables only.',
 			]
-		);
+		));
 
 		if (strtolower($methodReflection->getName()) === strtolower($name) && $methodReflection->getName() !== $name) {
 			$errors[] = sprintf('Call to method %s with incorrect case: %s', $messagesMethodName, $name);

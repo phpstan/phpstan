@@ -38,7 +38,7 @@ class Bar extends Foo
 	public function lorem()
 	{
 		$this->loremipsum(); // nonexistent
-		$this->foo(); // private from an ancestor
+		$this->foo(1); // private from an ancestor
 		$this->bar();
 		$this->ipsum();
 		$this->foobar();

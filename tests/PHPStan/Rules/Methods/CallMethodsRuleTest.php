@@ -48,6 +48,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				41,
 			],
 			[
+				'Method Test\Foo::foo() invoked with 1 parameter, 0 required.',
+				41,
+			],
+			[
 				'Method Test\Foo::test() invoked with 0 parameters, 1 required.',
 				46,
 			],
@@ -218,6 +222,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 			],
 			[
 				'Call to private method foo() of class Test\Foo.',
+				41,
+			],
+			[
+				'Method Test\Foo::foo() invoked with 1 parameter, 0 required.',
 				41,
 			],
 			[
