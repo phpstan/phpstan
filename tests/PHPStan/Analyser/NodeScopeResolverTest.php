@@ -3720,11 +3720,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foo',
 				"'end';",
 			],
-			/*[
-				'LoopVariables\Bar|LoopVariables\Lorem|LoopVariables\Foo|null',
+			[
+				'LoopVariables\Bar|LoopVariables\Foo|LoopVariables\Lorem|null',
 				'$foo',
 				"'afterLoop';",
-			],*/
+			],
 		];
 	}
 

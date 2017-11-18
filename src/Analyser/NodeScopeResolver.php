@@ -946,7 +946,7 @@ class NodeScopeResolver
 				new StatementList($scope, $node->stmts),
 				new StatementList($scope, []), // in order not to add variables existing only inside the for loop
 			];
-			$scope = $this->lookForAssignsInBranches($scope, $statements, LookForAssignsSettings::default());
+			$scope = $this->lookForAssignsInBranches($scope, $statements, LookForAssignsSettings::afterLoop());
 		} elseif ($node instanceof ErrorSuppress) {
 			$scope = $this->lookForAssigns($scope, $node->expr, $certainty);
 		} elseif ($node instanceof \PhpParser\Node\Stmt\Unset_) {
@@ -969,7 +969,7 @@ class NodeScopeResolver
 				new StatementList($scope, $node->stmts),
 				new StatementList($scope, []), // in order not to add variables existing only inside the for loop
 			];
-			$scope = $this->lookForAssignsInBranches($initialScope, $statements, LookForAssignsSettings::default());
+			$scope = $this->lookForAssignsInBranches($initialScope, $statements, LookForAssignsSettings::afterLoop());
 		} elseif ($node instanceof Isset_) {
 			foreach ($node->vars as $var) {
 				$scope = $this->lookForAssigns($scope, $var, $certainty);

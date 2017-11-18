@@ -54,6 +54,21 @@ class LookForAssignsSettingsTest extends \PHPStan\Testing\TestCase
 				true,
 			],
 			[
+				LookForAssignsSettings::afterLoop(),
+				new \PhpParser\Node\Stmt\Return_(),
+				true,
+			],
+			[
+				LookForAssignsSettings::afterLoop(),
+				new \PhpParser\Node\Stmt\Continue_(),
+				false,
+			],
+			[
+				LookForAssignsSettings::afterLoop(),
+				new \PhpParser\Node\Stmt\Break_(),
+				false,
+			],
+			[
 				LookForAssignsSettings::insideFinally(),
 				new \PhpParser\Node\Stmt\Return_(),
 				false,
@@ -124,6 +139,16 @@ class LookForAssignsSettingsTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				LookForAssignsSettings::insideLoop(),
+				new \PhpParser\Node\Stmt\Break_(),
+				true,
+			],
+			[
+				LookForAssignsSettings::afterLoop(),
+				new \PhpParser\Node\Stmt\Continue_(),
+				true,
+			],
+			[
+				LookForAssignsSettings::afterLoop(),
 				new \PhpParser\Node\Stmt\Break_(),
 				true,
 			],

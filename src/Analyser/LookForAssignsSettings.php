@@ -58,6 +58,14 @@ class LookForAssignsSettings
 		);
 	}
 
+	public static function afterLoop(): self
+	{
+		return new self(
+			false,
+			self::EARLY_TERMINATION_STOP
+		);
+	}
+
 	public static function insideFinally(): self
 	{
 		return new self(
