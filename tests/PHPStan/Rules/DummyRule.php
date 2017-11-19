@@ -10,7 +10,7 @@ class DummyRule implements \PHPStan\Rules\Rule
 
 	public function getNodeType(): string
 	{
-		return 'PHPParser_Node_Expr_FuncCall';
+		return 'PhpParser\Node\Expr\FuncCall';
 	}
 
 	/**

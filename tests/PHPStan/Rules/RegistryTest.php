@@ -13,11 +13,11 @@ class RegistryTest extends \PHPStan\Testing\TestCase
 			$rule,
 		]);
 
-		$rules = $registry->getRules(['PHPParser_Node_Expr_FuncCall']);
+		$rules = $registry->getRules(\PhpParser\Node\Expr\FuncCall::class);
 		$this->assertSame(1, count($rules));
 		$this->assertSame($rule, $rules[0]);
 
-		$this->assertSame(0, count($registry->getRules(['foo'])));
+		$this->assertSame(0, count($registry->getRules(\PhpParser\Node\Expr\MethodCall::class)));
 	}
 
 }

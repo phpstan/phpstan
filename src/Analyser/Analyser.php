@@ -145,8 +145,7 @@ class Analyser
 					$this->parser->parseFile($file),
 					new Scope($this->broker, $this->printer, $this->typeSpecifier, $file),
 					function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors) {
-						$classes = array_merge([get_class($node)], class_parents($node));
-						foreach ($this->registry->getRules($classes) as $rule) {
+						foreach ($this->registry->getRules(get_class($node)) as $rule) {
 							$ruleErrors = $this->createErrors(
 								$node,
 								$scope->getAnalysedContextFile(),
