@@ -189,6 +189,17 @@ switch ('foo') {
 		$anotherVariableDefinedInSwitchWithoutEarlyTermination = false;
 }
 
+switch (doFoo()) {
+	case 1:
+	case 2:
+	case 3:
+		$alwaysDefinedFromSwitch = 1;
+		break;
+
+	default:
+		$alwaysDefinedFromSwitch = null;
+}
+
 do {
 	$doWhileVar = 1;
 } while (something());

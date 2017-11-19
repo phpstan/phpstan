@@ -1403,42 +1403,6 @@ class Scope
 		);
 	}
 
-	public function addVariables(Scope $otherScope): self
-	{
-		$variableTypes = $this->getVariableTypes();
-		foreach ($otherScope->getVariableTypes() as $name => $theirVariableTypeHolder) {
-			$variableTypes[$name] = VariableTypeHolder::createMaybe($theirVariableTypeHolder->getType());
-		}
-
-		$moreSpecificTypes = $this->moreSpecificTypes;
-		foreach ($otherScope->moreSpecificTypes as $exprString => $theirSpecifiedType) {
-			if (array_key_exists($exprString, $this->moreSpecificTypes)) {
-				$ourSpecifiedType = $this->moreSpecificTypes[$exprString];
-				$theirSpecifiedType = TypeCombinator::union($ourSpecifiedType, $theirSpecifiedType);
-			}
-			$moreSpecificTypes[$exprString] = $theirSpecifiedType;
-		}
-
-		return new self(
-			$this->broker,
-			$this->printer,
-			$this->typeSpecifier,
-			$this->getFile(),
-			$this->getAnalysedContextFile(),
-			$this->isDeclareStrictTypes(),
-			$this->isInClass() ? $this->getClassReflection() : null,
-			$this->getFunction(),
-			$this->getNamespace(),
-			$variableTypes,
-			$this->inClosureBindScopeClass,
-			$this->getAnonymousFunctionReturnType(),
-			$this->getInFunctionCall(),
-			$this->isNegated(),
-			$moreSpecificTypes,
-			$this->inFirstLevelStatement
-		);
-	}
-
 	public function removeVariables(self $otherScope, bool $all): self
 	{
 		$ourVariableTypeHolders = $this->getVariableTypes();

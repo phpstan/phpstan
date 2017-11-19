@@ -16,44 +16,27 @@ class LookForAssignsSettings
 		+ self::EARLY_TERMINATION_STOP;
 
 	/**
-	 * @var bool
-	 */
-	private $isSwitch;
-
-	/**
 	 * @var int
 	 */
 	private $respectEarlyTermination;
 
 	private function __construct(
-		bool $isSwitch,
 		int $respectEarlyTermination
 	)
 	{
-		$this->isSwitch = $isSwitch;
 		$this->respectEarlyTermination = $respectEarlyTermination;
 	}
 
 	public static function default(): self
 	{
 		return new self(
-			false,
 			self::EARLY_TERMINATION_ALL
-		);
-	}
-
-	public static function insideSwitch(): self
-	{
-		return new self(
-			true,
-			self::EARLY_TERMINATION_STOP
 		);
 	}
 
 	public static function insideLoop(): self
 	{
 		return new self(
-			false,
 			self::EARLY_TERMINATION_STOP + self::EARLY_TERMINATION_BREAK
 		);
 	}
@@ -61,7 +44,6 @@ class LookForAssignsSettings
 	public static function afterLoop(): self
 	{
 		return new self(
-			false,
 			self::EARLY_TERMINATION_STOP
 		);
 	}
@@ -69,7 +51,6 @@ class LookForAssignsSettings
 	public static function insideFinally(): self
 	{
 		return new self(
-			false,
 			0
 		);
 	}
@@ -109,11 +90,6 @@ class LookForAssignsSettings
 		return $earlyTerminationStatement instanceof Break_
 			|| $earlyTerminationStatement instanceof Continue_
 			|| ($this->respectEarlyTermination & self::EARLY_TERMINATION_STOP) === 0;
-	}
-
-	public function isSwitch(): bool
-	{
-		return $this->isSwitch;
 	}
 
 }
