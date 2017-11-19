@@ -222,7 +222,7 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 
 	public static function __set_state(array $properties): Type
 	{
-		return new self($properties['baseClass']);
+		return new static($properties['baseClass']);
 	}
 
 }
