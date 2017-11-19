@@ -386,6 +386,36 @@ class NodeScopeResolver
 			$this->processNodes($node->stmts, $scope->enterFirstLevelStatements(), $nodeCallback);
 
 			return;
+		} elseif ($node instanceof For_) {
+			$this->processNodes($node->init, $scope, $nodeCallback);
+
+			foreach ($node->init as $initExpr) {
+				$scope = $this->lookForAssigns($scope, $initExpr, TrinaryLogic::createYes());
+			}
+			$this->processNodes($node->cond, $scope, $nodeCallback);
+			foreach ($node->cond as $condExpr) {
+				$scope = $this->lookForAssigns($scope, $condExpr, TrinaryLogic::createYes());
+				$scope = $scope->filterByTruthyValue($condExpr);
+			}
+			$scopeLoopMightHaveRun = $this->lookForAssignsInBranches($scope, [
+				new StatementList($scope, $node->stmts),
+				new StatementList($scope, []),
+			], LookForAssignsSettings::insideLoop());
+			$scopeLoopDefinitelyRan = $this->lookForAssignsInBranches($scope, [
+				new StatementList($scope, $node->stmts),
+			], LookForAssignsSettings::insideLoop());
+
+			$this->processNodes($node->loop, $scopeLoopDefinitelyRan, $nodeCallback);
+
+			foreach ($node->loop as $loopExpr) {
+				$scopeLoopMightHaveRun = $this->lookForAssigns($scopeLoopMightHaveRun, $loopExpr, TrinaryLogic::createMaybe());
+			}
+			foreach ($node->cond as $condExpr) {
+				$scopeLoopMightHaveRun = $scopeLoopMightHaveRun->filterByTruthyValue($condExpr);
+			}
+			$this->processNodes($node->stmts, $scopeLoopMightHaveRun, $nodeCallback);
+
+			return;
 		} elseif ($node instanceof Catch_) {
 			$scope = $scope->enterCatch(
 				$node->types,
@@ -642,26 +672,6 @@ class NodeScopeResolver
 					&& $subNodeName === 'stmts'
 				) {
 					$scope = $scope->enterAnonymousFunction($node->params, $node->uses, $node->returnType);
-				}
-
-				if ($node instanceof For_) {
-					if ($subNodeName === 'stmts' || $subNodeName === 'cond' || $subNodeName === 'loop') {
-						foreach ($node->init as $initExpr) {
-							$scope = $this->lookForAssigns($scope, $initExpr, TrinaryLogic::createYes());
-						}
-					}
-
-					if ($subNodeName === 'stmts' || $subNodeName === 'loop') {
-						foreach ($node->cond as $condExpr) {
-							$scope = $this->lookForAssigns($scope, $condExpr, TrinaryLogic::createYes());
-						}
-					}
-
-					if ($subNodeName === 'stmts') {
-						foreach ($node->loop as $loopExpr) {
-							$scope = $this->lookForAssigns($scope, $loopExpr, TrinaryLogic::createMaybe());
-						}
-					}
 				}
 
 				if ($node instanceof Do_ && $subNodeName === 'stmts') {
@@ -937,7 +947,10 @@ class NodeScopeResolver
 				new StatementList($scope, $node->stmts),
 				new StatementList($scope, []), // in order not to add variables existing only inside the for loop
 			];
-			$scope = $this->lookForAssignsInBranches($scope, $statements, LookForAssignsSettings::default());
+			$scope = $this->lookForAssignsInBranches($scope, $statements, LookForAssignsSettings::afterLoop());
+			foreach ($node->loop as $loopExpr) {
+				$scope = $this->lookForAssigns($scope, $loopExpr, TrinaryLogic::createMaybe());
+			}
 		} elseif ($node instanceof While_) {
 			$whileAssignmentsCertainty = $this->polluteScopeWithLoopInitialAssignments ? TrinaryLogic::createYes() : TrinaryLogic::createMaybe();
 			$scope = $this->lookForAssigns($scope, $node->cond, $whileAssignmentsCertainty);

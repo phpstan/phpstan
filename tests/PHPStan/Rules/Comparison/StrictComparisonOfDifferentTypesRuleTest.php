@@ -75,6 +75,14 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					'Strict comparison using === between mixed[] and null will always evaluate to false.',
 					140,
 				],
+				[
+					'Strict comparison using !== between StrictComparison\Foo|null and int will always evaluate to true.',
+					154,
+				],
+				[
+					'Strict comparison using === between mixed[] and null will always evaluate to false.',
+					164,
+				],
 			]
 		);
 	}

@@ -321,3 +321,8 @@ echo $fileA;
 
 include($fileB='includeB.php');
 echo $fileB;
+
+for ($forLoopVariableInit = 0; $forLoopVariableInit < 5; $forLoopVariableInit = $forLoopVariable, $anotherForLoopVariable = 1) {
+	$forLoopVariable = 2;
+}
+echo $anotherForLoopVariable;

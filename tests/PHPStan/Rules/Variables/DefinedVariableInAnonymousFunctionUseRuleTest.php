@@ -36,8 +36,12 @@ class DefinedVariableInAnonymousFunctionUseRuleTest extends \PHPStan\Testing\Rul
 				24,
 			],
 			[
-				'Undefined variable: $forJ',
+				'Variable $forJ might not be defined.',
 				25,
+			],
+			[
+				'Variable $anotherVariableFromForCond might not be defined.',
+				26,
 			],
 		]);
 	}

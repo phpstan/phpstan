@@ -128,7 +128,7 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				250,
 			],
 			[
-				'Undefined variable: $forJ',
+				'Variable $forJ might not be defined.',
 				251,
 			],
 			[
@@ -174,6 +174,10 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Undefined variable: $undefinedVariableInForeach',
 				315,
+			],
+			[
+				'Variable $anotherForLoopVariable might not be defined.',
+				328,
 			],
 		]);
 	}
