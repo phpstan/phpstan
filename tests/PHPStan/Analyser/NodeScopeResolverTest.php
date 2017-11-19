@@ -7,6 +7,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Cache\Cache;
 use PHPStan\File\FileHelper;
+use PHPStan\PhpDoc\PhpDocStringResolver;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
@@ -990,24 +991,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/var-annotations.php',
-			$description,
-			$expression
-		);
-	}
-
-	/**
-	 * @dataProvider dataVarAnnotations
-	 * @param string $description
-	 * @param string $expression
-	 */
-	public function testVarAnnotationsAlt(
-		string $description,
-		string $expression
-	)
-	{
-		$description = str_replace('VarAnnotations\\', 'VarAnnotationsAlt\\', $description);
-		$this->assertTypes(
-			__DIR__ . '/data/var-annotations-alt.php',
 			$description,
 			$expression
 		);
@@ -2706,7 +2689,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				__DIR__ . '/data/foreach/type-in-comment-variable-first.php',
-				'callable',
+				'mixed',
 				'$value',
 			],
 			[
@@ -3821,12 +3804,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 
 	private function processFile(string $file, \Closure $callback, array $dynamicMethodReturnTypeExtensions = [], array $dynamicStaticMethodReturnTypeExtensions = [])
 	{
+		$phpDocStringResolver = $this->getContainer()->getByType(PhpDocStringResolver::class);
+
 		$printer = new \PhpParser\PrettyPrinter\Standard();
 		$resolver = new NodeScopeResolver(
 			$this->createBroker(),
 			$this->getParser(),
 			$printer,
-			new FileTypeMapper($this->getParser(), $this->createMock(Cache::class)),
+			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $this->createMock(Cache::class)),
 			new \PhpParser\BuilderFactory(),
 			new FileHelper('/'),
 			true,

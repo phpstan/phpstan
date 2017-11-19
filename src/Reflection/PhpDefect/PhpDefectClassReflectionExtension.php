@@ -2,10 +2,10 @@
 
 namespace PHPStan\Reflection\PhpDefect;
 
+use PHPStan\PhpDoc\TypeStringResolver;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\PropertiesClassReflectionExtension;
 use PHPStan\Reflection\PropertyReflection;
-use PHPStan\Type\TypehintHelper;
 
 class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExtension
 {
@@ -152,11 +152,15 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 		],
 	];
 
+	/** @var TypeStringResolver */
+	private $typeStringResolver;
+
 	/** @var string[][] */
 	private $properties = [];
 
-	public function __construct()
+	public function __construct(TypeStringResolver $typeStringResolver)
 	{
+		$this->typeStringResolver = $typeStringResolver;
 		$this->properties = self::$defaultProperties;
 		if (PHP_VERSION_ID >= 70100) { // since PHP 7.1
 			$this->properties = array_merge_recursive($this->properties, self::$properties71);
@@ -176,7 +180,7 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 		$typeString = $this->properties[$classWithProperties->getName()][$propertyName];
 		return new PhpDefectPropertyReflection(
 			$classWithProperties,
-			TypehintHelper::getTypeObjectFromTypehint($typeString)
+			$this->typeStringResolver->resolve($typeString)
 		);
 	}
 

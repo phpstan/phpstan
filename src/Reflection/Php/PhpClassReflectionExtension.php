@@ -14,7 +14,6 @@ use PHPStan\Reflection\PropertiesClassReflectionExtension;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\MixedType;
-use PHPStan\Type\TypehintHelper;
 
 class PhpClassReflectionExtension
 	implements PropertiesClassReflectionExtension, MethodsClassReflectionExtension, BrokerAwareClassReflectionExtension
@@ -124,10 +123,12 @@ class PhpClassReflectionExtension
 				$propertyName,
 				$declaringClassReflection->getNativeReflection()->getFileName()
 			);
-			$typeMap = $this->fileTypeMapper->getTypeMap($phpDocBlock->getFile());
-			$typeString = $this->getPropertyAnnotationTypeString($phpDocBlock->getDocComment());
-			if (isset($typeMap[$typeString])) {
-				$type = $typeMap[$typeString];
+
+			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($phpDocBlock->getFile(), $phpDocBlock->getDocComment());
+			if (isset($resolvedPhpDoc['var'][0]) && count($resolvedPhpDoc['var']) === 1) {
+				$type = $resolvedPhpDoc['var'][0];
+			} elseif (isset($resolvedPhpDoc['var'][$propertyName])) {
+				$type = $resolvedPhpDoc['var'][$propertyName];
 			} else {
 				$type = new MixedType();
 			}
@@ -140,20 +141,6 @@ class PhpClassReflectionExtension
 			$type,
 			$propertyReflection
 		);
-	}
-
-	/**
-	 * @param string $phpDoc
-	 * @return string|null
-	 */
-	private function getPropertyAnnotationTypeString(string $phpDoc)
-	{
-		$count = preg_match_all('#@var\s+' . FileTypeMapper::TYPE_PATTERN . '#', $phpDoc, $matches);
-		if ($count !== 1) {
-			return null;
-		}
-
-		return $matches[1][0];
 	}
 
 	public function hasMethod(ClassReflection $classReflection, string $methodName): bool
@@ -229,15 +216,10 @@ class PhpClassReflectionExtension
 					$methodReflection->getName(),
 					$declaringClass->getNativeReflection()->getFileName()
 				);
-				$typeMap = $this->fileTypeMapper->getTypeMap($phpDocBlock->getFile());
-				$phpDocParameterTypes = TypehintHelper::getParameterTypesFromPhpDoc(
-					$typeMap,
-					array_map(function (\ReflectionParameter $parameterReflection): string {
-						return $parameterReflection->getName();
-					}, $methodReflection->getParameters()),
-					$phpDocBlock->getDocComment()
-				);
-				$phpDocReturnType = TypehintHelper::getReturnTypeFromPhpDoc($typeMap, $phpDocBlock->getDocComment());
+
+				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($phpDocBlock->getFile(), $phpDocBlock->getDocComment());
+				$phpDocParameterTypes = $resolvedPhpDoc['param'];
+				$phpDocReturnType = $resolvedPhpDoc['return'];
 			}
 		}
 

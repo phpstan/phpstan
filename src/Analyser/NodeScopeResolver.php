@@ -63,7 +63,6 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
-use PHPStan\Type\TypehintHelper;
 
 class NodeScopeResolver
 {
@@ -1078,23 +1077,16 @@ class NodeScopeResolver
 
 	private function processVarAnnotation(Scope $scope, string $variableName, string $comment, bool $strict): Scope
 	{
-		$process = function (string $matchedType, string $matchedVariableName) use ($scope, $variableName): Scope {
-			if ($matchedVariableName === $variableName) {
-				$fileTypeMap = $this->fileTypeMapper->getTypeMap($scope->getFile());
-				if (isset($fileTypeMap[$matchedType])) {
-					return $scope->assignVariable($matchedVariableName, $fileTypeMap[$matchedType], TrinaryLogic::createYes());
-				}
-			}
+		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($scope->getFile(), $comment);
 
-			return $scope;
-		};
+		if (isset($resolvedPhpDoc['var'][$variableName])) {
+			$variableType = $resolvedPhpDoc['var'][$variableName];
+			return $scope->assignVariable($variableName, $variableType, TrinaryLogic::createYes());
 
-		if (preg_match('#@var\s+' . FileTypeMapper::TYPE_PATTERN . '\s+\$([a-zA-Z0-9_]+)#', $comment, $matches)) {
-			return $process($matches[1], $matches[2]);
-		} elseif (preg_match('#@var\s+\$([a-zA-Z0-9_]+)\s+' . FileTypeMapper::TYPE_PATTERN . '#', $comment, $matches)) {
-			return $process($matches[2], $matches[1]);
-		} elseif (!$strict && preg_match('#@var\s+' . FileTypeMapper::TYPE_PATTERN . '(?!\s+\$[a-zA-Z0-9_]+)#', $comment, $matches)) {
-			return $process($matches[1], $variableName);
+		} elseif (!$strict && count($resolvedPhpDoc['var']) === 1 && isset($resolvedPhpDoc['var'][0])) {
+			$variableType = $resolvedPhpDoc['var'][0];
+			return $scope->assignVariable($variableName, $variableType, TrinaryLogic::createYes());
+
 		} else {
 			return $scope;
 		}
@@ -1428,15 +1420,10 @@ class NodeScopeResolver
 				$docComment = $phpDocBlock->getDocComment();
 				$file = $phpDocBlock->getFile();
 			}
-			$fileTypeMap = $this->fileTypeMapper->getTypeMap($file);
-			$phpDocParameterTypes = TypehintHelper::getParameterTypesFromPhpDoc(
-				$fileTypeMap,
-				array_map(function (Param $parameter): string {
-					return $parameter->name;
-				}, $functionLike->getParams()),
-				$docComment
-			);
-			$phpDocReturnType = TypehintHelper::getReturnTypeFromPhpDoc($fileTypeMap, $docComment);
+
+			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($file, $docComment);
+			$phpDocParameterTypes = $resolvedPhpDoc['param'];
+			$phpDocReturnType = $resolvedPhpDoc['return'];
 		}
 
 		return [$phpDocParameterTypes, $phpDocReturnType];

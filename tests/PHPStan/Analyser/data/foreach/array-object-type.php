@@ -12,7 +12,7 @@ class Test
 
 	public function  doFoo()
 	{
-		/** @var $foos Foo[] */
+		/** @var Foo[] $foos */
 		$foos = foos();
 
 		foreach ($foos as $foo) {

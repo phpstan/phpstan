@@ -70,22 +70,14 @@ class AnnotationsPropertiesClassReflectionExtension implements PropertiesClassRe
 			return $properties;
 		}
 
-		$typeMap = $this->fileTypeMapper->getTypeMap($fileName);
-
-		preg_match_all('#@property(-read|-write)?\s+' . FileTypeMapper::TYPE_PATTERN . '\s+\$([a-zA-Z0-9_]+)#', $docComment, $matches, PREG_SET_ORDER);
-		foreach ($matches as $match) {
-			$typeString = $match[2];
-			if (!isset($typeMap[$typeString])) {
-				continue;
-			}
-			$readable = $writable = true;
-			if ($match[1] === '-read') {
-				$writable = false;
-			} elseif ($match[1] === '-write') {
-				$readable = false;
-			}
-			$type = $typeMap[$typeString];
-			$properties[$match[3]] = new AnnotationPropertyReflection($declaringClass, $type, $readable, $writable);
+		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, $docComment);
+		foreach ($resolvedPhpDoc['property'] as $propertyName => $propertyInfo) {
+			$properties[$propertyName] = new AnnotationPropertyReflection(
+				$declaringClass,
+				$propertyInfo['type'],
+				$propertyInfo['readable'],
+				$propertyInfo['writable']
+			);
 		}
 
 		return $properties;
