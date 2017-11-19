@@ -1186,7 +1186,6 @@ class NodeScopeResolver
 	{
 		/** @var \PHPStan\Analyser\Scope|null $intersectedScope */
 		$intersectedScope = null;
-
 		foreach ($statementsLists as $i => $statementList) {
 			$statements = $statementList->getStatements();
 			$branchScope = $statementList->getScope();
@@ -1208,9 +1207,9 @@ class NodeScopeResolver
 			if ($lookForAssignsSettings->shouldIntersectVariables($earlyTerminationStatement)) {
 				if ($intersectedScope === null) {
 					$intersectedScope = $initialScope->createIntersectedScope($branchScopeWithInitialScopeRemoved);
+				} else {
+					$intersectedScope = $intersectedScope->intersectVariables($branchScopeWithInitialScopeRemoved);
 				}
-
-				$intersectedScope = $intersectedScope->intersectVariables($branchScopeWithInitialScopeRemoved);
 			}
 		}
 
