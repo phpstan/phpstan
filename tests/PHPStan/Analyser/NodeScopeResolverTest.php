@@ -2282,18 +2282,55 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
-	public function testNotSwitchInstanceof()
+	public function dataNotSwitchInstanceof(): array
+	{
+		return [
+			[
+				'mixed',
+				'$foo',
+			],
+			[
+				'SwitchInstanceOfNot\Bar',
+				'$bar',
+			],
+			[
+				'SwitchInstanceOfNot\Baz',
+				'$baz',
+				"'bazForSure';",
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataNotSwitchInstanceof
+	 * @param string $description
+	 * @param string $expression
+	 * @param string $evaluatedPointExpression
+	 */
+	public function testNotSwitchInstanceof(
+		string $description,
+		string $expression,
+		string $evaluatedPointExpression = 'die;'
+	)
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/switch-instanceof-not.php',
-			'mixed',
-			'$foo'
+			$description,
+			$expression,
+			[],
+			[],
+			$evaluatedPointExpression
 		);
 	}
 
 	public function dataSwitchInstanceOf(): array
 	{
 		return [
+			[
+				'SwitchInstanceOf\Foo',
+				'$foo',
+				"'fooForSure';",
+			],
 			[
 				'mixed',
 				'$foo',
@@ -2303,7 +2340,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$bar',
 			],
 			[
-				'SwitchInstanceOf\Baz',
+				'SwitchInstanceOf\Bar|SwitchInstanceOf\Baz',
 				'$baz',
 			],
 		];
@@ -2313,16 +2350,21 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	 * @dataProvider dataSwitchInstanceOf
 	 * @param string $description
 	 * @param string $expression
+	 * @param string $evaluatedPointExpression
 	 */
 	public function testSwitchInstanceof(
 		string $description,
-		string $expression
+		string $expression,
+		string $evaluatedPointExpression = 'die;'
 	)
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/switch-instanceof.php',
 			$description,
-			$expression
+			$expression,
+			[],
+			[],
+			$evaluatedPointExpression
 		);
 	}
 
@@ -2332,12 +2374,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'SwitchGetClass\Lorem',
 				'$lorem',
-				"'normalName';",
-			],
-			[
-				'SwitchGetClass\Foo',
-				'$lorem',
-				"'selfReferentialName';",
 			],
 		];
 	}
@@ -2346,16 +2382,135 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	 * @dataProvider dataSwitchGetClass
 	 * @param string $description
 	 * @param string $expression
-	 * @param string $evaluatedPointExpression
 	 */
 	public function testSwitchGetClass(
+		string $description,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/switch-get-class.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataSwitchFallThrough(): array
+	{
+		return [
+			[
+				'SwitchFallThrough\A',
+				'$expr',
+				"'1stCaseBranch';",
+			],
+			[
+				'true',
+				'$case1',
+				"'1stCaseBranch';",
+			],
+			[
+				'SwitchFallThrough\A|SwitchFallThrough\B',
+				'$expr',
+				"'2ndCaseBranch';",
+			],
+			[
+				'bool',
+				'$case1',
+				"'2ndCaseBranch';",
+			],
+			[
+				'true',
+				'$case2',
+				"'2ndCaseBranch';",
+			],
+			[
+				'SwitchFallThrough\A|SwitchFallThrough\B|SwitchFallThrough\D',
+				'$expr',
+				"'defaultBranch';",
+			],
+			[
+				'bool',
+				'$case1',
+				"'defaultBranch';",
+			],
+			[
+				'bool',
+				'$case2',
+				"'defaultBranch';",
+			],
+			[
+				'true',
+				'$default',
+				"'defaultBranch';",
+			],
+			[
+				'false',
+				'$case3',
+				"'defaultBranch';",
+			],
+			[
+				'SwitchFallThrough\A|SwitchFallThrough\B|SwitchFallThrough\C|SwitchFallThrough\D',
+				'$expr',
+				"'3rdCaseBranch';",
+			],
+			[
+				'bool',
+				'$case1',
+				"'3rdCaseBranch';",
+			],
+			[
+				'bool',
+				'$case2',
+				"'3rdCaseBranch';",
+			],
+			[
+				'bool',
+				'$default',
+				"'3rdCaseBranch';",
+			],
+			[
+				'true',
+				'$case3',
+				"'3rdCaseBranch';",
+			],
+			[
+				'bool',
+				'$case1',
+				"'afterSwitch';",
+			],
+			[
+				'bool',
+				'$case2',
+				"'afterSwitch';",
+			],
+			[
+				'bool',
+				'$default',
+				"'afterSwitch';",
+			],
+			[
+				'true',
+				'$case3',
+				"'afterSwitch';",
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataSwitchFallThrough
+	 * @param string $description
+	 * @param string $expression
+	 * @param string $evaluatedPointExpression
+	 */
+	public function testSwitchFallThrough(
 		string $description,
 		string $expression,
 		string $evaluatedPointExpression
 	)
 	{
+		require_once __DIR__ . '/data/switch-fall-through.php';
 		$this->assertTypes(
-			__DIR__ . '/data/switch-get-class.php',
+			__DIR__ . '/data/switch-fall-through.php',
 			$description,
 			$expression,
 			[],
