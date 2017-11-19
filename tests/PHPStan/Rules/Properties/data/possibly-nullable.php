@@ -31,3 +31,30 @@ class Test {
 	}
 
 }
+
+class Foo
+{
+
+	/** @var Test */
+	public $ipsum;
+
+}
+
+class CheckingPropertyNotNullInIfCondition
+{
+
+	public function doFoo()
+	{
+		/** @var Foo|null $foo */
+		$foo = doFoo();
+
+		/** @var Foo|null $bar */
+		$bar = doFoo();
+		if (null !== $foo ? $foo->ipsum : false) {
+
+		} elseif ($bar !== null ? $bar->ipsum : false) {
+
+		}
+	}
+
+}

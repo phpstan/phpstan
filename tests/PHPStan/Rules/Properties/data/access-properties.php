@@ -221,3 +221,19 @@ class AccessNullProperty
 	}
 
 }
+
+class CheckingPropertyNotNullInIfCondition
+{
+
+	public function doFoo()
+	{
+		$foo = null;
+		$bar = null;
+		if (null !== $foo ? $foo->ipsum : false) {
+
+		} elseif ($bar !== null ? $bar->ipsum : false) {
+
+		}
+	}
+
+}
