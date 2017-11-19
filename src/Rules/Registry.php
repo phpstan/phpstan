@@ -8,7 +8,12 @@ class Registry
 	/**
 	 * @var \PHPStan\Rules\Rule[][]
 	 */
-	private $rules;
+	private $rules = [];
+
+	/**
+	 * @var \PHPStan\Rules\Rule[][]
+	 */
+	private $cache = [];
 
 	/**
 	 * @param \PHPStan\Rules\Rule[] $rules
@@ -16,41 +21,30 @@ class Registry
 	public function __construct(array $rules)
 	{
 		foreach ($rules as $rule) {
-			$this->register($rule);
+			$this->rules[$rule->getNodeType()][] = $rule;
 		}
-	}
-
-	private function register(Rule $rule)
-	{
-		if (!isset($this->rules[$rule->getNodeType()])) {
-			$this->rules[$rule->getNodeType()] = [];
-		}
-
-		$this->rules[$rule->getNodeType()][] = $rule;
 	}
 
 	/**
-	 * @param string[] $nodeTypes
+	 * @param string $nodeType
 	 * @return \PHPStan\Rules\Rule[]
 	 */
-	public function getRules(array $nodeTypes): array
+	public function getRules(string $nodeType): array
 	{
-		$rules = [];
-		foreach ($nodeTypes as $nodeType) {
-			if (!isset($this->rules[$nodeType])) {
-				continue;
-			}
+		if (!isset($this->cache[$nodeType])) {
+			$nodeTypes = [$nodeType] + class_parents($nodeType) + class_implements($nodeType);
 
-			$classRules = $this->rules[$nodeType];
-			foreach ($classRules as $classRule) {
-				$classRuleClass = get_class($classRule);
-				if (!array_key_exists($classRuleClass, $rules)) {
-					$rules[$classRuleClass] = $classRule;
+			$rules = [];
+			foreach ($nodeTypes as $nodeType) {
+				foreach ($this->rules[$nodeType] ?? [] as $rule) {
+					$rules[get_class($rule)] = $rule;
 				}
 			}
+
+			$this->cache[$nodeType] = array_values($rules);
 		}
 
-		return array_values($rules);
+		return $this->cache[$nodeType];
 	}
 
 }
