@@ -4,3 +4,9 @@ includes:
 parameters:
 	checkClassCaseSensitivity: true
 	checkThisOnly: false
+
+services:
+	-
+		class: PHPStan\Rules\PhpDoc\InvalidPhpDocTagValueRule
+		tags:
+			- phpstan.rules.rule
