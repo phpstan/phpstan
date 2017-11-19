@@ -2,7 +2,7 @@
 
 use AnotherNamespace\Foo;
 
-/** @var $fooses Foo[][] */
+/** @var Foo[][] $fooses */
 $fooses = foos();
 
 foreach ($fooses as $foos) {

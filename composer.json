@@ -21,7 +21,8 @@
 		"nikic/php-parser": "^3.1",
 		"symfony/console": "~3.2 || ~4.0",
 		"symfony/finder": "~3.2 || ~4.0",
-		"jean85/pretty-package-versions": "^1.0.2"
+		"jean85/pretty-package-versions": "^1.0.2",
+		"phpstan/phpdoc-parser": "dev-master"
 	},
 	"require-dev": {
 		"consistence/coding-standard": "^2.0.0",

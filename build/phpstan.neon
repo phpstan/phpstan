@@ -12,6 +12,7 @@ parameters:
 	ignoreErrors:
 		- '#Constant PHPSTAN_TEST_CONSTANT not found#'
 		- '#Strict comparison using === between PhpParser\\Node\\Expr\\ArrayItem and null will always evaluate to false#'
+		- '#PHPUnit_Framework_MockObject_Builder_InvocationMocker::with\(\) expects mixed\[\]#'
 services:
 	-
 		class: PHPStan\Build\ServiceLocatorDynamicReturnTypeExtension

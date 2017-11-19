@@ -5,6 +5,7 @@ namespace PHPStan\Analyser;
 use PHPStan\Cache\Cache;
 use PHPStan\File\FileHelper;
 use PHPStan\Parser\DirectParser;
+use PHPStan\PhpDoc\PhpDocStringResolver;
 use PHPStan\Rules\AlwaysFailRule;
 use PHPStan\Rules\Registry;
 use PHPStan\Type\FileTypeMapper;
@@ -133,6 +134,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		$broker = $this->createBroker();
 		$printer = new \PhpParser\PrettyPrinter\Standard();
 		$fileHelper = $this->getContainer()->getByType(FileHelper::class);
+		$phpDocStringResolver = $this->getContainer()->getByType(PhpDocStringResolver::class);
 		$typeSpecifier = new TypeSpecifier($printer);
 		$analyser = new Analyser(
 			$broker,
@@ -142,7 +144,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 				$broker,
 				$this->getParser(),
 				$printer,
-				new FileTypeMapper($this->getParser(), $this->createMock(Cache::class)),
+				new FileTypeMapper($this->getParser(), $phpDocStringResolver, $this->createMock(Cache::class)),
 				new \PhpParser\BuilderFactory(),
 				$fileHelper,
 				false,

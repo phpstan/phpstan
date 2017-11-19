@@ -46,6 +46,30 @@ services:
 		class: PhpParser\PrettyPrinter\Standard
 
 	-
+		class: PHPStan\PhpDocParser\Lexer\Lexer
+
+	-
+		class: PHPStan\PhpDocParser\Parser\TypeParser
+
+	-
+		class: PHPStan\PhpDocParser\Parser\ConstExprParser
+
+	-
+		class: PHPStan\PhpDocParser\Parser\PhpDocParser
+
+	-
+		class: PHPStan\PhpDoc\PhpDocNodeResolver
+
+	-
+		class: PHPStan\PhpDoc\PhpDocStringResolver
+
+	-
+		class: PHPStan\PhpDoc\TypeNodeResolver
+
+	-
+		class: PHPStan\PhpDoc\TypeStringResolver
+
+	-
 		class: PHPStan\Analyser\Analyser
 		arguments:
 			ignoreErrors: %ignoreErrors%

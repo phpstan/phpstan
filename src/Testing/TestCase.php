@@ -9,6 +9,8 @@ use PHPStan\DependencyInjection\ContainerFactory;
 use PHPStan\File\FileHelper;
 use PHPStan\Parser\FunctionCallStatementFinder;
 use PHPStan\Parser\Parser;
+use PHPStan\PhpDoc\PhpDocStringResolver;
+use PHPStan\PhpDoc\TypeStringResolver;
 use PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension;
 use PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension;
 use PHPStan\Reflection\ClassReflection;
@@ -112,7 +114,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				);
 			}
 		};
-		$fileTypeMapper = new FileTypeMapper($parser, $cache);
+		$phpDocStringResolver = $this->getContainer()->getByType(PhpDocStringResolver::class);
+		$fileTypeMapper = new FileTypeMapper($parser, $phpDocStringResolver, $cache);
 		$annotationsPropertiesClassReflectionExtension = new AnnotationsPropertiesClassReflectionExtension($fileTypeMapper);
 		$phpExtension = new PhpClassReflectionExtension($methodReflectionFactory, $fileTypeMapper, new AnnotationsMethodsClassReflectionExtension($fileTypeMapper), $annotationsPropertiesClassReflectionExtension);
 		$functionReflectionFactory = new class($this->getParser(), $functionCallStatementFinder, $cache) implements FunctionReflectionFactory {
@@ -157,7 +160,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				$phpExtension,
 				$annotationsPropertiesClassReflectionExtension,
 				new UniversalObjectCratesClassReflectionExtension([\stdClass::class]),
-				new PhpDefectClassReflectionExtension(),
+				new PhpDefectClassReflectionExtension($this->getContainer()->getByType(TypeStringResolver::class)),
 			],
 			[$phpExtension],
 			$dynamicMethodReturnTypeExtensions,
@@ -171,7 +174,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				new CallbackBasedFunctionReturnTypeExtension(),
 			],
 			$functionReflectionFactory,
-			new FileTypeMapper($this->getParser(), $cache)
+			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $cache)
 		);
 		$methodReflectionFactory->broker = $broker;
 

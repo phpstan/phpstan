@@ -7,7 +7,6 @@ use PHPStan\Reflection\BrokerAwareClassReflectionExtension;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\FunctionReflectionFactory;
 use PHPStan\Type\FileTypeMapper;
-use PHPStan\Type\TypehintHelper;
 use ReflectionClass;
 
 class Broker
@@ -212,16 +211,11 @@ class Broker
 			$phpDocParameterTypes = [];
 			$phpDocReturnType = null;
 			if ($reflectionFunction->getFileName() !== false && $reflectionFunction->getDocComment() !== false) {
-				$fileTypeMap = $this->fileTypeMapper->getTypeMap($reflectionFunction->getFileName());
+				$fileName = $reflectionFunction->getFileName();
 				$docComment = $reflectionFunction->getDocComment();
-				$phpDocParameterTypes = TypehintHelper::getParameterTypesFromPhpDoc(
-					$fileTypeMap,
-					array_map(function (\ReflectionParameter $parameter): string {
-						return $parameter->getName();
-					}, $reflectionFunction->getParameters()),
-					$docComment
-				);
-				$phpDocReturnType = TypehintHelper::getReturnTypeFromPhpDoc($fileTypeMap, $docComment);
+				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, $docComment);
+				$phpDocParameterTypes = $resolvedPhpDoc['param'];
+				$phpDocReturnType = $resolvedPhpDoc['return'];
 			}
 			$this->functionReflections[$lowerCasedFunctionName] = $this->functionReflectionFactory->create(
 				$reflectionFunction,

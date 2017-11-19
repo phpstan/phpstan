@@ -15,10 +15,24 @@ class NameScope
 	 */
 	private $uses;
 
-	public function __construct(string $namespace = null, array $uses)
+	/**
+	 * @var string|null
+	 */
+	private $className;
+
+	public function __construct(string $namespace = null, array $uses = [], string $className = null)
 	{
 		$this->namespace = $namespace;
 		$this->uses = $uses;
+		$this->className = $className;
+	}
+
+	/**
+	 * @return string|null
+	 */
+	public function getClassName()
+	{
+		return $this->className;
 	}
 
 	public function resolveStringName(string $name): string
