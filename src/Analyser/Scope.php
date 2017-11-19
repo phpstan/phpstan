@@ -1026,7 +1026,7 @@ class Scope
 		);
 	}
 
-	private function isParameterValueNullable(Node\Param $parameter): bool
+	public function isParameterValueNullable(Node\Param $parameter): bool
 	{
 		if ($parameter->default instanceof ConstFetch) {
 			return strtolower((string) $parameter->default->name) === 'null';
