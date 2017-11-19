@@ -72,7 +72,7 @@ class CallableTypeTest extends \PHPStan\Testing\TestCase
 	 * @dataProvider dataIsSubsetOf
 	 * @param CallableType $type
 	 * @param Type $otherType
-	 * @param int $expectedResult
+	 * @param TrinaryLogic $expectedResult
 	 */
 	public function testIsSubsetOf(CallableType $type, Type $otherType, TrinaryLogic $expectedResult)
 	{
@@ -90,7 +90,7 @@ class CallableTypeTest extends \PHPStan\Testing\TestCase
 	 * @dataProvider dataIsSubsetOf
 	 * @param CallableType $type
 	 * @param Type $otherType
-	 * @param int $expectedResult
+	 * @param TrinaryLogic $expectedResult
 	 */
 	public function testIsSubsetOfInversed(CallableType $type, Type $otherType, TrinaryLogic $expectedResult)
 	{

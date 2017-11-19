@@ -138,7 +138,7 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 	 * @dataProvider dataIsSupersetOf
 	 * @param IntersectionType $type
 	 * @param Type $otherType
-	 * @param int $expectedResult
+	 * @param TrinaryLogic $expectedResult
 	 */
 	public function testIsSupersetOf(IntersectionType $type, Type $otherType, TrinaryLogic $expectedResult)
 	{
@@ -255,7 +255,7 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 	 * @dataProvider dataIsSubsetOf
 	 * @param IntersectionType $type
 	 * @param Type $otherType
-	 * @param int $expectedResult
+	 * @param TrinaryLogic $expectedResult
 	 */
 	public function testIsSubsetOf(IntersectionType $type, Type $otherType, TrinaryLogic $expectedResult)
 	{
@@ -273,7 +273,7 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 	 * @dataProvider dataIsSubsetOf
 	 * @param IntersectionType $type
 	 * @param Type $otherType
-	 * @param int $expectedResult
+	 * @param TrinaryLogic $expectedResult
 	 */
 	public function testIsSubsetOfInversed(IntersectionType $type, Type $otherType, TrinaryLogic $expectedResult)
 	{

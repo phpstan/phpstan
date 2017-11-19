@@ -207,7 +207,7 @@ class ObjectTypeTest extends \PHPStan\Testing\TestCase
 	 * @dataProvider dataIsSupersetOf
 	 * @param ObjectType $type
 	 * @param Type $otherType
-	 * @param int $expectedResult
+	 * @param TrinaryLogic $expectedResult
 	 */
 	public function testIsSupersetOf(ObjectType $type, Type $otherType, TrinaryLogic $expectedResult)
 	{

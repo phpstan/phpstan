@@ -67,7 +67,7 @@ class IterableTypeTest extends \PHPStan\Testing\TestCase
 	 * @dataProvider dataIsSubsetOf
 	 * @param IterableIterableType $type
 	 * @param Type $otherType
-	 * @param int $expectedResult
+	 * @param TrinaryLogic $expectedResult
 	 */
 	public function testIsSubsetOf(IterableIterableType $type, Type $otherType, TrinaryLogic $expectedResult)
 	{
@@ -85,7 +85,7 @@ class IterableTypeTest extends \PHPStan\Testing\TestCase
 	 * @dataProvider dataIsSubsetOf
 	 * @param IterableIterableType $type
 	 * @param Type $otherType
-	 * @param int $expectedResult
+	 * @param TrinaryLogic $expectedResult
 	 */
 	public function testIsSubsetOfInversed(IterableIterableType $type, Type $otherType, TrinaryLogic $expectedResult)
 	{

@@ -235,7 +235,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 	 * @dataProvider dataIsSupersetOf
 	 * @param UnionType $type
 	 * @param Type $otherType
-	 * @param int $expectedResult
+	 * @param TrinaryLogic $expectedResult
 	 */
 	public function testIsSupersetOf(UnionType $type, Type $otherType, TrinaryLogic $expectedResult)
 	{
@@ -410,7 +410,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 	 * @dataProvider dataIsSubsetOf
 	 * @param UnionType $type
 	 * @param Type $otherType
-	 * @param int $expectedResult
+	 * @param TrinaryLogic $expectedResult
 	 */
 	public function testIsSubsetOf(UnionType $type, Type $otherType, TrinaryLogic $expectedResult)
 	{
@@ -428,7 +428,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 	 * @dataProvider dataIsSubsetOf
 	 * @param UnionType $type
 	 * @param Type $otherType
-	 * @param int $expectedResult
+	 * @param TrinaryLogic $expectedResult
 	 */
 	public function testIsSubsetOfInversed(UnionType $type, Type $otherType, TrinaryLogic $expectedResult)
 	{
