@@ -215,7 +215,7 @@ class StaticTypeTest extends \PHPStan\Testing\TestCase
 	 * @dataProvider dataIsSupersetOf
 	 * @param StaticType $type
 	 * @param Type $otherType
-	 * @param int $expectedResult
+	 * @param TrinaryLogic $expectedResult
 	 */
 	public function testIsSupersetOf(StaticType $type, Type $otherType, TrinaryLogic $expectedResult)
 	{
