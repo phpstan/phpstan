@@ -121,7 +121,7 @@ class TypeNodeResolver
 				return new ResourceType();
 
 			case 'mixed':
-				return new MixedType();
+				return new MixedType(true);
 
 			case 'void':
 				return new VoidType();
