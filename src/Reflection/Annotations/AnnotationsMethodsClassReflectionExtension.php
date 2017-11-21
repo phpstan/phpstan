@@ -70,24 +70,24 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 		}
 
 		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, $docComment);
-		foreach ($resolvedPhpDoc['method'] as $methodName => $methodInfo) {
+		foreach ($resolvedPhpDoc->getMethodTags() as $methodName => $methodTag) {
 			$parameters = [];
-			foreach ($methodInfo['parameters'] as $parameterName => $parameterInfo) {
+			foreach ($methodTag->getParameters() as $parameterName => $parameterTag) {
 				$parameters[] = new AnnotationsMethodParameterReflection(
 					$parameterName,
-					$parameterInfo['type'],
-					$parameterInfo['isPassedByReference'],
-					$parameterInfo['isOptional'],
-					$parameterInfo['isVariadic']
+					$parameterTag->getType(),
+					$parameterTag->isPassedByReference(),
+					$parameterTag->isOptional(),
+					$parameterTag->isVariadic()
 				);
 			}
 
 			$methods[$methodName] = new AnnotationMethodReflection(
 				$methodName,
 				$declaringClass,
-				$methodInfo['returnType'],
+				$methodTag->getReturnType(),
 				$parameters,
-				$methodInfo['isStatic'],
+				$methodTag->isStatic(),
 				$this->detectMethodVariadic($parameters)
 			);
 		}

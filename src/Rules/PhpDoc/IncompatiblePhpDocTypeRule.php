@@ -41,9 +41,8 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 
 		$errors = [];
 
-		foreach ($resolvedPhpDoc['param'] as $parameterName => $phpDocType) {
-			assert($phpDocType instanceof Type);
-
+		foreach ($resolvedPhpDoc->getParamTags() as $parameterName => $phpDocParamTag) {
+			$phpDocParamType = $phpDocParamTag->getType();
 			if (!isset($nativeParameterTypes[$parameterName])) {
 				$errors[] = sprintf(
 					'PHPDoc tag @param references unknown parameter $%s',
@@ -51,45 +50,44 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 				);
 
 			} else {
-				$nativeType = $nativeParameterTypes[$parameterName];
-				$isSuperset = $nativeType->isSupersetOf($phpDocType);
+				$nativeParamType = $nativeParameterTypes[$parameterName];
+				$isParamSuperset = $nativeParamType->isSupersetOf($phpDocParamType);
 
-				if ($isSuperset->no()) {
+				if ($isParamSuperset->no()) {
 					$errors[] = sprintf(
 						'PHPDoc tag @param for parameter $%s with type %s is incompatible with native type %s',
 						$parameterName,
-						$phpDocType->describe(),
-						$nativeType->describe()
+						$phpDocParamType->describe(),
+						$nativeParamType->describe()
 					);
 
-				} elseif ($isSuperset->maybe()) {
+				} elseif ($isParamSuperset->maybe()) {
 					$errors[] = sprintf(
 						'PHPDoc tag @param for parameter $%s with type %s is not subtype of native type %s',
 						$parameterName,
-						$phpDocType->describe(),
-						$nativeType->describe()
+						$phpDocParamType->describe(),
+						$nativeParamType->describe()
 					);
 				}
 			}
 		}
 
-		if ($resolvedPhpDoc['return'] !== null) {
-			$phpDocType = $resolvedPhpDoc['return'];
-			assert($phpDocType instanceof Type);
+		if ($resolvedPhpDoc->getReturnTag() !== null) {
+			$phpDocReturnType = $resolvedPhpDoc->getReturnTag()->getType();
 
-			$isSuperset = $nativeReturnType->isSupersetOf($phpDocType);
+			$isReturnSuperset = $nativeReturnType->isSupersetOf($phpDocReturnType);
 
-			if ($isSuperset->no()) {
+			if ($isReturnSuperset->no()) {
 				$errors[] = sprintf(
 					'PHPDoc tag @return with type %s is incompatible with native type %s',
-					$phpDocType->describe(),
+					$phpDocReturnType->describe(),
 					$nativeReturnType->describe()
 				);
 
-			} elseif ($isSuperset->maybe()) {
+			} elseif ($isReturnSuperset->maybe()) {
 				$errors[] = sprintf(
 					'PHPDoc tag @return with type %s is not subtype of native type %s',
-					$phpDocType->describe(),
+					$phpDocReturnType->describe(),
 					$nativeReturnType->describe()
 				);
 			}

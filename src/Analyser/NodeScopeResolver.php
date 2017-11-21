@@ -52,6 +52,7 @@ use PHPStan\Broker\Broker;
 use PHPStan\File\FileHelper;
 use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\PhpDocBlock;
+use PHPStan\PhpDoc\Tag\ParamTag;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\CommentHelper;
@@ -1090,13 +1091,14 @@ class NodeScopeResolver
 	private function processVarAnnotation(Scope $scope, string $variableName, string $comment, bool $strict): Scope
 	{
 		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($scope->getFile(), $comment);
+		$varTags = $resolvedPhpDoc->getVarTags();
 
-		if (isset($resolvedPhpDoc['var'][$variableName])) {
-			$variableType = $resolvedPhpDoc['var'][$variableName];
+		if (isset($varTags[$variableName])) {
+			$variableType = $varTags[$variableName]->getType();
 			return $scope->assignVariable($variableName, $variableType, TrinaryLogic::createYes());
 
-		} elseif (!$strict && count($resolvedPhpDoc['var']) === 1 && isset($resolvedPhpDoc['var'][0])) {
-			$variableType = $resolvedPhpDoc['var'][0];
+		} elseif (!$strict && count($varTags) === 1 && isset($varTags[0])) {
+			$variableType = $varTags[0]->getType();
 			return $scope->assignVariable($variableName, $variableType, TrinaryLogic::createYes());
 
 		} else {
@@ -1415,8 +1417,10 @@ class NodeScopeResolver
 			}
 
 			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($file, $docComment);
-			$phpDocParameterTypes = $resolvedPhpDoc['param'];
-			$phpDocReturnType = $resolvedPhpDoc['return'];
+			$phpDocParameterTypes = array_map(function (ParamTag $tag): Type {
+				return $tag->getType();
+			}, $resolvedPhpDoc->getParamTags());
+			$phpDocReturnType = $resolvedPhpDoc->getReturnTag() !== null ? $resolvedPhpDoc->getReturnTag()->getType() : null;
 		}
 
 		return [$phpDocParameterTypes, $phpDocReturnType];

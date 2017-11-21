@@ -26,7 +26,7 @@ class PhpDocStringResolver
 		$this->phpDocParser = $phpDocParser;
 	}
 
-	public function resolve(string $phpDocString, NameScope $nameScope): array
+	public function resolve(string $phpDocString, NameScope $nameScope): ResolvedPhpDocBlock
 	{
 		$tokens = new TokenIterator($this->phpDocLexer->tokenize($phpDocString));
 		$phpDocNode = $this->phpDocParser->parse($tokens);

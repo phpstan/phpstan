@@ -3,10 +3,12 @@
 namespace PHPStan\Broker;
 
 use PHPStan\Analyser\Scope;
+use PHPStan\PhpDoc\Tag\ParamTag;
 use PHPStan\Reflection\BrokerAwareClassReflectionExtension;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\FunctionReflectionFactory;
 use PHPStan\Type\FileTypeMapper;
+use PHPStan\Type\Type;
 use ReflectionClass;
 
 class Broker
@@ -208,19 +210,21 @@ class Broker
 		$lowerCasedFunctionName = strtolower($functionName);
 		if (!isset($this->functionReflections[$lowerCasedFunctionName])) {
 			$reflectionFunction = new \ReflectionFunction($lowerCasedFunctionName);
-			$phpDocParameterTypes = [];
-			$phpDocReturnType = null;
+			$phpDocParameterTags = [];
+			$phpDocReturnTag = null;
 			if ($reflectionFunction->getFileName() !== false && $reflectionFunction->getDocComment() !== false) {
 				$fileName = $reflectionFunction->getFileName();
 				$docComment = $reflectionFunction->getDocComment();
 				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, $docComment);
-				$phpDocParameterTypes = $resolvedPhpDoc['param'];
-				$phpDocReturnType = $resolvedPhpDoc['return'];
+				$phpDocParameterTags = $resolvedPhpDoc->getParamTags();
+				$phpDocReturnTag = $resolvedPhpDoc->getReturnTag();
 			}
 			$this->functionReflections[$lowerCasedFunctionName] = $this->functionReflectionFactory->create(
 				$reflectionFunction,
-				$phpDocParameterTypes,
-				$phpDocReturnType
+				array_map(function (ParamTag $paramTag): Type {
+					return $paramTag->getType();
+				}, $phpDocParameterTags),
+				$phpDocReturnTag !== null ? $phpDocReturnTag->getType() : null
 			);
 		}
 

@@ -5,9 +5,11 @@ namespace PHPStan\Type;
 class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 {
 
-	public function testAccepts()
+	public function testgetResolvedPhpDoc()
 	{
 		$this->createBroker();
+
+		/** @var FileTypeMapper $fileTypeMapper */
 		$fileTypeMapper = $this->getContainer()->getByType(FileTypeMapper::class);
 
 		$resolvedA = $fileTypeMapper->getResolvedPhpDoc(__DIR__ . '/data/annotations.php', '/**
@@ -23,124 +25,61 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
  * @method int | float paramMultipleTypesWithExtraSpaces(string | null $string, stdClass | null $object)
  */');
 
-		$this->assertEquals(
-			[
-				'var' => [],
-				'method' => [
-					'simpleMethod' => [
-						'returnType' => \PHPStan\Type\VoidType::__set_state([]),
-						'isStatic' => false,
-						'parameters' => [],
-					],
-					'returningMethod' => [
-						'returnType' => \PHPStan\Type\StringType::__set_state([]),
-						'isStatic' => false,
-						'parameters' => [],
-					],
-					'returningNullableScalar' => [
-						'returnType' => \PHPStan\Type\UnionType::__set_state([
-							'types' => [
-								0 => \PHPStan\Type\FloatType::__set_state([]),
-								1 => \PHPStan\Type\NullType::__set_state([]),
-							],
-						]),
-						'isStatic' => false,
-						'parameters' => [],
-					],
-					'returningNullableObject' => [
-						'returnType' => \PHPStan\Type\UnionType::__set_state([
-							'types' => [
-								0 => \PHPStan\Type\ObjectType::__set_state([
-									'className' => 'stdClass',
-								]),
-								1 => \PHPStan\Type\NullType::__set_state([]),
-							],
-						]),
-						'isStatic' => false,
-						'parameters' => [],
-					],
-					'rotate' => [
-						'returnType' => \PHPStan\Type\ObjectType::__set_state([
-							'className' => 'Image',
-						]),
-						'isStatic' => false,
-						'parameters' => [
-							'angle' => [
-								'type' => \PHPStan\Type\FloatType::__set_state([]),
-								'isPassedByReference' => false,
-								'isOptional' => false,
-								'isVariadic' => false,
-							],
-							'backgroundColor' => [
-								'type' => \PHPStan\Type\MixedType::__set_state([
-									'isExplicitMixed' => false,
-								]),
-								'isPassedByReference' => false,
-								'isOptional' => false,
-								'isVariadic' => false,
-							],
-						],
-					],
-					'paramMultipleTypesWithExtraSpaces' => [
-						'returnType' => \PHPStan\Type\UnionType::__set_state([
-							'types' => [
-								0 => \PHPStan\Type\FloatType::__set_state([]),
-								1 => \PHPStan\Type\IntegerType::__set_state([]),
-							],
-						]),
-						'isStatic' => false,
-						'parameters' => [
-							'string' => [
-								'type' => \PHPStan\Type\UnionType::__set_state([
-									'types' => [
-										0 => \PHPStan\Type\StringType::__set_state([]),
-										1 => \PHPStan\Type\NullType::__set_state([]),
-									],
-								]),
-								'isPassedByReference' => false,
-								'isOptional' => false,
-								'isVariadic' => false,
-							],
-							'object' => [
-								'type' => \PHPStan\Type\UnionType::__set_state([
-									'types' => [
-										0 => \PHPStan\Type\ObjectType::__set_state([
-											'className' => 'stdClass',
-										]),
-										1 => \PHPStan\Type\NullType::__set_state([]),
-									],
-								]),
-								'isPassedByReference' => false,
-								'isOptional' => false,
-								'isVariadic' => false,
-							],
-						],
-					],
-				],
-				'property' => [
-					'numericBazBazProperty' => [
-						'type' => \PHPStan\Type\UnionType::__set_state([
-							'types' => [
-								0 => \PHPStan\Type\FloatType::__set_state([]),
-								1 => \PHPStan\Type\IntegerType::__set_state([]),
-							],
-						]),
-						'readable' => true,
-						'writable' => true,
-					],
-					'singleLetterObjectName' => [
-						'type' => \PHPStan\Type\ObjectType::__set_state([
-							'className' => 'X',
-						]),
-						'readable' => true,
-						'writable' => true,
-					],
-				],
-				'param' => [],
-				'return' => null,
-			],
-			$resolvedA
-		);
+		$this->assertCount(0, $resolvedA->getVarTags());
+		$this->assertCount(0, $resolvedA->getParamTags());
+		$this->assertCount(2, $resolvedA->getPropertyTags());
+		$this->assertNull($resolvedA->getReturnTag());
+		$this->assertSame('float|int', $resolvedA->getPropertyTags()['numericBazBazProperty']->getType()->describe());
+		$this->assertSame('X', $resolvedA->getPropertyTags()['singleLetterObjectName']->getType()->describe());
+
+		$this->markTestIncomplete('Method complicatedParameters is missing');
+
+		$this->assertCount(7, $resolvedA->getMethodTags());
+		$simpleMethod = $resolvedA->getMethodTags()['simpleMethod'];
+		$this->assertSame('void', $simpleMethod->getReturnType()->describe());
+		$this->assertFalse($simpleMethod->isStatic());
+		$this->assertCount(0, $simpleMethod->getParameters());
+
+		$returningMethod = $resolvedA->getMethodTags()['returningMethod'];
+		$this->assertSame('string', $returningMethod->getReturnType()->describe());
+		$this->assertFalse($returningMethod->isStatic());
+		$this->assertCount(0, $returningMethod->getParameters());
+
+		$returningNullableScalar = $resolvedA->getMethodTags()['returningNullableScalar'];
+		$this->assertSame('float|null', $returningNullableScalar->getReturnType()->describe());
+		$this->assertFalse($returningNullableScalar->isStatic());
+		$this->assertCount(0, $returningNullableScalar->getParameters());
+
+		$returningNullableObject = $resolvedA->getMethodTags()['returningNullableObject'];
+		$this->assertSame('stdClass|null', $returningNullableObject->getReturnType()->describe());
+		$this->assertFalse($returningNullableObject->isStatic());
+		$this->assertCount(0, $returningNullableObject->getParameters());
+
+		$rotate = $resolvedA->getMethodTags()['rotate'];
+		$this->assertSame('Image', $rotate->getReturnType()->describe());
+		$this->assertFalse($rotate->isStatic());
+		$this->assertCount(2, $rotate->getParameters());
+		$this->assertSame('float', $rotate->getParameters()['angle']->getType()->describe());
+		$this->assertFalse($rotate->getParameters()['angle']->isPassedByReference());
+		$this->assertFalse($rotate->getParameters()['angle']->isOptional());
+		$this->assertFalse($rotate->getParameters()['angle']->isVariadic());
+		$this->assertSame('mixed', $rotate->getParameters()['backgroundColor']->getType()->describe());
+		$this->assertFalse($rotate->getParameters()['backgroundColor']->isPassedByReference());
+		$this->assertFalse($rotate->getParameters()['backgroundColor']->isOptional());
+		$this->assertFalse($rotate->getParameters()['backgroundColor']->isVariadic());
+
+		$paramMultipleTypesWithExtraSpaces = $resolvedA->getMethodTags()['paramMultipleTypesWithExtraSpaces'];
+		$this->assertSame('float|int', $paramMultipleTypesWithExtraSpaces->getReturnType()->describe());
+		$this->assertFalse($paramMultipleTypesWithExtraSpaces->isStatic());
+		$this->assertCount(2, $paramMultipleTypesWithExtraSpaces->getParameters());
+		$this->assertSame('string|null', $paramMultipleTypesWithExtraSpaces->getParameters()['string']->getType()->describe());
+		$this->assertFalse($paramMultipleTypesWithExtraSpaces->getParameters()['string']->isPassedByReference());
+		$this->assertFalse($paramMultipleTypesWithExtraSpaces->getParameters()['string']->isOptional());
+		$this->assertFalse($paramMultipleTypesWithExtraSpaces->getParameters()['string']->isVariadic());
+		$this->assertSame('stdClass|null', $paramMultipleTypesWithExtraSpaces->getParameters()['object']->getType()->describe());
+		$this->assertFalse($paramMultipleTypesWithExtraSpaces->getParameters()['object']->isPassedByReference());
+		$this->assertFalse($paramMultipleTypesWithExtraSpaces->getParameters()['object']->isOptional());
+		$this->assertFalse($paramMultipleTypesWithExtraSpaces->getParameters()['object']->isVariadic());
 	}
 
 }

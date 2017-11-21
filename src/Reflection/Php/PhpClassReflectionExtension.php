@@ -4,6 +4,7 @@ namespace PHPStan\Reflection\Php;
 
 use PHPStan\Broker\Broker;
 use PHPStan\PhpDoc\PhpDocBlock;
+use PHPStan\PhpDoc\Tag\ParamTag;
 use PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension;
 use PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension;
 use PHPStan\Reflection\BrokerAwareClassReflectionExtension;
@@ -14,6 +15,7 @@ use PHPStan\Reflection\PropertiesClassReflectionExtension;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\Type;
 
 class PhpClassReflectionExtension
 	implements PropertiesClassReflectionExtension, MethodsClassReflectionExtension, BrokerAwareClassReflectionExtension
@@ -125,10 +127,11 @@ class PhpClassReflectionExtension
 			);
 
 			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($phpDocBlock->getFile(), $phpDocBlock->getDocComment());
-			if (isset($resolvedPhpDoc['var'][0]) && count($resolvedPhpDoc['var']) === 1) {
-				$type = $resolvedPhpDoc['var'][0];
-			} elseif (isset($resolvedPhpDoc['var'][$propertyName])) {
-				$type = $resolvedPhpDoc['var'][$propertyName];
+			$varTags = $resolvedPhpDoc->getVarTags();
+			if (isset($varTags[0]) && count($varTags) === 1) {
+				$type = $varTags[0]->getType();
+			} elseif (isset($varTags[$propertyName])) {
+				$type = $varTags[$propertyName]->getType();
 			} else {
 				$type = new MixedType();
 			}
@@ -218,8 +221,10 @@ class PhpClassReflectionExtension
 				);
 
 				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($phpDocBlock->getFile(), $phpDocBlock->getDocComment());
-				$phpDocParameterTypes = $resolvedPhpDoc['param'];
-				$phpDocReturnType = $resolvedPhpDoc['return'];
+				$phpDocParameterTypes = array_map(function (ParamTag $tag): Type {
+					return $tag->getType();
+				}, $resolvedPhpDoc->getParamTags());
+				$phpDocReturnType = $resolvedPhpDoc->getReturnTag() !== null ? $resolvedPhpDoc->getReturnTag()->getType() : null;
 			}
 		}
 

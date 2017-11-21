@@ -7,6 +7,7 @@ use PHPStan\Analyser\NameScope;
 use PHPStan\Cache\Cache;
 use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\PhpDocStringResolver;
+use PHPStan\PhpDoc\ResolvedPhpDocBlock;
 
 class FileTypeMapper
 {
@@ -20,7 +21,7 @@ class FileTypeMapper
 	/** @var \PHPStan\Cache\Cache */
 	private $cache;
 
-	/** @var mixed[][] */
+	/** @var \PHPStan\PhpDoc\ResolvedPhpDocBlock[][] */
 	private $memoryCache = [];
 
 	public function __construct(
@@ -34,7 +35,7 @@ class FileTypeMapper
 		$this->cache = $cache;
 	}
 
-	public function getResolvedPhpDoc(string $filename, string $docComment): array
+	public function getResolvedPhpDoc(string $filename, string $docComment): ResolvedPhpDocBlock
 	{
 		$map = $this->getResolvedPhpDocMap($filename);
 		$key = md5($docComment);
@@ -46,10 +47,14 @@ class FileTypeMapper
 		return $map[$key];
 	}
 
+	/**
+	 * @param string $fileName
+	 * @return \PHPStan\PhpDoc\ResolvedPhpDocBlock[]
+	 */
 	private function getResolvedPhpDocMap(string $fileName): array
 	{
 		if (!isset($this->memoryCache[$fileName])) {
-			$cacheKey = sprintf('%s-%d-v16', $fileName, filemtime($fileName));
+			$cacheKey = sprintf('%s-%d-v17', $fileName, filemtime($fileName));
 			$map = $this->cache->load($cacheKey);
 
 			if ($map === null) {
@@ -63,6 +68,10 @@ class FileTypeMapper
 		return $this->memoryCache[$fileName];
 	}
 
+	/**
+	 * @param string $fileName
+	 * @return \PHPStan\PhpDoc\ResolvedPhpDocBlock[]
+	 */
 	private function createResolvedPhpDocMap(string $fileName): array
 	{
 		$phpDocMap = [];
