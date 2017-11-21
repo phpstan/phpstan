@@ -4,7 +4,7 @@ namespace PHPStan\Broker;
 
 use PHPStan\Analyser\Scope;
 use PHPStan\PhpDoc\Tag\ParamTag;
-use PHPStan\Reflection\BrokerAwareClassReflectionExtension;
+use PHPStan\Reflection\BrokerAwareExtension;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\FunctionReflectionFactory;
 use PHPStan\Type\FileTypeMapper;
@@ -69,7 +69,7 @@ class Broker
 		$this->propertiesClassReflectionExtensions = $propertiesClassReflectionExtensions;
 		$this->methodsClassReflectionExtensions = $methodsClassReflectionExtensions;
 		foreach (array_merge($propertiesClassReflectionExtensions, $methodsClassReflectionExtensions, $dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions, $dynamicFunctionReturnTypeExtensions) as $extension) {
-			if ($extension instanceof BrokerAwareClassReflectionExtension) {
+			if ($extension instanceof BrokerAwareExtension) {
 				$extension->setBroker($this);
 			}
 		}

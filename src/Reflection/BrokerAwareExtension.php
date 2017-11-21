@@ -4,7 +4,7 @@ namespace PHPStan\Reflection;
 
 use PHPStan\Broker\Broker;
 
-interface BrokerAwareClassReflectionExtension
+interface BrokerAwareExtension
 {
 
 	public function setBroker(Broker $broker);
