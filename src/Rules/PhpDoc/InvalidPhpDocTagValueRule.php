@@ -26,7 +26,7 @@ class InvalidPhpDocTagValueRule implements \PHPStan\Rules\Rule
 
 	public function getNodeType(): string
 	{
-		return \PhpParser\NodeAbstract::class;
+		return \PhpParser\Node::class;
 	}
 
 	/**
