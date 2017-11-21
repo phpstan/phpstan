@@ -460,3 +460,17 @@ class ThreeTypesCall
 	}
 
 }
+
+class ScopeBelowInstanceofIsNoLongerChanged
+{
+
+	public function doBar()
+	{
+		$foo = doFoo();
+		if ($foo instanceof Foo) {
+		}
+
+		$foo->nonexistentMethodOnFoo();
+	}
+
+}
