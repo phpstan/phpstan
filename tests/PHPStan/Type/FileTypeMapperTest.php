@@ -32,9 +32,8 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 		$this->assertSame('float|int', $resolvedA->getPropertyTags()['numericBazBazProperty']->getType()->describe());
 		$this->assertSame('X', $resolvedA->getPropertyTags()['singleLetterObjectName']->getType()->describe());
 
-		$this->markTestIncomplete('Method complicatedParameters is missing');
-
-		$this->assertCount(7, $resolvedA->getMethodTags());
+		$this->assertCount(6, $resolvedA->getMethodTags());
+		$this->assertArrayNotHasKey('complicatedParameters', $resolvedA->getMethodTags()); // ambiguous parameter types
 		$simpleMethod = $resolvedA->getMethodTags()['simpleMethod'];
 		$this->assertSame('void', $simpleMethod->getReturnType()->describe());
 		$this->assertFalse($simpleMethod->isStatic());
