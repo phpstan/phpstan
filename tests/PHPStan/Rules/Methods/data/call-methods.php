@@ -428,3 +428,35 @@ class NullableInPhpDoc
 	}
 
 }
+
+class ThreeTypesCall
+{
+
+	public function twoTypes(string $globalTitle)
+	{
+		if (($globalTitle = $this->threeTypes($globalTitle)) !== false) {
+			return '';
+		}
+
+		return false;
+	}
+
+	public function floatType(float $globalTitle)
+	{
+		if (($globalTitle = $this->threeTypes($globalTitle)) !== false) {
+			return '';
+		}
+
+		return false;
+	}
+
+	/**
+	 * @param string $globalTitle
+	 *
+	 * @return int|bool|string
+	 */
+	private function threeTypes($globalTitle) {
+		return false;
+	}
+
+}

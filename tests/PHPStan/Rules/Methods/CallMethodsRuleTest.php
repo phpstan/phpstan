@@ -203,6 +203,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Parameter #1 $test of method Test\NullableInPhpDoc::doFoo() expects string, null given.',
 				427,
 			],
+			[
+				'Parameter #1 $globalTitle of method Test\ThreeTypesCall::threeTypes() expects string, float given.',
+				446,
+			],
 		]);
 	}
 
@@ -311,6 +315,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Parameter #1 $test of method Test\NullableInPhpDoc::doFoo() expects string, null given.',
 				427,
+			],
+			[
+				'Parameter #1 $globalTitle of method Test\ThreeTypesCall::threeTypes() expects string, float given.',
+				446,
 			],
 		]);
 	}
