@@ -19,8 +19,6 @@ if (!class_exists('PHPStan\Command\AnalyseCommand', true)) {
 	require_once $composerAutoloadFile;
 }
 
-class_alias(\PHPStan\Reflection\BrokerAwareExtension::class, \PHPStan\Reflection\BrokerAwareClassReflectionExtension::class);
-
 $version = 'Version unknown';
 try {
 	$version = \Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPrettyVersion();
