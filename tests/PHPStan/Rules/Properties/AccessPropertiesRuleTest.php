@@ -112,6 +112,10 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 					'Cannot access property $foo on null.',
 					220,
 				],
+				[
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$lorem.',
+					247,
+				],
 			]
 		);
 	}
@@ -202,6 +206,10 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 				[
 					'Cannot access property $foo on null.',
 					220,
+				],
+				[
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$lorem.',
+					247,
 				],
 			]
 		);

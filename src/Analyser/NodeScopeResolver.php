@@ -231,6 +231,16 @@ class NodeScopeResolver
 				foreach ($node->vars as $var) {
 					$scope = $this->specifyProperty($scope, $var);
 				}
+			} elseif (
+				$node instanceof FuncCall
+				&& $node->name instanceof Name
+				&& $this->broker->resolveFunctionName($node->name, $scope) === 'property_exists'
+				&& count($node->args) === 2
+				&& $node->args[1]->value instanceof  Node\Scalar\String_
+			) {
+				$scope = $scope->specifyFetchedPropertyFromIsset(
+					new PropertyFetch($node->args[0]->value, $node->args[1]->value->value)
+				);
 			}
 		} else {
 			if ($node instanceof Expr\Empty_) {
