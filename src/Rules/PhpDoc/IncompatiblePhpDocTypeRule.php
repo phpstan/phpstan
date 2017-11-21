@@ -35,7 +35,11 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($scope->getFile(), $docComment->getText());
+		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
+			$scope->getFile(),
+			$scope->isInClass() ? $scope->getClassReflection()->getName() : null,
+			$docComment->getText()
+		);
 		$nativeParameterTypes = $this->getNativeParameterTypes($node, $scope);
 		$nativeReturnType = $this->getNativeReturnType($node, $scope);
 

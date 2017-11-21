@@ -3783,6 +3783,75 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataMultipleClassesInOneFile(): array
+	{
+		return [
+			[
+				'MultipleClasses\Foo',
+				'$self',
+				"'Foo';",
+			],
+			[
+				'MultipleClasses\Bar',
+				'$self',
+				"'Bar';",
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataMultipleClassesInOneFile
+	 * @param string $description
+	 * @param string $expression
+	 * @param string $evaluatedPointExpression
+	 */
+	public function testMultipleClassesInOneFile(
+		string $description,
+		string $expression,
+		string $evaluatedPointExpression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/multiple-classes-per-file.php',
+			$description,
+			$expression,
+			[],
+			[],
+			$evaluatedPointExpression
+		);
+	}
+
+	public function dataCallingMultipleClassesInOneFile(): array
+	{
+		return [
+			[
+				'MultipleClasses\Foo',
+				'$foo->returnSelf()',
+			],
+			[
+				'MultipleClasses\Bar',
+				'$bar->returnSelf()',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataCallingMultipleClassesInOneFile
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testCallingMultipleClassesInOneFile(
+		string $description,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/calling-multiple-classes-per-file.php',
+			$description,
+			$expression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $description,

@@ -12,7 +12,7 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 		/** @var FileTypeMapper $fileTypeMapper */
 		$fileTypeMapper = $this->getContainer()->getByType(FileTypeMapper::class);
 
-		$resolvedA = $fileTypeMapper->getResolvedPhpDoc(__DIR__ . '/data/annotations.php', '/**
+		$resolvedA = $fileTypeMapper->getResolvedPhpDoc(__DIR__ . '/data/annotations.php', 'Foo', '/**
  * @property int | float $numericBazBazProperty
  * @property X $singleLetterObjectName
  *

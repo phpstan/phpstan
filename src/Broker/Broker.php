@@ -215,7 +215,7 @@ class Broker
 			if ($reflectionFunction->getFileName() !== false && $reflectionFunction->getDocComment() !== false) {
 				$fileName = $reflectionFunction->getFileName();
 				$docComment = $reflectionFunction->getDocComment();
-				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, $docComment);
+				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, null, $docComment);
 				$phpDocParameterTags = $resolvedPhpDoc->getParamTags();
 				$phpDocReturnTag = $resolvedPhpDoc->getReturnTag();
 			}

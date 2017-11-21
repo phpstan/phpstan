@@ -126,7 +126,11 @@ class PhpClassReflectionExtension
 				$declaringClassReflection->getNativeReflection()->getFileName()
 			);
 
-			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($phpDocBlock->getFile(), $phpDocBlock->getDocComment());
+			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
+				$phpDocBlock->getFile(),
+				$phpDocBlock->getClass(),
+				$phpDocBlock->getDocComment()
+			);
 			$varTags = $resolvedPhpDoc->getVarTags();
 			if (isset($varTags[0]) && count($varTags) === 1) {
 				$type = $varTags[0]->getType();
@@ -220,7 +224,11 @@ class PhpClassReflectionExtension
 					$declaringClass->getNativeReflection()->getFileName()
 				);
 
-				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($phpDocBlock->getFile(), $phpDocBlock->getDocComment());
+				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
+					$phpDocBlock->getFile(),
+					$phpDocBlock->getClass(),
+					$phpDocBlock->getDocComment()
+				);
 				$phpDocParameterTypes = array_map(function (ParamTag $tag): Type {
 					return $tag->getType();
 				}, $resolvedPhpDoc->getParamTags());

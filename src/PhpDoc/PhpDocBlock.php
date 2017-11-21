@@ -13,10 +13,18 @@ class PhpDocBlock
 	/** @var string */
 	private $file;
 
-	private function __construct(string $docComment, string $file)
+	/** @var string */
+	private $class;
+
+	private function __construct(
+		string $docComment,
+		string $file,
+		string $class
+	)
 	{
 		$this->docComment = $docComment;
 		$this->file = $file;
+		$this->class = $class;
 	}
 
 	public function getDocComment(): string
@@ -27,6 +35,11 @@ class PhpDocBlock
 	public function getFile(): string
 	{
 		return $this->file;
+	}
+
+	public function getClass(): string
+	{
+		return $this->class;
 	}
 
 	public static function resolvePhpDocBlockForProperty(
@@ -115,7 +128,7 @@ class PhpDocBlock
 			}
 		}
 
-		return new self($docComment, $file);
+		return new self($docComment, $file, $class);
 	}
 
 	/**

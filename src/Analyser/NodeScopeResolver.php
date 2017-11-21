@@ -1090,7 +1090,11 @@ class NodeScopeResolver
 
 	private function processVarAnnotation(Scope $scope, string $variableName, string $comment, bool $strict): Scope
 	{
-		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($scope->getFile(), $comment);
+		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
+			$scope->getFile(),
+			$scope->isInClass() ? $scope->getClassReflection()->getName() : null,
+			$comment
+		);
 		$varTags = $resolvedPhpDoc->getVarTags();
 
 		if (isset($varTags[$variableName])) {
@@ -1404,6 +1408,7 @@ class NodeScopeResolver
 		if ($functionLike->getDocComment() !== null) {
 			$docComment = $functionLike->getDocComment()->getText();
 			$file = $scope->getFile();
+			$class = $scope->isInClass() ? $scope->getClassReflection()->getName() : null;
 			if ($functionLike instanceof Node\Stmt\ClassMethod) {
 				$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForMethod(
 					$this->broker,
@@ -1414,9 +1419,14 @@ class NodeScopeResolver
 				);
 				$docComment = $phpDocBlock->getDocComment();
 				$file = $phpDocBlock->getFile();
+				$class = $phpDocBlock->getClass();
 			}
 
-			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($file, $docComment);
+			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
+				$file,
+				$class,
+				$docComment
+			);
 			$phpDocParameterTypes = array_map(function (ParamTag $tag): Type {
 				return $tag->getType();
 			}, $resolvedPhpDoc->getParamTags());

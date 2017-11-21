@@ -21,7 +21,7 @@ class FileTypeMapper
 	/** @var \PHPStan\Cache\Cache */
 	private $cache;
 
-	/** @var \PHPStan\PhpDoc\ResolvedPhpDocBlock[][] */
+	/** @var \PHPStan\PhpDoc\ResolvedPhpDocBlock[][][] */
 	private $memoryCache = [];
 
 	public function __construct(
@@ -35,9 +35,9 @@ class FileTypeMapper
 		$this->cache = $cache;
 	}
 
-	public function getResolvedPhpDoc(string $filename, string $docComment): ResolvedPhpDocBlock
+	public function getResolvedPhpDoc(string $filename, string $className = null, string $docComment): ResolvedPhpDocBlock
 	{
-		$map = $this->getResolvedPhpDocMap($filename);
+		$map = $this->getResolvedPhpDocMap($filename, $className);
 		$key = md5($docComment);
 
 		if (!isset($map[$key])) { // most likely wrong $fileName due to traits
@@ -49,12 +49,13 @@ class FileTypeMapper
 
 	/**
 	 * @param string $fileName
+	 * @param string|null $className
 	 * @return \PHPStan\PhpDoc\ResolvedPhpDocBlock[]
 	 */
-	private function getResolvedPhpDocMap(string $fileName): array
+	private function getResolvedPhpDocMap(string $fileName, string $className = null): array
 	{
 		if (!isset($this->memoryCache[$fileName])) {
-			$cacheKey = sprintf('%s-%d-v17', $fileName, filemtime($fileName));
+			$cacheKey = sprintf('%s-%d-v18', $fileName, filemtime($fileName));
 			$map = $this->cache->load($cacheKey);
 
 			if ($map === null) {
@@ -65,36 +66,38 @@ class FileTypeMapper
 			$this->memoryCache[$fileName] = $map;
 		}
 
-		return $this->memoryCache[$fileName];
+		if (!array_key_exists($className, $this->memoryCache[$fileName])) {
+			// class with traits - class has no phpDocs but trait has some
+			return [];
+		}
+
+		return $this->memoryCache[$fileName][$className];
 	}
 
 	/**
 	 * @param string $fileName
-	 * @return \PHPStan\PhpDoc\ResolvedPhpDocBlock[]
+	 * @return \PHPStan\PhpDoc\ResolvedPhpDocBlock[][]
 	 */
 	private function createResolvedPhpDocMap(string $fileName): array
 	{
 		$phpDocMap = [];
 
-		/** @var \PhpParser\Node\Stmt\ClassLike|null $lastClass */
-		$lastClass = null;
+		/** @var \PhpParser\Node\Stmt\ClassLike[] $classStack */
+		$classStack = [];
 		$namespace = null;
 		$uses = [];
-		$nameScope = null;
 
 		$this->processNodes(
 			$this->phpParser->parseFile($fileName),
-			function (\PhpParser\Node $node) use (&$phpDocMap, &$lastClass, &$namespace, &$uses, &$nameScope) {
+			function (\PhpParser\Node $node) use (&$phpDocMap, &$classStack, &$namespace, &$uses) {
 				if ($node instanceof Node\Stmt\ClassLike) {
-					$lastClass = $node;
+					$classStack[] = $node;
 				} elseif ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
 					$namespace = (string) $node->name;
-					$nameScope = null;
 				} elseif ($node instanceof \PhpParser\Node\Stmt\Use_ && $node->type === \PhpParser\Node\Stmt\Use_::TYPE_NORMAL) {
 					foreach ($node->uses as $use) {
 						$uses[$use->alias] = (string) $use->name;
 					}
-					$nameScope = null;
 				} elseif ($node instanceof \PhpParser\Node\Stmt\GroupUse) {
 					$prefix = (string) $node->prefix;
 					foreach ($node->uses as $use) {
@@ -102,7 +105,6 @@ class FileTypeMapper
 							$uses[$use->alias] = sprintf('%s\\%s', $prefix, $use->name);
 						}
 					}
-					$nameScope = null;
 				} elseif (!in_array(get_class($node), [
 					Node\Stmt\Property::class,
 					Node\Stmt\ClassMethod::class,
@@ -120,14 +122,22 @@ class FileTypeMapper
 					return;
 				}
 
-				$className = $lastClass !== null ? $lastClass->name : null;
+				$className = count($classStack) > 0 ? $classStack[count($classStack) - 1]->name : null;
 				if ($className !== null && $namespace !== null) {
 					$className = sprintf('%s\\%s', $namespace, $className);
 				}
 
 				$nameScope = new NameScope($namespace, $uses, $className);
 				$resolvedPhpDoc = $this->phpDocStringResolver->resolve($phpDocString, $nameScope);
-				$phpDocMap[md5($phpDocString)] = $resolvedPhpDoc;
+				$phpDocMap[$className][md5($phpDocString)] = $resolvedPhpDoc;
+			},
+			function (\PhpParser\Node $node) use (&$namespace, &$classStack, &$uses) {
+				if ($node instanceof Node\Stmt\ClassLike) {
+					array_pop($classStack);
+				} elseif ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
+					$namespace = null;
+					$uses = [];
+				}
 			}
 		);
 
@@ -137,18 +147,20 @@ class FileTypeMapper
 	/**
 	 * @param \PhpParser\Node[]|\PhpParser\Node $node
 	 * @param \Closure $nodeCallback
+	 * @param \Closure $endNodeCallback
 	 */
-	private function processNodes($node, \Closure $nodeCallback)
+	private function processNodes($node, \Closure $nodeCallback, \Closure $endNodeCallback)
 	{
 		if ($node instanceof Node) {
 			$nodeCallback($node);
 			foreach ($node->getSubNodeNames() as $subNodeName) {
 				$subNode = $node->{$subNodeName};
-				$this->processNodes($subNode, $nodeCallback);
+				$this->processNodes($subNode, $nodeCallback, $endNodeCallback);
 			}
+			$endNodeCallback($node);
 		} elseif (is_array($node)) {
 			foreach ($node as $subNode) {
-				$this->processNodes($subNode, $nodeCallback);
+				$this->processNodes($subNode, $nodeCallback, $endNodeCallback);
 			}
 		}
 	}
