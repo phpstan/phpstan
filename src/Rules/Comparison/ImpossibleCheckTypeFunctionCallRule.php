@@ -53,6 +53,10 @@ class ImpossibleCheckTypeFunctionCallRule implements \PHPStan\Rules\Rule
 
 		$isSuperset = $resultType->isSupersetOf($argumentType);
 		$functionName = (string) $node->name;
+		if ($functionName === 'is_a') {
+			return [];
+		}
+
 		if ($isSuperset->no()) {
 			return [sprintf(
 				'Call to function %s() will always evaluate to false.',
