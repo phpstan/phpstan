@@ -84,3 +84,19 @@ function anotherVariadicStrings(string ...$strings)
 {
 
 }
+
+/**
+ * @param int[] $strings
+ */
+function incompatibleVariadicStrings(string ...$strings)
+{
+
+}
+
+/**
+ * @param string ...$numbers
+ */
+function incompatibleVariadicNumbers(int ...$numbers)
+{
+
+}

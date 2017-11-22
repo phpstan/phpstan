@@ -41,6 +41,14 @@ class IncompatiblePhpDocTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				'PHPDoc tag @return with type int|string is not subtype of native type int',
 				75,
 			],
+			[
+				'PHPDoc tag @param for parameter $strings with type int[] is incompatible with native type string[]',
+				91,
+			],
+			[
+				'PHPDoc tag @param for parameter $numbers with type string[] is incompatible with native type int[]',
+				99,
+			],
 		]);
 	}
 
