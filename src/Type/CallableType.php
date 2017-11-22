@@ -32,15 +32,15 @@ class CallableType implements CompoundType
 		return false;
 	}
 
-	public function isSupersetOf(Type $type): TrinaryLogic
+	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
 		return $type->isCallable();
 	}
 
-	public function isSubsetOf(Type $otherType): TrinaryLogic
+	public function isSubTypeOf(Type $otherType): TrinaryLogic
 	{
 		if ($otherType instanceof IntersectionType || $otherType instanceof UnionType) {
-			return $otherType->isSupersetOf($this);
+			return $otherType->isSuperTypeOf($this);
 		}
 
 		return $otherType->isCallable()

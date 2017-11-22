@@ -74,25 +74,25 @@ class UnionType implements CompoundType, StaticResolvableType
 		return false;
 	}
 
-	public function isSupersetOf(Type $otherType): TrinaryLogic
+	public function isSuperTypeOf(Type $otherType): TrinaryLogic
 	{
 		if ($otherType instanceof self || $otherType instanceof IterableIterableType) {
-			return $otherType->isSubsetOf($this);
+			return $otherType->isSubTypeOf($this);
 		}
 
 		$results = [];
 		foreach ($this->getTypes() as $innerType) {
-			$results[] = $innerType->isSupersetOf($otherType);
+			$results[] = $innerType->isSuperTypeOf($otherType);
 		}
 
 		return TrinaryLogic::createNo()->or(...$results);
 	}
 
-	public function isSubsetOf(Type $otherType): TrinaryLogic
+	public function isSubTypeOf(Type $otherType): TrinaryLogic
 	{
 		$results = [];
 		foreach ($this->getTypes() as $innerType) {
-			$results[] = $otherType->isSupersetOf($innerType);
+			$results[] = $otherType->isSuperTypeOf($innerType);
 		}
 
 		return TrinaryLogic::extremeIdentity(...$results);

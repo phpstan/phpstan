@@ -28,14 +28,14 @@ trait JustNullableTypeTrait
 		return false;
 	}
 
-	public function isSupersetOf(Type $type): TrinaryLogic
+	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
 		if ($type instanceof self) {
 			return TrinaryLogic::createYes();
 		}
 
 		if ($type instanceof CompoundType) {
-			return $type->isSubsetOf($this);
+			return $type->isSubTypeOf($this);
 		}
 
 		return TrinaryLogic::createNo();

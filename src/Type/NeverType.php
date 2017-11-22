@@ -24,7 +24,7 @@ class NeverType implements CompoundType
 		return true;
 	}
 
-	public function isSupersetOf(Type $type): TrinaryLogic
+	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
 		if ($type instanceof self) {
 			return TrinaryLogic::createYes();
@@ -33,7 +33,7 @@ class NeverType implements CompoundType
 		return TrinaryLogic::createNo();
 	}
 
-	public function isSubsetOf(Type $otherType): TrinaryLogic
+	public function isSubTypeOf(Type $otherType): TrinaryLogic
 	{
 		return TrinaryLogic::createYes();
 	}

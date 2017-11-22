@@ -82,7 +82,7 @@ class FalseBooleanType implements BooleanType
 		return false;
 	}
 
-	public function isSupersetOf(Type $type): TrinaryLogic
+	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
 		if ($type instanceof self) {
 			return TrinaryLogic::createYes();
@@ -93,7 +93,7 @@ class FalseBooleanType implements BooleanType
 		}
 
 		if ($type instanceof CompoundType) {
-			return $type->isSubsetOf($this);
+			return $type->isSubTypeOf($this);
 		}
 
 		return TrinaryLogic::createNo();

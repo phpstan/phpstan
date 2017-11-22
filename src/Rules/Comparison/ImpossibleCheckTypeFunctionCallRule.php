@@ -51,18 +51,18 @@ class ImpossibleCheckTypeFunctionCallRule implements \PHPStan\Rules\Rule
 		/** @var \PHPStan\Type\Type $resultType */
 		$resultType = $sureType[1];
 
-		$isSuperset = $resultType->isSupersetOf($argumentType);
+		$isSuperType = $resultType->isSuperTypeOf($argumentType);
 		$functionName = (string) $node->name;
 		if ($functionName === 'is_a') {
 			return [];
 		}
 
-		if ($isSuperset->no()) {
+		if ($isSuperType->no()) {
 			return [sprintf(
 				'Call to function %s() will always evaluate to false.',
 				$functionName
 			)];
-		} elseif ($isSuperset->yes() && $this->checkAlwaysTrueCheckTypeFunctionCall) {
+		} elseif ($isSuperType->yes() && $this->checkAlwaysTrueCheckTypeFunctionCall) {
 			return [sprintf(
 				'Call to function %s() will always evaluate to true.',
 				$functionName
