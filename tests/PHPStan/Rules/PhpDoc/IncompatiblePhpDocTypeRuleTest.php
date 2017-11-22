@@ -30,10 +30,6 @@ class IncompatiblePhpDocTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				12,
 			],
 			[
-				'PHPDoc tag @param for parameter $strings with type string[][] is incompatible with native type string[]',
-				30,
-			],
-			[
 				'PHPDoc tag @return with type string is incompatible with native type int',
 				66,
 			],

@@ -25,7 +25,7 @@ function variadicNumbers(int ...$numbers)
 
 
 /**
- * @param string[] ...$strings valid according to PhpStorm, but actually invalid
+ * @param string[] ...$strings valid according to PhpStorm, but actually invalid (accepted for now)
  */
 function variadicStrings(string ...$strings)
 {
