@@ -24,4 +24,7 @@ namespace InvalidPhpDoc;
 function foo()
 {
 
+	/** @var \\Foo|\Bar $test */
+	$test = doFoo();
+
 }

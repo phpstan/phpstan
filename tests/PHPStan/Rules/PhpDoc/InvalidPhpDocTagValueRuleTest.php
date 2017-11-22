@@ -67,6 +67,10 @@ class InvalidPhpDocTagValueRuleTest extends \PHPStan\Testing\RuleTestCase
 				'PHPDoc tag @return has invalid value (A & B | C): Unexpected token "|", expected TOKEN_OTHER at offset 251',
 				24,
 			],
+			[
+				'PHPDoc tag @var has invalid value (\\\Foo|\Bar $test): Unexpected token "\\\\\\\Foo|\\\Bar", expected TOKEN_IDENTIFIER at offset 9',
+				28,
+			],
 		]);
 	}
 
