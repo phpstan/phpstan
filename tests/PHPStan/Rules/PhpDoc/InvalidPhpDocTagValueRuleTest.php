@@ -40,7 +40,7 @@ class InvalidPhpDocTagValueRuleTest extends \PHPStan\Testing\RuleTestCase
 				24,
 			],
 			[
-				'PHPDoc tag @param has invalid value (~A & B $paramNameC): Unexpected token "~A & B $paramNameC", expected TOKEN_IDENTIFIER at offset 127',
+				'PHPDoc tag @param has invalid value (~A & B $paramNameC): Unexpected token "~A", expected TOKEN_IDENTIFIER at offset 127',
 				24,
 			],
 			[
