@@ -237,10 +237,10 @@ class TypeNodeResolver
 
 	private function resolveGenericTypeNode(GenericTypeNode $typeNode, NameScope $nameScope): Type
 	{
-		$mainType = $this->resolve($typeNode->type, $nameScope);
+		$mainType = strtolower($typeNode->type->name);
 		$genericTypes = $this->resolveMultiple($typeNode->genericTypes, $nameScope);
 
-		if ($mainType instanceof ArrayType) {
+		if ($mainType === 'array') {
 			if (count($genericTypes) === 1) { // array<ValueType>
 				return new ArrayType($genericTypes[0]);
 
@@ -248,7 +248,7 @@ class TypeNodeResolver
 				return new ArrayType($genericTypes[1]);
 			}
 
-		} elseif ($mainType instanceof IterableIterableType) {
+		} elseif ($mainType === 'iterable') {
 			if (count($genericTypes) === 1) { // iterable<ValueType>
 				return new IterableIterableType($genericTypes[0]);
 
