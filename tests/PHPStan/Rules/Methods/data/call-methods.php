@@ -474,3 +474,23 @@ class ScopeBelowInstanceofIsNoLongerChanged
 	}
 
 }
+
+class CallVariadicMethodWithArrayInPhpDoc
+{
+
+	/**
+	 * @param array ...$args
+	 */
+	public function variadicMethod(...$args)
+	{
+
+	}
+
+	public function test()
+	{
+		$this->variadicMethod(1, 2, 3);
+		$this->variadicMethod([1, 2, 3]);
+		$this->variadicMethod(...[1, 2, 3]);
+	}
+
+}
