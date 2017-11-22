@@ -525,7 +525,55 @@ class Scope
 				}
 			}
 
-			return new ArrayType(new MixedType(), $this->getCombinedType($itemTypes), true, $callable);
+			$arrayWithKeys = [];
+			$keyExpressionTypes = [];
+			foreach ($node->items as $arrayItem) {
+				$itemKey = $arrayItem->key;
+				if ($itemKey === null) {
+					$arrayWithKeys[] = 'foo';
+					continue;
+				}
+
+				if (
+					$itemKey instanceof \PhpParser\Node\Scalar\String_
+					|| $itemKey instanceof \PhpParser\Node\Scalar\LNumber
+					|| $itemKey instanceof \PhpParser\Node\Scalar\DNumber
+					|| $itemKey instanceof \PhpParser\Node\Expr\ConstFetch
+				) {
+					if ($itemKey instanceof \PhpParser\Node\Expr\ConstFetch) {
+						$constName = strtolower((string) $itemKey->name);
+						if ($constName === 'true') {
+							$value = true;
+						} elseif ($constName === 'false') {
+							$value = false;
+						} elseif ($constName === 'null') {
+							$value = null;
+						} elseif ($this->broker->hasConstant($itemKey->name, $this)) {
+							$value = constant($this->broker->resolveConstantName($itemKey->name, $this));
+						} else {
+							$keyExpressionTypes[] = new MixedType();
+							continue;
+						}
+
+						$arrayWithKeys[$value] = 'foo';
+					} else {
+						$arrayWithKeys[$itemKey->value] = 'foo';
+					}
+				} else {
+					$keyExpressionTypes[] = $this->getType($itemKey);
+				}
+			}
+
+			$scalarKeysTypes = array_map(function ($value): Type {
+				return $this->getTypeFromValue($value);
+			}, array_keys($arrayWithKeys));
+
+			return new ArrayType(
+				$this->getCombinedType(array_merge($scalarKeysTypes, $keyExpressionTypes)),
+				$this->getCombinedType($itemTypes),
+				true,
+				$callable
+			);
 		} elseif ($node instanceof Int_) {
 				return new IntegerType();
 		} elseif ($node instanceof Bool_) {

@@ -1870,6 +1870,90 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataLiteralArraysKeys(): array
+	{
+		return [
+			[
+				'int',
+				"'NoKeysArray';",
+			],
+			[
+				'int',
+				"'IntegersAndNoKeysArray';",
+			],
+			[
+				'int|string',
+				"'StringsAndNoKeysArray';",
+			],
+			[
+				'int',
+				"'IntegersAsStringsAndNoKeysArray';",
+			],
+			[
+				'int',
+				"'IntegersAsStringsArray';",
+			],
+			[
+				'int',
+				"'IntegersArray';",
+			],
+			[
+				'int',
+				"'IntegersWithFloatsArray';",
+			],
+			[
+				'string',
+				"'StringsArray';",
+			],
+			[
+				'string',
+				"'StringsWithNullArray';",
+			],
+			[
+				'int|string',
+				"'IntegersWithStringFromMethodArray';",
+			],
+			[
+				'int|string',
+				"'IntegersAndStringsArray';",
+			],
+			[
+				'int',
+				"'BooleansArray';",
+			],
+			[
+				'mixed',
+				"'UnknownConstantArray';",
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataLiteralArraysKeys
+	 * @param string $description
+	 * @param string $evaluatedPointExpressionType
+	 */
+	public function testLiteralArraysKeys(
+		string $description,
+		string $evaluatedPointExpressionType
+	)
+	{
+		if (!defined('STRING_ONE')) {
+			define('STRING_ONE', '1');
+			define('INT_ONE', 1);
+			define('STRING_FOO', 'foo');
+		}
+
+		$this->assertTypes(
+			__DIR__ . '/data/literal-arrays-keys.php',
+			$description,
+			'$key',
+			[],
+			[],
+			$evaluatedPointExpressionType
+		);
+	}
+
 	public function dataTypeFromFunctionPhpDocs(): array
 	{
 		return [
