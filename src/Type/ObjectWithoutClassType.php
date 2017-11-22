@@ -38,10 +38,10 @@ class ObjectWithoutClassType implements Type
 		return $type instanceof self || $type instanceof TypeWithClassName;
 	}
 
-	public function isSupersetOf(Type $type): TrinaryLogic
+	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
 		if ($type instanceof CompoundType) {
-			return $type->isSubsetOf($this);
+			return $type->isSubTypeOf($this);
 		}
 
 		if ($type instanceof self || $type instanceof TypeWithClassName) {

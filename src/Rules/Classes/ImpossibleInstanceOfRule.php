@@ -39,15 +39,15 @@ class ImpossibleInstanceOfRule implements \PHPStan\Rules\Rule
 		}
 
 		$expressionType = $scope->getType($node->expr);
-		$isExpressionObject = (new ObjectWithoutClassType())->isSupersetOf($expressionType);
+		$isExpressionObject = (new ObjectWithoutClassType())->isSuperTypeOf($expressionType);
 		if (!$isExpressionObject->no() && $type instanceof StringType) {
 			return [];
 		}
 
-		$isSuperset = $type->isSupersetOf($expressionType)
+		$isSuperType = $type->isSuperTypeOf($expressionType)
 			->and($isExpressionObject);
 
-		if ($isSuperset->no()) {
+		if ($isSuperType->no()) {
 			return [
 				sprintf(
 					'Instanceof between %s and %s will always evaluate to false.',
@@ -55,7 +55,7 @@ class ImpossibleInstanceOfRule implements \PHPStan\Rules\Rule
 					$type->describe()
 				),
 			];
-		} elseif ($isSuperset->yes() && $this->checkAlwaysTrueInstanceof) {
+		} elseif ($isSuperType->yes() && $this->checkAlwaysTrueInstanceof) {
 			return [
 				sprintf(
 					'Instanceof between %s and %s will always evaluate to true.',

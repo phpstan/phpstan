@@ -55,7 +55,7 @@ class TypeCombinator
 			return self::union(...$innerTypes);
 		}
 
-		if ($typeToRemove->isSupersetOf($fromType)->yes()) {
+		if ($typeToRemove->isSuperTypeOf($fromType)->yes()) {
 			return new NeverType();
 		}
 
@@ -126,11 +126,11 @@ class TypeCombinator
 		// transform true | bool to bool
 		for ($i = 0; $i < count($types); $i++) {
 			for ($j = $i + 1; $j < count($types); $j++) {
-				if ($types[$j]->isSupersetOf($types[$i])->yes()) {
+				if ($types[$j]->isSuperTypeOf($types[$i])->yes()) {
 					array_splice($types, $i--, 1);
 					continue 2;
 
-				} elseif ($types[$i]->isSupersetOf($types[$j])->yes()) {
+				} elseif ($types[$i]->isSuperTypeOf($types[$j])->yes()) {
 					array_splice($types, $j--, 1);
 					continue 1;
 				}
@@ -182,20 +182,20 @@ class TypeCombinator
 		// transform int & string to never
 		for ($i = 0; $i < count($types); $i++) {
 			for ($j = $i + 1; $j < count($types); $j++) {
-				$isSupersetA = $types[$j]->isSupersetOf($types[$i]);
-				if ($isSupersetA->no()) {
+				$isSuperTypeA = $types[$j]->isSuperTypeOf($types[$i]);
+				if ($isSuperTypeA->no()) {
 					return new NeverType();
 
-				} elseif ($isSupersetA->yes()) {
+				} elseif ($isSuperTypeA->yes()) {
 					array_splice($types, $j--, 1);
 					continue;
 				}
 
-				$isSupersetB = $types[$i]->isSupersetOf($types[$j]);
-				if ($isSupersetB->maybe()) {
+				$isSuperTypeB = $types[$i]->isSuperTypeOf($types[$j]);
+				if ($isSuperTypeB->maybe()) {
 					continue;
 
-				} elseif ($isSupersetB->yes()) {
+				} elseif ($isSuperTypeB->yes()) {
 					array_splice($types, $i--, 1);
 					continue 2;
 				}

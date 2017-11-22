@@ -51,7 +51,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
-	public function dataIsSupersetOf(): \Iterator
+	public function dataIsSuperTypeOf(): \Iterator
 	{
 		$this->createBroker();
 
@@ -232,24 +232,24 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 	}
 
 	/**
-	 * @dataProvider dataIsSupersetOf
+	 * @dataProvider dataIsSuperTypeOf
 	 * @param UnionType $type
 	 * @param Type $otherType
 	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSupersetOf(UnionType $type, Type $otherType, TrinaryLogic $expectedResult)
+	public function testIsSuperTypeOf(UnionType $type, Type $otherType, TrinaryLogic $expectedResult)
 	{
 		$this->createBroker();
 
-		$actualResult = $type->isSupersetOf($otherType);
+		$actualResult = $type->isSuperTypeOf($otherType);
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isSupersetOf(%s)', $type->describe(), $otherType->describe())
+			sprintf('%s -> isSuperTypeOf(%s)', $type->describe(), $otherType->describe())
 		);
 	}
 
-	public function dataIsSubsetOf(): \Iterator
+	public function dataIsSubTypeOf(): \Iterator
 	{
 		$this->createBroker();
 
@@ -407,38 +407,38 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 	}
 
 	/**
-	 * @dataProvider dataIsSubsetOf
+	 * @dataProvider dataIsSubTypeOf
 	 * @param UnionType $type
 	 * @param Type $otherType
 	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSubsetOf(UnionType $type, Type $otherType, TrinaryLogic $expectedResult)
+	public function testIsSubTypeOf(UnionType $type, Type $otherType, TrinaryLogic $expectedResult)
 	{
 		$this->createBroker();
 
-		$actualResult = $type->isSubsetOf($otherType);
+		$actualResult = $type->isSubTypeOf($otherType);
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isSubsetOf(%s)', $type->describe(), $otherType->describe())
+			sprintf('%s -> isSubTypeOf(%s)', $type->describe(), $otherType->describe())
 		);
 	}
 
 	/**
-	 * @dataProvider dataIsSubsetOf
+	 * @dataProvider dataIsSubTypeOf
 	 * @param UnionType $type
 	 * @param Type $otherType
 	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSubsetOfInversed(UnionType $type, Type $otherType, TrinaryLogic $expectedResult)
+	public function testIsSubTypeOfInversed(UnionType $type, Type $otherType, TrinaryLogic $expectedResult)
 	{
 		$this->createBroker();
 
-		$actualResult = $otherType->isSupersetOf($type);
+		$actualResult = $otherType->isSuperTypeOf($type);
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isSupersetOf(%s)', $otherType->describe(), $type->describe())
+			sprintf('%s -> isSuperTypeOf(%s)', $otherType->describe(), $type->describe())
 		);
 	}
 

@@ -48,7 +48,7 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		if ($leftType->isSupersetOf($rightType)->no()) {
+		if ($leftType->isSuperTypeOf($rightType)->no()) {
 			return [
 				sprintf(
 					'Strict comparison using %s between %s and %s will always evaluate to %s.',

@@ -72,7 +72,7 @@ function testReturnIntInvalid(): int
 /**
  * @return string|int
  */
-function testReturnIntNotSubset(): int
+function testReturnIntNotSubType(): int
 {
 
 }

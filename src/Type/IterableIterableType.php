@@ -37,16 +37,16 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 		return false;
 	}
 
-	public function isSupersetOf(Type $type): TrinaryLogic
+	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
 		return $type->isIterable()
-			->and($this->getIterableValueType()->isSupersetOf($type->getIterableValueType()));
+			->and($this->getIterableValueType()->isSuperTypeOf($type->getIterableValueType()));
 	}
 
-	public function isSubsetOf(Type $otherType): TrinaryLogic
+	public function isSubTypeOf(Type $otherType): TrinaryLogic
 	{
 		if ($otherType instanceof IntersectionType || $otherType instanceof UnionType) {
-			return $otherType->isSupersetOf(new UnionType([
+			return $otherType->isSuperTypeOf(new UnionType([
 				new ArrayType($this->itemType),
 				new IntersectionType([
 					new ObjectType(\Traversable::class),
@@ -63,7 +63,7 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 
 		return $limit->and(
 			$otherType->isIterable(),
-			$otherType->getIterableValueType()->isSupersetOf($this->itemType)
+			$otherType->getIterableValueType()->isSuperTypeOf($this->itemType)
 		);
 	}
 
