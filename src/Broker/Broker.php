@@ -94,7 +94,9 @@ class Broker
 
 	public static function getInstance(): self
 	{
-		assert(self::$instance !== null);
+		if (self::$instance === null) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
 		return self::$instance;
 	}
 
