@@ -100,3 +100,11 @@ function incompatibleVariadicNumbers(int ...$numbers)
 {
 
 }
+
+/**
+ * @param string[] ...$strings
+ */
+function variadicStringArrays(array ...$strings)
+{
+
+}

@@ -4,6 +4,7 @@ namespace PHPStan\Rules\PhpDoc;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
+use PHPStan\Type\ArrayType;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Type;
 
@@ -56,6 +57,14 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 			} else {
 				$nativeParamType = $nativeParameterTypes[$parameterName];
 				$isParamSuperType = $nativeParamType->isSuperTypeOf($phpDocParamType);
+
+				if (
+					$phpDocParamTag->isVariadic()
+					&& $nativeParamType instanceof ArrayType
+					&& $nativeParamType->getItemType() instanceof ArrayType
+				) {
+					continue;
+				}
 
 				if ($isParamSuperType->no()) {
 					$errors[] = sprintf(

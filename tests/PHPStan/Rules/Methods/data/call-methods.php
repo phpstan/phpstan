@@ -486,11 +486,21 @@ class CallVariadicMethodWithArrayInPhpDoc
 
 	}
 
+	/**
+	 * @param string[] ...$args
+	 */
+	public function variadicArrayMethod(array ...$args)
+	{
+
+	}
+
 	public function test()
 	{
 		$this->variadicMethod(1, 2, 3);
 		$this->variadicMethod([1, 2, 3]);
 		$this->variadicMethod(...[1, 2, 3]);
+		$this->variadicArrayMethod(['foo', 'bar'], ['foo', 'bar']);
+		$this->variadicArrayMethod(...[['foo', 'bar'], ['foo', 'bar']]);
 	}
 
 }
