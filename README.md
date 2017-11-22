@@ -542,12 +542,8 @@ public function getTypeFromMethodCall(MethodReflection $methodReflection, Method
 		return $methodReflection->getReturnType();
 	}
 	$arg = $methodCall->args[0]->value;
-	$type = $scope->getType($arg);
-	if ($type->getClass() !== null) {
-		return $type;
-	}
 
-	return $methodReflection->getReturnType();
+	return $scope->getType($arg);
 }
 ```
 
