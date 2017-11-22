@@ -76,3 +76,11 @@ function testReturnIntNotSubset(): int
 {
 
 }
+
+/**
+ * @param string[] $strings
+ */
+function anotherVariadicStrings(string ...$strings)
+{
+
+}
