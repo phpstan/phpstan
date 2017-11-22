@@ -12,14 +12,14 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 		return [
 			[
 				new UnionType([
-					new ArrayType(new MixedType(), false, TrinaryLogic::createYes()),
+					new ArrayType(new MixedType(), new MixedType(), false, TrinaryLogic::createYes()),
 					new StringType(),
 				]),
 				TrinaryLogic::createMaybe(),
 			],
 			[
 				new UnionType([
-					new ArrayType(new MixedType(), false, TrinaryLogic::createYes()),
+					new ArrayType(new MixedType(), new MixedType(), false, TrinaryLogic::createYes()),
 					new ObjectType('Closure'),
 				]),
 				TrinaryLogic::createYes(),
@@ -134,7 +134,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 
 		yield [
 			$unionTypeA,
-			new IntersectionType([new ArrayType(new MixedType()), new CallableType()]),
+			new IntersectionType([new ArrayType(new MixedType(), new MixedType()), new CallableType()]),
 			TrinaryLogic::createNo(),
 		];
 
@@ -143,7 +143,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 				new ObjectType('ArrayObject'),
 				new IterableIterableType(new ObjectType('DatePeriod')),
 			]),
-			new ArrayType(new ObjectType('DatePeriod')),
+			new ArrayType(new MixedType(), new ObjectType('DatePeriod')),
 		]);
 
 		yield [
@@ -338,7 +338,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 
 		yield [
 			$unionTypeA,
-			new IntersectionType([new ArrayType(new MixedType()), new CallableType()]),
+			new IntersectionType([new ArrayType(new MixedType(), new MixedType()), new CallableType()]),
 			TrinaryLogic::createNo(),
 		];
 
@@ -348,7 +348,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 				new IterableIterableType(new ObjectType('Item')),
 				new CallableType(),
 			]),
-			new ArrayType(new ObjectType('Item')),
+			new ArrayType(new MixedType(), new ObjectType('Item')),
 		]);
 
 		yield [

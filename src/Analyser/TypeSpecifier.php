@@ -141,7 +141,7 @@ class TypeSpecifier
 				case 'is_null':
 					return $this->create($innerExpr, new NullType(), $context);
 				case 'is_array':
-					return $this->create($innerExpr, new ArrayType(new MixedType()), $context);
+					return $this->create($innerExpr, new ArrayType(new MixedType(), new MixedType()), $context);
 				case 'is_bool':
 					return $this->create($innerExpr, new TrueOrFalseBooleanType(), $context);
 				case 'is_callable':

@@ -37,12 +37,12 @@ class IterableTypeTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				new IterableIterableType(new StringType()),
-				new UnionType([new ArrayType(new MixedType()), new ObjectType('Traversable')]),
+				new UnionType([new ArrayType(new MixedType(), new MixedType()), new ObjectType('Traversable')]),
 				TrinaryLogic::createYes(),
 			],
 			[
 				new IterableIterableType(new StringType()),
-				new UnionType([new ArrayType(new StringType()), new ObjectType('Traversable')]),
+				new UnionType([new ArrayType(new MixedType(), new StringType()), new ObjectType('Traversable')]),
 				TrinaryLogic::createYes(),
 			],
 			[

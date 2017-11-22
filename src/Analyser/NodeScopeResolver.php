@@ -57,6 +57,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\CommentHelper;
 use PHPStan\Type\FileTypeMapper;
+use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NestedArrayItemType;
 use PHPStan\Type\NullType;
@@ -897,7 +898,7 @@ class NodeScopeResolver
 					'file_get_contents',
 				], true)
 			) {
-				$scope = $scope->assignVariable('http_response_header', new ArrayType(new StringType(), false), $certainty);
+				$scope = $scope->assignVariable('http_response_header', new ArrayType(new IntegerType(), new StringType(), false), $certainty);
 			}
 		} elseif ($node instanceof BinaryOp) {
 			$scope = $this->lookForAssigns($scope, $node->left, $certainty);

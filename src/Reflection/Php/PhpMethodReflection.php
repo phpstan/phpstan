@@ -218,7 +218,7 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 				);
 				$this->parameters[] = new DummyParameter(
 					'constructorArgs',
-					new ArrayType(new MixedType(), false),
+					new ArrayType(new MixedType(), new MixedType(), false),
 					true
 				);
 			}

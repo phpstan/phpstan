@@ -12,6 +12,7 @@ use PHPStan\PhpDoc\Tag\VarTag;
 use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNullNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\TypeCombinator;
 
@@ -162,7 +163,7 @@ class PhpDocNodeResolver
 				: new MixedType();
 
 			$resolved[$parameterName] = new ParamTag(
-				$tagValue->isVariadic && !$parameterType instanceof ArrayType ? new ArrayType($parameterType) : $parameterType,
+				$tagValue->isVariadic && !$parameterType instanceof ArrayType ? new ArrayType(new IntegerType(), $parameterType) : $parameterType,
 				$tagValue->isVariadic
 			);
 		}

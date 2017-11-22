@@ -50,7 +50,7 @@ class CallToCountOnlyWithArrayOrCountableRule implements \PHPStan\Rules\Rule
 
 		$argumentType = $scope->getType($node->args[0]->value);
 		$requiredType = new UnionType([
-			new ArrayType(new MixedType()),
+			new ArrayType(new MixedType(), new MixedType()),
 			new ObjectType(\Countable::class),
 		]);
 

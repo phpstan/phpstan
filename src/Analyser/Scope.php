@@ -460,6 +460,7 @@ class Scope
 				&& $rightType instanceof ArrayType
 			) {
 				return new ArrayType(
+					TypeCombinator::union($leftType->getIterableKeyType(), $rightType->getIterableKeyType()),
 					TypeCombinator::union($leftType->getItemType(), $rightType->getItemType()),
 					$leftType->isItemTypeInferredFromLiteralArray() || $rightType->isItemTypeInferredFromLiteralArray()
 				);
@@ -524,7 +525,7 @@ class Scope
 				}
 			}
 
-			return new ArrayType($this->getCombinedType($itemTypes), true, $callable);
+			return new ArrayType(new MixedType(), $this->getCombinedType($itemTypes), true, $callable);
 		} elseif ($node instanceof Int_) {
 				return new IntegerType();
 		} elseif ($node instanceof Bool_) {
@@ -534,7 +535,7 @@ class Scope
 		} elseif ($node instanceof \PhpParser\Node\Expr\Cast\String_) {
 			return new StringType();
 		} elseif ($node instanceof \PhpParser\Node\Expr\Cast\Array_) {
-			return new ArrayType(new MixedType());
+			return new ArrayType(new MixedType(), new MixedType());
 		} elseif ($node instanceof Node\Scalar\MagicConst\Line) {
 			return new IntegerType();
 		} elseif ($node instanceof Node\Scalar\MagicConst) {
@@ -757,9 +758,19 @@ class Scope
 		} elseif (is_string($value)) {
 			return new StringType();
 		} elseif (is_array($value)) {
-			return new ArrayType($this->getCombinedType(array_map(function ($value): Type {
-				return $this->getTypeFromValue($value);
-			}, array_values($value))), false);
+			return new ArrayType(
+				$this->getCombinedType(
+					array_map(function ($value): Type {
+						return $this->getTypeFromValue($value);
+					}, array_keys($value))
+				),
+				$this->getCombinedType(
+					array_map(function ($value): Type {
+						return $this->getTypeFromValue($value);
+					}, array_values($value))
+				),
+				false
+			);
 		}
 
 		return null;
@@ -1049,7 +1060,7 @@ class Scope
 			);
 		}
 		if ($isVariadic) {
-			return new ArrayType($this->getFunctionType(
+			return new ArrayType(new IntegerType(), $this->getFunctionType(
 				$type,
 				false,
 				false
@@ -1068,7 +1079,7 @@ class Scope
 		} elseif ($type === 'callable') {
 			return new CallableType();
 		} elseif ($type === 'array') {
-			return new ArrayType(new MixedType());
+			return new ArrayType(new MixedType(), new MixedType());
 		} elseif ($type instanceof Name) {
 			$className = (string) $type;
 			if ($className === 'self') {

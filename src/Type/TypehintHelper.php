@@ -19,7 +19,7 @@ class TypehintHelper
 			case 'float':
 				return new FloatType();
 			case 'array':
-				return new ArrayType(new MixedType());
+				return new ArrayType(new MixedType(), new MixedType());
 			case 'iterable':
 				return new IterableIterableType(new MixedType());
 			case 'callable':
@@ -65,7 +65,7 @@ class TypehintHelper
 		}
 
 		if ($isVariadic) {
-			$type = new ArrayType($type);
+			$type = new ArrayType(new IntegerType(), $type);
 		}
 
 		return self::decideType($type, $phpDocType);

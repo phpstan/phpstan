@@ -47,7 +47,7 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 	{
 		if ($otherType instanceof IntersectionType || $otherType instanceof UnionType) {
 			return $otherType->isSuperTypeOf(new UnionType([
-				new ArrayType($this->itemType),
+				new ArrayType($this->getIterableKeyType(), $this->itemType),
 				new IntersectionType([
 					new ObjectType(\Traversable::class),
 					$this,

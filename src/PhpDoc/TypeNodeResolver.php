@@ -95,7 +95,7 @@ class TypeNodeResolver
 				return new FloatType();
 
 			case 'array':
-				return new ArrayType(new MixedType());
+				return new ArrayType(new MixedType(), new MixedType());
 
 			case 'scalar':
 				return new UnionType([
@@ -204,7 +204,7 @@ class TypeNodeResolver
 					if ($type instanceof ObjectType) {
 						$type = new IntersectionType([$type, new IterableIterableType($arrayTypeType)]);
 					} elseif ($type instanceof ArrayType) {
-						$type = new ArrayType($arrayTypeType);
+						$type = new ArrayType(new MixedType(), $arrayTypeType);
 					} elseif ($type instanceof IterableIterableType) {
 						$type = new IterableIterableType($arrayTypeType);
 					} else {
@@ -216,7 +216,7 @@ class TypeNodeResolver
 			}
 
 			if ($addArray) {
-				$otherTypeTypes[] = new ArrayType($arrayTypeType);
+				$otherTypeTypes[] = new ArrayType(new MixedType(), $arrayTypeType);
 			}
 		}
 
@@ -232,7 +232,7 @@ class TypeNodeResolver
 	private function resolveArrayTypeNode(ArrayTypeNode $typeNode, NameScope $nameScope): Type
 	{
 		$itemType = $this->resolve($typeNode->type, $nameScope);
-		return new ArrayType($itemType);
+		return new ArrayType(new MixedType(), $itemType);
 	}
 
 	private function resolveGenericTypeNode(GenericTypeNode $typeNode, NameScope $nameScope): Type
@@ -242,10 +242,10 @@ class TypeNodeResolver
 
 		if ($mainType === 'array') {
 			if (count($genericTypes) === 1) { // array<ValueType>
-				return new ArrayType($genericTypes[0]);
+				return new ArrayType(new MixedType(), $genericTypes[0]);
 
 			} elseif (count($genericTypes) === 2) { // array<KeyType, ValueType>
-				return new ArrayType($genericTypes[1]);
+				return new ArrayType($genericTypes[0], $genericTypes[1]);
 			}
 
 		} elseif ($mainType === 'iterable') {

@@ -27,7 +27,9 @@ class ArrayFilterFunctionReturnTypeReturnTypeExtension implements \PHPStan\Type\
 		$flagArg = $functionCall->args[2]->value ?? null;
 
 		if ($arrayArg !== null) {
-			$itemType = $scope->getType($arrayArg)->getIterableValueType();
+			$arrayArgType = $scope->getType($arrayArg);
+			$keyType = $arrayArgType->getIterableKeyType();
+			$itemType = $arrayArgType->getIterableValueType();
 
 			if ($flagArg === null && $callbackArg instanceof Closure && count($callbackArg->stmts) === 1) {
 				$statement = $callbackArg->stmts[0];
@@ -40,10 +42,11 @@ class ArrayFilterFunctionReturnTypeReturnTypeExtension implements \PHPStan\Type\
 			}
 
 		} else {
+			$keyType = new MixedType();
 			$itemType = new MixedType();
 		}
 
-		return new ArrayType($itemType);
+		return new ArrayType($keyType, $itemType);
 	}
 
 }
