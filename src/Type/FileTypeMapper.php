@@ -133,6 +133,9 @@ class FileTypeMapper
 			},
 			function (\PhpParser\Node $node) use (&$namespace, &$classStack, &$uses) {
 				if ($node instanceof Node\Stmt\ClassLike) {
+					if (count($classStack) === 0) {
+						throw new \PHPStan\ShouldNotHappenException();
+					}
 					array_pop($classStack);
 				} elseif ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
 					$namespace = null;
