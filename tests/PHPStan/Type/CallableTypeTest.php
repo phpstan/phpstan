@@ -7,7 +7,7 @@ use PHPStan\TrinaryLogic;
 class CallableTypeTest extends \PHPStan\Testing\TestCase
 {
 
-	public function dataIsSubsetOf(): array
+	public function dataIsSubTypeOf(): array
 	{
 		return [
 			[
@@ -69,38 +69,38 @@ class CallableTypeTest extends \PHPStan\Testing\TestCase
 	}
 
 	/**
-	 * @dataProvider dataIsSubsetOf
+	 * @dataProvider dataIsSubTypeOf
 	 * @param CallableType $type
 	 * @param Type $otherType
 	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSubsetOf(CallableType $type, Type $otherType, TrinaryLogic $expectedResult)
+	public function testIsSubTypeOf(CallableType $type, Type $otherType, TrinaryLogic $expectedResult)
 	{
 		$this->createBroker();
 
-		$actualResult = $type->isSubsetOf($otherType);
+		$actualResult = $type->isSubTypeOf($otherType);
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isSubsetOf(%s)', $type->describe(), $otherType->describe())
+			sprintf('%s -> isSubTypeOf(%s)', $type->describe(), $otherType->describe())
 		);
 	}
 
 	/**
-	 * @dataProvider dataIsSubsetOf
+	 * @dataProvider dataIsSubTypeOf
 	 * @param CallableType $type
 	 * @param Type $otherType
 	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSubsetOfInversed(CallableType $type, Type $otherType, TrinaryLogic $expectedResult)
+	public function testIsSubTypeOfInversed(CallableType $type, Type $otherType, TrinaryLogic $expectedResult)
 	{
 		$this->createBroker();
 
-		$actualResult = $otherType->isSupersetOf($type);
+		$actualResult = $otherType->isSuperTypeOf($type);
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isSupersetOf(%s)', $otherType->describe(), $type->describe())
+			sprintf('%s -> isSuperTypeOf(%s)', $otherType->describe(), $type->describe())
 		);
 	}
 

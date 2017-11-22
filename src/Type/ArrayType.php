@@ -65,14 +65,14 @@ class ArrayType implements StaticResolvableType
 		return false;
 	}
 
-	public function isSupersetOf(Type $type): TrinaryLogic
+	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
 		if ($type instanceof self) {
-			return $this->getItemType()->isSupersetOf($type->getItemType());
+			return $this->getItemType()->isSuperTypeOf($type->getItemType());
 		}
 
 		if ($type instanceof CompoundType) {
-			return $type->isSubsetOf($this);
+			return $type->isSubTypeOf($this);
 		}
 
 		return TrinaryLogic::createNo();

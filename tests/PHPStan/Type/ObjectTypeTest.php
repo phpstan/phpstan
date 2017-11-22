@@ -60,7 +60,7 @@ class ObjectTypeTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
-	public function dataIsSupersetOf(): array
+	public function dataIsSuperTypeOf(): array
 	{
 		return [
 			[
@@ -204,20 +204,20 @@ class ObjectTypeTest extends \PHPStan\Testing\TestCase
 	}
 
 	/**
-	 * @dataProvider dataIsSupersetOf
+	 * @dataProvider dataIsSuperTypeOf
 	 * @param ObjectType $type
 	 * @param Type $otherType
 	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSupersetOf(ObjectType $type, Type $otherType, TrinaryLogic $expectedResult)
+	public function testIsSuperTypeOf(ObjectType $type, Type $otherType, TrinaryLogic $expectedResult)
 	{
 		$this->createBroker();
 
-		$actualResult = $type->isSupersetOf($otherType);
+		$actualResult = $type->isSuperTypeOf($otherType);
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isSupersetOf(%s)', $type->describe(), $otherType->describe())
+			sprintf('%s -> isSuperTypeOf(%s)', $type->describe(), $otherType->describe())
 		);
 	}
 

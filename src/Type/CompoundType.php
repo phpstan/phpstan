@@ -7,6 +7,6 @@ use PHPStan\TrinaryLogic;
 interface CompoundType extends Type
 {
 
-	public function isSubsetOf(Type $otherType): TrinaryLogic;
+	public function isSubTypeOf(Type $otherType): TrinaryLogic;
 
 }

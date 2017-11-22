@@ -182,7 +182,7 @@ class TypeSpecifier
 						}
 
 						if (isset($expr->args[2]) && ($context & self::CONTEXT_TRUE)) {
-							if (!$scope->getType($expr->args[2]->value)->isSupersetOf(new TrueBooleanType())->no()) {
+							if (!$scope->getType($expr->args[2]->value)->isSuperTypeOf(new TrueBooleanType())->no()) {
 								$types = $types->intersectWith($this->create($innerExpr, new StringType(), $context));
 							}
 						}

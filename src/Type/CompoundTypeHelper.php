@@ -11,7 +11,7 @@ class CompoundTypeHelper
 			return true;
 		}
 
-		return $compoundType->isSubsetOf($otherType)->yes();
+		return $compoundType->isSubTypeOf($otherType)->yes();
 	}
 
 }

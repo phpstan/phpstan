@@ -47,18 +47,18 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 		return $this->staticObjectType->accepts($type);
 	}
 
-	public function isSupersetOf(Type $type): TrinaryLogic
+	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
 		if ($type instanceof self) {
-			return $this->staticObjectType->isSupersetOf($type);
+			return $this->staticObjectType->isSuperTypeOf($type);
 		}
 
 		if ($type instanceof ObjectType) {
-			return TrinaryLogic::createMaybe()->and($this->staticObjectType->isSupersetOf($type));
+			return TrinaryLogic::createMaybe()->and($this->staticObjectType->isSuperTypeOf($type));
 		}
 
 		if ($type instanceof CompoundType) {
-			return $type->isSubsetOf($this);
+			return $type->isSubTypeOf($this);
 		}
 
 		return TrinaryLogic::createNo();

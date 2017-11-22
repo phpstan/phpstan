@@ -90,7 +90,7 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
-	public function dataIsSupersetOf(): \Iterator
+	public function dataIsSuperTypeOf(): \Iterator
 	{
 		$this->createBroker();
 
@@ -135,24 +135,24 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 	}
 
 	/**
-	 * @dataProvider dataIsSupersetOf
+	 * @dataProvider dataIsSuperTypeOf
 	 * @param IntersectionType $type
 	 * @param Type $otherType
 	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSupersetOf(IntersectionType $type, Type $otherType, TrinaryLogic $expectedResult)
+	public function testIsSuperTypeOf(IntersectionType $type, Type $otherType, TrinaryLogic $expectedResult)
 	{
 		$this->createBroker();
 
-		$actualResult = $type->isSupersetOf($otherType);
+		$actualResult = $type->isSuperTypeOf($otherType);
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isSupersetOf(%s)', $type->describe(), $otherType->describe())
+			sprintf('%s -> isSuperTypeOf(%s)', $type->describe(), $otherType->describe())
 		);
 	}
 
-	public function dataIsSubsetOf(): \Iterator
+	public function dataIsSubTypeOf(): \Iterator
 	{
 		$this->createBroker();
 
@@ -252,38 +252,38 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 	}
 
 	/**
-	 * @dataProvider dataIsSubsetOf
+	 * @dataProvider dataIsSubTypeOf
 	 * @param IntersectionType $type
 	 * @param Type $otherType
 	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSubsetOf(IntersectionType $type, Type $otherType, TrinaryLogic $expectedResult)
+	public function testIsSubTypeOf(IntersectionType $type, Type $otherType, TrinaryLogic $expectedResult)
 	{
 		$this->createBroker();
 
-		$actualResult = $type->isSubsetOf($otherType);
+		$actualResult = $type->isSubTypeOf($otherType);
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isSubsetOf(%s)', $type->describe(), $otherType->describe())
+			sprintf('%s -> isSubTypeOf(%s)', $type->describe(), $otherType->describe())
 		);
 	}
 
 	/**
-	 * @dataProvider dataIsSubsetOf
+	 * @dataProvider dataIsSubTypeOf
 	 * @param IntersectionType $type
 	 * @param Type $otherType
 	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSubsetOfInversed(IntersectionType $type, Type $otherType, TrinaryLogic $expectedResult)
+	public function testIsSubTypeOfInversed(IntersectionType $type, Type $otherType, TrinaryLogic $expectedResult)
 	{
 		$this->createBroker();
 
-		$actualResult = $otherType->isSupersetOf($type);
+		$actualResult = $otherType->isSuperTypeOf($type);
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isSupersetOf(%s)', $otherType->describe(), $type->describe())
+			sprintf('%s -> isSuperTypeOf(%s)', $otherType->describe(), $type->describe())
 		);
 	}
 
