@@ -1,8 +1,8 @@
 includes:
 	- ../vendor/phpstan/phpstan-php-parser/extension.neon
 	- ../vendor/phpstan/phpstan-phpunit/extension.neon
-	#- ../vendor/phpstan/phpstan-phpunit/rules.neon
-	#- ../vendor/phpstan/phpstan-strict-rules/rules.neon
+	- ../vendor/phpstan/phpstan-phpunit/rules.neon
+	- ../vendor/phpstan/phpstan-strict-rules/rules.neon
 parameters:
 	bootstrap: %rootDir%/tests/phpstan-bootstrap.php
 	excludes_analyse:
