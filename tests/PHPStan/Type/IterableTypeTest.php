@@ -11,53 +11,53 @@ class IterableTypeTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				new IterableIterableType(new StringType()),
-				new IterableIterableType(new StringType()),
+				new IterableIterableType(new MixedType(), new StringType()),
+				new IterableIterableType(new MixedType(), new StringType()),
 				TrinaryLogic::createYes(),
 			],
 			[
-				new IterableIterableType(new StringType()),
+				new IterableIterableType(new MixedType(), new StringType()),
 				new ObjectType('Unknown'),
 				TrinaryLogic::createMaybe(),
 			],
 			[
-				new IterableIterableType(new StringType()),
+				new IterableIterableType(new MixedType(), new StringType()),
 				new IntegerType(),
 				TrinaryLogic::createNo(),
 			],
 			[
-				new IterableIterableType(new StringType()),
-				new IterableIterableType(new IntegerType()),
+				new IterableIterableType(new MixedType(), new StringType()),
+				new IterableIterableType(new MixedType(), new IntegerType()),
 				TrinaryLogic::createNo(),
 			],
 			[
-				new IterableIterableType(new StringType()),
-				new UnionType([new IterableIterableType(new StringType()), new NullType()]),
+				new IterableIterableType(new MixedType(), new StringType()),
+				new UnionType([new IterableIterableType(new MixedType(), new StringType()), new NullType()]),
 				TrinaryLogic::createYes(),
 			],
 			[
-				new IterableIterableType(new StringType()),
+				new IterableIterableType(new MixedType(), new StringType()),
 				new UnionType([new ArrayType(new MixedType(), new MixedType()), new ObjectType('Traversable')]),
 				TrinaryLogic::createYes(),
 			],
 			[
-				new IterableIterableType(new StringType()),
+				new IterableIterableType(new MixedType(), new StringType()),
 				new UnionType([new ArrayType(new MixedType(), new StringType()), new ObjectType('Traversable')]),
 				TrinaryLogic::createYes(),
 			],
 			[
-				new IterableIterableType(new StringType()),
+				new IterableIterableType(new MixedType(), new StringType()),
 				new UnionType([new ObjectType('Unknown'), new NullType()]),
 				TrinaryLogic::createMaybe(),
 			],
 			[
-				new IterableIterableType(new StringType()),
+				new IterableIterableType(new MixedType(), new StringType()),
 				new UnionType([new IntegerType(), new NullType()]),
 				TrinaryLogic::createNo(),
 			],
 			[
-				new IterableIterableType(new StringType()),
-				new UnionType([new IterableIterableType(new IntegerType()), new NullType()]),
+				new IterableIterableType(new MixedType(), new StringType()),
+				new UnionType([new IterableIterableType(new MixedType(), new IntegerType()), new NullType()]),
 				TrinaryLogic::createNo(),
 			],
 		];

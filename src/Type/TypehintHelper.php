@@ -21,7 +21,7 @@ class TypehintHelper
 			case 'array':
 				return new ArrayType(new MixedType(), new MixedType());
 			case 'iterable':
-				return new IterableIterableType(new MixedType());
+				return new IterableIterableType(new MixedType(), new MixedType());
 			case 'callable':
 				return new CallableType();
 			case 'void':
@@ -86,14 +86,20 @@ class TypehintHelper
 					$innerTypes = [];
 					foreach ($phpDocType->getTypes() as $innerType) {
 						if ($innerType instanceof ArrayType) {
-							$innerTypes[] = new IterableIterableType($innerType->getIterableValueType());
+							$innerTypes[] = new IterableIterableType(
+								$innerType->getIterableKeyType(),
+								$innerType->getIterableValueType()
+							);
 						} else {
 							$innerTypes[] = $innerType;
 						}
 					}
 					$phpDocType = new UnionType($innerTypes);
 				} elseif ($phpDocType instanceof ArrayType) {
-					$phpDocType = new IterableIterableType($phpDocType->getIterableValueType());
+					$phpDocType = new IterableIterableType(
+						$phpDocType->getIterableKeyType(),
+						$phpDocType->getIterableValueType()
+					);
 				}
 			}
 

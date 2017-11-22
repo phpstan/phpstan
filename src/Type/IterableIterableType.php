@@ -9,10 +9,17 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 
 	use IterableTypeTrait;
 
+	/**
+	 * @var \PHPStan\Type\Type
+	 */
+	private $keyType;
+
 	public function __construct(
+		Type $keyType,
 		Type $itemType
 	)
 	{
+		$this->keyType = $keyType;
 		$this->itemType = $itemType;
 	}
 
@@ -57,6 +64,11 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 
 		if ($otherType instanceof self) {
 			$limit = TrinaryLogic::createYes();
+			if (!$this->keyType instanceof MixedType && !$otherType->keyType instanceof MixedType) {
+				$limit = $limit->and(
+					$otherType->keyType->isSuperTypeOf($this->keyType)
+				);
+			}
 		} else {
 			$limit = TrinaryLogic::createMaybe();
 		}
@@ -88,6 +100,7 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 	{
 		if ($this->getItemType() instanceof StaticResolvableType) {
 			return new self(
+				$this->keyType,
 				$this->getItemType()->resolveStatic($className)
 			);
 		}
@@ -99,6 +112,7 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 	{
 		if ($this->getItemType() instanceof StaticResolvableType) {
 			return new self(
+				$this->keyType,
 				$this->getItemType()->changeBaseClass($className)
 			);
 		}
@@ -113,7 +127,7 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 
 	public function getIterableKeyType(): Type
 	{
-		return new MixedType();
+		return $this->keyType;
 	}
 
 	public function getIterableValueType(): Type
@@ -128,7 +142,7 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 
 	public static function __set_state(array $properties): Type
 	{
-		return new self($properties['itemType']);
+		return new self($properties['keyType'], $properties['itemType']);
 	}
 
 }

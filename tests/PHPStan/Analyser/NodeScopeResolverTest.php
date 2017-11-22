@@ -2738,6 +2738,21 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'float|ForeachWithComplexValueType\Foo',
 				'$value',
 			],
+			[
+				__DIR__ . '/data/foreach/foreach-iterable-with-specified-key-type.php',
+				'ForeachWithGenericsPhpDoc\Bar|ForeachWithGenericsPhpDoc\Foo',
+				'$key',
+			],
+			[
+				__DIR__ . '/data/foreach/foreach-iterable-with-specified-key-type.php',
+				'float|int|string',
+				'$value',
+			],
+			[
+				__DIR__ . '/data/foreach/foreach-iterable-with-complex-value-type.php',
+				'float|ForeachWithComplexValueType\Foo',
+				'$value',
+			],
 		];
 	}
 

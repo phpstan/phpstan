@@ -112,7 +112,7 @@ class TypeNodeResolver
 				]);
 
 			case 'iterable':
-				return new IterableIterableType(new MixedType());
+				return new IterableIterableType(new MixedType(), new MixedType());
 
 			case 'callable':
 				return new CallableType();
@@ -202,11 +202,11 @@ class TypeNodeResolver
 			foreach ($otherTypeTypes as &$type) {
 				if ($type->isIterable()->yes()) {
 					if ($type instanceof ObjectType) {
-						$type = new IntersectionType([$type, new IterableIterableType($arrayTypeType)]);
+						$type = new IntersectionType([$type, new IterableIterableType(new MixedType(), $arrayTypeType)]);
 					} elseif ($type instanceof ArrayType) {
 						$type = new ArrayType(new MixedType(), $arrayTypeType);
 					} elseif ($type instanceof IterableIterableType) {
-						$type = new IterableIterableType($arrayTypeType);
+						$type = new IterableIterableType(new MixedType(), $arrayTypeType);
 					} else {
 						continue;
 					}
@@ -250,10 +250,10 @@ class TypeNodeResolver
 
 		} elseif ($mainType === 'iterable') {
 			if (count($genericTypes) === 1) { // iterable<ValueType>
-				return new IterableIterableType($genericTypes[0]);
+				return new IterableIterableType(new MixedType(), $genericTypes[0]);
 
 			} elseif (count($genericTypes) === 2) { // iterable<KeyType, ValueType>
-				return new IterableIterableType($genericTypes[1]);
+				return new IterableIterableType($genericTypes[0], $genericTypes[1]);
 			}
 		}
 

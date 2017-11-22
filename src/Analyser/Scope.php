@@ -1095,7 +1095,7 @@ class Scope
 			}
 			return new ObjectType($className);
 		} elseif ($type === 'iterable') {
-			return new IterableIterableType(new MixedType());
+			return new IterableIterableType(new MixedType(), new MixedType());
 		} elseif ($type === 'void') {
 			return new VoidType();
 		} elseif ($type === 'object') {
