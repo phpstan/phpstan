@@ -10,9 +10,13 @@ class ParamTag
 	/** @var \PHPStan\Type\Type */
 	private $type;
 
-	public function __construct(Type $type)
+	/** @var bool */
+	private $isVariadic;
+
+	public function __construct(Type $type, bool $isVariadic)
 	{
 		$this->type = $type;
+		$this->isVariadic = $isVariadic;
 	}
 
 	public function getType(): Type
@@ -20,10 +24,16 @@ class ParamTag
 		return $this->type;
 	}
 
+	public function isVariadic(): bool
+	{
+		return $this->isVariadic;
+	}
+
 	public static function __set_state(array $properties): self
 	{
 		return new self(
-			$properties['type']
+			$properties['type'],
+			$properties['isVariadic']
 		);
 	}
 

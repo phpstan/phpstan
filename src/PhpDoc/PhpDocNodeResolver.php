@@ -162,9 +162,8 @@ class PhpDocNodeResolver
 				: new MixedType();
 
 			$resolved[$parameterName] = new ParamTag(
+				$tagValue->isVariadic ? new ArrayType($parameterType) : $parameterType,
 				$tagValue->isVariadic
-					? new ArrayType($parameterType)
-					: $parameterType
 			);
 		}
 
