@@ -13,19 +13,6 @@ trait IterableTypeTrait
 	/** @var \PHPStan\Type\Type */
 	private $itemType;
 
-	public function getNestedItemType(): NestedArrayItemType
-	{
-		$depth = 0;
-		/** @var \PHPStan\Type\Type $itemType */
-		$itemType = $this;
-		while ($itemType->isIterable()->yes()) {
-			$itemType = $itemType->getIterableValueType();
-			$depth++;
-		}
-
-		return new NestedArrayItemType($itemType, $depth);
-	}
-
 	public function getItemType(): Type
 	{
 		return $this->itemType;
