@@ -520,6 +520,8 @@ class NullCoalesce
 		}
 
 		($this->foo->find(1) ?? 'bar') ? 'foo' : 'bar';
+
+		$this->foo->foo->find(1)->find(1);
 	}
 
 	/**

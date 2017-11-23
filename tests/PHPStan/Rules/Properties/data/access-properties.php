@@ -267,6 +267,8 @@ class NullCoalesce
 		}
 
 		($this->foo->bar ?? 'bar') ? 'foo' : 'bar';
+
+		$this->foo->foo->foo->bar;
 	}
 
 }

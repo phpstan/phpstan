@@ -219,6 +219,14 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Method Test\NullCoalesce::find() invoked with 1 parameter, 0 required.',
 				522,
 			],
+			[
+				'Method Test\NullCoalesce::find() invoked with 1 parameter, 0 required.',
+				524,
+			],
+			[
+				'Method Test\NullCoalesce::find() invoked with 1 parameter, 0 required.',
+				524,
+			],
 		]);
 	}
 

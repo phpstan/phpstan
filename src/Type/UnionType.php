@@ -127,6 +127,9 @@ class UnionType implements CompoundType, StaticResolvableType
 	public function hasProperty(string $propertyName): bool
 	{
 		foreach ($this->types as $type) {
+			if ($type instanceof NullType) {
+				continue;
+			}
 			if (!$type->hasProperty($propertyName)) {
 				return false;
 			}
@@ -138,6 +141,9 @@ class UnionType implements CompoundType, StaticResolvableType
 	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
 	{
 		foreach ($this->types as $type) {
+			if ($type instanceof NullType) {
+				continue;
+			}
 			return $type->getProperty($propertyName, $scope);
 		}
 
@@ -158,6 +164,9 @@ class UnionType implements CompoundType, StaticResolvableType
 	public function hasMethod(string $methodName): bool
 	{
 		foreach ($this->types as $type) {
+			if ($type instanceof NullType) {
+				continue;
+			}
 			if (!$type->hasMethod($methodName)) {
 				return false;
 			}
@@ -169,6 +178,9 @@ class UnionType implements CompoundType, StaticResolvableType
 	public function getMethod(string $methodName, Scope $scope): MethodReflection
 	{
 		foreach ($this->types as $type) {
+			if ($type instanceof NullType) {
+				continue;
+			}
 			return $type->getMethod($methodName, $scope);
 		}
 
@@ -189,6 +201,9 @@ class UnionType implements CompoundType, StaticResolvableType
 	public function hasConstant(string $constantName): bool
 	{
 		foreach ($this->types as $type) {
+			if ($type instanceof NullType) {
+				continue;
+			}
 			if (!$type->hasConstant($constantName)) {
 				return false;
 			}
@@ -200,6 +215,9 @@ class UnionType implements CompoundType, StaticResolvableType
 	public function getConstant(string $constantName): ClassConstantReflection
 	{
 		foreach ($this->types as $type) {
+			if ($type instanceof NullType) {
+				continue;
+			}
 			return $type->getConstant($constantName);
 		}
 
