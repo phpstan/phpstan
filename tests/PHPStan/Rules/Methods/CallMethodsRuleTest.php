@@ -207,6 +207,18 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Parameter #1 $globalTitle of method Test\ThreeTypesCall::threeTypes() expects string, float given.',
 				446,
 			],
+			[
+				'Method Test\NullCoalesce::find() invoked with 1 parameter, 0 required.',
+				516,
+			],
+			[
+				'Method Test\NullCoalesce::find() invoked with 1 parameter, 0 required.',
+				518,
+			],
+			[
+				'Method Test\NullCoalesce::find() invoked with 1 parameter, 0 required.',
+				522,
+			],
 		]);
 	}
 

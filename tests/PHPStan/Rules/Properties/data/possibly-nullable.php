@@ -58,3 +58,22 @@ class CheckingPropertyNotNullInIfCondition
 	}
 
 }
+
+class NullCoalesce
+{
+
+	/** @var self|null */
+	private $foo;
+
+	public function doFoo()
+	{
+		$this->foo->foo ?? 'bar';
+
+		if ($this->foo->foo ?? 'bar') {
+
+		}
+
+		($this->foo->foo ?? 'bar') ? 'foo' : 'bar';
+	}
+
+}

@@ -37,3 +37,30 @@ class Test {
 	}
 
 }
+
+class NullCoalesce
+{
+
+	/** @var self|null */
+	private $foo;
+
+	public function doFoo()
+	{
+		$this->foo->find() ?? 'bar';
+
+		if ($this->foo->find() ?? 'bar') {
+
+		}
+
+		($this->foo->find() ?? 'bar') ? 'foo' : 'bar';
+	}
+
+	/**
+	 * @return self|null
+	 */
+	public function find()
+	{
+
+	}
+
+}

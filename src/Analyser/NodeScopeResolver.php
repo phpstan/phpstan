@@ -693,6 +693,17 @@ class NodeScopeResolver
 			} elseif ($subNode instanceof \PhpParser\Node) {
 				if ($node instanceof Coalesce && $subNodeName === 'left') {
 					$scope = $this->assignVariable($scope, $subNode, TrinaryLogic::createYes());
+					$nodeToSpecify = $subNode;
+					while (
+						$nodeToSpecify instanceof PropertyFetch
+						|| $nodeToSpecify instanceof MethodCall
+					) {
+						$nodeToSpecify = $nodeToSpecify->var;
+						$scope = $scope->specifyExpressionType(
+							$nodeToSpecify,
+							TypeCombinator::removeNull($scope->getType($nodeToSpecify))
+						);
+					}
 				}
 
 				if ($node instanceof Ternary) {

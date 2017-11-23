@@ -251,3 +251,22 @@ class PropertyExists
 	}
 
 }
+
+class NullCoalesce
+{
+
+	/** @var self|null */
+	private $foo;
+
+	public function doFoo()
+	{
+		$this->foo->bar ?? 'bar';
+
+		if ($this->foo->bar ?? 'bar') {
+
+		}
+
+		($this->foo->bar ?? 'bar') ? 'foo' : 'bar';
+	}
+
+}

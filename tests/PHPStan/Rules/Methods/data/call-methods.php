@@ -504,3 +504,30 @@ class CallVariadicMethodWithArrayInPhpDoc
 	}
 
 }
+
+class NullCoalesce
+{
+
+	/** @var self|null */
+	private $foo;
+
+	public function doFoo()
+	{
+		$this->foo->find(1) ?? 'bar';
+
+		if ($this->foo->find(1) ?? 'bar') {
+
+		}
+
+		($this->foo->find(1) ?? 'bar') ? 'foo' : 'bar';
+	}
+
+	/**
+	 * @return self|null
+	 */
+	public function find()
+	{
+
+	}
+
+}
