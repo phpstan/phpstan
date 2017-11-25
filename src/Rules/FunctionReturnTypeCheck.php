@@ -50,10 +50,12 @@ class FunctionReturnTypeCheck
 		bool $isAnonymousFunction = false
 	): array
 	{
+		if ($isGenerator) {
+			return [];
+		}
 		if ($returnValue === null) {
 			if (
-				$isGenerator
-				|| $returnType instanceof VoidType
+				$returnType instanceof VoidType
 				|| $returnType instanceof MixedType
 			) {
 				return [];
