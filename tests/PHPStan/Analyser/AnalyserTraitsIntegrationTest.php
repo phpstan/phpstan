@@ -104,7 +104,9 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 				__DIR__ . '/traits/TraitWithTypeSpecification.php',
 			]
 		);
-		$this->assertEmpty($errors);
+		$this->assertCount(1, $errors);
+		$this->assertContains('Access to an undefined property', $errors[0]->getMessage());
+		$this->assertSame(18, $errors[0]->getLine());
 	}
 
 	/**

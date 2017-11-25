@@ -15,6 +15,7 @@ trait TraitWithTypeSpecification
 		}
 
 		$this->string = 'foo';
+		$this->nonexistent = 'bar';
 	}
 
 }
