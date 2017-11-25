@@ -24,6 +24,9 @@ class FileTypeMapper
 	/** @var \PHPStan\PhpDoc\ResolvedPhpDocBlock[][][] */
 	private $memoryCache = [];
 
+	/** @var true[] */
+	private $alreadyProcessedFileNames = [];
+
 	public function __construct(
 		Parser $phpParser,
 		PhpDocStringResolver $phpDocStringResolver,
@@ -37,8 +40,17 @@ class FileTypeMapper
 
 	public function getResolvedPhpDoc(string $filename, string $className = null, string $docComment): ResolvedPhpDocBlock
 	{
+		if (array_key_exists($filename, $this->alreadyProcessedFileNames)) {
+			throw new \PHPStan\ShouldNotHappenException(sprintf(
+				'File %s is already being processed.',
+				$filename
+			));
+		}
+		$this->alreadyProcessedFileNames[$filename] = true;
 		$map = $this->getResolvedPhpDocMap($filename, $className);
 		$key = md5($docComment);
+
+		unset($this->alreadyProcessedFileNames[$filename]);
 
 		if (!isset($map[$key])) { // most likely wrong $fileName due to traits
 			return $this->phpDocStringResolver->resolve('/** nothing */', new NameScope(null, []));
