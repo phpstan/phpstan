@@ -30,7 +30,7 @@ class Broker
 	private $dynamicFunctionReturnTypeExtensions = [];
 
 	/** @var \PHPStan\Reflection\ClassReflection[] */
-	private $classReflections = [];
+	private static $classReflections = [];
 
 	/** @var \PHPStan\Reflection\FunctionReflectionFactory */
 	private $functionReflectionFactory;
@@ -152,33 +152,39 @@ class Broker
 			throw new \PHPStan\Broker\ClassNotFoundException($className);
 		}
 
-		if (!isset($this->classReflections[$className])) {
+		if (!isset(self::$classReflections[$className])) {
 			$reflectionClass = new ReflectionClass($className);
 			$classReflection = $this->getClassFromReflection(
 				$reflectionClass,
 				$reflectionClass->getName(),
 				$reflectionClass->isAnonymous()
 			);
-			$this->classReflections[$className] = $classReflection;
+			self::$classReflections[$className] = $classReflection;
 			if ($className !== $reflectionClass->getName()) {
 				// class alias optimization
-				$this->classReflections[$reflectionClass->getName()] = $classReflection;
+				self::$classReflections[$reflectionClass->getName()] = $classReflection;
 			}
 		}
 
-		return $this->classReflections[$className];
+		return self::$classReflections[$className];
 	}
 
 	public function getClassFromReflection(\ReflectionClass $reflectionClass, string $displayName, bool $anonymous): \PHPStan\Reflection\ClassReflection
 	{
-		return new ClassReflection(
-			$this,
-			$this->propertiesClassReflectionExtensions,
-			$this->methodsClassReflectionExtensions,
-			$displayName,
-			$reflectionClass,
-			$anonymous
-		);
+		$className = $reflectionClass->getName();
+		if (!isset(self::$classReflections[$className])) {
+			$classReflection = new ClassReflection(
+				$this,
+				$this->propertiesClassReflectionExtensions,
+				$this->methodsClassReflectionExtensions,
+				$displayName,
+				$reflectionClass,
+				$anonymous
+			);
+			self::$classReflections[$className] = $classReflection;
+		}
+
+		return self::$classReflections[$className];
 	}
 
 	public function hasClass(string $className): bool

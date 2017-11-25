@@ -1012,23 +1012,7 @@ class Scope
 
 	public function enterAnonymousClass(ClassReflection $anonymousClass): self
 	{
-		return new self(
-			$this->broker,
-			$this->printer,
-			$this->typeSpecifier,
-			$this->getFile(),
-			$this->getAnalysedContextFile(),
-			$this->isDeclareStrictTypes(),
-			$anonymousClass,
-			null,
-			$this->getNamespace(),
-			[
-				'this' => VariableTypeHolder::createYes(new MixedType(true)),
-			],
-			$this->inClosureBindScopeClass,
-			$this->getAnonymousFunctionReturnType(),
-			$this->getInFunctionCall()
-		);
+		return $this->enterClass($anonymousClass);
 	}
 
 	/**
