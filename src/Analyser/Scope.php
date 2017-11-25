@@ -626,7 +626,7 @@ class Scope
 		}
 
 		if ($node instanceof Variable && is_string($node->name)) {
-			if (!$this->hasVariableType($node->name)->yes()) {
+			if ($this->hasVariableType($node->name)->no()) {
 				return new ErrorType();
 			}
 

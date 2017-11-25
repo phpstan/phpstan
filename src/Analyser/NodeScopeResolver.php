@@ -1033,10 +1033,10 @@ class NodeScopeResolver
 
 	private function updateScopeForVariableAssign(Scope $scope, \PhpParser\Node $node, TrinaryLogic $certainty): Scope
 	{
-		if ($node instanceof Assign || $node instanceof AssignRef || $node instanceof Isset_ || $node instanceof Expr\AssignOp || $node instanceof Node\Stmt\Global_) {
+		if ($node instanceof Assign || $node instanceof AssignRef || $node instanceof Expr\AssignOp || $node instanceof Node\Stmt\Global_) {
 			if ($node instanceof Assign || $node instanceof AssignRef || $node instanceof Expr\AssignOp) {
 				$vars = [$node->var];
-			} elseif ($node instanceof Isset_ || $node instanceof Node\Stmt\Global_) {
+			} elseif ($node instanceof Node\Stmt\Global_) {
 				$vars = $node->vars;
 			} else {
 				throw new \PHPStan\ShouldNotHappenException();
@@ -1055,14 +1055,6 @@ class NodeScopeResolver
 						continue;
 					}
 					$type = $scope->getType($node);
-				} elseif ($node instanceof Isset_) {
-					if (
-						$var instanceof Variable
-						&& is_string($var->name)
-						&& !$scope->hasVariableType($var->name)->no()
-					) {
-						$type = TypeCombinator::removeNull($scope->getVariableType($var->name));
-					}
 				} elseif (
 					$node instanceof Node\Stmt\Global_
 					&& $var instanceof Variable
@@ -1080,7 +1072,7 @@ class NodeScopeResolver
 				}
 			}
 
-			if (!$node instanceof Isset_ && !$node instanceof Node\Stmt\Global_) {
+			if (!$node instanceof Node\Stmt\Global_) {
 				$scope = $this->lookForAssigns($scope, $node->expr, TrinaryLogic::createYes());
 			}
 

@@ -218,6 +218,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				$testScope,
+				'issetBaz',
+				TrinaryLogic::createYes(),
+				'mixed',
+			],
+			[
+				$testScope,
 				'doWhileVar',
 				TrinaryLogic::createYes(),
 				'int',

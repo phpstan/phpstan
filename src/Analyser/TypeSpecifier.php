@@ -202,6 +202,21 @@ class TypeSpecifier
 			return $this->specifyTypesInCondition($scope, $expr->expr, ~$context);
 		} elseif ($expr instanceof Node\Expr\Assign) {
 			return $this->specifyTypesInCondition($scope, $expr->var, $context);
+		} elseif (
+			$expr instanceof Expr\Isset_
+			&& count($expr->vars) > 0
+			&& $context & self::CONTEXT_TRUTHY
+		) {
+			$types = null;
+			foreach ($expr->vars as $var) {
+				$type = $this->create($var, new NullType(), self::CONTEXT_FALSE);
+				if ($types === null) {
+					$types = $type;
+				} else {
+					$types = $types->unionWith($type);
+				}
+			}
+			return $types;
 		} elseif (($context & self::CONTEXT_TRUTHY) === 0) {
 			$type = new ObjectWithoutClassType();
 			return $this->create($expr, $type, self::CONTEXT_FALSE);
