@@ -3908,6 +3908,54 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataDoWhileLoopVariables(): array
+	{
+		return [
+			[
+				'LoopVariables\Foo|LoopVariables\Lorem|null',
+				'$foo',
+				"'begin';",
+			],
+			[
+				'LoopVariables\Foo',
+				'$foo',
+				"'afterAssign';",
+			],
+			[
+				'LoopVariables\Foo',
+				'$foo',
+				"'end';",
+			],
+			[
+				'LoopVariables\Bar|LoopVariables\Foo|LoopVariables\Lorem',
+				'$foo',
+				"'afterLoop';",
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataDoWhileLoopVariables
+	 * @param string $description
+	 * @param string $expression
+	 * @param string $evaluatedPointExpression
+	 */
+	public function testDoWhileLoopVariables(
+		string $description,
+		string $expression,
+		string $evaluatedPointExpression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/do-while-loop-variables.php',
+			$description,
+			$expression,
+			[],
+			[],
+			$evaluatedPointExpression
+		);
+	}
+
 	public function dataMultipleClassesInOneFile(): array
 	{
 		return [

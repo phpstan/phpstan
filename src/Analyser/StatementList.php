@@ -11,13 +11,18 @@ class StatementList
 	/** @var \PhpParser\Node[] */
 	private $statements;
 
+	/** @var bool */
+	private $filterByTruthyValue;
+
 	public function __construct(
 		Scope $scope,
-		array $statements
+		array $statements,
+		bool $filterByTruthyValue = false
 	)
 	{
 		$this->scope = $scope;
 		$this->statements = $statements;
+		$this->filterByTruthyValue = $filterByTruthyValue;
 	}
 
 	public function getScope(): Scope
@@ -31,6 +36,11 @@ class StatementList
 	public function getStatements(): array
 	{
 		return $this->statements;
+	}
+
+	public function shouldFilterByTruthyValue(): bool
+	{
+		return $this->filterByTruthyValue;
 	}
 
 }

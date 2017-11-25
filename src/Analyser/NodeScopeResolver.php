@@ -673,7 +673,11 @@ class NodeScopeResolver
 				}
 
 				if ($node instanceof Do_ && $subNodeName === 'stmts') {
-					$scope = $this->lookForAssigns($scope, $node->cond, TrinaryLogic::createMaybe());
+					$scope = $this->lookForAssignsInBranches($scope, [
+						new StatementList($scope, $node->stmts),
+						new StatementList($scope, [$node->cond], true),
+						new StatementList($scope, []),
+					], LookForAssignsSettings::insideLoop());
 				}
 
 				$this->processNodes($subNode, $scope, $nodeCallback, $argClosureBindScope);
@@ -922,9 +926,10 @@ class NodeScopeResolver
 				$scope = $this->lookForAssigns($scope, $arg, $certainty);
 			}
 		} elseif ($node instanceof Do_) {
-			foreach ($node->stmts as $statement) {
-				$scope = $this->lookForAssigns($scope, $statement, $certainty);
-			}
+			$scope = $this->lookForAssignsInBranches($scope, [
+				new StatementList($scope, $node->stmts),
+			], LookForAssignsSettings::afterLoop());
+			$scope = $this->lookForAssigns($scope, $node->cond, TrinaryLogic::createYes());
 		} elseif ($node instanceof Switch_) {
 			$statementLists = [];
 			$tmpStatements = [];
@@ -1208,6 +1213,13 @@ class NodeScopeResolver
 					$intersectedScope = $initialScope->createIntersectedScope($branchScopeWithInitialScopeRemoved);
 				} else {
 					$intersectedScope = $intersectedScope->intersectVariables($branchScopeWithInitialScopeRemoved);
+				}
+
+				if ($statementList->shouldFilterByTruthyValue()) {
+					/** @var \PhpParser\Node\Expr $statement */
+					foreach ($statements as $statement) {
+						$intersectedScope = $intersectedScope->filterByTruthyValue($statement);
+					}
 				}
 			}
 		}

@@ -234,4 +234,15 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
+	public function testCallToFunctionInDoWhileLoop()
+	{
+		require_once __DIR__ . '/data/do-while-loop.php';
+		$this->analyse([__DIR__ . '/data/do-while-loop.php'], [
+			[
+				'Parameter #1 $object of function CallToFunctionDoWhileLoop\requireStdClass expects stdClass, stdClass|null given.',
+				18,
+			],
+		]);
+	}
+
 }
