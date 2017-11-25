@@ -59,7 +59,7 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 			$methods += $this->createMethods($interfaceClass, $interfaceClass);
 		}
 
-		$fileName = $classReflection->getNativeReflection()->getFileName();
+		$fileName = $classReflection->getFileName();
 		if ($fileName === false) {
 			return $methods;
 		}

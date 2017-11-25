@@ -30,7 +30,7 @@ class Broker
 	private $dynamicFunctionReturnTypeExtensions = [];
 
 	/** @var \PHPStan\Reflection\ClassReflection[] */
-	private static $classReflections = [];
+	private $classReflections = [];
 
 	/** @var \PHPStan\Reflection\FunctionReflectionFactory */
 	private $functionReflectionFactory;
@@ -152,27 +152,27 @@ class Broker
 			throw new \PHPStan\Broker\ClassNotFoundException($className);
 		}
 
-		if (!isset(self::$classReflections[$className])) {
+		if (!isset($this->classReflections[$className])) {
 			$reflectionClass = new ReflectionClass($className);
 			$classReflection = $this->getClassFromReflection(
 				$reflectionClass,
 				$reflectionClass->getName(),
 				$reflectionClass->isAnonymous()
 			);
-			self::$classReflections[$className] = $classReflection;
+			$this->classReflections[$className] = $classReflection;
 			if ($className !== $reflectionClass->getName()) {
 				// class alias optimization
-				self::$classReflections[$reflectionClass->getName()] = $classReflection;
+				$this->classReflections[$reflectionClass->getName()] = $classReflection;
 			}
 		}
 
-		return self::$classReflections[$className];
+		return $this->classReflections[$className];
 	}
 
 	public function getClassFromReflection(\ReflectionClass $reflectionClass, string $displayName, bool $anonymous): \PHPStan\Reflection\ClassReflection
 	{
 		$className = $reflectionClass->getName();
-		if (!isset(self::$classReflections[$className])) {
+		if (!isset($this->classReflections[$className])) {
 			$classReflection = new ClassReflection(
 				$this,
 				$this->propertiesClassReflectionExtensions,
@@ -181,10 +181,10 @@ class Broker
 				$reflectionClass,
 				$anonymous
 			);
-			self::$classReflections[$className] = $classReflection;
+			$this->classReflections[$className] = $classReflection;
 		}
 
-		return self::$classReflections[$className];
+		return $this->classReflections[$className];
 	}
 
 	public function hasClass(string $className): bool

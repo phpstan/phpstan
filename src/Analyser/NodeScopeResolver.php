@@ -1351,7 +1351,11 @@ class NodeScopeResolver
 				continue;
 			}
 			$traitReflection = $this->broker->getClass($traitName);
-			$fileName = $this->fileHelper->normalizePath($traitReflection->getNativeReflection()->getFileName());
+			$traitFileName = $traitReflection->getFileName();
+			if ($traitFileName === false) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+			$fileName = $this->fileHelper->normalizePath($traitFileName);
 			if (!isset($this->analysedFiles[$fileName])) {
 				return;
 			}

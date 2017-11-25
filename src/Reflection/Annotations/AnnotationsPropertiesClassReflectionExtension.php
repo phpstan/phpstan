@@ -60,7 +60,7 @@ class AnnotationsPropertiesClassReflectionExtension implements PropertiesClassRe
 			$properties += $this->createProperties($interfaceClass, $interfaceClass);
 		}
 
-		$fileName = $classReflection->getNativeReflection()->getFileName();
+		$fileName = $classReflection->getFileName();
 		if ($fileName === false) {
 			return $properties;
 		}

@@ -117,13 +117,13 @@ class PhpClassReflectionExtension
 		}
 		if ($propertyReflection->getDocComment() === false) {
 			$type = new MixedType();
-		} elseif (!$classReflection->isAnonymous() && !$declaringClassReflection->isAnonymous() && $declaringClassReflection->getNativeReflection()->getFileName() !== false) {
+		} elseif (!$classReflection->isAnonymous() && !$declaringClassReflection->isAnonymous() && $declaringClassReflection->getFileName() !== false) {
 			$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForProperty(
 				$this->broker,
 				$propertyReflection->getDocComment(),
 				$declaringClassReflection->getName(),
 				$propertyName,
-				$declaringClassReflection->getNativeReflection()->getFileName()
+				$declaringClassReflection->getFileName()
 			);
 
 			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
@@ -214,14 +214,14 @@ class PhpClassReflectionExtension
 
 		$phpDocParameterTypes = [];
 		$phpDocReturnType = null;
-		if (!$classReflection->isAnonymous() && !$declaringClass->isAnonymous() && $declaringClass->getNativeReflection()->getFileName() !== false) {
+		if (!$classReflection->isAnonymous() && !$declaringClass->isAnonymous() && $declaringClass->getFileName() !== false) {
 			if ($methodReflection->getDocComment() !== false) {
 				$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForMethod(
 					$this->broker,
 					$methodReflection->getDocComment(),
 					$declaringClass->getName(),
 					$methodReflection->getName(),
-					$declaringClass->getNativeReflection()->getFileName()
+					$declaringClass->getFileName()
 				);
 
 				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(

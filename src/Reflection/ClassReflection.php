@@ -64,6 +64,23 @@ class ClassReflection
 	}
 
 	/**
+	 * @return string|false
+	 */
+	public function getFileName()
+	{
+		$fileName = $this->reflection->getFileName();
+		if ($fileName === false) {
+			return false;
+		}
+
+		if (!file_exists($fileName)) {
+			return false;
+		}
+
+		return $fileName;
+	}
+
+	/**
 	 * @return false|\PHPStan\Reflection\ClassReflection
 	 */
 	public function getParentClass()
