@@ -81,7 +81,8 @@ class TypehintHelper
 				return new VoidType();
 			}
 
-			if (TypeCombinator::removeNull($type) instanceof IterableIterableType) {
+			$nonNullableType = TypeCombinator::removeNull($type);
+			if (!$nonNullableType instanceof ArrayType && $nonNullableType->isIterable()->yes()) {
 				if ($phpDocType instanceof UnionType) {
 					$innerTypes = [];
 					foreach ($phpDocType->getTypes() as $innerType) {
