@@ -124,6 +124,8 @@ and PHPStan's strict checks, you can choose from currently 8 levels
 This feature enables incremental adoption of PHPStan checks. You can start using PHPStan
 with a lower rule level and increase it when you feel like it.
 
+You can also use `--level max` as an alias for the highest level. This will ensure that you will always use the highest level when upgrading to new versions of PHPStan. Please note that this can create a significant obstacle when upgrading to a newer version because you might have to fix a lot of code to bring the number of errors down to zero.
+
 ## Configuration
 
 Config file is passed to the `phpstan` executable with `-c` option:
