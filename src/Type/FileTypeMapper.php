@@ -24,8 +24,8 @@ class FileTypeMapper
 	/** @var \PHPStan\PhpDoc\ResolvedPhpDocBlock[][][] */
 	private $memoryCache = [];
 
-	/** @var true[] */
-	private $alreadyProcessedFileNames = [];
+	/** @var (false|callable|ResolvedPhpDocBlock)[][][]  */
+	private $inProcess = [];
 
 	public function __construct(
 		Parser $phpParser,
@@ -40,18 +40,25 @@ class FileTypeMapper
 
 	public function getResolvedPhpDoc(string $filename, string $className = null, string $docComment): ResolvedPhpDocBlock
 	{
-		if (array_key_exists($filename, $this->alreadyProcessedFileNames)) {
-			throw new \PHPStan\ShouldNotHappenException(sprintf(
-				'File %s is already being processed.',
-				$filename
-			));
-		}
-		$this->alreadyProcessedFileNames[$filename] = true;
-		$map = $this->getResolvedPhpDocMap($filename, $className);
 		$key = md5($docComment);
 
-		unset($this->alreadyProcessedFileNames[$filename]);
+		if (isset($this->inProcess[$filename])) {
+			if (isset($this->inProcess[$filename][$className][$key])) {
+				$data = $this->inProcess[$filename][$className][$key];
+				if (is_callable($data)) {
+					$this->inProcess[$filename][$className][$key] = false;
+					$this->inProcess[$filename][$className][$key] = $data();
 
+				} elseif ($data === false) { // PHPDoc has cyclic dependency
+					return $this->phpDocStringResolver->resolve('/** nothing */', new NameScope(null, []));
+				}
+
+				assert($this->inProcess[$filename][$className][$key] instanceof ResolvedPhpDocBlock);
+				return $this->inProcess[$filename][$className][$key];
+			}
+		}
+
+		$map = $this->getResolvedPhpDocMap($filename, $className);
 		if (!isset($map[$key])) { // most likely wrong $fileName due to traits
 			return $this->phpDocStringResolver->resolve('/** nothing */', new NameScope(null, []));
 		}
@@ -140,8 +147,9 @@ class FileTypeMapper
 				}
 
 				$nameScope = new NameScope($namespace, $uses, $className);
-				$resolvedPhpDoc = $this->phpDocStringResolver->resolve($phpDocString, $nameScope);
-				$phpDocMap[$className][md5($phpDocString)] = $resolvedPhpDoc;
+				$phpDocMap[$className][md5($phpDocString)] = function () use ($phpDocString, $nameScope): ResolvedPhpDocBlock {
+					return $this->phpDocStringResolver->resolve($phpDocString, $nameScope);
+				};
 			},
 			function (\PhpParser\Node $node) use (&$namespace, &$classStack, &$uses) {
 				if ($node instanceof Node\Stmt\ClassLike) {
@@ -155,6 +163,21 @@ class FileTypeMapper
 				}
 			}
 		);
+
+		try {
+			$this->inProcess[$fileName] = $phpDocMap;
+
+			foreach ($phpDocMap as $className => $classMap) {
+				foreach ($classMap as $phpDocKey => $resolveCallback) {
+					$this->inProcess[$fileName][$className][$phpDocKey] = false;
+					$this->inProcess[$fileName][$className][$phpDocKey] = $resolveCallback();
+					$phpDocMap[$className][$phpDocKey] = $this->inProcess[$fileName][$className][$phpDocKey];
+				}
+			}
+
+		} finally {
+			unset($this->inProcess[$fileName]);
+		}
 
 		return $phpDocMap;
 	}

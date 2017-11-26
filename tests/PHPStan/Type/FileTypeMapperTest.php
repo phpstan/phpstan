@@ -5,7 +5,7 @@ namespace PHPStan\Type;
 class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 {
 
-	public function testgetResolvedPhpDoc()
+	public function testGetResolvedPhpDoc()
 	{
 		$this->createBroker();
 
@@ -79,6 +79,44 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 		$this->assertFalse($paramMultipleTypesWithExtraSpaces->getParameters()['object']->isPassedByReference());
 		$this->assertFalse($paramMultipleTypesWithExtraSpaces->getParameters()['object']->isOptional());
 		$this->assertFalse($paramMultipleTypesWithExtraSpaces->getParameters()['object']->isVariadic());
+	}
+
+	public function testFileWithDependentPhpDocs()
+	{
+		$this->createBroker();
+
+		/** @var FileTypeMapper $fileTypeMapper */
+		$fileTypeMapper = $this->getContainer()->getByType(FileTypeMapper::class);
+
+		$resolved = $fileTypeMapper->getResolvedPhpDoc(
+			realpath(__DIR__ . '/data/dependent-phpdocs.php'),
+			\DependentPhpDocs\Foo::class,
+			'/** @param Foo[]|Foo|\Iterator $pages */'
+		);
+
+		$this->assertCount(1, $resolved->getParamTags());
+		$this->assertSame(
+			'(DependentPhpDocs\Foo&iterable(DependentPhpDocs\Foo[]))|(iterable(DependentPhpDocs\Foo[])&Iterator)',
+			$resolved->getParamTags()['pages']->getType()->describe()
+		);
+	}
+
+
+	public function testFileWithCyclicPhpDocs()
+	{
+		$this->getContainer()->getByType(\PHPStan\Broker\Broker::class);
+
+		/** @var FileTypeMapper $fileTypeMapper */
+		$fileTypeMapper = $this->getContainer()->getByType(FileTypeMapper::class);
+
+		$resolved = $fileTypeMapper->getResolvedPhpDoc(
+			realpath(__DIR__ . '/data/cyclic-phpdocs.php'),
+			\CyclicPhpDocs\Foo::class,
+			'/** @return iterable<Foo> | Foo */'
+		);
+
+		$returnType = $resolved->getReturnTag()->getType() ?? new MixedType();
+		$this->assertSame('CyclicPhpDocs\Foo|iterable(CyclicPhpDocs\Foo[])', $returnType->describe());
 	}
 
 }
