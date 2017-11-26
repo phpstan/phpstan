@@ -87,9 +87,6 @@ services:
 		class: PHPStan\Analyser\TypeSpecifier
 
 	-
-		class: PHPStan\Broker\BrokerFactory
-
-	-
 		class: PHPStan\Cache\Cache
 		arguments:
 			storage: @cacheStorage
@@ -215,7 +212,10 @@ services:
 
 	broker:
 		class: PHPStan\Broker\Broker
-		factory: @PHPStan\Broker\BrokerFactory::create
+		factory: @brokerFactory::create
+
+	brokerFactory:
+		class: PHPStan\Broker\BrokerFactory
 
 	cacheStorage:
 		class: PHPStan\Cache\FileCacheStorage
