@@ -36,7 +36,14 @@ It currently performs the following checks on your code:
 * Correct number of parameters passed to `sprintf`/`printf` calls based on format strings.
 * Useless casts like `(string) 'foo'`.
 * Unused constructor parameters - they can either be deleted or the author forgot to
-use them in the class code.
+use them in the method body.
+* Require calling `parent::__construct()` if the parent constructor exists.
+* Only valid array key types are used (only integers, strings, floats, booleans and nulls).
+* Duplicate array keys in literal arrays.
+* Only iterables are passed to `foreach`.
+* Correct case when referencing classes. Class names are case insensitive, but taking advantage of this is dangerous with autoloading on case-insensitive filesystems.
+* Impossible checks (dead code) of incompatible types with `instanceof`, `===`, `!==` and various function checks like `is_int` or `is_null`.
+* Validating phpDocs - finding incompatible types between phpDocs and native typehints.
 * That only objects are passed to the `clone` keyword.
 
 ## Extensibility
