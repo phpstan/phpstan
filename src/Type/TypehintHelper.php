@@ -7,7 +7,7 @@ use PHPStan\Broker\Broker;
 class TypehintHelper
 {
 
-	private static function getTypeObjectFromTypehint(string $typeString, string $selfClass = null): Type
+	public static function getTypeObjectFromTypehint(string $typeString, string $selfClass = null): Type
 	{
 		switch (strtolower($typeString)) {
 			case 'int':
