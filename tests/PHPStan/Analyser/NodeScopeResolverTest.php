@@ -3223,6 +3223,22 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$mixeds',
 			],
 			[
+				'Generator&iterable(int[])',
+				'$generator',
+			],
+			[
+				'int',
+				'$generatedNumber',
+			],
+			[
+				'Generator&iterable(Iterables\Bar[])',
+				'$unionIterableWithGenerator',
+			],
+			[
+				'Iterables\Bar',
+				'$generatedBar',
+			],
+			[
 				'iterable(mixed[])',
 				'$this->returnIterableMixed()',
 			],

@@ -44,6 +44,7 @@ class Foo
 	 * @param Bar[]|Collection $unionIterableIterableType
 	 * @param int[]|iterable $integers
 	 * @param mixed[]|iterable $mixeds
+	 * @param int[]|\Generator $generator
 	 */
 	public function doFoo(
 		iterable $iterableWithoutTypehint,
@@ -55,12 +56,15 @@ class Foo
 		iterable $unionIterableIterableType,
 		$iterableSpecifiedLater,
 		iterable $integers,
-		iterable $mixeds
+		iterable $mixeds,
+		\Generator $generator
 	)
 	{
 		if (!is_iterable($iterableSpecifiedLater)) {
 			return;
 		}
+
+		$unionIterableWithGenerator = $this->doUnionIterableWithGenerator();
 
 		foreach ($iterableWithIterableTypehint as $mixed) {
 			foreach ($iterableWithConcreteTypehint as $bar) {
@@ -69,7 +73,11 @@ class Foo
 						foreach ($mixedUnionIterableType as $mixedBar) {
 							foreach ($unionIterableIterableType as $iterableUnionBar) {
 								foreach ($this->doUnionIterableWithPhpDoc() as $unionBarFromMethod) {
-									die;
+									foreach ($generator as $generatedNumber) {
+										foreach ($unionIterableWithGenerator as $generatedBar) {
+											die;
+										}
+									}
 								}
 							}
 						}
@@ -99,6 +107,14 @@ class Foo
 	 * @return Bar[]|\Traversable
 	 */
 	public function doUnionIterableWithPhpDoc(): \Traversable
+	{
+
+	}
+
+	/**
+	 * @return Bar[]
+	 */
+	public function doUnionIterableWithGenerator(): \Generator
 	{
 
 	}
