@@ -43,6 +43,7 @@ use them in the method body.
 * Only iterables are passed to `foreach`.
 * Correct case when referencing classes. Class names are case insensitive, but taking advantage of this is dangerous with autoloading on case-insensitive filesystems.
 * Impossible checks (dead code) of incompatible types with `instanceof`, `===`, `!==` and various function checks like `is_int` or `is_null`.
+* Always-defined and never-defined variables in `isset()` call.
 * Validating phpDocs - finding incompatible types between phpDocs and native typehints.
 * That only objects are passed to the `clone` keyword.
 
