@@ -96,7 +96,7 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 
 		$this->assertCount(1, $resolved->getParamTags());
 		$this->assertSame(
-			'(DependentPhpDocs\Foo&iterable(DependentPhpDocs\Foo[]))|(iterable(DependentPhpDocs\Foo[])&Iterator)',
+			'(DependentPhpDocs\Foo&iterable<DependentPhpDocs\Foo>)|(iterable<DependentPhpDocs\Foo>&Iterator)',
 			$resolved->getParamTags()['pages']->getType()->describe()
 		);
 	}
@@ -116,7 +116,7 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 		);
 
 		$returnType = $resolved->getReturnTag()->getType() ?? new MixedType();
-		$this->assertSame('CyclicPhpDocs\Foo|iterable(CyclicPhpDocs\Foo[])', $returnType->describe());
+		$this->assertSame('CyclicPhpDocs\Foo|iterable<CyclicPhpDocs\Foo>', $returnType->describe());
 	}
 
 }

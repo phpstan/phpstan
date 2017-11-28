@@ -2052,7 +2052,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$moreSpecifiedObject->doFluentArray()[0]',
 			],
 			[
-				'iterable(MethodPhpDocsNamespace\Baz[])&MethodPhpDocsNamespace\Collection',
+				'iterable<MethodPhpDocsNamespace\Baz>&MethodPhpDocsNamespace\Collection',
 				'$moreSpecifiedObject->doFluentUnionIterable()',
 			],
 			[
@@ -3119,15 +3119,15 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				'iterable(mixed[])',
+				'iterable',
 				'$this->iterableProperty',
 			],
 			[
-				'iterable(mixed[])',
+				'iterable',
 				'$iterableSpecifiedLater',
 			],
 			[
-				'iterable(mixed[])',
+				'iterable',
 				'$iterableWithoutTypehint',
 			],
 			[
@@ -3135,7 +3135,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$iterableWithoutTypehint[0]',
 			],
 			[
-				'iterable(mixed[])',
+				'iterable',
 				'$iterableWithIterableTypehint',
 			],
 			[
@@ -3147,7 +3147,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$mixed',
 			],
 			[
-				'iterable(Iterables\Bar[])',
+				'iterable<Iterables\Bar>',
 				'$iterableWithConcreteTypehint',
 			],
 			[
@@ -3159,11 +3159,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$bar',
 			],
 			[
-				'iterable(mixed[])',
+				'iterable',
 				'$this->doBar()',
 			],
 			[
-				'iterable(Iterables\Baz[])',
+				'iterable<Iterables\Baz>',
 				'$this->doBaz()',
 			],
 			[
@@ -3179,7 +3179,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$arrayWithIterableTypehint[0]',
 			],
 			[
-				'iterable(Iterables\Bar[])&Iterables\Collection',
+				'iterable<Iterables\Bar>&Iterables\Collection',
 				'$unionIterableType',
 			],
 			[
@@ -3191,7 +3191,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$mixedUnionIterableType',
 			],
 			[
-				'iterable(Iterables\Bar[])&Iterables\Collection',
+				'iterable<Iterables\Bar>&Iterables\Collection',
 				'$unionIterableIterableType',
 			],
 			[
@@ -3207,35 +3207,35 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$unionBarFromMethod',
 			],
 			[
-				'iterable(string[])',
+				'iterable<string>',
 				'$this->stringIterableProperty',
 			],
 			[
-				'iterable(mixed[])',
+				'iterable',
 				'$this->mixedIterableProperty',
 			],
 			[
-				'iterable(int[])',
+				'iterable<int>',
 				'$integers',
 			],
 			[
-				'iterable(mixed[])',
+				'iterable',
 				'$mixeds',
 			],
 			[
-				'iterable(mixed[])',
+				'iterable',
 				'$this->returnIterableMixed()',
 			],
 			[
-				'iterable(string[])',
+				'iterable<string>',
 				'$this->returnIterableString()',
 			],
 			[
-				'int|iterable(string[])',
+				'int|iterable<string>',
 				'$this->iterablePropertyAlsoWithSomethingElse',
 			],
 			[
-				'int|iterable(int[]|string[])',
+				'int|iterable<int|string>',
 				'$this->iterablePropertyWithTwoItemTypes',
 			],
 		];
