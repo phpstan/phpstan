@@ -225,16 +225,6 @@ parameters:
 
 ### Add non-obviously assigned variables to scope
 
-If you use the initial assignment variable after for-loop or while-loop, set `polluteScopeWithLoopInitialAssignments` boolean parameter to `true`.
-
-```php
-for ($i = 0; $i < count($list); $i++) {
-	// ...
-}
-
-echo $i;
-```
-
 If you use some variables from a try block in your catch blocks, set `polluteCatchScopeWithTryAssignments` boolean parameter to `true`.
 
 ```php
@@ -263,7 +253,7 @@ if (somethingIsTrue()) {
 doFoo($foo);
 ```
 
-I recommend leaving `polluteScopeWithLoopInitialAssignments` and `polluteCatchScopeWithTryAssignments` set to `false` because it leads to a clearer and more maintainable code.
+I recommend leaving `polluteCatchScopeWithTryAssignments` set to `false` because it leads to a clearer and more maintainable code.
 
 ### Custom early terminating method calls
 
