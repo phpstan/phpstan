@@ -3,11 +3,13 @@
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Traits\NonIterableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
 
 class TrueBooleanType implements BooleanType
 {
 
+	use NonIterableTypeTrait;
 	use NonObjectTypeTrait;
 
 	public function describe(): string
@@ -56,21 +58,6 @@ class TrueBooleanType implements BooleanType
 	public function isDocumentableNatively(): bool
 	{
 		return true;
-	}
-
-	public function isIterable(): TrinaryLogic
-	{
-		return TrinaryLogic::createNo();
-	}
-
-	public function getIterableKeyType(): Type
-	{
-		return new ErrorType();
-	}
-
-	public function getIterableValueType(): Type
-	{
-		return new ErrorType();
 	}
 
 	public function isCallable(): TrinaryLogic

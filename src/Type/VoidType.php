@@ -3,11 +3,13 @@
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Traits\NonIterableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
 
 class VoidType implements Type
 {
 
+	use NonIterableTypeTrait;
 	use NonObjectTypeTrait;
 
 	/**
@@ -44,21 +46,6 @@ class VoidType implements Type
 	public function isDocumentableNatively(): bool
 	{
 		return true;
-	}
-
-	public function isIterable(): TrinaryLogic
-	{
-		return TrinaryLogic::createNo();
-	}
-
-	public function getIterableKeyType(): Type
-	{
-		return new ErrorType();
-	}
-
-	public function getIterableValueType(): Type
-	{
-		return new ErrorType();
 	}
 
 	public function isCallable(): TrinaryLogic
