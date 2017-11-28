@@ -3,43 +3,13 @@
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
-use PHPStan\Type\Traits\NonCallableTypeTrait;
-use PHPStan\Type\Traits\NonIterableTypeTrait;
-use PHPStan\Type\Traits\NonObjectTypeTrait;
-use PHPStan\Type\Traits\NonOffsetAccessibleTypeTrait;
 
-class TrueBooleanType implements BooleanType
+class TrueBooleanType extends BooleanType
 {
-
-	use NonCallableTypeTrait;
-	use NonIterableTypeTrait;
-	use NonObjectTypeTrait;
-	use NonOffsetAccessibleTypeTrait;
 
 	public function describe(): string
 	{
 		return 'true';
-	}
-
-	/**
-	 * @return string[]
-	 */
-	public function getReferencedClasses(): array
-	{
-		return [];
-	}
-
-	public function accepts(Type $type): bool
-	{
-		if ($type instanceof self) {
-			return true;
-		}
-
-		if ($type instanceof CompoundType) {
-			return CompoundTypeHelper::accepts($type, $this);
-		}
-
-		return false;
 	}
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic
@@ -48,7 +18,11 @@ class TrueBooleanType implements BooleanType
 			return TrinaryLogic::createYes();
 		}
 
-		if ($type instanceof TrueOrFalseBooleanType) {
+		if ($type instanceof FalseBooleanType) {
+			return TrinaryLogic::createNo();
+		}
+
+		if ($type instanceof BooleanType) {
 			return TrinaryLogic::createMaybe();
 		}
 
@@ -57,16 +31,6 @@ class TrueBooleanType implements BooleanType
 		}
 
 		return TrinaryLogic::createNo();
-	}
-
-	public function getOffsetValueType(): Type
-	{
-		return new NullType();
-	}
-
-	public static function __set_state(array $properties): Type
-	{
-		return new self();
 	}
 
 }

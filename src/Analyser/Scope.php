@@ -46,7 +46,6 @@ use PHPStan\Type\StaticResolvableType;
 use PHPStan\Type\StaticType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\ThisType;
-use PHPStan\Type\TrueOrFalseBooleanType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\VoidType;
@@ -334,7 +333,7 @@ class Scope
 			|| $node instanceof Expr\Isset_
 			|| $node instanceof Expr\Empty_
 		) {
-			return new TrueOrFalseBooleanType();
+			return new BooleanType();
 		}
 
 		if (
@@ -561,7 +560,7 @@ class Scope
 		} elseif ($node instanceof Int_) {
 				return new IntegerType();
 		} elseif ($node instanceof Bool_) {
-			return new TrueOrFalseBooleanType();
+			return new BooleanType();
 		} elseif ($node instanceof Double) {
 			return new FloatType();
 		} elseif ($node instanceof \PhpParser\Node\Expr\Cast\String_) {
@@ -782,7 +781,7 @@ class Scope
 		} elseif (is_float($value)) {
 			return new FloatType();
 		} elseif (is_bool($value)) {
-			return new TrueOrFalseBooleanType();
+			return new BooleanType();
 		} elseif ($value === null) {
 			return new NullType();
 		} elseif (is_string($value)) {
@@ -1089,7 +1088,7 @@ class Scope
 		} elseif ($type === 'int') {
 			return new IntegerType();
 		} elseif ($type === 'bool') {
-			return new TrueOrFalseBooleanType();
+			return new BooleanType();
 		} elseif ($type === 'float') {
 			return new FloatType();
 		} elseif ($type === 'callable') {

@@ -17,6 +17,7 @@ use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Name;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
 use PHPStan\Type\FalseBooleanType;
 use PHPStan\Type\FloatType;
@@ -30,7 +31,6 @@ use PHPStan\Type\ResourceType;
 use PHPStan\Type\StaticType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\TrueBooleanType;
-use PHPStan\Type\TrueOrFalseBooleanType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\UnionType;
@@ -149,7 +149,7 @@ class TypeSpecifier
 				case 'is_array':
 					return $this->create($innerExpr, new ArrayType(new MixedType(), new MixedType(), false, TrinaryLogic::createMaybe()), $context);
 				case 'is_bool':
-					return $this->create($innerExpr, new TrueOrFalseBooleanType(), $context);
+					return $this->create($innerExpr, new BooleanType(), $context);
 				case 'is_callable':
 					return $this->create($innerExpr, new CallableType(), $context);
 				case 'is_resource':

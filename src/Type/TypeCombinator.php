@@ -40,7 +40,7 @@ class TypeCombinator
 			return $fromType;
 		}
 
-		if ($fromType instanceof TrueOrFalseBooleanType) {
+		if ($fromType instanceof BooleanType && $fromType->isSuperTypeOf(new BooleanType())->yes()) {
 			if ($typeToRemove instanceof TrueBooleanType) {
 				return new FalseBooleanType();
 			} elseif ($typeToRemove instanceof FalseBooleanType) {
@@ -96,11 +96,11 @@ class TypeCombinator
 		for ($i = 0; $i < count($types); $i++) {
 			for ($j = $i + 1; $j < count($types); $j++) {
 				if ($types[$i] instanceof TrueBooleanType && $types[$j] instanceof FalseBooleanType) {
-					$types[$i] = new TrueOrFalseBooleanType();
+					$types[$i] = new BooleanType();
 					array_splice($types, $j, 1);
 					continue 2;
 				} elseif ($types[$i] instanceof FalseBooleanType && $types[$j] instanceof TrueBooleanType) {
-					$types[$i] = new TrueOrFalseBooleanType();
+					$types[$i] = new BooleanType();
 					array_splice($types, $j, 1);
 					continue 2;
 				} elseif ($types[$i] instanceof ArrayType && $types[$j] instanceof ArrayType) {

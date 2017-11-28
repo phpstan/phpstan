@@ -226,7 +226,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new TrueBooleanType(),
 					new FalseBooleanType(),
 				],
-				TrueOrFalseBooleanType::class,
+				BooleanType::class,
 				'bool',
 			],
 			[
@@ -621,7 +621,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			[
 				[
 					new TrueBooleanType(),
-					new TrueOrFalseBooleanType(),
+					new BooleanType(),
 				],
 				TrueBooleanType::class,
 				'true',
@@ -783,31 +783,31 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				new TrueBooleanType(),
-				new TrueOrFalseBooleanType(),
+				new BooleanType(),
 				NeverType::class,
 				'*NEVER*',
 			],
 			[
 				new FalseBooleanType(),
-				new TrueOrFalseBooleanType(),
+				new BooleanType(),
 				NeverType::class,
 				'*NEVER*',
 			],
 			[
-				new TrueOrFalseBooleanType(),
+				new BooleanType(),
 				new TrueBooleanType(),
 				FalseBooleanType::class,
 				'false',
 			],
 			[
-				new TrueOrFalseBooleanType(),
+				new BooleanType(),
 				new FalseBooleanType(),
 				TrueBooleanType::class,
 				'true',
 			],
 			[
-				new TrueOrFalseBooleanType(),
-				new TrueOrFalseBooleanType(),
+				new BooleanType(),
+				new BooleanType(),
 				NeverType::class,
 				'*NEVER*',
 			],
@@ -816,7 +816,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new TrueBooleanType(),
 					new IntegerType(),
 				]),
-				new TrueOrFalseBooleanType(),
+				new BooleanType(),
 				IntegerType::class,
 				'int',
 			],
@@ -825,13 +825,13 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new FalseBooleanType(),
 					new IntegerType(),
 				]),
-				new TrueOrFalseBooleanType(),
+				new BooleanType(),
 				IntegerType::class,
 				'int',
 			],
 			[
 				new UnionType([
-					new TrueOrFalseBooleanType(),
+					new BooleanType(),
 					new IntegerType(),
 				]),
 				new TrueBooleanType(),
@@ -840,7 +840,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				new UnionType([
-					new TrueOrFalseBooleanType(),
+					new BooleanType(),
 					new IntegerType(),
 				]),
 				new FalseBooleanType(),
