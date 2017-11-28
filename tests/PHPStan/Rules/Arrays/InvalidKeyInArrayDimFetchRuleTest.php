@@ -18,7 +18,7 @@ class InvalidKeyInArrayDimFetchRuleTest extends \PHPStan\Testing\RuleTestCase
 				7,
 			],
 			[
-				'Invalid array key type mixed[].',
+				'Invalid array key type array.',
 				8,
 			],
 		]);

@@ -87,8 +87,15 @@ class ArrayType implements StaticResolvableType
 
 	public function describe(): string
 	{
-		$format = $this->itemType instanceof UnionType ? '(%s)[]' : '%s[]';
-		return sprintf($format, $this->getItemType()->describe());
+		if ($this->keyType instanceof MixedType) {
+			if ($this->itemType instanceof MixedType) {
+				return 'array';
+			}
+
+			return sprintf('array<%s>', $this->itemType->describe());
+		}
+
+		return sprintf('array<%s, %s>', $this->keyType->describe(), $this->itemType->describe());
 	}
 
 	public function isDocumentableNatively(): bool

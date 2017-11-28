@@ -24,7 +24,7 @@ class ArgumentBasedArrayFunctionReturnTypeExtensionTest extends \PHPStan\Testing
 				[
 					2 => new Arg(new Variable('foo')),
 				],
-				'string[]',
+				'array<string>',
 			],
 		];
 	}

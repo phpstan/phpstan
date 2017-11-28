@@ -33,7 +33,7 @@ class IterableInForeachRuleTest extends \PHPStan\Testing\RuleTestCase
 				8,
 			],
 			[
-				'Argument of an invalid type false|int[] supplied for foreach, only iterables are supported.',
+				'Argument of an invalid type array<int, int>|false supplied for foreach, only iterables are supported.',
 				17,
 			],
 		]);

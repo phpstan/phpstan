@@ -192,7 +192,7 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				385,
 			],
 			[
-				'Cannot call method test() on Test\UnknownClass[].',
+				'Cannot call method test() on array<Test\UnknownClass>.',
 				399,
 			],
 			[
@@ -445,7 +445,7 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				42,
 			],
 			[
-				'Parameter #4 ...$strings of method CallVariadicMethods\Foo::doVariadicString() expects string[], int[] given.',
+				'Parameter #4 ...$strings of method CallVariadicMethods\Foo::doVariadicString() expects array<int, string>, array<int, int> given.',
 				42,
 			],
 		]);
@@ -625,7 +625,7 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->checkUnionTypes = true;
 		$this->analyse([__DIR__ . '/data/call-methods-iterable.php'], [
 			[
-				'Parameter #1 $ids of method CallMethodsIterables\Uuid::bar() expects iterable<CallMethodsIterables\Uuid>, null[] given.',
+				'Parameter #1 $ids of method CallMethodsIterables\Uuid::bar() expects iterable<CallMethodsIterables\Uuid>, array<int, null> given.',
 				14,
 			],
 			[
@@ -649,7 +649,7 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				62,
 			],
 			[
-				'Parameter #4 $arrayWithIterableTypehint of method CallMethodsIterables\Foo::doFoo() expects mixed[], int given.',
+				'Parameter #4 $arrayWithIterableTypehint of method CallMethodsIterables\Foo::doFoo() expects array, int given.',
 				62,
 			],
 			[
@@ -657,7 +657,7 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				62,
 			],
 			[
-				'Parameter #6 $mixedUnionIterableType of method CallMethodsIterables\Foo::doFoo() expects (CallMethodsIterables\Bar|CallMethodsIterables\Foo)[], int given.',
+				'Parameter #6 $mixedUnionIterableType of method CallMethodsIterables\Foo::doFoo() expects array<CallMethodsIterables\Bar|CallMethodsIterables\Foo>, int given.',
 				62,
 			],
 			[

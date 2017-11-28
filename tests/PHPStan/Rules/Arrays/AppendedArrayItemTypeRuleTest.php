@@ -18,11 +18,11 @@ class AppendedArrayItemTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 			[__DIR__ . '/data/appended-array-item.php'],
 			[
 				[
-					'Array (int[]) does not accept string.',
+					'Array (array<int>) does not accept string.',
 					28,
 				],
 				[
-					'Array (callable[]) does not accept int[].',
+					'Array (array<callable>) does not accept array<int, int>.',
 					32,
 				],
 			]
