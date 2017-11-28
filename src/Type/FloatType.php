@@ -3,12 +3,14 @@
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Traits\NonCallableTypeTrait;
 use PHPStan\Type\Traits\NonIterableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
 
 class FloatType implements Type
 {
 
+	use NonCallableTypeTrait;
 	use NonIterableTypeTrait;
 	use NonObjectTypeTrait;
 
@@ -57,11 +59,6 @@ class FloatType implements Type
 	public function isDocumentableNatively(): bool
 	{
 		return true;
-	}
-
-	public function isCallable(): TrinaryLogic
-	{
-		return TrinaryLogic::createNo();
 	}
 
 	public static function __set_state(array $properties): Type
