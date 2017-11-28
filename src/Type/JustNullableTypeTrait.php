@@ -41,9 +41,4 @@ trait JustNullableTypeTrait
 		return TrinaryLogic::createNo();
 	}
 
-	public function isDocumentableNatively(): bool
-	{
-		return true;
-	}
-
 }

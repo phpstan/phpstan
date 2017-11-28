@@ -46,8 +46,7 @@ class ClosureReturnTypeRule implements \PHPStan\Rules\Rule
 			'Anonymous function should return %s but empty return statement found.',
 			'Anonymous function with return type void returns %s but should not return anything.',
 			'Anonymous function should return %s but returns %s.',
-			$generatorType->isSuperTypeOf($returnType)->yes(),
-			true
+			$generatorType->isSuperTypeOf($returnType)->yes()
 		);
 	}
 

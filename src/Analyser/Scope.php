@@ -572,7 +572,7 @@ class Scope
 			}
 
 			$scalarKeysTypes = array_map(function ($value): Type {
-				return $this->getTypeFromValue($value);
+				return $this->getTypeFromValue($value) ?? new MixedType();
 			}, array_keys($arrayWithKeys));
 
 			return new ArrayType(
@@ -816,12 +816,12 @@ class Scope
 			return new ArrayType(
 				$this->getCombinedType(
 					array_map(function ($value): Type {
-						return $this->getTypeFromValue($value);
+						return $this->getTypeFromValue($value) ?? new MixedType();
 					}, array_keys($value))
 				),
 				$this->getCombinedType(
 					array_map(function ($value): Type {
-						return $this->getTypeFromValue($value);
+						return $this->getTypeFromValue($value) ?? new MixedType();
 					}, array_values($value))
 				),
 				false

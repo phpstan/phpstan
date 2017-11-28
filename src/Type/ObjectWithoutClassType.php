@@ -91,11 +91,6 @@ class ObjectWithoutClassType implements Type
 		throw new \PHPStan\ShouldNotHappenException();
 	}
 
-	public function isDocumentableNatively(): bool
-	{
-		return true;
-	}
-
 	public function isIterable(): TrinaryLogic
 	{
 		return TrinaryLogic::createMaybe();

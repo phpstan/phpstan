@@ -40,8 +40,6 @@ interface Type
 
 	public function getConstant(string $constantName): ClassConstantReflection;
 
-	public function isDocumentableNatively(): bool;
-
 	public function isIterable(): TrinaryLogic;
 
 	public function getIterableKeyType(): Type;

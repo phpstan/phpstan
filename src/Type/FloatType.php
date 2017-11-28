@@ -56,11 +56,6 @@ class FloatType implements Type
 		return 'float';
 	}
 
-	public function isDocumentableNatively(): bool
-	{
-		return true;
-	}
-
 	public static function __set_state(array $properties): Type
 	{
 		return new self();

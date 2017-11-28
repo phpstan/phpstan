@@ -68,8 +68,7 @@ class ReturnTypeRule implements \PHPStan\Rules\Rule
 				$method->getDeclaringClass()->getDisplayName(),
 				$method->getName()
 			),
-			$reflection !== null && $reflection->isGenerator(),
-			false
+			$reflection !== null && $reflection->isGenerator()
 		);
 	}
 
