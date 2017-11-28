@@ -5,9 +5,7 @@ namespace PHPStan\Rules;
 use PhpParser\Node\Expr;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\MixedType;
-use PHPStan\Type\ThisType;
 use PHPStan\Type\Type;
-use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\VoidType;
 
 class FunctionReturnTypeCheck
@@ -51,11 +49,9 @@ class FunctionReturnTypeCheck
 		if ($isGenerator) {
 			return [];
 		}
+
 		if ($returnValue === null) {
-			if (
-				$returnType instanceof VoidType
-				|| $returnType instanceof MixedType
-			) {
+			if ($returnType instanceof VoidType || $returnType instanceof MixedType) {
 				return [];
 			}
 
@@ -68,29 +64,6 @@ class FunctionReturnTypeCheck
 		}
 
 		$returnValueType = $scope->getType($returnValue);
-		if (
-			TypeCombinator::removeNull($returnType) instanceof ThisType
-			&& !$returnValueType instanceof ThisType
-		) {
-			if (TypeCombinator::containsNull($returnType) && $returnValueType instanceof \PHPStan\Type\NullType) {
-				return [];
-			}
-			if (
-				$returnValue instanceof Expr\Variable
-				&& is_string($returnValue->name)
-				&& $returnValue->name === 'this'
-			) {
-				return [];
-			}
-
-			return [
-				sprintf(
-					$typeMismatchMessage,
-					'$this',
-					$this->printer->prettyPrintExpr($returnValue)
-				),
-			];
-		}
 
 		if ($returnType instanceof VoidType) {
 			return [
