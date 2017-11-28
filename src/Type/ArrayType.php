@@ -60,7 +60,8 @@ class ArrayType implements StaticResolvableType
 	public function accepts(Type $type): bool
 	{
 		if ($type instanceof self) {
-			return $this->getItemType()->accepts($type->getItemType());
+			return $this->getItemType()->accepts($type->getItemType())
+				&& $this->keyType->accepts($type->keyType);
 		}
 
 		if ($type instanceof CompoundType) {
@@ -73,13 +74,8 @@ class ArrayType implements StaticResolvableType
 	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
 		if ($type instanceof self) {
-			if ($this->keyType instanceof MixedType || $type->keyType instanceof MixedType) {
-				return $this->getItemType()->isSuperTypeOf($type->getItemType());
-			}
-
-			return
-				$this->getItemType()->isSuperTypeOf($type->getItemType())
-					->and($this->keyType->isSuperTypeOf($type->keyType));
+			return $this->getItemType()->isSuperTypeOf($type->getItemType())
+				->and($this->keyType->isSuperTypeOf($type->keyType));
 		}
 
 		if ($type instanceof CompoundType) {
