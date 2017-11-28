@@ -625,27 +625,27 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->checkUnionTypes = true;
 		$this->analyse([__DIR__ . '/data/call-methods-iterable.php'], [
 			[
-				'Parameter #1 $ids of method CallMethodsIterables\Uuid::bar() expects iterable(CallMethodsIterables\Uuid[]), null[] given.',
+				'Parameter #1 $ids of method CallMethodsIterables\Uuid::bar() expects iterable<CallMethodsIterables\Uuid>, null[] given.',
 				14,
 			],
 			[
-				'Parameter #1 $iterable of method CallMethodsIterables\Foo::acceptsSelfIterable() expects iterable(CallMethodsIterables\Foo[]), iterable(CallMethodsIterables\Bar[]) given.',
+				'Parameter #1 $iterable of method CallMethodsIterables\Foo::acceptsSelfIterable() expects iterable<CallMethodsIterables\Foo>, iterable<CallMethodsIterables\Bar> given.',
 				59,
 			],
 			[
-				'Parameter #1 $iterable of method CallMethodsIterables\Foo::acceptsSelfIterable() expects iterable(CallMethodsIterables\Foo[]), string given.',
+				'Parameter #1 $iterable of method CallMethodsIterables\Foo::acceptsSelfIterable() expects iterable<CallMethodsIterables\Foo>, string given.',
 				60,
 			],
 			[
-				'Parameter #1 $iterableWithoutTypehint of method CallMethodsIterables\Foo::doFoo() expects iterable(mixed[]), int given.',
+				'Parameter #1 $iterableWithoutTypehint of method CallMethodsIterables\Foo::doFoo() expects iterable, int given.',
 				62,
 			],
 			[
-				'Parameter #2 $iterableWithIterableTypehint of method CallMethodsIterables\Foo::doFoo() expects iterable(mixed[]), int given.',
+				'Parameter #2 $iterableWithIterableTypehint of method CallMethodsIterables\Foo::doFoo() expects iterable, int given.',
 				62,
 			],
 			[
-				'Parameter #3 $iterableWithConcreteTypehint of method CallMethodsIterables\Foo::doFoo() expects iterable(CallMethodsIterables\Bar[]), int given.',
+				'Parameter #3 $iterableWithConcreteTypehint of method CallMethodsIterables\Foo::doFoo() expects iterable<CallMethodsIterables\Bar>, int given.',
 				62,
 			],
 			[
@@ -653,7 +653,7 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				62,
 			],
 			[
-				'Parameter #5 $unionIterableType of method CallMethodsIterables\Foo::doFoo() expects CallMethodsIterables\Collection&iterable(CallMethodsIterables\Bar[]), int given.',
+				'Parameter #5 $unionIterableType of method CallMethodsIterables\Foo::doFoo() expects CallMethodsIterables\Collection&iterable<CallMethodsIterables\Bar>, int given.',
 				62,
 			],
 			[
@@ -661,15 +661,15 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				62,
 			],
 			[
-				'Parameter #7 $unionIterableIterableType of method CallMethodsIterables\Foo::doFoo() expects CallMethodsIterables\Collection&iterable(CallMethodsIterables\Bar[]), int given.',
+				'Parameter #7 $unionIterableIterableType of method CallMethodsIterables\Foo::doFoo() expects CallMethodsIterables\Collection&iterable<CallMethodsIterables\Bar>, int given.',
 				62,
 			],
 			[
-				'Parameter #9 $integers of method CallMethodsIterables\Foo::doFoo() expects iterable(int[]), int given.',
+				'Parameter #9 $integers of method CallMethodsIterables\Foo::doFoo() expects iterable<int>, int given.',
 				62,
 			],
 			[
-				'Parameter #10 $mixeds of method CallMethodsIterables\Foo::doFoo() expects iterable(mixed[]), int given.',
+				'Parameter #10 $mixeds of method CallMethodsIterables\Foo::doFoo() expects iterable, int given.',
 				62,
 			],
 		]);

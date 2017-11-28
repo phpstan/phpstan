@@ -69,7 +69,7 @@ class ClosureReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				6,
 			],
 			[
-				'Anonymous function should return iterable(mixed[]) but returns string.',
+				'Anonymous function should return iterable but returns string.',
 				13,
 			],
 		]);

@@ -40,15 +40,15 @@ class TypesAssignedToPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 				39,
 			],
 			[
-				'Property PropertiesAssignedTypes\Foo::$unionPropertySelf ((iterable(PropertiesAssignedTypes\Foo[])&PropertiesAssignedTypes\Collection)|PropertiesAssignedTypes\Foo[]) does not accept PropertiesAssignedTypes\Foo.',
+				'Property PropertiesAssignedTypes\Foo::$unionPropertySelf ((iterable<PropertiesAssignedTypes\Foo>&PropertiesAssignedTypes\Collection)|PropertiesAssignedTypes\Foo[]) does not accept PropertiesAssignedTypes\Foo.',
 				44,
 			],
 			[
-				'Property PropertiesAssignedTypes\Foo::$unionPropertySelf ((iterable(PropertiesAssignedTypes\Foo[])&PropertiesAssignedTypes\Collection)|PropertiesAssignedTypes\Foo[]) does not accept PropertiesAssignedTypes\Bar[].',
+				'Property PropertiesAssignedTypes\Foo::$unionPropertySelf ((iterable<PropertiesAssignedTypes\Foo>&PropertiesAssignedTypes\Collection)|PropertiesAssignedTypes\Foo[]) does not accept PropertiesAssignedTypes\Bar[].',
 				45,
 			],
 			[
-				'Property PropertiesAssignedTypes\Foo::$unionPropertySelf ((iterable(PropertiesAssignedTypes\Foo[])&PropertiesAssignedTypes\Collection)|PropertiesAssignedTypes\Foo[]) does not accept PropertiesAssignedTypes\Bar.',
+				'Property PropertiesAssignedTypes\Foo::$unionPropertySelf ((iterable<PropertiesAssignedTypes\Foo>&PropertiesAssignedTypes\Collection)|PropertiesAssignedTypes\Foo[]) does not accept PropertiesAssignedTypes\Bar.',
 				46,
 			],
 			[
