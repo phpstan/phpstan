@@ -631,8 +631,11 @@ class Scope
 
 		if ($node instanceof Expr\ArrayDimFetch && $node->dim !== null) {
 			$arrayType = $this->getType($node->var);
-			if ($arrayType instanceof ArrayType) {
-				return $arrayType->getItemType();
+			if (
+				$arrayType->isIterable()->yes()
+				&& ($arrayType instanceof ArrayType || $arrayType->hasMethod('offsetGet')
+			)) {
+				return $arrayType->getIterableValueType();
 			}
 		}
 
