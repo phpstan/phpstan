@@ -53,10 +53,6 @@ class NullType implements Type
 		return 'null';
 	}
 
-	public function isDocumentableNatively(): bool
-	{
-		return true;
-	}
 
 	public static function __set_state(array $properties): Type
 	{

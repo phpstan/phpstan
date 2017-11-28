@@ -110,11 +110,6 @@ class ArrayType implements StaticResolvableType
 		return sprintf('array<%s, %s>', $this->keyType->describe(), $this->itemType->describe());
 	}
 
-	public function isDocumentableNatively(): bool
-	{
-		return true;
-	}
-
 	public function resolveStatic(string $className): Type
 	{
 		if ($this->getItemType() instanceof StaticResolvableType) {

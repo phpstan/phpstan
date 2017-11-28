@@ -101,11 +101,6 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 		return sprintf('iterable<%s, %s>', $this->keyType->describe(), $this->itemType->describe());
 	}
 
-	public function isDocumentableNatively(): bool
-	{
-		return true;
-	}
-
 	public function resolveStatic(string $className): Type
 	{
 		if ($this->getItemType() instanceof StaticResolvableType) {

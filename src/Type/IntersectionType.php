@@ -177,11 +177,6 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		throw new \PHPStan\ShouldNotHappenException();
 	}
 
-	public function isDocumentableNatively(): bool
-	{
-		return false;
-	}
-
 	public function isIterable(): TrinaryLogic
 	{
 		return $this->intersectResults(function (Type $type): TrinaryLogic {
