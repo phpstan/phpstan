@@ -78,7 +78,7 @@ function testReturnIntNotSubType(): int
 }
 
 /**
- * @param string[] $strings
+ * @param string[] ...$strings
  */
 function anotherVariadicStrings(string ...$strings)
 {

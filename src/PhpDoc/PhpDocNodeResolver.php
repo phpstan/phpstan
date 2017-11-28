@@ -162,8 +162,17 @@ class PhpDocNodeResolver
 				? $this->typeNodeResolver->resolve($tagValue->type, $nameScope)
 				: new MixedType();
 
+			if ($tagValue->isVariadic) {
+				if (!$parameterType instanceof ArrayType) {
+					$parameterType = new ArrayType(new IntegerType(), $parameterType);
+
+				} elseif ($parameterType->getIterableKeyType() instanceof MixedType) {
+					$parameterType = new ArrayType(new IntegerType(), $parameterType->getItemType());
+				}
+			}
+
 			$resolved[$parameterName] = new ParamTag(
-				$tagValue->isVariadic && !$parameterType instanceof ArrayType ? new ArrayType(new IntegerType(), $parameterType) : $parameterType,
+				$parameterType,
 				$tagValue->isVariadic
 			);
 		}

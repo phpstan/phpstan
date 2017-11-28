@@ -38,7 +38,8 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 		}
 
 		if ($type->isIterable()->yes()) {
-			return $this->getIterableValueType()->accepts($type->getIterableValueType());
+			return $this->getIterableValueType()->accepts($type->getIterableValueType())
+				&& $this->getIterableKeyType()->accepts($type->getIterableKeyType());
 		}
 
 		return false;
@@ -47,14 +48,15 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
 		return $type->isIterable()
-			->and($this->getIterableValueType()->isSuperTypeOf($type->getIterableValueType()));
+			->and($this->getIterableValueType()->isSuperTypeOf($type->getIterableValueType()))
+			->and($this->getIterableKeyType()->isSuperTypeOf($type->getIterableKeyType()));
 	}
 
 	public function isSubTypeOf(Type $otherType): TrinaryLogic
 	{
 		if ($otherType instanceof IntersectionType || $otherType instanceof UnionType) {
 			return $otherType->isSuperTypeOf(new UnionType([
-				new ArrayType($this->getIterableKeyType(), $this->itemType),
+				new ArrayType($this->keyType, $this->itemType),
 				new IntersectionType([
 					new ObjectType(\Traversable::class),
 					$this,
@@ -64,18 +66,14 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 
 		if ($otherType instanceof self) {
 			$limit = TrinaryLogic::createYes();
-			if (!$this->keyType instanceof MixedType && !$otherType->keyType instanceof MixedType) {
-				$limit = $limit->and(
-					$otherType->keyType->isSuperTypeOf($this->keyType)
-				);
-			}
 		} else {
 			$limit = TrinaryLogic::createMaybe();
 		}
 
 		return $limit->and(
 			$otherType->isIterable(),
-			$otherType->getIterableValueType()->isSuperTypeOf($this->itemType)
+			$otherType->getIterableValueType()->isSuperTypeOf($this->itemType),
+			$otherType->getIterableKeyType()->isSuperTypeOf($this->keyType)
 		);
 	}
 

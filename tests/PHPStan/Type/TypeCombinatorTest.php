@@ -457,6 +457,54 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
+					new IterableIterableType(new MixedType(), new IntegerType()),
+					new IterableIterableType(new IntegerType(), new StringType()),
+				],
+				IterableIterableType::class,
+				'iterable<int|string>',
+			],
+			[
+				[
+					new IterableIterableType(new StringType(), new IntegerType()),
+					new IterableIterableType(new IntegerType(), new StringType()),
+				],
+				IterableIterableType::class,
+				'iterable<int|string, int|string>',
+			],
+			[
+				[
+					new ArrayType(new MixedType(), new MixedType()),
+					new ArrayType(new MixedType(), new StringType()),
+				],
+				ArrayType::class,
+				'array',
+			],
+			[
+				[
+					new ArrayType(new MixedType(), new IntegerType()),
+					new ArrayType(new MixedType(), new StringType()),
+				],
+				ArrayType::class,
+				'array<int|string>',
+			],
+			[
+				[
+					new ArrayType(new MixedType(), new IntegerType()),
+					new ArrayType(new IntegerType(), new StringType()),
+				],
+				ArrayType::class,
+				'array<int|string>',
+			],
+			[
+				[
+					new ArrayType(new StringType(), new IntegerType()),
+					new ArrayType(new IntegerType(), new StringType()),
+				],
+				ArrayType::class,
+				'array<int|string, int|string>',
+			],
+			[
+				[
 					new UnionType([
 						new StringType(),
 						new NullType(),
