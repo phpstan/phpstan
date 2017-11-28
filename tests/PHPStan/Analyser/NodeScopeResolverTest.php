@@ -3259,6 +3259,46 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataArrayAccess(): array
+	{
+		return [
+			[
+				'string',
+				'$this->returnArrayOfStrings()[0]',
+			],
+			[
+				'string',
+				'$this->returnArrayObjectOfStrings()[0]',
+			],
+			[
+				'mixed',
+				'$this->returnMixed()[0]',
+			],
+			[
+				'mixed',
+				'$this->returnTraversableOnlyStrings()[0]',
+			],
+		];
+	}
+
+	/**
+	 * @requires PHP 7.1
+	 * @dataProvider dataArrayAccess
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testArrayAccess(
+		string $description,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/array-accessable.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataVoid(): array
 	{
 		return [
