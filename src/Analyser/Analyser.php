@@ -56,6 +56,11 @@ class Analyser
 	private $reportUnmatchedIgnoredErrors;
 
 	/**
+	 * @var int
+	 */
+	private $internalErrorsCountLimit;
+
+	/**
 	 * @param \PHPStan\Broker\Broker $broker
 	 * @param \PHPStan\Parser\Parser $parser
 	 * @param \PHPStan\Rules\Registry $registry
@@ -66,6 +71,7 @@ class Analyser
 	 * @param string[] $ignoreErrors
 	 * @param string|null $bootstrapFile
 	 * @param bool $reportUnmatchedIgnoredErrors
+	 * @param int $internalErrorsCountLimit
 	 */
 	public function __construct(
 		Broker $broker,
@@ -77,7 +83,8 @@ class Analyser
 		FileHelper $fileHelper,
 		array $ignoreErrors,
 		string $bootstrapFile = null,
-		bool $reportUnmatchedIgnoredErrors
+		bool $reportUnmatchedIgnoredErrors,
+		int $internalErrorsCountLimit
 	)
 	{
 		$this->broker = $broker;
@@ -89,6 +96,7 @@ class Analyser
 		$this->ignoreErrors = $ignoreErrors;
 		$this->bootstrapFile = $bootstrapFile !== null ? $fileHelper->normalizePath($bootstrapFile) : null;
 		$this->reportUnmatchedIgnoredErrors = $reportUnmatchedIgnoredErrors;
+		$this->internalErrorsCountLimit = $internalErrorsCountLimit;
 	}
 
 	/**
@@ -135,6 +143,8 @@ class Analyser
 		}
 
 		$this->nodeScopeResolver->setAnalysedFiles($files);
+		$internalErrorsCount = 0;
+		$reachedInternalErrorsCountLimit = false;
 		foreach ($files as $file) {
 			try {
 				$fileErrors = [];
@@ -168,6 +178,7 @@ class Analyser
 				if ($debug) {
 					throw $t;
 				}
+				$internalErrorsCount++;
 				$internalErrorMessage = sprintf('Internal error: %s', $t->getMessage());
 				$internalErrorMessage .= sprintf(
 					'%sRun PHPStan with --debug option and post the stack trace to:%s%s',
@@ -176,6 +187,10 @@ class Analyser
 					'https://github.com/phpstan/phpstan/issues/new'
 				);
 				$errors[] = new Error($internalErrorMessage, $file);
+				if ($internalErrorsCount >= $this->internalErrorsCountLimit) {
+					$reachedInternalErrorsCountLimit = true;
+					break;
+				}
 			}
 		}
 
@@ -201,13 +216,17 @@ class Analyser
 
 		$errors = array_merge($errors, $addErrors);
 
-		if (!$onlyFiles && $this->reportUnmatchedIgnoredErrors) {
+		if (!$onlyFiles && $this->reportUnmatchedIgnoredErrors && !$reachedInternalErrorsCountLimit) {
 			foreach ($unmatchedIgnoredErrors as $unmatchedIgnoredError) {
 				$errors[] = sprintf(
 					'Ignored error pattern %s was not matched in reported errors.',
 					$unmatchedIgnoredError
 				);
 			}
+		}
+
+		if ($reachedInternalErrorsCountLimit) {
+			$errors[] = sprintf('Reached internal errors count limit of %d, exiting...', $this->internalErrorsCountLimit);
 		}
 
 		return $errors;

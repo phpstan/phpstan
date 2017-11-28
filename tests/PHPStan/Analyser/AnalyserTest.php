@@ -155,7 +155,8 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 			$fileHelper,
 			$ignoreErrors,
 			$bootstrapFile,
-			$reportUnmatchedIgnoredErrors
+			$reportUnmatchedIgnoredErrors,
+			50
 		);
 
 		return $analyser;

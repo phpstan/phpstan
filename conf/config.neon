@@ -17,6 +17,7 @@ parameters:
 	polluteScopeWithLoopInitialAssignments: true
 	polluteCatchScopeWithTryAssignments: false
 	ignoreErrors: []
+	internalErrorsCountLimit: 50
 	reportUnmatchedIgnoredErrors: true
 	universalObjectCratesClasses:
 		- stdClass
@@ -75,6 +76,7 @@ services:
 			ignoreErrors: %ignoreErrors%
 			reportUnmatchedIgnoredErrors: %reportUnmatchedIgnoredErrors%
 			bootstrapFile: %bootstrap%
+			internalErrorsCountLimit: %internalErrorsCountLimit%
 
 	-
 		class: PHPStan\Analyser\NodeScopeResolver

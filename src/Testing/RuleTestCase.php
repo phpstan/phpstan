@@ -50,7 +50,8 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 				$fileHelper,
 				[],
 				null,
-				true
+				true,
+				50
 			);
 		}
 
