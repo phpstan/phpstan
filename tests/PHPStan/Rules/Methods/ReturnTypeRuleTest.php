@@ -85,27 +85,27 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				113,
 			],
 			[
-				'Method ReturnTypes\Foo::returnThis() should return $this but returns new self().',
+				'Method ReturnTypes\Foo::returnThis() should return $this(ReturnTypes\Foo) but returns ReturnTypes\Foo.',
 				132,
 			],
 			[
-				'Method ReturnTypes\Foo::returnThis() should return $this but returns 1.',
+				'Method ReturnTypes\Foo::returnThis() should return $this(ReturnTypes\Foo) but returns int.',
 				133,
 			],
 			[
-				'Method ReturnTypes\Foo::returnThis() should return $this but returns null.',
+				'Method ReturnTypes\Foo::returnThis() should return $this(ReturnTypes\Foo) but returns null.',
 				134,
 			],
 			[
-				'Method ReturnTypes\Foo::returnThisOrNull() should return $this but returns new self().',
+				'Method ReturnTypes\Foo::returnThisOrNull() should return $this(ReturnTypes\Foo)|null but returns ReturnTypes\Foo.',
 				146,
 			],
 			[
-				'Method ReturnTypes\Foo::returnThisOrNull() should return $this but returns 1.',
+				'Method ReturnTypes\Foo::returnThisOrNull() should return $this(ReturnTypes\Foo)|null but returns int.',
 				147,
 			],
 			[
-				'Method ReturnTypes\Foo::returnThisOrNull() should return $this but returns $this->returnStaticThatReturnsNewStatic().',
+				'Method ReturnTypes\Foo::returnThisOrNull() should return $this(ReturnTypes\Foo)|null but returns static(ReturnTypes\Foo).',
 				150,
 			],
 			[
