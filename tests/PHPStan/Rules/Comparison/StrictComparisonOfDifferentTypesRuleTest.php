@@ -32,7 +32,7 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					15,
 				],
 				[
-					'Strict comparison using === between int and bool|StrictComparison\Collection|StrictComparison\Foo[] will always evaluate to false.',
+					'Strict comparison using === between int and array<StrictComparison\Foo>|bool|StrictComparison\Collection will always evaluate to false.',
 					19,
 				],
 				[
@@ -72,7 +72,7 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					130,
 				],
 				[
-					'Strict comparison using === between mixed[] and null will always evaluate to false.',
+					'Strict comparison using === between array and null will always evaluate to false.',
 					140,
 				],
 				[
@@ -80,7 +80,7 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					154,
 				],
 				[
-					'Strict comparison using === between mixed[] and null will always evaluate to false.',
+					'Strict comparison using === between array and null will always evaluate to false.',
 					164,
 				],
 			]

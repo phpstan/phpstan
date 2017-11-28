@@ -95,7 +95,7 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		require_once __DIR__ . '/data/function-with-variadic-parameters-definition.php';
 		$this->analyse([__DIR__ . '/data/function-with-variadic-parameters-7.1.php'], [
 			[
-				'Parameter #2 ...$foo of function FunctionWithVariadicParameters\foo expects int[], iterable<string> given.',
+				'Parameter #2 ...$foo of function FunctionWithVariadicParameters\foo expects array<int, int>, iterable<string> given.',
 				16,
 			],
 		]);

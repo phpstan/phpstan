@@ -45,43 +45,43 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				68,
 			],
 			[
-				'Method ReturnTypes\Foo::returnUnionIterableType() should return (iterable<ReturnTypes\Foo>&ReturnTypes\Collection)|ReturnTypes\Foo[] but returns ReturnTypes\Foo.',
+				'Method ReturnTypes\Foo::returnUnionIterableType() should return array<ReturnTypes\Foo>|(iterable<ReturnTypes\Foo>&ReturnTypes\Collection) but returns ReturnTypes\Foo.',
 				90,
 			],
 			[
-				'Method ReturnTypes\Foo::returnUnionIterableType() should return (iterable<ReturnTypes\Foo>&ReturnTypes\Collection)|ReturnTypes\Foo[] but returns ReturnTypes\Bar.',
+				'Method ReturnTypes\Foo::returnUnionIterableType() should return array<ReturnTypes\Foo>|(iterable<ReturnTypes\Foo>&ReturnTypes\Collection) but returns ReturnTypes\Bar.',
 				92,
 			],
 			[
-				'Method ReturnTypes\Foo::returnUnionIterableType() should return (iterable<ReturnTypes\Foo>&ReturnTypes\Collection)|ReturnTypes\Foo[] but returns ReturnTypes\Bar[].',
+				'Method ReturnTypes\Foo::returnUnionIterableType() should return array<ReturnTypes\Foo>|(iterable<ReturnTypes\Foo>&ReturnTypes\Collection) but returns array<int, ReturnTypes\Bar>.',
 				93,
 			],
 			[
-				'Method ReturnTypes\Foo::returnUnionIterableType() should return (iterable<ReturnTypes\Foo>&ReturnTypes\Collection)|ReturnTypes\Foo[] but returns int.',
+				'Method ReturnTypes\Foo::returnUnionIterableType() should return array<ReturnTypes\Foo>|(iterable<ReturnTypes\Foo>&ReturnTypes\Collection) but returns int.',
 				94,
 			],
 			[
-				'Method ReturnTypes\Foo::returnUnionIterableType() should return (iterable<ReturnTypes\Foo>&ReturnTypes\Collection)|ReturnTypes\Foo[] but empty return statement found.',
+				'Method ReturnTypes\Foo::returnUnionIterableType() should return array<ReturnTypes\Foo>|(iterable<ReturnTypes\Foo>&ReturnTypes\Collection) but empty return statement found.',
 				95,
 			],
 			[
-				'Method ReturnTypes\Foo::returnUnionIterableType() should return (iterable<ReturnTypes\Foo>&ReturnTypes\Collection)|ReturnTypes\Foo[] but returns iterable<ReturnTypes\Bar>&ReturnTypes\Collection.',
+				'Method ReturnTypes\Foo::returnUnionIterableType() should return array<ReturnTypes\Foo>|(iterable<ReturnTypes\Foo>&ReturnTypes\Collection) but returns iterable<ReturnTypes\Bar>&ReturnTypes\Collection.',
 				99,
 			],
 			[
-				'Method ReturnTypes\Foo::returnUnionIterableType() should return (iterable<ReturnTypes\Foo>&ReturnTypes\Collection)|ReturnTypes\Foo[] but returns iterable<ReturnTypes\Foo>&ReturnTypes\AnotherCollection.',
+				'Method ReturnTypes\Foo::returnUnionIterableType() should return array<ReturnTypes\Foo>|(iterable<ReturnTypes\Foo>&ReturnTypes\Collection) but returns iterable<ReturnTypes\Foo>&ReturnTypes\AnotherCollection.',
 				103,
 			],
 			[
-				'Method ReturnTypes\Foo::returnUnionIterableType() should return (iterable<ReturnTypes\Foo>&ReturnTypes\Collection)|ReturnTypes\Foo[] but returns (iterable<ReturnTypes\Foo>&ReturnTypes\AnotherCollection)|(iterable<ReturnTypes\Foo>&ReturnTypes\Collection).',
+				'Method ReturnTypes\Foo::returnUnionIterableType() should return array<ReturnTypes\Foo>|(iterable<ReturnTypes\Foo>&ReturnTypes\Collection) but returns (iterable<ReturnTypes\Foo>&ReturnTypes\AnotherCollection)|(iterable<ReturnTypes\Foo>&ReturnTypes\Collection).',
 				107,
 			],
 			[
-				'Method ReturnTypes\Foo::returnUnionIterableType() should return (iterable<ReturnTypes\Foo>&ReturnTypes\Collection)|ReturnTypes\Foo[] but returns iterable<ReturnTypes\Bar>&ReturnTypes\AnotherCollection.',
+				'Method ReturnTypes\Foo::returnUnionIterableType() should return array<ReturnTypes\Foo>|(iterable<ReturnTypes\Foo>&ReturnTypes\Collection) but returns iterable<ReturnTypes\Bar>&ReturnTypes\AnotherCollection.',
 				111,
 			],
 			[
-				'Method ReturnTypes\Foo::returnUnionIterableType() should return (iterable<ReturnTypes\Foo>&ReturnTypes\Collection)|ReturnTypes\Foo[] but returns null.',
+				'Method ReturnTypes\Foo::returnUnionIterableType() should return array<ReturnTypes\Foo>|(iterable<ReturnTypes\Foo>&ReturnTypes\Collection) but returns null.',
 				113,
 			],
 			[
@@ -246,11 +246,11 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 	{
 		$this->analyse([__DIR__ . '/data/returnTypes-iterable.php'], [
 			[
-				'Method ReturnTypesIterable\Foo::stringIterable() should return iterable<string> but returns int[].',
+				'Method ReturnTypesIterable\Foo::stringIterable() should return iterable<string> but returns array<int, int>.',
 				27,
 			],
 			[
-				'Method ReturnTypesIterable\Foo::stringIterablePipe() should return iterable<string> but returns int[].',
+				'Method ReturnTypesIterable\Foo::stringIterablePipe() should return iterable<string> but returns array<int, int>.',
 				36,
 			],
 		]);

@@ -77,19 +77,19 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'arrOne',
 				TrinaryLogic::createYes(),
-				'string[]',
+				'array<string>',
 			],
 			[
 				$testScope,
 				'arrTwo',
 				TrinaryLogic::createYes(),
-				'(Foo|string)[]',
+				'array<Foo|string>',
 			],
 			[
 				$testScope,
 				'arrThree',
 				TrinaryLogic::createYes(),
-				'string[]',
+				'array<string>',
 			],
 			[
 				$testScope,
@@ -149,7 +149,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'anotherArray',
 				TrinaryLogic::createYes(),
-				'string[][]',
+				'array<array<string>>',
 			],
 			[
 				$testScope,
@@ -334,13 +334,13 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'nullableIntegers',
 				TrinaryLogic::createYes(),
-				'(int|null)[]',
+				'array<int|null>',
 			],
 			[
 				$testScope,
 				'union',
 				TrinaryLogic::createYes(),
-				'(int|string)[]',
+				'array<int|string>',
 				'int|string',
 			],
 			[
@@ -508,7 +508,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'arrayOfIntegers',
 				TrinaryLogic::createYes(),
-				'int[]',
+				'array<int, int>',
 			],
 			[
 				$testScope,
@@ -661,7 +661,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'self::IPSUM_CONSTANT',
 			],
 			[
-				'int[]',
+				'array<int, int>',
 				'parent::PARENT_CONSTANT',
 			],
 			[
@@ -815,7 +815,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$mixed',
 			],
 			[
-				'mixed[]',
+				'array',
 				'$array',
 			],
 			[
@@ -843,7 +843,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$callable',
 			],
 			[
-				'string[]',
+				'array<int, string>',
 				'$variadicStrings',
 			],
 			[
@@ -898,7 +898,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$mixed',
 			],
 			[
-				'mixed[]',
+				'array',
 				'$array',
 			],
 			[
@@ -965,7 +965,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$mixed',
 			],
 			[
-				'mixed[]',
+				'array',
 				'$array',
 			],
 			[
@@ -1028,7 +1028,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$castedString',
 			],
 			[
-				'mixed[]',
+				'array',
 				'$castedArray',
 			],
 			[
@@ -1131,7 +1131,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$newStatic',
 			],
 			[
-				'mixed[]',
+				'array',
 				'$arrayLiteral',
 			],
 			[
@@ -1163,7 +1163,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'self::STRING_CONSTANT',
 			],
 			[
-				'mixed[]',
+				'array',
 				'self::ARRAY_CONSTANT',
 			],
 			[
@@ -1187,7 +1187,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foo::STRING_CONSTANT',
 			],
 			[
-				'mixed[]',
+				'array',
 				'$foo::ARRAY_CONSTANT',
 			],
 			[
@@ -1247,11 +1247,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->anotherIntegerProperty',
 			],
 			[
-				'mixed[]',
+				'array',
 				'$this->arrayPropertyOne',
 			],
 			[
-				'mixed[]',
+				'array',
 				'$this->arrayPropertyOther',
 			],
 			[
@@ -1655,7 +1655,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'min([1, 2, 3])',
 			],
 			[
-				'int[]',
+				'array<int, int>',
 				'min([1, 2, 3], [4, 5, 5])',
 			],
 			[
@@ -1763,15 +1763,15 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'!empty($foo)',
 			],
 			[
-				'int[]',
+				'array<int, int>',
 				'$arrayOfIntegers + $arrayOfIntegers',
 			],
 			[
-				'int[]',
+				'array<int, int>',
 				'$arrayOfIntegers += $arrayOfIntegers',
 			],
 			[
-				'(int|string)[]',
+				'array<int, int|string>',
 				'$arrayOfIntegers += ["foo"]',
 			],
 			[
@@ -1783,7 +1783,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'@count($arrayOfIntegers)',
 			],
 			[
-				'int[]',
+				'array<int, int>',
 				'$anotherArray = $arrayOfIntegers',
 			],
 		];
@@ -1988,11 +1988,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$anotherIntegerParameter',
 			],
 			[
-				'mixed[]',
+				'array',
 				'$arrayParameterOne',
 			],
 			[
-				'mixed[]',
+				'array',
 				'$arrayParameterOther',
 			],
 			[
@@ -2224,7 +2224,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->returnPhpDocParent()',
 			],
 			[
-				'null[]',
+				'array<null>',
 				'$this->returnNulls()',
 			],
 			[
@@ -2810,7 +2810,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				__DIR__ . '/data/foreach/foreach-with-specified-key-type.php',
-				'(float|int|string)[]',
+				'array<string, float|int|string>',
 				'$list',
 			],
 			[
@@ -2993,11 +2993,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$reversedIntegers[0]',
 			],
 			[
-				'int[]',
+				'array<int>',
 				'$filledIntegers',
 			],
 			[
-				'int[]',
+				'array<int>',
 				'$filledIntegersWithKeys',
 			],
 		];
@@ -3052,7 +3052,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$null',
 			],
 			[
-				'mixed[]',
+				'array',
 				'$array',
 			],
 			[
@@ -3171,7 +3171,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$baz',
 			],
 			[
-				'mixed[]',
+				'array',
 				'$arrayWithIterableTypehint',
 			],
 			[
@@ -3187,7 +3187,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$unionBar',
 			],
 			[
-				'(Iterables\Bar|Iterables\Foo)[]',
+				'array<Iterables\Bar|Iterables\Foo>',
 				'$mixedUnionIterableType',
 			],
 			[

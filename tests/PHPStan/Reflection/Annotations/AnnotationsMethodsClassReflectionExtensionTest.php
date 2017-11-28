@@ -385,7 +385,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\Testing\Te
 				'parameters' => [
 					[
 						'name' => 'args',
-						'type' => 'mixed[]',
+						'type' => 'array',
 						'isPassedByReference' => false,
 						'isOptional' => true,
 						'isVariadic' => false,

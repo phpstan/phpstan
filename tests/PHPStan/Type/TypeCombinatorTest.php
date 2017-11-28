@@ -313,7 +313,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ArrayType(new MixedType(), new StringType()),
 				],
 				UnionType::class,
-				'(ArrayObject&iterable<int>)|string[]',
+				'array<string>|(ArrayObject&iterable<int>)',
 			],
 			[
 				[
@@ -324,7 +324,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ArrayType(new MixedType(), new StringType()),
 				],
 				UnionType::class,
-				'int|string[]|true',
+				'array<string>|int|true',
 			],
 			[
 				[
@@ -335,7 +335,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ArrayType(new MixedType(), new MixedType()),
 				],
 				ArrayType::class,
-				'mixed[]',
+				'array',
 			],
 			[
 				[
@@ -358,7 +358,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ArrayType(new MixedType(), new StringType()),
 				],
 				ArrayType::class,
-				'string[]',
+				'array<string>',
 			],
 			[
 				[
@@ -367,7 +367,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ArrayType(new MixedType(), new StringType()),
 				],
 				UnionType::class,
-				'ArrayIterator|ArrayObject|string[]',
+				'array<string>|ArrayIterator|ArrayObject',
 			],
 			[
 				[
@@ -377,7 +377,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ArrayType(new MixedType(), new IntegerType()),
 				],
 				UnionType::class,
-				'(int|string)[]|ArrayIterator|ArrayObject',
+				'array<int|string>|ArrayIterator|ArrayObject',
 			],
 			[
 				[
@@ -388,7 +388,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ArrayType(new MixedType(), new IntegerType()),
 				],
 				UnionType::class,
-				'(ArrayObject&iterable<int>)|int[]',
+				'array<int>|(ArrayObject&iterable<int>)',
 			],
 			[
 				[
@@ -583,7 +583,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ArrayType(new MixedType(), new StringType()),
 				],
 				ArrayType::class,
-				'string[]',
+				'array<string>',
 			],
 			[
 				[
@@ -675,7 +675,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new IterableIterableType(new MixedType(), new StringType()),
 				],
 				IntersectionType::class,
-				'iterable<string>&mixed[]', // this is correct but 'string[]' would be better
+				'array&iterable<string>', // this is correct but 'array<string>' would be better
 			],
 			[
 				[
@@ -767,7 +767,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				]),
 				new ArrayType(new MixedType(), new IntegerType()),
 				UnionType::class,
-				'ArrayObject|string[]',
+				'array<string>|ArrayObject',
 			],
 			[
 				new TrueBooleanType(),

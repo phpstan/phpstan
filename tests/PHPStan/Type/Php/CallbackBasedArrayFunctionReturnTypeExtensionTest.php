@@ -26,7 +26,7 @@ class CallbackBasedArrayFunctionReturnTypeExtensionTest extends \PHPStan\Testing
 						'returnType' => 'string',
 					])),
 				],
-				'string[]',
+				'array<string>',
 			],
 		];
 	}
