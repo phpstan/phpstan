@@ -168,7 +168,14 @@ class Analyser
 				if ($debug) {
 					throw $t;
 				}
-				$errors[] = new Error(sprintf('Internal error: %s', $t->getMessage()), $file);
+				$internalErrorMessage = sprintf('Internal error: %s', $t->getMessage());
+				$internalErrorMessage .= sprintf(
+					'%sRun PHPStan with --debug option and post the stack trace to:%s%s',
+					"\n",
+					"\n",
+					'https://github.com/phpstan/phpstan/issues/new'
+				);
+				$errors[] = new Error($internalErrorMessage, $file);
 			}
 		}
 
