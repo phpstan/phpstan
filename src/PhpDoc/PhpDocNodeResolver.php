@@ -29,7 +29,7 @@ class PhpDocNodeResolver
 
 	public function resolve(PhpDocNode $phpDocNode, NameScope $nameScope): ResolvedPhpDocBlock
 	{
-		return new ResolvedPhpDocBlock(
+		return ResolvedPhpDocBlock::create(
 			$this->resolveVarTags($phpDocNode, $nameScope),
 			$this->resolveMethodTags($phpDocNode, $nameScope),
 			$this->resolvePropertyTags($phpDocNode, $nameScope),

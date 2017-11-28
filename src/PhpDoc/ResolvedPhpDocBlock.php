@@ -39,7 +39,7 @@ class ResolvedPhpDocBlock
 	 * @param \PHPStan\PhpDoc\Tag\ParamTag[] $paramTags
 	 * @param \PHPStan\PhpDoc\Tag\ReturnTag|null $returnTag
 	 */
-	public function __construct(
+	private function __construct(
 		array $varTags,
 		array $methodTags,
 		array $propertyTags,
@@ -53,6 +53,31 @@ class ResolvedPhpDocBlock
 		$this->paramTags = $paramTags;
 		$this->returnTag = $returnTag;
 	}
+
+	/**
+	 * @param \PHPStan\PhpDoc\Tag\VarTag[] $varTags
+	 * @param \PHPStan\PhpDoc\Tag\MethodTag[] $methodTags
+	 * @param \PHPStan\PhpDoc\Tag\PropertyTag[] $propertyTags
+	 * @param \PHPStan\PhpDoc\Tag\ParamTag[] $paramTags
+	 * @param \PHPStan\PhpDoc\Tag\ReturnTag|null $returnTag
+	 * @return self
+	 */
+	public static function create(
+		array $varTags,
+		array $methodTags,
+		array $propertyTags,
+		array $paramTags,
+		ReturnTag $returnTag = null
+	): self
+	{
+		return new self($varTags, $methodTags, $propertyTags, $paramTags, $returnTag);
+	}
+
+	public static function createEmpty(): self
+	{
+		return new self([], [], [], [], null);
+	}
+
 
 	/**
 	 * @return \PHPStan\PhpDoc\Tag\VarTag[]
