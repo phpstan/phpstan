@@ -7,11 +7,13 @@ use PHPStan\Reflection\ClassConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Traits\NonIterableTypeTrait;
 
 class NonexistentParentClassType implements Type
 {
 
 	use JustNullableTypeTrait;
+	use NonIterableTypeTrait;
 
 	public function describe(): string
 	{
