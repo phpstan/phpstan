@@ -3,11 +3,13 @@
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Traits\NonObjectTypeTrait;
 
 class ArrayType implements StaticResolvableType
 {
 
 	use IterableTypeTrait;
+	use NonObjectTypeTrait;
 
 	/** @var \PHPStan\Type\Type */
 	private $keyType;
