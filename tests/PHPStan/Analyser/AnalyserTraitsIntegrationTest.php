@@ -96,6 +96,19 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertSame('Undefined variable: $undefined', $errors[2]->getMessage());
 	}
 
+	public function testTraitInAnonymousClass()
+	{
+		$errors = $this->runAnalyse(
+			[
+				__DIR__ . '/traits/AnonymousClassUsingTrait.php',
+				__DIR__ . '/traits/TraitWithTypeSpecification.php',
+			]
+		);
+		$this->assertCount(1, $errors);
+		$this->assertContains('Access to an undefined property', $errors[0]->getMessage());
+		$this->assertSame(18, $errors[0]->getLine());
+	}
+
 	/**
 	 * @param string[] $files
 	 * @return \PHPStan\Analyser\Error[]

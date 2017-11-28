@@ -26,6 +26,9 @@ class ClassReflection
 	/** @var \ReflectionClass */
 	private $reflection;
 
+	/** @var bool */
+	private $anonymous;
+
 	/** @var \PHPStan\Reflection\MethodReflection[] */
 	private $methods = [];
 
@@ -43,7 +46,8 @@ class ClassReflection
 		array $propertiesClassReflectionExtensions,
 		array $methodsClassReflectionExtensions,
 		string $displayName,
-		\ReflectionClass $reflection
+		\ReflectionClass $reflection,
+		bool $anonymous
 	)
 	{
 		$this->broker = $broker;
@@ -51,11 +55,29 @@ class ClassReflection
 		$this->methodsClassReflectionExtensions = $methodsClassReflectionExtensions;
 		$this->displayName = $displayName;
 		$this->reflection = $reflection;
+		$this->anonymous = $anonymous;
 	}
 
 	public function getNativeReflection(): \ReflectionClass
 	{
 		return $this->reflection;
+	}
+
+	/**
+	 * @return string|false
+	 */
+	public function getFileName()
+	{
+		$fileName = $this->reflection->getFileName();
+		if ($fileName === false) {
+			return false;
+		}
+
+		if (!file_exists($fileName)) {
+			return false;
+		}
+
+		return $fileName;
 	}
 
 	/**
@@ -239,7 +261,7 @@ class ClassReflection
 
 	public function isAnonymous(): bool
 	{
-		return $this->reflection->isAnonymous();
+		return $this->anonymous;
 	}
 
 	public function isSubclassOf(string $className): bool

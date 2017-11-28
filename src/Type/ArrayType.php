@@ -9,6 +9,9 @@ class ArrayType implements StaticResolvableType
 
 	use IterableTypeTrait;
 
+	/** @var \PHPStan\Type\Type */
+	private $keyType;
+
 	/** @var bool */
 	private $itemTypeInferredFromLiteralArray;
 
@@ -16,6 +19,7 @@ class ArrayType implements StaticResolvableType
 	private $callable;
 
 	public function __construct(
+		Type $keyType,
 		Type $itemType,
 		bool $itemTypeInferredFromLiteralArray = false,
 		TrinaryLogic $callable = null
@@ -24,6 +28,7 @@ class ArrayType implements StaticResolvableType
 		if ($itemType instanceof UnionType && !TypeCombinator::isUnionTypesEnabled()) {
 			$itemType = new MixedType();
 		}
+		$this->keyType = $keyType;
 		$this->itemType = $itemType;
 		$this->itemTypeInferredFromLiteralArray = $itemTypeInferredFromLiteralArray;
 		$this->callable = $callable ?? TrinaryLogic::createNo();
@@ -41,10 +46,10 @@ class ArrayType implements StaticResolvableType
 	{
 		$itemType = $nestedItemType->getItemType();
 		for ($i = 0; $i < $nestedItemType->getDepth() - 1; $i++) {
-			$itemType = new self($itemType, false);
+			$itemType = new self(new MixedType(), $itemType, false);
 		}
 
-		return new self($itemType, $nullable);
+		return new self(new MixedType(), $itemType, $nullable);
 	}
 
 	public function isItemTypeInferredFromLiteralArray(): bool
@@ -55,7 +60,8 @@ class ArrayType implements StaticResolvableType
 	public function accepts(Type $type): bool
 	{
 		if ($type instanceof self) {
-			return $this->getItemType()->accepts($type->getItemType());
+			return $this->getItemType()->accepts($type->getItemType())
+				&& $this->keyType->accepts($type->keyType);
 		}
 
 		if ($type instanceof CompoundType) {
@@ -65,14 +71,15 @@ class ArrayType implements StaticResolvableType
 		return false;
 	}
 
-	public function isSupersetOf(Type $type): TrinaryLogic
+	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
 		if ($type instanceof self) {
-			return $this->getItemType()->isSupersetOf($type->getItemType());
+			return $this->getItemType()->isSuperTypeOf($type->getItemType())
+				->and($this->keyType->isSuperTypeOf($type->keyType));
 		}
 
 		if ($type instanceof CompoundType) {
-			return $type->isSubsetOf($this);
+			return $type->isSubTypeOf($this);
 		}
 
 		return TrinaryLogic::createNo();
@@ -80,8 +87,15 @@ class ArrayType implements StaticResolvableType
 
 	public function describe(): string
 	{
-		$format = $this->itemType instanceof UnionType ? '(%s)[]' : '%s[]';
-		return sprintf($format, $this->getItemType()->describe());
+		if ($this->keyType instanceof MixedType) {
+			if ($this->itemType instanceof MixedType) {
+				return 'array';
+			}
+
+			return sprintf('array<%s>', $this->itemType->describe());
+		}
+
+		return sprintf('array<%s, %s>', $this->keyType->describe(), $this->itemType->describe());
 	}
 
 	public function isDocumentableNatively(): bool
@@ -93,6 +107,7 @@ class ArrayType implements StaticResolvableType
 	{
 		if ($this->getItemType() instanceof StaticResolvableType) {
 			return new self(
+				$this->keyType,
 				$this->getItemType()->resolveStatic($className),
 				$this->isItemTypeInferredFromLiteralArray(),
 				$this->callable
@@ -106,6 +121,7 @@ class ArrayType implements StaticResolvableType
 	{
 		if ($this->getItemType() instanceof StaticResolvableType) {
 			return new self(
+				$this->keyType,
 				$this->getItemType()->changeBaseClass($className),
 				$this->isItemTypeInferredFromLiteralArray(),
 				$this->callable
@@ -122,7 +138,7 @@ class ArrayType implements StaticResolvableType
 
 	public function getIterableKeyType(): Type
 	{
-		return new MixedType();
+		return $this->keyType;
 	}
 
 	public function getIterableValueType(): Type
@@ -137,7 +153,12 @@ class ArrayType implements StaticResolvableType
 
 	public static function __set_state(array $properties): Type
 	{
-		return new self($properties['itemType'], $properties['itemTypeInferredFromLiteralArray'], $properties['callable']);
+		return new self(
+			$properties['keyType'],
+			$properties['itemType'],
+			$properties['itemTypeInferredFromLiteralArray'],
+			$properties['callable']
+		);
 	}
 
 }

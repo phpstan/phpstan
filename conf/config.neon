@@ -17,6 +17,7 @@ parameters:
 	polluteScopeWithLoopInitialAssignments: true
 	polluteCatchScopeWithTryAssignments: false
 	ignoreErrors: []
+	internalErrorsCountLimit: 50
 	reportUnmatchedIgnoredErrors: true
 	universalObjectCratesClasses:
 		- stdClass
@@ -46,11 +47,36 @@ services:
 		class: PhpParser\PrettyPrinter\Standard
 
 	-
+		class: PHPStan\PhpDocParser\Lexer\Lexer
+
+	-
+		class: PHPStan\PhpDocParser\Parser\TypeParser
+
+	-
+		class: PHPStan\PhpDocParser\Parser\ConstExprParser
+
+	-
+		class: PHPStan\PhpDocParser\Parser\PhpDocParser
+
+	-
+		class: PHPStan\PhpDoc\PhpDocNodeResolver
+
+	-
+		class: PHPStan\PhpDoc\PhpDocStringResolver
+
+	-
+		class: PHPStan\PhpDoc\TypeNodeResolver
+
+	-
+		class: PHPStan\PhpDoc\TypeStringResolver
+
+	-
 		class: PHPStan\Analyser\Analyser
 		arguments:
 			ignoreErrors: %ignoreErrors%
 			reportUnmatchedIgnoredErrors: %reportUnmatchedIgnoredErrors%
 			bootstrapFile: %bootstrap%
+			internalErrorsCountLimit: %internalErrorsCountLimit%
 
 	-
 		class: PHPStan\Analyser\NodeScopeResolver
@@ -61,9 +87,6 @@ services:
 
 	-
 		class: PHPStan\Analyser\TypeSpecifier
-
-	-
-		class: PHPStan\Broker\BrokerFactory
 
 	-
 		class: PHPStan\Cache\Cache
@@ -191,7 +214,10 @@ services:
 
 	broker:
 		class: PHPStan\Broker\Broker
-		factory: @PHPStan\Broker\BrokerFactory::create
+		factory: @brokerFactory::create
+
+	brokerFactory:
+		class: PHPStan\Broker\BrokerFactory
 
 	cacheStorage:
 		class: PHPStan\Cache\FileCacheStorage

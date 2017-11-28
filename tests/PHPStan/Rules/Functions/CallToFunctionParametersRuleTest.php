@@ -95,7 +95,7 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		require_once __DIR__ . '/data/function-with-variadic-parameters-definition.php';
 		$this->analyse([__DIR__ . '/data/function-with-variadic-parameters-7.1.php'], [
 			[
-				'Parameter #2 ...$foo of function FunctionWithVariadicParameters\foo expects int[], iterable(string[]) given.',
+				'Parameter #2 ...$foo of function FunctionWithVariadicParameters\foo expects array<int, int>, iterable<string> given.',
 				16,
 			],
 		]);
@@ -230,6 +230,17 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Parameter #1 $i of function CallToFunctionInForeachCondition\takesString expects string, int given.',
 				20,
+			],
+		]);
+	}
+
+	public function testCallToFunctionInDoWhileLoop()
+	{
+		require_once __DIR__ . '/data/do-while-loop.php';
+		$this->analyse([__DIR__ . '/data/do-while-loop.php'], [
+			[
+				'Parameter #1 $object of function CallToFunctionDoWhileLoop\requireStdClass expects stdClass, stdClass|null given.',
+				18,
 			],
 		]);
 	}

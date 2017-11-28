@@ -27,7 +27,7 @@ class ExistingClassesInTypehintsRuleTest extends \PHPStan\Testing\RuleTestCase
 				15,
 			],
 			[
-				'Return typehint of function TestFunctionTypehints\returnParent() has invalid type parent.',
+				'Return typehint of function TestFunctionTypehints\returnParent() has invalid type TestFunctionTypehints\parent.',
 				28,
 			],
 			[

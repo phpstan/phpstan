@@ -36,7 +36,15 @@ It currently performs the following checks on your code:
 * Correct number of parameters passed to `sprintf`/`printf` calls based on format strings.
 * Useless casts like `(string) 'foo'`.
 * Unused constructor parameters - they can either be deleted or the author forgot to
-use them in the class code.
+use them in the method body.
+* Require calling `parent::__construct()` if the parent constructor exists.
+* Only valid array key types are used (only integers, strings, floats, booleans and nulls).
+* Duplicate array keys in literal arrays.
+* Only iterables are passed to `foreach`.
+* Correct case when referencing classes. Class names are case insensitive, but taking advantage of this is dangerous with autoloading on case-insensitive filesystems.
+* Impossible checks (dead code) of incompatible types with `instanceof`, `===`, `!==` and various function checks like `is_int` or `is_null`.
+* Always-defined and never-defined variables in `isset()` call.
+* Validating phpDocs - finding incompatible types between phpDocs and native typehints.
 * That only objects are passed to the `clone` keyword.
 
 ## Extensibility
@@ -116,6 +124,8 @@ and PHPStan's strict checks, you can choose from currently 8 levels
 
 This feature enables incremental adoption of PHPStan checks. You can start using PHPStan
 with a lower rule level and increase it when you feel like it.
+
+You can also use `--level max` as an alias for the highest level. This will ensure that you will always use the highest level when upgrading to new versions of PHPStan. Please note that this can create a significant obstacle when upgrading to a newer version because you might have to fix a lot of code to bring the number of errors down to zero.
 
 ## Configuration
 
@@ -215,16 +225,6 @@ parameters:
 
 ### Add non-obviously assigned variables to scope
 
-If you use the initial assignment variable after for-loop or while-loop, set `polluteScopeWithLoopInitialAssignments` boolean parameter to `true`.
-
-```php
-for ($i = 0; $i < count($list); $i++) {
-	// ...
-}
-
-echo $i;
-```
-
 If you use some variables from a try block in your catch blocks, set `polluteCatchScopeWithTryAssignments` boolean parameter to `true`.
 
 ```php
@@ -253,7 +253,7 @@ if (somethingIsTrue()) {
 doFoo($foo);
 ```
 
-I recommend leaving `polluteScopeWithLoopInitialAssignments` and `polluteCatchScopeWithTryAssignments` set to `false` because it leads to a clearer and more maintainable code.
+I recommend leaving `polluteCatchScopeWithTryAssignments` set to `false` because it leads to a clearer and more maintainable code.
 
 ### Custom early terminating method calls
 
@@ -542,12 +542,8 @@ public function getTypeFromMethodCall(MethodReflection $methodReflection, Method
 		return $methodReflection->getReturnType();
 	}
 	$arg = $methodCall->args[0]->value;
-	$type = $scope->getType($arg);
-	if ($type->getClass() !== null) {
-		return $type;
-	}
 
-	return $methodReflection->getReturnType();
+	return $scope->getType($arg);
 }
 ```
 

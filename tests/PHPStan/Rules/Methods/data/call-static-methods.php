@@ -72,7 +72,7 @@ class Ipsum
 class ClassWithConstructor
 {
 
-	public function __construct($foo)
+	private function __construct($foo)
 	{
 
 	}
@@ -135,3 +135,29 @@ function (FOO $foo)
 function (string $className) {
 	$className::foo();
 };
+
+class CallingNonexistentParentConstructor extends Foo
+{
+
+	public function __construct()
+	{
+		parent::__construct();
+	}
+
+}
+
+class Baz extends Foo
+{
+
+	public function doFoo()
+	{
+		parent::nonexistent();
+	}
+
+	public static function doBaz()
+	{
+		parent::nonexistent();
+		parent::loremIpsum();
+	}
+
+}

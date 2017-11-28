@@ -24,7 +24,7 @@ class ClassReflectionTest extends \PHPStan\Testing\TestCase
 	public function testHasTraitUse(string $className, bool $has)
 	{
 		$broker = $this->createMock(Broker::class);
-		$classReflection = new ClassReflection($broker, [], [], $className, new \ReflectionClass($className));
+		$classReflection = new ClassReflection($broker, [], [], $className, new \ReflectionClass($className), false);
 		$this->assertSame($has, $classReflection->hasTraitUse(\HasTraitUse\FooTrait::class));
 	}
 
@@ -70,7 +70,8 @@ class ClassReflectionTest extends \PHPStan\Testing\TestCase
 			[],
 			[],
 			$class,
-			new \ReflectionClass($class)
+			new \ReflectionClass($class),
+			false
 		);
 		$this->assertSame(
 			$expectedDistances,

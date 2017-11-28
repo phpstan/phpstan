@@ -34,12 +34,12 @@ class MixedType implements CompoundType
 		return true;
 	}
 
-	public function isSupersetOf(Type $type): TrinaryLogic
+	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
 		return TrinaryLogic::createYes();
 	}
 
-	public function isSubsetOf(Type $otherType): TrinaryLogic
+	public function isSubTypeOf(Type $otherType): TrinaryLogic
 	{
 		if ($otherType instanceof self) {
 			return TrinaryLogic::createYes();

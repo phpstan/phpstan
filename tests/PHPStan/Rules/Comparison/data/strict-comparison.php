@@ -144,6 +144,30 @@ class Foo
 		}
 	}
 
+	public function forWithTypeChange()
+	{
+		$foo = null;
+		for (;;) {
+			if ($foo !== null) {
+
+			}
+			if ($foo !== 1) {
+
+			}
+
+			if (something()) {
+				$foo = new self();
+			}
+		}
+
+		for (; $val = $this->returnArray();) {
+			if ($val === null) {
+
+			}
+			$val = null;
+		}
+	}
+
 	private function returnArray(): array
 	{
 

@@ -124,8 +124,19 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
+		$constructorReflection = $classReflection->hasNativeMethod('__construct') ? $classReflection->getNativeMethod('__construct') : $classReflection->getNativeMethod($class);
+		if (!$scope->canCallMethod($constructorReflection)) {
+			$messages[] = sprintf(
+				'Cannot instantiate class %s via %s constructor %s::%s().',
+				$classReflection->getDisplayName(),
+				$constructorReflection->isPrivate() ? 'private' : 'protected',
+				$constructorReflection->getDeclaringClass()->getDisplayName(),
+				$constructorReflection->getName()
+			);
+		}
+
 		return array_merge($messages, $this->check->check(
-			$classReflection->hasNativeMethod('__construct') ? $classReflection->getNativeMethod('__construct') : $classReflection->getNativeMethod($class),
+			$constructorReflection,
 			$scope,
 			$node,
 			[

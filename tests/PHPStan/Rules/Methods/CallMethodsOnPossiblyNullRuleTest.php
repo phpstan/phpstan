@@ -19,6 +19,18 @@ class CallMethodsOnPossiblyNullRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Calling method format() on possibly null value of type DateTimeImmutable|null.',
 				11,
 			],
+			[
+				'Calling method doFoo() on possibly null value of type CallingMethodOnPossiblyNullable\IssetIssue|null.',
+				83,
+			],
+			[
+				'Calling method doFoo() on possibly null value of type CallingMethodOnPossiblyNullable\IssetIssue|null.',
+				84,
+			],
+			[
+				'Calling method doFoo() on possibly null value of type CallingMethodOnPossiblyNullable\IssetIssue|null.',
+				85,
+			],
 		]);
 	}
 

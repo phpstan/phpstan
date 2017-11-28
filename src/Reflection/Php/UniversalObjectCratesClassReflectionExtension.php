@@ -7,7 +7,7 @@ use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\PropertyReflection;
 
 class UniversalObjectCratesClassReflectionExtension
-	implements \PHPStan\Reflection\PropertiesClassReflectionExtension, \PHPStan\Reflection\BrokerAwareClassReflectionExtension
+	implements \PHPStan\Reflection\PropertiesClassReflectionExtension, \PHPStan\Reflection\BrokerAwareExtension
 {
 
 	/** @var string[] */
@@ -39,7 +39,7 @@ class UniversalObjectCratesClassReflectionExtension
 				return $this->broker->hasClass($class);
 			}));
 		}
-		if ($classReflection->getNativeReflection()->hasProperty($propertyName)) {
+		if ($classReflection->hasNativeProperty($propertyName)) {
 			return false;
 		}
 

@@ -49,25 +49,25 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		return true;
 	}
 
-	public function isSupersetOf(Type $otherType): TrinaryLogic
+	public function isSuperTypeOf(Type $otherType): TrinaryLogic
 	{
 		$results = [];
 		foreach ($this->getTypes() as $innerType) {
-			$results[] = $innerType->isSupersetOf($otherType);
+			$results[] = $innerType->isSuperTypeOf($otherType);
 		}
 
 		return TrinaryLogic::createYes()->and(...$results);
 	}
 
-	public function isSubsetOf(Type $otherType): TrinaryLogic
+	public function isSubTypeOf(Type $otherType): TrinaryLogic
 	{
 		if ($otherType instanceof self || $otherType instanceof UnionType) {
-			return $otherType->isSupersetOf($this);
+			return $otherType->isSuperTypeOf($this);
 		}
 
 		$results = [];
 		foreach ($this->getTypes() as $innerType) {
-			$results[] = $otherType->isSupersetOf($innerType);
+			$results[] = $otherType->isSuperTypeOf($innerType);
 		}
 
 		return TrinaryLogic::maxMin(...$results);

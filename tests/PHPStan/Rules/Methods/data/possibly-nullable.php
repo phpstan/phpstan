@@ -37,3 +37,60 @@ class Test {
 	}
 
 }
+
+class NullCoalesce
+{
+
+	/** @var self|null */
+	private $foo;
+
+	public function doFoo()
+	{
+		$this->foo->find() ?? 'bar';
+
+		if ($this->foo->find() ?? 'bar') {
+
+		}
+
+		($this->foo->find() ?? 'bar') ? 'foo' : 'bar';
+	}
+
+	/**
+	 * @return self|null
+	 */
+	public function find()
+	{
+
+	}
+
+}
+
+class IssetIssue
+{
+
+	public function doFoo()
+	{
+		$one = $this->getNullable();
+		$two = $this->getNullable();
+		$three = $this->getNullable();
+
+		isset($one);
+		isset($two) ? $two->doFoo() : false;
+		$array = [
+			isset($three) ? $three->doFoo() : false,
+		];
+
+		$one->doFoo();
+		$two->doFoo();
+		$three->doFoo();
+	}
+
+	/**
+	 * @return self|null
+	 */
+	public function getNullable()
+	{
+
+	}
+
+}

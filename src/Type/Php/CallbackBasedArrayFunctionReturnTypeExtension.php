@@ -7,6 +7,7 @@ use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 
 class CallbackBasedArrayFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
@@ -37,7 +38,7 @@ class CallbackBasedArrayFunctionReturnTypeExtension implements \PHPStan\Type\Dyn
 
 		$anonymousFunctionType = $scope->getFunctionType($argumentValue->returnType, $argumentValue->returnType === null, false);
 
-		return new ArrayType($anonymousFunctionType, true);
+		return new ArrayType(new MixedType(), $anonymousFunctionType, true);
 	}
 
 }

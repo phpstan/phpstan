@@ -7,6 +7,7 @@ use PHPStan\Analyser\Error;
 use PHPStan\Analyser\NodeScopeResolver;
 use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Cache\Cache;
+use PHPStan\PhpDoc\PhpDocStringResolver;
 use PHPStan\Rules\Registry;
 use PHPStan\Rules\Rule;
 use PHPStan\Type\FileTypeMapper;
@@ -38,8 +39,7 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 					$broker,
 					$this->getParser(),
 					$printer,
-					new FileTypeMapper($this->getParser(), $this->createMock(Cache::class)),
-					new \PhpParser\BuilderFactory(),
+					new FileTypeMapper($this->getParser(), $this->getContainer()->getByType(PhpDocStringResolver::class), $this->createMock(Cache::class)),
 					$fileHelper,
 					$this->shouldPolluteScopeWithLoopInitialAssignments(),
 					$this->shouldPolluteCatchScopeWithTryAssignments(),
@@ -50,7 +50,8 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 				$fileHelper,
 				[],
 				null,
-				true
+				true,
+				50
 			);
 		}
 

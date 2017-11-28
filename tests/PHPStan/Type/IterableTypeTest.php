@@ -7,95 +7,154 @@ use PHPStan\TrinaryLogic;
 class IterableTypeTest extends \PHPStan\Testing\TestCase
 {
 
-	public function dataIsSubsetOf(): array
+	public function dataIsSuperTypeOf(): array
 	{
 		return [
 			[
-				new IterableIterableType(new StringType()),
-				new IterableIterableType(new StringType()),
+				new IterableIterableType(new IntegerType(), new StringType()),
+				new ArrayType(new IntegerType(), new StringType()),
 				TrinaryLogic::createYes(),
 			],
 			[
-				new IterableIterableType(new StringType()),
-				new ObjectType('Unknown'),
+				new IterableIterableType(new MixedType(), new StringType()),
+				new ArrayType(new IntegerType(), new StringType()),
+				TrinaryLogic::createYes(),
+			],
+			[
+				new IterableIterableType(new IntegerType(), new StringType()),
+				new ArrayType(new MixedType(), new StringType()),
 				TrinaryLogic::createMaybe(),
 			],
 			[
-				new IterableIterableType(new StringType()),
-				new IntegerType(),
-				TrinaryLogic::createNo(),
-			],
-			[
-				new IterableIterableType(new StringType()),
-				new IterableIterableType(new IntegerType()),
-				TrinaryLogic::createNo(),
-			],
-			[
-				new IterableIterableType(new StringType()),
-				new UnionType([new IterableIterableType(new StringType()), new NullType()]),
-				TrinaryLogic::createYes(),
-			],
-			[
-				new IterableIterableType(new StringType()),
-				new UnionType([new ArrayType(new MixedType()), new ObjectType('Traversable')]),
-				TrinaryLogic::createYes(),
-			],
-			[
-				new IterableIterableType(new StringType()),
-				new UnionType([new ArrayType(new StringType()), new ObjectType('Traversable')]),
-				TrinaryLogic::createYes(),
-			],
-			[
-				new IterableIterableType(new StringType()),
-				new UnionType([new ObjectType('Unknown'), new NullType()]),
-				TrinaryLogic::createMaybe(),
-			],
-			[
-				new IterableIterableType(new StringType()),
-				new UnionType([new IntegerType(), new NullType()]),
-				TrinaryLogic::createNo(),
-			],
-			[
-				new IterableIterableType(new StringType()),
-				new UnionType([new IterableIterableType(new IntegerType()), new NullType()]),
+				new IterableIterableType(new StringType(), new StringType()),
+				new ArrayType(new IntegerType(), new StringType()),
 				TrinaryLogic::createNo(),
 			],
 		];
 	}
 
 	/**
-	 * @dataProvider dataIsSubsetOf
+	 * @dataProvider dataIsSuperTypeOf
 	 * @param IterableIterableType $type
 	 * @param Type $otherType
-	 * @param int $expectedResult
+	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSubsetOf(IterableIterableType $type, Type $otherType, TrinaryLogic $expectedResult)
+	public function testIsSuperTypeOf(IterableIterableType $type, Type $otherType, TrinaryLogic $expectedResult)
 	{
 		$this->createBroker();
 
-		$actualResult = $type->isSubsetOf($otherType);
+		$actualResult = $type->isSuperTypeOf($otherType);
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isSubsetOf(%s)', $type->describe(), $otherType->describe())
+			sprintf('%s -> isSuperTypeOf(%s)', $type->describe(), $otherType->describe())
+		);
+	}
+
+	public function dataIsSubTypeOf(): array
+	{
+		return [
+			[
+				new IterableIterableType(new MixedType(), new StringType()),
+				new IterableIterableType(new MixedType(), new StringType()),
+				TrinaryLogic::createYes(),
+			],
+			[
+				new IterableIterableType(new MixedType(), new StringType()),
+				new ObjectType('Unknown'),
+				TrinaryLogic::createMaybe(),
+			],
+			[
+				new IterableIterableType(new MixedType(), new StringType()),
+				new IntegerType(),
+				TrinaryLogic::createNo(),
+			],
+			[
+				new IterableIterableType(new MixedType(), new StringType()),
+				new IterableIterableType(new MixedType(), new IntegerType()),
+				TrinaryLogic::createNo(),
+			],
+			[
+				new IterableIterableType(new MixedType(), new StringType()),
+				new UnionType([new IterableIterableType(new MixedType(), new StringType()), new NullType()]),
+				TrinaryLogic::createYes(),
+			],
+			[
+				new IterableIterableType(new MixedType(), new StringType()),
+				new UnionType([new ArrayType(new MixedType(), new MixedType()), new ObjectType('Traversable')]),
+				TrinaryLogic::createYes(),
+			],
+			[
+				new IterableIterableType(new MixedType(), new StringType()),
+				new UnionType([new ArrayType(new MixedType(), new StringType()), new ObjectType('Traversable')]),
+				TrinaryLogic::createYes(),
+			],
+			[
+				new IterableIterableType(new MixedType(), new StringType()),
+				new UnionType([new ObjectType('Unknown'), new NullType()]),
+				TrinaryLogic::createMaybe(),
+			],
+			[
+				new IterableIterableType(new MixedType(), new StringType()),
+				new UnionType([new IntegerType(), new NullType()]),
+				TrinaryLogic::createNo(),
+			],
+			[
+				new IterableIterableType(new MixedType(), new StringType()),
+				new UnionType([new IterableIterableType(new MixedType(), new IntegerType()), new NullType()]),
+				TrinaryLogic::createNo(),
+			],
+			[
+				new IterableIterableType(new IntegerType(), new StringType()),
+				new IterableIterableType(new MixedType(), new StringType()),
+				TrinaryLogic::createYes(),
+			],
+			[
+				new IterableIterableType(new MixedType(), new StringType()),
+				new IterableIterableType(new IntegerType(), new StringType()),
+				TrinaryLogic::createMaybe(),
+			],
+			[
+				new IterableIterableType(new StringType(), new StringType()),
+				new IterableIterableType(new IntegerType(), new StringType()),
+				TrinaryLogic::createNo(),
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataIsSubTypeOf
+	 * @param IterableIterableType $type
+	 * @param Type $otherType
+	 * @param TrinaryLogic $expectedResult
+	 */
+	public function testIsSubTypeOf(IterableIterableType $type, Type $otherType, TrinaryLogic $expectedResult)
+	{
+		$this->createBroker();
+
+		$actualResult = $type->isSubTypeOf($otherType);
+		$this->assertSame(
+			$expectedResult->describe(),
+			$actualResult->describe(),
+			sprintf('%s -> isSubTypeOf(%s)', $type->describe(), $otherType->describe())
 		);
 	}
 
 	/**
-	 * @dataProvider dataIsSubsetOf
+	 * @dataProvider dataIsSubTypeOf
 	 * @param IterableIterableType $type
 	 * @param Type $otherType
-	 * @param int $expectedResult
+	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSubsetOfInversed(IterableIterableType $type, Type $otherType, TrinaryLogic $expectedResult)
+	public function testIsSubTypeOfInversed(IterableIterableType $type, Type $otherType, TrinaryLogic $expectedResult)
 	{
 		$this->createBroker();
 
-		$actualResult = $otherType->isSupersetOf($type);
+		$actualResult = $otherType->isSuperTypeOf($type);
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isSupersetOf(%s)', $otherType->describe(), $type->describe())
+			sprintf('%s -> isSuperTypeOf(%s)', $otherType->describe(), $type->describe())
 		);
 	}
 

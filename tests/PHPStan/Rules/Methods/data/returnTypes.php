@@ -423,3 +423,14 @@ class AnotherCollection implements \IteratorAggregate
 	}
 
 }
+
+class GeneratorMethod
+{
+
+	public function doFoo(): \Generator
+	{
+		return false;
+		yield "foo";
+	}
+
+}

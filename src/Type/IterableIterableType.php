@@ -9,10 +9,17 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 
 	use IterableTypeTrait;
 
+	/**
+	 * @var \PHPStan\Type\Type
+	 */
+	private $keyType;
+
 	public function __construct(
+		Type $keyType,
 		Type $itemType
 	)
 	{
+		$this->keyType = $keyType;
 		$this->itemType = $itemType;
 	}
 
@@ -31,23 +38,25 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 		}
 
 		if ($type->isIterable()->yes()) {
-			return $this->getIterableValueType()->accepts($type->getIterableValueType());
+			return $this->getIterableValueType()->accepts($type->getIterableValueType())
+				&& $this->getIterableKeyType()->accepts($type->getIterableKeyType());
 		}
 
 		return false;
 	}
 
-	public function isSupersetOf(Type $type): TrinaryLogic
+	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
 		return $type->isIterable()
-			->and($this->getIterableValueType()->isSupersetOf($type->getIterableValueType()));
+			->and($this->getIterableValueType()->isSuperTypeOf($type->getIterableValueType()))
+			->and($this->getIterableKeyType()->isSuperTypeOf($type->getIterableKeyType()));
 	}
 
-	public function isSubsetOf(Type $otherType): TrinaryLogic
+	public function isSubTypeOf(Type $otherType): TrinaryLogic
 	{
 		if ($otherType instanceof IntersectionType || $otherType instanceof UnionType) {
-			return $otherType->isSupersetOf(new UnionType([
-				new ArrayType($this->itemType),
+			return $otherType->isSuperTypeOf(new UnionType([
+				new ArrayType($this->keyType, $this->itemType),
 				new IntersectionType([
 					new ObjectType(\Traversable::class),
 					$this,
@@ -63,20 +72,22 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 
 		return $limit->and(
 			$otherType->isIterable(),
-			$otherType->getIterableValueType()->isSupersetOf($this->itemType)
+			$otherType->getIterableValueType()->isSuperTypeOf($this->itemType),
+			$otherType->getIterableKeyType()->isSuperTypeOf($this->keyType)
 		);
 	}
 
 	public function describe(): string
 	{
-		if ($this->getItemType() instanceof UnionType) {
-			$description = implode('|', array_map(function (Type $type): string {
-				return sprintf('%s[]', $type->describe());
-			}, $this->getItemType()->getTypes()));
-		} else {
-			$description = sprintf('%s[]', $this->getItemType()->describe());
+		if ($this->keyType instanceof MixedType) {
+			if ($this->itemType instanceof MixedType) {
+				return 'iterable';
+			}
+
+			return sprintf('iterable<%s>', $this->itemType->describe());
 		}
-		return sprintf('iterable(%s)', $description);
+
+		return sprintf('iterable<%s, %s>', $this->keyType->describe(), $this->itemType->describe());
 	}
 
 	public function isDocumentableNatively(): bool
@@ -88,6 +99,7 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 	{
 		if ($this->getItemType() instanceof StaticResolvableType) {
 			return new self(
+				$this->keyType,
 				$this->getItemType()->resolveStatic($className)
 			);
 		}
@@ -99,6 +111,7 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 	{
 		if ($this->getItemType() instanceof StaticResolvableType) {
 			return new self(
+				$this->keyType,
 				$this->getItemType()->changeBaseClass($className)
 			);
 		}
@@ -113,7 +126,7 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 
 	public function getIterableKeyType(): Type
 	{
-		return new MixedType();
+		return $this->keyType;
 	}
 
 	public function getIterableValueType(): Type
@@ -128,7 +141,7 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 
 	public static function __set_state(array $properties): Type
 	{
-		return new self($properties['itemType']);
+		return new self($properties['keyType'], $properties['itemType']);
 	}
 
 }

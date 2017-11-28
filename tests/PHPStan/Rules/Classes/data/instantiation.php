@@ -62,3 +62,50 @@ function () {
 	new BARInstantiation();
 	new BARInstantiation(1);
 };
+
+class PrivateConstructorClass
+{
+
+	private function __construct(int $i)
+	{
+
+	}
+
+}
+
+class ProtectedConstructorClass
+{
+
+	protected function __construct(int $i)
+	{
+
+	}
+
+}
+
+class ClassExtendsProtectedConstructorClass extends ProtectedConstructorClass
+{
+
+	public function doFoo()
+	{
+		new self();
+	}
+
+}
+
+class ExtendsPrivateConstructorClass extends PrivateConstructorClass
+{
+
+	public function doFoo()
+	{
+		new self();
+	}
+
+}
+
+function () {
+	new PrivateConstructorClass(1);
+	new ProtectedConstructorClass(1);
+	new ClassExtendsProtectedConstructorClass(1);
+	new ExtendsPrivateConstructorClass(1);
+};

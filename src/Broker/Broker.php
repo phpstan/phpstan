@@ -3,11 +3,12 @@
 namespace PHPStan\Broker;
 
 use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\BrokerAwareClassReflectionExtension;
+use PHPStan\PhpDoc\Tag\ParamTag;
+use PHPStan\Reflection\BrokerAwareExtension;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\FunctionReflectionFactory;
 use PHPStan\Type\FileTypeMapper;
-use PHPStan\Type\TypehintHelper;
+use PHPStan\Type\Type;
 use ReflectionClass;
 
 class Broker
@@ -67,8 +68,8 @@ class Broker
 	{
 		$this->propertiesClassReflectionExtensions = $propertiesClassReflectionExtensions;
 		$this->methodsClassReflectionExtensions = $methodsClassReflectionExtensions;
-		foreach (array_merge($propertiesClassReflectionExtensions, $methodsClassReflectionExtensions, $dynamicMethodReturnTypeExtensions) as $extension) {
-			if ($extension instanceof BrokerAwareClassReflectionExtension) {
+		foreach (array_merge($propertiesClassReflectionExtensions, $methodsClassReflectionExtensions, $dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions, $dynamicFunctionReturnTypeExtensions) as $extension) {
+			if ($extension instanceof BrokerAwareExtension) {
 				$extension->setBroker($this);
 			}
 		}
@@ -93,7 +94,9 @@ class Broker
 
 	public static function getInstance(): self
 	{
-		assert(self::$instance !== null);
+		if (self::$instance === null) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
 		return self::$instance;
 	}
 
@@ -151,7 +154,11 @@ class Broker
 
 		if (!isset($this->classReflections[$className])) {
 			$reflectionClass = new ReflectionClass($className);
-			$classReflection = $this->getClassFromReflection($reflectionClass, $reflectionClass->getName());
+			$classReflection = $this->getClassFromReflection(
+				$reflectionClass,
+				$reflectionClass->getName(),
+				$reflectionClass->isAnonymous()
+			);
 			$this->classReflections[$className] = $classReflection;
 			if ($className !== $reflectionClass->getName()) {
 				// class alias optimization
@@ -162,15 +169,22 @@ class Broker
 		return $this->classReflections[$className];
 	}
 
-	public function getClassFromReflection(\ReflectionClass $reflectionClass, string $displayName): \PHPStan\Reflection\ClassReflection
+	public function getClassFromReflection(\ReflectionClass $reflectionClass, string $displayName, bool $anonymous): \PHPStan\Reflection\ClassReflection
 	{
-		return new ClassReflection(
-			$this,
-			$this->propertiesClassReflectionExtensions,
-			$this->methodsClassReflectionExtensions,
-			$displayName,
-			$reflectionClass
-		);
+		$className = $reflectionClass->getName();
+		if (!isset($this->classReflections[$className])) {
+			$classReflection = new ClassReflection(
+				$this,
+				$this->propertiesClassReflectionExtensions,
+				$this->methodsClassReflectionExtensions,
+				$displayName,
+				$reflectionClass,
+				$anonymous
+			);
+			$this->classReflections[$className] = $classReflection;
+		}
+
+		return $this->classReflections[$className];
 	}
 
 	public function hasClass(string $className): bool
@@ -209,24 +223,21 @@ class Broker
 		$lowerCasedFunctionName = strtolower($functionName);
 		if (!isset($this->functionReflections[$lowerCasedFunctionName])) {
 			$reflectionFunction = new \ReflectionFunction($lowerCasedFunctionName);
-			$phpDocParameterTypes = [];
-			$phpDocReturnType = null;
+			$phpDocParameterTags = [];
+			$phpDocReturnTag = null;
 			if ($reflectionFunction->getFileName() !== false && $reflectionFunction->getDocComment() !== false) {
-				$fileTypeMap = $this->fileTypeMapper->getTypeMap($reflectionFunction->getFileName());
+				$fileName = $reflectionFunction->getFileName();
 				$docComment = $reflectionFunction->getDocComment();
-				$phpDocParameterTypes = TypehintHelper::getParameterTypesFromPhpDoc(
-					$fileTypeMap,
-					array_map(function (\ReflectionParameter $parameter): string {
-						return $parameter->getName();
-					}, $reflectionFunction->getParameters()),
-					$docComment
-				);
-				$phpDocReturnType = TypehintHelper::getReturnTypeFromPhpDoc($fileTypeMap, $docComment);
+				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, null, $docComment);
+				$phpDocParameterTags = $resolvedPhpDoc->getParamTags();
+				$phpDocReturnTag = $resolvedPhpDoc->getReturnTag();
 			}
 			$this->functionReflections[$lowerCasedFunctionName] = $this->functionReflectionFactory->create(
 				$reflectionFunction,
-				$phpDocParameterTypes,
-				$phpDocReturnType
+				array_map(function (ParamTag $paramTag): Type {
+					return $paramTag->getType();
+				}, $phpDocParameterTags),
+				$phpDocReturnTag !== null ? $phpDocReturnTag->getType() : null
 			);
 		}
 

@@ -67,7 +67,11 @@ class CallStaticMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				67,
 			],
 			[
-				'Parent constructor invoked with 0 parameters, 1 required.',
+				'Call to private method __construct() of class CallStaticMethods\ClassWithConstructor.',
+				87,
+			],
+			[
+				'Method CallStaticMethods\ClassWithConstructor::__construct() invoked with 0 parameters, 1 required.',
 				87,
 			],
 			[
@@ -153,6 +157,22 @@ class CallStaticMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Class CallStaticMethods\Foo referenced with incorrect case: CallStaticMethods\FOO.',
 				132,
+			],
+			[
+				'Call to an undefined static method CallStaticMethods\Foo::__construct().',
+				144,
+			],
+			[
+				'Call to an undefined static method CallStaticMethods\Foo::nonexistent().',
+				154,
+			],
+			[
+				'Call to an undefined static method CallStaticMethods\Foo::nonexistent().',
+				159,
+			],
+			[
+				'Static call to instance method CallStaticMethods\Foo::loremIpsum().',
+				160,
 			],
 		]);
 	}

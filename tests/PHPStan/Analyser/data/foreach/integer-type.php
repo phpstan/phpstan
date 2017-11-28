@@ -2,7 +2,7 @@
 
 use AnotherNamespace\Foo;
 
-/** @var $integers int[] */
+/** @var int[] $integers */
 $integers = foos();
 
 foreach ($integers as $integer) {

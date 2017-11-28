@@ -7,6 +7,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Cache\Cache;
 use PHPStan\File\FileHelper;
+use PHPStan\PhpDoc\PhpDocStringResolver;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
@@ -76,19 +77,19 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'arrOne',
 				TrinaryLogic::createYes(),
-				'string[]',
+				'array<string>',
 			],
 			[
 				$testScope,
 				'arrTwo',
 				TrinaryLogic::createYes(),
-				'(Foo|string)[]',
+				'array<Foo|string>',
 			],
 			[
 				$testScope,
 				'arrThree',
 				TrinaryLogic::createYes(),
-				'string[]',
+				'array<string>',
 			],
 			[
 				$testScope,
@@ -148,7 +149,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'anotherArray',
 				TrinaryLogic::createYes(),
-				'string[][]',
+				'array<array<string>>',
 			],
 			[
 				$testScope,
@@ -212,6 +213,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				$testScope,
 				'issetBar',
+				TrinaryLogic::createYes(),
+				'mixed',
+			],
+			[
+				$testScope,
+				'issetBaz',
 				TrinaryLogic::createYes(),
 				'mixed',
 			],
@@ -327,13 +334,13 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'nullableIntegers',
 				TrinaryLogic::createYes(),
-				'(int|null)[]',
+				'array<int|null>',
 			],
 			[
 				$testScope,
 				'union',
 				TrinaryLogic::createYes(),
-				'(int|string)[]',
+				'array<int|string>',
 				'int|string',
 			],
 			[
@@ -501,7 +508,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'arrayOfIntegers',
 				TrinaryLogic::createYes(),
-				'int[]',
+				'array<int, int>',
 			],
 			[
 				$testScope,
@@ -537,13 +544,19 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'variableDefinedInSwitchWithoutEarlyTermination',
 				TrinaryLogic::createMaybe(),
-				'bool',
+				'false',
 			],
 			[
 				$testScope,
 				'anotherVariableDefinedInSwitchWithoutEarlyTermination',
 				TrinaryLogic::createMaybe(),
 				'bool',
+			],
+			[
+				$testScope,
+				'alwaysDefinedFromSwitch',
+				TrinaryLogic::createYes(),
+				'int|null',
 			],
 		];
 	}
@@ -648,7 +661,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'self::IPSUM_CONSTANT',
 			],
 			[
-				'int[]',
+				'array<int, int>',
 				'parent::PARENT_CONSTANT',
 			],
 			[
@@ -802,7 +815,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$mixed',
 			],
 			[
-				'mixed[]',
+				'array',
 				'$array',
 			],
 			[
@@ -830,7 +843,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$callable',
 			],
 			[
-				'string[]',
+				'array<int, string>',
 				'$variadicStrings',
 			],
 			[
@@ -885,7 +898,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$mixed',
 			],
 			[
-				'mixed[]',
+				'array',
 				'$array',
 			],
 			[
@@ -952,7 +965,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$mixed',
 			],
 			[
-				'mixed[]',
+				'array',
 				'$array',
 			],
 			[
@@ -995,24 +1008,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
-	/**
-	 * @dataProvider dataVarAnnotations
-	 * @param string $description
-	 * @param string $expression
-	 */
-	public function testVarAnnotationsAlt(
-		string $description,
-		string $expression
-	)
-	{
-		$description = str_replace('VarAnnotations\\', 'VarAnnotationsAlt\\', $description);
-		$this->assertTypes(
-			__DIR__ . '/data/var-annotations-alt.php',
-			$description,
-			$expression
-		);
-	}
-
 	public function dataCasts(): array
 	{
 		return [
@@ -1033,7 +1028,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$castedString',
 			],
 			[
-				'mixed[]',
+				'array',
 				'$castedArray',
 			],
 			[
@@ -1136,7 +1131,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$newStatic',
 			],
 			[
-				'mixed[]',
+				'array',
 				'$arrayLiteral',
 			],
 			[
@@ -1168,7 +1163,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'self::STRING_CONSTANT',
 			],
 			[
-				'mixed[]',
+				'array',
 				'self::ARRAY_CONSTANT',
 			],
 			[
@@ -1192,7 +1187,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foo::STRING_CONSTANT',
 			],
 			[
-				'mixed[]',
+				'array',
 				'$foo::ARRAY_CONSTANT',
 			],
 			[
@@ -1252,11 +1247,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->anotherIntegerProperty',
 			],
 			[
-				'mixed[]',
+				'array',
 				'$this->arrayPropertyOne',
 			],
 			[
-				'mixed[]',
+				'array',
 				'$this->arrayPropertyOther',
 			],
 			[
@@ -1660,7 +1655,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'min([1, 2, 3])',
 			],
 			[
-				'int[]',
+				'array<int, int>',
 				'min([1, 2, 3], [4, 5, 5])',
 			],
 			[
@@ -1768,15 +1763,15 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'!empty($foo)',
 			],
 			[
-				'int[]',
+				'array<int, int>',
 				'$arrayOfIntegers + $arrayOfIntegers',
 			],
 			[
-				'int[]',
+				'array<int, int>',
 				'$arrayOfIntegers += $arrayOfIntegers',
 			],
 			[
-				'(int|string)[]',
+				'array<int, int|string>',
 				'$arrayOfIntegers += ["foo"]',
 			],
 			[
@@ -1788,7 +1783,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'@count($arrayOfIntegers)',
 			],
 			[
-				'int[]',
+				'array<int, int>',
 				'$anotherArray = $arrayOfIntegers',
 			],
 		];
@@ -1881,6 +1876,90 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataLiteralArraysKeys(): array
+	{
+		return [
+			[
+				'int',
+				"'NoKeysArray';",
+			],
+			[
+				'int',
+				"'IntegersAndNoKeysArray';",
+			],
+			[
+				'int|string',
+				"'StringsAndNoKeysArray';",
+			],
+			[
+				'int',
+				"'IntegersAsStringsAndNoKeysArray';",
+			],
+			[
+				'int',
+				"'IntegersAsStringsArray';",
+			],
+			[
+				'int',
+				"'IntegersArray';",
+			],
+			[
+				'int',
+				"'IntegersWithFloatsArray';",
+			],
+			[
+				'string',
+				"'StringsArray';",
+			],
+			[
+				'string',
+				"'StringsWithNullArray';",
+			],
+			[
+				'int|string',
+				"'IntegersWithStringFromMethodArray';",
+			],
+			[
+				'int|string',
+				"'IntegersAndStringsArray';",
+			],
+			[
+				'int',
+				"'BooleansArray';",
+			],
+			[
+				'mixed',
+				"'UnknownConstantArray';",
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataLiteralArraysKeys
+	 * @param string $description
+	 * @param string $evaluatedPointExpressionType
+	 */
+	public function testLiteralArraysKeys(
+		string $description,
+		string $evaluatedPointExpressionType
+	)
+	{
+		if (!defined('STRING_ONE')) {
+			define('STRING_ONE', '1');
+			define('INT_ONE', 1);
+			define('STRING_FOO', 'foo');
+		}
+
+		$this->assertTypes(
+			__DIR__ . '/data/literal-arrays-keys.php',
+			$description,
+			'$key',
+			[],
+			[],
+			$evaluatedPointExpressionType
+		);
+	}
+
 	public function dataTypeFromFunctionPhpDocs(): array
 	{
 		return [
@@ -1909,11 +1988,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$anotherIntegerParameter',
 			],
 			[
-				'mixed[]',
+				'array',
 				'$arrayParameterOne',
 			],
 			[
-				'mixed[]',
+				'array',
 				'$arrayParameterOther',
 			],
 			[
@@ -1973,7 +2052,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$moreSpecifiedObject->doFluentArray()[0]',
 			],
 			[
-				'iterable(MethodPhpDocsNamespace\Baz[])&MethodPhpDocsNamespace\Collection',
+				'iterable<MethodPhpDocsNamespace\Baz>&MethodPhpDocsNamespace\Collection',
 				'$moreSpecifiedObject->doFluentUnionIterable()',
 			],
 			[
@@ -2145,7 +2224,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->returnPhpDocParent()',
 			],
 			[
-				'null[]',
+				'array<null>',
 				'$this->returnNulls()',
 			],
 			[
@@ -2706,7 +2785,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				__DIR__ . '/data/foreach/type-in-comment-variable-first.php',
-				'callable',
+				'mixed',
 				'$value',
 			],
 			[
@@ -2727,6 +2806,41 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				__DIR__ . '/data/foreach/type-in-comment-variable-with-reference.php',
 				'string',
+				'$value',
+			],
+			[
+				__DIR__ . '/data/foreach/foreach-with-specified-key-type.php',
+				'array<string, float|int|string>',
+				'$list',
+			],
+			[
+				__DIR__ . '/data/foreach/foreach-with-specified-key-type.php',
+				'string',
+				'$key',
+			],
+			[
+				__DIR__ . '/data/foreach/foreach-with-specified-key-type.php',
+				'float|int|string',
+				'$value',
+			],
+			[
+				__DIR__ . '/data/foreach/foreach-with-complex-value-type.php',
+				'float|ForeachWithComplexValueType\Foo',
+				'$value',
+			],
+			[
+				__DIR__ . '/data/foreach/foreach-iterable-with-specified-key-type.php',
+				'ForeachWithGenericsPhpDoc\Bar|ForeachWithGenericsPhpDoc\Foo',
+				'$key',
+			],
+			[
+				__DIR__ . '/data/foreach/foreach-iterable-with-specified-key-type.php',
+				'float|int|string',
+				'$value',
+			],
+			[
+				__DIR__ . '/data/foreach/foreach-iterable-with-complex-value-type.php',
+				'float|ForeachWithComplexValueType\Foo',
 				'$value',
 			],
 		];
@@ -2879,11 +2993,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$reversedIntegers[0]',
 			],
 			[
-				'int[]',
+				'array<int>',
 				'$filledIntegers',
 			],
 			[
-				'int[]',
+				'array<int>',
 				'$filledIntegersWithKeys',
 			],
 		];
@@ -2938,7 +3052,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$null',
 			],
 			[
-				'mixed[]',
+				'array',
 				'$array',
 			],
 			[
@@ -3005,15 +3119,15 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				'iterable(mixed[])',
+				'iterable',
 				'$this->iterableProperty',
 			],
 			[
-				'iterable(mixed[])',
+				'iterable',
 				'$iterableSpecifiedLater',
 			],
 			[
-				'iterable(mixed[])',
+				'iterable',
 				'$iterableWithoutTypehint',
 			],
 			[
@@ -3021,7 +3135,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$iterableWithoutTypehint[0]',
 			],
 			[
-				'iterable(mixed[])',
+				'iterable',
 				'$iterableWithIterableTypehint',
 			],
 			[
@@ -3033,7 +3147,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$mixed',
 			],
 			[
-				'iterable(Iterables\Bar[])',
+				'iterable<Iterables\Bar>',
 				'$iterableWithConcreteTypehint',
 			],
 			[
@@ -3045,11 +3159,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$bar',
 			],
 			[
-				'iterable(mixed[])',
+				'iterable',
 				'$this->doBar()',
 			],
 			[
-				'iterable(Iterables\Baz[])',
+				'iterable<Iterables\Baz>',
 				'$this->doBaz()',
 			],
 			[
@@ -3057,7 +3171,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$baz',
 			],
 			[
-				'mixed[]',
+				'array',
 				'$arrayWithIterableTypehint',
 			],
 			[
@@ -3065,7 +3179,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$arrayWithIterableTypehint[0]',
 			],
 			[
-				'iterable(Iterables\Bar[])&Iterables\Collection',
+				'iterable<Iterables\Bar>&Iterables\Collection',
 				'$unionIterableType',
 			],
 			[
@@ -3073,11 +3187,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$unionBar',
 			],
 			[
-				'(Iterables\Bar|Iterables\Foo)[]',
+				'array<Iterables\Bar|Iterables\Foo>',
 				'$mixedUnionIterableType',
 			],
 			[
-				'iterable(Iterables\Bar[])&Iterables\Collection',
+				'iterable<Iterables\Bar>&Iterables\Collection',
 				'$unionIterableIterableType',
 			],
 			[
@@ -3093,35 +3207,35 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$unionBarFromMethod',
 			],
 			[
-				'iterable(string[])',
+				'iterable<string>',
 				'$this->stringIterableProperty',
 			],
 			[
-				'iterable(mixed[])',
+				'iterable',
 				'$this->mixedIterableProperty',
 			],
 			[
-				'iterable(int[])',
+				'iterable<int>',
 				'$integers',
 			],
 			[
-				'iterable(mixed[])',
+				'iterable',
 				'$mixeds',
 			],
 			[
-				'iterable(mixed[])',
+				'iterable',
 				'$this->returnIterableMixed()',
 			],
 			[
-				'iterable(string[])',
+				'iterable<string>',
 				'$this->returnIterableString()',
 			],
 			[
-				'int|iterable(string[])',
+				'int|iterable<string>',
 				'$this->iterablePropertyAlsoWithSomethingElse',
 			],
 			[
-				'int|iterable(int[]|string[])',
+				'int|iterable<int|string>',
 				'$this->iterablePropertyWithTwoItemTypes',
 			],
 		];
@@ -3705,11 +3819,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function dataLoopVariables(): array
 	{
 		return [
-			/*[
-				'LoopVariables\Lorem|LoopVariables\Foo|null',
+			[
+				'LoopVariables\Foo|LoopVariables\Lorem|null',
 				'$foo',
 				"'begin';",
-			],*/
+			],
 			[
 				'LoopVariables\Foo',
 				'$foo',
@@ -3720,11 +3834,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foo',
 				"'end';",
 			],
-			/*[
-				'LoopVariables\Bar|LoopVariables\Lorem|LoopVariables\Foo|null',
+			[
+				'LoopVariables\Bar|LoopVariables\Foo|LoopVariables\Lorem|null',
 				'$foo',
 				"'afterLoop';",
-			],*/
+			],
 		];
 	}
 
@@ -3772,6 +3886,145 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	/**
+	 * @dataProvider dataLoopVariables
+	 * @param string $description
+	 * @param string $expression
+	 * @param string $evaluatedPointExpression
+	 */
+	public function testForLoopVariables(
+		string $description,
+		string $expression,
+		string $evaluatedPointExpression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/for-loop-variables.php',
+			$description,
+			$expression,
+			[],
+			[],
+			$evaluatedPointExpression
+		);
+	}
+
+	public function dataDoWhileLoopVariables(): array
+	{
+		return [
+			[
+				'LoopVariables\Foo|LoopVariables\Lorem|null',
+				'$foo',
+				"'begin';",
+			],
+			[
+				'LoopVariables\Foo',
+				'$foo',
+				"'afterAssign';",
+			],
+			[
+				'LoopVariables\Foo',
+				'$foo',
+				"'end';",
+			],
+			[
+				'LoopVariables\Bar|LoopVariables\Foo|LoopVariables\Lorem',
+				'$foo',
+				"'afterLoop';",
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataDoWhileLoopVariables
+	 * @param string $description
+	 * @param string $expression
+	 * @param string $evaluatedPointExpression
+	 */
+	public function testDoWhileLoopVariables(
+		string $description,
+		string $expression,
+		string $evaluatedPointExpression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/do-while-loop-variables.php',
+			$description,
+			$expression,
+			[],
+			[],
+			$evaluatedPointExpression
+		);
+	}
+
+	public function dataMultipleClassesInOneFile(): array
+	{
+		return [
+			[
+				'MultipleClasses\Foo',
+				'$self',
+				"'Foo';",
+			],
+			[
+				'MultipleClasses\Bar',
+				'$self',
+				"'Bar';",
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataMultipleClassesInOneFile
+	 * @param string $description
+	 * @param string $expression
+	 * @param string $evaluatedPointExpression
+	 */
+	public function testMultipleClassesInOneFile(
+		string $description,
+		string $expression,
+		string $evaluatedPointExpression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/multiple-classes-per-file.php',
+			$description,
+			$expression,
+			[],
+			[],
+			$evaluatedPointExpression
+		);
+	}
+
+	public function dataCallingMultipleClassesInOneFile(): array
+	{
+		return [
+			[
+				'MultipleClasses\Foo',
+				'$foo->returnSelf()',
+			],
+			[
+				'MultipleClasses\Bar',
+				'$bar->returnSelf()',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataCallingMultipleClassesInOneFile
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testCallingMultipleClassesInOneFile(
+		string $description,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/calling-multiple-classes-per-file.php',
+			$description,
+			$expression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $description,
@@ -3799,13 +4052,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 
 	private function processFile(string $file, \Closure $callback, array $dynamicMethodReturnTypeExtensions = [], array $dynamicStaticMethodReturnTypeExtensions = [])
 	{
+		$phpDocStringResolver = $this->getContainer()->getByType(PhpDocStringResolver::class);
+
 		$printer = new \PhpParser\PrettyPrinter\Standard();
 		$resolver = new NodeScopeResolver(
 			$this->createBroker(),
 			$this->getParser(),
 			$printer,
-			new FileTypeMapper($this->getParser(), $this->createMock(Cache::class)),
-			new \PhpParser\BuilderFactory(),
+			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $this->createMock(Cache::class)),
 			new FileHelper('/'),
 			true,
 			true,

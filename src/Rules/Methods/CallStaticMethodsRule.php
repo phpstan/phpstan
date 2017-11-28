@@ -111,33 +111,6 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 					throw new \PHPStan\ShouldNotHappenException();
 				}
 
-				$currentMethodReflection = $currentClassReflection->getMethod(
-					$scope->getFunctionName(),
-					$scope
-				);
-				if (!$currentMethodReflection->isStatic()) {
-					if ($methodName === '__construct' && $currentClassReflection->getParentClass()->hasMethod('__construct')) {
-						return $this->check->check(
-							$currentClassReflection->getParentClass()->getMethod('__construct', $scope),
-							$scope,
-							$node,
-							[
-								'Parent constructor invoked with %d parameter, %d required.',
-								'Parent constructor invoked with %d parameters, %d required.',
-								'Parent constructor invoked with %d parameter, at least %d required.',
-								'Parent constructor invoked with %d parameters, at least %d required.',
-								'Parent constructor invoked with %d parameter, %d-%d required.',
-								'Parent constructor invoked with %d parameters, %d-%d required.',
-								'Parameter #%d %s of parent constructor expects %s, %s given.',
-								'', // constructor does not have a return type
-								'Parameter #%d %s of parent constructor is passed by reference, so it expects variables only.',
-							]
-						);
-					}
-
-					return [];
-				}
-
 				$className = $currentClassReflection->getParentClass()->getName();
 			} else {
 				if (!$this->broker->hasClass($className)) {
@@ -208,7 +181,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 		}
 
 		if (!$scope->canCallMethod($method)) {
-			return array_merge($errors, [
+			$errors = array_merge($errors, [
 				sprintf(
 					'Call to %s %s %s() of class %s.',
 					$method->isPrivate() ? 'private' : 'protected',

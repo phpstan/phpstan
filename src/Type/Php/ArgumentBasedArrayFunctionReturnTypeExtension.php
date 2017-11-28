@@ -6,6 +6,7 @@ use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 
 class ArgumentBasedArrayFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
@@ -31,7 +32,7 @@ class ArgumentBasedArrayFunctionReturnTypeExtension implements \PHPStan\Type\Dyn
 		}
 
 		$argumentValue = $functionCall->args[$argumentPosition]->value;
-		return new ArrayType($scope->getType($argumentValue), true);
+		return new ArrayType(new MixedType(), $scope->getType($argumentValue), true);
 	}
 
 }

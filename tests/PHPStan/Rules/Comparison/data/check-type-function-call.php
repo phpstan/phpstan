@@ -25,6 +25,10 @@ class Foo
 		if (is_int($string)) { // always false
 
 		}
+		$className = 'Foo';
+		if (is_a($className, \Throwable::class, true)) { // should be fine
+
+		}
 	}
 
 }

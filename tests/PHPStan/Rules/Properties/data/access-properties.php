@@ -221,3 +221,54 @@ class AccessNullProperty
 	}
 
 }
+
+class CheckingPropertyNotNullInIfCondition
+{
+
+	public function doFoo()
+	{
+		$foo = null;
+		$bar = null;
+		if (null !== $foo ? $foo->ipsum : false) {
+
+		} elseif ($bar !== null ? $bar->ipsum : false) {
+
+		}
+	}
+
+}
+
+class PropertyExists
+{
+
+	public function doFoo()
+	{
+		$foo = new FooAccessProperties();
+		$foo->lorem;
+		if (property_exists($foo, 'lorem')) {
+			$foo->lorem;
+		}
+	}
+
+}
+
+class NullCoalesce
+{
+
+	/** @var self|null */
+	private $foo;
+
+	public function doFoo()
+	{
+		$this->foo->bar ?? 'bar';
+
+		if ($this->foo->bar ?? 'bar') {
+
+		}
+
+		($this->foo->bar ?? 'bar') ? 'foo' : 'bar';
+
+		$this->foo->foo->foo->bar;
+	}
+
+}

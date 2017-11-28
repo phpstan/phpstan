@@ -189,6 +189,17 @@ switch ('foo') {
 		$anotherVariableDefinedInSwitchWithoutEarlyTermination = false;
 }
 
+switch (doFoo()) {
+	case 1:
+	case 2:
+	case 3:
+		$alwaysDefinedFromSwitch = 1;
+		break;
+
+	default:
+		$alwaysDefinedFromSwitch = null;
+}
+
 do {
 	$doWhileVar = 1;
 } while (something());
@@ -296,15 +307,17 @@ try {
 	$exception = $e;
 	if (something()) {
 		bar();
-	} elseif (foo() || $foo = exists() || preg_match('#.*#', $subject, $matches2) || isset($issetFoo, $issetBar)) {
-		$anotherF = 1;
-		for ($i = 0; $i < 5; $i++, $f = $i, $anotherF = $i) {
-			$arr = [
-				[1, 2],
-			];
-			foreach ($arr as list($listOne, $listTwo)) {
-				if (is_array($arrayOfIntegers)) {
-					(bool)preg_match('~.*~', $attributes, $ternaryMatches) ? die : null;
+	} elseif (foo() || $foo = exists() || preg_match('#.*#', $subject, $matches2)) {
+		if (isset($issetFoo, $issetBar) && isset($issetBaz)) {
+			$anotherF = 1;
+			for ($i = 0; $i < 5; $i++, $f = $i, $anotherF = $i) {
+				$arr = [
+					[1, 2],
+				];
+				foreach ($arr as list($listOne, $listTwo)) {
+					if (is_array($arrayOfIntegers)) {
+						(bool)preg_match('~.*~', $attributes, $ternaryMatches) ? die : null;
+					}
 				}
 			}
 		}

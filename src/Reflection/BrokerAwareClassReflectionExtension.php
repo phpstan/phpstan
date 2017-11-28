@@ -2,11 +2,10 @@
 
 namespace PHPStan\Reflection;
 
-use PHPStan\Broker\Broker;
-
-interface BrokerAwareClassReflectionExtension
+/**
+ * @deprecated
+ */
+interface BrokerAwareClassReflectionExtension extends BrokerAwareExtension
 {
-
-	public function setBroker(Broker $broker);
 
 }

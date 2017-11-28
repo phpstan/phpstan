@@ -139,7 +139,7 @@ class FunctionReflection implements ParametersAcceptorWithPhpDocs
 			) {
 				$this->parameters[] = new DummyParameter(
 					'options',
-					new ArrayType(new MixedType()),
+					new ArrayType(new MixedType(), new MixedType()),
 					true
 				);
 			}

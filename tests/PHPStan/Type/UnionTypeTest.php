@@ -12,14 +12,14 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 		return [
 			[
 				new UnionType([
-					new ArrayType(new MixedType(), false, TrinaryLogic::createYes()),
+					new ArrayType(new MixedType(), new MixedType(), false, TrinaryLogic::createYes()),
 					new StringType(),
 				]),
 				TrinaryLogic::createMaybe(),
 			],
 			[
 				new UnionType([
-					new ArrayType(new MixedType(), false, TrinaryLogic::createYes()),
+					new ArrayType(new MixedType(), new MixedType(), false, TrinaryLogic::createYes()),
 					new ObjectType('Closure'),
 				]),
 				TrinaryLogic::createYes(),
@@ -51,7 +51,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
-	public function dataIsSupersetOf(): \Iterator
+	public function dataIsSuperTypeOf(): \Iterator
 	{
 		$this->createBroker();
 
@@ -128,22 +128,22 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 
 		yield [
 			$unionTypeA,
-			new IterableIterableType(new MixedType()),
+			new IterableIterableType(new MixedType(), new MixedType()),
 			TrinaryLogic::createNo(),
 		];
 
 		yield [
 			$unionTypeA,
-			new IntersectionType([new ArrayType(new MixedType()), new CallableType()]),
+			new IntersectionType([new ArrayType(new MixedType(), new MixedType()), new CallableType()]),
 			TrinaryLogic::createNo(),
 		];
 
 		$unionTypeB = new UnionType([
 			new IntersectionType([
 				new ObjectType('ArrayObject'),
-				new IterableIterableType(new ObjectType('DatePeriod')),
+				new IterableIterableType(new MixedType(), new ObjectType('DatePeriod')),
 			]),
-			new ArrayType(new ObjectType('DatePeriod')),
+			new ArrayType(new MixedType(), new ObjectType('DatePeriod')),
 		]);
 
 		yield [
@@ -178,13 +178,13 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 
 		yield [
 			$unionTypeB,
-			new IterableIterableType(new ObjectType('DatePeriod')),
+			new IterableIterableType(new MixedType(), new ObjectType('DatePeriod')),
 			TrinaryLogic::createMaybe(),
 		];
 
 		yield [
 			$unionTypeB,
-			new IterableIterableType(new MixedType()),
+			new IterableIterableType(new MixedType(), new MixedType()),
 			TrinaryLogic::createMaybe(),
 		];
 
@@ -208,7 +208,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 
 		yield [
 			$unionTypeB,
-			new IterableIterableType(new ObjectType('DateTime')),
+			new IterableIterableType(new MixedType(), new ObjectType('DateTime')),
 			TrinaryLogic::createNo(),
 		];
 
@@ -232,24 +232,24 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 	}
 
 	/**
-	 * @dataProvider dataIsSupersetOf
+	 * @dataProvider dataIsSuperTypeOf
 	 * @param UnionType $type
 	 * @param Type $otherType
-	 * @param int $expectedResult
+	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSupersetOf(UnionType $type, Type $otherType, TrinaryLogic $expectedResult)
+	public function testIsSuperTypeOf(UnionType $type, Type $otherType, TrinaryLogic $expectedResult)
 	{
 		$this->createBroker();
 
-		$actualResult = $type->isSupersetOf($otherType);
+		$actualResult = $type->isSuperTypeOf($otherType);
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isSupersetOf(%s)', $type->describe(), $otherType->describe())
+			sprintf('%s -> isSuperTypeOf(%s)', $type->describe(), $otherType->describe())
 		);
 	}
 
-	public function dataIsSubsetOf(): \Iterator
+	public function dataIsSubTypeOf(): \Iterator
 	{
 		$this->createBroker();
 
@@ -332,23 +332,23 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 
 		yield [
 			$unionTypeA,
-			new IterableIterableType(new MixedType()),
+			new IterableIterableType(new MixedType(), new MixedType()),
 			TrinaryLogic::createNo(),
 		];
 
 		yield [
 			$unionTypeA,
-			new IntersectionType([new ArrayType(new MixedType()), new CallableType()]),
+			new IntersectionType([new ArrayType(new MixedType(), new MixedType()), new CallableType()]),
 			TrinaryLogic::createNo(),
 		];
 
 		$unionTypeB = new UnionType([
 			new IntersectionType([
 				new ObjectType('ArrayObject'),
-				new IterableIterableType(new ObjectType('Item')),
+				new IterableIterableType(new MixedType(), new ObjectType('Item')),
 				new CallableType(),
 			]),
-			new ArrayType(new ObjectType('Item')),
+			new ArrayType(new MixedType(), new ObjectType('Item')),
 		]);
 
 		yield [
@@ -407,38 +407,38 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 	}
 
 	/**
-	 * @dataProvider dataIsSubsetOf
+	 * @dataProvider dataIsSubTypeOf
 	 * @param UnionType $type
 	 * @param Type $otherType
-	 * @param int $expectedResult
+	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSubsetOf(UnionType $type, Type $otherType, TrinaryLogic $expectedResult)
+	public function testIsSubTypeOf(UnionType $type, Type $otherType, TrinaryLogic $expectedResult)
 	{
 		$this->createBroker();
 
-		$actualResult = $type->isSubsetOf($otherType);
+		$actualResult = $type->isSubTypeOf($otherType);
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isSubsetOf(%s)', $type->describe(), $otherType->describe())
+			sprintf('%s -> isSubTypeOf(%s)', $type->describe(), $otherType->describe())
 		);
 	}
 
 	/**
-	 * @dataProvider dataIsSubsetOf
+	 * @dataProvider dataIsSubTypeOf
 	 * @param UnionType $type
 	 * @param Type $otherType
-	 * @param int $expectedResult
+	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSubsetOfInversed(UnionType $type, Type $otherType, TrinaryLogic $expectedResult)
+	public function testIsSubTypeOfInversed(UnionType $type, Type $otherType, TrinaryLogic $expectedResult)
 	{
 		$this->createBroker();
 
-		$actualResult = $otherType->isSupersetOf($type);
+		$actualResult = $otherType->isSuperTypeOf($type);
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isSupersetOf(%s)', $otherType->describe(), $type->describe())
+			sprintf('%s -> isSuperTypeOf(%s)', $otherType->describe(), $type->describe())
 		);
 	}
 

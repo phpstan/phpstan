@@ -38,7 +38,7 @@ class Bar extends Foo
 	public function lorem()
 	{
 		$this->loremipsum(); // nonexistent
-		$this->foo(); // private from an ancestor
+		$this->foo(1); // private from an ancestor
 		$this->bar();
 		$this->ipsum();
 		$this->foobar();
@@ -425,6 +425,111 @@ class NullableInPhpDoc
 	public function doBar()
 	{
 		$this->doFoo(null);
+	}
+
+}
+
+class ThreeTypesCall
+{
+
+	public function twoTypes(string $globalTitle)
+	{
+		if (($globalTitle = $this->threeTypes($globalTitle)) !== false) {
+			return '';
+		}
+
+		return false;
+	}
+
+	public function floatType(float $globalTitle)
+	{
+		if (($globalTitle = $this->threeTypes($globalTitle)) !== false) {
+			return '';
+		}
+
+		return false;
+	}
+
+	/**
+	 * @param string $globalTitle
+	 *
+	 * @return int|bool|string
+	 */
+	private function threeTypes($globalTitle) {
+		return false;
+	}
+
+}
+
+class ScopeBelowInstanceofIsNoLongerChanged
+{
+
+	public function doBar()
+	{
+		$foo = doFoo();
+		if ($foo instanceof Foo) {
+		}
+
+		$foo->nonexistentMethodOnFoo();
+	}
+
+}
+
+class CallVariadicMethodWithArrayInPhpDoc
+{
+
+	/**
+	 * @param array ...$args
+	 */
+	public function variadicMethod(...$args)
+	{
+
+	}
+
+	/**
+	 * @param string[] ...$args
+	 */
+	public function variadicArrayMethod(array ...$args)
+	{
+
+	}
+
+	public function test()
+	{
+		$this->variadicMethod(1, 2, 3);
+		$this->variadicMethod([1, 2, 3]);
+		$this->variadicMethod(...[1, 2, 3]);
+		$this->variadicArrayMethod(['foo', 'bar'], ['foo', 'bar']);
+		$this->variadicArrayMethod(...[['foo', 'bar'], ['foo', 'bar']]);
+	}
+
+}
+
+class NullCoalesce
+{
+
+	/** @var self|null */
+	private $foo;
+
+	public function doFoo()
+	{
+		$this->foo->find(1) ?? 'bar';
+
+		if ($this->foo->find(1) ?? 'bar') {
+
+		}
+
+		($this->foo->find(1) ?? 'bar') ? 'foo' : 'bar';
+
+		$this->foo->foo->find(1)->find(1);
+	}
+
+	/**
+	 * @return self|null
+	 */
+	public function find()
+	{
+
 	}
 
 }

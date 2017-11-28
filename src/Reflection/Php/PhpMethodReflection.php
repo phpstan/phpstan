@@ -83,11 +83,23 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 		return $this->declaringClass;
 	}
 
+	/**
+	 * @return string|false
+	 */
+	public function getDocComment()
+	{
+		return $this->reflection->getDocComment();
+	}
+
 	public function getPrototype(): MethodReflection
 	{
 		try {
 			$prototypeReflection = $this->reflection->getPrototype();
-			$prototypeDeclaringClass = $this->broker->getClassFromReflection($prototypeReflection->getDeclaringClass(), $prototypeReflection->getDeclaringClass()->getName());
+			$prototypeDeclaringClass = $this->broker->getClassFromReflection(
+				$prototypeReflection->getDeclaringClass(),
+				$prototypeReflection->getDeclaringClass()->getName(),
+				$prototypeReflection->getDeclaringClass()->isAnonymous()
+			);
 
 			return new self(
 				$prototypeDeclaringClass,
@@ -218,7 +230,7 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 				);
 				$this->parameters[] = new DummyParameter(
 					'constructorArgs',
-					new ArrayType(new MixedType(), false),
+					new ArrayType(new MixedType(), new MixedType(), false),
 					true
 				);
 			}
@@ -326,11 +338,11 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 			return true;
 		}
 
-		if (!$isNativelyVariadic && $this->declaringClass->getNativeReflection()->getFileName() !== false) {
+		if (!$isNativelyVariadic && $this->declaringClass->getFileName() !== false) {
 			$key = sprintf('variadic-method-%s-%s-v0', $this->declaringClass->getName(), $this->reflection->getName());
 			$cachedResult = $this->cache->load($key);
 			if ($cachedResult === null) {
-				$nodes = $this->parser->parseFile($this->declaringClass->getNativeReflection()->getFileName());
+				$nodes = $this->parser->parseFile($this->declaringClass->getFileName());
 				$result = $this->callsFuncGetArgs($nodes);
 				$this->cache->save($key, $result);
 				return $result;

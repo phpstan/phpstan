@@ -141,7 +141,7 @@ class TypeSpecifier
 				case 'is_null':
 					return $this->create($innerExpr, new NullType(), $context);
 				case 'is_array':
-					return $this->create($innerExpr, new ArrayType(new MixedType()), $context);
+					return $this->create($innerExpr, new ArrayType(new MixedType(), new MixedType()), $context);
 				case 'is_bool':
 					return $this->create($innerExpr, new TrueOrFalseBooleanType(), $context);
 				case 'is_callable':
@@ -149,7 +149,7 @@ class TypeSpecifier
 				case 'is_resource':
 					return $this->create($innerExpr, new ResourceType(), $context);
 				case 'is_iterable':
-					return $this->create($innerExpr, new IterableIterableType(new MixedType()), $context);
+					return $this->create($innerExpr, new IterableIterableType(new MixedType(), new MixedType()), $context);
 				case 'is_string':
 					return $this->create($innerExpr, new StringType(), $context);
 				case 'is_object':
@@ -182,7 +182,7 @@ class TypeSpecifier
 						}
 
 						if (isset($expr->args[2]) && ($context & self::CONTEXT_TRUE)) {
-							if (!$scope->getType($expr->args[2]->value)->isSupersetOf(new TrueBooleanType())->no()) {
+							if (!$scope->getType($expr->args[2]->value)->isSuperTypeOf(new TrueBooleanType())->no()) {
 								$types = $types->intersectWith($this->create($innerExpr, new StringType(), $context));
 							}
 						}
@@ -202,6 +202,21 @@ class TypeSpecifier
 			return $this->specifyTypesInCondition($scope, $expr->expr, ~$context);
 		} elseif ($expr instanceof Node\Expr\Assign) {
 			return $this->specifyTypesInCondition($scope, $expr->var, $context);
+		} elseif (
+			$expr instanceof Expr\Isset_
+			&& count($expr->vars) > 0
+			&& $context & self::CONTEXT_TRUTHY
+		) {
+			$types = null;
+			foreach ($expr->vars as $var) {
+				$type = $this->create($var, new NullType(), self::CONTEXT_FALSE);
+				if ($types === null) {
+					$types = $type;
+				} else {
+					$types = $types->unionWith($type);
+				}
+			}
+			return $types;
 		} elseif (($context & self::CONTEXT_TRUTHY) === 0) {
 			$type = new ObjectWithoutClassType();
 			return $this->create($expr, $type, self::CONTEXT_FALSE);

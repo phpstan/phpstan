@@ -40,7 +40,7 @@ class UnusedConstructorParametersRule implements \PHPStan\Rules\Rule
 		}
 
 		$message = sprintf('Constructor of class %s has an unused parameter $%%s.', $scope->getClassReflection()->getDisplayName());
-		if ($scope->getClassReflection()->getNativeReflection()->isAnonymous()) {
+		if ($scope->getClassReflection()->isAnonymous()) {
 			$message = 'Constructor of an anonymous class has an unused parameter $%s.';
 		}
 

@@ -57,7 +57,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 		$memoryLimit = $input->getOption('memory-limit');
 		if ($memoryLimit !== null) {
-			if (!preg_match('#^\d+[kMG]?$#i', $memoryLimit)) {
+			if (!preg_match('#^-?\d+[kMG]?$#i', $memoryLimit)) {
 				$consoleStyle->error(sprintf('Invalid memory limit format "%s".', $memoryLimit));
 				return 1;
 			}

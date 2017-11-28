@@ -66,10 +66,10 @@ class ObjectType implements TypeWithClassName
 		return $this->checkSubclassAcceptability($type->getClassName());
 	}
 
-	public function isSupersetOf(Type $type): TrinaryLogic
+	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
 		if ($type instanceof CompoundType) {
-			return $type->isSubsetOf($this);
+			return $type->isSubTypeOf($this);
 		}
 
 		if ($type instanceof ObjectWithoutClassType) {

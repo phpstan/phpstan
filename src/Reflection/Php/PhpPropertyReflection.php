@@ -34,6 +34,14 @@ class PhpPropertyReflection implements PropertyReflection
 		return $this->declaringClass;
 	}
 
+	/**
+	 * @return string|false
+	 */
+	public function getDocComment()
+	{
+		return $this->reflection->getDocComment();
+	}
+
 	public function isStatic(): bool
 	{
 		return $this->reflection->isStatic();

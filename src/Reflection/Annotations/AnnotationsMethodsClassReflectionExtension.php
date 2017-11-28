@@ -6,9 +6,6 @@ use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\MethodsClassReflectionExtension;
 use PHPStan\Type\FileTypeMapper;
-use PHPStan\Type\MixedType;
-use PHPStan\Type\NullType;
-use PHPStan\Type\TypeCombinator;
 
 class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflectionExtension
 {
@@ -62,7 +59,7 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 			$methods += $this->createMethods($interfaceClass, $interfaceClass);
 		}
 
-		$fileName = $classReflection->getNativeReflection()->getFileName();
+		$fileName = $classReflection->getFileName();
 		if ($fileName === false) {
 			return $methods;
 		}
@@ -72,67 +69,29 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 			return $methods;
 		}
 
-		$typeMap = $this->fileTypeMapper->getTypeMap($fileName);
-
-		preg_match_all('#@method\s+(?:(?P<IsStatic>static)\s+)?(?:(?P<Type>[^\(\*]+?)(?<!\|)\s+)?(?P<MethodName>[a-zA-Z0-9_]+)(?P<Parameters>(?:\([^\)]*\))?)#', $docComment, $matches, PREG_SET_ORDER);
-		foreach ($matches as $match) {
-			$isStatic = $match['IsStatic'] === 'static';
-			$typeStringCandidate = $match['Type'];
-			if (preg_match('#(?P<Type>' . FileTypeMapper::TYPE_PATTERN . ')#', $typeStringCandidate, $typeStringMatches)) {
-				$typeString = $typeStringMatches['Type'];
-				if (!isset($typeMap[$typeString])) {
-					continue;
-				}
-				$returnType = $typeMap[$typeString];
-			} else {
-				$returnType = new MixedType();
+		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, $classReflection->getName(), $docComment);
+		foreach ($resolvedPhpDoc->getMethodTags() as $methodName => $methodTag) {
+			$parameters = [];
+			foreach ($methodTag->getParameters() as $parameterName => $parameterTag) {
+				$parameters[] = new AnnotationsMethodParameterReflection(
+					$parameterName,
+					$parameterTag->getType(),
+					$parameterTag->isPassedByReference(),
+					$parameterTag->isOptional(),
+					$parameterTag->isVariadic()
+				);
 			}
-			$methodName = $match['MethodName'];
-			$parametersStringCandidate = trim(trim($match['Parameters'], '()'));
-			$parameters = $this->createMethodParameters($parametersStringCandidate, $typeMap);
-			$isVariadic = $this->detectMethodVariadic($parameters);
-			$methods[$methodName] = new AnnotationMethodReflection($methodName, $declaringClass, $returnType, $parameters, $isStatic, $isVariadic);
+
+			$methods[$methodName] = new AnnotationMethodReflection(
+				$methodName,
+				$declaringClass,
+				$methodTag->getReturnType(),
+				$parameters,
+				$methodTag->isStatic(),
+				$this->detectMethodVariadic($parameters)
+			);
 		}
 		return $methods;
-	}
-
-	/**
-	 * @param string $parametersStringCandidate
-	 * @param \PHPStan\Type\Type[] $typeMap
-	 * @return AnnotationsMethodParameterReflection[]
-	 */
-	private function createMethodParameters(string $parametersStringCandidate, array $typeMap): array
-	{
-		$parameters = [];
-		if ($parametersStringCandidate === '') {
-			return $parameters;
-		}
-
-		foreach (preg_split('#\s*,\s*#', $parametersStringCandidate) as $parameter) {
-			if (preg_match('#(?:(?P<Type>' . FileTypeMapper::TYPE_PATTERN . ')\s+)?(?P<IsVariadic>...)?(?P<IsPassedByReference>\&)?\$(?P<Name>[a-zA-Z0-9_]+)(?:\s*=\s*(?P<DefaultValue>.+))?#', $parameter, $parameterMatches)) {
-				$name = $parameterMatches['Name'];
-				$typeString = $parameterMatches['Type'];
-				$defaultValue = $parameterMatches['DefaultValue'] ?? null;
-				if ($typeString !== '') {
-					if (!isset($typeMap[$typeString])) {
-						continue;
-					}
-					$type = $typeMap[$typeString];
-					if ($defaultValue === 'null') {
-						$type = $type !== null ? TypeCombinator::addNull($type) : new NullType();
-					}
-				} else {
-					$type = new MixedType();
-				}
-				$isVariadic = !empty($parameterMatches['IsVariadic']);
-				$isPassedByReference = !empty($parameterMatches['IsPassedByReference']);
-				$isOptional = !empty($defaultValue);
-
-				$parameters[] = new AnnotationsMethodParameterReflection($name, $type, $isPassedByReference, $isOptional, $isVariadic);
-			}
-		}
-
-		return $parameters;
 	}
 
 	/**

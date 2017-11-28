@@ -49,50 +49,6 @@ class Foo
 		die;
 	}
 
-	public function doBar()
-	{
-		/** @var $integer int */
-		$integer = getFoo();
-
-		/** @var $boolean  bool */
-		$boolean = getFoo();
-
-		/** @var $string string */
-		$string = getFoo();
-
-		/** @var $float float */
-		$float = getFoo();
-
-		/** @var $loremObject Lorem */
-		$loremObject = getFoo();
-
-		/** @var $barObject \AnotherNamespace\Bar */
-		$barObject = getFoo();
-
-		/** @var $mixed */
-		$mixed = getFoo();
-
-		/** @var $array array */
-		$array = getFoo();
-
-		/** @var $isNullable bool|null */
-		$isNullable = getFoo();
-
-		/** @var $callable callable */
-		$callable = getFoo();
-
-		/** @var $self self */
-		$self = getFoo();
-
-		/** @var $invalidInt int */
-		$invalidInteger = 1.0;
-
-		/** @var $static static */
-		$static = getFoo();
-
-		die;
-	}
-
 	public function doFooBar()
 	{
 		/** @var int */

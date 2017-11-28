@@ -31,3 +31,49 @@ class Test {
 	}
 
 }
+
+class Foo
+{
+
+	/** @var Test */
+	public $ipsum;
+
+}
+
+class CheckingPropertyNotNullInIfCondition
+{
+
+	public function doFoo()
+	{
+		/** @var Foo|null $foo */
+		$foo = doFoo();
+
+		/** @var Foo|null $bar */
+		$bar = doFoo();
+		if (null !== $foo ? $foo->ipsum : false) {
+
+		} elseif ($bar !== null ? $bar->ipsum : false) {
+
+		}
+	}
+
+}
+
+class NullCoalesce
+{
+
+	/** @var self|null */
+	private $foo;
+
+	public function doFoo()
+	{
+		$this->foo->foo ?? 'bar';
+
+		if ($this->foo->foo ?? 'bar') {
+
+		}
+
+		($this->foo->foo ?? 'bar') ? 'foo' : 'bar';
+	}
+
+}

@@ -18,11 +18,7 @@ class CommentHelper
 			return $phpDoc->getText();
 		}
 
-		$comments = $node->getAttribute('comments');
-		if ($comments === null) {
-			return null;
-		}
-		return $comments[count($comments) - 1]->getText();
+		return null;
 	}
 
 }

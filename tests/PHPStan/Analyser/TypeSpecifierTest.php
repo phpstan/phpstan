@@ -38,6 +38,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 		$this->scope = new Scope($broker, $this->printer, $this->typeSpecifier, '');
 		$this->scope = $this->scope->assignVariable('bar', new ObjectType('Bar'), TrinaryLogic::createYes());
 		$this->scope = $this->scope->assignVariable('stringOrNull', new UnionType([new StringType(), new NullType()]), TrinaryLogic::createYes());
+		$this->scope = $this->scope->assignVariable('barOrNull', new UnionType([new ObjectType('Bar'), new NullType()]), TrinaryLogic::createYes());
 		$this->scope = $this->scope->assignVariable('stringOrFalse', new UnionType([new StringType(), new FalseBooleanType()]), TrinaryLogic::createYes());
 	}
 
@@ -402,6 +403,17 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 				),
 				['$foo' => '~false|null'],
 				['$foo' => '~object'],
+			],
+			[
+				new Expr\Isset_([
+					new Variable('stringOrNull'),
+					new Variable('barOrNull'),
+				]),
+				[
+					'$stringOrNull' => '~null',
+					'$barOrNull' => '~null',
+				],
+				[],
 			],
 		];
 	}

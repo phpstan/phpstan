@@ -36,11 +36,11 @@ class ReadingWriteOnlyPropertiesRule implements \PHPStan\Rules\Rule
 
 	public function getNodeType(): string
 	{
-		return \PhpParser\NodeAbstract::class;
+		return \PhpParser\Node::class;
 	}
 
 	/**
-	 * @param \PhpParser\NodeAbstract $node
+	 * @param \PhpParser\Node $node
 	 * @param Scope $scope
 	 * @return string[]
 	 */
