@@ -13,6 +13,7 @@ use PHPStan\PhpDocParser\Ast\Type\ThisTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\PhpDocParser\Ast\Type\UnionTypeNode;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FalseBooleanType;
@@ -30,7 +31,6 @@ use PHPStan\Type\StaticType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\ThisType;
 use PHPStan\Type\TrueBooleanType;
-use PHPStan\Type\TrueOrFalseBooleanType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeWithClassName;
@@ -79,7 +79,7 @@ class TypeNodeResolver
 
 			case 'bool':
 			case 'boolean':
-				return new TrueOrFalseBooleanType();
+				return new BooleanType();
 
 			case 'true':
 				return new TrueBooleanType();
@@ -102,7 +102,7 @@ class TypeNodeResolver
 					new IntegerType(),
 					new FloatType(),
 					new StringType(),
-					new TrueOrFalseBooleanType(),
+					new BooleanType(),
 				]);
 
 			case 'number':

@@ -13,7 +13,7 @@ class TypehintHelper
 			case 'int':
 				return new IntegerType();
 			case 'bool':
-				return new TrueOrFalseBooleanType();
+				return new BooleanType();
 			case 'string':
 				return new StringType();
 			case 'float':
