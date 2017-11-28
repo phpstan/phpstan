@@ -11,12 +11,11 @@ use PHPStan\TrinaryLogic;
 class IterableIterableType implements StaticResolvableType, CompoundType
 {
 
-	use IterableTypeTrait;
-
-	/**
-	 * @var \PHPStan\Type\Type
-	 */
+	/** @var \PHPStan\Type\Type */
 	private $keyType;
+
+	/** @var \PHPStan\Type\Type */
+	private $itemType;
 
 	public function __construct(
 		Type $keyType,
@@ -25,6 +24,11 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 	{
 		$this->keyType = $keyType;
 		$this->itemType = $itemType;
+	}
+
+	public function getItemType(): Type
+	{
+		return $this->itemType;
 	}
 
 	/**
