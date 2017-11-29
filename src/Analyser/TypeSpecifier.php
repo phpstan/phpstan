@@ -10,6 +10,7 @@ use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\Instanceof_;
 use PhpParser\Node\Name;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\CallableType;
 use PHPStan\Type\FalseBooleanType;
@@ -141,7 +142,7 @@ class TypeSpecifier
 				case 'is_null':
 					return $this->create($innerExpr, new NullType(), $context);
 				case 'is_array':
-					return $this->create($innerExpr, new ArrayType(new MixedType(), new MixedType()), $context);
+					return $this->create($innerExpr, new ArrayType(new MixedType(), new MixedType(), false, TrinaryLogic::createMaybe()), $context);
 				case 'is_bool':
 					return $this->create($innerExpr, new TrueOrFalseBooleanType(), $context);
 				case 'is_callable':
