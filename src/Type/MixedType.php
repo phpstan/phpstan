@@ -3,11 +3,13 @@
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Traits\MaybeIterableTypeTrait;
 use PHPStan\Type\Traits\MaybeObjectTypeTrait;
 
 class MixedType implements CompoundType
 {
 
+	use MaybeIterableTypeTrait;
 	use MaybeObjectTypeTrait;
 
 	/**
@@ -50,21 +52,6 @@ class MixedType implements CompoundType
 	public function describe(): string
 	{
 		return 'mixed';
-	}
-
-	public function isIterable(): TrinaryLogic
-	{
-		return TrinaryLogic::createMaybe();
-	}
-
-	public function getIterableKeyType(): Type
-	{
-		return new MixedType();
-	}
-
-	public function getIterableValueType(): Type
-	{
-		return new MixedType();
 	}
 
 	public function isCallable(): TrinaryLogic
