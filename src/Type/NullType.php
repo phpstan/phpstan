@@ -122,7 +122,7 @@ class NullType implements Type
 
 	public function getOffsetValueType(): Type
 	{
-		return new ErrorType();
+		return new NullType();
 	}
 
 	public function isCallable(): TrinaryLogic

@@ -126,7 +126,7 @@ class TrueBooleanType implements BooleanType
 
 	public function getOffsetValueType(): Type
 	{
-		return new ErrorType();
+		return new NullType();
 	}
 
 	public function isCallable(): TrinaryLogic
