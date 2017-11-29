@@ -3,12 +3,14 @@
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\MaybeIterableTypeTrait;
 use PHPStan\Type\Traits\MaybeObjectTypeTrait;
 
 class MixedType implements CompoundType
 {
 
+	use MaybeCallableTypeTrait;
 	use MaybeIterableTypeTrait;
 	use MaybeObjectTypeTrait;
 
@@ -52,11 +54,6 @@ class MixedType implements CompoundType
 	public function describe(): string
 	{
 		return 'mixed';
-	}
-
-	public function isCallable(): TrinaryLogic
-	{
-		return TrinaryLogic::createMaybe();
 	}
 
 	public function isExplicitMixed(): bool
