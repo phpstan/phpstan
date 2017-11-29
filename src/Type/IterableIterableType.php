@@ -3,11 +3,13 @@
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\MaybeObjectTypeTrait;
 
 class IterableIterableType implements StaticResolvableType, CompoundType
 {
 
+	use MaybeCallableTypeTrait;
 	use MaybeObjectTypeTrait;
 
 	/** @var \PHPStan\Type\Type */
@@ -134,11 +136,6 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 	public function getIterableValueType(): Type
 	{
 		return $this->getItemType();
-	}
-
-	public function isCallable(): TrinaryLogic
-	{
-		return TrinaryLogic::createMaybe();
 	}
 
 	public static function __set_state(array $properties): Type
