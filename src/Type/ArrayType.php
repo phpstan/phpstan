@@ -160,7 +160,7 @@ class ArrayType implements StaticResolvableType
 
 	public function getOffsetValueType(): Type
 	{
-		return $this->getIterableValueType();
+		return $this->getItemType();
 	}
 
 	public function isCallable(): TrinaryLogic

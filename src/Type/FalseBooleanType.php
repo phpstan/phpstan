@@ -64,7 +64,7 @@ class FalseBooleanType implements BooleanType
 
 	public function getOffsetValueType(): Type
 	{
-		return new ErrorType();
+		return new NullType();
 	}
 
 	public static function __set_state(array $properties): Type
