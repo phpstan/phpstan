@@ -634,12 +634,9 @@ class Scope
 		}
 
 		if ($node instanceof Expr\ArrayDimFetch && $node->dim !== null) {
-			$arrayType = $this->getType($node->var);
-			if (
-				$arrayType->isIterable()->yes()
-				&& ($arrayType instanceof ArrayType || $arrayType->hasMethod('offsetGet')
-			)) {
-				return $arrayType->getIterableValueType();
+			$offsetAccessibleType = $this->getType($node->var);
+			if ($offsetAccessibleType->isOffsetAccesible()->yes()) {
+				return $offsetAccessibleType->getOffsetValueType();
 			}
 		}
 

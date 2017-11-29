@@ -111,6 +111,16 @@ class ObjectWithoutClassType implements Type
 		return new MixedType();
 	}
 
+	public function isOffsetAccesible(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
+	}
+
+	public function getOffsetValueType(): Type
+	{
+		return new ErrorType();
+	}
+
 	public function isCallable(): TrinaryLogic
 	{
 		return TrinaryLogic::createMaybe();

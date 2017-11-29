@@ -132,18 +132,7 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 
 	public function isIterable(): TrinaryLogic
 	{
-		$broker = Broker::getInstance();
-
-		if (!$broker->hasClass($this->baseClass)) {
-			return TrinaryLogic::createMaybe();
-		}
-
-		$classReflection = $broker->getClass($this->baseClass);
-		if ($classReflection->isSubclassOf(\Traversable::class) || $classReflection->getName() === \Traversable::class) {
-			return TrinaryLogic::createYes();
-		}
-
-		return TrinaryLogic::createNo();
+		return $this->isInstanceOf(\Traversable::class);
 	}
 
 	public function getIterableKeyType(): Type
@@ -200,6 +189,34 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 		return new ErrorType();
 	}
 
+	public function isOffsetAccesible(): TrinaryLogic
+	{
+		return $this->isInstanceOf(\ArrayAccess::class);
+	}
+
+	public function getOffsetValueType(): Type
+	{
+		$broker = Broker::getInstance();
+
+		if (!$broker->hasClass($this->baseClass)) {
+			return new ErrorType();
+		}
+
+		$classReflection = $broker->getClass($this->baseClass);
+
+		if ($classReflection->isSubclassOf(\ArrayAccess::class) && $classReflection->hasNativeMethod('offsetGet')) {
+			if ($classReflection->hasNativeMethod('offsetGet')) {
+				return RecursionGuard::run($this, function () use ($classReflection) {
+					return $classReflection->getNativeMethod('offsetGet')->getReturnType();
+				});
+			}
+
+			return new MixedType();
+		}
+
+		return new ErrorType();
+	}
+
 	public function isCallable(): TrinaryLogic
 	{
 		$broker = Broker::getInstance();
@@ -223,6 +240,22 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 	public static function __set_state(array $properties): Type
 	{
 		return new static($properties['baseClass']);
+	}
+
+	private function isInstanceOf(string $className): TrinaryLogic
+	{
+		$broker = Broker::getInstance();
+
+		if (!$broker->hasClass($this->baseClass)) {
+			return TrinaryLogic::createMaybe();
+		}
+
+		$classReflection = $broker->getClass($this->baseClass);
+		if ($classReflection->isSubclassOf($className) || $classReflection->getName() === $className) {
+			return TrinaryLogic::createYes();
+		}
+
+		return TrinaryLogic::createNo();
 	}
 
 }

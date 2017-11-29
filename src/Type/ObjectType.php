@@ -205,22 +205,7 @@ class ObjectType implements TypeWithClassName
 
 	public function isIterable(): TrinaryLogic
 	{
-		$broker = Broker::getInstance();
-
-		if (!$broker->hasClass($this->className)) {
-			return TrinaryLogic::createMaybe();
-		}
-
-		$classReflection = $broker->getClass($this->className);
-		if ($classReflection->isSubclassOf(\Traversable::class) || $classReflection->getName() === \Traversable::class) {
-			return TrinaryLogic::createYes();
-		}
-
-		if ($classReflection->isInterface()) {
-			return TrinaryLogic::createMaybe();
-		}
-
-		return TrinaryLogic::createNo();
+		return $this->isInstanceOf(\Traversable::class);
 	}
 
 	public function getIterableKeyType(): Type
@@ -277,6 +262,34 @@ class ObjectType implements TypeWithClassName
 		return new ErrorType();
 	}
 
+	public function isOffsetAccesible(): TrinaryLogic
+	{
+		return $this->isInstanceOf(\ArrayAccess::class);
+	}
+
+	public function getOffsetValueType(): Type
+	{
+		$broker = Broker::getInstance();
+
+		if (!$broker->hasClass($this->className)) {
+			return new ErrorType();
+		}
+
+		$classReflection = $broker->getClass($this->className);
+
+		if ($classReflection->isSubclassOf(\ArrayAccess::class) && $classReflection->hasNativeMethod('offsetGet')) {
+			if ($classReflection->hasNativeMethod('offsetGet')) {
+				return RecursionGuard::run($this, function () use ($classReflection) {
+					return $classReflection->getNativeMethod('offsetGet')->getReturnType();
+				});
+			}
+
+			return new MixedType();
+		}
+
+		return new ErrorType();
+	}
+
 	public function isCallable(): TrinaryLogic
 	{
 		$broker = Broker::getInstance();
@@ -300,6 +313,26 @@ class ObjectType implements TypeWithClassName
 	public static function __set_state(array $properties): Type
 	{
 		return new self($properties['className']);
+	}
+
+	private function isInstanceOf(string $className): TrinaryLogic
+	{
+		$broker = Broker::getInstance();
+
+		if (!$broker->hasClass($this->className)) {
+			return TrinaryLogic::createMaybe();
+		}
+
+		$classReflection = $broker->getClass($this->className);
+		if ($classReflection->isSubclassOf($className) || $classReflection->getName() === $className) {
+			return TrinaryLogic::createYes();
+		}
+
+		if ($classReflection->isInterface()) {
+			return TrinaryLogic::createMaybe();
+		}
+
+		return TrinaryLogic::createNo();
 	}
 
 }

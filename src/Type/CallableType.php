@@ -117,6 +117,16 @@ class CallableType implements CompoundType
 		return new MixedType();
 	}
 
+	public function isOffsetAccesible(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
+	}
+
+	public function getOffsetValueType(): Type
+	{
+		return new MixedType();
+	}
+
 	public function isCallable(): TrinaryLogic
 	{
 		return TrinaryLogic::createYes();
