@@ -3293,16 +3293,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->returnArrayOfStrings()[0]',
 			],
 			[
-				'string',
-				'$this->returnArrayObjectOfStrings()[0]',
-			],
-			[
 				'mixed',
 				'$this->returnMixed()[0]',
 			],
 			[
-				'mixed',
-				'$this->returnTraversableOnlyStrings()[0]',
+				'int',
+				'$this->returnSelfWithIterableInt()[0]',
 			],
 			[
 				'int',

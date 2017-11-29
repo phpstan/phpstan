@@ -15,13 +15,6 @@ class Foo implements \ArrayAccess
 	 */
 	public function returnArrayOfStrings(): array
 	{
-	}
-
-	/**
-	 * @return \ArrayObject|string[]
-	 */
-	public function returnArrayObjectOfStrings(): \ArrayObject
-	{
 
 	}
 
@@ -34,9 +27,9 @@ class Foo implements \ArrayAccess
 	}
 
 	/**
-	 * @return \Traversable|string[]
+	 * @return self|int[]
 	 */
-	public function returnTraversableOnlyStrings(): \Traversable
+	public function returnSelfWithIterableInt(): self
 	{
 
 	}
