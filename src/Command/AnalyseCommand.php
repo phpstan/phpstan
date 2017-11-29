@@ -2,6 +2,7 @@
 
 namespace PHPStan\Command;
 
+use Composer\XdebugHandler;
 use Nette\DI\Config\Loader;
 use Nette\DI\Helpers;
 use PhpParser\Node\Stmt\Catch_;
@@ -48,6 +49,10 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
+		$xdebug = new XdebugHandler($output);
+		$xdebug->check();
+		unset($xdebug);
+
 		$consoleStyle = new ErrorsConsoleStyle($input, $output);
 
 		$memoryLimit = $input->getOption('memory-limit');
