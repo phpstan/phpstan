@@ -3286,7 +3286,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	}
 
 	/**
-	 * @requires PHP 7.1
 	 * @dataProvider dataArrayAccess
 	 * @param string $description
 	 * @param string $expression
