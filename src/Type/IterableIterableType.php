@@ -141,7 +141,7 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 
 	public function getOffsetValueType(): Type
 	{
-		return $this->getIterableValueType();
+		return new MixedType();
 	}
 
 	public function isCallable(): TrinaryLogic
