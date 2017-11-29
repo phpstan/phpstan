@@ -45,6 +45,16 @@ class VoidType implements Type
 		return 'void';
 	}
 
+	public function isOffsetAccesible(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
+	}
+
+	public function getOffsetValueType(): Type
+	{
+		return new ErrorType();
+	}
+
 	public static function __set_state(array $properties): Type
 	{
 		return new self();

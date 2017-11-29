@@ -53,6 +53,15 @@ class NullType implements Type
 		return 'null';
 	}
 
+	public function isOffsetAccesible(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
+	}
+
+	public function getOffsetValueType(): Type
+	{
+		return new ErrorType();
+	}
 
 	public static function __set_state(array $properties): Type
 	{

@@ -2,7 +2,7 @@
 
 namespace ArrayAccesable;
 
-class Foo
+class Foo implements \ArrayAccess
 {
 
 	public function __construct()
@@ -37,6 +37,26 @@ class Foo
 	 * @return \Traversable|string[]
 	 */
 	public function returnTraversableOnlyStrings(): \Traversable
+	{
+
+	}
+
+	public function offsetExists($offset)
+	{
+
+	}
+
+	public function offsetGet($offset): int
+	{
+
+	}
+
+	public function offsetSet($offset, $value)
+	{
+
+	}
+
+	public function offsetUnset($offset)
 	{
 
 	}

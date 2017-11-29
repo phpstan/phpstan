@@ -3304,6 +3304,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'mixed',
 				'$this->returnTraversableOnlyStrings()[0]',
 			],
+			[
+				'int',
+				'$this[0]',
+			],
 		];
 	}
 
