@@ -9,11 +9,13 @@ class Foo
 	 * @param int $integer
 	 * @param int|string $integerOrString
 	 * @param string $string
+	 * @param callable $callable
 	 */
 	public function doFoo(
 		int $integer,
 		$integerOrString,
-		string $string
+		string $string,
+		callable $callable
 	)
 	{
 		if (is_int($integer)) { // always true
@@ -27,6 +29,9 @@ class Foo
 		}
 		$className = 'Foo';
 		if (is_a($className, \Throwable::class, true)) { // should be fine
+
+		}
+		if (is_array($callable)) {
 
 		}
 	}

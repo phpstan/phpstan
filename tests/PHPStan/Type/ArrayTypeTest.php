@@ -35,6 +35,11 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 				new ArrayType(new StringType(), new StringType()),
 				TrinaryLogic::createNo(),
 			],
+			[
+				new ArrayType(new MixedType(), new MixedType(), false, TrinaryLogic::createMaybe()),
+				new CallableType(),
+				TrinaryLogic::createMaybe(),
+			],
 		];
 	}
 
