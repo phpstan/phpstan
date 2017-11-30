@@ -161,3 +161,21 @@ class Baz extends Foo
 	}
 
 }
+
+class ClassOrString
+{
+
+	public function doFoo()
+	{
+		/** @var self|string $class */
+		$class = doFoo();
+		$class::calledMethod();
+		$class::calledMethod(1);
+	}
+
+	private static function calledMethod()
+	{
+
+	}
+
+}

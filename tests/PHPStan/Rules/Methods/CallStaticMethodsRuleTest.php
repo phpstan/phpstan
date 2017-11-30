@@ -174,6 +174,10 @@ class CallStaticMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Static call to instance method CallStaticMethods\Foo::loremIpsum().',
 				160,
 			],
+			[
+				'Static method CallStaticMethods\ClassOrString::calledMethod() invoked with 1 parameter, 0 required.',
+				173,
+			],
 		]);
 	}
 

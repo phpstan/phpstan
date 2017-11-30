@@ -14,6 +14,7 @@ use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
+use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeWithClassName;
 
 class CallStaticMethodsRule implements \PHPStan\Rules\Rule
@@ -141,9 +142,15 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
+		$typeWithRemovedString = TypeCombinator::remove($classType, new StringType());
+		$typeForDescribe = $classType;
+		if ($classType->describe() !== $typeWithRemovedString->describe()) {
+			$classType = $typeWithRemovedString;
+		}
+
 		if (!$classType->canCallMethods()) {
 			return array_merge($errors, [
-				sprintf('Cannot call static method %s() on %s.', $methodName, $classType->describe()),
+				sprintf('Cannot call static method %s() on %s.', $methodName, $typeForDescribe->describe()),
 			]);
 		}
 
@@ -151,7 +158,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 			return array_merge($errors, [
 				sprintf(
 					'Call to an undefined static method %s::%s().',
-					$classType->describe(),
+					$typeForDescribe->describe(),
 					$methodName
 				),
 			]);
