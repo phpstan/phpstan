@@ -142,11 +142,8 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		$typeWithRemovedString = TypeCombinator::remove($classType, new StringType());
 		$typeForDescribe = $classType;
-		if ($classType->describe() !== $typeWithRemovedString->describe()) {
-			$classType = $typeWithRemovedString;
-		}
+		$classType = TypeCombinator::remove($classType, new StringType());
 
 		if (!$classType->canCallMethods()) {
 			return array_merge($errors, [
