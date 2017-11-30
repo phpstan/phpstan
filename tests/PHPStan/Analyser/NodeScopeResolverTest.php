@@ -2372,7 +2372,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foo',
 			],
 			[
-				'SwitchInstanceOf\Bar',
+				'mixed',
 				'$bar',
 			],
 			[

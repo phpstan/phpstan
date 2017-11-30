@@ -37,3 +37,17 @@ class Foo
 	}
 
 }
+
+class TypeCheckInSwitch
+{
+
+	public function doFoo($value)
+	{
+		switch (true) {
+			case is_int($value):
+			case is_float($value):
+				break;
+		}
+	}
+
+}

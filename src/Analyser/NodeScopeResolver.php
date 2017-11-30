@@ -515,23 +515,26 @@ class NodeScopeResolver
 						TrinaryLogic::createYes()
 					);
 
+					$caseScope = $switchScope;
 					if ($switchConditionIsTrue) {
-						$switchScope = $switchScope->filterByTruthyValue($caseNode->cond);
+						$caseScope = $caseScope->filterByTruthyValue($caseNode->cond);
 					} elseif (
 						$switchConditionGetClassExpression !== null
 						&& $caseNode->cond instanceof Expr\ClassConstFetch
 						&& $caseNode->cond->class instanceof Name
 						&& strtolower($caseNode->cond->name) === 'class'
 					) {
-						$switchScope = $switchScope->specifyExpressionType(
+						$caseScope = $caseScope->specifyExpressionType(
 							$switchConditionGetClassExpression,
 							new ObjectType($scope->resolveName($caseNode->cond->class))
 						);
 					}
+				} else {
+					$caseScope = $switchScope;
 				}
 				$this->processNodes(
 					$caseNode->stmts,
-					$switchScope->enterFirstLevelStatements(),
+					$caseScope->enterFirstLevelStatements(),
 					$nodeCallback
 				);
 				if ($this->findEarlyTermination($caseNode->stmts, $switchScope) === null) {
