@@ -10,12 +10,16 @@ class Foo
 	 * @param int|string $integerOrString
 	 * @param string $string
 	 * @param callable $callable
+	 * @param array $array
+	 * @param array<int> $arrayOfInt
 	 */
 	public function doFoo(
 		int $integer,
 		$integerOrString,
 		string $string,
-		callable $callable
+		callable $callable,
+		array $array,
+		array $arrayOfInt
 	)
 	{
 		if (is_int($integer)) { // always true
@@ -32,6 +36,12 @@ class Foo
 
 		}
 		if (is_array($callable)) {
+
+		}
+		if (is_callable($array)) {
+
+		}
+		if (is_callable($arrayOfInt)) {
 
 		}
 	}

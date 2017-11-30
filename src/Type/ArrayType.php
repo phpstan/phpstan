@@ -31,7 +31,7 @@ class ArrayType implements StaticResolvableType
 		$this->keyType = $keyType;
 		$this->itemType = $itemType;
 		$this->itemTypeInferredFromLiteralArray = $itemTypeInferredFromLiteralArray;
-		$this->callable = $callable ?? TrinaryLogic::createNo();
+		$this->callable = $callable ?? TrinaryLogic::createMaybe()->and((new StringType)->isSuperTypeOf($itemType));
 	}
 
 	/**

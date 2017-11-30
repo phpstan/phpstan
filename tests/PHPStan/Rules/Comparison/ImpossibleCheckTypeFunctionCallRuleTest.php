@@ -25,11 +25,15 @@ class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestC
 			[
 				[
 					'Call to function is_int() will always evaluate to true.',
-					21,
+					25,
 				],
 				[
 					'Call to function is_int() will always evaluate to false.',
-					27,
+					31,
+				],
+				[
+					'Call to function is_callable() will always evaluate to false.',
+					44,
 				],
 			]
 		);
@@ -43,7 +47,11 @@ class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestC
 			[
 				[
 					'Call to function is_int() will always evaluate to false.',
-					27,
+					31,
+				],
+				[
+					'Call to function is_callable() will always evaluate to false.',
+					44,
 				],
 			]
 		);
