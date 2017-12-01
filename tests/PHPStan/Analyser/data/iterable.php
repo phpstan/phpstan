@@ -7,6 +7,11 @@ interface Collection extends \Traversable
 
 }
 
+interface CollectionOfIntegers extends \Iterator
+{
+	public function current(): int;
+}
+
 class Foo
 {
 
@@ -34,6 +39,11 @@ class Foo
 	 * @var string[]|int[]|iterable|int
 	 */
 	private $iterablePropertyWithTwoItemTypes;
+
+	/**
+	 * @var CollectionOfIntegers|string[]
+	 */
+	private $collectionOfIntegersOrArrayOfStrings;
 
 	/**
 	 * @param iterable $iterableWithIterableTypehint
