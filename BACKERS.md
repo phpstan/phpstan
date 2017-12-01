@@ -8,7 +8,7 @@ the logo of your company in PHPStan's README.
 
 # $50+
 
-* René Feiner
+* MessageBird
 
 # $10+
 
