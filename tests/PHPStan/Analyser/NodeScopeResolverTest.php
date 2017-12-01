@@ -3238,6 +3238,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'int|iterable<int|string>',
 				'$this->iterablePropertyWithTwoItemTypes',
 			],
+			[
+				'array<string>|Iterables\CollectionOfIntegers',
+				'$this->collectionOfIntegersOrArrayOfStrings',
+			],
 		];
 	}
 

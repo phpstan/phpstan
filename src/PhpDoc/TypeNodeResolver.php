@@ -200,7 +200,7 @@ class TypeNodeResolver
 			$addArray = true;
 
 			foreach ($otherTypeTypes as &$type) {
-				if ($type->isIterable()->yes()) {
+				if ($type->isIterable()->yes() && $type->getIterableValueType()->isSuperTypeOf($arrayTypeType)->yes()) {
 					if ($type instanceof ObjectType) {
 						$type = new IntersectionType([$type, new IterableIterableType(new MixedType(), $arrayTypeType)]);
 					} elseif ($type instanceof ArrayType) {
@@ -260,6 +260,11 @@ class TypeNodeResolver
 		return new ErrorType();
 	}
 
+	/**
+	 * @param TypeNode[] $typeNodes
+	 * @param NameScope $nameScope
+	 * @return Type[]
+	 */
 	private function resolveMultiple(array $typeNodes, NameScope $nameScope): array
 	{
 		$types = [];
