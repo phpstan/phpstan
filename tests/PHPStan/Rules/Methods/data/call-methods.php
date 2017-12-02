@@ -533,3 +533,22 @@ class NullCoalesce
 	}
 
 }
+
+class IncompatiblePhpDocNullableTypeIssue
+{
+
+	/**
+	 * @param int|null $param
+	 */
+	public function doFoo(string $param = null)
+	{
+
+	}
+
+	public function doBar()
+	{
+		$this->doFoo('foo'); // OK
+		$this->doFoo(123); // error
+	}
+
+}

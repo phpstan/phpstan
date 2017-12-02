@@ -227,6 +227,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Method Test\NullCoalesce::find() invoked with 1 parameter, 0 required.',
 				524,
 			],
+			[
+				'Parameter #1 $param of method Test\IncompatiblePhpDocNullableTypeIssue::doFoo() expects string|null, int given.',
+				551,
+			],
 		]);
 	}
 
@@ -339,6 +343,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Parameter #1 $globalTitle of method Test\ThreeTypesCall::threeTypes() expects string, float given.',
 				446,
+			],
+			[
+				'Parameter #1 $param of method Test\IncompatiblePhpDocNullableTypeIssue::doFoo() expects string|null, int given.',
+				551,
 			],
 		]);
 	}
