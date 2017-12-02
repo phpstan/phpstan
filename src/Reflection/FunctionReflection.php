@@ -13,6 +13,7 @@ use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\StringType;
+use PHPStan\Type\TrueOrFalseBooleanType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypehintHelper;
@@ -209,6 +210,16 @@ class FunctionReflection implements ParametersAcceptorWithPhpDocs
 				$this->parameters[5] = new DummyParameter(
 					'iv',
 					new StringType(),
+					true
+				);
+			}
+
+			if (
+				$this->reflection->getName() === 'openssl_x509_parse'
+			) {
+				$this->parameters[1] = new DummyParameter(
+					'shortnames',
+					new TrueOrFalseBooleanType(),
 					true
 				);
 			}
