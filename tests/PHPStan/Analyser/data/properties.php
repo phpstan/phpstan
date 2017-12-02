@@ -131,6 +131,11 @@ abstract class Foo extends Bar
 	 */
 	private $anotherPhpunitProperty;
 
+	/**
+	 * @var Foo|\PHPUnit\Framework\MockObject\MockObject
+	 */
+	private $yetAnotherPhpunitProperty;
+
 	public function doFoo()
 	{
 		die;

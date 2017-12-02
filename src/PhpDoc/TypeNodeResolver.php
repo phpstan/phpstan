@@ -184,7 +184,13 @@ class TypeNodeResolver
 		$hasPhpunitMock = false;
 		$otherTypeTypes = $this->resolveMultiple($otherTypeNodes, $nameScope);
 		foreach ($otherTypeTypes as $otherType) {
-			if ($otherType instanceof TypeWithClassName && $otherType->getClassName() === 'PHPUnit_Framework_MockObject_MockObject') {
+			if (
+				$otherType instanceof TypeWithClassName
+				&& in_array($otherType->getClassName(), [
+					'PHPUnit_Framework_MockObject_MockObject',
+					\PHPUnit\Framework\MockObject\MockObject::class,
+				], true)
+			) {
 				$hasPhpunitMock = true;
 				break;
 			}

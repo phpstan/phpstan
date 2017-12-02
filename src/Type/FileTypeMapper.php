@@ -74,7 +74,7 @@ class FileTypeMapper
 	private function getResolvedPhpDocMap(string $fileName, string $className = null): array
 	{
 		if (!isset($this->memoryCache[$fileName])) {
-			$cacheKey = sprintf('%s-%d-v25', $fileName, filemtime($fileName));
+			$cacheKey = sprintf('%s-%d-v26', $fileName, filemtime($fileName));
 			$map = $this->cache->load($cacheKey);
 
 			if ($map === null) {
