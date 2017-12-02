@@ -26,3 +26,8 @@ $string::FOO;
 FOO::class;
 FOO::DOLOR;
 FOO::LOREM;
+
+/** @var Foo|string $fooOrString */
+$fooOrString = doFoo();
+$fooOrString::LOREM;
+$fooOrString::DOLOR;

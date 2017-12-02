@@ -11,6 +11,7 @@ use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
+use PHPStan\Type\TypeCombinator;
 
 class ClassConstantRule implements \PHPStan\Rules\Rule
 {
@@ -122,9 +123,12 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 			return $messages;
 		}
 
+		$typeForDescribe = $classType;
+		$classType = TypeCombinator::remove($classType, new StringType());
+
 		if (!$classType->canAccessConstants()) {
 			return array_merge($messages, [
-				sprintf('Cannot access constant %s on %s.', $constantName, $classType->describe()),
+				sprintf('Cannot access constant %s on %s.', $constantName, $typeForDescribe->describe()),
 			]);
 		}
 
@@ -136,7 +140,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 			return array_merge($messages, [
 				sprintf(
 					'Access to undefined constant %s::%s.',
-					$classType->describe(),
+					$typeForDescribe->describe(),
 					$constantName
 				),
 			]);

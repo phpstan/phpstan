@@ -67,6 +67,10 @@ class ClassConstantRuleTest extends \PHPStan\Testing\RuleTestCase
 					'Class ClassConstantNamespace\Foo referenced with incorrect case: ClassConstantNamespace\FOO.',
 					28,
 				],
+				[
+					'Access to undefined constant ClassConstantNamespace\Foo|string::DOLOR.',
+					33,
+				],
 			]
 		);
 	}
