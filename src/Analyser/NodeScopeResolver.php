@@ -591,15 +591,15 @@ class NodeScopeResolver
 			}
 			$scope = $scope->enterFunctionCall($node);
 		} elseif ($node instanceof New_ && $node->class instanceof Class_) {
-			$node->args = [];
-			$code = $this->printer->prettyPrint([$node]);
-
 			do {
 				$uniqidClass = 'AnonymousClass' . uniqid();
 			} while (class_exists('\\' . $uniqidClass));
 
-			$code = 'class ' . $uniqidClass . ' ' . substr($code, strlen('new class '));
-			eval($code);
+			$classNode = $node->class;
+			$classNode->name = $uniqidClass;
+			eval($this->printer->prettyPrint([$classNode]));
+			unset($classNode);
+
 			$classReflection = new \ReflectionClass('\\' . $uniqidClass);
 			$this->anonymousClassReflection = $this->broker->getClassFromReflection(
 				$classReflection,

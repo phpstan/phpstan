@@ -82,6 +82,15 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertSame('Call to an undefined method ExtendsClassWithUnknownPropertyType::foo().', $errors[0]->getMessage());
 	}
 
+	public function testAnonymousClassesWithComments()
+	{
+		$errors = $this->runAnalyse(__DIR__ . '/data/AnonymousClassesWithComments.php');
+		$this->assertCount(3, $errors);
+		foreach ($errors as $error) {
+			$this->assertContains('Call to an undefined method', $error->getMessage());
+		}
+	}
+
 	/**
 	 * @param string $file
 	 * @return \PHPStan\Analyser\Error[]
