@@ -29,7 +29,7 @@
 		"phpstan/phpstan-php-parser": "^0.9",
 		"phpstan/phpstan-phpunit": "^0.9",
 		"phpstan/phpstan-strict-rules": "^0.9",
-		"phpunit/phpunit": "^6.5",
+		"phpunit/phpunit": "^6.5.2",
 		"slevomat/coding-standard": "4.0.0"
 	},
 	"autoload": {
