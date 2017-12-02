@@ -657,7 +657,7 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				62,
 			],
 			[
-				'Parameter #6 $mixedUnionIterableType of method CallMethodsIterables\Foo::doFoo() expects array<CallMethodsIterables\Bar|CallMethodsIterables\Foo>, int given.',
+				'Parameter #6 $mixedUnionIterableType of method CallMethodsIterables\Foo::doFoo() expects array, int given.',
 				62,
 			],
 			[

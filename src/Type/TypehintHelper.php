@@ -103,8 +103,7 @@ class TypehintHelper
 				}
 			}
 
-			$intersection = TypeCombinator::intersect($type, $phpDocType);
-			return $intersection instanceof NeverType ? $type : $intersection;
+			return $type->isSuperTypeOf($phpDocType)->yes() ? $phpDocType : $type;
 		}
 
 		return $type;
