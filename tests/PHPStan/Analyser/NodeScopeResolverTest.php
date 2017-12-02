@@ -3187,7 +3187,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$unionBar',
 			],
 			[
-				'array<Iterables\Bar|Iterables\Foo>',
+				'array',
 				'$mixedUnionIterableType',
 			],
 			[
@@ -3195,7 +3195,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$unionIterableIterableType',
 			],
 			[
-				'Iterables\Bar|Iterables\Foo',
+				'mixed',
 				'$mixedBar',
 			],
 			[
