@@ -26,6 +26,12 @@ class Broker
 	/** @var \PHPStan\Type\DynamicStaticMethodReturnTypeExtension[] */
 	private $dynamicStaticMethodReturnTypeExtensions = [];
 
+	/** @var \PHPStan\Type\DynamicMethodReturnTypeExtension[] */
+	private $dynamicMethodReturnTypeExtensionsByClass;
+
+	/** @var \PHPStan\Type\DynamicStaticMethodReturnTypeExtension[] */
+	private $dynamicStaticMethodReturnTypeExtensionsByClass;
+
 	/** @var \PHPStan\Type\DynamicFunctionReturnTypeExtension[] */
 	private $dynamicFunctionReturnTypeExtensions = [];
 
@@ -74,13 +80,8 @@ class Broker
 			}
 		}
 
-		foreach ($dynamicMethodReturnTypeExtensions as $dynamicMethodReturnTypeExtension) {
-			$this->dynamicMethodReturnTypeExtensions[$dynamicMethodReturnTypeExtension->getClass()][] = $dynamicMethodReturnTypeExtension;
-		}
-
-		foreach ($dynamicStaticMethodReturnTypeExtensions as $dynamicStaticMethodReturnTypeExtension) {
-			$this->dynamicStaticMethodReturnTypeExtensions[$dynamicStaticMethodReturnTypeExtension->getClass()][] = $dynamicStaticMethodReturnTypeExtension;
-		}
+		$this->dynamicMethodReturnTypeExtensions = $dynamicMethodReturnTypeExtensions;
+		$this->dynamicStaticMethodReturnTypeExtensions = $dynamicStaticMethodReturnTypeExtensions;
 
 		foreach ($dynamicFunctionReturnTypeExtensions as $functionReturnTypeExtension) {
 			$this->dynamicFunctionReturnTypeExtensions[] = $functionReturnTypeExtension;
@@ -106,7 +107,15 @@ class Broker
 	 */
 	public function getDynamicMethodReturnTypeExtensionsForClass(string $className): array
 	{
-		return $this->getDynamicExtensionsForType($this->dynamicMethodReturnTypeExtensions, $className);
+		if ($this->dynamicMethodReturnTypeExtensionsByClass === null) {
+			$byClass = [];
+			foreach ($this->dynamicMethodReturnTypeExtensions as $extension) {
+				$byClass[$extension->getClass()][] = $extension;
+			}
+
+			$this->dynamicMethodReturnTypeExtensionsByClass = $byClass;
+		}
+		return $this->getDynamicExtensionsForType($this->dynamicMethodReturnTypeExtensionsByClass, $className);
 	}
 
 	/**
@@ -115,7 +124,15 @@ class Broker
 	 */
 	public function getDynamicStaticMethodReturnTypeExtensionsForClass(string $className): array
 	{
-		return $this->getDynamicExtensionsForType($this->dynamicStaticMethodReturnTypeExtensions, $className);
+		if ($this->dynamicStaticMethodReturnTypeExtensionsByClass === null) {
+			$byClass = [];
+			foreach ($this->dynamicStaticMethodReturnTypeExtensions as $extension) {
+				$byClass[$extension->getClass()][] = $extension;
+			}
+
+			$this->dynamicStaticMethodReturnTypeExtensionsByClass = $byClass;
+		}
+		return $this->getDynamicExtensionsForType($this->dynamicStaticMethodReturnTypeExtensionsByClass, $className);
 	}
 
 	/**
