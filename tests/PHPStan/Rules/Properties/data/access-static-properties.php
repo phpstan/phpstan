@@ -125,3 +125,18 @@ function (FOOAccessStaticPropertieS $foo) {
 function (string $className) {
 	$className::$fooProperty;
 };
+
+class ClassOrString
+{
+
+	private static $accessedProperty;
+
+	public function doFoo()
+	{
+		/** @var self|string $class */
+		$class = doFoo();
+		$class::$accessedProperty;
+		$class::$unknownProperty;
+	}
+
+}

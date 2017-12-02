@@ -145,6 +145,10 @@ class AccessStaticPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Class FooAccessStaticProperties referenced with incorrect case: FOOAccessStaticPropertieS.',
 				122,
 			],
+			[
+				'Access to an undefined static property ClassOrString|string::$unknownProperty.',
+				139,
+			],
 		]);
 	}
 

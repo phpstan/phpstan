@@ -12,6 +12,7 @@ use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
+use PHPStan\Type\TypeCombinator;
 
 class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 {
@@ -138,9 +139,12 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
+		$typeForDescribe = $classType;
+		$classType = TypeCombinator::remove($classType, new StringType());
+
 		if (!$classType->canAccessProperties()) {
 			return array_merge($messages, [
-				sprintf('Cannot access static property $%s on %s.', $name, $classType->describe()),
+				sprintf('Cannot access static property $%s on %s.', $name, $typeForDescribe->describe()),
 			]);
 		}
 
@@ -152,7 +156,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 			return array_merge($messages, [
 				sprintf(
 					'Access to an undefined static property %s::$%s.',
-					$classType->describe(),
+					$typeForDescribe->describe(),
 					$name
 				),
 			]);
