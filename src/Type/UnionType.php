@@ -113,15 +113,11 @@ class UnionType implements CompoundType, StaticResolvableType
 		return implode('|', $typeNames);
 	}
 
-	public function canAccessProperties(): bool
+	public function canAccessProperties(): TrinaryLogic
 	{
-		foreach ($this->types as $type) {
-			if (!$type->canAccessProperties()) {
-				return false;
-			}
-		}
-
-		return true;
+		return $this->unionResults(function (Type $type): TrinaryLogic {
+			return $type->canAccessProperties();
+		});
 	}
 
 	public function hasProperty(string $propertyName): bool

@@ -84,13 +84,11 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		return implode('&', $typeNames);
 	}
 
-	public function canAccessProperties(): bool
+	public function canAccessProperties(): TrinaryLogic
 	{
-		$result = $this->intersectResults(function (Type $type): TrinaryLogic {
-			return $type->canAccessProperties() ? TrinaryLogic::createYes() : TrinaryLogic::createNo();
+		return $this->intersectResults(function (Type $type): TrinaryLogic {
+			return $type->canAccessProperties();
 		});
-
-		return $result->yes();
 	}
 
 	public function hasProperty(string $propertyName): bool

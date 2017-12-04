@@ -56,7 +56,8 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 		if ($type instanceof ErrorType) {
 			return $typeResult->getUnknownClassErrors();
 		}
-		if (!$type->canAccessProperties()) {
+
+		if (!$type->canAccessProperties()->yes()) {
 			return [
 				sprintf('Cannot access property $%s on %s.', $name, $type->describe()),
 			];
