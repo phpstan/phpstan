@@ -69,7 +69,7 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 		return sprintf('static(%s)', $this->baseClass);
 	}
 
-	public function canAccessProperties(): bool
+	public function canAccessProperties(): TrinaryLogic
 	{
 		return $this->staticObjectType->canAccessProperties();
 	}

@@ -11,9 +11,9 @@ use PHPStan\TrinaryLogic;
 trait NonObjectTypeTrait
 {
 
-	public function canAccessProperties(): bool
+	public function canAccessProperties(): TrinaryLogic
 	{
-		return false;
+		return TrinaryLogic::createNo();
 	}
 
 	public function hasProperty(string $propertyName): bool

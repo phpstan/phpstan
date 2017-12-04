@@ -142,7 +142,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 		$typeForDescribe = $classType;
 		$classType = TypeCombinator::remove($classType, new StringType());
 
-		if (!$classType->canAccessProperties()) {
+		if (!$classType->canAccessProperties()->yes()) {
 			return array_merge($messages, [
 				sprintf('Cannot access static property $%s on %s.', $name, $typeForDescribe->describe()),
 			]);

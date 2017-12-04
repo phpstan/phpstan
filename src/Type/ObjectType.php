@@ -151,9 +151,9 @@ class ObjectType implements TypeWithClassName
 		return $this->className;
 	}
 
-	public function canAccessProperties(): bool
+	public function canAccessProperties(): TrinaryLogic
 	{
-		return true;
+		return TrinaryLogic::createYes();
 	}
 
 	public function canCallMethods(): bool

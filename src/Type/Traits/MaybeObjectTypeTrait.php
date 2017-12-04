@@ -11,9 +11,9 @@ use PHPStan\TrinaryLogic;
 trait MaybeObjectTypeTrait
 {
 
-	public function canAccessProperties(): bool
+	public function canAccessProperties(): TrinaryLogic
 	{
-		return true;
+		return TrinaryLogic::createMaybe();
 	}
 
 	public function hasProperty(string $propertyName): bool
