@@ -26,6 +26,7 @@ class FunctionDefinitionCheck
 		'float',
 		'void',
 		'iterable',
+		'object',
 	];
 
 	/**
@@ -59,6 +60,23 @@ class FunctionDefinitionCheck
 		$this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
 		$this->checkClassCaseSensitivity = $checkClassCaseSensitivity;
 		$this->checkThisOnly = $checkThisOnly;
+	}
+
+	/**
+	 * @return string[]
+	 */
+	private function getSupportedTypehints(): array
+	{
+		if (PHP_VERSION_ID < 70200) {
+			$unsupportedTypehints = ['object'];
+			if (PHP_VERSION_ID < 70100) {
+				$unsupportedTypehints += ['void', 'iterable'];
+			}
+
+			return array_diff(self::VALID_TYPEHINTS, $unsupportedTypehints);
+		}
+
+		return self::VALID_TYPEHINTS;
 	}
 
 	/**
@@ -103,7 +121,7 @@ class FunctionDefinitionCheck
 			$class = $param->type instanceof NullableType
 				? (string) $param->type->type
 				: (string) $param->type;
-			if ($class === '' || in_array($class, self::VALID_TYPEHINTS, true)) {
+			if ($class === '' || in_array($class, $this->getSupportedTypehints(), true)) {
 				continue;
 			}
 
@@ -123,7 +141,7 @@ class FunctionDefinitionCheck
 
 		if (
 			$returnType !== ''
-			&& !in_array($returnType, self::VALID_TYPEHINTS, true)
+			&& !in_array($returnType, $this->getSupportedTypehints(), true)
 		) {
 			if (!$this->broker->hasClass($returnType)) {
 				$errors[] = sprintf($returnMessage, $returnType);
