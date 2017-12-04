@@ -59,7 +59,6 @@ use PHPStan\Type\CommentHelper;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
-use PHPStan\Type\NestedArrayItemType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
@@ -1194,7 +1193,8 @@ class NodeScopeResolver
 					}
 				}
 				$arrayType = ArrayType::createDeepArrayType(
-					new NestedArrayItemType($subNodeType !== null ? $subNodeType : new MixedType(), $depth),
+					$subNodeType !== null ? $subNodeType : new MixedType(),
+					$depth,
 					false
 				);
 				if ($scope->hasVariableType($var->name)->yes()) {

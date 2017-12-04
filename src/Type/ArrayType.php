@@ -54,10 +54,9 @@ class ArrayType implements StaticResolvableType
 		);
 	}
 
-	public static function createDeepArrayType(NestedArrayItemType $nestedItemType, bool $nullable): self
+	public static function createDeepArrayType(Type $itemType, int $depth, bool $nullable): self
 	{
-		$itemType = $nestedItemType->getItemType();
-		for ($i = 0; $i < $nestedItemType->getDepth() - 1; $i++) {
+		for ($i = 0; $i < $depth - 1; $i++) {
 			$itemType = new self(new MixedType(), $itemType, false);
 		}
 
