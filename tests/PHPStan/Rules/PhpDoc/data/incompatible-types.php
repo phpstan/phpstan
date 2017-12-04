@@ -108,3 +108,13 @@ function variadicStringArrays(array ...$strings)
 {
 
 }
+
+/**
+ * @param  array<int, int, int> $arr
+ * @param  array<int, int, int> $arrX
+ * @return bool <strong>true</strong> or <strong>false</strong>
+ */
+function unresolvableTypes(array $arr): bool
+{
+
+}
