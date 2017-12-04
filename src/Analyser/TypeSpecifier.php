@@ -21,7 +21,7 @@ use PHPStan\Type\CallableType;
 use PHPStan\Type\FalseBooleanType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
-use PHPStan\Type\IterableIterableType;
+use PHPStan\Type\IterableType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
@@ -155,7 +155,7 @@ class TypeSpecifier
 				case 'is_resource':
 					return $this->create($innerExpr, new ResourceType(), $context);
 				case 'is_iterable':
-					return $this->create($innerExpr, new IterableIterableType(new MixedType(), new MixedType()), $context);
+					return $this->create($innerExpr, new IterableType(new MixedType(), new MixedType()), $context);
 				case 'is_string':
 					return $this->create($innerExpr, new StringType(), $context);
 				case 'is_object':

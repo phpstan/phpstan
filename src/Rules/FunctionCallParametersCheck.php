@@ -7,7 +7,7 @@ use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Type\ArrayType;
-use PHPStan\Type\IterableIterableType;
+use PHPStan\Type\IterableType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\VoidType;
@@ -159,7 +159,7 @@ class FunctionCallParametersCheck
 			$secondAccepts = null;
 			if ($parameterType->isIterable()->yes() && $parameter->isVariadic()) {
 				$secondAccepts = $this->ruleLevelHelper->accepts(
-					new IterableIterableType(
+					new IterableType(
 						new MixedType(),
 						$parameterType->getIterableValueType()
 					),
