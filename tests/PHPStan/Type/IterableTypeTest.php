@@ -11,22 +11,22 @@ class IterableTypeTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				new IterableIterableType(new IntegerType(), new StringType()),
+				new IterableType(new IntegerType(), new StringType()),
 				new ArrayType(new IntegerType(), new StringType()),
 				TrinaryLogic::createYes(),
 			],
 			[
-				new IterableIterableType(new MixedType(), new StringType()),
+				new IterableType(new MixedType(), new StringType()),
 				new ArrayType(new IntegerType(), new StringType()),
 				TrinaryLogic::createYes(),
 			],
 			[
-				new IterableIterableType(new IntegerType(), new StringType()),
+				new IterableType(new IntegerType(), new StringType()),
 				new ArrayType(new MixedType(), new StringType()),
 				TrinaryLogic::createMaybe(),
 			],
 			[
-				new IterableIterableType(new StringType(), new StringType()),
+				new IterableType(new StringType(), new StringType()),
 				new ArrayType(new IntegerType(), new StringType()),
 				TrinaryLogic::createNo(),
 			],
@@ -35,11 +35,11 @@ class IterableTypeTest extends \PHPStan\Testing\TestCase
 
 	/**
 	 * @dataProvider dataIsSuperTypeOf
-	 * @param IterableIterableType $type
+	 * @param IterableType $type
 	 * @param Type $otherType
 	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSuperTypeOf(IterableIterableType $type, Type $otherType, TrinaryLogic $expectedResult): void
+	public function testIsSuperTypeOf(IterableType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
 		$this->createBroker();
 
@@ -55,68 +55,68 @@ class IterableTypeTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				new IterableIterableType(new MixedType(), new StringType()),
-				new IterableIterableType(new MixedType(), new StringType()),
+				new IterableType(new MixedType(), new StringType()),
+				new IterableType(new MixedType(), new StringType()),
 				TrinaryLogic::createYes(),
 			],
 			[
-				new IterableIterableType(new MixedType(), new StringType()),
+				new IterableType(new MixedType(), new StringType()),
 				new ObjectType('Unknown'),
 				TrinaryLogic::createMaybe(),
 			],
 			[
-				new IterableIterableType(new MixedType(), new StringType()),
+				new IterableType(new MixedType(), new StringType()),
 				new IntegerType(),
 				TrinaryLogic::createNo(),
 			],
 			[
-				new IterableIterableType(new MixedType(), new StringType()),
-				new IterableIterableType(new MixedType(), new IntegerType()),
+				new IterableType(new MixedType(), new StringType()),
+				new IterableType(new MixedType(), new IntegerType()),
 				TrinaryLogic::createNo(),
 			],
 			[
-				new IterableIterableType(new MixedType(), new StringType()),
-				new UnionType([new IterableIterableType(new MixedType(), new StringType()), new NullType()]),
+				new IterableType(new MixedType(), new StringType()),
+				new UnionType([new IterableType(new MixedType(), new StringType()), new NullType()]),
 				TrinaryLogic::createYes(),
 			],
 			[
-				new IterableIterableType(new MixedType(), new StringType()),
+				new IterableType(new MixedType(), new StringType()),
 				new UnionType([new ArrayType(new MixedType(), new MixedType()), new ObjectType('Traversable')]),
 				TrinaryLogic::createYes(),
 			],
 			[
-				new IterableIterableType(new MixedType(), new StringType()),
+				new IterableType(new MixedType(), new StringType()),
 				new UnionType([new ArrayType(new MixedType(), new StringType()), new ObjectType('Traversable')]),
 				TrinaryLogic::createYes(),
 			],
 			[
-				new IterableIterableType(new MixedType(), new StringType()),
+				new IterableType(new MixedType(), new StringType()),
 				new UnionType([new ObjectType('Unknown'), new NullType()]),
 				TrinaryLogic::createMaybe(),
 			],
 			[
-				new IterableIterableType(new MixedType(), new StringType()),
+				new IterableType(new MixedType(), new StringType()),
 				new UnionType([new IntegerType(), new NullType()]),
 				TrinaryLogic::createNo(),
 			],
 			[
-				new IterableIterableType(new MixedType(), new StringType()),
-				new UnionType([new IterableIterableType(new MixedType(), new IntegerType()), new NullType()]),
+				new IterableType(new MixedType(), new StringType()),
+				new UnionType([new IterableType(new MixedType(), new IntegerType()), new NullType()]),
 				TrinaryLogic::createNo(),
 			],
 			[
-				new IterableIterableType(new IntegerType(), new StringType()),
-				new IterableIterableType(new MixedType(), new StringType()),
+				new IterableType(new IntegerType(), new StringType()),
+				new IterableType(new MixedType(), new StringType()),
 				TrinaryLogic::createYes(),
 			],
 			[
-				new IterableIterableType(new MixedType(), new StringType()),
-				new IterableIterableType(new IntegerType(), new StringType()),
+				new IterableType(new MixedType(), new StringType()),
+				new IterableType(new IntegerType(), new StringType()),
 				TrinaryLogic::createMaybe(),
 			],
 			[
-				new IterableIterableType(new StringType(), new StringType()),
-				new IterableIterableType(new IntegerType(), new StringType()),
+				new IterableType(new StringType(), new StringType()),
+				new IterableType(new IntegerType(), new StringType()),
 				TrinaryLogic::createNo(),
 			],
 		];
@@ -124,11 +124,11 @@ class IterableTypeTest extends \PHPStan\Testing\TestCase
 
 	/**
 	 * @dataProvider dataIsSubTypeOf
-	 * @param IterableIterableType $type
+	 * @param IterableType $type
 	 * @param Type $otherType
 	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSubTypeOf(IterableIterableType $type, Type $otherType, TrinaryLogic $expectedResult): void
+	public function testIsSubTypeOf(IterableType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
 		$this->createBroker();
 
@@ -142,11 +142,11 @@ class IterableTypeTest extends \PHPStan\Testing\TestCase
 
 	/**
 	 * @dataProvider dataIsSubTypeOf
-	 * @param IterableIterableType $type
+	 * @param IterableType $type
 	 * @param Type $otherType
 	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSubTypeOfInversed(IterableIterableType $type, Type $otherType, TrinaryLogic $expectedResult): void
+	public function testIsSubTypeOfInversed(IterableType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
 		$this->createBroker();
 

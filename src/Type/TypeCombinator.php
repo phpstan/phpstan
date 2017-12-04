@@ -112,8 +112,8 @@ class TypeCombinator
 					);
 					array_splice($types, $j, 1);
 					continue 2;
-				} elseif ($types[$i] instanceof IterableIterableType && $types[$j] instanceof IterableIterableType) {
-					$types[$i] = new IterableIterableType(
+				} elseif ($types[$i] instanceof IterableType && $types[$j] instanceof IterableType) {
+					$types[$i] = new IterableType(
 						self::union($types[$i]->getIterableKeyType(), $types[$j]->getIterableKeyType()),
 						self::union($types[$i]->getIterableValueType(), $types[$j]->getIterableValueType())
 					);

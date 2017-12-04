@@ -53,7 +53,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				new IntersectionType([
-					new IterableIterableType(new MixedType(), new StringType()),
+					new IterableType(new MixedType(), new StringType()),
 					new ObjectType('ArrayObject'),
 				]),
 				UnionType::class,
@@ -62,7 +62,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			[
 				new UnionType([
 					new IntersectionType([
-						new IterableIterableType(new MixedType(), new StringType()),
+						new IterableType(new MixedType(), new StringType()),
 						new ObjectType('ArrayObject'),
 					]),
 					new NullType(),
@@ -150,7 +150,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			[
 				new UnionType([
 					new IntersectionType([
-						new IterableIterableType(new MixedType(), new StringType()),
+						new IterableType(new MixedType(), new StringType()),
 						new ObjectType('ArrayObject'),
 					]),
 					new NullType(),
@@ -160,7 +160,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				new IntersectionType([
-					new IterableIterableType(new MixedType(), new StringType()),
+					new IterableType(new MixedType(), new StringType()),
 					new ObjectType('ArrayObject'),
 				]),
 				IntersectionType::class,
@@ -176,10 +176,10 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				new UnionType([
-					new IterableIterableType(new MixedType(), new StringType()),
+					new IterableType(new MixedType(), new StringType()),
 					new NullType(),
 				]),
-				IterableIterableType::class,
+				IterableType::class,
 				'iterable<string>',
 			],
 		];
@@ -296,7 +296,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			[
 				[
 					new IntersectionType([
-						new IterableIterableType(new MixedType(), new IntegerType()),
+						new IterableType(new MixedType(), new IntegerType()),
 						new ObjectType('ArrayObject'),
 					]),
 					new StringType(),
@@ -307,7 +307,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			[
 				[
 					new IntersectionType([
-						new IterableIterableType(new MixedType(), new IntegerType()),
+						new IterableType(new MixedType(), new IntegerType()),
 						new ObjectType('ArrayObject'),
 					]),
 					new ArrayType(new MixedType(), new StringType()),
@@ -339,18 +339,18 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new IterableIterableType(new MixedType(), new MixedType()),
+					new IterableType(new MixedType(), new MixedType()),
 					new ArrayType(new MixedType(), new StringType()),
 				],
-				IterableIterableType::class,
+				IterableType::class,
 				'iterable',
 			],
 			[
 				[
-					new IterableIterableType(new MixedType(), new MixedType()),
+					new IterableType(new MixedType(), new MixedType()),
 					new ArrayType(new MixedType(), new MixedType()),
 				],
-				IterableIterableType::class,
+				IterableType::class,
 				'iterable',
 			],
 			[
@@ -382,7 +382,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			[
 				[
 					new IntersectionType([
-						new IterableIterableType(new MixedType(), new IntegerType()),
+						new IterableType(new MixedType(), new IntegerType()),
 						new ObjectType('ArrayObject'),
 					]),
 					new ArrayType(new MixedType(), new IntegerType()),
@@ -432,7 +432,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				[
 					new IntersectionType([
 						new ObjectType('ArrayObject'),
-						new IterableIterableType(new MixedType(), new StringType()),
+						new IterableType(new MixedType(), new StringType()),
 					]),
 					new NeverType(),
 				],
@@ -441,34 +441,34 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new IterableIterableType(new MixedType(), new MixedType()),
-					new IterableIterableType(new MixedType(), new StringType()),
+					new IterableType(new MixedType(), new MixedType()),
+					new IterableType(new MixedType(), new StringType()),
 				],
-				IterableIterableType::class,
+				IterableType::class,
 				'iterable',
 			],
 			[
 				[
-					new IterableIterableType(new MixedType(), new IntegerType()),
-					new IterableIterableType(new MixedType(), new StringType()),
+					new IterableType(new MixedType(), new IntegerType()),
+					new IterableType(new MixedType(), new StringType()),
 				],
-				IterableIterableType::class,
+				IterableType::class,
 				'iterable<int|string>',
 			],
 			[
 				[
-					new IterableIterableType(new MixedType(), new IntegerType()),
-					new IterableIterableType(new IntegerType(), new StringType()),
+					new IterableType(new MixedType(), new IntegerType()),
+					new IterableType(new IntegerType(), new StringType()),
 				],
-				IterableIterableType::class,
+				IterableType::class,
 				'iterable<int|string>',
 			],
 			[
 				[
-					new IterableIterableType(new StringType(), new IntegerType()),
-					new IterableIterableType(new IntegerType(), new StringType()),
+					new IterableType(new StringType(), new IntegerType()),
+					new IterableType(new IntegerType(), new StringType()),
 				],
-				IterableIterableType::class,
+				IterableType::class,
 				'iterable<int|string, int|string>',
 			],
 			[
@@ -571,7 +571,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 		return [
 			[
 				[
-					new IterableIterableType(new MixedType(), new StringType()),
+					new IterableType(new MixedType(), new StringType()),
 					new ObjectType('ArrayObject'),
 				],
 				IntersectionType::class,
@@ -579,7 +579,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new IterableIterableType(new MixedType(), new StringType()),
+					new IterableType(new MixedType(), new StringType()),
 					new ArrayType(new MixedType(), new StringType()),
 				],
 				ArrayType::class,
@@ -663,16 +663,16 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new IterableIterableType(new MixedType(), new MixedType()),
-					new IterableIterableType(new MixedType(), new StringType()),
+					new IterableType(new MixedType(), new MixedType()),
+					new IterableType(new MixedType(), new StringType()),
 				],
-				IterableIterableType::class,
+				IterableType::class,
 				'iterable<string>',
 			],
 			[
 				[
 					new ArrayType(new MixedType(), new MixedType()),
-					new IterableIterableType(new MixedType(), new StringType()),
+					new IterableType(new MixedType(), new StringType()),
 				],
 				IntersectionType::class,
 				'array&iterable<string>', // this is correct but 'array<string>' would be better
@@ -680,9 +680,9 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			[
 				[
 					new MixedType(),
-					new IterableIterableType(new MixedType(), new MixedType()),
+					new IterableType(new MixedType(), new MixedType()),
 				],
-				IterableIterableType::class,
+				IterableType::class,
 				'iterable',
 			],
 		];

@@ -36,7 +36,7 @@ use PHPStan\Type\CallableType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
-use PHPStan\Type\IterableIterableType;
+use PHPStan\Type\IterableType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NonexistentParentClassType;
 use PHPStan\Type\NullType;
@@ -1111,7 +1111,7 @@ class Scope
 			}
 			return new ObjectType($className);
 		} elseif ($type === 'iterable') {
-			return new IterableIterableType(new MixedType(), new MixedType());
+			return new IterableType(new MixedType(), new MixedType());
 		} elseif ($type === 'void') {
 			return new VoidType();
 		} elseif ($type === 'object') {

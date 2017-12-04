@@ -76,7 +76,7 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function isSuperTypeOf(Type $otherType): TrinaryLogic
 	{
-		if ($otherType instanceof self || $otherType instanceof IterableIterableType) {
+		if ($otherType instanceof self || $otherType instanceof IterableType) {
 			return $otherType->isSubTypeOf($this);
 		}
 

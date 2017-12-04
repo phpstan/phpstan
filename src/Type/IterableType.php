@@ -6,7 +6,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\MaybeObjectTypeTrait;
 
-class IterableIterableType implements StaticResolvableType, CompoundType
+class IterableType implements StaticResolvableType, CompoundType
 {
 
 	use MaybeCallableTypeTrait;
