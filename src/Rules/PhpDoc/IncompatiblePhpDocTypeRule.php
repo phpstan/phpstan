@@ -5,6 +5,7 @@ namespace PHPStan\Rules\PhpDoc;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\ErrorType;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Type;
 
@@ -54,6 +55,12 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 					$parameterName
 				);
 
+			} elseif ($phpDocParamType instanceof ErrorType) {
+				$errors[] = sprintf(
+					'PHPDoc tag @param for parameter $%s contains unresolvable type',
+					$parameterName
+				);
+
 			} else {
 				$nativeParamType = $nativeParameterTypes[$parameterName];
 				$isParamSuperType = $nativeParamType->isSuperTypeOf($phpDocParamType);
@@ -88,21 +95,25 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 		if ($resolvedPhpDoc->getReturnTag() !== null) {
 			$phpDocReturnType = $resolvedPhpDoc->getReturnTag()->getType();
 
-			$isReturnSuperType = $nativeReturnType->isSuperTypeOf($phpDocReturnType);
+			if ($phpDocReturnType instanceof ErrorType) {
+				$errors[] = 'PHPDoc tag @return contains unresolvable type';
 
-			if ($isReturnSuperType->no()) {
-				$errors[] = sprintf(
-					'PHPDoc tag @return with type %s is incompatible with native type %s',
-					$phpDocReturnType->describe(),
-					$nativeReturnType->describe()
-				);
+			} else {
+				$isReturnSuperType = $nativeReturnType->isSuperTypeOf($phpDocReturnType);
+				if ($isReturnSuperType->no()) {
+					$errors[] = sprintf(
+						'PHPDoc tag @return with type %s is incompatible with native type %s',
+						$phpDocReturnType->describe(),
+						$nativeReturnType->describe()
+					);
 
-			} elseif ($isReturnSuperType->maybe()) {
-				$errors[] = sprintf(
-					'PHPDoc tag @return with type %s is not subtype of native type %s',
-					$phpDocReturnType->describe(),
-					$nativeReturnType->describe()
-				);
+				} elseif ($isReturnSuperType->maybe()) {
+					$errors[] = sprintf(
+						'PHPDoc tag @return with type %s is not subtype of native type %s',
+						$phpDocReturnType->describe(),
+						$nativeReturnType->describe()
+					);
+				}
 			}
 		}
 

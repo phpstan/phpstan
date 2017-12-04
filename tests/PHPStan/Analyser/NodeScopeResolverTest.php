@@ -3653,6 +3653,41 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataUnresolvableTypes(): array
+	{
+		return [
+			[
+				'mixed',
+				'$arrayWithTooManyArgs',
+			],
+			[
+				'mixed',
+				'$iterableWithTooManyArgs',
+			],
+			[
+				'mixed',
+				'$genericFoo',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataUnresolvableTypes
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testUnresolvableTypes(
+		string $description,
+		string $expression
+	)
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/unresolvable-types.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataCombineTypes(): array
 	{
 		return [

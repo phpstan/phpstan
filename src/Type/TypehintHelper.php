@@ -76,7 +76,7 @@ class TypehintHelper
 		Type $phpDocType = null
 	): Type
 	{
-		if ($phpDocType !== null) {
+		if ($phpDocType !== null && !$phpDocType instanceof ErrorType) {
 			if ($type instanceof VoidType || $phpDocType instanceof VoidType) {
 				return new VoidType();
 			}
