@@ -15,18 +15,21 @@ use PHPStan\Type\NonexistentParentClassType;
 class FunctionDefinitionCheck
 {
 
-	const VALID_TYPEHINTS = [
-		'self',
-		'static',
-		'array',
-		'callable',
-		'string',
-		'int',
-		'bool',
-		'float',
-		'void',
-		'iterable',
-		'object',
+	const COMMON_TYPEHINTS = [
+		'array' => 50100,
+		'callable' => 50400,
+		'string' => 70000,
+		'int' => 70000,
+		'bool' => 70000,
+		'float' => 70000,
+		'void' => 70100,
+		'iterable' => 70100,
+		'object' => 70200,
+	];
+
+	const METHOD_TYPEHINTS = [
+		'self' => 50000,
+		'parent' => 50000,
 	];
 
 	/**
@@ -63,20 +66,20 @@ class FunctionDefinitionCheck
 	}
 
 	/**
+	 * @param \PhpParser\Node\FunctionLike $function
 	 * @return string[]
 	 */
-	private function getSupportedTypehints(): array
+	private function getSupportedTypehints(FunctionLike $function): array
 	{
-		if (PHP_VERSION_ID < 70200) {
-			$unsupportedTypehints = ['object'];
-			if (PHP_VERSION_ID < 70100) {
-				$unsupportedTypehints += ['void', 'iterable'];
-			}
+		$typehints = self::COMMON_TYPEHINTS;
 
-			return array_diff(self::VALID_TYPEHINTS, $unsupportedTypehints);
+		if ($function instanceof ClassMethod) {
+			$typehints += self::METHOD_TYPEHINTS;
 		}
 
-		return self::VALID_TYPEHINTS;
+		return array_keys(array_filter($typehints, function (int $supportedVersion): bool {
+			return $supportedVersion <= PHP_VERSION_ID;
+		}));
 	}
 
 	/**
@@ -121,7 +124,7 @@ class FunctionDefinitionCheck
 			$class = $param->type instanceof NullableType
 				? (string) $param->type->type
 				: (string) $param->type;
-			if ($class === '' || in_array($class, $this->getSupportedTypehints(), true)) {
+			if ($class === '' || in_array($class, $this->getSupportedTypehints($function), true)) {
 				continue;
 			}
 
@@ -141,7 +144,7 @@ class FunctionDefinitionCheck
 
 		if (
 			$returnType !== ''
-			&& !in_array($returnType, $this->getSupportedTypehints(), true)
+			&& !in_array($returnType, $this->getSupportedTypehints($function), true)
 		) {
 			if (!$this->broker->hasClass($returnType)) {
 				$errors[] = sprintf($returnMessage, $returnType);
