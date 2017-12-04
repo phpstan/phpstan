@@ -181,23 +181,19 @@ class TypeNodeResolver
 			}
 		}
 
-		$hasPhpunitMock = false;
 		$otherTypeTypes = $this->resolveMultiple($otherTypeNodes, $nameScope);
-		foreach ($otherTypeTypes as $otherType) {
-			if (
-				$otherType instanceof TypeWithClassName
-				&& in_array($otherType->getClassName(), [
-					'PHPUnit_Framework_MockObject_MockObject',
-					\PHPUnit\Framework\MockObject\MockObject::class,
-				], true)
-			) {
-				$hasPhpunitMock = true;
-				break;
-			}
-		}
 
-		if (count($otherTypeTypes) === 2 && $hasPhpunitMock) {
-			return TypeCombinator::intersect(...$otherTypeTypes);
+		if (count($otherTypeTypes) === 2) {
+			static $mockClassNames = [
+				'PHPUnit_Framework_MockObject_MockObject' => true,
+				'PHPUnit\Framework\MockObject\MockObject' => true,
+			];
+
+			foreach ($otherTypeTypes as $otherType) {
+				if ($otherType instanceof TypeWithClassName && isset($mockClassNames[$otherType->getClassName()])) {
+					return TypeCombinator::intersect(...$otherTypeTypes);
+				}
+			}
 		}
 
 		if (count($iterableTypeNodes) > 0) {
