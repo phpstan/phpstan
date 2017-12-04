@@ -305,7 +305,7 @@ class ObjectType implements TypeWithClassName
 		return TrinaryLogic::createNo();
 	}
 
-	public function isClonable(): bool
+	public function isCloneable(): bool
 	{
 		return true;
 	}

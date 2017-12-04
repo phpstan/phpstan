@@ -55,7 +55,7 @@ trait NonObjectTypeTrait
 		throw new \PHPStan\ShouldNotHappenException();
 	}
 
-	public function isClonable(): bool
+	public function isCloneable(): bool
 	{
 		return false;
 	}
