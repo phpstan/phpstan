@@ -219,10 +219,10 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		});
 	}
 
-	public function isClonable(): bool
+	public function isCloneable(): bool
 	{
 		foreach ($this->types as $type) {
-			if ($type->isClonable()) {
+			if ($type->isCloneable()) {
 				return true;
 			}
 		}

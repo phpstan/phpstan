@@ -121,7 +121,7 @@ class ObjectWithoutClassType implements Type
 		return TrinaryLogic::createMaybe();
 	}
 
-	public function isClonable(): bool
+	public function isCloneable(): bool
 	{
 		return true;
 	}

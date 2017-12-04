@@ -209,7 +209,7 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 		return TrinaryLogic::createNo();
 	}
 
-	public function isClonable(): bool
+	public function isCloneable(): bool
 	{
 		return true;
 	}

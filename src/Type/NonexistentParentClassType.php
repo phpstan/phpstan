@@ -70,7 +70,7 @@ class NonexistentParentClassType implements Type
 		return TrinaryLogic::createNo();
 	}
 
-	public function isClonable(): bool
+	public function isCloneable(): bool
 	{
 		return false;
 	}
