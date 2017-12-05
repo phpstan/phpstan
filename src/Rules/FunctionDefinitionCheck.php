@@ -2,6 +2,7 @@
 
 namespace PHPStan\Rules;
 
+use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Name;
 use PhpParser\Node\NullableType;
@@ -15,7 +16,7 @@ use PHPStan\Type\NonexistentParentClassType;
 class FunctionDefinitionCheck
 {
 
-	const COMMON_TYPEHINTS = [
+	const COMMON_TYPES = [
 		'array' => 50100,
 		'callable' => 50400,
 		'string' => 70000,
@@ -27,7 +28,7 @@ class FunctionDefinitionCheck
 		'object' => 70200,
 	];
 
-	const METHOD_TYPEHINTS = [
+	const METHOD_TYPES = self::COMMON_TYPES + [
 		'self' => 50000,
 		'parent' => 50000,
 	];
@@ -65,21 +66,13 @@ class FunctionDefinitionCheck
 		$this->checkThisOnly = $checkThisOnly;
 	}
 
-	/**
-	 * @param \PhpParser\Node\FunctionLike $function
-	 * @return string[]
-	 */
-	private function getSupportedTypehints(FunctionLike $function): array
+	private function isTypeSupported(string $type, FunctionLike $function): bool
 	{
-		$typehints = self::COMMON_TYPEHINTS;
+		$supportedTypes = $function instanceof ClassMethod || $function instanceof Closure
+			? self::METHOD_TYPES
+			: self::COMMON_TYPES;
 
-		if ($function instanceof ClassMethod) {
-			$typehints += self::METHOD_TYPEHINTS;
-		}
-
-		return array_keys(array_filter($typehints, function (int $supportedVersion): bool {
-			return $supportedVersion <= PHP_VERSION_ID;
-		}));
+		return isset($supportedTypes[$type]) && $supportedTypes[$type] <= PHP_VERSION_ID;
 	}
 
 	/**
@@ -124,7 +117,7 @@ class FunctionDefinitionCheck
 			$class = $param->type instanceof NullableType
 				? (string) $param->type->type
 				: (string) $param->type;
-			if ($class === '' || in_array($class, $this->getSupportedTypehints($function), true)) {
+			if ($class === '' || $this->isTypeSupported($class, $function)) {
 				continue;
 			}
 
@@ -142,10 +135,7 @@ class FunctionDefinitionCheck
 			? (string) $function->getReturnType()->type
 			: (string) $function->getReturnType();
 
-		if (
-			$returnType !== ''
-			&& !in_array($returnType, $this->getSupportedTypehints($function), true)
-		) {
+		if ($returnType !== '' && !$this->isTypeSupported($returnType, $function)) {
 			if (!$this->broker->hasClass($returnType)) {
 				$errors[] = sprintf($returnMessage, $returnType);
 			} elseif ($this->checkClassCaseSensitivity) {
