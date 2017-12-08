@@ -32,6 +32,10 @@
 		"phpunit/phpunit": "^6.5.2",
 		"slevomat/coding-standard": "4.0.0"
 	},
+	"suggest": {
+		"phpstan/phpstan-phpunit": "To help PHPStan understand how PHPUnit mocks work",
+		"jangregor/phpstan-prophecy": "To help PHPStan understand how Prophecy's mocks work"
+	},
 	"autoload": {
 		"psr-4": {"PHPStan\\": ["src/", "build/PHPStan"]}
 	},
