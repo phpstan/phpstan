@@ -66,6 +66,7 @@ You can also install official framework-specific extensions:
 Unofficial extensions for other frameworks and libraries are also available:
 
 * [Phony](https://github.com/eloquent/phpstan-phony)
+* [Prophecy](https://github.com/Jan0707/phpstan-prophecy)
 
 New extensions are becoming available on a regular basis!
 
