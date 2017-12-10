@@ -67,6 +67,7 @@ Unofficial extensions for other frameworks and libraries are also available:
 
 * [Phony](https://github.com/eloquent/phpstan-phony)
 * [Symfony Framework](https://github.com/lookyman/phpstan-symfony)
+* [Prophecy](https://github.com/Jan0707/phpstan-prophecy)
 
 New extensions are becoming available on a regular basis!
 
