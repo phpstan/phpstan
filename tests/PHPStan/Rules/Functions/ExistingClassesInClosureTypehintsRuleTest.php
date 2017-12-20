@@ -43,7 +43,7 @@ class ExistingClassesInClosureTypehintsRuleTest extends \PHPStan\Testing\RuleTes
 	/**
 	 * @requires PHP 7.1
 	 */
-	public function testValidTypehint()
+	public function testValidTypehintPhp71()
 	{
 		$this->analyse([__DIR__ . '/data/closure-7.1-typehints.php'], [
 			[
@@ -55,6 +55,14 @@ class ExistingClassesInClosureTypehintsRuleTest extends \PHPStan\Testing\RuleTes
 				35,
 			],
 		]);
+	}
+
+	/**
+	 * @requires PHP 7.2
+	 */
+	public function testValidTypehintPhp72()
+	{
+		$this->analyse([__DIR__ . '/data/closure-7.2-typehints.php'], []);
 	}
 
 }

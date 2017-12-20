@@ -26,6 +26,7 @@ class FunctionDefinitionCheck
 		'float',
 		'void',
 		'iterable',
+		'object',
 	];
 
 	/**
