@@ -26,10 +26,6 @@ class ExistingClassesInClosureTypehintsRuleTest extends \PHPStan\Testing\RuleTes
 				15,
 			],
 			[
-				'Return typehint of anonymous function has invalid type parent.',
-				25,
-			],
-			[
 				'Class TestClosureFunctionTypehints\FooFunctionTypehints referenced with incorrect case: TestClosureFunctionTypehints\fOOfUnctionTypehints.',
 				30,
 			],

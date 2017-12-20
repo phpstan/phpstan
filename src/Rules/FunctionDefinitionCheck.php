@@ -27,6 +27,7 @@ class FunctionDefinitionCheck
 		'void',
 		'iterable',
 		'object',
+		'parent',
 	];
 
 	/**
