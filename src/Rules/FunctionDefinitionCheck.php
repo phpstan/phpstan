@@ -17,7 +17,6 @@ class FunctionDefinitionCheck
 
 	const VALID_TYPEHINTS = [
 		'self',
-		'static',
 		'array',
 		'callable',
 		'string',
