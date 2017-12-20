@@ -2,6 +2,7 @@
 
 namespace PHPStan\Rules;
 
+use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Name;
 use PhpParser\Node\NullableType;
@@ -15,17 +16,21 @@ use PHPStan\Type\NonexistentParentClassType;
 class FunctionDefinitionCheck
 {
 
-	const VALID_TYPEHINTS = [
-		'self',
-		'static',
-		'array',
-		'callable',
-		'string',
-		'int',
-		'bool',
-		'float',
-		'void',
-		'iterable',
+	const COMMON_TYPES = [
+		'array' => 50100,
+		'callable' => 50400,
+		'string' => 70000,
+		'int' => 70000,
+		'bool' => 70000,
+		'float' => 70000,
+		'void' => 70100,
+		'iterable' => 70100,
+		'object' => 70200,
+	];
+
+	const METHOD_TYPES = self::COMMON_TYPES + [
+		'self' => 50000,
+		'parent' => 50000,
 	];
 
 	/**
@@ -59,6 +64,15 @@ class FunctionDefinitionCheck
 		$this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
 		$this->checkClassCaseSensitivity = $checkClassCaseSensitivity;
 		$this->checkThisOnly = $checkThisOnly;
+	}
+
+	private function isTypeSupported(string $type, FunctionLike $function): bool
+	{
+		$supportedTypes = $function instanceof ClassMethod || $function instanceof Closure
+			? self::METHOD_TYPES
+			: self::COMMON_TYPES;
+
+		return isset($supportedTypes[$type]) && $supportedTypes[$type] <= PHP_VERSION_ID;
 	}
 
 	/**
@@ -103,7 +117,7 @@ class FunctionDefinitionCheck
 			$class = $param->type instanceof NullableType
 				? (string) $param->type->type
 				: (string) $param->type;
-			if ($class === '' || in_array($class, self::VALID_TYPEHINTS, true)) {
+			if ($class === '' || $this->isTypeSupported($class, $function)) {
 				continue;
 			}
 
@@ -121,10 +135,7 @@ class FunctionDefinitionCheck
 			? (string) $function->getReturnType()->type
 			: (string) $function->getReturnType();
 
-		if (
-			$returnType !== ''
-			&& !in_array($returnType, self::VALID_TYPEHINTS, true)
-		) {
+		if ($returnType !== '' && !$this->isTypeSupported($returnType, $function)) {
 			if (!$this->broker->hasClass($returnType)) {
 				$errors[] = sprintf($returnMessage, $returnType);
 			} elseif ($this->checkClassCaseSensitivity) {
