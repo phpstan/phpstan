@@ -970,17 +970,17 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\Testing\Te
 				$method->getDeclaringClass()->getName(),
 				sprintf('Declaring class of method %s() does not match.', $methodName)
 			);
-			$this->assertEquals(
+			$this->assertSame(
 				$expectedMethodData['returnType'],
 				$method->getReturnType()->describe(),
 				sprintf('Return type of method %s::%s() does not match', $className, $methodName)
 			);
-			$this->assertEquals(
+			$this->assertSame(
 				$expectedMethodData['isStatic'],
 				$method->isStatic(),
 				sprintf('Scope of method %s::%s() does not match', $className, $methodName)
 			);
-			$this->assertEquals(
+			$this->assertSame(
 				$expectedMethodData['isVariadic'],
 				$method->isVariadic(),
 				sprintf('Method %s::%s() does not match expected variadicity', $className, $methodName)
@@ -991,23 +991,23 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\Testing\Te
 				sprintf('Method %s::%s() does not match expected count of parameters', $className, $methodName)
 			);
 			foreach ($method->getParameters() as $i => $parameter) {
-				$this->assertEquals(
+				$this->assertSame(
 					$expectedMethodData['parameters'][$i]['name'],
 					$parameter->getName()
 				);
-				$this->assertEquals(
+				$this->assertSame(
 					$expectedMethodData['parameters'][$i]['type'],
 					$parameter->getType()->describe()
 				);
-				$this->assertEquals(
+				$this->assertSame(
 					$expectedMethodData['parameters'][$i]['isPassedByReference'],
 					$parameter->isPassedByReference()
 				);
-				$this->assertEquals(
+				$this->assertSame(
 					$expectedMethodData['parameters'][$i]['isOptional'],
 					$parameter->isOptional()
 				);
-				$this->assertEquals(
+				$this->assertSame(
 					$expectedMethodData['parameters'][$i]['isVariadic'],
 					$parameter->isVariadic()
 				);
