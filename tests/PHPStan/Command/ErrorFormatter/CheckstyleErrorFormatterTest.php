@@ -50,7 +50,7 @@ class CheckstyleErrorFormatterTest extends \PHPStan\Testing\TestCase
 		$outputStream = new StreamOutput(fopen('php://memory', 'w', false));
 		$style = new ErrorsConsoleStyle(new StringInput(''), $outputStream);
 
-		$this->assertEquals(1, $this->formatter->formatErrors($analysisResultMock, $style));
+		$this->assertSame(1, $this->formatter->formatErrors($analysisResultMock, $style));
 
 		rewind($outputStream->getStream());
 		$output = stream_get_contents($outputStream->getStream());
@@ -65,7 +65,7 @@ class CheckstyleErrorFormatterTest extends \PHPStan\Testing\TestCase
 </file>
 </checkstyle>
 ';
-		$this->assertEquals($expected, $output);
+		$this->assertSame($expected, $output);
 	}
 
 	/**
@@ -84,7 +84,7 @@ class CheckstyleErrorFormatterTest extends \PHPStan\Testing\TestCase
 		$outputStream = new StreamOutput(fopen('php://memory', 'w', false));
 		$style = new ErrorsConsoleStyle(new StringInput(''), $outputStream);
 
-		$this->assertEquals(0, $this->formatter->formatErrors($analysisResultMock, $style));
+		$this->assertSame(0, $this->formatter->formatErrors($analysisResultMock, $style));
 
 		rewind($outputStream->getStream());
 		$output = stream_get_contents($outputStream->getStream());
@@ -93,7 +93,7 @@ class CheckstyleErrorFormatterTest extends \PHPStan\Testing\TestCase
 <checkstyle>
 </checkstyle>
 ';
-		$this->assertEquals($expected, $output);
+		$this->assertSame($expected, $output);
 	}
 
 }

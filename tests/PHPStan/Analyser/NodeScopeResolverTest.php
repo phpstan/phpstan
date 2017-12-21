@@ -4134,7 +4134,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 
 	private function assertTypeDescribe(string $expectedDescription, string $actualDescription, string $label = '')
 	{
-		$this->assertEquals(
+		$this->assertSame(
 			$expectedDescription,
 			$actualDescription,
 			$label
