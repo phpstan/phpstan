@@ -161,6 +161,9 @@ services:
 		class: PHPStan\Rules\FunctionReturnTypeCheck
 
 	-
+		class: PHPStan\Rules\CallableExistsCheck
+
+	-
 		class: PHPStan\Rules\Properties\PropertyDescriptor
 
 	-
