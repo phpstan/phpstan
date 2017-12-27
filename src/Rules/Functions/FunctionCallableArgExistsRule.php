@@ -62,8 +62,8 @@ class FunctionCallableArgExistsRule implements \PHPStan\Rules\Rule
 				continue;
 			}
 
-			$msgPrefix = sprintf('Argument #%d of %s should be callable, but passed ', $i + 1, $node->name);
-			$errors = array_merge($errors, $this->check->checkCallableArgument($argument, $scope, $msgPrefix));
+			$messagePrefix = sprintf('Argument #%d %s of %s should be callable, but passed ', $i + 1, $parameters[$i]->getName(), $node->name);
+			$errors = array_merge($errors, $this->check->checkCallableArgument($argument, $scope, $messagePrefix));
 		}
 
 		return $errors;

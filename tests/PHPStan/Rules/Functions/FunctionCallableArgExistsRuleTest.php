@@ -18,193 +18,259 @@ class FunctionCallableArgExistsRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	public function testCallableExists()
 	{
-		$lineOffset = 39;
-		$lineOffset2 = 74;
+		$lineOffset = 58;
+		$lineOffset2 = 124;
 
 		$this->analyse([__DIR__ . '/../data/callable-exists.php'], [
-					[
-				'Argument #1 of call_user_func should be callable, but passed array has too much items, only two items expected.',
-				$lineOffset, //109
-					],
-					[
-					'Argument #1 of call_user_func should be callable, but passed array doesn\'t have required 2 items.',
-					$lineOffset + 1, //110
-					],
-					[
-					'Argument #1 of call_user_func should be callable, but passed static method unknownTarget::method does not exists.',
-					$lineOffset + 2, //111
-					],
-					[
-					'Argument #1 of call_user_func should be callable, but passed static method Unknown::method does not exists.',
-					$lineOffset + 3, //112
-					],
-			//113
-					[
-					'Argument #1 of call_user_func should be callable, but passed method $this(CallableExists\Bar)::unknownMethod does not exists.',
-					$lineOffset + 5, //114
-					],
-					[
-					'Argument #1 of call_user_func should be callable, but passed static method $this(CallableExists\Bar)::knownStaticMethod as non-static.',
-					$lineOffset + 6, //115
-					],
-			//116
-			//117
-			//118
-					[
-					'Argument #1 of call_user_func should be callable, but passed method $this(CallableExists\Bar)::unknownMethod does not exists.',
-					$lineOffset + 10, //119
-					],
-			// 120
-			// 121
-			// 122
-			// 123
-			// 124
-					[
-					'Argument #1 of call_user_func should be callable, but passed method CallableExists\Foo::unknownMethod does not exists.',
-					$lineOffset + 16, //125
-					],
-					[
-					'Argument #1 of call_user_func should be callable, but passed static method CallableExists\Foo::knownStaticMethod as non-static.',
-					$lineOffset + 17, //126
-					],
-			//127
-					[
-					'Argument #1 of call_user_func should be callable, but passed static method CallableExists\Bar::unknownStaticMethod does not exists.',
-					$lineOffset + 19, //128
-					],
-					[
-					'Argument #1 of call_user_func should be callable, but passed non-static method CallableExists\Bar::knownMethod as static.',
-					$lineOffset + 20, //129
-					],
-			//130
-					[
-					'Argument #1 of call_user_func should be callable, but passed static method \CallableExists\Bar::unknownStaticMethod does not exists.',
-					$lineOffset + 22, //131
-					],
-					[
-					'Argument #1 of call_user_func should be callable, but passed non-static method \CallableExists\Bar::knownMethod as static.',
-					$lineOffset + 23, //132
-					],
-			//133
-					[
-					'Argument #1 of call_user_func should be callable, but passed static method \CallableExists\Bar::unknownStaticMethod does not exists.',
-					$lineOffset + 25, //134
-					],
-					[
-					'Argument #1 of call_user_func should be callable, but passed non-static method \CallableExists\Bar::knownMethod as static.',
-					$lineOffset + 26, //135
-					],
-			//136
-					[
-					'Argument #1 of call_user_func should be callable, but passed static method \CallableExists\Bar::unknownStaticMethod does not exists.',
-					$lineOffset + 28, //137
-					],
-					[
-					'Argument #1 of call_user_func should be callable, but passed non-static method \CallableExists\Bar::knownMethod as static.',
-					$lineOffset + 29, //138
-					],
-			//139
-					[
-					'Argument #1 of call_user_func should be callable, but passed unknownFunction is not a existing function name.',
-					$lineOffset + 31, //140
-					],
-			//141
-					[
-					'Argument #1 of call_user_func should be callable, but passed unknownFunction is not a existing function name.',
-					$lineOffset + 33, //142
-					],
-			// ------------
-					[
-					'Argument #1 of funcWithCallableParam should be callable, but passed array has too much items, only two items expected.',
-					$lineOffset2, //109
-					],
-					[
-					'Argument #1 of funcWithCallableParam should be callable, but passed array doesn\'t have required 2 items.',
-					$lineOffset2 + 1, //110
-					],
-					[
-					'Argument #1 of funcWithCallableParam should be callable, but passed static method unknownTarget::method does not exists.',
-					$lineOffset2 + 2, //111
-					],
-					[
-					'Argument #1 of funcWithCallableParam should be callable, but passed static method Unknown::method does not exists.',
-					$lineOffset2 + 3, //112
-					],
-			//113
-					[
-					'Argument #1 of funcWithCallableParam should be callable, but passed method $this(CallableExists\Bar)::unknownMethod does not exists.',
-					$lineOffset2 + 5, //114
-					],
-					[
-					'Argument #1 of funcWithCallableParam should be callable, but passed static method $this(CallableExists\Bar)::knownStaticMethod as non-static.',
-					$lineOffset2 + 6, //115
-					],
-			//116
-			//117
-			//118
-					[
-					'Argument #1 of funcWithCallableParam should be callable, but passed method $this(CallableExists\Bar)::unknownMethod does not exists.',
-					$lineOffset2 + 10, //119
-					],
-			// 120
-			// 121
-			// 122
-			// 123
-			// 124
-					[
-					'Argument #1 of funcWithCallableParam should be callable, but passed method CallableExists\Foo::unknownMethod does not exists.',
-					$lineOffset2 + 16, //125
-					],
-					[
-					'Argument #1 of funcWithCallableParam should be callable, but passed static method CallableExists\Foo::knownStaticMethod as non-static.',
-					$lineOffset2 + 17, //126
-					],
-			//127
-					[
-					'Argument #1 of funcWithCallableParam should be callable, but passed static method CallableExists\Bar::unknownStaticMethod does not exists.',
-					$lineOffset2 + 19, //128
-					],
-					[
-					'Argument #1 of funcWithCallableParam should be callable, but passed non-static method CallableExists\Bar::knownMethod as static.',
-					$lineOffset2 + 20, //129
-					],
-			//130
-					[
-					'Argument #1 of funcWithCallableParam should be callable, but passed static method \CallableExists\Bar::unknownStaticMethod does not exists.',
-					$lineOffset2 + 22, //131
-					],
-					[
-					'Argument #1 of funcWithCallableParam should be callable, but passed non-static method \CallableExists\Bar::knownMethod as static.',
-					$lineOffset2 + 23, //132
-					],
-			//133
-					[
-					'Argument #1 of funcWithCallableParam should be callable, but passed static method \CallableExists\Bar::unknownStaticMethod does not exists.',
-					$lineOffset2 + 25, //134
-					],
-					[
-					'Argument #1 of funcWithCallableParam should be callable, but passed non-static method \CallableExists\Bar::knownMethod as static.',
-					$lineOffset2 + 26, //135
-					],
-			//136
-					[
-					'Argument #1 of funcWithCallableParam should be callable, but passed static method \CallableExists\Bar::unknownStaticMethod does not exists.',
-					$lineOffset2 + 28, //137
-					],
-					[
-					'Argument #1 of funcWithCallableParam should be callable, but passed non-static method \CallableExists\Bar::knownMethod as static.',
-					$lineOffset2 + 29, //138
-					],
-			//139
-					[
-					'Argument #1 of funcWithCallableParam should be callable, but passed unknownFunction is not a existing function name.',
-					$lineOffset2 + 31, //140
-					],
-			//141
-					[
-					'Argument #1 of funcWithCallableParam should be callable, but passed unknownFunction is not a existing function name.',
-					$lineOffset2 + 33, //142
-					],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed array has too many items, only two items expected.',
+				$lineOffset,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed array doesn\'t have required 2 items.',
+				$lineOffset + 1,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed static method unknownTarget::method does not exists.',
+				$lineOffset + 2,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed array is not valid callback.',
+				$lineOffset + 3,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed static method Unknown::method does not exists.',
+				$lineOffset + 4,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed method $this(CallableExists\Bar)::unknownMethod does not exists.',
+				$lineOffset + 6,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed static method $this(CallableExists\Bar)::knownStaticMethod as non-static.',
+				$lineOffset + 7,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed method $this(CallableExists\Bar)::unknownMethod does not exists.',
+				$lineOffset + 11,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed method CallableExists\Foo::unknownMethod does not exists.',
+				$lineOffset + 18,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed static method CallableExists\Foo::knownStaticMethod as non-static.',
+				$lineOffset + 19,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed static method CallableExists\Bar::unknownStaticMethod does not exists.',
+				$lineOffset + 21,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed non-static method CallableExists\Bar::knownMethod as static.',
+				$lineOffset + 22,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed static method \CallableExists\Bar::unknownStaticMethod does not exists.',
+				$lineOffset + 24,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed non-static method \CallableExists\Bar::knownMethod as static.',
+				$lineOffset + 25,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed static method \CallableExists\Bar::unknownStaticMethod does not exists.',
+				$lineOffset + 27,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed non-static method \CallableExists\Bar::knownMethod as static.',
+				$lineOffset + 28,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed string is not valid callback.',
+				$lineOffset + 29,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed string is not valid callback.',
+				$lineOffset + 30,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed static method \CallableExists\Bar::unknownStaticMethod does not exists.',
+				$lineOffset + 32,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed non-static method \CallableExists\Bar::knownMethod as static.',
+				$lineOffset + 33,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed function unknownFunction not found.',
+				$lineOffset + 36,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed function unknownFunction not found.',
+				$lineOffset + 38,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed method CallableExists\Foo::unknownMethod does not exists.',
+				$lineOffset + 41,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed static method CallableExists\Foo::knownStaticMethod as non-static.',
+				$lineOffset + 42,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed method CallableExists\Foo::unknownMethod does not exists.',
+				$lineOffset + 44,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed static method CallableExists\Foo::knownStaticMethod as non-static.',
+				$lineOffset + 45,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed array is not valid callback.',
+				$lineOffset + 59,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed array is not valid callback.',
+				$lineOffset + 60,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed value is not valid callback.',
+				$lineOffset + 61,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed static method CallableExists\Bar::unknownStaticMethod does not exists.',
+				$lineOffset + 63,
+			],
+			[
+				'Argument #1 function_name of call_user_func should be callable, but passed non-static method CallableExists\Bar::knownMethod as static.',
+				$lineOffset + 64,
+			],
+			// ----
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed array has too many items, only two items expected.',
+				$lineOffset2,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed array doesn\'t have required 2 items.',
+				$lineOffset2 + 1,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed static method unknownTarget::method does not exists.',
+				$lineOffset2 + 2,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed array is not valid callback.',
+				$lineOffset2 + 3,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed static method Unknown::method does not exists.',
+				$lineOffset2 + 4,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed method $this(CallableExists\Bar)::unknownMethod does not exists.',
+				$lineOffset2 + 6,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed static method $this(CallableExists\Bar)::knownStaticMethod as non-static.',
+				$lineOffset2 + 7,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed method $this(CallableExists\Bar)::unknownMethod does not exists.',
+				$lineOffset2 + 11,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed method CallableExists\Foo::unknownMethod does not exists.',
+				$lineOffset2 + 18,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed static method CallableExists\Foo::knownStaticMethod as non-static.',
+				$lineOffset2 + 19,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed static method CallableExists\Bar::unknownStaticMethod does not exists.',
+				$lineOffset2 + 21,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed non-static method CallableExists\Bar::knownMethod as static.',
+				$lineOffset2 + 22,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed static method \CallableExists\Bar::unknownStaticMethod does not exists.',
+				$lineOffset2 + 24,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed non-static method \CallableExists\Bar::knownMethod as static.',
+				$lineOffset2 + 25,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed static method \CallableExists\Bar::unknownStaticMethod does not exists.',
+				$lineOffset2 + 27,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed non-static method \CallableExists\Bar::knownMethod as static.',
+				$lineOffset2 + 28,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed string is not valid callback.',
+				$lineOffset2 + 29,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed string is not valid callback.',
+				$lineOffset2 + 30,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed static method \CallableExists\Bar::unknownStaticMethod does not exists.',
+				$lineOffset2 + 32,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed non-static method \CallableExists\Bar::knownMethod as static.',
+				$lineOffset2 + 33,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed function unknownFunction not found.',
+				$lineOffset2 + 36,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed function unknownFunction not found.',
+				$lineOffset2 + 38,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed method CallableExists\Foo::unknownMethod does not exists.',
+				$lineOffset2 + 41,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed static method CallableExists\Foo::knownStaticMethod as non-static.',
+				$lineOffset2 + 42,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed method CallableExists\Foo::unknownMethod does not exists.',
+				$lineOffset2 + 44,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed static method CallableExists\Foo::knownStaticMethod as non-static.',
+				$lineOffset2 + 45,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed array is not valid callback.',
+				$lineOffset2 + 59,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed array is not valid callback.',
+				$lineOffset2 + 60,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed value is not valid callback.',
+				$lineOffset2 + 61,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed static method CallableExists\Bar::unknownStaticMethod does not exists.',
+				$lineOffset2 + 63,
+			],
+			[
+				'Argument #1 callableParam of funcWithCallableParam should be callable, but passed non-static method CallableExists\Bar::knownMethod as static.',
+				$lineOffset2 + 64,
+			],
 		]);
 	}
 
