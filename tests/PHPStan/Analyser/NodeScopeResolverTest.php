@@ -1346,6 +1346,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'PHPUnit\Framework\MockObject\MockObject&PropertiesNamespace\Foo',
 				'$this->yetAnotherPhpunitProperty',
 			],
+			[
+				'PHPUnit\Framework\MockObject\MockObject&PropertiesNamespace\Foo',
+				'$this->yetYetAnotherPhpunitProperty',
+			],
 		];
 	}
 

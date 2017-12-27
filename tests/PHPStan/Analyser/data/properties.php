@@ -4,6 +4,7 @@ namespace PropertiesNamespace;
 
 use SomeNamespace\Amet as Dolor;
 use SomeGroupNamespace\{One, Two as Too, Three};
+use PHPUnit\Framework\MockObject\MockObject;
 
 abstract class Foo extends Bar
 {
@@ -135,6 +136,11 @@ abstract class Foo extends Bar
 	 * @var Foo|\PHPUnit\Framework\MockObject\MockObject
 	 */
 	private $yetAnotherPhpunitProperty;
+
+	/**
+	 * @var Foo|MockObject
+	 */
+	private $yetYetAnotherPhpunitProperty;
 
 	public function doFoo()
 	{
