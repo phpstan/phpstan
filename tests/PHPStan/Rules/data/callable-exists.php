@@ -22,17 +22,20 @@ class Foo
 
 class Bar
 {
-  /** @var Foo|null */
-  private $foo;
+	/** @var Foo|null */
+	private $foo;
 
-  /** @var string */
-  private $fooClass;
+	/** @var string */
+	private $fooClass;
 
-  /** @var Foo|null */
-  private static $staticFoo;
+	/** @var Foo|null */
+	private static $staticFoo;
 
-  /** @var string */
-  private static $staticFooClass;
+	/** @var string */
+	private static $staticFooClass;
+
+	/** @var string */
+	const constFooClass = '\CallableExists\Foo';
 
 	public function __construct() {
 
@@ -114,12 +117,17 @@ class Bar
 		call_user_func(['\CallableExists' . '\Foo', 'method']); // non-testable
 		call_user_func($fooClass . '::method'); // non-testable
 		call_user_func('\CallableExists\Foo' . '::method'); // non-testable
-		call_user_func([5 + 5, 'method'], true);
-		call_user_func(['\CallableExists\Bar', 5 + 5], true);
-		call_user_func(5 + 5, true);
-		call_user_func([self::class, 'knownStaticMethod'], true);
-		call_user_func([self::class, 'unknownStaticMethod'], true);
-		call_user_func([self::class, 'knownMethod'], true);
+		call_user_func([5 + 5, 'method']);
+		call_user_func(['\CallableExists\Bar', 5 + 5]);
+		call_user_func(5 + 5);
+		call_user_func([self::class, 'knownStaticMethod']);
+		call_user_func([self::class, 'unknownStaticMethod']);
+		call_user_func([self::class, 'knownMethod']);
+		call_user_func([self::constFooClass, 'knownStaticMethod']);
+		call_user_func([self::constFooClass, 'unknownStaticMethod']);
+		call_user_func([self::constFooClass, 'knownMethod']);
+		call_user_func([$this, 5]);
+		call_user_func(5);
 
 		funcWithCallableParam([$this, 'knownMethod', 'tooMuchArgs'], true);
 		funcWithCallableParam([$this], true);
@@ -183,9 +191,14 @@ class Bar
 		funcWithCallableParam([5 + 5, 'method'], true);
 		funcWithCallableParam(['\CallableExists\Bar', 5 + 5], true);
 		funcWithCallableParam(5 + 5, true);
-		funcWithCallableParam([self::class, 'knownStaticMethod'], true);
+		funcWithCallableParam([self::class, 'knownStaticMethod'], true); // OK
 		funcWithCallableParam([self::class, 'unknownStaticMethod'], true);
 		funcWithCallableParam([self::class, 'knownMethod'], true);
+		funcWithCallableParam([self::constFooClass, 'knownStaticMethod'], true); // OK
+		funcWithCallableParam([self::constFooClass, 'unknownStaticMethod'], true);
+		funcWithCallableParam([self::constFooClass, 'knownMethod'], true);
+		funcWithCallableParam([$this, 5], true);
+		funcWithCallableParam(5, true);
 
 		$this->methodWithCallableParam([$this, 'knownMethod', 'tooMuchArgs'], true);
 		$this->methodWithCallableParam([$this], true);
@@ -243,15 +256,20 @@ class Bar
 		$this->methodWithCallableParam([self::$staticFooClass, 'unknownMethod'], true); // non-testable
 		$this->methodWithCallableParam([self::$staticFooClass, 'knownStaticMethod'], true); // non-testable
 		$this->methodWithCallableParam([$fooClass . '', 'method'], true); // non-testable
-		$this->methodWithCallableParam(['\CallableExists' . '\Foo', 'method'], true); // non-testable
+		$this->methodWithCallableParam(['\CallableExists' . '\Foo', 'method'], true);
 		$this->methodWithCallableParam($fooClass . '::method', true); // non-testable
-		$this->methodWithCallableParam('\CallableExists\Foo' . '::method', true); // non-testable
+		$this->methodWithCallableParam('\CallableExists\Foo' . '::method', true);
 		$this->methodWithCallableParam([5 + 5, 'method'], true);
 		$this->methodWithCallableParam(['\CallableExists\Bar', 5 + 5], true);
 		$this->methodWithCallableParam(5 + 5, true);
 		$this->methodWithCallableParam([self::class, 'knownStaticMethod'], true);
 		$this->methodWithCallableParam([self::class, 'unknownStaticMethod'], true);
 		$this->methodWithCallableParam([self::class, 'knownMethod'], true);
+		$this->methodWithCallableParam([self::constFooClass, 'knownStaticMethod'], true);
+		$this->methodWithCallableParam([self::constFooClass, 'unknownStaticMethod'], true);
+		$this->methodWithCallableParam([self::constFooClass, 'knownMethod'], true);
+		$this->methodWithCallableParam([$this, 5], true);
+		$this->methodWithCallableParam(5, true);
 
 		self::staticMethodWithCallableParam([$this, 'knownMethod', 'tooMuchArgs'], true);
 		self::staticMethodWithCallableParam([$this], true);
@@ -315,9 +333,14 @@ class Bar
 		self::staticMethodWithCallableParam([5 + 5, 'method'], true);
 		self::staticMethodWithCallableParam(['\CallableExists\Bar', 5 + 5], true);
 		self::staticMethodWithCallableParam(5 + 5, true);
-		self::staticMethodWithCallableParam([self::class, 'knownStaticMethod'], true);
+		self::staticMethodWithCallableParam([self::class, 'knownStaticMethod'], true); // OK
 		self::staticMethodWithCallableParam([self::class, 'unknownStaticMethod'], true);
 		self::staticMethodWithCallableParam([self::class, 'knownMethod'], true);
+		self::staticMethodWithCallableParam([self::constFooClass, 'knownStaticMethod'], true); // OK
+		self::staticMethodWithCallableParam([self::constFooClass, 'unknownStaticMethod'], true);
+		self::staticMethodWithCallableParam([self::constFooClass, 'knownMethod'], true);
+		self::staticMethodWithCallableParam([$this, 5], true);
+		self::staticMethodWithCallableParam(5, true);
 	}
 
 	public function ordinaryMethod($param) {}

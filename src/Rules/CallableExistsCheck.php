@@ -5,6 +5,7 @@ namespace PHPStan\Rules;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticPropertyFetch;
@@ -18,6 +19,8 @@ use PHPStan\Type\ArrayType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
+use PHPStan\Type\ThisType;
+use ReflectionClass;
 
 class CallableExistsCheck
 {
@@ -49,7 +52,17 @@ class CallableExistsCheck
 		$targetIsStaticMethod = false;
 		$targetIsFunction = false;
 
-		if ($argument->value instanceof Array_) {
+		$callbackValue = $this->resolveValue($argument->value, $scope);
+
+		if (is_string($callbackValue)) {
+			$targetMethod = $callbackValue;
+			$targetIsFunction = true;
+		} elseif ($callbackValue instanceof MixedType || $callbackValue instanceof StringType) {
+			return [];
+		} elseif ($callbackValue instanceof ArrayType) {
+			if (!$argument->value instanceof Array_) {
+				return [];
+			}
 			$arrayItemsCount = count($argument->value->items);
 			if ($arrayItemsCount < 2) {
 				return [$messagePrefix . "array doesn't have required 2 items."];
@@ -57,91 +70,36 @@ class CallableExistsCheck
 			if ($arrayItemsCount > 2) {
 				return [$messagePrefix . 'array has too many items, only two items expected.'];
 			}
-			$item1 = $argument->value->items[0]->value;
-			$item2 = $argument->value->items[1]->value;
 
-			if ($item1 instanceof String_) {
-				$targetType = new ObjectType($item1->value);
+			$item1 = $this->resolveValue($argument->value->items[0]->value, $scope);
+			$item2 = $this->resolveValue($argument->value->items[1]->value, $scope);
+
+			if (is_string($item1)) {
+				$targetType = new ObjectType($item1);
 				$targetIsStaticMethod = true;
-			} elseif ($item1 instanceof Variable) {
-				$targetType = $scope->getType($item1);
+			} elseif ($item1 instanceof ObjectType || $item1 instanceof ThisType) {
+				$targetType = $item1;
 				$targetIsStaticMethod = false;
-			} elseif ($item1 instanceof PropertyFetch) {
-				$targetType = $scope->getType($item1);
-				$targetIsStaticMethod = false;
-			} elseif ($item1 instanceof StaticPropertyFetch) {
-				$targetType = $scope->getType($item1);
-				$targetIsStaticMethod = false;
-			} elseif ($item1 instanceof ConstFetch) {
-				if (!defined($item1->name->toString())) {
-					return [];
-				}
-				$targetType = new ObjectType(constant($item1->name->toString()));
-				$targetIsStaticMethod = true;
-			} elseif ($item1 instanceof Class_) {
-				$targetType = new ObjectType($scope->getClassReflection()->getName());
-				$targetIsStaticMethod = true;
-			} elseif ($item1 instanceof Expr\ClassConstFetch && $item1->class instanceof Name) {
-				$targetType = new ObjectType($scope->resolveName($item1->class));
-				$targetIsStaticMethod = true;
-			} elseif ($item1 instanceof Expr) {
-				$targetType = $scope->getType($item1);
-				if ($targetType instanceof ObjectType) {
-					$targetIsStaticMethod = false;
-				} elseif ($targetType instanceof StringType) {
-					$targetIsStaticMethod = true;
-				} else {
-					return [$messagePrefix . 'array is not valid callback.'];
-				}
-			} else {
+			} elseif ($item1 instanceof MixedType || $item1 instanceof StringType) {
 				return [];
+			} else {
+				return [$messagePrefix . 'array is not valid callback.'];
 			}
 
-			if ($targetType instanceof MixedType || $targetType instanceof StringType) {
+			if (is_string($item2)) {
+				$targetMethod = $item2;
+			} elseif ($item2 instanceof MixedType || $item2 instanceof StringType) {
 				return [];
+			} else {
+				return [$messagePrefix . 'array is not valid callback.'];
 			}
 
-			if ($item2 instanceof String_) {
-				$targetMethod = $item2->value;
-			} elseif ($item2 instanceof ConstFetch) {
-				if (!defined($item2->name->toString())) {
-					return [];
-				}
-				$targetMethod = constant($item2->name->toString());
-			} elseif ($item2 instanceof Expr) {
-				$argType = $scope->getType($item2);
-				if ($argType instanceof StringType) {
-					return [];
-				} else {
-					return [$messagePrefix . 'array is not valid callback.'];
-				}
-			} else {
-				return [];
-			}
-
-		} elseif ($argument->value instanceof String_) {
-			$targetMethod = $argument->value->value;
-			$targetIsFunction = true;
-		} elseif ($argument->value instanceof ConstFetch) {
-			if (!defined($argument->value->name->toString())) {
-				return [];
-			}
-			$targetMethod = constant($argument->value->name->toString());
-			$targetIsFunction = true;
-		} elseif ($argument->value instanceof Expr) {
-			$targetType = $scope->getType($argument->value);
-			$targetIsFunction = true;
-			if ($targetType instanceof StringType) {
-				return [];
-			} elseif ($targetType instanceof ArrayType) {
-					return [];
-			} else {
-					return [$messagePrefix . 'value is not valid callback.'];
-			}
+		} else {
+			return [$messagePrefix . 'value is not valid callback.'];
 		}
 
 		if (!is_string($targetMethod)) {
-			if ($targetMethod !== null) {
+			if ($targetType !== null) {
 				return [$messagePrefix . 'callback name is not string but ' . gettype($targetMethod)];
 			} else {
 				return [];
@@ -182,6 +140,47 @@ class CallableExistsCheck
 		}
 
 		return [];
+	}
+
+  /**
+   * @param Expr $expr
+   * @param Scope $scope
+   * @return \PHPStan\Type\Type|string
+   */
+	private function resolveValue(Expr $expr, Scope $scope)
+	{
+		if ($expr instanceof String_) {
+			return $expr->value;
+		} elseif ($expr instanceof Variable) {
+			return $scope->getType($expr);
+		} elseif ($expr instanceof PropertyFetch) {
+			return $scope->getType($expr);
+		} elseif ($expr instanceof StaticPropertyFetch) {
+			return $scope->getType($expr);
+		} elseif ($expr instanceof ConstFetch) {
+			if (!defined($expr->name->toString())) {
+				return new MixedType();
+			}
+			 return constant($expr->name->toString());
+		} elseif ($expr instanceof Class_) {
+			return $scope->getClassReflection()->getName();
+		} elseif ($expr instanceof Expr\ClassConstFetch && $expr->class instanceof Name) {
+			if (strtolower($expr->name) === 'class') {
+				return $scope->resolveName($expr->class);
+			} else {
+				return (new ReflectionClass($scope->resolveName($expr->class)))->getConstant($expr->name);
+			}
+		} elseif ($expr instanceof Concat) {
+			$leftOp = $this->resolveValue($expr->left, $scope);
+			$rightOp = $this->resolveValue($expr->right, $scope);
+			if (is_string($leftOp) && is_string($rightOp)) {
+				return $leftOp . $rightOp;
+			} else {
+				return $scope->getType($expr);
+			}
+		} else {
+			return $scope->getType($expr);
+		}
 	}
 
 }

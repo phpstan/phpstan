@@ -26,7 +26,7 @@ class StaticMethodCallableArgExistsRuleTest extends \PHPStan\Testing\RuleTestCas
 
 	public function testCallableExists()
 	{
-		$lineOffset  = 256;
+		$lineOffset  = 274;
 		$this->checkThisOnly = false;
 
 		$this->analyse([__DIR__ . '/../data/callable-exists.php'], [
@@ -135,6 +135,14 @@ class StaticMethodCallableArgExistsRuleTest extends \PHPStan\Testing\RuleTestCas
 				$lineOffset + 45,
 			],
 			[
+				'Argument #1 callableParam of staticMethodWithCallableParam should be callable, but passed static method \CallableExists\Foo::method does not exists.',
+				$lineOffset + 56,
+			],
+			[
+				'Argument #1 callableParam of staticMethodWithCallableParam should be callable, but passed static method \CallableExists\Foo::method does not exists.',
+				$lineOffset + 58,
+			],
+			[
 				'Argument #1 callableParam of staticMethodWithCallableParam should be callable, but passed array is not valid callback.',
 				$lineOffset + 59,
 			],
@@ -153,6 +161,22 @@ class StaticMethodCallableArgExistsRuleTest extends \PHPStan\Testing\RuleTestCas
 			[
 				'Argument #1 callableParam of staticMethodWithCallableParam should be callable, but passed non-static method CallableExists\Bar::knownMethod as static.',
 				$lineOffset + 64,
+			],
+						[
+				'Argument #1 callableParam of staticMethodWithCallableParam should be callable, but passed static method \CallableExists\Foo::unknownStaticMethod does not exists.',
+				$lineOffset + 66,
+						],
+			[
+				'Argument #1 callableParam of staticMethodWithCallableParam should be callable, but passed non-static method \CallableExists\Foo::knownMethod as static.',
+				$lineOffset + 67,
+			],
+			[
+				'Argument #1 callableParam of staticMethodWithCallableParam should be callable, but passed array is not valid callback.',
+				$lineOffset + 68,
+			],
+			[
+				'Argument #1 callableParam of staticMethodWithCallableParam should be callable, but passed value is not valid callback.',
+				$lineOffset + 69,
 			],
 		]);
 	}
