@@ -39,10 +39,6 @@ class UniversalObjectCratesClassReflectionExtension
 				return $this->broker->hasClass($class);
 			}));
 		}
-		if ($classReflection->hasNativeProperty($propertyName)) {
-			return false;
-		}
-
 		foreach ($this->filteredClasses as $className) {
 			if (
 				$classReflection->getName() === $className
