@@ -15,55 +15,73 @@ class VariableCertaintyInIssetRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->analyse([__DIR__ . '/data/variable-certainty-isset.php'], [
 			[
 				'Variable $alwaysDefinedNotNullable in isset() always exists and is not nullable.',
-				11,
+				14,
 			],
 			[
 				'Variable $neverDefinedVariable in isset() is never defined.',
-				19,
+				22,
 			],
 			[
 				'Variable $anotherNeverDefinedVariable in isset() is never defined.',
-				39,
+				42,
 			],
 			[
 				'Variable $yetAnotherNeverDefinedVariable in isset() is never defined.',
-				43,
+				46,
 			],
 			[
 				'Variable $yetYetAnotherNeverDefinedVariableInIsset in isset() is never defined.',
-				53,
+				56,
 			],
 			[
 				'Variable $anotherVariableInDoWhile in isset() always exists and is not nullable.',
-				101,
+				104,
 			],
 			[
 				'Variable $variableInSecondCase in isset() is never defined.',
-				107,
+				110,
 			],
 			[
 				'Variable $variableInFirstCase in isset() always exists and is not nullable.',
-				109,
+				112,
 			],
 			[
 				'Variable $variableInFirstCase in isset() always exists and is not nullable.',
-				113,
-			],
-			[
-				'Variable $variableInSecondCase in isset() always exists and is not nullable.',
-				114,
-			],
-			[
-				'Variable $variableAssignedInSecondCase in isset() is never defined.',
 				116,
 			],
 			[
+				'Variable $variableInSecondCase in isset() always exists and is not nullable.',
+				117,
+			],
+			[
+				'Variable $variableAssignedInSecondCase in isset() is never defined.',
+				119,
+			],
+			[
 				'Variable $alwaysDefinedForSwitchCondition in isset() always exists and is not nullable.',
-				136,
+				139,
 			],
 			[
 				'Variable $alwaysDefinedForCaseNodeCondition in isset() always exists and is not nullable.',
-				137,
+				140,
+			],
+			[
+				'Variable $alwaysDefinedNotNullable in isset() always exists and is not nullable.',
+				152,
+			],
+			[
+				'Variable $neverDefinedVariable in isset() is never defined.',
+				152,
+			],
+		]);
+	}
+
+	public function testIssetInGlobalScope()
+	{
+		$this->analyse([__DIR__ . '/data/isset-global-scope.php'], [
+			[
+				'Variable $alwaysDefinedNotNullable in isset() always exists and is not nullable.',
+				8,
 			],
 		]);
 	}

@@ -50,7 +50,12 @@ class VariableCertaintyInIssetRule implements \PHPStan\Rules\Rule
 
 			$certainty = $scope->hasVariableType($var->name);
 			if ($certainty->no()) {
-				$messages[] = sprintf('Variable $%s in isset() is never defined.', $var->name);
+				if (
+					$scope->getFunction() !== null
+					|| $scope->isInAnonymousFunction()
+				) {
+					$messages[] = sprintf('Variable $%s in isset() is never defined.', $var->name);
+				}
 			} elseif ($certainty->yes() && !$isSubNode) {
 				$variableType = $scope->getVariableType($var->name);
 				if (!$variableType->accepts(new NullType())) {
