@@ -100,7 +100,7 @@ To let PHPStan analyse your codebase, you have use the `analyse` command and poi
 
 So, for example if you have your classes in directories `src` and `tests`, you can run PHPStan like this:
 
-```
+```bash
 vendor/bin/phpstan analyse src tests
 ```
 
@@ -131,7 +131,7 @@ You can also use `--level max` as an alias for the highest level. This will ensu
 
 Config file is passed to the `phpstan` executable with `-c` option:
 
-```
+```bash
 vendor/bin/phpstan analyse -l 4 -c phpstan.neon src tests
 ```
 
@@ -366,7 +366,7 @@ errorFormatter.awesome:
 
 Use the name part after `errorFormatter.` as the CLI option value:
 
-```
+```bash
 vendor/bin/phpstan analyse -c phpstan.neon -l 4 --errorFormat awesome src tests
 ```
 
@@ -583,8 +583,12 @@ Any contributions are welcome.
 
 You can either run the whole build including linting and coding standards using
 
-`vendor/bin/phing`
+```bash
+vendor/bin/phing
+```
 
 or run only tests using
 
-`vendor/bin/phing tests`
+```bash
+vendor/bin/phing tests
+```
