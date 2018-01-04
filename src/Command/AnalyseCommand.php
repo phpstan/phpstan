@@ -150,16 +150,16 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		$errorFormatter = $container->getService($errorFormatterServiceName);
 		$this->setUpSignalHandler($consoleStyle, $memoryLimitFile);
 		if (!isset($container->parameters['customRulesetUsed'])) {
-			$output->writeln('');
+			$output->newLine();
 			$output->writeln('<comment>No rules detected</comment>');
-			$output->writeln('');
+			$output->newLine();
 			$output->writeln('You have the following choices:');
-			$output->writeln('');
+			$output->newLine();
 			$output->writeln('* while running the analyse option, use the <info>--level</info> option to adjust your rule level - the higher the stricter');
-			$output->writeln('');
+			$output->newLine();
 			$output->writeln(sprintf('* create your own <info>custom ruleset</info> by selecting which rules you want to check by copying the service definitions from the built-in config level files in <options=bold>%s</>.', $fileHelper->normalizePath(__DIR__ . '/../../conf')));
 			$output->writeln('  * in this case, don\'t forget to define parameter <options=bold>customRulesetUsed</> in your config file.');
-			$output->writeln('');
+			$output->newLine();
 			return 1;
 		} elseif ($container->parameters['customRulesetUsed']) {
 			$defaultLevelUsed = false;
