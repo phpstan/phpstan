@@ -26,10 +26,12 @@ try {
 
 }
 
+$command = new AnalyseCommand();
 $application = new \Symfony\Component\Console\Application(
 	'PHPStan - PHP Static Analysis Tool',
 	$version
 );
 $application->setCatchExceptions(false);
-$application->add(new AnalyseCommand());
+$application->add($command);
+$application->setDefaultCommand($command->getName(), true);
 $application->run();
