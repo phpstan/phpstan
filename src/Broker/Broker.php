@@ -322,10 +322,7 @@ class Broker
 		return null;
 	}
 
-	/**
-	 * @return bool
-	 */
-	private function isExistsCheckCall()
+	private function isExistsCheckCall(): bool
 	{
 		$debugBacktrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
 
@@ -347,4 +344,5 @@ class Broker
 
 		return false;
 	}
+
 }

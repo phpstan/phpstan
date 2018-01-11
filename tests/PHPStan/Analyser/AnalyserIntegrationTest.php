@@ -2,8 +2,8 @@
 
 namespace PHPStan\Analyser;
 
-use PHPStan\File\FileHelper;
 use PHPStan\Broker\Broker;
+use PHPStan\File\FileHelper;
 
 class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 {
