@@ -223,6 +223,19 @@ class FunctionReflection implements ParametersAcceptorWithPhpDocs
 					true
 				);
 			}
+
+			if (
+				$this->reflection->getName() === 'get_defined_functions'
+				&& count($this->parameters) > 0
+				&& !$this->parameters[0]->isOptional()
+			) {
+				// PHP bug #75799
+				$this->parameters[0] = new DummyParameter(
+					'exclude_disabled',
+					new TrueOrFalseBooleanType(),
+					true
+				);
+			}
 		}
 
 		return $this->parameters;

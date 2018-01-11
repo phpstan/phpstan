@@ -39,3 +39,5 @@ openssl_open('', $open, '', openssl_get_privatekey(''), 'foo', 'bar', 'baz'); //
 openssl_x509_parse('foo'); // OK
 openssl_x509_parse('foo', true); // OK
 openssl_x509_parse('foo', true, 'bar'); // should report 3 parameters given, 1-2 required
+
+get_defined_functions(); // OK for PHP <7.1.10
