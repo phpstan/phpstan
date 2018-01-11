@@ -2,6 +2,7 @@
 
 namespace PHPStan\Analyser;
 
+use PHPStan\Broker\Broker;
 use PHPStan\File\FileHelper;
 
 class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
@@ -65,6 +66,16 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertCount(1, $errors);
 		$this->assertNull($errors[0]->getLine());
 		$this->assertSame('Class ExtendingUnknownClass\Bar not found and could not be autoloaded.', $errors[0]->getMessage());
+	}
+
+	public function testExtendingKnownClassWithCheck()
+	{
+		$errors = $this->runAnalyse(__DIR__ . '/data/extending-known-class-with-check.php');
+		$this->assertCount(1, $errors);
+		$this->assertSame('Class ExtendingKnownClassWithCheck\Bar not found.', $errors[0]->getMessage());
+
+		$broker = $this->getContainer()->getByType(Broker::class);
+		$this->assertTrue($broker->hasClass(\ExtendingKnownClassWithCheck\Foo::class));
 	}
 
 	public function testInfiniteRecursionWithCallable()
