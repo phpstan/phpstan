@@ -3,6 +3,7 @@
 namespace PHPStan\Analyser;
 
 use PHPStan\File\FileHelper;
+use PHPStan\Broker\Broker;
 
 class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 {
@@ -70,7 +71,11 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 	public function testExtendingKnownClassWithCheck()
 	{
 		$errors = $this->runAnalyse(__DIR__ . '/data/extending-known-class-with-check.php');
-		$this->assertCount(0, $errors);
+		$this->assertCount(1, $errors);
+		$this->assertSame('Class ExtendingKnownClassWithCheck\Bar not found.', $errors[0]->getMessage());
+
+		$broker = $this->getContainer()->getByType(Broker::class);
+		$this->assertTrue($broker->hasClass(\ExtendingKnownClassWithCheck\Foo::class));
 	}
 
 	public function testInfiniteRecursionWithCallable()
