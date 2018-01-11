@@ -152,6 +152,10 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 		}
 
 		if (!$classType->hasMethod($methodName)) {
+			if ($classType->hasMethod('__callStatic')) {
+				return $errors;
+			}
+
 			return array_merge($errors, [
 				sprintf(
 					'Call to an undefined static method %s::%s().',
