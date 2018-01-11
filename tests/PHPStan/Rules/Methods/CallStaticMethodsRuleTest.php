@@ -178,6 +178,10 @@ class CallStaticMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Static method CallStaticMethods\ClassOrString::calledMethod() invoked with 1 parameter, 0 required.',
 				173,
 			],
+			[
+				'Call to an undefined static method CallStaticMethods\ClassWithStaticMagicMethod::bar(), magic method __callStatic() found.',
+				191,
+			],
 		]);
 	}
 
