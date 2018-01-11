@@ -91,15 +91,17 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 				}
 			}
 
+			$magicMethodNote = '';
 			if ($type->hasMethod('__call')) {
-				return [];
+				$magicMethodNote = ', magic method __call() found';
 			}
 
 			return [
 				sprintf(
-					'Call to an undefined method %s::%s().',
+					'Call to an undefined method %s::%s()%s.',
 					$type->describe(),
-					$name
+					$name,
+					$magicMethodNote
 				),
 			];
 		}
