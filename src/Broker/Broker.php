@@ -211,7 +211,7 @@ class Broker
 		}
 
 		spl_autoload_register($autoloader = function (string $autoloadedClassName) use ($className) {
-			if ($autoloadedClassName !== $className) {
+			if ($autoloadedClassName !== $className && !$this->isExistsCheckCall()) {
 				throw new \PHPStan\Broker\ClassAutoloadingException($autoloadedClassName);
 			}
 		});
@@ -320,6 +320,29 @@ class Broker
 		}
 
 		return null;
+	}
+
+	private function isExistsCheckCall(): bool
+	{
+		$debugBacktrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+		$existsCallTypes = [
+			'class_exists' => true,
+			'interface_exists' => true,
+			'trait_exists' => true,
+		];
+
+		foreach ($debugBacktrace as $traceStep) {
+			if (
+				isset($traceStep['function'])
+				&& isset($existsCallTypes[$traceStep['function']])
+				// We must ignore the self::hasClass calls
+				&& (!isset($traceStep['file']) || $traceStep['file'] !== __FILE__)
+			) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 }
