@@ -552,3 +552,15 @@ class IncompatiblePhpDocNullableTypeIssue
 	}
 
 }
+
+class ClassWithMagicMethod
+{
+    public function __call($name, $arguments)
+    {
+    }
+
+    public function foo()
+    {
+        $this->bar();
+    }
+}
