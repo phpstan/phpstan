@@ -290,10 +290,7 @@ class ObjectType implements TypeWithClassName
 			return TrinaryLogic::createYes();
 		}
 
-		if (
-			$classReflection->isInterface()
-			|| !$classReflection->getNativeReflection()->isFinal()
-		) {
+		if (!$classReflection->getNativeReflection()->isFinal()) {
 			return TrinaryLogic::createMaybe();
 		}
 
