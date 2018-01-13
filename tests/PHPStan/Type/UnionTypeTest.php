@@ -15,7 +15,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 					new ArrayType(new MixedType(), new MixedType(), false, TrinaryLogic::createYes()),
 					new StringType(),
 				]),
-				TrinaryLogic::createYes(),
+				TrinaryLogic::createMaybe(),
 			],
 			[
 				new UnionType([

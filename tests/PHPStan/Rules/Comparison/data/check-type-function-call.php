@@ -61,3 +61,15 @@ class TypeCheckInSwitch
 	}
 
 }
+
+class StringIsNotAlwaysCallable
+{
+
+	public function doFoo(string $s)
+	{
+		if (is_callable($s)) {
+			$s();
+		}
+	}
+
+}

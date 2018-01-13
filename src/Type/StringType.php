@@ -80,7 +80,7 @@ class StringType implements Type
 
 	public function isCallable(): TrinaryLogic
 	{
-		return TrinaryLogic::createYes();
+		return TrinaryLogic::createMaybe();
 	}
 
 	public function isClonable(): bool
