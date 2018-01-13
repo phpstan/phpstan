@@ -15,7 +15,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 					new ArrayType(new MixedType(), new MixedType(), false, TrinaryLogic::createYes()),
 					new StringType(),
 				]),
-				TrinaryLogic::createMaybe(),
+				TrinaryLogic::createYes(),
 			],
 			[
 				new UnionType([
@@ -215,13 +215,13 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 		yield [
 			$unionTypeB,
 			new CallableType(),
-			TrinaryLogic::createNo(),
+			TrinaryLogic::createMaybe(),
 		];
 
 		yield [
 			$unionTypeB,
 			new IntersectionType([new MixedType(), new CallableType()]),
-			TrinaryLogic::createNo(),
+			TrinaryLogic::createMaybe(),
 		];
 
 		yield [

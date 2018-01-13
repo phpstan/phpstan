@@ -39,7 +39,7 @@ class ObjectTypeTest extends \PHPStan\Testing\TestCase
 		return [
 			[new ObjectType('Closure'), TrinaryLogic::createYes()],
 			[new ObjectType('Unknown'), TrinaryLogic::createMaybe()],
-			[new ObjectType('DateTime'), TrinaryLogic::createNo()],
+			[new ObjectType('DateTime'), TrinaryLogic::createMaybe()],
 		];
 	}
 

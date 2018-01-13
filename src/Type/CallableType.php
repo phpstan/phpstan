@@ -25,11 +25,7 @@ class CallableType implements CompoundType
 			return CompoundTypeHelper::accepts($type, $this);
 		}
 
-		if (!$type->isCallable()->no()) {
-			return true;
-		}
-
-		return false;
+		return $type->isCallable()->yes();
 	}
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic

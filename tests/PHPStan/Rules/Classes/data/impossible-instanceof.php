@@ -169,3 +169,47 @@ interface Collection extends \IteratorAggregate
 {
 
 }
+
+final class FinalClassWithInvoke
+{
+
+	public function __invoke()
+	{
+
+	}
+
+}
+
+final class FinalClassWithoutInvoke
+{
+
+}
+
+class ClassWithInvoke
+{
+
+	public function __invoke()
+	{
+
+	}
+
+	public function doFoo(callable $callable, Foo $foo)
+	{
+		if ($callable instanceof self) {
+
+		}
+		if ($callable instanceof FinalClassWithInvoke) {
+
+		}
+		if ($callable instanceof FinalClassWithoutInvoke) {
+
+		}
+		if ($callable instanceof Foo) {
+
+		}
+		if ($callable instanceof Lorem) {
+
+		}
+	}
+
+}

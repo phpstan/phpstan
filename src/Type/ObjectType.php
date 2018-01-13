@@ -285,8 +285,16 @@ class ObjectType implements TypeWithClassName
 			return TrinaryLogic::createMaybe();
 		}
 
-		if ($broker->getClass($this->className)->hasNativeMethod('__invoke')) {
+		$classReflection = $broker->getClass($this->className);
+		if ($classReflection->hasNativeMethod('__invoke')) {
 			return TrinaryLogic::createYes();
+		}
+
+		if (
+			$classReflection->isInterface()
+			|| !$classReflection->getNativeReflection()->isFinal()
+		) {
+			return TrinaryLogic::createMaybe();
 		}
 
 		return TrinaryLogic::createNo();

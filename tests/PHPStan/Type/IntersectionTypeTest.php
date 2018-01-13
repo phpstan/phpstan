@@ -68,7 +68,7 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 					new ObjectType('ArrayObject'),
 					new IterableIterableType(new MixedType(), new ObjectType('Item')),
 				]),
-				TrinaryLogic::createNo(),
+				TrinaryLogic::createMaybe(),
 			],
 		];
 	}
