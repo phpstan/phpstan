@@ -15,3 +15,8 @@ services:
 		class: PHPStan\Rules\PhpDoc\IncompatiblePhpDocTypeRule
 		tags:
 			- phpstan.rules.rule
+
+	-
+		class: PHPStan\Rules\PhpDoc\IncompatiblePhpDocInheritedReturnType
+		tags:
+			- phpstan.rules.rule
