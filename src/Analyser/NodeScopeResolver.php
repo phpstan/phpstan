@@ -151,11 +151,9 @@ class NodeScopeResolver
 				continue;
 			}
 
-			if ($scope->getInFunctionCall() !== null && $node instanceof Arg) {
-				$functionCall = $scope->getInFunctionCall();
+			$functionCall = $scope->getInFunctionCall();
+			if ($functionCall !== null && $node instanceof Arg) {
 				$value = $node->value;
-
-				assert($functionCall !== null);
 
 				$parametersAcceptor = $this->findParametersAcceptorInFunctionCall($functionCall, $scope);
 
