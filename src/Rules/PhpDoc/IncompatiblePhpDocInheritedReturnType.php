@@ -103,20 +103,10 @@ class IncompatiblePhpDocInheritedReturnType implements \PHPStan\Rules\Rule
 	 */
 	private function formatType(...$types)
 	{
-		$string = '|';
+		$string = '';
 
 		foreach ($types as $type) {
-
-			if ($type instanceof UnionType) {
-				$string = implode('|', array_map(function (Type $type) {
-					return $type->describe();
-				}, $type->getTypes())) . '|';
-
-				continue;
-			}
-
 			$string .= $type->describe() . '|';
-
 		}
 
 		return trim($string, '|');
