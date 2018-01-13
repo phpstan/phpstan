@@ -231,6 +231,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Parameter #1 $param of method Test\IncompatiblePhpDocNullableTypeIssue::doFoo() expects string|null, int given.',
 				551,
 			],
+			[
+				'Call to an undefined method Test\ClassWithMagicMethod::bar(), magic method __call() found.',
+				564,
+			],
 		]);
 	}
 
@@ -347,6 +351,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Parameter #1 $param of method Test\IncompatiblePhpDocNullableTypeIssue::doFoo() expects string|null, int given.',
 				551,
+			],
+			[
+				'Call to an undefined method Test\ClassWithMagicMethod::bar(), magic method __call() found.',
+				564,
 			],
 		]);
 	}
