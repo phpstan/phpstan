@@ -142,6 +142,8 @@ class Analyser
 			return $errors;
 		}
 
+		$errors = [];
+
 		$this->nodeScopeResolver->setAnalysedFiles($files);
 		$internalErrorsCount = 0;
 		$reachedInternalErrorsCountLimit = false;
