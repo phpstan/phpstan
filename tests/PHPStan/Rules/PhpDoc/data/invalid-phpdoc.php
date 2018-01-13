@@ -28,3 +28,12 @@ function foo()
 	$test = doFoo();
 
 }
+
+/**
+ * This is a class description that talks about some phpDoc @param and continues
+ * to talk about it even more
+ */
+class Foo
+{
+
+}
