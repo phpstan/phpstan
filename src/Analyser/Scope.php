@@ -782,7 +782,7 @@ class Scope
 			} elseif ($originalClass === 'parent') {
 				$currentClassReflection = $this->getClassReflection();
 				$parentClassReflection = $currentClassReflection->getParentClass();
-				if ($parentClassReflection instanceof \ReflectionClass) {
+				if ($parentClassReflection instanceof ClassReflection) {
 					return $parentClassReflection->getName();
 				}
 			}
@@ -1123,7 +1123,7 @@ class Scope
 			) {
 				if ($this->isInClass()) {
 					$parentReflectionClass = $this->getClassReflection()->getParentClass();
-					if ($parentReflectionClass instanceof \ReflectionClass) {
+					if ($parentReflectionClass instanceof ClassReflection) {
 						return new ObjectType($parentReflectionClass->getName());
 					}
 				}
