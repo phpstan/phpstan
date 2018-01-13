@@ -123,8 +123,8 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\Testing\Te
 			],
 			'methodWithNoReturnTypeStatically' => [
 				'class' => \AnnotationsMethods\Foo::class,
-				'returnType' => 'mixed',
-				'isStatic' => true,
+				'returnType' => 'static(AnnotationsMethods\Foo)',
+				'isStatic' => false,
 				'isVariadic' => false,
 				'parameters' => [],
 			],
@@ -239,8 +239,8 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\Testing\Te
 			],
 			'methodWithNoReturnTypeStaticallyWithDescription' => [
 				'class' => \AnnotationsMethods\Foo::class,
-				'returnType' => 'mixed',
-				'isStatic' => true,
+				'returnType' => 'static(AnnotationsMethods\Foo)',
+				'isStatic' => false,
 				'isVariadic' => false,
 				'parameters' => [],
 			],
@@ -309,8 +309,8 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\Testing\Te
 			],
 			'methodWithNoReturnTypeStaticallyNoParams' => [
 				'class' => \AnnotationsMethods\Foo::class,
-				'returnType' => 'mixed',
-				'isStatic' => true,
+				'returnType' => 'static(AnnotationsMethods\Foo)',
+				'isStatic' => false,
 				'isVariadic' => false,
 				'parameters' => [],
 			],

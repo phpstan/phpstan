@@ -24,22 +24,22 @@ use OtherNamespace\Test as OtherTest;
  * @method static methodWithNoReturnTypeStaticallyWithDescription() Do something with a description statically, but what, who knows!
  * @method static bool aStaticMethodThatHasAUniqueReturnTypeInThisClass()
  * @method static string aStaticMethodThatHasAUniqueReturnTypeInThisClassWithDescription() A Description.
- * @method int getIntegerNoParams
- * @method void doSomethingNoParams
- * @method self|Bar getFooOrBarNoParams
- * @method methodWithNoReturnTypeNoParams
- * @method static int getIntegerStaticallyNoParams
- * @method static void doSomethingStaticallyNoParams
- * @method static self|Bar getFooOrBarStaticallyNoParams
- * @method static methodWithNoReturnTypeStaticallyNoParams
- * @method int getIntegerWithDescriptionNoParams Get an integer with a description.
- * @method void doSomethingWithDescriptionNoParams Do something with a description.
- * @method self|Bar getFooOrBarWithDescriptionNoParams Get a Foo or a Bar with a description.
- * @method static int getIntegerStaticallyWithDescriptionNoParams Get an integer with a description statically.
- * @method static void doSomethingStaticallyWithDescriptionNoParams Do something with a description statically.
- * @method static self|Bar getFooOrBarStaticallyWithDescriptionNoParams Get a Foo or a Bar with a description statically.
- * @method static bool|string aStaticMethodThatHasAUniqueReturnTypeInThisClassNoParams
- * @method static string|float aStaticMethodThatHasAUniqueReturnTypeInThisClassWithDescriptionNoParams A Description.
+ * @method int getIntegerNoParams()
+ * @method void doSomethingNoParams()
+ * @method self|Bar getFooOrBarNoParams()
+ * @method methodWithNoReturnTypeNoParams()
+ * @method static int getIntegerStaticallyNoParams()
+ * @method static void doSomethingStaticallyNoParams()
+ * @method static self|Bar getFooOrBarStaticallyNoParams()
+ * @method static methodWithNoReturnTypeStaticallyNoParams()
+ * @method int getIntegerWithDescriptionNoParams() Get an integer with a description.
+ * @method void doSomethingWithDescriptionNoParams() Do something with a description.
+ * @method self|Bar getFooOrBarWithDescriptionNoParams() Get a Foo or a Bar with a description.
+ * @method static int getIntegerStaticallyWithDescriptionNoParams() Get an integer with a description statically.
+ * @method static void doSomethingStaticallyWithDescriptionNoParams() Do something with a description statically.
+ * @method static self|Bar getFooOrBarStaticallyWithDescriptionNoParams() Get a Foo or a Bar with a description statically.
+ * @method static bool|string aStaticMethodThatHasAUniqueReturnTypeInThisClassNoParams()
+ * @method static string|float aStaticMethodThatHasAUniqueReturnTypeInThisClassWithDescriptionNoParams() A Description.
  * @method \Aws\Result publish(array $args = [])
  * @method Image rotate(float $angle, $backgroundColor)
  * @method Foo overridenMethod()
@@ -89,14 +89,14 @@ class Bar extends Foo
  * @method void doSomethingWithDescription(int $a, $b) Doing something
  * @method static Ipsum getIpsumStaticallyWithDescription($a) Lorem Ipsum Static
  * @method static void doSomethingStaticallyWithDescription(int $a, $b) Statically doing something
- * @method Ipsum  getIpsumNoParams
- * @method void doSomethingNoParams
- * @method static Ipsum  getIpsumStaticallyNoParams
- * @method static void doSomethingStaticallyNoParams
- * @method Ipsum getIpsumWithDescriptionNoParams Ipsum Lorem
- * @method void doSomethingWithDescriptionNoParams Doing something
- * @method static Ipsum getIpsumStaticallyWithDescriptionNoParams Lorem Ipsum Static
- * @method static void doSomethingStaticallyWithDescriptionNoParams Statically doing something
+ * @method Ipsum  getIpsumNoParams()
+ * @method void doSomethingNoParams()
+ * @method static Ipsum  getIpsumStaticallyNoParams()
+ * @method static void doSomethingStaticallyNoParams()
+ * @method Ipsum getIpsumWithDescriptionNoParams() Ipsum Lorem
+ * @method void doSomethingWithDescriptionNoParams() Doing something
+ * @method static Ipsum getIpsumStaticallyWithDescriptionNoParams() Lorem Ipsum Static
+ * @method static void doSomethingStaticallyWithDescriptionNoParams() Statically doing something
  */
 class Baz extends Bar
 {

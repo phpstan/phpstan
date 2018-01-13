@@ -16,7 +16,7 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
  * @property int | float $numericBazBazProperty
  * @property X $singleLetterObjectName
  *
- * @method void simpleMethod
+ * @method void simpleMethod()
  * @method string returningMethod()
  * @method ?float returningNullableScalar()
  * @method ?\stdClass returningNullableObject()
@@ -24,7 +24,6 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
  * @method Image rotate(float $angle, $backgroundColor)
  * @method int | float paramMultipleTypesWithExtraSpaces(string | null $string, stdClass | null $object)
  */');
-
 		$this->assertCount(0, $resolvedA->getVarTags());
 		$this->assertCount(0, $resolvedA->getParamTags());
 		$this->assertCount(2, $resolvedA->getPropertyTags());

@@ -4,7 +4,7 @@
  * @property int | float $numericBazBazProperty
  * @property X $singleLetterObjectName
  *
- * @method void simpleMethod
+ * @method void simpleMethod()
  * @method string returningMethod()
  * @method ?float returningNullableScalar()
  * @method ?\stdClass returningNullableObject()
