@@ -483,10 +483,6 @@ class NodeScopeResolver
 				$closureCallScope = $scope->enterClosureBind($scope->getType($node->args[0]->value), 'static');
 			}
 			$scope = $scope->enterFunctionCall($node);
-		} elseif ($node instanceof Array_) {
-			foreach ($node->items as $item) {
-				$scope = $this->lookForAssigns($scope, $item->value);
-			}
 		} elseif ($node instanceof New_ && $node->class instanceof Class_) {
 			$node->args = [];
 			foreach ($node->class->stmts as $i => $statement) {
