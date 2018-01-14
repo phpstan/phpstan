@@ -47,3 +47,14 @@ class Foo extends Bar
 	{
 	}
 }
+
+class Invalid extends Foo
+{
+	/**
+	 * @return bool
+	 */
+	public function invalid2()
+	{
+
+	}
+}

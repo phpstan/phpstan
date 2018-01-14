@@ -1,14 +1,15 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules\PhpDoc;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\MissingMethodFromReflectionException;
+use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\Php\PhpMethodReflection;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Type;
-use PHPStan\Type\UnionType;
+use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\UnionTypeHelper;
 
 class IncompatiblePhpDocInheritedReturnType implements \PHPStan\Rules\Rule
 {
@@ -52,43 +53,24 @@ class IncompatiblePhpDocInheritedReturnType implements \PHPStan\Rules\Rule
 		);
 
 		try {
-			/** @var PhpMethodReflection $parentMethod */
-			$parentMethod = $parents[0]->getMethod($node->name, $scope);
-		} catch (MissingMethodFromReflectionException $e) {
+			// Walk over all parents and merge return types
+			$phpDocParentReturnType = $this->mergeParentsReturnType($parents, $node->name, $scope);
+		} catch (\PHPStan\Reflection\MissingMethodFromReflectionException $e) {
 			return [];
 		}
-
-		$resolvedParentPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
-			$scope->getFile(),
-			$parents[0]->getName(),
-			$parentMethod->getDocComment()
-		);
 
 		$errors = [];
 
 		if ($resolvedPhpDoc->getReturnTag() !== null) {
 			$phpDocReturnType = $resolvedPhpDoc->getReturnTag()->getType();
-			$phpDocParentReturnType = $resolvedParentPhpDoc->getReturnTag()->getType();
 
-			if (!($phpDocReturnType instanceof UnionType) && $phpDocReturnType !== $phpDocParentReturnType) {
+			if ($phpDocReturnType->isSuperTypeOf($phpDocParentReturnType)->no()) {
 				$errors[] = sprintf(
 					'PHPDoc return type %s does contain inherited return type %s. Expected compound %s.',
-					$this->formatType($phpDocParentReturnType),
 					$this->formatType($phpDocReturnType),
-					$this->formatType($phpDocReturnType, $phpDocParentReturnType)
+					$this->formatType($phpDocParentReturnType),
+					$this->formatType(...UnionTypeHelper::sortTypes([$phpDocReturnType, $phpDocParentReturnType]))
 				);
-			}
-
-			if ($phpDocReturnType instanceof UnionType) {
-
-				if (!in_array($phpDocParentReturnType, $phpDocReturnType->getTypes())) {
-					$errors[] = sprintf(
-						'PHPDoc return type compound %s does contain inherited return type %s.',
-						$this->formatType(...$phpDocReturnType->getTypes()),
-						$this->formatType($phpDocParentReturnType)
-					);
-				}
-
 			}
 
 		}
@@ -101,7 +83,7 @@ class IncompatiblePhpDocInheritedReturnType implements \PHPStan\Rules\Rule
 	 *
 	 * @return string
 	 */
-	private function formatType(...$types)
+	private function formatType(Type ...$types): string
 	{
 		$string = '';
 
@@ -111,4 +93,33 @@ class IncompatiblePhpDocInheritedReturnType implements \PHPStan\Rules\Rule
 
 		return trim($string, '|');
 	}
+
+	/**
+	 * @param ClassReflection[] $parents
+	 * @param string            $name
+	 * @param Scope             $scope
+	 *
+	 * @return Type
+	 * @throws \PHPStan\Reflection\MissingMethodFromReflectionException
+	 */
+	private function mergeParentsReturnType(array $parents, string $name, Scope $scope)
+	{
+		$returnTypes = [];
+
+		foreach ($parents as $parent) {
+
+			if (!$parent->hasMethod($name)) {
+				continue;
+			}
+
+			/** @var PhpMethodReflection $method */
+			$method = $parent->getMethod($name, $scope);
+
+			$returnTypes[] = $method->getPhpDocReturnType();
+		}
+
+		return TypeCombinator::union(...UnionTypeHelper::sortTypes($returnTypes));
+
+	}
+
 }
