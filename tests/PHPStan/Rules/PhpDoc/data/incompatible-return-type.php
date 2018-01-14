@@ -1,22 +1,46 @@
 <?php
 
-class Bar
+class RootLevel
 {
 	/**
+	 * DocType simple type check with first level inheritance
+	 *
 	 * @return int
 	 */
-	public function invalid1()
+	public function invalidFirstLevelChildSimpleType()
 	{
 	}
 
 	/**
+	 * DocType compound type check over multi level inheritance
+	 *
 	 * @return float
 	 */
-	public function invalid2()
+	public function invalidMultiLevelChildCompoundType()
 	{
 	}
 
 	/**
+	 * DocType simple type check with second level inheritance (first level does not override method)
+	 *
+	 * @return int
+	 */
+	public function invalidSecondLevelSimpleType()
+	{
+	}
+
+	/**
+	 * DocType compound type check with second level inheritance (first level does not override method)
+	 *
+	 * @return float
+	 */
+	public function invalidSecondLevelCompoundType()
+	{
+	}
+
+	/**
+	 * Valid over multiple inheritance levels, each adding a new type
+	 *
 	 * @return float
 	 */
 	public function valid()
@@ -24,37 +48,57 @@ class Bar
 	}
 }
 
-class Foo extends Bar
+class FirstLevel extends RootLevel
 {
 	/**
 	 * @return string
 	 */
-	public function invalid1()
+	public function invalidFirstLevelChildSimpleType()
 	{
 	}
 
 	/**
-	 * @return string|int
+	 * @return int|string
 	 */
-	public function invalid2()
+	public function invalidMultiLevelChildCompoundType()
 	{
 	}
 
 	/**
-	 * @return float|int|string|bool
+	 * @return int|float
 	 */
 	public function valid()
 	{
 	}
 }
 
-class Invalid extends Foo
+class SecondLevel extends FirstLevel
 {
 	/**
 	 * @return bool
 	 */
-	public function invalid2()
+	public function invalidMultiLevelChildCompoundType()
 	{
+	}
 
+	/**
+	 * @return string
+	 */
+	public function invalidSecondLevelSimpleType()
+	{
+	}
+
+	/**
+	 * @return int|string
+	 */
+	public function invalidSecondLevelCompoundType()
+	{
+	}
+
+	/**
+	 * @return bool|float|int
+	 */
+	public function valid()
+	{
 	}
 }

@@ -102,7 +102,7 @@ class IncompatiblePhpDocInheritedReturnType implements \PHPStan\Rules\Rule
 	 * @return Type
 	 * @throws \PHPStan\Reflection\MissingMethodFromReflectionException
 	 */
-	private function mergeParentsReturnType(array $parents, string $name, Scope $scope)
+	private function mergeParentsReturnType(array $parents, string $name, Scope $scope): Type
 	{
 		$returnTypes = [];
 
@@ -119,7 +119,6 @@ class IncompatiblePhpDocInheritedReturnType implements \PHPStan\Rules\Rule
 		}
 
 		return TypeCombinator::union(...UnionTypeHelper::sortTypes($returnTypes));
-
 	}
 
 }

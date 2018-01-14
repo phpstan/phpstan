@@ -21,16 +21,24 @@ class IncompatiblePhpDocInheritedReturnTypeTest extends RuleTestCase
 		$this->analyse([__DIR__ . '/data/incompatible-return-type.php'], [
 			[
 				'PHPDoc return type string does contain inherited return type int. Expected compound int|string.',
-				32
+				56,
 			],
 			[
 				'PHPDoc return type int|string does contain inherited return type float. Expected compound float|int|string.',
-				39
+				63,
 			],
 			[
 				'PHPDoc return type bool does contain inherited return type float|int|string. Expected compound bool|float|int|string.',
-				56
-			]
+				80,
+			],
+			[
+				'PHPDoc return type string does contain inherited return type int. Expected compound int|string.',
+				87,
+			],
+			[
+				'PHPDoc return type int|string does contain inherited return type float. Expected compound float|int|string.',
+				94,
+			],
 		]);
 	}
 
