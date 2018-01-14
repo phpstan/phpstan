@@ -369,20 +369,14 @@ class Scope
 		}
 
 		if ($node instanceof Expr\Ternary) {
-			$elseType = $this->getType($node->else);
-			if ($node->if === null) {
-				return TypeCombinator::union(
-					TypeCombinator::removeNull($this->getType($node->cond)),
-					$elseType
-				);
-			}
-
 			$conditionScope = $this->filterByTruthyValue($node->cond);
-			$ifType = $conditionScope->getType($node->if);
 			$negatedConditionScope = $this->filterByFalseyValue($node->cond);
 			$elseType = $negatedConditionScope->getType($node->else);
+			if ($node->if === null) {
+				return TypeCombinator::union($conditionScope->getType($node->cond), $elseType);
+			}
 
-			return TypeCombinator::union($ifType, $elseType);
+			return TypeCombinator::union($conditionScope->getType($node->if), $elseType);
 		}
 
 		if ($node instanceof Expr\BinaryOp\Coalesce) {

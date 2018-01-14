@@ -434,3 +434,18 @@ class GeneratorMethod
 	}
 
 }
+
+class ReturnTernary
+{
+
+	/**
+	 * @param array|false $arrayOrFalse
+	 * @return array
+	 */
+	public function returnTernary($arrayOrFalse): array
+	{
+		return $arrayOrFalse ?: [];
+		return $arrayOrFalse !== false ? $arrayOrFalse : [];
+	}
+
+}
