@@ -947,6 +947,7 @@ class NodeScopeResolver
 					if ($this->findStatementEarlyTermination($statement, $scope) !== null) {
 						$statementLists[] = new StatementList($scope, $tmpStatements);
 						$tmpStatements = [];
+						break;
 					}
 				}
 			}

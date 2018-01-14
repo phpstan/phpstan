@@ -326,3 +326,20 @@ for ($forLoopVariableInit = 0; $forLoopVariableInit < 5; $forLoopVariableInit = 
 	$forLoopVariable = 2;
 }
 echo $anotherForLoopVariable;
+
+
+switch ('test') {
+	case 'blah':
+		$weirdSwitchVariable = 'something';
+		break;
+
+	case 'foo':
+		$weirdSwitchVariable = 'muhehee';
+		break;
+
+	default:
+		return;
+		break;
+}
+
+echo $weirdSwitchVariable;
