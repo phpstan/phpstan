@@ -231,6 +231,18 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Parameter #1 $param of method Test\IncompatiblePhpDocNullableTypeIssue::doFoo() expects string|null, int given.',
 				551,
 			],
+			[
+				'Parameter #1 $i of method Test\TernaryEvaluation::doBar() expects int, false given.',
+				565,
+			],
+			[
+				'Parameter #1 $i of method Test\TernaryEvaluation::doBar() expects int, Test\Foo given.',
+				567,
+			],
+			[
+				'Parameter #1 $i of method Test\TernaryEvaluation::doBar() expects int, false given.',
+				568,
+			],
 		]);
 	}
 
@@ -347,6 +359,18 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Parameter #1 $param of method Test\IncompatiblePhpDocNullableTypeIssue::doFoo() expects string|null, int given.',
 				551,
+			],
+			[
+				'Parameter #1 $i of method Test\TernaryEvaluation::doBar() expects int, false given.',
+				565,
+			],
+			[
+				'Parameter #1 $i of method Test\TernaryEvaluation::doBar() expects int, Test\Foo given.',
+				567,
+			],
+			[
+				'Parameter #1 $i of method Test\TernaryEvaluation::doBar() expects int, false given.',
+				568,
 			],
 		]);
 	}

@@ -552,3 +552,25 @@ class IncompatiblePhpDocNullableTypeIssue
 	}
 
 }
+
+class TernaryEvaluation
+{
+
+
+	/**
+	 * @param Foo|false $fooOrFalse
+	 */
+	public function doFoo($fooOrFalse)
+	{
+		$fooOrFalse ?: $this->doBar($fooOrFalse);
+		$fooOrFalse ?
+			$this->doBar($fooOrFalse)
+			: $this->doBar($fooOrFalse);
+	}
+
+	public function doBar(int $i)
+	{
+
+	}
+
+}

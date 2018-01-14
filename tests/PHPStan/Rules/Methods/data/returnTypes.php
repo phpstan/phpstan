@@ -439,13 +439,19 @@ class ReturnTernary
 {
 
 	/**
-	 * @param array|false $arrayOrFalse
-	 * @return array
+	 * @param Foo|false $fooOrFalse
+	 * @return Foo
 	 */
-	public function returnTernary($arrayOrFalse): array
+	public function returnTernary($fooOrFalse): Foo
 	{
-		return $arrayOrFalse ?: [];
-		return $arrayOrFalse !== false ? $arrayOrFalse : [];
+		return $fooOrFalse ?: new Foo();
+		return $fooOrFalse !== false ? $fooOrFalse : new Foo();
+
+		$fooOrFalse ? ($fooResult = $fooOrFalse) : new Foo();
+		return $fooResult;
+
+		$fooOrFalse ? false : ($falseResult = $fooOrFalse);
+		return $falseResult;
 	}
 
 }

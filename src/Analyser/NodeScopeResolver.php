@@ -700,20 +700,6 @@ class NodeScopeResolver
 					}
 				}
 
-				if ($node instanceof Ternary) {
-					if ($subNodeName === 'if') {
-						$scope = $scope->filterByTruthyValue($node->cond);
-						$this->processNode($node->cond, $scope, function (Node $node, Scope $inScope) use (&$scope) {
-							$this->specifyFetchedPropertyForInnerScope($node, $inScope, false, $scope);
-						});
-					} elseif ($subNodeName === 'else') {
-						$scope = $scope->filterByFalseyValue($node->cond);
-						$this->processNode($node->cond, $scope, function (Node $node, Scope $inScope) use (&$scope) {
-							$this->specifyFetchedPropertyForInnerScope($node, $inScope, true, $scope);
-						});
-					}
-				}
-
 				if ($node instanceof BooleanAnd && $subNodeName === 'right') {
 					$scope = $scope->filterByTruthyValue($node->left);
 				}
@@ -744,9 +730,20 @@ class NodeScopeResolver
 
 				if (
 					$node instanceof Ternary
-					&& ($subNodeName === 'if' || $subNodeName === 'else')
+					&& $subNodeName !== 'cond'
 				) {
 					$scope = $this->lookForAssigns($scope, $node->cond, TrinaryLogic::createYes());
+					if ($subNodeName === 'if') {
+						$scope = $scope->filterByTruthyValue($node->cond);
+						$this->processNode($node->cond, $scope, function (Node $node, Scope $inScope) use (&$scope) {
+							$this->specifyFetchedPropertyForInnerScope($node, $inScope, false, $scope);
+						});
+					} elseif ($subNodeName === 'else') {
+						$scope = $scope->filterByFalseyValue($node->cond);
+						$this->processNode($node->cond, $scope, function (Node $node, Scope $inScope) use (&$scope) {
+							$this->specifyFetchedPropertyForInnerScope($node, $inScope, true, $scope);
+						});
+					}
 				}
 
 				if ($node instanceof Do_ && $subNodeName === 'cond') {
@@ -914,6 +911,24 @@ class NodeScopeResolver
 			$scope = $this->lookForAssigns($scope, $node->expr, $certainty);
 		} elseif ($node instanceof Ternary) {
 			$scope = $this->lookForAssigns($scope, $node->cond, $certainty);
+			$statements = [];
+			if ($node->if !== null) {
+				$statements[] = new StatementList(
+					$scope->filterByTruthyValue($node->cond),
+					[$node->if]
+				);
+			} else {
+				$statements[] = new StatementList(
+					$scope->filterByTruthyValue($node->cond),
+					[$node->cond]
+				);
+			}
+
+			$statements[] = new StatementList(
+				$scope->filterByFalseyValue($node->cond),
+				[$node->else]
+			);
+			$scope = $this->lookForAssignsInBranches($scope, $statements, $lookForAssignsSettings);
 		} elseif ($node instanceof Array_) {
 			foreach ($node->items as $item) {
 				if ($item === null) {

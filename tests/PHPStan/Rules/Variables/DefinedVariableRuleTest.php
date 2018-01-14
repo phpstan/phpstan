@@ -183,6 +183,14 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Variable $anotherForLoopVariable might not be defined.',
 				328,
 			],
+			[
+				'Variable $maybeDefinedInTernary might not be defined.',
+				351,
+			],
+			[
+				'Variable $anotherMaybeDefinedInTernary might not be defined.',
+				354,
+			],
 		]);
 	}
 

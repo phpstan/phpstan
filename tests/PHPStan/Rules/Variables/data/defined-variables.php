@@ -343,3 +343,12 @@ switch ('test') {
 }
 
 echo $weirdSwitchVariable;
+
+[] ? ($definedInTernary = 'foo') : ($definedInTernary = 'bar');
+echo $definedInTernary;
+
+[] ? ($maybeDefinedInTernary = 'foo') : false;
+echo $maybeDefinedInTernary;
+
+[] ? true : ($anotherMaybeDefinedInTernary = 'foo');
+echo $anotherMaybeDefinedInTernary;
