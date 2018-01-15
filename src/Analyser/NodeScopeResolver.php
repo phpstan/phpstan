@@ -398,24 +398,28 @@ class NodeScopeResolver
 			foreach ($node->init as $initExpr) {
 				$scope = $this->lookForAssigns($scope, $initExpr, TrinaryLogic::createYes());
 			}
-			$this->processNodes($node->cond, $scope, $nodeCallback);
+			$afterConditionScope = $scope;
 			foreach ($node->cond as $condExpr) {
-				$scope = $this->lookForAssigns($scope, $condExpr, TrinaryLogic::createYes());
-				$scope = $scope->filterByTruthyValue($condExpr);
+				$afterConditionScope = $this->lookForAssigns($afterConditionScope, $condExpr, TrinaryLogic::createYes());
 			}
-			$scopeLoopMightHaveRun = $this->lookForAssignsInBranches($scope, [
-				new StatementList($scope, $node->stmts),
-				new StatementList($scope, []),
+			$scopeLoopMightHaveRun = $this->lookForAssignsInBranches($afterConditionScope, [
+				new StatementList($afterConditionScope, $node->stmts),
+				new StatementList($afterConditionScope, $node->loop),
+				new StatementList($afterConditionScope, []),
 			], LookForAssignsSettings::insideLoop());
-			$scopeLoopDefinitelyRan = $this->lookForAssignsInBranches($scope, [
-				new StatementList($scope, $node->stmts),
+
+			$this->processNodes($node->cond, $scopeLoopMightHaveRun, $nodeCallback);
+
+			foreach ($node->cond as $condExpr) {
+				$afterConditionScope = $afterConditionScope->filterByTruthyValue($condExpr);
+			}
+
+			$scopeLoopDefinitelyRan = $this->lookForAssignsInBranches($afterConditionScope, [
+				new StatementList($afterConditionScope, $node->stmts),
 			], LookForAssignsSettings::insideLoop());
 
 			$this->processNodes($node->loop, $scopeLoopDefinitelyRan, $nodeCallback);
 
-			foreach ($node->loop as $loopExpr) {
-				$scopeLoopMightHaveRun = $this->lookForAssigns($scopeLoopMightHaveRun, $loopExpr, TrinaryLogic::createMaybe());
-			}
 			foreach ($node->cond as $condExpr) {
 				$scopeLoopMightHaveRun = $scopeLoopMightHaveRun->filterByTruthyValue($condExpr);
 			}

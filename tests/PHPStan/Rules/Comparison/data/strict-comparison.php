@@ -174,3 +174,17 @@ class Foo
 	}
 
 }
+
+class Node
+{
+
+	/** @var self|null */
+	private $next;
+
+	public function iterate(): void
+	{
+		for ($node = $this; $node !== null; $node = $node->next) {
+			// ...
+		}
+	}
+}
