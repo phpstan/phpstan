@@ -96,8 +96,8 @@ class NodeScopeResolver
 	/** @var \PHPStan\Reflection\ClassReflection|null */
 	private $anonymousClassReflection;
 
-	/** @var bool[] filePath(string) => bool(true) */
-	private $analysedFiles = [];
+	/** @var bool[]|null filePath(string) => bool(true) */
+	private $analysedFiles;
 
 	public function __construct(
 		Broker $broker,
@@ -122,8 +122,6 @@ class NodeScopeResolver
 
 	/**
 	 * @param string[] $files
-	 *
-	 * @return void
 	 */
 	public function setAnalysedFiles(array $files)
 	{
@@ -135,8 +133,6 @@ class NodeScopeResolver
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @param \Closure $nodeCallback
 	 * @param \PHPStan\Analyser\Scope $closureBindScope
-	 *
-	 * @return void
 	 */
 	public function processNodes(
 		array $nodes,
@@ -367,7 +363,6 @@ class NodeScopeResolver
 					$scopeClass = $argValueType->getReferencedClasses()[0];
 				} elseif (
 					$argValue instanceof Expr\ClassConstFetch
-					&& is_string($argValue->name)
 					&& strtolower($argValue->name) === 'class'
 					&& $argValue->class instanceof Name
 				) {
@@ -527,7 +522,6 @@ class NodeScopeResolver
 						$switchConditionGetClassExpression !== null
 						&& $caseNode->cond instanceof Expr\ClassConstFetch
 						&& $caseNode->cond->class instanceof Name
-						&& is_string($caseNode->cond->name)
 						&& strtolower($caseNode->cond->name) === 'class'
 					) {
 						$caseScope = $caseScope->specifyExpressionType(
@@ -1361,10 +1355,11 @@ class NodeScopeResolver
 			}
 			$traitReflection = $this->broker->getClass($traitName);
 			$traitFileName = $traitReflection->getFileName();
-			if ($traitFileName === false) {
+			if ($traitFileName === false || $this->analysedFiles === null) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
 			$fileName = $this->fileHelper->normalizePath($traitFileName);
+
 			if (!isset($this->analysedFiles[$fileName])) {
 				return;
 			}
@@ -1390,8 +1385,6 @@ class NodeScopeResolver
 	 * @param string $traitName
 	 * @param \PHPStan\Analyser\Scope $classScope
 	 * @param \Closure $nodeCallback
-	 *
-	 * @return void
 	 */
 	private function processNodesForTraitUse($node, string $traitName, Scope $classScope, \Closure $nodeCallback)
 	{
