@@ -115,8 +115,6 @@ class Analyser
 		bool $debug = false
 	): array
 	{
-		$errors = [];
-
 		if ($this->bootstrapFile !== null) {
 			if (!is_file($this->bootstrapFile)) {
 				return [
@@ -130,16 +128,18 @@ class Analyser
 			}
 		}
 
+		$regexErrors = [];
+
 		foreach ($this->ignoreErrors as $ignoreError) {
 			try {
 				\Nette\Utils\Strings::match('', $ignoreError);
 			} catch (\Nette\Utils\RegexpException $e) {
-				$errors[] = $e->getMessage();
+				$regexErrors[] = $e->getMessage();
 			}
 		}
 
-		if (count($errors) > 0) {
-			return $errors;
+		if (count($regexErrors) > 0) {
+			return $regexErrors;
 		}
 
 		$errors = [];
