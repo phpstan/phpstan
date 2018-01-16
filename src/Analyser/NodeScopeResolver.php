@@ -426,6 +426,22 @@ class NodeScopeResolver
 			$this->processNodes($node->stmts, $scopeLoopMightHaveRun, $nodeCallback);
 
 			return;
+		} elseif ($node instanceof While_) {
+			$condScope = $this->lookForAssignsInBranches($scope, [
+				new StatementList($scope->filterByTruthyValue($node->cond), $node->stmts),
+				new StatementList($scope, []),
+			], LookForAssignsSettings::insideLoop());
+			$this->processNode($node->cond, $condScope, $nodeCallback);
+
+			$bodyScope = $scope->filterByTruthyValue($node->cond);
+			$bodyScope = $this->lookForAssignsInBranches($bodyScope, [
+				new StatementList($bodyScope, $node->stmts),
+				new StatementList($bodyScope, []),
+			], LookForAssignsSettings::insideLoop());
+			$bodyScope = $this->lookForAssigns($bodyScope, $node->cond, TrinaryLogic::createYes());
+			$bodyScope = $bodyScope->filterByTruthyValue($node->cond);
+			$this->processNodes($node->stmts, $bodyScope, $nodeCallback);
+			return;
 		} elseif ($node instanceof Catch_) {
 			$scope = $scope->enterCatch(
 				$node->types,
@@ -649,17 +665,6 @@ class NodeScopeResolver
 					$scope = $scope->enterFirstLevelStatements();
 				} else {
 					$scope = $scope->exitFirstLevelStatements();
-				}
-
-				if ($node instanceof While_ && $subNodeName === 'stmts') {
-					$scope = $this->lookForAssigns($scope, $node->cond, TrinaryLogic::createYes());
-					$scope = $scope->filterByTruthyValue($node->cond);
-					$scope = $this->lookForAssignsInBranches($scope, [
-						new StatementList($scope, $node->stmts),
-						new StatementList($scope, []),
-					], LookForAssignsSettings::insideLoop());
-					$scope = $this->lookForAssigns($scope, $node->cond, TrinaryLogic::createYes());
-					$scope = $scope->filterByTruthyValue($node->cond);
 				}
 
 				if ($node instanceof Isset_ && $subNodeName === 'vars') {

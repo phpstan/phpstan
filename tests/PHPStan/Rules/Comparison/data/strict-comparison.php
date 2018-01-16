@@ -181,10 +181,41 @@ class Node
 	/** @var self|null */
 	private $next;
 
+	/** @var int */
+	private $id;
+
 	public function iterate(): void
 	{
 		for ($node = $this; $node !== null; $node = $node->next) {
 			// ...
+		}
+	}
+
+	public function checkCycle()
+	{
+		if ($this->next !== null) {
+			$iter = $this->next;
+			while ($iter !== null) {
+				if ($iter->id === $this->id) {
+					throw new \Exception('Cycle detected.');
+				}
+
+				$iter = $iter->next;
+			}
+		}
+	}
+
+	public function checkAnotherCycle()
+	{
+		if ($this->next !== null) {
+			$iter = $this->next;
+			while ($iter !== false) {
+				if ($iter->id === $this->id) {
+					throw new \Exception('Cycle detected.');
+				}
+
+				$iter = $iter->next;
+			}
 		}
 	}
 }

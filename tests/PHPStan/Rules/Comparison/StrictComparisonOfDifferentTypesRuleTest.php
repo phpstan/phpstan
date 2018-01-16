@@ -83,6 +83,10 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					'Strict comparison using === between array and null will always evaluate to false.',
 					164,
 				],
+				[
+					'Strict comparison using !== between StrictComparison\Node|null and false will always evaluate to true.',
+					212,
+				],
 			]
 		);
 	}

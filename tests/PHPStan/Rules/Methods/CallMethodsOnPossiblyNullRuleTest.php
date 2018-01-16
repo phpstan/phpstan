@@ -21,15 +21,15 @@ class CallMethodsOnPossiblyNullRuleTest extends \PHPStan\Testing\RuleTestCase
 			],
 			[
 				'Calling method doFoo() on possibly null value of type CallingMethodOnPossiblyNullable\IssetIssue|null.',
-				83,
+				92,
 			],
 			[
 				'Calling method doFoo() on possibly null value of type CallingMethodOnPossiblyNullable\IssetIssue|null.',
-				84,
+				93,
 			],
 			[
 				'Calling method doFoo() on possibly null value of type CallingMethodOnPossiblyNullable\IssetIssue|null.',
-				85,
+				94,
 			],
 		]);
 	}

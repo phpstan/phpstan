@@ -36,6 +36,15 @@ class Test {
 		}
 	}
 
+	public function doWhile()
+	{
+		$foo = $this;
+		while ($foo->fetch() !== null) {
+			$foo->fetch()->doFoo();
+			$foo = $foo->fetch();
+		}
+	}
+
 }
 
 class NullCoalesce
