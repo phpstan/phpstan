@@ -427,13 +427,13 @@ class NodeScopeResolver
 
 			return;
 		} elseif ($node instanceof While_) {
+			$bodyScope = $scope->filterByTruthyValue($node->cond);
 			$condScope = $this->lookForAssignsInBranches($scope, [
-				new StatementList($scope->filterByTruthyValue($node->cond), $node->stmts),
+				new StatementList($bodyScope, $node->stmts),
 				new StatementList($scope, []),
 			], LookForAssignsSettings::insideLoop());
 			$this->processNode($node->cond, $condScope, $nodeCallback);
 
-			$bodyScope = $scope->filterByTruthyValue($node->cond);
 			$bodyScope = $this->lookForAssignsInBranches($bodyScope, [
 				new StatementList($bodyScope, $node->stmts),
 				new StatementList($bodyScope, []),
