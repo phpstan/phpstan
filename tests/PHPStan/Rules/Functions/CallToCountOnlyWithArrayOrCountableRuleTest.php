@@ -16,16 +16,24 @@ class CallToCountOnlyWithArrayOrCountableRuleTest extends \PHPStan\Testing\RuleT
 	{
 		$this->analyse([__DIR__ . '/data/count.php'], [
 			[
-				'Call to function count() with argument type string will always result in number 1.',
+				'Call to function count() expects argument type of array|Countable, string will always result in number 1.',
 				23,
 			],
 			[
-				'Call to function count() with argument type CountFunction\Foo will always result in number 1.',
+				'Call to function count() expects argument type of array|Countable, CountFunction\Foo will always result in number 1.',
 				36,
 			],
 			[
-				'Call to function count() with argument type CountFunction\BarCountable|CountFunction\Foo will always result in number 1.',
+				'Call to function count() expects argument type of array|Countable, CountFunction\BarCountable|CountFunction\Foo will always result in number 1.',
 				44,
+			],
+			[
+				'Call to function count() expects argument type of array|Countable, null will always result in number 0.',
+				52,
+			],
+			[
+				'Call to function count() expects argument type of array|Countable, int|null will always result in number 0 or 1.',
+				60,
 			],
 		]);
 	}
