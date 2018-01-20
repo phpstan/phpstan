@@ -295,11 +295,12 @@ you can exclude error messages from the analysis result with regular expressions
 
 ```
 parameters:
-	ignoreErrors:
-		- '#Call to an undefined method [a-zA-Z0-9\\_]+::method\(\)#'
-		- '#Call to an undefined method [a-zA-Z0-9\\_]+::expects\(\)#'
-		- '#Access to an undefined property PHPUnit_Framework_MockObject_MockObject::\$[a-zA-Z0-9_]+#'
-		- '#Call to an undefined method PHPUnit_Framework_MockObject_MockObject::[a-zA-Z0-9_]+\(\)#'
+	ignoreErrors: [
+		'#Call to an undefined method [a-zA-Z0-9\\_]+::method\(\)#',
+		'#Call to an undefined method [a-zA-Z0-9\\_]+::expects\(\)#',
+		'#Access to an undefined property PHPUnit_Framework_MockObject_MockObject::\$[a-zA-Z0-9_]+#',
+		'#Call to an undefined method PHPUnit_Framework_MockObject_MockObject::[a-zA-Z0-9_]+\(\)#'
+	]
 ```
 
 If some of the patterns do not occur in the result anymore, PHPStan will let you know
