@@ -44,6 +44,22 @@ class Foo
 		count($unionWithUncountable);
 	}
 
+	/**
+	 * @param null $null
+	 */
+	public function doSit($null)
+	{
+		count($null);
+	}
+
+	/**
+	 * @param int|null $nullable
+	 */
+	public function doAmet($nullable)
+	{
+		count($nullable);
+	}
+
 }
 
 class BarCountable implements \Countable

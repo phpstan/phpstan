@@ -7,6 +7,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\UnionType;
 
@@ -54,16 +55,27 @@ class CallToCountOnlyWithArrayOrCountableRule implements \PHPStan\Rules\Rule
 			new ObjectType(\Countable::class),
 		]);
 
-		if (!$this->ruleLevelHelper->accepts($requiredType, $argumentType)) {
+		if ($this->ruleLevelHelper->accepts($requiredType, $argumentType)) {
+			return [];
+		}
+
+		$message = 'Call to function count() expects argument type of array|Countable, %s will always result in number %s.';
+
+		if ($argumentType instanceof NullType) {
 			return [
-				sprintf(
-					'Call to function count() with argument type %s will always result in number 1.',
-					$argumentType->describe()
-				),
+				sprintf($message, $argumentType->describe(), '0'),
 			];
 		}
 
-		return [];
+		if ($this->ruleLevelHelper->accepts($argumentType, new NullType())) {
+			return [
+				sprintf($message, $argumentType->describe(), '0 or 1'),
+			];
+		}
+
+		return [
+			sprintf($message, $argumentType->describe(), '1'),
+		];
 	}
 
 }
