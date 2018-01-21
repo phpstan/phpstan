@@ -23,6 +23,9 @@
 		"phpstan/phpdoc-parser": "^0.2"
 	},
 	"require-dev": {
+		"ext-intl": "*",
+		"ext-gd": "*",
+		"ext-mysqli": "*",
 		"consistence/coding-standard": "2.2.1",
 		"jakub-onderka/php-parallel-lint": "^0.9.2",
 		"phing/phing": "^2.16.0",
