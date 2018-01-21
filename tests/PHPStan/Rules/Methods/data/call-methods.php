@@ -578,7 +578,7 @@ class TernaryEvaluation
 class ForeachSituation
 {
 
-	public function takesInt(?int $s)
+	public function takesInt(int $s = null)
 	{
 
 	}
