@@ -861,7 +861,7 @@ class NodeScopeResolver
 				$statements[] = new StatementList($scope->enterCatch(
 					$catch->types,
 					$catch->var
-				), $catch->stmts);
+				), array_merge([new Node\Stmt\Nop()], $catch->stmts));
 			}
 
 			$scope = $this->lookForAssignsInBranches($scope, $statements, $lookForAssignsSettings);

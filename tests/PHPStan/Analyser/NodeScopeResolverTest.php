@@ -558,6 +558,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				TrinaryLogic::createYes(),
 				'int|null',
 			],
+			[
+				$testScope,
+				'exceptionFromTryCatch',
+				TrinaryLogic::createYes(),
+				'(AnotherException&Throwable)|(Throwable&YetAnotherException)|null',
+			],
 		];
 	}
 

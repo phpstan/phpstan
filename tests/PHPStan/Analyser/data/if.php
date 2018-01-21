@@ -35,6 +35,7 @@ if (foo()) {
 	$maybeDefinedButLaterCertainlyDefined = 3;
 }
 
+$exceptionFromTry = null;
 try {
 	$inTry = 1;
 	$inTryNotInCatch = 1;
@@ -54,6 +55,17 @@ try {
 } finally {
 	$someVariableThatWillGetOverrideInFinally = 'foo';
 	restore_error_handler();
+}
+
+$exceptionFromTryCatch = null;
+try {
+
+} catch (\SomeConcreteException $exceptionFromTryCatch) {
+	return;
+} catch (\AnotherException $exceptionFromTryCatch) {
+
+} catch (\YetAnotherException $exceptionFromTryCatch) {
+	doFoo();
 }
 
 $lorem = 1;
