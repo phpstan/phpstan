@@ -152,11 +152,17 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 		}
 
 		if (!$classType->hasMethod($methodName)) {
+			$magicMethodNote = '';
+			if ($classType->hasMethod('__callStatic')) {
+				$magicMethodNote = ', magic method __callStatic() found';
+			}
+
 			return array_merge($errors, [
 				sprintf(
-					'Call to an undefined static method %s::%s().',
+					'Call to an undefined static method %s::%s()%s.',
 					$typeForDescribe->describe(),
-					$methodName
+					$methodName,
+					$magicMethodNote
 				),
 			]);
 		}

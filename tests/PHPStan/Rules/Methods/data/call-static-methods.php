@@ -179,3 +179,15 @@ class ClassOrString
 	}
 
 }
+
+class ClassWithStaticMagicMethod
+{
+    public static function __callStatic($name, $arguments)
+    {
+    }
+
+    public function foo()
+    {
+        self::bar();
+    }
+}
