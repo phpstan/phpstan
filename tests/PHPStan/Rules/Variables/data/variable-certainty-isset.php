@@ -157,3 +157,16 @@ function () {
 
 	}
 };
+
+function () {
+	try {
+		if (something()) {
+			throw new \Exception();
+		}
+		$test = 'fooo';
+	} finally {
+		if (isset($test)) {
+
+		}
+	}
+};

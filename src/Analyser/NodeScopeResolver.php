@@ -593,7 +593,7 @@ class NodeScopeResolver
 			if ($node->finally !== null) {
 				$finallyScope = $this->lookForAssignsInBranches($scopeForLookForAssignsInBranches, $statements, LookForAssignsSettings::insideFinally());
 
-				$this->processNode($node->finally, $finallyScope, $nodeCallback);
+				$this->processNode($node->finally, $finallyScope->enterFinally(), $nodeCallback);
 			}
 
 			return;
