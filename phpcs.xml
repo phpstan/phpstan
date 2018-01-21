@@ -22,6 +22,9 @@
 		<exclude-pattern>tests/TestCase.php</exclude-pattern>
 		<exclude-pattern>tests/PHPStan/Analyser/NodeScopeResolverTest.php</exclude-pattern>
 	</rule>
+	<rule ref="Squiz.Operators.ValidLogicalOperators.NotAllowed">
+		<exclude-pattern>tests/PHPStan/Analyser/NodeScopeResolverTest.php</exclude-pattern>
+	</rule>
 	<rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses">
 		<properties>
 			<property name="caseSensitive" value="false"/>

@@ -343,6 +343,8 @@ class Scope
 		if (
 			$node instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd
 			|| $node instanceof \PhpParser\Node\Expr\BinaryOp\BooleanOr
+			|| $node instanceof \PhpParser\Node\Expr\BinaryOp\LogicalAnd
+			|| $node instanceof \PhpParser\Node\Expr\BinaryOp\LogicalOr
 			|| $node instanceof \PhpParser\Node\Expr\BooleanNot
 			|| $node instanceof \PhpParser\Node\Expr\BinaryOp\LogicalXor
 			|| $node instanceof Expr\BinaryOp\Greater

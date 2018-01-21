@@ -92,6 +92,14 @@ class IssetIssue
 		$one->doFoo();
 		$two->doFoo();
 		$three->doFoo();
+
+		if ($one and $one->doFoo()) {
+
+		}
+
+		if (!$one or $one->doFoo()) {
+
+		}
 	}
 
 	/**

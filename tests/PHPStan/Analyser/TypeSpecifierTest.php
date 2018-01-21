@@ -89,6 +89,22 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 				['$foo' => '~int'],
 			],
 			[
+				new Expr\BinaryOp\LogicalAnd(
+					$this->createFunctionCall('is_int'),
+					$this->createFunctionCall('random')
+				),
+				['$foo' => 'int'],
+				[],
+			],
+			[
+				new Expr\BinaryOp\LogicalOr(
+					$this->createFunctionCall('is_int'),
+					$this->createFunctionCall('random')
+				),
+				[],
+				['$foo' => '~int'],
+			],
+			[
 				new Expr\BooleanNot($this->createFunctionCall('is_int')),
 				['$foo' => '~int'],
 				['$foo' => 'int'],

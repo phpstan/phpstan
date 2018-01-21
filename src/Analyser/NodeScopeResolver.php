@@ -709,10 +709,14 @@ class NodeScopeResolver
 					}
 				}
 
-				if ($node instanceof BooleanAnd && $subNodeName === 'right') {
+				if (
+					($node instanceof BooleanAnd || $node instanceof BinaryOp\LogicalAnd)
+					&& $subNodeName === 'right') {
 					$scope = $scope->filterByTruthyValue($node->left);
 				}
-				if ($node instanceof BooleanOr && $subNodeName === 'right') {
+				if (
+					($node instanceof BooleanOr || $node instanceof BinaryOp\LogicalOr)
+					&& $subNodeName === 'right') {
 					$scope = $scope->filterByFalseyValue($node->left);
 				}
 

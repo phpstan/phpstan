@@ -596,3 +596,23 @@ class ForeachSituation
 	}
 
 }
+
+class LogicalAndSupport
+{
+
+	public function doFoo()
+	{
+		if (($object = $this->findObject()) and $object instanceof self) {
+			return $object->doFoo();
+		}
+	}
+
+	/**
+	 * @return object|null
+	 */
+	public function findObject()
+	{
+
+	}
+
+}
