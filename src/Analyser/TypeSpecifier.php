@@ -4,6 +4,7 @@ namespace PHPStan\Analyser;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\BinaryOp\BooleanAnd;
 use PhpParser\Node\Expr\BinaryOp\BooleanOr;
 use PhpParser\Node\Expr\BinaryOp\LogicalAnd;
@@ -11,6 +12,8 @@ use PhpParser\Node\Expr\BinaryOp\LogicalOr;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\Instanceof_;
+use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Name;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
@@ -210,8 +213,31 @@ class TypeSpecifier
 			&& count($expr->vars) > 0
 			&& $context & self::CONTEXT_TRUTHY
 		) {
-			$types = null;
+			$vars = [];
 			foreach ($expr->vars as $var) {
+				$vars[] = $var;
+
+				while (
+					$var instanceof ArrayDimFetch
+					|| $var instanceof PropertyFetch
+				) {
+					$var = $var->var;
+				}
+
+				while (
+					$var instanceof StaticPropertyFetch
+					&& $var->class instanceof Expr
+				) {
+					$var = $var->class;
+				}
+
+				if ($var instanceof Expr\Variable) {
+					$vars[] = $var;
+				}
+			}
+
+			$types = null;
+			foreach ($vars as $var) {
 				$type = $this->create($var, new NullType(), self::CONTEXT_FALSE);
 				if ($types === null) {
 					$types = $type;

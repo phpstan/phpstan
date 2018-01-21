@@ -156,9 +156,9 @@ echo $variableInEmpty; // exists here
 echo $negatedVariableInEmpty; // does not exist here
 
 if (isset($variableInIsset) && isset($anotherVariableInIsset['foo'])) {
-	echo $variableInIsset;
+	echo $variableInIsset && $anotherVariableInIsset;
 } else {
-	echo $variableInIsset; // does not exist
+	echo $variableInIsset && $anotherVariableInIsset; // does not exist
 }
 
 switch ('foo') {

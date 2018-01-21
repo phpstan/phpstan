@@ -112,6 +112,10 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				161,
 			],
 			[
+				'Undefined variable: $anotherVariableInIsset',
+				161,
+			],
+			[
 				'Undefined variable: $http_response_header',
 				185,
 			],
