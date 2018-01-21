@@ -110,6 +110,11 @@ class Scope
 	private $variableTypes;
 
 	/**
+	 * @var \PHPStan\Type\Type[]
+	 */
+	private $moreSpecificTypes;
+
+	/**
 	 * @var string|null
 	 */
 	private $inClosureBindScopeClass;
@@ -128,11 +133,6 @@ class Scope
 	 * @var bool
 	 */
 	private $negated;
-
-	/**
-	 * @var \PHPStan\Type\Type[]
-	 */
-	private $moreSpecificTypes;
 
 	/**
 	 * @var bool
@@ -155,11 +155,11 @@ class Scope
 	 * @param \PHPStan\Reflection\ParametersAcceptor|null $function
 	 * @param string|null $namespace
 	 * @param \PHPStan\Analyser\VariableTypeHolder[] $variablesTypes
+	 * @param \PHPStan\Type\Type[] $moreSpecificTypes
 	 * @param string|null $inClosureBindScopeClass
 	 * @param \PHPStan\Type\Type|null $inAnonymousFunctionReturnType
 	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null $inFunctionCall
 	 * @param bool $negated
-	 * @param \PHPStan\Type\Type[] $moreSpecificTypes
 	 * @param bool $inFirstLevelStatement
 	 * @param string[] $currentlyAssignedExpressions
 	 */
@@ -174,11 +174,11 @@ class Scope
 		\PHPStan\Reflection\ParametersAcceptor $function = null,
 		string $namespace = null,
 		array $variablesTypes = [],
+		array $moreSpecificTypes = [],
 		string $inClosureBindScopeClass = null,
 		Type $inAnonymousFunctionReturnType = null,
 		Expr $inFunctionCall = null,
 		bool $negated = false,
-		array $moreSpecificTypes = [],
 		bool $inFirstLevelStatement = true,
 		array $currentlyAssignedExpressions = []
 	)
@@ -197,11 +197,11 @@ class Scope
 		$this->function = $function;
 		$this->namespace = $namespace;
 		$this->variableTypes = $variablesTypes;
+		$this->moreSpecificTypes = $moreSpecificTypes;
 		$this->inClosureBindScopeClass = $inClosureBindScopeClass;
 		$this->inAnonymousFunctionReturnType = $inAnonymousFunctionReturnType;
 		$this->inFunctionCall = $inFunctionCall;
 		$this->negated = $negated;
-		$this->moreSpecificTypes = $moreSpecificTypes;
 		$this->inFirstLevelStatement = $inFirstLevelStatement;
 		$this->currentlyAssignedExpressions = $currentlyAssignedExpressions;
 	}
@@ -869,11 +869,11 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),
+			$this->moreSpecificTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->getInFunctionCall(),
-			$this->isNegated(),
-			$this->moreSpecificTypes
+			$this->isNegated()
 		);
 	}
 
@@ -946,6 +946,7 @@ class Scope
 			$functionReflection,
 			$this->getNamespace(),
 			$variableTypes,
+			[],
 			null,
 			null
 		);
@@ -991,11 +992,11 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
+			$this->moreSpecificTypes,
 			$scopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->getInFunctionCall(),
-			$this->isNegated(),
-			$this->moreSpecificTypes
+			$this->isNegated()
 		);
 	}
 
@@ -1057,6 +1058,7 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
+			[],
 			$this->inClosureBindScopeClass,
 			$returnType,
 			$this->getInFunctionCall()
@@ -1180,11 +1182,11 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),
+			$this->moreSpecificTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$functionCall,
 			$this->isNegated(),
-			$this->moreSpecificTypes,
 			$this->inFirstLevelStatement
 		);
 	}
@@ -1205,11 +1207,11 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),
+			$this->moreSpecificTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->getInFunctionCall(),
 			$this->isNegated(),
-			$this->moreSpecificTypes,
 			$this->isInFirstLevelStatement(),
 			$currentlyAssignedExpressions
 		);
@@ -1256,11 +1258,11 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
+			$moreSpecificTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->getInFunctionCall(),
 			$this->isNegated(),
-			$moreSpecificTypes,
 			$this->inFirstLevelStatement
 		);
 	}
@@ -1284,11 +1286,11 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
+			$this->moreSpecificTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->getInFunctionCall(),
 			$this->isNegated(),
-			$this->moreSpecificTypes,
 			$this->inFirstLevelStatement
 		);
 	}
@@ -1348,11 +1350,11 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$intersectedVariableTypeHolders,
+			$intersectedSpecifiedTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->getInFunctionCall(),
 			$this->isNegated(),
-			$intersectedSpecifiedTypes,
 			$this->inFirstLevelStatement
 		);
 	}
@@ -1380,11 +1382,11 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
+			$specifiedTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->getInFunctionCall(),
 			$this->isNegated(),
-			$specifiedTypes,
 			$this->inFirstLevelStatement
 		);
 	}
@@ -1431,11 +1433,11 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypeHolders,
+			$specifiedTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->getInFunctionCall(),
 			$this->isNegated(),
-			$specifiedTypes,
 			$this->inFirstLevelStatement
 		);
 	}
@@ -1480,11 +1482,11 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$ourVariableTypeHolders,
+			$moreSpecificTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->getInFunctionCall(),
 			$this->isNegated(),
-			$moreSpecificTypes,
 			$this->inFirstLevelStatement
 		);
 	}
@@ -1514,11 +1516,11 @@ class Scope
 				$scope->getFunction(),
 				$scope->getNamespace(),
 				$variableTypes,
+				$scope->moreSpecificTypes,
 				$scope->inClosureBindScopeClass,
 				$scope->getAnonymousFunctionReturnType(),
 				$scope->getInFunctionCall(),
 				$scope->isNegated(),
-				$scope->moreSpecificTypes,
 				$scope->inFirstLevelStatement
 			);
 		}
@@ -1543,11 +1545,11 @@ class Scope
 				$this->getFunction(),
 				$this->getNamespace(),
 				$this->getVariableTypes(),
+				$moreSpecificTypes,
 				$this->inClosureBindScopeClass,
 				$this->getAnonymousFunctionReturnType(),
 				$this->getInFunctionCall(),
 				$this->isNegated(),
-				$moreSpecificTypes,
 				$this->inFirstLevelStatement
 			);
 		}
@@ -1619,11 +1621,11 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),
+			$this->moreSpecificTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->getInFunctionCall(),
 			!$this->isNegated(),
-			$this->moreSpecificTypes,
 			$this->inFirstLevelStatement
 		);
 	}
@@ -1641,11 +1643,11 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),
+			$this->moreSpecificTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->getInFunctionCall(),
 			$this->isNegated(),
-			$this->moreSpecificTypes,
 			true,
 			$this->currentlyAssignedExpressions
 		);
@@ -1664,11 +1666,11 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),
+			$this->moreSpecificTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->getInFunctionCall(),
 			$this->isNegated(),
-			$this->moreSpecificTypes,
 			false,
 			$this->currentlyAssignedExpressions
 		);
@@ -1702,11 +1704,11 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),
+			$moreSpecificTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->getInFunctionCall(),
 			$this->isNegated(),
-			$moreSpecificTypes,
 			$this->inFirstLevelStatement
 		);
 	}
