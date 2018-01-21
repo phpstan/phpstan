@@ -4,7 +4,9 @@ namespace LoopVariables;
 
 function () {
 	$foo = null;
-	foreach ([] as $val) {
+	$key = null;
+	$val = null;
+	foreach ([1, 2, 3] as $key => $val) {
 		'begin';
 		$foo = new Foo();
 		'afterAssign';
@@ -23,6 +25,12 @@ function () {
 		}
 
 		'end';
+	}
+
+	$emptyForeachKey = null;
+	$emptyForeachVal = null;
+	foreach ([1, 2, 3] as $emptyForeachKey => $emptyForeachVal) {
+
 	}
 
 	'afterLoop';

@@ -3889,8 +3889,45 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		];
 	}
 
+	public function dataForeachLoopVariables(): array
+	{
+		return [
+			[
+				'int',
+				'$val',
+				"'begin';",
+			],
+			[
+				'int',
+				'$key',
+				"'begin';",
+			],
+			[
+				'int|null',
+				'$val',
+				"'afterLoop';",
+			],
+			[
+				'int|null',
+				'$key',
+				"'afterLoop';",
+			],
+			[
+				'int|null',
+				'$emptyForeachVal',
+				"'afterLoop';",
+			],
+			[
+				'int|null',
+				'$emptyForeachKey',
+				"'afterLoop';",
+			],
+		];
+	}
+
 	/**
 	 * @dataProvider dataLoopVariables
+	 * @dataProvider dataForeachLoopVariables
 	 * @param string $description
 	 * @param string $expression
 	 * @param string $evaluatedPointExpression

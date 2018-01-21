@@ -243,6 +243,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Parameter #1 $i of method Test\TernaryEvaluation::doBar() expects int, false given.',
 				568,
 			],
+			[
+				'Parameter #1 $s of method Test\ForeachSituation::takesInt() expects int|null, string|null given.',
+				595,
+			],
 		]);
 	}
 
@@ -371,6 +375,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Parameter #1 $i of method Test\TernaryEvaluation::doBar() expects int, false given.',
 				568,
+			],
+			[
+				'Parameter #1 $s of method Test\ForeachSituation::takesInt() expects int|null, string|null given.',
+				595,
 			],
 		]);
 	}

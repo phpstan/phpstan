@@ -574,3 +574,25 @@ class TernaryEvaluation
 	}
 
 }
+
+class ForeachSituation
+{
+
+	public function takesInt(?int $s)
+	{
+
+	}
+
+	/**
+	 * @param string[] $letters
+	 */
+	public function takesStringArray(array $letters)
+	{
+		$letter = null;
+		foreach ($letters as $letter) {
+
+		}
+		$this->takesInt($letter);
+	}
+
+}

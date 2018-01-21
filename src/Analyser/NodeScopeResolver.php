@@ -1033,7 +1033,10 @@ class NodeScopeResolver
 			$initialScope = $scope;
 			$scope = $this->enterForeach($scope, $node);
 			$statements = [
-				new StatementList($scope, $node->stmts),
+				new StatementList($scope, array_merge(
+					[new Node\Stmt\Nop],
+					$node->stmts
+				)),
 				new StatementList($scope, []), // in order not to add variables existing only inside the for loop
 			];
 			$scope = $this->lookForAssignsInBranches($initialScope, $statements, LookForAssignsSettings::afterLoop());
