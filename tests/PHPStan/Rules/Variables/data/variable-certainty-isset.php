@@ -170,3 +170,15 @@ function () {
 		}
 	}
 };
+
+function () {
+	/** @var string[] $strings */
+	$strings = doFoo();
+	foreach ($strings as $string) {
+
+	}
+
+	if (isset($string)) {
+
+	}
+};

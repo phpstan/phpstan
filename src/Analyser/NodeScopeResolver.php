@@ -1041,7 +1041,7 @@ class NodeScopeResolver
 					[new Node\Stmt\Nop],
 					$node->stmts
 				)),
-				new StatementList($scope, []), // in order not to add variables existing only inside the for loop
+				new StatementList($initialScope, []), // in order not to add variables existing only inside the for loop
 			];
 			$scope = $this->lookForAssignsInBranches($initialScope, $statements, LookForAssignsSettings::afterLoop());
 		} elseif ($node instanceof Isset_) {
