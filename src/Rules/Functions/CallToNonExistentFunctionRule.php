@@ -36,7 +36,13 @@ class CallToNonExistentFunctionRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		if (strpos((string) $node->name, 'apache_') === 0 || strpos((string) $node->name, 'fastcgi_') === 0) {
+		$lowercaseFunctionName = strtolower((string) $node->name);
+
+		if (
+			strpos($lowercaseFunctionName, 'apache_') === 0
+			|| strpos($lowercaseFunctionName, 'fastcgi_') === 0
+			|| $lowercaseFunctionName === 'getallheaders'
+		) {
 			return [];
 		}
 
