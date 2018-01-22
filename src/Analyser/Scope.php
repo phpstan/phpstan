@@ -125,11 +125,6 @@ class Scope
 	private $inAnonymousFunctionReturnType;
 
 	/**
-	 * @var bool
-	 */
-	private $isInFinally;
-
-	/**
 	 * @var \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null
 	 */
 	private $inFunctionCall;
@@ -163,7 +158,6 @@ class Scope
 	 * @param \PHPStan\Type\Type[] $moreSpecificTypes
 	 * @param string|null $inClosureBindScopeClass
 	 * @param \PHPStan\Type\Type|null $inAnonymousFunctionReturnType
-	 * @param bool $isInFinally
 	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null $inFunctionCall
 	 * @param bool $negated
 	 * @param bool $inFirstLevelStatement
@@ -183,7 +177,6 @@ class Scope
 		array $moreSpecificTypes = [],
 		string $inClosureBindScopeClass = null,
 		Type $inAnonymousFunctionReturnType = null,
-		bool $isInFinally = false,
 		Expr $inFunctionCall = null,
 		bool $negated = false,
 		bool $inFirstLevelStatement = true,
@@ -207,7 +200,6 @@ class Scope
 		$this->moreSpecificTypes = $moreSpecificTypes;
 		$this->inClosureBindScopeClass = $inClosureBindScopeClass;
 		$this->inAnonymousFunctionReturnType = $inAnonymousFunctionReturnType;
-		$this->isInFinally = $isInFinally;
 		$this->inFunctionCall = $inFunctionCall;
 		$this->negated = $negated;
 		$this->inFirstLevelStatement = $inFirstLevelStatement;
@@ -306,11 +298,6 @@ class Scope
 	public function isInAnonymousFunction(): bool
 	{
 		return $this->inAnonymousFunctionReturnType !== null;
-	}
-
-	public function isInFinally(): bool
-	{
-		return $this->isInFinally;
 	}
 
 	/**
@@ -887,7 +874,6 @@ class Scope
 			$this->moreSpecificTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			false,
 			$this->getInFunctionCall(),
 			$this->isNegated()
 		);
@@ -1011,7 +997,6 @@ class Scope
 			$this->moreSpecificTypes,
 			$scopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$this->isInFinally,
 			$this->getInFunctionCall(),
 			$this->isNegated()
 		);
@@ -1078,7 +1063,6 @@ class Scope
 			[],
 			$this->inClosureBindScopeClass,
 			$returnType,
-			$this->isInFinally,
 			$this->getInFunctionCall()
 		);
 	}
@@ -1183,26 +1167,6 @@ class Scope
 		);
 	}
 
-	public function enterFinally(): self
-	{
-		return new self(
-			$this->broker,
-			$this->printer,
-			$this->typeSpecifier,
-			$this->getFile(),
-			$this->getAnalysedContextFile(),
-			$this->isDeclareStrictTypes(),
-			$this->isInClass() ? $this->getClassReflection() : null,
-			$this->getFunction(),
-			$this->getNamespace(),
-			$this->getVariableTypes(),
-			$this->moreSpecificTypes,
-			$this->inClosureBindScopeClass,
-			$this->getAnonymousFunctionReturnType(),
-			true
-		);
-	}
-
 	/**
 	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall $functionCall
 	 * @return self
@@ -1223,7 +1187,6 @@ class Scope
 			$this->moreSpecificTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$this->isInFinally,
 			$functionCall,
 			$this->isNegated(),
 			$this->inFirstLevelStatement
@@ -1249,7 +1212,6 @@ class Scope
 			$this->moreSpecificTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$this->isInFinally,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->isInFirstLevelStatement(),
@@ -1301,7 +1263,6 @@ class Scope
 			$moreSpecificTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$this->isInFinally,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->inFirstLevelStatement
@@ -1330,7 +1291,6 @@ class Scope
 			$this->moreSpecificTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$this->isInFinally,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->inFirstLevelStatement
@@ -1395,7 +1355,6 @@ class Scope
 			$intersectedSpecifiedTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$this->isInFinally,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->inFirstLevelStatement
@@ -1428,7 +1387,6 @@ class Scope
 			$specifiedTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$this->isInFinally,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->inFirstLevelStatement
@@ -1480,7 +1438,6 @@ class Scope
 			$specifiedTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$this->isInFinally,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->inFirstLevelStatement
@@ -1530,7 +1487,6 @@ class Scope
 			$moreSpecificTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$this->isInFinally,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->inFirstLevelStatement
@@ -1565,7 +1521,6 @@ class Scope
 				$scope->moreSpecificTypes,
 				$scope->inClosureBindScopeClass,
 				$scope->getAnonymousFunctionReturnType(),
-				$this->isInFinally,
 				$scope->getInFunctionCall(),
 				$scope->isNegated(),
 				$scope->inFirstLevelStatement
@@ -1595,7 +1550,6 @@ class Scope
 				$moreSpecificTypes,
 				$this->inClosureBindScopeClass,
 				$this->getAnonymousFunctionReturnType(),
-				$this->isInFinally,
 				$this->getInFunctionCall(),
 				$this->isNegated(),
 				$this->inFirstLevelStatement
@@ -1672,7 +1626,6 @@ class Scope
 			$this->moreSpecificTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$this->isInFinally,
 			$this->getInFunctionCall(),
 			!$this->isNegated(),
 			$this->inFirstLevelStatement
@@ -1695,7 +1648,6 @@ class Scope
 			$this->moreSpecificTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$this->isInFinally,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			true,
@@ -1719,7 +1671,6 @@ class Scope
 			$this->moreSpecificTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$this->isInFinally,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			false,
@@ -1758,7 +1709,6 @@ class Scope
 			$moreSpecificTypes,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
-			$this->isInFinally,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->inFirstLevelStatement

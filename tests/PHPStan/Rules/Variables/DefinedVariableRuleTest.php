@@ -144,6 +144,10 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				260,
 			],
 			[
+				'Variable $variableDefinedInTryAndAllCatches might not be defined.',
+				265,
+			],
+			[
 				'Variable $variableAvailableInAllCatches might not be defined.',
 				266,
 			],

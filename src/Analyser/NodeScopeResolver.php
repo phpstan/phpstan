@@ -577,7 +577,8 @@ class NodeScopeResolver
 			}
 
 			if ($node->finally !== null) {
-				$statements[] = new StatementList($scope, $node->stmts);
+				$statements[] = new StatementList($scopeForLookForAssignsInBranches, $node->stmts);
+				$statements[] = new StatementList($scopeForLookForAssignsInBranches, []);
 			}
 
 			foreach ($node->catches as $catch) {
@@ -593,7 +594,7 @@ class NodeScopeResolver
 			if ($node->finally !== null) {
 				$finallyScope = $this->lookForAssignsInBranches($scopeForLookForAssignsInBranches, $statements, LookForAssignsSettings::insideFinally());
 
-				$this->processNode($node->finally, $finallyScope->enterFinally(), $nodeCallback);
+				$this->processNode($node->finally, $finallyScope, $nodeCallback);
 			}
 
 			return;

@@ -218,4 +218,19 @@ class Node
 			}
 		}
 	}
+
+	public function finallyNullability()
+	{
+		$result = null;
+		try {
+			if (doFoo()) {
+				throw new \Exception();
+			}
+			$result = '1';
+		} finally {
+			if ($result !== null) {
+
+			}
+		}
+	}
 }
