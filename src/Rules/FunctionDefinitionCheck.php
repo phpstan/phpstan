@@ -156,7 +156,7 @@ class FunctionDefinitionCheck
 				);
 			}
 			foreach ($referencedClasses as $class) {
-				if (!$this->broker->hasClass($class)) {
+				if (!$this->broker->hasClass($class) || $this->broker->getClass($class)->isTrait()) {
 					$errors[] = sprintf($parameterMessage, $parameter->getName(), $class);
 				}
 			}
@@ -182,7 +182,7 @@ class FunctionDefinitionCheck
 		}
 
 		foreach ($returnTypeReferencedClasses as $class) {
-			if (!$this->broker->hasClass($class)) {
+			if (!$this->broker->hasClass($class) || $this->broker->getClass($class)->isTrait()) {
 				$errors[] = sprintf($returnMessage, $class);
 			}
 		}

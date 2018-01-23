@@ -55,6 +55,14 @@ class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 		$errors = [];
 		foreach ($propertyType->getReferencedClasses() as $referencedClass) {
 			if ($this->broker->hasClass($referencedClass)) {
+				if ($this->broker->getClass($referencedClass)->isTrait()) {
+					$errors[] = sprintf(
+						'Property %s::$%s has invalid type %s.',
+						$propertyReflection->getDeclaringClass()->getDisplayName(),
+						$node->name,
+						$referencedClass
+					);
+				}
 				continue;
 			}
 

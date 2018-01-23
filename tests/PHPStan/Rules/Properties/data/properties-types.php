@@ -23,4 +23,12 @@ class Foo
 	/** @var FOO|Fooo|BAR */
 	private $fooWithWrongCase;
 
+	/** @var SomeTrait */
+	private $withTrait;
+
+}
+
+trait SomeTrait
+{
+
 }
