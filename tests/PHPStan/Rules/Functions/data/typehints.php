@@ -7,6 +7,11 @@ class FooFunctionTypehints
 
 }
 
+trait SomeTrait
+{
+
+}
+
 function foo(FooFunctionTypehints $foo, $bar, array $lorem): NonexistentClass
 {
 
@@ -49,6 +54,20 @@ function badCaseInNativeAndPhpDoc(FooFunctionTypehints $foo): FooFunctionTypehin
  * @return FooFunctionTypehints
  */
 function anotherBadCaseInNativeAndPhpDoc(FOOFunctionTypehints $foo): FOOFunctionTypehints
+{
+
+}
+
+function referencesTraitsInNative(SomeTrait $trait): SomeTrait
+{
+
+}
+
+/**
+ * @param SomeTrait $trait
+ * @return SomeTrait
+ */
+function referencesTraitsInPhpDoc($trait)
 {
 
 }
