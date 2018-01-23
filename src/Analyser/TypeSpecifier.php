@@ -178,7 +178,12 @@ class TypeSpecifier
 							&& is_string($classNameArgExpr->name)
 							&& strtolower($classNameArgExpr->name) === 'class'
 						) {
-							$objectType = new ObjectType($scope->resolveName($classNameArgExpr->class));
+							$className = $scope->resolveName($classNameArgExpr->class);
+							if ($classNameArgExpr->class->toString() === 'static') {
+								$objectType = new StaticType($className);
+							} else {
+								$objectType = new ObjectType($className);
+							}
 							$types = $this->create($innerExpr, $objectType, $context);
 						} elseif ($context & self::CONTEXT_TRUE) {
 							$objectType = new ObjectWithoutClassType();
