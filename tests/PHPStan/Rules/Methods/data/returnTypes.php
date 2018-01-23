@@ -454,4 +454,14 @@ class ReturnTernary
 		return $falseResult;
 	}
 
+	/**
+	 * @return static|null
+	 */
+	public function returnStatic()
+	{
+		$out = doFoo();
+
+		return is_a($out, static::class, false) ? $out : null;
+	}
+
 }
