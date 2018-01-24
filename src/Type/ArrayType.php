@@ -39,7 +39,10 @@ class ArrayType implements StaticResolvableType
 	 */
 	public function getReferencedClasses(): array
 	{
-		return $this->getItemType()->getReferencedClasses();
+		return array_merge(
+			$this->keyType->getReferencedClasses(),
+			$this->getItemType()->getReferencedClasses()
+		);
 	}
 
 	public static function createDeepArrayType(NestedArrayItemType $nestedItemType, bool $nullable): self

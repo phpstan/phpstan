@@ -96,4 +96,12 @@ class FooMethodTypehints
 
 	}
 
+	/**
+	 * @param array<NonexistentClass, AnotherNonexistentClass> $array
+	 */
+	function unknownTypesInArrays(array $array)
+	{
+
+	}
+
 }
