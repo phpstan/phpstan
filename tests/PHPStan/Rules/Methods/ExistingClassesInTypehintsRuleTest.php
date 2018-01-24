@@ -105,6 +105,31 @@ class ExistingClassesInTypehintsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Class TestMethodTypehints\FooMethodTypehints referenced with incorrect case: TestMethodTypehints\FOOMethodTypehints.',
 				94,
 			],
+			[
+				'Parameter $array of method TestMethodTypehints\FooMethodTypehints::unknownTypesInArrays() has invalid typehint type TestMethodTypehints\NonexistentClass.',
+				102,
+			],
+			[
+				'Parameter $array of method TestMethodTypehints\FooMethodTypehints::unknownTypesInArrays() has invalid typehint type TestMethodTypehints\AnotherNonexistentClass.',
+				102,
+			],
+		]);
+	}
+
+	/**
+	 * @requires PHP 7.1
+	 */
+	public function testExistingClassInIterableTypehint()
+	{
+		$this->analyse([__DIR__ . '/data/typehints-iterable.php'], [
+			[
+				'Parameter $iterable of method TestMethodTypehints\IterableTypehints::doFoo() has invalid typehint type TestMethodTypehints\NonexistentClass.',
+				11,
+			],
+			[
+				'Parameter $iterable of method TestMethodTypehints\IterableTypehints::doFoo() has invalid typehint type TestMethodTypehints\AnotherNonexistentClass.',
+				11,
+			],
 		]);
 	}
 

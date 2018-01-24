@@ -28,7 +28,10 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 	 */
 	public function getReferencedClasses(): array
 	{
-		return $this->getItemType()->getReferencedClasses();
+		return array_merge(
+			$this->keyType->getReferencedClasses(),
+			$this->getItemType()->getReferencedClasses()
+		);
 	}
 
 	public function accepts(Type $type): bool
