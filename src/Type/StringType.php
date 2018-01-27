@@ -78,6 +78,16 @@ class StringType implements Type
 		return new ErrorType();
 	}
 
+	public function isOffsetAccesible(): TrinaryLogic
+	{
+		return TrinaryLogic::createYes();
+	}
+
+	public function getOffsetValueType(): Type
+	{
+		return new StringType();
+	}
+
 	public function isCallable(): TrinaryLogic
 	{
 		return TrinaryLogic::createMaybe();

@@ -48,6 +48,10 @@ interface Type
 
 	public function getIterableValueType(): Type;
 
+	public function isOffsetAccesible(): TrinaryLogic;
+
+	public function getOffsetValueType(): Type;
+
 	public function isCallable(): TrinaryLogic;
 
 	public function isClonable(): bool;
