@@ -227,6 +227,7 @@ class TypeSpecifier
 					|| $var instanceof PropertyFetch
 				) {
 					$var = $var->var;
+					$vars[] = $var;
 				}
 
 				while (
@@ -234,9 +235,6 @@ class TypeSpecifier
 					&& $var->class instanceof Expr
 				) {
 					$var = $var->class;
-				}
-
-				if ($var instanceof Expr\Variable) {
 					$vars[] = $var;
 				}
 			}

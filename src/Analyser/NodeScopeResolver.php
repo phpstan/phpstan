@@ -693,21 +693,16 @@ class NodeScopeResolver
 					], LookForAssignsSettings::insideLoop());
 				}
 
+				if ($node instanceof Isset_ && $subNodeName === 'vars') {
+					foreach ($subNode as $issetVar) {
+						$scope = $this->ensureNonNullability($scope, $issetVar);
+					}
+				}
+
 				$this->processNodes($subNode, $scope, $nodeCallback, $argClosureBindScope);
 			} elseif ($subNode instanceof \PhpParser\Node) {
 				if ($node instanceof Coalesce && $subNodeName === 'left') {
-					$scope = $this->assignVariable($scope, $subNode, TrinaryLogic::createYes());
-					$nodeToSpecify = $subNode;
-					while (
-						$nodeToSpecify instanceof PropertyFetch
-						|| $nodeToSpecify instanceof MethodCall
-					) {
-						$nodeToSpecify = $nodeToSpecify->var;
-						$scope = $scope->specifyExpressionType(
-							$nodeToSpecify,
-							TypeCombinator::removeNull($scope->getType($nodeToSpecify))
-						);
-					}
+					$scope = $this->ensureNonNullability($scope, $subNode);
 				}
 
 				if (
@@ -785,6 +780,24 @@ class NodeScopeResolver
 				$this->processNode($subNode, $nodeScope, $nodeCallback);
 			}
 		}
+	}
+
+	private function ensureNonNullability(Scope $scope, Node $node): Scope
+	{
+		$scope = $this->assignVariable($scope, $node, TrinaryLogic::createYes());
+		$nodeToSpecify = $node;
+		while (
+			$nodeToSpecify instanceof PropertyFetch
+			|| $nodeToSpecify instanceof MethodCall
+		) {
+			$nodeToSpecify = $nodeToSpecify->var;
+			$scope = $scope->specifyExpressionType(
+				$nodeToSpecify,
+				TypeCombinator::removeNull($scope->getType($nodeToSpecify))
+			);
+		}
+
+		return $scope;
 	}
 
 	private function lookForEnterVariableAssign(Scope $scope, Expr $node): Scope
