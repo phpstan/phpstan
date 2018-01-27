@@ -352,3 +352,7 @@ echo $maybeDefinedInTernary;
 
 [] ? true : ($anotherMaybeDefinedInTernary = 'foo');
 echo $anotherMaybeDefinedInTernary;
+
+while ($whileVariableUsedAndThenDefined && $whileVariableUsedAndThenDefined = 1) {
+
+}

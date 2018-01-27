@@ -199,6 +199,10 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Variable $anotherMaybeDefinedInTernary might not be defined.',
 				354,
 			],
+			[
+				'Variable $whileVariableUsedAndThenDefined might not be defined.',
+				356,
+			],
 		]);
 	}
 
