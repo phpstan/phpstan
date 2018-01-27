@@ -8,8 +8,11 @@ $baz = doBaz();
 
 switch (true) {
 	case $foo instanceof Foo:
+		'fooForSure';
 		break;
-	case $bar instanceof Bar:
+	case !$bar instanceof Bar:
+		break;
+	case $baz instanceof Bar:
 	case $baz instanceof Baz:
 		die;
 		break;
