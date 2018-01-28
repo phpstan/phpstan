@@ -3,16 +3,20 @@
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Traits\MaybeCallableTypeTrait;
+use PHPStan\Type\Traits\MaybeObjectTypeTrait;
 
 class IterableIterableType implements StaticResolvableType, CompoundType
 {
 
-	use IterableTypeTrait;
+	use MaybeCallableTypeTrait;
+	use MaybeObjectTypeTrait;
 
-	/**
-	 * @var \PHPStan\Type\Type
-	 */
+	/** @var \PHPStan\Type\Type */
 	private $keyType;
+
+	/** @var \PHPStan\Type\Type */
+	private $itemType;
 
 	public function __construct(
 		Type $keyType,
@@ -21,6 +25,11 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 	{
 		$this->keyType = $keyType;
 		$this->itemType = $itemType;
+	}
+
+	public function getItemType(): Type
+	{
+		return $this->itemType;
 	}
 
 	/**
@@ -93,11 +102,6 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 		return sprintf('iterable<%s, %s>', $this->keyType->describe(), $this->itemType->describe());
 	}
 
-	public function isDocumentableNatively(): bool
-	{
-		return true;
-	}
-
 	public function resolveStatic(string $className): Type
 	{
 		if ($this->getItemType() instanceof StaticResolvableType) {
@@ -135,11 +139,6 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 	public function getIterableValueType(): Type
 	{
 		return $this->getItemType();
-	}
-
-	public function isCallable(): TrinaryLogic
-	{
-		return TrinaryLogic::createMaybe();
 	}
 
 	public static function __set_state(array $properties): Type

@@ -69,8 +69,7 @@ class ReturnTypeRule implements \PHPStan\Rules\Rule
 				'Function %s() should return %%s but returns %%s.',
 				$function->getName()
 			),
-			$reflection !== null && $reflection->isGenerator(),
-			false
+			$reflection !== null && $reflection->isGenerator()
 		);
 	}
 

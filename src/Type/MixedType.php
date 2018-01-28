@@ -2,14 +2,17 @@
 
 namespace PHPStan\Type;
 
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ClassConstantReflection;
-use PHPStan\Reflection\MethodReflection;
-use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Traits\MaybeCallableTypeTrait;
+use PHPStan\Type\Traits\MaybeIterableTypeTrait;
+use PHPStan\Type\Traits\MaybeObjectTypeTrait;
 
 class MixedType implements CompoundType
 {
+
+	use MaybeCallableTypeTrait;
+	use MaybeIterableTypeTrait;
+	use MaybeObjectTypeTrait;
 
 	/**
 	 * @var bool
@@ -51,81 +54,6 @@ class MixedType implements CompoundType
 	public function describe(): string
 	{
 		return 'mixed';
-	}
-
-	public function canAccessProperties(): bool
-	{
-		return true;
-	}
-
-	public function hasProperty(string $propertyName): bool
-	{
-		return false;
-	}
-
-	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
-	{
-		throw new \PHPStan\ShouldNotHappenException();
-	}
-
-	public function canCallMethods(): bool
-	{
-		return true;
-	}
-
-	public function hasMethod(string $methodName): bool
-	{
-		return false;
-	}
-
-	public function getMethod(string $methodName, Scope $scope): MethodReflection
-	{
-		throw new \PHPStan\ShouldNotHappenException();
-	}
-
-	public function canAccessConstants(): bool
-	{
-		return true;
-	}
-
-	public function hasConstant(string $constantName): bool
-	{
-		return false;
-	}
-
-	public function getConstant(string $constantName): ClassConstantReflection
-	{
-		throw new \PHPStan\ShouldNotHappenException();
-	}
-
-	public function isDocumentableNatively(): bool
-	{
-		return true;
-	}
-
-	public function isIterable(): TrinaryLogic
-	{
-		return TrinaryLogic::createMaybe();
-	}
-
-	public function getIterableKeyType(): Type
-	{
-		return new MixedType();
-	}
-
-	public function getIterableValueType(): Type
-	{
-		return new MixedType();
-	}
-
-	public function isCallable(): TrinaryLogic
-	{
-		return TrinaryLogic::createMaybe();
-	}
-
-	public function isClonable(): bool
-	{
-		return true;
 	}
 
 	public function isExplicitMixed(): bool

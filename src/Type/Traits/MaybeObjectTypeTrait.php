@@ -1,28 +1,18 @@
 <?php declare(strict_types = 1);
 
-namespace PHPStan\Type;
+namespace PHPStan\Type\Traits;
 
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
-use PHPStan\TrinaryLogic;
-use PHPStan\Type\Traits\NonIterableTypeTrait;
 
-class NonexistentParentClassType implements Type
+trait MaybeObjectTypeTrait
 {
-
-	use JustNullableTypeTrait;
-	use NonIterableTypeTrait;
-
-	public function describe(): string
-	{
-		return 'parent';
-	}
 
 	public function canAccessProperties(): bool
 	{
-		return false;
+		return true;
 	}
 
 	public function hasProperty(string $propertyName): bool
@@ -37,7 +27,7 @@ class NonexistentParentClassType implements Type
 
 	public function canCallMethods(): bool
 	{
-		return false;
+		return true;
 	}
 
 	public function hasMethod(string $methodName): bool
@@ -52,7 +42,7 @@ class NonexistentParentClassType implements Type
 
 	public function canAccessConstants(): bool
 	{
-		return false;
+		return true;
 	}
 
 	public function hasConstant(string $constantName): bool
@@ -65,19 +55,9 @@ class NonexistentParentClassType implements Type
 		throw new \PHPStan\ShouldNotHappenException();
 	}
 
-	public function isCallable(): TrinaryLogic
-	{
-		return TrinaryLogic::createNo();
-	}
-
 	public function isClonable(): bool
 	{
-		return false;
-	}
-
-	public static function __set_state(array $properties): Type
-	{
-		return new self();
+		return true;
 	}
 
 }

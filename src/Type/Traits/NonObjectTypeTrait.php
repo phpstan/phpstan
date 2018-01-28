@@ -1,22 +1,14 @@
 <?php declare(strict_types = 1);
 
-namespace PHPStan\Type;
+namespace PHPStan\Type\Traits;
 
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 
-trait IterableTypeTrait
+trait NonObjectTypeTrait
 {
-
-	/** @var \PHPStan\Type\Type */
-	private $itemType;
-
-	public function getItemType(): Type
-	{
-		return $this->itemType;
-	}
 
 	public function canAccessProperties(): bool
 	{

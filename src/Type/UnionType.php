@@ -224,11 +224,6 @@ class UnionType implements CompoundType, StaticResolvableType
 		throw new \PHPStan\ShouldNotHappenException();
 	}
 
-	public function isDocumentableNatively(): bool
-	{
-		return false;
-	}
-
 	public function resolveStatic(string $className): Type
 	{
 		return new self(UnionTypeHelper::resolveStatic($className, $this->getTypes()));

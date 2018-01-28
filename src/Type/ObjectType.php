@@ -198,11 +198,6 @@ class ObjectType implements TypeWithClassName
 		return $broker->getClass($this->className)->getConstant($constantName);
 	}
 
-	public function isDocumentableNatively(): bool
-	{
-		return true;
-	}
-
 	public function isIterable(): TrinaryLogic
 	{
 		$broker = Broker::getInstance();

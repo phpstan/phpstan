@@ -3,14 +3,18 @@
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Traits\NonObjectTypeTrait;
 
 class ArrayType implements StaticResolvableType
 {
 
-	use IterableTypeTrait;
+	use NonObjectTypeTrait;
 
 	/** @var \PHPStan\Type\Type */
 	private $keyType;
+
+	/** @var \PHPStan\Type\Type */
+	private $itemType;
 
 	/** @var bool */
 	private $itemTypeInferredFromLiteralArray;
@@ -32,6 +36,11 @@ class ArrayType implements StaticResolvableType
 		$this->itemType = $itemType;
 		$this->itemTypeInferredFromLiteralArray = $itemTypeInferredFromLiteralArray;
 		$this->callable = $callable ?? TrinaryLogic::createMaybe()->and((new StringType)->isSuperTypeOf($itemType));
+	}
+
+	public function getItemType(): Type
+	{
+		return $this->itemType;
 	}
 
 	/**
@@ -99,11 +108,6 @@ class ArrayType implements StaticResolvableType
 		}
 
 		return sprintf('array<%s, %s>', $this->keyType->describe(), $this->itemType->describe());
-	}
-
-	public function isDocumentableNatively(): bool
-	{
-		return true;
 	}
 
 	public function resolveStatic(string $className): Type

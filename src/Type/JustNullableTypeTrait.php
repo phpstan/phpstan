@@ -41,24 +41,4 @@ trait JustNullableTypeTrait
 		return TrinaryLogic::createNo();
 	}
 
-	public function isDocumentableNatively(): bool
-	{
-		return true;
-	}
-
-	public function isIterable(): TrinaryLogic
-	{
-		return TrinaryLogic::createNo();
-	}
-
-	public function getIterableKeyType(): Type
-	{
-		return new ErrorType();
-	}
-
-	public function getIterableValueType(): Type
-	{
-		return new ErrorType();
-	}
-
 }

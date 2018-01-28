@@ -114,11 +114,6 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 		return $this->staticObjectType->getConstant($constantName);
 	}
 
-	public function isDocumentableNatively(): bool
-	{
-		return $this->staticObjectType->isDocumentableNatively();
-	}
-
 	public function resolveStatic(string $className): Type
 	{
 		return new ObjectType($className);
