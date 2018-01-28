@@ -272,7 +272,7 @@ class ObjectType implements TypeWithClassName
 
 		$classReflection = $broker->getClass($this->className);
 
-		if ($classReflection->isSubclassOf(\ArrayAccess::class) && $classReflection->hasNativeMethod('offsetGet')) {
+		if ($classReflection->isSubclassOf(\ArrayAccess::class)) {
 			if ($classReflection->hasNativeMethod('offsetGet')) {
 				return RecursionGuard::run($this, function () use ($classReflection) {
 					return $classReflection->getNativeMethod('offsetGet')->getReturnType();
