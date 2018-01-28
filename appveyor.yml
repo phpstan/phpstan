@@ -8,6 +8,10 @@ environment:
       php_version: 7.1
     - dependencies: highest
       php_version: 7.1
+    - dependencies: lowest
+      php_version: 7.2
+    - dependencies: highest
+      php_version: 7.2
 
   project_directory: c:\projects\phpstan
   composer_directory: c:\tools\composer
@@ -26,7 +30,8 @@ install:
   # Download requested PHP version
   - ps: If ((Test-Path $Env:php_archive_directory) -eq $False) { New-Item -Path $Env:php_archive_directory -ItemType 'directory' }
   - ps: $requested_php_version = %{If ($Env:dependencies -eq 'lowest') { $Env:php_version + '.0' } Else { (((choco search php --exact --all-versions -r | Select-String -pattern $Env:php_version) -replace '[php|]', '') | %{ New-Object System.Version $_ } | Sort-Object | Select-Object -Last 1).ToString() }}
-  - ps: $php_version_url = %{If ($Env:dependencies -eq 'lowest') { 'http://windows.php.net/downloads/releases/archives/php-' + $requested_php_version + '-nts-Win32-VC14-' + $Env:platform + '.zip' } Else { 'http://windows.php.net/downloads/releases/php-' + $requested_php_version + '-nts-Win32-VC14-' + $Env:platform + '.zip' }}
+  - ps: $requested_php_vc = %{If ($Env:php_version -eq '7.2') { 'VC15' } Else { 'VC14' }}
+  - ps: $php_version_url = %{If ($Env:dependencies -eq 'lowest') { 'http://windows.php.net/downloads/releases/archives/php-' + $requested_php_version + '-nts-Win32-' + $requested_php_vc +'-' + $Env:platform + '.zip' } Else { 'http://windows.php.net/downloads/releases/php-' + $requested_php_version + '-nts-Win32-' + $requested_php_vc + '-' + $Env:platform + '.zip' }}
   - ps: $php_version_file = $Env:php_archive_directory + '\php-' + $requested_php_version + '.zip'
   - ps: If ((Test-Path $php_version_file) -eq $False) { appveyor-retry appveyor DownloadFile $php_version_url -FileName $php_version_file }
 
