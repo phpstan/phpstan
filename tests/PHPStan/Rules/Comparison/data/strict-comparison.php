@@ -233,4 +233,32 @@ class Node
 			}
 		}
 	}
+
+	public function checkForCycle()
+	{
+		if ($this->next !== null) {
+			$iter = $this->next;
+			for (;$iter !== null;) {
+				if ($iter->id === $this->id) {
+					throw new \Exception('Cycle detected.');
+				}
+
+				$iter = $iter->next;
+			}
+		}
+	}
+
+	public function checkAnotherForCycle()
+	{
+		if ($this->next !== null) {
+			$iter = $this->next;
+			for (;$iter !== false;) {
+				if ($iter->id === $this->id) {
+					throw new \Exception('Cycle detected.');
+				}
+
+				$iter = $iter->next;
+			}
+		}
+	}
 }
