@@ -13,7 +13,7 @@
 	"minimum-stability": "dev",
 	"prefer-stable": true,
 	"require": {
-		"php": "~7.0",
+		"php": "~7.1",
 		"nette/bootstrap": "^2.4 || ^3.0",
 		"nette/di": "^2.4.7 || ^3.0",
 		"nette/robot-loader": "^3.0.1",
