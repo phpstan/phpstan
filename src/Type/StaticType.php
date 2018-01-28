@@ -127,7 +127,7 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 
 	public function isIterable(): TrinaryLogic
 	{
-		return $this->isInstanceOf(\Traversable::class);
+		return $this->staticObjectType->isInstanceOf(\Traversable::class);
 	}
 
 	public function getIterableKeyType(): Type
@@ -186,7 +186,7 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 
 	public function isOffsetAccesible(): TrinaryLogic
 	{
-		return $this->isInstanceOf(\ArrayAccess::class);
+		return $this->staticObjectType->isInstanceOf(\ArrayAccess::class);
 	}
 
 	public function getOffsetValueType(): Type
@@ -217,11 +217,6 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 	public static function __set_state(array $properties): Type
 	{
 		return new static($properties['baseClass']);
-	}
-
-	private function isInstanceOf(string $className): TrinaryLogic
-	{
-		return $this->staticObjectType->isInstanceOf($className);
 	}
 
 }
