@@ -360,3 +360,7 @@ while ($whileVariableUsedAndThenDefined && $whileVariableUsedAndThenDefined = 1)
 for (; $forVariableUsedAndThenDefined && $forVariableUsedAndThenDefined = 1;) {
 
 }
+
+while (isset($variableInWhileIsset)) {
+	echo $variableInWhileIsset;
+}

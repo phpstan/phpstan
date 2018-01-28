@@ -272,3 +272,15 @@ class NullCoalesce
 	}
 
 }
+
+class IssetPropertyInWhile
+{
+
+	public function doFoo()
+	{
+		while (isset($this->foo)) {
+			echo $this->foo;
+		}
+	}
+
+}
