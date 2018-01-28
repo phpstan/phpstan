@@ -141,6 +141,16 @@ class IterableIterableType implements StaticResolvableType, CompoundType
 		return $this->getItemType();
 	}
 
+	public function isOffsetAccesible(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
+	}
+
+	public function getOffsetValueType(): Type
+	{
+		return new MixedType();
+	}
+
 	public static function __set_state(array $properties): Type
 	{
 		return new self($properties['keyType'], $properties['itemType']);

@@ -56,6 +56,16 @@ class MixedType implements CompoundType
 		return 'mixed';
 	}
 
+	public function isOffsetAccesible(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
+	}
+
+	public function getOffsetValueType(): Type
+	{
+		return new MixedType();
+	}
+
 	public function isExplicitMixed(): bool
 	{
 		return $this->isExplicitMixed;
