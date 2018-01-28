@@ -356,3 +356,7 @@ echo $anotherMaybeDefinedInTernary;
 while ($whileVariableUsedAndThenDefined && $whileVariableUsedAndThenDefined = 1) {
 
 }
+
+for (; $forVariableUsedAndThenDefined && $forVariableUsedAndThenDefined = 1;) {
+
+}

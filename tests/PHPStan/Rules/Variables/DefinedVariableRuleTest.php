@@ -203,6 +203,10 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Variable $whileVariableUsedAndThenDefined might not be defined.',
 				356,
 			],
+			[
+				'Variable $forVariableUsedAndThenDefined might not be defined.',
+				360,
+			],
 		]);
 	}
 
