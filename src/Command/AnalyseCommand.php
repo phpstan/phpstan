@@ -29,7 +29,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		$this->setName(self::NAME)
 			->setDescription('Analyses source code')
 			->setDefinition([
-				new InputArgument('paths', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'Paths with source code to run analysis on'),
+				new InputArgument('paths', InputArgument::OPTIONAL | InputArgument::IS_ARRAY, 'Paths with source code to run analysis on'),
 				new InputOption('configuration', 'c', InputOption::VALUE_REQUIRED, 'Path to project configuration file'),
 				new InputOption(self::OPTION_LEVEL, 'l', InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter'),
 				new InputOption(ErrorsConsoleStyle::OPTION_NO_PROGRESS, null, InputOption::VALUE_NONE, 'Do not show progress bar, only results'),
@@ -73,6 +73,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			}
 		}
 
+		$paths = $input->getArgument('paths');
 		$projectConfigFile = $input->getOption('configuration');
 		if ($projectConfigFile === null) {
 			foreach (['phpstan.neon', 'phpstan.neon.dist'] as $discoverableConfigName) {
@@ -94,6 +95,30 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 		$containerFactory = new ContainerFactory($currentWorkingDirectory);
 
+		if ($projectConfigFile !== null) {
+			if (!is_file($projectConfigFile)) {
+				$output->writeln(sprintf('Project config file at path %s does not exist.', $projectConfigFile));
+				return 1;
+			}
+
+			$loader = (new LoaderFactory())->createLoader();
+			$projectConfig = $loader->load($projectConfigFile, null);
+			$defaultParameters = [
+				'rootDir' => $containerFactory->getRootDirectory(),
+				'currentWorkingDirectory' => $containerFactory->getCurrentWorkingDirectory(),
+			];
+
+			if (isset($projectConfig['parameters']['tmpDir'])) {
+				$tmpDir = Helpers::expand($projectConfig['parameters']['tmpDir'], $defaultParameters);
+			}
+			if ($levelOption === null && isset($projectConfig['parameters']['level'])) {
+				$levelOption = $projectConfig['parameters']['level'];
+			}
+			if (count($paths) === 0 && isset($projectConfig['parameters']['paths'])) {
+				$paths = Helpers::expand($projectConfig['parameters']['paths'], $defaultParameters);
+			}
+		}
+
 		$additionalConfigFiles = [];
 		if ($levelOption !== null) {
 			$levelConfigFile = sprintf('%s/config.level%s.neon', $containerFactory->getConfigDirectory(), $levelOption);
@@ -106,21 +131,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		}
 
 		if ($projectConfigFile !== null) {
-			if (!is_file($projectConfigFile)) {
-				$output->writeln(sprintf('Project config file at path %s does not exist.', $projectConfigFile));
-				return 1;
-			}
-
 			$additionalConfigFiles[] = $projectConfigFile;
-
-			$loader = (new LoaderFactory())->createLoader();
-			$projectConfig = $loader->load($projectConfigFile, null);
-			if (isset($projectConfig['parameters']['tmpDir'])) {
-				$tmpDir = Helpers::expand($projectConfig['parameters']['tmpDir'], [
-					'rootDir' => $containerFactory->getRootDirectory(),
-					'currentWorkingDirectory' => $containerFactory->getCurrentWorkingDirectory(),
-				]);
-			}
 		}
 
 		if (!isset($tmpDir)) {
@@ -200,7 +211,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		$application = $container->getByType(AnalyseApplication::class);
 		return $this->handleReturn(
 			$application->analyse(
-				$input->getArgument('paths'),
+				$paths,
 				$consoleStyle,
 				$errorFormatter,
 				$defaultLevelUsed,

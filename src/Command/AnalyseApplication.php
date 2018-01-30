@@ -65,6 +65,10 @@ class AnalyseApplication
 		bool $debug
 	): int
 	{
+		if (count($paths) === 0) {
+			throw new \InvalidArgumentException('At least one path must be specified to analyse.');
+		}
+
 		$errors = [];
 		$files = [];
 

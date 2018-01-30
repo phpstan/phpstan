@@ -152,6 +152,16 @@ The resolution priority is as such:
 [NEON file format](https://ne-on.org/) is very similar to YAML.
 All the following options are part of the `parameters` section.
 
+#### Configuration variables
+ - `%rootDir%` - root directory where PHPStan resides (i.e. `vendor/phpstan/phpstan` in Composer installation)
+ - `%currentWorkingDirectory%` - current working directory where PHPStan was executed
+
+#### Configuration options
+
+ - `tmpDir` - specifies the temporary directory used by PHPStan cache (defaults to `sys_get_temp_dir() . '/phpstan'`)
+ - `level` - specifies analysis level - if specified, `-l` option is not required
+ - `paths` - specifies analysed paths - if specified, paths are not required to be passed as arguments
+
 ### Autoloading
 
 PHPStan uses Composer autoloader so the easiest way how to autoload classes
