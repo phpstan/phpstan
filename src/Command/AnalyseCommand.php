@@ -3,6 +3,7 @@
 namespace PHPStan\Command;
 
 use Nette\DI\Helpers;
+use Nette\Utils\Strings;
 use PhpParser\Node\Stmt\Catch_;
 use PHPStan\Command\ErrorFormatter\ErrorFormatter;
 use PHPStan\DependencyInjection\ContainerFactory;
@@ -196,11 +197,30 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 		TypeCombinator::setUnionTypesEnabled($container->parameters['checkUnionTypes']);
 
+		/** @var \PHPStan\File\FileHelper $fileHelper */
+		$fileHelper = $container->getByType(FileHelper::class);
+		$paths = $input->getArgument('paths');
+		if (count($paths) !== 0) {
+			$isFirstPathLegacyCommandName = (function (string $path) use ($fileHelper): bool {
+				foreach ([-1 => self::NAME] + $this->getAliases() as $name) {
+					if (Strings::startsWith($name, $path)) {
+						return !file_exists($fileHelper->absolutizePath($path));
+					}
+				}
+
+				return false;
+			})($paths[0]);
+
+			if ($isFirstPathLegacyCommandName) {
+				array_shift($paths);
+			}
+		}
+
 		/** @var \PHPStan\Command\AnalyseApplication $application */
 		$application = $container->getByType(AnalyseApplication::class);
 		return $this->handleReturn(
 			$application->analyse(
-				$input->getArgument('paths'),
+				$paths,
 				$consoleStyle,
 				$errorFormatter,
 				$defaultLevelUsed,

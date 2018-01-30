@@ -135,7 +135,6 @@
 				checkreturn="true"
 		>
 			<arg path="bin/phpstan"/>
-			<arg value="analyse"/>
 			<arg value="-c"/>
 			<arg path="${phpstan.config}"/>
 			<arg value="-l"/>
