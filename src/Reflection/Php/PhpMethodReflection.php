@@ -176,24 +176,6 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 			}, $this->reflection->getParameters());
 
 			if (
-				$this->reflection->getName() === '__construct'
-				&& $this->declaringClass->getName() === 'ArrayObject'
-				&& count($this->parameters) === 1
-			) {
-				// PHP bug #71077
-				$this->parameters[] = new DummyParameter(
-					'flags',
-					new IntegerType(),
-					true
-				);
-				$this->parameters[] = new DummyParameter(
-					'iterator_class',
-					new StringType(),
-					true
-				);
-			}
-
-			if (
 				$this->declaringClass->getName() === 'ReflectionMethod'
 				&& $this->reflection->getName() === 'invoke'
 				&& !$this->parameters[1]->isOptional()

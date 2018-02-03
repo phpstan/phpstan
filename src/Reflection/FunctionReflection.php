@@ -88,17 +88,6 @@ class FunctionReflection implements ParametersAcceptorWithPhpDocs
 				);
 			}, $this->reflection->getParameters());
 			if (
-				$this->reflection->getName() === 'array_unique'
-				&& count($this->parameters) === 1
-			) {
-				// PHP bug #70960
-				$this->parameters[] = new DummyParameter(
-					'sort_flags',
-					new IntegerType(),
-					true
-				);
-			}
-			if (
 				$this->reflection->getName() === 'fputcsv'
 				&& count($this->parameters) === 4
 			) {
