@@ -5,7 +5,7 @@ namespace PHPStan\Rules;
 class RegistryFactory
 {
 
-	const RULE_TAG = 'phpstan.rules.rule';
+	public const RULE_TAG = 'phpstan.rules.rule';
 
 	/** @var \Nette\DI\Container */
 	private $container;

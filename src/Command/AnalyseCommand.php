@@ -17,11 +17,11 @@ use Symfony\Component\Console\Style\StyleInterface;
 class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 {
 
-	const NAME = 'analyse';
+	private const NAME = 'analyse';
 
-	const OPTION_LEVEL = 'level';
+	public const OPTION_LEVEL = 'level';
 
-	const DEFAULT_LEVEL = 0;
+	public const DEFAULT_LEVEL = 0;
 
 	protected function configure()
 	{

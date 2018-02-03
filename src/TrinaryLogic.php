@@ -8,9 +8,9 @@ namespace PHPStan;
 class TrinaryLogic
 {
 
-	const YES = 1;
-	const MAYBE = 0;
-	const NO = -1;
+	private const YES = 1;
+	private const MAYBE = 0;
+	private const NO = -1;
 
 	/**
 	 * @var int

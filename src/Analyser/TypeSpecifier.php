@@ -38,12 +38,12 @@ use PHPStan\Type\UnionType;
 class TypeSpecifier
 {
 
-	const CONTEXT_TRUE = 0b0001;
-	const CONTEXT_TRUTHY_BUT_NOT_TRUE = 0b0010;
-	const CONTEXT_TRUTHY = self::CONTEXT_TRUE | self::CONTEXT_TRUTHY_BUT_NOT_TRUE;
-	const CONTEXT_FALSE = 0b0100;
-	const CONTEXT_FALSEY_BUT_NOT_FALSE = 0b1000;
-	const CONTEXT_FALSEY = self::CONTEXT_FALSE | self::CONTEXT_FALSEY_BUT_NOT_FALSE;
+	private const CONTEXT_TRUE = 0b0001;
+	private const CONTEXT_TRUTHY_BUT_NOT_TRUE = 0b0010;
+	public const CONTEXT_TRUTHY = self::CONTEXT_TRUE | self::CONTEXT_TRUTHY_BUT_NOT_TRUE;
+	private const CONTEXT_FALSE = 0b0100;
+	private const CONTEXT_FALSEY_BUT_NOT_FALSE = 0b1000;
+	public const CONTEXT_FALSEY = self::CONTEXT_FALSE | self::CONTEXT_FALSEY_BUT_NOT_FALSE;
 
 	/**
 	 * @var \PhpParser\PrettyPrinter\Standard

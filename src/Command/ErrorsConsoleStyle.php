@@ -9,7 +9,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 {
 
-	const OPTION_NO_PROGRESS = 'no-progress';
+	public const OPTION_NO_PROGRESS = 'no-progress';
 
 	/** @var bool */
 	private $showProgress;

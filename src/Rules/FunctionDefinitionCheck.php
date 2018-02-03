@@ -15,7 +15,7 @@ use PHPStan\Type\NonexistentParentClassType;
 class FunctionDefinitionCheck
 {
 
-	const VALID_TYPEHINTS = [
+	private const VALID_TYPEHINTS = [
 		'self',
 		'array',
 		'callable',
