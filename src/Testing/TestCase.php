@@ -3,6 +3,7 @@
 namespace PHPStan\Testing;
 
 use PHPStan\Broker\Broker;
+use PHPStan\Broker\BrokerFactory;
 use PHPStan\Cache\Cache;
 use PHPStan\Cache\MemoryCacheStorage;
 use PHPStan\DependencyInjection\ContainerFactory;
@@ -156,6 +157,13 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				);
 			}
 		};
+
+		$tagToService = function (array $tags) {
+			return array_map(function (string $serviceName) {
+				return $this->getContainer()->getService($serviceName);
+			}, array_keys($tags));
+		};
+
 		$broker = new Broker(
 			[
 				$phpExtension,
@@ -166,15 +174,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			[$phpExtension],
 			$dynamicMethodReturnTypeExtensions,
 			$dynamicStaticMethodReturnTypeExtensions,
-			[
-				new AllArgumentBasedFunctionReturnTypeExtension(),
-				new ArgumentBasedArrayFunctionReturnTypeExtension(),
-				new ArgumentBasedFunctionReturnTypeExtension(),
-				new ArrayFilterFunctionReturnTypeReturnTypeExtension(),
-				new ArrayKeysFunctionDynamicReturnTypeExtension(),
-				new CallbackBasedArrayFunctionReturnTypeExtension(),
-				new CallbackBasedFunctionReturnTypeExtension(),
-			],
+			$tagToService($this->getContainer()->findByTag(BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG)),
 			$functionReflectionFactory,
 			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $cache)
 		);
