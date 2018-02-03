@@ -23,7 +23,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 	public const DEFAULT_LEVEL = 0;
 
-	protected function configure()
+	protected function configure(): void
 	{
 		$this->setName(self::NAME)
 			->setDescription('Analyses source code')
@@ -221,10 +221,10 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		return $code;
 	}
 
-	private function setUpSignalHandler(StyleInterface $consoleStyle, string $memoryLimitFile)
+	private function setUpSignalHandler(StyleInterface $consoleStyle, string $memoryLimitFile): void
 	{
 		if (function_exists('pcntl_signal')) {
-			pcntl_signal(SIGINT, function () use ($consoleStyle, $memoryLimitFile) {
+			pcntl_signal(SIGINT, function () use ($consoleStyle, $memoryLimitFile): void {
 				if (file_exists($memoryLimitFile)) {
 					unlink($memoryLimitFile);
 				}

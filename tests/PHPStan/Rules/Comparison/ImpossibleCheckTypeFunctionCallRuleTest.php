@@ -17,7 +17,7 @@ class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestC
 		return new ImpossibleCheckTypeFunctionCallRule($typeSpecifier, $this->checkAlwaysTrueCheckTypeFunctionCall);
 	}
 
-	public function testImpossibleCheckTypeFunctionCall()
+	public function testImpossibleCheckTypeFunctionCall(): void
 	{
 		$this->checkAlwaysTrueCheckTypeFunctionCall = true;
 		$this->analyse(
@@ -39,7 +39,7 @@ class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestC
 		);
 	}
 
-	public function testImpossibleCheckTypeFunctionCallWithoutAlwaysTrue()
+	public function testImpossibleCheckTypeFunctionCallWithoutAlwaysTrue(): void
 	{
 		$this->checkAlwaysTrueCheckTypeFunctionCall = false;
 		$this->analyse(

@@ -12,7 +12,7 @@ class CallMethodsOnPossiblyNullRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new CallMethodsOnPossiblyNullRule(new RuleLevelHelper($this->createBroker(), true, false, true), false);
 	}
 
-	public function testExistingClassInTypehint()
+	public function testExistingClassInTypehint(): void
 	{
 		$this->analyse([__DIR__ . '/data/possibly-nullable.php'], [
 			[

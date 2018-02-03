@@ -15,7 +15,7 @@ class DefinedVariableInAnonymousFunctionUseRuleTest extends \PHPStan\Testing\Rul
 		return new DefinedVariableInAnonymousFunctionUseRule($this->checkMaybeUndefinedVariables);
 	}
 
-	public function testDefinedVariables()
+	public function testDefinedVariables(): void
 	{
 		$this->checkMaybeUndefinedVariables = true;
 		$this->analyse([__DIR__ . '/data/defined-variables-anonymous-function-use.php'], [

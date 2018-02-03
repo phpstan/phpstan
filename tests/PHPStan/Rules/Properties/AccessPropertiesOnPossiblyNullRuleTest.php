@@ -12,7 +12,7 @@ class AccessPropertiesOnPossiblyNullRuleTest extends \PHPStan\Testing\RuleTestCa
 		return new AccessPropertiesOnPossiblyNullRule(new RuleLevelHelper($this->createBroker(), true, false, true), false);
 	}
 
-	public function testAccessPropertiesOnPossiblyNullRuleTest()
+	public function testAccessPropertiesOnPossiblyNullRuleTest(): void
 	{
 		$this->analyse(
 			[__DIR__ . '/data/possibly-nullable.php'],

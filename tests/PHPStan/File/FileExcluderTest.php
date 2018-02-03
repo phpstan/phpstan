@@ -5,14 +5,14 @@ namespace PHPStan\File;
 class FileExcluderTest extends \PHPStan\Testing\TestCase
 {
 
-	private function skipIfNotOnWindows()
+	private function skipIfNotOnWindows(): void
 	{
 		if (DIRECTORY_SEPARATOR !== '\\') {
 			$this->markTestSkipped();
 		}
 	}
 
-	private function skipIfNotOnUnix()
+	private function skipIfNotOnUnix(): void
 	{
 		if (DIRECTORY_SEPARATOR !== '/') {
 			$this->markTestSkipped();
@@ -29,7 +29,7 @@ class FileExcluderTest extends \PHPStan\Testing\TestCase
 		string $filePath,
 		array $analyseExcludes,
 		bool $isExcluded
-	)
+	): void
 	{
 		$this->skipIfNotOnWindows();
 
@@ -124,7 +124,7 @@ class FileExcluderTest extends \PHPStan\Testing\TestCase
 		string $filePath,
 		array $analyseExcludes,
 		bool $isExcluded
-	)
+	): void
 	{
 		$this->skipIfNotOnUnix();
 

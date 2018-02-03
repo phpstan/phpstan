@@ -10,7 +10,7 @@ class ConstantRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new ConstantRule($this->createBroker());
 	}
 
-	public function testConstants()
+	public function testConstants(): void
 	{
 		define('FOO_CONSTANT', 'foo');
 		define('Constants\\BAR_CONSTANT', 'bar');

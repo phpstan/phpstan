@@ -41,7 +41,6 @@
 				@requires
 			"/>
 			<property name="enableNullableTypeHints" type="false" />
-			<property name="enableVoidTypeHint" type="false" />
 		</properties>
 	</rule>
 	<rule ref="Generic.Strings.UnnecessaryStringConcat.Found">

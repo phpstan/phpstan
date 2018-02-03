@@ -104,7 +104,7 @@ class AnalyseApplication
 			$progressStarted = false;
 			$fileOrder = 0;
 			$preFileCallback = null;
-			$postFileCallback = function () use ($style, &$progressStarted, $files, &$fileOrder) {
+			$postFileCallback = function () use ($style, &$progressStarted, $files, &$fileOrder): void {
 				if (!$progressStarted) {
 					$style->progressStart(count($files));
 					$progressStarted = true;
@@ -116,7 +116,7 @@ class AnalyseApplication
 				$fileOrder++;
 			};
 		} else {
-			$preFileCallback = function (string $file) use ($style) {
+			$preFileCallback = function (string $file) use ($style): void {
 				$style->writeln($file);
 			};
 			$postFileCallback = null;
@@ -157,7 +157,7 @@ class AnalyseApplication
 		);
 	}
 
-	private function updateMemoryLimitFile()
+	private function updateMemoryLimitFile(): void
 	{
 		$bytes = memory_get_peak_usage(true);
 		$megabytes = ceil($bytes / 1024 / 1024);

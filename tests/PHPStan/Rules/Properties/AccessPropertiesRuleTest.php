@@ -21,7 +21,7 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new AccessPropertiesRule($broker, new RuleLevelHelper($broker, true, $this->checkThisOnly, $this->checkUnionTypes));
 	}
 
-	public function testAccessProperties()
+	public function testAccessProperties(): void
 	{
 		$this->checkThisOnly = false;
 		$this->checkUnionTypes = true;
@@ -136,7 +136,7 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 		);
 	}
 
-	public function testAccessPropertiesWithoutUnionTypes()
+	public function testAccessPropertiesWithoutUnionTypes(): void
 	{
 		$this->checkThisOnly = false;
 		$this->checkUnionTypes = false;
@@ -247,7 +247,7 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 		);
 	}
 
-	public function testAccessPropertiesOnThisOnly()
+	public function testAccessPropertiesOnThisOnly(): void
 	{
 		$this->checkThisOnly = true;
 		$this->checkUnionTypes = true;
@@ -266,7 +266,7 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 		);
 	}
 
-	public function testAccessPropertiesAfterIsNullInBooleanOr()
+	public function testAccessPropertiesAfterIsNullInBooleanOr(): void
 	{
 		$this->checkThisOnly = false;
 		$this->checkUnionTypes = true;
@@ -306,7 +306,7 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testDateIntervalChildProperties()
+	public function testDateIntervalChildProperties(): void
 	{
 		$this->checkThisOnly = false;
 		$this->checkUnionTypes = true;

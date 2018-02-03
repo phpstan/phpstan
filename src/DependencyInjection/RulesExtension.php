@@ -7,7 +7,7 @@ use PHPStan\Rules\RegistryFactory;
 class RulesExtension extends \Nette\DI\CompilerExtension
 {
 
-	public function loadConfiguration()
+	public function loadConfiguration(): void
 	{
 		$config = $this->config;
 		$builder = $this->getContainerBuilder();

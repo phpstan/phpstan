@@ -12,7 +12,7 @@ class AppendedArrayItemTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new AppendedArrayItemTypeRule(new RuleLevelHelper($this->createBroker(), true, false, true));
 	}
 
-	public function testAppendedArrayItemType()
+	public function testAppendedArrayItemType(): void
 	{
 		$this->analyse(
 			[__DIR__ . '/data/appended-array-item.php'],

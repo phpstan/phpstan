@@ -21,7 +21,7 @@ class ClassReflectionTest extends \PHPStan\Testing\TestCase
 	 * @param string $className
 	 * @param bool $has
 	 */
-	public function testHasTraitUse(string $className, bool $has)
+	public function testHasTraitUse(string $className, bool $has): void
 	{
 		$broker = $this->createMock(Broker::class);
 		$classReflection = new ClassReflection($broker, [], [], $className, new \ReflectionClass($className), false);
@@ -63,7 +63,7 @@ class ClassReflectionTest extends \PHPStan\Testing\TestCase
 	public function testClassHierarchyDistances(
 		string $class,
 		array $expectedDistances
-	)
+	): void
 	{
 		$classReflection = new ClassReflection(
 			$this->createBroker(),

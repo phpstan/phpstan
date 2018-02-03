@@ -21,7 +21,7 @@ class CheckstyleErrorFormatterTest extends \PHPStan\Testing\TestCase
 	 *
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->formatter = new CheckstyleErrorFormatter();
 	}
@@ -31,7 +31,7 @@ class CheckstyleErrorFormatterTest extends \PHPStan\Testing\TestCase
 	 *
 	 * @return void
 	 */
-	public function testFormatErrors()
+	public function testFormatErrors(): void
 	{
 		$analysisResultMock = $this->createMock(AnalysisResult::class);
 		$analysisResultMock
@@ -73,7 +73,7 @@ class CheckstyleErrorFormatterTest extends \PHPStan\Testing\TestCase
 	 *
 	 * @return void
 	 */
-	public function testFormatErrorsEmpty()
+	public function testFormatErrorsEmpty(): void
 	{
 		$analysisResultMock = $this->createMock(AnalysisResult::class);
 		$analysisResultMock

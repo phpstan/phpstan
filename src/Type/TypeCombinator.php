@@ -8,7 +8,7 @@ class TypeCombinator
 	/** @var bool|null */
 	private static $unionTypesEnabled;
 
-	public static function setUnionTypesEnabled(bool $enabled)
+	public static function setUnionTypesEnabled(bool $enabled): void
 	{
 		if (self::$unionTypesEnabled !== null) {
 			throw new \PHPStan\ShouldNotHappenException();

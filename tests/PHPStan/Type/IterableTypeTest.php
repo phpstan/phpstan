@@ -39,7 +39,7 @@ class IterableTypeTest extends \PHPStan\Testing\TestCase
 	 * @param Type $otherType
 	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSuperTypeOf(IterableIterableType $type, Type $otherType, TrinaryLogic $expectedResult)
+	public function testIsSuperTypeOf(IterableIterableType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
 		$this->createBroker();
 
@@ -128,7 +128,7 @@ class IterableTypeTest extends \PHPStan\Testing\TestCase
 	 * @param Type $otherType
 	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSubTypeOf(IterableIterableType $type, Type $otherType, TrinaryLogic $expectedResult)
+	public function testIsSubTypeOf(IterableIterableType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
 		$this->createBroker();
 
@@ -146,7 +146,7 @@ class IterableTypeTest extends \PHPStan\Testing\TestCase
 	 * @param Type $otherType
 	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSubTypeOfInversed(IterableIterableType $type, Type $otherType, TrinaryLogic $expectedResult)
+	public function testIsSubTypeOfInversed(IterableIterableType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
 		$this->createBroker();
 

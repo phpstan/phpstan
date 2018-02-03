@@ -12,7 +12,7 @@ class UnusedClosureUsesRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new UnusedClosureUsesRule(new UnusedFunctionParametersCheck());
 	}
 
-	public function testUnusedClosureUses()
+	public function testUnusedClosureUses(): void
 	{
 		$this->analyse([__DIR__ . '/data/unused-closure-uses.php'], [
 			[

@@ -22,7 +22,7 @@ class StaticTypeTest extends \PHPStan\Testing\TestCase
 	 * @param StaticType $type
 	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsIterable(StaticType $type, TrinaryLogic $expectedResult)
+	public function testIsIterable(StaticType $type, TrinaryLogic $expectedResult): void
 	{
 		$this->createBroker();
 
@@ -48,7 +48,7 @@ class StaticTypeTest extends \PHPStan\Testing\TestCase
 	 * @param StaticType $type
 	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsCallable(StaticType $type, TrinaryLogic $expectedResult)
+	public function testIsCallable(StaticType $type, TrinaryLogic $expectedResult): void
 	{
 		$this->createBroker();
 
@@ -217,7 +217,7 @@ class StaticTypeTest extends \PHPStan\Testing\TestCase
 	 * @param Type $otherType
 	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSuperTypeOf(StaticType $type, Type $otherType, TrinaryLogic $expectedResult)
+	public function testIsSuperTypeOf(StaticType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
 		$this->createBroker();
 

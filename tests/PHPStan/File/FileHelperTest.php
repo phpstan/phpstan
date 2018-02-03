@@ -5,14 +5,14 @@ namespace PHPStan\File;
 class FileHelperTest extends \PHPStan\Testing\TestCase
 {
 
-	private function skipIfNotOnWindows()
+	private function skipIfNotOnWindows(): void
 	{
 		if (DIRECTORY_SEPARATOR !== '\\') {
 			$this->markTestSkipped();
 		}
 	}
 
-	private function skipIfNotOnUnix()
+	private function skipIfNotOnUnix(): void
 	{
 		if (DIRECTORY_SEPARATOR !== '/') {
 			$this->markTestSkipped();
@@ -40,7 +40,7 @@ class FileHelperTest extends \PHPStan\Testing\TestCase
 	 * @param string $path
 	 * @param string $absolutePath
 	 */
-	public function testAbsolutizePathOnWindows(string $path, string $absolutePath)
+	public function testAbsolutizePathOnWindows(string $path, string $absolutePath): void
 	{
 		$this->skipIfNotOnWindows();
 		$fileHelper = new FileHelper('C:\abcd');
@@ -68,7 +68,7 @@ class FileHelperTest extends \PHPStan\Testing\TestCase
 	 * @param string $path
 	 * @param string $absolutePath
 	 */
-	public function testAbsolutizePathOnLinuxOrMac(string $path, string $absolutePath)
+	public function testAbsolutizePathOnLinuxOrMac(string $path, string $absolutePath): void
 	{
 		$this->skipIfNotOnUnix();
 		$fileHelper = new FileHelper('/abcd');
@@ -96,7 +96,7 @@ class FileHelperTest extends \PHPStan\Testing\TestCase
 	 * @param string $path
 	 * @param string $normalizedPath
 	 */
-	public function testNormalizePathOnWindows(string $path, string $normalizedPath)
+	public function testNormalizePathOnWindows(string $path, string $normalizedPath): void
 	{
 		$this->skipIfNotOnWindows();
 		$this->assertSame($normalizedPath, $this->getContainer()->getByType(FileHelper::class)->normalizePath($path));
@@ -125,7 +125,7 @@ class FileHelperTest extends \PHPStan\Testing\TestCase
 	 * @param string $path
 	 * @param string $normalizedPath
 	 */
-	public function testNormalizePathOnLinuxOrMac(string $path, string $normalizedPath)
+	public function testNormalizePathOnLinuxOrMac(string $path, string $normalizedPath): void
 	{
 		$this->skipIfNotOnUnix();
 		$this->assertSame($normalizedPath, $this->getContainer()->getByType(FileHelper::class)->normalizePath($path));

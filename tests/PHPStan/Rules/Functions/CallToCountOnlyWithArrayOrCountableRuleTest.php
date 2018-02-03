@@ -12,7 +12,7 @@ class CallToCountOnlyWithArrayOrCountableRuleTest extends \PHPStan\Testing\RuleT
 		return new CallToCountOnlyWithArrayOrCountableRule(new RuleLevelHelper($this->createBroker(), true, false, true));
 	}
 
-	public function testCallToCountOnlyWithArrayOrCountable()
+	public function testCallToCountOnlyWithArrayOrCountable(): void
 	{
 		$this->analyse([__DIR__ . '/data/count.php'], [
 			[

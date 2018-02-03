@@ -8,7 +8,7 @@ use PHPStan\File\FileHelper;
 class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 {
 
-	public function testUndefinedVariableFromAssignErrorHasLine()
+	public function testUndefinedVariableFromAssignErrorHasLine(): void
 	{
 		$errors = $this->runAnalyse(__DIR__ . '/data/undefined-variable-assign.php');
 		$this->assertCount(1, $errors);
@@ -17,7 +17,7 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(3, $error->getLine());
 	}
 
-	public function testMissingPropertyAndMethod()
+	public function testMissingPropertyAndMethod(): void
 	{
 		$errors = $this->runAnalyse(__DIR__ . '/../../notAutoloaded/Foo.php');
 		$this->assertCount(1, $errors);
@@ -26,7 +26,7 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertNull($error->getLine());
 	}
 
-	public function testMissingClassErrorAboutMisconfiguredAutoloader()
+	public function testMissingClassErrorAboutMisconfiguredAutoloader(): void
 	{
 		$errors = $this->runAnalyse(__DIR__ . '/../../notAutoloaded/Bar.php');
 		$this->assertCount(1, $errors);
@@ -35,7 +35,7 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertNull($error->getLine());
 	}
 
-	public function testMissingFunctionErrorAboutMisconfiguredAutoloader()
+	public function testMissingFunctionErrorAboutMisconfiguredAutoloader(): void
 	{
 		$errors = $this->runAnalyse(__DIR__ . '/../../notAutoloaded/functionFoo.php');
 		$this->assertCount(2, $errors);
@@ -45,13 +45,13 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(7, $errors[1]->getLine());
 	}
 
-	public function testAnonymousClassWithInheritedConstructor()
+	public function testAnonymousClassWithInheritedConstructor(): void
 	{
 		$errors = $this->runAnalyse(__DIR__ . '/data/anonymous-class-with-inherited-constructor.php');
 		$this->assertCount(0, $errors);
 	}
 
-	public function testNestedFunctionCallsDoNotCauseExcessiveFunctionNesting()
+	public function testNestedFunctionCallsDoNotCauseExcessiveFunctionNesting(): void
 	{
 		if (extension_loaded('xdebug')) {
 			$this->markTestSkipped('This test takes too long with XDebug enabled.');
@@ -60,7 +60,7 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertCount(0, $errors);
 	}
 
-	public function testExtendingUnknownClass()
+	public function testExtendingUnknownClass(): void
 	{
 		$errors = $this->runAnalyse(__DIR__ . '/data/extending-unknown-class.php');
 		$this->assertCount(1, $errors);
@@ -68,7 +68,7 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertSame('Class ExtendingUnknownClass\Bar not found and could not be autoloaded.', $errors[0]->getMessage());
 	}
 
-	public function testExtendingKnownClassWithCheck()
+	public function testExtendingKnownClassWithCheck(): void
 	{
 		$errors = $this->runAnalyse(__DIR__ . '/data/extending-known-class-with-check.php');
 		$this->assertCount(1, $errors);
@@ -79,13 +79,13 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertTrue($broker->hasClass(\ExtendingKnownClassWithCheck\Foo::class));
 	}
 
-	public function testInfiniteRecursionWithCallable()
+	public function testInfiniteRecursionWithCallable(): void
 	{
 		$errors = $this->runAnalyse(__DIR__ . '/data/Foo-callable.php');
 		$this->assertCount(0, $errors);
 	}
 
-	public function testClassThatExtendsUnknownClassIn3rdPartyPropertyTypeShouldNotCauseAutoloading()
+	public function testClassThatExtendsUnknownClassIn3rdPartyPropertyTypeShouldNotCauseAutoloading(): void
 	{
 		// no error about PHPStan\Tests\Baz not being able to be autoloaded
 		$errors = $this->runAnalyse(__DIR__ . '/data/ExtendsClassWithUnknownPropertyType.php');
@@ -94,7 +94,7 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertSame('Call to an undefined method ExtendsClassWithUnknownPropertyType::foo().', $errors[0]->getMessage());
 	}
 
-	public function testAnonymousClassesWithComments()
+	public function testAnonymousClassesWithComments(): void
 	{
 		$errors = $this->runAnalyse(__DIR__ . '/data/AnonymousClassesWithComments.php');
 		$this->assertCount(3, $errors);
@@ -103,7 +103,7 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 		}
 	}
 
-	public function testUniversalObjectCrateIssue()
+	public function testUniversalObjectCrateIssue(): void
 	{
 		$errors = $this->runAnalyse(__DIR__ . '/data/universal-object-crate.php');
 		$this->assertCount(1, $errors);

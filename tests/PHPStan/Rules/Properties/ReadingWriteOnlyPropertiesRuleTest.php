@@ -15,7 +15,7 @@ class ReadingWriteOnlyPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new ReadingWriteOnlyPropertiesRule(new PropertyDescriptor(), new PropertyReflectionFinder(), new RuleLevelHelper($this->createBroker(), true, $this->checkThisOnly, true), $this->checkThisOnly);
 	}
 
-	public function testPropertyMustBeReadableInAssignOp()
+	public function testPropertyMustBeReadableInAssignOp(): void
 	{
 		$this->checkThisOnly = false;
 		$this->analyse([__DIR__ . '/data/writing-to-read-only-properties.php'], [
@@ -30,7 +30,7 @@ class ReadingWriteOnlyPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testPropertyMustBeReadableInAssignOpCheckThisOnly()
+	public function testPropertyMustBeReadableInAssignOpCheckThisOnly(): void
 	{
 		$this->checkThisOnly = true;
 		$this->analyse([__DIR__ . '/data/writing-to-read-only-properties.php'], [
@@ -41,7 +41,7 @@ class ReadingWriteOnlyPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testReadingWriteOnlyProperties()
+	public function testReadingWriteOnlyProperties(): void
 	{
 		$this->checkThisOnly = false;
 		$this->analyse([__DIR__ . '/data/reading-write-only-properties.php'], [
@@ -56,7 +56,7 @@ class ReadingWriteOnlyPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testReadingWriteOnlyPropertiesCheckThisOnly()
+	public function testReadingWriteOnlyPropertiesCheckThisOnly(): void
 	{
 		$this->checkThisOnly = true;
 		$this->analyse([__DIR__ . '/data/reading-write-only-properties.php'], [

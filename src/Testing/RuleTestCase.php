@@ -58,7 +58,7 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 		return $this->analyser;
 	}
 
-	public function analyse(array $files, array $expectedErrors)
+	public function analyse(array $files, array $expectedErrors): void
 	{
 		$files = array_map([$this->getFileHelper(), 'normalizePath'], $files);
 		$actualErrors = $this->getAnalyser()->analyse($files, false);

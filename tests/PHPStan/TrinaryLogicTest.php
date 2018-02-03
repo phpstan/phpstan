@@ -36,7 +36,7 @@ class TrinaryLogicTest extends \PHPStan\Testing\TestCase
 		TrinaryLogic $expectedResult,
 		TrinaryLogic $value,
 		TrinaryLogic ...$operands
-	)
+	): void
 	{
 		$this->assertTrue($expectedResult->equals($value->and(...$operands)));
 	}
@@ -72,7 +72,7 @@ class TrinaryLogicTest extends \PHPStan\Testing\TestCase
 		TrinaryLogic $expectedResult,
 		TrinaryLogic $value,
 		TrinaryLogic ...$operands
-	)
+	): void
 	{
 		$this->assertTrue($expectedResult->equals($value->or(...$operands)));
 	}
@@ -91,7 +91,7 @@ class TrinaryLogicTest extends \PHPStan\Testing\TestCase
 	 * @param TrinaryLogic $expectedResult
 	 * @param TrinaryLogic $operand
 	 */
-	public function testNegate(TrinaryLogic $expectedResult, TrinaryLogic $operand)
+	public function testNegate(TrinaryLogic $expectedResult, TrinaryLogic $operand): void
 	{
 		$this->assertTrue($expectedResult->equals($operand->negate()));
 	}
@@ -113,7 +113,7 @@ class TrinaryLogicTest extends \PHPStan\Testing\TestCase
 	public function testAddMaybe(
 		TrinaryLogic $expectedResult,
 		TrinaryLogic $value
-	)
+	): void
 	{
 		$this->assertTrue($expectedResult->equals($value->addMaybe()));
 	}

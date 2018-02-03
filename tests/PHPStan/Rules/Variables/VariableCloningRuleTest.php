@@ -13,7 +13,7 @@ class VariableCloningRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new VariableCloningRule($this->checkNullables);
 	}
 
-	public function testClone()
+	public function testClone(): void
 	{
 		$this->checkNullables = true;
 		$this->analyse([__DIR__ . '/data/variable-cloning.php'], [
@@ -40,7 +40,7 @@ class VariableCloningRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testCloneWithoutCheckNullables()
+	public function testCloneWithoutCheckNullables(): void
 	{
 		$this->checkNullables = false;
 		$this->analyse([__DIR__ . '/data/variable-cloning.php'], [

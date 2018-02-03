@@ -74,7 +74,7 @@ class CallableTypeTest extends \PHPStan\Testing\TestCase
 	 * @param Type $otherType
 	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSubTypeOf(CallableType $type, Type $otherType, TrinaryLogic $expectedResult)
+	public function testIsSubTypeOf(CallableType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
 		$this->createBroker();
 
@@ -92,7 +92,7 @@ class CallableTypeTest extends \PHPStan\Testing\TestCase
 	 * @param Type $otherType
 	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSubTypeOfInversed(CallableType $type, Type $otherType, TrinaryLogic $expectedResult)
+	public function testIsSubTypeOfInversed(CallableType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
 		$this->createBroker();
 

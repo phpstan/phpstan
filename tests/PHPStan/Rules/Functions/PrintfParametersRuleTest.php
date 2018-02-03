@@ -10,7 +10,7 @@ class PrintfParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new PrintfParametersRule();
 	}
 
-	public function testFile()
+	public function testFile(): void
 	{
 		$this->analyse([__DIR__ . '/data/printf.php'], [
 			[

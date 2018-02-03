@@ -13,7 +13,7 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new ReturnTypeRule(new FunctionReturnTypeCheck(new \PhpParser\PrettyPrinter\Standard(), new RuleLevelHelper($this->createBroker(), true, false, true)));
 	}
 
-	public function testReturnTypeRule()
+	public function testReturnTypeRule(): void
 	{
 		require_once __DIR__ . '/data/returnTypes.php';
 		$this->analyse([__DIR__ . '/data/returnTypes.php'], [

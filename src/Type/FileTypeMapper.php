@@ -105,7 +105,7 @@ class FileTypeMapper
 
 		$this->processNodes(
 			$this->phpParser->parseFile($fileName),
-			function (\PhpParser\Node $node) use (&$phpDocMap, &$classStack, &$namespace, &$uses) {
+			function (\PhpParser\Node $node) use (&$phpDocMap, &$classStack, &$namespace, &$uses): void {
 				if ($node instanceof Node\Stmt\ClassLike) {
 					$classStack[] = ltrim(sprintf('%s\\%s', $namespace, $node->name), '\\');
 				} elseif ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
@@ -145,7 +145,7 @@ class FileTypeMapper
 					return $this->phpDocStringResolver->resolve($phpDocString, $nameScope);
 				};
 			},
-			function (\PhpParser\Node $node) use (&$namespace, &$classStack, &$uses) {
+			function (\PhpParser\Node $node) use (&$namespace, &$classStack, &$uses): void {
 				if ($node instanceof Node\Stmt\ClassLike) {
 					if (count($classStack) === 0) {
 						throw new \PHPStan\ShouldNotHappenException();
@@ -179,7 +179,7 @@ class FileTypeMapper
 	 * @param \Closure $nodeCallback
 	 * @param \Closure $endNodeCallback
 	 */
-	private function processNodes($node, \Closure $nodeCallback, \Closure $endNodeCallback)
+	private function processNodes($node, \Closure $nodeCallback, \Closure $endNodeCallback): void
 	{
 		if ($node instanceof Node) {
 			$nodeCallback($node);

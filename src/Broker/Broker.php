@@ -210,7 +210,7 @@ class Broker
 			return $this->hasClassCache[$className];
 		}
 
-		spl_autoload_register($autoloader = function (string $autoloadedClassName) use ($className) {
+		spl_autoload_register($autoloader = function (string $autoloadedClassName) use ($className): void {
 			if ($autoloadedClassName !== $className && !$this->isExistsCheckCall()) {
 				throw new \PHPStan\Broker\ClassAutoloadingException($autoloadedClassName);
 			}

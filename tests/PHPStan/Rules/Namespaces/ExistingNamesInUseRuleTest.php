@@ -13,7 +13,7 @@ class ExistingNamesInUseRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new ExistingNamesInUseRule($broker, new ClassCaseSensitivityCheck($broker));
 	}
 
-	public function testRule()
+	public function testRule(): void
 	{
 		require_once __DIR__ . '/data/uses-defined.php';
 		$this->analyse([__DIR__ . '/data/uses.php'], [

@@ -5,7 +5,7 @@ namespace PHPStan\Type;
 class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 {
 
-	public function testGetResolvedPhpDoc()
+	public function testGetResolvedPhpDoc(): void
 	{
 		$this->createBroker();
 
@@ -80,7 +80,7 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 		$this->assertFalse($paramMultipleTypesWithExtraSpaces->getParameters()['object']->isVariadic());
 	}
 
-	public function testFileWithDependentPhpDocs()
+	public function testFileWithDependentPhpDocs(): void
 	{
 		$this->createBroker();
 
@@ -101,7 +101,7 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 	}
 
 
-	public function testFileWithCyclicPhpDocs()
+	public function testFileWithCyclicPhpDocs(): void
 	{
 		$this->getContainer()->getByType(\PHPStan\Broker\Broker::class);
 

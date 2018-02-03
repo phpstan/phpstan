@@ -16,7 +16,7 @@ class ExistingClassesInClassImplementsRuleTest extends \PHPStan\Testing\RuleTest
 		);
 	}
 
-	public function testRule()
+	public function testRule(): void
 	{
 		$this->analyse([__DIR__ . '/data/extends-implements.php'], [
 			[

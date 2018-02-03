@@ -10,7 +10,7 @@ class InvalidKeyInArrayItemRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new InvalidKeyInArrayItemRule();
 	}
 
-	public function testInvalidKey()
+	public function testInvalidKey(): void
 	{
 		$this->analyse([__DIR__ . '/data/invalid-key-array-item.php'], [
 			[
@@ -24,7 +24,7 @@ class InvalidKeyInArrayItemRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testInvalidKeyInList()
+	public function testInvalidKeyInList(): void
 	{
 		$this->analyse([__DIR__ . '/data/invalid-key-list.php'], [
 			[

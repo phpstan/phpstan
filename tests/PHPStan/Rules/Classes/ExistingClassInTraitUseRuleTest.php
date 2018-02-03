@@ -16,7 +16,7 @@ class ExistingClassInTraitUseRuleTest extends \PHPStan\Testing\RuleTestCase
 		);
 	}
 
-	public function testClassWithWrongCase()
+	public function testClassWithWrongCase(): void
 	{
 		$this->analyse([__DIR__ . '/data/trait-use.php'], [
 			[

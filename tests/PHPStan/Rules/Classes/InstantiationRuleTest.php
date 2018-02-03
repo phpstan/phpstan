@@ -19,7 +19,7 @@ class InstantiationRuleTest extends \PHPStan\Testing\RuleTestCase
 		);
 	}
 
-	public function testInstantiation()
+	public function testInstantiation(): void
 	{
 		$this->analyse(
 			[__DIR__ . '/data/instantiation.php'],

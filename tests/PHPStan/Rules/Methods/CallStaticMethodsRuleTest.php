@@ -26,7 +26,7 @@ class CallStaticMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 		);
 	}
 
-	public function testCallStaticMethods()
+	public function testCallStaticMethods(): void
 	{
 		$this->checkThisOnly = false;
 		$this->analyse([__DIR__ . '/data/call-static-methods.php'], [
@@ -181,7 +181,7 @@ class CallStaticMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testCallInterfaceMethods()
+	public function testCallInterfaceMethods(): void
 	{
 		$this->checkThisOnly = false;
 		$this->analyse([__DIR__ . '/data/call-interface-methods.php'], [
@@ -192,7 +192,7 @@ class CallStaticMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testCallToIncorrectCaseMethodName()
+	public function testCallToIncorrectCaseMethodName(): void
 	{
 		$this->checkThisOnly = false;
 		$this->analyse([__DIR__ . '/data/incorrect-static-method-case.php'], [
@@ -203,7 +203,7 @@ class CallStaticMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testStaticCallsToInstanceMethods()
+	public function testStaticCallsToInstanceMethods(): void
 	{
 		$this->checkThisOnly = false;
 		$this->analyse([__DIR__ . '/data/static-calls-to-instance-methods.php'], [
@@ -238,7 +238,7 @@ class CallStaticMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testStaticCallOnExpression()
+	public function testStaticCallOnExpression(): void
 	{
 		$this->checkThisOnly = false;
 		$this->analyse([__DIR__ . '/data/static-call-on-expression.php'], [
@@ -249,13 +249,13 @@ class CallStaticMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testStaticCallOnExpressionWithCheckDisabled()
+	public function testStaticCallOnExpressionWithCheckDisabled(): void
 	{
 		$this->checkThisOnly = true;
 		$this->analyse([__DIR__ . '/data/static-call-on-expression.php'], []);
 	}
 
-	public function testReturnStatic()
+	public function testReturnStatic(): void
 	{
 		$this->checkThisOnly = false;
 		$this->analyse([__DIR__ . '/data/return-static-static-method.php'], [

@@ -5,7 +5,7 @@ namespace PHPStan\Analyser;
 class ErrorTest extends \PHPStan\Testing\TestCase
 {
 
-	public function testError()
+	public function testError(): void
 	{
 		$error = new Error('Message', 'file', 10);
 		$this->assertSame('Message', $error->getMessage());

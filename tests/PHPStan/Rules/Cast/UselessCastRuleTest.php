@@ -10,7 +10,7 @@ class UselessCastRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new UselessCastRule();
 	}
 
-	public function testUselessCast()
+	public function testUselessCast(): void
 	{
 		$this->analyse(
 			[__DIR__ . '/data/useless-cast.php'],

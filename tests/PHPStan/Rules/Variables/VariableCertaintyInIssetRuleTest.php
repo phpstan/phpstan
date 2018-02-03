@@ -10,7 +10,7 @@ class VariableCertaintyInIssetRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new VariableCertaintyInIssetRule();
 	}
 
-	public function testVariableCertaintyInIsset()
+	public function testVariableCertaintyInIsset(): void
 	{
 		$this->analyse([__DIR__ . '/data/variable-certainty-isset.php'], [
 			[
@@ -76,7 +76,7 @@ class VariableCertaintyInIssetRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testIssetInGlobalScope()
+	public function testIssetInGlobalScope(): void
 	{
 		$this->analyse([__DIR__ . '/data/isset-global-scope.php'], [
 			[

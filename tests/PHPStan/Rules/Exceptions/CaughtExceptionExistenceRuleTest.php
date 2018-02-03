@@ -12,7 +12,7 @@ class CaughtExceptionExistenceRuleTest extends \PHPStan\Testing\RuleTestCase
 		);
 	}
 
-	public function testCheckCaughtException()
+	public function testCheckCaughtException(): void
 	{
 		$this->analyse([__DIR__ . '/data/catch.php'], [
 			[

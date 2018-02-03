@@ -13,7 +13,7 @@ class ClosureReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new ClosureReturnTypeRule(new FunctionReturnTypeCheck(new \PhpParser\PrettyPrinter\Standard(), new RuleLevelHelper($this->createBroker(), true, false, true)));
 	}
 
-	public function testClosureReturnTypeRule()
+	public function testClosureReturnTypeRule(): void
 	{
 		$this->analyse([__DIR__ . '/data/closureReturnTypes.php'], [
 			[
@@ -39,7 +39,7 @@ class ClosureReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testClosureReturnTypePhp71Typehints()
+	public function testClosureReturnTypePhp71Typehints(): void
 	{
 		$this->analyse([__DIR__ . '/data/closure-7.1ReturnTypes.php'], [
 			[

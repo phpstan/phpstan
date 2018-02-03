@@ -13,7 +13,7 @@ class IterableInForeachRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new IterableInForeachRule($this->checkUnionTypes);
 	}
 
-	public function testCheckWithoutUnionTypes()
+	public function testCheckWithoutUnionTypes(): void
 	{
 		$this->checkUnionTypes = false;
 		$this->analyse([__DIR__ . '/data/foreach-iterable.php'], [
@@ -24,7 +24,7 @@ class IterableInForeachRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testCheckWithUnionTypes()
+	public function testCheckWithUnionTypes(): void
 	{
 		$this->checkUnionTypes = true;
 		$this->analyse([__DIR__ . '/data/foreach-iterable.php'], [

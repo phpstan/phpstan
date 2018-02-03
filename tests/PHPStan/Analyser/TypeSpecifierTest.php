@@ -30,7 +30,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 	/** @var Scope */
 	private $scope;
 
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$broker = $this->createBroker();
 		$this->printer = new \PhpParser\PrettyPrinter\Standard();
@@ -49,7 +49,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 	 * @param array $expectedPositiveResult
 	 * @param array $expectedNegatedResult
 	 */
-	public function testCondition(Expr $expr, array $expectedPositiveResult, array $expectedNegatedResult)
+	public function testCondition(Expr $expr, array $expectedPositiveResult, array $expectedNegatedResult): void
 	{
 		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this->scope, $expr, TypeSpecifier::CONTEXT_TRUTHY);
 		$actualResult = $this->toReadableResult($specifiedTypes);

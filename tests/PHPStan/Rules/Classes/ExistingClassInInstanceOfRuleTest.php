@@ -18,7 +18,7 @@ class ExistingClassInInstanceOfRuleTest extends \PHPStan\Testing\RuleTestCase
 		);
 	}
 
-	public function testClassDoesNotExist()
+	public function testClassDoesNotExist(): void
 	{
 		$this->analyse(
 			[

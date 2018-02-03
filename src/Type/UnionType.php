@@ -19,7 +19,7 @@ class UnionType implements CompoundType, StaticResolvableType
 	 */
 	public function __construct(array $types)
 	{
-		$throwException = function () use ($types) {
+		$throwException = function () use ($types): void {
 			throw new \PHPStan\ShouldNotHappenException(sprintf(
 				'Cannot create %s with: %s',
 				self::class,

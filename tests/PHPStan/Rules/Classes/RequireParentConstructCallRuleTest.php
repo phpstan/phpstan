@@ -10,7 +10,7 @@ class RequireParentConstructCallRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new RequireParentConstructCallRule();
 	}
 
-	public function testCallToParentConstructor()
+	public function testCallToParentConstructor(): void
 	{
 		if (!extension_loaded('soap')) {
 			$this->markTestSkipped('Extension SOAP needed');
@@ -44,7 +44,7 @@ class RequireParentConstructCallRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testCheckInTraits()
+	public function testCheckInTraits(): void
 	{
 		$this->analyse([__DIR__ . '/data/call-to-parent-constructor-in-trait.php'], []);
 	}

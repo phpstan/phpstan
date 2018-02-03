@@ -17,13 +17,13 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		);
 	}
 
-	public function testCallToFunctionWithoutParameters()
+	public function testCallToFunctionWithoutParameters(): void
 	{
 		require_once __DIR__ . '/data/existing-function-definition.php';
 		$this->analyse([__DIR__ . '/data/existing-function.php'], []);
 	}
 
-	public function testCallToFunctionWithIncorrectParameters()
+	public function testCallToFunctionWithIncorrectParameters(): void
 	{
 		require_once __DIR__ . '/data/incorrect-call-to-function-definition.php';
 		$this->analyse([__DIR__ . '/data/incorrect-call-to-function.php'], [
@@ -42,7 +42,7 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testCallToFunctionWithOptionalParameters()
+	public function testCallToFunctionWithOptionalParameters(): void
 	{
 		require_once __DIR__ . '/data/call-to-function-with-optional-parameters-definition.php';
 		$this->analyse([__DIR__ . '/data/call-to-function-with-optional-parameters.php'], [
@@ -61,7 +61,7 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testCallToFunctionWithDynamicParameters()
+	public function testCallToFunctionWithDynamicParameters(): void
 	{
 		require_once __DIR__ . '/data/function-with-variadic-parameters-definition.php';
 		$this->analyse([__DIR__ . '/data/function-with-variadic-parameters.php'], [
@@ -80,7 +80,7 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testCallToFunctionWithNullableDynamicParameters()
+	public function testCallToFunctionWithNullableDynamicParameters(): void
 	{
 		require_once __DIR__ . '/data/function-with-nullable-variadic-parameters-definition.php';
 		$this->analyse([__DIR__ . '/data/function-with-nullable-variadic-parameters.php'], [
@@ -91,7 +91,7 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testCallToFunctionWithDynamicIterableParameters()
+	public function testCallToFunctionWithDynamicIterableParameters(): void
 	{
 		require_once __DIR__ . '/data/function-with-variadic-parameters-definition.php';
 		$this->analyse([__DIR__ . '/data/function-with-variadic-parameters-7.1.php'], [
@@ -102,7 +102,7 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testCallToArrayUnique()
+	public function testCallToArrayUnique(): void
 	{
 		$this->analyse([__DIR__ . '/data/call-to-array-unique.php'], [
 			[
@@ -112,12 +112,12 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testCallToArrayMapVariadic()
+	public function testCallToArrayMapVariadic(): void
 	{
 		$this->analyse([__DIR__ . '/data/call-to-array-map-unique.php'], []);
 	}
 
-	public function testCallToWeirdFunctions()
+	public function testCallToWeirdFunctions(): void
 	{
 		$this->analyse([__DIR__ . '/data/call-to-weird-functions.php'], [
 			[
@@ -174,7 +174,7 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 	/**
 	 * @requires PHP 7.1.1
 	 */
-	public function testUnpackOnAfter711()
+	public function testUnpackOnAfter711(): void
 	{
 		$this->analyse([__DIR__ . '/data/unpack.php'], [
 			[
@@ -184,7 +184,7 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testUnpackOnBefore711()
+	public function testUnpackOnBefore711(): void
 	{
 		if (PHP_VERSION_ID >= 70101) {
 			$this->markTestSkipped('This test requires PHP < 7.1.1');
@@ -201,7 +201,7 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testPassingNonVariableToParameterPassedByReference()
+	public function testPassingNonVariableToParameterPassedByReference(): void
 	{
 		require_once __DIR__ . '/data/passed-by-reference.php';
 		$this->analyse([__DIR__ . '/data/passed-by-reference.php'], [
@@ -216,19 +216,19 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testVariableIsNotNullAfterSeriesOfConditions()
+	public function testVariableIsNotNullAfterSeriesOfConditions(): void
 	{
 		require_once __DIR__ . '/data/variable-is-not-null-after-conditions.php';
 		$this->analyse([__DIR__ . '/data/variable-is-not-null-after-conditions.php'], []);
 	}
 
-	public function testUnionIterableTypeShouldAcceptTypeFromOtherTypes()
+	public function testUnionIterableTypeShouldAcceptTypeFromOtherTypes(): void
 	{
 		require_once __DIR__ . '/data/union-iterable-type-issue.php';
 		$this->analyse([__DIR__ . '/data/union-iterable-type-issue.php'], []);
 	}
 
-	public function testCallToFunctionInForeachCondition()
+	public function testCallToFunctionInForeachCondition(): void
 	{
 		require_once __DIR__ . '/data/foreach-condition.php';
 		$this->analyse([__DIR__ . '/data/foreach-condition.php'], [
@@ -239,7 +239,7 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testCallToFunctionInDoWhileLoop()
+	public function testCallToFunctionInDoWhileLoop(): void
 	{
 		require_once __DIR__ . '/data/do-while-loop.php';
 		$this->analyse([__DIR__ . '/data/do-while-loop.php'], [

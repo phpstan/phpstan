@@ -27,7 +27,7 @@ class UniversalObjectCratesClassReflectionExtension
 		$this->classes = $classes;
 	}
 
-	public function setBroker(Broker $broker)
+	public function setBroker(Broker $broker): void
 	{
 		$this->broker = $broker;
 	}

@@ -12,7 +12,7 @@ class TypesAssignedToPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new TypesAssignedToPropertiesRule(new RuleLevelHelper($this->createBroker(), true, false, true), new PropertyDescriptor(), new PropertyReflectionFinder());
 	}
 
-	public function testTypesAssignedToProperties()
+	public function testTypesAssignedToProperties(): void
 	{
 		$this->analyse([__DIR__ . '/data/properties-assigned-types.php'], [
 			[

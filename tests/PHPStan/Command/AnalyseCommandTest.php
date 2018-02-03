@@ -12,7 +12,7 @@ class AnalyseCommandTest extends \PHPStan\Testing\TestCase
 	 * @param string $file
 	 * @dataProvider autoDiscoveryPathsProvider
 	 */
-	public function testConfigurationAutoDiscovery(string $dir, string $file)
+	public function testConfigurationAutoDiscovery(string $dir, string $file): void
 	{
 		$originalDir = getcwd();
 		chdir($dir);

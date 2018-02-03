@@ -154,7 +154,7 @@ class Analyser
 				$this->nodeScopeResolver->processNodes(
 					$this->parser->parseFile($file),
 					new Scope($this->broker, $this->printer, $this->typeSpecifier, $file),
-					function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors) {
+					function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors): void {
 						foreach ($this->registry->getRules(get_class($node)) as $rule) {
 							$ruleErrors = $this->createErrors(
 								$node,

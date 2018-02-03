@@ -41,7 +41,7 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 	 * @param Type $otherType
 	 * @param bool $expectedResult
 	 */
-	public function testAccepts(IntersectionType $type, Type $otherType, bool $expectedResult)
+	public function testAccepts(IntersectionType $type, Type $otherType, bool $expectedResult): void
 	{
 		$this->createBroker();
 
@@ -78,7 +78,7 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 	 * @param IntersectionType $type
 	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsCallable(IntersectionType $type, TrinaryLogic $expectedResult)
+	public function testIsCallable(IntersectionType $type, TrinaryLogic $expectedResult): void
 	{
 		$this->createBroker();
 
@@ -140,7 +140,7 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 	 * @param Type $otherType
 	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSuperTypeOf(IntersectionType $type, Type $otherType, TrinaryLogic $expectedResult)
+	public function testIsSuperTypeOf(IntersectionType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
 		$this->createBroker();
 
@@ -257,7 +257,7 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 	 * @param Type $otherType
 	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSubTypeOf(IntersectionType $type, Type $otherType, TrinaryLogic $expectedResult)
+	public function testIsSubTypeOf(IntersectionType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
 		$this->createBroker();
 
@@ -275,7 +275,7 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 	 * @param Type $otherType
 	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSubTypeOfInversed(IntersectionType $type, Type $otherType, TrinaryLogic $expectedResult)
+	public function testIsSubTypeOfInversed(IntersectionType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
 		$this->createBroker();
 

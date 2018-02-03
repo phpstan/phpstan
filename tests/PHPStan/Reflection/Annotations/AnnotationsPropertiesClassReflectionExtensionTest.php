@@ -214,7 +214,7 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\Testing
 	 * @param string $className
 	 * @param mixed[] $properties
 	 */
-	public function testProperties(string $className, array $properties)
+	public function testProperties(string $className, array $properties): void
 	{
 		/** @var Broker $broker */
 		$broker = $this->getContainer()->getByType(Broker::class);
@@ -253,7 +253,7 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\Testing
 		}
 	}
 
-	public function testOverridingNativePropertiesWithAnnotationsDoesNotBreakGetNativeProperty()
+	public function testOverridingNativePropertiesWithAnnotationsDoesNotBreakGetNativeProperty(): void
 	{
 		$broker = $this->getContainer()->getByType(Broker::class);
 		$class = $broker->getClass(\AnnotationsProperties\Bar::class);

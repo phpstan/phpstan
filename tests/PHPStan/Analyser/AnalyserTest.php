@@ -13,7 +13,7 @@ use PHPStan\Type\FileTypeMapper;
 class AnalyserTest extends \PHPStan\Testing\TestCase
 {
 
-	public function testReturnErrorIfIgnoredMessagesDoesNotOccur()
+	public function testReturnErrorIfIgnoredMessagesDoesNotOccur(): void
 	{
 		$result = $this->runAnalyser(['#Unknown error#'], null, true, __DIR__ . '/data/empty/empty.php', false);
 		$this->assertInternalType('array', $result);
@@ -22,21 +22,21 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		], $result);
 	}
 
-	public function testDoNotReturnErrorIfIgnoredMessagesDoesNotOccurWithReportUnmatchedIgnoredErrorsOff()
+	public function testDoNotReturnErrorIfIgnoredMessagesDoesNotOccurWithReportUnmatchedIgnoredErrorsOff(): void
 	{
 		$result = $this->runAnalyser(['#Unknown error#'], null, false, __DIR__ . '/data/empty/empty.php', false);
 		$this->assertInternalType('array', $result);
 		$this->assertEmpty($result);
 	}
 
-	public function testDoNotReturnErrorIfIgnoredMessagesDoNotOccurWhileAnalysingIndividualFiles()
+	public function testDoNotReturnErrorIfIgnoredMessagesDoNotOccurWhileAnalysingIndividualFiles(): void
 	{
 		$result = $this->runAnalyser(['#Unknown error#'], null, true, __DIR__ . '/data/empty/empty.php', true);
 		$this->assertInternalType('array', $result);
 		$this->assertEmpty($result);
 	}
 
-	public function testReportInvalidIgnorePatternEarly()
+	public function testReportInvalidIgnorePatternEarly(): void
 	{
 		$result = $this->runAnalyser(['#Regexp syntax error'], null, true, __DIR__ . '/data/parse-error.php', false);
 		$this->assertInternalType('array', $result);
@@ -45,7 +45,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		], $result);
 	}
 
-	public function testNonexistentBootstrapFile()
+	public function testNonexistentBootstrapFile(): void
 	{
 		$result = $this->runAnalyser([], __DIR__ . '/foo.php', true, __DIR__ . '/data/empty/empty.php', false);
 		$this->assertInternalType('array', $result);
@@ -53,7 +53,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		$this->assertContains('does not exist', $result[0]);
 	}
 
-	public function testBootstrapFile()
+	public function testBootstrapFile(): void
 	{
 		$result = $this->runAnalyser([], __DIR__ . '/data/bootstrap.php', true, __DIR__ . '/data/empty/empty.php', false);
 		$this->assertInternalType('array', $result);
@@ -61,7 +61,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		$this->assertSame('fooo', PHPSTAN_TEST_CONSTANT);
 	}
 
-	public function testBootstrapFileWithAnError()
+	public function testBootstrapFileWithAnError(): void
 	{
 		$result = $this->runAnalyser([], __DIR__ . '/data/bootstrap-error.php', true, __DIR__ . '/data/empty/empty.php', false);
 		$this->assertInternalType('array', $result);
@@ -71,14 +71,14 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		], $result);
 	}
 
-	public function testFileWithAnIgnoredError()
+	public function testFileWithAnIgnoredError(): void
 	{
 		$result = $this->runAnalyser(['#Fail\.#'], null, true, __DIR__ . '/data/bootstrap-error.php', false);
 		$this->assertInternalType('array', $result);
 		$this->assertEmpty($result);
 	}
 
-	public function testIgnoringBrokenConfigurationDoesNotWork()
+	public function testIgnoringBrokenConfigurationDoesNotWork(): void
 	{
 		$result = $this->runAnalyser(['#was not found while trying to analyse it#'], null, true, __DIR__ . '/../../notAutoloaded/Baz.php', false);
 		$this->assertInternalType('array', $result);

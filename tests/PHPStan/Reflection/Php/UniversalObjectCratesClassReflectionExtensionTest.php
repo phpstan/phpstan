@@ -7,7 +7,7 @@ use PHPStan\Broker\Broker;
 class UniversalObjectCratesClassReflectionExtensionTest extends \PHPStan\Testing\TestCase
 {
 
-	public function testNonexistentClass()
+	public function testNonexistentClass(): void
 	{
 		$broker = $this->getContainer()->getByType(Broker::class);
 		$extension = new UniversalObjectCratesClassReflectionExtension([

@@ -5,7 +5,7 @@ namespace PHPStan\Rules;
 class RegistryTest extends \PHPStan\Testing\TestCase
 {
 
-	public function testGetRules()
+	public function testGetRules(): void
 	{
 		$rule = new DummyRule();
 

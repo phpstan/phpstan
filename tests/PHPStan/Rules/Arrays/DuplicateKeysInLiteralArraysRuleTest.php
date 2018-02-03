@@ -13,7 +13,7 @@ class DuplicateKeysInLiteralArraysRuleTest extends \PHPStan\Testing\RuleTestCase
 		);
 	}
 
-	public function testDuplicateKeys()
+	public function testDuplicateKeys(): void
 	{
 		define('PHPSTAN_DUPLICATE_KEY', 0);
 		$this->analyse([__DIR__ . '/data/duplicate-keys.php'], [

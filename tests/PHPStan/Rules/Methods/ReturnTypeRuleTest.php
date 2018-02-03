@@ -13,7 +13,7 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new ReturnTypeRule(new FunctionReturnTypeCheck(new \PhpParser\PrettyPrinter\Standard(), new RuleLevelHelper($this->createBroker(), true, false, true)));
 	}
 
-	public function testReturnTypeRule()
+	public function testReturnTypeRule(): void
 	{
 		$this->analyse([__DIR__ . '/data/returnTypes.php'], [
 			[
@@ -183,7 +183,7 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testMisleadingTypehintsInClassWithoutNamespace()
+	public function testMisleadingTypehintsInClassWithoutNamespace(): void
 	{
 		$this->analyse([__DIR__ . '/data/misleadingTypehints.php'], [
 			[
@@ -213,7 +213,7 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testOverridenTypeFromIfConditionShouldNotBeMixedAfterBranch()
+	public function testOverridenTypeFromIfConditionShouldNotBeMixedAfterBranch(): void
 	{
 		$this->analyse([__DIR__ . '/data/returnTypes-overridenTypeInIfCondition.php'], [
 			[
@@ -223,12 +223,12 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testReturnStaticFromParent()
+	public function testReturnStaticFromParent(): void
 	{
 		$this->analyse([__DIR__ . '/data/return-static-from-parent.php'], []);
 	}
 
-	public function testReturnIterable()
+	public function testReturnIterable(): void
 	{
 		$this->analyse([__DIR__ . '/data/returnTypes-iterable.php'], [
 			[

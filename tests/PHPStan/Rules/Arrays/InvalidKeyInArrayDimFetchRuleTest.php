@@ -10,7 +10,7 @@ class InvalidKeyInArrayDimFetchRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new InvalidKeyInArrayDimFetchRule();
 	}
 
-	public function testInvalidKey()
+	public function testInvalidKey(): void
 	{
 		$this->analyse([__DIR__ . '/data/invalid-key-array-dim-fetch.php'], [
 			[

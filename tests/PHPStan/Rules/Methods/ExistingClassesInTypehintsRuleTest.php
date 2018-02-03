@@ -14,7 +14,7 @@ class ExistingClassesInTypehintsRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new ExistingClassesInTypehintsRule(new FunctionDefinitionCheck($broker, new ClassCaseSensitivityCheck($broker), true, false));
 	}
 
-	public function testExistingClassInTypehint()
+	public function testExistingClassInTypehint(): void
 	{
 		$this->analyse([__DIR__ . '/data/typehints.php'], [
 			[
@@ -116,7 +116,7 @@ class ExistingClassesInTypehintsRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testExistingClassInIterableTypehint()
+	public function testExistingClassInIterableTypehint(): void
 	{
 		$this->analyse([__DIR__ . '/data/typehints-iterable.php'], [
 			[

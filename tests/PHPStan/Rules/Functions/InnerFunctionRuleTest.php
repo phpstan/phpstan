@@ -10,7 +10,7 @@ class InnerFunctionRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new InnerFunctionRule();
 	}
 
-	public function testInnerFunction()
+	public function testInnerFunction(): void
 	{
 		$this->analyse([__DIR__ . '/data/inner-functions.php'], [
 			[

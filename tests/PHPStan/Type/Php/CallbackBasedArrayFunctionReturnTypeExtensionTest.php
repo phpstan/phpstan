@@ -37,7 +37,7 @@ class CallbackBasedArrayFunctionReturnTypeExtensionTest extends \PHPStan\Testing
 	 * @param mixed[] $functionArguments
 	 * @param string $expectedDescription
 	 */
-	public function testFunctions(string $functionName, array $functionArguments, string $expectedDescription)
+	public function testFunctions(string $functionName, array $functionArguments, string $expectedDescription): void
 	{
 		$functionCall = new FuncCall(new Name($functionName), $functionArguments);
 		$extension = new CallbackBasedArrayFunctionReturnTypeExtension();

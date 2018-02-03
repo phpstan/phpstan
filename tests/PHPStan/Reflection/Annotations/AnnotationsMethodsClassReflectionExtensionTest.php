@@ -952,7 +952,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\Testing\Te
 	 * @param string $className
 	 * @param mixed[] $methods
 	 */
-	public function testMethods(string $className, array $methods)
+	public function testMethods(string $className, array $methods): void
 	{
 		/** @var Broker $broker */
 		$broker = $this->getContainer()->getByType(Broker::class);
@@ -1015,7 +1015,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\Testing\Te
 		}
 	}
 
-	public function testOverridingNativeMethodsWithAnnotationsDoesNotBreakGetNativeMethod()
+	public function testOverridingNativeMethodsWithAnnotationsDoesNotBreakGetNativeMethod(): void
 	{
 		$broker = $this->getContainer()->getByType(Broker::class);
 		$class = $broker->getClass(\AnnotationsMethods\Bar::class);

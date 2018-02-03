@@ -12,12 +12,12 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 	 */
 	private $fileHelper;
 
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->fileHelper = $this->getContainer()->getByType(FileHelper::class);
 	}
 
-	public function testMethodIsInClassUsingTrait()
+	public function testMethodIsInClassUsingTrait(): void
 	{
 		$errors = $this->runAnalyse([
 			__DIR__ . '/traits/Foo.php',
@@ -26,7 +26,7 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertEmpty($errors);
 	}
 
-	public function testMethodDoesNotExist()
+	public function testMethodDoesNotExist(): void
 	{
 		$errors = $this->runAnalyse([
 			__DIR__ . '/traits/Bar.php',
@@ -42,7 +42,7 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(10, $error->getLine());
 	}
 
-	public function testNestedTraits()
+	public function testNestedTraits(): void
 	{
 		$errors = $this->runAnalyse([
 			__DIR__ . '/traits/NestedBar.php',
@@ -67,7 +67,7 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(12, $secondError->getLine());
 	}
 
-	public function testTraitsAreNotAnalysedDirectly()
+	public function testTraitsAreNotAnalysedDirectly(): void
 	{
 		$errors = $this->runAnalyse([__DIR__ . '/traits/FooTrait.php']);
 		$this->assertEmpty($errors);
@@ -75,19 +75,19 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertEmpty($errors);
 	}
 
-	public function testClassAndTraitInTheSameFile()
+	public function testClassAndTraitInTheSameFile(): void
 	{
 		$errors = $this->runAnalyse([__DIR__ . '/traits/classAndTrait.php']);
 		$this->assertEmpty($errors);
 	}
 
-	public function testTraitMethodAlias()
+	public function testTraitMethodAlias(): void
 	{
 		$errors = $this->runAnalyse([__DIR__ . '/traits/trait-aliases.php']);
 		$this->assertEmpty($errors);
 	}
 
-	public function testFindErrorsInTrait()
+	public function testFindErrorsInTrait(): void
 	{
 		$errors = $this->runAnalyse([__DIR__ . '/traits/trait-error.php']);
 		$this->assertCount(3, $errors);
@@ -96,7 +96,7 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertSame('Undefined variable: $undefined', $errors[2]->getMessage());
 	}
 
-	public function testTraitInAnonymousClass()
+	public function testTraitInAnonymousClass(): void
 	{
 		$errors = $this->runAnalyse(
 			[

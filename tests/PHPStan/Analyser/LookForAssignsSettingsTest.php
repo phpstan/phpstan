@@ -81,7 +81,7 @@ class LookForAssignsSettingsTest extends \PHPStan\Testing\TestCase
 		LookForAssignsSettings $settings,
 		\PhpParser\Node $earlyTerminationStatement,
 		bool $expectedResult
-	)
+	): void
 	{
 		$this->assertSame(
 			$expectedResult,
@@ -150,7 +150,7 @@ class LookForAssignsSettingsTest extends \PHPStan\Testing\TestCase
 		LookForAssignsSettings $settings,
 		\PhpParser\Node $earlyTerminationStatement = null,
 		bool $expectedResult
-	)
+	): void
 	{
 		$this->assertSame(
 			$expectedResult,

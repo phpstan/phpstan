@@ -10,7 +10,7 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 		return new StrictComparisonOfDifferentTypesRule();
 	}
 
-	public function testStrictComparison()
+	public function testStrictComparison(): void
 	{
 		$this->analyse(
 			[__DIR__ . '/data/strict-comparison.php'],
@@ -95,7 +95,7 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 		);
 	}
 
-	public function testStrictComparisonPhp71()
+	public function testStrictComparisonPhp71(): void
 	{
 		$this->analyse([__DIR__ . '/data/strict-comparison-71.php'], []);
 	}

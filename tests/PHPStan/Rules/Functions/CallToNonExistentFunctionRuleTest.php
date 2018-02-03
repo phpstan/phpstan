@@ -10,18 +10,18 @@ class CallToNonExistentFunctionRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new CallToNonExistentFunctionRule($this->createBroker());
 	}
 
-	public function testEmptyFile()
+	public function testEmptyFile(): void
 	{
 		$this->analyse([__DIR__ . '/data/empty.php'], []);
 	}
 
-	public function testCallToExistingFunction()
+	public function testCallToExistingFunction(): void
 	{
 		require_once __DIR__ . '/data/existing-function-definition.php';
 		$this->analyse([__DIR__ . '/data/existing-function.php'], []);
 	}
 
-	public function testCallToNonexistentFunction()
+	public function testCallToNonexistentFunction(): void
 	{
 		$this->analyse([__DIR__ . '/data/nonexistent-function.php'], [
 			[
@@ -31,7 +31,7 @@ class CallToNonExistentFunctionRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testCallToNonexistentNestedFunction()
+	public function testCallToNonexistentNestedFunction(): void
 	{
 		$this->analyse([__DIR__ . '/data/nonexistent-nested-function.php'], [
 			[
@@ -41,7 +41,7 @@ class CallToNonExistentFunctionRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testCallToIncorrectCaseFunctionName()
+	public function testCallToIncorrectCaseFunctionName(): void
 	{
 		require_once __DIR__ . '/data/incorrect-function-case-definition.php';
 		$this->analyse([__DIR__ . '/data/incorrect-function-case.php'], [

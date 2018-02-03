@@ -49,7 +49,7 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 	 * @param Type $otherType
 	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSuperTypeOf(ArrayType $type, Type $otherType, TrinaryLogic $expectedResult)
+	public function testIsSuperTypeOf(ArrayType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
 		$this->createBroker();
 

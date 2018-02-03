@@ -61,7 +61,7 @@ class PhpClassReflectionExtension
 		$this->annotationsPropertiesClassReflectionExtension = $annotationsPropertiesClassReflectionExtension;
 	}
 
-	public function setBroker(Broker $broker)
+	public function setBroker(Broker $broker): void
 	{
 		$this->broker = $broker;
 	}

@@ -123,7 +123,7 @@ class NodeScopeResolver
 	/**
 	 * @param string[] $files
 	 */
-	public function setAnalysedFiles(array $files)
+	public function setAnalysedFiles(array $files): void
 	{
 		$this->analysedFiles = array_fill_keys($files, true);
 	}
@@ -139,7 +139,7 @@ class NodeScopeResolver
 		Scope $scope,
 		\Closure $nodeCallback,
 		Scope $closureBindScope = null
-	)
+	): void
 	{
 		/** @var \PhpParser\Node|string $node */
 		foreach ($nodes as $i => $node) {
@@ -179,7 +179,7 @@ class NodeScopeResolver
 			if ($node instanceof If_) {
 				if ($this->findEarlyTermination($node->stmts, $scope) !== null) {
 					$scope = $scope->filterByFalseyValue($node->cond);
-					$this->processNode($node->cond, $scope, function (Node $node, Scope $inScope) use (&$scope) {
+					$this->processNode($node->cond, $scope, function (Node $node, Scope $inScope) use (&$scope): void {
 						$this->specifyFetchedPropertyForInnerScope($node, $inScope, true, $scope);
 					});
 				}
@@ -220,7 +220,7 @@ class NodeScopeResolver
 		return $scope;
 	}
 
-	private function specifyFetchedPropertyForInnerScope(Node $node, Scope $inScope, bool $inEarlyTermination, Scope &$scope)
+	private function specifyFetchedPropertyForInnerScope(Node $node, Scope $inScope, bool $inEarlyTermination, Scope &$scope): void
 	{
 		if ($inEarlyTermination === $inScope->isNegated()) {
 			if ($node instanceof Isset_) {
@@ -311,7 +311,7 @@ class NodeScopeResolver
 		return $this->lookForAssigns($scope, $node->valueVar, TrinaryLogic::createYes());
 	}
 
-	private function processNode(\PhpParser\Node $node, Scope $scope, \Closure $nodeCallback, bool $stopImmediately = false)
+	private function processNode(\PhpParser\Node $node, Scope $scope, \Closure $nodeCallback, bool $stopImmediately = false): void
 	{
 		$nodeCallback($node, $scope);
 		if ($stopImmediately) {
@@ -468,7 +468,7 @@ class NodeScopeResolver
 			$ifScope = $scope;
 			$scope = $scope->filterByTruthyValue($node->cond);
 
-			$specifyFetchedProperty = function (Node $node, Scope $inScope) use (&$scope) {
+			$specifyFetchedProperty = function (Node $node, Scope $inScope) use (&$scope): void {
 				$this->specifyFetchedPropertyForInnerScope($node, $inScope, false, $scope);
 			};
 			$this->processNode($node->cond, $scope, $specifyFetchedProperty);
@@ -741,12 +741,12 @@ class NodeScopeResolver
 					$scope = $this->lookForAssigns($scope, $node->cond, TrinaryLogic::createYes());
 					if ($subNodeName === 'if') {
 						$scope = $scope->filterByTruthyValue($node->cond);
-						$this->processNode($node->cond, $scope, function (Node $node, Scope $inScope) use (&$scope) {
+						$this->processNode($node->cond, $scope, function (Node $node, Scope $inScope) use (&$scope): void {
 							$this->specifyFetchedPropertyForInnerScope($node, $inScope, false, $scope);
 						});
 					} elseif ($subNodeName === 'else') {
 						$scope = $scope->filterByFalseyValue($node->cond);
-						$this->processNode($node->cond, $scope, function (Node $node, Scope $inScope) use (&$scope) {
+						$this->processNode($node->cond, $scope, function (Node $node, Scope $inScope) use (&$scope): void {
 							$this->specifyFetchedPropertyForInnerScope($node, $inScope, true, $scope);
 						});
 					}
@@ -1393,7 +1393,7 @@ class NodeScopeResolver
 		return null;
 	}
 
-	private function processTraitUse(Node\Stmt\TraitUse $node, Scope $classScope, \Closure $nodeCallback)
+	private function processTraitUse(Node\Stmt\TraitUse $node, Scope $classScope, \Closure $nodeCallback): void
 	{
 		foreach ($node->traits as $trait) {
 			$traitName = (string) $trait;
@@ -1432,7 +1432,7 @@ class NodeScopeResolver
 	 * @param \PHPStan\Analyser\Scope $classScope
 	 * @param \Closure $nodeCallback
 	 */
-	private function processNodesForTraitUse($node, string $traitName, Scope $classScope, \Closure $nodeCallback)
+	private function processNodesForTraitUse($node, string $traitName, Scope $classScope, \Closure $nodeCallback): void
 	{
 		if ($node instanceof Node) {
 			if ($node instanceof Node\Stmt\Trait_ && $traitName === (string) $node->namespacedName) {

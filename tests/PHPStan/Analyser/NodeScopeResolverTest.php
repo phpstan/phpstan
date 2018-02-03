@@ -20,9 +20,9 @@ use SomeNodeScopeResolverNamespace\Foo;
 class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 {
 
-	public function testClassMethodScope()
+	public function testClassMethodScope(): void
 	{
-		$this->processFile(__DIR__ . '/data/class.php', function (\PhpParser\Node $node, Scope $scope) {
+		$this->processFile(__DIR__ . '/data/class.php', function (\PhpParser\Node $node, Scope $scope): void {
 			if ($node instanceof Exit_) {
 				$this->assertSame('SomeNodeScopeResolverNamespace', $scope->getNamespace());
 				$this->assertSame(Foo::class, $scope->getClassReflection()->getName());
@@ -43,7 +43,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		/** @var \PHPStan\Analyser\Scope $testScope */
 		$testScope = null;
-		$this->processFile(__DIR__ . '/data/if.php', function (\PhpParser\Node $node, Scope $scope) use (&$testScope) {
+		$this->processFile(__DIR__ . '/data/if.php', function (\PhpParser\Node $node, Scope $scope) use (&$testScope): void {
 			if ($node instanceof Exit_) {
 				$testScope = $scope;
 			}
@@ -585,7 +585,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testUnionInCatch(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/catch-union.php',
@@ -712,7 +712,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testUnionAndIntersection(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/union-intersection.php',
@@ -735,7 +735,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		TrinaryLogic $expectedCertainty,
 		string $typeDescription = null,
 		string $iterableValueTypeDescription = null
-	)
+	): void
 	{
 		$certainty = $scope->hasVariableType($variableName);
 		$this->assertTrue(
@@ -776,9 +776,9 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		}
 	}
 
-	public function testArrayDestructuringShortSyntax()
+	public function testArrayDestructuringShortSyntax(): void
 	{
-		$this->processFile(__DIR__ . '/data/array-destructuring-short.php', function (\PhpParser\Node $node, Scope $scope) {
+		$this->processFile(__DIR__ . '/data/array-destructuring-short.php', function (\PhpParser\Node $node, Scope $scope): void {
 			if ($node instanceof Exit_) {
 				$this->assertTrue($scope->hasVariableType('a')->yes());
 				$this->assertTrue($scope->hasVariableType('b')->yes());
@@ -863,7 +863,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testTypehints(
 		string $typeClass,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/typehints.php',
@@ -926,7 +926,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testAnonymousFunctionTypehints(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/typehints-anonymous-function.php',
@@ -1001,7 +1001,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testVarAnnotations(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/var-annotations.php',
@@ -1048,7 +1048,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testCasts(
 		string $desciptiion,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/casts.php',
@@ -1075,7 +1075,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testUnsetCast(
 		string $desciptiion,
 		string $expression
-	)
+	): void
 	{
 		if (PHP_VERSION_ID >= 70200) {
 			$this->markTestSkipped(
@@ -1211,7 +1211,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testDeductedTypes(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		require_once __DIR__ . '/data/function-definitions.php';
 		$this->assertTypes(
@@ -1363,7 +1363,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testProperties(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/properties.php',
@@ -1815,7 +1815,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testBinaryOperations(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/binary.php',
@@ -1842,7 +1842,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testCloneOperators(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/clone.php',
@@ -1885,7 +1885,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testLiteralArrays(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/literal-arrays.php',
@@ -1960,7 +1960,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testLiteralArraysKeys(
 		string $description,
 		string $evaluatedPointExpressionType
-	)
+	): void
 	{
 		if (!defined('STRING_ONE')) {
 			define('STRING_ONE', '1');
@@ -2147,7 +2147,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testTypeFromFunctionPhpDocs(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		require_once __DIR__ . '/data/functionPhpDocs.php';
 		$this->assertTypes(
@@ -2273,7 +2273,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testTypeFromMethodPhpDocs(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/methodPhpDocs.php',
@@ -2293,7 +2293,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		string $description,
 		string $expression,
 		bool $replaceClass = true
-	)
+	): void
 	{
 		if ($replaceClass) {
 			$description = str_replace('$this(MethodPhpDocsNamespace\Foo)', '$this(MethodPhpDocsNamespace\FooInheritDocChild)', $description);
@@ -2364,7 +2364,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testInstanceOf(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/instanceof.php',
@@ -2373,7 +2373,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
-	public function testNotSwitchInstanceof()
+	public function testNotSwitchInstanceof(): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/switch-instanceof-not.php',
@@ -2408,7 +2408,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testSwitchInstanceof(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/switch-instanceof.php',
@@ -2443,7 +2443,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		string $description,
 		string $expression,
 		string $evaluatedPointExpression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/switch-get-class.php',
@@ -2533,7 +2533,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testDynamicMethodReturnTypeExtensions(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/dynamic-method-return-types.php',
@@ -2639,7 +2639,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		string $description,
 		string $expression,
 		string $evaluatedPointExpressionType
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/overwritingVariable.php',
@@ -2709,7 +2709,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testNegatedInstanceof(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/negated-instanceof.php',
@@ -2744,7 +2744,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testAnonymousFunction(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/anonymous-function.php',
@@ -2874,7 +2874,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		string $file,
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			$file,
@@ -2904,7 +2904,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		string $file,
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			$file,
@@ -2967,7 +2967,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		string $description,
 		string $expression,
 		string $evaluatedPointExpression
-	)
+	): void
 	{
 		$this->assertTypes(
 			$file,
@@ -3041,7 +3041,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testArrayFunctions(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/array-functions.php',
@@ -3136,7 +3136,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testSpecifiedTypesUsingIsFunctions(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/specifiedTypesUsingIsFunctions.php',
@@ -3283,7 +3283,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testIterable(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/iterable.php',
@@ -3322,7 +3322,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testArrayAccess(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/array-accessable.php',
@@ -3357,7 +3357,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testVoid(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/void.php',
@@ -3396,7 +3396,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testNullableReturnTypes(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/nullable-returnTypes.php',
@@ -3431,7 +3431,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testTernary(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/ternary.php',
@@ -3462,7 +3462,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testHeredoc(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/heredoc.php',
@@ -3637,7 +3637,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		string $description,
 		string $expression,
 		string $evaluatedPointExpression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/type-elimination.php',
@@ -3675,7 +3675,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testMisleadingTypes(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/misleading-types.php',
@@ -3706,7 +3706,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testMisleadingTypesWithoutNamespace(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/misleading-types-without-namespace.php',
@@ -3741,7 +3741,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testUnresolvableTypes(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/unresolvable-types.php',
@@ -3772,7 +3772,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testCombineTypes(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/combine-types.php',
@@ -3803,7 +3803,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testConstants(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		if (!defined('ConstantsForNodeScopeResolverTest\\FOO_CONSTANT')) {
 			define('ConstantsForNodeScopeResolverTest\\FOO_CONSTANT', 1);
@@ -3837,7 +3837,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testFinally(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/finally.php',
@@ -3854,7 +3854,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testFinallyWithEarlyTermination(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/finally-with-early-termination.php',
@@ -3881,7 +3881,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testInheritDocFromInterface(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/inheritdoc-from-interface.php',
@@ -3912,7 +3912,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testResolveStatic(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/resolve-static.php',
@@ -3994,7 +3994,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		string $description,
 		string $expression,
 		string $evaluatedPointExpression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/foreach-loop-variables.php',
@@ -4016,7 +4016,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		string $description,
 		string $expression,
 		string $evaluatedPointExpression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/while-loop-variables.php',
@@ -4038,7 +4038,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		string $description,
 		string $expression,
 		string $evaluatedPointExpression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/for-loop-variables.php',
@@ -4086,7 +4086,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		string $description,
 		string $expression,
 		string $evaluatedPointExpression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/do-while-loop-variables.php',
@@ -4124,7 +4124,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		string $description,
 		string $expression,
 		string $evaluatedPointExpression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/multiple-classes-per-file.php',
@@ -4158,7 +4158,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testCallingMultipleClassesInOneFile(
 		string $description,
 		string $expression
-	)
+	): void
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/calling-multiple-classes-per-file.php',
@@ -4174,9 +4174,9 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		array $dynamicMethodReturnTypeExtensions = [],
 		array $dynamicStaticMethodReturnTypeExtensions = [],
 		string $evaluatedPointExpression = 'die;'
-	)
+	): void
 	{
-		$this->processFile($file, function (\PhpParser\Node $node, Scope $scope) use ($description, $expression, $evaluatedPointExpression) {
+		$this->processFile($file, function (\PhpParser\Node $node, Scope $scope) use ($description, $expression, $evaluatedPointExpression): void {
 			$printer = new \PhpParser\PrettyPrinter\Standard();
 			$printedNode = $printer->prettyPrint([$node]);
 			if ($printedNode === $evaluatedPointExpression) {
@@ -4192,7 +4192,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		}, $dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions);
 	}
 
-	private function processFile(string $file, \Closure $callback, array $dynamicMethodReturnTypeExtensions = [], array $dynamicStaticMethodReturnTypeExtensions = [])
+	private function processFile(string $file, \Closure $callback, array $dynamicMethodReturnTypeExtensions = [], array $dynamicStaticMethodReturnTypeExtensions = []): void
 	{
 		$phpDocStringResolver = $this->getContainer()->getByType(PhpDocStringResolver::class);
 
@@ -4246,18 +4246,18 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	 * @param string $file
 	 * @param bool $result
 	 */
-	public function testDeclareStrictTypes(string $file, bool $result)
+	public function testDeclareStrictTypes(string $file, bool $result): void
 	{
-		$this->processFile($file, function (\PhpParser\Node $node, Scope $scope) use ($result) {
+		$this->processFile($file, function (\PhpParser\Node $node, Scope $scope) use ($result): void {
 			if ($node instanceof Exit_) {
 				$this->assertSame($result, $scope->isDeclareStrictTypes());
 			}
 		});
 	}
 
-	public function testEarlyTermination()
+	public function testEarlyTermination(): void
 	{
-		$this->processFile(__DIR__ . '/data/early-termination.php', function (\PhpParser\Node $node, Scope $scope) {
+		$this->processFile(__DIR__ . '/data/early-termination.php', function (\PhpParser\Node $node, Scope $scope): void {
 			if ($node instanceof Exit_) {
 				$this->assertTrue($scope->hasVariableType('something')->yes());
 				$this->assertTrue($scope->hasVariableType('var')->yes());
@@ -4266,7 +4266,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		});
 	}
 
-	private function assertTypeDescribe(string $expectedDescription, string $actualDescription, string $label = '')
+	private function assertTypeDescribe(string $expectedDescription, string $actualDescription, string $label = ''): void
 	{
 		$this->assertSame(
 			$expectedDescription,

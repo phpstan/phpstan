@@ -18,7 +18,7 @@ class AccessStaticPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 		);
 	}
 
-	public function testAccessStaticProperties()
+	public function testAccessStaticProperties(): void
 	{
 		$this->analyse([__DIR__ . '/data/access-static-properties.php'], [
 			[

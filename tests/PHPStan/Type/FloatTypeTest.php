@@ -51,7 +51,7 @@ class FloatTypeTest extends \PHPStan\Testing\TestCase
 	 * @param Type $otherType
 	 * @param bool $expectedResult
 	 */
-	public function testAccepts(Type $otherType, bool $expectedResult)
+	public function testAccepts(Type $otherType, bool $expectedResult): void
 	{
 		$this->createBroker();
 

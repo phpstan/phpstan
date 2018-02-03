@@ -13,7 +13,7 @@ class ImpossibleInstanceOfRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new ImpossibleInstanceOfRule($this->checkAlwaysTrueInstanceOf);
 	}
 
-	public function testInstanceof()
+	public function testInstanceof(): void
 	{
 		$this->checkAlwaysTrueInstanceOf = true;
 		$this->analyse(
@@ -87,7 +87,7 @@ class ImpossibleInstanceOfRuleTest extends \PHPStan\Testing\RuleTestCase
 		);
 	}
 
-	public function testInstanceofWithoutAlwaysTrue()
+	public function testInstanceofWithoutAlwaysTrue(): void
 	{
 		$this->checkAlwaysTrueInstanceOf = false;
 		$this->analyse(

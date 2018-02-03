@@ -5,7 +5,7 @@ namespace PHPStan\Type;
 class IntegerTypeTest extends \PHPStan\Testing\TestCase
 {
 
-	public function testAccepts()
+	public function testAccepts(): void
 	{
 		$integerType = new IntegerType();
 

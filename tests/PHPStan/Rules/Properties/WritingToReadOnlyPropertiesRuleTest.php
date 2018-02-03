@@ -15,7 +15,7 @@ class WritingToReadOnlyPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new WritingToReadOnlyPropertiesRule(new RuleLevelHelper($this->createBroker(), true, false, true), new PropertyDescriptor(), new PropertyReflectionFinder(), $this->checkThisOnly);
 	}
 
-	public function testCheckThisOnlyProperties()
+	public function testCheckThisOnlyProperties(): void
 	{
 		$this->checkThisOnly = true;
 		$this->analyse([__DIR__ . '/data/writing-to-read-only-properties.php'], [
@@ -30,7 +30,7 @@ class WritingToReadOnlyPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testCheckAllProperties()
+	public function testCheckAllProperties(): void
 	{
 		$this->checkThisOnly = false;
 		$this->analyse([__DIR__ . '/data/writing-to-read-only-properties.php'], [

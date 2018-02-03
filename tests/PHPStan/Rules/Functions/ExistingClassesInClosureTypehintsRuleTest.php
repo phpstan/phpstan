@@ -14,7 +14,7 @@ class ExistingClassesInClosureTypehintsRuleTest extends \PHPStan\Testing\RuleTes
 		return new ExistingClassesInClosureTypehintsRule(new FunctionDefinitionCheck($broker, new ClassCaseSensitivityCheck($broker), true, false));
 	}
 
-	public function testExistingClassInTypehint()
+	public function testExistingClassInTypehint(): void
 	{
 		$this->analyse([__DIR__ . '/data/closure-typehints.php'], [
 			[
@@ -36,7 +36,7 @@ class ExistingClassesInClosureTypehintsRuleTest extends \PHPStan\Testing\RuleTes
 		]);
 	}
 
-	public function testValidTypehintPhp71()
+	public function testValidTypehintPhp71(): void
 	{
 		$this->analyse([__DIR__ . '/data/closure-7.1-typehints.php'], [
 			[
@@ -53,7 +53,7 @@ class ExistingClassesInClosureTypehintsRuleTest extends \PHPStan\Testing\RuleTes
 	/**
 	 * @requires PHP 7.2
 	 */
-	public function testValidTypehintPhp72()
+	public function testValidTypehintPhp72(): void
 	{
 		$this->analyse([__DIR__ . '/data/closure-7.2-typehints.php'], []);
 	}

@@ -16,7 +16,7 @@ class InvalidPhpDocTagValueRuleTest extends \PHPStan\Testing\RuleTestCase
 		);
 	}
 
-	public function testRule()
+	public function testRule(): void
 	{
 		$this->analyse([__DIR__ . '/data/invalid-phpdoc.php'], [
 			[

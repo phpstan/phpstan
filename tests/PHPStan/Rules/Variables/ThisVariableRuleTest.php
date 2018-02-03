@@ -10,7 +10,7 @@ class ThisVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new ThisVariableRule();
 	}
 
-	public function testReturnTypeRule()
+	public function testReturnTypeRule(): void
 	{
 		$this->analyse([__DIR__ . '/data/this.php'], [
 			[

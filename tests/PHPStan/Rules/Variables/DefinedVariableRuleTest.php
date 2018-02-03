@@ -43,7 +43,7 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		return $this->polluteCatchScopeWithTryAssignments;
 	}
 
-	public function testDefinedVariables()
+	public function testDefinedVariables(): void
 	{
 		require_once __DIR__ . '/data/defined-variables-definition.php';
 		$this->cliArgumentsVariablesRegistered = true;
@@ -210,7 +210,7 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testDefinedVariablesInShortArrayDestructuringSyntax()
+	public function testDefinedVariablesInShortArrayDestructuringSyntax(): void
 	{
 		$this->cliArgumentsVariablesRegistered = true;
 		$this->polluteScopeWithLoopInitialAssignments = false;
@@ -232,7 +232,7 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testCliArgumentsVariablesNotRegistered()
+	public function testCliArgumentsVariablesNotRegistered(): void
 	{
 		$this->cliArgumentsVariablesRegistered = false;
 		$this->polluteScopeWithLoopInitialAssignments = false;
@@ -250,7 +250,7 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testCliArgumentsVariablesRegistered()
+	public function testCliArgumentsVariablesRegistered(): void
 	{
 		$this->cliArgumentsVariablesRegistered = true;
 		$this->polluteScopeWithLoopInitialAssignments = false;
@@ -309,7 +309,7 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		bool $polluteScopeWithLoopInitialAssignments,
 		bool $checkMaybeUndefinedVariables,
 		array $expectedErrors
-	)
+	): void
 	{
 		$this->cliArgumentsVariablesRegistered = false;
 		$this->polluteCatchScopeWithTryAssignments = false;
@@ -359,7 +359,7 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		bool $polluteCatchScopeWithTryAssignments,
 		bool $checkMaybeUndefinedVariables,
 		array $expectedErrors
-	)
+	): void
 	{
 		$this->cliArgumentsVariablesRegistered = false;
 		$this->polluteScopeWithLoopInitialAssignments = false;
@@ -368,7 +368,7 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->analyse([__DIR__ . '/data/catch-scope-polluted-with-try-assignments.php'], $expectedErrors);
 	}
 
-	public function testDefineVariablesInClass()
+	public function testDefineVariablesInClass(): void
 	{
 		$this->cliArgumentsVariablesRegistered = true;
 		$this->polluteScopeWithLoopInitialAssignments = false;

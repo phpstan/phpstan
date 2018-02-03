@@ -13,7 +13,7 @@ class DefaultValueTypesAssignedToPropertiesRuleTest extends \PHPStan\Testing\Rul
 		return new DefaultValueTypesAssignedToPropertiesRule(new RuleLevelHelper($this->createBroker(), true, false, true));
 	}
 
-	public function testDefaultValueTypesAssignedToProperties()
+	public function testDefaultValueTypesAssignedToProperties(): void
 	{
 		$this->analyse([__DIR__ . '/data/properties-assigned-default-value-types.php'], [
 			[

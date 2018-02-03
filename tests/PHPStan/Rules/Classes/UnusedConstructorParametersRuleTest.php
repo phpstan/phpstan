@@ -12,7 +12,7 @@ class UnusedConstructorParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new UnusedConstructorParametersRule(new UnusedFunctionParametersCheck());
 	}
 
-	public function testUnusedConstructorParameters()
+	public function testUnusedConstructorParameters(): void
 	{
 		$this->analyse([__DIR__ . '/data/unused-constructor-parameters.php'], [
 			[

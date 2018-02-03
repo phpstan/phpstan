@@ -5,7 +5,7 @@ namespace PHPStan\Type;
 class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 {
 
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 		$this->createBroker();
@@ -83,7 +83,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 		Type $type,
 		string $expectedTypeClass,
 		string $expectedTypeDescription
-	)
+	): void
 	{
 		$result = TypeCombinator::addNull($type);
 		$this->assertSame($expectedTypeDescription, $result->describe());
@@ -100,7 +100,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 		Type $type,
 		string $expectedTypeClass,
 		string $expectedTypeDescription
-	)
+	): void
 	{
 		$result = TypeCombinator::union($type, new NullType());
 		$this->assertSame($expectedTypeDescription, $result->describe());
@@ -195,7 +195,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 		Type $type,
 		string $expectedTypeClass,
 		string $expectedTypeDescription
-	)
+	): void
 	{
 		$result = TypeCombinator::removeNull($type);
 		$this->assertSame($expectedTypeDescription, $result->describe());
@@ -542,7 +542,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 		array $types,
 		string $expectedTypeClass,
 		string $expectedTypeDescription
-	)
+	): void
 	{
 		$result = TypeCombinator::union(...$types);
 		$this->assertSame($expectedTypeDescription, $result->describe());
@@ -559,7 +559,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 		array $types,
 		string $expectedTypeClass,
 		string $expectedTypeDescription
-	)
+	): void
 	{
 		$result = TypeCombinator::union(...array_reverse($types));
 		$this->assertSame($expectedTypeDescription, $result->describe());
@@ -698,7 +698,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 		array $types,
 		string $expectedTypeClass,
 		string $expectedTypeDescription
-	)
+	): void
 	{
 		$result = TypeCombinator::intersect(...$types);
 		$this->assertInstanceOf($expectedTypeClass, $result);
@@ -715,7 +715,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 		array $types,
 		string $expectedTypeClass,
 		string $expectedTypeDescription
-	)
+	): void
 	{
 		$result = TypeCombinator::intersect(...array_reverse($types));
 		$this->assertInstanceOf($expectedTypeClass, $result);
@@ -875,7 +875,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 		Type $type,
 		string $expectedTypeClass,
 		string $expectedTypeDescription
-	)
+	): void
 	{
 		$result = TypeCombinator::remove($fromType, $type);
 		$this->assertSame($expectedTypeDescription, $result->describe());
