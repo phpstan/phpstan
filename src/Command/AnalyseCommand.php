@@ -151,11 +151,6 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			));
 			unlink($memoryLimitFile);
 		}
-		if (PHP_VERSION_ID >= 70100 && !property_exists(Catch_::class, 'types')) {
-			$consoleStyle->note(
-				'You\'re running PHP >= 7.1, but you still have PHP-Parser version 2.x. This will lead to parse errors in case you use PHP 7.1 syntax like nullable parameters, iterable and void typehints, union exception types, or class constant visibility. Update to PHP-Parser 3.x to dismiss this message.'
-			);
-		}
 		$errorFormat = $input->getOption('errorFormat');
 		$errorFormatterServiceName = sprintf('errorFormatter.%s', $errorFormat);
 		if (!$container->hasService($errorFormatterServiceName)) {
