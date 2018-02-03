@@ -98,7 +98,6 @@
 	</target>
 
 	<target name="phpstan">
-		<php expression="PHP_VERSION_ID &lt; 70100 ?'true':'false'" returnProperty="isPHP70" level="verbose" />
 		<property name="phpstan.config" value="build/phpstan-generated.neon"/>
 		<touch file="${phpstan.config}"/>
 		<append
@@ -112,15 +111,6 @@
 				<append
 						destFile="${phpstan.config}"
 						text=", ignore-windows-errors.neon"
-				></append>
-			</then>
-		</if>
-		<if>
-			<equals arg1="${isPHP70}" arg2="true" />
-			<then>
-				<append
-						destFile="${phpstan.config}"
-						text=", ignore-php7.0-errors.neon"
 				></append>
 			</then>
 		</if>
