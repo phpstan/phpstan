@@ -23,13 +23,6 @@ use PHPStan\Reflection\Php\PhpMethodReflectionFactory;
 use PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension;
 use PHPStan\Reflection\PhpDefect\PhpDefectClassReflectionExtension;
 use PHPStan\Type\FileTypeMapper;
-use PHPStan\Type\Php\AllArgumentBasedFunctionReturnTypeExtension;
-use PHPStan\Type\Php\ArgumentBasedArrayFunctionReturnTypeExtension;
-use PHPStan\Type\Php\ArgumentBasedFunctionReturnTypeExtension;
-use PHPStan\Type\Php\ArrayFilterFunctionReturnTypeReturnTypeExtension;
-use PHPStan\Type\Php\ArrayKeysFunctionDynamicReturnTypeExtension;
-use PHPStan\Type\Php\CallbackBasedArrayFunctionReturnTypeExtension;
-use PHPStan\Type\Php\CallbackBasedFunctionReturnTypeExtension;
 use PHPStan\Type\Type;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
