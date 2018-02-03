@@ -17,7 +17,7 @@ class ArrayFilterFunctionReturnTypeReturnTypeExtension implements \PHPStan\Type\
 
 	public function isFunctionSupported(FunctionReflection $functionReflection): bool
 	{
-		return strcasecmp($functionReflection->getName(), 'array_filter') === 0;
+		return $functionReflection->getName() === 'array_filter';
 	}
 
 	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type

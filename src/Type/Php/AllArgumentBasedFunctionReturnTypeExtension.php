@@ -20,7 +20,7 @@ class AllArgumentBasedFunctionReturnTypeExtension implements \PHPStan\Type\Dynam
 
 	public function isFunctionSupported(FunctionReflection $functionReflection): bool
 	{
-		return isset($this->functionNames[strtolower($functionReflection->getName())]);
+		return isset($this->functionNames[$functionReflection->getName()]);
 	}
 
 	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type

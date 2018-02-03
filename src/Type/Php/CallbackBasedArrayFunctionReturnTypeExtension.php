@@ -20,12 +20,12 @@ class CallbackBasedArrayFunctionReturnTypeExtension implements \PHPStan\Type\Dyn
 
 	public function isFunctionSupported(FunctionReflection $functionReflection): bool
 	{
-		return isset($this->functionNames[strtolower($functionReflection->getName())]);
+		return isset($this->functionNames[$functionReflection->getName()]);
 	}
 
 	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
 	{
-		$argumentPosition = $this->functionNames[strtolower($functionReflection->getName())];
+		$argumentPosition = $this->functionNames[$functionReflection->getName()];
 
 		if (!isset($functionCall->args[$argumentPosition])) {
 			return $functionReflection->getReturnType();
