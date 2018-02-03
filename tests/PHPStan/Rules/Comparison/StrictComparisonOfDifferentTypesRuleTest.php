@@ -95,9 +95,6 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 		);
 	}
 
-	/**
-	 * @requires PHP 7.1
-	 */
 	public function testStrictComparisonPhp71()
 	{
 		$this->analyse([__DIR__ . '/data/strict-comparison-71.php'], []);

@@ -183,21 +183,6 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testReturnTypeRulePhp70()
-	{
-		if (PHP_VERSION_ID >= 70100) {
-			$this->markTestSkipped(
-				'Test can be run only on PHP 7.0 - higher versions fail with the following test in the parse phase.'
-			);
-		}
-		$this->analyse([__DIR__ . '/data/returnTypes-7.0.php'], [
-			[
-				'Method ReturnTypes\FooPhp70::returnInteger() should return int but empty return statement found.',
-				10,
-			],
-		]);
-	}
-
 	public function testMisleadingTypehintsInClassWithoutNamespace()
 	{
 		$this->analyse([__DIR__ . '/data/misleadingTypehints.php'], [
@@ -243,9 +228,6 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->analyse([__DIR__ . '/data/return-static-from-parent.php'], []);
 	}
 
-	/**
-	 * @requires PHP 7.1
-	 */
 	public function testReturnIterable()
 	{
 		$this->analyse([__DIR__ . '/data/returnTypes-iterable.php'], [

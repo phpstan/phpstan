@@ -24,9 +24,6 @@ class InvalidKeyInArrayItemRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	/**
-	 * @requires PHP 7.1
-	 */
 	public function testInvalidKeyInList()
 	{
 		$this->analyse([__DIR__ . '/data/invalid-key-list.php'], [

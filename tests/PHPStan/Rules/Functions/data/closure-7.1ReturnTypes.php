@@ -1,4 +1,4 @@
-<?php // lint >= 7.1
+<?php
 
 function(): ?int
 {

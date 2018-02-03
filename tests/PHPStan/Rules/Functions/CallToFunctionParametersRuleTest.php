@@ -80,9 +80,6 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	/**
-	 * @requires PHP 7.1.0
-	 */
 	public function testCallToFunctionWithNullableDynamicParameters()
 	{
 		require_once __DIR__ . '/data/function-with-nullable-variadic-parameters-definition.php';

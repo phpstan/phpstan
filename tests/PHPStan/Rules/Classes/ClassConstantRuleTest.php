@@ -75,9 +75,6 @@ class ClassConstantRuleTest extends \PHPStan\Testing\RuleTestCase
 		);
 	}
 
-	/**
-	 * @requires PHP 7.1
-	 */
 	public function testClassConstantVisibility()
 	{
 		$this->analyse([__DIR__ . '/data/class-constant-visibility.php'], [

@@ -578,7 +578,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	}
 
 	/**
-	 * @requires PHP 7.1
 	 * @dataProvider dataUnionInCatch
 	 * @param string $description
 	 * @param string $expression
@@ -777,9 +776,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		}
 	}
 
-	/**
-	 * @requires PHP 7.1
-	 */
 	public function testArrayDestructuringShortSyntax()
 	{
 		$this->processFile(__DIR__ . '/data/array-destructuring-short.php', function (\PhpParser\Node $node, Scope $scope) {
@@ -3280,7 +3276,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	}
 
 	/**
-	 * @requires PHP 7.1
 	 * @dataProvider dataIterable
 	 * @param string $description
 	 * @param string $expression
@@ -3355,7 +3350,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	}
 
 	/**
-	 * @requires PHP 7.1
 	 * @dataProvider dataVoid
 	 * @param string $description
 	 * @param string $expression
@@ -3395,7 +3389,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	}
 
 	/**
-	 * @requires PHP 7.1
 	 * @dataProvider dataNullableReturnTypes
 	 * @param string $description
 	 * @param string $expression

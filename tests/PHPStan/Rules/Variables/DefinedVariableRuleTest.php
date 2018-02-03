@@ -210,9 +210,6 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	/**
-	 * @requires PHP 7.1
-	 */
 	public function testDefinedVariablesInShortArrayDestructuringSyntax()
 	{
 		$this->cliArgumentsVariablesRegistered = true;

@@ -116,9 +116,6 @@ class ExistingClassesInTypehintsRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	/**
-	 * @requires PHP 7.1
-	 */
 	public function testExistingClassInIterableTypehint()
 	{
 		$this->analyse([__DIR__ . '/data/typehints-iterable.php'], [

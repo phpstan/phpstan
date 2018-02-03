@@ -504,9 +504,6 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	/**
-	 * @requires PHP 7.1
-	 */
 	public function testNullableParameters()
 	{
 		$this->checkThisOnly = false;
@@ -655,7 +652,6 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	/**
 	 * @dataProvider dataIterable
-	 * @requires PHP 7.1
 	 * @param bool $checkNullables
 	 */
 	public function testIterables(bool $checkNullables)
