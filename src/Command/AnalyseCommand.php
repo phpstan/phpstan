@@ -3,7 +3,6 @@
 namespace PHPStan\Command;
 
 use Nette\DI\Helpers;
-use PhpParser\Node\Stmt\Catch_;
 use PHPStan\Command\ErrorFormatter\ErrorFormatter;
 use PHPStan\DependencyInjection\ContainerFactory;
 use PHPStan\DependencyInjection\LoaderFactory;

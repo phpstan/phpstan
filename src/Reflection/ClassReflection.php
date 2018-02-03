@@ -327,19 +327,11 @@ class ClassReflection
 	public function getConstant(string $name): ClassConstantReflection
 	{
 		if (!isset($this->constants[$name])) {
-			if (PHP_VERSION_ID < 70100) {
-				$this->constants[$name] = new ObsoleteClassConstantReflection(
-					$this,
-					$name,
-					$this->getNativeReflection()->getConstant($name)
-				);
-			} else {
-				$reflectionConstant = $this->getNativeReflection()->getReflectionConstant($name);
-				$this->constants[$name] = new ClassConstantWithVisibilityReflection(
-					$this->broker->getClass($reflectionConstant->getDeclaringClass()->getName()),
-					$reflectionConstant
-				);
-			}
+			$reflectionConstant = $this->getNativeReflection()->getReflectionConstant($name);
+			$this->constants[$name] = new ClassConstantReflection(
+				$this->broker->getClass($reflectionConstant->getDeclaringClass()->getName()),
+				$reflectionConstant
+			);
 		}
 		return $this->constants[$name];
 	}
