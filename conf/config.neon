@@ -25,6 +25,9 @@ parameters:
 	earlyTerminatingMethodCalls: []
 	memoryLimitFile: %tmpDir%/.memory_limit
 
+extensions:
+	rules: PHPStan\DependencyInjection\RulesExtension
+
 services:
 	-
 		class: PhpParser\BuilderFactory

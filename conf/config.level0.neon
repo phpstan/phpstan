@@ -1,138 +1,41 @@
 parameters:
 	customRulesetUsed: false
 
+rules:
+	- PHPStan\Rules\Arrays\DuplicateKeysInLiteralArraysRule
+	- PHPStan\Rules\Classes\ClassConstantRule
+	- PHPStan\Rules\Classes\ExistingClassesInClassImplementsRule
+	- PHPStan\Rules\Classes\ExistingClassesInInterfaceExtendsRule
+	- PHPStan\Rules\Classes\ExistingClassInClassExtendsRule
+	- PHPStan\Rules\Classes\ExistingClassInTraitUseRule
+	- PHPStan\Rules\Classes\InstantiationRule
+	- PHPStan\Rules\Classes\RequireParentConstructCallRule
+	- PHPStan\Rules\Classes\UnusedConstructorParametersRule
+	- PHPStan\Rules\Exceptions\CaughtExceptionExistenceRule
+	- PHPStan\Rules\Functions\CallToFunctionParametersRule
+	- PHPStan\Rules\Functions\CallToNonExistentFunctionRule
+	- PHPStan\Rules\Functions\ExistingClassesInClosureTypehintsRule
+	- PHPStan\Rules\Functions\ExistingClassesInTypehintsRule
+	- PHPStan\Rules\Functions\InnerFunctionRule
+	- PHPStan\Rules\Functions\NonExistentDefinedFunctionRule
+	- PHPStan\Rules\Functions\PrintfParametersRule
+	- PHPStan\Rules\Functions\UnusedClosureUsesRule
+	- PHPStan\Rules\Methods\CallMethodsRule
+	- PHPStan\Rules\Methods\CallStaticMethodsRule
+	- PHPStan\Rules\Methods\ExistingClassesInTypehintsRule
+	- PHPStan\Rules\Namespaces\ExistingNamesInGroupUseRule
+	- PHPStan\Rules\Namespaces\ExistingNamesInUseRule
+	- PHPStan\Rules\Properties\AccessPropertiesRule
+	- PHPStan\Rules\Properties\AccessStaticPropertiesRule
+	- PHPStan\Rules\Variables\ThisVariableRule
+
 services:
-	-
-		class: PHPStan\Rules\Arrays\DuplicateKeysInLiteralArraysRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Classes\ClassConstantRule
-		tags:
-			- phpstan.rules.rule
-
 	-
 		class: PHPStan\Rules\Classes\ExistingClassInInstanceOfRule
 		tags:
 			- phpstan.rules.rule
 		arguments:
 			checkClassCaseSensitivity: %checkClassCaseSensitivity%
-
-	-
-		class: PHPStan\Rules\Classes\ExistingClassesInClassImplementsRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Classes\ExistingClassesInInterfaceExtendsRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Classes\ExistingClassInClassExtendsRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Classes\ExistingClassInTraitUseRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Classes\InstantiationRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Classes\RequireParentConstructCallRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Classes\UnusedConstructorParametersRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Exceptions\CaughtExceptionExistenceRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Functions\CallToFunctionParametersRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Functions\CallToNonExistentFunctionRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Functions\ExistingClassesInClosureTypehintsRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Functions\ExistingClassesInTypehintsRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Functions\InnerFunctionRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Functions\NonExistentDefinedFunctionRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Functions\PrintfParametersRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Functions\UnusedClosureUsesRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Methods\CallMethodsRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Methods\CallStaticMethodsRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Methods\ExistingClassesInTypehintsRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Namespaces\ExistingNamesInGroupUseRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Namespaces\ExistingNamesInUseRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Properties\AccessPropertiesRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Properties\AccessStaticPropertiesRule
-		tags:
-			- phpstan.rules.rule
 
 	-
 		class: PHPStan\Rules\Properties\ExistingClassesInPropertiesRule
@@ -167,10 +70,5 @@ services:
 		class: PHPStan\Rules\Variables\DefinedVariableInAnonymousFunctionUseRule
 		arguments:
 			checkMaybeUndefinedVariables: %checkMaybeUndefinedVariables%
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Variables\ThisVariableRule
 		tags:
 			- phpstan.rules.rule

@@ -5,13 +5,6 @@ parameters:
 	checkClassCaseSensitivity: true
 	checkThisOnly: false
 
-services:
-	-
-		class: PHPStan\Rules\PhpDoc\InvalidPhpDocTagValueRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\PhpDoc\IncompatiblePhpDocTypeRule
-		tags:
-			- phpstan.rules.rule
+rules:
+	- PHPStan\Rules\PhpDoc\IncompatiblePhpDocTypeRule
+	- PHPStan\Rules\PhpDoc\InvalidPhpDocTagValueRule

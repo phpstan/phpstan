@@ -1,12 +1,11 @@
 includes:
 	- config.level3.neon
 
-services:
-	-
-		class: PHPStan\Rules\Cast\UselessCastRule
-		tags:
-			- phpstan.rules.rule
+rules:
+	- PHPStan\Rules\Cast\UselessCastRule
+	- PHPStan\Rules\Comparison\StrictComparisonOfDifferentTypesRule
 
+services:
 	-
 		class: PHPStan\Rules\Classes\ImpossibleInstanceOfRule
 		arguments:
@@ -18,10 +17,5 @@ services:
 		class: PHPStan\Rules\Comparison\ImpossibleCheckTypeFunctionCallRule
 		arguments:
 			checkAlwaysTrueCheckTypeFunctionCall: %checkAlwaysTrueCheckTypeFunctionCall%
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Comparison\StrictComparisonOfDifferentTypesRule
 		tags:
 			- phpstan.rules.rule

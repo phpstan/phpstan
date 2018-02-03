@@ -1,51 +1,21 @@
 includes:
 	- config.level2.neon
 
+rules:
+	- PHPStan\Rules\Arrays\AppendedArrayItemTypeRule
+	- PHPStan\Rules\Arrays\InvalidKeyInArrayDimFetchRule
+	- PHPStan\Rules\Arrays\InvalidKeyInArrayItemRule
+	- PHPStan\Rules\Functions\ClosureReturnTypeRule
+	- PHPStan\Rules\Functions\ReturnTypeRule
+	- PHPStan\Rules\Methods\ReturnTypeRule
+	- PHPStan\Rules\Properties\DefaultValueTypesAssignedToPropertiesRule
+	- PHPStan\Rules\Properties\TypesAssignedToPropertiesRule
+
 services:
-	-
-		class: PHPStan\Rules\Arrays\AppendedArrayItemTypeRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Arrays\InvalidKeyInArrayDimFetchRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Arrays\InvalidKeyInArrayItemRule
-		tags:
-			- phpstan.rules.rule
-
 	-
 		class: PHPStan\Rules\Arrays\IterableInForeachRule
 		arguments:
 			checkUnionTypes: %checkUnionTypes%
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Functions\ClosureReturnTypeRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Functions\ReturnTypeRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Methods\ReturnTypeRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Properties\DefaultValueTypesAssignedToPropertiesRule
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Properties\TypesAssignedToPropertiesRule
 		tags:
 			- phpstan.rules.rule
 
