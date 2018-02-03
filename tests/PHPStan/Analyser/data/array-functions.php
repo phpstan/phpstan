@@ -26,4 +26,19 @@ $reversedIntegers = array_reverse($integers);
 $filledIntegers = array_fill(0, 5, 1);
 $filledIntegersWithKeys = array_fill_keys([], 1);
 
+$integerKeys = [
+	1 => 'foo',
+	2 => new \stdClass(),
+];
+
+$stringKeys = [
+	'foo' => 'foo',
+	'bar' => new \stdClass(),
+];
+
+$stringOrIntegerKeys = [
+	'foo' => new \stdClass(),
+	1 => new \stdClass(),
+];
+
 die;

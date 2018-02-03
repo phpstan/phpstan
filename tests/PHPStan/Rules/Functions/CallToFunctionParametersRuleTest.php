@@ -23,7 +23,7 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->analyse([__DIR__ . '/data/existing-function.php'], []);
 	}
 
-	public function testCallToFunctionWithBadNumberOfParameters()
+	public function testCallToFunctionWithIncorrectParameters()
 	{
 		require_once __DIR__ . '/data/incorrect-call-to-function-definition.php';
 		$this->analyse([__DIR__ . '/data/incorrect-call-to-function.php'], [
@@ -34,6 +34,10 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Function IncorrectCallToFunction\foo invoked with 3 parameters, 2 required.',
 				7,
+			],
+			[
+				'Parameter #1 $foo of function IncorrectCallToFunction\bar expects int, string given.',
+				14,
 			],
 		]);
 	}

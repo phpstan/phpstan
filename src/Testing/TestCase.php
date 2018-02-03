@@ -26,6 +26,7 @@ use PHPStan\Type\Php\AllArgumentBasedFunctionReturnTypeExtension;
 use PHPStan\Type\Php\ArgumentBasedArrayFunctionReturnTypeExtension;
 use PHPStan\Type\Php\ArgumentBasedFunctionReturnTypeExtension;
 use PHPStan\Type\Php\ArrayFilterFunctionReturnTypeReturnTypeExtension;
+use PHPStan\Type\Php\ArrayKeysFunctionDynamicReturnTypeExtension;
 use PHPStan\Type\Php\CallbackBasedArrayFunctionReturnTypeExtension;
 use PHPStan\Type\Php\CallbackBasedFunctionReturnTypeExtension;
 use PHPStan\Type\Type;
@@ -170,6 +171,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				new ArgumentBasedArrayFunctionReturnTypeExtension(),
 				new ArgumentBasedFunctionReturnTypeExtension(),
 				new ArrayFilterFunctionReturnTypeReturnTypeExtension(),
+				new ArrayKeysFunctionDynamicReturnTypeExtension(),
 				new CallbackBasedArrayFunctionReturnTypeExtension(),
 				new CallbackBasedFunctionReturnTypeExtension(),
 			],

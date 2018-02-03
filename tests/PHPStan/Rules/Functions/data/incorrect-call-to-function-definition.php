@@ -6,3 +6,8 @@ function foo($foo, $bar)
 {
 
 }
+
+function bar(int $foo)
+{
+
+}
