@@ -180,12 +180,7 @@ class PhpDocNodeResolver
 		return $resolved;
 	}
 
-	/**
-	 * @param  PhpDocNode $phpDocNode
-	 * @param  NameScope $nameScope
-	 * @return \PHPStan\PhpDoc\Tag\ReturnTag|null
-	 */
-	private function resolveReturnTag(PhpDocNode $phpDocNode, NameScope $nameScope)
+	private function resolveReturnTag(PhpDocNode $phpDocNode, NameScope $nameScope): ?\PHPStan\PhpDoc\Tag\ReturnTag
 	{
 		foreach ($phpDocNode->getReturnTagValues() as $tagValue) {
 			return new ReturnTag($this->typeNodeResolver->resolve($tagValue->type, $nameScope));

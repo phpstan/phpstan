@@ -41,7 +41,7 @@ class FunctionReturnTypeCheck
 	public function checkReturnType(
 		Scope $scope,
 		Type $returnType,
-		Expr $returnValue = null,
+		?Expr $returnValue,
 		string $emptyReturnStatementMessage,
 		string $voidMessage,
 		string $typeMismatchMessage,

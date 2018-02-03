@@ -7,11 +7,7 @@ use PhpParser\Node;
 class CommentHelper
 {
 
-	/**
-	 * @param \PhpParser\Node $node
-	 * @return string|null
-	 */
-	public static function getDocComment(Node $node)
+	public static function getDocComment(Node $node): ?string
 	{
 		$phpDoc = $node->getDocComment();
 		if ($phpDoc !== null) {

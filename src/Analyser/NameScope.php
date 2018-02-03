@@ -27,10 +27,7 @@ class NameScope
 		$this->className = $className;
 	}
 
-	/**
-	 * @return string|null
-	 */
-	public function getClassName()
+	public function getClassName(): ?string
 	{
 		return $this->className;
 	}

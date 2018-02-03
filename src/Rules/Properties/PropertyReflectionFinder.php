@@ -14,7 +14,7 @@ class PropertyReflectionFinder
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return \PHPStan\Reflection\PropertyReflection|null
 	 */
-	public function findPropertyReflectionFromNode($propertyFetch, Scope $scope)
+	public function findPropertyReflectionFromNode($propertyFetch, Scope $scope): ?\PHPStan\Reflection\PropertyReflection
 	{
 		if ($propertyFetch instanceof \PhpParser\Node\Expr\PropertyFetch) {
 			if (!is_string($propertyFetch->name)) {
@@ -38,13 +38,7 @@ class PropertyReflectionFinder
 		return null;
 	}
 
-	/**
-	 * @param \PHPStan\Type\Type $propertyHolderType
-	 * @param string $propertyName
-	 * @param Scope $scope
-	 * @return \PHPStan\Reflection\PropertyReflection|null
-	 */
-	private function findPropertyReflection(Type $propertyHolderType, string $propertyName, Scope $scope)
+	private function findPropertyReflection(Type $propertyHolderType, string $propertyName, Scope $scope): ?\PHPStan\Reflection\PropertyReflection
 	{
 		if (!$propertyHolderType->hasProperty($propertyName)) {
 			return null;

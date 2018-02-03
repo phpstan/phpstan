@@ -72,30 +72,22 @@ class ExistingNamesInGroupUseRule implements \PHPStan\Rules\Rule
 		return $messages;
 	}
 
-	/**
-	 * @param \PhpParser\Node\Name $name
-	 * @return string|null
-	 */
-	private function checkConstant(Node\Name $name)
+	private function checkConstant(Node\Name $name): ?string
 	{
-		if (!$this->broker->hasConstant($name)) {
+		if (!$this->broker->hasConstant($name, null)) {
 			return sprintf('Used constant %s not found.', (string) $name);
 		}
 
 		return null;
 	}
 
-	/**
-	 * @param \PhpParser\Node\Name $name
-	 * @return string|null
-	 */
-	private function checkFunction(Node\Name $name)
+	private function checkFunction(Node\Name $name): ?string
 	{
-		if (!$this->broker->hasFunction($name)) {
+		if (!$this->broker->hasFunction($name, null)) {
 			return sprintf('Used function %s not found.', (string) $name);
 		}
 
-		$functionReflection = $this->broker->getFunction($name);
+		$functionReflection = $this->broker->getFunction($name, null);
 		$realName = $functionReflection->getName();
 		$usedName = (string) $name;
 		if ($realName !== $usedName) {
@@ -109,11 +101,7 @@ class ExistingNamesInGroupUseRule implements \PHPStan\Rules\Rule
 		return null;
 	}
 
-	/**
-	 * @param \PhpParser\Node\Name $name
-	 * @return string|null
-	 */
-	private function checkClass(Node\Name $name)
+	private function checkClass(Node\Name $name): ?string
 	{
 		$messages = $this->classCaseSensitivityCheck->checkClassNames([(string) $name]);
 		if (count($messages) === 0) {

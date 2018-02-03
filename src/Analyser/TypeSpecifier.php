@@ -264,7 +264,7 @@ class TypeSpecifier
 	 * @param \PhpParser\Node\Expr\BinaryOp $binaryOperation
 	 * @return array|null
 	 */
-	private function findTypeExpressionsFromBinaryOperation(Node\Expr\BinaryOp $binaryOperation)
+	private function findTypeExpressionsFromBinaryOperation(Node\Expr\BinaryOp $binaryOperation): ?array
 	{
 		if ($binaryOperation->left instanceof ConstFetch) {
 			return [$binaryOperation->right, $binaryOperation->left];

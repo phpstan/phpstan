@@ -139,12 +139,7 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 		return $name;
 	}
 
-	/**
-	 * @param string $lowercaseMethodName
-	 * @param string $traitTarget
-	 * @return string|null
-	 */
-	private function getMethodNameWithCorrectCase(string $lowercaseMethodName, string $traitTarget)
+	private function getMethodNameWithCorrectCase(string $lowercaseMethodName, string $traitTarget): ?string
 	{
 		list ($trait, $method) = explode('::', $traitTarget);
 		$traitReflection = $this->broker->getClass($trait)->getNativeReflection();

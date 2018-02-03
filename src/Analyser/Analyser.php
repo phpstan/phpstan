@@ -82,7 +82,7 @@ class Analyser
 		TypeSpecifier $typeSpecifier,
 		FileHelper $fileHelper,
 		array $ignoreErrors,
-		string $bootstrapFile = null,
+		?string $bootstrapFile,
 		bool $reportUnmatchedIgnoredErrors,
 		int $internalErrorsCountLimit
 	)
@@ -110,8 +110,8 @@ class Analyser
 	public function analyse(
 		array $files,
 		bool $onlyFiles,
-		\Closure $preFileCallback = null,
-		\Closure $postFileCallback = null,
+		?\Closure $preFileCallback = null,
+		?\Closure $postFileCallback = null,
 		bool $debug = false
 	): array
 	{

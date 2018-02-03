@@ -44,7 +44,7 @@ class ResolvedPhpDocBlock
 		array $methodTags,
 		array $propertyTags,
 		array $paramTags,
-		ReturnTag $returnTag = null
+		?ReturnTag $returnTag
 	)
 	{
 		$this->varTags = $varTags;
@@ -67,7 +67,7 @@ class ResolvedPhpDocBlock
 		array $methodTags,
 		array $propertyTags,
 		array $paramTags,
-		ReturnTag $returnTag = null
+		?ReturnTag $returnTag
 	): self
 	{
 		return new self($varTags, $methodTags, $propertyTags, $paramTags, $returnTag);
@@ -111,10 +111,7 @@ class ResolvedPhpDocBlock
 		return $this->paramTags;
 	}
 
-	/**
-	 * @return \PHPStan\PhpDoc\Tag\ReturnTag|null
-	 */
-	public function getReturnTag()
+	public function getReturnTag(): ?\PHPStan\PhpDoc\Tag\ReturnTag
 	{
 		return $this->returnTag;
 	}

@@ -40,7 +40,6 @@
 				@dataProvider,
 				@requires
 			"/>
-			<property name="enableNullableTypeHints" type="false" />
 		</properties>
 	</rule>
 	<rule ref="Generic.Strings.UnnecessaryStringConcat.Found">

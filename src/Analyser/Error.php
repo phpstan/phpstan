@@ -43,10 +43,7 @@ class Error
 		return $this->file;
 	}
 
-	/**
-	 * @return int|NULL
-	 */
-	public function getLine()
+	public function getLine(): ?int
 	{
 		return $this->line;
 	}

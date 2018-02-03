@@ -13,7 +13,7 @@ class FunctionCallStatementFinder
 	 * @param mixed $statements
 	 * @return \PhpParser\Node|null
 	 */
-	public function findFunctionCallInStatements(array $functionNames, $statements)
+	public function findFunctionCallInStatements(array $functionNames, $statements): ?\PhpParser\Node
 	{
 		foreach ($statements as $statement) {
 			if (is_array($statement)) {

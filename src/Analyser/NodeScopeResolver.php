@@ -1284,7 +1284,7 @@ class NodeScopeResolver
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return \PhpParser\Node|null
 	 */
-	private function findEarlyTermination(array $statements, Scope $scope)
+	private function findEarlyTermination(array $statements, Scope $scope): ?\PhpParser\Node
 	{
 		foreach ($statements as $statement) {
 			$statement = $this->findStatementEarlyTermination($statement, $scope);
@@ -1296,12 +1296,7 @@ class NodeScopeResolver
 		return null;
 	}
 
-	/**
-	 * @param \PhpParser\Node $statement
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return \PhpParser\Node|null
-	 */
-	private function findStatementEarlyTermination(Node $statement, Scope $scope)
+	private function findStatementEarlyTermination(Node $statement, Scope $scope): ?\PhpParser\Node
 	{
 		if (
 			$statement instanceof Throw_
@@ -1360,12 +1355,7 @@ class NodeScopeResolver
 		return null;
 	}
 
-	/**
-	 * @param \PhpParser\Node\Expr $functionCall
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return null|\PHPStan\Reflection\ParametersAcceptor
-	 */
-	private function findParametersAcceptorInFunctionCall(Expr $functionCall, Scope $scope)
+	private function findParametersAcceptorInFunctionCall(Expr $functionCall, Scope $scope): ?\PHPStan\Reflection\ParametersAcceptor
 	{
 		if ($functionCall instanceof FuncCall && $functionCall->name instanceof Name) {
 			if ($this->broker->hasFunction($functionCall->name, $scope)) {

@@ -175,12 +175,7 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 		);
 	}
 
-	/**
-	 * @param \PHPStan\Reflection\ClassReflection $classReflection
-	 * @param string $propertyName
-	 * @return \PHPStan\Reflection\ClassReflection|null
-	 */
-	private function getClassWithProperties(ClassReflection $classReflection, string $propertyName)
+	private function getClassWithProperties(ClassReflection $classReflection, string $propertyName): ?\PHPStan\Reflection\ClassReflection
 	{
 		if (isset($this->properties[$classReflection->getName()][$propertyName])) {
 			return $classReflection;

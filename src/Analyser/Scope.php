@@ -168,16 +168,16 @@ class Scope
 		\PhpParser\PrettyPrinter\Standard $printer,
 		TypeSpecifier $typeSpecifier,
 		string $file,
-		string $analysedContextFile = null,
+		?string $analysedContextFile = null,
 		bool $declareStrictTypes = false,
-		ClassReflection $classReflection = null,
-		\PHPStan\Reflection\ParametersAcceptor $function = null,
-		string $namespace = null,
+		?ClassReflection $classReflection = null,
+		?\PHPStan\Reflection\ParametersAcceptor $function = null,
+		?string $namespace = null,
 		array $variablesTypes = [],
 		array $moreSpecificTypes = [],
-		string $inClosureBindScopeClass = null,
-		Type $inAnonymousFunctionReturnType = null,
-		Expr $inFunctionCall = null,
+		?string $inClosureBindScopeClass = null,
+		?Type $inAnonymousFunctionReturnType = null,
+		?Expr $inFunctionCall = null,
 		bool $negated = false,
 		bool $inFirstLevelStatement = true,
 		array $currentlyAssignedExpressions = []
@@ -245,26 +245,17 @@ class Scope
 		return $classReflection;
 	}
 
-	/**
-	 * @return null|\PHPStan\Reflection\ParametersAcceptor
-	 */
-	public function getFunction()
+	public function getFunction(): ?\PHPStan\Reflection\ParametersAcceptor
 	{
 		return $this->function;
 	}
 
-	/**
-	 * @return null|string
-	 */
-	public function getFunctionName()
+	public function getFunctionName(): ?string
 	{
 		return $this->function !== null ? $this->function->getName() : null;
 	}
 
-	/**
-	 * @return null|string
-	 */
-	public function getNamespace()
+	public function getNamespace(): ?string
 	{
 		return $this->namespace;
 	}
@@ -300,10 +291,7 @@ class Scope
 		return $this->inAnonymousFunctionReturnType !== null;
 	}
 
-	/**
-	 * @return \PHPStan\Type\Type|null
-	 */
-	public function getAnonymousFunctionReturnType()
+	public function getAnonymousFunctionReturnType(): ?\PHPStan\Type\Type
 	{
 		return $this->inAnonymousFunctionReturnType;
 	}
@@ -787,7 +775,7 @@ class Scope
 	 * @param mixed $value
 	 * @return Type|null
 	 */
-	private function getTypeFromValue($value)
+	private function getTypeFromValue($value): ?Type
 	{
 		if (is_int($value)) {
 			return new IntegerType();

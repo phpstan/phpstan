@@ -70,7 +70,7 @@ class ExistingNamesInUseRule implements \PHPStan\Rules\Rule
 	{
 		$messages = [];
 		foreach ($uses as $use) {
-			if (!$this->broker->hasConstant($use->name)) {
+			if (!$this->broker->hasConstant($use->name, null)) {
 				$messages[] = sprintf('Used constant %s not found.', (string) $use->name);
 			}
 		}
@@ -86,10 +86,10 @@ class ExistingNamesInUseRule implements \PHPStan\Rules\Rule
 	{
 		$messages = [];
 		foreach ($uses as $use) {
-			if (!$this->broker->hasFunction($use->name)) {
+			if (!$this->broker->hasFunction($use->name, null)) {
 				$messages[] = sprintf('Used function %s not found.', (string) $use->name);
 			} else {
-				$functionReflection = $this->broker->getFunction($use->name);
+				$functionReflection = $this->broker->getFunction($use->name, null);
 				$realName = $functionReflection->getName();
 				$usedName = (string) $use->name;
 				if ($realName !== $usedName) {

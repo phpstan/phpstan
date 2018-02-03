@@ -19,7 +19,7 @@ interface PhpMethodReflectionFactory
 		ClassReflection $declaringClass,
 		\ReflectionMethod $reflection,
 		array $phpDocParameterTypes,
-		Type $phpDocReturnType = null
+		?Type $phpDocReturnType
 	): PhpMethodReflection;
 
 }
