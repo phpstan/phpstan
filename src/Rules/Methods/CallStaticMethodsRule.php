@@ -145,7 +145,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 		$typeForDescribe = $classType;
 		$classType = TypeCombinator::remove($classType, new StringType());
 
-		if (!$classType->canCallMethods()) {
+		if (!$classType->canCallMethods()->yes()) {
 			return array_merge($errors, [
 				sprintf('Cannot call static method %s() on %s.', $methodName, $typeForDescribe->describe()),
 			]);

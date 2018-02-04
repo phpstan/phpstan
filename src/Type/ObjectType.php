@@ -156,9 +156,13 @@ class ObjectType implements TypeWithClassName
 		return TrinaryLogic::createYes();
 	}
 
-	public function canCallMethods(): bool
+	public function canCallMethods(): TrinaryLogic
 	{
-		return strtolower($this->className) !== 'stdclass';
+		if (strtolower($this->className) === 'stdclass') {
+			return TrinaryLogic::createNo();
+		}
+
+		return TrinaryLogic::createYes();
 	}
 
 	public function hasMethod(string $methodName): bool

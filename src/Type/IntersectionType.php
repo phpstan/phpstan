@@ -113,13 +113,11 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		throw new \PHPStan\ShouldNotHappenException();
 	}
 
-	public function canCallMethods(): bool
+	public function canCallMethods(): TrinaryLogic
 	{
-		$result = $this->intersectResults(function (Type $type): TrinaryLogic {
-			return $type->canCallMethods() ? TrinaryLogic::createYes() : TrinaryLogic::createNo();
+		return $this->intersectResults(function (Type $type): TrinaryLogic {
+			return $type->canCallMethods();
 		});
-
-		return $result->yes();
 	}
 
 	public function hasMethod(string $methodName): bool

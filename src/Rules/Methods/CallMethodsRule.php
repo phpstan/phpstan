@@ -65,7 +65,7 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 		if ($type instanceof ErrorType) {
 			return $typeResult->getUnknownClassErrors();
 		}
-		if (!$type->canCallMethods()) {
+		if (!$type->canCallMethods()->yes()) {
 			return [
 				sprintf('Cannot call method %s() on %s.', $name, $type->describe()),
 			];

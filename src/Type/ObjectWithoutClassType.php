@@ -61,9 +61,9 @@ class ObjectWithoutClassType implements Type
 		return TrinaryLogic::createYes();
 	}
 
-	public function canCallMethods(): bool
+	public function canCallMethods(): TrinaryLogic
 	{
-		return true;
+		return TrinaryLogic::createYes();
 	}
 
 	public function hasMethod(string $methodName): bool
