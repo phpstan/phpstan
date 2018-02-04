@@ -219,15 +219,11 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		});
 	}
 
-	public function isCloneable(): bool
+	public function isCloneable(): TrinaryLogic
 	{
-		foreach ($this->types as $type) {
-			if ($type->isCloneable()) {
-				return true;
-			}
-		}
-
-		return false;
+		return $this->intersectResults(function (Type $type): TrinaryLogic {
+			return $type->isCloneable();
+		});
 	}
 
 	public function resolveStatic(string $className): Type

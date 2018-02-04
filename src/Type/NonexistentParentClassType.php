@@ -70,9 +70,9 @@ class NonexistentParentClassType implements Type
 		return TrinaryLogic::createNo();
 	}
 
-	public function isCloneable(): bool
+	public function isCloneable(): TrinaryLogic
 	{
-		return false;
+		return TrinaryLogic::createNo();
 	}
 
 	public static function __set_state(array $properties): Type

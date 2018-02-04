@@ -118,9 +118,9 @@ class NeverType implements CompoundType
 		return TrinaryLogic::createYes();
 	}
 
-	public function isCloneable(): bool
+	public function isCloneable(): TrinaryLogic
 	{
-		return false;
+		return TrinaryLogic::createYes();
 	}
 
 	public static function __set_state(array $properties): Type
