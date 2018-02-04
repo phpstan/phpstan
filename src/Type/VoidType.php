@@ -45,7 +45,7 @@ class VoidType implements Type
 		return 'void';
 	}
 
-	public function isOffsetAccesible(): TrinaryLogic
+	public function isOffsetAccessible(): TrinaryLogic
 	{
 		return TrinaryLogic::createNo();
 	}

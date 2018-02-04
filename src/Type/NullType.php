@@ -53,7 +53,7 @@ class NullType implements Type
 		return 'null';
 	}
 
-	public function isOffsetAccesible(): TrinaryLogic
+	public function isOffsetAccessible(): TrinaryLogic
 	{
 		return TrinaryLogic::createNo();
 	}

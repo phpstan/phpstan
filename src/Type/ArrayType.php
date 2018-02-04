@@ -152,7 +152,7 @@ class ArrayType implements StaticResolvableType
 		return $this->getItemType();
 	}
 
-	public function isOffsetAccesible(): TrinaryLogic
+	public function isOffsetAccessible(): TrinaryLogic
 	{
 		return TrinaryLogic::createYes();
 	}

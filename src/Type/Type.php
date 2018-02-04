@@ -46,7 +46,7 @@ interface Type
 
 	public function getIterableValueType(): Type;
 
-	public function isOffsetAccesible(): TrinaryLogic;
+	public function isOffsetAccessible(): TrinaryLogic;
 
 	public function getOffsetValueType(): Type;
 

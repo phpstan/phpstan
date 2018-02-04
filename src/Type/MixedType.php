@@ -56,7 +56,7 @@ class MixedType implements CompoundType
 		return 'mixed';
 	}
 
-	public function isOffsetAccesible(): TrinaryLogic
+	public function isOffsetAccessible(): TrinaryLogic
 	{
 		return TrinaryLogic::createMaybe();
 	}

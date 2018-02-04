@@ -103,7 +103,7 @@ class NeverType implements CompoundType
 		return new NeverType();
 	}
 
-	public function isOffsetAccesible(): TrinaryLogic
+	public function isOffsetAccessible(): TrinaryLogic
 	{
 		return TrinaryLogic::createYes();
 	}

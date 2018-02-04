@@ -49,7 +49,7 @@ class CallableType implements CompoundType
 		return 'callable';
 	}
 
-	public function isOffsetAccesible(): TrinaryLogic
+	public function isOffsetAccessible(): TrinaryLogic
 	{
 		return TrinaryLogic::createMaybe();
 	}

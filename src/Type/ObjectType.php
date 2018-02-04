@@ -261,7 +261,7 @@ class ObjectType implements TypeWithClassName
 		return new ErrorType();
 	}
 
-	public function isOffsetAccesible(): TrinaryLogic
+	public function isOffsetAccessible(): TrinaryLogic
 	{
 		return $this->isInstanceOf(\ArrayAccess::class);
 	}
