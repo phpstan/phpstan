@@ -34,7 +34,7 @@ interface Type
 
 	public function getMethod(string $methodName, Scope $scope): MethodReflection;
 
-	public function canAccessConstants(): bool;
+	public function canAccessConstants(): TrinaryLogic;
 
 	public function hasConstant(string $constantName): bool;
 

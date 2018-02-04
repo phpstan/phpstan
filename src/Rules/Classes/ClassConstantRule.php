@@ -126,7 +126,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 		$typeForDescribe = $classType;
 		$classType = TypeCombinator::remove($classType, new StringType());
 
-		if (!$classType->canAccessConstants()) {
+		if (!$classType->canAccessConstants()->yes()) {
 			return array_merge($messages, [
 				sprintf('Cannot access constant %s on %s.', $constantName, $typeForDescribe->describe()),
 			]);

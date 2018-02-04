@@ -179,15 +179,11 @@ class UnionType implements CompoundType, StaticResolvableType
 		throw new \PHPStan\ShouldNotHappenException();
 	}
 
-	public function canAccessConstants(): bool
+	public function canAccessConstants(): TrinaryLogic
 	{
-		foreach ($this->types as $type) {
-			if (!$type->canAccessConstants()) {
-				return false;
-			}
-		}
-
-		return true;
+		return $this->unionResults(function (Type $type): TrinaryLogic {
+			return $type->canAccessConstants();
+		});
 	}
 
 	public function hasConstant(string $constantName): bool

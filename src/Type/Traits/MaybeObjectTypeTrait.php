@@ -41,9 +41,9 @@ trait MaybeObjectTypeTrait
 		throw new \PHPStan\ShouldNotHappenException();
 	}
 
-	public function canAccessConstants(): bool
+	public function canAccessConstants(): TrinaryLogic
 	{
-		return true;
+		return TrinaryLogic::createMaybe();
 	}
 
 	public function hasConstant(string $constantName): bool
