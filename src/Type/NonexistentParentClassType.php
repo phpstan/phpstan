@@ -50,9 +50,9 @@ class NonexistentParentClassType implements Type
 		throw new \PHPStan\ShouldNotHappenException();
 	}
 
-	public function canAccessConstants(): bool
+	public function canAccessConstants(): TrinaryLogic
 	{
-		return false;
+		return TrinaryLogic::createNo();
 	}
 
 	public function hasConstant(string $constantName): bool

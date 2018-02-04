@@ -181,9 +181,9 @@ class ObjectType implements TypeWithClassName
 		return $broker->getClass($this->className)->getMethod($methodName, $scope);
 	}
 
-	public function canAccessConstants(): bool
+	public function canAccessConstants(): TrinaryLogic
 	{
-		return true;
+		return TrinaryLogic::createYes();
 	}
 
 	public function hasConstant(string $constantName): bool

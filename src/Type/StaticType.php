@@ -99,7 +99,7 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 		return $this->staticObjectType->getMethod($methodName, $scope);
 	}
 
-	public function canAccessConstants(): bool
+	public function canAccessConstants(): TrinaryLogic
 	{
 		return $this->staticObjectType->canAccessConstants();
 	}
