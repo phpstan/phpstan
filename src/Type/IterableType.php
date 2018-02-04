@@ -5,12 +5,14 @@ namespace PHPStan\Type;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\MaybeObjectTypeTrait;
+use PHPStan\Type\Traits\MaybeOffsetAccessibleTypeTrait;
 
 class IterableType implements StaticResolvableType, CompoundType
 {
 
 	use MaybeCallableTypeTrait;
 	use MaybeObjectTypeTrait;
+	use MaybeOffsetAccessibleTypeTrait;
 
 	/** @var \PHPStan\Type\Type */
 	private $keyType;
@@ -139,16 +141,6 @@ class IterableType implements StaticResolvableType, CompoundType
 	public function getIterableValueType(): Type
 	{
 		return $this->getItemType();
-	}
-
-	public function isOffsetAccessible(): TrinaryLogic
-	{
-		return TrinaryLogic::createMaybe();
-	}
-
-	public function getOffsetValueType(): Type
-	{
-		return new MixedType();
 	}
 
 	public static function __set_state(array $properties): Type
