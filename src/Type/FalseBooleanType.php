@@ -57,7 +57,7 @@ class FalseBooleanType implements BooleanType
 		return TrinaryLogic::createNo();
 	}
 
-	public function isOffsetAccesible(): TrinaryLogic
+	public function isOffsetAccessible(): TrinaryLogic
 	{
 		return TrinaryLogic::createNo();
 	}

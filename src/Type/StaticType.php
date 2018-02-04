@@ -184,7 +184,7 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 		return new ErrorType();
 	}
 
-	public function isOffsetAccesible(): TrinaryLogic
+	public function isOffsetAccessible(): TrinaryLogic
 	{
 		return $this->staticObjectType->isInstanceOf(\ArrayAccess::class);
 	}

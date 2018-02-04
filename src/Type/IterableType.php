@@ -141,7 +141,7 @@ class IterableType implements StaticResolvableType, CompoundType
 		return $this->getItemType();
 	}
 
-	public function isOffsetAccesible(): TrinaryLogic
+	public function isOffsetAccessible(): TrinaryLogic
 	{
 		return TrinaryLogic::createMaybe();
 	}

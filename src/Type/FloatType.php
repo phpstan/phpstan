@@ -56,7 +56,7 @@ class FloatType implements Type
 		return 'float';
 	}
 
-	public function isOffsetAccesible(): TrinaryLogic
+	public function isOffsetAccessible(): TrinaryLogic
 	{
 		return TrinaryLogic::createNo();
 	}
