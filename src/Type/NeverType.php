@@ -58,9 +58,9 @@ class NeverType implements CompoundType
 		throw new \PHPStan\ShouldNotHappenException();
 	}
 
-	public function canCallMethods(): bool
+	public function canCallMethods(): TrinaryLogic
 	{
-		return false;
+		return TrinaryLogic::createYes();
 	}
 
 	public function hasMethod(string $methodName): bool

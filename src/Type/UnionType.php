@@ -146,15 +146,11 @@ class UnionType implements CompoundType, StaticResolvableType
 		throw new \PHPStan\ShouldNotHappenException();
 	}
 
-	public function canCallMethods(): bool
+	public function canCallMethods(): TrinaryLogic
 	{
-		foreach ($this->types as $type) {
-			if (!$type->canCallMethods()) {
-				return false;
-			}
-		}
-
-		return true;
+		return $this->unionResults(function (Type $type): TrinaryLogic {
+			return $type->canCallMethods();
+		});
 	}
 
 	public function hasMethod(string $methodName): bool

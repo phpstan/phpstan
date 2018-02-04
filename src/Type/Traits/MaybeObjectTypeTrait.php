@@ -26,9 +26,9 @@ trait MaybeObjectTypeTrait
 		throw new \PHPStan\ShouldNotHappenException();
 	}
 
-	public function canCallMethods(): bool
+	public function canCallMethods(): TrinaryLogic
 	{
-		return true;
+		return TrinaryLogic::createMaybe();
 	}
 
 	public function hasMethod(string $methodName): bool

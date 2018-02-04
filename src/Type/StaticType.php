@@ -84,7 +84,7 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 		return $this->staticObjectType->getProperty($propertyName, $scope);
 	}
 
-	public function canCallMethods(): bool
+	public function canCallMethods(): TrinaryLogic
 	{
 		return $this->staticObjectType->canCallMethods();
 	}

@@ -35,9 +35,9 @@ class NonexistentParentClassType implements Type
 		throw new \PHPStan\ShouldNotHappenException();
 	}
 
-	public function canCallMethods(): bool
+	public function canCallMethods(): TrinaryLogic
 	{
-		return false;
+		return TrinaryLogic::createNo();
 	}
 
 	public function hasMethod(string $methodName): bool
