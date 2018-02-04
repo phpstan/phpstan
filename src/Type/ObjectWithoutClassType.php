@@ -7,11 +7,13 @@ use PHPStan\Reflection\ClassConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\MaybeOffsetAccessibleTypeTrait;
 
 class ObjectWithoutClassType implements Type
 {
 
+	use MaybeCallableTypeTrait;
 	use MaybeOffsetAccessibleTypeTrait;
 
 	public function hasProperty(string $propertyName): bool
@@ -107,11 +109,6 @@ class ObjectWithoutClassType implements Type
 	public function getIterableValueType(): Type
 	{
 		return new MixedType();
-	}
-
-	public function isCallable(): TrinaryLogic
-	{
-		return TrinaryLogic::createMaybe();
 	}
 
 	public function isCloneable(): TrinaryLogic
