@@ -6,6 +6,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
+use PHPStan\TrinaryLogic;
 
 trait NonObjectTypeTrait
 {
@@ -55,9 +56,9 @@ trait NonObjectTypeTrait
 		throw new \PHPStan\ShouldNotHappenException();
 	}
 
-	public function isCloneable(): bool
+	public function isCloneable(): TrinaryLogic
 	{
-		return false;
+		return TrinaryLogic::createNo();
 	}
 
 }

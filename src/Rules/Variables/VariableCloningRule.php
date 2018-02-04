@@ -37,7 +37,7 @@ class VariableCloningRule implements \PHPStan\Rules\Rule
 			$type = \PHPStan\Type\TypeCombinator::removeNull($type);
 		}
 
-		if ($type->isCloneable()) {
+		if ($type->isCloneable()->yes()) {
 			return [];
 		}
 

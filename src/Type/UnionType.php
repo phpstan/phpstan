@@ -276,15 +276,11 @@ class UnionType implements CompoundType, StaticResolvableType
 		});
 	}
 
-	public function isCloneable(): bool
+	public function isCloneable(): TrinaryLogic
 	{
-		foreach ($this->types as $type) {
-			if (!$type->isCloneable()) {
-				return false;
-			}
-		}
-
-		return true;
+		return $this->unionResults(function (Type $type): TrinaryLogic {
+			return $type->isCloneable();
+		});
 	}
 
 	public static function __set_state(array $properties): Type

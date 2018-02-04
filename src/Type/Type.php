@@ -52,7 +52,7 @@ interface Type
 
 	public function isCallable(): TrinaryLogic;
 
-	public function isCloneable(): bool;
+	public function isCloneable(): TrinaryLogic;
 
 	public static function __set_state(array $properties): self;
 

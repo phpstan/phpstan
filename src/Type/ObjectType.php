@@ -305,9 +305,9 @@ class ObjectType implements TypeWithClassName
 		return TrinaryLogic::createNo();
 	}
 
-	public function isCloneable(): bool
+	public function isCloneable(): TrinaryLogic
 	{
-		return true;
+		return TrinaryLogic::createYes();
 	}
 
 	public static function __set_state(array $properties): Type
