@@ -6,6 +6,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\MaybeIterableTypeTrait;
 use PHPStan\Type\Traits\MaybeObjectTypeTrait;
+use PHPStan\Type\Traits\MaybeOffsetAccessibleTypeTrait;
 
 class MixedType implements CompoundType
 {
@@ -13,6 +14,7 @@ class MixedType implements CompoundType
 	use MaybeCallableTypeTrait;
 	use MaybeIterableTypeTrait;
 	use MaybeObjectTypeTrait;
+	use MaybeOffsetAccessibleTypeTrait;
 
 	/**
 	 * @var bool
@@ -54,16 +56,6 @@ class MixedType implements CompoundType
 	public function describe(): string
 	{
 		return 'mixed';
-	}
-
-	public function isOffsetAccessible(): TrinaryLogic
-	{
-		return TrinaryLogic::createMaybe();
-	}
-
-	public function getOffsetValueType(): Type
-	{
-		return new MixedType();
 	}
 
 	public function isExplicitMixed(): bool

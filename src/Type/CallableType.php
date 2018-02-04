@@ -5,12 +5,14 @@ namespace PHPStan\Type;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Traits\MaybeIterableTypeTrait;
 use PHPStan\Type\Traits\MaybeObjectTypeTrait;
+use PHPStan\Type\Traits\MaybeOffsetAccessibleTypeTrait;
 
 class CallableType implements CompoundType
 {
 
 	use MaybeIterableTypeTrait;
 	use MaybeObjectTypeTrait;
+	use MaybeOffsetAccessibleTypeTrait;
 
 	/**
 	 * @return string[]
@@ -47,16 +49,6 @@ class CallableType implements CompoundType
 	public function describe(): string
 	{
 		return 'callable';
-	}
-
-	public function isOffsetAccessible(): TrinaryLogic
-	{
-		return TrinaryLogic::createMaybe();
-	}
-
-	public function getOffsetValueType(): Type
-	{
-		return new MixedType();
 	}
 
 	public function isCallable(): TrinaryLogic
