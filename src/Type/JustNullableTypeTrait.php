@@ -41,14 +41,4 @@ trait JustNullableTypeTrait
 		return TrinaryLogic::createNo();
 	}
 
-	public function isOffsetAccesible(): TrinaryLogic
-	{
-		return TrinaryLogic::createNo();
-	}
-
-	public function getOffsetValueType(): Type
-	{
-		return new ErrorType();
-	}
-
 }

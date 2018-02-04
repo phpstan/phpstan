@@ -5,6 +5,7 @@ namespace PHPStan\Type;
 use PHPStan\Type\Traits\NonCallableTypeTrait;
 use PHPStan\Type\Traits\NonIterableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
+use PHPStan\Type\Traits\NonOffsetAccessibleTypeTrait;
 
 class ResourceType implements Type
 {
@@ -13,6 +14,7 @@ class ResourceType implements Type
 	use NonCallableTypeTrait;
 	use NonIterableTypeTrait;
 	use NonObjectTypeTrait;
+	use NonOffsetAccessibleTypeTrait;
 
 	public function describe(): string
 	{

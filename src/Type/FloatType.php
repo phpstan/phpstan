@@ -6,6 +6,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\Traits\NonCallableTypeTrait;
 use PHPStan\Type\Traits\NonIterableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
+use PHPStan\Type\Traits\NonOffsetAccessibleTypeTrait;
 
 class FloatType implements Type
 {
@@ -13,6 +14,7 @@ class FloatType implements Type
 	use NonCallableTypeTrait;
 	use NonIterableTypeTrait;
 	use NonObjectTypeTrait;
+	use NonOffsetAccessibleTypeTrait;
 
 	/**
 	 * @return string[]
@@ -54,16 +56,6 @@ class FloatType implements Type
 	public function describe(): string
 	{
 		return 'float';
-	}
-
-	public function isOffsetAccessible(): TrinaryLogic
-	{
-		return TrinaryLogic::createNo();
-	}
-
-	public function getOffsetValueType(): Type
-	{
-		return new ErrorType();
 	}
 
 	public static function __set_state(array $properties): Type

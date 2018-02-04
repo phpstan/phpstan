@@ -5,6 +5,7 @@ namespace PHPStan\Type;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Traits\NonIterableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
+use PHPStan\Type\Traits\NonOffsetAccessibleTypeTrait;
 
 class StringType implements Type
 {
@@ -12,6 +13,7 @@ class StringType implements Type
 	use JustNullableTypeTrait;
 	use NonIterableTypeTrait;
 	use NonObjectTypeTrait;
+	use NonOffsetAccessibleTypeTrait;
 
 	public function describe(): string
 	{

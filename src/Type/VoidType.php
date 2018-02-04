@@ -6,6 +6,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\Traits\NonCallableTypeTrait;
 use PHPStan\Type\Traits\NonIterableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
+use PHPStan\Type\Traits\NonOffsetAccessibleTypeTrait;
 
 class VoidType implements Type
 {
@@ -13,6 +14,7 @@ class VoidType implements Type
 	use NonCallableTypeTrait;
 	use NonIterableTypeTrait;
 	use NonObjectTypeTrait;
+	use NonOffsetAccessibleTypeTrait;
 
 	/**
 	 * @return string[]
@@ -43,16 +45,6 @@ class VoidType implements Type
 	public function describe(): string
 	{
 		return 'void';
-	}
-
-	public function isOffsetAccessible(): TrinaryLogic
-	{
-		return TrinaryLogic::createNo();
-	}
-
-	public function getOffsetValueType(): Type
-	{
-		return new ErrorType();
 	}
 
 	public static function __set_state(array $properties): Type

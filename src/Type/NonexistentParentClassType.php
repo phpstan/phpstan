@@ -8,12 +8,14 @@ use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Traits\NonIterableTypeTrait;
+use PHPStan\Type\Traits\NonOffsetAccessibleTypeTrait;
 
 class NonexistentParentClassType implements Type
 {
 
 	use JustNullableTypeTrait;
 	use NonIterableTypeTrait;
+	use NonOffsetAccessibleTypeTrait;
 
 	public function describe(): string
 	{
