@@ -43,6 +43,8 @@ class FileHelper
 			$path = $originalPath;
 		}
 
+		/** @var string $path */
+		$path = $path;
 		$path = str_replace('\\', '/', $path);
 		$path = preg_replace('~/{2,}~', '/', $path);
 

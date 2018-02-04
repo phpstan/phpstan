@@ -147,6 +147,12 @@ services:
 			classes: %universalObjectCratesClasses%
 
 	-
+		class: PHPStan\Reflection\SignatureMap\FunctionDumper
+
+	-
+		class: PHPStan\Reflection\SignatureMap\SignatureMapParser
+
+	-
 		class: PHPStan\Rules\ClassCaseSensitivityCheck
 
 	-
@@ -218,6 +224,21 @@ services:
 
 	-
 		class: PHPStan\Type\Php\CallbackBasedFunctionReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	-
+		class: PHPStan\Type\Php\ExplodeFunctionDynamicReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	-
+		class: PHPStan\Type\Php\ReplaceFunctionsDynamicReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	-
+		class: PHPStan\Type\Php\VarExportFunctionDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 

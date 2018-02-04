@@ -578,6 +578,7 @@ class Scope
 			}
 
 			if ($this->broker->hasConstant($node->name, $this)) {
+				/** @var string $resolvedConstantName */
 				$resolvedConstantName = $this->broker->resolveConstantName($node->name, $this);
 				if ($resolvedConstantName === 'DIRECTORY_SEPARATOR') {
 					return new UnionType([

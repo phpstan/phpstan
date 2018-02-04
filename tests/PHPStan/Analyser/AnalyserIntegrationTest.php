@@ -4,6 +4,7 @@ namespace PHPStan\Analyser;
 
 use PHPStan\Broker\Broker;
 use PHPStan\File\FileHelper;
+use PHPStan\Reflection\SignatureMap\FunctionDumper;
 
 class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 {
@@ -109,6 +110,20 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertCount(1, $errors);
 		$this->assertSame('Parameter #1 $i of method UniversalObjectCrate\Foo::doBaz() expects int, string given.', $errors[0]->getMessage());
 		$this->assertSame(19, $errors[0]->getLine());
+	}
+
+	public function testCustomFunctionWithNameEquivalentInSignatureMap(): void
+	{
+		/** @var \PHPStan\Reflection\SignatureMap\FunctionDumper $dumper */
+		$dumper = $this->getContainer()->getByType(FunctionDumper::class);
+		$functionFilename = $dumper->getFilename('bcompiler_write_file');
+		if (!file_exists($functionFilename)) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		require_once __DIR__ . '/data/custom-function-in-signature-map.php';
+		$errors = $this->runAnalyse(__DIR__ . '/data/custom-function-in-signature-map.php');
+		$this->assertCount(0, $errors);
 	}
 
 	/**

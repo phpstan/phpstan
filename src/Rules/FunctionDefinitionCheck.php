@@ -89,15 +89,11 @@ class FunctionDefinitionCheck
 				$functionName = (string) $function->namespacedName;
 			}
 			$functionNameName = new Name($functionName);
-			if (!$this->broker->hasFunction($functionNameName, null)) {
+			if (!$this->broker->hasCustomFunction($functionNameName, null)) {
 				return [];
 			}
 
-			$functionReflection = $this->broker->getFunction($functionNameName, null);
-
-			if (!$functionReflection instanceof ParametersAcceptorWithPhpDocs) {
-				throw new \PHPStan\ShouldNotHappenException();
-			}
+			$functionReflection = $this->broker->getCustomFunction($functionNameName, null);
 
 			return $this->checkParametersAcceptor(
 				$functionReflection,

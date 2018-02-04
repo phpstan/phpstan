@@ -184,6 +184,7 @@ class ArrayType implements StaticResolvableType
 	protected function castToArrayKeyType(Type $offsetType): Type
 	{
 		if ($offsetType instanceof ConstantScalarType) {
+			/** @var int|string $offsetValue */
 			$offsetValue = key([$offsetType->getValue() => null]);
 			return is_int($offsetValue) ? new ConstantIntegerType($offsetValue) : new ConstantStringType($offsetValue);
 

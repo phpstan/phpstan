@@ -38,7 +38,8 @@ class ConstantStringType extends StringType implements ConstantScalarType
 		}
 
 		// 'MyClass::myStaticFunction'
-		if (preg_match('#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\z#', $this->value, $matches)) {
+		$matches = \Nette\Utils\Strings::match($this->value, '#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\z#');
+		if ($matches !== null) {
 			if (!$broker->hasClass($matches[1])) {
 				return TrinaryLogic::createNo();
 			}

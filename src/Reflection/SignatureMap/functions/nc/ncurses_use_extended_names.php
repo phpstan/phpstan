@@ -1,0 +1,17 @@
+<?php declare(strict_types = 1);
+
+return new \PHPStan\Reflection\Native\NativeFunctionReflection(
+	'ncurses_use_extended_names',
+	[
+       new \PHPStan\Reflection\Native\NativeParameterReflection(
+			'flag',
+			false,
+			PHPStan\Type\BooleanType::__set_state(array()),
+			false,
+			false
+		),
+
+	],
+	false,
+	PHPStan\Type\IntegerType::__set_state(array())
+);

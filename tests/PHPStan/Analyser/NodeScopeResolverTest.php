@@ -1812,6 +1812,22 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array<int(0)|int(1)|int(2), int>',
 				'$anotherArray = $arrayOfIntegers',
 			],
+			[
+				'string|null',
+				'var_export()',
+			],
+			[
+				'null',
+				'var_export($string)',
+			],
+			[
+				'null',
+				'var_export($string, false)',
+			],
+			[
+				'string',
+				'var_export($string, true)',
+			],
 		];
 	}
 
@@ -4183,6 +4199,92 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/calling-multiple-classes-per-file.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataExplode(): array
+	{
+		return [
+			[
+				'array<int, string>',
+				'$sureArray',
+			],
+			[
+				'false',
+				'$sureFalse',
+			],
+			[
+				'array<int,string>|false',
+				'$arrayOrFalse',
+			],
+			/*[
+				'array<int,string>|false',
+				'$anotherArrayOrFalse',
+			],*/
+		];
+	}
+
+	/**
+	 * @dataProvider dataExplode
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testExplode(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/explode.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataReplaceFunctions(): array
+	{
+		return [
+			[
+				'string',
+				'$expectedString',
+			],
+			[
+				'string',
+				'$anotherExpectedString',
+			],
+			[
+				'array<string, string>',
+				'$expectedArray',
+			],
+			[
+				'array<string, string>',
+				'$anotherExpectedArray',
+			],
+			[
+				'array|string',
+				'$expectedArrayOrString',
+			],
+			[
+				'array|string',
+				'$anotherExpectedArrayOrString',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataReplaceFunctions
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testReplaceFunctions(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/replaceFunctions.php',
 			$description,
 			$expression
 		);

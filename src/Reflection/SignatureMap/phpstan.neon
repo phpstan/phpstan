@@ -1,0 +1,5 @@
+includes:
+	- ../../../vendor/phpstan/phpstan-strict-rules/rules.neon
+
+parameters:
+	tmpDir: %rootDir%/tmp/generated

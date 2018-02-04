@@ -7,6 +7,7 @@ use PHPStan\PhpDoc\Tag\ParamTag;
 use PHPStan\Reflection\BrokerAwareExtension;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\FunctionReflectionFactory;
+use PHPStan\Reflection\SignatureMap\FunctionDumper;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Type;
 use ReflectionClass;
@@ -44,14 +45,23 @@ class Broker
 	/** @var \PHPStan\Type\FileTypeMapper */
 	private $fileTypeMapper;
 
+	/** @var \PHPStan\Reflection\SignatureMap\FunctionDumper */
+	private $functionDumper;
+
 	/** @var \PHPStan\Reflection\FunctionReflection[] */
 	private $functionReflections = [];
+
+	/** @var \PHPStan\Reflection\Php\PhpFunctionReflection[] */
+	private $customFunctionReflections = [];
 
 	/** @var null|self */
 	private static $instance;
 
 	/** @var bool[] */
 	private $hasClassCache;
+
+	/** @var \PHPStan\Reflection\Native\NativeFunctionReflection[] */
+	private static $functionMap = [];
 
 	/**
 	 * @param \PHPStan\Reflection\PropertiesClassReflectionExtension[] $propertiesClassReflectionExtensions
@@ -61,6 +71,7 @@ class Broker
 	 * @param \PHPStan\Type\DynamicFunctionReturnTypeExtension[] $dynamicFunctionReturnTypeExtensions
 	 * @param \PHPStan\Reflection\FunctionReflectionFactory $functionReflectionFactory
 	 * @param \PHPStan\Type\FileTypeMapper $fileTypeMapper
+	 * @param \PHPStan\Reflection\SignatureMap\FunctionDumper $functionDumper
 	 */
 	public function __construct(
 		array $propertiesClassReflectionExtensions,
@@ -69,7 +80,8 @@ class Broker
 		array $dynamicStaticMethodReturnTypeExtensions,
 		array $dynamicFunctionReturnTypeExtensions,
 		FunctionReflectionFactory $functionReflectionFactory,
-		FileTypeMapper $fileTypeMapper
+		FileTypeMapper $fileTypeMapper,
+		FunctionDumper $functionDumper
 	)
 	{
 		$this->propertiesClassReflectionExtensions = $propertiesClassReflectionExtensions;
@@ -89,6 +101,7 @@ class Broker
 
 		$this->functionReflectionFactory = $functionReflectionFactory;
 		$this->fileTypeMapper = $fileTypeMapper;
+		$this->functionDumper = $functionDumper;
 
 		self::$instance = $this;
 	}
@@ -239,23 +252,20 @@ class Broker
 
 		$lowerCasedFunctionName = strtolower($functionName);
 		if (!isset($this->functionReflections[$lowerCasedFunctionName])) {
-			$reflectionFunction = new \ReflectionFunction($lowerCasedFunctionName);
-			$phpDocParameterTags = [];
-			$phpDocReturnTag = null;
-			if ($reflectionFunction->getFileName() !== false && $reflectionFunction->getDocComment() !== false) {
-				$fileName = $reflectionFunction->getFileName();
-				$docComment = $reflectionFunction->getDocComment();
-				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, null, $docComment);
-				$phpDocParameterTags = $resolvedPhpDoc->getParamTags();
-				$phpDocReturnTag = $resolvedPhpDoc->getReturnTag();
+			$nativeFunctionFilename = $this->functionDumper->getFilename($functionName);
+			if (isset(self::$functionMap[$nativeFunctionFilename])) {
+				return $this->functionReflections[$lowerCasedFunctionName] = self::$functionMap[$nativeFunctionFilename];
 			}
-			$this->functionReflections[$lowerCasedFunctionName] = $this->functionReflectionFactory->create(
-				$reflectionFunction,
-				array_map(function (ParamTag $paramTag): Type {
-					return $paramTag->getType();
-				}, $phpDocParameterTags),
-				$phpDocReturnTag !== null ? $phpDocReturnTag->getType() : null
-			);
+			if (file_exists($nativeFunctionFilename)) {
+				$functionReflection = require_once $nativeFunctionFilename;
+				if (!$functionReflection instanceof \PHPStan\Reflection\Native\NativeFunctionReflection) {
+					throw new \PHPStan\ShouldNotHappenException(sprintf('File %s could not be loaded', $nativeFunctionFilename));
+				}
+				self::$functionMap[$nativeFunctionFilename] = $functionReflection;
+				$this->functionReflections[$lowerCasedFunctionName] = $functionReflection;
+			} else {
+				$this->functionReflections[$lowerCasedFunctionName] = $this->getCustomFunction($nameNode, $scope);
+			}
 		}
 
 		return $this->functionReflections[$lowerCasedFunctionName];
@@ -264,6 +274,53 @@ class Broker
 	public function hasFunction(\PhpParser\Node\Name $nameNode, ?Scope $scope): bool
 	{
 		return $this->resolveFunctionName($nameNode, $scope) !== null;
+	}
+
+	public function hasCustomFunction(\PhpParser\Node\Name $nameNode, ?Scope $scope): bool
+	{
+		$functionName = $this->resolveFunctionName($nameNode, $scope);
+		if ($functionName === null) {
+			return false;
+		}
+
+		$nativeFunctionFilename = $this->functionDumper->getFilename($functionName);
+		return !file_exists($nativeFunctionFilename);
+	}
+
+	public function getCustomFunction(\PhpParser\Node\Name $nameNode, ?Scope $scope): \PHPStan\Reflection\Php\PhpFunctionReflection
+	{
+		if (!$this->hasCustomFunction($nameNode, $scope)) {
+			throw new \PHPStan\Broker\FunctionNotFoundException((string) $nameNode);
+		}
+
+		/** @var string $functionName */
+		$functionName = $this->resolveFunctionName($nameNode, $scope);
+		$lowerCasedFunctionName = strtolower($functionName);
+		if (isset($this->customFunctionReflections[$lowerCasedFunctionName])) {
+			return $this->customFunctionReflections[$lowerCasedFunctionName];
+		}
+
+		$reflectionFunction = new \ReflectionFunction($functionName);
+		$phpDocParameterTags = [];
+		$phpDocReturnTag = null;
+		if ($reflectionFunction->getFileName() !== false && $reflectionFunction->getDocComment() !== false) {
+			$fileName = $reflectionFunction->getFileName();
+			$docComment = $reflectionFunction->getDocComment();
+			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, null, $docComment);
+			$phpDocParameterTags = $resolvedPhpDoc->getParamTags();
+			$phpDocReturnTag = $resolvedPhpDoc->getReturnTag();
+		}
+
+		$functionReflection = $this->functionReflectionFactory->create(
+			$reflectionFunction,
+			array_map(function (ParamTag $paramTag): Type {
+				return $paramTag->getType();
+			}, $phpDocParameterTags),
+			$phpDocReturnTag !== null ? $phpDocReturnTag->getType() : null
+		);
+		$this->customFunctionReflections[$lowerCasedFunctionName] = $functionReflection;
+
+		return $functionReflection;
 	}
 
 	public function resolveFunctionName(\PhpParser\Node\Name $nameNode, ?Scope $scope): ?string
