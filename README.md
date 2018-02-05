@@ -309,7 +309,7 @@ parameters:
 			- sendResponse
 ```
 
-### Ignore error messages with regular expresions
+### Ignore error messages with regular expressions
 
 If some issue in your code base is not easy to fix or just simply want to deal with it later,
 you can exclude error messages from the analysis result with regular expressions:
