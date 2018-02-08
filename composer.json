@@ -29,6 +29,7 @@
 		"ext-intl": "*",
 		"ext-gd": "*",
 		"ext-mysqli": "*",
+		"ext-zip": "*",
 		"consistence/coding-standard": "^3.0.1",
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
 		"jakub-onderka/php-parallel-lint": "^1.0",
