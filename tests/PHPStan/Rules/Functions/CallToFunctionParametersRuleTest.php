@@ -168,6 +168,10 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Function openssl_x509_parse invoked with 3 parameters, 1-2 required.',
 				41,
 			],
+			[
+				'Function openssl_pkcs12_export invoked with 6 parameters, 4-5 required.',
+				47,
+			],
 		]);
 	}
 
