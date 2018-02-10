@@ -1098,7 +1098,7 @@ class Scope
 			return new ArrayType(new MixedType(), new MixedType());
 		} elseif ($type instanceof Name) {
 			$className = (string) $type;
-			if ($className === 'self') {
+			if ($className === 'self' || $className === 'static') {
 				$className = $this->getClassReflection()->getName();
 			} elseif (
 				$className === 'parent'

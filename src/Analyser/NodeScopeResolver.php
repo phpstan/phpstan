@@ -1306,12 +1306,19 @@ class NodeScopeResolver
 			|| $statement instanceof Exit_
 		) {
 			return $statement;
-		} elseif ($statement instanceof MethodCall && count($this->earlyTerminatingMethodCalls) > 0) {
+		} elseif (($statement instanceof MethodCall || $statement instanceof Expr\StaticCall) && count($this->earlyTerminatingMethodCalls) > 0) {
 			if (!is_string($statement->name)) {
 				return null;
 			}
 
-			$methodCalledOnType = $scope->getType($statement->var);
+			if ($statement instanceof MethodCall) {
+				$methodCalledOnType = $scope->getType($statement->var);
+			} elseif ($statement instanceof Expr\StaticCall) {
+				$methodCalledOnType = $scope->getFunctionType($statement->class, false, false);
+			} else {
+				return null;
+			}
+
 			foreach ($methodCalledOnType->getReferencedClasses() as $referencedClass) {
 				if (!$this->broker->hasClass($referencedClass)) {
 					continue;
