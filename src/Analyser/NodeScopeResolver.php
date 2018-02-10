@@ -1314,7 +1314,13 @@ class NodeScopeResolver
 			if ($statement instanceof MethodCall) {
 				$methodCalledOnType = $scope->getType($statement->var);
 			} elseif ($statement instanceof Expr\StaticCall) {
-				$methodCalledOnType = $scope->getFunctionType($statement->class, false, false);
+				if ($statement->class instanceof Name) {
+					$methodCalledOnType = $scope->getFunctionType($statement->class, false, false);
+				} elseif ($statement->class instanceof Expr) {
+					$methodCalledOnType = $scope->getType($statement->class);
+				} else {
+					return null;
+				}
 			} else {
 				return null;
 			}
