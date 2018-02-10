@@ -3,6 +3,7 @@
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\NonIterableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
 use PHPStan\Type\Traits\NonOffsetAccessibleTypeTrait;
@@ -11,6 +12,7 @@ class StringType implements Type
 {
 
 	use JustNullableTypeTrait;
+	use MaybeCallableTypeTrait;
 	use NonIterableTypeTrait;
 	use NonObjectTypeTrait;
 	use NonOffsetAccessibleTypeTrait;
@@ -28,11 +30,6 @@ class StringType implements Type
 	public function getOffsetValueType(): Type
 	{
 		return new StringType();
-	}
-
-	public function isCallable(): TrinaryLogic
-	{
-		return TrinaryLogic::createMaybe();
 	}
 
 	public static function __set_state(array $properties): Type
