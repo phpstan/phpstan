@@ -12,10 +12,11 @@ class TrinaryLogic
 	private const MAYBE = 0;
 	private const NO = -1;
 
-	/**
-	 * @var int
-	 */
+	/** @var int */
 	private $value;
+
+	/** @var self[] */
+	private static $registry = [];
 
 	private function __construct(int $value)
 	{
@@ -24,17 +25,23 @@ class TrinaryLogic
 
 	public static function createYes(): self
 	{
-		return new self(self::YES);
+		return self::$registry[self::YES] ?? self::create(self::YES);
 	}
 
 	public static function createNo(): self
 	{
-		return new self(self::NO);
+		return self::$registry[self::NO] ?? self::create(self::NO);
 	}
 
 	public static function createMaybe(): self
 	{
-		return new self(self::MAYBE);
+		return self::$registry[self::MAYBE] ?? self::create(self::MAYBE);
+	}
+
+	private static function create(int $value): self
+	{
+		self::$registry[$value] = self::$registry[$value] ?? new self($value);
+		return self::$registry[$value];
 	}
 
 	public function yes(): bool
@@ -54,60 +61,45 @@ class TrinaryLogic
 
 	public function and(self ...$operands): self
 	{
-		$operandValues = array_map(function (self $trinaryLogic): int {
-			return $trinaryLogic->value;
-		}, $operands);
+		$operandValues = array_column($operands, 'value');
 		$operandValues[] = $this->value;
-		return new self(min($operandValues));
+		return self::create(min($operandValues));
 	}
 
 	public function or(self ...$operands): self
 	{
-		$operandValues = array_map(function (self $trinaryLogic): int {
-			return $trinaryLogic->value;
-		}, $operands);
+		$operandValues = array_column($operands, 'value');
 		$operandValues[] = $this->value;
-		return new self(max($operandValues));
+		return self::create(max($operandValues));
 	}
 
 	public static function extremeIdentity(self ...$operands): self
 	{
-		$operandValues = array_map(function (self $trinaryLogic): int {
-			return $trinaryLogic->value;
-		}, $operands);
-
+		$operandValues = array_column($operands, 'value');
 		$min = min($operandValues);
 		$max = max($operandValues);
-		return new self($min === $max ? $min : self::MAYBE);
+		return self::create($min === $max ? $min : self::MAYBE);
 	}
 
 	public static function maxMin(self ...$operands): self
 	{
-		$operandValues = array_map(function (self $trinaryLogic): int {
-			return $trinaryLogic->value;
-		}, $operands);
-
-		return new self(max($operandValues) ?: min($operandValues));
+		$operandValues = array_column($operands, 'value');
+		return self::create(max($operandValues) ?: min($operandValues));
 	}
 
 	public function negate(): self
 	{
-		return new self(-$this->value);
+		return self::create(-$this->value);
 	}
 
 	public function equals(self $other): bool
 	{
-		return $this->value === $other->value;
+		return $this === $other;
 	}
 
 	public function addMaybe(): self
 	{
-		$value = $this->value;
-		if ($value === self::NO) {
-			$value = self::MAYBE;
-		}
-
-		return new self($value);
+		return self::create(max($this->value, self::MAYBE));
 	}
 
 	public function describe(): string
@@ -123,7 +115,7 @@ class TrinaryLogic
 
 	public static function __set_state(array $properties): self
 	{
-		return new self($properties['value']);
+		return self::create($properties['value']);
 	}
 
 }
