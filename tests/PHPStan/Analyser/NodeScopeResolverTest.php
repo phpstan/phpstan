@@ -4221,6 +4221,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				\EarlyTermination\Foo::class => [
 					'doFoo',
+					'doBar',
 				],
 			]
 		);
