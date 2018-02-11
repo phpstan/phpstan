@@ -1169,7 +1169,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'self::ARRAY_CONSTANT',
 			],
 			[
-				'bool',
+				'true',
 				'self::BOOLEAN_CONSTANT',
 			],
 			[
@@ -1193,7 +1193,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foo::ARRAY_CONSTANT',
 			],
 			[
-				'bool',
+				'true',
 				'$foo::BOOLEAN_CONSTANT',
 			],
 			[

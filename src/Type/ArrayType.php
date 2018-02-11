@@ -3,11 +3,13 @@
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
 
 class ArrayType implements StaticResolvableType
 {
 
+	use MaybeCallableTypeTrait;
 	use NonObjectTypeTrait;
 
 	/** @var \PHPStan\Type\Type */

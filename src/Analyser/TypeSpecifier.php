@@ -19,7 +19,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
-use PHPStan\Type\FalseBooleanType;
+use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\IterableType;
@@ -30,7 +30,6 @@ use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\ResourceType;
 use PHPStan\Type\StaticType;
 use PHPStan\Type\StringType;
-use PHPStan\Type\TrueBooleanType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\UnionType;
@@ -76,14 +75,14 @@ class TypeSpecifier
 			if ($expressions !== null) {
 				$constantName = strtolower((string) $expressions[1]->name);
 				if ($constantName === 'false') {
-					$types = $this->create($expressions[0], new FalseBooleanType(), $context);
+					$types = $this->create($expressions[0], new ConstantBooleanType(false), $context);
 					return $types->unionWith($this->specifyTypesInCondition(
 						$scope,
 						$expressions[0],
 						($context & self::CONTEXT_TRUE) ? self::CONTEXT_FALSE : ~self::CONTEXT_FALSE
 					));
 				} elseif ($constantName === 'true') {
-					$types = $this->create($expressions[0], new TrueBooleanType(), $context);
+					$types = $this->create($expressions[0], new ConstantBooleanType(true), $context);
 					return $types->unionWith($this->specifyTypesInCondition(
 						$scope,
 						$expressions[0],
@@ -193,7 +192,7 @@ class TypeSpecifier
 						}
 
 						if (isset($expr->args[2]) && ($context & self::CONTEXT_TRUE)) {
-							if (!$scope->getType($expr->args[2]->value)->isSuperTypeOf(new TrueBooleanType())->no()) {
+							if (!$scope->getType($expr->args[2]->value)->isSuperTypeOf(new ConstantBooleanType(true))->no()) {
 								$types = $types->intersectWith($this->create($innerExpr, new StringType(), $context));
 							}
 						}
@@ -256,7 +255,7 @@ class TypeSpecifier
 						$var,
 						new UnionType([
 							new NullType(),
-							new FalseBooleanType(),
+							new ConstantBooleanType(false),
 						]),
 						self::CONTEXT_FALSE
 					);
@@ -272,7 +271,7 @@ class TypeSpecifier
 			$type = new ObjectWithoutClassType();
 			return $this->create($expr, $type, self::CONTEXT_FALSE);
 		} elseif (($context & self::CONTEXT_FALSEY) === 0) {
-			$type = new UnionType([new NullType(), new FalseBooleanType()]);
+			$type = new UnionType([new NullType(), new ConstantBooleanType(false)]);
 			return $this->create($expr, $type, self::CONTEXT_FALSE);
 		}
 
