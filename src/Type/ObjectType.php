@@ -266,7 +266,7 @@ class ObjectType implements TypeWithClassName
 		return $this->isInstanceOf(\ArrayAccess::class);
 	}
 
-	public function getOffsetValueType(): Type
+	public function getOffsetValueType(Type $offsetType): Type
 	{
 		$broker = Broker::getInstance();
 

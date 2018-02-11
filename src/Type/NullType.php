@@ -55,7 +55,7 @@ class NullType implements Type
 		return 'null';
 	}
 
-	public function getOffsetValueType(): Type
+	public function getOffsetValueType(Type $offsetType): Type
 	{
 		return new NullType();
 	}

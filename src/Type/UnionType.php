@@ -250,10 +250,10 @@ class UnionType implements CompoundType, StaticResolvableType
 		});
 	}
 
-	public function getOffsetValueType(): Type
+	public function getOffsetValueType(Type $offsetType): Type
 	{
-		return $this->unionTypes(function (Type $type): Type {
-			return $type->getOffsetValueType();
+		return $this->unionTypes(function (Type $type) use ($offsetType): Type {
+			return $type->getOffsetValueType($offsetType);
 		});
 	}
 

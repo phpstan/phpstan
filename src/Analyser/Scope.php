@@ -617,8 +617,9 @@ class Scope
 		}
 
 		if ($node instanceof Expr\ArrayDimFetch && $node->dim !== null) {
+			$offsetType = $this->getType($node->dim);
 			$offsetAccessibleType = $this->getType($node->var);
-			return $offsetAccessibleType->getOffsetValueType();
+			return $offsetAccessibleType->getOffsetValueType($offsetType);
 		}
 
 		if ($node instanceof MethodCall && is_string($node->name)) {

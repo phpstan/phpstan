@@ -157,7 +157,7 @@ class ArrayType implements StaticResolvableType
 		return TrinaryLogic::createYes();
 	}
 
-	public function getOffsetValueType(): Type
+	public function getOffsetValueType(Type $offsetType): Type
 	{
 		return $this->getItemType();
 	}
