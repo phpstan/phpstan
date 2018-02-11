@@ -485,6 +485,10 @@ class Scope
 						return new StaticType($this->getClassReflection()->getName());
 					} elseif ($node->class->parts[0] === 'self') {
 						return new ObjectType($this->getClassReflection()->getName());
+					} elseif ($node->class->parts[0] === 'parent') {
+						if ($this->getClassReflection()->getParentClass() !== false) {
+							return new ObjectType($this->getClassReflection()->getParentClass()->getName());
+						}
 					}
 				}
 
