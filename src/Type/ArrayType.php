@@ -38,6 +38,11 @@ class ArrayType implements StaticResolvableType
 		$this->callable = $callable ?? TrinaryLogic::createMaybe()->and((new StringType)->isSuperTypeOf($itemType));
 	}
 
+	public function getKeyType(): Type
+	{
+		return $this->keyType;
+	}
+
 	public function getItemType(): Type
 	{
 		return $this->itemType;
