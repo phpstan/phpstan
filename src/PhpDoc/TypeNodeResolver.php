@@ -15,8 +15,8 @@ use PHPStan\PhpDocParser\Ast\Type\UnionTypeNode;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
+use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\ErrorType;
-use PHPStan\Type\FalseBooleanType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\IntersectionType;
@@ -30,7 +30,6 @@ use PHPStan\Type\ResourceType;
 use PHPStan\Type\StaticType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\ThisType;
-use PHPStan\Type\TrueBooleanType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeWithClassName;
@@ -82,10 +81,10 @@ class TypeNodeResolver
 				return new BooleanType();
 
 			case 'true':
-				return new TrueBooleanType();
+				return new ConstantBooleanType(true);
 
 			case 'false':
-				return new FalseBooleanType();
+				return new ConstantBooleanType(false);
 
 			case 'null':
 				return new NullType();

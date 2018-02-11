@@ -33,6 +33,11 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
+use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\Constant\ConstantBooleanType;
+use PHPStan\Type\Constant\ConstantFloatType;
+use PHPStan\Type\Constant\ConstantIntegerType;
+use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
@@ -455,9 +460,9 @@ class Scope
 		} elseif ($node instanceof ConstFetch) {
 			$constName = strtolower((string) $node->name);
 			if ($constName === 'true') {
-				return new \PHPStan\Type\TrueBooleanType();
+				return new \PHPStan\Type\Constant\ConstantBooleanType(true);
 			} elseif ($constName === 'false') {
-				return new \PHPStan\Type\FalseBooleanType();
+				return new \PHPStan\Type\Constant\ConstantBooleanType(false);
 			} elseif ($constName === 'null') {
 				return new NullType();
 			}
@@ -782,28 +787,23 @@ class Scope
 	private function getTypeFromValue($value): ?Type
 	{
 		if (is_int($value)) {
-			return new IntegerType();
+			return new ConstantIntegerType($value);
 		} elseif (is_float($value)) {
-			return new FloatType();
+			return new ConstantFloatType($value);
 		} elseif (is_bool($value)) {
-			return new BooleanType();
+			return new ConstantBooleanType($value);
 		} elseif ($value === null) {
 			return new NullType();
 		} elseif (is_string($value)) {
-			return new StringType();
+			return new ConstantStringType($value);
 		} elseif (is_array($value)) {
-			return new ArrayType(
-				$this->getCombinedType(
-					array_map(function ($value): Type {
-						return $this->getTypeFromValue($value) ?? new MixedType();
-					}, array_keys($value))
-				),
-				$this->getCombinedType(
-					array_map(function ($value): Type {
-						return $this->getTypeFromValue($value) ?? new MixedType();
-					}, array_values($value))
-				),
-				false
+			return new ConstantArrayType(
+				array_map(function ($value): Type {
+					return $this->getTypeFromValue($value) ?? new MixedType();
+				}, array_keys($value)),
+				array_map(function ($value): Type {
+					return $this->getTypeFromValue($value) ?? new MixedType();
+				}, array_values($value))
 			);
 		}
 

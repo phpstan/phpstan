@@ -110,7 +110,7 @@ class UnionType implements CompoundType, StaticResolvableType
 			}
 		}
 
-		return implode('|', $typeNames);
+		return implode('|', array_unique($typeNames));
 	}
 
 	public function canAccessProperties(): TrinaryLogic

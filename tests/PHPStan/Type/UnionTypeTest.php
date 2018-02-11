@@ -3,6 +3,7 @@
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Constant\ConstantBooleanType;
 
 class UnionTypeTest extends \PHPStan\Testing\TestCase
 {
@@ -122,7 +123,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 
 		yield [
 			$unionTypeA,
-			new UnionType([new TrueBooleanType(), new FloatType()]),
+			new UnionType([new ConstantBooleanType(true), new FloatType()]),
 			TrinaryLogic::createNo(),
 		];
 
@@ -326,7 +327,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 
 		yield [
 			$unionTypeA,
-			new UnionType([new TrueBooleanType(), new FloatType()]),
+			new UnionType([new ConstantBooleanType(true), new FloatType()]),
 			TrinaryLogic::createNo(),
 		];
 

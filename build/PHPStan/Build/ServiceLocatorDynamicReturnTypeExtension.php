@@ -5,8 +5,8 @@ namespace PHPStan\Build;
 use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\ObjectType;
-use PHPStan\Type\TrueBooleanType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 
@@ -52,12 +52,11 @@ class ServiceLocatorDynamicReturnTypeExtension implements \PHPStan\Type\DynamicM
 		}
 
 		$type = new ObjectType($class);
-		if (
-			$methodReflection->getName() === 'getByType'
-			&& count($methodCall->args) >= 2
-			&& $scope->getType($methodCall->args[1]->value) instanceof TrueBooleanType
-		) {
-			$type = TypeCombinator::addNull($type);
+		if ($methodReflection->getName() === 'getByType' && count($methodCall->args) >= 2) {
+			$argType = $scope->getType($methodCall->args[1]->value);
+			if ($argType instanceof ConstantBooleanType && $argType->getValue()) {
+				$type = TypeCombinator::addNull($type);
+			}
 		}
 
 		return $type;
