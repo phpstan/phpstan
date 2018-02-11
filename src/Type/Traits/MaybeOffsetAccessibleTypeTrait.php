@@ -14,7 +14,7 @@ trait MaybeOffsetAccessibleTypeTrait
 		return TrinaryLogic::createMaybe();
 	}
 
-	public function getOffsetValueType(): Type
+	public function getOffsetValueType(Type $offsetType): Type
 	{
 		return new MixedType();
 	}

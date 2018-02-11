@@ -199,10 +199,10 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		});
 	}
 
-	public function getOffsetValueType(): Type
+	public function getOffsetValueType(Type $offsetType): Type
 	{
-		return $this->intersectTypes(function (Type $type): Type {
-			return $type->getOffsetValueType();
+		return $this->intersectTypes(function (Type $type) use ($offsetType): Type {
+			return $type->getOffsetValueType($offsetType);
 		});
 	}
 
