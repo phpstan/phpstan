@@ -2184,6 +2184,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'MethodPhpDocsNamespace\FooParent',
 				'$parent->doLorem()',
+				false,
 			],
 			[
 				'static(MethodPhpDocsNamespace\Foo)',
@@ -2200,6 +2201,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'MethodPhpDocsNamespace\FooParent',
 				'$parent->doIpsum()',
+				false,
 			],
 			[
 				'MethodPhpDocsNamespace\Foo',
@@ -2236,10 +2238,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'MethodPhpDocsNamespace\FooParent',
 				'$this->returnParent()',
+				false,
 			],
 			[
 				'MethodPhpDocsNamespace\FooParent',
 				'$this->returnPhpDocParent()',
+				false,
 			],
 			[
 				'array<null>',
@@ -2260,6 +2264,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'MethodPhpDocsNamespace\Foo&PHPUnit_Framework_MockObject_MockObject',
 				'$this->returnPhpunitMock()',
+			],
+			[
+				'MethodPhpDocsNamespace\FooParent',
+				'new parent()',
 			],
 		];
 	}
@@ -2298,6 +2306,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		if ($replaceClass) {
 			$description = str_replace('$this(MethodPhpDocsNamespace\Foo)', '$this(MethodPhpDocsNamespace\FooInheritDocChild)', $description);
 			$description = str_replace('static(MethodPhpDocsNamespace\Foo)', 'static(MethodPhpDocsNamespace\FooInheritDocChild)', $description);
+			$description = str_replace('MethodPhpDocsNamespace\FooParent', 'MethodPhpDocsNamespace\Foo', $description);
 		}
 		$this->assertTypes(
 			__DIR__ . '/data/method-phpDocs-inheritdoc.php',
