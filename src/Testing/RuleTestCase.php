@@ -5,7 +5,6 @@ namespace PHPStan\Testing;
 use PHPStan\Analyser\Analyser;
 use PHPStan\Analyser\Error;
 use PHPStan\Analyser\NodeScopeResolver;
-use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Cache\Cache;
 use PHPStan\PhpDoc\PhpDocStringResolver;
 use PHPStan\Rules\Registry;
@@ -30,7 +29,7 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 			$broker = $this->createBroker();
 			$printer = new \PhpParser\PrettyPrinter\Standard();
 			$fileHelper = $this->getFileHelper();
-			$typeSpecifier = new TypeSpecifier($printer);
+			$typeSpecifier = $this->createTypeSpecifier($printer, $broker);
 			$this->analyser = new Analyser(
 				$broker,
 				$this->getParser(),
@@ -41,6 +40,7 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 					$printer,
 					new FileTypeMapper($this->getParser(), $this->getContainer()->getByType(PhpDocStringResolver::class), $this->createMock(Cache::class)),
 					$fileHelper,
+					$typeSpecifier,
 					$this->shouldPolluteScopeWithLoopInitialAssignments(),
 					$this->shouldPolluteCatchScopeWithTryAssignments(),
 					[]

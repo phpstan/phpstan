@@ -12,27 +12,20 @@ use PhpParser\Node\Expr\BinaryOp\LogicalOr;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\Instanceof_;
+use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Name;
-use PHPStan\Type\ArrayType;
-use PHPStan\Type\BooleanType;
-use PHPStan\Type\CallableType;
+use PHPStan\Broker\Broker;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantIntegerType;
-use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ConstantScalarType;
-use PHPStan\Type\FloatType;
-use PHPStan\Type\IntegerType;
-use PHPStan\Type\IterableType;
-use PHPStan\Type\MixedType;
 use PHPStan\Type\NonexistentParentClassType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\ObjectWithoutClassType;
-use PHPStan\Type\ResourceType;
 use PHPStan\Type\StaticType;
-use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\UnionType;
@@ -40,24 +33,71 @@ use PHPStan\Type\UnionType;
 class TypeSpecifier
 {
 
-	private const CONTEXT_TRUE = 0b0001;
-	private const CONTEXT_TRUTHY_BUT_NOT_TRUE = 0b0010;
-	public const CONTEXT_TRUTHY = self::CONTEXT_TRUE | self::CONTEXT_TRUTHY_BUT_NOT_TRUE;
-	private const CONTEXT_FALSE = 0b0100;
-	private const CONTEXT_FALSEY_BUT_NOT_FALSE = 0b1000;
-	public const CONTEXT_FALSEY = self::CONTEXT_FALSE | self::CONTEXT_FALSEY_BUT_NOT_FALSE;
-
 	/**
 	 * @var \PhpParser\PrettyPrinter\Standard
 	 */
 	private $printer;
 
-	public function __construct(\PhpParser\PrettyPrinter\Standard $printer)
+	/**
+	 * @var \PHPStan\Broker\Broker
+	 */
+	private $broker;
+
+	/**
+	 * @var \PHPStan\Analyser\FunctionTypeSpecifyingExtension[]
+	 */
+	private $functionTypeSpecifyingExtensions = [];
+
+	/**
+	 * @var \PHPStan\Analyser\MethodTypeSpecifyingExtension[]
+	 */
+	private $methodTypeSpecifyingExtensions = [];
+
+	/**
+	 * @var \PHPStan\Analyser\StaticMethodTypeSpecifyingExtension[]
+	 */
+	private $staticMethodTypeSpecifyingExtensions = [];
+
+	/**
+	 * @var \PHPStan\Analyser\MethodTypeSpecifyingExtension[]
+	 */
+	private $methodTypeSpecifyingExtensionsByClass;
+
+	/**
+	 * @var \PHPStan\Analyser\StaticMethodTypeSpecifyingExtension[]
+	 */
+	private $staticMethodTypeSpecifyingExtensionsByClass;
+
+	/**
+	 * @param \PhpParser\PrettyPrinter\Standard $printer
+	 * @param \PHPStan\Broker\Broker $broker
+	 * @param \PHPStan\Analyser\FunctionTypeSpecifyingExtension[] $functionTypeSpecifyingExtensions
+	 * @param \PHPStan\Analyser\MethodTypeSpecifyingExtension[] $methodTypeSpecifyingExtensions
+	 * @param \PHPStan\Analyser\StaticMethodTypeSpecifyingExtension[] $staticMethodTypeSpecifyingExtensions
+	 */
+	public function __construct(
+		\PhpParser\PrettyPrinter\Standard $printer,
+		Broker $broker,
+		array $functionTypeSpecifyingExtensions,
+		array $methodTypeSpecifyingExtensions,
+		array $staticMethodTypeSpecifyingExtensions
+	)
 	{
 		$this->printer = $printer;
+		$this->broker = $broker;
+
+		foreach (array_merge($functionTypeSpecifyingExtensions, $methodTypeSpecifyingExtensions, $staticMethodTypeSpecifyingExtensions) as $extension) {
+			if ($extension instanceof TypeSpecifierAwareExtension) {
+				$extension->setTypeSpecifier($this);
+			}
+		}
+
+		$this->functionTypeSpecifyingExtensions = $functionTypeSpecifyingExtensions;
+		$this->methodTypeSpecifyingExtensions = $methodTypeSpecifyingExtensions;
+		$this->staticMethodTypeSpecifyingExtensions = $staticMethodTypeSpecifyingExtensions;
 	}
 
-	public function specifyTypesInCondition(Scope $scope, Expr $expr, int $context = self::CONTEXT_TRUTHY): SpecifiedTypes
+	public function specifyTypesInCondition(Scope $scope, Expr $expr, Context $context): SpecifiedTypes
 	{
 		if ($expr instanceof Instanceof_) {
 			if ($expr->class instanceof Name) {
@@ -82,7 +122,7 @@ class TypeSpecifier
 				return $this->create($expr->expr, $type, $context);
 			}
 
-			if ($context & self::CONTEXT_TRUE) {
+			if ($context->true()) {
 				return $this->create($expr->expr, new ObjectWithoutClassType(), $context);
 			}
 		} elseif ($expr instanceof Node\Expr\BinaryOp\Identical) {
@@ -94,7 +134,7 @@ class TypeSpecifier
 					return $types->unionWith($this->specifyTypesInCondition(
 						$scope,
 						$expressions[0],
-						($context & self::CONTEXT_TRUE) ? self::CONTEXT_FALSE : ~self::CONTEXT_FALSE
+						$context->true() ? Context::createFalse() : Context::not(Context::createFalse())
 					));
 				}
 
@@ -103,7 +143,7 @@ class TypeSpecifier
 					return $types->unionWith($this->specifyTypesInCondition(
 						$scope,
 						$expressions[0],
-						($context & self::CONTEXT_TRUE) ? self::CONTEXT_TRUE : ~self::CONTEXT_TRUE
+						$context->true() ? Context::createTrue() : Context::not(Context::createTrue())
 					));
 				}
 
@@ -112,13 +152,13 @@ class TypeSpecifier
 				}
 			}
 
-			if ($context & self::CONTEXT_TRUE) {
+			if ($context->true()) {
 				$type = TypeCombinator::intersect($scope->getType($expr->right), $scope->getType($expr->left));
 				$leftTypes = $this->create($expr->left, $type, $context);
 				$rightTypes = $this->create($expr->right, $type, $context);
 				return $leftTypes->unionWith($rightTypes);
 
-			} elseif ($context & self::CONTEXT_FALSE) {
+			} elseif ($context->false()) {
 				$type = TypeCombinator::intersect($scope->getType($expr->right), $scope->getType($expr->left));
 				if ($type instanceof ConstantScalarType) {
 					$leftTypes = $this->create($expr->left, $type, $context);
@@ -141,7 +181,7 @@ class TypeSpecifier
 					return $this->specifyTypesInCondition(
 						$scope,
 						$expressions[0],
-						($context & self::CONTEXT_TRUE) ? self::CONTEXT_FALSEY : ~self::CONTEXT_FALSEY
+						$context->true() ? Context::createFalsey() : Context::not(Context::createFalsey())
 					);
 				}
 
@@ -149,7 +189,7 @@ class TypeSpecifier
 					return $this->specifyTypesInCondition(
 						$scope,
 						$expressions[0],
-						($context & self::CONTEXT_TRUE) ? self::CONTEXT_TRUTHY : ~self::CONTEXT_TRUTHY
+						$context->true() ? Context::createTruthy() : Context::not(Context::createTruthy())
 					);
 				}
 			}
@@ -159,99 +199,79 @@ class TypeSpecifier
 				new Node\Expr\BooleanNot(new Node\Expr\BinaryOp\Equal($expr->left, $expr->right)),
 				$context
 			);
-		} elseif (
-			$expr instanceof FuncCall
-			&& $expr->name instanceof Name
-			&& isset($expr->args[0])
-		) {
-			$functionName = strtolower((string) $expr->name);
-			$innerExpr = $expr->args[0]->value;
-			switch ($functionName) {
-				case 'is_int':
-				case 'is_integer':
-				case 'is_long':
-					return $this->create($innerExpr, new IntegerType(), $context);
-				case 'is_float':
-				case 'is_double':
-				case 'is_real':
-					return $this->create($innerExpr, new FloatType(), $context);
-				case 'is_null':
-					return $this->create($innerExpr, new NullType(), $context);
-				case 'is_array':
-					return $this->create($innerExpr, new ArrayType(new MixedType(), new MixedType(), false), $context);
-				case 'is_bool':
-					return $this->create($innerExpr, new BooleanType(), $context);
-				case 'is_callable':
-					return $this->create($innerExpr, new CallableType(), $context);
-				case 'is_resource':
-					return $this->create($innerExpr, new ResourceType(), $context);
-				case 'is_iterable':
-					return $this->create($innerExpr, new IterableType(new MixedType(), new MixedType()), $context);
-				case 'is_string':
-					return $this->create($innerExpr, new StringType(), $context);
-				case 'is_object':
-					return $this->create($innerExpr, new ObjectWithoutClassType(), $context);
-				case 'is_numeric':
-					return $this->create($innerExpr, new UnionType([
-						new StringType(),
-						new IntegerType(),
-						new FloatType(),
-					]), $context);
-				case 'is_a':
-					if (isset($expr->args[1])) {
-						$classNameArgExpr = $expr->args[1]->value;
-						$classNameArgExprType = $scope->getType($classNameArgExpr);
-						if (
-							$classNameArgExpr instanceof Expr\ClassConstFetch
-							&& $classNameArgExpr->class instanceof Name
-							&& is_string($classNameArgExpr->name)
-							&& strtolower($classNameArgExpr->name) === 'class'
-						) {
-							$className = $scope->resolveName($classNameArgExpr->class);
-							if (strtolower($classNameArgExpr->class->toString()) === 'static') {
-								$objectType = new StaticType($className);
-							} else {
-								$objectType = new ObjectType($className);
-							}
-							$types = $this->create($innerExpr, $objectType, $context);
-						} elseif ($classNameArgExprType instanceof ConstantStringType) {
-							$objectType = new ObjectType($classNameArgExprType->getValue());
-							$types = $this->create($innerExpr, $objectType, $context);
-						} elseif ($context & self::CONTEXT_TRUE) {
-							$objectType = new ObjectWithoutClassType();
-							$types = $this->create($innerExpr, $objectType, $context);
-						} else {
-							$types = new SpecifiedTypes();
-						}
-
-						if (isset($expr->args[2]) && ($context & self::CONTEXT_TRUE)) {
-							if (!$scope->getType($expr->args[2]->value)->isSuperTypeOf(new ConstantBooleanType(true))->no()) {
-								$types = $types->intersectWith($this->create($innerExpr, new StringType(), $context));
-							}
-						}
-
-						return $types;
+		} elseif ($expr instanceof FuncCall && $expr->name instanceof Name) {
+			if ($this->broker->hasFunction($expr->name, $scope)) {
+				$functionReflection = $this->broker->getFunction($expr->name, $scope);
+				foreach ($this->getFunctionTypeSpecifyingExtensions() as $extension) {
+					if (!$extension->isFunctionSupported($functionReflection, $expr, $scope, $context)) {
+						continue;
 					}
+
+					return $extension->specifyTypes($functionReflection, $expr, $scope, $context);
+				}
+			}
+		} elseif ($expr instanceof MethodCall && is_string($expr->name)) {
+			$methodCalledOnType = $scope->getType($expr->var);
+			$referencedClasses = $methodCalledOnType->getReferencedClasses();
+			if (
+				count($referencedClasses) === 1
+				&& $this->broker->hasClass($referencedClasses[0])
+			) {
+				$methodClassReflection = $this->broker->getClass($referencedClasses[0]);
+				if ($methodClassReflection->hasMethod($expr->name)) {
+					$methodReflection = $methodClassReflection->getMethod($expr->name, $scope);
+					foreach ($this->getMethodTypeSpecifyingExtensionsForClass($methodClassReflection->getName()) as $extension) {
+						if (!$extension->isMethodSupported($methodReflection, $expr, $scope, $context)) {
+							continue;
+						}
+
+						return $extension->specifyTypes($methodReflection, $expr, $scope, $context);
+					}
+				}
+			}
+		} elseif ($expr instanceof StaticCall && is_string($expr->name)) {
+			if ($expr->class instanceof Name) {
+				$calleeType = new ObjectType($scope->resolveName($expr->class));
+			} else {
+				$calleeType = $scope->getType($expr->class);
+			}
+
+			if ($calleeType->hasMethod($expr->name)) {
+				$staticMethodReflection = $calleeType->getMethod($expr->name, $scope);
+				$referencedClasses = $calleeType->getReferencedClasses();
+				if (
+					count($calleeType->getReferencedClasses()) === 1
+					&& $this->broker->hasClass($referencedClasses[0])
+				) {
+					$staticMethodClassReflection = $this->broker->getClass($referencedClasses[0]);
+					foreach ($this->getStaticMethodTypeSpecifyingExtensionsForClass($staticMethodClassReflection->getName()) as $extension) {
+						if (!$extension->isStaticMethodSupported($staticMethodReflection, $expr, $scope, $context)) {
+							continue;
+						}
+
+						return $extension->specifyTypes($staticMethodReflection, $expr, $scope, $context);
+					}
+				}
 			}
 		} elseif ($expr instanceof BooleanAnd || $expr instanceof LogicalAnd) {
 			$leftTypes = $this->specifyTypesInCondition($scope, $expr->left, $context);
 			$rightTypes = $this->specifyTypesInCondition($scope, $expr->right, $context);
-			return ($context & self::CONTEXT_TRUE) ? $leftTypes->unionWith($rightTypes) : $leftTypes->intersectWith($rightTypes);
+			return $context->true() ? $leftTypes->unionWith($rightTypes) : $leftTypes->intersectWith($rightTypes);
 		} elseif ($expr instanceof BooleanOr || $expr instanceof LogicalOr) {
 			$leftTypes = $this->specifyTypesInCondition($scope, $expr->left, $context);
 			$rightTypes = $this->specifyTypesInCondition($scope, $expr->right, $context);
-			return ($context & self::CONTEXT_TRUE) ? $leftTypes->intersectWith($rightTypes) : $leftTypes->unionWith($rightTypes);
+			return $context->true() ? $leftTypes->intersectWith($rightTypes) : $leftTypes->unionWith($rightTypes);
 		} elseif ($expr instanceof Node\Expr\BooleanNot) {
-			return $this->specifyTypesInCondition($scope, $expr->expr, ~$context);
+			return $this->specifyTypesInCondition($scope, $expr->expr, Context::not($context));
 		} elseif ($expr instanceof Node\Expr\Assign) {
 			return $this->specifyTypesInCondition($scope, $expr->var, $context);
 		} elseif (
 			(
 				$expr instanceof Expr\Isset_
 				&& count($expr->vars) > 0
-				&& $context & self::CONTEXT_TRUTHY
+				&& $context->truthy()
 			)
-			|| ($expr instanceof Expr\Empty_ && $context & self::CONTEXT_FALSEY)
+			|| ($expr instanceof Expr\Empty_ && $context->falsey())
 		) {
 			$vars = [];
 			if ($expr instanceof Expr\Isset_) {
@@ -282,7 +302,7 @@ class TypeSpecifier
 			$types = null;
 			foreach ($vars as $var) {
 				if ($expr instanceof Expr\Isset_) {
-					$type = $this->create($var, new NullType(), self::CONTEXT_FALSE);
+					$type = $this->create($var, new NullType(), Context::createFalse());
 				} else {
 					$type = $this->create(
 						$var,
@@ -290,7 +310,7 @@ class TypeSpecifier
 							new NullType(),
 							new ConstantBooleanType(false),
 						]),
-						self::CONTEXT_FALSE
+						Context::createFalse()
 					);
 				}
 				if ($types === null) {
@@ -300,10 +320,10 @@ class TypeSpecifier
 				}
 			}
 			return $types;
-		} elseif (($context & self::CONTEXT_TRUTHY) === 0) {
+		} elseif (!$context->truthy()) {
 			$type = new ObjectWithoutClassType();
-			return $this->create($expr, $type, self::CONTEXT_FALSE);
-		} elseif (($context & self::CONTEXT_FALSEY) === 0) {
+			return $this->create($expr, $type, Context::createFalse());
+		} elseif (!$context->falsey()) {
 			$type = new UnionType([
 				new NullType(),
 				new ConstantBooleanType(false),
@@ -312,7 +332,7 @@ class TypeSpecifier
 			//              new ConstantStringType(''),
 			//              new ConstantArrayType([], []),
 			]);
-			return $this->create($expr, $type, self::CONTEXT_FALSE);
+			return $this->create($expr, $type, Context::createFalse());
 		}
 
 		return new SpecifiedTypes();
@@ -333,19 +353,81 @@ class TypeSpecifier
 		return null;
 	}
 
-	private function create(Expr $expr, Type $type, int $context): SpecifiedTypes
+	public function create(Expr $expr, Type $type, Context $context): SpecifiedTypes
 	{
 		$sureTypes = [];
 		$sureNotTypes = [];
 
 		$exprString = $this->printer->prettyPrintExpr($expr);
-		if ($context & self::CONTEXT_FALSE) {
+		if ($context->false()) {
 			$sureNotTypes[$exprString] = [$expr, $type];
-		} elseif ($context & self::CONTEXT_TRUE) {
+		} elseif ($context->true()) {
 			$sureTypes[$exprString] = [$expr, $type];
 		}
 
 		return new SpecifiedTypes($sureTypes, $sureNotTypes);
+	}
+
+	/**
+	 * @return \PHPStan\Analyser\FunctionTypeSpecifyingExtension[]
+	 */
+	public function getFunctionTypeSpecifyingExtensions(): array
+	{
+		return $this->functionTypeSpecifyingExtensions;
+	}
+
+	/**
+	 * @param string $className
+	 * @return \PHPStan\Analyser\MethodTypeSpecifyingExtension[]
+	 */
+	public function getMethodTypeSpecifyingExtensionsForClass(string $className): array
+	{
+		if ($this->methodTypeSpecifyingExtensionsByClass === null) {
+			$byClass = [];
+			foreach ($this->methodTypeSpecifyingExtensions as $extension) {
+				$byClass[$extension->getClass()][] = $extension;
+			}
+
+			$this->methodTypeSpecifyingExtensionsByClass = $byClass;
+		}
+		return $this->getTypeSpecifyingExtensionsForType($this->methodTypeSpecifyingExtensionsByClass, $className);
+	}
+
+	/**
+	 * @param string $className
+	 * @return \PHPStan\Analyser\StaticMethodTypeSpecifyingExtension[]
+	 */
+	public function getStaticMethodTypeSpecifyingExtensionsForClass(string $className): array
+	{
+		if ($this->staticMethodTypeSpecifyingExtensionsByClass === null) {
+			$byClass = [];
+			foreach ($this->staticMethodTypeSpecifyingExtensions as $extension) {
+				$byClass[$extension->getClass()][] = $extension;
+			}
+
+			$this->staticMethodTypeSpecifyingExtensionsByClass = $byClass;
+		}
+		return $this->getTypeSpecifyingExtensionsForType($this->staticMethodTypeSpecifyingExtensionsByClass, $className);
+	}
+
+	/**
+	 * @param \PHPStan\Analyser\MethodTypeSpecifyingExtension[]|\PHPStan\Analyser\StaticMethodTypeSpecifyingExtension[] $extensions
+	 * @param string $className
+	 * @return mixed[]
+	 */
+	private function getTypeSpecifyingExtensionsForType(array $extensions, string $className): array
+	{
+		$extensionsForClass = [];
+		$class = $this->broker->getClass($className);
+		foreach (array_merge([$className], $class->getParentClassesNames(), $class->getNativeReflection()->getInterfaceNames()) as $extensionClassName) {
+			if (!isset($extensions[$extensionClassName])) {
+				continue;
+			}
+
+			$extensionsForClass = array_merge($extensionsForClass, $extensions[$extensionClassName]);
+		}
+
+		return $extensionsForClass;
 	}
 
 }

@@ -34,7 +34,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 	{
 		$broker = $this->createBroker();
 		$this->printer = new \PhpParser\PrettyPrinter\Standard();
-		$this->typeSpecifier = new TypeSpecifier($this->printer);
+		$this->typeSpecifier = $this->createTypeSpecifier($this->printer, $broker);
 		$this->scope = new Scope($broker, $this->printer, $this->typeSpecifier, ScopeContext::create(''));
 		$this->scope = $this->scope->enterClass($broker->getClass('DateTime'));
 		$this->scope = $this->scope->assignVariable('bar', new ObjectType('Bar'), TrinaryLogic::createYes());
@@ -51,11 +51,11 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testCondition(Expr $expr, array $expectedPositiveResult, array $expectedNegatedResult): void
 	{
-		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this->scope, $expr, TypeSpecifier::CONTEXT_TRUTHY);
+		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this->scope, $expr, Context::createTruthy());
 		$actualResult = $this->toReadableResult($specifiedTypes);
 		$this->assertSame($expectedPositiveResult, $actualResult, sprintf('if (%s)', $this->printer->prettyPrintExpr($expr)));
 
-		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this->scope, $expr, TypeSpecifier::CONTEXT_FALSEY);
+		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this->scope, $expr, Context::createFalsey());
 		$actualResult = $this->toReadableResult($specifiedTypes);
 		$this->assertSame($expectedNegatedResult, $actualResult, sprintf('if not (%s)', $this->printer->prettyPrintExpr($expr)));
 	}

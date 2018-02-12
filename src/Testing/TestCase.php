@@ -2,6 +2,9 @@
 
 namespace PHPStan\Testing;
 
+use PhpParser\PrettyPrinter\Standard;
+use PHPStan\Analyser\TypeSpecifier;
+use PHPStan\Analyser\TypeSpecifierFactory;
 use PHPStan\Broker\Broker;
 use PHPStan\Broker\BrokerFactory;
 use PHPStan\Cache\Cache;
@@ -179,6 +182,35 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		$methodReflectionFactory->broker = $broker;
 
 		return $broker;
+	}
+
+	/**
+	 * @param \PhpParser\PrettyPrinter\Standard $printer
+	 * @param \PHPStan\Broker\Broker $broker
+	 * @param \PHPStan\Analyser\MethodTypeSpecifyingExtension[] $methodTypeSpecifyingExtensions
+	 * @param \PHPStan\Analyser\StaticMethodTypeSpecifyingExtension[] $staticMethodTypeSpecifyingExtensions
+	 * @return \PHPStan\Analyser\TypeSpecifier
+	 */
+	public function createTypeSpecifier(
+		Standard $printer,
+		Broker $broker,
+		array $methodTypeSpecifyingExtensions = [],
+		array $staticMethodTypeSpecifyingExtensions = []
+	): TypeSpecifier
+	{
+		$tagToService = function (array $tags) {
+			return array_map(function (string $serviceName) {
+				return $this->getContainer()->getService($serviceName);
+			}, array_keys($tags));
+		};
+
+		return new TypeSpecifier(
+			$printer,
+			$broker,
+			$tagToService($this->getContainer()->findByTag(TypeSpecifierFactory::FUNCTION_TYPE_SPECIFYING_EXTENSION_TAG)),
+			$methodTypeSpecifyingExtensions,
+			$staticMethodTypeSpecifyingExtensions
+		);
 	}
 
 	public function getFileHelper(): FileHelper

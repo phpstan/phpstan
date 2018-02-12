@@ -26,6 +26,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\Print_;
 use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Expr\Ternary;
 use PhpParser\Node\Expr\Variable;
@@ -86,6 +87,9 @@ class NodeScopeResolver
 	/** @var \PHPStan\File\FileHelper */
 	private $fileHelper;
 
+	/** @var \PHPStan\Analyser\TypeSpecifier */
+	private $typeSpecifier;
+
 	/** @var bool */
 	private $polluteScopeWithLoopInitialAssignments;
 
@@ -107,6 +111,7 @@ class NodeScopeResolver
 		\PhpParser\PrettyPrinter\Standard $printer,
 		FileTypeMapper $fileTypeMapper,
 		FileHelper $fileHelper,
+		TypeSpecifier $typeSpecifier,
 		bool $polluteScopeWithLoopInitialAssignments,
 		bool $polluteCatchScopeWithTryAssignments,
 		array $earlyTerminatingMethodCalls
@@ -117,6 +122,7 @@ class NodeScopeResolver
 		$this->printer = $printer;
 		$this->fileTypeMapper = $fileTypeMapper;
 		$this->fileHelper = $fileHelper;
+		$this->typeSpecifier = $typeSpecifier;
 		$this->polluteScopeWithLoopInitialAssignments = $polluteScopeWithLoopInitialAssignments;
 		$this->polluteCatchScopeWithTryAssignments = $polluteCatchScopeWithTryAssignments;
 		$this->earlyTerminatingMethodCalls = $earlyTerminatingMethodCalls;
@@ -196,13 +202,63 @@ class NodeScopeResolver
 						break;
 					}
 				}
-			} elseif (
-				$node instanceof FuncCall
-				&& $node->name instanceof Name
-				&& (string) $node->name === 'assert'
-				&& isset($node->args[0])
-			) {
-				$scope = $scope->filterByTruthyValue($node->args[0]->value);
+			} elseif ($node instanceof FuncCall && $node->name instanceof Name) {
+				if ($this->broker->hasFunction($node->name, $scope)) {
+					$functionReflection = $this->broker->getFunction($node->name, $scope);
+					foreach ($this->typeSpecifier->getFunctionTypeSpecifyingExtensions() as $extension) {
+						if (!$extension->isFunctionSupported($functionReflection, $node, $scope, Context::createNull())) {
+							continue;
+						}
+
+						$scope = $scope->filterBySpecifiedTypes($extension->specifyTypes($functionReflection, $node, $scope, Context::createNull()));
+						break;
+					}
+				}
+			} elseif ($node instanceof MethodCall && is_string($node->name)) {
+				$methodCalledOnType = $scope->getType($node->var);
+				$referencedClasses = $methodCalledOnType->getReferencedClasses();
+				if (
+					count($referencedClasses) === 1
+					&& $this->broker->hasClass($referencedClasses[0])
+				) {
+					$methodClassReflection = $this->broker->getClass($referencedClasses[0]);
+					if ($methodClassReflection->hasMethod($node->name)) {
+						$methodReflection = $methodClassReflection->getMethod($node->name, $scope);
+						foreach ($this->typeSpecifier->getMethodTypeSpecifyingExtensionsForClass($methodClassReflection->getName()) as $extension) {
+							if (!$extension->isMethodSupported($methodReflection, $node, $scope, Context::createNull())) {
+								continue;
+							}
+
+							$scope = $scope->filterBySpecifiedTypes($extension->specifyTypes($methodReflection, $node, $scope, Context::createNull()));
+							break;
+						}
+					}
+				}
+			} elseif ($node instanceof StaticCall && is_string($node->name)) {
+				if ($node->class instanceof Name) {
+					$calleeType = new ObjectType($scope->resolveName($node->class));
+				} else {
+					$calleeType = $scope->getType($node->class);
+				}
+
+				if ($calleeType->hasMethod($node->name)) {
+					$staticMethodReflection = $calleeType->getMethod($node->name, $scope);
+					$referencedClasses = $calleeType->getReferencedClasses();
+					if (
+						count($calleeType->getReferencedClasses()) === 1
+						&& $this->broker->hasClass($referencedClasses[0])
+					) {
+						$staticMethodClassReflection = $this->broker->getClass($referencedClasses[0]);
+						foreach ($this->typeSpecifier->getStaticMethodTypeSpecifyingExtensionsForClass($staticMethodClassReflection->getName()) as $extension) {
+							if (!$extension->isStaticMethodSupported($staticMethodReflection, $node, $scope, Context::createNull())) {
+								continue;
+							}
+
+							$scope = $scope->filterBySpecifiedTypes($extension->specifyTypes($staticMethodReflection, $node, $scope, Context::createNull()));
+							break;
+						}
+					}
+				}
 			}
 		}
 	}

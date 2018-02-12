@@ -9,12 +9,15 @@ use PHPStan\Cache\Cache;
 use PHPStan\File\FileHelper;
 use PHPStan\PhpDoc\PhpDocStringResolver;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Tests\AssertionClass;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Type\DynamicStaticMethodReturnTypeExtension;
 use PHPStan\Type\FileTypeMapper;
+use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\StringType;
 use SomeNodeScopeResolverNamespace\Foo;
 
 class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
@@ -2255,6 +2258,8 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			'$key',
 			[],
 			[],
+			[],
+			[],
 			$evaluatedPointExpressionType
 		);
 	}
@@ -2784,6 +2789,8 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			$expression,
 			[],
 			[],
+			[],
+			[],
 			$evaluatedPointExpression
 		);
 	}
@@ -2978,6 +2985,8 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			__DIR__ . '/data/overwritingVariable.php',
 			$description,
 			$expression,
+			[],
+			[],
 			[],
 			[],
 			$evaluatedPointExpressionType
@@ -3308,6 +3317,8 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			$expression,
 			[],
 			[],
+			[],
+			[],
 			$evaluatedPointExpression
 		);
 	}
@@ -3475,6 +3486,231 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			__DIR__ . '/data/specifiedTypesUsingIsFunctions.php',
 			$description,
 			$expression
+		);
+	}
+
+	public function dataTypeSpecifyingExtensions(): array
+	{
+		return [
+			[
+				'string',
+				'$foo',
+			],
+			[
+				'int',
+				'$bar',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataTypeSpecifyingExtensions
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testTypeSpecifyingExtensions(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/type-specifying-extensions.php',
+			$description,
+			$expression,
+			[],
+			[],
+			[
+				new class() implements MethodTypeSpecifyingExtension
+				{
+
+					public function getClass(): string
+					{
+						return AssertionClass::class;
+					}
+
+					public function isMethodSupported(MethodReflection $methodReflection, MethodCall $node, Scope $scope, Context $context): bool
+					{
+						return $methodReflection->getName() === 'assertString' && $context->null();
+					}
+
+					public function specifyTypes(MethodReflection $methodReflection, MethodCall $node, Scope $scope, Context $context): SpecifiedTypes
+					{
+						return new SpecifiedTypes(['$foo' => [$node->args[0]->value, new StringType()]]);
+					}
+
+				},
+			],
+			[
+				new class() implements StaticMethodTypeSpecifyingExtension
+				{
+
+					public function getClass(): string
+					{
+						return AssertionClass::class;
+					}
+
+					public function isStaticMethodSupported(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, Context $context): bool
+					{
+						return $staticMethodReflection->getName() === 'assertInt' && $context->null();
+					}
+
+					public function specifyTypes(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, Context $context): SpecifiedTypes
+					{
+						return new SpecifiedTypes(['$bar' => [$node->args[0]->value, new IntegerType()]]);
+					}
+
+				},
+			]
+		);
+	}
+
+	public function dataTypeSpecifyingExtensions2(): array
+	{
+		return [
+			[
+				'string|null',
+				'$foo',
+			],
+			[
+				'int|null',
+				'$bar',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataTypeSpecifyingExtensions2
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testTypeSpecifyingExtensions2(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/type-specifying-extensions2.php',
+			$description,
+			$expression,
+			[],
+			[],
+			[
+				new class() implements MethodTypeSpecifyingExtension
+				{
+
+					public function getClass(): string
+					{
+						return AssertionClass::class;
+					}
+
+					public function isMethodSupported(MethodReflection $methodReflection, MethodCall $node, Scope $scope, Context $context): bool
+					{
+						return $methodReflection->getName() === 'assertString' && $context->null();
+					}
+
+					public function specifyTypes(MethodReflection $methodReflection, MethodCall $node, Scope $scope, Context $context): SpecifiedTypes
+					{
+						return new SpecifiedTypes(['$foo' => [$node->args[0]->value, new StringType()]]);
+					}
+
+				},
+			],
+			[
+				new class() implements StaticMethodTypeSpecifyingExtension
+				{
+
+					public function getClass(): string
+					{
+						return AssertionClass::class;
+					}
+
+					public function isStaticMethodSupported(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, Context $context): bool
+					{
+						return $staticMethodReflection->getName() === 'assertInt' && $context->null();
+					}
+
+					public function specifyTypes(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, Context $context): SpecifiedTypes
+					{
+						return new SpecifiedTypes(['$bar' => [$node->args[0]->value, new IntegerType()]]);
+					}
+
+				},
+			]
+		);
+	}
+
+	public function dataTypeSpecifyingExtensions3(): array
+	{
+		return [
+			[
+				'string',
+				'$foo',
+			],
+			[
+				'int',
+				'$bar',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataTypeSpecifyingExtensions3
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testTypeSpecifyingExtensions3(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/type-specifying-extensions3.php',
+			$description,
+			$expression,
+			[],
+			[],
+			[
+				new class() implements MethodTypeSpecifyingExtension
+				{
+
+					public function getClass(): string
+					{
+						return AssertionClass::class;
+					}
+
+					public function isMethodSupported(MethodReflection $methodReflection, MethodCall $node, Scope $scope, Context $context): bool
+					{
+						return $methodReflection->getName() === 'assertString' && !$context->null();
+					}
+
+					public function specifyTypes(MethodReflection $methodReflection, MethodCall $node, Scope $scope, Context $context): SpecifiedTypes
+					{
+						return new SpecifiedTypes(['$foo' => [$node->args[0]->value, new StringType()]]);
+					}
+
+				},
+			],
+			[
+				new class() implements StaticMethodTypeSpecifyingExtension
+				{
+
+					public function getClass(): string
+					{
+						return AssertionClass::class;
+					}
+
+					public function isStaticMethodSupported(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, Context $context): bool
+					{
+						return $staticMethodReflection->getName() === 'assertInt' && !$context->null();
+					}
+
+					public function specifyTypes(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, Context $context): SpecifiedTypes
+					{
+						return new SpecifiedTypes(['$bar' => [$node->args[0]->value, new IntegerType()]]);
+					}
+
+				},
+			]
 		);
 	}
 
@@ -3978,6 +4214,8 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			$expression,
 			[],
 			[],
+			[],
+			[],
 			$evaluatedPointExpression
 		);
 	}
@@ -4335,6 +4573,8 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			$expression,
 			[],
 			[],
+			[],
+			[],
 			$evaluatedPointExpression
 		);
 	}
@@ -4357,6 +4597,8 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			$expression,
 			[],
 			[],
+			[],
+			[],
 			$evaluatedPointExpression
 		);
 	}
@@ -4377,6 +4619,8 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			__DIR__ . '/data/for-loop-variables.php',
 			$description,
 			$expression,
+			[],
+			[],
 			[],
 			[],
 			$evaluatedPointExpression
@@ -4427,6 +4671,8 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			$expression,
 			[],
 			[],
+			[],
+			[],
 			$evaluatedPointExpression
 		);
 	}
@@ -4463,6 +4709,8 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			__DIR__ . '/data/multiple-classes-per-file.php',
 			$description,
 			$expression,
+			[],
+			[],
 			[],
 			[],
 			$evaluatedPointExpression
@@ -4703,6 +4951,8 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			$expression,
 			[],
 			[],
+			[],
+			[],
 			$evaluatedPointExpression
 		);
 	}
@@ -4808,6 +5058,8 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		string $expression,
 		array $dynamicMethodReturnTypeExtensions = [],
 		array $dynamicStaticMethodReturnTypeExtensions = [],
+		array $methodTypeSpecifyingExtensions = [],
+		array $staticMethodTypeSpecifyingExtensions = [],
 		string $evaluatedPointExpression = 'die;'
 	): void
 	{
@@ -4826,20 +5078,30 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$type->describe(),
 				sprintf('%s at %s', $expression, $evaluatedPointExpression)
 			);
-		}, $dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions);
+		}, $dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions, $methodTypeSpecifyingExtensions, $staticMethodTypeSpecifyingExtensions);
 	}
 
-	private function processFile(string $file, \Closure $callback, array $dynamicMethodReturnTypeExtensions = [], array $dynamicStaticMethodReturnTypeExtensions = []): void
+	private function processFile(
+		string $file,
+		\Closure $callback,
+		array $dynamicMethodReturnTypeExtensions = [],
+		array $dynamicStaticMethodReturnTypeExtensions = [],
+		array $methodTypeSpecifyingExtensions = [],
+		array $staticMethodTypeSpecifyingExtensions = []
+	): void
 	{
 		$phpDocStringResolver = $this->getContainer()->getByType(PhpDocStringResolver::class);
 
 		$printer = new \PhpParser\PrettyPrinter\Standard();
+		$broker = $this->createBroker($dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions);
+		$typeSpecifier = $this->createTypeSpecifier($printer, $broker, $methodTypeSpecifyingExtensions, $staticMethodTypeSpecifyingExtensions);
 		$resolver = new NodeScopeResolver(
-			$this->createBroker(),
+			$broker,
 			$this->getParser(),
 			$printer,
 			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $this->createMock(Cache::class)),
 			new FileHelper('/'),
+			$typeSpecifier,
 			true,
 			true,
 			[
@@ -4856,9 +5118,9 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		$resolver->processNodes(
 			$this->getParser()->parseFile($file),
 			new Scope(
-				$this->createBroker($dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions),
+				$broker,
 				$printer,
-				new TypeSpecifier($printer),
+				$typeSpecifier,
 				ScopeContext::create($file)
 			),
 			$callback
