@@ -1,0 +1,83 @@
+<?php declare(strict_types = 1);
+
+namespace PHPStan\Analyser;
+
+class Context
+{
+
+	public const CONTEXT_TRUE = 0b0001;
+	public const CONTEXT_TRUTHY_BUT_NOT_TRUE = 0b0010;
+	public const CONTEXT_TRUTHY = self::CONTEXT_TRUE | self::CONTEXT_TRUTHY_BUT_NOT_TRUE;
+	public const CONTEXT_FALSE = 0b0100;
+	public const CONTEXT_FALSEY_BUT_NOT_FALSE = 0b1000;
+	public const CONTEXT_FALSEY = self::CONTEXT_FALSE | self::CONTEXT_FALSEY_BUT_NOT_FALSE;
+
+	/**
+	 * @var int|null
+	 */
+	private $value;
+
+	private function __construct(?int $value)
+	{
+		$this->value = $value;
+	}
+
+	public static function createTrue(): self
+	{
+		return new self(self::CONTEXT_TRUE);
+	}
+
+	public static function createTruthy(): self
+	{
+		return new self(self::CONTEXT_TRUTHY);
+	}
+
+	public static function createFalse(): self
+	{
+		return new self(self::CONTEXT_FALSE);
+	}
+
+	public static function createFalsey(): self
+	{
+		return new self(self::CONTEXT_FALSEY);
+	}
+
+	public static function createNull(): self
+	{
+		return new self(null);
+	}
+
+	public static function not(self $context): self
+	{
+		if ($context->value === null) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+		return new self(~$context->value);
+	}
+
+	public function true(): bool
+	{
+		return $this->value !== null && (bool) ($this->value & self::CONTEXT_TRUE);
+	}
+
+	public function truthy(): bool
+	{
+		return $this->value !== null && (bool) ($this->value & self::CONTEXT_TRUTHY);
+	}
+
+	public function false(): bool
+	{
+		return $this->value !== null && (bool) ($this->value & self::CONTEXT_FALSE);
+	}
+
+	public function falsey(): bool
+	{
+		return $this->value !== null && (bool) ($this->value & self::CONTEXT_FALSEY);
+	}
+
+	public function null(): bool
+	{
+		return $this->value === null;
+	}
+
+}

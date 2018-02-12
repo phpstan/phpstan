@@ -135,7 +135,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		$printer = new \PhpParser\PrettyPrinter\Standard();
 		$fileHelper = $this->getContainer()->getByType(FileHelper::class);
 		$phpDocStringResolver = $this->getContainer()->getByType(PhpDocStringResolver::class);
-		$typeSpecifier = new TypeSpecifier($printer);
+		$typeSpecifier = $this->createTypeSpecifier($printer, $broker);
 		$analyser = new Analyser(
 			$broker,
 			new DirectParser(new \PhpParser\Parser\Php7(new \PhpParser\Lexer()), $traverser),
@@ -146,6 +146,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 				$printer,
 				new FileTypeMapper($this->getParser(), $phpDocStringResolver, $this->createMock(Cache::class)),
 				$fileHelper,
+				$typeSpecifier,
 				false,
 				false,
 				[]

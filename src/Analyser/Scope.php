@@ -963,7 +963,7 @@ class Scope
 
 			$functionName = (string) $node->name;
 			if (strpos($functionName, 'is_') === 0) {
-				$sureTypes = $this->typeSpecifier->specifyTypesInCondition($this, $node)->getSureTypes();
+				$sureTypes = $this->typeSpecifier->specifyTypesInCondition($this, $node, Context::createTruthy())->getSureTypes();
 				if (count($sureTypes) === 1) {
 					$sureType = reset($sureTypes);
 					$argumentType = $this->getType($sureType[0]);
@@ -1773,17 +1773,17 @@ class Scope
 
 	public function filterByTruthyValue(Expr $expr): self
 	{
-		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this, $expr, TypeSpecifier::CONTEXT_TRUTHY);
+		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this, $expr, Context::createTruthy());
 		return $this->filterBySpecifiedTypes($specifiedTypes);
 	}
 
 	public function filterByFalseyValue(Expr $expr): self
 	{
-		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this, $expr, TypeSpecifier::CONTEXT_FALSEY);
+		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this, $expr, Context::createFalsey());
 		return $this->filterBySpecifiedTypes($specifiedTypes);
 	}
 
-	private function filterBySpecifiedTypes(SpecifiedTypes $specifiedTypes): self
+	public function filterBySpecifiedTypes(SpecifiedTypes $specifiedTypes): self
 	{
 		$scope = $this;
 		foreach ($specifiedTypes->getSureTypes() as list($expr, $type)) {
