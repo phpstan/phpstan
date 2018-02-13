@@ -586,7 +586,7 @@ class Scope
 				$valueType[] = $this->getType($arrayItem->value);
 			}
 
-			return new ConstantArrayType($keyTypes, $valueType);
+			return new ConstantArrayType($keyTypes, $valueType, $nextIndex ? new ConstantIntegerType($nextIndex) : new IntegerType());
 
 //			$itemTypes = array_map(
 //				function (Expr\ArrayItem $item): Type {
@@ -889,7 +889,8 @@ class Scope
 				}, array_keys($value)),
 				array_map(function ($value): Type {
 					return $this->getTypeFromValue($value);
-				}, array_values($value))
+				}, array_values($value)),
+				new IntegerType()
 			);
 		}
 

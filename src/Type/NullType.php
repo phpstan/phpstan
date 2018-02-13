@@ -64,8 +64,8 @@ class NullType implements Type
 
 	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
 	{
-		$offsetType = $offsetType ?? new ConstantIntegerType(0);
-		return new ConstantArrayType([$offsetType], [$valueType]);
+		$array = new ConstantArrayType([], [], new ConstantIntegerType(0));
+		return $array->setOffsetValueType($offsetType, $valueType);
 	}
 
 	public static function __set_state(array $properties): Type
