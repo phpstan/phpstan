@@ -3,6 +3,8 @@
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Constant\ConstantIntegerType;
+use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
 
@@ -179,7 +181,7 @@ class ArrayType implements StaticResolvableType
 		}
 
 		return new ArrayType(
-			TypeCombinator::union($this->keyType, $offsetType),
+			TypeCombinator::union($this->keyType, $this->castToArrayKeyType($offsetType)),
 			TypeCombinator::union($this->itemType, $valueType),
 			$this->itemTypeInferredFromLiteralArray
 		);
@@ -188,6 +190,23 @@ class ArrayType implements StaticResolvableType
 	public function isCallable(): TrinaryLogic
 	{
 		return $this->callable;
+	}
+
+	protected function castToArrayKeyType(Type $offsetType): Type
+	{
+		if ($offsetType instanceof ConstantScalarType) {
+			$offsetValue = key([$offsetType->getValue() => null]);
+			return is_int($offsetValue) ? new ConstantIntegerType($offsetValue) : new ConstantStringType($offsetValue);
+
+		} elseif ($offsetType instanceof NullType) {
+			return new ConstantStringType('');
+
+		} elseif ($offsetType instanceof IntegerType || $offsetType instanceof FloatType || $offsetType instanceof BooleanType) {
+			return new IntegerType();
+
+		} else {
+			return new UnionType([new IntegerType(), new StringType()]);
+		}
 	}
 
 	public static function __set_state(array $properties): Type

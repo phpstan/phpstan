@@ -57,7 +57,6 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\CommentHelper;
 use PHPStan\Type\Constant\ConstantArrayType;
-use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\IntegerType;
@@ -1208,19 +1207,19 @@ class NodeScopeResolver
 					$varType = $scope->getVariableType($var->name);
 
 				} else {
-					$varType = new ConstantArrayType([], [], new ConstantIntegerType(0));
+					$varType = new ConstantArrayType([], []);
 				}
 
 				$offsetValueType = $varType;
 				$offsetValueTypeStack = [$offsetValueType];
 				foreach (array_slice($offsetTypes, 0, -1) as $offsetType) {
 					if ($offsetType === null) {
-						$offsetValueType = new ConstantArrayType([], [], new ConstantIntegerType(0));
+						$offsetValueType = new ConstantArrayType([], []);
 
 					} else {
 						$offsetValueType = $offsetValueType->getOffsetValueType($offsetType);
 						if ($offsetValueType instanceof ErrorType) {
-							$offsetValueType = new ConstantArrayType([], [], new ConstantIntegerType(0));
+							$offsetValueType = new ConstantArrayType([], []);
 						}
 					}
 

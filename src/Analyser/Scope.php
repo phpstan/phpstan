@@ -555,105 +555,15 @@ class Scope
 				return new ObjectType((string) $node->class);
 			}
 		} elseif ($node instanceof Array_) {
-			$keyTypes = [];
-			$valueType = [];
-			$nextIndex = 0;
+			$array = new ConstantArrayType([], []);
 			foreach ($node->items as $arrayItem) {
-				if ($arrayItem->key === null) {
-					if ($nextIndex !== null) {
-						$keyType = new ConstantIntegerType($nextIndex++);
-					} else {
-						$keyType = new IntegerType();
-					}
-
-				} else {
-					$keyType = $this->getType($arrayItem->key);
-					if ($keyType instanceof ConstantScalarType) {
-						$keyType = $this->getTypeFromValue(key([$keyType->getValue() => null]));
-						if ($keyType instanceof ConstantIntegerType) {
-							$nextIndex = max($nextIndex, $keyType->getValue() + 1);
-						}
-
-					} elseif ($keyType instanceof NullType) {
-						$keyType = new ConstantStringType('');
-
-					} else {
-						$nextIndex = null;
-					}
-				}
-
-				$keyTypes[] = $keyType;
-				$valueType[] = $this->getType($arrayItem->value);
+				$array = $array->setOffsetValueType(
+					$arrayItem->key !== null ? $this->getType($arrayItem->key) : null,
+					$this->getType($arrayItem->value)
+				);
 			}
+			return $array;
 
-			return new ConstantArrayType($keyTypes, $valueType, $nextIndex ? new ConstantIntegerType($nextIndex) : new IntegerType());
-
-//			$itemTypes = array_map(
-//				function (Expr\ArrayItem $item): Type {
-//					return $this->getType($item->value);
-//				},
-//				$node->items
-//			);
-//
-//			$callable = TrinaryLogic::createNo();
-//			if (count($itemTypes) === 2) {
-//				if (
-//					($itemTypes[0]->accepts(new StringType()) || count($itemTypes[0]->getReferencedClasses()) > 0)
-//					&& $itemTypes[1]->accepts(new StringType())
-//				) {
-//					$callable = TrinaryLogic::createYes();
-//				}
-//			}
-//
-//			$arrayWithKeys = [];
-//			$keyExpressionTypes = [];
-//			foreach ($node->items as $arrayItem) {
-//				$itemKey = $arrayItem->key;
-//				if ($itemKey === null) {
-//					$arrayWithKeys[] = 'foo';
-//					continue;
-//				}
-//
-//				if (
-//					$itemKey instanceof \PhpParser\Node\Scalar\String_
-//					|| $itemKey instanceof \PhpParser\Node\Scalar\LNumber
-//					|| $itemKey instanceof \PhpParser\Node\Scalar\DNumber
-//					|| $itemKey instanceof \PhpParser\Node\Expr\ConstFetch
-//				) {
-//					if ($itemKey instanceof \PhpParser\Node\Expr\ConstFetch) {
-//						$constName = strtolower((string) $itemKey->name);
-//						if ($constName === 'true') {
-//							$value = true;
-//						} elseif ($constName === 'false') {
-//							$value = false;
-//						} elseif ($constName === 'null') {
-//							$value = null;
-//						} elseif ($this->broker->hasConstant($itemKey->name, $this)) {
-//							$value = constant($this->broker->resolveConstantName($itemKey->name, $this));
-//						} else {
-//							$keyExpressionTypes[] = new MixedType();
-//							continue;
-//						}
-//
-//						$arrayWithKeys[$value] = 'foo';
-//					} else {
-//						$arrayWithKeys[$itemKey->value] = 'foo';
-//					}
-//				} else {
-//					$keyExpressionTypes[] = $this->getType($itemKey);
-//				}
-//			}
-//
-//			$scalarKeysTypes = array_map(function ($value): Type {
-//				return $this->getTypeFromValue($value) ?? new MixedType();
-//			}, array_keys($arrayWithKeys));
-//
-//			return new ArrayType(
-//				$this->getCombinedType(array_merge($scalarKeysTypes, $keyExpressionTypes)),
-//				$this->getCombinedType($itemTypes),
-//				true,
-//				$callable
-//			);
 		} elseif ($node instanceof Int_) {
 				return new IntegerType();
 		} elseif ($node instanceof Bool_) {
@@ -883,15 +793,11 @@ class Scope
 		} elseif (is_string($value)) {
 			return new ConstantStringType($value);
 		} elseif (is_array($value)) {
-			return new ConstantArrayType(
-				array_map(function ($value): Type {
-					return $this->getTypeFromValue($value);
-				}, array_keys($value)),
-				array_map(function ($value): Type {
-					return $this->getTypeFromValue($value);
-				}, array_values($value)),
-				new IntegerType()
-			);
+			$array = new ConstantArrayType([], []);
+			foreach ($value as $k => $v) {
+				$array = $array->setOffsetValueType($this->getTypeFromValue($k), $this->getTypeFromValue($v));
+			}
+			return $array;
 		}
 
 		return new MixedType();
