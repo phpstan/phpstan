@@ -21,7 +21,7 @@ trait NonOffsetAccessibleTypeTrait
 
 	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
 	{
-		return new ErrorType();
+		return $this;
 	}
 
 }

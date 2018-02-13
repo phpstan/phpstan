@@ -6,7 +6,6 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\NonIterableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
-use PHPStan\Type\Traits\NonOffsetAccessibleTypeTrait;
 
 class StringType implements Type
 {
@@ -15,7 +14,6 @@ class StringType implements Type
 	use MaybeCallableTypeTrait;
 	use NonIterableTypeTrait;
 	use NonObjectTypeTrait;
-	use NonOffsetAccessibleTypeTrait;
 
 	public function describe(): string
 	{
@@ -30,6 +28,11 @@ class StringType implements Type
 	public function getOffsetValueType(Type $offsetType): Type
 	{
 		return new StringType();
+	}
+
+	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
+	{
+		return $this;
 	}
 
 	public static function __set_state(array $properties): Type
