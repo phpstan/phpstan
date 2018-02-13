@@ -56,6 +56,7 @@ use PHPStan\PhpDoc\Tag\ParamTag;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\CommentHelper;
+use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\IntegerType;
@@ -1187,41 +1188,57 @@ class NodeScopeResolver
 			$scope = $this->lookForAssigns($scope, $var, TrinaryLogic::createYes());
 
 			// 2. eval dimensions
-			$dimTypes = [];
+			$offsetTypes = [];
 			foreach (array_reverse($dimExprStack) as $dimExpr) {
 				if ($dimExpr === null) {
-					$dimTypes[] = new MixedType();
+					$offsetTypes[] = null;
 
 				} else {
 					$scope = $this->lookForAssigns($scope, $dimExpr, TrinaryLogic::createYes());
-					$dimTypes[] = $scope->getType($dimExpr);
+					$offsetTypes[] = $scope->getType($dimExpr);
 				}
 			}
 
 			// 3. eval assigned expr, unfortunately this was already done
 
 			// 4. compose types
-			foreach (array_reverse($dimTypes) as $dimType) {
-				$subNodeType = new ArrayType($dimType, $subNodeType);
-			}
-
 			if ($var instanceof Variable && is_string($var->name)) {
-				if ($scope->hasVariableType($var->name)->yes()) {
-					assert($subNodeType instanceof ArrayType);
+				if (!$scope->hasVariableType($var->name)->no()) {
 					$varType = $scope->getVariableType($var->name);
-					$newVarType = $varType->setOffsetValueType($subNodeType->getKeyType(), $subNodeType->getItemType());
 
 				} else {
-					$newVarType = $subNodeType;
+					$varType = new ConstantArrayType([], []);
 				}
 
-				if ($newVarType instanceof ErrorType) {
-					$newVarType = new ArrayType(new MixedType(), new MixedType(), true);
+				$offsetValueType = $varType;
+				$offsetValueTypeStack = [$offsetValueType];
+				foreach (array_slice($offsetTypes, 0, -1) as $offsetType) {
+					if ($offsetType === null) {
+						$offsetValueType = new ConstantArrayType([], []);
+
+					} else {
+						$offsetValueType = $offsetValueType->getOffsetValueType($offsetType);
+						if ($offsetValueType instanceof ErrorType) {
+							$offsetValueType = new ConstantArrayType([], []);
+						}
+					}
+
+					$offsetValueTypeStack[] = $offsetValueType;
+				}
+
+				$valueToWrite = $subNodeType;
+				foreach (array_reverse($offsetTypes) as $offsetType) {
+					$offsetValueType = array_pop($offsetValueTypeStack);
+					$valueToWrite = $offsetValueType->setOffsetValueType($offsetType, $valueToWrite);
+				}
+
+				if ($valueToWrite instanceof ErrorType) {
+					$valueToWrite = new ArrayType(new MixedType(), new MixedType(), true);
 				}
 
 				$scope = $scope->assignVariable(
 					$var->name,
-					$newVarType,
+					$valueToWrite,
 					$certainty
 				);
 			}

@@ -77,19 +77,19 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'arrOne',
 				TrinaryLogic::createYes(),
-				'array<string>',
+				'array<int, string>',
 			],
 			[
 				$testScope,
 				'arrTwo',
 				TrinaryLogic::createYes(),
-				'array<Foo|string>',
+				'array<int|string, Foo|string>',
 			],
 			[
 				$testScope,
 				'arrThree',
 				TrinaryLogic::createYes(),
-				'array<string>',
+				'array<int(0), string>',
 			],
 			[
 				$testScope,
@@ -149,7 +149,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'anotherArray',
 				TrinaryLogic::createYes(),
-				'array<string, array<string>>',
+				'array<string, array<int, string>>',
 			],
 			[
 				$testScope,
@@ -334,13 +334,13 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'nullableIntegers',
 				TrinaryLogic::createYes(),
-				'array<int(1)|int(2)|int(3)|null>',
+				'array<int, int(1)|int(2)|int(3)|null>',
 			],
 			[
 				$testScope,
 				'union',
 				TrinaryLogic::createYes(),
-				'array<int(1)|int(2)|int(3)|string>',
+				'array<int, int(1)|int(2)|int(3)|string>',
 				'int(1)|int(2)|int(3)|string',
 			],
 			[

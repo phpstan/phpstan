@@ -9,6 +9,7 @@ use PHPStan\Type\CompoundType;
 use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\ConstantType;
 use PHPStan\Type\ErrorType;
+use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
@@ -195,6 +196,10 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			$newValueTypes = $this->valueTypes;
 			$newValueTypes[] = $valueType;
 			return new self($newKeyTypes, $newValueTypes);
+		}
+
+		if (count($this->keyTypes) === 0) {
+			return new ArrayType($offsetType ?? new IntegerType(), $valueType, true);
 		}
 
 		return parent::setOffsetValueType($offsetType, $valueType);
