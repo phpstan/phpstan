@@ -11,18 +11,11 @@ use PHPStan\Type\VoidType;
 class FunctionReturnTypeCheck
 {
 
-	/** @var \PhpParser\PrettyPrinter\Standard */
-	private $printer;
-
 	/** @var \PHPStan\Rules\RuleLevelHelper */
 	private $ruleLevelHelper;
 
-	public function __construct(
-		\PhpParser\PrettyPrinter\Standard $printer,
-		RuleLevelHelper $ruleLevelHelper
-	)
+	public function __construct(RuleLevelHelper $ruleLevelHelper)
 	{
-		$this->printer = $printer;
 		$this->ruleLevelHelper = $ruleLevelHelper;
 	}
 

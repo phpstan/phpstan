@@ -803,19 +803,6 @@ class Scope
 		return new MixedType();
 	}
 
-	/**
-	 * @param \PHPStan\Type\Type[] $types
-	 * @return \PHPStan\Type\Type
-	 */
-	private function getCombinedType(array $types): Type
-	{
-		if (count($types) === 0) {
-			return new MixedType();
-		}
-
-		return TypeCombinator::union(...$types);
-	}
-
 	public function isSpecified(Expr $node): bool
 	{
 		$exprString = $this->printer->prettyPrintExpr($node);

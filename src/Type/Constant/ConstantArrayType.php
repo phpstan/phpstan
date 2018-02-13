@@ -31,6 +31,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 	/**
 	 * @param (ConstantIntegerType|ConstantStringType)[] $keyTypes
 	 * @param Type[] $valueTypes
+	 * @param int $nextAutoIndex
 	 */
 	public function __construct(array $keyTypes, array $valueTypes, int $nextAutoIndex = 0)
 	{
