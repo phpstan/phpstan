@@ -103,8 +103,7 @@ class TypeCombinator
 					$types[$i] = new ArrayType(
 						self::union($types[$i]->getIterableKeyType(), $types[$j]->getIterableKeyType()),
 						self::union($types[$i]->getIterableValueType(), $types[$j]->getIterableValueType()),
-						$types[$i]->isItemTypeInferredFromLiteralArray() || $types[$j]->isItemTypeInferredFromLiteralArray(),
-						$types[$i]->isCallable()->and($types[$j]->isCallable())
+						$types[$i]->isItemTypeInferredFromLiteralArray() || $types[$j]->isItemTypeInferredFromLiteralArray()
 					);
 					array_splice($types, $j, 1);
 					continue 2;

@@ -23,15 +23,7 @@ class ArrayType implements StaticResolvableType
 	/** @var bool */
 	private $itemTypeInferredFromLiteralArray;
 
-	/** @var TrinaryLogic */
-	private $callable;
-
-	public function __construct(
-		Type $keyType,
-		Type $itemType,
-		bool $itemTypeInferredFromLiteralArray = false,
-		TrinaryLogic $callable = null
-	)
+	public function __construct(Type $keyType, Type $itemType, bool $itemTypeInferredFromLiteralArray = false)
 	{
 		if ($itemType instanceof UnionType && !TypeCombinator::isUnionTypesEnabled()) {
 			$itemType = new MixedType();
@@ -39,7 +31,6 @@ class ArrayType implements StaticResolvableType
 		$this->keyType = $keyType;
 		$this->itemType = $itemType;
 		$this->itemTypeInferredFromLiteralArray = $itemTypeInferredFromLiteralArray;
-		$this->callable = $callable ?? TrinaryLogic::createMaybe()->and((new StringType)->isSuperTypeOf($itemType));
 	}
 
 	public function getKeyType(): Type
@@ -124,8 +115,7 @@ class ArrayType implements StaticResolvableType
 			return new self(
 				$this->keyType,
 				$this->getItemType()->resolveStatic($className),
-				$this->isItemTypeInferredFromLiteralArray(),
-				$this->callable
+				$this->isItemTypeInferredFromLiteralArray()
 			);
 		}
 
@@ -138,8 +128,7 @@ class ArrayType implements StaticResolvableType
 			return new self(
 				$this->keyType,
 				$this->getItemType()->changeBaseClass($className),
-				$this->isItemTypeInferredFromLiteralArray(),
-				$this->callable
+				$this->isItemTypeInferredFromLiteralArray()
 			);
 		}
 
@@ -189,7 +178,7 @@ class ArrayType implements StaticResolvableType
 
 	public function isCallable(): TrinaryLogic
 	{
-		return $this->callable;
+		return TrinaryLogic::createMaybe()->and((new StringType)->isSuperTypeOf($this->itemType));
 	}
 
 	protected function castToArrayKeyType(Type $offsetType): Type
@@ -214,8 +203,7 @@ class ArrayType implements StaticResolvableType
 		return new self(
 			$properties['keyType'],
 			$properties['itemType'],
-			$properties['itemTypeInferredFromLiteralArray'],
-			$properties['callable']
+			$properties['itemTypeInferredFromLiteralArray']
 		);
 	}
 

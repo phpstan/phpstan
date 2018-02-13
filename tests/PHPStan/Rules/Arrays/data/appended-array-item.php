@@ -37,7 +37,7 @@ class Foo
 
 		/** @var callable[] $anotherCallables */
 		$anotherCallables = $callables;
-		$anotherCallables[] = 'dostrpos';
+		$anotherCallables[] = 'strpos';
 
 		/** @var callable[] $yetAnotherCallables */
 		$yetAnotherCallables = $callables;

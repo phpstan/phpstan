@@ -3,6 +3,9 @@
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\Constant\ConstantIntegerType;
+use PHPStan\Type\Constant\ConstantStringType;
 
 class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 {
@@ -58,10 +61,20 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 		return [
 			[
 				new IntersectionType([
-					new ArrayType(new MixedType(), new MixedType(), false, TrinaryLogic::createNo()),
+					new ConstantArrayType(
+						[new ConstantIntegerType(0), new ConstantIntegerType(1)],
+						[new ConstantStringType('Closure'), new ConstantStringType('bind')]
+					),
 					new IterableType(new MixedType(), new ObjectType('Item')),
 				]),
-				TrinaryLogic::createNo(),
+				TrinaryLogic::createYes(),
+			],
+			[
+				new IntersectionType([
+					new ArrayType(new MixedType(), new MixedType(), false),
+					new IterableType(new MixedType(), new ObjectType('Item')),
+				]),
+				TrinaryLogic::createMaybe(),
 			],
 			[
 				new IntersectionType([
