@@ -110,7 +110,7 @@ class UnionType implements CompoundType, StaticResolvableType
 			}
 		}
 
-		return implode('|', $typeNames);
+		return implode('|', array_unique($typeNames));
 	}
 
 	public function canAccessProperties(): TrinaryLogic
@@ -250,10 +250,17 @@ class UnionType implements CompoundType, StaticResolvableType
 		});
 	}
 
-	public function getOffsetValueType(): Type
+	public function getOffsetValueType(Type $offsetType): Type
 	{
-		return $this->unionTypes(function (Type $type): Type {
-			return $type->getOffsetValueType();
+		return $this->unionTypes(function (Type $type) use ($offsetType): Type {
+			return $type->getOffsetValueType($offsetType);
+		});
+	}
+
+	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
+	{
+		return $this->unionTypes(function (Type $type) use ($offsetType, $valueType): Type {
+			return $type->setOffsetValueType($offsetType, $valueType);
 		});
 	}
 

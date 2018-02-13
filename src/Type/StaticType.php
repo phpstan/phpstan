@@ -189,9 +189,14 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 		return $this->staticObjectType->isInstanceOf(\ArrayAccess::class);
 	}
 
-	public function getOffsetValueType(): Type
+	public function getOffsetValueType(Type $offsetType): Type
 	{
-		return $this->staticObjectType->getOffsetValueType();
+		return $this->staticObjectType->getOffsetValueType($offsetType);
+	}
+
+	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
+	{
+		return $this->staticObjectType->setOffsetValueType($offsetType, $valueType);
 	}
 
 	public function isCallable(): TrinaryLogic

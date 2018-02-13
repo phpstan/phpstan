@@ -38,7 +38,7 @@ class UselessCastRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		if (get_class($expressionType) === get_class($castType)) {
+		if ($castType->isSuperTypeOf($expressionType)->yes()) {
 			return [
 				sprintf(
 					'Casting to %s something that\'s already %s.',

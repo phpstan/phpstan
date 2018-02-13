@@ -266,7 +266,7 @@ class ObjectType implements TypeWithClassName
 		return $this->isInstanceOf(\ArrayAccess::class);
 	}
 
-	public function getOffsetValueType(): Type
+	public function getOffsetValueType(Type $offsetType): Type
 	{
 		$broker = Broker::getInstance();
 
@@ -287,6 +287,12 @@ class ObjectType implements TypeWithClassName
 		}
 
 		return new ErrorType();
+	}
+
+	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
+	{
+		// in the future we may return intersection of $this and OffsetAccessibleType()
+		return $this;
 	}
 
 	public function isCallable(): TrinaryLogic

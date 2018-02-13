@@ -53,15 +53,7 @@ class RuleLevelHelper
 
 	public function isThis(Expr $expression): bool
 	{
-		if (!($expression instanceof Expr\Variable)) {
-			return false;
-		}
-
-		if (!is_string($expression->name)) {
-			return false;
-		}
-
-		return $expression->name === 'this';
+		return $expression instanceof Expr\Variable && $expression->name === 'this';
 	}
 
 	public function accepts(Type $acceptingType, Type $acceptedType): bool

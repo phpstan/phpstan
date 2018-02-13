@@ -2,6 +2,8 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Type\Constant\ConstantBooleanType;
+
 class TypeCombinator
 {
 
@@ -40,11 +42,9 @@ class TypeCombinator
 			return $fromType;
 		}
 
-		if ($fromType instanceof TrueOrFalseBooleanType) {
-			if ($typeToRemove instanceof TrueBooleanType) {
-				return new FalseBooleanType();
-			} elseif ($typeToRemove instanceof FalseBooleanType) {
-				return new TrueBooleanType();
+		if ($fromType instanceof BooleanType && $fromType->isSuperTypeOf(new BooleanType())->yes()) {
+			if ($typeToRemove instanceof ConstantBooleanType) {
+				return new ConstantBooleanType(!$typeToRemove->getValue());
 			}
 		} elseif ($fromType instanceof UnionType) {
 			$innerTypes = [];
@@ -95,20 +95,15 @@ class TypeCombinator
 		// simplify string[] | int[] to (string|int)[]
 		for ($i = 0; $i < count($types); $i++) {
 			for ($j = $i + 1; $j < count($types); $j++) {
-				if ($types[$i] instanceof TrueBooleanType && $types[$j] instanceof FalseBooleanType) {
-					$types[$i] = new TrueOrFalseBooleanType();
-					array_splice($types, $j, 1);
-					continue 2;
-				} elseif ($types[$i] instanceof FalseBooleanType && $types[$j] instanceof TrueBooleanType) {
-					$types[$i] = new TrueOrFalseBooleanType();
+				if ($types[$i] instanceof ConstantBooleanType && $types[$j] instanceof ConstantBooleanType && $types[$i]->getValue() !== $types[$j]->getValue()) {
+					$types[$i] = new BooleanType();
 					array_splice($types, $j, 1);
 					continue 2;
 				} elseif ($types[$i] instanceof ArrayType && $types[$j] instanceof ArrayType) {
 					$types[$i] = new ArrayType(
 						self::union($types[$i]->getIterableKeyType(), $types[$j]->getIterableKeyType()),
 						self::union($types[$i]->getIterableValueType(), $types[$j]->getIterableValueType()),
-						$types[$i]->isItemTypeInferredFromLiteralArray() || $types[$j]->isItemTypeInferredFromLiteralArray(),
-						$types[$i]->isCallable()->and($types[$j]->isCallable())
+						$types[$i]->isItemTypeInferredFromLiteralArray() || $types[$j]->isItemTypeInferredFromLiteralArray()
 					);
 					array_splice($types, $j, 1);
 					continue 2;

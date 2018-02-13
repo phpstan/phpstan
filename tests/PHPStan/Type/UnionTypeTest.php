@@ -3,6 +3,10 @@
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\Constant\ConstantBooleanType;
+use PHPStan\Type\Constant\ConstantIntegerType;
+use PHPStan\Type\Constant\ConstantStringType;
 
 class UnionTypeTest extends \PHPStan\Testing\TestCase
 {
@@ -12,17 +16,27 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 		return [
 			[
 				new UnionType([
-					new ArrayType(new MixedType(), new MixedType(), false, TrinaryLogic::createYes()),
+					new ConstantArrayType(
+						[new ConstantIntegerType(0), new ConstantIntegerType(1)],
+						[new ConstantStringType('Closure'), new ConstantStringType('bind')]
+					),
+					new ConstantStringType('array_push'),
+				]),
+				TrinaryLogic::createYes(),
+			],
+			[
+				new UnionType([
+					new ArrayType(new MixedType(), new MixedType(), false),
 					new StringType(),
 				]),
 				TrinaryLogic::createMaybe(),
 			],
 			[
 				new UnionType([
-					new ArrayType(new MixedType(), new MixedType(), false, TrinaryLogic::createYes()),
+					new ArrayType(new MixedType(), new MixedType(), false),
 					new ObjectType('Closure'),
 				]),
-				TrinaryLogic::createYes(),
+				TrinaryLogic::createMaybe(),
 			],
 			[
 				new UnionType([
@@ -122,7 +136,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 
 		yield [
 			$unionTypeA,
-			new UnionType([new TrueBooleanType(), new FloatType()]),
+			new UnionType([new ConstantBooleanType(true), new FloatType()]),
 			TrinaryLogic::createNo(),
 		];
 
@@ -326,7 +340,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 
 		yield [
 			$unionTypeA,
-			new UnionType([new TrueBooleanType(), new FloatType()]),
+			new UnionType([new ConstantBooleanType(true), new FloatType()]),
 			TrinaryLogic::createNo(),
 		];
 

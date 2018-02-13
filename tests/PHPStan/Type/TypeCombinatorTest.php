@@ -2,6 +2,11 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Type\Constant\ConstantBooleanType;
+use PHPStan\Type\Constant\ConstantFloatType;
+use PHPStan\Type\Constant\ConstantIntegerType;
+use PHPStan\Type\Constant\ConstantStringType;
+
 class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 {
 
@@ -223,10 +228,10 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new TrueBooleanType(),
-					new FalseBooleanType(),
+					new ConstantBooleanType(true),
+					new ConstantBooleanType(false),
 				],
-				TrueOrFalseBooleanType::class,
+				BooleanType::class,
 				'bool',
 			],
 			[
@@ -254,7 +259,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 						new StringType(),
 						new IntegerType(),
 					]),
-					new TrueBooleanType(),
+					new ConstantBooleanType(true),
 				],
 				UnionType::class,
 				'int|string|true',
@@ -318,7 +323,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			[
 				[
 						new UnionType([
-						new TrueBooleanType(),
+						new ConstantBooleanType(true),
 						new IntegerType(),
 						]),
 					new ArrayType(new MixedType(), new StringType()),
@@ -529,6 +534,102 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				UnionType::class,
 				'callable|RecursionCallable\Foo',
 			],
+			[
+				[
+					new IntegerType(),
+					new ConstantIntegerType(1),
+				],
+				IntegerType::class,
+				'int',
+			],
+			[
+				[
+					new ConstantIntegerType(1),
+					new ConstantIntegerType(1),
+				],
+				ConstantIntegerType::class,
+				'int(1)',
+			],
+			[
+				[
+					new ConstantIntegerType(1),
+					new ConstantIntegerType(2),
+				],
+				UnionType::class,
+				'int(1)|int(2)',
+			],
+			[
+				[
+					new FloatType(),
+					new ConstantFloatType(1.0),
+				],
+				FloatType::class,
+				'float',
+			],
+			[
+				[
+					new ConstantFloatType(1.0),
+					new ConstantFloatType(1.0),
+				],
+				ConstantFloatType::class,
+				'float(1.000000)',
+			],
+			[
+				[
+					new ConstantFloatType(1.0),
+					new ConstantFloatType(2.0),
+				],
+				UnionType::class,
+				'float(1.000000)|float(2.000000)',
+			],
+			[
+				[
+					new StringType(),
+					new ConstantStringType('A'),
+				],
+				StringType::class,
+				'string',
+			],
+			[
+				[
+					new ConstantStringType('A'),
+					new ConstantStringType('A'),
+				],
+				ConstantStringType::class,
+				'string',
+			],
+			[
+				[
+					new ConstantStringType('A'),
+					new ConstantStringType('B'),
+				],
+				UnionType::class,
+				'string',
+			],
+			[
+				[
+					new BooleanType(),
+					new ConstantBooleanType(true),
+				],
+				BooleanType::class,
+				'bool',
+			],
+			[
+				[
+					new ConstantBooleanType(true),
+					new ConstantBooleanType(true),
+				],
+				ConstantBooleanType::class,
+				'true',
+			],
+			[
+				[
+					new ConstantBooleanType(true),
+					new ConstantBooleanType(false),
+				],
+				BooleanType::class,
+				'bool',
+			],
 		];
 	}
 
@@ -544,9 +645,20 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 		string $expectedTypeDescription
 	): void
 	{
-		$result = TypeCombinator::union(...$types);
-		$this->assertSame($expectedTypeDescription, $result->describe());
-		$this->assertInstanceOf($expectedTypeClass, $result);
+		$actualType = TypeCombinator::union(...$types);
+
+		$this->assertSame(
+			$expectedTypeDescription,
+			$actualType->describe(),
+			sprintf('union(%s)', implode(', ', array_map(
+				function (Type $type): string {
+					return $type->describe();
+				},
+				$types
+			)))
+		);
+
+		$this->assertInstanceOf($expectedTypeClass, $actualType);
 	}
 
 	/**
@@ -620,10 +732,10 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new TrueBooleanType(),
-					new TrueOrFalseBooleanType(),
+					new ConstantBooleanType(true),
+					new BooleanType(),
 				],
-				TrueBooleanType::class,
+				ConstantBooleanType::class,
 				'true',
 			],
 			[
@@ -726,17 +838,17 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				new TrueBooleanType(),
-				new TrueBooleanType(),
+				new ConstantBooleanType(true),
+				new ConstantBooleanType(true),
 				NeverType::class,
 				'*NEVER*',
 			],
 			[
 				new UnionType([
 					new IntegerType(),
-					new TrueBooleanType(),
+					new ConstantBooleanType(true),
 				]),
-				new TrueBooleanType(),
+				new ConstantBooleanType(true),
 				IntegerType::class,
 				'int',
 			],
@@ -770,80 +882,80 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				'array<string>|ArrayObject',
 			],
 			[
-				new TrueBooleanType(),
-				new FalseBooleanType(),
-				TrueBooleanType::class,
+				new ConstantBooleanType(true),
+				new ConstantBooleanType(false),
+				ConstantBooleanType::class,
 				'true',
 			],
 			[
-				new FalseBooleanType(),
-				new TrueBooleanType(),
-				FalseBooleanType::class,
+				new ConstantBooleanType(false),
+				new ConstantBooleanType(true),
+				ConstantBooleanType::class,
 				'false',
 			],
 			[
-				new TrueBooleanType(),
-				new TrueOrFalseBooleanType(),
+				new ConstantBooleanType(true),
+				new BooleanType(),
 				NeverType::class,
 				'*NEVER*',
 			],
 			[
-				new FalseBooleanType(),
-				new TrueOrFalseBooleanType(),
+				new ConstantBooleanType(false),
+				new BooleanType(),
 				NeverType::class,
 				'*NEVER*',
 			],
 			[
-				new TrueOrFalseBooleanType(),
-				new TrueBooleanType(),
-				FalseBooleanType::class,
+				new BooleanType(),
+				new ConstantBooleanType(true),
+				ConstantBooleanType::class,
 				'false',
 			],
 			[
-				new TrueOrFalseBooleanType(),
-				new FalseBooleanType(),
-				TrueBooleanType::class,
+				new BooleanType(),
+				new ConstantBooleanType(false),
+				ConstantBooleanType::class,
 				'true',
 			],
 			[
-				new TrueOrFalseBooleanType(),
-				new TrueOrFalseBooleanType(),
+				new BooleanType(),
+				new BooleanType(),
 				NeverType::class,
 				'*NEVER*',
 			],
 			[
 				new UnionType([
-					new TrueBooleanType(),
+					new ConstantBooleanType(true),
 					new IntegerType(),
 				]),
-				new TrueOrFalseBooleanType(),
+				new BooleanType(),
 				IntegerType::class,
 				'int',
 			],
 			[
 				new UnionType([
-					new FalseBooleanType(),
+					new ConstantBooleanType(false),
 					new IntegerType(),
 				]),
-				new TrueOrFalseBooleanType(),
+				new BooleanType(),
 				IntegerType::class,
 				'int',
 			],
 			[
 				new UnionType([
-					new TrueOrFalseBooleanType(),
+					new BooleanType(),
 					new IntegerType(),
 				]),
-				new TrueBooleanType(),
+				new ConstantBooleanType(true),
 				UnionType::class,
 				'false|int',
 			],
 			[
 				new UnionType([
-					new TrueOrFalseBooleanType(),
+					new BooleanType(),
 					new IntegerType(),
 				]),
-				new FalseBooleanType(),
+				new ConstantBooleanType(false),
 				UnionType::class,
 				'int|true',
 			],

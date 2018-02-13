@@ -9,11 +9,11 @@ use PHPStan\Parser\Parser;
 use PHPStan\Reflection\Php\DummyParameter;
 use PHPStan\Reflection\Php\PhpParameterReflection;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\BooleanType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\StringType;
-use PHPStan\Type\TrueOrFalseBooleanType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypehintHelper;
@@ -208,7 +208,7 @@ class FunctionReflection implements ParametersAcceptorWithPhpDocs
 			) {
 				$this->parameters[1] = new DummyParameter(
 					'shortnames',
-					new TrueOrFalseBooleanType(),
+					new BooleanType(),
 					true
 				);
 			}
@@ -221,7 +221,7 @@ class FunctionReflection implements ParametersAcceptorWithPhpDocs
 				// PHP bug #75799
 				$this->parameters[0] = new DummyParameter(
 					'exclude_disabled',
-					new TrueOrFalseBooleanType(),
+					new BooleanType(),
 					true
 				);
 			}

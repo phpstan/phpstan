@@ -15,10 +15,11 @@ use PhpParser\Node\Expr\Instanceof_;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Name;
-use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
-use PHPStan\Type\FalseBooleanType;
+use PHPStan\Type\Constant\ConstantBooleanType;
+use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\IterableType;
@@ -29,8 +30,6 @@ use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\ResourceType;
 use PHPStan\Type\StaticType;
 use PHPStan\Type\StringType;
-use PHPStan\Type\TrueBooleanType;
-use PHPStan\Type\TrueOrFalseBooleanType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\UnionType;
@@ -76,14 +75,14 @@ class TypeSpecifier
 			if ($expressions !== null) {
 				$constantName = strtolower((string) $expressions[1]->name);
 				if ($constantName === 'false') {
-					$types = $this->create($expressions[0], new FalseBooleanType(), $context);
+					$types = $this->create($expressions[0], new ConstantBooleanType(false), $context);
 					return $types->unionWith($this->specifyTypesInCondition(
 						$scope,
 						$expressions[0],
 						($context & self::CONTEXT_TRUE) ? self::CONTEXT_FALSE : ~self::CONTEXT_FALSE
 					));
 				} elseif ($constantName === 'true') {
-					$types = $this->create($expressions[0], new TrueBooleanType(), $context);
+					$types = $this->create($expressions[0], new ConstantBooleanType(true), $context);
 					return $types->unionWith($this->specifyTypesInCondition(
 						$scope,
 						$expressions[0],
@@ -147,9 +146,9 @@ class TypeSpecifier
 				case 'is_null':
 					return $this->create($innerExpr, new NullType(), $context);
 				case 'is_array':
-					return $this->create($innerExpr, new ArrayType(new MixedType(), new MixedType(), false, TrinaryLogic::createMaybe()), $context);
+					return $this->create($innerExpr, new ArrayType(new MixedType(), new MixedType(), false), $context);
 				case 'is_bool':
-					return $this->create($innerExpr, new TrueOrFalseBooleanType(), $context);
+					return $this->create($innerExpr, new BooleanType(), $context);
 				case 'is_callable':
 					return $this->create($innerExpr, new CallableType(), $context);
 				case 'is_resource':
@@ -193,7 +192,7 @@ class TypeSpecifier
 						}
 
 						if (isset($expr->args[2]) && ($context & self::CONTEXT_TRUE)) {
-							if (!$scope->getType($expr->args[2]->value)->isSuperTypeOf(new TrueBooleanType())->no()) {
+							if (!$scope->getType($expr->args[2]->value)->isSuperTypeOf(new ConstantBooleanType(true))->no()) {
 								$types = $types->intersectWith($this->create($innerExpr, new StringType(), $context));
 							}
 						}
@@ -253,7 +252,14 @@ class TypeSpecifier
 			$type = new ObjectWithoutClassType();
 			return $this->create($expr, $type, self::CONTEXT_FALSE);
 		} elseif (($context & self::CONTEXT_FALSEY) === 0) {
-			$type = new UnionType([new NullType(), new FalseBooleanType()]);
+			$type = new UnionType([
+				new NullType(),
+				new ConstantBooleanType(false),
+				new ConstantIntegerType(0),
+//				new ConstantFloatType(0.0),
+//				new ConstantStringType(''),
+//				new ConstantArrayType([], []),
+			]);
 			return $this->create($expr, $type, self::CONTEXT_FALSE);
 		}
 

@@ -2,11 +2,11 @@
 
 namespace PHPStan\Rules\Arrays;
 
+use PHPStan\Type\BooleanType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\StringType;
-use PHPStan\Type\TrueOrFalseBooleanType;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
 
@@ -19,7 +19,7 @@ class AllowedArrayKeysTypes
 			new IntegerType(),
 			new StringType(),
 			new FloatType(),
-			new TrueOrFalseBooleanType(),
+			new BooleanType(),
 			new NullType(),
 		]);
 	}
