@@ -14,56 +14,56 @@ class ConstantArrayTypeTest extends \PHPStan\Testing\TestCase
 	public function dataAccepts(): iterable
 	{
 		yield [
-			new ConstantArrayType([], []),
-			new ConstantArrayType([], []),
+			new ConstantArrayType([], [], new IntegerType()),
+			new ConstantArrayType([], [], new IntegerType()),
 			true,
 		];
 
 		yield [
-			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)]),
-			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)]),
+			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)], new IntegerType()),
+			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)], new IntegerType()),
 			true,
 		];
 
 		yield [
-			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)]),
-			new ConstantArrayType([], []),
+			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)], new IntegerType()),
+			new ConstantArrayType([], [], new IntegerType()),
 			false,
 		];
 
 		yield [
-			new ConstantArrayType([], []),
-			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)]),
+			new ConstantArrayType([], [], new IntegerType()),
+			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)], new IntegerType()),
 			false,
 		];
 
 		yield [
-			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)]),
-			new ConstantArrayType([new ConstantIntegerType(7)], [new ConstantIntegerType(2)]),
+			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)], new IntegerType()),
+			new ConstantArrayType([new ConstantIntegerType(7)], [new ConstantIntegerType(2)], new IntegerType()),
 			false,
 		];
 
 		yield [
-			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)]),
-			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(7)]),
+			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)], new IntegerType()),
+			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(7)], new IntegerType()),
 			false,
 		];
 
 		yield [
-			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)]),
-			new ConstantArrayType([new IntegerType()], [new IntegerType()]),
+			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)], new IntegerType()),
+			new ConstantArrayType([new IntegerType()], [new IntegerType()], new IntegerType()),
 			false,
 		];
 
 		yield [
-			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)]),
-			new ConstantArrayType([new StringType()], [new StringType()]),
+			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)], new IntegerType()),
+			new ConstantArrayType([new StringType()], [new StringType()], new IntegerType()),
 			false,
 		];
 
 		yield [
-			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)]),
-			new ConstantArrayType([new MixedType()], [new MixedType()]),
+			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)], new IntegerType()),
+			new ConstantArrayType([new MixedType()], [new MixedType()], new IntegerType()),
 			true,
 		];
 	}
@@ -91,56 +91,56 @@ class ConstantArrayTypeTest extends \PHPStan\Testing\TestCase
 	public function dataIsSuperTypeOf(): iterable
 	{
 		yield [
-			new ConstantArrayType([], []),
-			new ConstantArrayType([], []),
+			new ConstantArrayType([], [], new IntegerType()),
+			new ConstantArrayType([], [], new IntegerType()),
 			TrinaryLogic::createYes(),
 		];
 
 		yield [
-			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)]),
-			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)]),
+			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)], new IntegerType()),
+			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)], new IntegerType()),
 			TrinaryLogic::createYes(),
 		];
 
 		yield [
-			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)]),
-			new ConstantArrayType([], []),
+			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)], new IntegerType()),
+			new ConstantArrayType([], [], new IntegerType()),
 			TrinaryLogic::createNo(),
 		];
 
 		yield [
-			new ConstantArrayType([], []),
-			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)]),
+			new ConstantArrayType([], [], new IntegerType()),
+			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)], new IntegerType()),
 			TrinaryLogic::createNo(),
 		];
 
 		yield [
-			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)]),
-			new ConstantArrayType([new ConstantIntegerType(7)], [new ConstantIntegerType(2)]),
+			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)], new IntegerType()),
+			new ConstantArrayType([new ConstantIntegerType(7)], [new ConstantIntegerType(2)], new IntegerType()),
 			TrinaryLogic::createNo(),
 		];
 
 		yield [
-			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)]),
-			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(7)]),
+			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)], new IntegerType()),
+			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(7)], new IntegerType()),
 			TrinaryLogic::createNo(),
 		];
 
 		yield [
-			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)]),
-			new ConstantArrayType([new IntegerType()], [new IntegerType()]),
+			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)], new IntegerType()),
+			new ConstantArrayType([new IntegerType()], [new IntegerType()], new IntegerType()),
 			TrinaryLogic::createMaybe(),
 		];
 
 		yield [
-			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)]),
-			new ConstantArrayType([new StringType()], [new StringType()]),
+			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)], new IntegerType()),
+			new ConstantArrayType([new StringType()], [new StringType()], new IntegerType()),
 			TrinaryLogic::createNo(),
 		];
 
 		yield [
-			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)]),
-			new ConstantArrayType([new MixedType()], [new MixedType()]),
+			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)], new IntegerType()),
+			new ConstantArrayType([new MixedType()], [new MixedType()], new IntegerType()),
 			TrinaryLogic::createMaybe(),
 		];
 	}
