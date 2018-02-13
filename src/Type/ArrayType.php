@@ -61,13 +61,13 @@ class ArrayType implements StaticResolvableType
 		);
 	}
 
-	public static function createDeepArrayType(Type $itemType, int $depth, bool $nullable): self
+	public static function createDeepArrayType(Type $itemType, int $depth, bool $itemTypeInferredFromLiteralArray): self
 	{
 		for ($i = 0; $i < $depth - 1; $i++) {
 			$itemType = new self(new MixedType(), $itemType, false);
 		}
 
-		return new self(new MixedType(), $itemType, $nullable);
+		return new self(new MixedType(), $itemType, $itemTypeInferredFromLiteralArray);
 	}
 
 	public function isItemTypeInferredFromLiteralArray(): bool
@@ -167,6 +167,22 @@ class ArrayType implements StaticResolvableType
 	public function getOffsetValueType(Type $offsetType): Type
 	{
 		return $this->getItemType();
+	}
+
+	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
+	{
+		if ($offsetType === null) {
+			$offsetType = new IntegerType();
+
+		} elseif ($offsetType instanceof ConstantType) {
+			$offsetType = $offsetType->generalize();
+		}
+
+		return new ArrayType(
+			TypeCombinator::union($this->keyType, $offsetType),
+			TypeCombinator::union($this->itemType, $valueType),
+			$this->itemTypeInferredFromLiteralArray
+		);
 	}
 
 	public function isCallable(): TrinaryLogic

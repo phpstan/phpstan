@@ -24,4 +24,9 @@ class ConstantFloatType extends FloatType implements ConstantScalarType
 		return $this->value;
 	}
 
+	public function describe(): string
+	{
+		return sprintf('float(%f)', $this->value);
+	}
+
 }

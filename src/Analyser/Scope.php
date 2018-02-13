@@ -38,6 +38,7 @@ use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
+use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
@@ -53,6 +54,8 @@ use PHPStan\Type\StringType;
 use PHPStan\Type\ThisType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\TypeWithClassName;
+use PHPStan\Type\UnionType;
 use PHPStan\Type\VoidType;
 
 class Scope
@@ -341,13 +344,60 @@ class Scope
 			return new BooleanType();
 		}
 
-		if (
-			$node instanceof Node\Expr\UnaryMinus
-			|| $node instanceof Node\Expr\UnaryPlus
+		if ($node instanceof Node\Expr\UnaryPlus
 			|| $node instanceof Expr\ErrorSuppress
 			|| $node instanceof Expr\Assign
 		) {
 			return $this->getType($node->expr);
+		}
+
+		if ($node instanceof Node\Expr\UnaryMinus) {
+			$type = $this->getType($node->expr);
+			if ($type instanceof ConstantIntegerType) {
+				return new ConstantIntegerType(-$type->getValue());
+			} elseif ($type instanceof ConstantFloatType) {
+				return new ConstantFloatType(-$type->getValue());
+			} else {
+				return $type;
+			}
+		}
+
+		if ($node instanceof Node\Expr\BinaryOp || $node instanceof Node\Expr\AssignOp) {
+			if ($node instanceof Node\Expr\AssignOp) {
+				$left = $node->var;
+				$right = $node->expr;
+			} elseif ($node instanceof Node\Expr\BinaryOp) {
+				$left = $node->left;
+				$right = $node->right;
+			} else {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+
+			$leftType = $this->getType($left);
+			$rightType = $this->getType($right);
+
+			if ($leftType instanceof ConstantScalarType && $rightType instanceof ConstantScalarType) {
+				$leftValue = $leftType->getValue();
+				$rightValue = $rightType->getValue();
+
+				if ($node instanceof Node\Expr\BinaryOp\Plus || $node instanceof Node\Expr\AssignOp\Plus) {
+					return @$this->getTypeFromValue($leftValue + $rightValue);
+				} elseif ($node instanceof Node\Expr\BinaryOp\Minus || $node instanceof Node\Expr\AssignOp\Minus) {
+					return @$this->getTypeFromValue($leftValue - $rightValue);
+				} elseif ($node instanceof Node\Expr\BinaryOp\Mul || $node instanceof Node\Expr\AssignOp\Mul) {
+					return @$this->getTypeFromValue($leftValue * $rightValue);
+				} elseif ($node instanceof Node\Expr\BinaryOp\Pow || $node instanceof Node\Expr\AssignOp\Pow) {
+					return @$this->getTypeFromValue($leftValue ** $rightValue);
+				} elseif (($node instanceof Node\Expr\BinaryOp\Div || $node instanceof Node\Expr\AssignOp\Div) && $rightValue !== 0) {
+					return @$this->getTypeFromValue($leftValue / $rightValue);
+				} elseif (($node instanceof Node\Expr\BinaryOp\Mod || $node instanceof Node\Expr\AssignOp\Mod) && $rightValue !== 0) {
+					return @$this->getTypeFromValue($leftValue % $rightValue);
+				} elseif ($node instanceof Node\Expr\BinaryOp\Coalesce) {
+					return @$this->getTypeFromValue($leftValue ?? $rightValue);
+				} elseif ($node instanceof Node\Expr\BinaryOp\Spaceship) {
+					return @$this->getTypeFromValue($leftValue <=> $rightValue);
+				}
+			}
 		}
 
 		if ($node instanceof Node\Expr\BinaryOp\Mod) {
@@ -448,7 +498,7 @@ class Scope
 				&& $rightType instanceof ArrayType
 			) {
 				return new ArrayType(
-					TypeCombinator::union($leftType->getIterableKeyType(), $rightType->getIterableKeyType()),
+					TypeCombinator::union($leftType->getKeyType(), $rightType->getKeyType()),
 					TypeCombinator::union($leftType->getItemType(), $rightType->getItemType()),
 					$leftType->isItemTypeInferredFromLiteralArray() || $rightType->isItemTypeInferredFromLiteralArray()
 				);
@@ -456,7 +506,7 @@ class Scope
 		}
 
 		if ($node instanceof LNumber) {
-			return new IntegerType();
+			return new ConstantIntegerType($node->value);
 		} elseif ($node instanceof ConstFetch) {
 			$constName = strtolower((string) $node->name);
 			if ($constName === 'true') {
@@ -468,17 +518,22 @@ class Scope
 			}
 
 			if ($this->broker->hasConstant($node->name, $this)) {
-				$typeFromValue = $this->getTypeFromValue(
-					constant($this->broker->resolveConstantName($node->name, $this))
-				);
-				if ($typeFromValue !== null) {
-					return $typeFromValue;
+				$resolvedConstantName = $this->broker->resolveConstantName($node->name, $this);
+				if ($resolvedConstantName === 'DIRECTORY_SEPARATOR') {
+					return new UnionType([
+						new ConstantStringType('/'),
+						new ConstantStringType('\\'),
+					]);
 				}
+
+				return $this->getTypeFromValue(constant($resolvedConstantName));
 			}
-		} elseif ($node instanceof String_ || $node instanceof Node\Scalar\Encapsed) {
+		} elseif ($node instanceof String_) {
+			return new ConstantStringType($node->value);
+		} elseif ($node instanceof Node\Scalar\Encapsed) {
 			return new StringType();
 		} elseif ($node instanceof DNumber) {
-			return new FloatType();
+			return new ConstantFloatType($node->value);
 		} elseif ($node instanceof Expr\Closure) {
 			return new ObjectType('Closure');
 		} elseif ($node instanceof New_) {
@@ -500,72 +555,105 @@ class Scope
 				return new ObjectType((string) $node->class);
 			}
 		} elseif ($node instanceof Array_) {
-			$itemTypes = array_map(
-				function (Expr\ArrayItem $item): Type {
-					return $this->getType($item->value);
-				},
-				$node->items
-			);
-
-			$callable = TrinaryLogic::createNo();
-			if (count($itemTypes) === 2) {
-				if (
-					($itemTypes[0]->accepts(new StringType()) || count($itemTypes[0]->getReferencedClasses()) > 0)
-					&& $itemTypes[1]->accepts(new StringType())
-				) {
-					$callable = TrinaryLogic::createYes();
-				}
-			}
-
-			$arrayWithKeys = [];
-			$keyExpressionTypes = [];
+			$keyTypes = [];
+			$valueType = [];
+			$nextIndex = 0;
 			foreach ($node->items as $arrayItem) {
-				$itemKey = $arrayItem->key;
-				if ($itemKey === null) {
-					$arrayWithKeys[] = 'foo';
-					continue;
-				}
+				if ($arrayItem->key === null) {
+					if ($nextIndex !== null) {
+						$keyType = new ConstantIntegerType($nextIndex++);
+					} else {
+						$keyType = new IntegerType();
+					}
 
-				if (
-					$itemKey instanceof \PhpParser\Node\Scalar\String_
-					|| $itemKey instanceof \PhpParser\Node\Scalar\LNumber
-					|| $itemKey instanceof \PhpParser\Node\Scalar\DNumber
-					|| $itemKey instanceof \PhpParser\Node\Expr\ConstFetch
-				) {
-					if ($itemKey instanceof \PhpParser\Node\Expr\ConstFetch) {
-						$constName = strtolower((string) $itemKey->name);
-						if ($constName === 'true') {
-							$value = true;
-						} elseif ($constName === 'false') {
-							$value = false;
-						} elseif ($constName === 'null') {
-							$value = null;
-						} elseif ($this->broker->hasConstant($itemKey->name, $this)) {
-							$value = constant($this->broker->resolveConstantName($itemKey->name, $this));
-						} else {
-							$keyExpressionTypes[] = new MixedType();
-							continue;
+				} else {
+					$keyType = $this->getType($arrayItem->key);
+					if ($keyType instanceof ConstantScalarType) {
+						$keyType = $this->getTypeFromValue(key([$keyType->getValue() => null]));
+						if ($keyType instanceof ConstantIntegerType) {
+							$nextIndex = max($nextIndex, $keyType->getValue() + 1);
 						}
 
-						$arrayWithKeys[$value] = 'foo';
+					} elseif ($keyType instanceof NullType) {
+						$keyType = new ConstantStringType('');
+
 					} else {
-						$arrayWithKeys[$itemKey->value] = 'foo';
+						$nextIndex = null;
 					}
-				} else {
-					$keyExpressionTypes[] = $this->getType($itemKey);
 				}
+
+				$keyTypes[] = $keyType;
+				$valueType[] = $this->getType($arrayItem->value);
 			}
 
-			$scalarKeysTypes = array_map(function ($value): Type {
-				return $this->getTypeFromValue($value) ?? new MixedType();
-			}, array_keys($arrayWithKeys));
+			return new ConstantArrayType($keyTypes, $valueType);
 
-			return new ArrayType(
-				$this->getCombinedType(array_merge($scalarKeysTypes, $keyExpressionTypes)),
-				$this->getCombinedType($itemTypes),
-				true,
-				$callable
-			);
+//			$itemTypes = array_map(
+//				function (Expr\ArrayItem $item): Type {
+//					return $this->getType($item->value);
+//				},
+//				$node->items
+//			);
+//
+//			$callable = TrinaryLogic::createNo();
+//			if (count($itemTypes) === 2) {
+//				if (
+//					($itemTypes[0]->accepts(new StringType()) || count($itemTypes[0]->getReferencedClasses()) > 0)
+//					&& $itemTypes[1]->accepts(new StringType())
+//				) {
+//					$callable = TrinaryLogic::createYes();
+//				}
+//			}
+//
+//			$arrayWithKeys = [];
+//			$keyExpressionTypes = [];
+//			foreach ($node->items as $arrayItem) {
+//				$itemKey = $arrayItem->key;
+//				if ($itemKey === null) {
+//					$arrayWithKeys[] = 'foo';
+//					continue;
+//				}
+//
+//				if (
+//					$itemKey instanceof \PhpParser\Node\Scalar\String_
+//					|| $itemKey instanceof \PhpParser\Node\Scalar\LNumber
+//					|| $itemKey instanceof \PhpParser\Node\Scalar\DNumber
+//					|| $itemKey instanceof \PhpParser\Node\Expr\ConstFetch
+//				) {
+//					if ($itemKey instanceof \PhpParser\Node\Expr\ConstFetch) {
+//						$constName = strtolower((string) $itemKey->name);
+//						if ($constName === 'true') {
+//							$value = true;
+//						} elseif ($constName === 'false') {
+//							$value = false;
+//						} elseif ($constName === 'null') {
+//							$value = null;
+//						} elseif ($this->broker->hasConstant($itemKey->name, $this)) {
+//							$value = constant($this->broker->resolveConstantName($itemKey->name, $this));
+//						} else {
+//							$keyExpressionTypes[] = new MixedType();
+//							continue;
+//						}
+//
+//						$arrayWithKeys[$value] = 'foo';
+//					} else {
+//						$arrayWithKeys[$itemKey->value] = 'foo';
+//					}
+//				} else {
+//					$keyExpressionTypes[] = $this->getType($itemKey);
+//				}
+//			}
+//
+//			$scalarKeysTypes = array_map(function ($value): Type {
+//				return $this->getTypeFromValue($value) ?? new MixedType();
+//			}, array_keys($arrayWithKeys));
+//
+//			return new ArrayType(
+//				$this->getCombinedType(array_merge($scalarKeysTypes, $keyExpressionTypes)),
+//				$this->getCombinedType($itemTypes),
+//				true,
+//				$callable
+//			);
 		} elseif ($node instanceof Int_) {
 				return new IntegerType();
 		} elseif ($node instanceof Bool_) {
@@ -578,6 +666,8 @@ class Scope
 			return new ArrayType(new MixedType(), new MixedType());
 		} elseif ($node instanceof Node\Scalar\MagicConst\Line) {
 			return new IntegerType();
+		} elseif ($node instanceof Node\Scalar\MagicConst\Class_) {
+			return new ConstantStringType($this->getClassReflection()->getName());
 		} elseif ($node instanceof Node\Scalar\MagicConst) {
 			return new StringType();
 		} elseif ($node instanceof Object_) {
@@ -600,15 +690,12 @@ class Scope
 			}
 
 			$constantName = $node->name;
-			if (strtolower($constantName) === 'class') {
-				return new StringType();
+			if (strtolower($constantName) === 'class' && $constantClassType instanceof TypeWithClassName) {
+				return new ConstantStringType($constantClassType->getClassName());
 			}
 			if ($constantClassType->hasConstant($constantName)) {
 				$constant = $constantClassType->getConstant($constantName);
-				$typeFromValue = $this->getTypeFromValue($constant->getValue());
-				if ($typeFromValue !== null) {
-					return $typeFromValue;
-				}
+				return $this->getTypeFromValue($constant->getValue());
 			}
 		}
 
@@ -782,9 +869,8 @@ class Scope
 
 	/**
 	 * @param mixed $value
-	 * @return Type|null
 	 */
-	private function getTypeFromValue($value): ?Type
+	private function getTypeFromValue($value): Type
 	{
 		if (is_int($value)) {
 			return new ConstantIntegerType($value);
@@ -799,15 +885,15 @@ class Scope
 		} elseif (is_array($value)) {
 			return new ConstantArrayType(
 				array_map(function ($value): Type {
-					return $this->getTypeFromValue($value) ?? new MixedType();
+					return $this->getTypeFromValue($value);
 				}, array_keys($value)),
 				array_map(function ($value): Type {
-					return $this->getTypeFromValue($value) ?? new MixedType();
+					return $this->getTypeFromValue($value);
 				}, array_values($value))
 			);
 		}
 
-		return null;
+		return new MixedType();
 	}
 
 	/**
@@ -1255,7 +1341,8 @@ class Scope
 			$this->getAnonymousFunctionReturnType(),
 			$this->getInFunctionCall(),
 			$this->isNegated(),
-			$this->inFirstLevelStatement
+			$this->inFirstLevelStatement,
+			$this->currentlyAssignedExpressions
 		);
 	}
 

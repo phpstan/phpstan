@@ -21,7 +21,7 @@ class ClosureReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				15,
 			],
 			[
-				'Anonymous function should return string but returns int.',
+				'Anonymous function should return string but returns int(1).',
 				20,
 			],
 			[

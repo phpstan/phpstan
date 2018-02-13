@@ -3,6 +3,8 @@
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Traits\NonCallableTypeTrait;
 use PHPStan\Type\Traits\NonIterableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
@@ -58,6 +60,12 @@ class NullType implements Type
 	public function getOffsetValueType(Type $offsetType): Type
 	{
 		return new NullType();
+	}
+
+	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
+	{
+		$offsetType = $offsetType ?? new ConstantIntegerType(0);
+		return new ConstantArrayType([$offsetType], [$valueType]);
 	}
 
 	public static function __set_state(array $properties): Type

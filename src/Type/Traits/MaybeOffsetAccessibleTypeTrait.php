@@ -19,4 +19,9 @@ trait MaybeOffsetAccessibleTypeTrait
 		return new MixedType();
 	}
 
+	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
+	{
+		return $this;
+	}
+
 }

@@ -194,6 +194,11 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 		return $this->staticObjectType->getOffsetValueType($offsetType);
 	}
 
+	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
+	{
+		return $this->staticObjectType->setOffsetValueType($offsetType, $valueType);
+	}
+
 	public function isCallable(): TrinaryLogic
 	{
 		$broker = Broker::getInstance();

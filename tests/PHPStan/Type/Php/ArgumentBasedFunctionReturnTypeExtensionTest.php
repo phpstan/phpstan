@@ -8,6 +8,8 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Type\ArrayType;
+use PHPStan\Type\IntegerType;
 use PHPStan\Type\StringType;
 
 class ArgumentBasedFunctionReturnTypeExtensionTest extends \PHPStan\Testing\TestCase
@@ -24,7 +26,7 @@ class ArgumentBasedFunctionReturnTypeExtensionTest extends \PHPStan\Testing\Test
 				[
 					new Arg(new Variable('foo')),
 				],
-				'string',
+				'array<int, string>',
 			],
 		];
 	}
@@ -48,7 +50,7 @@ class ArgumentBasedFunctionReturnTypeExtensionTest extends \PHPStan\Testing\Test
 		$scopeMock = $this->createMock(Scope::class);
 		$scopeMock
 			->method('getType')
-			->willReturn(new StringType());
+			->willReturn(new ArrayType(new IntegerType(), new StringType()));
 
 		$this->assertTrue($extension->isFunctionSupported($functionReflectionMock));
 		$this->assertSame(

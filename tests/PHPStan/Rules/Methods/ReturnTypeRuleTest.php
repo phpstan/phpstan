@@ -21,7 +21,7 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				16,
 			],
 			[
-				'Method ReturnTypes\Foo::returnObject() should return ReturnTypes\Bar but returns int.',
+				'Method ReturnTypes\Foo::returnObject() should return ReturnTypes\Bar but returns int(1).',
 				24,
 			],
 			[
@@ -37,7 +37,7 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				56,
 			],
 			[
-				'Method ReturnTypes\Foo::returnVoid() with return type void returns int but should not return anything.',
+				'Method ReturnTypes\Foo::returnVoid() with return type void returns int(1) but should not return anything.',
 				57,
 			],
 			[
@@ -53,11 +53,11 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				92,
 			],
 			[
-				'Method ReturnTypes\Foo::returnUnionIterableType() should return array<ReturnTypes\Foo>|(iterable<ReturnTypes\Foo>&ReturnTypes\Collection) but returns array<int, ReturnTypes\Bar>.',
+				'Method ReturnTypes\Foo::returnUnionIterableType() should return array<ReturnTypes\Foo>|(iterable<ReturnTypes\Foo>&ReturnTypes\Collection) but returns array<int(0), ReturnTypes\Bar>.',
 				93,
 			],
 			[
-				'Method ReturnTypes\Foo::returnUnionIterableType() should return array<ReturnTypes\Foo>|(iterable<ReturnTypes\Foo>&ReturnTypes\Collection) but returns int.',
+				'Method ReturnTypes\Foo::returnUnionIterableType() should return array<ReturnTypes\Foo>|(iterable<ReturnTypes\Foo>&ReturnTypes\Collection) but returns int(1).',
 				94,
 			],
 			[
@@ -89,7 +89,7 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				132,
 			],
 			[
-				'Method ReturnTypes\Foo::returnThis() should return $this(ReturnTypes\Foo) but returns int.',
+				'Method ReturnTypes\Foo::returnThis() should return $this(ReturnTypes\Foo) but returns int(1).',
 				133,
 			],
 			[
@@ -101,7 +101,7 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				146,
 			],
 			[
-				'Method ReturnTypes\Foo::returnThisOrNull() should return $this(ReturnTypes\Foo)|null but returns int.',
+				'Method ReturnTypes\Foo::returnThisOrNull() should return $this(ReturnTypes\Foo)|null but returns int(1).',
 				147,
 			],
 			[
@@ -109,7 +109,7 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				150,
 			],
 			[
-				'Method ReturnTypes\Foo::returnsParent() should return ReturnTypes\FooParent but returns int.',
+				'Method ReturnTypes\Foo::returnsParent() should return ReturnTypes\FooParent but returns int(1).',
 				165,
 			],
 			[
@@ -117,7 +117,7 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				166,
 			],
 			[
-				'Method ReturnTypes\Foo::returnsPhpDocParent() should return ReturnTypes\FooParent but returns int.',
+				'Method ReturnTypes\Foo::returnsPhpDocParent() should return ReturnTypes\FooParent but returns int(1).',
 				172,
 			],
 			[
@@ -141,11 +141,11 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				208,
 			],
 			[
-				'Method ReturnTypes\Foo::misleadingBoolReturnType() should return ReturnTypes\boolean but returns int.',
+				'Method ReturnTypes\Foo::misleadingBoolReturnType() should return ReturnTypes\boolean but returns int(1).',
 				209,
 			],
 			[
-				'Method ReturnTypes\Foo::misleadingIntReturnType() should return ReturnTypes\integer but returns int.',
+				'Method ReturnTypes\Foo::misleadingIntReturnType() should return ReturnTypes\integer but returns int(1).',
 				215,
 			],
 			[
@@ -153,7 +153,7 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				216,
 			],
 			[
-				'Method ReturnTypes\Foo::misleadingMixedReturnType() should return ReturnTypes\mixed but returns int.',
+				'Method ReturnTypes\Foo::misleadingMixedReturnType() should return ReturnTypes\mixed but returns int(1).',
 				222,
 			],
 			[
@@ -191,11 +191,11 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				8,
 			],
 			[
-				'Method FooWithoutNamespace::misleadingBoolReturnType() should return boolean but returns int.',
+				'Method FooWithoutNamespace::misleadingBoolReturnType() should return boolean but returns int(1).',
 				9,
 			],
 			[
-				'Method FooWithoutNamespace::misleadingIntReturnType() should return integer but returns int.',
+				'Method FooWithoutNamespace::misleadingIntReturnType() should return integer but returns int(1).',
 				15,
 			],
 			[
@@ -203,7 +203,7 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				16,
 			],
 			[
-				'Method FooWithoutNamespace::misleadingMixedReturnType() should return mixed but returns int.',
+				'Method FooWithoutNamespace::misleadingMixedReturnType() should return mixed but returns int(1).',
 				22,
 			],
 			[
@@ -232,11 +232,11 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 	{
 		$this->analyse([__DIR__ . '/data/returnTypes-iterable.php'], [
 			[
-				'Method ReturnTypesIterable\Foo::stringIterable() should return iterable<string> but returns array<int, int>.',
+				'Method ReturnTypesIterable\Foo::stringIterable() should return iterable<string> but returns array<int(0), int(1)>.',
 				27,
 			],
 			[
-				'Method ReturnTypesIterable\Foo::stringIterablePipe() should return iterable<string> but returns array<int, int>.',
+				'Method ReturnTypesIterable\Foo::stringIterablePipe() should return iterable<string> but returns array<int(0), int(1)>.',
 				36,
 			],
 		]);

@@ -16,7 +16,7 @@ class UselessCastRuleTest extends \PHPStan\Testing\RuleTestCase
 			[__DIR__ . '/data/useless-cast.php'],
 			[
 				[
-					'Casting to int something that\'s already int.',
+					'Casting to int something that\'s already int(5).',
 					6,
 				],
 				[

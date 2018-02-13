@@ -6,6 +6,7 @@ use PHPStan\Broker\Broker;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\CompoundType;
+use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\ConstantType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
@@ -171,6 +172,32 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		} else {
 			return new ErrorType(); // undefined offset
 		}
+	}
+
+	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
+	{
+		if ($offsetType instanceof ConstantScalarType) {
+			foreach ($this->keyTypes as $i => $keyType) {
+				if ($keyType instanceof ConstantScalarType) {
+					if ($keyType->getValue() === $offsetType->getValue()) {
+						$newValueTypes = $this->valueTypes;
+						$newValueTypes[$i] = $valueType;
+						return new self($this->keyTypes, $newValueTypes);
+					}
+
+				} else {
+					return parent::setOffsetValueType($offsetType, $valueType);
+				}
+			}
+
+			$newKeyTypes = $this->keyTypes;
+			$newKeyTypes[] = $offsetType;
+			$newValueTypes = $this->valueTypes;
+			$newValueTypes[] = $valueType;
+			return new self($newKeyTypes, $newValueTypes);
+		}
+
+		return parent::setOffsetValueType($offsetType, $valueType);
 	}
 
 	public function generalize(): Type
