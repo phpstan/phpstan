@@ -41,7 +41,7 @@ class Foo
 		$self = getFoo();
 
 		/** @var int $invalidInt */
-		$invalidInteger = 1.0;
+		$invalidInteger = $this->getFloat();
 
 		/** @var static $static */
 		$static = getFoo();
@@ -91,6 +91,11 @@ class Foo
 		$static = getFoo();
 
 		die;
+	}
+
+	public function getFloat(): float
+	{
+		return 1.0;
 	}
 
 }

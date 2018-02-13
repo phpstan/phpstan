@@ -56,10 +56,10 @@ use PHPStan\PhpDoc\Tag\ParamTag;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\CommentHelper;
+use PHPStan\Type\ErrorType;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
-use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
@@ -1175,46 +1175,57 @@ class NodeScopeResolver
 		if ($var instanceof Variable && is_string($var->name)) {
 			$scope = $scope->assignVariable($var->name, $subNodeType !== null ? $subNodeType : new MixedType(), $certainty);
 		} elseif ($var instanceof ArrayDimFetch) {
-			$depth = 0;
+			$subNodeType = $subNodeType ?? new MixedType();
+
+			$dimExprStack = [];
 			while ($var instanceof ArrayDimFetch) {
+				$dimExprStack[] = $var->dim;
 				$var = $var->var;
-				$depth++;
 			}
 
-			if (isset($var->dim)) {
-				$scope = $this->lookForAssigns($scope, $var->dim, TrinaryLogic::createYes());
+			// 1. eval root expr
+			$scope = $this->lookForAssigns($scope, $var, TrinaryLogic::createYes());
+
+			// 2. eval dimensions
+			$dimTypes = [];
+			foreach (array_reverse($dimExprStack) as $dimExpr) {
+				if ($dimExpr === null) {
+					$dimTypes[] = new MixedType();
+
+				} else {
+					$scope = $this->lookForAssigns($scope, $dimExpr, TrinaryLogic::createYes());
+					$dimTypes[] = $scope->getType($dimExpr);
+				}
+			}
+
+			// 3. eval assigned expr, unfortunately this was already done
+
+			// 4. compose types
+			foreach (array_reverse($dimTypes) as $dimType) {
+				$subNodeType = new ArrayType($dimType, $subNodeType);
 			}
 
 			if ($var instanceof Variable && is_string($var->name)) {
 				if ($scope->hasVariableType($var->name)->yes()) {
-					$arrayDimFetchVariableType = $scope->getVariableType($var->name);
-					if (
-						!$arrayDimFetchVariableType instanceof ArrayType
-						&& !$arrayDimFetchVariableType instanceof NullType
-						&& !$arrayDimFetchVariableType instanceof MixedType
-					) {
-						return $scope;
-					}
-				}
-				$arrayType = ArrayType::createDeepArrayType(
-					$subNodeType !== null ? $subNodeType : new MixedType(),
-					$depth,
-					false
-				);
-				if ($scope->hasVariableType($var->name)->yes()) {
-					if (
-						!isset($arrayDimFetchVariableType)
-						|| !$arrayDimFetchVariableType instanceof NullType
-					) {
-						$arrayType = TypeCombinator::union(
-							$scope->getVariableType($var->name),
-							$arrayType
-						);
-					}
+					assert($subNodeType instanceof ArrayType);
+					$varType = $scope->getVariableType($var->name);
+					$newVarType = $varType->setOffsetValueType($subNodeType->getKeyType(), $subNodeType->getItemType());
+
+				} else {
+					$newVarType = $subNodeType;
 				}
 
-				$scope = $scope->assignVariable($var->name, $arrayType, $certainty);
+				if ($newVarType instanceof ErrorType) {
+					$newVarType = new ArrayType(new MixedType(), new MixedType(), true);
+				}
+
+				$scope = $scope->assignVariable(
+					$var->name,
+					$newVarType,
+					$certainty
+				);
 			}
+
 		} elseif ($var instanceof PropertyFetch && $subNodeType !== null) {
 			$scope = $scope->specifyExpressionType($var, $subNodeType);
 		} elseif ($var instanceof Expr\StaticPropertyFetch && $subNodeType !== null) {

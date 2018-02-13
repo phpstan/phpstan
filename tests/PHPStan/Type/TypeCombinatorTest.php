@@ -548,7 +548,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ConstantIntegerType(1),
 				],
 				ConstantIntegerType::class,
-				'int',
+				'int(1)',
 			],
 			[
 				[
@@ -556,7 +556,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ConstantIntegerType(2),
 				],
 				UnionType::class,
-				'int',
+				'int(1)|int(2)',
 			],
 			[
 				[
@@ -572,7 +572,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ConstantFloatType(1.0),
 				],
 				ConstantFloatType::class,
-				'float',
+				'float(1.000000)',
 			],
 			[
 				[
@@ -580,7 +580,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ConstantFloatType(2.0),
 				],
 				UnionType::class,
-				'float',
+				'float(1.000000)|float(2.000000)',
 			],
 			[
 				[

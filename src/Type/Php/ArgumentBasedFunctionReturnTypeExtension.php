@@ -5,6 +5,7 @@ namespace PHPStan\Type\Php;
 use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Type\ArrayType;
 use PHPStan\Type\Type;
 
 class ArgumentBasedFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
@@ -30,7 +31,13 @@ class ArgumentBasedFunctionReturnTypeExtension implements \PHPStan\Type\DynamicF
 		}
 
 		$argumentValue = $functionCall->args[$argumentPosition]->value;
-		return $scope->getType($argumentValue);
+		$argumentType = $scope->getType($argumentValue);
+
+		return new ArrayType(
+			$argumentType->getIterableKeyType(),
+			$argumentType->getIterableValueType(),
+			true
+		);
 	}
 
 }

@@ -16,23 +16,23 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 			[__DIR__ . '/data/strict-comparison.php'],
 			[
 				[
-					'Strict comparison using === between int and string will always evaluate to false.',
+					'Strict comparison using === between int(1) and string will always evaluate to false.',
 					11,
 				],
 				[
-					'Strict comparison using !== between int and string will always evaluate to true.',
+					'Strict comparison using !== between int(1) and string will always evaluate to true.',
 					12,
 				],
 				[
-					'Strict comparison using === between int and null will always evaluate to false.',
+					'Strict comparison using === between int(1) and null will always evaluate to false.',
 					14,
 				],
 				[
-					'Strict comparison using === between StrictComparison\Bar and int will always evaluate to false.',
+					'Strict comparison using === between StrictComparison\Bar and int(1) will always evaluate to false.',
 					15,
 				],
 				[
-					'Strict comparison using === between int and array<StrictComparison\Foo>|bool|StrictComparison\Collection will always evaluate to false.',
+					'Strict comparison using === between int(1) and array<StrictComparison\Foo>|bool|StrictComparison\Collection will always evaluate to false.',
 					19,
 				],
 				[
@@ -44,11 +44,11 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					31,
 				],
 				[
-					'Strict comparison using === between float and int will always evaluate to false.',
+					'Strict comparison using === between float(1.000000) and int(1) will always evaluate to false.',
 					46,
 				],
 				[
-					'Strict comparison using === between int and float will always evaluate to false.',
+					'Strict comparison using === between int(1) and float(1.000000) will always evaluate to false.',
 					47,
 				],
 				[
@@ -60,15 +60,15 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					76,
 				],
 				[
-					'Strict comparison using !== between StrictComparison\Foo|null and int will always evaluate to true.',
+					'Strict comparison using !== between StrictComparison\Foo|null and int(1) will always evaluate to true.',
 					88,
 				],
 				[
-					'Strict comparison using === between int and null will always evaluate to false.',
+					'Strict comparison using === between int(1)|int(2)|int(3) and null will always evaluate to false.',
 					98,
 				],
 				[
-					'Strict comparison using !== between StrictComparison\Foo|null and int will always evaluate to true.',
+					'Strict comparison using !== between StrictComparison\Foo|null and int(1) will always evaluate to true.',
 					130,
 				],
 				[
@@ -76,7 +76,7 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					140,
 				],
 				[
-					'Strict comparison using !== between StrictComparison\Foo|null and int will always evaluate to true.',
+					'Strict comparison using !== between StrictComparison\Foo|null and int(1) will always evaluate to true.',
 					154,
 				],
 				[

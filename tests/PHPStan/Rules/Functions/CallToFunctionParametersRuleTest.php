@@ -233,7 +233,7 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		require_once __DIR__ . '/data/foreach-condition.php';
 		$this->analyse([__DIR__ . '/data/foreach-condition.php'], [
 			[
-				'Parameter #1 $i of function CallToFunctionInForeachCondition\takesString expects string, int given.',
+				'Parameter #1 $i of function CallToFunctionInForeachCondition\takesString expects string, int(1)|int(2)|int(3) given.',
 				20,
 			],
 		]);

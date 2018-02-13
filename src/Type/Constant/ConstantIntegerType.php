@@ -24,4 +24,9 @@ class ConstantIntegerType extends IntegerType implements ConstantScalarType
 		return $this->value;
 	}
 
+	public function describe(): string
+	{
+		return sprintf('int(%d)', $this->value);
+	}
+
 }

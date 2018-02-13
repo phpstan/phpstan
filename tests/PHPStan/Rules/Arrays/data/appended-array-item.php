@@ -3,12 +3,12 @@
 namespace AppendedArrayItem;
 
 // inferred from literal array
-$integers = [1, 2, 3];
-$integers[] = 4;
-$integers['foo'] = 5;
+$xx = [1, 2, 3];
+$xx[] = 4;
+$xx['foo'] = 5;
 
-$integers[] = 'foo';
-$integers['bar'] = 'baz';
+$xx[] = 'foo';
+$xx['bar'] = 'baz';
 
 class Foo
 {
@@ -33,11 +33,11 @@ class Foo
 
 		/** @var callable[] $otherCallables */
 		$otherCallables = $callables;
-		$otherCallables[] = ['Foo', 'doFoo'];
+		$otherCallables[] = ['Closure', 'bind'];
 
 		/** @var callable[] $anotherCallables */
 		$anotherCallables = $callables;
-		$anotherCallables[] = 'doFoo';
+		$anotherCallables[] = 'dostrpos';
 
 		/** @var callable[] $yetAnotherCallables */
 		$yetAnotherCallables = $callables;
@@ -52,6 +52,10 @@ class Foo
 		$yetAnotherAnotherCallables = $callables;
 		$world = 'world';
 		$yetAnotherAnotherCallables[] = ['Foo', "Hello $world"];
+	}
+
+	public static function classMethod()
+	{
 	}
 
 }

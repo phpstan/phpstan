@@ -50,6 +50,8 @@ interface Type
 
 	public function getOffsetValueType(Type $offsetType): Type;
 
+	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type;
+
 	public function isCallable(): TrinaryLogic;
 
 	public function isCloneable(): TrinaryLogic;

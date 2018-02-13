@@ -20,6 +20,7 @@ use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
 use PHPStan\Type\Constant\ConstantBooleanType;
+use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\IterableType;
@@ -271,7 +272,14 @@ class TypeSpecifier
 			$type = new ObjectWithoutClassType();
 			return $this->create($expr, $type, self::CONTEXT_FALSE);
 		} elseif (($context & self::CONTEXT_FALSEY) === 0) {
-			$type = new UnionType([new NullType(), new ConstantBooleanType(false)]);
+			$type = new UnionType([
+				new NullType(),
+				new ConstantBooleanType(false),
+				new ConstantIntegerType(0),
+//				new ConstantFloatType(0.0),
+//				new ConstantStringType(''),
+//				new ConstantArrayType([], []),
+			]);
 			return $this->create($expr, $type, self::CONTEXT_FALSE);
 		}
 
