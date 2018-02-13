@@ -1938,7 +1938,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				"'StringsWithNullArray';",
 			],
 			[
-				'int(1)|int(2)|string',
+				'int|string',
 				"'IntegersWithStringFromMethodArray';",
 			],
 			[

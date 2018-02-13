@@ -6,32 +6,33 @@ use PHPStan\Broker\Broker;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\CompoundType;
-use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\ConstantType;
 use PHPStan\Type\ErrorType;
-use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeWithClassName;
 
+/**
+ * @method ConstantIntegerType|ConstantStringType getKeyType()
+ */
 class ConstantArrayType extends ArrayType implements ConstantType
 {
 
-	/** @var Type[] */
+	/** @var (ConstantIntegerType|ConstantStringType)[] */
 	private $keyTypes;
 
 	/** @var Type[] */
 	private $valueTypes;
 
-	/** @var IntegerType */
+	/** @var int */
 	private $nextAutoIndex;
 
 	/**
-	 * @param Type[] $keyTypes
+	 * @param (ConstantIntegerType|ConstantStringType)[] $keyTypes
 	 * @param Type[] $valueTypes
 	 */
-	public function __construct(array $keyTypes, array $valueTypes, IntegerType $nextAutoIndex)
+	public function __construct(array $keyTypes, array $valueTypes, int $nextAutoIndex = 0)
 	{
 		assert(count($keyTypes) === count($valueTypes));
 
@@ -47,7 +48,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 	}
 
 	/**
-	 * @return Type[]
+	 * @return (ConstantIntegerType|ConstantStringType)[]
 	 */
 	public function getKeyTypes(): array
 	{
@@ -182,20 +183,18 @@ class ConstantArrayType extends ArrayType implements ConstantType
 	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
 	{
 		if ($offsetType === null) {
-			$offsetType = $this->nextAutoIndex;
+			$offsetType = new ConstantIntegerType($this->nextAutoIndex);
+
+		} else {
+			$offsetType = parent::castToArrayKeyType($offsetType);
 		}
 
-		if ($offsetType instanceof ConstantScalarType) {
+		if ($offsetType instanceof ConstantIntegerType || $offsetType instanceof ConstantStringType) {
 			foreach ($this->keyTypes as $i => $keyType) {
-				if ($keyType instanceof ConstantScalarType) {
-					if ($keyType->getValue() === $offsetType->getValue()) {
-						$newValueTypes = $this->valueTypes;
-						$newValueTypes[$i] = $valueType;
-						return new self($this->keyTypes, $newValueTypes, $this->nextAutoIndex);
-					}
-
-				} else {
-					return parent::setOffsetValueType($offsetType, $valueType);
+				if ($keyType->getValue() === $offsetType->getValue()) {
+					$newValueTypes = $this->valueTypes;
+					$newValueTypes[$i] = $valueType;
+					return new self($this->keyTypes, $newValueTypes, $this->nextAutoIndex);
 				}
 			}
 
@@ -203,17 +202,11 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			$newKeyTypes[] = $offsetType;
 			$newValueTypes = $this->valueTypes;
 			$newValueTypes[] = $valueType;
-
-			$newNextAutoIndex = $this->nextAutoIndex instanceof ConstantIntegerType && $offsetType instanceof ConstantIntegerType
-				? new ConstantIntegerType(max($this->nextAutoIndex->getValue(), $offsetType->getValue() + 1))
+			$newNextAutoIndex = $offsetType instanceof ConstantIntegerType
+				? max($this->nextAutoIndex, $offsetType->getValue() + 1)
 				: $this->nextAutoIndex;
 
 			return new self($newKeyTypes, $newValueTypes, $newNextAutoIndex);
-		}
-
-		if (count($this->keyTypes) === 0) {
-			$newNextAutoIndex = $offsetType instanceof IntegerType ? new IntegerType() : $this->nextAutoIndex;
-			return new self([$offsetType], [$valueType], $newNextAutoIndex);
 		}
 
 		return parent::setOffsetValueType($offsetType, $valueType);
