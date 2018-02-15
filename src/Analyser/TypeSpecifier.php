@@ -108,7 +108,7 @@ class TypeSpecifier
 			$expressions = $this->findTypeExpressionsFromBinaryOperation($expr);
 			if ($expressions !== null) {
 				$constantName = strtolower((string) $expressions[1]->name);
-				if ($constantName === 'false') {
+				if ($constantName === 'false' || $constantName === 'null') {
 					return $this->specifyTypesInCondition(
 						$scope,
 						$expressions[0],
