@@ -338,6 +338,22 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 				['$foo' => 'int'],
 			],
 			[
+				new Equal(
+					new Variable('foo'),
+					new Expr\ConstFetch(new Name('false'))
+				),
+				['$foo' => '~object'],
+				['$foo' => '~false|null'],
+			],
+			[
+				new Equal(
+					new Variable('foo'),
+					new Expr\ConstFetch(new Name('null'))
+				),
+				['$foo' => '~object'],
+				['$foo' => '~false|null'],
+			],
+			[
 				new Expr\BinaryOp\Identical(
 					new Variable('foo'),
 					new Variable('bar')
