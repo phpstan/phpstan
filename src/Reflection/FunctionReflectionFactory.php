@@ -11,6 +11,6 @@ interface FunctionReflectionFactory
 		\ReflectionFunction $reflection,
 		array $phpDocParameterTypes,
 		Type $phpDocReturnType = null
-	): FunctionReflection;
+	): PhpFunctionReflection;
 
 }

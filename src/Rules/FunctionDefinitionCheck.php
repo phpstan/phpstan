@@ -92,8 +92,15 @@ class FunctionDefinitionCheck
 			if (!$this->broker->hasFunction($functionNameName, null)) {
 				return [];
 			}
+
+			$functionReflection = $this->broker->getFunction($functionNameName, null);
+
+			if (!$functionReflection instanceof ParametersAcceptorWithPhpDocs) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+
 			return $this->checkParametersAcceptor(
-				$this->broker->getFunction($functionNameName, null),
+				$functionReflection,
 				$parameterMessage,
 				$returnMessage
 			);

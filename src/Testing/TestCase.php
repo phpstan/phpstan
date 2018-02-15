@@ -15,13 +15,13 @@ use PHPStan\PhpDoc\TypeStringResolver;
 use PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension;
 use PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension;
 use PHPStan\Reflection\ClassReflection;
-use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\FunctionReflectionFactory;
 use PHPStan\Reflection\Php\PhpClassReflectionExtension;
 use PHPStan\Reflection\Php\PhpMethodReflection;
 use PHPStan\Reflection\Php\PhpMethodReflectionFactory;
 use PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension;
 use PHPStan\Reflection\PhpDefect\PhpDefectClassReflectionExtension;
+use PHPStan\Reflection\PhpFunctionReflection;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Type;
 
@@ -138,9 +138,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				\ReflectionFunction $function,
 				array $phpDocParameterTypes,
 				Type $phpDocReturnType = null
-			): FunctionReflection
+			): PhpFunctionReflection
 			{
-				return new FunctionReflection(
+				return new PhpFunctionReflection(
 					$function,
 					$this->parser,
 					$this->functionCallStatementFinder,
