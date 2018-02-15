@@ -35,8 +35,9 @@ class FileHelper
 
 	public function normalizePath(string $originalPath): string
 	{
-		if (preg_match('~^([a-z]+)\\:\\/\\/(.+)~', $originalPath, $m)) {
-			list(, $scheme, $path) = $m;
+		$matches = \Nette\Utils\Strings::match($originalPath, '~^([a-z]+)\\:\\/\\/(.+)~');
+		if ($matches !== null) {
+			list(, $scheme, $path) = $matches;
 		} else {
 			$scheme = null;
 			$path = $originalPath;

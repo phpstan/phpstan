@@ -15,6 +15,9 @@ class AnalyseCommandTest extends \PHPStan\Testing\TestCase
 	public function testConfigurationAutoDiscovery(string $dir, string $file): void
 	{
 		$originalDir = getcwd();
+		if ($originalDir === false) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
 		chdir($dir);
 
 		try {

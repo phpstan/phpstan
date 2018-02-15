@@ -90,7 +90,9 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 		$specifiers = in_array($functionName, ['sprintf', 'printf'], true) ? '[bcdeEfFgGosuxX]' : '(?:[cdDeEfinosuxX]|\[[^\]]+\])';
 		$pattern = '~(?<before>%*)%(?:(?<position>\d+)\$)?[-+]?(?:[ 0]|(?:\'[^%]))?-?\d*(?:\.\d*)?' . $specifiers . '~';
 
-		if (!preg_match_all($pattern, $format, $matches, PREG_SET_ORDER)) {
+		$matches = \Nette\Utils\Strings::matchAll($format, $pattern, PREG_SET_ORDER);
+
+		if (count($matches) === 0) {
 			return 0;
 		}
 

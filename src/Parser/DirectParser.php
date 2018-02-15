@@ -29,7 +29,11 @@ class DirectParser implements Parser
 	 */
 	public function parseFile(string $file): array
 	{
-		return $this->parseString(file_get_contents($file));
+		$contents = file_get_contents($file);
+		if ($contents === false) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+		return $this->parseString($contents);
 	}
 
 	/**

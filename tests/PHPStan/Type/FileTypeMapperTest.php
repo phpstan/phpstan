@@ -87,8 +87,13 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 		/** @var FileTypeMapper $fileTypeMapper */
 		$fileTypeMapper = $this->getContainer()->getByType(FileTypeMapper::class);
 
+		$realpath = realpath(__DIR__ . '/data/dependent-phpdocs.php');
+		if ($realpath === false) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
 		$resolved = $fileTypeMapper->getResolvedPhpDoc(
-			realpath(__DIR__ . '/data/dependent-phpdocs.php'),
+			$realpath,
 			\DependentPhpDocs\Foo::class,
 			'/** @param Foo[]|Foo|\Iterator $pages */'
 		);
@@ -108,8 +113,13 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 		/** @var FileTypeMapper $fileTypeMapper */
 		$fileTypeMapper = $this->getContainer()->getByType(FileTypeMapper::class);
 
+		$realpath = realpath(__DIR__ . '/data/cyclic-phpdocs.php');
+		if ($realpath === false) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
 		$resolved = $fileTypeMapper->getResolvedPhpDoc(
-			realpath(__DIR__ . '/data/cyclic-phpdocs.php'),
+			$realpath,
 			\CyclicPhpDocs\Foo::class,
 			'/** @return iterable<Foo> | Foo */'
 		);

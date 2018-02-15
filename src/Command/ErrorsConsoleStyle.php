@@ -92,7 +92,7 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 		if ($this->output->isDecorated() && $step > 0) {
 			$stepTime = (time() - $this->progressBar->getStartTime()) / $step;
 			if ($stepTime > 0 && $stepTime < 1) {
-				$this->progressBar->setRedrawFrequency(1 / $stepTime);
+				$this->progressBar->setRedrawFrequency((int) (1 / $stepTime));
 			} else {
 				$this->progressBar->setRedrawFrequency(1);
 			}

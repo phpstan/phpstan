@@ -51,7 +51,8 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 		$memoryLimit = $input->getOption('memory-limit');
 		if ($memoryLimit !== null) {
-			if (!preg_match('#^-?\d+[kMG]?$#i', $memoryLimit)) {
+
+			if (\Nette\Utils\Strings::match($memoryLimit, '#^-?\d+[kMG]?$#i') === null) {
 				$consoleStyle->error(sprintf('Invalid memory limit format "%s".', $memoryLimit));
 				return 1;
 			}
@@ -62,6 +63,9 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		}
 
 		$currentWorkingDirectory = getcwd();
+		if ($currentWorkingDirectory === false) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
 		$fileHelper = new FileHelper($currentWorkingDirectory);
 
 		$autoloadFile = $input->getOption('autoload-file');
@@ -144,9 +148,13 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		$container = $containerFactory->create($tmpDir, $additionalConfigFiles);
 		$memoryLimitFile = $container->parameters['memoryLimitFile'];
 		if (file_exists($memoryLimitFile)) {
+			$memoryLimitFileContents = file_get_contents($memoryLimitFile);
+			if ($memoryLimitFileContents === false) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
 			$consoleStyle->note(sprintf(
 				"PHPStan crashed in the previous run probably because of excessive memory consumption.\nIt consumed around %s of memory.\n\nTo avoid this issue, allow to use more memory with the --memory-limit option.",
-				file_get_contents($memoryLimitFile)
+				$memoryLimitFileContents
 			));
 			unlink($memoryLimitFile);
 		}

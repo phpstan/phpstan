@@ -47,7 +47,11 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\Testing\TestCase
 	private function runPath(string $path, int $expectedStatusCode): string
 	{
 		$analyserApplication = $this->getContainer()->getByType(AnalyseApplication::class);
-		$output = new StreamOutput(fopen('php://memory', 'w', false));
+		$resource = fopen('php://memory', 'w', false);
+		if ($resource === false) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+		$output = new StreamOutput($resource);
 
 		$style = new SymfonyStyle(
 			$this->createMock(InputInterface::class),

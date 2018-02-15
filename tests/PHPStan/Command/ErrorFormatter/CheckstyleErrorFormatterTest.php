@@ -47,7 +47,12 @@ class CheckstyleErrorFormatterTest extends \PHPStan\Testing\TestCase
 				new Error('Bar', 'file name with "spaces" and unicode 😃.php', 2),
 			]);
 
-		$outputStream = new StreamOutput(fopen('php://memory', 'w', false));
+		$resource = fopen('php://memory', 'w', false);
+		if ($resource === false) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		$outputStream = new StreamOutput($resource);
 		$style = new ErrorsConsoleStyle(new StringInput(''), $outputStream);
 
 		$this->assertSame(1, $this->formatter->formatErrors($analysisResultMock, $style));
@@ -81,7 +86,12 @@ class CheckstyleErrorFormatterTest extends \PHPStan\Testing\TestCase
 			->method('hasErrors')
 			->willReturn(false);
 
-		$outputStream = new StreamOutput(fopen('php://memory', 'w', false));
+		$resource = fopen('php://memory', 'w', false);
+		if ($resource === false) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		$outputStream = new StreamOutput($resource);
 		$style = new ErrorsConsoleStyle(new StringInput(''), $outputStream);
 
 		$this->assertSame(0, $this->formatter->formatErrors($analysisResultMock, $style));

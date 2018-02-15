@@ -53,6 +53,7 @@ class CallToNonExistentFunctionRule implements \PHPStan\Rules\Rule
 		$function = $this->broker->getFunction($node->name, $scope);
 		$name = (string) $node->name;
 
+		/** @var string $calledFunctionName */
 		$calledFunctionName = $this->broker->resolveFunctionName($node->name, $scope);
 		if (
 			strtolower($function->getName()) === strtolower($calledFunctionName)
