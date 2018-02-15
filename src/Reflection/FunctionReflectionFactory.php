@@ -2,6 +2,7 @@
 
 namespace PHPStan\Reflection;
 
+use PHPStan\Reflection\Php\PhpFunctionReflection;
 use PHPStan\Type\Type;
 
 interface FunctionReflectionFactory

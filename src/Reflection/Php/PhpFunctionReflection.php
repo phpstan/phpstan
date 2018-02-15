@@ -1,13 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace PHPStan\Reflection;
+namespace PHPStan\Reflection\Php;
 
 use PhpParser\Node\Stmt\Function_;
 use PHPStan\Cache\Cache;
 use PHPStan\Parser\FunctionCallStatementFinder;
 use PHPStan\Parser\Parser;
-use PHPStan\Reflection\Php\DummyParameter;
-use PHPStan\Reflection\Php\PhpParameterReflection;
+use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
