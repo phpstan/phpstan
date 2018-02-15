@@ -261,4 +261,15 @@ class Node
 			}
 		}
 	}
+
+	public function looseNullCheck(?\stdClass $foo)
+	{
+		if ($foo == null) {
+			return;
+		}
+
+		if ($foo !== null) {
+
+		}
+	}
 }
