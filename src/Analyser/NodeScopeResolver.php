@@ -95,7 +95,7 @@ class NodeScopeResolver
 	/** @var \PHPStan\Reflection\ClassReflection|null */
 	private $anonymousClassReflection;
 
-	/** @var bool[] filePath(string) => bool(true) */
+	/** @var bool[]|null filePath(string) => bool(true) */
 	private $analysedFiles;
 
 	public function __construct(
@@ -146,8 +146,8 @@ class NodeScopeResolver
 				continue;
 			}
 
-			if ($scope->getInFunctionCall() !== null && $node instanceof Arg) {
-				$functionCall = $scope->getInFunctionCall();
+			$functionCall = $scope->getInFunctionCall();
+			if ($functionCall !== null && $node instanceof Arg) {
 				$value = $node->value;
 
 				$parametersAcceptor = $this->findParametersAcceptorInFunctionCall($functionCall, $scope);
@@ -231,7 +231,7 @@ class NodeScopeResolver
 				&& $node->name instanceof Name
 				&& $this->broker->resolveFunctionName($node->name, $scope) === 'property_exists'
 				&& count($node->args) === 2
-				&& $node->args[1]->value instanceof  Node\Scalar\String_
+				&& $node->args[1]->value instanceof Node\Scalar\String_
 			) {
 				$scope = $scope->specifyFetchedPropertyFromIsset(
 					new PropertyFetch($node->args[0]->value, $node->args[1]->value->value)
@@ -813,11 +813,7 @@ class NodeScopeResolver
 				if ($listItem === null) {
 					continue;
 				}
-				$listItemValue = $listItem;
-				if ($listItemValue instanceof Expr\ArrayItem) {
-					$listItemValue = $listItemValue->value;
-				}
-				$scope = $this->lookForEnterVariableAssign($scope, $listItemValue);
+				$scope = $this->lookForEnterVariableAssign($scope, $listItem->value);
 			}
 		} else {
 			$scope = $scope->enterExpressionAssign($node);
@@ -1392,10 +1388,11 @@ class NodeScopeResolver
 			}
 			$traitReflection = $this->broker->getClass($traitName);
 			$traitFileName = $traitReflection->getFileName();
-			if ($traitFileName === false) {
+			if ($traitFileName === false || $this->analysedFiles === null) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
 			$fileName = $this->fileHelper->normalizePath($traitFileName);
+
 			if (!isset($this->analysedFiles[$fileName])) {
 				return;
 			}
@@ -1425,7 +1422,10 @@ class NodeScopeResolver
 	private function processNodesForTraitUse($node, string $traitName, Scope $classScope, \Closure $nodeCallback): void
 	{
 		if ($node instanceof Node) {
-			if ($node instanceof Node\Stmt\Trait_ && $traitName === (string) $node->namespacedName) {
+			if ($node instanceof Node\Stmt\Trait_
+				&& isset($node->namespacedName)
+				&& $traitName === (string) $node->namespacedName
+			) {
 				$this->processNodes($node->stmts, $classScope->enterFirstLevelStatements(), $nodeCallback);
 				return;
 			}
@@ -1458,8 +1458,9 @@ class NodeScopeResolver
 	{
 		$phpDocParameterTypes = [];
 		$phpDocReturnType = null;
-		if ($functionLike->getDocComment() !== null) {
-			$docComment = $functionLike->getDocComment()->getText();
+		$docComment = $functionLike->getDocComment();
+		if ($docComment !== null) {
+			$docComment = $docComment->getText();
 			$file = $scope->getFile();
 			$class = $scope->isInClass() ? $scope->getClassReflection()->getName() : null;
 			if ($functionLike instanceof Node\Stmt\ClassMethod) {
@@ -1483,7 +1484,8 @@ class NodeScopeResolver
 			$phpDocParameterTypes = array_map(function (ParamTag $tag): Type {
 				return $tag->getType();
 			}, $resolvedPhpDoc->getParamTags());
-			$phpDocReturnType = $resolvedPhpDoc->getReturnTag() !== null ? $resolvedPhpDoc->getReturnTag()->getType() : null;
+			$resolvedPhpDocReturnTag = $resolvedPhpDoc->getReturnTag();
+			$phpDocReturnType = $resolvedPhpDocReturnTag !== null ? $resolvedPhpDocReturnTag->getType() : null;
 		}
 
 		return [$phpDocParameterTypes, $phpDocReturnType];

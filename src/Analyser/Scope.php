@@ -689,7 +689,8 @@ class Scope
 					return $dynamicStaticMethodReturnTypeExtension->getTypeFromStaticMethodCall($staticMethodReflection, $node, $this);
 				}
 			}
-			if ($staticMethodReflection->getReturnType() instanceof StaticResolvableType) {
+			$staticMethodReflectionReturnType = $staticMethodReflection->getReturnType();
+			if ($staticMethodReflectionReturnType instanceof StaticResolvableType) {
 				if ($node->class instanceof Name) {
 					$nodeClassString = strtolower((string) $node->class);
 					if (in_array($nodeClassString, [
@@ -697,14 +698,14 @@ class Scope
 						'static',
 						'parent',
 					], true) && $this->isInClass()) {
-						return $staticMethodReflection->getReturnType()->changeBaseClass($this->getClassReflection()->getName());
+						return $staticMethodReflectionReturnType->changeBaseClass($this->getClassReflection()->getName());
 					}
 				}
 				if (count($referencedClasses) === 1) {
-					return $staticMethodReflection->getReturnType()->resolveStatic($referencedClasses[0]);
+					return $staticMethodReflectionReturnType->resolveStatic($referencedClasses[0]);
 				}
 			}
-			return $staticMethodReflection->getReturnType();
+			return $staticMethodReflectionReturnType;
 		}
 
 		if ($node instanceof PropertyFetch && is_string($node->name)) {
@@ -762,8 +763,9 @@ class Scope
 				return $this->getClassReflection()->getName();
 			} elseif ($originalClass === 'parent') {
 				$currentClassReflection = $this->getClassReflection();
-				if ($currentClassReflection->getParentClass() !== false) {
-					return $currentClassReflection->getParentClass()->getName();
+				$parentClassReflection = $currentClassReflection->getParentClass();
+				if ($parentClassReflection instanceof ClassReflection) {
+					return $parentClassReflection->getName();
 				}
 			}
 		}
@@ -1103,8 +1105,11 @@ class Scope
 			} elseif (
 				$className === 'parent'
 			) {
-				if ($this->isInClass() && $this->getClassReflection()->getParentClass() !== false) {
-					return new ObjectType($this->getClassReflection()->getParentClass()->getName());
+				if ($this->isInClass()) {
+					$parentReflectionClass = $this->getClassReflection()->getParentClass();
+					if ($parentReflectionClass instanceof ClassReflection) {
+						return new ObjectType($parentReflectionClass->getName());
+					}
 				}
 
 				return new NonexistentParentClassType();
