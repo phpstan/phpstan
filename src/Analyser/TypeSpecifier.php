@@ -214,12 +214,20 @@ class TypeSpecifier
 		} elseif ($expr instanceof Node\Expr\Assign) {
 			return $this->specifyTypesInCondition($scope, $expr->var, $context);
 		} elseif (
-			$expr instanceof Expr\Isset_
-			&& count($expr->vars) > 0
-			&& $context & self::CONTEXT_TRUTHY
+			(
+				$expr instanceof Expr\Isset_
+				&& count($expr->vars) > 0
+				&& $context & self::CONTEXT_TRUTHY
+			)
+			|| ($expr instanceof Expr\Empty_ && $context & self::CONTEXT_FALSEY)
 		) {
 			$vars = [];
-			foreach ($expr->vars as $var) {
+			if ($expr instanceof Expr\Isset_) {
+				$varsToIterate = $expr->vars;
+			} else {
+				$varsToIterate = [$expr->expr];
+			}
+			foreach ($varsToIterate as $var) {
 				$vars[] = $var;
 
 				while (
@@ -241,7 +249,18 @@ class TypeSpecifier
 
 			$types = null;
 			foreach ($vars as $var) {
-				$type = $this->create($var, new NullType(), self::CONTEXT_FALSE);
+				if ($expr instanceof Expr\Isset_) {
+					$type = $this->create($var, new NullType(), self::CONTEXT_FALSE);
+				} else {
+					$type = $this->create(
+						$var,
+						new UnionType([
+							new NullType(),
+							new FalseBooleanType(),
+						]),
+						self::CONTEXT_FALSE
+					);
+				}
 				if ($types === null) {
 					$types = $type;
 				} else {

@@ -104,7 +104,7 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				145,
 			],
 			[
-				'Undefined variable: $negatedVariableInEmpty',
+				'Variable $negatedVariableInEmpty might not be defined.',
 				156,
 			],
 			[

@@ -82,6 +82,14 @@ class NullCoalesce
 
 		isset($this->foo->foo) ? $this->foo->foo : null;
 		isset($this->foo->foo) ? $this->foo->foo->foo : null;
+
+		if (!empty($this->foo->foo)) {
+			$this->foo->foo;
+			$this->foo->foo->foo;
+		}
+
+		!empty($this->foo->foo) ? $this->foo->foo : null;
+		!empty($this->foo->foo) ? $this->foo->foo->foo : null;
 	}
 
 }

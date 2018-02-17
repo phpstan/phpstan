@@ -757,6 +757,10 @@ class NodeScopeResolver
 					}
 				}
 
+				if ($node instanceof Expr\Empty_ && $subNodeName === 'expr') {
+					$scope = $this->ensureNonNullability($scope, $subNode);
+				}
+
 				$nodeScope = $scope->exitFirstLevelStatements();
 				if ($scope->isInFirstLevelStatement()) {
 					if ($node instanceof Ternary && $subNodeName !== 'cond') {
