@@ -9,7 +9,6 @@ use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\IterableType;
 use PHPStan\Type\MixedType;
-use PHPStan\Type\StringType;
 use PHPStan\Type\VoidType;
 
 class FunctionCallParametersCheck
@@ -171,10 +170,6 @@ class FunctionCallParametersCheck
 				$this->checkArgumentTypes
 				&& !$this->ruleLevelHelper->accepts($parameterType, $argumentValueType)
 				&& ($secondAccepts === null || !$secondAccepts)
-				&& (
-					!($parameterType instanceof StringType)
-					|| !$argumentValueType->hasMethod('__toString')
-				)
 			) {
 				$errors[] = sprintf(
 					$messages[6],
