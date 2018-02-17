@@ -616,3 +616,21 @@ class LogicalAndSupport
 	}
 
 }
+
+class LiteralArrayTypeCheck
+{
+
+	public function test(string $str)
+	{
+		$data = [
+			'string' => 'foo',
+			'int' => 12,
+			'bool' => true,
+		];
+
+		$this->test($data['string']);
+		$this->test($data['int']);
+		$this->test($data['bool']);
+	}
+
+}

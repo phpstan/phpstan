@@ -247,6 +247,14 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Parameter #1 $s of method Test\ForeachSituation::takesInt() expects int|null, string|null given.',
 				595,
 			],
+			[
+				'Parameter #1 $str of method Test\LiteralArrayTypeCheck::test() expects string, int(12) given.',
+				632,
+			],
+			[
+				'Parameter #1 $str of method Test\LiteralArrayTypeCheck::test() expects string, true given.',
+				633,
+			],
 		]);
 	}
 
@@ -379,6 +387,14 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Parameter #1 $s of method Test\ForeachSituation::takesInt() expects int|null, string|null given.',
 				595,
+			],
+			[
+				'Parameter #1 $str of method Test\LiteralArrayTypeCheck::test() expects string, int(12) given.',
+				632,
+			],
+			[
+				'Parameter #1 $str of method Test\LiteralArrayTypeCheck::test() expects string, true given.',
+				633,
 			],
 		]);
 	}
