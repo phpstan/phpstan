@@ -634,3 +634,17 @@ class LiteralArrayTypeCheck
 	}
 
 }
+
+class CallArrayKeyAfterAssigningToIt
+{
+
+	public function test()
+	{
+		$arr = [null, null];
+		$arr[1] = new \DateTime();
+		$arr[1]->add(new \DateInterval('P1D'));
+
+		$arr[0]->add(new \DateInterval('P1D'));
+	}
+
+}

@@ -255,6 +255,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Parameter #1 $str of method Test\LiteralArrayTypeCheck::test() expects string, true given.',
 				633,
 			],
+			[
+				'Cannot call method add() on null.',
+				647,
+			],
 		]);
 	}
 

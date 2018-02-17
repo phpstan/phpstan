@@ -111,3 +111,21 @@ class IssetIssue
 	}
 
 }
+
+class CallArrayKeyAfterAssigningToIt
+{
+
+	public function test()
+	{
+		$arr = [null, null];
+		$arr[1] = new \DateTime();
+		$arr[1]->add(new \DateInterval('P1D'));
+
+		if (doFoo()) {
+			$arr[0] = new \DateTime();
+		}
+
+		$arr[0]->add(new \DateInterval('P1D'));
+	}
+
+}
