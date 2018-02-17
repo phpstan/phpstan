@@ -45,6 +45,7 @@ class UnusedConstructorParametersRule implements \PHPStan\Rules\Rule
 		}
 
 		return $this->check->getUnusedParameters(
+			$scope,
 			array_map(function (Param $parameter): string {
 				return $parameter->name;
 			}, $node->params),

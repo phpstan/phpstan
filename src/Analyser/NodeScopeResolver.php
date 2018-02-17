@@ -57,6 +57,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\CommentHelper;
 use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\IntegerType;
@@ -232,11 +233,14 @@ class NodeScopeResolver
 				&& $node->name instanceof Name
 				&& $this->broker->resolveFunctionName($node->name, $scope) === 'property_exists'
 				&& count($node->args) === 2
-				&& $node->args[1]->value instanceof  Node\Scalar\String_
 			) {
-				$scope = $scope->specifyFetchedPropertyFromIsset(
-					new PropertyFetch($node->args[0]->value, $node->args[1]->value->value)
-				);
+				$secondArgumentType = $scope->getType($node->args[1]->value);
+
+				if ($secondArgumentType instanceof ConstantStringType) {
+					$scope = $scope->specifyFetchedPropertyFromIsset(
+						new PropertyFetch($node->args[0]->value, $secondArgumentType->getValue())
+					);
+				}
 			}
 		} else {
 			if ($node instanceof Expr\Empty_) {
@@ -367,8 +371,8 @@ class NodeScopeResolver
 					&& $argValue->class instanceof Name
 				) {
 					$scopeClass = $scope->resolveName($argValue->class);
-				} elseif ($argValue instanceof Node\Scalar\String_) {
-					$scopeClass = $argValue->value;
+				} elseif ($argValueType instanceof ConstantStringType) {
+					$scopeClass = $argValueType->getValue();
 				}
 			}
 			$closureBindScope = $scope->enterClosureBind($thisType, $scopeClass);

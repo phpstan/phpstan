@@ -3,24 +3,28 @@
 namespace PHPStan\Rules;
 
 use PhpParser\Node;
+use PHPStan\Analyser\Scope;
+use PHPStan\Type\Constant\ConstantStringType;
 
 class UnusedFunctionParametersCheck
 {
 
 	/**
+	 * @param \PHPStan\Analyser\Scope $scope
 	 * @param string[] $parameterNames
 	 * @param \PhpParser\Node[] $statements
 	 * @param string $unusedParameterMessage
 	 * @return string[]
 	 */
 	public function getUnusedParameters(
+		Scope $scope,
 		array $parameterNames,
 		array $statements,
 		string $unusedParameterMessage
 	): array
 	{
 		$unusedParameters = array_fill_keys($parameterNames, true);
-		foreach ($this->getUsedVariables($statements) as $variableName) {
+		foreach ($this->getUsedVariables($scope, $statements) as $variableName) {
 			if (isset($unusedParameters[$variableName])) {
 				unset($unusedParameters[$variableName]);
 			}
@@ -34,10 +38,11 @@ class UnusedFunctionParametersCheck
 	}
 
 	/**
+	 * @param \PHPStan\Analyser\Scope $scope
 	 * @param \PhpParser\Node[]|\PhpParser\Node $node
 	 * @return string[]
 	 */
-	private function getUsedVariables($node): array
+	private function getUsedVariables(Scope $scope, $node): array
 	{
 		$variableNames = [];
 		if ($node instanceof Node) {
@@ -53,8 +58,9 @@ class UnusedFunctionParametersCheck
 				&& (string) $node->name === 'compact'
 			) {
 				foreach ($node->args as $arg) {
-					if ($arg->value instanceof Node\Scalar\String_) {
-						$variableNames[] = $arg->value->value;
+					$argType = $scope->getType($arg->value);
+					if ($argType instanceof ConstantStringType) {
+						$variableNames[] = $argType->getValue();
 					}
 				}
 			}
@@ -63,11 +69,11 @@ class UnusedFunctionParametersCheck
 					continue;
 				}
 				$subNode = $node->{$subNodeName};
-				$variableNames = array_merge($variableNames, $this->getUsedVariables($subNode));
+				$variableNames = array_merge($variableNames, $this->getUsedVariables($scope, $subNode));
 			}
 		} elseif (is_array($node)) {
 			foreach ($node as $subNode) {
-				$variableNames = array_merge($variableNames, $this->getUsedVariables($subNode));
+				$variableNames = array_merge($variableNames, $this->getUsedVariables($scope, $subNode));
 			}
 		}
 

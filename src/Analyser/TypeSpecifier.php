@@ -20,6 +20,7 @@ use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantIntegerType;
+use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\IterableType;
@@ -168,10 +169,8 @@ class TypeSpecifier
 				case 'is_a':
 					if (isset($expr->args[1])) {
 						$classNameArgExpr = $expr->args[1]->value;
-						if ($classNameArgExpr instanceof Node\Scalar\String_) {
-							$objectType = new ObjectType($classNameArgExpr->value);
-							$types = $this->create($innerExpr, $objectType, $context);
-						} elseif (
+						$classNameArgExprType = $scope->getType($classNameArgExpr);
+						if (
 							$classNameArgExpr instanceof Expr\ClassConstFetch
 							&& $classNameArgExpr->class instanceof Name
 							&& is_string($classNameArgExpr->name)
@@ -183,6 +182,9 @@ class TypeSpecifier
 							} else {
 								$objectType = new ObjectType($className);
 							}
+							$types = $this->create($innerExpr, $objectType, $context);
+						} elseif ($classNameArgExprType instanceof ConstantStringType) {
+							$objectType = new ObjectType($classNameArgExprType->getValue());
 							$types = $this->create($innerExpr, $objectType, $context);
 						} elseif ($context & self::CONTEXT_TRUE) {
 							$objectType = new ObjectWithoutClassType();
