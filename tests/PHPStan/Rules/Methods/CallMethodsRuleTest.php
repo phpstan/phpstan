@@ -263,6 +263,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Parameter #1 $str of method Test\CheckIsCallable::test() expects callable, string given.',
 				658,
 			],
+			[
+				'Parameter #1 $str of method Test\CheckIsCallable::test() expects callable, string given.',
+				660,
+			],
 		]);
 	}
 
@@ -407,6 +411,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Parameter #1 $str of method Test\CheckIsCallable::test() expects callable, string given.',
 				658,
+			],
+			[
+				'Parameter #1 $str of method Test\CheckIsCallable::test() expects callable, string given.',
+				660,
 			],
 		]);
 	}
