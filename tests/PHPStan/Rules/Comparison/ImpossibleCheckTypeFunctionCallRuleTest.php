@@ -35,6 +35,14 @@ class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestC
 					'Call to function is_callable() will always evaluate to false.',
 					44,
 				],
+				[
+					'Call to function is_callable() will always evaluate to true.',
+					82,
+				],
+				[
+					'Call to function is_callable() will always evaluate to false.',
+					85,
+				],
 			]
 		);
 	}
@@ -52,6 +60,10 @@ class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestC
 				[
 					'Call to function is_callable() will always evaluate to false.',
 					44,
+				],
+				[
+					'Call to function is_callable() will always evaluate to false.',
+					85,
 				],
 			]
 		);

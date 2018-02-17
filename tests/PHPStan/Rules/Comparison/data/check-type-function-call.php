@@ -73,3 +73,18 @@ class StringIsNotAlwaysCallable
 	}
 
 }
+
+class CheckIsCallable
+{
+
+	public function test()
+	{
+		if (is_callable('date')) {
+
+		}
+		if (is_callable('nonexistentFunction')) {
+
+		}
+	}
+
+}
