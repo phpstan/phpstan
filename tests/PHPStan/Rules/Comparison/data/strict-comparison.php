@@ -273,3 +273,39 @@ class Node
 		}
 	}
 }
+
+class ConstantValuesComparison
+{
+
+	function testInt()
+	{
+		$a = 1;
+		$b = 2;
+		$a === $b;
+	}
+
+
+	function testArray()
+	{
+		$a = ['X' => 1];
+		$b = ['X' => 2];
+		$a === $b;
+	}
+
+
+	function testArrayTricky()
+	{
+		$a = ['X' => 1, 'Y' => 2];
+		$b = ['X' => 2, 'Y' => 1];
+		$a === $b;
+	}
+
+
+	function testArrayTrickyAlternative()
+	{
+		$a = ['X' => 1, 'Y' => 2];
+		$b = ['Y' => 2, 'X' => 1];
+		$a === $b;
+	}
+
+}

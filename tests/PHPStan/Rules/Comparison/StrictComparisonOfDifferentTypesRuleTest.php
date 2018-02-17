@@ -95,6 +95,22 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					'Strict comparison using !== between stdClass and null will always evaluate to true.',
 					271,
 				],
+				[
+					'Strict comparison using === between int(1) and int(2) will always evaluate to false.',
+					284,
+				],
+				[
+					'Strict comparison using === between array<string, int(1)> and array<string, int(2)> will always evaluate to false.',
+					292,
+				],
+				[
+					'Strict comparison using === between array<string, int(1)|int(2)> and array<string, int(1)|int(2)> will always evaluate to false.',
+					300,
+				],
+				[
+					'Strict comparison using === between array<string, int(1)|int(2)> and array<string, int(1)|int(2)> will always evaluate to false.',
+					308,
+				],
 			]
 		);
 	}
