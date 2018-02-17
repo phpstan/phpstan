@@ -8,6 +8,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Traits\ConstantScalarTypeTrait;
+use PHPStan\Type\Type;
 
 class ConstantStringType extends StringType implements ConstantScalarType
 {
@@ -54,6 +55,11 @@ class ConstantStringType extends StringType implements ConstantScalarType
 		}
 
 		return TrinaryLogic::createNo();
+	}
+
+	public static function __set_state(array $properties): Type
+	{
+		return new self($properties['value']);
 	}
 
 }

@@ -5,6 +5,7 @@ namespace PHPStan\Type\Constant;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\Traits\ConstantScalarTypeTrait;
+use PHPStan\Type\Type;
 
 class ConstantBooleanType extends BooleanType implements ConstantScalarType
 {
@@ -27,6 +28,11 @@ class ConstantBooleanType extends BooleanType implements ConstantScalarType
 	public function describe(): string
 	{
 		return $this->value ? 'true' : 'false';
+	}
+
+	public static function __set_state(array $properties): Type
+	{
+		return new self($properties['value']);
 	}
 
 }

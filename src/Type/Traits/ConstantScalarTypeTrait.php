@@ -45,9 +45,4 @@ trait ConstantScalarTypeTrait
 		return new parent();
 	}
 
-	public static function __set_state(array $properties): Type
-	{
-		return new self($properties['value']);
-	}
-
 }

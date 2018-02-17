@@ -5,6 +5,7 @@ namespace PHPStan\Type\Constant;
 use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\Traits\ConstantScalarTypeTrait;
+use PHPStan\Type\Type;
 
 class ConstantIntegerType extends IntegerType implements ConstantScalarType
 {
@@ -27,6 +28,11 @@ class ConstantIntegerType extends IntegerType implements ConstantScalarType
 	public function describe(): string
 	{
 		return sprintf('int(%d)', $this->value);
+	}
+
+	public static function __set_state(array $properties): Type
+	{
+		return new self($properties['value']);
 	}
 
 }

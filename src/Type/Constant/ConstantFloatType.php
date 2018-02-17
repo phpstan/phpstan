@@ -5,6 +5,7 @@ namespace PHPStan\Type\Constant;
 use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\Traits\ConstantScalarTypeTrait;
+use PHPStan\Type\Type;
 
 class ConstantFloatType extends FloatType implements ConstantScalarType
 {
@@ -27,6 +28,11 @@ class ConstantFloatType extends FloatType implements ConstantScalarType
 	public function describe(): string
 	{
 		return sprintf('float(%f)', $this->value);
+	}
+
+	public static function __set_state(array $properties): Type
+	{
+		return new self($properties['value']);
 	}
 
 }
