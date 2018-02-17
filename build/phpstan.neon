@@ -14,7 +14,6 @@ parameters:
 		- '#Constant PHPSTAN_TEST_CONSTANT not found#'
 		- '#Strict comparison using === between PhpParser\\Node\\Expr\\ArrayItem and null will always evaluate to false#'
 		- '#Dynamic call to static method PHPUnit\\Framework\\#'
-		- '#Call to function in_array\(\) requires parameter \#3 to be true#'
 	tmpDir: %rootDir%/tmp
 services:
 	-
