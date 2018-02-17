@@ -648,3 +648,14 @@ class CallArrayKeyAfterAssigningToIt
 	}
 
 }
+
+class CheckIsCallable
+{
+
+	public function test(callable $str)
+	{
+		$this->test('date');
+		$this->test('nonexistentFunction');
+	}
+
+}
