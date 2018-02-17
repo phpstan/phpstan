@@ -71,3 +71,14 @@ class BarCountable implements \Countable
 	}
 
 }
+
+class CountOnArrayKey
+{
+
+	public function test()
+	{
+		$whereArgs = ['', []];
+		count($whereArgs[1]);
+	}
+
+}
