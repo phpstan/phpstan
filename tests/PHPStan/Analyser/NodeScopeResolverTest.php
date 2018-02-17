@@ -1637,8 +1637,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$integer ?: 12',
 			],
 			[
+				'string',
+				"'foo' ?? null", // "else" never gets executed
+			],
+			[
 				'string|null',
-				"'foo' ?? null",
+				'$stringOrNull ?? null',
 			],
 			[
 				'string',

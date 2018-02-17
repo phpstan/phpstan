@@ -9,7 +9,7 @@ use PHPStan\Type\Traits\NonIterableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
 use PHPStan\Type\Traits\NonOffsetAccessibleTypeTrait;
 
-class NullType implements Type
+class NullType implements ConstantScalarType
 {
 
 	use NonCallableTypeTrait;
@@ -23,6 +23,19 @@ class NullType implements Type
 	public function getReferencedClasses(): array
 	{
 		return [];
+	}
+
+	/**
+	 * @return null
+	 */
+	public function getValue()
+	{
+		return null;
+	}
+
+	public function generalize(): Type
+	{
+		return $this;
 	}
 
 	public function accepts(Type $type): bool
