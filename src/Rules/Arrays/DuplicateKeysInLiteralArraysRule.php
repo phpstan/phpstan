@@ -3,23 +3,18 @@
 namespace PHPStan\Rules\Arrays;
 
 use PHPStan\Analyser\Scope;
-use PHPStan\Broker\Broker;
+use PHPStan\Type\ConstantScalarType;
 
 class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
 {
-
-	/** @var \PHPStan\Broker\Broker */
-	private $broker;
 
 	/** @var \PhpParser\PrettyPrinter\Standard */
 	private $printer;
 
 	public function __construct(
-		Broker $broker,
 		\PhpParser\PrettyPrinter\Standard $printer
 	)
 	{
-		$this->broker = $broker;
 		$this->printer = $printer;
 	}
 
@@ -46,33 +41,15 @@ class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
 			}
 
 			$key = $item->key;
+			$keyType = $scope->getType($key);
 			if (
-				!$key instanceof \PhpParser\Node\Scalar\String_
-				&& !$key instanceof \PhpParser\Node\Scalar\LNumber
-				&& !$key instanceof \PhpParser\Node\Scalar\DNumber
-				&& !$key instanceof \PhpParser\Node\Expr\ConstFetch
+				!$keyType instanceof ConstantScalarType
 			) {
 				continue;
 			}
 
-			if ($key instanceof \PhpParser\Node\Expr\ConstFetch) {
-				$printedValue = (string) $key->name;
-				$constName = strtolower($printedValue);
-				if ($constName === 'true') {
-					$value = true;
-				} elseif ($constName === 'false') {
-					$value = false;
-				} elseif ($constName === 'null') {
-					$value = null;
-				} elseif ($this->broker->hasConstant($key->name, $scope)) {
-					$value = constant($this->broker->resolveConstantName($key->name, $scope));
-				} else {
-					continue;
-				}
-			} else {
-				$printedValue = $this->printer->prettyPrintExpr($key);
-				$value = eval(sprintf('return %s;', $printedValue));
-			}
+			$printedValue = $this->printer->prettyPrintExpr($key);
+			$value = $keyType->getValue();
 
 			$previousCount = count($values);
 			$values[$value] = $printedValue;

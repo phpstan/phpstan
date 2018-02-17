@@ -8,7 +8,6 @@ class DuplicateKeysInLiteralArraysRuleTest extends \PHPStan\Testing\RuleTestCase
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
 		return new DuplicateKeysInLiteralArraysRule(
-			$this->createBroker(),
 			new \PhpParser\PrettyPrinter\Standard()
 		);
 	}
