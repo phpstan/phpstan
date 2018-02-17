@@ -73,6 +73,10 @@ class PrintfParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Call to sprintf contains 2 placeholders, 1 value given.',
 				29,
 			],
+			[
+				'Call to sprintf contains 2 placeholders, 1 value given.',
+				45,
+			],
 		]);
 	}
 

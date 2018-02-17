@@ -4,8 +4,8 @@ namespace PHPStan\Rules\Functions;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Scalar\String_;
 use PHPStan\Analyser\Scope;
+use PHPStan\Type\Constant\ConstantStringType;
 
 class PrintfParametersRule implements \PHPStan\Rules\Rule
 {
@@ -52,8 +52,8 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 			return []; // caught by CallToFunctionParametersRule
 		}
 
-		$formatArg = $args[$formatArgumentPosition]->value;
-		if (!($formatArg instanceof String_)) {
+		$formatArgType = $scope->getType($args[$formatArgumentPosition]->value);
+		if (!($formatArgType instanceof ConstantStringType)) {
 			return []; // inspect only literal string format
 		}
 
@@ -63,7 +63,7 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 			}
 		}
 
-		$format = $formatArg->value;
+		$format = $formatArgType->getValue();
 		$placeHoldersCount = $this->getPlaceholdersCount($name, $format);
 		$argsCount -= $formatArgumentPosition;
 
