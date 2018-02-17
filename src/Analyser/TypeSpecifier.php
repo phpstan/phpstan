@@ -305,20 +305,11 @@ class TypeSpecifier
 		$sureTypes = [];
 		$sureNotTypes = [];
 
-		if ($expr instanceof Node\Expr\Variable
-			|| $expr instanceof Node\Expr\FuncCall
-			|| $expr instanceof Node\Expr\MethodCall
-			|| $expr instanceof Node\Expr\StaticCall
-			|| $expr instanceof Node\Expr\PropertyFetch
-			|| $expr instanceof Node\Expr\StaticPropertyFetch
-			|| $expr instanceof Node\Expr\ArrayDimFetch
-		) {
-			$exprString = $this->printer->prettyPrintExpr($expr);
-			if ($context & self::CONTEXT_FALSE) {
-				$sureNotTypes[$exprString] = [$expr, $type];
-			} elseif ($context & self::CONTEXT_TRUE) {
-				$sureTypes[$exprString] = [$expr, $type];
-			}
+		$exprString = $this->printer->prettyPrintExpr($expr);
+		if ($context & self::CONTEXT_FALSE) {
+			$sureNotTypes[$exprString] = [$expr, $type];
+		} elseif ($context & self::CONTEXT_TRUE) {
+			$sureTypes[$exprString] = [$expr, $type];
 		}
 
 		return new SpecifiedTypes($sureTypes, $sureNotTypes);

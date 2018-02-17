@@ -457,14 +457,18 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					'$stringOrNull' => '~null',
 					'$barOrNull' => '~null',
 				],
-				[],
+				[
+					'isset($stringOrNull, $barOrNull)' => '~object',
+				],
 			],
 			[
 				new Expr\BooleanNot(new Expr\Empty_(new Variable('stringOrNull'))),
 				[
 					'$stringOrNull' => '~false|null',
 				],
-				[],
+				[
+					'empty($stringOrNull)' => '~false|int(0)|null',
+				],
 			],
 		];
 	}

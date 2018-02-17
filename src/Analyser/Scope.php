@@ -1387,7 +1387,7 @@ class Scope
 		}
 
 		foreach ($intersectedScope->moreSpecificTypes as $exprString => $specificType) {
-			if (preg_match('#^\$([a-zA-Z_][a-zA-Z0-9_]*)$#', $exprString, $matches) === 1) {
+			if (preg_match('#^\$([a-zA-Z_][a-zA-Z0-9_]*)$#', (string) $exprString, $matches) === 1) {
 				$variableName = $matches[1];
 				$variableTypeHolders[$variableName] = VariableTypeHolder::createYes($specificType);
 				continue;
