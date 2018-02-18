@@ -4,23 +4,18 @@ namespace PHPStan\Rules\Comparison;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
-use PHPStan\Analyser\TypeSpecifier;
+use PHPStan\Type\Constant\ConstantBooleanType;
 
 class ImpossibleCheckTypeFunctionCallRule implements \PHPStan\Rules\Rule
 {
-
-	/** @var \PHPStan\Analyser\TypeSpecifier */
-	private $typeSpecifier;
 
 	/** @var bool */
 	private $checkAlwaysTrueCheckTypeFunctionCall;
 
 	public function __construct(
-		TypeSpecifier $typeSpecifier,
 		bool $checkAlwaysTrueCheckTypeFunctionCall
 	)
 	{
-		$this->typeSpecifier = $typeSpecifier;
 		$this->checkAlwaysTrueCheckTypeFunctionCall = $checkAlwaysTrueCheckTypeFunctionCall;
 	}
 
@@ -40,29 +35,18 @@ class ImpossibleCheckTypeFunctionCallRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		$sureTypes = $this->typeSpecifier->specifyTypesInCondition($scope, $node)->getSureTypes();
-		if (count($sureTypes) !== 1) {
-			return [];
-		}
-
-		$sureType = reset($sureTypes);
-		$argumentType = $scope->getType($sureType[0]);
-
-		/** @var \PHPStan\Type\Type $resultType */
-		$resultType = $sureType[1];
-
-		$isSuperType = $resultType->isSuperTypeOf($argumentType);
 		$functionName = (string) $node->name;
-		if ($functionName === 'is_a') {
+		$nodeType = $scope->getType($node);
+		if (!$nodeType instanceof ConstantBooleanType) {
 			return [];
 		}
 
-		if ($isSuperType->no()) {
+		if (!$nodeType->getValue()) {
 			return [sprintf(
 				'Call to function %s() will always evaluate to false.',
 				$functionName
 			)];
-		} elseif ($isSuperType->yes() && $this->checkAlwaysTrueCheckTypeFunctionCall) {
+		} elseif ($this->checkAlwaysTrueCheckTypeFunctionCall) {
 			return [sprintf(
 				'Call to function %s() will always evaluate to true.',
 				$functionName

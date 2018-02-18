@@ -2,8 +2,6 @@
 
 namespace PHPStan\Rules\Comparison;
 
-use PHPStan\Analyser\TypeSpecifier;
-
 class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
@@ -12,9 +10,7 @@ class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestC
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		$printer = new \PhpParser\PrettyPrinter\Standard();
-		$typeSpecifier = new TypeSpecifier($printer);
-		return new ImpossibleCheckTypeFunctionCallRule($typeSpecifier, $this->checkAlwaysTrueCheckTypeFunctionCall);
+		return new ImpossibleCheckTypeFunctionCallRule($this->checkAlwaysTrueCheckTypeFunctionCall);
 	}
 
 	public function testImpossibleCheckTypeFunctionCall(): void

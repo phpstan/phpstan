@@ -801,6 +801,31 @@ class Scope
 				return new ErrorType();
 			}
 
+			$functionName = (string) $node->name;
+			if (strpos($functionName, 'is_') === 0) {
+				$sureTypes = $this->typeSpecifier->specifyTypesInCondition($this, $node)->getSureTypes();
+				if (count($sureTypes) === 1) {
+					$sureType = reset($sureTypes);
+					$argumentType = $this->getType($sureType[0]);
+
+					/** @var \PHPStan\Type\Type $resultType */
+					$resultType = $sureType[1];
+
+					$isSuperType = $resultType->isSuperTypeOf($argumentType);
+					if ($functionName === 'is_a') {
+						return new BooleanType();
+					}
+
+					if ($isSuperType->yes()) {
+						return new ConstantBooleanType(true);
+					} elseif ($isSuperType->no()) {
+						return new ConstantBooleanType(false);
+					}
+
+					return new BooleanType();
+				}
+			}
+
 			$functionReflection = $this->broker->getFunction($node->name, $this);
 
 			foreach ($this->broker->getDynamicFunctionReturnTypeExtensions() as $dynamicFunctionReturnTypeExtension) {
