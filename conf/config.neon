@@ -7,6 +7,7 @@ parameters:
 		- php
 	checkAlwaysTrueCheckTypeFunctionCall: false
 	checkAlwaysTrueInstanceof: false
+	checkAlwaysTrueStrictComparison: false
 	checkClassCaseSensitivity: false
 	checkFunctionArgumentTypes: false
 	checkArgumentsPassedByReference: false

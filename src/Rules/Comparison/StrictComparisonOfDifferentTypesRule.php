@@ -10,6 +10,14 @@ use PHPStan\Type\NullType;
 class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 {
 
+	/** @var bool */
+	private $checkAlwaysTrueStrictComparison;
+
+	public function __construct(bool $checkAlwaysTrueStrictComparison)
+	{
+		$this->checkAlwaysTrueStrictComparison = $checkAlwaysTrueStrictComparison;
+	}
+
 	public function getNodeType(): string
 	{
 		return Node\Expr\BinaryOp::class;
@@ -69,6 +77,28 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 					$leftType->describe(),
 					$rightType->describe(),
 					$node instanceof Node\Expr\BinaryOp\Identical ? 'false' : 'true'
+				),
+			];
+		} elseif (
+			$this->checkAlwaysTrueStrictComparison
+			&& $nodeType instanceof ConstantBooleanType
+			&& (
+				(
+					$node instanceof Node\Expr\BinaryOp\Identical
+					&& $nodeType->getValue()
+				) || (
+					$node instanceof Node\Expr\BinaryOp\NotIdentical
+					&& !$nodeType->getValue()
+				)
+			)
+		) {
+			return [
+				sprintf(
+					'Strict comparison using %s between %s and %s will always evaluate to %s.',
+					$node instanceof Node\Expr\BinaryOp\Identical ? '===' : '!==',
+					$leftType->describe(),
+					$rightType->describe(),
+					$node instanceof Node\Expr\BinaryOp\Identical ? 'true' : 'false'
 				),
 			];
 		}

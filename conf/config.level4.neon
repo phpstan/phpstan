@@ -3,7 +3,6 @@ includes:
 
 rules:
 	- PHPStan\Rules\Cast\UselessCastRule
-	- PHPStan\Rules\Comparison\StrictComparisonOfDifferentTypesRule
 
 services:
 	-
@@ -17,5 +16,12 @@ services:
 		class: PHPStan\Rules\Comparison\ImpossibleCheckTypeFunctionCallRule
 		arguments:
 			checkAlwaysTrueCheckTypeFunctionCall: %checkAlwaysTrueCheckTypeFunctionCall%
+		tags:
+			- phpstan.rules.rule
+
+	-
+		class: PHPStan\Rules\Comparison\StrictComparisonOfDifferentTypesRule
+		arguments:
+			checkAlwaysTrueStrictComparison: %checkAlwaysTrueStrictComparison%
 		tags:
 			- phpstan.rules.rule
