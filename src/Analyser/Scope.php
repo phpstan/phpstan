@@ -335,7 +335,6 @@ class Scope
 			|| $node instanceof Expr\BinaryOp\SmallerOrEqual
 			|| $node instanceof Expr\BinaryOp\Equal
 			|| $node instanceof Expr\BinaryOp\NotEqual
-			|| $node instanceof Expr\Instanceof_
 			|| $node instanceof Expr\Isset_
 			|| $node instanceof Expr\Empty_
 		) {
@@ -375,6 +374,31 @@ class Scope
 				&& $leftType->getValue() === $rightType->getValue()
 			) {
 				return new ConstantBooleanType(false);
+			}
+
+			return new BooleanType();
+		}
+
+		if ($node instanceof Expr\Instanceof_) {
+			if ($node->class instanceof Node\Name) {
+				$className = $this->resolveName($node->class);
+				$type = new ObjectType($className);
+			} else {
+				$type = $this->getType($node->class);
+			}
+
+			$expressionType = $this->getType($node->expr);
+			$isExpressionObject = (new ObjectWithoutClassType())->isSuperTypeOf($expressionType);
+			if (!$isExpressionObject->no() && $type instanceof StringType) {
+				return new BooleanType();
+			}
+
+			$isSuperType = $type->isSuperTypeOf($expressionType)
+				->and($isExpressionObject);
+			if ($isSuperType->no()) {
+				return new ConstantBooleanType(false);
+			} elseif ($isSuperType->yes()) {
+				return new ConstantBooleanType(true);
 			}
 
 			return new BooleanType();

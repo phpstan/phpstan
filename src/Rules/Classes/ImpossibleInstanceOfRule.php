@@ -4,9 +4,8 @@ namespace PHPStan\Rules\Classes;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
+use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\ObjectType;
-use PHPStan\Type\ObjectWithoutClassType;
-use PHPStan\Type\StringType;
 
 class ImpossibleInstanceOfRule implements \PHPStan\Rules\Rule
 {
@@ -31,6 +30,13 @@ class ImpossibleInstanceOfRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
+		$instanceofType = $scope->getType($node);
+
+		if (!$instanceofType instanceof ConstantBooleanType) {
+			return [];
+		}
+
+		$expressionType = $scope->getType($node->expr);
 		if ($node->class instanceof Node\Name) {
 			$className = $scope->resolveName($node->class);
 			$type = new ObjectType($className);
@@ -38,16 +44,7 @@ class ImpossibleInstanceOfRule implements \PHPStan\Rules\Rule
 			$type = $scope->getType($node->class);
 		}
 
-		$expressionType = $scope->getType($node->expr);
-		$isExpressionObject = (new ObjectWithoutClassType())->isSuperTypeOf($expressionType);
-		if (!$isExpressionObject->no() && $type instanceof StringType) {
-			return [];
-		}
-
-		$isSuperType = $type->isSuperTypeOf($expressionType)
-			->and($isExpressionObject);
-
-		if ($isSuperType->no()) {
+		if (!$instanceofType->getValue()) {
 			return [
 				sprintf(
 					'Instanceof between %s and %s will always evaluate to false.',
@@ -55,7 +52,7 @@ class ImpossibleInstanceOfRule implements \PHPStan\Rules\Rule
 					$type->describe()
 				),
 			];
-		} elseif ($isSuperType->yes() && $this->checkAlwaysTrueInstanceof) {
+		} elseif ($this->checkAlwaysTrueInstanceof) {
 			return [
 				sprintf(
 					'Instanceof between %s and %s will always evaluate to true.',

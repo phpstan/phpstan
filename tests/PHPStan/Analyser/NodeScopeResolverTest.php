@@ -1765,8 +1765,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$string != "foo"',
 			],
 			[
-				'bool',
+				'true',
 				'$foo instanceof Foo',
+			],
+			[
+				'bool',
+				'$foo instanceof Bar',
 			],
 			[
 				'bool',
