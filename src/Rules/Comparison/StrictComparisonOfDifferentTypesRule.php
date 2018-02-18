@@ -4,6 +4,7 @@ namespace PHPStan\Rules\Comparison;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
+use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\NullType;
 
 class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
@@ -48,7 +49,19 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		if ($leftType->isSuperTypeOf($rightType)->no()) {
+		$nodeType = $scope->getType($node);
+		if (
+			$nodeType instanceof ConstantBooleanType
+			&& (
+				(
+					$node instanceof Node\Expr\BinaryOp\Identical
+					&& !$nodeType->getValue()
+				) || (
+					$node instanceof Node\Expr\BinaryOp\NotIdentical
+					&& $nodeType->getValue()
+				)
+			)
+		) {
 			return [
 				sprintf(
 					'Strict comparison using %s between %s and %s will always evaluate to %s.',

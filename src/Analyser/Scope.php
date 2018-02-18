@@ -333,14 +333,50 @@ class Scope
 			|| $node instanceof Expr\BinaryOp\GreaterOrEqual
 			|| $node instanceof Expr\BinaryOp\Smaller
 			|| $node instanceof Expr\BinaryOp\SmallerOrEqual
-			|| $node instanceof Expr\BinaryOp\Identical
-			|| $node instanceof Expr\BinaryOp\NotIdentical
 			|| $node instanceof Expr\BinaryOp\Equal
 			|| $node instanceof Expr\BinaryOp\NotEqual
 			|| $node instanceof Expr\Instanceof_
 			|| $node instanceof Expr\Isset_
 			|| $node instanceof Expr\Empty_
 		) {
+			return new BooleanType();
+		}
+
+		if ($node instanceof Expr\BinaryOp\Identical) {
+			$leftType = $this->getType($node->left);
+			$rightType = $this->getType($node->right);
+
+			$isSuperset = $leftType->isSuperTypeOf($rightType);
+			if ($isSuperset->no()) {
+				return new ConstantBooleanType(false);
+			} elseif (
+				$isSuperset->yes()
+				&& $leftType instanceof ConstantScalarType
+				&& $rightType instanceof ConstantScalarType
+				&& $leftType->getValue() === $rightType->getValue()
+			) {
+				return new ConstantBooleanType(true);
+			}
+
+			return new BooleanType();
+		}
+
+		if ($node instanceof Expr\BinaryOp\NotIdentical) {
+			$leftType = $this->getType($node->left);
+			$rightType = $this->getType($node->right);
+
+			$isSuperset = $leftType->isSuperTypeOf($rightType);
+			if ($isSuperset->no()) {
+				return new ConstantBooleanType(true);
+			} elseif (
+				$isSuperset->yes()
+				&& $leftType instanceof ConstantScalarType
+				&& $rightType instanceof ConstantScalarType
+				&& $leftType->getValue() === $rightType->getValue()
+			) {
+				return new ConstantBooleanType(false);
+			}
+
 			return new BooleanType();
 		}
 

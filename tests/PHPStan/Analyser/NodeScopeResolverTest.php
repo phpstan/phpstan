@@ -1749,11 +1749,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'count($arrayOfIntegers) + count($arrayOfIntegers)',
 			],
 			[
-				'bool',
+				'true',
 				'$string === "foo"',
 			],
 			[
-				'bool',
+				'false',
 				'$string !== "foo"',
 			],
 			[
