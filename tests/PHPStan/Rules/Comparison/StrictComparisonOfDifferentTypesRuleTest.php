@@ -119,6 +119,10 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					'Strict comparison using === between array<string, int(1)|int(2)> and array<string, int(1)|int(2)> will always evaluate to false.',
 					308,
 				],
+				[
+					'Strict comparison using === between string and string will always evaluate to false.',
+					320,
+				],
 			]
 		);
 	}
@@ -224,6 +228,10 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 				[
 					'Strict comparison using === between array<string, int(1)|int(2)> and array<string, int(1)|int(2)> will always evaluate to false.',
 					308,
+				],
+				[
+					'Strict comparison using === between string and string will always evaluate to false.',
+					320,
 				],
 			]
 		);

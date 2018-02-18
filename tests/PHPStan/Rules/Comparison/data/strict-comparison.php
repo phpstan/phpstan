@@ -309,3 +309,15 @@ class ConstantValuesComparison
 	}
 
 }
+
+class PredefinedConstants
+{
+
+	public function doFoo()
+	{
+		DIRECTORY_SEPARATOR === '/';
+		DIRECTORY_SEPARATOR === '\\';
+		DIRECTORY_SEPARATOR === '//';
+	}
+
+}

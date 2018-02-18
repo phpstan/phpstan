@@ -585,6 +585,15 @@ class Scope
 						new ConstantStringType('\\'),
 					]);
 				}
+				if ($resolvedConstantName === 'PATH_SEPARATOR') {
+					return new UnionType([
+						new ConstantStringType(':'),
+						new ConstantStringType(';'),
+					]);
+				}
+				if ($resolvedConstantName === 'ICONV_IMPL') {
+					return new StringType();
+				}
 
 				return $this->getTypeFromValue(constant($resolvedConstantName));
 			}
