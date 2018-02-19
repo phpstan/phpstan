@@ -56,37 +56,11 @@ class TableErrorFormatterTest extends \PHPStan\Testing\TestCase
 		rewind($outputStream->getStream());
 
 		self::assertStringMatchesFormat(
-			'%A------ ----------- 
-  Line   a          
- ------ ----------- 
-  1      Message 2  
- ------ ----------- 
-
- ------ ----------- 
-  Line   b          
- ------ ----------- 
-  1      Message 1  
- ------ ----------- 
-
- ------ ----------- 
-  Line   c          
- ------ ----------- 
-  1      Message 4  
- ------ ----------- 
-
- ------ ----------- 
-  Line   d          
- ------ ----------- 
-  1      Message 3  
- ------ ----------- 
-
- ------ ----------- 
-  Line   1          
- ------ ----------- 
-  1      Message 5  
- ------ ----------- 
-
- [ERROR] Found 0 errors%A',
+			'%Aa%AMessage 2%A'
+			. '%Ab%AMessage 1%A'
+			. '%Ac%AMessage 4%A'
+			. '%Ad%AMessage 3%A'
+			. '%A1%AMessage 5%A',
 			stream_get_contents($outputStream->getStream())
 		);
 	}
