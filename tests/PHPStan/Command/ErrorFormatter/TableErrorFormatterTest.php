@@ -10,6 +10,7 @@ use Symfony\Component\Console\Output\StreamOutput;
 
 class TableErrorFormatterTest extends \PHPStan\Testing\TestCase
 {
+
 	/**
 	 * @var TableErrorFormatter
 	 */
@@ -23,9 +24,6 @@ class TableErrorFormatterTest extends \PHPStan\Testing\TestCase
 		$this->formatter = new TableErrorFormatter();
 	}
 
-	/**
-	 * @group #838
-	 */
 	public function testErrorsAreDisplayedInAlphabeticalOrder(): void
 	{
 		$analysisResultMock = $this->createMock(AnalysisResult::class);
@@ -58,7 +56,7 @@ class TableErrorFormatterTest extends \PHPStan\Testing\TestCase
 		rewind($outputStream->getStream());
 
 		self::assertStringMatchesFormat(
-			<<<'REPORT'
+			'
 %A------ ----------- 
   Line   a		  
  ------ ----------- 
@@ -89,10 +87,9 @@ class TableErrorFormatterTest extends \PHPStan\Testing\TestCase
   1	  Message 5  
  ------ ----------- 
 
- [ERROR] Found 0 errors%A
-REPORT
-,
+ [ERROR] Found 0 errors%A',
 			stream_get_contents($outputStream->getStream())
 		);
 	}
+
 }
