@@ -10,9 +10,13 @@ require __DIR__ . '/../../../vendor/autoload.php';
 $rootDir = __DIR__ . '/../../..';
 $containerFactory = new ContainerFactory($rootDir);
 $container = $containerFactory->create($rootDir . '/tmp', []);
-
 $container->getByType(Broker::class); // so that Broker::getInstance() works
-\PHPStan\Type\TypeCombinator::setUnionTypesEnabled(true);
+
+try {
+	\PHPStan\Type\TypeCombinator::setUnionTypesEnabled(true);
+} catch (\PHPStan\ShouldNotHappenException $e) {
+	return; // PHPUnit tries to run this script again ¯\_(ツ)_/¯
+}
 
 /** @var SignatureMapParser $parser */
 $parser = $container->getByType(SignatureMapParser::class);
