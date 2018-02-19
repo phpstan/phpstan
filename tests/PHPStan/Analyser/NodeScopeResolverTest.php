@@ -4219,10 +4219,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array<int,string>|false',
 				'$arrayOrFalse',
 			],
-			/*[
+			[
 				'array<int,string>|false',
 				'$anotherArrayOrFalse',
-			],*/
+			],
 		];
 	}
 

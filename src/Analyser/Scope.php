@@ -1524,7 +1524,7 @@ class Scope
 			} else {
 				if (
 					isset($ourVariableTypeHolders[$name])
-					&& $theirVariableTypeHolder->getType()->describe() === $ourVariableTypeHolders[$name]->getType()->describe()
+					&& $theirVariableTypeHolder->getType()->isSuperTypeOf($ourVariableTypeHolders[$name]->getType())->and($ourVariableTypeHolders[$name]->getType()->isSuperTypeOf($theirVariableTypeHolder->getType()))->yes()
 					&& $ourVariableTypeHolders[$name]->getCertainty()->equals($theirVariableTypeHolder->getCertainty())
 				) {
 					unset($ourVariableTypeHolders[$name]);
@@ -1534,7 +1534,7 @@ class Scope
 
 		$moreSpecificTypes = $this->moreSpecificTypes;
 		foreach ($otherScope->moreSpecificTypes as $exprString => $specifiedType) {
-			if (isset($moreSpecificTypes[$exprString]) && $specifiedType->describe() === $moreSpecificTypes[$exprString]->describe()) {
+			if (isset($moreSpecificTypes[$exprString]) && $specifiedType->isSuperTypeOf($moreSpecificTypes[$exprString])->and($moreSpecificTypes[$exprString]->isSuperTypeOf($specifiedType))->yes()) {
 				unset($moreSpecificTypes[$exprString]);
 			}
 		}
