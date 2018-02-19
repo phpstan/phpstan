@@ -4,6 +4,7 @@ namespace PHPStan\Command\ErrorFormatter;
 
 use PHPStan\Command\AnalyseCommand;
 use PHPStan\Command\AnalysisResult;
+use function ksort;
 
 class TableErrorFormatter implements ErrorFormatter
 {
@@ -44,6 +45,8 @@ class TableErrorFormatter implements ErrorFormatter
 			$fileErrors[$fileSpecificError->getFile()][] = $fileSpecificError;
 		}
 
+		ksort($fileErrors);
+
 		foreach ($fileErrors as $file => $errors) {
 			$rows = [];
 			foreach ($errors as $error) {
@@ -53,7 +56,8 @@ class TableErrorFormatter implements ErrorFormatter
 				];
 			}
 
-			$style->table(['Line', $cropFilename($file)], $rows);
+			// Note: file name may be an `int` because it may be named `10`, for example
+			$style->table(['Line', $cropFilename((string) $file)], $rows);
 		}
 
 		if (count($analysisResult->getNotFileSpecificErrors()) > 0) {
