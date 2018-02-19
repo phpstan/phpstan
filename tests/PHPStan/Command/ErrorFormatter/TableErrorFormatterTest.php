@@ -15,16 +15,16 @@ class TableErrorFormatterTest extends \PHPStan\Testing\TestCase
 	 */
 	protected $formatter;
 
-    /**
-     * {@inheritDoc}
-     */
+	/**
+	 * {@inheritDoc}
+	 */
 	protected function setUp(): void
 	{
 		$this->formatter = new TableErrorFormatter();
 	}
 
 	/**
-     * @group #838
+	 * @group #838
 	 */
 	public function testErrorsAreDisplayedInAlphabeticalOrder(): void
 	{
@@ -58,41 +58,41 @@ class TableErrorFormatterTest extends \PHPStan\Testing\TestCase
 		rewind($outputStream->getStream());
 
 		self::assertStringMatchesFormat(
-		    <<<'REPORT'
+			<<<'REPORT'
 %A------ ----------- 
-  Line   a          
+  Line   a		  
  ------ ----------- 
-  1      Message 2  
- ------ ----------- 
-
- ------ ----------- 
-  Line   b          
- ------ ----------- 
-  1      Message 1  
+  1	  Message 2  
  ------ ----------- 
 
  ------ ----------- 
-  Line   c          
+  Line   b		  
  ------ ----------- 
-  1      Message 4  
- ------ ----------- 
-
- ------ ----------- 
-  Line   d          
- ------ ----------- 
-  1      Message 3  
+  1	  Message 1  
  ------ ----------- 
 
  ------ ----------- 
-  Line   1          
+  Line   c		  
  ------ ----------- 
-  1      Message 5  
+  1	  Message 4  
+ ------ ----------- 
+
+ ------ ----------- 
+  Line   d		  
+ ------ ----------- 
+  1	  Message 3  
+ ------ ----------- 
+
+ ------ ----------- 
+  Line   1		  
+ ------ ----------- 
+  1	  Message 5  
  ------ ----------- 
 
  [ERROR] Found 0 errors%A
 REPORT
 ,
-            stream_get_contents($outputStream->getStream())
-        );
+			stream_get_contents($outputStream->getStream())
+		);
 	}
 }
