@@ -2,11 +2,13 @@
 
 namespace PHPStan\Command;
 
+use PHPStan\Analyser\Error;
+
 class AnalysisResult
 {
 
 	/**
-	 * @var \PHPStan\Analyser\Error[]
+	 * @var \PHPStan\Analyser\Error[] sorted by their file name, line number and message
 	 */
 	private $fileSpecificErrors;
 
@@ -38,6 +40,21 @@ class AnalysisResult
 		string $currentDirectory
 	)
 	{
+		usort(
+			$fileSpecificErrors,
+			function (Error $a, Error $b): int {
+				return [
+					$a->getFile(),
+					$a->getLine(),
+					$a->getMessage(),
+				] <=> [
+					$b->getFile(),
+					$b->getLine(),
+					$b->getMessage(),
+				];
+			}
+		);
+
 		$this->fileSpecificErrors = $fileSpecificErrors;
 		$this->notFileSpecificErrors = $notFileSpecificErrors;
 		$this->defaultLevelUsed = $defaultLevelUsed;
@@ -55,7 +72,7 @@ class AnalysisResult
 	}
 
 	/**
-	 * @return \PHPStan\Analyser\Error[]
+	 * @return \PHPStan\Analyser\Error[] sorted by their file name, line number and message
 	 */
 	public function getFileSpecificErrors(): array
 	{
