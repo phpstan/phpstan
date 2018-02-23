@@ -104,7 +104,7 @@ class TrinaryLogic
 
 	public function describe(): string
 	{
-		$labels = [
+		static $labels = [
 			self::NO => 'No',
 			self::MAYBE => 'Maybe',
 			self::YES => 'Yes',
