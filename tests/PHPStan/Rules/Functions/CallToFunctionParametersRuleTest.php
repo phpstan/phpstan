@@ -176,6 +176,9 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 	 */
 	public function testUnpackOnAfter711(): void
 	{
+		if (PHP_VERSION_ID < 70101) {
+			$this->markTestSkipped('This test requires PHP >= 7.1.1');
+		}
 		$this->analyse([__DIR__ . '/data/unpack.php'], [
 			[
 				'Function unpack invoked with 0 parameters, 2-3 required.',
