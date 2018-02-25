@@ -21,6 +21,7 @@ use PHPStan\Type\CallableType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
+use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\IterableType;
@@ -92,12 +93,23 @@ class TypeSpecifier
 				} elseif ($constantName === 'null') {
 					return $this->create($expressions[0], new NullType(), $context);
 				}
-			} elseif ($context & self::CONTEXT_TRUE) {
+			}
+
+			if ($context & self::CONTEXT_TRUE) {
 				$type = TypeCombinator::intersect($scope->getType($expr->right), $scope->getType($expr->left));
 				$leftTypes = $this->create($expr->left, $type, $context);
 				$rightTypes = $this->create($expr->right, $type, $context);
 				return $leftTypes->unionWith($rightTypes);
+
+			} elseif ($context & self::CONTEXT_FALSE) {
+				$type = TypeCombinator::intersect($scope->getType($expr->right), $scope->getType($expr->left));
+				if ($type instanceof ConstantScalarType) {
+					$leftTypes = $this->create($expr->left, $type, $context);
+					$rightTypes = $this->create($expr->right, $type, $context);
+					return $leftTypes->unionWith($rightTypes);
+				}
 			}
+
 		} elseif ($expr instanceof Node\Expr\BinaryOp\NotIdentical) {
 			return $this->specifyTypesInCondition(
 				$scope,
@@ -307,11 +319,13 @@ class TypeSpecifier
 		$sureTypes = [];
 		$sureNotTypes = [];
 
-		$exprString = $this->printer->prettyPrintExpr($expr);
-		if ($context & self::CONTEXT_FALSE) {
-			$sureNotTypes[$exprString] = [$expr, $type];
-		} elseif ($context & self::CONTEXT_TRUE) {
-			$sureTypes[$exprString] = [$expr, $type];
+		if (!$expr instanceof Node\Scalar) {
+			$exprString = $this->printer->prettyPrintExpr($expr);
+			if ($context & self::CONTEXT_FALSE) {
+				$sureNotTypes[$exprString] = [$expr, $type];
+			} elseif ($context & self::CONTEXT_TRUE) {
+				$sureTypes[$exprString] = [$expr, $type];
+			}
 		}
 
 		return new SpecifiedTypes($sureTypes, $sureNotTypes);
