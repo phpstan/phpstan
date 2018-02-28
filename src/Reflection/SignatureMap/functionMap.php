@@ -7665,7 +7665,7 @@ return [
 'ReflectionFunctionAbstract::getShortName' => ['string'],
 'ReflectionFunctionAbstract::getStartLine' => ['int'],
 'ReflectionFunctionAbstract::getStaticVariables' => ['array'],
-'ReflectionFunctionAbstract:hasReturnType' => ['bool'],
+'ReflectionFunctionAbstract::hasReturnType' => ['bool'],
 'ReflectionFunctionAbstract::inNamespace' => ['bool'],
 'ReflectionFunctionAbstract::isClosure' => ['bool'],
 'ReflectionFunctionAbstract::isDeprecated' => ['bool'],
