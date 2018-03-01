@@ -319,13 +319,11 @@ class TypeSpecifier
 		$sureTypes = [];
 		$sureNotTypes = [];
 
-		if (!$expr instanceof Node\Scalar) {
-			$exprString = $this->printer->prettyPrintExpr($expr);
-			if ($context & self::CONTEXT_FALSE) {
-				$sureNotTypes[$exprString] = [$expr, $type];
-			} elseif ($context & self::CONTEXT_TRUE) {
-				$sureTypes[$exprString] = [$expr, $type];
-			}
+		$exprString = $this->printer->prettyPrintExpr($expr);
+		if ($context & self::CONTEXT_FALSE) {
+			$sureNotTypes[$exprString] = [$expr, $type];
+		} elseif ($context & self::CONTEXT_TRUE) {
+			$sureTypes[$exprString] = [$expr, $type];
 		}
 
 		return new SpecifiedTypes($sureTypes, $sureNotTypes);
