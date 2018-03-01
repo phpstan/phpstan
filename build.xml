@@ -40,8 +40,6 @@
 				checkreturn="true"
 		>
 			<arg value="--exclude"/>
-			<arg path="src/Reflection/SignatureMap/functions"/>
-			<arg value="--exclude"/>
 			<arg path="tests/PHPStan/Analyser/data"/>
 			<arg value="--exclude"/>
 			<arg path="tests/PHPStan/Rules/Methods/data"/>
@@ -62,7 +60,7 @@
 			<arg value="--extensions=php"/>
 			<arg value="--encoding=utf-8"/>
 			<arg value="--tab-width=4"/>
-			<arg value="--ignore=tests/*/data,tests/*/traits,tests/notAutoloaded,src/Reflection/SignatureMap/functionMap.php,src/Reflection/SignatureMap/functions"/>
+			<arg value="--ignore=tests/*/data,tests/*/traits,tests/notAutoloaded,src/Reflection/SignatureMap/functionMap.php"/>
 			<arg value="-sp"/>
 			<arg path="src"/>
 			<arg path="tests"/>
@@ -79,40 +77,10 @@
 			<arg value="--extensions=php"/>
 			<arg value="--encoding=utf-8"/>
 			<arg value="--tab-width=4"/>
-			<arg value="--ignore=tests/*/data,tests/*/traits,tests/notAutoloaded,src/Reflection/SignatureMap/functionMap.php,src/Reflection/SignatureMap/functions"/>
+			<arg value="--ignore=tests/*/data,tests/*/traits,tests/notAutoloaded,src/Reflection/SignatureMap/functionMap.php"/>
 			<arg value="-sp"/>
 			<arg path="src"/>
 			<arg path="tests"/>
-		</exec>
-	</target>
-
-	<target name="generate-signatures">
-		<delete>
-			<fileset dir="src/Reflection/SignatureMap/functions">
-				<include name="**"/>
-			</fileset>
-		</delete>
-		<exec
-				executable="php"
-				logoutput="true"
-				passthru="true"
-				checkreturn="true"
-		>
-			<arg path="src/Reflection/SignatureMap/generate.php"/>
-		</exec>
-		<exec
-				executable="php"
-				logoutput="true"
-				passthru="true"
-				checkreturn="true"
-		>
-			<arg path="bin/phpstan"/>
-			<arg value="analyse"/>
-			<arg value="-c"/>
-			<arg path="src/Reflection/SignatureMap/phpstan.neon"/>
-			<arg value="-l"/>
-			<arg value="7"/>
-			<arg path="src/Reflection/SignatureMap/functions"/>
 		</exec>
 	</target>
 

@@ -7,7 +7,10 @@ use PHPStan\PhpDoc\Tag\ParamTag;
 use PHPStan\Reflection\BrokerAwareExtension;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\FunctionReflectionFactory;
-use PHPStan\Reflection\SignatureMap\FunctionDumper;
+use PHPStan\Reflection\Native\NativeFunctionReflection;
+use PHPStan\Reflection\Native\NativeParameterReflection;
+use PHPStan\Reflection\SignatureMap\ParameterSignature;
+use PHPStan\Reflection\SignatureMap\SignatureMapParser;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Type;
 use ReflectionClass;
@@ -45,8 +48,8 @@ class Broker
 	/** @var \PHPStan\Type\FileTypeMapper */
 	private $fileTypeMapper;
 
-	/** @var \PHPStan\Reflection\SignatureMap\FunctionDumper */
-	private $functionDumper;
+	/** @var \PHPStan\Reflection\SignatureMap\SignatureMapParser */
+	private $signatureMapParser;
 
 	/** @var \PHPStan\Reflection\FunctionReflection[] */
 	private $functionReflections = [];
@@ -60,7 +63,10 @@ class Broker
 	/** @var bool[] */
 	private $hasClassCache;
 
-	/** @var \PHPStan\Reflection\Native\NativeFunctionReflection[] */
+	/** @var mixed[]|null */
+	private static $signatureMap;
+
+	/** @var NativeFunctionReflection[] */
 	private static $functionMap = [];
 
 	/**
@@ -71,7 +77,7 @@ class Broker
 	 * @param \PHPStan\Type\DynamicFunctionReturnTypeExtension[] $dynamicFunctionReturnTypeExtensions
 	 * @param \PHPStan\Reflection\FunctionReflectionFactory $functionReflectionFactory
 	 * @param \PHPStan\Type\FileTypeMapper $fileTypeMapper
-	 * @param \PHPStan\Reflection\SignatureMap\FunctionDumper $functionDumper
+	 * @param \PHPStan\Reflection\SignatureMap\SignatureMapParser $signatureMapParser
 	 */
 	public function __construct(
 		array $propertiesClassReflectionExtensions,
@@ -81,7 +87,7 @@ class Broker
 		array $dynamicFunctionReturnTypeExtensions,
 		FunctionReflectionFactory $functionReflectionFactory,
 		FileTypeMapper $fileTypeMapper,
-		FunctionDumper $functionDumper
+		SignatureMapParser $signatureMapParser
 	)
 	{
 		$this->propertiesClassReflectionExtensions = $propertiesClassReflectionExtensions;
@@ -101,7 +107,7 @@ class Broker
 
 		$this->functionReflectionFactory = $functionReflectionFactory;
 		$this->fileTypeMapper = $fileTypeMapper;
-		$this->functionDumper = $functionDumper;
+		$this->signatureMapParser = $signatureMapParser;
 
 		self::$instance = $this;
 	}
@@ -252,16 +258,28 @@ class Broker
 
 		$lowerCasedFunctionName = strtolower($functionName);
 		if (!isset($this->functionReflections[$lowerCasedFunctionName])) {
-			$nativeFunctionFilename = $this->functionDumper->getFilename($functionName);
-			if (isset(self::$functionMap[$nativeFunctionFilename])) {
-				return $this->functionReflections[$lowerCasedFunctionName] = self::$functionMap[$nativeFunctionFilename];
+			if (isset(self::$functionMap[$lowerCasedFunctionName])) {
+				return $this->functionReflections[$lowerCasedFunctionName] = self::$functionMap[$lowerCasedFunctionName];
 			}
-			if (file_exists($nativeFunctionFilename)) {
-				$functionReflection = require_once $nativeFunctionFilename;
-				if (!$functionReflection instanceof \PHPStan\Reflection\Native\NativeFunctionReflection) {
-					throw new \PHPStan\ShouldNotHappenException(sprintf('File %s could not be loaded', $nativeFunctionFilename));
-				}
-				self::$functionMap[$nativeFunctionFilename] = $functionReflection;
+
+			$signatureMap = self::getSignatureMap();
+			if (array_key_exists($lowerCasedFunctionName, $signatureMap)) {
+				$functionSignature = $this->signatureMapParser->getFunctionSignature($signatureMap[$lowerCasedFunctionName]);
+				$functionReflection = new NativeFunctionReflection(
+					$lowerCasedFunctionName,
+					array_map(function (ParameterSignature $parameterSignature): NativeParameterReflection {
+						return new NativeParameterReflection(
+							$parameterSignature->getName(),
+							$parameterSignature->isOptional(),
+							$parameterSignature->getType(),
+							$parameterSignature->isPassedByReference(),
+							$parameterSignature->isVariadic()
+						);
+					}, $functionSignature->getParameters()),
+					$functionSignature->isVariadic(),
+					$functionSignature->getReturnType()
+				);
+				self::$functionMap[$lowerCasedFunctionName] = $functionReflection;
 				$this->functionReflections[$lowerCasedFunctionName] = $functionReflection;
 			} else {
 				$this->functionReflections[$lowerCasedFunctionName] = $this->getCustomFunction($nameNode, $scope);
@@ -269,6 +287,23 @@ class Broker
 		}
 
 		return $this->functionReflections[$lowerCasedFunctionName];
+	}
+
+	/**
+	 * @return mixed[]
+	 */
+	private static function getSignatureMap(): array
+	{
+		if (self::$signatureMap === null) {
+			$signatureMap = require __DIR__ . '/../Reflection/SignatureMap/functionMap.php';
+			if (!is_array($signatureMap)) {
+				throw new \PHPStan\ShouldNotHappenException('Signature map could not be loaded.');
+			}
+
+			self::$signatureMap = $signatureMap;
+		}
+
+		return self::$signatureMap;
 	}
 
 	public function hasFunction(\PhpParser\Node\Name $nameNode, ?Scope $scope): bool
@@ -283,8 +318,10 @@ class Broker
 			return false;
 		}
 
-		$nativeFunctionFilename = $this->functionDumper->getFilename($functionName);
-		return !file_exists($nativeFunctionFilename);
+		$signatureMap = self::getSignatureMap();
+		$lowerCasedFunctionName = strtolower($functionName);
+
+		return !array_key_exists($lowerCasedFunctionName, $signatureMap);
 	}
 
 	public function getCustomFunction(\PhpParser\Node\Name $nameNode, ?Scope $scope): \PHPStan\Reflection\Php\PhpFunctionReflection

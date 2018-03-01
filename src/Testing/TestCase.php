@@ -22,7 +22,7 @@ use PHPStan\Reflection\Php\PhpMethodReflection;
 use PHPStan\Reflection\Php\PhpMethodReflectionFactory;
 use PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension;
 use PHPStan\Reflection\PhpDefect\PhpDefectClassReflectionExtension;
-use PHPStan\Reflection\SignatureMap\FunctionDumper;
+use PHPStan\Reflection\SignatureMap\SignatureMapParser;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Type;
 
@@ -171,7 +171,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			$tagToService($this->getContainer()->findByTag(BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG)),
 			$functionReflectionFactory,
 			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $cache),
-			new FunctionDumper()
+			$this->getContainer()->getByType(SignatureMapParser::class)
 		);
 		$methodReflectionFactory->broker = $broker;
 

@@ -7,7 +7,7 @@ use PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension
 use PHPStan\Reflection\FunctionReflectionFactory;
 use PHPStan\Reflection\Php\PhpClassReflectionExtension;
 use PHPStan\Reflection\PhpDefect\PhpDefectClassReflectionExtension;
-use PHPStan\Reflection\SignatureMap\FunctionDumper;
+use PHPStan\Reflection\SignatureMap\SignatureMapParser;
 use PHPStan\Type\FileTypeMapper;
 
 class BrokerFactory
@@ -48,7 +48,7 @@ class BrokerFactory
 			$tagToService($this->container->findByTag(self::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG)),
 			$this->container->getByType(FunctionReflectionFactory::class),
 			$this->container->getByType(FileTypeMapper::class),
-			$this->container->getByType(FunctionDumper::class)
+			$this->container->getByType(SignatureMapParser::class)
 		);
 	}
 

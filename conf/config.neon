@@ -147,9 +147,6 @@ services:
 			classes: %universalObjectCratesClasses%
 
 	-
-		class: PHPStan\Reflection\SignatureMap\FunctionDumper
-
-	-
 		class: PHPStan\Reflection\SignatureMap\SignatureMapParser
 
 	-

@@ -22,4 +22,3 @@ before_script:
 
 script:
   - vendor/bin/phing
-  - vendor/bin/phing generate-signatures

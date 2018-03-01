@@ -26,37 +26,23 @@ class SignatureMapParser
 
 	/**
 	 * @param mixed[] $map
-	 * @return \PHPStan\Reflection\SignatureMap\FunctionSignature[]
+	 * @return \PHPStan\Reflection\SignatureMap\FunctionSignature
 	 */
-	public function getFunctions(array $map): array
+	public function getFunctionSignature(array $map): FunctionSignature
 	{
-		$signatures = [];
-
-		foreach ($map as $functionName => $functionMap) {
-			if (strpos($functionName, '::') !== false) {
-				// do not extract methods yet
-				continue;
+		$parameterSignatures = $this->getParameters(array_slice($map, 1));
+		$hasVariadic = false;
+		foreach ($parameterSignatures as $parameterSignature) {
+			if ($parameterSignature->isVariadic()) {
+				$hasVariadic = true;
+				break;
 			}
-			if (\Nette\Utils\Strings::match($functionName, "#\\'\d+$#") !== null) {
-				// skip alternative signatures
-				continue;
-			}
-			$parameterSignatures = $this->getParameters(array_slice($functionMap, 1));
-			$hasVariadic = false;
-			foreach ($parameterSignatures as $parameterSignature) {
-				if ($parameterSignature->isVariadic()) {
-					$hasVariadic = true;
-					break;
-				}
-			}
-			$signatures[$functionName] = new FunctionSignature(
-				$parameterSignatures,
-				$this->getTypeFromString($functionMap[0]),
-				$hasVariadic
-			);
 		}
-
-		return $signatures;
+		return new FunctionSignature(
+			$parameterSignatures,
+			$this->getTypeFromString($map[0]),
+			$hasVariadic
+		);
 	}
 
 	private function getTypeFromString(string $typeString): Type
