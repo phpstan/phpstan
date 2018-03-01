@@ -268,3 +268,6 @@ services:
 
 	errorFormatter.checkstyle:
 		class: PHPStan\Command\ErrorFormatter\CheckstyleErrorFormatter
+
+	errorFormatter.json:
+		class: PHPStan\Command\ErrorFormatter\JsonErrorFormatter
