@@ -5,9 +5,6 @@ namespace PHPStan\Command;
 use PHPStan\Analyser\Error;
 use PHPStan\Testing\TestCase;
 
-/**
- * @covers \PHPStan\Command\AnalysisResult
- */
 final class AnalysisResultTest extends TestCase
 {
 
