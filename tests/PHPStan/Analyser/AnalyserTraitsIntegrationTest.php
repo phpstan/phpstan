@@ -109,6 +109,12 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(18, $errors[0]->getLine());
 	}
 
+	public function testDuplicateMethodDefinition(): void
+	{
+		$errors = $this->runAnalyse([__DIR__ . '/traits/duplicateMethod/Lesson.php']);
+		$this->assertCount(0, $errors);
+	}
+
 	/**
 	 * @param string[] $files
 	 * @return \PHPStan\Analyser\Error[]

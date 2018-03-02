@@ -113,6 +113,15 @@ class ClassReflection
 				$this->getName() => $distance,
 			];
 			$currentClassReflection = $this->getNativeReflection();
+			foreach ($this->getNativeReflection()->getTraits() as $trait) {
+				$distance++;
+				if (array_key_exists($trait->getName(), $distances)) {
+					continue;
+				}
+
+				$distances[$trait->getName()] = $distance;
+			}
+
 			while ($currentClassReflection->getParentClass() !== false) {
 				$distance++;
 				$parentClassName = $currentClassReflection->getParentClass()->getName();
@@ -120,6 +129,14 @@ class ClassReflection
 					$distances[$parentClassName] = $distance;
 				}
 				$currentClassReflection = $currentClassReflection->getParentClass();
+				foreach ($currentClassReflection->getTraits() as $trait) {
+					$distance++;
+					if (array_key_exists($trait->getName(), $distances)) {
+						continue;
+					}
+
+					$distances[$trait->getName()] = $distance;
+				}
 			}
 			foreach ($this->getNativeReflection()->getInterfaces() as $interface) {
 				$distance++;
