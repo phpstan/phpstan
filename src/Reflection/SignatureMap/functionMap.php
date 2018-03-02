@@ -9165,7 +9165,7 @@ return [
 'stripslashes' => ['string', 'str'=>'string'],
 'strip_tags' => ['string', 'str'=>'string', 'allowable_tags='=>'string'],
 'str_ireplace' => ['', 'search'=>'', 'replace'=>'', 'subject'=>'', '&w_replace_count='=>'int'],
-'stristr' => ['string', 'haystack'=>'string', 'needle'=>'string', 'part='=>'bool'],
+'stristr' => ['string|false', 'haystack'=>'string', 'needle'=>'string', 'part='=>'bool'],
 'strlen' => ['int', 'string'=>'string'],
 'strnatcasecmp' => ['int', 's1'=>'string', 's2'=>'string'],
 'strnatcmp' => ['int', 's1'=>'string', 's2'=>'string'],
