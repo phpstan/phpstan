@@ -150,6 +150,9 @@ services:
 		class: PHPStan\Reflection\SignatureMap\SignatureMapParser
 
 	-
+		class: PHPStan\Reflection\SignatureMap\SignatureMapProvider
+
+	-
 		class: PHPStan\Rules\ClassCaseSensitivityCheck
 
 	-

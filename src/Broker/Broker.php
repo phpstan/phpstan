@@ -10,7 +10,7 @@ use PHPStan\Reflection\FunctionReflectionFactory;
 use PHPStan\Reflection\Native\NativeFunctionReflection;
 use PHPStan\Reflection\Native\NativeParameterReflection;
 use PHPStan\Reflection\SignatureMap\ParameterSignature;
-use PHPStan\Reflection\SignatureMap\SignatureMapParser;
+use PHPStan\Reflection\SignatureMap\SignatureMapProvider;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Type;
 use ReflectionClass;
@@ -48,8 +48,8 @@ class Broker
 	/** @var \PHPStan\Type\FileTypeMapper */
 	private $fileTypeMapper;
 
-	/** @var \PHPStan\Reflection\SignatureMap\SignatureMapParser */
-	private $signatureMapParser;
+	/** @var \PHPStan\Reflection\SignatureMap\SignatureMapProvider */
+	private $signatureMapProvider;
 
 	/** @var \PHPStan\Reflection\FunctionReflection[] */
 	private $functionReflections = [];
@@ -63,9 +63,6 @@ class Broker
 	/** @var bool[] */
 	private $hasClassCache;
 
-	/** @var mixed[]|null */
-	private static $signatureMap;
-
 	/** @var NativeFunctionReflection[] */
 	private static $functionMap = [];
 
@@ -77,7 +74,7 @@ class Broker
 	 * @param \PHPStan\Type\DynamicFunctionReturnTypeExtension[] $dynamicFunctionReturnTypeExtensions
 	 * @param \PHPStan\Reflection\FunctionReflectionFactory $functionReflectionFactory
 	 * @param \PHPStan\Type\FileTypeMapper $fileTypeMapper
-	 * @param \PHPStan\Reflection\SignatureMap\SignatureMapParser $signatureMapParser
+	 * @param \PHPStan\Reflection\SignatureMap\SignatureMapProvider $signatureMapProvider
 	 */
 	public function __construct(
 		array $propertiesClassReflectionExtensions,
@@ -87,7 +84,7 @@ class Broker
 		array $dynamicFunctionReturnTypeExtensions,
 		FunctionReflectionFactory $functionReflectionFactory,
 		FileTypeMapper $fileTypeMapper,
-		SignatureMapParser $signatureMapParser
+		SignatureMapProvider $signatureMapProvider
 	)
 	{
 		$this->propertiesClassReflectionExtensions = $propertiesClassReflectionExtensions;
@@ -107,7 +104,7 @@ class Broker
 
 		$this->functionReflectionFactory = $functionReflectionFactory;
 		$this->fileTypeMapper = $fileTypeMapper;
-		$this->signatureMapParser = $signatureMapParser;
+		$this->signatureMapProvider = $signatureMapProvider;
 
 		self::$instance = $this;
 	}
@@ -262,9 +259,8 @@ class Broker
 				return $this->functionReflections[$lowerCasedFunctionName] = self::$functionMap[$lowerCasedFunctionName];
 			}
 
-			$signatureMap = self::getSignatureMap();
-			if (array_key_exists($lowerCasedFunctionName, $signatureMap)) {
-				$functionSignature = $this->signatureMapParser->getFunctionSignature($signatureMap[$lowerCasedFunctionName]);
+			if ($this->signatureMapProvider->hasFunctionSignature($lowerCasedFunctionName)) {
+				$functionSignature = $this->signatureMapProvider->getFunctionSignature($lowerCasedFunctionName);
 				$functionReflection = new NativeFunctionReflection(
 					$lowerCasedFunctionName,
 					array_map(function (ParameterSignature $parameterSignature): NativeParameterReflection {
@@ -289,23 +285,6 @@ class Broker
 		return $this->functionReflections[$lowerCasedFunctionName];
 	}
 
-	/**
-	 * @return mixed[]
-	 */
-	private static function getSignatureMap(): array
-	{
-		if (self::$signatureMap === null) {
-			$signatureMap = require __DIR__ . '/../Reflection/SignatureMap/functionMap.php';
-			if (!is_array($signatureMap)) {
-				throw new \PHPStan\ShouldNotHappenException('Signature map could not be loaded.');
-			}
-
-			self::$signatureMap = $signatureMap;
-		}
-
-		return self::$signatureMap;
-	}
-
 	public function hasFunction(\PhpParser\Node\Name $nameNode, ?Scope $scope): bool
 	{
 		return $this->resolveFunctionName($nameNode, $scope) !== null;
@@ -318,10 +297,9 @@ class Broker
 			return false;
 		}
 
-		$signatureMap = self::getSignatureMap();
 		$lowerCasedFunctionName = strtolower($functionName);
 
-		return !array_key_exists($lowerCasedFunctionName, $signatureMap);
+		return !$this->signatureMapProvider->hasFunctionSignature($lowerCasedFunctionName);
 	}
 
 	public function getCustomFunction(\PhpParser\Node\Name $nameNode, ?Scope $scope): \PHPStan\Reflection\Php\PhpFunctionReflection
