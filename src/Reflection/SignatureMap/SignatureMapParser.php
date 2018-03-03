@@ -2,9 +2,7 @@
 
 namespace PHPStan\Reflection\SignatureMap;
 
-use PHPStan\Analyser\NameScope;
-use PHPStan\PhpDoc\TypeNodeResolver;
-use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
+use PHPStan\PhpDoc\TypeStringResolver;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
@@ -13,15 +11,15 @@ class SignatureMapParser
 {
 
 	/**
-	 * @var \PHPStan\PhpDoc\TypeNodeResolver
+	 * @var \PHPStan\PhpDoc\TypeStringResolver
 	 */
-	private $typeNodeResolver;
+	private $typeStringResolver;
 
 	public function __construct(
-		TypeNodeResolver $typeNodeResolver
+		TypeStringResolver $typeNodeResolver
 	)
 	{
-		$this->typeNodeResolver = $typeNodeResolver;
+		$this->typeStringResolver = $typeNodeResolver;
 	}
 
 	/**
@@ -59,7 +57,7 @@ class SignatureMapParser
 				$part = substr($part, 1);
 			}
 
-			$type = $this->typeNodeResolver->resolve(new IdentifierTypeNode($part), new NameScope());
+			$type = $this->typeStringResolver->resolve($part);
 			if ($isNullable) {
 				$type = TypeCombinator::addNull($type);
 			}

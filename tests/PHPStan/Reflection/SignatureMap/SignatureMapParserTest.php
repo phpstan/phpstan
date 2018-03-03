@@ -260,6 +260,14 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 					true
 				),
 			],
+			[
+				['array<int,ReflectionParameter>'],
+				new FunctionSignature(
+					[],
+					new ArrayType(new IntegerType(), new ObjectType(\ReflectionParameter::class)),
+					false
+				),
+			],
 		];
 	}
 

@@ -4216,11 +4216,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$sureFalse',
 			],
 			[
-				'array<int,string>|false',
+				'array<int, string>|false',
 				'$arrayOrFalse',
 			],
 			[
-				'array<int,string>|false',
+				'array<int, string>|false',
 				'$anotherArrayOrFalse',
 			],
 		];
