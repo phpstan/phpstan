@@ -120,6 +120,14 @@ class InstantiationRuleTest extends \PHPStan\Testing\RuleTestCase
 					'Cannot instantiate class TestInstantiation\ExtendsPrivateConstructorClass via private constructor TestInstantiation\PrivateConstructorClass::__construct().',
 					110,
 				],
+				[
+					'Parameter #1 $message of class Exception constructor expects string, int(123) given.',
+					114,
+				],
+				[
+					'Parameter #2 $code of class Exception constructor expects int, string given.',
+					114,
+				],
 			]
 		);
 	}

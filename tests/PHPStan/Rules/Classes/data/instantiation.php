@@ -109,3 +109,7 @@ function () {
 	new ClassExtendsProtectedConstructorClass(1);
 	new ExtendsPrivateConstructorClass(1);
 };
+
+function () {
+	new \Exception(123, 'code');
+};

@@ -10,6 +10,7 @@ use PhpParser\Node\Stmt\Function_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
+use PHPStan\Reflection\Php\PhpMethodReflection;
 use PHPStan\Type\NonexistentParentClassType;
 
 class FunctionDefinitionCheck
@@ -77,8 +78,12 @@ class FunctionDefinitionCheck
 	): array
 	{
 		if ($function instanceof ClassMethod) {
+			$nativeMethod = $scope->getClassReflection()->getNativeMethod($function->name);
+			if (!$nativeMethod instanceof PhpMethodReflection) {
+				return [];
+			}
 			return $this->checkParametersAcceptor(
-				$scope->getClassReflection()->getNativeMethod($function->name),
+				$nativeMethod,
 				$parameterMessage,
 				$returnMessage
 			);

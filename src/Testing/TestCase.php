@@ -113,7 +113,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		$phpDocStringResolver = $this->getContainer()->getByType(PhpDocStringResolver::class);
 		$fileTypeMapper = new FileTypeMapper($parser, $phpDocStringResolver, $cache);
 		$annotationsPropertiesClassReflectionExtension = new AnnotationsPropertiesClassReflectionExtension($fileTypeMapper);
-		$phpExtension = new PhpClassReflectionExtension($methodReflectionFactory, $fileTypeMapper, new AnnotationsMethodsClassReflectionExtension($fileTypeMapper), $annotationsPropertiesClassReflectionExtension);
+		$signatureMapProvider = $this->getContainer()->getByType(SignatureMapProvider::class);
+		$phpExtension = new PhpClassReflectionExtension($methodReflectionFactory, $fileTypeMapper, new AnnotationsMethodsClassReflectionExtension($fileTypeMapper), $annotationsPropertiesClassReflectionExtension, $signatureMapProvider);
 		$functionReflectionFactory = new class($this->getParser(), $functionCallStatementFinder, $cache) implements FunctionReflectionFactory {
 			/** @var \PHPStan\Parser\Parser */
 			private $parser;
@@ -171,7 +172,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			$tagToService($this->getContainer()->findByTag(BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG)),
 			$functionReflectionFactory,
 			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $cache),
-			$this->getContainer()->getByType(SignatureMapProvider::class)
+			$signatureMapProvider
 		);
 		$methodReflectionFactory->broker = $broker;
 

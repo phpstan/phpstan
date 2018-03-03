@@ -11,8 +11,12 @@ use PHPStan\Reflection\BrokerAwareExtension;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\MethodsClassReflectionExtension;
+use PHPStan\Reflection\Native\NativeMethodReflection;
+use PHPStan\Reflection\Native\NativeParameterReflection;
 use PHPStan\Reflection\PropertiesClassReflectionExtension;
 use PHPStan\Reflection\PropertyReflection;
+use PHPStan\Reflection\SignatureMap\ParameterSignature;
+use PHPStan\Reflection\SignatureMap\SignatureMapProvider;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
@@ -33,6 +37,9 @@ class PhpClassReflectionExtension
 	/** @var \PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension */
 	private $annotationsPropertiesClassReflectionExtension;
 
+	/** @var \PHPStan\Reflection\SignatureMap\SignatureMapProvider */
+	private $signatureMapProvider;
+
 	/** @var \PHPStan\Broker\Broker */
 	private $broker;
 
@@ -45,20 +52,22 @@ class PhpClassReflectionExtension
 	/** @var \PHPStan\Reflection\MethodReflection[][] */
 	private $methodsIncludingAnnotations = [];
 
-	/** @var \PHPStan\Reflection\Php\PhpMethodReflection[][] */
+	/** @var \PHPStan\Reflection\MethodReflection[][] */
 	private $nativeMethods = [];
 
 	public function __construct(
 		PhpMethodReflectionFactory $methodReflectionFactory,
 		FileTypeMapper $fileTypeMapper,
 		AnnotationsMethodsClassReflectionExtension $annotationsMethodsClassReflectionExtension,
-		AnnotationsPropertiesClassReflectionExtension $annotationsPropertiesClassReflectionExtension
+		AnnotationsPropertiesClassReflectionExtension $annotationsPropertiesClassReflectionExtension,
+		SignatureMapProvider $signatureMapProvider
 	)
 	{
 		$this->methodReflectionFactory = $methodReflectionFactory;
 		$this->fileTypeMapper = $fileTypeMapper;
 		$this->annotationsMethodsClassReflectionExtension = $annotationsMethodsClassReflectionExtension;
 		$this->annotationsPropertiesClassReflectionExtension = $annotationsPropertiesClassReflectionExtension;
+		$this->signatureMapProvider = $signatureMapProvider;
 	}
 
 	public function setBroker(Broker $broker): void
@@ -163,7 +172,6 @@ class PhpClassReflectionExtension
 
 		$nativeMethodReflection = $classReflection->getNativeReflection()->getMethod($methodName);
 		if (!isset($this->methodsIncludingAnnotations[$classReflection->getName()][$nativeMethodReflection->getName()])) {
-			/** @var \PHPStan\Reflection\Php\PhpMethodReflection $method */
 			$method = $this->createMethod($classReflection, $nativeMethodReflection, true);
 			$this->methodsIncludingAnnotations[$classReflection->getName()][$nativeMethodReflection->getName()] = $method;
 			if ($nativeMethodReflection->getName() !== $methodName) {
@@ -174,7 +182,7 @@ class PhpClassReflectionExtension
 		return $this->methodsIncludingAnnotations[$classReflection->getName()][$nativeMethodReflection->getName()];
 	}
 
-	public function getNativeMethod(ClassReflection $classReflection, string $methodName): PhpMethodReflection
+	public function getNativeMethod(ClassReflection $classReflection, string $methodName): MethodReflection
 	{
 		if (isset($this->nativeMethods[$classReflection->getName()][$methodName])) {
 			return $this->nativeMethods[$classReflection->getName()][$methodName];
@@ -182,7 +190,6 @@ class PhpClassReflectionExtension
 
 		$nativeMethodReflection = $classReflection->getNativeReflection()->getMethod($methodName);
 		if (!isset($this->nativeMethods[$classReflection->getName()][$nativeMethodReflection->getName()])) {
-			/** @var \PHPStan\Reflection\Php\PhpMethodReflection $method */
 			$method = $this->createMethod($classReflection, $nativeMethodReflection, false);
 			$this->nativeMethods[$classReflection->getName()][$nativeMethodReflection->getName()] = $method;
 		}
@@ -210,7 +217,27 @@ class PhpClassReflectionExtension
 				return $annotationMethod;
 			}
 		}
-		$declaringClass = $this->broker->getClass($methodReflection->getDeclaringClass()->getName());
+		$declaringClassName = $methodReflection->getDeclaringClass()->getName();
+		$signatureMapMethodName = sprintf('%s::%s', $declaringClassName, $methodReflection->getName());
+		$declaringClass = $this->broker->getClass($declaringClassName);
+		if ($this->signatureMapProvider->hasFunctionSignature($signatureMapMethodName)) {
+			$methodSignature = $this->signatureMapProvider->getFunctionSignature($signatureMapMethodName);
+			return new NativeMethodReflection(
+				$declaringClass,
+				$methodReflection,
+				$methodSignature->isVariadic(),
+				array_map(function (ParameterSignature $parameterSignature): NativeParameterReflection {
+					return new NativeParameterReflection(
+						$parameterSignature->getName(),
+						$parameterSignature->isOptional(),
+						$parameterSignature->getType(),
+						$parameterSignature->isPassedByReference(),
+						$parameterSignature->isVariadic()
+					);
+				}, $methodSignature->getParameters()),
+				$methodSignature->getReturnType()
+			);
+		}
 
 		$phpDocParameterTypes = [];
 		$phpDocReturnType = null;

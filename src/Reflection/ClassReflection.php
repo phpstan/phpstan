@@ -5,7 +5,6 @@ namespace PHPStan\Reflection;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\Php\PhpClassReflectionExtension;
-use PHPStan\Reflection\Php\PhpMethodReflection;
 use PHPStan\Reflection\Php\PhpPropertyReflection;
 
 class ClassReflection
@@ -205,7 +204,7 @@ class ClassReflection
 		return $this->getPhpExtension()->hasMethod($this, $methodName);
 	}
 
-	public function getNativeMethod(string $methodName): PhpMethodReflection
+	public function getNativeMethod(string $methodName): MethodReflection
 	{
 		if (!$this->hasNativeMethod($methodName)) {
 			throw new \PHPStan\Reflection\MissingMethodFromReflectionException($this->getName(), $methodName);
