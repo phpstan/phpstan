@@ -2,12 +2,18 @@
 
 namespace PHPStan\Reflection\Native;
 
+use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\MethodPrototypeReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\Type;
 
 class NativeMethodReflection implements MethodReflection
 {
+
+	/** @var \PHPStan\Broker\Broker */
+	private $broker;
 
 	/** @var \PHPStan\Reflection\ClassReflection */
 	private $declaringClass;
@@ -25,6 +31,7 @@ class NativeMethodReflection implements MethodReflection
 	private $returnType;
 
 	/**
+	 * @param \PHPStan\Broker\Broker $broker
 	 * @param \PHPStan\Reflection\ClassReflection $declaringClass
 	 * @param \ReflectionMethod $reflection
 	 * @param bool $isVariadic
@@ -32,6 +39,7 @@ class NativeMethodReflection implements MethodReflection
 	 * @param \PHPStan\Type\Type $returnType
 	 */
 	public function __construct(
+		Broker $broker,
 		ClassReflection $declaringClass,
 		\ReflectionMethod $reflection,
 		bool $isVariadic,
@@ -39,6 +47,7 @@ class NativeMethodReflection implements MethodReflection
 		Type $returnType
 	)
 	{
+		$this->broker = $broker;
 		$this->declaringClass = $declaringClass;
 		$this->reflection = $reflection;
 		$this->isVariadic = $isVariadic;
@@ -66,9 +75,21 @@ class NativeMethodReflection implements MethodReflection
 		return $this->reflection->isPublic();
 	}
 
-	public function getPrototype(): MethodReflection
+	public function getPrototype(): ClassMemberReflection
 	{
-		return $this;
+		try {
+			$prototypeMethod = $this->reflection->getPrototype();
+			$prototypeDeclaringClass = $this->broker->getClass($prototypeMethod->getDeclaringClass()->getName());
+
+			return new MethodPrototypeReflection(
+				$prototypeDeclaringClass,
+				$prototypeMethod->isStatic(),
+				$prototypeMethod->isPrivate(),
+				$prototypeMethod->isPublic()
+			);
+		} catch (\ReflectionException $e) {
+			return $this;
+		}
 	}
 
 	public function getName(): string

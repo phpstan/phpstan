@@ -7,7 +7,9 @@ use PHPStan\Broker\Broker;
 use PHPStan\Cache\Cache;
 use PHPStan\Parser\FunctionCallStatementFinder;
 use PHPStan\Parser\Parser;
+use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\MethodPrototypeReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
@@ -91,25 +93,17 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 		return $this->reflection->getDocComment();
 	}
 
-	public function getPrototype(): MethodReflection
+	public function getPrototype(): ClassMemberReflection
 	{
 		try {
-			$prototypeReflection = $this->reflection->getPrototype();
-			$prototypeDeclaringClass = $this->broker->getClassFromReflection(
-				$prototypeReflection->getDeclaringClass(),
-				$prototypeReflection->getDeclaringClass()->getName(),
-				$prototypeReflection->getDeclaringClass()->isAnonymous()
-			);
+			$prototypeMethod = $this->reflection->getPrototype();
+			$prototypeDeclaringClass = $this->broker->getClass($prototypeMethod->getDeclaringClass()->getName());
 
-			return new self(
+			return new MethodPrototypeReflection(
 				$prototypeDeclaringClass,
-				$prototypeReflection,
-				$this->broker,
-				$this->parser,
-				$this->functionCallStatementFinder,
-				$this->cache,
-				$this->phpDocParameterTypes,
-				$this->phpDocReturnType
+				$prototypeMethod->isStatic(),
+				$prototypeMethod->isPrivate(),
+				$prototypeMethod->isPublic()
 			);
 		} catch (\ReflectionException $e) {
 			return $this;

@@ -223,6 +223,7 @@ class PhpClassReflectionExtension
 		if ($this->signatureMapProvider->hasFunctionSignature($signatureMapMethodName)) {
 			$methodSignature = $this->signatureMapProvider->getFunctionSignature($signatureMapMethodName);
 			return new NativeMethodReflection(
+				$this->broker,
 				$declaringClass,
 				$methodReflection,
 				$methodSignature->isVariadic(),

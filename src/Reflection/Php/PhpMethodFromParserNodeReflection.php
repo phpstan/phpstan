@@ -3,6 +3,7 @@
 namespace PHPStan\Reflection\Php;
 
 use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\Type;
@@ -40,7 +41,7 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 		return $this->declaringClass;
 	}
 
-	public function getPrototype(): MethodReflection
+	public function getPrototype(): ClassMemberReflection
 	{
 		return $this->declaringClass->getNativeMethod($this->getClassMethod()->name)->getPrototype();
 	}
