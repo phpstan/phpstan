@@ -25,7 +25,6 @@ use PHPStan\Reflection\ClassConstantReflection;
 use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
-use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\Php\PhpFunctionFromParserNodeReflection;
 use PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection;
 use PHPStan\Reflection\PropertyReflection;
@@ -102,7 +101,7 @@ class Scope
 	private $classReflection;
 
 	/**
-	 * @var \PHPStan\Reflection\ParametersAcceptor|null
+	 * @var \PHPStan\Reflection\FunctionReflection|MethodReflection|null
 	 */
 	private $function;
 
@@ -159,7 +158,7 @@ class Scope
 	 * @param string|null $analysedContextFile
 	 * @param bool $declareStrictTypes
 	 * @param \PHPStan\Reflection\ClassReflection|null $classReflection
-	 * @param \PHPStan\Reflection\ParametersAcceptor|null $function
+	 * @param \PHPStan\Reflection\FunctionReflection|MethodReflection|null $function
 	 * @param string|null $namespace
 	 * @param \PHPStan\Analyser\VariableTypeHolder[] $variablesTypes
 	 * @param \PHPStan\Type\Type[] $moreSpecificTypes
@@ -178,7 +177,7 @@ class Scope
 		?string $analysedContextFile = null,
 		bool $declareStrictTypes = false,
 		?ClassReflection $classReflection = null,
-		?\PHPStan\Reflection\ParametersAcceptor $function = null,
+		$function = null,
 		?string $namespace = null,
 		array $variablesTypes = [],
 		array $moreSpecificTypes = [],
@@ -252,7 +251,10 @@ class Scope
 		return $classReflection;
 	}
 
-	public function getFunction(): ?\PHPStan\Reflection\ParametersAcceptor
+	/**
+	 * @return null|\PHPStan\Reflection\FunctionReflection|\PHPStan\Reflection\MethodReflection
+	 */
+	public function getFunction()
 	{
 		return $this->function;
 	}
@@ -995,7 +997,11 @@ class Scope
 		);
 	}
 
-	private function enterFunctionLike(ParametersAcceptor $functionReflection): self
+	/**
+	 * @param \PHPStan\Reflection\FunctionReflection|\PHPStan\Reflection\MethodReflection $functionReflection
+	 * @return self
+	 */
+	private function enterFunctionLike($functionReflection): self
 	{
 		$variableTypes = $this->getVariableTypes();
 		foreach ($functionReflection->getParameters() as $parameter) {

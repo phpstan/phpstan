@@ -8,7 +8,7 @@ use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypehintHelper;
 
-class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\ParametersAcceptor
+class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\FunctionReflection
 {
 
 	/** @var \PhpParser\Node\FunctionLike */

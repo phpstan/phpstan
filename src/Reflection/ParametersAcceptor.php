@@ -13,8 +13,6 @@ interface ParametersAcceptor
 		'func_num_args',
 	];
 
-	public function getName(): string;
-
 	/**
 	 * @return \PHPStan\Reflection\ParameterReflection[]
 	 */
