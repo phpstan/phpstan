@@ -661,3 +661,20 @@ class CheckIsCallable
 	}
 
 }
+
+class MissingTypeCall
+{
+	/**
+	 * @return object|string|MissingTypeCall
+	 */
+	public function foo()
+	{
+
+	}
+
+	public function test()
+	{
+		$this->foo()->foo();
+	}
+
+}

@@ -267,6 +267,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Parameter #1 $str of method Test\CheckIsCallable::test() expects callable, string given.',
 				660,
 			],
+			[
+				'Cannot call method foo() on object|string|MissingTypeCall.',
+				677,
+			],
 		]);
 	}
 
