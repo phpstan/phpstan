@@ -55,22 +55,23 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 		}
 
 		$class = (string) $node->class;
+		$lowercasedClass = strtolower($class);
 		$messages = [];
-		if ($class === 'static') {
+		if ($lowercasedClass === 'static') {
 			if (!$scope->isInClass()) {
 				return [
 					sprintf('Using %s outside of class scope.', $class),
 				];
 			}
 			return [];
-		} elseif ($class === 'self') {
+		} elseif ($lowercasedClass === 'self') {
 			if (!$scope->isInClass()) {
 				return [
 					sprintf('Using %s outside of class scope.', $class),
 				];
 			}
 			$classReflection = $scope->getClassReflection();
-		} elseif ($class === 'parent') {
+		} elseif ($lowercasedClass === 'parent') {
 			if (!$scope->isInClass()) {
 				return [
 					sprintf('Using %s outside of class scope.', $class),

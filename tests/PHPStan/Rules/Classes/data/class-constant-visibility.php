@@ -58,6 +58,7 @@ class Bar extends Foo
 		$bar::PRIVATE_BAR;
 		$bar::PUBLIC_CONST_FOO;
 		$bar::PRIVATE_FOO;
+		Self::PUBLIC_CONST_BAR;
 	}
 
 }

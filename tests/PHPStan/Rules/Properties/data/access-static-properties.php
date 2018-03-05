@@ -137,6 +137,8 @@ class ClassOrString
 		$class = doFoo();
 		$class::$accessedProperty;
 		$class::$unknownProperty;
+
+		Self::$accessedProperty;
 	}
 
 }

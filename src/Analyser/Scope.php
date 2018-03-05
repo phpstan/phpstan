@@ -613,11 +613,12 @@ class Scope
 				if (
 					count($node->class->parts) === 1
 				) {
-					if ($node->class->parts[0] === 'static') {
+					$lowercasedClassName = strtolower($node->class->parts[0]);
+					if ($lowercasedClassName === 'static') {
 						return new StaticType($this->getClassReflection()->getName());
-					} elseif ($node->class->parts[0] === 'self') {
+					} elseif ($lowercasedClassName === 'self') {
 						return new ObjectType($this->getClassReflection()->getName());
-					} elseif ($node->class->parts[0] === 'parent') {
+					} elseif ($lowercasedClassName === 'parent') {
 						if ($this->getClassReflection()->getParentClass() !== false) {
 							return new ObjectType($this->getClassReflection()->getParentClass()->getName());
 						}
@@ -1183,10 +1184,11 @@ class Scope
 			return new ArrayType(new MixedType(), new MixedType());
 		} elseif ($type instanceof Name) {
 			$className = (string) $type;
-			if ($className === 'self' || $className === 'static') {
+			$lowercasedClassName = strtolower($className);
+			if (in_array($lowercasedClassName, ['self', 'static'], true)) {
 				$className = $this->getClassReflection()->getName();
 			} elseif (
-				$className === 'parent'
+				$lowercasedClassName === 'parent'
 			) {
 				if ($this->isInClass() && $this->getClassReflection()->getParentClass() !== false) {
 					return new ObjectType($this->getClassReflection()->getParentClass()->getName());

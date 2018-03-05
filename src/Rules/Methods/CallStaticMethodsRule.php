@@ -74,7 +74,8 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 		$errors = [];
 		if ($class instanceof Name) {
 			$className = (string) $class;
-			if ($className === 'self' || $className === 'static') {
+			$lowercasedClassName = strtolower($className);
+			if (in_array($lowercasedClassName, ['self', 'static'], true)) {
 				if (!$scope->isInClass()) {
 					return [
 						sprintf(
@@ -85,7 +86,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 					];
 				}
 				$className = $scope->getClassReflection()->getName();
-			} elseif ($className === 'parent') {
+			} elseif ($lowercasedClassName === 'parent') {
 				if (!$scope->isInClass()) {
 					return [
 						sprintf(

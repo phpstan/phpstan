@@ -104,35 +104,35 @@ class ClassConstantRuleTest extends \PHPStan\Testing\RuleTestCase
 			],
 			[
 				'Access to protected constant PROTECTED_FOO of class ClassConstantVisibility\Foo.',
-				70,
+				71,
 			],
 			[
 				'Access to undefined constant ClassConstantVisibility\WithFooAndBarConstant&ClassConstantVisibility\WithFooConstant::BAZ.',
-				105,
+				106,
 			],
 			[
 				'Access to undefined constant ClassConstantVisibility\WithFooAndBarConstant|ClassConstantVisibility\WithFooConstant::BAR.',
-				109,
+				110,
 			],
 			[
 				'Access to constant FOO on an unknown class ClassConstantVisibility\UnknownClassFirst.',
-				111,
+				112,
 			],
 			[
 				'Access to constant FOO on an unknown class ClassConstantVisibility\UnknownClassSecond.',
-				111,
+				112,
 			],
 			[
 				'Cannot access constant FOO on int|string.',
-				115,
+				116,
 			],
 			[
 				'Class ClassConstantVisibility\Foo referenced with incorrect case: ClassConstantVisibility\FOO.',
-				121,
+				122,
 			],
 			[
 				'Access to private constant PRIVATE_FOO of class ClassConstantVisibility\Foo.',
-				121,
+				122,
 			],
 		]);
 	}

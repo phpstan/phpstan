@@ -63,7 +63,8 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 		$messages = [];
 		if ($node->class instanceof Name) {
 			$class = (string) $node->class;
-			if ($class === 'self' || $class === 'static') {
+			$lowercasedClass = strtolower($class);
+			if (in_array($lowercasedClass, ['self', 'static'], true)) {
 				if (!$scope->isInClass()) {
 					return [
 						sprintf(
@@ -74,7 +75,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 					];
 				}
 				$className = $scope->getClassReflection()->getName();
-			} elseif ($class === 'parent') {
+			} elseif ($lowercasedClass === 'parent') {
 				if (!$scope->isInClass()) {
 					return [
 						sprintf(

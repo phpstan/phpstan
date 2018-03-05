@@ -112,7 +112,8 @@ class FunctionDefinitionCheck
 			$class = $param->type instanceof NullableType
 				? (string) $param->type->type
 				: (string) $param->type;
-			if ($class === '' || in_array($class, self::VALID_TYPEHINTS, true)) {
+			$lowercasedClass = strtolower($class);
+			if ($lowercasedClass === '' || in_array($lowercasedClass, self::VALID_TYPEHINTS, true)) {
 				continue;
 			}
 
@@ -130,9 +131,11 @@ class FunctionDefinitionCheck
 			? (string) $function->getReturnType()->type
 			: (string) $function->getReturnType();
 
+		$lowercasedReturnType = strtolower($returnType);
+
 		if (
-			$returnType !== ''
-			&& !in_array($returnType, self::VALID_TYPEHINTS, true)
+			$lowercasedReturnType !== ''
+			&& !in_array($lowercasedReturnType, self::VALID_TYPEHINTS, true)
 		) {
 			if (!$this->broker->hasClass($returnType)) {
 				$errors[] = sprintf($returnMessage, $returnType);

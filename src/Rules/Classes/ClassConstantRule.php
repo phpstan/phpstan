@@ -63,7 +63,8 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 		$messages = [];
 		if ($class instanceof \PhpParser\Node\Name) {
 			$className = (string) $class;
-			if ($className === 'self' || $className === 'static') {
+			$lowercasedClassName = strtolower($className);
+			if (in_array($lowercasedClassName, ['self', 'static'], true)) {
 				if (!$scope->isInClass()) {
 					return [
 						sprintf('Using %s outside of class scope.', $className),
@@ -71,7 +72,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 				}
 
 				$className = $scope->getClassReflection()->getName();
-			} elseif ($className === 'parent') {
+			} elseif ($lowercasedClassName === 'parent') {
 				if (!$scope->isInClass()) {
 					return [
 						sprintf('Using %s outside of class scope.', $className),

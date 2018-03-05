@@ -171,6 +171,7 @@ class ClassOrString
 		$class = doFoo();
 		$class::calledMethod();
 		$class::calledMethod(1);
+		Self::calledMethod();
 	}
 
 	private static function calledMethod()
