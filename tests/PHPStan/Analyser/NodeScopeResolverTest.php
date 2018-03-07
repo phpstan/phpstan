@@ -760,12 +760,22 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		return [
 			[
 				$testScope,
-				'incrementInRoot',
+				'postIncrement',
 				'int(2)',
 			],
 			[
 				$testScope,
-				'decrementInRoot',
+				'postDecrement',
+				'int(4)',
+			],
+			[
+				$testScope,
+				'preIncrement',
+				'int(2)',
+			],
+			[
+				$testScope,
+				'preDecrement',
 				'int(4)',
 			],
 			[

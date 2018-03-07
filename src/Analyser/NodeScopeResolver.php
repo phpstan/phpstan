@@ -1084,7 +1084,12 @@ class NodeScopeResolver
 			$scope = $this->lookForAssigns($scope, $node->expr, $certainty);
 		} elseif ($node instanceof Expr\Include_) {
 			$scope = $this->lookForAssigns($scope, $node->expr, $certainty);
-		} elseif ($node instanceof Expr\PostInc || $node instanceof Expr\PostDec) {
+		} elseif (
+			$node instanceof Expr\PostInc
+			|| $node instanceof Expr\PostDec
+			|| $node instanceof Expr\PreInc
+			|| $node instanceof Expr\PreDec
+		) {
 			if (
 				$node->var instanceof Variable
 				&& is_string($node->var->name)
@@ -1094,7 +1099,10 @@ class NodeScopeResolver
 					$variableType = $scope->getVariableType($node->var->name);
 					if ($variableType instanceof ConstantScalarType) {
 						$variableValue = $variableType->getValue();
-						if ($node instanceof Expr\PostInc) {
+						if (
+							$node instanceof Expr\PostInc
+							|| $node instanceof Expr\PreInc
+						) {
 							$variableValue++;
 						} else {
 							$variableValue--;
@@ -1117,7 +1125,10 @@ class NodeScopeResolver
 					$valueType = $arrayType->getOffsetValueType($dimType);
 					if ($valueType instanceof ConstantScalarType) {
 						$offsetValue = $valueType->getValue();
-						if ($node instanceof Expr\PostInc) {
+						if (
+							$node instanceof Expr\PreInc
+							|| $node instanceof Expr\PostInc
+						) {
 							$offsetValue++;
 						} else {
 							$offsetValue--;
