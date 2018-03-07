@@ -5,10 +5,11 @@ namespace PHPStan\Command\ErrorFormatter;
 use PHPStan\Analyser\Error;
 use PHPStan\Command\AnalysisResult;
 use PHPStan\Command\ErrorsConsoleStyle;
+use PHPStan\Testing\TestCase;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\StreamOutput;
 
-class CheckstyleErrorFormatterTest extends \PHPStan\Testing\TestCase
+class CheckstyleErrorFormatterTest extends TestCase
 {
 
 	/**
@@ -23,6 +24,8 @@ class CheckstyleErrorFormatterTest extends \PHPStan\Testing\TestCase
 	 */
 	protected function setUp(): void
 	{
+		parent::setUp();
+
 		$this->formatter = new CheckstyleErrorFormatter();
 	}
 

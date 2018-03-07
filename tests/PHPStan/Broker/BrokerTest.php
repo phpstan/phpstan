@@ -18,6 +18,8 @@ class BrokerTest extends \PHPStan\Testing\TestCase
 
 	protected function setUp(): void
 	{
+		parent::setUp();
+
 		$phpDocStringResolver = $this->getContainer()->getByType(PhpDocStringResolver::class);
 
 		$this->broker = new Broker(

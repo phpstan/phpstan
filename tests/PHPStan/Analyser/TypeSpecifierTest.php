@@ -11,6 +11,7 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\String_;
+use PHPStan\Testing\TestCase;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\NullType;
@@ -18,7 +19,7 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\UnionType;
 
-class TypeSpecifierTest extends \PHPStan\Testing\TestCase
+class TypeSpecifierTest extends TestCase
 {
 
 	/** @var \PhpParser\PrettyPrinter\Standard() */
@@ -32,6 +33,8 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 
 	protected function setUp(): void
 	{
+		parent::setUp();
+
 		$broker = $this->createBroker();
 		$this->printer = new \PhpParser\PrettyPrinter\Standard();
 		$this->typeSpecifier = new TypeSpecifier($this->printer);

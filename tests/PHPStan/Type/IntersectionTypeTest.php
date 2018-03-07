@@ -2,18 +2,17 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Testing\TestCase;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
 
-class IntersectionTypeTest extends \PHPStan\Testing\TestCase
+class IntersectionTypeTest extends TestCase
 {
 
 	public function dataAccepts(): \Iterator
 	{
-		$this->createBroker();
-
 		$intersectionType = new IntersectionType([
 			new ObjectType('Collection'),
 			new IterableType(new MixedType(), new ObjectType('Item')),
@@ -105,8 +104,6 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 
 	public function dataIsSuperTypeOf(): \Iterator
 	{
-		$this->createBroker();
-
 		$intersectionTypeA = new IntersectionType([
 			new ObjectType('ArrayObject'),
 			new IterableType(new MixedType(), new ObjectType('Item')),
@@ -167,8 +164,6 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 
 	public function dataIsSubTypeOf(): \Iterator
 	{
-		$this->createBroker();
-
 		$intersectionTypeA = new IntersectionType([
 			new ObjectType('ArrayObject'),
 			new IterableType(new MixedType(), new ObjectType('Item')),
