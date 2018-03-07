@@ -33,10 +33,12 @@ $nullDecremented--;
 $incrementInIf = 1;
 $anotherIncrementInIf = 1;
 $valueOverwrittenInIf = 1;
+$anotherValueOverwrittenInIf = 10;
 if (doFoo()) {
 	$incrementInIf++;
 	$anotherIncrementInIf++;
 	$valueOverwrittenInIf = 2;
+	$anotherValueOverwrittenInIf /= 2;
 } elseif (doBar()) {
 	$incrementInIf++;
 	$incrementInIf++;
