@@ -30,4 +30,20 @@ $nullDecremented = null;
 $nullIncremented++;
 $nullDecremented--;
 
+$incrementInIf = 1;
+$anotherIncrementInIf = 1;
+$valueOverwrittenInIf = 1;
+if (doFoo()) {
+	$incrementInIf++;
+	$anotherIncrementInIf++;
+	$valueOverwrittenInIf = 2;
+} elseif (doBar()) {
+	$incrementInIf++;
+	$incrementInIf++;
+	$anotherIncrementInIf++;
+	$anotherIncrementInIf++;
+} else {
+	$anotherIncrementInIf++;
+}
+
 die;

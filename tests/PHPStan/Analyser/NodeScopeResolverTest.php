@@ -793,6 +793,21 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'nullDecremented',
 				'null',
 			],
+			[
+				$testScope,
+				'incrementInIf',
+				'int(1)|int(2)|int(3)',
+			],
+			[
+				$testScope,
+				'anotherIncrementInIf',
+				'int(2)|int(3)',
+			],
+			[
+				$testScope,
+				'valueOverwrittenInIf',
+				'int(1)|int(2)',
+			],
 		];
 	}
 
