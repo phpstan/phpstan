@@ -1103,6 +1103,23 @@ class NodeScopeResolver
 						);
 					}
 				}
+			} elseif (
+				$node->var instanceof ArrayDimFetch
+				&& $node->var->dim !== null
+			) {
+				$arrayType = $scope->getType($node->var->var);
+				if ($arrayType instanceof ConstantArrayType) {
+					$dimType = $scope->getType($node->var->dim);
+					$valueType = $arrayType->getOffsetValueType($dimType);
+					if ($valueType instanceof ConstantScalarType) {
+						$offsetValue = $valueType->getValue();
+						$newOffsetValue = $node instanceof Expr\PostInc ? ($offsetValue + 1) : ($offsetValue - 1);
+						$scope = $scope->specifyExpressionType(
+							$node->var->var,
+							$arrayType->setOffsetValueType($dimType, $scope->getTypeFromValue($newOffsetValue))
+						);
+					}
+				}
 			}
 		}
 
