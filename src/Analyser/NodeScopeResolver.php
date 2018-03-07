@@ -59,6 +59,7 @@ use PHPStan\Type\CommentHelper;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ConstantScalarType;
+use PHPStan\Type\ConstantType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\IntegerType;
@@ -1027,7 +1028,7 @@ class NodeScopeResolver
 			];
 			$scope = $this->lookForAssignsInBranches($scope, $statements, LookForAssignsSettings::afterLoop());
 			foreach ($node->loop as $loopExpr) {
-				$scope = $this->lookForAssigns($scope, $loopExpr, TrinaryLogic::createMaybe());
+				$scope = $this->lookForAssigns($scope, $loopExpr, TrinaryLogic::createMaybe(), LookForAssignsSettings::afterLoop());
 			}
 		} elseif ($node instanceof While_) {
 			$whileAssignmentsCertainty = $this->polluteScopeWithLoopInitialAssignments ? TrinaryLogic::createYes() : TrinaryLogic::createMaybe();
@@ -1107,11 +1108,19 @@ class NodeScopeResolver
 						} else {
 							$variableValue--;
 						}
+
+						$newType = $scope->getTypeFromValue($variableValue);
+						if (
+							$lookForAssignsSettings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()
+							&& $newType instanceof ConstantType
+						) {
+							$newType = $newType->generalize();
+						}
 						$scope = $this->assignVariable(
 							$scope,
 							$node->var,
 							$variableCertainty,
-							$scope->getTypeFromValue($variableValue)
+							$newType
 						);
 					}
 				}

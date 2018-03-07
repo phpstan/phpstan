@@ -158,4 +158,42 @@ class LookForAssignsSettingsTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataShouldGeneralizeConstantTypesOfNonIdempotentOperations(): array
+	{
+		return [
+			[
+				LookForAssignsSettings::default(),
+				false,
+			],
+			[
+				LookForAssignsSettings::insideLoop(),
+				true,
+			],
+			[
+				LookForAssignsSettings::afterLoop(),
+				true,
+			],
+			[
+				LookForAssignsSettings::insideFinally(),
+				false,
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataShouldGeneralizeConstantTypesOfNonIdempotentOperations
+	 * @param \PHPStan\Analyser\LookForAssignsSettings $settings
+	 * @param bool $expectedResult
+	 */
+	public function testShouldGeneralizeConstantTypesOfNonIdempotentOperations(
+		LookForAssignsSettings $settings,
+		bool $expectedResult
+	): void
+	{
+		$this->assertSame(
+			$expectedResult,
+			$settings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()
+		);
+	}
+
 }

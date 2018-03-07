@@ -286,19 +286,19 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'i',
 				TrinaryLogic::createYes(),
-				'int(0)|int(1)', // will be generalized int later
+				'int',
 			],
 			[
 				$testScope,
 				'f',
 				TrinaryLogic::createMaybe(),
-				'int(1)', // will be int later
+				'int',
 			],
 			[
 				$testScope,
 				'anotherF',
 				TrinaryLogic::createYes(),
-				'int(1)', // will be int later
+				'int',
 			],
 			[
 				$testScope,
@@ -423,7 +423,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'previousI',
 				TrinaryLogic::createYes(),
-				'int(1)', // will be generalized int later
+				'int',
 			],
 			[
 				$testScope,
@@ -806,6 +806,16 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				$testScope,
 				'valueOverwrittenInIf',
+				'int(1)|int(2)',
+			],
+			[
+				$testScope,
+				'incrementInForLoop',
+				'int',
+			],
+			[
+				$testScope,
+				'valueOverwrittenInForLoop',
 				'int(1)|int(2)',
 			],
 		];

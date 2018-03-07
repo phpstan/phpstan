@@ -46,4 +46,11 @@ if (doFoo()) {
 	$anotherIncrementInIf++;
 }
 
+$incrementInForLoop = 1;
+$valueOverwrittenInForLoop = 1;
+for ($i = 0; $i < 10; $i++) {
+	$incrementInForLoop++;
+	$valueOverwrittenInForLoop = 2;
+}
+
 die;

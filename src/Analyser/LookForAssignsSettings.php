@@ -92,4 +92,10 @@ class LookForAssignsSettings
 			|| ($this->respectEarlyTermination & self::EARLY_TERMINATION_STOP) === 0;
 	}
 
+	public function shouldGeneralizeConstantTypesOfNonIdempotentOperations(): bool
+	{
+		return ($this->respectEarlyTermination & self::EARLY_TERMINATION_STOP) === self::EARLY_TERMINATION_STOP
+			&& $this->respectEarlyTermination !== self::EARLY_TERMINATION_ALL;
+	}
+
 }
