@@ -753,9 +753,9 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
-	public function dataConstantTypesIncrementDecrement(): array
+	public function dataConstantTypes(): array
 	{
-		$testScope = $this->getFileScope(__DIR__ . '/data/constantTypesIncrementDecrement.php');
+		$testScope = $this->getFileScope(__DIR__ . '/data/constantTypes.php');
 
 		return [
 			[
@@ -787,12 +787,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	}
 
 	/**
-	 * @dataProvider dataConstantTypesIncrementDecrement
+	 * @dataProvider dataConstantTypes
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @param string $variableName
 	 * @param string $typeDescription
 	 */
-	public function testConstantTypesIncrementDecrement(
+	public function testConstant(
 		Scope $scope,
 		string $variableName,
 		string $typeDescription
