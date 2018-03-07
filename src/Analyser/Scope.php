@@ -878,7 +878,7 @@ class Scope
 	/**
 	 * @param mixed $value
 	 */
-	private function getTypeFromValue($value): Type
+	public function getTypeFromValue($value): Type
 	{
 		if (is_int($value)) {
 			return new ConstantIntegerType($value);

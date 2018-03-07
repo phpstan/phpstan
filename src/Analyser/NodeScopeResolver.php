@@ -58,6 +58,7 @@ use PHPStan\Type\ArrayType;
 use PHPStan\Type\CommentHelper;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantStringType;
+use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\IntegerType;
@@ -1083,6 +1084,26 @@ class NodeScopeResolver
 			$scope = $this->lookForAssigns($scope, $node->expr, $certainty);
 		} elseif ($node instanceof Expr\Include_) {
 			$scope = $this->lookForAssigns($scope, $node->expr, $certainty);
+		} elseif ($node instanceof Expr\PostInc || $node instanceof Expr\PostDec) {
+			if (
+				$node->var instanceof Variable
+				&& is_string($node->var->name)
+			) {
+				$variableCertainty = $scope->hasVariableType($node->var->name);
+				if (!$variableCertainty->no()) {
+					$variableType = $scope->getVariableType($node->var->name);
+					if ($variableType instanceof ConstantScalarType) {
+						$variableValue = $variableType->getValue();
+						$newVariableValue = $node instanceof Expr\PostInc ? ($variableValue + 1) : ($variableValue - 1);
+						$scope = $this->assignVariable(
+							$scope,
+							$node->var,
+							$variableCertainty,
+							$scope->getTypeFromValue($newVariableValue)
+						);
+					}
+				}
+			}
 		}
 
 		$scope = $this->updateScopeForVariableAssign($scope, $node, $certainty);

@@ -39,15 +39,176 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		});
 	}
 
-	public function dataAssignInIf(): array
+	private function getFileScope(string $filename): Scope
 	{
 		/** @var \PHPStan\Analyser\Scope $testScope */
 		$testScope = null;
-		$this->processFile(__DIR__ . '/data/if.php', function (\PhpParser\Node $node, Scope $scope) use (&$testScope): void {
+		$this->processFile($filename, function (\PhpParser\Node $node, Scope $scope) use (&$testScope): void {
 			if ($node instanceof Exit_) {
 				$testScope = $scope;
 			}
 		});
+
+		return $testScope;
+	}
+
+	public function dataUnionInCatch(): array
+	{
+		return [
+			[
+				'CatchUnion\BarException|CatchUnion\FooException',
+				'$e',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataUnionInCatch
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testUnionInCatch(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/catch-union.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataUnionAndIntersection(): array
+	{
+		return [
+			[
+				'UnionIntersection\Foo',
+				'$this->union->foo',
+			],
+			[
+				'mixed',
+				'$this->union->bar',
+			],
+			[
+				'UnionIntersection\Foo',
+				'$foo->foo',
+			],
+			[
+				'mixed',
+				'$foo->bar',
+			],
+			[
+				'UnionIntersection\Foo',
+				'$this->union->doFoo()',
+			],
+			[
+				'mixed',
+				'$this->union->doBar()',
+			],
+			[
+				'UnionIntersection\Foo',
+				'$foo->doFoo()',
+			],
+			[
+				'mixed',
+				'$foo->doBar()',
+			],
+			[
+				'UnionIntersection\Foo',
+				'$foobar->doFoo()',
+			],
+			[
+				'UnionIntersection\Bar',
+				'$foobar->doBar()',
+			],
+			[
+				'int(1)',
+				'$this->union::FOO_CONSTANT',
+			],
+			[
+				'mixed',
+				'$this->union::BAR_CONSTANT',
+			],
+			[
+				'int(1)',
+				'$foo::FOO_CONSTANT',
+			],
+			[
+				'mixed',
+				'$foo::BAR_CONSTANT',
+			],
+			[
+				'int(1)',
+				'$foobar::FOO_CONSTANT',
+			],
+			[
+				'int(1)',
+				'$foobar::BAR_CONSTANT',
+			],
+			[
+				'string',
+				'self::IPSUM_CONSTANT',
+			],
+			[
+				'array<int(0)|int(1)|int(2), int(1)|int(2)|int(3)>',
+				'parent::PARENT_CONSTANT',
+			],
+			[
+				'UnionIntersection\Foo',
+				'$foo::doStaticFoo()',
+			],
+			[
+				'mixed',
+				'$foo::doStaticBar()',
+			],
+			[
+				'UnionIntersection\Foo',
+				'$foobar::doStaticFoo()',
+			],
+			[
+				'UnionIntersection\Bar',
+				'$foobar::doStaticBar()',
+			],
+			[
+				'UnionIntersection\Foo',
+				'$this->union::doStaticFoo()',
+			],
+			[
+				'mixed',
+				'$this->union::doStaticBar()',
+			],
+			[
+				'object',
+				'$this->objectUnion',
+			],
+			[
+				'UnionIntersection\SomeInterface',
+				'$object',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataUnionAndIntersection
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testUnionAndIntersection(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/union-intersection.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataAssignInIf(): array
+	{
+		$testScope = $this->getFileScope(__DIR__ . '/data/if.php');
 
 		return [
 			[
@@ -125,19 +286,19 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'i',
 				TrinaryLogic::createYes(),
-				'int(0)',
+				'int(0)|int(1)', // will be generalized int later
 			],
 			[
 				$testScope,
 				'f',
 				TrinaryLogic::createMaybe(),
-				'int(0)',
+				'int(1)', // will be int later
 			],
 			[
 				$testScope,
 				'anotherF',
 				TrinaryLogic::createYes(),
-				'int(0)|int(1)',
+				'int(1)', // will be int later
 			],
 			[
 				$testScope,
@@ -262,7 +423,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'previousI',
 				TrinaryLogic::createYes(),
-				'int(0)',
+				'int(1)', // will be generalized int later
 			],
 			[
 				$testScope,
@@ -567,160 +728,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		];
 	}
 
-	public function dataUnionInCatch(): array
-	{
-		return [
-			[
-				'CatchUnion\BarException|CatchUnion\FooException',
-				'$e',
-			],
-		];
-	}
-
-	/**
-	 * @dataProvider dataUnionInCatch
-	 * @param string $description
-	 * @param string $expression
-	 */
-	public function testUnionInCatch(
-		string $description,
-		string $expression
-	): void
-	{
-		$this->assertTypes(
-			__DIR__ . '/data/catch-union.php',
-			$description,
-			$expression
-		);
-	}
-
-	public function dataUnionAndIntersection(): array
-	{
-		return [
-			[
-				'UnionIntersection\Foo',
-				'$this->union->foo',
-			],
-			[
-				'mixed',
-				'$this->union->bar',
-			],
-			[
-				'UnionIntersection\Foo',
-				'$foo->foo',
-			],
-			[
-				'mixed',
-				'$foo->bar',
-			],
-			[
-				'UnionIntersection\Foo',
-				'$this->union->doFoo()',
-			],
-			[
-				'mixed',
-				'$this->union->doBar()',
-			],
-			[
-				'UnionIntersection\Foo',
-				'$foo->doFoo()',
-			],
-			[
-				'mixed',
-				'$foo->doBar()',
-			],
-			[
-				'UnionIntersection\Foo',
-				'$foobar->doFoo()',
-			],
-			[
-				'UnionIntersection\Bar',
-				'$foobar->doBar()',
-			],
-			[
-				'int(1)',
-				'$this->union::FOO_CONSTANT',
-			],
-			[
-				'mixed',
-				'$this->union::BAR_CONSTANT',
-			],
-			[
-				'int(1)',
-				'$foo::FOO_CONSTANT',
-			],
-			[
-				'mixed',
-				'$foo::BAR_CONSTANT',
-			],
-			[
-				'int(1)',
-				'$foobar::FOO_CONSTANT',
-			],
-			[
-				'int(1)',
-				'$foobar::BAR_CONSTANT',
-			],
-			[
-				'string',
-				'self::IPSUM_CONSTANT',
-			],
-			[
-				'array<int(0)|int(1)|int(2), int(1)|int(2)|int(3)>',
-				'parent::PARENT_CONSTANT',
-			],
-			[
-				'UnionIntersection\Foo',
-				'$foo::doStaticFoo()',
-			],
-			[
-				'mixed',
-				'$foo::doStaticBar()',
-			],
-			[
-				'UnionIntersection\Foo',
-				'$foobar::doStaticFoo()',
-			],
-			[
-				'UnionIntersection\Bar',
-				'$foobar::doStaticBar()',
-			],
-			[
-				'UnionIntersection\Foo',
-				'$this->union::doStaticFoo()',
-			],
-			[
-				'mixed',
-				'$this->union::doStaticBar()',
-			],
-			[
-				'object',
-				'$this->objectUnion',
-			],
-			[
-				'UnionIntersection\SomeInterface',
-				'$object',
-			],
-		];
-	}
-
-	/**
-	 * @dataProvider dataUnionAndIntersection
-	 * @param string $description
-	 * @param string $expression
-	 */
-	public function testUnionAndIntersection(
-		string $description,
-		string $expression
-	): void
-	{
-		$this->assertTypes(
-			__DIR__ . '/data/union-intersection.php',
-			$description,
-			$expression
-		);
-	}
-
 	/**
 	 * @dataProvider dataAssignInIf
 	 * @param \PHPStan\Analyser\Scope $scope
@@ -733,8 +740,64 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		Scope $scope,
 		string $variableName,
 		TrinaryLogic $expectedCertainty,
-		string $typeDescription = null,
-		string $iterableValueTypeDescription = null
+		?string $typeDescription = null,
+		?string $iterableValueTypeDescription = null
+	): void
+	{
+		$this->assertVariables(
+			$scope,
+			$variableName,
+			$expectedCertainty,
+			$typeDescription,
+			$iterableValueTypeDescription
+		);
+	}
+
+	public function dataConstantTypesIncrementDecrement(): array
+	{
+		$testScope = $this->getFileScope(__DIR__ . '/data/constantTypesIncrementDecrement.php');
+
+		return [
+			[
+				$testScope,
+				'incrementInRoot',
+				'int(2)',
+			],
+			[
+				$testScope,
+				'decrementInRoot',
+				'int(4)',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataConstantTypesIncrementDecrement
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param string $variableName
+	 * @param string $typeDescription
+	 */
+	public function testConstantTypesIncrementDecrement(
+		Scope $scope,
+		string $variableName,
+		string $typeDescription
+	): void
+	{
+		$this->assertVariables(
+			$scope,
+			$variableName,
+			TrinaryLogic::createYes(),
+			$typeDescription,
+			null
+		);
+	}
+
+	private function assertVariables(
+		Scope $scope,
+		string $variableName,
+		TrinaryLogic $expectedCertainty,
+		?string $typeDescription = null,
+		?string $iterableValueTypeDescription = null
 	): void
 	{
 		$certainty = $scope->hasVariableType($variableName);
