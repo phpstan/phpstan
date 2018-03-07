@@ -773,6 +773,16 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'literalArray',
 				'array<string, int(2)|int(4)>',
 			],
+			[
+				$testScope,
+				'nullIncremented',
+				'int(1)',
+			],
+			[
+				$testScope,
+				'nullDecremented',
+				'null',
+			],
 		];
 	}
 

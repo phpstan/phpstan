@@ -1094,12 +1094,16 @@ class NodeScopeResolver
 					$variableType = $scope->getVariableType($node->var->name);
 					if ($variableType instanceof ConstantScalarType) {
 						$variableValue = $variableType->getValue();
-						$newVariableValue = $node instanceof Expr\PostInc ? ($variableValue + 1) : ($variableValue - 1);
+						if ($node instanceof Expr\PostInc) {
+							$variableValue++;
+						} else {
+							$variableValue--;
+						}
 						$scope = $this->assignVariable(
 							$scope,
 							$node->var,
 							$variableCertainty,
-							$scope->getTypeFromValue($newVariableValue)
+							$scope->getTypeFromValue($variableValue)
 						);
 					}
 				}
@@ -1113,10 +1117,14 @@ class NodeScopeResolver
 					$valueType = $arrayType->getOffsetValueType($dimType);
 					if ($valueType instanceof ConstantScalarType) {
 						$offsetValue = $valueType->getValue();
-						$newOffsetValue = $node instanceof Expr\PostInc ? ($offsetValue + 1) : ($offsetValue - 1);
+						if ($node instanceof Expr\PostInc) {
+							$offsetValue++;
+						} else {
+							$offsetValue--;
+						}
 						$scope = $scope->specifyExpressionType(
 							$node->var->var,
-							$arrayType->setOffsetValueType($dimType, $scope->getTypeFromValue($newOffsetValue))
+							$arrayType->setOffsetValueType($dimType, $scope->getTypeFromValue($offsetValue))
 						);
 					}
 				}

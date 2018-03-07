@@ -15,4 +15,9 @@ $literalArray = [
 $literalArray['a']++;
 $literalArray['b']--;
 
+$nullIncremented = null;
+$nullDecremented = null;
+$nullIncremented++;
+$nullDecremented--;
+
 die;
