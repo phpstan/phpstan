@@ -1142,9 +1142,18 @@ class NodeScopeResolver
 						} else {
 							$offsetValue--;
 						}
+
+						$newType = $scope->getTypeFromValue($offsetValue);
+						if (
+							$lookForAssignsSettings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()
+							&& $newType instanceof ConstantType
+						) {
+							$newType = $newType->generalize();
+						}
+
 						$scope = $scope->specifyExpressionType(
 							$node->var->var,
-							$arrayType->setOffsetValueType($dimType, $scope->getTypeFromValue($offsetValue))
+							$arrayType->setOffsetValueType($dimType, $newType)
 						);
 					}
 				}

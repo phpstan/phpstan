@@ -48,9 +48,15 @@ if (doFoo()) {
 
 $incrementInForLoop = 1;
 $valueOverwrittenInForLoop = 1;
+$arrayOverwrittenInForLoop = [
+	'a' => 1,
+	'b' => 'foo',
+];
 for ($i = 0; $i < 10; $i++) {
 	$incrementInForLoop++;
 	$valueOverwrittenInForLoop = 2;
+	$arrayOverwrittenInForLoop['a']++;
+	$arrayOverwrittenInForLoop['b'] = 'bar';
 }
 
 die;

@@ -818,6 +818,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'valueOverwrittenInForLoop',
 				'int(1)|int(2)',
 			],
+			[
+				$testScope,
+				'arrayOverwrittenInForLoop',
+				'array<string, int|string>',
+			],
 		];
 	}
 
