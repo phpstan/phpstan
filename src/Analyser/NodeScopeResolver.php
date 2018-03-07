@@ -402,7 +402,7 @@ class NodeScopeResolver
 			$this->processNodes($node->init, $scope, $nodeCallback);
 
 			foreach ($node->init as $initExpr) {
-				$scope = $this->lookForAssigns($scope, $initExpr, TrinaryLogic::createYes());
+				$scope = $this->lookForAssigns($scope, $initExpr, TrinaryLogic::createYes(), LookForAssignsSettings::insideLoop());
 			}
 			$scopeLoopMightHaveRun = $this->lookForAssignsInBranches($scope, [
 				new StatementList($scope, $node->cond),
@@ -441,7 +441,7 @@ class NodeScopeResolver
 				new StatementList($bodyScope, $node->stmts),
 				new StatementList($bodyScope, []),
 			], LookForAssignsSettings::insideLoop());
-			$bodyScope = $this->lookForAssigns($bodyScope, $node->cond, TrinaryLogic::createYes());
+			$bodyScope = $this->lookForAssigns($bodyScope, $node->cond, TrinaryLogic::createYes(), LookForAssignsSettings::insideLoop());
 			$bodyScope = $bodyScope->filterByTruthyValue($node->cond);
 			$this->processNodes($node->stmts, $bodyScope, $nodeCallback);
 			return;
@@ -981,7 +981,7 @@ class NodeScopeResolver
 			$scope = $this->lookForAssignsInBranches($scope, [
 				new StatementList($scope, $node->stmts),
 			], LookForAssignsSettings::afterLoop());
-			$scope = $this->lookForAssigns($scope, $node->cond, TrinaryLogic::createYes());
+			$scope = $this->lookForAssigns($scope, $node->cond, TrinaryLogic::createYes(), LookForAssignsSettings::afterLoop());
 		} elseif ($node instanceof Switch_) {
 			$statementLists = [];
 			$tmpStatements = [];
@@ -1015,11 +1015,11 @@ class NodeScopeResolver
 		} elseif ($node instanceof For_) {
 			$forAssignmentsCertainty = $this->polluteScopeWithLoopInitialAssignments ? TrinaryLogic::createYes() : TrinaryLogic::createMaybe();
 			foreach ($node->init as $initExpr) {
-				$scope = $this->lookForAssigns($scope, $initExpr, $forAssignmentsCertainty);
+				$scope = $this->lookForAssigns($scope, $initExpr, $forAssignmentsCertainty, LookForAssignsSettings::afterLoop());
 			}
 
 			foreach ($node->cond as $condExpr) {
-				$scope = $this->lookForAssigns($scope, $condExpr, $forAssignmentsCertainty);
+				$scope = $this->lookForAssigns($scope, $condExpr, $forAssignmentsCertainty, LookForAssignsSettings::afterLoop());
 			}
 
 			$statements = [
@@ -1032,7 +1032,7 @@ class NodeScopeResolver
 			}
 		} elseif ($node instanceof While_) {
 			$whileAssignmentsCertainty = $this->polluteScopeWithLoopInitialAssignments ? TrinaryLogic::createYes() : TrinaryLogic::createMaybe();
-			$scope = $this->lookForAssigns($scope, $node->cond, $whileAssignmentsCertainty);
+			$scope = $this->lookForAssigns($scope, $node->cond, $whileAssignmentsCertainty, LookForAssignsSettings::afterLoop());
 
 			$statements = [
 				new StatementList($scope, $node->stmts),

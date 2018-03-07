@@ -321,3 +321,53 @@ class PredefinedConstants
 	}
 
 }
+
+class ConstantTypeInWhile
+{
+
+	public function doFoo()
+	{
+		$i = 0;
+		while ($i++) {
+			if ($i === 1000000) {
+
+			}
+			if ($i === 'string') {
+
+			}
+		}
+
+		if ($i === 1000000) {
+
+		}
+		if ($i === 'string') {
+
+		}
+	}
+
+}
+
+class ConstantTypeInDoWhile
+{
+
+	public function doFoo()
+	{
+		$i = 0;
+		do {
+			if ($i === 1000000) {
+
+			}
+			if ($i === 'string') {
+
+			}
+		} while ($i++);
+
+		if ($i === 1000000) {
+
+		}
+		if ($i === 'string') {
+
+		}
+	}
+
+}

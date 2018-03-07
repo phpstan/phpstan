@@ -123,6 +123,22 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					'Strict comparison using === between string and string will always evaluate to false.',
 					320,
 				],
+				[
+					'Strict comparison using === between int and string will always evaluate to false.',
+					335,
+				],
+				[
+					'Strict comparison using === between int and string will always evaluate to false.',
+					343,
+				],
+				[
+					'Strict comparison using === between int and string will always evaluate to false.',
+					360,
+				],
+				[
+					'Strict comparison using === between int and string will always evaluate to false.',
+					368,
+				],
 			]
 		);
 	}
@@ -232,6 +248,22 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 				[
 					'Strict comparison using === between string and string will always evaluate to false.',
 					320,
+				],
+				[
+					'Strict comparison using === between int and string will always evaluate to false.',
+					335,
+				],
+				[
+					'Strict comparison using === between int and string will always evaluate to false.',
+					343,
+				],
+				[
+					'Strict comparison using === between int and string will always evaluate to false.',
+					360,
+				],
+				[
+					'Strict comparison using === between int and string will always evaluate to false.',
+					368,
 				],
 			]
 		);
