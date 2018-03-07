@@ -1200,14 +1200,8 @@ class NodeScopeResolver
 					) {
 						$type = $type->generalize();
 					}
-				} elseif (
-					$node instanceof Node\Stmt\Global_
-					&& $var instanceof Variable
-					&& is_string($var->name)
-					&& $scope->hasVariableType($var->name)->no()
-				) {
-					$this->assignVariable($scope, $var, $certainty);
 				}
+
 				$scope = $this->assignVariable($scope, $var, $certainty, $type);
 			}
 
