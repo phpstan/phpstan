@@ -115,7 +115,7 @@ class Foo
 			$a[] = 1;
 		}
 
-		if ($a !== true && count($a) === 1) {
+		if ($a !== true && count($a) > 0) {
 			$a = reset($a);
 		}
 	}

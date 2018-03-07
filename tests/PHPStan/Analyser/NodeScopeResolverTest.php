@@ -1864,11 +1864,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$float >>= 2.2',
 			],
 			[
-				'int',
+				'int(3)',
 				'count($arrayOfIntegers)',
 			],
 			[
-				'int',
+				'int(6)',
 				'count($arrayOfIntegers) + count($arrayOfIntegers)',
 			],
 			[
@@ -1928,7 +1928,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$arrayOfIntegers += "foo"',
 			],
 			[
-				'int',
+				'int(3)',
 				'@count($arrayOfIntegers)',
 			],
 			[
@@ -1966,6 +1966,18 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'int(0)',
 				'--$one',
+			],
+			[
+				'int(3)',
+				'count($array)',
+			],
+			[
+				'int',
+				'count()',
+			],
+			[
+				'int',
+				'count($appendingToArrayInBranches)',
 			],
 		];
 	}

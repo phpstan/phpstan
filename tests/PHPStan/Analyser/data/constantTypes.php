@@ -34,11 +34,14 @@ $incrementInIf = 1;
 $anotherIncrementInIf = 1;
 $valueOverwrittenInIf = 1;
 $anotherValueOverwrittenInIf = 10;
+$appendingToArrayInBranches = [];
 if (doFoo()) {
 	$incrementInIf++;
 	$anotherIncrementInIf++;
 	$valueOverwrittenInIf = 2;
 	$anotherValueOverwrittenInIf /= 2;
+	$appendingToArrayInBranches[] = 1;
+	$appendingToArrayInBranches[] = 2;
 } elseif (doBar()) {
 	$incrementInIf++;
 	$incrementInIf++;

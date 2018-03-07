@@ -218,6 +218,11 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		return new ArrayType($this->getKeyType(), $this->getItemType(), true);
 	}
 
+	public function count(): int
+	{
+		return count($this->getKeyTypes());
+	}
+
 	public static function __set_state(array $properties): Type
 	{
 		return new self($properties['keyTypes'], $properties['valueTypes'], $properties['nextAutoIndex']);
