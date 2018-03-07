@@ -371,3 +371,29 @@ class ConstantTypeInDoWhile
 	}
 
 }
+
+class ConstantAssignOperatorInWhile
+{
+
+	public function doFoo()
+	{
+		$i = 10.0;
+		while (true) {
+			$i /= 5;
+			if ($i === 1000000.0) {
+
+			}
+			if ($i === 'string') {
+
+			}
+		}
+
+		if ($i === 1000000.0) {
+
+		}
+		if ($i === 'string') {
+
+		}
+	}
+
+}

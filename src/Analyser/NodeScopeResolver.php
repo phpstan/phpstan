@@ -1160,12 +1160,17 @@ class NodeScopeResolver
 			}
 		}
 
-		$scope = $this->updateScopeForVariableAssign($scope, $node, $certainty);
+		$scope = $this->updateScopeForVariableAssign($scope, $node, $certainty, $lookForAssignsSettings);
 
 		return $scope;
 	}
 
-	private function updateScopeForVariableAssign(Scope $scope, \PhpParser\Node $node, TrinaryLogic $certainty): Scope
+	private function updateScopeForVariableAssign(
+		Scope $scope,
+		\PhpParser\Node $node,
+		TrinaryLogic $certainty,
+		LookForAssignsSettings $lookForAssignsSettings
+	): Scope
 	{
 		if ($node instanceof Assign || $node instanceof AssignRef || $node instanceof Expr\AssignOp || $node instanceof Node\Stmt\Global_) {
 			if ($node instanceof Assign || $node instanceof AssignRef || $node instanceof Expr\AssignOp) {
@@ -1189,6 +1194,12 @@ class NodeScopeResolver
 						continue;
 					}
 					$type = $scope->getType($node);
+					if (
+						$lookForAssignsSettings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()
+						&& $type instanceof ConstantType
+					) {
+						$type = $type->generalize();
+					}
 				} elseif (
 					$node instanceof Node\Stmt\Global_
 					&& $var instanceof Variable
