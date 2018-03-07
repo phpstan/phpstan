@@ -657,6 +657,19 @@ class Scope
 			return new ObjectType('stdClass');
 		} elseif ($node instanceof Unset_) {
 			return new NullType();
+		} elseif ($node instanceof Expr\PostInc || $node instanceof Expr\PostDec) {
+			return $this->getType($node->var);
+		} elseif ($node instanceof Expr\PreInc || $node instanceof Expr\PreDec) {
+			$varType = $this->getType($node->var);
+			if ($varType instanceof ConstantScalarType) {
+				$varValue = $varType->getValue();
+				if ($node instanceof Expr\PreInc) {
+					++$varValue;
+				} else {
+					--$varValue;
+				}
+				return $this->getTypeFromValue($varValue);
+			}
 		} elseif ($node instanceof Node\Expr\ClassConstFetch && is_string($node->name)) {
 			if ($node->class instanceof Name) {
 				$constantClass = (string) $node->class;

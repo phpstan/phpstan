@@ -15,4 +15,6 @@ $arrayOfIntegers = [$integer, $integer + 1, $integer + 2];
 
 $foo = new Foo();
 
+$one = 1;
+
 die;

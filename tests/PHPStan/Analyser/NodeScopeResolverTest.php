@@ -1906,6 +1906,22 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'string',
 				'var_export($string, true)',
 			],
+			[
+				'int(1)',
+				'$one++',
+			],
+			[
+				'int(1)',
+				'$one--',
+			],
+			[
+				'int(2)',
+				'++$one',
+			],
+			[
+				'int(0)',
+				'--$one',
+			],
 		];
 	}
 
