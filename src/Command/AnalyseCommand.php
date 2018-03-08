@@ -48,7 +48,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
-		$xdebug = new XdebugHandler('phpstan');
+		$xdebug = new XdebugHandler('phpstan', '--ansi');
 		$xdebug->check();
 		unset($xdebug);
 
