@@ -31,6 +31,11 @@ class CallToNonExistentFunctionRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
+	public function testCallToNonexistentFunctionConditioned(): void
+	{
+		$this->analyse([__DIR__ . '/data/nonexistent-function-conditioned.php'], []);
+	}
+
 	public function testCallToNonexistentNestedFunction(): void
 	{
 		$this->analyse([__DIR__ . '/data/nonexistent-nested-function.php'], [
