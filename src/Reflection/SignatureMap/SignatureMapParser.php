@@ -2,6 +2,7 @@
 
 namespace PHPStan\Reflection\SignatureMap;
 
+use PHPStan\Analyser\NameScope;
 use PHPStan\PhpDoc\TypeStringResolver;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
@@ -24,9 +25,10 @@ class SignatureMapParser
 
 	/**
 	 * @param mixed[] $map
+	 * @param string|null $className
 	 * @return \PHPStan\Reflection\SignatureMap\FunctionSignature
 	 */
-	public function getFunctionSignature(array $map): FunctionSignature
+	public function getFunctionSignature(array $map, ?string $className): FunctionSignature
 	{
 		$parameterSignatures = $this->getParameters(array_slice($map, 1));
 		$hasVariadic = false;
@@ -38,12 +40,12 @@ class SignatureMapParser
 		}
 		return new FunctionSignature(
 			$parameterSignatures,
-			$this->getTypeFromString($map[0]),
+			$this->getTypeFromString($map[0], $className),
 			$hasVariadic
 		);
 	}
 
-	private function getTypeFromString(string $typeString): Type
+	private function getTypeFromString(string $typeString, ?string $className): Type
 	{
 		if ($typeString === '') {
 			return new MixedType();
@@ -57,7 +59,7 @@ class SignatureMapParser
 				$part = substr($part, 1);
 			}
 
-			$type = $this->typeStringResolver->resolve($part);
+			$type = $this->typeStringResolver->resolve($part, new NameScope(null, [], $className));
 			if ($isNullable) {
 				$type = TypeCombinator::addNull($type);
 			}
@@ -80,7 +82,7 @@ class SignatureMapParser
 			$parameterSignatures[] = new ParameterSignature(
 				$name,
 				$isOptional,
-				$this->getTypeFromString($typeString),
+				$this->getTypeFromString($typeString, null),
 				$isPassedByReference,
 				$isVariadic
 			);

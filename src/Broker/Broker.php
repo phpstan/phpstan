@@ -260,7 +260,7 @@ class Broker
 			}
 
 			if ($this->signatureMapProvider->hasFunctionSignature($lowerCasedFunctionName)) {
-				$functionSignature = $this->signatureMapProvider->getFunctionSignature($lowerCasedFunctionName);
+				$functionSignature = $this->signatureMapProvider->getFunctionSignature($lowerCasedFunctionName, null);
 				$functionReflection = new NativeFunctionReflection(
 					$lowerCasedFunctionName,
 					array_map(function (ParameterSignature $parameterSignature): NativeParameterReflection {

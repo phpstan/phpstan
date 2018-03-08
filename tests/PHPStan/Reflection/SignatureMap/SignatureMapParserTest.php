@@ -10,6 +10,7 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\ResourceType;
+use PHPStan\Type\StaticType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\UnionType;
 
@@ -27,6 +28,7 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 		return [
 			[
 				['int', 'fp' => 'resource', 'fields' => 'array', 'delimiter=' => 'string', 'enclosure=' => 'string', 'escape_char=' => 'string'],
+				null,
 				new FunctionSignature(
 					[
 						new ParameterSignature(
@@ -71,6 +73,7 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				['bool', 'fp' => 'resource'],
+				null,
 				new FunctionSignature(
 					[
 						new ParameterSignature(
@@ -87,6 +90,7 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				['bool', '&rw_array_arg' => 'array'],
+				null,
 				new FunctionSignature(
 					[
 						new ParameterSignature(
@@ -103,6 +107,7 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				['bool', 'csr' => 'string|resource', '&w_out' => 'string', 'notext=' => 'bool'],
+				null,
 				new FunctionSignature(
 					[
 						new ParameterSignature(
@@ -136,6 +141,7 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				['?Throwable|?Foo'],
+				null,
 				new FunctionSignature(
 					[],
 					new UnionType([
@@ -148,6 +154,7 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[''],
+				null,
 				new FunctionSignature(
 					[],
 					new MixedType(),
@@ -156,6 +163,7 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				['array', 'arr1' => 'array', 'arr2' => 'array', '...=' => 'array'],
+				null,
 				new FunctionSignature(
 					[
 						new ParameterSignature(
@@ -186,6 +194,7 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				['resource', 'callback' => 'callable', 'event' => 'string', '...' => ''],
+				null,
 				new FunctionSignature(
 					[
 						new ParameterSignature(
@@ -216,6 +225,7 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				['string', 'format' => 'string', '...args=' => ''],
+				null,
 				new FunctionSignature(
 					[
 						new ParameterSignature(
@@ -239,6 +249,7 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				['string', 'format' => 'string', '...args' => ''],
+				null,
 				new FunctionSignature(
 					[
 						new ParameterSignature(
@@ -262,9 +273,27 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				['array<int,ReflectionParameter>'],
+				null,
 				new FunctionSignature(
 					[],
 					new ArrayType(new IntegerType(), new ObjectType(\ReflectionParameter::class)),
+					false
+				),
+			],
+			[
+				['static', 'interval' => 'DateInterval'],
+				\DateTime::class,
+				new FunctionSignature(
+					[
+						new ParameterSignature(
+							'interval',
+							false,
+							new ObjectType(\DateInterval::class),
+							false,
+							false
+						),
+					],
+					new StaticType(\DateTime::class),
 					false
 				),
 			],
@@ -274,13 +303,18 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 	/**
 	 * @dataProvider dataGetFunctions
 	 * @param mixed[] $map
+	 * @param string|null $className
 	 * @param \PHPStan\Reflection\SignatureMap\FunctionSignature $expectedSignature
 	 */
-	public function testGetFunctions(array $map, FunctionSignature $expectedSignature): void
+	public function testGetFunctions(
+		array $map,
+		?string $className,
+		FunctionSignature $expectedSignature
+	): void
 	{
 		/** @var SignatureMapParser $parser */
 		$parser = $this->getContainer()->getByType(SignatureMapParser::class);
-		$functionSignature = $parser->getFunctionSignature($map);
+		$functionSignature = $parser->getFunctionSignature($map, $className);
 		$this->assertCount(
 			count($expectedSignature->getParameters()),
 			$functionSignature->getParameters(),

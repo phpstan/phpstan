@@ -221,7 +221,7 @@ class PhpClassReflectionExtension
 		$signatureMapMethodName = sprintf('%s::%s', $declaringClassName, $methodReflection->getName());
 		$declaringClass = $this->broker->getClass($declaringClassName);
 		if ($this->signatureMapProvider->hasFunctionSignature($signatureMapMethodName)) {
-			$methodSignature = $this->signatureMapProvider->getFunctionSignature($signatureMapMethodName);
+			$methodSignature = $this->signatureMapProvider->getFunctionSignature($signatureMapMethodName, $declaringClassName);
 			return new NativeMethodReflection(
 				$this->broker,
 				$declaringClass,

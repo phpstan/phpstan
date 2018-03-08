@@ -22,15 +22,18 @@ class SignatureMapProvider
 		return array_key_exists($name, $signatureMap);
 	}
 
-	public function getFunctionSignature(string $name): FunctionSignature
+	public function getFunctionSignature(string $functionName, ?string $className): FunctionSignature
 	{
-		if (!$this->hasFunctionSignature($name)) {
+		if (!$this->hasFunctionSignature($functionName)) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
 		$signatureMap = self::getSignatureMap();
 
-		return $this->parser->getFunctionSignature($signatureMap[$name]);
+		return $this->parser->getFunctionSignature(
+			$signatureMap[$functionName],
+			$className
+		);
 	}
 
 	/**
