@@ -1,6 +1,7 @@
 #!/usr/bin/env php
 <?php declare(strict_types=1);
 
+use Composer\XdebugHandler\XdebugHandler;
 use PHPStan\Command\AnalyseCommand;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
 
@@ -19,6 +20,10 @@ if (!class_exists('PHPStan\Command\AnalyseCommand', true)) {
 
 	require_once $composerAutoloadFile;
 }
+
+$xdebug = new XdebugHandler('phpstan', '--ansi');
+$xdebug->check();
+unset($xdebug);
 
 $version = 'Version unknown';
 try {
