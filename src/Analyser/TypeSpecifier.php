@@ -26,6 +26,7 @@ use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\IterableType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\NonexistentParentClassType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\ObjectWithoutClassType;
@@ -66,6 +67,15 @@ class TypeSpecifier
 					$type = new ObjectType($scope->getClassReflection()->getName());
 				} elseif ($lowercasedClassName === 'static' && $scope->isInClass()) {
 					$type = new StaticType($scope->getClassReflection()->getName());
+				} elseif ($lowercasedClassName === 'parent') {
+					if (
+						$scope->isInClass()
+						&& $scope->getClassReflection()->getParentClass() !== false
+					) {
+						$type = new ObjectType($scope->getClassReflection()->getParentClass()->getName());
+					} else {
+						$type = new NonexistentParentClassType();
+					}
 				} else {
 					$type = new ObjectType($className);
 				}

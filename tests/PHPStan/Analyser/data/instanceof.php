@@ -10,7 +10,12 @@ interface BarInterface
 
 }
 
-class Foo
+abstract class BarParent
+{
+
+}
+
+class Foo extends BarParent
 {
 
 	public function someMethod(Expr $foo)
@@ -18,6 +23,7 @@ class Foo
 		$bar = $foo;
 		$baz = doFoo();
 		$intersected = new Foo();
+		$parent = doFoo();
 
 		if ($baz instanceof Foo) {
 			// ...
@@ -29,7 +35,9 @@ class Foo
 						if ($self instanceof self) {
 							if ($intersected instanceof BarInterface) {
 								if ($this instanceof BarInterface) {
-									die;
+									if ($parent instanceof parent) {
+										die;
+									}
 								}
 							}
 						}

@@ -2545,6 +2545,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this(InstanceOfNamespace\Foo)&InstanceOfNamespace\BarInterface',
 				'$this',
 			],
+			[
+				'InstanceOfNamespace\BarParent',
+				'$parent',
+			],
 		];
 	}
 
