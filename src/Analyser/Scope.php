@@ -1356,32 +1356,45 @@ class Scope
 		);
 	}
 
-	public function unsetVariable(string $variableName): self
+	public function unsetExpression(Expr $expr): self
 	{
-		if ($this->hasVariableType($variableName)->no()) {
-			return $this;
-		}
-		$variableTypes = $this->getVariableTypes();
-		unset($variableTypes[$variableName]);
+		if ($expr instanceof Variable && is_string($expr->name)) {
+			if ($this->hasVariableType($expr->name)->no()) {
+				return $this;
+			}
+			$variableTypes = $this->getVariableTypes();
+			unset($variableTypes[$expr->name]);
 
-		return new self(
-			$this->broker,
-			$this->printer,
-			$this->typeSpecifier,
-			$this->getFile(),
-			$this->getAnalysedContextFile(),
-			$this->isDeclareStrictTypes(),
-			$this->isInClass() ? $this->getClassReflection() : null,
-			$this->getFunction(),
-			$this->getNamespace(),
-			$variableTypes,
-			$this->moreSpecificTypes,
-			$this->inClosureBindScopeClass,
-			$this->getAnonymousFunctionReturnType(),
-			$this->getInFunctionCall(),
-			$this->isNegated(),
-			$this->inFirstLevelStatement
-		);
+			return new self(
+				$this->broker,
+				$this->printer,
+				$this->typeSpecifier,
+				$this->getFile(),
+				$this->getAnalysedContextFile(),
+				$this->isDeclareStrictTypes(),
+				$this->isInClass() ? $this->getClassReflection() : null,
+				$this->getFunction(),
+				$this->getNamespace(),
+				$variableTypes,
+				$this->moreSpecificTypes,
+				$this->inClosureBindScopeClass,
+				$this->getAnonymousFunctionReturnType(),
+				$this->getInFunctionCall(),
+				$this->isNegated(),
+				$this->inFirstLevelStatement
+			);
+		} elseif ($expr instanceof Expr\ArrayDimFetch && $expr->dim !== null) {
+			$arrayType = $this->getType($expr->var);
+			$dimType = $this->getType($expr->dim);
+			if ($arrayType instanceof ConstantArrayType) {
+				return $this->specifyExpressionType(
+					$expr->var,
+					$arrayType->unsetOffset($dimType)
+				);
+			}
+		}
+
+		return $this;
 	}
 
 	public function intersectVariables(Scope $otherScope): self

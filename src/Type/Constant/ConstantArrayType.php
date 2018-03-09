@@ -213,6 +213,24 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		return parent::setOffsetValueType($offsetType, $valueType);
 	}
 
+	public function unsetOffset(Type $offsetType): self
+	{
+		$offsetType = parent::castToArrayKeyType($offsetType);
+		if ($offsetType instanceof ConstantIntegerType || $offsetType instanceof ConstantStringType) {
+			foreach ($this->keyTypes as $i => $keyType) {
+				if ($keyType->getValue() === $offsetType->getValue()) {
+					$newKeyTypes = $this->keyTypes;
+					unset($newKeyTypes[$i]);
+					$newValueTypes = $this->valueTypes;
+					unset($newValueTypes[$i]);
+					return new self($newKeyTypes, $newValueTypes, $this->nextAutoIndex);
+				}
+			}
+		}
+
+		return $this;
+	}
+
 	public function generalize(): Type
 	{
 		return new ArrayType($this->getKeyType(), $this->getItemType(), true);

@@ -40,4 +40,20 @@ class Foo
 		echo $nullable['testt'];
 	}
 
+	public function unsetOffset()
+	{
+		$array = [
+			'a' => new \stdClass(),
+			'b' => 1,
+		];
+
+		echo $array['a'];
+		echo $array['b'];
+
+		unset($array['a']);
+
+		echo $array['a'];
+		echo $array['b'];
+	}
+
 }

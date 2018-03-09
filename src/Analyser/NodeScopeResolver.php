@@ -1044,9 +1044,7 @@ class NodeScopeResolver
 			$scope = $this->lookForAssigns($scope, $node->expr, $certainty);
 		} elseif ($node instanceof \PhpParser\Node\Stmt\Unset_) {
 			foreach ($node->vars as $var) {
-				if ($var instanceof Variable && is_string($var->name)) {
-					$scope = $scope->unsetVariable($var->name);
-				}
+				$scope = $scope->unsetExpression($var);
 			}
 		} elseif ($node instanceof Echo_) {
 			foreach ($node->exprs as $echoedExpr) {
