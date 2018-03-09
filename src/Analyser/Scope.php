@@ -622,6 +622,8 @@ class Scope
 						if ($this->getClassReflection()->getParentClass() !== false) {
 							return new ObjectType($this->getClassReflection()->getParentClass()->getName());
 						}
+
+						return new NonexistentParentClassType();
 					}
 				}
 
