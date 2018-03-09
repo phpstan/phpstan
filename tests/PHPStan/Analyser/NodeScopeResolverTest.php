@@ -1979,6 +1979,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'int',
 				'count($appendingToArrayInBranches)',
 			],
+			[
+				'int(2)',
+				'$array[1]',
+			],
 		];
 	}
 
