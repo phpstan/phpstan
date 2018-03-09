@@ -813,6 +813,7 @@ class NodeScopeResolver
 			$scope = $scope->enterExpressionAssign($node);
 		} elseif ($node instanceof ArrayDimFetch) {
 			while ($node instanceof ArrayDimFetch) {
+				$scope = $scope->enterExpressionAssign($node);
 				$node = $node->var;
 			}
 
