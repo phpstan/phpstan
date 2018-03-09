@@ -4,91 +4,62 @@ namespace PHPStan\Testing;
 
 use PHPStan\Analyser\Analyser;
 use PHPStan\Analyser\Error;
-use PHPStan\Analyser\NodeScopeResolver;
-use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Cache\Cache;
-use PHPStan\PhpDoc\PhpDocStringResolver;
-use PHPStan\Rules\Registry;
 use PHPStan\Rules\Rule;
-use PHPStan\Type\FileTypeMapper;
 
-abstract class RuleTestCase extends \PHPStan\Testing\TestCase
+abstract class RuleTestCase extends TestCase
 {
-
-	/** @var \PHPStan\Analyser\Analyser */
-	private $analyser;
 
 	abstract protected function getRule(): Rule;
 
-	private function getAnalyser(): Analyser
-	{
-		if ($this->analyser === null) {
-			$registry = new Registry([
-				$this->getRule(),
-			]);
-
-			$broker = $this->createBroker();
-			$printer = new \PhpParser\PrettyPrinter\Standard();
-			$fileHelper = $this->getFileHelper();
-			$typeSpecifier = new TypeSpecifier($printer);
-			$this->analyser = new Analyser(
-				$broker,
-				$this->getParser(),
-				$registry,
-				new NodeScopeResolver(
-					$broker,
-					$this->getParser(),
-					$printer,
-					new FileTypeMapper($this->getParser(), $this->getContainer()->getByType(PhpDocStringResolver::class), $this->createMock(Cache::class)),
-					$fileHelper,
-					$this->shouldPolluteScopeWithLoopInitialAssignments(),
-					$this->shouldPolluteCatchScopeWithTryAssignments(),
-					[]
-				),
-				$printer,
-				$typeSpecifier,
-				$fileHelper,
-				[],
-				null,
-				true,
-				50
-			);
-		}
-
-		return $this->analyser;
-	}
-
 	public function analyse(array $files, array $expectedErrors): void
 	{
-		$files = array_map([$this->getFileHelper(), 'normalizePath'], $files);
-		$actualErrors = $this->getAnalyser()->analyse($files, false);
+		$expectedErrors = $this->formatExpectedErrors($expectedErrors);
+
+		$files = array_map([$this->testingKit->getFileHelper(), 'normalizePath'], $files);
+
+		/** @var Cache $cache */
+		$cache = $this->createMock(Cache::class);
+
+		/** @var Analyser $analyser */
+		$analyser = $this->testingKit->getAnalyser(
+			$this->getRule(),
+			$cache,
+			$this->shouldPolluteScopeWithLoopInitialAssignments(),
+			$this->shouldPolluteCatchScopeWithTryAssignments()
+		);
+
+		$actualErrors = $analyser->analyse($files, false);
+
 		$this->assertInternalType('array', $actualErrors);
 
-		$strictlyTypedSprintf = function (int $line, string $message): string {
-			return sprintf('%02d: %s', $line, $message);
-		};
+		$actualErrors = array_map(function (Error $error): string {
+			return $this->formatError($error->getLine(), $error->getMessage());
+		}, $actualErrors);
 
-		$expectedErrors = array_map(
-			function (array $error) use ($strictlyTypedSprintf): string {
-				if (!isset($error[0])) {
-					throw new \InvalidArgumentException('Missing expected error message.');
-				}
-				if (!isset($error[1])) {
-					throw new \InvalidArgumentException('Missing expected file line.');
-				}
-				return $strictlyTypedSprintf($error[1], $error[0]);
-			},
-			$expectedErrors
+		$this->assertSame(
+			implode("\n", $expectedErrors),
+			implode("\n", $actualErrors)
 		);
+	}
 
-		$actualErrors = array_map(
-			function (Error $error): string {
-				return sprintf('%02d: %s', $error->getLine(), $error->getMessage());
-			},
-			$actualErrors
-		);
+	private function formatExpectedErrors(array $expectedErrors): array
+	{
+		return array_map(function (array $error): string {
+			if (!isset($error[0])) {
+				throw new \InvalidArgumentException('Missing expected error message.');
+			}
+			if (!isset($error[1])) {
+				throw new \InvalidArgumentException('Missing expected file line.');
+			}
 
-		$this->assertSame(implode("\n", $expectedErrors), implode("\n", $actualErrors));
+			return $this->formatError($error[1], $error[0]);
+		}, $expectedErrors);
+	}
+
+	private function formatError(?int $line, string $message): string
+	{
+		return sprintf('%02d: %s', $line, $message);
 	}
 
 	protected function shouldPolluteScopeWithLoopInitialAssignments(): bool

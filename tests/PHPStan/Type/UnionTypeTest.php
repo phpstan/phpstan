@@ -67,8 +67,6 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 
 	public function dataIsSuperTypeOf(): \Iterator
 	{
-		$this->createBroker();
-
 		$unionTypeA = new UnionType([
 			new IntegerType(),
 			new StringType(),
@@ -265,8 +263,6 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 
 	public function dataIsSubTypeOf(): \Iterator
 	{
-		$this->createBroker();
-
 		$unionTypeA = new UnionType([
 			new IntegerType(),
 			new StringType(),

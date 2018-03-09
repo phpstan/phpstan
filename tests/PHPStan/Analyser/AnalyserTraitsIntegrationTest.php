@@ -2,9 +2,9 @@
 
 namespace PHPStan\Analyser;
 
-use PHPStan\File\FileHelper;
+use PHPStan\Testing\TestCase;
 
-class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
+class AnalyserTraitsIntegrationTest extends TestCase
 {
 
 	/**
@@ -14,7 +14,9 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 
 	protected function setUp(): void
 	{
-		$this->fileHelper = $this->getContainer()->getByType(FileHelper::class);
+		parent::setUp();
+
+		$this->fileHelper = $this->getFileHelper();
 	}
 
 	public function testMethodIsInClassUsingTrait(): void

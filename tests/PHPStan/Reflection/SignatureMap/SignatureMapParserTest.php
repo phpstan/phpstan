@@ -2,6 +2,7 @@
 
 namespace PHPStan\Reflection\SignatureMap;
 
+use PHPStan\Testing\TestCase;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
@@ -14,12 +15,13 @@ use PHPStan\Type\StaticType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\UnionType;
 
-class SignatureMapParserTest extends \PHPStan\Testing\TestCase
+class SignatureMapParserTest extends TestCase
 {
 
 	protected function setUp(): void
 	{
 		parent::setUp();
+
 		$this->createBroker();
 	}
 

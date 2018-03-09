@@ -5,10 +5,11 @@ namespace PHPStan\Command\ErrorFormatter;
 use PHPStan\Analyser\Error;
 use PHPStan\Command\AnalysisResult;
 use PHPStan\Command\ErrorsConsoleStyle;
+use PHPStan\Testing\TestCase;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\StreamOutput;
 
-class JsonErrorFormatterTest extends \PHPStan\Testing\TestCase
+class JsonErrorFormatterTest extends TestCase
 {
 
 	/**
@@ -18,6 +19,8 @@ class JsonErrorFormatterTest extends \PHPStan\Testing\TestCase
 
 	protected function setUp(): void
 	{
+		parent::setUp();
+
 		$this->formatter = new JsonErrorFormatter();
 	}
 
