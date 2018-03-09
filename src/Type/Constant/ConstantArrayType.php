@@ -223,7 +223,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 					unset($newKeyTypes[$i]);
 					$newValueTypes = $this->valueTypes;
 					unset($newValueTypes[$i]);
-					return new self($newKeyTypes, $newValueTypes, $this->nextAutoIndex);
+					return new self(array_values($newKeyTypes), array_values($newValueTypes), $this->nextAutoIndex);
 				}
 			}
 		}
