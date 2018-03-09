@@ -156,12 +156,9 @@ class Analyser
 					new Scope($this->broker, $this->printer, $this->typeSpecifier, $file),
 					function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors): void {
 						foreach ($this->registry->getRules(get_class($node)) as $rule) {
-							$ruleErrors = $this->createErrors(
-								$node,
-								$scope->getAnalysedContextFile(),
-								$rule->processNode($node, $scope)
-							);
-							$fileErrors = array_merge($fileErrors, $ruleErrors);
+							foreach ($rule->processNode($node, $scope) as $message) {
+								$fileErrors[] = new Error($message, $scope->getAnalysedContextFile(), $node->getLine());
+							}
 						}
 					}
 				);
@@ -227,22 +224,6 @@ class Analyser
 
 		if ($reachedInternalErrorsCountLimit) {
 			$errors[] = sprintf('Reached internal errors count limit of %d, exiting...', $this->internalErrorsCountLimit);
-		}
-
-		return $errors;
-	}
-
-	/**
-	 * @param \PhpParser\Node $node
-	 * @param string $file
-	 * @param string[] $messages
-	 * @return \PHPStan\Analyser\Error[]
-	 */
-	private function createErrors(\PhpParser\Node $node, string $file, array $messages): array
-	{
-		$errors = [];
-		foreach ($messages as $message) {
-			$errors[] = new Error($message, $file, $node->getLine());
 		}
 
 		return $errors;
