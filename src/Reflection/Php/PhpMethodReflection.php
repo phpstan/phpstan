@@ -13,6 +13,7 @@ use PHPStan\Reflection\MethodPrototypeReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
+use PHPStan\Reflection\PassedByReference;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
@@ -174,7 +175,7 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 					'parameter',
 					new MixedType(),
 					true,
-					false,
+					PassedByReference::createNo(),
 					true
 				);
 			}
@@ -225,7 +226,7 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 					'args',
 					new MixedType(),
 					true,
-					false,
+					PassedByReference::createNo(),
 					true
 				);
 			}
@@ -238,7 +239,7 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 					'args',
 					new MixedType(),
 					true,
-					false,
+					PassedByReference::createNo(),
 					true
 				);
 			}

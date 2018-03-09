@@ -2,6 +2,7 @@
 
 namespace PHPStan\PhpDoc\Tag;
 
+use PHPStan\Reflection\PassedByReference;
 use PHPStan\Type\Type;
 
 class MethodTagParameter
@@ -10,8 +11,8 @@ class MethodTagParameter
 	/** @var \PHPStan\Type\Type */
 	private $type;
 
-	/** @var bool */
-	private $isPassedByReference;
+	/** @var \PHPStan\Reflection\PassedByReference */
+	private $passedByReference;
 
 	/** @var bool */
 	private $isOptional;
@@ -21,13 +22,13 @@ class MethodTagParameter
 
 	public function __construct(
 		Type $type,
-		bool $isPassedByReference,
+		PassedByReference $passedByReference,
 		bool $isOptional,
 		bool $isVariadic
 	)
 	{
 		$this->type = $type;
-		$this->isPassedByReference = $isPassedByReference;
+		$this->passedByReference = $passedByReference;
 		$this->isOptional = $isOptional;
 		$this->isVariadic = $isVariadic;
 	}
@@ -37,9 +38,9 @@ class MethodTagParameter
 		return $this->type;
 	}
 
-	public function isPassedByReference(): bool
+	public function passedByReference(): PassedByReference
 	{
-		return $this->isPassedByReference;
+		return $this->passedByReference;
 	}
 
 	public function isOptional(): bool
@@ -56,7 +57,7 @@ class MethodTagParameter
 	{
 		return new self(
 			$properties['type'],
-			$properties['isPassedByReference'],
+			$properties['passedByReference'],
 			$properties['isOptional'],
 			$properties['isVariadic']
 		);

@@ -232,7 +232,7 @@ class PhpClassReflectionExtension
 						$parameterSignature->getName(),
 						$parameterSignature->isOptional(),
 						$parameterSignature->getType(),
-						$parameterSignature->isPassedByReference(),
+						$parameterSignature->passedByReference(),
 						$parameterSignature->isVariadic()
 					);
 				}, $methodSignature->getParameters()),

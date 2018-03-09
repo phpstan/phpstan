@@ -4,6 +4,7 @@ namespace PHPStan\Reflection\Php;
 
 use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\Reflection\PassedByReference;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypehintHelper;
@@ -87,7 +88,9 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 					$isOptional,
 					$this->realParameterTypes[$parameter->name],
 					isset($this->phpDocParameterTypes[$parameter->name]) ? $this->phpDocParameterTypes[$parameter->name] : null,
-					$parameter->byRef,
+					$parameter->byRef
+						? PassedByReference::createCreatesNewVariable()
+						: PassedByReference::createNo(),
 					$parameter->default,
 					$parameter->variadic
 				);

@@ -4,6 +4,7 @@ namespace PHPStan\Reflection\Php;
 
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ConstFetch;
+use PHPStan\Reflection\PassedByReference;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
 
@@ -22,7 +23,7 @@ class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\Parame
 	/** @var \PHPStan\Type\Type|null */
 	private $phpDocType;
 
-	/** @var bool */
+	/** @var \PHPStan\Reflection\PassedByReference */
 	private $passedByReference;
 
 	/** @var \PhpParser\Node\Expr|null */
@@ -39,7 +40,7 @@ class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\Parame
 		bool $optional,
 		Type $realType,
 		Type $phpDocType = null,
-		bool $passedByReference,
+		PassedByReference $passedByReference,
 		Expr $defaultValue = null,
 		bool $variadic
 	)
@@ -81,7 +82,7 @@ class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\Parame
 		return $this->type;
 	}
 
-	public function isPassedByReference(): bool
+	public function passedByReference(): PassedByReference
 	{
 		return $this->passedByReference;
 	}

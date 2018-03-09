@@ -58,11 +58,11 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 		$this->assertFalse($rotate->isStatic());
 		$this->assertCount(2, $rotate->getParameters());
 		$this->assertSame('float', $rotate->getParameters()['angle']->getType()->describe());
-		$this->assertFalse($rotate->getParameters()['angle']->isPassedByReference());
+		$this->assertTrue($rotate->getParameters()['angle']->passedByReference()->no());
 		$this->assertFalse($rotate->getParameters()['angle']->isOptional());
 		$this->assertFalse($rotate->getParameters()['angle']->isVariadic());
 		$this->assertSame('mixed', $rotate->getParameters()['backgroundColor']->getType()->describe());
-		$this->assertFalse($rotate->getParameters()['backgroundColor']->isPassedByReference());
+		$this->assertTrue($rotate->getParameters()['backgroundColor']->passedByReference()->no());
 		$this->assertFalse($rotate->getParameters()['backgroundColor']->isOptional());
 		$this->assertFalse($rotate->getParameters()['backgroundColor']->isVariadic());
 
@@ -71,11 +71,11 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 		$this->assertFalse($paramMultipleTypesWithExtraSpaces->isStatic());
 		$this->assertCount(2, $paramMultipleTypesWithExtraSpaces->getParameters());
 		$this->assertSame('string|null', $paramMultipleTypesWithExtraSpaces->getParameters()['string']->getType()->describe());
-		$this->assertFalse($paramMultipleTypesWithExtraSpaces->getParameters()['string']->isPassedByReference());
+		$this->assertTrue($paramMultipleTypesWithExtraSpaces->getParameters()['string']->passedByReference()->no());
 		$this->assertFalse($paramMultipleTypesWithExtraSpaces->getParameters()['string']->isOptional());
 		$this->assertFalse($paramMultipleTypesWithExtraSpaces->getParameters()['string']->isVariadic());
 		$this->assertSame('stdClass|null', $paramMultipleTypesWithExtraSpaces->getParameters()['object']->getType()->describe());
-		$this->assertFalse($paramMultipleTypesWithExtraSpaces->getParameters()['object']->isPassedByReference());
+		$this->assertTrue($paramMultipleTypesWithExtraSpaces->getParameters()['object']->passedByReference()->no());
 		$this->assertFalse($paramMultipleTypesWithExtraSpaces->getParameters()['object']->isOptional());
 		$this->assertFalse($paramMultipleTypesWithExtraSpaces->getParameters()['object']->isVariadic());
 	}

@@ -268,7 +268,7 @@ class Broker
 							$parameterSignature->getName(),
 							$parameterSignature->isOptional(),
 							$parameterSignature->getType(),
-							$parameterSignature->isPassedByReference(),
+							$parameterSignature->passedByReference(),
 							$parameterSignature->isVariadic()
 						);
 					}, $functionSignature->getParameters()),

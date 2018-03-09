@@ -76,7 +76,7 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 				$parameters[] = new AnnotationsMethodParameterReflection(
 					$parameterName,
 					$parameterTag->getType(),
-					$parameterTag->isPassedByReference(),
+					$parameterTag->passedByReference(),
 					$parameterTag->isOptional(),
 					$parameterTag->isVariadic()
 				);

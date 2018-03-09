@@ -207,6 +207,14 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Variable $forVariableUsedAndThenDefined might not be defined.',
 				360,
 			],
+			[
+				'Undefined variable: $unknownVariablePassedToReset',
+				368,
+			],
+			[
+				'Undefined variable: $unknownVariablePassedToReset',
+				369,
+			],
 		]);
 	}
 

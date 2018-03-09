@@ -3,6 +3,7 @@
 namespace PHPStan\Reflection\Annotations;
 
 use PHPStan\Reflection\ParameterReflection;
+use PHPStan\Reflection\PassedByReference;
 use PHPStan\Type\Type;
 
 class AnnotationsMethodParameterReflection implements ParameterReflection
@@ -14,8 +15,8 @@ class AnnotationsMethodParameterReflection implements ParameterReflection
 	/** @var Type */
 	private $type;
 
-	/** @var bool */
-	private $isPassedByReference;
+	/** @var \PHPStan\Reflection\PassedByReference */
+	private $passedByReference;
 
 	/** @var bool */
 	private $isOptional;
@@ -23,11 +24,11 @@ class AnnotationsMethodParameterReflection implements ParameterReflection
 	/** @var bool */
 	private $isVariadic;
 
-	public function __construct(string $name, Type $type, bool $isPassedByReference, bool $isOptional, bool $isVariadic)
+	public function __construct(string $name, Type $type, PassedByReference $passedByReference, bool $isOptional, bool $isVariadic)
 	{
 		$this->name = $name;
 		$this->type = $type;
-		$this->isPassedByReference = $isPassedByReference;
+		$this->passedByReference = $passedByReference;
 		$this->isOptional = $isOptional;
 		$this->isVariadic = $isVariadic;
 	}
@@ -47,9 +48,9 @@ class AnnotationsMethodParameterReflection implements ParameterReflection
 		return $this->type;
 	}
 
-	public function isPassedByReference(): bool
+	public function passedByReference(): PassedByReference
 	{
-		return $this->isPassedByReference;
+		return $this->passedByReference;
 	}
 
 	public function isVariadic(): bool

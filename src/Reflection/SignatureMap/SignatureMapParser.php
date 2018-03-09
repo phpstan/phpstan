@@ -4,6 +4,7 @@ namespace PHPStan\Reflection\SignatureMap;
 
 use PHPStan\Analyser\NameScope;
 use PHPStan\PhpDoc\TypeStringResolver;
+use PHPStan\Reflection\PassedByReference;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
@@ -78,12 +79,12 @@ class SignatureMapParser
 	{
 		$parameterSignatures = [];
 		foreach ($parameterMap as $parameterName => $typeString) {
-			[$name, $isOptional, $isPassedByReference, $isVariadic] = $this->getParameterInfoFromName($parameterName);
+			[$name, $isOptional, $passedByReference, $isVariadic] = $this->getParameterInfoFromName($parameterName);
 			$parameterSignatures[] = new ParameterSignature(
 				$name,
 				$isOptional,
 				$this->getTypeFromString($typeString, null),
-				$isPassedByReference,
+				$passedByReference,
 				$isVariadic
 			);
 		}
@@ -99,18 +100,32 @@ class SignatureMapParser
 	{
 		$matches = \Nette\Utils\Strings::match(
 			$parameterNameString,
-			'#^(?P<reference>&r?w?_?)?(?P<variadic>\.\.\.)?(?P<name>[^=]+)?(?P<optional>=)?($)#'
+			'#^(?P<reference>&(?:\.\.\.)?r?w?_?)?(?P<variadic>\.\.\.)?(?P<name>[^=]+)?(?P<optional>=)?($)#'
 		);
 		if ($matches === null || !isset($matches['optional'])) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
-		$isPassedByReference = $matches['reference'] !== '';
+
 		$isVariadic = $matches['variadic'] !== '';
+
+		$reference = $matches['reference'];
+		if (strpos($reference, '&...') === 0) {
+			$reference = '&' . substr($reference, 4);
+			$isVariadic = true;
+		}
+		if (strpos($reference, '&rw') === 0) {
+			$passedByReference = PassedByReference::createReadsArgument();
+		} elseif (strpos($reference, '&w') === 0) {
+			$passedByReference = PassedByReference::createCreatesNewVariable();
+		} else {
+			$passedByReference = PassedByReference::createNo();
+		}
+
 		$isOptional = $matches['optional'] !== '';
 
 		$name = $matches['name'] !== '' ? $matches['name'] : '...';
 
-		return [$name, $isOptional, $isPassedByReference, $isVariadic];
+		return [$name, $isOptional, $passedByReference, $isVariadic];
 	}
 
 }

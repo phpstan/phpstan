@@ -364,3 +364,6 @@ for (; $forVariableUsedAndThenDefined && $forVariableUsedAndThenDefined = 1;) {
 while (isset($variableInWhileIsset)) {
 	echo $variableInWhileIsset;
 }
+
+reset($unknownVariablePassedToReset);
+echo $unknownVariablePassedToReset;

@@ -3,6 +3,7 @@
 namespace PHPStan\Reflection\Php;
 
 use PHPStan\Reflection\ParameterReflection;
+use PHPStan\Reflection\PassedByReference;
 use PHPStan\Type\Type;
 
 class DummyParameter implements ParameterReflection
@@ -17,18 +18,20 @@ class DummyParameter implements ParameterReflection
 	/** @var bool */
 	private $optional;
 
-	/** @var bool */
+	/** @var \PHPStan\Reflection\PassedByReference */
 	private $passedByReference;
 
 	/** @var bool */
 	private $variadic;
 
-	public function __construct(string $name, Type $type, bool $optional, bool $passedByReference = false, bool $variadic = false)
+	public function __construct(string $name, Type $type, bool $optional, ?PassedByReference $passedByReference = null, bool $variadic = false)
 	{
 		$this->name = $name;
 		$this->type = $type;
 		$this->optional = $optional;
-		$this->passedByReference = $passedByReference;
+		$this->passedByReference = $passedByReference !== null
+			? PassedByReference::createCreatesNewVariable()
+			: PassedByReference::createNo();
 		$this->variadic = $variadic;
 	}
 
@@ -47,7 +50,7 @@ class DummyParameter implements ParameterReflection
 		return $this->type;
 	}
 
-	public function isPassedByReference(): bool
+	public function passedByReference(): PassedByReference
 	{
 		return $this->passedByReference;
 	}

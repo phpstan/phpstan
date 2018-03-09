@@ -13,7 +13,7 @@ interface ParameterReflection
 
 	public function getType(): Type;
 
-	public function isPassedByReference(): bool;
+	public function passedByReference(): PassedByReference;
 
 	public function isVariadic(): bool;
 

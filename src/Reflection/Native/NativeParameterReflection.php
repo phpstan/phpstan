@@ -3,6 +3,7 @@
 namespace PHPStan\Reflection\Native;
 
 use PHPStan\Reflection\ParameterReflection;
+use PHPStan\Reflection\PassedByReference;
 use PHPStan\Type\Type;
 
 class NativeParameterReflection implements ParameterReflection
@@ -24,7 +25,7 @@ class NativeParameterReflection implements ParameterReflection
 	private $type;
 
 	/**
-	 * @var bool
+	 * @var \PHPStan\Reflection\PassedByReference
 	 */
 	private $passedByReference;
 
@@ -37,7 +38,7 @@ class NativeParameterReflection implements ParameterReflection
 		string $name,
 		bool $optional,
 		Type $type,
-		bool $passedByReference,
+		PassedByReference $passedByReference,
 		bool $variadic
 	)
 	{
@@ -63,7 +64,7 @@ class NativeParameterReflection implements ParameterReflection
 		return $this->type;
 	}
 
-	public function isPassedByReference(): bool
+	public function passedByReference(): PassedByReference
 	{
 		return $this->passedByReference;
 	}

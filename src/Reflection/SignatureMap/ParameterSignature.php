@@ -2,6 +2,7 @@
 
 namespace PHPStan\Reflection\SignatureMap;
 
+use PHPStan\Reflection\PassedByReference;
 use PHPStan\Type\Type;
 
 class ParameterSignature
@@ -23,7 +24,7 @@ class ParameterSignature
 	private $type;
 
 	/**
-	 * @var bool
+	 * @var \PHPStan\Reflection\PassedByReference
 	 */
 	private $passedByReference;
 
@@ -36,7 +37,7 @@ class ParameterSignature
 		string $name,
 		bool $optional,
 		Type $type,
-		bool $passedByReference,
+		PassedByReference $passedByReference,
 		bool $variadic
 	)
 	{
@@ -63,7 +64,7 @@ class ParameterSignature
 		return $this->type;
 	}
 
-	public function isPassedByReference(): bool
+	public function passedByReference(): PassedByReference
 	{
 		return $this->passedByReference;
 	}

@@ -160,10 +160,10 @@ class NodeScopeResolver
 					$parameters = $parametersAcceptor->getParameters();
 					$assignByReference = false;
 					if (isset($parameters[$i])) {
-						$assignByReference = $parameters[$i]->isPassedByReference();
+						$assignByReference = $parameters[$i]->passedByReference()->createsNewVariable();
 					} elseif (count($parameters) > 0 && $parametersAcceptor->isVariadic()) {
 						$lastParameter = $parameters[count($parameters) - 1];
-						$assignByReference = $lastParameter->isPassedByReference();
+						$assignByReference = $lastParameter->passedByReference()->createsNewVariable();
 					}
 					if ($assignByReference && $value instanceof Variable && is_string($value->name)) {
 						$scope = $scope->assignVariable($value->name, new MixedType(), TrinaryLogic::createYes());
@@ -911,11 +911,11 @@ class NodeScopeResolver
 				foreach ($node->args as $i => $arg) {
 					$assignByReference = false;
 					if (isset($parameters[$i])) {
-						$assignByReference = $parameters[$i]->isPassedByReference();
+						$assignByReference = $parameters[$i]->passedByReference()->createsNewVariable();
 						$parameterType = $parameters[$i]->getType();
 					} elseif (count($parameters) > 0 && $parametersAcceptor->isVariadic()) {
 						$lastParameter = $parameters[count($parameters) - 1];
-						$assignByReference = $lastParameter->isPassedByReference();
+						$assignByReference = $lastParameter->passedByReference()->createsNewVariable();
 					}
 
 					if (!$assignByReference) {

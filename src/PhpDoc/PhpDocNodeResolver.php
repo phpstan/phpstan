@@ -11,6 +11,7 @@ use PHPStan\PhpDoc\Tag\ReturnTag;
 use PHPStan\PhpDoc\Tag\VarTag;
 use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNullNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
+use PHPStan\Reflection\PassedByReference;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
@@ -132,7 +133,9 @@ class PhpDocNodeResolver
 				}
 				$parameters[$parameterName] = new MethodTagParameter(
 					$type,
-					$parameterNode->isReference,
+					$parameterNode->isReference
+						? PassedByReference::createCreatesNewVariable()
+						: PassedByReference::createNo(),
 					$parameterNode->defaultValue !== null,
 					$parameterNode->isVariadic
 				);

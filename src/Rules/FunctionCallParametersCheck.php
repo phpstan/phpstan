@@ -182,7 +182,7 @@ class FunctionCallParametersCheck
 
 			if (
 				$this->checkArgumentsPassedByReference
-				&& $parameter->isPassedByReference()
+				&& $parameter->passedByReference()->yes()
 				&& !$argument->value instanceof \PhpParser\Node\Expr\Variable
 				&& !$argument->value instanceof \PhpParser\Node\Expr\ArrayDimFetch
 				&& !$argument->value instanceof \PhpParser\Node\Expr\PropertyFetch
