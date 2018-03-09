@@ -2,6 +2,7 @@
 
 namespace PHPStan\Command;
 
+use Composer\XdebugHandler\XdebugHandler;
 use Nette\DI\Helpers;
 use PHPStan\Command\ErrorFormatter\ErrorFormatter;
 use PHPStan\DependencyInjection\ContainerFactory;
@@ -47,6 +48,10 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
+		$xdebug = new XdebugHandler('phpstan', '--ansi');
+		$xdebug->check();
+		unset($xdebug);
+
 		$consoleStyle = new ErrorsConsoleStyle($input, $output);
 
 		$memoryLimit = $input->getOption('memory-limit');
