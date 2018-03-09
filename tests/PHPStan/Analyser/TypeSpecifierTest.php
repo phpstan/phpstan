@@ -132,7 +132,6 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 				['$foo' => 'int'],
 				['$foo' => '~int'],
 			],
-
 			[
 				$this->createInstanceOf('Foo'),
 				['$foo' => 'Foo'],
