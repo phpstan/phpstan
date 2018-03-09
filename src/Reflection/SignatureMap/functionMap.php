@@ -7157,7 +7157,7 @@ return [
 'preg_grep' => ['array', 'regex'=>'string', 'input'=>'array', 'flags='=>'int'],
 'preg_last_error' => ['int'],
 'preg_match_all' => ['int|false', 'pattern'=>'string', 'subject'=>'string', '&w_subpatterns='=>'array', 'flags='=>'int', 'offset='=>'int'],
-'preg_match' => ['int|false', 'pattern'=>'string', 'subject'=>'string', '&w_subpatterns='=>'array', 'flags='=>'int', 'offset='=>'int'],
+'preg_match' => ['int|false', 'pattern'=>'string', 'subject'=>'string', '&w_subpatterns='=>'string[]', 'flags='=>'int', 'offset='=>'int'],
 'preg_quote' => ['string', 'str'=>'string', 'delim_char='=>'string'],
 'preg_replace_callback_array' => ['string|array', 'pattern'=>'array<string,callable>', 'subject'=>'string|array', 'limit='=>'int', '&w_count='=>'int'],
 'preg_replace_callback' => ['string|array', 'regex'=>'string|array', 'callback'=>'callable', 'subject'=>'string|array', 'limit='=>'int', '&w_count='=>'int'],

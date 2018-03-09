@@ -304,7 +304,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'matches',
 				TrinaryLogic::createYes(),
-				'mixed', // string[]
+				'array<string>',
 			],
 			[
 				$testScope,
@@ -345,7 +345,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'matches2',
 				TrinaryLogic::createYes(),
-				'mixed', // string[]
+				'array<string>',
 			],
 			[
 				$testScope,
@@ -357,13 +357,13 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'matches3',
 				TrinaryLogic::createYes(),
-				'mixed', // string[]
+				'array<string>',
 			],
 			[
 				$testScope,
 				'matches4',
 				TrinaryLogic::createMaybe(),
-				'mixed', // string[]
+				'array<string>',
 			],
 			[
 				$testScope,
@@ -417,7 +417,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'ternaryMatches',
 				TrinaryLogic::createYes(),
-				'mixed', // string[]
+				'array<string>',
 			],
 			[
 				$testScope,
