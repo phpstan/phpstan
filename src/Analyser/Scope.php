@@ -326,8 +326,7 @@ class Scope
 	private function resolveType(Expr $node): Type
 	{
 		if (
-			$node instanceof \PhpParser\Node\Expr\BinaryOp\LogicalXor
-			|| $node instanceof Expr\BinaryOp\Greater
+			$node instanceof Expr\BinaryOp\Greater
 			|| $node instanceof Expr\BinaryOp\GreaterOrEqual
 			|| $node instanceof Expr\BinaryOp\Smaller
 			|| $node instanceof Expr\BinaryOp\SmallerOrEqual
@@ -407,6 +406,21 @@ class Scope
 				&& !$rightBooleanType->getValue()
 			) {
 				return new ConstantBooleanType(false);
+			}
+
+			return new BooleanType();
+		}
+
+		if ($node instanceof \PhpParser\Node\Expr\BinaryOp\LogicalXor) {
+			$leftBooleanType = $this->getType($node->left)->toBoolean();
+			$rightBooleanType = $this->filterByFalseyValue($node->left)->getType($node->right)->toBoolean();
+			if (
+				$leftBooleanType instanceof ConstantBooleanType
+				&& $rightBooleanType instanceof ConstantBooleanType
+			) {
+				return new ConstantBooleanType(
+					$leftBooleanType->getValue() xor $rightBooleanType->getValue()
+				);
 			}
 
 			return new BooleanType();

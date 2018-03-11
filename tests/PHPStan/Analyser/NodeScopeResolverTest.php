@@ -1522,8 +1522,28 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'true || false',
 			],
 			[
-				$typeCallback(true xor false),
+				'true',
 				'true xor false',
+			],
+			[
+				'true',
+				'false xor true',
+			],
+			[
+				'false',
+				'true xor true',
+			],
+			[
+				'false',
+				'true xor true',
+			],
+			[
+				'bool',
+				'$bool xor true',
+			],
+			[
+				'bool',
+				'$bool xor false',
 			],
 			[
 				'false',

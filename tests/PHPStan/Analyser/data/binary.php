@@ -6,6 +6,9 @@ $float = doFoo();
 /** @var int $integer */
 $integer = doFoo();
 
+/** @var bool $bool */
+$bool = doFoo();
+
 $string = 'foo';
 
 /** @var string|null $stringOrNull */
