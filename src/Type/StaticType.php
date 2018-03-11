@@ -8,9 +8,12 @@ use PHPStan\Reflection\ClassConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Traits\TruthyBooleanTypeTrait;
 
 class StaticType implements StaticResolvableType, TypeWithClassName
 {
+
+	use TruthyBooleanTypeTrait;
 
 	/** @var string */
 	private $baseClass;

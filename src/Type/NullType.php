@@ -4,6 +4,7 @@ namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\Traits\FalseyBooleanTypeTrait;
 use PHPStan\Type\Traits\NonCallableTypeTrait;
 use PHPStan\Type\Traits\NonIterableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
@@ -16,6 +17,7 @@ class NullType implements ConstantScalarType
 	use NonIterableTypeTrait;
 	use NonObjectTypeTrait;
 	use NonOffsetAccessibleTypeTrait;
+	use FalseyBooleanTypeTrait;
 
 	/**
 	 * @return string[]

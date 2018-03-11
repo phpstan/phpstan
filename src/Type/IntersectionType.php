@@ -227,6 +227,16 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		});
 	}
 
+	public function toBoolean(): BooleanType
+	{
+		/** @var BooleanType $type */
+		$type = $this->intersectTypes(function (Type $type): BooleanType {
+			return $type->toBoolean();
+		});
+
+		return $type;
+	}
+
 	public function resolveStatic(string $className): Type
 	{
 		return new self(UnionTypeHelper::resolveStatic($className, $this->getTypes()));

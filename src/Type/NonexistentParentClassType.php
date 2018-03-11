@@ -9,6 +9,7 @@ use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Traits\NonIterableTypeTrait;
 use PHPStan\Type\Traits\NonOffsetAccessibleTypeTrait;
+use PHPStan\Type\Traits\TruthyBooleanTypeTrait;
 
 class NonexistentParentClassType implements Type
 {
@@ -16,6 +17,7 @@ class NonexistentParentClassType implements Type
 	use JustNullableTypeTrait;
 	use NonIterableTypeTrait;
 	use NonOffsetAccessibleTypeTrait;
+	use TruthyBooleanTypeTrait;
 
 	public function describe(): string
 	{

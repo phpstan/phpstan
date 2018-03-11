@@ -7,12 +7,14 @@ use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
+use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
 
 class ArrayType implements StaticResolvableType
 {
 
 	use MaybeCallableTypeTrait;
 	use NonObjectTypeTrait;
+	use UndecidedBooleanTypeTrait;
 
 	/** @var \PHPStan\Type\Type */
 	private $keyType;

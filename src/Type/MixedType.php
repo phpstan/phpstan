@@ -7,6 +7,7 @@ use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\MaybeIterableTypeTrait;
 use PHPStan\Type\Traits\MaybeObjectTypeTrait;
 use PHPStan\Type\Traits\MaybeOffsetAccessibleTypeTrait;
+use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
 
 class MixedType implements CompoundType
 {
@@ -15,6 +16,7 @@ class MixedType implements CompoundType
 	use MaybeIterableTypeTrait;
 	use MaybeObjectTypeTrait;
 	use MaybeOffsetAccessibleTypeTrait;
+	use UndecidedBooleanTypeTrait;
 
 	/**
 	 * @var bool

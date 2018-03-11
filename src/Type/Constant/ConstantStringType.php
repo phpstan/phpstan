@@ -14,6 +14,7 @@ class ConstantStringType extends StringType implements ConstantScalarType
 {
 
 	use ConstantScalarTypeTrait;
+	use ConstantScalarToBooleanTrait;
 
 	/** @var string */
 	private $value;

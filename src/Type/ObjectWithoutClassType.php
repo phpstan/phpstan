@@ -10,6 +10,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\MaybeIterableTypeTrait;
 use PHPStan\Type\Traits\MaybeOffsetAccessibleTypeTrait;
+use PHPStan\Type\Traits\TruthyBooleanTypeTrait;
 
 class ObjectWithoutClassType implements Type
 {
@@ -17,6 +18,7 @@ class ObjectWithoutClassType implements Type
 	use MaybeCallableTypeTrait;
 	use MaybeIterableTypeTrait;
 	use MaybeOffsetAccessibleTypeTrait;
+	use TruthyBooleanTypeTrait;
 
 	public function hasProperty(string $propertyName): bool
 	{

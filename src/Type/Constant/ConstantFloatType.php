@@ -11,6 +11,7 @@ class ConstantFloatType extends FloatType implements ConstantScalarType
 {
 
 	use ConstantScalarTypeTrait;
+	use ConstantScalarToBooleanTrait;
 
 	/** @var float */
 	private $value;

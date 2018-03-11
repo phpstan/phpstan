@@ -43,6 +43,7 @@ use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\IterableType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\NeverType;
 use PHPStan\Type\NonexistentParentClassType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
@@ -325,12 +326,7 @@ class Scope
 	private function resolveType(Expr $node): Type
 	{
 		if (
-			$node instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd
-			|| $node instanceof \PhpParser\Node\Expr\BinaryOp\BooleanOr
-			|| $node instanceof \PhpParser\Node\Expr\BinaryOp\LogicalAnd
-			|| $node instanceof \PhpParser\Node\Expr\BinaryOp\LogicalOr
-			|| $node instanceof \PhpParser\Node\Expr\BooleanNot
-			|| $node instanceof \PhpParser\Node\Expr\BinaryOp\LogicalXor
+			$node instanceof \PhpParser\Node\Expr\BinaryOp\LogicalXor
 			|| $node instanceof Expr\BinaryOp\Greater
 			|| $node instanceof Expr\BinaryOp\GreaterOrEqual
 			|| $node instanceof Expr\BinaryOp\Smaller
@@ -340,6 +336,79 @@ class Scope
 			|| $node instanceof Expr\Isset_
 			|| $node instanceof Expr\Empty_
 		) {
+			return new BooleanType();
+		}
+
+		if ($node instanceof \PhpParser\Node\Expr\BooleanNot) {
+			$exprBooleanType = $this->getType($node->expr)->toBoolean();
+			if ($exprBooleanType instanceof ConstantBooleanType) {
+				return new ConstantBooleanType(!$exprBooleanType->getValue());
+			}
+
+			return new BooleanType();
+		}
+
+		if (
+			$node instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd
+			|| $node instanceof \PhpParser\Node\Expr\BinaryOp\LogicalAnd
+		) {
+			$leftBooleanType = $this->getType($node->left)->toBoolean();
+			if (
+				$leftBooleanType instanceof ConstantBooleanType
+				&& !$leftBooleanType->getValue()
+			) {
+				return new ConstantBooleanType(false);
+			}
+
+			$rightBooleanType = $this->filterByTruthyValue($node->left)->getType($node->right)->toBoolean();
+			if (
+				$rightBooleanType instanceof ConstantBooleanType
+				&& !$rightBooleanType->getValue()
+			) {
+				return new ConstantBooleanType(false);
+			}
+
+			if (
+				$leftBooleanType instanceof ConstantBooleanType
+				&& $leftBooleanType->getValue()
+				&& $rightBooleanType instanceof ConstantBooleanType
+				&& $rightBooleanType->getValue()
+			) {
+				return new ConstantBooleanType(true);
+			}
+
+			return new BooleanType();
+		}
+
+		if (
+			$node instanceof \PhpParser\Node\Expr\BinaryOp\BooleanOr
+			|| $node instanceof \PhpParser\Node\Expr\BinaryOp\LogicalOr
+		) {
+			$leftBooleanType = $this->getType($node->left)->toBoolean();
+			if (
+				$leftBooleanType instanceof ConstantBooleanType
+				&& $leftBooleanType->getValue()
+			) {
+				return new ConstantBooleanType(true);
+			}
+
+			$rightBooleanType = $this->filterByFalseyValue($node->left)->getType($node->right)->toBoolean();
+			if (
+				$rightBooleanType instanceof ConstantBooleanType
+				&& $rightBooleanType->getValue()
+			) {
+				return new ConstantBooleanType(true);
+			}
+
+			if (
+				$leftBooleanType instanceof ConstantBooleanType
+				&& !$leftBooleanType->getValue()
+				&& $rightBooleanType instanceof ConstantBooleanType
+				&& !$rightBooleanType->getValue()
+			) {
+				return new ConstantBooleanType(false);
+			}
+
 			return new BooleanType();
 		}
 
@@ -390,6 +459,9 @@ class Scope
 			}
 
 			$expressionType = $this->getType($node->expr);
+			if ($expressionType instanceof NeverType) {
+				return new ConstantBooleanType(false);
+			}
 			$isExpressionObject = (new ObjectWithoutClassType())->isSuperTypeOf($expressionType);
 			if (!$isExpressionObject->no() && $type instanceof StringType) {
 				return new BooleanType();

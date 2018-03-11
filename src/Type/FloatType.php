@@ -7,6 +7,7 @@ use PHPStan\Type\Traits\NonCallableTypeTrait;
 use PHPStan\Type\Traits\NonIterableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
 use PHPStan\Type\Traits\NonOffsetAccessibleTypeTrait;
+use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
 
 class FloatType implements Type
 {
@@ -15,6 +16,7 @@ class FloatType implements Type
 	use NonIterableTypeTrait;
 	use NonObjectTypeTrait;
 	use NonOffsetAccessibleTypeTrait;
+	use UndecidedBooleanTypeTrait;
 
 	/**
 	 * @return string[]

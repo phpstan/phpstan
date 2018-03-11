@@ -56,6 +56,8 @@ interface Type
 
 	public function isCloneable(): TrinaryLogic;
 
+	public function toBoolean(): BooleanType;
+
 	public static function __set_state(array $properties): self;
 
 }

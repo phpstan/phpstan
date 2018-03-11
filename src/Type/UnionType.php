@@ -278,6 +278,16 @@ class UnionType implements CompoundType, StaticResolvableType
 		});
 	}
 
+	public function toBoolean(): BooleanType
+	{
+		/** @var BooleanType $type */
+		$type = $this->unionTypes(function (Type $type): BooleanType {
+			return $type->toBoolean();
+		});
+
+		return $type;
+	}
+
 	public static function __set_state(array $properties): Type
 	{
 		return new self($properties['types']);

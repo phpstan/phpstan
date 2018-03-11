@@ -83,6 +83,34 @@ class ImpossibleInstanceOfRuleTest extends \PHPStan\Testing\RuleTestCase
 					'Instanceof between callable and ImpossibleInstanceOf\FinalClassWithoutInvoke will always evaluate to false.',
 					204,
 				],
+				[
+					'Instanceof between ImpossibleInstanceOf\Dolor and ImpossibleInstanceOf\Dolor will always evaluate to true.',
+					226,
+				],
+				[
+					'Instanceof between *NEVER* and ImpossibleInstanceOf\Lorem will always evaluate to false.',
+					228,
+				],
+				[
+					'Instanceof between ImpossibleInstanceOf\Bar&ImpossibleInstanceOf\Foo and ImpossibleInstanceOf\Foo will always evaluate to true.',
+					232,
+				],
+				[
+					'Instanceof between ImpossibleInstanceOf\Bar&ImpossibleInstanceOf\Foo and ImpossibleInstanceOf\Bar will always evaluate to true.',
+					232,
+				],
+				[
+					'Instanceof between *NEVER* and ImpossibleInstanceOf\Foo will always evaluate to false.',
+					234,
+				],
+				[
+					'Instanceof between ImpossibleInstanceOf\Bar&ImpossibleInstanceOf\Foo and ImpossibleInstanceOf\Foo will always evaluate to true.',
+					238,
+				],
+				[
+					'Instanceof between *NEVER* and ImpossibleInstanceOf\Bar will always evaluate to false.',
+					240,
+				],
 			]
 		);
 	}
@@ -120,6 +148,18 @@ class ImpossibleInstanceOfRuleTest extends \PHPStan\Testing\RuleTestCase
 				[
 					'Instanceof between callable and ImpossibleInstanceOf\FinalClassWithoutInvoke will always evaluate to false.',
 					204,
+				],
+				[
+					'Instanceof between *NEVER* and ImpossibleInstanceOf\Lorem will always evaluate to false.',
+					228,
+				],
+				[
+					'Instanceof between *NEVER* and ImpossibleInstanceOf\Foo will always evaluate to false.',
+					234,
+				],
+				[
+					'Instanceof between *NEVER* and ImpossibleInstanceOf\Bar will always evaluate to false.',
+					240,
 				],
 			]
 		);

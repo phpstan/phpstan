@@ -7,9 +7,12 @@ use PHPStan\Reflection\ClassConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Traits\FalseyBooleanTypeTrait;
 
 class NeverType implements CompoundType
 {
+
+	use FalseyBooleanTypeTrait;
 
 	/**
 	 * @return string[]

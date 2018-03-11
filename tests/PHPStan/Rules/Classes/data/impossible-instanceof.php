@@ -213,3 +213,33 @@ class ClassWithInvoke
 	}
 
 }
+
+class EliminateCompoundTypes
+{
+
+	/**
+	 * @param Lorem|Dolor $union
+	 * @param Foo&Bar $intersection
+	 */
+	public function doFoo($union, $intersection)
+	{
+		if ($union instanceof Lorem || $union instanceof Dolor) {
+
+		} elseif ($union instanceof Lorem) {
+
+		}
+
+		if ($intersection instanceof Foo && $intersection instanceof Bar) {
+
+		} elseif ($intersection instanceof Foo) {
+
+		}
+
+		if ($intersection instanceof Foo) {
+
+		} elseif ($intersection instanceof Bar) {
+
+		}
+	}
+
+}

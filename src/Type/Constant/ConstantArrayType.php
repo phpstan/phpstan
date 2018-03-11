@@ -5,6 +5,7 @@ namespace PHPStan\Type\Constant;
 use PHPStan\Broker\Broker;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\BooleanType;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\ConstantType;
 use PHPStan\Type\ErrorType;
@@ -229,6 +230,11 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		}
 
 		return $this;
+	}
+
+	public function toBoolean(): BooleanType
+	{
+		return new ConstantBooleanType(count($this->keyTypes) > 0);
 	}
 
 	public function generalize(): Type

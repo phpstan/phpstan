@@ -11,6 +11,7 @@ class ConstantIntegerType extends IntegerType implements ConstantScalarType
 {
 
 	use ConstantScalarTypeTrait;
+	use ConstantScalarToBooleanTrait;
 
 	/** @var int */
 	private $value;

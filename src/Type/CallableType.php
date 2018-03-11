@@ -6,6 +6,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\Traits\MaybeIterableTypeTrait;
 use PHPStan\Type\Traits\MaybeObjectTypeTrait;
 use PHPStan\Type\Traits\MaybeOffsetAccessibleTypeTrait;
+use PHPStan\Type\Traits\TruthyBooleanTypeTrait;
 
 class CallableType implements CompoundType
 {
@@ -13,6 +14,7 @@ class CallableType implements CompoundType
 	use MaybeIterableTypeTrait;
 	use MaybeObjectTypeTrait;
 	use MaybeOffsetAccessibleTypeTrait;
+	use TruthyBooleanTypeTrait;
 
 	/**
 	 * @return string[]

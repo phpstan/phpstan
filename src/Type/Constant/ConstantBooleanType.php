@@ -30,6 +30,11 @@ class ConstantBooleanType extends BooleanType implements ConstantScalarType
 		return $this->value ? 'true' : 'false';
 	}
 
+	public function toBoolean(): BooleanType
+	{
+		return $this;
+	}
+
 	public static function __set_state(array $properties): Type
 	{
 		return new self($properties['value']);

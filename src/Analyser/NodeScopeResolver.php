@@ -507,8 +507,8 @@ class NodeScopeResolver
 
 			$elseifScope = $ifScope->filterByFalseyValue($node->cond);
 			foreach ($node->elseifs as $elseif) {
-				$this->processNode($elseif, $scope, $nodeCallback, true);
 				$scope = $elseifScope;
+				$this->processNode($elseif, $scope, $nodeCallback, true);
 				$this->processNode($elseif->cond, $scope->exitFirstLevelStatements(), $nodeCallback);
 				$scope = $this->lookForAssigns(
 					$scope,
