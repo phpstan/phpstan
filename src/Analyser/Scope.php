@@ -1121,9 +1121,9 @@ class Scope
 		}
 
 		foreach ($uses as $use) {
-			if (!$this->hasVariableType($use->var)->yes()) {
+			if ($this->hasVariableType($use->var)->no()) {
 				if ($use->byRef) {
-					$variableTypes[$use->var] = VariableTypeHolder::createYes(new MixedType());
+					$variableTypes[$use->var] = VariableTypeHolder::createYes(new NullType());
 				}
 				continue;
 			}

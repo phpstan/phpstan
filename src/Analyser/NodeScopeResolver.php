@@ -464,6 +464,31 @@ class NodeScopeResolver
 			}
 
 			return;
+		} elseif ($node instanceof Expr\Closure) {
+			$this->processNodes($node->uses, $scope, $nodeCallback);
+			$closureScope = $this->lookForAssignsInBranches($scope, [
+				new StatementList($scope, $node->stmts),
+				new StatementList($scope, []),
+			], LookForAssignsSettings::insideFinally());
+			foreach ($node->uses as $closureUse) {
+				if (!$closureUse->byRef) {
+					continue;
+				}
+
+				$variableCertainty = $closureScope->hasVariableType($closureUse->var);
+				if ($variableCertainty->no()) {
+					continue;
+				}
+				$scope = $scope->assignVariable(
+					$closureUse->var,
+					$closureScope->getVariableType($closureUse->var),
+					$variableCertainty
+				);
+			}
+			$scope = $scope->enterAnonymousFunction($node->params, $node->uses, $node->returnType);
+			$this->processNodes($node->stmts, $scope, $nodeCallback);
+
+			return;
 		} elseif ($node instanceof If_) {
 			$this->processNode($node->cond, $scope->exitFirstLevelStatements(), $nodeCallback);
 			$scope = $this->lookForAssigns(
@@ -679,13 +704,6 @@ class NodeScopeResolver
 
 				if ($node instanceof MethodCall && $subNodeName === 'args') {
 					$scope = $this->lookForAssigns($scope, $node->var, TrinaryLogic::createYes());
-				}
-
-				if (
-					$node instanceof \PhpParser\Node\Expr\Closure
-					&& $subNodeName === 'stmts'
-				) {
-					$scope = $scope->enterAnonymousFunction($node->params, $node->uses, $node->returnType);
 				}
 
 				if ($node instanceof Do_ && $subNodeName === 'stmts') {
@@ -1074,12 +1092,30 @@ class NodeScopeResolver
 		} elseif ($node instanceof ArrayDimFetch && $node->dim !== null) {
 			$scope = $this->lookForAssigns($scope, $node->dim, $certainty);
 		} elseif ($node instanceof Expr\Closure) {
+			$closureScope = $scope->enterAnonymousFunction($node->params, $node->uses, $node->returnType);
+			$statements = [
+				new StatementList($closureScope, array_merge(
+					[new Node\Stmt\Nop],
+					$node->stmts
+				)),
+				new StatementList($closureScope, []),
+			];
+			$closureScope = $this->lookForAssignsInBranches($scope, $statements, LookForAssignsSettings::insideFinally());
 			foreach ($node->uses as $closureUse) {
-				if (!$closureUse->byRef || $scope->hasVariableType($closureUse->var)->yes()) {
+				if (!$closureUse->byRef) {
 					continue;
 				}
 
-				$scope = $scope->assignVariable($closureUse->var, new MixedType(), $certainty);
+				$variableCertainty = $closureScope->hasVariableType($closureUse->var);
+				if ($variableCertainty->no()) {
+					continue;
+				}
+
+				$scope = $scope->assignVariable(
+					$closureUse->var,
+					$closureScope->getVariableType($closureUse->var),
+					$variableCertainty
+				);
 			}
 		} elseif ($node instanceof Instanceof_) {
 			$scope = $this->lookForAssigns($scope, $node->expr, $certainty);

@@ -4449,6 +4449,84 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataClosureWithUsePassedByReference(): array
+	{
+		return [
+			[
+				'false',
+				'$progressStarted',
+				"'beforeCallback';",
+			],
+			[
+				'false',
+				'$anotherVariable',
+				"'beforeCallback';",
+			],
+			[
+				'bool|int(1)',
+				'$progressStarted',
+				"'inCallbackBeforeAssign';",
+			],
+			[
+				'false',
+				'$anotherVariable',
+				"'inCallbackBeforeAssign';",
+			],
+			[
+				'null',
+				'$untouchedPassedByRef',
+				"'inCallbackBeforeAssign';",
+			],
+			[
+				'int(1)|true',
+				'$progressStarted',
+				"'inCallbackAfterAssign';",
+			],
+			[
+				'true',
+				'$anotherVariable',
+				"'inCallbackAfterAssign';",
+			],
+			[
+				'bool|int(1)',
+				'$progressStarted',
+				"'afterCallback';",
+			],
+			[
+				'false',
+				'$anotherVariable',
+				"'afterCallback';",
+			],
+			[
+				'null',
+				'$untouchedPassedByRef',
+				"'afterCallback';",
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataClosureWithUsePassedByReference
+	 * @param string $description
+	 * @param string $expression
+	 * @param string $evaluatedPointExpression
+	 */
+	public function testClosureWithUsePassedByReference(
+		string $description,
+		string $expression,
+		string $evaluatedPointExpression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/closure-passed-by-reference.php',
+			$description,
+			$expression,
+			[],
+			[],
+			$evaluatedPointExpression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $description,
