@@ -4,6 +4,8 @@ namespace PHPStan\PhpDoc;
 
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\Php\PhpMethodReflection;
+use PHPStan\Reflection\Php\PhpPropertyReflection;
 
 class PhpDocBlock
 {
@@ -142,8 +144,14 @@ class PhpDocBlock
 	): ?self
 	{
 		if ($classReflection->getFileName() !== false && $classReflection->$hasMethodName($name)) {
-			/** @var \PHPStan\Reflection\Php\PhpMethodReflection|\PHPStan\Reflection\Php\PhpPropertyReflection $parentReflection */
+			/** @var \PHPStan\Reflection\PropertyReflection|\PHPStan\Reflection\MethodReflection $parentReflection */
 			$parentReflection = $classReflection->$getMethodName($name);
+			if (
+				!$parentReflection instanceof PhpPropertyReflection
+				&& !$parentReflection instanceof PhpMethodReflection
+			) {
+				return null;
+			}
 			if ($parentReflection->getDocComment() !== false) {
 				return self::$resolveMethodName(
 					$broker,
