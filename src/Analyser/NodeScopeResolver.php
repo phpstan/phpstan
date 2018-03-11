@@ -662,16 +662,18 @@ class NodeScopeResolver
 				while (
 					$unsetVar instanceof ArrayDimFetch
 					|| $unsetVar instanceof PropertyFetch
+					|| (
+						$unsetVar instanceof StaticPropertyFetch
+						&& $unsetVar->class instanceof Expr
+					)
 				) {
-					$unsetVar = $unsetVar->var;
+					if ($unsetVar instanceof StaticPropertyFetch) {
+						$unsetVar = $unsetVar->class;
+					} else {
+						$unsetVar = $unsetVar->var;
+					}
 				}
 
-				while (
-					$unsetVar instanceof StaticPropertyFetch
-					&& $unsetVar->class instanceof Expr
-				) {
-					$unsetVar = $unsetVar->class;
-				}
 				$scope = $scope->enterExpressionAssign($unsetVar);
 			}
 		} elseif ($node instanceof Node\Stmt\Global_) {

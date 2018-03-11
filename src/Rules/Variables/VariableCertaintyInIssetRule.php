@@ -27,16 +27,16 @@ class VariableCertaintyInIssetRule implements \PHPStan\Rules\Rule
 			while (
 				$var instanceof Node\Expr\ArrayDimFetch
 				|| $var instanceof Node\Expr\PropertyFetch
+				|| (
+					$var instanceof Node\Expr\StaticPropertyFetch
+					&& $var->class instanceof Node\Expr
+				)
 			) {
-				$var = $var->var;
-				$isSubNode = true;
-			}
-
-			while (
-				$var instanceof Node\Expr\StaticPropertyFetch
-				&& $var->class instanceof Node\Expr
-			) {
-				$var = $var->class;
+				if ($var instanceof Node\Expr\StaticPropertyFetch) {
+					$var = $var->class;
+				} else {
+					$var = $var->var;
+				}
 				$isSubNode = true;
 			}
 

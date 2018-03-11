@@ -257,16 +257,16 @@ class TypeSpecifier
 				while (
 					$var instanceof ArrayDimFetch
 					|| $var instanceof PropertyFetch
+					|| (
+						$var instanceof StaticPropertyFetch
+						&& $var->class instanceof Expr
+					)
 				) {
-					$var = $var->var;
-					$vars[] = $var;
-				}
-
-				while (
-					$var instanceof StaticPropertyFetch
-					&& $var->class instanceof Expr
-				) {
-					$var = $var->class;
+					if ($var instanceof StaticPropertyFetch) {
+						$var = $var->class;
+					} else {
+						$var = $var->var;
+					}
 					$vars[] = $var;
 				}
 			}
