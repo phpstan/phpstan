@@ -514,11 +514,9 @@ class Scope
 			if ($node instanceof Node\Expr\AssignOp) {
 				$left = $node->var;
 				$right = $node->expr;
-			} elseif ($node instanceof Node\Expr\BinaryOp) {
+			} else {
 				$left = $node->left;
 				$right = $node->right;
-			} else {
-				throw new \PHPStan\ShouldNotHappenException();
 			}
 
 			$leftType = $this->getType($left);
@@ -605,11 +603,9 @@ class Scope
 			if ($node instanceof Node\Expr\AssignOp) {
 				$left = $node->var;
 				$right = $node->expr;
-			} elseif ($node instanceof Node\Expr\BinaryOp) {
+			} else {
 				$left = $node->left;
 				$right = $node->right;
-			} else {
-				throw new \PHPStan\ShouldNotHappenException();
 			}
 
 			$leftType = $this->getType($left);

@@ -22,20 +22,19 @@ class PropertyReflectionFinder
 			}
 			$propertyHolderType = $scope->getType($propertyFetch->var);
 			return $this->findPropertyReflection($propertyHolderType, $propertyFetch->name, $scope);
-		} elseif ($propertyFetch instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
-			if (!is_string($propertyFetch->name)) {
-				return null;
-			}
-			if ($propertyFetch->class instanceof \PhpParser\Node\Name) {
-				$propertyHolderType = new ObjectType($scope->resolveName($propertyFetch->class));
-			} else {
-				$propertyHolderType = $scope->getType($propertyFetch->class);
-			}
-
-			return $this->findPropertyReflection($propertyHolderType, $propertyFetch->name, $scope);
 		}
 
-		return null;
+		if (!is_string($propertyFetch->name)) {
+			return null;
+		}
+
+		if ($propertyFetch->class instanceof \PhpParser\Node\Name) {
+			$propertyHolderType = new ObjectType($scope->resolveName($propertyFetch->class));
+		} else {
+			$propertyHolderType = $scope->getType($propertyFetch->class);
+		}
+
+		return $this->findPropertyReflection($propertyHolderType, $propertyFetch->name, $scope);
 	}
 
 	private function findPropertyReflection(Type $propertyHolderType, string $propertyName, Scope $scope): ?\PHPStan\Reflection\PropertyReflection

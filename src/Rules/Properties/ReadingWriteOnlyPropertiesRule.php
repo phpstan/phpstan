@@ -75,9 +75,6 @@ class ReadingWriteOnlyPropertiesRule implements \PHPStan\Rules\Rule
 
 		if (!$propertyReflection->isReadable()) {
 			$propertyDescription = $this->propertyDescriptor->describeProperty($propertyReflection, $node);
-			if ($propertyDescription === null) {
-				return [];
-			}
 
 			return [
 				sprintf(

@@ -10,17 +10,15 @@ class PropertyDescriptor
 	/**
 	 * @param \PHPStan\Reflection\PropertyReflection $property
 	 * @param \PhpParser\Node\Expr\PropertyFetch|\PhpParser\Node\Expr\StaticPropertyFetch $propertyFetch
-	 * @return string|null
+	 * @return string
 	 */
-	public function describeProperty(PropertyReflection $property, $propertyFetch): ?string
+	public function describeProperty(PropertyReflection $property, $propertyFetch): string
 	{
 		if ($propertyFetch instanceof \PhpParser\Node\Expr\PropertyFetch) {
 			return sprintf('Property %s::$%s', $property->getDeclaringClass()->getDisplayName(), $propertyFetch->name);
-		} elseif ($propertyFetch instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
-			return sprintf('Static property %s::$%s', $property->getDeclaringClass()->getDisplayName(), $propertyFetch->name);
 		}
 
-		return null;
+		return sprintf('Static property %s::$%s', $property->getDeclaringClass()->getDisplayName(), $propertyFetch->name);
 	}
 
 }

@@ -843,11 +843,8 @@ class NodeScopeResolver
 				if ($listItem === null) {
 					continue;
 				}
-				$listItemValue = $listItem;
-				if ($listItemValue instanceof Expr\ArrayItem) {
-					$listItemValue = $listItemValue->value;
-				}
-				$scope = $this->lookForEnterVariableAssign($scope, $listItemValue);
+
+				$scope = $this->lookForEnterVariableAssign($scope, $listItem->value);
 			}
 		} else {
 			$scope = $scope->enterExpressionAssign($node);
@@ -1211,10 +1208,8 @@ class NodeScopeResolver
 		if ($node instanceof Assign || $node instanceof AssignRef || $node instanceof Expr\AssignOp || $node instanceof Node\Stmt\Global_) {
 			if ($node instanceof Assign || $node instanceof AssignRef || $node instanceof Expr\AssignOp) {
 				$vars = [$node->var];
-			} elseif ($node instanceof Node\Stmt\Global_) {
-				$vars = $node->vars;
 			} else {
-				throw new \PHPStan\ShouldNotHappenException();
+				$vars = $node->vars;
 			}
 
 			foreach ($vars as $var) {
@@ -1465,16 +1460,12 @@ class NodeScopeResolver
 
 			if ($statement instanceof MethodCall) {
 				$methodCalledOnType = $scope->getType($statement->var);
-			} elseif ($statement instanceof Expr\StaticCall) {
+			} else {
 				if ($statement->class instanceof Name) {
 					$methodCalledOnType = $scope->getFunctionType($statement->class, false, false);
-				} elseif ($statement->class instanceof Expr) {
-					$methodCalledOnType = $scope->getType($statement->class);
 				} else {
-					return null;
+					$methodCalledOnType = $scope->getType($statement->class);
 				}
-			} else {
-				return null;
 			}
 
 			foreach ($methodCalledOnType->getReferencedClasses() as $referencedClass) {
@@ -1582,7 +1573,7 @@ class NodeScopeResolver
 	}
 
 	/**
-	 * @param \PhpParser\Node[]|\PhpParser\Node $node
+	 * @param \PhpParser\Node[]|\PhpParser\Node|scalar $node
 	 * @param string $traitName
 	 * @param \PHPStan\Analyser\Scope $classScope
 	 * @param \Closure $nodeCallback

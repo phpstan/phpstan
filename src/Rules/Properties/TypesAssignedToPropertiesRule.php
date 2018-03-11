@@ -71,9 +71,6 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 		}
 		if (!$this->ruleLevelHelper->accepts($propertyType, $assignedValueType)) {
 			$propertyDescription = $this->propertyDescriptor->describeProperty($propertyReflection, $propertyFetch);
-			if ($propertyDescription === null) {
-				return [];
-			}
 
 			return [
 				sprintf(

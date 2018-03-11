@@ -175,7 +175,7 @@ class FileTypeMapper
 	}
 
 	/**
-	 * @param \PhpParser\Node[]|\PhpParser\Node $node
+	 * @param \PhpParser\Node[]|\PhpParser\Node|scalar $node
 	 * @param \Closure $nodeCallback
 	 * @param \Closure $endNodeCallback
 	 */
