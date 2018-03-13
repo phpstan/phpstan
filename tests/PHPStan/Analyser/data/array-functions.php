@@ -41,6 +41,16 @@ $stringOrIntegerKeys = [
 	1 => new \stdClass(),
 ];
 
+$constantArrayWithFalseyValues = [null, '', 1];
+
+$constantTruthyValues = array_filter($constantArrayWithFalseyValues);
+
+/** @var array<int, false|null> $falsey */
+$falsey = doFoo();
+
+/** @var array<int, bool|null> $withFalsey */
+$withFalsey = doFoo();
+
 /** @var array<string, int> $generalStringKeys */
 $generalStringKeys = doFoo();
 
