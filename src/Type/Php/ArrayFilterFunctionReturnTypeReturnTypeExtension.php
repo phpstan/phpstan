@@ -10,8 +10,17 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\Constant\ConstantBooleanType;
+use PHPStan\Type\Constant\ConstantFloatType;
+use PHPStan\Type\Constant\ConstantIntegerType;
+use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\NeverType;
+use PHPStan\Type\NullType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\UnionType;
 
 class ArrayFilterFunctionReturnTypeReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
@@ -32,6 +41,10 @@ class ArrayFilterFunctionReturnTypeReturnTypeExtension implements \PHPStan\Type\
 			$keyType = $arrayArgType->getIterableKeyType();
 			$itemType = $arrayArgType->getIterableValueType();
 
+			if ($callbackArg === null) {
+				return $this->removeFalsey($arrayArgType);
+			}
+
 			if ($flagArg === null && $callbackArg instanceof Closure && count($callbackArg->stmts) === 1) {
 				$statement = $callbackArg->stmts[0];
 				if ($statement instanceof Return_ && $statement->expr !== null && count($callbackArg->params) > 0) {
@@ -51,6 +64,44 @@ class ArrayFilterFunctionReturnTypeReturnTypeExtension implements \PHPStan\Type\
 		}
 
 		return new ArrayType($keyType, $itemType);
+	}
+
+	private function removeFalsey(Type $type): Type
+	{
+		$falseyTypes = new UnionType([
+			new NullType(),
+			new ConstantBooleanType(false),
+			new ConstantIntegerType(0),
+			new ConstantFloatType(0.0),
+			new ConstantStringType(''),
+			new ConstantArrayType([], []),
+		]);
+
+		if ($type instanceof ConstantArrayType) {
+			$keys = $type->getKeyTypes();
+			$values = $type->getValueTypes();
+
+			foreach ($values as $offset => $value) {
+				if (!$falseyTypes->isSuperTypeOf($value)->yes()) {
+					continue;
+				}
+
+				unset($keys[$offset], $values[$offset]);
+			}
+
+			return new ConstantArrayType(array_values($keys), array_values($values));
+		}
+
+		$keyType = $type->getIterableKeyType();
+		$valueType = $type->getIterableValueType();
+
+		$valueType = TypeCombinator::remove($valueType, $falseyTypes);
+
+		if ($valueType instanceof NeverType) {
+			return new ConstantArrayType([], []);
+		}
+
+		return new ArrayType($keyType, $valueType);
 	}
 
 }

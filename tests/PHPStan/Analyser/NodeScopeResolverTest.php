@@ -4116,6 +4116,30 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'null',
 				'array_shift([])',
 			],
+			[
+				'array(null, \'\', 1)',
+				'$constantArrayWithFalseyValues',
+			],
+			[
+				'array(2 => 1)',
+				'$constantTruthyValues',
+			],
+			[
+				'array<int, false|null>',
+				'$falsey',
+			],
+			[
+				'array()',
+				'array_filter($falsey)',
+			],
+			[
+				'array<int, bool|null>',
+				'$withFalsey',
+			],
+			[
+				'array<int, true>',
+				'array_filter($withFalsey)',
+			],
 		];
 	}
 
