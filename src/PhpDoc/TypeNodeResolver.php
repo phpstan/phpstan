@@ -94,7 +94,7 @@ class TypeNodeResolver
 				return new FloatType();
 
 			case 'array':
-				return new ArrayType(new MixedType(), new MixedType());
+				return new ArrayType(new MixedType(true), new MixedType(true));
 
 			case 'scalar':
 				return new UnionType([
@@ -111,7 +111,7 @@ class TypeNodeResolver
 				]);
 
 			case 'iterable':
-				return new IterableType(new MixedType(), new MixedType());
+				return new IterableType(new MixedType(true), new MixedType(true));
 
 			case 'callable':
 				return new CallableType();
@@ -243,7 +243,7 @@ class TypeNodeResolver
 
 		if ($mainType === 'array') {
 			if (count($genericTypes) === 1) { // array<ValueType>
-				return new ArrayType(new MixedType(), $genericTypes[0]);
+				return new ArrayType(new MixedType(true), $genericTypes[0]);
 
 			} elseif (count($genericTypes) === 2) { // array<KeyType, ValueType>
 				return new ArrayType($genericTypes[0], $genericTypes[1]);
@@ -251,7 +251,7 @@ class TypeNodeResolver
 
 		} elseif ($mainType === 'iterable') {
 			if (count($genericTypes) === 1) { // iterable<ValueType>
-				return new IterableType(new MixedType(), $genericTypes[0]);
+				return new IterableType(new MixedType(true), $genericTypes[0]);
 
 			} elseif (count($genericTypes) === 2) { // iterable<KeyType, ValueType>
 				return new IterableType($genericTypes[0], $genericTypes[1]);

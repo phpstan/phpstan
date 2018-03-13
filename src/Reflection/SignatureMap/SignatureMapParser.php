@@ -49,7 +49,7 @@ class SignatureMapParser
 	private function getTypeFromString(string $typeString, ?string $className): Type
 	{
 		if ($typeString === '') {
-			return new MixedType();
+			return new MixedType(true);
 		}
 		$parts = explode('|', $typeString);
 		$types = [];

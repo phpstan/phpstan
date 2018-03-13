@@ -185,7 +185,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			$output->writeln('  * in this case, don\'t forget to define parameter <options=bold>customRulesetUsed</> in your config file.');
 			$output->writeln('');
 			return 1;
-		} elseif ($container->parameters['customRulesetUsed']) {
+		} elseif ((bool) $container->parameters['customRulesetUsed']) {
 			$defaultLevelUsed = false;
 		}
 
