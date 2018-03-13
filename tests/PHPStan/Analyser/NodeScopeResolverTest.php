@@ -4422,6 +4422,49 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataReset(): array
+	{
+		return [
+			[
+				'mixed',
+				'reset()',
+			],
+			[
+				'false|stdClass',
+				'reset($generalArray)',
+			],
+			[
+				'mixed',
+				'reset($somethingElse)',
+			],
+			[
+				'false',
+				'reset($emptyConstantArray)',
+			],
+			[
+				'int(1)',
+				'reset($constantArray)',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataReset
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testReset(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/reset.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataReplaceFunctions(): array
 	{
 		return [
