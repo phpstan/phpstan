@@ -7,29 +7,19 @@ use PHPStan\PhpDoc\Tag\ReturnTag;
 class ResolvedPhpDocBlock
 {
 
-	/**
-	 * @var \PHPStan\PhpDoc\Tag\VarTag[]
-	 */
+	/** @var \PHPStan\PhpDoc\Tag\VarTag[] */
 	private $varTags;
 
-	/**
-	 * @var \PHPStan\PhpDoc\Tag\MethodTag[]
-	 */
+	/** @var \PHPStan\PhpDoc\Tag\MethodTag[] */
 	private $methodTags;
 
-	/**
-	 * @var \PHPStan\PhpDoc\Tag\PropertyTag[]
-	 */
+	/** @var \PHPStan\PhpDoc\Tag\PropertyTag[] */
 	private $propertyTags;
 
-	/**
-	 * @var \PHPStan\PhpDoc\Tag\ParamTag[]
-	 */
+	/** @var \PHPStan\PhpDoc\Tag\ParamTag[] */
 	private $paramTags;
 
-	/**
-	 * @var \PHPStan\PhpDoc\Tag\ReturnTag|null
-	 */
+	/** @var \PHPStan\PhpDoc\Tag\ReturnTag|null */
 	private $returnTag;
 
 	/**

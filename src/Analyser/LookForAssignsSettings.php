@@ -15,9 +15,7 @@ class LookForAssignsSettings
 		+ self::EARLY_TERMINATION_BREAK
 		+ self::EARLY_TERMINATION_STOP;
 
-	/**
-	 * @var int
-	 */
+	/** @var int */
 	private $respectEarlyTermination;
 
 	private function __construct(

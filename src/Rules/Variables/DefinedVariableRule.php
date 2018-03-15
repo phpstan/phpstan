@@ -9,14 +9,10 @@ use PHPStan\Analyser\Scope;
 class DefinedVariableRule implements \PHPStan\Rules\Rule
 {
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $cliArgumentsVariablesRegistered;
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $checkMaybeUndefinedVariables;
 
 	public function __construct(

@@ -10,9 +10,7 @@ use PHPStan\Broker\Broker;
 class CallToNonExistentFunctionRule implements \PHPStan\Rules\Rule
 {
 
-	/**
-	 * @var \PHPStan\Broker\Broker
-	 */
+	/** @var \PHPStan\Broker\Broker */
 	private $broker;
 
 	/**

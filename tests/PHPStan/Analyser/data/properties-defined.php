@@ -7,14 +7,10 @@ use SomeNamespace\Sit as Dolor;
 class Bar
 {
 
-	/**
-	 * @var Dolor
-	 */
+	/** @var Dolor */
 	protected $inheritedProperty;
 
-	/**
-	 * @var self
-	 */
+	/** @var self */
 	protected $inheritDocProperty;
 
 	public function doBar(): Self

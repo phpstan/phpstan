@@ -145,7 +145,6 @@ class TypeNodeResolver
 							return new ObjectType($classReflection->getParentClass()->getName());
 						}
 					}
-
 					return new NonexistentParentClassType();
 			}
 		}
@@ -252,7 +251,6 @@ class TypeNodeResolver
 			if (count($genericTypes) === 2) { // array<KeyType, ValueType>
 				return new ArrayType($genericTypes[0], $genericTypes[1]);
 			}
-
 		} elseif ($mainType === 'iterable') {
 			if (count($genericTypes) === 1) { // iterable<ValueType>
 				return new IterableType(new MixedType(true), $genericTypes[0]);

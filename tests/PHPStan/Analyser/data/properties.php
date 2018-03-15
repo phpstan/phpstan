@@ -20,9 +20,7 @@ abstract class Foo extends Bar
 	 */
 	private $anotherMixedProperty;
 
-	/**
-	 * @vaz int
-	 */
+	/** @vaz int */
 	private $yetAnotherMixedProperty;
 
 	/** @var int */
@@ -37,84 +35,52 @@ abstract class Foo extends Bar
 	/** @var mixed[] */
 	private $arrayPropertyOther;
 
-	/**
-	 * @var Lorem
-	 */
+	/** @var Lorem */
 	private $objectRelative;
 
-	/**
-	 * @var \SomeOtherNamespace\Ipsum
-	 */
+	/** @var \SomeOtherNamespace\Ipsum */
 	private $objectFullyQualified;
 
-	/**
-	 * @var Dolor
-	 */
+	/** @var Dolor */
 	private $objectUsed;
 
-	/**
-	 * @var null|int
-	 */
+	/** @var null|int */
 	private $nullableInteger;
 
-	/**
-	 * @var Dolor|null
-	 */
+	/** @var Dolor|null */
 	private $nullableObject;
 
-	/**
-	 * @var self
-	 */
+	/** @var self */
 	private $selfType;
 
-	/**
-	 * @var static
-	 */
+	/** @var static */
 	private $staticType;
 
-	/**
-	 * @var null
-	 */
+	/** @var null */
 	private $nullType;
 
-	/**
-	 * @var Bar
-	 */
+	/** @var Bar */
 	private $barObject;
 
-	/**
-	 * @var [$invalidType]
-	 */
+	/** @var [$invalidType] */
 	private $invalidTypeProperty;
 
-	/**
-	 * @var resource
-	 */
+	/** @var resource */
 	private $resource;
 
-	/**
-	 * @var array[array]
-	 */
+	/** @var array[array] */
 	private $yetAnotherAnotherMixedParameter;
 
-	/**
-	 * @var \\Test\Bar
-	 */
+	/** @var \\Test\Bar */
 	private $yetAnotherAnotherAnotherMixedParameter;
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private static $staticStringProperty;
 
-	/**
-	 * @var One
-	 */
+	/** @var One */
 	private $groupUseProperty;
 
-	/**
-	 * @var Too
-	 */
+	/** @var Too */
 	private $anotherGroupUseProperty;
 
 	/**
@@ -122,24 +88,16 @@ abstract class Foo extends Bar
 	 */
 	protected $inheritDocProperty;
 
-	/**
-	 * @var \PHPUnit_Framework_MockObject_MockObject|Foo
-	 */
+	/** @var \PHPUnit_Framework_MockObject_MockObject|Foo */
 	private $phpunitProperty;
 
-	/**
-	 * @var Foo|\PHPUnit_Framework_MockObject_MockObject
-	 */
+	/** @var Foo|\PHPUnit_Framework_MockObject_MockObject */
 	private $anotherPhpunitProperty;
 
-	/**
-	 * @var Foo|\PHPUnit\Framework\MockObject\MockObject
-	 */
+	/** @var Foo|\PHPUnit\Framework\MockObject\MockObject */
 	private $yetAnotherPhpunitProperty;
 
-	/**
-	 * @var Foo|MockObject
-	 */
+	/** @var Foo|MockObject */
 	private $yetYetAnotherPhpunitProperty;
 
 	public function doFoo()

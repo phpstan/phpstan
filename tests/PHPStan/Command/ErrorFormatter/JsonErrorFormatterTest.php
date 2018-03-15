@@ -11,9 +11,7 @@ use Symfony\Component\Console\Output\StreamOutput;
 class JsonErrorFormatterTest extends \PHPStan\Testing\TestCase
 {
 
-	/**
-	 * @var \PHPStan\Command\ErrorFormatter\JsonErrorFormatter
-	 */
+	/** @var \PHPStan\Command\ErrorFormatter\JsonErrorFormatter */
 	private $formatter;
 
 	protected function setUp(): void

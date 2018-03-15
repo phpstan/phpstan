@@ -7,14 +7,10 @@ use PhpParser\NodeTraverser;
 class DirectParser implements Parser
 {
 
-	/**
-	 * @var \PhpParser\Parser
-	 */
+	/** @var \PhpParser\Parser */
 	private $parser;
 
-	/**
-	 * @var \PhpParser\NodeTraverser
-	 */
+	/** @var \PhpParser\NodeTraverser */
 	private $traverser;
 
 	public function __construct(\PhpParser\Parser $parser, NodeTraverser $traverser)

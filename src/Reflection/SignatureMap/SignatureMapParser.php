@@ -12,9 +12,7 @@ use PHPStan\Type\TypeCombinator;
 class SignatureMapParser
 {
 
-	/**
-	 * @var \PHPStan\PhpDoc\TypeStringResolver
-	 */
+	/** @var \PHPStan\PhpDoc\TypeStringResolver */
 	private $typeStringResolver;
 
 	public function __construct(

@@ -18,24 +18,16 @@ use PHPStan\Type\UnionType;
 class RuleLevelHelper
 {
 
-	/**
-	 * @var \PHPStan\Broker\Broker
-	 */
+	/** @var \PHPStan\Broker\Broker */
 	private $broker;
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $checkNullables;
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $checkThisOnly;
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $checkUnionTypes;
 
 	public function __construct(

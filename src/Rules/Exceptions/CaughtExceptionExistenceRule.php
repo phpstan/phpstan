@@ -11,9 +11,7 @@ use PHPStan\Rules\ClassCaseSensitivityCheck;
 class CaughtExceptionExistenceRule implements \PHPStan\Rules\Rule
 {
 
-	/**
-	 * @var \PHPStan\Broker\Broker
-	 */
+	/** @var \PHPStan\Broker\Broker */
 	private $broker;
 
 	/**

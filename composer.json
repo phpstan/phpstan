@@ -29,14 +29,14 @@
 		"ext-intl": "*",
 		"ext-gd": "*",
 		"ext-mysqli": "*",
-		"consistence/coding-standard": "2.2.1",
+		"consistence/coding-standard": "^3.0",
 		"jakub-onderka/php-parallel-lint": "^0.9.2",
 		"phing/phing": "^2.16.0",
 		"phpstan/phpstan-php-parser": "^0.10",
 		"phpstan/phpstan-phpunit": "^0.10",
 		"phpstan/phpstan-strict-rules": "^0.10",
 		"phpunit/phpunit": "^7.0",
-		"slevomat/coding-standard": "4.0.0"
+		"slevomat/coding-standard": "^4.5"
 	},
 	"autoload": {
 		"psr-4": {"PHPStan\\": ["src/", "build/PHPStan"]}

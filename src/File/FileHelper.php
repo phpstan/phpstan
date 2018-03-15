@@ -61,7 +61,6 @@ class FileHelper
 				if ($scheme === 'phar' && substr($removedPart, -5) === '.phar') {
 					$scheme = null;
 				}
-
 			} else {
 				$normalizedPathParts[] = $pathPart;
 			}

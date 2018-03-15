@@ -1424,7 +1424,6 @@ class NodeScopeResolver
 					$certainty
 				);
 			}
-
 		} elseif ($var instanceof PropertyFetch && $subNodeType !== null) {
 			$scope = $scope->specifyExpressionType($var, $subNodeType);
 		} elseif ($var instanceof Expr\StaticPropertyFetch && $subNodeType !== null) {
