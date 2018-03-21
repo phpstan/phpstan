@@ -4,7 +4,6 @@ namespace PHPStan\Rules;
 
 use PhpParser\Node\Expr;
 use PHPStan\Analyser\Scope;
-use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\VoidType;
 
@@ -43,8 +42,9 @@ class FunctionReturnTypeCheck
 			return [];
 		}
 
+		$isVoidSuperType = (new VoidType())->isSuperTypeOf($returnType);
 		if ($returnValue === null) {
-			if ($returnType instanceof VoidType || $returnType instanceof MixedType) {
+			if (!$isVoidSuperType->no()) {
 				return [];
 			}
 
@@ -58,7 +58,7 @@ class FunctionReturnTypeCheck
 
 		$returnValueType = $scope->getType($returnValue);
 
-		if ($returnType instanceof VoidType) {
+		if ($isVoidSuperType->yes()) {
 			return [
 				sprintf(
 					$voidMessage,

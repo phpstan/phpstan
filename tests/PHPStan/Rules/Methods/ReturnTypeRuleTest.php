@@ -180,6 +180,10 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Method ReturnTypes\ReturnTernary::returnTernary() should return ReturnTypes\Foo but returns false.',
 				454,
 			],
+			[
+				'Method ReturnTypes\TrickyVoid::returnVoidOrInt() should return int|void but returns string.',
+				479,
+			],
 		]);
 	}
 

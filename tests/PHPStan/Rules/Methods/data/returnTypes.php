@@ -465,3 +465,18 @@ class ReturnTernary
 	}
 
 }
+
+class TrickyVoid
+{
+
+	/**
+	 * @return int|void
+	 */
+	public function returnVoidOrInt()
+	{
+		return;
+		return  1;
+		return 'str';
+	}
+
+}
