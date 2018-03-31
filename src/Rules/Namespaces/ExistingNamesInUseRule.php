@@ -92,7 +92,10 @@ class ExistingNamesInUseRule implements \PHPStan\Rules\Rule
 				$functionReflection = $this->broker->getFunction($use->name, null);
 				$realName = $functionReflection->getName();
 				$usedName = (string) $use->name;
-				if ($realName !== $usedName) {
+				if (
+					strtolower($realName) === strtolower($usedName)
+					&& $realName !== $usedName
+				) {
 					$messages[] = sprintf(
 						'Function %s used with incorrect case: %s.',
 						$realName,
