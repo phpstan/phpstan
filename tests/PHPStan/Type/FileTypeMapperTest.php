@@ -12,7 +12,7 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 		/** @var FileTypeMapper $fileTypeMapper */
 		$fileTypeMapper = $this->getContainer()->getByType(FileTypeMapper::class);
 
-		$resolvedA = $fileTypeMapper->getResolvedPhpDoc(__DIR__ . '/data/annotations.php', 'Foo', '/**
+		$resolvedA = $fileTypeMapper->getResolvedPhpDoc(__DIR__ . '/data/annotations.php', 'Foo', null, '/**
  * @property int | float $numericBazBazProperty
  * @property X $singleLetterObjectName
  *
@@ -95,6 +95,7 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 		$resolved = $fileTypeMapper->getResolvedPhpDoc(
 			$realpath,
 			\DependentPhpDocs\Foo::class,
+			null,
 			'/** @param Foo[]|Foo|\Iterator $pages */'
 		);
 
@@ -121,6 +122,7 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 		$resolved = $fileTypeMapper->getResolvedPhpDoc(
 			$realpath,
 			\CyclicPhpDocs\Foo::class,
+			null,
 			'/** @return iterable<Foo> | Foo */'
 		);
 

@@ -50,6 +50,12 @@ class FooInheritDocChild extends Foo
 	{
 		$parent = new FooParent();
 		$differentInstance = new Foo();
+
+		/** @var self $inlineSelf */
+		$inlineSelf = doFoo();
+
+		/** @var Bar $inlineBar */
+		$inlineBar = doFoo();
 		foreach ($moreSpecifiedObject->doFluentUnionIterable() as $fluentUnionIterableBaz) {
 			die;
 		}

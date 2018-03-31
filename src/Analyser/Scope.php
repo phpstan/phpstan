@@ -261,6 +261,13 @@ class Scope
 		return $classReflection;
 	}
 
+	public function getTraitReflection(): ClassReflection
+	{
+		/** @var \PHPStan\Reflection\ClassReflection $traitReflection */
+		$traitReflection = $this->context->getTraitReflection();
+		return $traitReflection;
+	}
+
 	/**
 	 * @return null|\PHPStan\Reflection\FunctionReflection|\PHPStan\Reflection\MethodReflection
 	 */

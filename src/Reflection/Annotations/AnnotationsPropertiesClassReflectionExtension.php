@@ -70,7 +70,7 @@ class AnnotationsPropertiesClassReflectionExtension implements PropertiesClassRe
 			return $properties;
 		}
 
-		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, $classReflection->getName(), $docComment);
+		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, $classReflection->getName(), null, $docComment);
 		foreach ($resolvedPhpDoc->getPropertyTags() as $propertyName => $propertyTag) {
 			$properties[$propertyName] = new AnnotationPropertyReflection(
 				$declaringClass,

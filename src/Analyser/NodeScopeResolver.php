@@ -1269,6 +1269,7 @@ class NodeScopeResolver
 		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
 			$scope->getFile(),
 			$scope->isInClass() ? $scope->getClassReflection()->getName() : null,
+			$scope->isInTrait() ? $scope->getTraitReflection()->getName() : null,
 			$comment
 		);
 		$varTags = $resolvedPhpDoc->getVarTags();
@@ -1619,6 +1620,7 @@ class NodeScopeResolver
 			$docComment = $functionLike->getDocComment()->getText();
 			$file = $scope->getFile();
 			$class = $scope->isInClass() ? $scope->getClassReflection()->getName() : null;
+			$trait = $scope->isInTrait() ? $scope->getTraitReflection()->getName() : null;
 			if ($functionLike instanceof Node\Stmt\ClassMethod) {
 				$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForMethod(
 					$this->broker,
@@ -1635,6 +1637,7 @@ class NodeScopeResolver
 			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
 				$file,
 				$class,
+				$trait,
 				$docComment
 			);
 			$phpDocParameterTypes = array_map(function (ParamTag $tag): Type {

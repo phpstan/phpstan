@@ -2550,6 +2550,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'MethodPhpDocsNamespace\FooParent',
 				'new parent()',
 			],
+			[
+				'MethodPhpDocsNamespace\Foo',
+				'$inlineSelf',
+			],
+			[
+				'MethodPhpDocsNamespace\Bar',
+				'$inlineBar',
+			],
 		];
 	}
 
@@ -2578,6 +2586,38 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	 * @param string $expression
 	 * @param bool $replaceClass
 	 */
+	public function testTypeFromTraitPhpDocs(
+		string $description,
+		string $expression,
+		bool $replaceClass = true
+	): void
+	{
+		$description = str_replace('static(MethodPhpDocsNamespace\Foo)', 'static(MethodPhpDocsNamespace\FooWithTrait)', $description);
+
+		if ($replaceClass) {
+			$description = str_replace('$this(MethodPhpDocsNamespace\Foo)', '$this(MethodPhpDocsNamespace\FooWithTrait)', $description);
+			if ($description === 'MethodPhpDocsNamespace\Foo') {
+				$description = 'MethodPhpDocsNamespace\FooWithTrait';
+			}
+		}
+		if ($expression === '$this->doFoo()') {
+			$description = 'mixed';
+		}
+
+		$this->assertTypes(
+			__DIR__ . '/data/methodPhpDocs-trait.php',
+			$description,
+			$expression
+		);
+	}
+
+	/**
+	 * @dataProvider dataTypeFromFunctionPhpDocs
+	 * @dataProvider dataTypeFromMethodPhpDocs
+	 * @param string $description
+	 * @param string $expression
+	 * @param bool $replaceClass
+	 */
 	public function testTypeFromMethodPhpDocsInheritDoc(
 		string $description,
 		string $expression,
@@ -2588,6 +2628,9 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			$description = str_replace('$this(MethodPhpDocsNamespace\Foo)', '$this(MethodPhpDocsNamespace\FooInheritDocChild)', $description);
 			$description = str_replace('static(MethodPhpDocsNamespace\Foo)', 'static(MethodPhpDocsNamespace\FooInheritDocChild)', $description);
 			$description = str_replace('MethodPhpDocsNamespace\FooParent', 'MethodPhpDocsNamespace\Foo', $description);
+			if ($expression === '$inlineSelf') {
+				$description = 'MethodPhpDocsNamespace\FooInheritDocChild';
+			}
 		}
 		$this->assertTypes(
 			__DIR__ . '/data/method-phpDocs-inheritdoc.php',
@@ -4715,6 +4758,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				],
 			]
 		);
+		$resolver->setAnalysedFiles([
+			$file,
+			__DIR__ . '/data/methodPhpDocs-trait-defined.php',
+		]);
 		$resolver->processNodes(
 			$this->getParser()->parseFile($file),
 			new Scope(

@@ -40,6 +40,7 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
 			$scope->getFile(),
 			$scope->isInClass() ? $scope->getClassReflection()->getName() : null,
+			$scope->isInTrait() ? $scope->getTraitReflection()->getName() : null,
 			$docComment->getText()
 		);
 		$nativeParameterTypes = $this->getNativeParameterTypes($node, $scope);
