@@ -11,7 +11,6 @@ rules:
 	- PHPStan\Rules\Classes\InstantiationRule
 	- PHPStan\Rules\Classes\RequireParentConstructCallRule
 	- PHPStan\Rules\Classes\UnusedConstructorParametersRule
-	- PHPStan\Rules\Exceptions\CaughtExceptionExistenceRule
 	- PHPStan\Rules\Functions\CallToFunctionParametersRule
 	- PHPStan\Rules\Functions\CallToNonExistentFunctionRule
 	- PHPStan\Rules\Functions\ExistingClassesInClosureTypehintsRule
@@ -32,6 +31,13 @@ rules:
 services:
 	-
 		class: PHPStan\Rules\Classes\ExistingClassInInstanceOfRule
+		tags:
+			- phpstan.rules.rule
+		arguments:
+			checkClassCaseSensitivity: %checkClassCaseSensitivity%
+
+	-
+		class: PHPStan\Rules\Exceptions\CaughtExceptionExistenceRule
 		tags:
 			- phpstan.rules.rule
 		arguments:

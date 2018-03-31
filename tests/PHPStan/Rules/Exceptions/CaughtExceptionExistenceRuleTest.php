@@ -2,13 +2,18 @@
 
 namespace PHPStan\Rules\Exceptions;
 
+use PHPStan\Rules\ClassCaseSensitivityCheck;
+
 class CaughtExceptionExistenceRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
+		$broker = $this->createBroker();
 		return new CaughtExceptionExistenceRule(
-			$this->createBroker()
+			$broker,
+			new ClassCaseSensitivityCheck($broker),
+			true
 		);
 	}
 
@@ -22,6 +27,10 @@ class CaughtExceptionExistenceRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Caught class FooCatchException not found.',
 				29,
+			],
+			[
+				'Class TestCatch\MyCatchException referenced with incorrect case: TestCatch\MyCatchEXCEPTION.',
+				41,
 			],
 		]);
 	}

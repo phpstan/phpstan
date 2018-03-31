@@ -35,3 +35,9 @@ try {
 } catch (\TypeError $e) {
 
 }
+
+try {
+
+} catch (\TestCatch\MyCatchEXCEPTION $e) {
+
+}

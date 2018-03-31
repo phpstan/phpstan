@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\Catch_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Rules\ClassCaseSensitivityCheck;
 
 class CaughtExceptionExistenceRule implements \PHPStan\Rules\Rule
 {
@@ -15,9 +16,25 @@ class CaughtExceptionExistenceRule implements \PHPStan\Rules\Rule
 	 */
 	private $broker;
 
-	public function __construct(Broker $broker)
+	/**
+	 * @var \PHPStan\Rules\ClassCaseSensitivityCheck
+	 */
+	private $classCaseSensitivityCheck;
+
+	/**
+	 * @var bool
+	 */
+	private $checkClassCaseSensitivity;
+
+	public function __construct(
+		Broker $broker,
+		ClassCaseSensitivityCheck $classCaseSensitivityCheck,
+		bool $checkClassCaseSensitivity
+	)
 	{
 		$this->broker = $broker;
+		$this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
+		$this->checkClassCaseSensitivity = $checkClassCaseSensitivity;
 	}
 
 	public function getNodeType(): string
@@ -50,6 +67,13 @@ class CaughtExceptionExistenceRule implements \PHPStan\Rules\Rule
 			$classReflection = $this->broker->getClass($class);
 			if (!$classReflection->isInterface() && !$classReflection->getNativeReflection()->implementsInterface(\Throwable::class)) {
 				$errors[] = sprintf('Caught class %s is not an exception.', $classReflection->getDisplayName());
+			}
+
+			if ($this->checkClassCaseSensitivity) {
+				$errors = array_merge(
+					$errors,
+					$this->classCaseSensitivityCheck->checkClassNames([$class])
+				);
 			}
 		}
 
