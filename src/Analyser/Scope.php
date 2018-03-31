@@ -503,11 +503,13 @@ class Scope
 			$type = $this->getType($node->expr);
 			if ($type instanceof ConstantIntegerType) {
 				return new ConstantIntegerType(-$type->getValue());
-			} elseif ($type instanceof ConstantFloatType) {
-				return new ConstantFloatType(-$type->getValue());
-			} else {
-				return $type;
 			}
+
+			if ($type instanceof ConstantFloatType) {
+				return new ConstantFloatType(-$type->getValue());
+			}
+
+			return $type;
 		}
 
 		if ($node instanceof Node\Expr\BinaryOp || $node instanceof Node\Expr\AssignOp) {
@@ -528,19 +530,33 @@ class Scope
 
 				if ($node instanceof Node\Expr\BinaryOp\Plus || $node instanceof Node\Expr\AssignOp\Plus) {
 					return @$this->getTypeFromValue($leftValue + $rightValue);
-				} elseif ($node instanceof Node\Expr\BinaryOp\Minus || $node instanceof Node\Expr\AssignOp\Minus) {
+				}
+
+				if ($node instanceof Node\Expr\BinaryOp\Minus || $node instanceof Node\Expr\AssignOp\Minus) {
 					return @$this->getTypeFromValue($leftValue - $rightValue);
-				} elseif ($node instanceof Node\Expr\BinaryOp\Mul || $node instanceof Node\Expr\AssignOp\Mul) {
+				}
+
+				if ($node instanceof Node\Expr\BinaryOp\Mul || $node instanceof Node\Expr\AssignOp\Mul) {
 					return @$this->getTypeFromValue($leftValue * $rightValue);
-				} elseif ($node instanceof Node\Expr\BinaryOp\Pow || $node instanceof Node\Expr\AssignOp\Pow) {
+				}
+
+				if ($node instanceof Node\Expr\BinaryOp\Pow || $node instanceof Node\Expr\AssignOp\Pow) {
 					return @$this->getTypeFromValue($leftValue ** $rightValue);
-				} elseif (($node instanceof Node\Expr\BinaryOp\Div || $node instanceof Node\Expr\AssignOp\Div) && $rightValue !== 0) {
+				}
+
+				if (($node instanceof Node\Expr\BinaryOp\Div || $node instanceof Node\Expr\AssignOp\Div) && $rightValue !== 0) {
 					return @$this->getTypeFromValue($leftValue / $rightValue);
-				} elseif (($node instanceof Node\Expr\BinaryOp\Mod || $node instanceof Node\Expr\AssignOp\Mod) && $rightValue !== 0) {
+				}
+
+				if (($node instanceof Node\Expr\BinaryOp\Mod || $node instanceof Node\Expr\AssignOp\Mod) && $rightValue !== 0) {
 					return @$this->getTypeFromValue($leftValue % $rightValue);
-				} elseif ($node instanceof Node\Expr\BinaryOp\Coalesce) {
+				}
+
+				if ($node instanceof Node\Expr\BinaryOp\Coalesce) {
 					return @$this->getTypeFromValue($leftValue ?? $rightValue);
-				} elseif ($node instanceof Node\Expr\BinaryOp\Spaceship) {
+				}
+
+				if ($node instanceof Node\Expr\BinaryOp\Spaceship) {
 					return @$this->getTypeFromValue($leftValue <=> $rightValue);
 				}
 			}
@@ -695,9 +711,13 @@ class Scope
 					$lowercasedClassName = strtolower($node->class->parts[0]);
 					if ($lowercasedClassName === 'static') {
 						return new StaticType($this->getClassReflection()->getName());
-					} elseif ($lowercasedClassName === 'self') {
+					}
+
+					if ($lowercasedClassName === 'self') {
 						return new ObjectType($this->getClassReflection()->getName());
-					} elseif ($lowercasedClassName === 'parent') {
+					}
+
+					if ($lowercasedClassName === 'parent') {
 						if ($this->getClassReflection()->getParentClass() !== false) {
 							return new ObjectType($this->getClassReflection()->getParentClass()->getName());
 						}
@@ -1662,9 +1682,11 @@ class Scope
 
 		$moreSpecificTypes = $this->moreSpecificTypes;
 		foreach ($otherScope->moreSpecificTypes as $exprString => $specifiedType) {
-			if (isset($moreSpecificTypes[$exprString]) && $specifiedType->isSuperTypeOf($moreSpecificTypes[$exprString])->and($moreSpecificTypes[$exprString]->isSuperTypeOf($specifiedType))->yes()) {
-				unset($moreSpecificTypes[$exprString]);
+			if (!isset($moreSpecificTypes[$exprString]) || !$specifiedType->isSuperTypeOf($moreSpecificTypes[$exprString])->and($moreSpecificTypes[$exprString]->isSuperTypeOf($specifiedType))->yes()) {
+				continue;
 			}
+
+			unset($moreSpecificTypes[$exprString]);
 		}
 
 		return new self(

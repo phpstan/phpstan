@@ -182,13 +182,15 @@ class ClassReflection
 		}
 		if (!isset($this->methods[$key])) {
 			foreach ($this->methodsClassReflectionExtensions as $extension) {
-				if ($extension->hasMethod($this, $methodName)) {
-					$method = $extension->getMethod($this, $methodName);
-					if ($scope->canCallMethod($method)) {
-						return $this->methods[$key] = $method;
-					}
-					$this->methods[$key] = $method;
+				if (!$extension->hasMethod($this, $methodName)) {
+					continue;
 				}
+
+				$method = $extension->getMethod($this, $methodName);
+				if ($scope->canCallMethod($method)) {
+					return $this->methods[$key] = $method;
+				}
+				$this->methods[$key] = $method;
 			}
 		}
 
@@ -230,13 +232,15 @@ class ClassReflection
 		}
 		if (!isset($this->properties[$key])) {
 			foreach ($this->propertiesClassReflectionExtensions as $extension) {
-				if ($extension->hasProperty($this, $propertyName)) {
-					$property = $extension->getProperty($this, $propertyName);
-					if ($scope->canAccessProperty($property)) {
-						return $this->properties[$key] = $property;
-					}
-					$this->properties[$key] = $property;
+				if (!$extension->hasProperty($this, $propertyName)) {
+					continue;
 				}
+
+				$property = $extension->getProperty($this, $propertyName);
+				if ($scope->canAccessProperty($property)) {
+					return $this->properties[$key] = $property;
+				}
+				$this->properties[$key] = $property;
 			}
 		}
 

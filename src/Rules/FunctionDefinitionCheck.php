@@ -167,9 +167,11 @@ class FunctionDefinitionCheck
 				);
 			}
 			foreach ($referencedClasses as $class) {
-				if (!$this->broker->hasClass($class) || $this->broker->getClass($class)->isTrait()) {
-					$errors[] = sprintf($parameterMessage, $parameter->getName(), $class);
+				if ($this->broker->hasClass($class) && !$this->broker->getClass($class)->isTrait()) {
+					continue;
 				}
+
+				$errors[] = sprintf($parameterMessage, $parameter->getName(), $class);
 			}
 
 			if ($this->checkClassCaseSensitivity) {
@@ -178,9 +180,11 @@ class FunctionDefinitionCheck
 					$this->classCaseSensitivityCheck->checkClassNames($referencedClasses)
 				);
 			}
-			if ($parameter->getType() instanceof NonexistentParentClassType) {
-				$errors[] = sprintf($parameterMessage, $parameter->getName(), $parameter->getType()->describe());
+			if (!($parameter->getType() instanceof NonexistentParentClassType)) {
+				continue;
 			}
+
+			$errors[] = sprintf($parameterMessage, $parameter->getName(), $parameter->getType()->describe());
 		}
 
 		if ($this->checkThisOnly) {
@@ -193,9 +197,11 @@ class FunctionDefinitionCheck
 		}
 
 		foreach ($returnTypeReferencedClasses as $class) {
-			if (!$this->broker->hasClass($class) || $this->broker->getClass($class)->isTrait()) {
-				$errors[] = sprintf($returnMessage, $class);
+			if ($this->broker->hasClass($class) && !$this->broker->getClass($class)->isTrait()) {
+				continue;
 			}
+
+			$errors[] = sprintf($returnMessage, $class);
 		}
 
 		if ($this->checkClassCaseSensitivity) {

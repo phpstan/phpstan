@@ -28,7 +28,6 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\Testing\TestCase
 	 * @dataProvider dataXmlReaderProperties
 	 * @dataProvider dataZipArchiveProperties
 	 * @dataProvider dataLibXMLErrorProperties
-	 *
 	 * @param string $className
 	 * @param string $declaringClassName
 	 * @param array  $data
@@ -594,7 +593,6 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\Testing\TestCase
 
 	/**
 	 * @dataProvider dataDateInterval71Properties
-	 *
 	 * @param string $className
 	 * @param string $declaringClassName
 	 * @param array $data

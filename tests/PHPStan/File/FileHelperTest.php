@@ -7,16 +7,20 @@ class FileHelperTest extends \PHPStan\Testing\TestCase
 
 	private function skipIfNotOnWindows(): void
 	{
-		if (DIRECTORY_SEPARATOR !== '\\') {
-			$this->markTestSkipped();
+		if (DIRECTORY_SEPARATOR === '\\') {
+			return;
 		}
+
+		$this->markTestSkipped();
 	}
 
 	private function skipIfNotOnUnix(): void
 	{
-		if (DIRECTORY_SEPARATOR !== '/') {
-			$this->markTestSkipped();
+		if (DIRECTORY_SEPARATOR === '/') {
+			return;
 		}
+
+		$this->markTestSkipped();
 	}
 
 	/**

@@ -231,15 +231,17 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 	private function setUpSignalHandler(StyleInterface $consoleStyle, string $memoryLimitFile): void
 	{
-		if (function_exists('pcntl_signal')) {
-			pcntl_signal(SIGINT, function () use ($consoleStyle, $memoryLimitFile): void {
-				if (file_exists($memoryLimitFile)) {
-					unlink($memoryLimitFile);
-				}
-				$consoleStyle->newLine();
-				exit(1);
-			});
+		if (!function_exists('pcntl_signal')) {
+			return;
 		}
+
+		pcntl_signal(SIGINT, function () use ($consoleStyle, $memoryLimitFile): void {
+			if (file_exists($memoryLimitFile)) {
+				unlink($memoryLimitFile);
+			}
+			$consoleStyle->newLine();
+			exit(1);
+		});
 	}
 
 }

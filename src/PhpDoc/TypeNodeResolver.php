@@ -201,19 +201,21 @@ class TypeNodeResolver
 			$addArray = true;
 
 			foreach ($otherTypeTypes as &$type) {
-				if ($type->isIterable()->yes() && $type->getIterableValueType()->isSuperTypeOf($arrayTypeType)->yes()) {
-					if ($type instanceof ObjectType) {
-						$type = new IntersectionType([$type, new IterableType(new MixedType(), $arrayTypeType)]);
-					} elseif ($type instanceof ArrayType) {
-						$type = new ArrayType(new MixedType(), $arrayTypeType);
-					} elseif ($type instanceof IterableType) {
-						$type = new IterableType(new MixedType(), $arrayTypeType);
-					} else {
-						continue;
-					}
-
-					$addArray = false;
+				if (!$type->isIterable()->yes() || !$type->getIterableValueType()->isSuperTypeOf($arrayTypeType)->yes()) {
+					continue;
 				}
+
+				if ($type instanceof ObjectType) {
+					$type = new IntersectionType([$type, new IterableType(new MixedType(), $arrayTypeType)]);
+				} elseif ($type instanceof ArrayType) {
+					$type = new ArrayType(new MixedType(), $arrayTypeType);
+				} elseif ($type instanceof IterableType) {
+					$type = new IterableType(new MixedType(), $arrayTypeType);
+				} else {
+					continue;
+				}
+
+				$addArray = false;
 			}
 
 			if ($addArray) {
@@ -245,7 +247,9 @@ class TypeNodeResolver
 			if (count($genericTypes) === 1) { // array<ValueType>
 				return new ArrayType(new MixedType(true), $genericTypes[0]);
 
-			} elseif (count($genericTypes) === 2) { // array<KeyType, ValueType>
+			}
+
+			if (count($genericTypes) === 2) { // array<KeyType, ValueType>
 				return new ArrayType($genericTypes[0], $genericTypes[1]);
 			}
 
@@ -253,7 +257,9 @@ class TypeNodeResolver
 			if (count($genericTypes) === 1) { // iterable<ValueType>
 				return new IterableType(new MixedType(true), $genericTypes[0]);
 
-			} elseif (count($genericTypes) === 2) { // iterable<KeyType, ValueType>
+			}
+
+			if (count($genericTypes) === 2) { // iterable<KeyType, ValueType>
 				return new IterableType($genericTypes[0], $genericTypes[1]);
 			}
 		}

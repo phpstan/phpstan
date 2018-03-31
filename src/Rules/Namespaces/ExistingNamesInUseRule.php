@@ -77,9 +77,11 @@ class ExistingNamesInUseRule implements \PHPStan\Rules\Rule
 	{
 		$messages = [];
 		foreach ($uses as $use) {
-			if (!$this->broker->hasConstant($use->name, null)) {
-				$messages[] = sprintf('Used constant %s not found.', (string) $use->name);
+			if ($this->broker->hasConstant($use->name, null)) {
+				continue;
 			}
+
+			$messages[] = sprintf('Used constant %s not found.', (string) $use->name);
 		}
 
 		return $messages;

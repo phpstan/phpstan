@@ -322,10 +322,10 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-						new UnionType([
+					new UnionType([
 						new ConstantBooleanType(true),
 						new IntegerType(),
-						]),
+					]),
 					new ArrayType(new MixedType(), new StringType()),
 				],
 				UnionType::class,

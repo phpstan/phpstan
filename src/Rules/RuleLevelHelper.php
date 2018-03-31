@@ -95,9 +95,11 @@ class RuleLevelHelper
 		$errors = [];
 		$referencedClasses = $type->getReferencedClasses();
 		foreach ($referencedClasses as $referencedClass) {
-			if (!$this->broker->hasClass($referencedClass)) {
-				$errors[] = sprintf($unknownClassErrorPattern, $referencedClass);
+			if ($this->broker->hasClass($referencedClass)) {
+				continue;
 			}
+
+			$errors[] = sprintf($unknownClassErrorPattern, $referencedClass);
 		}
 
 		if (count($errors) > 0) {

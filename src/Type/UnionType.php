@@ -32,9 +32,11 @@ class UnionType implements CompoundType, StaticResolvableType
 			$throwException();
 		}
 		foreach ($types as $type) {
-			if ($type instanceof UnionType) {
-				$throwException();
+			if (!($type instanceof UnionType)) {
+				continue;
 			}
+
+			$throwException();
 		}
 		$this->types = UnionTypeHelper::sortTypes($types);
 	}

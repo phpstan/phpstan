@@ -71,9 +71,11 @@ class ExistingNamesInGroupUseRule implements \PHPStan\Rules\Rule
 				throw new \PHPStan\ShouldNotHappenException();
 			}
 
-			if ($message !== null) {
-				$messages[] = $message;
+			if ($message === null) {
+				continue;
 			}
+
+			$messages[] = $message;
 		}
 
 		return $messages;

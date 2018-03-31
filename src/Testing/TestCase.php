@@ -68,6 +68,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		$parser = $this->getParser();
 		$cache = new Cache(new MemoryCacheStorage());
 		$methodReflectionFactory = new class($parser, $functionCallStatementFinder, $cache) implements PhpMethodReflectionFactory {
+
 			/** @var \PHPStan\Parser\Parser */
 			private $parser;
 
@@ -116,6 +117,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		$signatureMapProvider = $this->getContainer()->getByType(SignatureMapProvider::class);
 		$phpExtension = new PhpClassReflectionExtension($methodReflectionFactory, $fileTypeMapper, new AnnotationsMethodsClassReflectionExtension($fileTypeMapper), $annotationsPropertiesClassReflectionExtension, $signatureMapProvider);
 		$functionReflectionFactory = new class($this->getParser(), $functionCallStatementFinder, $cache) implements FunctionReflectionFactory {
+
 			/** @var \PHPStan\Parser\Parser */
 			private $parser;
 

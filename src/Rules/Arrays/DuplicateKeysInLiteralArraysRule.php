@@ -53,13 +53,15 @@ class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
 
 			$previousCount = count($values);
 			$values[$value] = $printedValue;
-			if ($previousCount === count($values)) {
-				if (!isset($duplicateKeys[$value])) {
-					$duplicateKeys[$value] = [$values[$value]];
-				}
-
-				$duplicateKeys[$value][] = $printedValue;
+			if ($previousCount !== count($values)) {
+				continue;
 			}
+
+			if (!isset($duplicateKeys[$value])) {
+				$duplicateKeys[$value] = [$values[$value]];
+			}
+
+			$duplicateKeys[$value][] = $printedValue;
 		}
 
 		$messages = [];

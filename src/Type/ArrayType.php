@@ -180,7 +180,7 @@ class ArrayType implements StaticResolvableType
 
 	public function isCallable(): TrinaryLogic
 	{
-		return TrinaryLogic::createMaybe()->and((new StringType)->isSuperTypeOf($this->itemType));
+		return TrinaryLogic::createMaybe()->and((new StringType())->isSuperTypeOf($this->itemType));
 	}
 
 	protected function castToArrayKeyType(Type $offsetType): Type
@@ -190,15 +190,19 @@ class ArrayType implements StaticResolvableType
 			$offsetValue = key([$offsetType->getValue() => null]);
 			return is_int($offsetValue) ? new ConstantIntegerType($offsetValue) : new ConstantStringType($offsetValue);
 
-		} elseif ($offsetType instanceof NullType) {
+		}
+
+		if ($offsetType instanceof NullType) {
 			return new ConstantStringType('');
 
-		} elseif ($offsetType instanceof IntegerType || $offsetType instanceof FloatType || $offsetType instanceof BooleanType) {
+		}
+
+		if ($offsetType instanceof IntegerType || $offsetType instanceof FloatType || $offsetType instanceof BooleanType) {
 			return new IntegerType();
 
-		} else {
-			return new UnionType([new IntegerType(), new StringType()]);
 		}
+
+		return new UnionType([new IntegerType(), new StringType()]);
 	}
 
 	public static function __set_state(array $properties): Type

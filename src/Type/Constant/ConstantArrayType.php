@@ -150,12 +150,11 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			return TrinaryLogic::createNo();
 		}
 
-		if ($method instanceof ConstantStringType) {
-			$methodName = $method->getValue();
-
-		} else {
+		if (!($method instanceof ConstantStringType)) {
 			return TrinaryLogic::createMaybe();
 		}
+
+		$methodName = $method->getValue();
 
 		if (!$broker->getClass($className)->hasMethod($methodName)) {
 			return TrinaryLogic::createNo();
@@ -169,17 +168,19 @@ class ConstantArrayType extends ArrayType implements ConstantType
 	{
 		$matchingValueTypes = [];
 		foreach ($this->keyTypes as $i => $keyType) {
-			if (!$keyType->isSuperTypeOf($offsetType)->no()) {
-				$matchingValueTypes[] = $this->valueTypes[$i];
+			if ($keyType->isSuperTypeOf($offsetType)->no()) {
+				continue;
 			}
+
+			$matchingValueTypes[] = $this->valueTypes[$i];
 		}
 
 		if (count($matchingValueTypes) > 0) {
 			return TypeCombinator::union(...$matchingValueTypes);
 
-		} else {
-			return new ErrorType(); // undefined offset
 		}
+
+		return new ErrorType(); // undefined offset
 	}
 
 	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type

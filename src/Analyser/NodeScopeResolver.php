@@ -30,7 +30,6 @@ use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Expr\Ternary;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
-use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Break_;
 use PhpParser\Node\Stmt\Catch_;
 use PhpParser\Node\Stmt\Class_;
@@ -611,12 +610,14 @@ class NodeScopeResolver
 
 			foreach ($node->catches as $catch) {
 				$this->processNode($catch, $scope, $nodeCallback);
-				if ($node->finally !== null) {
-					$statements[] = new StatementList($scope->enterCatch(
-						$catch->types,
-						$catch->var
-					), $catch->stmts);
+				if ($node->finally === null) {
+					continue;
 				}
+
+				$statements[] = new StatementList($scope->enterCatch(
+					$catch->types,
+					$catch->var
+				), $catch->stmts);
 			}
 
 			if ($node->finally !== null) {
@@ -940,9 +941,11 @@ class NodeScopeResolver
 					}
 
 					$arg = $node->args[$i]->value;
-					if ($arg instanceof Variable && is_string($arg->name)) {
-						$scope = $scope->assignVariable($arg->name, $parameterType ?? new MixedType(), $certainty);
+					if (!($arg instanceof Variable) || !is_string($arg->name)) {
+						continue;
 					}
+
+					$scope = $scope->assignVariable($arg->name, $parameterType ?? new MixedType(), $certainty);
 				}
 			}
 			if (
@@ -1076,7 +1079,7 @@ class NodeScopeResolver
 			$scope = $this->enterForeach($scope, $node);
 			$statements = [
 				new StatementList($scope, array_merge(
-					[new Node\Stmt\Nop],
+					[new Node\Stmt\Nop()],
 					$node->stmts
 				)),
 				new StatementList($initialScope, []), // in order not to add variables existing only inside the for loop
@@ -1094,7 +1097,7 @@ class NodeScopeResolver
 			$closureScope = $scope->enterAnonymousFunction($node->params, $node->uses, $node->returnType);
 			$statements = [
 				new StatementList($closureScope, array_merge(
-					[new Node\Stmt\Nop],
+					[new Node\Stmt\Nop()],
 					$node->stmts
 				)),
 				new StatementList($closureScope, []),
@@ -1274,13 +1277,15 @@ class NodeScopeResolver
 			$variableType = $varTags[$variableName]->getType();
 			return $scope->assignVariable($variableName, $variableType, TrinaryLogic::createYes());
 
-		} elseif (!$strict && count($varTags) === 1 && isset($varTags[0])) {
+		}
+
+		if (!$strict && count($varTags) === 1 && isset($varTags[0])) {
 			$variableType = $varTags[0]->getType();
 			return $scope->assignVariable($variableName, $variableType, TrinaryLogic::createYes());
 
-		} else {
-			return $scope;
 		}
+
+		return $scope;
 	}
 
 	private function assignVariable(
@@ -1403,19 +1408,23 @@ class NodeScopeResolver
 				}
 			}
 
-			if ($lookForAssignsSettings->shouldIntersectVariables($earlyTerminationStatement)) {
-				if ($intersectedScope === null) {
-					$intersectedScope = $initialScope->createIntersectedScope($branchScopeWithInitialScopeRemoved);
-				} else {
-					$intersectedScope = $intersectedScope->intersectVariables($branchScopeWithInitialScopeRemoved);
-				}
+			if (!$lookForAssignsSettings->shouldIntersectVariables($earlyTerminationStatement)) {
+				continue;
+			}
 
-				if ($statementList->shouldFilterByTruthyValue()) {
-					/** @var \PhpParser\Node\Expr $statement */
-					foreach ($statements as $statement) {
-						$intersectedScope = $intersectedScope->filterByTruthyValue($statement);
-					}
-				}
+			if ($intersectedScope === null) {
+				$intersectedScope = $initialScope->createIntersectedScope($branchScopeWithInitialScopeRemoved);
+			} else {
+				$intersectedScope = $intersectedScope->intersectVariables($branchScopeWithInitialScopeRemoved);
+			}
+
+			if (!$statementList->shouldFilterByTruthyValue()) {
+				continue;
+			}
+
+			/** @var \PhpParser\Node\Expr $statement */
+			foreach ($statements as $statement) {
+				$intersectedScope = $intersectedScope->filterByTruthyValue($statement);
 			}
 		}
 

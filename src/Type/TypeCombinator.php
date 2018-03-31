@@ -86,9 +86,11 @@ class TypeCombinator
 	{
 		// transform A | (B | C) to A | B | C
 		for ($i = 0; $i < count($types); $i++) {
-			if ($types[$i] instanceof UnionType) {
-				array_splice($types, $i, 1, $types[$i]->getTypes());
+			if (!($types[$i] instanceof UnionType)) {
+				continue;
 			}
+
+			array_splice($types, $i, 1, $types[$i]->getTypes());
 		}
 
 		// simplify true | false to bool
@@ -99,7 +101,9 @@ class TypeCombinator
 					$types[$i] = new BooleanType();
 					array_splice($types, $j, 1);
 					continue 2;
-				} elseif ($types[$i] instanceof ArrayType && $types[$j] instanceof ArrayType) {
+				}
+
+				if ($types[$i] instanceof ArrayType && $types[$j] instanceof ArrayType) {
 					$types[$i] = new ArrayType(
 						self::union($types[$i]->getIterableKeyType(), $types[$j]->getIterableKeyType()),
 						self::union($types[$i]->getIterableValueType(), $types[$j]->getIterableValueType()),
@@ -107,7 +111,9 @@ class TypeCombinator
 					);
 					array_splice($types, $j, 1);
 					continue 2;
-				} elseif ($types[$i] instanceof IterableType && $types[$j] instanceof IterableType) {
+				}
+
+				if ($types[$i] instanceof IterableType && $types[$j] instanceof IterableType) {
 					$types[$i] = new IterableType(
 						self::union($types[$i]->getIterableKeyType(), $types[$j]->getIterableKeyType()),
 						self::union($types[$i]->getIterableValueType(), $types[$j]->getIterableValueType())
@@ -127,7 +133,9 @@ class TypeCombinator
 					array_splice($types, $i--, 1);
 					continue 2;
 
-				} elseif ($types[$i]->isSuperTypeOf($types[$j])->yes()) {
+				}
+
+				if ($types[$i]->isSuperTypeOf($types[$j])->yes()) {
 					array_splice($types, $j--, 1);
 					continue 1;
 				}
@@ -164,9 +172,11 @@ class TypeCombinator
 
 		// transform A & (B & C) to A & B & C
 		foreach ($types as $i => &$type) {
-			if ($type instanceof IntersectionType) {
-				array_splice($types, $i, 1, $type->getTypes());
+			if (!($type instanceof IntersectionType)) {
+				continue;
 			}
+
+			array_splice($types, $i, 1, $type->getTypes());
 		}
 
 		// transform IntegerType & ConstantIntegerType to ConstantIntegerType
@@ -192,7 +202,9 @@ class TypeCombinator
 				if ($isSuperTypeB->maybe()) {
 					continue;
 
-				} elseif ($isSuperTypeB->yes()) {
+				}
+
+				if ($isSuperTypeB->yes()) {
 					array_splice($types, $i--, 1);
 					continue 2;
 				}
@@ -202,9 +214,9 @@ class TypeCombinator
 		if (count($types) === 1) {
 			return $types[0];
 
-		} else {
-			return new IntersectionType($types);
 		}
+
+		return new IntersectionType($types);
 	}
 
 	public static function shouldSkipUnionTypeAccepts(UnionType $unionType): bool

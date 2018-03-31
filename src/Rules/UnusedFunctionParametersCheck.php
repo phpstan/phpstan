@@ -25,9 +25,11 @@ class UnusedFunctionParametersCheck
 	{
 		$unusedParameters = array_fill_keys($parameterNames, true);
 		foreach ($this->getUsedVariables($scope, $statements) as $variableName) {
-			if (isset($unusedParameters[$variableName])) {
-				unset($unusedParameters[$variableName]);
+			if (!isset($unusedParameters[$variableName])) {
+				continue;
 			}
+
+			unset($unusedParameters[$variableName]);
 		}
 		$errors = [];
 		foreach ($unusedParameters as $name => $bool) {
@@ -59,9 +61,11 @@ class UnusedFunctionParametersCheck
 			) {
 				foreach ($node->args as $arg) {
 					$argType = $scope->getType($arg->value);
-					if ($argType instanceof ConstantStringType) {
-						$variableNames[] = $argType->getValue();
+					if (!($argType instanceof ConstantStringType)) {
+						continue;
 					}
+
+					$variableNames[] = $argType->getValue();
 				}
 			}
 			foreach ($node->getSubNodeNames() as $subNodeName) {

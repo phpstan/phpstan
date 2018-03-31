@@ -23,19 +23,21 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testClassMethodScope(): void
 	{
 		$this->processFile(__DIR__ . '/data/class.php', function (\PhpParser\Node $node, Scope $scope): void {
-			if ($node instanceof Exit_) {
-				$this->assertSame('SomeNodeScopeResolverNamespace', $scope->getNamespace());
-				$this->assertSame(Foo::class, $scope->getClassReflection()->getName());
-				$this->assertSame('doFoo', $scope->getFunctionName());
-				$this->assertSame('$this(SomeNodeScopeResolverNamespace\Foo)', $scope->getVariableType('this')->describe());
-				$this->assertTrue($scope->hasVariableType('baz')->yes());
-				$this->assertTrue($scope->hasVariableType('lorem')->yes());
-				$this->assertFalse($scope->hasVariableType('ipsum')->yes());
-				$this->assertTrue($scope->hasVariableType('i')->yes());
-				$this->assertTrue($scope->hasVariableType('val')->yes());
-				$this->assertSame('SomeNodeScopeResolverNamespace\InvalidArgumentException', $scope->getVariableType('exception')->describe());
-				$this->assertTrue($scope->hasVariableType('staticVariable')->yes());
+			if (!($node instanceof Exit_)) {
+				return;
 			}
+
+			$this->assertSame('SomeNodeScopeResolverNamespace', $scope->getNamespace());
+			$this->assertSame(Foo::class, $scope->getClassReflection()->getName());
+			$this->assertSame('doFoo', $scope->getFunctionName());
+			$this->assertSame('$this(SomeNodeScopeResolverNamespace\Foo)', $scope->getVariableType('this')->describe());
+			$this->assertTrue($scope->hasVariableType('baz')->yes());
+			$this->assertTrue($scope->hasVariableType('lorem')->yes());
+			$this->assertFalse($scope->hasVariableType('ipsum')->yes());
+			$this->assertTrue($scope->hasVariableType('i')->yes());
+			$this->assertTrue($scope->hasVariableType('val')->yes());
+			$this->assertSame('SomeNodeScopeResolverNamespace\InvalidArgumentException', $scope->getVariableType('exception')->describe());
+			$this->assertTrue($scope->hasVariableType('staticVariable')->yes());
 		});
 	}
 
@@ -44,9 +46,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		/** @var \PHPStan\Analyser\Scope $testScope */
 		$testScope = null;
 		$this->processFile($filename, function (\PhpParser\Node $node, Scope $scope) use (&$testScope): void {
-			if ($node instanceof Exit_) {
-				$testScope = $scope;
+			if (!($node instanceof Exit_)) {
+				return;
 			}
+
+			$testScope = $scope;
 		});
 
 		return $testScope;
@@ -902,13 +906,15 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testArrayDestructuringShortSyntax(): void
 	{
 		$this->processFile(__DIR__ . '/data/array-destructuring-short.php', function (\PhpParser\Node $node, Scope $scope): void {
-			if ($node instanceof Exit_) {
-				$this->assertTrue($scope->hasVariableType('a')->yes());
-				$this->assertTrue($scope->hasVariableType('b')->yes());
-				$this->assertTrue($scope->hasVariableType('c')->yes());
-				$this->assertTrue($scope->hasVariableType('d')->yes());
-				$this->assertTrue($scope->hasVariableType('e')->yes());
+			if (!($node instanceof Exit_)) {
+				return;
 			}
+
+			$this->assertTrue($scope->hasVariableType('a')->yes());
+			$this->assertTrue($scope->hasVariableType('b')->yes());
+			$this->assertTrue($scope->hasVariableType('c')->yes());
+			$this->assertTrue($scope->hasVariableType('d')->yes());
+			$this->assertTrue($scope->hasVariableType('e')->yes());
 		});
 	}
 
@@ -4662,16 +4668,18 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		$this->processFile($file, function (\PhpParser\Node $node, Scope $scope) use ($description, $expression, $evaluatedPointExpression): void {
 			$printer = new \PhpParser\PrettyPrinter\Standard();
 			$printedNode = $printer->prettyPrint([$node]);
-			if ($printedNode === $evaluatedPointExpression) {
-				/** @var \PhpParser\Node\Expr $expressionNode */
-				$expressionNode = $this->getParser()->parseString(sprintf('<?php %s;', $expression))[0];
-				$type = $scope->getType($expressionNode);
-				$this->assertTypeDescribe(
-					$description,
-					$type->describe(),
-					sprintf('%s at %s', $expression, $evaluatedPointExpression)
-				);
+			if ($printedNode !== $evaluatedPointExpression) {
+				return;
 			}
+
+			/** @var \PhpParser\Node\Expr $expressionNode */
+			$expressionNode = $this->getParser()->parseString(sprintf('<?php %s;', $expression))[0];
+			$type = $scope->getType($expressionNode);
+			$this->assertTypeDescribe(
+				$description,
+				$type->describe(),
+				sprintf('%s at %s', $expression, $evaluatedPointExpression)
+			);
 		}, $dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions);
 	}
 
@@ -4733,20 +4741,24 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function testDeclareStrictTypes(string $file, bool $result): void
 	{
 		$this->processFile($file, function (\PhpParser\Node $node, Scope $scope) use ($result): void {
-			if ($node instanceof Exit_) {
-				$this->assertSame($result, $scope->isDeclareStrictTypes());
+			if (!($node instanceof Exit_)) {
+				return;
 			}
+
+			$this->assertSame($result, $scope->isDeclareStrictTypes());
 		});
 	}
 
 	public function testEarlyTermination(): void
 	{
 		$this->processFile(__DIR__ . '/data/early-termination.php', function (\PhpParser\Node $node, Scope $scope): void {
-			if ($node instanceof Exit_) {
-				$this->assertTrue($scope->hasVariableType('something')->yes());
-				$this->assertTrue($scope->hasVariableType('var')->yes());
-				$this->assertTrue($scope->hasVariableType('foo')->no());
+			if (!($node instanceof Exit_)) {
+				return;
 			}
+
+			$this->assertTrue($scope->hasVariableType('something')->yes());
+			$this->assertTrue($scope->hasVariableType('var')->yes());
+			$this->assertTrue($scope->hasVariableType('foo')->no());
 		});
 	}
 

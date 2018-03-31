@@ -13,9 +13,11 @@ class UnionTypeHelper
 	public static function resolveStatic(string $className, array $types): array
 	{
 		foreach ($types as $i => $type) {
-			if ($type instanceof StaticResolvableType) {
-				$types[$i] = $type->resolveStatic($className);
+			if (!($type instanceof StaticResolvableType)) {
+				continue;
 			}
+
+			$types[$i] = $type->resolveStatic($className);
 		}
 
 		return $types;
@@ -29,9 +31,11 @@ class UnionTypeHelper
 	public static function changeBaseClass(string $className, array $types): array
 	{
 		foreach ($types as $i => $type) {
-			if ($type instanceof StaticResolvableType) {
-				$types[$i] = $type->changeBaseClass($className);
+			if (!($type instanceof StaticResolvableType)) {
+				continue;
 			}
+
+			$types[$i] = $type->changeBaseClass($className);
 		}
 
 		return $types;

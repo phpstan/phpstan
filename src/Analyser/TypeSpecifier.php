@@ -80,7 +80,9 @@ class TypeSpecifier
 					$type = new ObjectType($className);
 				}
 				return $this->create($expr->expr, $type, $context);
-			} elseif ($context & self::CONTEXT_TRUE) {
+			}
+
+			if ($context & self::CONTEXT_TRUE) {
 				return $this->create($expr->expr, new ObjectWithoutClassType(), $context);
 			}
 		} elseif ($expr instanceof Node\Expr\BinaryOp\Identical) {
@@ -94,14 +96,18 @@ class TypeSpecifier
 						$expressions[0],
 						($context & self::CONTEXT_TRUE) ? self::CONTEXT_FALSE : ~self::CONTEXT_FALSE
 					));
-				} elseif ($constantName === 'true') {
+				}
+
+				if ($constantName === 'true') {
 					$types = $this->create($expressions[0], new ConstantBooleanType(true), $context);
 					return $types->unionWith($this->specifyTypesInCondition(
 						$scope,
 						$expressions[0],
 						($context & self::CONTEXT_TRUE) ? self::CONTEXT_TRUE : ~self::CONTEXT_TRUE
 					));
-				} elseif ($constantName === 'null') {
+				}
+
+				if ($constantName === 'null') {
 					return $this->create($expressions[0], new NullType(), $context);
 				}
 			}
@@ -137,7 +143,9 @@ class TypeSpecifier
 						$expressions[0],
 						($context & self::CONTEXT_TRUE) ? self::CONTEXT_FALSEY : ~self::CONTEXT_FALSEY
 					);
-				} elseif ($constantName === 'true') {
+				}
+
+				if ($constantName === 'true') {
 					return $this->specifyTypesInCondition(
 						$scope,
 						$expressions[0],
@@ -300,9 +308,9 @@ class TypeSpecifier
 				new NullType(),
 				new ConstantBooleanType(false),
 				new ConstantIntegerType(0),
-//				new ConstantFloatType(0.0),
-//				new ConstantStringType(''),
-//				new ConstantArrayType([], []),
+			//              new ConstantFloatType(0.0),
+			//              new ConstantStringType(''),
+			//              new ConstantArrayType([], []),
 			]);
 			return $this->create($expr, $type, self::CONTEXT_FALSE);
 		}

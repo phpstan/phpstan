@@ -58,14 +58,16 @@ class InvalidPhpDocTagValueRule implements \PHPStan\Rules\Rule
 
 		$errors = [];
 		foreach ($phpDocNode->getTags() as $phpDocTag) {
-			if ($phpDocTag->value instanceof InvalidTagValueNode) {
-				$errors[] = sprintf(
-					'PHPDoc tag %s has invalid value (%s): %s',
-					$phpDocTag->name,
-					$phpDocTag->value->value,
-					$phpDocTag->value->exception->getMessage()
-				);
+			if (!($phpDocTag->value instanceof InvalidTagValueNode)) {
+				continue;
 			}
+
+			$errors[] = sprintf(
+				'PHPDoc tag %s has invalid value (%s): %s',
+				$phpDocTag->name,
+				$phpDocTag->value->value,
+				$phpDocTag->value->exception->getMessage()
+			);
 		}
 
 		return $errors;

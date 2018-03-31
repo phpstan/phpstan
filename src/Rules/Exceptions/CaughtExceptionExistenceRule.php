@@ -69,12 +69,14 @@ class CaughtExceptionExistenceRule implements \PHPStan\Rules\Rule
 				$errors[] = sprintf('Caught class %s is not an exception.', $classReflection->getDisplayName());
 			}
 
-			if ($this->checkClassCaseSensitivity) {
-				$errors = array_merge(
-					$errors,
-					$this->classCaseSensitivityCheck->checkClassNames([$class])
-				);
+			if (!$this->checkClassCaseSensitivity) {
+				continue;
 			}
+
+			$errors = array_merge(
+				$errors,
+				$this->classCaseSensitivityCheck->checkClassNames([$class])
+			);
 		}
 
 		return $errors;
