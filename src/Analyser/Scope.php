@@ -738,7 +738,20 @@ class Scope
 		} elseif ($node instanceof Node\Scalar\MagicConst) {
 			return new StringType();
 		} elseif ($node instanceof Object_) {
-			return new ObjectType('stdClass');
+			$castToObject = function (Type $type): Type {
+				if ((new ObjectWithoutClassType())->isSuperTypeOf($type)->yes()) {
+					return $type;
+				}
+
+				return new ObjectType('stdClass');
+			};
+
+			$exprType = $this->getType($node->expr);
+			if ($exprType instanceof UnionType) {
+				return TypeCombinator::union(...array_map($castToObject, $exprType->getTypes()));
+			}
+
+			return $castToObject($exprType);
 		} elseif ($node instanceof Unset_) {
 			return new NullType();
 		} elseif ($node instanceof Expr\PostInc || $node instanceof Expr\PostDec) {

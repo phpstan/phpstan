@@ -1160,6 +1160,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'stdClass',
 				'$castedObject',
 			],
+			[
+				'TypesNamespaceCasts\Foo',
+				'$castedFoo',
+			],
+			[
+				'stdClass|TypesNamespaceCasts\Foo',
+				'$castedArrayOrObject',
+			],
 		];
 	}
 
