@@ -546,7 +546,7 @@ class Scope
 			}
 		}
 
-		if ($node instanceof Node\Expr\BinaryOp\Mod) {
+		if ($node instanceof Node\Expr\BinaryOp\Mod || $node instanceof Expr\AssignOp\Mod) {
 			return new IntegerType();
 		}
 
@@ -587,7 +587,6 @@ class Scope
 		if (
 			$node instanceof Expr\AssignOp\ShiftLeft
 			|| $node instanceof Expr\AssignOp\ShiftRight
-			|| $node instanceof Expr\AssignOp\Mod
 		) {
 			return new IntegerType();
 		}
@@ -611,31 +610,6 @@ class Scope
 			$leftType = $this->getType($left);
 			$rightType = $this->getType($right);
 
-			if ($leftType instanceof BooleanType) {
-				$leftType = new IntegerType();
-			}
-
-			if ($rightType instanceof BooleanType) {
-				$rightType = new IntegerType();
-			}
-
-			if ($node instanceof Expr\AssignOp\Div || $node instanceof Expr\BinaryOp\Div) {
-				if (!$leftType instanceof MixedType && !$rightType instanceof MixedType) {
-					return new FloatType();
-				}
-			}
-
-			if (
-				($leftType instanceof FloatType && !$rightType instanceof MixedType)
-				|| ($rightType instanceof FloatType && !$leftType instanceof MixedType)
-			) {
-				return new FloatType();
-			}
-
-			if ($leftType instanceof IntegerType && $rightType instanceof IntegerType) {
-				return new IntegerType();
-			}
-
 			if (
 				($node instanceof Expr\AssignOp\Plus || $node instanceof Expr\BinaryOp\Plus)
 				&& $leftType instanceof ArrayType
@@ -647,6 +621,29 @@ class Scope
 					$leftType->isItemTypeInferredFromLiteralArray() || $rightType->isItemTypeInferredFromLiteralArray()
 				);
 			}
+
+			$types = TypeCombinator::union($leftType, $rightType);
+
+			if (!(new ArrayType(new MixedType(), new MixedType()))->isSuperTypeOf($types)->no()) {
+				return new MixedType();
+			}
+
+			if (
+				(new FloatType())->isSuperTypeOf($leftType)->yes()
+				|| (new FloatType())->isSuperTypeOf($rightType)->yes()
+			) {
+				return new FloatType();
+			}
+
+			if ($node instanceof Expr\AssignOp\Div || $node instanceof Expr\BinaryOp\Div) {
+				return new UnionType([new IntegerType(), new FloatType()]);
+			}
+
+			if ((new IntegerType())->isSuperTypeOf($types)->yes()) {
+				return new IntegerType();
+			}
+
+			return new UnionType([new IntegerType(), new FloatType()]);
 		}
 
 		if ($node instanceof LNumber) {

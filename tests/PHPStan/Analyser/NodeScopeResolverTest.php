@@ -1599,7 +1599,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'1 % 1',
 			],
 			[
-				'float',
+				'float|int',
 				'$integer /= 2',
 			],
 			[
@@ -1698,6 +1698,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'3.2 % 2',
 			],
 			[
+				'int',
+				'$float %= 2.4',
+			],
+			[
+				'float',
+				'$float **= 2.4',
+			],
+			[
 				'float',
 				'$float /= 2.4',
 			],
@@ -1736,36 +1744,76 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'1 + doFoo()',
 			],
 			[
+				'float|int',
+				'1 + $number',
+			],
+			[
+				'float|int',
+				'$integer + $number',
+			],
+			[
+				'float',
+				'$float + $float',
+			],
+			[
+				'float',
+				'$float + $number',
+			],
+			[
 				'mixed',
 				'1 / doFoo()',
+			],
+			[
+				'float|int',
+				'1 / $number',
 			],
 			[
 				'mixed',
 				'1.0 / doFoo()',
 			],
 			[
+				'float',
+				'1.0 / $number',
+			],
+			[
 				'mixed',
 				'doFoo() / 1',
+			],
+			[
+				'float|int',
+				'$number / 1',
 			],
 			[
 				'mixed',
 				'doFoo() / 1.0',
 			],
 			[
-				'mixed',
-				'1.0 + doFoo()',
+				'float',
+				'$number / 1.0',
 			],
 			[
 				'mixed',
 				'1.0 + doFoo()',
+			],
+			[
+				'float',
+				'1.0 + $number',
 			],
 			[
 				'mixed',
 				'doFoo() + 1',
 			],
 			[
+				'float|int',
+				'$number + 1',
+			],
+			[
 				'mixed',
 				'doFoo() + 1.0',
+			],
+			[
+				'float',
+				'$number + 1.0',
 			],
 			[
 				'string|null',
@@ -2010,6 +2058,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'int(2)',
 				'$array[1]',
+			],
+			[
+				'float|int',
+				'$integer / $integer',
 			],
 		];
 	}

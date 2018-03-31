@@ -24,4 +24,7 @@ $array = [1, 2, 3];
 
 reset($array);
 
+/** @var number $number */
+$number = doFoo();
+
 die;
