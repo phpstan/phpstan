@@ -153,11 +153,11 @@ class Analyser
 				}
 				$this->nodeScopeResolver->processNodes(
 					$this->parser->parseFile($file),
-					new Scope($this->broker, $this->printer, $this->typeSpecifier, $file),
+					new Scope($this->broker, $this->printer, $this->typeSpecifier, ScopeContext::create($file)),
 					function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors): void {
 						foreach ($this->registry->getRules(get_class($node)) as $rule) {
 							foreach ($rule->processNode($node, $scope) as $message) {
-								$fileErrors[] = new Error($message, $scope->getAnalysedContextFile(), $node->getLine());
+								$fileErrors[] = new Error($message, $scope->getFileDescription(), $node->getLine());
 							}
 						}
 					}

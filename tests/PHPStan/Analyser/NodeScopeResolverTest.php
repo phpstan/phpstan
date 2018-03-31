@@ -4721,7 +4721,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$this->createBroker($dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions),
 				$printer,
 				new TypeSpecifier($printer),
-				$file
+				ScopeContext::create($file)
 			),
 			$callback
 		);

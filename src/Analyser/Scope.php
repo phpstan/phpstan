@@ -77,9 +77,9 @@ class Scope
 	private $typeSpecifier;
 
 	/**
-	 * @var string
+	 * @var \PHPStan\Analyser\ScopeContext
 	 */
-	private $file;
+	private $context;
 
 	/**
 	 * @var \PHPStan\Type\Type[]
@@ -87,19 +87,9 @@ class Scope
 	private $resolvedTypes = [];
 
 	/**
-	 * @var string
-	 */
-	private $analysedContextFile;
-
-	/**
 	 * @var bool
 	 */
 	private $declareStrictTypes;
-
-	/**
-	 * @var \PHPStan\Reflection\ClassReflection|null
-	 */
-	private $classReflection;
 
 	/**
 	 * @var \PHPStan\Reflection\FunctionReflection|MethodReflection|null
@@ -155,10 +145,8 @@ class Scope
 	 * @param \PHPStan\Broker\Broker $broker
 	 * @param \PhpParser\PrettyPrinter\Standard $printer
 	 * @param \PHPStan\Analyser\TypeSpecifier $typeSpecifier
-	 * @param string $file
-	 * @param string|null $analysedContextFile
+	 * @param \PHPStan\Analyser\ScopeContext $context
 	 * @param bool $declareStrictTypes
-	 * @param \PHPStan\Reflection\ClassReflection|null $classReflection
 	 * @param \PHPStan\Reflection\FunctionReflection|MethodReflection|null $function
 	 * @param string|null $namespace
 	 * @param \PHPStan\Analyser\VariableTypeHolder[] $variablesTypes
@@ -174,10 +162,8 @@ class Scope
 		Broker $broker,
 		\PhpParser\PrettyPrinter\Standard $printer,
 		TypeSpecifier $typeSpecifier,
-		string $file,
-		?string $analysedContextFile = null,
+		ScopeContext $context,
 		bool $declareStrictTypes = false,
-		?ClassReflection $classReflection = null,
 		$function = null,
 		?string $namespace = null,
 		array $variablesTypes = [],
@@ -197,10 +183,8 @@ class Scope
 		$this->broker = $broker;
 		$this->printer = $printer;
 		$this->typeSpecifier = $typeSpecifier;
-		$this->file = $file;
-		$this->analysedContextFile = $analysedContextFile !== null ? $analysedContextFile : $file;
+		$this->context = $context;
 		$this->declareStrictTypes = $declareStrictTypes;
-		$this->classReflection = $classReflection;
 		$this->function = $function;
 		$this->namespace = $namespace;
 		$this->variableTypes = $variablesTypes;
@@ -215,12 +199,33 @@ class Scope
 
 	public function getFile(): string
 	{
-		return $this->file;
+		return $this->context->getFile();
 	}
 
-	public function getAnalysedContextFile(): string
+	public function getFileDescription(): string
 	{
-		return $this->analysedContextFile;
+		if ($this->context->getTraitReflection() === null) {
+			return $this->getFile();
+		}
+
+		/** @var ClassReflection $classReflection */
+		$classReflection = $this->context->getClassReflection();
+
+		$className = sprintf('class %s', $classReflection->getDisplayName());
+		if ($classReflection->isAnonymous()) {
+			$className = 'anonymous class';
+		}
+
+		$traitReflection = $this->context->getTraitReflection();
+		if ($traitReflection->getFileName() === false) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		return sprintf(
+			'%s (in context of %s)',
+			$traitReflection->getFileName(),
+			$className
+		);
 	}
 
 	public function isDeclareStrictTypes(): bool
@@ -234,21 +239,25 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
-			$this->getFile(),
-			$this->getAnalysedContextFile(),
+			$this->context,
 			true
 		);
 	}
 
 	public function isInClass(): bool
 	{
-		return $this->classReflection !== null;
+		return $this->context->getClassReflection() !== null;
+	}
+
+	public function isInTrait(): bool
+	{
+		return $this->context->getTraitReflection() !== null;
 	}
 
 	public function getClassReflection(): ClassReflection
 	{
 		/** @var \PHPStan\Reflection\ClassReflection $classReflection */
-		$classReflection = $this->classReflection;
+		$classReflection = $this->context->getClassReflection();
 		return $classReflection;
 	}
 
@@ -1045,10 +1054,8 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
-			$this->getFile(),
-			$this->getAnalysedContextFile(),
+			$this->context->enterClass($classReflection),
 			$this->isDeclareStrictTypes(),
-			$classReflection,
 			null,
 			$this->getNamespace(),
 			[
@@ -1057,16 +1064,14 @@ class Scope
 		);
 	}
 
-	public function changeAnalysedContextFile(string $fileName): self
+	public function enterTrait(ClassReflection $traitReflection): self
 	{
 		return new self(
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
-			$this->getFile(),
-			$fileName,
+			$this->context->enterTrait($traitReflection),
 			$this->isDeclareStrictTypes(),
-			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),
@@ -1144,10 +1149,8 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
-			$this->getFile(),
-			$this->getAnalysedContextFile(),
+			$this->context,
 			$this->isDeclareStrictTypes(),
-			$this->isInClass() ? $this->getClassReflection() : null,
 			$functionReflection,
 			$this->getNamespace(),
 			$variableTypes,
@@ -1163,10 +1166,8 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
-			$this->getFile(),
-			$this->getAnalysedContextFile(),
+			$this->context->beginFile(),
 			$this->isDeclareStrictTypes(),
-			null,
 			null,
 			$namespaceName
 		);
@@ -1190,10 +1191,8 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
-			$this->getFile(),
-			$this->getAnalysedContextFile(),
+			$this->context,
 			$this->isDeclareStrictTypes(),
-			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
@@ -1256,10 +1255,8 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
-			$this->getFile(),
-			$this->getAnalysedContextFile(),
+			$this->context,
 			$this->isDeclareStrictTypes(),
-			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
@@ -1381,10 +1378,8 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
-			$this->getFile(),
-			$this->getAnalysedContextFile(),
+			$this->context,
 			$this->isDeclareStrictTypes(),
-			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),
@@ -1406,10 +1401,8 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
-			$this->getFile(),
-			$this->getAnalysedContextFile(),
+			$this->context,
 			$this->isDeclareStrictTypes(),
-			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),
@@ -1457,10 +1450,8 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
-			$this->getFile(),
-			$this->getAnalysedContextFile(),
+			$this->context,
 			$this->isDeclareStrictTypes(),
-			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
@@ -1487,10 +1478,8 @@ class Scope
 				$this->broker,
 				$this->printer,
 				$this->typeSpecifier,
-				$this->getFile(),
-				$this->getAnalysedContextFile(),
+				$this->context,
 				$this->isDeclareStrictTypes(),
-				$this->isInClass() ? $this->getClassReflection() : null,
 				$this->getFunction(),
 				$this->getNamespace(),
 				$variableTypes,
@@ -1563,10 +1552,8 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
-			$this->getFile(),
-			$this->getAnalysedContextFile(),
+			$this->context,
 			$this->isDeclareStrictTypes(),
-			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$intersectedVariableTypeHolders,
@@ -1595,10 +1582,8 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
-			$this->getFile(),
-			$this->getAnalysedContextFile(),
+			$this->context,
 			$this->isDeclareStrictTypes(),
-			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
@@ -1646,10 +1631,8 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
-			$this->getFile(),
-			$this->getAnalysedContextFile(),
+			$this->context,
 			$this->isDeclareStrictTypes(),
-			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypeHolders,
@@ -1697,10 +1680,8 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
-			$this->getFile(),
-			$this->getAnalysedContextFile(),
+			$this->context,
 			$this->isDeclareStrictTypes(),
-			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$ourVariableTypeHolders,
@@ -1731,10 +1712,8 @@ class Scope
 				$scope->broker,
 				$scope->printer,
 				$scope->typeSpecifier,
-				$scope->getFile(),
-				$scope->getAnalysedContextFile(),
+				$scope->context,
 				$scope->isDeclareStrictTypes(),
-				$scope->isInClass() ? $scope->getClassReflection() : null,
 				$scope->getFunction(),
 				$scope->getNamespace(),
 				$variableTypes,
@@ -1760,10 +1739,8 @@ class Scope
 				$this->broker,
 				$this->printer,
 				$this->typeSpecifier,
-				$this->getFile(),
-				$this->getAnalysedContextFile(),
+				$this->context,
 				$this->isDeclareStrictTypes(),
-				$this->isInClass() ? $this->getClassReflection() : null,
 				$this->getFunction(),
 				$this->getNamespace(),
 				$this->getVariableTypes(),
@@ -1836,10 +1813,8 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
-			$this->getFile(),
-			$this->getAnalysedContextFile(),
+			$this->context,
 			$this->isDeclareStrictTypes(),
-			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),
@@ -1858,10 +1833,8 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
-			$this->getFile(),
-			$this->getAnalysedContextFile(),
+			$this->context,
 			$this->isDeclareStrictTypes(),
-			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),
@@ -1881,10 +1854,8 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
-			$this->getFile(),
-			$this->getAnalysedContextFile(),
+			$this->context,
 			$this->isDeclareStrictTypes(),
-			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),
@@ -1919,10 +1890,8 @@ class Scope
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
-			$this->getFile(),
-			$this->getAnalysedContextFile(),
+			$this->context,
 			$this->isDeclareStrictTypes(),
-			$this->isInClass() ? $this->getClassReflection() : null,
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),

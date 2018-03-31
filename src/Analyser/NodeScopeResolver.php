@@ -1567,17 +1567,7 @@ class NodeScopeResolver
 				return;
 			}
 			$parserNodes = $this->parser->parseFile($fileName);
-			$className = sprintf('class %s', $classScope->getClassReflection()->getDisplayName());
-			if ($classScope->getClassReflection()->isAnonymous()) {
-				$className = 'anonymous class';
-			}
-			$classScope = $classScope->changeAnalysedContextFile(
-				sprintf(
-					'%s (in context of %s)',
-					$fileName,
-					$className
-				)
-			);
+			$classScope = $classScope->enterTrait($traitReflection);
 
 			$this->processNodesForTraitUse($parserNodes, $traitName, $classScope, $nodeCallback);
 		}
