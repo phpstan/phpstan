@@ -22,3 +22,5 @@ echo (int) $width;
 /** @var string|mixed $stringOrMixed */
 $stringOrMixed = doFoo();
 (string) $stringOrMixed;
+
+$foo = (float) (100.0 / 25.432);

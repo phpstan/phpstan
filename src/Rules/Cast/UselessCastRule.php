@@ -6,8 +6,6 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Cast;
 use PhpParser\Node\Expr\Cast\Object_;
 use PHPStan\Analyser\Scope;
-use PHPStan\Type\FloatType;
-use PHPStan\Type\UnionType;
 
 class UselessCastRule implements \PHPStan\Rules\Rule
 {
@@ -29,15 +27,7 @@ class UselessCastRule implements \PHPStan\Rules\Rule
 		}
 
 		$expressionType = $scope->getType($node->expr);
-		if ($expressionType instanceof UnionType) {
-			return [];
-		}
-
 		$castType = $scope->getType($node);
-		if ($castType instanceof FloatType && $node->expr instanceof Node\Expr\BinaryOp\Div) {
-			return [];
-		}
-
 		if ($castType->isSuperTypeOf($expressionType)->yes()) {
 			return [
 				sprintf(
