@@ -12,18 +12,13 @@ rules:
 	- PHPStan\Rules\Classes\RequireParentConstructCallRule
 	- PHPStan\Rules\Classes\UnusedConstructorParametersRule
 	- PHPStan\Rules\Functions\CallToFunctionParametersRule
-	- PHPStan\Rules\Functions\CallToNonExistentFunctionRule
 	- PHPStan\Rules\Functions\ExistingClassesInClosureTypehintsRule
 	- PHPStan\Rules\Functions\ExistingClassesInTypehintsRule
 	- PHPStan\Rules\Functions\InnerFunctionRule
 	- PHPStan\Rules\Functions\NonExistentDefinedFunctionRule
 	- PHPStan\Rules\Functions\PrintfParametersRule
 	- PHPStan\Rules\Functions\UnusedClosureUsesRule
-	- PHPStan\Rules\Methods\CallMethodsRule
-	- PHPStan\Rules\Methods\CallStaticMethodsRule
 	- PHPStan\Rules\Methods\ExistingClassesInTypehintsRule
-	- PHPStan\Rules\Namespaces\ExistingNamesInGroupUseRule
-	- PHPStan\Rules\Namespaces\ExistingNamesInUseRule
 	- PHPStan\Rules\Properties\AccessPropertiesRule
 	- PHPStan\Rules\Properties\AccessStaticPropertiesRule
 	- PHPStan\Rules\Variables\ThisVariableRule
@@ -42,6 +37,41 @@ services:
 			- phpstan.rules.rule
 		arguments:
 			checkClassCaseSensitivity: %checkClassCaseSensitivity%
+
+	-
+		class: PHPStan\Rules\Functions\CallToNonExistentFunctionRule
+		tags:
+			- phpstan.rules.rule
+		arguments:
+			checkFunctionNameCase: %checkFunctionNameCase%
+
+	-
+		class: PHPStan\Rules\Methods\CallMethodsRule
+		tags:
+			- phpstan.rules.rule
+		arguments:
+			checkFunctionNameCase: %checkFunctionNameCase%
+
+	-
+		class: PHPStan\Rules\Methods\CallStaticMethodsRule
+		tags:
+			- phpstan.rules.rule
+		arguments:
+			checkFunctionNameCase: %checkFunctionNameCase%
+
+	-
+		class: PHPStan\Rules\Namespaces\ExistingNamesInGroupUseRule
+		tags:
+			- phpstan.rules.rule
+		arguments:
+			checkFunctionNameCase: %checkFunctionNameCase%
+
+	-
+		class: PHPStan\Rules\Namespaces\ExistingNamesInUseRule
+		tags:
+			- phpstan.rules.rule
+		arguments:
+			checkFunctionNameCase: %checkFunctionNameCase%
 
 	-
 		class: PHPStan\Rules\Properties\ExistingClassesInPropertiesRule

@@ -10,6 +10,7 @@ parameters:
 	checkAlwaysTrueStrictComparison: false
 	checkClassCaseSensitivity: false
 	checkFunctionArgumentTypes: false
+	checkFunctionNameCase: false
 	checkArgumentsPassedByReference: false
 	checkMaybeUndefinedVariables: false
 	checkNullables: false

@@ -15,9 +15,18 @@ class CallToNonExistentFunctionRule implements \PHPStan\Rules\Rule
 	 */
 	private $broker;
 
-	public function __construct(Broker $broker)
+	/**
+	 * @var bool
+	 */
+	private $checkFunctionNameCase;
+
+	public function __construct(
+		Broker $broker,
+		bool $checkFunctionNameCase
+	)
 	{
 		$this->broker = $broker;
+		$this->checkFunctionNameCase = $checkFunctionNameCase;
 	}
 
 	public function getNodeType(): string
@@ -53,13 +62,15 @@ class CallToNonExistentFunctionRule implements \PHPStan\Rules\Rule
 		$function = $this->broker->getFunction($node->name, $scope);
 		$name = (string) $node->name;
 
-		/** @var string $calledFunctionName */
-		$calledFunctionName = $this->broker->resolveFunctionName($node->name, $scope);
-		if (
-			strtolower($function->getName()) === strtolower($calledFunctionName)
-			&& $function->getName() !== $calledFunctionName
-		) {
-			return [sprintf('Call to function %s() with incorrect case: %s', $function->getName(), $name)];
+		if ($this->checkFunctionNameCase) {
+			/** @var string $calledFunctionName */
+			$calledFunctionName = $this->broker->resolveFunctionName($node->name, $scope);
+			if (
+				strtolower($function->getName()) === strtolower($calledFunctionName)
+				&& $function->getName() !== $calledFunctionName
+			) {
+				return [sprintf('Call to function %s() with incorrect case: %s', $function->getName(), $name)];
+			}
 		}
 
 		return [];

@@ -40,17 +40,24 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 	 */
 	private $classCaseSensitivityCheck;
 
+	/**
+	 * @var bool
+	 */
+	private $checkFunctionNameCase;
+
 	public function __construct(
 		Broker $broker,
 		FunctionCallParametersCheck $check,
 		RuleLevelHelper $ruleLevelHelper,
-		ClassCaseSensitivityCheck $classCaseSensitivityCheck
+		ClassCaseSensitivityCheck $classCaseSensitivityCheck,
+		bool $checkFunctionNameCase
 	)
 	{
 		$this->broker = $broker;
 		$this->check = $check;
 		$this->ruleLevelHelper = $ruleLevelHelper;
 		$this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
+		$this->checkFunctionNameCase = $checkFunctionNameCase;
 	}
 
 	public function getNodeType(): string
@@ -225,7 +232,10 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 			]
 		));
 
-		if ($method->getName() !== $methodName) {
+		if (
+			$this->checkFunctionNameCase
+			&& $method->getName() !== $methodName
+		) {
 			$errors[] = sprintf('Call to %s with incorrect case: %s', $lowercasedMethodName, $methodName);
 		}
 

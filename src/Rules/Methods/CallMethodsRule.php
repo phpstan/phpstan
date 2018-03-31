@@ -28,15 +28,22 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 	 */
 	private $ruleLevelHelper;
 
+	/**
+	 * @var bool
+	 */
+	private $checkFunctionNameCase;
+
 	public function __construct(
 		Broker $broker,
 		FunctionCallParametersCheck $check,
-		RuleLevelHelper $ruleLevelHelper
+		RuleLevelHelper $ruleLevelHelper,
+		bool $checkFunctionNameCase
 	)
 	{
 		$this->broker = $broker;
 		$this->check = $check;
 		$this->ruleLevelHelper = $ruleLevelHelper;
+		$this->checkFunctionNameCase = $checkFunctionNameCase;
 	}
 
 	public function getNodeType(): string
@@ -129,7 +136,11 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 			]
 		));
 
-		if (strtolower($methodReflection->getName()) === strtolower($name) && $methodReflection->getName() !== $name) {
+		if (
+			$this->checkFunctionNameCase
+			&& strtolower($methodReflection->getName()) === strtolower($name)
+			&& $methodReflection->getName() !== $name
+		) {
 			$errors[] = sprintf('Call to method %s with incorrect case: %s', $messagesMethodName, $name);
 		}
 

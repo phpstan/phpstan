@@ -21,13 +21,20 @@ class ExistingNamesInGroupUseRule implements \PHPStan\Rules\Rule
 	 */
 	private $classCaseSensitivityCheck;
 
+	/**
+	 * @var bool
+	 */
+	private $checkFunctionNameCase;
+
 	public function __construct(
 		Broker $broker,
-		ClassCaseSensitivityCheck $classCaseSensitivityCheck
+		ClassCaseSensitivityCheck $classCaseSensitivityCheck,
+		bool $checkFunctionNameCase
 	)
 	{
 		$this->broker = $broker;
 		$this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
+		$this->checkFunctionNameCase = $checkFunctionNameCase;
 	}
 
 	public function getNodeType(): string
@@ -87,18 +94,20 @@ class ExistingNamesInGroupUseRule implements \PHPStan\Rules\Rule
 			return sprintf('Used function %s not found.', (string) $name);
 		}
 
-		$functionReflection = $this->broker->getFunction($name, null);
-		$realName = $functionReflection->getName();
-		$usedName = (string) $name;
-		if (
-			strtolower($realName) === strtolower($usedName)
-			&& $realName !== $usedName
-		) {
-			return sprintf(
-				'Function %s used with incorrect case: %s.',
-				$realName,
-				$usedName
-			);
+		if ($this->checkFunctionNameCase) {
+			$functionReflection = $this->broker->getFunction($name, null);
+			$realName = $functionReflection->getName();
+			$usedName = (string) $name;
+			if (
+				strtolower($realName) === strtolower($usedName)
+				&& $realName !== $usedName
+			) {
+				return sprintf(
+					'Function %s used with incorrect case: %s.',
+					$realName,
+					$usedName
+				);
+			}
 		}
 
 		return null;

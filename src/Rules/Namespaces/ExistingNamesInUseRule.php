@@ -20,13 +20,20 @@ class ExistingNamesInUseRule implements \PHPStan\Rules\Rule
 	 */
 	private $classCaseSensitivityCheck;
 
+	/**
+	 * @var bool
+	 */
+	private $checkFunctionNameCase;
+
 	public function __construct(
 		Broker $broker,
-		ClassCaseSensitivityCheck $classCaseSensitivityCheck
+		ClassCaseSensitivityCheck $classCaseSensitivityCheck,
+		bool $checkFunctionNameCase
 	)
 	{
 		$this->broker = $broker;
 		$this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
+		$this->checkFunctionNameCase = $checkFunctionNameCase;
 	}
 
 	public function getNodeType(): string
@@ -88,7 +95,7 @@ class ExistingNamesInUseRule implements \PHPStan\Rules\Rule
 		foreach ($uses as $use) {
 			if (!$this->broker->hasFunction($use->name, null)) {
 				$messages[] = sprintf('Used function %s not found.', (string) $use->name);
-			} else {
+			} elseif ($this->checkFunctionNameCase) {
 				$functionReflection = $this->broker->getFunction($use->name, null);
 				$realName = $functionReflection->getName();
 				$usedName = (string) $use->name;
