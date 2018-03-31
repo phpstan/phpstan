@@ -655,7 +655,11 @@ class Scope
 				return new UnionType([new IntegerType(), new FloatType()]);
 			}
 
-			if ((new IntegerType())->isSuperTypeOf($types)->yes()) {
+			if ((new UnionType([
+				new IntegerType(),
+				new NullType(),
+				new BooleanType(),
+			]))->isSuperTypeOf($types)->yes()) {
 				return new IntegerType();
 			}
 

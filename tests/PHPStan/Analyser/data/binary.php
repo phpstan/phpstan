@@ -27,4 +27,7 @@ reset($array);
 /** @var number $number */
 $number = doFoo();
 
+/** @var int|null|bool $otherInteger */
+$otherInteger = doFoo();
+
 die;

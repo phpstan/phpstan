@@ -1678,6 +1678,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'float',
 				'$integer *= 2.4',
 			],
+			[
+				'int',
+				'$otherInteger + 1',
+			],
+			[
+				'float',
+				'$otherInteger + 1.0',
+			],
 			// float + integer
 			[
 				$typeCallback(1.2 + 1),
@@ -2068,6 +2076,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'float|int',
 				'$integer / $integer',
+			],
+			[
+				'float|int',
+				'$otherInteger / $integer',
 			],
 		];
 	}
