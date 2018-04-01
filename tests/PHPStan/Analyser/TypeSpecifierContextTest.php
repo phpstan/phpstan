@@ -43,44 +43,44 @@ class TypeSpecifierContextTest extends \PHPStan\Testing\TestCase
 		}
 	}
 
-	public function dataNot(): array
+	public function dataNegate(): array
 	{
 		return [
 			[
-				TypeSpecifierContext::not(TypeSpecifierContext::createTrue()),
+				TypeSpecifierContext::createTrue()->negate(),
 				[false, true, true, true, false],
 			],
 			[
-				TypeSpecifierContext::not(TypeSpecifierContext::createTruthy()),
+				TypeSpecifierContext::createTruthy()->negate(),
 				[false, false, true, true, false],
 			],
 			[
-				TypeSpecifierContext::not(TypeSpecifierContext::createFalse()),
+				TypeSpecifierContext::createFalse()->negate(),
 				[true, true, false, true, false],
 			],
 			[
-				TypeSpecifierContext::not(TypeSpecifierContext::createFalsey()),
+				TypeSpecifierContext::createFalsey()->negate(),
 				[true, true, false, false, false],
 			],
 		];
 	}
 
 	/**
-	 * @dataProvider dataNot
+	 * @dataProvider dataNegate
 	 * @param \PHPStan\Analyser\TypeSpecifierContext $context
 	 * @param bool[] $results
 	 */
-	public function testNot(TypeSpecifierContext $context, array $results): void
+	public function testNegate(TypeSpecifierContext $context, array $results): void
 	{
 		foreach (['true', 'truthy', 'false', 'falsey', 'null'] as $index => $method) {
 			$this->assertSame($results[$index], $context->$method());
 		}
 	}
 
-	public function testNotNull(): void
+	public function testNegateNull(): void
 	{
 		$this->expectException(\PHPStan\ShouldNotHappenException::class);
-		TypeSpecifierContext::not(TypeSpecifierContext::createNull());
+		TypeSpecifierContext::createNull()->negate();
 	}
 
 }

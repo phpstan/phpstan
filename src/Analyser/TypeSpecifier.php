@@ -134,7 +134,7 @@ class TypeSpecifier
 					return $types->unionWith($this->specifyTypesInCondition(
 						$scope,
 						$expressions[0],
-						$context->true() ? TypeSpecifierContext::createFalse() : TypeSpecifierContext::not(TypeSpecifierContext::createFalse())
+						$context->true() ? TypeSpecifierContext::createFalse() : TypeSpecifierContext::createFalse()->negate()
 					));
 				}
 
@@ -143,7 +143,7 @@ class TypeSpecifier
 					return $types->unionWith($this->specifyTypesInCondition(
 						$scope,
 						$expressions[0],
-						$context->true() ? TypeSpecifierContext::createTrue() : TypeSpecifierContext::not(TypeSpecifierContext::createTrue())
+						$context->true() ? TypeSpecifierContext::createTrue() : TypeSpecifierContext::createTrue()->negate()
 					));
 				}
 
@@ -181,7 +181,7 @@ class TypeSpecifier
 					return $this->specifyTypesInCondition(
 						$scope,
 						$expressions[0],
-						$context->true() ? TypeSpecifierContext::createFalsey() : TypeSpecifierContext::not(TypeSpecifierContext::createFalsey())
+						$context->true() ? TypeSpecifierContext::createFalsey() : TypeSpecifierContext::createFalsey()->negate()
 					);
 				}
 
@@ -189,7 +189,7 @@ class TypeSpecifier
 					return $this->specifyTypesInCondition(
 						$scope,
 						$expressions[0],
-						$context->true() ? TypeSpecifierContext::createTruthy() : TypeSpecifierContext::not(TypeSpecifierContext::createTruthy())
+						$context->true() ? TypeSpecifierContext::createTruthy() : TypeSpecifierContext::createTruthy()->negate()
 					);
 				}
 			}
@@ -262,7 +262,7 @@ class TypeSpecifier
 			$rightTypes = $this->specifyTypesInCondition($scope, $expr->right, $context);
 			return $context->true() ? $leftTypes->intersectWith($rightTypes) : $leftTypes->unionWith($rightTypes);
 		} elseif ($expr instanceof Node\Expr\BooleanNot) {
-			return $this->specifyTypesInCondition($scope, $expr->expr, TypeSpecifierContext::not($context));
+			return $this->specifyTypesInCondition($scope, $expr->expr, $context->negate());
 		} elseif ($expr instanceof Node\Expr\Assign) {
 			return $this->specifyTypesInCondition($scope, $expr->var, $context);
 		} elseif (

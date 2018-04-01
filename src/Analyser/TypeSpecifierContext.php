@@ -47,12 +47,12 @@ class TypeSpecifierContext
 		return new self(null);
 	}
 
-	public static function not(self $context): self
+	public function negate(): self
 	{
-		if ($context->value === null) {
+		if ($this->value === null) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
-		return new self(~$context->value);
+		return new self(~$this->value);
 	}
 
 	public function true(): bool
