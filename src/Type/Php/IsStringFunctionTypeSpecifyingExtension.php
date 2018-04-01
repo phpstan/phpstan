@@ -1,18 +1,18 @@
 <?php declare(strict_types = 1);
 
-namespace PHPStan\Analyser\Php;
+namespace PHPStan\Type\Php;
 
 use PhpParser\Node\Expr\FuncCall;
-use PHPStan\Analyser\TypeSpecifierContext;
 use PHPStan\Analyser\FunctionTypeSpecifyingExtension;
 use PHPStan\Analyser\Scope;
 use PHPStan\Analyser\SpecifiedTypes;
 use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Analyser\TypeSpecifierAwareExtension;
+use PHPStan\Analyser\TypeSpecifierContext;
 use PHPStan\Reflection\FunctionReflection;
-use PHPStan\Type\IntegerType;
+use PHPStan\Type\StringType;
 
-class IsIntFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtension, TypeSpecifierAwareExtension
+class IsStringFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtension, TypeSpecifierAwareExtension
 {
 
 	/**
@@ -22,11 +22,7 @@ class IsIntFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExte
 
 	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): bool
 	{
-		return in_array(strtolower($functionReflection->getName()), [
-				'is_int',
-				'is_integer',
-				'is_long',
-			], true)
+		return strtolower($functionReflection->getName()) === 'is_string'
 			&& isset($node->args[0])
 			&& !$context->null();
 	}
@@ -37,7 +33,7 @@ class IsIntFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExte
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
-		return $this->typeSpecifier->create($node->args[0]->value, new IntegerType(), $context);
+		return $this->typeSpecifier->create($node->args[0]->value, new StringType(), $context);
 	}
 
 	public function setTypeSpecifier(TypeSpecifier $typeSpecifier): void

@@ -1,17 +1,18 @@
 <?php declare(strict_types = 1);
 
-namespace PHPStan\Analyser\Php;
+namespace PHPStan\Type\Php;
 
 use PhpParser\Node\Expr\FuncCall;
-use PHPStan\Analyser\TypeSpecifierContext;
 use PHPStan\Analyser\FunctionTypeSpecifyingExtension;
 use PHPStan\Analyser\Scope;
 use PHPStan\Analyser\SpecifiedTypes;
 use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Analyser\TypeSpecifierAwareExtension;
+use PHPStan\Analyser\TypeSpecifierContext;
 use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Type\CallableType;
 
-class AssertFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtension, TypeSpecifierAwareExtension
+class IsCallableFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtension, TypeSpecifierAwareExtension
 {
 
 	/**
@@ -21,13 +22,18 @@ class AssertFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExt
 
 	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): bool
 	{
-		return $functionReflection->getName() === 'assert'
-			&& isset($node->args[0]);
+		return strtolower($functionReflection->getName()) === 'is_callable'
+			&& isset($node->args[0])
+			&& !$context->null();
 	}
 
 	public function specifyTypes(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
 	{
-		return $this->typeSpecifier->specifyTypesInCondition($scope, $node->args[0]->value, TypeSpecifierContext::createTruthy());
+		if ($context->null()) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		return $this->typeSpecifier->create($node->args[0]->value, new CallableType(), $context);
 	}
 
 	public function setTypeSpecifier(TypeSpecifier $typeSpecifier): void
