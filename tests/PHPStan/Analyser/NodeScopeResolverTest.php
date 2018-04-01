@@ -30,6 +30,8 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			}
 
 			$this->assertSame('SomeNodeScopeResolverNamespace', $scope->getNamespace());
+			$this->assertTrue($scope->isInClass());
+			assert($scope->isInClass());
 			$this->assertSame(Foo::class, $scope->getClassReflection()->getName());
 			$this->assertSame('doFoo', $scope->getFunctionName());
 			$this->assertSame('$this(SomeNodeScopeResolverNamespace\Foo)', $scope->getVariableType('this')->describe());

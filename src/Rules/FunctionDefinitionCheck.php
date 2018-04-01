@@ -78,6 +78,9 @@ class FunctionDefinitionCheck
 	): array
 	{
 		if ($function instanceof ClassMethod) {
+			if (!$scope->isInClass()) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
 			$nativeMethod = $scope->getClassReflection()->getNativeMethod($function->name);
 			if (!$nativeMethod instanceof PhpMethodReflection) {
 				return [];

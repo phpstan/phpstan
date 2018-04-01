@@ -1681,6 +1681,9 @@ class NodeScopeResolver
 			$class = $scope->isInClass() ? $scope->getClassReflection()->getName() : null;
 			$trait = $scope->isInTrait() ? $scope->getTraitReflection()->getName() : null;
 			if ($functionLike instanceof Node\Stmt\ClassMethod) {
+				if (!$scope->isInClass()) {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
 				$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForMethod(
 					$this->broker,
 					$docComment,

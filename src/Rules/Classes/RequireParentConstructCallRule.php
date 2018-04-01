@@ -22,6 +22,10 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
+		if (!$scope->isInClass()) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
 		if ($scope->isInTrait()) {
 			return [];
 		}

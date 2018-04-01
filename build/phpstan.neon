@@ -22,3 +22,19 @@ services:
 		class: PHPStan\Build\ServiceLocatorDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicMethodReturnTypeExtension
+
+	scopeIsInClass:
+		class: PHPStan\Build\ScopeIsInClassTypeSpecifyingExtension
+		arguments:
+			isInMethodName: isInClass
+			removeNullMethodName: getClassReflection
+		tags:
+			- phpstan.typeSpecifier.methodTypeSpecifyingExtension
+
+	scopeIsInTrait:
+		class: PHPStan\Build\ScopeIsInClassTypeSpecifyingExtension
+		arguments:
+			isInMethodName: isInTrait
+			removeNullMethodName: getTraitReflection
+		tags:
+			- phpstan.typeSpecifier.methodTypeSpecifyingExtension

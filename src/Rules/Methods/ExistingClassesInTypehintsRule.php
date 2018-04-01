@@ -30,6 +30,10 @@ class ExistingClassesInTypehintsRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
+		if (!$scope->isInClass()) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
 		return $this->check->checkFunction(
 			$node,
 			$scope,

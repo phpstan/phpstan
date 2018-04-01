@@ -255,18 +255,14 @@ class Scope
 		return $this->context->getTraitReflection() !== null;
 	}
 
-	public function getClassReflection(): ClassReflection
+	public function getClassReflection(): ?ClassReflection
 	{
-		/** @var \PHPStan\Reflection\ClassReflection $classReflection */
-		$classReflection = $this->context->getClassReflection();
-		return $classReflection;
+		return $this->context->getClassReflection();
 	}
 
-	public function getTraitReflection(): ClassReflection
+	public function getTraitReflection(): ?ClassReflection
 	{
-		/** @var \PHPStan\Reflection\ClassReflection $traitReflection */
-		$traitReflection = $this->context->getTraitReflection();
-		return $traitReflection;
+		return $this->context->getTraitReflection();
 	}
 
 	/**
@@ -730,20 +726,29 @@ class Scope
 					count($node->class->parts) === 1
 				) {
 					$lowercasedClassName = strtolower($node->class->parts[0]);
-					if ($lowercasedClassName === 'static') {
-						return new StaticType($this->getClassReflection()->getName());
-					}
-
-					if ($lowercasedClassName === 'self') {
-						return new ObjectType($this->getClassReflection()->getName());
-					}
-
-					if ($lowercasedClassName === 'parent') {
-						if ($this->getClassReflection()->getParentClass() !== false) {
-							return new ObjectType($this->getClassReflection()->getParentClass()->getName());
+					if (in_array($lowercasedClassName, [
+						'self',
+						'static',
+						'parent',
+					], true)) {
+						if (!$this->isInClass()) {
+							throw new \PHPStan\ShouldNotHappenException();
+						}
+						if ($lowercasedClassName === 'static') {
+							return new StaticType($this->getClassReflection()->getName());
 						}
 
-						return new NonexistentParentClassType();
+						if ($lowercasedClassName === 'self') {
+							return new ObjectType($this->getClassReflection()->getName());
+						}
+
+						if ($lowercasedClassName === 'parent') {
+							if ($this->getClassReflection()->getParentClass() !== false) {
+								return new ObjectType($this->getClassReflection()->getParentClass()->getName());
+							}
+
+							return new NonexistentParentClassType();
+						}
 					}
 				}
 
@@ -772,6 +777,10 @@ class Scope
 		} elseif ($node instanceof Node\Scalar\MagicConst\Line) {
 			return new IntegerType();
 		} elseif ($node instanceof Node\Scalar\MagicConst\Class_) {
+			if (!$this->isInClass()) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+
 			return new ConstantStringType($this->getClassReflection()->getName());
 		} elseif ($node instanceof Node\Scalar\MagicConst) {
 			return new StringType();
@@ -811,6 +820,7 @@ class Scope
 				$constantClassType = new ObjectType($constantClass);
 				if (in_array(strtolower($constantClass), [
 					'self',
+					'static',
 					'parent',
 				], true)) {
 					$resolvedName = $this->resolveName($node->class);
@@ -1134,6 +1144,10 @@ class Scope
 		Type $phpDocReturnType = null
 	): self
 	{
+		if (!$this->isInClass()) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
 		return $this->enterFunctionLike(
 			new PhpMethodFromParserNodeReflection(
 				$this->getClassReflection(),
@@ -1358,7 +1372,7 @@ class Scope
 		} elseif ($type instanceof Name) {
 			$className = (string) $type;
 			$lowercasedClassName = strtolower($className);
-			if (in_array($lowercasedClassName, ['self', 'static'], true)) {
+			if ($this->isInClass() && in_array($lowercasedClassName, ['self', 'static'], true)) {
 				$className = $this->getClassReflection()->getName();
 			} elseif (
 				$lowercasedClassName === 'parent'
