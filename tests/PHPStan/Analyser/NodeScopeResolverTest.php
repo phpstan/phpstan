@@ -4755,8 +4755,32 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->anotherBogusMethod()',
 			],
 			[
-				'TraitPhpDocs\BogusMethodType', // should be 'TraitPhpDocsTwo\BogusMethodType',
+				'TraitPhpDocsTwo\BogusMethodType',
 				'$this->differentBogusMethod()',
+			],
+			[
+				'TraitPhpDocsTwo\DuplicateMethodType',
+				'$this->methodInMoreTraits()',
+			],
+			[
+				'TraitPhpDocsThree\AnotherDuplicateMethodType',
+				'$this->anotherMethodInMoreTraits()',
+			],
+			[
+				'TraitPhpDocsTwo\YetAnotherDuplicateMethodType',
+				'$this->yetAnotherMethodInMoreTraits()',
+			],
+			[
+				'TraitPhpDocsThree\YetAnotherDuplicateMethodType',
+				'$this->aliasedYetAnotherMethodInMoreTraits()',
+			],
+			[
+				'TraitPhpDocsThree\YetYetAnotherDuplicateMethodType',
+				'$this->yetYetAnotherMethodInMoreTraits()',
+			],
+			[
+				'TraitPhpDocsTwo\YetYetAnotherDuplicateMethodType',
+				'$this->aliasedYetYetAnotherMethodInMoreTraits()',
 			],
 		];
 	}

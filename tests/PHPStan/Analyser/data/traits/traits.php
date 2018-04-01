@@ -5,7 +5,14 @@ namespace TraitPhpDocs;
 class Foo
 {
 
-	use \TraitPhpDocsTwo\FooTrait;
+	use \TraitPhpDocsTwo\FooTrait, \TraitPhpDocsThree\BarTrait {
+		\TraitPhpDocsTwo\FooTrait::methodInMoreTraits insteadof \TraitPhpDocsThree\BarTrait;
+		\TraitPhpDocsThree\BarTrait::anotherMethodInMoreTraits insteadof \TraitPhpDocsTwo\FooTrait;
+		\TraitPhpDocsTwo\FooTrait::yetAnotherMethodInMoreTraits insteadof \TraitPhpDocsThree\BarTrait;
+		\TraitPhpDocsThree\BarTrait::yetAnotherMethodInMoreTraits as aliasedYetAnotherMethodInMoreTraits;
+		\TraitPhpDocsThree\BarTrait::yetYetAnotherMethodInMoreTraits insteadof \TraitPhpDocsTwo\FooTrait;
+		\TraitPhpDocsTwo\FooTrait::yetYetAnotherMethodInMoreTraits as aliasedYetYetAnotherMethodInMoreTraits;
+	}
 
 	/** @var PropertyTypeFromClass */
 	private $conflictingProperty;

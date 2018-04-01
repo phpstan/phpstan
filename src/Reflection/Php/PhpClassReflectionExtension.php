@@ -320,14 +320,34 @@ class PhpClassReflectionExtension
 			null,
 			$phpDocBlock->getDocComment()
 		);
+
+		$declaringClass = $methodReflection->getDeclaringClass();
 		if (
 			count($resolvedPhpDoc->getParamTags()) > 0
 			|| $resolvedPhpDoc->getReturnTag() !== null
 		) {
-			return null;
+			foreach ($declaringClass->getMethods() as $declaringClassMethod) {
+				if ($declaringClass->getName() !== $declaringClassMethod->getDeclaringClass()->getName()) {
+					continue;
+				}
+
+				if (
+					$declaringClassMethod->getName() === $methodReflection->getName()
+					&& $declaringClassMethod->getDocComment() === $methodReflection->getDocComment()
+					&& $declaringClassMethod->getFileName() === $declaringClass->getFileName()
+					&& $declaringClass->getFileName() === $methodReflection->getFileName()
+					&& $declaringClassMethod->getStartLine() === $methodReflection->getStartLine()
+				) {
+					return null;
+				}
+			}
 		}
 
-		$declaringClass = $methodReflection->getDeclaringClass();
+		$traitAliases = $declaringClass->getTraitAliases();
+		if (array_key_exists($methodReflection->getName(), $traitAliases)) {
+			return explode('::', $traitAliases[$methodReflection->getName()])[0];
+		}
+
 		foreach ($declaringClass->getTraits() as $traitReflection) {
 			if ($traitReflection->hasMethod($methodReflection->getName())) {
 				$traitResolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
@@ -340,7 +360,13 @@ class PhpClassReflectionExtension
 					count($traitResolvedPhpDoc->getParamTags()) > 0
 					|| $traitResolvedPhpDoc->getReturnTag() !== null
 				) {
-					return $traitReflection->getName();
+					$traitMethodReflection = $traitReflection->getMethod($methodReflection->getName());
+					if (
+						$traitMethodReflection->getFileName() === $methodReflection->getFileName()
+						&& $traitMethodReflection->getStartLine() === $methodReflection->getStartLine()
+					) {
+						return $traitReflection->getName();
+					}
 				}
 			}
 		}
