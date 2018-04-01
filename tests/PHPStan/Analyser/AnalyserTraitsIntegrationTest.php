@@ -136,6 +136,16 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertSame('Property TraitsWrongProperty\Foo::$bar (Ipsum) does not accept int(1).', $errors[1]->getMessage());
 	}
 
+	public function testReturnThis(): void
+	{
+		$errors = $this->runAnalyse([__DIR__ . '/traits/returnThis/Bar.php']);
+		$this->assertCount(2, $errors);
+		$this->assertSame(10, $errors[0]->getLine());
+		$this->assertSame('Call to an undefined method TraitsReturnThis\Foo::doFoo().', $errors[0]->getMessage());
+		$this->assertSame(11, $errors[1]->getLine());
+		$this->assertSame('Call to an undefined method TraitsReturnThis\Foo::doFoo().', $errors[1]->getMessage());
+	}
+
 	/**
 	 * @param string[] $files
 	 * @return \PHPStan\Analyser\Error[]
