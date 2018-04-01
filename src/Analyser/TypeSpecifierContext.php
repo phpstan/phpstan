@@ -17,34 +17,45 @@ class TypeSpecifierContext
 	 */
 	private $value;
 
+	/**
+	 * @var self[]
+	 */
+	private static $registry;
+
 	private function __construct(?int $value)
 	{
 		$this->value = $value;
 	}
 
+	private static function create(?int $value): self
+	{
+		self::$registry[$value] = self::$registry[$value] ?? new self($value);
+		return self::$registry[$value];
+	}
+
 	public static function createTrue(): self
 	{
-		return new self(self::CONTEXT_TRUE);
+		return self::create(self::CONTEXT_TRUE);
 	}
 
 	public static function createTruthy(): self
 	{
-		return new self(self::CONTEXT_TRUTHY);
+		return self::create(self::CONTEXT_TRUTHY);
 	}
 
 	public static function createFalse(): self
 	{
-		return new self(self::CONTEXT_FALSE);
+		return self::create(self::CONTEXT_FALSE);
 	}
 
 	public static function createFalsey(): self
 	{
-		return new self(self::CONTEXT_FALSEY);
+		return self::create(self::CONTEXT_FALSEY);
 	}
 
 	public static function createNull(): self
 	{
-		return new self(null);
+		return self::create(null);
 	}
 
 	public function negate(): self
@@ -52,7 +63,7 @@ class TypeSpecifierContext
 		if ($this->value === null) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
-		return new self(~$this->value);
+		return self::create(~$this->value);
 	}
 
 	public function true(): bool
