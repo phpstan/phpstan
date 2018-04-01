@@ -2,30 +2,30 @@
 
 namespace PHPStan\Analyser;
 
-class ContextTest extends \PHPStan\Testing\TestCase
+class TypeSpecifierContextTest extends \PHPStan\Testing\TestCase
 {
 
 	public function dataContext(): array
 	{
 		return [
 			[
-				Context::createTrue(),
+				TypeSpecifierContext::createTrue(),
 				[true, true, false, false, false],
 			],
 			[
-				Context::createTruthy(),
+				TypeSpecifierContext::createTruthy(),
 				[true, true, false, false, false],
 			],
 			[
-				Context::createFalse(),
+				TypeSpecifierContext::createFalse(),
 				[false, false, true, true, false],
 			],
 			[
-				Context::createFalsey(),
+				TypeSpecifierContext::createFalsey(),
 				[false, false, true, true, false],
 			],
 			[
-				Context::createNull(),
+				TypeSpecifierContext::createNull(),
 				[false, false, false, false, true],
 			],
 		];
@@ -33,10 +33,10 @@ class ContextTest extends \PHPStan\Testing\TestCase
 
 	/**
 	 * @dataProvider dataContext
-	 * @param \PHPStan\Analyser\Context $context
+	 * @param \PHPStan\Analyser\TypeSpecifierContext $context
 	 * @param bool[] $results
 	 */
-	public function testContext(Context $context, array $results): void
+	public function testContext(TypeSpecifierContext $context, array $results): void
 	{
 		foreach (['true', 'truthy', 'false', 'falsey', 'null'] as $index => $method) {
 			$this->assertSame($results[$index], $context->$method());
@@ -47,19 +47,19 @@ class ContextTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				Context::not(Context::createTrue()),
+				TypeSpecifierContext::not(TypeSpecifierContext::createTrue()),
 				[false, true, true, true, false],
 			],
 			[
-				Context::not(Context::createTruthy()),
+				TypeSpecifierContext::not(TypeSpecifierContext::createTruthy()),
 				[false, false, true, true, false],
 			],
 			[
-				Context::not(Context::createFalse()),
+				TypeSpecifierContext::not(TypeSpecifierContext::createFalse()),
 				[true, true, false, true, false],
 			],
 			[
-				Context::not(Context::createFalsey()),
+				TypeSpecifierContext::not(TypeSpecifierContext::createFalsey()),
 				[true, true, false, false, false],
 			],
 		];
@@ -67,10 +67,10 @@ class ContextTest extends \PHPStan\Testing\TestCase
 
 	/**
 	 * @dataProvider dataNot
-	 * @param \PHPStan\Analyser\Context $context
+	 * @param \PHPStan\Analyser\TypeSpecifierContext $context
 	 * @param bool[] $results
 	 */
-	public function testNot(Context $context, array $results): void
+	public function testNot(TypeSpecifierContext $context, array $results): void
 	{
 		foreach (['true', 'truthy', 'false', 'falsey', 'null'] as $index => $method) {
 			$this->assertSame($results[$index], $context->$method());
@@ -80,7 +80,7 @@ class ContextTest extends \PHPStan\Testing\TestCase
 	public function testNotNull(): void
 	{
 		$this->expectException(\PHPStan\ShouldNotHappenException::class);
-		Context::not(Context::createNull());
+		TypeSpecifierContext::not(TypeSpecifierContext::createNull());
 	}
 
 }

@@ -3,7 +3,7 @@
 namespace PHPStan\Analyser\Php;
 
 use PhpParser\Node\Expr\FuncCall;
-use PHPStan\Analyser\Context;
+use PHPStan\Analyser\TypeSpecifierContext;
 use PHPStan\Analyser\FunctionTypeSpecifyingExtension;
 use PHPStan\Analyser\Scope;
 use PHPStan\Analyser\SpecifiedTypes;
@@ -20,7 +20,7 @@ class IsIntFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExte
 	 */
 	private $typeSpecifier;
 
-	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, Context $context): bool
+	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): bool
 	{
 		return in_array(strtolower($functionReflection->getName()), [
 				'is_int',
@@ -31,7 +31,7 @@ class IsIntFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExte
 			&& !$context->null();
 	}
 
-	public function specifyTypes(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, Context $context): SpecifiedTypes
+	public function specifyTypes(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
 	{
 		if ($context->null()) {
 			throw new \PHPStan\ShouldNotHappenException();

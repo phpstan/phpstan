@@ -5,7 +5,7 @@ namespace PHPStan\Analyser\Php;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
-use PHPStan\Analyser\Context;
+use PHPStan\Analyser\TypeSpecifierContext;
 use PHPStan\Analyser\FunctionTypeSpecifyingExtension;
 use PHPStan\Analyser\Scope;
 use PHPStan\Analyser\SpecifiedTypes;
@@ -27,7 +27,7 @@ class IsAFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtens
 	 */
 	private $typeSpecifier;
 
-	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, Context $context): bool
+	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): bool
 	{
 		return strtolower($functionReflection->getName()) === 'is_a'
 			&& isset($node->args[0])
@@ -35,7 +35,7 @@ class IsAFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtens
 			&& !$context->null();
 	}
 
-	public function specifyTypes(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, Context $context): SpecifiedTypes
+	public function specifyTypes(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
 	{
 		if ($context->null()) {
 			throw new \PHPStan\ShouldNotHappenException();

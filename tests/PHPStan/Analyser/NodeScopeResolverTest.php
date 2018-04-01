@@ -3528,12 +3528,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 						return AssertionClass::class;
 					}
 
-					public function isMethodSupported(MethodReflection $methodReflection, MethodCall $node, Scope $scope, Context $context): bool
+					public function isMethodSupported(MethodReflection $methodReflection, MethodCall $node, Scope $scope, TypeSpecifierContext $context): bool
 					{
 						return $methodReflection->getName() === 'assertString' && $context->null();
 					}
 
-					public function specifyTypes(MethodReflection $methodReflection, MethodCall $node, Scope $scope, Context $context): SpecifiedTypes
+					public function specifyTypes(MethodReflection $methodReflection, MethodCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
 					{
 						return new SpecifiedTypes(['$foo' => [$node->args[0]->value, new StringType()]]);
 					}
@@ -3549,12 +3549,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 						return AssertionClass::class;
 					}
 
-					public function isStaticMethodSupported(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, Context $context): bool
+					public function isStaticMethodSupported(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, TypeSpecifierContext $context): bool
 					{
 						return $staticMethodReflection->getName() === 'assertInt' && $context->null();
 					}
 
-					public function specifyTypes(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, Context $context): SpecifiedTypes
+					public function specifyTypes(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
 					{
 						return new SpecifiedTypes(['$bar' => [$node->args[0]->value, new IntegerType()]]);
 					}
@@ -3603,12 +3603,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 						return AssertionClass::class;
 					}
 
-					public function isMethodSupported(MethodReflection $methodReflection, MethodCall $node, Scope $scope, Context $context): bool
+					public function isMethodSupported(MethodReflection $methodReflection, MethodCall $node, Scope $scope, TypeSpecifierContext $context): bool
 					{
 						return $methodReflection->getName() === 'assertString' && $context->null();
 					}
 
-					public function specifyTypes(MethodReflection $methodReflection, MethodCall $node, Scope $scope, Context $context): SpecifiedTypes
+					public function specifyTypes(MethodReflection $methodReflection, MethodCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
 					{
 						return new SpecifiedTypes(['$foo' => [$node->args[0]->value, new StringType()]]);
 					}
@@ -3624,12 +3624,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 						return AssertionClass::class;
 					}
 
-					public function isStaticMethodSupported(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, Context $context): bool
+					public function isStaticMethodSupported(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, TypeSpecifierContext $context): bool
 					{
 						return $staticMethodReflection->getName() === 'assertInt' && $context->null();
 					}
 
-					public function specifyTypes(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, Context $context): SpecifiedTypes
+					public function specifyTypes(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
 					{
 						return new SpecifiedTypes(['$bar' => [$node->args[0]->value, new IntegerType()]]);
 					}
@@ -3678,12 +3678,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 						return AssertionClass::class;
 					}
 
-					public function isMethodSupported(MethodReflection $methodReflection, MethodCall $node, Scope $scope, Context $context): bool
+					public function isMethodSupported(MethodReflection $methodReflection, MethodCall $node, Scope $scope, TypeSpecifierContext $context): bool
 					{
 						return $methodReflection->getName() === 'assertString' && !$context->null();
 					}
 
-					public function specifyTypes(MethodReflection $methodReflection, MethodCall $node, Scope $scope, Context $context): SpecifiedTypes
+					public function specifyTypes(MethodReflection $methodReflection, MethodCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
 					{
 						return new SpecifiedTypes(['$foo' => [$node->args[0]->value, new StringType()]]);
 					}
@@ -3699,12 +3699,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 						return AssertionClass::class;
 					}
 
-					public function isStaticMethodSupported(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, Context $context): bool
+					public function isStaticMethodSupported(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, TypeSpecifierContext $context): bool
 					{
 						return $staticMethodReflection->getName() === 'assertInt' && !$context->null();
 					}
 
-					public function specifyTypes(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, Context $context): SpecifiedTypes
+					public function specifyTypes(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
 					{
 						return new SpecifiedTypes(['$bar' => [$node->args[0]->value, new IntegerType()]]);
 					}
