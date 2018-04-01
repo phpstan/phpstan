@@ -961,8 +961,16 @@ class Scope
 				return new ErrorType();
 			}
 
-			$functionName = (string) $node->name;
-			if (strpos($functionName, 'is_') === 0) {
+			$functionReflection = $this->broker->getFunction($node->name, $this);
+			if ($functionReflection->getName() === 'is_a') {
+				return new BooleanType();
+			}
+
+			foreach ($this->typeSpecifier->getFunctionTypeSpecifyingExtensions() as $functionTypeSpecifyingExtension) {
+				if (!$functionTypeSpecifyingExtension->isFunctionSupported($functionReflection, $node, TypeSpecifierContext::createTruthy())) {
+					continue;
+				}
+
 				$sureTypes = $this->typeSpecifier->specifyTypesInCondition($this, $node, TypeSpecifierContext::createTruthy())->getSureTypes();
 				if (count($sureTypes) === 1) {
 					$sureType = reset($sureTypes);
@@ -972,21 +980,15 @@ class Scope
 					$resultType = $sureType[1];
 
 					$isSuperType = $resultType->isSuperTypeOf($argumentType);
-					if ($functionName === 'is_a') {
-						return new BooleanType();
-					}
-
 					if ($isSuperType->yes()) {
 						return new ConstantBooleanType(true);
 					} elseif ($isSuperType->no()) {
 						return new ConstantBooleanType(false);
 					}
 
-					return new BooleanType();
+					return $functionReflection->getReturnType();
 				}
 			}
-
-			$functionReflection = $this->broker->getFunction($node->name, $this);
 
 			foreach ($this->broker->getDynamicFunctionReturnTypeExtensions() as $dynamicFunctionReturnTypeExtension) {
 				if (!$dynamicFunctionReturnTypeExtension->isFunctionSupported($functionReflection)) {
