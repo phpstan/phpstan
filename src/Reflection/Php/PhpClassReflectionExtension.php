@@ -256,7 +256,7 @@ class PhpClassReflectionExtension
 				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
 					$phpDocBlock->getFile(),
 					$phpDocBlock->getClass(),
-					$this->findMethodTrait($phpDocBlock, $methodReflection),
+					$this->findMethodTrait($methodReflection),
 					$phpDocBlock->getDocComment()
 				);
 				$phpDocParameterTypes = array_map(function (ParamTag $tag): Type {
@@ -310,39 +310,16 @@ class PhpClassReflectionExtension
 	}
 
 	private function findMethodTrait(
-		PhpDocBlock $phpDocBlock,
 		\ReflectionMethod $methodReflection
 	): ?string
 	{
-		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
-			$phpDocBlock->getFile(),
-			$phpDocBlock->getClass(),
-			null,
-			$phpDocBlock->getDocComment()
-		);
-
-		$declaringClass = $methodReflection->getDeclaringClass();
 		if (
-			count($resolvedPhpDoc->getParamTags()) > 0
-			|| $resolvedPhpDoc->getReturnTag() !== null
+			$methodReflection->getFileName() === $methodReflection->getDeclaringClass()->getFileName()
 		) {
-			foreach ($declaringClass->getMethods() as $declaringClassMethod) {
-				if ($declaringClass->getName() !== $declaringClassMethod->getDeclaringClass()->getName()) {
-					continue;
-				}
-
-				if (
-					$declaringClassMethod->getName() === $methodReflection->getName()
-					&& $declaringClassMethod->getDocComment() === $methodReflection->getDocComment()
-					&& $declaringClassMethod->getFileName() === $declaringClass->getFileName()
-					&& $declaringClass->getFileName() === $methodReflection->getFileName()
-					&& $declaringClassMethod->getStartLine() === $methodReflection->getStartLine()
-				) {
-					return null;
-				}
-			}
+			return null;
 		}
 
+		$declaringClass = $methodReflection->getDeclaringClass();
 		$traitAliases = $declaringClass->getTraitAliases();
 		if (array_key_exists($methodReflection->getName(), $traitAliases)) {
 			return explode('::', $traitAliases[$methodReflection->getName()])[0];
@@ -350,23 +327,12 @@ class PhpClassReflectionExtension
 
 		foreach ($declaringClass->getTraits() as $traitReflection) {
 			if ($traitReflection->hasMethod($methodReflection->getName())) {
-				$traitResolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
-					$phpDocBlock->getFile(),
-					$phpDocBlock->getClass(),
-					$traitReflection->getName(),
-					$phpDocBlock->getDocComment()
-				);
+				$traitMethodReflection = $traitReflection->getMethod($methodReflection->getName());
 				if (
-					count($traitResolvedPhpDoc->getParamTags()) > 0
-					|| $traitResolvedPhpDoc->getReturnTag() !== null
+					$traitMethodReflection->getFileName() === $methodReflection->getFileName()
+					&& $traitMethodReflection->getStartLine() === $methodReflection->getStartLine()
 				) {
-					$traitMethodReflection = $traitReflection->getMethod($methodReflection->getName());
-					if (
-						$traitMethodReflection->getFileName() === $methodReflection->getFileName()
-						&& $traitMethodReflection->getStartLine() === $methodReflection->getStartLine()
-					) {
-						return $traitReflection->getName();
-					}
+					return $traitReflection->getName();
 				}
 			}
 		}
