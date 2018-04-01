@@ -117,6 +117,25 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertCount(0, $errors);
 	}
 
+	public function testWrongPropertyType(): void
+	{
+		$errors = $this->runAnalyse([__DIR__ . '/traits/wrongProperty/Foo.php']);
+		$this->assertCount(2, $errors);
+		$this->assertSame(15, $errors[0]->getLine());
+		$this->assertSame(
+			$this->fileHelper->normalizePath(__DIR__ . '/traits/wrongProperty/Foo.php'),
+			$errors[0]->getFile()
+		);
+		$this->assertSame('Property TraitsWrongProperty\Foo::$id (int) does not accept string.', $errors[0]->getMessage());
+
+		$this->assertSame(17, $errors[1]->getLine());
+		$this->assertSame(
+			$this->fileHelper->normalizePath(__DIR__ . '/traits/wrongProperty/Foo.php'),
+			$errors[1]->getFile()
+		);
+		$this->assertSame('Property TraitsWrongProperty\Foo::$bar (Ipsum) does not accept int(1).', $errors[1]->getMessage());
+	}
+
 	/**
 	 * @param string[] $files
 	 * @return \PHPStan\Analyser\Error[]
