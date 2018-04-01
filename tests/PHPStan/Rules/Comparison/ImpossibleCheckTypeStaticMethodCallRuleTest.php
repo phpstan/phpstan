@@ -33,6 +33,14 @@ class ImpossibleCheckTypeStaticMethodCallRuleTest extends \PHPStan\Testing\RuleT
 				'Call to static method PHPStan\Tests\AssertionClass::assertInt() will always evaluate to false.',
 				14,
 			],
+			[
+				'Call to static method PHPStan\Tests\AssertionClass::assertInt() will always evaluate to true.',
+				31,
+			],
+			[
+				'Call to static method PHPStan\Tests\AssertionClass::assertInt() will always evaluate to false.',
+				32,
+			],
 		]);
 	}
 

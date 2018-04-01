@@ -22,4 +22,14 @@ class Foo
 		\PHPStan\Tests\AssertionClass::assertInt($bar);
 	}
 
+	public function doBaz(
+		int $foo,
+		string $bar
+	)
+	{
+		$assertion = new \PHPStan\Tests\AssertionClass();
+		$assertion::assertInt($foo);
+		$assertion::assertInt($bar);
+	}
+
 }
