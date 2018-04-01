@@ -1,18 +1,19 @@
 <?php declare(strict_types = 1);
 
-namespace PHPStan\Analyser\Php;
+namespace PHPStan\Type\Php;
 
 use PhpParser\Node\Expr\FuncCall;
-use PHPStan\Analyser\TypeSpecifierContext;
 use PHPStan\Analyser\FunctionTypeSpecifyingExtension;
 use PHPStan\Analyser\Scope;
 use PHPStan\Analyser\SpecifiedTypes;
 use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Analyser\TypeSpecifierAwareExtension;
+use PHPStan\Analyser\TypeSpecifierContext;
 use PHPStan\Reflection\FunctionReflection;
-use PHPStan\Type\ResourceType;
+use PHPStan\Type\ArrayType;
+use PHPStan\Type\MixedType;
 
-class IsResourceFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtension, TypeSpecifierAwareExtension
+class IsArrayFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtension, TypeSpecifierAwareExtension
 {
 
 	/**
@@ -22,7 +23,7 @@ class IsResourceFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyin
 
 	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): bool
 	{
-		return strtolower($functionReflection->getName()) === 'is_resource'
+		return strtolower($functionReflection->getName()) === 'is_array'
 			&& isset($node->args[0])
 			&& !$context->null();
 	}
@@ -33,7 +34,7 @@ class IsResourceFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyin
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
-		return $this->typeSpecifier->create($node->args[0]->value, new ResourceType(), $context);
+		return $this->typeSpecifier->create($node->args[0]->value, new ArrayType(new MixedType(), new MixedType(), false), $context);
 	}
 
 	public function setTypeSpecifier(TypeSpecifier $typeSpecifier): void

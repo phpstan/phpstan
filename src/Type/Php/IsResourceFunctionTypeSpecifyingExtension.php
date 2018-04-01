@@ -1,18 +1,18 @@
 <?php declare(strict_types = 1);
 
-namespace PHPStan\Analyser\Php;
+namespace PHPStan\Type\Php;
 
 use PhpParser\Node\Expr\FuncCall;
-use PHPStan\Analyser\TypeSpecifierContext;
 use PHPStan\Analyser\FunctionTypeSpecifyingExtension;
 use PHPStan\Analyser\Scope;
 use PHPStan\Analyser\SpecifiedTypes;
 use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Analyser\TypeSpecifierAwareExtension;
+use PHPStan\Analyser\TypeSpecifierContext;
 use PHPStan\Reflection\FunctionReflection;
-use PHPStan\Type\NullType;
+use PHPStan\Type\ResourceType;
 
-class IsNullFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtension, TypeSpecifierAwareExtension
+class IsResourceFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtension, TypeSpecifierAwareExtension
 {
 
 	/**
@@ -22,7 +22,7 @@ class IsNullFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExt
 
 	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): bool
 	{
-		return strtolower($functionReflection->getName()) === 'is_null'
+		return strtolower($functionReflection->getName()) === 'is_resource'
 			&& isset($node->args[0])
 			&& !$context->null();
 	}
@@ -33,7 +33,7 @@ class IsNullFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExt
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
-		return $this->typeSpecifier->create($node->args[0]->value, new NullType(), $context);
+		return $this->typeSpecifier->create($node->args[0]->value, new ResourceType(), $context);
 	}
 
 	public function setTypeSpecifier(TypeSpecifier $typeSpecifier): void

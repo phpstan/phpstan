@@ -1,18 +1,18 @@
 <?php declare(strict_types = 1);
 
-namespace PHPStan\Analyser\Php;
+namespace PHPStan\Type\Php;
 
 use PhpParser\Node\Expr\FuncCall;
-use PHPStan\Analyser\TypeSpecifierContext;
 use PHPStan\Analyser\FunctionTypeSpecifyingExtension;
 use PHPStan\Analyser\Scope;
 use PHPStan\Analyser\SpecifiedTypes;
 use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Analyser\TypeSpecifierAwareExtension;
+use PHPStan\Analyser\TypeSpecifierContext;
 use PHPStan\Reflection\FunctionReflection;
-use PHPStan\Type\BooleanType;
+use PHPStan\Type\ObjectWithoutClassType;
 
-class IsBoolFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtension, TypeSpecifierAwareExtension
+class IsObjectFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtension, TypeSpecifierAwareExtension
 {
 
 	/**
@@ -22,7 +22,7 @@ class IsBoolFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExt
 
 	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): bool
 	{
-		return strtolower($functionReflection->getName()) === 'is_bool'
+		return strtolower($functionReflection->getName()) === 'is_object'
 			&& isset($node->args[0])
 			&& !$context->null();
 	}
@@ -33,7 +33,7 @@ class IsBoolFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExt
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
-		return $this->typeSpecifier->create($node->args[0]->value, new BooleanType(), $context);
+		return $this->typeSpecifier->create($node->args[0]->value, new ObjectWithoutClassType(), $context);
 	}
 
 	public function setTypeSpecifier(TypeSpecifier $typeSpecifier): void

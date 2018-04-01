@@ -1,14 +1,14 @@
 <?php declare(strict_types = 1);
 
-namespace PHPStan\Analyser\Php;
+namespace PHPStan\Type\Php;
 
 use PhpParser\Node\Expr\FuncCall;
-use PHPStan\Analyser\TypeSpecifierContext;
 use PHPStan\Analyser\FunctionTypeSpecifyingExtension;
 use PHPStan\Analyser\Scope;
 use PHPStan\Analyser\SpecifiedTypes;
 use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Analyser\TypeSpecifierAwareExtension;
+use PHPStan\Analyser\TypeSpecifierContext;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\IterableType;
 use PHPStan\Type\MixedType;

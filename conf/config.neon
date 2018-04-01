@@ -251,67 +251,67 @@ services:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
 	-
-		class: PHPStan\Analyser\Php\AssertFunctionTypeSpecifyingExtension
+		class: PHPStan\Type\Php\AssertFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
 	-
-		class: PHPStan\Analyser\Php\IsIntFunctionTypeSpecifyingExtension
+		class: PHPStan\Type\Php\IsIntFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
 	-
-		class: PHPStan\Analyser\Php\IsFloatFunctionTypeSpecifyingExtension
+		class: PHPStan\Type\Php\IsFloatFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
 	-
-		class: PHPStan\Analyser\Php\IsNullFunctionTypeSpecifyingExtension
+		class: PHPStan\Type\Php\IsNullFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
 	-
-		class: PHPStan\Analyser\Php\IsArrayFunctionTypeSpecifyingExtension
+		class: PHPStan\Type\Php\IsArrayFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
 	-
-		class: PHPStan\Analyser\Php\IsBoolFunctionTypeSpecifyingExtension
+		class: PHPStan\Type\Php\IsBoolFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
 	-
-		class: PHPStan\Analyser\Php\IsCallableFunctionTypeSpecifyingExtension
+		class: PHPStan\Type\Php\IsCallableFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
 	-
-		class: PHPStan\Analyser\Php\IsResourceFunctionTypeSpecifyingExtension
+		class: PHPStan\Type\Php\IsResourceFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
 	-
-		class: PHPStan\Analyser\Php\IsIterableFunctionTypeSpecifyingExtension
+		class: PHPStan\Type\Php\IsIterableFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
 	-
-		class: PHPStan\Analyser\Php\IsStringFunctionTypeSpecifyingExtension
+		class: PHPStan\Type\Php\IsStringFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
 	-
-		class: PHPStan\Analyser\Php\IsObjectFunctionTypeSpecifyingExtension
+		class: PHPStan\Type\Php\IsObjectFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
 	-
-		class: PHPStan\Analyser\Php\IsNumericFunctionTypeSpecifyingExtension
+		class: PHPStan\Type\Php\IsNumericFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
 	-
-		class: PHPStan\Analyser\Php\IsAFunctionTypeSpecifyingExtension
+		class: PHPStan\Type\Php\IsAFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
