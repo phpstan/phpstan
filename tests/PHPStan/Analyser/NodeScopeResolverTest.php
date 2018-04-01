@@ -4711,6 +4711,53 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataTraitsPhpDocs(): array
+	{
+		return [
+			[
+				'mixed',
+				'$this->propertyWithoutPhpDoc',
+			],
+			[
+				'TraitPhpDocsTwo\TraitPropertyType',
+				'$this->traitProperty',
+			],
+			[
+				'TraitPhpDocs\TypeFromClass',
+				'$this->conflictingProperty',
+			],
+			[
+				'TraitPhpDocs\AmbiguousType',
+				'$this->bogusProperty',
+			],
+			[
+				'TraitPhpDocs\BogusPropertyType',
+				'$this->anotherBogusProperty',
+			],
+			[
+				'TraitPhpDocs\BogusPropertyType', // should be TraitPhpDocsTwo\BogusPropertyType
+				'$this->differentBogusProperty',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataTraitsPhpDocs
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testTraitsPhpDocs(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/traits/traits.php',
+			$description,
+			$expression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $description,

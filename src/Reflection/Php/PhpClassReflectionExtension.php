@@ -138,7 +138,7 @@ class PhpClassReflectionExtension
 			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
 				$phpDocBlock->getFile(),
 				$phpDocBlock->getClass(),
-				null,
+				$this->findPropertyTrait($phpDocBlock, $propertyReflection),
 				$phpDocBlock->getDocComment()
 			);
 			$varTags = $resolvedPhpDoc->getVarTags();
@@ -256,7 +256,7 @@ class PhpClassReflectionExtension
 				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
 					$phpDocBlock->getFile(),
 					$phpDocBlock->getClass(),
-					null,
+					$this->findMethodTrait($phpDocBlock, $methodReflection),
 					$phpDocBlock->getDocComment()
 				);
 				$phpDocParameterTypes = array_map(function (ParamTag $tag): Type {
@@ -272,6 +272,49 @@ class PhpClassReflectionExtension
 			$phpDocParameterTypes,
 			$phpDocReturnType
 		);
+	}
+
+	private function findPropertyTrait(
+		PhpDocBlock $phpDocBlock,
+		\ReflectionProperty $propertyReflection
+	): ?string
+	{
+		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
+			$phpDocBlock->getFile(),
+			$phpDocBlock->getClass(),
+			null,
+			$phpDocBlock->getDocComment()
+		);
+		if (count($resolvedPhpDoc->getVarTags()) > 0) {
+			return null;
+		}
+
+		$declaringClass = $propertyReflection->getDeclaringClass();
+		foreach ($declaringClass->getTraits() as $traitReflection) {
+			if ($traitReflection->hasProperty($propertyReflection->getName())) {
+				$traitResolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
+					$phpDocBlock->getFile(),
+					$phpDocBlock->getClass(),
+					$traitReflection->getName(),
+					$phpDocBlock->getDocComment()
+				);
+				if (
+					count($traitResolvedPhpDoc->getVarTags()) > 0
+				) {
+					return $traitReflection->getName();
+				}
+			}
+		}
+
+		return null;
+	}
+
+	private function findMethodTrait(
+		PhpDocBlock $phpDocBlock,
+		\ReflectionMethod $methodReflection
+	): ?string
+	{
+		return null;
 	}
 
 }
