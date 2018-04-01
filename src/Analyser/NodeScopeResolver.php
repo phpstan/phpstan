@@ -942,15 +942,18 @@ class NodeScopeResolver
 			$elseIfScope = $scope->filterByFalseyValue($node->cond);
 			$elseIfStatements = [];
 			foreach ($node->elseifs as $elseIf) {
-				$elseIfStatements[] = new StatementList($elseIfScope, array_merge([$elseIf->cond], $elseIf->stmts));
+				$elseIfStatements[] = new StatementList(
+					$elseIfScope->filterByTruthyValue($elseIf->cond),
+					array_merge([$elseIf->cond], $elseIf->stmts)
+				);
 				$elseIfScope = $elseIfScope->filterByFalseyValue($elseIf->cond);
 			}
 
-			$statements = [
-				$ifStatement,
-				new StatementList($elseIfScope, $node->else !== null ? $node->else->stmts : []),
-			];
-			$statements = array_merge($statements, $elseIfStatements);
+			$statements = array_merge(
+				[$ifStatement],
+				$elseIfStatements,
+				[new StatementList($elseIfScope, $node->else !== null ? $node->else->stmts : [])]
+			);
 
 			$scope = $this->lookForAssignsInBranches($scope, $statements, $lookForAssignsSettings);
 		} elseif ($node instanceof TryCatch) {

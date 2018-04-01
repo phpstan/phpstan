@@ -129,3 +129,21 @@ class CallArrayKeyAfterAssigningToIt
 	}
 
 }
+
+class ElseIfTruthyValueBug
+{
+
+	public function doFoo(?Test $test)
+	{
+		if (rand()) {
+			$result = new Test();
+		} elseif (!is_null($test)) {
+			$result = $test;
+		} else {
+			return;
+		}
+
+		$result->fetch();
+	}
+
+}
