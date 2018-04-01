@@ -10,8 +10,8 @@ interface StaticMethodTypeSpecifyingExtension
 
 	public function getClass(): string;
 
-	public function isStaticMethodSupported(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, Context $context): bool;
+	public function isStaticMethodSupported(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, TypeSpecifierContext $context): bool;
 
-	public function specifyTypes(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, Context $context): SpecifiedTypes;
+	public function specifyTypes(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes;
 
 }

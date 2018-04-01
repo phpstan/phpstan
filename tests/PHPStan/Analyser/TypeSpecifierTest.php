@@ -51,11 +51,11 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testCondition(Expr $expr, array $expectedPositiveResult, array $expectedNegatedResult): void
 	{
-		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this->scope, $expr, Context::createTruthy());
+		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this->scope, $expr, TypeSpecifierContext::createTruthy());
 		$actualResult = $this->toReadableResult($specifiedTypes);
 		$this->assertSame($expectedPositiveResult, $actualResult, sprintf('if (%s)', $this->printer->prettyPrintExpr($expr)));
 
-		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this->scope, $expr, Context::createFalsey());
+		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this->scope, $expr, TypeSpecifierContext::createFalsey());
 		$actualResult = $this->toReadableResult($specifiedTypes);
 		$this->assertSame($expectedNegatedResult, $actualResult, sprintf('if not (%s)', $this->printer->prettyPrintExpr($expr)));
 	}

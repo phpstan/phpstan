@@ -2,7 +2,7 @@
 
 namespace PHPStan\Analyser;
 
-class Context
+class TypeSpecifierContext
 {
 
 	public const CONTEXT_TRUE = 0b0001;

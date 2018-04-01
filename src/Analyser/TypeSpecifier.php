@@ -97,7 +97,7 @@ class TypeSpecifier
 		$this->staticMethodTypeSpecifyingExtensions = $staticMethodTypeSpecifyingExtensions;
 	}
 
-	public function specifyTypesInCondition(Scope $scope, Expr $expr, Context $context): SpecifiedTypes
+	public function specifyTypesInCondition(Scope $scope, Expr $expr, TypeSpecifierContext $context): SpecifiedTypes
 	{
 		if ($expr instanceof Instanceof_) {
 			if ($expr->class instanceof Name) {
@@ -134,7 +134,7 @@ class TypeSpecifier
 					return $types->unionWith($this->specifyTypesInCondition(
 						$scope,
 						$expressions[0],
-						$context->true() ? Context::createFalse() : Context::not(Context::createFalse())
+						$context->true() ? TypeSpecifierContext::createFalse() : TypeSpecifierContext::not(TypeSpecifierContext::createFalse())
 					));
 				}
 
@@ -143,7 +143,7 @@ class TypeSpecifier
 					return $types->unionWith($this->specifyTypesInCondition(
 						$scope,
 						$expressions[0],
-						$context->true() ? Context::createTrue() : Context::not(Context::createTrue())
+						$context->true() ? TypeSpecifierContext::createTrue() : TypeSpecifierContext::not(TypeSpecifierContext::createTrue())
 					));
 				}
 
@@ -181,7 +181,7 @@ class TypeSpecifier
 					return $this->specifyTypesInCondition(
 						$scope,
 						$expressions[0],
-						$context->true() ? Context::createFalsey() : Context::not(Context::createFalsey())
+						$context->true() ? TypeSpecifierContext::createFalsey() : TypeSpecifierContext::not(TypeSpecifierContext::createFalsey())
 					);
 				}
 
@@ -189,7 +189,7 @@ class TypeSpecifier
 					return $this->specifyTypesInCondition(
 						$scope,
 						$expressions[0],
-						$context->true() ? Context::createTruthy() : Context::not(Context::createTruthy())
+						$context->true() ? TypeSpecifierContext::createTruthy() : TypeSpecifierContext::not(TypeSpecifierContext::createTruthy())
 					);
 				}
 			}
@@ -262,7 +262,7 @@ class TypeSpecifier
 			$rightTypes = $this->specifyTypesInCondition($scope, $expr->right, $context);
 			return $context->true() ? $leftTypes->intersectWith($rightTypes) : $leftTypes->unionWith($rightTypes);
 		} elseif ($expr instanceof Node\Expr\BooleanNot) {
-			return $this->specifyTypesInCondition($scope, $expr->expr, Context::not($context));
+			return $this->specifyTypesInCondition($scope, $expr->expr, TypeSpecifierContext::not($context));
 		} elseif ($expr instanceof Node\Expr\Assign) {
 			return $this->specifyTypesInCondition($scope, $expr->var, $context);
 		} elseif (
@@ -302,7 +302,7 @@ class TypeSpecifier
 			$types = null;
 			foreach ($vars as $var) {
 				if ($expr instanceof Expr\Isset_) {
-					$type = $this->create($var, new NullType(), Context::createFalse());
+					$type = $this->create($var, new NullType(), TypeSpecifierContext::createFalse());
 				} else {
 					$type = $this->create(
 						$var,
@@ -310,7 +310,7 @@ class TypeSpecifier
 							new NullType(),
 							new ConstantBooleanType(false),
 						]),
-						Context::createFalse()
+						TypeSpecifierContext::createFalse()
 					);
 				}
 				if ($types === null) {
@@ -322,7 +322,7 @@ class TypeSpecifier
 			return $types;
 		} elseif (!$context->truthy()) {
 			$type = new ObjectWithoutClassType();
-			return $this->create($expr, $type, Context::createFalse());
+			return $this->create($expr, $type, TypeSpecifierContext::createFalse());
 		} elseif (!$context->falsey()) {
 			$type = new UnionType([
 				new NullType(),
@@ -332,7 +332,7 @@ class TypeSpecifier
 			//              new ConstantStringType(''),
 			//              new ConstantArrayType([], []),
 			]);
-			return $this->create($expr, $type, Context::createFalse());
+			return $this->create($expr, $type, TypeSpecifierContext::createFalse());
 		}
 
 		return new SpecifiedTypes();
@@ -353,7 +353,7 @@ class TypeSpecifier
 		return null;
 	}
 
-	public function create(Expr $expr, Type $type, Context $context): SpecifiedTypes
+	public function create(Expr $expr, Type $type, TypeSpecifierContext $context): SpecifiedTypes
 	{
 		$sureTypes = [];
 		$sureNotTypes = [];
