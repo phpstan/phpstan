@@ -26,6 +26,20 @@ services:
 			- phpstan.rules.rule
 
 	-
+		class: PHPStan\Rules\Comparison\ImpossibleCheckTypeMethodCallRule
+		arguments:
+			checkAlwaysTrueCheckTypeFunctionCall: %checkAlwaysTrueCheckTypeFunctionCall%
+		tags:
+			- phpstan.rules.rule
+
+	-
+		class: PHPStan\Rules\Comparison\ImpossibleCheckTypeStaticMethodCallRule
+		arguments:
+			checkAlwaysTrueCheckTypeFunctionCall: %checkAlwaysTrueCheckTypeFunctionCall%
+		tags:
+			- phpstan.rules.rule
+
+	-
 		class: PHPStan\Rules\Comparison\StrictComparisonOfDifferentTypesRule
 		arguments:
 			checkAlwaysTrueStrictComparison: %checkAlwaysTrueStrictComparison%
