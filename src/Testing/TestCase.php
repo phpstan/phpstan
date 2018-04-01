@@ -187,8 +187,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	/**
 	 * @param \PhpParser\PrettyPrinter\Standard $printer
 	 * @param \PHPStan\Broker\Broker $broker
-	 * @param \PHPStan\Analyser\MethodTypeSpecifyingExtension[] $methodTypeSpecifyingExtensions
-	 * @param \PHPStan\Analyser\StaticMethodTypeSpecifyingExtension[] $staticMethodTypeSpecifyingExtensions
+	 * @param \PHPStan\Type\MethodTypeSpecifyingExtension[] $methodTypeSpecifyingExtensions
+	 * @param \PHPStan\Type\StaticMethodTypeSpecifyingExtension[] $staticMethodTypeSpecifyingExtensions
 	 * @return \PHPStan\Analyser\TypeSpecifier
 	 */
 	public function createTypeSpecifier(

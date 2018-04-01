@@ -15,8 +15,10 @@ use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Type\DynamicStaticMethodReturnTypeExtension;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\IntegerType;
+use PHPStan\Type\MethodTypeSpecifyingExtension;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\StaticMethodTypeSpecifyingExtension;
 use PHPStan\Type\StringType;
 use SomeNodeScopeResolverNamespace\Foo;
 
