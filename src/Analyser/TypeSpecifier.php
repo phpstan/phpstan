@@ -203,7 +203,7 @@ class TypeSpecifier
 			if ($this->broker->hasFunction($expr->name, $scope)) {
 				$functionReflection = $this->broker->getFunction($expr->name, $scope);
 				foreach ($this->getFunctionTypeSpecifyingExtensions() as $extension) {
-					if (!$extension->isFunctionSupported($functionReflection, $expr, $scope, $context)) {
+					if (!$extension->isFunctionSupported($functionReflection, $expr, $context)) {
 						continue;
 					}
 
@@ -221,7 +221,7 @@ class TypeSpecifier
 				if ($methodClassReflection->hasMethod($expr->name)) {
 					$methodReflection = $methodClassReflection->getMethod($expr->name, $scope);
 					foreach ($this->getMethodTypeSpecifyingExtensionsForClass($methodClassReflection->getName()) as $extension) {
-						if (!$extension->isMethodSupported($methodReflection, $expr, $scope, $context)) {
+						if (!$extension->isMethodSupported($methodReflection, $expr, $context)) {
 							continue;
 						}
 
@@ -245,7 +245,7 @@ class TypeSpecifier
 				) {
 					$staticMethodClassReflection = $this->broker->getClass($referencedClasses[0]);
 					foreach ($this->getStaticMethodTypeSpecifyingExtensionsForClass($staticMethodClassReflection->getName()) as $extension) {
-						if (!$extension->isStaticMethodSupported($staticMethodReflection, $expr, $scope, $context)) {
+						if (!$extension->isStaticMethodSupported($staticMethodReflection, $expr, $context)) {
 							continue;
 						}
 

@@ -20,7 +20,7 @@ class IsCallableFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyin
 	 */
 	private $typeSpecifier;
 
-	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): bool
+	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, TypeSpecifierContext $context): bool
 	{
 		return strtolower($functionReflection->getName()) === 'is_callable'
 			&& isset($node->args[0])

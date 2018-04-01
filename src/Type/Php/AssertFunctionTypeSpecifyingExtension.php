@@ -19,7 +19,7 @@ class AssertFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExt
 	 */
 	private $typeSpecifier;
 
-	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): bool
+	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, TypeSpecifierContext $context): bool
 	{
 		return $functionReflection->getName() === 'assert'
 			&& isset($node->args[0]);

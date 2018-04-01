@@ -3530,7 +3530,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 						return AssertionClass::class;
 					}
 
-					public function isMethodSupported(MethodReflection $methodReflection, MethodCall $node, Scope $scope, TypeSpecifierContext $context): bool
+					public function isMethodSupported(MethodReflection $methodReflection, MethodCall $node, TypeSpecifierContext $context): bool
 					{
 						return $methodReflection->getName() === 'assertString' && $context->null();
 					}
@@ -3551,7 +3551,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 						return AssertionClass::class;
 					}
 
-					public function isStaticMethodSupported(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, TypeSpecifierContext $context): bool
+					public function isStaticMethodSupported(MethodReflection $staticMethodReflection, StaticCall $node, TypeSpecifierContext $context): bool
 					{
 						return $staticMethodReflection->getName() === 'assertInt' && $context->null();
 					}
@@ -3605,7 +3605,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 						return AssertionClass::class;
 					}
 
-					public function isMethodSupported(MethodReflection $methodReflection, MethodCall $node, Scope $scope, TypeSpecifierContext $context): bool
+					public function isMethodSupported(MethodReflection $methodReflection, MethodCall $node, TypeSpecifierContext $context): bool
 					{
 						return $methodReflection->getName() === 'assertString' && $context->null();
 					}
@@ -3626,7 +3626,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 						return AssertionClass::class;
 					}
 
-					public function isStaticMethodSupported(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, TypeSpecifierContext $context): bool
+					public function isStaticMethodSupported(MethodReflection $staticMethodReflection, StaticCall $node, TypeSpecifierContext $context): bool
 					{
 						return $staticMethodReflection->getName() === 'assertInt' && $context->null();
 					}
@@ -3680,7 +3680,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 						return AssertionClass::class;
 					}
 
-					public function isMethodSupported(MethodReflection $methodReflection, MethodCall $node, Scope $scope, TypeSpecifierContext $context): bool
+					public function isMethodSupported(MethodReflection $methodReflection, MethodCall $node, TypeSpecifierContext $context): bool
 					{
 						return $methodReflection->getName() === 'assertString' && !$context->null();
 					}
@@ -3701,7 +3701,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 						return AssertionClass::class;
 					}
 
-					public function isStaticMethodSupported(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, TypeSpecifierContext $context): bool
+					public function isStaticMethodSupported(MethodReflection $staticMethodReflection, StaticCall $node, TypeSpecifierContext $context): bool
 					{
 						return $staticMethodReflection->getName() === 'assertInt' && !$context->null();
 					}
