@@ -9,17 +9,14 @@ use PHPStan\Cache\Cache;
 use PHPStan\File\FileHelper;
 use PHPStan\PhpDoc\PhpDocStringResolver;
 use PHPStan\Reflection\MethodReflection;
-use PHPStan\Tests\AssertionClass;
+use PHPStan\Tests\AssertionClassMethodTypeSpecifyingExtension;
+use PHPStan\Tests\AssertionClassStaticMethodTypeSpecifyingExtension;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Type\DynamicStaticMethodReturnTypeExtension;
 use PHPStan\Type\FileTypeMapper;
-use PHPStan\Type\IntegerType;
-use PHPStan\Type\MethodTypeSpecifyingExtension;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
-use PHPStan\Type\StaticMethodTypeSpecifyingExtension;
-use PHPStan\Type\StringType;
 use SomeNodeScopeResolverNamespace\Foo;
 
 class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
@@ -3497,10 +3494,32 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'string',
 				'$foo',
+				true,
 			],
 			[
 				'int',
 				'$bar',
+				true,
+			],
+			[
+				'string|null',
+				'$foo',
+				false,
+			],
+			[
+				'int|null',
+				'$bar',
+				false,
+			],
+			[
+				'string',
+				'$foo',
+				null,
+			],
+			[
+				'int',
+				'$bar',
+				null,
 			],
 		];
 	}
@@ -3509,10 +3528,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	 * @dataProvider dataTypeSpecifyingExtensions
 	 * @param string $description
 	 * @param string $expression
+	 * @param bool|null $nullContext
 	 */
 	public function testTypeSpecifyingExtensions(
 		string $description,
-		string $expression
+		string $expression,
+		?bool $nullContext
 	): void
 	{
 		$this->assertTypes(
@@ -3521,48 +3542,8 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			$expression,
 			[],
 			[],
-			[
-				new class() implements MethodTypeSpecifyingExtension
-				{
-
-					public function getClass(): string
-					{
-						return AssertionClass::class;
-					}
-
-					public function isMethodSupported(MethodReflection $methodReflection, MethodCall $node, TypeSpecifierContext $context): bool
-					{
-						return $methodReflection->getName() === 'assertString' && $context->null();
-					}
-
-					public function specifyTypes(MethodReflection $methodReflection, MethodCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
-					{
-						return new SpecifiedTypes(['$foo' => [$node->args[0]->value, new StringType()]]);
-					}
-
-				},
-			],
-			[
-				new class() implements StaticMethodTypeSpecifyingExtension
-				{
-
-					public function getClass(): string
-					{
-						return AssertionClass::class;
-					}
-
-					public function isStaticMethodSupported(MethodReflection $staticMethodReflection, StaticCall $node, TypeSpecifierContext $context): bool
-					{
-						return $staticMethodReflection->getName() === 'assertInt' && $context->null();
-					}
-
-					public function specifyTypes(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
-					{
-						return new SpecifiedTypes(['$bar' => [$node->args[0]->value, new IntegerType()]]);
-					}
-
-				},
-			]
+			[new AssertionClassMethodTypeSpecifyingExtension($nullContext)],
+			[new AssertionClassStaticMethodTypeSpecifyingExtension($nullContext)]
 		);
 	}
 
@@ -3572,10 +3553,32 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'string|null',
 				'$foo',
+				true,
 			],
 			[
 				'int|null',
 				'$bar',
+				true,
+			],
+			[
+				'string|null',
+				'$foo',
+				false,
+			],
+			[
+				'int|null',
+				'$bar',
+				false,
+			],
+			[
+				'string|null',
+				'$foo',
+				null,
+			],
+			[
+				'int|null',
+				'$bar',
+				null,
 			],
 		];
 	}
@@ -3584,10 +3587,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	 * @dataProvider dataTypeSpecifyingExtensions2
 	 * @param string $description
 	 * @param string $expression
+	 * @param bool|null $nullContext
 	 */
 	public function testTypeSpecifyingExtensions2(
 		string $description,
-		string $expression
+		string $expression,
+		?bool $nullContext
 	): void
 	{
 		$this->assertTypes(
@@ -3596,48 +3601,8 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			$expression,
 			[],
 			[],
-			[
-				new class() implements MethodTypeSpecifyingExtension
-				{
-
-					public function getClass(): string
-					{
-						return AssertionClass::class;
-					}
-
-					public function isMethodSupported(MethodReflection $methodReflection, MethodCall $node, TypeSpecifierContext $context): bool
-					{
-						return $methodReflection->getName() === 'assertString' && $context->null();
-					}
-
-					public function specifyTypes(MethodReflection $methodReflection, MethodCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
-					{
-						return new SpecifiedTypes(['$foo' => [$node->args[0]->value, new StringType()]]);
-					}
-
-				},
-			],
-			[
-				new class() implements StaticMethodTypeSpecifyingExtension
-				{
-
-					public function getClass(): string
-					{
-						return AssertionClass::class;
-					}
-
-					public function isStaticMethodSupported(MethodReflection $staticMethodReflection, StaticCall $node, TypeSpecifierContext $context): bool
-					{
-						return $staticMethodReflection->getName() === 'assertInt' && $context->null();
-					}
-
-					public function specifyTypes(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
-					{
-						return new SpecifiedTypes(['$bar' => [$node->args[0]->value, new IntegerType()]]);
-					}
-
-				},
-			]
+			[new AssertionClassMethodTypeSpecifyingExtension($nullContext)],
+			[new AssertionClassStaticMethodTypeSpecifyingExtension($nullContext)]
 		);
 	}
 
@@ -3647,10 +3612,32 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'string',
 				'$foo',
+				false,
 			],
 			[
 				'int',
 				'$bar',
+				false,
+			],
+			[
+				'string|null',
+				'$foo',
+				true,
+			],
+			[
+				'int|null',
+				'$bar',
+				true,
+			],
+			[
+				'string',
+				'$foo',
+				null,
+			],
+			[
+				'int',
+				'$bar',
+				null,
 			],
 		];
 	}
@@ -3659,10 +3646,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	 * @dataProvider dataTypeSpecifyingExtensions3
 	 * @param string $description
 	 * @param string $expression
+	 * @param bool|null $nullContext
 	 */
 	public function testTypeSpecifyingExtensions3(
 		string $description,
-		string $expression
+		string $expression,
+		?bool $nullContext
 	): void
 	{
 		$this->assertTypes(
@@ -3671,48 +3660,8 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			$expression,
 			[],
 			[],
-			[
-				new class() implements MethodTypeSpecifyingExtension
-				{
-
-					public function getClass(): string
-					{
-						return AssertionClass::class;
-					}
-
-					public function isMethodSupported(MethodReflection $methodReflection, MethodCall $node, TypeSpecifierContext $context): bool
-					{
-						return $methodReflection->getName() === 'assertString' && !$context->null();
-					}
-
-					public function specifyTypes(MethodReflection $methodReflection, MethodCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
-					{
-						return new SpecifiedTypes(['$foo' => [$node->args[0]->value, new StringType()]]);
-					}
-
-				},
-			],
-			[
-				new class() implements StaticMethodTypeSpecifyingExtension
-				{
-
-					public function getClass(): string
-					{
-						return AssertionClass::class;
-					}
-
-					public function isStaticMethodSupported(MethodReflection $staticMethodReflection, StaticCall $node, TypeSpecifierContext $context): bool
-					{
-						return $staticMethodReflection->getName() === 'assertInt' && !$context->null();
-					}
-
-					public function specifyTypes(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
-					{
-						return new SpecifiedTypes(['$bar' => [$node->args[0]->value, new IntegerType()]]);
-					}
-
-				},
-			]
+			[new AssertionClassMethodTypeSpecifyingExtension($nullContext)],
+			[new AssertionClassStaticMethodTypeSpecifyingExtension($nullContext)]
 		);
 	}
 

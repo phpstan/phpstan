@@ -4,6 +4,7 @@ namespace PHPStan\Tests;
 
 class AssertionClass
 {
+
 	public function assertString(?string $arg): bool
 	{
 		if ($arg === null) {
@@ -19,4 +20,5 @@ class AssertionClass
 		}
 		return true;
 	}
+
 }
