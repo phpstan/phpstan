@@ -206,7 +206,7 @@ class NodeScopeResolver
 				if ($this->broker->hasFunction($node->name, $scope)) {
 					$functionReflection = $this->broker->getFunction($node->name, $scope);
 					foreach ($this->typeSpecifier->getFunctionTypeSpecifyingExtensions() as $extension) {
-						if (!$extension->isFunctionSupported($functionReflection, $node, $scope, TypeSpecifierContext::createNull())) {
+						if (!$extension->isFunctionSupported($functionReflection, $node, TypeSpecifierContext::createNull())) {
 							continue;
 						}
 
@@ -225,7 +225,7 @@ class NodeScopeResolver
 					if ($methodClassReflection->hasMethod($node->name)) {
 						$methodReflection = $methodClassReflection->getMethod($node->name, $scope);
 						foreach ($this->typeSpecifier->getMethodTypeSpecifyingExtensionsForClass($methodClassReflection->getName()) as $extension) {
-							if (!$extension->isMethodSupported($methodReflection, $node, $scope, TypeSpecifierContext::createNull())) {
+							if (!$extension->isMethodSupported($methodReflection, $node, TypeSpecifierContext::createNull())) {
 								continue;
 							}
 
@@ -250,7 +250,7 @@ class NodeScopeResolver
 					) {
 						$staticMethodClassReflection = $this->broker->getClass($referencedClasses[0]);
 						foreach ($this->typeSpecifier->getStaticMethodTypeSpecifyingExtensionsForClass($staticMethodClassReflection->getName()) as $extension) {
-							if (!$extension->isStaticMethodSupported($staticMethodReflection, $node, $scope, TypeSpecifierContext::createNull())) {
+							if (!$extension->isStaticMethodSupported($staticMethodReflection, $node, TypeSpecifierContext::createNull())) {
 								continue;
 							}
 
