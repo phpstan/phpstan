@@ -44,36 +44,36 @@ class TypeSpecifier
 	private $broker;
 
 	/**
-	 * @var \PHPStan\Analyser\FunctionTypeSpecifyingExtension[]
+	 * @var \PHPStan\Type\FunctionTypeSpecifyingExtension[]
 	 */
 	private $functionTypeSpecifyingExtensions = [];
 
 	/**
-	 * @var \PHPStan\Analyser\MethodTypeSpecifyingExtension[]
+	 * @var \PHPStan\Type\MethodTypeSpecifyingExtension[]
 	 */
 	private $methodTypeSpecifyingExtensions = [];
 
 	/**
-	 * @var \PHPStan\Analyser\StaticMethodTypeSpecifyingExtension[]
+	 * @var \PHPStan\Type\StaticMethodTypeSpecifyingExtension[]
 	 */
 	private $staticMethodTypeSpecifyingExtensions = [];
 
 	/**
-	 * @var \PHPStan\Analyser\MethodTypeSpecifyingExtension[]
+	 * @var \PHPStan\Type\MethodTypeSpecifyingExtension[]
 	 */
 	private $methodTypeSpecifyingExtensionsByClass;
 
 	/**
-	 * @var \PHPStan\Analyser\StaticMethodTypeSpecifyingExtension[]
+	 * @var \PHPStan\Type\StaticMethodTypeSpecifyingExtension[]
 	 */
 	private $staticMethodTypeSpecifyingExtensionsByClass;
 
 	/**
 	 * @param \PhpParser\PrettyPrinter\Standard $printer
 	 * @param \PHPStan\Broker\Broker $broker
-	 * @param \PHPStan\Analyser\FunctionTypeSpecifyingExtension[] $functionTypeSpecifyingExtensions
-	 * @param \PHPStan\Analyser\MethodTypeSpecifyingExtension[] $methodTypeSpecifyingExtensions
-	 * @param \PHPStan\Analyser\StaticMethodTypeSpecifyingExtension[] $staticMethodTypeSpecifyingExtensions
+	 * @param \PHPStan\Type\FunctionTypeSpecifyingExtension[] $functionTypeSpecifyingExtensions
+	 * @param \PHPStan\Type\MethodTypeSpecifyingExtension[] $methodTypeSpecifyingExtensions
+	 * @param \PHPStan\Type\StaticMethodTypeSpecifyingExtension[] $staticMethodTypeSpecifyingExtensions
 	 */
 	public function __construct(
 		\PhpParser\PrettyPrinter\Standard $printer,
@@ -369,7 +369,7 @@ class TypeSpecifier
 	}
 
 	/**
-	 * @return \PHPStan\Analyser\FunctionTypeSpecifyingExtension[]
+	 * @return \PHPStan\Type\FunctionTypeSpecifyingExtension[]
 	 */
 	public function getFunctionTypeSpecifyingExtensions(): array
 	{
@@ -378,7 +378,7 @@ class TypeSpecifier
 
 	/**
 	 * @param string $className
-	 * @return \PHPStan\Analyser\MethodTypeSpecifyingExtension[]
+	 * @return \PHPStan\Type\MethodTypeSpecifyingExtension[]
 	 */
 	public function getMethodTypeSpecifyingExtensionsForClass(string $className): array
 	{
@@ -395,7 +395,7 @@ class TypeSpecifier
 
 	/**
 	 * @param string $className
-	 * @return \PHPStan\Analyser\StaticMethodTypeSpecifyingExtension[]
+	 * @return \PHPStan\Type\StaticMethodTypeSpecifyingExtension[]
 	 */
 	public function getStaticMethodTypeSpecifyingExtensionsForClass(string $className): array
 	{
@@ -411,7 +411,7 @@ class TypeSpecifier
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\MethodTypeSpecifyingExtension[]|\PHPStan\Analyser\StaticMethodTypeSpecifyingExtension[] $extensions
+	 * @param \PHPStan\Type\MethodTypeSpecifyingExtension[]|\PHPStan\Type\StaticMethodTypeSpecifyingExtension[] $extensions
 	 * @param string $className
 	 * @return mixed[]
 	 */
