@@ -25,17 +25,17 @@ class TrinaryLogic
 
 	public static function createYes(): self
 	{
-		return self::$registry[self::YES] ?? self::create(self::YES);
+		return self::create(self::YES);
 	}
 
 	public static function createNo(): self
 	{
-		return self::$registry[self::NO] ?? self::create(self::NO);
+		return self::create(self::NO);
 	}
 
 	public static function createMaybe(): self
 	{
-		return self::$registry[self::MAYBE] ?? self::create(self::MAYBE);
+		return self::create(self::MAYBE);
 	}
 
 	private static function create(int $value): self
