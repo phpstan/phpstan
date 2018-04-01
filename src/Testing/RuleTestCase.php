@@ -29,7 +29,12 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 			$broker = $this->createBroker();
 			$printer = new \PhpParser\PrettyPrinter\Standard();
 			$fileHelper = $this->getFileHelper();
-			$typeSpecifier = $this->createTypeSpecifier($printer, $broker);
+			$typeSpecifier = $this->createTypeSpecifier(
+				$printer,
+				$broker,
+				$this->getMethodTypeSpecifyingExtensions(),
+				$this->getStaticMethodTypeSpecifyingExtensions()
+			);
 			$this->analyser = new Analyser(
 				$broker,
 				$this->getParser(),
@@ -56,6 +61,22 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 		}
 
 		return $this->analyser;
+	}
+
+	/**
+	 * @return \PHPStan\Type\MethodTypeSpecifyingExtension[]
+	 */
+	protected function getMethodTypeSpecifyingExtensions(): array
+	{
+		return [];
+	}
+
+	/**
+	 * @return \PHPStan\Type\StaticMethodTypeSpecifyingExtension[]
+	 */
+	protected function getStaticMethodTypeSpecifyingExtensions(): array
+	{
+		return [];
 	}
 
 	public function analyse(array $files, array $expectedErrors): void
