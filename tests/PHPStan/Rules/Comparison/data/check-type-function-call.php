@@ -44,6 +44,8 @@ class Foo
 		if (is_callable($arrayOfInt)) {
 
 		}
+
+		assert($integer instanceof \stdClass);
 	}
 
 }
