@@ -314,6 +314,37 @@ class PhpClassReflectionExtension
 		\ReflectionMethod $methodReflection
 	): ?string
 	{
+		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
+			$phpDocBlock->getFile(),
+			$phpDocBlock->getClass(),
+			null,
+			$phpDocBlock->getDocComment()
+		);
+		if (
+			count($resolvedPhpDoc->getParamTags()) > 0
+			|| $resolvedPhpDoc->getReturnTag() !== null
+		) {
+			return null;
+		}
+
+		$declaringClass = $methodReflection->getDeclaringClass();
+		foreach ($declaringClass->getTraits() as $traitReflection) {
+			if ($traitReflection->hasMethod($methodReflection->getName())) {
+				$traitResolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
+					$phpDocBlock->getFile(),
+					$phpDocBlock->getClass(),
+					$traitReflection->getName(),
+					$phpDocBlock->getDocComment()
+				);
+				if (
+					count($traitResolvedPhpDoc->getParamTags()) > 0
+					|| $traitResolvedPhpDoc->getReturnTag() !== null
+				) {
+					return $traitReflection->getName();
+				}
+			}
+		}
+
 		return null;
 	}
 

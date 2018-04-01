@@ -7,10 +7,10 @@ class Foo
 
 	use \TraitPhpDocsTwo\FooTrait;
 
-	/** @var TypeFromClass */
+	/** @var PropertyTypeFromClass */
 	private $conflictingProperty;
 
-	/** @var AmbiguousType */
+	/** @var AmbiguousPropertyType */
 	private $bogusProperty;
 
 	/** @var BogusPropertyType */
@@ -19,6 +19,30 @@ class Foo
 	public function doFoo()
 	{
 		die;
+	}
+
+	/**
+	 * @return MethodTypeFromClass
+	 */
+	public function conflictingMethod()
+	{
+
+	}
+
+	/**
+	 * @return AmbiguousMethodType
+	 */
+	public function bogusMethod()
+	{
+
+	}
+
+	/**
+	 * @return BogusMethodType
+	 */
+	public function anotherBogusMethod()
+	{
+
 	}
 
 }

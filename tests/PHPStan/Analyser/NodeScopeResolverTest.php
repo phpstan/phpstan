@@ -2594,16 +2594,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		$description = str_replace('static(MethodPhpDocsNamespace\Foo)', 'static(MethodPhpDocsNamespace\FooWithTrait)', $description);
 
-		if ($replaceClass) {
+		if ($replaceClass && $expression !== '$this->doFoo()') {
 			$description = str_replace('$this(MethodPhpDocsNamespace\Foo)', '$this(MethodPhpDocsNamespace\FooWithTrait)', $description);
 			if ($description === 'MethodPhpDocsNamespace\Foo') {
 				$description = 'MethodPhpDocsNamespace\FooWithTrait';
 			}
 		}
-		if ($expression === '$this->doFoo()') {
-			$description = 'mixed';
-		}
-
 		$this->assertTypes(
 			__DIR__ . '/data/methodPhpDocs-trait.php',
 			$description,
@@ -4723,11 +4719,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->traitProperty',
 			],
 			[
-				'TraitPhpDocs\TypeFromClass',
+				'TraitPhpDocs\PropertyTypeFromClass',
 				'$this->conflictingProperty',
 			],
 			[
-				'TraitPhpDocs\AmbiguousType',
+				'TraitPhpDocs\AmbiguousPropertyType',
 				'$this->bogusProperty',
 			],
 			[
@@ -4737,6 +4733,30 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'TraitPhpDocs\BogusPropertyType', // should be TraitPhpDocsTwo\BogusPropertyType
 				'$this->differentBogusProperty',
+			],
+			[
+				'string',
+				'$this->methodWithoutPhpDoc()',
+			],
+			[
+				'TraitPhpDocsTwo\TraitMethodType',
+				'$this->traitMethod()',
+			],
+			[
+				'TraitPhpDocs\MethodTypeFromClass',
+				'$this->conflictingMethod()',
+			],
+			[
+				'TraitPhpDocs\AmbiguousMethodType',
+				'$this->bogusMethod()',
+			],
+			[
+				'TraitPhpDocs\BogusMethodType',
+				'$this->anotherBogusMethod()',
+			],
+			[
+				'TraitPhpDocs\BogusMethodType', // should be 'TraitPhpDocsTwo\BogusMethodType',
+				'$this->differentBogusMethod()',
 			],
 		];
 	}
