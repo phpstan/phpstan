@@ -83,7 +83,6 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 	{
 		$files = array_map([$this->getFileHelper(), 'normalizePath'], $files);
 		$actualErrors = $this->getAnalyser()->analyse($files, false);
-		$this->assertInternalType('array', $actualErrors);
 
 		$strictlyTypedSprintf = function (int $line, string $message): string {
 			return sprintf('%02d: %s', $line, $message);

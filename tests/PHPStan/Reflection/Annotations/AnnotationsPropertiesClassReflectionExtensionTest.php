@@ -4,7 +4,6 @@ namespace PHPStan\Reflection\Annotations;
 
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
-use PHPStan\Reflection\Php\PhpPropertyReflection;
 
 class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\Testing\TestCase
 {
@@ -258,7 +257,7 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\Testing
 		$broker = $this->getContainer()->getByType(Broker::class);
 		$class = $broker->getClass(\AnnotationsProperties\Bar::class);
 		$this->assertTrue($class->hasNativeProperty('overridenPropertyWithAnnotation'));
-		$this->assertInstanceOf(PhpPropertyReflection::class, $class->getNativeProperty('overridenPropertyWithAnnotation'));
+		$this->assertSame('AnnotationsProperties\Foo', $class->getNativeProperty('overridenPropertyWithAnnotation')->getType()->describe());
 	}
 
 }
