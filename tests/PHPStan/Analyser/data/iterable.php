@@ -15,34 +15,22 @@ interface CollectionOfIntegers extends \Iterator
 class Foo
 {
 
-	/**
-	 * @var iterable
-	 */
+	/** @var iterable */
 	private $iterableProperty;
 
-	/**
-	 * @var string[]|iterable
-	 */
+	/** @var string[]|iterable */
 	private $stringIterableProperty;
 
-	/**
-	 * @var mixed[]|iterable
-	 */
+	/** @var mixed[]|iterable */
 	private $mixedIterableProperty;
 
-	/**
-	 * @var string[]|iterable|int
-	 */
+	/** @var string[]|iterable|int */
 	private $iterablePropertyAlsoWithSomethingElse;
 
-	/**
-	 * @var string[]|int[]|iterable|int
-	 */
+	/** @var string[]|int[]|iterable|int */
 	private $iterablePropertyWithTwoItemTypes;
 
-	/**
-	 * @var CollectionOfIntegers|string[]
-	 */
+	/** @var CollectionOfIntegers|string[] */
 	private $collectionOfIntegersOrArrayOfStrings;
 
 	/**

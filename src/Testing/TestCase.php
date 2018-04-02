@@ -32,9 +32,7 @@ use PHPStan\Type\Type;
 abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
 
-	/**
-	 * @var \Nette\DI\Container
-	 */
+	/** @var \Nette\DI\Container */
 	private static $container;
 
 	public function getContainer(): \Nette\DI\Container

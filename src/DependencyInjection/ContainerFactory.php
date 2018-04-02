@@ -8,19 +8,13 @@ use PHPStan\File\FileHelper;
 class ContainerFactory
 {
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $currentWorkingDirectory;
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $rootDirectory;
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $configDirectory;
 
 	public function __construct(string $currentWorkingDirectory)

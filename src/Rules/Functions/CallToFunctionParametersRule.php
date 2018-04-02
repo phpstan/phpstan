@@ -11,14 +11,10 @@ use PHPStan\Rules\FunctionCallParametersCheck;
 class CallToFunctionParametersRule implements \PHPStan\Rules\Rule
 {
 
-	/**
-	 * @var \PHPStan\Broker\Broker
-	 */
+	/** @var \PHPStan\Broker\Broker */
 	private $broker;
 
-	/**
-	 * @var \PHPStan\Rules\FunctionCallParametersCheck
-	 */
+	/** @var \PHPStan\Rules\FunctionCallParametersCheck */
 	private $check;
 
 	public function __construct(Broker $broker, FunctionCallParametersCheck $check)

@@ -10,54 +10,34 @@ use PHPStan\Rules\Registry;
 class Analyser
 {
 
-	/**
-	 * @var \PHPStan\Parser\Parser
-	 */
+	/** @var \PHPStan\Parser\Parser */
 	private $parser;
 
-	/**
-	 * @var \PHPStan\Rules\Registry
-	 */
+	/** @var \PHPStan\Rules\Registry */
 	private $registry;
 
-	/**
-	 * @var \PHPStan\Broker\Broker
-	 */
+	/** @var \PHPStan\Broker\Broker */
 	private $broker;
 
-	/**
-	 * @var \PHPStan\Analyser\NodeScopeResolver
-	 */
+	/** @var \PHPStan\Analyser\NodeScopeResolver */
 	private $nodeScopeResolver;
 
-	/**
-	 * @var \PhpParser\PrettyPrinter\Standard
-	 */
+	/** @var \PhpParser\PrettyPrinter\Standard */
 	private $printer;
 
-	/**
-	 * @var \PHPStan\Analyser\TypeSpecifier
-	 */
+	/** @var \PHPStan\Analyser\TypeSpecifier */
 	private $typeSpecifier;
 
-	/**
-	 * @var string[]
-	 */
+	/** @var string[] */
 	private $ignoreErrors;
 
-	/**
-	 * @var string|null
-	 */
+	/** @var string|null */
 	private $bootstrapFile;
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $reportUnmatchedIgnoredErrors;
 
-	/**
-	 * @var int
-	 */
+	/** @var int */
 	private $internalErrorsCountLimit;
 
 	/**

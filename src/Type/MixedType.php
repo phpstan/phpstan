@@ -18,9 +18,7 @@ class MixedType implements CompoundType
 	use MaybeOffsetAccessibleTypeTrait;
 	use UndecidedBooleanTypeTrait;
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $isExplicitMixed;
 
 	public function __construct(bool $isExplicitMixed = false)

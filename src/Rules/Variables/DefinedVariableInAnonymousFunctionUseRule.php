@@ -9,9 +9,7 @@ use PHPStan\Analyser\Scope;
 class DefinedVariableInAnonymousFunctionUseRule implements \PHPStan\Rules\Rule
 {
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $checkMaybeUndefinedVariables;
 
 	public function __construct(

@@ -7,24 +7,16 @@ use PHPStan\Analyser\Error;
 class AnalysisResult
 {
 
-	/**
-	 * @var \PHPStan\Analyser\Error[] sorted by their file name, line number and message
-	 */
+	/** @var \PHPStan\Analyser\Error[] sorted by their file name, line number and message */
 	private $fileSpecificErrors;
 
-	/**
-	 * @var string[]
-	 */
+	/** @var string[] */
 	private $notFileSpecificErrors;
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $defaultLevelUsed;
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $currentDirectory;
 
 	/**

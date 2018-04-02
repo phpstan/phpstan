@@ -79,7 +79,7 @@ class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWit
 			$this->parameters = array_map(function (\ReflectionParameter $reflection) {
 				return new PhpParameterReflection(
 					$reflection,
-					isset($this->phpDocParameterTypes[$reflection->getName()]) ? $this->phpDocParameterTypes[$reflection->getName()] : null
+					array_key_exists($reflection->getName(), $this->phpDocParameterTypes) ? $this->phpDocParameterTypes[$reflection->getName()] : null
 				);
 			}, $this->reflection->getParameters());
 			if (

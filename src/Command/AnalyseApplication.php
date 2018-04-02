@@ -13,19 +13,13 @@ use Symfony\Component\Finder\Finder;
 class AnalyseApplication
 {
 
-	/**
-	 * @var \PHPStan\Analyser\Analyser
-	 */
+	/** @var \PHPStan\Analyser\Analyser */
 	private $analyser;
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $memoryLimitFile;
 
-	/**
-	 * @var string[]
-	 */
+	/** @var string[] */
 	private $fileExtensions;
 
 	/** @var \PHPStan\File\FileHelper */

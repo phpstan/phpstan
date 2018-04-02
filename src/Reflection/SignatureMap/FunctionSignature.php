@@ -7,19 +7,13 @@ use PHPStan\Type\Type;
 class FunctionSignature
 {
 
-	/**
-	 * @var \PHPStan\Reflection\SignatureMap\ParameterSignature[]
-	 */
+	/** @var \PHPStan\Reflection\SignatureMap\ParameterSignature[] */
 	private $parameters;
 
-	/**
-	 * @var \PHPStan\Type\Type
-	 */
+	/** @var \PHPStan\Type\Type */
 	private $returnType;
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $variadic;
 
 	/**

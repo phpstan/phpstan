@@ -9,9 +9,7 @@ use PHPStan\Type\UnionType;
 class IterableInForeachRule implements \PHPStan\Rules\Rule
 {
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $checkUnionTypes;
 
 	public function __construct(bool $checkUnionTypes)

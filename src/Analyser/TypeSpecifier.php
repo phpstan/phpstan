@@ -33,39 +33,25 @@ use PHPStan\Type\UnionType;
 class TypeSpecifier
 {
 
-	/**
-	 * @var \PhpParser\PrettyPrinter\Standard
-	 */
+	/** @var \PhpParser\PrettyPrinter\Standard */
 	private $printer;
 
-	/**
-	 * @var \PHPStan\Broker\Broker
-	 */
+	/** @var \PHPStan\Broker\Broker */
 	private $broker;
 
-	/**
-	 * @var \PHPStan\Type\FunctionTypeSpecifyingExtension[]
-	 */
+	/** @var \PHPStan\Type\FunctionTypeSpecifyingExtension[] */
 	private $functionTypeSpecifyingExtensions = [];
 
-	/**
-	 * @var \PHPStan\Type\MethodTypeSpecifyingExtension[]
-	 */
+	/** @var \PHPStan\Type\MethodTypeSpecifyingExtension[] */
 	private $methodTypeSpecifyingExtensions = [];
 
-	/**
-	 * @var \PHPStan\Type\StaticMethodTypeSpecifyingExtension[]
-	 */
+	/** @var \PHPStan\Type\StaticMethodTypeSpecifyingExtension[] */
 	private $staticMethodTypeSpecifyingExtensions = [];
 
-	/**
-	 * @var \PHPStan\Type\MethodTypeSpecifyingExtension[]
-	 */
+	/** @var \PHPStan\Type\MethodTypeSpecifyingExtension[] */
 	private $methodTypeSpecifyingExtensionsByClass;
 
-	/**
-	 * @var \PHPStan\Type\StaticMethodTypeSpecifyingExtension[]
-	 */
+	/** @var \PHPStan\Type\StaticMethodTypeSpecifyingExtension[] */
 	private $staticMethodTypeSpecifyingExtensionsByClass;
 
 	/**
@@ -166,7 +152,6 @@ class TypeSpecifier
 					return $leftTypes->unionWith($rightTypes);
 				}
 			}
-
 		} elseif ($expr instanceof Node\Expr\BinaryOp\NotIdentical) {
 			return $this->specifyTypesInCondition(
 				$scope,

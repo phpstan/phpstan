@@ -7,14 +7,10 @@ use PHPStan\Type\TypeCombinator;
 class SpecifiedTypes
 {
 
-	/**
-	 * @var mixed[]
-	 */
+	/** @var mixed[] */
 	private $sureTypes;
 
-	/**
-	 * @var mixed[]
-	 */
+	/** @var mixed[] */
 	private $sureNotTypes;
 
 	/**

@@ -5,9 +5,7 @@ namespace PHPStan\Rules\Variables;
 class DefinedVariableInAnonymousFunctionUseRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $checkMaybeUndefinedVariables;
 
 	protected function getRule(): \PHPStan\Rules\Rule

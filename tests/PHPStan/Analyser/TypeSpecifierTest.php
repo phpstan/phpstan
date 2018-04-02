@@ -21,7 +21,7 @@ use PHPStan\Type\UnionType;
 class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 {
 
-	/** @var \PhpParser\PrettyPrinter\Standard() */
+	/** @var \PhpParser\PrettyPrinter\Standard */
 	private $printer;
 
 	/** @var \PHPStan\Analyser\TypeSpecifier */

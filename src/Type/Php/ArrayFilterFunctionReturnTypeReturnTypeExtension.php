@@ -40,7 +40,6 @@ class ArrayFilterFunctionReturnTypeReturnTypeExtension implements \PHPStan\Type\
 					$itemType = $scope->getVariableType($itemVariableName);
 				}
 			}
-
 		} else {
 			$keyType = new MixedType();
 			$itemType = new MixedType();

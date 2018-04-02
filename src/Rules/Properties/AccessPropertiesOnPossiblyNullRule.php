@@ -11,14 +11,10 @@ use PHPStan\Type\UnionType;
 class AccessPropertiesOnPossiblyNullRule implements \PHPStan\Rules\Rule
 {
 
-	/**
-	 * @var \PHPStan\Rules\RuleLevelHelper
-	 */
+	/** @var \PHPStan\Rules\RuleLevelHelper */
 	private $ruleLevelHelper;
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $checkThisOnly;
 
 	public function __construct(
