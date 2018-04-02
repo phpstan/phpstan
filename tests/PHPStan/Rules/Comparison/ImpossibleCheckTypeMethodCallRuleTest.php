@@ -6,6 +6,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Analyser\SpecifiedTypes;
 use PHPStan\Analyser\TypeSpecifier;
+use PHPStan\Analyser\TypeSpecifierAwareExtension;
 use PHPStan\Analyser\TypeSpecifierContext;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Tests\AssertionClassMethodTypeSpecifyingExtension;
@@ -24,20 +25,15 @@ class ImpossibleCheckTypeMethodCallRuleTest extends \PHPStan\Testing\RuleTestCas
 	 */
 	protected function getMethodTypeSpecifyingExtensions(): array
 	{
-		$typeSpecifier = $this->createTypeSpecifier(
-			new \PhpParser\PrettyPrinter\Standard(),
-			$this->createBroker(),
-			[],
-			[]
-		);
 		return [
 			new AssertionClassMethodTypeSpecifyingExtension(null),
-			new class($typeSpecifier) implements MethodTypeSpecifyingExtension {
+			new class() implements MethodTypeSpecifyingExtension,
+				TypeSpecifierAwareExtension {
 
 				/** @var TypeSpecifier */
 				private $typeSpecifier;
 
-				public function __construct(TypeSpecifier $typeSpecifier)
+				public function setTypeSpecifier(TypeSpecifier $typeSpecifier): void
 				{
 					$this->typeSpecifier = $typeSpecifier;
 				}
@@ -77,7 +73,6 @@ class ImpossibleCheckTypeMethodCallRuleTest extends \PHPStan\Testing\RuleTestCas
 						TypeSpecifierContext::createTruthy()
 					);
 				}
-
 			},
 		];
 	}
