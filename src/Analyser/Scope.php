@@ -1062,6 +1062,13 @@ class Scope
 			}
 
 			return $parametersAcceptor->getReturnType();
+		} elseif (count($sureTypes) > 0) {
+			$types = TypeCombinator::union(...array_map(function ($sureType) {
+				return $sureType[1];
+			}, array_values($sureTypes)));
+			if ($types instanceof NeverType) {
+				return new ConstantBooleanType(false);
+			}
 		}
 
 		return null;
