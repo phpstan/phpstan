@@ -32,9 +32,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 	/** @var \PHPStan\Rules\ClassCaseSensitivityCheck */
 	private $classCaseSensitivityCheck;
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $checkFunctionNameCase;
 
 	public function __construct(

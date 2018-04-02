@@ -13,9 +13,7 @@ class CallToNonExistentFunctionRule implements \PHPStan\Rules\Rule
 	/** @var \PHPStan\Broker\Broker */
 	private $broker;
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $checkFunctionNameCase;
 
 	public function __construct(

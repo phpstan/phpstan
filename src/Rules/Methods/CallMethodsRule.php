@@ -22,9 +22,7 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 	/** @var \PHPStan\Rules\RuleLevelHelper */
 	private $ruleLevelHelper;
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $checkFunctionNameCase;
 
 	public function __construct(

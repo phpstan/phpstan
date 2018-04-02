@@ -24,7 +24,7 @@ class FileTypeMapper
 	/** @var \PHPStan\PhpDoc\ResolvedPhpDocBlock[][] */
 	private $memoryCache = [];
 
-	/** @var (false|callable|\PHPStan\PhpDoc\ResolvedPhpDocBlock)[][] */
+	/** @var \PHPStan\PhpDoc\ResolvedPhpDocBlock[][]|false[][]|callable[][] */
 	private $inProcess = [];
 
 	public function __construct(
@@ -115,7 +115,6 @@ class FileTypeMapper
 				$this->inProcess[$fileName][$phpDocKey] = $data = $resolveCallback();
 				$phpDocMap[$phpDocKey] = $data;
 			}
-
 		} finally {
 			unset($this->inProcess[$fileName]);
 		}

@@ -62,84 +62,52 @@ use PHPStan\Type\VoidType;
 class Scope
 {
 
-	/**
-	 * @var \PHPStan\Broker\Broker
-	 */
+	/** @var \PHPStan\Broker\Broker */
 	private $broker;
 
-	/**
-	 * @var \PhpParser\PrettyPrinter\Standard
-	 */
+	/** @var \PhpParser\PrettyPrinter\Standard */
 	private $printer;
 
-	/**
-	 * @var \PHPStan\Analyser\TypeSpecifier
-	 */
+	/** @var \PHPStan\Analyser\TypeSpecifier */
 	private $typeSpecifier;
 
-	/**
-	 * @var \PHPStan\Analyser\ScopeContext
-	 */
+	/** @var \PHPStan\Analyser\ScopeContext */
 	private $context;
 
-	/**
-	 * @var \PHPStan\Type\Type[]
-	 */
+	/** @var \PHPStan\Type\Type[] */
 	private $resolvedTypes = [];
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $declareStrictTypes;
 
-	/**
-	 * @var \PHPStan\Reflection\FunctionReflection|MethodReflection|null
-	 */
+	/** @var \PHPStan\Reflection\FunctionReflection|MethodReflection|null */
 	private $function;
 
-	/**
-	 * @var string|null
-	 */
+	/** @var string|null */
 	private $namespace;
 
-	/**
-	 * @var \PHPStan\Analyser\VariableTypeHolder[]
-	 */
+	/** @var \PHPStan\Analyser\VariableTypeHolder[] */
 	private $variableTypes;
 
-	/**
-	 * @var \PHPStan\Type\Type[]
-	 */
+	/** @var \PHPStan\Type\Type[] */
 	private $moreSpecificTypes;
 
-	/**
-	 * @var string|null
-	 */
+	/** @var string|null */
 	private $inClosureBindScopeClass;
 
-	/**
-	 * @var \PHPStan\Type\Type|null
-	 */
+	/** @var \PHPStan\Type\Type|null */
 	private $inAnonymousFunctionReturnType;
 
-	/**
-	 * @var \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null
-	 */
+	/** @var \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null */
 	private $inFunctionCall;
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $negated;
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $inFirstLevelStatement;
 
-	/**
-	 * @var string[]
-	 */
+	/** @var string[] */
 	private $currentlyAssignedExpressions = [];
 
 	/**

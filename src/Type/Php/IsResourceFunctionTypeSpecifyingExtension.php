@@ -15,9 +15,7 @@ use PHPStan\Type\ResourceType;
 class IsResourceFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtension, TypeSpecifierAwareExtension
 {
 
-	/**
-	 * @var \PHPStan\Analyser\TypeSpecifier
-	 */
+	/** @var \PHPStan\Analyser\TypeSpecifier */
 	private $typeSpecifier;
 
 	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, TypeSpecifierContext $context): bool
