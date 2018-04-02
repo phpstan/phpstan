@@ -30,6 +30,8 @@ class Foo
 		$assertion = new \PHPStan\Tests\AssertionClass();
 		$assertion::assertInt($foo);
 		$assertion::assertInt($bar);
+		$assertion::assertInt(1, 2);
+		$assertion::assertInt(1, 2, 3);
 	}
 
 }

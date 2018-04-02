@@ -46,17 +46,19 @@ class ImpossibleCheckTypeMethodCallRule implements \PHPStan\Rules\Rule
 			$method = $this->getMethod($node->var, $node->name, $scope);
 
 			return [sprintf(
-				'Call to method %s::%s() will always evaluate to false.',
+				'Call to method %s::%s()%s will always evaluate to false.',
 				$method->getDeclaringClass()->getDisplayName(),
-				$method->getName()
+				$method->getName(),
+				ImpossibleCheckTypeHelper::getArgumentsDescription($scope, $node->args)
 			)];
 		} elseif ($this->checkAlwaysTrueCheckTypeFunctionCall) {
 			$method = $this->getMethod($node->var, $node->name, $scope);
 
 			return [sprintf(
-				'Call to method %s::%s() will always evaluate to true.',
+				'Call to method %s::%s()%s will always evaluate to true.',
 				$method->getDeclaringClass()->getDisplayName(),
-				$method->getName()
+				$method->getName(),
+				ImpossibleCheckTypeHelper::getArgumentsDescription($scope, $node->args)
 			)];
 		}
 

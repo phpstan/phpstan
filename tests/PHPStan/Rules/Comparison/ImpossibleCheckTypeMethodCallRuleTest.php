@@ -81,19 +81,19 @@ class ImpossibleCheckTypeMethodCallRuleTest extends \PHPStan\Testing\RuleTestCas
 	{
 		$this->analyse([__DIR__ . '/data/impossible-method-call.php'], [
 			[
-				'Call to method PHPStan\Tests\AssertionClass::assertString() will always evaluate to true.',
+				'Call to method PHPStan\Tests\AssertionClass::assertString() with string will always evaluate to true.',
 				14,
 			],
 			[
-				'Call to method PHPStan\Tests\AssertionClass::assertString() will always evaluate to false.',
+				'Call to method PHPStan\Tests\AssertionClass::assertString() with int will always evaluate to false.',
 				15,
 			],
 			[
-				'Call to method PHPStan\Tests\AssertionClass::assertNotInt() will always evaluate to false.',
+				'Call to method PHPStan\Tests\AssertionClass::assertNotInt() with int will always evaluate to false.',
 				30,
 			],
 			[
-				'Call to method PHPStan\Tests\AssertionClass::assertNotInt() will always evaluate to true.',
+				'Call to method PHPStan\Tests\AssertionClass::assertNotInt() with string will always evaluate to true.',
 				36,
 			],
 		]);
