@@ -21,4 +21,17 @@ class AssertionClass
 		return true;
 	}
 
+	/**
+	 * @param mixed $arg
+	 * @return bool
+	 */
+	public function assertNotInt($arg): bool
+	{
+		if (is_int($arg)) {
+			throw new \Exception();
+		}
+
+		return true;
+	}
+
 }

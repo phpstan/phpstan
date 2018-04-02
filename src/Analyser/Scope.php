@@ -1029,7 +1029,9 @@ class Scope
 		ParametersAcceptor $parametersAcceptor
 	): ?Type
 	{
-		$sureTypes = $this->typeSpecifier->specifyTypesInCondition($this, $node, TypeSpecifierContext::createTruthy())->getSureTypes();
+		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this, $node, TypeSpecifierContext::createTruthy());
+		$sureTypes = $specifiedTypes->getSureTypes();
+		$sureNotTypes = $specifiedTypes->getSureNotTypes();
 		if (count($sureTypes) === 1) {
 			$sureType = reset($sureTypes);
 			$argumentType = $this->getType($sureType[0]);
@@ -1042,6 +1044,21 @@ class Scope
 				return new ConstantBooleanType(true);
 			} elseif ($isSuperType->no()) {
 				return new ConstantBooleanType(false);
+			}
+
+			return $parametersAcceptor->getReturnType();
+		} elseif (count($sureNotTypes) === 1) {
+			$sureNotType = reset($sureNotTypes);
+			$argumentType = $this->getType($sureNotType[0]);
+
+			/** @var \PHPStan\Type\Type $resultType */
+			$resultType = $sureNotType[1];
+
+			$isSuperType = $resultType->isSuperTypeOf($argumentType);
+			if ($isSuperType->yes()) {
+				return new ConstantBooleanType(false);
+			} elseif ($isSuperType->no()) {
+				return new ConstantBooleanType(true);
 			}
 
 			return $parametersAcceptor->getReturnType();
