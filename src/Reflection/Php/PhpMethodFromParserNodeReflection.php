@@ -15,6 +15,15 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 	/** @var \PHPStan\Reflection\ClassReflection */
 	private $declaringClass;
 
+	/**
+	 * @param ClassReflection $declaringClass
+	 * @param ClassMethod $classMethod
+	 * @param \PHPStan\Type\Type[] $realParameterTypes
+	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
+	 * @param bool $realReturnTypePresent
+	 * @param Type $realReturnType
+	 * @param null|Type $phpDocReturnType
+	 */
 	public function __construct(
 		ClassReflection $declaringClass,
 		ClassMethod $classMethod,
@@ -22,7 +31,7 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 		array $phpDocParameterTypes,
 		bool $realReturnTypePresent,
 		Type $realReturnType,
-		Type $phpDocReturnType = null
+		?Type $phpDocReturnType = null
 	)
 	{
 		parent::__construct(

@@ -1737,7 +1737,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			// string
 			[
-				$typeCallback('a' . 'b'),
+				'string',
 				"'a' . 'b'",
 			],
 			[

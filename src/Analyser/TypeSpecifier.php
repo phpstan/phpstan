@@ -33,39 +33,25 @@ use PHPStan\Type\UnionType;
 class TypeSpecifier
 {
 
-	/**
-	 * @var \PhpParser\PrettyPrinter\Standard
-	 */
+	/** @var \PhpParser\PrettyPrinter\Standard */
 	private $printer;
 
-	/**
-	 * @var \PHPStan\Broker\Broker
-	 */
+	/** @var \PHPStan\Broker\Broker */
 	private $broker;
 
-	/**
-	 * @var \PHPStan\Type\FunctionTypeSpecifyingExtension[]
-	 */
+	/** @var \PHPStan\Type\FunctionTypeSpecifyingExtension[] */
 	private $functionTypeSpecifyingExtensions = [];
 
-	/**
-	 * @var \PHPStan\Type\MethodTypeSpecifyingExtension[]
-	 */
+	/** @var \PHPStan\Type\MethodTypeSpecifyingExtension[] */
 	private $methodTypeSpecifyingExtensions = [];
 
-	/**
-	 * @var \PHPStan\Type\StaticMethodTypeSpecifyingExtension[]
-	 */
+	/** @var \PHPStan\Type\StaticMethodTypeSpecifyingExtension[] */
 	private $staticMethodTypeSpecifyingExtensions = [];
 
-	/**
-	 * @var \PHPStan\Type\MethodTypeSpecifyingExtension[]
-	 */
+	/** @var \PHPStan\Type\MethodTypeSpecifyingExtension[] */
 	private $methodTypeSpecifyingExtensionsByClass;
 
-	/**
-	 * @var \PHPStan\Type\StaticMethodTypeSpecifyingExtension[]
-	 */
+	/** @var \PHPStan\Type\StaticMethodTypeSpecifyingExtension[] */
 	private $staticMethodTypeSpecifyingExtensionsByClass;
 
 	/**
@@ -87,9 +73,11 @@ class TypeSpecifier
 		$this->broker = $broker;
 
 		foreach (array_merge($functionTypeSpecifyingExtensions, $methodTypeSpecifyingExtensions, $staticMethodTypeSpecifyingExtensions) as $extension) {
-			if ($extension instanceof TypeSpecifierAwareExtension) {
-				$extension->setTypeSpecifier($this);
+			if (!($extension instanceof TypeSpecifierAwareExtension)) {
+				continue;
 			}
+
+			$extension->setTypeSpecifier($this);
 		}
 
 		$this->functionTypeSpecifyingExtensions = $functionTypeSpecifyingExtensions;
@@ -128,7 +116,9 @@ class TypeSpecifier
 		} elseif ($expr instanceof Node\Expr\BinaryOp\Identical) {
 			$expressions = $this->findTypeExpressionsFromBinaryOperation($expr);
 			if ($expressions !== null) {
-				$constantName = strtolower((string) $expressions[1]->name);
+				/** @var ConstFetch $constFetchExpression */
+				$constFetchExpression = $expressions[1];
+				$constantName = strtolower((string) $constFetchExpression->name);
 				if ($constantName === 'false') {
 					$types = $this->create($expressions[0], new ConstantBooleanType(false), $context);
 					return $types->unionWith($this->specifyTypesInCondition(
@@ -176,7 +166,9 @@ class TypeSpecifier
 		} elseif ($expr instanceof Node\Expr\BinaryOp\Equal) {
 			$expressions = $this->findTypeExpressionsFromBinaryOperation($expr);
 			if ($expressions !== null) {
-				$constantName = strtolower((string) $expressions[1]->name);
+				/** @var ConstFetch $constFetchExpression */
+				$constFetchExpression = $expressions[1];
+				$constantName = strtolower((string) $constFetchExpression->name);
 				if ($constantName === 'false' || $constantName === 'null') {
 					return $this->specifyTypesInCondition(
 						$scope,
@@ -340,7 +332,7 @@ class TypeSpecifier
 
 	/**
 	 * @param \PhpParser\Node\Expr\BinaryOp $binaryOperation
-	 * @return array|null
+	 * @return Expr[]|null
 	 */
 	private function findTypeExpressionsFromBinaryOperation(Node\Expr\BinaryOp $binaryOperation): ?array
 	{

@@ -27,6 +27,10 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 		$this->output = $output;
 	}
 
+	/**
+	 * @param string[] $headers
+	 * @param string[][] $rows
+	 */
 	public function table(array $headers, array $rows): void
 	{
 		$terminalWidth = (new \Symfony\Component\Console\Terminal())->getWidth();

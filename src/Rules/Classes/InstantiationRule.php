@@ -12,19 +12,13 @@ use PHPStan\Rules\FunctionCallParametersCheck;
 class InstantiationRule implements \PHPStan\Rules\Rule
 {
 
-	/**
-	 * @var \PHPStan\Broker\Broker
-	 */
+	/** @var \PHPStan\Broker\Broker */
 	private $broker;
 
-	/**
-	 * @var \PHPStan\Rules\FunctionCallParametersCheck
-	 */
+	/** @var \PHPStan\Rules\FunctionCallParametersCheck */
 	private $check;
 
-	/**
-	 * @var \PHPStan\Rules\ClassCaseSensitivityCheck
-	 */
+	/** @var \PHPStan\Rules\ClassCaseSensitivityCheck */
 	private $classCaseSensitivityCheck;
 
 	public function __construct(

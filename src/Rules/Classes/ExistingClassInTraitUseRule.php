@@ -9,9 +9,7 @@ use PHPStan\Rules\ClassCaseSensitivityCheck;
 class ExistingClassInTraitUseRule implements \PHPStan\Rules\Rule
 {
 
-	/**
-	 * @var \PHPStan\Rules\ClassCaseSensitivityCheck
-	 */
+	/** @var \PHPStan\Rules\ClassCaseSensitivityCheck */
 	private $classCaseSensitivityCheck;
 
 	public function __construct(ClassCaseSensitivityCheck $classCaseSensitivityCheck)

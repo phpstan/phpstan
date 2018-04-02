@@ -39,7 +39,9 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			]);
 	}
 
-
+	/**
+	 * @return string[]
+	 */
 	public function getAliases(): array
 	{
 		return ['analyze'];

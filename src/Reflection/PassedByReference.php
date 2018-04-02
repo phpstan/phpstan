@@ -64,6 +64,10 @@ class PassedByReference
 		return $this->value === self::CREATES_NEW_VARIABLE;
 	}
 
+	/**
+	 * @param mixed[] $properties
+	 * @return self
+	 */
 	public static function __set_state(array $properties): self
 	{
 		return new self($properties['value']);

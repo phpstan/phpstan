@@ -11,9 +11,7 @@ use Symfony\Component\Console\Output\StreamOutput;
 class CheckstyleErrorFormatterTest extends \PHPStan\Testing\TestCase
 {
 
-	/**
-	 * @var CheckstyleErrorFormatter
-	 */
+	/** @var CheckstyleErrorFormatter */
 	protected $formatter;
 
 	/**

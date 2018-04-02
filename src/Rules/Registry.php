@@ -5,14 +5,10 @@ namespace PHPStan\Rules;
 class Registry
 {
 
-	/**
-	 * @var \PHPStan\Rules\Rule[][]
-	 */
+	/** @var \PHPStan\Rules\Rule[][] */
 	private $rules = [];
 
-	/**
-	 * @var \PHPStan\Rules\Rule[][]
-	 */
+	/** @var \PHPStan\Rules\Rule[][] */
 	private $cache = [];
 
 	/**

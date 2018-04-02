@@ -291,18 +291,20 @@ class PhpClassReflectionExtension
 
 		$declaringClass = $propertyReflection->getDeclaringClass();
 		foreach ($declaringClass->getTraits() as $traitReflection) {
-			if ($traitReflection->hasProperty($propertyReflection->getName())) {
-				$traitResolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
-					$phpDocBlock->getFile(),
-					$phpDocBlock->getClass(),
-					$traitReflection->getName(),
-					$phpDocBlock->getDocComment()
-				);
-				if (
-					count($traitResolvedPhpDoc->getVarTags()) > 0
-				) {
-					return $traitReflection->getName();
-				}
+			if (!$traitReflection->hasProperty($propertyReflection->getName())) {
+				continue;
+			}
+
+			$traitResolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
+				$phpDocBlock->getFile(),
+				$phpDocBlock->getClass(),
+				$traitReflection->getName(),
+				$phpDocBlock->getDocComment()
+			);
+			if (
+				count($traitResolvedPhpDoc->getVarTags()) > 0
+			) {
+				return $traitReflection->getName();
 			}
 		}
 
@@ -326,14 +328,16 @@ class PhpClassReflectionExtension
 		}
 
 		foreach ($declaringClass->getTraits() as $traitReflection) {
-			if ($traitReflection->hasMethod($methodReflection->getName())) {
-				$traitMethodReflection = $traitReflection->getMethod($methodReflection->getName());
-				if (
-					$traitMethodReflection->getFileName() === $methodReflection->getFileName()
-					&& $traitMethodReflection->getStartLine() === $methodReflection->getStartLine()
-				) {
-					return $traitReflection->getName();
-				}
+			if (!$traitReflection->hasMethod($methodReflection->getName())) {
+				continue;
+			}
+
+			$traitMethodReflection = $traitReflection->getMethod($methodReflection->getName());
+			if (
+				$traitMethodReflection->getFileName() === $methodReflection->getFileName()
+				&& $traitMethodReflection->getStartLine() === $methodReflection->getStartLine()
+			) {
+				return $traitReflection->getName();
 			}
 		}
 

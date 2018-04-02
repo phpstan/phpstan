@@ -31,6 +31,10 @@ class ConstantFloatType extends FloatType implements ConstantScalarType
 		return sprintf('float(%f)', $this->value);
 	}
 
+	/**
+	 * @param mixed[] $properties
+	 * @return Type
+	 */
 	public static function __set_state(array $properties): Type
 	{
 		return new self($properties['value']);

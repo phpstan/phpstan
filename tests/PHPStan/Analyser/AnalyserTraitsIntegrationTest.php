@@ -7,9 +7,7 @@ use PHPStan\File\FileHelper;
 class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 {
 
-	/**
-	 * @var \PHPStan\File\FileHelper
-	 */
+	/** @var \PHPStan\File\FileHelper */
 	private $fileHelper;
 
 	protected function setUp(): void

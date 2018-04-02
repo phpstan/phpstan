@@ -28,7 +28,7 @@ class ImpossibleCheckTypeMethodCallRuleTest extends \PHPStan\Testing\RuleTestCas
 		return [
 			new AssertionClassMethodTypeSpecifyingExtension(null),
 			new class() implements MethodTypeSpecifyingExtension,
-				TypeSpecifierAwareExtension {
+			TypeSpecifierAwareExtension {
 
 				/** @var TypeSpecifier */
 				private $typeSpecifier;

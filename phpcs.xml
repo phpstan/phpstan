@@ -2,27 +2,11 @@
 <ruleset name="PHPStan">
 	<rule ref="vendor/consistence/coding-standard/Consistence/ruleset.xml">
 		<exclude name="Squiz.Functions.GlobalFunction.Found"/>
-		<exclude name="Consistence.Exceptions.ExceptionDeclaration"/>
-	</rule>
-	<rule ref="vendor/slevomat/coding-standard/SlevomatCodingStandard/ruleset.xml">
-		<exclude name="SlevomatCodingStandard.Files.TypeNameMatchesFileName"/>
 		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameAfterKeyword"/>
-		<exclude name="SlevomatCodingStandard.Namespaces.UseOnlyWhitelistedNamespaces"/>
+		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation"/>
+		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedExceptions"/>
 		<exclude name="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly"/>
-		<exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableParameterTypeHintSpecification"/>
-		<exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableReturnTypeHintSpecification"/>
-		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation.NonFullyQualifiedClassName"/>
-		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalConstants"/>
-		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalFunctions"/>
-		<exclude name="SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue"/>
-		<exclude name="SlevomatCodingStandard.ControlStructures.RequireYodaComparison.RequiredYodaComparison"/>
-	</rule>
-	<rule ref="Squiz.PHP.InnerFunctions.NotAllowed">
-		<exclude-pattern>tests/TestCase.php</exclude-pattern>
-		<exclude-pattern>tests/PHPStan/Analyser/NodeScopeResolverTest.php</exclude-pattern>
-	</rule>
-	<rule ref="Squiz.Operators.ValidLogicalOperators.NotAllowed">
-		<exclude-pattern>tests/PHPStan/Analyser/NodeScopeResolverTest.php</exclude-pattern>
+		<exclude name="Consistence.Exceptions.ExceptionDeclaration"/>
 	</rule>
 	<rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses">
 		<properties>
@@ -42,7 +26,27 @@
 			"/>
 		</properties>
 	</rule>
-	<rule ref="Generic.Strings.UnnecessaryStringConcat.Found">
-		<exclude-pattern>tests/PHPStan/Analyser/NodeScopeResolverTest.php</exclude-pattern>
+	<rule ref="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableReturnTypeHintSpecification">
+		<exclude-pattern>tests/*</exclude-pattern>
 	</rule>
+	<rule ref="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableParameterTypeHintSpecification">
+		<exclude-pattern>tests/*</exclude-pattern>
+	</rule>
+	<rule ref="SlevomatCodingStandard.ControlStructures.AssignmentInCondition"/>
+	<rule ref="SlevomatCodingStandard.ControlStructures.DisallowEqualOperators"/>
+	<rule ref="SlevomatCodingStandard.ControlStructures.EarlyExit"/>
+	<rule ref="SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming"/>
+	<rule ref="SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming"/>
+	<!-- <rule ref="SlevomatCodingStandard.ControlStructures.DisallowShortTernaryOperator"/>-->
+	<!-- <rule ref="SlevomatCodingStandard.Namespaces.RequireOneNamespaceInFile"/> -->
+	<!-- <rule ref="SlevomatCodingStandard.PHP.ShortList"/> -->
+	<rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">
+		<properties>
+			<property name="rootNamespaces" type="array" value="src=>PHPStan,tests/PHPStan=>PHPStan"/>
+		</properties>
+	</rule>
+	<exclude-pattern>tests/*/data</exclude-pattern>
+	<exclude-pattern>tests/*/traits</exclude-pattern>
+	<exclude-pattern>tests/notAutoloaded</exclude-pattern>
+	<exclude-pattern>src/Reflection/SignatureMap/functionMap.php</exclude-pattern>
 </ruleset>

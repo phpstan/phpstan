@@ -12,6 +12,10 @@ class FileExcluder
 	 */
 	private $analyseExcludes;
 
+	/**
+	 * @param FileHelper $fileHelper
+	 * @param string[] $analyseExcludes
+	 */
 	public function __construct(
 		FileHelper $fileHelper,
 		array $analyseExcludes

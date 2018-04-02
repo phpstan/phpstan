@@ -7,24 +7,16 @@ use PHPStan\Type\Type;
 class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
 {
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $name;
 
-	/**
-	 * @var \PHPStan\Reflection\Native\NativeParameterReflection[]
-	 */
+	/** @var \PHPStan\Reflection\Native\NativeParameterReflection[] */
 	private $parameters;
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $variadic;
 
-	/**
-	 * @var \PHPStan\Type\Type
-	 */
+	/** @var \PHPStan\Type\Type */
 	private $returnType;
 
 	/**

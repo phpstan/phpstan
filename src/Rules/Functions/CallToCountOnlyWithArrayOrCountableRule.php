@@ -14,9 +14,7 @@ use PHPStan\Type\UnionType;
 class CallToCountOnlyWithArrayOrCountableRule implements \PHPStan\Rules\Rule
 {
 
-	/**
-	 * @var \PHPStan\Rules\RuleLevelHelper
-	 */
+	/** @var \PHPStan\Rules\RuleLevelHelper */
 	private $ruleLevelHelper;
 
 	public function __construct(RuleLevelHelper $ruleLevelHelper)

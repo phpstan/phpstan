@@ -248,6 +248,10 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		return count($this->getKeyTypes());
 	}
 
+	/**
+	 * @param mixed[] $properties
+	 * @return Type
+	 */
 	public static function __set_state(array $properties): Type
 	{
 		return new self($properties['keyTypes'], $properties['valueTypes'], $properties['nextAutoIndex']);

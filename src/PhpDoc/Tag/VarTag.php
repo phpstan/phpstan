@@ -20,6 +20,10 @@ class VarTag
 		return $this->type;
 	}
 
+	/**
+	 * @param mixed[] $properties
+	 * @return self
+	 */
 	public static function __set_state(array $properties): self
 	{
 		return new self(

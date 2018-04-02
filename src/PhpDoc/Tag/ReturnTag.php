@@ -20,6 +20,10 @@ class ReturnTag
 		return $this->type;
 	}
 
+	/**
+	 * @param mixed[] $properties
+	 * @return ReturnTag
+	 */
 	public static function __set_state(array $properties): self
 	{
 		return new self(

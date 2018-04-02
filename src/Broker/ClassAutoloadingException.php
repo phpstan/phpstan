@@ -10,7 +10,7 @@ class ClassAutoloadingException extends \PHPStan\AnalysedCodeException
 
 	public function __construct(
 		string $functionName,
-		\Throwable $previous = null
+		?\Throwable $previous = null
 	)
 	{
 		if ($previous !== null) {

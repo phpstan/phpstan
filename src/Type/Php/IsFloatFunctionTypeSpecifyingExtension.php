@@ -15,18 +15,16 @@ use PHPStan\Type\FunctionTypeSpecifyingExtension;
 class IsFloatFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtension, TypeSpecifierAwareExtension
 {
 
-	/**
-	 * @var \PHPStan\Analyser\TypeSpecifier
-	 */
+	/** @var \PHPStan\Analyser\TypeSpecifier */
 	private $typeSpecifier;
 
 	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, TypeSpecifierContext $context): bool
 	{
 		return in_array(strtolower($functionReflection->getName()), [
-				'is_float',
-				'is_double',
-				'is_real',
-			], true)
+			'is_float',
+			'is_double',
+			'is_real',
+		], true)
 			&& isset($node->args[0])
 			&& !$context->null();
 	}

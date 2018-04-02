@@ -113,6 +113,10 @@ class TrinaryLogic
 		return $labels[$this->value];
 	}
 
+	/**
+	 * @param mixed[] $properties
+	 * @return self
+	 */
 	public static function __set_state(array $properties): self
 	{
 		return self::create($properties['value']);

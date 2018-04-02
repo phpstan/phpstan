@@ -82,6 +82,10 @@ class NullType implements ConstantScalarType
 		return $array->setOffsetValueType($offsetType, $valueType);
 	}
 
+	/**
+	 * @param mixed[] $properties
+	 * @return Type
+	 */
 	public static function __set_state(array $properties): Type
 	{
 		return new self();

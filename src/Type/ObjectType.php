@@ -323,6 +323,10 @@ class ObjectType implements TypeWithClassName
 		return TrinaryLogic::createYes();
 	}
 
+	/**
+	 * @param mixed[] $properties
+	 * @return Type
+	 */
 	public static function __set_state(array $properties): Type
 	{
 		return new self($properties['className']);

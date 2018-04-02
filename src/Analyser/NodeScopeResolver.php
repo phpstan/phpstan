@@ -105,6 +105,17 @@ class NodeScopeResolver
 	/** @var bool[] filePath(string) => bool(true) */
 	private $analysedFiles;
 
+	/**
+	 * @param Broker $broker
+	 * @param Parser $parser
+	 * @param \PhpParser\PrettyPrinter\Standard $printer
+	 * @param FileTypeMapper $fileTypeMapper
+	 * @param FileHelper $fileHelper
+	 * @param TypeSpecifier $typeSpecifier
+	 * @param bool $polluteScopeWithLoopInitialAssignments
+	 * @param bool $polluteCatchScopeWithTryAssignments
+	 * @param string[][] $earlyTerminatingMethodCalls className(string) => methods(string[])
+	 */
 	public function __construct(
 		Broker $broker,
 		Parser $parser,
@@ -146,7 +157,7 @@ class NodeScopeResolver
 		array $nodes,
 		Scope $scope,
 		\Closure $nodeCallback,
-		Scope $closureBindScope = null
+		?Scope $closureBindScope = null
 	): void
 	{
 		/** @var \PhpParser\Node|string $node */
@@ -916,7 +927,7 @@ class NodeScopeResolver
 		Scope $scope,
 		\PhpParser\Node $node,
 		TrinaryLogic $certainty,
-		LookForAssignsSettings $lookForAssignsSettings = null
+		?LookForAssignsSettings $lookForAssignsSettings = null
 	): Scope
 	{
 		if ($lookForAssignsSettings === null) {
@@ -1352,7 +1363,7 @@ class NodeScopeResolver
 		Scope $scope,
 		Node $var,
 		TrinaryLogic $certainty,
-		Type $subNodeType = null
+		?Type $subNodeType = null
 	): Scope
 	{
 		if ($var instanceof Variable && is_string($var->name)) {
@@ -1671,6 +1682,11 @@ class NodeScopeResolver
 		);
 	}
 
+	/**
+	 * @param Scope $scope
+	 * @param Node\FunctionLike $functionLike
+	 * @return mixed[]
+	 */
 	private function getPhpDocs(Scope $scope, Node\FunctionLike $functionLike): array
 	{
 		$phpDocParameterTypes = [];

@@ -9,9 +9,7 @@ use PHPStan\Broker\Broker;
 class ConstantRule implements \PHPStan\Rules\Rule
 {
 
-	/**
-	 * @var \PHPStan\Broker\Broker
-	 */
+	/** @var \PHPStan\Broker\Broker */
 	private $broker;
 
 	public function __construct(Broker $broker)

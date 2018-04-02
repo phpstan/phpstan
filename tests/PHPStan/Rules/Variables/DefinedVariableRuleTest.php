@@ -5,24 +5,16 @@ namespace PHPStan\Rules\Variables;
 class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $cliArgumentsVariablesRegistered;
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $checkMaybeUndefinedVariables;
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $polluteScopeWithLoopInitialAssignments;
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $polluteCatchScopeWithTryAssignments;
 
 	protected function getRule(): \PHPStan\Rules\Rule

@@ -48,13 +48,21 @@ class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWit
 	/** @var \PHPStan\Type\Type */
 	private $nativeReturnType;
 
+	/**
+	 * @param \ReflectionFunction $reflection
+	 * @param Parser $parser
+	 * @param FunctionCallStatementFinder $functionCallStatementFinder
+	 * @param Cache $cache
+	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
+	 * @param null|Type $phpDocReturnType
+	 */
 	public function __construct(
 		\ReflectionFunction $reflection,
 		Parser $parser,
 		FunctionCallStatementFinder $functionCallStatementFinder,
 		Cache $cache,
 		array $phpDocParameterTypes,
-		Type $phpDocReturnType = null
+		?Type $phpDocReturnType = null
 	)
 	{
 		$this->reflection = $reflection;

@@ -40,6 +40,14 @@ class ClassReflection
 	/** @var int[]|null */
 	private $classHierarchyDistances;
 
+	/**
+	 * @param Broker $broker
+	 * @param \PHPStan\Reflection\PropertiesClassReflectionExtension[] $propertiesClassReflectionExtensions
+	 * @param \PHPStan\Reflection\MethodsClassReflectionExtension[] $methodsClassReflectionExtensions
+	 * @param string $displayName
+	 * @param \ReflectionClass $reflection
+	 * @param bool $anonymous
+	 */
 	public function __construct(
 		Broker $broker,
 		array $propertiesClassReflectionExtensions,
@@ -361,6 +369,9 @@ class ClassReflection
 		return in_array($traitName, $this->getTraitNames(), true);
 	}
 
+	/**
+	 * @return string[]
+	 */
 	private function getTraitNames(): array
 	{
 		$class = $this->reflection;

@@ -89,7 +89,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 	 */
 	private function runAnalyser(
 		array $ignoreErrors,
-		string $bootstrapFile = null,
+		?string $bootstrapFile = null,
 		bool $reportUnmatchedIgnoredErrors,
 		string $filePath,
 		bool $onlyFiles
@@ -111,7 +111,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 	 */
 	private function createAnalyser(
 		array $ignoreErrors,
-		string $bootstrapFile = null,
+		?string $bootstrapFile = null,
 		bool $reportUnmatchedIgnoredErrors = true
 	): \PHPStan\Analyser\Analyser
 	{

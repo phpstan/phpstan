@@ -10,9 +10,7 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 	/** @var bool */
 	private $checkThisOnly;
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $checkUnionTypes;
 
 	protected function getRule(): \PHPStan\Rules\Rule

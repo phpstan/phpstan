@@ -30,24 +30,16 @@ class FunctionDefinitionCheck
 		'parent',
 	];
 
-	/**
-	 * @var \PHPStan\Broker\Broker
-	 */
+	/** @var \PHPStan\Broker\Broker */
 	private $broker;
 
-	/**
-	 * @var \PHPStan\Rules\ClassCaseSensitivityCheck
-	 */
+	/** @var \PHPStan\Rules\ClassCaseSensitivityCheck */
 	private $classCaseSensitivityCheck;
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $checkClassCaseSensitivity;
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $checkThisOnly;
 
 	public function __construct(
@@ -153,6 +145,12 @@ class FunctionDefinitionCheck
 		return $errors;
 	}
 
+	/**
+	 * @param ParametersAcceptorWithPhpDocs $parametersAcceptor
+	 * @param string $parameterMessage
+	 * @param string $returnMessage
+	 * @return string[]
+	 */
 	private function checkParametersAcceptor(
 		ParametersAcceptorWithPhpDocs $parametersAcceptor,
 		string $parameterMessage,

@@ -127,7 +127,7 @@ class FileTypeMapper
 	 * @param string $fileName
 	 * @param string|null $lookForTrait
 	 * @param string|null $traitUseClass
-	 * @return array<string, callable>
+	 * @return callable[]
 	 */
 	private function createFilePhpDocMap(
 		string $fileName,
@@ -200,9 +200,11 @@ class FileTypeMapper
 				} elseif ($node instanceof \PhpParser\Node\Stmt\GroupUse) {
 					$prefix = (string) $node->prefix;
 					foreach ($node->uses as $use) {
-						if ($node->type === \PhpParser\Node\Stmt\Use_::TYPE_NORMAL || $use->type === \PhpParser\Node\Stmt\Use_::TYPE_NORMAL) {
-							$uses[$use->alias] = sprintf('%s\\%s', $prefix, $use->name);
+						if ($node->type !== \PhpParser\Node\Stmt\Use_::TYPE_NORMAL && $use->type !== \PhpParser\Node\Stmt\Use_::TYPE_NORMAL) {
+							continue;
 						}
+
+						$uses[$use->alias] = sprintf('%s\\%s', $prefix, $use->name);
 					}
 					return;
 				} elseif (!in_array(get_class($node), [

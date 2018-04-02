@@ -12,14 +12,10 @@ class TypeSpecifierContext
 	public const CONTEXT_FALSEY_BUT_NOT_FALSE = 0b1000;
 	public const CONTEXT_FALSEY = self::CONTEXT_FALSE | self::CONTEXT_FALSEY_BUT_NOT_FALSE;
 
-	/**
-	 * @var int|null
-	 */
+	/** @var int|null */
 	private $value;
 
-	/**
-	 * @var self[]
-	 */
+	/** @var self[] */
 	private static $registry;
 
 	private function __construct(?int $value)

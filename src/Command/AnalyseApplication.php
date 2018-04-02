@@ -13,19 +13,13 @@ use Symfony\Component\Finder\Finder;
 class AnalyseApplication
 {
 
-	/**
-	 * @var \PHPStan\Analyser\Analyser
-	 */
+	/** @var \PHPStan\Analyser\Analyser */
 	private $analyser;
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $memoryLimitFile;
 
-	/**
-	 * @var string[]
-	 */
+	/** @var string[] */
 	private $fileExtensions;
 
 	/** @var \PHPStan\File\FileHelper */
@@ -34,6 +28,13 @@ class AnalyseApplication
 	/** @var \PHPStan\File\FileExcluder */
 	private $fileExcluder;
 
+	/**
+	 * @param Analyser $analyser
+	 * @param string $memoryLimitFile
+	 * @param FileHelper $fileHelper
+	 * @param string[] $fileExtensions
+	 * @param FileExcluder $fileExcluder
+	 */
 	public function __construct(
 		Analyser $analyser,
 		string $memoryLimitFile,

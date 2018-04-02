@@ -8,19 +8,13 @@ use PHPStan\File\FileHelper;
 class ContainerFactory
 {
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $currentWorkingDirectory;
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $rootDirectory;
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $configDirectory;
 
 	public function __construct(string $currentWorkingDirectory)
@@ -31,6 +25,11 @@ class ContainerFactory
 		$this->configDirectory = $this->rootDirectory . '/conf';
 	}
 
+	/**
+	 * @param string $tempDirectory
+	 * @param string[] $additionalConfigFiles
+	 * @return \Nette\DI\Container
+	 */
 	public function create(
 		string $tempDirectory,
 		array $additionalConfigFiles

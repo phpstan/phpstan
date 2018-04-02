@@ -32,9 +32,7 @@ use PHPStan\Type\Type;
 abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
 
-	/**
-	 * @var \Nette\DI\Container
-	 */
+	/** @var \Nette\DI\Container */
 	private static $container;
 
 	public function getContainer(): \Nette\DI\Container
@@ -95,11 +93,18 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				$this->cache = $cache;
 			}
 
+			/**
+			 * @param ClassReflection $declaringClass
+			 * @param \ReflectionMethod $reflection
+			 * @param Type[] $phpDocParameterTypes
+			 * @param null|Type $phpDocReturnType
+			 * @return PhpMethodReflection
+			 */
 			public function create(
 				ClassReflection $declaringClass,
 				\ReflectionMethod $reflection,
 				array $phpDocParameterTypes,
-				Type $phpDocReturnType = null
+				?Type $phpDocReturnType = null
 			): PhpMethodReflection
 			{
 				return new PhpMethodReflection(
@@ -141,10 +146,16 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				$this->cache = $cache;
 			}
 
+			/**
+			 * @param \ReflectionFunction $function
+			 * @param Type[] $phpDocParameterTypes
+			 * @param null|Type $phpDocReturnType
+			 * @return PhpFunctionReflection
+			 */
 			public function create(
 				\ReflectionFunction $function,
 				array $phpDocParameterTypes,
-				Type $phpDocReturnType = null
+				?Type $phpDocReturnType = null
 			): PhpFunctionReflection
 			{
 				return new PhpFunctionReflection(

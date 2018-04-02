@@ -62,84 +62,52 @@ use PHPStan\Type\VoidType;
 class Scope
 {
 
-	/**
-	 * @var \PHPStan\Broker\Broker
-	 */
+	/** @var \PHPStan\Broker\Broker */
 	private $broker;
 
-	/**
-	 * @var \PhpParser\PrettyPrinter\Standard
-	 */
+	/** @var \PhpParser\PrettyPrinter\Standard */
 	private $printer;
 
-	/**
-	 * @var \PHPStan\Analyser\TypeSpecifier
-	 */
+	/** @var \PHPStan\Analyser\TypeSpecifier */
 	private $typeSpecifier;
 
-	/**
-	 * @var \PHPStan\Analyser\ScopeContext
-	 */
+	/** @var \PHPStan\Analyser\ScopeContext */
 	private $context;
 
-	/**
-	 * @var \PHPStan\Type\Type[]
-	 */
+	/** @var \PHPStan\Type\Type[] */
 	private $resolvedTypes = [];
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $declareStrictTypes;
 
-	/**
-	 * @var \PHPStan\Reflection\FunctionReflection|MethodReflection|null
-	 */
+	/** @var \PHPStan\Reflection\FunctionReflection|MethodReflection|null */
 	private $function;
 
-	/**
-	 * @var string|null
-	 */
+	/** @var string|null */
 	private $namespace;
 
-	/**
-	 * @var \PHPStan\Analyser\VariableTypeHolder[]
-	 */
+	/** @var \PHPStan\Analyser\VariableTypeHolder[] */
 	private $variableTypes;
 
-	/**
-	 * @var \PHPStan\Type\Type[]
-	 */
+	/** @var \PHPStan\Type\Type[] */
 	private $moreSpecificTypes;
 
-	/**
-	 * @var string|null
-	 */
+	/** @var string|null */
 	private $inClosureBindScopeClass;
 
-	/**
-	 * @var \PHPStan\Type\Type|null
-	 */
+	/** @var \PHPStan\Type\Type|null */
 	private $inAnonymousFunctionReturnType;
 
-	/**
-	 * @var \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null
-	 */
+	/** @var \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null */
 	private $inFunctionCall;
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $negated;
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $inFirstLevelStatement;
 
-	/**
-	 * @var string[]
-	 */
+	/** @var string[] */
 	private $currentlyAssignedExpressions = [];
 
 	/**
@@ -1162,10 +1130,16 @@ class Scope
 		);
 	}
 
+	/**
+	 * @param Node\Stmt\ClassMethod $classMethod
+	 * @param Type[] $phpDocParameterTypes
+	 * @param null|Type $phpDocReturnType
+	 * @return self
+	 */
 	public function enterClassMethod(
 		Node\Stmt\ClassMethod $classMethod,
 		array $phpDocParameterTypes,
-		Type $phpDocReturnType = null
+		?Type $phpDocReturnType
 	): self
 	{
 		if (!$this->isInClass()) {
@@ -1185,6 +1159,10 @@ class Scope
 		);
 	}
 
+	/**
+	 * @param Node\FunctionLike $functionLike
+	 * @return Type[]
+	 */
 	private function getRealParameterTypes(Node\FunctionLike $functionLike): array
 	{
 		$realParameterTypes = [];
@@ -1199,10 +1177,16 @@ class Scope
 		return $realParameterTypes;
 	}
 
+	/**
+	 * @param Node\Stmt\Function_ $function
+	 * @param Type[] $phpDocParameterTypes
+	 * @param null|Type $phpDocReturnType
+	 * @return self
+	 */
 	public function enterFunction(
 		Node\Stmt\Function_ $function,
 		array $phpDocParameterTypes,
-		Type $phpDocReturnType = null
+		?Type $phpDocReturnType = null
 	): self
 	{
 		return $this->enterFunctionLike(
@@ -1256,7 +1240,7 @@ class Scope
 		);
 	}
 
-	public function enterClosureBind(Type $thisType = null, string $scopeClass): self
+	public function enterClosureBind(?Type $thisType = null, string $scopeClass): self
 	{
 		$variableTypes = $this->getVariableTypes();
 
@@ -1421,7 +1405,7 @@ class Scope
 		return new MixedType();
 	}
 
-	public function enterForeach(Expr $iteratee, string $valueName, string $keyName = null): self
+	public function enterForeach(Expr $iteratee, string $valueName, ?string $keyName = null): self
 	{
 		$iterateeType = $this->getType($iteratee);
 		$scope = $this->assignVariable($valueName, $iterateeType->getIterableValueType(), TrinaryLogic::createYes());
@@ -1962,6 +1946,10 @@ class Scope
 		return $this->negated;
 	}
 
+	/**
+	 * @param Type[] $types
+	 * @return self
+	 */
 	private function addMoreSpecificTypes(array $types): self
 	{
 		$moreSpecificTypes = $this->moreSpecificTypes;

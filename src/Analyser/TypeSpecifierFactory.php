@@ -13,9 +13,7 @@ class TypeSpecifierFactory
 	public const METHOD_TYPE_SPECIFYING_EXTENSION_TAG = 'phpstan.typeSpecifier.methodTypeSpecifyingExtension';
 	public const STATIC_METHOD_TYPE_SPECIFYING_EXTENSION_TAG = 'phpstan.typeSpecifier.staticMethodTypeSpecifyingExtension';
 
-	/**
-	 * @var \Nette\DI\Container
-	 */
+	/** @var \Nette\DI\Container */
 	private $container;
 
 	public function __construct(Container $container)

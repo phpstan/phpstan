@@ -39,13 +39,21 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 	/** @var \PHPStan\Type\Type */
 	private $returnType;
 
+	/**
+	 * @param FunctionLike $functionLike
+	 * @param \PHPStan\Type\Type[] $realParameterTypes
+	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
+	 * @param bool $realReturnTypePresent
+	 * @param Type $realReturnType
+	 * @param null|Type $phpDocReturnType
+	 */
 	public function __construct(
 		FunctionLike $functionLike,
 		array $realParameterTypes,
 		array $phpDocParameterTypes,
 		bool $realReturnTypePresent,
 		Type $realReturnType,
-		Type $phpDocReturnType = null
+		?Type $phpDocReturnType = null
 	)
 	{
 		$this->functionLike = $functionLike;

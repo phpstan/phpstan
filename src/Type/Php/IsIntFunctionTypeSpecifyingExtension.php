@@ -15,18 +15,16 @@ use PHPStan\Type\IntegerType;
 class IsIntFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtension, TypeSpecifierAwareExtension
 {
 
-	/**
-	 * @var \PHPStan\Analyser\TypeSpecifier
-	 */
+	/** @var \PHPStan\Analyser\TypeSpecifier */
 	private $typeSpecifier;
 
 	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, TypeSpecifierContext $context): bool
 	{
 		return in_array(strtolower($functionReflection->getName()), [
-				'is_int',
-				'is_integer',
-				'is_long',
-			], true)
+			'is_int',
+			'is_integer',
+			'is_long',
+		], true)
 			&& isset($node->args[0])
 			&& !$context->null();
 	}

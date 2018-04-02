@@ -14,6 +14,11 @@ class StatementList
 	/** @var bool */
 	private $filterByTruthyValue;
 
+	/**
+	 * @param Scope $scope
+	 * @param \PhpParser\Node[] $statements
+	 * @param bool $filterByTruthyValue
+	 */
 	public function __construct(
 		Scope $scope,
 		array $statements,

@@ -79,6 +79,10 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 		return [];
 	}
 
+	/**
+	 * @param string[] $files
+	 * @param mixed[] $expectedErrors
+	 */
 	public function analyse(array $files, array $expectedErrors): void
 	{
 		$files = array_map([$this->getFileHelper(), 'normalizePath'], $files);

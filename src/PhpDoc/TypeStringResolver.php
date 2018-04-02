@@ -27,7 +27,7 @@ class TypeStringResolver
 		$this->typeNodeResolver = $typeNodeResolver;
 	}
 
-	public function resolve(string $typeString, NameScope $nameScope = null): Type
+	public function resolve(string $typeString, ?NameScope $nameScope = null): Type
 	{
 		$tokens = new TokenIterator($this->typeLexer->tokenize($typeString));
 		$typeNode = $this->typeParser->parse($tokens);

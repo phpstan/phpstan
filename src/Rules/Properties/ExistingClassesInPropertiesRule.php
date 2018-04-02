@@ -11,19 +11,13 @@ use PHPStan\Rules\ClassCaseSensitivityCheck;
 class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 {
 
-	/**
-	 * @var \PHPStan\Broker\Broker
-	 */
+	/** @var \PHPStan\Broker\Broker */
 	private $broker;
 
-	/**
-	 * @var \PHPStan\Rules\ClassCaseSensitivityCheck
-	 */
+	/** @var \PHPStan\Rules\ClassCaseSensitivityCheck */
 	private $classCaseSensitivityCheck;
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $checkClassCaseSensitivity;
 
 	public function __construct(

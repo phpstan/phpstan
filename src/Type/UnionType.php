@@ -290,6 +290,10 @@ class UnionType implements CompoundType, StaticResolvableType
 		return $type;
 	}
 
+	/**
+	 * @param mixed[] $properties
+	 * @return Type
+	 */
 	public static function __set_state(array $properties): Type
 	{
 		return new self($properties['types']);

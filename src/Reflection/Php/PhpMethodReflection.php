@@ -60,6 +60,16 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 	/** @var \PHPStan\Type\Type */
 	private $nativeReturnType;
 
+	/**
+	 * @param ClassReflection $declaringClass
+	 * @param \ReflectionMethod $reflection
+	 * @param Broker $broker
+	 * @param Parser $parser
+	 * @param FunctionCallStatementFinder $functionCallStatementFinder
+	 * @param Cache $cache
+	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
+	 * @param null|Type $phpDocReturnType
+	 */
 	public function __construct(
 		ClassReflection $declaringClass,
 		\ReflectionMethod $reflection,
@@ -68,7 +78,7 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 		FunctionCallStatementFinder $functionCallStatementFinder,
 		Cache $cache,
 		array $phpDocParameterTypes,
-		Type $phpDocReturnType = null
+		?Type $phpDocReturnType = null
 	)
 	{
 		$this->declaringClass = $declaringClass;

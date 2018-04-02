@@ -5,22 +5,21 @@ namespace PHPStan\Analyser;
 class NameScope
 {
 
-	/**
-	 * @var string|null
-	 */
+	/** @var string|null */
 	private $namespace;
 
-	/**
-	 * @var string[] alias(string) => fullName(string)
-	 */
+	/** @var string[] alias(string) => fullName(string) */
 	private $uses;
 
-	/**
-	 * @var string|null
-	 */
+	/** @var string|null */
 	private $className;
 
-	public function __construct(string $namespace = null, array $uses = [], string $className = null)
+	/**
+	 * @param null|string $namespace
+	 * @param string[] $uses alias(string) => fullName(string)
+	 * @param null|string $className
+	 */
+	public function __construct(?string $namespace, array $uses, ?string $className = null)
 	{
 		$this->namespace = $namespace;
 		$this->uses = $uses;
