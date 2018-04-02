@@ -78,7 +78,7 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 		FunctionCallStatementFinder $functionCallStatementFinder,
 		Cache $cache,
 		array $phpDocParameterTypes,
-		?Type $phpDocReturnType = null
+		?Type $phpDocReturnType
 	)
 	{
 		$this->declaringClass = $declaringClass;

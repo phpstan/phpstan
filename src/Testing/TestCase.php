@@ -104,7 +104,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				ClassReflection $declaringClass,
 				\ReflectionMethod $reflection,
 				array $phpDocParameterTypes,
-				?Type $phpDocReturnType = null
+				?Type $phpDocReturnType
 			): PhpMethodReflection
 			{
 				return new PhpMethodReflection(
@@ -155,7 +155,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			public function create(
 				\ReflectionFunction $function,
 				array $phpDocParameterTypes,
-				?Type $phpDocReturnType = null
+				?Type $phpDocReturnType
 			): PhpFunctionReflection
 			{
 				return new PhpFunctionReflection(

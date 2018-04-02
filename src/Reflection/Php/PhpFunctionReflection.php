@@ -62,7 +62,7 @@ class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWit
 		FunctionCallStatementFinder $functionCallStatementFinder,
 		Cache $cache,
 		array $phpDocParameterTypes,
-		?Type $phpDocReturnType = null
+		?Type $phpDocReturnType
 	)
 	{
 		$this->reflection = $reflection;

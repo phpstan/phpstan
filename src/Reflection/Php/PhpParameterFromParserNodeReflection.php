@@ -39,9 +39,9 @@ class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\Parame
 		string $name,
 		bool $optional,
 		Type $realType,
-		?Type $phpDocType = null,
+		?Type $phpDocType,
 		PassedByReference $passedByReference,
-		?Expr $defaultValue = null,
+		?Expr $defaultValue,
 		bool $variadic
 	)
 	{

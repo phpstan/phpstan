@@ -45,7 +45,7 @@ class TypehintHelper
 	}
 
 	public static function decideTypeFromReflection(
-		?\ReflectionType $reflectionType = null,
+		?\ReflectionType $reflectionType,
 		?Type $phpDocType = null,
 		?string $selfClass = null,
 		bool $isVariadic = false

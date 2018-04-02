@@ -75,7 +75,7 @@ class LookForAssignsSettings
 		return ($this->respectEarlyTermination & self::EARLY_TERMINATION_STOP) === self::EARLY_TERMINATION_STOP;
 	}
 
-	public function shouldIntersectVariables(?\PhpParser\Node $earlyTerminationStatement = null): bool
+	public function shouldIntersectVariables(?\PhpParser\Node $earlyTerminationStatement): bool
 	{
 		if ($earlyTerminationStatement === null) {
 			return true;

@@ -1240,7 +1240,7 @@ class Scope
 		);
 	}
 
-	public function enterClosureBind(?Type $thisType = null, string $scopeClass): self
+	public function enterClosureBind(?Type $thisType, string $scopeClass): self
 	{
 		$variableTypes = $this->getVariableTypes();
 
@@ -1405,7 +1405,7 @@ class Scope
 		return new MixedType();
 	}
 
-	public function enterForeach(Expr $iteratee, string $valueName, ?string $keyName = null): self
+	public function enterForeach(Expr $iteratee, string $valueName, ?string $keyName): self
 	{
 		$iterateeType = $this->getType($iteratee);
 		$scope = $this->assignVariable($valueName, $iterateeType->getIterableValueType(), TrinaryLogic::createYes());

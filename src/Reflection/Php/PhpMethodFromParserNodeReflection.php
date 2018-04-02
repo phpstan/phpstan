@@ -31,7 +31,7 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 		array $phpDocParameterTypes,
 		bool $realReturnTypePresent,
 		Type $realReturnType,
-		?Type $phpDocReturnType = null
+		?Type $phpDocReturnType
 	)
 	{
 		parent::__construct(

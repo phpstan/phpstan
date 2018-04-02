@@ -23,7 +23,7 @@ class PhpParameterReflection implements ParameterReflection
 	/** @var \PHPStan\Type\Type */
 	private $nativeType;
 
-	public function __construct(\ReflectionParameter $reflection, ?Type $phpDocType = null)
+	public function __construct(\ReflectionParameter $reflection, ?Type $phpDocType)
 	{
 		$this->reflection = $reflection;
 		$this->phpDocType = $phpDocType;
