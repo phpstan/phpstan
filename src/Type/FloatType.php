@@ -60,6 +60,11 @@ class FloatType implements Type
 		return 'float';
 	}
 
+	public function toNumber(): Type
+	{
+		return $this;
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

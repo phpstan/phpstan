@@ -23,6 +23,11 @@ class ResourceType implements Type
 		return 'resource';
 	}
 
+	public function toNumber(): Type
+	{
+		return new ErrorType();
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

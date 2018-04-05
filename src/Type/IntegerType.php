@@ -32,4 +32,9 @@ class IntegerType implements Type
 		return new self();
 	}
 
+	public function toNumber(): Type
+	{
+		return $this;
+	}
+
 }

@@ -6,6 +6,7 @@ use PhpParser\Node\Name;
 use PHPStan\Broker\Broker;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\ConstantScalarType;
+use PHPStan\Type\ErrorType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Traits\ConstantScalarTypeTrait;
 use PHPStan\Type\Type;
@@ -57,6 +58,21 @@ class ConstantStringType extends StringType implements ConstantScalarType
 		}
 
 		return TrinaryLogic::createNo();
+	}
+
+	public function toNumber(): Type
+	{
+		if (is_numeric($this->value)) {
+			$value = +$this->value;
+			if (is_float($value)) {
+				return new ConstantFloatType($value);
+			}
+			if (is_integer($value)) {
+				return new ConstantIntegerType($value);
+			}
+		}
+
+		return new ErrorType();
 	}
 
 	/**

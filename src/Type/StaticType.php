@@ -222,6 +222,11 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 		return TrinaryLogic::createYes();
 	}
 
+	public function toNumber(): Type
+	{
+		return new ErrorType();
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

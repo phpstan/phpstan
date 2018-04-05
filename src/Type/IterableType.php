@@ -106,6 +106,11 @@ class IterableType implements StaticResolvableType, CompoundType
 		return sprintf('iterable<%s, %s>', $this->keyType->describe(), $this->itemType->describe());
 	}
 
+	public function toNumber(): Type
+	{
+		return new ErrorType();
+	}
+
 	public function resolveStatic(string $className): Type
 	{
 		if ($this->getItemType() instanceof StaticResolvableType) {

@@ -49,6 +49,11 @@ class VoidType implements Type
 		return 'void';
 	}
 
+	public function toNumber(): Type
+	{
+		return new ErrorType();
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

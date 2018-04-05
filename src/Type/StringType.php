@@ -61,6 +61,11 @@ class StringType implements Type
 		return false;
 	}
 
+	public function toNumber(): Type
+	{
+		return new ErrorType();
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

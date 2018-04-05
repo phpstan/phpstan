@@ -131,6 +131,11 @@ class NeverType implements CompoundType
 		return TrinaryLogic::createYes();
 	}
 
+	public function toNumber(): Type
+	{
+		return $this;
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

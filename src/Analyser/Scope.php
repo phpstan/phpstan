@@ -473,8 +473,11 @@ class Scope
 			return new BooleanType();
 		}
 
-		if ($node instanceof Node\Expr\UnaryPlus
-			|| $node instanceof Expr\ErrorSuppress
+		if ($node instanceof Node\Expr\UnaryPlus) {
+			return $this->getType($node->expr)->toNumber();
+		}
+
+		if ($node instanceof Expr\ErrorSuppress
 			|| $node instanceof Expr\Assign
 		) {
 			return $this->getType($node->expr);
@@ -493,6 +496,34 @@ class Scope
 			return $type;
 		}
 
+		if ($node instanceof Expr\BinaryOp\Concat || $node instanceof Expr\AssignOp\Concat) {
+			return new StringType();
+		}
+
+		if (
+			$node instanceof Node\Expr\BinaryOp\Div
+			|| $node instanceof Node\Expr\AssignOp\Div
+			|| $node instanceof Node\Expr\BinaryOp\Mod
+			|| $node instanceof Node\Expr\AssignOp\Mod
+		) {
+			if ($node instanceof Node\Expr\AssignOp) {
+				$right = $node->expr;
+			} else {
+				$right = $node->right;
+			}
+
+			$rightType = $this->getType($right)->toNumber();
+			if (
+				$rightType instanceof ConstantScalarType
+				&& (
+					$rightType->getValue() === 0
+					|| $rightType->getValue() === 0.0
+				)
+			) {
+				return new ErrorType();
+			}
+		}
+
 		if ($node instanceof Node\Expr\BinaryOp || $node instanceof Node\Expr\AssignOp) {
 			if ($node instanceof Node\Expr\AssignOp) {
 				$left = $node->var;
@@ -509,36 +540,57 @@ class Scope
 				$leftValue = $leftType->getValue();
 				$rightValue = $rightType->getValue();
 
-				if ($node instanceof Node\Expr\BinaryOp\Plus || $node instanceof Node\Expr\AssignOp\Plus) {
-					return @$this->getTypeFromValue($leftValue + $rightValue);
-				}
-
-				if ($node instanceof Node\Expr\BinaryOp\Minus || $node instanceof Node\Expr\AssignOp\Minus) {
-					return @$this->getTypeFromValue($leftValue - $rightValue);
-				}
-
-				if ($node instanceof Node\Expr\BinaryOp\Mul || $node instanceof Node\Expr\AssignOp\Mul) {
-					return @$this->getTypeFromValue($leftValue * $rightValue);
-				}
-
-				if ($node instanceof Node\Expr\BinaryOp\Pow || $node instanceof Node\Expr\AssignOp\Pow) {
-					return @$this->getTypeFromValue($leftValue ** $rightValue);
-				}
-
-				if (($node instanceof Node\Expr\BinaryOp\Div || $node instanceof Node\Expr\AssignOp\Div) && $rightValue !== 0) {
-					return @$this->getTypeFromValue($leftValue / $rightValue);
-				}
-
-				if (($node instanceof Node\Expr\BinaryOp\Mod || $node instanceof Node\Expr\AssignOp\Mod) && $rightValue !== 0) {
-					return @$this->getTypeFromValue($leftValue % $rightValue);
-				}
-
 				if ($node instanceof Node\Expr\BinaryOp\Coalesce) {
-					return @$this->getTypeFromValue($leftValue ?? $rightValue);
+					return $this->getTypeFromValue($leftValue ?? $rightValue);
 				}
 
 				if ($node instanceof Node\Expr\BinaryOp\Spaceship) {
-					return @$this->getTypeFromValue($leftValue <=> $rightValue);
+					return $this->getTypeFromValue($leftValue <=> $rightValue);
+				}
+
+				$leftNumberType = $leftType->toNumber();
+				$rightNumberType = $rightType->toNumber();
+				if (TypeCombinator::union($leftNumberType, $rightNumberType) instanceof ErrorType) {
+					return new ErrorType();
+				}
+
+				if (!$leftNumberType instanceof ConstantScalarType || !$rightNumberType instanceof ConstantScalarType) {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
+
+				$leftNumberValue = $leftNumberType->getValue();
+				$rightNumberValue = $rightNumberType->getValue();
+
+				if ($node instanceof Node\Expr\BinaryOp\Plus || $node instanceof Node\Expr\AssignOp\Plus) {
+					return $this->getTypeFromValue($leftNumberValue + $rightNumberValue);
+				}
+
+				if ($node instanceof Node\Expr\BinaryOp\Minus || $node instanceof Node\Expr\AssignOp\Minus) {
+					return $this->getTypeFromValue($leftNumberValue - $rightNumberValue);
+				}
+
+				if ($node instanceof Node\Expr\BinaryOp\Mul || $node instanceof Node\Expr\AssignOp\Mul) {
+					return $this->getTypeFromValue($leftNumberValue * $rightNumberValue);
+				}
+
+				if ($node instanceof Node\Expr\BinaryOp\Pow || $node instanceof Node\Expr\AssignOp\Pow) {
+					return $this->getTypeFromValue($leftNumberValue ** $rightNumberValue);
+				}
+
+				if (($node instanceof Node\Expr\BinaryOp\Div || $node instanceof Node\Expr\AssignOp\Div)) {
+					return $this->getTypeFromValue($leftNumberValue / $rightNumberValue);
+				}
+
+				if (($node instanceof Node\Expr\BinaryOp\Mod || $node instanceof Node\Expr\AssignOp\Mod)) {
+					return $this->getTypeFromValue($leftNumberValue % $rightNumberValue);
+				}
+
+				if ($node instanceof Expr\BinaryOp\ShiftLeft || $node instanceof Expr\BinaryOp\ShiftLeft) {
+					return $this->getTypeFromValue($leftNumberValue << $rightNumberValue);
+				}
+
+				if ($node instanceof Expr\BinaryOp\ShiftRight || $node instanceof Expr\BinaryOp\ShiftRight) {
+					return $this->getTypeFromValue($leftNumberValue >> $rightNumberValue);
 				}
 			}
 		}
@@ -547,12 +599,15 @@ class Scope
 			return new IntegerType();
 		}
 
-		if ($node instanceof Expr\BinaryOp\Concat) {
-			return new StringType();
-		}
-
 		if ($node instanceof Expr\BinaryOp\Spaceship) {
 			return new IntegerType();
+		}
+
+		if ($node instanceof Expr\BinaryOp\Coalesce) {
+			return TypeCombinator::union(
+				TypeCombinator::removeNull($this->getType($node->left)),
+				$this->getType($node->right)
+			);
 		}
 
 		if ($node instanceof Expr\Ternary) {
@@ -566,24 +621,15 @@ class Scope
 			return TypeCombinator::union($conditionScope->getType($node->if), $elseType);
 		}
 
-		if ($node instanceof Expr\BinaryOp\Coalesce) {
-			return TypeCombinator::union(
-				TypeCombinator::removeNull($this->getType($node->left)),
-				$this->getType($node->right)
-			);
-		}
-
 		if ($node instanceof Expr\Clone_) {
 			return $this->getType($node->expr);
 		}
 
-		if ($node instanceof Expr\AssignOp\Concat) {
-			return new StringType();
-		}
-
 		if (
 			$node instanceof Expr\AssignOp\ShiftLeft
+			|| $node instanceof Expr\BinaryOp\ShiftLeft
 			|| $node instanceof Expr\AssignOp\ShiftRight
+			|| $node instanceof Expr\BinaryOp\ShiftRight
 		) {
 			return new IntegerType();
 		}
@@ -594,7 +640,11 @@ class Scope
 			|| $node instanceof Node\Expr\BinaryOp\Mul
 			|| $node instanceof Node\Expr\BinaryOp\Pow
 			|| $node instanceof Node\Expr\BinaryOp\Div
-			|| $node instanceof Node\Expr\AssignOp
+			|| $node instanceof Node\Expr\AssignOp\Plus
+			|| $node instanceof Node\Expr\AssignOp\Minus
+			|| $node instanceof Node\Expr\AssignOp\Mul
+			|| $node instanceof Node\Expr\AssignOp\Pow
+			|| $node instanceof Node\Expr\AssignOp\Div
 		) {
 			if ($node instanceof Node\Expr\AssignOp) {
 				$left = $node->var;
@@ -612,6 +662,18 @@ class Scope
 				&& $leftType instanceof ArrayType
 				&& $rightType instanceof ArrayType
 			) {
+				if ($leftType instanceof ConstantArrayType && $rightType instanceof ConstantArrayType) {
+					$newArrayType = $rightType;
+					foreach ($leftType->getKeyTypes() as $keyType) {
+						$newArrayType = $newArrayType->setOffsetValueType(
+							$keyType,
+							$leftType->getOffsetValueType($keyType)
+						);
+					}
+
+					return $newArrayType;
+				}
+
 				return new ArrayType(
 					TypeCombinator::union($leftType->getKeyType(), $rightType->getKeyType()),
 					TypeCombinator::union($leftType->getItemType(), $rightType->getItemType()),
@@ -620,14 +682,20 @@ class Scope
 			}
 
 			$types = TypeCombinator::union($leftType, $rightType);
-
-			if (!(new ArrayType(new MixedType(), new MixedType()))->isSuperTypeOf($types)->no()) {
-				return new MixedType();
+			if (
+				$leftType instanceof ArrayType
+				|| $rightType instanceof ArrayType
+				|| $types instanceof ArrayType
+			) {
+				return new ErrorType();
 			}
 
+			$leftNumberType = $leftType->toNumber();
+			$rightNumberType = $rightType->toNumber();
+
 			if (
-				(new FloatType())->isSuperTypeOf($leftType)->yes()
-				|| (new FloatType())->isSuperTypeOf($rightType)->yes()
+				(new FloatType())->isSuperTypeOf($leftNumberType)->yes()
+				|| (new FloatType())->isSuperTypeOf($rightNumberType)->yes()
 			) {
 				return new FloatType();
 			}
@@ -636,15 +704,7 @@ class Scope
 				return new UnionType([new IntegerType(), new FloatType()]);
 			}
 
-			if ((new UnionType([
-				new IntegerType(),
-				new NullType(),
-				new BooleanType(),
-			]))->isSuperTypeOf($types)->yes()) {
-				return new IntegerType();
-			}
-
-			return new UnionType([new IntegerType(), new FloatType()]);
+			return TypeCombinator::union($leftNumberType, $rightNumberType);
 		}
 
 		if ($node instanceof LNumber) {

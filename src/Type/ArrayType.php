@@ -183,6 +183,11 @@ class ArrayType implements StaticResolvableType
 		return TrinaryLogic::createMaybe()->and((new StringType())->isSuperTypeOf($this->itemType));
 	}
 
+	public function toNumber(): Type
+	{
+		return new ErrorType();
+	}
+
 	protected function castToArrayKeyType(Type $offsetType): Type
 	{
 		if ($offsetType instanceof ConstantScalarType) {

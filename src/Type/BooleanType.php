@@ -23,6 +23,11 @@ class BooleanType implements Type
 		return 'bool';
 	}
 
+	public function toNumber(): Type
+	{
+		return new IntegerType();
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

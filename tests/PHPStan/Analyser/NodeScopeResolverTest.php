@@ -1582,6 +1582,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$typeCallback(+1),
 				'+1',
 			],
+			[
+				'mixed', // error
+				'+"blabla"',
+			],
+			[
+				'float(123.200000)',
+				'+"123.2"',
+			],
 			// integer + integer
 			[
 				$typeCallback(1 + 1),
@@ -1757,8 +1765,8 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				"'foo' <=> 'bar'",
 			],
 			[
-				'mixed',
-				'1 + doFoo()',
+				'float|int',
+				'1 + $mixed',
 			],
 			[
 				'float|int',
@@ -1777,56 +1785,56 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$float + $number',
 			],
 			[
-				'mixed',
-				'1 / doFoo()',
+				'float|int',
+				'1 / $mixed',
 			],
 			[
 				'float|int',
 				'1 / $number',
 			],
 			[
-				'mixed',
-				'1.0 / doFoo()',
+				'float',
+				'1.0 / $mixed',
 			],
 			[
 				'float',
 				'1.0 / $number',
 			],
 			[
-				'mixed',
-				'doFoo() / 1',
+				'float|int',
+				'$mixed / 1',
 			],
 			[
 				'float|int',
 				'$number / 1',
 			],
 			[
-				'mixed',
-				'doFoo() / 1.0',
+				'float',
+				'$mixed / 1.0',
 			],
 			[
 				'float',
 				'$number / 1.0',
 			],
 			[
-				'mixed',
-				'1.0 + doFoo()',
+				'float',
+				'1.0 + $mixed',
 			],
 			[
 				'float',
 				'1.0 + $number',
 			],
 			[
-				'mixed',
-				'doFoo() + 1',
+				'float|int',
+				'$mixed + 1',
 			],
 			[
 				'float|int',
 				'$number + 1',
 			],
 			[
-				'mixed',
-				'doFoo() + 1.0',
+				'float',
+				'$mixed + 1.0',
 			],
 			[
 				'float',
@@ -1834,7 +1842,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				'string|null',
-				"doFoo() ? 'foo' : null",
+				'$mixed ? "foo" : null',
 			],
 			[
 				'int(12)|null',
@@ -2013,11 +2021,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$arrayOfIntegers += $arrayOfIntegers',
 			],
 			[
-				'array<int(0)|int(1)|int(2), int|string>',
+				'array<int(0)|int(1)|int(2), int>',
 				'$arrayOfIntegers += ["foo"]',
 			],
 			[
-				'mixed',
+				'mixed', // error
 				'$arrayOfIntegers += "foo"',
 			],
 			[
@@ -2083,6 +2091,46 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'float|int',
 				'$otherInteger / $integer',
+			],
+			[
+				'float|int',
+				'$mixed + 1',
+			],
+			[
+				'float',
+				'$mixed + 1.0',
+			],
+			[
+				'float|int',
+				'$mixed + $mixed',
+			],
+			[
+				'mixed', // error
+				'$mixed + []',
+			],
+			[
+				'int(124)',
+				'1 + "123"',
+			],
+			[
+				'float(124.200000)',
+				'1 + "123.2"',
+			],
+			[
+				'mixed', // error
+				'1 + $string',
+			],
+			[
+				'mixed', // error
+				'1 + "blabla"',
+			],
+			[
+				'array<int(0)|int(1)|int(2), int(1)|int(2)|int(3)>',
+				'[1, 2, 3] + [4, 5, 6]',
+			],
+			[
+				'array<int>',
+				'$arrayOfUnknownIntegers + [1, 2, 3]',
 			],
 		];
 	}

@@ -58,6 +58,11 @@ class CallableType implements CompoundType
 		return TrinaryLogic::createYes();
 	}
 
+	public function toNumber(): Type
+	{
+		return new ErrorType();
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

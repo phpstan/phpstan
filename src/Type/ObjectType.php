@@ -154,6 +154,11 @@ class ObjectType implements TypeWithClassName
 		return $this->className;
 	}
 
+	public function toNumber(): Type
+	{
+		return new ErrorType();
+	}
+
 	public function canAccessProperties(): TrinaryLogic
 	{
 		return TrinaryLogic::createYes();

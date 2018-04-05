@@ -58,6 +58,8 @@ interface Type
 
 	public function toBoolean(): BooleanType;
 
+	public function toNumber(): Type;
+
 	/**
 	 * @param mixed[] $properties
 	 * @return self

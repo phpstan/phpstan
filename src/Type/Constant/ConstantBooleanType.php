@@ -35,6 +35,11 @@ class ConstantBooleanType extends BooleanType implements ConstantScalarType
 		return $this;
 	}
 
+	public function toNumber(): Type
+	{
+		return new ConstantIntegerType((int) $this->value);
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

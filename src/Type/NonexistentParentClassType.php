@@ -79,6 +79,11 @@ class NonexistentParentClassType implements Type
 		return TrinaryLogic::createNo();
 	}
 
+	public function toNumber(): Type
+	{
+		return new ErrorType();
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

@@ -58,6 +58,14 @@ class MixedType implements CompoundType
 		return 'mixed';
 	}
 
+	public function toNumber(): Type
+	{
+		return new UnionType([
+			new IntegerType(),
+			new FloatType(),
+		]);
+	}
+
 	public function isExplicitMixed(): bool
 	{
 		return $this->isExplicitMixed;

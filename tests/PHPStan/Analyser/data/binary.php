@@ -30,4 +30,10 @@ $number = doFoo();
 /** @var int|null|bool $otherInteger */
 $otherInteger = doFoo();
 
+/** @var mixed $mixed */
+$mixed = doFoo();
+
+/** @var int[] $arrayOfUnknownIntegers */
+$arrayOfUnknownIntegers = doFoo();
+
 die;
