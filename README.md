@@ -585,6 +585,85 @@ There's also an analogous functionality for:
 and `phpstan.broker.dynamicStaticMethodReturnTypeExtension` service tag.
 * **functions** using `DynamicFunctionReturnTypeExtension` interface and `phpstan.broker.dynamicFunctionReturnTypeExtension` service tag.
 
+## Type-specifying extensions
+
+These extensions allow you to specify types of expressions based on certain pre-existing conditions. This is best illustrated with couple examples:
+
+```php
+if (is_int($variable)) {
+    // here we can be sure that $variable is integer
+}
+```
+
+```php
+// using PHPUnit's asserts
+
+self::assertNotNull($variable);
+// here we can be sure that $variable is not null
+```
+
+Type-specifying extension cannot have `PHPStan\Analyser\TypeSpecifier` injected in the constructor due to circular reference issue, but the extensions can implement `PHPStan\Analyser\TypeSpecifierAwareExtension` interface to obtain TypeSpecifier via a setter.
+
+This is the interface for type-specifying extension:
+
+```php
+namespace PHPStan\Type;
+
+use PhpParser\Node\Expr\StaticCall;
+use PHPStan\Analyser\Scope;
+use PHPStan\Analyser\SpecifiedTypes;
+use PHPStan\Analyser\TypeSpecifierContext;
+use PHPStan\Reflection\MethodReflection;
+
+interface StaticMethodTypeSpecifyingExtension
+{
+
+	public function getClass(): string;
+
+	public function isStaticMethodSupported(MethodReflection $staticMethodReflection, StaticCall $node, TypeSpecifierContext $context): bool;
+
+	public function specifyTypes(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes;
+
+}
+```
+
+And this is how you'd write the extension for the second example above:
+
+```php
+public function getClass(): string
+{
+	return \PHPUnit\Framework\Assert::class;
+}
+
+public function isStaticMethodSupported(MethodReflection $staticMethodReflection, StaticCall $node, TypeSpecifierContext $context): bool;
+{
+	// The $context argument tells us if we're in an if condition or not (as in this case).
+	return $staticMethodReflection->getName() === 'assertNotNull' && $context->null();
+}
+
+public function specifyTypes(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
+{
+	// Assuming extension implements \PHPStan\Analyser\TypeSpecifierAwareExtension.
+	return $this->typeSpecifier->create($node->var, \PHPStan\Type\TypeCombinator::removeNull($scope->getType($node->var)), $context);
+}
+```
+
+And finally, register the extension to PHPStan in the project's config file:
+
+```
+services:
+	-
+		class: App\PHPStan\AssertNotNullTypeSpecifyingExtension
+		tags:
+			- phpstan.typeSpecifier.staticMethodTypeSpecifyingExtension
+```
+
+There's also an analogous functionality for:
+
+* **dynamic methods** using `MethodTypeSpecifyingExtension` interface
+and `phpstan.typeSpecifier.methodTypeSpecifyingExtension` service tag.
+* **functions** using `FunctionTypeSpecifyingExtension` interface and `phpstan.typeSpecifier.functionTypeSpecifyingExtension` service tag.
+
 ## Known issues
 
 * If `include` or `require` are used in the analysed code (instead of `include_once` or `require_once`),
