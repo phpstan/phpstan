@@ -558,7 +558,10 @@ class Scope
 					throw new \PHPStan\ShouldNotHappenException();
 				}
 
+				/** @var float|int $leftNumberValue */
 				$leftNumberValue = $leftNumberType->getValue();
+
+				/** @var float|int $rightNumberValue */
 				$rightNumberValue = $rightNumberType->getValue();
 
 				if ($node instanceof Node\Expr\BinaryOp\Plus || $node instanceof Node\Expr\AssignOp\Plus) {
