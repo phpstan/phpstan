@@ -90,3 +90,37 @@ class CheckIsCallable
 	}
 
 }
+
+class IsNumeric
+{
+
+	public function test(string $str, float $float)
+	{
+		if (is_numeric($str)) {
+
+		}
+		if (is_numeric('123')) {
+
+		}
+		if (is_numeric('blabla')) {
+
+		}
+
+		$isNumeric = $float;
+		$maybeNumeric = $float;
+		if (doFoo()) {
+			$isNumeric = 123;
+			$maybeNumeric = 123;
+		} else {
+			$maybeNumeric = $str;
+		}
+
+		if (is_numeric($isNumeric)) {
+
+		}
+		if ($maybeNumeric) {
+
+		}
+	}
+
+}

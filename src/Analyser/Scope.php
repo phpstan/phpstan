@@ -1027,6 +1027,21 @@ class Scope
 				return new BooleanType();
 			}
 
+			if (
+				$functionReflection->getName() === 'is_numeric'
+				&& count($node->args) > 0
+			) {
+				$argType = $this->getType($node->args[0]->value);
+				if ($argType instanceof ConstantScalarType) {
+					return new ConstantBooleanType(
+						!$argType->toNumber() instanceof ErrorType
+					);
+				}
+				if (!(new StringType())->isSuperTypeOf($argType)->no()) {
+					return new BooleanType();
+				}
+			}
+
 			foreach ($this->typeSpecifier->getFunctionTypeSpecifyingExtensions() as $functionTypeSpecifyingExtension) {
 				if (!$functionTypeSpecifyingExtension->isFunctionSupported($functionReflection, $node, TypeSpecifierContext::createTruthy())) {
 					continue;
