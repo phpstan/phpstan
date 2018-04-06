@@ -7,6 +7,7 @@ parameters:
 
 rules:
 	- PHPStan\Rules\Cast\InvalidStringCastRule
+	- PHPStan\Rules\Cast\InvalidPartOfEncapsedStringRule
 	- PHPStan\Rules\Operators\InvalidBinaryOperationRule
 	- PHPStan\Rules\Operators\InvalidUnaryOperationRule
 	- PHPStan\Rules\PhpDoc\IncompatiblePhpDocTypeRule
