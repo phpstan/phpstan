@@ -75,6 +75,36 @@ class ConstantStringType extends StringType implements ConstantScalarType
 		return new ErrorType();
 	}
 
+	public function getOffsetValueType(Type $offsetType): Type
+	{
+		$offsetNumberType = $offsetType->toNumber();
+		if ($offsetNumberType instanceof ConstantScalarType) {
+			$offsetValue = $offsetNumberType->getValue();
+			if ($offsetValue < strlen($this->value)) {
+				return new self($this->value[$offsetValue]);
+			}
+		} elseif (!$offsetNumberType instanceof ErrorType) {
+			return new StringType();
+		}
+
+		return new ErrorType();
+	}
+
+	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
+	{
+		if (
+			$offsetType instanceof ConstantScalarType
+			&& $valueType instanceof ConstantScalarType
+		) {
+			$value = $this->value;
+			$value[$offsetType->getValue()] = $valueType->getValue();
+
+			return new self($value);
+		}
+
+		return new StringType();
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

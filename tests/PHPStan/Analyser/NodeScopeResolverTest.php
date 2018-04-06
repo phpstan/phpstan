@@ -1993,12 +1993,20 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'count($arrayOfIntegers) + count($arrayOfIntegers)',
 			],
 			[
-				'true',
+				'bool',
 				'$string === "foo"',
 			],
 			[
-				'false',
+				'true',
+				'$fooString === "foo"',
+			],
+			[
+				'bool',
 				'$string !== "foo"',
+			],
+			[
+				'false',
+				'$fooString !== "foo"',
 			],
 			[
 				'bool',
@@ -2211,6 +2219,22 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'mixed', // error
 				'$string ^= 3',
+			],
+			[
+				'string',
+				'$fooString[0]',
+			],
+			[
+				'mixed', // $error
+				'$fooString[4]',
+			],
+			[
+				'string',
+				'$fooString[$integer]',
+			],
+			[
+				'string',
+				'$foobarString',
 			],
 		];
 	}

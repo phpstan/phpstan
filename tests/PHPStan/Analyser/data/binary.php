@@ -9,7 +9,10 @@ $integer = doFoo();
 /** @var bool $bool */
 $bool = doFoo();
 
-$string = 'foo';
+/** @var string $string */
+$string = doFoo();
+
+$fooString = 'foo';
 
 /** @var string|null $stringOrNull */
 $stringOrNull = doFoo();
@@ -35,5 +38,10 @@ $mixed = doFoo();
 
 /** @var int[] $arrayOfUnknownIntegers */
 $arrayOfUnknownIntegers = doFoo();
+
+$foobarString = $fooString;
+$foobarString[6] = 'b';
+$foobarString[7] = 'a';
+$foobarString[8] = 'r';
 
 die;
