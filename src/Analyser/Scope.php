@@ -634,6 +634,21 @@ class Scope
 			|| $node instanceof Expr\AssignOp\ShiftRight
 			|| $node instanceof Expr\BinaryOp\ShiftRight
 		) {
+			if ($node instanceof Node\Expr\AssignOp) {
+				$left = $node->var;
+				$right = $node->expr;
+			} else {
+				$left = $node->left;
+				$right = $node->right;
+			}
+
+			if (TypeCombinator::union(
+				$this->getType($left)->toNumber(),
+				$this->getType($right)->toNumber()
+			) instanceof ErrorType) {
+				return new ErrorType();
+			}
+
 			return new IntegerType();
 		}
 

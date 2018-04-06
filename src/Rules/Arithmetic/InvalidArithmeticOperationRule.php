@@ -36,12 +36,16 @@ class InvalidArithmeticOperationRule implements \PHPStan\Rules\Rule
 			&& !$node instanceof Node\Expr\BinaryOp\Pow
 			&& !$node instanceof Node\Expr\BinaryOp\Div
 			&& !$node instanceof Node\Expr\BinaryOp\Mod
+			&& !$node instanceof Node\Expr\BinaryOp\ShiftLeft
+			&& !$node instanceof Node\Expr\BinaryOp\ShiftRight
 			&& !$node instanceof Node\Expr\AssignOp\Plus
 			&& !$node instanceof Node\Expr\AssignOp\Minus
 			&& !$node instanceof Node\Expr\AssignOp\Mul
 			&& !$node instanceof Node\Expr\AssignOp\Pow
 			&& !$node instanceof Node\Expr\AssignOp\Div
 			&& !$node instanceof Node\Expr\AssignOp\Mod
+			&& !$node instanceof Node\Expr\AssignOp\ShiftLeft
+			&& !$node instanceof Node\Expr\AssignOp\ShiftRight
 		) {
 			return [];
 		}

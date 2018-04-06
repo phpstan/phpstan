@@ -49,6 +49,22 @@ class InvalidArithmeticOperationRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Arithmetic operation "-=" between array and array results in an error.',
 				34,
 			],
+			[
+				'Arithmetic operation "<<" between string and string results in an error.',
+				47,
+			],
+			[
+				'Arithmetic operation ">>" between string and string results in an error.',
+				48,
+			],
+			[
+				'Arithmetic operation ">>=" between string and string results in an error.',
+				49,
+			],
+			[
+				'Arithmetic operation "<<=" between string and string results in an error.',
+				59,
+			],
 		]);
 	}
 

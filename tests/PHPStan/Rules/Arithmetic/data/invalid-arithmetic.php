@@ -33,3 +33,28 @@ function (
 ) {
 	$array -= $array;
 };
+
+function (
+	int $int1,
+	int $int2,
+	string $str1,
+	string $str2
+) {
+	$int1 << $int2;
+	$int1 >> $int2;
+	$int1 >>= $int2;
+
+	$str1 << $str2;
+	$str1 >> $str2;
+	$str1 >>= $str2;
+};
+
+function (
+	int $int1,
+	int $int2,
+	string $str1,
+	string $str2
+) {
+	$int1 <<= $int2;
+	$str1 <<= $str2;
+};
