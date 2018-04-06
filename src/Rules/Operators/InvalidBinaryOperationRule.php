@@ -1,12 +1,12 @@
 <?php declare(strict_types = 1);
 
-namespace PHPStan\Rules\Arithmetic;
+namespace PHPStan\Rules\Operators;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\ErrorType;
 
-class InvalidArithmeticOperationRule implements \PHPStan\Rules\Rule
+class InvalidBinaryOperationRule implements \PHPStan\Rules\Rule
 {
 
 	/** @var \PhpParser\PrettyPrinter\Standard */
@@ -30,22 +30,8 @@ class InvalidArithmeticOperationRule implements \PHPStan\Rules\Rule
 	public function processNode(\PhpParser\Node $node, Scope $scope): array
 	{
 		if (
-			!$node instanceof Node\Expr\BinaryOp\Plus
-			&& !$node instanceof Node\Expr\BinaryOp\Minus
-			&& !$node instanceof Node\Expr\BinaryOp\Mul
-			&& !$node instanceof Node\Expr\BinaryOp\Pow
-			&& !$node instanceof Node\Expr\BinaryOp\Div
-			&& !$node instanceof Node\Expr\BinaryOp\Mod
-			&& !$node instanceof Node\Expr\BinaryOp\ShiftLeft
-			&& !$node instanceof Node\Expr\BinaryOp\ShiftRight
-			&& !$node instanceof Node\Expr\AssignOp\Plus
-			&& !$node instanceof Node\Expr\AssignOp\Minus
-			&& !$node instanceof Node\Expr\AssignOp\Mul
-			&& !$node instanceof Node\Expr\AssignOp\Pow
-			&& !$node instanceof Node\Expr\AssignOp\Div
-			&& !$node instanceof Node\Expr\AssignOp\Mod
-			&& !$node instanceof Node\Expr\AssignOp\ShiftLeft
-			&& !$node instanceof Node\Expr\AssignOp\ShiftRight
+			!$node instanceof Node\Expr\BinaryOp
+			&& !$node instanceof Node\Expr\AssignOp
 		) {
 			return [];
 		}
@@ -68,7 +54,7 @@ class InvalidArithmeticOperationRule implements \PHPStan\Rules\Rule
 		if ($scope->getType($node) instanceof ErrorType) {
 			return [
 				sprintf(
-					'Arithmetic operation "%s" between %s and %s results in an error.',
+					'Binary operation "%s" between %s and %s results in an error.',
 					substr(substr($this->printer->prettyPrintExpr($newNode), 2), 0, -2),
 					$scope->getType($left)->describe(),
 					$scope->getType($right)->describe()

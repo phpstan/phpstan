@@ -6,6 +6,6 @@ parameters:
 	checkThisOnly: false
 
 rules:
-	- PHPStan\Rules\Arithmetic\InvalidArithmeticOperationRule
+	- PHPStan\Rules\Operators\InvalidBinaryOperationRule
 	- PHPStan\Rules\PhpDoc\IncompatiblePhpDocTypeRule
 	- PHPStan\Rules\PhpDoc\InvalidPhpDocTagValueRule
