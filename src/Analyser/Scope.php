@@ -484,7 +484,7 @@ class Scope
 		}
 
 		if ($node instanceof Node\Expr\UnaryMinus) {
-			$type = $this->getType($node->expr);
+			$type = $this->getType($node->expr)->toNumber();
 			if ($type instanceof ConstantIntegerType) {
 				return new ConstantIntegerType(-$type->getValue());
 			}

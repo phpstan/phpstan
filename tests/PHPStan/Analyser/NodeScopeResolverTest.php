@@ -1590,6 +1590,26 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'float(123.200000)',
 				'+"123.2"',
 			],
+			[
+				'mixed', // error
+				'-"blabla"',
+			],
+			[
+				'int(-5)',
+				'-5',
+			],
+			[
+				'int(5)',
+				'-(-5)',
+			],
+			[
+				'int',
+				'-$integer',
+			],
+			[
+				'mixed',
+				'-$string',
+			],
 			// integer + integer
 			[
 				$typeCallback(1 + 1),
