@@ -7,5 +7,6 @@ parameters:
 
 rules:
 	- PHPStan\Rules\Operators\InvalidBinaryOperationRule
+	- PHPStan\Rules\Operators\InvalidUnaryOperationRule
 	- PHPStan\Rules\PhpDoc\IncompatiblePhpDocTypeRule
 	- PHPStan\Rules\PhpDoc\InvalidPhpDocTagValueRule

@@ -63,13 +63,14 @@ class ConstantStringType extends StringType implements ConstantScalarType
 	public function toNumber(): Type
 	{
 		if (is_numeric($this->value)) {
-			$value = +$this->value;
+			/** @var mixed $value */
+			$value = $this->value;
+			$value = +$value;
 			if (is_float($value)) {
 				return new ConstantFloatType($value);
 			}
-			if (is_integer($value)) {
-				return new ConstantIntegerType($value);
-			}
+
+			return new ConstantIntegerType($value);
 		}
 
 		return new ErrorType();
