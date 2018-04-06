@@ -65,6 +65,18 @@ class InvalidBinaryOperationRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Binary operation "<<=" between string and string results in an error.',
 				59,
 			],
+			[
+				'Binary operation "&" between string and int(5) results in an error.',
+				67,
+			],
+			[
+				'Binary operation "|" between string and int(5) results in an error.',
+				69,
+			],
+			[
+				'Binary operation "^" between string and int(5) results in an error.',
+				71,
+			],
 		]);
 	}
 

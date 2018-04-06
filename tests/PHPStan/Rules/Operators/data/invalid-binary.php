@@ -58,3 +58,15 @@ function (
 	$int1 <<= $int2;
 	$str1 <<= $str2;
 };
+
+function (
+	int $int,
+	string $string
+) {
+	$int & 5;
+	$string & 5;
+	$int | 5;
+	$string | 5;
+	$int ^ 5;
+	$string ^ 5;
+};
