@@ -2152,6 +2152,66 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array<int>',
 				'$arrayOfUnknownIntegers + [1, 2, 3]',
 			],
+			[
+				'int(1)',
+				'5 & 3',
+			],
+			[
+				'int',
+				'$integer & 3',
+			],
+			[
+				'mixed', // error
+				'"bla" & 3',
+			],
+			[
+				'int(7)',
+				'5 | 3',
+			],
+			[
+				'int',
+				'$integer | 3',
+			],
+			[
+				'mixed', // error
+				'"bla" | 3',
+			],
+			[
+				'int(6)',
+				'5 ^ 3',
+			],
+			[
+				'int',
+				'$integer ^ 3',
+			],
+			[
+				'mixed', // error
+				'"bla" ^ 3',
+			],
+			[
+				'int',
+				'$integer &= 3',
+			],
+			[
+				'mixed', // error
+				'$string &= 3',
+			],
+			[
+				'int',
+				'$integer |= 3',
+			],
+			[
+				'mixed', // error
+				'$string |= 3',
+			],
+			[
+				'int',
+				'$integer ^= 3',
+			],
+			[
+				'mixed', // error
+				'$string ^= 3',
+			],
 		];
 	}
 
