@@ -63,6 +63,11 @@ class CallableType implements CompoundType
 		return new ErrorType();
 	}
 
+	public function toString(): Type
+	{
+		return new ErrorType();
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

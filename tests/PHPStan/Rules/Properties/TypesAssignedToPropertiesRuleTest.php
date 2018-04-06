@@ -61,15 +61,15 @@ class TypesAssignedToPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 			],
 			[
 				'Property PropertiesAssignedTypes\Foo::$intProperty (int) does not accept string.',
-				57,
+				60,
 			],
 			[
 				'Property PropertiesAssignedTypes\Ipsum::$foo (PropertiesAssignedTypes\Ipsum) does not accept PropertiesAssignedTypes\Bar.',
-				140,
+				143,
 			],
 			[
 				'Static property PropertiesAssignedTypes\Ipsum::$fooStatic (PropertiesAssignedTypes\Ipsum) does not accept PropertiesAssignedTypes\Bar.',
-				141,
+				144,
 			],
 		]);
 	}

@@ -70,3 +70,18 @@ function (
 	$int ^ 5;
 	$string ^ 5;
 };
+
+function (
+	string $string1,
+	string $string2,
+	stdClass $std,
+	\Test\ClassWithToString $classWithToString
+) {
+	$string1 . $string2;
+	$string1 . $std;
+	$string1 . $classWithToString;
+
+	$string1 .= $string2;
+	$string1 .= $std;
+	$string2 .= $classWithToString;
+};

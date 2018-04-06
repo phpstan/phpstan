@@ -159,6 +159,21 @@ class ObjectType implements TypeWithClassName
 		return new ErrorType();
 	}
 
+	public function toString(): Type
+	{
+		$broker = Broker::getInstance();
+		if (!$broker->hasClass($this->className)) {
+			return new ErrorType();
+		}
+
+		$classReflection = $broker->getClass($this->className);
+		if ($classReflection->hasMethod('__toString')) {
+			return new StringType();
+		}
+
+		return new ErrorType();
+	}
+
 	public function canAccessProperties(): TrinaryLogic
 	{
 		return TrinaryLogic::createYes();

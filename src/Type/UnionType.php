@@ -299,6 +299,15 @@ class UnionType implements CompoundType, StaticResolvableType
 		return $type;
 	}
 
+	public function toString(): Type
+	{
+		$type = $this->unionTypes(function (Type $type): Type {
+			return $type->toString();
+		});
+
+		return $type;
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

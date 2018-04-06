@@ -111,6 +111,11 @@ class IterableType implements StaticResolvableType, CompoundType
 		return new ErrorType();
 	}
 
+	public function toString(): Type
+	{
+		return new ErrorType();
+	}
+
 	public function resolveStatic(string $className): Type
 	{
 		if ($this->getItemType() instanceof StaticResolvableType) {

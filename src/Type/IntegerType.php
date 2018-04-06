@@ -37,4 +37,9 @@ class IntegerType implements Type
 		return $this;
 	}
 
+	public function toString(): Type
+	{
+		return new StringType();
+	}
+
 }

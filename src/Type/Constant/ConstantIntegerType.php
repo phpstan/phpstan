@@ -31,6 +31,11 @@ class ConstantIntegerType extends IntegerType implements ConstantScalarType
 		return sprintf('int(%d)', $this->value);
 	}
 
+	public function toString(): Type
+	{
+		return new ConstantStringType((string) $this->value);
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

@@ -5,6 +5,7 @@ namespace PHPStan\Type;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantIntegerType;
+use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\Traits\FalseyBooleanTypeTrait;
 use PHPStan\Type\Traits\NonCallableTypeTrait;
 use PHPStan\Type\Traits\NonIterableTypeTrait;
@@ -75,6 +76,11 @@ class NullType implements ConstantScalarType
 	public function toNumber(): Type
 	{
 		return new ConstantIntegerType(0);
+	}
+
+	public function toString(): Type
+	{
+		return new ConstantStringType('');
 	}
 
 	public function getOffsetValueType(Type $offsetType): Type

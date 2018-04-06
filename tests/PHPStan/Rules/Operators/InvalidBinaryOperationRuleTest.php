@@ -77,6 +77,14 @@ class InvalidBinaryOperationRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Binary operation "^" between string and int(5) results in an error.',
 				71,
 			],
+			[
+				'Binary operation "." between string and stdClass results in an error.',
+				81,
+			],
+			[
+				'Binary operation ".=" between string and stdClass results in an error.',
+				85,
+			],
 		]);
 	}
 

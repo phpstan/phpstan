@@ -15,11 +15,6 @@ class ErrorType extends MixedType
 		return new ErrorType();
 	}
 
-	public function toNumber(): Type
-	{
-		return $this;
-	}
-
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

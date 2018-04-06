@@ -60,6 +60,8 @@ interface Type
 
 	public function toNumber(): Type;
 
+	public function toString(): Type;
+
 	/**
 	 * @param mixed[] $properties
 	 * @return self

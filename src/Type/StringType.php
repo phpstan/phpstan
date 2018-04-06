@@ -66,6 +66,11 @@ class StringType implements Type
 		return new ErrorType();
 	}
 
+	public function toString(): Type
+	{
+		return $this;
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

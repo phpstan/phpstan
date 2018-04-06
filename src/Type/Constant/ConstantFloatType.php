@@ -31,6 +31,11 @@ class ConstantFloatType extends FloatType implements ConstantScalarType
 		return sprintf('float(%f)', $this->value);
 	}
 
+	public function toString(): Type
+	{
+		return new ConstantStringType((string) $this->value);
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

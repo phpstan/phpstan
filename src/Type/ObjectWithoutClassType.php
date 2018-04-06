@@ -110,6 +110,11 @@ class ObjectWithoutClassType implements Type
 		return new ErrorType();
 	}
 
+	public function toString(): Type
+	{
+		return new ErrorType();
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

@@ -52,7 +52,10 @@ class Foo extends Ipsum
 		if ($this->intProperty === null) {
 			$this->intProperty = 1;
 		}
+	}
 
+	public function doBar()
+	{
 		$this->intProperty += 1; // OK
 		$this->intProperty .= 'test'; // property will be string, report error
 	}

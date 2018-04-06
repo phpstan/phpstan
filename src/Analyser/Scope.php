@@ -497,6 +497,29 @@ class Scope
 		}
 
 		if ($node instanceof Expr\BinaryOp\Concat || $node instanceof Expr\AssignOp\Concat) {
+			if ($node instanceof Node\Expr\AssignOp) {
+				$left = $node->var;
+				$right = $node->expr;
+			} else {
+				$left = $node->left;
+				$right = $node->right;
+			}
+
+			$leftStringType = $this->getType($left)->toString();
+			$rightStringType = $this->getType($right)->toString();
+			if (TypeCombinator::union(
+				$leftStringType,
+				$rightStringType
+			) instanceof ErrorType) {
+				return new ErrorType();
+			}
+
+			if ($leftStringType instanceof ConstantStringType && $rightStringType instanceof ConstantStringType) {
+				return new ConstantStringType(
+					$leftStringType->getValue() . $rightStringType->getValue()
+				);
+			}
+
 			return new StringType();
 		}
 

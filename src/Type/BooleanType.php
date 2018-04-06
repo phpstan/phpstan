@@ -28,6 +28,11 @@ class BooleanType implements Type
 		return new IntegerType();
 	}
 
+	public function toString(): Type
+	{
+		return new StringType();
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type
