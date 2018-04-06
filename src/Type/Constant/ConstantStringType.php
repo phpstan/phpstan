@@ -115,6 +115,11 @@ class ConstantStringType extends StringType implements ConstantScalarType
 		return new StringType();
 	}
 
+	public function append(self $otherString): self
+	{
+		return new self($this->getValue() . $otherString->getValue());
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

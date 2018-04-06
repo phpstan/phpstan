@@ -18,6 +18,7 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\DNumber;
+use PhpParser\Node\Scalar\EncapsedStringPart;
 use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Broker\Broker;
@@ -515,9 +516,7 @@ class Scope
 			}
 
 			if ($leftStringType instanceof ConstantStringType && $rightStringType instanceof ConstantStringType) {
-				return new ConstantStringType(
-					$leftStringType->getValue() . $rightStringType->getValue()
-				);
+				return $leftStringType->append($rightStringType);
 			}
 
 			return new StringType();
@@ -802,7 +801,20 @@ class Scope
 		} elseif ($node instanceof String_) {
 			return new ConstantStringType($node->value);
 		} elseif ($node instanceof Node\Scalar\Encapsed) {
-			return new StringType();
+			$constantString = new ConstantStringType('');
+			foreach ($node->parts as $part) {
+				if ($part instanceof EncapsedStringPart) {
+					$partStringType = new ConstantStringType($part->value);
+				} else {
+					$partStringType = $this->getType($part)->toString();
+					if (!$partStringType instanceof ConstantStringType) {
+						return new StringType();
+					}
+				}
+
+				$constantString = $constantString->append($partStringType);
+			}
+			return $constantString;
 		} elseif ($node instanceof DNumber) {
 			return new ConstantFloatType($node->value);
 		} elseif ($node instanceof Expr\Closure) {
