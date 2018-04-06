@@ -858,7 +858,7 @@ class Scope
 		} elseif ($node instanceof Double) {
 			return new FloatType();
 		} elseif ($node instanceof \PhpParser\Node\Expr\Cast\String_) {
-			return new StringType();
+			return $this->getType($node->expr)->toString();
 		} elseif ($node instanceof \PhpParser\Node\Expr\Cast\Array_) {
 			return new ArrayType(new MixedType(), new MixedType());
 		} elseif ($node instanceof Node\Scalar\MagicConst\Line) {
