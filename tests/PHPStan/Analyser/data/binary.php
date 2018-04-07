@@ -44,4 +44,6 @@ $foobarString[6] = 'b';
 $foobarString[7] = 'a';
 $foobarString[8] = 'r';
 
+$std = new \stdClass();
+
 die;

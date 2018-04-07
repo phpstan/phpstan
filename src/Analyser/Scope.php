@@ -807,6 +807,9 @@ class Scope
 					$partStringType = new ConstantStringType($part->value);
 				} else {
 					$partStringType = $this->getType($part)->toString();
+					if ($partStringType instanceof ErrorType) {
+						return new ErrorType();
+					}
 					if (!$partStringType instanceof ConstantStringType) {
 						return new StringType();
 					}

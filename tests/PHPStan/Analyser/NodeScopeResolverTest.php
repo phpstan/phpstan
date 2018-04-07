@@ -2240,6 +2240,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'string',
 				'"$fooString bar"',
 			],
+			[
+				'mixed', // error
+				'"$std bar"',
+			],
 		];
 	}
 
