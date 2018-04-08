@@ -14,9 +14,11 @@ use PHPStan\Tests\AssertionClassStaticMethodTypeSpecifyingExtension;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Type\DynamicStaticMethodReturnTypeExtension;
+use PHPStan\Type\ErrorType;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\Type;
 use SomeNodeScopeResolverNamespace\Foo;
 
 class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
@@ -94,7 +96,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->union->foo',
 			],
 			[
-				'mixed',
+				'*ERROR*',
 				'$this->union->bar',
 			],
 			[
@@ -102,7 +104,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foo->foo',
 			],
 			[
-				'mixed',
+				'*ERROR*',
 				'$foo->bar',
 			],
 			[
@@ -110,7 +112,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->union->doFoo()',
 			],
 			[
-				'mixed',
+				'*ERROR*',
 				'$this->union->doBar()',
 			],
 			[
@@ -118,7 +120,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foo->doFoo()',
 			],
 			[
-				'mixed',
+				'*ERROR*',
 				'$foo->doBar()',
 			],
 			[
@@ -166,7 +168,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foo::doStaticFoo()',
 			],
 			[
-				'mixed',
+				'*ERROR*',
 				'$foo::doStaticBar()',
 			],
 			[
@@ -182,7 +184,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->union::doStaticFoo()',
 			],
 			[
-				'mixed',
+				'*ERROR*',
 				'$this->union::doStaticBar()',
 			],
 			[
@@ -1370,10 +1372,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				'mixed',
-				'$this->alsoMixedProperty',
-			],
-			[
-				'mixed',
 				'$this->anotherMixedProperty',
 			],
 			[
@@ -1409,7 +1407,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->objectUsed',
 			],
 			[
-				'mixed',
+				'*ERROR*',
 				'$this->nonexistentProperty',
 			],
 			[
@@ -1449,16 +1447,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->resource',
 			],
 			[
-				'mixed',
-				'$yetAnotherAnotherMixedParameter',
+				'array',
+				'$this->yetAnotherAnotherMixedParameter',
 			],
 			[
 				'mixed',
-				'$yetAnotherAnotherAnotherMixedParameter',
-			],
-			[
-				'mixed',
-				'$yetAnotherAnotherAnotherAnotherMixedParameter',
+				'$this->yetAnotherAnotherAnotherMixedParameter',
 			],
 			[
 				'string',
@@ -1583,7 +1577,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'+1',
 			],
 			[
-				'mixed', // error
+				'*ERROR*',
 				'+"blabla"',
 			],
 			[
@@ -1591,7 +1585,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'+"123.2"',
 			],
 			[
-				'mixed', // error
+				'*ERROR*',
 				'-"blabla"',
 			],
 			[
@@ -1607,7 +1601,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'-$integer',
 			],
 			[
-				'mixed',
+				'*ERROR*',
 				'-$string',
 			],
 			// integer + integer
@@ -2053,7 +2047,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$arrayOfIntegers += ["foo"]',
 			],
 			[
-				'mixed', // error
+				'*ERROR*',
 				'$arrayOfIntegers += "foo"',
 			],
 			[
@@ -2133,7 +2127,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$mixed + $mixed',
 			],
 			[
-				'mixed', // error
+				'*ERROR*',
 				'$mixed + []',
 			],
 			[
@@ -2145,11 +2139,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'1 + "123.2"',
 			],
 			[
-				'mixed', // error
+				'*ERROR*',
 				'1 + $string',
 			],
 			[
-				'mixed', // error
+				'*ERROR*',
 				'1 + "blabla"',
 			],
 			[
@@ -2169,7 +2163,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$integer & 3',
 			],
 			[
-				'mixed', // error
+				'*ERROR*',
 				'"bla" & 3',
 			],
 			[
@@ -2181,7 +2175,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$integer | 3',
 			],
 			[
-				'mixed', // error
+				'*ERROR*',
 				'"bla" | 3',
 			],
 			[
@@ -2193,7 +2187,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$integer ^ 3',
 			],
 			[
-				'mixed', // error
+				'*ERROR*',
 				'"bla" ^ 3',
 			],
 			[
@@ -2201,7 +2195,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$integer &= 3',
 			],
 			[
-				'mixed', // error
+				'*ERROR*',
 				'$string &= 3',
 			],
 			[
@@ -2209,7 +2203,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$integer |= 3',
 			],
 			[
-				'mixed', // error
+				'*ERROR*',
 				'$string |= 3',
 			],
 			[
@@ -2217,7 +2211,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$integer ^= 3',
 			],
 			[
-				'mixed', // error
+				'*ERROR*',
 				'$string ^= 3',
 			],
 			[
@@ -2225,7 +2219,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$fooString[0]',
 			],
 			[
-				'mixed', // $error
+				'*ERROR*',
 				'$fooString[4]',
 			],
 			[
@@ -2241,7 +2235,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'"$fooString bar"',
 			],
 			[
-				'mixed', // error
+				'*ERROR*',
 				'"$std bar"',
 			],
 		];
@@ -2307,7 +2301,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$strings[0]',
 			],
 			[
-				'mixed',
+				'*ERROR*',
 				'$emptyArray[0]',
 			],
 			[
@@ -2432,8 +2426,8 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$mixedParameter',
 			],
 			[
-				'mixed',
-				'$alsoMixedParameter',
+				'MethodPhpDocsNamespace\Bar|MethodPhpDocsNamespace\Foo',
+				'$unionTypeParameter',
 			],
 			[
 				'mixed',
@@ -2472,7 +2466,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$objectUsed',
 			],
 			[
-				'mixed',
+				'*ERROR*',
 				'$nonexistentParameter',
 			],
 			[
@@ -2812,7 +2806,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$bar',
 			],
 			[
-				'mixed',
+				'*ERROR*',
 				'$baz',
 			],
 			[
@@ -2875,7 +2869,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/switch-instanceof-not.php',
-			'mixed',
+			'*ERROR*',
 			'$foo'
 		);
 	}
@@ -2884,11 +2878,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				'mixed',
+				'*ERROR*',
 				'$foo',
 			],
 			[
-				'mixed',
+				'*ERROR*',
 				'$bar',
 			],
 			[
@@ -2959,7 +2953,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				'mixed',
+				'*ERROR*',
 				'$em->getByFoo($foo)',
 			],
 			[
@@ -2975,7 +2969,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$em->getByPrimary(DynamicMethodReturnTypesNamespace\Foo::class)',
 			],
 			[
-				'mixed',
+				'*ERROR*',
 				'$iem->getByFoo($foo)',
 			],
 			[
@@ -2991,7 +2985,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$iem->getByPrimary(DynamicMethodReturnTypesNamespace\Foo::class)',
 			],
 			[
-				'mixed',
+				'*ERROR*',
 				'EntityManager::getByFoo($foo)',
 			],
 			[
@@ -3007,7 +3001,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'\DynamicMethodReturnTypesNamespace\EntityManager::createManagerForEntity(DynamicMethodReturnTypesNamespace\Foo::class)',
 			],
 			[
-				'mixed',
+				'*ERROR*',
 				'\DynamicMethodReturnTypesNamespace\InheritedEntityManager::getByFoo($foo)',
 			],
 			[
@@ -3112,7 +3106,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				'mixed',
+				'*ERROR*',
 				'$var',
 				'new \OverwritingVariable\Bar();',
 			],
@@ -3165,23 +3159,23 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$bar',
 			],
 			[
-				'mixed',
+				'*ERROR*',
 				'$lorem',
 			],
 			[
-				'mixed',
+				'*ERROR*',
 				'$dolor',
 			],
 			[
-				'mixed',
+				'*ERROR*',
 				'$sit',
 			],
 			[
-				'mixed',
+				'*ERROR*',
 				'$mixedFoo',
 			],
 			[
-				'mixed',
+				'*ERROR*',
 				'$mixedBar',
 			],
 			[
@@ -3232,7 +3226,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$integer',
 			],
 			[
-				'mixed',
+				'*ERROR*',
 				'$bar',
 			],
 		];
@@ -3444,13 +3438,13 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				__DIR__ . '/data/foreach/object-type.php',
-				'mixed', // *ERROR*
+				'*ERROR*',
 				'$keyFromRecursiveAggregate',
 				"'insideThirdForeach';",
 			],
 			[
 				__DIR__ . '/data/foreach/object-type.php',
-				'mixed', // *ERROR*
+				'*ERROR*',
 				'$valueFromRecursiveAggregate',
 				"'insideThirdForeach';",
 			],
@@ -3606,7 +3600,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$yetAnotherInteger',
 			],
 			[
-				'mixed',
+				'*ERROR*',
 				'$mixedInteger',
 			],
 			[
@@ -5187,7 +5181,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			$type = $scope->getType($expressionNode);
 			$this->assertTypeDescribe(
 				$description,
-				$type->describe(),
+				$type,
 				sprintf('%s at %s', $expression, $evaluatedPointExpression)
 			);
 		}, $dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions, $methodTypeSpecifyingExtensions, $staticMethodTypeSpecifyingExtensions);
@@ -5286,8 +5280,16 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		});
 	}
 
-	private function assertTypeDescribe(string $expectedDescription, string $actualDescription, string $label = ''): void
+	private function assertTypeDescribe(
+		string $expectedDescription,
+		Type $actualType,
+		string $label = ''
+	): void
 	{
+		$actualDescription = $actualType->describe();
+		if ($actualType instanceof ErrorType) {
+			$actualDescription = '*ERROR*';
+		}
 		$this->assertSame(
 			$expectedDescription,
 			$actualDescription,

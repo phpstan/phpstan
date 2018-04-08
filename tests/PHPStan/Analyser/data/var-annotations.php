@@ -25,7 +25,7 @@ class Foo
 		/** @var \AnotherNamespace\Bar $barObject */
 		$barObject = getFoo();
 
-		/** @var $mixed */
+		/** @var mixed $mixed */
 		$mixed = getFoo();
 
 		/** @var array $array */
@@ -69,7 +69,7 @@ class Foo
 		/** @var \AnotherNamespace\Bar */
 		$barObject = getFoo();
 
-		/** @var */
+		/** @var mixed */
 		$mixed = getFoo();
 
 		/** @var array */
