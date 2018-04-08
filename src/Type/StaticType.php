@@ -229,7 +229,7 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 
 	public function toString(): Type
 	{
-		return new ErrorType();
+		return $this->staticObjectType->toString();
 	}
 
 	public function toInteger(): Type
