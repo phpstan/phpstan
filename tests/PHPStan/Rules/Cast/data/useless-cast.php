@@ -24,3 +24,5 @@ $stringOrMixed = doFoo();
 (string) $stringOrMixed;
 
 $foo = (float) (100.0 / 25.432);
+
+(int) "blabla";

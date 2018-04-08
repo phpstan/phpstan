@@ -7,6 +7,7 @@ use PhpParser\Node\Expr\Cast;
 use PhpParser\Node\Expr\Cast\Object_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\ConstantType;
+use PHPStan\Type\ErrorType;
 
 class UselessCastRule implements \PHPStan\Rules\Rule
 {
@@ -27,11 +28,15 @@ class UselessCastRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		$expressionType = $scope->getType($node->expr);
 		$castType = $scope->getType($node);
+		if ($castType instanceof ErrorType) {
+			return [];
+		}
 		if ($castType instanceof ConstantType) {
 			$castType = $castType->generalize();
 		}
+
+		$expressionType = $scope->getType($node->expr);
 		if ($castType->isSuperTypeOf($expressionType)->yes()) {
 			return [
 				sprintf(
