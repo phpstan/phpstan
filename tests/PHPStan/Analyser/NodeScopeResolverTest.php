@@ -1179,6 +1179,70 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'stdClass|TypesNamespaceCasts\Foo',
 				'$castedArrayOrObject',
 			],
+			[
+				'int(0)|int(1)',
+				'(int) $bool',
+			],
+			[
+				'float(0.000000)|float(1.000000)',
+				'(float) $bool',
+			],
+			[
+				'*ERROR*',
+				'(int) $foo',
+			],
+			[
+				'true',
+				'(bool) $foo',
+			],
+			[
+				'int(1)',
+				'(int) true',
+			],
+			[
+				'int(0)',
+				'(int) false',
+			],
+			[
+				'int(5)',
+				'(int) 5.25',
+			],
+			[
+				'float(5.000000)',
+				'(float) 5',
+			],
+			[
+				'int(5)',
+				'(int) "5"',
+			],
+			[
+				'float(5.000000)',
+				'(float) "5"',
+			],
+			[
+				'*ERROR*',
+				'(int) "blabla"',
+			],
+			[
+				'*ERROR*',
+				'(float) "blabla"',
+			],
+			[
+				'int(0)',
+				'(int) null',
+			],
+			[
+				'float(0.000000)',
+				'(float) null',
+			],
+			[
+				'int',
+				'(int) $str',
+			],
+			[
+				'float',
+				'(float) $str',
+			],
 		];
 	}
 

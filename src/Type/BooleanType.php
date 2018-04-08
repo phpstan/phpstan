@@ -2,6 +2,9 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Type\Constant\ConstantFloatType;
+use PHPStan\Type\Constant\ConstantIntegerType;
+use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\Traits\NonCallableTypeTrait;
 use PHPStan\Type\Traits\NonIterableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
@@ -25,12 +28,31 @@ class BooleanType implements Type
 
 	public function toNumber(): Type
 	{
-		return new IntegerType();
+		return $this->toInteger();
 	}
 
 	public function toString(): Type
 	{
-		return new StringType();
+		return TypeCombinator::union(
+			new ConstantStringType(''),
+			new ConstantStringType('1')
+		);
+	}
+
+	public function toInteger(): Type
+	{
+		return TypeCombinator::union(
+			new ConstantIntegerType(0),
+			new ConstantIntegerType(1)
+		);
+	}
+
+	public function toFloat(): Type
+	{
+		return TypeCombinator::union(
+			new ConstantFloatType(0.0),
+			new ConstantFloatType(1.0)
+		);
 	}
 
 	/**

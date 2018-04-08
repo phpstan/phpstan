@@ -159,6 +159,16 @@ class ObjectType implements TypeWithClassName
 		return new ErrorType();
 	}
 
+	public function toInteger(): Type
+	{
+		return new ErrorType();
+	}
+
+	public function toFloat(): Type
+	{
+		return new ErrorType();
+	}
+
 	public function toString(): Type
 	{
 		$broker = Broker::getInstance();

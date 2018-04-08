@@ -36,6 +36,11 @@ class ConstantFloatType extends FloatType implements ConstantScalarType
 		return new ConstantStringType((string) $this->value);
 	}
 
+	public function toInteger(): Type
+	{
+		return new ConstantIntegerType((int) $this->value);
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

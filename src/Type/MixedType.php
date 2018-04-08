@@ -61,9 +61,19 @@ class MixedType implements CompoundType
 	public function toNumber(): Type
 	{
 		return new UnionType([
-			new IntegerType(),
-			new FloatType(),
+			$this->toInteger(),
+			$this->toFloat(),
 		]);
+	}
+
+	public function toInteger(): Type
+	{
+		return new IntegerType();
+	}
+
+	public function toFloat(): Type
+	{
+		return new FloatType();
 	}
 
 	public function toString(): Type

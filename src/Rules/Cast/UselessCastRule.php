@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Cast;
 use PhpParser\Node\Expr\Cast\Object_;
 use PHPStan\Analyser\Scope;
+use PHPStan\Type\ConstantType;
 
 class UselessCastRule implements \PHPStan\Rules\Rule
 {
@@ -28,6 +29,9 @@ class UselessCastRule implements \PHPStan\Rules\Rule
 
 		$expressionType = $scope->getType($node->expr);
 		$castType = $scope->getType($node);
+		if ($castType instanceof ConstantType) {
+			$castType = $castType->generalize();
+		}
 		if ($castType->isSuperTypeOf($expressionType)->yes()) {
 			return [
 				sprintf(

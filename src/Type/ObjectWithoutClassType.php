@@ -115,6 +115,16 @@ class ObjectWithoutClassType implements Type
 		return new ErrorType();
 	}
 
+	public function toInteger(): Type
+	{
+		return new ErrorType();
+	}
+
+	public function toFloat(): Type
+	{
+		return new ErrorType();
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

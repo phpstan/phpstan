@@ -60,6 +60,10 @@ interface Type
 
 	public function toNumber(): Type;
 
+	public function toInteger(): Type;
+
+	public function toFloat(): Type;
+
 	public function toString(): Type;
 
 	/**

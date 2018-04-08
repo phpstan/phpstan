@@ -37,6 +37,16 @@ class IntegerType implements Type
 		return $this;
 	}
 
+	public function toFloat(): Type
+	{
+		return new FloatType();
+	}
+
+	public function toInteger(): Type
+	{
+		return $this;
+	}
+
 	public function toString(): Type
 	{
 		return new StringType();

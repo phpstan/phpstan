@@ -65,6 +65,16 @@ class FloatType implements Type
 		return $this;
 	}
 
+	public function toFloat(): Type
+	{
+		return $this;
+	}
+
+	public function toInteger(): Type
+	{
+		return new IntegerType();
+	}
+
 	public function toString(): Type
 	{
 		return new StringType();

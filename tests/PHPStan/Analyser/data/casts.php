@@ -5,7 +5,7 @@ namespace TypesNamespaceCasts;
 class Foo
 {
 
-	public function doFoo()
+	public function doFoo(string $str)
 	{
 		$castedInteger = (int) foo();
 		$castedBoolean = (bool) foo();
@@ -19,6 +19,9 @@ class Foo
 		/** @var self|array $arrayOrObject */
 		$arrayOrObject = foo();
 		$castedArrayOrObject = (object) $arrayOrObject;
+
+		/** @var bool $bool */
+		$bool = doFoo();
 		die;
 	}
 

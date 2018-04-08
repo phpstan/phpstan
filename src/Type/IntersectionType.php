@@ -255,6 +255,24 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		return $type;
 	}
 
+	public function toInteger(): Type
+	{
+		$type = $this->intersectTypes(function (Type $type): Type {
+			return $type->toInteger();
+		});
+
+		return $type;
+	}
+
+	public function toFloat(): Type
+	{
+		$type = $this->intersectTypes(function (Type $type): Type {
+			return $type->toFloat();
+		});
+
+		return $type;
+	}
+
 	public function resolveStatic(string $className): Type
 	{
 		return new self(UnionTypeHelper::resolveStatic($className, $this->getTypes()));

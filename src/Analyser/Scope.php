@@ -867,11 +867,11 @@ class Scope
 			return $array;
 
 		} elseif ($node instanceof Int_) {
-				return new IntegerType();
+			return $this->getType($node->expr)->toInteger();
 		} elseif ($node instanceof Bool_) {
-			return new BooleanType();
+			return $this->getType($node->expr)->toBoolean();
 		} elseif ($node instanceof Double) {
-			return new FloatType();
+			return $this->getType($node->expr)->toFloat();
 		} elseif ($node instanceof \PhpParser\Node\Expr\Cast\String_) {
 			return $this->getType($node->expr)->toString();
 		} elseif ($node instanceof \PhpParser\Node\Expr\Cast\Array_) {

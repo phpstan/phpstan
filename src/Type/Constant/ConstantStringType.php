@@ -76,6 +76,26 @@ class ConstantStringType extends StringType implements ConstantScalarType
 		return new ErrorType();
 	}
 
+	public function toInteger(): Type
+	{
+		$type = $this->toNumber();
+		if ($type instanceof ErrorType) {
+			return $type;
+		}
+
+		return $type->toInteger();
+	}
+
+	public function toFloat(): Type
+	{
+		$type = $this->toNumber();
+		if ($type instanceof ErrorType) {
+			return $type;
+		}
+
+		return $type->toFloat();
+	}
+
 	public function toString(): Type
 	{
 		return $this;

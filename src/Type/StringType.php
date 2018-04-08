@@ -66,6 +66,16 @@ class StringType implements Type
 		return new ErrorType();
 	}
 
+	public function toInteger(): Type
+	{
+		return new IntegerType();
+	}
+
+	public function toFloat(): Type
+	{
+		return new FloatType();
+	}
+
 	public function toString(): Type
 	{
 		return $this;

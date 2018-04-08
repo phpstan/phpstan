@@ -83,6 +83,16 @@ class NullType implements ConstantScalarType
 		return new ConstantStringType('');
 	}
 
+	public function toInteger(): Type
+	{
+		return $this->toNumber();
+	}
+
+	public function toFloat(): Type
+	{
+		return $this->toNumber()->toFloat();
+	}
+
 	public function getOffsetValueType(Type $offsetType): Type
 	{
 		return new NullType();
