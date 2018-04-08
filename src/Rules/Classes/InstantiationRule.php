@@ -116,7 +116,7 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 				]);
 			}
 
-			return [];
+			return $messages;
 		}
 
 		$constructorReflection = $classReflection->hasNativeMethod('__construct') ? $classReflection->getNativeMethod('__construct') : $classReflection->getNativeMethod($class);

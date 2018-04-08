@@ -113,3 +113,13 @@ function () {
 function () {
 	new \Exception(123, 'code');
 };
+
+class NoConstructor
+{
+
+}
+
+function () {
+	new NoConstructor();
+	new NOCONSTRUCTOR();
+};

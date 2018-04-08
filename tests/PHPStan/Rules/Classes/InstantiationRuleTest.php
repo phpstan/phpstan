@@ -128,6 +128,10 @@ class InstantiationRuleTest extends \PHPStan\Testing\RuleTestCase
 					'Parameter #2 $code of class Exception constructor expects int, string given.',
 					114,
 				],
+				[
+					'Class TestInstantiation\NoConstructor referenced with incorrect case: TestInstantiation\NOCONSTRUCTOR.',
+					124,
+				],
 			]
 		);
 	}
