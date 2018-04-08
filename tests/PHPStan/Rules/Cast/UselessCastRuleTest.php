@@ -24,6 +24,10 @@ class UselessCastRuleTest extends \PHPStan\Testing\RuleTestCase
 					8,
 				],
 				[
+					'Casting to stdClass something that\'s already stdClass.',
+					9,
+				],
+				[
 					'Casting to float something that\'s already float(3.932054).',
 					26,
 				],

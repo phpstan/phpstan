@@ -4,7 +4,6 @@ namespace PHPStan\Rules\Cast;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Cast;
-use PhpParser\Node\Expr\Cast\Object_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\ConstantType;
 use PHPStan\Type\ErrorType;
@@ -24,10 +23,6 @@ class UselessCastRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		if ($node instanceof Object_) {
-			return [];
-		}
-
 		$castType = $scope->getType($node);
 		if ($castType instanceof ErrorType) {
 			return [];
