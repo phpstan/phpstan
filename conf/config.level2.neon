@@ -6,7 +6,7 @@ parameters:
 	checkThisOnly: false
 
 rules:
-	- PHPStan\Rules\Cast\InvalidStringCastRule
+	- PHPStan\Rules\Cast\InvalidCastRule
 	- PHPStan\Rules\Cast\InvalidPartOfEncapsedStringRule
 	- PHPStan\Rules\Operators\InvalidBinaryOperationRule
 	- PHPStan\Rules\Operators\InvalidUnaryOperationRule
