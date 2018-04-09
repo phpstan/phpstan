@@ -56,15 +56,6 @@ class ArrayType implements StaticResolvableType
 		);
 	}
 
-	public static function createDeepArrayType(Type $itemType, int $depth, bool $itemTypeInferredFromLiteralArray): self
-	{
-		for ($i = 0; $i < $depth - 1; $i++) {
-			$itemType = new self(new MixedType(), $itemType, false);
-		}
-
-		return new self(new MixedType(), $itemType, $itemTypeInferredFromLiteralArray);
-	}
-
 	public function isItemTypeInferredFromLiteralArray(): bool
 	{
 		return $this->itemTypeInferredFromLiteralArray;
