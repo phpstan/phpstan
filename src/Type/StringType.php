@@ -4,6 +4,8 @@ namespace PHPStan\Type;
 
 use PHPStan\Broker\Broker;
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\NonIterableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
@@ -79,6 +81,14 @@ class StringType implements Type
 	public function toString(): Type
 	{
 		return $this;
+	}
+
+	public function toArray(): Type
+	{
+		return new ConstantArrayType(
+			[new ConstantIntegerType(0)],
+			[$this]
+		);
 	}
 
 	/**

@@ -8,6 +8,8 @@ use PHPStan\Reflection\ClassConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\Traits\TruthyBooleanTypeTrait;
 
 class ObjectType implements TypeWithClassName
@@ -182,6 +184,39 @@ class ObjectType implements TypeWithClassName
 		}
 
 		return new ErrorType();
+	}
+
+	public function toArray(): Type
+	{
+		$broker = Broker::getInstance();
+		if (!$broker->hasClass($this->className)) {
+			return new ArrayType(new MixedType(), new MixedType());
+		}
+
+		$classReflection = $broker->getClass($this->className);
+		$arrayKeys = [];
+		$arrayValues = [];
+
+		do {
+			foreach ($classReflection->getNativeReflection()->getProperties() as $nativeProperty) {
+				if ($nativeProperty->isStatic()) {
+					continue;
+				}
+
+				$declaringClass = $broker->getClass($nativeProperty->getDeclaringClass()->getName());
+				$property = $declaringClass->getNativeProperty($nativeProperty->getName());
+				$arrayKeys[] = new ConstantStringType(sprintf(
+					'%s%s',
+					$declaringClass->getName(),
+					$nativeProperty->getName()
+				));
+				$arrayValues[] = $property->getType();
+			}
+
+			$classReflection = $classReflection->getParentClass();
+		} while ($classReflection !== false);
+
+		return new ConstantArrayType($arrayKeys, $arrayValues);
 	}
 
 	public function canAccessProperties(): TrinaryLogic

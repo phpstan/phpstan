@@ -69,6 +69,11 @@ class VoidType implements Type
 		return new ErrorType();
 	}
 
+	public function toArray(): Type
+	{
+		return new ErrorType();
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

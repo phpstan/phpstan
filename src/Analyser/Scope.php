@@ -875,7 +875,7 @@ class Scope
 		} elseif ($node instanceof \PhpParser\Node\Expr\Cast\String_) {
 			return $this->getType($node->expr)->toString();
 		} elseif ($node instanceof \PhpParser\Node\Expr\Cast\Array_) {
-			return new ArrayType(new MixedType(), new MixedType());
+			return $this->getType($node->expr)->toArray();
 		} elseif ($node instanceof Node\Scalar\MagicConst\Line) {
 			return new IntegerType();
 		} elseif ($node instanceof Node\Scalar\MagicConst\Class_) {

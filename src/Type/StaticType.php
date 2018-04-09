@@ -242,6 +242,11 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 		return new ErrorType();
 	}
 
+	public function toArray(): Type
+	{
+		return $this->staticObjectType->toArray();
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

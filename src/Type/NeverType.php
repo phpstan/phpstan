@@ -151,6 +151,11 @@ class NeverType implements CompoundType
 		return $this;
 	}
 
+	public function toArray(): Type
+	{
+		return $this;
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

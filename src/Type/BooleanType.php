@@ -2,6 +2,7 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantFloatType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
@@ -52,6 +53,14 @@ class BooleanType implements Type
 		return TypeCombinator::union(
 			new ConstantFloatType(0.0),
 			new ConstantFloatType(1.0)
+		);
+	}
+
+	public function toArray(): Type
+	{
+		return new ConstantArrayType(
+			[new ConstantIntegerType(0)],
+			[$this]
 		);
 	}
 

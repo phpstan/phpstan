@@ -66,6 +66,8 @@ interface Type
 
 	public function toString(): Type;
 
+	public function toArray(): Type;
+
 	/**
 	 * @param mixed[] $properties
 	 * @return self

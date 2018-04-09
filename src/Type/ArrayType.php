@@ -203,6 +203,11 @@ class ArrayType implements StaticResolvableType
 		return new ErrorType();
 	}
 
+	public function toArray(): Type
+	{
+		return $this;
+	}
+
 	protected function castToArrayKeyType(Type $offsetType): Type
 	{
 		if ($offsetType instanceof ConstantScalarType) {

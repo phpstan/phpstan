@@ -2,10 +2,28 @@
 
 namespace TypesNamespaceCasts;
 
-class Foo
+class Bar
 {
 
-	public function doFoo(string $str)
+	/** @var self */
+	private $barProperty;
+
+}
+
+class Foo extends Bar
+{
+
+	/** @var self */
+	private $foo;
+
+	/** @var int */
+	private $int;
+
+	/**
+	 * @param string $str
+	 * @param iterable<string, \DateTimeImmutable> $iterable
+	 */
+	public function doFoo(string $str, iterable $iterable)
 	{
 		$castedInteger = (int) foo();
 		$castedBoolean = (bool) foo();

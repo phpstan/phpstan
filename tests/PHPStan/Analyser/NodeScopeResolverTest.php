@@ -1243,6 +1243,42 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'float',
 				'(float) $str',
 			],
+			[
+				'array<string, int|TypesNamespaceCasts\Bar>',
+				'(array) $foo',
+			],
+			[
+				'array<int(0)|int(1)|int(2), int(1)|int(2)|int(3)>',
+				'(array) [1, 2, 3]',
+			],
+			[
+				'array<int(0), int(1)>',
+				'(array) 1',
+			],
+			[
+				'array<int(0), float(1.000000)>',
+				'(array) 1.0',
+			],
+			[
+				'array<int(0), true>',
+				'(array) true',
+			],
+			[
+				'array<int(0), string>',
+				'(array) "blabla"',
+			],
+			[
+				'array<int(0), int>',
+				'(array) $castedInteger',
+			],
+			[
+				'array<string, DateTimeImmutable>',
+				'(array) $iterable',
+			],
+			[
+				'array',
+				'(array) new stdClass()',
+			],
 		];
 	}
 

@@ -93,6 +93,14 @@ class NullType implements ConstantScalarType
 		return $this->toNumber()->toFloat();
 	}
 
+	public function toArray(): Type
+	{
+		return new ConstantArrayType(
+			[new ConstantIntegerType(0)],
+			[$this]
+		);
+	}
+
 	public function getOffsetValueType(Type $offsetType): Type
 	{
 		return new NullType();

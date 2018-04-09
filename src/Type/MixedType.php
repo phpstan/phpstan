@@ -81,6 +81,11 @@ class MixedType implements CompoundType
 		return new StringType();
 	}
 
+	public function toArray(): Type
+	{
+		return new ArrayType(new MixedType(), new MixedType());
+	}
+
 	public function isExplicitMixed(): bool
 	{
 		return $this->isExplicitMixed;
