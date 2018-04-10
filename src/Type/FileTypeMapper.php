@@ -215,6 +215,7 @@ class FileTypeMapper
 					Node\Expr\Assign::class,
 					Node\Expr\AssignRef::class,
 					Node\Stmt\Class_::class,
+					Node\Stmt\ClassConst::class,
 				], true)) {
 					return;
 				}

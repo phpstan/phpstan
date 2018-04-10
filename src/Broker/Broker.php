@@ -253,14 +253,25 @@ class Broker
 	{
 		$className = $reflectionClass->getName();
 		if (!isset($this->classReflections[$className])) {
+			$isDeprecated = false;
+
+			if ($reflectionClass->getDocComment() !== false && $reflectionClass->getFileName() !== false) {
+				$fileName = $reflectionClass->getFileName();
+				$docComment = $reflectionClass->getDocComment();
+				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, null, null, $docComment);
+
+				$isDeprecated = $resolvedPhpDoc->isDeprecated();
+			}
+
 			$classReflection = new ClassReflection(
 				$this,
+				$this->fileTypeMapper,
 				$this->propertiesClassReflectionExtensions,
 				$this->methodsClassReflectionExtensions,
 				$displayName,
 				$reflectionClass,
 				$anonymous,
-				false // FIXME: Deprecated
+				$isDeprecated
 			);
 			$this->classReflections[$className] = $classReflection;
 		}
@@ -322,7 +333,7 @@ class Broker
 					}, $functionSignature->getParameters()),
 					$functionSignature->isVariadic(),
 					$functionSignature->getReturnType(),
-					false // FIXME: Deprecated
+					false
 				);
 				self::$functionMap[$lowerCasedFunctionName] = $functionReflection;
 				$this->functionReflections[$lowerCasedFunctionName] = $functionReflection;
@@ -367,12 +378,14 @@ class Broker
 		$reflectionFunction = new \ReflectionFunction($functionName);
 		$phpDocParameterTags = [];
 		$phpDocReturnTag = null;
+		$isDeprecated = false;
 		if ($reflectionFunction->getFileName() !== false && $reflectionFunction->getDocComment() !== false) {
 			$fileName = $reflectionFunction->getFileName();
 			$docComment = $reflectionFunction->getDocComment();
 			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, null, null, $docComment);
 			$phpDocParameterTags = $resolvedPhpDoc->getParamTags();
 			$phpDocReturnTag = $resolvedPhpDoc->getReturnTag();
+			$isDeprecated = $resolvedPhpDoc->isDeprecated();
 		}
 
 		$functionReflection = $this->functionReflectionFactory->create(
@@ -380,7 +393,8 @@ class Broker
 			array_map(function (ParamTag $paramTag): Type {
 				return $paramTag->getType();
 			}, $phpDocParameterTags),
-			$phpDocReturnTag !== null ? $phpDocReturnTag->getType() : null
+			$phpDocReturnTag !== null ? $phpDocReturnTag->getType() : null,
+			$isDeprecated
 		);
 		$this->customFunctionReflections[$lowerCasedFunctionName] = $functionReflection;
 

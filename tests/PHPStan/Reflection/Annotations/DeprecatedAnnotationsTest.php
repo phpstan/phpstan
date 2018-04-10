@@ -132,11 +132,9 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 
 		foreach ($deprecatedAnnotations as $memberType => $members) {
 			foreach ($members as $memberName) {
-				// Constants in PHP <7.1 don't support PHPDocs via reflection
-				$memberDeprecated = $deprecated && ($memberType !== 'constant' || PHP_VERSION_ID >= 70100);
 				$memberAnnotation = $class->{'get' . ucfirst($memberType)}($memberName, $scope);
 				$this->assertInstanceOf(DeprecatableReflection::class, $memberAnnotation);
-				$this->assertSame($memberDeprecated, $memberAnnotation->isDeprecated());
+				$this->assertSame($deprecated, $memberAnnotation->isDeprecated());
 			}
 		}
 	}
@@ -147,21 +145,19 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 
 		/** @var Broker $broker */
 		$broker = $this->getContainer()->getByType(Broker::class);
-		$scope = $this->createMock(Scope::class);
 
-		$this->assertFalse($broker->getFunction(new Name('\DeprecatedAnnotations\foo'), $scope)->isDeprecated());
-		$this->assertTrue($broker->getFunction(new Name('\DeprecatedAnnotations\deprecatedFoo'), $scope)->isDeprecated());
+		$this->assertFalse($broker->getFunction(new Name('\DeprecatedAnnotations\foo'), null)->isDeprecated());
+		$this->assertTrue($broker->getFunction(new Name('\DeprecatedAnnotations\deprecatedFoo'), null)->isDeprecated());
 	}
 
 	public function testNonDeprecatedNativeFunctions(): void
 	{
 		/** @var Broker $broker */
 		$broker = $this->getContainer()->getByType(Broker::class);
-		$scope = $this->createMock(Scope::class);
 
-		$this->assertFalse($broker->getFunction(new Name('str_replace'), $scope)->isDeprecated());
-		$this->assertFalse($broker->getFunction(new Name('get_class'), $scope)->isDeprecated());
-		$this->assertFalse($broker->getFunction(new Name('function_exists'), $scope)->isDeprecated());
+		$this->assertFalse($broker->getFunction(new Name('str_replace'), null)->isDeprecated());
+		$this->assertFalse($broker->getFunction(new Name('get_class'), null)->isDeprecated());
+		$this->assertFalse($broker->getFunction(new Name('function_exists'), null)->isDeprecated());
 	}
 
 	// public function testDeprecatedNativeFunctions(): void

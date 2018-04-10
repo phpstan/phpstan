@@ -13,13 +13,15 @@ interface PhpMethodReflectionFactory
 	 * @param \ReflectionMethod $reflection
 	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
 	 * @param \PHPStan\Type\Type|null $phpDocReturnType
+	 * @param bool $isDeprecated
 	 * @return \PHPStan\Reflection\Php\PhpMethodReflection
 	 */
 	public function create(
 		ClassReflection $declaringClass,
 		\ReflectionMethod $reflection,
 		array $phpDocParameterTypes,
-		?Type $phpDocReturnType
+		?Type $phpDocReturnType,
+		bool $isDeprecated
 	): PhpMethodReflection;
 
 }

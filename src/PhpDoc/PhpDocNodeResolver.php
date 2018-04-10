@@ -36,7 +36,7 @@ class PhpDocNodeResolver
 			$this->resolvePropertyTags($phpDocNode, $nameScope),
 			$this->resolveParamTags($phpDocNode, $nameScope),
 			$this->resolveReturnTag($phpDocNode, $nameScope),
-			$this->resolveIsDeprecated($phpDocNode, $nameScope)
+			$this->resolveIsDeprecated($phpDocNode)
 		);
 	}
 
@@ -193,9 +193,9 @@ class PhpDocNodeResolver
 		return null;
 	}
 
-	private function resolveIsDeprecated(PhpDocNode $phpDocNode, NameScope $nameScope): bool
+	private function resolveIsDeprecated(PhpDocNode $phpDocNode): bool
 	{
-		$deprecatedTags = $phpDocNode->getTagsByName('deprecated');
+		$deprecatedTags = $phpDocNode->getTagsByName('@deprecated');
 
 		return count($deprecatedTags) > 0;
 	}

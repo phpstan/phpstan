@@ -63,7 +63,7 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 	/** @var \PHPStan\Type\Type */
 	private $nativeReturnType;
 
-	/** @var $isDeprecated */
+	/** @var bool $isDeprecated */
 	private $isDeprecated;
 
 	/**

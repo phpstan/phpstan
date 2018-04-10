@@ -3,6 +3,7 @@
 namespace PHPStan\Reflection;
 
 use PHPStan\Broker\Broker;
+use PHPStan\Type\FileTypeMapper;
 
 class ClassReflectionTest extends \PHPStan\Testing\TestCase
 {
@@ -24,7 +25,8 @@ class ClassReflectionTest extends \PHPStan\Testing\TestCase
 	public function testHasTraitUse(string $className, bool $has): void
 	{
 		$broker = $this->createMock(Broker::class);
-		$classReflection = new ClassReflection($broker, [], [], $className, new \ReflectionClass($className), false, false);
+		$fileTypeMapper = $this->createMock(FileTypeMapper::class);
+		$classReflection = new ClassReflection($broker, $fileTypeMapper, [], [], $className, new \ReflectionClass($className), false, false);
 		$this->assertSame($has, $classReflection->hasTraitUse(\HasTraitUse\FooTrait::class));
 	}
 
@@ -68,8 +70,12 @@ class ClassReflectionTest extends \PHPStan\Testing\TestCase
 		array $expectedDistances
 	): void
 	{
+		$broker = $this->createBroker();
+		$fileTypeMapper = $this->createMock(FileTypeMapper::class);
+
 		$classReflection = new ClassReflection(
-			$this->createBroker(),
+			$broker,
+			$fileTypeMapper,
 			[],
 			[],
 			$class,

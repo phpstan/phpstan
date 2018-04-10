@@ -12,12 +12,14 @@ interface FunctionReflectionFactory
 	 * @param \ReflectionFunction $reflection
 	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
 	 * @param null|Type $phpDocReturnType
+	 * @param bool $isDeprecated
 	 * @return PhpFunctionReflection
 	 */
 	public function create(
 		\ReflectionFunction $reflection,
 		array $phpDocParameterTypes,
-		?Type $phpDocReturnType
+		?Type $phpDocReturnType,
+		bool $isDeprecated
 	): PhpFunctionReflection;
 
 }

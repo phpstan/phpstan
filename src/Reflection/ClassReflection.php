@@ -6,12 +6,16 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\Php\PhpClassReflectionExtension;
 use PHPStan\Reflection\Php\PhpPropertyReflection;
+use PHPStan\Type\FileTypeMapper;
 
 class ClassReflection implements DeprecatableReflection
 {
 
 	/** @var \PHPStan\Broker\Broker */
 	private $broker;
+
+	/** @var \PHPStan\Type\FileTypeMapper */
+	private $fileTypeMapper;
 
 	/** @var \PHPStan\Reflection\PropertiesClassReflectionExtension[] */
 	private $propertiesClassReflectionExtensions;
@@ -45,6 +49,7 @@ class ClassReflection implements DeprecatableReflection
 
 	/**
 	 * @param Broker $broker
+	 * @param \PHPStan\Type\FileTypeMapper $fileTypeMapper
 	 * @param \PHPStan\Reflection\PropertiesClassReflectionExtension[] $propertiesClassReflectionExtensions
 	 * @param \PHPStan\Reflection\MethodsClassReflectionExtension[] $methodsClassReflectionExtensions
 	 * @param string $displayName
@@ -54,6 +59,7 @@ class ClassReflection implements DeprecatableReflection
 	 */
 	public function __construct(
 		Broker $broker,
+		FileTypeMapper $fileTypeMapper,
 		array $propertiesClassReflectionExtensions,
 		array $methodsClassReflectionExtensions,
 		string $displayName,
@@ -63,6 +69,7 @@ class ClassReflection implements DeprecatableReflection
 	)
 	{
 		$this->broker = $broker;
+		$this->fileTypeMapper = $fileTypeMapper;
 		$this->propertiesClassReflectionExtensions = $propertiesClassReflectionExtensions;
 		$this->methodsClassReflectionExtensions = $methodsClassReflectionExtensions;
 		$this->displayName = $displayName;
@@ -362,10 +369,21 @@ class ClassReflection implements DeprecatableReflection
 	{
 		if (!isset($this->constants[$name])) {
 			$reflectionConstant = $this->getNativeReflection()->getReflectionConstant($name);
+
+			$isDeprecated = false;
+			if ($reflectionConstant->getDocComment() !== false && $this->getFileName() !== false) {
+				$docComment = $reflectionConstant->getDocComment();
+				$fileName = $this->getFileName();
+				$className = $reflectionConstant->getDeclaringClass()->getName();
+				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, $className, null, $docComment);
+
+				$isDeprecated = $resolvedPhpDoc->isDeprecated();
+			}
+
 			$this->constants[$name] = new ClassConstantReflection(
 				$this->broker->getClass($reflectionConstant->getDeclaringClass()->getName()),
 				$reflectionConstant,
-				false // FIXME: Deprecated
+				$isDeprecated
 			);
 		}
 		return $this->constants[$name];

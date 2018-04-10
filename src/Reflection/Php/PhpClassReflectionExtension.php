@@ -109,6 +109,7 @@ class PhpClassReflectionExtension
 		$propertyReflection = $classReflection->getNativeReflection()->getProperty($propertyName);
 		$propertyName = $propertyReflection->getName();
 		$declaringClassReflection = $this->broker->getClass($propertyReflection->getDeclaringClass()->getName());
+		$isDeprecated = false;
 
 		if ($includingAnnotations && $this->annotationsPropertiesClassReflectionExtension->hasProperty($classReflection, $propertyName)) {
 			$hierarchyDistances = $classReflection->getClassHierarchyDistances();
@@ -149,6 +150,7 @@ class PhpClassReflectionExtension
 			} else {
 				$type = new MixedType();
 			}
+			$isDeprecated = $resolvedPhpDoc->isDeprecated();
 		} else {
 			$type = new MixedType();
 		}
@@ -157,7 +159,7 @@ class PhpClassReflectionExtension
 			$declaringClassReflection,
 			$type,
 			$propertyReflection,
-			false // FIXME: Deprecated
+			$isDeprecated
 		);
 	}
 
@@ -244,6 +246,7 @@ class PhpClassReflectionExtension
 
 		$phpDocParameterTypes = [];
 		$phpDocReturnType = null;
+		$isDeprecated = false;
 		if (!$classReflection->isAnonymous() && !$declaringClass->isAnonymous() && $declaringClass->getFileName() !== false) {
 			if ($methodReflection->getDocComment() !== false) {
 				$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForMethod(
@@ -264,6 +267,7 @@ class PhpClassReflectionExtension
 					return $tag->getType();
 				}, $resolvedPhpDoc->getParamTags());
 				$phpDocReturnType = $resolvedPhpDoc->getReturnTag() !== null ? $resolvedPhpDoc->getReturnTag()->getType() : null;
+				$isDeprecated = $resolvedPhpDoc->isDeprecated();
 			}
 		}
 
@@ -271,7 +275,8 @@ class PhpClassReflectionExtension
 			$declaringClass,
 			$methodReflection,
 			$phpDocParameterTypes,
-			$phpDocReturnType
+			$phpDocReturnType,
+			$isDeprecated
 		);
 	}
 

@@ -1410,12 +1410,14 @@ class Scope
 	 * @param Node\Stmt\ClassMethod $classMethod
 	 * @param Type[] $phpDocParameterTypes
 	 * @param null|Type $phpDocReturnType
+	 * @param bool $isDeprecated
 	 * @return self
 	 */
 	public function enterClassMethod(
 		Node\Stmt\ClassMethod $classMethod,
 		array $phpDocParameterTypes,
-		?Type $phpDocReturnType
+		?Type $phpDocReturnType,
+		bool $isDeprecated
 	): self
 	{
 		if (!$this->isInClass()) {
@@ -1430,7 +1432,8 @@ class Scope
 				$phpDocParameterTypes,
 				$classMethod->returnType !== null,
 				$this->getFunctionType($classMethod->returnType, $classMethod->returnType === null, false),
-				$phpDocReturnType
+				$phpDocReturnType,
+				$isDeprecated
 			)
 		);
 	}
@@ -1457,12 +1460,14 @@ class Scope
 	 * @param Node\Stmt\Function_ $function
 	 * @param Type[] $phpDocParameterTypes
 	 * @param null|Type $phpDocReturnType
+	 * @param bool $isDeprecated
 	 * @return self
 	 */
 	public function enterFunction(
 		Node\Stmt\Function_ $function,
 		array $phpDocParameterTypes,
-		?Type $phpDocReturnType = null
+		?Type $phpDocReturnType = null,
+		bool $isDeprecated = false
 	): self
 	{
 		return $this->enterFunctionLike(
@@ -1473,7 +1478,7 @@ class Scope
 				$function->returnType !== null,
 				$this->getFunctionType($function->returnType, $function->returnType === null, false),
 				$phpDocReturnType,
-				false // FIXME: Deprecated
+				$isDeprecated
 			)
 		);
 	}
