@@ -31,10 +31,30 @@ class UniversalObjectCratesClassReflectionExtension
 
 	public function hasProperty(ClassReflection $classReflection, string $propertyName): bool
 	{
-		foreach ($this->classes as $className) {
-			if (!$this->broker->hasClass($className)) {
+		return self::isUniversalObjectCrate(
+			$this->broker,
+			$this->classes,
+			$classReflection
+		);
+	}
+
+	/**
+	 * @param \PHPStan\Broker\Broker $broker
+	 * @param string[] $classes
+	 * @param \PHPStan\Reflection\ClassReflection $classReflection
+	 * @return bool
+	 */
+	public static function isUniversalObjectCrate(
+		Broker $broker,
+		array $classes,
+		ClassReflection $classReflection
+	): bool
+	{
+		foreach ($classes as $className) {
+			if (!$broker->hasClass($className)) {
 				continue;
 			}
+
 			if (
 				$classReflection->getName() === $className
 				|| $classReflection->isSubclassOf($className)
