@@ -160,7 +160,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'self::IPSUM_CONSTANT',
 			],
 			[
-				'array<int(0)|int(1)|int(2), int(1)|int(2)|int(3)>',
+				'array(int(1), int(2), int(3))',
 				'parent::PARENT_CONSTANT',
 			],
 			[
@@ -247,19 +247,19 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'arrOne',
 				TrinaryLogic::createYes(),
-				'array<int(0), string>',
+				'array(string)',
 			],
 			[
 				$testScope,
 				'arrTwo',
 				TrinaryLogic::createYes(),
-				'array<int(0)|string, Foo|string>',
+				'array(\'test\' => string, 0 => Foo)',
 			],
 			[
 				$testScope,
 				'arrThree',
 				TrinaryLogic::createYes(),
-				'array<int(0), string>',
+				'array(string)',
 			],
 			[
 				$testScope,
@@ -319,7 +319,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'anotherArray',
 				TrinaryLogic::createYes(),
-				'array<string, array<int(0), string>>',
+				'array(\'test\' => array(string))',
 			],
 			[
 				$testScope,
@@ -504,13 +504,13 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'nullableIntegers',
 				TrinaryLogic::createYes(),
-				'array<int(0)|int(1)|int(2)|int(3), int(1)|int(2)|int(3)|null>',
+				'array(int(1), int(2), int(3), null)',
 			],
 			[
 				$testScope,
 				'union',
 				TrinaryLogic::createYes(),
-				'array<int(0)|int(1)|int(2)|int(3), int(1)|int(2)|int(3)|string>',
+				'array(int(1), int(2), int(3), string)',
 				'int(1)|int(2)|int(3)|string',
 			],
 			[
@@ -678,7 +678,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'arrayOfIntegers',
 				TrinaryLogic::createYes(),
-				'array<int(0)|int(1)|int(2), int(1)|int(2)|int(3)>',
+				'array(int(1), int(2), int(3))',
 			],
 			[
 				$testScope,
@@ -790,7 +790,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				$testScope,
 				'literalArray',
-				'array<string, int(2)|int(4)>',
+				'array(\'a\' => int(2), \'b\' => int(4), \'c\' => int(2), \'d\' => int(4))',
 			],
 			[
 				$testScope,
@@ -1244,31 +1244,31 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'(float) $str',
 			],
 			[
-				'array<string, int|TypesNamespaceCasts\Bar>',
+				'array(\'TypesNamespaceCasts\\\\Foofoo\' => TypesNamespaceCasts\Foo, \'TypesNamespaceCasts\\\\Fooint\' => int, \'TypesNamespaceCasts\\\\BarbarProperty\' => TypesNamespaceCasts\Bar)',
 				'(array) $foo',
 			],
 			[
-				'array<int(0)|int(1)|int(2), int(1)|int(2)|int(3)>',
+				'array(int(1), int(2), int(3))',
 				'(array) [1, 2, 3]',
 			],
 			[
-				'array<int(0), int(1)>',
+				'array(int(1))',
 				'(array) 1',
 			],
 			[
-				'array<int(0), float(1.000000)>',
+				'array(float(1.000000))',
 				'(array) 1.0',
 			],
 			[
-				'array<int(0), true>',
+				'array(true)',
 				'(array) true',
 			],
 			[
-				'array<int(0), string>',
+				'array(string)',
 				'(array) "blabla"',
 			],
 			[
-				'array<int(0), int>',
+				'array(int)',
 				'(array) $castedInteger',
 			],
 			[
@@ -1276,7 +1276,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'(array) $iterable',
 			],
 			[
-				'array',
+				'array()',
 				'(array) new stdClass()',
 			],
 		];
@@ -1375,7 +1375,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$newStatic',
 			],
 			[
-				'array',
+				'array()',
 				'$arrayLiteral',
 			],
 			[
@@ -1407,7 +1407,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'self::STRING_CONSTANT',
 			],
 			[
-				'array',
+				'array()',
 				'self::ARRAY_CONSTANT',
 			],
 			[
@@ -1431,7 +1431,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foo::STRING_CONSTANT',
 			],
 			[
-				'array',
+				'array()',
 				'$foo::ARRAY_CONSTANT',
 			],
 			[
@@ -2135,15 +2135,15 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'!empty($foo)',
 			],
 			[
-				'array<int(0)|int(1)|int(2), int>',
+				'array(int, int, int)',
 				'$arrayOfIntegers + $arrayOfIntegers',
 			],
 			[
-				'array<int(0)|int(1)|int(2), int>',
+				'array(int, int, int)',
 				'$arrayOfIntegers += $arrayOfIntegers',
 			],
 			[
-				'array<int(0)|int(1)|int(2), int>',
+				'array(int, int, int)',
 				'$arrayOfIntegers += ["foo"]',
 			],
 			[
@@ -2155,7 +2155,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'@count($arrayOfIntegers)',
 			],
 			[
-				'array<int(0)|int(1)|int(2), int>',
+				'array(int, int, int)',
 				'$anotherArray = $arrayOfIntegers',
 			],
 			[
@@ -2247,7 +2247,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'1 + "blabla"',
 			],
 			[
-				'array<int(0)|int(1)|int(2), int(1)|int(2)|int(3)>',
+				'array(int(1), int(2), int(3))',
 				'[1, 2, 3] + [4, 5, 6]',
 			],
 			[

@@ -108,15 +108,15 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					284,
 				],
 				[
-					'Strict comparison using === between array<string, int(1)> and array<string, int(2)> will always evaluate to false.',
+					'Strict comparison using === between array(\'X\' => int(1)) and array(\'X\' => int(2)) will always evaluate to false.',
 					292,
 				],
 				[
-					'Strict comparison using === between array<string, int(1)|int(2)> and array<string, int(1)|int(2)> will always evaluate to false.',
+					'Strict comparison using === between array(\'X\' => int(1), \'Y\' => int(2)) and array(\'X\' => int(2), \'Y\' => int(1)) will always evaluate to false.',
 					300,
 				],
 				[
-					'Strict comparison using === between array<string, int(1)|int(2)> and array<string, int(1)|int(2)> will always evaluate to false.',
+					'Strict comparison using === between array(\'X\' => int(1), \'Y\' => int(2)) and array(\'Y\' => int(2), \'X\' => int(1)) will always evaluate to false.',
 					308,
 				],
 				[
@@ -242,15 +242,15 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					284,
 				],
 				[
-					'Strict comparison using === between array<string, int(1)> and array<string, int(2)> will always evaluate to false.',
+					'Strict comparison using === between array(\'X\' => int(1)) and array(\'X\' => int(2)) will always evaluate to false.',
 					292,
 				],
 				[
-					'Strict comparison using === between array<string, int(1)|int(2)> and array<string, int(1)|int(2)> will always evaluate to false.',
+					'Strict comparison using === between array(\'X\' => int(1), \'Y\' => int(2)) and array(\'X\' => int(2), \'Y\' => int(1)) will always evaluate to false.',
 					300,
 				],
 				[
-					'Strict comparison using === between array<string, int(1)|int(2)> and array<string, int(1)|int(2)> will always evaluate to false.',
+					'Strict comparison using === between array(\'X\' => int(1), \'Y\' => int(2)) and array(\'Y\' => int(2), \'X\' => int(1)) will always evaluate to false.',
 					308,
 				],
 				[

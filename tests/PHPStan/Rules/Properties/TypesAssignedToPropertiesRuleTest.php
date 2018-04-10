@@ -44,7 +44,7 @@ class TypesAssignedToPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 				44,
 			],
 			[
-				'Property PropertiesAssignedTypes\Foo::$unionPropertySelf (array<PropertiesAssignedTypes\Foo>|(iterable<PropertiesAssignedTypes\Foo>&PropertiesAssignedTypes\Collection)) does not accept array<int(0), PropertiesAssignedTypes\Bar>.',
+				'Property PropertiesAssignedTypes\Foo::$unionPropertySelf (array<PropertiesAssignedTypes\Foo>|(iterable<PropertiesAssignedTypes\Foo>&PropertiesAssignedTypes\Collection)) does not accept array(PropertiesAssignedTypes\Bar).',
 				45,
 			],
 			[

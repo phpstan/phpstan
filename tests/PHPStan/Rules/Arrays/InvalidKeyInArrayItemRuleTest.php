@@ -18,7 +18,7 @@ class InvalidKeyInArrayItemRuleTest extends \PHPStan\Testing\RuleTestCase
 				10,
 			],
 			[
-				'Invalid array key type array.',
+				'Invalid array key type array().',
 				11,
 			],
 		]);
@@ -32,7 +32,7 @@ class InvalidKeyInArrayItemRuleTest extends \PHPStan\Testing\RuleTestCase
 				7,
 			],
 			[
-				'Invalid array key type array.',
+				'Invalid array key type array().',
 				8,
 			],
 		]);

@@ -53,7 +53,7 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				92,
 			],
 			[
-				'Method ReturnTypes\Foo::returnUnionIterableType() should return array<ReturnTypes\Foo>|(iterable<ReturnTypes\Foo>&ReturnTypes\Collection) but returns array<int(0), ReturnTypes\Bar>.',
+				'Method ReturnTypes\Foo::returnUnionIterableType() should return array<ReturnTypes\Foo>|(iterable<ReturnTypes\Foo>&ReturnTypes\Collection) but returns array(ReturnTypes\Bar).',
 				93,
 			],
 			[
@@ -236,11 +236,11 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 	{
 		$this->analyse([__DIR__ . '/data/returnTypes-iterable.php'], [
 			[
-				'Method ReturnTypesIterable\Foo::stringIterable() should return iterable<string> but returns array<int(0), int(1)>.',
+				'Method ReturnTypesIterable\Foo::stringIterable() should return iterable<string> but returns array(int(1)).',
 				27,
 			],
 			[
-				'Method ReturnTypesIterable\Foo::stringIterablePipe() should return iterable<string> but returns array<int(0), int(1)>.',
+				'Method ReturnTypesIterable\Foo::stringIterablePipe() should return iterable<string> but returns array(int(1)).',
 				36,
 			],
 		]);

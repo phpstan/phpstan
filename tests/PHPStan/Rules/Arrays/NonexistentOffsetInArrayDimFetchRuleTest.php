@@ -14,11 +14,11 @@ class NonexistentOffsetInArrayDimFetchRuleTest extends \PHPStan\Testing\RuleTest
 	{
 		$this->analyse([__DIR__ . '/data/nonexistent-offset.php'], [
 			[
-				'Offset string does not exist on array<int(0)|string, int(2)|stdClass>.',
+				'Offset string does not exist on array(\'a\' => stdClass, 0 => int(2)).',
 				17,
 			],
 			[
-				'Offset int(1) does not exist on array<int(0)|string, int(2)|stdClass>.',
+				'Offset int(1) does not exist on array(\'a\' => stdClass, 0 => int(2)).',
 				18,
 			],
 			[
@@ -26,7 +26,7 @@ class NonexistentOffsetInArrayDimFetchRuleTest extends \PHPStan\Testing\RuleTest
 				35,
 			],
 			[
-				'Offset string does not exist on array<string, int(1)>.',
+				'Offset string does not exist on array(\'b\' => int(1)).',
 				55,
 			],
 		]);

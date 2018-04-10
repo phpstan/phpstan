@@ -522,7 +522,7 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				42,
 			],
 			[
-				'Parameter #4 ...$strings of method CallVariadicMethods\Foo::doVariadicString() expects array<int, string>, array<int(0)|int(1)|int(2), int(1)|int(2)|int(3)> given.',
+				'Parameter #4 ...$strings of method CallVariadicMethods\Foo::doVariadicString() expects array<int, string>, array(int(1), int(2), int(3)) given.',
 				42,
 			],
 		]);
@@ -698,7 +698,7 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->checkUnionTypes = true;
 		$this->analyse([__DIR__ . '/data/call-methods-iterable.php'], [
 			[
-				'Parameter #1 $ids of method CallMethodsIterables\Uuid::bar() expects iterable<CallMethodsIterables\Uuid>, array<int(0), null> given.',
+				'Parameter #1 $ids of method CallMethodsIterables\Uuid::bar() expects iterable<CallMethodsIterables\Uuid>, array(null) given.',
 				14,
 			],
 			[

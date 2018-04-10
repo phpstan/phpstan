@@ -30,7 +30,7 @@ class InvalidBinaryOperationRuleTest extends \PHPStan\Testing\RuleTestCase
 				17,
 			],
 			[
-				'Binary operation "+" between mixed and array results in an error.',
+				'Binary operation "+" between mixed and array() results in an error.',
 				19,
 			],
 			[

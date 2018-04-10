@@ -20,6 +20,8 @@ use PHPStan\Type\TypeWithClassName;
 class ConstantArrayType extends ArrayType implements ConstantType
 {
 
+	private const DESCRIBE_LIMIT = 8;
+
 	/** @var (ConstantIntegerType|ConstantStringType)[] */
 	private $keyTypes;
 
@@ -246,6 +248,35 @@ class ConstantArrayType extends ArrayType implements ConstantType
 	public function count(): int
 	{
 		return count($this->getKeyTypes());
+	}
+
+	public function describe(): string
+	{
+		$items = [];
+		$values = [];
+		$exportValuesOnly = true;
+		foreach ($this->keyTypes as $i => $keyType) {
+			$valueType = $this->valueTypes[$i];
+			if ($keyType->getValue() !== $i) {
+				$exportValuesOnly = false;
+			}
+
+			$items[] = sprintf('%s => %s', var_export($keyType->getValue(), true), $valueType->describe());
+			$values[] = $valueType->describe();
+		}
+
+		$append = '';
+		if (count($items) > self::DESCRIBE_LIMIT) {
+			$items = array_slice($items, 0, self::DESCRIBE_LIMIT);
+			$values = array_slice($values, 0, self::DESCRIBE_LIMIT);
+			$append = ', ...';
+		}
+
+		return sprintf(
+			'array(%s%s)',
+			implode(', ', $exportValuesOnly ? $values : $items),
+			$append
+		);
 	}
 
 	/**
