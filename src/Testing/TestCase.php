@@ -188,7 +188,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			$tagToService($this->getContainer()->findByTag(BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG)),
 			$functionReflectionFactory,
 			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $cache),
-			$signatureMapProvider
+			$signatureMapProvider,
+			$this->getContainer()->parameters['universalObjectCratesClasses']
 		);
 		$methodReflectionFactory->broker = $broker;
 

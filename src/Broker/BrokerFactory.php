@@ -48,7 +48,8 @@ class BrokerFactory
 			$tagToService($this->container->findByTag(self::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG)),
 			$this->container->getByType(FunctionReflectionFactory::class),
 			$this->container->getByType(FileTypeMapper::class),
-			$this->container->getByType(SignatureMapProvider::class)
+			$this->container->getByType(SignatureMapProvider::class),
+			$this->container->parameters['universalObjectCratesClasses']
 		);
 	}
 

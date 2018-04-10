@@ -1276,7 +1276,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'(array) $iterable',
 			],
 			[
-				'array()',
+				'array',
 				'(array) new stdClass()',
 			],
 		];

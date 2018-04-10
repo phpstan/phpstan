@@ -6,6 +6,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ClassConstantReflection;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantArrayType;
@@ -194,6 +195,13 @@ class ObjectType implements TypeWithClassName
 		}
 
 		$classReflection = $broker->getClass($this->className);
+		if (UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate(
+			$broker,
+			$broker->getUniversalObjectCratesClasses(),
+			$classReflection
+		)) {
+			return new ArrayType(new MixedType(), new MixedType());
+		}
 		$arrayKeys = [];
 		$arrayValues = [];
 

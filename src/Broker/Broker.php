@@ -51,6 +51,9 @@ class Broker
 	/** @var \PHPStan\Reflection\SignatureMap\SignatureMapProvider */
 	private $signatureMapProvider;
 
+	/** @var string[] */
+	private $universalObjectCratesClasses;
+
 	/** @var \PHPStan\Reflection\FunctionReflection[] */
 	private $functionReflections = [];
 
@@ -75,6 +78,7 @@ class Broker
 	 * @param \PHPStan\Reflection\FunctionReflectionFactory $functionReflectionFactory
 	 * @param \PHPStan\Type\FileTypeMapper $fileTypeMapper
 	 * @param \PHPStan\Reflection\SignatureMap\SignatureMapProvider $signatureMapProvider
+	 * @param string[] $universalObjectCratesClasses
 	 */
 	public function __construct(
 		array $propertiesClassReflectionExtensions,
@@ -84,7 +88,8 @@ class Broker
 		array $dynamicFunctionReturnTypeExtensions,
 		FunctionReflectionFactory $functionReflectionFactory,
 		FileTypeMapper $fileTypeMapper,
-		SignatureMapProvider $signatureMapProvider
+		SignatureMapProvider $signatureMapProvider,
+		array $universalObjectCratesClasses
 	)
 	{
 		$this->propertiesClassReflectionExtensions = $propertiesClassReflectionExtensions;
@@ -107,6 +112,7 @@ class Broker
 		$this->functionReflectionFactory = $functionReflectionFactory;
 		$this->fileTypeMapper = $fileTypeMapper;
 		$this->signatureMapProvider = $signatureMapProvider;
+		$this->universalObjectCratesClasses = $universalObjectCratesClasses;
 
 		self::$instance = $this;
 	}
@@ -117,6 +123,14 @@ class Broker
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 		return self::$instance;
+	}
+
+	/**
+	 * @return string[]
+	 */
+	public function getUniversalObjectCratesClasses(): array
+	{
+		return $this->universalObjectCratesClasses;
 	}
 
 	/**
