@@ -259,7 +259,8 @@ class Broker
 				$this->methodsClassReflectionExtensions,
 				$displayName,
 				$reflectionClass,
-				$anonymous
+				$anonymous,
+				false // FIXME: Deprecated
 			);
 			$this->classReflections[$className] = $classReflection;
 		}
@@ -320,7 +321,8 @@ class Broker
 						);
 					}, $functionSignature->getParameters()),
 					$functionSignature->isVariadic(),
-					$functionSignature->getReturnType()
+					$functionSignature->getReturnType(),
+					false // FIXME: Deprecated
 				);
 				self::$functionMap[$lowerCasedFunctionName] = $functionReflection;
 				$this->functionReflections[$lowerCasedFunctionName] = $functionReflection;

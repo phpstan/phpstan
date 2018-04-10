@@ -156,7 +156,8 @@ class PhpClassReflectionExtension
 		return new PhpPropertyReflection(
 			$declaringClassReflection,
 			$type,
-			$propertyReflection
+			$propertyReflection,
+			false // FIXME: Deprecated
 		);
 	}
 

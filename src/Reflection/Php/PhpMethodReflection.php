@@ -9,6 +9,7 @@ use PHPStan\Parser\FunctionCallStatementFinder;
 use PHPStan\Parser\Parser;
 use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\DeprecatableReflection;
 use PHPStan\Reflection\MethodPrototypeReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptor;
@@ -26,7 +27,7 @@ use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypehintHelper;
 use PHPStan\Type\VoidType;
 
-class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhpDocs
+class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhpDocs, DeprecatableReflection
 {
 
 	/** @var \PHPStan\Reflection\ClassReflection */
@@ -62,6 +63,9 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 	/** @var \PHPStan\Type\Type */
 	private $nativeReturnType;
 
+	/** @var $isDeprecated */
+	private $isDeprecated;
+
 	/**
 	 * @param ClassReflection $declaringClass
 	 * @param \ReflectionMethod $reflection
@@ -71,6 +75,7 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 	 * @param Cache $cache
 	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
 	 * @param null|Type $phpDocReturnType
+	 * @param bool $isDeprecated
 	 */
 	public function __construct(
 		ClassReflection $declaringClass,
@@ -80,7 +85,8 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 		FunctionCallStatementFinder $functionCallStatementFinder,
 		Cache $cache,
 		array $phpDocParameterTypes,
-		?Type $phpDocReturnType
+		?Type $phpDocReturnType,
+		bool $isDeprecated = false
 	)
 	{
 		$this->declaringClass = $declaringClass;
@@ -91,6 +97,7 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 		$this->cache = $cache;
 		$this->phpDocParameterTypes = $phpDocParameterTypes;
 		$this->phpDocReturnType = $phpDocReturnType;
+		$this->isDeprecated = $isDeprecated;
 	}
 
 	public function getDeclaringClass(): ClassReflection
@@ -459,6 +466,11 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 		}
 
 		return $this->nativeReturnType;
+	}
+
+	public function isDeprecated(): bool
+	{
+		return $this->isDeprecated;
 	}
 
 }

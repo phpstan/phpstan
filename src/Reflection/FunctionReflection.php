@@ -2,7 +2,7 @@
 
 namespace PHPStan\Reflection;
 
-interface FunctionReflection extends ParametersAcceptor
+interface FunctionReflection extends ParametersAcceptor, DeprecatableReflection
 {
 
 	public function getName(): string;

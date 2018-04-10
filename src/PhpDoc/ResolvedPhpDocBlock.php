@@ -22,19 +22,24 @@ class ResolvedPhpDocBlock
 	/** @var \PHPStan\PhpDoc\Tag\ReturnTag|null */
 	private $returnTag;
 
+	/** @var bool */
+	private $isDeprecated;
+
 	/**
 	 * @param array<string, \PHPStan\PhpDoc\Tag\VarTag> $varTags
 	 * @param array<string, \PHPStan\PhpDoc\Tag\MethodTag> $methodTags
 	 * @param array<string, \PHPStan\PhpDoc\Tag\PropertyTag> $propertyTags
 	 * @param array<string, \PHPStan\PhpDoc\Tag\ParamTag> $paramTags
 	 * @param \PHPStan\PhpDoc\Tag\ReturnTag|null $returnTag
+	 * @param bool $isDeprecated
 	 */
 	private function __construct(
 		array $varTags,
 		array $methodTags,
 		array $propertyTags,
 		array $paramTags,
-		?ReturnTag $returnTag
+		?ReturnTag $returnTag,
+		bool $isDeprecated
 	)
 	{
 		$this->varTags = $varTags;
@@ -42,6 +47,7 @@ class ResolvedPhpDocBlock
 		$this->propertyTags = $propertyTags;
 		$this->paramTags = $paramTags;
 		$this->returnTag = $returnTag;
+		$this->isDeprecated = $isDeprecated;
 	}
 
 	/**
@@ -50,6 +56,7 @@ class ResolvedPhpDocBlock
 	 * @param array<string, \PHPStan\PhpDoc\Tag\PropertyTag> $propertyTags
 	 * @param array<string, \PHPStan\PhpDoc\Tag\ParamTag> $paramTags
 	 * @param \PHPStan\PhpDoc\Tag\ReturnTag|null $returnTag
+	 * @param bool $isDeprecated
 	 * @return self
 	 */
 	public static function create(
@@ -57,15 +64,16 @@ class ResolvedPhpDocBlock
 		array $methodTags,
 		array $propertyTags,
 		array $paramTags,
-		?ReturnTag $returnTag
+		?ReturnTag $returnTag,
+		bool $isDeprecated
 	): self
 	{
-		return new self($varTags, $methodTags, $propertyTags, $paramTags, $returnTag);
+		return new self($varTags, $methodTags, $propertyTags, $paramTags, $returnTag, $isDeprecated);
 	}
 
 	public static function createEmpty(): self
 	{
-		return new self([], [], [], [], null);
+		return new self([], [], [], [], null, false);
 	}
 
 
@@ -106,6 +114,11 @@ class ResolvedPhpDocBlock
 		return $this->returnTag;
 	}
 
+	public function isDeprecated(): bool
+	{
+		return $this->isDeprecated;
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return self
@@ -117,7 +130,8 @@ class ResolvedPhpDocBlock
 			$properties['methodTags'],
 			$properties['propertyTags'],
 			$properties['paramTags'],
-			$properties['returnTag']
+			$properties['returnTag'],
+			$properties['isDeprecated']
 		);
 	}
 

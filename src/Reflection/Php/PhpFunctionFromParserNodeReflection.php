@@ -39,6 +39,9 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 	/** @var \PHPStan\Type\Type */
 	private $returnType;
 
+	/** @var bool */
+	private $isDeprecated;
+
 	/**
 	 * @param FunctionLike $functionLike
 	 * @param \PHPStan\Type\Type[] $realParameterTypes
@@ -46,6 +49,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 	 * @param bool $realReturnTypePresent
 	 * @param Type $realReturnType
 	 * @param null|Type $phpDocReturnType
+	 * @param bool $isDeprecated
 	 */
 	public function __construct(
 		FunctionLike $functionLike,
@@ -53,7 +57,8 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 		array $phpDocParameterTypes,
 		bool $realReturnTypePresent,
 		Type $realReturnType,
-		?Type $phpDocReturnType = null
+		?Type $phpDocReturnType = null,
+		bool $isDeprecated = false
 	)
 	{
 		$this->functionLike = $functionLike;
@@ -62,6 +67,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 		$this->realReturnTypePresent = $realReturnTypePresent;
 		$this->realReturnType = $realReturnType;
 		$this->phpDocReturnType = $phpDocReturnType;
+		$this->isDeprecated = $isDeprecated;
 	}
 
 	protected function getFunctionLike(): FunctionLike
@@ -142,6 +148,11 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 		}
 
 		return $this->returnType;
+	}
+
+	public function isDeprecated(): bool
+	{
+		return $this->isDeprecated;
 	}
 
 }

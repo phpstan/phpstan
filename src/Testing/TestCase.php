@@ -115,7 +115,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 					$this->functionCallStatementFinder,
 					$this->cache,
 					$phpDocParameterTypes,
-					$phpDocReturnType
+					$phpDocReturnType,
+					false // FIXME: Deprecated
 				);
 			}
 		};

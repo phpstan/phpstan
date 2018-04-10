@@ -329,4 +329,9 @@ class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWit
 		return $this->nativeReturnType;
 	}
 
+	public function isDeprecated(): bool
+	{
+		return $this->reflection->isDeprecated();
+	}
+
 }

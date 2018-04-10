@@ -7,7 +7,7 @@ use PHPStan\Broker\Broker;
 use PHPStan\Reflection\Php\PhpClassReflectionExtension;
 use PHPStan\Reflection\Php\PhpPropertyReflection;
 
-class ClassReflection
+class ClassReflection implements DeprecatableReflection
 {
 
 	/** @var \PHPStan\Broker\Broker */
@@ -40,6 +40,9 @@ class ClassReflection
 	/** @var int[]|null */
 	private $classHierarchyDistances;
 
+	/** @var bool */
+	private $isDeprecated;
+
 	/**
 	 * @param Broker $broker
 	 * @param \PHPStan\Reflection\PropertiesClassReflectionExtension[] $propertiesClassReflectionExtensions
@@ -47,6 +50,7 @@ class ClassReflection
 	 * @param string $displayName
 	 * @param \ReflectionClass $reflection
 	 * @param bool $anonymous
+	 * @param bool $isDeprecated
 	 */
 	public function __construct(
 		Broker $broker,
@@ -54,7 +58,8 @@ class ClassReflection
 		array $methodsClassReflectionExtensions,
 		string $displayName,
 		\ReflectionClass $reflection,
-		bool $anonymous
+		bool $anonymous,
+		bool $isDeprecated
 	)
 	{
 		$this->broker = $broker;
@@ -63,6 +68,7 @@ class ClassReflection
 		$this->displayName = $displayName;
 		$this->reflection = $reflection;
 		$this->anonymous = $anonymous;
+		$this->isDeprecated = $isDeprecated;
 	}
 
 	public function getNativeReflection(): \ReflectionClass
@@ -358,7 +364,8 @@ class ClassReflection
 			$reflectionConstant = $this->getNativeReflection()->getReflectionConstant($name);
 			$this->constants[$name] = new ClassConstantReflection(
 				$this->broker->getClass($reflectionConstant->getDeclaringClass()->getName()),
-				$reflectionConstant
+				$reflectionConstant,
+				false // FIXME: Deprecated
 			);
 		}
 		return $this->constants[$name];
@@ -382,6 +389,11 @@ class ClassReflection
 		}
 
 		return $traitNames;
+	}
+
+	public function isDeprecated(): bool
+	{
+		return $this->isDeprecated;
 	}
 
 }

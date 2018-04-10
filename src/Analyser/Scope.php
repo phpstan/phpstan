@@ -1472,7 +1472,8 @@ class Scope
 				$phpDocParameterTypes,
 				$function->returnType !== null,
 				$this->getFunctionType($function->returnType, $function->returnType === null, false),
-				$phpDocReturnType
+				$phpDocReturnType,
+				false // FIXME: Deprecated
 			)
 		);
 	}

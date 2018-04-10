@@ -19,23 +19,29 @@ class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
 	/** @var \PHPStan\Type\Type */
 	private $returnType;
 
+	/** @var bool */
+	private $isDeprecated;
+
 	/**
 	 * @param string $name
 	 * @param \PHPStan\Reflection\Native\NativeParameterReflection[] $parameters
 	 * @param bool $variadic
 	 * @param \PHPStan\Type\Type $returnType
+	 * @param bool $isDeprecated
 	 */
 	public function __construct(
 		string $name,
 		array $parameters,
 		bool $variadic,
-		Type $returnType
+		Type $returnType,
+		bool $isDeprecated
 	)
 	{
 		$this->name = $name;
 		$this->parameters = $parameters;
 		$this->variadic = $variadic;
 		$this->returnType = $returnType;
+		$this->isDeprecated = $isDeprecated;
 	}
 
 	public function getName(): string
@@ -59,6 +65,11 @@ class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
 	public function getReturnType(): Type
 	{
 		return $this->returnType;
+	}
+
+	public function isDeprecated(): bool
+	{
+		return $this->isDeprecated;
 	}
 
 }

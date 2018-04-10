@@ -3,10 +3,11 @@
 namespace PHPStan\Reflection\Php;
 
 use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\DeprecatableReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Type\Type;
 
-class PhpPropertyReflection implements PropertyReflection
+class PhpPropertyReflection implements PropertyReflection, DeprecatableReflection
 {
 
 	/** @var \PHPStan\Reflection\ClassReflection */
@@ -18,15 +19,20 @@ class PhpPropertyReflection implements PropertyReflection
 	/** @var \ReflectionProperty */
 	private $reflection;
 
+	/** @var bool */
+	private $isDeprecated;
+
 	public function __construct(
 		ClassReflection $declaringClass,
 		Type $type,
-		\ReflectionProperty $reflection
+		\ReflectionProperty $reflection,
+		bool $isDeprecated
 	)
 	{
 		$this->declaringClass = $declaringClass;
 		$this->type = $type;
 		$this->reflection = $reflection;
+		$this->isDeprecated = $isDeprecated;
 	}
 
 	public function getDeclaringClass(): ClassReflection
@@ -70,6 +76,11 @@ class PhpPropertyReflection implements PropertyReflection
 	public function isWritable(): bool
 	{
 		return true;
+	}
+
+	public function isDeprecated(): bool
+	{
+		return $this->isDeprecated;
 	}
 
 }
