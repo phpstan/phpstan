@@ -250,4 +250,5 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 	{
 		require_once $filePath;
 	}
+
 }
