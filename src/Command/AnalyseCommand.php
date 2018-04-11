@@ -246,8 +246,8 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		});
 	}
 
-	private function requireFileOnce($file_path): void
+	private function requireFileOnce(string $filePath): void
 	{
-		require_once $file_path;
+		require_once $filePath;
 	}
 }
