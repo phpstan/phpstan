@@ -269,7 +269,25 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			$valueTypes[] = $valueType;
 		}
 
-		return new self($this->keyTypes, $valueTypes);
+		return new self($this->keyTypes, $valueTypes, $this->nextAutoIndex);
+	}
+
+	/**
+	 * @return static
+	 */
+	public function getKeysArray(): ArrayType
+	{
+		$keyTypes = [];
+		$valueTypes = [];
+		$autoIndex = 0;
+
+		foreach ($this->keyTypes as $i => $keyType) {
+			$keyTypes[] = new ConstantIntegerType($i);
+			$valueTypes[] = $keyType;
+			$autoIndex++;
+		}
+
+		return new self($keyTypes, $valueTypes, $autoIndex);
 	}
 
 	public function count(): int
