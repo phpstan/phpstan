@@ -2014,7 +2014,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'__DIR__',
 			],
 			[
-				'1|2|3', // if the only argument in min is array, lowest value in that array is returned
+				'1',
 				'min([1, 2, 3])',
 			],
 			[
@@ -2022,47 +2022,71 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'min([1, 2, 3], [4, 5, 5])',
 			],
 			[
-				'1|2|3',
+				'1',
 				'min(...[1, 2, 3])',
 			],
 			[
-				'1.1|2.2|3.3',
+				'1.1',
 				'min(...[1.1, 2.2, 3.3])',
 			],
 			[
-				'1.1|2|3',
+				'1.1',
 				'min(...[1.1, 2, 3])',
 			],
 			[
-				'1|2|3',
+				'3',
 				'max(...[1, 2, 3])',
 			],
 			[
-				'1.1|2.2|3.3',
+				'3.3',
 				'max(...[1.1, 2.2, 3.3])',
 			],
 			[
-				'1|2|3',
+				'1',
 				'min(1, 2, 3)',
 			],
 			[
-				'1|2|3',
+				'3',
 				'max(1, 2, 3)',
 			],
 			[
-				'1.1|2.2|3.3',
+				'1.1',
 				'min(1.1, 2.2, 3.3)',
 			],
 			[
-				'1.1|2.2|3.3',
+				'3.3',
 				'max(1.1, 2.2, 3.3)',
+			],
+			[
+				'1',
+				'min(1, 1)',
+			],
+			[
+				'*ERROR*',
+				'min(1)',
+			],
+			[
+				'int|string',
+				'min($integer, $string)',
+			],
+			[
+				'int|string',
+				'min([$integer, $string])',
+			],
+			[
+				'int|string',
+				'min(...[$integer, $string])',
+			],
+			[
+				'\'a\'',
+				'min(\'a\', \'b\')',
 			],
 			[
 				'DateTimeImmutable',
 				'max(new \DateTimeImmutable("today"), new \DateTimeImmutable("tomorrow"))',
 			],
 			[
-				'1|2.2|3.3',
+				'1',
 				'min(1, 2.2, 3.3)',
 			],
 			[
