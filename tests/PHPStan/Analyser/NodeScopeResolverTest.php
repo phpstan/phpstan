@@ -1962,8 +1962,16 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$mixed ? "foo" : null',
 			],
 			[
-				'12|null',
+				'12',
 				'12 ?: null',
+			],
+			[
+				'1',
+				'true ? 1 : 2',
+			],
+			[
+				'2',
+				'false ? 1 : 2',
 			],
 			[
 				'12|string',

@@ -649,14 +649,35 @@ class Scope
 		}
 
 		if ($node instanceof Expr\Ternary) {
-			$conditionScope = $this->filterByTruthyValue($node->cond);
-			$negatedConditionScope = $this->filterByFalseyValue($node->cond);
-			$elseType = $negatedConditionScope->getType($node->else);
 			if ($node->if === null) {
-				return TypeCombinator::union($conditionScope->getType($node->cond), $elseType);
+				$conditionType = $this->filterByTruthyValue($node->cond, true)->getType($node->cond);
+				$booleanConditionType = $conditionType->toBoolean();
+				if ($booleanConditionType instanceof ConstantBooleanType) {
+					if ($booleanConditionType->getValue()) {
+						return $conditionType;
+					}
+
+					return $this->filterByFalseyValue($node->cond, true)->getType($node->else);
+				}
+				return TypeCombinator::union(
+					$conditionType,
+					$this->filterByFalseyValue($node->cond, true)->getType($node->else)
+				);
 			}
 
-			return TypeCombinator::union($conditionScope->getType($node->if), $elseType);
+			$booleanConditionType = $this->getType($node->cond)->toBoolean();
+			if ($booleanConditionType instanceof ConstantBooleanType) {
+				if ($booleanConditionType->getValue()) {
+					return $this->filterByTruthyValue($node->cond)->getType($node->if);
+				}
+
+				return $this->filterByFalseyValue($node->cond)->getType($node->else);
+			}
+
+			return TypeCombinator::union(
+				$this->filterByTruthyValue($node->cond)->getType($node->if),
+				$this->filterByFalseyValue($node->cond)->getType($node->else)
+			);
 		}
 
 		if ($node instanceof Expr\Clone_) {
@@ -1981,15 +2002,15 @@ class Scope
 		);
 	}
 
-	public function filterByTruthyValue(Expr $expr): self
+	public function filterByTruthyValue(Expr $expr, bool $defaultHandleFunctions = false): self
 	{
-		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this, $expr, TypeSpecifierContext::createTruthy());
+		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this, $expr, TypeSpecifierContext::createTruthy(), $defaultHandleFunctions);
 		return $this->filterBySpecifiedTypes($specifiedTypes);
 	}
 
-	public function filterByFalseyValue(Expr $expr): self
+	public function filterByFalseyValue(Expr $expr, bool $defaultHandleFunctions = false): self
 	{
-		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this, $expr, TypeSpecifierContext::createFalsey());
+		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this, $expr, TypeSpecifierContext::createFalsey(), $defaultHandleFunctions);
 		return $this->filterBySpecifiedTypes($specifiedTypes);
 	}
 
