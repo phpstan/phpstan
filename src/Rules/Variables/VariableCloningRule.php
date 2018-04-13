@@ -7,6 +7,7 @@ use PhpParser\Node\Expr\Clone_;
 use PhpParser\Node\Expr\Variable;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\NullType;
+use PHPStan\Type\VerbosityLevel;
 
 class VariableCloningRule implements \PHPStan\Rules\Rule
 {
@@ -46,13 +47,13 @@ class VariableCloningRule implements \PHPStan\Rules\Rule
 				sprintf(
 					'Cannot clone non-object variable $%s of type %s.',
 					$node->expr->name,
-					$type->describe()
+					$type->describe(VerbosityLevel::typeOnly())
 				),
 			];
 		}
 
 		return [
-			sprintf('Cannot clone %s.', $type->describe()),
+			sprintf('Cannot clone %s.', $type->describe(VerbosityLevel::typeOnly())),
 		];
 	}
 

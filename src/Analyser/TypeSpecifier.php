@@ -18,8 +18,11 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Name;
 use PHPStan\Broker\Broker;
+use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
+use PHPStan\Type\Constant\ConstantFloatType;
 use PHPStan\Type\Constant\ConstantIntegerType;
+use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\NonexistentParentClassType;
 use PHPStan\Type\NullType;
@@ -320,9 +323,9 @@ class TypeSpecifier
 				new NullType(),
 				new ConstantBooleanType(false),
 				new ConstantIntegerType(0),
-			//              new ConstantFloatType(0.0),
-			//              new ConstantStringType(''),
-			//              new ConstantArrayType([], []),
+				new ConstantFloatType(0.0),
+				new ConstantStringType(''),
+				new ConstantArrayType([], []),
 			]);
 			return $this->create($expr, $type, TypeSpecifierContext::createFalse());
 		}

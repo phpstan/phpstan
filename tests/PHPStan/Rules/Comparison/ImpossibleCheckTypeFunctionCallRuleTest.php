@@ -36,23 +36,23 @@ class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestC
 					48,
 				],
 				[
-					'Call to function is_callable() with string will always evaluate to true.',
+					'Call to function is_callable() with \'date\' will always evaluate to true.',
 					84,
 				],
 				[
-					'Call to function is_callable() with string will always evaluate to false.',
+					'Call to function is_callable() with \'nonexistentFunction\' will always evaluate to false.',
 					87,
 				],
 				[
-					'Call to function is_numeric() with string will always evaluate to true.',
+					'Call to function is_numeric() with \'123\' will always evaluate to true.',
 					102,
 				],
 				[
-					'Call to function is_numeric() with string will always evaluate to false.',
+					'Call to function is_numeric() with \'blabla\' will always evaluate to false.',
 					105,
 				],
 				[
-					'Call to function is_numeric() with float|int(123) will always evaluate to true.',
+					'Call to function is_numeric() with 123|float will always evaluate to true.',
 					118,
 				],
 			]
@@ -78,11 +78,11 @@ class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestC
 					48,
 				],
 				[
-					'Call to function is_callable() with string will always evaluate to false.',
+					'Call to function is_callable() with \'nonexistentFunction\' will always evaluate to false.',
 					87,
 				],
 				[
-					'Call to function is_numeric() with string will always evaluate to false.',
+					'Call to function is_numeric() with \'blabla\' will always evaluate to false.',
 					105,
 				],
 			]

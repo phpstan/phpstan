@@ -41,7 +41,7 @@ class NeverType implements CompoundType
 		return TrinaryLogic::createYes();
 	}
 
-	public function describe(): string
+	public function describe(VerbosityLevel $level): string
 	{
 		return '*NEVER*';
 	}

@@ -6,6 +6,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\PassedByReference;
 use PHPStan\Reflection\Php\PhpMethodReflection;
+use PHPStan\Type\VerbosityLevel;
 
 class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\Testing\TestCase
 {
@@ -973,7 +974,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\Testing\Te
 			);
 			$this->assertSame(
 				$expectedMethodData['returnType'],
-				$method->getReturnType()->describe(),
+				$method->getReturnType()->describe(VerbosityLevel::value()),
 				sprintf('Return type of method %s::%s() does not match', $className, $methodName)
 			);
 			$this->assertSame(
@@ -998,7 +999,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\Testing\Te
 				);
 				$this->assertSame(
 					$expectedMethodData['parameters'][$i]['type'],
-					$parameter->getType()->describe()
+					$parameter->getType()->describe(VerbosityLevel::value())
 				);
 				$this->assertTrue(
 					$expectedMethodData['parameters'][$i]['passedByReference']->equals($parameter->passedByReference())

@@ -6,6 +6,7 @@ use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\Traits\ConstantScalarTypeTrait;
 use PHPStan\Type\Type;
+use PHPStan\Type\VerbosityLevel;
 
 class ConstantFloatType extends FloatType implements ConstantScalarType
 {
@@ -26,9 +27,21 @@ class ConstantFloatType extends FloatType implements ConstantScalarType
 		return $this->value;
 	}
 
-	public function describe(): string
+	public function describe(VerbosityLevel $level): string
 	{
-		return sprintf('float(%f)', $this->value);
+		return $level->handle(
+			function (): string {
+				return 'float';
+			},
+			function (): string {
+				$formatted = (string) $this->value;
+				if (strpos($formatted, '.') === false) {
+					$formatted .= '.0';
+				}
+
+				return $formatted;
+			}
+		);
 	}
 
 	public function toString(): Type

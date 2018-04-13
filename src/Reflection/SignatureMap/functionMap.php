@@ -47,7 +47,8 @@
  */
 
 return [
-'abs' => ['int', 'number'=>'int'],
+//'abs' => ['int', 'number'=>'int'],
+'abs' => ['int|float', 'number'=>'int|float'],
 'abs\'1' => ['float', 'number'=>'float'],
 'accelerator_get_configuration' => ['array'],
 'accelerator_get_scripts' => ['array'],
@@ -6230,7 +6231,8 @@ return [
 'nsapi_virtual' => ['bool', 'uri'=>'string'],
 'nthmac' => ['string', 'clent'=>'string', 'data'=>'string'],
 'number_format\'1' => ['string', 'number'=>'float', 'num_decimal_places'=>'int', 'dec_separator'=>'string', 'thousands_separator'=>'string'],
-'number_format' => ['string', 'number'=>'float', 'num_decimal_places='=>'int'],
+'number_format' => ['string', 'number'=>'float', 'num_decimal_places='=>'int', 'dec_separator='=>'string', 'thousands_separator='=>'string'],
+//'number_format' => ['string', 'number'=>'float', 'num_decimal_places='=>'int'],
 'NumberFormatter::__construct' => ['void', 'locale'=>'string', 'style'=>'int', 'pattern='=>'string'],
 'NumberFormatter::create' => ['NumberFormatter', 'locale'=>'string', 'style'=>'int', 'pattern='=>'string'],
 'NumberFormatter::formatCurrency' => ['string', 'num'=>'float', 'currency'=>'string'],

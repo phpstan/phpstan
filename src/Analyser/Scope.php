@@ -58,6 +58,7 @@ use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
+use PHPStan\Type\VerbosityLevel;
 use PHPStan\Type\VoidType;
 
 class Scope
@@ -2182,14 +2183,14 @@ class Scope
 		$descriptions = [];
 		foreach ($this->getVariableTypes() as $name => $variableTypeHolder) {
 			$key = sprintf('$%s (%s)', $name, $variableTypeHolder->getCertainty()->describe());
-			$descriptions[$key] = $variableTypeHolder->getType()->describe();
+			$descriptions[$key] = $variableTypeHolder->getType()->describe(VerbosityLevel::value());
 		}
 		foreach ($this->moreSpecificTypes as $exprString => $type) {
 			$key = $exprString;
 			if (isset($descriptions[$key])) {
 				$key .= '-specified';
 			}
-			$descriptions[$key] = $type->describe();
+			$descriptions[$key] = $type->describe(VerbosityLevel::value());
 		}
 
 		return $descriptions;

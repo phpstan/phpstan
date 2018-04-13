@@ -89,17 +89,35 @@ class ArrayType implements StaticResolvableType
 		return TrinaryLogic::createNo();
 	}
 
-	public function describe(): string
+	public function describe(VerbosityLevel $level): string
 	{
 		if ($this->keyType instanceof MixedType) {
 			if ($this->itemType instanceof MixedType) {
 				return 'array';
 			}
 
-			return sprintf('array<%s>', $this->itemType->describe());
+			return sprintf('array<%s>', $this->itemType->describe($level));
 		}
 
-		return sprintf('array<%s, %s>', $this->keyType->describe(), $this->itemType->describe());
+		return sprintf('array<%s, %s>', $this->keyType->describe($level), $this->itemType->describe($level));
+	}
+
+	public function generalizeValues(): self
+	{
+		$itemType = $this->itemType;
+		if ($itemType instanceof ConstantType) {
+			$itemType = $itemType->generalize();
+		} elseif ($itemType instanceof UnionType) {
+			$itemType = TypeCombinator::union(...array_map(function (Type $type): Type {
+				if ($type instanceof ConstantType) {
+					return $type->generalize();
+				}
+
+				return $type;
+			}, $itemType->getTypes()));
+		}
+
+		return new self($this->keyType, $itemType);
 	}
 
 	public function resolveStatic(string $className): Type

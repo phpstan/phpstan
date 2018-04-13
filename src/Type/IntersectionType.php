@@ -7,6 +7,7 @@ use PHPStan\Reflection\ClassConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Constant\ConstantBooleanType;
 
 class IntersectionType implements CompoundType, StaticResolvableType
 {
@@ -73,15 +74,32 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		return TrinaryLogic::maxMin(...$results);
 	}
 
-	public function describe(): string
+	public function describe(VerbosityLevel $level): string
 	{
-		$typeNames = [];
+		return $level->handle(
+			function () use ($level): string {
+				$typeNames = [];
+				foreach ($this->types as $type) {
+					if (
+						$type instanceof ConstantType
+						&& !$type instanceof ConstantBooleanType
+					) {
+						$type = $type->generalize();
+					}
+					$typeNames[] = $type->describe($level);
+				}
 
-		foreach ($this->types as $type) {
-			$typeNames[] = $type->describe();
-		}
+				return implode('&', $typeNames);
+			},
+			function () use ($level): string {
+				$typeNames = [];
+				foreach ($this->types as $type) {
+					$typeNames[] = $type->describe($level);
+				}
 
-		return implode('&', $typeNames);
+				return implode('&', $typeNames);
+			}
+		);
 	}
 
 	public function canAccessProperties(): TrinaryLogic

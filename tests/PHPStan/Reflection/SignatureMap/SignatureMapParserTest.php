@@ -14,6 +14,7 @@ use PHPStan\Type\ResourceType;
 use PHPStan\Type\StaticType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\UnionType;
+use PHPStan\Type\VerbosityLevel;
 
 class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 {
@@ -359,8 +360,8 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 				sprintf('Optionality of parameter $%s does not match.', $parameterSignature->getName())
 			);
 			$this->assertSame(
-				$expectedParameterSignature->getType()->describe(),
-				$parameterSignature->getType()->describe(),
+				$expectedParameterSignature->getType()->describe(VerbosityLevel::value()),
+				$parameterSignature->getType()->describe(VerbosityLevel::value()),
 				sprintf('Type of parameter $%s does not match.', $parameterSignature->getName())
 			);
 			$this->assertTrue(
@@ -375,8 +376,8 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 		}
 
 		$this->assertSame(
-			$expectedSignature->getReturnType()->describe(),
-			$functionSignature->getReturnType()->describe(),
+			$expectedSignature->getReturnType()->describe(VerbosityLevel::value()),
+			$functionSignature->getReturnType()->describe(VerbosityLevel::value()),
 			'Return type does not match.'
 		);
 		$this->assertSame(

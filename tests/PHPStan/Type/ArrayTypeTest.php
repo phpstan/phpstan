@@ -57,7 +57,7 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isSuperTypeOf(%s)', $type->describe(), $otherType->describe())
+			sprintf('%s -> isSuperTypeOf(%s)', $type->describe(VerbosityLevel::value()), $otherType->describe(VerbosityLevel::value()))
 		);
 	}
 

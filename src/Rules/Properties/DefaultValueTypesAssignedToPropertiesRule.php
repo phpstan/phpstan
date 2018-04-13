@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\RuleLevelHelper;
+use PHPStan\Type\VerbosityLevel;
 
 class DefaultValueTypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 {
@@ -58,8 +59,8 @@ class DefaultValueTypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 				$node->isStatic() ? 'Static property' : 'Property',
 				$classReflection->getDisplayName(),
 				$property->name,
-				$propertyType->describe(),
-				$defaultValueType->describe()
+				$propertyType->describe(VerbosityLevel::typeOnly()),
+				$defaultValueType->describe(VerbosityLevel::typeOnly())
 			);
 		}
 

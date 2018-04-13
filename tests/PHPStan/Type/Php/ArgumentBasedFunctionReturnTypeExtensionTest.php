@@ -11,6 +11,7 @@ use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\StringType;
+use PHPStan\Type\VerbosityLevel;
 
 class ArgumentBasedFunctionReturnTypeExtensionTest extends \PHPStan\Testing\TestCase
 {
@@ -55,7 +56,7 @@ class ArgumentBasedFunctionReturnTypeExtensionTest extends \PHPStan\Testing\Test
 		$this->assertTrue($extension->isFunctionSupported($functionReflectionMock));
 		$this->assertSame(
 			$expectedDescription,
-			$extension->getTypeFromFunctionCall($functionReflectionMock, $functionCall, $scopeMock)->describe()
+			$extension->getTypeFromFunctionCall($functionReflectionMock, $functionCall, $scopeMock)->describe(VerbosityLevel::value())
 		);
 	}
 

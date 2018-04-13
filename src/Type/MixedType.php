@@ -53,7 +53,7 @@ class MixedType implements CompoundType
 		return TrinaryLogic::createMaybe();
 	}
 
-	public function describe(): string
+	public function describe(VerbosityLevel $level): string
 	{
 		return 'mixed';
 	}

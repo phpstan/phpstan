@@ -4,6 +4,7 @@ namespace PHPStan\Rules\Arrays;
 
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\VerbosityLevel;
 
 class InvalidKeyInArrayDimFetchRule implements \PHPStan\Rules\Rule
 {
@@ -32,7 +33,7 @@ class InvalidKeyInArrayDimFetchRule implements \PHPStan\Rules\Rule
 		$dimensionType = $scope->getType($node->dim);
 		if (!AllowedArrayKeysTypes::getType()->accepts($dimensionType)) {
 			return [
-				sprintf('Invalid array key type %s.', $dimensionType->describe()),
+				sprintf('Invalid array key type %s.', $dimensionType->describe(VerbosityLevel::typeOnly())),
 			];
 		}
 

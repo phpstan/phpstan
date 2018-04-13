@@ -10,7 +10,7 @@ class RecursionGuard
 
 	public static function run(Type $type, callable $callback): Type
 	{
-		$key = $type->describe();
+		$key = $type->describe(VerbosityLevel::value());
 		if (isset(self::$context[$key])) {
 			return new ErrorType();
 		}

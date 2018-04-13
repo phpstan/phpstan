@@ -22,11 +22,11 @@ class InvalidUnaryOperationRuleTest extends \PHPStan\Testing\RuleTestCase
 				11,
 			],
 			[
-				'Unary operation "+" on string results in an error.',
+				'Unary operation "+" on \'bla\' results in an error.',
 				16,
 			],
 			[
-				'Unary operation "-" on string results in an error.',
+				'Unary operation "-" on \'bla\' results in an error.',
 				17,
 			],
 		]);

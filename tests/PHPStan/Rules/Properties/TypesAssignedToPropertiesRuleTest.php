@@ -16,7 +16,7 @@ class TypesAssignedToPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 	{
 		$this->analyse([__DIR__ . '/data/properties-assigned-types.php'], [
 			[
-				'Property PropertiesAssignedTypes\Foo::$stringProperty (string) does not accept int(1).',
+				'Property PropertiesAssignedTypes\Foo::$stringProperty (string) does not accept int.',
 				29,
 			],
 			[
@@ -28,15 +28,15 @@ class TypesAssignedToPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 				33,
 			],
 			[
-				'Static property PropertiesAssignedTypes\Foo::$staticStringProperty (string) does not accept int(1).',
+				'Static property PropertiesAssignedTypes\Foo::$staticStringProperty (string) does not accept int.',
 				35,
 			],
 			[
-				'Static property PropertiesAssignedTypes\Foo::$staticStringProperty (string) does not accept int(1).',
+				'Static property PropertiesAssignedTypes\Foo::$staticStringProperty (string) does not accept int.',
 				37,
 			],
 			[
-				'Static property PropertiesAssignedTypes\Ipsum::$parentStringProperty (string) does not accept int(1).',
+				'Static property PropertiesAssignedTypes\Ipsum::$parentStringProperty (string) does not accept int.',
 				39,
 			],
 			[
@@ -44,7 +44,7 @@ class TypesAssignedToPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 				44,
 			],
 			[
-				'Property PropertiesAssignedTypes\Foo::$unionPropertySelf (array<PropertiesAssignedTypes\Foo>|(iterable<PropertiesAssignedTypes\Foo>&PropertiesAssignedTypes\Collection)) does not accept array(PropertiesAssignedTypes\Bar).',
+				'Property PropertiesAssignedTypes\Foo::$unionPropertySelf (array<PropertiesAssignedTypes\Foo>|(iterable<PropertiesAssignedTypes\Foo>&PropertiesAssignedTypes\Collection)) does not accept array<int, PropertiesAssignedTypes\Bar>.',
 				45,
 			],
 			[
@@ -52,11 +52,11 @@ class TypesAssignedToPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 				46,
 			],
 			[
-				'Property PropertiesAssignedTypes\Ipsum::$parentStringProperty (string) does not accept int(1).',
+				'Property PropertiesAssignedTypes\Ipsum::$parentStringProperty (string) does not accept int.',
 				48,
 			],
 			[
-				'Static property PropertiesAssignedTypes\Ipsum::$parentStaticStringProperty (string) does not accept int(1).',
+				'Static property PropertiesAssignedTypes\Ipsum::$parentStaticStringProperty (string) does not accept int.',
 				50,
 			],
 			[

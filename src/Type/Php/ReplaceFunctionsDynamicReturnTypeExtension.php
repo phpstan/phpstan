@@ -6,7 +6,6 @@ use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\ArrayType;
-use PHPStan\Type\ConstantType;
 use PHPStan\Type\DynamicFunctionReturnTypeExtension;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\StringType;
@@ -40,8 +39,8 @@ class ReplaceFunctionsDynamicReturnTypeExtension implements DynamicFunctionRetur
 		if ($stringType->isSuperTypeOf($subjectArgumentType)->yes()) {
 			return $stringType;
 		} elseif ($arrayType->isSuperTypeOf($subjectArgumentType)->yes()) {
-			if ($subjectArgumentType instanceof ConstantType) {
-				return $subjectArgumentType->generalize();
+			if ($subjectArgumentType instanceof ArrayType) {
+				return $subjectArgumentType->generalizeValues();
 			}
 			return $subjectArgumentType;
 		}

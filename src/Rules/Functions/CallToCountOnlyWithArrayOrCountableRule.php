@@ -10,6 +10,7 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\UnionType;
+use PHPStan\Type\VerbosityLevel;
 
 class CallToCountOnlyWithArrayOrCountableRule implements \PHPStan\Rules\Rule
 {
@@ -61,18 +62,18 @@ class CallToCountOnlyWithArrayOrCountableRule implements \PHPStan\Rules\Rule
 
 		if ($argumentType instanceof NullType) {
 			return [
-				sprintf($message, $argumentType->describe(), '0'),
+				sprintf($message, $argumentType->describe(VerbosityLevel::typeOnly()), '0'),
 			];
 		}
 
 		if ($this->ruleLevelHelper->accepts($argumentType, new NullType())) {
 			return [
-				sprintf($message, $argumentType->describe(), '0 or 1'),
+				sprintf($message, $argumentType->describe(VerbosityLevel::typeOnly()), '0 or 1'),
 			];
 		}
 
 		return [
-			sprintf($message, $argumentType->describe(), '1'),
+			sprintf($message, $argumentType->describe(VerbosityLevel::typeOnly()), '1'),
 		];
 	}
 

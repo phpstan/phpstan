@@ -20,7 +20,7 @@ class ResourceType implements Type
 	use NonOffsetAccessibleTypeTrait;
 	use TruthyBooleanTypeTrait;
 
-	public function describe(): string
+	public function describe(VerbosityLevel $level): string
 	{
 		return 'resource';
 	}

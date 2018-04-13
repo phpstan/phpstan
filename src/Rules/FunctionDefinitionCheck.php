@@ -12,6 +12,7 @@ use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
 use PHPStan\Reflection\Php\PhpMethodReflection;
 use PHPStan\Type\NonexistentParentClassType;
+use PHPStan\Type\VerbosityLevel;
 
 class FunctionDefinitionCheck
 {
@@ -185,7 +186,7 @@ class FunctionDefinitionCheck
 				continue;
 			}
 
-			$errors[] = sprintf($parameterMessage, $parameter->getName(), $parameter->getType()->describe());
+			$errors[] = sprintf($parameterMessage, $parameter->getName(), $parameter->getType()->describe(VerbosityLevel::typeOnly()));
 		}
 
 		if ($this->checkThisOnly) {
@@ -212,7 +213,7 @@ class FunctionDefinitionCheck
 			);
 		}
 		if ($parametersAcceptor->getReturnType() instanceof NonexistentParentClassType) {
-			$errors[] = sprintf($returnMessage, $parametersAcceptor->getReturnType()->describe());
+			$errors[] = sprintf($returnMessage, $parametersAcceptor->getReturnType()->describe(VerbosityLevel::typeOnly()));
 		}
 
 		return $errors;

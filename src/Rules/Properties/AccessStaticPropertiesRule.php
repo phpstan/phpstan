@@ -13,6 +13,7 @@ use PHPStan\Type\ErrorType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\VerbosityLevel;
 
 class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 {
@@ -139,7 +140,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 
 		if (!$classType->canAccessProperties()->yes()) {
 			return array_merge($messages, [
-				sprintf('Cannot access static property $%s on %s.', $name, $typeForDescribe->describe()),
+				sprintf('Cannot access static property $%s on %s.', $name, $typeForDescribe->describe(VerbosityLevel::typeOnly())),
 			]);
 		}
 
@@ -151,7 +152,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 			return array_merge($messages, [
 				sprintf(
 					'Access to an undefined static property %s::$%s.',
-					$typeForDescribe->describe(),
+					$typeForDescribe->describe(VerbosityLevel::typeOnly()),
 					$name
 				),
 			]);

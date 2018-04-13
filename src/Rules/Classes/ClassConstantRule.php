@@ -12,6 +12,7 @@ use PHPStan\Type\ErrorType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\VerbosityLevel;
 
 class ClassConstantRule implements \PHPStan\Rules\Rule
 {
@@ -123,7 +124,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 
 		if (!$classType->canAccessConstants()->yes()) {
 			return array_merge($messages, [
-				sprintf('Cannot access constant %s on %s.', $constantName, $typeForDescribe->describe()),
+				sprintf('Cannot access constant %s on %s.', $constantName, $typeForDescribe->describe(VerbosityLevel::typeOnly())),
 			]);
 		}
 
@@ -135,7 +136,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 			return array_merge($messages, [
 				sprintf(
 					'Access to undefined constant %s::%s.',
-					$typeForDescribe->describe(),
+					$typeForDescribe->describe(VerbosityLevel::typeOnly()),
 					$constantName
 				),
 			]);

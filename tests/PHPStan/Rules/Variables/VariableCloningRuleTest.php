@@ -18,7 +18,7 @@ class VariableCloningRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->checkNullables = true;
 		$this->analyse([__DIR__ . '/data/variable-cloning.php'], [
 			[
-				'Cannot clone int(123)|string.',
+				'Cannot clone int|string.',
 				11,
 			],
 			[
@@ -45,7 +45,7 @@ class VariableCloningRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->checkNullables = false;
 		$this->analyse([__DIR__ . '/data/variable-cloning.php'], [
 			[
-				'Cannot clone int(123)|string.',
+				'Cannot clone int|string.',
 				11,
 			],
 			[

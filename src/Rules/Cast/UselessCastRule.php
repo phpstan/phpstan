@@ -7,6 +7,7 @@ use PhpParser\Node\Expr\Cast;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\ConstantType;
 use PHPStan\Type\ErrorType;
+use PHPStan\Type\VerbosityLevel;
 
 class UselessCastRule implements \PHPStan\Rules\Rule
 {
@@ -36,8 +37,8 @@ class UselessCastRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf(
 					'Casting to %s something that\'s already %s.',
-					$castType->describe(),
-					$expressionType->describe()
+					$castType->describe(VerbosityLevel::typeOnly()),
+					$expressionType->describe(VerbosityLevel::typeOnly())
 				),
 			];
 		}
