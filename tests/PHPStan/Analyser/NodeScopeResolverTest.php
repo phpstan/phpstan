@@ -3659,6 +3659,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array<int, string>',
 				'array_keys($generalStringKeys)',
 			],
+			[
+				'array(\'foo\', stdClass)',
+				'array_values($integerKeys)',
+			],
+			[
+				'array<int, int>',
+				'array_values($generalStringKeys)',
+			],
 		];
 	}
 
