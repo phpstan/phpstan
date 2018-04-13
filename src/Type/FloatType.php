@@ -57,7 +57,7 @@ class FloatType implements Type
 		return TrinaryLogic::createNo();
 	}
 
-	public function describe(): string
+	public function describe(VerbosityLevel $level): string
 	{
 		return 'float';
 	}
@@ -86,7 +86,8 @@ class FloatType implements Type
 	{
 		return new ConstantArrayType(
 			[new ConstantIntegerType(0)],
-			[$this]
+			[$this],
+			1
 		);
 	}
 

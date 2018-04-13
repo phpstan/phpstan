@@ -131,7 +131,7 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 			$this->fileHelper->normalizePath(__DIR__ . '/traits/wrongProperty/Foo.php'),
 			$errors[1]->getFile()
 		);
-		$this->assertSame('Property TraitsWrongProperty\Foo::$bar (Ipsum) does not accept int(1).', $errors[1]->getMessage());
+		$this->assertSame('Property TraitsWrongProperty\Foo::$bar (Ipsum) does not accept int.', $errors[1]->getMessage());
 	}
 
 	public function testReturnThis(): void

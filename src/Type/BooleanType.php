@@ -22,7 +22,7 @@ class BooleanType implements Type
 	use NonOffsetAccessibleTypeTrait;
 	use UndecidedBooleanTypeTrait;
 
-	public function describe(): string
+	public function describe(VerbosityLevel $level): string
 	{
 		return 'bool';
 	}
@@ -60,7 +60,8 @@ class BooleanType implements Type
 	{
 		return new ConstantArrayType(
 			[new ConstantIntegerType(0)],
-			[$this]
+			[$this],
+			1
 		);
 	}
 

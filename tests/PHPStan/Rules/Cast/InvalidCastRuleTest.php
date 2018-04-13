@@ -22,7 +22,7 @@ class InvalidCastRuleTest extends \PHPStan\Testing\RuleTestCase
 				16,
 			],
 			[
-				'Cannot cast string to int.',
+				'Cannot cast \'blabla\' to int.',
 				21,
 			],
 			[

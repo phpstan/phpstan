@@ -12,13 +12,17 @@ use PHPStan\Reflection\MethodReflection;
 use PHPStan\Tests\AssertionClassMethodTypeSpecifyingExtension;
 use PHPStan\Tests\AssertionClassStaticMethodTypeSpecifyingExtension;
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Constant\ConstantBooleanType;
+use PHPStan\Type\Constant\ConstantFloatType;
+use PHPStan\Type\Constant\ConstantIntegerType;
+use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Type\DynamicStaticMethodReturnTypeExtension;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FileTypeMapper;
-use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
+use PHPStan\Type\VerbosityLevel;
 use SomeNodeScopeResolverNamespace\Foo;
 
 class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
@@ -35,13 +39,13 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			$this->assertTrue($scope->isInClass());
 			$this->assertSame(Foo::class, $scope->getClassReflection()->getName());
 			$this->assertSame('doFoo', $scope->getFunctionName());
-			$this->assertSame('$this(SomeNodeScopeResolverNamespace\Foo)', $scope->getVariableType('this')->describe());
+			$this->assertSame('$this(SomeNodeScopeResolverNamespace\Foo)', $scope->getVariableType('this')->describe(VerbosityLevel::value()));
 			$this->assertTrue($scope->hasVariableType('baz')->yes());
 			$this->assertTrue($scope->hasVariableType('lorem')->yes());
 			$this->assertFalse($scope->hasVariableType('ipsum')->yes());
 			$this->assertTrue($scope->hasVariableType('i')->yes());
 			$this->assertTrue($scope->hasVariableType('val')->yes());
-			$this->assertSame('SomeNodeScopeResolverNamespace\InvalidArgumentException', $scope->getVariableType('exception')->describe());
+			$this->assertSame('SomeNodeScopeResolverNamespace\InvalidArgumentException', $scope->getVariableType('exception')->describe(VerbosityLevel::value()));
 			$this->assertTrue($scope->hasVariableType('staticVariable')->yes());
 		});
 	}
@@ -132,7 +136,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foobar->doBar()',
 			],
 			[
-				'int(1)',
+				'1',
 				'$this->union::FOO_CONSTANT',
 			],
 			[
@@ -140,7 +144,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->union::BAR_CONSTANT',
 			],
 			[
-				'int(1)',
+				'1',
 				'$foo::FOO_CONSTANT',
 			],
 			[
@@ -148,19 +152,19 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foo::BAR_CONSTANT',
 			],
 			[
-				'int(1)',
+				'1',
 				'$foobar::FOO_CONSTANT',
 			],
 			[
-				'int(1)',
+				'1',
 				'$foobar::BAR_CONSTANT',
 			],
 			[
-				'string',
+				'\'foo\'',
 				'self::IPSUM_CONSTANT',
 			],
 			[
-				'array(int(1), int(2), int(3))',
+				'array(1, 2, 3)',
 				'parent::PARENT_CONSTANT',
 			],
 			[
@@ -235,31 +239,31 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'lorem',
 				TrinaryLogic::createYes(),
-				'int(1)',
+				'1',
 			],
 			[
 				$testScope,
 				'callParameter',
 				TrinaryLogic::createYes(),
-				'int(3)',
+				'3',
 			],
 			[
 				$testScope,
 				'arrOne',
 				TrinaryLogic::createYes(),
-				'array(string)',
+				'array(\'one\')',
 			],
 			[
 				$testScope,
 				'arrTwo',
 				TrinaryLogic::createYes(),
-				'array(\'test\' => string, 0 => Foo)',
+				'array(\'test\' => \'two\', 0 => Foo)',
 			],
 			[
 				$testScope,
 				'arrThree',
 				TrinaryLogic::createYes(),
-				'array(string)',
+				'array(\'three\')',
 			],
 			[
 				$testScope,
@@ -289,7 +293,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'inArray',
 				TrinaryLogic::createYes(),
-				'int(1)',
+				'1',
 			],
 			[
 				$testScope,
@@ -319,19 +323,19 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'anotherArray',
 				TrinaryLogic::createYes(),
-				'array(\'test\' => array(string))',
+				'array(\'test\' => array(\'another\'))',
 			],
 			[
 				$testScope,
 				'ifVar',
 				TrinaryLogic::createYes(),
-				'int(1)|int(2)|int(3)',
+				'1|2|3',
 			],
 			[
 				$testScope,
 				'ifNotVar',
 				TrinaryLogic::createMaybe(),
-				'int(1)|int(2)',
+				'1|2',
 			],
 			[
 				$testScope,
@@ -343,7 +347,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'ifNotNestedVar',
 				TrinaryLogic::createMaybe(),
-				'int(1)|int(2)|int(3)',
+				'1|2|3',
 			],
 			[
 				$testScope,
@@ -360,7 +364,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'inTry',
 				TrinaryLogic::createYes(),
-				'int(1)',
+				'1',
 			],
 			[
 				$testScope,
@@ -396,31 +400,31 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'doWhileVar',
 				TrinaryLogic::createYes(),
-				'int(1)',
+				'1',
 			],
 			[
 				$testScope,
 				'switchVar',
 				TrinaryLogic::createYes(),
-				'int(1)|int(2)|int(3)',
+				'1|2|3',
 			],
 			[
 				$testScope,
 				'noSwitchVar',
 				TrinaryLogic::createMaybe(),
-				'int(1)',
+				'1',
 			],
 			[
 				$testScope,
 				'anotherNoSwitchVar',
 				TrinaryLogic::createMaybe(),
-				'int(1)',
+				'1',
 			],
 			[
 				$testScope,
 				'inTryTwo',
 				TrinaryLogic::createYes(),
-				'int(1)',
+				'1',
 			],
 			[
 				$testScope,
@@ -438,7 +442,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'previousJ',
 				TrinaryLogic::createYes(),
-				'int(0)',
+				'0',
 			],
 			[
 				$testScope,
@@ -474,7 +478,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'inTryNotInCatch',
 				TrinaryLogic::createMaybe(),
-				'int(1)',
+				'1',
 			],
 			[
 				$testScope,
@@ -486,32 +490,32 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'mixedVarFromTryCatch',
 				TrinaryLogic::createYes(),
-				'float(1.000000)|int(1)',
+				'1|1.0',
 			],
 			[
 				$testScope,
 				'nullableIntegerFromTryCatch',
 				TrinaryLogic::createYes(),
-				'int(1)|null',
+				'1|null',
 			],
 			[
 				$testScope,
 				'anotherNullableIntegerFromTryCatch',
 				TrinaryLogic::createYes(),
-				'int(1)|null',
+				'1|null',
 			],
 			[
 				$testScope,
 				'nullableIntegers',
 				TrinaryLogic::createYes(),
-				'array(int(1), int(2), int(3), null)',
+				'array(1, 2, 3, null)',
 			],
 			[
 				$testScope,
 				'union',
 				TrinaryLogic::createYes(),
-				'array(int(1), int(2), int(3), string)',
-				'int(1)|int(2)|int(3)|string',
+				'array(1, 2, 3, \'foo\')',
+				'1|2|3|\'foo\'',
 			],
 			[
 				$testScope,
@@ -594,25 +598,25 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'nonexistentVariableOutsideFor',
 				TrinaryLogic::createMaybe(),
-				'int(1)',
+				'1',
 			],
 			[
 				$testScope,
 				'integerOrNullFromFor',
 				TrinaryLogic::createYes(),
-				'int(1)|null',
+				'1|null',
 			],
 			[
 				$testScope,
 				'nonexistentVariableOutsideWhile',
 				TrinaryLogic::createMaybe(),
-				'int(1)',
+				'1',
 			],
 			[
 				$testScope,
 				'integerOrNullFromWhile',
 				TrinaryLogic::createYes(),
-				'int(1)|null',
+				'1|null',
 			],
 			[
 				$testScope,
@@ -624,7 +628,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'integerOrNullFromForeach',
 				TrinaryLogic::createYes(),
-				'int(1)|null',
+				'1|null',
 			],
 			[
 				$testScope,
@@ -660,7 +664,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'integerOrString',
 				TrinaryLogic::createYes(),
-				'int|string',
+				'\'str\'|int',
 			],
 			[
 				$testScope,
@@ -672,13 +676,13 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'stillNullableInteger',
 				TrinaryLogic::createYes(),
-				'int(2)|null',
+				'2|null',
 			],
 			[
 				$testScope,
 				'arrayOfIntegers',
 				TrinaryLogic::createYes(),
-				'array(int(1), int(2), int(3))',
+				'array(1, 2, 3)',
 			],
 			[
 				$testScope,
@@ -690,19 +694,19 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'width',
 				TrinaryLogic::createYes(),
-				'float(2.000000)',
+				'2.0',
 			],
 			[
 				$testScope,
 				'someVariableThatWillGetOverrideInFinally',
 				TrinaryLogic::createYes(),
-				'string',
+				'\'foo\'',
 			],
 			[
 				$testScope,
 				'maybeDefinedButLaterCertainlyDefined',
 				TrinaryLogic::createYes(),
-				'int(2)|int(3)',
+				'2|3',
 			],
 			[
 				$testScope,
@@ -726,7 +730,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'alwaysDefinedFromSwitch',
 				TrinaryLogic::createYes(),
-				'int(1)|null',
+				'1|null',
 			],
 			[
 				$testScope,
@@ -770,32 +774,32 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				$testScope,
 				'postIncrement',
-				'int(2)',
+				'2',
 			],
 			[
 				$testScope,
 				'postDecrement',
-				'int(4)',
+				'4',
 			],
 			[
 				$testScope,
 				'preIncrement',
-				'int(2)',
+				'2',
 			],
 			[
 				$testScope,
 				'preDecrement',
-				'int(4)',
+				'4',
 			],
 			[
 				$testScope,
 				'literalArray',
-				'array(\'a\' => int(2), \'b\' => int(4), \'c\' => int(2), \'d\' => int(4))',
+				'array(\'a\' => 2, \'b\' => 4, \'c\' => 2, \'d\' => 4)',
 			],
 			[
 				$testScope,
 				'nullIncremented',
-				'int(1)',
+				'1',
 			],
 			[
 				$testScope,
@@ -805,17 +809,17 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				$testScope,
 				'incrementInIf',
-				'int(1)|int(2)|int(3)',
+				'1|2|3',
 			],
 			[
 				$testScope,
 				'anotherIncrementInIf',
-				'int(2)|int(3)',
+				'2|3',
 			],
 			[
 				$testScope,
 				'valueOverwrittenInIf',
-				'int(1)|int(2)',
+				'1|2',
 			],
 			[
 				$testScope,
@@ -825,17 +829,17 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				$testScope,
 				'valueOverwrittenInForLoop',
-				'int(1)|int(2)',
+				'1|2',
 			],
 			[
 				$testScope,
 				'arrayOverwrittenInForLoop',
-				'array<string, int|string>',
+				'array<\'a\'|\'b\', \'bar\'|\'foo\'|int>',
 			],
 			[
 				$testScope,
 				'anotherValueOverwrittenInIf',
-				'int(10)|int(5)',
+				'5|10',
 			],
 		];
 	}
@@ -886,14 +890,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 
 			$this->assertSame(
 				$typeDescription,
-				$scope->getVariableType($variableName)->describe(),
+				$scope->getVariableType($variableName)->describe(VerbosityLevel::value()),
 				sprintf('Type of variable $%s does not match the expected one.', $variableName)
 			);
 
 			if ($iterableValueTypeDescription !== null) {
 				$this->assertSame(
 					$iterableValueTypeDescription,
-					$scope->getVariableType($variableName)->getIterableValueType()->describe(),
+					$scope->getVariableType($variableName)->getIterableValueType()->describe(VerbosityLevel::value()),
 					sprintf('Iterable value type of variable $%s does not match the expected one.', $variableName)
 				);
 			}
@@ -1180,11 +1184,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$castedArrayOrObject',
 			],
 			[
-				'int(0)|int(1)',
+				'0|1',
 				'(int) $bool',
 			],
 			[
-				'float(0.000000)|float(1.000000)',
+				'0.0|1.0',
 				'(float) $bool',
 			],
 			[
@@ -1196,27 +1200,27 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'(bool) $foo',
 			],
 			[
-				'int(1)',
+				'1',
 				'(int) true',
 			],
 			[
-				'int(0)',
+				'0',
 				'(int) false',
 			],
 			[
-				'int(5)',
+				'5',
 				'(int) 5.25',
 			],
 			[
-				'float(5.000000)',
+				'5.0',
 				'(float) 5',
 			],
 			[
-				'int(5)',
+				'5',
 				'(int) "5"',
 			],
 			[
-				'float(5.000000)',
+				'5.0',
 				'(float) "5"',
 			],
 			[
@@ -1228,11 +1232,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'(float) "blabla"',
 			],
 			[
-				'int(0)',
+				'0',
 				'(int) null',
 			],
 			[
-				'float(0.000000)',
+				'0.0',
 				'(float) null',
 			],
 			[
@@ -1248,15 +1252,15 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'(array) $foo',
 			],
 			[
-				'array(int(1), int(2), int(3))',
+				'array(1, 2, 3)',
 				'(array) [1, 2, 3]',
 			],
 			[
-				'array(int(1))',
+				'array(1)',
 				'(array) 1',
 			],
 			[
-				'array(float(1.000000))',
+				'array(1.0)',
 				'(array) 1.0',
 			],
 			[
@@ -1264,7 +1268,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'(array) true',
 			],
 			[
-				'array(string)',
+				'array(\'blabla\')',
 				'(array) "blabla"',
 			],
 			[
@@ -1335,7 +1339,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				'int(1)',
+				'1',
 				'$integerLiteral',
 			],
 			[
@@ -1347,15 +1351,15 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$anotherBooleanLiteral',
 			],
 			[
-				'string',
+				'\'foo\'',
 				'$stringLiteral',
 			],
 			[
-				'float(1.000000)',
+				'1.0',
 				'$floatLiteral',
 			],
 			[
-				'float(1.000000)',
+				'1.0',
 				'$floatAssignedByRef',
 			],
 			[
@@ -1391,19 +1395,19 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$mixedFromFunction',
 			],
 			[
-				'int(1)',
+				'1',
 				'\TypesNamespaceDeductedTypes\Foo::INTEGER_CONSTANT',
 			],
 			[
-				'int(1)',
+				'1',
 				'self::INTEGER_CONSTANT',
 			],
 			[
-				'float(1.000000)',
+				'1.0',
 				'self::FLOAT_CONSTANT',
 			],
 			[
-				'string',
+				'\'foo\'',
 				'self::STRING_CONSTANT',
 			],
 			[
@@ -1419,15 +1423,15 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'self::NULL_CONSTANT',
 			],
 			[
-				'int(1)',
+				'1',
 				'$foo::INTEGER_CONSTANT',
 			],
 			[
-				'float(1.000000)',
+				'1.0',
 				'$foo::FLOAT_CONSTANT',
 			],
 			[
-				'string',
+				'\'foo\'',
 				'$foo::STRING_CONSTANT',
 			],
 			[
@@ -1608,19 +1612,18 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 
 	public function dataBinaryOperations(): array
 	{
-		$typeCallback = function ($value) {
-			$type = gettype($value);
-			if ($type === 'integer') {
-				return sprintf('int(%d)', $value);
-			} elseif ($type === 'double') {
-				return sprintf('float(%f)', $value);
-			} elseif ($type === 'boolean') {
-				return 'bool';
-			} elseif ($type === 'string') {
-				return $type;
+		$typeCallback = function ($value): string {
+			if (is_int($value)) {
+				return (new ConstantIntegerType($value))->describe(VerbosityLevel::value());
+			} elseif (is_float($value)) {
+				return (new ConstantFloatType($value))->describe(VerbosityLevel::value());
+			} elseif (is_bool($value)) {
+				return (new ConstantBooleanType($value))->describe(VerbosityLevel::value());
+			} elseif (is_string($value)) {
+				return (new ConstantStringType($value))->describe(VerbosityLevel::value());
 			}
 
-			return MixedType::class;
+			throw new \PHPStan\ShouldNotHappenException();
 		};
 
 		return [
@@ -1681,7 +1684,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'+"blabla"',
 			],
 			[
-				'float(123.200000)',
+				'123.2',
 				'+"123.2"',
 			],
 			[
@@ -1689,11 +1692,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'-"blabla"',
 			],
 			[
-				'int(-5)',
+				'-5',
 				'-5',
 			],
 			[
-				'int(5)',
+				'5',
 				'-(-5)',
 			],
 			[
@@ -1859,7 +1862,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			// string
 			[
-				'string',
+				"'ab'",
 				"'a' . 'b'",
 			],
 			[
@@ -1955,19 +1958,27 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$number + 1.0',
 			],
 			[
-				'string|null',
+				'\'foo\'|null',
 				'$mixed ? "foo" : null',
 			],
 			[
-				'int(12)|null',
+				'12',
 				'12 ?: null',
 			],
 			[
-				'int(12)|string',
+				'1',
+				'true ? 1 : 2',
+			],
+			[
+				'2',
+				'false ? 1 : 2',
+			],
+			[
+				'12|string',
 				'$string ?: 12',
 			],
 			[
-				'int(12)|string',
+				'12|string',
 				'$stringOrNull ?: 12',
 			],
 			[
@@ -1975,7 +1986,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$integer ?: 12',
 			],
 			[
-				'string',
+				'\'foo\'',
 				"'foo' ?? null", // "else" never gets executed
 			],
 			[
@@ -1999,7 +2010,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$stringOrNull ?? $integer',
 			],
 			[
-				'string',
+				'\'Foo\'',
 				'\Foo::class',
 			],
 			[
@@ -2011,55 +2022,79 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'__DIR__',
 			],
 			[
-				'int(1)|int(2)|int(3)', // if the only argument in min is array, lowest value in that array is returned
+				'1',
 				'min([1, 2, 3])',
 			],
 			[
-				'array<int(0)|int(1)|int(2), int(1)|int(2)|int(3)|int(4)|int(5)>',
+				'array<0|1|2, 1|2|3|4|5>',
 				'min([1, 2, 3], [4, 5, 5])',
 			],
 			[
-				'int(1)|int(2)|int(3)',
+				'1',
 				'min(...[1, 2, 3])',
 			],
 			[
-				'float(1.100000)|float(2.200000)|float(3.300000)',
+				'1.1',
 				'min(...[1.1, 2.2, 3.3])',
 			],
 			[
-				'float(1.100000)|int(2)|int(3)',
+				'1.1',
 				'min(...[1.1, 2, 3])',
 			],
 			[
-				'int(1)|int(2)|int(3)',
+				'3',
 				'max(...[1, 2, 3])',
 			],
 			[
-				'float(1.100000)|float(2.200000)|float(3.300000)',
+				'3.3',
 				'max(...[1.1, 2.2, 3.3])',
 			],
 			[
-				'int(1)|int(2)|int(3)',
+				'1',
 				'min(1, 2, 3)',
 			],
 			[
-				'int(1)|int(2)|int(3)',
+				'3',
 				'max(1, 2, 3)',
 			],
 			[
-				'float(1.100000)|float(2.200000)|float(3.300000)',
+				'1.1',
 				'min(1.1, 2.2, 3.3)',
 			],
 			[
-				'float(1.100000)|float(2.200000)|float(3.300000)',
+				'3.3',
 				'max(1.1, 2.2, 3.3)',
+			],
+			[
+				'1',
+				'min(1, 1)',
+			],
+			[
+				'*ERROR*',
+				'min(1)',
+			],
+			[
+				'int|string',
+				'min($integer, $string)',
+			],
+			[
+				'int|string',
+				'min([$integer, $string])',
+			],
+			[
+				'int|string',
+				'min(...[$integer, $string])',
+			],
+			[
+				'\'a\'',
+				'min(\'a\', \'b\')',
 			],
 			[
 				'DateTimeImmutable',
 				'max(new \DateTimeImmutable("today"), new \DateTimeImmutable("tomorrow"))',
 			],
 			[
-				'float(2.200000)|float(3.300000)|int(1)',
+				'1',
 				'min(1, 2.2, 3.3)',
 			],
 			[
@@ -2079,11 +2114,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$float >>= 2.2',
 			],
 			[
-				'int(3)',
+				'3',
 				'count($arrayOfIntegers)',
 			],
 			[
-				'int(6)',
+				'6',
 				'count($arrayOfIntegers) + count($arrayOfIntegers)',
 			],
 			[
@@ -2151,7 +2186,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$arrayOfIntegers += "foo"',
 			],
 			[
-				'int(3)',
+				'3',
 				'@count($arrayOfIntegers)',
 			],
 			[
@@ -2175,23 +2210,23 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'var_export($string, true)',
 			],
 			[
-				'int(1)',
+				'1',
 				'$one++',
 			],
 			[
-				'int(1)',
+				'1',
 				'$one--',
 			],
 			[
-				'int(2)',
+				'2',
 				'++$one',
 			],
 			[
-				'int(0)',
+				'0',
 				'--$one',
 			],
 			[
-				'int(3)',
+				'3',
 				'count($array)',
 			],
 			[
@@ -2203,7 +2238,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'count($appendingToArrayInBranches)',
 			],
 			[
-				'int(2)',
+				'2',
 				'$array[1]',
 			],
 			[
@@ -2231,11 +2266,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$mixed + []',
 			],
 			[
-				'int(124)',
+				'124',
 				'1 + "123"',
 			],
 			[
-				'float(124.200000)',
+				'124.2',
 				'1 + "123.2"',
 			],
 			[
@@ -2247,7 +2282,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'1 + "blabla"',
 			],
 			[
-				'array(int(1), int(2), int(3))',
+				'array(1, 2, 3)',
 				'[1, 2, 3] + [4, 5, 6]',
 			],
 			[
@@ -2255,7 +2290,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$arrayOfUnknownIntegers + [1, 2, 3]',
 			],
 			[
-				'int(1)',
+				'1',
 				'5 & 3',
 			],
 			[
@@ -2267,7 +2302,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'"bla" & 3',
 			],
 			[
-				'int(7)',
+				'7',
 				'5 | 3',
 			],
 			[
@@ -2279,7 +2314,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'"bla" | 3',
 			],
 			[
-				'int(6)',
+				'6',
 				'5 ^ 3',
 			],
 			[
@@ -2315,7 +2350,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$string ^= 3',
 			],
 			[
-				'string',
+				'\'f\'',
 				'$fooString[0]',
 			],
 			[
@@ -2327,11 +2362,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$fooString[$integer]',
 			],
 			[
-				'string',
+				'\'foo   bar\'',
 				'$foobarString',
 			],
 			[
-				'string',
+				'\'foo bar\'',
 				'"$fooString bar"',
 			],
 			[
@@ -2389,15 +2424,15 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				'int(0)',
+				'0',
 				'$integers[0]',
 			],
 			[
-				'int(1)',
+				'1',
 				'$integers[1]',
 			],
 			[
-				'string',
+				'\'foo\'',
 				'$strings[0]',
 			],
 			[
@@ -2405,7 +2440,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$emptyArray[0]',
 			],
 			[
-				'int(0)',
+				'0',
 				'$mixedArray[0]',
 			],
 			[
@@ -2436,39 +2471,39 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				'int(0)|int(1)|int(2)',
+				'0|1|2',
 				"'NoKeysArray';",
 			],
 			[
-				'int(0)|int(1)|int(2)',
+				'0|1|2',
 				"'IntegersAndNoKeysArray';",
 			],
 			[
-				'int(0)|int(1)|string',
+				'0|1|\'foo\'',
 				"'StringsAndNoKeysArray';",
 			],
 			[
-				'int(1)|int(2)|int(3)',
+				'1|2|3',
 				"'IntegersAsStringsAndNoKeysArray';",
 			],
 			[
-				'int(1)|int(2)',
+				'1|2',
 				"'IntegersAsStringsArray';",
 			],
 			[
-				'int(1)|int(2)',
+				'1|2',
 				"'IntegersArray';",
 			],
 			[
-				'int(1)|int(2)|int(3)',
+				'1|2|3',
 				"'IntegersWithFloatsArray';",
 			],
 			[
-				'string',
+				'\'bar\'|\'foo\'',
 				"'StringsArray';",
 			],
 			[
-				'string',
+				'\'\'|\'bar\'|\'baz\'',
 				"'StringsWithNullArray';",
 			],
 			[
@@ -2476,11 +2511,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				"'IntegersWithStringFromMethodArray';",
 			],
 			[
-				'int(1)|int(2)|string',
+				'1|2|\'foo\'',
 				"'IntegersAndStringsArray';",
 			],
 			[
-				'int(0)|int(1)',
+				'0|1',
 				"'BooleansArray';",
 			],
 			[
@@ -3322,7 +3357,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$str',
 			],
 			[
-				'int(1)',
+				'1',
 				'$integer',
 			],
 			[
@@ -3364,12 +3399,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				__DIR__ . '/data/foreach/array-object-type.php',
-				'int(0)',
+				'0',
 				'self::ARRAY_CONSTANT[0]',
 			],
 			[
 				__DIR__ . '/data/foreach/array-object-type.php',
-				'string',
+				'\'foo\'',
 				'self::MIXED_CONSTANT[1]',
 			],
 			[
@@ -3394,7 +3429,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				__DIR__ . '/data/foreach/reusing-specified-variable.php',
-				'int(1)|int(2)|int(3)',
+				'1|2|3',
 				'$business',
 			],
 			[
@@ -3581,7 +3616,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				'int(1)',
+				'1',
 				'$integers[0]',
 			],
 			[
@@ -3589,15 +3624,15 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$mappedStrings[0]',
 			],
 			[
-				'int(1)|int(2)|int(3)',
+				'1|2|3',
 				'$filteredIntegers[0]',
 			],
 			[
-				'int(123)',
+				'123',
 				'$filteredMixed[0]',
 			],
 			[
-				'int(1)|int(2)|int(3)',
+				'1|2|3',
 				'$uniquedIntegers[1]',
 			],
 			[
@@ -3605,28 +3640,40 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$reducedIntegersToString',
 			],
 			[
-				'int(1)|int(2)|int(3)',
+				'1|2|3',
 				'$reversedIntegers[0]',
 			],
 			[
-				'array<int(1)>',
+				'array<1>',
 				'$filledIntegers',
 			],
 			[
-				'array<int(1)>',
+				'array<1>',
 				'$filledIntegersWithKeys',
 			],
 			[
-				'array<int, int(1)|int(2)>',
+				'array(1, 2)',
 				'array_keys($integerKeys)',
 			],
 			[
-				'array<int, string>',
+				'array(\'foo\', \'bar\')',
 				'array_keys($stringKeys)',
 			],
 			[
-				'array<int, int(1)|string>',
+				'array(\'foo\', 1)',
 				'array_keys($stringOrIntegerKeys)',
+			],
+			[
+				'array<int, string>',
+				'array_keys($generalStringKeys)',
+			],
+			[
+				'array(\'foo\', stdClass)',
+				'array_values($integerKeys)',
+			],
+			[
+				'array<int, int>',
+				'array_values($generalStringKeys)',
 			],
 		];
 	}
@@ -4219,11 +4266,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				'string',
+				'\'foo\'',
 				'$heredoc',
 			],
 			[
-				'string',
+				'\'bar\'',
 				'$nowdoc',
 			],
 		];
@@ -4535,7 +4582,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$x',
 			],
 			[
-				'int(1)|null',
+				'1|null',
 				'$y',
 			],
 		];
@@ -4562,7 +4609,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				'int(1)',
+				'1',
 				'$foo',
 			],
 			[
@@ -4596,7 +4643,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				'int(1)|string',
+				'1|\'foo\'',
 				'$integerOrString',
 			],
 			[
@@ -4728,32 +4775,32 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				'int(1)|int(2)|int(3)',
+				'1|2|3',
 				'$val',
 				"'begin';",
 			],
 			[
-				'int(0)|int(1)|int(2)',
+				'0|1|2',
 				'$key',
 				"'begin';",
 			],
 			[
-				'int(1)|int(2)|int(3)|null',
+				'1|2|3|null',
 				'$val',
 				"'afterLoop';",
 			],
 			[
-				'int(0)|int(1)|int(2)|null',
+				'0|1|2|null',
 				'$key',
 				"'afterLoop';",
 			],
 			[
-				'int(1)|int(2)|int(3)|null',
+				'1|2|3|null',
 				'$emptyForeachVal',
 				"'afterLoop';",
 			],
 			[
-				'int(0)|int(1)|int(2)|null',
+				'0|1|2|null',
 				'$emptyForeachKey',
 				"'afterLoop';",
 			],
@@ -5001,7 +5048,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'reset()',
 			],
 			[
-				'false|stdClass',
+				'stdClass|false',
 				'reset($generalArray)',
 			],
 			[
@@ -5013,7 +5060,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'reset($emptyConstantArray)',
 			],
 			[
-				'int(1)',
+				'1',
 				'reset($constantArray)',
 			],
 		];
@@ -5048,11 +5095,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$anotherExpectedString',
 			],
 			[
-				'array<string, string>',
+				'array(\'a\' => string, \'b\' => string)',
 				'$expectedArray',
 			],
 			[
-				'array<string, string>',
+				'array(\'a\' => string, \'b\' => string)',
 				'$anotherExpectedArray',
 			],
 			[
@@ -5097,7 +5144,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				"'beforeCallback';",
 			],
 			[
-				'bool|int(1)',
+				'1|bool',
 				'$progressStarted',
 				"'inCallbackBeforeAssign';",
 			],
@@ -5112,7 +5159,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				"'inCallbackBeforeAssign';",
 			],
 			[
-				'int(1)|true',
+				'1|true',
 				'$progressStarted',
 				"'inCallbackAfterAssign';",
 			],
@@ -5122,7 +5169,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				"'inCallbackAfterAssign';",
 			],
 			[
-				'bool|int(1)',
+				'1|bool',
 				'$progressStarted',
 				"'afterCallback';",
 			],
@@ -5386,7 +5433,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		string $label = ''
 	): void
 	{
-		$actualDescription = $actualType->describe();
+		$actualDescription = $actualType->describe(VerbosityLevel::value());
 		if ($actualType instanceof ErrorType) {
 			$actualDescription = '*ERROR*';
 		}

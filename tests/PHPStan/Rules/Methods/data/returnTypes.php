@@ -480,3 +480,22 @@ class TrickyVoid
 	}
 
 }
+
+class TernaryWithJsonEncode
+{
+
+	public function toJsonOrNull(array $arr): ?string
+	{
+		return json_encode($arr) ?: null;
+		return json_encode($arr) ? json_encode($arr): null;
+		return (rand(0, 1) ? $s : false) ?: null;
+	}
+
+	public function toJson(array $arr): string
+	{
+		return json_encode($arr) ?: '';
+		return json_encode($arr) ? json_encode($arr) : '';
+		return json_encode($arr) ?: json_encode($arr);
+	}
+
+}

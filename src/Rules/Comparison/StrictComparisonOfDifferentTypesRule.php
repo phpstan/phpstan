@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\NullType;
+use PHPStan\Type\VerbosityLevel;
 
 class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 {
@@ -74,8 +75,8 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 				sprintf(
 					'Strict comparison using %s between %s and %s will always evaluate to %s.',
 					$node instanceof Node\Expr\BinaryOp\Identical ? '===' : '!==',
-					$leftType->describe(),
-					$rightType->describe(),
+					$leftType->describe(VerbosityLevel::value()),
+					$rightType->describe(VerbosityLevel::value()),
 					$node instanceof Node\Expr\BinaryOp\Identical ? 'false' : 'true'
 				),
 			];
@@ -96,8 +97,8 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 				sprintf(
 					'Strict comparison using %s between %s and %s will always evaluate to %s.',
 					$node instanceof Node\Expr\BinaryOp\Identical ? '===' : '!==',
-					$leftType->describe(),
-					$rightType->describe(),
+					$leftType->describe(VerbosityLevel::value()),
+					$rightType->describe(VerbosityLevel::value()),
 					$node instanceof Node\Expr\BinaryOp\Identical ? 'true' : 'false'
 				),
 			];

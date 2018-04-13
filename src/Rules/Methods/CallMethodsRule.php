@@ -9,6 +9,7 @@ use PHPStan\Broker\Broker;
 use PHPStan\Rules\FunctionCallParametersCheck;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
+use PHPStan\Type\VerbosityLevel;
 
 class CallMethodsRule implements \PHPStan\Rules\Rule
 {
@@ -66,7 +67,7 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 		}
 		if (!$type->canCallMethods()->yes()) {
 			return [
-				sprintf('Cannot call method %s() on %s.', $name, $type->describe()),
+				sprintf('Cannot call method %s() on %s.', $name, $type->describe(VerbosityLevel::typeOnly())),
 			];
 		}
 
@@ -93,7 +94,7 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf(
 					'Call to an undefined method %s::%s().',
-					$type->describe(),
+					$type->describe(VerbosityLevel::typeOnly()),
 					$name
 				),
 			];

@@ -68,7 +68,7 @@ class NullType implements ConstantScalarType
 		return TrinaryLogic::createNo();
 	}
 
-	public function describe(): string
+	public function describe(VerbosityLevel $level): string
 	{
 		return 'null';
 	}
@@ -97,7 +97,8 @@ class NullType implements ConstantScalarType
 	{
 		return new ConstantArrayType(
 			[new ConstantIntegerType(0)],
-			[$this]
+			[$this],
+			1
 		);
 	}
 

@@ -16,6 +16,7 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeWithClassName;
+use PHPStan\Type\VerbosityLevel;
 
 class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 {
@@ -145,7 +146,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 
 		if (!$classType->canCallMethods()->yes()) {
 			return array_merge($errors, [
-				sprintf('Cannot call static method %s() on %s.', $methodName, $typeForDescribe->describe()),
+				sprintf('Cannot call static method %s() on %s.', $methodName, $typeForDescribe->describe(VerbosityLevel::typeOnly())),
 			]);
 		}
 
@@ -153,7 +154,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 			return array_merge($errors, [
 				sprintf(
 					'Call to an undefined static method %s::%s().',
-					$typeForDescribe->describe(),
+					$typeForDescribe->describe(VerbosityLevel::typeOnly()),
 					$methodName
 				),
 			]);

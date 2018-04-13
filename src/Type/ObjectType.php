@@ -152,7 +152,7 @@ class ObjectType implements TypeWithClassName
 		return $thatReflection->isSubclassOf($this->className);
 	}
 
-	public function describe(): string
+	public function describe(VerbosityLevel $level): string
 	{
 		return $this->className;
 	}

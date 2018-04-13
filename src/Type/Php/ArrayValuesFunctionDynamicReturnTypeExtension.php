@@ -7,16 +7,15 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\IntegerType;
-use PHPStan\Type\StringType;
+use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
-use PHPStan\Type\UnionType;
 
-class ArrayKeysFunctionDynamicReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
+class ArrayValuesFunctionDynamicReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
 
 	public function isFunctionSupported(FunctionReflection $functionReflection): bool
 	{
-		return $functionReflection->getName() === 'array_keys';
+		return $functionReflection->getName() === 'array_values';
 	}
 
 	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
@@ -25,13 +24,13 @@ class ArrayKeysFunctionDynamicReturnTypeExtension implements \PHPStan\Type\Dynam
 		if ($arrayArg !== null) {
 			$valueType = $scope->getType($arrayArg);
 			if ($valueType instanceof ArrayType) {
-				return $valueType->getKeysArray();
+				return $valueType->getValuesArray();
 			}
 		}
 
 		return new ArrayType(
 			new IntegerType(),
-			new UnionType([new StringType(), new IntegerType()]),
+			new MixedType(),
 			true
 		);
 	}

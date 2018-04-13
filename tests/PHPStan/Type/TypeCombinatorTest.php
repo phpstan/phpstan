@@ -91,7 +91,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$result = TypeCombinator::addNull($type);
-		$this->assertSame($expectedTypeDescription, $result->describe());
+		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
 		$this->assertInstanceOf($expectedTypeClass, $result);
 	}
 
@@ -108,7 +108,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$result = TypeCombinator::union($type, new NullType());
-		$this->assertSame($expectedTypeDescription, $result->describe());
+		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
 		$this->assertInstanceOf($expectedTypeClass, $result);
 	}
 
@@ -203,7 +203,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$result = TypeCombinator::removeNull($type);
-		$this->assertSame($expectedTypeDescription, $result->describe());
+		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
 		$this->assertInstanceOf($expectedTypeClass, $result);
 	}
 
@@ -548,7 +548,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ConstantIntegerType(1),
 				],
 				ConstantIntegerType::class,
-				'int(1)',
+				'1',
 			],
 			[
 				[
@@ -556,7 +556,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ConstantIntegerType(2),
 				],
 				UnionType::class,
-				'int(1)|int(2)',
+				'1|2',
 			],
 			[
 				[
@@ -572,7 +572,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ConstantFloatType(1.0),
 				],
 				ConstantFloatType::class,
-				'float(1.000000)',
+				'1.0',
 			],
 			[
 				[
@@ -580,7 +580,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ConstantFloatType(2.0),
 				],
 				UnionType::class,
-				'float(1.000000)|float(2.000000)',
+				'1.0|2.0',
 			],
 			[
 				[
@@ -596,7 +596,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ConstantStringType('A'),
 				],
 				ConstantStringType::class,
-				'string',
+				'\'A\'',
 			],
 			[
 				[
@@ -604,7 +604,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ConstantStringType('B'),
 				],
 				UnionType::class,
-				'string',
+				'\'A\'|\'B\'',
 			],
 			[
 				[
@@ -649,10 +649,10 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 
 		$this->assertSame(
 			$expectedTypeDescription,
-			$actualType->describe(),
+			$actualType->describe(VerbosityLevel::value()),
 			sprintf('union(%s)', implode(', ', array_map(
 				function (Type $type): string {
-					return $type->describe();
+					return $type->describe(VerbosityLevel::value());
 				},
 				$types
 			)))
@@ -674,7 +674,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$result = TypeCombinator::union(...array_reverse($types));
-		$this->assertSame($expectedTypeDescription, $result->describe());
+		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
 		$this->assertInstanceOf($expectedTypeClass, $result);
 	}
 
@@ -814,7 +814,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 	{
 		$result = TypeCombinator::intersect(...$types);
 		$this->assertInstanceOf($expectedTypeClass, $result);
-		$this->assertSame($expectedTypeDescription, $result->describe());
+		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
 	}
 
 	/**
@@ -831,7 +831,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 	{
 		$result = TypeCombinator::intersect(...array_reverse($types));
 		$this->assertInstanceOf($expectedTypeClass, $result);
-		$this->assertSame($expectedTypeDescription, $result->describe());
+		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
 	}
 
 	public function dataRemove(): array
@@ -948,7 +948,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				]),
 				new ConstantBooleanType(true),
 				UnionType::class,
-				'false|int',
+				'int|false',
 			],
 			[
 				new UnionType([
@@ -990,7 +990,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$result = TypeCombinator::remove($fromType, $type);
-		$this->assertSame($expectedTypeDescription, $result->describe());
+		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
 		$this->assertInstanceOf($expectedTypeClass, $result);
 	}
 

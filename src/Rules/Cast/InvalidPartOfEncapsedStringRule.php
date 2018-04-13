@@ -5,6 +5,7 @@ namespace PHPStan\Rules\Cast;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\ErrorType;
+use PHPStan\Type\VerbosityLevel;
 
 class InvalidPartOfEncapsedStringRule implements \PHPStan\Rules\Rule
 {
@@ -44,7 +45,7 @@ class InvalidPartOfEncapsedStringRule implements \PHPStan\Rules\Rule
 			$messages[] = sprintf(
 				'Part %s (%s) of encapsed string cannot be cast to string.',
 				$this->printer->prettyPrintExpr($part),
-				$partType->describe()
+				$partType->describe(VerbosityLevel::value())
 			);
 		}
 

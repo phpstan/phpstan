@@ -121,7 +121,7 @@ class InstantiationRuleTest extends \PHPStan\Testing\RuleTestCase
 					110,
 				],
 				[
-					'Parameter #1 $message of class Exception constructor expects string, int(123) given.',
+					'Parameter #1 $message of class Exception constructor expects string, int given.',
 					114,
 				],
 				[

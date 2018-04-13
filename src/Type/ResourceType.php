@@ -20,7 +20,7 @@ class ResourceType implements Type
 	use NonOffsetAccessibleTypeTrait;
 	use TruthyBooleanTypeTrait;
 
-	public function describe(): string
+	public function describe(VerbosityLevel $level): string
 	{
 		return 'resource';
 	}
@@ -49,7 +49,8 @@ class ResourceType implements Type
 	{
 		return new ConstantArrayType(
 			[new ConstantIntegerType(0)],
-			[$this]
+			[$this],
+			1
 		);
 	}
 

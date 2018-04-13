@@ -22,7 +22,7 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				13,
 			],
 			[
-				'Function ReturnTypes\returnObject() should return ReturnTypes\Bar but returns int(1).',
+				'Function ReturnTypes\returnObject() should return ReturnTypes\Bar but returns int.',
 				21,
 			],
 			[
@@ -38,7 +38,7 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				53,
 			],
 			[
-				'Function ReturnTypes\returnVoid() with return type void returns int(1) but should not return anything.',
+				'Function ReturnTypes\returnVoid() with return type void returns int but should not return anything.',
 				54,
 			],
 		]);

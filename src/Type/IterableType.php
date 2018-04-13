@@ -93,17 +93,17 @@ class IterableType implements StaticResolvableType, CompoundType
 		);
 	}
 
-	public function describe(): string
+	public function describe(VerbosityLevel $level): string
 	{
 		if ($this->keyType instanceof MixedType) {
 			if ($this->itemType instanceof MixedType) {
 				return 'iterable';
 			}
 
-			return sprintf('iterable<%s>', $this->itemType->describe());
+			return sprintf('iterable<%s>', $this->itemType->describe($level));
 		}
 
-		return sprintf('iterable<%s, %s>', $this->keyType->describe(), $this->itemType->describe());
+		return sprintf('iterable<%s, %s>', $this->keyType->describe($level), $this->itemType->describe($level));
 	}
 
 	public function toNumber(): Type

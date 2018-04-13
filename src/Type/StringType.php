@@ -20,7 +20,7 @@ class StringType implements Type
 	use NonObjectTypeTrait;
 	use UndecidedBooleanTypeTrait;
 
-	public function describe(): string
+	public function describe(VerbosityLevel $level): string
 	{
 		return 'string';
 	}
@@ -87,7 +87,8 @@ class StringType implements Type
 	{
 		return new ConstantArrayType(
 			[new ConstantIntegerType(0)],
-			[$this]
+			[$this],
+			1
 		);
 	}
 

@@ -20,27 +20,27 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 			[__DIR__ . '/data/strict-comparison.php'],
 			[
 				[
-					'Strict comparison using === between int(1) and int(1) will always evaluate to true.',
+					'Strict comparison using === between 1 and 1 will always evaluate to true.',
 					10,
 				],
 				[
-					'Strict comparison using === between int(1) and string will always evaluate to false.',
+					'Strict comparison using === between 1 and \'1\' will always evaluate to false.',
 					11,
 				],
 				[
-					'Strict comparison using !== between int(1) and string will always evaluate to true.',
+					'Strict comparison using !== between 1 and \'1\' will always evaluate to true.',
 					12,
 				],
 				[
-					'Strict comparison using === between int(1) and null will always evaluate to false.',
+					'Strict comparison using === between 1 and null will always evaluate to false.',
 					14,
 				],
 				[
-					'Strict comparison using === between StrictComparison\Bar and int(1) will always evaluate to false.',
+					'Strict comparison using === between StrictComparison\Bar and 1 will always evaluate to false.',
 					15,
 				],
 				[
-					'Strict comparison using === between int(1) and array<StrictComparison\Foo>|bool|StrictComparison\Collection will always evaluate to false.',
+					'Strict comparison using === between 1 and array<StrictComparison\Foo>|bool|StrictComparison\Collection will always evaluate to false.',
 					19,
 				],
 				[
@@ -52,11 +52,11 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					31,
 				],
 				[
-					'Strict comparison using === between float(1.000000) and int(1) will always evaluate to false.',
+					'Strict comparison using === between 1.0 and 1 will always evaluate to false.',
 					46,
 				],
 				[
-					'Strict comparison using === between int(1) and float(1.000000) will always evaluate to false.',
+					'Strict comparison using === between 1 and 1.0 will always evaluate to false.',
 					47,
 				],
 				[
@@ -68,15 +68,15 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					76,
 				],
 				[
-					'Strict comparison using !== between StrictComparison\Foo|null and int(1) will always evaluate to true.',
+					'Strict comparison using !== between StrictComparison\Foo|null and 1 will always evaluate to true.',
 					88,
 				],
 				[
-					'Strict comparison using === between int(1)|int(2)|int(3) and null will always evaluate to false.',
+					'Strict comparison using === between 1|2|3 and null will always evaluate to false.',
 					98,
 				],
 				[
-					'Strict comparison using !== between StrictComparison\Foo|null and int(1) will always evaluate to true.',
+					'Strict comparison using !== between StrictComparison\Foo|null and 1 will always evaluate to true.',
 					130,
 				],
 				[
@@ -84,7 +84,7 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					140,
 				],
 				[
-					'Strict comparison using !== between StrictComparison\Foo|null and int(1) will always evaluate to true.',
+					'Strict comparison using !== between StrictComparison\Foo|null and 1 will always evaluate to true.',
 					154,
 				],
 				[
@@ -104,47 +104,47 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					271,
 				],
 				[
-					'Strict comparison using === between int(1) and int(2) will always evaluate to false.',
+					'Strict comparison using === between 1 and 2 will always evaluate to false.',
 					284,
 				],
 				[
-					'Strict comparison using === between array(\'X\' => int(1)) and array(\'X\' => int(2)) will always evaluate to false.',
+					'Strict comparison using === between array(\'X\' => 1) and array(\'X\' => 2) will always evaluate to false.',
 					292,
 				],
 				[
-					'Strict comparison using === between array(\'X\' => int(1), \'Y\' => int(2)) and array(\'X\' => int(2), \'Y\' => int(1)) will always evaluate to false.',
+					'Strict comparison using === between array(\'X\' => 1, \'Y\' => 2) and array(\'X\' => 2, \'Y\' => 1) will always evaluate to false.',
 					300,
 				],
 				[
-					'Strict comparison using === between array(\'X\' => int(1), \'Y\' => int(2)) and array(\'Y\' => int(2), \'X\' => int(1)) will always evaluate to false.',
+					'Strict comparison using === between array(\'X\' => 1, \'Y\' => 2) and array(\'Y\' => 2, \'X\' => 1) will always evaluate to false.',
 					308,
 				],
 				[
-					'Strict comparison using === between string and string will always evaluate to false.',
+					'Strict comparison using === between \'/\'|\'\\\\\' and \'//\' will always evaluate to false.',
 					320,
 				],
 				[
-					'Strict comparison using === between int and string will always evaluate to false.',
+					'Strict comparison using === between int and \'string\' will always evaluate to false.',
 					335,
 				],
 				[
-					'Strict comparison using === between int and string will always evaluate to false.',
+					'Strict comparison using === between int and \'string\' will always evaluate to false.',
 					343,
 				],
 				[
-					'Strict comparison using === between int and string will always evaluate to false.',
+					'Strict comparison using === between int and \'string\' will always evaluate to false.',
 					360,
 				],
 				[
-					'Strict comparison using === between int and string will always evaluate to false.',
+					'Strict comparison using === between int and \'string\' will always evaluate to false.',
 					368,
 				],
 				[
-					'Strict comparison using === between float and string will always evaluate to false.',
+					'Strict comparison using === between float and \'string\' will always evaluate to false.',
 					386,
 				],
 				[
-					'Strict comparison using === between float and string will always evaluate to false.',
+					'Strict comparison using === between float and \'string\' will always evaluate to false.',
 					394,
 				],
 			]
@@ -158,23 +158,23 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 			[__DIR__ . '/data/strict-comparison.php'],
 			[
 				[
-					'Strict comparison using === between int(1) and string will always evaluate to false.',
+					'Strict comparison using === between 1 and \'1\' will always evaluate to false.',
 					11,
 				],
 				[
-					'Strict comparison using !== between int(1) and string will always evaluate to true.',
+					'Strict comparison using !== between 1 and \'1\' will always evaluate to true.',
 					12,
 				],
 				[
-					'Strict comparison using === between int(1) and null will always evaluate to false.',
+					'Strict comparison using === between 1 and null will always evaluate to false.',
 					14,
 				],
 				[
-					'Strict comparison using === between StrictComparison\Bar and int(1) will always evaluate to false.',
+					'Strict comparison using === between StrictComparison\Bar and 1 will always evaluate to false.',
 					15,
 				],
 				[
-					'Strict comparison using === between int(1) and array<StrictComparison\Foo>|bool|StrictComparison\Collection will always evaluate to false.',
+					'Strict comparison using === between 1 and array<StrictComparison\Foo>|bool|StrictComparison\Collection will always evaluate to false.',
 					19,
 				],
 				[
@@ -186,11 +186,11 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					31,
 				],
 				[
-					'Strict comparison using === between float(1.000000) and int(1) will always evaluate to false.',
+					'Strict comparison using === between 1.0 and 1 will always evaluate to false.',
 					46,
 				],
 				[
-					'Strict comparison using === between int(1) and float(1.000000) will always evaluate to false.',
+					'Strict comparison using === between 1 and 1.0 will always evaluate to false.',
 					47,
 				],
 				[
@@ -202,15 +202,15 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					76,
 				],
 				[
-					'Strict comparison using !== between StrictComparison\Foo|null and int(1) will always evaluate to true.',
+					'Strict comparison using !== between StrictComparison\Foo|null and 1 will always evaluate to true.',
 					88,
 				],
 				[
-					'Strict comparison using === between int(1)|int(2)|int(3) and null will always evaluate to false.',
+					'Strict comparison using === between 1|2|3 and null will always evaluate to false.',
 					98,
 				],
 				[
-					'Strict comparison using !== between StrictComparison\Foo|null and int(1) will always evaluate to true.',
+					'Strict comparison using !== between StrictComparison\Foo|null and 1 will always evaluate to true.',
 					130,
 				],
 				[
@@ -218,7 +218,7 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					140,
 				],
 				[
-					'Strict comparison using !== between StrictComparison\Foo|null and int(1) will always evaluate to true.',
+					'Strict comparison using !== between StrictComparison\Foo|null and 1 will always evaluate to true.',
 					154,
 				],
 				[
@@ -238,47 +238,47 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					271,
 				],
 				[
-					'Strict comparison using === between int(1) and int(2) will always evaluate to false.',
+					'Strict comparison using === between 1 and 2 will always evaluate to false.',
 					284,
 				],
 				[
-					'Strict comparison using === between array(\'X\' => int(1)) and array(\'X\' => int(2)) will always evaluate to false.',
+					'Strict comparison using === between array(\'X\' => 1) and array(\'X\' => 2) will always evaluate to false.',
 					292,
 				],
 				[
-					'Strict comparison using === between array(\'X\' => int(1), \'Y\' => int(2)) and array(\'X\' => int(2), \'Y\' => int(1)) will always evaluate to false.',
+					'Strict comparison using === between array(\'X\' => 1, \'Y\' => 2) and array(\'X\' => 2, \'Y\' => 1) will always evaluate to false.',
 					300,
 				],
 				[
-					'Strict comparison using === between array(\'X\' => int(1), \'Y\' => int(2)) and array(\'Y\' => int(2), \'X\' => int(1)) will always evaluate to false.',
+					'Strict comparison using === between array(\'X\' => 1, \'Y\' => 2) and array(\'Y\' => 2, \'X\' => 1) will always evaluate to false.',
 					308,
 				],
 				[
-					'Strict comparison using === between string and string will always evaluate to false.',
+					'Strict comparison using === between \'/\'|\'\\\\\' and \'//\' will always evaluate to false.',
 					320,
 				],
 				[
-					'Strict comparison using === between int and string will always evaluate to false.',
+					'Strict comparison using === between int and \'string\' will always evaluate to false.',
 					335,
 				],
 				[
-					'Strict comparison using === between int and string will always evaluate to false.',
+					'Strict comparison using === between int and \'string\' will always evaluate to false.',
 					343,
 				],
 				[
-					'Strict comparison using === between int and string will always evaluate to false.',
+					'Strict comparison using === between int and \'string\' will always evaluate to false.',
 					360,
 				],
 				[
-					'Strict comparison using === between int and string will always evaluate to false.',
+					'Strict comparison using === between int and \'string\' will always evaluate to false.',
 					368,
 				],
 				[
-					'Strict comparison using === between float and string will always evaluate to false.',
+					'Strict comparison using === between float and \'string\' will always evaluate to false.',
 					386,
 				],
 				[
-					'Strict comparison using === between float and string will always evaluate to false.',
+					'Strict comparison using === between float and \'string\' will always evaluate to false.',
 					394,
 				],
 			]

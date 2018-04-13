@@ -5,6 +5,7 @@ namespace PHPStan\Rules\Operators;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\ErrorType;
+use PHPStan\Type\VerbosityLevel;
 
 class InvalidBinaryOperationRule implements \PHPStan\Rules\Rule
 {
@@ -56,8 +57,8 @@ class InvalidBinaryOperationRule implements \PHPStan\Rules\Rule
 				sprintf(
 					'Binary operation "%s" between %s and %s results in an error.',
 					substr(substr($this->printer->prettyPrintExpr($newNode), 2), 0, -2),
-					$scope->getType($left)->describe(),
-					$scope->getType($right)->describe()
+					$scope->getType($left)->describe(VerbosityLevel::value()),
+					$scope->getType($right)->describe(VerbosityLevel::value())
 				),
 			];
 		}
