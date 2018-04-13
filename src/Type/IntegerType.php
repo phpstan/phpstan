@@ -58,7 +58,8 @@ class IntegerType implements Type
 	{
 		return new ConstantArrayType(
 			[new ConstantIntegerType(0)],
-			[$this]
+			[$this],
+			1
 		);
 	}
 

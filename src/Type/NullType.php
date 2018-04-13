@@ -97,7 +97,8 @@ class NullType implements ConstantScalarType
 	{
 		return new ConstantArrayType(
 			[new ConstantIntegerType(0)],
-			[$this]
+			[$this],
+			1
 		);
 	}
 
