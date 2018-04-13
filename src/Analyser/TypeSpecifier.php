@@ -88,7 +88,12 @@ class TypeSpecifier
 		$this->staticMethodTypeSpecifyingExtensions = $staticMethodTypeSpecifyingExtensions;
 	}
 
-	public function specifyTypesInCondition(Scope $scope, Expr $expr, TypeSpecifierContext $context): SpecifiedTypes
+	public function specifyTypesInCondition(
+		Scope $scope,
+		Expr $expr,
+		TypeSpecifierContext $context,
+		bool $defaultHandleFunctions = false
+	): SpecifiedTypes
 	{
 		if ($expr instanceof Instanceof_) {
 			if ($expr->class instanceof Name) {
@@ -205,6 +210,10 @@ class TypeSpecifier
 					return $extension->specifyTypes($functionReflection, $expr, $scope, $context);
 				}
 			}
+
+			if ($defaultHandleFunctions) {
+				return $this->handleDefaultTruthyOrFalseyContext($context, $expr);
+			}
 		} elseif ($expr instanceof MethodCall && is_string($expr->name)) {
 			$methodCalledOnType = $scope->getType($expr->var);
 			$referencedClasses = $methodCalledOnType->getReferencedClasses();
@@ -223,6 +232,10 @@ class TypeSpecifier
 						return $extension->specifyTypes($methodReflection, $expr, $scope, $context);
 					}
 				}
+			}
+
+			if ($defaultHandleFunctions) {
+				return $this->handleDefaultTruthyOrFalseyContext($context, $expr);
 			}
 		} elseif ($expr instanceof StaticCall && is_string($expr->name)) {
 			if ($expr->class instanceof Name) {
@@ -247,6 +260,10 @@ class TypeSpecifier
 						return $extension->specifyTypes($staticMethodReflection, $expr, $scope, $context);
 					}
 				}
+			}
+
+			if ($defaultHandleFunctions) {
+				return $this->handleDefaultTruthyOrFalseyContext($context, $expr);
 			}
 		} elseif ($expr instanceof BooleanAnd || $expr instanceof LogicalAnd) {
 			$leftTypes = $this->specifyTypesInCondition($scope, $expr->left, $context);
@@ -315,7 +332,16 @@ class TypeSpecifier
 				}
 			}
 			return $types;
-		} elseif (!$context->truthy()) {
+		} else {
+			return $this->handleDefaultTruthyOrFalseyContext($context, $expr);
+		}
+
+		return new SpecifiedTypes();
+	}
+
+	private function handleDefaultTruthyOrFalseyContext(TypeSpecifierContext $context, Expr $expr): SpecifiedTypes
+	{
+		if (!$context->truthy()) {
 			$type = new ObjectWithoutClassType();
 			return $this->create($expr, $type, TypeSpecifierContext::createFalse());
 		} elseif (!$context->falsey()) {

@@ -184,6 +184,14 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Method ReturnTypes\TrickyVoid::returnVoidOrInt() should return int|void but returns string.',
 				479,
 			],
+			[
+				'Method ReturnTypes\TernaryWithJsonEncode::toJsonOrNull() should return string|null but returns string|false|null.',
+				490,
+			],
+			[
+				'Method ReturnTypes\TernaryWithJsonEncode::toJson() should return string but returns string|false.',
+				496,
+			],
 		]);
 	}
 
