@@ -10,9 +10,12 @@ use PHPStan\Type\ErrorType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Traits\ConstantScalarTypeTrait;
 use PHPStan\Type\Type;
+use PHPStan\Type\VerbosityLevel;
 
 class ConstantStringType extends StringType implements ConstantScalarType
 {
+
+	private const DESCRIBE_LIMIT = 20;
 
 	use ConstantScalarTypeTrait;
 	use ConstantScalarToBooleanTrait;
@@ -28,6 +31,21 @@ class ConstantStringType extends StringType implements ConstantScalarType
 	public function getValue(): string
 	{
 		return $this->value;
+	}
+
+	public function describe(VerbosityLevel $level): string
+	{
+		return $level->handle(
+			function (): string {
+				return 'string';
+			},
+			function (): string {
+				return var_export(
+					\Nette\Utils\Strings::truncate($this->value, self::DESCRIBE_LIMIT),
+					true
+				);
+			}
+		);
 	}
 
 	public function isCallable(): TrinaryLogic

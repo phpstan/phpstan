@@ -4,6 +4,7 @@ namespace PHPStan\Rules\Comparison;
 
 use PhpParser\Node\Arg;
 use PHPStan\Analyser\Scope;
+use PHPStan\Type\VerbosityLevel;
 
 class ImpossibleCheckTypeHelper
 {
@@ -23,7 +24,7 @@ class ImpossibleCheckTypeHelper
 		}
 
 		$descriptions = array_map(function (Arg $arg) use ($scope): string {
-			return $scope->getType($arg->value)->describe();
+			return $scope->getType($arg->value)->describe(VerbosityLevel::value());
 		}, $args);
 
 		if (count($descriptions) < 3) {

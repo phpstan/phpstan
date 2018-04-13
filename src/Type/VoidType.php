@@ -44,7 +44,7 @@ class VoidType implements Type
 		return TrinaryLogic::createNo();
 	}
 
-	public function describe(): string
+	public function describe(VerbosityLevel $level): string
 	{
 		return 'void';
 	}

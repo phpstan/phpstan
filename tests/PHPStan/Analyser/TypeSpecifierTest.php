@@ -17,6 +17,7 @@ use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\UnionType;
+use PHPStan\Type\VerbosityLevel;
 
 class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 {
@@ -158,7 +159,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 
 			[
 				new Variable('foo'),
-				['$foo' => '~false|int(0)|null'],
+				['$foo' => '~0|0.0|\'\'|array()|false|null'],
 				['$foo' => '~object'],
 			],
 			[
@@ -166,7 +167,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					new Variable('foo'),
 					$this->createFunctionCall('random')
 				),
-				['$foo' => '~false|int(0)|null'],
+				['$foo' => '~0|0.0|\'\'|array()|false|null'],
 				[],
 			],
 			[
@@ -180,12 +181,12 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 			[
 				new Expr\BooleanNot(new Variable('bar')),
 				['$bar' => '~object'],
-				['$bar' => '~false|int(0)|null'],
+				['$bar' => '~0|0.0|\'\'|array()|false|null'],
 			],
 
 			[
 				new PropertyFetch(new Variable('this'), 'foo'),
-				['$this->foo' => '~false|int(0)|null'],
+				['$this->foo' => '~0|0.0|\'\'|array()|false|null'],
 				['$this->foo' => '~object'],
 			],
 			[
@@ -193,7 +194,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					new PropertyFetch(new Variable('this'), 'foo'),
 					$this->createFunctionCall('random')
 				),
-				['$this->foo' => '~false|int(0)|null'],
+				['$this->foo' => '~0|0.0|\'\'|array()|false|null'],
 				[],
 			],
 			[
@@ -207,7 +208,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 			[
 				new Expr\BooleanNot(new PropertyFetch(new Variable('this'), 'foo')),
 				['$this->foo' => '~object'],
-				['$this->foo' => '~false|int(0)|null'],
+				['$this->foo' => '~0|0.0|\'\'|array()|false|null'],
 			],
 
 			[
@@ -298,7 +299,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					new Variable('foo'),
 					new Expr\ConstFetch(new Name('true'))
 				),
-				['$foo' => 'true & ~false|int(0)|null'],
+				['$foo' => 'true & ~0|0.0|\'\'|array()|false|null'],
 				['$foo' => '~true'],
 			],
 			[
@@ -347,7 +348,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					new Expr\ConstFetch(new Name('false'))
 				),
 				['$foo' => '~object'],
-				['$foo' => '~false|int(0)|null'],
+				['$foo' => '~0|0.0|\'\'|array()|false|null'],
 			],
 			[
 				new Equal(
@@ -355,7 +356,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					new Expr\ConstFetch(new Name('null'))
 				),
 				['$foo' => '~object'],
-				['$foo' => '~false|int(0)|null'],
+				['$foo' => '~0|0.0|\'\'|array()|false|null'],
 			],
 			[
 				new Expr\BinaryOp\Identical(
@@ -433,7 +434,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					new Variable('foo'),
 					new Variable('stringOrNull')
 				),
-				['$foo' => '~false|int(0)|null'],
+				['$foo' => '~0|0.0|\'\'|array()|false|null'],
 				['$foo' => '~object'],
 			],
 			[
@@ -441,7 +442,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					new Variable('foo'),
 					new Variable('stringOrFalse')
 				),
-				['$foo' => '~false|int(0)|null'],
+				['$foo' => '~0|0.0|\'\'|array()|false|null'],
 				['$foo' => '~object'],
 			],
 			[
@@ -449,7 +450,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					new Variable('foo'),
 					new Variable('bar')
 				),
-				['$foo' => '~false|int(0)|null'],
+				['$foo' => '~0|0.0|\'\'|array()|false|null'],
 				['$foo' => '~object'],
 			],
 			[
@@ -471,7 +472,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					'$stringOrNull' => '~false|null',
 				],
 				[
-					'empty($stringOrNull)' => '~false|int(0)|null',
+					'empty($stringOrNull)' => '~0|0.0|\'\'|array()|false|null',
 				],
 			],
 			/*[
@@ -479,8 +480,8 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					new Variable('foo'),
 					new LNumber(123)
 				),
-				['$foo' => 'int(123)'],
-				['$foo' => '~int(123)'],
+				['$foo' => '123'],
+				['$foo' => '~123'],
 			],*/
 		];
 	}
@@ -490,11 +491,11 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 		$typesDescription = [];
 
 		foreach ($specifiedTypes->getSureTypes() as $exprString => list($exprNode, $exprType)) {
-			$typesDescription[$exprString][] = $exprType->describe();
+			$typesDescription[$exprString][] = $exprType->describe(VerbosityLevel::value());
 		}
 
 		foreach ($specifiedTypes->getSureNotTypes() as $exprString => list($exprNode, $exprType)) {
-			$typesDescription[$exprString][] = '~' . $exprType->describe();
+			$typesDescription[$exprString][] = '~' . $exprType->describe(VerbosityLevel::value());
 		}
 
 		foreach ($typesDescription as $exprString => $exprTypes) {

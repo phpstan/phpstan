@@ -7,6 +7,7 @@ use PHPStan\Reflection\ClassConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Constant\ConstantBooleanType;
 
 class UnionType implements CompoundType, StaticResolvableType
 {
@@ -24,7 +25,7 @@ class UnionType implements CompoundType, StaticResolvableType
 				'Cannot create %s with: %s',
 				self::class,
 				implode(', ', array_map(function (Type $type): string {
-					return $type->describe();
+					return $type->describe(VerbosityLevel::value());
 				}, $types))
 			));
 		};
@@ -100,19 +101,44 @@ class UnionType implements CompoundType, StaticResolvableType
 		return TrinaryLogic::extremeIdentity(...$results);
 	}
 
-	public function describe(): string
+	public function describe(VerbosityLevel $level): string
 	{
-		$typeNames = [];
-
-		foreach ($this->types as $type) {
-			if ($type instanceof IntersectionType) {
-				$typeNames[] = sprintf('(%s)', $type->describe());
-			} else {
-				$typeNames[] = $type->describe();
+		$joinTypes = function (array $types) use ($level): string {
+			$typeNames = [];
+			foreach ($types as $type) {
+				if ($type instanceof IntersectionType) {
+					$typeNames[] = sprintf('(%s)', $type->describe($level));
+				} else {
+					$typeNames[] = $type->describe($level);
+				}
 			}
-		}
 
-		return implode('|', array_unique($typeNames));
+			return implode('|', array_unique($typeNames));
+		};
+
+		return $level->handle(
+			function () use ($joinTypes): string {
+				$types = TypeCombinator::union(...array_map(function (Type $type): Type {
+					if (
+						$type instanceof ConstantType
+						&& !$type instanceof ConstantBooleanType
+					) {
+						return $type->generalize();
+					}
+
+					return $type;
+				}, $this->types));
+
+				if ($types instanceof UnionType) {
+					return $joinTypes($types->getTypes());
+				}
+
+				return $joinTypes([$types]);
+			},
+			function () use ($joinTypes): string {
+				return $joinTypes($this->types);
+			}
+		);
 	}
 
 	public function canAccessProperties(): TrinaryLogic

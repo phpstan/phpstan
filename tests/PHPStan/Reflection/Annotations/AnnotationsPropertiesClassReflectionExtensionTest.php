@@ -4,6 +4,7 @@ namespace PHPStan\Reflection\Annotations;
 
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Type\VerbosityLevel;
 
 class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\Testing\TestCase
 {
@@ -236,7 +237,7 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\Testing
 			);
 			$this->assertSame(
 				$expectedPropertyData['type'],
-				$property->getType()->describe(),
+				$property->getType()->describe(VerbosityLevel::value()),
 				sprintf('Type of property %s::$%s does not match.', $property->getDeclaringClass()->getName(), $propertyName)
 			);
 			$this->assertSame(
@@ -257,7 +258,7 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\Testing
 		$broker = $this->getContainer()->getByType(Broker::class);
 		$class = $broker->getClass(\AnnotationsProperties\Bar::class);
 		$this->assertTrue($class->hasNativeProperty('overridenPropertyWithAnnotation'));
-		$this->assertSame('AnnotationsProperties\Foo', $class->getNativeProperty('overridenPropertyWithAnnotation')->getType()->describe());
+		$this->assertSame('AnnotationsProperties\Foo', $class->getNativeProperty('overridenPropertyWithAnnotation')->getType()->describe(VerbosityLevel::value()));
 	}
 
 }

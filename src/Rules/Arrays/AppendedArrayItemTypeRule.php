@@ -7,6 +7,7 @@ use PhpParser\Node\Expr\Assign;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\VerbosityLevel;
 
 class AppendedArrayItemTypeRule implements \PHPStan\Rules\Rule
 {
@@ -49,8 +50,8 @@ class AppendedArrayItemTypeRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf(
 					'Array (%s) does not accept %s.',
-					$assignedToType->describe(),
-					$assignedValueType->describe()
+					$assignedToType->describe(VerbosityLevel::typeOnly()),
+					$assignedValueType->describe(VerbosityLevel::typeOnly())
 				),
 			];
 		}

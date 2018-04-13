@@ -5,6 +5,7 @@ namespace PHPStan\Rules;
 use PhpParser\Node\Expr;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\Type;
+use PHPStan\Type\VerbosityLevel;
 use PHPStan\Type\VoidType;
 
 class FunctionReturnTypeCheck
@@ -51,7 +52,7 @@ class FunctionReturnTypeCheck
 			return [
 				sprintf(
 					$emptyReturnStatementMessage,
-					$returnType->describe()
+					$returnType->describe(VerbosityLevel::typeOnly())
 				),
 			];
 		}
@@ -62,7 +63,7 @@ class FunctionReturnTypeCheck
 			return [
 				sprintf(
 					$voidMessage,
-					$returnValueType->describe()
+					$returnValueType->describe(VerbosityLevel::typeOnly())
 				),
 			];
 		}
@@ -71,8 +72,8 @@ class FunctionReturnTypeCheck
 			return [
 				sprintf(
 					$typeMismatchMessage,
-					$returnType->describe(),
-					$returnValueType->describe()
+					$returnType->describe(VerbosityLevel::typeOnly()),
+					$returnValueType->describe(VerbosityLevel::typeOnly())
 				),
 			];
 		}

@@ -8,6 +8,7 @@ use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
+use PHPStan\Type\VerbosityLevel;
 
 class ConstantArrayTypeTest extends \PHPStan\Testing\TestCase
 {
@@ -84,7 +85,7 @@ class ConstantArrayTypeTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(
 			$expectedResult,
 			$actualResult,
-			sprintf('%s -> accepts(%s)', $type->describe(), $otherType->describe())
+			sprintf('%s -> accepts(%s)', $type->describe(VerbosityLevel::value()), $otherType->describe(VerbosityLevel::value()))
 		);
 	}
 
@@ -160,7 +161,7 @@ class ConstantArrayTypeTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isSuperTypeOf(%s)', $type->describe(), $otherType->describe())
+			sprintf('%s -> isSuperTypeOf(%s)', $type->describe(VerbosityLevel::value()), $otherType->describe(VerbosityLevel::value()))
 		);
 	}
 

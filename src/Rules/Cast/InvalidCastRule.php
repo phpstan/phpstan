@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Type\ErrorType;
+use PHPStan\Type\VerbosityLevel;
 
 class InvalidCastRule implements \PHPStan\Rules\Rule
 {
@@ -43,7 +44,7 @@ class InvalidCastRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf(
 					'Cannot cast %s to %s.',
-					$scope->getType($node->expr)->describe(),
+					$scope->getType($node->expr)->describe(VerbosityLevel::value()),
 					$shortName
 				),
 			];

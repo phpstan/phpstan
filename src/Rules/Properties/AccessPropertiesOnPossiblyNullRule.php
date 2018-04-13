@@ -7,6 +7,7 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\UnionType;
+use PHPStan\Type\VerbosityLevel;
 
 class AccessPropertiesOnPossiblyNullRule implements \PHPStan\Rules\Rule
 {
@@ -56,7 +57,7 @@ class AccessPropertiesOnPossiblyNullRule implements \PHPStan\Rules\Rule
 				sprintf(
 					'Accessing property $%s on possibly null value of type %s.',
 					$node->name,
-					$type->describe()
+					$type->describe(VerbosityLevel::typeOnly())
 				),
 			];
 		}

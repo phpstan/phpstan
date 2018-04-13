@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\VerbosityLevel;
 
 class ImpossibleInstanceOfRule implements \PHPStan\Rules\Rule
 {
@@ -48,16 +49,16 @@ class ImpossibleInstanceOfRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf(
 					'Instanceof between %s and %s will always evaluate to false.',
-					$expressionType->describe(),
-					$type->describe()
+					$expressionType->describe(VerbosityLevel::typeOnly()),
+					$type->describe(VerbosityLevel::typeOnly())
 				),
 			];
 		} elseif ($this->checkAlwaysTrueInstanceof) {
 			return [
 				sprintf(
 					'Instanceof between %s and %s will always evaluate to true.',
-					$expressionType->describe(),
-					$type->describe()
+					$expressionType->describe(VerbosityLevel::typeOnly()),
+					$type->describe(VerbosityLevel::typeOnly())
 				),
 			];
 		}

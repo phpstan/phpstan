@@ -18,15 +18,15 @@ class InvalidBinaryOperationRuleTest extends \PHPStan\Testing\RuleTestCase
 				12,
 			],
 			[
-				'Binary operation "/" between int(5) and int(0) results in an error.',
+				'Binary operation "/" between 5 and 0 results in an error.',
 				15,
 			],
 			[
-				'Binary operation "%" between int(5) and int(0) results in an error.',
+				'Binary operation "%" between 5 and 0 results in an error.',
 				16,
 			],
 			[
-				'Binary operation "/" between int and float(0.000000) results in an error.',
+				'Binary operation "/" between int and 0.0 results in an error.',
 				17,
 			],
 			[
@@ -34,15 +34,15 @@ class InvalidBinaryOperationRuleTest extends \PHPStan\Testing\RuleTestCase
 				19,
 			],
 			[
-				'Binary operation "+" between int(1) and string results in an error.',
+				'Binary operation "+" between 1 and string results in an error.',
 				20,
 			],
 			[
-				'Binary operation "+" between int(1) and string results in an error.',
+				'Binary operation "+" between 1 and \'blabla\' results in an error.',
 				21,
 			],
 			[
-				'Binary operation "+=" between array and string results in an error.',
+				'Binary operation "+=" between array and \'foo\' results in an error.',
 				28,
 			],
 			[
@@ -66,15 +66,15 @@ class InvalidBinaryOperationRuleTest extends \PHPStan\Testing\RuleTestCase
 				59,
 			],
 			[
-				'Binary operation "&" between string and int(5) results in an error.',
+				'Binary operation "&" between string and 5 results in an error.',
 				67,
 			],
 			[
-				'Binary operation "|" between string and int(5) results in an error.',
+				'Binary operation "|" between string and 5 results in an error.',
 				69,
 			],
 			[
-				'Binary operation "^" between string and int(5) results in an error.',
+				'Binary operation "^" between string and 5 results in an error.',
 				71,
 			],
 			[

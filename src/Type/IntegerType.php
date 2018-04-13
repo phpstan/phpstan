@@ -20,7 +20,7 @@ class IntegerType implements Type
 	use NonOffsetAccessibleTypeTrait;
 	use UndecidedBooleanTypeTrait;
 
-	public function describe(): string
+	public function describe(VerbosityLevel $level): string
 	{
 		return 'int';
 	}

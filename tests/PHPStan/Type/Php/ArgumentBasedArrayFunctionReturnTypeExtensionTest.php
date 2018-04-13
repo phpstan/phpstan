@@ -9,6 +9,7 @@ use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\StringType;
+use PHPStan\Type\VerbosityLevel;
 
 class ArgumentBasedArrayFunctionReturnTypeExtensionTest extends \PHPStan\Testing\TestCase
 {
@@ -53,7 +54,7 @@ class ArgumentBasedArrayFunctionReturnTypeExtensionTest extends \PHPStan\Testing
 		$this->assertTrue($extension->isFunctionSupported($functionReflectionMock));
 		$this->assertSame(
 			$expectedDescription,
-			$extension->getTypeFromFunctionCall($functionReflectionMock, $functionCall, $scopeMock)->describe()
+			$extension->getTypeFromFunctionCall($functionReflectionMock, $functionCall, $scopeMock)->describe(VerbosityLevel::value())
 		);
 	}
 

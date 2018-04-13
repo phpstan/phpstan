@@ -52,7 +52,7 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(
 			$expectedResult,
 			$actualResult,
-			sprintf('%s -> accepts(%s)', $type->describe(), $otherType->describe())
+			sprintf('%s -> accepts(%s)', $type->describe(VerbosityLevel::value()), $otherType->describe(VerbosityLevel::value()))
 		);
 	}
 
@@ -99,7 +99,7 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isCallable()', $type->describe())
+			sprintf('%s -> isCallable()', $type->describe(VerbosityLevel::value()))
 		);
 	}
 
@@ -161,7 +161,7 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isSuperTypeOf(%s)', $type->describe(), $otherType->describe())
+			sprintf('%s -> isSuperTypeOf(%s)', $type->describe(VerbosityLevel::value()), $otherType->describe(VerbosityLevel::value()))
 		);
 	}
 
@@ -278,7 +278,7 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isSubTypeOf(%s)', $type->describe(), $otherType->describe())
+			sprintf('%s -> isSubTypeOf(%s)', $type->describe(VerbosityLevel::value()), $otherType->describe(VerbosityLevel::value()))
 		);
 	}
 
@@ -296,7 +296,7 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isSuperTypeOf(%s)', $otherType->describe(), $type->describe())
+			sprintf('%s -> isSuperTypeOf(%s)', $otherType->describe(VerbosityLevel::value()), $type->describe(VerbosityLevel::value()))
 		);
 	}
 

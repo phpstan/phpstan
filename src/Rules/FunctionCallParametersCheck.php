@@ -9,6 +9,7 @@ use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\IterableType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\VerbosityLevel;
 use PHPStan\Type\VoidType;
 
 class FunctionCallParametersCheck
@@ -175,8 +176,8 @@ class FunctionCallParametersCheck
 					$messages[6],
 					$i + 1,
 					sprintf('%s$%s', $parameter->isVariadic() ? '...' : '', $parameter->getName()),
-					$parameterType->describe(),
-					$argumentValueType->describe()
+					$parameterType->describe(VerbosityLevel::typeOnly()),
+					$argumentValueType->describe(VerbosityLevel::typeOnly())
 				);
 			}
 

@@ -153,7 +153,7 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				234,
 			],
 			[
-				'Cannot call method foo() on int(1)|string.',
+				'Cannot call method foo() on int|string.',
 				254,
 			],
 			[
@@ -229,7 +229,7 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				524,
 			],
 			[
-				'Parameter #1 $param of method Test\IncompatiblePhpDocNullableTypeIssue::doFoo() expects string|null, int(123) given.',
+				'Parameter #1 $param of method Test\IncompatiblePhpDocNullableTypeIssue::doFoo() expects string|null, int given.',
 				551,
 			],
 			[
@@ -249,7 +249,7 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				595,
 			],
 			[
-				'Parameter #1 $str of method Test\LiteralArrayTypeCheck::test() expects string, int(12) given.',
+				'Parameter #1 $str of method Test\LiteralArrayTypeCheck::test() expects string, int given.',
 				632,
 			],
 			[
@@ -382,7 +382,7 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				446,
 			],
 			[
-				'Parameter #1 $param of method Test\IncompatiblePhpDocNullableTypeIssue::doFoo() expects string|null, int(123) given.',
+				'Parameter #1 $param of method Test\IncompatiblePhpDocNullableTypeIssue::doFoo() expects string|null, int given.',
 				551,
 			],
 			[
@@ -402,7 +402,7 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				595,
 			],
 			[
-				'Parameter #1 $str of method Test\LiteralArrayTypeCheck::test() expects string, int(12) given.',
+				'Parameter #1 $str of method Test\LiteralArrayTypeCheck::test() expects string, int given.',
 				632,
 			],
 			[
@@ -506,11 +506,11 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				11,
 			],
 			[
-				'Parameter #2 ...$strings of method CallVariadicMethods\Foo::doVariadicString() expects string, int(2) given.',
+				'Parameter #2 ...$strings of method CallVariadicMethods\Foo::doVariadicString() expects string, int given.',
 				32,
 			],
 			[
-				'Parameter #3 ...$strings of method CallVariadicMethods\Foo::doVariadicString() expects string, int(3) given.',
+				'Parameter #3 ...$strings of method CallVariadicMethods\Foo::doVariadicString() expects string, int given.',
 				32,
 			],
 			[
@@ -518,11 +518,11 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				34,
 			],
 			[
-				'Parameter #3 ...$strings of method CallVariadicMethods\Foo::doVariadicString() expects string, int(1) given.',
+				'Parameter #3 ...$strings of method CallVariadicMethods\Foo::doVariadicString() expects string, int given.',
 				42,
 			],
 			[
-				'Parameter #4 ...$strings of method CallVariadicMethods\Foo::doVariadicString() expects array<int, string>, array(int(1), int(2), int(3)) given.',
+				'Parameter #4 ...$strings of method CallVariadicMethods\Foo::doVariadicString() expects array<int, string>, array<int, int> given.',
 				42,
 			],
 		]);
@@ -597,7 +597,7 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				65,
 			],
 			[
-				'Parameter #1 $str of method MethodWithInheritDoc\Foo::doBar() expects string, int(1) given.',
+				'Parameter #1 $str of method MethodWithInheritDoc\Foo::doBar() expects string, int given.',
 				67,
 			],
 		]);
@@ -698,7 +698,7 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->checkUnionTypes = true;
 		$this->analyse([__DIR__ . '/data/call-methods-iterable.php'], [
 			[
-				'Parameter #1 $ids of method CallMethodsIterables\Uuid::bar() expects iterable<CallMethodsIterables\Uuid>, array(null) given.',
+				'Parameter #1 $ids of method CallMethodsIterables\Uuid::bar() expects iterable<CallMethodsIterables\Uuid>, array<int, null> given.',
 				14,
 			],
 			[
@@ -710,39 +710,39 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				60,
 			],
 			[
-				'Parameter #1 $iterableWithoutTypehint of method CallMethodsIterables\Foo::doFoo() expects iterable, int(1) given.',
+				'Parameter #1 $iterableWithoutTypehint of method CallMethodsIterables\Foo::doFoo() expects iterable, int given.',
 				62,
 			],
 			[
-				'Parameter #2 $iterableWithIterableTypehint of method CallMethodsIterables\Foo::doFoo() expects iterable, int(1) given.',
+				'Parameter #2 $iterableWithIterableTypehint of method CallMethodsIterables\Foo::doFoo() expects iterable, int given.',
 				62,
 			],
 			[
-				'Parameter #3 $iterableWithConcreteTypehint of method CallMethodsIterables\Foo::doFoo() expects iterable<CallMethodsIterables\Bar>, int(1) given.',
+				'Parameter #3 $iterableWithConcreteTypehint of method CallMethodsIterables\Foo::doFoo() expects iterable<CallMethodsIterables\Bar>, int given.',
 				62,
 			],
 			[
-				'Parameter #4 $arrayWithIterableTypehint of method CallMethodsIterables\Foo::doFoo() expects array, int(1) given.',
+				'Parameter #4 $arrayWithIterableTypehint of method CallMethodsIterables\Foo::doFoo() expects array, int given.',
 				62,
 			],
 			[
-				'Parameter #5 $unionIterableType of method CallMethodsIterables\Foo::doFoo() expects CallMethodsIterables\Collection&iterable<CallMethodsIterables\Bar>, int(1) given.',
+				'Parameter #5 $unionIterableType of method CallMethodsIterables\Foo::doFoo() expects CallMethodsIterables\Collection&iterable<CallMethodsIterables\Bar>, int given.',
 				62,
 			],
 			[
-				'Parameter #6 $mixedUnionIterableType of method CallMethodsIterables\Foo::doFoo() expects array, int(1) given.',
+				'Parameter #6 $mixedUnionIterableType of method CallMethodsIterables\Foo::doFoo() expects array, int given.',
 				62,
 			],
 			[
-				'Parameter #7 $unionIterableIterableType of method CallMethodsIterables\Foo::doFoo() expects CallMethodsIterables\Collection&iterable<CallMethodsIterables\Bar>, int(1) given.',
+				'Parameter #7 $unionIterableIterableType of method CallMethodsIterables\Foo::doFoo() expects CallMethodsIterables\Collection&iterable<CallMethodsIterables\Bar>, int given.',
 				62,
 			],
 			[
-				'Parameter #9 $integers of method CallMethodsIterables\Foo::doFoo() expects iterable<int>, int(1) given.',
+				'Parameter #9 $integers of method CallMethodsIterables\Foo::doFoo() expects iterable<int>, int given.',
 				62,
 			],
 			[
-				'Parameter #10 $mixeds of method CallMethodsIterables\Foo::doFoo() expects iterable, int(1) given.',
+				'Parameter #10 $mixeds of method CallMethodsIterables\Foo::doFoo() expects iterable, int given.',
 				62,
 			],
 		]);

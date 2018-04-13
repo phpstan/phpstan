@@ -20,7 +20,7 @@ class StringType implements Type
 	use NonObjectTypeTrait;
 	use UndecidedBooleanTypeTrait;
 
-	public function describe(): string
+	public function describe(VerbosityLevel $level): string
 	{
 		return 'string';
 	}

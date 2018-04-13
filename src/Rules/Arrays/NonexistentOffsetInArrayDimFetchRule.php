@@ -4,6 +4,7 @@ namespace PHPStan\Rules\Arrays;
 
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\ErrorType;
+use PHPStan\Type\VerbosityLevel;
 
 class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 {
@@ -23,7 +24,7 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 		$varType = $scope->getType($node->var);
 		if ($varType->isOffsetAccessible()->no()) {
 			return [
-				sprintf('Cannot access array offset on %s.', $varType->describe()),
+				sprintf('Cannot access array offset on %s.', $varType->describe(VerbosityLevel::typeOnly())),
 			];
 		}
 
@@ -38,7 +39,7 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 		$dimType = $scope->getType($node->dim);
 		if ($varType->getOffsetValueType($dimType) instanceof ErrorType) {
 			return [
-				sprintf('Offset %s does not exist on %s.', $dimType->describe(), $varType->describe()),
+				sprintf('Offset %s does not exist on %s.', $dimType->describe(VerbosityLevel::value()), $varType->describe(VerbosityLevel::value())),
 			];
 		}
 

@@ -13,6 +13,8 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeWithClassName;
+use PHPStan\Type\UnionType;
+use PHPStan\Type\VerbosityLevel;
 
 /**
  * @method ConstantIntegerType|ConstantStringType getKeyType()
@@ -245,37 +247,69 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		return new ArrayType($this->getKeyType(), $this->getItemType(), true);
 	}
 
+	/**
+	 * @return static
+	 */
+	public function generalizeValues(): ArrayType
+	{
+		$valueTypes = [];
+		foreach ($this->valueTypes as $valueType) {
+			if ($valueType instanceof ConstantType) {
+				$valueType = $valueType->generalize();
+			} elseif ($valueType instanceof UnionType) {
+				$valueType = TypeCombinator::union(...array_map(function (Type $type): Type {
+					if ($type instanceof ConstantType) {
+						return $type->generalize();
+					}
+
+					return $type;
+				}, $valueType->getTypes()));
+			}
+
+			$valueTypes[] = $valueType;
+		}
+
+		return new self($this->keyTypes, $valueTypes);
+	}
+
 	public function count(): int
 	{
 		return count($this->getKeyTypes());
 	}
 
-	public function describe(): string
+	public function describe(VerbosityLevel $level): string
 	{
-		$items = [];
-		$values = [];
-		$exportValuesOnly = true;
-		foreach ($this->keyTypes as $i => $keyType) {
-			$valueType = $this->valueTypes[$i];
-			if ($keyType->getValue() !== $i) {
-				$exportValuesOnly = false;
+		return $level->handle(
+			function () use ($level): string {
+				return parent::describe($level);
+			},
+			function () use ($level): string {
+				$items = [];
+				$values = [];
+				$exportValuesOnly = true;
+				foreach ($this->keyTypes as $i => $keyType) {
+					$valueType = $this->valueTypes[$i];
+					if ($keyType->getValue() !== $i) {
+						$exportValuesOnly = false;
+					}
+
+					$items[] = sprintf('%s => %s', var_export($keyType->getValue(), true), $valueType->describe($level));
+					$values[] = $valueType->describe($level);
+				}
+
+				$append = '';
+				if (count($items) > self::DESCRIBE_LIMIT) {
+					$items = array_slice($items, 0, self::DESCRIBE_LIMIT);
+					$values = array_slice($values, 0, self::DESCRIBE_LIMIT);
+					$append = ', ...';
+				}
+
+				return sprintf(
+					'array(%s%s)',
+					implode(', ', $exportValuesOnly ? $values : $items),
+					$append
+				);
 			}
-
-			$items[] = sprintf('%s => %s', var_export($keyType->getValue(), true), $valueType->describe());
-			$values[] = $valueType->describe();
-		}
-
-		$append = '';
-		if (count($items) > self::DESCRIBE_LIMIT) {
-			$items = array_slice($items, 0, self::DESCRIBE_LIMIT);
-			$values = array_slice($values, 0, self::DESCRIBE_LIMIT);
-			$append = ', ...';
-		}
-
-		return sprintf(
-			'array(%s%s)',
-			implode(', ', $exportValuesOnly ? $values : $items),
-			$append
 		);
 	}
 

@@ -5,7 +5,7 @@ namespace PHPStan\Type;
 class ThisType extends StaticType
 {
 
-	public function describe(): string
+	public function describe(VerbosityLevel $level): string
 	{
 		return sprintf('$this(%s)', $this->getBaseClass());
 	}
