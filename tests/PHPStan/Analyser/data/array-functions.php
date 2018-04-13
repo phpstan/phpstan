@@ -41,4 +41,7 @@ $stringOrIntegerKeys = [
 	1 => new \stdClass(),
 ];
 
+/** @var array<string, int> $generalStringKeys */
+$generalStringKeys = doFoo();
+
 die;

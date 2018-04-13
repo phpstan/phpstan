@@ -120,6 +120,11 @@ class ArrayType implements StaticResolvableType
 		return new self($this->keyType, $itemType);
 	}
 
+	public function getKeysArray(): self
+	{
+		return new self(new IntegerType(), $this->keyType, true);
+	}
+
 	public function resolveStatic(string $className): Type
 	{
 		if ($this->getItemType() instanceof StaticResolvableType) {

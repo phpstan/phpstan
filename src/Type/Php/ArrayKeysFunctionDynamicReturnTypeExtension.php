@@ -7,8 +7,9 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\IntegerType;
-use PHPStan\Type\MixedType;
+use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
+use PHPStan\Type\UnionType;
 
 class ArrayKeysFunctionDynamicReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
@@ -21,15 +22,18 @@ class ArrayKeysFunctionDynamicReturnTypeExtension implements \PHPStan\Type\Dynam
 	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
 	{
 		$arrayArg = $functionCall->args[0]->value ?? null;
-		$valueType = new MixedType();
 		if ($arrayArg !== null) {
 			$valueType = $scope->getType($arrayArg);
 			if ($valueType instanceof ArrayType) {
-				$valueType = $valueType->getIterableKeyType();
+				return $valueType->getKeysArray();
 			}
 		}
 
-		return new ArrayType(new IntegerType(), $valueType, true);
+		return new ArrayType(
+			new IntegerType(),
+			new UnionType([new StringType(), new IntegerType()]),
+			true
+		);
 	}
 
 }
