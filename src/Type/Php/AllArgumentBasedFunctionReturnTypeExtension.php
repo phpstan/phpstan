@@ -6,8 +6,11 @@ use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\ConstantScalarType;
+use PHPStan\Type\ErrorType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\UnionType;
 
 class AllArgumentBasedFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
@@ -32,15 +35,23 @@ class AllArgumentBasedFunctionReturnTypeExtension implements \PHPStan\Type\Dynam
 		if ($functionCall->args[0]->unpack) {
 			$argumentType = $scope->getType($functionCall->args[0]->value);
 			if ($argumentType instanceof ArrayType) {
-				return $argumentType->getItemType();
+				return $this->processType(
+					$functionReflection->getName(),
+					$argumentType->getItemType()
+				);
 			}
 		}
 
 		if (count($functionCall->args) === 1) {
 			$argumentType = $scope->getType($functionCall->args[0]->value);
 			if ($argumentType instanceof ArrayType) {
-				return $argumentType->getItemType();
+				return $this->processType(
+					$functionReflection->getName(),
+					$argumentType->getItemType()
+				);
 			}
+
+			return new ErrorType();
 		}
 
 		$argumentTypes = [];
@@ -48,7 +59,48 @@ class AllArgumentBasedFunctionReturnTypeExtension implements \PHPStan\Type\Dynam
 			$argumentTypes[] = $scope->getType($arg->value);
 		}
 
-		return TypeCombinator::union(...$argumentTypes);
+		return $this->processType(
+			$functionReflection->getName(),
+			TypeCombinator::union(...$argumentTypes)
+		);
+	}
+
+	private function processType(string $functionName, Type $type): Type
+	{
+		if ($type instanceof ConstantScalarType) {
+			return $type;
+		}
+
+		if ($type instanceof UnionType) {
+			$result = null;
+			$resultType = null;
+			foreach ($type->getTypes() as $innerType) {
+				if (!$innerType instanceof ConstantScalarType) {
+					return $type;
+				}
+
+				$value = $innerType->getValue();
+				if ($functionName === 'min') {
+					if ($resultType === null || $value < $result) {
+						$result = $value;
+						$resultType = $innerType;
+					}
+				} else {
+					if ($resultType === null || $value > $result) {
+						$result = $value;
+						$resultType = $innerType;
+					}
+				}
+			}
+
+			if ($resultType === null) {
+				return new ErrorType();
+			}
+
+			return $resultType;
+		}
+
+		return $type;
 	}
 
 }
