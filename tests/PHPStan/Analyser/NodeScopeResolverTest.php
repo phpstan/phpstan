@@ -3648,6 +3648,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$integers[0]',
 			],
 			[
+				'array(string, string, string)',
+				'$mappedStrings',
+			],
+			[
 				'string',
 				'$mappedStrings[0]',
 			],
@@ -3758,6 +3762,22 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'array(\'foo\' => \'banana\', 5 => \'banana\', 10 => \'banana\', \'bar\' => \'banana\')',
 				'array_fill_keys([\'foo\', 5, 10, \'bar\'], \'banana\')',
+			],
+			[
+				'array<string, stdClass>',
+				'$mappedStringKeys',
+			],
+			[
+				'array<string, mixed>',
+				'$mappedStringKeysWithUnknownClosureType',
+			],
+			[
+				'array<string>',
+				'$mappedWrongArray',
+			],
+			[
+				'array',
+				'$unknownArray',
 			],
 		];
 	}
