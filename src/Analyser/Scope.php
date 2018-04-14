@@ -1208,6 +1208,13 @@ class Scope
 			if ($types instanceof NeverType) {
 				return new ConstantBooleanType(false);
 			}
+		} elseif (count($sureNotTypes) > 0) {
+			$types = TypeCombinator::union(...array_map(function ($sureNotType) {
+				return $sureNotType[1];
+			}, array_values($sureNotTypes)));
+			if ($types instanceof NeverType) {
+				return new ConstantBooleanType(true);
+			}
 		}
 
 		return null;
