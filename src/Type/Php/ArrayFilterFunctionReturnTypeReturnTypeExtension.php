@@ -46,7 +46,7 @@ class ArrayFilterFunctionReturnTypeReturnTypeExtension implements \PHPStan\Type\
 			$itemType = new MixedType();
 		}
 
-		return new ArrayType($keyType, $itemType);
+		return new ArrayType($keyType, $itemType, true);
 	}
 
 }

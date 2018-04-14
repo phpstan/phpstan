@@ -28,12 +28,12 @@ class ArrayFillFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunct
 		$valueType = $scope->getType($functionCall->args[2]->value);
 		$startIndexType = $scope->getType($functionCall->args[0]->value);
 		if (!$startIndexType instanceof ConstantIntegerType) {
-			return new ArrayType(new IntegerType(), $valueType);
+			return new ArrayType(new IntegerType(), $valueType, true);
 		}
 
 		$numberType = $scope->getType($functionCall->args[1]->value);
 		if (!$numberType instanceof ConstantIntegerType) {
-			return new ArrayType(new IntegerType(), $valueType);
+			return new ArrayType(new IntegerType(), $valueType, true);
 		}
 
 		$arrayType = new ConstantArrayType([], []);

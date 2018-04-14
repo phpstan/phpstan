@@ -32,7 +32,7 @@ class IsArrayFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingEx
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
-		return $this->typeSpecifier->create($node->args[0]->value, new ArrayType(new MixedType(), new MixedType(), false), $context);
+		return $this->typeSpecifier->create($node->args[0]->value, new ArrayType(new MixedType(), new MixedType(), true), $context);
 	}
 
 	public function setTypeSpecifier(TypeSpecifier $typeSpecifier): void
