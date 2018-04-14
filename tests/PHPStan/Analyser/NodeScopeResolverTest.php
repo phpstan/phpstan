@@ -3676,7 +3676,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$filledIntegers',
 			],
 			[
-				'array<1>',
+				'array(1)',
 				'$filledIntegersWithKeys',
 			],
 			[
@@ -3750,6 +3750,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'array<int, stdClass>',
 				'array_fill(2, $integer, new \stdClass())',
+			],
+			[
+				'array<int, stdClass>',
+				'array_fill_keys($generalStringKeys, new \stdClass())',
+			],
+			[
+				'array(\'foo\' => \'banana\', 5 => \'banana\', 10 => \'banana\', \'bar\' => \'banana\')',
+				'array_fill_keys([\'foo\', 5, 10, \'bar\'], \'banana\')',
 			],
 		];
 	}
