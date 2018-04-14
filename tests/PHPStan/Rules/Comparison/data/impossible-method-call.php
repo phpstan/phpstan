@@ -45,4 +45,36 @@ class Foo
 		$assertion->assertNotInt($foo);
 	}
 
+	public function isSame($expected, $actual): bool
+	{
+		return $expected === $actual;
+	}
+
+	public function isNotSame($expected, $actual): bool
+	{
+		return $expected !== $actual;
+	}
+
+	public function doDolor(\stdClass $std1, \stdClass $std2)
+	{
+		if ($this->isSame(1, 1)) {
+
+		}
+		if ($this->isSame(1, 2)) {
+
+		}
+		if ($this->isNotSame(1, 1)) {
+
+		}
+		if ($this->isNotSame(1, 2)) {
+
+		}
+		if ($this->isSame($std1, $std2)) {
+
+		}
+		if ($this->isNotSame($std1, $std2)) {
+
+		}
+	}
+
 }
