@@ -69,6 +69,18 @@ class Foo
 		if ($this->isNotSame(1, 2)) {
 
 		}
+		if ($this->isSame(new \stdClass(), new \stdClass())) {
+
+		}
+		if ($this->isNotSame(new \stdClass(), new \stdClass())) {
+
+		}
+		if ($this->isSame($std1, $std1)) {
+
+		}
+		if ($this->isNotSame($std1, $std1)) {
+
+		}
 		if ($this->isSame($std1, $std2)) {
 
 		}
