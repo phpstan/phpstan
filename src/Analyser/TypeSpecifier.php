@@ -51,10 +51,10 @@ class TypeSpecifier
 	/** @var \PHPStan\Type\StaticMethodTypeSpecifyingExtension[] */
 	private $staticMethodTypeSpecifyingExtensions = [];
 
-	/** @var \PHPStan\Type\MethodTypeSpecifyingExtension[] */
+	/** @var \PHPStan\Type\MethodTypeSpecifyingExtension[][] */
 	private $methodTypeSpecifyingExtensionsByClass;
 
-	/** @var \PHPStan\Type\StaticMethodTypeSpecifyingExtension[] */
+	/** @var \PHPStan\Type\StaticMethodTypeSpecifyingExtension[][] */
 	private $staticMethodTypeSpecifyingExtensionsByClass;
 
 	/**
@@ -432,7 +432,7 @@ class TypeSpecifier
 	}
 
 	/**
-	 * @param \PHPStan\Type\MethodTypeSpecifyingExtension[]|\PHPStan\Type\StaticMethodTypeSpecifyingExtension[] $extensions
+	 * @param \PHPStan\Type\MethodTypeSpecifyingExtension[][]|\PHPStan\Type\StaticMethodTypeSpecifyingExtension[][] $extensions
 	 * @param string $className
 	 * @return mixed[]
 	 */

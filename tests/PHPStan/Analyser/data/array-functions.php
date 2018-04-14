@@ -44,4 +44,7 @@ $stringOrIntegerKeys = [
 /** @var array<string, int> $generalStringKeys */
 $generalStringKeys = doFoo();
 
+/** @var array<int, \DateTimeImmutable> $generalDateTimeValues */
+$generalDateTimeValues = doFoo();
+
 die;

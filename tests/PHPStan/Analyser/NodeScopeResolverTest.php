@@ -3703,6 +3703,38 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array<int, int>',
 				'array_values($generalStringKeys)',
 			],
+			[
+				'array(\'foo\' => stdClass, 1 => stdClass)',
+				'array_merge($stringOrIntegerKeys)',
+			],
+			[
+				'array<int|string, DateTimeImmutable|int>',
+				'array_merge($generalStringKeys, $generalDateTimeValues)',
+			],
+			[
+				'array<1|string, int|stdClass>',
+				'array_merge($generalStringKeys, $stringOrIntegerKeys)',
+			],
+			[
+				'array<1|string, int|stdClass>',
+				'array_merge($stringOrIntegerKeys, $generalStringKeys)',
+			],
+			[
+				'array(\'foo\' => stdClass, \'bar\' => stdClass, 0 => stdClass)',
+				'array_merge($stringKeys, $stringOrIntegerKeys)',
+			],
+			[
+				'array(\'foo\' => \'foo\', 1 => stdClass, \'bar\' => stdClass)',
+				'array_merge($stringOrIntegerKeys, $stringKeys)',
+			],
+			[
+				'array(\'color\' => \'green\', 0 => 2, 1 => 4, 2 => \'a\', 3 => \'b\', \'shape\' => \'trapezoid\', 4 => 4)',
+				'array_merge(array("color" => "red", 2, 4), array("a", "b", "color" => "green", "shape" => "trapezoid", 4))',
+			],
+			[
+				'array<int|string, DateTimeImmutable|int>',
+				'array_merge(...[$generalStringKeys, $generalDateTimeValues])',
+			],
 		];
 	}
 
