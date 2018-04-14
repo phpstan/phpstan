@@ -13,6 +13,7 @@ use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\Instanceof_;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\StaticPropertyFetch;
@@ -383,6 +384,10 @@ class TypeSpecifier
 
 	public function create(Expr $expr, Type $type, TypeSpecifierContext $context): SpecifiedTypes
 	{
+		if ($expr instanceof New_) {
+			return new SpecifiedTypes();
+		}
+
 		$sureTypes = [];
 		$sureNotTypes = [];
 
