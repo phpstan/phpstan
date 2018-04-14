@@ -3672,7 +3672,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$reversedIntegers[0]',
 			],
 			[
-				'array<1>',
+				'array(1, 1, 1, 1, 1)',
 				'$filledIntegers',
 			],
 			[
@@ -3734,6 +3734,22 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'array<int|string, DateTimeImmutable|int>',
 				'array_merge(...[$generalStringKeys, $generalDateTimeValues])',
+			],
+			[
+				'array(5 => \'banana\', 6 => \'banana\', 7 => \'banana\', 8 => \'banana\', 9 => \'banana\', 10 => \'banana\')',
+				'array_fill(5, 6, \'banana\')',
+			],
+			[
+				'array(-2 => \'pear\', 0 => \'pear\', 1 => \'pear\', 2 => \'pear\')',
+				'array_fill(-2, 4, \'pear\')',
+			],
+			[
+				'array<int, stdClass>',
+				'array_fill($integer, 2, new \stdClass())',
+			],
+			[
+				'array<int, stdClass>',
+				'array_fill(2, $integer, new \stdClass())',
 			],
 		];
 	}

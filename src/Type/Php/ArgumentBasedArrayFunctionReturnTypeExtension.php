@@ -14,7 +14,6 @@ class ArgumentBasedArrayFunctionReturnTypeExtension implements \PHPStan\Type\Dyn
 
 	/** @var int[] */
 	private $functionNames = [
-		'array_fill' => 2,
 		'array_fill_keys' => 1,
 	];
 
