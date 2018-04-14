@@ -2026,13 +2026,41 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'min([1, 2, 3])',
 			],
 			[
-				'array<0|1|2, 1|2|3|4|5>',
+				'array(1, 2, 3)',
 				'min([1, 2, 3], [4, 5, 5])',
 			],
 			[
 				'1',
 				'min(...[1, 2, 3])',
 			],
+			[
+				'1',
+				'min(...[2, 3, 4], ...[5, 1, 8])',
+			],
+			[
+				'0',
+				'min(0, ...[1, 2, 3])',
+			],
+			[
+				'array(5, 6, 9)',
+				'max([1, 10, 8], [5, 6, 9])',
+			],
+			[
+				'array(1, 1, 1, 1)',
+				'max(array(2, 2, 2), array(1, 1, 1, 1))',
+			],
+			[
+				'array<int>',
+				'max($arrayOfUnknownIntegers, $arrayOfUnknownIntegers)',
+			],
+			/*[
+				'array(1, 1, 1, 1)',
+				'max(array(2, 2, 2), 5, array(1, 1, 1, 1))',
+			],
+			[
+				'array<int>',
+				'max($arrayOfUnknownIntegers, $integer, $arrayOfUnknownIntegers)',
+			],*/
 			[
 				'1.1',
 				'min(...[1.1, 2.2, 3.3])',
