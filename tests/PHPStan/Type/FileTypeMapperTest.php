@@ -126,8 +126,9 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 			'/** @return iterable<Foo> | Foo */'
 		);
 
-		$returnType = $resolved->getReturnTag()->getType() ?? new MixedType();
-		$this->assertSame('CyclicPhpDocs\Foo|iterable<CyclicPhpDocs\Foo>', $returnType->describe(VerbosityLevel::value()));
+		/** @var \PHPStan\PhpDoc\Tag\ReturnTag $returnTag */
+		$returnTag = $resolved->getReturnTag();
+		$this->assertSame('CyclicPhpDocs\Foo|iterable<CyclicPhpDocs\Foo>', $returnTag->getType()->describe(VerbosityLevel::value()));
 	}
 
 }
