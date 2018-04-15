@@ -648,38 +648,6 @@ class Scope
 			);
 		}
 
-		if ($node instanceof Expr\Ternary) {
-			if ($node->if === null) {
-				$conditionType = $this->filterByTruthyValue($node->cond, true)->getType($node->cond);
-				$booleanConditionType = $conditionType->toBoolean();
-				if ($booleanConditionType instanceof ConstantBooleanType) {
-					if ($booleanConditionType->getValue()) {
-						return $conditionType;
-					}
-
-					return $this->filterByFalseyValue($node->cond, true)->getType($node->else);
-				}
-				return TypeCombinator::union(
-					$conditionType,
-					$this->filterByFalseyValue($node->cond, true)->getType($node->else)
-				);
-			}
-
-			$booleanConditionType = $this->getType($node->cond)->toBoolean();
-			if ($booleanConditionType instanceof ConstantBooleanType) {
-				if ($booleanConditionType->getValue()) {
-					return $this->filterByTruthyValue($node->cond)->getType($node->if);
-				}
-
-				return $this->filterByFalseyValue($node->cond)->getType($node->else);
-			}
-
-			return TypeCombinator::union(
-				$this->filterByTruthyValue($node->cond)->getType($node->if),
-				$this->filterByFalseyValue($node->cond)->getType($node->else)
-			);
-		}
-
 		if ($node instanceof Expr\Clone_) {
 			return $this->getType($node->expr);
 		}
@@ -967,6 +935,38 @@ class Scope
 		$exprString = $this->printer->prettyPrintExpr($node);
 		if (isset($this->moreSpecificTypes[$exprString])) {
 			return $this->moreSpecificTypes[$exprString];
+		}
+
+		if ($node instanceof Expr\Ternary) {
+			if ($node->if === null) {
+				$conditionType = $this->filterByTruthyValue($node->cond, true)->getType($node->cond);
+				$booleanConditionType = $conditionType->toBoolean();
+				if ($booleanConditionType instanceof ConstantBooleanType) {
+					if ($booleanConditionType->getValue()) {
+						return $conditionType;
+					}
+
+					return $this->filterByFalseyValue($node->cond, true)->getType($node->else);
+				}
+				return TypeCombinator::union(
+					$conditionType,
+					$this->filterByFalseyValue($node->cond, true)->getType($node->else)
+				);
+			}
+
+			$booleanConditionType = $this->getType($node->cond)->toBoolean();
+			if ($booleanConditionType instanceof ConstantBooleanType) {
+				if ($booleanConditionType->getValue()) {
+					return $this->filterByTruthyValue($node->cond)->getType($node->if);
+				}
+
+				return $this->filterByFalseyValue($node->cond)->getType($node->else);
+			}
+
+			return TypeCombinator::union(
+				$this->filterByTruthyValue($node->cond)->getType($node->if),
+				$this->filterByFalseyValue($node->cond)->getType($node->else)
+			);
 		}
 
 		if ($node instanceof Variable && is_string($node->name)) {
