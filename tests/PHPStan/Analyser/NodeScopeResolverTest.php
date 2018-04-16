@@ -3708,7 +3708,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_values($generalStringKeys)',
 			],
 			[
-				'array(\'foo\' => stdClass, 1 => stdClass)',
+				'array(\'foo\' => stdClass, 0 => stdClass)',
 				'array_merge($stringOrIntegerKeys)',
 			],
 			[
@@ -3728,7 +3728,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_merge($stringKeys, $stringOrIntegerKeys)',
 			],
 			[
-				'array(\'foo\' => \'foo\', 1 => stdClass, \'bar\' => stdClass)',
+				'array(\'foo\' => \'foo\', 0 => stdClass, \'bar\' => stdClass)',
 				'array_merge($stringOrIntegerKeys, $stringKeys)',
 			],
 			[

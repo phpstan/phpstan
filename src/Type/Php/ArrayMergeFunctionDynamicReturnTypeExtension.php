@@ -59,7 +59,19 @@ class ArrayMergeFunctionDynamicReturnTypeExtension implements \PHPStan\Type\Dyna
 				return \PHPStan\Type\TypeCombinator::union(...$types);
 			}
 			if ($arrayType === null) {
-				$arrayType = $type;
+				$newArrayType = new ConstantArrayType([], []);
+				foreach ($type->getKeyTypes() as $i => $keyType) {
+					$valueType = $type->getValueTypes()[$i];
+					if ($keyType instanceof ConstantIntegerType) {
+						$keyType = null;
+					}
+					$newArrayType = $newArrayType->setOffsetValueType(
+						$keyType,
+						$valueType
+					);
+				}
+
+				$arrayType = $newArrayType;
 				continue;
 			}
 
