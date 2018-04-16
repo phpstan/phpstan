@@ -28,7 +28,7 @@ class IsSubclassOfFunctionTypeSpecifyingExtension implements FunctionTypeSpecify
 	public function specifyTypes(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
 	{
 		$objectType = $scope->getType($node->args[0]->value);
-		if ((new \PHPStan\Type\ObjectWithoutClassType())->isSuperTypeOf($objectType)->no()) {
+		if ((new \PHPStan\Type\StringType())->isSuperTypeOf($objectType)->yes()) {
 			return new SpecifiedTypes();
 		}
 
