@@ -74,4 +74,14 @@ if (!is_a($anotherFoo, Foo::class)) {
 
 assert(is_int($yetAnotherInteger));
 
+$subClassOfFoo = doFoo();
+if (!is_subclass_of($subClassOfFoo, Foo::class)) {
+	return;
+}
+
+$subClassAsString = 'str';
+if (!is_subclass_of($subClassAsString, Foo::class)) {
+	return;
+}
+
 die;

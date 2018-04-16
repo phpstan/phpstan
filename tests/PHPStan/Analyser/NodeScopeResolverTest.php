@@ -3874,6 +3874,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'Foo',
 				'$anotherFoo',
 			],
+			[
+				'Foo',
+				'$subClassOfFoo',
+			],
+			[
+				'\'str\'',
+				'$subClassAsString',
+			],
 		];
 	}
 
