@@ -121,9 +121,10 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		};
 		$phpDocStringResolver = $this->getContainer()->getByType(PhpDocStringResolver::class);
 		$fileTypeMapper = new FileTypeMapper($parser, $phpDocStringResolver, $cache);
+		$annotationsMethodsClassReflectionExtension = new AnnotationsMethodsClassReflectionExtension($fileTypeMapper);
 		$annotationsPropertiesClassReflectionExtension = new AnnotationsPropertiesClassReflectionExtension($fileTypeMapper);
 		$signatureMapProvider = $this->getContainer()->getByType(SignatureMapProvider::class);
-		$phpExtension = new PhpClassReflectionExtension($methodReflectionFactory, $fileTypeMapper, new AnnotationsMethodsClassReflectionExtension($fileTypeMapper), $annotationsPropertiesClassReflectionExtension, $signatureMapProvider);
+		$phpExtension = new PhpClassReflectionExtension($methodReflectionFactory, $fileTypeMapper, $annotationsMethodsClassReflectionExtension, $annotationsPropertiesClassReflectionExtension, $signatureMapProvider);
 		$functionReflectionFactory = new class($this->getParser(), $functionCallStatementFinder, $cache) implements FunctionReflectionFactory {
 
 			/** @var \PHPStan\Parser\Parser */
@@ -178,11 +179,14 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		$broker = new Broker(
 			[
 				$phpExtension,
-				$annotationsPropertiesClassReflectionExtension,
-				new UniversalObjectCratesClassReflectionExtension([\stdClass::class]),
 				new PhpDefectClassReflectionExtension($this->getContainer()->getByType(TypeStringResolver::class)),
+				new UniversalObjectCratesClassReflectionExtension([\stdClass::class]),
+				$annotationsPropertiesClassReflectionExtension,
 			],
-			[$phpExtension],
+			[
+				$phpExtension,
+				$annotationsMethodsClassReflectionExtension,
+			],
 			$dynamicMethodReturnTypeExtensions,
 			$dynamicStaticMethodReturnTypeExtensions,
 			$tagToService($this->getContainer()->findByTag(BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG)),
