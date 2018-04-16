@@ -5220,6 +5220,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				'string',
+				'$expectedString2',
+			],
+			[
+				'string',
 				'$anotherExpectedString',
 			],
 			[
@@ -5228,11 +5232,19 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				'array(\'a\' => string, \'b\' => string)',
+				'$expectedArray2',
+			],
+			[
+				'array(\'a\' => string, \'b\' => string)',
 				'$anotherExpectedArray',
 			],
 			[
 				'array|string',
 				'$expectedArrayOrString',
+			],
+			[
+				'array|string',
+				'$expectedArrayOrString2',
 			],
 			[
 				'array|string',

@@ -18,7 +18,7 @@ class ReplaceFunctionsDynamicReturnTypeExtension implements DynamicFunctionRetur
 	{
 		return in_array(
 			$functionReflection->getName(),
-			['preg_replace', 'str_replace'],
+			['preg_replace', 'preg_replace_callback', 'str_replace'],
 			true
 		);
 	}

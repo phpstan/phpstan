@@ -20,6 +20,10 @@ function () {
 	$anotherExpectedArray = preg_replace('aaa', 'bbb', $array);
 	$anotherExpectedArrayOrString = preg_replace('aaa', 'bbb', $arrayOrString);
 
+	$expectedString2 = preg_replace_callback('aaa', function () {}, $string);
+	$expectedArray2 = preg_replace_callback('aaa', function () {}, $array);
+	$expectedArrayOrString2 = preg_replace_callback('aaa', function () {}, $arrayOrString);
+
 	die;
 
 };
