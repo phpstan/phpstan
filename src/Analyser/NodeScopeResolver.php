@@ -857,7 +857,10 @@ class NodeScopeResolver
 					$scope = $this->ensureNonNullability($scope, $subNode, true);
 				}
 
-				$nodeScope = $scope->exitFirstLevelStatements();
+				$nodeScope = $scope;
+				if (!$node instanceof ErrorSuppress) {
+					$nodeScope = $nodeScope->exitFirstLevelStatements();
+				}
 				if ($scope->isInFirstLevelStatement()) {
 					if ($node instanceof Ternary && $subNodeName !== 'cond') {
 						$nodeScope = $scope->enterFirstLevelStatements();
