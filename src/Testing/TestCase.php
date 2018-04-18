@@ -187,9 +187,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				$phpExtension,
 				$annotationsMethodsClassReflectionExtension,
 			],
-			$dynamicMethodReturnTypeExtensions,
-			$dynamicStaticMethodReturnTypeExtensions,
-			$tagToService($this->getContainer()->findByTag(BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG)),
+			array_merge($dynamicMethodReturnTypeExtensions, $this->getDynamicMethodReturnTypeExtensions()),
+			array_merge($dynamicStaticMethodReturnTypeExtensions, $this->getDynamicStaticMethodReturnTypeExtensions()),
+			array_merge($tagToService($this->getContainer()->findByTag(BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG)), $this->getDynamicFunctionReturnTypeExtensions()),
 			$functionReflectionFactory,
 			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $cache),
 			$signatureMapProvider,
@@ -198,6 +198,30 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		$methodReflectionFactory->broker = $broker;
 
 		return $broker;
+	}
+
+	/**
+	 * @return \PHPStan\Type\DynamicMethodReturnTypeExtension[]
+	 */
+	public function getDynamicMethodReturnTypeExtensions(): array
+	{
+		return [];
+	}
+
+	/**
+	 * @return \PHPStan\Type\DynamicStaticMethodReturnTypeExtension[]
+	 */
+	public function getDynamicStaticMethodReturnTypeExtensions(): array
+	{
+		return [];
+	}
+
+	/**
+	 * @return \PHPStan\Type\DynamicFunctionReturnTypeExtension[]
+	 */
+	public function getDynamicFunctionReturnTypeExtensions(): array
+	{
+		return [];
 	}
 
 	/**
