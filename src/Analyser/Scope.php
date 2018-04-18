@@ -996,6 +996,14 @@ class Scope
 				}
 
 				$methodReflection = $methodClassReflection->getMethod($node->name, $this);
+				foreach ($this->broker->getDynamicMethodReturnTypeExtensionsForClass($methodClassReflection->getName()) as $dynamicMethodReturnTypeExtension) {
+					if (!$dynamicMethodReturnTypeExtension->isMethodSupported($methodReflection)) {
+						continue;
+					}
+
+					return $dynamicMethodReturnTypeExtension->getTypeFromMethodCall($methodReflection, $node, $this);
+				}
+
 				foreach ($this->typeSpecifier->getMethodTypeSpecifyingExtensionsForClass($methodClassReflection->getName()) as $functionTypeSpecifyingExtension) {
 					if (!$functionTypeSpecifyingExtension->isMethodSupported($methodReflection, $node, TypeSpecifierContext::createTruthy())) {
 						continue;
@@ -1005,14 +1013,6 @@ class Scope
 					if ($specifiedType !== null) {
 						return $specifiedType;
 					}
-				}
-
-				foreach ($this->broker->getDynamicMethodReturnTypeExtensionsForClass($methodClassReflection->getName()) as $dynamicMethodReturnTypeExtension) {
-					if (!$dynamicMethodReturnTypeExtension->isMethodSupported($methodReflection)) {
-						continue;
-					}
-
-					return $dynamicMethodReturnTypeExtension->getTypeFromMethodCall($methodReflection, $node, $this);
 				}
 			}
 
@@ -1053,6 +1053,14 @@ class Scope
 				&& $this->broker->hasClass($referencedClasses[0])
 			) {
 				$staticMethodClassReflection = $this->broker->getClass($referencedClasses[0]);
+				foreach ($this->broker->getDynamicStaticMethodReturnTypeExtensionsForClass($staticMethodClassReflection->getName()) as $dynamicStaticMethodReturnTypeExtension) {
+					if (!$dynamicStaticMethodReturnTypeExtension->isStaticMethodSupported($staticMethodReflection)) {
+						continue;
+					}
+
+					return $dynamicStaticMethodReturnTypeExtension->getTypeFromStaticMethodCall($staticMethodReflection, $node, $this);
+				}
+
 				foreach ($this->typeSpecifier->getStaticMethodTypeSpecifyingExtensionsForClass($staticMethodClassReflection->getName()) as $functionTypeSpecifyingExtension) {
 					if (!$functionTypeSpecifyingExtension->isStaticMethodSupported($staticMethodReflection, $node, TypeSpecifierContext::createTruthy())) {
 						continue;
@@ -1062,14 +1070,6 @@ class Scope
 					if ($specifiedType !== null) {
 						return $specifiedType;
 					}
-				}
-
-				foreach ($this->broker->getDynamicStaticMethodReturnTypeExtensionsForClass($staticMethodClassReflection->getName()) as $dynamicStaticMethodReturnTypeExtension) {
-					if (!$dynamicStaticMethodReturnTypeExtension->isStaticMethodSupported($staticMethodReflection)) {
-						continue;
-					}
-
-					return $dynamicStaticMethodReturnTypeExtension->getTypeFromStaticMethodCall($staticMethodReflection, $node, $this);
 				}
 			}
 			if ($staticMethodReflection->getReturnType() instanceof StaticResolvableType) {
@@ -1138,6 +1138,14 @@ class Scope
 				}
 			}
 
+			foreach ($this->broker->getDynamicFunctionReturnTypeExtensions() as $dynamicFunctionReturnTypeExtension) {
+				if (!$dynamicFunctionReturnTypeExtension->isFunctionSupported($functionReflection)) {
+					continue;
+				}
+
+				return $dynamicFunctionReturnTypeExtension->getTypeFromFunctionCall($functionReflection, $node, $this);
+			}
+
 			foreach ($this->typeSpecifier->getFunctionTypeSpecifyingExtensions() as $functionTypeSpecifyingExtension) {
 				if (!$functionTypeSpecifyingExtension->isFunctionSupported($functionReflection, $node, TypeSpecifierContext::createTruthy())) {
 					continue;
@@ -1147,14 +1155,6 @@ class Scope
 				if ($specifiedType !== null) {
 					return $specifiedType;
 				}
-			}
-
-			foreach ($this->broker->getDynamicFunctionReturnTypeExtensions() as $dynamicFunctionReturnTypeExtension) {
-				if (!$dynamicFunctionReturnTypeExtension->isFunctionSupported($functionReflection)) {
-					continue;
-				}
-
-				return $dynamicFunctionReturnTypeExtension->getTypeFromFunctionCall($functionReflection, $node, $this);
 			}
 
 			return $functionReflection->getReturnType();
