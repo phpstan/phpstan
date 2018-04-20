@@ -281,9 +281,13 @@ class TypeSpecifier
 			$leftTypes = $this->specifyTypesInCondition($scope, $expr->left, $context);
 			$rightTypes = $this->specifyTypesInCondition($scope, $expr->right, $context);
 			return $context->true() ? $leftTypes->intersectWith($rightTypes) : $leftTypes->unionWith($rightTypes);
-		} elseif ($expr instanceof Node\Expr\BooleanNot) {
+		} elseif ($expr instanceof Node\Expr\BooleanNot && !$context->null()) {
 			return $this->specifyTypesInCondition($scope, $expr->expr, $context->negate());
 		} elseif ($expr instanceof Node\Expr\Assign) {
+			if ($context->null()) {
+				return $this->specifyTypesInCondition($scope, $expr->expr, $context);
+			}
+
 			return $this->specifyTypesInCondition($scope, $expr->var, $context);
 		} elseif (
 			(
@@ -340,7 +344,7 @@ class TypeSpecifier
 				}
 			}
 			return $types;
-		} else {
+		} elseif (!$context->null()) {
 			return $this->handleDefaultTruthyOrFalseyContext($context, $expr);
 		}
 
