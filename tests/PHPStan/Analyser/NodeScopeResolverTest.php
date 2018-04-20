@@ -2026,13 +2026,41 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'min([1, 2, 3])',
 			],
 			[
-				'array<0|1|2, 1|2|3|4|5>',
+				'array(1, 2, 3)',
 				'min([1, 2, 3], [4, 5, 5])',
 			],
 			[
 				'1',
 				'min(...[1, 2, 3])',
 			],
+			[
+				'1',
+				'min(...[2, 3, 4], ...[5, 1, 8])',
+			],
+			[
+				'0',
+				'min(0, ...[1, 2, 3])',
+			],
+			[
+				'array(5, 6, 9)',
+				'max([1, 10, 8], [5, 6, 9])',
+			],
+			[
+				'array(1, 1, 1, 1)',
+				'max(array(2, 2, 2), array(1, 1, 1, 1))',
+			],
+			[
+				'array<int>',
+				'max($arrayOfUnknownIntegers, $arrayOfUnknownIntegers)',
+			],
+			/*[
+				'array(1, 1, 1, 1)',
+				'max(array(2, 2, 2), 5, array(1, 1, 1, 1))',
+			],
+			[
+				'array<int>',
+				'max($arrayOfUnknownIntegers, $integer, $arrayOfUnknownIntegers)',
+			],*/
 			[
 				'1.1',
 				'min(...[1.1, 2.2, 3.3])',
@@ -3620,6 +3648,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$integers[0]',
 			],
 			[
+				'array(string, string, string)',
+				'$mappedStrings',
+			],
+			[
 				'string',
 				'$mappedStrings[0]',
 			],
@@ -3644,11 +3676,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$reversedIntegers[0]',
 			],
 			[
-				'array<1>',
+				'array(1, 1, 1, 1, 1)',
 				'$filledIntegers',
 			],
 			[
-				'array<1>',
+				'array(1)',
 				'$filledIntegersWithKeys',
 			],
 			[
@@ -3674,6 +3706,78 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'array<int, int>',
 				'array_values($generalStringKeys)',
+			],
+			[
+				'array(\'foo\' => stdClass, 0 => stdClass)',
+				'array_merge($stringOrIntegerKeys)',
+			],
+			[
+				'array<int|string, DateTimeImmutable|int>',
+				'array_merge($generalStringKeys, $generalDateTimeValues)',
+			],
+			[
+				'array<1|string, int|stdClass>',
+				'array_merge($generalStringKeys, $stringOrIntegerKeys)',
+			],
+			[
+				'array<1|string, int|stdClass>',
+				'array_merge($stringOrIntegerKeys, $generalStringKeys)',
+			],
+			[
+				'array(\'foo\' => stdClass, \'bar\' => stdClass, 0 => stdClass)',
+				'array_merge($stringKeys, $stringOrIntegerKeys)',
+			],
+			[
+				'array(\'foo\' => \'foo\', 0 => stdClass, \'bar\' => stdClass)',
+				'array_merge($stringOrIntegerKeys, $stringKeys)',
+			],
+			[
+				'array(\'color\' => \'green\', 0 => 2, 1 => 4, 2 => \'a\', 3 => \'b\', \'shape\' => \'trapezoid\', 4 => 4)',
+				'array_merge(array("color" => "red", 2, 4), array("a", "b", "color" => "green", "shape" => "trapezoid", 4))',
+			],
+			[
+				'array<int|string, DateTimeImmutable|int>',
+				'array_merge(...[$generalStringKeys, $generalDateTimeValues])',
+			],
+			[
+				'array(5 => \'banana\', 6 => \'banana\', 7 => \'banana\', 8 => \'banana\', 9 => \'banana\', 10 => \'banana\')',
+				'array_fill(5, 6, \'banana\')',
+			],
+			[
+				'array(-2 => \'pear\', 0 => \'pear\', 1 => \'pear\', 2 => \'pear\')',
+				'array_fill(-2, 4, \'pear\')',
+			],
+			[
+				'array<int, stdClass>',
+				'array_fill($integer, 2, new \stdClass())',
+			],
+			[
+				'array<int, stdClass>',
+				'array_fill(2, $integer, new \stdClass())',
+			],
+			[
+				'array<int, stdClass>',
+				'array_fill_keys($generalStringKeys, new \stdClass())',
+			],
+			[
+				'array(\'foo\' => \'banana\', 5 => \'banana\', 10 => \'banana\', \'bar\' => \'banana\')',
+				'array_fill_keys([\'foo\', 5, 10, \'bar\'], \'banana\')',
+			],
+			[
+				'array<string, stdClass>',
+				'$mappedStringKeys',
+			],
+			[
+				'array<string, mixed>',
+				'$mappedStringKeysWithUnknownClosureType',
+			],
+			[
+				'array<string>',
+				'$mappedWrongArray',
+			],
+			[
+				'array',
+				'$unknownArray',
 			],
 		];
 	}
@@ -3769,6 +3873,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'Foo',
 				'$anotherFoo',
+			],
+			[
+				'Foo',
+				'$subClassOfFoo',
+			],
+			[
+				'\'str\'',
+				'$subClassAsString',
 			],
 		];
 	}

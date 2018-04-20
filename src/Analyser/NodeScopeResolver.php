@@ -787,14 +787,14 @@ class NodeScopeResolver
 
 				if ($node instanceof Isset_ && $subNodeName === 'vars') {
 					foreach ($subNode as $issetVar) {
-						$scope = $this->ensureNonNullability($scope, $issetVar);
+						$scope = $this->ensureNonNullability($scope, $issetVar, true);
 					}
 				}
 
 				$this->processNodes($subNode, $scope, $nodeCallback, $argClosureBindScope);
 			} elseif ($subNode instanceof \PhpParser\Node) {
 				if ($node instanceof Coalesce && $subNodeName === 'left') {
-					$scope = $this->ensureNonNullability($scope, $subNode);
+					$scope = $this->ensureNonNullability($scope, $subNode, false);
 				}
 
 				if (
@@ -854,10 +854,13 @@ class NodeScopeResolver
 				}
 
 				if ($node instanceof Expr\Empty_ && $subNodeName === 'expr') {
-					$scope = $this->ensureNonNullability($scope, $subNode);
+					$scope = $this->ensureNonNullability($scope, $subNode, true);
 				}
 
-				$nodeScope = $scope->exitFirstLevelStatements();
+				$nodeScope = $scope;
+				if (!$node instanceof ErrorSuppress) {
+					$nodeScope = $nodeScope->exitFirstLevelStatements();
+				}
 				if ($scope->isInFirstLevelStatement()) {
 					if ($node instanceof Ternary && $subNodeName !== 'cond') {
 						$nodeScope = $scope->enterFirstLevelStatements();
@@ -878,15 +881,35 @@ class NodeScopeResolver
 		}
 	}
 
-	private function ensureNonNullability(Scope $scope, Node $node): Scope
+	private function ensureNonNullability(
+		Scope $scope,
+		Node $node,
+		bool $findMethods
+	): Scope
 	{
 		$scope = $this->assignVariable($scope, $node, TrinaryLogic::createYes());
 		$nodeToSpecify = $node;
 		while (
 			$nodeToSpecify instanceof PropertyFetch
-			|| $nodeToSpecify instanceof MethodCall
+			|| $nodeToSpecify instanceof StaticPropertyFetch
+			|| (
+				$findMethods && (
+					$nodeToSpecify instanceof MethodCall
+					|| $nodeToSpecify instanceof StaticCall
+				)
+			)
 		) {
-			$nodeToSpecify = $nodeToSpecify->var;
+			if (
+				$nodeToSpecify instanceof PropertyFetch
+				|| $nodeToSpecify instanceof MethodCall
+			) {
+				$nodeToSpecify = $nodeToSpecify->var;
+			} elseif ($nodeToSpecify->class instanceof Expr) {
+				$nodeToSpecify = $nodeToSpecify->class;
+			} else {
+				break;
+			}
+
 			$scope = $scope->specifyExpressionType(
 				$nodeToSpecify,
 				TypeCombinator::removeNull($scope->getType($nodeToSpecify))

@@ -191,17 +191,17 @@ services:
 		class: PHPStan\Type\FileTypeMapper
 
 	-
-		class: PHPStan\Type\Php\AllArgumentBasedFunctionReturnTypeExtension
-		tags:
-			- phpstan.broker.dynamicFunctionReturnTypeExtension
-
-	-
-		class: PHPStan\Type\Php\ArgumentBasedArrayFunctionReturnTypeExtension
-		tags:
-			- phpstan.broker.dynamicFunctionReturnTypeExtension
-
-	-
 		class: PHPStan\Type\Php\ArgumentBasedFunctionReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	-
+		class: PHPStan\Type\Php\ArrayFillFunctionReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	-
+		class: PHPStan\Type\Php\ArrayFillKeysFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
@@ -216,12 +216,17 @@ services:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
 	-
-		class: PHPStan\Type\Php\ArrayValuesFunctionDynamicReturnTypeExtension
+		class: PHPStan\Type\Php\ArrayMapFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
 	-
-		class: PHPStan\Type\Php\CallbackBasedArrayFunctionReturnTypeExtension
+		class: PHPStan\Type\Php\ArrayMergeFunctionDynamicReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	-
+		class: PHPStan\Type\Php\ArrayValuesFunctionDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
@@ -237,6 +242,11 @@ services:
 
 	-
 		class: PHPStan\Type\Php\ExplodeFunctionDynamicReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	-
+		class: PHPStan\Type\Php\MinMaxFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
@@ -302,6 +312,11 @@ services:
 
 	-
 		class: PHPStan\Type\Php\IsStringFunctionTypeSpecifyingExtension
+		tags:
+			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
+
+	-
+		class: PHPStan\Type\Php\IsSubclassOfFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 

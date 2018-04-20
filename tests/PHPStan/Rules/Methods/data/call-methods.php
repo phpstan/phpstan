@@ -98,7 +98,7 @@ class Bar extends Foo
 	 */
 	private function returnsVoid()
 	{
-
+		@$this->returnsVoid();
 	}
 
 }

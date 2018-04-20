@@ -13,6 +13,7 @@ use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\Instanceof_;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\StaticPropertyFetch;
@@ -24,6 +25,7 @@ use PHPStan\Type\Constant\ConstantFloatType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ConstantScalarType;
+use PHPStan\Type\NeverType;
 use PHPStan\Type\NonexistentParentClassType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
@@ -51,10 +53,10 @@ class TypeSpecifier
 	/** @var \PHPStan\Type\StaticMethodTypeSpecifyingExtension[] */
 	private $staticMethodTypeSpecifyingExtensions = [];
 
-	/** @var \PHPStan\Type\MethodTypeSpecifyingExtension[] */
+	/** @var \PHPStan\Type\MethodTypeSpecifyingExtension[][] */
 	private $methodTypeSpecifyingExtensionsByClass;
 
-	/** @var \PHPStan\Type\StaticMethodTypeSpecifyingExtension[] */
+	/** @var \PHPStan\Type\StaticMethodTypeSpecifyingExtension[][] */
 	private $staticMethodTypeSpecifyingExtensionsByClass;
 
 	/**
@@ -159,6 +161,12 @@ class TypeSpecifier
 			} elseif ($context->false()) {
 				$type = TypeCombinator::intersect($scope->getType($expr->right), $scope->getType($expr->left));
 				if ($type instanceof ConstantScalarType) {
+					$leftTypes = $this->create($expr->left, $type, $context);
+					$rightTypes = $this->create($expr->right, $type, $context);
+					return $leftTypes->unionWith($rightTypes);
+				}
+
+				if ($type instanceof NeverType) {
 					$leftTypes = $this->create($expr->left, $type, $context);
 					$rightTypes = $this->create($expr->right, $type, $context);
 					return $leftTypes->unionWith($rightTypes);
@@ -376,6 +384,10 @@ class TypeSpecifier
 
 	public function create(Expr $expr, Type $type, TypeSpecifierContext $context): SpecifiedTypes
 	{
+		if ($expr instanceof New_) {
+			return new SpecifiedTypes();
+		}
+
 		$sureTypes = [];
 		$sureNotTypes = [];
 
@@ -432,7 +444,7 @@ class TypeSpecifier
 	}
 
 	/**
-	 * @param \PHPStan\Type\MethodTypeSpecifyingExtension[]|\PHPStan\Type\StaticMethodTypeSpecifyingExtension[] $extensions
+	 * @param \PHPStan\Type\MethodTypeSpecifyingExtension[][]|\PHPStan\Type\StaticMethodTypeSpecifyingExtension[][] $extensions
 	 * @param string $className
 	 * @return mixed[]
 	 */

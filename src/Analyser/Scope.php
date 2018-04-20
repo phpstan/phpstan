@@ -648,38 +648,6 @@ class Scope
 			);
 		}
 
-		if ($node instanceof Expr\Ternary) {
-			if ($node->if === null) {
-				$conditionType = $this->filterByTruthyValue($node->cond, true)->getType($node->cond);
-				$booleanConditionType = $conditionType->toBoolean();
-				if ($booleanConditionType instanceof ConstantBooleanType) {
-					if ($booleanConditionType->getValue()) {
-						return $conditionType;
-					}
-
-					return $this->filterByFalseyValue($node->cond, true)->getType($node->else);
-				}
-				return TypeCombinator::union(
-					$conditionType,
-					$this->filterByFalseyValue($node->cond, true)->getType($node->else)
-				);
-			}
-
-			$booleanConditionType = $this->getType($node->cond)->toBoolean();
-			if ($booleanConditionType instanceof ConstantBooleanType) {
-				if ($booleanConditionType->getValue()) {
-					return $this->filterByTruthyValue($node->cond)->getType($node->if);
-				}
-
-				return $this->filterByFalseyValue($node->cond)->getType($node->else);
-			}
-
-			return TypeCombinator::union(
-				$this->filterByTruthyValue($node->cond)->getType($node->if),
-				$this->filterByFalseyValue($node->cond)->getType($node->else)
-			);
-		}
-
 		if ($node instanceof Expr\Clone_) {
 			return $this->getType($node->expr);
 		}
@@ -969,6 +937,38 @@ class Scope
 			return $this->moreSpecificTypes[$exprString];
 		}
 
+		if ($node instanceof Expr\Ternary) {
+			if ($node->if === null) {
+				$conditionType = $this->filterByTruthyValue($node->cond, true)->getType($node->cond);
+				$booleanConditionType = $conditionType->toBoolean();
+				if ($booleanConditionType instanceof ConstantBooleanType) {
+					if ($booleanConditionType->getValue()) {
+						return $conditionType;
+					}
+
+					return $this->filterByFalseyValue($node->cond, true)->getType($node->else);
+				}
+				return TypeCombinator::union(
+					$conditionType,
+					$this->filterByFalseyValue($node->cond, true)->getType($node->else)
+				);
+			}
+
+			$booleanConditionType = $this->getType($node->cond)->toBoolean();
+			if ($booleanConditionType instanceof ConstantBooleanType) {
+				if ($booleanConditionType->getValue()) {
+					return $this->filterByTruthyValue($node->cond)->getType($node->if);
+				}
+
+				return $this->filterByFalseyValue($node->cond)->getType($node->else);
+			}
+
+			return TypeCombinator::union(
+				$this->filterByTruthyValue($node->cond)->getType($node->if),
+				$this->filterByFalseyValue($node->cond)->getType($node->else)
+			);
+		}
+
 		if ($node instanceof Variable && is_string($node->name)) {
 			if ($this->hasVariableType($node->name)->no()) {
 				return new ErrorType();
@@ -996,6 +996,14 @@ class Scope
 				}
 
 				$methodReflection = $methodClassReflection->getMethod($node->name, $this);
+				foreach ($this->broker->getDynamicMethodReturnTypeExtensionsForClass($methodClassReflection->getName()) as $dynamicMethodReturnTypeExtension) {
+					if (!$dynamicMethodReturnTypeExtension->isMethodSupported($methodReflection)) {
+						continue;
+					}
+
+					return $dynamicMethodReturnTypeExtension->getTypeFromMethodCall($methodReflection, $node, $this);
+				}
+
 				foreach ($this->typeSpecifier->getMethodTypeSpecifyingExtensionsForClass($methodClassReflection->getName()) as $functionTypeSpecifyingExtension) {
 					if (!$functionTypeSpecifyingExtension->isMethodSupported($methodReflection, $node, TypeSpecifierContext::createTruthy())) {
 						continue;
@@ -1005,14 +1013,6 @@ class Scope
 					if ($specifiedType !== null) {
 						return $specifiedType;
 					}
-				}
-
-				foreach ($this->broker->getDynamicMethodReturnTypeExtensionsForClass($methodClassReflection->getName()) as $dynamicMethodReturnTypeExtension) {
-					if (!$dynamicMethodReturnTypeExtension->isMethodSupported($methodReflection)) {
-						continue;
-					}
-
-					return $dynamicMethodReturnTypeExtension->getTypeFromMethodCall($methodReflection, $node, $this);
 				}
 			}
 
@@ -1053,6 +1053,14 @@ class Scope
 				&& $this->broker->hasClass($referencedClasses[0])
 			) {
 				$staticMethodClassReflection = $this->broker->getClass($referencedClasses[0]);
+				foreach ($this->broker->getDynamicStaticMethodReturnTypeExtensionsForClass($staticMethodClassReflection->getName()) as $dynamicStaticMethodReturnTypeExtension) {
+					if (!$dynamicStaticMethodReturnTypeExtension->isStaticMethodSupported($staticMethodReflection)) {
+						continue;
+					}
+
+					return $dynamicStaticMethodReturnTypeExtension->getTypeFromStaticMethodCall($staticMethodReflection, $node, $this);
+				}
+
 				foreach ($this->typeSpecifier->getStaticMethodTypeSpecifyingExtensionsForClass($staticMethodClassReflection->getName()) as $functionTypeSpecifyingExtension) {
 					if (!$functionTypeSpecifyingExtension->isStaticMethodSupported($staticMethodReflection, $node, TypeSpecifierContext::createTruthy())) {
 						continue;
@@ -1062,14 +1070,6 @@ class Scope
 					if ($specifiedType !== null) {
 						return $specifiedType;
 					}
-				}
-
-				foreach ($this->broker->getDynamicStaticMethodReturnTypeExtensionsForClass($staticMethodClassReflection->getName()) as $dynamicStaticMethodReturnTypeExtension) {
-					if (!$dynamicStaticMethodReturnTypeExtension->isStaticMethodSupported($staticMethodReflection)) {
-						continue;
-					}
-
-					return $dynamicStaticMethodReturnTypeExtension->getTypeFromStaticMethodCall($staticMethodReflection, $node, $this);
 				}
 			}
 			if ($staticMethodReflection->getReturnType() instanceof StaticResolvableType) {
@@ -1138,6 +1138,14 @@ class Scope
 				}
 			}
 
+			foreach ($this->broker->getDynamicFunctionReturnTypeExtensions() as $dynamicFunctionReturnTypeExtension) {
+				if (!$dynamicFunctionReturnTypeExtension->isFunctionSupported($functionReflection)) {
+					continue;
+				}
+
+				return $dynamicFunctionReturnTypeExtension->getTypeFromFunctionCall($functionReflection, $node, $this);
+			}
+
 			foreach ($this->typeSpecifier->getFunctionTypeSpecifyingExtensions() as $functionTypeSpecifyingExtension) {
 				if (!$functionTypeSpecifyingExtension->isFunctionSupported($functionReflection, $node, TypeSpecifierContext::createTruthy())) {
 					continue;
@@ -1147,14 +1155,6 @@ class Scope
 				if ($specifiedType !== null) {
 					return $specifiedType;
 				}
-			}
-
-			foreach ($this->broker->getDynamicFunctionReturnTypeExtensions() as $dynamicFunctionReturnTypeExtension) {
-				if (!$dynamicFunctionReturnTypeExtension->isFunctionSupported($functionReflection)) {
-					continue;
-				}
-
-				return $dynamicFunctionReturnTypeExtension->getTypeFromFunctionCall($functionReflection, $node, $this);
 			}
 
 			return $functionReflection->getReturnType();
@@ -1207,6 +1207,13 @@ class Scope
 			}, array_values($sureTypes)));
 			if ($types instanceof NeverType) {
 				return new ConstantBooleanType(false);
+			}
+		} elseif (count($sureNotTypes) > 0) {
+			$types = TypeCombinator::union(...array_map(function ($sureNotType) {
+				return $sureNotType[1];
+			}, array_values($sureNotTypes)));
+			if ($types instanceof NeverType) {
+				return new ConstantBooleanType(true);
 			}
 		}
 

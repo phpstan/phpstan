@@ -24,7 +24,7 @@ $reducedIntegersToString = array_reduce($integers, function (): string {
 $reversedIntegers = array_reverse($integers);
 
 $filledIntegers = array_fill(0, 5, 1);
-$filledIntegersWithKeys = array_fill_keys([], 1);
+$filledIntegersWithKeys = array_fill_keys([0], 1);
 
 $integerKeys = [
 	1 => 'foo',
@@ -43,5 +43,24 @@ $stringOrIntegerKeys = [
 
 /** @var array<string, int> $generalStringKeys */
 $generalStringKeys = doFoo();
+
+/** @var array<int, \DateTimeImmutable> $generalDateTimeValues */
+$generalDateTimeValues = doFoo();
+
+/** @var int $integer */
+$integer = doFoo();
+
+$mappedStringKeys = array_map(function (): \stdClass {
+
+}, $generalStringKeys);
+
+/** @var callable $callable */
+$callable = doFoo();
+
+$mappedStringKeysWithUnknownClosureType = array_map($callable, $generalStringKeys);
+$mappedWrongArray = array_map(function (): string {
+
+}, 1);
+$unknownArray = array_map($callable, 1);
 
 die;

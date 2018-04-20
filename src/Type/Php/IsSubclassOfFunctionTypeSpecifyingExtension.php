@@ -9,11 +9,10 @@ use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Analyser\TypeSpecifierAwareExtension;
 use PHPStan\Analyser\TypeSpecifierContext;
 use PHPStan\Reflection\FunctionReflection;
-use PHPStan\Type\ArrayType;
+use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\FunctionTypeSpecifyingExtension;
-use PHPStan\Type\MixedType;
 
-class IsArrayFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtension, TypeSpecifierAwareExtension
+class IsSubclassOfFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtension, TypeSpecifierAwareExtension
 {
 
 	/** @var \PHPStan\Analyser\TypeSpecifier */
@@ -21,18 +20,31 @@ class IsArrayFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingEx
 
 	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, TypeSpecifierContext $context): bool
 	{
-		return strtolower($functionReflection->getName()) === 'is_array'
-			&& isset($node->args[0])
+		return strtolower($functionReflection->getName()) === 'is_subclass_of'
+			&& count($node->args) >= 2
 			&& !$context->null();
 	}
 
 	public function specifyTypes(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
 	{
-		if ($context->null()) {
-			throw new \PHPStan\ShouldNotHappenException();
+		$objectType = $scope->getType($node->args[0]->value);
+		if ((new \PHPStan\Type\StringType())->isSuperTypeOf($objectType)->yes()) {
+			return new SpecifiedTypes();
 		}
 
-		return $this->typeSpecifier->create($node->args[0]->value, new ArrayType(new MixedType(), new MixedType(), true), $context);
+		$classType = $scope->getType($node->args[1]->value);
+		if (!$classType instanceof ConstantStringType) {
+			return new SpecifiedTypes();
+		}
+
+		return $this->typeSpecifier->specifyTypesInCondition(
+			$scope,
+			new \PhpParser\Node\Expr\Instanceof_(
+				$node->args[0]->value,
+				new \PhpParser\Node\Name($classType->getValue())
+			),
+			$context
+		);
 	}
 
 	public function setTypeSpecifier(TypeSpecifier $typeSpecifier): void

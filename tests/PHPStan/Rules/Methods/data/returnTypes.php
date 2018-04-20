@@ -484,7 +484,7 @@ class TrickyVoid
 class TernaryWithJsonEncode
 {
 
-	public function toJsonOrNull(array $arr): ?string
+	public function toJsonOrNull(array $arr, string $s): ?string
 	{
 		return json_encode($arr) ?: null;
 		return json_encode($arr) ? json_encode($arr): null;

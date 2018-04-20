@@ -30,10 +30,10 @@ class Broker
 	/** @var \PHPStan\Type\DynamicStaticMethodReturnTypeExtension[] */
 	private $dynamicStaticMethodReturnTypeExtensions = [];
 
-	/** @var \PHPStan\Type\DynamicMethodReturnTypeExtension[] */
+	/** @var \PHPStan\Type\DynamicMethodReturnTypeExtension[][] */
 	private $dynamicMethodReturnTypeExtensionsByClass;
 
-	/** @var \PHPStan\Type\DynamicStaticMethodReturnTypeExtension[] */
+	/** @var \PHPStan\Type\DynamicStaticMethodReturnTypeExtension[][] */
 	private $dynamicStaticMethodReturnTypeExtensionsByClass;
 
 	/** @var \PHPStan\Type\DynamicFunctionReturnTypeExtension[] */
@@ -176,7 +176,7 @@ class Broker
 	}
 
 	/**
-	 * @param \PHPStan\Type\DynamicMethodReturnTypeExtension[]|\PHPStan\Type\DynamicStaticMethodReturnTypeExtension[] $extensions
+	 * @param \PHPStan\Type\DynamicMethodReturnTypeExtension[][]|\PHPStan\Type\DynamicStaticMethodReturnTypeExtension[][] $extensions
 	 * @param string $className
 	 * @return mixed[]
 	 */

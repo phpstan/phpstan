@@ -74,6 +74,92 @@ class ImpossibleCheckTypeMethodCallRuleTest extends \PHPStan\Testing\RuleTestCas
 					);
 				}
 			},
+			new class() implements MethodTypeSpecifyingExtension,
+			TypeSpecifierAwareExtension {
+
+				/** @var TypeSpecifier */
+				private $typeSpecifier;
+
+				public function setTypeSpecifier(TypeSpecifier $typeSpecifier): void
+				{
+					$this->typeSpecifier = $typeSpecifier;
+				}
+
+				public function getClass(): string
+				{
+					return \ImpossibleMethodCall\Foo::class;
+				}
+
+				public function isMethodSupported(
+					MethodReflection $methodReflection,
+					MethodCall $node,
+					TypeSpecifierContext $context
+				): bool
+				{
+					return $methodReflection->getName() === 'isSame'
+						&& count($node->args) >= 2;
+				}
+
+				public function specifyTypes(
+					MethodReflection $methodReflection,
+					MethodCall $node,
+					Scope $scope,
+					TypeSpecifierContext $context
+				): SpecifiedTypes
+				{
+					return $this->typeSpecifier->specifyTypesInCondition(
+						$scope,
+						new \PhpParser\Node\Expr\BinaryOp\Identical(
+							$node->args[0]->value,
+							$node->args[1]->value
+						),
+						TypeSpecifierContext::createTruthy()
+					);
+				}
+			},
+			new class() implements MethodTypeSpecifyingExtension,
+			TypeSpecifierAwareExtension {
+
+				/** @var TypeSpecifier */
+				private $typeSpecifier;
+
+				public function setTypeSpecifier(TypeSpecifier $typeSpecifier): void
+				{
+					$this->typeSpecifier = $typeSpecifier;
+				}
+
+				public function getClass(): string
+				{
+					return \ImpossibleMethodCall\Foo::class;
+				}
+
+				public function isMethodSupported(
+					MethodReflection $methodReflection,
+					MethodCall $node,
+					TypeSpecifierContext $context
+				): bool
+				{
+					return $methodReflection->getName() === 'isNotSame'
+						&& count($node->args) >= 2;
+				}
+
+				public function specifyTypes(
+					MethodReflection $methodReflection,
+					MethodCall $node,
+					Scope $scope,
+					TypeSpecifierContext $context
+				): SpecifiedTypes
+				{
+					return $this->typeSpecifier->specifyTypesInCondition(
+						$scope,
+						new \PhpParser\Node\Expr\BinaryOp\NotIdentical(
+							$node->args[0]->value,
+							$node->args[1]->value
+						),
+						TypeSpecifierContext::createTruthy()
+					);
+				}
+			},
 		];
 	}
 
@@ -95,6 +181,26 @@ class ImpossibleCheckTypeMethodCallRuleTest extends \PHPStan\Testing\RuleTestCas
 			[
 				'Call to method PHPStan\Tests\AssertionClass::assertNotInt() with string will always evaluate to true.',
 				36,
+			],
+			[
+				'Call to method ImpossibleMethodCall\Foo::isSame() with 1 and 1 will always evaluate to true.',
+				60,
+			],
+			[
+				'Call to method ImpossibleMethodCall\Foo::isSame() with 1 and 2 will always evaluate to false.',
+				63,
+			],
+			[
+				'Call to method ImpossibleMethodCall\Foo::isNotSame() with 1 and 1 will always evaluate to false.',
+				66,
+			],
+			[
+				'Call to method ImpossibleMethodCall\Foo::isNotSame() with 1 and 2 will always evaluate to true.',
+				69,
+			],
+			[
+				'Call to method ImpossibleMethodCall\Foo::isSame() with stdClass and stdClass will always evaluate to true.',
+				78,
 			],
 		]);
 	}
