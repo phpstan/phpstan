@@ -214,63 +214,12 @@ class NodeScopeResolver
 						break;
 					}
 				}
-			} elseif ($node instanceof FuncCall && $node->name instanceof Name) {
-				if ($this->broker->hasFunction($node->name, $scope)) {
-					$functionReflection = $this->broker->getFunction($node->name, $scope);
-					foreach ($this->typeSpecifier->getFunctionTypeSpecifyingExtensions() as $extension) {
-						if (!$extension->isFunctionSupported($functionReflection, $node, TypeSpecifierContext::createNull())) {
-							continue;
-						}
-
-						$scope = $scope->filterBySpecifiedTypes($extension->specifyTypes($functionReflection, $node, $scope, TypeSpecifierContext::createNull()));
-						break;
-					}
-				}
-			} elseif ($node instanceof MethodCall && is_string($node->name)) {
-				$methodCalledOnType = $scope->getType($node->var);
-				$referencedClasses = $methodCalledOnType->getReferencedClasses();
-				if (
-					count($referencedClasses) === 1
-					&& $this->broker->hasClass($referencedClasses[0])
-				) {
-					$methodClassReflection = $this->broker->getClass($referencedClasses[0]);
-					if ($methodClassReflection->hasMethod($node->name)) {
-						$methodReflection = $methodClassReflection->getMethod($node->name, $scope);
-						foreach ($this->typeSpecifier->getMethodTypeSpecifyingExtensionsForClass($methodClassReflection->getName()) as $extension) {
-							if (!$extension->isMethodSupported($methodReflection, $node, TypeSpecifierContext::createNull())) {
-								continue;
-							}
-
-							$scope = $scope->filterBySpecifiedTypes($extension->specifyTypes($methodReflection, $node, $scope, TypeSpecifierContext::createNull()));
-							break;
-						}
-					}
-				}
-			} elseif ($node instanceof StaticCall && is_string($node->name)) {
-				if ($node->class instanceof Name) {
-					$calleeType = new ObjectType($scope->resolveName($node->class));
-				} else {
-					$calleeType = $scope->getType($node->class);
-				}
-
-				if ($calleeType->hasMethod($node->name)) {
-					$staticMethodReflection = $calleeType->getMethod($node->name, $scope);
-					$referencedClasses = $calleeType->getReferencedClasses();
-					if (
-						count($calleeType->getReferencedClasses()) === 1
-						&& $this->broker->hasClass($referencedClasses[0])
-					) {
-						$staticMethodClassReflection = $this->broker->getClass($referencedClasses[0]);
-						foreach ($this->typeSpecifier->getStaticMethodTypeSpecifyingExtensionsForClass($staticMethodClassReflection->getName()) as $extension) {
-							if (!$extension->isStaticMethodSupported($staticMethodReflection, $node, TypeSpecifierContext::createNull())) {
-								continue;
-							}
-
-							$scope = $scope->filterBySpecifiedTypes($extension->specifyTypes($staticMethodReflection, $node, $scope, TypeSpecifierContext::createNull()));
-							break;
-						}
-					}
-				}
+			} elseif ($node instanceof Expr) {
+				$scope = $scope->filterBySpecifiedTypes($this->typeSpecifier->specifyTypesInCondition(
+					$scope,
+					$node,
+					TypeSpecifierContext::createNull()
+				));
 			}
 		}
 	}

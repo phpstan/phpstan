@@ -6,6 +6,6 @@ $foo = null;
 $bar = null;
 
 (new \PHPStan\Tests\AssertionClass())->assertString($foo);
-\PHPStan\Tests\AssertionClass::assertInt($bar);
+$test = \PHPStan\Tests\AssertionClass::assertInt($bar);
 
 die;
