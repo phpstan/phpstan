@@ -114,11 +114,6 @@ class ConstantStringType extends StringType implements ConstantScalarType
 		return $type->toFloat();
 	}
 
-	public function toString(): Type
-	{
-		return $this;
-	}
-
 	public function getOffsetValueType(Type $offsetType): Type
 	{
 		$offsetNumberType = $offsetType->toNumber();
