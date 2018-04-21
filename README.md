@@ -53,7 +53,7 @@ Unique feature of PHPStan is the ability to define and statically check "magic" 
 accessing properties that are not defined in the class but are created in `__get` and `__set`
 and invoking methods using `__call`.
 
-See [Class reflection extensions](#class-reflection-extensions) and [Dynamic return type extensions](#dynamic-return-type-extensions).
+See [Class reflection extensions](#class-reflection-extensions), [Dynamic return type extensions](#dynamic-return-type-extensions) and [Type-specifying extensions](#type-specifying-extensions).
 
 You can also install official framework-specific extensions:
 
@@ -62,6 +62,8 @@ You can also install official framework-specific extensions:
 * [Nette Framework](https://github.com/phpstan/phpstan-nette)
 * [Dibi - Database Abstraction Library](https://github.com/phpstan/phpstan-dibi)
 * [PHP-Parser](https://github.com/phpstan/phpstan-php-parser)
+* [beberlei/assert](https://github.com/phpstan/phpstan-beberlei-assert)
+* [webmozart/assert](https://github.com/phpstan/phpstan-webmozart-assert)
 
 Unofficial extensions for other frameworks and libraries are also available:
 
