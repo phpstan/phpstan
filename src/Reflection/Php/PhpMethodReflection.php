@@ -146,7 +146,7 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 
 	private function getMethodNameWithCorrectCase(string $lowercaseMethodName, string $traitTarget): ?string
 	{
-		list ($trait, $method) = explode('::', $traitTarget);
+		$trait = explode('::', $traitTarget)[0];
 		$traitReflection = $this->broker->getClass($trait)->getNativeReflection();
 		foreach ($traitReflection->getTraitAliases() as $methodAlias => $traitTarget) {
 			if ($lowercaseMethodName === strtolower($methodAlias)) {
