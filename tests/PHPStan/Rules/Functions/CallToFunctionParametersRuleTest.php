@@ -217,6 +217,10 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Parameter #1 $foo of function PassedByReference\foo is passed by reference, so it expects variables only.',
 				33,
 			],
+			[
+				'Parameter #1 $array_arg of function reset expects array, null given.',
+				39,
+			],
 		]);
 	}
 

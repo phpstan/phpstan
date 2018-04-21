@@ -973,7 +973,6 @@ class NodeScopeResolver
 					$assignByReference = false;
 					if (isset($parameters[$i])) {
 						$assignByReference = $parameters[$i]->passedByReference()->createsNewVariable();
-						$parameterType = $parameters[$i]->getType();
 					} elseif (count($parameters) > 0 && $parametersAcceptor->isVariadic()) {
 						$lastParameter = $parameters[count($parameters) - 1];
 						$assignByReference = $lastParameter->passedByReference()->createsNewVariable();
@@ -988,7 +987,7 @@ class NodeScopeResolver
 						continue;
 					}
 
-					$scope = $scope->assignVariable($arg->name, $parameterType ?? new MixedType(), $certainty);
+					$scope = $scope->assignVariable($arg->name, new MixedType(), $certainty);
 				}
 			}
 			if (

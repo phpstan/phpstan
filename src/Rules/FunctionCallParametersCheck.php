@@ -169,6 +169,7 @@ class FunctionCallParametersCheck
 
 			if (
 				$this->checkArgumentTypes
+				&& !$parameter->passedByReference()->createsNewVariable()
 				&& !$this->ruleLevelHelper->accepts($parameterType, $argumentValueType)
 				&& ($secondAccepts === null || !$secondAccepts)
 			) {
