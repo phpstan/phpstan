@@ -12,24 +12,25 @@ class UselessCastRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	public function testUselessCast(): void
 	{
+		require_once __DIR__ . '/data/useless-cast.php';
 		$this->analyse(
 			[__DIR__ . '/data/useless-cast.php'],
 			[
 				[
 					'Casting to int something that\'s already int.',
-					6,
+					7,
 				],
 				[
 					'Casting to string something that\'s already string.',
-					8,
-				],
-				[
-					'Casting to stdClass something that\'s already stdClass.',
 					9,
 				],
 				[
+					'Casting to stdClass something that\'s already stdClass.',
+					10,
+				],
+				[
 					'Casting to float something that\'s already float.',
-					26,
+					27,
 				],
 			]
 		);

@@ -317,7 +317,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'matches',
 				TrinaryLogic::createYes(),
-				'array<string>',
+				'mixed',
 			],
 			[
 				$testScope,
@@ -358,7 +358,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'matches2',
 				TrinaryLogic::createYes(),
-				'array<string>',
+				'mixed',
 			],
 			[
 				$testScope,
@@ -370,13 +370,13 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'matches3',
 				TrinaryLogic::createYes(),
-				'array<string>',
+				'mixed',
 			],
 			[
 				$testScope,
 				'matches4',
 				TrinaryLogic::createMaybe(),
-				'array<string>',
+				'mixed',
 			],
 			[
 				$testScope,
@@ -430,7 +430,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'ternaryMatches',
 				TrinaryLogic::createYes(),
-				'array<string>',
+				'mixed',
 			],
 			[
 				$testScope,
@@ -5412,6 +5412,41 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/traits/traits.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataPassedByReference(): array
+	{
+		return [
+			[
+				'array(1, 2, 3)',
+				'$arr',
+			],
+			[
+				'mixed',
+				'$matches',
+			],
+			[
+				'mixed',
+				'$s',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataPassedByReference
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testPassedByReference(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/passed-by-reference.php',
 			$description,
 			$expression
 		);
