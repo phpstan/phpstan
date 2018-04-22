@@ -68,6 +68,7 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\UnionType;
 use PHPStan\Type\VerbosityLevel;
 
 class NodeScopeResolver
@@ -999,6 +1000,39 @@ class NodeScopeResolver
 				], true)
 			) {
 				$scope = $scope->assignVariable('http_response_header', new ArrayType(new IntegerType(), new StringType(), false), $certainty);
+			}
+
+			if (
+				$node instanceof FuncCall
+				&& $node->name instanceof Name
+				&& strtolower((string) $node->name) === 'array_push'
+				&& count($node->args) >= 2
+			) {
+				$argumentTypes = [];
+				foreach (array_slice($node->args, 1) as $arg) {
+					$argType = $scope->getType($arg->value);
+					if ($arg->unpack) {
+						$iterableValueType = $argType->getIterableValueType();
+						if ($iterableValueType instanceof UnionType) {
+							foreach ($iterableValueType->getTypes() as $innerType) {
+								$argumentTypes[] = $innerType;
+							}
+						} else {
+							$argumentTypes[] = $iterableValueType;
+						}
+						continue;
+					}
+
+					$argumentTypes[] = $argType;
+				}
+
+				$arrayArg = $node->args[0]->value;
+				$arrayType = $scope->getType($arrayArg);
+				foreach ($argumentTypes as $argType) {
+					$arrayType = $arrayType->setOffsetValueType(null, $argType);
+				}
+
+				$scope = $scope->specifyExpressionType($arrayArg, $arrayType);
 			}
 		} elseif ($node instanceof BinaryOp) {
 			$scope = $this->lookForAssigns($scope, $node->left, $certainty);
