@@ -2409,6 +2409,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array<\'foo\'|int|stdClass>',
 				'$arrToPush2',
 			],
+			[
+				'array(0 => \'lorem\', 1 => 5, \'foo\' => stdClass, 2 => \'test\')',
+				'$arrToUnshift',
+			],
+			[
+				'array<\'lorem\'|int|stdClass>',
+				'$arrToUnshift2',
+			],
 		];
 	}
 

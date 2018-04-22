@@ -54,4 +54,11 @@ array_push($arrToPush, 'foo', new \stdClass());
 $arrToPush2 = doFoo();
 array_push($arrToPush2, ...['foo', new \stdClass()]);
 
+$arrToUnshift = ['foo' => new \stdClass(), 5 => 'test'];
+array_unshift($arrToUnshift, 'lorem', 5);
+
+/** @var int[] $arrToUnshift2 */
+$arrToUnshift2 = doFoo();
+array_unshift($arrToUnshift2, 'lorem', new \stdClass());
+
 die;
