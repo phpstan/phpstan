@@ -5250,6 +5250,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array|string',
 				'$anotherExpectedArrayOrString',
 			],
+			[
+				'array(\'a\' => string, \'b\' => string)',
+				'preg_replace_callback_array($callbacks, $array)',
+			],
+			[
+				'string',
+				'preg_replace_callback_array($callbacks, $string)',
+			],
 		];
 	}
 
