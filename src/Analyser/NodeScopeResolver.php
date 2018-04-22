@@ -57,6 +57,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\CommentHelper;
 use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\ConstantType;
@@ -1005,14 +1006,17 @@ class NodeScopeResolver
 			if (
 				$node instanceof FuncCall
 				&& $node->name instanceof Name
-				&& strtolower((string) $node->name) === 'array_push'
+				&& in_array(strtolower((string) $node->name), [
+					'array_push',
+					'array_unshift',
+				], true)
 				&& count($node->args) >= 2
 			) {
 				$argumentTypes = [];
-				foreach (array_slice($node->args, 1) as $arg) {
-					$argType = $scope->getType($arg->value);
-					if ($arg->unpack) {
-						$iterableValueType = $argType->getIterableValueType();
+				foreach (array_slice($node->args, 1) as $callArg) {
+					$callArgType = $scope->getType($callArg->value);
+					if ($callArg->unpack) {
+						$iterableValueType = $callArgType->getIterableValueType();
 						if ($iterableValueType instanceof UnionType) {
 							foreach ($iterableValueType->getTypes() as $innerType) {
 								$argumentTypes[] = $innerType;
@@ -1023,13 +1027,37 @@ class NodeScopeResolver
 						continue;
 					}
 
-					$argumentTypes[] = $argType;
+					$argumentTypes[] = $callArgType;
 				}
 
 				$arrayArg = $node->args[0]->value;
-				$arrayType = $scope->getType($arrayArg);
-				foreach ($argumentTypes as $argType) {
-					$arrayType = $arrayType->setOffsetValueType(null, $argType);
+				$originalArrayType = $scope->getType($arrayArg);
+				$functionName = strtolower((string) $node->name);
+				if (
+					$functionName === 'array_push'
+					|| ($originalArrayType instanceof ArrayType && !$originalArrayType instanceof ConstantArrayType)
+				) {
+					$arrayType = $originalArrayType;
+					foreach ($argumentTypes as $argType) {
+						$arrayType = $arrayType->setOffsetValueType(null, $argType);
+					}
+				} elseif (
+					$functionName === 'array_unshift'
+					&& $originalArrayType instanceof ConstantArrayType
+				) {
+					$arrayType = new ConstantArrayType([], []);
+					foreach ($argumentTypes as $argType) {
+						$arrayType = $arrayType->setOffsetValueType(null, $argType);
+					}
+					foreach ($originalArrayType->getKeyTypes() as $i => $keyType) {
+						$valueType = $originalArrayType->getValueTypes()[$i];
+						if ($keyType instanceof ConstantIntegerType) {
+							$keyType = null;
+						}
+						$arrayType = $arrayType->setOffsetValueType($keyType, $valueType);
+					}
+				} else {
+					throw new \PHPStan\ShouldNotHappenException();
 				}
 
 				$scope = $scope->specifyExpressionType($arrayArg, $arrayType);
