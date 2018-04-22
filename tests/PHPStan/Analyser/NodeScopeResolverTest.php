@@ -2417,6 +2417,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array<\'lorem\'|int|stdClass>',
 				'$arrToUnshift2',
 			],
+			[
+				'array(\'dirname\' => string, \'basename\' => string, \'extension\' => string, \'filename\' => string)',
+				'pathinfo($string)',
+			],
+			[
+				'string',
+				'pathinfo($string, PATHINFO_DIRNAME)',
+			],
 		];
 	}
 
