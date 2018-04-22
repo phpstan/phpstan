@@ -46,4 +46,12 @@ $foobarString[8] = 'r';
 
 $std = new \stdClass();
 
+/** @var int[] $arrToPush */
+$arrToPush = doFoo();
+array_push($arrToPush, 'foo', new \stdClass());
+
+/** @var int[] $arrToPush2 */
+$arrToPush2 = doFoo();
+array_push($arrToPush2, ...['foo', new \stdClass()]);
+
 die;

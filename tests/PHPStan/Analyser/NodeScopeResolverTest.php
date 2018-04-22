@@ -2401,6 +2401,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'*ERROR*',
 				'"$std bar"',
 			],
+			[
+				'array<\'foo\'|int|stdClass>',
+				'$arrToPush',
+			],
+			[
+				'array<\'foo\'|int|stdClass>',
+				'$arrToPush2',
+			],
 		];
 	}
 
