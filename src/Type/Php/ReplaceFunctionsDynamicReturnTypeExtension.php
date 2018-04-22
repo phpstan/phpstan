@@ -14,13 +14,17 @@ use PHPStan\Type\Type;
 class ReplaceFunctionsDynamicReturnTypeExtension implements DynamicFunctionReturnTypeExtension
 {
 
+	/** @var array<string, int> */
+	private $functions = [
+		'preg_replace' => 2,
+		'preg_replace_callback' => 2,
+		'preg_replace_callback_array' => 1,
+		'str_replace' => 2,
+	];
+
 	public function isFunctionSupported(FunctionReflection $functionReflection): bool
 	{
-		return in_array(
-			$functionReflection->getName(),
-			['preg_replace', 'preg_replace_callback', 'str_replace'],
-			true
-		);
+		return array_key_exists($functionReflection->getName(), $this->functions);
 	}
 
 	public function getTypeFromFunctionCall(
@@ -29,11 +33,12 @@ class ReplaceFunctionsDynamicReturnTypeExtension implements DynamicFunctionRetur
 		Scope $scope
 	): Type
 	{
-		if (count($functionCall->args) < 3) {
+		$argumentPosition = $this->functions[$functionReflection->getName()];
+		if (count($functionCall->args) <= $argumentPosition) {
 			return $functionReflection->getReturnType();
 		}
 
-		$subjectArgumentType = $scope->getType($functionCall->args[2]->value);
+		$subjectArgumentType = $scope->getType($functionCall->args[$argumentPosition]->value);
 		$stringType = new StringType();
 		$arrayType = new ArrayType(new MixedType(), new MixedType());
 		if ($stringType->isSuperTypeOf($subjectArgumentType)->yes()) {

@@ -12,6 +12,9 @@ function () {
 		$arrayOrString = 'foo';
 	}
 
+	/** @var callable[] $callbacks */
+	$callbacks = [];
+
 	$expectedString = str_replace('aaa', 'bbb', $string);
 	$expectedArray = str_replace('aaa', 'bbb', $array);
 	$expectedArrayOrString = str_replace('aaa', 'bbb', $arrayOrString);
