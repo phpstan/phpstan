@@ -32,6 +32,14 @@ class AnalyseApplication
 	/** @var \PHPStan\Cache\Cache */
 	private $cache;
 
+	/** @var bool */
+	private $debugMode = false;
+
+	/**
+	 * @var OutputStyle
+	 */
+	private $outputStyle = null;
+
 	/**
 	 * @param Analyser $analyser
 	 * @param string $memoryLimitFile
@@ -80,6 +88,9 @@ class AnalyseApplication
 			throw new \InvalidArgumentException('At least one path must be specified to analyse.');
 		}
 
+		$this->debugMode = $debug;
+		$this->outputStyle = $style;
+
 		$errors = [];
 		$files = [];
 
@@ -96,7 +107,7 @@ class AnalyseApplication
 			} elseif (is_file($path)) {
 				$files[] = $this->fileHelper->normalizePath($path);
 			} else {
-				$files = $files + $this->loadFiles($path, $onlyFiles, $enableCache, $clearCache, $style, $debug);
+				$files = $files + $this->loadFiles($path, $onlyFiles, $enableCache, $clearCache);
 			}
 		}
 
@@ -163,14 +174,30 @@ class AnalyseApplication
 		);
 	}
 
-	private function loadFiles(string $path, &$onlyFiles, bool $enableCache, bool $clearCache, OutputStyle $style, bool $debug): array
+	private function logMessage($message, $debugMode = false): self
 	{
-		if ($enableCache && !$clearCache && ($files = $this->cache->load('analyse-files-' . $path)) !== null) {
-			if ($debug) {
-				$style->writeln(sprintf('Loaded %d files from cache', count($files)));
+		if (!$debugMode || $debugMode && $this->debugMode) {
+			$this->outputStyle->writeln($message);
+		}
+
+		return $this;
+	}
+
+	private function loadFiles(string $path, &$onlyFiles, bool $enableCache, bool $clearCache): array
+	{
+		if ($enableCache && !$clearCache) {
+			$this->logMessage('Loading Files From Cache...');
+			if (($files = $this->cache->load('analyse-files-' . $path)) !== null) {
+				$this->logMessage(
+					sprintf('Loaded %d files from cache', count($files)),
+					true
+				);
 			}
+
 			return $files;
 		}
+
+		$this->logMessage('Scanning File System');
 
 		$files = [];
 		$finder = new Finder();
@@ -181,7 +208,13 @@ class AnalyseApplication
 			$onlyFiles = false;
 		}
 
+		$this->logMessage(
+			sprintf('Loaded %d files from system', count($files)),
+			true
+		);
+
 		if ($enableCache) {
+			$this->logMessage('Saving Cache');
 			$this->cache->save('analyse-files-' . $path, $files);
 		}
 
