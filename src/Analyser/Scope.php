@@ -895,15 +895,66 @@ class Scope
 		} elseif ($node instanceof \PhpParser\Node\Expr\Cast\Array_) {
 			return $this->getType($node->expr)->toArray();
 		} elseif ($node instanceof Node\Scalar\MagicConst\Line) {
-			return new IntegerType();
+			return new ConstantIntegerType($node->getLine());
 		} elseif ($node instanceof Node\Scalar\MagicConst\Class_) {
 			if (!$this->isInClass()) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
 
 			return new ConstantStringType($this->getClassReflection()->getName());
-		} elseif ($node instanceof Node\Scalar\MagicConst) {
-			return new StringType();
+		} elseif ($node instanceof Node\Scalar\MagicConst\Dir) {
+			return new ConstantStringType(dirname($this->getFile()));
+		} elseif ($node instanceof Node\Scalar\MagicConst\File) {
+			return new ConstantStringType($this->getFile());
+		} elseif ($node instanceof Node\Scalar\MagicConst\Namespace_) {
+			if (!$this->isInClass()) {
+				return new ConstantStringType('');
+			}
+
+			$className = $this->getClassReflection()->getName();
+			$parts = explode('\\', $className);
+			if (count($parts) <= 1) {
+				return new ConstantStringType('');
+			}
+
+			return new ConstantStringType($parts[0]);
+		} elseif ($node instanceof Node\Scalar\MagicConst\Class_) {
+			if (!$this->isInClass()) {
+				return new ConstantStringType('');
+			}
+
+			return new ConstantStringType($this->getClassReflection()->getName());
+		} elseif ($node instanceof Node\Scalar\MagicConst\Method) {
+			if ($this->isInAnonymousFunction()) {
+				return new ConstantStringType('{closure}');
+			}
+
+			$function = $this->getFunction();
+			if ($function === null) {
+				return new ConstantStringType('');
+			}
+			if ($function instanceof MethodReflection) {
+				return new ConstantStringType(
+					sprintf('%s::%s', $function->getDeclaringClass()->getName(), $function->getName())
+				);
+			}
+
+			return new ConstantStringType($function->getName());
+		} elseif ($node instanceof Node\Scalar\MagicConst\Function_) {
+			if ($this->isInAnonymousFunction()) {
+				return new ConstantStringType('{closure}');
+			}
+			$function = $this->getFunction();
+			if ($function === null) {
+				return new ConstantStringType('');
+			}
+
+			return new ConstantStringType($function->getName());
+		} elseif ($node instanceof Node\Scalar\MagicConst\Trait_) {
+			if (!$this->isInTrait()) {
+				return new ConstantStringType('');
+			}
+			return new ConstantStringType($this->getTraitReflection()->getName());
 		} elseif ($node instanceof Object_) {
 			$castToObject = function (Type $type): Type {
 				if ((new ObjectWithoutClassType())->isSuperTypeOf($type)->yes()) {
