@@ -11,22 +11,22 @@ class ClosureTypeTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				new ClosureType(new MixedType()),
+				new ClosureType([], new MixedType(), false),
 				new ObjectType(\Closure::class),
 				TrinaryLogic::createNo(),
 			],
 			[
-				new ClosureType(new MixedType()),
-				new ClosureType(new MixedType()),
+				new ClosureType([], new MixedType(), false),
+				new ClosureType([], new MixedType(), false),
 				TrinaryLogic::createYes(),
 			],
 			[
-				new ClosureType(new UnionType([new IntegerType(), new StringType()])),
-				new ClosureType(new IntegerType()),
+				new ClosureType([], new UnionType([new IntegerType(), new StringType()]), false),
+				new ClosureType([], new IntegerType(), false),
 				TrinaryLogic::createYes(),
 			],
 			[
-				new ClosureType(new MixedType()),
+				new ClosureType([], new MixedType(), false),
 				new CallableType(),
 				TrinaryLogic::createMaybe(),
 			],
@@ -59,27 +59,27 @@ class ClosureTypeTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				new ClosureType(new MixedType()),
+				new ClosureType([], new MixedType(), false),
 				new ObjectType(\Closure::class),
 				TrinaryLogic::createYes(),
 			],
 			[
-				new ClosureType(new MixedType()),
-				new ClosureType(new MixedType()),
+				new ClosureType([], new MixedType(), false),
+				new ClosureType([], new MixedType(), false),
 				TrinaryLogic::createYes(),
 			],
 			[
-				new ClosureType(new UnionType([new IntegerType(), new StringType()])),
-				new ClosureType(new IntegerType()),
+				new ClosureType([], new UnionType([new IntegerType(), new StringType()]), false),
+				new ClosureType([], new IntegerType(), false),
 				TrinaryLogic::createMaybe(),
 			],
 			[
-				new ClosureType(new IntegerType()),
-				new ClosureType(new UnionType([new IntegerType(), new StringType()])),
+				new ClosureType([], new IntegerType(), false),
+				new ClosureType([], new UnionType([new IntegerType(), new StringType()]), false),
 				TrinaryLogic::createYes(),
 			],
 			[
-				new ClosureType(new MixedType()),
+				new ClosureType([], new MixedType(), false),
 				new CallableType(),
 				TrinaryLogic::createYes(),
 			],

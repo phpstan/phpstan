@@ -18,13 +18,30 @@ class ClosureType implements CompoundType, ParametersAcceptor
 	/** @var ObjectType */
 	private $objectType;
 
+	/** @var \PHPStan\Reflection\Native\NativeParameterReflection[] */
+	private $parameters;
+
 	/** @var Type */
 	private $returnType;
 
-	public function __construct(Type $returnType)
+	/** @var bool */
+	private $variadic;
+
+	/**
+	 * @param \PHPStan\Reflection\Native\NativeParameterReflection[] $parameters
+	 * @param Type $returnType
+	 * @param bool $variadic
+	 */
+	public function __construct(
+		array $parameters,
+		Type $returnType,
+		bool $variadic
+	)
 	{
 		$this->objectType = new ObjectType(\Closure::class);
+		$this->parameters = $parameters;
 		$this->returnType = $returnType;
+		$this->variadic = $variadic;
 	}
 
 	/**
@@ -211,12 +228,12 @@ class ClosureType implements CompoundType, ParametersAcceptor
 	 */
 	public function getParameters(): array
 	{
-		return [];
+		return $this->parameters;
 	}
 
 	public function isVariadic(): bool
 	{
-		return true;
+		return $this->variadic;
 	}
 
 	public function getReturnType(): Type
@@ -230,7 +247,11 @@ class ClosureType implements CompoundType, ParametersAcceptor
 	 */
 	public static function __set_state(array $properties): Type
 	{
-		return new self($properties['returnType']);
+		return new self(
+			$properties['parameters'],
+			$properties['returnType'],
+			$properties['variadic']
+		);
 	}
 
 }
