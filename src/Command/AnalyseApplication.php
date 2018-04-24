@@ -192,9 +192,12 @@ class AnalyseApplication
 					sprintf('Loaded %d files from cache', count($files)),
 					true
 				);
+
+				return $files;
 			}
 
-			return $files;
+			$this->logMessage('No files loaded from cache');
+			$this->logMessage('Note: When using docker, you must mount a folder to the "tmpDir" folder for caching to work correctly.', true);
 		}
 
 		$this->logMessage('Scanning File System');
