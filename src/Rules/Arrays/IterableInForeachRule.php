@@ -4,18 +4,17 @@ namespace PHPStan\Rules\Arrays;
 
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\MixedType;
-use PHPStan\Type\UnionType;
 use PHPStan\Type\VerbosityLevel;
 
 class IterableInForeachRule implements \PHPStan\Rules\Rule
 {
 
 	/** @var bool */
-	private $checkUnionTypes;
+	private $reportMaybes;
 
-	public function __construct(bool $checkUnionTypes)
+	public function __construct(bool $reportMaybes)
 	{
-		$this->checkUnionTypes = $checkUnionTypes;
+		$this->reportMaybes = $reportMaybes;
 	}
 
 	public function getNodeType(): string
@@ -30,16 +29,24 @@ class IterableInForeachRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(\PhpParser\Node $node, Scope $scope): array
 	{
-		$iteratedExpressionType = $scope->getType($node->expr);
-		if (!$this->checkUnionTypes && $iteratedExpressionType instanceof UnionType) {
-			return [];
-		}
-
-		if (!$iteratedExpressionType instanceof MixedType && !$iteratedExpressionType->isIterable()->yes()) {
+		$exprType = $scope->getType($node->expr);
+		$isIterable = $exprType->isIterable();
+		if ($isIterable->no()) {
 			return [
 				sprintf(
 					'Argument of an invalid type %s supplied for foreach, only iterables are supported.',
-					$iteratedExpressionType->describe(VerbosityLevel::typeOnly())
+					$exprType->describe(VerbosityLevel::typeOnly())
+				),
+			];
+		} elseif (
+			$this->reportMaybes
+			&& !$isIterable->yes()
+			&& !$exprType instanceof MixedType
+		) {
+			return [
+				sprintf(
+					'Argument of a possibly invalid type %s supplied for foreach, only iterables are supported.',
+					$exprType->describe(VerbosityLevel::typeOnly())
 				),
 			];
 		}
