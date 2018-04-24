@@ -6,16 +6,16 @@ class IterableInForeachRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	/** @var bool */
-	private $checkUnionTypes;
+	private $reportMaybes;
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new IterableInForeachRule($this->checkUnionTypes);
+		return new IterableInForeachRule($this->reportMaybes);
 	}
 
-	public function testCheckWithoutUnionTypes(): void
+	public function testCheckWithoutMaybes(): void
 	{
-		$this->checkUnionTypes = false;
+		$this->reportMaybes = false;
 		$this->analyse([__DIR__ . '/data/foreach-iterable.php'], [
 			[
 				'Argument of an invalid type string supplied for foreach, only iterables are supported.',
@@ -24,16 +24,16 @@ class IterableInForeachRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testCheckWithUnionTypes(): void
+	public function testCheckWithMaybes(): void
 	{
-		$this->checkUnionTypes = true;
+		$this->reportMaybes = true;
 		$this->analyse([__DIR__ . '/data/foreach-iterable.php'], [
 			[
 				'Argument of an invalid type string supplied for foreach, only iterables are supported.',
 				8,
 			],
 			[
-				'Argument of an invalid type array<int, int>|false supplied for foreach, only iterables are supported.',
+				'Argument of a possibly invalid type array<int, int>|false supplied for foreach, only iterables are supported.',
 				17,
 			],
 		]);
