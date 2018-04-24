@@ -2014,12 +2014,32 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'\Foo::class',
 			],
 			[
-				'int',
-				'__LINE__',
+				'71',
+				'$line',
 			],
 			[
-				'string',
-				'__DIR__',
+				(new ConstantStringType(__DIR__))->describe(VerbosityLevel::value()),
+				'$dir',
+			],
+			[
+				(new ConstantStringType(__DIR__))->describe(VerbosityLevel::value()),
+				'$file',
+			],
+			[
+				'\'BinaryOperations\'',
+				'$namespace',
+			],
+			[
+				'\'BinaryOperations\\\\Foo\'',
+				'$class',
+			],
+			[
+				'\'BinaryOperations…\'',
+				'$method',
+			],
+			[
+				'\'doFoo\'',
+				'$function',
 			],
 			[
 				'1',
@@ -2175,7 +2195,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				'true',
-				'$foo instanceof Foo',
+				'$foo instanceof \BinaryOperations\Foo',
 			],
 			[
 				'bool',
