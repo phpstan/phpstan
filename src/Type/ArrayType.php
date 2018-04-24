@@ -2,6 +2,9 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ParametersAcceptor;
+use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
@@ -200,6 +203,15 @@ class ArrayType implements StaticResolvableType
 	public function isCallable(): TrinaryLogic
 	{
 		return TrinaryLogic::createMaybe()->and((new StringType())->isSuperTypeOf($this->itemType));
+	}
+
+	public function getCallableParametersAcceptor(Scope $scope): ParametersAcceptor
+	{
+		if ($this->isCallable()->no()) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		return new TrivialParametersAcceptor();
 	}
 
 	public function toNumber(): Type

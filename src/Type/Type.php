@@ -5,6 +5,7 @@ namespace PHPStan\Type;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassConstantReflection;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 
@@ -53,6 +54,8 @@ interface Type
 	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type;
 
 	public function isCallable(): TrinaryLogic;
+
+	public function getCallableParametersAcceptor(Scope $scope): ParametersAcceptor;
 
 	public function isCloneable(): TrinaryLogic;
 

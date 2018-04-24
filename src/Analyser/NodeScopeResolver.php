@@ -70,7 +70,6 @@ use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\UnionType;
-use PHPStan\Type\VerbosityLevel;
 
 class NodeScopeResolver
 {
@@ -652,7 +651,7 @@ class NodeScopeResolver
 			$scope = $scope->enterFunctionCall($node);
 		} elseif ($node instanceof MethodCall) {
 			if (
-				$scope->getType($node->var)->describe(VerbosityLevel::typeOnly()) === \Closure::class
+				!(new ObjectType(\Closure::class))->isSuperTypeOf($scope->getType($node->var))->no()
 				&& $node->name === 'call'
 				&& isset($node->args[0])
 			) {

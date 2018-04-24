@@ -25,9 +25,9 @@ class ArrayMapFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFuncti
 		}
 
 		$valueType = new MixedType();
-		$closure = $functionCall->args[0]->value;
-		if ($closure instanceof \PhpParser\Node\Expr\Closure) {
-			$valueType = $scope->getFunctionType($closure->returnType, $closure->returnType === null, false);
+		$callableType = $scope->getType($functionCall->args[0]->value);
+		if (!$callableType->isCallable()->no()) {
+			$valueType = $callableType->getCallableParametersAcceptor($scope)->getReturnType();
 		}
 
 		$arrayType = $scope->getType($functionCall->args[1]->value);

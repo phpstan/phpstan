@@ -2,6 +2,9 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ParametersAcceptor;
+use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Traits\MaybeIterableTypeTrait;
 use PHPStan\Type\Traits\MaybeObjectTypeTrait;
@@ -56,6 +59,11 @@ class CallableType implements CompoundType
 	public function isCallable(): TrinaryLogic
 	{
 		return TrinaryLogic::createYes();
+	}
+
+	public function getCallableParametersAcceptor(Scope $scope): ParametersAcceptor
+	{
+		return new TrivialParametersAcceptor();
 	}
 
 	public function toNumber(): Type

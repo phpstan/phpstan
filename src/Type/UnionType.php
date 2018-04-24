@@ -5,7 +5,9 @@ namespace PHPStan\Type;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassConstantReflection;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\PropertyReflection;
+use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantBooleanType;
 
@@ -297,6 +299,15 @@ class UnionType implements CompoundType, StaticResolvableType
 		return $this->unionResults(function (Type $type): TrinaryLogic {
 			return $type->isCallable();
 		});
+	}
+
+	public function getCallableParametersAcceptor(Scope $scope): ParametersAcceptor
+	{
+		if ($this->isCallable()->no()) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		return new TrivialParametersAcceptor();
 	}
 
 	public function isCloneable(): TrinaryLogic

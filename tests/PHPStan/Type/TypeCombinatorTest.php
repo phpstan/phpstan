@@ -630,6 +630,22 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				BooleanType::class,
 				'bool',
 			],
+			[
+				[
+					new ObjectType(\Closure::class),
+					new ClosureType(new MixedType()),
+				],
+				ObjectType::class,
+				'Closure',
+			],
+			[
+				[
+					new ClosureType(new MixedType()),
+					new CallableType(),
+				],
+				CallableType::class,
+				'callable',
+			],
 		];
 	}
 

@@ -6,8 +6,10 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ClassConstantReflection;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension;
 use PHPStan\Reflection\PropertyReflection;
+use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantStringType;
@@ -373,22 +375,49 @@ class ObjectType implements TypeWithClassName
 
 	public function isCallable(): TrinaryLogic
 	{
+		$parametersAcceptor = $this->findCallableParametersAcceptor();
+		if ($parametersAcceptor === null) {
+			return TrinaryLogic::createNo();
+		}
+
+		if ($parametersAcceptor instanceof TrivialParametersAcceptor) {
+			return TrinaryLogic::createMaybe();
+		}
+
+		return TrinaryLogic::createYes();
+	}
+
+	public function getCallableParametersAcceptor(Scope $scope): ParametersAcceptor
+	{
+		if ($this->className === \Closure::class) {
+			return new TrivialParametersAcceptor();
+		}
+		$parametersAcceptor = $this->findCallableParametersAcceptor();
+		if ($parametersAcceptor === null) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		return $parametersAcceptor;
+	}
+
+	private function findCallableParametersAcceptor(): ?ParametersAcceptor
+	{
 		$broker = Broker::getInstance();
 
 		if (!$broker->hasClass($this->className)) {
-			return TrinaryLogic::createMaybe();
+			return new TrivialParametersAcceptor();
 		}
 
 		$classReflection = $broker->getClass($this->className);
 		if ($classReflection->hasNativeMethod('__invoke')) {
-			return TrinaryLogic::createYes();
+			return $classReflection->getNativeMethod('__invoke');
 		}
 
 		if (!$classReflection->getNativeReflection()->isFinal()) {
-			return TrinaryLogic::createMaybe();
+			return new TrivialParametersAcceptor();
 		}
 
-		return TrinaryLogic::createNo();
+		return null;
 	}
 
 	public function isCloneable(): TrinaryLogic
