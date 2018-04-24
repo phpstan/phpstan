@@ -36,6 +36,8 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				new InputOption('autoload-file', 'a', InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path'),
 				new InputOption('errorFormat', null, InputOption::VALUE_REQUIRED, 'Format in which to print the result of the analysis', 'table'),
 				new InputOption('memory-limit', null, InputOption::VALUE_REQUIRED, 'Memory limit for analysis'),
+				new InputOption('cache', null, InputOption::VALUE_NONE, 'Enable Path Level Caching'),
+				new InputOption('cache-clear', null, InputOption::VALUE_NONE, 'Force reloading of files.')
 			]);
 	}
 
@@ -219,7 +221,9 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				$consoleStyle,
 				$errorFormatter,
 				$defaultLevelUsed,
-				$input->getOption('debug')
+				$input->getOption('debug'),
+				$input->getOption('cache'),
+				$input->getOption('cache-clear')
 			),
 			$memoryLimitFile
 		);
