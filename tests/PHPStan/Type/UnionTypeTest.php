@@ -515,7 +515,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 		return [
 			[
 				new UnionType([new CallableType(), new NullType()]),
-				new ClosureType(new StringType()),
+				new ClosureType([], new StringType(), false),
 				true,
 			],
 		];

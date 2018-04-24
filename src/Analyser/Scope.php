@@ -26,7 +26,9 @@ use PHPStan\Reflection\ClassConstantReflection;
 use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\Native\NativeParameterReflection;
 use PHPStan\Reflection\ParametersAcceptor;
+use PHPStan\Reflection\PassedByReference;
 use PHPStan\Reflection\Php\PhpFunctionFromParserNodeReflection;
 use PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection;
 use PHPStan\Reflection\PropertyReflection;
@@ -812,8 +814,31 @@ class Scope
 		} elseif ($node instanceof DNumber) {
 			return new ConstantFloatType($node->value);
 		} elseif ($node instanceof Expr\Closure) {
+			$parameters = [];
+			$isVariadic = false;
+			$optional = false;
+			foreach ($node->params as $param) {
+				if ($param->default !== null) {
+					$optional = true;
+				}
+				if ($param->variadic) {
+					$isVariadic = true;
+				}
+				$parameters[] = new NativeParameterReflection(
+					$param->name,
+					$optional,
+					$this->getFunctionType($param->type, $param->type === null, $param->variadic),
+					$param->byRef
+						? PassedByReference::createCreatesNewVariable()
+						: PassedByReference::createNo(),
+					$param->variadic
+				);
+			}
+
 			return new ClosureType(
-				$this->getFunctionType($node->returnType, $node->returnType === null, false)
+				$parameters,
+				$this->getFunctionType($node->returnType, $node->returnType === null, false),
+				$isVariadic
 			);
 		} elseif ($node instanceof New_) {
 			if ($node->class instanceof Name) {
