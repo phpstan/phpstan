@@ -3,3 +3,4 @@ includes:
 
 parameters:
 	checkUnionTypes: true
+	reportMaybes: true
