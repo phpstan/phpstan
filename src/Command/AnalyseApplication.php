@@ -96,7 +96,7 @@ class AnalyseApplication
 			} elseif (is_file($path)) {
 				$files[] = $this->fileHelper->normalizePath($path);
 			} else {
-				$files = $files + $this->loadFiles($path, $onlyFiles, $enableCache, $clearCache);
+				$files = $files + $this->loadFiles($path, $onlyFiles, $enableCache, $clearCache, $style, $debug);
 			}
 		}
 
@@ -163,9 +163,12 @@ class AnalyseApplication
 		);
 	}
 
-	private function loadFiles(string $path, &$onlyFiles, bool $enableCache, bool $clearCache): array
+	private function loadFiles(string $path, &$onlyFiles, bool $enableCache, bool $clearCache, OutputStyle $style, bool $debug): array
 	{
 		if ($enableCache && !$clearCache && ($files = $this->cache->load('analyse-files-' . $path)) !== null) {
+			if ($debug) {
+				$style->writeln(sprintf('Loaded %d files from cache', count($files)));
+			}
 			return $files;
 		}
 
