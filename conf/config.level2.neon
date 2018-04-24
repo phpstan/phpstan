@@ -12,3 +12,11 @@ rules:
 	- PHPStan\Rules\Operators\InvalidUnaryOperationRule
 	- PHPStan\Rules\PhpDoc\IncompatiblePhpDocTypeRule
 	- PHPStan\Rules\PhpDoc\InvalidPhpDocTagValueRule
+
+services:
+	-
+		class: PHPStan\Rules\Functions\CallCallablesRule
+		arguments:
+			reportMaybes: %reportMaybes%
+		tags:
+			- phpstan.rules.rule

@@ -16,6 +16,7 @@ parameters:
 	checkNullables: false
 	checkThisOnly: true
 	checkUnionTypes: false
+	reportMaybes: false
 	polluteScopeWithLoopInitialAssignments: true
 	polluteCatchScopeWithTryAssignments: false
 	ignoreErrors: []
