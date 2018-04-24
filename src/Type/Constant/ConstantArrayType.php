@@ -2,7 +2,10 @@
 
 namespace PHPStan\Type\Constant;
 
+use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ParametersAcceptor;
+use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
@@ -124,16 +127,52 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 	public function isCallable(): TrinaryLogic
 	{
-		if (count($this->keyTypes) !== 2) {
+		$classAndMethod = $this->findClassNameAndMethod();
+		if ($classAndMethod === null) {
 			return TrinaryLogic::createNo();
+		}
+
+		[$className, $methodName] = $classAndMethod;
+		if ($className === null && $methodName === null) {
+			return TrinaryLogic::createMaybe();
+		}
+
+		return TrinaryLogic::createYes();
+	}
+
+	public function getCallableParametersAcceptor(Scope $scope): ParametersAcceptor
+	{
+		$classAndMethod = $this->findClassNameAndMethod();
+		if ($classAndMethod === null) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		[$className, $methodName] = $classAndMethod;
+		if ($className === null && $methodName === null) {
+			return new TrivialParametersAcceptor();
+		}
+
+		$broker = Broker::getInstance();
+		$classReflection = $broker->getClass($className);
+
+		return $classReflection->getMethod($methodName, $scope);
+	}
+
+	/**
+	 * @return string[]|null[]|null
+	 */
+	private function findClassNameAndMethod(): ?array
+	{
+		if (count($this->keyTypes) !== 2) {
+			return null;
 		}
 
 		if ($this->keyTypes[0]->isSuperTypeOf(new ConstantIntegerType(0))->no()) {
-			return TrinaryLogic::createNo();
+			return null;
 		}
 
 		if ($this->keyTypes[1]->isSuperTypeOf(new ConstantIntegerType(1))->no()) {
-			return TrinaryLogic::createNo();
+			return null;
 		}
 
 		$classOrObject = $this->valueTypes[0];
@@ -146,27 +185,31 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			$className = $classOrObject->getClassName();
 
 		} else {
-			return TrinaryLogic::createMaybe();
+			return [null, null];
 		}
 
 		$broker = Broker::getInstance();
 		if (!$broker->hasClass($className)) {
-			return TrinaryLogic::createNo();
+			return [null, null];
 		}
 
 		if (!($method instanceof ConstantStringType)) {
-			return TrinaryLogic::createMaybe();
+			return [null, null];
 		}
 
 		$methodName = $method->getValue();
+		$classReflection = $broker->getClass($className);
 
-		if (!$broker->getClass($className)->hasMethod($methodName)) {
-			return TrinaryLogic::createNo();
+		if (!$classReflection->hasMethod($methodName)) {
+			if (!$classReflection->getNativeReflection()->isFinal()) {
+				return [null, null];
+			}
+
+			return null;
 		}
 
-		return TrinaryLogic::createYes();
+		return [$className, $methodName];
 	}
-
 
 	public function getOffsetValueType(Type $offsetType): Type
 	{

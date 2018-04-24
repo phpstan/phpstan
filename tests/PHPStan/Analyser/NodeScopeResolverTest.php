@@ -5496,6 +5496,53 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataCallables(): array
+	{
+		return [
+			[
+				'int',
+				'$foo()',
+			],
+			[
+				'string',
+				'$closure()',
+			],
+			[
+				'Callables\\Bar',
+				'$arrayWithStaticMethod()',
+			],
+			[
+				'float',
+				'$stringWithStaticMethod()',
+			],
+			[
+				'float',
+				'$arrayWithInstanceMethod()',
+			],
+			[
+				'mixed',
+				'$closureObject()',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataCallables
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testCallables(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/callables.php',
+			$description,
+			$expression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $description,

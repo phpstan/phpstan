@@ -34,6 +34,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
+use PHPStan\Type\ClosureType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
@@ -811,7 +812,9 @@ class Scope
 		} elseif ($node instanceof DNumber) {
 			return new ConstantFloatType($node->value);
 		} elseif ($node instanceof Expr\Closure) {
-			return new ObjectType('Closure');
+			return new ClosureType(
+				$this->getFunctionType($node->returnType, $node->returnType === null, false)
+			);
 		} elseif ($node instanceof New_) {
 			if ($node->class instanceof Name) {
 				if (
@@ -1113,7 +1116,16 @@ class Scope
 			}
 		}
 
-		if ($node instanceof FuncCall && $node->name instanceof Name) {
+		if ($node instanceof FuncCall) {
+			if ($node->name instanceof Expr) {
+				$calledOnType = $this->getType($node->name);
+				if ($calledOnType->isCallable()->no()) {
+					return new ErrorType();
+				}
+
+				return $calledOnType->getCallableParametersAcceptor($this)->getReturnType();
+			}
+
 			if (!$this->broker->hasFunction($node->name, $this)) {
 				return new ErrorType();
 			}

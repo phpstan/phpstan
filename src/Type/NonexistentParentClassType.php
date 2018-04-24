@@ -7,6 +7,7 @@ use PHPStan\Reflection\ClassConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Traits\NonCallableTypeTrait;
 use PHPStan\Type\Traits\NonIterableTypeTrait;
 use PHPStan\Type\Traits\NonOffsetAccessibleTypeTrait;
 use PHPStan\Type\Traits\TruthyBooleanTypeTrait;
@@ -15,6 +16,7 @@ class NonexistentParentClassType implements Type
 {
 
 	use JustNullableTypeTrait;
+	use NonCallableTypeTrait;
 	use NonIterableTypeTrait;
 	use NonOffsetAccessibleTypeTrait;
 	use TruthyBooleanTypeTrait;
@@ -67,11 +69,6 @@ class NonexistentParentClassType implements Type
 	public function getConstant(string $constantName): ClassConstantReflection
 	{
 		throw new \PHPStan\ShouldNotHappenException();
-	}
-
-	public function isCallable(): TrinaryLogic
-	{
-		return TrinaryLogic::createNo();
 	}
 
 	public function isCloneable(): TrinaryLogic
