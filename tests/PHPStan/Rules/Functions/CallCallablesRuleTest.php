@@ -14,7 +14,7 @@ class CallCallablesRuleTest extends \PHPStan\Testing\RuleTestCase
 	{
 		$this->analyse([__DIR__ . '/data/callables.php'], [
 			[
-				'Trying to invoke string but it might not a callable.',
+				'Trying to invoke string but it might not be a callable.',
 				17,
 			],
 			[

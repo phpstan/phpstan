@@ -48,7 +48,7 @@ class CallCallablesRule implements \PHPStan\Rules\Rule
 			&& !$exprType instanceof MixedType
 		) {
 			return [
-				sprintf('Trying to invoke %s but it might not a callable.', $exprType->describe(VerbosityLevel::value())),
+				sprintf('Trying to invoke %s but it might not be a callable.', $exprType->describe(VerbosityLevel::value())),
 			];
 		}
 
