@@ -4,6 +4,7 @@ namespace PHPStan\Command;
 
 use PHPStan\Analyser\Analyser;
 use PHPStan\Analyser\Error;
+use PHPStan\Cache\Cache;
 use PHPStan\Command\ErrorFormatter\ErrorFormatter;
 use PHPStan\File\FileExcluder;
 use PHPStan\File\FileHelper;
@@ -28,6 +29,9 @@ class AnalyseApplication
 	/** @var \PHPStan\File\FileExcluder */
 	private $fileExcluder;
 
+	/** @var \PHPStan\Cache\Cache */
+	private $cache;
+
 	/**
 	 * @param Analyser $analyser
 	 * @param string $memoryLimitFile
@@ -40,7 +44,8 @@ class AnalyseApplication
 		string $memoryLimitFile,
 		FileHelper $fileHelper,
 		array $fileExtensions,
-		FileExcluder $fileExcluder
+		FileExcluder $fileExcluder,
+		Cache $cache
 	)
 	{
 		$this->analyser = $analyser;
@@ -48,6 +53,7 @@ class AnalyseApplication
 		$this->fileExtensions = $fileExtensions;
 		$this->fileHelper = $fileHelper;
 		$this->fileExcluder = $fileExcluder;
+		$this->cache = $cache;
 	}
 
 	/**
@@ -56,6 +62,8 @@ class AnalyseApplication
 	 * @param \PHPStan\Command\ErrorFormatter\ErrorFormatter $errorFormatter
 	 * @param bool $defaultLevelUsed
 	 * @param bool $debug
+	 * @param bool $enableCache
+	 * @param bool $clearCache
 	 * @return int Error code.
 	 */
 	public function analyse(
@@ -63,7 +71,9 @@ class AnalyseApplication
 		OutputStyle $style,
 		ErrorFormatter $errorFormatter,
 		bool $defaultLevelUsed,
-		bool $debug
+		bool $debug,
+		bool $enableCache,
+		bool $clearCache
 	): int
 	{
 		if (count($paths) === 0) {
@@ -86,12 +96,7 @@ class AnalyseApplication
 			} elseif (is_file($path)) {
 				$files[] = $this->fileHelper->normalizePath($path);
 			} else {
-				$finder = new Finder();
-				$finder->followLinks();
-				foreach ($finder->files()->name('*.{' . implode(',', $this->fileExtensions) . '}')->in($path) as $fileInfo) {
-					$files[] = $this->fileHelper->normalizePath($fileInfo->getPathname());
-					$onlyFiles = false;
-				}
+				$files = $files + $this->loadFiles($path, $onlyFiles, $enableCache, $clearCache);
 			}
 		}
 
@@ -156,6 +161,28 @@ class AnalyseApplication
 			),
 			$style
 		);
+	}
+
+	private function loadFiles(string $path, &$onlyFiles, bool $enableCache, bool $clearCache): array
+	{
+		if ($enableCache && !$clearCache && ($files = $this->cache->load('analyse-files-' . $path)) !== null) {
+			return $files;
+		}
+
+		$files = [];
+		$finder = new Finder();
+		$finder->followLinks();
+		/** @var \SplFileInfo $fileInfo */
+		foreach ($finder->files()->name('*.{' . implode(',', $this->fileExtensions) . '}')->in($path) as $fileInfo) {
+			$files[] = $this->fileHelper->normalizePath($fileInfo->getPathname());
+			$onlyFiles = false;
+		}
+
+		if ($enableCache) {
+			$this->cache->save('analyse-files-' . $path, $files);
+		}
+
+		return $files;
 	}
 
 	private function updateMemoryLimitFile(): void
