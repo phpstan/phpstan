@@ -660,4 +660,11 @@ class CheckIsCallable
 		$this->test('Test\CheckIsCallable::test2');
 	}
 
+	public function testClosure(\Closure $closure)
+	{
+		$this->testClosure(function () {
+
+		});
+	}
+
 }
