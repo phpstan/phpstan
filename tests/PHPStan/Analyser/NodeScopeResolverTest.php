@@ -834,7 +834,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				$testScope,
 				'arrayOverwrittenInForLoop',
-				'array<\'a\'|\'b\', \'bar\'|\'foo\'|int>',
+				'array(\'a\' => int, \'b\' => \'bar\'|\'foo\')',
 			],
 			[
 				$testScope,
@@ -2518,6 +2518,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'bool',
 				'$integers[0] >= $integers[1] - 1',
+			],
+			[
+				'array(\'foo\' => array(\'foo\' => array(\'foo\' => \'bar\')), \'bar\' => array(), \'baz\' => array(\'lorem\' => array()))',
+				'$nestedArray',
 			],
 		];
 	}
@@ -5558,6 +5562,33 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/callables.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataArrayKeysInBranches(): array
+	{
+		return [
+			[
+				'array(\'i\' => int, \'j\' => int, \'k\' => int, \'l\' => 1, \'m\' => 5, \'key\' => DateTimeImmutable)',
+				'$array',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataArrayKeysInBranches
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testArrayKeysInBranches(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/array-keys-branches.php',
 			$description,
 			$expression
 		);

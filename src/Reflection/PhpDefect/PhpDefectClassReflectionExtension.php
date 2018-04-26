@@ -10,7 +10,7 @@ use PHPStan\Reflection\PropertyReflection;
 class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExtension
 {
 
-	/** @var string[][] */
+	/** @var array<string, array<string, string>> */
 	private static $defaultProperties = [
 		\DateInterval::class => [
 			'y' => 'int',

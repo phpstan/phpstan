@@ -47,7 +47,13 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 		parent::__construct(
 			count($keyTypes) > 0 ? TypeCombinator::union(...$keyTypes) : new MixedType(),
-			count($valueTypes) > 0 ? TypeCombinator::union(...$valueTypes) : new MixedType(),
+			count($valueTypes) > 0 ? TypeCombinator::union(...array_map(function (Type $valueType): Type {
+				if ($valueType instanceof self) {
+					return $valueType->generalize();
+				}
+
+				return $valueType;
+			}, $valueTypes)) : new MixedType(),
 			true
 		);
 
@@ -313,6 +319,35 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		}
 
 		return new self($this->keyTypes, $valueTypes, $this->nextAutoIndex);
+	}
+
+	public function intersectWith(ArrayType $otherArray): ArrayType
+	{
+		if (!$otherArray instanceof self) {
+			return parent::intersectWith($otherArray);
+		}
+
+		$newArray = new self([], []);
+		foreach ($this->getKeyTypes() as $i => $keyType) {
+			$otherValueType = $otherArray->getOffsetValueType($keyType);
+			if ($otherValueType instanceof ErrorType) {
+				continue;
+			}
+			$newArray = $newArray->setOffsetValueType($keyType, TypeCombinator::union(
+				$this->valueTypes[$i],
+				$otherValueType
+			));
+		}
+
+		foreach ($otherArray->getKeyTypes() as $otherKeyType) {
+			if (!$this->getOffsetValueType($otherKeyType) instanceof ErrorType) {
+				continue;
+			}
+
+			$newArray = $newArray->unsetOffset($otherKeyType);
+		}
+
+		return $newArray;
 	}
 
 	/**

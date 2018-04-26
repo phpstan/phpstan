@@ -1773,10 +1773,19 @@ class Scope
 		$variableTypes = $this->getVariableTypes();
 		$variableTypes[$variableName] = new VariableTypeHolder($type, $certainty);
 
-		$exprString = $this->printer->prettyPrintExpr(new Variable($variableName));
+		$variableString = $this->printer->prettyPrintExpr(new Variable($variableName));
 		$moreSpecificTypes = $this->moreSpecificTypes;
-		if (array_key_exists($exprString, $moreSpecificTypes)) {
-			unset($moreSpecificTypes[$exprString]);
+		foreach ($moreSpecificTypes as $key => $type) {
+			$matches = \Nette\Utils\Strings::match($key, '#^(\$[a-zA-Z_][a-zA-Z_0-9]+)#');
+			if ($matches === null) {
+				continue;
+			}
+
+			if ($matches[1] !== $variableString) {
+				continue;
+			}
+
+			unset($moreSpecificTypes[$key]);
 		}
 
 		return new self(
@@ -2031,35 +2040,43 @@ class Scope
 	{
 		$exprString = $this->printer->prettyPrintExpr($expr);
 
-		$scope = $this->addMoreSpecificTypes([
-			$exprString => $type,
-		]);
-
 		if ($expr instanceof Variable && is_string($expr->name)) {
 			$variableName = $expr->name;
 
-			$variableTypes = $scope->getVariableTypes();
+			$variableTypes = $this->getVariableTypes();
 			$variableTypes[$variableName] = VariableTypeHolder::createYes($type);
 
+			$moreSpecificTypes = $this->moreSpecificTypes;
+			$moreSpecificTypes[$exprString] = $type;
+
 			return new self(
-				$scope->broker,
-				$scope->printer,
-				$scope->typeSpecifier,
-				$scope->context,
-				$scope->isDeclareStrictTypes(),
-				$scope->getFunction(),
-				$scope->getNamespace(),
+				$this->broker,
+				$this->printer,
+				$this->typeSpecifier,
+				$this->context,
+				$this->isDeclareStrictTypes(),
+				$this->getFunction(),
+				$this->getNamespace(),
 				$variableTypes,
-				$scope->moreSpecificTypes,
-				$scope->inClosureBindScopeClass,
-				$scope->getAnonymousFunctionReturnType(),
-				$scope->getInFunctionCall(),
-				$scope->isNegated(),
-				$scope->inFirstLevelStatement
+				$moreSpecificTypes,
+				$this->inClosureBindScopeClass,
+				$this->getAnonymousFunctionReturnType(),
+				$this->getInFunctionCall(),
+				$this->isNegated(),
+				$this->inFirstLevelStatement
 			);
+		} elseif ($expr instanceof Expr\ArrayDimFetch && $expr->dim !== null) {
+			$arrayType = $this->getType($expr->var);
+			if ($arrayType instanceof ConstantArrayType) {
+				$dimType = $this->getType($expr->dim);
+				$arrayType = $arrayType->setOffsetValueType($dimType, $type);
+				return $this->specifyExpressionType($expr->var, $arrayType);
+			}
 		}
 
-		return $scope;
+		return $this->addMoreSpecificTypes([
+			$exprString => $type,
+		]);
 	}
 
 	public function unspecifyExpressionType(Expr $expr): self

@@ -397,3 +397,34 @@ class ConstantAssignOperatorInWhile
 	}
 
 }
+
+class NullArrayKey
+{
+
+	public function doFoo()
+	{
+		$array = [];
+		$array['key'] = null;
+		if ($array['key'] !== null) {
+
+		}
+	}
+
+}
+
+class OverwriteSpecifiedVariable
+{
+
+	public function doFoo()
+	{
+		/** @var int[] $array */
+		$array = doFoo();
+		if ($array['key'] === 1) {
+			$array = [
+				'key' => 0,
+			];
+			$array['key'] === 0;
+		}
+	}
+
+}

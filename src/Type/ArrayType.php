@@ -123,6 +123,15 @@ class ArrayType implements StaticResolvableType
 		return new self($this->keyType, $itemType);
 	}
 
+	public function intersectWith(self $otherArray): self
+	{
+		return new self(
+			TypeCombinator::union($this->getIterableKeyType(), $otherArray->getIterableKeyType()),
+			TypeCombinator::union($this->getIterableValueType(), $otherArray->getIterableValueType()),
+			$this->isItemTypeInferredFromLiteralArray() || $otherArray->isItemTypeInferredFromLiteralArray()
+		);
+	}
+
 	public function getKeysArray(): self
 	{
 		return new self(new IntegerType(), $this->keyType, true);
