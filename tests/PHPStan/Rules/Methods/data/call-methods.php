@@ -668,3 +668,22 @@ class CheckIsCallable
 	}
 
 }
+
+class ArrayKeysNull
+{
+
+	public function doFoo()
+	{
+		$array = [];
+
+		/** @var \DateTimeImmutable|null $nullableDateTime */
+		$nullableDateTime = doFoo();
+		$array['key'] = $nullableDateTime;
+		if ($array['key'] === null)
+		{
+			$array['key'] = new \DateTimeImmutable();
+			echo $array['key']->format('j. n. Y');
+		}
+	}
+
+}

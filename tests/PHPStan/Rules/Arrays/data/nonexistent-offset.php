@@ -56,4 +56,21 @@ class Foo
 		echo $array['b'];
 	}
 
+	public function arrayAfterForeaches()
+	{
+		$result = [
+			'id' => 'blabla', // string
+			'allowedRoomCounter' => 0,
+			'roomCounter' => 0,
+		];
+
+		foreach ([1, 2] as $x) {
+			$result['allowedRoomCounter'] += $x;
+		}
+
+		foreach ([3, 4] as $x) {
+			$result['roomCounter'] += $x;
+		}
+	}
+
 }

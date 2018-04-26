@@ -104,11 +104,7 @@ class TypeCombinator
 				}
 
 				if ($types[$i] instanceof ArrayType && $types[$j] instanceof ArrayType) {
-					$types[$i] = new ArrayType(
-						self::union($types[$i]->getIterableKeyType(), $types[$j]->getIterableKeyType()),
-						self::union($types[$i]->getIterableValueType(), $types[$j]->getIterableValueType()),
-						$types[$i]->isItemTypeInferredFromLiteralArray() || $types[$j]->isItemTypeInferredFromLiteralArray()
-					);
+					$types[$i] = $types[$i]->intersectWith($types[$j]);
 					array_splice($types, $j, 1);
 					continue 2;
 				}

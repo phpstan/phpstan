@@ -1270,7 +1270,7 @@ class NodeScopeResolver
 				&& $node->var->dim !== null
 			) {
 				$arrayType = $scope->getType($node->var->var);
-				if ($arrayType instanceof ConstantArrayType) {
+				if ($arrayType instanceof ArrayType) {
 					$dimType = $scope->getType($node->var->dim);
 					$valueType = $arrayType->getOffsetValueType($dimType);
 					if ($valueType instanceof ConstantScalarType) {
@@ -1328,16 +1328,31 @@ class NodeScopeResolver
 					if (
 						$node->var instanceof Variable
 						&& is_string($node->var->name)
-						&& !$scope->hasVariableType($node->var->name)->yes()
+						&& !$scope->hasVariableType($node->var->name)->no()
 					) {
-						continue;
-					}
-					$type = $scope->getType($node);
-					if (
-						$lookForAssignsSettings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()
-						&& $type instanceof ConstantType
-					) {
-						$type = $type->generalize();
+						$type = $scope->getType($node);
+
+						if (
+							$lookForAssignsSettings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()
+							&& $type instanceof ConstantType
+						) {
+							$type = $type->generalize();
+						}
+					} elseif ($node->var instanceof ArrayDimFetch) {
+						$type = $scope->getType($node);
+						if ($lookForAssignsSettings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()) {
+							if ($type instanceof ConstantType) {
+								$type = $type->generalize();
+							} elseif ($type instanceof UnionType) {
+								$type = TypeCombinator::union(...array_map(function (Type $type): Type {
+									if ($type instanceof ConstantType) {
+										return $type->generalize();
+									}
+
+									return $type;
+								}, $type->getTypes()));
+							}
+						}
 					}
 				}
 

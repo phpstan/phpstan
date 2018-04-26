@@ -5,4 +5,16 @@ $strings = ['foo', 'bar'];
 $emptyArray = [];
 $mixedArray = [0, 'foo'];
 
+$nestedArray = [
+	'foo' => [
+		'foo' => [
+			'foo' => 'bar',
+		],
+	],
+	'bar' => [],
+	'baz' => [
+		'lorem' => [],
+	],
+];
+
 die;
