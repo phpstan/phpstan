@@ -52,6 +52,9 @@ class Foo
 		$yetAnotherAnotherCallables = $callables;
 		$world = 'world';
 		$yetAnotherAnotherCallables[] = ['Foo', "Hello $world"];
+
+		$implicitlyCreatedArray['foo'] = ['bar'];
+		$implicitlyCreatedArray['bar'] = 'baz';
 	}
 
 	public static function classMethod()
