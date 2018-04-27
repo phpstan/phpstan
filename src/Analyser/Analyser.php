@@ -104,7 +104,9 @@ class Analyser
 				];
 			}
 			try {
-				require_once $this->bootstrapFile;
+				(function ($file): void {
+					require_once $file;
+				})($this->bootstrapFile);
 			} catch (\Throwable $e) {
 				return [$e->getMessage()];
 			}
