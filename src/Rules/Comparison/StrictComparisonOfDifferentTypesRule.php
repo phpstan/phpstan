@@ -59,47 +59,26 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 		}
 
 		$nodeType = $scope->getType($node);
-		if (
-			$nodeType instanceof ConstantBooleanType
-			&& (
-				(
-					$node instanceof Node\Expr\BinaryOp\Identical
-					&& !$nodeType->getValue()
-				) || (
-					$node instanceof Node\Expr\BinaryOp\NotIdentical
-					&& $nodeType->getValue()
-				)
-			)
-		) {
+		if (!$nodeType instanceof ConstantBooleanType) {
+			return [];
+		}
+
+		if (!$nodeType->getValue()) {
 			return [
 				sprintf(
-					'Strict comparison using %s between %s and %s will always evaluate to %s.',
+					'Strict comparison using %s between %s and %s will always evaluate to false.',
 					$node instanceof Node\Expr\BinaryOp\Identical ? '===' : '!==',
 					$leftType->describe(VerbosityLevel::value()),
-					$rightType->describe(VerbosityLevel::value()),
-					$node instanceof Node\Expr\BinaryOp\Identical ? 'false' : 'true'
+					$rightType->describe(VerbosityLevel::value())
 				),
 			];
-		} elseif (
-			$this->checkAlwaysTrueStrictComparison
-			&& $nodeType instanceof ConstantBooleanType
-			&& (
-				(
-					$node instanceof Node\Expr\BinaryOp\Identical
-					&& $nodeType->getValue()
-				) || (
-					$node instanceof Node\Expr\BinaryOp\NotIdentical
-					&& !$nodeType->getValue()
-				)
-			)
-		) {
+		} elseif ($this->checkAlwaysTrueStrictComparison) {
 			return [
 				sprintf(
-					'Strict comparison using %s between %s and %s will always evaluate to %s.',
+					'Strict comparison using %s between %s and %s will always evaluate to true.',
 					$node instanceof Node\Expr\BinaryOp\Identical ? '===' : '!==',
 					$leftType->describe(VerbosityLevel::value()),
-					$rightType->describe(VerbosityLevel::value()),
-					$node instanceof Node\Expr\BinaryOp\Identical ? 'true' : 'false'
+					$rightType->describe(VerbosityLevel::value())
 				),
 			];
 		}

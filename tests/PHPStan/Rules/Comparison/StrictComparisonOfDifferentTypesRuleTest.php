@@ -170,10 +170,6 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					11,
 				],
 				[
-					'Strict comparison using !== between 1 and \'1\' will always evaluate to true.',
-					12,
-				],
-				[
 					'Strict comparison using === between 1 and null will always evaluate to false.',
 					14,
 				],
@@ -206,44 +202,16 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					69,
 				],
 				[
-					'Strict comparison using !== between string and null will always evaluate to true.',
-					76,
-				],
-				[
-					'Strict comparison using !== between StrictComparison\Foo|null and 1 will always evaluate to true.',
-					88,
-				],
-				[
 					'Strict comparison using === between 1|2|3 and null will always evaluate to false.',
 					98,
-				],
-				[
-					'Strict comparison using !== between StrictComparison\Foo|null and 1 will always evaluate to true.',
-					130,
 				],
 				[
 					'Strict comparison using === between array and null will always evaluate to false.',
 					140,
 				],
 				[
-					'Strict comparison using !== between StrictComparison\Foo|null and 1 will always evaluate to true.',
-					154,
-				],
-				[
 					'Strict comparison using === between array and null will always evaluate to false.',
 					164,
-				],
-				[
-					'Strict comparison using !== between StrictComparison\Node|null and false will always evaluate to true.',
-					212,
-				],
-				[
-					'Strict comparison using !== between StrictComparison\Node|null and false will always evaluate to true.',
-					255,
-				],
-				[
-					'Strict comparison using !== between stdClass and null will always evaluate to true.',
-					271,
 				],
 				[
 					'Strict comparison using === between 1 and 2 will always evaluate to false.',
@@ -288,6 +256,10 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 				[
 					'Strict comparison using === between float and \'string\' will always evaluate to false.',
 					394,
+				],
+				[
+					'Strict comparison using !== between null and null will always evaluate to false.',
+					408,
 				],
 			]
 		);
