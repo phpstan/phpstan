@@ -645,10 +645,15 @@ class Scope
 		}
 
 		if ($node instanceof Expr\BinaryOp\Coalesce) {
-			return TypeCombinator::union(
+			$type = TypeCombinator::union(
 				TypeCombinator::removeNull($this->getType($node->left)),
 				$this->getType($node->right)
 			);
+			if ($type instanceof ErrorType) {
+				return new MixedType();
+			}
+
+			return $type;
 		}
 
 		if ($node instanceof Expr\Clone_) {

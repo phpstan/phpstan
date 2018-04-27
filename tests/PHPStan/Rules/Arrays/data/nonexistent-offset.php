@@ -73,4 +73,12 @@ class Foo
 		}
 	}
 
+	public function errorType()
+	{
+		$array = [
+			'foo' => NONEXISTENT_CONSTANT,
+		];
+		echo $array['foo'];
+	}
+
 }

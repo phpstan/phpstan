@@ -229,8 +229,12 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		}
 
 		if (count($matchingValueTypes) > 0) {
-			return TypeCombinator::union(...$matchingValueTypes);
+			$type = TypeCombinator::union(...$matchingValueTypes);
+			if ($type instanceof ErrorType) {
+				return new MixedType();
+			}
 
+			return $type;
 		}
 
 		return new ErrorType(); // undefined offset
