@@ -1,6 +1,6 @@
 <?php
 
-function () {
+function (array $generalArray) {
 	$array = [
 		'i' => 0,
 		'j' => 0,
@@ -14,6 +14,10 @@ function () {
 	$array['key'] = $nullableDateTime;
 	if ($array['key'] === null) {
 		$array['key'] = new \DateTimeImmutable();
+	}
+
+	if ($generalArray['key'] === null) {
+		$generalArray['key'] = new \DateTimeImmutable();
 	}
 
 	foreach ([1, 2] as $x) {
