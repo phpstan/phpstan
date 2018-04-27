@@ -4,7 +4,7 @@ namespace PHPStan\Type;
 
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
-use PHPStan\Reflection\ClassConstantReflection;
+use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension;
@@ -274,7 +274,7 @@ class ObjectType implements TypeWithClassName
 		return $broker->getClass($this->className)->hasConstant($constantName);
 	}
 
-	public function getConstant(string $constantName): ClassConstantReflection
+	public function getConstant(string $constantName): ConstantReflection
 	{
 		$broker = Broker::getInstance();
 		return $broker->getClass($this->className)->getConstant($constantName);

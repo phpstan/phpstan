@@ -4,7 +4,7 @@ namespace PHPStan\Type;
 
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
-use PHPStan\Reflection\ClassConstantReflection;
+use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\PropertyReflection;
@@ -113,7 +113,7 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 		return $this->staticObjectType->hasConstant($constantName);
 	}
 
-	public function getConstant(string $constantName): ClassConstantReflection
+	public function getConstant(string $constantName): ConstantReflection
 	{
 		return $this->staticObjectType->getConstant($constantName);
 	}

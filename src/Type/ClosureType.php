@@ -3,7 +3,7 @@
 namespace PHPStan\Type;
 
 use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ClassConstantReflection;
+use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\PropertyReflection;
@@ -139,7 +139,7 @@ class ClosureType implements CompoundType, ParametersAcceptor
 		return $this->objectType->hasConstant($constantName);
 	}
 
-	public function getConstant(string $constantName): ClassConstantReflection
+	public function getConstant(string $constantName): ConstantReflection
 	{
 		return $this->objectType->getConstant($constantName);
 	}

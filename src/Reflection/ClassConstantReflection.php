@@ -2,7 +2,7 @@
 
 namespace PHPStan\Reflection;
 
-class ClassConstantReflection implements ClassMemberReflection
+class ClassConstantReflection implements ConstantReflection
 {
 
 	/** @var \PHPStan\Reflection\ClassReflection */

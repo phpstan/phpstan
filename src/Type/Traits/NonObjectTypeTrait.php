@@ -3,7 +3,7 @@
 namespace PHPStan\Type\Traits;
 
 use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ClassConstantReflection;
+use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
@@ -51,7 +51,7 @@ trait NonObjectTypeTrait
 		return false;
 	}
 
-	public function getConstant(string $constantName): ClassConstantReflection
+	public function getConstant(string $constantName): ConstantReflection
 	{
 		throw new \PHPStan\ShouldNotHappenException();
 	}

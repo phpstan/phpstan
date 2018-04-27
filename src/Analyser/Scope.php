@@ -22,9 +22,9 @@ use PhpParser\Node\Scalar\EncapsedStringPart;
 use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Broker\Broker;
-use PHPStan\Reflection\ClassConstantReflection;
 use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\Native\NativeParameterReflection;
 use PHPStan\Reflection\ParametersAcceptor;
@@ -791,6 +791,8 @@ class Scope
 
 				return $this->getTypeFromValue(constant($resolvedConstantName));
 			}
+
+			return new ErrorType();
 		} elseif ($node instanceof String_) {
 			return new ConstantStringType($node->value);
 		} elseif ($node instanceof Node\Scalar\Encapsed) {
@@ -1009,6 +1011,8 @@ class Scope
 				$constant = $constantClassType->getConstant($constantName);
 				return $this->getTypeFromValue($constant->getValue());
 			}
+
+			return new ErrorType();
 		}
 
 		$exprString = $this->printer->prettyPrintExpr($node);
@@ -2272,7 +2276,7 @@ class Scope
 		return $this->canAccessClassMember($methodReflection->getPrototype());
 	}
 
-	public function canAccessConstant(ClassConstantReflection $constantReflection): bool
+	public function canAccessConstant(ConstantReflection $constantReflection): bool
 	{
 		return $this->canAccessClassMember($constantReflection);
 	}

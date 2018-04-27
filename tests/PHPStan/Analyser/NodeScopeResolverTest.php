@@ -140,7 +140,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->union::FOO_CONSTANT',
 			],
 			[
-				'mixed',
+				'*ERROR*',
 				'$this->union::BAR_CONSTANT',
 			],
 			[
@@ -148,7 +148,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foo::FOO_CONSTANT',
 			],
 			[
-				'mixed',
+				'*ERROR*',
 				'$foo::BAR_CONSTANT',
 			],
 			[
@@ -4773,7 +4773,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foo',
 			],
 			[
-				'mixed',
+				'*ERROR*',
 				'NONEXISTENT_CONSTANT',
 			],
 		];

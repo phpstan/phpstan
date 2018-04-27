@@ -3,7 +3,8 @@
 namespace PHPStan\Type;
 
 use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ClassConstantReflection;
+use PHPStan\Reflection\ConstantReflection;
+use PHPStan\Reflection\Dummy\DummyConstantReflection;
 use PHPStan\Reflection\Dummy\DummyMethodReflection;
 use PHPStan\Reflection\Dummy\DummyPropertyReflection;
 use PHPStan\Reflection\MethodReflection;
@@ -94,12 +95,12 @@ class MixedType implements CompoundType
 
 	public function hasConstant(string $constantName): bool
 	{
-		return false;
+		return true;
 	}
 
-	public function getConstant(string $constantName): ClassConstantReflection
+	public function getConstant(string $constantName): ConstantReflection
 	{
-		throw new \PHPStan\ShouldNotHappenException();
+		return new DummyConstantReflection($constantName);
 	}
 
 	public function isCloneable(): TrinaryLogic

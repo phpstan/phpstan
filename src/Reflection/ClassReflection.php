@@ -34,7 +34,7 @@ class ClassReflection
 	/** @var \PHPStan\Reflection\PropertyReflection[] */
 	private $properties = [];
 
-	/** @var \PHPStan\Reflection\ClassConstantReflection[] */
+	/** @var \PHPStan\Reflection\ConstantReflection[] */
 	private $constants;
 
 	/** @var int[]|null */
@@ -352,7 +352,7 @@ class ClassReflection
 		return $this->getNativeReflection()->hasConstant($name);
 	}
 
-	public function getConstant(string $name): ClassConstantReflection
+	public function getConstant(string $name): ConstantReflection
 	{
 		if (!isset($this->constants[$name])) {
 			$reflectionConstant = $this->getNativeReflection()->getReflectionConstant($name);
