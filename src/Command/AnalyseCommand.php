@@ -158,7 +158,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				"PHPStan crashed in the previous run probably because of excessive memory consumption.\nIt consumed around %s of memory.\n\nTo avoid this issue, allow to use more memory with the --memory-limit option.",
 				$memoryLimitFileContents
 			));
-			unlink($memoryLimitFile);
+			@unlink($memoryLimitFile);
 		}
 		$errorFormat = $input->getOption('errorFormat');
 		$errorFormatterServiceName = sprintf('errorFormatter.%s', $errorFormat);
@@ -227,7 +227,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 	private function handleReturn(int $code, string $memoryLimitFile): int
 	{
-		unlink($memoryLimitFile);
+		@unlink($memoryLimitFile);
 		return $code;
 	}
 
@@ -239,7 +239,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 		pcntl_signal(SIGINT, function () use ($consoleStyle, $memoryLimitFile): void {
 			if (file_exists($memoryLimitFile)) {
-				unlink($memoryLimitFile);
+				@unlink($memoryLimitFile);
 			}
 			$consoleStyle->newLine();
 			exit(1);

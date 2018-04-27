@@ -39,7 +39,7 @@ class StaticTypeTest extends \PHPStan\Testing\TestCase
 		return [
 			[new StaticType('Closure'), TrinaryLogic::createYes()],
 			[new StaticType('Unknown'), TrinaryLogic::createMaybe()],
-			[new StaticType('DateTime'), TrinaryLogic::createNo()],
+			[new StaticType('DateTime'), TrinaryLogic::createMaybe()],
 		];
 	}
 

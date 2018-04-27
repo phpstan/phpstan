@@ -2,7 +2,6 @@
 
 namespace PHPStan\Type\Php;
 
-use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
@@ -29,12 +28,12 @@ class CallbackBasedFunctionReturnTypeExtension implements \PHPStan\Type\DynamicF
 			return $functionReflection->getReturnType();
 		}
 
-		$argumentValue = $functionCall->args[$argumentPosition]->value;
-		if (!$argumentValue instanceof Closure) {
+		$callbackType = $scope->getType($functionCall->args[$argumentPosition]->value);
+		if ($callbackType->isCallable()->no()) {
 			return $functionReflection->getReturnType();
 		}
 
-		return $scope->getFunctionType($argumentValue->returnType, $argumentValue->returnType === null, false);
+		return $callbackType->getCallableParametersAcceptor($scope)->getReturnType();
 	}
 
 }

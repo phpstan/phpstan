@@ -152,10 +152,6 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				277,
 			],
 			[
-				'Undefined variable: $variableInBitwiseAndAssign',
-				278,
-			],
-			[
 				'Variable $mightBeUndefinedInDoWhile might not be defined.',
 				282,
 			],

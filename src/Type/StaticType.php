@@ -6,6 +6,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ClassConstantReflection;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Traits\TruthyBooleanTypeTrait;
@@ -204,17 +205,12 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 
 	public function isCallable(): TrinaryLogic
 	{
-		$broker = Broker::getInstance();
+		return $this->staticObjectType->isCallable();
+	}
 
-		if (!$broker->hasClass($this->baseClass)) {
-			return TrinaryLogic::createMaybe();
-		}
-
-		if ($broker->getClass($this->baseClass)->hasMethod('__invoke')) {
-			return TrinaryLogic::createYes();
-		}
-
-		return TrinaryLogic::createNo();
+	public function getCallableParametersAcceptor(Scope $scope): ParametersAcceptor
+	{
+		return $this->staticObjectType->getCallableParametersAcceptor($scope);
 	}
 
 	public function isCloneable(): TrinaryLogic

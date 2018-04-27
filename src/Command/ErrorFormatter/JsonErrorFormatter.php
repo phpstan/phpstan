@@ -29,15 +29,15 @@ class JsonErrorFormatter implements ErrorFormatter
 			}
 			$errorsArray['files'][$fileSpecificError->getFile()]['errors']++;
 
-			array_push($errorsArray['files'][$fileSpecificError->getFile()]['messages'], [
+			$errorsArray['files'][$fileSpecificError->getFile()]['messages'][] = [
 				'message' => $fileSpecificError->getMessage(),
 				'line' => $fileSpecificError->getLine(),
 				'ignorable' => $fileSpecificError->canBeIgnored(),
-			]);
+			];
 		}
 
 		foreach ($analysisResult->getNotFileSpecificErrors() as $notFileSpecificError) {
-			array_push($errorsArray['errors'], $notFileSpecificError);
+			$errorsArray['errors'][] = $notFileSpecificError;
 		}
 
 		$json = Json::encode($errorsArray);

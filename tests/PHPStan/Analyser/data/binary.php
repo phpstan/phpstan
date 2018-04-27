@@ -1,49 +1,82 @@
 <?php
 
-/** @var float $float */
-$float = doFoo();
+namespace BinaryOperations;
 
-/** @var int $integer */
-$integer = doFoo();
+class Foo
+{
 
-/** @var bool $bool */
-$bool = doFoo();
+	public function doFoo()
+	{
+		/** @var float $float */
+		$float = doFoo();
 
-/** @var string $string */
-$string = doFoo();
+		/** @var int $integer */
+		$integer = doFoo();
 
-$fooString = 'foo';
+		/** @var bool $bool */
+		$bool = doFoo();
 
-/** @var string|null $stringOrNull */
-$stringOrNull = doFoo();
+		/** @var string $string */
+		$string = doFoo();
 
-$arrayOfIntegers = [$integer, $integer + 1, $integer + 2];
+		$fooString = 'foo';
 
-$foo = new Foo();
+		/** @var string|null $stringOrNull */
+		$stringOrNull = doFoo();
 
-$one = 1;
+		$arrayOfIntegers = [$integer, $integer + 1, $integer + 2];
 
-$array = [1, 2, 3];
+		$foo = new Foo();
 
-reset($array);
+		$one = 1;
 
-/** @var number $number */
-$number = doFoo();
+		$array = [1, 2, 3];
 
-/** @var int|null|bool $otherInteger */
-$otherInteger = doFoo();
+		reset($array);
 
-/** @var mixed $mixed */
-$mixed = doFoo();
+		/** @var number $number */
+		$number = doFoo();
 
-/** @var int[] $arrayOfUnknownIntegers */
-$arrayOfUnknownIntegers = doFoo();
+		/** @var int|null|bool $otherInteger */
+		$otherInteger = doFoo();
 
-$foobarString = $fooString;
-$foobarString[6] = 'b';
-$foobarString[7] = 'a';
-$foobarString[8] = 'r';
+		/** @var mixed $mixed */
+		$mixed = doFoo();
 
-$std = new \stdClass();
+		/** @var int[] $arrayOfUnknownIntegers */
+		$arrayOfUnknownIntegers = doFoo();
 
-die;
+		$foobarString = $fooString;
+		$foobarString[6] = 'b';
+		$foobarString[7] = 'a';
+		$foobarString[8] = 'r';
+
+		$std = new \stdClass();
+
+		/** @var int[] $arrToPush */
+		$arrToPush = doFoo();
+		array_push($arrToPush, 'foo', new \stdClass());
+
+		/** @var int[] $arrToPush2 */
+		$arrToPush2 = doFoo();
+		array_push($arrToPush2, ...['foo', new \stdClass()]);
+
+		$arrToUnshift = ['foo' => new \stdClass(), 5 => 'test'];
+		array_unshift($arrToUnshift, 'lorem', 5);
+
+		/** @var int[] $arrToUnshift2 */
+		$arrToUnshift2 = doFoo();
+		array_unshift($arrToUnshift2, 'lorem', new \stdClass());
+
+		$line = __LINE__;
+		$dir = __DIR__;
+		$file = __FILE__;
+		$namespace = __NAMESPACE__;
+		$class = __CLASS__;
+		$method = __METHOD__;
+		$function = __FUNCTION__;
+
+		die;
+	}
+
+}

@@ -510,4 +510,34 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 		$this->assertSame($expectedTypeOnlyDescription, $type->describe(VerbosityLevel::typeOnly()));
 	}
 
+	public function dataAccepts(): array
+	{
+		return [
+			[
+				new UnionType([new CallableType(), new NullType()]),
+				new ClosureType([], new StringType(), false),
+				true,
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataAccepts
+	 * @param UnionType $type
+	 * @param Type $acceptedType
+	 * @param bool $expectedResult
+	 */
+	public function testAccepts(
+		UnionType $type,
+		Type $acceptedType,
+		bool $expectedResult
+	): void
+	{
+		$this->assertSame(
+			$expectedResult,
+			$type->accepts($acceptedType),
+			sprintf('%s -> accepts(%s)', $type->describe(VerbosityLevel::value()), $acceptedType->describe(VerbosityLevel::value()))
+		);
+	}
+
 }

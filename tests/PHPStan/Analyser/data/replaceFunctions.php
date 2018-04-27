@@ -12,6 +12,9 @@ function () {
 		$arrayOrString = 'foo';
 	}
 
+	/** @var callable[] $callbacks */
+	$callbacks = [];
+
 	$expectedString = str_replace('aaa', 'bbb', $string);
 	$expectedArray = str_replace('aaa', 'bbb', $array);
 	$expectedArrayOrString = str_replace('aaa', 'bbb', $arrayOrString);
@@ -19,6 +22,10 @@ function () {
 	$anotherExpectedString = preg_replace('aaa', 'bbb', $string);
 	$anotherExpectedArray = preg_replace('aaa', 'bbb', $array);
 	$anotherExpectedArrayOrString = preg_replace('aaa', 'bbb', $arrayOrString);
+
+	$expectedString2 = preg_replace_callback('aaa', function () {}, $string);
+	$expectedArray2 = preg_replace_callback('aaa', function () {}, $array);
+	$expectedArrayOrString2 = preg_replace_callback('aaa', function () {}, $arrayOrString);
 
 	die;
 

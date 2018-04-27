@@ -34,3 +34,9 @@ if (empty($arrayOrNull)) {
 
 	}
 }
+
+/** @var mixed $mixed */
+$mixed = doFoo();
+foreach ($mixed as $val) {
+
+}

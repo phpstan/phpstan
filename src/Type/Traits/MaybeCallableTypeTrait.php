@@ -2,6 +2,9 @@
 
 namespace PHPStan\Type\Traits;
 
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ParametersAcceptor;
+use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
 
 trait MaybeCallableTypeTrait
@@ -10,6 +13,11 @@ trait MaybeCallableTypeTrait
 	public function isCallable(): TrinaryLogic
 	{
 		return TrinaryLogic::createMaybe();
+	}
+
+	public function getCallableParametersAcceptor(Scope $scope): ParametersAcceptor
+	{
+		return new TrivialParametersAcceptor();
 	}
 
 }

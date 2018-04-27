@@ -26,7 +26,9 @@ use PHPStan\Reflection\ClassConstantReflection;
 use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\Native\NativeParameterReflection;
 use PHPStan\Reflection\ParametersAcceptor;
+use PHPStan\Reflection\PassedByReference;
 use PHPStan\Reflection\Php\PhpFunctionFromParserNodeReflection;
 use PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection;
 use PHPStan\Reflection\PropertyReflection;
@@ -34,6 +36,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
+use PHPStan\Type\ClosureType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
@@ -811,7 +814,32 @@ class Scope
 		} elseif ($node instanceof DNumber) {
 			return new ConstantFloatType($node->value);
 		} elseif ($node instanceof Expr\Closure) {
-			return new ObjectType('Closure');
+			$parameters = [];
+			$isVariadic = false;
+			$optional = false;
+			foreach ($node->params as $param) {
+				if ($param->default !== null) {
+					$optional = true;
+				}
+				if ($param->variadic) {
+					$isVariadic = true;
+				}
+				$parameters[] = new NativeParameterReflection(
+					$param->name,
+					$optional,
+					$this->getFunctionType($param->type, $param->type === null, $param->variadic),
+					$param->byRef
+						? PassedByReference::createCreatesNewVariable()
+						: PassedByReference::createNo(),
+					$param->variadic
+				);
+			}
+
+			return new ClosureType(
+				$parameters,
+				$this->getFunctionType($node->returnType, $node->returnType === null, false),
+				$isVariadic
+			);
 		} elseif ($node instanceof New_) {
 			if ($node->class instanceof Name) {
 				if (
@@ -867,15 +895,66 @@ class Scope
 		} elseif ($node instanceof \PhpParser\Node\Expr\Cast\Array_) {
 			return $this->getType($node->expr)->toArray();
 		} elseif ($node instanceof Node\Scalar\MagicConst\Line) {
-			return new IntegerType();
+			return new ConstantIntegerType($node->getLine());
 		} elseif ($node instanceof Node\Scalar\MagicConst\Class_) {
 			if (!$this->isInClass()) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
 
 			return new ConstantStringType($this->getClassReflection()->getName());
-		} elseif ($node instanceof Node\Scalar\MagicConst) {
-			return new StringType();
+		} elseif ($node instanceof Node\Scalar\MagicConst\Dir) {
+			return new ConstantStringType(dirname($this->getFile()));
+		} elseif ($node instanceof Node\Scalar\MagicConst\File) {
+			return new ConstantStringType($this->getFile());
+		} elseif ($node instanceof Node\Scalar\MagicConst\Namespace_) {
+			if (!$this->isInClass()) {
+				return new ConstantStringType('');
+			}
+
+			$className = $this->getClassReflection()->getName();
+			$parts = explode('\\', $className);
+			if (count($parts) <= 1) {
+				return new ConstantStringType('');
+			}
+
+			return new ConstantStringType($parts[0]);
+		} elseif ($node instanceof Node\Scalar\MagicConst\Class_) {
+			if (!$this->isInClass()) {
+				return new ConstantStringType('');
+			}
+
+			return new ConstantStringType($this->getClassReflection()->getName());
+		} elseif ($node instanceof Node\Scalar\MagicConst\Method) {
+			if ($this->isInAnonymousFunction()) {
+				return new ConstantStringType('{closure}');
+			}
+
+			$function = $this->getFunction();
+			if ($function === null) {
+				return new ConstantStringType('');
+			}
+			if ($function instanceof MethodReflection) {
+				return new ConstantStringType(
+					sprintf('%s::%s', $function->getDeclaringClass()->getName(), $function->getName())
+				);
+			}
+
+			return new ConstantStringType($function->getName());
+		} elseif ($node instanceof Node\Scalar\MagicConst\Function_) {
+			if ($this->isInAnonymousFunction()) {
+				return new ConstantStringType('{closure}');
+			}
+			$function = $this->getFunction();
+			if ($function === null) {
+				return new ConstantStringType('');
+			}
+
+			return new ConstantStringType($function->getName());
+		} elseif ($node instanceof Node\Scalar\MagicConst\Trait_) {
+			if (!$this->isInTrait()) {
+				return new ConstantStringType('');
+			}
+			return new ConstantStringType($this->getTraitReflection()->getName());
 		} elseif ($node instanceof Object_) {
 			$castToObject = function (Type $type): Type {
 				if ((new ObjectWithoutClassType())->isSuperTypeOf($type)->yes()) {
@@ -1113,7 +1192,16 @@ class Scope
 			}
 		}
 
-		if ($node instanceof FuncCall && $node->name instanceof Name) {
+		if ($node instanceof FuncCall) {
+			if ($node->name instanceof Expr) {
+				$calledOnType = $this->getType($node->name);
+				if ($calledOnType->isCallable()->no()) {
+					return new ErrorType();
+				}
+
+				return $calledOnType->getCallableParametersAcceptor($this)->getReturnType();
+			}
+
 			if (!$this->broker->hasFunction($node->name, $this)) {
 				return new ErrorType();
 			}
@@ -1685,10 +1773,19 @@ class Scope
 		$variableTypes = $this->getVariableTypes();
 		$variableTypes[$variableName] = new VariableTypeHolder($type, $certainty);
 
-		$exprString = $this->printer->prettyPrintExpr(new Variable($variableName));
+		$variableString = $this->printer->prettyPrintExpr(new Variable($variableName));
 		$moreSpecificTypes = $this->moreSpecificTypes;
-		if (array_key_exists($exprString, $moreSpecificTypes)) {
-			unset($moreSpecificTypes[$exprString]);
+		foreach ($moreSpecificTypes as $key => $type) {
+			$matches = \Nette\Utils\Strings::match($key, '#^(\$[a-zA-Z_][a-zA-Z_0-9]*)#');
+			if ($matches === null) {
+				continue;
+			}
+
+			if ($matches[1] !== $variableString) {
+				continue;
+			}
+
+			unset($moreSpecificTypes[$key]);
 		}
 
 		return new self(
@@ -1864,7 +1961,7 @@ class Scope
 		}
 
 		foreach ($intersectedScope->moreSpecificTypes as $exprString => $specificType) {
-			if (preg_match('#^\$([a-zA-Z_][a-zA-Z0-9_]*)$#', (string) $exprString, $matches) === 1) {
+			if (preg_match('#^\$([a-zA-Z_]\w*)$#', (string) $exprString, $matches) === 1) {
 				$variableName = $matches[1];
 				$variableTypeHolders[$variableName] = VariableTypeHolder::createYes($specificType);
 				continue;
@@ -1943,35 +2040,43 @@ class Scope
 	{
 		$exprString = $this->printer->prettyPrintExpr($expr);
 
-		$scope = $this->addMoreSpecificTypes([
-			$exprString => $type,
-		]);
-
 		if ($expr instanceof Variable && is_string($expr->name)) {
 			$variableName = $expr->name;
 
-			$variableTypes = $scope->getVariableTypes();
+			$variableTypes = $this->getVariableTypes();
 			$variableTypes[$variableName] = VariableTypeHolder::createYes($type);
 
+			$moreSpecificTypes = $this->moreSpecificTypes;
+			$moreSpecificTypes[$exprString] = $type;
+
 			return new self(
-				$scope->broker,
-				$scope->printer,
-				$scope->typeSpecifier,
-				$scope->context,
-				$scope->isDeclareStrictTypes(),
-				$scope->getFunction(),
-				$scope->getNamespace(),
+				$this->broker,
+				$this->printer,
+				$this->typeSpecifier,
+				$this->context,
+				$this->isDeclareStrictTypes(),
+				$this->getFunction(),
+				$this->getNamespace(),
 				$variableTypes,
-				$scope->moreSpecificTypes,
-				$scope->inClosureBindScopeClass,
-				$scope->getAnonymousFunctionReturnType(),
-				$scope->getInFunctionCall(),
-				$scope->isNegated(),
-				$scope->inFirstLevelStatement
+				$moreSpecificTypes,
+				$this->inClosureBindScopeClass,
+				$this->getAnonymousFunctionReturnType(),
+				$this->getInFunctionCall(),
+				$this->isNegated(),
+				$this->inFirstLevelStatement
 			);
+		} elseif ($expr instanceof Expr\ArrayDimFetch && $expr->dim !== null) {
+			$arrayType = $this->getType($expr->var);
+			if ($arrayType instanceof ConstantArrayType) {
+				$dimType = $this->getType($expr->dim);
+				$arrayType = $arrayType->setOffsetValueType($dimType, $type);
+				return $this->specifyExpressionType($expr->var, $arrayType);
+			}
 		}
 
-		return $scope;
+		return $this->addMoreSpecificTypes([
+			$exprString => $type,
+		]);
 	}
 
 	public function unspecifyExpressionType(Expr $expr): self

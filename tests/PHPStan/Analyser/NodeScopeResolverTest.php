@@ -317,7 +317,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'matches',
 				TrinaryLogic::createYes(),
-				'array<string>',
+				'mixed',
 			],
 			[
 				$testScope,
@@ -358,7 +358,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'matches2',
 				TrinaryLogic::createYes(),
-				'array<string>',
+				'mixed',
 			],
 			[
 				$testScope,
@@ -370,13 +370,13 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'matches3',
 				TrinaryLogic::createYes(),
-				'array<string>',
+				'mixed',
 			],
 			[
 				$testScope,
 				'matches4',
 				TrinaryLogic::createMaybe(),
-				'array<string>',
+				'mixed',
 			],
 			[
 				$testScope,
@@ -430,7 +430,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'ternaryMatches',
 				TrinaryLogic::createYes(),
-				'array<string>',
+				'mixed',
 			],
 			[
 				$testScope,
@@ -834,7 +834,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				$testScope,
 				'arrayOverwrittenInForLoop',
-				'array<\'a\'|\'b\', \'bar\'|\'foo\'|int>',
+				'array(\'a\' => int, \'b\' => \'bar\'|\'foo\')',
 			],
 			[
 				$testScope,
@@ -2014,12 +2014,32 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'\Foo::class',
 			],
 			[
-				'int',
-				'__LINE__',
+				'71',
+				'$line',
 			],
 			[
-				'string',
-				'__DIR__',
+				(new ConstantStringType(__DIR__))->describe(VerbosityLevel::value()),
+				'$dir',
+			],
+			[
+				(new ConstantStringType(__DIR__))->describe(VerbosityLevel::value()),
+				'$file',
+			],
+			[
+				'\'BinaryOperations\'',
+				'$namespace',
+			],
+			[
+				'\'BinaryOperations\\\\Foo\'',
+				'$class',
+			],
+			[
+				'\'BinaryOperations…\'',
+				'$method',
+			],
+			[
+				'\'doFoo\'',
+				'$function',
 			],
 			[
 				'1',
@@ -2175,7 +2195,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				'true',
-				'$foo instanceof Foo',
+				'$foo instanceof \BinaryOperations\Foo',
 			],
 			[
 				'bool',
@@ -2401,6 +2421,30 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'*ERROR*',
 				'"$std bar"',
 			],
+			[
+				'array<\'foo\'|int|stdClass>',
+				'$arrToPush',
+			],
+			[
+				'array<\'foo\'|int|stdClass>',
+				'$arrToPush2',
+			],
+			[
+				'array(0 => \'lorem\', 1 => 5, \'foo\' => stdClass, 2 => \'test\')',
+				'$arrToUnshift',
+			],
+			[
+				'array<\'lorem\'|int|stdClass>',
+				'$arrToUnshift2',
+			],
+			[
+				'array(\'dirname\' => string, \'basename\' => string, \'extension\' => string, \'filename\' => string)',
+				'pathinfo($string)',
+			],
+			[
+				'string',
+				'pathinfo($string, PATHINFO_DIRNAME)',
+			],
 		];
 	}
 
@@ -2474,6 +2518,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'bool',
 				'$integers[0] >= $integers[1] - 1',
+			],
+			[
+				'array(\'foo\' => array(\'foo\' => array(\'foo\' => \'bar\')), \'bar\' => array(), \'baz\' => array(\'lorem\' => array()))',
+				'$nestedArray',
 			],
 		];
 	}
@@ -5204,11 +5252,19 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				'string',
+				'$expectedString2',
+			],
+			[
+				'string',
 				'$anotherExpectedString',
 			],
 			[
 				'array(\'a\' => string, \'b\' => string)',
 				'$expectedArray',
+			],
+			[
+				'array(\'a\' => string, \'b\' => string)',
+				'$expectedArray2',
 			],
 			[
 				'array(\'a\' => string, \'b\' => string)',
@@ -5220,7 +5276,19 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				'array|string',
+				'$expectedArrayOrString2',
+			],
+			[
+				'array|string',
 				'$anotherExpectedArrayOrString',
+			],
+			[
+				'array(\'a\' => string, \'b\' => string)',
+				'preg_replace_callback_array($callbacks, $array)',
+			],
+			[
+				'string',
+				'preg_replace_callback_array($callbacks, $string)',
 			],
 		];
 	}
@@ -5412,6 +5480,123 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/traits/traits.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataPassedByReference(): array
+	{
+		return [
+			[
+				'array(1, 2, 3)',
+				'$arr',
+			],
+			[
+				'mixed',
+				'$matches',
+			],
+			[
+				'mixed',
+				'$s',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataPassedByReference
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testPassedByReference(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/passed-by-reference.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataCallables(): array
+	{
+		return [
+			[
+				'int',
+				'$foo()',
+			],
+			[
+				'string',
+				'$closure()',
+			],
+			[
+				'Callables\\Bar',
+				'$arrayWithStaticMethod()',
+			],
+			[
+				'float',
+				'$stringWithStaticMethod()',
+			],
+			[
+				'float',
+				'$arrayWithInstanceMethod()',
+			],
+			[
+				'mixed',
+				'$closureObject()',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataCallables
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testCallables(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/callables.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataArrayKeysInBranches(): array
+	{
+		return [
+			[
+				'array(\'i\' => int, \'j\' => int, \'k\' => int, \'l\' => 1, \'m\' => 5, \'key\' => DateTimeImmutable)',
+				'$array',
+			],
+			[
+				'array',
+				'$generalArray',
+			],
+			[
+				'mixed', // should be DateTimeImmutable
+				'$generalArray[\'key\']',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataArrayKeysInBranches
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testArrayKeysInBranches(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/array-keys-branches.php',
 			$description,
 			$expression
 		);

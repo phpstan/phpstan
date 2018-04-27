@@ -2,7 +2,10 @@
 
 namespace PHPStan\Type\Constant;
 
+use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ParametersAcceptor;
+use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
@@ -44,7 +47,13 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 		parent::__construct(
 			count($keyTypes) > 0 ? TypeCombinator::union(...$keyTypes) : new MixedType(),
-			count($valueTypes) > 0 ? TypeCombinator::union(...$valueTypes) : new MixedType(),
+			count($valueTypes) > 0 ? TypeCombinator::union(...array_map(function (Type $valueType): Type {
+				if ($valueType instanceof self) {
+					return $valueType->generalize();
+				}
+
+				return $valueType;
+			}, $valueTypes)) : new MixedType(),
 			true
 		);
 
@@ -124,16 +133,52 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 	public function isCallable(): TrinaryLogic
 	{
-		if (count($this->keyTypes) !== 2) {
+		$classAndMethod = $this->findClassNameAndMethod();
+		if ($classAndMethod === null) {
 			return TrinaryLogic::createNo();
+		}
+
+		[$className, $methodName] = $classAndMethod;
+		if ($className === null && $methodName === null) {
+			return TrinaryLogic::createMaybe();
+		}
+
+		return TrinaryLogic::createYes();
+	}
+
+	public function getCallableParametersAcceptor(Scope $scope): ParametersAcceptor
+	{
+		$classAndMethod = $this->findClassNameAndMethod();
+		if ($classAndMethod === null) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		[$className, $methodName] = $classAndMethod;
+		if ($className === null && $methodName === null) {
+			return new TrivialParametersAcceptor();
+		}
+
+		$broker = Broker::getInstance();
+		$classReflection = $broker->getClass($className);
+
+		return $classReflection->getMethod($methodName, $scope);
+	}
+
+	/**
+	 * @return string[]|null[]|null
+	 */
+	private function findClassNameAndMethod(): ?array
+	{
+		if (count($this->keyTypes) !== 2) {
+			return null;
 		}
 
 		if ($this->keyTypes[0]->isSuperTypeOf(new ConstantIntegerType(0))->no()) {
-			return TrinaryLogic::createNo();
+			return null;
 		}
 
 		if ($this->keyTypes[1]->isSuperTypeOf(new ConstantIntegerType(1))->no()) {
-			return TrinaryLogic::createNo();
+			return null;
 		}
 
 		$classOrObject = $this->valueTypes[0];
@@ -146,27 +191,31 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			$className = $classOrObject->getClassName();
 
 		} else {
-			return TrinaryLogic::createMaybe();
+			return [null, null];
 		}
 
 		$broker = Broker::getInstance();
 		if (!$broker->hasClass($className)) {
-			return TrinaryLogic::createNo();
+			return [null, null];
 		}
 
 		if (!($method instanceof ConstantStringType)) {
-			return TrinaryLogic::createMaybe();
+			return [null, null];
 		}
 
 		$methodName = $method->getValue();
+		$classReflection = $broker->getClass($className);
 
-		if (!$broker->getClass($className)->hasMethod($methodName)) {
-			return TrinaryLogic::createNo();
+		if (!$classReflection->hasMethod($methodName)) {
+			if (!$classReflection->getNativeReflection()->isFinal()) {
+				return [null, null];
+			}
+
+			return null;
 		}
 
-		return TrinaryLogic::createYes();
+		return [$className, $methodName];
 	}
-
 
 	public function getOffsetValueType(Type $offsetType): Type
 	{
@@ -270,6 +319,35 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		}
 
 		return new self($this->keyTypes, $valueTypes, $this->nextAutoIndex);
+	}
+
+	public function intersectWith(ArrayType $otherArray): ArrayType
+	{
+		if (!$otherArray instanceof self) {
+			return parent::intersectWith($otherArray);
+		}
+
+		$newArray = new self([], []);
+		foreach ($this->getKeyTypes() as $i => $keyType) {
+			$otherValueType = $otherArray->getOffsetValueType($keyType);
+			if ($otherValueType instanceof ErrorType) {
+				continue;
+			}
+			$newArray = $newArray->setOffsetValueType($keyType, TypeCombinator::union(
+				$this->valueTypes[$i],
+				$otherValueType
+			));
+		}
+
+		foreach ($otherArray->getKeyTypes() as $otherKeyType) {
+			if (!$this->getOffsetValueType($otherKeyType) instanceof ErrorType) {
+				continue;
+			}
+
+			$newArray = $newArray->unsetOffset($otherKeyType);
+		}
+
+		return $newArray;
 	}
 
 	/**

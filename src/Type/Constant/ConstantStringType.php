@@ -3,7 +3,10 @@
 namespace PHPStan\Type\Constant;
 
 use PhpParser\Node\Name;
+use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ParametersAcceptor;
+use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\ErrorType;
@@ -61,21 +64,52 @@ class ConstantStringType extends StringType implements ConstantScalarType
 		$matches = \Nette\Utils\Strings::match($this->value, '#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\z#');
 		if ($matches !== null) {
 			if (!$broker->hasClass($matches[1])) {
-				return TrinaryLogic::createNo();
+				return TrinaryLogic::createMaybe();
 			}
 
 			$classRef = $broker->getClass($matches[1]);
-			if (!$classRef->hasMethod($matches[2])) {
-				if (!$classRef->hasNativeMethod('__callStatic')) {
-					return TrinaryLogic::createNo();
-				}
+			if ($classRef->hasMethod($matches[2])) {
 				return TrinaryLogic::createYes();
 			}
 
-			return TrinaryLogic::createYes();
+			if (!$classRef->getNativeReflection()->isFinal()) {
+				return TrinaryLogic::createMaybe();
+			}
+
+			return TrinaryLogic::createNo();
 		}
 
 		return TrinaryLogic::createNo();
+	}
+
+	public function getCallableParametersAcceptor(Scope $scope): ParametersAcceptor
+	{
+		$broker = Broker::getInstance();
+
+		// 'my_function'
+		$functionName = new Name($this->value);
+		if ($broker->hasFunction($functionName, null)) {
+			return $broker->getFunction($functionName, null);
+		}
+
+		// 'MyClass::myStaticFunction'
+		$matches = \Nette\Utils\Strings::match($this->value, '#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\z#');
+		if ($matches !== null) {
+			if (!$broker->hasClass($matches[1])) {
+				return new TrivialParametersAcceptor();
+			}
+
+			$classReflection = $broker->getClass($matches[1]);
+			if ($classReflection->hasMethod($matches[2])) {
+				return $classReflection->getMethod($matches[2], $scope);
+			}
+
+			if (!$classReflection->getNativeReflection()->isFinal()) {
+				return new TrivialParametersAcceptor();
+			}
+		}
+
+		throw new \PHPStan\ShouldNotHappenException();
 	}
 
 	public function toNumber(): Type
@@ -112,11 +146,6 @@ class ConstantStringType extends StringType implements ConstantScalarType
 		}
 
 		return $type->toFloat();
-	}
-
-	public function toString(): Type
-	{
-		return $this;
 	}
 
 	public function getOffsetValueType(Type $offsetType): Type

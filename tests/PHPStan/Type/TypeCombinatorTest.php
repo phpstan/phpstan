@@ -2,6 +2,7 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
 use PHPStan\Type\Constant\ConstantIntegerType;
@@ -629,6 +630,100 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				],
 				BooleanType::class,
 				'bool',
+			],
+			[
+				[
+					new ObjectType(\Closure::class),
+					new ClosureType([], new MixedType(), false),
+				],
+				ObjectType::class,
+				'Closure',
+			],
+			[
+				[
+					new ClosureType([], new MixedType(), false),
+					new CallableType(),
+				],
+				CallableType::class,
+				'callable',
+			],
+			[
+				// same keys - can remain ConstantArrayType
+				[
+					new ConstantArrayType([
+						new ConstantStringType('foo'),
+						new ConstantStringType('bar'),
+					], [
+						new ObjectType(\DateTimeImmutable::class),
+						new IntegerType(),
+					]),
+					new ConstantArrayType([
+						new ConstantStringType('foo'),
+						new ConstantStringType('bar'),
+					], [
+						new NullType(),
+						new StringType(),
+					]),
+				],
+				ConstantArrayType::class,
+				'array(\'foo\' => DateTimeImmutable|null, \'bar\' => int|string)',
+			],
+			[
+				[
+					new ConstantArrayType([
+						new ConstantStringType('foo'),
+						new ConstantStringType('bar'),
+					], [
+						new ObjectType(\DateTimeImmutable::class),
+						new IntegerType(),
+					]),
+					new ConstantArrayType([
+						new ConstantStringType('foo'),
+					], [
+						new NullType(),
+					]),
+				],
+				ArrayType::class,
+				'array(\'foo\' => DateTimeImmutable|null)',
+			],
+			[
+				[
+					new ConstantArrayType([
+						new ConstantStringType('foo'),
+						new ConstantStringType('bar'),
+					], [
+						new ObjectType(\DateTimeImmutable::class),
+						new IntegerType(),
+					]),
+					new ConstantArrayType([
+						new ConstantStringType('foo'),
+						new ConstantStringType('bar'),
+						new ConstantStringType('baz'),
+					], [
+						new NullType(),
+						new StringType(),
+						new IntegerType(),
+					]),
+				],
+				ArrayType::class,
+				'array(\'foo\' => DateTimeImmutable|null, \'bar\' => int|string)',
+			],
+			[
+				[
+					new ArrayType(
+						new IntegerType(),
+						new ObjectType(\stdClass::class)
+					),
+					new ConstantArrayType([
+						new ConstantStringType('foo'),
+						new ConstantStringType('bar'),
+					], [
+						new ObjectType(\DateTimeImmutable::class),
+						new IntegerType(),
+					]),
+				],
+				ArrayType::class,
+				'array<\'bar\'|\'foo\'|int, DateTimeImmutable|int|stdClass>',
 			],
 		];
 	}

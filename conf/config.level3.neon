@@ -16,7 +16,7 @@ services:
 	-
 		class: PHPStan\Rules\Arrays\IterableInForeachRule
 		arguments:
-			checkUnionTypes: %checkUnionTypes%
+			reportMaybes: %reportMaybes%
 		tags:
 			- phpstan.rules.rule
 

@@ -85,3 +85,16 @@ function (
 	$string1 .= $std;
 	$string2 .= $classWithToString;
 };
+
+function ()
+{
+	$result = [
+		'id' => 'blabla', // string
+		'allowedRoomCounter' => 0,
+		'roomCounter' => 0,
+	];
+
+	foreach ([1, 2] as $x) {
+		$result['allowedRoomCounter'] += $x;
+	}
+};

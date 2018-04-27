@@ -200,6 +200,16 @@ class ObjectTypeTest extends \PHPStan\Testing\TestCase
 				new StaticType(\LogicException::class),
 				TrinaryLogic::createMaybe(),
 			],
+			[
+				new ObjectType(\stdClass::class),
+				new ClosureType([], new MixedType(), false),
+				TrinaryLogic::createMaybe(),
+			],
+			[
+				new ObjectType(\Closure::class),
+				new ClosureType([], new MixedType(), false),
+				TrinaryLogic::createYes(),
+			],
 		];
 	}
 

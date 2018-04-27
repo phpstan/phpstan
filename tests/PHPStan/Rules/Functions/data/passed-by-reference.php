@@ -31,4 +31,19 @@ function () {
 
 	foo(rand());
 	foo(null);
+
+	$m = null;
+	preg_match('a', 'b', $m);
+
+	$n = null;
+	reset($n);
+};
+
+function bar(string &$s) {
+
+}
+
+function () {
+	$i = 1;
+	bar($i);
 };

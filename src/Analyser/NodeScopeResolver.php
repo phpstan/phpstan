@@ -57,6 +57,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\CommentHelper;
 use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\ConstantType;
@@ -68,7 +69,7 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
-use PHPStan\Type\VerbosityLevel;
+use PHPStan\Type\UnionType;
 
 class NodeScopeResolver
 {
@@ -214,63 +215,12 @@ class NodeScopeResolver
 						break;
 					}
 				}
-			} elseif ($node instanceof FuncCall && $node->name instanceof Name) {
-				if ($this->broker->hasFunction($node->name, $scope)) {
-					$functionReflection = $this->broker->getFunction($node->name, $scope);
-					foreach ($this->typeSpecifier->getFunctionTypeSpecifyingExtensions() as $extension) {
-						if (!$extension->isFunctionSupported($functionReflection, $node, TypeSpecifierContext::createNull())) {
-							continue;
-						}
-
-						$scope = $scope->filterBySpecifiedTypes($extension->specifyTypes($functionReflection, $node, $scope, TypeSpecifierContext::createNull()));
-						break;
-					}
-				}
-			} elseif ($node instanceof MethodCall && is_string($node->name)) {
-				$methodCalledOnType = $scope->getType($node->var);
-				$referencedClasses = $methodCalledOnType->getReferencedClasses();
-				if (
-					count($referencedClasses) === 1
-					&& $this->broker->hasClass($referencedClasses[0])
-				) {
-					$methodClassReflection = $this->broker->getClass($referencedClasses[0]);
-					if ($methodClassReflection->hasMethod($node->name)) {
-						$methodReflection = $methodClassReflection->getMethod($node->name, $scope);
-						foreach ($this->typeSpecifier->getMethodTypeSpecifyingExtensionsForClass($methodClassReflection->getName()) as $extension) {
-							if (!$extension->isMethodSupported($methodReflection, $node, TypeSpecifierContext::createNull())) {
-								continue;
-							}
-
-							$scope = $scope->filterBySpecifiedTypes($extension->specifyTypes($methodReflection, $node, $scope, TypeSpecifierContext::createNull()));
-							break;
-						}
-					}
-				}
-			} elseif ($node instanceof StaticCall && is_string($node->name)) {
-				if ($node->class instanceof Name) {
-					$calleeType = new ObjectType($scope->resolveName($node->class));
-				} else {
-					$calleeType = $scope->getType($node->class);
-				}
-
-				if ($calleeType->hasMethod($node->name)) {
-					$staticMethodReflection = $calleeType->getMethod($node->name, $scope);
-					$referencedClasses = $calleeType->getReferencedClasses();
-					if (
-						count($calleeType->getReferencedClasses()) === 1
-						&& $this->broker->hasClass($referencedClasses[0])
-					) {
-						$staticMethodClassReflection = $this->broker->getClass($referencedClasses[0]);
-						foreach ($this->typeSpecifier->getStaticMethodTypeSpecifyingExtensionsForClass($staticMethodClassReflection->getName()) as $extension) {
-							if (!$extension->isStaticMethodSupported($staticMethodReflection, $node, TypeSpecifierContext::createNull())) {
-								continue;
-							}
-
-							$scope = $scope->filterBySpecifiedTypes($extension->specifyTypes($staticMethodReflection, $node, $scope, TypeSpecifierContext::createNull()));
-							break;
-						}
-					}
-				}
+			} elseif ($node instanceof Expr) {
+				$scope = $scope->filterBySpecifiedTypes($this->typeSpecifier->specifyTypesInCondition(
+					$scope,
+					$node,
+					TypeSpecifierContext::createNull()
+				));
 			}
 		}
 	}
@@ -701,7 +651,7 @@ class NodeScopeResolver
 			$scope = $scope->enterFunctionCall($node);
 		} elseif ($node instanceof MethodCall) {
 			if (
-				$scope->getType($node->var)->describe(VerbosityLevel::typeOnly()) === \Closure::class
+				!(new ObjectType(\Closure::class))->isSuperTypeOf($scope->getType($node->var))->no()
 				&& $node->name === 'call'
 				&& isset($node->args[0])
 			) {
@@ -1024,7 +974,6 @@ class NodeScopeResolver
 					$assignByReference = false;
 					if (isset($parameters[$i])) {
 						$assignByReference = $parameters[$i]->passedByReference()->createsNewVariable();
-						$parameterType = $parameters[$i]->getType();
 					} elseif (count($parameters) > 0 && $parametersAcceptor->isVariadic()) {
 						$lastParameter = $parameters[count($parameters) - 1];
 						$assignByReference = $lastParameter->passedByReference()->createsNewVariable();
@@ -1039,7 +988,7 @@ class NodeScopeResolver
 						continue;
 					}
 
-					$scope = $scope->assignVariable($arg->name, $parameterType ?? new MixedType(), $certainty);
+					$scope = $scope->assignVariable($arg->name, new MixedType(), $certainty);
 				}
 			}
 			if (
@@ -1051,6 +1000,66 @@ class NodeScopeResolver
 				], true)
 			) {
 				$scope = $scope->assignVariable('http_response_header', new ArrayType(new IntegerType(), new StringType(), false), $certainty);
+			}
+
+			if (
+				$node instanceof FuncCall
+				&& $node->name instanceof Name
+				&& in_array(strtolower((string) $node->name), [
+					'array_push',
+					'array_unshift',
+				], true)
+				&& count($node->args) >= 2
+			) {
+				$argumentTypes = [];
+				foreach (array_slice($node->args, 1) as $callArg) {
+					$callArgType = $scope->getType($callArg->value);
+					if ($callArg->unpack) {
+						$iterableValueType = $callArgType->getIterableValueType();
+						if ($iterableValueType instanceof UnionType) {
+							foreach ($iterableValueType->getTypes() as $innerType) {
+								$argumentTypes[] = $innerType;
+							}
+						} else {
+							$argumentTypes[] = $iterableValueType;
+						}
+						continue;
+					}
+
+					$argumentTypes[] = $callArgType;
+				}
+
+				$arrayArg = $node->args[0]->value;
+				$originalArrayType = $scope->getType($arrayArg);
+				$functionName = strtolower((string) $node->name);
+				if (
+					$functionName === 'array_push'
+					|| ($originalArrayType instanceof ArrayType && !$originalArrayType instanceof ConstantArrayType)
+				) {
+					$arrayType = $originalArrayType;
+					foreach ($argumentTypes as $argType) {
+						$arrayType = $arrayType->setOffsetValueType(null, $argType);
+					}
+				} elseif (
+					$functionName === 'array_unshift'
+					&& $originalArrayType instanceof ConstantArrayType
+				) {
+					$arrayType = new ConstantArrayType([], []);
+					foreach ($argumentTypes as $argType) {
+						$arrayType = $arrayType->setOffsetValueType(null, $argType);
+					}
+					foreach ($originalArrayType->getKeyTypes() as $i => $keyType) {
+						$valueType = $originalArrayType->getValueTypes()[$i];
+						if ($keyType instanceof ConstantIntegerType) {
+							$keyType = null;
+						}
+						$arrayType = $arrayType->setOffsetValueType($keyType, $valueType);
+					}
+				} else {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
+
+				$scope = $scope->specifyExpressionType($arrayArg, $arrayType);
 			}
 		} elseif ($node instanceof BinaryOp) {
 			$scope = $this->lookForAssigns($scope, $node->left, $certainty);
@@ -1261,7 +1270,7 @@ class NodeScopeResolver
 				&& $node->var->dim !== null
 			) {
 				$arrayType = $scope->getType($node->var->var);
-				if ($arrayType instanceof ConstantArrayType) {
+				if ($arrayType instanceof ArrayType) {
 					$dimType = $scope->getType($node->var->dim);
 					$valueType = $arrayType->getOffsetValueType($dimType);
 					if ($valueType instanceof ConstantScalarType) {
@@ -1319,16 +1328,31 @@ class NodeScopeResolver
 					if (
 						$node->var instanceof Variable
 						&& is_string($node->var->name)
-						&& !$scope->hasVariableType($node->var->name)->yes()
+						&& !$scope->hasVariableType($node->var->name)->no()
 					) {
-						continue;
-					}
-					$type = $scope->getType($node);
-					if (
-						$lookForAssignsSettings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()
-						&& $type instanceof ConstantType
-					) {
-						$type = $type->generalize();
+						$type = $scope->getType($node);
+
+						if (
+							$lookForAssignsSettings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()
+							&& $type instanceof ConstantType
+						) {
+							$type = $type->generalize();
+						}
+					} elseif ($node->var instanceof ArrayDimFetch) {
+						$type = $scope->getType($node);
+						if ($lookForAssignsSettings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()) {
+							if ($type instanceof ConstantType) {
+								$type = $type->generalize();
+							} elseif ($type instanceof UnionType) {
+								$type = TypeCombinator::union(...array_map(function (Type $type): Type {
+									if ($type instanceof ConstantType) {
+										return $type->generalize();
+									}
+
+									return $type;
+								}, $type->getTypes()));
+							}
+						}
 					}
 				}
 
