@@ -196,6 +196,14 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Method ReturnTypes\TernaryWithJsonEncode::toJson() should return string but returns string|false.',
 				498,
 			],
+			[
+				'Method ReturnTypes\AppendedArrayReturnType::foo() should return array<int> but returns array<int, stdClass>.',
+				510,
+			],
+			[
+				'Method ReturnTypes\AppendedArrayReturnType::bar() should return array<int> but returns array<int|stdClass>.',
+				520,
+			],
 		]);
 	}
 

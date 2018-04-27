@@ -499,3 +499,25 @@ class TernaryWithJsonEncode
 	}
 
 }
+
+class AppendedArrayReturnType
+{
+
+	/** @return int[] */
+	public function foo() : array {
+		$arr = [];
+		$arr[] = new \stdClass();
+		return $arr;
+	}
+
+	/**
+	 * @param int[] $arr
+	 * @return int[]
+	 */
+	public function bar(array $arr): array
+	{
+		$arr[] = new \stdClass();
+		return $arr;
+	}
+
+}
