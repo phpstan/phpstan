@@ -73,8 +73,11 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		$autoloadFile = $input->getOption('autoload-file');
 		if ($autoloadFile !== null && is_file($autoloadFile)) {
 			$autoloadFile = $fileHelper->absolutizePath($autoloadFile);
+
 			if (is_file($autoloadFile)) {
-				require_once $autoloadFile;
+				(function ($file): void {
+					require_once $file;
+				})($autoloadFile);
 			}
 		}
 
@@ -192,7 +195,9 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		}
 
 		foreach ($container->parameters['autoload_files'] as $autoloadFile) {
-			require_once $fileHelper->normalizePath($autoloadFile);
+			(function ($file): void {
+				require_once $file;
+			})($fileHelper->normalizePath($autoloadFile));
 		}
 
 		if (count($container->parameters['autoload_directories']) > 0) {
