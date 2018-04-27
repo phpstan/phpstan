@@ -679,8 +679,15 @@ class ArrayKeysNull
 		/** @var \DateTimeImmutable|null $nullableDateTime */
 		$nullableDateTime = doFoo();
 		$array['key'] = $nullableDateTime;
-		if ($array['key'] === null)
-		{
+		if ($array['key'] === null) {
+			$array['key'] = new \DateTimeImmutable();
+			echo $array['key']->format('j. n. Y');
+		}
+	}
+
+	public function doBar(array $array)
+	{
+		if ($array['key'] === null) {
 			$array['key'] = new \DateTimeImmutable();
 			echo $array['key']->format('j. n. Y');
 		}
