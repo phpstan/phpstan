@@ -15,9 +15,11 @@ use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
 use PHPStan\Reflection\PassedByReference;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\BooleanType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
@@ -395,9 +397,29 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 	public function getReturnType(): Type
 	{
 		if ($this->returnType === null) {
-			if ($this->getName() === '__construct') {
+			$name = strtolower($this->getName());
+			if (
+				$name === '__construct'
+				|| $name === '__destruct'
+				|| $name === '__unset'
+				|| $name === '__wakeup'
+				|| $name === '__clone'
+			) {
 				return $this->returnType = new VoidType();
 			}
+			if ($name === '__tostring') {
+				return $this->returnType = new StringType();
+			}
+			if ($name === '__isset') {
+				return $this->returnType = new BooleanType();
+			}
+			if ($name === '__sleep') {
+				return $this->returnType = new ArrayType(new IntegerType(), new StringType());
+			}
+			if ($name === '__set_state') {
+				return $this->returnType = new ObjectWithoutClassType();
+			}
+
 			$returnType = $this->reflection->getReturnType();
 			$phpDocReturnType = $this->phpDocReturnType;
 			if (

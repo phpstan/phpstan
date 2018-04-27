@@ -6,6 +6,11 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Type\ArrayType;
+use PHPStan\Type\BooleanType;
+use PHPStan\Type\IntegerType;
+use PHPStan\Type\ObjectWithoutClassType;
+use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\VoidType;
 
@@ -79,8 +84,27 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 
 	public function getReturnType(): Type
 	{
-		if ($this->getName() === '__construct') {
+		$name = strtolower($this->getName());
+		if (
+			$name === '__construct'
+			|| $name === '__destruct'
+			|| $name === '__unset'
+			|| $name === '__wakeup'
+			|| $name === '__clone'
+		) {
 			return new VoidType();
+		}
+		if ($name === '__tostring') {
+			return new StringType();
+		}
+		if ($name === '__isset') {
+			return new BooleanType();
+		}
+		if ($name === '__sleep') {
+			return new ArrayType(new IntegerType(), new StringType());
+		}
+		if ($name === '__set_state') {
+			return new ObjectWithoutClassType();
 		}
 
 		return parent::getReturnType();

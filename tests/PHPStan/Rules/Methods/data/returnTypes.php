@@ -521,3 +521,50 @@ class AppendedArrayReturnType
 	}
 
 }
+
+class WrongMagicMethods
+{
+
+	public function __toString()
+	{
+		return true;
+	}
+
+	public function __isset($name)
+	{
+		return 42;
+	}
+
+	public function __destruct()
+	{
+		return 1;
+	}
+
+	public function __unset($name)
+	{
+		return 1;
+	}
+
+	public function __sleep()
+	{
+		return [
+			new \stdClass(),
+		];
+	}
+
+	public function __wakeup()
+	{
+		return 1;
+	}
+
+	public function __set_state(array $properties)
+	{
+		return ['foo' => 'bar'];
+	}
+
+	public function __clone()
+	{
+		return 1;
+	}
+
+}

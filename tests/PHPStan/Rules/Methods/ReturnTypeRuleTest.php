@@ -204,6 +204,38 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Method ReturnTypes\AppendedArrayReturnType::bar() should return array<int> but returns array<int|stdClass>.',
 				520,
 			],
+			[
+				'Method ReturnTypes\WrongMagicMethods::__toString() should return string but returns true.',
+				530,
+			],
+			[
+				'Method ReturnTypes\WrongMagicMethods::__isset() should return bool but returns int.',
+				535,
+			],
+			[
+				'Method ReturnTypes\WrongMagicMethods::__destruct() with return type void returns int but should not return anything.',
+				540,
+			],
+			[
+				'Method ReturnTypes\WrongMagicMethods::__unset() with return type void returns int but should not return anything.',
+				545,
+			],
+			[
+				'Method ReturnTypes\WrongMagicMethods::__sleep() should return array<int, string> but returns array<int, stdClass>.',
+				550,
+			],
+			[
+				'Method ReturnTypes\WrongMagicMethods::__wakeup() with return type void returns int but should not return anything.',
+				557,
+			],
+			[
+				'Method ReturnTypes\WrongMagicMethods::__set_state() should return object but returns array<string, string>.',
+				562,
+			],
+			[
+				'Method ReturnTypes\WrongMagicMethods::__clone() with return type void returns int but should not return anything.',
+				567,
+			],
 		]);
 	}
 
