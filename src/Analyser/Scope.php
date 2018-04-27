@@ -1776,7 +1776,7 @@ class Scope
 		$variableString = $this->printer->prettyPrintExpr(new Variable($variableName));
 		$moreSpecificTypes = $this->moreSpecificTypes;
 		foreach ($moreSpecificTypes as $key => $type) {
-			$matches = \Nette\Utils\Strings::match($key, '#^(\$[a-zA-Z_][a-zA-Z_0-9]+)#');
+			$matches = \Nette\Utils\Strings::match($key, '#^(\$[a-zA-Z_][a-zA-Z_0-9]*)#');
 			if ($matches === null) {
 				continue;
 			}
