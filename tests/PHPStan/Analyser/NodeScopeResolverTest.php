@@ -5602,6 +5602,49 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataElementsOnMixed(): array
+	{
+		return [
+			[
+				'mixed',
+				'$mixed->foo',
+			],
+			[
+				'mixed',
+				'$mixed->foo->bar',
+			],
+			[
+				'mixed',
+				'$mixed->foo()',
+			],
+			[
+				'mixed',
+				'$mixed->foo()->bar()',
+			],
+			[
+				'mixed',
+				'$mixed::TEST_CONSTANT',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataElementsOnMixed
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testElementsOnMixed(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/mixed-elements.php',
+			$description,
+			$expression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $description,

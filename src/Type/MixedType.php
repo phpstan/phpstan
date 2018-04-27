@@ -2,10 +2,15 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassConstantReflection;
+use PHPStan\Reflection\Dummy\DummyMethodReflection;
+use PHPStan\Reflection\Dummy\DummyPropertyReflection;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\MaybeIterableTypeTrait;
-use PHPStan\Type\Traits\MaybeObjectTypeTrait;
 use PHPStan\Type\Traits\MaybeOffsetAccessibleTypeTrait;
 use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
 
@@ -14,7 +19,6 @@ class MixedType implements CompoundType
 
 	use MaybeCallableTypeTrait;
 	use MaybeIterableTypeTrait;
-	use MaybeObjectTypeTrait;
 	use MaybeOffsetAccessibleTypeTrait;
 	use UndecidedBooleanTypeTrait;
 
@@ -51,6 +55,56 @@ class MixedType implements CompoundType
 		}
 
 		return TrinaryLogic::createMaybe();
+	}
+
+	public function canAccessProperties(): TrinaryLogic
+	{
+		return TrinaryLogic::createYes();
+	}
+
+	public function hasProperty(string $propertyName): bool
+	{
+		return true;
+	}
+
+	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	{
+		return new DummyPropertyReflection();
+	}
+
+	public function canCallMethods(): TrinaryLogic
+	{
+		return TrinaryLogic::createYes();
+	}
+
+	public function hasMethod(string $methodName): bool
+	{
+		return true;
+	}
+
+	public function getMethod(string $methodName, Scope $scope): MethodReflection
+	{
+		return new DummyMethodReflection($methodName);
+	}
+
+	public function canAccessConstants(): TrinaryLogic
+	{
+		return TrinaryLogic::createYes();
+	}
+
+	public function hasConstant(string $constantName): bool
+	{
+		return false;
+	}
+
+	public function getConstant(string $constantName): ClassConstantReflection
+	{
+		throw new \PHPStan\ShouldNotHappenException();
+	}
+
+	public function isCloneable(): TrinaryLogic
+	{
+		return TrinaryLogic::createYes();
 	}
 
 	public function describe(VerbosityLevel $level): string

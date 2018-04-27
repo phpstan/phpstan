@@ -98,3 +98,9 @@ function ()
 		$result['allowedRoomCounter'] += $x;
 	}
 };
+
+function () {
+	$o = new stdClass;
+	$o->user ?? '';
+	$o->user->name ?? '';
+};
