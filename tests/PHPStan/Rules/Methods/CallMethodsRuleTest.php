@@ -268,6 +268,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Parameter #1 $str of method Test\CheckIsCallable::test() expects callable, string given.',
 				660,
 			],
+			[
+				'Method Test\VariadicAnnotationMethod::definedInPhpDoc() invoked with 0 parameters, at least 1 required.',
+				714,
+			],
 		]);
 	}
 
@@ -416,6 +420,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Parameter #1 $str of method Test\CheckIsCallable::test() expects callable, string given.',
 				660,
+			],
+			[
+				'Method Test\VariadicAnnotationMethod::definedInPhpDoc() invoked with 0 parameters, at least 1 required.',
+				714,
 			],
 		]);
 	}

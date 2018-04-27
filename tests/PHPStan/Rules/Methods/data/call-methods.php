@@ -702,3 +702,17 @@ class ArrayKeysNull
 	}
 
 }
+
+/**
+ * @method void definedInPhpDoc(int $first, int ...$rest)
+ */
+class VariadicAnnotationMethod
+{
+
+	public function doFoo()
+	{
+		$this->definedInPhpDoc();
+		$this->definedInPhpDoc(42);
+	}
+
+}

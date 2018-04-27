@@ -136,7 +136,7 @@ class PhpDocNodeResolver
 					$parameterNode->isReference
 						? PassedByReference::createCreatesNewVariable()
 						: PassedByReference::createNo(),
-					$parameterNode->defaultValue !== null,
+					$parameterNode->isVariadic || $parameterNode->defaultValue !== null,
 					$parameterNode->isVariadic
 				);
 			}
