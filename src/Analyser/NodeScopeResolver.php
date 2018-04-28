@@ -488,25 +488,31 @@ class NodeScopeResolver
 			return;
 		} elseif ($node instanceof Expr\Closure) {
 			$this->processNodes($node->uses, $scope, $nodeCallback);
-			$closureScope = $this->lookForAssignsInBranches($scope, [
-				new StatementList($scope, $node->stmts),
-				new StatementList($scope, []),
-			], LookForAssignsSettings::insideFinally());
+			$usesByRef = [];
 			foreach ($node->uses as $closureUse) {
-				if (!$closureUse->byRef) {
-					continue;
+				if ($closureUse->byRef) {
+					$usesByRef[] = $closureUse;
 				}
-
-				$variableCertainty = $closureScope->hasVariableType($closureUse->var);
-				if ($variableCertainty->no()) {
-					continue;
-				}
-				$scope = $scope->assignVariable(
-					$closureUse->var,
-					$closureScope->getVariableType($closureUse->var),
-					$variableCertainty
-				);
 			}
+
+			if (count($usesByRef) > 0) {
+				$closureScope = $this->lookForAssignsInBranches($scope, [
+					new StatementList($scope, $node->stmts),
+					new StatementList($scope, []),
+				], LookForAssignsSettings::insideFinally());
+				foreach ($usesByRef as $closureUse) {
+					$variableCertainty = $closureScope->hasVariableType($closureUse->var);
+					if ($variableCertainty->no()) {
+						continue;
+					}
+					$scope = $scope->assignVariable(
+						$closureUse->var,
+						$closureScope->getVariableType($closureUse->var),
+						$variableCertainty
+					);
+				}
+			}
+
 			$scope = $scope->enterAnonymousFunction($node->params, $node->uses, $node->returnType);
 			$this->processNodes($node->stmts, $scope, $nodeCallback);
 
