@@ -1249,72 +1249,35 @@ class NodeScopeResolver
 			|| $node instanceof Expr\PreInc
 			|| $node instanceof Expr\PreDec
 		) {
+			$expressionType = $scope->getType($node->var);
 			if (
-				$node->var instanceof Variable
-				&& is_string($node->var->name)
+				$expressionType instanceof ConstantScalarType
+				&& !$expressionType->toNumber() instanceof ErrorType
 			) {
-				$variableCertainty = $scope->hasVariableType($node->var->name);
-				if (!$variableCertainty->no()) {
-					$variableType = $scope->getVariableType($node->var->name);
-					if ($variableType instanceof ConstantScalarType) {
-						$variableValue = $variableType->getValue();
-						if (
-							$node instanceof Expr\PostInc
-							|| $node instanceof Expr\PreInc
-						) {
-							$variableValue++;
-						} else {
-							$variableValue--;
-						}
-
-						$newType = $scope->getTypeFromValue($variableValue);
-						if (
-							$lookForAssignsSettings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()
-							&& $newType instanceof ConstantType
-						) {
-							$newType = $newType->generalize();
-						}
-						$scope = $this->assignVariable(
-							$scope,
-							$node->var,
-							$variableCertainty,
-							$newType
-						);
-					}
+				$afterValue = $expressionType->getValue();
+				if (
+					$node instanceof Expr\PostInc
+					|| $node instanceof Expr\PreInc
+				) {
+					$afterValue++;
+				} else {
+					$afterValue--;
 				}
-			} elseif (
-				$node->var instanceof ArrayDimFetch
-				&& $node->var->dim !== null
-			) {
-				$arrayType = $scope->getType($node->var->var);
-				if ($arrayType instanceof ArrayType) {
-					$dimType = $scope->getType($node->var->dim);
-					$valueType = $arrayType->getOffsetValueType($dimType);
-					if ($valueType instanceof ConstantScalarType) {
-						$offsetValue = $valueType->getValue();
-						if (
-							$node instanceof Expr\PreInc
-							|| $node instanceof Expr\PostInc
-						) {
-							$offsetValue++;
-						} else {
-							$offsetValue--;
-						}
 
-						$newType = $scope->getTypeFromValue($offsetValue);
-						if (
-							$lookForAssignsSettings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()
-							&& $newType instanceof ConstantType
-						) {
-							$newType = $newType->generalize();
-						}
-
-						$scope = $scope->specifyExpressionType(
-							$node->var->var,
-							$arrayType->setOffsetValueType($dimType, $newType)
-						);
-					}
+				$newExpressionType = $scope->getTypeFromValue($afterValue);
+				if (
+					$lookForAssignsSettings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()
+					&& $newExpressionType instanceof ConstantType
+				) {
+					$newExpressionType = $newExpressionType->generalize();
 				}
+
+				$scope = $this->assignVariable(
+					$scope,
+					$node->var,
+					$certainty,
+					$newExpressionType
+				);
 			}
 		}
 
@@ -1342,33 +1305,18 @@ class NodeScopeResolver
 				if ($node instanceof Assign || $node instanceof AssignRef) {
 					$type = $scope->getType($node->expr);
 				} elseif ($node instanceof Expr\AssignOp) {
-					if (
-						$node->var instanceof Variable
-						&& is_string($node->var->name)
-						&& !$scope->hasVariableType($node->var->name)->no()
-					) {
-						$type = $scope->getType($node);
-
-						if (
-							$lookForAssignsSettings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()
-							&& $type instanceof ConstantType
-						) {
+					$type = $scope->getType($node);
+					if ($lookForAssignsSettings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()) {
+						if ($type instanceof ConstantType) {
 							$type = $type->generalize();
-						}
-					} elseif ($node->var instanceof ArrayDimFetch) {
-						$type = $scope->getType($node);
-						if ($lookForAssignsSettings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()) {
-							if ($type instanceof ConstantType) {
-								$type = $type->generalize();
-							} elseif ($type instanceof UnionType) {
-								$type = TypeCombinator::union(...array_map(function (Type $type): Type {
-									if ($type instanceof ConstantType) {
-										return $type->generalize();
-									}
+						} elseif ($type instanceof UnionType) {
+							$type = TypeCombinator::union(...array_map(function (Type $type): Type {
+								if ($type instanceof ConstantType) {
+									return $type->generalize();
+								}
 
-									return $type;
-								}, $type->getTypes()));
-							}
+								return $type;
+							}, $type->getTypes()));
 						}
 					}
 				}

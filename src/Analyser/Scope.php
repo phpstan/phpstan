@@ -94,7 +94,7 @@ class Scope
 	/** @var \PHPStan\Analyser\VariableTypeHolder[] */
 	private $variableTypes;
 
-	/** @var \PHPStan\Type\Type[] */
+	/** @var \PHPStan\Analyser\VariableTypeHolder[] */
 	private $moreSpecificTypes;
 
 	/** @var string|null */
@@ -124,7 +124,7 @@ class Scope
 	 * @param \PHPStan\Reflection\FunctionReflection|MethodReflection|null $function
 	 * @param string|null $namespace
 	 * @param \PHPStan\Analyser\VariableTypeHolder[] $variablesTypes
-	 * @param \PHPStan\Type\Type[] $moreSpecificTypes
+	 * @param \PHPStan\Analyser\VariableTypeHolder[] $moreSpecificTypes
 	 * @param string|null $inClosureBindScopeClass
 	 * @param \PHPStan\Type\Type|null $inAnonymousFunctionReturnType
 	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null $inFunctionCall
@@ -1047,7 +1047,7 @@ class Scope
 
 		$exprString = $this->printer->prettyPrintExpr($node);
 		if (isset($this->moreSpecificTypes[$exprString])) {
-			return $this->moreSpecificTypes[$exprString];
+			return $this->moreSpecificTypes[$exprString]->getType();
 		}
 
 		if ($node instanceof Expr\Ternary) {
@@ -1808,8 +1808,8 @@ class Scope
 		$variableTypes[$variableName] = new VariableTypeHolder($type, $certainty);
 
 		$variableString = $this->printer->prettyPrintExpr(new Variable($variableName));
-		$moreSpecificTypes = $this->moreSpecificTypes;
-		foreach ($moreSpecificTypes as $key => $type) {
+		$moreSpecificTypeHolders = $this->moreSpecificTypes;
+		foreach ($moreSpecificTypeHolders as $key => $typeHolder) {
 			$matches = \Nette\Utils\Strings::match($key, '#^(\$[a-zA-Z_\x7f-\xff][a-zA-Z_0-9\x7f-\xff]*)#');
 			if ($matches === null) {
 				continue;
@@ -1819,7 +1819,7 @@ class Scope
 				continue;
 			}
 
-			unset($moreSpecificTypes[$key]);
+			unset($moreSpecificTypeHolders[$key]);
 		}
 
 		return new self(
@@ -1831,7 +1831,7 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypes,
-			$moreSpecificTypes,
+			$moreSpecificTypeHolders,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->getInFunctionCall(),
@@ -1911,17 +1911,41 @@ class Scope
 			$intersectedVariableTypeHolders[$name] = VariableTypeHolder::createMaybe($variableTypeHolder->getType());
 		}
 
-		$theirSpecifiedTypes = $otherScope->moreSpecificTypes;
+		$ourSpecifiedTypeHolders = $this->moreSpecificTypes;
+		$theirSpecifiedTypeHolders = $otherScope->moreSpecificTypes;
 		$intersectedSpecifiedTypes = [];
-		foreach ($this->moreSpecificTypes as $exprString => $specificType) {
-			if (!isset($theirSpecifiedTypes[$exprString])) {
+
+		foreach ($theirSpecifiedTypeHolders as $exprString => $theirSpecifiedTypeHolder) {
+			$matches = \Nette\Utils\Strings::match($exprString, '#^\$([a-zA-Z_\x7f-\xff][a-zA-Z_0-9\x7f-\xff]*)$#');
+			if ($matches !== null) {
+				continue;
+			}
+			if (isset($ourSpecifiedTypeHolders[$exprString])) {
+				$intersectedSpecifiedTypes[$exprString] = $ourSpecifiedTypeHolders[$exprString]->and($theirSpecifiedTypeHolder);
+			} else {
+				$intersectedSpecifiedTypes[$exprString] = VariableTypeHolder::createMaybe($theirSpecifiedTypeHolder->getType());
+			}
+		}
+
+		foreach ($this->moreSpecificTypes as $exprString => $specificTypeHolder) {
+			$matches = \Nette\Utils\Strings::match($exprString, '#^\$([a-zA-Z_\x7f-\xff][a-zA-Z_0-9\x7f-\xff]*)$#');
+			if ($matches !== null) {
+				continue;
+			}
+			if (isset($otherScope->moreSpecificTypes[$exprString])) {
+				$intersectedSpecifiedTypes[$exprString] = VariableTypeHolder::createYes(
+					TypeCombinator::union(
+						$otherScope->moreSpecificTypes[$exprString]->getType(),
+						$specificTypeHolder->getType()
+					)
+				);
+				continue;
+			}
+			if (isset($theirVariableTypeHolders[$exprString])) {
 				continue;
 			}
 
-			$intersectedSpecifiedTypes[$exprString] = TypeCombinator::union(
-				$specificType,
-				$theirSpecifiedTypes[$exprString]
-			);
+			$intersectedSpecifiedTypes[$exprString] = VariableTypeHolder::createMaybe($specificTypeHolder->getType());
 		}
 
 		return new self(
@@ -1950,8 +1974,13 @@ class Scope
 		}
 
 		$specifiedTypes = [];
-		foreach ($otherScope->moreSpecificTypes as $exprString => $specificType) {
-			$specifiedTypes[$exprString] = $specificType;
+		foreach ($otherScope->moreSpecificTypes as $exprString => $specificTypeHolder) {
+			$matches = \Nette\Utils\Strings::match($exprString, '#^\$([a-zA-Z_\x7f-\xff][a-zA-Z_0-9\x7f-\xff]*)$#');
+			if ($matches !== null) {
+				$variableTypes[$matches[1]] = $specificTypeHolder;
+				continue;
+			}
+			$specifiedTypes[$exprString] = $specificTypeHolder;
 		}
 
 		return new self(
@@ -1975,7 +2004,7 @@ class Scope
 	public function mergeWithIntersectedScope(self $intersectedScope): self
 	{
 		$variableTypeHolders = $this->variableTypes;
-		$specifiedTypes = $this->moreSpecificTypes;
+		$specifiedTypeHolders = $this->moreSpecificTypes;
 		foreach ($intersectedScope->getVariableTypes() as $name => $theirVariableTypeHolder) {
 			if (isset($variableTypeHolders[$name])) {
 				$type = $theirVariableTypeHolder->getType();
@@ -1988,20 +2017,29 @@ class Scope
 				);
 			}
 
-			$variableTypeHolders[$name] = $theirVariableTypeHolder->addMaybe();
+			$variableTypeHolders[$name] = $theirVariableTypeHolder;
 
 			$exprString = $this->printer->prettyPrintExpr(new Variable($name));
-			unset($specifiedTypes[$exprString]);
+			unset($specifiedTypeHolders[$exprString]);
 		}
 
-		foreach ($intersectedScope->moreSpecificTypes as $exprString => $specificType) {
-			$matches = \Nette\Utils\Strings::match($exprString, '#^\$([a-zA-Z_\x7f-\xff][a-zA-Z_0-9\x7f-\xff]*)$#');
-			if ($matches !== null) {
-				$variableName = $matches[1];
-				$variableTypeHolders[$variableName] = VariableTypeHolder::createYes($specificType);
+		foreach ($intersectedScope->moreSpecificTypes as $exprString => $theirTypeHolder) {
+			if (isset($specifiedTypeHolders[$exprString])) {
+				$type = $theirTypeHolder->getType();
+				if ($theirTypeHolder->getCertainty()->maybe()) {
+					$type = TypeCombinator::union($type, $specifiedTypeHolders[$exprString]->getType());
+				}
+				$theirTypeHolder = new VariableTypeHolder(
+					$type,
+					$theirTypeHolder->getCertainty()->or($specifiedTypeHolders[$exprString]->getCertainty())
+				);
+			}
+
+			if (!$theirTypeHolder->getCertainty()->yes()) {
 				continue;
 			}
-			$specifiedTypes[$exprString] = $specificType;
+
+			$specifiedTypeHolders[$exprString] = $theirTypeHolder;
 		}
 
 		return new self(
@@ -2013,7 +2051,7 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypeHolders,
-			$specifiedTypes,
+			$specifiedTypeHolders,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->getInFunctionCall(),
@@ -2044,13 +2082,24 @@ class Scope
 			}
 		}
 
-		$moreSpecificTypes = $this->moreSpecificTypes;
-		foreach ($otherScope->moreSpecificTypes as $exprString => $specifiedType) {
-			if (!isset($moreSpecificTypes[$exprString]) || !$specifiedType->isSuperTypeOf($moreSpecificTypes[$exprString])->and($moreSpecificTypes[$exprString]->isSuperTypeOf($specifiedType))->yes()) {
-				continue;
+		$ourTypeHolders = $this->moreSpecificTypes;
+		foreach ($otherScope->moreSpecificTypes as $exprString => $theirTypeHolder) {
+			if ($all) {
+				if (
+					isset($ourTypeHolders[$exprString])
+					&& $ourTypeHolders[$exprString]->getCertainty()->equals($theirTypeHolder->getCertainty())
+				) {
+					unset($ourVariableTypeHolders[$exprString]);
+				}
+			} else {
+				if (
+					isset($ourTypeHolders[$exprString])
+					&& $theirTypeHolder->getType()->isSuperTypeOf($ourTypeHolders[$exprString]->getType())->and($ourTypeHolders[$exprString]->getType()->isSuperTypeOf($theirTypeHolder->getType()))->yes()
+					&& $ourTypeHolders[$exprString]->getCertainty()->equals($theirTypeHolder->getCertainty())
+				) {
+					unset($ourVariableTypeHolders[$exprString]);
+				}
 			}
-
-			unset($moreSpecificTypes[$exprString]);
 		}
 
 		return new self(
@@ -2062,7 +2111,7 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$ourVariableTypeHolders,
-			$moreSpecificTypes,
+			$ourTypeHolders,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->getInFunctionCall(),
@@ -2082,7 +2131,7 @@ class Scope
 			$variableTypes[$variableName] = VariableTypeHolder::createYes($type);
 
 			$moreSpecificTypes = $this->moreSpecificTypes;
-			$moreSpecificTypes[$exprString] = $type;
+			$moreSpecificTypes[$exprString] = $variableTypes[$variableName];
 
 			return new self(
 				$this->broker,
@@ -2117,9 +2166,9 @@ class Scope
 	public function unspecifyExpressionType(Expr $expr): self
 	{
 		$exprString = $this->printer->prettyPrintExpr($expr);
-		$moreSpecificTypes = $this->moreSpecificTypes;
-		if (isset($moreSpecificTypes[$exprString]) && !$moreSpecificTypes[$exprString] instanceof MixedType) {
-			unset($moreSpecificTypes[$exprString]);
+		$moreSpecificTypeHolders = $this->moreSpecificTypes;
+		if (isset($moreSpecificTypeHolders[$exprString]) && !$moreSpecificTypeHolders[$exprString]->getType() instanceof MixedType) {
+			unset($moreSpecificTypeHolders[$exprString]);
 			return new self(
 				$this->broker,
 				$this->printer,
@@ -2129,7 +2178,7 @@ class Scope
 				$this->getFunction(),
 				$this->getNamespace(),
 				$this->getVariableTypes(),
-				$moreSpecificTypes,
+				$moreSpecificTypeHolders,
 				$this->inClosureBindScopeClass,
 				$this->getAnonymousFunctionReturnType(),
 				$this->getInFunctionCall(),
@@ -2270,9 +2319,9 @@ class Scope
 	 */
 	private function addMoreSpecificTypes(array $types): self
 	{
-		$moreSpecificTypes = $this->moreSpecificTypes;
+		$moreSpecificTypeHolders = $this->moreSpecificTypes;
 		foreach ($types as $exprString => $type) {
-			$moreSpecificTypes[$exprString] = $type;
+			$moreSpecificTypeHolders[$exprString] = VariableTypeHolder::createYes($type);
 		}
 
 		return new self(
@@ -2284,7 +2333,7 @@ class Scope
 			$this->getFunction(),
 			$this->getNamespace(),
 			$this->getVariableTypes(),
-			$moreSpecificTypes,
+			$moreSpecificTypeHolders,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->getInFunctionCall(),
@@ -2353,12 +2402,13 @@ class Scope
 			$key = sprintf('$%s (%s)', $name, $variableTypeHolder->getCertainty()->describe());
 			$descriptions[$key] = $variableTypeHolder->getType()->describe(VerbosityLevel::value());
 		}
-		foreach ($this->moreSpecificTypes as $exprString => $type) {
-			$key = $exprString;
-			if (isset($descriptions[$key])) {
-				$key .= '-specified';
-			}
-			$descriptions[$key] = $type->describe(VerbosityLevel::value());
+		foreach ($this->moreSpecificTypes as $exprString => $typeHolder) {
+			$key = sprintf(
+				'%s-specified (%s)',
+				$exprString,
+				$typeHolder->getCertainty()->describe()
+			);
+			$descriptions[$key] = $typeHolder->getType()->describe(VerbosityLevel::value());
 		}
 
 		return $descriptions;

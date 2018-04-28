@@ -42,14 +42,6 @@ class VariableTypeHolder
 		);
 	}
 
-	public function addMaybe(): self
-	{
-		return new self(
-			$this->getType(),
-			$this->getCertainty()->addMaybe()
-		);
-	}
-
 	public function getType(): Type
 	{
 		return $this->type;

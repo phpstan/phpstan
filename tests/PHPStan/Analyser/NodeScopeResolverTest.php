@@ -841,6 +841,26 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'anotherValueOverwrittenInIf',
 				'5|10',
 			],
+			[
+				$testScope,
+				'intProperty',
+				'int',
+			],
+			[
+				$testScope,
+				'staticIntProperty',
+				'int',
+			],
+			[
+				$testScope,
+				'anotherIntProperty',
+				'1|2',
+			],
+			[
+				$testScope,
+				'anotherStaticIntProperty',
+				'1|2',
+			],
 		];
 	}
 
@@ -850,7 +870,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	 * @param string $variableName
 	 * @param string $typeDescription
 	 */
-	public function testConstant(
+	public function testConstantTypes(
 		Scope $scope,
 		string $variableName,
 		string $typeDescription
