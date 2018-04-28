@@ -490,9 +490,11 @@ class NodeScopeResolver
 			$this->processNodes($node->uses, $scope, $nodeCallback);
 			$usesByRef = [];
 			foreach ($node->uses as $closureUse) {
-				if ($closureUse->byRef) {
-					$usesByRef[] = $closureUse;
+				if (!$closureUse->byRef) {
+					continue;
 				}
+
+				$usesByRef[] = $closureUse;
 			}
 
 			if (count($usesByRef) > 0) {
