@@ -446,6 +446,10 @@ class NodeScopeResolver
 			$this->processNodes($node->loop, $scopeLoopDefinitelyRan, $nodeCallback);
 
 			foreach ($node->cond as $condExpr) {
+				$scopeLoopMightHaveRun = $this->lookForAssigns($scopeLoopMightHaveRun, $condExpr, TrinaryLogic::createYes(), LookForAssignsSettings::insideLoop());
+			}
+
+			foreach ($node->cond as $condExpr) {
 				$scopeLoopMightHaveRun = $scopeLoopMightHaveRun->filterByTruthyValue($condExpr);
 			}
 			$this->processNodes($node->stmts, $scopeLoopMightHaveRun, $nodeCallback);

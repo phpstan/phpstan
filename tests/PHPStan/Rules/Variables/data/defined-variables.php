@@ -367,3 +367,14 @@ while (isset($variableInWhileIsset)) {
 
 reset($unknownVariablePassedToReset);
 echo $unknownVariablePassedToReset;
+
+function ($bm) {
+	$t = [];
+	for ($i = 0; ($b = 2 ** $i) <= $bm; ++$i) {
+		if ($bm & $b) {
+			$t[] = $b;
+		}
+	}
+
+	return $t;
+};
