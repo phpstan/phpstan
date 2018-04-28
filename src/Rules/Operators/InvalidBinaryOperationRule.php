@@ -20,11 +20,11 @@ class InvalidBinaryOperationRule implements \PHPStan\Rules\Rule
 
 	public function getNodeType(): string
 	{
-		return Node::class;
+		return Node\Expr::class;
 	}
 
 	/**
-	 * @param \PhpParser\Node $node
+	 * @param \PhpParser\Node\Expr $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */
