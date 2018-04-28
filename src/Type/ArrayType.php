@@ -190,7 +190,12 @@ class ArrayType implements StaticResolvableType
 
 	public function getOffsetValueType(Type $offsetType): Type
 	{
-		return $this->getItemType();
+		$type = $this->getItemType();
+		if ($type instanceof ErrorType) {
+			return new MixedType();
+		}
+
+		return $type;
 	}
 
 	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type

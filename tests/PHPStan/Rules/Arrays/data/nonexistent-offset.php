@@ -81,4 +81,19 @@ class Foo
 		echo $array['foo'];
 	}
 
+	public function cumulative()
+	{
+		$arr = [1, 1, 1, 1, 2, 5, 3, 2];
+		/** @var (string|int)[] */
+		$cumulative = [];
+
+		foreach ($arr as $val) {
+			if (!isset($cumulative[$val])) {
+				$cumulative[$val] = 0;
+			}
+
+			$cumulative[$val] = $cumulative[$val] + 1;
+		}
+	}
+
 }
