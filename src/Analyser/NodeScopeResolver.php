@@ -162,6 +162,7 @@ class NodeScopeResolver
 		?Scope $closureBindScope = null
 	): void
 	{
+		$nodesCount = count($nodes);
 		/** @var \PhpParser\Node|string $node */
 		foreach ($nodes as $i => $node) {
 			if (!($node instanceof \PhpParser\Node)) {
@@ -195,6 +196,10 @@ class NodeScopeResolver
 			}
 
 			$this->processNode($node, $nodeScope, $nodeCallback);
+
+			if ($i === $nodesCount - 1) {
+				break;
+			}
 			$scope = $this->lookForAssigns($scope, $node, TrinaryLogic::createYes());
 
 			if ($node instanceof If_) {
