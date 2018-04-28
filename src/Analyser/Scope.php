@@ -1015,6 +1015,8 @@ class Scope
 				}
 				return $this->getTypeFromValue($varValue);
 			}
+
+			return $varType->toNumber();
 		} elseif ($node instanceof Node\Expr\ClassConstFetch && is_string($node->name)) {
 			if ($node->class instanceof Name) {
 				$constantClass = (string) $node->class;

@@ -272,6 +272,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Method Test\VariadicAnnotationMethod::definedInPhpDoc() invoked with 0 parameters, at least 1 required.',
 				714,
 			],
+			[
+				'Parameter #2 $str of method Test\PreIncString::doFoo() expects string, int given.',
+				725,
+			],
 		]);
 	}
 
@@ -424,6 +428,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Method Test\VariadicAnnotationMethod::definedInPhpDoc() invoked with 0 parameters, at least 1 required.',
 				714,
+			],
+			[
+				'Parameter #2 $str of method Test\PreIncString::doFoo() expects string, int given.',
+				725,
 			],
 		]);
 	}

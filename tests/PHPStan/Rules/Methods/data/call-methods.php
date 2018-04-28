@@ -716,3 +716,13 @@ class VariadicAnnotationMethod
 	}
 
 }
+
+class PreIncString
+{
+
+	public function doFoo(int $i, string $str)
+	{
+		$this->doFoo(1, ++$i);
+	}
+
+}
