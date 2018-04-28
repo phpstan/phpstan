@@ -63,7 +63,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		$methodName = $node->name;
+		$methodName = $node->name->name;
 		if (!is_string($methodName)) {
 			return [];
 		}

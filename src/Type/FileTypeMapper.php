@@ -157,10 +157,10 @@ class FileTypeMapper
 							return false;
 						}
 					} else {
-						if ($node->name === null) {
+						if ($node->name->name === null) {
 							$className = sprintf('class@anonymous:%s:%s', $fileName, $node->getLine());
 						} else {
-							$className = ltrim(sprintf('%s\\%s', $namespace, $node->name), '\\');
+							$className = ltrim(sprintf('%s\\%s', $namespace, $node->name->name), '\\');
 						}
 						$classStack[] = $className;
 					}
@@ -194,7 +194,10 @@ class FileTypeMapper
 					return;
 				} elseif ($node instanceof \PhpParser\Node\Stmt\Use_ && $node->type === \PhpParser\Node\Stmt\Use_::TYPE_NORMAL) {
 					foreach ($node->uses as $use) {
-						$uses[$use->alias] = (string) $use->name;
+						if (!isset($use->alias)) {
+							continue;
+						}
+						$uses[$use->alias->name] = (string) $use->name;
 					}
 					return;
 				} elseif ($node instanceof \PhpParser\Node\Stmt\GroupUse) {
@@ -204,7 +207,10 @@ class FileTypeMapper
 							continue;
 						}
 
-						$uses[$use->alias] = sprintf('%s\\%s', $prefix, $use->name);
+						if (!isset($use->alias)) {
+							continue;
+						}
+						$uses[$use->alias->name] = sprintf('%s\\%s', $prefix, $use->name);
 					}
 					return;
 				} elseif (!in_array(get_class($node), [

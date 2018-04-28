@@ -49,7 +49,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		$constantName = $node->name;
+		$constantName = $node->name->name;
 		if (!is_string($constantName)) {
 			return [];
 		}

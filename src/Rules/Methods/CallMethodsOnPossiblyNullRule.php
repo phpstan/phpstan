@@ -39,7 +39,7 @@ class CallMethodsOnPossiblyNullRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		if (!is_string($node->name)) {
+		if (!is_string($node->name->name)) {
 			return [];
 		}
 
@@ -56,7 +56,7 @@ class CallMethodsOnPossiblyNullRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf(
 					'Calling method %s() on possibly null value of type %s.',
-					$node->name,
+					$node->name->name,
 					$type->describe(VerbosityLevel::typeOnly())
 				),
 			];
