@@ -266,6 +266,10 @@ class Scope
 
 	public function hasVariableType(string $variableName): TrinaryLogic
 	{
+		if ($this->isGlobalVariable($variableName)) {
+			return TrinaryLogic::createYes();
+		}
+
 		if (!isset($this->variableTypes[$variableName])) {
 			return TrinaryLogic::createNo();
 		}
@@ -275,11 +279,30 @@ class Scope
 
 	public function getVariableType(string $variableName): Type
 	{
+		if ($this->isGlobalVariable($variableName)) {
+			return new ArrayType(new StringType(), new MixedType());
+		}
+
 		if ($this->hasVariableType($variableName)->no()) {
 			throw new \PHPStan\Analyser\UndefinedVariableException($this, $variableName);
 		}
 
 		return $this->variableTypes[$variableName]->getType();
+	}
+
+	private function isGlobalVariable(string $variableName): bool
+	{
+		return in_array($variableName, [
+			'GLOBALS',
+			'_SERVER',
+			'_GET',
+			'_POST',
+			'_FILES',
+			'_COOKIE',
+			'_SESSION',
+			'_REQUEST',
+			'_ENV',
+		], true);
 	}
 
 	public function isInAnonymousFunction(): bool

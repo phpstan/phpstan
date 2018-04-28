@@ -378,3 +378,5 @@ function ($bm) {
 
 	return $t;
 };
+
+echo $_GET['test'];
