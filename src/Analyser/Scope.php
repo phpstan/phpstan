@@ -1995,7 +1995,8 @@ class Scope
 		}
 
 		foreach ($intersectedScope->moreSpecificTypes as $exprString => $specificType) {
-			if (preg_match('#^\$([a-zA-Z_]\w*)$#', (string) $exprString, $matches) === 1) {
+			$matches = \Nette\Utils\Strings::match($exprString, '#^\$([a-zA-Z_\x7f-\xff][a-zA-Z_0-9\x7f-\xff]*)$#');
+			if ($matches !== null) {
 				$variableName = $matches[1];
 				$variableTypeHolders[$variableName] = VariableTypeHolder::createYes($specificType);
 				continue;
