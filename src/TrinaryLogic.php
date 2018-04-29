@@ -97,11 +97,6 @@ class TrinaryLogic
 		return $this === $other;
 	}
 
-	public function addMaybe(): self
-	{
-		return self::create(max($this->value, self::MAYBE));
-	}
-
 	public function describe(): string
 	{
 		static $labels = [

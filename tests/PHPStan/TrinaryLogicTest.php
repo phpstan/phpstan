@@ -96,26 +96,4 @@ class TrinaryLogicTest extends \PHPStan\Testing\TestCase
 		$this->assertTrue($expectedResult->equals($operand->negate()));
 	}
 
-	public function dataAddMaybe(): array
-	{
-		return [
-			[TrinaryLogic::createMaybe(), TrinaryLogic::createNo()],
-			[TrinaryLogic::createMaybe(), TrinaryLogic::createMaybe()],
-			[TrinaryLogic::createYes(), TrinaryLogic::createYes()],
-		];
-	}
-
-	/**
-	 * @dataProvider dataAddMaybe
-	 * @param TrinaryLogic $expectedResult
-	 * @param TrinaryLogic $value
-	 */
-	public function testAddMaybe(
-		TrinaryLogic $expectedResult,
-		TrinaryLogic $value
-	): void
-	{
-		$this->assertTrue($expectedResult->equals($value->addMaybe()));
-	}
-
 }
