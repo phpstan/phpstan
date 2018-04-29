@@ -7,7 +7,7 @@ class InvalidIncDecOperationRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new InvalidIncDecOperationRule();
+		return new InvalidIncDecOperationRule(false);
 	}
 
 	public function testRule(): void
@@ -20,6 +20,10 @@ class InvalidIncDecOperationRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Cannot use -- on a non-variable.',
 				12,
+			],
+			[
+				'Cannot use ++ on stdClass.',
+				17,
 			],
 		]);
 	}

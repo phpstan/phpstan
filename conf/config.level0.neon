@@ -19,7 +19,6 @@ rules:
 	- PHPStan\Rules\Functions\PrintfParametersRule
 	- PHPStan\Rules\Functions\UnusedClosureUsesRule
 	- PHPStan\Rules\Methods\ExistingClassesInTypehintsRule
-	- PHPStan\Rules\Operators\InvalidIncDecOperationRule
 	- PHPStan\Rules\Properties\AccessPropertiesRule
 	- PHPStan\Rules\Properties\AccessStaticPropertiesRule
 	- PHPStan\Rules\Variables\ThisVariableRule
@@ -73,6 +72,13 @@ services:
 			- phpstan.rules.rule
 		arguments:
 			checkFunctionNameCase: %checkFunctionNameCase%
+
+	-
+		class: PHPStan\Rules\Operators\InvalidIncDecOperationRule
+		tags:
+			- phpstan.rules.rule
+		arguments:
+			checkThisOnly: %checkThisOnly%
 
 	-
 		class: PHPStan\Rules\Properties\ExistingClassesInPropertiesRule

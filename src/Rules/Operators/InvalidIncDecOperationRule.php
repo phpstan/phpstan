@@ -2,8 +2,19 @@
 
 namespace PHPStan\Rules\Operators;
 
+use PHPStan\Type\ErrorType;
+use PHPStan\Type\VerbosityLevel;
+
 class InvalidIncDecOperationRule implements \PHPStan\Rules\Rule
 {
+
+	/** @var bool */
+	private $checkThisOnly;
+
+	public function __construct(bool $checkThisOnly)
+	{
+		$this->checkThisOnly = $checkThisOnly;
+	}
 
 	public function getNodeType(): string
 	{
@@ -26,6 +37,8 @@ class InvalidIncDecOperationRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
+		$operatorString = ($node instanceof \PhpParser\Node\Expr\PreInc || $node instanceof \PhpParser\Node\Expr\PostInc) ? '++' : '--';
+
 		if (
 			!$node->var instanceof \PhpParser\Node\Expr\Variable
 			&& !$node->var instanceof \PhpParser\Node\Expr\ArrayDimFetch
@@ -35,7 +48,25 @@ class InvalidIncDecOperationRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf(
 					'Cannot use %s on a non-variable.',
-					($node instanceof \PhpParser\Node\Expr\PreInc || $node instanceof \PhpParser\Node\Expr\PostInc) ? '++' : '--'
+					$operatorString
+				),
+			];
+		}
+
+		if (!$this->checkThisOnly) {
+			$varType = $scope->getType($node->var);
+			if (!$varType->toString() instanceof ErrorType) {
+				return [];
+			}
+			if (!$varType->toNumber() instanceof ErrorType) {
+				return [];
+			}
+
+			return [
+				sprintf(
+					'Cannot use %s on %s.',
+					$operatorString,
+					$varType->describe(VerbosityLevel::value())
 				),
 			];
 		}
