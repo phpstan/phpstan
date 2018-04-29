@@ -5358,6 +5358,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'string',
 				'preg_replace_callback_array($callbacks, $string)',
 			],
+			[
+				'string',
+				'str_replace(\'.\', \':\', $intOrStringKey)',
+			],
 		];
 	}
 

@@ -27,6 +27,11 @@ function () {
 	$expectedArray2 = preg_replace_callback('aaa', function () {}, $array);
 	$expectedArrayOrString2 = preg_replace_callback('aaa', function () {}, $arrayOrString);
 
-	die;
+	/** @var Foo[] $arr */
+	$arr = doFoo();
+
+	foreach ($arr as $intOrStringKey => $value) {
+		die;
+	}
 
 };

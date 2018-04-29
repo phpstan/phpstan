@@ -96,4 +96,71 @@ class TrinaryLogicTest extends \PHPStan\Testing\TestCase
 		$this->assertTrue($expectedResult->equals($operand->negate()));
 	}
 
+	public function dataCompareTo(): array
+	{
+		$yes = TrinaryLogic::createYes();
+		$maybe = TrinaryLogic::createMaybe();
+		$no = TrinaryLogic::createNo();
+		return [
+			[
+				$yes,
+				$yes,
+				null,
+			],
+			[
+				$maybe,
+				$maybe,
+				null,
+			],
+			[
+				$no,
+				$no,
+				null,
+			],
+			[
+				$yes,
+				$maybe,
+				$yes,
+			],
+			[
+				$yes,
+				$no,
+				$yes,
+			],
+			[
+				$maybe,
+				$no,
+				$maybe,
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataCompareTo
+	 * @param TrinaryLogic $first
+	 * @param TrinaryLogic $second
+	 * @param TrinaryLogic|null $expected
+	 */
+	public function testCompareTo(TrinaryLogic $first, TrinaryLogic $second, ?TrinaryLogic $expected): void
+	{
+		$this->assertSame(
+			$expected,
+			$first->compareTo($second)
+		);
+	}
+
+	/**
+	 * @dataProvider dataCompareTo
+	 * @param TrinaryLogic $first
+	 * @param TrinaryLogic $second
+	 * @param TrinaryLogic|null $expected
+	 */
+	public function testCompareToInversed(TrinaryLogic $first, TrinaryLogic $second, ?TrinaryLogic $expected): void
+	{
+		$this->assertSame(
+			$expected,
+			$second->compareTo($first)
+		);
+	}
+
 }

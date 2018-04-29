@@ -41,9 +41,13 @@ class ReplaceFunctionsDynamicReturnTypeExtension implements DynamicFunctionRetur
 		$subjectArgumentType = $scope->getType($functionCall->args[$argumentPosition]->value);
 		$stringType = new StringType();
 		$arrayType = new ArrayType(new MixedType(), new MixedType());
-		if ($stringType->isSuperTypeOf($subjectArgumentType)->yes()) {
+
+		$isStringSuperType = $stringType->isSuperTypeOf($subjectArgumentType);
+		$isArraySuperType = $arrayType->isSuperTypeOf($subjectArgumentType);
+		$compareSuperTypes = $isStringSuperType->compareTo($isArraySuperType);
+		if ($compareSuperTypes === $isStringSuperType) {
 			return $stringType;
-		} elseif ($arrayType->isSuperTypeOf($subjectArgumentType)->yes()) {
+		} elseif ($compareSuperTypes === $isArraySuperType) {
 			if ($subjectArgumentType instanceof ArrayType) {
 				return $subjectArgumentType->generalizeValues();
 			}

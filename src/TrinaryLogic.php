@@ -97,6 +97,17 @@ class TrinaryLogic
 		return $this === $other;
 	}
 
+	public function compareTo(self $other): ?self
+	{
+		if ($this->value > $other->value) {
+			return $this;
+		} elseif ($other->value > $this->value) {
+			return $other;
+		}
+
+		return null;
+	}
+
 	public function describe(): string
 	{
 		static $labels = [
