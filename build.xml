@@ -45,6 +45,8 @@
 			<arg path="tests/PHPStan/Rules/Methods/data"/>
 			<arg value="--exclude"/>
 			<arg path="tests/PHPStan/Rules/Functions/data"/>
+			<arg value="--exclude"/>
+			<arg path="tests/PHPStan/Rules/Operators/data/invalid-inc-dec.php"/>
 			<arg path="src" />
 			<arg path="tests" />
 		</exec>

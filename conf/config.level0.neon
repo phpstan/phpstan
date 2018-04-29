@@ -19,6 +19,7 @@ rules:
 	- PHPStan\Rules\Functions\PrintfParametersRule
 	- PHPStan\Rules\Functions\UnusedClosureUsesRule
 	- PHPStan\Rules\Methods\ExistingClassesInTypehintsRule
+	- PHPStan\Rules\Operators\InvalidIncDecOperationRule
 	- PHPStan\Rules\Properties\AccessPropertiesRule
 	- PHPStan\Rules\Properties\AccessStaticPropertiesRule
 	- PHPStan\Rules\Variables\ThisVariableRule
