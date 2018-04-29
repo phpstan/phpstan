@@ -87,6 +87,16 @@ class Foo
 		if ($this->isNotSame($std1, $std2)) {
 
 		}
+		if ($this->isSame($this->nullableInt(), 1)) {
+			if ($this->isSame($this->nullableInt(), null)) {
+
+			}
+		}
+	}
+
+	public function nullableInt(): ?int
+	{
+
 	}
 
 }

@@ -1300,6 +1300,14 @@ class Scope
 		$sureNotTypes = $specifiedTypes->getSureNotTypes();
 		if (count($sureTypes) === 1) {
 			$sureType = reset($sureTypes);
+			if ((
+				$sureType[0] instanceof FuncCall
+				|| $sureType[0] instanceof MethodCall
+				|| $sureType[0] instanceof Expr\StaticCall
+			) && $this->isSpecified($sureType[0])) {
+				return $parametersAcceptor->getReturnType();
+			}
+
 			$argumentType = $this->getType($sureType[0]);
 
 			/** @var \PHPStan\Type\Type $resultType */
@@ -1315,6 +1323,14 @@ class Scope
 			return $parametersAcceptor->getReturnType();
 		} elseif (count($sureNotTypes) === 1) {
 			$sureNotType = reset($sureNotTypes);
+			if ((
+				$sureNotType[0] instanceof FuncCall
+				|| $sureNotType[0] instanceof MethodCall
+				|| $sureNotType[0] instanceof Expr\StaticCall
+			) && $this->isSpecified($sureNotType[0])) {
+				return $parametersAcceptor->getReturnType();
+			}
+
 			$argumentType = $this->getType($sureNotType[0]);
 
 			/** @var \PHPStan\Type\Type $resultType */

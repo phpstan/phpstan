@@ -12,11 +12,12 @@ class Foo
 
 	public function doCheckNullableString(): int
 	{
-		if ($this->returnsNullableString() === true) {
+		$result = $this->returnsNullableString();
+		if ($result === true) {
 			return 1;
-		} else if ($this->returnsNullableString() === false) {
+		} else if ($result === false) {
 			return 2;
-		} else if ($this->returnsNullableString() === null) {
+		} else if ($result === null) {
 			return 3;
 		}
 		return 4;

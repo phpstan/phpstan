@@ -428,3 +428,22 @@ class OverwriteSpecifiedVariable
 	}
 
 }
+
+class StrictComparisonOfSpecifiedFunctionCall
+{
+
+	public function doFoo()
+	{
+		if (is_int($this->nullableInt())) {
+			if ($this->nullableInt() ===  null) {
+
+			}
+		}
+	}
+
+	public function nullableInt(): ?int
+	{
+
+	}
+
+}
