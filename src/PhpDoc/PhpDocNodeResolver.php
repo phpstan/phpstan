@@ -42,7 +42,7 @@ class PhpDocNodeResolver
 	/**
 	 * @param PhpDocNode $phpDocNode
 	 * @param NameScope $nameScope
-	 * @return \PHPStan\PhpDoc\Tag\VarTag[]
+	 * @return array<string, \PHPStan\PhpDoc\Tag\VarTag>
 	 */
 	private function resolveVarTags(PhpDocNode $phpDocNode, NameScope $nameScope): array
 	{
@@ -66,7 +66,7 @@ class PhpDocNodeResolver
 	/**
 	 * @param PhpDocNode $phpDocNode
 	 * @param NameScope $nameScope
-	 * @return \PHPStan\PhpDoc\Tag\PropertyTag[]
+	 * @return array<string, \PHPStan\PhpDoc\Tag\PropertyTag>
 	 */
 	private function resolvePropertyTags(PhpDocNode $phpDocNode, NameScope $nameScope): array
 	{
@@ -117,7 +117,7 @@ class PhpDocNodeResolver
 	/**
 	 * @param PhpDocNode $phpDocNode
 	 * @param NameScope $nameScope
-	 * @return \PHPStan\PhpDoc\Tag\MethodTag[]
+	 * @return array<string, \PHPStan\PhpDoc\Tag\MethodTag>
 	 */
 	private function resolveMethodTags(PhpDocNode $phpDocNode, NameScope $nameScope): array
 	{
@@ -152,9 +152,9 @@ class PhpDocNodeResolver
 	}
 
 	/**
-	 * @param  PhpDocNode $phpDocNode
-	 * @param  NameScope $nameScope
-	 * @return \PHPStan\PhpDoc\Tag\ParamTag[]
+	 * @param PhpDocNode $phpDocNode
+	 * @param NameScope $nameScope
+	 * @return array<string, \PHPStan\PhpDoc\Tag\ParamTag>
 	 */
 	private function resolveParamTags(PhpDocNode $phpDocNode, NameScope $nameScope): array
 	{
@@ -169,7 +169,7 @@ class PhpDocNodeResolver
 				if (!$parameterType instanceof ArrayType) {
 					$parameterType = new ArrayType(new IntegerType(), $parameterType);
 
-				} elseif ($parameterType->getIterableKeyType() instanceof MixedType) {
+				} elseif ($parameterType->getKeyType() instanceof MixedType) {
 					$parameterType = new ArrayType(new IntegerType(), $parameterType->getItemType());
 				}
 			}

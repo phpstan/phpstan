@@ -34,7 +34,7 @@ class TableErrorFormatter implements ErrorFormatter
 			return $filename;
 		};
 
-		/** @var \PHPStan\Analyser\Error[][] $fileErrors */
+		/** @var array<string, \PHPStan\Analyser\Error[]> $fileErrors */
 		$fileErrors = [];
 		foreach ($analysisResult->getFileSpecificErrors() as $fileSpecificError) {
 			if (!isset($fileErrors[$fileSpecificError->getFile()])) {
@@ -45,6 +45,8 @@ class TableErrorFormatter implements ErrorFormatter
 		}
 
 		foreach ($fileErrors as $file => $errors) {
+			/** @var string $file */
+			$file = $file;
 			$rows = [];
 			foreach ($errors as $error) {
 				$rows[] = [

@@ -31,7 +31,7 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\Testing\TestCase
 	 * @dataProvider dataLibXMLErrorProperties
 	 * @param string $className
 	 * @param string $declaringClassName
-	 * @param array  $data
+	 * @param array<string, mixed>  $data
 	 */
 	public function testProperties(string $className, string $declaringClassName, array $data): void
 	{

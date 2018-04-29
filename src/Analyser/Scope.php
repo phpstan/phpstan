@@ -257,7 +257,7 @@ class Scope
 	}
 
 	/**
-	 * @return \PHPStan\Analyser\VariableTypeHolder[]
+	 * @return array<string, \PHPStan\Analyser\VariableTypeHolder>
 	 */
 	private function getVariableTypes(): array
 	{

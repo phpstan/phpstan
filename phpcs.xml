@@ -2,6 +2,7 @@
 <ruleset name="PHPStan">
 	<rule ref="vendor/consistence/coding-standard/Consistence/ruleset.xml">
 		<exclude name="Squiz.Functions.GlobalFunction.Found"/>
+		<exclude name="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration.InvalidFormat"/>
 		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameAfterKeyword"/>
 		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation"/>
 		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedExceptions"/>
@@ -25,12 +26,8 @@
 				@requires
 			"/>
 		</properties>
-	</rule>
-	<rule ref="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableReturnTypeHintSpecification">
-		<exclude-pattern>tests/*</exclude-pattern>
-	</rule>
-	<rule ref="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableParameterTypeHintSpecification">
-		<exclude-pattern>tests/*</exclude-pattern>
+		<exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableParameterTypeHintSpecification"/>
+		<exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableReturnTypeHintSpecification"/>
 	</rule>
 	<rule ref="SlevomatCodingStandard.ControlStructures.AssignmentInCondition"/>
 	<rule ref="SlevomatCodingStandard.ControlStructures.DisallowEqualOperators"/>

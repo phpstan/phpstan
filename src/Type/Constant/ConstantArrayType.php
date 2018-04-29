@@ -27,18 +27,18 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 	private const DESCRIBE_LIMIT = 8;
 
-	/** @var (ConstantIntegerType|ConstantStringType)[] */
+	/** @var array<int, ConstantIntegerType|ConstantStringType> */
 	private $keyTypes;
 
-	/** @var Type[] */
+	/** @var array<int, Type> */
 	private $valueTypes;
 
 	/** @var int */
 	private $nextAutoIndex;
 
 	/**
-	 * @param (ConstantIntegerType|ConstantStringType)[] $keyTypes
-	 * @param Type[] $valueTypes
+	 * @param array<int, ConstantIntegerType|ConstantStringType> $keyTypes
+	 * @param array<int, Type> $valueTypes
 	 * @param int $nextAutoIndex
 	 */
 	public function __construct(array $keyTypes, array $valueTypes, int $nextAutoIndex = 0)
@@ -63,7 +63,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 	}
 
 	/**
-	 * @return (ConstantIntegerType|ConstantStringType)[]
+	 * @return array<int, ConstantIntegerType|ConstantStringType>
 	 */
 	public function getKeyTypes(): array
 	{
@@ -71,7 +71,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 	}
 
 	/**
-	 * @return Type[]
+	 * @return array<int, Type>
 	 */
 	public function getValueTypes(): array
 	{

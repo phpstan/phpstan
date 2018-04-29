@@ -2663,7 +2663,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				"'BooleansArray';",
 			],
 			[
-				'mixed',
+				'int|string',
 				"'UnknownConstantArray';",
 			],
 		];

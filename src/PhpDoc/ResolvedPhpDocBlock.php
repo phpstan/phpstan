@@ -7,26 +7,26 @@ use PHPStan\PhpDoc\Tag\ReturnTag;
 class ResolvedPhpDocBlock
 {
 
-	/** @var \PHPStan\PhpDoc\Tag\VarTag[] */
+	/** @var array<string, \PHPStan\PhpDoc\Tag\VarTag> */
 	private $varTags;
 
-	/** @var \PHPStan\PhpDoc\Tag\MethodTag[] */
+	/** @var array<string, \PHPStan\PhpDoc\Tag\MethodTag> */
 	private $methodTags;
 
-	/** @var \PHPStan\PhpDoc\Tag\PropertyTag[] */
+	/** @var array<string, \PHPStan\PhpDoc\Tag\PropertyTag> */
 	private $propertyTags;
 
-	/** @var \PHPStan\PhpDoc\Tag\ParamTag[] */
+	/** @var array<string, \PHPStan\PhpDoc\Tag\ParamTag> */
 	private $paramTags;
 
 	/** @var \PHPStan\PhpDoc\Tag\ReturnTag|null */
 	private $returnTag;
 
 	/**
-	 * @param \PHPStan\PhpDoc\Tag\VarTag[] $varTags
-	 * @param \PHPStan\PhpDoc\Tag\MethodTag[] $methodTags
-	 * @param \PHPStan\PhpDoc\Tag\PropertyTag[] $propertyTags
-	 * @param \PHPStan\PhpDoc\Tag\ParamTag[] $paramTags
+	 * @param array<string, \PHPStan\PhpDoc\Tag\VarTag> $varTags
+	 * @param array<string, \PHPStan\PhpDoc\Tag\MethodTag> $methodTags
+	 * @param array<string, \PHPStan\PhpDoc\Tag\PropertyTag> $propertyTags
+	 * @param array<string, \PHPStan\PhpDoc\Tag\ParamTag> $paramTags
 	 * @param \PHPStan\PhpDoc\Tag\ReturnTag|null $returnTag
 	 */
 	private function __construct(
@@ -45,10 +45,10 @@ class ResolvedPhpDocBlock
 	}
 
 	/**
-	 * @param \PHPStan\PhpDoc\Tag\VarTag[] $varTags
-	 * @param \PHPStan\PhpDoc\Tag\MethodTag[] $methodTags
-	 * @param \PHPStan\PhpDoc\Tag\PropertyTag[] $propertyTags
-	 * @param \PHPStan\PhpDoc\Tag\ParamTag[] $paramTags
+	 * @param array<string, \PHPStan\PhpDoc\Tag\VarTag> $varTags
+	 * @param array<string, \PHPStan\PhpDoc\Tag\MethodTag> $methodTags
+	 * @param array<string, \PHPStan\PhpDoc\Tag\PropertyTag> $propertyTags
+	 * @param array<string, \PHPStan\PhpDoc\Tag\ParamTag> $paramTags
 	 * @param \PHPStan\PhpDoc\Tag\ReturnTag|null $returnTag
 	 * @return self
 	 */
@@ -70,7 +70,7 @@ class ResolvedPhpDocBlock
 
 
 	/**
-	 * @return \PHPStan\PhpDoc\Tag\VarTag[]
+	 * @return array<string, \PHPStan\PhpDoc\Tag\VarTag>
 	 */
 	public function getVarTags(): array
 	{
@@ -78,7 +78,7 @@ class ResolvedPhpDocBlock
 	}
 
 	/**
-	 * @return \PHPStan\PhpDoc\Tag\MethodTag[]
+	 * @return array<string, \PHPStan\PhpDoc\Tag\MethodTag>
 	 */
 	public function getMethodTags(): array
 	{
@@ -86,7 +86,7 @@ class ResolvedPhpDocBlock
 	}
 
 	/**
-	 * @return \PHPStan\PhpDoc\Tag\PropertyTag[]
+	 * @return array<string, \PHPStan\PhpDoc\Tag\PropertyTag>
 	 */
 	public function getPropertyTags(): array
 	{
@@ -94,7 +94,7 @@ class ResolvedPhpDocBlock
 	}
 
 	/**
-	 * @return \PHPStan\PhpDoc\Tag\ParamTag[]
+	 * @return array<string, \PHPStan\PhpDoc\Tag\ParamTag>
 	 */
 	public function getParamTags(): array
 	{

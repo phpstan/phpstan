@@ -13,13 +13,13 @@ class MethodTag
 	/** @var bool */
 	private $isStatic;
 
-	/** @var \PHPStan\PhpDoc\Tag\MethodTagParameter[] */
+	/** @var array<string, \PHPStan\PhpDoc\Tag\MethodTagParameter> */
 	private $parameters;
 
 	/**
 	 * @param \PHPStan\Type\Type $returnType
 	 * @param bool $isStatic
-	 * @param \PHPStan\PhpDoc\Tag\MethodTagParameter[] $parameters
+	 * @param array<string, \PHPStan\PhpDoc\Tag\MethodTagParameter> $parameters
 	 */
 	public function __construct(
 		Type $returnType,
@@ -43,7 +43,7 @@ class MethodTag
 	}
 
 	/**
-	 * @return \PHPStan\PhpDoc\Tag\MethodTagParameter[]
+	 * @return array<string, \PHPStan\PhpDoc\Tag\MethodTagParameter>
 	 */
 	public function getParameters(): array
 	{

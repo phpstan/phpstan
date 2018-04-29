@@ -128,7 +128,10 @@ class FunctionCallParametersCheck
 		}
 
 		$parameters = $function->getParameters();
-		foreach ($funcCall->args as $i => $argument) {
+
+		/** @var array<int, \PhpParser\Node\Arg> $args */
+		$args = $funcCall->args;
+		foreach ($args as $i => $argument) {
 			if (!isset($parameters[$i])) {
 				if (!$function->isVariadic() || count($parameters) === 0) {
 					break;

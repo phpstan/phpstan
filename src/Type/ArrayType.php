@@ -126,7 +126,7 @@ class ArrayType implements StaticResolvableType
 	public function intersectWith(self $otherArray): self
 	{
 		return new self(
-			TypeCombinator::union($this->getIterableKeyType(), $otherArray->getIterableKeyType()),
+			TypeCombinator::union($this->getKeyType(), $otherArray->getKeyType()),
 			TypeCombinator::union($this->getIterableValueType(), $otherArray->getIterableValueType()),
 			$this->isItemTypeInferredFromLiteralArray() || $otherArray->isItemTypeInferredFromLiteralArray()
 		);
@@ -175,7 +175,12 @@ class ArrayType implements StaticResolvableType
 
 	public function getIterableKeyType(): Type
 	{
-		return $this->keyType;
+		$keyType = $this->keyType;
+		if ($keyType instanceof MixedType) {
+			return new UnionType([new IntegerType(), new StringType()]);
+		}
+
+		return $keyType;
 	}
 
 	public function getIterableValueType(): Type

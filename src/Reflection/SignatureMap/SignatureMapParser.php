@@ -70,8 +70,8 @@ class SignatureMapParser
 	}
 
 	/**
-	 * @param string[] $parameterMap
-	 * @return \PHPStan\Reflection\SignatureMap\ParameterSignature[]
+	 * @param array<string, string> $parameterMap
+	 * @return array<int, \PHPStan\Reflection\SignatureMap\ParameterSignature>
 	 */
 	private function getParameters(array $parameterMap): array
 	{

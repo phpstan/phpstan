@@ -952,7 +952,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\Testing\Te
 	/**
 	 * @dataProvider dataMethods
 	 * @param string $className
-	 * @param mixed[] $methods
+	 * @param array<string, mixed> $methods
 	 */
 	public function testMethods(string $className, array $methods): void
 	{

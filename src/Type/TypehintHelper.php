@@ -87,8 +87,8 @@ class TypehintHelper
 					foreach ($phpDocType->getTypes() as $innerType) {
 						if ($innerType instanceof ArrayType) {
 							$innerTypes[] = new IterableType(
-								$innerType->getIterableKeyType(),
-								$innerType->getIterableValueType()
+								$innerType->getKeyType(),
+								$innerType->getItemType()
 							);
 						} else {
 							$innerTypes[] = $innerType;
@@ -97,8 +97,8 @@ class TypehintHelper
 					$phpDocType = new UnionType($innerTypes);
 				} elseif ($phpDocType instanceof ArrayType) {
 					$phpDocType = new IterableType(
-						$phpDocType->getIterableKeyType(),
-						$phpDocType->getIterableValueType()
+						$phpDocType->getKeyType(),
+						$phpDocType->getItemType()
 					);
 				}
 			}
