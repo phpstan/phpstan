@@ -1057,6 +1057,8 @@ class NodeScopeResolver
 					foreach ($argumentTypes as $argType) {
 						$arrayType = $arrayType->setOffsetValueType(null, $argType);
 					}
+
+					$scope = $scope->specifyExpressionType($arrayArg, $arrayType);
 				} elseif (
 					$functionName === 'array_unshift'
 					&& $originalArrayType instanceof ConstantArrayType
@@ -1072,11 +1074,9 @@ class NodeScopeResolver
 						}
 						$arrayType = $arrayType->setOffsetValueType($keyType, $valueType);
 					}
-				} else {
-					throw new \PHPStan\ShouldNotHappenException();
-				}
 
-				$scope = $scope->specifyExpressionType($arrayArg, $arrayType);
+					$scope = $scope->specifyExpressionType($arrayArg, $arrayType);
+				}
 			}
 		} elseif ($node instanceof BinaryOp) {
 			$scope = $this->lookForAssigns($scope, $node->left, $certainty);

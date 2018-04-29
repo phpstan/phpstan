@@ -2034,7 +2034,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'\Foo::class',
 			],
 			[
-				'71',
+				'72',
 				'$line',
 			],
 			[

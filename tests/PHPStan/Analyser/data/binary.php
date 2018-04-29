@@ -67,6 +67,7 @@ class Foo
 		/** @var int[] $arrToUnshift2 */
 		$arrToUnshift2 = doFoo();
 		array_unshift($arrToUnshift2, 'lorem', new \stdClass());
+		array_unshift($mixed, 'lorem');
 
 		$line = __LINE__;
 		$dir = __DIR__;
