@@ -267,11 +267,6 @@ class ArrayType implements StaticResolvableType
 
 		}
 
-		if ($offsetType instanceof NullType) {
-			return new ConstantStringType('');
-
-		}
-
 		if ($offsetType instanceof IntegerType || $offsetType instanceof FloatType || $offsetType instanceof BooleanType) {
 			return new IntegerType();
 
