@@ -1244,10 +1244,17 @@ class NodeScopeResolver
 		} elseif ($node instanceof Expr\Include_) {
 			$scope = $this->lookForAssigns($scope, $node->expr, $certainty);
 		} elseif (
-			$node instanceof Expr\PostInc
-			|| $node instanceof Expr\PostDec
-			|| $node instanceof Expr\PreInc
-			|| $node instanceof Expr\PreDec
+			(
+				$node instanceof Expr\PostInc
+				|| $node instanceof Expr\PostDec
+				|| $node instanceof Expr\PreInc
+				|| $node instanceof Expr\PreDec
+			) && (
+				$node->var instanceof Variable
+				|| $node->var instanceof ArrayDimFetch
+				|| $node->var instanceof PropertyFetch
+				|| $node->var instanceof StaticPropertyFetch
+			)
 		) {
 			$expressionType = $scope->getType($node->var);
 			if ($expressionType instanceof ConstantScalarType) {
@@ -1298,6 +1305,15 @@ class NodeScopeResolver
 			}
 
 			foreach ($vars as $var) {
+				if (
+					!$var instanceof Variable
+					&& !$var instanceof ArrayDimFetch
+					&& !$var instanceof PropertyFetch
+					&& !$var instanceof StaticPropertyFetch
+				) {
+					continue;
+				}
+
 				$type = null;
 				if ($node instanceof Assign || $node instanceof AssignRef) {
 					$type = $scope->getType($node->expr);
