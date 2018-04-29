@@ -76,6 +76,18 @@ class Foo
 		$method = __METHOD__;
 		$function = __FUNCTION__;
 
+		$incrementedString = $string;
+		$incrementedString++;
+
+		$decrementedString = $string;
+		$decrementedString--;
+
+		$incrementedFooString = $fooString;
+		$incrementedFooString++;
+
+		$decrementedFooString = $fooString;
+		$decrementedFooString--;
+
 		die;
 	}
 

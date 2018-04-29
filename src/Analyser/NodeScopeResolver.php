@@ -1250,10 +1250,7 @@ class NodeScopeResolver
 			|| $node instanceof Expr\PreDec
 		) {
 			$expressionType = $scope->getType($node->var);
-			if (
-				$expressionType instanceof ConstantScalarType
-				&& !$expressionType->toNumber() instanceof ErrorType
-			) {
+			if ($expressionType instanceof ConstantScalarType) {
 				$afterValue = $expressionType->getValue();
 				if (
 					$node instanceof Expr\PostInc

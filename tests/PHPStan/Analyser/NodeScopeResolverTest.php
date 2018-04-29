@@ -2465,6 +2465,54 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'string',
 				'pathinfo($string, PATHINFO_DIRNAME)',
 			],
+			[
+				'string',
+				'$string++',
+			],
+			[
+				'string',
+				'$string--',
+			],
+			[
+				'string',
+				'++$string',
+			],
+			[
+				'string',
+				'--$string',
+			],
+			[
+				'string',
+				'$incrementedString',
+			],
+			[
+				'string',
+				'$decrementedString',
+			],
+			[
+				'\'foo\'',
+				'$fooString++',
+			],
+			[
+				'\'foo\'',
+				'$fooString--',
+			],
+			[
+				'\'fop\'',
+				'++$fooString',
+			],
+			[
+				'\'foo\'',
+				'--$fooString',
+			],
+			[
+				'\'fop\'',
+				'$incrementedFooString',
+			],
+			[
+				'\'foo\'',
+				'$decrementedFooString',
+			],
 		];
 	}
 

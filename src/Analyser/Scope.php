@@ -1016,6 +1016,11 @@ class Scope
 				return $this->getTypeFromValue($varValue);
 			}
 
+			$stringType = new StringType();
+			if ($stringType->isSuperTypeOf($varType)->yes()) {
+				return $stringType;
+			}
+
 			return $varType->toNumber();
 		} elseif ($node instanceof Node\Expr\ClassConstFetch && is_string($node->name)) {
 			if ($node->class instanceof Name) {
