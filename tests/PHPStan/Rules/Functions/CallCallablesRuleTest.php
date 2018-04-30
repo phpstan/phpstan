@@ -63,6 +63,10 @@ class CallCallablesRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Closure invoked with 0 parameters, at least 2 required.',
 				64,
 			],
+			[
+				'Parameter #1 $i of closure expects int, string given.',
+				70,
+			],
 		]);
 	}
 

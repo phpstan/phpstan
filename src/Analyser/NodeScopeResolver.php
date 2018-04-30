@@ -519,7 +519,7 @@ class NodeScopeResolver
 				}
 			}
 
-			$scope = $scope->enterAnonymousFunction($node->params, $node->uses, $node->returnType);
+			$scope = $scope->enterAnonymousFunction($node);
 			$this->processNodes($node->stmts, $scope, $nodeCallback);
 
 			return;
@@ -775,8 +775,12 @@ class NodeScopeResolver
 					$scope = $scope->filterByFalseyValue($node->left);
 				}
 
-				if (($node instanceof Assign || $node instanceof AssignRef) && $subNodeName === 'var') {
-					$scope = $this->lookForEnterVariableAssign($scope, $node->var);
+				if ($node instanceof Assign || $node instanceof AssignRef) {
+					if ($subNodeName === 'var') {
+						$scope = $this->lookForEnterVariableAssign($scope, $node->var);
+					} elseif ($subNodeName === 'expr') {
+						$scope = $this->lookForEnterVariableAssign($scope, $node);
+					}
 				}
 
 				if ($node instanceof BinaryOp && $subNodeName === 'right') {
@@ -906,6 +910,20 @@ class NodeScopeResolver
 				}
 
 				$scope = $this->lookForEnterVariableAssign($scope, $listItem->value);
+			}
+		} elseif ($node instanceof AssignRef) {
+			$scope = $scope->enterExpressionAssign($node->expr);
+		} elseif ($node instanceof Assign && $node->expr instanceof Expr\Closure) {
+			foreach ($node->expr->uses as $closureUse) {
+				if (
+					!$closureUse->byRef
+					|| !$node->var instanceof Variable
+					|| $node->var->name !== $closureUse->var
+				) {
+					continue;
+				}
+
+				$scope = $scope->enterExpressionAssign(new Variable($closureUse->var));
 			}
 		} else {
 			$scope = $scope->enterExpressionAssign($node);
@@ -1214,7 +1232,7 @@ class NodeScopeResolver
 		} elseif ($node instanceof ArrayDimFetch && $node->dim !== null) {
 			$scope = $this->lookForAssigns($scope, $node->dim, $certainty);
 		} elseif ($node instanceof Expr\Closure) {
-			$closureScope = $scope->enterAnonymousFunction($node->params, $node->uses, $node->returnType);
+			$closureScope = $scope->enterAnonymousFunction($node);
 			$statements = [
 				new StatementList($closureScope, array_merge(
 					[new Node\Stmt\Nop()],

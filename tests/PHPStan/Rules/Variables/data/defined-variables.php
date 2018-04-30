@@ -380,3 +380,6 @@ function ($bm) {
 };
 
 echo $_GET['test'];
+
+$variableInAssign = $variableInAssign;
+$anotherVariableInAssign = &$anotherVariableInAssign;

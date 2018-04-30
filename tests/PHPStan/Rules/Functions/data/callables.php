@@ -63,3 +63,10 @@ function (\Closure $closure) {
 	};
 	$variadicClosure();
 };
+
+function () {
+	$f = function(int $i) use (&$f) {
+		$f(1);
+		$f('foo');
+	};
+};

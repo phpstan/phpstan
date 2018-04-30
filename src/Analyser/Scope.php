@@ -1602,20 +1602,12 @@ class Scope
 		return $this->enterClass($anonymousClass);
 	}
 
-	/**
-	 * @param \PhpParser\Node\Param[] $parameters
-	 * @param \PhpParser\Node\Expr\ClosureUse[] $uses
-	 * @param \PhpParser\Node\Name|string|\PhpParser\Node\NullableType|null $returnTypehint
-	 * @return self
-	 */
 	public function enterAnonymousFunction(
-		array $parameters,
-		array $uses,
-		$returnTypehint = null
+		Expr\Closure $closure
 	): self
 	{
 		$variableTypes = [];
-		foreach ($parameters as $parameter) {
+		foreach ($closure->params as $parameter) {
 			$isNullable = $this->isParameterValueNullable($parameter);
 
 			$variableTypes[$parameter->name] = VariableTypeHolder::createYes(
@@ -1623,9 +1615,15 @@ class Scope
 			);
 		}
 
-		foreach ($uses as $use) {
+		foreach ($closure->uses as $use) {
 			if ($this->hasVariableType($use->var)->no()) {
 				if ($use->byRef) {
+					if ($this->isInExpressionAssign(new Variable($use->var))) {
+						$variableTypes[$use->var] = VariableTypeHolder::createYes(
+							$this->getType($closure)
+						);
+						continue;
+					}
 					$variableTypes[$use->var] = VariableTypeHolder::createYes(new NullType());
 				}
 				continue;
@@ -1637,7 +1635,7 @@ class Scope
 			$variableTypes['this'] = VariableTypeHolder::createYes($this->getVariableType('this'));
 		}
 
-		$returnType = $this->getFunctionType($returnTypehint, $returnTypehint === null, false);
+		$returnType = $this->getFunctionType($closure->returnType, $closure->returnType === null, false);
 
 		return new self(
 			$this->broker,

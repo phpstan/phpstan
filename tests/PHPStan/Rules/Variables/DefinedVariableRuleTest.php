@@ -203,6 +203,10 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Undefined variable: $unknownVariablePassedToReset',
 				369,
 			],
+			[
+				'Undefined variable: $variableInAssign',
+				384,
+			],
 		]);
 	}
 
