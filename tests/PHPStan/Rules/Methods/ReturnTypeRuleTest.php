@@ -236,6 +236,10 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Method ReturnTypes\WrongMagicMethods::__clone() with return type void returns int but should not return anything.',
 				567,
 			],
+			[
+				'Method ReturnTypes\ReturnSpecifiedMethodCall::doFoo() should return string but returns string|false.',
+				586,
+			],
 		]);
 	}
 

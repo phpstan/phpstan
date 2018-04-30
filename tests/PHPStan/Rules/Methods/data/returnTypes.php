@@ -568,3 +568,29 @@ class WrongMagicMethods
 	}
 
 }
+
+class ReturnSpecifiedMethodCall
+{
+
+	/**
+	 * @return string|false
+	 */
+	public function stringOrFalse()
+	{
+
+	}
+
+	public function doFoo(): string
+	{
+		if ($this->stringOrFalse()) {
+			return $this->stringOrFalse();
+		}
+
+		if (is_string($this->stringOrFalse())) {
+			return $this->stringOrFalse();
+		}
+
+		return '';
+	}
+
+}
