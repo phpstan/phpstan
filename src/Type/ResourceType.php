@@ -32,7 +32,7 @@ class ResourceType implements Type
 
 	public function toString(): Type
 	{
-		return new ErrorType();
+		return new StringType();
 	}
 
 	public function toInteger(): Type

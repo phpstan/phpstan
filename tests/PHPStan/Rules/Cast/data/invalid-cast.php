@@ -22,4 +22,6 @@ function (
 
 	(int) new \stdClass();
 	(float) new \stdClass();
+
+	(string) fopen('php://memory', 'r');
 };
