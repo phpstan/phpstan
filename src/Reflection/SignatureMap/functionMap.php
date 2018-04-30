@@ -4619,7 +4619,7 @@ return [
 'ldap_read' => ['resource', 'link'=>'resource|array', 'base_dn'=>'string', 'filter'=>'string', 'attrs='=>'array', 'attrsonly='=>'int', 'sizelimit='=>'int', 'timelimit='=>'int', 'deref='=>'int'],
 'ldap_rename' => ['bool', 'link_identifier'=>'resource', 'dn'=>'string', 'newrdn'=>'string', 'newparent'=>'string', 'deleteoldrdn'=>'bool'],
 'ldap_sasl_bind' => ['bool', 'link_identifier'=>'resource', 'binddn='=>'string', 'password='=>'string', 'sasl_mech='=>'string', 'sasl_realm='=>'string', 'sasl_authc_id='=>'string', 'sasl_authz_id='=>'string', 'props='=>'string'],
-'ldap_search' => ['resource', 'link_identifier'=>'resource|array', 'base_dn'=>'string', 'filter'=>'string', 'attrs='=>'array', 'attrsonly='=>'int', 'sizelimit='=>'int', 'timelimit='=>'int', 'deref='=>'int'],
+'ldap_search' => ['resource|false', 'link_identifier'=>'resource|array', 'base_dn'=>'string', 'filter'=>'string', 'attrs='=>'array', 'attrsonly='=>'int', 'sizelimit='=>'int', 'timelimit='=>'int', 'deref='=>'int'],
 'ldap_set_option' => ['bool', 'link_identifier'=>'resource', 'option'=>'int', 'newval'=>''],
 'ldap_set_rebind_proc' => ['bool', 'link_identifier'=>'resource', 'callback'=>'string'],
 'ldap_sort' => ['bool', 'link_identifier'=>'resource', 'result_identifier'=>'resource', 'sortfilter'=>'string'],
