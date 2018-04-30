@@ -34,4 +34,22 @@ class Foo
 		$assertion::assertInt(1, 2, 3);
 	}
 
+	public function doPhpunit()
+	{
+		\PHPUnit\Framework\Assert::assertSame(200, $this->nullableInt());
+		\PHPUnit\Framework\Assert::assertSame(302, $this->nullableInt());
+		\PHPUnit\Framework\Assert::assertSame(200, $this->nullableInt());
+	}
+
+	public function doPhpunitNot()
+	{
+		\PHPUnit\Framework\Assert::assertSame(200, $this->nullableInt());
+		\PHPUnit\Framework\Assert::assertNotSame(302, $this->nullableInt());
+	}
+
+	public function nullableInt(): ?int
+	{
+
+	}
+
 }

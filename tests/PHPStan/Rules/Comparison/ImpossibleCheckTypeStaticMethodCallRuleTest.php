@@ -3,6 +3,7 @@
 namespace PHPStan\Rules\Comparison;
 
 use PHPStan\Tests\AssertionClassStaticMethodTypeSpecifyingExtension;
+use PHPStan\Type\PHPUnit\Assert\AssertStaticMethodTypeSpecifyingExtension;
 
 class ImpossibleCheckTypeStaticMethodCallRuleTest extends \PHPStan\Testing\RuleTestCase
 {
@@ -19,6 +20,7 @@ class ImpossibleCheckTypeStaticMethodCallRuleTest extends \PHPStan\Testing\RuleT
 	{
 		return [
 			new AssertionClassStaticMethodTypeSpecifyingExtension(null),
+			new AssertStaticMethodTypeSpecifyingExtension(),
 		];
 	}
 

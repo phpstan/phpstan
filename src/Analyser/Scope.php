@@ -1298,13 +1298,18 @@ class Scope
 		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this, $node, TypeSpecifierContext::createTruthy());
 		$sureTypes = $specifiedTypes->getSureTypes();
 		$sureNotTypes = $specifiedTypes->getSureNotTypes();
+
+		$isSpecified = function (Expr $expr): bool {
+			return (
+				$expr instanceof FuncCall
+				|| $expr instanceof MethodCall
+				|| $expr instanceof Expr\StaticCall
+			) && $this->isSpecified($expr);
+		};
+
 		if (count($sureTypes) === 1) {
 			$sureType = reset($sureTypes);
-			if ((
-				$sureType[0] instanceof FuncCall
-				|| $sureType[0] instanceof MethodCall
-				|| $sureType[0] instanceof Expr\StaticCall
-			) && $this->isSpecified($sureType[0])) {
+			if ($isSpecified($sureType[0])) {
 				return $parametersAcceptor->getReturnType();
 			}
 
@@ -1323,11 +1328,7 @@ class Scope
 			return $parametersAcceptor->getReturnType();
 		} elseif (count($sureNotTypes) === 1) {
 			$sureNotType = reset($sureNotTypes);
-			if ((
-				$sureNotType[0] instanceof FuncCall
-				|| $sureNotType[0] instanceof MethodCall
-				|| $sureNotType[0] instanceof Expr\StaticCall
-			) && $this->isSpecified($sureNotType[0])) {
+			if ($isSpecified($sureNotType[0])) {
 				return $parametersAcceptor->getReturnType();
 			}
 
@@ -1345,6 +1346,11 @@ class Scope
 
 			return $parametersAcceptor->getReturnType();
 		} elseif (count($sureTypes) > 0) {
+			foreach ($sureTypes as $sureType) {
+				if ($isSpecified($sureType[0])) {
+					return $parametersAcceptor->getReturnType();
+				}
+			}
 			$types = TypeCombinator::union(...array_map(function ($sureType) {
 				return $sureType[1];
 			}, array_values($sureTypes)));
@@ -1352,6 +1358,11 @@ class Scope
 				return new ConstantBooleanType(false);
 			}
 		} elseif (count($sureNotTypes) > 0) {
+			foreach ($sureNotTypes as $sureNotType) {
+				if ($isSpecified($sureNotType[0])) {
+					return $parametersAcceptor->getReturnType();
+				}
+			}
 			$types = TypeCombinator::union(...array_map(function ($sureNotType) {
 				return $sureNotType[1];
 			}, array_values($sureNotTypes)));
