@@ -2278,6 +2278,38 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'var_export($string, true)',
 			],
 			[
+				'bool|string',
+				'highlight_string()',
+			],
+			[
+				'bool',
+				'highlight_string($string)',
+			],
+			[
+				'bool',
+				'highlight_string($string, false)',
+			],
+			[
+				'string',
+				'highlight_string($string, true)',
+			],
+			[
+				'bool|string',
+				'highlight_file()',
+			],
+			[
+				'bool',
+				'highlight_file($string)',
+			],
+			[
+				'bool',
+				'highlight_file($string, false)',
+			],
+			[
+				'string',
+				'highlight_file($string, true)',
+			],
+			[
 				'1',
 				'$one++',
 			],
