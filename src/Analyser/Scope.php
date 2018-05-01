@@ -813,8 +813,48 @@ class Scope
 						new ConstantStringType(';'),
 					]);
 				}
-				if ($resolvedConstantName === 'ICONV_IMPL') {
+				if ($resolvedConstantName === 'PHP_EOL') {
+					return new UnionType([
+						new ConstantStringType("\n"),
+						new ConstantStringType("\r\n"),
+					]);
+				}
+				if (in_array($resolvedConstantName, [
+					'ICONV_IMPL',
+					'PHP_VERSION',
+					'PHP_EXTRA_VERSION',
+					'PHP_OS',
+					'PHP_OS_FAMILY',
+					'PHP_SAPI',
+					'DEFAULT_INCLUDE_PATH',
+					'PEAR_INSTALL_DIR',
+					'PEAR_EXTENSION_DIR',
+					'PHP_EXTENSION_DIR',
+					'PHP_PREFIX',
+					'PHP_BINDIR',
+					'PHP_BINARY',
+					'PHP_MANDIR',
+					'PHP_LIBDIR',
+					'PHP_DATADIR',
+					'PHP_SYSCONFDIR',
+					'PHP_LOCALSTATEDIR',
+					'PHP_CONFIG_FILE_PATH',
+					'PHP_CONFIG_FILE_SCAN_DIR',
+					'PHP_SHLIB_SUFFIX',
+					'PHP_FD_SETSIZE',
+				], true)) {
 					return new StringType();
+				}
+				if (in_array($resolvedConstantName, [
+					'PHP_MAJOR_VERSION',
+					'PHP_MINOR_VERSION',
+					'PHP_RELEASE_VERSION',
+					'PHP_VERSION_ID',
+					'PHP_ZTS',
+					'PHP_DEBUG',
+					'PHP_MAXPATHLEN',
+				], true)) {
+					return new IntegerType();
 				}
 
 				return $this->getTypeFromValue(constant($resolvedConstantName));
