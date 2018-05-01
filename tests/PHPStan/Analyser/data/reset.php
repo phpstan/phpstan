@@ -16,6 +16,11 @@ class Foo
 			'a' => 1,
 			'b' => 2,
 		];
+
+		$conditionalArray = ['foo', 'bar'];
+		if (doFoo()) {
+			array_unshift($conditionalArray, 'baz');
+		}
 		die;
 	}
 

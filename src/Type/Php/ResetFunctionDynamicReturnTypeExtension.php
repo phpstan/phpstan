@@ -5,11 +5,10 @@ namespace PHPStan\Type\Php;
 use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
-use PHPStan\Type\ArrayType;
-use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\TypeUtils;
 
 class ResetFunctionDynamicReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
@@ -30,21 +29,26 @@ class ResetFunctionDynamicReturnTypeExtension implements \PHPStan\Type\DynamicFu
 		}
 
 		$argType = $scope->getType($functionCall->args[0]->value);
-		if ($argType instanceof ConstantArrayType) {
-			$keyTypes = $argType->getKeyTypes();
-			if (count($keyTypes) === 0) {
-				return new ConstantBooleanType(false);
+		$constantArrays = TypeUtils::getConstantArrays($argType);
+		if (count($constantArrays) > 0) {
+			$keyTypes = [];
+			foreach ($constantArrays as $constantArray) {
+				$arrayKeyTypes = $constantArray->getKeyTypes();
+				if (count($arrayKeyTypes) === 0) {
+					$keyTypes[] = new ConstantBooleanType(false);
+					continue;
+				}
+
+				$keyTypes[] = $constantArray->getOffsetValueType($arrayKeyTypes[0]);
 			}
 
-			return $argType->getOffsetValueType($keyTypes[0]);
-		} elseif ($argType instanceof ArrayType) {
-			return TypeCombinator::union(
-				$argType->getItemType(),
-				new ConstantBooleanType(false)
-			);
+			return TypeCombinator::union(...$keyTypes);
 		}
 
-		return $functionReflection->getReturnType();
+		return TypeCombinator::union(
+			$argType->getIterableValueType(),
+			new ConstantBooleanType(false)
+		);
 	}
 
 }

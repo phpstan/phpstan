@@ -89,6 +89,15 @@ class Foo
 		$decrementedFooString = $fooString;
 		$decrementedFooString--;
 
+		$conditionalArray = [1, 1, 1];
+		if (doFoo()) {
+			$conditionalArray[] = 2;
+			$conditionalArray[] = 3;
+		}
+
+		$unshiftedConditionalArray = $conditionalArray;
+		array_unshift($unshiftedConditionalArray, 'lorem', new \stdClass());
+
 		die;
 	}
 

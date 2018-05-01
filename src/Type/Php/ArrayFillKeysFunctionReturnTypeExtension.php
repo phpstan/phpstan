@@ -8,6 +8,8 @@ use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\TypeUtils;
 
 class ArrayFillKeysFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
@@ -25,16 +27,21 @@ class ArrayFillKeysFunctionReturnTypeExtension implements \PHPStan\Type\DynamicF
 
 		$valueType = $scope->getType($functionCall->args[1]->value);
 		$keysType = $scope->getType($functionCall->args[0]->value);
-		if (!$keysType instanceof ConstantArrayType) {
+		$constantArrays = TypeUtils::getConstantArrays($keysType);
+		if (count($constantArrays) === 0) {
 			return new ArrayType($keysType->getIterableValueType(), $valueType, true);
 		}
 
-		$arrayType = new ConstantArrayType([], []);
-		foreach ($keysType->getValueTypes() as $keyType) {
-			$arrayType = $arrayType->setOffsetValueType($keyType, $valueType);
+		$arrayTypes = [];
+		foreach ($constantArrays as $constantArray) {
+			$arrayType = new ConstantArrayType([], []);
+			foreach ($constantArray->getValueTypes() as $keyType) {
+				$arrayType = $arrayType->setOffsetValueType($keyType, $valueType);
+			}
+			$arrayTypes[] = $arrayType;
 		}
 
-		return $arrayType;
+		return TypeCombinator::union(...$arrayTypes);
 	}
 
 }

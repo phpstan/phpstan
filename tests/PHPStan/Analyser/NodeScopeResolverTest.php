@@ -2338,6 +2338,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'count($appendingToArrayInBranches)',
 			],
 			[
+				'3|5',
+				'count($conditionalArray)',
+			],
+			[
 				'2',
 				'$array[1]',
 			],
@@ -2488,6 +2492,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'array<\'lorem\'|int|stdClass>',
 				'$arrToUnshift2',
+			],
+			[
+				'array(0 => \'lorem\', 1 => stdClass, 2 => 1, 3 => 1, 4 => 1, ?5 => 2, ?6 => 3)',
+				'$unshiftedConditionalArray',
 			],
 			[
 				'array(\'dirname\' => string, \'basename\' => string, \'extension\' => string, \'filename\' => string)',
@@ -3927,6 +3935,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array',
 				'$unknownArray',
 			],
+			[
+				'array(\'foo\' => \'banana\', \'bar\' => \'banana\', ?\'baz\' => \'banana\', ?\'lorem\' => \'banana\')',
+				'array_fill_keys($conditionalArray, \'banana\')',
+			],
+			[
+				'array(\'foo\' => stdClass, \'bar\' => stdClass, ?\'baz\' => stdClass, ?\'lorem\' => stdClass)',
+				'array_map(function (): \stdClass {}, $conditionalKeysArray)',
+			],
 		];
 	}
 
@@ -5322,6 +5338,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'1',
 				'reset($constantArray)',
+			],
+			[
+				'\'baz\'|\'foo\'',
+				'reset($conditionalArray)',
 			],
 		];
 	}

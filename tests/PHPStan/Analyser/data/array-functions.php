@@ -63,4 +63,16 @@ $mappedWrongArray = array_map(function (): string {
 }, 1);
 $unknownArray = array_map($callable, 1);
 
+$conditionalArray = ['foo', 'bar'];
+$conditionalKeysArray = [
+	'foo' => 1,
+	'bar' => 1,
+];
+if (doFoo()) {
+	$conditionalArray[] = 'baz';
+	$conditionalArray[] = 'lorem';
+	$conditionalKeysArray['baz'] = 1;
+	$conditionalKeysArray['lorem'] = 1;
+}
+
 die;

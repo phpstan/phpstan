@@ -9,6 +9,8 @@ use PHPStan\Type\ArrayType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\TypeUtils;
 
 class ArrayMapFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
@@ -31,19 +33,24 @@ class ArrayMapFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFuncti
 		}
 
 		$arrayType = $scope->getType($functionCall->args[1]->value);
-		if ($arrayType instanceof ConstantArrayType) {
-			$returnedArrayType = new ConstantArrayType([], []);
-			foreach ($arrayType->getKeyTypes() as $keyType) {
-				$returnedArrayType = $returnedArrayType->setOffsetValueType(
-					$keyType,
-					$valueType
-				);
+		$constantArrays = TypeUtils::getConstantArrays($arrayType);
+		if (count($constantArrays) > 0) {
+			$arrayTypes = [];
+			foreach ($constantArrays as $constantArray) {
+				$returnedArrayType = new ConstantArrayType([], []);
+				foreach ($constantArray->getKeyTypes() as $keyType) {
+					$returnedArrayType = $returnedArrayType->setOffsetValueType(
+						$keyType,
+						$valueType
+					);
+				}
+				$arrayTypes[] = $returnedArrayType;
 			}
 
-			return $returnedArrayType;
+			return TypeCombinator::union(...$arrayTypes);
 		} elseif ($arrayType instanceof ArrayType) {
 			return new ArrayType(
-				$arrayType->getKeyType(),
+				$arrayType->getIterableKeyType(),
 				$valueType
 			);
 		}

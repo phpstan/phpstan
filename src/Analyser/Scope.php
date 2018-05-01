@@ -59,6 +59,7 @@ use PHPStan\Type\StringType;
 use PHPStan\Type\ThisType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\TypeUtils;
 use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
 use PHPStan\Type\VerbosityLevel;
@@ -1937,12 +1938,16 @@ class Scope
 				$this->inFirstLevelStatement
 			);
 		} elseif ($expr instanceof Expr\ArrayDimFetch && $expr->dim !== null) {
-			$arrayType = $this->getType($expr->var);
-			$dimType = $this->getType($expr->dim);
-			if ($arrayType instanceof ConstantArrayType) {
+			$constantArrays = TypeUtils::getConstantArrays($this->getType($expr->var));
+			if (count($constantArrays) > 0) {
+				$unsetArrays = [];
+				$dimType = $this->getType($expr->dim);
+				foreach ($constantArrays as $constantArray) {
+					$unsetArrays[] = $constantArray->unsetOffset($dimType);
+				}
 				return $this->specifyExpressionType(
 					$expr->var,
-					$arrayType->unsetOffset($dimType)
+					TypeCombinator::union(...$unsetArrays)
 				);
 			}
 		}
@@ -2220,11 +2225,17 @@ class Scope
 				$this->inFirstLevelStatement
 			);
 		} elseif ($expr instanceof Expr\ArrayDimFetch && $expr->dim !== null) {
-			$arrayType = $this->getType($expr->var);
-			if ($arrayType instanceof ConstantArrayType) {
+			$constantArrays = TypeUtils::getConstantArrays($this->getType($expr->var));
+			if (count($constantArrays) > 0) {
+				$setArrays = [];
 				$dimType = $this->getType($expr->dim);
-				$arrayType = $arrayType->setOffsetValueType($dimType, $type);
-				return $this->specifyExpressionType($expr->var, $arrayType);
+				foreach ($constantArrays as $constantArray) {
+					$setArrays[] = $constantArray->setOffsetValueType($dimType, $type);
+				}
+				return $this->specifyExpressionType(
+					$expr->var,
+					TypeCombinator::union(...$setArrays)
+				);
 			}
 		}
 

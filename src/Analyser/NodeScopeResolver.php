@@ -69,6 +69,7 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\TypeUtils;
 use PHPStan\Type\UnionType;
 
 class NodeScopeResolver
@@ -1067,9 +1068,10 @@ class NodeScopeResolver
 				$arrayArg = $node->args[0]->value;
 				$originalArrayType = $scope->getType($arrayArg);
 				$functionName = strtolower((string) $node->name);
+				$constantArrays = TypeUtils::getConstantArrays($originalArrayType);
 				if (
 					$functionName === 'array_push'
-					|| ($originalArrayType instanceof ArrayType && !$originalArrayType instanceof ConstantArrayType)
+					|| ($originalArrayType instanceof ArrayType && count($constantArrays) === 0)
 				) {
 					$arrayType = $originalArrayType;
 					foreach ($argumentTypes as $argType) {
@@ -1079,21 +1081,30 @@ class NodeScopeResolver
 					$scope = $scope->specifyExpressionType($arrayArg, $arrayType);
 				} elseif (
 					$functionName === 'array_unshift'
-					&& $originalArrayType instanceof ConstantArrayType
+					&& count($constantArrays) > 0
 				) {
-					$arrayType = new ConstantArrayType([], []);
+					$defaultArrayType = new ConstantArrayType([], []);
 					foreach ($argumentTypes as $argType) {
-						$arrayType = $arrayType->setOffsetValueType(null, $argType);
-					}
-					foreach ($originalArrayType->getKeyTypes() as $i => $keyType) {
-						$valueType = $originalArrayType->getValueTypes()[$i];
-						if ($keyType instanceof ConstantIntegerType) {
-							$keyType = null;
-						}
-						$arrayType = $arrayType->setOffsetValueType($keyType, $valueType);
+						$defaultArrayType = $defaultArrayType->setOffsetValueType(null, $argType);
 					}
 
-					$scope = $scope->specifyExpressionType($arrayArg, $arrayType);
+					$arrayTypes = [];
+					foreach ($constantArrays as $constantArray) {
+						$arrayType = $defaultArrayType;
+						foreach ($constantArray->getKeyTypes() as $i => $keyType) {
+							$valueType = $constantArray->getValueTypes()[$i];
+							if ($keyType instanceof ConstantIntegerType) {
+								$keyType = null;
+							}
+							$arrayType = $arrayType->setOffsetValueType($keyType, $valueType);
+						}
+						$arrayTypes[] = $arrayType;
+					}
+
+					$scope = $scope->specifyExpressionType(
+						$arrayArg,
+						TypeCombinator::union(...$arrayTypes)
+					);
 				}
 			}
 		} elseif ($node instanceof BinaryOp) {
