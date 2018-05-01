@@ -140,10 +140,8 @@ class AnalyseApplication
 		foreach ($errors as $error) {
 			if (is_string($error)) {
 				$notFileSpecificErrors[] = $error;
-			} elseif ($error instanceof Error) {
-				$fileSpecificErrors[] = $error;
 			} else {
-				throw new \PHPStan\ShouldNotHappenException();
+				$fileSpecificErrors[] = $error;
 			}
 		}
 

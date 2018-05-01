@@ -725,6 +725,23 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				ArrayType::class,
 				'array<\'bar\'|\'foo\'|int, DateTimeImmutable|int|stdClass>',
 			],
+			[
+				[
+					new ConstantArrayType([new ConstantIntegerType(0)], [new StringType()]),
+					new ArrayType(new MixedType(), new StringType()),
+				],
+				ArrayType::class,
+				'array<string>',
+			],
+			[
+				[
+					new ConstantArrayType([], []),
+					new ConstantArrayType([new ConstantIntegerType(0)], [new StringType()]),
+					new ArrayType(new MixedType(), new StringType()),
+				],
+				ArrayType::class,
+				'array<string>',
+			],
 		];
 	}
 

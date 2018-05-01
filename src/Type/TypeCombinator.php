@@ -93,18 +93,32 @@ class TypeCombinator
 			array_splice($types, $i, 1, $types[$i]->getTypes());
 		}
 
+		// join arrays
+		for ($i = 0; $i < count($types); $i++) {
+			for ($j = $i + 1; $j < count($types); $j++) {
+				if ($types[$i] instanceof ArrayType && $types[$j] instanceof ArrayType) {
+					$types[$i] = $types[$i]->unionWith($types[$j]);
+					array_splice($types, $j, 1);
+					continue 2;
+				}
+			}
+		}
+
+		// transform A | (B | C) to A | B | C (again!)
+		for ($i = 0; $i < count($types); $i++) {
+			if (!($types[$i] instanceof UnionType)) {
+				continue;
+			}
+
+			array_splice($types, $i, 1, $types[$i]->getTypes());
+		}
+
 		// simplify true | false to bool
 		// simplify string[] | int[] to (string|int)[]
 		for ($i = 0; $i < count($types); $i++) {
 			for ($j = $i + 1; $j < count($types); $j++) {
 				if ($types[$i] instanceof ConstantBooleanType && $types[$j] instanceof ConstantBooleanType && $types[$i]->getValue() !== $types[$j]->getValue()) {
 					$types[$i] = new BooleanType();
-					array_splice($types, $j, 1);
-					continue 2;
-				}
-
-				if ($types[$i] instanceof ArrayType && $types[$j] instanceof ArrayType) {
-					$types[$i] = $types[$i]->unionWith($types[$j]);
 					array_splice($types, $j, 1);
 					continue 2;
 				}
@@ -136,15 +150,6 @@ class TypeCombinator
 					continue 1;
 				}
 			}
-		}
-
-		// transform A | (B | C) to A | B | C (again!)
-		for ($i = 0; $i < count($types); $i++) {
-			if (!($types[$i] instanceof UnionType)) {
-				continue;
-			}
-
-			array_splice($types, $i, 1, $types[$i]->getTypes());
 		}
 
 		if (count($types) === 0) {

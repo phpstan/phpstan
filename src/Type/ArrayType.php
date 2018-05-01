@@ -6,6 +6,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\Traits\MaybeCallableTypeTrait;
@@ -80,6 +81,10 @@ class ArrayType implements StaticResolvableType
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
+		if ($type instanceof ConstantArrayType && count($type->getKeyTypes()) === 0) {
+			return TrinaryLogic::createYes();
+		}
+
 		if ($type instanceof self) {
 			return $this->getItemType()->isSuperTypeOf($type->getItemType())
 				->and($this->keyType->isSuperTypeOf($type->keyType));
