@@ -63,4 +63,17 @@ class IfCondition
 		}
 	}
 
+	public function conditionalArray()
+	{
+		$arr = [];
+
+		if (doFoo()) {
+			$arr += ['abc'];
+		}
+
+		if ($arr) {
+
+		}
+	}
+
 }

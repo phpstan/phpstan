@@ -104,7 +104,7 @@ class TypeCombinator
 				}
 
 				if ($types[$i] instanceof ArrayType && $types[$j] instanceof ArrayType) {
-					$types[$i] = $types[$i]->intersectWith($types[$j]);
+					$types[$i] = $types[$i]->unionWith($types[$j]);
 					array_splice($types, $j, 1);
 					continue 2;
 				}
@@ -136,6 +136,15 @@ class TypeCombinator
 					continue 1;
 				}
 			}
+		}
+
+		// transform A | (B | C) to A | B | C (again!)
+		for ($i = 0; $i < count($types); $i++) {
+			if (!($types[$i] instanceof UnionType)) {
+				continue;
+			}
+
+			array_splice($types, $i, 1, $types[$i]->getTypes());
 		}
 
 		if (count($types) === 0) {

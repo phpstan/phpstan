@@ -325,33 +325,55 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		return new self($this->keyTypes, $valueTypes, $this->nextAutoIndex);
 	}
 
-	public function intersectWith(ArrayType $otherArray): ArrayType
+	public function unionWith(ArrayType $otherArray): Type
 	{
 		if (!$otherArray instanceof self) {
-			return parent::intersectWith($otherArray);
+			return parent::unionWith($otherArray);
 		}
 
-		$newArray = new self([], []);
+		$newArray = [];
 		foreach ($this->getKeyTypes() as $i => $keyType) {
-			$otherValueType = $otherArray->getOffsetValueType($keyType);
-			if ($otherValueType instanceof ErrorType) {
-				continue;
-			}
-			$newArray = $newArray->setOffsetValueType($keyType, TypeCombinator::union(
-				$this->valueTypes[$i],
-				$otherValueType
-			));
+			$newArray[$keyType->getValue()] = [
+				'key' => $keyType,
+				'value' => $this->getValueTypes()[$i],
+				'certainty' => TrinaryLogic::createMaybe(),
+			];
 		}
 
-		foreach ($otherArray->getKeyTypes() as $otherKeyType) {
-			if (!$this->getOffsetValueType($otherKeyType) instanceof ErrorType) {
+		foreach ($otherArray->getKeyTypes() as $i => $otherKeyType) {
+			if (isset($newArray[$otherKeyType->getValue()])) {
+				$newArray[$otherKeyType->getValue()] = [
+					'key' => $otherKeyType,
+					'value' => TypeCombinator::union(
+						$newArray[$otherKeyType->getValue()]['value'],
+						$otherArray->getValueTypes()[$i]
+					),
+					'certainty' => TrinaryLogic::createYes(),
+				];
 				continue;
 			}
 
-			$newArray = $newArray->unsetOffset($otherKeyType);
+			$newArray[$otherKeyType->getValue()] = [
+				'key' => $otherKeyType,
+				'value' => $otherArray->getValueTypes()[$i],
+				'certainty' => TrinaryLogic::createMaybe(),
+			];
 		}
 
-		return $newArray;
+		$newArrayType = new ConstantArrayType([], []);
+		foreach ($newArray as $keyTypeValue => $value) {
+			if ($value['certainty']->equals(TrinaryLogic::createYes())) {
+				$newArrayType = $newArrayType->setOffsetValueType(
+					$value['key'],
+					$value['value']
+				);
+				continue;
+			}
+
+			return new UnionType([$this, $otherArray]);
+		}
+
+		return $newArrayType;
 	}
 
 	/**

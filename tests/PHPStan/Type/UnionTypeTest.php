@@ -491,6 +491,89 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 				"1|2|2.2|10|'1'|'10'|'10aaa'|'11aaa'|'1aaa'|'2'|'2aaa'|'foo'|stdClass|true|null",
 				'float|int|stdClass|string|true|null',
 			],
+			[
+				TypeCombinator::union(
+					new ConstantArrayType([
+						new ConstantStringType('a'),
+						new ConstantStringType('b'),
+					], [
+						new StringType(),
+						new BooleanType(),
+					]),
+					new ConstantArrayType([
+						new ConstantStringType('a'),
+						new ConstantStringType('b'),
+					], [
+						new IntegerType(),
+						new FloatType(),
+					]),
+					new ConstantStringType('aaa')
+				),
+				'\'aaa\'|array(\'a\' => int|string, \'b\' => bool|float)',
+				'array<string, bool|float|int|string>|string',
+			],
+			[
+				TypeCombinator::union(
+					new ConstantArrayType([
+						new ConstantStringType('a'),
+						new ConstantStringType('b'),
+					], [
+						new StringType(),
+						new BooleanType(),
+					]),
+					new ConstantArrayType([
+						new ConstantStringType('b'),
+						new ConstantStringType('c'),
+					], [
+						new IntegerType(),
+						new FloatType(),
+					]),
+					new ConstantStringType('aaa')
+				),
+				'\'aaa\'|array(?\'a\' => string, \'b\' => bool|int, ?\'c\' => float)',
+				'array<string, bool|float|int|string>|string',
+			],
+			[
+				TypeCombinator::union(
+					new ConstantArrayType([
+						new ConstantStringType('a'),
+						new ConstantStringType('b'),
+					], [
+						new StringType(),
+						new BooleanType(),
+					]),
+					new ConstantArrayType([
+						new ConstantStringType('c'),
+						new ConstantStringType('d'),
+					], [
+						new IntegerType(),
+						new FloatType(),
+					]),
+					new ConstantStringType('aaa')
+				),
+				'\'aaa\'|array(\'a\' => string, \'b\' => bool)|array(\'c\' => int, \'d\' => float)',
+				'array<string, bool|float|int|string>|string',
+			],
+			[
+				TypeCombinator::union(
+					new ConstantArrayType([
+						new ConstantIntegerType(0),
+					], [
+						new StringType(),
+					]),
+					new ConstantArrayType([
+						new ConstantIntegerType(0),
+						new ConstantIntegerType(1),
+						new ConstantIntegerType(2),
+					], [
+						new IntegerType(),
+						new BooleanType(),
+						new FloatType(),
+					])
+				),
+				'array(0 => int|string, ?1 => bool, ?2 => float)',
+				'array<int, bool|float|int|string>',
+			],
 		];
 	}
 

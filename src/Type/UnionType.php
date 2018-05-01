@@ -9,6 +9,7 @@ use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 
 class UnionType implements CompoundType, StaticResolvableType
@@ -138,7 +139,77 @@ class UnionType implements CompoundType, StaticResolvableType
 				return $joinTypes([$types]);
 			},
 			function () use ($joinTypes): string {
-				return $joinTypes($this->types);
+				$arrayDescription = [];
+				$constantArrays = [];
+				$commonTypes = [];
+
+				foreach ($this->types as $type) {
+					if (!$type instanceof ConstantArrayType) {
+						$commonTypes[] = $type;
+						continue;
+					}
+
+					$constantArrays[] = $type;
+					foreach ($type->getKeyTypes() as $i => $keyType) {
+						if (!isset($arrayDescription[$keyType->getValue()])) {
+							$arrayDescription[$keyType->getValue()] = [
+								'key' => $keyType,
+								'value' => $type->getValueTypes()[$i],
+								'count' => 1,
+							];
+							continue;
+						}
+
+						$arrayDescription[$keyType->getValue()] = [
+							'key' => $keyType,
+							'value' => TypeCombinator::union(
+								$arrayDescription[$keyType->getValue()]['value'],
+								$type->getValueTypes()[$i]
+							),
+							'count' => $arrayDescription[$keyType->getValue()]['count'] + 1,
+						];
+					}
+				}
+
+				$someKeyCountIsHigherThanOne = false;
+				foreach ($arrayDescription as $value) {
+					if ($value['count'] > 1) {
+						$someKeyCountIsHigherThanOne = true;
+						break;
+					}
+				}
+
+				if (!$someKeyCountIsHigherThanOne) {
+					return $joinTypes(UnionTypeHelper::sortTypes(array_merge(
+						$commonTypes,
+						$constantArrays
+					)));
+				}
+
+				$constantArraysCount = count($constantArrays);
+				$constantArraysDescriptions = [];
+				foreach ($arrayDescription as $keyTypeValue => $value) {
+					$constantArraysDescriptions[] = sprintf(
+						'%s%s => %s',
+						$value['count'] < $constantArraysCount ? '?' : '',
+						$value['key']->describe(VerbosityLevel::value()),
+						$value['value']->describe(VerbosityLevel::value())
+					);
+				}
+
+				$description = '';
+				if (count($commonTypes) > 0) {
+					$description = $joinTypes($commonTypes);
+					if (count($constantArraysDescriptions) > 0) {
+						$description .= '|';
+					}
+				}
+
+				if (count($constantArraysDescriptions) > 0) {
+					$description .= 'array(' . implode(', ', $constantArraysDescriptions) . ')';
+				}
+
+				return $description;
 			}
 		);
 	}

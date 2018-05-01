@@ -683,8 +683,8 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 						new NullType(),
 					]),
 				],
-				ArrayType::class,
-				'array(\'foo\' => DateTimeImmutable|null)',
+				UnionType::class,
+				'array(\'foo\' => DateTimeImmutable|null, ?\'bar\' => int)',
 			],
 			[
 				[
@@ -705,8 +705,8 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 						new IntegerType(),
 					]),
 				],
-				ArrayType::class,
-				'array(\'foo\' => DateTimeImmutable|null, \'bar\' => int|string)',
+				UnionType::class,
+				'array(\'foo\' => DateTimeImmutable|null, \'bar\' => int|string, ?\'baz\' => int)',
 			],
 			[
 				[

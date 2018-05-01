@@ -309,6 +309,9 @@ class ClassReflection
 			$parent = $parent->getParentClass();
 		}
 
+		/** @var array<int, \PHPStan\Reflection\ClassReflection> $parents */
+		$parents = $parents;
+
 		return $parents;
 	}
 
