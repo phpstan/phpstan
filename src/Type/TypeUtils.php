@@ -13,24 +13,7 @@ class TypeUtils
 	 */
 	public static function getArrays(Type $type): array
 	{
-		if ($type instanceof ArrayType) {
-			return [$type];
-		}
-
-		if ($type instanceof UnionType) {
-			$arrays = [];
-			foreach ($type->getTypes() as $innerType) {
-				if (!$innerType instanceof ArrayType) {
-					return [];
-				}
-
-				$arrays[] = $innerType;
-			}
-
-			return $arrays;
-		}
-
-		return [];
+		return self::map(ArrayType::class, $type);
 	}
 
 	/**
@@ -39,24 +22,7 @@ class TypeUtils
 	 */
 	public static function getConstantArrays(Type $type): array
 	{
-		if ($type instanceof ConstantArrayType) {
-			return [$type];
-		}
-
-		if ($type instanceof UnionType) {
-			$constantArrays = [];
-			foreach ($type->getTypes() as $innerType) {
-				if (!$innerType instanceof ConstantArrayType) {
-					return [];
-				}
-
-				$constantArrays[] = $innerType;
-			}
-
-			return $constantArrays;
-		}
-
-		return [];
+		return self::map(ConstantArrayType::class, $type);
 	}
 
 	public static function generalizeType(Type $type): Type
@@ -78,14 +44,24 @@ class TypeUtils
 	 */
 	public static function getConstantScalars(Type $type): array
 	{
-		if ($type instanceof ConstantScalarType) {
+		return self::map(ConstantScalarType::class, $type);
+	}
+
+	/**
+	 * @param string $typeClass
+	 * @param Type $type
+	 * @return mixed[]
+	 */
+	private static function map(string $typeClass, Type $type): array
+	{
+		if ($type instanceof $typeClass) {
 			return [$type];
 		}
 
 		if ($type instanceof UnionType) {
 			$constantScalarValues = [];
 			foreach ($type->getTypes() as $innerType) {
-				if (!$innerType instanceof ConstantScalarType) {
+				if (!$innerType instanceof $typeClass) {
 					return [];
 				}
 
