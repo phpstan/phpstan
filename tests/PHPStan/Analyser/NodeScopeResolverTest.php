@@ -5734,6 +5734,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'mixed', // should be DateTimeImmutable
 				'$generalArray[\'key\']',
 			],
+			[
+				'array(0 => \'foo\', 1 => \'bar\', ?2 => \'baz\')',
+				'$arrayAppendedInIf',
+			],
+			[
+				'array<int, \'bar\'|\'baz\'|\'foo\'>',
+				'$arrayAppendedInForeach',
+			],
 		];
 	}
 

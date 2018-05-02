@@ -12,8 +12,11 @@ function (array $generalArray) {
 	/** @var \DateTimeImmutable|null $nullableDateTime */
 	$nullableDateTime = doFoo();
 	$array['key'] = $nullableDateTime;
+
+	$arrayAppendedInIf = ['foo', 'bar'];
 	if ($array['key'] === null) {
 		$array['key'] = new \DateTimeImmutable();
+		$arrayAppendedInIf[] = 'baz';
 	}
 
 	if ($generalArray['key'] === null) {
@@ -27,8 +30,10 @@ function (array $generalArray) {
 
 	/** @var int[] $ints */
 	$ints = doFoo();
+	$arrayAppendedInForeach = ['foo', 'bar'];
 	foreach ($ints as $x) {
 		$array['j'] += $x;
+		$arrayAppendedInForeach[] = 'baz';
 	}
 
 	$array['l']++;
