@@ -2577,6 +2577,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'\'ipsumbar\'|\'ipsumfoo\'|\'lorembar\'|\'loremfoo\'',
 				'$anotherConditionalString . $conditionalString',
 			],
+			[
+				'6|8',
+				'count($conditionalArray) + count($array)',
+			],
 		];
 	}
 
