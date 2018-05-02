@@ -47,7 +47,7 @@ class PhpDocNodeResolver
 	/**
 	 * @param PhpDocNode $phpDocNode
 	 * @param NameScope $nameScope
-	 * @return array<string, \PHPStan\PhpDoc\Tag\VarTag>
+	 * @return array<string|int, \PHPStan\PhpDoc\Tag\VarTag>
 	 */
 	private function resolveVarTags(PhpDocNode $phpDocNode, NameScope $nameScope): array
 	{
