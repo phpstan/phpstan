@@ -13,6 +13,7 @@ use PHPStan\Type\CompoundType;
 use PHPStan\Type\ConstantType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\NeverType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeUtils;
@@ -47,14 +48,14 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		assert(count($keyTypes) === count($valueTypes));
 
 		parent::__construct(
-			count($keyTypes) > 0 ? TypeCombinator::union(...$keyTypes) : new MixedType(),
+			count($keyTypes) > 0 ? TypeCombinator::union(...$keyTypes) : new NeverType(),
 			count($valueTypes) > 0 ? TypeCombinator::union(...array_map(function (Type $valueType): Type {
 				if ($valueType instanceof self) {
 					return $valueType->generalize();
 				}
 
 				return $valueType;
-			}, $valueTypes)) : new MixedType(),
+			}, $valueTypes)) : new NeverType(),
 			true
 		);
 

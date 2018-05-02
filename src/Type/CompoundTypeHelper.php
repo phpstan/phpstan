@@ -11,30 +11,6 @@ class CompoundTypeHelper
 			return true;
 		}
 
-		if ($compoundType instanceof UnionType) {
-			$isArraysOnly = true;
-			foreach ($compoundType->getTypes() as $innerType) {
-				if (!$innerType instanceof ArrayType) {
-					$isArraysOnly = false;
-					break;
-				}
-			}
-
-			if ($isArraysOnly) {
-				if (TypeCombinator::shouldSkipUnionTypeAccepts($compoundType)) {
-					return true;
-				}
-
-				foreach ($compoundType->getTypes() as $innerType) {
-					if (!$otherType->accepts($innerType)) {
-						return false;
-					}
-				}
-
-				return true;
-			}
-		}
-
 		return $compoundType->isSubTypeOf($otherType)->yes();
 	}
 

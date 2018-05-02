@@ -98,8 +98,8 @@ class ArrayType implements StaticResolvableType
 
 	public function describe(VerbosityLevel $level): string
 	{
-		if ($this->keyType instanceof MixedType) {
-			if ($this->itemType instanceof MixedType) {
+		if ($this->keyType instanceof MixedType || $this->keyType instanceof NeverType) {
+			if ($this->itemType instanceof MixedType || $this->itemType instanceof NeverType) {
 				return 'array';
 			}
 
