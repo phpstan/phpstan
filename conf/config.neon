@@ -39,11 +39,6 @@ services:
 		class: PhpParser\Lexer
 
 	-
-		class: PhpParser\NodeTraverser
-		setup:
-			- addVisitor(@PhpParser\NodeVisitor\NameResolver)
-
-	-
 		class: PhpParser\NodeVisitor\NameResolver
 
 	-
@@ -345,6 +340,18 @@ services:
 		class: PHPStan\Type\Php\IsAFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
+
+	-
+		class: PhpParser\NodeVisitor\NameResolver
+		tags:
+			- phpstan.nodeTraverser.visitor
+
+	-
+		class: PhpParser\NodeTraverser
+		factory: @nodeTraverserFactory::create
+
+	nodeTraverserFactory:
+		class: PHPStan\Parser\NodeTraverserFactory
 
 	typeSpecifier:
 		class: PHPStan\Analyser\TypeSpecifier
