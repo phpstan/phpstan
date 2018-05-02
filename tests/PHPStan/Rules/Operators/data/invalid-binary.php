@@ -106,3 +106,12 @@ function () {
 
 	nonexistentFunction() ?? '';
 };
+
+function () {
+	$possibleZero = 0;
+	if (doFoo()) {
+		$possibleZero = 1;
+	}
+
+	5 / $possibleZero;
+};

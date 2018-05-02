@@ -578,15 +578,14 @@ class Scope
 				$right = $node->right;
 			}
 
-			$rightType = $this->getType($right)->toNumber();
-			if (
-				$rightType instanceof ConstantScalarType
-				&& (
+			$rightTypes = TypeUtils::getConstantScalars($this->getType($right)->toNumber());
+			foreach ($rightTypes as $rightType) {
+				if (
 					$rightType->getValue() === 0
 					|| $rightType->getValue() === 0.0
-				)
-			) {
-				return new ErrorType();
+				) {
+					return new ErrorType();
+				}
 			}
 		}
 

@@ -85,6 +85,10 @@ class InvalidBinaryOperationRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Binary operation ".=" between string and stdClass results in an error.',
 				85,
 			],
+			[
+				'Binary operation "/" between 5 and 0|1 results in an error.',
+				116,
+			],
 		]);
 	}
 
