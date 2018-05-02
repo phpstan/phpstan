@@ -2246,6 +2246,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$arrayOfIntegers += $arrayOfIntegers',
 			],
 			[
+				'array(0 => 1, 1 => 1, 2 => 1, 3 => 1|2, 4 => 1|3, ?5 => 2, ?6 => 3)',
+				'$conditionalArray + $unshiftedConditionalArray',
+			],
+			[
+				'array(0 => \'lorem\', 1 => stdClass, 2 => 1, 3 => 1, 4 => 1, ?5 => 2, ?6 => 3)',
+				'$unshiftedConditionalArray + $conditionalArray',
+			],
+			[
 				'array(int, int, int)',
 				'$arrayOfIntegers += ["foo"]',
 			],

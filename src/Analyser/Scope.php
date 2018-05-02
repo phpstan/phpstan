@@ -737,28 +737,35 @@ class Scope
 			$leftType = $this->getType($left);
 			$rightType = $this->getType($right);
 
-			if (
-				($node instanceof Expr\AssignOp\Plus || $node instanceof Expr\BinaryOp\Plus)
-				&& $leftType instanceof ArrayType
-				&& $rightType instanceof ArrayType
-			) {
-				if ($leftType instanceof ConstantArrayType && $rightType instanceof ConstantArrayType) {
-					$newArrayType = $rightType;
-					foreach ($leftType->getKeyTypes() as $keyType) {
-						$newArrayType = $newArrayType->setOffsetValueType(
-							$keyType,
-							$leftType->getOffsetValueType($keyType)
-						);
+			if ($node instanceof Expr\AssignOp\Plus || $node instanceof Expr\BinaryOp\Plus) {
+				$leftConstantArrays = TypeUtils::getConstantArrays($leftType);
+				$rightConstantArrays = TypeUtils::getConstantArrays($rightType);
+
+				if (count($leftConstantArrays) > 0 && count($rightConstantArrays) > 0) {
+					$resultTypes = [];
+					foreach ($rightConstantArrays as $rightConstantArray) {
+						foreach ($leftConstantArrays as $leftConstantArray) {
+							$newArrayType = $rightConstantArray;
+							foreach ($leftConstantArray->getKeyTypes() as $leftKeyType) {
+								$newArrayType = $newArrayType->setOffsetValueType(
+									$leftKeyType,
+									$leftConstantArray->getOffsetValueType($leftKeyType)
+								);
+							}
+							$resultTypes[] = $newArrayType;
+						}
 					}
 
-					return $newArrayType;
+					return TypeCombinator::union(...$resultTypes);
 				}
 
-				return new ArrayType(
-					TypeCombinator::union($leftType->getKeyType(), $rightType->getKeyType()),
-					TypeCombinator::union($leftType->getItemType(), $rightType->getItemType()),
-					$leftType->isItemTypeInferredFromLiteralArray() || $rightType->isItemTypeInferredFromLiteralArray()
-				);
+				if ($leftType instanceof ArrayType && $rightType instanceof ArrayType) {
+					return new ArrayType(
+						TypeCombinator::union($leftType->getKeyType(), $rightType->getKeyType()),
+						TypeCombinator::union($leftType->getItemType(), $rightType->getItemType()),
+						$leftType->isItemTypeInferredFromLiteralArray() || $rightType->isItemTypeInferredFromLiteralArray()
+					);
+				}
 			}
 
 			$types = TypeCombinator::union($leftType, $rightType);
