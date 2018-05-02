@@ -3,6 +3,7 @@
 namespace PHPStan\Type;
 
 use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\Constant\ConstantStringType;
 
 class TypeUtils
 {
@@ -23,6 +24,15 @@ class TypeUtils
 	public static function getConstantArrays(Type $type): array
 	{
 		return self::map(ConstantArrayType::class, $type);
+	}
+
+	/**
+	 * @param \PHPStan\Type\Type $type
+	 * @return \PHPStan\Type\Constant\ConstantStringType[]
+	 */
+	public static function getConstantStrings(Type $type): array
+	{
+		return self::map(ConstantStringType::class, $type);
 	}
 
 	public static function generalizeType(Type $type): Type

@@ -549,8 +549,18 @@ class Scope
 				return new ErrorType();
 			}
 
-			if ($leftStringType instanceof ConstantStringType && $rightStringType instanceof ConstantStringType) {
-				return $leftStringType->append($rightStringType);
+			$leftConstantStrings = TypeUtils::getConstantStrings($leftStringType);
+			$rightConstantStrings = TypeUtils::getConstantStrings($rightStringType);
+
+			if (count($leftConstantStrings) > 0 && count($rightConstantStrings) > 0) {
+				$resultTypes = [];
+				foreach ($leftConstantStrings as $leftType) {
+					foreach ($rightConstantStrings as $rightType) {
+						$resultTypes[] = $leftType->append($rightType);
+					}
+				}
+
+				return TypeCombinator::union(...$resultTypes);
 			}
 
 			return new StringType();

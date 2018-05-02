@@ -91,10 +91,14 @@ class Foo
 
 		$conditionalArray = [1, 1, 1];
 		$conditionalInt = 1;
+		$conditionalString = 'foo';
+		$anotherConditionalString = 'lorem';
 		if (doFoo()) {
 			$conditionalArray[] = 2;
 			$conditionalArray[] = 3;
 			$conditionalInt = 2;
+			$conditionalString = 'bar';
+			$anotherConditionalString = 'ipsum';
 		}
 
 		$unshiftedConditionalArray = $conditionalArray;
