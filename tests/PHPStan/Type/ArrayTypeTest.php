@@ -3,6 +3,7 @@
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Constant\ConstantArrayType;
 
 class ArrayTypeTest extends \PHPStan\Testing\TestCase
 {
@@ -39,6 +40,11 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 				new ArrayType(new MixedType(), new MixedType(), false),
 				new CallableType(),
 				TrinaryLogic::createMaybe(),
+			],
+			[
+				new ArrayType(new IntegerType(), new StringType()),
+				new ConstantArrayType([], []),
+				TrinaryLogic::createYes(),
 			],
 		];
 	}

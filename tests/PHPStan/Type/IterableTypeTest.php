@@ -3,6 +3,7 @@
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Constant\ConstantArrayType;
 
 class IterableTypeTest extends \PHPStan\Testing\TestCase
 {
@@ -29,6 +30,11 @@ class IterableTypeTest extends \PHPStan\Testing\TestCase
 				new IterableType(new StringType(), new StringType()),
 				new ArrayType(new IntegerType(), new StringType()),
 				TrinaryLogic::createNo(),
+			],
+			[
+				new IterableType(new StringType(), new StringType()),
+				new ConstantArrayType([], []),
+				TrinaryLogic::createYes(),
 			],
 		];
 	}

@@ -80,10 +80,6 @@ class ArrayType implements StaticResolvableType
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
-		if ($type instanceof ConstantArrayType && count($type->getKeyTypes()) === 0) {
-			return TrinaryLogic::createYes();
-		}
-
 		if ($type instanceof self) {
 			return $this->getItemType()->isSuperTypeOf($type->getItemType())
 				->and($this->keyType->isSuperTypeOf($type->keyType));
