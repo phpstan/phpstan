@@ -87,7 +87,7 @@ class ResolvedPhpDocBlock
 
 
 	/**
-	 * @return array<string, \PHPStan\PhpDoc\Tag\VarTag>
+	 * @return array<string|int, \PHPStan\PhpDoc\Tag\VarTag>
 	 */
 	public function getVarTags(): array
 	{
