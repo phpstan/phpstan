@@ -199,8 +199,6 @@ class ArrayType implements StaticResolvableType
 	{
 		if ($offsetType === null) {
 			$offsetType = new IntegerType();
-		} else {
-			$offsetType = TypeUtils::generalizeType($offsetType);
 		}
 
 		return new ArrayType(
