@@ -90,9 +90,11 @@ class Foo
 		$decrementedFooString--;
 
 		$conditionalArray = [1, 1, 1];
+		$conditionalInt = 1;
 		if (doFoo()) {
 			$conditionalArray[] = 2;
 			$conditionalArray[] = 3;
+			$conditionalInt = 2;
 		}
 
 		$unshiftedConditionalArray = $conditionalArray;

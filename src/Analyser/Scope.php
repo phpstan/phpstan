@@ -514,12 +514,18 @@ class Scope
 
 		if ($node instanceof Node\Expr\UnaryMinus) {
 			$type = $this->getType($node->expr)->toNumber();
-			if ($type instanceof ConstantIntegerType) {
-				return new ConstantIntegerType(-$type->getValue());
-			}
+			$scalarValues = TypeUtils::getConstantScalars($type);
+			if (count($scalarValues) > 0) {
+				$newTypes = [];
+				foreach ($scalarValues as $scalarValue) {
+					if ($scalarValue instanceof ConstantIntegerType) {
+						$newTypes[] = new ConstantIntegerType(-$scalarValue->getValue());
+					} elseif ($scalarValue instanceof ConstantFloatType) {
+						$newTypes[] = new ConstantFloatType(-$scalarValue->getValue());
+					}
+				}
 
-			if ($type instanceof ConstantFloatType) {
-				return new ConstantFloatType(-$type->getValue());
+				return TypeCombinator::union(...$newTypes);
 			}
 
 			return $type;

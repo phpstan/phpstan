@@ -1724,6 +1724,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'-$integer',
 			],
 			[
+				'-2|-1',
+				'-$conditionalInt',
+			],
+			[
 				'*ERROR*',
 				'-$string',
 			],

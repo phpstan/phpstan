@@ -46,4 +46,30 @@ class TypeUtils
 		return $type;
 	}
 
+	/**
+	 * @param Type $type
+	 * @return \PHPStan\Type\ConstantScalarType[]
+	 */
+	public static function getConstantScalars(Type $type): array
+	{
+		if ($type instanceof ConstantScalarType) {
+			return [$type];
+		}
+
+		if ($type instanceof UnionType) {
+			$constantScalarValues = [];
+			foreach ($type->getTypes() as $innerType) {
+				if (!$innerType instanceof ConstantScalarType) {
+					return [];
+				}
+
+				$constantScalarValues[] = $innerType;
+			}
+
+			return $constantScalarValues;
+		}
+
+		return [];
+	}
+
 }
