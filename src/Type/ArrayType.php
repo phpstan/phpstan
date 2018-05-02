@@ -112,20 +112,7 @@ class ArrayType implements StaticResolvableType
 
 	public function generalizeValues(): self
 	{
-		$itemType = $this->itemType;
-		if ($itemType instanceof ConstantType) {
-			$itemType = $itemType->generalize();
-		} elseif ($itemType instanceof UnionType) {
-			$itemType = TypeCombinator::union(...array_map(function (Type $type): Type {
-				if ($type instanceof ConstantType) {
-					return $type->generalize();
-				}
-
-				return $type;
-			}, $itemType->getTypes()));
-		}
-
-		return new self($this->keyType, $itemType);
+		return new self($this->keyType, TypeUtils::generalizeType($this->itemType));
 	}
 
 	public function unionWith(self $otherArray): Type
@@ -212,9 +199,8 @@ class ArrayType implements StaticResolvableType
 	{
 		if ($offsetType === null) {
 			$offsetType = new IntegerType();
-
-		} elseif ($offsetType instanceof ConstantType) {
-			$offsetType = $offsetType->generalize();
+		} else {
+			$offsetType = TypeUtils::generalizeType($offsetType);
 		}
 
 		return new ArrayType(

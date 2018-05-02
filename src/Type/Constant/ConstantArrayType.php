@@ -15,6 +15,7 @@ use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\TypeUtils;
 use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
 use PHPStan\Type\VerbosityLevel;
@@ -307,19 +308,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 	{
 		$valueTypes = [];
 		foreach ($this->valueTypes as $valueType) {
-			if ($valueType instanceof ConstantType) {
-				$valueType = $valueType->generalize();
-			} elseif ($valueType instanceof UnionType) {
-				$valueType = TypeCombinator::union(...array_map(function (Type $type): Type {
-					if ($type instanceof ConstantType) {
-						return $type->generalize();
-					}
-
-					return $type;
-				}, $valueType->getTypes()));
-			}
-
-			$valueTypes[] = $valueType;
+			$valueTypes[] = TypeUtils::generalizeType($valueType);
 		}
 
 		return new self($this->keyTypes, $valueTypes, $this->nextAutoIndex);

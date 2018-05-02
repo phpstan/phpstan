@@ -5,8 +5,8 @@ namespace PHPStan\Rules\Cast;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Cast;
 use PHPStan\Analyser\Scope;
-use PHPStan\Type\ConstantType;
 use PHPStan\Type\ErrorType;
+use PHPStan\Type\TypeUtils;
 use PHPStan\Type\VerbosityLevel;
 
 class UselessCastRule implements \PHPStan\Rules\Rule
@@ -28,9 +28,7 @@ class UselessCastRule implements \PHPStan\Rules\Rule
 		if ($castType instanceof ErrorType) {
 			return [];
 		}
-		if ($castType instanceof ConstantType) {
-			$castType = $castType->generalize();
-		}
+		$castType = TypeUtils::generalizeType($castType);
 
 		$expressionType = $scope->getType($node->expr);
 		if ($castType->isSuperTypeOf($expressionType)->yes()) {

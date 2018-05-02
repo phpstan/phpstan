@@ -60,7 +60,6 @@ use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ConstantScalarType;
-use PHPStan\Type\ConstantType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\IntegerType;
@@ -1298,11 +1297,8 @@ class NodeScopeResolver
 				}
 
 				$newExpressionType = $scope->getTypeFromValue($afterValue);
-				if (
-					$lookForAssignsSettings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()
-					&& $newExpressionType instanceof ConstantType
-				) {
-					$newExpressionType = $newExpressionType->generalize();
+				if ($lookForAssignsSettings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()) {
+					$newExpressionType = TypeUtils::generalizeType($newExpressionType);
 				}
 
 				$scope = $this->assignVariable(
@@ -1349,17 +1345,7 @@ class NodeScopeResolver
 				} elseif ($node instanceof Expr\AssignOp) {
 					$type = $scope->getType($node);
 					if ($lookForAssignsSettings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()) {
-						if ($type instanceof ConstantType) {
-							$type = $type->generalize();
-						} elseif ($type instanceof UnionType) {
-							$type = TypeCombinator::union(...array_map(function (Type $type): Type {
-								if ($type instanceof ConstantType) {
-									return $type->generalize();
-								}
-
-								return $type;
-							}, $type->getTypes()));
-						}
+						$type = TypeUtils::generalizeType($type);
 					}
 				}
 

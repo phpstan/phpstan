@@ -9,7 +9,6 @@ use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
-use PHPStan\Type\Constant\ConstantBooleanType;
 
 class IntersectionType implements CompoundType, StaticResolvableType
 {
@@ -82,13 +81,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 			function () use ($level): string {
 				$typeNames = [];
 				foreach ($this->types as $type) {
-					if (
-						$type instanceof ConstantType
-						&& !$type instanceof ConstantBooleanType
-					) {
-						$type = $type->generalize();
-					}
-					$typeNames[] = $type->describe($level);
+					$typeNames[] = TypeUtils::generalizeType($type)->describe($level);
 				}
 
 				return implode('&', $typeNames);
