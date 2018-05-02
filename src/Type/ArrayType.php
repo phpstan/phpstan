@@ -249,6 +249,11 @@ class ArrayType implements StaticResolvableType
 		return $this;
 	}
 
+	public function count(): Type
+	{
+		return new IntegerType();
+	}
+
 	protected function castToArrayKeyType(Type $offsetType): Type
 	{
 		if ($offsetType instanceof ConstantScalarType) {

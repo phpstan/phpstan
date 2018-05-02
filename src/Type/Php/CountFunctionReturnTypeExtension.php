@@ -5,7 +5,6 @@ namespace PHPStan\Type\Php;
 use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
-use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeUtils;
@@ -28,13 +27,13 @@ class CountFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionR
 			return $functionReflection->getReturnType();
 		}
 
-		$constantArrays = TypeUtils::getConstantArrays($scope->getType($functionCall->args[0]->value));
-		if (count($constantArrays) === 0) {
+		$arrays = TypeUtils::getArrays($scope->getType($functionCall->args[0]->value));
+		if (count($arrays) === 0) {
 			return $functionReflection->getReturnType();
 		}
 		$countTypes = [];
-		foreach ($constantArrays as $array) {
-			$countTypes[] = new ConstantIntegerType($array->count());
+		foreach ($arrays as $array) {
+			$countTypes[] = $array->count();
 		}
 
 		return TypeCombinator::union(...$countTypes);

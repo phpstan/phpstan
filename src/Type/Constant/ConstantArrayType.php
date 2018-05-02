@@ -401,9 +401,9 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		return new self($keyTypes, $valueTypes, $autoIndex);
 	}
 
-	public function count(): int
+	public function count(): Type
 	{
-		return count($this->getKeyTypes());
+		return new ConstantIntegerType(count($this->getKeyTypes()));
 	}
 
 	public function describe(VerbosityLevel $level): string

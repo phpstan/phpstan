@@ -9,6 +9,32 @@ class TypeUtils
 
 	/**
 	 * @param \PHPStan\Type\Type $type
+	 * @return \PHPStan\Type\ArrayType[]
+	 */
+	public static function getArrays(Type $type): array
+	{
+		if ($type instanceof ArrayType) {
+			return [$type];
+		}
+
+		if ($type instanceof UnionType) {
+			$arrays = [];
+			foreach ($type->getTypes() as $innerType) {
+				if (!$innerType instanceof ArrayType) {
+					return [];
+				}
+
+				$arrays[] = $innerType;
+			}
+
+			return $arrays;
+		}
+
+		return [];
+	}
+
+	/**
+	 * @param \PHPStan\Type\Type $type
 	 * @return \PHPStan\Type\Constant\ConstantArrayType[]
 	 */
 	public static function getConstantArrays(Type $type): array
