@@ -1343,23 +1343,23 @@ class Scope
 			return $this->getTypeFromValue($leftNumberValue % $rightNumberValue);
 		}
 
-		if ($node instanceof Expr\BinaryOp\ShiftLeft || $node instanceof Expr\BinaryOp\ShiftLeft) {
+		if ($node instanceof Expr\BinaryOp\ShiftLeft || $node instanceof Expr\AssignOp\ShiftLeft) {
 			return $this->getTypeFromValue($leftNumberValue << $rightNumberValue);
 		}
 
-		if ($node instanceof Expr\BinaryOp\ShiftRight || $node instanceof Expr\BinaryOp\ShiftRight) {
+		if ($node instanceof Expr\BinaryOp\ShiftRight || $node instanceof Expr\AssignOp\ShiftRight) {
 			return $this->getTypeFromValue($leftNumberValue >> $rightNumberValue);
 		}
 
-		if ($node instanceof Expr\BinaryOp\BitwiseAnd || $node instanceof Expr\BinaryOp\BitwiseAnd) {
+		if ($node instanceof Expr\BinaryOp\BitwiseAnd || $node instanceof Expr\AssignOp\BitwiseAnd) {
 			return $this->getTypeFromValue($leftNumberValue & $rightNumberValue);
 		}
 
-		if ($node instanceof Expr\BinaryOp\BitwiseOr || $node instanceof Expr\BinaryOp\BitwiseOr) {
+		if ($node instanceof Expr\BinaryOp\BitwiseOr || $node instanceof Expr\AssignOp\BitwiseOr) {
 			return $this->getTypeFromValue($leftNumberValue | $rightNumberValue);
 		}
 
-		if ($node instanceof Expr\BinaryOp\BitwiseXor || $node instanceof Expr\BinaryOp\BitwiseXor) {
+		if ($node instanceof Expr\BinaryOp\BitwiseXor || $node instanceof Expr\AssignOp\BitwiseXor) {
 			return $this->getTypeFromValue($leftNumberValue ^ $rightNumberValue);
 		}
 
