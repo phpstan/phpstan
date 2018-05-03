@@ -200,7 +200,12 @@ class NodeScopeResolver
 			if ($i === $nodesCount - 1) {
 				break;
 			}
-			$scope = $this->lookForAssigns($scope, $node, TrinaryLogic::createYes());
+			$scope = $this->lookForAssigns(
+				$scope,
+				$node,
+				TrinaryLogic::createYes(),
+				LookForAssignsSettings::default()
+			);
 
 			if ($node instanceof If_) {
 				if ($this->findEarlyTermination($node->stmts, $scope) !== null) {
@@ -336,7 +341,7 @@ class NodeScopeResolver
 			$scope = $this->lookForArrayDestructuringArray($scope, $node->valueVar);
 		}
 
-		return $this->lookForAssigns($scope, $node->valueVar, TrinaryLogic::createYes());
+		return $this->lookForAssigns($scope, $node->valueVar, TrinaryLogic::createYes(), LookForAssignsSettings::default());
 	}
 
 	private function processNode(\PhpParser\Node $node, Scope $scope, \Closure $nodeCallback, bool $stopImmediately = false): void
@@ -403,7 +408,7 @@ class NodeScopeResolver
 		} elseif ($node instanceof Foreach_) {
 			$scope = $scope->exitFirstLevelStatements();
 			$this->processNode($node->expr, $scope, $nodeCallback);
-			$scope = $this->lookForAssigns($scope, $node->expr, TrinaryLogic::createYes());
+			$scope = $this->lookForAssigns($scope, $node->expr, TrinaryLogic::createYes(), LookForAssignsSettings::default());
 			$scope = $this->enterForeach($scope, $node);
 			if ($node->keyVar !== null) {
 				$this->processNode($node->keyVar, $scope, $nodeCallback);
@@ -484,9 +489,9 @@ class NodeScopeResolver
 				}
 				$this->processNode($item, $scope, $nodeCallback);
 				if ($item->key !== null) {
-					$scope = $this->lookForAssigns($scope, $item->key, TrinaryLogic::createYes());
+					$scope = $this->lookForAssigns($scope, $item->key, TrinaryLogic::createYes(), LookForAssignsSettings::default());
 				}
-				$scope = $this->lookForAssigns($scope, $item->value, TrinaryLogic::createYes());
+				$scope = $this->lookForAssigns($scope, $item->value, TrinaryLogic::createYes(), LookForAssignsSettings::default());
 			}
 
 			return;
@@ -528,7 +533,8 @@ class NodeScopeResolver
 			$scope = $this->lookForAssigns(
 				$scope,
 				$node->cond,
-				TrinaryLogic::createYes()
+				TrinaryLogic::createYes(),
+				LookForAssignsSettings::default()
 			);
 			$ifScope = $scope;
 			$scope = $scope->filterByTruthyValue($node->cond);
@@ -547,7 +553,8 @@ class NodeScopeResolver
 				$scope = $this->lookForAssigns(
 					$scope,
 					$elseif->cond,
-					TrinaryLogic::createYes()
+					TrinaryLogic::createYes(),
+					LookForAssignsSettings::default()
 				);
 				$scope = $scope->filterByTruthyValue($elseif->cond);
 				$this->processNode($elseif->cond, $scope, $specifyFetchedProperty);
@@ -555,7 +562,8 @@ class NodeScopeResolver
 				$elseifScope = $this->lookForAssigns(
 					$elseifScope,
 					$elseif->cond,
-					TrinaryLogic::createYes()
+					TrinaryLogic::createYes(),
+					LookForAssignsSettings::default()
 				)->filterByFalseyValue($elseif->cond);
 			}
 			if ($node->else !== null) {
@@ -569,7 +577,8 @@ class NodeScopeResolver
 			$scope = $this->lookForAssigns(
 				$scope,
 				$node->cond,
-				TrinaryLogic::createYes()
+				TrinaryLogic::createYes(),
+				LookForAssignsSettings::default()
 			);
 			$switchScope = $scope;
 			$switchConditionIsTrue = $node->cond instanceof Expr\ConstFetch && strtolower((string) $node->cond->name) === 'true';
@@ -589,12 +598,14 @@ class NodeScopeResolver
 					$switchScope = $this->lookForAssigns(
 						$switchScope,
 						$caseNode->cond,
-						TrinaryLogic::createYes()
+						TrinaryLogic::createYes(),
+						LookForAssignsSettings::default()
 					);
 					$scope = $this->lookForAssigns(
 						$scope,
 						$caseNode->cond,
-						TrinaryLogic::createYes()
+						TrinaryLogic::createYes(),
+						LookForAssignsSettings::default()
 					);
 
 					$caseScope = $switchScope;
@@ -621,7 +632,7 @@ class NodeScopeResolver
 				);
 				if ($this->findEarlyTermination($caseNode->stmts, $switchScope) === null) {
 					foreach ($caseNode->stmts as $statement) {
-						$switchScope = $this->lookForAssigns($switchScope, $statement, TrinaryLogic::createMaybe());
+						$switchScope = $this->lookForAssigns($switchScope, $statement, TrinaryLogic::createMaybe(), LookForAssignsSettings::default());
 					}
 				} else {
 					$switchScope = $scope;
@@ -635,7 +646,7 @@ class NodeScopeResolver
 			$scopeForLookForAssignsInBranches = $scope;
 			$tryAssignmentsCertainty = $this->polluteCatchScopeWithTryAssignments ? TrinaryLogic::createYes() : TrinaryLogic::createMaybe();
 			foreach ($node->stmts as $statement) {
-				$scope = $this->lookForAssigns($scope, $statement, $tryAssignmentsCertainty);
+				$scope = $this->lookForAssigns($scope, $statement, $tryAssignmentsCertainty, LookForAssignsSettings::default());
 			}
 
 			if ($node->finally !== null) {
@@ -741,7 +752,7 @@ class NodeScopeResolver
 				}
 
 				if ($node instanceof MethodCall && $subNodeName === 'args') {
-					$scope = $this->lookForAssigns($scope, $node->var, TrinaryLogic::createYes());
+					$scope = $this->lookForAssigns($scope, $node->var, TrinaryLogic::createYes(), LookForAssignsSettings::default());
 				}
 
 				if ($node instanceof Do_ && $subNodeName === 'stmts') {
@@ -784,7 +795,7 @@ class NodeScopeResolver
 				}
 
 				if ($node instanceof BinaryOp && $subNodeName === 'right') {
-					$scope = $this->lookForAssigns($scope, $node->left, TrinaryLogic::createYes());
+					$scope = $this->lookForAssigns($scope, $node->left, TrinaryLogic::createYes(), LookForAssignsSettings::default());
 				}
 
 				if ($node instanceof Expr\Empty_ && $subNodeName === 'expr') {
@@ -797,14 +808,14 @@ class NodeScopeResolver
 					&& $subNodeName === 'value'
 					&& $node->key !== null
 				) {
-					$scope = $this->lookForAssigns($scope, $node->key, TrinaryLogic::createYes());
+					$scope = $this->lookForAssigns($scope, $node->key, TrinaryLogic::createYes(), LookForAssignsSettings::default());
 				}
 
 				if (
 					$node instanceof Ternary
 					&& $subNodeName !== 'cond'
 				) {
-					$scope = $this->lookForAssigns($scope, $node->cond, TrinaryLogic::createYes());
+					$scope = $this->lookForAssigns($scope, $node->cond, TrinaryLogic::createYes(), LookForAssignsSettings::default());
 					if ($subNodeName === 'if') {
 						$scope = $scope->filterByTruthyValue($node->cond);
 						$this->processNode($node->cond, $scope, function (Node $node, Scope $inScope) use (&$scope): void {
@@ -820,7 +831,7 @@ class NodeScopeResolver
 
 				if ($node instanceof Do_ && $subNodeName === 'cond') {
 					foreach ($node->stmts as $statement) {
-						$scope = $this->lookForAssigns($scope, $statement, TrinaryLogic::createYes());
+						$scope = $this->lookForAssigns($scope, $statement, TrinaryLogic::createYes(), LookForAssignsSettings::default());
 					}
 				}
 
@@ -936,12 +947,9 @@ class NodeScopeResolver
 		Scope $scope,
 		\PhpParser\Node $node,
 		TrinaryLogic $certainty,
-		?LookForAssignsSettings $lookForAssignsSettings = null
+		LookForAssignsSettings $lookForAssignsSettings
 	): Scope
 	{
-		if ($lookForAssignsSettings === null) {
-			$lookForAssignsSettings = LookForAssignsSettings::default();
-		}
 		if ($node instanceof StaticVar) {
 			$scope = $scope->assignVariable(
 				$node->name,
@@ -950,10 +958,10 @@ class NodeScopeResolver
 			);
 		} elseif ($node instanceof Static_) {
 			foreach ($node->vars as $var) {
-				$scope = $this->lookForAssigns($scope, $var, $certainty);
+				$scope = $this->lookForAssigns($scope, $var, $certainty, $lookForAssignsSettings);
 			}
 		} elseif ($node instanceof If_) {
-			$scope = $this->lookForAssigns($scope, $node->cond, $certainty);
+			$scope = $this->lookForAssigns($scope, $node->cond, $certainty, $lookForAssignsSettings);
 			$ifStatement = new StatementList(
 				$scope->filterByTruthyValue($node->cond),
 				array_merge([$node->cond], $node->stmts)
@@ -995,10 +1003,10 @@ class NodeScopeResolver
 			}
 		} elseif ($node instanceof MethodCall || $node instanceof FuncCall || $node instanceof Expr\StaticCall) {
 			if ($node instanceof MethodCall) {
-				$scope = $this->lookForAssigns($scope, $node->var, $certainty);
+				$scope = $this->lookForAssigns($scope, $node->var, $certainty, $lookForAssignsSettings);
 			}
 			foreach ($node->args as $argument) {
-				$scope = $this->lookForAssigns($scope, $argument, $certainty);
+				$scope = $this->lookForAssigns($scope, $argument, $certainty, $lookForAssignsSettings);
 			}
 
 			$parametersAcceptor = $this->findParametersAcceptorInFunctionCall($node, $scope);
@@ -1107,14 +1115,14 @@ class NodeScopeResolver
 				}
 			}
 		} elseif ($node instanceof BinaryOp) {
-			$scope = $this->lookForAssigns($scope, $node->left, $certainty);
-			$scope = $this->lookForAssigns($scope, $node->right, $certainty);
+			$scope = $this->lookForAssigns($scope, $node->left, $certainty, $lookForAssignsSettings);
+			$scope = $this->lookForAssigns($scope, $node->right, $certainty, $lookForAssignsSettings);
 		} elseif ($node instanceof Arg) {
-			$scope = $this->lookForAssigns($scope, $node->value, $certainty);
+			$scope = $this->lookForAssigns($scope, $node->value, $certainty, $lookForAssignsSettings);
 		} elseif ($node instanceof BooleanNot) {
-			$scope = $this->lookForAssigns($scope, $node->expr, $certainty);
+			$scope = $this->lookForAssigns($scope, $node->expr, $certainty, $lookForAssignsSettings);
 		} elseif ($node instanceof Ternary) {
-			$scope = $this->lookForAssigns($scope, $node->cond, $certainty);
+			$scope = $this->lookForAssigns($scope, $node->cond, $certainty, $lookForAssignsSettings);
 			$statements = [];
 			if ($node->if !== null) {
 				$statements[] = new StatementList(
@@ -1139,13 +1147,13 @@ class NodeScopeResolver
 					continue;
 				}
 				if ($item->key !== null) {
-					$scope = $this->lookForAssigns($scope, $item->key, $certainty);
+					$scope = $this->lookForAssigns($scope, $item->key, $certainty, $lookForAssignsSettings);
 				}
-				$scope = $this->lookForAssigns($scope, $item->value, $certainty);
+				$scope = $this->lookForAssigns($scope, $item->value, $certainty, $lookForAssignsSettings);
 			}
 		} elseif ($node instanceof New_) {
 			foreach ($node->args as $arg) {
-				$scope = $this->lookForAssigns($scope, $arg, $certainty);
+				$scope = $this->lookForAssigns($scope, $arg, $certainty, $lookForAssignsSettings);
 			}
 		} elseif ($node instanceof Do_) {
 			$scope = $this->lookForAssignsInBranches($scope, [
@@ -1181,7 +1189,7 @@ class NodeScopeResolver
 
 			$scope = $this->lookForAssignsInBranches($scope, $statementLists, LookForAssignsSettings::afterLoop());
 		} elseif ($node instanceof Cast) {
-			$scope = $this->lookForAssigns($scope, $node->expr, $certainty);
+			$scope = $this->lookForAssigns($scope, $node->expr, $certainty, $lookForAssignsSettings);
 		} elseif ($node instanceof For_) {
 			$forAssignmentsCertainty = $this->polluteScopeWithLoopInitialAssignments ? TrinaryLogic::createYes() : TrinaryLogic::createMaybe();
 			foreach ($node->init as $initExpr) {
@@ -1210,19 +1218,19 @@ class NodeScopeResolver
 			];
 			$scope = $this->lookForAssignsInBranches($scope, $statements, LookForAssignsSettings::afterLoop());
 		} elseif ($node instanceof ErrorSuppress) {
-			$scope = $this->lookForAssigns($scope, $node->expr, $certainty);
+			$scope = $this->lookForAssigns($scope, $node->expr, $certainty, $lookForAssignsSettings);
 		} elseif ($node instanceof \PhpParser\Node\Stmt\Unset_) {
 			foreach ($node->vars as $var) {
 				$scope = $scope->unsetExpression($var);
 			}
 		} elseif ($node instanceof Echo_) {
 			foreach ($node->exprs as $echoedExpr) {
-				$scope = $this->lookForAssigns($scope, $echoedExpr, $certainty);
+				$scope = $this->lookForAssigns($scope, $echoedExpr, $certainty, $lookForAssignsSettings);
 			}
 		} elseif ($node instanceof Print_) {
-			$scope = $this->lookForAssigns($scope, $node->expr, $certainty);
+			$scope = $this->lookForAssigns($scope, $node->expr, $certainty, $lookForAssignsSettings);
 		} elseif ($node instanceof Foreach_) {
-			$scope = $this->lookForAssigns($scope, $node->expr, $certainty);
+			$scope = $this->lookForAssigns($scope, $node->expr, $certainty, $lookForAssignsSettings);
 			$initialScope = $scope;
 			$scope = $this->enterForeach($scope, $node);
 			$statements = [
@@ -1235,12 +1243,12 @@ class NodeScopeResolver
 			$scope = $this->lookForAssignsInBranches($initialScope, $statements, LookForAssignsSettings::afterLoop());
 		} elseif ($node instanceof Isset_) {
 			foreach ($node->vars as $var) {
-				$scope = $this->lookForAssigns($scope, $var, $certainty);
+				$scope = $this->lookForAssigns($scope, $var, $certainty, $lookForAssignsSettings);
 			}
 		} elseif ($node instanceof Expr\Empty_) {
-			$scope = $this->lookForAssigns($scope, $node->expr, $certainty);
+			$scope = $this->lookForAssigns($scope, $node->expr, $certainty, $lookForAssignsSettings);
 		} elseif ($node instanceof ArrayDimFetch && $node->dim !== null) {
-			$scope = $this->lookForAssigns($scope, $node->dim, $certainty);
+			$scope = $this->lookForAssigns($scope, $node->dim, $certainty, $lookForAssignsSettings);
 		} elseif ($node instanceof Expr\Closure) {
 			$closureScope = $scope->enterAnonymousFunction($node);
 			$statements = [
@@ -1268,9 +1276,9 @@ class NodeScopeResolver
 				);
 			}
 		} elseif ($node instanceof Instanceof_) {
-			$scope = $this->lookForAssigns($scope, $node->expr, $certainty);
+			$scope = $this->lookForAssigns($scope, $node->expr, $certainty, $lookForAssignsSettings);
 		} elseif ($node instanceof Expr\Include_) {
-			$scope = $this->lookForAssigns($scope, $node->expr, $certainty);
+			$scope = $this->lookForAssigns($scope, $node->expr, $certainty, $lookForAssignsSettings);
 		} elseif (
 			(
 				$node instanceof Expr\PostInc
@@ -1324,6 +1332,7 @@ class NodeScopeResolver
 	{
 		if ($node instanceof Assign || $node instanceof AssignRef || $node instanceof Expr\AssignOp || $node instanceof Node\Stmt\Global_) {
 			if ($node instanceof Assign || $node instanceof AssignRef || $node instanceof Expr\AssignOp) {
+				$scope = $this->lookForAssigns($scope, $node->var, TrinaryLogic::createYes(), $lookForAssignsSettings);
 				$vars = [$node->var];
 			} else {
 				$vars = $node->vars;
@@ -1372,7 +1381,7 @@ class NodeScopeResolver
 			}
 
 			if (!$node instanceof Node\Stmt\Global_) {
-				$scope = $this->lookForAssigns($scope, $node->expr, TrinaryLogic::createYes());
+				$scope = $this->lookForAssigns($scope, $node->expr, TrinaryLogic::createYes(), $lookForAssignsSettings);
 			}
 
 			if ($node instanceof Assign || $node instanceof AssignRef) {
@@ -1432,7 +1441,7 @@ class NodeScopeResolver
 			}
 
 			// 1. eval root expr
-			$scope = $this->lookForAssigns($scope, $var, TrinaryLogic::createYes());
+			$scope = $this->lookForAssigns($scope, $var, TrinaryLogic::createYes(), LookForAssignsSettings::default());
 
 			// 2. eval dimensions
 			$offsetTypes = [];
@@ -1441,7 +1450,7 @@ class NodeScopeResolver
 					$offsetTypes[] = null;
 
 				} else {
-					$scope = $this->lookForAssigns($scope, $dimExpr, TrinaryLogic::createYes());
+					$scope = $this->lookForAssigns($scope, $dimExpr, TrinaryLogic::createYes(), LookForAssignsSettings::default());
 					$offsetTypes[] = $scope->getType($dimExpr);
 				}
 			}
@@ -1495,7 +1504,7 @@ class NodeScopeResolver
 		} elseif ($var instanceof Expr\StaticPropertyFetch && $subNodeType !== null) {
 			$scope = $scope->specifyExpressionType($var, $subNodeType);
 		} else {
-			$scope = $this->lookForAssigns($scope, $var, TrinaryLogic::createYes());
+			$scope = $this->lookForAssigns($scope, $var, TrinaryLogic::createYes(), LookForAssignsSettings::default());
 		}
 
 		return $scope;

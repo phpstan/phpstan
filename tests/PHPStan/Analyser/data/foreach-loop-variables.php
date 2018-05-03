@@ -6,10 +6,13 @@ function () {
 	$foo = null;
 	$key = null;
 	$val = null;
+	$i = 0;
 	foreach ([1, 2, 3] as $key => $val) {
 		'begin';
 		$foo = new Foo();
 		'afterAssign';
+
+		$foo && $i++;
 
 		if (something()) {
 			$foo = new Bar();

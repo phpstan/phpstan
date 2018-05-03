@@ -31,9 +31,12 @@ function (array $generalArray) {
 	/** @var int[] $ints */
 	$ints = doFoo();
 	$arrayAppendedInForeach = ['foo', 'bar'];
+	$anotherArrayAppendedInForeach = ['foo', 'bar'];
+	$i = 0;
 	foreach ($ints as $x) {
 		$array['j'] += $x;
 		$arrayAppendedInForeach[] = 'baz';
+		$anotherArrayAppendedInForeach[$i++] = 'baz';
 	}
 
 	$array['l']++;

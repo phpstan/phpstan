@@ -4,7 +4,8 @@ namespace LoopVariables;
 
 function () {
 	$foo = null;
-	while ($val = fetch()) {
+	$i = 0;
+	while ($val = fetch() && $i++ < 10) {
 		'begin';
 		$foo = new Foo();
 		'afterAssign';

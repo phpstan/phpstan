@@ -5072,6 +5072,21 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foo',
 				"'afterLoop';",
 			],
+			[
+				'int',
+				'$i',
+				"'begin';",
+			],
+			[
+				'int',
+				'$i',
+				"'end';",
+			],
+			[
+				'int',
+				'$i',
+				"'afterLoop';",
+			],
 		];
 	}
 
@@ -5205,6 +5220,21 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'LoopVariables\Bar|LoopVariables\Foo|LoopVariables\Lorem',
 				'$foo',
+				"'afterLoop';",
+			],
+			[
+				'int',
+				'$i',
+				"'begin';",
+			],
+			[
+				'int',
+				'$i',
+				"'end';",
+			],
+			[
+				'int',
+				'$i',
 				"'afterLoop';",
 			],
 		];
@@ -5741,6 +5771,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'array<int, \'bar\'|\'baz\'|\'foo\'>',
 				'$arrayAppendedInForeach',
+			],
+			[
+				'array<int, \'bar\'|\'baz\'|\'foo\'>',
+				'$anotherArrayAppendedInForeach',
 			],
 		];
 	}

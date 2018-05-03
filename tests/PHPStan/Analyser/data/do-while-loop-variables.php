@@ -4,6 +4,7 @@ namespace LoopVariables;
 
 function () {
 	$foo = null;
+	$i = 0;
 	do {
 		'begin';
 		$foo = new Foo();
@@ -22,8 +23,10 @@ function () {
 			continue;
 		}
 
+		$i++;
+
 		'end';
-	} while (true);
+	} while (doFoo() && $i++ < 10);
 
 	'afterLoop';
 };
