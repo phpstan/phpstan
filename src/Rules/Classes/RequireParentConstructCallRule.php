@@ -30,7 +30,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		if ($node->name !== '__construct') {
+		if ($node->name->name !== '__construct') {
 			return [];
 		}
 
@@ -85,7 +85,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 				if (
 					$statement->class instanceof Name
 					&& ((string) $statement->class === 'parent')
-					&& $statement->name === '__construct'
+					&& $statement->name->name === '__construct'
 				) {
 					return true;
 				}

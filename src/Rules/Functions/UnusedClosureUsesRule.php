@@ -36,7 +36,7 @@ class UnusedClosureUsesRule implements \PHPStan\Rules\Rule
 		return $this->check->getUnusedParameters(
 			$scope,
 			array_map(function (Node\Expr\ClosureUse $use): string {
-				return $use->var;
+				return $use->var->name;
 			}, $node->uses),
 			$node->stmts,
 			'Anonymous function has an unused use $%s.'

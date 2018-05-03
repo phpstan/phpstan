@@ -51,11 +51,11 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		if (!is_string($node->name)) {
+		if (!is_string($node->name->name)) {
 			return [];
 		}
 
-		$name = $node->name;
+		$name = $node->name->name;
 		$typeResult = $this->ruleLevelHelper->findTypeToCheck(
 			$scope,
 			$node->var,

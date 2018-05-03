@@ -15,7 +15,7 @@ class PropertyDescriptor
 	public function describeProperty(PropertyReflection $property, $propertyFetch): string
 	{
 		if ($propertyFetch instanceof \PhpParser\Node\Expr\PropertyFetch) {
-			return sprintf('Property %s::$%s', $property->getDeclaringClass()->getDisplayName(), $propertyFetch->name);
+			return sprintf('Property %s::$%s', $property->getDeclaringClass()->getDisplayName(), $propertyFetch->name->name);
 		}
 
 		return sprintf('Static property %s::$%s', $property->getDeclaringClass()->getDisplayName(), $propertyFetch->name);

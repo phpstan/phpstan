@@ -375,9 +375,9 @@ class NodeScopeResolver
 		} elseif (
 			$node instanceof \PhpParser\Node\Expr\StaticCall
 			&& $node->class instanceof \PhpParser\Node\Name
-			&& is_string($node->name)
+			&& is_string($node->name->name)
 			&& (string) $node->class === 'Closure'
-			&& $node->name === 'bind'
+			&& $node->name->name === 'bind'
 		) {
 			$thisType = null;
 			if (isset($node->args[1])) {
@@ -396,7 +396,7 @@ class NodeScopeResolver
 					$scopeClass = $argValueType->getReferencedClasses()[0];
 				} elseif (
 					$argValue instanceof Expr\ClassConstFetch
-					&& strtolower($argValue->name) === 'class'
+					&& strtolower($argValue->name->name) === 'class'
 					&& $argValue->class instanceof Name
 				) {
 					$scopeClass = $scope->resolveName($argValue->class);
@@ -479,7 +479,7 @@ class NodeScopeResolver
 		} elseif ($node instanceof Catch_) {
 			$scope = $scope->enterCatch(
 				$node->types,
-				$node->var
+				$node->var->name
 			);
 		} elseif ($node instanceof Array_) {
 			$scope = $scope->exitFirstLevelStatements();
@@ -512,13 +512,13 @@ class NodeScopeResolver
 					new StatementList($scope, []),
 				], LookForAssignsSettings::insideFinally());
 				foreach ($usesByRef as $closureUse) {
-					$variableCertainty = $closureScope->hasVariableType($closureUse->var);
+					$variableCertainty = $closureScope->hasVariableType($closureUse->var->name);
 					if ($variableCertainty->no()) {
 						continue;
 					}
 					$scope = $scope->assignVariable(
-						$closureUse->var,
-						$closureScope->getVariableType($closureUse->var),
+						$closureUse->var->name,
+						$closureScope->getVariableType($closureUse->var->name),
 						$variableCertainty
 					);
 				}
@@ -615,7 +615,7 @@ class NodeScopeResolver
 						$switchConditionGetClassExpression !== null
 						&& $caseNode->cond instanceof Expr\ClassConstFetch
 						&& $caseNode->cond->class instanceof Name
-						&& strtolower($caseNode->cond->name) === 'class'
+						&& strtolower($caseNode->cond->name->name) === 'class'
 					) {
 						$caseScope = $caseScope->specifyExpressionType(
 							$switchConditionGetClassExpression,
@@ -662,7 +662,7 @@ class NodeScopeResolver
 
 				$statements[] = new StatementList($scope->enterCatch(
 					$catch->types,
-					$catch->var
+					$catch->var->name
 				), $catch->stmts);
 			}
 
@@ -680,7 +680,7 @@ class NodeScopeResolver
 		} elseif ($node instanceof MethodCall) {
 			if (
 				!(new ObjectType(\Closure::class))->isSuperTypeOf($scope->getType($node->var))->no()
-				&& $node->name === 'call'
+				&& $node->name->name === 'call'
 				&& isset($node->args[0])
 			) {
 				$closureCallScope = $scope->enterClosureBind($scope->getType($node->args[0]->value), 'static');
@@ -692,7 +692,7 @@ class NodeScopeResolver
 			} while (class_exists('\\' . $uniqidClass));
 
 			$classNode = $node->class;
-			$classNode->name = $uniqidClass;
+			$classNode->name->name = $uniqidClass;
 			eval($this->printer->prettyPrint([$classNode]));
 			unset($classNode);
 
@@ -952,7 +952,7 @@ class NodeScopeResolver
 	{
 		if ($node instanceof StaticVar) {
 			$scope = $scope->assignVariable(
-				$node->name,
+				$node->var->name,
 				$node->default !== null ? $scope->getType($node->default) : new MixedType(),
 				$certainty
 			);
@@ -991,7 +991,7 @@ class NodeScopeResolver
 			foreach ($node->catches as $catch) {
 				$statements[] = new StatementList($scope->enterCatch(
 					$catch->types,
-					$catch->var
+					$catch->var->name
 				), array_merge([new Node\Stmt\Nop()], $catch->stmts));
 			}
 
@@ -1599,7 +1599,7 @@ class NodeScopeResolver
 		) {
 			return $statement;
 		} elseif (($statement instanceof MethodCall || $statement instanceof Expr\StaticCall) && count($this->earlyTerminatingMethodCalls) > 0) {
-			if (!is_string($statement->name)) {
+			if (!is_string($statement->name->name)) {
 				return null;
 			}
 
@@ -1624,7 +1624,7 @@ class NodeScopeResolver
 						continue;
 					}
 
-					if (in_array($statement->name, $this->earlyTerminatingMethodCalls[$className], true)) {
+					if (in_array($statement->name->name, $this->earlyTerminatingMethodCalls[$className], true)) {
 						return $statement;
 					}
 				}
@@ -1662,21 +1662,21 @@ class NodeScopeResolver
 			if ($this->broker->hasFunction($functionCall->name, $scope)) {
 				return $this->broker->getFunction($functionCall->name, $scope);
 			}
-		} elseif ($functionCall instanceof MethodCall && is_string($functionCall->name)) {
+		} elseif ($functionCall instanceof MethodCall && is_string($functionCall->name->name)) {
 			$type = $scope->getType($functionCall->var);
-			$methodName = $functionCall->name;
+			$methodName = $functionCall->name->name;
 			if ($type->hasMethod($methodName)) {
 				return $type->getMethod($methodName, $scope);
 			}
 		} elseif (
 			$functionCall instanceof Expr\StaticCall
 			&& $functionCall->class instanceof Name
-			&& is_string($functionCall->name)) {
+			&& is_string($functionCall->name->name)) {
 			$className = $scope->resolveName($functionCall->class);
 			if ($this->broker->hasClass($className)) {
 				$classReflection = $this->broker->getClass($className);
-				if ($classReflection->hasMethod($functionCall->name)) {
-					return $classReflection->getMethod($functionCall->name, $scope);
+				if ($classReflection->hasMethod($functionCall->name->name)) {
+					return $classReflection->getMethod($functionCall->name->name, $scope);
 				}
 			}
 		}
@@ -1767,7 +1767,7 @@ class NodeScopeResolver
 					$this->broker,
 					$docComment,
 					$scope->getClassReflection()->getName(),
-					$functionLike->name,
+					$functionLike->name->name,
 					$file
 				);
 				$docComment = $phpDocBlock->getDocComment();

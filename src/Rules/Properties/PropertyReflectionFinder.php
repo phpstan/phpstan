@@ -17,11 +17,11 @@ class PropertyReflectionFinder
 	public function findPropertyReflectionFromNode($propertyFetch, Scope $scope): ?\PHPStan\Reflection\PropertyReflection
 	{
 		if ($propertyFetch instanceof \PhpParser\Node\Expr\PropertyFetch) {
-			if (!is_string($propertyFetch->name)) {
+			if (!is_string($propertyFetch->name->name)) {
 				return null;
 			}
 			$propertyHolderType = $scope->getType($propertyFetch->var);
-			return $this->findPropertyReflection($propertyHolderType, $propertyFetch->name, $scope);
+			return $this->findPropertyReflection($propertyHolderType, $propertyFetch->name->name, $scope);
 		}
 
 		if (!is_string($propertyFetch->name)) {
