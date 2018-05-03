@@ -11,6 +11,15 @@ class CompoundTypeHelper
 			return true;
 		}
 
+		if ($compoundType instanceof UnionType) {
+			foreach ($compoundType->getTypes() as $innerType) {
+				if (!$otherType->accepts($innerType)) {
+					return false;
+				}
+			}
+			return true;
+		}
+
 		return $compoundType->isSubTypeOf($otherType)->yes();
 	}
 
