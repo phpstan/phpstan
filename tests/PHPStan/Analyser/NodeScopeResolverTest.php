@@ -5796,6 +5796,61 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataSpecifiedFunctionCall(): array
+	{
+		return [
+			[
+				'true',
+				'is_file($autoloadFile)',
+				"'first';",
+			],
+			[
+				'true',
+				'is_file($autoloadFile)',
+				"'second';",
+			],
+			[
+				'true',
+				'is_file($autoloadFile)',
+				"'third';",
+			],
+			[
+				'bool',
+				'is_file($autoloadFile)',
+				"'fourth';",
+			],
+			[
+				'true',
+				'is_file($autoloadFile)',
+				"'fifth';",
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataSpecifiedFunctionCall
+	 * @param string $description
+	 * @param string $expression
+	 * @param string $evaluatedPointExpression
+	 */
+	public function testSpecifiedFunctionCall(
+		string $description,
+		string $expression,
+		string $evaluatedPointExpression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/specified-function-call.php',
+			$description,
+			$expression,
+			[],
+			[],
+			[],
+			[],
+			$evaluatedPointExpression
+		);
+	}
+
 	public function dataElementsOnMixed(): array
 	{
 		return [

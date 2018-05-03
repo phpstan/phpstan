@@ -1916,7 +1916,7 @@ class Scope
 		$variableString = $this->printer->prettyPrintExpr(new Variable($variableName));
 		$moreSpecificTypeHolders = $this->moreSpecificTypes;
 		foreach ($moreSpecificTypeHolders as $key => $typeHolder) {
-			$matches = \Nette\Utils\Strings::match((string) $key, '#^(\$[a-zA-Z_\x7f-\xff][a-zA-Z_0-9\x7f-\xff]*)#');
+			$matches = \Nette\Utils\Strings::match((string) $key, '#(\$[a-zA-Z_\x7f-\xff][a-zA-Z_0-9\x7f-\xff]*)#');
 			if ($matches === null) {
 				continue;
 			}
