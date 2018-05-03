@@ -87,7 +87,7 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 						new MixedType(),
 					]),
 				]),
-				true
+				true,
 			],
 		];
 	}
