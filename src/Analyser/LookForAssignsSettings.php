@@ -18,6 +18,9 @@ class LookForAssignsSettings
 	/** @var int */
 	private $respectEarlyTermination;
 
+	/** @var self[] */
+	private static $registry = [];
+
 	private function __construct(
 		int $respectEarlyTermination
 	)
@@ -27,30 +30,28 @@ class LookForAssignsSettings
 
 	public static function default(): self
 	{
-		return new self(
-			self::EARLY_TERMINATION_ALL
-		);
+		return self::create(self::EARLY_TERMINATION_ALL);
 	}
 
 	public static function insideLoop(): self
 	{
-		return new self(
-			self::EARLY_TERMINATION_STOP + self::EARLY_TERMINATION_BREAK
-		);
+		return self::create(self::EARLY_TERMINATION_STOP + self::EARLY_TERMINATION_BREAK);
 	}
 
 	public static function afterLoop(): self
 	{
-		return new self(
-			self::EARLY_TERMINATION_STOP
-		);
+		return self::create(self::EARLY_TERMINATION_STOP);
 	}
 
 	public static function insideFinally(): self
 	{
-		return new self(
-			0
-		);
+		return self::create(0);
+	}
+
+	private static function create(int $value): self
+	{
+		self::$registry[$value] = self::$registry[$value] ?? new self($value);
+		return self::$registry[$value];
 	}
 
 	public function shouldSkipBranch(\PhpParser\Node $earlyTerminationStatement): bool
