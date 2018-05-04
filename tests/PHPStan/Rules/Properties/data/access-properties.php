@@ -284,3 +284,18 @@ class IssetPropertyInWhile
 	}
 
 }
+
+class AnonyousClass
+{
+
+	public function doFoo()
+	{
+		$foo = new class () {
+			public $fooProperty;
+		};
+
+		$foo->fooProperty;
+		$foo->barProperty;
+	}
+
+}

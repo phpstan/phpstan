@@ -51,6 +51,9 @@ class Broker
 	/** @var \PHPStan\Reflection\SignatureMap\SignatureMapProvider */
 	private $signatureMapProvider;
 
+	/** @var \PhpParser\PrettyPrinter\Standard */
+	private $printer;
+
 	/** @var string[] */
 	private $universalObjectCratesClasses;
 
@@ -78,6 +81,7 @@ class Broker
 	 * @param \PHPStan\Reflection\FunctionReflectionFactory $functionReflectionFactory
 	 * @param \PHPStan\Type\FileTypeMapper $fileTypeMapper
 	 * @param \PHPStan\Reflection\SignatureMap\SignatureMapProvider $signatureMapProvider
+	 * @param \PhpParser\PrettyPrinter\Standard $printer
 	 * @param string[] $universalObjectCratesClasses
 	 */
 	public function __construct(
@@ -89,6 +93,7 @@ class Broker
 		FunctionReflectionFactory $functionReflectionFactory,
 		FileTypeMapper $fileTypeMapper,
 		SignatureMapProvider $signatureMapProvider,
+		\PhpParser\PrettyPrinter\Standard $printer,
 		array $universalObjectCratesClasses
 	)
 	{
@@ -112,6 +117,7 @@ class Broker
 		$this->functionReflectionFactory = $functionReflectionFactory;
 		$this->fileTypeMapper = $fileTypeMapper;
 		$this->signatureMapProvider = $signatureMapProvider;
+		$this->printer = $printer;
 		$this->universalObjectCratesClasses = $universalObjectCratesClasses;
 
 		self::$instance = $this;
@@ -218,7 +224,32 @@ class Broker
 		return $this->classReflections[$className];
 	}
 
-	public function getClassFromReflection(\ReflectionClass $reflectionClass, string $displayName, bool $anonymous): \PHPStan\Reflection\ClassReflection
+	public function getAnonymousClassReflection(
+		\PhpParser\Node\Expr\New_ $node,
+		Scope $scope
+	): ClassReflection
+	{
+		if (!$node->class instanceof \PhpParser\Node\Stmt\Class_) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		do {
+			$uniqidClass = 'AnonymousClass' . uniqid();
+		} while (class_exists('\\' . $uniqidClass));
+
+		$classNode = $node->class;
+		$classNode->name = $uniqidClass;
+		eval($this->printer->prettyPrint([$classNode]));
+		unset($classNode);
+
+		return $this->getClassFromReflection(
+			new \ReflectionClass('\\' . $uniqidClass),
+			sprintf('class@anonymous%s:%s', $scope->getFile(), $node->getLine()),
+			true
+		);
+	}
+
+	public function getClassFromReflection(\ReflectionClass $reflectionClass, string $displayName, bool $anonymous): ClassReflection
 	{
 		$className = $reflectionClass->getName();
 		if (!isset($this->classReflections[$className])) {

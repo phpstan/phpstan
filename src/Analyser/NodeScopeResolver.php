@@ -80,9 +80,6 @@ class NodeScopeResolver
 	/** @var \PHPStan\Parser\Parser */
 	private $parser;
 
-	/** @var \PhpParser\PrettyPrinter\Standard */
-	private $printer;
-
 	/** @var \PHPStan\Type\FileTypeMapper */
 	private $fileTypeMapper;
 
@@ -110,7 +107,6 @@ class NodeScopeResolver
 	/**
 	 * @param Broker $broker
 	 * @param Parser $parser
-	 * @param \PhpParser\PrettyPrinter\Standard $printer
 	 * @param FileTypeMapper $fileTypeMapper
 	 * @param FileHelper $fileHelper
 	 * @param TypeSpecifier $typeSpecifier
@@ -121,7 +117,6 @@ class NodeScopeResolver
 	public function __construct(
 		Broker $broker,
 		Parser $parser,
-		\PhpParser\PrettyPrinter\Standard $printer,
 		FileTypeMapper $fileTypeMapper,
 		FileHelper $fileHelper,
 		TypeSpecifier $typeSpecifier,
@@ -132,7 +127,6 @@ class NodeScopeResolver
 	{
 		$this->broker = $broker;
 		$this->parser = $parser;
-		$this->printer = $printer;
 		$this->fileTypeMapper = $fileTypeMapper;
 		$this->fileHelper = $fileHelper;
 		$this->typeSpecifier = $typeSpecifier;
@@ -687,21 +681,7 @@ class NodeScopeResolver
 			}
 			$scope = $scope->enterFunctionCall($node);
 		} elseif ($node instanceof New_ && $node->class instanceof Class_) {
-			do {
-				$uniqidClass = 'AnonymousClass' . uniqid();
-			} while (class_exists('\\' . $uniqidClass));
-
-			$classNode = $node->class;
-			$classNode->name = $uniqidClass;
-			eval($this->printer->prettyPrint([$classNode]));
-			unset($classNode);
-
-			$classReflection = new \ReflectionClass('\\' . $uniqidClass);
-			$this->anonymousClassReflection = $this->broker->getClassFromReflection(
-				$classReflection,
-				sprintf('class@anonymous%s:%s', $scope->getFile(), $node->getLine()),
-				true
-			);
+			$this->anonymousClassReflection = $this->broker->getAnonymousClassReflection($node, $scope);
 		} elseif ($node instanceof BooleanNot) {
 			$scope = $scope->enterNegation();
 		} elseif ($node instanceof Unset_ || $node instanceof Isset_) {

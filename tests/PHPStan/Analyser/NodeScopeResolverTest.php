@@ -5940,7 +5940,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		$resolver = new NodeScopeResolver(
 			$broker,
 			$this->getParser(),
-			$printer,
 			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $this->createMock(Cache::class)),
 			new FileHelper('/'),
 			$typeSpecifier,

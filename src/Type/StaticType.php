@@ -70,7 +70,7 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 
 	public function describe(VerbosityLevel $level): string
 	{
-		return sprintf('static(%s)', $this->baseClass);
+		return sprintf('static(%s)', $this->staticObjectType->describe($level));
 	}
 
 	public function canAccessProperties(): TrinaryLogic

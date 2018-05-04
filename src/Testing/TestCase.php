@@ -193,6 +193,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			$functionReflectionFactory,
 			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $cache),
 			$signatureMapProvider,
+			$this->getContainer()->getByType(Standard::class),
 			$this->getContainer()->parameters['universalObjectCratesClasses']
 		);
 		$methodReflectionFactory->broker = $broker;

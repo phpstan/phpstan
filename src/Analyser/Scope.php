@@ -904,6 +904,11 @@ class Scope
 
 				return new ObjectType((string) $node->class);
 			}
+			if ($node->class instanceof Node\Stmt\Class_) {
+				$anonymousClassReflection = $this->broker->getAnonymousClassReflection($node, $this);
+
+				return new ObjectType($anonymousClassReflection->getName());
+			}
 		} elseif ($node instanceof Array_) {
 			$array = new ConstantArrayType([], []);
 			foreach ($node->items as $arrayItem) {

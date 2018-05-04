@@ -55,11 +55,11 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 					52,
 				],
 				[
-					'Access to private property TestAccessProperties\FooAccessPropertiesAlias::$foo.',
+					'Access to private property TestAccessProperties\FooAccessProperties::$foo.',
 					58,
 				],
 				[
-					'Access to protected property TestAccessProperties\FooAccessPropertiesAlias::$bar.',
+					'Access to protected property TestAccessProperties\FooAccessProperties::$bar.',
 					59,
 				],
 				[
@@ -130,6 +130,13 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 					'Access to an undefined property TestAccessProperties\NullCoalesce::$bar.',
 					271,
 				],
+				[
+					sprintf(
+						'Access to an undefined property class@anonymous%s:293::$barProperty.',
+						__DIR__ . '/data/access-properties.php'
+					),
+					298,
+				],
 			]
 		);
 	}
@@ -170,11 +177,11 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 					52,
 				],
 				[
-					'Access to private property TestAccessProperties\FooAccessPropertiesAlias::$foo.',
+					'Access to private property TestAccessProperties\FooAccessProperties::$foo.',
 					58,
 				],
 				[
-					'Access to protected property TestAccessProperties\FooAccessPropertiesAlias::$bar.',
+					'Access to protected property TestAccessProperties\FooAccessProperties::$bar.',
 					59,
 				],
 				[
@@ -240,6 +247,13 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 				[
 					'Access to an undefined property TestAccessProperties\NullCoalesce::$bar.',
 					271,
+				],
+				[
+					sprintf(
+						'Access to an undefined property class@anonymous%s:293::$barProperty.',
+						__DIR__ . '/data/access-properties.php'
+					),
+					298,
 				],
 			]
 		);

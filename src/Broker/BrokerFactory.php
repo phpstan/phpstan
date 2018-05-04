@@ -49,6 +49,7 @@ class BrokerFactory
 			$this->container->getByType(FunctionReflectionFactory::class),
 			$this->container->getByType(FileTypeMapper::class),
 			$this->container->getByType(SignatureMapProvider::class),
+			$this->container->getByType(\PhpParser\PrettyPrinter\Standard::class),
 			$this->container->parameters['universalObjectCratesClasses']
 		);
 	}

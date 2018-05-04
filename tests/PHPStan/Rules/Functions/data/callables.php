@@ -70,3 +70,13 @@ function () {
 		$f('foo');
 	};
 };
+
+function () {
+	$foo = new class () {
+		public function __invoke(string $str) {
+
+		}
+	};
+
+	$foo(1);
+};

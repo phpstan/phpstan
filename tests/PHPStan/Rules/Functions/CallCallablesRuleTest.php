@@ -67,6 +67,13 @@ class CallCallablesRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Parameter #1 $i of closure expects int, string given.',
 				70,
 			],
+			[
+				sprintf(
+					'Parameter #1 $str of callable class@anonymous%s:75 expects string, int given.',
+					__DIR__ . '/data/callables.php'
+				),
+				81,
+			],
 		]);
 	}
 

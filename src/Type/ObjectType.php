@@ -156,7 +156,12 @@ class ObjectType implements TypeWithClassName
 
 	public function describe(VerbosityLevel $level): string
 	{
-		return $this->className;
+		$broker = Broker::getInstance();
+		if (!$broker->hasClass($this->className)) {
+			return $this->className;
+		}
+
+		return $broker->getClass($this->className)->getDisplayName();
 	}
 
 	public function toNumber(): Type
