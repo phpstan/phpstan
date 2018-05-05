@@ -38,7 +38,7 @@ class NameScope
 		}
 
 		$nameParts = explode('\\', $name);
-		$firstNamePart = $nameParts[0];
+		$firstNamePart = strtolower($nameParts[0]);
 		if (isset($this->uses[$firstNamePart])) {
 			if (count($nameParts) === 1) {
 				return $this->uses[$firstNamePart];

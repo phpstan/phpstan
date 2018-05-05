@@ -5914,6 +5914,37 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataCaseInsensitivePhpDocTypes(): array
+	{
+		return [
+			[
+				'Foo\Bar',
+				'$this->bar',
+			],
+			[
+				'Foo\Baz',
+				'$this->lorem',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataCaseInsensitivePhpDocTypes
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testCaseInsensitivePhpDocTypes(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/case-insensitive-phpdocs.php',
+			$description,
+			$expression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $description,

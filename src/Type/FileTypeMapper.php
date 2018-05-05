@@ -85,7 +85,7 @@ class FileTypeMapper
 	private function getResolvedPhpDocMap(string $fileName): array
 	{
 		if (!isset($this->memoryCache[$fileName])) {
-			$cacheKey = sprintf('%s-%d-v33', $fileName, filemtime($fileName));
+			$cacheKey = sprintf('%s-%d-v34', $fileName, filemtime($fileName));
 			$map = $this->cache->load($cacheKey);
 
 			if ($map === null) {
@@ -194,7 +194,7 @@ class FileTypeMapper
 					return;
 				} elseif ($node instanceof \PhpParser\Node\Stmt\Use_ && $node->type === \PhpParser\Node\Stmt\Use_::TYPE_NORMAL) {
 					foreach ($node->uses as $use) {
-						$uses[$use->alias] = (string) $use->name;
+						$uses[strtolower($use->alias)] = (string) $use->name;
 					}
 					return;
 				} elseif ($node instanceof \PhpParser\Node\Stmt\GroupUse) {
@@ -204,7 +204,7 @@ class FileTypeMapper
 							continue;
 						}
 
-						$uses[$use->alias] = sprintf('%s\\%s', $prefix, $use->name);
+						$uses[strtolower($use->alias)] = sprintf('%s\\%s', $prefix, $use->name);
 					}
 					return;
 				} elseif (!in_array(get_class($node), [
