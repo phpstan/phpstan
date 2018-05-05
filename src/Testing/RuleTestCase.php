@@ -5,6 +5,7 @@ namespace PHPStan\Testing;
 use PHPStan\Analyser\Analyser;
 use PHPStan\Analyser\Error;
 use PHPStan\Analyser\NodeScopeResolver;
+use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Cache\Cache;
 use PHPStan\PhpDoc\PhpDocStringResolver;
 use PHPStan\Rules\Registry;
@@ -18,6 +19,16 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 	private $analyser;
 
 	abstract protected function getRule(): Rule;
+
+	protected function getTypeSpecifier(): TypeSpecifier
+	{
+		return $this->createTypeSpecifier(
+			new \PhpParser\PrettyPrinter\Standard(),
+			$this->createBroker(),
+			$this->getMethodTypeSpecifyingExtensions(),
+			$this->getStaticMethodTypeSpecifyingExtensions()
+		);
+	}
 
 	private function getAnalyser(): Analyser
 	{

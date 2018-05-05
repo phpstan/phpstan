@@ -4,18 +4,23 @@ namespace PHPStan\Rules\Comparison;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
-use PHPStan\Type\Constant\ConstantBooleanType;
+use PHPStan\Analyser\TypeSpecifier;
 
 class ImpossibleCheckTypeFunctionCallRule implements \PHPStan\Rules\Rule
 {
+
+	/** @var \PHPStan\Analyser\TypeSpecifier */
+	private $typeSpecifier;
 
 	/** @var bool */
 	private $checkAlwaysTrueCheckTypeFunctionCall;
 
 	public function __construct(
+		TypeSpecifier $typeSpecifier,
 		bool $checkAlwaysTrueCheckTypeFunctionCall
 	)
 	{
+		$this->typeSpecifier = $typeSpecifier;
 		$this->checkAlwaysTrueCheckTypeFunctionCall = $checkAlwaysTrueCheckTypeFunctionCall;
 	}
 
@@ -36,12 +41,15 @@ class ImpossibleCheckTypeFunctionCallRule implements \PHPStan\Rules\Rule
 		}
 
 		$functionName = (string) $node->name;
-		$nodeType = $scope->getType($node);
-		if (!$nodeType instanceof ConstantBooleanType) {
+		if (strtolower($functionName) === 'is_a') {
+			return [];
+		}
+		$isAlways = ImpossibleCheckTypeHelper::findSpecifiedType($this->typeSpecifier, $scope, $node);
+		if ($isAlways === null) {
 			return [];
 		}
 
-		if (!$nodeType->getValue()) {
+		if (!$isAlways) {
 			return [sprintf(
 				'Call to function %s()%s will always evaluate to false.',
 				$functionName,

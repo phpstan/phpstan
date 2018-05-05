@@ -5,6 +5,7 @@ namespace PHPStan\Analyser;
 use Nette\DI\Container;
 use PhpParser\PrettyPrinter\Standard;
 use PHPStan\Broker\Broker;
+use PHPStan\Broker\BrokerFactory;
 
 class TypeSpecifierFactory
 {
@@ -29,13 +30,29 @@ class TypeSpecifierFactory
 			}, array_keys($tags));
 		};
 
-		return new TypeSpecifier(
+		$typeSpecifier = new TypeSpecifier(
 			$this->container->getByType(Standard::class),
 			$this->container->getByType(Broker::class),
 			$tagToService($this->container->findByTag(self::FUNCTION_TYPE_SPECIFYING_EXTENSION_TAG)),
 			$tagToService($this->container->findByTag(self::METHOD_TYPE_SPECIFYING_EXTENSION_TAG)),
 			$tagToService($this->container->findByTag(self::STATIC_METHOD_TYPE_SPECIFYING_EXTENSION_TAG))
 		);
+
+		foreach (array_merge(
+			$tagToService($this->container->findByTag(BrokerFactory::PROPERTIES_CLASS_REFLECTION_EXTENSION_TAG)),
+			$tagToService($this->container->findByTag(BrokerFactory::METHODS_CLASS_REFLECTION_EXTENSION_TAG)),
+			$tagToService($this->container->findByTag(BrokerFactory::DYNAMIC_METHOD_RETURN_TYPE_EXTENSION_TAG)),
+			$tagToService($this->container->findByTag(BrokerFactory::DYNAMIC_STATIC_METHOD_RETURN_TYPE_EXTENSION_TAG)),
+			$tagToService($this->container->findByTag(BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG))
+		) as $extension) {
+			if (!($extension instanceof TypeSpecifierAwareExtension)) {
+				continue;
+			}
+
+			$extension->setTypeSpecifier($typeSpecifier);
+		}
+
+		return $typeSpecifier;
 	}
 
 }

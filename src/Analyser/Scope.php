@@ -27,7 +27,6 @@ use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\Native\NativeParameterReflection;
-use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\PassedByReference;
 use PHPStan\Reflection\Php\PhpFunctionFromParserNodeReflection;
 use PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection;
@@ -1126,17 +1125,6 @@ class Scope
 
 					return $dynamicMethodReturnTypeExtension->getTypeFromMethodCall($methodReflection, $node, $this);
 				}
-
-				foreach ($this->typeSpecifier->getMethodTypeSpecifyingExtensionsForClass($methodClassReflection->getName()) as $functionTypeSpecifyingExtension) {
-					if (!$functionTypeSpecifyingExtension->isMethodSupported($methodReflection, $node, TypeSpecifierContext::createTruthy())) {
-						continue;
-					}
-
-					$specifiedType = $this->findSpecifiedType($node, $methodReflection);
-					if ($specifiedType !== null) {
-						return $specifiedType;
-					}
-				}
 			}
 
 			if (!$methodCalledOnType->hasMethod($node->name)) {
@@ -1182,17 +1170,6 @@ class Scope
 					}
 
 					return $dynamicStaticMethodReturnTypeExtension->getTypeFromStaticMethodCall($staticMethodReflection, $node, $this);
-				}
-
-				foreach ($this->typeSpecifier->getStaticMethodTypeSpecifyingExtensionsForClass($staticMethodClassReflection->getName()) as $functionTypeSpecifyingExtension) {
-					if (!$functionTypeSpecifyingExtension->isStaticMethodSupported($staticMethodReflection, $node, TypeSpecifierContext::createTruthy())) {
-						continue;
-					}
-
-					$specifiedType = $this->findSpecifiedType($node, $staticMethodReflection);
-					if ($specifiedType !== null) {
-						return $specifiedType;
-					}
 				}
 			}
 			if ($staticMethodReflection->getReturnType() instanceof StaticResolvableType) {
@@ -1251,42 +1228,12 @@ class Scope
 			}
 
 			$functionReflection = $this->broker->getFunction($node->name, $this);
-			if ($functionReflection->getName() === 'is_a') {
-				return new BooleanType();
-			}
-
-			if (
-				$functionReflection->getName() === 'is_numeric'
-				&& count($node->args) > 0
-			) {
-				$argType = $this->getType($node->args[0]->value);
-				if ($argType instanceof ConstantScalarType) {
-					return new ConstantBooleanType(
-						!$argType->toNumber() instanceof ErrorType
-					);
-				}
-				if (!(new StringType())->isSuperTypeOf($argType)->no()) {
-					return new BooleanType();
-				}
-			}
-
 			foreach ($this->broker->getDynamicFunctionReturnTypeExtensions() as $dynamicFunctionReturnTypeExtension) {
 				if (!$dynamicFunctionReturnTypeExtension->isFunctionSupported($functionReflection)) {
 					continue;
 				}
 
 				return $dynamicFunctionReturnTypeExtension->getTypeFromFunctionCall($functionReflection, $node, $this);
-			}
-
-			foreach ($this->typeSpecifier->getFunctionTypeSpecifyingExtensions() as $functionTypeSpecifyingExtension) {
-				if (!$functionTypeSpecifyingExtension->isFunctionSupported($functionReflection, $node, TypeSpecifierContext::createTruthy())) {
-					continue;
-				}
-
-				$specifiedType = $this->findSpecifiedType($node, $functionReflection);
-				if ($specifiedType !== null) {
-					return $specifiedType;
-				}
 			}
 
 			return $functionReflection->getReturnType();
@@ -1369,90 +1316,6 @@ class Scope
 		}
 
 		return new MixedType();
-	}
-
-	private function findSpecifiedType(
-		Expr $node,
-		ParametersAcceptor $parametersAcceptor
-	): ?Type
-	{
-		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this, $node, TypeSpecifierContext::createTruthy());
-		$sureTypes = $specifiedTypes->getSureTypes();
-		$sureNotTypes = $specifiedTypes->getSureNotTypes();
-
-		$isSpecified = function (Expr $expr): bool {
-			return (
-				$expr instanceof FuncCall
-				|| $expr instanceof MethodCall
-				|| $expr instanceof Expr\StaticCall
-			) && $this->isSpecified($expr);
-		};
-
-		if (count($sureTypes) === 1) {
-			$sureType = reset($sureTypes);
-			if ($isSpecified($sureType[0])) {
-				return $parametersAcceptor->getReturnType();
-			}
-
-			$argumentType = $this->getType($sureType[0]);
-
-			/** @var \PHPStan\Type\Type $resultType */
-			$resultType = $sureType[1];
-
-			$isSuperType = $resultType->isSuperTypeOf($argumentType);
-			if ($isSuperType->yes()) {
-				return new ConstantBooleanType(true);
-			} elseif ($isSuperType->no()) {
-				return new ConstantBooleanType(false);
-			}
-
-			return $parametersAcceptor->getReturnType();
-		} elseif (count($sureNotTypes) === 1) {
-			$sureNotType = reset($sureNotTypes);
-			if ($isSpecified($sureNotType[0])) {
-				return $parametersAcceptor->getReturnType();
-			}
-
-			$argumentType = $this->getType($sureNotType[0]);
-
-			/** @var \PHPStan\Type\Type $resultType */
-			$resultType = $sureNotType[1];
-
-			$isSuperType = $resultType->isSuperTypeOf($argumentType);
-			if ($isSuperType->yes()) {
-				return new ConstantBooleanType(false);
-			} elseif ($isSuperType->no()) {
-				return new ConstantBooleanType(true);
-			}
-
-			return $parametersAcceptor->getReturnType();
-		} elseif (count($sureTypes) > 0) {
-			foreach ($sureTypes as $sureType) {
-				if ($isSpecified($sureType[0])) {
-					return $parametersAcceptor->getReturnType();
-				}
-			}
-			$types = TypeCombinator::union(...array_map(function ($sureType) {
-				return $sureType[1];
-			}, array_values($sureTypes)));
-			if ($types instanceof NeverType) {
-				return new ConstantBooleanType(false);
-			}
-		} elseif (count($sureNotTypes) > 0) {
-			foreach ($sureNotTypes as $sureNotType) {
-				if ($isSpecified($sureNotType[0])) {
-					return $parametersAcceptor->getReturnType();
-				}
-			}
-			$types = TypeCombinator::union(...array_map(function ($sureNotType) {
-				return $sureNotType[1];
-			}, array_values($sureNotTypes)));
-			if ($types instanceof NeverType) {
-				return new ConstantBooleanType(true);
-			}
-		}
-
-		return null;
 	}
 
 	public function resolveName(Name $name): string

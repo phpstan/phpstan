@@ -3,11 +3,120 @@
 namespace PHPStan\Rules\Comparison;
 
 use PhpParser\Node\Arg;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Analyser\Scope;
+use PHPStan\Analyser\TypeSpecifier;
+use PHPStan\Analyser\TypeSpecifierContext;
+use PHPStan\Type\ErrorType;
+use PHPStan\Type\NeverType;
+use PHPStan\Type\StringType;
+use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\VerbosityLevel;
 
 class ImpossibleCheckTypeHelper
 {
+
+	public static function findSpecifiedType(
+		TypeSpecifier $typeSpecifier,
+		Scope $scope,
+		Expr $node
+	): ?bool
+	{
+		if (
+			$node instanceof FuncCall
+			&& $node->name instanceof \PhpParser\Node\Name
+			&& strtolower((string) $node->name) === 'is_numeric'
+			&& count($node->args) > 0
+		) {
+			$argType = $scope->getType($node->args[0]->value);
+			if (count(\PHPStan\Type\TypeUtils::getConstantScalars($argType)) > 0) {
+				return !$argType->toNumber() instanceof ErrorType;
+			}
+
+			if (!(new StringType())->isSuperTypeOf($argType)->no()) {
+				return null;
+			}
+		}
+		$specifiedTypes = $typeSpecifier->specifyTypesInCondition($scope, $node, TypeSpecifierContext::createTruthy());
+		$sureTypes = $specifiedTypes->getSureTypes();
+		$sureNotTypes = $specifiedTypes->getSureNotTypes();
+
+		$isSpecified = function (Expr $expr) use ($scope): bool {
+			return (
+				$expr instanceof FuncCall
+				|| $expr instanceof MethodCall
+				|| $expr instanceof Expr\StaticCall
+			) && $scope->isSpecified($expr);
+		};
+
+		if (count($sureTypes) === 1) {
+			$sureType = reset($sureTypes);
+			if ($isSpecified($sureType[0])) {
+				return null;
+			}
+
+			$argumentType = $scope->getType($sureType[0]);
+
+			/** @var \PHPStan\Type\Type $resultType */
+			$resultType = $sureType[1];
+
+			$isSuperType = $resultType->isSuperTypeOf($argumentType);
+			if ($isSuperType->yes()) {
+				return true;
+			} elseif ($isSuperType->no()) {
+				return false;
+			}
+
+			return null;
+		} elseif (count($sureNotTypes) === 1) {
+			$sureNotType = reset($sureNotTypes);
+			if ($isSpecified($sureNotType[0])) {
+				return null;
+			}
+
+			$argumentType = $scope->getType($sureNotType[0]);
+
+			/** @var \PHPStan\Type\Type $resultType */
+			$resultType = $sureNotType[1];
+
+			$isSuperType = $resultType->isSuperTypeOf($argumentType);
+			if ($isSuperType->yes()) {
+				return false;
+			} elseif ($isSuperType->no()) {
+				return true;
+			}
+
+			return null;
+		} elseif (count($sureTypes) > 0) {
+			foreach ($sureTypes as $sureType) {
+				if ($isSpecified($sureType[0])) {
+					return null;
+				}
+			}
+			$types = TypeCombinator::union(...array_map(function ($sureType) {
+				return $sureType[1];
+			}, array_values($sureTypes)));
+			if ($types instanceof NeverType) {
+				return false;
+			}
+		} elseif (count($sureNotTypes) > 0) {
+			foreach ($sureNotTypes as $sureNotType) {
+				if ($isSpecified($sureNotType[0])) {
+					return null;
+				}
+			}
+			$types = TypeCombinator::union(...array_map(function ($sureNotType) {
+				return $sureNotType[1];
+			}, array_values($sureNotTypes)));
+			if ($types instanceof NeverType) {
+				return true;
+			}
+		}
+
+		return null;
+	}
 
 	/**
 	 * @param Scope $scope

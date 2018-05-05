@@ -2581,6 +2581,26 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'6|8',
 				'count($conditionalArray) + count($array)',
 			],
+			[
+				'bool',
+				'is_numeric($string)',
+			],
+			[
+				'false',
+				'is_numeric($fooString)',
+			],
+			[
+				'bool',
+				'is_int($mixed)',
+			],
+			[
+				'true',
+				'is_int($integer)',
+			],
+			[
+				'false',
+				'is_int($string)',
+			],
 		];
 	}
 

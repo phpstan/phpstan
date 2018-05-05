@@ -5,19 +5,24 @@ namespace PHPStan\Rules\Comparison;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PHPStan\Analyser\Scope;
+use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Reflection\MethodReflection;
-use PHPStan\Type\Constant\ConstantBooleanType;
 
 class ImpossibleCheckTypeMethodCallRule implements \PHPStan\Rules\Rule
 {
+
+	/** @var \PHPStan\Analyser\TypeSpecifier */
+	private $typeSpecifier;
 
 	/** @var bool */
 	private $checkAlwaysTrueCheckTypeFunctionCall;
 
 	public function __construct(
+		TypeSpecifier $typeSpecifier,
 		bool $checkAlwaysTrueCheckTypeFunctionCall
 	)
 	{
+		$this->typeSpecifier = $typeSpecifier;
 		$this->checkAlwaysTrueCheckTypeFunctionCall = $checkAlwaysTrueCheckTypeFunctionCall;
 	}
 
@@ -37,14 +42,13 @@ class ImpossibleCheckTypeMethodCallRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		$nodeType = $scope->getType($node);
-		if (!$nodeType instanceof ConstantBooleanType) {
+		$isAlways = ImpossibleCheckTypeHelper::findSpecifiedType($this->typeSpecifier, $scope, $node);
+		if ($isAlways === null) {
 			return [];
 		}
 
-		if (!$nodeType->getValue()) {
+		if (!$isAlways) {
 			$method = $this->getMethod($node->var, $node->name, $scope);
-
 			return [sprintf(
 				'Call to method %s::%s()%s will always evaluate to false.',
 				$method->getDeclaringClass()->getDisplayName(),
@@ -53,7 +57,6 @@ class ImpossibleCheckTypeMethodCallRule implements \PHPStan\Rules\Rule
 			)];
 		} elseif ($this->checkAlwaysTrueCheckTypeFunctionCall) {
 			$method = $this->getMethod($node->var, $node->name, $scope);
-
 			return [sprintf(
 				'Call to method %s::%s()%s will always evaluate to true.',
 				$method->getDeclaringClass()->getDisplayName(),

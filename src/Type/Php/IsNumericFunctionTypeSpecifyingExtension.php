@@ -23,7 +23,7 @@ class IsNumericFunctionTypeSpecifyingExtension implements FunctionTypeSpecifying
 
 	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, TypeSpecifierContext $context): bool
 	{
-		return strtolower($functionReflection->getName()) === 'is_numeric'
+		return $functionReflection->getName() === 'is_numeric'
 			&& isset($node->args[0])
 			&& !$context->null();
 	}

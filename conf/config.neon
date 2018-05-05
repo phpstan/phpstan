@@ -346,6 +346,11 @@ services:
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
+	-
+		class: PHPStan\Type\Php\TypeSpecifyingFunctionsDynamicReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
 	typeSpecifier:
 		class: PHPStan\Analyser\TypeSpecifier
 		factory: @typeSpecifierFactory::create
