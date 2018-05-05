@@ -16,7 +16,6 @@ class ConstantConditionRuleHelper
 	{
 		if (
 			$expr instanceof Expr\Instanceof_
-			|| $expr instanceof Expr\FuncCall
 			|| $expr instanceof Expr\BinaryOp\Identical
 			|| $expr instanceof Expr\BinaryOp\NotIdentical
 		) {
