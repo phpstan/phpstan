@@ -112,4 +112,13 @@ if (doFoo()) {
 	$conditionalKeysArray['lorem'] = 1;
 }
 
+/** @var int|string $generalIntegerOrString */
+$generalIntegerOrString = doFoo();
+
+/** @var array<int, int|string> $generalArrayOfIntegersOrStrings */
+$generalArrayOfIntegersOrStrings = doFoo();
+
+$clonedConditionalArray = $conditionalArray;
+$clonedConditionalArray[(int)$generalIntegerOrString] = $generalIntegerOrString;
+
 die;

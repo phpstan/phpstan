@@ -4287,6 +4287,42 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array<int, int|true>',
 				'array_filter($withPossiblyFalsey)',
 			],
+			[
+				'1|\'foo\'|false',
+				'array_search(new stdClass, $stringOrIntegerKeys, true)',
+			],
+			[
+				'\'foo\'',
+				'array_search(\'foo\', $stringKeys, true)',
+			],
+			[
+				'int|false',
+				'array_search(new DateTimeImmutable(), $generalDateTimeValues, true)',
+			],
+			[
+				'string|false',
+				'array_search(9, $generalStringKeys, true)',
+			],
+			[
+				'null',
+				'array_search(999, $integer, true)',
+			],
+			[
+				'false',
+				'array_search(new stdClass, $generalStringKeys, true)',
+			],
+			[
+				'\'foo\'|false',
+				'array_search($generalIntegerOrString, $stringKeys, true)',
+			],
+			[
+				'int|false',
+				'array_search($generalIntegerOrString, $generalArrayOfIntegersOrStrings, true)',
+			],
+			[
+				'int|false',
+				'array_search($generalIntegerOrString, $clonedConditionalArray, true)',
+			],
 		];
 	}
 
