@@ -160,9 +160,4 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 		$this->assertFalse($broker->getFunction(new Name('function_exists'), null)->isDeprecated());
 	}
 
-	// public function testDeprecatedNativeFunctions(): void
-	// {
-	// 	// FIXME: Sadly, I found no native function that was deprecated in PHP >=7.0
-	// }
-
 }
