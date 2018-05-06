@@ -255,6 +255,7 @@ class Broker
 		if (!isset($this->classReflections[$className])) {
 			$classReflection = new ClassReflection(
 				$this,
+				$this->fileTypeMapper,
 				$this->propertiesClassReflectionExtensions,
 				$this->methodsClassReflectionExtensions,
 				$displayName,
@@ -320,7 +321,8 @@ class Broker
 						);
 					}, $functionSignature->getParameters()),
 					$functionSignature->isVariadic(),
-					$functionSignature->getReturnType()
+					$functionSignature->getReturnType(),
+					false
 				);
 				self::$functionMap[$lowerCasedFunctionName] = $functionReflection;
 				$this->functionReflections[$lowerCasedFunctionName] = $functionReflection;
@@ -365,12 +367,14 @@ class Broker
 		$reflectionFunction = new \ReflectionFunction($functionName);
 		$phpDocParameterTags = [];
 		$phpDocReturnTag = null;
+		$isDeprecated = false;
 		if ($reflectionFunction->getFileName() !== false && $reflectionFunction->getDocComment() !== false) {
 			$fileName = $reflectionFunction->getFileName();
 			$docComment = $reflectionFunction->getDocComment();
 			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, null, null, $docComment);
 			$phpDocParameterTags = $resolvedPhpDoc->getParamTags();
 			$phpDocReturnTag = $resolvedPhpDoc->getReturnTag();
+			$isDeprecated = $resolvedPhpDoc->isDeprecated();
 		}
 
 		$functionReflection = $this->functionReflectionFactory->create(
@@ -378,7 +382,8 @@ class Broker
 			array_map(function (ParamTag $paramTag): Type {
 				return $paramTag->getType();
 			}, $phpDocParameterTags),
-			$phpDocReturnTag !== null ? $phpDocReturnTag->getType() : null
+			$phpDocReturnTag !== null ? $phpDocReturnTag->getType() : null,
+			$isDeprecated
 		);
 		$this->customFunctionReflections[$lowerCasedFunctionName] = $functionReflection;
 

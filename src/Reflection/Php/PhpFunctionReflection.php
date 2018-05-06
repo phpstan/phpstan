@@ -48,6 +48,9 @@ class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWit
 	/** @var \PHPStan\Type\Type */
 	private $nativeReturnType;
 
+	/** @var bool */
+	private $isDeprecated;
+
 	/**
 	 * @param \ReflectionFunction $reflection
 	 * @param Parser $parser
@@ -55,6 +58,7 @@ class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWit
 	 * @param Cache $cache
 	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
 	 * @param null|Type $phpDocReturnType
+	 * @param bool $isDeprecated
 	 */
 	public function __construct(
 		\ReflectionFunction $reflection,
@@ -62,7 +66,8 @@ class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWit
 		FunctionCallStatementFinder $functionCallStatementFinder,
 		Cache $cache,
 		array $phpDocParameterTypes,
-		?Type $phpDocReturnType
+		?Type $phpDocReturnType,
+		bool $isDeprecated
 	)
 	{
 		$this->reflection = $reflection;
@@ -71,6 +76,7 @@ class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWit
 		$this->cache = $cache;
 		$this->phpDocParameterTypes = $phpDocParameterTypes;
 		$this->phpDocReturnType = $phpDocReturnType;
+		$this->isDeprecated = $isDeprecated;
 	}
 
 	public function getName(): string
@@ -327,6 +333,11 @@ class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWit
 		}
 
 		return $this->nativeReturnType;
+	}
+
+	public function isDeprecated(): bool
+	{
+		return $this->isDeprecated || $this->reflection->isDeprecated();
 	}
 
 }

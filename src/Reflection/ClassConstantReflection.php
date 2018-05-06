@@ -2,7 +2,7 @@
 
 namespace PHPStan\Reflection;
 
-class ClassConstantReflection implements ConstantReflection
+class ClassConstantReflection implements ConstantReflection, DeprecatableReflection
 {
 
 	/** @var \PHPStan\Reflection\ClassReflection */
@@ -11,13 +11,18 @@ class ClassConstantReflection implements ConstantReflection
 	/** @var \ReflectionClassConstant */
 	private $reflection;
 
+	/** @var bool */
+	private $isDeprecated;
+
 	public function __construct(
 		ClassReflection $declaringClass,
-		\ReflectionClassConstant $reflection
+		\ReflectionClassConstant $reflection,
+		bool $isDeprecated
 	)
 	{
 		$this->declaringClass = $declaringClass;
 		$this->reflection = $reflection;
+		$this->isDeprecated = $isDeprecated;
 	}
 
 	public function getName(): string
@@ -51,6 +56,11 @@ class ClassConstantReflection implements ConstantReflection
 	public function isPublic(): bool
 	{
 		return $this->reflection->isPublic();
+	}
+
+	public function isDeprecated(): bool
+	{
+		return $this->isDeprecated;
 	}
 
 }

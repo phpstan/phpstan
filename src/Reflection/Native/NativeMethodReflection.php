@@ -5,11 +5,12 @@ namespace PHPStan\Reflection\Native;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\DeprecatableReflection;
 use PHPStan\Reflection\MethodPrototypeReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\Type;
 
-class NativeMethodReflection implements MethodReflection
+class NativeMethodReflection implements MethodReflection, DeprecatableReflection
 {
 
 	/** @var \PHPStan\Broker\Broker */
@@ -113,6 +114,11 @@ class NativeMethodReflection implements MethodReflection
 	public function getReturnType(): Type
 	{
 		return $this->returnType;
+	}
+
+	public function isDeprecated(): bool
+	{
+		return $this->reflection->isDeprecated();
 	}
 
 }
