@@ -418,7 +418,7 @@ class ClassReflection implements DeprecatableReflection
 			if ($docComment === false) {
 				return $this->isDeprecated = false;
 			}
-			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, null, null, $docComment);
+			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, $this->getName(), null, $docComment);
 
 			$this->isDeprecated = $resolvedPhpDoc->isDeprecated();
 		}
