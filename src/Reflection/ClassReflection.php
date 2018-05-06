@@ -44,7 +44,7 @@ class ClassReflection implements DeprecatableReflection
 	/** @var int[]|null */
 	private $classHierarchyDistances;
 
-	/** @var bool */
+	/** @var bool|null */
 	private $isDeprecated;
 
 	/**
@@ -55,7 +55,6 @@ class ClassReflection implements DeprecatableReflection
 	 * @param string $displayName
 	 * @param \ReflectionClass $reflection
 	 * @param bool $anonymous
-	 * @param bool $isDeprecated
 	 */
 	public function __construct(
 		Broker $broker,
@@ -64,8 +63,7 @@ class ClassReflection implements DeprecatableReflection
 		array $methodsClassReflectionExtensions,
 		string $displayName,
 		\ReflectionClass $reflection,
-		bool $anonymous,
-		bool $isDeprecated
+		bool $anonymous
 	)
 	{
 		$this->broker = $broker;
@@ -75,7 +73,6 @@ class ClassReflection implements DeprecatableReflection
 		$this->displayName = $displayName;
 		$this->reflection = $reflection;
 		$this->anonymous = $anonymous;
-		$this->isDeprecated = $isDeprecated;
 	}
 
 	public function getNativeReflection(): \ReflectionClass
@@ -411,6 +408,21 @@ class ClassReflection implements DeprecatableReflection
 
 	public function isDeprecated(): bool
 	{
+		if ($this->isDeprecated === null) {
+			$fileName = $this->reflection->getFileName();
+			if ($fileName === false) {
+				return $this->isDeprecated = false;
+			}
+
+			$docComment = $this->reflection->getDocComment();
+			if ($docComment === false) {
+				return $this->isDeprecated = false;
+			}
+			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, null, null, $docComment);
+
+			$this->isDeprecated = $resolvedPhpDoc->isDeprecated();
+		}
+
 		return $this->isDeprecated;
 	}
 

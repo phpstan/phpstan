@@ -253,16 +253,6 @@ class Broker
 	{
 		$className = $reflectionClass->getName();
 		if (!isset($this->classReflections[$className])) {
-			$isDeprecated = false;
-
-			if ($reflectionClass->getDocComment() !== false && $reflectionClass->getFileName() !== false) {
-				$fileName = $reflectionClass->getFileName();
-				$docComment = $reflectionClass->getDocComment();
-				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, null, null, $docComment);
-
-				$isDeprecated = $resolvedPhpDoc->isDeprecated();
-			}
-
 			$classReflection = new ClassReflection(
 				$this,
 				$this->fileTypeMapper,
@@ -270,8 +260,7 @@ class Broker
 				$this->methodsClassReflectionExtensions,
 				$displayName,
 				$reflectionClass,
-				$anonymous,
-				$isDeprecated
+				$anonymous
 			);
 			$this->classReflections[$className] = $classReflection;
 		}
