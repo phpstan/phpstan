@@ -24,28 +24,18 @@ class RawErrorFormatterTest extends \PHPStan\Testing\TestCase
 
 	public function testFormatErrors(): void
 	{
-		$analysisResultMock = $this->createMock(AnalysisResult::class);
-		$analysisResultMock
-			->expects($this->at(0))
-			->method('hasErrors')
-			->willReturn(true);
-
-		$analysisResultMock
-			->expects($this->once())
-			->method('getNotFileSpecificErrors')
-			->willReturn([
-				'first generic error',
-				'second generic error',
-			]);
-
-		$analysisResultMock
-			->expects($this->once())
-			->method('getFileSpecificErrors')
-			->willReturn([
+		$analysisResult = new AnalysisResult(
+			[
 				new Error('Foo', self::DIRECTORY_PATH . '/foo.php', 1),
 				new Error('Bar', self::DIRECTORY_PATH . '/file name with "spaces" and unicode 😃.php', 2),
-			]);
-
+			],
+			[
+				'first generic error',
+				'second generic error',
+			],
+			false,
+			self::DIRECTORY_PATH
+		);
 		$resource = fopen('php://memory', 'w', false);
 		if ($resource === false) {
 			throw new \PHPStan\ShouldNotHappenException();
@@ -54,15 +44,15 @@ class RawErrorFormatterTest extends \PHPStan\Testing\TestCase
 		$outputStream = new StreamOutput($resource, OutputInterface::VERBOSITY_NORMAL, false);
 		$style = new ErrorsConsoleStyle(new StringInput(''), $outputStream);
 
-		$this->assertEquals(1, $this->formatter->formatErrors($analysisResultMock, $style));
+		$this->assertEquals(1, $this->formatter->formatErrors($analysisResult, $style));
 
 		rewind($outputStream->getStream());
 		$output = stream_get_contents($outputStream->getStream());
 
 		$expected = '?:?:first generic error
 ?:?:second generic error
-/data/folder/with space/and unicode 😃/project/foo.php:1:Foo
 /data/folder/with space/and unicode 😃/project/file name with "spaces" and unicode 😃.php:2:Bar
+/data/folder/with space/and unicode 😃/project/foo.php:1:Foo
 ';
 
 		$this->assertEquals($expected, $this->rtrimMultiline($output));
@@ -70,12 +60,12 @@ class RawErrorFormatterTest extends \PHPStan\Testing\TestCase
 
 	public function testFormatErrorsEmpty(): void
 	{
-		$analysisResultMock = $this->createMock(AnalysisResult::class);
-		$analysisResultMock
-			->expects($this->at(0))
-			->method('hasErrors')
-			->willReturn(false);
-
+		$analysisResult = new AnalysisResult(
+			[],
+			[],
+			false,
+			self::DIRECTORY_PATH
+		);
 		$resource = fopen('php://memory', 'w', false);
 		if ($resource === false) {
 			throw new \PHPStan\ShouldNotHappenException();
@@ -84,7 +74,7 @@ class RawErrorFormatterTest extends \PHPStan\Testing\TestCase
 		$outputStream = new StreamOutput($resource, OutputInterface::VERBOSITY_NORMAL, false);
 		$style = new ErrorsConsoleStyle(new StringInput(''), $outputStream);
 
-		$this->assertEquals(0, $this->formatter->formatErrors($analysisResultMock, $style));
+		$this->assertEquals(0, $this->formatter->formatErrors($analysisResult, $style));
 
 		rewind($outputStream->getStream());
 		$output = stream_get_contents($outputStream->getStream());

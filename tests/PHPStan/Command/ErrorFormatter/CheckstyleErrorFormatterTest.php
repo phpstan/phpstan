@@ -23,27 +23,17 @@ class CheckstyleErrorFormatterTest extends \PHPStan\Testing\TestCase
 
 	public function testFormatErrors(): void
 	{
-		$analysisResultMock = $this->createMock(AnalysisResult::class);
-		$analysisResultMock
-			->expects($this->at(0))
-			->method('hasErrors')
-			->willReturn(true);
-
-		$analysisResultMock
-			->expects($this->at(1))
-			->method('getFileSpecificErrors')
-			->willReturn([
+		$analysisResult = new AnalysisResult(
+			[
 				new Error('Foo', self::DIRECTORY_PATH . '/foo.php', 1),
 				new Error('Bar', self::DIRECTORY_PATH . '/foo.php', 5),
 				new Error('Bar', self::DIRECTORY_PATH . '/file name with "spaces" and unicode 😃.php', 2),
 				new Error('Foo', self::DIRECTORY_PATH . '/file name with "spaces" and unicode 😃.php', 4),
-			]);
-
-		$analysisResultMock
-			->expects($this->any())
-			->method('getCurrentDirectory')
-			->willReturn(self::DIRECTORY_PATH);
-
+			],
+			[],
+			false,
+			self::DIRECTORY_PATH
+		);
 		$resource = fopen('php://memory', 'w', false);
 		if ($resource === false) {
 			throw new \PHPStan\ShouldNotHappenException();
@@ -52,20 +42,20 @@ class CheckstyleErrorFormatterTest extends \PHPStan\Testing\TestCase
 		$outputStream = new StreamOutput($resource);
 
 		$style = new ErrorsConsoleStyle(new StringInput(''), $outputStream);
-		$this->assertSame(1, $this->formatter->formatErrors($analysisResultMock, $style));
+		$this->assertSame(1, $this->formatter->formatErrors($analysisResult, $style));
 
 		rewind($outputStream->getStream());
 		$output = stream_get_contents($outputStream->getStream());
 
 		$expected = '<?xml version="1.0" encoding="UTF-8"?>
 <checkstyle>
-<file name="foo.php">
- <error line="1" column="1" severity="error" message="Foo"/>
- <error line="5" column="1" severity="error" message="Bar"/>
-</file>
 <file name="file name with &quot;spaces&quot; and unicode 😃.php">
  <error line="2" column="1" severity="error" message="Bar"/>
  <error line="4" column="1" severity="error" message="Foo"/>
+</file>
+<file name="foo.php">
+ <error line="1" column="1" severity="error" message="Foo"/>
+ <error line="5" column="1" severity="error" message="Bar"/>
 </file>
 </checkstyle>
 ';
@@ -74,12 +64,7 @@ class CheckstyleErrorFormatterTest extends \PHPStan\Testing\TestCase
 
 	public function testFormatErrorsEmpty(): void
 	{
-		$analysisResultMock = $this->createMock(AnalysisResult::class);
-		$analysisResultMock
-			->expects($this->at(0))
-			->method('hasErrors')
-			->willReturn(false);
-
+		$analysisResult = new AnalysisResult([], [], false, self::DIRECTORY_PATH);
 		$resource = fopen('php://memory', 'w', false);
 		if ($resource === false) {
 			throw new \PHPStan\ShouldNotHappenException();
@@ -88,7 +73,7 @@ class CheckstyleErrorFormatterTest extends \PHPStan\Testing\TestCase
 		$outputStream = new StreamOutput($resource);
 		$style = new ErrorsConsoleStyle(new StringInput(''), $outputStream);
 
-		$this->assertSame(0, $this->formatter->formatErrors($analysisResultMock, $style));
+		$this->assertSame(0, $this->formatter->formatErrors($analysisResult, $style));
 
 		rewind($outputStream->getStream());
 		$output = stream_get_contents($outputStream->getStream());

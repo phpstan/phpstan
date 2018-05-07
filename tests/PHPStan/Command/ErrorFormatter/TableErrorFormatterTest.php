@@ -24,38 +24,18 @@ class TableErrorFormatterTest extends \PHPStan\Testing\TestCase
 
 	public function testFormatErrors(): void
 	{
-		$analysisResultMock = $this->createMock(AnalysisResult::class);
-		$analysisResultMock
-			->expects($this->at(0))
-			->method('hasErrors')
-			->willReturn(true);
-
-		$analysisResultMock
-			->expects($this->at(1))
-			->method('getFileSpecificErrors')
-			->willReturn([
+		$analysisResult = new AnalysisResult(
+			[
 				new Error('Foo', self::DIRECTORY_PATH . '/foo.php', 1),
 				new Error('Bar', self::DIRECTORY_PATH . '/file name with "spaces" and unicode 😃.php', 2),
-			]);
-
-		$analysisResultMock
-			->expects($this->any())
-			->method('getNotFileSpecificErrors')
-			->willReturn([
+			],
+			[
 				'first generic error',
 				'second generic error',
-			]);
-
-		$analysisResultMock
-			->expects($this->any())
-			->method('getCurrentDirectory')
-			->willReturn(self::DIRECTORY_PATH);
-
-		$analysisResultMock
-			->expects($this->any())
-			->method('getTotalErrorsCount')
-			->willReturn(4);
-
+			],
+			false,
+			self::DIRECTORY_PATH
+		);
 		$resource = fopen('php://memory', 'w', false);
 		if ($resource === false) {
 			throw new \PHPStan\ShouldNotHappenException();
@@ -65,22 +45,22 @@ class TableErrorFormatterTest extends \PHPStan\Testing\TestCase
 
 		$style = new ErrorsConsoleStyle(new StringInput(''), $outputStream);
 
-		$this->assertEquals(1, $this->formatter->formatErrors($analysisResultMock, $style));
+		$this->assertEquals(1, $this->formatter->formatErrors($analysisResult, $style));
 
 		rewind($outputStream->getStream());
 		$output = stream_get_contents($outputStream->getStream());
 
-		$expected = ' ------ ---------
-  Line   foo.php
- ------ ---------
-  1      Foo
- ------ ---------
-
- ------ -------------------------------------------
+		$expected = ' ------ -------------------------------------------
   Line   file name with "spaces" and unicode 😃.php
  ------ -------------------------------------------
   2      Bar
  ------ -------------------------------------------
+
+ ------ ---------
+  Line   foo.php
+ ------ ---------
+  1      Foo
+ ------ ---------
 
  ----------------------
   Error
@@ -98,12 +78,7 @@ class TableErrorFormatterTest extends \PHPStan\Testing\TestCase
 
 	public function testFormatErrorsEmpty(): void
 	{
-		$analysisResultMock = $this->createMock(AnalysisResult::class);
-		$analysisResultMock
-			->expects($this->at(0))
-			->method('hasErrors')
-			->willReturn(false);
-
+		$analysisResult = new AnalysisResult([], [], false, self::DIRECTORY_PATH);
 		$resource = fopen('php://memory', 'w', false);
 		if ($resource === false) {
 			throw new \PHPStan\ShouldNotHappenException();
@@ -112,7 +87,7 @@ class TableErrorFormatterTest extends \PHPStan\Testing\TestCase
 		$outputStream = new StreamOutput($resource, OutputInterface::VERBOSITY_NORMAL, false);
 		$style = new ErrorsConsoleStyle(new StringInput(''), $outputStream);
 
-		$this->assertEquals(0, $this->formatter->formatErrors($analysisResultMock, $style));
+		$this->assertEquals(0, $this->formatter->formatErrors($analysisResult, $style));
 
 		rewind($outputStream->getStream());
 		$output = stream_get_contents($outputStream->getStream());
