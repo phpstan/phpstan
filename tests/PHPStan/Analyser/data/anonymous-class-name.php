@@ -8,6 +8,9 @@ function () {
 		/** @var Foo */
 		public $fooProperty;
 
+		/**
+		 * @return Foo
+		 */
 		public function doFoo()
 		{
 			'inside';

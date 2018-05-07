@@ -276,6 +276,14 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Parameter #2 $str of method Test\PreIncString::doFoo() expects string, int given.',
 				725,
 			],
+			[
+				'Cannot call method bar() on string.',
+				747,
+			],
+			[
+				'Cannot call method bar() on string.',
+				748,
+			],
 		]);
 	}
 

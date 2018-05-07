@@ -726,3 +726,26 @@ class PreIncString
 	}
 
 }
+
+class AnonymousClass
+{
+
+	public function doFoo()
+	{
+		$class = new class() {
+
+			/** @var string */
+			public $bar;
+
+			/**
+			 * @return string
+			 */
+			public function doBar()
+			{
+			}
+		};
+		$class->bar->bar();
+		$class->doBar()->bar();
+	}
+
+}

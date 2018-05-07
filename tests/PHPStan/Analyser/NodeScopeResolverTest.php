@@ -5969,6 +5969,16 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foo->fooProperty',
 				"'outside';",
 			],
+			[
+				'AnonymousClassName\Foo',
+				'$this->doFoo()',
+				"'inside';",
+			],
+			[
+				'AnonymousClassName\Foo',
+				'$foo->doFoo()',
+				"'outside';",
+			],
 		];
 	}
 
@@ -5978,7 +5988,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	 * @param string $expression
 	 * @param string $evaluatedPointExpression
 	 */
-	public function testAnonymousClass(
+	public function testAnonymousClassName(
 		string $description,
 		string $expression,
 		string $evaluatedPointExpression
