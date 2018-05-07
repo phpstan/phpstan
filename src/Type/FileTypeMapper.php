@@ -164,14 +164,14 @@ class FileTypeMapper
 						}
 					} else {
 						if ($node->name === null) {
-							if ($node instanceof Node\Stmt\Class_) {
-								$className = $this->anonymousClassNameHelper->getAnonymousClassName(
-									new Node\Expr\New_($node, [], ['startLine' => $node->getLine()]),
-									$fileName
-								);
-							} else {
+							if (!$node instanceof Node\Stmt\Class_) {
 								return false;
 							}
+
+							$className = $this->anonymousClassNameHelper->getAnonymousClassName(
+								new Node\Expr\New_($node, [], ['startLine' => $node->getLine()]),
+								$fileName
+							);
 						} else {
 							$className = ltrim(sprintf('%s\\%s', $namespace, $node->name), '\\');
 						}
