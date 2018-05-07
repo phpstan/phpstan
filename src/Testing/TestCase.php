@@ -5,6 +5,7 @@ namespace PHPStan\Testing;
 use PhpParser\PrettyPrinter\Standard;
 use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Analyser\TypeSpecifierFactory;
+use PHPStan\Broker\AnonymousClassNameHelper;
 use PHPStan\Broker\Broker;
 use PHPStan\Broker\BrokerFactory;
 use PHPStan\Cache\Cache;
@@ -182,6 +183,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			}, array_keys($tags));
 		};
 
+		$currentWorkingDirectory = $this->getFileHelper()->normalizePath(__DIR__ . '/../..');
+
 		$broker = new Broker(
 			[
 				$phpExtension,
@@ -200,8 +203,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $cache),
 			$signatureMapProvider,
 			$this->getContainer()->getByType(Standard::class),
+			new AnonymousClassNameHelper($currentWorkingDirectory),
 			$this->getContainer()->parameters['universalObjectCratesClasses'],
-			$this->getFileHelper()->normalizePath(__DIR__ . '/../..')
+			$currentWorkingDirectory
 		);
 		$methodReflectionFactory->broker = $broker;
 

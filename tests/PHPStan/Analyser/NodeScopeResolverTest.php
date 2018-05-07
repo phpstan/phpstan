@@ -5945,6 +5945,46 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataAnonymousClass(): array
+	{
+		return [
+			[
+				'$this(AnonymousClass3301acd9e9d13ba9bbce9581cdb00699)',
+				'$this',
+				"'inside';",
+			],
+			[
+				'AnonymousClass3301acd9e9d13ba9bbce9581cdb00699',
+				'$foo',
+				"'outside';",
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataAnonymousClass
+	 * @param string $description
+	 * @param string $expression
+	 * @param string $evaluatedPointExpression
+	 */
+	public function testAnonymousClass(
+		string $description,
+		string $expression,
+		string $evaluatedPointExpression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/anonymous-class-name.php',
+			$description,
+			$expression,
+			[],
+			[],
+			[],
+			[],
+			$evaluatedPointExpression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $description,

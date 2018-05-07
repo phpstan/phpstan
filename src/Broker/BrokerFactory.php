@@ -50,6 +50,7 @@ class BrokerFactory
 			$this->container->getByType(FileTypeMapper::class),
 			$this->container->getByType(SignatureMapProvider::class),
 			$this->container->getByType(\PhpParser\PrettyPrinter\Standard::class),
+			$this->container->getByType(AnonymousClassNameHelper::class),
 			$this->container->parameters['universalObjectCratesClasses'],
 			$this->container->parameters['currentWorkingDirectory']
 		);

@@ -33,6 +33,11 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 		return $this->baseClass;
 	}
 
+	protected function getStaticObjectType(): ObjectType
+	{
+		return $this->staticObjectType;
+	}
+
 	/**
 	 * @return string[]
 	 */

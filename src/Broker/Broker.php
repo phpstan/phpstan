@@ -55,6 +55,9 @@ class Broker
 	/** @var \PhpParser\PrettyPrinter\Standard */
 	private $printer;
 
+	/** @var AnonymousClassNameHelper */
+	private $anonymousClassNameHelper;
+
 	/** @var string[] */
 	private $universalObjectCratesClasses;
 
@@ -76,6 +79,9 @@ class Broker
 	/** @var NativeFunctionReflection[] */
 	private static $functionMap = [];
 
+	/** @var \PHPStan\Reflection\ClassReflection[] */
+	private static $anonymousClasses = [];
+
 	/**
 	 * @param \PHPStan\Reflection\PropertiesClassReflectionExtension[] $propertiesClassReflectionExtensions
 	 * @param \PHPStan\Reflection\MethodsClassReflectionExtension[] $methodsClassReflectionExtensions
@@ -86,6 +92,7 @@ class Broker
 	 * @param \PHPStan\Type\FileTypeMapper $fileTypeMapper
 	 * @param \PHPStan\Reflection\SignatureMap\SignatureMapProvider $signatureMapProvider
 	 * @param \PhpParser\PrettyPrinter\Standard $printer
+	 * @param AnonymousClassNameHelper $anonymousClassNameHelper
 	 * @param string[] $universalObjectCratesClasses
 	 * @param string $currentWorkingDirectory
 	 */
@@ -99,6 +106,7 @@ class Broker
 		FileTypeMapper $fileTypeMapper,
 		SignatureMapProvider $signatureMapProvider,
 		\PhpParser\PrettyPrinter\Standard $printer,
+		AnonymousClassNameHelper $anonymousClassNameHelper,
 		array $universalObjectCratesClasses,
 		string $currentWorkingDirectory
 	)
@@ -124,6 +132,7 @@ class Broker
 		$this->fileTypeMapper = $fileTypeMapper;
 		$this->signatureMapProvider = $signatureMapProvider;
 		$this->printer = $printer;
+		$this->anonymousClassNameHelper = $anonymousClassNameHelper;
 		$this->universalObjectCratesClasses = $universalObjectCratesClasses;
 		$this->currentWorkingDirectory = $currentWorkingDirectory;
 
@@ -240,12 +249,17 @@ class Broker
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
-		do {
-			$uniqidClass = 'AnonymousClass' . uniqid();
-		} while (class_exists('\\' . $uniqidClass));
+		$className = $this->anonymousClassNameHelper->getAnonymousClassName(
+			$node,
+			$scope->getFile()
+		);
+
+		if (isset(self::$anonymousClasses[$className])) {
+			return self::$anonymousClasses[$className];
+		}
 
 		$classNode = $node->class;
-		$classNode->name = $uniqidClass;
+		$classNode->name = $className;
 		eval($this->printer->prettyPrint([$classNode]));
 		unset($classNode);
 
@@ -254,8 +268,8 @@ class Broker
 			$scope->getFile()
 		);
 
-		return $this->getClassFromReflection(
-			new \ReflectionClass('\\' . $uniqidClass),
+		return self::$anonymousClasses[$className] = $this->getClassFromReflection(
+			new \ReflectionClass('\\' . $className),
 			sprintf('class@anonymous/%s:%s', $filename, $node->getLine()),
 			true
 		);

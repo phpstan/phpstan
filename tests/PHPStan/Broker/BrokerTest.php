@@ -30,6 +30,7 @@ class BrokerTest extends \PHPStan\Testing\TestCase
 			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $this->createMock(Cache::class)),
 			$this->getContainer()->getByType(SignatureMapProvider::class),
 			$this->getContainer()->getByType(\PhpParser\PrettyPrinter\Standard::class),
+			new AnonymousClassNameHelper(__DIR__),
 			[],
 			__DIR__
 		);

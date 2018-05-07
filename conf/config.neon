@@ -53,6 +53,11 @@ services:
 		class: PhpParser\PrettyPrinter\Standard
 
 	-
+		class: PHPStan\Broker\AnonymousClassNameHelper
+		arguments:
+			currentWorkingDirectory: %currentWorkingDirectory%
+
+	-
 		class: PHPStan\PhpDocParser\Lexer\Lexer
 
 	-

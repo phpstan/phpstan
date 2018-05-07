@@ -246,7 +246,7 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 					271,
 				],
 				[
-					'Access to an undefined property class@anonymous/tests/PHPStan/Rules/Properties/data/access-properties.php:293::$barProperty.',
+					'Access to an undefined property AnonymousClassbed9575e6f61fe520189eba76e81beef::$barProperty.',
 					298,
 				],
 			]

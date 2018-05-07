@@ -68,7 +68,7 @@ class CallCallablesRuleTest extends \PHPStan\Testing\RuleTestCase
 				70,
 			],
 			[
-				'Parameter #1 $str of callable class@anonymous/tests/PHPStan/Rules/Functions/data/callables.php:75 expects string, int given.',
+				'Parameter #1 $str of callable AnonymousClass7bc4507c47746826fae3d9665724d180 expects string, int given.',
 				81,
 			],
 		]);
