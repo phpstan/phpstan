@@ -8,6 +8,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\ClassCaseSensitivityCheck;
 use PHPStan\Rules\FunctionCallParametersCheck;
+use PHPStan\Type\ObjectType;
 
 class InstantiationRule implements \PHPStan\Rules\Rule
 {
@@ -44,11 +45,19 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		if (!($node->class instanceof \PhpParser\Node\Name)) {
+		if ($node->class instanceof \PhpParser\Node\Name) {
+			$class = (string) $node->class;
+		} elseif ($node->class instanceof Node\Stmt\Class_) {
+			$anonymousClassType = $scope->getType($node);
+			if (!$anonymousClassType instanceof ObjectType) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+
+			$class = $anonymousClassType->getClassName();
+		} else {
 			return [];
 		}
 
-		$class = (string) $node->class;
 		$lowercasedClass = strtolower($class);
 		$messages = [];
 		if ($lowercasedClass === 'static') {

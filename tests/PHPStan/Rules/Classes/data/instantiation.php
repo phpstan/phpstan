@@ -123,3 +123,18 @@ function () {
 	new NoConstructor();
 	new NOCONSTRUCTOR();
 };
+
+function () {
+	new class (1) {
+		public function __construct($i)
+		{
+
+		}
+	};
+	new class (1, 2, 3) {
+		public function __construct($i)
+		{
+
+		}
+	};
+};
