@@ -200,7 +200,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $cache),
 			$signatureMapProvider,
 			$this->getContainer()->getByType(Standard::class),
-			$this->getContainer()->parameters['universalObjectCratesClasses']
+			$this->getContainer()->parameters['universalObjectCratesClasses'],
+			$this->getFileHelper()->normalizePath(__DIR__ . '/../..')
 		);
 		$methodReflectionFactory->broker = $broker;
 

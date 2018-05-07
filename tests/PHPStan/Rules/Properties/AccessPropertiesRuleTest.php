@@ -131,10 +131,7 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 					271,
 				],
 				[
-					sprintf(
-						'Access to an undefined property class@anonymous%s:293::$barProperty.',
-						__DIR__ . '/data/access-properties.php'
-					),
+					'Access to an undefined property class@anonymous/tests/PHPStan/Rules/Properties/data/access-properties.php:293::$barProperty.',
 					298,
 				],
 			]
@@ -249,10 +246,7 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 					271,
 				],
 				[
-					sprintf(
-						'Access to an undefined property class@anonymous%s:293::$barProperty.',
-						__DIR__ . '/data/access-properties.php'
-					),
+					'Access to an undefined property class@anonymous/tests/PHPStan/Rules/Properties/data/access-properties.php:293::$barProperty.',
 					298,
 				],
 			]

@@ -3,6 +3,7 @@
 namespace PHPStan\Broker;
 
 use PHPStan\Analyser\Scope;
+use PHPStan\Command\ErrorFormatter\RelativePathHelper;
 use PHPStan\PhpDoc\Tag\ParamTag;
 use PHPStan\Reflection\BrokerAwareExtension;
 use PHPStan\Reflection\ClassReflection;
@@ -57,6 +58,9 @@ class Broker
 	/** @var string[] */
 	private $universalObjectCratesClasses;
 
+	/** @var string */
+	private $currentWorkingDirectory;
+
 	/** @var \PHPStan\Reflection\FunctionReflection[] */
 	private $functionReflections = [];
 
@@ -83,6 +87,7 @@ class Broker
 	 * @param \PHPStan\Reflection\SignatureMap\SignatureMapProvider $signatureMapProvider
 	 * @param \PhpParser\PrettyPrinter\Standard $printer
 	 * @param string[] $universalObjectCratesClasses
+	 * @param string $currentWorkingDirectory
 	 */
 	public function __construct(
 		array $propertiesClassReflectionExtensions,
@@ -94,7 +99,8 @@ class Broker
 		FileTypeMapper $fileTypeMapper,
 		SignatureMapProvider $signatureMapProvider,
 		\PhpParser\PrettyPrinter\Standard $printer,
-		array $universalObjectCratesClasses
+		array $universalObjectCratesClasses,
+		string $currentWorkingDirectory
 	)
 	{
 		$this->propertiesClassReflectionExtensions = $propertiesClassReflectionExtensions;
@@ -119,6 +125,7 @@ class Broker
 		$this->signatureMapProvider = $signatureMapProvider;
 		$this->printer = $printer;
 		$this->universalObjectCratesClasses = $universalObjectCratesClasses;
+		$this->currentWorkingDirectory = $currentWorkingDirectory;
 
 		self::$instance = $this;
 	}
@@ -242,9 +249,14 @@ class Broker
 		eval($this->printer->prettyPrint([$classNode]));
 		unset($classNode);
 
+		$filename = RelativePathHelper::getRelativePath(
+			$this->currentWorkingDirectory,
+			$scope->getFile()
+		);
+
 		return $this->getClassFromReflection(
 			new \ReflectionClass('\\' . $uniqidClass),
-			sprintf('class@anonymous%s:%s', $scope->getFile(), $node->getLine()),
+			sprintf('class@anonymous/%s:%s', $filename, $node->getLine()),
 			true
 		);
 	}

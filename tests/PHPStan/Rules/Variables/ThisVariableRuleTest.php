@@ -22,7 +22,7 @@ class ThisVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				24,
 			],
 			[
-				sprintf('Using $this in static method class@anonymous%s%s%s%s%s:27::doBar().', __DIR__, DIRECTORY_SEPARATOR, 'data', DIRECTORY_SEPARATOR, 'this.php'),
+				'Using $this in static method class@anonymous/tests/PHPStan/Rules/Variables/data/this.php:27::doBar().',
 				36,
 			],
 		]);
