@@ -91,7 +91,7 @@ class FileTypeMapper
 	private function getResolvedPhpDocMap(string $fileName): array
 	{
 		if (!isset($this->memoryCache[$fileName])) {
-			$cacheKey = sprintf('%s-%d-v38', $fileName, filemtime($fileName));
+			$cacheKey = sprintf('%s-%d-v39', $fileName, filemtime($fileName));
 			$map = $this->cache->load($cacheKey);
 
 			if ($map === null) {
@@ -165,11 +165,11 @@ class FileTypeMapper
 					} else {
 						if ($node->name === null) {
 							if (!$node instanceof Node\Stmt\Class_) {
-								return false;
+								throw new \PHPStan\ShouldNotHappenException();
 							}
 
 							$className = $this->anonymousClassNameHelper->getAnonymousClassName(
-								new Node\Expr\New_($node, [], ['startLine' => $node->getLine()]),
+								new Node\Expr\New_($node),
 								$fileName
 							);
 						} else {

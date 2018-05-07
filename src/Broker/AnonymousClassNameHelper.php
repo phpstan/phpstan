@@ -31,7 +31,7 @@ class AnonymousClassNameHelper
 
 		return sprintf(
 			'AnonymousClass%s',
-			md5(sprintf('%s:%s', $filename, $node->getLine()))
+			md5(sprintf('%s:%s', $filename, $node->class->getLine()))
 		);
 	}
 
