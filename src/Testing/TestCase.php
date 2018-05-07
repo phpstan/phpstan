@@ -124,7 +124,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			}
 		};
 		$phpDocStringResolver = $this->getContainer()->getByType(PhpDocStringResolver::class);
-		$fileTypeMapper = new FileTypeMapper($parser, $phpDocStringResolver, $cache);
+		$fileTypeMapper = new FileTypeMapper($parser, $phpDocStringResolver, $cache, new AnonymousClassNameHelper($this->getCurrentWorkingDirectory()));
 		$annotationsMethodsClassReflectionExtension = new AnnotationsMethodsClassReflectionExtension($fileTypeMapper);
 		$annotationsPropertiesClassReflectionExtension = new AnnotationsPropertiesClassReflectionExtension($fileTypeMapper);
 		$signatureMapProvider = $this->getContainer()->getByType(SignatureMapProvider::class);
@@ -183,8 +183,6 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			}, array_keys($tags));
 		};
 
-		$currentWorkingDirectory = $this->getFileHelper()->normalizePath(__DIR__ . '/../..');
-
 		$broker = new Broker(
 			[
 				$phpExtension,
@@ -200,16 +198,21 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			array_merge($dynamicStaticMethodReturnTypeExtensions, $this->getDynamicStaticMethodReturnTypeExtensions()),
 			array_merge($tagToService($this->getContainer()->findByTag(BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG)), $this->getDynamicFunctionReturnTypeExtensions()),
 			$functionReflectionFactory,
-			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $cache),
+			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $cache, new AnonymousClassNameHelper($this->getCurrentWorkingDirectory())),
 			$signatureMapProvider,
 			$this->getContainer()->getByType(Standard::class),
-			new AnonymousClassNameHelper($currentWorkingDirectory),
+			new AnonymousClassNameHelper($this->getCurrentWorkingDirectory()),
 			$this->getContainer()->parameters['universalObjectCratesClasses'],
-			$currentWorkingDirectory
+			$this->getCurrentWorkingDirectory()
 		);
 		$methodReflectionFactory->broker = $broker;
 
 		return $broker;
+	}
+
+	public function getCurrentWorkingDirectory(): string
+	{
+		return $this->getFileHelper()->normalizePath(__DIR__ . '/../..');
 	}
 
 	/**

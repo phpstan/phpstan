@@ -5,6 +5,7 @@ namespace PHPStan\Analyser;
 use PhpParser\Node\Expr\Exit_;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
+use PHPStan\Broker\AnonymousClassNameHelper;
 use PHPStan\Cache\Cache;
 use PHPStan\File\FileHelper;
 use PHPStan\PhpDoc\PhpDocStringResolver;
@@ -5958,6 +5959,16 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foo',
 				"'outside';",
 			],
+			[
+				'AnonymousClassName\Foo',
+				'$this->fooProperty',
+				"'inside';",
+			],
+			[
+				'AnonymousClassName\Foo',
+				'$foo->fooProperty',
+				"'outside';",
+			],
 		];
 	}
 
@@ -6031,7 +6042,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		$resolver = new NodeScopeResolver(
 			$broker,
 			$this->getParser(),
-			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $this->createMock(Cache::class)),
+			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $this->createMock(Cache::class), new AnonymousClassNameHelper($this->getCurrentWorkingDirectory())),
 			new FileHelper('/'),
 			$typeSpecifier,
 			true,

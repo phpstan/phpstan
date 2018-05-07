@@ -4,6 +4,7 @@ namespace PHPStan\Type;
 
 use PhpParser\Node;
 use PHPStan\Analyser\NameScope;
+use PHPStan\Broker\AnonymousClassNameHelper;
 use PHPStan\Cache\Cache;
 use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\PhpDocStringResolver;
@@ -21,6 +22,9 @@ class FileTypeMapper
 	/** @var \PHPStan\Cache\Cache */
 	private $cache;
 
+	/** @var \PHPStan\Broker\AnonymousClassNameHelper */
+	private $anonymousClassNameHelper;
+
 	/** @var \PHPStan\PhpDoc\ResolvedPhpDocBlock[][] */
 	private $memoryCache = [];
 
@@ -30,12 +34,14 @@ class FileTypeMapper
 	public function __construct(
 		Parser $phpParser,
 		PhpDocStringResolver $phpDocStringResolver,
-		Cache $cache
+		Cache $cache,
+		AnonymousClassNameHelper $anonymousClassNameHelper
 	)
 	{
 		$this->phpParser = $phpParser;
 		$this->phpDocStringResolver = $phpDocStringResolver;
 		$this->cache = $cache;
+		$this->anonymousClassNameHelper = $anonymousClassNameHelper;
 	}
 
 	public function getResolvedPhpDoc(
@@ -85,7 +91,7 @@ class FileTypeMapper
 	private function getResolvedPhpDocMap(string $fileName): array
 	{
 		if (!isset($this->memoryCache[$fileName])) {
-			$cacheKey = sprintf('%s-%d-v36', $fileName, filemtime($fileName));
+			$cacheKey = sprintf('%s-%d-v37', $fileName, filemtime($fileName));
 			$map = $this->cache->load($cacheKey);
 
 			if ($map === null) {
@@ -158,7 +164,14 @@ class FileTypeMapper
 						}
 					} else {
 						if ($node->name === null) {
-							$className = sprintf('class@anonymous:%s:%s', $fileName, $node->getLine());
+							if ($node instanceof Node\Stmt\Class_) {
+								$className = $this->anonymousClassNameHelper->getAnonymousClassName(
+									new Node\Expr\New_($node, [], ['startLine' => $node->getLine()]),
+									$fileName
+								);
+							} else {
+								return false;
+							}
 						} else {
 							$className = ltrim(sprintf('%s\\%s', $namespace, $node->name), '\\');
 						}

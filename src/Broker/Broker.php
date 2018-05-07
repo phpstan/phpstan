@@ -41,7 +41,7 @@ class Broker
 	private $dynamicFunctionReturnTypeExtensions = [];
 
 	/** @var \PHPStan\Reflection\ClassReflection[] */
-	private $classReflections = [];
+	private static $classReflections = [];
 
 	/** @var \PHPStan\Reflection\FunctionReflectionFactory */
 	private $functionReflectionFactory;
@@ -223,21 +223,26 @@ class Broker
 			throw new \PHPStan\Broker\ClassNotFoundException($className);
 		}
 
-		if (!isset($this->classReflections[$className])) {
+		if (!isset(self::$classReflections[$className])) {
 			$reflectionClass = new ReflectionClass($className);
+			$filename = null;
+			if ($reflectionClass->getFileName() !== false) {
+				$filename = $reflectionClass->getFileName();
+			}
+
 			$classReflection = $this->getClassFromReflection(
 				$reflectionClass,
 				$reflectionClass->getName(),
-				$reflectionClass->isAnonymous()
+				$reflectionClass->isAnonymous() ? $filename : null
 			);
-			$this->classReflections[$className] = $classReflection;
+			self::$classReflections[$className] = $classReflection;
 			if ($className !== $reflectionClass->getName()) {
 				// class alias optimization
-				$this->classReflections[$reflectionClass->getName()] = $classReflection;
+				self::$classReflections[$reflectionClass->getName()] = $classReflection;
 			}
 		}
 
-		return $this->classReflections[$className];
+		return self::$classReflections[$className];
 	}
 
 	public function getAnonymousClassReflection(
@@ -268,17 +273,20 @@ class Broker
 			$scope->getFile()
 		);
 
-		return self::$anonymousClasses[$className] = $this->getClassFromReflection(
+		self::$anonymousClasses[$className] = $this->getClassFromReflection(
 			new \ReflectionClass('\\' . $className),
 			sprintf('class@anonymous/%s:%s', $filename, $node->getLine()),
-			true
+			$scope->getFile()
 		);
+		self::$classReflections[$className] = self::$anonymousClasses[$className];
+
+		return self::$anonymousClasses[$className];
 	}
 
-	public function getClassFromReflection(\ReflectionClass $reflectionClass, string $displayName, bool $anonymous): ClassReflection
+	public function getClassFromReflection(\ReflectionClass $reflectionClass, string $displayName, ?string $anonymousFilename): ClassReflection
 	{
 		$className = $reflectionClass->getName();
-		if (!isset($this->classReflections[$className])) {
+		if (!isset(self::$classReflections[$className])) {
 			$classReflection = new ClassReflection(
 				$this,
 				$this->fileTypeMapper,
@@ -286,12 +294,12 @@ class Broker
 				$this->methodsClassReflectionExtensions,
 				$displayName,
 				$reflectionClass,
-				$anonymous
+				$anonymousFilename
 			);
-			$this->classReflections[$className] = $classReflection;
+			self::$classReflections[$className] = $classReflection;
 		}
 
-		return $this->classReflections[$className];
+		return self::$classReflections[$className];
 	}
 
 	public function hasClass(string $className): bool

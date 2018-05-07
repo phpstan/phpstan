@@ -29,8 +29,8 @@ class ClassReflection implements DeprecatableReflection
 	/** @var \ReflectionClass */
 	private $reflection;
 
-	/** @var bool */
-	private $anonymous;
+	/** @var string|null */
+	private $anonymousFilename;
 
 	/** @var \PHPStan\Reflection\MethodReflection[] */
 	private $methods = [];
@@ -54,7 +54,7 @@ class ClassReflection implements DeprecatableReflection
 	 * @param \PHPStan\Reflection\MethodsClassReflectionExtension[] $methodsClassReflectionExtensions
 	 * @param string $displayName
 	 * @param \ReflectionClass $reflection
-	 * @param bool $anonymous
+	 * @param string|null $anonymousFilename
 	 */
 	public function __construct(
 		Broker $broker,
@@ -63,7 +63,7 @@ class ClassReflection implements DeprecatableReflection
 		array $methodsClassReflectionExtensions,
 		string $displayName,
 		\ReflectionClass $reflection,
-		bool $anonymous
+		?string $anonymousFilename
 	)
 	{
 		$this->broker = $broker;
@@ -72,7 +72,7 @@ class ClassReflection implements DeprecatableReflection
 		$this->methodsClassReflectionExtensions = $methodsClassReflectionExtensions;
 		$this->displayName = $displayName;
 		$this->reflection = $reflection;
-		$this->anonymous = $anonymous;
+		$this->anonymousFilename = $anonymousFilename;
 	}
 
 	public function getNativeReflection(): \ReflectionClass
@@ -85,6 +85,9 @@ class ClassReflection implements DeprecatableReflection
 	 */
 	public function getFileName()
 	{
+		if ($this->anonymousFilename !== null) {
+			return $this->anonymousFilename;
+		}
 		$fileName = $this->reflection->getFileName();
 		if ($fileName === false) {
 			return false;
@@ -299,7 +302,7 @@ class ClassReflection implements DeprecatableReflection
 
 	public function isAnonymous(): bool
 	{
-		return $this->anonymous;
+		return $this->anonymousFilename !== null;
 	}
 
 	public function isSubclassOf(string $className): bool
