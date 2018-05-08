@@ -125,6 +125,8 @@
 				passthru="true"
 				checkreturn="true"
 		>
+			<arg value="-d"/>
+			<arg value="memory_limit=256M"/>
 			<arg path="bin/phpstan"/>
 			<arg value="analyse"/>
 			<arg value="-c"/>
