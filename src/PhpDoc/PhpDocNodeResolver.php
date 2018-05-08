@@ -8,13 +8,17 @@ use PHPStan\PhpDoc\Tag\MethodTagParameter;
 use PHPStan\PhpDoc\Tag\ParamTag;
 use PHPStan\PhpDoc\Tag\PropertyTag;
 use PHPStan\PhpDoc\Tag\ReturnTag;
+use PHPStan\PhpDoc\Tag\ThrowsTag;
 use PHPStan\PhpDoc\Tag\VarTag;
 use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNullNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\ThrowsTagValueNode;
 use PHPStan\Reflection\PassedByReference;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 
 class PhpDocNodeResolver
@@ -36,6 +40,7 @@ class PhpDocNodeResolver
 			$this->resolvePropertyTags($phpDocNode, $nameScope),
 			$this->resolveParamTags($phpDocNode, $nameScope),
 			$this->resolveReturnTag($phpDocNode, $nameScope),
+			$this->resolveThrowsTags($phpDocNode, $nameScope),
 			$this->resolveIsDeprecated($phpDocNode)
 		);
 	}
@@ -191,6 +196,26 @@ class PhpDocNodeResolver
 		}
 
 		return null;
+	}
+
+	private function resolveThrowsTags(PhpDocNode $phpDocNode, NameScope $nameScope): ?\PHPStan\PhpDoc\Tag\ThrowsTag
+	{
+		$throwsTagValues = array_column(
+			array_filter($phpDocNode->getTagsByName('@throws'), function (PhpDocTagNode $tag): bool {
+				return $tag->value instanceof ThrowsTagValueNode;
+			}),
+			'value'
+		);
+
+		$types = array_map(function (ThrowsTagValueNode $throwsTagValue) use ($nameScope): Type {
+			return $this->typeNodeResolver->resolve($throwsTagValue->type, $nameScope);
+		}, $throwsTagValues);
+
+		if (count($types) === 0) {
+			return null;
+		}
+
+		return new ThrowsTag(TypeCombinator::union(...$types));
 	}
 
 	private function resolveIsDeprecated(PhpDocNode $phpDocNode): bool

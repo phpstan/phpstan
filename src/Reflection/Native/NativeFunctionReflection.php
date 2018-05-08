@@ -19,6 +19,9 @@ class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
 	/** @var \PHPStan\Type\Type */
 	private $returnType;
 
+	/** @var \PHPStan\Type\Type|null */
+	private $throwType;
+
 	/** @var bool */
 	private $isDeprecated;
 
@@ -27,6 +30,7 @@ class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
 	 * @param \PHPStan\Reflection\Native\NativeParameterReflection[] $parameters
 	 * @param bool $variadic
 	 * @param \PHPStan\Type\Type $returnType
+	 * @param \PHPStan\Type\Type|null $throwType
 	 * @param bool $isDeprecated
 	 */
 	public function __construct(
@@ -34,6 +38,7 @@ class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
 		array $parameters,
 		bool $variadic,
 		Type $returnType,
+		?Type $throwType,
 		bool $isDeprecated
 	)
 	{
@@ -41,6 +46,7 @@ class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
 		$this->parameters = $parameters;
 		$this->variadic = $variadic;
 		$this->returnType = $returnType;
+		$this->throwType = $throwType;
 		$this->isDeprecated = $isDeprecated;
 	}
 
@@ -65,6 +71,11 @@ class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
 	public function getReturnType(): Type
 	{
 		return $this->returnType;
+	}
+
+	public function getThrowType(): ?Type
+	{
+		return $this->throwType;
 	}
 
 	public function isDeprecated(): bool

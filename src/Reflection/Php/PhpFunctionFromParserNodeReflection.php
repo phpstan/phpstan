@@ -39,6 +39,9 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 	/** @var \PHPStan\Type\Type */
 	private $returnType;
 
+	/** @var \PHPStan\Type\Type|null */
+	private $throwType;
+
 	/** @var bool */
 	private $isDeprecated;
 
@@ -49,6 +52,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 	 * @param bool $realReturnTypePresent
 	 * @param Type $realReturnType
 	 * @param null|Type $phpDocReturnType
+	 * @param null|Type $throwType
 	 * @param bool $isDeprecated
 	 */
 	public function __construct(
@@ -58,6 +62,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 		bool $realReturnTypePresent,
 		Type $realReturnType,
 		?Type $phpDocReturnType = null,
+		?Type $throwType = null,
 		bool $isDeprecated = false
 	)
 	{
@@ -67,6 +72,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 		$this->realReturnTypePresent = $realReturnTypePresent;
 		$this->realReturnType = $realReturnType;
 		$this->phpDocReturnType = $phpDocReturnType;
+		$this->throwType = $throwType;
 		$this->isDeprecated = $isDeprecated;
 	}
 
@@ -153,6 +159,11 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 	public function isDeprecated(): bool
 	{
 		return $this->isDeprecated;
+	}
+
+	public function getThrowType(): ?Type
+	{
+		return $this->throwType;
 	}
 
 }

@@ -39,6 +39,9 @@ class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWit
 	/** @var \PHPStan\Type\Type|null */
 	private $phpDocReturnType;
 
+	/** @var \PHPStan\Type\Type|null */
+	private $phpDocThrowType;
+
 	/** @var \PHPStan\Reflection\ParameterReflection[] */
 	private $parameters;
 
@@ -58,6 +61,7 @@ class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWit
 	 * @param Cache $cache
 	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
 	 * @param null|Type $phpDocReturnType
+	 * @param null|Type $phpDocThrowType
 	 * @param bool $isDeprecated
 	 */
 	public function __construct(
@@ -67,6 +71,7 @@ class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWit
 		Cache $cache,
 		array $phpDocParameterTypes,
 		?Type $phpDocReturnType,
+		?Type $phpDocThrowType,
 		bool $isDeprecated
 	)
 	{
@@ -76,6 +81,7 @@ class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWit
 		$this->cache = $cache;
 		$this->phpDocParameterTypes = $phpDocParameterTypes;
 		$this->phpDocReturnType = $phpDocReturnType;
+		$this->phpDocThrowType = $phpDocThrowType;
 		$this->isDeprecated = $isDeprecated;
 	}
 
@@ -338,6 +344,11 @@ class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWit
 	public function isDeprecated(): bool
 	{
 		return $this->isDeprecated || $this->reflection->isDeprecated();
+	}
+
+	public function getThrowType(): ?Type
+	{
+		return $this->phpDocThrowType;
 	}
 
 }

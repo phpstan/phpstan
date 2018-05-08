@@ -360,6 +360,7 @@ class Broker
 					}, $functionSignature->getParameters()),
 					$functionSignature->isVariadic(),
 					$functionSignature->getReturnType(),
+					null,
 					false
 				);
 				self::$functionMap[$lowerCasedFunctionName] = $functionReflection;
@@ -405,6 +406,7 @@ class Broker
 		$reflectionFunction = new \ReflectionFunction($functionName);
 		$phpDocParameterTags = [];
 		$phpDocReturnTag = null;
+		$phpDocThrowsTag = null;
 		$isDeprecated = false;
 		if ($reflectionFunction->getFileName() !== false && $reflectionFunction->getDocComment() !== false) {
 			$fileName = $reflectionFunction->getFileName();
@@ -412,6 +414,7 @@ class Broker
 			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, null, null, $docComment);
 			$phpDocParameterTags = $resolvedPhpDoc->getParamTags();
 			$phpDocReturnTag = $resolvedPhpDoc->getReturnTag();
+			$phpDocThrowsTag = $resolvedPhpDoc->getThrowsTag();
 			$isDeprecated = $resolvedPhpDoc->isDeprecated();
 		}
 
@@ -421,6 +424,7 @@ class Broker
 				return $paramTag->getType();
 			}, $phpDocParameterTags),
 			$phpDocReturnTag !== null ? $phpDocReturnTag->getType() : null,
+			$phpDocThrowsTag !== null ? $phpDocThrowsTag->getType() : null,
 			$isDeprecated
 		);
 		$this->customFunctionReflections[$lowerCasedFunctionName] = $functionReflection;

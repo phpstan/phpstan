@@ -246,6 +246,7 @@ class PhpClassReflectionExtension
 
 		$phpDocParameterTypes = [];
 		$phpDocReturnType = null;
+		$phpDocThrowType = null;
 		$isDeprecated = false;
 		if ($declaringClass->getFileName() !== false) {
 			if ($methodReflection->getDocComment() !== false) {
@@ -267,6 +268,7 @@ class PhpClassReflectionExtension
 					return $tag->getType();
 				}, $resolvedPhpDoc->getParamTags());
 				$phpDocReturnType = $resolvedPhpDoc->getReturnTag() !== null ? $resolvedPhpDoc->getReturnTag()->getType() : null;
+				$phpDocThrowType = $resolvedPhpDoc->getThrowsTag() !== null ? $resolvedPhpDoc->getThrowsTag()->getType() : null;
 				$isDeprecated = $resolvedPhpDoc->isDeprecated();
 			}
 		}
@@ -276,6 +278,7 @@ class PhpClassReflectionExtension
 			$methodReflection,
 			$phpDocParameterTypes,
 			$phpDocReturnType,
+			$phpDocThrowType,
 			$isDeprecated
 		);
 	}

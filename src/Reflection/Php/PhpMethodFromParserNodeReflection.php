@@ -28,6 +28,7 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 	 * @param bool $realReturnTypePresent
 	 * @param Type $realReturnType
 	 * @param null|Type $phpDocReturnType
+	 * @param null|Type $throwType
 	 * @param bool $isDeprecated
 	 */
 	public function __construct(
@@ -38,6 +39,7 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 		bool $realReturnTypePresent,
 		Type $realReturnType,
 		?Type $phpDocReturnType,
+		?Type $throwType,
 		bool $isDeprecated
 	)
 	{
@@ -48,6 +50,7 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 			$realReturnTypePresent,
 			$realReturnType,
 			$phpDocReturnType,
+			$throwType,
 			$isDeprecated
 		);
 		$this->declaringClass = $declaringClass;

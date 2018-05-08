@@ -1410,6 +1410,7 @@ class Scope
 	 * @param Node\Stmt\ClassMethod $classMethod
 	 * @param Type[] $phpDocParameterTypes
 	 * @param null|Type $phpDocReturnType
+	 * @param null|Type $throwType
 	 * @param bool $isDeprecated
 	 * @return self
 	 */
@@ -1417,6 +1418,7 @@ class Scope
 		Node\Stmt\ClassMethod $classMethod,
 		array $phpDocParameterTypes,
 		?Type $phpDocReturnType,
+		?Type $throwType,
 		bool $isDeprecated
 	): self
 	{
@@ -1433,6 +1435,7 @@ class Scope
 				$classMethod->returnType !== null,
 				$this->getFunctionType($classMethod->returnType, $classMethod->returnType === null, false),
 				$phpDocReturnType,
+				$throwType,
 				$isDeprecated
 			)
 		);
@@ -1460,6 +1463,7 @@ class Scope
 	 * @param Node\Stmt\Function_ $function
 	 * @param Type[] $phpDocParameterTypes
 	 * @param null|Type $phpDocReturnType
+	 * @param null|Type $throwType
 	 * @param bool $isDeprecated
 	 * @return self
 	 */
@@ -1467,6 +1471,7 @@ class Scope
 		Node\Stmt\Function_ $function,
 		array $phpDocParameterTypes,
 		?Type $phpDocReturnType = null,
+		?Type $throwType = null,
 		bool $isDeprecated = false
 	): self
 	{
@@ -1478,6 +1483,7 @@ class Scope
 				$function->returnType !== null,
 				$this->getFunctionType($function->returnType, $function->returnType === null, false),
 				$phpDocReturnType,
+				$throwType,
 				$isDeprecated
 			)
 		);
