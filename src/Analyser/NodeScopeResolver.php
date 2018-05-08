@@ -1716,12 +1716,13 @@ class NodeScopeResolver
 
 	private function enterClassMethod(Scope $scope, Node\Stmt\ClassMethod $classMethod): Scope
 	{
-		list($phpDocParameterTypes, $phpDocReturnType, $isDeprecated) = $this->getPhpDocs($scope, $classMethod);
+		list($phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated) = $this->getPhpDocs($scope, $classMethod);
 
 		return $scope->enterClassMethod(
 			$classMethod,
 			$phpDocParameterTypes,
 			$phpDocReturnType,
+			$phpDocThrowType,
 			$isDeprecated
 		);
 	}
@@ -1735,6 +1736,7 @@ class NodeScopeResolver
 	{
 		$phpDocParameterTypes = [];
 		$phpDocReturnType = null;
+		$phpDocThrowType = null;
 		$isDeprecated = false;
 		if ($functionLike->getDocComment() !== null) {
 			$docComment = $functionLike->getDocComment()->getText();
@@ -1767,20 +1769,22 @@ class NodeScopeResolver
 				return $tag->getType();
 			}, $resolvedPhpDoc->getParamTags());
 			$phpDocReturnType = $resolvedPhpDoc->getReturnTag() !== null ? $resolvedPhpDoc->getReturnTag()->getType() : null;
+			$phpDocThrowType = $resolvedPhpDoc->getThrowsTag() !== null ? $resolvedPhpDoc->getThrowsTag()->getType() : null;
 			$isDeprecated = $resolvedPhpDoc->isDeprecated();
 		}
 
-		return [$phpDocParameterTypes, $phpDocReturnType, $isDeprecated];
+		return [$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated];
 	}
 
 	private function enterFunction(Scope $scope, Node\Stmt\Function_ $function): Scope
 	{
-		list($phpDocParameterTypes, $phpDocReturnType, $isDeprecated) = $this->getPhpDocs($scope, $function);
+		list($phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated) = $this->getPhpDocs($scope, $function);
 
 		return $scope->enterFunction(
 			$function,
 			$phpDocParameterTypes,
 			$phpDocReturnType,
+			$phpDocThrowType,
 			$isDeprecated
 		);
 	}

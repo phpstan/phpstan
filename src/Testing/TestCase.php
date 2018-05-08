@@ -99,6 +99,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			 * @param \ReflectionMethod $reflection
 			 * @param Type[] $phpDocParameterTypes
 			 * @param null|Type $phpDocReturnType
+			 * @param null|Type $phpDocThrowType
 			 * @param bool $isDeprecated
 			 * @return PhpMethodReflection
 			 */
@@ -107,6 +108,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				\ReflectionMethod $reflection,
 				array $phpDocParameterTypes,
 				?Type $phpDocReturnType,
+				?Type $phpDocThrowType,
 				bool $isDeprecated
 			): PhpMethodReflection
 			{
@@ -119,6 +121,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 					$this->cache,
 					$phpDocParameterTypes,
 					$phpDocReturnType,
+					$phpDocThrowType,
 					$isDeprecated
 				);
 			}
@@ -155,6 +158,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			 * @param \ReflectionFunction $function
 			 * @param Type[] $phpDocParameterTypes
 			 * @param null|Type $phpDocReturnType
+			 * @param null|Type $phpDocThrowType
 			 * @param bool $isDeprecated
 			 * @return PhpFunctionReflection
 			 */
@@ -162,6 +166,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				\ReflectionFunction $function,
 				array $phpDocParameterTypes,
 				?Type $phpDocReturnType,
+				?Type $phpDocThrowType,
 				bool $isDeprecated
 			): PhpFunctionReflection
 			{
@@ -172,6 +177,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 					$this->cache,
 					$phpDocParameterTypes,
 					$phpDocReturnType,
+					$phpDocThrowType,
 					$isDeprecated
 				);
 			}

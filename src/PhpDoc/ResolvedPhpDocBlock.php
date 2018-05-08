@@ -3,6 +3,7 @@
 namespace PHPStan\PhpDoc;
 
 use PHPStan\PhpDoc\Tag\ReturnTag;
+use PHPStan\PhpDoc\Tag\ThrowsTag;
 
 class ResolvedPhpDocBlock
 {
@@ -22,6 +23,9 @@ class ResolvedPhpDocBlock
 	/** @var \PHPStan\PhpDoc\Tag\ReturnTag|null */
 	private $returnTag;
 
+	/** @var \PHPStan\PhpDoc\Tag\ThrowsTag|null */
+	private $throwsTag;
+
 	/** @var bool */
 	private $isDeprecated;
 
@@ -31,6 +35,7 @@ class ResolvedPhpDocBlock
 	 * @param array<string, \PHPStan\PhpDoc\Tag\PropertyTag> $propertyTags
 	 * @param array<string, \PHPStan\PhpDoc\Tag\ParamTag> $paramTags
 	 * @param \PHPStan\PhpDoc\Tag\ReturnTag|null $returnTag
+	 * @param \PHPStan\PhpDoc\Tag\ThrowsTag|null $throwsTags
 	 * @param bool $isDeprecated
 	 */
 	private function __construct(
@@ -39,6 +44,7 @@ class ResolvedPhpDocBlock
 		array $propertyTags,
 		array $paramTags,
 		?ReturnTag $returnTag,
+		?ThrowsTag $throwsTags,
 		bool $isDeprecated
 	)
 	{
@@ -47,6 +53,7 @@ class ResolvedPhpDocBlock
 		$this->propertyTags = $propertyTags;
 		$this->paramTags = $paramTags;
 		$this->returnTag = $returnTag;
+		$this->throwsTag = $throwsTags;
 		$this->isDeprecated = $isDeprecated;
 	}
 
@@ -56,6 +63,7 @@ class ResolvedPhpDocBlock
 	 * @param array<string, \PHPStan\PhpDoc\Tag\PropertyTag> $propertyTags
 	 * @param array<string, \PHPStan\PhpDoc\Tag\ParamTag> $paramTags
 	 * @param \PHPStan\PhpDoc\Tag\ReturnTag|null $returnTag
+	 * @param \PHPStan\PhpDoc\Tag\ThrowsTag|null $throwsTag
 	 * @param bool $isDeprecated
 	 * @return self
 	 */
@@ -65,15 +73,16 @@ class ResolvedPhpDocBlock
 		array $propertyTags,
 		array $paramTags,
 		?ReturnTag $returnTag,
+		?ThrowsTag $throwsTag,
 		bool $isDeprecated
 	): self
 	{
-		return new self($varTags, $methodTags, $propertyTags, $paramTags, $returnTag, $isDeprecated);
+		return new self($varTags, $methodTags, $propertyTags, $paramTags, $returnTag, $throwsTag, $isDeprecated);
 	}
 
 	public static function createEmpty(): self
 	{
-		return new self([], [], [], [], null, false);
+		return new self([], [], [], [], null, null, false);
 	}
 
 
@@ -114,6 +123,11 @@ class ResolvedPhpDocBlock
 		return $this->returnTag;
 	}
 
+	public function getThrowsTag(): ?\PHPStan\PhpDoc\Tag\ThrowsTag
+	{
+		return $this->throwsTag;
+	}
+
 	public function isDeprecated(): bool
 	{
 		return $this->isDeprecated;
@@ -131,6 +145,7 @@ class ResolvedPhpDocBlock
 			$properties['propertyTags'],
 			$properties['paramTags'],
 			$properties['returnTag'],
+			$properties['throwsTag'],
 			$properties['isDeprecated']
 		);
 	}

@@ -106,6 +106,49 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function testFileThrowsPhpDocs(): void
+	{
+		$this->createBroker();
+
+		/** @var FileTypeMapper $fileTypeMapper */
+		$fileTypeMapper = $this->getContainer()->getByType(FileTypeMapper::class);
+
+		$realpath = realpath(__DIR__ . '/data/throws-phpdocs.php');
+		if ($realpath === false) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		$resolved = $fileTypeMapper->getResolvedPhpDoc($realpath, \ThrowsPhpDocs\Foo::class, null, '/**
+ * @throws RuntimeException
+ */');
+
+		$this->assertNotNull($resolved->getThrowsTag());
+		$this->assertSame(
+			\RuntimeException::class,
+			$resolved->getThrowsTag()->getType()->describe(VerbosityLevel::value())
+		);
+
+		$resolved = $fileTypeMapper->getResolvedPhpDoc($realpath, \ThrowsPhpDocs\Foo::class, null, '/**
+ * @throws RuntimeException|LogicException
+ */');
+
+		$this->assertNotNull($resolved->getThrowsTag());
+		$this->assertSame(
+			'LogicException|RuntimeException',
+			$resolved->getThrowsTag()->getType()->describe(VerbosityLevel::value())
+		);
+
+		$resolved = $fileTypeMapper->getResolvedPhpDoc($realpath, \ThrowsPhpDocs\Foo::class, null, '/**
+ * @throws RuntimeException
+ * @throws LogicException
+ */');
+
+		$this->assertNotNull($resolved->getThrowsTag());
+		$this->assertSame(
+			'LogicException|RuntimeException',
+			$resolved->getThrowsTag()->getType()->describe(VerbosityLevel::value())
+		);
+	}
 
 	public function testFileWithCyclicPhpDocs(): void
 	{

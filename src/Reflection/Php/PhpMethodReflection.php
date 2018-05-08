@@ -15,6 +15,7 @@ use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
 use PHPStan\Reflection\PassedByReference;
+use PHPStan\Reflection\ThrowableReflection;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\IntegerType;
@@ -27,7 +28,7 @@ use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypehintHelper;
 use PHPStan\Type\VoidType;
 
-class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhpDocs, DeprecatableReflection
+class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhpDocs, DeprecatableReflection, ThrowableReflection
 {
 
 	/** @var \PHPStan\Reflection\ClassReflection */
@@ -54,6 +55,9 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 	/** @var \PHPStan\Type\Type|null */
 	private $phpDocReturnType;
 
+	/** @var \PHPStan\Type\Type|null */
+	private $phpDocThrowType;
+
 	/** @var \PHPStan\Reflection\ParameterReflection[] */
 	private $parameters;
 
@@ -75,6 +79,7 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 	 * @param Cache $cache
 	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
 	 * @param null|Type $phpDocReturnType
+	 * @param null|Type $phpDocThrowType
 	 * @param bool $isDeprecated
 	 */
 	public function __construct(
@@ -86,6 +91,7 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 		Cache $cache,
 		array $phpDocParameterTypes,
 		?Type $phpDocReturnType,
+		?Type $phpDocThrowType,
 		bool $isDeprecated = false
 	)
 	{
@@ -97,6 +103,7 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 		$this->cache = $cache;
 		$this->phpDocParameterTypes = $phpDocParameterTypes;
 		$this->phpDocReturnType = $phpDocReturnType;
+		$this->phpDocThrowType = $phpDocThrowType;
 		$this->isDeprecated = $isDeprecated;
 	}
 
@@ -471,6 +478,11 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 	public function isDeprecated(): bool
 	{
 		return $this->isDeprecated;
+	}
+
+	public function getThrowType(): ?Type
+	{
+		return $this->phpDocThrowType;
 	}
 
 }
