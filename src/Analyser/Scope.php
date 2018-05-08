@@ -27,6 +27,7 @@ use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\Native\NativeParameterReflection;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Reflection\PassedByReference;
 use PHPStan\Reflection\Php\PhpFunctionFromParserNodeReflection;
 use PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection;
@@ -1133,7 +1134,11 @@ class Scope
 			$methodReflection = $methodCalledOnType->getMethod($node->name, $this);
 
 			$calledOnThis = $node->var instanceof Variable && is_string($node->var->name) && $node->var->name === 'this';
-			$methodReturnType = $methodReflection->getReturnType();
+			$methodReturnType = ParametersAcceptorSelector::selectFromArgs(
+				$this,
+				$node->args,
+				$methodReflection->getVariants()
+			)->getReturnType();
 			if ($methodReturnType instanceof StaticResolvableType) {
 				if ($calledOnThis) {
 					if ($this->isInClass()) {
@@ -1144,7 +1149,7 @@ class Scope
 				}
 			}
 
-			return $methodReflection->getReturnType();
+			return $methodReturnType;
 		}
 
 		if ($node instanceof Expr\StaticCall && is_string($node->name)) {
@@ -1172,7 +1177,12 @@ class Scope
 					return $dynamicStaticMethodReturnTypeExtension->getTypeFromStaticMethodCall($staticMethodReflection, $node, $this);
 				}
 			}
-			if ($staticMethodReflection->getReturnType() instanceof StaticResolvableType) {
+			$staticMethodReturnType = ParametersAcceptorSelector::selectFromArgs(
+				$this,
+				$node->args,
+				$staticMethodReflection->getVariants()
+			)->getReturnType();
+			if ($staticMethodReturnType instanceof StaticResolvableType) {
 				if ($node->class instanceof Name) {
 					$nodeClassString = strtolower((string) $node->class);
 					if (in_array($nodeClassString, [
@@ -1180,14 +1190,14 @@ class Scope
 						'static',
 						'parent',
 					], true) && $this->isInClass()) {
-						return $staticMethodReflection->getReturnType()->changeBaseClass($this->getClassReflection()->getName());
+						return $staticMethodReturnType->changeBaseClass($this->getClassReflection()->getName());
 					}
 				}
 				if (count($referencedClasses) === 1) {
-					return $staticMethodReflection->getReturnType()->resolveStatic($referencedClasses[0]);
+					return $staticMethodReturnType->resolveStatic($referencedClasses[0]);
 				}
 			}
-			return $staticMethodReflection->getReturnType();
+			return $staticMethodReturnType;
 		}
 
 		if ($node instanceof PropertyFetch && is_string($node->name)) {
@@ -1220,7 +1230,11 @@ class Scope
 					return new ErrorType();
 				}
 
-				return $calledOnType->getCallableParametersAcceptor($this)->getReturnType();
+				return ParametersAcceptorSelector::selectFromArgs(
+					$this,
+					$node->args,
+					$calledOnType->getCallableParametersAcceptors($this)
+				)->getReturnType();
 			}
 
 			if (!$this->broker->hasFunction($node->name, $this)) {
@@ -1236,7 +1250,11 @@ class Scope
 				return $dynamicFunctionReturnTypeExtension->getTypeFromFunctionCall($functionReflection, $node, $this);
 			}
 
-			return $functionReflection->getReturnType();
+			return ParametersAcceptorSelector::selectFromArgs(
+				$this,
+				$node->args,
+				$functionReflection->getVariants()
+			)->getReturnType();
 		}
 
 		return new MixedType();
@@ -1489,14 +1507,12 @@ class Scope
 		);
 	}
 
-	/**
-	 * @param \PHPStan\Reflection\FunctionReflection|\PHPStan\Reflection\MethodReflection $functionReflection
-	 * @return self
-	 */
-	private function enterFunctionLike($functionReflection): self
+	private function enterFunctionLike(
+		PhpFunctionFromParserNodeReflection $functionReflection
+	): self
 	{
 		$variableTypes = $this->getVariableTypes();
-		foreach ($functionReflection->getParameters() as $parameter) {
+		foreach (ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getParameters() as $parameter) {
 			$variableTypes[$parameter->getName()] = VariableTypeHolder::createYes($parameter->getType());
 		}
 

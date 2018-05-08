@@ -10,6 +10,7 @@ use PHPStan\Analyser\TypeSpecifierAwareExtension;
 use PHPStan\Analyser\TypeSpecifierContext;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\MethodTypeSpecifyingExtension;
 use PHPStan\Type\TypeCombinator;
 
@@ -75,11 +76,14 @@ class ScopeIsInClassTypeSpecifyingExtension implements MethodTypeSpecifyingExten
 	): SpecifiedTypes
 	{
 		$scopeClass = $this->broker->getClass(Scope::class);
+		$methodVariants = $scopeClass
+			->getMethod($this->removeNullMethodName, $scope)
+			->getVariants();
 
 		return $this->typeSpecifier->create(
 			new MethodCall($node->var, $this->removeNullMethodName),
 			TypeCombinator::removeNull(
-				$scopeClass->getMethod($this->removeNullMethodName, $scope)->getReturnType()
+				ParametersAcceptorSelector::selectSingle($methodVariants)->getReturnType()
 			),
 			$context
 		);

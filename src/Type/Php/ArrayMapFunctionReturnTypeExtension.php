@@ -5,6 +5,7 @@ namespace PHPStan\Type\Php;
 use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\MixedType;
@@ -23,13 +24,17 @@ class ArrayMapFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFuncti
 	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
 	{
 		if (count($functionCall->args) < 2) {
-			return $functionReflection->getReturnType();
+			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
 		}
 
 		$valueType = new MixedType();
 		$callableType = $scope->getType($functionCall->args[0]->value);
 		if (!$callableType->isCallable()->no()) {
-			$valueType = $callableType->getCallableParametersAcceptor($scope)->getReturnType();
+			$valueType = ParametersAcceptorSelector::selectFromArgs(
+				$scope,
+				$functionCall->args,
+				$callableType->getCallableParametersAcceptors($scope)
+			)->getReturnType();
 		}
 
 		$arrayType = $scope->getType($functionCall->args[1]->value);

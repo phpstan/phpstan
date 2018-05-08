@@ -3,10 +3,8 @@
 namespace PHPStan\Type;
 
 use PHPStan\Analyser\Scope;
-use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
-use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Traits\TruthyBooleanTypeTrait;
@@ -141,56 +139,12 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 
 	public function getIterableKeyType(): Type
 	{
-		$broker = Broker::getInstance();
-
-		if (!$broker->hasClass($this->baseClass)) {
-			return new ErrorType();
-		}
-
-		$classReflection = $broker->getClass($this->baseClass);
-
-		if ($classReflection->isSubclassOf(\Iterator::class) && $classReflection->hasNativeMethod('key')) {
-			return $classReflection->getNativeMethod('key')->getReturnType();
-		}
-
-		if ($classReflection->isSubclassOf(\IteratorAggregate::class) && $classReflection->hasNativeMethod('getIterator')) {
-			return RecursionGuard::run($this, function () use ($classReflection) {
-				return $classReflection->getNativeMethod('getIterator')->getReturnType()->getIterableKeyType();
-			});
-		}
-
-		if ($classReflection->isSubclassOf(\Traversable::class)) {
-			return new MixedType();
-		}
-
-		return new ErrorType();
+		return $this->staticObjectType->getIterableKeyType();
 	}
 
 	public function getIterableValueType(): Type
 	{
-		$broker = Broker::getInstance();
-
-		if (!$broker->hasClass($this->baseClass)) {
-			return new ErrorType();
-		}
-
-		$classReflection = $broker->getClass($this->baseClass);
-
-		if ($classReflection->isSubclassOf(\Iterator::class) && $classReflection->hasNativeMethod('current')) {
-			return $classReflection->getNativeMethod('current')->getReturnType();
-		}
-
-		if ($classReflection->isSubclassOf(\IteratorAggregate::class) && $classReflection->hasNativeMethod('getIterator')) {
-			return RecursionGuard::run($this, function () use ($classReflection) {
-				return $classReflection->getNativeMethod('getIterator')->getReturnType()->getIterableValueType();
-			});
-		}
-
-		if ($classReflection->isSubclassOf(\Traversable::class)) {
-			return new MixedType();
-		}
-
-		return new ErrorType();
+		return $this->staticObjectType->getIterableValueType();
 	}
 
 	public function isOffsetAccessible(): TrinaryLogic
@@ -213,9 +167,13 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 		return $this->staticObjectType->isCallable();
 	}
 
-	public function getCallableParametersAcceptor(Scope $scope): ParametersAcceptor
+	/**
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @return \PHPStan\Reflection\ParametersAcceptor[]
+	 */
+	public function getCallableParametersAcceptors(Scope $scope): array
 	{
-		return $this->staticObjectType->getCallableParametersAcceptor($scope);
+		return $this->staticObjectType->getCallableParametersAcceptors($scope);
 	}
 
 	public function isCloneable(): TrinaryLogic

@@ -53,6 +53,7 @@ use PHPStan\File\FileHelper;
 use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\PhpDocBlock;
 use PHPStan\PhpDoc\Tag\ParamTag;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\CommentHelper;
@@ -1640,13 +1641,21 @@ class NodeScopeResolver
 	{
 		if ($functionCall instanceof FuncCall && $functionCall->name instanceof Name) {
 			if ($this->broker->hasFunction($functionCall->name, $scope)) {
-				return $this->broker->getFunction($functionCall->name, $scope);
+				return ParametersAcceptorSelector::selectFromArgs(
+					$scope,
+					$functionCall->args,
+					$this->broker->getFunction($functionCall->name, $scope)->getVariants()
+				);
 			}
 		} elseif ($functionCall instanceof MethodCall && is_string($functionCall->name)) {
 			$type = $scope->getType($functionCall->var);
 			$methodName = $functionCall->name;
 			if ($type->hasMethod($methodName)) {
-				return $type->getMethod($methodName, $scope);
+				return ParametersAcceptorSelector::selectFromArgs(
+					$scope,
+					$functionCall->args,
+					$type->getMethod($methodName, $scope)->getVariants()
+				);
 			}
 		} elseif (
 			$functionCall instanceof Expr\StaticCall
@@ -1656,7 +1665,11 @@ class NodeScopeResolver
 			if ($this->broker->hasClass($className)) {
 				$classReflection = $this->broker->getClass($className);
 				if ($classReflection->hasMethod($functionCall->name)) {
-					return $classReflection->getMethod($functionCall->name, $scope);
+					return ParametersAcceptorSelector::selectFromArgs(
+						$scope,
+						$functionCall->args,
+						$classReflection->getMethod($functionCall->name, $scope)->getVariants()
+					);
 				}
 			}
 		}

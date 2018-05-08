@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Rules\FunctionCallParametersCheck;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
@@ -114,6 +115,11 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 
 		$errors = array_merge($errors, $this->check->check(
 			$methodReflection,
+			ParametersAcceptorSelector::selectFromArgs(
+				$scope,
+				$node->args,
+				$methodReflection->getVariants()
+			),
 			$scope,
 			$node,
 			[

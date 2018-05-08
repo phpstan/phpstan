@@ -36,17 +36,24 @@ class FunctionCallParametersCheck
 	}
 
 	/**
-	 * @param \PHPStan\Reflection\ParametersAcceptor $function
+	 * @param FunctionReflection|MethodReflection|null $reflection
+	 * @param \PHPStan\Reflection\ParametersAcceptor $parametersAcceptor
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|\PhpParser\Node\Expr\New_ $funcCall
 	 * @param string[] $messages Eight message templates
 	 * @return string[]
 	 */
-	public function check(ParametersAcceptor $function, Scope $scope, $funcCall, array $messages): array
+	public function check(
+		$reflection,
+		ParametersAcceptor $parametersAcceptor,
+		Scope $scope,
+		$funcCall,
+		array $messages
+	): array
 	{
 		if (
-			$function instanceof FunctionReflection
-			&& in_array($function->getName(), [
+			$reflection instanceof FunctionReflection
+			&& in_array($reflection->getName(), [
 				'implode',
 				'strtok',
 			], true)
@@ -54,23 +61,23 @@ class FunctionCallParametersCheck
 			$functionParametersMinCount = 1;
 			$functionParametersMaxCount = 2;
 		} elseif (
-			$function instanceof MethodReflection
-			&& $function->getDeclaringClass()->getName() === 'DatePeriod'
-			&& $function->getName() === '__construct'
+			$reflection instanceof MethodReflection
+			&& $reflection->getDeclaringClass()->getName() === 'DatePeriod'
+			&& $reflection->getName() === '__construct'
 		) {
 			$functionParametersMinCount = 1;
 			$functionParametersMaxCount = 4;
 		} elseif (
-			$function instanceof MethodReflection
-			&& $function->getDeclaringClass()->getName() === 'mysqli'
-			&& $function->getName() === 'query'
+			$reflection instanceof MethodReflection
+			&& $reflection->getDeclaringClass()->getName() === 'mysqli'
+			&& $reflection->getName() === 'query'
 		) {
 			$functionParametersMinCount = 1;
 			$functionParametersMaxCount = 2;
 		} else {
 			$functionParametersMinCount = 0;
 			$functionParametersMaxCount = 0;
-			foreach ($function->getParameters() as $parameter) {
+			foreach ($parametersAcceptor->getParameters() as $parameter) {
 				if (!$parameter->isOptional()) {
 					$functionParametersMinCount++;
 				}
@@ -78,7 +85,7 @@ class FunctionCallParametersCheck
 				$functionParametersMaxCount++;
 			}
 
-			if ($function->isVariadic()) {
+			if ($parametersAcceptor->isVariadic()) {
 				$functionParametersMaxCount = -1;
 			}
 		}
@@ -116,7 +123,7 @@ class FunctionCallParametersCheck
 		}
 
 		if (
-			$function->getReturnType() instanceof VoidType
+			$parametersAcceptor->getReturnType() instanceof VoidType
 			&& !$scope->isInFirstLevelStatement()
 			&& !$funcCall instanceof \PhpParser\Node\Expr\New_
 		) {
@@ -127,13 +134,13 @@ class FunctionCallParametersCheck
 			return $errors;
 		}
 
-		$parameters = $function->getParameters();
+		$parameters = $parametersAcceptor->getParameters();
 
 		/** @var array<int, \PhpParser\Node\Arg> $args */
 		$args = $funcCall->args;
 		foreach ($args as $i => $argument) {
 			if (!isset($parameters[$i])) {
-				if (!$function->isVariadic() || count($parameters) === 0) {
+				if (!$parametersAcceptor->isVariadic() || count($parameters) === 0) {
 					break;
 				}
 

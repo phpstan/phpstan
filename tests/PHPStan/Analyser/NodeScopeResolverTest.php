@@ -10,6 +10,7 @@ use PHPStan\Cache\Cache;
 use PHPStan\File\FileHelper;
 use PHPStan\PhpDoc\PhpDocStringResolver;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Tests\AssertionClassMethodTypeSpecifyingExtension;
 use PHPStan\Tests\AssertionClassStaticMethodTypeSpecifyingExtension;
 use PHPStan\TrinaryLogic;
@@ -3418,16 +3419,16 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 					{
 						$args = $methodCall->args;
 						if (count($args) === 0) {
-							return $methodReflection->getReturnType();
+							return ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
 						}
 
 						$arg = $args[0]->value;
 						if (!($arg instanceof \PhpParser\Node\Expr\ClassConstFetch)) {
-							return $methodReflection->getReturnType();
+							return ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
 						}
 
 						if (!($arg->class instanceof \PhpParser\Node\Name)) {
-							return $methodReflection->getReturnType();
+							return ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
 						}
 
 						return new ObjectType((string) $arg->class);
@@ -3451,16 +3452,16 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 					{
 						$args = $methodCall->args;
 						if (count($args) === 0) {
-							return $methodReflection->getReturnType();
+							return ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
 						}
 
 						$arg = $args[0]->value;
 						if (!($arg instanceof \PhpParser\Node\Expr\ClassConstFetch)) {
-							return $methodReflection->getReturnType();
+							return ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
 						}
 
 						if (!($arg->class instanceof \PhpParser\Node\Name)) {
-							return $methodReflection->getReturnType();
+							return ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
 						}
 
 						return new ObjectType((string) $arg->class);

@@ -2,6 +2,7 @@
 
 namespace PHPStan\Reflection\Native;
 
+use PHPStan\Reflection\FunctionVariant;
 use PHPStan\Type\Type;
 
 class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
@@ -56,21 +57,13 @@ class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
 	}
 
 	/**
-	 * @return \PHPStan\Reflection\ParameterReflection[]
+	 * @return \PHPStan\Reflection\ParametersAcceptor[]
 	 */
-	public function getParameters(): array
+	public function getVariants(): array
 	{
-		return $this->parameters;
-	}
-
-	public function isVariadic(): bool
-	{
-		return $this->variadic;
-	}
-
-	public function getReturnType(): Type
-	{
-		return $this->returnType;
+		return [
+			new FunctionVariant($this->parameters, $this->variadic, $this->returnType),
+		];
 	}
 
 	public function getThrowType(): ?Type

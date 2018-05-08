@@ -7,6 +7,8 @@ use PHPStan\Cache\Cache;
 use PHPStan\Parser\FunctionCallStatementFinder;
 use PHPStan\Parser\Parser;
 use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Reflection\FunctionVariantWithPhpDocs;
+use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
@@ -18,7 +20,7 @@ use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypehintHelper;
 
-class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWithPhpDocs
+class PhpFunctionReflection implements FunctionReflection
 {
 
 	/** @var \ReflectionFunction */
@@ -91,9 +93,25 @@ class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWit
 	}
 
 	/**
-	 * @return \PHPStan\Reflection\ParameterReflection[]
+	 * @return ParametersAcceptorWithPhpDocs[]
 	 */
-	public function getParameters(): array
+	public function getVariants(): array
+	{
+		return [
+			new FunctionVariantWithPhpDocs(
+				$this->getParameters(),
+				$this->isVariadic(),
+				$this->getReturnType(),
+				$this->getPhpDocReturnType(),
+				$this->getNativeReturnType()
+			),
+		];
+	}
+
+	/**
+	 * @return \PHPStan\Reflection\Php\PhpParameterReflection[]
+	 */
+	private function getParameters(): array
 	{
 		if ($this->parameters === null) {
 			$this->parameters = array_map(function (\ReflectionParameter $reflection) {
@@ -102,6 +120,7 @@ class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWit
 					isset($this->phpDocParameterTypes[$reflection->getName()]) ? $this->phpDocParameterTypes[$reflection->getName()] : null
 				);
 			}, $this->reflection->getParameters());
+
 			if (
 				$this->reflection->getName() === 'fputcsv'
 				&& count($this->parameters) === 4
@@ -245,7 +264,7 @@ class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWit
 		return $this->parameters;
 	}
 
-	public function isVariadic(): bool
+	private function isVariadic(): bool
 	{
 		$isNativelyVariadic = $this->reflection->isVariadic();
 		if (!$isNativelyVariadic && $this->reflection->getFileName() !== false) {
@@ -285,7 +304,7 @@ class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWit
 				$functionName = (string) $node->namespacedName;
 
 				if ($functionName === $this->reflection->getName()) {
-					return $this->functionCallStatementFinder->findFunctionCallInStatements(self::VARIADIC_FUNCTIONS, $node->getStmts()) !== null;
+					return $this->functionCallStatementFinder->findFunctionCallInStatements(ParametersAcceptor::VARIADIC_FUNCTIONS, $node->getStmts()) !== null;
 				}
 
 				continue;
@@ -299,7 +318,7 @@ class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWit
 		return false;
 	}
 
-	public function getReturnType(): Type
+	private function getReturnType(): Type
 	{
 		if ($this->returnType === null) {
 			if ($this->reflection->getName() === 'count') {
@@ -323,7 +342,7 @@ class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWit
 		return $this->returnType;
 	}
 
-	public function getPhpDocReturnType(): Type
+	private function getPhpDocReturnType(): Type
 	{
 		if ($this->phpDocReturnType !== null) {
 			return $this->phpDocReturnType;
@@ -332,7 +351,7 @@ class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWit
 		return new MixedType();
 	}
 
-	public function getNativeReturnType(): Type
+	private function getNativeReturnType(): Type
 	{
 		if ($this->nativeReturnType === null) {
 			$this->nativeReturnType = TypehintHelper::decideTypeFromReflection($this->reflection->getReturnType());

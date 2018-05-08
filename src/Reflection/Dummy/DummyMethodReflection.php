@@ -6,8 +6,7 @@ use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
-use PHPStan\Type\MixedType;
-use PHPStan\Type\Type;
+use PHPStan\Reflection\TrivialParametersAcceptor;
 
 class DummyMethodReflection implements MethodReflection
 {
@@ -53,21 +52,13 @@ class DummyMethodReflection implements MethodReflection
 	}
 
 	/**
-	 * @return \PHPStan\Reflection\ParameterReflection[]
+	 * @return \PHPStan\Reflection\ParametersAcceptor[]
 	 */
-	public function getParameters(): array
+	public function getVariants(): array
 	{
-		return [];
-	}
-
-	public function isVariadic(): bool
-	{
-		return true;
-	}
-
-	public function getReturnType(): Type
-	{
-		return new MixedType();
+		return [
+			new TrivialParametersAcceptor(),
+		];
 	}
 
 }

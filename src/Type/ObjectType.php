@@ -6,7 +6,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
-use PHPStan\Reflection\ParametersAcceptor;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Reflection\TrivialParametersAcceptor;
@@ -308,12 +308,14 @@ class ObjectType implements TypeWithClassName
 		$classReflection = $broker->getClass($this->className);
 
 		if ($classReflection->isSubclassOf(\Iterator::class) && $classReflection->hasNativeMethod('key')) {
-			return $classReflection->getNativeMethod('key')->getReturnType();
+			return ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('key')->getVariants())->getReturnType();
 		}
 
 		if ($classReflection->isSubclassOf(\IteratorAggregate::class) && $classReflection->hasNativeMethod('getIterator')) {
 			return RecursionGuard::run($this, function () use ($classReflection) {
-				return $classReflection->getNativeMethod('getIterator')->getReturnType()->getIterableKeyType();
+				return ParametersAcceptorSelector::selectSingle(
+					$classReflection->getNativeMethod('getIterator')->getVariants()
+				)->getReturnType()->getIterableKeyType();
 			});
 		}
 
@@ -335,12 +337,16 @@ class ObjectType implements TypeWithClassName
 		$classReflection = $broker->getClass($this->className);
 
 		if ($classReflection->isSubclassOf(\Iterator::class) && $classReflection->hasNativeMethod('current')) {
-			return $classReflection->getNativeMethod('current')->getReturnType();
+			return ParametersAcceptorSelector::selectSingle(
+				$classReflection->getNativeMethod('current')->getVariants()
+			)->getReturnType();
 		}
 
 		if ($classReflection->isSubclassOf(\IteratorAggregate::class) && $classReflection->hasNativeMethod('getIterator')) {
 			return RecursionGuard::run($this, function () use ($classReflection) {
-				return $classReflection->getNativeMethod('getIterator')->getReturnType()->getIterableValueType();
+				return ParametersAcceptorSelector::selectSingle(
+					$classReflection->getNativeMethod('getIterator')->getVariants()
+				)->getReturnType()->getIterableValueType();
 			});
 		}
 
@@ -369,7 +375,7 @@ class ObjectType implements TypeWithClassName
 		if ($classReflection->isSubclassOf(\ArrayAccess::class)) {
 			if ($classReflection->hasNativeMethod('offsetGet')) {
 				return RecursionGuard::run($this, function () use ($classReflection) {
-					return $classReflection->getNativeMethod('offsetGet')->getReturnType();
+					return ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('offsetGet')->getVariants())->getReturnType();
 				});
 			}
 
@@ -387,46 +393,56 @@ class ObjectType implements TypeWithClassName
 
 	public function isCallable(): TrinaryLogic
 	{
-		$parametersAcceptor = $this->findCallableParametersAcceptor();
-		if ($parametersAcceptor === null) {
+		$parametersAcceptors = $this->findCallableParametersAcceptors();
+		if ($parametersAcceptors === null) {
 			return TrinaryLogic::createNo();
 		}
 
-		if ($parametersAcceptor instanceof TrivialParametersAcceptor) {
+		if (
+			count($parametersAcceptors) === 1
+			&& $parametersAcceptors[0] instanceof TrivialParametersAcceptor
+		) {
 			return TrinaryLogic::createMaybe();
 		}
 
 		return TrinaryLogic::createYes();
 	}
 
-	public function getCallableParametersAcceptor(Scope $scope): ParametersAcceptor
+	/**
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @return \PHPStan\Reflection\ParametersAcceptor[]
+	 */
+	public function getCallableParametersAcceptors(Scope $scope): array
 	{
 		if ($this->className === \Closure::class) {
-			return new TrivialParametersAcceptor();
+			return [new TrivialParametersAcceptor()];
 		}
-		$parametersAcceptor = $this->findCallableParametersAcceptor();
-		if ($parametersAcceptor === null) {
+		$parametersAcceptors = $this->findCallableParametersAcceptors();
+		if ($parametersAcceptors === null) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
-		return $parametersAcceptor;
+		return $parametersAcceptors;
 	}
 
-	private function findCallableParametersAcceptor(): ?ParametersAcceptor
+	/**
+	 * @return \PHPStan\Reflection\ParametersAcceptor[]|null
+	 */
+	private function findCallableParametersAcceptors(): ?array
 	{
 		$broker = Broker::getInstance();
 
 		if (!$broker->hasClass($this->className)) {
-			return new TrivialParametersAcceptor();
+			return [new TrivialParametersAcceptor()];
 		}
 
 		$classReflection = $broker->getClass($this->className);
 		if ($classReflection->hasNativeMethod('__invoke')) {
-			return $classReflection->getNativeMethod('__invoke');
+			return $classReflection->getNativeMethod('__invoke')->getVariants();
 		}
 
 		if (!$classReflection->getNativeReflection()->isFinal()) {
-			return new TrivialParametersAcceptor();
+			return [new TrivialParametersAcceptor()];
 		}
 
 		return null;

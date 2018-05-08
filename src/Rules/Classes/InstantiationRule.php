@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\New_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Rules\ClassCaseSensitivityCheck;
 use PHPStan\Rules\FunctionCallParametersCheck;
 use PHPStan\Type\ObjectType;
@@ -141,6 +142,11 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 
 		return array_merge($messages, $this->check->check(
 			$constructorReflection,
+			ParametersAcceptorSelector::selectFromArgs(
+				$scope,
+				$node->args,
+				$constructorReflection->getVariants()
+			),
 			$scope,
 			$node,
 			[

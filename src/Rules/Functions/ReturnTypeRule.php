@@ -5,6 +5,7 @@ namespace PHPStan\Rules\Functions;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Reflection\Php\PhpFunctionFromParserNodeReflection;
 use PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection;
 use PHPStan\Rules\FunctionReturnTypeCheck;
@@ -55,7 +56,7 @@ class ReturnTypeRule implements \PHPStan\Rules\Rule
 
 		return $this->returnTypeCheck->checkReturnType(
 			$scope,
-			$function->getReturnType(),
+			ParametersAcceptorSelector::selectSingle($function->getVariants())->getReturnType(),
 			$node->expr,
 			sprintf(
 				'Function %s() should return %%s but empty return statement found.',

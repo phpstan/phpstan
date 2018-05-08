@@ -88,7 +88,7 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 		return $this->getClassMethod()->isPublic();
 	}
 
-	public function getReturnType(): Type
+	protected function getReturnType(): Type
 	{
 		$name = strtolower($this->getName());
 		if (

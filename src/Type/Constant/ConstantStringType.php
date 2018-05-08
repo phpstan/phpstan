@@ -5,7 +5,7 @@ namespace PHPStan\Type\Constant;
 use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
-use PHPStan\Reflection\ParametersAcceptor;
+use PHPStan\Reflection\InaccessibleMethod;
 use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\ConstantScalarType;
@@ -82,30 +82,39 @@ class ConstantStringType extends StringType implements ConstantScalarType
 		return TrinaryLogic::createNo();
 	}
 
-	public function getCallableParametersAcceptor(Scope $scope): ParametersAcceptor
+	/**
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @return \PHPStan\Reflection\ParametersAcceptor[]
+	 */
+	public function getCallableParametersAcceptors(Scope $scope): array
 	{
 		$broker = Broker::getInstance();
 
 		// 'my_function'
 		$functionName = new Name($this->value);
 		if ($broker->hasFunction($functionName, null)) {
-			return $broker->getFunction($functionName, null);
+			return $broker->getFunction($functionName, null)->getVariants();
 		}
 
 		// 'MyClass::myStaticFunction'
 		$matches = \Nette\Utils\Strings::match($this->value, '#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\z#');
 		if ($matches !== null) {
 			if (!$broker->hasClass($matches[1])) {
-				return new TrivialParametersAcceptor();
+				return [new TrivialParametersAcceptor()];
 			}
 
 			$classReflection = $broker->getClass($matches[1]);
 			if ($classReflection->hasMethod($matches[2])) {
-				return $classReflection->getMethod($matches[2], $scope);
+				$method = $classReflection->getMethod($matches[2], $scope);
+				if (!$scope->canCallMethod($method)) {
+					return [new InaccessibleMethod($method)];
+				}
+
+				return $method->getVariants();
 			}
 
 			if (!$classReflection->getNativeReflection()->isFinal()) {
-				return new TrivialParametersAcceptor();
+				return [new TrivialParametersAcceptor()];
 			}
 		}
 

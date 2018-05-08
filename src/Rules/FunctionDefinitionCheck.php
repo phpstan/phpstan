@@ -9,6 +9,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
 use PHPStan\Reflection\Php\PhpMethodReflection;
 use PHPStan\Type\NonexistentParentClassType;
@@ -78,8 +79,12 @@ class FunctionDefinitionCheck
 			if (!$nativeMethod instanceof PhpMethodReflection) {
 				return [];
 			}
+
+			/** @var \PHPStan\Reflection\ParametersAcceptorWithPhpDocs $parametersAcceptor */
+			$parametersAcceptor = ParametersAcceptorSelector::selectSingle($nativeMethod->getVariants());
+
 			return $this->checkParametersAcceptor(
-				$nativeMethod,
+				$parametersAcceptor,
 				$parameterMessage,
 				$returnMessage
 			);
@@ -96,8 +101,11 @@ class FunctionDefinitionCheck
 
 			$functionReflection = $this->broker->getCustomFunction($functionNameName, null);
 
+			/** @var \PHPStan\Reflection\ParametersAcceptorWithPhpDocs $parametersAcceptor */
+			$parametersAcceptor = ParametersAcceptorSelector::selectSingle($functionReflection->getVariants());
+
 			return $this->checkParametersAcceptor(
-				$functionReflection,
+				$parametersAcceptor,
 				$parameterMessage,
 				$returnMessage
 			);

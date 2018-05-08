@@ -4,6 +4,7 @@ namespace PHPStan\Type\Php;
 
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\StringType;
@@ -25,7 +26,7 @@ class PathinfoFunctionDynamicReturnTypeExtension implements \PHPStan\Type\Dynami
 	{
 		$argsCount = count($functionCall->args);
 		if ($argsCount === 0) {
-			return $functionReflection->getReturnType();
+			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
 		} elseif ($argsCount === 1) {
 			$stringType = new StringType();
 

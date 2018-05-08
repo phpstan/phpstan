@@ -5,6 +5,7 @@ namespace PHPStan\Type\Php;
 use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantStringType;
@@ -27,7 +28,7 @@ class ExplodeFunctionDynamicReturnTypeExtension implements \PHPStan\Type\Dynamic
 	): Type
 	{
 		if (count($functionCall->args) < 2) {
-			return $functionReflection->getReturnType();
+			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
 		}
 
 		$delimiterType = $scope->getType($functionCall->args[0]->value);
@@ -38,7 +39,7 @@ class ExplodeFunctionDynamicReturnTypeExtension implements \PHPStan\Type\Dynamic
 			return new ArrayType(new IntegerType(), new StringType(), true);
 		}
 
-		return $functionReflection->getReturnType();
+		return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
 	}
 
 }

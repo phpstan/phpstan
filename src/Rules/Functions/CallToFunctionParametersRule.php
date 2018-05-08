@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Rules\FunctionCallParametersCheck;
 
 class CallToFunctionParametersRule implements \PHPStan\Rules\Rule
@@ -47,6 +48,11 @@ class CallToFunctionParametersRule implements \PHPStan\Rules\Rule
 
 		return $this->check->check(
 			$function,
+			ParametersAcceptorSelector::selectFromArgs(
+				$scope,
+				$node->args,
+				$function->getVariants()
+			),
 			$scope,
 			$node,
 			[

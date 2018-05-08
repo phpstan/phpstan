@@ -5,6 +5,7 @@ namespace PHPStan\Type\Php;
 use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\DynamicFunctionReturnTypeExtension;
 use PHPStan\Type\MixedType;
@@ -35,7 +36,7 @@ class ReplaceFunctionsDynamicReturnTypeExtension implements DynamicFunctionRetur
 	{
 		$argumentPosition = $this->functions[$functionReflection->getName()];
 		if (count($functionCall->args) <= $argumentPosition) {
-			return $functionReflection->getReturnType();
+			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
 		}
 
 		$subjectArgumentType = $scope->getType($functionCall->args[$argumentPosition]->value);
@@ -54,7 +55,7 @@ class ReplaceFunctionsDynamicReturnTypeExtension implements DynamicFunctionRetur
 			return $subjectArgumentType;
 		}
 
-		return $functionReflection->getReturnType();
+		return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
 	}
 
 }
