@@ -75,4 +75,9 @@ if (doFoo()) {
 	$conditionalKeysArray['lorem'] = 1;
 }
 
+$microtimeStringWithoutArg = microtime();
+$microtimeString = microtime(false);
+$microtimeFloat = microtime(true);
+$microtimeDefault = microtime(null);
+
 die;
