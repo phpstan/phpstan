@@ -3992,6 +3992,22 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array(\'foo\' => stdClass, \'bar\' => stdClass, ?\'baz\' => stdClass, ?\'lorem\' => stdClass)',
 				'array_map(function (): \stdClass {}, $conditionalKeysArray)',
 			],
+			[
+				'string',
+				'$microtimeStringWithoutArg',
+			],
+			[
+				'string',
+				'$microtimeString',
+			],
+			[
+				'float',
+				'$microtimeFloat',
+			],
+			[
+				'float|string',
+				'$microtimeDefault',
+			],
 		];
 	}
 
