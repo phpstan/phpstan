@@ -12,7 +12,6 @@ use PHPStan\PhpDoc\Tag\ThrowsTag;
 use PHPStan\PhpDoc\Tag\VarTag;
 use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNullNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
-use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ThrowsTagValueNode;
 use PHPStan\Reflection\PassedByReference;
 use PHPStan\Type\ArrayType;
@@ -200,16 +199,9 @@ class PhpDocNodeResolver
 
 	private function resolveThrowsTags(PhpDocNode $phpDocNode, NameScope $nameScope): ?\PHPStan\PhpDoc\Tag\ThrowsTag
 	{
-		$throwsTagValues = array_column(
-			array_filter($phpDocNode->getTagsByName('@throws'), function (PhpDocTagNode $tag): bool {
-				return $tag->value instanceof ThrowsTagValueNode;
-			}),
-			'value'
-		);
-
 		$types = array_map(function (ThrowsTagValueNode $throwsTagValue) use ($nameScope): Type {
 			return $this->typeNodeResolver->resolve($throwsTagValue->type, $nameScope);
-		}, $throwsTagValues);
+		}, $phpDocNode->getThrowsTagValues());
 
 		if (count($types) === 0) {
 			return null;
