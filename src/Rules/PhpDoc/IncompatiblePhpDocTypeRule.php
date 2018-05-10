@@ -132,7 +132,10 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 		$nativeParameterTypes = [];
 		foreach ($node->getParams() as $parameter) {
 			$isNullable = $scope->isParameterValueNullable($parameter);
-			$nativeParameterTypes[$parameter->name] = $scope->getFunctionType(
+			if (!is_string($parameter->var->name)) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+			$nativeParameterTypes[$parameter->var->name] = $scope->getFunctionType(
 				$parameter->type,
 				$isNullable,
 				$parameter->variadic

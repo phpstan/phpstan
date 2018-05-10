@@ -222,7 +222,7 @@ class TypeSpecifier
 			if ($defaultHandleFunctions) {
 				return $this->handleDefaultTruthyOrFalseyContext($context, $expr);
 			}
-		} elseif ($expr instanceof MethodCall && is_string($expr->name)) {
+		} elseif ($expr instanceof MethodCall && $expr->name instanceof Node\Identifier) {
 			$methodCalledOnType = $scope->getType($expr->var);
 			$referencedClasses = $methodCalledOnType->getReferencedClasses();
 			if (
@@ -230,8 +230,8 @@ class TypeSpecifier
 				&& $this->broker->hasClass($referencedClasses[0])
 			) {
 				$methodClassReflection = $this->broker->getClass($referencedClasses[0]);
-				if ($methodClassReflection->hasMethod($expr->name)) {
-					$methodReflection = $methodClassReflection->getMethod($expr->name, $scope);
+				if ($methodClassReflection->hasMethod($expr->name->name)) {
+					$methodReflection = $methodClassReflection->getMethod($expr->name->name, $scope);
 					foreach ($this->getMethodTypeSpecifyingExtensionsForClass($methodClassReflection->getName()) as $extension) {
 						if (!$extension->isMethodSupported($methodReflection, $expr, $context)) {
 							continue;
@@ -245,15 +245,15 @@ class TypeSpecifier
 			if ($defaultHandleFunctions) {
 				return $this->handleDefaultTruthyOrFalseyContext($context, $expr);
 			}
-		} elseif ($expr instanceof StaticCall && is_string($expr->name)) {
+		} elseif ($expr instanceof StaticCall && (is_string($expr->name) || $expr->name instanceof Node\Identifier)) {
 			if ($expr->class instanceof Name) {
 				$calleeType = new ObjectType($scope->resolveName($expr->class));
 			} else {
 				$calleeType = $scope->getType($expr->class);
 			}
 
-			if ($calleeType->hasMethod($expr->name)) {
-				$staticMethodReflection = $calleeType->getMethod($expr->name, $scope);
+			if ($calleeType->hasMethod((string) $expr->name)) {
+				$staticMethodReflection = $calleeType->getMethod((string) $expr->name, $scope);
 				$referencedClasses = $calleeType->getReferencedClasses();
 				if (
 					count($calleeType->getReferencedClasses()) === 1

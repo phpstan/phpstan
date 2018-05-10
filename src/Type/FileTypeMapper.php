@@ -173,7 +173,7 @@ class FileTypeMapper
 								$fileName
 							);
 						} else {
-							$className = ltrim(sprintf('%s\\%s', $namespace, $node->name), '\\');
+							$className = ltrim(sprintf('%s\\%s', $namespace, $node->name->name), '\\');
 						}
 						$classStack[] = $className;
 					}
@@ -207,7 +207,7 @@ class FileTypeMapper
 					return;
 				} elseif ($node instanceof \PhpParser\Node\Stmt\Use_ && $node->type === \PhpParser\Node\Stmt\Use_::TYPE_NORMAL) {
 					foreach ($node->uses as $use) {
-						$uses[strtolower($use->alias)] = (string) $use->name;
+						$uses[strtolower($use->getAlias()->name)] = (string) $use->name;
 					}
 					return;
 				} elseif ($node instanceof \PhpParser\Node\Stmt\GroupUse) {
@@ -217,7 +217,7 @@ class FileTypeMapper
 							continue;
 						}
 
-						$uses[strtolower($use->alias)] = sprintf('%s\\%s', $prefix, $use->name);
+						$uses[strtolower($use->getAlias()->name)] = sprintf('%s\\%s', $prefix, $use->name);
 					}
 					return;
 				} elseif (!in_array(get_class($node), [

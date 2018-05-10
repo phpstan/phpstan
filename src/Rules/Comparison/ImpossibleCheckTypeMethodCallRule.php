@@ -38,7 +38,7 @@ class ImpossibleCheckTypeMethodCallRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		if (!is_string($node->name)) {
+		if (!$node->name instanceof Node\Identifier) {
 			return [];
 		}
 
@@ -48,7 +48,7 @@ class ImpossibleCheckTypeMethodCallRule implements \PHPStan\Rules\Rule
 		}
 
 		if (!$isAlways) {
-			$method = $this->getMethod($node->var, $node->name, $scope);
+			$method = $this->getMethod($node->var, $node->name->name, $scope);
 			return [sprintf(
 				'Call to method %s::%s()%s will always evaluate to false.',
 				$method->getDeclaringClass()->getDisplayName(),
@@ -56,7 +56,7 @@ class ImpossibleCheckTypeMethodCallRule implements \PHPStan\Rules\Rule
 				ImpossibleCheckTypeHelper::getArgumentsDescription($scope, $node->args)
 			)];
 		} elseif ($this->checkAlwaysTrueCheckTypeFunctionCall) {
-			$method = $this->getMethod($node->var, $node->name, $scope);
+			$method = $this->getMethod($node->var, $node->name->name, $scope);
 			return [sprintf(
 				'Call to method %s::%s()%s will always evaluate to true.',
 				$method->getDeclaringClass()->getDisplayName(),

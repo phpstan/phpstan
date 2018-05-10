@@ -268,7 +268,7 @@ class Broker
 		}
 
 		$classNode = $node->class;
-		$classNode->name = $className;
+		$classNode->name = new \PhpParser\Node\Identifier($className);
 		eval($this->printer->prettyPrint([$classNode]));
 		unset($classNode);
 

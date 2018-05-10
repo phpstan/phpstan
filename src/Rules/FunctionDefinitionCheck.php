@@ -75,7 +75,7 @@ class FunctionDefinitionCheck
 			if (!$scope->isInClass()) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
-			$nativeMethod = $scope->getClassReflection()->getNativeMethod($function->name);
+			$nativeMethod = $scope->getClassReflection()->getNativeMethod($function->name->name);
 			if (!$nativeMethod instanceof PhpMethodReflection) {
 				return [];
 			}
@@ -90,7 +90,7 @@ class FunctionDefinitionCheck
 			);
 		}
 		if ($function instanceof Function_) {
-			$functionName = $function->name;
+			$functionName = $function->name->name;
 			if (isset($function->namespacedName)) {
 				$functionName = (string) $function->namespacedName;
 			}
@@ -122,7 +122,10 @@ class FunctionDefinitionCheck
 			}
 
 			if (!$this->broker->hasClass($class)) {
-				$errors[] = sprintf($parameterMessage, $param->name, $class);
+				if (!is_string($param->var->name)) {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
+				$errors[] = sprintf($parameterMessage, $param->var->name, $class);
 			} elseif ($this->checkClassCaseSensitivity) {
 				$errors = array_merge(
 					$errors,

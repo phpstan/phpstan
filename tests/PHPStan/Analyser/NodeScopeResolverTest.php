@@ -6041,9 +6041,9 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				return;
 			}
 
-			/** @var \PhpParser\Node\Expr $expressionNode */
+			/** @var \PhpParser\Node\Stmt\Expression $expressionNode */
 			$expressionNode = $this->getParser()->parseString(sprintf('<?php %s;', $expression))[0];
-			$type = $scope->getType($expressionNode);
+			$type = $scope->getType($expressionNode->expr);
 			$this->assertTypeDescribe(
 				$description,
 				$type,

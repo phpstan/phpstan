@@ -85,7 +85,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 	public function getName(): string
 	{
 		if ($this->functionLike instanceof ClassMethod) {
-			return $this->functionLike->name;
+			return $this->functionLike->name->name;
 		}
 
 		return (string) $this->functionLike->namespacedName;
@@ -113,16 +113,20 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 		if ($this->parameters === null) {
 			$parameters = [];
 			$isOptional = true;
+			/** @var \PhpParser\Node\Param $parameter */
 			foreach (array_reverse($this->functionLike->getParams()) as $parameter) {
 				if (!$isOptional || $parameter->default === null) {
 					$isOptional = false;
 				}
 
+				if (!is_string($parameter->var->name)) {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
 				$parameters[] = new PhpParameterFromParserNodeReflection(
-					$parameter->name,
+					$parameter->var->name,
 					$isOptional,
-					$this->realParameterTypes[$parameter->name],
-					isset($this->phpDocParameterTypes[$parameter->name]) ? $this->phpDocParameterTypes[$parameter->name] : null,
+					$this->realParameterTypes[$parameter->var->name],
+					isset($this->phpDocParameterTypes[$parameter->var->name]) ? $this->phpDocParameterTypes[$parameter->var->name] : null,
 					$parameter->byRef
 						? PassedByReference::createCreatesNewVariable()
 						: PassedByReference::createNo(),

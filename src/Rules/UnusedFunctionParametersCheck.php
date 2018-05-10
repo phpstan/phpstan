@@ -52,7 +52,7 @@ class UnusedFunctionParametersCheck
 				return [$node->name];
 			}
 			if ($node instanceof Node\Expr\ClosureUse) {
-				return [$node->var];
+				return [$node->var->name];
 			}
 			if (
 				$node instanceof Node\Expr\FuncCall

@@ -212,7 +212,7 @@ class NodeScopeResolver
 			} elseif ($node instanceof Node\Stmt\Declare_) {
 				foreach ($node->declares as $declare) {
 					if (
-						$declare->key === 'strict_types'
+						$declare->key->name === 'strict_types'
 						&& $declare->value instanceof Node\Scalar\LNumber
 						&& $declare->value->value === 1
 					) {
@@ -370,9 +370,9 @@ class NodeScopeResolver
 		} elseif (
 			$node instanceof \PhpParser\Node\Expr\StaticCall
 			&& $node->class instanceof \PhpParser\Node\Name
-			&& is_string($node->name)
+			&& (is_string($node->name) || $node->name instanceof Node\Identifier)
 			&& (string) $node->class === 'Closure'
-			&& $node->name === 'bind'
+			&& (string) $node->name === 'bind'
 		) {
 			$thisType = null;
 			if (isset($node->args[1])) {
@@ -391,7 +391,8 @@ class NodeScopeResolver
 					$scopeClass = $argValueType->getReferencedClasses()[0];
 				} elseif (
 					$argValue instanceof Expr\ClassConstFetch
-					&& strtolower($argValue->name) === 'class'
+					&& $argValue->name instanceof Node\Identifier
+					&& strtolower($argValue->name->name) === 'class'
 					&& $argValue->class instanceof Name
 				) {
 					$scopeClass = $scope->resolveName($argValue->class);
@@ -472,9 +473,12 @@ class NodeScopeResolver
 			$this->processNodes($node->stmts, $bodyScope, $nodeCallback);
 			return;
 		} elseif ($node instanceof Catch_) {
+			if (!is_string($node->var->name)) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
 			$scope = $scope->enterCatch(
 				$node->types,
-				$node->var
+				$node->var->name
 			);
 		} elseif ($node instanceof Array_) {
 			$scope = $scope->exitFirstLevelStatements();
@@ -506,14 +510,18 @@ class NodeScopeResolver
 					new StatementList($scope, $node->stmts),
 					new StatementList($scope, []),
 				], LookForAssignsSettings::insideFinally());
+				/** @var Expr\ClosureUse $closureUse */
 				foreach ($usesByRef as $closureUse) {
-					$variableCertainty = $closureScope->hasVariableType($closureUse->var);
+					if (!is_string($closureUse->var->name)) {
+						throw new \PHPStan\ShouldNotHappenException();
+					}
+					$variableCertainty = $closureScope->hasVariableType($closureUse->var->name);
 					if ($variableCertainty->no()) {
 						continue;
 					}
 					$scope = $scope->assignVariable(
-						$closureUse->var,
-						$closureScope->getVariableType($closureUse->var),
+						$closureUse->var->name,
+						$closureScope->getVariableType($closureUse->var->name),
 						$variableCertainty
 					);
 				}
@@ -610,7 +618,8 @@ class NodeScopeResolver
 						$switchConditionGetClassExpression !== null
 						&& $caseNode->cond instanceof Expr\ClassConstFetch
 						&& $caseNode->cond->class instanceof Name
-						&& strtolower($caseNode->cond->name) === 'class'
+						&& $caseNode->cond->name instanceof Node\Identifier
+						&& strtolower($caseNode->cond->name->name) === 'class'
 					) {
 						$caseScope = $caseScope->specifyExpressionType(
 							$switchConditionGetClassExpression,
@@ -655,9 +664,12 @@ class NodeScopeResolver
 					continue;
 				}
 
+				if (!is_string($catch->var->name)) {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
 				$statements[] = new StatementList($scope->enterCatch(
 					$catch->types,
-					$catch->var
+					$catch->var->name
 				), $catch->stmts);
 			}
 
@@ -675,7 +687,8 @@ class NodeScopeResolver
 		} elseif ($node instanceof MethodCall) {
 			if (
 				!(new ObjectType(\Closure::class))->isSuperTypeOf($scope->getType($node->var))->no()
-				&& $node->name === 'call'
+				&& $node->name instanceof Node\Identifier
+				&& $node->name->name === 'call'
 				&& isset($node->args[0])
 			) {
 				$closureCallScope = $scope->enterClosureBind($scope->getType($node->args[0]->value), 'static');
@@ -752,6 +765,10 @@ class NodeScopeResolver
 
 				$this->processNodes($subNode, $scope, $nodeCallback, $argClosureBindScope);
 			} elseif ($subNode instanceof \PhpParser\Node) {
+				if ($node instanceof Expr\ClosureUse && $subNodeName === 'var') {
+					return;
+				}
+
 				if ($node instanceof Coalesce && $subNodeName === 'left') {
 					$scope = $this->ensureNonNullability($scope, $subNode, false);
 				}
@@ -906,16 +923,18 @@ class NodeScopeResolver
 		} elseif ($node instanceof AssignRef) {
 			$scope = $scope->enterExpressionAssign($node->expr);
 		} elseif ($node instanceof Assign && $node->expr instanceof Expr\Closure) {
+			/** @var Expr\ClosureUse $closureUse */
 			foreach ($node->expr->uses as $closureUse) {
 				if (
 					!$closureUse->byRef
 					|| !$node->var instanceof Variable
-					|| $node->var->name !== $closureUse->var
+					|| !is_string($closureUse->var->name)
+					|| $node->var->name !== $closureUse->var->name
 				) {
 					continue;
 				}
 
-				$scope = $scope->enterExpressionAssign(new Variable($closureUse->var));
+				$scope = $scope->enterExpressionAssign(new Variable($closureUse->var->name));
 			}
 		} else {
 			$scope = $scope->enterExpressionAssign($node);
@@ -932,8 +951,11 @@ class NodeScopeResolver
 	): Scope
 	{
 		if ($node instanceof StaticVar) {
+			if (!is_string($node->var->name)) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
 			$scope = $scope->assignVariable(
-				$node->name,
+				$node->var->name,
 				$node->default !== null ? $scope->getType($node->default) : new MixedType(),
 				$certainty
 			);
@@ -970,9 +992,12 @@ class NodeScopeResolver
 				new StatementList($scope, $node->stmts),
 			];
 			foreach ($node->catches as $catch) {
+				if (!is_string($catch->var->name)) {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
 				$statements[] = new StatementList($scope->enterCatch(
 					$catch->types,
-					$catch->var
+					$catch->var->name
 				), array_merge([new Node\Stmt\Nop()], $catch->stmts));
 			}
 
@@ -1245,14 +1270,17 @@ class NodeScopeResolver
 					continue;
 				}
 
-				$variableCertainty = $closureScope->hasVariableType($closureUse->var);
+				if (!is_string($closureUse->var->name)) {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
+				$variableCertainty = $closureScope->hasVariableType($closureUse->var->name);
 				if ($variableCertainty->no()) {
 					continue;
 				}
 
 				$scope = $scope->assignVariable(
-					$closureUse->var,
-					$closureScope->getVariableType($closureUse->var),
+					$closureUse->var->name,
+					$closureScope->getVariableType($closureUse->var->name),
 					$variableCertainty
 				);
 			}
@@ -1580,7 +1608,7 @@ class NodeScopeResolver
 		) {
 			return $statement;
 		} elseif (($statement instanceof MethodCall || $statement instanceof Expr\StaticCall) && count($this->earlyTerminatingMethodCalls) > 0) {
-			if (!is_string($statement->name)) {
+			if (!is_string($statement->name) && !$statement->name instanceof Node\Identifier) {
 				return null;
 			}
 
@@ -1605,7 +1633,7 @@ class NodeScopeResolver
 						continue;
 					}
 
-					if (in_array($statement->name, $this->earlyTerminatingMethodCalls[$className], true)) {
+					if (in_array((string) $statement->name, $this->earlyTerminatingMethodCalls[$className], true)) {
 						return $statement;
 					}
 				}
@@ -1647,9 +1675,9 @@ class NodeScopeResolver
 					$this->broker->getFunction($functionCall->name, $scope)->getVariants()
 				);
 			}
-		} elseif ($functionCall instanceof MethodCall && is_string($functionCall->name)) {
+		} elseif ($functionCall instanceof MethodCall && $functionCall->name instanceof Node\Identifier) {
 			$type = $scope->getType($functionCall->var);
-			$methodName = $functionCall->name;
+			$methodName = $functionCall->name->name;
 			if ($type->hasMethod($methodName)) {
 				return ParametersAcceptorSelector::selectFromArgs(
 					$scope,
@@ -1660,15 +1688,15 @@ class NodeScopeResolver
 		} elseif (
 			$functionCall instanceof Expr\StaticCall
 			&& $functionCall->class instanceof Name
-			&& is_string($functionCall->name)) {
+			&& (is_string($functionCall->name) || $functionCall->name instanceof Node\Identifier)) {
 			$className = $scope->resolveName($functionCall->class);
 			if ($this->broker->hasClass($className)) {
 				$classReflection = $this->broker->getClass($className);
-				if ($classReflection->hasMethod($functionCall->name)) {
+				if ($classReflection->hasMethod((string) $functionCall->name)) {
 					return ParametersAcceptorSelector::selectFromArgs(
 						$scope,
 						$functionCall->args,
-						$classReflection->getMethod($functionCall->name, $scope)->getVariants()
+						$classReflection->getMethod((string) $functionCall->name, $scope)->getVariants()
 					);
 				}
 			}
@@ -1764,7 +1792,7 @@ class NodeScopeResolver
 					$this->broker,
 					$docComment,
 					$scope->getClassReflection()->getName(),
-					$functionLike->name,
+					$functionLike->name->name,
 					$file
 				);
 				$docComment = $phpDocBlock->getDocComment();
