@@ -12,6 +12,7 @@ rules:
 	- PHPStan\Rules\Operators\InvalidUnaryOperationRule
 	- PHPStan\Rules\PhpDoc\IncompatiblePhpDocTypeRule
 	- PHPStan\Rules\PhpDoc\InvalidPhpDocTagValueRule
+	- PHPStan\Rules\PhpDoc\InvalidThrowsPhpDocValueRule
 
 services:
 	-
