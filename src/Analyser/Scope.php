@@ -46,6 +46,7 @@ use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
+use PHPStan\Type\IntersectionType;
 use PHPStan\Type\IterableType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
@@ -1112,12 +1113,17 @@ class Scope
 		if ($node instanceof MethodCall && $node->name instanceof Node\Identifier) {
 			$methodCalledOnType = $this->getType($node->var);
 			$referencedClasses = $methodCalledOnType->getReferencedClasses();
-			if (
-				count($referencedClasses) === 1
-				&& $this->broker->hasClass($referencedClasses[0])
-			) {
-				$methodClassReflection = $this->broker->getClass($referencedClasses[0]);
+			$resolvedTypes = [];
+			foreach ($referencedClasses as $referencedClass) {
+				if (!$this->broker->hasClass($referencedClass)) {
+					continue;
+				}
+
+				$methodClassReflection = $this->broker->getClass($referencedClass);
 				if (!$methodClassReflection->hasMethod($node->name->name)) {
+					if ($methodCalledOnType instanceof IntersectionType) {
+						continue;
+					}
 					return new ErrorType();
 				}
 
@@ -1127,8 +1133,11 @@ class Scope
 						continue;
 					}
 
-					return $dynamicMethodReturnTypeExtension->getTypeFromMethodCall($methodReflection, $node, $this);
+					$resolvedTypes[] = $dynamicMethodReturnTypeExtension->getTypeFromMethodCall($methodReflection, $node, $this);
 				}
+			}
+			if (count($resolvedTypes) > 0) {
+				return TypeCombinator::union(...$resolvedTypes);
 			}
 
 			if (!$methodCalledOnType->hasMethod($node->name->name)) {
@@ -1167,24 +1176,32 @@ class Scope
 			}
 			$staticMethodReflection = $calleeType->getMethod((string) $node->name, $this);
 			$referencedClasses = $calleeType->getReferencedClasses();
-			if (
-				count($calleeType->getReferencedClasses()) === 1
-				&& $this->broker->hasClass($referencedClasses[0])
-			) {
-				$staticMethodClassReflection = $this->broker->getClass($referencedClasses[0]);
+
+			$resolvedTypes = [];
+			foreach ($referencedClasses as $referencedClass) {
+				if (!$this->broker->hasClass($referencedClass)) {
+					continue;
+				}
+
+				$staticMethodClassReflection = $this->broker->getClass($referencedClass);
 				foreach ($this->broker->getDynamicStaticMethodReturnTypeExtensionsForClass($staticMethodClassReflection->getName()) as $dynamicStaticMethodReturnTypeExtension) {
 					if (!$dynamicStaticMethodReturnTypeExtension->isStaticMethodSupported($staticMethodReflection)) {
 						continue;
 					}
 
-					return $dynamicStaticMethodReturnTypeExtension->getTypeFromStaticMethodCall($staticMethodReflection, $node, $this);
+					$resolvedTypes[] = $dynamicStaticMethodReturnTypeExtension->getTypeFromStaticMethodCall($staticMethodReflection, $node, $this);
 				}
 			}
+			if (count($resolvedTypes) > 0) {
+				return TypeCombinator::union(...$resolvedTypes);
+			}
+
 			$staticMethodReturnType = ParametersAcceptorSelector::selectFromArgs(
 				$this,
 				$node->args,
 				$staticMethodReflection->getVariants()
 			)->getReturnType();
+
 			if ($staticMethodReturnType instanceof StaticResolvableType) {
 				if ($node->class instanceof Name) {
 					$nodeClassString = strtolower((string) $node->class);
