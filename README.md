@@ -64,11 +64,11 @@ You can also install official framework-specific extensions:
 * [PHP-Parser](https://github.com/phpstan/phpstan-php-parser)
 * [beberlei/assert](https://github.com/phpstan/phpstan-beberlei-assert)
 * [webmozart/assert](https://github.com/phpstan/phpstan-webmozart-assert)
+* [Symfony Framework](https://github.com/phpstan/phpstan-symfony)
 
 Unofficial extensions for other frameworks and libraries are also available:
 
 * [Phony](https://github.com/eloquent/phpstan-phony)
-* [Symfony Framework](https://github.com/lookyman/phpstan-symfony)
 * [Prophecy](https://github.com/Jan0707/phpstan-prophecy)
 * [Laravel](https://github.com/Weebly/phpstan-laravel)
 
