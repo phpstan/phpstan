@@ -163,6 +163,9 @@ class NodeScopeResolver
 			if (!($node instanceof \PhpParser\Node)) {
 				continue;
 			}
+			if ($node instanceof Node\Stmt\Expression) {
+				$node = $node->expr;
+			}
 
 			if ($scope->getInFunctionCall() !== null && $node instanceof Arg) {
 				$functionCall = $scope->getInFunctionCall();
@@ -247,6 +250,10 @@ class NodeScopeResolver
 
 	private function specifyFetchedPropertyForInnerScope(Node $node, Scope $inScope, bool $inEarlyTermination, Scope &$scope): void
 	{
+		if ($node instanceof Node\Stmt\Expression) {
+			$node = $node->expr;
+		}
+
 		if ($inEarlyTermination === $inScope->isNegated()) {
 			if ($node instanceof Isset_) {
 				foreach ($node->vars as $var) {
@@ -276,6 +283,10 @@ class NodeScopeResolver
 
 	private function lookForArrayDestructuringArray(Scope $scope, Node $node): Scope
 	{
+		if ($node instanceof Node\Stmt\Expression) {
+			$node = $node->expr;
+		}
+
 		if ($node instanceof Array_) {
 			foreach ($node->items as $item) {
 				if ($item === null) {
@@ -867,6 +878,10 @@ class NodeScopeResolver
 		bool $findMethods
 	): Scope
 	{
+		if ($node instanceof Node\Stmt\Expression) {
+			$node = $node->expr;
+		}
+
 		$scope = $this->assignVariable($scope, $node, TrinaryLogic::createYes());
 		$nodeToSpecify = $node;
 		while (
@@ -950,6 +965,10 @@ class NodeScopeResolver
 		LookForAssignsSettings $lookForAssignsSettings
 	): Scope
 	{
+		if ($node instanceof Node\Stmt\Expression) {
+			$node = $node->expr;
+		}
+
 		if ($node instanceof StaticVar) {
 			if (!is_string($node->var->name)) {
 				throw new \PHPStan\ShouldNotHappenException();
@@ -1339,6 +1358,10 @@ class NodeScopeResolver
 		LookForAssignsSettings $lookForAssignsSettings
 	): Scope
 	{
+		if ($node instanceof Node\Stmt\Expression) {
+			$node = $node->expr;
+		}
+
 		if ($node instanceof Assign || $node instanceof AssignRef || $node instanceof Expr\AssignOp || $node instanceof Node\Stmt\Global_) {
 			if ($node instanceof Assign || $node instanceof AssignRef || $node instanceof Expr\AssignOp) {
 				$scope = $this->lookForAssigns($scope, $node->var, TrinaryLogic::createYes(), $lookForAssignsSettings);
@@ -1438,6 +1461,10 @@ class NodeScopeResolver
 		?Type $subNodeType = null
 	): Scope
 	{
+		if ($var instanceof Node\Stmt\Expression) {
+			$var = $var->expr;
+		}
+
 		if ($var instanceof Variable && is_string($var->name)) {
 			$scope = $scope->assignVariable($var->name, $subNodeType !== null ? $subNodeType : new MixedType(), $certainty);
 		} elseif ($var instanceof ArrayDimFetch) {
@@ -1588,6 +1615,10 @@ class NodeScopeResolver
 	private function findEarlyTermination(array $statements, Scope $scope): ?\PhpParser\Node
 	{
 		foreach ($statements as $statement) {
+			if ($statement instanceof Node\Stmt\Expression) {
+				$statement = $statement->expr;
+			}
+
 			$statement = $this->findStatementEarlyTermination($statement, $scope);
 			if ($statement !== null) {
 				return $statement;
@@ -1599,6 +1630,10 @@ class NodeScopeResolver
 
 	private function findStatementEarlyTermination(Node $statement, Scope $scope): ?\PhpParser\Node
 	{
+		if ($statement instanceof Node\Stmt\Expression) {
+			$statement = $statement->expr;
+		}
+
 		if (
 			$statement instanceof Throw_
 			|| $statement instanceof Return_
@@ -1737,6 +1772,10 @@ class NodeScopeResolver
 	private function processNodesForTraitUse($node, string $traitName, Scope $classScope, \Closure $nodeCallback): void
 	{
 		if ($node instanceof Node) {
+			if ($node instanceof Node\Stmt\Expression) {
+				$node = $node->expr;
+			}
+
 			if ($node instanceof Node\Stmt\Trait_ && $traitName === (string) $node->namespacedName) {
 				$this->processNodes($node->stmts, $classScope->enterFirstLevelStatements(), $nodeCallback);
 				return;

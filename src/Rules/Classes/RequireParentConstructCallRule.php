@@ -80,6 +80,10 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 		}
 
 		foreach ($parserNode->stmts as $statement) {
+			if ($statement instanceof Node\Stmt\Expression) {
+				$statement = $statement->expr;
+			}
+
 			$statement = $this->ignoreErrorSuppression($statement);
 			if ($statement instanceof \PhpParser\Node\Expr\StaticCall) {
 				if (
