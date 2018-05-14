@@ -780,6 +780,10 @@ class NodeScopeResolver
 					return;
 				}
 
+				if ($node instanceof StaticVar && $subNodeName === 'var') {
+					return;
+				}
+
 				if ($node instanceof Coalesce && $subNodeName === 'left') {
 					$scope = $this->ensureNonNullability($scope, $subNode, false);
 				}
