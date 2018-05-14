@@ -1643,7 +1643,7 @@ class NodeScopeResolver
 		) {
 			return $statement;
 		} elseif (($statement instanceof MethodCall || $statement instanceof Expr\StaticCall) && count($this->earlyTerminatingMethodCalls) > 0) {
-			if (!is_string($statement->name) && !$statement->name instanceof Node\Identifier) {
+			if ($statement->name instanceof Expr) {
 				return null;
 			}
 

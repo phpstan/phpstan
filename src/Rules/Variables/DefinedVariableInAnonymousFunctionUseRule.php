@@ -31,7 +31,7 @@ class DefinedVariableInAnonymousFunctionUseRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		if ($node->byRef) {
+		if ($node->byRef || !is_string($node->var->name)) {
 			return [];
 		}
 

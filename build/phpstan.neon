@@ -13,8 +13,6 @@ parameters:
 	ignoreErrors:
 		- '#Constant PHPSTAN_TEST_CONSTANT not found#'
 		- '#Strict comparison using === between PhpParser\\Node\\Expr\\ArrayItem and null will always evaluate to false#'
-		- '#Dynamic call to static method PHPUnit\\Framework\\#'
-		- '#expects string, PhpParser\\Node\\Expr\\Error\|string given#'
 	tmpDir: %rootDir%/tmp
 services:
 	-

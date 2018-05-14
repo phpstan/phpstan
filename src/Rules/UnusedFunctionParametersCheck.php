@@ -51,7 +51,7 @@ class UnusedFunctionParametersCheck
 			if ($node instanceof Node\Expr\Variable && is_string($node->name) && $node->name !== 'this') {
 				return [$node->name];
 			}
-			if ($node instanceof Node\Expr\ClosureUse) {
+			if ($node instanceof Node\Expr\ClosureUse && is_string($node->var->name)) {
 				return [$node->var->name];
 			}
 			if (
