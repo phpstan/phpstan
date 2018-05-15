@@ -227,11 +227,22 @@ class ObjectType implements TypeWithClassName
 
 				$declaringClass = $broker->getClass($nativeProperty->getDeclaringClass()->getName());
 				$property = $declaringClass->getNativeProperty($nativeProperty->getName());
-				$arrayKeys[] = new ConstantStringType(sprintf(
-					'%s%s',
-					$declaringClass->getName(),
-					$nativeProperty->getName()
-				));
+
+				$keyName = $nativeProperty->getName();
+				if ($nativeProperty->isPrivate()) {
+					$keyName = sprintf(
+						"\0%s\0%s",
+						$declaringClass->getName(),
+						$keyName
+					);
+				} elseif ($nativeProperty->isProtected()) {
+					$keyName = sprintf(
+						"\0*\0%s",
+						$keyName
+					);
+				}
+
+				$arrayKeys[] = new ConstantStringType($keyName);
 				$arrayValues[] = $property->getType();
 			}
 
