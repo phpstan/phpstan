@@ -1270,7 +1270,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'(float) $str',
 			],
 			[
-				'array(\'TypesNamespaceCasts\\\\Foofoo\' => TypesNamespaceCasts\Foo, \'TypesNamespaceCasts\\\\Fooint\' => int, \'TypesNamespaceCasts\\\\BarbarProperty\' => TypesNamespaceCasts\Bar)',
+				'array(\'\' . "\0" . \'TypesNamespaceCasts\\\\Foo\' . "\0" . \'foo\' => TypesNamespaceCasts\Foo, \'\' . "\0" . \'TypesNamespaceCasts\\\\Foo\' . "\0" . \'int\' => int, \'\' . "\0" . \'*\' . "\0" . \'protectedInt\' => int, \'publicInt\' => int, \'\' . "\0" . \'TypesNamespaceCasts\\\\Bar\' . "\0" . \'barProperty\' => TypesNamespaceCasts\Bar)',
 				'(array) $foo',
 			],
 			[
