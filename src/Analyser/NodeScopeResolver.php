@@ -776,14 +776,6 @@ class NodeScopeResolver
 
 				$this->processNodes($subNode, $scope, $nodeCallback, $argClosureBindScope);
 			} elseif ($subNode instanceof \PhpParser\Node) {
-				if ($node instanceof Expr\ClosureUse && $subNodeName === 'var') {
-					return;
-				}
-
-				if ($node instanceof StaticVar && $subNodeName === 'var') {
-					return;
-				}
-
 				if ($node instanceof Coalesce && $subNodeName === 'left') {
 					$scope = $this->ensureNonNullability($scope, $subNode, false);
 				}
@@ -850,6 +842,12 @@ class NodeScopeResolver
 
 				if ($node instanceof Expr\Empty_ && $subNodeName === 'expr') {
 					$scope = $this->ensureNonNullability($scope, $subNode, true);
+				}
+
+				if ($node instanceof StaticVar && $subNodeName === 'var') {
+					$scope = $scope->enterExpressionAssign($node->var);
+				} elseif ($node instanceof Expr\ClosureUse && $subNodeName === 'var') {
+					$scope = $scope->enterExpressionAssign($node->var);
 				}
 
 				$nodeScope = $scope;
