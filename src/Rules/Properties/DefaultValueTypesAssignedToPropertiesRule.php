@@ -47,7 +47,7 @@ class DefaultValueTypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 				continue;
 			}
 
-			$propertyReflection = $classReflection->getNativeProperty($property->name);
+			$propertyReflection = $classReflection->getNativeProperty($property->name->name);
 			$propertyType = $propertyReflection->getType();
 			$defaultValueType = $scope->getType($property->default);
 			if ($this->ruleLevelHelper->accepts($propertyType, $defaultValueType)) {
@@ -58,7 +58,7 @@ class DefaultValueTypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 				'%s %s::$%s (%s) does not accept default value of type %s.',
 				$node->isStatic() ? 'Static property' : 'Property',
 				$classReflection->getDisplayName(),
-				$property->name,
+				$property->name->name,
 				$propertyType->describe(VerbosityLevel::typeOnly()),
 				$defaultValueType->describe(VerbosityLevel::typeOnly())
 			);

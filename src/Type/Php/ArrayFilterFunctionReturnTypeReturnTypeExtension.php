@@ -34,7 +34,10 @@ class ArrayFilterFunctionReturnTypeReturnTypeExtension implements \PHPStan\Type\
 			if ($flagArg === null && $callbackArg instanceof Closure && count($callbackArg->stmts) === 1) {
 				$statement = $callbackArg->stmts[0];
 				if ($statement instanceof Return_ && $statement->expr !== null && count($callbackArg->params) > 0) {
-					$itemVariableName = $callbackArg->params[0]->name;
+					if (!is_string($callbackArg->params[0]->var->name)) {
+						throw new \PHPStan\ShouldNotHappenException();
+					}
+					$itemVariableName = $callbackArg->params[0]->var->name;
 					$scope = $scope->assignVariable($itemVariableName, $itemType, TrinaryLogic::createYes());
 					$scope = $scope->filterByTruthyValue($statement->expr);
 					$itemType = $scope->getVariableType($itemVariableName);

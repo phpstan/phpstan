@@ -44,8 +44,8 @@ class IsAFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtens
 		if (
 			$classNameArgExpr instanceof ClassConstFetch
 			&& $classNameArgExpr->class instanceof Name
-			&& is_string($classNameArgExpr->name)
-			&& strtolower($classNameArgExpr->name) === 'class'
+			&& $classNameArgExpr->name instanceof \PhpParser\Node\Identifier
+			&& strtolower($classNameArgExpr->name->name) === 'class'
 		) {
 			$className = $scope->resolveName($classNameArgExpr->class);
 			if (strtolower($classNameArgExpr->class->toString()) === 'static') {

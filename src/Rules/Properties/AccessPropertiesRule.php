@@ -39,11 +39,11 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(\PhpParser\Node $node, Scope $scope): array
 	{
-		if (!is_string($node->name)) {
+		if (!$node->name instanceof \PhpParser\Node\Identifier) {
 			return [];
 		}
 
-		$name = $node->name;
+		$name = $node->name->name;
 		$typeResult = $this->ruleLevelHelper->findTypeToCheck(
 			$scope,
 			$node->var,

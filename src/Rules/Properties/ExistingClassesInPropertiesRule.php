@@ -47,7 +47,7 @@ class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
-		$propertyReflection = $scope->getClassReflection()->getNativeProperty($node->name);
+		$propertyReflection = $scope->getClassReflection()->getNativeProperty($node->name->name);
 		$propertyType = $propertyReflection->getType();
 
 		$errors = [];
@@ -57,7 +57,7 @@ class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 					$errors[] = sprintf(
 						'Property %s::$%s has invalid type %s.',
 						$propertyReflection->getDeclaringClass()->getDisplayName(),
-						$node->name,
+						$node->name->name,
 						$referencedClass
 					);
 				}
@@ -67,7 +67,7 @@ class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 			$errors[] = sprintf(
 				'Property %s::$%s has unknown class %s as its type.',
 				$propertyReflection->getDeclaringClass()->getDisplayName(),
-				$node->name,
+				$node->name->name,
 				$referencedClass
 			);
 		}
