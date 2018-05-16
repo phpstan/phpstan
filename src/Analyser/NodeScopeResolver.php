@@ -163,10 +163,6 @@ class NodeScopeResolver
 			if (!($node instanceof \PhpParser\Node)) {
 				continue;
 			}
-			if ($node instanceof Node\Stmt\Expression) {
-				$node = $node->expr;
-			}
-
 			if ($scope->getInFunctionCall() !== null && $node instanceof Arg) {
 				$functionCall = $scope->getInFunctionCall();
 				$value = $node->value;
@@ -223,10 +219,10 @@ class NodeScopeResolver
 						break;
 					}
 				}
-			} elseif ($node instanceof Expr) {
+			} elseif ($node instanceof Node\Stmt\Expression) {
 				$scope = $scope->filterBySpecifiedTypes($this->typeSpecifier->specifyTypesInCondition(
 					$scope,
-					$node,
+					$node->expr,
 					TypeSpecifierContext::createNull()
 				));
 			}
@@ -250,10 +246,6 @@ class NodeScopeResolver
 
 	private function specifyFetchedPropertyForInnerScope(Node $node, Scope $inScope, bool $inEarlyTermination, Scope &$scope): void
 	{
-		if ($node instanceof Node\Stmt\Expression) {
-			$node = $node->expr;
-		}
-
 		if ($inEarlyTermination === $inScope->isNegated()) {
 			if ($node instanceof Isset_) {
 				foreach ($node->vars as $var) {
@@ -283,10 +275,6 @@ class NodeScopeResolver
 
 	private function lookForArrayDestructuringArray(Scope $scope, Node $node): Scope
 	{
-		if ($node instanceof Node\Stmt\Expression) {
-			$node = $node->expr;
-		}
-
 		if ($node instanceof Array_) {
 			foreach ($node->items as $item) {
 				if ($item === null) {
@@ -851,7 +839,7 @@ class NodeScopeResolver
 				}
 
 				$nodeScope = $scope;
-				if (!$node instanceof ErrorSuppress) {
+				if (!$node instanceof ErrorSuppress && !$node instanceof Node\Stmt\Expression) {
 					$nodeScope = $nodeScope->exitFirstLevelStatements();
 				}
 				if ($scope->isInFirstLevelStatement()) {
@@ -880,10 +868,6 @@ class NodeScopeResolver
 		bool $findMethods
 	): Scope
 	{
-		if ($node instanceof Node\Stmt\Expression) {
-			$node = $node->expr;
-		}
-
 		$scope = $this->assignVariable($scope, $node, TrinaryLogic::createYes());
 		$nodeToSpecify = $node;
 		while (
@@ -940,7 +924,6 @@ class NodeScopeResolver
 		} elseif ($node instanceof AssignRef) {
 			$scope = $scope->enterExpressionAssign($node->expr);
 		} elseif ($node instanceof Assign && $node->expr instanceof Expr\Closure) {
-			/** @var Expr\ClosureUse $closureUse */
 			foreach ($node->expr->uses as $closureUse) {
 				if (
 					!$closureUse->byRef
@@ -1360,10 +1343,6 @@ class NodeScopeResolver
 		LookForAssignsSettings $lookForAssignsSettings
 	): Scope
 	{
-		if ($node instanceof Node\Stmt\Expression) {
-			$node = $node->expr;
-		}
-
 		if ($node instanceof Assign || $node instanceof AssignRef || $node instanceof Expr\AssignOp || $node instanceof Node\Stmt\Global_) {
 			if ($node instanceof Assign || $node instanceof AssignRef || $node instanceof Expr\AssignOp) {
 				$scope = $this->lookForAssigns($scope, $node->var, TrinaryLogic::createYes(), $lookForAssignsSettings);
@@ -1463,10 +1442,6 @@ class NodeScopeResolver
 		?Type $subNodeType = null
 	): Scope
 	{
-		if ($var instanceof Node\Stmt\Expression) {
-			$var = $var->expr;
-		}
-
 		if ($var instanceof Variable && is_string($var->name)) {
 			$scope = $scope->assignVariable($var->name, $subNodeType !== null ? $subNodeType : new MixedType(), $certainty);
 		} elseif ($var instanceof ArrayDimFetch) {
@@ -1617,10 +1592,6 @@ class NodeScopeResolver
 	private function findEarlyTermination(array $statements, Scope $scope): ?\PhpParser\Node
 	{
 		foreach ($statements as $statement) {
-			if ($statement instanceof Node\Stmt\Expression) {
-				$statement = $statement->expr;
-			}
-
 			$statement = $this->findStatementEarlyTermination($statement, $scope);
 			if ($statement !== null) {
 				return $statement;
@@ -1774,10 +1745,6 @@ class NodeScopeResolver
 	private function processNodesForTraitUse($node, string $traitName, Scope $classScope, \Closure $nodeCallback): void
 	{
 		if ($node instanceof Node) {
-			if ($node instanceof Node\Stmt\Expression) {
-				$node = $node->expr;
-			}
-
 			if ($node instanceof Node\Stmt\Trait_ && $traitName === (string) $node->namespacedName) {
 				$this->processNodes($node->stmts, $classScope->enterFirstLevelStatements(), $nodeCallback);
 				return;
