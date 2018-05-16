@@ -4,6 +4,7 @@ namespace PHPStan\Reflection\Annotations;
 
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Reflection\PassedByReference;
 use PHPStan\Reflection\Php\PhpMethodReflection;
 use PHPStan\Type\VerbosityLevel;
@@ -967,6 +968,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\Testing\Te
 			$this->assertTrue($class->hasMethod($methodName), sprintf('Method %s() not found in class %s.', $methodName, $className));
 
 			$method = $class->getMethod($methodName, $scope);
+			$selectedParametersAcceptor = ParametersAcceptorSelector::selectSingle($method->getVariants());
 			$this->assertSame(
 				$expectedMethodData['class'],
 				$method->getDeclaringClass()->getName(),
@@ -974,7 +976,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\Testing\Te
 			);
 			$this->assertSame(
 				$expectedMethodData['returnType'],
-				$method->getReturnType()->describe(VerbosityLevel::value()),
+				$selectedParametersAcceptor->getReturnType()->describe(VerbosityLevel::value()),
 				sprintf('Return type of method %s::%s() does not match', $className, $methodName)
 			);
 			$this->assertSame(
@@ -984,15 +986,15 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\Testing\Te
 			);
 			$this->assertSame(
 				$expectedMethodData['isVariadic'],
-				$method->isVariadic(),
+				$selectedParametersAcceptor->isVariadic(),
 				sprintf('Method %s::%s() does not match expected variadicity', $className, $methodName)
 			);
 			$this->assertCount(
 				count($expectedMethodData['parameters']),
-				$method->getParameters(),
+				$selectedParametersAcceptor->getParameters(),
 				sprintf('Method %s::%s() does not match expected count of parameters', $className, $methodName)
 			);
-			foreach ($method->getParameters() as $i => $parameter) {
+			foreach ($selectedParametersAcceptor->getParameters() as $i => $parameter) {
 				$this->assertSame(
 					$expectedMethodData['parameters'][$i]['name'],
 					$parameter->getName()

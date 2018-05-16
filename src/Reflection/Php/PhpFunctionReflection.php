@@ -7,18 +7,16 @@ use PHPStan\Cache\Cache;
 use PHPStan\Parser\FunctionCallStatementFinder;
 use PHPStan\Parser\Parser;
 use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Reflection\FunctionVariantWithPhpDocs;
+use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
-use PHPStan\Type\ArrayType;
-use PHPStan\Type\BooleanType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
-use PHPStan\Type\ObjectWithoutClassType;
-use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypehintHelper;
 
-class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWithPhpDocs
+class PhpFunctionReflection implements FunctionReflection
 {
 
 	/** @var \ReflectionFunction */
@@ -91,9 +89,25 @@ class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWit
 	}
 
 	/**
-	 * @return \PHPStan\Reflection\ParameterReflection[]
+	 * @return ParametersAcceptorWithPhpDocs[]
 	 */
-	public function getParameters(): array
+	public function getVariants(): array
+	{
+		return [
+			new FunctionVariantWithPhpDocs(
+				$this->getParameters(),
+				$this->isVariadic(),
+				$this->getReturnType(),
+				$this->getPhpDocReturnType(),
+				$this->getNativeReturnType()
+			),
+		];
+	}
+
+	/**
+	 * @return \PHPStan\Reflection\Php\PhpParameterReflection[]
+	 */
+	private function getParameters(): array
 	{
 		if ($this->parameters === null) {
 			$this->parameters = array_map(function (\ReflectionParameter $reflection) {
@@ -102,150 +116,12 @@ class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWit
 					isset($this->phpDocParameterTypes[$reflection->getName()]) ? $this->phpDocParameterTypes[$reflection->getName()] : null
 				);
 			}, $this->reflection->getParameters());
-			if (
-				$this->reflection->getName() === 'fputcsv'
-				&& count($this->parameters) === 4
-			) {
-				$this->parameters[] = new DummyParameter(
-					'escape_char',
-					new StringType(),
-					true
-				);
-			}
-			if (
-				$this->reflection->getName() === 'unpack'
-				&& PHP_VERSION_ID >= 70101
-			) {
-				$this->parameters[2] = new DummyParameter(
-					'offset',
-					new IntegerType(),
-					true
-				);
-			}
-			if (
-				$this->reflection->getName() === 'imagepng'
-				&& count($this->parameters) === 2
-			) {
-				$this->parameters[] = new DummyParameter(
-					'quality',
-					new IntegerType(),
-					true
-				);
-				$this->parameters[] = new DummyParameter(
-					'filters',
-					new IntegerType(),
-					true
-				);
-			}
-
-			if (
-				$this->reflection->getName() === 'session_start'
-				&& count($this->parameters) === 0
-			) {
-				$this->parameters[] = new DummyParameter(
-					'options',
-					new ArrayType(new MixedType(), new MixedType()),
-					true
-				);
-			}
-
-			if ($this->reflection->getName() === 'locale_get_display_language') {
-				$this->parameters[1] = new DummyParameter(
-					'in_locale',
-					new StringType(),
-					true
-				);
-			}
-
-			if (
-				$this->reflection->getName() === 'imagewebp'
-				&& count($this->parameters) === 2
-			) {
-				$this->parameters[] = new DummyParameter(
-					'quality',
-					new IntegerType(),
-					true
-				);
-			}
-
-			if (
-				$this->reflection->getName() === 'setproctitle'
-				&& count($this->parameters) === 0
-			) {
-				$this->parameters[] = new DummyParameter(
-					'title',
-					new StringType(),
-					false
-				);
-			}
-
-			if (
-				$this->reflection->getName() === 'get_class'
-			) {
-				$this->parameters = [
-					new DummyParameter(
-						'object',
-						new ObjectWithoutClassType(),
-						true
-					),
-				];
-			}
-
-			if (
-				$this->reflection->getName() === 'mysqli_fetch_all'
-				&& count($this->parameters) === 1
-			) {
-				$this->parameters[] = new DummyParameter(
-					'resulttype',
-					new IntegerType(),
-					true
-				);
-			}
-
-			if (
-				$this->reflection->getName() === 'openssl_open'
-				&& count($this->parameters) === 5
-			) {
-				$this->parameters[4] = new DummyParameter(
-					'method',
-					new StringType(),
-					true
-				);
-				$this->parameters[5] = new DummyParameter(
-					'iv',
-					new StringType(),
-					true
-				);
-			}
-
-			if (
-				$this->reflection->getName() === 'openssl_x509_parse'
-			) {
-				$this->parameters[1] = new DummyParameter(
-					'shortnames',
-					new BooleanType(),
-					true
-				);
-			}
-
-			if (
-				$this->reflection->getName() === 'get_defined_functions'
-				&& count($this->parameters) > 0
-				&& !$this->parameters[0]->isOptional()
-			) {
-				// PHP bug #75799
-				$this->parameters[0] = new DummyParameter(
-					'exclude_disabled',
-					new BooleanType(),
-					true
-				);
-			}
 		}
 
 		return $this->parameters;
 	}
 
-	public function isVariadic(): bool
+	private function isVariadic(): bool
 	{
 		$isNativelyVariadic = $this->reflection->isVariadic();
 		if (!$isNativelyVariadic && $this->reflection->getFileName() !== false) {
@@ -285,7 +161,7 @@ class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWit
 				$functionName = (string) $node->namespacedName;
 
 				if ($functionName === $this->reflection->getName()) {
-					return $this->functionCallStatementFinder->findFunctionCallInStatements(self::VARIADIC_FUNCTIONS, $node->getStmts()) !== null;
+					return $this->functionCallStatementFinder->findFunctionCallInStatements(ParametersAcceptor::VARIADIC_FUNCTIONS, $node->getStmts()) !== null;
 				}
 
 				continue;
@@ -299,7 +175,7 @@ class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWit
 		return false;
 	}
 
-	public function getReturnType(): Type
+	private function getReturnType(): Type
 	{
 		if ($this->returnType === null) {
 			if ($this->reflection->getName() === 'count') {
@@ -323,7 +199,7 @@ class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWit
 		return $this->returnType;
 	}
 
-	public function getPhpDocReturnType(): Type
+	private function getPhpDocReturnType(): Type
 	{
 		if ($this->phpDocReturnType !== null) {
 			return $this->phpDocReturnType;
@@ -332,7 +208,7 @@ class PhpFunctionReflection implements FunctionReflection, ParametersAcceptorWit
 		return new MixedType();
 	}
 
-	public function getNativeReturnType(): Type
+	private function getNativeReturnType(): Type
 	{
 		if ($this->nativeReturnType === null) {
 			$this->nativeReturnType = TypehintHelper::decideTypeFromReflection($this->reflection->getReturnType());

@@ -7,6 +7,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Analyser\TypeSpecifierAwareExtension;
 use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Rules\Comparison\ImpossibleCheckTypeHelper;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\DynamicFunctionReturnTypeExtension;
@@ -51,7 +52,7 @@ class TypeSpecifyingFunctionsDynamicReturnTypeExtension implements DynamicFuncti
 	): Type
 	{
 		if (count($functionCall->args) === 0) {
-			return $functionReflection->getReturnType();
+			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
 		}
 
 		$isAlways = ImpossibleCheckTypeHelper::findSpecifiedType(
@@ -60,7 +61,7 @@ class TypeSpecifyingFunctionsDynamicReturnTypeExtension implements DynamicFuncti
 			$functionCall
 		);
 		if ($isAlways === null) {
-			return $functionReflection->getReturnType();
+			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
 		}
 
 		return new ConstantBooleanType($isAlways);

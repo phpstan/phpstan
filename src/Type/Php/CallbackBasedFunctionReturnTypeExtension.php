@@ -5,6 +5,7 @@ namespace PHPStan\Type\Php;
 use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\Type;
 
 class CallbackBasedFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
@@ -25,15 +26,19 @@ class CallbackBasedFunctionReturnTypeExtension implements \PHPStan\Type\DynamicF
 		$argumentPosition = $this->functionNames[$functionReflection->getName()];
 
 		if (!isset($functionCall->args[$argumentPosition])) {
-			return $functionReflection->getReturnType();
+			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
 		}
 
 		$callbackType = $scope->getType($functionCall->args[$argumentPosition]->value);
 		if ($callbackType->isCallable()->no()) {
-			return $functionReflection->getReturnType();
+			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
 		}
 
-		return $callbackType->getCallableParametersAcceptor($scope)->getReturnType();
+		return ParametersAcceptorSelector::selectFromArgs(
+			$scope,
+			$functionCall->args,
+			$callbackType->getCallableParametersAcceptors($scope)
+		)->getReturnType();
 	}
 
 }

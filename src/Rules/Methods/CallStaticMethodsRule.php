@@ -8,6 +8,7 @@ use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Rules\ClassCaseSensitivityCheck;
 use PHPStan\Rules\FunctionCallParametersCheck;
 use PHPStan\Rules\RuleLevelHelper;
@@ -63,10 +64,10 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		$methodName = $node->name;
-		if (!is_string($methodName)) {
+		if (!is_string($node->name) && !$node->name instanceof Node\Identifier) {
 			return [];
 		}
+		$methodName = (string) $node->name;
 
 		$class = $node->class;
 		$errors = [];
@@ -208,6 +209,11 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 
 		$errors = array_merge($errors, $this->check->check(
 			$method,
+			ParametersAcceptorSelector::selectFromArgs(
+				$scope,
+				$node->args,
+				$method->getVariants()
+			),
 			$scope,
 			$node,
 			[

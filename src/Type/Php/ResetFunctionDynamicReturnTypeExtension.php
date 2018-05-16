@@ -5,6 +5,7 @@ namespace PHPStan\Type\Php;
 use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
@@ -25,7 +26,7 @@ class ResetFunctionDynamicReturnTypeExtension implements \PHPStan\Type\DynamicFu
 	): Type
 	{
 		if (count($functionCall->args) === 0) {
-			return $functionReflection->getReturnType();
+			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
 		}
 
 		$argType = $scope->getType($functionCall->args[0]->value);

@@ -4,6 +4,7 @@ namespace PHPStan\Reflection\Php;
 
 use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\Reflection\FunctionVariant;
 use PHPStan\Reflection\PassedByReference;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
@@ -84,30 +85,48 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 	public function getName(): string
 	{
 		if ($this->functionLike instanceof ClassMethod) {
-			return $this->functionLike->name;
+			return $this->functionLike->name->name;
 		}
 
 		return (string) $this->functionLike->namespacedName;
 	}
 
 	/**
+	 * @return \PHPStan\Reflection\ParametersAcceptor[]
+	 */
+	public function getVariants(): array
+	{
+		return [
+			new FunctionVariant(
+				$this->getParameters(),
+				$this->isVariadic(),
+				$this->getReturnType()
+			),
+		];
+	}
+
+	/**
 	 * @return \PHPStan\Reflection\ParameterReflection[]
 	 */
-	public function getParameters(): array
+	private function getParameters(): array
 	{
 		if ($this->parameters === null) {
 			$parameters = [];
 			$isOptional = true;
+			/** @var \PhpParser\Node\Param $parameter */
 			foreach (array_reverse($this->functionLike->getParams()) as $parameter) {
 				if (!$isOptional || $parameter->default === null) {
 					$isOptional = false;
 				}
 
+				if (!is_string($parameter->var->name)) {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
 				$parameters[] = new PhpParameterFromParserNodeReflection(
-					$parameter->name,
+					$parameter->var->name,
 					$isOptional,
-					$this->realParameterTypes[$parameter->name],
-					isset($this->phpDocParameterTypes[$parameter->name]) ? $this->phpDocParameterTypes[$parameter->name] : null,
+					$this->realParameterTypes[$parameter->var->name],
+					isset($this->phpDocParameterTypes[$parameter->var->name]) ? $this->phpDocParameterTypes[$parameter->var->name] : null,
 					$parameter->byRef
 						? PassedByReference::createCreatesNewVariable()
 						: PassedByReference::createNo(),
@@ -122,7 +141,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 		return $this->parameters;
 	}
 
-	public function isVariadic(): bool
+	private function isVariadic(): bool
 	{
 		if ($this->isVariadic === null) {
 			$isVariadic = false;
@@ -139,7 +158,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 		return $this->isVariadic;
 	}
 
-	public function getReturnType(): Type
+	protected function getReturnType(): Type
 	{
 		if ($this->returnType === null) {
 			$phpDocReturnType = $this->phpDocReturnType;

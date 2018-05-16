@@ -3,7 +3,6 @@
 namespace PHPStan\Type;
 
 use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantArrayType;
@@ -213,13 +212,17 @@ class ArrayType implements StaticResolvableType
 		return TrinaryLogic::createMaybe()->and((new StringType())->isSuperTypeOf($this->itemType));
 	}
 
-	public function getCallableParametersAcceptor(Scope $scope): ParametersAcceptor
+	/**
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @return \PHPStan\Reflection\ParametersAcceptor[]
+	 */
+	public function getCallableParametersAcceptors(Scope $scope): array
 	{
 		if ($this->isCallable()->no()) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
-		return new TrivialParametersAcceptor();
+		return [new TrivialParametersAcceptor()];
 	}
 
 	public function toNumber(): Type

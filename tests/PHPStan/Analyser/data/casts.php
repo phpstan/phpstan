@@ -19,6 +19,12 @@ class Foo extends Bar
 	/** @var int */
 	private $int;
 
+	/** @var int */
+	protected $protectedInt;
+
+	/** @var int */
+	public $publicInt;
+
 	/**
 	 * @param string $str
 	 * @param iterable<string, \DateTimeImmutable> $iterable

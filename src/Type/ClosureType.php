@@ -179,9 +179,13 @@ class ClosureType implements CompoundType, ParametersAcceptor
 		return TrinaryLogic::createYes();
 	}
 
-	public function getCallableParametersAcceptor(Scope $scope): ParametersAcceptor
+	/**
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @return \PHPStan\Reflection\ParametersAcceptor[]
+	 */
+	public function getCallableParametersAcceptors(Scope $scope): array
 	{
-		return $this;
+		return [$this];
 	}
 
 	public function isCloneable(): TrinaryLogic

@@ -35,7 +35,7 @@ class UnusedConstructorParametersRule implements \PHPStan\Rules\Rule
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
-		if ($node->name !== '__construct' || $node->stmts === null) {
+		if ($node->name->name !== '__construct' || $node->stmts === null) {
 			return [];
 		}
 
@@ -51,7 +51,10 @@ class UnusedConstructorParametersRule implements \PHPStan\Rules\Rule
 		return $this->check->getUnusedParameters(
 			$scope,
 			array_map(function (Param $parameter): string {
-				return $parameter->name;
+				if (!is_string($parameter->var->name)) {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
+				return $parameter->var->name;
 			}, $node->params),
 			$node->stmts,
 			$message

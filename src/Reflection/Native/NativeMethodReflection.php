@@ -6,6 +6,7 @@ use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\DeprecatableReflection;
+use PHPStan\Reflection\FunctionVariant;
 use PHPStan\Reflection\MethodPrototypeReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\Type;
@@ -99,21 +100,17 @@ class NativeMethodReflection implements MethodReflection, DeprecatableReflection
 	}
 
 	/**
-	 * @return \PHPStan\Reflection\Native\NativeParameterReflection[]
+	 * @return \PHPStan\Reflection\ParametersAcceptor[]
 	 */
-	public function getParameters(): array
+	public function getVariants(): array
 	{
-		return $this->parameters;
-	}
-
-	public function isVariadic(): bool
-	{
-		return $this->isVariadic;
-	}
-
-	public function getReturnType(): Type
-	{
-		return $this->returnType;
+		return [
+			new FunctionVariant(
+				$this->parameters,
+				$this->isVariadic,
+				$this->returnType
+			),
+		];
 	}
 
 	public function isDeprecated(): bool

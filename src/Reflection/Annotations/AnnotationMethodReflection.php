@@ -4,6 +4,7 @@ namespace PHPStan\Reflection\Annotations;
 
 use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\FunctionVariant;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\Type;
 
@@ -68,19 +69,6 @@ class AnnotationMethodReflection implements MethodReflection
 		return $this->isStatic;
 	}
 
-	/**
-	 * @return \PHPStan\Reflection\Annotations\AnnotationsMethodParameterReflection[]
-	 */
-	public function getParameters(): array
-	{
-		return $this->parameters;
-	}
-
-	public function isVariadic(): bool
-	{
-		return $this->isVariadic;
-	}
-
 	public function isPrivate(): bool
 	{
 		return false;
@@ -96,9 +84,18 @@ class AnnotationMethodReflection implements MethodReflection
 		return $this->name;
 	}
 
-	public function getReturnType(): Type
+	/**
+	 * @return \PHPStan\Reflection\ParametersAcceptor[]
+	 */
+	public function getVariants(): array
 	{
-		return $this->returnType;
+		return [
+			new FunctionVariant(
+				$this->parameters,
+				$this->isVariadic,
+				$this->returnType
+			),
+		];
 	}
 
 }

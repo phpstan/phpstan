@@ -4,7 +4,7 @@ namespace PHPStan\Type\Constant;
 
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
-use PHPStan\Reflection\ParametersAcceptor;
+use PHPStan\Reflection\InaccessibleMethod;
 use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
@@ -147,7 +147,11 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		return TrinaryLogic::createYes();
 	}
 
-	public function getCallableParametersAcceptor(Scope $scope): ParametersAcceptor
+	/**
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @return \PHPStan\Reflection\ParametersAcceptor[]
+	 */
+	public function getCallableParametersAcceptors(Scope $scope): array
 	{
 		$classAndMethod = $this->findClassNameAndMethod();
 		if ($classAndMethod === null) {
@@ -156,13 +160,18 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 		[$className, $methodName] = $classAndMethod;
 		if ($className === null && $methodName === null) {
-			return new TrivialParametersAcceptor();
+			return [new TrivialParametersAcceptor()];
 		}
 
 		$broker = Broker::getInstance();
 		$classReflection = $broker->getClass($className);
 
-		return $classReflection->getMethod($methodName, $scope);
+		$method = $classReflection->getMethod($methodName, $scope);
+		if (!$scope->canCallMethod($method)) {
+			return [new InaccessibleMethod($method)];
+		}
+
+		return $method->getVariants();
 	}
 
 	/**

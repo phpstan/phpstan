@@ -9,6 +9,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
 use PHPStan\Reflection\Php\PhpMethodReflection;
 use PHPStan\Type\NonexistentParentClassType;
@@ -74,18 +75,22 @@ class FunctionDefinitionCheck
 			if (!$scope->isInClass()) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
-			$nativeMethod = $scope->getClassReflection()->getNativeMethod($function->name);
+			$nativeMethod = $scope->getClassReflection()->getNativeMethod($function->name->name);
 			if (!$nativeMethod instanceof PhpMethodReflection) {
 				return [];
 			}
+
+			/** @var \PHPStan\Reflection\ParametersAcceptorWithPhpDocs $parametersAcceptor */
+			$parametersAcceptor = ParametersAcceptorSelector::selectSingle($nativeMethod->getVariants());
+
 			return $this->checkParametersAcceptor(
-				$nativeMethod,
+				$parametersAcceptor,
 				$parameterMessage,
 				$returnMessage
 			);
 		}
 		if ($function instanceof Function_) {
-			$functionName = $function->name;
+			$functionName = $function->name->name;
 			if (isset($function->namespacedName)) {
 				$functionName = (string) $function->namespacedName;
 			}
@@ -96,8 +101,11 @@ class FunctionDefinitionCheck
 
 			$functionReflection = $this->broker->getCustomFunction($functionNameName, null);
 
+			/** @var \PHPStan\Reflection\ParametersAcceptorWithPhpDocs $parametersAcceptor */
+			$parametersAcceptor = ParametersAcceptorSelector::selectSingle($functionReflection->getVariants());
+
 			return $this->checkParametersAcceptor(
-				$functionReflection,
+				$parametersAcceptor,
 				$parameterMessage,
 				$returnMessage
 			);
@@ -114,7 +122,10 @@ class FunctionDefinitionCheck
 			}
 
 			if (!$this->broker->hasClass($class)) {
-				$errors[] = sprintf($parameterMessage, $param->name, $class);
+				if (!is_string($param->var->name)) {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
+				$errors[] = sprintf($parameterMessage, $param->var->name, $class);
 			} elseif ($this->checkClassCaseSensitivity) {
 				$errors = array_merge(
 					$errors,

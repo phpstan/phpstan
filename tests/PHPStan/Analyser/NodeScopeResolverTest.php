@@ -10,6 +10,7 @@ use PHPStan\Cache\Cache;
 use PHPStan\File\FileHelper;
 use PHPStan\PhpDoc\PhpDocStringResolver;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Tests\AssertionClassMethodTypeSpecifyingExtension;
 use PHPStan\Tests\AssertionClassStaticMethodTypeSpecifyingExtension;
 use PHPStan\TrinaryLogic;
@@ -1269,7 +1270,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'(float) $str',
 			],
 			[
-				'array(\'TypesNamespaceCasts\\\\Foofoo\' => TypesNamespaceCasts\Foo, \'TypesNamespaceCasts\\\\Fooint\' => int, \'TypesNamespaceCasts\\\\BarbarProperty\' => TypesNamespaceCasts\Bar)',
+				'array(\'\' . "\0" . \'TypesNamespaceCasts\\\\Foo\' . "\0" . \'foo\' => TypesNamespaceCasts\Foo, \'\' . "\0" . \'TypesNamespaceCasts\\\\Foo\' . "\0" . \'int\' => int, \'\' . "\0" . \'*\' . "\0" . \'protectedInt\' => int, \'publicInt\' => int, \'\' . "\0" . \'TypesNamespaceCasts\\\\Bar\' . "\0" . \'barProperty\' => TypesNamespaceCasts\Bar)',
 				'(array) $foo',
 			],
 			[
@@ -2705,55 +2706,55 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		return [
 			[
 				'0|1|2',
-				"'NoKeysArray';",
+				"'NoKeysArray'",
 			],
 			[
 				'0|1|2',
-				"'IntegersAndNoKeysArray';",
+				"'IntegersAndNoKeysArray'",
 			],
 			[
 				'0|1|\'foo\'',
-				"'StringsAndNoKeysArray';",
+				"'StringsAndNoKeysArray'",
 			],
 			[
 				'1|2|3',
-				"'IntegersAsStringsAndNoKeysArray';",
+				"'IntegersAsStringsAndNoKeysArray'",
 			],
 			[
 				'1|2',
-				"'IntegersAsStringsArray';",
+				"'IntegersAsStringsArray'",
 			],
 			[
 				'1|2',
-				"'IntegersArray';",
+				"'IntegersArray'",
 			],
 			[
 				'1|2|3',
-				"'IntegersWithFloatsArray';",
+				"'IntegersWithFloatsArray'",
 			],
 			[
 				'\'bar\'|\'foo\'',
-				"'StringsArray';",
+				"'StringsArray'",
 			],
 			[
 				'\'\'|\'bar\'|\'baz\'',
-				"'StringsWithNullArray';",
+				"'StringsWithNullArray'",
 			],
 			[
 				'int|string',
-				"'IntegersWithStringFromMethodArray';",
+				"'IntegersWithStringFromMethodArray'",
 			],
 			[
 				'1|2|\'foo\'',
-				"'IntegersAndStringsArray';",
+				"'IntegersAndStringsArray'",
 			],
 			[
 				'0|1',
-				"'BooleansArray';",
+				"'BooleansArray'",
 			],
 			[
 				'int|string',
-				"'UnknownConstantArray';",
+				"'UnknownConstantArray'",
 			],
 		];
 	}
@@ -3283,12 +3284,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'SwitchGetClass\Lorem',
 				'$lorem',
-				"'normalName';",
+				"'normalName'",
 			],
 			[
 				'SwitchGetClass\Foo',
 				'$lorem',
-				"'selfReferentialName';",
+				"'selfReferentialName'",
 			],
 		];
 	}
@@ -3418,16 +3419,16 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 					{
 						$args = $methodCall->args;
 						if (count($args) === 0) {
-							return $methodReflection->getReturnType();
+							return ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
 						}
 
 						$arg = $args[0]->value;
 						if (!($arg instanceof \PhpParser\Node\Expr\ClassConstFetch)) {
-							return $methodReflection->getReturnType();
+							return ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
 						}
 
 						if (!($arg->class instanceof \PhpParser\Node\Name)) {
-							return $methodReflection->getReturnType();
+							return ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
 						}
 
 						return new ObjectType((string) $arg->class);
@@ -3451,16 +3452,16 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 					{
 						$args = $methodCall->args;
 						if (count($args) === 0) {
-							return $methodReflection->getReturnType();
+							return ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
 						}
 
 						$arg = $args[0]->value;
 						if (!($arg instanceof \PhpParser\Node\Expr\ClassConstFetch)) {
-							return $methodReflection->getReturnType();
+							return ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
 						}
 
 						if (!($arg->class instanceof \PhpParser\Node\Name)) {
-							return $methodReflection->getReturnType();
+							return ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
 						}
 
 						return new ObjectType((string) $arg->class);
@@ -3476,17 +3477,17 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'*ERROR*',
 				'$var',
-				'new \OverwritingVariable\Bar();',
+				'new \OverwritingVariable\Bar()',
 			],
 			[
 				'OverwritingVariable\Bar',
 				'$var',
-				'$var->methodFoo();',
+				'$var->methodFoo()',
 			],
 			[
 				'OverwritingVariable\Foo',
 				'$var',
-				'die;',
+				'die',
 			],
 		];
 	}
@@ -3784,37 +3785,37 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				__DIR__ . '/data/foreach/object-type.php',
 				'ObjectType\\MyKey',
 				'$keyFromIterator',
-				"'insideFirstForeach';",
+				"'insideFirstForeach'",
 			],
 			[
 				__DIR__ . '/data/foreach/object-type.php',
 				'ObjectType\\MyValue',
 				'$valueFromIterator',
-				"'insideFirstForeach';",
+				"'insideFirstForeach'",
 			],
 			[
 				__DIR__ . '/data/foreach/object-type.php',
 				'ObjectType\\MyKey',
 				'$keyFromAggregate',
-				"'insideSecondForeach';",
+				"'insideSecondForeach'",
 			],
 			[
 				__DIR__ . '/data/foreach/object-type.php',
 				'ObjectType\\MyValue',
 				'$valueFromAggregate',
-				"'insideSecondForeach';",
+				"'insideSecondForeach'",
 			],
 			[
 				__DIR__ . '/data/foreach/object-type.php',
 				'*ERROR*',
 				'$keyFromRecursiveAggregate',
-				"'insideThirdForeach';",
+				"'insideThirdForeach'",
 			],
 			[
 				__DIR__ . '/data/foreach/object-type.php',
 				'*ERROR*',
 				'$valueFromRecursiveAggregate',
-				"'insideThirdForeach';",
+				"'insideThirdForeach'",
 			],
 		];
 	}
@@ -4640,152 +4641,152 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'null',
 				'$foo',
-				"'nullForSure';",
+				"'nullForSure'",
 			],
 			[
 				'TypeElimination\Foo',
 				'$foo',
-				"'notNullForSure';",
+				"'notNullForSure'",
 			],
 			[
 				'TypeElimination\Foo',
 				'$foo',
-				"'notNullForSure2';",
+				"'notNullForSure2'",
 			],
 			[
 				'null',
 				'$foo',
-				"'nullForSure2';",
+				"'nullForSure2'",
 			],
 			[
 				'null',
 				'$foo',
-				"'nullForSure3';",
+				"'nullForSure3'",
 			],
 			[
 				'TypeElimination\Foo',
 				'$foo',
-				"'notNullForSure3';",
+				"'notNullForSure3'",
 			],
 			[
 				'null',
 				'$foo',
-				"'yodaNullForSure';",
+				"'yodaNullForSure'",
 			],
 			[
 				'TypeElimination\Foo',
 				'$foo',
-				"'yodaNotNullForSure';",
+				"'yodaNotNullForSure'",
 			],
 			[
 				'false',
 				'$intOrFalse',
-				"'falseForSure';",
+				"'falseForSure'",
 			],
 			[
 				'int',
 				'$intOrFalse',
-				"'intForSure';",
+				"'intForSure'",
 			],
 			[
 				'false',
 				'$intOrFalse',
-				"'yodaFalseForSure';",
+				"'yodaFalseForSure'",
 			],
 			[
 				'int',
 				'$intOrFalse',
-				"'yodaIntForSure';",
+				"'yodaIntForSure'",
 			],
 			[
 				'true',
 				'$intOrTrue',
-				"'trueForSure';",
+				"'trueForSure'",
 			],
 			[
 				'int',
 				'$intOrTrue',
-				"'anotherIntForSure';",
+				"'anotherIntForSure'",
 			],
 			[
 				'true',
 				'$intOrTrue',
-				"'yodaTrueForSure';",
+				"'yodaTrueForSure'",
 			],
 			[
 				'int',
 				'$intOrTrue',
-				"'yodaAnotherIntForSure';",
+				"'yodaAnotherIntForSure'",
 			],
 			[
 				'TypeElimination\Foo',
 				'$fooOrBarOrBaz',
-				"'fooForSure';",
+				"'fooForSure'",
 			],
 			[
 				'TypeElimination\Bar|TypeElimination\Baz',
 				'$fooOrBarOrBaz',
-				"'barOrBazForSure';",
+				"'barOrBazForSure'",
 			],
 			[
 				'TypeElimination\Bar',
 				'$fooOrBarOrBaz',
-				"'barForSure';",
+				"'barForSure'",
 			],
 			[
 				'TypeElimination\Baz',
 				'$fooOrBarOrBaz',
-				"'bazForSure';",
+				"'bazForSure'",
 			],
 			[
 				'TypeElimination\Bar|TypeElimination\Baz',
 				'$fooOrBarOrBaz',
-				"'anotherBarOrBazForSure';",
+				"'anotherBarOrBazForSure'",
 			],
 			[
 				'TypeElimination\Foo',
 				'$fooOrBarOrBaz',
-				"'anotherFooForSure';",
+				"'anotherFooForSure'",
 			],
 			[
 				'string|null',
 				'$result',
-				"'stringOrNullForSure';",
+				"'stringOrNullForSure'",
 			],
 			[
 				'int',
 				'$intOrFalse',
-				"'yetAnotherIntForSure';",
+				"'yetAnotherIntForSure'",
 			],
 			[
 				'int',
 				'$intOrTrue',
-				"'yetYetAnotherIntForSure';",
+				"'yetYetAnotherIntForSure'",
 			],
 			[
 				'TypeElimination\Foo|null',
 				'$fooOrStringOrNull',
-				"'fooOrNull';",
+				"'fooOrNull'",
 			],
 			[
 				'string',
 				'$fooOrStringOrNull',
-				"'stringForSure';",
+				"'stringForSure'",
 			],
 			[
 				'string',
 				'$fooOrStringOrNull',
-				"'anotherStringForSure';",
+				"'anotherStringForSure'",
 			],
 			[
 				'null',
 				'$this->bar',
-				"'propertyNullForSure';",
+				"'propertyNullForSure'",
 			],
 			[
 				'TypeElimination\Bar',
 				'$this->bar',
-				"'propertyNotNullForSure';",
+				"'propertyNotNullForSure'",
 			],
 		];
 	}
@@ -5092,37 +5093,37 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'LoopVariables\Foo|LoopVariables\Lorem|null',
 				'$foo',
-				"'begin';",
+				"'begin'",
 			],
 			[
 				'LoopVariables\Foo',
 				'$foo',
-				"'afterAssign';",
+				"'afterAssign'",
 			],
 			[
 				'LoopVariables\Foo',
 				'$foo',
-				"'end';",
+				"'end'",
 			],
 			[
 				'LoopVariables\Bar|LoopVariables\Foo|LoopVariables\Lorem|null',
 				'$foo',
-				"'afterLoop';",
+				"'afterLoop'",
 			],
 			[
 				'int',
 				'$i',
-				"'begin';",
+				"'begin'",
 			],
 			[
 				'int',
 				'$i',
-				"'end';",
+				"'end'",
 			],
 			[
 				'int',
 				'$i',
-				"'afterLoop';",
+				"'afterLoop'",
 			],
 		];
 	}
@@ -5133,32 +5134,32 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'1|2|3',
 				'$val',
-				"'begin';",
+				"'begin'",
 			],
 			[
 				'0|1|2',
 				'$key',
-				"'begin';",
+				"'begin'",
 			],
 			[
 				'1|2|3|null',
 				'$val',
-				"'afterLoop';",
+				"'afterLoop'",
 			],
 			[
 				'0|1|2|null',
 				'$key',
-				"'afterLoop';",
+				"'afterLoop'",
 			],
 			[
 				'1|2|3|null',
 				'$emptyForeachVal',
-				"'afterLoop';",
+				"'afterLoop'",
 			],
 			[
 				'0|1|2|null',
 				'$emptyForeachKey',
-				"'afterLoop';",
+				"'afterLoop'",
 			],
 		];
 	}
@@ -5242,37 +5243,37 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'LoopVariables\Foo|LoopVariables\Lorem|null',
 				'$foo',
-				"'begin';",
+				"'begin'",
 			],
 			[
 				'LoopVariables\Foo',
 				'$foo',
-				"'afterAssign';",
+				"'afterAssign'",
 			],
 			[
 				'LoopVariables\Foo',
 				'$foo',
-				"'end';",
+				"'end'",
 			],
 			[
 				'LoopVariables\Bar|LoopVariables\Foo|LoopVariables\Lorem',
 				'$foo',
-				"'afterLoop';",
+				"'afterLoop'",
 			],
 			[
 				'int',
 				'$i',
-				"'begin';",
+				"'begin'",
 			],
 			[
 				'int',
 				'$i',
-				"'end';",
+				"'end'",
 			],
 			[
 				'int',
 				'$i',
-				"'afterLoop';",
+				"'afterLoop'",
 			],
 		];
 	}
@@ -5307,12 +5308,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'MultipleClasses\Foo',
 				'$self',
-				"'Foo';",
+				"'Foo'",
 			],
 			[
 				'MultipleClasses\Bar',
 				'$self',
-				"'Bar';",
+				"'Bar'",
 			],
 		];
 	}
@@ -5535,52 +5536,52 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'false',
 				'$progressStarted',
-				"'beforeCallback';",
+				"'beforeCallback'",
 			],
 			[
 				'false',
 				'$anotherVariable',
-				"'beforeCallback';",
+				"'beforeCallback'",
 			],
 			[
 				'1|bool',
 				'$progressStarted',
-				"'inCallbackBeforeAssign';",
+				"'inCallbackBeforeAssign'",
 			],
 			[
 				'false',
 				'$anotherVariable',
-				"'inCallbackBeforeAssign';",
+				"'inCallbackBeforeAssign'",
 			],
 			[
 				'null',
 				'$untouchedPassedByRef',
-				"'inCallbackBeforeAssign';",
+				"'inCallbackBeforeAssign'",
 			],
 			[
 				'1|true',
 				'$progressStarted',
-				"'inCallbackAfterAssign';",
+				"'inCallbackAfterAssign'",
 			],
 			[
 				'true',
 				'$anotherVariable',
-				"'inCallbackAfterAssign';",
+				"'inCallbackAfterAssign'",
 			],
 			[
 				'1|bool',
 				'$progressStarted',
-				"'afterCallback';",
+				"'afterCallback'",
 			],
 			[
 				'false',
 				'$anotherVariable',
-				"'afterCallback';",
+				"'afterCallback'",
 			],
 			[
 				'null',
 				'$untouchedPassedByRef',
-				"'afterCallback';",
+				"'afterCallback'",
 			],
 		];
 	}
@@ -5839,27 +5840,27 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'true',
 				'is_file($autoloadFile)',
-				"'first';",
+				"'first'",
 			],
 			[
 				'true',
 				'is_file($autoloadFile)',
-				"'second';",
+				"'second'",
 			],
 			[
 				'true',
 				'is_file($autoloadFile)',
-				"'third';",
+				"'third'",
 			],
 			[
 				'bool',
 				'is_file($autoloadFile)',
-				"'fourth';",
+				"'fourth'",
 			],
 			[
 				'true',
 				'is_file($autoloadFile)',
-				"'fifth';",
+				"'fifth'",
 			],
 		];
 	}
@@ -5968,32 +5969,32 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'$this(AnonymousClass3301acd9e9d13ba9bbce9581cdb00699)',
 				'$this',
-				"'inside';",
+				"'inside'",
 			],
 			[
 				'AnonymousClass3301acd9e9d13ba9bbce9581cdb00699',
 				'$foo',
-				"'outside';",
+				"'outside'",
 			],
 			[
 				'AnonymousClassName\Foo',
 				'$this->fooProperty',
-				"'inside';",
+				"'inside'",
 			],
 			[
 				'AnonymousClassName\Foo',
 				'$foo->fooProperty',
-				"'outside';",
+				"'outside'",
 			],
 			[
 				'AnonymousClassName\Foo',
 				'$this->doFoo()',
-				"'inside';",
+				"'inside'",
 			],
 			[
 				'AnonymousClassName\Foo',
 				'$foo->doFoo()',
-				"'outside';",
+				"'outside'",
 			],
 		];
 	}
@@ -6030,7 +6031,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		array $dynamicStaticMethodReturnTypeExtensions = [],
 		array $methodTypeSpecifyingExtensions = [],
 		array $staticMethodTypeSpecifyingExtensions = [],
-		string $evaluatedPointExpression = 'die;'
+		string $evaluatedPointExpression = 'die'
 	): void
 	{
 		$this->processFile($file, function (\PhpParser\Node $node, Scope $scope) use ($description, $expression, $evaluatedPointExpression): void {
@@ -6040,9 +6041,9 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				return;
 			}
 
-			/** @var \PhpParser\Node\Expr $expressionNode */
+			/** @var \PhpParser\Node\Stmt\Expression $expressionNode */
 			$expressionNode = $this->getParser()->parseString(sprintf('<?php %s;', $expression))[0];
-			$type = $scope->getType($expressionNode);
+			$type = $scope->getType($expressionNode->expr);
 			$this->assertTypeDescribe(
 				$description,
 				$type,

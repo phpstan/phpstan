@@ -5,7 +5,6 @@ namespace PHPStan\Type;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
-use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 
@@ -55,7 +54,11 @@ interface Type
 
 	public function isCallable(): TrinaryLogic;
 
-	public function getCallableParametersAcceptor(Scope $scope): ParametersAcceptor;
+	/**
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @return \PHPStan\Reflection\ParametersAcceptor[]
+	 */
+	public function getCallableParametersAcceptors(Scope $scope): array;
 
 	public function isCloneable(): TrinaryLogic;
 

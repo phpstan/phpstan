@@ -3,7 +3,8 @@
 namespace PHPStan\Rules\Functions;
 
 use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\InaccessibleMethod;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Rules\FunctionCallParametersCheck;
 use PHPStan\Type\ClosureType;
 use PHPStan\Type\MixedType;
@@ -62,20 +63,27 @@ class CallCallablesRule implements \PHPStan\Rules\Rule
 			];
 		}
 
-		$parametersAcceptor = $exprType->getCallableParametersAcceptor($scope);
+		$parametersAcceptors = $exprType->getCallableParametersAcceptors($scope);
 		$messages = [];
 
 		if (
-			$parametersAcceptor instanceof MethodReflection
-			&& !$scope->canCallMethod($parametersAcceptor)
+			count($parametersAcceptors) === 1
+			&& $parametersAcceptors[0] instanceof InaccessibleMethod
 		) {
+			$method = $parametersAcceptors[0]->getMethod();
 			$messages[] = sprintf(
 				'Call to %s method %s() of class %s.',
-				$parametersAcceptor->isPrivate() ? 'private' : 'protected',
-				$parametersAcceptor->getName(),
-				$parametersAcceptor->getDeclaringClass()->getDisplayName()
+				$method->isPrivate() ? 'private' : 'protected',
+				$method->getName(),
+				$method->getDeclaringClass()->getDisplayName()
 			);
 		}
+
+		$parametersAcceptor = ParametersAcceptorSelector::selectFromArgs(
+			$scope,
+			$node->args,
+			$parametersAcceptors
+		);
 
 		if ($exprType instanceof ClosureType) {
 			$callableDescription = 'closure';
@@ -86,6 +94,7 @@ class CallCallablesRule implements \PHPStan\Rules\Rule
 		return array_merge(
 			$messages,
 			$this->check->check(
+				null,
 				$parametersAcceptor,
 				$scope,
 				$node,

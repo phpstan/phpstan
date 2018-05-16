@@ -10,17 +10,16 @@ use PHPStan\Parser\Parser;
 use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\DeprecatableReflection;
+use PHPStan\Reflection\FunctionVariantWithPhpDocs;
 use PHPStan\Reflection\MethodPrototypeReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
-use PHPStan\Reflection\PassedByReference;
 use PHPStan\Reflection\ThrowableReflection;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
-use PHPStan\Type\ObjectType;
 use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
@@ -28,7 +27,7 @@ use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypehintHelper;
 use PHPStan\Type\VoidType;
 
-class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhpDocs, DeprecatableReflection, ThrowableReflection
+class PhpMethodReflection implements MethodReflection, DeprecatableReflection, ThrowableReflection
 {
 
 	/** @var \PHPStan\Reflection\ClassReflection */
@@ -179,9 +178,25 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 	}
 
 	/**
-	 * @return \PHPStan\Reflection\ParameterReflection[]
+	 * @return ParametersAcceptorWithPhpDocs[]
 	 */
-	public function getParameters(): array
+	public function getVariants(): array
+	{
+		return [
+			new FunctionVariantWithPhpDocs(
+				$this->getParameters(),
+				$this->isVariadic(),
+				$this->getReturnType(),
+				$this->getPhpDocReturnType(),
+				$this->getNativeReturnType()
+			),
+		];
+	}
+
+	/**
+	 * @return \PHPStan\Reflection\Php\PhpParameterReflection[]
+	 */
+	private function getParameters(): array
 	{
 		if ($this->parameters === null) {
 			$this->parameters = array_map(function (\ReflectionParameter $reflection) {
@@ -190,130 +205,12 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 					isset($this->phpDocParameterTypes[$reflection->getName()]) ? $this->phpDocParameterTypes[$reflection->getName()] : null
 				);
 			}, $this->reflection->getParameters());
-
-			if (
-				$this->declaringClass->getName() === 'ReflectionMethod'
-				&& $this->reflection->getName() === 'invoke'
-				&& !$this->parameters[1]->isOptional()
-			) {
-				// PHP bug #71416
-				$this->parameters[1] = new DummyParameter(
-					'parameter',
-					new MixedType(),
-					true,
-					PassedByReference::createNo(),
-					true
-				);
-			}
-
-			if (
-				$this->declaringClass->getName() === 'PDO'
-				&& $this->reflection->getName() === 'query'
-				&& count($this->parameters) < 4
-			) {
-				$this->parameters[] = new DummyParameter(
-					'statement',
-					new StringType(),
-					false
-				);
-				$this->parameters[] = new DummyParameter(
-					'fetchColumn',
-					new IntegerType(),
-					true
-				);
-				$this->parameters[] = new DummyParameter(
-					'colno',
-					new MixedType(),
-					true
-				);
-				$this->parameters[] = new DummyParameter(
-					'constructorArgs',
-					new ArrayType(new MixedType(), new MixedType(), false),
-					true
-				);
-			}
-			if (
-				$this->declaringClass->getName() === 'DatePeriod'
-				&& $this->reflection->getName() === '__construct'
-				&& count($this->parameters) < 4
-			) {
-				$this->parameters[] = new DummyParameter(
-					'options',
-					new IntegerType(),
-					true
-				);
-			}
-			if (
-				$this->declaringClass->getName() === 'Closure'
-				&& $this->reflection->getName() === '__invoke'
-				&& count($this->parameters) < 1
-			) {
-				$this->parameters[] = new DummyParameter(
-					'args',
-					new MixedType(),
-					true,
-					PassedByReference::createNo(),
-					true
-				);
-			}
-			if (
-				$this->declaringClass->getName() === 'ReflectionClass'
-				&& $this->reflection->getName() === 'newInstance'
-				&& count($this->parameters) === 1
-			) {
-				$this->parameters[0] = new DummyParameter(
-					'args',
-					new MixedType(),
-					true,
-					PassedByReference::createNo(),
-					true
-				);
-			}
-			if (
-				$this->declaringClass->getName() === 'DateTimeZone'
-				&& $this->reflection->getName() === 'getTransitions'
-				&& count($this->parameters) === 2
-			) {
-				$this->parameters[0] = new DummyParameter(
-					'timestamp_begin',
-					new IntegerType(),
-					true
-				);
-				$this->parameters[1] = new DummyParameter(
-					'timestamp_end',
-					new IntegerType(),
-					true
-				);
-			}
-
-			if (
-				$this->declaringClass->getName() === 'Locale'
-				&& $this->reflection->getName() === 'getDisplayLanguage'
-			) {
-				$this->parameters[1] = new DummyParameter(
-					'in_locale',
-					new StringType(),
-					true
-				);
-			}
-
-			if (
-				$this->declaringClass->getName() === 'DOMDocument'
-				&& $this->reflection->getName() === 'saveHTML'
-				&& count($this->parameters) === 0
-			) {
-				$this->parameters[] = new DummyParameter(
-					'node',
-					TypeCombinator::addNull(new ObjectType('DOMNode')),
-					true
-				);
-			}
 		}
 
 		return $this->parameters;
 	}
 
-	public function isVariadic(): bool
+	private function isVariadic(): bool
 	{
 		$isNativelyVariadic = $this->reflection->isVariadic();
 		if (
@@ -382,7 +279,7 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 					continue; // interface
 				}
 
-				$methodName = $node->name;
+				$methodName = $node->name->name;
 				if ($methodName === $this->reflection->getName()) {
 					return $this->functionCallStatementFinder->findFunctionCallInStatements(ParametersAcceptor::VARIADIC_FUNCTIONS, $node->getStmts()) !== null;
 				}
@@ -408,7 +305,7 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 		return $this->reflection->isPublic();
 	}
 
-	public function getReturnType(): Type
+	private function getReturnType(): Type
 	{
 		if ($this->returnType === null) {
 			$name = strtolower($this->getName());
@@ -453,7 +350,7 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 		return $this->returnType;
 	}
 
-	public function getPhpDocReturnType(): Type
+	private function getPhpDocReturnType(): Type
 	{
 		if ($this->phpDocReturnType !== null) {
 			return $this->phpDocReturnType;
@@ -462,7 +359,7 @@ class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhp
 		return new MixedType();
 	}
 
-	public function getNativeReturnType(): Type
+	private function getNativeReturnType(): Type
 	{
 		if ($this->nativeReturnType === null) {
 			$this->nativeReturnType = TypehintHelper::decideTypeFromReflection(

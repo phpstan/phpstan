@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Rules\FunctionReturnTypeCheck;
 
 class ReturnTypeRule implements \PHPStan\Rules\Rule
@@ -51,7 +52,7 @@ class ReturnTypeRule implements \PHPStan\Rules\Rule
 
 		return $this->returnTypeCheck->checkReturnType(
 			$scope,
-			$method->getReturnType(),
+			ParametersAcceptorSelector::selectSingle($method->getVariants())->getReturnType(),
 			$node->expr,
 			sprintf(
 				'Method %s::%s() should return %%s but empty return statement found.',

@@ -27,6 +27,7 @@ use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\Native\NativeParameterReflection;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Reflection\PassedByReference;
 use PHPStan\Reflection\Php\PhpFunctionFromParserNodeReflection;
 use PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection;
@@ -854,8 +855,11 @@ class Scope
 				if ($param->variadic) {
 					$isVariadic = true;
 				}
+				if (!is_string($param->var->name)) {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
 				$parameters[] = new NativeParameterReflection(
-					$param->name,
+					$param->var->name,
 					$optional,
 					$this->getFunctionType($param->type, $param->type === null, $param->variadic),
 					$param->byRef
@@ -1027,7 +1031,7 @@ class Scope
 			}
 
 			return $varType->toNumber();
-		} elseif ($node instanceof Node\Expr\ClassConstFetch && is_string($node->name)) {
+		} elseif ($node instanceof Node\Expr\ClassConstFetch && $node->name instanceof Node\Identifier) {
 			if ($node->class instanceof Name) {
 				$constantClass = (string) $node->class;
 				$constantClassType = new ObjectType($constantClass);
@@ -1043,7 +1047,7 @@ class Scope
 				$constantClassType = $this->getType($node->class);
 			}
 
-			$constantName = $node->name;
+			$constantName = $node->name->name;
 			if (strtolower($constantName) === 'class' && $constantClassType instanceof TypeWithClassName) {
 				return new ConstantStringType($constantClassType->getClassName());
 			}
@@ -1106,7 +1110,7 @@ class Scope
 			return $offsetAccessibleType->getOffsetValueType($offsetType);
 		}
 
-		if ($node instanceof MethodCall && is_string($node->name)) {
+		if ($node instanceof MethodCall && $node->name instanceof Node\Identifier) {
 			$methodCalledOnType = $this->getType($node->var);
 			$referencedClasses = $methodCalledOnType->getReferencedClasses();
 
@@ -1117,15 +1121,16 @@ class Scope
 				}
 
 				$methodClassReflection = $this->broker->getClass($referencedClass);
-				if (!$methodClassReflection->hasMethod($node->name)) {
+				if (!$methodClassReflection->hasMethod($node->name->name)) {
 					if ($methodCalledOnType instanceof IntersectionType) {
 						continue;
 					}
 
+
 					return new ErrorType();
 				}
 
-				$methodReflection = $methodClassReflection->getMethod($node->name, $this);
+				$methodReflection = $methodClassReflection->getMethod($node->name->name, $this);
 				foreach ($this->broker->getDynamicMethodReturnTypeExtensionsForClass($methodClassReflection->getName()) as $dynamicMethodReturnTypeExtension) {
 					if (!$dynamicMethodReturnTypeExtension->isMethodSupported($methodReflection)) {
 						continue;
@@ -1138,13 +1143,17 @@ class Scope
 				return TypeCombinator::union(...$resolvedTypes);
 			}
 
-			if (!$methodCalledOnType->hasMethod($node->name)) {
+			if (!$methodCalledOnType->hasMethod($node->name->name)) {
 				return new ErrorType();
 			}
-			$methodReflection = $methodCalledOnType->getMethod($node->name, $this);
+			$methodReflection = $methodCalledOnType->getMethod($node->name->name, $this);
 
 			$calledOnThis = $node->var instanceof Variable && is_string($node->var->name) && $node->var->name === 'this';
-			$methodReturnType = $methodReflection->getReturnType();
+			$methodReturnType = ParametersAcceptorSelector::selectFromArgs(
+				$this,
+				$node->args,
+				$methodReflection->getVariants()
+			)->getReturnType();
 			if ($methodReturnType instanceof StaticResolvableType) {
 				if ($calledOnThis) {
 					if ($this->isInClass()) {
@@ -1155,20 +1164,20 @@ class Scope
 				}
 			}
 
-			return $methodReflection->getReturnType();
+			return $methodReturnType;
 		}
 
-		if ($node instanceof Expr\StaticCall && is_string($node->name)) {
+		if ($node instanceof Expr\StaticCall && (is_string($node->name) || $node->name instanceof Node\Identifier)) {
 			if ($node->class instanceof Name) {
 				$calleeType = new ObjectType($this->resolveName($node->class));
 			} else {
 				$calleeType = $this->getType($node->class);
 			}
 
-			if (!$calleeType->hasMethod($node->name)) {
+			if (!$calleeType->hasMethod((string) $node->name)) {
 				return new ErrorType();
 			}
-			$staticMethodReflection = $calleeType->getMethod($node->name, $this);
+			$staticMethodReflection = $calleeType->getMethod((string) $node->name, $this);
 			$referencedClasses = $calleeType->getReferencedClasses();
 
 			$resolvedTypes = [];
@@ -1186,11 +1195,18 @@ class Scope
 					$resolvedTypes[] = $dynamicStaticMethodReturnTypeExtension->getTypeFromStaticMethodCall($staticMethodReflection, $node, $this);
 				}
 			}
+
 			if (count($resolvedTypes) > 0) {
 				return TypeCombinator::union(...$resolvedTypes);
 			}
 
-			if ($staticMethodReflection->getReturnType() instanceof StaticResolvableType) {
+			$staticMethodReturnType = ParametersAcceptorSelector::selectFromArgs(
+				$this,
+				$node->args,
+				$staticMethodReflection->getVariants()
+			)->getReturnType();
+
+			if ($staticMethodReturnType instanceof StaticResolvableType) {
 				if ($node->class instanceof Name) {
 					$nodeClassString = strtolower((string) $node->class);
 					if (in_array($nodeClassString, [
@@ -1198,36 +1214,36 @@ class Scope
 						'static',
 						'parent',
 					], true) && $this->isInClass()) {
-						return $staticMethodReflection->getReturnType()->changeBaseClass($this->getClassReflection()->getName());
+						return $staticMethodReturnType->changeBaseClass($this->getClassReflection()->getName());
 					}
 				}
 				if (count($referencedClasses) === 1) {
-					return $staticMethodReflection->getReturnType()->resolveStatic($referencedClasses[0]);
+					return $staticMethodReturnType->resolveStatic($referencedClasses[0]);
 				}
 			}
-			return $staticMethodReflection->getReturnType();
+			return $staticMethodReturnType;
 		}
 
-		if ($node instanceof PropertyFetch && is_string($node->name)) {
+		if ($node instanceof PropertyFetch && $node->name instanceof Node\Identifier) {
 			$propertyFetchedOnType = $this->getType($node->var);
-			if (!$propertyFetchedOnType->hasProperty($node->name)) {
+			if (!$propertyFetchedOnType->hasProperty($node->name->name)) {
 				return new ErrorType();
 			}
 
-			return $propertyFetchedOnType->getProperty($node->name, $this)->getType();
+			return $propertyFetchedOnType->getProperty($node->name->name, $this)->getType();
 		}
 
-		if ($node instanceof Expr\StaticPropertyFetch && is_string($node->name) && $node->class instanceof Name) {
+		if ($node instanceof Expr\StaticPropertyFetch && $node->name instanceof Node\VarLikeIdentifier && $node->class instanceof Name) {
 			$staticPropertyHolderClass = $this->resolveName($node->class);
 			if ($this->broker->hasClass($staticPropertyHolderClass)) {
 				$staticPropertyClassReflection = $this->broker->getClass(
 					$staticPropertyHolderClass
 				);
-				if (!$staticPropertyClassReflection->hasProperty($node->name)) {
+				if (!$staticPropertyClassReflection->hasProperty($node->name->name)) {
 					return new ErrorType();
 				}
 
-				return $staticPropertyClassReflection->getProperty($node->name, $this)->getType();
+				return $staticPropertyClassReflection->getProperty($node->name->name, $this)->getType();
 			}
 		}
 
@@ -1238,7 +1254,11 @@ class Scope
 					return new ErrorType();
 				}
 
-				return $calledOnType->getCallableParametersAcceptor($this)->getReturnType();
+				return ParametersAcceptorSelector::selectFromArgs(
+					$this,
+					$node->args,
+					$calledOnType->getCallableParametersAcceptors($this)
+				)->getReturnType();
 			}
 
 			if (!$this->broker->hasFunction($node->name, $this)) {
@@ -1254,7 +1274,11 @@ class Scope
 				return $dynamicFunctionReturnTypeExtension->getTypeFromFunctionCall($functionReflection, $node, $this);
 			}
 
-			return $functionReflection->getReturnType();
+			return ParametersAcceptorSelector::selectFromArgs(
+				$this,
+				$node->args,
+				$functionReflection->getVariants()
+			)->getReturnType();
 		}
 
 		return new MixedType();
@@ -1467,7 +1491,10 @@ class Scope
 	{
 		$realParameterTypes = [];
 		foreach ($functionLike->getParams() as $parameter) {
-			$realParameterTypes[$parameter->name] = $this->getFunctionType(
+			if (!is_string($parameter->var->name)) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+			$realParameterTypes[$parameter->var->name] = $this->getFunctionType(
 				$parameter->type,
 				$this->isParameterValueNullable($parameter),
 				$parameter->variadic
@@ -1507,14 +1534,12 @@ class Scope
 		);
 	}
 
-	/**
-	 * @param \PHPStan\Reflection\FunctionReflection|\PHPStan\Reflection\MethodReflection $functionReflection
-	 * @return self
-	 */
-	private function enterFunctionLike($functionReflection): self
+	private function enterFunctionLike(
+		PhpFunctionFromParserNodeReflection $functionReflection
+	): self
 	{
 		$variableTypes = $this->getVariableTypes();
-		foreach ($functionReflection->getParameters() as $parameter) {
+		foreach (ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getParameters() as $parameter) {
 			$variableTypes[$parameter->getName()] = VariableTypeHolder::createYes($parameter->getType());
 		}
 
@@ -1595,25 +1620,31 @@ class Scope
 		foreach ($closure->params as $parameter) {
 			$isNullable = $this->isParameterValueNullable($parameter);
 
-			$variableTypes[$parameter->name] = VariableTypeHolder::createYes(
+			if (!is_string($parameter->var->name)) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+			$variableTypes[$parameter->var->name] = VariableTypeHolder::createYes(
 				$this->getFunctionType($parameter->type, $isNullable, $parameter->variadic)
 			);
 		}
 
 		foreach ($closure->uses as $use) {
-			if ($this->hasVariableType($use->var)->no()) {
+			if (!is_string($use->var->name)) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+			if ($this->hasVariableType($use->var->name)->no()) {
 				if ($use->byRef) {
-					if ($this->isInExpressionAssign(new Variable($use->var))) {
-						$variableTypes[$use->var] = VariableTypeHolder::createYes(
+					if ($this->isInExpressionAssign(new Variable($use->var->name))) {
+						$variableTypes[$use->var->name] = VariableTypeHolder::createYes(
 							$this->getType($closure)
 						);
 						continue;
 					}
-					$variableTypes[$use->var] = VariableTypeHolder::createYes(new NullType());
+					$variableTypes[$use->var->name] = VariableTypeHolder::createYes(new NullType());
 				}
 				continue;
 			}
-			$variableTypes[$use->var] = VariableTypeHolder::createYes($this->getVariableType($use->var));
+			$variableTypes[$use->var->name] = VariableTypeHolder::createYes($this->getVariableType($use->var->name));
 		}
 
 		if ($this->hasVariableType('this')->yes()) {
@@ -1648,7 +1679,7 @@ class Scope
 	}
 
 	/**
-	 * @param \PhpParser\Node\Name|string|\PhpParser\Node\NullableType|null $type
+	 * @param \PhpParser\Node\Name|\PhpParser\Node\Identifier|\PhpParser\Node\NullableType|null $type
 	 * @param bool $isNullable
 	 * @param bool $isVariadic
 	 * @return Type
@@ -1669,18 +1700,6 @@ class Scope
 		}
 		if ($type === null) {
 			return new MixedType();
-		} elseif ($type === 'string') {
-			return new StringType();
-		} elseif ($type === 'int') {
-			return new IntegerType();
-		} elseif ($type === 'bool') {
-			return new BooleanType();
-		} elseif ($type === 'float') {
-			return new FloatType();
-		} elseif ($type === 'callable') {
-			return new CallableType();
-		} elseif ($type === 'array') {
-			return new ArrayType(new MixedType(), new MixedType());
 		} elseif ($type instanceof Name) {
 			$className = (string) $type;
 			$lowercasedClassName = strtolower($className);
@@ -1696,14 +1715,29 @@ class Scope
 				return new NonexistentParentClassType();
 			}
 			return new ObjectType($className);
+		} elseif ($type instanceof Node\NullableType) {
+			return $this->getFunctionType($type->type, true, $isVariadic);
+		}
+
+		$type = $type->name;
+		if ($type === 'string') {
+			return new StringType();
+		} elseif ($type === 'int') {
+			return new IntegerType();
+		} elseif ($type === 'bool') {
+			return new BooleanType();
+		} elseif ($type === 'float') {
+			return new FloatType();
+		} elseif ($type === 'callable') {
+			return new CallableType();
+		} elseif ($type === 'array') {
+			return new ArrayType(new MixedType(), new MixedType());
 		} elseif ($type === 'iterable') {
 			return new IterableType(new MixedType(), new MixedType());
 		} elseif ($type === 'void') {
 			return new VoidType();
 		} elseif ($type === 'object') {
 			return new ObjectWithoutClassType();
-		} elseif ($type instanceof Node\NullableType) {
-			return $this->getFunctionType($type->type, true, $isVariadic);
 		}
 
 		return new MixedType();

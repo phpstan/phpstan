@@ -383,3 +383,6 @@ echo $_GET['test'];
 
 $variableInAssign = $variableInAssign;
 $anotherVariableInAssign = &$anotherVariableInAssign;
+
+static $staticVariable = 'foo';
+echo $staticVariable;
