@@ -8,6 +8,7 @@ use PHPStan\PhpDoc\Tag\ParamTag;
 use PHPStan\Reflection\BrokerAwareExtension;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\FunctionReflectionFactory;
+use PHPStan\Reflection\FunctionVariant;
 use PHPStan\Reflection\Native\NativeFunctionReflection;
 use PHPStan\Reflection\Native\NativeParameterReflection;
 use PHPStan\Reflection\SignatureMap\ParameterSignature;
@@ -346,20 +347,31 @@ class Broker
 			}
 
 			if ($this->signatureMapProvider->hasFunctionSignature($lowerCasedFunctionName)) {
-				$functionSignature = $this->signatureMapProvider->getFunctionSignature($lowerCasedFunctionName, null);
+				$variantName = $lowerCasedFunctionName;
+				$variants = [];
+				$i = 0;
+				while ($this->signatureMapProvider->hasFunctionSignature($variantName)) {
+					$functionSignature = $this->signatureMapProvider->getFunctionSignature($variantName, null);
+					$variants[] = new FunctionVariant(
+						array_map(function (ParameterSignature $parameterSignature): NativeParameterReflection {
+							return new NativeParameterReflection(
+								$parameterSignature->getName(),
+								$parameterSignature->isOptional(),
+								$parameterSignature->getType(),
+								$parameterSignature->passedByReference(),
+								$parameterSignature->isVariadic()
+							);
+						}, $functionSignature->getParameters()),
+						$functionSignature->isVariadic(),
+						$functionSignature->getReturnType()
+					);
+
+					$i++;
+					$variantName = sprintf($lowerCasedFunctionName . '\'' . $i);
+				}
 				$functionReflection = new NativeFunctionReflection(
 					$lowerCasedFunctionName,
-					array_map(function (ParameterSignature $parameterSignature): NativeParameterReflection {
-						return new NativeParameterReflection(
-							$parameterSignature->getName(),
-							$parameterSignature->isOptional(),
-							$parameterSignature->getType(),
-							$parameterSignature->passedByReference(),
-							$parameterSignature->isVariadic()
-						);
-					}, $functionSignature->getParameters()),
-					$functionSignature->isVariadic(),
-					$functionSignature->getReturnType(),
+					$variants,
 					null,
 					false
 				);

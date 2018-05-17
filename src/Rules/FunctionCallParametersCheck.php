@@ -3,8 +3,6 @@
 namespace PHPStan\Rules;
 
 use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\FunctionReflection;
-use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\IterableType;
@@ -36,7 +34,6 @@ class FunctionCallParametersCheck
 	}
 
 	/**
-	 * @param FunctionReflection|MethodReflection|null $reflection
 	 * @param \PHPStan\Reflection\ParametersAcceptor $parametersAcceptor
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|\PhpParser\Node\Expr\New_ $funcCall
@@ -44,50 +41,24 @@ class FunctionCallParametersCheck
 	 * @return string[]
 	 */
 	public function check(
-		$reflection,
 		ParametersAcceptor $parametersAcceptor,
 		Scope $scope,
 		$funcCall,
 		array $messages
 	): array
 	{
-		if (
-			$reflection instanceof FunctionReflection
-			&& in_array($reflection->getName(), [
-				'implode',
-				'strtok',
-			], true)
-		) {
-			$functionParametersMinCount = 1;
-			$functionParametersMaxCount = 2;
-		} elseif (
-			$reflection instanceof MethodReflection
-			&& $reflection->getDeclaringClass()->getName() === 'DatePeriod'
-			&& $reflection->getName() === '__construct'
-		) {
-			$functionParametersMinCount = 1;
-			$functionParametersMaxCount = 4;
-		} elseif (
-			$reflection instanceof MethodReflection
-			&& $reflection->getDeclaringClass()->getName() === 'mysqli'
-			&& $reflection->getName() === 'query'
-		) {
-			$functionParametersMinCount = 1;
-			$functionParametersMaxCount = 2;
-		} else {
-			$functionParametersMinCount = 0;
-			$functionParametersMaxCount = 0;
-			foreach ($parametersAcceptor->getParameters() as $parameter) {
-				if (!$parameter->isOptional()) {
-					$functionParametersMinCount++;
-				}
-
-				$functionParametersMaxCount++;
+		$functionParametersMinCount = 0;
+		$functionParametersMaxCount = 0;
+		foreach ($parametersAcceptor->getParameters() as $parameter) {
+			if (!$parameter->isOptional()) {
+				$functionParametersMinCount++;
 			}
 
-			if ($parametersAcceptor->isVariadic()) {
-				$functionParametersMaxCount = -1;
-			}
+			$functionParametersMaxCount++;
+		}
+
+		if ($parametersAcceptor->isVariadic()) {
+			$functionParametersMaxCount = -1;
 		}
 
 		$errors = [];

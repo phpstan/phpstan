@@ -14,7 +14,7 @@ class FunctionVariantWithPhpDocs extends FunctionVariant implements ParametersAc
 	private $nativeReturnType;
 
 	/**
-	 * @param \PHPStan\Reflection\Php\PhpParameterReflection[] $parameters
+	 * @param array<int, \PHPStan\Reflection\Php\PhpParameterReflection> $parameters
 	 * @param bool $isVariadic
 	 * @param Type $returnType
 	 * @param Type $phpDocReturnType
@@ -38,7 +38,7 @@ class FunctionVariantWithPhpDocs extends FunctionVariant implements ParametersAc
 	}
 
 	/**
-	 * @return \PHPStan\Reflection\Php\PhpParameterReflection[]
+	 * @return array<int, \PHPStan\Reflection\Php\PhpParameterReflection>
 	 */
 	public function getParameters(): array
 	{

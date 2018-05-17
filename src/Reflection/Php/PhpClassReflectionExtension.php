@@ -9,6 +9,7 @@ use PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension;
 use PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension;
 use PHPStan\Reflection\BrokerAwareExtension;
 use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\FunctionVariant;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\MethodsClassReflectionExtension;
 use PHPStan\Reflection\Native\NativeMethodReflection;
@@ -225,22 +226,32 @@ class PhpClassReflectionExtension
 		$signatureMapMethodName = sprintf('%s::%s', $declaringClassName, $methodReflection->getName());
 		$declaringClass = $this->broker->getClass($declaringClassName);
 		if ($this->signatureMapProvider->hasFunctionSignature($signatureMapMethodName)) {
-			$methodSignature = $this->signatureMapProvider->getFunctionSignature($signatureMapMethodName, $declaringClassName);
+			$variantName = $signatureMapMethodName;
+			$variants = [];
+			$i = 0;
+			while ($this->signatureMapProvider->hasFunctionSignature($variantName)) {
+				$methodSignature = $this->signatureMapProvider->getFunctionSignature($variantName, $declaringClassName);
+				$variants[] = new FunctionVariant(
+					array_map(function (ParameterSignature $parameterSignature): NativeParameterReflection {
+						return new NativeParameterReflection(
+							$parameterSignature->getName(),
+							$parameterSignature->isOptional(),
+							$parameterSignature->getType(),
+							$parameterSignature->passedByReference(),
+							$parameterSignature->isVariadic()
+						);
+					}, $methodSignature->getParameters()),
+					$methodSignature->isVariadic(),
+					$methodSignature->getReturnType()
+				);
+				$i++;
+				$variantName = sprintf($signatureMapMethodName . '\'' . $i);
+			}
 			return new NativeMethodReflection(
 				$this->broker,
 				$declaringClass,
 				$methodReflection,
-				$methodSignature->isVariadic(),
-				array_map(function (ParameterSignature $parameterSignature): NativeParameterReflection {
-					return new NativeParameterReflection(
-						$parameterSignature->getName(),
-						$parameterSignature->isOptional(),
-						$parameterSignature->getType(),
-						$parameterSignature->passedByReference(),
-						$parameterSignature->isVariadic()
-					);
-				}, $methodSignature->getParameters()),
-				$methodSignature->getReturnType()
+				$variants
 			);
 		}
 

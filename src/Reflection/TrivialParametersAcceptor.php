@@ -9,7 +9,7 @@ class TrivialParametersAcceptor implements ParametersAcceptor
 {
 
 	/**
-	 * @return \PHPStan\Reflection\ParameterReflection[]
+	 * @return array<int, \PHPStan\Reflection\ParameterReflection>
 	 */
 	public function getParameters(): array
 	{

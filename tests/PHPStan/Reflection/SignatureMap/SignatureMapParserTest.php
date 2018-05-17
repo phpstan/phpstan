@@ -215,7 +215,7 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 						),
 						new ParameterSignature(
 							'...',
-							false,
+							true,
 							new MixedType(),
 							PassedByReference::createNo(),
 							true
@@ -263,7 +263,7 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 						),
 						new ParameterSignature(
 							'args',
-							false,
+							true,
 							new MixedType(),
 							PassedByReference::createNo(),
 							true

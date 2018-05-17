@@ -114,7 +114,6 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 		}
 
 		$errors = array_merge($errors, $this->check->check(
-			$methodReflection,
 			ParametersAcceptorSelector::selectFromArgs(
 				$scope,
 				$node->args,

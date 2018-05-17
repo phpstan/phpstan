@@ -47,7 +47,6 @@ class CallToFunctionParametersRule implements \PHPStan\Rules\Rule
 		$function = $this->broker->getFunction($node->name, $scope);
 
 		return $this->check->check(
-			$function,
 			ParametersAcceptorSelector::selectFromArgs(
 				$scope,
 				$node->args,

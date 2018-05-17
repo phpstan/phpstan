@@ -6,8 +6,8 @@ class PassedByReference
 {
 
 	private const NO = 1;
-	private const CREATES_NEW_VARIABLE = 2;
-	private const READS_ARGUMENT = 3;
+	private const READS_ARGUMENT = 2;
+	private const CREATES_NEW_VARIABLE = 3;
 
 	/** @var self[] */
 	private static $registry = [];
@@ -62,6 +62,17 @@ class PassedByReference
 	public function createsNewVariable(): bool
 	{
 		return $this->value === self::CREATES_NEW_VARIABLE;
+	}
+
+	public function combine(self $other): self
+	{
+		if ($this->value > $other->value) {
+			return $this;
+		} elseif ($this->value < $other->value) {
+			return $other;
+		}
+
+		return $this;
 	}
 
 	/**

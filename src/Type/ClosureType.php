@@ -18,7 +18,7 @@ class ClosureType implements CompoundType, ParametersAcceptor
 	/** @var ObjectType */
 	private $objectType;
 
-	/** @var \PHPStan\Reflection\Native\NativeParameterReflection[] */
+	/** @var array<int, \PHPStan\Reflection\Native\NativeParameterReflection> */
 	private $parameters;
 
 	/** @var Type */
@@ -28,7 +28,7 @@ class ClosureType implements CompoundType, ParametersAcceptor
 	private $variadic;
 
 	/**
-	 * @param \PHPStan\Reflection\Native\NativeParameterReflection[] $parameters
+	 * @param array<int, \PHPStan\Reflection\Native\NativeParameterReflection> $parameters
 	 * @param Type $returnType
 	 * @param bool $variadic
 	 */
@@ -228,7 +228,7 @@ class ClosureType implements CompoundType, ParametersAcceptor
 	}
 
 	/**
-	 * @return \PHPStan\Reflection\ParameterReflection[]
+	 * @return array<int, \PHPStan\Reflection\ParameterReflection>
 	 */
 	public function getParameters(): array
 	{

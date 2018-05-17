@@ -119,7 +119,7 @@ class SignatureMapParser
 			$passedByReference = PassedByReference::createNo();
 		}
 
-		$isOptional = $matches['optional'] !== '';
+		$isOptional = $isVariadic || $matches['optional'] !== '';
 
 		$name = $matches['name'] !== '' ? $matches['name'] : '...';
 

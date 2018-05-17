@@ -94,7 +94,6 @@ class CallCallablesRule implements \PHPStan\Rules\Rule
 		return array_merge(
 			$messages,
 			$this->check->check(
-				null,
 				$parametersAcceptor,
 				$scope,
 				$node,

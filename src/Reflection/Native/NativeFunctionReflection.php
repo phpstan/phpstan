@@ -2,7 +2,6 @@
 
 namespace PHPStan\Reflection\Native;
 
-use PHPStan\Reflection\FunctionVariant;
 use PHPStan\Type\Type;
 
 class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
@@ -11,14 +10,8 @@ class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
 	/** @var string */
 	private $name;
 
-	/** @var \PHPStan\Reflection\Native\NativeParameterReflection[] */
-	private $parameters;
-
-	/** @var bool */
-	private $variadic;
-
-	/** @var \PHPStan\Type\Type */
-	private $returnType;
+	/** @var \PHPStan\Reflection\ParametersAcceptor[] */
+	private $variants;
 
 	/** @var \PHPStan\Type\Type|null */
 	private $throwType;
@@ -28,25 +21,19 @@ class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
 
 	/**
 	 * @param string $name
-	 * @param \PHPStan\Reflection\Native\NativeParameterReflection[] $parameters
-	 * @param bool $variadic
-	 * @param \PHPStan\Type\Type $returnType
+	 * @param \PHPStan\Reflection\ParametersAcceptor[] $variants
 	 * @param \PHPStan\Type\Type|null $throwType
 	 * @param bool $isDeprecated
 	 */
 	public function __construct(
 		string $name,
-		array $parameters,
-		bool $variadic,
-		Type $returnType,
+		array $variants,
 		?Type $throwType,
 		bool $isDeprecated
 	)
 	{
 		$this->name = $name;
-		$this->parameters = $parameters;
-		$this->variadic = $variadic;
-		$this->returnType = $returnType;
+		$this->variants = $variants;
 		$this->throwType = $throwType;
 		$this->isDeprecated = $isDeprecated;
 	}
@@ -61,9 +48,7 @@ class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
 	 */
 	public function getVariants(): array
 	{
-		return [
-			new FunctionVariant($this->parameters, $this->variadic, $this->returnType),
-		];
+		return $this->variants;
 	}
 
 	public function getThrowType(): ?Type

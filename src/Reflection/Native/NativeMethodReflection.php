@@ -6,10 +6,8 @@ use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\DeprecatableReflection;
-use PHPStan\Reflection\FunctionVariant;
 use PHPStan\Reflection\MethodPrototypeReflection;
 use PHPStan\Reflection\MethodReflection;
-use PHPStan\Type\Type;
 
 class NativeMethodReflection implements MethodReflection, DeprecatableReflection
 {
@@ -23,38 +21,26 @@ class NativeMethodReflection implements MethodReflection, DeprecatableReflection
 	/** @var \ReflectionMethod */
 	private $reflection;
 
-	/** @var bool */
-	private $isVariadic;
-
-	/** @var \PHPStan\Reflection\Native\NativeParameterReflection[]  */
-	private $parameters;
-
-	/** @var \PHPStan\Type\Type */
-	private $returnType;
+	/** @var \PHPStan\Reflection\ParametersAcceptor[] */
+	private $variants;
 
 	/**
 	 * @param \PHPStan\Broker\Broker $broker
 	 * @param \PHPStan\Reflection\ClassReflection $declaringClass
 	 * @param \ReflectionMethod $reflection
-	 * @param bool $isVariadic
-	 * @param \PHPStan\Reflection\Native\NativeParameterReflection[] $parameters
-	 * @param \PHPStan\Type\Type $returnType
+	 * @param \PHPStan\Reflection\ParametersAcceptor[] $variants
 	 */
 	public function __construct(
 		Broker $broker,
 		ClassReflection $declaringClass,
 		\ReflectionMethod $reflection,
-		bool $isVariadic,
-		array $parameters,
-		Type $returnType
+		array $variants
 	)
 	{
 		$this->broker = $broker;
 		$this->declaringClass = $declaringClass;
 		$this->reflection = $reflection;
-		$this->isVariadic = $isVariadic;
-		$this->parameters = $parameters;
-		$this->returnType = $returnType;
+		$this->variants = $variants;
 	}
 
 	public function getDeclaringClass(): ClassReflection
@@ -104,13 +90,7 @@ class NativeMethodReflection implements MethodReflection, DeprecatableReflection
 	 */
 	public function getVariants(): array
 	{
-		return [
-			new FunctionVariant(
-				$this->parameters,
-				$this->isVariadic,
-				$this->returnType
-			),
-		];
+		return $this->variants;
 	}
 
 	public function isDeprecated(): bool

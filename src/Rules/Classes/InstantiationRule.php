@@ -141,7 +141,6 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 		}
 
 		return array_merge($messages, $this->check->check(
-			$constructorReflection,
 			ParametersAcceptorSelector::selectFromArgs(
 				$scope,
 				$node->args,

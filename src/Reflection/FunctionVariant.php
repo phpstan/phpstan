@@ -7,7 +7,7 @@ use PHPStan\Type\Type;
 class FunctionVariant implements ParametersAcceptor
 {
 
-	/** @var ParameterReflection[]  */
+	/** @var array<int, ParameterReflection> */
 	private $parameters;
 
 	/** @var bool */
@@ -17,7 +17,7 @@ class FunctionVariant implements ParametersAcceptor
 	private $returnType;
 
 	/**
-	 * @param ParameterReflection[] $parameters
+	 * @param array<int, ParameterReflection> $parameters
 	 * @param bool $isVariadic
 	 * @param Type $returnType
 	 */
@@ -33,7 +33,7 @@ class FunctionVariant implements ParametersAcceptor
 	}
 
 	/**
-	 * @return ParameterReflection[]
+	 * @return array<int, ParameterReflection>
 	 */
 	public function getParameters(): array
 	{

@@ -17,7 +17,7 @@ class FunctionSignature
 	private $variadic;
 
 	/**
-	 * @param \PHPStan\Reflection\SignatureMap\ParameterSignature[] $parameters
+	 * @param array<int, \PHPStan\Reflection\SignatureMap\ParameterSignature> $parameters
 	 * @param \PHPStan\Type\Type $returnType
 	 * @param bool $variadic
 	 */
@@ -33,7 +33,7 @@ class FunctionSignature
 	}
 
 	/**
-	 * @return \PHPStan\Reflection\SignatureMap\ParameterSignature[]
+	 * @return array<int, \PHPStan\Reflection\SignatureMap\ParameterSignature>
 	 */
 	public function getParameters(): array
 	{
