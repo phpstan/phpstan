@@ -7,7 +7,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\ArrayType;
-use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\Constant\ConstantArrayTypeBuilder;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\Type;
@@ -37,10 +37,10 @@ class ArrayFillFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunct
 			return new ArrayType(new IntegerType(), $valueType, true);
 		}
 
-		$arrayType = new ConstantArrayType([], []);
+		$arrayBuilder = ConstantArrayTypeBuilder::createEmpty();
 		$nextIndex = $startIndexType->getValue();
 		for ($i = 0; $i < $numberType->getValue(); $i++) {
-			$arrayType = $arrayType->setOffsetValueType(
+			$arrayBuilder->setOffsetValueType(
 				new ConstantIntegerType($nextIndex),
 				$valueType
 			);
@@ -51,7 +51,7 @@ class ArrayFillFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunct
 			}
 		}
 
-		return $arrayType;
+		return $arrayBuilder->getArray();
 	}
 
 }

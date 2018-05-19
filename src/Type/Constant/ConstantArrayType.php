@@ -343,10 +343,10 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			];
 		}
 
-		$newArrayType = new ConstantArrayType([], []);
+		$newArrayBuilder = ConstantArrayTypeBuilder::createEmpty();
 		foreach ($newArray as $keyTypeValue => $value) {
 			if ($value['certainty']->equals(TrinaryLogic::createYes())) {
-				$newArrayType = $newArrayType->setOffsetValueType(
+				$newArrayBuilder->setOffsetValueType(
 					$value['key'],
 					$value['value']
 				);
@@ -356,7 +356,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			return new UnionType([$this, $otherArray]);
 		}
 
-		return $newArrayType;
+		return $newArrayBuilder->getArray();
 	}
 
 	/**

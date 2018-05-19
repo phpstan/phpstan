@@ -7,6 +7,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\Constant\ConstantArrayTypeBuilder;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
@@ -60,19 +61,19 @@ class ArrayMergeFunctionDynamicReturnTypeExtension implements \PHPStan\Type\Dyna
 				return \PHPStan\Type\TypeCombinator::union(...$types);
 			}
 			if ($arrayType === null) {
-				$newArrayType = new ConstantArrayType([], []);
+				$newArrayBuilder = ConstantArrayTypeBuilder::createEmpty();
 				foreach ($type->getKeyTypes() as $i => $keyType) {
 					$valueType = $type->getValueTypes()[$i];
 					if ($keyType instanceof ConstantIntegerType) {
 						$keyType = null;
 					}
-					$newArrayType = $newArrayType->setOffsetValueType(
+					$newArrayBuilder->setOffsetValueType(
 						$keyType,
 						$valueType
 					);
 				}
 
-				$arrayType = $newArrayType;
+				$arrayType = $newArrayBuilder->getArray();
 				continue;
 			}
 

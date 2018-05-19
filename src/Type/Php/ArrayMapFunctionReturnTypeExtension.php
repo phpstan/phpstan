@@ -7,7 +7,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\ArrayType;
-use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\Constant\ConstantArrayTypeBuilder;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
@@ -42,14 +42,14 @@ class ArrayMapFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFuncti
 		if (count($constantArrays) > 0) {
 			$arrayTypes = [];
 			foreach ($constantArrays as $constantArray) {
-				$returnedArrayType = new ConstantArrayType([], []);
+				$returnedArrayBuilder = ConstantArrayTypeBuilder::createEmpty();
 				foreach ($constantArray->getKeyTypes() as $keyType) {
-					$returnedArrayType = $returnedArrayType->setOffsetValueType(
+					$returnedArrayBuilder->setOffsetValueType(
 						$keyType,
 						$valueType
 					);
 				}
-				$arrayTypes[] = $returnedArrayType;
+				$arrayTypes[] = $returnedArrayBuilder->getArray();
 			}
 
 			return TypeCombinator::union(...$arrayTypes);

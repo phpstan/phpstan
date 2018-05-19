@@ -58,6 +58,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\CommentHelper;
 use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\Constant\ConstantArrayTypeBuilder;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ConstantScalarType;
@@ -1100,10 +1101,12 @@ class NodeScopeResolver
 					$functionName === 'array_unshift'
 					&& count($constantArrays) > 0
 				) {
-					$defaultArrayType = new ConstantArrayType([], []);
+					$defaultArrayBuilder = ConstantArrayTypeBuilder::createEmpty();
 					foreach ($argumentTypes as $argType) {
-						$defaultArrayType = $defaultArrayType->setOffsetValueType(null, $argType);
+						$defaultArrayBuilder->setOffsetValueType(null, $argType);
 					}
+
+					$defaultArrayType = $defaultArrayBuilder->getArray();
 
 					$arrayTypes = [];
 					foreach ($constantArrays as $constantArray) {

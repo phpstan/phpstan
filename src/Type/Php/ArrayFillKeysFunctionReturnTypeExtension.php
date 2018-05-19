@@ -7,7 +7,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\ArrayType;
-use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\Constant\ConstantArrayTypeBuilder;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeUtils;
@@ -35,11 +35,11 @@ class ArrayFillKeysFunctionReturnTypeExtension implements \PHPStan\Type\DynamicF
 
 		$arrayTypes = [];
 		foreach ($constantArrays as $constantArray) {
-			$arrayType = new ConstantArrayType([], []);
+			$arrayBuilder = ConstantArrayTypeBuilder::createEmpty();
 			foreach ($constantArray->getValueTypes() as $keyType) {
-				$arrayType = $arrayType->setOffsetValueType($keyType, $valueType);
+				$arrayBuilder->setOffsetValueType($keyType, $valueType);
 			}
-			$arrayTypes[] = $arrayType;
+			$arrayTypes[] = $arrayBuilder->getArray();
 		}
 
 		return TypeCombinator::union(...$arrayTypes);

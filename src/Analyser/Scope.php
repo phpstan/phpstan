@@ -37,7 +37,7 @@ use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
 use PHPStan\Type\ClosureType;
-use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\Constant\ConstantArrayTypeBuilder;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
 use PHPStan\Type\Constant\ConstantIntegerType;
@@ -697,14 +697,14 @@ class Scope
 					$resultTypes = [];
 					foreach ($rightConstantArrays as $rightConstantArray) {
 						foreach ($leftConstantArrays as $leftConstantArray) {
-							$newArrayType = $rightConstantArray;
+							$newArrayBuilder = ConstantArrayTypeBuilder::createFromConstantArray($rightConstantArray);
 							foreach ($leftConstantArray->getKeyTypes() as $leftKeyType) {
-								$newArrayType = $newArrayType->setOffsetValueType(
+								$newArrayBuilder->setOffsetValueType(
 									$leftKeyType,
 									$leftConstantArray->getOffsetValueType($leftKeyType)
 								);
 							}
-							$resultTypes[] = $newArrayType;
+							$resultTypes[] = $newArrayBuilder->getArray();
 						}
 					}
 
@@ -913,14 +913,14 @@ class Scope
 				return new ObjectType($anonymousClassReflection->getName());
 			}
 		} elseif ($node instanceof Array_) {
-			$array = new ConstantArrayType([], []);
+			$arrayBuilder = ConstantArrayTypeBuilder::createEmpty();
 			foreach ($node->items as $arrayItem) {
-				$array = $array->setOffsetValueType(
+				$arrayBuilder->setOffsetValueType(
 					$arrayItem->key !== null ? $this->getType($arrayItem->key) : null,
 					$this->getType($arrayItem->value)
 				);
 			}
-			return $array;
+			return $arrayBuilder->getArray();
 
 		} elseif ($node instanceof Int_) {
 			return $this->getType($node->expr)->toInteger();
@@ -1375,11 +1375,11 @@ class Scope
 		} elseif (is_string($value)) {
 			return new ConstantStringType($value);
 		} elseif (is_array($value)) {
-			$array = new ConstantArrayType([], []);
+			$arrayBuilder = ConstantArrayTypeBuilder::createEmpty();
 			foreach ($value as $k => $v) {
-				$array = $array->setOffsetValueType($this->getTypeFromValue($k), $this->getTypeFromValue($v));
+				$arrayBuilder->setOffsetValueType($this->getTypeFromValue($k), $this->getTypeFromValue($v));
 			}
-			return $array;
+			return $arrayBuilder->getArray();
 		}
 
 		return new MixedType();
