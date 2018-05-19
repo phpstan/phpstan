@@ -4070,22 +4070,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array(\'foo\' => stdClass, \'bar\' => stdClass, ?\'baz\' => stdClass, ?\'lorem\' => stdClass)',
 				'array_map(function (): \stdClass {}, $conditionalKeysArray)',
 			],
-			[
-				'string',
-				'$microtimeStringWithoutArg',
-			],
-			[
-				'string',
-				'$microtimeString',
-			],
-			[
-				'float',
-				'$microtimeFloat',
-			],
-			[
-				'float|string',
-				'$microtimeDefault',
-			],
 		];
 	}
 
@@ -4101,6 +4085,57 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/array-functions.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataFunctions(): array
+	{
+		return [
+			[
+				'string',
+				'$microtimeString',
+			],
+			[
+				'float',
+				'$microtimeFloat',
+			],
+			[
+				'float|string',
+				'$microtimeDefault',
+			],
+			[
+				'int',
+				'$strtotimeNow',
+			],
+			[
+				'false',
+				'$strtotimeInvalid',
+			],
+			[
+				'int|false',
+				'$strtotimeUnknown',
+			],
+			[
+				'int|false',
+				'$strtotimeUnknown2',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataFunctions
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testFunctions(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/functions.php',
 			$description,
 			$expression
 		);
