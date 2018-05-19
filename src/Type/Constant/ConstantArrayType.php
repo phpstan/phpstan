@@ -63,6 +63,11 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		$this->nextAutoIndex = $nextAutoIndex;
 	}
 
+	public function getNextAutoIndex(): int
+	{
+		return $this->nextAutoIndex;
+	}
+
 	/**
 	 * @return array<int, ConstantIntegerType|ConstantStringType>
 	 */
@@ -252,39 +257,15 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
 	{
-		if ($offsetType === null) {
-			$offsetType = new ConstantIntegerType($this->nextAutoIndex);
+		$builder = ConstantArrayTypeBuilder::createFromConstantArray($this);
+		$builder->setOffsetValueType($offsetType, $valueType);
 
-		} else {
-			$offsetType = parent::castToArrayKeyType($offsetType);
-		}
-
-		if ($offsetType instanceof ConstantIntegerType || $offsetType instanceof ConstantStringType) {
-			foreach ($this->keyTypes as $i => $keyType) {
-				if ($keyType->getValue() === $offsetType->getValue()) {
-					$newValueTypes = $this->valueTypes;
-					$newValueTypes[$i] = $valueType;
-					return new self($this->keyTypes, $newValueTypes, $this->nextAutoIndex);
-				}
-			}
-
-			$newKeyTypes = $this->keyTypes;
-			$newKeyTypes[] = $offsetType;
-			$newValueTypes = $this->valueTypes;
-			$newValueTypes[] = $valueType;
-			$newNextAutoIndex = $offsetType instanceof ConstantIntegerType
-				? max($this->nextAutoIndex, $offsetType->getValue() + 1)
-				: $this->nextAutoIndex;
-
-			return new self($newKeyTypes, $newValueTypes, $newNextAutoIndex);
-		}
-
-		return parent::setOffsetValueType($offsetType, $valueType);
+		return $builder->getArray();
 	}
 
 	public function unsetOffset(Type $offsetType): self
 	{
-		$offsetType = parent::castToArrayKeyType($offsetType);
+		$offsetType = ArrayType::castToArrayKeyType($offsetType);
 		if ($offsetType instanceof ConstantIntegerType || $offsetType instanceof ConstantStringType) {
 			foreach ($this->keyTypes as $i => $keyType) {
 				if ($keyType->getValue() === $offsetType->getValue()) {

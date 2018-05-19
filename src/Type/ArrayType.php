@@ -201,7 +201,7 @@ class ArrayType implements StaticResolvableType
 		}
 
 		return new ArrayType(
-			TypeCombinator::union($this->keyType, $this->castToArrayKeyType($offsetType)),
+			TypeCombinator::union($this->keyType, self::castToArrayKeyType($offsetType)),
 			TypeCombinator::union($this->itemType, $valueType),
 			$this->itemTypeInferredFromLiteralArray
 		);
@@ -255,7 +255,7 @@ class ArrayType implements StaticResolvableType
 		return new IntegerType();
 	}
 
-	protected function castToArrayKeyType(Type $offsetType): Type
+	public static function castToArrayKeyType(Type $offsetType): Type
 	{
 		if ($offsetType instanceof ConstantScalarType) {
 			/** @var int|string $offsetValue */
