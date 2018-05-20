@@ -863,6 +863,26 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'anotherStaticIntProperty',
 				'1|2',
 			],
+			[
+				$testScope,
+				'variableIncrementedInClosurePassedByReference',
+				'int',
+			],
+			[
+				$testScope,
+				'anotherVariableIncrementedInClosure',
+				'0',
+			],
+			[
+				$testScope,
+				'yetAnotherVariableInClosurePassedByReference',
+				'0|1',
+			],
+			[
+				$testScope,
+				'variableIncrementedInFinally',
+				'1',
+			],
 		];
 	}
 

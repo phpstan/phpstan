@@ -509,7 +509,7 @@ class NodeScopeResolver
 				$closureScope = $this->lookForAssignsInBranches($scope, [
 					new StatementList($scope, $node->stmts),
 					new StatementList($scope, []),
-				], LookForAssignsSettings::insideFinally());
+				], LookForAssignsSettings::insideClosure());
 				/** @var Expr\ClosureUse $closureUse */
 				foreach ($usesByRef as $closureUse) {
 					if (!is_string($closureUse->var->name)) {
@@ -1301,7 +1301,7 @@ class NodeScopeResolver
 				)),
 				new StatementList($closureScope, []),
 			];
-			$closureScope = $this->lookForAssignsInBranches($scope, $statements, LookForAssignsSettings::insideFinally());
+			$closureScope = $this->lookForAssignsInBranches($scope, $statements, LookForAssignsSettings::insideClosure());
 			foreach ($node->uses as $closureUse) {
 				if (!$closureUse->byRef) {
 					continue;

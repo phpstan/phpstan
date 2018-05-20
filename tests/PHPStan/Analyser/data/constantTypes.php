@@ -96,6 +96,22 @@ class Foo
 		$anotherIntProperty = $this->anotherIntProperty;
 		$anotherStaticIntProperty = self::$anotherStaticIntProperty;
 
+		$variableIncrementedInClosurePassedByReference = 0;
+		$anotherVariableIncrementedInClosure = 0;
+		$yetAnotherVariableInClosurePassedByReference = 0;
+		function () use (&$variableIncrementedInClosurePassedByReference, $anotherVariableIncrementedInClosure, &$yetAnotherVariableInClosurePassedByReference) {
+			$variableIncrementedInClosurePassedByReference++;
+			$anotherVariableIncrementedInClosure++;
+			$yetAnotherVariableInClosurePassedByReference = 1;
+		};
+
+		$variableIncrementedInFinally = 0;
+		try {
+			doFoo();
+		} finally {
+			$variableIncrementedInFinally++;
+		}
+
 		die;
 	}
 

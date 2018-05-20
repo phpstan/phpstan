@@ -14,6 +14,7 @@ class LookForAssignsSettings
 	private const EARLY_TERMINATION_ALL = self::EARLY_TERMINATION_CONTINUE
 		+ self::EARLY_TERMINATION_BREAK
 		+ self::EARLY_TERMINATION_STOP;
+	private const EARLY_TERMINATION_CLOSURE = 8;
 
 	/** @var int */
 	private $respectEarlyTermination;
@@ -46,6 +47,11 @@ class LookForAssignsSettings
 	public static function insideFinally(): self
 	{
 		return self::create(0);
+	}
+
+	public static function insideClosure(): self
+	{
+		return self::create(self::EARLY_TERMINATION_CLOSURE);
 	}
 
 	private static function create(int $value): self
@@ -93,8 +99,10 @@ class LookForAssignsSettings
 
 	public function shouldGeneralizeConstantTypesOfNonIdempotentOperations(): bool
 	{
-		return ($this->respectEarlyTermination & self::EARLY_TERMINATION_STOP) === self::EARLY_TERMINATION_STOP
-			&& $this->respectEarlyTermination !== self::EARLY_TERMINATION_ALL;
+		return (
+			($this->respectEarlyTermination & self::EARLY_TERMINATION_STOP) === self::EARLY_TERMINATION_STOP
+			&& $this->respectEarlyTermination !== self::EARLY_TERMINATION_ALL
+		) || $this->respectEarlyTermination === self::EARLY_TERMINATION_CLOSURE;
 	}
 
 }

@@ -68,6 +68,21 @@ class LookForAssignsSettingsTest extends \PHPStan\Testing\TestCase
 				new \PhpParser\Node\Stmt\Break_(),
 				false,
 			],
+			[
+				LookForAssignsSettings::insideClosure(),
+				new \PhpParser\Node\Stmt\Return_(),
+				false,
+			],
+			[
+				LookForAssignsSettings::insideClosure(),
+				new \PhpParser\Node\Stmt\Continue_(),
+				false,
+			],
+			[
+				LookForAssignsSettings::insideClosure(),
+				new \PhpParser\Node\Stmt\Break_(),
+				false,
+			],
 		];
 	}
 
@@ -137,6 +152,21 @@ class LookForAssignsSettingsTest extends \PHPStan\Testing\TestCase
 				new \PhpParser\Node\Stmt\Break_(),
 				true,
 			],
+			[
+				LookForAssignsSettings::insideClosure(),
+				new \PhpParser\Node\Stmt\Return_(),
+				true,
+			],
+			[
+				LookForAssignsSettings::insideClosure(),
+				new \PhpParser\Node\Stmt\Continue_(),
+				true,
+			],
+			[
+				LookForAssignsSettings::insideClosure(),
+				new \PhpParser\Node\Stmt\Break_(),
+				true,
+			],
 		];
 	}
 
@@ -176,6 +206,10 @@ class LookForAssignsSettingsTest extends \PHPStan\Testing\TestCase
 			[
 				LookForAssignsSettings::insideFinally(),
 				false,
+			],
+			[
+				LookForAssignsSettings::insideClosure(),
+				true,
 			],
 		];
 	}
