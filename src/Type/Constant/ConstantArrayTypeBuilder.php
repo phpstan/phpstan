@@ -94,13 +94,7 @@ class ConstantArrayTypeBuilder
 
 		return new ArrayType(
 			TypeCombinator::union(...$this->keyTypes),
-			TypeCombinator::union(...array_map(function (Type $valueType): Type {
-				if ($valueType instanceof ConstantArrayType) {
-					return $valueType->generalize();
-				}
-
-				return $valueType;
-			}, $this->valueTypes)),
+			TypeCombinator::union(...$this->valueTypes),
 			true
 		);
 	}

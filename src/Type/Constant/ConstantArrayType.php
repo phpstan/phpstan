@@ -49,13 +49,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 		parent::__construct(
 			count($keyTypes) > 0 ? TypeCombinator::union(...$keyTypes) : new NeverType(),
-			count($valueTypes) > 0 ? TypeCombinator::union(...array_map(function (Type $valueType): Type {
-				if ($valueType instanceof self) {
-					return $valueType->generalize();
-				}
-
-				return $valueType;
-			}, $valueTypes)) : new NeverType(),
+			count($valueTypes) > 0 ? TypeCombinator::union(...$valueTypes) : new NeverType(),
 			true
 		);
 
