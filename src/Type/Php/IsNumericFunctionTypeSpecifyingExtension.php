@@ -34,11 +34,16 @@ class IsNumericFunctionTypeSpecifyingExtension implements FunctionTypeSpecifying
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
-		return $this->typeSpecifier->create($node->args[0]->value, new UnionType([
-			new StringType(),
+		$numericTypes = [
 			new IntegerType(),
 			new FloatType(),
-		]), $context);
+		];
+
+		if ($context->truthy()) {
+			$numericTypes[] = new StringType();
+		}
+
+		return $this->typeSpecifier->create($node->args[0]->value, new UnionType($numericTypes), $context);
 	}
 
 	public function setTypeSpecifier(TypeSpecifier $typeSpecifier): void

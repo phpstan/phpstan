@@ -38,3 +38,11 @@ function () {
 	foo($s);
 	(string) $s;
 };
+
+function () {
+	/** @var int|string $s */
+	$s = doFoo();
+	if (!is_numeric($s)) {
+		(string) $s;
+	}
+};

@@ -72,7 +72,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 			[
 				$this->createFunctionCall('is_numeric'),
 				['$foo' => 'float|int|string'],
-				['$foo' => '~float|int|string'],
+				['$foo' => '~float|int'],
 			],
 			[
 				$this->createFunctionCall('is_scalar'),

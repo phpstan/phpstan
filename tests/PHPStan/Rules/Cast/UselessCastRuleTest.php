@@ -32,6 +32,10 @@ class UselessCastRuleTest extends \PHPStan\Testing\RuleTestCase
 					'Casting to float something that\'s already float.',
 					27,
 				],
+				[
+					'Casting to string something that\'s already string.',
+					46,
+				],
 			]
 		);
 	}
