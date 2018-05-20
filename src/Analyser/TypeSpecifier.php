@@ -33,6 +33,7 @@ use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\StaticType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\TypeUtils;
 use PHPStan\Type\UnionType;
 
 class TypeSpecifier
@@ -224,7 +225,7 @@ class TypeSpecifier
 			}
 		} elseif ($expr instanceof MethodCall && $expr->name instanceof Node\Identifier) {
 			$methodCalledOnType = $scope->getType($expr->var);
-			$referencedClasses = $methodCalledOnType->getReferencedClasses();
+			$referencedClasses = TypeUtils::getDirectClassNames($methodCalledOnType);
 			if (
 				count($referencedClasses) === 1
 				&& $this->broker->hasClass($referencedClasses[0])
@@ -254,9 +255,9 @@ class TypeSpecifier
 
 			if ($calleeType->hasMethod((string) $expr->name)) {
 				$staticMethodReflection = $calleeType->getMethod((string) $expr->name, $scope);
-				$referencedClasses = $calleeType->getReferencedClasses();
+				$referencedClasses = TypeUtils::getDirectClassNames($calleeType);
 				if (
-					count($calleeType->getReferencedClasses()) === 1
+					count($referencedClasses) === 1
 					&& $this->broker->hasClass($referencedClasses[0])
 				) {
 					$staticMethodClassReflection = $this->broker->getClass($referencedClasses[0]);
