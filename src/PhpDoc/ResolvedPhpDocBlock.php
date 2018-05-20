@@ -8,7 +8,7 @@ use PHPStan\PhpDoc\Tag\ThrowsTag;
 class ResolvedPhpDocBlock
 {
 
-	/** @var array<string, \PHPStan\PhpDoc\Tag\VarTag> */
+	/** @var array<string|int, \PHPStan\PhpDoc\Tag\VarTag> */
 	private $varTags;
 
 	/** @var array<string, \PHPStan\PhpDoc\Tag\MethodTag> */
@@ -30,7 +30,7 @@ class ResolvedPhpDocBlock
 	private $isDeprecated;
 
 	/**
-	 * @param array<string, \PHPStan\PhpDoc\Tag\VarTag> $varTags
+	 * @param array<string|int, \PHPStan\PhpDoc\Tag\VarTag> $varTags
 	 * @param array<string, \PHPStan\PhpDoc\Tag\MethodTag> $methodTags
 	 * @param array<string, \PHPStan\PhpDoc\Tag\PropertyTag> $propertyTags
 	 * @param array<string, \PHPStan\PhpDoc\Tag\ParamTag> $paramTags
@@ -58,7 +58,7 @@ class ResolvedPhpDocBlock
 	}
 
 	/**
-	 * @param array<string, \PHPStan\PhpDoc\Tag\VarTag> $varTags
+	 * @param array<string|int, \PHPStan\PhpDoc\Tag\VarTag> $varTags
 	 * @param array<string, \PHPStan\PhpDoc\Tag\MethodTag> $methodTags
 	 * @param array<string, \PHPStan\PhpDoc\Tag\PropertyTag> $propertyTags
 	 * @param array<string, \PHPStan\PhpDoc\Tag\ParamTag> $paramTags
@@ -87,7 +87,7 @@ class ResolvedPhpDocBlock
 
 
 	/**
-	 * @return array<string, \PHPStan\PhpDoc\Tag\VarTag>
+	 * @return array<string|int, \PHPStan\PhpDoc\Tag\VarTag>
 	 */
 	public function getVarTags(): array
 	{

@@ -72,6 +72,9 @@ class ExistingNamesInGroupUseRule implements \PHPStan\Rules\Rule
 			$messages[] = $message;
 		}
 
+		/** @var string[] $messages */
+		$messages = $messages;
+
 		return $messages;
 	}
 

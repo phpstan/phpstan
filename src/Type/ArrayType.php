@@ -5,7 +5,6 @@ namespace PHPStan\Type;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
-use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\Traits\MaybeCallableTypeTrait;
@@ -80,10 +79,6 @@ class ArrayType implements StaticResolvableType
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
-		if ($type instanceof ConstantArrayType && count($type->getKeyTypes()) === 0) {
-			return TrinaryLogic::createYes();
-		}
-
 		if ($type instanceof self) {
 			return $this->getItemType()->isSuperTypeOf($type->getItemType())
 				->and($this->keyType->isSuperTypeOf($type->keyType));
@@ -98,8 +93,8 @@ class ArrayType implements StaticResolvableType
 
 	public function describe(VerbosityLevel $level): string
 	{
-		if ($this->keyType instanceof MixedType) {
-			if ($this->itemType instanceof MixedType) {
+		if ($this->keyType instanceof MixedType || $this->keyType instanceof NeverType) {
+			if ($this->itemType instanceof MixedType || $this->itemType instanceof NeverType) {
 				return 'array';
 			}
 
@@ -266,7 +261,10 @@ class ArrayType implements StaticResolvableType
 
 		if ($offsetType instanceof IntegerType || $offsetType instanceof FloatType || $offsetType instanceof BooleanType) {
 			return new IntegerType();
+		}
 
+		if ($offsetType instanceof StringType) {
+			return new StringType();
 		}
 
 		return new UnionType([new IntegerType(), new StringType()]);
