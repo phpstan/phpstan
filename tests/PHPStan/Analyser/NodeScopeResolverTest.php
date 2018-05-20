@@ -1883,7 +1883,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			// boolean
 			[
-				$typeCallback(true + false),
+				'1',
 				'true + false',
 			],
 			// string
