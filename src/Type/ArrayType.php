@@ -261,7 +261,10 @@ class ArrayType implements StaticResolvableType
 
 		if ($offsetType instanceof IntegerType || $offsetType instanceof FloatType || $offsetType instanceof BooleanType) {
 			return new IntegerType();
+		}
 
+		if ($offsetType instanceof StringType) {
+			return new StringType();
 		}
 
 		return new UnionType([new IntegerType(), new StringType()]);
