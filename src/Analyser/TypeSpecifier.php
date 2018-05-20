@@ -316,6 +316,7 @@ class TypeSpecifier
 					)
 				) {
 					if ($var instanceof StaticPropertyFetch) {
+						/** @var Expr $var */
 						$var = $var->class;
 					} else {
 						$var = $var->var;

@@ -709,6 +709,7 @@ class NodeScopeResolver
 					)
 				) {
 					if ($unsetVar instanceof StaticPropertyFetch) {
+						/** @var Expr $unsetVar */
 						$unsetVar = $unsetVar->class;
 					} else {
 						$unsetVar = $unsetVar->var;
@@ -1255,7 +1256,7 @@ class NodeScopeResolver
 			$scope = $this->lookForAssigns($scope, $node->cond, $whileAssignmentsCertainty, LookForAssignsSettings::afterLoop());
 
 			$statements = [
-				new StatementList($scope, $node->stmts),
+				new StatementList($scope->filterByTruthyValue($node->cond), $node->stmts),
 				new StatementList($scope, []), // in order not to add variables existing only inside the for loop
 			];
 			$scope = $this->lookForAssignsInBranches($scope, $statements, LookForAssignsSettings::afterLoop());
