@@ -3471,6 +3471,75 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataDynamicReturnTypeExtensionsOnCompoundTypes(): array
+	{
+		return [
+			[
+				'DynamicMethodReturnCompoundTypes\Collection',
+				'$collection->getSelf()',
+			],
+			[
+				'DynamicMethodReturnCompoundTypes\Collection|DynamicMethodReturnCompoundTypes\Foo',
+				'$collectionOrFoo->getSelf()',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataDynamicReturnTypeExtensionsOnCompoundTypes
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testDynamicReturnTypeExtensionsOnCompoundTypes(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/dynamic-method-return-compound-types.php',
+			$description,
+			$expression,
+			[
+				new class () implements DynamicMethodReturnTypeExtension {
+
+					public function getClass(): string
+					{
+						return \DynamicMethodReturnCompoundTypes\Collection::class;
+					}
+
+					public function isMethodSupported(MethodReflection $methodReflection): bool
+					{
+						return $methodReflection->getName() === 'getSelf';
+					}
+
+					public function getTypeFromMethodCall(MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope): Type
+					{
+						return new ObjectType(\DynamicMethodReturnCompoundTypes\Collection::class);
+					}
+
+				},
+				new class () implements DynamicMethodReturnTypeExtension {
+
+					public function getClass(): string
+					{
+						return \DynamicMethodReturnCompoundTypes\Foo::class;
+					}
+
+					public function isMethodSupported(MethodReflection $methodReflection): bool
+					{
+						return $methodReflection->getName() === 'getSelf';
+					}
+
+					public function getTypeFromMethodCall(MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope): Type
+					{
+						return new ObjectType(\DynamicMethodReturnCompoundTypes\Foo::class);
+					}
+
+				},
+			]
+		);
+	}
+
 	public function dataOverwritingVariable(): array
 	{
 		return [

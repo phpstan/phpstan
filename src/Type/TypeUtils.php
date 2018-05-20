@@ -50,6 +50,32 @@ class TypeUtils
 
 	/**
 	 * @param Type $type
+	 * @return string[]
+	 */
+	public static function getDirectClassNames(Type $type): array
+	{
+		if ($type instanceof TypeWithClassName) {
+			return [$type->getClassName()];
+		}
+
+		if ($type instanceof UnionType || $type instanceof IntersectionType) {
+			$classNames = [];
+			foreach ($type->getTypes() as $innerType) {
+				if (!$innerType instanceof TypeWithClassName) {
+					continue;
+				}
+
+				$classNames[] = $innerType->getClassName();
+			}
+
+			return $classNames;
+		}
+
+		return [];
+	}
+
+	/**
+	 * @param Type $type
 	 * @return \PHPStan\Type\ConstantScalarType[]
 	 */
 	public static function getConstantScalars(Type $type): array

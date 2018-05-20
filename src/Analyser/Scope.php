@@ -1112,7 +1112,7 @@ class Scope
 
 		if ($node instanceof MethodCall && $node->name instanceof Node\Identifier) {
 			$methodCalledOnType = $this->getType($node->var);
-			$referencedClasses = $methodCalledOnType->getReferencedClasses();
+			$referencedClasses = TypeUtils::getDirectClassNames($methodCalledOnType);
 			$resolvedTypes = [];
 			foreach ($referencedClasses as $referencedClass) {
 				if (!$this->broker->hasClass($referencedClass)) {
@@ -1175,7 +1175,7 @@ class Scope
 				return new ErrorType();
 			}
 			$staticMethodReflection = $calleeType->getMethod((string) $node->name, $this);
-			$referencedClasses = $calleeType->getReferencedClasses();
+			$referencedClasses = TypeUtils::getDirectClassNames($calleeType);
 
 			$resolvedTypes = [];
 			foreach ($referencedClasses as $referencedClass) {
