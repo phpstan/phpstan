@@ -1530,6 +1530,7 @@ class NodeScopeResolver
 
 				$valueToWrite = $subNodeType;
 				foreach (array_reverse($offsetTypes) as $offsetType) {
+					/** @var Type $offsetValueType */
 					$offsetValueType = array_pop($offsetValueTypeStack);
 					$valueToWrite = $offsetValueType->setOffsetValueType($offsetType, $valueToWrite);
 				}

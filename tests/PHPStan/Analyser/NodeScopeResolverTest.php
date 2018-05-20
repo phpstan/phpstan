@@ -4070,6 +4070,30 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array(\'foo\' => stdClass, \'bar\' => stdClass, ?\'baz\' => stdClass, ?\'lorem\' => stdClass)',
 				'array_map(function (): \stdClass {}, $conditionalKeysArray)',
 			],
+			[
+				'stdClass',
+				'array_pop($stringKeys)',
+			],
+			[
+				'\'foo\'',
+				'array_shift($stringKeys)',
+			],
+			[
+				'int|null',
+				'array_pop($generalStringKeys)',
+			],
+			[
+				'int|null',
+				'array_shift($generalStringKeys)',
+			],
+			[
+				'null',
+				'array_pop([])',
+			],
+			[
+				'null',
+				'array_shift([])',
+			],
 		];
 	}
 

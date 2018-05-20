@@ -57,6 +57,7 @@ class FileHelper
 				continue;
 			}
 			if ($pathPart === '..') {
+				/** @var string $removedPart */
 				$removedPart = array_pop($normalizedPathParts);
 				if ($scheme === 'phar' && substr($removedPart, -5) === '.phar') {
 					$scheme = null;
