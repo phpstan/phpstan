@@ -1511,9 +1511,9 @@ class Scope
 	public function enterFunction(
 		Node\Stmt\Function_ $function,
 		array $phpDocParameterTypes,
-		?Type $phpDocReturnType = null,
-		?Type $throwType = null,
-		bool $isDeprecated = false
+		?Type $phpDocReturnType,
+		?Type $throwType,
+		bool $isDeprecated
 	): self
 	{
 		return $this->enterFunctionLike(
