@@ -104,6 +104,12 @@ class Foo
 		$unshiftedConditionalArray = $conditionalArray;
 		array_unshift($unshiftedConditionalArray, 'lorem', new \stdClass());
 
+		$arrToShift = [1, 2, 3];
+		array_shift($arrToShift);
+
+		$arrToPop = [1, 2, 3];
+		array_pop($arrToPop);
+
 		die;
 	}
 

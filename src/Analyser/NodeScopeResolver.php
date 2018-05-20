@@ -1127,6 +1127,35 @@ class NodeScopeResolver
 					);
 				}
 			}
+			if (
+				$node instanceof FuncCall
+				&& $node->name instanceof Name
+				&& in_array(strtolower((string) $node->name), [
+					'array_pop',
+					'array_shift',
+				], true)
+				&& count($node->args) >= 1
+			) {
+				$arrayArg = $node->args[0]->value;
+				$constantArrays = TypeUtils::getConstantArrays($scope->getType($arrayArg));
+				$functionName = strtolower((string) $node->name);
+				if (count($constantArrays) > 0) {
+					$resultArrayTypes = [];
+
+					foreach ($constantArrays as $constantArray) {
+						if ($functionName === 'array_pop') {
+							$resultArrayTypes[] = $constantArray->removeLast();
+						} else {
+							$resultArrayTypes[] = $constantArray->removeFirst();
+						}
+					}
+
+					$scope = $scope->specifyExpressionType(
+						$arrayArg,
+						TypeCombinator::union(...$resultArrayTypes)
+					);
+				}
+			}
 		} elseif ($node instanceof BinaryOp) {
 			$scope = $this->lookForAssigns($scope, $node->left, $certainty, $lookForAssignsSettings);
 			$scope = $this->lookForAssigns($scope, $node->right, $certainty, $lookForAssignsSettings);

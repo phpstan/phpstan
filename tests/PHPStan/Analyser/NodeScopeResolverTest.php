@@ -2603,6 +2603,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'false',
 				'is_int($string)',
 			],
+			[
+				'array(2, 3)',
+				'$arrToShift',
+			],
+			[
+				'array(1, 2)',
+				'$arrToPop',
+			],
 		];
 	}
 

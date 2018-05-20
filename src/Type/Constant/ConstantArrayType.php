@@ -281,6 +281,47 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		return $this;
 	}
 
+	public function removeLast(): self
+	{
+		if (count($this->keyTypes) === 0) {
+			return $this;
+		}
+
+		$keyTypes = $this->keyTypes;
+		$valueTypes = $this->valueTypes;
+
+		$removedKeyType = array_pop($keyTypes);
+		array_pop($valueTypes);
+		$nextAutoindex = $removedKeyType instanceof ConstantIntegerType
+			? $removedKeyType->getValue()
+			: $this->nextAutoIndex;
+
+		return new self(
+			$keyTypes,
+			$valueTypes,
+			$nextAutoindex
+		);
+	}
+
+	public function removeFirst(): ArrayType
+	{
+		$builder = ConstantArrayTypeBuilder::createEmpty();
+		foreach ($this->keyTypes as $i => $keyType) {
+			if ($i === 0) {
+				continue;
+			}
+
+			$valueType = $this->valueTypes[$i];
+			if ($keyType instanceof ConstantIntegerType) {
+				$keyType = null;
+			}
+
+			$builder->setOffsetValueType($keyType, $valueType);
+		}
+
+		return $builder->getArray();
+	}
+
 	public function toBoolean(): BooleanType
 	{
 		return new ConstantBooleanType(count($this->keyTypes) > 0);
