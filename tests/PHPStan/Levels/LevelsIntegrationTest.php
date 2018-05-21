@@ -5,15 +5,28 @@ namespace PHPStan\Levels;
 class LevelsIntegrationTest extends \PHPUnit\Framework\TestCase
 {
 
-	public function dataLevels(): array
+	public function dataLevels(): \Generator
 	{
-		return [
-			[
-				0,
-				__DIR__ . '/data/Zero.php',
-				__DIR__ . '/data/expected-0.json',
-			],
+		$topics = [
+			//'returnTypes',
+			//'acceptTypes',
+			//'methodCalls',
+			//'propertyAccesses',
+			//'constantAccesses',
+			'variables',
+			//'callableCalls',
+			//'arrayDimFetches',
 		];
+
+		foreach (range(0, 7) as $level) {
+			foreach ($topics as $topic) {
+				yield [
+					$level,
+					sprintf(__DIR__ . '/data/%s.php', $topic),
+					sprintf(__DIR__ . '/data/%d-%s.json', $level, $topic),
+				];
+			}
+		}
 	}
 
 	/**
@@ -39,10 +52,7 @@ class LevelsIntegrationTest extends \PHPUnit\Framework\TestCase
 				sprintf('Level #%d - file %s', $level, pathinfo($file, PATHINFO_BASENAME))
 			);
 		} catch (\PHPUnit\Framework\AssertionFailedError $e) {
-			file_put_contents(
-				sprintf('%s/%s-actual.%s', pathinfo($expectedJsonFile, PATHINFO_DIRNAME), pathinfo($expectedJsonFile, PATHINFO_FILENAME), pathinfo($expectedJsonFile, PATHINFO_EXTENSION)),
-				$actualOutput
-			);
+			file_put_contents($expectedJsonFile, $actualOutput);
 			throw $e;
 		}
 	}
