@@ -9,6 +9,14 @@ use Symfony\Component\Console\Style\OutputStyle;
 class JsonErrorFormatter implements ErrorFormatter
 {
 
+	/** @var bool */
+	private $pretty;
+
+	public function __construct(bool $pretty)
+	{
+		$this->pretty = $pretty;
+	}
+
 	public function formatErrors(AnalysisResult $analysisResult, OutputStyle $style): int
 	{
 		$errorsArray = [
@@ -40,7 +48,7 @@ class JsonErrorFormatter implements ErrorFormatter
 			$errorsArray['errors'][] = $notFileSpecificError;
 		}
 
-		$json = Json::encode($errorsArray);
+		$json = Json::encode($errorsArray, $this->pretty ? Json::PRETTY : 0);
 
 		$style->write($json);
 

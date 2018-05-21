@@ -415,3 +415,10 @@ services:
 
 	errorFormatter.json:
 		class: PHPStan\Command\ErrorFormatter\JsonErrorFormatter
+		arguments:
+			pretty: false
+
+	errorFormatter.prettyJson:
+		class: PHPStan\Command\ErrorFormatter\JsonErrorFormatter
+		arguments:
+			pretty: true

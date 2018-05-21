@@ -11,16 +11,25 @@ use Symfony\Component\Console\Output\StreamOutput;
 class JsonErrorFormatterTest extends \PHPStan\Testing\TestCase
 {
 
-	/** @var \PHPStan\Command\ErrorFormatter\JsonErrorFormatter */
-	private $formatter;
-
-	protected function setUp(): void
+	public function dataPretty(): array
 	{
-		$this->formatter = new JsonErrorFormatter();
+		return [
+			[
+				true,
+			],
+			[
+				false,
+			],
+		];
 	}
 
-	public function testFormatErrors(): void
+	/**
+	 * @dataProvider dataPretty
+	 * @param bool $pretty
+	 */
+	public function testFormatErrors(bool $pretty): void
 	{
+		$formatter = new JsonErrorFormatter($pretty);
 		$analysisResult = new AnalysisResult([
 			new Error('Foo', 'foo.php', 1),
 			new Error('Bar', 'file name with "spaces" and unicode 😃.php', 2),
@@ -34,7 +43,7 @@ class JsonErrorFormatterTest extends \PHPStan\Testing\TestCase
 		$outputStream = new StreamOutput($resource);
 		$style = new ErrorsConsoleStyle(new StringInput(''), $outputStream);
 
-		$this->assertSame(1, $this->formatter->formatErrors($analysisResult, $style));
+		$this->assertSame(1, $formatter->formatErrors($analysisResult, $style));
 
 		rewind($outputStream->getStream());
 		$output = stream_get_contents($outputStream->getStream());
@@ -73,8 +82,13 @@ class JsonErrorFormatterTest extends \PHPStan\Testing\TestCase
 		$this->assertJsonStringEqualsJsonString($expected, $output);
 	}
 
-	public function testFormatErrorsEmpty(): void
+	/**
+	 * @dataProvider dataPretty
+	 * @param bool $pretty
+	 */
+	public function testFormatErrorsEmpty(bool $pretty): void
 	{
+		$formatter = new JsonErrorFormatter($pretty);
 		$analysisResult = new AnalysisResult([], [], true, '.');
 		$resource = fopen('php://memory', 'w', false);
 		if ($resource === false) {
@@ -84,7 +98,7 @@ class JsonErrorFormatterTest extends \PHPStan\Testing\TestCase
 		$outputStream = new StreamOutput($resource);
 		$style = new ErrorsConsoleStyle(new StringInput(''), $outputStream);
 
-		$this->assertSame(0, $this->formatter->formatErrors($analysisResult, $style));
+		$this->assertSame(0, $formatter->formatErrors($analysisResult, $style));
 
 		rewind($outputStream->getStream());
 		$output = stream_get_contents($outputStream->getStream());
