@@ -96,8 +96,8 @@ class DependencyManager
 		$packedDependencies = [];
 		foreach ($dependencies as $file => $fileDependencies) {
 			$packedFileDependencies = [];
-			foreach ($fileDependencies as $fileDependencyNumber => $fileDependency) {
-				$packedFileDependencies[$fileDependencyNumber] = $filesNumbers[$fileDependency];
+			foreach ($fileDependencies as $fileDependency) {
+				$packedFileDependencies[] = $filesNumbers[$fileDependency];
 			}
 			if (count($packedFileDependencies) > 0) {
 				$packedDependencies[$filesNumbers[$file]] = $packedFileDependencies;
