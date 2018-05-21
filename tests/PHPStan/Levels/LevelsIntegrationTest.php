@@ -9,7 +9,7 @@ class LevelsIntegrationTest extends \PHPUnit\Framework\TestCase
 	{
 		$topics = [
 			'returnTypes',
-			//'acceptTypes',
+			'acceptTypes',
 			//'methodCalls',
 			//'propertyAccesses',
 			//'constantAccesses',
