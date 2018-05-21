@@ -29,15 +29,22 @@ class JsonErrorFormatter implements ErrorFormatter
 		];
 
 		foreach ($analysisResult->getFileSpecificErrors() as $fileSpecificError) {
-			if (!array_key_exists($fileSpecificError->getFile(), $errorsArray['files'])) {
-				$errorsArray['files'][$fileSpecificError->getFile()] = [
+			$file = $fileSpecificError->getFile();
+			if ($this->pretty) {
+				$file = RelativePathHelper::getRelativePath(
+					$analysisResult->getCurrentDirectory(),
+					$file
+				);
+			}
+			if (!array_key_exists($file, $errorsArray['files'])) {
+				$errorsArray['files'][$file] = [
 					'errors' => 0,
 					'messages' => [],
 				];
 			}
-			$errorsArray['files'][$fileSpecificError->getFile()]['errors']++;
+			$errorsArray['files'][$file]['errors']++;
 
-			$errorsArray['files'][$fileSpecificError->getFile()]['messages'][] = [
+			$errorsArray['files'][$file]['messages'][] = [
 				'message' => $fileSpecificError->getMessage(),
 				'line' => $fileSpecificError->getLine(),
 				'ignorable' => $fileSpecificError->canBeIgnored(),
