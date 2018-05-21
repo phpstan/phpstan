@@ -1,0 +1,49 @@
+{
+    "totals": {
+        "errors": 0,
+        "file_errors": 7
+    },
+    "files": {
+        "methodCalls.php": {
+            "errors": 7,
+            "messages": [
+                {
+                    "message": "Method Levels\\MethodCalls\\Foo::doFoo() invoked with 0 parameters, 1 required.",
+                    "line": 11,
+                    "ignorable": true
+                },
+                {
+                    "message": "Parameter #1 $i of method Levels\\MethodCalls\\Foo::doFoo() expects int, float given.",
+                    "line": 12,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Levels\\MethodCalls\\Foo::doFoo() invoked with 0 parameters, 1 required.",
+                    "line": 15,
+                    "ignorable": true
+                },
+                {
+                    "message": "Static method Levels\\MethodCalls\\Bar::doBar() invoked with 0 parameters, 1 required.",
+                    "line": 26,
+                    "ignorable": true
+                },
+                {
+                    "message": "Call to static method doBar() on an unknown class Levels\\MethodCalls\\Lorem.",
+                    "line": 27,
+                    "ignorable": true
+                },
+                {
+                    "message": "Static method Levels\\MethodCalls\\Bar::doBar() invoked with 0 parameters, 1 required.",
+                    "line": 31,
+                    "ignorable": true
+                },
+                {
+                    "message": "Method Levels\\MethodCalls\\Foo::doFoo() invoked with 0 parameters, 1 required.",
+                    "line": 56,
+                    "ignorable": true
+                }
+            ]
+        }
+    },
+    "errors": []
+}
