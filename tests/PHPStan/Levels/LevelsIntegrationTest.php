@@ -8,7 +8,7 @@ class LevelsIntegrationTest extends \PHPUnit\Framework\TestCase
 	public function dataLevels(): \Generator
 	{
 		$topics = [
-			//'returnTypes',
+			'returnTypes',
 			//'acceptTypes',
 			//'methodCalls',
 			//'propertyAccesses',
