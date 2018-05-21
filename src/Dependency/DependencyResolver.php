@@ -45,26 +45,19 @@ class DependencyResolver
 					$addDeepDependencies($this->getClassReflection($className->toString()));
 				}
 			}
-		} elseif ($node instanceof \PhpParser\Node\Stmt\Function_ || $node instanceof \PhpParser\Node\Stmt\ClassMethod) {
-			foreach ($node->params as $parameter) {
-				$parameterType = $parameter->type;
-				if ($parameterType instanceof \PhpParser\Node\NullableType) {
-					$parameterType = $parameterType->type;
-				}
-				if ($parameterType instanceof \PhpParser\Node\Name && $parameterType->isFullyQualified()) {
-					$dependenciesReflections[] = $node instanceof \PhpParser\Node\Stmt\Function_
-						? $this->getFunctionReflection($parameterType->toString())
-						: $this->getClassReflection($parameterType->toString());
+		} elseif ($node instanceof \PhpParser\Node\Param) {
+			/** @var \PHPStan\Reflection\MethodReflection|\PHPStan\Reflection\FunctionReflection $function */
+			$function = $scope->getFunction();
+			foreach ($function->getParameters() as $parameterReflection) {
+				foreach ($parameterReflection->getType()->getReferencedClasses() as $referencedClass) {
+					$dependenciesReflections[] = $this->getClassReflection($referencedClass);
 				}
 			}
-			$returnType = $node->returnType;
-			if ($returnType instanceof \PhpParser\Node\NullableType) {
-				$returnType = $returnType->type;
-			}
-			if ($returnType instanceof \PhpParser\Node\Name && $returnType->isFullyQualified()) {
-				$dependenciesReflections[] = $node instanceof \PhpParser\Node\Stmt\Function_
-					? $this->getFunctionReflection($returnType->toString())
-					: $this->getClassReflection($returnType->toString());
+		} elseif ($node instanceof \PhpParser\Node\Stmt\Return_) {
+			/** @var \PHPStan\Reflection\MethodReflection|\PHPStan\Reflection\FunctionReflection $function */
+			$function = $scope->getFunction();
+			foreach ($function->getReturnType()->getReferencedClasses() as $referencedClass) {
+				$dependenciesReflections[] = $this->getClassReflection($referencedClass);
 			}
 		} elseif ($node instanceof \PhpParser\Node\Expr\FuncCall) {
 			$functionName = $node->name;
@@ -86,7 +79,7 @@ class DependencyResolver
 			|| $node instanceof \PhpParser\Node\Expr\New_
 		) {
 			if ($node->class instanceof \PhpParser\Node\Name && $node->class->isFullyQualified()) {
-				$addDeepDependencies($this->resolveClassReflection($node->class->toString(), $scope));
+				$addDeepDependencies($this->getClassReflection($scope->resolveName($node->class)));
 			}
 		} elseif ($node instanceof \PhpParser\Node\Stmt\TraitUse) {
 			foreach ($node->traits as $traitName) {
@@ -94,12 +87,12 @@ class DependencyResolver
 			}
 		} elseif ($node instanceof \PhpParser\Node\Expr\Instanceof_) {
 			if ($node->class instanceof \PhpParser\Node\Name && $node->class->isFullyQualified()) {
-				$dependenciesReflections[] = $this->resolveClassReflection($node->class->toString(), $scope);
+				$dependenciesReflections[] = $this->getClassReflection($scope->resolveName($node->class));
 			}
 		} elseif ($node instanceof \PhpParser\Node\Stmt\Catch_) {
 			foreach ($node->types as $type) {
 				if ($type instanceof \PhpParser\Node\Name && $type->isFullyQualified()) {
-					$dependenciesReflections[] = $this->resolveClassReflection($type->toString(), $scope);
+					$dependenciesReflections[] = $this->getClassReflection($scope->resolveName($type));
 				}
 			}
 		}
@@ -122,17 +115,6 @@ class DependencyResolver
 		}
 
 		return array_values($dependencies);
-	}
-
-	private function resolveClassReflection(string $className, Scope $scope): \ReflectionClass
-	{
-		if ($className === 'parent') {
-			return $scope->getClassReflection()->getNativeReflection()->getParentClass();
-		} elseif (in_array($className, ['self', 'static'], true)) {
-			return $scope->getClassReflection()->getNativeReflection();
-		} else {
-			return $this->getClassReflection($className);
-		}
 	}
 
 	private function getClassReflection(string $className): \ReflectionClass
