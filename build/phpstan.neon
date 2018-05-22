@@ -2,7 +2,7 @@ includes:
 	- ../vendor/phpstan/phpstan-php-parser/extension.neon
 	- ../vendor/phpstan/phpstan-phpunit/extension.neon
 	- ../vendor/phpstan/phpstan-phpunit/rules.neon
-	#- ../vendor/phpstan/phpstan-strict-rules/rules.neon
+	- ../vendor/phpstan/phpstan-strict-rules/rules.neon
 parameters:
 	bootstrap: %rootDir%/tests/phpstan-bootstrap.php
 	excludes_analyse:
@@ -13,7 +13,7 @@ parameters:
 	ignoreErrors:
 		- '#Constant PHPSTAN_TEST_CONSTANT not found#'
 		- '#Strict comparison using === between PhpParser\\Node\\Expr\\ArrayItem and null will always evaluate to false#'
-		#- '#Dynamic call to static method PHPUnit\\Framework\\#'
+		- '#Dynamic call to static method PHPUnit\\Framework\\#'
 	tmpDir: %rootDir%/tmp
 services:
 	-
