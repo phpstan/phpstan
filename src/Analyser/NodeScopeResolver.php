@@ -1799,7 +1799,7 @@ class NodeScopeResolver
 
 	private function enterClassMethod(Scope $scope, Node\Stmt\ClassMethod $classMethod): Scope
 	{
-		list($phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated) = $this->getPhpDocs($scope, $classMethod);
+		[$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated] = $this->getPhpDocs($scope, $classMethod);
 
 		return $scope->enterClassMethod(
 			$classMethod,
@@ -1861,7 +1861,7 @@ class NodeScopeResolver
 
 	private function enterFunction(Scope $scope, Node\Stmt\Function_ $function): Scope
 	{
-		list($phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated) = $this->getPhpDocs($scope, $function);
+		[$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated] = $this->getPhpDocs($scope, $function);
 
 		return $scope->enterFunction(
 			$function,

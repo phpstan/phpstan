@@ -2257,11 +2257,11 @@ class Scope
 	public function filterBySpecifiedTypes(SpecifiedTypes $specifiedTypes): self
 	{
 		$scope = $this;
-		foreach ($specifiedTypes->getSureTypes() as list($expr, $type)) {
+		foreach ($specifiedTypes->getSureTypes() as [$expr, $type]) {
 			$type = TypeCombinator::intersect($type, $this->getType($expr));
 			$scope = $scope->specifyExpressionType($expr, $type);
 		}
-		foreach ($specifiedTypes->getSureNotTypes() as list($expr, $type)) {
+		foreach ($specifiedTypes->getSureNotTypes() as [$expr, $type]) {
 			$scope = $scope->removeTypeFromExpression($expr, $type);
 		}
 		return $scope;
