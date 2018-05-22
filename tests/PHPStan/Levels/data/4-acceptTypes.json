@@ -1,19 +1,7 @@
-{
-    "totals": {
-        "errors": 0,
-        "file_errors": 1
-    },
-    "files": {
-        "acceptTypes.php": {
-            "errors": 1,
-            "messages": [
-                {
-                    "message": "Method Levels\\AcceptTypes\\Foo::doBar() invoked with 0 parameters, 1 required.",
-                    "line": 23,
-                    "ignorable": true
-                }
-            ]
-        }
-    },
-    "errors": []
-}
+[
+    {
+        "message": "Method Levels\\AcceptTypes\\Foo::doBar() invoked with 0 parameters, 1 required.",
+        "line": 23,
+        "ignorable": true
+    }
+]

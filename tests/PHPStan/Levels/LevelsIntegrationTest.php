@@ -43,7 +43,12 @@ class LevelsIntegrationTest extends \PHPUnit\Framework\TestCase
 	{
 		$command = __DIR__ . '/../../../bin/phpstan';
 		exec(sprintf('%s analyse --no-progress --errorFormat=prettyJson --level=%d --autoload-file %s %s', escapeshellcmd($command), $level, escapeshellarg($file), escapeshellarg($file)), $outputLines);
-		$actualOutput = implode("\n", $outputLines);
+		$actualJson = \Nette\Utils\Json::decode(implode("\n", $outputLines), \Nette\Utils\Json::FORCE_ARRAY);
+		if (count($actualJson['files']) > 0) {
+			$actualOutput = \Nette\Utils\Json::encode($actualJson['files'][pathinfo($file, PATHINFO_BASENAME)]['messages'], \Nette\Utils\Json::PRETTY);
+		} else {
+			$actualOutput = '[]';
+		}
 
 		try {
 			$this->assertJsonStringEqualsJsonFile(

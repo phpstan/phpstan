@@ -1,39 +1,27 @@
-{
-    "totals": {
-        "errors": 0,
-        "file_errors": 5
+[
+    {
+        "message": "Access to an undefined property Levels\\PropertyAccesses\\Foo::$bar.",
+        "line": 14,
+        "ignorable": true
     },
-    "files": {
-        "propertyAccesses.php": {
-            "errors": 5,
-            "messages": [
-                {
-                    "message": "Access to an undefined property Levels\\PropertyAccesses\\Foo::$bar.",
-                    "line": 14,
-                    "ignorable": true
-                },
-                {
-                    "message": "Access to an undefined property Levels\\PropertyAccesses\\Foo::$bar.",
-                    "line": 18,
-                    "ignorable": true
-                },
-                {
-                    "message": "Access to static property $bar on an unknown class Levels\\PropertyAccesses\\Lorem.",
-                    "line": 32,
-                    "ignorable": true
-                },
-                {
-                    "message": "Access to an undefined static property Levels\\PropertyAccesses\\Bar::$foo.",
-                    "line": 36,
-                    "ignorable": true
-                },
-                {
-                    "message": "Access to an undefined property Levels\\PropertyAccesses\\Foo::$bar.",
-                    "line": 61,
-                    "ignorable": true
-                }
-            ]
-        }
+    {
+        "message": "Access to an undefined property Levels\\PropertyAccesses\\Foo::$bar.",
+        "line": 18,
+        "ignorable": true
     },
-    "errors": []
-}
+    {
+        "message": "Access to static property $bar on an unknown class Levels\\PropertyAccesses\\Lorem.",
+        "line": 32,
+        "ignorable": true
+    },
+    {
+        "message": "Access to an undefined static property Levels\\PropertyAccesses\\Bar::$foo.",
+        "line": 36,
+        "ignorable": true
+    },
+    {
+        "message": "Access to an undefined property Levels\\PropertyAccesses\\Foo::$bar.",
+        "line": 61,
+        "ignorable": true
+    }
+]

@@ -1,24 +1,12 @@
-{
-    "totals": {
-        "errors": 0,
-        "file_errors": 2
+[
+    {
+        "message": "Trying to invoke int but it's not a callable.",
+        "line": 23,
+        "ignorable": true
     },
-    "files": {
-        "callableCalls.php": {
-            "errors": 2,
-            "messages": [
-                {
-                    "message": "Trying to invoke int but it's not a callable.",
-                    "line": 23,
-                    "ignorable": true
-                },
-                {
-                    "message": "Trying to invoke float|int but it's not a callable.",
-                    "line": 24,
-                    "ignorable": true
-                }
-            ]
-        }
-    },
-    "errors": []
-}
+    {
+        "message": "Trying to invoke float|int but it's not a callable.",
+        "line": 24,
+        "ignorable": true
+    }
+]

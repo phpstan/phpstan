@@ -1,39 +1,27 @@
-{
-    "totals": {
-        "errors": 0,
-        "file_errors": 5
+[
+    {
+        "message": "Trying to invoke int but it's not a callable.",
+        "line": 23,
+        "ignorable": true
     },
-    "files": {
-        "callableCalls.php": {
-            "errors": 5,
-            "messages": [
-                {
-                    "message": "Trying to invoke int but it's not a callable.",
-                    "line": 23,
-                    "ignorable": true
-                },
-                {
-                    "message": "Trying to invoke float|int but it's not a callable.",
-                    "line": 24,
-                    "ignorable": true
-                },
-                {
-                    "message": "Parameter #1 $i of closure expects int, float given.",
-                    "line": 29,
-                    "ignorable": true
-                },
-                {
-                    "message": "Parameter #1 $i of closure expects int, int|string given.",
-                    "line": 30,
-                    "ignorable": true
-                },
-                {
-                    "message": "Parameter #1 $i of closure expects int, float|string given.",
-                    "line": 31,
-                    "ignorable": true
-                }
-            ]
-        }
+    {
+        "message": "Trying to invoke float|int but it's not a callable.",
+        "line": 24,
+        "ignorable": true
     },
-    "errors": []
-}
+    {
+        "message": "Parameter #1 $i of closure expects int, float given.",
+        "line": 29,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $i of closure expects int, int|string given.",
+        "line": 30,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $i of closure expects int, float|string given.",
+        "line": 31,
+        "ignorable": true
+    }
+]

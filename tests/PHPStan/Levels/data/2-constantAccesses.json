@@ -1,44 +1,32 @@
-{
-    "totals": {
-        "errors": 0,
-        "file_errors": 6
+[
+    {
+        "message": "Constant UNKNOWN_CONSTANT not found.",
+        "line": 6,
+        "ignorable": true
     },
-    "files": {
-        "constantAccesses.php": {
-            "errors": 6,
-            "messages": [
-                {
-                    "message": "Constant UNKNOWN_CONSTANT not found.",
-                    "line": 6,
-                    "ignorable": true
-                },
-                {
-                    "message": "Access to undefined constant Levels\\ConstantAccesses\\Foo::BAR_CONSTANT.",
-                    "line": 17,
-                    "ignorable": true
-                },
-                {
-                    "message": "Access to undefined constant Levels\\ConstantAccesses\\Bar::FOO_CONSTANT.",
-                    "line": 18,
-                    "ignorable": true
-                },
-                {
-                    "message": "Access to undefined constant Levels\\ConstantAccesses\\Foo::BAR_CONSTANT.",
-                    "line": 20,
-                    "ignorable": true
-                },
-                {
-                    "message": "Access to undefined constant Levels\\ConstantAccesses\\Foo::BAR_CONSTANT.",
-                    "line": 23,
-                    "ignorable": true
-                },
-                {
-                    "message": "Access to undefined constant Levels\\ConstantAccesses\\Foo::BAR_CONSTANT.",
-                    "line": 53,
-                    "ignorable": true
-                }
-            ]
-        }
+    {
+        "message": "Access to undefined constant Levels\\ConstantAccesses\\Foo::BAR_CONSTANT.",
+        "line": 17,
+        "ignorable": true
     },
-    "errors": []
-}
+    {
+        "message": "Access to undefined constant Levels\\ConstantAccesses\\Bar::FOO_CONSTANT.",
+        "line": 18,
+        "ignorable": true
+    },
+    {
+        "message": "Access to undefined constant Levels\\ConstantAccesses\\Foo::BAR_CONSTANT.",
+        "line": 20,
+        "ignorable": true
+    },
+    {
+        "message": "Access to undefined constant Levels\\ConstantAccesses\\Foo::BAR_CONSTANT.",
+        "line": 23,
+        "ignorable": true
+    },
+    {
+        "message": "Access to undefined constant Levels\\ConstantAccesses\\Foo::BAR_CONSTANT.",
+        "line": 53,
+        "ignorable": true
+    }
+]

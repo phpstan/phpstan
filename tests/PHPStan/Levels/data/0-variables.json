@@ -1,19 +1,7 @@
-{
-    "totals": {
-        "errors": 0,
-        "file_errors": 1
-    },
-    "files": {
-        "variables.php": {
-            "errors": 1,
-            "messages": [
-                {
-                    "message": "Undefined variable: $bar",
-                    "line": 7,
-                    "ignorable": true
-                }
-            ]
-        }
-    },
-    "errors": []
-}
+[
+    {
+        "message": "Undefined variable: $bar",
+        "line": 7,
+        "ignorable": true
+    }
+]

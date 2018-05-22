@@ -1,24 +1,12 @@
-{
-    "totals": {
-        "errors": 0,
-        "file_errors": 2
+[
+    {
+        "message": "Access to an undefined property Levels\\PropertyAccesses\\Foo::$bar.",
+        "line": 14,
+        "ignorable": true
     },
-    "files": {
-        "propertyAccesses.php": {
-            "errors": 2,
-            "messages": [
-                {
-                    "message": "Access to an undefined property Levels\\PropertyAccesses\\Foo::$bar.",
-                    "line": 14,
-                    "ignorable": true
-                },
-                {
-                    "message": "Access to static property $bar on an unknown class Levels\\PropertyAccesses\\Lorem.",
-                    "line": 32,
-                    "ignorable": true
-                }
-            ]
-        }
-    },
-    "errors": []
-}
+    {
+        "message": "Access to static property $bar on an unknown class Levels\\PropertyAccesses\\Lorem.",
+        "line": 32,
+        "ignorable": true
+    }
+]

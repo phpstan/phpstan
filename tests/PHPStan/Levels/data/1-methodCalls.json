@@ -1,29 +1,17 @@
-{
-    "totals": {
-        "errors": 0,
-        "file_errors": 3
+[
+    {
+        "message": "Method Levels\\MethodCalls\\Foo::doFoo() invoked with 0 parameters, 1 required.",
+        "line": 11,
+        "ignorable": true
     },
-    "files": {
-        "methodCalls.php": {
-            "errors": 3,
-            "messages": [
-                {
-                    "message": "Method Levels\\MethodCalls\\Foo::doFoo() invoked with 0 parameters, 1 required.",
-                    "line": 11,
-                    "ignorable": true
-                },
-                {
-                    "message": "Static method Levels\\MethodCalls\\Bar::doBar() invoked with 0 parameters, 1 required.",
-                    "line": 26,
-                    "ignorable": true
-                },
-                {
-                    "message": "Call to static method doBar() on an unknown class Levels\\MethodCalls\\Lorem.",
-                    "line": 27,
-                    "ignorable": true
-                }
-            ]
-        }
+    {
+        "message": "Static method Levels\\MethodCalls\\Bar::doBar() invoked with 0 parameters, 1 required.",
+        "line": 26,
+        "ignorable": true
     },
-    "errors": []
-}
+    {
+        "message": "Call to static method doBar() on an unknown class Levels\\MethodCalls\\Lorem.",
+        "line": 27,
+        "ignorable": true
+    }
+]
