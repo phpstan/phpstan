@@ -14,7 +14,7 @@ class LevelsIntegrationTest extends \PHPUnit\Framework\TestCase
 			'propertyAccesses',
 			'constantAccesses',
 			'variables',
-			//'callableCalls',
+			'callableCalls',
 			//'arrayDimFetches',
 		];
 
