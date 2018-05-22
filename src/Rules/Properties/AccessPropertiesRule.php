@@ -7,6 +7,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
+use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
 
 class AccessPropertiesRule implements \PHPStan\Rules\Rule
@@ -47,7 +48,10 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 		$typeResult = $this->ruleLevelHelper->findTypeToCheck(
 			$scope,
 			$node->var,
-			sprintf('Access to property $%s on an unknown class %%s.', $name)
+			sprintf('Access to property $%s on an unknown class %%s.', $name),
+			function (Type $type) use ($name): bool {
+				return $type->canAccessProperties()->yes() && $type->hasProperty($name);
+			}
 		);
 		$type = $typeResult->getType();
 		if ($type instanceof ErrorType) {

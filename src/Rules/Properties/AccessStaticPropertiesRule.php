@@ -12,6 +12,7 @@ use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
+use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\VerbosityLevel;
 
@@ -123,7 +124,10 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 			$classTypeResult = $this->ruleLevelHelper->findTypeToCheck(
 				$scope,
 				$node->class,
-				sprintf('Access to static property $%s on an unknown class %%s.', $name)
+				sprintf('Access to static property $%s on an unknown class %%s.', $name),
+				function (Type $type) use ($name): bool {
+					return $type->canAccessProperties()->yes() && $type->hasProperty($name);
+				}
 			);
 			$classType = $classTypeResult->getType();
 			if ($classType instanceof ErrorType) {

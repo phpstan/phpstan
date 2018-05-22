@@ -11,6 +11,7 @@ use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
+use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\VerbosityLevel;
 
@@ -107,7 +108,10 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 			$classTypeResult = $this->ruleLevelHelper->findTypeToCheck(
 				$scope,
 				$class,
-				sprintf('Access to constant %s on an unknown class %%s.', $constantName)
+				sprintf('Access to constant %s on an unknown class %%s.', $constantName),
+				function (Type $type) use ($constantName): bool {
+					return $type->canAccessConstants()->yes() && $type->hasConstant($constantName);
+				}
 			);
 			$classType = $classTypeResult->getType();
 			if ($classType instanceof ErrorType) {

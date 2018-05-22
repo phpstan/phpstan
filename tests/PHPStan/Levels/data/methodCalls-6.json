@@ -10,11 +10,6 @@
         "ignorable": true
     },
     {
-        "message": "Call to an undefined method Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Foo::doBaz().",
-        "line": 54,
-        "ignorable": true
-    },
-    {
         "message": "Call to an undefined method Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Foo::doFoo().",
         "line": 59,
         "ignorable": true
@@ -22,11 +17,6 @@
     {
         "message": "Call to an undefined method Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Foo::doFoo().",
         "line": 60,
-        "ignorable": true
-    },
-    {
-        "message": "Call to an undefined method Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Baz::doFoo().",
-        "line": 62,
         "ignorable": true
     }
 ]

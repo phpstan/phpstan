@@ -15,6 +15,7 @@ use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
+use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\VerbosityLevel;
@@ -130,7 +131,10 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 			$classTypeResult = $this->ruleLevelHelper->findTypeToCheck(
 				$scope,
 				$class,
-				sprintf('Call to static method %s() on an unknown class %%s.', $methodName)
+				sprintf('Call to static method %s() on an unknown class %%s.', $methodName),
+				function (Type $type) use ($methodName): bool {
+					return $type->canCallMethods()->yes() && $type->hasMethod($methodName);
+				}
 			);
 			$classType = $classTypeResult->getType();
 			if ($classType instanceof ErrorType) {

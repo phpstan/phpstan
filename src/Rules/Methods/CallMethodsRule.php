@@ -10,6 +10,7 @@ use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Rules\FunctionCallParametersCheck;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
+use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
 
 class CallMethodsRule implements \PHPStan\Rules\Rule
@@ -60,7 +61,10 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 		$typeResult = $this->ruleLevelHelper->findTypeToCheck(
 			$scope,
 			$node->var,
-			sprintf('Call to method %s() on an unknown class %%s.', $name)
+			sprintf('Call to method %s() on an unknown class %%s.', $name),
+			function (Type $type) use ($name): bool {
+				return $type->canCallMethods()->yes() && $type->hasMethod($name);
+			}
 		);
 		$type = $typeResult->getType();
 		if ($type instanceof ErrorType) {

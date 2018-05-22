@@ -11,7 +11,27 @@
     },
     {
         "message": "Method Levels\\MethodCalls\\Foo::doFoo() invoked with 0 parameters, 1 required.",
+        "line": 53,
+        "ignorable": true
+    },
+    {
+        "message": "Call to an undefined method Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Foo::doBaz().",
+        "line": 54,
+        "ignorable": true
+    },
+    {
+        "message": "Method Levels\\MethodCalls\\Foo::doFoo() invoked with 0 parameters, 1 required.",
         "line": 56,
+        "ignorable": true
+    },
+    {
+        "message": "Method Levels\\MethodCalls\\Foo::doFoo() invoked with 0 parameters, 1 required.",
+        "line": 59,
+        "ignorable": true
+    },
+    {
+        "message": "Call to an undefined method Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Baz::doFoo().",
+        "line": 62,
         "ignorable": true
     }
 ]

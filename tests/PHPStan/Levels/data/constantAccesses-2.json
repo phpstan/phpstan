@@ -5,8 +5,23 @@
         "ignorable": true
     },
     {
+        "message": "Access to undefined constant Levels\\ConstantAccesses\\Bar|Levels\\ConstantAccesses\\Foo::BAR_CONSTANT.",
+        "line": 50,
+        "ignorable": true
+    },
+    {
         "message": "Access to undefined constant Levels\\ConstantAccesses\\Foo::BAR_CONSTANT.",
         "line": 53,
+        "ignorable": true
+    },
+    {
+        "message": "Access to undefined constant Levels\\ConstantAccesses\\Bar|Levels\\ConstantAccesses\\Foo::BAR_CONSTANT.",
+        "line": 56,
+        "ignorable": true
+    },
+    {
+        "message": "Access to undefined constant Levels\\ConstantAccesses\\Bar|Levels\\ConstantAccesses\\Baz::FOO_CONSTANT.",
+        "line": 58,
         "ignorable": true
     }
 ]

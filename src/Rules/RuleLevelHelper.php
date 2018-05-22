@@ -74,7 +74,8 @@ class RuleLevelHelper
 	public function findTypeToCheck(
 		Scope $scope,
 		Expr $var,
-		string $unknownClassErrorPattern
+		string $unknownClassErrorPattern,
+		callable $unionTypeCriteriaCallback
 	): FoundTypeResult
 	{
 		if ($this->checkThisOnly && !$this->isThis($var)) {
@@ -109,7 +110,18 @@ class RuleLevelHelper
 		}
 
 		if (!$this->checkUnionTypes && $type instanceof UnionType) {
-			return new FoundTypeResult(new ErrorType(), [], []);
+			$newTypes = [];
+			foreach ($type->getTypes() as $innerType) {
+				if (!$unionTypeCriteriaCallback($innerType)) {
+					continue;
+				}
+
+				$newTypes[] = $innerType;
+			}
+
+			if (count($newTypes) > 0) {
+				return new FoundTypeResult(TypeCombinator::union(...$newTypes), $referencedClasses, []);
+			}
 		}
 
 		return new FoundTypeResult($type, $referencedClasses, []);
