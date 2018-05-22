@@ -1,15 +1,5 @@
 [
     {
-        "message": "Trying to invoke int but it's not a callable.",
-        "line": 23,
-        "ignorable": true
-    },
-    {
-        "message": "Trying to invoke float|int but it's not a callable.",
-        "line": 24,
-        "ignorable": true
-    },
-    {
         "message": "Parameter #1 $i of closure expects int, float given.",
         "line": 29,
         "ignorable": true

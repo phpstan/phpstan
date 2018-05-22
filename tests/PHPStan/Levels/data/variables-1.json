@@ -1,10 +1,5 @@
 [
     {
-        "message": "Undefined variable: $bar",
-        "line": 7,
-        "ignorable": true
-    },
-    {
         "message": "Variable $baz might not be defined.",
         "line": 12,
         "ignorable": true

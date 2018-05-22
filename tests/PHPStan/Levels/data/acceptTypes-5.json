@@ -1,27 +1,17 @@
 [
     {
-        "message": "Method Levels\\AcceptTypes\\Foo::doBar() invoked with 0 parameters, 1 required.",
-        "line": 23,
-        "ignorable": true
-    },
-    {
         "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Foo::doBar() expects int, float given.",
-        "line": 25,
+        "line": 24,
         "ignorable": true
     },
     {
         "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Foo::doBar() expects int, float|string given.",
-        "line": 26,
-        "ignorable": true
-    },
-    {
-        "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Foo::doBar() expects int, int|null given.",
-        "line": 27,
+        "line": 25,
         "ignorable": true
     },
     {
         "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Foo::doBar() expects int, float|int given.",
-        "line": 28,
+        "line": 27,
         "ignorable": true
     }
 ]

@@ -1,0 +1,12 @@
+[
+    {
+        "message": "Access to undefined constant Levels\\ConstantAccesses\\Foo::BAR_CONSTANT.",
+        "line": 23,
+        "ignorable": true
+    },
+    {
+        "message": "Access to undefined constant Levels\\ConstantAccesses\\Foo::BAR_CONSTANT.",
+        "line": 53,
+        "ignorable": true
+    }
+]

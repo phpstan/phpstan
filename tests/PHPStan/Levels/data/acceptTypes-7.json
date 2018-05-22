@@ -1,0 +1,7 @@
+[
+    {
+        "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Foo::doBar() expects int, int|null given.",
+        "line": 26,
+        "ignorable": true
+    }
+]

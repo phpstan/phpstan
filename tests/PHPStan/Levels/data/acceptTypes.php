@@ -20,7 +20,6 @@ class Foo
 		$m
 	)
 	{
-		$this->doBar();
 		$this->doBar($i);
 		$this->doBar($j);
 		$this->doBar($k);
