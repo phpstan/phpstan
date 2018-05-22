@@ -15,7 +15,7 @@ class LevelsIntegrationTest extends \PHPUnit\Framework\TestCase
 			'constantAccesses',
 			'variables',
 			'callableCalls',
-			//'arrayDimFetches',
+			'arrayDimFetches',
 		];
 
 		foreach (range(0, 7) as $level) {

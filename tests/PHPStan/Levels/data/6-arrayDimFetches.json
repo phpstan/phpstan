@@ -1,0 +1,29 @@
+{
+    "totals": {
+        "errors": 0,
+        "file_errors": 3
+    },
+    "files": {
+        "arrayDimFetches.php": {
+            "errors": 3,
+            "messages": [
+                {
+                    "message": "Cannot access array offset on bool.",
+                    "line": 10,
+                    "ignorable": true
+                },
+                {
+                    "message": "Offset 'b' does not exist on array('a' => 1).",
+                    "line": 17,
+                    "ignorable": true
+                },
+                {
+                    "message": "Offset 'b' does not exist on 1|array('a' => 1).",
+                    "line": 23,
+                    "ignorable": true
+                }
+            ]
+        }
+    },
+    "errors": []
+}
