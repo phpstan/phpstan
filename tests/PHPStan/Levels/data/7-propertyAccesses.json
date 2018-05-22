@@ -1,0 +1,84 @@
+{
+    "totals": {
+        "errors": 0,
+        "file_errors": 14
+    },
+    "files": {
+        "propertyAccesses.php": {
+            "errors": 14,
+            "messages": [
+                {
+                    "message": "Access to an undefined property Levels\\PropertyAccesses\\Foo::$bar.",
+                    "line": 14,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property Levels\\PropertyAccesses\\Foo::$bar.",
+                    "line": 18,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to static property $bar on an unknown class Levels\\PropertyAccesses\\Lorem.",
+                    "line": 32,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined static property Levels\\PropertyAccesses\\Bar::$foo.",
+                    "line": 36,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo::$foo.",
+                    "line": 57,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo::$bar.",
+                    "line": 58,
+                    "ignorable": true
+                },
+                {
+                    "message": "Accessing property $foo on possibly null value of type Levels\\PropertyAccesses\\Foo|null.",
+                    "line": 60,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property Levels\\PropertyAccesses\\Foo::$bar.",
+                    "line": 61,
+                    "ignorable": true
+                },
+                {
+                    "message": "Accessing property $bar on possibly null value of type Levels\\PropertyAccesses\\Foo|null.",
+                    "line": 61,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo::$foo.",
+                    "line": 63,
+                    "ignorable": true
+                },
+                {
+                    "message": "Accessing property $foo on possibly null value of type Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo|null.",
+                    "line": 63,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo::$bar.",
+                    "line": 64,
+                    "ignorable": true
+                },
+                {
+                    "message": "Accessing property $bar on possibly null value of type Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo|null.",
+                    "line": 64,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to an undefined property Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Baz::$foo.",
+                    "line": 66,
+                    "ignorable": true
+                }
+            ]
+        }
+    },
+    "errors": []
+}
