@@ -66,10 +66,6 @@ class UnionType implements CompoundType, StaticResolvableType
 			return CompoundTypeHelper::accepts($type, $this);
 		}
 
-		if (TypeCombinator::shouldSkipUnionTypeAccepts($this)) {
-			return true;
-		}
-
 		foreach ($this->getTypes() as $otherType) {
 			if ($otherType->accepts($type)) {
 				return true;

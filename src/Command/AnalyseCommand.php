@@ -7,7 +7,6 @@ use PHPStan\Command\ErrorFormatter\ErrorFormatter;
 use PHPStan\DependencyInjection\ContainerFactory;
 use PHPStan\DependencyInjection\LoaderFactory;
 use PHPStan\File\FileHelper;
-use PHPStan\Type\TypeCombinator;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -212,8 +211,6 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 			$robotLoader->register();
 		}
-
-		TypeCombinator::setUnionTypesEnabled($container->parameters['checkUnionTypes']);
 
 		/** @var \PHPStan\Command\AnalyseApplication $application */
 		$application = $container->getByType(AnalyseApplication::class);

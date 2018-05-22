@@ -7,27 +7,6 @@ use PHPStan\Type\Constant\ConstantBooleanType;
 class TypeCombinator
 {
 
-	/** @var bool|null */
-	private static $unionTypesEnabled;
-
-	public static function setUnionTypesEnabled(bool $enabled): void
-	{
-		if (self::$unionTypesEnabled !== null) {
-			throw new \PHPStan\ShouldNotHappenException();
-		}
-
-		self::$unionTypesEnabled = $enabled;
-	}
-
-	public static function isUnionTypesEnabled(): bool
-	{
-		if (self::$unionTypesEnabled === null) {
-			throw new \PHPStan\ShouldNotHappenException();
-		}
-
-		return self::$unionTypesEnabled;
-	}
-
 	public static function addNull(Type $type): Type
 	{
 		return self::union($type, new NullType());
@@ -227,12 +206,6 @@ class TypeCombinator
 		}
 
 		return new IntersectionType($types);
-	}
-
-	public static function shouldSkipUnionTypeAccepts(UnionType $unionType): bool
-	{
-		$typesLimit = self::containsNull($unionType) ? 2 : 1;
-		return !self::isUnionTypesEnabled() && count($unionType->getTypes()) > $typesLimit;
 	}
 
 }
