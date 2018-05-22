@@ -1,0 +1,29 @@
+{
+    "totals": {
+        "errors": 0,
+        "file_errors": 3
+    },
+    "files": {
+        "constantAccesses.php": {
+            "errors": 3,
+            "messages": [
+                {
+                    "message": "Access to undefined constant Levels\\ConstantAccesses\\Foo::BAR_CONSTANT.",
+                    "line": 17,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to undefined constant Levels\\ConstantAccesses\\Bar::FOO_CONSTANT.",
+                    "line": 18,
+                    "ignorable": true
+                },
+                {
+                    "message": "Access to undefined constant Levels\\ConstantAccesses\\Foo::BAR_CONSTANT.",
+                    "line": 20,
+                    "ignorable": true
+                }
+            ]
+        }
+    },
+    "errors": []
+}
