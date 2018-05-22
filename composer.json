@@ -37,7 +37,7 @@
 		"phpstan/phpstan-phpunit": "^0.10",
 		"phpstan/phpstan-strict-rules": "^0.10",
 		"phpunit/phpunit": "^7.0",
-		"slevomat/coding-standard": "^4.5.2"
+		"slevomat/coding-standard": "^4.6.0"
 	},
 	"autoload": {
 		"psr-4": {"PHPStan\\": ["src/", "build/PHPStan"]}

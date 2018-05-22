@@ -44,7 +44,7 @@ class SpecifiedTypes
 		$sureTypeUnion = [];
 		$sureNotTypeUnion = [];
 
-		foreach ($this->sureTypes as $exprString => list($exprNode, $type)) {
+		foreach ($this->sureTypes as $exprString => [$exprNode, $type]) {
 			if (!isset($other->sureTypes[$exprString])) {
 				continue;
 			}
@@ -55,7 +55,7 @@ class SpecifiedTypes
 			];
 		}
 
-		foreach ($this->sureNotTypes as $exprString => list($exprNode, $type)) {
+		foreach ($this->sureNotTypes as $exprString => [$exprNode, $type]) {
 			if (!isset($other->sureNotTypes[$exprString])) {
 				continue;
 			}
@@ -75,7 +75,7 @@ class SpecifiedTypes
 		$sureTypeUnion = $this->sureTypes + $other->sureTypes;
 		$sureNotTypeUnion = $this->sureNotTypes + $other->sureNotTypes;
 
-		foreach ($this->sureTypes as $exprString => list($exprNode, $type)) {
+		foreach ($this->sureTypes as $exprString => [$exprNode, $type]) {
 			if (!isset($other->sureTypes[$exprString])) {
 				continue;
 			}
@@ -86,7 +86,7 @@ class SpecifiedTypes
 			];
 		}
 
-		foreach ($this->sureNotTypes as $exprString => list($exprNode, $type)) {
+		foreach ($this->sureNotTypes as $exprString => [$exprNode, $type]) {
 			if (!isset($other->sureNotTypes[$exprString])) {
 				continue;
 			}

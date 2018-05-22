@@ -37,7 +37,7 @@ class FileHelper
 	{
 		$matches = \Nette\Utils\Strings::match($originalPath, '~^([a-z]+)\\:\\/\\/(.+)~');
 		if ($matches !== null) {
-			list(, $scheme, $path) = $matches;
+			[, $scheme, $path] = $matches;
 		} else {
 			$scheme = null;
 			$path = $originalPath;

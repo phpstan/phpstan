@@ -84,7 +84,7 @@ class TrinaryLogic
 	public static function maxMin(self ...$operands): self
 	{
 		$operandValues = array_column($operands, 'value');
-		return self::create(max($operandValues) ?: min($operandValues));
+		return self::create(max($operandValues) > 0 ? max($operandValues) : min($operandValues));
 	}
 
 	public function negate(): self
