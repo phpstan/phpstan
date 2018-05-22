@@ -58,6 +58,16 @@ class RuleLevelHelper
 			$acceptedType = TypeCombinator::removeNull($acceptedType);
 		}
 
+		if (!$this->checkUnionTypes && $acceptedType instanceof UnionType) {
+			foreach ($acceptedType->getTypes() as $innerType) {
+				if ($acceptingType->accepts($innerType)) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		return $acceptingType->accepts($acceptedType);
 	}
 

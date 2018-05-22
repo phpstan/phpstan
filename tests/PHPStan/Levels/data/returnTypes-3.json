@@ -5,11 +5,6 @@
         "ignorable": true
     },
     {
-        "message": "Method Levels\\ReturnTypes\\Foo::doFoo() should return int but returns int|string.",
-        "line": 26,
-        "ignorable": true
-    },
-    {
         "message": "Method Levels\\ReturnTypes\\Foo::doFoo() should return int but returns float|string.",
         "line": 27,
         "ignorable": true

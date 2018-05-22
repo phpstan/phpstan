@@ -1,0 +1,17 @@
+[
+    {
+        "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Foo::doBar() expects int, float|int given.",
+        "line": 27,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $a of method Levels\\AcceptTypes\\Foo::doIpsum() expects float, float|string given.",
+        "line": 52,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $a of method Levels\\AcceptTypes\\Foo::doIpsum() expects float, float|string|null given.",
+        "line": 53,
+        "ignorable": true
+    }
+]

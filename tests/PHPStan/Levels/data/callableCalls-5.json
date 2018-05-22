@@ -5,11 +5,6 @@
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $i of closure expects int, int|string given.",
-        "line": 30,
-        "ignorable": true
-    },
-    {
         "message": "Parameter #1 $i of closure expects int, float|string given.",
         "line": 31,
         "ignorable": true

@@ -10,6 +10,11 @@
         "ignorable": true
     },
     {
+        "message": "Parameter #1 $i of closure expects int, int|string given.",
+        "line": 30,
+        "ignorable": true
+    },
+    {
         "message": "Trying to invoke Closure<mixed>|null but it might not be a callable.",
         "line": 37,
         "ignorable": true
