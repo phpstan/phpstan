@@ -32,4 +32,41 @@ class Foo
 
 	}
 
+	/**
+	 * @param float|string $a
+	 * @param float|string|null $b
+	 * @param int $c
+	 * @param int|null $d
+	 */
+	public function doBaz(
+		$a,
+		$b,
+		int $c,
+		?int $d
+	)
+	{
+		$this->doLorem($a);
+		$this->doLorem($b);
+		$this->doLorem($c);
+		$this->doLorem($d);
+		$this->doIpsum($a);
+		$this->doIpsum($b);
+	}
+
+	/**
+	 * @param int|callable $a
+	 */
+	public function doLorem($a)
+	{
+
+	}
+
+	/**
+	 * @param float $a
+	 */
+	public function doIpsum($a)
+	{
+
+	}
+
 }
