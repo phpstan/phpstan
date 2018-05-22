@@ -29,9 +29,6 @@ class ArrayType implements StaticResolvableType
 
 	public function __construct(Type $keyType, Type $itemType, bool $itemTypeInferredFromLiteralArray = false)
 	{
-		if ($itemType instanceof UnionType && !TypeCombinator::isUnionTypesEnabled()) {
-			$itemType = new MixedType();
-		}
 		$this->keyType = $keyType;
 		$this->itemType = $itemType;
 		$this->itemTypeInferredFromLiteralArray = $itemTypeInferredFromLiteralArray;
