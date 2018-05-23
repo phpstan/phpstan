@@ -23,26 +23,26 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 			'days' => 'mixed',
 			'f' => 'float',
 		],
-		\DOMAttr::class => [ // extends DOMNode
+		'DOMAttr' => [ // extends DOMNode
 			'name' => 'string',
-			'ownerElement' => \DOMElement::class,
+			'ownerElement' => 'DOMElement',
 			'schemaTypeInfo' => 'bool',
 			'specified' => 'bool',
 			'value' => 'string',
 		],
-		\DOMCharacterData::class => [ // extends DOMNode
+		'DOMCharacterData' => [ // extends DOMNode
 			'data' => 'string',
 			'length' => 'int',
 		],
-		\DOMDocument::class => [
+		'DOMDocument' => [
 			'actualEncoding' => 'string',
-			'config' => \DOMConfiguration::class,
-			'doctype' => \DOMDocumentType::class,
-			'documentElement' => \DOMElement::class,
+			'config' => 'DOMConfiguration',
+			'doctype' => 'DOMDocumentType',
+			'documentElement' => 'DOMElement',
 			'documentURI' => 'string',
 			'encoding' => 'string',
 			'formatOutput' => 'bool',
-			'implementation' => \DOMImplementation::class,
+			'implementation' => 'DOMImplementation',
 			'preserveWhiteSpace' => 'bool',
 			'recover' => 'bool',
 			'resolveExternals' => 'bool',
@@ -55,19 +55,19 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 			'xmlStandalone' => 'bool',
 			'xmlVersion' => 'string',
 		],
-		\DOMDocumentType::class => [ // extends DOMNode
+		'DOMDocumentType' => [ // extends DOMNode
 			'publicId' => 'string',
 			'systemId' => 'string',
 			'name' => 'string',
-			'entities' => \DOMNamedNodeMap::class,
-			'notations' => \DOMNamedNodeMap::class,
+			'entities' => 'DOMNamedNodeMap',
+			'notations' => 'DOMNamedNodeMap',
 			'internalSubset' => 'string',
 		],
-		\DOMElement::class => [ // extends DOMNode
+		'DOMElement' => [ // extends DOMNode
 			'schemaTypeInfo' => 'bool',
 			'tagName' => 'string',
 		],
-		\DOMEntity::class => [ // extends DOMNode
+		'DOMEntity' => [ // extends DOMNode
 			'publicId' => 'string',
 			'systemId' => 'string',
 			'notationName' => 'string',
@@ -75,45 +75,45 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 			'encoding' => 'string',
 			'version' => 'string',
 		],
-		\DOMNamedNodeMap::class => [
+		'DOMNamedNodeMap' => [
 			'length' => 'int',
 		],
-		\DOMNode::class => [
+		'DOMNode' => [
 			'nodeName' => 'string',
 			'nodeValue' => 'string',
 			'nodeType' => 'int',
-			'parentNode' => \DOMNode::class,
-			'childNodes' => \DOMNodeList::class,
-			'firstChild' => \DOMNode::class,
-			'lastChild' => \DOMNode::class,
-			'previousSibling' => \DOMNode::class,
-			'nextSibling' => \DOMNode::class,
-			'attributes' => \DOMNamedNodeMap::class,
-			'ownerDocument' => \DOMDocument::class,
+			'parentNode' => 'DOMNode',
+			'childNodes' => 'DOMNodeList',
+			'firstChild' => 'DOMNode',
+			'lastChild' => 'DOMNode',
+			'previousSibling' => 'DOMNode',
+			'nextSibling' => 'DOMNode',
+			'attributes' => 'DOMNamedNodeMap',
+			'ownerDocument' => 'DOMDocument',
 			'namespaceURI' => 'string',
 			'prefix' => 'string',
 			'localName' => 'string',
 			'baseURI' => 'string',
 			'textContent' => 'string',
 		],
-		\DOMNodeList::class => [
+		'DOMNodeList' => [
 			'length' => 'int',
 		],
-		\DOMNotation::class => [ // extends DOMNode
+		'DOMNotation' => [ // extends DOMNode
 			'publicId' => 'string',
 			'systemId' => 'string',
 		],
-		\DOMProcessingInstruction::class => [ // extends DOMNode
+		'DOMProcessingInstruction' => [ // extends DOMNode
 			'target' => 'string',
 			'data' => 'string',
 		],
-		\DOMText::class => [ // extends DOMCharacterData
+		'DOMText' => [ // extends DOMCharacterData
 			'wholeText' => 'string',
 		],
-		\DOMXPath::class => [ // extends DOMCharacterData
-			'document' => \DOMDocument::class,
+		'DOMXPath' => [ // extends DOMCharacterData
+			'document' => 'DOMDocument',
 		],
-		\XMLReader::class => [
+		'XMLReader' => [
 			'attributeCount' => 'int',
 			'baseURI' => 'string',
 			'depth' => 'int',
@@ -129,14 +129,14 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 			'value' => 'string',
 			'xmlLang' => 'string',
 		],
-		\ZipArchive::class => [
+		'ZipArchive' => [
 			'status' => 'int',
 			'statusSys' => 'int',
 			'numFiles' => 'int',
 			'filename' => 'string',
 			'comment' => 'string',
 		],
-		\LibXMLError::class => [
+		'LibXMLError' => [
 			'level' => 'int',
 			'code' => 'int',
 			'column' => 'int',
