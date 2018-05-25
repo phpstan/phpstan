@@ -1,6 +1,6 @@
 [
     {
-        "message": "Cannot access array offset on bool.",
+        "message": "Cannot access offset 1 on bool.",
         "line": 10,
         "ignorable": true
     },
@@ -10,7 +10,7 @@
         "ignorable": true
     },
     {
-        "message": "Offset 'b' does not exist on array('a' => 1).",
+        "message": "Cannot access offset 'b' on 1|array('a' => 1).",
         "line": 24,
         "ignorable": true
     }

@@ -26,7 +26,7 @@ class NonexistentOffsetInArrayDimFetchRuleTest extends \PHPStan\Testing\RuleTest
 				18,
 			],
 			[
-				'Cannot access array offset on null.',
+				'Cannot access an offset on null.',
 				35,
 			],
 			[

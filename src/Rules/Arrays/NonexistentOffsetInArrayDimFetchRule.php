@@ -43,8 +43,12 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 			$scope,
 			$node->var,
 			$unknownClassPattern,
-			function (Type $type): bool {
-				return $type->isOffsetAccessible()->yes();
+			function (Type $type) use ($dimType): bool {
+				if ($dimType === null) {
+					return $type->isOffsetAccessible()->yes();
+				}
+
+				return $type->isOffsetAccessible()->yes() && !$type->getOffsetValueType($dimType) instanceof ErrorType;
 			}
 		);
 		$type = $typeResult->getType();
@@ -52,8 +56,21 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 			return $typeResult->getUnknownClassErrors();
 		}
 		if (!$type->isOffsetAccessible()->yes()) {
+			if ($dimType !== null) {
+				return [
+					sprintf(
+						'Cannot access offset %s on %s.',
+						$dimType->describe(VerbosityLevel::value()),
+						$type->describe(VerbosityLevel::value())
+					),
+				];
+			}
+
 			return [
-				sprintf('Cannot access array offset on %s.', $type->describe(VerbosityLevel::typeOnly())),
+				sprintf(
+					'Cannot access an offset on %s.',
+					$type->describe(VerbosityLevel::typeOnly())
+				),
 			];
 		}
 
