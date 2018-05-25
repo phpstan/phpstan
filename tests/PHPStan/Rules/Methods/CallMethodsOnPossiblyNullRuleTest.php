@@ -2,14 +2,12 @@
 
 namespace PHPStan\Rules\Methods;
 
-use PHPStan\Rules\RuleLevelHelper;
-
 class CallMethodsOnPossiblyNullRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new CallMethodsOnPossiblyNullRule(new RuleLevelHelper($this->createBroker(), true, false, true), false);
+		return new CallMethodsOnPossiblyNullRule();
 	}
 
 	public function testExistingClassInTypehint(): void

@@ -2,14 +2,12 @@
 
 namespace PHPStan\Rules\Properties;
 
-use PHPStan\Rules\RuleLevelHelper;
-
 class AccessPropertiesOnPossiblyNullRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new AccessPropertiesOnPossiblyNullRule(new RuleLevelHelper($this->createBroker(), true, false, true), false);
+		return new AccessPropertiesOnPossiblyNullRule();
 	}
 
 	public function testAccessPropertiesOnPossiblyNullRuleTest(): void

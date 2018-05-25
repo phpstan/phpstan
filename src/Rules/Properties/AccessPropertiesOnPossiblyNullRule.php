@@ -5,27 +5,11 @@ namespace PHPStan\Rules\Properties;
 use PhpParser\Node;
 use PhpParser\Node\Expr\PropertyFetch;
 use PHPStan\Analyser\Scope;
-use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\UnionType;
 use PHPStan\Type\VerbosityLevel;
 
 class AccessPropertiesOnPossiblyNullRule implements \PHPStan\Rules\Rule
 {
-
-	/** @var \PHPStan\Rules\RuleLevelHelper */
-	private $ruleLevelHelper;
-
-	/** @var bool */
-	private $checkThisOnly;
-
-	public function __construct(
-		RuleLevelHelper $ruleLevelHelper,
-		bool $checkThisOnly
-	)
-	{
-		$this->ruleLevelHelper = $ruleLevelHelper;
-		$this->checkThisOnly = $checkThisOnly;
-	}
 
 	public function getNodeType(): string
 	{
@@ -40,10 +24,6 @@ class AccessPropertiesOnPossiblyNullRule implements \PHPStan\Rules\Rule
 	public function processNode(Node $node, Scope $scope): array
 	{
 		if (!$node->name instanceof Node\Identifier) {
-			return [];
-		}
-
-		if ($this->checkThisOnly && !$this->ruleLevelHelper->isThis($node->var)) {
 			return [];
 		}
 
