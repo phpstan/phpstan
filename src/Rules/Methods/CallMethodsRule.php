@@ -11,6 +11,7 @@ use PHPStan\Rules\FunctionCallParametersCheck;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeUtils;
 use PHPStan\Type\VerbosityLevel;
 
 class CallMethodsRule implements \PHPStan\Rules\Rule
@@ -77,8 +78,9 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 		}
 
 		if (!$type->hasMethod($name)) {
-			if (count($typeResult->getReferencedClasses()) === 1) {
-				$referencedClass = $typeResult->getReferencedClasses()[0];
+			$directClassNames = TypeUtils::getDirectClassNames($typeResult->getType());
+			if (count($directClassNames) === 1) {
+				$referencedClass = $directClassNames[0];
 				$methodClassReflection = $this->broker->getClass($referencedClass);
 				$parentClassReflection = $methodClassReflection->getParentClass();
 				while ($parentClassReflection !== false) {

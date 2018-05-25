@@ -387,8 +387,10 @@ class NodeScopeResolver
 			if (isset($node->args[2])) {
 				$argValue = $node->args[2]->value;
 				$argValueType = $scope->getType($argValue);
-				if (count($argValueType->getReferencedClasses()) === 1) {
-					$scopeClass = $argValueType->getReferencedClasses()[0];
+
+				$directClassNames = TypeUtils::getDirectClassNames($argValueType);
+				if (count($directClassNames) === 1) {
+					$scopeClass = $directClassNames[0];
 				} elseif (
 					$argValue instanceof Expr\ClassConstFetch
 					&& $argValue->name instanceof Node\Identifier
@@ -1664,7 +1666,8 @@ class NodeScopeResolver
 				}
 			}
 
-			foreach ($methodCalledOnType->getReferencedClasses() as $referencedClass) {
+			$directClassNames = TypeUtils::getDirectClassNames($methodCalledOnType);
+			foreach ($directClassNames as $referencedClass) {
 				if (!$this->broker->hasClass($referencedClass)) {
 					continue;
 				}

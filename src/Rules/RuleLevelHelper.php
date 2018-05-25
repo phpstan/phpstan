@@ -5,7 +5,6 @@ namespace PHPStan\Rules;
 use PhpParser\Node\Expr;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
-use PHPStan\Type\ArrayType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
@@ -13,6 +12,7 @@ use PHPStan\Type\NullType;
 use PHPStan\Type\StaticType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\TypeUtils;
 use PHPStan\Type\UnionType;
 
 class RuleLevelHelper
@@ -91,13 +91,10 @@ class RuleLevelHelper
 		if ($type instanceof StaticType) {
 			$type = $type->resolveStatic($type->getBaseClass());
 		}
-		if ($type instanceof ArrayType) {
-			return new FoundTypeResult($type, [], []);
-		}
 
 		$errors = [];
-		$referencedClasses = $type->getReferencedClasses();
-		foreach ($referencedClasses as $referencedClass) {
+		$directClassNames = TypeUtils::getDirectClassNames($type);
+		foreach ($directClassNames as $referencedClass) {
 			if ($this->broker->hasClass($referencedClass)) {
 				continue;
 			}
@@ -120,11 +117,11 @@ class RuleLevelHelper
 			}
 
 			if (count($newTypes) > 0) {
-				return new FoundTypeResult(TypeCombinator::union(...$newTypes), $referencedClasses, []);
+				return new FoundTypeResult(TypeCombinator::union(...$newTypes), $directClassNames, []);
 			}
 		}
 
-		return new FoundTypeResult($type, $referencedClasses, []);
+		return new FoundTypeResult($type, $directClassNames, []);
 	}
 
 }
