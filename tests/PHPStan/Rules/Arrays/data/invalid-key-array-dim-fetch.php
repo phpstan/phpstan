@@ -18,3 +18,7 @@ $a[$stringOrNull];
 
 $obj = new \SplObjectStorage();
 $obj[new \stdClass()] = 1;
+
+/** @var string|\stdClass $stringOrObject */
+$stringOrObject = doFoo();
+$a[$stringOrObject];

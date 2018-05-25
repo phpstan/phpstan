@@ -7,7 +7,7 @@ class InvalidKeyInArrayItemRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new InvalidKeyInArrayItemRule();
+		return new InvalidKeyInArrayItemRule(true);
 	}
 
 	public function testInvalidKey(): void
@@ -15,11 +15,15 @@ class InvalidKeyInArrayItemRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->analyse([__DIR__ . '/data/invalid-key-array-item.php'], [
 			[
 				'Invalid array key type DateTimeImmutable.',
-				10,
+				13,
 			],
 			[
 				'Invalid array key type array.',
-				11,
+				14,
+			],
+			[
+				'Possibly invalid array key type stdClass|string.',
+				15,
 			],
 		]);
 	}

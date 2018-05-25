@@ -2,6 +2,9 @@
 
 namespace InvalidKeyArrayItem;
 
+/** @var string|\stdClass $stringOrObject */
+$stringOrObject = doFoo();
+
 $a = [
 	'foo',
 	1 => 'aaa',
@@ -9,4 +12,5 @@ $a = [
 	null => 'aaa',
 	new \DateTimeImmutable() => 'aaa',
 	[] => 'bbb',
+	$stringOrObject => 'aaa',
 ];

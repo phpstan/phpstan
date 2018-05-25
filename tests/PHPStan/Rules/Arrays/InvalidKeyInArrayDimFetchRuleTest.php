@@ -7,7 +7,7 @@ class InvalidKeyInArrayDimFetchRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new InvalidKeyInArrayDimFetchRule();
+		return new InvalidKeyInArrayDimFetchRule(true);
 	}
 
 	public function testInvalidKey(): void
@@ -20,6 +20,10 @@ class InvalidKeyInArrayDimFetchRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Invalid array key type array.',
 				8,
+			],
+			[
+				'Possibly invalid array key type stdClass|string.',
+				24,
 			],
 		]);
 	}

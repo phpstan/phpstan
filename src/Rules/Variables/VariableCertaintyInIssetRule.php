@@ -54,7 +54,7 @@ class VariableCertaintyInIssetRule implements \PHPStan\Rules\Rule
 				}
 			} elseif ($certainty->yes() && !$isSubNode) {
 				$variableType = $scope->getVariableType($var->name);
-				if (!$variableType->accepts(new NullType())) {
+				if ($variableType->isSuperTypeOf(new NullType())->no()) {
 					$messages[] = sprintf('Variable $%s in isset() always exists and is not nullable.', $var->name);
 				}
 			}

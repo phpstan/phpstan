@@ -3,8 +3,6 @@ includes:
 
 rules:
 	- PHPStan\Rules\Arrays\AppendedArrayItemTypeRule
-	- PHPStan\Rules\Arrays\InvalidKeyInArrayDimFetchRule
-	- PHPStan\Rules\Arrays\InvalidKeyInArrayItemRule
 	- PHPStan\Rules\Arrays\NonexistentOffsetInArrayDimFetchRule
 	- PHPStan\Rules\Functions\ClosureReturnTypeRule
 	- PHPStan\Rules\Functions\ReturnTypeRule
@@ -15,6 +13,20 @@ rules:
 services:
 	-
 		class: PHPStan\Rules\Arrays\IterableInForeachRule
+		arguments:
+			reportMaybes: %reportMaybes%
+		tags:
+			- phpstan.rules.rule
+
+	-
+		class: PHPStan\Rules\Arrays\InvalidKeyInArrayDimFetchRule
+		arguments:
+			reportMaybes: %reportMaybes%
+		tags:
+			- phpstan.rules.rule
+
+	-
+		class: PHPStan\Rules\Arrays\InvalidKeyInArrayItemRule
 		arguments:
 			reportMaybes: %reportMaybes%
 		tags:
