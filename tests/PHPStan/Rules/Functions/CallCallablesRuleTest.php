@@ -71,6 +71,10 @@ class CallCallablesRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Parameter #1 $str of callable AnonymousClass7bc4507c47746826fae3d9665724d180 expects string, int given.',
 				81,
 			],
+			[
+				'Trying to invoke \'\' but it\'s not a callable.',
+				86,
+			],
 		]);
 	}
 

@@ -80,3 +80,8 @@ function () {
 
 	$foo(1);
 };
+
+function () {
+	$emptyString = '';
+	$emptyString(1, 2, 3);
+};

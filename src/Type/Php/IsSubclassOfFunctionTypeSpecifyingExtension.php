@@ -33,7 +33,7 @@ class IsSubclassOfFunctionTypeSpecifyingExtension implements FunctionTypeSpecify
 		}
 
 		$classType = $scope->getType($node->args[1]->value);
-		if (!$classType instanceof ConstantStringType) {
+		if (!$classType instanceof ConstantStringType || $classType->getValue() === '') {
 			return new SpecifiedTypes();
 		}
 

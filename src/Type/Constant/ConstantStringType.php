@@ -53,6 +53,10 @@ class ConstantStringType extends StringType implements ConstantScalarType
 
 	public function isCallable(): TrinaryLogic
 	{
+		if ($this->value === '') {
+			return TrinaryLogic::createNo();
+		}
+
 		$broker = Broker::getInstance();
 
 		// 'my_function'
