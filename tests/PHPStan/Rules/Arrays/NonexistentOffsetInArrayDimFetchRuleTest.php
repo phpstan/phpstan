@@ -2,12 +2,16 @@
 
 namespace PHPStan\Rules\Arrays;
 
+use PHPStan\Rules\RuleLevelHelper;
+
 class NonexistentOffsetInArrayDimFetchRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new NonexistentOffsetInArrayDimFetchRule();
+		return new NonexistentOffsetInArrayDimFetchRule(
+			new RuleLevelHelper($this->createBroker(), true, false, true)
+		);
 	}
 
 	public function testRule(): void
@@ -28,6 +32,14 @@ class NonexistentOffsetInArrayDimFetchRuleTest extends \PHPStan\Testing\RuleTest
 			[
 				'Offset \'a\' does not exist on array(\'b\' => 1).',
 				55,
+			],
+			[
+				'Access to offset \'bar\' on an unknown class NonexistentOffset\Bar.',
+				101,
+			],
+			[
+				'Access to an offset on an unknown class NonexistentOffset\Bar.',
+				102,
 			],
 		]);
 	}

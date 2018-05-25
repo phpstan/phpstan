@@ -1,0 +1,12 @@
+[
+    {
+        "message": "Cannot access array offset on array<string, int>|int.",
+        "line": 23,
+        "ignorable": true
+    },
+    {
+        "message": "Cannot access array offset on array<string, int>|int.",
+        "line": 24,
+        "ignorable": true
+    }
+]

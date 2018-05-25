@@ -3,11 +3,21 @@
 namespace PHPStan\Rules\Arrays;
 
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
+use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
 
 class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 {
+
+	/** @var RuleLevelHelper */
+	private $ruleLevelHelper;
+
+	public function __construct(RuleLevelHelper $ruleLevelHelper)
+	{
+		$this->ruleLevelHelper = $ruleLevelHelper;
+	}
 
 	public function getNodeType(): string
 	{
@@ -21,14 +31,33 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(\PhpParser\Node $node, Scope $scope): array
 	{
-		$varType = $scope->getType($node->var);
-		if ($varType->isOffsetAccessible()->no()) {
+		if ($node->dim !== null) {
+			$dimType = $scope->getType($node->dim);
+			$unknownClassPattern = sprintf('Access to offset %s on an unknown class %%s.', $dimType->describe(VerbosityLevel::value()));
+		} else {
+			$dimType = null;
+			$unknownClassPattern = 'Access to an offset on an unknown class %s.';
+		}
+
+		$typeResult = $this->ruleLevelHelper->findTypeToCheck(
+			$scope,
+			$node->var,
+			$unknownClassPattern,
+			function (Type $type): bool {
+				return $type->isOffsetAccessible()->yes();
+			}
+		);
+		$type = $typeResult->getType();
+		if ($type instanceof ErrorType) {
+			return $typeResult->getUnknownClassErrors();
+		}
+		if (!$type->isOffsetAccessible()->yes()) {
 			return [
-				sprintf('Cannot access array offset on %s.', $varType->describe(VerbosityLevel::typeOnly())),
+				sprintf('Cannot access array offset on %s.', $type->describe(VerbosityLevel::typeOnly())),
 			];
 		}
 
-		if ($node->dim === null) {
+		if ($dimType === null) {
 			return [];
 		}
 
@@ -36,10 +65,9 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		$dimType = $scope->getType($node->dim);
-		if ($varType->getOffsetValueType($dimType) instanceof ErrorType) {
+		if ($type->getOffsetValueType($dimType) instanceof ErrorType) {
 			return [
-				sprintf('Offset %s does not exist on %s.', $dimType->describe(VerbosityLevel::value()), $varType->describe(VerbosityLevel::value())),
+				sprintf('Offset %s does not exist on %s.', $dimType->describe(VerbosityLevel::value()), $type->describe(VerbosityLevel::value())),
 			];
 		}
 

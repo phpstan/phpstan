@@ -10,8 +10,8 @@
         "ignorable": true
     },
     {
-        "message": "Offset 'b' does not exist on 1|array('a' => 1).",
-        "line": 23,
+        "message": "Offset 'b' does not exist on array('a' => 1).",
+        "line": 24,
         "ignorable": true
     }
 ]

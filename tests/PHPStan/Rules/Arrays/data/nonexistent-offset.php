@@ -96,4 +96,10 @@ class Foo
 		}
 	}
 
+	public function classDoesNotExist(Bar $foo)
+	{
+		echo $foo['bar'];
+		$foo[] = 'test';
+	}
+
 }

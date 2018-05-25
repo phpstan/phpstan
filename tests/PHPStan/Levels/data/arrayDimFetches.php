@@ -20,6 +20,7 @@ class Foo
 			$arr = 1;
 		}
 
+		echo $arr['a'];
 		echo $arr['b'];
 	}
 
