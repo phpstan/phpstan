@@ -25,6 +25,10 @@ class InvalidKeyInArrayDimFetchRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Possibly invalid array key type stdClass|string.',
 				24,
 			],
+			[
+				'Invalid array key type DateTimeImmutable.',
+				31,
+			],
 		]);
 	}
 

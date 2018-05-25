@@ -3,8 +3,8 @@
 namespace PHPStan\Rules\Arrays;
 
 use PHPStan\Analyser\Scope;
-use PHPStan\Type\ArrayType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\TypeUtils;
 use PHPStan\Type\VerbosityLevel;
 
 class InvalidKeyInArrayDimFetchRule implements \PHPStan\Rules\Rule
@@ -35,7 +35,7 @@ class InvalidKeyInArrayDimFetchRule implements \PHPStan\Rules\Rule
 		}
 
 		$varType = $scope->getType($node->var);
-		if (!$varType instanceof ArrayType) {
+		if (count(TypeUtils::getArrays($varType)) === 0) {
 			return [];
 		}
 

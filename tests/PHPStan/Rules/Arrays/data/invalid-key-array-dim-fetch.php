@@ -22,3 +22,10 @@ $obj[new \stdClass()] = 1;
 /** @var string|\stdClass $stringOrObject */
 $stringOrObject = doFoo();
 $a[$stringOrObject];
+
+$constantArray = ['a' => 1];
+if (doFoo()) {
+	$constantArray['b'] = 2;
+}
+
+$constantArray[new \DateTimeImmutable()] = 1;
