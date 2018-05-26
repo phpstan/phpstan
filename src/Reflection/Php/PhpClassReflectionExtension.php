@@ -259,6 +259,7 @@ class PhpClassReflectionExtension
 		$phpDocReturnType = null;
 		$phpDocThrowType = null;
 		$isDeprecated = false;
+		$declaringTraitName = $this->findMethodTrait($methodReflection);
 		if ($declaringClass->getFileName() !== false) {
 			if ($methodReflection->getDocComment() !== false) {
 				$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForMethod(
@@ -272,7 +273,7 @@ class PhpClassReflectionExtension
 				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
 					$phpDocBlock->getFile(),
 					$phpDocBlock->getClass(),
-					$this->findMethodTrait($methodReflection),
+					$declaringTraitName,
 					$phpDocBlock->getDocComment()
 				);
 				$phpDocParameterTypes = array_map(function (ParamTag $tag): Type {
@@ -284,8 +285,16 @@ class PhpClassReflectionExtension
 			}
 		}
 
+		$declaringTrait = null;
+		if (
+			$declaringTraitName !== null && $this->broker->hasClass($declaringTraitName)
+		) {
+			$declaringTrait = $this->broker->getClass($declaringTraitName);
+		}
+
 		return $this->methodReflectionFactory->create(
 			$declaringClass,
+			$declaringTrait,
 			$methodReflection,
 			$phpDocParameterTypes,
 			$phpDocReturnType,

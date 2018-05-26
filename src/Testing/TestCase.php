@@ -96,6 +96,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
 			/**
 			 * @param ClassReflection $declaringClass
+			 * @param ClassReflection|null $declaringTrait
 			 * @param \ReflectionMethod $reflection
 			 * @param Type[] $phpDocParameterTypes
 			 * @param null|Type $phpDocReturnType
@@ -105,6 +106,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			 */
 			public function create(
 				ClassReflection $declaringClass,
+				?ClassReflection $declaringTrait,
 				\ReflectionMethod $reflection,
 				array $phpDocParameterTypes,
 				?Type $phpDocReturnType,
@@ -114,6 +116,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			{
 				return new PhpMethodReflection(
 					$declaringClass,
+					$declaringTrait,
 					$reflection,
 					$this->broker,
 					$this->parser,

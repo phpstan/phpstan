@@ -5,4 +5,11 @@ namespace HasTraitUse;
 trait FooTrait
 {
 
+	public function variadicMethod()
+	{
+		if (doFoo()) {
+			$args = func_get_args();
+		}
+	}
+
 }

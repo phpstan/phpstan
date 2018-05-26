@@ -33,6 +33,9 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, T
 	/** @var \PHPStan\Reflection\ClassReflection */
 	private $declaringClass;
 
+	/** @var null|ClassReflection */
+	private $declaringTrait;
+
 	/** @var \ReflectionMethod */
 	private $reflection;
 
@@ -71,6 +74,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, T
 
 	/**
 	 * @param ClassReflection $declaringClass
+	 * @param ClassReflection|null $declaringTrait
 	 * @param \ReflectionMethod $reflection
 	 * @param Broker $broker
 	 * @param Parser $parser
@@ -83,6 +87,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, T
 	 */
 	public function __construct(
 		ClassReflection $declaringClass,
+		?ClassReflection $declaringTrait,
 		\ReflectionMethod $reflection,
 		Broker $broker,
 		Parser $parser,
@@ -95,6 +100,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, T
 	)
 	{
 		$this->declaringClass = $declaringClass;
+		$this->declaringTrait = $declaringTrait;
 		$this->reflection = $reflection;
 		$this->broker = $broker;
 		$this->parser = $parser;
@@ -213,12 +219,19 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, T
 	private function isVariadic(): bool
 	{
 		$isNativelyVariadic = $this->reflection->isVariadic();
-		if (!$isNativelyVariadic && $this->declaringClass->getFileName() !== false) {
-			$key = sprintf('variadic-method-%s-%s-v0', $this->declaringClass->getName(), $this->reflection->getName());
+		$declaringClass = $this->declaringClass;
+		$filename = $this->declaringClass->getFileName();
+		if ($this->declaringTrait !== null) {
+			$declaringClass = $this->declaringTrait;
+			$filename = $this->declaringTrait->getFileName();
+		}
+
+		if (!$isNativelyVariadic && $filename !== false) {
+			$key = sprintf('variadic-method-%s-%s-v1', $declaringClass->getName(), $this->reflection->getName());
 			$cachedResult = $this->cache->load($key);
 			if ($cachedResult === null) {
-				$nodes = $this->parser->parseFile($this->declaringClass->getFileName());
-				$result = $this->callsFuncGetArgs($nodes);
+				$nodes = $this->parser->parseFile($filename);
+				$result = $this->callsFuncGetArgs($declaringClass, $nodes);
 				$this->cache->save($key, $result);
 				return $result;
 			}
@@ -230,14 +243,15 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, T
 	}
 
 	/**
+	 * @param ClassReflection $declaringClass
 	 * @param mixed $nodes
 	 * @return bool
 	 */
-	private function callsFuncGetArgs($nodes): bool
+	private function callsFuncGetArgs(ClassReflection $declaringClass, $nodes): bool
 	{
 		foreach ($nodes as $node) {
 			if (is_array($node)) {
-				if ($this->callsFuncGetArgs($node)) {
+				if ($this->callsFuncGetArgs($declaringClass, $node)) {
 					return true;
 				}
 			}
@@ -249,7 +263,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, T
 			if (
 				$node instanceof \PhpParser\Node\Stmt\ClassLike
 				&& isset($node->namespacedName)
-				&& $this->declaringClass->getName() !== (string) $node->namespacedName
+				&& $declaringClass->getName() !== (string) $node->namespacedName
 			) {
 				continue;
 			}
@@ -267,7 +281,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, T
 				continue;
 			}
 
-			if ($this->callsFuncGetArgs($node)) {
+			if ($this->callsFuncGetArgs($declaringClass, $node)) {
 				return true;
 			}
 		}
