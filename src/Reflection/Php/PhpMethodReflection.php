@@ -213,26 +213,6 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, T
 	private function isVariadic(): bool
 	{
 		$isNativelyVariadic = $this->reflection->isVariadic();
-		if (
-			!$isNativelyVariadic
-			&& (
-				(
-					$this->declaringClass->getName() === 'ReflectionMethod'
-					&& $this->reflection->getName() === 'invoke'
-				)
-				|| (
-					$this->declaringClass->getName() === 'Closure'
-					&& $this->reflection->getName() === '__invoke'
-				)
-				|| (
-					$this->declaringClass->getName() === 'ReflectionClass'
-					&& $this->reflection->getName() === 'newInstance'
-				)
-			)
-		) {
-			return true;
-		}
-
 		if (!$isNativelyVariadic && $this->declaringClass->getFileName() !== false) {
 			$key = sprintf('variadic-method-%s-%s-v0', $this->declaringClass->getName(), $this->reflection->getName());
 			$cachedResult = $this->cache->load($key);
