@@ -2709,6 +2709,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array(\'foo\' => array(\'foo\' => array(\'foo\' => \'bar\')), \'bar\' => array(), \'baz\' => array(\'lorem\' => array()))',
 				'$nestedArray',
 			],
+			[
+				'0',
+				'$integers[\'0\']',
+			],
 		];
 	}
 

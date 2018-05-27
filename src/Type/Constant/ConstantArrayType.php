@@ -230,6 +230,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 	public function getOffsetValueType(Type $offsetType): Type
 	{
+		$offsetType = ArrayType::castToArrayKeyType($offsetType);
 		$matchingValueTypes = [];
 		foreach ($this->keyTypes as $i => $keyType) {
 			if ($keyType->isSuperTypeOf($offsetType)->no()) {
