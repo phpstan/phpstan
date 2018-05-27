@@ -20,6 +20,7 @@ use PHPStan\Type\NeverType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\TypeUtils;
 use PHPStan\Type\UnionType;
 
 class ArrayFilterFunctionReturnTypeReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
@@ -42,7 +43,9 @@ class ArrayFilterFunctionReturnTypeReturnTypeExtension implements \PHPStan\Type\
 			$itemType = $arrayArgType->getIterableValueType();
 
 			if ($callbackArg === null) {
-				return $this->removeFalsey($arrayArgType);
+				return TypeCombinator::union(
+					...array_map([$this, 'removeFalsey'], TypeUtils::getArrays($arrayArgType))
+				);
 			}
 
 			if ($flagArg === null && $callbackArg instanceof Closure && count($callbackArg->stmts) === 1) {
@@ -66,7 +69,7 @@ class ArrayFilterFunctionReturnTypeReturnTypeExtension implements \PHPStan\Type\
 		return new ArrayType($keyType, $itemType);
 	}
 
-	private function removeFalsey(Type $type): Type
+	public function removeFalsey(Type $type): Type
 	{
 		$falseyTypes = new UnionType([
 			new NullType(),

@@ -51,6 +51,11 @@ $falsey = doFoo();
 /** @var array<int, bool|null> $withFalsey */
 $withFalsey = doFoo();
 
+$union = ['a' => 1];
+if (rand(0, 1) === 1) {
+	$union['b'] = false;
+}
+
 /** @var array<string, int> $generalStringKeys */
 $generalStringKeys = doFoo();
 
