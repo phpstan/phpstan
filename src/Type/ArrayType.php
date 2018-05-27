@@ -178,6 +178,11 @@ class ArrayType implements StaticResolvableType
 
 	public function getOffsetValueType(Type $offsetType): Type
 	{
+		$offsetType = self::castToArrayKeyType($offsetType);
+		if ($this->getKeyType()->isSuperTypeOf($offsetType)->no()) {
+			return new ErrorType();
+		}
+
 		$type = $this->getItemType();
 		if ($type instanceof ErrorType) {
 			return new MixedType();

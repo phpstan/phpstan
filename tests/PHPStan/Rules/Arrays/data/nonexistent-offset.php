@@ -102,4 +102,16 @@ class Foo
 		$foo[] = 'test';
 	}
 
+	/**
+	 * @param array<string, string> $array
+	 * @param int $i
+	 */
+	public function trickyArrayCasting(array $array, int $i)
+	{
+		echo $array[0];
+		echo $array['0'];
+		echo $array['foo'];
+		echo $array[$i];
+	}
+
 }
