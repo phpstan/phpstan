@@ -87,7 +87,7 @@
 
 	<target name="tests">
 		<exec
-				executable="vendor/bin/phpunit"
+				executable="vendor/bin/paratest"
 				logoutput="true"
 				passthru="true"
 				checkreturn="true"

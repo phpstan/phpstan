@@ -30,6 +30,7 @@
 		"ext-gd": "*",
 		"ext-mysqli": "*",
 		"ext-zip": "*",
+		"brianium/paratest": "^2.0",
 		"consistence/coding-standard": "^3.0.1",
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
 		"jakub-onderka/php-parallel-lint": "^1.0",
