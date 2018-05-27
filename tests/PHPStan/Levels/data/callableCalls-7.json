@@ -1,0 +1,17 @@
+[
+    {
+        "message": "Invoking possibly null value of type Closure<mixed>|null.",
+        "line": 37,
+        "ignorable": true
+    },
+    {
+        "message": "Invoking possibly null value of type Closure<mixed>|null.",
+        "line": 38,
+        "ignorable": true
+    },
+    {
+        "message": "Invoking possibly null value of type int|null.",
+        "line": 43,
+        "ignorable": true
+    }
+]

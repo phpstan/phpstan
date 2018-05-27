@@ -85,3 +85,7 @@ function () {
 	$emptyString = '';
 	$emptyString(1, 2, 3);
 };
+
+function (Bar $bar) {
+	$bar();
+};

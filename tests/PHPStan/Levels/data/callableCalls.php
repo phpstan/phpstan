@@ -38,4 +38,9 @@ class Foo
 		$f(1);
 	}
 
+	public function doBar(?int $nullableInt)
+	{
+		$nullableInt();
+	}
+
 }

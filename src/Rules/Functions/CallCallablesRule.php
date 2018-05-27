@@ -6,8 +6,10 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\InaccessibleMethod;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Rules\FunctionCallParametersCheck;
+use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ClosureType;
-use PHPStan\Type\MixedType;
+use PHPStan\Type\ErrorType;
+use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
 
 class CallCallablesRule implements \PHPStan\Rules\Rule
@@ -16,15 +18,20 @@ class CallCallablesRule implements \PHPStan\Rules\Rule
 	/** @var \PHPStan\Rules\FunctionCallParametersCheck */
 	private $check;
 
+	/** @var \PHPStan\Rules\RuleLevelHelper */
+	private $ruleLevelHelper;
+
 	/** @var bool */
 	private $reportMaybes;
 
 	public function __construct(
 		FunctionCallParametersCheck $check,
+		RuleLevelHelper $ruleLevelHelper,
 		bool $reportMaybes
 	)
 	{
 		$this->check = $check;
+		$this->ruleLevelHelper = $ruleLevelHelper;
 		$this->reportMaybes = $reportMaybes;
 	}
 
@@ -47,23 +54,32 @@ class CallCallablesRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		$exprType = $scope->getType($node->name);
-		$isCallable = $exprType->isCallable();
+		$typeResult = $this->ruleLevelHelper->findTypeToCheck(
+			$scope,
+			$node->name,
+			'Invoking callable on an unknown class %s.',
+			function (Type $type): bool {
+				return $type->isCallable()->yes();
+			}
+		);
+		$type = $typeResult->getType();
+		if ($type instanceof ErrorType) {
+			return $typeResult->getUnknownClassErrors();
+		}
+
+		$isCallable = $type->isCallable();
 		if ($isCallable->no()) {
 			return [
-				sprintf('Trying to invoke %s but it\'s not a callable.', $exprType->describe(VerbosityLevel::value())),
+				sprintf('Trying to invoke %s but it\'s not a callable.', $type->describe(VerbosityLevel::value())),
 			];
-		} elseif (
-			$this->reportMaybes
-			&& !$isCallable->yes()
-			&& !$exprType instanceof MixedType
-		) {
+		}
+		if ($this->reportMaybes && $isCallable->maybe()) {
 			return [
-				sprintf('Trying to invoke %s but it might not be a callable.', $exprType->describe(VerbosityLevel::value())),
+				sprintf('Trying to invoke %s but it might not be a callable.', $type->describe(VerbosityLevel::value())),
 			];
 		}
 
-		$parametersAcceptors = $exprType->getCallableParametersAcceptors($scope);
+		$parametersAcceptors = $type->getCallableParametersAcceptors($scope);
 		$messages = [];
 
 		if (
@@ -85,10 +101,10 @@ class CallCallablesRule implements \PHPStan\Rules\Rule
 			$parametersAcceptors
 		);
 
-		if ($exprType instanceof ClosureType) {
+		if ($type instanceof ClosureType) {
 			$callableDescription = 'closure';
 		} else {
-			$callableDescription = sprintf('callable %s', $exprType->describe(VerbosityLevel::value()));
+			$callableDescription = sprintf('callable %s', $type->describe(VerbosityLevel::value()));
 		}
 
 		return array_merge(

@@ -10,8 +10,13 @@
         "ignorable": true
     },
     {
-        "message": "Callable Closure<mixed>|null invoked with 0 parameters, 1 required.",
+        "message": "Closure invoked with 0 parameters, 1 required.",
         "line": 37,
+        "ignorable": true
+    },
+    {
+        "message": "Trying to invoke int but it's not a callable.",
+        "line": 43,
         "ignorable": true
     }
 ]

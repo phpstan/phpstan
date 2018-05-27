@@ -10,12 +10,14 @@ class CallCallablesRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
+		$ruleLevelHelper = new RuleLevelHelper($this->createBroker(), true, false, true);
 		return new CallCallablesRule(
 			new FunctionCallParametersCheck(
-				new RuleLevelHelper($this->createBroker(), true, false, true),
+				$ruleLevelHelper,
 				true,
 				true
 			),
+			$ruleLevelHelper,
 			true
 		);
 	}
@@ -74,6 +76,10 @@ class CallCallablesRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Trying to invoke \'\' but it\'s not a callable.',
 				86,
+			],
+			[
+				'Invoking callable on an unknown class CallCallables\Bar.',
+				90,
 			],
 		]);
 	}
