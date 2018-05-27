@@ -264,11 +264,16 @@ class ArrayType implements StaticResolvableType
 
 	public static function castToArrayKeyType(Type $offsetType): Type
 	{
+		if ($offsetType instanceof UnionType) {
+			return TypeCombinator::union(...array_map(function (Type $type): Type {
+				return self::castToArrayKeyType($type);
+			}, $offsetType->getTypes()));
+		}
+
 		if ($offsetType instanceof ConstantScalarType) {
 			/** @var int|string $offsetValue */
 			$offsetValue = key([$offsetType->getValue() => null]);
 			return is_int($offsetValue) ? new ConstantIntegerType($offsetValue) : new ConstantStringType($offsetValue);
-
 		}
 
 		if ($offsetType instanceof IntegerType || $offsetType instanceof FloatType || $offsetType instanceof BooleanType) {
