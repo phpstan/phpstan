@@ -91,7 +91,7 @@ class ClassReflectionTest extends \PHPStan\Testing\TestCase
 	public function testVariadicTraitMethod(): void
 	{
 		/** @var Broker $broker */
-		$broker = $this->getContainer()->getService('broker');
+		$broker = self::getContainer()->getService('broker');
 		$fooReflection = $broker->getClass(\HasTraitUse\Foo::class);
 		$variadicMethod = $fooReflection->getNativeMethod('variadicMethod');
 		$methodVariant = ParametersAcceptorSelector::selectSingle($variadicMethod->getVariants());

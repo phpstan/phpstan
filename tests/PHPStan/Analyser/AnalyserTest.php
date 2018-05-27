@@ -125,8 +125,8 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 
 		$broker = $this->createBroker();
 		$printer = new \PhpParser\PrettyPrinter\Standard();
-		$fileHelper = $this->getContainer()->getByType(FileHelper::class);
-		$phpDocStringResolver = $this->getContainer()->getByType(PhpDocStringResolver::class);
+		$fileHelper = self::getContainer()->getByType(FileHelper::class);
+		$phpDocStringResolver = self::getContainer()->getByType(PhpDocStringResolver::class);
 		$typeSpecifier = $this->createTypeSpecifier($printer, $broker);
 		$analyser = new Analyser(
 			$broker,

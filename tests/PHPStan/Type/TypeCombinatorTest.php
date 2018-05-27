@@ -11,12 +11,6 @@ use PHPStan\Type\Constant\ConstantStringType;
 class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 {
 
-	protected function setUp(): void
-	{
-		parent::setUp();
-		$this->createBroker();
-	}
-
 	public function dataAddNull(): array
 	{
 		return [

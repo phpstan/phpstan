@@ -10,7 +10,7 @@ class InvalidThrowsPhpDocValueRuleTest extends \PHPStan\Testing\RuleTestCase
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
 		return new InvalidThrowsPhpDocValueRule(
-			$this->getContainer()->getByType(FileTypeMapper::class)
+			self::getContainer()->getByType(FileTypeMapper::class)
 		);
 	}
 

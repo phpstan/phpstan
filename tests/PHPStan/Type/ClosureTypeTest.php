@@ -45,8 +45,6 @@ class ClosureTypeTest extends \PHPStan\Testing\TestCase
 		TrinaryLogic $expectedResult
 	): void
 	{
-		$this->createBroker();
-
 		$actualResult = $type->isSuperTypeOf($otherType);
 		$this->assertSame(
 			$expectedResult->describe(),
@@ -98,8 +96,6 @@ class ClosureTypeTest extends \PHPStan\Testing\TestCase
 		TrinaryLogic $expectedResult
 	): void
 	{
-		$this->createBroker();
-
 		$actualResult = $type->isSubTypeOf($otherType);
 		$this->assertSame(
 			$expectedResult->describe(),

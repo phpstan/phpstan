@@ -136,8 +136,11 @@ class Broker
 		$this->anonymousClassNameHelper = $anonymousClassNameHelper;
 		$this->universalObjectCratesClasses = $universalObjectCratesClasses;
 		$this->currentWorkingDirectory = $currentWorkingDirectory;
+	}
 
-		self::$instance = $this;
+	public static function registerInstance(Broker $broker): void
+	{
+		self::$instance = $broker;
 	}
 
 	public static function getInstance(): self

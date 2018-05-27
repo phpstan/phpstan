@@ -62,8 +62,6 @@ class IntegerTypeTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testIsSuperTypeOf(IntegerType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
-		$this->createBroker();
-
 		$actualResult = $type->isSuperTypeOf($otherType);
 		$this->assertSame(
 			$expectedResult->describe(),

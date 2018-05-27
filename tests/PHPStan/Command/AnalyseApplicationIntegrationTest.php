@@ -46,7 +46,7 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\Testing\TestCase
 
 	private function runPath(string $path, int $expectedStatusCode): string
 	{
-		$analyserApplication = $this->getContainer()->getByType(AnalyseApplication::class);
+		$analyserApplication = self::getContainer()->getByType(AnalyseApplication::class);
 		$resource = fopen('php://memory', 'w', false);
 		if ($resource === false) {
 			throw new \PHPStan\ShouldNotHappenException();
@@ -58,7 +58,7 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\Testing\TestCase
 			$output
 		);
 
-		$memoryLimitFile = $this->getContainer()->parameters['memoryLimitFile'];
+		$memoryLimitFile = self::getContainer()->parameters['memoryLimitFile'];
 
 		$statusCode = $analyserApplication->analyse(
 			[$path],

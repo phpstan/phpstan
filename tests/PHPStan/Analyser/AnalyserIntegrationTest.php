@@ -76,7 +76,7 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertSame('Class ExtendingKnownClassWithCheck\Bar not found.', $errors[0]->getMessage());
 		$this->assertSame(5, $errors[0]->getLine());
 
-		$broker = $this->getContainer()->getByType(Broker::class);
+		$broker = self::getContainer()->getByType(Broker::class);
 		$this->assertTrue($broker->hasClass(\ExtendingKnownClassWithCheck\Foo::class));
 	}
 
@@ -114,7 +114,7 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 
 	public function testCustomFunctionWithNameEquivalentInSignatureMap(): void
 	{
-		$signatureMapProvider = $this->getContainer()->getByType(SignatureMapProvider::class);
+		$signatureMapProvider = self::getContainer()->getByType(SignatureMapProvider::class);
 		if (!$signatureMapProvider->hasFunctionSignature('bcompiler_write_file')) {
 			$this->fail();
 		}
@@ -131,9 +131,9 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 	{
 		$file = $this->getFileHelper()->normalizePath($file);
 		/** @var \PHPStan\Analyser\Analyser $analyser */
-		$analyser = $this->getContainer()->getByType(Analyser::class);
+		$analyser = self::getContainer()->getByType(Analyser::class);
 		/** @var \PHPStan\File\FileHelper $fileHelper */
-		$fileHelper = $this->getContainer()->getByType(FileHelper::class);
+		$fileHelper = self::getContainer()->getByType(FileHelper::class);
 		/** @var \PHPStan\Analyser\Error[] $errors */
 		$errors = $analyser->analyse([$file], false);
 		foreach ($errors as $error) {

@@ -56,8 +56,6 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testIsCallable(UnionType $type, TrinaryLogic $expectedResult): void
 	{
-		$this->createBroker();
-
 		$actualResult = $type->isCallable();
 		$this->assertSame(
 			$expectedResult->describe(),
@@ -68,8 +66,6 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 
 	public function dataIsSuperTypeOf(): \Iterator
 	{
-		$this->createBroker();
-
 		$unionTypeA = new UnionType([
 			new IntegerType(),
 			new StringType(),
@@ -254,8 +250,6 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testIsSuperTypeOf(UnionType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
-		$this->createBroker();
-
 		$actualResult = $type->isSuperTypeOf($otherType);
 		$this->assertSame(
 			$expectedResult->describe(),
@@ -266,8 +260,6 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 
 	public function dataIsSubTypeOf(): \Iterator
 	{
-		$this->createBroker();
-
 		$unionTypeA = new UnionType([
 			new IntegerType(),
 			new StringType(),
@@ -429,8 +421,6 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testIsSubTypeOf(UnionType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
-		$this->createBroker();
-
 		$actualResult = $type->isSubTypeOf($otherType);
 		$this->assertSame(
 			$expectedResult->describe(),
@@ -447,8 +437,6 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testIsSubTypeOfInversed(UnionType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
-		$this->createBroker();
-
 		$actualResult = $otherType->isSuperTypeOf($type);
 		$this->assertSame(
 			$expectedResult->describe(),

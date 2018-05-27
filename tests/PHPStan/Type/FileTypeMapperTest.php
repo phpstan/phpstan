@@ -7,10 +7,8 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 
 	public function testGetResolvedPhpDoc(): void
 	{
-		$this->createBroker();
-
 		/** @var FileTypeMapper $fileTypeMapper */
-		$fileTypeMapper = $this->getContainer()->getByType(FileTypeMapper::class);
+		$fileTypeMapper = self::getContainer()->getByType(FileTypeMapper::class);
 
 		$resolvedA = $fileTypeMapper->getResolvedPhpDoc(__DIR__ . '/data/annotations.php', 'Foo', null, '/**
  * @property int | float $numericBazBazProperty
@@ -82,10 +80,8 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 
 	public function testFileWithDependentPhpDocs(): void
 	{
-		$this->createBroker();
-
 		/** @var FileTypeMapper $fileTypeMapper */
-		$fileTypeMapper = $this->getContainer()->getByType(FileTypeMapper::class);
+		$fileTypeMapper = self::getContainer()->getByType(FileTypeMapper::class);
 
 		$realpath = realpath(__DIR__ . '/data/dependent-phpdocs.php');
 		if ($realpath === false) {
@@ -108,10 +104,8 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 
 	public function testFileThrowsPhpDocs(): void
 	{
-		$this->createBroker();
-
 		/** @var FileTypeMapper $fileTypeMapper */
-		$fileTypeMapper = $this->getContainer()->getByType(FileTypeMapper::class);
+		$fileTypeMapper = self::getContainer()->getByType(FileTypeMapper::class);
 
 		$realpath = realpath(__DIR__ . '/data/throws-phpdocs.php');
 		if ($realpath === false) {
@@ -152,10 +146,10 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 
 	public function testFileWithCyclicPhpDocs(): void
 	{
-		$this->getContainer()->getByType(\PHPStan\Broker\Broker::class);
+		self::getContainer()->getByType(\PHPStan\Broker\Broker::class);
 
 		/** @var FileTypeMapper $fileTypeMapper */
-		$fileTypeMapper = $this->getContainer()->getByType(FileTypeMapper::class);
+		$fileTypeMapper = self::getContainer()->getByType(FileTypeMapper::class);
 
 		$realpath = realpath(__DIR__ . '/data/cyclic-phpdocs.php');
 		if ($realpath === false) {

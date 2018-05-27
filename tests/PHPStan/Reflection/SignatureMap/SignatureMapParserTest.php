@@ -19,12 +19,6 @@ use PHPStan\Type\VerbosityLevel;
 class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 {
 
-	protected function setUp(): void
-	{
-		parent::setUp();
-		$this->createBroker();
-	}
-
 	public function dataGetFunctions(): array
 	{
 		return [
@@ -339,7 +333,7 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		/** @var SignatureMapParser $parser */
-		$parser = $this->getContainer()->getByType(SignatureMapParser::class);
+		$parser = self::getContainer()->getByType(SignatureMapParser::class);
 		$functionSignature = $parser->getFunctionSignature($map, $className);
 		$this->assertCount(
 			count($expectedSignature->getParameters()),

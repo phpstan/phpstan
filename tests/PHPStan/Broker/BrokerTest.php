@@ -18,7 +18,7 @@ class BrokerTest extends \PHPStan\Testing\TestCase
 
 	protected function setUp(): void
 	{
-		$phpDocStringResolver = $this->getContainer()->getByType(PhpDocStringResolver::class);
+		$phpDocStringResolver = self::getContainer()->getByType(PhpDocStringResolver::class);
 
 		$workingDirectory = __DIR__;
 		$anonymousClassNameHelper = new AnonymousClassNameHelper($workingDirectory);
@@ -31,8 +31,8 @@ class BrokerTest extends \PHPStan\Testing\TestCase
 			[],
 			$this->createMock(FunctionReflectionFactory::class),
 			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $this->createMock(Cache::class), $anonymousClassNameHelper),
-			$this->getContainer()->getByType(SignatureMapProvider::class),
-			$this->getContainer()->getByType(\PhpParser\PrettyPrinter\Standard::class),
+			self::getContainer()->getByType(SignatureMapProvider::class),
+			self::getContainer()->getByType(\PhpParser\PrettyPrinter\Standard::class),
 			$anonymousClassNameHelper,
 			[],
 			$workingDirectory

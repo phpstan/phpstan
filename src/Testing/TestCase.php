@@ -36,7 +36,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	/** @var \Nette\DI\Container */
 	private static $container;
 
-	public function getContainer(): \Nette\DI\Container
+	public static function getContainer(): \Nette\DI\Container
 	{
 		if (self::$container === null) {
 			$rootDir = __DIR__ . '/../..';
@@ -52,7 +52,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	public function getParser(): \PHPStan\Parser\Parser
 	{
 		/** @var \PHPStan\Parser\Parser $parser */
-		$parser = $this->getContainer()->getService('directParser');
+		$parser = self::getContainer()->getService('directParser');
 		return $parser;
 	}
 
@@ -129,11 +129,11 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				);
 			}
 		};
-		$phpDocStringResolver = $this->getContainer()->getByType(PhpDocStringResolver::class);
+		$phpDocStringResolver = self::getContainer()->getByType(PhpDocStringResolver::class);
 		$fileTypeMapper = new FileTypeMapper($parser, $phpDocStringResolver, $cache, new AnonymousClassNameHelper($this->getCurrentWorkingDirectory()));
 		$annotationsMethodsClassReflectionExtension = new AnnotationsMethodsClassReflectionExtension($fileTypeMapper);
 		$annotationsPropertiesClassReflectionExtension = new AnnotationsPropertiesClassReflectionExtension($fileTypeMapper);
-		$signatureMapProvider = $this->getContainer()->getByType(SignatureMapProvider::class);
+		$signatureMapProvider = self::getContainer()->getByType(SignatureMapProvider::class);
 		$phpExtension = new PhpClassReflectionExtension($methodReflectionFactory, $fileTypeMapper, $annotationsMethodsClassReflectionExtension, $annotationsPropertiesClassReflectionExtension, $signatureMapProvider);
 		$functionReflectionFactory = new class($this->getParser(), $functionCallStatementFinder, $cache) implements FunctionReflectionFactory {
 
@@ -188,14 +188,14 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
 		$tagToService = function (array $tags) {
 			return array_map(function (string $serviceName) {
-				return $this->getContainer()->getService($serviceName);
+				return self::getContainer()->getService($serviceName);
 			}, array_keys($tags));
 		};
 
 		$broker = new Broker(
 			[
 				$phpExtension,
-				new PhpDefectClassReflectionExtension($this->getContainer()->getByType(TypeStringResolver::class)),
+				new PhpDefectClassReflectionExtension(self::getContainer()->getByType(TypeStringResolver::class)),
 				new UniversalObjectCratesClassReflectionExtension([\stdClass::class]),
 				$annotationsPropertiesClassReflectionExtension,
 			],
@@ -205,13 +205,13 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			],
 			array_merge($dynamicMethodReturnTypeExtensions, $this->getDynamicMethodReturnTypeExtensions()),
 			array_merge($dynamicStaticMethodReturnTypeExtensions, $this->getDynamicStaticMethodReturnTypeExtensions()),
-			array_merge($tagToService($this->getContainer()->findByTag(BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG)), $this->getDynamicFunctionReturnTypeExtensions()),
+			array_merge($tagToService(self::getContainer()->findByTag(BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG)), $this->getDynamicFunctionReturnTypeExtensions()),
 			$functionReflectionFactory,
 			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $cache, new AnonymousClassNameHelper($this->getCurrentWorkingDirectory())),
 			$signatureMapProvider,
-			$this->getContainer()->getByType(Standard::class),
+			self::getContainer()->getByType(Standard::class),
 			new AnonymousClassNameHelper($this->getCurrentWorkingDirectory()),
-			$this->getContainer()->parameters['universalObjectCratesClasses'],
+			self::getContainer()->parameters['universalObjectCratesClasses'],
 			$this->getCurrentWorkingDirectory()
 		);
 		$methodReflectionFactory->broker = $broker;
@@ -264,14 +264,14 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	{
 		$tagToService = function (array $tags) {
 			return array_map(function (string $serviceName) {
-				return $this->getContainer()->getService($serviceName);
+				return self::getContainer()->getService($serviceName);
 			}, array_keys($tags));
 		};
 
 		return new TypeSpecifier(
 			$printer,
 			$broker,
-			$tagToService($this->getContainer()->findByTag(TypeSpecifierFactory::FUNCTION_TYPE_SPECIFYING_EXTENSION_TAG)),
+			$tagToService(self::getContainer()->findByTag(TypeSpecifierFactory::FUNCTION_TYPE_SPECIFYING_EXTENSION_TAG)),
 			$methodTypeSpecifyingExtensions,
 			$staticMethodTypeSpecifyingExtensions
 		);
@@ -279,7 +279,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
 	public function getFileHelper(): FileHelper
 	{
-		return $this->getContainer()->getByType(FileHelper::class);
+		return self::getContainer()->getByType(FileHelper::class);
 	}
 
 }

@@ -58,8 +58,6 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testIsSuperTypeOf(ArrayType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
-		$this->createBroker();
-
 		$actualResult = $type->isSuperTypeOf($otherType);
 		$this->assertSame(
 			$expectedResult->describe(),
@@ -104,7 +102,6 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 		bool $expectedResult
 	): void
 	{
-		$this->createBroker();
 		$actualResult = $acceptingType->accepts($acceptedType);
 		$this->assertSame(
 			$expectedResult,

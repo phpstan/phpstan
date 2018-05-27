@@ -24,8 +24,6 @@ class StaticTypeTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testIsIterable(StaticType $type, TrinaryLogic $expectedResult): void
 	{
-		$this->createBroker();
-
 		$actualResult = $type->isIterable();
 		$this->assertSame(
 			$expectedResult->describe(),
@@ -50,8 +48,6 @@ class StaticTypeTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testIsCallable(StaticType $type, TrinaryLogic $expectedResult): void
 	{
-		$this->createBroker();
-
 		$actualResult = $type->isCallable();
 		$this->assertSame(
 			$expectedResult->describe(),
@@ -219,8 +215,6 @@ class StaticTypeTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testIsSuperTypeOf(StaticType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
-		$this->createBroker();
-
 		$actualResult = $type->isSuperTypeOf($otherType);
 		$this->assertSame(
 			$expectedResult->describe(),

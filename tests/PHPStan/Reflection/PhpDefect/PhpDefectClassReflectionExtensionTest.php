@@ -39,7 +39,7 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\Testing\TestCase
 		$scope->method('isInClass')->willReturn(false);
 		foreach ($data as $propertyName => $typeDescription) {
 			/** @var \PHPStan\Broker\Broker $broker */
-			$broker = $this->getContainer()->getByType(Broker::class);
+			$broker = self::getContainer()->getByType(Broker::class);
 			$classReflection = $broker->getClass($className);
 			$this->assertTrue($classReflection->hasProperty($propertyName), sprintf('%s::$%s', $className, $propertyName));
 			$propertyReflection = $classReflection->getProperty($propertyName, $scope);

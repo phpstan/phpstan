@@ -121,7 +121,7 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 	public function testDeprecatedAnnotations(bool $deprecated, string $className, array $deprecatedAnnotations): void
 	{
 		/** @var Broker $broker */
-		$broker = $this->getContainer()->getByType(Broker::class);
+		$broker = self::getContainer()->getByType(Broker::class);
 		$class = $broker->getClass($className);
 		$scope = $this->createMock(Scope::class);
 		$scope->method('isInClass')->willReturn(true);
@@ -144,7 +144,7 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 		require_once __DIR__ . '/data/annotations-deprecated.php';
 
 		/** @var Broker $broker */
-		$broker = $this->getContainer()->getByType(Broker::class);
+		$broker = self::getContainer()->getByType(Broker::class);
 
 		$this->assertFalse($broker->getFunction(new Name('\DeprecatedAnnotations\foo'), null)->isDeprecated());
 		$this->assertTrue($broker->getFunction(new Name('\DeprecatedAnnotations\deprecatedFoo'), null)->isDeprecated());
@@ -153,7 +153,7 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 	public function testNonDeprecatedNativeFunctions(): void
 	{
 		/** @var Broker $broker */
-		$broker = $this->getContainer()->getByType(Broker::class);
+		$broker = self::getContainer()->getByType(Broker::class);
 
 		$this->assertFalse($broker->getFunction(new Name('str_replace'), null)->isDeprecated());
 		$this->assertFalse($broker->getFunction(new Name('get_class'), null)->isDeprecated());

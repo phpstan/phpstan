@@ -217,7 +217,7 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\Testing
 	public function testProperties(string $className, array $properties): void
 	{
 		/** @var Broker $broker */
-		$broker = $this->getContainer()->getByType(Broker::class);
+		$broker = self::getContainer()->getByType(Broker::class);
 		$class = $broker->getClass($className);
 		$scope = $this->createMock(Scope::class);
 		$scope->method('isInClass')->willReturn(true);
@@ -255,7 +255,7 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\Testing
 
 	public function testOverridingNativePropertiesWithAnnotationsDoesNotBreakGetNativeProperty(): void
 	{
-		$broker = $this->getContainer()->getByType(Broker::class);
+		$broker = self::getContainer()->getByType(Broker::class);
 		$class = $broker->getClass(\AnnotationsProperties\Bar::class);
 		$this->assertTrue($class->hasNativeProperty('overridenPropertyWithAnnotation'));
 		$this->assertSame('AnnotationsProperties\Foo', $class->getNativeProperty('overridenPropertyWithAnnotation')->getType()->describe(VerbosityLevel::value()));

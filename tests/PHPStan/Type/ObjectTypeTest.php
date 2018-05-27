@@ -24,8 +24,6 @@ class ObjectTypeTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testIsIterable(ObjectType $type, TrinaryLogic $expectedResult): void
 	{
-		$this->createBroker();
-
 		$actualResult = $type->isIterable();
 		$this->assertSame(
 			$expectedResult->describe(),
@@ -50,8 +48,6 @@ class ObjectTypeTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testIsCallable(ObjectType $type, TrinaryLogic $expectedResult): void
 	{
-		$this->createBroker();
-
 		$actualResult = $type->isCallable();
 		$this->assertSame(
 			$expectedResult->describe(),
@@ -221,8 +217,6 @@ class ObjectTypeTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testIsSuperTypeOf(ObjectType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
-		$this->createBroker();
-
 		$actualResult = $type->isSuperTypeOf($otherType);
 		$this->assertSame(
 			$expectedResult->describe(),

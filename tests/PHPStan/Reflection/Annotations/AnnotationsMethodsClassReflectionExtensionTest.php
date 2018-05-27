@@ -958,7 +958,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\Testing\Te
 	public function testMethods(string $className, array $methods): void
 	{
 		/** @var Broker $broker */
-		$broker = $this->getContainer()->getByType(Broker::class);
+		$broker = self::getContainer()->getByType(Broker::class);
 		$class = $broker->getClass($className);
 		$scope = $this->createMock(Scope::class);
 		$scope->method('isInClass')->willReturn(true);
@@ -1020,7 +1020,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\Testing\Te
 
 	public function testOverridingNativeMethodsWithAnnotationsDoesNotBreakGetNativeMethod(): void
 	{
-		$broker = $this->getContainer()->getByType(Broker::class);
+		$broker = self::getContainer()->getByType(Broker::class);
 		$class = $broker->getClass(\AnnotationsMethods\Bar::class);
 		$this->assertTrue($class->hasNativeMethod('overridenMethodWithAnnotation'));
 		$this->assertInstanceOf(PhpMethodReflection::class, $class->getNativeMethod('overridenMethodWithAnnotation'));

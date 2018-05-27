@@ -53,8 +53,6 @@ class FloatTypeTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testAccepts(Type $otherType, bool $expectedResult): void
 	{
-		$this->createBroker();
-
 		$type = new FloatType();
 		$actualResult = $type->accepts($otherType);
 		$this->assertSame(

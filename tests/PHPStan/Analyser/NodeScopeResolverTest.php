@@ -6221,7 +6221,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		array $staticMethodTypeSpecifyingExtensions = []
 	): void
 	{
-		$phpDocStringResolver = $this->getContainer()->getByType(PhpDocStringResolver::class);
+		$phpDocStringResolver = self::getContainer()->getByType(PhpDocStringResolver::class);
 
 		$printer = new \PhpParser\PrettyPrinter\Standard();
 		$broker = $this->createBroker($dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions);

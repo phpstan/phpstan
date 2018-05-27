@@ -3,6 +3,7 @@
 namespace PHPStan\DependencyInjection;
 
 use Nette\DI\Extensions\PhpExtension;
+use PHPStan\Broker\Broker;
 use PHPStan\File\FileHelper;
 
 class ContainerFactory
@@ -53,7 +54,14 @@ class ContainerFactory
 			$configurator->addConfig($additionalConfigFile);
 		}
 
-		return $configurator->createContainer();
+		$container = $configurator->createContainer();
+
+		/** @var Broker $broker */
+		$broker = $container->getService('broker');
+		Broker::registerInstance($broker);
+		$container->getService('typeSpecifier');
+
+		return $container;
 	}
 
 	public function getCurrentWorkingDirectory(): string

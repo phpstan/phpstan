@@ -40,8 +40,6 @@ class ConstantIntegerTypeTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testAccepts(ConstantIntegerType $type, Type $otherType, bool $expectedResult): void
 	{
-		$this->createBroker();
-
 		$actualResult = $type->accepts($otherType);
 		$this->assertSame(
 			$expectedResult,
@@ -80,8 +78,6 @@ class ConstantIntegerTypeTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testIsSuperTypeOf(ConstantIntegerType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
-		$this->createBroker();
-
 		$actualResult = $type->isSuperTypeOf($otherType);
 		$this->assertSame(
 			$expectedResult->describe(),

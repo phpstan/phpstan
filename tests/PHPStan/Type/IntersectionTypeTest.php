@@ -12,8 +12,6 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 
 	public function dataAccepts(): \Iterator
 	{
-		$this->createBroker();
-
 		$intersectionType = new IntersectionType([
 			new ObjectType('Collection'),
 			new IterableType(new MixedType(), new ObjectType('Item')),
@@ -46,8 +44,6 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testAccepts(IntersectionType $type, Type $otherType, bool $expectedResult): void
 	{
-		$this->createBroker();
-
 		$actualResult = $type->accepts($otherType);
 		$this->assertSame(
 			$expectedResult,
@@ -93,8 +89,6 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testIsCallable(IntersectionType $type, TrinaryLogic $expectedResult): void
 	{
-		$this->createBroker();
-
 		$actualResult = $type->isCallable();
 		$this->assertSame(
 			$expectedResult->describe(),
@@ -105,8 +99,6 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 
 	public function dataIsSuperTypeOf(): \Iterator
 	{
-		$this->createBroker();
-
 		$intersectionTypeA = new IntersectionType([
 			new ObjectType('ArrayObject'),
 			new IterableType(new MixedType(), new ObjectType('Item')),
@@ -155,8 +147,6 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testIsSuperTypeOf(IntersectionType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
-		$this->createBroker();
-
 		$actualResult = $type->isSuperTypeOf($otherType);
 		$this->assertSame(
 			$expectedResult->describe(),
@@ -167,8 +157,6 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 
 	public function dataIsSubTypeOf(): \Iterator
 	{
-		$this->createBroker();
-
 		$intersectionTypeA = new IntersectionType([
 			new ObjectType('ArrayObject'),
 			new IterableType(new MixedType(), new ObjectType('Item')),
@@ -272,8 +260,6 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testIsSubTypeOf(IntersectionType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
-		$this->createBroker();
-
 		$actualResult = $type->isSubTypeOf($otherType);
 		$this->assertSame(
 			$expectedResult->describe(),
@@ -290,8 +276,6 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testIsSubTypeOfInversed(IntersectionType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
-		$this->createBroker();
-
 		$actualResult = $otherType->isSuperTypeOf($type);
 		$this->assertSame(
 			$expectedResult->describe(),
