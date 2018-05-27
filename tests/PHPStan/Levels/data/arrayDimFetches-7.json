@@ -1,0 +1,7 @@
+[
+    {
+        "message": "Accessing offset 0 on possibly null value of type array|null.",
+        "line": 11,
+        "ignorable": true
+    }
+]

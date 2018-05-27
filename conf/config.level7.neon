@@ -5,6 +5,7 @@ parameters:
 	checkNullables: true
 
 rules:
+	- PHPStan\Rules\Arrays\ArrayDimFetchOnPossiblyNullRule
 	- PHPStan\Rules\Functions\CallCallablesOnPossiblyNullRule
 	- PHPStan\Rules\Properties\AccessPropertiesOnPossiblyNullRule
 	- PHPStan\Rules\Methods\CallMethodsOnPossiblyNullRule
