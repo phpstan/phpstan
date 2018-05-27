@@ -14,7 +14,7 @@ class AppendedArrayKeyTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 	{
 		$this->analyse([__DIR__ . '/data/appended-array-key.php'], [
 			[
-				'Array (array<string, mixed>) does not accept key int|string.',
+				'Array (array<int, mixed>) does not accept key int|string.',
 				28,
 			],
 			[
