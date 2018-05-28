@@ -37,22 +37,22 @@ class InvalidBinaryOperationRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		$literalOne = new Node\Scalar\LNumber(1);
-		if ($node instanceof Node\Expr\AssignOp) {
-			$newNode = clone $node;
-			$left = $node->var;
-			$right = $node->expr;
-			$newNode->var = $literalOne;
-			$newNode->expr = $literalOne;
-		} else {
-			$newNode = clone $node;
-			$left = $node->left;
-			$right = $node->right;
-			$newNode->left = $literalOne;
-			$newNode->right = $literalOne;
-		}
-
 		if ($scope->getType($node) instanceof ErrorType) {
+			$literalOne = new Node\Scalar\LNumber(1);
+			if ($node instanceof Node\Expr\AssignOp) {
+				$newNode = clone $node;
+				$left = $node->var;
+				$right = $node->expr;
+				$newNode->var = $literalOne;
+				$newNode->expr = $literalOne;
+			} else {
+				$newNode = clone $node;
+				$left = $node->left;
+				$right = $node->right;
+				$newNode->left = $literalOne;
+				$newNode->right = $literalOne;
+			}
+
 			return [
 				sprintf(
 					'Binary operation "%s" between %s and %s results in an error.',
