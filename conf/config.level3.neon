@@ -9,6 +9,7 @@ rules:
 	- PHPStan\Rules\Methods\ReturnTypeRule
 	- PHPStan\Rules\Properties\DefaultValueTypesAssignedToPropertiesRule
 	- PHPStan\Rules\Properties\TypesAssignedToPropertiesRule
+	- PHPStan\Rules\Variables\VariableCloningRule
 
 services:
 	-
@@ -35,12 +36,5 @@ services:
 		class: PHPStan\Rules\Arrays\InvalidKeyInArrayItemRule
 		arguments:
 			reportMaybes: %reportMaybes%
-		tags:
-			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Variables\VariableCloningRule
-		arguments:
-			checkNullables: %checkNullables%
 		tags:
 			- phpstan.rules.rule

@@ -1,0 +1,17 @@
+[
+    {
+        "message": "Cloning possibly null variable $nullableFoo of type Levels\\Cloning\\Foo|null.",
+        "line": 32,
+        "ignorable": true
+    },
+    {
+        "message": "Cloning possibly null variable $nullableInt of type int|null.",
+        "line": 34,
+        "ignorable": true
+    },
+    {
+        "message": "Cloning possibly null variable $nullableUnion of type int|Levels\\Cloning\\Foo|null.",
+        "line": 35,
+        "ignorable": true
+    }
+]

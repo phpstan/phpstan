@@ -9,3 +9,4 @@ rules:
 	- PHPStan\Rules\Functions\CallCallablesOnPossiblyNullRule
 	- PHPStan\Rules\Properties\AccessPropertiesOnPossiblyNullRule
 	- PHPStan\Rules\Methods\CallMethodsOnPossiblyNullRule
+	- PHPStan\Rules\Variables\VariableCloningOfPossiblyNullRule

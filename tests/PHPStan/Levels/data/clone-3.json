@@ -1,0 +1,17 @@
+[
+    {
+        "message": "Cannot clone non-object variable $int of type int.",
+        "line": 29,
+        "ignorable": true
+    },
+    {
+        "message": "Cannot clone non-object variable $intOrString of type int|string.",
+        "line": 30,
+        "ignorable": true
+    },
+    {
+        "message": "Cannot clone non-object variable $nullableInt of type int.",
+        "line": 34,
+        "ignorable": true
+    }
+]

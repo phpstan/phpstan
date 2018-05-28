@@ -6,18 +6,20 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Clone_;
 use PhpParser\Node\Expr\Variable;
 use PHPStan\Analyser\Scope;
-use PHPStan\Type\NullType;
+use PHPStan\Rules\RuleLevelHelper;
+use PHPStan\Type\ErrorType;
+use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
 
 class VariableCloningRule implements \PHPStan\Rules\Rule
 {
 
-	/** @var bool */
-	private $checkNullables;
+	/** @var \PHPStan\Rules\RuleLevelHelper */
+	private $ruleLevelHelper;
 
-	public function __construct(bool $checkNullables)
+	public function __construct(RuleLevelHelper $ruleLevelHelper)
 	{
-		$this->checkNullables = $checkNullables;
+		$this->ruleLevelHelper = $ruleLevelHelper;
 	}
 
 	public function getNodeType(): string
@@ -32,12 +34,18 @@ class VariableCloningRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		$type = $scope->getType($node->expr);
-
-		if (!$this->checkNullables && !$type instanceof NullType) {
-			$type = \PHPStan\Type\TypeCombinator::removeNull($type);
+		$typeResult = $this->ruleLevelHelper->findTypeToCheck(
+			$scope,
+			$node->expr,
+			'Cloning object of an unknown class %s.',
+			function (Type $type): bool {
+				return $type->isCloneable()->yes();
+			}
+		);
+		$type = $typeResult->getType();
+		if ($type instanceof ErrorType) {
+			return $typeResult->getUnknownClassErrors();
 		}
-
 		if ($type->isCloneable()->yes()) {
 			return [];
 		}
