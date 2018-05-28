@@ -1,5 +1,7 @@
 <?php
 
+namespace IterablesInForeach;
+
 foreach ([1, 2, 3] as $x) {
 
 }
@@ -38,5 +40,9 @@ if (empty($arrayOrNull)) {
 /** @var mixed $mixed */
 $mixed = doFoo();
 foreach ($mixed as $val) {
+
+}
+
+foreach (new Bar() as $val) {
 
 }

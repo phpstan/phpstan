@@ -1,0 +1,12 @@
+[
+    {
+        "message": "Argument of an invalid type int supplied for foreach, only iterables are supported.",
+        "line": 29,
+        "ignorable": true
+    },
+    {
+        "message": "Argument of an invalid type float|int supplied for foreach, only iterables are supported.",
+        "line": 32,
+        "ignorable": true
+    }
+]

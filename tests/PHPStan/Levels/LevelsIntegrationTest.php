@@ -17,6 +17,7 @@ class LevelsIntegrationTest extends \PHPUnit\Framework\TestCase
 			['callableCalls'],
 			['arrayDimFetches'],
 			['clone'],
+			['iterable'],
 		];
 	}
 

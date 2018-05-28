@@ -3,6 +3,7 @@ includes:
 
 rules:
 	- PHPStan\Rules\Arrays\AppendedArrayItemTypeRule
+	- PHPStan\Rules\Arrays\IterableInForeachRule
 	- PHPStan\Rules\Arrays\NonexistentOffsetInArrayDimFetchRule
 	- PHPStan\Rules\Functions\ClosureReturnTypeRule
 	- PHPStan\Rules\Functions\ReturnTypeRule
@@ -16,12 +17,6 @@ services:
 		class: PHPStan\Rules\Arrays\AppendedArrayKeyTypeRule
 		arguments:
 			checkUnionTypes: %checkUnionTypes%
-		tags:
-			- phpstan.rules.rule
-	-
-		class: PHPStan\Rules\Arrays\IterableInForeachRule
-		arguments:
-			reportMaybes: %reportMaybes%
 		tags:
 			- phpstan.rules.rule
 

@@ -1,0 +1,7 @@
+[
+    {
+        "message": "Iterating over a possibly null value of type array|null.",
+        "line": 26,
+        "ignorable": true
+    }
+]

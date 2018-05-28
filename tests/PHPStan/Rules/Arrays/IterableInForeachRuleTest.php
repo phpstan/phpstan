@@ -2,39 +2,30 @@
 
 namespace PHPStan\Rules\Arrays;
 
+use PHPStan\Rules\RuleLevelHelper;
+
 class IterableInForeachRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
-	/** @var bool */
-	private $reportMaybes;
-
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new IterableInForeachRule($this->reportMaybes);
-	}
-
-	public function testCheckWithoutMaybes(): void
-	{
-		$this->reportMaybes = false;
-		$this->analyse([__DIR__ . '/data/foreach-iterable.php'], [
-			[
-				'Argument of an invalid type string supplied for foreach, only iterables are supported.',
-				8,
-			],
-		]);
+		return new IterableInForeachRule(new RuleLevelHelper($this->createBroker(), true, false, true));
 	}
 
 	public function testCheckWithMaybes(): void
 	{
-		$this->reportMaybes = true;
 		$this->analyse([__DIR__ . '/data/foreach-iterable.php'], [
 			[
 				'Argument of an invalid type string supplied for foreach, only iterables are supported.',
-				8,
+				10,
 			],
 			[
-				'Argument of a possibly invalid type array<int, int>|false supplied for foreach, only iterables are supported.',
-				17,
+				'Argument of an invalid type array<int, int>|false supplied for foreach, only iterables are supported.',
+				19,
+			],
+			[
+				'Iterating over an object of an unknown class IterablesInForeach\Bar.',
+				46,
 			],
 		]);
 	}
