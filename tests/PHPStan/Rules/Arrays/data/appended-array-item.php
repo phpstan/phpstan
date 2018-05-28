@@ -61,4 +61,12 @@ class Foo
 	{
 	}
 
+	/**
+	 * @param int[] $integers
+	 */
+	public function assignOp(array $integers)
+	{
+		$integers[0] .= 'foo';
+	}
+
 }

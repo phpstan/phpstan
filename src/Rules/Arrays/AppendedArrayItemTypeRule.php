@@ -4,6 +4,7 @@ namespace PHPStan\Rules\Arrays;
 
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\AssignOp;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ArrayType;
@@ -22,16 +23,23 @@ class AppendedArrayItemTypeRule implements \PHPStan\Rules\Rule
 
 	public function getNodeType(): string
 	{
-		return Assign::class;
+		return \PhpParser\Node\Expr::class;
 	}
 
 	/**
-	 * @param \PhpParser\Node\Expr\Assign $node
+	 * @param \PhpParser\Node\Expr $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return string[]
 	 */
 	public function processNode(\PhpParser\Node $node, Scope $scope): array
 	{
+		if (
+			!$node instanceof Assign
+			&& !$node instanceof AssignOp
+		) {
+			return [];
+		}
+
 		if (!($node->var instanceof ArrayDimFetch)) {
 			return [];
 		}
@@ -45,7 +53,12 @@ class AppendedArrayItemTypeRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		$assignedValueType = $scope->getType($node->expr);
+		if ($node instanceof Assign) {
+			$assignedValueType = $scope->getType($node->expr);
+		} else {
+			$assignedValueType = $scope->getType($node);
+		}
+
 		if (!$this->ruleLevelHelper->accepts($assignedToType->getItemType(), $assignedValueType)) {
 			return [
 				sprintf(
