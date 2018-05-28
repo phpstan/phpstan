@@ -18,5 +18,10 @@
         "message": "Parameter #1 $a of method Levels\\AcceptTypes\\Foo::doLorem() expects callable|int, float|string|null given.",
         "line": 49,
         "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Foo::doBar() expects int, null given.",
+        "line": 54,
+        "ignorable": true
     }
 ]

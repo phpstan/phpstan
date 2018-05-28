@@ -51,6 +51,7 @@ class Foo
 		$this->doLorem($d);
 		$this->doIpsum($a);
 		$this->doIpsum($b);
+		$this->doBar(null);
 	}
 
 	/**
