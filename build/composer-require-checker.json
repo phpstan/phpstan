@@ -3,7 +3,7 @@
     "null", "true", "false",
     "static", "self", "parent",
     "array", "string", "int", "float", "bool", "iterable", "callable", "void", "object",
-    "PHPUnit\\Framework\\TestCase"
+    "PHPUnit\\Framework\\TestCase", "PHPUnit\\Framework\\AssertionFailedError"
   ],
   "php-core-extensions" : [
     "Core",
