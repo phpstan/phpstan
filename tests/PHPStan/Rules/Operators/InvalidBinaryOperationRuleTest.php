@@ -2,12 +2,17 @@
 
 namespace PHPStan\Rules\Operators;
 
+use PHPStan\Rules\RuleLevelHelper;
+
 class InvalidBinaryOperationRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new InvalidBinaryOperationRule(new \PhpParser\PrettyPrinter\Standard());
+		return new InvalidBinaryOperationRule(
+			new \PhpParser\PrettyPrinter\Standard(),
+			new RuleLevelHelper($this->createBroker(), true, false, true)
+		);
 	}
 
 	public function testRule(): void
@@ -28,10 +33,6 @@ class InvalidBinaryOperationRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Binary operation "/" between int and 0.0 results in an error.',
 				17,
-			],
-			[
-				'Binary operation "+" between mixed and array() results in an error.',
-				19,
 			],
 			[
 				'Binary operation "+" between 1 and string results in an error.',

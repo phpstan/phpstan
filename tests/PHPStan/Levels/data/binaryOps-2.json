@@ -1,0 +1,32 @@
+[
+    {
+        "message": "Binary operation \"+\" between int and object|string results in an error.",
+        "line": 23,
+        "ignorable": true
+    },
+    {
+        "message": "Binary operation \"+\" between int and string results in an error.",
+        "line": 24,
+        "ignorable": true
+    },
+    {
+        "message": "Binary operation \"+\" between string and string results in an error.",
+        "line": 25,
+        "ignorable": true
+    },
+    {
+        "message": "Binary operation \"+\" between int|string and object|string results in an error.",
+        "line": 26,
+        "ignorable": true
+    },
+    {
+        "message": "Binary operation \"+\" between int|string and string results in an error.",
+        "line": 27,
+        "ignorable": true
+    },
+    {
+        "message": "Binary operation \"+\" between object|string and object|string results in an error.",
+        "line": 28,
+        "ignorable": true
+    }
+]

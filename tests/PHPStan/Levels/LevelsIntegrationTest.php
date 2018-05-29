@@ -18,6 +18,7 @@ class LevelsIntegrationTest extends \PHPUnit\Framework\TestCase
 			['arrayDimFetches'],
 			['clone'],
 			['iterable'],
+			['binaryOps'],
 		];
 	}
 

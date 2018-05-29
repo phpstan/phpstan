@@ -4,7 +4,9 @@ namespace PHPStan\Rules\Operators;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
+use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
 
 class InvalidBinaryOperationRule implements \PHPStan\Rules\Rule
@@ -13,9 +15,16 @@ class InvalidBinaryOperationRule implements \PHPStan\Rules\Rule
 	/** @var \PhpParser\PrettyPrinter\Standard */
 	private $printer;
 
-	public function __construct(\PhpParser\PrettyPrinter\Standard $printer)
+	/** @var \PHPStan\Rules\RuleLevelHelper */
+	private $ruleLevelHelper;
+
+	public function __construct(
+		\PhpParser\PrettyPrinter\Standard $printer,
+		RuleLevelHelper $ruleLevelHelper
+	)
 	{
 		$this->printer = $printer;
+		$this->ruleLevelHelper = $ruleLevelHelper;
 	}
 
 	public function getNodeType(): string
@@ -38,25 +47,66 @@ class InvalidBinaryOperationRule implements \PHPStan\Rules\Rule
 		}
 
 		if ($scope->getType($node) instanceof ErrorType) {
-			$literalOne = new Node\Scalar\LNumber(1);
+			$leftName = '__PHPSTAN__LEFT__';
+			$rightName = '__PHPSTAN__RIGHT__';
+			$leftVariable = new Node\Expr\Variable($leftName);
+			$rightVariable = new Node\Expr\Variable($rightName);
 			if ($node instanceof Node\Expr\AssignOp) {
 				$newNode = clone $node;
 				$left = $node->var;
 				$right = $node->expr;
-				$newNode->var = $literalOne;
-				$newNode->expr = $literalOne;
+				$newNode->var = $leftVariable;
+				$newNode->expr = $rightVariable;
 			} else {
 				$newNode = clone $node;
 				$left = $node->left;
 				$right = $node->right;
-				$newNode->left = $literalOne;
-				$newNode->right = $literalOne;
+				$newNode->left = $leftVariable;
+				$newNode->right = $rightVariable;
+			}
+
+			if ($node instanceof Node\Expr\AssignOp\Concat || $node instanceof Node\Expr\BinaryOp\Concat) {
+				$callback = function (Type $type): bool {
+					return !$type->toString() instanceof ErrorType;
+				};
+			} else {
+				$callback = function (Type $type): bool {
+					return !$type->toNumber() instanceof ErrorType;
+				};
+			}
+
+			$leftType = $this->ruleLevelHelper->findTypeToCheck(
+				$scope,
+				$left,
+				'',
+				$callback
+			)->getType();
+			if ($leftType instanceof ErrorType) {
+				return [];
+			}
+
+			$rightType = $this->ruleLevelHelper->findTypeToCheck(
+				$scope,
+				$right,
+				'',
+				$callback
+			)->getType();
+			if ($rightType instanceof ErrorType) {
+				return [];
+			}
+
+			$scope = $scope
+				->assignVariable($leftName, $leftType, \PHPStan\TrinaryLogic::createYes())
+				->assignVariable($rightName, $rightType, \PHPStan\TrinaryLogic::createYes());
+
+			if (!$scope->getType($newNode) instanceof ErrorType) {
+				return [];
 			}
 
 			return [
 				sprintf(
 					'Binary operation "%s" between %s and %s results in an error.',
-					substr(substr($this->printer->prettyPrintExpr($newNode), 2), 0, -2),
+					substr(substr($this->printer->prettyPrintExpr($newNode), strlen($leftName) + 2), 0, -(strlen($rightName) + 2)),
 					$scope->getType($left)->describe(VerbosityLevel::value()),
 					$scope->getType($right)->describe(VerbosityLevel::value())
 				),
