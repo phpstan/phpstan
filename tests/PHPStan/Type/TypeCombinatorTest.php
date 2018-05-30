@@ -1078,6 +1078,18 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				IntegerType::class,
 				'int',
 			],
+			[
+				new IterableType(new MixedType(), new MixedType()),
+				new ArrayType(new MixedType(), new MixedType()),
+				ObjectType::class,
+				'Traversable',
+			],
+			[
+				new IterableType(new MixedType(), new MixedType()),
+				new ObjectType(\Traversable::class),
+				ArrayType::class,
+				'array',
+			],
 		];
 	}
 

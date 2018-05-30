@@ -21,17 +21,28 @@ class TypeCombinator
 			return $fromType;
 		}
 
-		if ($fromType instanceof BooleanType && $fromType->isSuperTypeOf(new BooleanType())->yes()) {
-			if ($typeToRemove instanceof ConstantBooleanType) {
-				return new ConstantBooleanType(!$typeToRemove->getValue());
-			}
-		} elseif ($fromType instanceof UnionType) {
+		if ($fromType instanceof UnionType) {
 			$innerTypes = [];
 			foreach ($fromType->getTypes() as $innerType) {
 				$innerTypes[] = self::remove($innerType, $typeToRemove);
 			}
 
 			return self::union(...$innerTypes);
+		}
+
+		if ($fromType instanceof BooleanType && $fromType->isSuperTypeOf(new BooleanType())->yes()) {
+			if ($typeToRemove instanceof ConstantBooleanType) {
+				return new ConstantBooleanType(!$typeToRemove->getValue());
+			}
+		} elseif ($fromType instanceof IterableType) {
+			$traversableType = new ObjectType(\Traversable::class);
+			$arrayType = (new ArrayType(new MixedType(), new MixedType()));
+			if ($arrayType->isSuperTypeOf($typeToRemove)->yes()) {
+				return $traversableType;
+			}
+			if ($traversableType->isSuperTypeOf($typeToRemove)->yes()) {
+				return $arrayType;
+			}
 		}
 
 		if ($typeToRemove->isSuperTypeOf($fromType)->yes()) {

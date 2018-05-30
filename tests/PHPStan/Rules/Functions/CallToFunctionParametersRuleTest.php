@@ -262,4 +262,10 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
+	public function testRemoveArrayFromIterable(): void
+	{
+		require_once __DIR__ . '/data/remove-array-from-iterable.php';
+		$this->analyse([__DIR__ . '/data/remove-array-from-iterable.php'], []);
+	}
+
 }
