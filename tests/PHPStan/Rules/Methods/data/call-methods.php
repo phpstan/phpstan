@@ -749,3 +749,27 @@ class AnonymousClass
 	}
 
 }
+
+class WeirdStaticIssueBase
+{
+
+	/**
+	 * @param static|int $value
+	 */
+	public static function get($value)
+	{
+	}
+
+}
+
+class WeirdStaticIssueImpl extends WeirdStaticIssueBase
+{
+
+}
+
+function () {
+	/** @var WeirdStaticIssueImpl|int */
+	$a = new WeirdStaticIssueImpl();
+
+	WeirdStaticIssueImpl::get($a);
+};
