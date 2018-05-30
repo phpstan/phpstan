@@ -594,3 +594,34 @@ class ReturnSpecifiedMethodCall
 	}
 
 }
+
+class ArrayFillKeysIssue
+{
+	/**
+	 * @param string[] $stringIds
+	 *
+	 * @return array<string, Foo[]>
+	 */
+	public function getIPs(array $stringIds)
+	{
+		$paired = array_fill_keys($stringIds, []);
+		foreach ($stringIds as $id) {
+			$paired[$id][] = new Foo();
+		}
+		return $paired;
+	}
+
+	/**
+	 * @param string[] $stringIds
+	 *
+	 * @return array<string, Foo[]>
+	 */
+	public function getIPs2(array $stringIds)
+	{
+		$paired = array_fill_keys($stringIds, []);
+		foreach ($stringIds as $id) {
+			$paired[$id][] = new Bar();
+		}
+		return $paired;
+	}
+}

@@ -240,6 +240,10 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Method ReturnTypes\ReturnSpecifiedMethodCall::doFoo() should return string but returns string|false.',
 				586,
 			],
+			[
+				'Method ReturnTypes\ArrayFillKeysIssue::getIPs2() should return array<string, array<ReturnTypes\Foo>> but returns array<string, array<int, ReturnTypes\Bar>>.',
+				625,
+			],
 		]);
 	}
 
