@@ -50,8 +50,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 		parent::__construct(
 			count($keyTypes) > 0 ? TypeCombinator::union(...$keyTypes) : new NeverType(),
-			count($valueTypes) > 0 ? TypeCombinator::union(...$valueTypes) : new NeverType(),
-			true
+			count($valueTypes) > 0 ? TypeCombinator::union(...$valueTypes) : new NeverType()
 		);
 
 		$this->keyTypes = $keyTypes;
@@ -347,8 +346,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 	{
 		return new ArrayType(
 			TypeUtils::generalizeType($this->getKeyType()),
-			$this->getItemType(),
-			true
+			$this->getItemType()
 		);
 	}
 

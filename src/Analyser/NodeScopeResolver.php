@@ -1056,7 +1056,7 @@ class NodeScopeResolver
 					'file_get_contents',
 				], true)
 			) {
-				$scope = $scope->assignVariable('http_response_header', new ArrayType(new IntegerType(), new StringType(), false), $certainty);
+				$scope = $scope->assignVariable('http_response_header', new ArrayType(new IntegerType(), new StringType()), $certainty);
 			}
 
 			if (
@@ -1538,7 +1538,7 @@ class NodeScopeResolver
 				}
 
 				if ($valueToWrite instanceof ErrorType) {
-					$valueToWrite = new ArrayType(new MixedType(), new MixedType(), true);
+					$valueToWrite = new ArrayType(new MixedType(), new MixedType());
 				}
 
 				$scope = $scope->assignVariable(

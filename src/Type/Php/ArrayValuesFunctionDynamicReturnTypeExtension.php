@@ -30,8 +30,7 @@ class ArrayValuesFunctionDynamicReturnTypeExtension implements \PHPStan\Type\Dyn
 
 		return new ArrayType(
 			new IntegerType(),
-			new MixedType(),
-			true
+			new MixedType()
 		);
 	}
 

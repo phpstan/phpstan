@@ -30,7 +30,7 @@ class ArrayFillKeysFunctionReturnTypeExtension implements \PHPStan\Type\DynamicF
 		$keysType = $scope->getType($functionCall->args[0]->value);
 		$constantArrays = TypeUtils::getConstantArrays($keysType);
 		if (count($constantArrays) === 0) {
-			return new ArrayType($keysType->getIterableValueType(), $valueType, true);
+			return new ArrayType($keysType->getIterableValueType(), $valueType);
 		}
 
 		$arrayTypes = [];

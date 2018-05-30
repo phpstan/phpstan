@@ -24,14 +24,10 @@ class ArrayType implements StaticResolvableType
 	/** @var \PHPStan\Type\Type */
 	private $itemType;
 
-	/** @var bool */
-	private $itemTypeInferredFromLiteralArray;
-
-	public function __construct(Type $keyType, Type $itemType, bool $itemTypeInferredFromLiteralArray = false)
+	public function __construct(Type $keyType, Type $itemType)
 	{
 		$this->keyType = $keyType;
 		$this->itemType = $itemType;
-		$this->itemTypeInferredFromLiteralArray = $itemTypeInferredFromLiteralArray;
 	}
 
 	public function getKeyType(): Type
@@ -53,11 +49,6 @@ class ArrayType implements StaticResolvableType
 			$this->keyType->getReferencedClasses(),
 			$this->getItemType()->getReferencedClasses()
 		);
-	}
-
-	public function isItemTypeInferredFromLiteralArray(): bool
-	{
-		return $this->itemTypeInferredFromLiteralArray;
 	}
 
 	public function accepts(Type $type): bool
@@ -110,19 +101,18 @@ class ArrayType implements StaticResolvableType
 	{
 		return new self(
 			TypeCombinator::union($this->getKeyType(), $otherArray->getKeyType()),
-			TypeCombinator::union($this->getIterableValueType(), $otherArray->getIterableValueType()),
-			$this->isItemTypeInferredFromLiteralArray() || $otherArray->isItemTypeInferredFromLiteralArray()
+			TypeCombinator::union($this->getIterableValueType(), $otherArray->getIterableValueType())
 		);
 	}
 
 	public function getKeysArray(): self
 	{
-		return new self(new IntegerType(), $this->keyType, true);
+		return new self(new IntegerType(), $this->keyType);
 	}
 
 	public function getValuesArray(): self
 	{
-		return new self(new IntegerType(), $this->itemType, true);
+		return new self(new IntegerType(), $this->itemType);
 	}
 
 	public function resolveStatic(string $className): Type
@@ -130,8 +120,7 @@ class ArrayType implements StaticResolvableType
 		if ($this->getItemType() instanceof StaticResolvableType) {
 			return new self(
 				$this->keyType,
-				$this->getItemType()->resolveStatic($className),
-				$this->isItemTypeInferredFromLiteralArray()
+				$this->getItemType()->resolveStatic($className)
 			);
 		}
 
@@ -143,8 +132,7 @@ class ArrayType implements StaticResolvableType
 		if ($this->getItemType() instanceof StaticResolvableType) {
 			return new self(
 				$this->keyType,
-				$this->getItemType()->changeBaseClass($className),
-				$this->isItemTypeInferredFromLiteralArray()
+				$this->getItemType()->changeBaseClass($className)
 			);
 		}
 
@@ -199,8 +187,7 @@ class ArrayType implements StaticResolvableType
 
 		return new ArrayType(
 			TypeCombinator::union($this->keyType, self::castToArrayKeyType($offsetType)),
-			TypeCombinator::union($this->itemType, $valueType),
-			$this->itemTypeInferredFromLiteralArray
+			TypeCombinator::union($this->itemType, $valueType)
 		);
 	}
 
@@ -295,8 +282,7 @@ class ArrayType implements StaticResolvableType
 	{
 		return new self(
 			$properties['keyType'],
-			$properties['itemType'],
-			$properties['itemTypeInferredFromLiteralArray']
+			$properties['itemType']
 		);
 	}
 

@@ -715,8 +715,7 @@ class Scope
 				if ($leftType instanceof ArrayType && $rightType instanceof ArrayType) {
 					return new ArrayType(
 						TypeCombinator::union($leftType->getKeyType(), $rightType->getKeyType()),
-						TypeCombinator::union($leftType->getItemType(), $rightType->getItemType()),
-						$leftType->isItemTypeInferredFromLiteralArray() || $rightType->isItemTypeInferredFromLiteralArray()
+						TypeCombinator::union($leftType->getItemType(), $rightType->getItemType())
 					);
 				}
 			}
@@ -1692,7 +1691,7 @@ class Scope
 				$type,
 				false,
 				false
-			), false);
+			));
 		}
 		if ($type === null) {
 			return new MixedType();

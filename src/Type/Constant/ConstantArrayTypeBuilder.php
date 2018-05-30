@@ -94,8 +94,7 @@ class ConstantArrayTypeBuilder
 
 		return new ArrayType(
 			TypeCombinator::union(...$this->keyTypes),
-			TypeCombinator::union(...$this->valueTypes),
-			true
+			TypeCombinator::union(...$this->valueTypes)
 		);
 	}
 

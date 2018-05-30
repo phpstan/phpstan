@@ -31,8 +31,7 @@ class ArrayKeysFunctionDynamicReturnTypeExtension implements \PHPStan\Type\Dynam
 
 		return new ArrayType(
 			new IntegerType(),
-			new UnionType([new StringType(), new IntegerType()]),
-			true
+			new UnionType([new StringType(), new IntegerType()])
 		);
 	}
 

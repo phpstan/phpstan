@@ -36,8 +36,7 @@ class ArgumentBasedFunctionReturnTypeExtension implements \PHPStan\Type\DynamicF
 
 		return new ArrayType(
 			$argumentType->getIterableKeyType(),
-			$argumentType->getIterableValueType(),
-			true
+			$argumentType->getIterableValueType()
 		);
 	}
 

@@ -27,14 +27,14 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				new UnionType([
-					new ArrayType(new MixedType(), new MixedType(), false),
+					new ArrayType(new MixedType(), new MixedType()),
 					new StringType(),
 				]),
 				TrinaryLogic::createMaybe(),
 			],
 			[
 				new UnionType([
-					new ArrayType(new MixedType(), new MixedType(), false),
+					new ArrayType(new MixedType(), new MixedType()),
 					new ObjectType('Closure'),
 				]),
 				TrinaryLogic::createMaybe(),
