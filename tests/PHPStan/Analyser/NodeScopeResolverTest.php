@@ -4189,6 +4189,77 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataRangeFunction(): array
+	{
+		return [
+			[
+				'array(2, 3, 4, 5)',
+				'range(2, 5)',
+			],
+			[
+				'array(2, 4)',
+				'range(2, 5, 2)',
+			],
+			[
+				'array(2.0, 3.0, 4.0, 5.0)',
+				'range(2, 5, 1.0)',
+			],
+			[
+				'array(2.1, 3.1, 4.1)',
+				'range(2.1, 5)',
+			],
+			[
+				'array<int, int>',
+				'range(2, 5, $integer)',
+			],
+			[
+				'array<int, float>',
+				'range($float, 5, $integer)',
+			],
+			[
+				'array<int, float>',
+				'range($float, $mixed, $integer)',
+			],
+			[
+				'array<int, float|int>',
+				'range($integer, $mixed)',
+			],
+			[
+				'array(0 => 1, ?1 => 2)',
+				'range(1, doFoo() ? 1 : 2)',
+			],
+			[
+				'array(0 => -1|1, ?1 => 0|2, ?2 => 1, ?3 => 2)',
+				'range(doFoo() ? -1 : 1, doFoo() ? 1 : 2)',
+			],
+			[
+				'array(3, 2, 1, 0, -1)',
+				'range(3, -1)',
+			],
+			[
+				'array<int, int>',
+				'range(0, 50)',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataRangeFunction
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testRangeFunction(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/range-function.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataSpecifiedTypesUsingIsFunctions(): array
 	{
 		return [
