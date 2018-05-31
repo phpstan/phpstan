@@ -2,108 +2,17 @@
 
 namespace PHPStan\Command\ErrorFormatter;
 
-use PHPStan\Analyser\Error;
-use PHPStan\Command\AnalysisResult;
-use PHPStan\Command\ErrorsConsoleStyle;
-use Symfony\Component\Console\Input\StringInput;
-use Symfony\Component\Console\Output\StreamOutput;
-
-class JsonErrorFormatterTest extends \PHPStan\Testing\TestCase
+class JsonErrorFormatterTest extends TestBaseFormatter
 {
 
-	public function dataPretty(): array
+	public function jsonOutputProvider(): iterable
 	{
-		return [
-			[
-				true,
-			],
-			[
-				false,
-			],
-		];
-	}
-
-	/**
-	 * @dataProvider dataPretty
-	 * @param bool $pretty
-	 */
-	public function testFormatErrors(bool $pretty): void
-	{
-		$formatter = new JsonErrorFormatter($pretty);
-		$analysisResult = new AnalysisResult([
-			new Error('Foo', 'foo.php', 1),
-			new Error('Bar', 'file name with "spaces" and unicode 😃.php', 2),
-		], [], true, '.');
-
-		$resource = fopen('php://memory', 'w', false);
-		if ($resource === false) {
-			throw new \PHPStan\ShouldNotHappenException();
-		}
-
-		$outputStream = new StreamOutput($resource);
-		$style = new ErrorsConsoleStyle(new StringInput(''), $outputStream);
-
-		$this->assertSame(1, $formatter->formatErrors($analysisResult, $style));
-
-		rewind($outputStream->getStream());
-		$output = stream_get_contents($outputStream->getStream());
-
-		$expected = '
-{
-	"totals":{
-		"errors":0,
-		"file_errors":2
-	},
-	"files":{
-		"foo.php":{
-			"errors":1,
-			"messages":[
-				{
-					"message":"Foo",
-					"line":1,
-					"ignorable":true
-				}
-			]
-		},
-		"file name with \"spaces\" and unicode 😃.php":{
-			"errors":1,
-			"messages":[
-				{
-					"message":"Bar",
-					"line":2,
-					"ignorable":true
-				}
-			]
-		}
-	},
-	"errors": []
-}
-';
-		$this->assertJsonStringEqualsJsonString($expected, $output);
-	}
-
-	/**
-	 * @dataProvider dataPretty
-	 * @param bool $pretty
-	 */
-	public function testFormatErrorsEmpty(bool $pretty): void
-	{
-		$formatter = new JsonErrorFormatter($pretty);
-		$analysisResult = new AnalysisResult([], [], true, '.');
-		$resource = fopen('php://memory', 'w', false);
-		if ($resource === false) {
-			throw new \PHPStan\ShouldNotHappenException();
-		}
-
-		$outputStream = new StreamOutput($resource);
-		$style = new ErrorsConsoleStyle(new StringInput(''), $outputStream);
-
-		$this->assertSame(0, $formatter->formatErrors($analysisResult, $style));
-
-		rewind($outputStream->getStream());
-		$output = stream_get_contents($outputStream->getStream());
-
-		$expected = '
+		yield [
+			'No errors',
+			0,
+			0,
+			0,
+			'
 {
 	"totals":{
 		"errors":0,
@@ -111,9 +20,223 @@ class JsonErrorFormatterTest extends \PHPStan\Testing\TestCase
 	},
 	"files":[],
 	"errors": []
-}
-';
-		$this->assertJsonStringEqualsJsonString($expected, $output);
+}',
+		];
+
+		yield [
+			'One file error',
+			1,
+			1,
+			0,
+			'
+{
+	"totals":{
+		"errors":0,
+		"file_errors":1
+	},
+	"files":{
+		"/data/folder/with space/and unicode 😃/project/folder with unicode 😃/file name with \"spaces\" and unicode 😃.php":{
+			"errors":1,
+			"messages":[
+				{
+					"message": "Foo",
+					"line": 4,
+					"ignorable": true
+				}
+			]
+		}
+	},
+	"errors": []
+}',
+		];
+
+		yield [
+			'One generic error',
+			1,
+			0,
+			1,
+			'
+{
+	"totals":{
+		"errors":1,
+		"file_errors":0
+	},
+	"files":[],
+	"errors": [
+		"first generic error"
+	]
+}',
+		];
+
+		yield [
+			'Multiple file errors',
+			1,
+			4,
+			0,
+			'
+{
+	"totals":{
+		"errors":0,
+		"file_errors":4
+	},
+	"files":{
+		"/data/folder/with space/and unicode 😃/project/folder with unicode 😃/file name with \"spaces\" and unicode 😃.php":{
+			"errors":2,
+			"messages":[
+				{
+					"message": "Bar",
+					"line": 2,
+					"ignorable": true
+				},
+				{
+					"message": "Foo",
+					"line": 4,
+					"ignorable": true
+				}
+			]
+		},
+		"/data/folder/with space/and unicode 😃/project/foo.php":{
+			"errors":2,
+			"messages":[
+				{
+					"message": "Foo",
+					"line": 1,
+					"ignorable": true
+				},
+				{
+					"message": "Bar",
+					"line": 5,
+					"ignorable": true
+				}
+			]
+		}
+	},
+	"errors": []
+}',
+		];
+
+		yield [
+			'Multiple generic errors',
+			1,
+			0,
+			2,
+			'
+{
+	"totals":{
+		"errors":2,
+		"file_errors":0
+	},
+	"files":[],
+	"errors": [
+		"first generic error",
+		"second generic error"
+	]
+}',
+		];
+
+		yield [
+			'Multiple file, multiple generic errors',
+			1,
+			4,
+			2,
+			'
+{
+	"totals":{
+		"errors":2,
+		"file_errors":4
+	},
+	"files":{
+		"/data/folder/with space/and unicode 😃/project/folder with unicode 😃/file name with \"spaces\" and unicode 😃.php":{
+			"errors":2,
+			"messages":[
+				{
+					"message": "Bar",
+					"line": 2,
+					"ignorable": true
+				},
+				{
+					"message": "Foo",
+					"line": 4,
+					"ignorable": true
+				}
+			]
+		},
+		"/data/folder/with space/and unicode 😃/project/foo.php":{
+			"errors":2,
+			"messages":[
+				{
+					"message": "Foo",
+					"line": 1,
+					"ignorable": true
+				},
+				{
+					"message": "Bar",
+					"line": 5,
+					"ignorable": true
+				}
+			]
+		}
+	},
+	"errors": [
+		"first generic error",
+		"second generic error"
+	]
+}',
+		];
+	}
+
+	/**
+	 * @param string $message          Test message
+	 * @param int    $exitCode         Expected exit code from the application
+	 * @param int    $numFileErrors    Number of errors for file
+	 * @param int    $numGenericErrors Number of generic errors
+	 * @param string $expected         Expected output
+	 *
+	 * @dataProvider jsonOutputProvider
+	 */
+	public function testPrettyFormatErrors(
+		string $message,
+		int $exitCode,
+		int $numFileErrors,
+		int $numGenericErrors,
+		string $expected
+	): void
+	{
+		$formatter = new JsonErrorFormatter(true);
+
+		$this->assertSame($exitCode, $formatter->formatErrors(
+			$this->getAnalysisResult($numFileErrors, $numGenericErrors),
+			$this->getErrorConsoleStyle()
+		), $message);
+
+		$this->assertJsonStringEqualsJsonString($expected, $this->getOutputContent());
+	}
+
+	/**
+	 * @param string $message          Test message
+	 * @param int    $exitCode         Expected exit code from the application
+	 * @param int    $numFileErrors    Number of errors for file
+	 * @param int    $numGenericErrors Number of generic errors
+	 * @param string $expected         Expected output
+	 *
+	 * @dataProvider jsonOutputProvider
+	 */
+	public function testFormatErrors(
+		string $message,
+		int $exitCode,
+		int $numFileErrors,
+		int $numGenericErrors,
+		string $expected
+	): void
+	{
+		$formatter = new JsonErrorFormatter(false);
+
+		$this->assertSame($exitCode, $formatter->formatErrors(
+			$this->getAnalysisResult($numFileErrors, $numGenericErrors),
+			$this->getErrorConsoleStyle()
+		), sprintf('%s: response code do not match', $message));
+
+		$this->assertJsonStringEqualsJsonString($expected, $this->getOutputContent(), sprintf('%s: JSON do not match', $message));
 	}
 
 }

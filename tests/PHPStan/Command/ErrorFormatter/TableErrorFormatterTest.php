@@ -2,64 +2,112 @@
 
 namespace PHPStan\Command\ErrorFormatter;
 
-use PHPStan\Analyser\Error;
-use PHPStan\Command\AnalysisResult;
-use PHPStan\Command\ErrorsConsoleStyle;
-use Symfony\Component\Console\Input\StringInput;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Output\StreamOutput;
-
-class TableErrorFormatterTest extends \PHPStan\Testing\TestCase
+class TableErrorFormatterTest extends TestBaseFormatter
 {
 
-	private const DIRECTORY_PATH = '/data/folder/with space/and unicode 😃/project';
-
-	/** @var TableErrorFormatter */
-	protected $formatter;
-
-	protected function setUp(): void
+	public function tableOutputProvider(): iterable
 	{
-		$this->formatter = new TableErrorFormatter();
-	}
+		yield [
+			'No errors',
+			0,
+			0,
+			0,
+			'
+ [OK] No errors
 
-	public function testFormatErrors(): void
-	{
-		$analysisResult = new AnalysisResult(
-			[
-				new Error('Foo', self::DIRECTORY_PATH . '/foo.php', 1),
-				new Error('Bar', self::DIRECTORY_PATH . '/file name with "spaces" and unicode 😃.php', 2),
-			],
-			[
-				'first generic error',
-				'second generic error',
-			],
-			false,
-			self::DIRECTORY_PATH
-		);
-		$resource = fopen('php://memory', 'w', false);
-		if ($resource === false) {
-			throw new \PHPStan\ShouldNotHappenException();
-		}
+',
+		];
 
-		$outputStream = new StreamOutput($resource, OutputInterface::VERBOSITY_NORMAL, false);
+		yield [
+			'One file error',
+			1,
+			1,
+			0,
+			' ------ -----------------------------------------------------------------
+  Line   folder with unicode 😃/file name with "spaces" and unicode 😃.php
+ ------ -----------------------------------------------------------------
+  4      Foo
+ ------ -----------------------------------------------------------------
 
-		$style = new ErrorsConsoleStyle(new StringInput(''), $outputStream);
+ [ERROR] Found 1 error
 
-		$this->assertEquals(1, $this->formatter->formatErrors($analysisResult, $style));
+',
+		];
 
-		rewind($outputStream->getStream());
-		$output = stream_get_contents($outputStream->getStream());
+		yield [
+			'One generic error',
+			1,
+			0,
+			1,
+			' ---------------------
+  Error
+ ---------------------
+  first generic error
+ ---------------------
 
-		$expected = ' ------ -------------------------------------------
-  Line   file name with "spaces" and unicode 😃.php
- ------ -------------------------------------------
+ [ERROR] Found 1 error
+
+',
+		];
+
+		yield [
+			'Multiple file errors',
+			1,
+			4,
+			0,
+			' ------ -----------------------------------------------------------------
+  Line   folder with unicode 😃/file name with "spaces" and unicode 😃.php
+ ------ -----------------------------------------------------------------
   2      Bar
- ------ -------------------------------------------
+  4      Foo
+ ------ -----------------------------------------------------------------
 
  ------ ---------
   Line   foo.php
  ------ ---------
   1      Foo
+  5      Bar
+ ------ ---------
+
+ [ERROR] Found 4 errors
+
+',
+		];
+
+		yield [
+			'Multiple generic errors',
+			1,
+			0,
+			2,
+			' ----------------------
+  Error
+ ----------------------
+  first generic error
+  second generic error
+ ----------------------
+
+ [ERROR] Found 2 errors
+
+',
+		];
+
+		yield [
+			'Multiple file, multiple generic errors',
+			1,
+			4,
+			2,
+			' ------ -----------------------------------------------------------------
+  Line   folder with unicode 😃/file name with "spaces" and unicode 😃.php
+ ------ -----------------------------------------------------------------
+  2      Bar
+  4      Foo
+ ------ -----------------------------------------------------------------
+
+ ------ ---------
+  Line   foo.php
+ ------ ---------
+  1      Foo
+  5      Bar
  ------ ---------
 
  ----------------------
@@ -69,43 +117,37 @@ class TableErrorFormatterTest extends \PHPStan\Testing\TestCase
   second generic error
  ----------------------
 
- [ERROR] Found 4 errors
+ [ERROR] Found 6 errors
 
-';
-
-		$this->assertEquals($expected, $this->rtrimMultiline($output));
+',
+		];
 	}
 
-	public function testFormatErrorsEmpty(): void
+	/**
+	 * @param string $message          Test message
+	 * @param int    $exitCode         Expected exit code from the application
+	 * @param int    $numFileErrors    Number of errors for file
+	 * @param int    $numGenericErrors Number of generic errors
+	 * @param string $expected         Expected output
+	 *
+	 * @dataProvider tableOutputProvider
+	 */
+	public function testFormatErrors(
+		string $message,
+		int $exitCode,
+		int $numFileErrors,
+		int $numGenericErrors,
+		string $expected
+	): void
 	{
-		$analysisResult = new AnalysisResult([], [], false, self::DIRECTORY_PATH);
-		$resource = fopen('php://memory', 'w', false);
-		if ($resource === false) {
-			throw new \PHPStan\ShouldNotHappenException();
-		}
+		$formatter = new TableErrorFormatter();
 
-		$outputStream = new StreamOutput($resource, OutputInterface::VERBOSITY_NORMAL, false);
-		$style = new ErrorsConsoleStyle(new StringInput(''), $outputStream);
+		$this->assertSame($exitCode, $formatter->formatErrors(
+			$this->getAnalysisResult($numFileErrors, $numGenericErrors),
+			$this->getErrorConsoleStyle()
+		), sprintf('%s: response code do not match', $message));
 
-		$this->assertEquals(0, $this->formatter->formatErrors($analysisResult, $style));
-
-		rewind($outputStream->getStream());
-		$output = stream_get_contents($outputStream->getStream());
-
-		$expected = '
- [OK] No errors
-
-';
-		$this->assertEquals($expected, $this->rtrimMultiline($output));
-	}
-
-	private function rtrimMultiline(string $output): string
-	{
-		$result = array_map(function (string $line): string {
-			return rtrim($line, " \r\n");
-		}, explode("\n", $output));
-
-		return implode("\n", $result);
+		$this->assertEquals($expected, $this->getOutputContent(), sprintf('%s: output do not match', $message));
 	}
 
 }
