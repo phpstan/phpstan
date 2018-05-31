@@ -11,6 +11,8 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 
 	abstract public function getPhpStanExecutablePath(): string;
 
+	abstract public function getPhpStanConfigPath(): ?string;
+
 	/**
 	 * @dataProvider dataTopics
 	 * @param string $topic
@@ -21,6 +23,7 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 	{
 		$file = sprintf('%s/%s.php', $this->getDataPath(), $topic);
 		$command = escapeshellcmd($this->getPhpStanExecutablePath());
+		$configPath = $this->getPhpStanConfigPath();
 
 		$previousMessages = [];
 
@@ -28,7 +31,7 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 
 		foreach (range(0, 7) as $level) {
 			unset($outputLines);
-			exec(sprintf('%s analyse --no-progress --errorFormat=prettyJson --level=%d --autoload-file %s %s', $command, $level, escapeshellarg($file), escapeshellarg($file)), $outputLines);
+			exec(sprintf('%s analyse --no-progress --errorFormat=prettyJson --level=%d %s --autoload-file %s %s', $command, $level, $configPath !== null ? '--configuration ' . escapeshellarg($configPath) : '', escapeshellarg($file), escapeshellarg($file)), $outputLines);
 
 			$actualJson = \Nette\Utils\Json::decode(implode("\n", $outputLines), \Nette\Utils\Json::FORCE_ARRAY);
 			if (count($actualJson['files']) > 0) {

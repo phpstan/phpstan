@@ -32,4 +32,9 @@ class LevelsIntegrationTest extends \PHPStan\Testing\LevelsTestCase
 		return __DIR__ . '/../../../bin/phpstan';
 	}
 
+	public function getPhpStanConfigPath(): ?string
+	{
+		return null;
+	}
+
 }
