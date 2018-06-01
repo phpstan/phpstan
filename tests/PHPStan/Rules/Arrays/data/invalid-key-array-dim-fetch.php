@@ -29,3 +29,9 @@ if (doFoo()) {
 }
 
 $constantArray[new \DateTimeImmutable()] = 1;
+
+/** @var string[] $array */
+$array = doFoo();
+foreach ($array as $i => $val) {
+	echo $array[$i];
+}

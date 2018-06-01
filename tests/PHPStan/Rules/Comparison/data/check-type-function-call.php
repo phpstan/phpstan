@@ -124,3 +124,23 @@ class IsNumeric
 	}
 
 }
+
+class CheckDefaultArrayKeys
+{
+
+	/**
+	 * @param string[] $array
+	 */
+	public function doFoo(array $array)
+	{
+		foreach ($array as $key => $val) {
+			if (is_int($key)) {
+				return;
+			}
+			if (is_string($key)) {
+				return;
+			}
+		}
+	}
+
+}

@@ -11,6 +11,16 @@ class CompoundTypeHelper
 			return true;
 		}
 
+		if ($compoundType instanceof BenevolentUnionType) {
+			foreach ($compoundType->getTypes() as $innerType) {
+				if ($otherType->accepts($innerType)) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		if ($compoundType instanceof UnionType) {
 			foreach ($compoundType->getTypes() as $innerType) {
 				if (!$otherType->accepts($innerType)) {

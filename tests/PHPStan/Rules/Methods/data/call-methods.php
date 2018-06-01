@@ -773,3 +773,99 @@ function () {
 
 	WeirdStaticIssueImpl::get($a);
 };
+
+class CheckDefaultArrayKeys
+{
+
+	/**
+	 * @param string[] $array
+	 */
+	public function doFoo(
+		array $array
+	)
+	{
+		foreach ($array as $key => $val) {
+			$this->doBar($key);
+			$this->doBaz($key);
+			$this->doLorem($key);
+			$this->doAmet($key);
+
+			if (rand(0, 1) === 0) {
+				$key = new \stdClass();
+			}
+
+			$this->doBar($key);
+			$this->doBaz($key);
+			$this->doLorem($key);
+			$this->doIpsum($key);
+			$this->doDolor($key);
+			$this->doSit($key);
+			$this->doAmet($key);
+		}
+	}
+
+	public function doBar(int $i)
+	{
+
+	}
+
+	public function doBaz(string $str)
+	{
+
+	}
+
+	/**
+	 * @param int|string $intOrString
+	 */
+	public function doLorem($intOrString)
+	{
+
+	}
+
+	/**
+	 * @param \stdClass|int $stdOrInt
+	 */
+	public function doIpsum($stdOrInt)
+	{
+
+	}
+
+	/**
+	 * @param \stdClass|string $stdOrString
+	 */
+	public function doDolor($stdOrString)
+	{
+
+	}
+
+	/**
+	 * @param \DateTimeImmutable|string $dateOrString
+	 */
+	public function doSit($dateOrString)
+	{
+
+	}
+
+	public function doAmet(\stdClass $std)
+	{
+
+	}
+
+	/**
+	 * @param string[] $array
+	 */
+	public function doConsecteur(array $array)
+	{
+		foreach ($array as $key => $val) {
+			if (rand(0, 1) === 0) {
+				$key = 1;
+			} else {
+				$key = 'str';
+			}
+
+			$this->doBar($key);
+			$this->doBaz($key);
+		}
+	}
+
+}

@@ -155,6 +155,14 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					'Strict comparison using === between 0 and 0 will always evaluate to true.',
 					426,
 				],
+				[
+					'Strict comparison using === between int|string and 1.0 will always evaluate to false.',
+					464,
+				],
+				[
+					'Strict comparison using === between int|string and stdClass will always evaluate to false.',
+					466,
+				],
 			]
 		);
 	}
@@ -260,6 +268,14 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 				[
 					'Strict comparison using !== between null and null will always evaluate to false.',
 					408,
+				],
+				[
+					'Strict comparison using === between int|string and 1.0 will always evaluate to false.',
+					464,
+				],
+				[
+					'Strict comparison using === between int|string and stdClass will always evaluate to false.',
+					466,
 				],
 			]
 		);

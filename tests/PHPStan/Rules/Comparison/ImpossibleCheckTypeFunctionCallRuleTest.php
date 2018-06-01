@@ -55,6 +55,10 @@ class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestC
 					'Call to function is_numeric() with 123|float will always evaluate to true.',
 					118,
 				],
+				[
+					'Call to function is_string() with string will always evaluate to true.',
+					140,
+				],
 			]
 		);
 	}

@@ -447,3 +447,26 @@ class StrictComparisonOfSpecifiedFunctionCall
 	}
 
 }
+
+class CheckDefaultArrayKeys
+{
+
+	/**
+	 * @param string[] $array
+	 */
+	public function doFoo(array $array)
+	{
+		foreach ($array as $key => $val) {
+			if ($key === 1) {
+
+			} elseif ($key === 'str') {
+
+			} elseif ($key === 1.0) {
+
+			} elseif ($key === new \stdClass()) {
+
+			}
+		}
+	}
+
+}

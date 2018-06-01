@@ -148,7 +148,7 @@ class ArrayType implements StaticResolvableType
 	{
 		$keyType = $this->keyType;
 		if ($keyType instanceof MixedType) {
-			return new UnionType([new IntegerType(), new StringType()]);
+			return new BenevolentUnionType([new IntegerType(), new StringType()]);
 		}
 
 		return $keyType;

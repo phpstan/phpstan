@@ -284,6 +284,46 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Cannot call method bar() on string.',
 				748,
 			],
+			[
+				'Parameter #1 $std of method Test\CheckDefaultArrayKeys::doAmet() expects stdClass, (int|string) given.',
+				791,
+			],
+			[
+				'Parameter #1 $i of method Test\CheckDefaultArrayKeys::doBar() expects int, int|stdClass|string given.',
+				797,
+			],
+			[
+				'Parameter #1 $str of method Test\CheckDefaultArrayKeys::doBaz() expects string, int|stdClass|string given.',
+				798,
+			],
+			[
+				'Parameter #1 $intOrString of method Test\CheckDefaultArrayKeys::doLorem() expects int|string, int|stdClass|string given.',
+				799,
+			],
+			[
+				'Parameter #1 $stdOrInt of method Test\CheckDefaultArrayKeys::doIpsum() expects int|stdClass, int|stdClass|string given.', // should not expect this
+				800,
+			],
+			[
+				'Parameter #1 $stdOrString of method Test\CheckDefaultArrayKeys::doDolor() expects stdClass|string, int|stdClass|string given.', // should not expect this
+				801,
+			],
+			[
+				'Parameter #1 $dateOrString of method Test\CheckDefaultArrayKeys::doSit() expects DateTimeImmutable|string, int|stdClass|string given.',
+				802,
+			],
+			[
+				'Parameter #1 $std of method Test\CheckDefaultArrayKeys::doAmet() expects stdClass, int|stdClass|string given.',
+				803,
+			],
+			[
+				'Parameter #1 $i of method Test\CheckDefaultArrayKeys::doBar() expects int, int|string given.',
+				866,
+			],
+			[
+				'Parameter #1 $str of method Test\CheckDefaultArrayKeys::doBaz() expects string, int|string given.',
+				867,
+			],
 		]);
 	}
 
@@ -440,6 +480,46 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Parameter #2 $str of method Test\PreIncString::doFoo() expects string, int given.',
 				725,
+			],
+			[
+				'Parameter #1 $std of method Test\CheckDefaultArrayKeys::doAmet() expects stdClass, (int|string) given.',
+				791,
+			],
+			[
+				'Parameter #1 $i of method Test\CheckDefaultArrayKeys::doBar() expects int, int|stdClass|string given.',
+				797,
+			],
+			[
+				'Parameter #1 $str of method Test\CheckDefaultArrayKeys::doBaz() expects string, int|stdClass|string given.',
+				798,
+			],
+			[
+				'Parameter #1 $intOrString of method Test\CheckDefaultArrayKeys::doLorem() expects int|string, int|stdClass|string given.',
+				799,
+			],
+			[
+				'Parameter #1 $stdOrInt of method Test\CheckDefaultArrayKeys::doIpsum() expects int|stdClass, int|stdClass|string given.', // should not expect this
+				800,
+			],
+			[
+				'Parameter #1 $stdOrString of method Test\CheckDefaultArrayKeys::doDolor() expects stdClass|string, int|stdClass|string given.', // should not expect this
+				801,
+			],
+			[
+				'Parameter #1 $dateOrString of method Test\CheckDefaultArrayKeys::doSit() expects DateTimeImmutable|string, int|stdClass|string given.',
+				802,
+			],
+			[
+				'Parameter #1 $std of method Test\CheckDefaultArrayKeys::doAmet() expects stdClass, int|stdClass|string given.',
+				803,
+			],
+			[
+				'Parameter #1 $i of method Test\CheckDefaultArrayKeys::doBar() expects int, int|string given.',
+				866,
+			],
+			[
+				'Parameter #1 $str of method Test\CheckDefaultArrayKeys::doBaz() expects string, int|string given.',
+				867,
 			],
 		]);
 	}

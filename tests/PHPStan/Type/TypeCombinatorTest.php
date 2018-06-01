@@ -736,6 +736,54 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				ArrayType::class,
 				'array<string>',
 			],
+			[
+				[
+					new UnionType([new IntegerType(), new StringType()]),
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+				],
+				UnionType::class,
+				'int|string',
+			],
+			[
+				[
+					new IntegerType(),
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+				],
+				UnionType::class,
+				'int|string',
+			],
+			[
+				[
+					new StringType(),
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+				],
+				UnionType::class,
+				'int|string',
+			],
+			[
+				[
+					new UnionType([new IntegerType(), new StringType(), new FloatType()]),
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+				],
+				UnionType::class,
+				'float|int|string',
+			],
+			[
+				[
+					new UnionType([new StringType(), new FloatType()]),
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+				],
+				UnionType::class,
+				'float|int|string',
+			],
+			[
+				[
+					new UnionType([new IntegerType(), new FloatType()]),
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+				],
+				UnionType::class,
+				'float|int|string',
+			],
 		];
 	}
 
@@ -902,6 +950,46 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				],
 				IterableType::class,
 				'iterable',
+			],
+			[
+				[
+					new IntegerType(),
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+				],
+				IntegerType::class,
+				'int',
+			],
+			[
+				[
+					new ConstantIntegerType(1),
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+				],
+				ConstantIntegerType::class,
+				'1',
+			],
+			[
+				[
+					new ConstantStringType('foo'),
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+				],
+				ConstantStringType::class,
+				'\'foo\'',
+			],
+			[
+				[
+					new StringType(),
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+				],
+				StringType::class,
+				'string',
+			],
+			[
+				[
+					new UnionType([new StringType(), new IntegerType()]),
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+				],
+				UnionType::class,
+				'int|string',
 			],
 		];
 	}
@@ -1089,6 +1177,36 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				new ObjectType(\Traversable::class),
 				ArrayType::class,
 				'array',
+			],
+			[
+				new BenevolentUnionType([new IntegerType(), new StringType()]),
+				new StringType(),
+				IntegerType::class,
+				'int',
+			],
+			[
+				new BenevolentUnionType([new IntegerType(), new StringType()]),
+				new IntegerType(),
+				StringType::class,
+				'string',
+			],
+			[
+				new BenevolentUnionType([new IntegerType(), new StringType()]),
+				new ConstantStringType('foo'),
+				UnionType::class,
+				'int|string',
+			],
+			[
+				new BenevolentUnionType([new IntegerType(), new StringType()]),
+				new ConstantIntegerType(1),
+				UnionType::class,
+				'int|string',
+			],
+			[
+				new BenevolentUnionType([new IntegerType(), new StringType()]),
+				new UnionType([new IntegerType(), new StringType()]),
+				NeverType::class,
+				'*NEVER*',
 			],
 		];
 	}
