@@ -2396,8 +2396,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$mixed + 1.0',
 			],
 			[
-				'float|int',
+				'(array|float|int)',
 				'$mixed + $mixed',
+			],
+			[
+				'float|int',
+				'$mixed - $mixed',
 			],
 			[
 				'*ERROR*',

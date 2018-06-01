@@ -34,6 +34,7 @@ use PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\BenevolentUnionType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
 use PHPStan\Type\ClosureType;
@@ -717,6 +718,14 @@ class Scope
 						TypeCombinator::union($leftType->getKeyType(), $rightType->getKeyType()),
 						TypeCombinator::union($leftType->getItemType(), $rightType->getItemType())
 					);
+				}
+
+				if ($leftType instanceof MixedType && $rightType instanceof MixedType) {
+					return new BenevolentUnionType([
+						new FloatType(),
+						new IntegerType(),
+						new ArrayType(new MixedType(), new MixedType()),
+					]);
 				}
 			}
 
