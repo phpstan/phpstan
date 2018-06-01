@@ -35,12 +35,12 @@ the logo of your company in PHPStan's README.
 * Carlos C Soto
 * Jan Endel
 * Adam Žurek
+* Rudolph Gottesheim
 
 # $1+
 
 * Oliver Klee
 * Bronek Bialek
-* Rudolph Gottesheim
 * Ian Den Hartog
 * Andrew Barlow
 * Michal Mleczko
