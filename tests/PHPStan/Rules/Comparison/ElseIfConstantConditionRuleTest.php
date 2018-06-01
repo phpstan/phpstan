@@ -19,10 +19,6 @@ class ElseIfConstantConditionRuleTest extends \PHPStan\Testing\RuleTestCase
 			],
 			[
 				'Elseif condition is always false.',
-				24,
-			],
-			[
-				'Elseif condition is always false.',
 				30,
 			],
 			[

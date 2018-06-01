@@ -76,4 +76,14 @@ class IfCondition
 		}
 	}
 
+	public function skipDifferentRule()
+	{
+		if (!false) {
+
+		}
+		if (!true) {
+
+		}
+	}
+
 }

@@ -21,6 +21,14 @@ class BooleanNotConstantConditionRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Negated boolean is always true.',
 				18,
 			],
+			[
+				'Negated boolean is always false.',
+				33,
+			],
+			[
+				'Negated boolean is always false.',
+				40,
+			],
 		]);
 	}
 

@@ -102,11 +102,9 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 				__DIR__ . '/traits/TraitWithTypeSpecification.php',
 			]
 		);
-		$this->assertCount(2, $errors);
-		$this->assertSame('If condition is always false.', $errors[0]->getMessage());
-		$this->assertSame(13, $errors[0]->getLine());
-		$this->assertContains('Access to an undefined property', $errors[1]->getMessage());
-		$this->assertSame(18, $errors[1]->getLine());
+		$this->assertCount(1, $errors);
+		$this->assertContains('Access to an undefined property', $errors[0]->getMessage());
+		$this->assertSame(18, $errors[0]->getLine());
 	}
 
 	public function testDuplicateMethodDefinition(): void
