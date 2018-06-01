@@ -10,8 +10,10 @@ use PHPStan\Type\ArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\IntegerType;
+use PHPStan\Type\MixedType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeUtils;
 
 class ExplodeFunctionDynamicReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
@@ -39,7 +41,12 @@ class ExplodeFunctionDynamicReturnTypeExtension implements \PHPStan\Type\Dynamic
 			return new ArrayType(new IntegerType(), new StringType());
 		}
 
-		return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+		$returnType = ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+		if ($delimiterType instanceof MixedType) {
+			return TypeUtils::toBenevolentUnion($returnType);
+		}
+
+		return $returnType;
 	}
 
 }

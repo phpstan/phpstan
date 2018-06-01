@@ -11,6 +11,7 @@ use PHPStan\Type\DynamicFunctionReturnTypeExtension;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeUtils;
 
 class ReplaceFunctionsDynamicReturnTypeExtension implements DynamicFunctionReturnTypeExtension
 {
@@ -55,7 +56,9 @@ class ReplaceFunctionsDynamicReturnTypeExtension implements DynamicFunctionRetur
 			return $subjectArgumentType;
 		}
 
-		return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+		$returnType = ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+
+		return TypeUtils::toBenevolentUnion($returnType);
 	}
 
 }

@@ -4158,6 +4158,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$microtimeDefault',
 			],
 			[
+				'(float|string)',
+				'$microtimeBenevolent',
+			],
+			[
 				'int',
 				'$strtotimeNow',
 			],
@@ -4170,8 +4174,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$strtotimeUnknown',
 			],
 			[
-				'int|false',
+				'(int|false)',
 				'$strtotimeUnknown2',
+			],
+			[
+				'int|false',
+				'$strtotimeCrash',
 			],
 		];
 	}
@@ -5627,6 +5635,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array<int, string>|false',
 				'$anotherArrayOrFalse',
 			],
+			[
+				'(array<int, string>|false)',
+				'$benevolentArrayOrFalse',
+			],
 		];
 	}
 
@@ -5722,15 +5734,15 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$anotherExpectedArray',
 			],
 			[
-				'array|string',
+				'(array|string)',
 				'$expectedArrayOrString',
 			],
 			[
-				'array|string',
+				'(array|string)',
 				'$expectedArrayOrString2',
 			],
 			[
-				'array|string',
+				'(array|string)',
 				'$anotherExpectedArrayOrString',
 			],
 			[

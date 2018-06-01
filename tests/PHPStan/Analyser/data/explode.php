@@ -2,7 +2,7 @@
 
 namespace ExplodeFunction;
 
-function (string $delimiter) {
+function (string $delimiter, $mixed) {
 
 	/** @var string $str */
 	$str = doFoo();
@@ -16,6 +16,7 @@ function (string $delimiter) {
 	}
 
 	$anotherArrayOrFalse = explode($emptyOrComma, $str);
+	$benevolentArrayOrFalse = explode($mixed, $str);
 
 	die;
 

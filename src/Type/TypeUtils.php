@@ -110,4 +110,17 @@ class TypeUtils
 		return [];
 	}
 
+	public static function toBenevolentUnion(Type $type): Type
+	{
+		if ($type instanceof BenevolentUnionType) {
+			return $type;
+		}
+
+		if ($type instanceof UnionType) {
+			return new BenevolentUnionType($type->getTypes());
+		}
+
+		return $type;
+	}
+
 }

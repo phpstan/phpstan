@@ -5,11 +5,13 @@ namespace PHPStan\Type\Php;
 use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Type\BenevolentUnionType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\FloatType;
+use PHPStan\Type\MixedType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
-use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\UnionType;
 
 class MicrotimeFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
@@ -36,7 +38,11 @@ class MicrotimeFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunct
 			return new StringType();
 		}
 
-		return TypeCombinator::union(new StringType(), new FloatType());
+		if ($argType instanceof MixedType) {
+			return new BenevolentUnionType([new StringType(), new FloatType()]);
+		}
+
+		return new UnionType([new StringType(), new FloatType()]);
 	}
 
 }
