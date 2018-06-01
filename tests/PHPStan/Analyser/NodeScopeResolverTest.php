@@ -1928,7 +1928,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				"'foo' <=> 'bar'",
 			],
 			[
-				'float|int',
+				'(float|int)',
 				'1 + $mixed',
 			],
 			[
@@ -1988,7 +1988,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'1.0 + $number',
 			],
 			[
-				'float|int',
+				'(float|int)',
 				'$mixed + 1',
 			],
 			[
@@ -2400,7 +2400,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$mixed + $mixed',
 			],
 			[
-				'float|int',
+				'(float|int)',
 				'$mixed - $mixed',
 			],
 			[

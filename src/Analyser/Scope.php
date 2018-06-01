@@ -752,7 +752,12 @@ class Scope
 				return new UnionType([new IntegerType(), new FloatType()]);
 			}
 
-			return TypeCombinator::union($leftNumberType, $rightNumberType);
+			$resultType = TypeCombinator::union($leftNumberType, $rightNumberType);
+			if ($types instanceof MixedType) {
+				return TypeUtils::toBenevolentUnion($resultType);
+			}
+
+			return $resultType;
 		}
 
 		if ($node instanceof LNumber) {
