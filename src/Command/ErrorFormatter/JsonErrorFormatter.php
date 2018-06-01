@@ -30,12 +30,6 @@ class JsonErrorFormatter implements ErrorFormatter
 
 		foreach ($analysisResult->getFileSpecificErrors() as $fileSpecificError) {
 			$file = $fileSpecificError->getFile();
-			if ($this->pretty) {
-				$file = RelativePathHelper::getRelativePath(
-					$analysisResult->getCurrentDirectory(),
-					$file
-				);
-			}
 			if (!array_key_exists($file, $errorsArray['files'])) {
 				$errorsArray['files'][$file] = [
 					'errors' => 0,

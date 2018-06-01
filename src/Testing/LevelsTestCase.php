@@ -35,7 +35,7 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 
 			$actualJson = \Nette\Utils\Json::decode(implode("\n", $outputLines), \Nette\Utils\Json::FORCE_ARRAY);
 			if (count($actualJson['files']) > 0) {
-				$messagesBeforeDiffing = $actualJson['files'][pathinfo($file, PATHINFO_BASENAME)]['messages'];
+				$messagesBeforeDiffing = $actualJson['files'][$file]['messages'];
 			} else {
 				$messagesBeforeDiffing = [];
 			}
