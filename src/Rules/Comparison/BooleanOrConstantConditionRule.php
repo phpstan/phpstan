@@ -42,6 +42,16 @@ class BooleanOrConstantConditionRule implements \PHPStan\Rules\Rule
 			);
 		}
 
+		if (count($messages) === 0) {
+			$nodeType = $scope->getType($node);
+			if ($nodeType instanceof ConstantBooleanType) {
+				$messages[] = sprintf(
+					'Result of || is always %s.',
+					$nodeType->getValue() ? 'true' : 'false'
+				);
+			}
+		}
+
 		return $messages;
 	}
 
