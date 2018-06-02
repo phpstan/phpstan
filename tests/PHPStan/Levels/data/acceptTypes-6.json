@@ -13,5 +13,15 @@
         "message": "Parameter #1 $a of method Levels\\AcceptTypes\\Foo::doIpsum() expects float, float|string|null given.",
         "line": 53,
         "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Foo::doBarArray() expects array<int>, array<float|int> given.",
+        "line": 92,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Foo::doBarArray() expects array<int>, array<int, float|int> given.",
+        "line": 120,
+        "ignorable": true
     }
 ]

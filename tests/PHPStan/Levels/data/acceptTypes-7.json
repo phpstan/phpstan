@@ -8,5 +8,15 @@
         "message": "Parameter #1 $a of method Levels\\AcceptTypes\\Foo::doLorem() expects callable|int, int|null given.",
         "line": 51,
         "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Foo::doBarArray() expects array<int>, array<int|null> given.",
+        "line": 91,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Foo::doBarArray() expects array<int>, array<int, int|null> given.",
+        "line": 119,
+        "ignorable": true
     }
 ]

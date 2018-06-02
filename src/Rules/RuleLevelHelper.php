@@ -5,6 +5,7 @@ namespace PHPStan\Rules;
 use PhpParser\Node\Expr;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Type\ArrayType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
@@ -58,6 +59,25 @@ class RuleLevelHelper
 			$acceptedType = TypeCombinator::removeNull($acceptedType);
 		}
 
+		$acceptedArrays = TypeUtils::getArrays($acceptedType);
+		if ($acceptingType instanceof ArrayType && count($acceptedArrays) > 0) {
+			foreach ($acceptedArrays as $acceptedArray) {
+				if (
+					!self::accepts(
+						$acceptingType->getKeyType(),
+						$acceptedArray->getKeyType()
+					) || !self::accepts(
+						$acceptingType->getItemType(),
+						$acceptedArray->getItemType()
+					)
+				) {
+					return false;
+				}
+			}
+
+			return true;
+		}
+
 		if (!$this->checkUnionTypes && $acceptedType instanceof UnionType) {
 			foreach ($acceptedType->getTypes() as $innerType) {
 				if ($acceptingType->accepts($innerType)) {
@@ -66,6 +86,16 @@ class RuleLevelHelper
 			}
 
 			return false;
+		}
+
+		if ($acceptedType instanceof ArrayType && $acceptingType instanceof ArrayType) {
+			return self::accepts(
+				$acceptingType->getKeyType(),
+				$acceptedType->getKeyType()
+			) && self::accepts(
+				$acceptingType->getItemType(),
+				$acceptedType->getItemType()
+			);
 		}
 
 		return $acceptingType->accepts($acceptedType);

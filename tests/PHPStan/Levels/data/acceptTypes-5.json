@@ -23,5 +23,25 @@
         "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Foo::doBar() expects int, null given.",
         "line": 54,
         "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Foo::doBarArray() expects array<int>, array<float> given.",
+        "line": 89,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Foo::doBarArray() expects array<int>, array<float|string> given.",
+        "line": 90,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Foo::doBarArray() expects array<int>, array<int, float> given.",
+        "line": 117,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Foo::doBarArray() expects array<int>, array<int, float|string> given.",
+        "line": 118,
+        "ignorable": true
     }
 ]

@@ -70,4 +70,54 @@ class Foo
 
 	}
 
+	/**
+	 * @param int[] $i
+	 * @param float[] $j
+	 * @param (float|string)[] $k
+	 * @param (int|null)[] $l
+	 * @param (int|float)[] $m
+	 */
+	public function doFooArray(
+		array $i,
+		array $j,
+		array $k,
+		array $l,
+		array $m
+	)
+	{
+		$this->doBarArray($i);
+		$this->doBarArray($j);
+		$this->doBarArray($k);
+		$this->doBarArray($l);
+		$this->doBarArray($m);
+	}
+
+	/**
+	 * @param int[] $i
+	 */
+	public function doBarArray(array $i)
+	{
+
+	}
+
+	public function doBazArray()
+	{
+		$ints = [1, 2, 3];
+		$floats = [1.1, 2.2, 3.3];
+		$floatsAndStrings = [1.1, 2.2];
+		$intsAndNulls = [1, 2, 3];
+		$intsAndFloats = [1, 2, 3];
+		if (rand(0, 1) === 1) {
+			$floatsAndStrings[] = 'str';
+			$intsAndNulls[] = null;
+			$intsAndFloats[] = 1.1;
+		}
+
+		$this->doBarArray($ints);
+		$this->doBarArray($floats);
+		$this->doBarArray($floatsAndStrings);
+		$this->doBarArray($intsAndNulls);
+		$this->doBarArray($intsAndFloats);
+	}
+
 }
