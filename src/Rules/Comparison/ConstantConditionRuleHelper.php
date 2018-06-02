@@ -20,6 +20,7 @@ class ConstantConditionRuleHelper
 			|| $expr instanceof Expr\BinaryOp\NotIdentical
 			|| $expr instanceof Expr\BooleanNot
 			|| $expr instanceof Expr\BinaryOp\BooleanOr
+			|| $expr instanceof Expr\BinaryOp\BooleanAnd
 		) {
 			// already checked by different rules
 			return new BooleanType();

@@ -41,4 +41,31 @@ class BooleanAnd
 		}
 	}
 
+	/**
+	 * @param Foo|Bar $union
+	 * @param Lorem&Ipsum $intersection
+	 */
+	public function checkUnionAndIntersection($union, $intersection)
+	{
+		if ($union instanceof Foo && $union instanceof Bar) {
+
+		}
+
+		if ($intersection instanceof Lorem && $intersection instanceof Ipsum) {
+
+		}
+
+		if ($union instanceof Foo || $union instanceof Bar) {
+
+		} elseif ($union instanceof Foo && doFoo()) {
+
+		}
+
+		if ($intersection instanceof Lorem && $intersection instanceof Ipsum) {
+
+		} elseif ($intersection instanceof Lorem && doFoo()) {
+
+		}
+	}
+
 }
