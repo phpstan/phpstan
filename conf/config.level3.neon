@@ -10,6 +10,7 @@ rules:
 	- PHPStan\Rules\Methods\ReturnTypeRule
 	- PHPStan\Rules\Properties\DefaultValueTypesAssignedToPropertiesRule
 	- PHPStan\Rules\Properties\TypesAssignedToPropertiesRule
+	- PHPStan\Rules\Variables\ThrowTypeRule
 	- PHPStan\Rules\Variables\VariableCloningRule
 
 services:
