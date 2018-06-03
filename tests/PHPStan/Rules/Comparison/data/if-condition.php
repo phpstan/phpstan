@@ -86,4 +86,16 @@ class IfCondition
 		}
 	}
 
+	public function skipTypeSpecifyingFunctions(
+		object $object
+	)
+	{
+		if (is_object($object)) {
+
+		}
+		if (always_true()) {
+
+		}
+	}
+
 }

@@ -3,16 +3,23 @@
 namespace PHPStan\Rules\Comparison;
 
 use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\BooleanType;
 
 class ConstantConditionRuleHelper
 {
 
-	public static function getBooleanType(
-		Scope $scope,
-		Expr $expr
-	): BooleanType
+	/** @var ImpossibleCheckTypeHelper */
+	private $impossibleCheckTypeHelper;
+
+	public function __construct(ImpossibleCheckTypeHelper $impossibleCheckTypeHelper)
+	{
+		$this->impossibleCheckTypeHelper = $impossibleCheckTypeHelper;
+	}
+
+	public function getBooleanType(Scope $scope, Expr $expr): BooleanType
 	{
 		if (
 			$expr instanceof Expr\Instanceof_
@@ -25,6 +32,17 @@ class ConstantConditionRuleHelper
 		) {
 			// already checked by different rules
 			return new BooleanType();
+		}
+
+		if (
+			$expr instanceof FuncCall
+			|| $expr instanceof MethodCall
+			|| $expr instanceof Expr\StaticCall
+		) {
+			$isAlways = $this->impossibleCheckTypeHelper->findSpecifiedType($scope, $expr);
+			if ($isAlways !== null) {
+				return new BooleanType();
+			}
 		}
 
 		return $scope->getType($expr)->toBoolean();

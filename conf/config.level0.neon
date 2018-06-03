@@ -32,9 +32,6 @@ services:
 			checkClassCaseSensitivity: %checkClassCaseSensitivity%
 
 	-
-		class: PHPStan\Rules\Comparison\ImpossibleCheckTypeHelper
-
-	-
 		class: PHPStan\Rules\Exceptions\CaughtExceptionExistenceRule
 		tags:
 			- phpstan.rules.rule

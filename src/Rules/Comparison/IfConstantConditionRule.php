@@ -7,6 +7,16 @@ use PHPStan\Type\Constant\ConstantBooleanType;
 class IfConstantConditionRule implements \PHPStan\Rules\Rule
 {
 
+	/** @var ConstantConditionRuleHelper */
+	private $helper;
+
+	public function __construct(
+		ConstantConditionRuleHelper $helper
+	)
+	{
+		$this->helper = $helper;
+	}
+
 	public function getNodeType(): string
 	{
 		return \PhpParser\Node\Stmt\If_::class;
@@ -22,7 +32,7 @@ class IfConstantConditionRule implements \PHPStan\Rules\Rule
 		\PHPStan\Analyser\Scope $scope
 	): array
 	{
-		$exprType = ConstantConditionRuleHelper::getBooleanType($scope, $node->cond);
+		$exprType = $this->helper->getBooleanType($scope, $node->cond);
 		if ($exprType instanceof ConstantBooleanType) {
 			return [
 				sprintf(

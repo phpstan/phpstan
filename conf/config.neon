@@ -160,6 +160,12 @@ services:
 		class: PHPStan\Rules\ClassCaseSensitivityCheck
 
 	-
+		class: PHPStan\Rules\Comparison\ConstantConditionRuleHelper
+
+	-
+		class: PHPStan\Rules\Comparison\ImpossibleCheckTypeHelper
+
+	-
 		class: PHPStan\Rules\FunctionCallParametersCheck
 		arguments:
 			checkArgumentTypes: %checkFunctionArgumentTypes%

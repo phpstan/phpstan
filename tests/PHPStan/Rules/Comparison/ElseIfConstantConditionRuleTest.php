@@ -7,7 +7,13 @@ class ElseIfConstantConditionRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new ElseIfConstantConditionRule();
+		return new ElseIfConstantConditionRule(
+			new ConstantConditionRuleHelper(
+				new ImpossibleCheckTypeHelper(
+					$this->getTypeSpecifier()
+				)
+			)
+		);
 	}
 
 	public function testRule(): void

@@ -7,7 +7,13 @@ class BooleanNotConstantConditionRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new BooleanNotConstantConditionRule();
+		return new BooleanNotConstantConditionRule(
+			new ConstantConditionRuleHelper(
+				new ImpossibleCheckTypeHelper(
+					$this->getTypeSpecifier()
+				)
+			)
+		);
 	}
 
 	public function testRule(): void

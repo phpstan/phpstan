@@ -7,6 +7,16 @@ use PHPStan\Type\Constant\ConstantBooleanType;
 class BooleanAndConstantConditionRule implements \PHPStan\Rules\Rule
 {
 
+	/** @var ConstantConditionRuleHelper */
+	private $helper;
+
+	public function __construct(
+		ConstantConditionRuleHelper $helper
+	)
+	{
+		$this->helper = $helper;
+	}
+
 	public function getNodeType(): string
 	{
 		return \PhpParser\Node\Expr\BinaryOp\BooleanAnd::class;
@@ -23,7 +33,7 @@ class BooleanAndConstantConditionRule implements \PHPStan\Rules\Rule
 	): array
 	{
 		$messages = [];
-		$leftType = ConstantConditionRuleHelper::getBooleanType($scope, $node->left);
+		$leftType = $this->helper->getBooleanType($scope, $node->left);
 		if ($leftType instanceof ConstantBooleanType) {
 			$messages[] = sprintf(
 				'Left side of && is always %s.',
@@ -31,7 +41,7 @@ class BooleanAndConstantConditionRule implements \PHPStan\Rules\Rule
 			);
 		}
 
-		$rightType = ConstantConditionRuleHelper::getBooleanType(
+		$rightType = $this->helper->getBooleanType(
 			$scope->filterByTruthyValue($node->left),
 			$node->right
 		);

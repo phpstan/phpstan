@@ -7,7 +7,13 @@ class TernaryOperatorConstantConditionRuleTest extends \PHPStan\Testing\RuleTest
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new TernaryOperatorConstantConditionRule();
+		return new TernaryOperatorConstantConditionRule(
+			new ConstantConditionRuleHelper(
+				new ImpossibleCheckTypeHelper(
+					$this->getTypeSpecifier()
+				)
+			)
+		);
 	}
 
 	public function testRule(): void
