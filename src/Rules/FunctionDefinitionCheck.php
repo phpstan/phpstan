@@ -2,6 +2,7 @@
 
 namespace PHPStan\Rules;
 
+use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Name;
 use PhpParser\Node\NullableType;
@@ -122,7 +123,7 @@ class FunctionDefinitionCheck
 			}
 
 			if (!$this->broker->hasClass($class)) {
-				if (!is_string($param->var->name)) {
+				if (!$param->var instanceof Variable || !is_string($param->var->name)) {
 					throw new \PHPStan\ShouldNotHappenException();
 				}
 				$errors[] = sprintf($parameterMessage, $param->var->name, $class);

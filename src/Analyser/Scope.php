@@ -872,7 +872,7 @@ class Scope
 				if ($param->variadic) {
 					$isVariadic = true;
 				}
-				if (!is_string($param->var->name)) {
+				if (!$param->var instanceof Variable || !is_string($param->var->name)) {
 					throw new \PHPStan\ShouldNotHappenException();
 				}
 				$parameters[] = new NativeParameterReflection(
@@ -1504,7 +1504,7 @@ class Scope
 	{
 		$realParameterTypes = [];
 		foreach ($functionLike->getParams() as $parameter) {
-			if (!is_string($parameter->var->name)) {
+			if (!$parameter->var instanceof Variable || !is_string($parameter->var->name)) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
 			$realParameterTypes[$parameter->var->name] = $this->getFunctionType(
@@ -1633,7 +1633,7 @@ class Scope
 		foreach ($closure->params as $parameter) {
 			$isNullable = $this->isParameterValueNullable($parameter);
 
-			if (!is_string($parameter->var->name)) {
+			if (!$parameter->var instanceof Variable || !is_string($parameter->var->name)) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
 			$variableTypes[$parameter->var->name] = VariableTypeHolder::createYes(

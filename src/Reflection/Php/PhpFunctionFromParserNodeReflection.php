@@ -2,6 +2,7 @@
 
 namespace PHPStan\Reflection\Php;
 
+use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Reflection\FunctionVariant;
@@ -119,7 +120,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 					$isOptional = false;
 				}
 
-				if (!is_string($parameter->var->name)) {
+				if (!$parameter->var instanceof Variable || !is_string($parameter->var->name)) {
 					throw new \PHPStan\ShouldNotHappenException();
 				}
 				$parameters[] = new PhpParameterFromParserNodeReflection(
