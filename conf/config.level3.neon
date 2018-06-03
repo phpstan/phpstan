@@ -33,3 +33,11 @@ services:
 			reportMaybes: %reportMaybes%
 		tags:
 			- phpstan.rules.rule
+
+	-
+		class: PHPStan\Rules\Variables\ThrowTypeRule
+		arguments:
+			reportMaybes: %reportMaybes%
+			checkNullables: %checkNullables%
+		tags:
+			- phpstan.rules.rule

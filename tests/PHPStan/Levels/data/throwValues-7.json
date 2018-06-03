@@ -1,0 +1,7 @@
+[
+    {
+        "message": "Possibly invalid type Exception|null to throw.",
+        "line": 22,
+        "ignorable": true
+    }
+]

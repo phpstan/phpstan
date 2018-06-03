@@ -1,0 +1,12 @@
+[
+    {
+        "message": "Possibly invalid type Levels\\ThrowValues\\InvalidException to throw.",
+        "line": 20,
+        "ignorable": true
+    },
+    {
+        "message": "Possibly invalid type Levels\\ThrowValues\\InvalidInterfaceException to throw.",
+        "line": 21,
+        "ignorable": true
+    }
+]
