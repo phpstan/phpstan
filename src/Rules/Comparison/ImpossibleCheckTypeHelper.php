@@ -18,8 +18,15 @@ use PHPStan\Type\VerbosityLevel;
 class ImpossibleCheckTypeHelper
 {
 
-	public static function findSpecifiedType(
-		TypeSpecifier $typeSpecifier,
+	/** @var \PHPStan\Analyser\TypeSpecifier */
+	private $typeSpecifier;
+
+	public function __construct(TypeSpecifier $typeSpecifier)
+	{
+		$this->typeSpecifier = $typeSpecifier;
+	}
+
+	public function findSpecifiedType(
 		Scope $scope,
 		Expr $node
 	): ?bool
@@ -39,7 +46,7 @@ class ImpossibleCheckTypeHelper
 				return null;
 			}
 		}
-		$specifiedTypes = $typeSpecifier->specifyTypesInCondition($scope, $node, TypeSpecifierContext::createTruthy());
+		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($scope, $node, TypeSpecifierContext::createTruthy());
 		$sureTypes = $specifiedTypes->getSureTypes();
 		$sureNotTypes = $specifiedTypes->getSureNotTypes();
 
@@ -123,7 +130,7 @@ class ImpossibleCheckTypeHelper
 	 * @param \PhpParser\Node\Arg[] $args
 	 * @return string
 	 */
-	public static function getArgumentsDescription(
+	public function getArgumentsDescription(
 		Scope $scope,
 		array $args
 	): string

@@ -5,24 +5,23 @@ namespace PHPStan\Rules\Comparison;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PHPStan\Analyser\Scope;
-use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Reflection\MethodReflection;
 
 class ImpossibleCheckTypeMethodCallRule implements \PHPStan\Rules\Rule
 {
 
-	/** @var \PHPStan\Analyser\TypeSpecifier */
-	private $typeSpecifier;
+	/** @var \PHPStan\Rules\Comparison\ImpossibleCheckTypeHelper */
+	private $impossibleCheckTypeHelper;
 
 	/** @var bool */
 	private $checkAlwaysTrueCheckTypeFunctionCall;
 
 	public function __construct(
-		TypeSpecifier $typeSpecifier,
+		ImpossibleCheckTypeHelper $impossibleCheckTypeHelper,
 		bool $checkAlwaysTrueCheckTypeFunctionCall
 	)
 	{
-		$this->typeSpecifier = $typeSpecifier;
+		$this->impossibleCheckTypeHelper = $impossibleCheckTypeHelper;
 		$this->checkAlwaysTrueCheckTypeFunctionCall = $checkAlwaysTrueCheckTypeFunctionCall;
 	}
 
@@ -42,7 +41,7 @@ class ImpossibleCheckTypeMethodCallRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		$isAlways = ImpossibleCheckTypeHelper::findSpecifiedType($this->typeSpecifier, $scope, $node);
+		$isAlways = $this->impossibleCheckTypeHelper->findSpecifiedType($scope, $node);
 		if ($isAlways === null) {
 			return [];
 		}
@@ -53,7 +52,7 @@ class ImpossibleCheckTypeMethodCallRule implements \PHPStan\Rules\Rule
 				'Call to method %s::%s()%s will always evaluate to false.',
 				$method->getDeclaringClass()->getDisplayName(),
 				$method->getName(),
-				ImpossibleCheckTypeHelper::getArgumentsDescription($scope, $node->args)
+				$this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args)
 			)];
 		} elseif ($this->checkAlwaysTrueCheckTypeFunctionCall) {
 			$method = $this->getMethod($node->var, $node->name->name, $scope);
@@ -61,7 +60,7 @@ class ImpossibleCheckTypeMethodCallRule implements \PHPStan\Rules\Rule
 				'Call to method %s::%s()%s will always evaluate to true.',
 				$method->getDeclaringClass()->getDisplayName(),
 				$method->getName(),
-				ImpossibleCheckTypeHelper::getArgumentsDescription($scope, $node->args)
+				$this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args)
 			)];
 		}
 

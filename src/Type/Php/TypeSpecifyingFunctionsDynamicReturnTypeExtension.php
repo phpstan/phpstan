@@ -19,6 +19,9 @@ class TypeSpecifyingFunctionsDynamicReturnTypeExtension implements DynamicFuncti
 	/** @var \PHPStan\Analyser\TypeSpecifier */
 	private $typeSpecifier;
 
+	/** @var \PHPStan\Rules\Comparison\ImpossibleCheckTypeHelper|null */
+	private $helper;
+
 	public function setTypeSpecifier(TypeSpecifier $typeSpecifier): void
 	{
 		$this->typeSpecifier = $typeSpecifier;
@@ -55,8 +58,7 @@ class TypeSpecifyingFunctionsDynamicReturnTypeExtension implements DynamicFuncti
 			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
 		}
 
-		$isAlways = ImpossibleCheckTypeHelper::findSpecifiedType(
-			$this->typeSpecifier,
+		$isAlways = $this->getHelper()->findSpecifiedType(
 			$scope,
 			$functionCall
 		);
@@ -65,6 +67,15 @@ class TypeSpecifyingFunctionsDynamicReturnTypeExtension implements DynamicFuncti
 		}
 
 		return new ConstantBooleanType($isAlways);
+	}
+
+	private function getHelper(): ImpossibleCheckTypeHelper
+	{
+		if ($this->helper === null) {
+			$this->helper = new ImpossibleCheckTypeHelper($this->typeSpecifier);
+		}
+
+		return $this->helper;
 	}
 
 }

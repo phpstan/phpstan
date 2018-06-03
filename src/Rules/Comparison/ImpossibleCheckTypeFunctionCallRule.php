@@ -4,23 +4,22 @@ namespace PHPStan\Rules\Comparison;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
-use PHPStan\Analyser\TypeSpecifier;
 
 class ImpossibleCheckTypeFunctionCallRule implements \PHPStan\Rules\Rule
 {
 
-	/** @var \PHPStan\Analyser\TypeSpecifier */
-	private $typeSpecifier;
+	/** @var \PHPStan\Rules\Comparison\ImpossibleCheckTypeHelper */
+	private $impossibleCheckTypeHelper;
 
 	/** @var bool */
 	private $checkAlwaysTrueCheckTypeFunctionCall;
 
 	public function __construct(
-		TypeSpecifier $typeSpecifier,
+		ImpossibleCheckTypeHelper $impossibleCheckTypeHelper,
 		bool $checkAlwaysTrueCheckTypeFunctionCall
 	)
 	{
-		$this->typeSpecifier = $typeSpecifier;
+		$this->impossibleCheckTypeHelper = $impossibleCheckTypeHelper;
 		$this->checkAlwaysTrueCheckTypeFunctionCall = $checkAlwaysTrueCheckTypeFunctionCall;
 	}
 
@@ -44,7 +43,7 @@ class ImpossibleCheckTypeFunctionCallRule implements \PHPStan\Rules\Rule
 		if (strtolower($functionName) === 'is_a') {
 			return [];
 		}
-		$isAlways = ImpossibleCheckTypeHelper::findSpecifiedType($this->typeSpecifier, $scope, $node);
+		$isAlways = $this->impossibleCheckTypeHelper->findSpecifiedType($scope, $node);
 		if ($isAlways === null) {
 			return [];
 		}
@@ -53,13 +52,13 @@ class ImpossibleCheckTypeFunctionCallRule implements \PHPStan\Rules\Rule
 			return [sprintf(
 				'Call to function %s()%s will always evaluate to false.',
 				$functionName,
-				ImpossibleCheckTypeHelper::getArgumentsDescription($scope, $node->args)
+				$this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args)
 			)];
 		} elseif ($this->checkAlwaysTrueCheckTypeFunctionCall) {
 			return [sprintf(
 				'Call to function %s()%s will always evaluate to true.',
 				$functionName,
-				ImpossibleCheckTypeHelper::getArgumentsDescription($scope, $node->args)
+				$this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args)
 			)];
 		}
 
