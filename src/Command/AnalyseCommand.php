@@ -10,6 +10,7 @@ use PHPStan\File\FileHelper;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\StyleInterface;
 
@@ -48,17 +49,19 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
+		$errOutput = $output instanceof ConsoleOutputInterface ? $output->getErrorOutput() : $output;
+
 		$consoleStyle = new ErrorsConsoleStyle($input, $output);
 
 		$memoryLimit = $input->getOption('memory-limit');
 		if ($memoryLimit !== null) {
 
 			if (\Nette\Utils\Strings::match($memoryLimit, '#^-?\d+[kMG]?$#i') === null) {
-				$consoleStyle->error(sprintf('Invalid memory limit format "%s".', $memoryLimit));
+				$errOutput->writeln(sprintf('Invalid memory limit format "%s".', $memoryLimit));
 				return 1;
 			}
 			if (ini_set('memory_limit', $memoryLimit) === false) {
-				$consoleStyle->error(sprintf('Memory limit "%s" cannot be set.', $memoryLimit));
+				$errOutput->writeln(sprintf('Memory limit "%s" cannot be set.', $memoryLimit));
 				return 1;
 			}
 		}
@@ -86,7 +89,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				$discoverableConfigFile = $currentWorkingDirectory . DIRECTORY_SEPARATOR . $discoverableConfigName;
 				if (is_file($discoverableConfigFile)) {
 					$projectConfigFile = $discoverableConfigFile;
-					$output->writeln(sprintf('Note: Using configuration file %s.', $projectConfigFile));
+					$errOutput->writeln(sprintf('Note: Using configuration file %s.', $projectConfigFile));
 					break;
 				}
 			}
@@ -103,7 +106,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 		if ($projectConfigFile !== null) {
 			if (!is_file($projectConfigFile)) {
-				$output->writeln(sprintf('Project config file at path %s does not exist.', $projectConfigFile));
+				$errOutput->writeln(sprintf('Project config file at path %s does not exist.', $projectConfigFile));
 				return 1;
 			}
 
@@ -129,7 +132,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		if ($levelOption !== null) {
 			$levelConfigFile = sprintf('%s/config.level%s.neon', $containerFactory->getConfigDirectory(), $levelOption);
 			if (!is_file($levelConfigFile)) {
-				$output->writeln(sprintf('Level config file %s was not found.', $levelConfigFile));
+				$errOutput->writeln(sprintf('Level config file %s was not found.', $levelConfigFile));
 				return 1;
 			}
 
@@ -143,7 +146,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		if (!isset($tmpDir)) {
 			$tmpDir = sys_get_temp_dir() . '/phpstan';
 			if (!@mkdir($tmpDir, 0777, true) && !is_dir($tmpDir)) {
-				$consoleStyle->error(sprintf('Cannot create a temp directory %s', $tmpDir));
+				$errOutput->writeln(sprintf('Cannot create a temp directory %s', $tmpDir));
 				return 1;
 			}
 		}
@@ -155,16 +158,17 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			if ($memoryLimitFileContents === false) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
-			$consoleStyle->note(sprintf(
-				"PHPStan crashed in the previous run probably because of excessive memory consumption.\nIt consumed around %s of memory.\n\nTo avoid this issue, allow to use more memory with the --memory-limit option.",
-				$memoryLimitFileContents
-			));
+			$errOutput->writeln('PHPStan crashed in the previous run probably because of excessive memory consumption.');
+			$errOutput->writeln(sprintf('It consumed around %s of memory.', $memoryLimitFileContents));
+			$errOutput->writeln('');
+			$errOutput->writeln('');
+			$errOutput->writeln('To avoid this issue, allow to use more memory with the --memory-limit option.');
 			@unlink($memoryLimitFile);
 		}
 		$errorFormat = $input->getOption('errorFormat');
 		$errorFormatterServiceName = sprintf('errorFormatter.%s', $errorFormat);
 		if (!$container->hasService($errorFormatterServiceName)) {
-			$consoleStyle->error(sprintf(
+			$errOutput->writeln(sprintf(
 				'Error formatter "%s" not found. Available error formatters are: %s',
 				$errorFormat,
 				implode(', ', array_map(function (string $name) {
@@ -177,16 +181,16 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		$errorFormatter = $container->getService($errorFormatterServiceName);
 		$this->setUpSignalHandler($consoleStyle, $memoryLimitFile);
 		if (!isset($container->parameters['customRulesetUsed'])) {
-			$output->writeln('');
-			$output->writeln('<comment>No rules detected</comment>');
-			$output->writeln('');
-			$output->writeln('You have the following choices:');
-			$output->writeln('');
-			$output->writeln('* while running the analyse option, use the <info>--level</info> option to adjust your rule level - the higher the stricter');
-			$output->writeln('');
-			$output->writeln(sprintf('* create your own <info>custom ruleset</info> by selecting which rules you want to check by copying the service definitions from the built-in config level files in <options=bold>%s</>.', $fileHelper->normalizePath(__DIR__ . '/../../conf')));
-			$output->writeln('  * in this case, don\'t forget to define parameter <options=bold>customRulesetUsed</> in your config file.');
-			$output->writeln('');
+			$errOutput->writeln('');
+			$errOutput->writeln('<comment>No rules detected</comment>');
+			$errOutput->writeln('');
+			$errOutput->writeln('You have the following choices:');
+			$errOutput->writeln('');
+			$errOutput->writeln('* while running the analyse option, use the <info>--level</info> option to adjust your rule level - the higher the stricter');
+			$errOutput->writeln('');
+			$errOutput->writeln(sprintf('* create your own <info>custom ruleset</info> by selecting which rules you want to check by copying the service definitions from the built-in config level files in <options=bold>%s</>.', $fileHelper->normalizePath(__DIR__ . '/../../conf')));
+			$errOutput->writeln('  * in this case, don\'t forget to define parameter <options=bold>customRulesetUsed</> in your config file.');
+			$errOutput->writeln('');
 			return 1;
 		} elseif ((bool) $container->parameters['customRulesetUsed']) {
 			$defaultLevelUsed = false;
