@@ -20,6 +20,11 @@ class ObjectType implements TypeWithClassName
 
 	use TruthyBooleanTypeTrait;
 
+	private const EXTRA_OFFSET_CLASSES = [
+		'SimpleXMLElement' => true,
+		'DOMNodeList' => true,
+	];
+
 	/** @var string */
 	private $className;
 
@@ -368,9 +373,27 @@ class ObjectType implements TypeWithClassName
 		return new ErrorType();
 	}
 
+	private function isExtraOffsetAccessibleClass(): TrinaryLogic
+	{
+		$broker = Broker::getInstance();
+		if (!$broker->hasClass($this->className)) {
+			return TrinaryLogic::createMaybe();
+		}
+
+		$classReflection = $broker->getClass($this->className);
+
+		if (array_key_exists($classReflection->getName(), self::EXTRA_OFFSET_CLASSES)) {
+			return TrinaryLogic::createYes();
+		}
+
+		return TrinaryLogic::createNo();
+	}
+
 	public function isOffsetAccessible(): TrinaryLogic
 	{
-		return $this->isInstanceOf(\ArrayAccess::class);
+		return $this->isInstanceOf(\ArrayAccess::class)->or(
+			$this->isExtraOffsetAccessibleClass()
+		);
 	}
 
 	public function getOffsetValueType(Type $offsetType): Type
@@ -379,6 +402,10 @@ class ObjectType implements TypeWithClassName
 
 		if (!$broker->hasClass($this->className)) {
 			return new ErrorType();
+		}
+
+		if (!$this->isExtraOffsetAccessibleClass()->no()) {
+			return new MixedType();
 		}
 
 		$classReflection = $broker->getClass($this->className);
