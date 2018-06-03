@@ -3,6 +3,7 @@
 namespace PHPStan\Rules\PhpDoc;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\Variable;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\ErrorType;
@@ -132,7 +133,7 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 		$nativeParameterTypes = [];
 		foreach ($node->getParams() as $parameter) {
 			$isNullable = $scope->isParameterValueNullable($parameter);
-			if (!is_string($parameter->var->name)) {
+			if (!$parameter->var instanceof Variable || !is_string($parameter->var->name)) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
 			$nativeParameterTypes[$parameter->var->name] = $scope->getFunctionType(

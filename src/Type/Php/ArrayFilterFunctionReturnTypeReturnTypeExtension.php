@@ -4,6 +4,7 @@ namespace PHPStan\Type\Php;
 
 use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
@@ -34,7 +35,7 @@ class ArrayFilterFunctionReturnTypeReturnTypeExtension implements \PHPStan\Type\
 			if ($flagArg === null && $callbackArg instanceof Closure && count($callbackArg->stmts) === 1) {
 				$statement = $callbackArg->stmts[0];
 				if ($statement instanceof Return_ && $statement->expr !== null && count($callbackArg->params) > 0) {
-					if (!is_string($callbackArg->params[0]->var->name)) {
+					if (!$callbackArg->params[0]->var instanceof Variable || !is_string($callbackArg->params[0]->var->name)) {
 						throw new \PHPStan\ShouldNotHappenException();
 					}
 					$itemVariableName = $callbackArg->params[0]->var->name;
