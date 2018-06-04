@@ -5,7 +5,7 @@ namespace PHPStan\Command\ErrorFormatter;
 class TableErrorFormatterTest extends TestBaseFormatter
 {
 
-	public function tableOutputProvider(): iterable
+	public function dataFormatterOutputProvider(): iterable
 	{
 		yield [
 			'No errors',
@@ -124,13 +124,13 @@ class TableErrorFormatterTest extends TestBaseFormatter
 	}
 
 	/**
-	 * @param string $message          Test message
-	 * @param int    $exitCode         Expected exit code from the application
-	 * @param int    $numFileErrors    Number of errors for file
-	 * @param int    $numGenericErrors Number of generic errors
-	 * @param string $expected         Expected output
+	 * @dataProvider dataFormatterOutputProvider
 	 *
-	 * @dataProvider tableOutputProvider
+	 * @param string $message
+	 * @param int    $exitCode
+	 * @param int    $numFileErrors
+	 * @param int    $numGenericErrors
+	 * @param string $expected
 	 */
 	public function testFormatErrors(
 		string $message,

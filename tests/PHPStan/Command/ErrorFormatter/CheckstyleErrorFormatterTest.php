@@ -5,7 +5,7 @@ namespace PHPStan\Command\ErrorFormatter;
 class CheckstyleErrorFormatterTest extends TestBaseFormatter
 {
 
-	public function checkstyleOutputProvider(): iterable
+	public function dataFormatterOutputProvider(): iterable
 	{
 		yield [
 			'No errors',
@@ -94,13 +94,13 @@ class CheckstyleErrorFormatterTest extends TestBaseFormatter
 	}
 
 	/**
-	 * @param string $message          Test message
-	 * @param int    $exitCode         Expected exit code from the application
-	 * @param int    $numFileErrors    Number of errors for file
-	 * @param int    $numGenericErrors Number of generic errors
-	 * @param string $expected         Expected output
+	 * @dataProvider dataFormatterOutputProvider
 	 *
-	 * @dataProvider checkstyleOutputProvider
+	 * @param string $message
+	 * @param int    $exitCode
+	 * @param int    $numFileErrors
+	 * @param int    $numGenericErrors
+	 * @param string $expected
 	 */
 	public function testFormatErrors(
 		string $message,
