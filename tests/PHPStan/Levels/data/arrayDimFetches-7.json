@@ -1,6 +1,6 @@
 [
     {
-        "message": "Accessing offset 0 on possibly null value of type array|null.",
+        "message": "Cannot access offset 0 on array|null.",
         "line": 11,
         "ignorable": true
     }

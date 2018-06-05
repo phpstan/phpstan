@@ -112,7 +112,7 @@ class RuleLevelHelper
 			return new FoundTypeResult(new ErrorType(), [], []);
 		}
 		$type = $scope->getType($var);
-		if (!$type instanceof NullType) {
+		if (!$this->checkNullables && !$type instanceof NullType) {
 			$type = \PHPStan\Type\TypeCombinator::removeNull($type);
 		}
 		if ($type instanceof MixedType || $type instanceof NeverType) {

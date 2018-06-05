@@ -145,6 +145,22 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				168,
 			],
 			[
+				'Cannot call method ipsum() on Test\Foo|null.',
+				183,
+			],
+			[
+				'Cannot call method ipsum() on Test\Bar|null.',
+				184,
+			],
+			[
+				'Cannot call method ipsum() on Test\Foo|null.',
+				201,
+			],
+			[
+				'Cannot call method ipsum() on Test\Bar|null.',
+				202,
+			],
+			[
 				'Method DateTimeZone::getTransitions() invoked with 3 parameters, 0-2 required.',
 				214,
 			],
@@ -175,6 +191,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Call to method test() on an unknown class Test\SecondUnknownClass.',
 				312,
+			],
+			[
+				'Cannot call method ipsum() on Test\Foo|null.',
+				325,
 			],
 			[
 				'Call to an undefined method Test\WithFooAndBarMethod|Test\WithFooMethod::bar().',
@@ -209,23 +229,23 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				446,
 			],
 			[
-				'Method Test\NullCoalesce::find() invoked with 1 parameter, 0 required.',
+				'Cannot call method find() on Test\NullCoalesce|null.',
 				516,
 			],
 			[
-				'Method Test\NullCoalesce::find() invoked with 1 parameter, 0 required.',
+				'Cannot call method find() on Test\NullCoalesce|null.',
 				518,
 			],
 			[
-				'Method Test\NullCoalesce::find() invoked with 1 parameter, 0 required.',
+				'Cannot call method find() on Test\NullCoalesce|null.',
 				522,
 			],
 			[
-				'Method Test\NullCoalesce::find() invoked with 1 parameter, 0 required.',
+				'Cannot call method find() on Test\NullCoalesce|null.',
 				524,
 			],
 			[
-				'Method Test\NullCoalesce::find() invoked with 1 parameter, 0 required.',
+				'Cannot call method find() on Test\NullCoalesce|null.',
 				524,
 			],
 			[

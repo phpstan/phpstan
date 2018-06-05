@@ -1,21 +1,21 @@
 [
     {
-        "message": "Calling method doFoo() on possibly null value of type Levels\\MethodCalls\\Foo|null.",
+        "message": "Cannot call method doFoo() on Levels\\MethodCalls\\Foo|null.",
         "line": 56,
         "ignorable": true
     },
     {
-        "message": "Calling method doFoo() on possibly null value of type Levels\\MethodCalls\\Foo|null.",
+        "message": "Cannot call method doFoo() on Levels\\MethodCalls\\Foo|null.",
         "line": 57,
         "ignorable": true
     },
     {
-        "message": "Calling method doFoo() on possibly null value of type Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Foo|null.",
+        "message": "Cannot call method doFoo() on Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Foo|null.",
         "line": 59,
         "ignorable": true
     },
     {
-        "message": "Calling method doFoo() on possibly null value of type Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Foo|null.",
+        "message": "Cannot call method doFoo() on Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Foo|null.",
         "line": 60,
         "ignorable": true
     }

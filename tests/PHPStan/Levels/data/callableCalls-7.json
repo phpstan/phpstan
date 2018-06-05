@@ -1,16 +1,16 @@
 [
     {
-        "message": "Invoking possibly null value of type Closure<mixed>|null.",
+        "message": "Trying to invoke Closure<mixed>|null but it might not be a callable.",
         "line": 37,
         "ignorable": true
     },
     {
-        "message": "Invoking possibly null value of type Closure<mixed>|null.",
+        "message": "Trying to invoke Closure<mixed>|null but it might not be a callable.",
         "line": 38,
         "ignorable": true
     },
     {
-        "message": "Invoking possibly null value of type int|null.",
+        "message": "Trying to invoke int|null but it's not a callable.",
         "line": 43,
         "ignorable": true
     }

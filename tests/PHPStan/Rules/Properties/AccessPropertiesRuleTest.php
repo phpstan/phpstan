@@ -107,6 +107,10 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 					193,
 				],
 				[
+					'Cannot access property $ipsum on TestAccessProperties\FooAccessProperties|null.',
+					207,
+				],
+				[
 					'Cannot access property $foo on null.',
 					220,
 				],
@@ -127,7 +131,15 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 					269,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\NullCoalesce::$bar.',
+					'Cannot access property $bar on TestAccessProperties\NullCoalesce|null.',
+					271,
+				],
+				[
+					'Cannot access property $foo on TestAccessProperties\NullCoalesce|null.',
+					271,
+				],
+				[
+					'Cannot access property $foo on TestAccessProperties\NullCoalesce|null.',
 					271,
 				],
 				[
@@ -242,7 +254,7 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 					269,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\NullCoalesce::$bar.',
+					'Cannot access property $bar on TestAccessProperties\NullCoalesce|null.',
 					271,
 				],
 				[

@@ -1,21 +1,21 @@
 [
     {
-        "message": "Accessing property $foo on possibly null value of type Levels\\PropertyAccesses\\Foo|null.",
+        "message": "Cannot access property $foo on Levels\\PropertyAccesses\\Foo|null.",
         "line": 60,
         "ignorable": true
     },
     {
-        "message": "Accessing property $bar on possibly null value of type Levels\\PropertyAccesses\\Foo|null.",
+        "message": "Cannot access property $bar on Levels\\PropertyAccesses\\Foo|null.",
         "line": 61,
         "ignorable": true
     },
     {
-        "message": "Accessing property $foo on possibly null value of type Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo|null.",
+        "message": "Cannot access property $foo on Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo|null.",
         "line": 63,
         "ignorable": true
     },
     {
-        "message": "Accessing property $bar on possibly null value of type Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo|null.",
+        "message": "Cannot access property $bar on Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo|null.",
         "line": 64,
         "ignorable": true
     }
