@@ -4,27 +4,28 @@ namespace PHPStan\Rules\Variables;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
-use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
 
 class ThrowTypeRule implements \PHPStan\Rules\Rule
 {
 
+	/** @var \PHPStan\Rules\RuleLevelHelper */
+	private $ruleLevelHelper;
+
 	/** @var bool */
 	private $reportMaybes;
 
-	/** @var bool */
-	private $checkNullables;
-
 	public function __construct(
-		bool $reportMaybes,
-		bool $checkNullables
+		RuleLevelHelper $ruleLevelHelper,
+		bool $reportMaybes
 	)
 	{
+		$this->ruleLevelHelper = $ruleLevelHelper;
 		$this->reportMaybes = $reportMaybes;
-		$this->checkNullables = $checkNullables;
 	}
 
 	public function getNodeType(): string
@@ -39,16 +40,21 @@ class ThrowTypeRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		$type = $scope->getType($node->expr);
+		$throwableType = new ObjectType(\Throwable::class);
+		$typeResult = $this->ruleLevelHelper->findTypeToCheck(
+			$scope,
+			$node->expr,
+			'Throwing object of an unknown class %s.',
+			function (Type $type) use ($throwableType): bool {
+				return $throwableType->isSuperTypeOf($type)->yes();
+			}
+		);
+
+		$type = $typeResult->getType();
 		if ($type instanceof MixedType && !$type->isExplicitMixed()) {
 			return [];
 		}
 
-		if (!$this->checkNullables) {
-			$type = TypeCombinator::removeNull($type);
-		}
-
-		$throwableType = new ObjectType(\Throwable::class);
 		$isSuperType = $throwableType->isSuperTypeOf($type);
 
 		if ($isSuperType->no()) {

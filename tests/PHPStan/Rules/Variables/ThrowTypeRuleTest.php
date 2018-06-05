@@ -2,12 +2,14 @@
 
 namespace PHPStan\Rules\Variables;
 
+use PHPStan\Rules\RuleLevelHelper;
+
 class ThrowTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new ThrowTypeRule(true, true);
+		return new ThrowTypeRule(new RuleLevelHelper($this->createBroker(), true, false, true), true);
 	}
 
 	public function testAccessPropertiesOnPossiblyNullRuleTest(): void

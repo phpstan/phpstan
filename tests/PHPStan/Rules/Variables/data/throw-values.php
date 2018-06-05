@@ -20,4 +20,5 @@ function () {
 	throw new InvalidException();
 	throw $invalidInterface;
 	throw $nullableException;
+	throw foo();
 };
