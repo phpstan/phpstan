@@ -442,6 +442,26 @@ class Scope
 			$leftType = $this->getType($node->left);
 			$rightType = $this->getType($node->right);
 
+			if (
+				(
+					$node->left instanceof Node\Expr\PropertyFetch
+					|| $node->left instanceof Node\Expr\StaticPropertyFetch
+				)
+				&& $rightType instanceof NullType
+			) {
+				return new BooleanType();
+			}
+
+			if (
+				(
+					$node->right instanceof Node\Expr\PropertyFetch
+					|| $node->right instanceof Node\Expr\StaticPropertyFetch
+				)
+				&& $leftType instanceof NullType
+			) {
+				return new BooleanType();
+			}
+
 			$isSuperset = $leftType->isSuperTypeOf($rightType);
 			if ($isSuperset->no()) {
 				return new ConstantBooleanType(false);
@@ -460,6 +480,26 @@ class Scope
 		if ($node instanceof Expr\BinaryOp\NotIdentical) {
 			$leftType = $this->getType($node->left);
 			$rightType = $this->getType($node->right);
+
+			if (
+				(
+					$node->left instanceof Node\Expr\PropertyFetch
+					|| $node->left instanceof Node\Expr\StaticPropertyFetch
+				)
+				&& $rightType instanceof NullType
+			) {
+				return new BooleanType();
+			}
+
+			if (
+				(
+					$node->right instanceof Node\Expr\PropertyFetch
+					|| $node->right instanceof Node\Expr\StaticPropertyFetch
+				)
+				&& $leftType instanceof NullType
+			) {
+				return new BooleanType();
+			}
 
 			$isSuperset = $leftType->isSuperTypeOf($rightType);
 			if ($isSuperset->no()) {

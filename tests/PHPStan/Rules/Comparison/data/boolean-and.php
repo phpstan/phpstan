@@ -69,3 +69,21 @@ class BooleanAnd
 	}
 
 }
+
+class NonNullablePropertiesShouldNotReportError
+{
+
+	/** @var self */
+	private $foo;
+
+	/** @var self */
+	private $bar;
+
+	public function doFoo()
+	{
+		if ($this->foo !== null && $this->bar !== null) {
+
+		}
+	}
+
+}

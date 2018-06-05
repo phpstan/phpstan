@@ -6,7 +6,6 @@ use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\Constant\ConstantBooleanType;
-use PHPStan\Type\NullType;
 use PHPStan\Type\VerbosityLevel;
 
 class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
@@ -43,33 +42,13 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		$leftType = $scope->getType($node->left);
-		$rightType = $scope->getType($node->right);
-
-		if (
-			(
-				$node->left instanceof Node\Expr\PropertyFetch
-				|| $node->left instanceof Node\Expr\StaticPropertyFetch
-			)
-			&& $rightType instanceof NullType
-		) {
-			return [];
-		}
-
-		if (
-			(
-				$node->right instanceof Node\Expr\PropertyFetch
-				|| $node->right instanceof Node\Expr\StaticPropertyFetch
-			)
-			&& $leftType instanceof NullType
-		) {
-			return [];
-		}
-
 		$nodeType = $scope->getType($node);
 		if (!$nodeType instanceof ConstantBooleanType) {
 			return [];
 		}
+
+		$leftType = $scope->getType($node->left);
+		$rightType = $scope->getType($node->right);
 
 		if (!$nodeType->getValue()) {
 			return [
