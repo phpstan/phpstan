@@ -90,6 +90,18 @@ class InvalidBinaryOperationRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Binary operation "/" between 5 and 0|1 results in an error.',
 				116,
 			],
+			[
+				'Binary operation "." between array and \'xyz\' results in an error.',
+				121,
+			],
+			[
+				'Binary operation "." between array|string and \'xyz\' results in an error.',
+				128,
+			],
+			[
+				'Binary operation "+" between (array|string) and 1 results in an error.',
+				130,
+			],
 		]);
 	}
 

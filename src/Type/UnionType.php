@@ -474,7 +474,7 @@ class UnionType implements CompoundType, StaticResolvableType
 		return TrinaryLogic::extremeIdentity(...array_map($getResult, $this->types));
 	}
 
-	private function unionTypes(callable $getType): Type
+	protected function unionTypes(callable $getType): Type
 	{
 		return TypeCombinator::union(...array_map($getType, $this->types));
 	}

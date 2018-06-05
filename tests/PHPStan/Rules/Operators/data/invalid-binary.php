@@ -115,3 +115,17 @@ function () {
 
 	5 / $possibleZero;
 };
+
+function ($a, array $b, string $c) {
+	echo str_replace('abc', 'def', $a) . 'xyz';
+	echo str_replace('abc', 'def', $b) . 'xyz';
+	echo str_replace('abc', 'def', $c) . 'xyz';
+
+	$strOrArray = 'str';
+	if (rand(0, 1) === 0) {
+		$strOrArray = [];
+	}
+	echo str_replace('abc', 'def', $strOrArray) . 'xyz';
+
+	echo str_replace('abc', 'def', $a) + 1;
+};
