@@ -877,4 +877,17 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
+	public function testWithoutCheckUnionTypes(): void
+	{
+		$this->checkThisOnly = false;
+		$this->checkNullables = true;
+		$this->checkUnionTypes = false;
+		$this->analyse([__DIR__ . '/data/without-union-types.php'], [
+			[
+				'Method CallMethodsWithoutUnionTypes\Foo::doFoo() invoked with 3 parameters, 0 required.',
+				14,
+			],
+		]);
+	}
+
 }

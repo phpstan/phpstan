@@ -208,6 +208,27 @@ class UnionType implements CompoundType, StaticResolvableType
 		);
 	}
 
+	private function hasInternal(
+		callable $canCallback,
+		callable $hasCallback
+	): bool
+	{
+		$typesWithCan = 0;
+		$typesWithHas = 0;
+		foreach ($this->types as $type) {
+			if ($canCallback($type)->no()) {
+				continue;
+			}
+			$typesWithCan++;
+			if (!$hasCallback($type)) {
+				continue;
+			}
+			$typesWithHas++;
+		}
+
+		return $typesWithCan > 0 && $typesWithHas === $typesWithCan;
+	}
+
 	public function canAccessProperties(): TrinaryLogic
 	{
 		return $this->unionResults(function (Type $type): TrinaryLogic {
@@ -217,22 +238,20 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function hasProperty(string $propertyName): bool
 	{
-		foreach ($this->types as $type) {
-			if ($type instanceof NullType) {
-				continue;
+		return $this->hasInternal(
+			function (Type $type): TrinaryLogic {
+				return $type->canAccessProperties();
+			},
+			function (Type $type) use ($propertyName): bool {
+				return $type->hasProperty($propertyName);
 			}
-			if (!$type->hasProperty($propertyName)) {
-				return false;
-			}
-		}
-
-		return true;
+		);
 	}
 
 	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
 	{
 		foreach ($this->types as $type) {
-			if ($type instanceof NullType) {
+			if ($type->canAccessProperties()->no()) {
 				continue;
 			}
 			return $type->getProperty($propertyName, $scope);
@@ -250,22 +269,20 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function hasMethod(string $methodName): bool
 	{
-		foreach ($this->types as $type) {
-			if ($type instanceof NullType) {
-				continue;
+		return $this->hasInternal(
+			function (Type $type): TrinaryLogic {
+				return $type->canCallMethods();
+			},
+			function (Type $type) use ($methodName): bool {
+				return $type->hasMethod($methodName);
 			}
-			if (!$type->hasMethod($methodName)) {
-				return false;
-			}
-		}
-
-		return true;
+		);
 	}
 
 	public function getMethod(string $methodName, Scope $scope): MethodReflection
 	{
 		foreach ($this->types as $type) {
-			if ($type instanceof NullType) {
+			if ($type->canCallMethods()->no()) {
 				continue;
 			}
 			return $type->getMethod($methodName, $scope);
@@ -283,22 +300,20 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function hasConstant(string $constantName): bool
 	{
-		foreach ($this->types as $type) {
-			if ($type instanceof NullType) {
-				continue;
+		return $this->hasInternal(
+			function (Type $type): TrinaryLogic {
+				return $type->canAccessConstants();
+			},
+			function (Type $type) use ($constantName): bool {
+				return $type->hasConstant($constantName);
 			}
-			if (!$type->hasConstant($constantName)) {
-				return false;
-			}
-		}
-
-		return true;
+		);
 	}
 
 	public function getConstant(string $constantName): ConstantReflection
 	{
 		foreach ($this->types as $type) {
-			if ($type instanceof NullType) {
+			if ($type->canAccessConstants()->no()) {
 				continue;
 			}
 			return $type->getConstant($constantName);

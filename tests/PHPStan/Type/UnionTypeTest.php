@@ -611,4 +611,45 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataHasMethod(): array
+	{
+		return [
+			[
+				new UnionType([new ObjectType(\DateTimeImmutable::class), new IntegerType()]),
+				'format',
+				true,
+			],
+			[
+				new UnionType([new ObjectType(\DateTimeImmutable::class), new ObjectType(\DateTime::class)]),
+				'format',
+				true,
+			],
+			[
+				new UnionType([new FloatType(), new IntegerType()]),
+				'format',
+				false,
+			],
+			[
+				new UnionType([new ObjectType(\DateTimeImmutable::class), new NullType()]),
+				'format',
+				true,
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataHasMethod
+	 * @param UnionType $type
+	 * @param string $methodName
+	 * @param bool $expectedResult
+	 */
+	public function testHasMethod(
+		UnionType $type,
+		string $methodName,
+		bool $expectedResult
+	): void
+	{
+		$this->assertSame($expectedResult, $type->hasMethod($methodName));
+	}
+
 }
