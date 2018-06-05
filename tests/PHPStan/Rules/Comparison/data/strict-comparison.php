@@ -470,3 +470,46 @@ class CheckDefaultArrayKeys
 	}
 
 }
+
+class DoNotReportPropertyFetchAndNullComparison
+{
+
+	/** @var self */
+	private $foo;
+
+	/** @var self */
+	private static $bar;
+
+	public function doFoo()
+	{
+		if ($this->foo === null) {
+
+		}
+		if ($this->foo !== null) {
+
+		}
+		if (null === $this->foo) {
+
+		}
+		if (null !== $this->foo) {
+
+		}
+	}
+
+	public function doBar()
+	{
+		if (self::$bar === null) {
+
+		}
+		if (self::$bar !== null) {
+
+		}
+		if (null === self::$bar) {
+
+		}
+		if (null !== self::$bar) {
+
+		}
+	}
+
+}
