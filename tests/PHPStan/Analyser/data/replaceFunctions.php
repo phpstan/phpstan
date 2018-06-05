@@ -2,7 +2,7 @@
 
 namespace ReplaceFunctions;
 
-function () {
+function ($mixed) {
 
 	$array = ['a' => 'a', 'b' => 'b'];
 	$string = 'str';
@@ -18,6 +18,7 @@ function () {
 	$expectedString = str_replace('aaa', 'bbb', $string);
 	$expectedArray = str_replace('aaa', 'bbb', $array);
 	$expectedArrayOrString = str_replace('aaa', 'bbb', $arrayOrString);
+	$expectedBenevolentArrayOrString = str_replace('aaa', 'bbb', $mixed);
 
 	$anotherExpectedString = preg_replace('aaa', 'bbb', $string);
 	$anotherExpectedArray = preg_replace('aaa', 'bbb', $array);

@@ -41,6 +41,10 @@ class ReplaceFunctionsDynamicReturnTypeExtension implements DynamicFunctionRetur
 		}
 
 		$subjectArgumentType = $scope->getType($functionCall->args[$argumentPosition]->value);
+		$defaultReturnType = ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+		if ($subjectArgumentType instanceof MixedType) {
+			return TypeUtils::toBenevolentUnion($defaultReturnType);
+		}
 		$stringType = new StringType();
 		$arrayType = new ArrayType(new MixedType(), new MixedType());
 
@@ -56,9 +60,7 @@ class ReplaceFunctionsDynamicReturnTypeExtension implements DynamicFunctionRetur
 			return $subjectArgumentType;
 		}
 
-		$returnType = ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
-
-		return TypeUtils::toBenevolentUnion($returnType);
+		return $defaultReturnType;
 	}
 
 }

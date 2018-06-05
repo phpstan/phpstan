@@ -5726,15 +5726,19 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$anotherExpectedArray',
 			],
 			[
-				'(array|string)',
+				'array|string',
 				'$expectedArrayOrString',
 			],
 			[
 				'(array|string)',
+				'$expectedBenevolentArrayOrString',
+			],
+			[
+				'array|string',
 				'$expectedArrayOrString2',
 			],
 			[
-				'(array|string)',
+				'array|string',
 				'$anotherExpectedArrayOrString',
 			],
 			[
