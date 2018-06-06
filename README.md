@@ -384,8 +384,9 @@ interface ErrorFormatter
 Register the formatter in your `phpstan.neon`:
 
 ```
-errorFormatter.awesome:
-	class: App\PHPStan\AwesomeErrorFormatter
+services:
+	errorFormatter.awesome:
+		class: App\PHPStan\AwesomeErrorFormatter
 ```
 
 Use the name part after `errorFormatter.` as the CLI option value:
