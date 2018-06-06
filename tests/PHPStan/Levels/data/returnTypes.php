@@ -53,4 +53,15 @@ class Foo
 		return;
 	}
 
+	/**
+	 * @param array<string, bool|int|string|null> $array
+	 * @return string[]|null
+	 */
+	public function returnArrayOrNull(
+		$array
+	): ?array
+	{
+		return $array;
+	}
+
 }

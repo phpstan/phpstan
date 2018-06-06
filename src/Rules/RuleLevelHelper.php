@@ -6,6 +6,7 @@ use PhpParser\Node\Expr;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\CompoundType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
@@ -76,6 +77,16 @@ class RuleLevelHelper
 			}
 
 			return true;
+		}
+
+		if ($acceptingType instanceof UnionType && !$acceptedType instanceof CompoundType) {
+			foreach ($acceptingType->getTypes() as $innerType) {
+				if (self::accepts($innerType, $acceptedType)) {
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		if (!$this->checkUnionTypes && $acceptedType instanceof UnionType) {
