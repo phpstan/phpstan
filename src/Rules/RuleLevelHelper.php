@@ -6,6 +6,7 @@ use PhpParser\Node\Expr;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\CallableType;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
@@ -107,6 +108,15 @@ class RuleLevelHelper
 				$acceptingType->getItemType(),
 				$acceptedType->getItemType()
 			);
+		}
+
+		if ($acceptingType instanceof CallableType && !$acceptedType instanceof CompoundType) {
+			$isCallable = $acceptedType->isCallable();
+			if (!$this->checkUnionTypes) {
+				return !$isCallable->no();
+			}
+
+			return $isCallable->yes();
 		}
 
 		return $acceptingType->accepts($acceptedType);

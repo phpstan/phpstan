@@ -43,5 +43,10 @@
         "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Foo::doBarArray() expects array<int>, array<int, float|string> given.",
         "line": 118,
         "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $callable of method Levels\\AcceptTypes\\Foo::expectCallable() expects callable, string given.",
+        "line": 132,
+        "ignorable": true
     }
 ]

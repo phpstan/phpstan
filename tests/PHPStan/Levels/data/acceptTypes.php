@@ -120,4 +120,22 @@ class Foo
 		$this->doBarArray($intsAndFloats);
 	}
 
+	/**
+	 * @param array<int, mixed> $array
+	 */
+	public function callableArray(
+		array $array
+	)
+	{
+		$this->expectCallable($array);
+		$this->expectCallable('date');
+		$this->expectCallable('nonexistentFunction');
+		$this->expectCallable([$this, 'doFoo']);
+	}
+
+	public function expectCallable(callable $callable)
+	{
+
+	}
+
 }
