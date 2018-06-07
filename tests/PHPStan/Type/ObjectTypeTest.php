@@ -206,6 +206,11 @@ class ObjectTypeTest extends \PHPStan\Testing\TestCase
 				new ClosureType([], new MixedType(), false),
 				TrinaryLogic::createYes(),
 			],
+			[
+				new ObjectType(\Countable::class),
+				new IterableType(new MixedType(), new MixedType()),
+				TrinaryLogic::createMaybe(),
+			],
 		];
 	}
 
