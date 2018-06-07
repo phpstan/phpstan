@@ -42,14 +42,14 @@ class NullType implements ConstantScalarType
 		return $this;
 	}
 
-	public function accepts(Type $type): bool
+	public function accepts(Type $type, bool $strictTypes): bool
 	{
 		if ($type instanceof self) {
 			return true;
 		}
 
 		if ($type instanceof CompoundType) {
-			return CompoundTypeHelper::accepts($type, $this);
+			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
 		}
 
 		return false;

@@ -80,7 +80,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 					return [
 						sprintf(
 							'Calling %s::%s() outside of class scope.',
-							$class,
+							$className,
 							$methodName
 						),
 					];

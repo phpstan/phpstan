@@ -47,15 +47,15 @@ class IterableType implements StaticResolvableType, CompoundType
 		);
 	}
 
-	public function accepts(Type $type): bool
+	public function accepts(Type $type, bool $strictTypes): bool
 	{
 		if ($type instanceof CompoundType) {
-			return CompoundTypeHelper::accepts($type, $this);
+			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
 		}
 
 		if ($type->isIterable()->yes()) {
-			return $this->getIterableValueType()->accepts($type->getIterableValueType())
-				&& $this->getIterableKeyType()->accepts($type->getIterableKeyType());
+			return $this->getIterableValueType()->accepts($type->getIterableValueType(), $strictTypes)
+				&& $this->getIterableKeyType()->accepts($type->getIterableKeyType(), $strictTypes);
 		}
 
 		return false;

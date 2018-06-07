@@ -40,7 +40,7 @@ class ConstantIntegerTypeTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testAccepts(ConstantIntegerType $type, Type $otherType, bool $expectedResult): void
 	{
-		$actualResult = $type->accepts($otherType);
+		$actualResult = $type->accepts($otherType, true);
 		$this->assertSame(
 			$expectedResult,
 			$actualResult,

@@ -144,14 +144,15 @@ class FunctionCallParametersCheck
 						new MixedType(),
 						$parameterType->getIterableValueType()
 					),
-					$argumentValueType
+					$argumentValueType,
+					$scope->isDeclareStrictTypes()
 				);
 			}
 
 			if (
 				$this->checkArgumentTypes
 				&& !$parameter->passedByReference()->createsNewVariable()
-				&& !$this->ruleLevelHelper->accepts($parameterType, $argumentValueType)
+				&& !$this->ruleLevelHelper->accepts($parameterType, $argumentValueType, $scope->isDeclareStrictTypes())
 				&& ($secondAccepts === null || !$secondAccepts)
 			) {
 				$errors[] = sprintf(

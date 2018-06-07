@@ -75,7 +75,7 @@ class AppendedArrayItemTypeRule implements \PHPStan\Rules\Rule
 			$assignedValueType = $scope->getType($node);
 		}
 
-		if (!$this->ruleLevelHelper->accepts($assignedToType->getItemType(), $assignedValueType)) {
+		if (!$this->ruleLevelHelper->accepts($assignedToType->getItemType(), $assignedValueType, $scope->isDeclareStrictTypes())) {
 			return [
 				sprintf(
 					'Array (%s) does not accept %s.',

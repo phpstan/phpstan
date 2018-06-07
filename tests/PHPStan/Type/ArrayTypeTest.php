@@ -102,7 +102,7 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 		bool $expectedResult
 	): void
 	{
-		$actualResult = $acceptingType->accepts($acceptedType);
+		$actualResult = $acceptingType->accepts($acceptedType, true);
 		$this->assertSame(
 			$expectedResult,
 			$actualResult,

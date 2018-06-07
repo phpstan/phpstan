@@ -28,7 +28,7 @@ class FloatType implements Type
 		return [];
 	}
 
-	public function accepts(Type $type): bool
+	public function accepts(Type $type, bool $strictTypes): bool
 	{
 		if ($type instanceof self || $type instanceof IntegerType) {
 			return true;
@@ -38,7 +38,7 @@ class FloatType implements Type
 			return CompoundTypeHelper::accepts($type, new UnionType([
 				$this,
 				new IntegerType(),
-			]));
+			]), $strictTypes);
 		}
 
 		return false;

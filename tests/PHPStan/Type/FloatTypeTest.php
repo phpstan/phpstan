@@ -54,7 +54,7 @@ class FloatTypeTest extends \PHPStan\Testing\TestCase
 	public function testAccepts(Type $otherType, bool $expectedResult): void
 	{
 		$type = new FloatType();
-		$actualResult = $type->accepts($otherType);
+		$actualResult = $type->accepts($otherType, true);
 		$this->assertSame(
 			$expectedResult,
 			$actualResult,

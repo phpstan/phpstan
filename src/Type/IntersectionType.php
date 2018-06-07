@@ -39,10 +39,10 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		return UnionTypeHelper::getReferencedClasses($this->types);
 	}
 
-	public function accepts(Type $otherType): bool
+	public function accepts(Type $otherType, bool $strictTypes): bool
 	{
 		foreach ($this->types as $type) {
-			if (!$type->accepts($otherType)) {
+			if (!$type->accepts($otherType, $strictTypes)) {
 				return false;
 			}
 		}

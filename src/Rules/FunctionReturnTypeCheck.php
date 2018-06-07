@@ -68,7 +68,7 @@ class FunctionReturnTypeCheck
 			];
 		}
 
-		if (!$this->ruleLevelHelper->accepts($returnType, $returnValueType)) {
+		if (!$this->ruleLevelHelper->accepts($returnType, $returnValueType, $scope->isDeclareStrictTypes())) {
 			return [
 				sprintf(
 					$typeMismatchMessage,

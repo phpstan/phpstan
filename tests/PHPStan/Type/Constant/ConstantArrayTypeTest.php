@@ -79,7 +79,7 @@ class ConstantArrayTypeTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testAccepts(ConstantArrayType $type, Type $otherType, bool $expectedResult): void
 	{
-		$actualResult = $type->accepts($otherType);
+		$actualResult = $type->accepts($otherType, true);
 		$this->assertSame(
 			$expectedResult,
 			$actualResult,

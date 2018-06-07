@@ -54,7 +54,7 @@ class CallToCountOnlyWithArrayOrCountableRule implements \PHPStan\Rules\Rule
 			new ObjectType(\Countable::class),
 		]);
 
-		if ($this->ruleLevelHelper->accepts($requiredType, $argumentType)) {
+		if ($this->ruleLevelHelper->accepts($requiredType, $argumentType, $scope->isDeclareStrictTypes())) {
 			return [];
 		}
 
@@ -66,7 +66,7 @@ class CallToCountOnlyWithArrayOrCountableRule implements \PHPStan\Rules\Rule
 			];
 		}
 
-		if ($this->ruleLevelHelper->accepts($argumentType, new NullType())) {
+		if ($this->ruleLevelHelper->accepts($argumentType, new NullType(), $scope->isDeclareStrictTypes())) {
 			return [
 				sprintf($message, $argumentType->describe(VerbosityLevel::typeOnly()), '0 or 1'),
 			];

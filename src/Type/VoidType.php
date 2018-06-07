@@ -26,7 +26,7 @@ class VoidType implements Type
 		return [];
 	}
 
-	public function accepts(Type $type): bool
+	public function accepts(Type $type, bool $strictTypes): bool
 	{
 		return $type instanceof self;
 	}

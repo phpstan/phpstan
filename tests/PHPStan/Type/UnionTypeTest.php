@@ -606,7 +606,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 	{
 		$this->assertSame(
 			$expectedResult,
-			$type->accepts($acceptedType),
+			$type->accepts($acceptedType, true),
 			sprintf('%s -> accepts(%s)', $type->describe(VerbosityLevel::value()), $acceptedType->describe(VerbosityLevel::value()))
 		);
 	}

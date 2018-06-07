@@ -10,7 +10,7 @@ class ThisType extends StaticType
 		return sprintf('$this(%s)', $this->getStaticObjectType()->describe($level));
 	}
 
-	public function accepts(Type $type): bool
+	public function accepts(Type $type, bool $strictTypes): bool
 	{
 		return $type instanceof self && $type->getBaseClass() === $this->getBaseClass();
 	}

@@ -79,7 +79,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		return $this->valueTypes;
 	}
 
-	public function accepts(Type $type): bool
+	public function accepts(Type $type, bool $strictTypes): bool
 	{
 		if ($type instanceof self) {
 			if (count($this->keyTypes) !== count($type->keyTypes)) {
@@ -87,11 +87,11 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			}
 
 			foreach (array_keys($this->keyTypes) as $i) {
-				if (!$this->keyTypes[$i]->accepts($type->keyTypes[$i])) {
+				if (!$this->keyTypes[$i]->accepts($type->keyTypes[$i], $strictTypes)) {
 					return false;
 				}
 
-				if (!$this->valueTypes[$i]->accepts($type->valueTypes[$i])) {
+				if (!$this->valueTypes[$i]->accepts($type->valueTypes[$i], $strictTypes)) {
 					return false;
 				}
 			}

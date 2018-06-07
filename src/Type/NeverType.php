@@ -23,7 +23,7 @@ class NeverType implements CompoundType
 		return [];
 	}
 
-	public function accepts(Type $type): bool
+	public function accepts(Type $type, bool $strictTypes): bool
 	{
 		return true;
 	}

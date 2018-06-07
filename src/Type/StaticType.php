@@ -49,9 +49,9 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 		return $this->baseClass;
 	}
 
-	public function accepts(Type $type): bool
+	public function accepts(Type $type, bool $strictTypes): bool
 	{
-		return $this->staticObjectType->accepts($type);
+		return $this->staticObjectType->accepts($type, $strictTypes);
 	}
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic

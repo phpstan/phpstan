@@ -51,7 +51,7 @@ class RuleLevelHelper
 		return $expression instanceof Expr\Variable && $expression->name === 'this';
 	}
 
-	public function accepts(Type $acceptingType, Type $acceptedType): bool
+	public function accepts(Type $acceptingType, Type $acceptedType, bool $strictTypes): bool
 	{
 		if (
 			!$this->checkNullables
@@ -67,10 +67,12 @@ class RuleLevelHelper
 				if (
 					!self::accepts(
 						$acceptingType->getKeyType(),
-						$acceptedArray->getKeyType()
+						$acceptedArray->getKeyType(),
+						$strictTypes
 					) || !self::accepts(
 						$acceptingType->getItemType(),
-						$acceptedArray->getItemType()
+						$acceptedArray->getItemType(),
+						$strictTypes
 					)
 				) {
 					return false;
@@ -82,7 +84,7 @@ class RuleLevelHelper
 
 		if ($acceptingType instanceof UnionType && !$acceptedType instanceof CompoundType) {
 			foreach ($acceptingType->getTypes() as $innerType) {
-				if (self::accepts($innerType, $acceptedType)) {
+				if (self::accepts($innerType, $acceptedType, $strictTypes)) {
 					return true;
 				}
 			}
@@ -92,7 +94,7 @@ class RuleLevelHelper
 
 		if (!$this->checkUnionTypes && $acceptedType instanceof UnionType) {
 			foreach ($acceptedType->getTypes() as $innerType) {
-				if ($acceptingType->accepts($innerType)) {
+				if ($acceptingType->accepts($innerType, $strictTypes)) {
 					return true;
 				}
 			}
@@ -103,10 +105,12 @@ class RuleLevelHelper
 		if ($acceptedType instanceof ArrayType && $acceptingType instanceof ArrayType) {
 			return self::accepts(
 				$acceptingType->getKeyType(),
-				$acceptedType->getKeyType()
+				$acceptedType->getKeyType(),
+				$strictTypes
 			) && self::accepts(
 				$acceptingType->getItemType(),
-				$acceptedType->getItemType()
+				$acceptedType->getItemType(),
+				$strictTypes
 			);
 		}
 
@@ -119,7 +123,7 @@ class RuleLevelHelper
 			return $isCallable->yes();
 		}
 
-		return $acceptingType->accepts($acceptedType);
+		return $acceptingType->accepts($acceptedType, $strictTypes);
 	}
 
 	public function findTypeToCheck(

@@ -51,15 +51,15 @@ class ArrayType implements StaticResolvableType
 		);
 	}
 
-	public function accepts(Type $type): bool
+	public function accepts(Type $type, bool $strictTypes): bool
 	{
 		if ($type instanceof self) {
-			return $this->getItemType()->accepts($type->getItemType())
-				&& $this->keyType->accepts($type->keyType);
+			return $this->getItemType()->accepts($type->getItemType(), $strictTypes)
+				&& $this->keyType->accepts($type->keyType, $strictTypes);
 		}
 
 		if ($type instanceof CompoundType) {
-			return CompoundTypeHelper::accepts($type, $this);
+			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
 		}
 
 		return false;

@@ -40,17 +40,17 @@ class StringType implements Type
 		return $this;
 	}
 
-	public function accepts(Type $type): bool
+	public function accepts(Type $type, bool $strictTypes): bool
 	{
 		if ($type instanceof static) {
 			return true;
 		}
 
 		if ($type instanceof CompoundType) {
-			return CompoundTypeHelper::accepts($type, $this);
+			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
 		}
 
-		if ($type instanceof TypeWithClassName) {
+		if ($type instanceof TypeWithClassName && !$strictTypes) {
 			$broker = Broker::getInstance();
 			if (!$broker->hasClass($type->getClassName())) {
 				return false;

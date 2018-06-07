@@ -44,7 +44,7 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testAccepts(IntersectionType $type, Type $otherType, bool $expectedResult): void
 	{
-		$actualResult = $type->accepts($otherType);
+		$actualResult = $type->accepts($otherType, true);
 		$this->assertSame(
 			$expectedResult,
 			$actualResult,

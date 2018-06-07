@@ -5,7 +5,7 @@ namespace PHPStan\Type;
 class CompoundTypeHelper
 {
 
-	public static function accepts(CompoundType $compoundType, Type $otherType): bool
+	public static function accepts(CompoundType $compoundType, Type $otherType, bool $strictTypes): bool
 	{
 		if ($compoundType instanceof MixedType) {
 			return true;
@@ -13,7 +13,7 @@ class CompoundTypeHelper
 
 		if ($compoundType instanceof BenevolentUnionType) {
 			foreach ($compoundType->getTypes() as $innerType) {
-				if ($otherType->accepts($innerType)) {
+				if ($otherType->accepts($innerType, $strictTypes)) {
 					return true;
 				}
 			}
@@ -23,7 +23,7 @@ class CompoundTypeHelper
 
 		if ($compoundType instanceof UnionType) {
 			foreach ($compoundType->getTypes() as $innerType) {
-				if (!$otherType->accepts($innerType)) {
+				if (!$otherType->accepts($innerType, $strictTypes)) {
 					return false;
 				}
 			}

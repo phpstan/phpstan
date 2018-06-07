@@ -70,7 +70,7 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 		} else {
 			$assignedValueType = $scope->getType($node);
 		}
-		if (!$this->ruleLevelHelper->accepts($propertyType, $assignedValueType)) {
+		if (!$this->ruleLevelHelper->accepts($propertyType, $assignedValueType, $scope->isDeclareStrictTypes())) {
 			$propertyDescription = $this->propertyDescriptor->describeProperty($propertyReflection, $propertyFetch);
 
 			return [
