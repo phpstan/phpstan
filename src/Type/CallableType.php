@@ -26,13 +26,13 @@ class CallableType implements CompoundType
 		return [];
 	}
 
-	public function accepts(Type $type, bool $strictTypes): bool
+	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
 		if ($type instanceof CompoundType) {
 			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
 		}
 
-		return $type->isCallable()->yes();
+		return $type->isCallable();
 	}
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic

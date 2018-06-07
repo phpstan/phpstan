@@ -16,7 +16,7 @@ interface Type
 	 */
 	public function getReferencedClasses(): array;
 
-	public function accepts(Type $type, bool $strictTypes): bool;
+	public function accepts(Type $type, bool $strictTypes): TrinaryLogic;
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic;
 

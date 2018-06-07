@@ -85,7 +85,7 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 						new MixedType(),
 					]),
 				]),
-				true,
+				TrinaryLogic::createYes(),
 			],
 		];
 	}
@@ -94,18 +94,18 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 	 * @dataProvider dataAccepts
 	 * @param ArrayType $acceptingType
 	 * @param Type $acceptedType
-	 * @param bool $expectedResult
+	 * @param TrinaryLogic $expectedResult
 	 */
 	public function testAccepts(
 		ArrayType $acceptingType,
 		Type $acceptedType,
-		bool $expectedResult
+		TrinaryLogic $expectedResult
 	): void
 	{
 		$actualResult = $acceptingType->accepts($acceptedType, true);
 		$this->assertSame(
-			$expectedResult,
-			$actualResult,
+			$expectedResult->describe(),
+			$actualResult->describe(),
 			sprintf('%s -> accepts(%s)', $acceptingType->describe(VerbosityLevel::value()), $acceptedType->describe(VerbosityLevel::value()))
 		);
 	}

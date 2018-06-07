@@ -39,15 +39,15 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		return UnionTypeHelper::getReferencedClasses($this->types);
 	}
 
-	public function accepts(Type $otherType, bool $strictTypes): bool
+	public function accepts(Type $otherType, bool $strictTypes): TrinaryLogic
 	{
 		foreach ($this->types as $type) {
-			if (!$type->accepts($otherType, $strictTypes)) {
-				return false;
+			if (!$type->accepts($otherType, $strictTypes)->yes()) {
+				return TrinaryLogic::createNo();
 			}
 		}
 
-		return true;
+		return TrinaryLogic::createYes();
 	}
 
 	public function isSuperTypeOf(Type $otherType): TrinaryLogic

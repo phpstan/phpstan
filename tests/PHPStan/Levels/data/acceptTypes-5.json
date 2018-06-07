@@ -10,12 +10,12 @@
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $a of method Levels\\AcceptTypes\\Foo::doLorem() expects callable|int, float|string given.",
+        "message": "Parameter #1 $a of method Levels\\AcceptTypes\\Foo::doLorem() expects int|resource, float|string given.",
         "line": 48,
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $a of method Levels\\AcceptTypes\\Foo::doLorem() expects callable|int, float|string|null given.",
+        "message": "Parameter #1 $a of method Levels\\AcceptTypes\\Foo::doLorem() expects int|resource, float|string|null given.",
         "line": 49,
         "ignorable": true
     },
@@ -47,11 +47,6 @@
     {
         "message": "Parameter #1 $callable of method Levels\\AcceptTypes\\Foo::expectCallable() expects callable, string given.",
         "line": 132,
-        "ignorable": true
-    },
-    {
-        "message": "Parameter #1 $var of function count expects array|Countable, iterable given.",
-        "line": 147,
         "ignorable": true
     },
     {

@@ -38,13 +38,15 @@ class ObjectWithoutClassType implements Type
 		return [];
 	}
 
-	public function accepts(Type $type, bool $strictTypes): bool
+	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
 		if ($type instanceof CompoundType) {
 			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
 		}
 
-		return $type instanceof self || $type instanceof TypeWithClassName;
+		return TrinaryLogic::createFromBoolean(
+			$type instanceof self || $type instanceof TypeWithClassName
+		);
 	}
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic

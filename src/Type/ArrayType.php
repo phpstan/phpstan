@@ -51,18 +51,25 @@ class ArrayType implements StaticResolvableType
 		);
 	}
 
-	public function accepts(Type $type, bool $strictTypes): bool
+	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
-		if ($type instanceof self) {
-			return $this->getItemType()->accepts($type->getItemType(), $strictTypes)
-				&& $this->keyType->accepts($type->keyType, $strictTypes);
+		$arrays = TypeUtils::getArrays($type);
+		if (count($arrays) > 0) {
+			$result = TrinaryLogic::createYes();
+			foreach ($arrays as $array) {
+				$result = $result
+					->and($this->getItemType()->accepts($array->getItemType(), $strictTypes))
+					->and($this->keyType->accepts($array->keyType, $strictTypes));
+			}
+
+			return $result;
 		}
 
 		if ($type instanceof CompoundType) {
 			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
 		}
 
-		return false;
+		return TrinaryLogic::createNo();
 	}
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic

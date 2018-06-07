@@ -42,17 +42,17 @@ class NullType implements ConstantScalarType
 		return $this;
 	}
 
-	public function accepts(Type $type, bool $strictTypes): bool
+	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
 		if ($type instanceof self) {
-			return true;
+			return TrinaryLogic::createYes();
 		}
 
 		if ($type instanceof CompoundType) {
 			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
 		}
 
-		return false;
+		return TrinaryLogic::createNo();
 	}
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic

@@ -10,17 +10,17 @@ use PHPStan\Type\Type;
 trait ConstantScalarTypeTrait
 {
 
-	public function accepts(Type $type, bool $strictTypes): bool
+	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
 		if ($type instanceof self) {
-			return $this->value === $type->value;
+			return TrinaryLogic::createFromBoolean($this->value === $type->value);
 		}
 
 		if ($type instanceof CompoundType) {
 			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
 		}
 
-		return false;
+		return TrinaryLogic::createNo();
 	}
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic

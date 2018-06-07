@@ -6,7 +6,6 @@ use PhpParser\Node\Expr;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Type\ArrayType;
-use PHPStan\Type\CallableType;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
@@ -92,16 +91,6 @@ class RuleLevelHelper
 			return false;
 		}
 
-		if (!$this->checkUnionTypes && $acceptedType instanceof UnionType) {
-			foreach ($acceptedType->getTypes() as $innerType) {
-				if ($acceptingType->accepts($innerType, $strictTypes)) {
-					return true;
-				}
-			}
-
-			return false;
-		}
-
 		if ($acceptedType instanceof ArrayType && $acceptingType instanceof ArrayType) {
 			return self::accepts(
 				$acceptingType->getKeyType(),
@@ -114,16 +103,9 @@ class RuleLevelHelper
 			);
 		}
 
-		if ($acceptingType instanceof CallableType && !$acceptedType instanceof CompoundType) {
-			$isCallable = $acceptedType->isCallable();
-			if (!$this->checkUnionTypes) {
-				return !$isCallable->no();
-			}
+		$accepts = $acceptingType->accepts($acceptedType, $strictTypes);
 
-			return $isCallable->yes();
-		}
-
-		return $acceptingType->accepts($acceptedType, $strictTypes);
+		return $this->checkUnionTypes ? $accepts->yes() : !$accepts->no();
 	}
 
 	public function findTypeToCheck(

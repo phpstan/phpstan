@@ -38,6 +38,11 @@ class TrinaryLogic
 		return self::create(self::MAYBE);
 	}
 
+	public static function createFromBoolean(bool $value): self
+	{
+		return self::create($value ? self::YES : self::NO);
+	}
+
 	private static function create(int $value): self
 	{
 		self::$registry[$value] = self::$registry[$value] ?? new self($value);

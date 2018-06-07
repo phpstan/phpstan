@@ -52,7 +52,7 @@ class ClosureType implements CompoundType, ParametersAcceptor
 		return $this->objectType->getReferencedClasses();
 	}
 
-	public function accepts(Type $type, bool $strictTypes): bool
+	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
 		return $this->objectType->accepts($type, $strictTypes);
 	}

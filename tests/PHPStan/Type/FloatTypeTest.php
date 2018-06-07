@@ -2,6 +2,8 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\TrinaryLogic;
+
 class FloatTypeTest extends \PHPStan\Testing\TestCase
 {
 
@@ -10,30 +12,30 @@ class FloatTypeTest extends \PHPStan\Testing\TestCase
 		return [
 			[
 				new FloatType(),
-				true,
+				TrinaryLogic::createYes(),
 			],
 			[
 				new IntegerType(),
-				true,
+				TrinaryLogic::createYes(),
 			],
 			[
 				new MixedType(),
-				true,
+				TrinaryLogic::createYes(),
 			],
 			[
 				new UnionType([
 					new IntegerType(),
 					new FloatType(),
 				]),
-				true,
+				TrinaryLogic::createYes(),
 			],
 			[
 				new NullType(),
-				false,
+				TrinaryLogic::createNo(),
 			],
 			[
 				new StringType(),
-				false,
+				TrinaryLogic::createNo(),
 			],
 			[
 				new UnionType([
@@ -41,7 +43,14 @@ class FloatTypeTest extends \PHPStan\Testing\TestCase
 					new FloatType(),
 					new StringType(),
 				]),
-				false,
+				TrinaryLogic::createMaybe(),
+			],
+			[
+				new UnionType([
+					new StringType(),
+					new ResourceType(),
+				]),
+				TrinaryLogic::createNo(),
 			],
 		];
 	}
@@ -49,15 +58,15 @@ class FloatTypeTest extends \PHPStan\Testing\TestCase
 	/**
 	 * @dataProvider dataAccepts
 	 * @param Type $otherType
-	 * @param bool $expectedResult
+	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testAccepts(Type $otherType, bool $expectedResult): void
+	public function testAccepts(Type $otherType, TrinaryLogic $expectedResult): void
 	{
 		$type = new FloatType();
 		$actualResult = $type->accepts($otherType, true);
 		$this->assertSame(
-			$expectedResult,
-			$actualResult,
+			$expectedResult->describe(),
+			$actualResult->describe(),
 			sprintf('%s -> accepts(%s)', $type->describe(VerbosityLevel::value()), $otherType->describe(VerbosityLevel::value()))
 		);
 	}

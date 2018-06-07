@@ -55,7 +55,7 @@ class Foo
 	}
 
 	/**
-	 * @param int|callable $a
+	 * @param int|resource $a
 	 */
 	public function doLorem($a)
 	{

@@ -40,10 +40,10 @@ class StringType implements Type
 		return $this;
 	}
 
-	public function accepts(Type $type, bool $strictTypes): bool
+	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
 		if ($type instanceof static) {
-			return true;
+			return TrinaryLogic::createYes();
 		}
 
 		if ($type instanceof CompoundType) {
@@ -53,14 +53,16 @@ class StringType implements Type
 		if ($type instanceof TypeWithClassName && !$strictTypes) {
 			$broker = Broker::getInstance();
 			if (!$broker->hasClass($type->getClassName())) {
-				return false;
+				return TrinaryLogic::createNo();
 			}
 
 			$typeClass = $broker->getClass($type->getClassName());
-			return $typeClass->hasNativeMethod('__toString');
+			return TrinaryLogic::createFromBoolean(
+				$typeClass->hasNativeMethod('__toString')
+			);
 		}
 
-		return false;
+		return TrinaryLogic::createNo();
 	}
 
 	public function toNumber(): Type

@@ -26,9 +26,9 @@ class VoidType implements Type
 		return [];
 	}
 
-	public function accepts(Type $type, bool $strictTypes): bool
+	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
-		return $type instanceof self;
+		return TrinaryLogic::createFromBoolean($type instanceof self);
 	}
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic

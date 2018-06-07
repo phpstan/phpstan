@@ -587,7 +587,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 			[
 				new UnionType([new CallableType(), new NullType()]),
 				new ClosureType([], new StringType(), false),
-				true,
+				TrinaryLogic::createYes(),
 			],
 		];
 	}
@@ -596,17 +596,17 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 	 * @dataProvider dataAccepts
 	 * @param UnionType $type
 	 * @param Type $acceptedType
-	 * @param bool $expectedResult
+	 * @param TrinaryLogic $expectedResult
 	 */
 	public function testAccepts(
 		UnionType $type,
 		Type $acceptedType,
-		bool $expectedResult
+		TrinaryLogic $expectedResult
 	): void
 	{
 		$this->assertSame(
-			$expectedResult,
-			$type->accepts($acceptedType, true),
+			$expectedResult->describe(),
+			$type->accepts($acceptedType, true)->describe(),
 			sprintf('%s -> accepts(%s)', $type->describe(VerbosityLevel::value()), $acceptedType->describe(VerbosityLevel::value()))
 		);
 	}

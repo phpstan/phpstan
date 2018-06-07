@@ -5,7 +5,7 @@
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $a of method Levels\\AcceptTypes\\Foo::doLorem() expects callable|int, int|null given.",
+        "message": "Parameter #1 $a of method Levels\\AcceptTypes\\Foo::doLorem() expects int|resource, int|null given.",
         "line": 51,
         "ignorable": true
     },

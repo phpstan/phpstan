@@ -62,7 +62,7 @@ class ObjectType implements TypeWithClassName
 		return [$this->className];
 	}
 
-	public function accepts(Type $type, bool $strictTypes): bool
+	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
 		if ($type instanceof StaticType) {
 			return $this->checkSubclassAcceptability($type->getBaseClass());
@@ -73,7 +73,7 @@ class ObjectType implements TypeWithClassName
 		}
 
 		if (!$type instanceof TypeWithClassName) {
-			return false;
+			return TrinaryLogic::createNo();
 		}
 
 		return $this->checkSubclassAcceptability($type->getClassName());
@@ -132,16 +132,16 @@ class ObjectType implements TypeWithClassName
 		return TrinaryLogic::createNo();
 	}
 
-	private function checkSubclassAcceptability(string $thatClass): bool
+	private function checkSubclassAcceptability(string $thatClass): TrinaryLogic
 	{
 		if ($this->className === $thatClass) {
-			return true;
+			return TrinaryLogic::createYes();
 		}
 
 		$broker = Broker::getInstance();
 
 		if (!$broker->hasClass($this->className) || !$broker->hasClass($thatClass)) {
-			return false;
+			return TrinaryLogic::createNo();
 		}
 
 		$thisReflection = $broker->getClass($this->className);
@@ -149,14 +149,18 @@ class ObjectType implements TypeWithClassName
 
 		if ($thisReflection->getName() === $thatReflection->getName()) {
 			// class alias
-			return true;
+			return TrinaryLogic::createYes();
 		}
 
 		if ($thisReflection->isInterface() && $thatReflection->isInterface()) {
-			return $thatReflection->getNativeReflection()->implementsInterface($this->className);
+			return TrinaryLogic::createFromBoolean(
+				$thatReflection->getNativeReflection()->implementsInterface($this->className)
+			);
 		}
 
-		return $thatReflection->isSubclassOf($this->className);
+		return TrinaryLogic::createFromBoolean(
+			$thatReflection->isSubclassOf($this->className)
+		);
 	}
 
 	public function describe(VerbosityLevel $level): string

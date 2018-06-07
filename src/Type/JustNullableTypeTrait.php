@@ -15,17 +15,17 @@ trait JustNullableTypeTrait
 		return [];
 	}
 
-	public function accepts(Type $type, bool $strictTypes): bool
+	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
 		if ($type instanceof static) {
-			return true;
+			return TrinaryLogic::createYes();
 		}
 
 		if ($type instanceof CompoundType) {
 			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
 		}
 
-		return false;
+		return TrinaryLogic::createNo();
 	}
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic

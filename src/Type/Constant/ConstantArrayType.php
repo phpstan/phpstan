@@ -79,27 +79,24 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		return $this->valueTypes;
 	}
 
-	public function accepts(Type $type, bool $strictTypes): bool
+	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
 		if ($type instanceof self) {
 			if (count($this->keyTypes) !== count($type->keyTypes)) {
-				return false;
+				return TrinaryLogic::createNo();
 			}
 
+			$result = TrinaryLogic::createYes();
 			foreach (array_keys($this->keyTypes) as $i) {
-				if (!$this->keyTypes[$i]->accepts($type->keyTypes[$i], $strictTypes)) {
-					return false;
-				}
-
-				if (!$this->valueTypes[$i]->accepts($type->valueTypes[$i], $strictTypes)) {
-					return false;
-				}
+				$result = $result
+					->and($this->keyTypes[$i]->accepts($type->keyTypes[$i], $strictTypes))
+					->and($this->valueTypes[$i]->accepts($type->valueTypes[$i], $strictTypes));
 			}
 
-			return true;
+			return $result;
 		}
 
-		return false;
+		return TrinaryLogic::createNo();
 	}
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic

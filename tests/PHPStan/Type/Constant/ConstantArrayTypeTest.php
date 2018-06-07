@@ -18,55 +18,55 @@ class ConstantArrayTypeTest extends \PHPStan\Testing\TestCase
 		yield [
 			new ConstantArrayType([], []),
 			new ConstantArrayType([], []),
-			true,
+			TrinaryLogic::createYes(),
 		];
 
 		yield [
 			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)]),
 			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)]),
-			true,
+			TrinaryLogic::createYes(),
 		];
 
 		yield [
 			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)]),
 			new ConstantArrayType([], []),
-			false,
+			TrinaryLogic::createNo(),
 		];
 
 		yield [
 			new ConstantArrayType([], []),
 			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)]),
-			false,
+			TrinaryLogic::createNo(),
 		];
 
 		yield [
 			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)]),
 			new ConstantArrayType([new ConstantIntegerType(7)], [new ConstantIntegerType(2)]),
-			false,
+			TrinaryLogic::createNo(),
 		];
 
 		yield [
 			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)]),
 			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(7)]),
-			false,
+			TrinaryLogic::createNo(),
 		];
 
 		yield [
 			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)]),
 			new ArrayType(new IntegerType(), new IntegerType()),
-			false,
+			TrinaryLogic::createNo(),
 		];
 
 		yield [
 			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)]),
 			new ArrayType(new StringType(), new StringType()),
-			false,
+			TrinaryLogic::createNo(),
 		];
 
 		yield [
 			new ConstantArrayType([new ConstantIntegerType(1)], [new ConstantIntegerType(2)]),
 			new ArrayType(new MixedType(), new MixedType()),
-			false,
+			TrinaryLogic::createNo(),
 		];
 	}
 
@@ -75,14 +75,14 @@ class ConstantArrayTypeTest extends \PHPStan\Testing\TestCase
 	 * @dataProvider dataAccepts
 	 * @param ConstantArrayType $type
 	 * @param Type $otherType
-	 * @param bool $expectedResult
+	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testAccepts(ConstantArrayType $type, Type $otherType, bool $expectedResult): void
+	public function testAccepts(ConstantArrayType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
 		$actualResult = $type->accepts($otherType, true);
 		$this->assertSame(
-			$expectedResult,
-			$actualResult,
+			$expectedResult->describe(),
+			$actualResult->describe(),
 			sprintf('%s -> accepts(%s)', $type->describe(VerbosityLevel::value()), $otherType->describe(VerbosityLevel::value()))
 		);
 	}

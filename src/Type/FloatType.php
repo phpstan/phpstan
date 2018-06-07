@@ -28,10 +28,10 @@ class FloatType implements Type
 		return [];
 	}
 
-	public function accepts(Type $type, bool $strictTypes): bool
+	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
 		if ($type instanceof self || $type instanceof IntegerType) {
-			return true;
+			return TrinaryLogic::createYes();
 		}
 
 		if ($type instanceof CompoundType) {
@@ -41,7 +41,7 @@ class FloatType implements Type
 			]), $strictTypes);
 		}
 
-		return false;
+		return TrinaryLogic::createNo();
 	}
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic

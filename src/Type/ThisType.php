@@ -2,6 +2,8 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\TrinaryLogic;
+
 class ThisType extends StaticType
 {
 
@@ -10,9 +12,12 @@ class ThisType extends StaticType
 		return sprintf('$this(%s)', $this->getStaticObjectType()->describe($level));
 	}
 
-	public function accepts(Type $type, bool $strictTypes): bool
+	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
-		return $type instanceof self && $type->getBaseClass() === $this->getBaseClass();
+		return TrinaryLogic::createFromBoolean(
+			$type instanceof self
+			&& $type->getBaseClass() === $this->getBaseClass()
+		);
 	}
 
 }

@@ -15,19 +15,19 @@ class ConstantIntegerTypeTest extends \PHPStan\Testing\TestCase
 		yield [
 			new ConstantIntegerType(1),
 			new ConstantIntegerType(1),
-			true,
+			TrinaryLogic::createYes(),
 		];
 
 		yield [
 			new ConstantIntegerType(1),
 			new IntegerType(),
-			false,
+			TrinaryLogic::createNo(),
 		];
 
 		yield [
 			new ConstantIntegerType(1),
 			new ConstantIntegerType(2),
-			false,
+			TrinaryLogic::createNo(),
 		];
 	}
 
@@ -36,14 +36,14 @@ class ConstantIntegerTypeTest extends \PHPStan\Testing\TestCase
 	 * @dataProvider dataAccepts
 	 * @param ConstantIntegerType $type
 	 * @param Type $otherType
-	 * @param bool $expectedResult
+	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testAccepts(ConstantIntegerType $type, Type $otherType, bool $expectedResult): void
+	public function testAccepts(ConstantIntegerType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
 		$actualResult = $type->accepts($otherType, true);
 		$this->assertSame(
-			$expectedResult,
-			$actualResult,
+			$expectedResult->describe(),
+			$actualResult->describe(),
 			sprintf('%s -> accepts(%s)', $type->describe(VerbosityLevel::value()), $otherType->describe(VerbosityLevel::value()))
 		);
 	}

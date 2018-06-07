@@ -47,7 +47,7 @@ class IterableType implements StaticResolvableType, CompoundType
 		);
 	}
 
-	public function accepts(Type $type, bool $strictTypes): bool
+	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
 		if ($type instanceof CompoundType) {
 			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
@@ -55,10 +55,10 @@ class IterableType implements StaticResolvableType, CompoundType
 
 		if ($type->isIterable()->yes()) {
 			return $this->getIterableValueType()->accepts($type->getIterableValueType(), $strictTypes)
-				&& $this->getIterableKeyType()->accepts($type->getIterableKeyType(), $strictTypes);
+				->and($this->getIterableKeyType()->accepts($type->getIterableKeyType(), $strictTypes));
 		}
 
-		return false;
+		return TrinaryLogic::createNo();
 	}
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic

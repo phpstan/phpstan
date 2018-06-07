@@ -49,7 +49,7 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 		return $this->baseClass;
 	}
 
-	public function accepts(Type $type, bool $strictTypes): bool
+	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
 		return $this->staticObjectType->accepts($type, $strictTypes);
 	}

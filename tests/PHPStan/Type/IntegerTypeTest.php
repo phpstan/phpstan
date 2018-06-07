@@ -12,12 +12,12 @@ class IntegerTypeTest extends \PHPStan\Testing\TestCase
 	{
 		$integerType = new IntegerType();
 
-		$this->assertTrue($integerType->accepts(new IntegerType(), true));
-		$this->assertTrue($integerType->accepts(new ConstantIntegerType(1), true));
-		$this->assertFalse($integerType->accepts(new NullType(), true));
-		$this->assertTrue($integerType->accepts(new MixedType(), true));
-		$this->assertFalse($integerType->accepts(new FloatType(), true));
-		$this->assertFalse($integerType->accepts(new StringType(), true));
+		$this->assertTrue($integerType->accepts(new IntegerType(), true)->yes());
+		$this->assertTrue($integerType->accepts(new ConstantIntegerType(1), true)->yes());
+		$this->assertTrue($integerType->accepts(new NullType(), true)->no());
+		$this->assertTrue($integerType->accepts(new MixedType(), true)->yes());
+		$this->assertTrue($integerType->accepts(new FloatType(), true)->no());
+		$this->assertTrue($integerType->accepts(new StringType(), true)->no());
 	}
 
 

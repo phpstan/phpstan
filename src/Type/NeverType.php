@@ -23,9 +23,9 @@ class NeverType implements CompoundType
 		return [];
 	}
 
-	public function accepts(Type $type, bool $strictTypes): bool
+	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
-		return true;
+		return TrinaryLogic::createYes();
 	}
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic
