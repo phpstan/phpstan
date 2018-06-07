@@ -138,4 +138,15 @@ class Foo
 
 	}
 
+	public function iterableCountable(
+		iterable $iterable,
+		array $array,
+		string $string
+	)
+	{
+		count($iterable);
+		count($array);
+		count($string);
+	}
+
 }

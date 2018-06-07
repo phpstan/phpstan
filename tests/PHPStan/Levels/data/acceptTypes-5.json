@@ -48,5 +48,15 @@
         "message": "Parameter #1 $callable of method Levels\\AcceptTypes\\Foo::expectCallable() expects callable, string given.",
         "line": 132,
         "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $var of function count expects array|Countable, iterable given.",
+        "line": 147,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $var of function count expects array|Countable, string given.",
+        "line": 149,
+        "ignorable": true
     }
 ]
