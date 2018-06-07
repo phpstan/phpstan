@@ -33,7 +33,7 @@ class Registry
 			$rules = [];
 			foreach ($nodeTypes as $nodeType) {
 				foreach ($this->rules[$nodeType] ?? [] as $rule) {
-					$rules[get_class($rule)] = $rule;
+					$rules[spl_object_hash($rule)] = $rule;
 				}
 			}
 
