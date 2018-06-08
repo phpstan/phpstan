@@ -2,6 +2,7 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 
 class TypeCombinator
@@ -129,13 +130,18 @@ class TypeCombinator
 		// transform true | bool to bool
 		for ($i = 0; $i < count($types); $i++) {
 			for ($j = $i + 1; $j < count($types); $j++) {
-				if ($types[$j]->isSuperTypeOf($types[$i])->yes()) {
+				if (
+					!$types[$j] instanceof ConstantArrayType
+					&& $types[$j]->isSuperTypeOf($types[$i])->yes()
+				) {
 					array_splice($types, $i--, 1);
 					continue 2;
-
 				}
 
-				if ($types[$i]->isSuperTypeOf($types[$j])->yes()) {
+				if (
+					!$types[$i] instanceof ConstantArrayType
+					&& $types[$i]->isSuperTypeOf($types[$j])->yes()
+				) {
 					array_splice($types, $j--, 1);
 					continue 1;
 				}
