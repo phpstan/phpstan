@@ -84,15 +84,22 @@ class ArrayFilterFunctionReturnTypeReturnTypeExtension implements \PHPStan\Type\
 			$keys = $type->getKeyTypes();
 			$values = $type->getValueTypes();
 
-			foreach ($values as $offset => $value) {
-				if (!$falseyTypes->isSuperTypeOf($value)->yes()) {
-					continue;
-				}
+			$generalize = false;
 
-				unset($keys[$offset], $values[$offset]);
+			foreach ($values as $offset => $value) {
+				$isFalsey = $falseyTypes->isSuperTypeOf($value);
+
+				if ($isFalsey->yes()) {
+					unset($keys[$offset], $values[$offset]);
+				} elseif ($isFalsey->maybe()) {
+					$values[$offset] = TypeCombinator::remove($values[$offset], $falseyTypes);
+					$generalize = true;
+				}
 			}
 
-			return new ConstantArrayType(array_values($keys), array_values($values));
+			$filteredArray = new ConstantArrayType(array_values($keys), array_values($values));
+
+			return $generalize ? $filteredArray->generalize() : $filteredArray;
 		}
 
 		$keyType = $type->getIterableKeyType();
