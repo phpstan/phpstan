@@ -56,6 +56,13 @@ if (rand(0, 1) === 1) {
 	$union['b'] = false;
 }
 
+/** @var bool $bool */
+$bool = doFoo();
+/** @var int $integer */
+$integer = doFoo();
+
+$withPossiblyFalsey = [$bool, $integer, '', 'a' => 0];
+
 /** @var array<string, int> $generalStringKeys */
 $generalStringKeys = doFoo();
 
