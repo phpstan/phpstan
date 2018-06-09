@@ -41,4 +41,9 @@ trait JustNullableTypeTrait
 		return TrinaryLogic::createNo();
 	}
 
+	public function equals(Type $type): bool
+	{
+		return $type instanceof self;
+	}
+
 }

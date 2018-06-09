@@ -50,6 +50,11 @@ class CallableType implements CompoundType
 			->and($otherType instanceof self ? TrinaryLogic::createYes() : TrinaryLogic::createMaybe());
 	}
 
+	public function equals(Type $type): bool
+	{
+		return $type instanceof self;
+	}
+
 	public function describe(VerbosityLevel $level): string
 	{
 		return 'callable';

@@ -37,6 +37,11 @@ class NeverType implements CompoundType
 		return TrinaryLogic::createNo();
 	}
 
+	public function equals(Type $type): bool
+	{
+		return $type instanceof self;
+	}
+
 	public function isSubTypeOf(Type $otherType): TrinaryLogic
 	{
 		return TrinaryLogic::createYes();

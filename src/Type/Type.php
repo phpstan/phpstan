@@ -20,6 +20,8 @@ interface Type
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic;
 
+	public function equals(Type $type): bool;
+
 	public function describe(VerbosityLevel $level): string;
 
 	public function canAccessProperties(): TrinaryLogic;

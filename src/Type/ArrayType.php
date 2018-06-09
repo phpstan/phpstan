@@ -86,6 +86,13 @@ class ArrayType implements StaticResolvableType
 		return TrinaryLogic::createNo();
 	}
 
+	public function equals(Type $type): bool
+	{
+		return $type instanceof self
+			&& $this->getItemType()->equals($type->getItemType())
+			&& $this->keyType->equals($type->keyType);
+	}
+
 	public function describe(VerbosityLevel $level): string
 	{
 		if ($this->keyType instanceof MixedType || $this->keyType instanceof NeverType) {

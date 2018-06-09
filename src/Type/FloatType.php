@@ -57,6 +57,11 @@ class FloatType implements Type
 		return TrinaryLogic::createNo();
 	}
 
+	public function equals(Type $type): bool
+	{
+		return $type instanceof self;
+	}
+
 	public function describe(VerbosityLevel $level): string
 	{
 		return 'float';

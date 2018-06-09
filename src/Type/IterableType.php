@@ -93,6 +93,16 @@ class IterableType implements StaticResolvableType, CompoundType
 		);
 	}
 
+	public function equals(Type $type): bool
+	{
+		if (!$type instanceof self) {
+			return false;
+		}
+
+		return $this->keyType->equals($type->keyType)
+			&& $this->itemType->equals($type->itemType);
+	}
+
 	public function describe(VerbosityLevel $level): string
 	{
 		if ($this->keyType instanceof MixedType) {

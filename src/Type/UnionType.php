@@ -94,6 +94,25 @@ class UnionType implements CompoundType, StaticResolvableType
 		return TrinaryLogic::extremeIdentity(...$results);
 	}
 
+	public function equals(Type $type): bool
+	{
+		if (!$type instanceof self) {
+			return false;
+		}
+
+		if (count($this->types) !== count($type->types)) {
+			return false;
+		}
+
+		foreach ($this->types as $i => $innerType) {
+			if (!$innerType->equals($type->types[$i])) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	public function describe(VerbosityLevel $level): string
 	{
 		$joinTypes = function (array $types) use ($level): string {

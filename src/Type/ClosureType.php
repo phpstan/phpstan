@@ -94,6 +94,15 @@ class ClosureType implements CompoundType, ParametersAcceptor
 		return TrinaryLogic::createNo();
 	}
 
+	public function equals(Type $type): bool
+	{
+		if (!$type instanceof self) {
+			return false;
+		}
+
+		return $this->returnType->equals($type->returnType);
+	}
+
 	public function describe(VerbosityLevel $level): string
 	{
 		return sprintf('Closure<%s>', $this->returnType->describe($level));

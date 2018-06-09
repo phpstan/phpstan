@@ -71,6 +71,11 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 		return TrinaryLogic::createNo();
 	}
 
+	public function equals(Type $type): bool
+	{
+		return $this->staticObjectType->equals($type);
+	}
+
 	public function describe(VerbosityLevel $level): string
 	{
 		return sprintf('static(%s)', $this->staticObjectType->describe($level));

@@ -49,6 +49,11 @@ class MixedType implements CompoundType
 		return TrinaryLogic::createYes();
 	}
 
+	public function equals(Type $type): bool
+	{
+		return $type instanceof self;
+	}
+
 	public function isSubTypeOf(Type $otherType): TrinaryLogic
 	{
 		if ($otherType instanceof self) {

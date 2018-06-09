@@ -2169,7 +2169,7 @@ class Scope
 			} else {
 				if (
 					isset($ourVariableTypeHolders[$name])
-					&& $theirVariableTypeHolder->getType()->isSuperTypeOf($ourVariableTypeHolders[$name]->getType())->and($ourVariableTypeHolders[$name]->getType()->isSuperTypeOf($theirVariableTypeHolder->getType()))->yes()
+					&& $theirVariableTypeHolder->getType()->equals($ourVariableTypeHolders[$name]->getType())
 					&& $ourVariableTypeHolders[$name]->getCertainty()->equals($theirVariableTypeHolder->getCertainty())
 				) {
 					unset($ourVariableTypeHolders[$name]);
@@ -2189,7 +2189,7 @@ class Scope
 			} else {
 				if (
 					isset($ourTypeHolders[$exprString])
-					&& $theirTypeHolder->getType()->isSuperTypeOf($ourTypeHolders[$exprString]->getType())->and($ourTypeHolders[$exprString]->getType()->isSuperTypeOf($theirTypeHolder->getType()))->yes()
+					&& $theirTypeHolder->getType()->equals($ourTypeHolders[$exprString]->getType())
 					&& $ourTypeHolders[$exprString]->getCertainty()->equals($theirTypeHolder->getCertainty())
 				) {
 					unset($ourVariableTypeHolders[$exprString]);

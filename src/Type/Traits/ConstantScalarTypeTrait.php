@@ -40,6 +40,11 @@ trait ConstantScalarTypeTrait
 		return TrinaryLogic::createNo();
 	}
 
+	public function equals(Type $type): bool
+	{
+		return $type instanceof self && $this->value === $type->value;
+	}
+
 	public function generalize(): Type
 	{
 		return new parent();

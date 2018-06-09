@@ -129,6 +129,29 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		return TrinaryLogic::createNo();
 	}
 
+	public function equals(Type $type): bool
+	{
+		if (!$type instanceof self) {
+			return false;
+		}
+
+		if (count($this->keyTypes) !== count($type->keyTypes)) {
+			return false;
+		}
+
+		foreach ($this->keyTypes as $i => $keyType) {
+			$valueType = $this->valueTypes[$i];
+			if (!$valueType->equals($type->valueTypes[$i])) {
+				return false;
+			}
+			if (!$keyType->equals($type->keyTypes[$i])) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	public function isCallable(): TrinaryLogic
 	{
 		$classAndMethod = $this->findClassNameAndMethod();

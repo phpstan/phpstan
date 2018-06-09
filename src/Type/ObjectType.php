@@ -132,6 +132,11 @@ class ObjectType implements TypeWithClassName
 		return TrinaryLogic::createNo();
 	}
 
+	public function equals(Type $type): bool
+	{
+		return $type instanceof self && $this->className === $type->className;
+	}
+
 	private function checkSubclassAcceptability(string $thatClass): TrinaryLogic
 	{
 		if ($this->className === $thatClass) {
