@@ -263,13 +263,25 @@ class UnionType implements CompoundType, StaticResolvableType
 		);
 	}
 
-	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	public function getPropertyForRead(string $propertyName, Scope $scope): PropertyReflection
 	{
 		foreach ($this->types as $type) {
 			if ($type->canAccessProperties()->no()) {
 				continue;
 			}
-			return $type->getProperty($propertyName, $scope);
+			return $type->getPropertyForRead($propertyName, $scope);
+		}
+
+		throw new \PHPStan\ShouldNotHappenException();
+	}
+
+	public function getPropertyForWrite(string $propertyName, Scope $scope): PropertyReflection
+	{
+		foreach ($this->types as $type) {
+			if ($type instanceof NullType) {
+				continue;
+			}
+			return $type->getPropertyForWrite($propertyName, $scope);
 		}
 
 		throw new \PHPStan\ShouldNotHappenException();

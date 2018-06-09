@@ -59,4 +59,9 @@ class PhpDefectPropertyReflection implements PropertyReflection
 		return true;
 	}
 
+	public function canChangeTypeAfterAssignment(): bool
+	{
+		return true;
+	}
+
 }

@@ -162,7 +162,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 			]);
 		}
 
-		$property = $classType->getProperty($name, $scope);
+		$property = $classType->getPropertyForRead($name, $scope);
 		if (!$property->isStatic()) {
 			return array_merge($messages, [
 				sprintf(

@@ -245,9 +245,19 @@ class ClassReflection implements DeprecatableReflection
 		return $extension;
 	}
 
-	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	public function getPropertyForRead(string $propertyName, Scope $scope): PropertyReflection
 	{
-		$key = $propertyName;
+		return $this->getProperty($propertyName, $scope, true);
+	}
+
+	public function getPropertyForWrite(string $propertyName, Scope $scope): PropertyReflection
+	{
+		return $this->getProperty($propertyName, $scope, false);
+	}
+
+	private function getProperty(string $propertyName, Scope $scope, bool $isRead): PropertyReflection
+	{
+		$key = sprintf("%d-%s", $isRead, $propertyName);
 		if ($scope->isInClass()) {
 			$key = sprintf('%s-%s', $key, $scope->getClassReflection()->getName());
 		}
@@ -257,7 +267,11 @@ class ClassReflection implements DeprecatableReflection
 					continue;
 				}
 
-				$property = $extension->getProperty($this, $propertyName);
+				if ($isRead) {
+					$property = $extension->getPropertyForRead($this, $propertyName);
+				} else {
+					$property = $extension->getPropertyForWrite($this, $propertyName);
+				}
 				if ($scope->canAccessProperty($property)) {
 					return $this->properties[$key] = $property;
 				}

@@ -13,4 +13,6 @@ interface PropertyReflection extends ClassMemberReflection
 
 	public function isWritable(): bool;
 
+	public function canChangeTypeAfterAssignment(): bool;
+
 }

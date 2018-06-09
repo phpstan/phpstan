@@ -1283,7 +1283,7 @@ class Scope
 				return new ErrorType();
 			}
 
-			return $propertyFetchedOnType->getProperty($node->name->name, $this)->getType();
+			return $propertyFetchedOnType->getPropertyForRead($node->name->name, $this)->getType();
 		}
 
 		if ($node instanceof Expr\StaticPropertyFetch && $node->name instanceof Node\VarLikeIdentifier && $node->class instanceof Name) {
@@ -1296,7 +1296,7 @@ class Scope
 					return new ErrorType();
 				}
 
-				return $staticPropertyClassReflection->getProperty($node->name->name, $this)->getType();
+				return $staticPropertyClassReflection->getPropertyForRead($node->name->name, $this)->getType();
 			}
 		}
 

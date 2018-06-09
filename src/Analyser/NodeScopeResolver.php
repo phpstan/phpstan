@@ -1411,6 +1411,16 @@ class NodeScopeResolver
 						$var = $var->var;
 					} else {
 						$type = $scope->getType($node->expr);
+						if ($node->var instanceof PropertyFetch) {
+							$propertyHolderType = $scope->getType($node->var->var);
+							$propertyName = (string) $node->var->name;
+							if ($propertyHolderType->hasProperty($propertyName)) {
+								$propertyReflection = $propertyHolderType->getPropertyForWrite($propertyName, $scope);
+								if (!$propertyReflection->canChangeTypeAfterAssignment()) {
+									continue;
+								}
+							}
+						}
 					}
 				} elseif ($node instanceof Expr\AssignOp) {
 					$type = $scope->getType($node);

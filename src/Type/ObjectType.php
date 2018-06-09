@@ -48,10 +48,16 @@ class ObjectType implements TypeWithClassName
 		return $broker->getClass($this->className)->hasProperty($propertyName);
 	}
 
-	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	public function getPropertyForRead(string $propertyName, Scope $scope): PropertyReflection
 	{
 		$broker = Broker::getInstance();
-		return $broker->getClass($this->className)->getProperty($propertyName, $scope);
+		return $broker->getClass($this->className)->getPropertyForRead($propertyName, $scope);
+	}
+
+	public function getPropertyForWrite(string $propertyName, Scope $scope): PropertyReflection
+	{
+		$broker = Broker::getInstance();
+		return $broker->getClass($this->className)->getPropertyForWrite($propertyName, $scope);
 	}
 
 	/**

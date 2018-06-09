@@ -133,15 +133,26 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		return false;
 	}
 
-	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	public function getPropertyForRead(string $propertyName, Scope $scope): PropertyReflection
 	{
 		foreach ($this->types as $type) {
 			if ($type->hasProperty($propertyName)) {
-				return $type->getProperty($propertyName, $scope);
+				return $type->getPropertyForRead($propertyName, $scope);
 			}
 		}
 
 		throw new \PHPStan\ShouldNotHappenException();
+	}
+
+	public function getPropertyForWrite(string $propertyName, Scope $scope): PropertyReflection
+	{
+		foreach ($this->types as $type) {
+			if ($type->hasProperty($propertyName)) {
+				return $type->getPropertyForWrite($propertyName, $scope);
+			}
+		}
+
+		throw new \PhpStan\ShouldNotHappenException();
 	}
 
 	public function canCallMethods(): TrinaryLogic

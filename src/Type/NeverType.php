@@ -62,7 +62,12 @@ class NeverType implements CompoundType
 		return false;
 	}
 
-	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	public function getPropertyForRead(string $propertyName, Scope $scope): PropertyReflection
+	{
+		throw new \PHPStan\ShouldNotHappenException();
+	}
+
+	public function getPropertyForWrite(string $propertyName, Scope $scope): PropertyReflection
 	{
 		throw new \PHPStan\ShouldNotHappenException();
 	}

@@ -73,7 +73,12 @@ class MixedType implements CompoundType
 		return true;
 	}
 
-	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	public function getPropertyForRead(string $propertyName, Scope $scope): PropertyReflection
+	{
+		return new DummyPropertyReflection();
+	}
+
+	public function getPropertyForWrite(string $propertyName, Scope $scope): PropertyReflection
 	{
 		return new DummyPropertyReflection();
 	}

@@ -66,9 +66,14 @@ class UniversalObjectCratesClassReflectionExtension
 		return false;
 	}
 
-	public function getProperty(ClassReflection $classReflection, string $propertyName): PropertyReflection
+	public function getPropertyForRead(ClassReflection $classReflection, string $propertyName): PropertyReflection
 	{
 		return new UniversalObjectCrateProperty($classReflection);
+	}
+
+	public function getPropertyForWrite(ClassReflection $classReflection, string $propertyName): PropertyReflection
+	{
+		return $this->getPropertyForRead($classReflection, $propertyName);
 	}
 
 }

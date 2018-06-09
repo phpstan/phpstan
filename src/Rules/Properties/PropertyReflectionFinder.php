@@ -43,7 +43,7 @@ class PropertyReflectionFinder
 			return null;
 		}
 
-		return $propertyHolderType->getProperty($propertyName, $scope);
+		return $propertyHolderType->getPropertyForWrite($propertyName, $scope);
 	}
 
 }

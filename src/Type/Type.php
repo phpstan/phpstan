@@ -28,7 +28,9 @@ interface Type
 
 	public function hasProperty(string $propertyName): bool;
 
-	public function getProperty(string $propertyName, Scope $scope): PropertyReflection;
+	public function getPropertyForRead(string $propertyName, Scope $scope): PropertyReflection;
+
+	public function getPropertyForWrite(string $propertyName, Scope $scope): PropertyReflection;
 
 	public function canCallMethods(): TrinaryLogic;
 

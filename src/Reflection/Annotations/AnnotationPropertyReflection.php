@@ -69,4 +69,9 @@ class AnnotationPropertyReflection implements PropertyReflection
 		return $this->writable;
 	}
 
+	public function canChangeTypeAfterAssignment(): bool
+	{
+		return true;
+	}
+
 }

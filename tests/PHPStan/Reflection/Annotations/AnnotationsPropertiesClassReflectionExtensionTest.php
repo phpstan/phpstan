@@ -229,7 +229,7 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\Testing
 				sprintf('Class %s does not define property %s.', $className, $propertyName)
 			);
 
-			$property = $class->getProperty($propertyName, $scope);
+			$property = $class->getPropertyForRead($propertyName, $scope);
 			$this->assertSame(
 				$expectedPropertyData['class'],
 				$property->getDeclaringClass()->getName(),

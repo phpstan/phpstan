@@ -119,7 +119,7 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 			];
 		}
 
-		$propertyReflection = $type->getProperty($name, $scope);
+		$propertyReflection = $type->getPropertyForRead($name, $scope);
 		if (!$scope->canAccessProperty($propertyReflection)) {
 			return [
 				sprintf(

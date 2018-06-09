@@ -81,13 +81,18 @@ class PhpClassReflectionExtension
 		return $classReflection->getNativeReflection()->hasProperty($propertyName);
 	}
 
-	public function getProperty(ClassReflection $classReflection, string $propertyName): PropertyReflection
+	public function getPropertyForRead(ClassReflection $classReflection, string $propertyName): PropertyReflection
 	{
 		if (!isset($this->propertiesIncludingAnnotations[$classReflection->getName()][$propertyName])) {
 			$this->propertiesIncludingAnnotations[$classReflection->getName()][$propertyName] = $this->createProperty($classReflection, $propertyName, true);
 		}
 
 		return $this->propertiesIncludingAnnotations[$classReflection->getName()][$propertyName];
+	}
+
+	public function getPropertyForWrite(ClassReflection $classReflection, string $propertyName): PropertyReflection
+	{
+		return $this->getPropertyForRead($classReflection, $propertyName);
 	}
 
 	public function getNativeProperty(ClassReflection $classReflection, string $propertyName): PhpPropertyReflection
@@ -114,7 +119,7 @@ class PhpClassReflectionExtension
 
 		if ($includingAnnotations && $this->annotationsPropertiesClassReflectionExtension->hasProperty($classReflection, $propertyName)) {
 			$hierarchyDistances = $classReflection->getClassHierarchyDistances();
-			$annotationProperty = $this->annotationsPropertiesClassReflectionExtension->getProperty($classReflection, $propertyName);
+			$annotationProperty = $this->annotationsPropertiesClassReflectionExtension->getPropertyForRead($classReflection, $propertyName);
 			if (!isset($hierarchyDistances[$annotationProperty->getDeclaringClass()->getName()])) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}

@@ -30,9 +30,14 @@ class AnnotationsPropertiesClassReflectionExtension implements PropertiesClassRe
 		return isset($this->properties[$classReflection->getName()][$propertyName]);
 	}
 
-	public function getProperty(ClassReflection $classReflection, string $propertyName): PropertyReflection
+	public function getPropertyForRead(ClassReflection $classReflection, string $propertyName): PropertyReflection
 	{
 		return $this->properties[$classReflection->getName()][$propertyName];
+	}
+
+	public function getPropertyForWrite(ClassReflection $classReflection, string $propertyName): PropertyReflection
+	{
+		return $this->getPropertyForRead($classReflection, $propertyName);
 	}
 
 	/**

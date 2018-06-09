@@ -118,9 +118,14 @@ class ClosureType implements CompoundType, ParametersAcceptor
 		return $this->objectType->hasProperty($propertyName);
 	}
 
-	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	public function getPropertyForRead(string $propertyName, Scope $scope): PropertyReflection
 	{
-		return $this->objectType->getProperty($propertyName, $scope);
+		return $this->objectType->getPropertyForRead($propertyName, $scope);
+	}
+
+	public function getPropertyForWrite(string $propertyName, Scope $scope): PropertyReflection
+	{
+		return $this->objectType->getPropertyForWrite($propertyName, $scope);
 	}
 
 	public function canCallMethods(): TrinaryLogic

@@ -83,4 +83,9 @@ class PhpPropertyReflection implements PropertyReflection, DeprecatableReflectio
 		return $this->isDeprecated;
 	}
 
+	public function canChangeTypeAfterAssignment(): bool
+	{
+		return true;
+	}
+
 }
