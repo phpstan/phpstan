@@ -19,7 +19,6 @@ use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeUtils;
 use PHPStan\Type\TypeWithClassName;
-use PHPStan\Type\UnionType;
 use PHPStan\Type\VerbosityLevel;
 
 /**
@@ -381,57 +380,6 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		}
 
 		return new self($this->keyTypes, $valueTypes, $this->nextAutoIndex);
-	}
-
-	public function unionWith(ArrayType $otherArray): Type
-	{
-		if (!$otherArray instanceof self) {
-			return parent::unionWith($otherArray);
-		}
-
-		$newArray = [];
-		foreach ($this->getKeyTypes() as $i => $keyType) {
-			$newArray[$keyType->getValue()] = [
-				'key' => $keyType,
-				'value' => $this->getValueTypes()[$i],
-				'certainty' => TrinaryLogic::createMaybe(),
-			];
-		}
-
-		foreach ($otherArray->getKeyTypes() as $i => $otherKeyType) {
-			if (isset($newArray[$otherKeyType->getValue()])) {
-				$newArray[$otherKeyType->getValue()] = [
-					'key' => $otherKeyType,
-					'value' => TypeCombinator::union(
-						$newArray[$otherKeyType->getValue()]['value'],
-						$otherArray->getValueTypes()[$i]
-					),
-					'certainty' => TrinaryLogic::createYes(),
-				];
-				continue;
-			}
-
-			$newArray[$otherKeyType->getValue()] = [
-				'key' => $otherKeyType,
-				'value' => $otherArray->getValueTypes()[$i],
-				'certainty' => TrinaryLogic::createMaybe(),
-			];
-		}
-
-		$newArrayBuilder = ConstantArrayTypeBuilder::createEmpty();
-		foreach ($newArray as $keyTypeValue => $value) {
-			if ($value['certainty']->equals(TrinaryLogic::createYes())) {
-				$newArrayBuilder->setOffsetValueType(
-					$value['key'],
-					$value['value']
-				);
-				continue;
-			}
-
-			return new UnionType([$this, $otherArray]);
-		}
-
-		return $newArrayBuilder->getArray();
 	}
 
 	/**

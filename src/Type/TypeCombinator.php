@@ -3,6 +3,7 @@
 namespace PHPStan\Type;
 
 use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\Constant\ConstantArrayTypeBuilder;
 use PHPStan\Type\Constant\ConstantBooleanType;
 
 class TypeCombinator
@@ -84,25 +85,23 @@ class TypeCombinator
 			array_splice($types, $i, 1, $types[$i]->getTypes());
 		}
 
-		// join arrays
-		for ($i = 0; $i < count($types); $i++) {
-			for ($j = $i + 1; $j < count($types); $j++) {
-				if ($types[$i] instanceof ArrayType && $types[$j] instanceof ArrayType) {
-					$types[$i] = $types[$i]->unionWith($types[$j]);
-					array_splice($types, $j, 1);
-					continue 2;
-				}
-			}
-		}
-
-		// transform A | (B | C) to A | B | C (again!)
-		for ($i = 0; $i < count($types); $i++) {
-			if (!($types[$i] instanceof UnionType)) {
+		$typesCount = count($types);
+		$arrayTypes = [];
+		for ($i = 0; $i < $typesCount; $i++) {
+			if (!$types[$i] instanceof ArrayType) {
 				continue;
 			}
 
-			array_splice($types, $i, 1, $types[$i]->getTypes());
+			$arrayTypes[] = $types[$i];
+			unset($types[$i]);
 		}
+
+		/** @var ArrayType[] $arrayTypes */
+		$arrayTypes = $arrayTypes;
+
+		$types = array_values(
+			array_merge($types, self::processArrayTypes($arrayTypes))
+		);
 
 		// simplify true | false to bool
 		// simplify string[] | int[] to (string|int)[]
@@ -156,6 +155,108 @@ class TypeCombinator
 		}
 
 		return new UnionType($types);
+	}
+
+	/**
+	 * @param ArrayType[] $arrayTypes
+	 * @return ArrayType[]
+	 */
+	private static function processArrayTypes(array $arrayTypes): array
+	{
+		if (count($arrayTypes) < 2) {
+			return $arrayTypes;
+		}
+
+		$keyTypesForGeneralArray = [];
+		$valueTypesForGeneralArray = [];
+		$generalArrayOcurred = false;
+		$constantKeyTypesNumbered = [];
+
+		/** @var int|float $nextConstantKeyTypeIndex */
+		$nextConstantKeyTypeIndex = 1;
+
+		foreach ($arrayTypes as $arrayType) {
+			if (!$arrayType instanceof ConstantArrayType) {
+				$keyTypesForGeneralArray[] = $arrayType->getKeyType();
+				$valueTypesForGeneralArray[] = $arrayType->getItemType();
+				$generalArrayOcurred = true;
+				continue;
+			}
+
+			foreach ($arrayType->getKeyTypes() as $i => $keyType) {
+				$keyTypesForGeneralArray[] = $keyType;
+				$valueTypesForGeneralArray[] = $arrayType->getValueTypes()[$i];
+
+				$keyTypeValue = $keyType->getValue();
+				if (array_key_exists($keyTypeValue, $constantKeyTypesNumbered)) {
+					continue;
+				}
+
+				$constantKeyTypesNumbered[$keyTypeValue] = $nextConstantKeyTypeIndex;
+				$nextConstantKeyTypeIndex *= 2;
+				if (!is_int($nextConstantKeyTypeIndex)) {
+					$generalArrayOcurred = true;
+					continue;
+				}
+			}
+		}
+
+		if ($generalArrayOcurred) {
+			return [
+				new ArrayType(
+					self::union(...$keyTypesForGeneralArray),
+					self::union(...$valueTypesForGeneralArray)
+				),
+			];
+		}
+
+		/** @var ConstantArrayType[] $arrayTypes */
+		$arrayTypes = $arrayTypes;
+
+		/** @var int[] $constantKeyTypesNumbered */
+		$constantKeyTypesNumbered = $constantKeyTypesNumbered;
+
+		$constantArraysBuckets = [];
+		foreach ($arrayTypes as $arrayType) {
+			$arrayIndex = 0;
+			foreach ($arrayType->getKeyTypes() as $keyType) {
+				$arrayIndex += $constantKeyTypesNumbered[$keyType->getValue()];
+			}
+
+			if (!array_key_exists($arrayIndex, $constantArraysBuckets)) {
+				$bucket = [];
+				foreach ($arrayType->getKeyTypes() as $i => $keyType) {
+					$bucket[$keyType->getValue()] = [
+						'keyType' => $keyType,
+						'valueType' => $arrayType->getValueTypes()[$i],
+					];
+				}
+				$constantArraysBuckets[$arrayIndex] = $bucket;
+				continue;
+			}
+
+			$bucket = $constantArraysBuckets[$arrayIndex];
+			foreach ($arrayType->getKeyTypes() as $i => $keyType) {
+				$bucket[$keyType->getValue()]['valueType'] = self::union(
+					$bucket[$keyType->getValue()]['valueType'],
+					$arrayType->getValueTypes()[$i]
+				);
+			}
+
+			$constantArraysBuckets[$arrayIndex] = $bucket;
+		}
+
+		$resultArrays = [];
+		foreach ($constantArraysBuckets as $bucket) {
+			$builder = ConstantArrayTypeBuilder::createEmpty();
+			foreach ($bucket as $data) {
+				$builder->setOffsetValueType($data['keyType'], $data['valueType']);
+			}
+
+			$resultArrays[] = $builder->getArray();
+		}
+
+		return $resultArrays;
 	}
 
 	public static function intersect(Type ...$types): Type

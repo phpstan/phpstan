@@ -111,14 +111,6 @@ class ArrayType implements StaticResolvableType
 		return new self($this->keyType, TypeUtils::generalizeType($this->itemType));
 	}
 
-	public function unionWith(self $otherArray): Type
-	{
-		return new self(
-			TypeCombinator::union($this->getKeyType(), $otherArray->getKeyType()),
-			TypeCombinator::union($this->getIterableValueType(), $otherArray->getIterableValueType())
-		);
-	}
-
 	public function getKeysArray(): self
 	{
 		return new self(new IntegerType(), $this->keyType);
