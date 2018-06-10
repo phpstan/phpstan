@@ -33,7 +33,13 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 			unset($outputLines);
 			exec(sprintf('%s analyse --no-progress --errorFormat=prettyJson --level=%d %s --autoload-file %s %s', $command, $level, $configPath !== null ? '--configuration ' . escapeshellarg($configPath) : '', escapeshellarg($file), escapeshellarg($file)), $outputLines);
 
-			$actualJson = \Nette\Utils\Json::decode(implode("\n", $outputLines), \Nette\Utils\Json::FORCE_ARRAY);
+			$output = implode("\n", $outputLines);
+
+			try {
+				$actualJson = \Nette\Utils\Json::decode($output, \Nette\Utils\Json::FORCE_ARRAY);
+			} catch (\Nette\Utils\JsonException $e) {
+				throw new \Nette\Utils\JsonException(sprintf('Cannot decode: %s', $output));
+			}
 			if (count($actualJson['files']) > 0) {
 				$messagesBeforeDiffing = $actualJson['files'][$file]['messages'];
 			} else {
