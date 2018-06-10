@@ -9,6 +9,8 @@ use PHPStan\Type\Constant\ConstantBooleanType;
 class TypeCombinator
 {
 
+	private const CONSTANT_ARRAY_UNION_THRESHOLD = 16;
+
 	public static function addNull(Type $type): Type
 	{
 		return self::union($type, new NullType());
@@ -176,7 +178,7 @@ class TypeCombinator
 		$nextConstantKeyTypeIndex = 1;
 
 		foreach ($arrayTypes as $arrayType) {
-			if (!$arrayType instanceof ConstantArrayType) {
+			if (!$arrayType instanceof ConstantArrayType || $generalArrayOcurred) {
 				$keyTypesForGeneralArray[] = $arrayType->getKeyType();
 				$valueTypesForGeneralArray[] = $arrayType->getItemType();
 				$generalArrayOcurred = true;
@@ -244,6 +246,15 @@ class TypeCombinator
 			}
 
 			$constantArraysBuckets[$arrayIndex] = $bucket;
+		}
+
+		if (count($constantArraysBuckets) > self::CONSTANT_ARRAY_UNION_THRESHOLD) {
+			return [
+				new ArrayType(
+					self::union(...$keyTypesForGeneralArray),
+					self::union(...$valueTypesForGeneralArray)
+				),
+			];
 		}
 
 		$resultArrays = [];

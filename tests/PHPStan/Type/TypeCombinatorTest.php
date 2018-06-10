@@ -1233,9 +1233,9 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 	public function testUnionConstantArrays(): void
 	{
 		$arrays = [];
-		for ($i = 0; $i < 10; $i++) {
+		for ($i = 0; $i < 5; $i++) {
 			$array = new ConstantArrayType([], []);
-			for ($j = 0; $j < 10; $j++) {
+			for ($j = 0; $j < 5; $j++) {
 				$arrays[] = $array = $array->setOffsetValueType(new ConstantIntegerType($j), new StringType());
 				if ($i !== $j) {
 					continue;
@@ -1246,7 +1246,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 		}
 		$resultType = TypeCombinator::union(...$arrays);
 		$this->assertInstanceOf(UnionType::class, $resultType);
-		$this->assertCount(20, $resultType->getTypes());
+		$this->assertCount(10, $resultType->getTypes());
 	}
 
 }
