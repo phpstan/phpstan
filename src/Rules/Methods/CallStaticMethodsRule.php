@@ -17,6 +17,7 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\TypeUtils;
 use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\VerbosityLevel;
 
@@ -38,12 +39,16 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 	/** @var bool */
 	private $checkFunctionNameCase;
 
+	/** @var bool */
+	private $reportMagicMethods;
+
 	public function __construct(
 		Broker $broker,
 		FunctionCallParametersCheck $check,
 		RuleLevelHelper $ruleLevelHelper,
 		ClassCaseSensitivityCheck $classCaseSensitivityCheck,
-		bool $checkFunctionNameCase
+		bool $checkFunctionNameCase,
+		bool $reportMagicMethods
 	)
 	{
 		$this->broker = $broker;
@@ -51,6 +56,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 		$this->ruleLevelHelper = $ruleLevelHelper;
 		$this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
 		$this->checkFunctionNameCase = $checkFunctionNameCase;
+		$this->reportMagicMethods = $reportMagicMethods;
 	}
 
 	public function getNodeType(): string
@@ -156,6 +162,20 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 		}
 
 		if (!$classType->hasMethod($methodName)) {
+			if (!$this->reportMagicMethods) {
+				$directClassNames = TypeUtils::getDirectClassNames($classType);
+				foreach ($directClassNames as $className) {
+					if (!$this->broker->hasClass($className)) {
+						continue;
+					}
+
+					$classReflection = $this->broker->getClass($className);
+					if ($classReflection->hasNativeMethod('__callStatic')) {
+						return [];
+					}
+				}
+			}
+
 			return array_merge($errors, [
 				sprintf(
 					'Call to an undefined static method %s::%s().',

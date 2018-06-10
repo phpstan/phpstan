@@ -63,3 +63,33 @@ class Baz
 	}
 
 }
+
+class ClassWithMagicMethod
+{
+
+	public function doFoo()
+	{
+		$this->test();
+	}
+
+	public function __call(string $name, array $args)
+	{
+
+	}
+
+}
+
+class AnotherClassWithMagicMethod
+{
+
+	public function doFoo()
+	{
+		self::test();
+	}
+
+	public static function __callStatic(string $name, array $args)
+	{
+
+	}
+
+}

@@ -1,0 +1,12 @@
+[
+    {
+        "message": "Call to an undefined method Levels\\MethodCalls\\ClassWithMagicMethod::test().",
+        "line": 72,
+        "ignorable": true
+    },
+    {
+        "message": "Call to an undefined static method Levels\\MethodCalls\\AnotherClassWithMagicMethod::test().",
+        "line": 87,
+        "ignorable": true
+    }
+]

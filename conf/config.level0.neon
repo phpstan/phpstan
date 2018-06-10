@@ -19,7 +19,6 @@ rules:
 	- PHPStan\Rules\Functions\PrintfParametersRule
 	- PHPStan\Rules\Functions\UnusedClosureUsesRule
 	- PHPStan\Rules\Methods\ExistingClassesInTypehintsRule
-	- PHPStan\Rules\Properties\AccessPropertiesRule
 	- PHPStan\Rules\Properties\AccessStaticPropertiesRule
 	- PHPStan\Rules\Variables\ThisVariableRule
 
@@ -51,6 +50,7 @@ services:
 			- phpstan.rules.rule
 		arguments:
 			checkFunctionNameCase: %checkFunctionNameCase%
+			reportMagicMethods: %reportMagicMethods%
 
 	-
 		class: PHPStan\Rules\Methods\CallStaticMethodsRule
@@ -58,6 +58,7 @@ services:
 			- phpstan.rules.rule
 		arguments:
 			checkFunctionNameCase: %checkFunctionNameCase%
+			reportMagicMethods: %reportMagicMethods%
 
 	-
 		class: PHPStan\Rules\Namespaces\ExistingNamesInGroupUseRule
@@ -79,6 +80,13 @@ services:
 			- phpstan.rules.rule
 		arguments:
 			checkThisOnly: %checkThisOnly%
+
+	-
+		class: PHPStan\Rules\Properties\AccessPropertiesRule
+		tags:
+			- phpstan.rules.rule
+		arguments:
+			reportMagicProperties: %reportMagicProperties%
 
 	-
 		class: PHPStan\Rules\Properties\ExistingClassesInPropertiesRule

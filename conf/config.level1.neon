@@ -3,6 +3,8 @@ includes:
 
 parameters:
 	checkMaybeUndefinedVariables: true
+	reportMagicMethods: true
+	reportMagicProperties: true
 
 rules:
 	- PHPStan\Rules\Constants\ConstantRule

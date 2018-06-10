@@ -67,3 +67,37 @@ class Baz
 	}
 
 }
+
+class ClassWithMagicMethod
+{
+
+	public function doFoo()
+	{
+		$this->test = 'test';
+	}
+
+	/**
+	 * @param string $name
+	 * @param mixed $value
+	 */
+	public function __set(string $name, $value)
+	{
+
+	}
+
+}
+
+class AnotherClassWithMagicMethod
+{
+
+	public function doFoo()
+	{
+		echo $this->test;
+	}
+
+	public function __get(string $name)
+	{
+
+	}
+
+}

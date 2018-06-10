@@ -19,6 +19,8 @@ parameters:
 	reportMaybes: false
 	polluteScopeWithLoopInitialAssignments: true
 	polluteCatchScopeWithTryAssignments: false
+	reportMagicMethods: false
+	reportMagicProperties: false
 	ignoreErrors: []
 	internalErrorsCountLimit: 50
 	reportUnmatchedIgnoredErrors: true

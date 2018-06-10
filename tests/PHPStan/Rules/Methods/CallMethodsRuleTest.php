@@ -26,6 +26,7 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 			$broker,
 			new FunctionCallParametersCheck($ruleLevelHelper, true, true),
 			$ruleLevelHelper,
+			true,
 			true
 		);
 	}

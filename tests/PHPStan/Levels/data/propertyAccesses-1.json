@@ -1,0 +1,12 @@
+[
+    {
+        "message": "Access to an undefined property Levels\\PropertyAccesses\\ClassWithMagicMethod::$test.",
+        "line": 76,
+        "ignorable": true
+    },
+    {
+        "message": "Access to an undefined property Levels\\PropertyAccesses\\AnotherClassWithMagicMethod::$test.",
+        "line": 95,
+        "ignorable": true
+    }
+]

@@ -11,7 +11,6 @@ use PHPStan\Rules\FunctionCallParametersCheck;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\Type;
-use PHPStan\Type\TypeUtils;
 use PHPStan\Type\VerbosityLevel;
 
 class CallMethodsRule implements \PHPStan\Rules\Rule
@@ -29,17 +28,22 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 	/** @var bool */
 	private $checkFunctionNameCase;
 
+	/** @var bool */
+	private $reportMagicMethods;
+
 	public function __construct(
 		Broker $broker,
 		FunctionCallParametersCheck $check,
 		RuleLevelHelper $ruleLevelHelper,
-		bool $checkFunctionNameCase
+		bool $checkFunctionNameCase,
+		bool $reportMagicMethods
 	)
 	{
 		$this->broker = $broker;
 		$this->check = $check;
 		$this->ruleLevelHelper = $ruleLevelHelper;
 		$this->checkFunctionNameCase = $checkFunctionNameCase;
+		$this->reportMagicMethods = $reportMagicMethods;
 	}
 
 	public function getNodeType(): string
@@ -78,7 +82,20 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 		}
 
 		if (!$type->hasMethod($name)) {
-			$directClassNames = TypeUtils::getDirectClassNames($typeResult->getType());
+			$directClassNames = $typeResult->getReferencedClasses();
+			if (!$this->reportMagicMethods) {
+				foreach ($directClassNames as $className) {
+					if (!$this->broker->hasClass($className)) {
+						continue;
+					}
+
+					$classReflection = $this->broker->getClass($className);
+					if ($classReflection->hasNativeMethod('__call')) {
+						return [];
+					}
+				}
+			}
+
 			if (count($directClassNames) === 1) {
 				$referencedClass = $directClassNames[0];
 				$methodClassReflection = $this->broker->getClass($referencedClass);

@@ -19,13 +19,18 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 	/** @var \PHPStan\Rules\RuleLevelHelper */
 	private $ruleLevelHelper;
 
+	/** @var bool */
+	private $reportMagicProperties;
+
 	public function __construct(
 		Broker $broker,
-		RuleLevelHelper $ruleLevelHelper
+		RuleLevelHelper $ruleLevelHelper,
+		bool $reportMagicProperties
 	)
 	{
 		$this->broker = $broker;
 		$this->ruleLevelHelper = $ruleLevelHelper;
+		$this->reportMagicProperties = $reportMagicProperties;
 	}
 
 	public function getNodeType(): string
@@ -69,7 +74,24 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 				return [];
 			}
 
-			if (count($typeResult->getReferencedClasses()) === 1) {
+			$classNames = $typeResult->getReferencedClasses();
+			if (!$this->reportMagicProperties) {
+				foreach ($classNames as $className) {
+					if (!$this->broker->hasClass($className)) {
+						continue;
+					}
+
+					$classReflection = $this->broker->getClass($className);
+					if (
+						$classReflection->hasNativeMethod('__get')
+						|| $classReflection->hasNativeMethod('__set')
+					) {
+						return [];
+					}
+				}
+			}
+
+			if (count($classNames) === 1) {
 				$referencedClass = $typeResult->getReferencedClasses()[0];
 				$propertyClassReflection = $this->broker->getClass($referencedClass);
 				$parentClassReflection = $propertyClassReflection->getParentClass();
