@@ -115,7 +115,12 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		}
 
 		if ($type instanceof ArrayType) {
-			return TrinaryLogic::createMaybe()->and(
+			$result = TrinaryLogic::createMaybe();
+			if (count($this->keyTypes) === 0) {
+				return $result;
+			}
+
+			return $result->and(
 				$this->getKeyType()->isSuperTypeOf($type->getKeyType()),
 				$this->getItemType()->isSuperTypeOf($type->getItemType())
 			);

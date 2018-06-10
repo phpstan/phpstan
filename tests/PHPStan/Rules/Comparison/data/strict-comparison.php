@@ -513,3 +513,42 @@ class DoNotReportPropertyFetchAndNullComparison
 	}
 
 }
+
+class ComparingAgainstEmptyArray
+{
+
+	/**
+	 * @param string[] $strings
+	 * @param mixed[] $mixeds
+	 */
+	public function doFoo(
+		array $strings,
+		array $mixeds
+	)
+	{
+		if ($strings === []) {
+
+		}
+		if ($mixeds === []) {
+
+		}
+	}
+
+	/**
+	 * @param string[] $strings
+	 * @param mixed[] $mixeds
+	 */
+	public function doBar(
+		array $strings,
+		array $mixeds
+	)
+	{
+		if ([] === $strings) {
+
+		}
+		if ([] === $mixeds) {
+
+		}
+	}
+
+}
