@@ -40,17 +40,11 @@ class PhpFunctionReflection implements FunctionReflection
 	/** @var \PHPStan\Type\Type|null */
 	private $phpDocThrowType;
 
-	/** @var \PHPStan\Reflection\ParameterReflection[] */
-	private $parameters;
-
-	/** @var \PHPStan\Type\Type */
-	private $returnType;
-
-	/** @var \PHPStan\Type\Type */
-	private $nativeReturnType;
-
 	/** @var bool */
 	private $isDeprecated;
+
+	/** @var FunctionVariantWithPhpDocs[]|null */
+	private $variants;
 
 	/**
 	 * @param \ReflectionFunction $reflection
@@ -93,15 +87,19 @@ class PhpFunctionReflection implements FunctionReflection
 	 */
 	public function getVariants(): array
 	{
-		return [
-			new FunctionVariantWithPhpDocs(
-				$this->getParameters(),
-				$this->isVariadic(),
-				$this->getReturnType(),
-				$this->getPhpDocReturnType(),
-				$this->getNativeReturnType()
-			),
-		];
+		if ($this->variants === null) {
+			$this->variants = [
+				new FunctionVariantWithPhpDocs(
+					$this->getParameters(),
+					$this->isVariadic(),
+					$this->getReturnType(),
+					$this->getPhpDocReturnType(),
+					$this->getNativeReturnType()
+				),
+			];
+		}
+
+		return $this->variants;
 	}
 
 	/**
@@ -109,16 +107,12 @@ class PhpFunctionReflection implements FunctionReflection
 	 */
 	private function getParameters(): array
 	{
-		if ($this->parameters === null) {
-			$this->parameters = array_map(function (\ReflectionParameter $reflection) {
-				return new PhpParameterReflection(
-					$reflection,
-					isset($this->phpDocParameterTypes[$reflection->getName()]) ? $this->phpDocParameterTypes[$reflection->getName()] : null
-				);
-			}, $this->reflection->getParameters());
-		}
-
-		return $this->parameters;
+		return array_map(function (\ReflectionParameter $reflection) {
+			return new PhpParameterReflection(
+				$reflection,
+				isset($this->phpDocParameterTypes[$reflection->getName()]) ? $this->phpDocParameterTypes[$reflection->getName()] : null
+			);
+		}, $this->reflection->getParameters());
 	}
 
 	private function isVariadic(): bool
@@ -177,26 +171,22 @@ class PhpFunctionReflection implements FunctionReflection
 
 	private function getReturnType(): Type
 	{
-		if ($this->returnType === null) {
-			if ($this->reflection->getName() === 'count') {
-				return $this->returnType = new IntegerType();
-			}
-			$returnType = $this->reflection->getReturnType();
-			$phpDocReturnType = $this->phpDocReturnType;
-			if (
-				$returnType !== null
-				&& $phpDocReturnType !== null
-				&& $returnType->allowsNull() !== TypeCombinator::containsNull($phpDocReturnType)
-			) {
-				$phpDocReturnType = null;
-			}
-			$this->returnType = TypehintHelper::decideTypeFromReflection(
-				$returnType,
-				$phpDocReturnType
-			);
+		if ($this->reflection->getName() === 'count') {
+			return new IntegerType();
 		}
-
-		return $this->returnType;
+		$returnType = $this->reflection->getReturnType();
+		$phpDocReturnType = $this->phpDocReturnType;
+		if (
+			$returnType !== null
+			&& $phpDocReturnType !== null
+			&& $returnType->allowsNull() !== TypeCombinator::containsNull($phpDocReturnType)
+		) {
+			$phpDocReturnType = null;
+		}
+		return TypehintHelper::decideTypeFromReflection(
+			$returnType,
+			$phpDocReturnType
+		);
 	}
 
 	private function getPhpDocReturnType(): Type
@@ -210,11 +200,7 @@ class PhpFunctionReflection implements FunctionReflection
 
 	private function getNativeReturnType(): Type
 	{
-		if ($this->nativeReturnType === null) {
-			$this->nativeReturnType = TypehintHelper::decideTypeFromReflection($this->reflection->getReturnType());
-		}
-
-		return $this->nativeReturnType;
+		return TypehintHelper::decideTypeFromReflection($this->reflection->getReturnType());
 	}
 
 	public function isDeprecated(): bool

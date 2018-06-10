@@ -72,6 +72,9 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, T
 	/** @var bool $isDeprecated */
 	private $isDeprecated;
 
+	/** @var FunctionVariantWithPhpDocs[]|null */
+	private $variants;
+
 	/**
 	 * @param ClassReflection $declaringClass
 	 * @param ClassReflection|null $declaringTrait
@@ -188,15 +191,19 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, T
 	 */
 	public function getVariants(): array
 	{
-		return [
-			new FunctionVariantWithPhpDocs(
-				$this->getParameters(),
-				$this->isVariadic(),
-				$this->getReturnType(),
-				$this->getPhpDocReturnType(),
-				$this->getNativeReturnType()
-			),
-		];
+		if ($this->variants === null) {
+			$this->variants = [
+				new FunctionVariantWithPhpDocs(
+					$this->getParameters(),
+					$this->isVariadic(),
+					$this->getReturnType(),
+					$this->getPhpDocReturnType(),
+					$this->getNativeReturnType()
+				),
+			];
+		}
+
+		return $this->variants;
 	}
 
 	/**

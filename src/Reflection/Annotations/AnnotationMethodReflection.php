@@ -29,6 +29,9 @@ class AnnotationMethodReflection implements MethodReflection
 	/** @var bool */
 	private $isVariadic;
 
+	/** @var FunctionVariant[]|null */
+	private $variants;
+
 	/**
 	 * @param string $name
 	 * @param ClassReflection $declaringClass
@@ -89,13 +92,16 @@ class AnnotationMethodReflection implements MethodReflection
 	 */
 	public function getVariants(): array
 	{
-		return [
-			new FunctionVariant(
-				$this->parameters,
-				$this->isVariadic,
-				$this->returnType
-			),
-		];
+		if ($this->variants === null) {
+			$this->variants = [
+				new FunctionVariant(
+					$this->parameters,
+					$this->isVariadic,
+					$this->returnType
+				),
+			];
+		}
+		return $this->variants;
 	}
 
 }
