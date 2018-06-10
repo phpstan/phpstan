@@ -114,4 +114,16 @@ class Foo
 		echo $array[$i];
 	}
 
+	public function assigningToNull()
+	{
+		$null = null;
+		$null['test'] = 'foo';
+	}
+
+	public function readingNull()
+	{
+		$null = null;
+		echo $null['test'];
+	}
+
 }

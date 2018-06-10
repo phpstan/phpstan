@@ -10,7 +10,6 @@ use PHPStan\Type\Traits\FalseyBooleanTypeTrait;
 use PHPStan\Type\Traits\NonCallableTypeTrait;
 use PHPStan\Type\Traits\NonIterableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
-use PHPStan\Type\Traits\NonOffsetAccessibleTypeTrait;
 
 class NullType implements ConstantScalarType
 {
@@ -18,7 +17,6 @@ class NullType implements ConstantScalarType
 	use NonCallableTypeTrait;
 	use NonIterableTypeTrait;
 	use NonObjectTypeTrait;
-	use NonOffsetAccessibleTypeTrait;
 	use FalseyBooleanTypeTrait;
 
 	/**
@@ -105,6 +103,11 @@ class NullType implements ConstantScalarType
 			[$this],
 			1
 		);
+	}
+
+	public function isOffsetAccessible(): TrinaryLogic
+	{
+		return TrinaryLogic::createYes();
 	}
 
 	public function getOffsetValueType(Type $offsetType): Type

@@ -1,7 +1,0 @@
-[
-    {
-        "message": "Cannot access offset 0 on array|null.",
-        "line": 11,
-        "ignorable": true
-    }
-]
