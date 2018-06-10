@@ -6266,6 +6266,33 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataAnonymousClassInTrait(): array
+	{
+		return [
+			[
+				'$this(AnonymousClass3de0a9734314db9dec21ba308363ff9a)',
+				'$this',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataAnonymousClassInTrait
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testAnonymousClassNameInTrait(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/anonymous-class-name-in-trait.php',
+			$description,
+			$expression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $description,
@@ -6327,6 +6354,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		$resolver->setAnalysedFiles([
 			$file,
 			__DIR__ . '/data/methodPhpDocs-trait-defined.php',
+			__DIR__ . '/data/anonymous-class-name-in-trait-trait.php',
 		]);
 		$resolver->processNodes(
 			$this->getParser()->parseFile($file),

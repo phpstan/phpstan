@@ -262,9 +262,23 @@ class Broker
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
+		if (!$scope->isInTrait()) {
+			$scopeFile = $scope->getFile();
+		} else {
+			$scopeFile = $scope->getTraitReflection()->getFileName();
+			if ($scopeFile === false) {
+				$scopeFile = $scope->getFile();
+			}
+		}
+
+		$filename = RelativePathHelper::getRelativePath(
+			$this->currentWorkingDirectory,
+			$scopeFile
+		);
+
 		$className = $this->anonymousClassNameHelper->getAnonymousClassName(
 			$node,
-			$scope->getFile()
+			$filename
 		);
 
 		if (isset(self::$anonymousClasses[$className])) {
@@ -276,15 +290,10 @@ class Broker
 		eval($this->printer->prettyPrint([$classNode]));
 		unset($classNode);
 
-		$filename = RelativePathHelper::getRelativePath(
-			$this->currentWorkingDirectory,
-			$scope->getFile()
-		);
-
 		self::$anonymousClasses[$className] = $this->getClassFromReflection(
 			new \ReflectionClass('\\' . $className),
 			sprintf('class@anonymous/%s:%s', $filename, $node->getLine()),
-			$scope->getFile()
+			$filename
 		);
 		$this->classReflections[$className] = self::$anonymousClasses[$className];
 
