@@ -269,7 +269,6 @@ class NodeScopeResolver
 		} else {
 			if ($node instanceof Expr\Empty_) {
 				$scope = $this->specifyProperty($scope, $node->expr);
-				$scope = $this->assignVariable($scope, $node->expr, TrinaryLogic::createYes());
 			}
 		}
 	}
@@ -770,6 +769,7 @@ class NodeScopeResolver
 			} elseif ($subNode instanceof \PhpParser\Node) {
 				if ($node instanceof Coalesce && $subNodeName === 'left') {
 					$scope = $this->ensureNonNullability($scope, $subNode, false);
+					$scope = $this->lookForEnterVariableAssign($scope, $node->left);
 				}
 
 				if (
@@ -872,7 +872,6 @@ class NodeScopeResolver
 		bool $findMethods
 	): Scope
 	{
-		$scope = $this->assignVariable($scope, $node, TrinaryLogic::createYes());
 		$nodeToSpecify = $node;
 		while (
 			$nodeToSpecify instanceof PropertyFetch

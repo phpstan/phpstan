@@ -869,3 +869,21 @@ class CheckDefaultArrayKeys
 	}
 
 }
+
+class CallAfterEmpty
+{
+
+	public function doFoo(?string $q, ?Foo $foo)
+	{
+		if (empty($q)) {
+			return;
+		}
+		if (empty($foo)) {
+			return;
+		}
+
+		$q->test();
+		$foo->test();
+	}
+
+}

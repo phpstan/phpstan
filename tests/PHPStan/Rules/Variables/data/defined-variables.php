@@ -152,7 +152,7 @@ if (!empty($negatedVariableInEmpty)) {
 	echo $negatedVariableInEmpty; // exists here
 }
 
-echo $variableInEmpty; // exists here
+echo $variableInEmpty;
 echo $negatedVariableInEmpty; // does not exist here
 
 if (isset($variableInIsset) && isset($anotherVariableInIsset['foo'])) {

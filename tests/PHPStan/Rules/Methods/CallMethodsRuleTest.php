@@ -345,6 +345,14 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Parameter #1 $str of method Test\CheckDefaultArrayKeys::doBaz() expects string, int|string given.',
 				867,
 			],
+			[
+				'Cannot call method test() on string.',
+				885,
+			],
+			[
+				'Method Test\Foo::test() invoked with 0 parameters, 1 required.',
+				886,
+			],
 		]);
 	}
 
