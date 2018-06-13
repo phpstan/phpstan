@@ -3461,6 +3461,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 
 						return new ObjectType((string) $arg->class);
 					}
+
 				},
 			],
 			[
@@ -3494,6 +3495,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 
 						return new ObjectType((string) $arg->class);
 					}
+
 				},
 			]
 		);

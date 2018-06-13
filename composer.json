@@ -31,7 +31,7 @@
 		"ext-mysqli": "*",
 		"ext-zip": "*",
 		"brianium/paratest": "^2.0",
-		"consistence/coding-standard": "^3.0.1",
+		"consistence/coding-standard": "^3.3",
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
 		"jakub-onderka/php-parallel-lint": "^1.0",
 		"phing/phing": "^2.16.0",
@@ -39,7 +39,7 @@
 		"phpstan/phpstan-phpunit": "^0.10",
 		"phpstan/phpstan-strict-rules": "^0.10",
 		"phpunit/phpunit": "^7.0",
-		"slevomat/coding-standard": "^4.6.0"
+		"slevomat/coding-standard": "^4.6.2"
 	},
 	"autoload": {
 		"psr-4": {"PHPStan\\": ["src/", "build/PHPStan"]}

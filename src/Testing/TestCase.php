@@ -128,6 +128,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 					$isDeprecated
 				);
 			}
+
 		};
 		$phpDocStringResolver = self::getContainer()->getByType(PhpDocStringResolver::class);
 		$fileTypeMapper = new FileTypeMapper($parser, $phpDocStringResolver, $cache, new AnonymousClassNameHelper($this->getCurrentWorkingDirectory()));
@@ -184,6 +185,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 					$isDeprecated
 				);
 			}
+
 		};
 
 		$tagToService = function (array $tags) {

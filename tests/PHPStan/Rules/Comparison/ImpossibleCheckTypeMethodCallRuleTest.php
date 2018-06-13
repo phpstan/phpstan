@@ -78,6 +78,7 @@ class ImpossibleCheckTypeMethodCallRuleTest extends \PHPStan\Testing\RuleTestCas
 						TypeSpecifierContext::createTruthy()
 					);
 				}
+
 			},
 			new class() implements MethodTypeSpecifyingExtension,
 			TypeSpecifierAwareExtension {
@@ -121,6 +122,7 @@ class ImpossibleCheckTypeMethodCallRuleTest extends \PHPStan\Testing\RuleTestCas
 						TypeSpecifierContext::createTruthy()
 					);
 				}
+
 			},
 			new class() implements MethodTypeSpecifyingExtension,
 			TypeSpecifierAwareExtension {
@@ -164,6 +166,7 @@ class ImpossibleCheckTypeMethodCallRuleTest extends \PHPStan\Testing\RuleTestCas
 						TypeSpecifierContext::createTruthy()
 					);
 				}
+
 			},
 		];
 	}
