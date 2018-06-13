@@ -6,6 +6,8 @@ function () {
 	$foo = null;
 	$key = null;
 	$val = null;
+
+	$integers = [];
 	$i = 0;
 	foreach ([1, 2, 3] as $key => $val) {
 		'begin';
@@ -13,6 +15,11 @@ function () {
 		'afterAssign';
 
 		$foo && $i++;
+
+		$nullableInt = $val;
+		if (rand(0, 1) === 1) {
+			$nullableInt = null;
+		}
 
 		if (something()) {
 			$foo = new Bar();
@@ -26,6 +33,12 @@ function () {
 			$foo = new Lorem();
 			continue;
 		}
+
+		if ($nullableInt === null) {
+			continue;
+		}
+
+		$integers[] = $nullableInt;
 
 		'end';
 	}

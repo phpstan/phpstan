@@ -2155,6 +2155,38 @@ class Scope
 		);
 	}
 
+	public function removeSpecified(self $initialScope): self
+	{
+		$variableTypeHolders = $this->variableTypes;
+		foreach ($variableTypeHolders as $name => $holder) {
+			if (!$holder->getCertainty()->yes()) {
+				continue;
+			}
+			$node = new Variable($name);
+			if ($this->isSpecified($node) && !$initialScope->hasVariableType($name)->no()) {
+				$variableTypeHolders[$name] = VariableTypeHolder::createYes(TypeCombinator::remove($initialScope->getVariableType($name), $this->getType($node)));
+				continue;
+			}
+		}
+
+		return new self(
+			$this->broker,
+			$this->printer,
+			$this->typeSpecifier,
+			$this->context,
+			$this->isDeclareStrictTypes(),
+			$this->getFunction(),
+			$this->getNamespace(),
+			$variableTypeHolders,
+			[],
+			$this->inClosureBindScopeClass,
+			$this->getAnonymousFunctionReturnType(),
+			$this->getInFunctionCall(),
+			$this->isNegated(),
+			$this->inFirstLevelStatement
+		);
+	}
+
 	public function removeVariables(self $otherScope, bool $all): self
 	{
 		$ourVariableTypeHolders = $this->getVariableTypes();

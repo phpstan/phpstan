@@ -37,8 +37,6 @@ class TableErrorFormatter implements ErrorFormatter
 		}
 
 		foreach ($fileErrors as $file => $errors) {
-			/** @var string $file */
-			$file = $file;
 			$rows = [];
 			foreach ($errors as $error) {
 				$rows[] = [

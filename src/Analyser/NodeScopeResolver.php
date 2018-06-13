@@ -1586,6 +1586,7 @@ class NodeScopeResolver
 					if ($lookForAssignsSettings->shouldSkipBranch($earlyTerminationStatement)) {
 						continue 2;
 					}
+					$branchScopeWithInitialScopeRemoved = $branchScopeWithInitialScopeRemoved->removeSpecified($initialScope);
 					break;
 				}
 			}

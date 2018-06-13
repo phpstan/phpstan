@@ -5398,6 +5398,21 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$emptyForeachKey',
 				"'afterLoop'",
 			],
+			[
+				'1|2|3',
+				'$nullableInt',
+				"'end'",
+			],
+			[
+				'array<int, 1|2|3>',
+				'$integers',
+				"'end'",
+			],
+			[
+				'array<int, 1|2|3>',
+				'$integers',
+				"'afterLoop'",
+			],
 		];
 	}
 
