@@ -149,4 +149,14 @@ class Foo
 		count($string);
 	}
 
+	/**
+	 * @param string[] $strings
+	 */
+	public function benevolentUnionNotReported(array $strings)
+	{
+		foreach ($strings as $key => $val) {
+			$this->doBar($key);
+		}
+	}
+
 }

@@ -6,6 +6,7 @@ use PhpParser\Node\Expr;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\BenevolentUnionType;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
@@ -56,6 +57,7 @@ class RuleLevelHelper
 			!$this->checkNullables
 			&& !$acceptingType instanceof NullType
 			&& !$acceptedType instanceof NullType
+			&& !$acceptedType instanceof BenevolentUnionType
 		) {
 			$acceptedType = TypeCombinator::removeNull($acceptedType);
 		}
