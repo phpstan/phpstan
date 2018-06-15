@@ -195,18 +195,6 @@ class ImpossibleCheckTypeMethodCallRuleTest extends \PHPStan\Testing\RuleTestCas
 				60,
 			],
 			[
-				'Call to method ImpossibleMethodCall\Foo::isSame() with 1 and 2 will always evaluate to false.',
-				63,
-			],
-			[
-				'Call to method ImpossibleMethodCall\Foo::isNotSame() with 1 and 1 will always evaluate to false.',
-				66,
-			],
-			[
-				'Call to method ImpossibleMethodCall\Foo::isNotSame() with 1 and 2 will always evaluate to true.',
-				69,
-			],
-			[
 				'Call to method ImpossibleMethodCall\Foo::isSame() with stdClass and stdClass will always evaluate to true.',
 				78,
 			],

@@ -50,11 +50,11 @@ class ImpossibleCheckTypeHelper
 		$sureTypes = $specifiedTypes->getSureTypes();
 		$sureNotTypes = $specifiedTypes->getSureNotTypes();
 
-		$isSpecified = function (Expr $expr) use ($scope): bool {
+		$isSpecified = function (Expr $expr) use ($scope, $node): bool {
 			return (
-				$expr instanceof FuncCall
-				|| $expr instanceof MethodCall
-				|| $expr instanceof Expr\StaticCall
+				$node instanceof FuncCall
+				|| $node instanceof MethodCall
+				|| $node instanceof Expr\StaticCall
 			) && $scope->isSpecified($expr);
 		};
 
