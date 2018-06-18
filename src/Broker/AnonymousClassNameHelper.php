@@ -3,16 +3,19 @@
 namespace PHPStan\Broker;
 
 use PHPStan\Command\ErrorFormatter\RelativePathHelper;
+use PHPStan\File\FileHelper;
 
 class AnonymousClassNameHelper
 {
 
-	/** @var string */
-	private $currentWorkingDirectory;
+	/** @var FileHelper */
+	private $fileHelper;
 
-	public function __construct(string $currentWorkingDirectory)
+	public function __construct(
+		FileHelper $fileHelper
+	)
 	{
-		$this->currentWorkingDirectory = $currentWorkingDirectory;
+		$this->fileHelper = $fileHelper;
 	}
 
 	public function getAnonymousClassName(
@@ -25,8 +28,8 @@ class AnonymousClassNameHelper
 		}
 
 		$filename = RelativePathHelper::getRelativePath(
-			$this->currentWorkingDirectory,
-			$filename
+			$this->fileHelper->getWorkingDirectory(),
+			$this->fileHelper->normalizePath($filename)
 		);
 
 		return sprintf(

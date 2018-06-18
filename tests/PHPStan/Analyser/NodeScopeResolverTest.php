@@ -6385,11 +6385,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		$printer = new \PhpParser\PrettyPrinter\Standard();
 		$broker = $this->createBroker($dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions);
 		$typeSpecifier = $this->createTypeSpecifier($printer, $broker, $methodTypeSpecifyingExtensions, $staticMethodTypeSpecifyingExtensions);
+		$fileHelper = new FileHelper($this->getCurrentWorkingDirectory());
 		$resolver = new NodeScopeResolver(
 			$broker,
 			$this->getParser(),
-			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $this->createMock(Cache::class), new AnonymousClassNameHelper($this->getCurrentWorkingDirectory())),
-			new FileHelper('/'),
+			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $this->createMock(Cache::class), new AnonymousClassNameHelper($fileHelper)),
+			$fileHelper,
 			$typeSpecifier,
 			true,
 			true,

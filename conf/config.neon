@@ -56,8 +56,6 @@ services:
 
 	-
 		class: PHPStan\Broker\AnonymousClassNameHelper
-		arguments:
-			currentWorkingDirectory: %currentWorkingDirectory%
 
 	-
 		class: PHPStan\PhpDocParser\Lexer\Lexer

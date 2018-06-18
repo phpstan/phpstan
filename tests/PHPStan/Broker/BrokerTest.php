@@ -5,6 +5,7 @@ namespace PHPStan\Broker;
 use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Cache\Cache;
+use PHPStan\File\FileHelper;
 use PHPStan\PhpDoc\PhpDocStringResolver;
 use PHPStan\Reflection\FunctionReflectionFactory;
 use PHPStan\Reflection\SignatureMap\SignatureMapProvider;
@@ -21,7 +22,7 @@ class BrokerTest extends \PHPStan\Testing\TestCase
 		$phpDocStringResolver = self::getContainer()->getByType(PhpDocStringResolver::class);
 
 		$workingDirectory = __DIR__;
-		$anonymousClassNameHelper = new AnonymousClassNameHelper($workingDirectory);
+		$anonymousClassNameHelper = new AnonymousClassNameHelper(new FileHelper($workingDirectory));
 
 		$this->broker = new Broker(
 			[],
