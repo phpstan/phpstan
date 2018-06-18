@@ -70,6 +70,9 @@ use PHPStan\Type\VoidType;
 class Scope
 {
 
+	/** @var \PHPStan\Analyser\ScopeFactory */
+	private $scopeFactory;
+
 	/** @var \PHPStan\Broker\Broker */
 	private $broker;
 
@@ -119,6 +122,7 @@ class Scope
 	private $currentlyAssignedExpressions = [];
 
 	/**
+	 * @param  \PHPStan\Analyser\ScopeFactory $scopeFactory
 	 * @param \PHPStan\Broker\Broker $broker
 	 * @param \PhpParser\PrettyPrinter\Standard $printer
 	 * @param \PHPStan\Analyser\TypeSpecifier $typeSpecifier
@@ -136,6 +140,7 @@ class Scope
 	 * @param string[] $currentlyAssignedExpressions
 	 */
 	public function __construct(
+		ScopeFactory $scopeFactory,
 		Broker $broker,
 		\PhpParser\PrettyPrinter\Standard $printer,
 		TypeSpecifier $typeSpecifier,
@@ -157,6 +162,7 @@ class Scope
 			$namespace = null;
 		}
 
+		$this->scopeFactory = $scopeFactory;
 		$this->broker = $broker;
 		$this->printer = $printer;
 		$this->typeSpecifier = $typeSpecifier;
@@ -212,10 +218,7 @@ class Scope
 
 	public function enterDeclareStrictTypes(): self
 	{
-		return new self(
-			$this->broker,
-			$this->printer,
-			$this->typeSpecifier,
+		return $this->scopeFactory->create(
 			$this->context,
 			true
 		);
@@ -1468,10 +1471,7 @@ class Scope
 
 	public function enterClass(ClassReflection $classReflection): self
 	{
-		return new self(
-			$this->broker,
-			$this->printer,
-			$this->typeSpecifier,
+		return $this->scopeFactory->create(
 			$this->context->enterClass($classReflection),
 			$this->isDeclareStrictTypes(),
 			null,
@@ -1484,10 +1484,7 @@ class Scope
 
 	public function enterTrait(ClassReflection $traitReflection): self
 	{
-		return new self(
-			$this->broker,
-			$this->printer,
-			$this->typeSpecifier,
+		return $this->scopeFactory->create(
 			$this->context->enterTrait($traitReflection),
 			$this->isDeclareStrictTypes(),
 			$this->getFunction(),
@@ -1596,10 +1593,7 @@ class Scope
 			$variableTypes[$parameter->getName()] = VariableTypeHolder::createYes($parameter->getType());
 		}
 
-		return new self(
-			$this->broker,
-			$this->printer,
-			$this->typeSpecifier,
+		return $this->scopeFactory->create(
 			$this->context,
 			$this->isDeclareStrictTypes(),
 			$functionReflection,
@@ -1613,10 +1607,7 @@ class Scope
 
 	public function enterNamespace(string $namespaceName): self
 	{
-		return new self(
-			$this->broker,
-			$this->printer,
-			$this->typeSpecifier,
+		return $this->scopeFactory->create(
 			$this->context->beginFile(),
 			$this->isDeclareStrictTypes(),
 			null,
@@ -1638,10 +1629,7 @@ class Scope
 			$scopeClass = $this->getClassReflection()->getName();
 		}
 
-		return new self(
-			$this->broker,
-			$this->printer,
-			$this->typeSpecifier,
+		return $this->scopeFactory->create(
 			$this->context,
 			$this->isDeclareStrictTypes(),
 			$this->getFunction(),
@@ -1706,10 +1694,7 @@ class Scope
 
 		$returnType = $this->getFunctionType($closure->returnType, $closure->returnType === null, false);
 
-		return new self(
-			$this->broker,
-			$this->printer,
-			$this->typeSpecifier,
+		return $this->scopeFactory->create(
 			$this->context,
 			$this->isDeclareStrictTypes(),
 			$this->getFunction(),
@@ -1832,10 +1817,7 @@ class Scope
 	 */
 	public function enterFunctionCall($functionCall): self
 	{
-		return new self(
-			$this->broker,
-			$this->printer,
-			$this->typeSpecifier,
+		return $this->scopeFactory->create(
 			$this->context,
 			$this->isDeclareStrictTypes(),
 			$this->getFunction(),
@@ -1855,10 +1837,7 @@ class Scope
 		$currentlyAssignedExpressions = $this->currentlyAssignedExpressions;
 		$currentlyAssignedExpressions[] = $this->printer->prettyPrintExpr($expr);
 
-		return new self(
-			$this->broker,
-			$this->printer,
-			$this->typeSpecifier,
+		return $this->scopeFactory->create(
 			$this->context,
 			$this->isDeclareStrictTypes(),
 			$this->getFunction(),
@@ -1913,10 +1892,7 @@ class Scope
 			unset($moreSpecificTypeHolders[$key]);
 		}
 
-		return new self(
-			$this->broker,
-			$this->printer,
-			$this->typeSpecifier,
+		return $this->scopeFactory->create(
 			$this->context,
 			$this->isDeclareStrictTypes(),
 			$this->getFunction(),
@@ -1941,10 +1917,7 @@ class Scope
 			$variableTypes = $this->getVariableTypes();
 			unset($variableTypes[$expr->name]);
 
-			return new self(
-				$this->broker,
-				$this->printer,
-				$this->typeSpecifier,
+			return $this->scopeFactory->create(
 				$this->context,
 				$this->isDeclareStrictTypes(),
 				$this->getFunction(),
@@ -2043,10 +2016,7 @@ class Scope
 			$intersectedSpecifiedTypes[$exprString] = VariableTypeHolder::createMaybe($specificTypeHolder->getType());
 		}
 
-		return new self(
-			$this->broker,
-			$this->printer,
-			$this->typeSpecifier,
+		return $this->scopeFactory->create(
 			$this->context,
 			$this->isDeclareStrictTypes(),
 			$this->getFunction(),
@@ -2078,10 +2048,7 @@ class Scope
 			$specifiedTypes[$exprString] = $specificTypeHolder;
 		}
 
-		return new self(
-			$this->broker,
-			$this->printer,
-			$this->typeSpecifier,
+		return $this->scopeFactory->create(
 			$this->context,
 			$this->isDeclareStrictTypes(),
 			$this->getFunction(),
@@ -2137,10 +2104,7 @@ class Scope
 			$specifiedTypeHolders[$exprString] = $theirTypeHolder;
 		}
 
-		return new self(
-			$this->broker,
-			$this->printer,
-			$this->typeSpecifier,
+		return $this->scopeFactory->create(
 			$this->context,
 			$this->isDeclareStrictTypes(),
 			$this->getFunction(),
@@ -2169,10 +2133,7 @@ class Scope
 			}
 		}
 
-		return new self(
-			$this->broker,
-			$this->printer,
-			$this->typeSpecifier,
+		return $this->scopeFactory->create(
 			$this->context,
 			$this->isDeclareStrictTypes(),
 			$this->getFunction(),
@@ -2229,10 +2190,7 @@ class Scope
 			}
 		}
 
-		return new self(
-			$this->broker,
-			$this->printer,
-			$this->typeSpecifier,
+		return $this->scopeFactory->create(
 			$this->context,
 			$this->isDeclareStrictTypes(),
 			$this->getFunction(),
@@ -2260,10 +2218,7 @@ class Scope
 			$moreSpecificTypes = $this->moreSpecificTypes;
 			$moreSpecificTypes[$exprString] = $variableTypes[$variableName];
 
-			return new self(
-				$this->broker,
-				$this->printer,
-				$this->typeSpecifier,
+			return $this->scopeFactory->create(
 				$this->context,
 				$this->isDeclareStrictTypes(),
 				$this->getFunction(),
@@ -2302,10 +2257,7 @@ class Scope
 		$moreSpecificTypeHolders = $this->moreSpecificTypes;
 		if (isset($moreSpecificTypeHolders[$exprString]) && !$moreSpecificTypeHolders[$exprString]->getType() instanceof MixedType) {
 			unset($moreSpecificTypeHolders[$exprString]);
-			return new self(
-				$this->broker,
-				$this->printer,
-				$this->typeSpecifier,
+			return $this->scopeFactory->create(
 				$this->context,
 				$this->isDeclareStrictTypes(),
 				$this->getFunction(),
@@ -2376,10 +2328,7 @@ class Scope
 
 	public function enterNegation(): self
 	{
-		return new self(
-			$this->broker,
-			$this->printer,
-			$this->typeSpecifier,
+		return $this->scopeFactory->create(
 			$this->context,
 			$this->isDeclareStrictTypes(),
 			$this->getFunction(),
@@ -2396,10 +2345,7 @@ class Scope
 
 	public function enterFirstLevelStatements(): self
 	{
-		return new self(
-			$this->broker,
-			$this->printer,
-			$this->typeSpecifier,
+		return $this->scopeFactory->create(
 			$this->context,
 			$this->isDeclareStrictTypes(),
 			$this->getFunction(),
@@ -2417,10 +2363,7 @@ class Scope
 
 	public function exitFirstLevelStatements(): self
 	{
-		return new self(
-			$this->broker,
-			$this->printer,
-			$this->typeSpecifier,
+		return $this->scopeFactory->create(
 			$this->context,
 			$this->isDeclareStrictTypes(),
 			$this->getFunction(),
@@ -2457,10 +2400,7 @@ class Scope
 			$moreSpecificTypeHolders[$exprString] = VariableTypeHolder::createYes($type);
 		}
 
-		return new self(
-			$this->broker,
-			$this->printer,
-			$this->typeSpecifier,
+		return $this->scopeFactory->create(
 			$this->context,
 			$this->isDeclareStrictTypes(),
 			$this->getFunction(),

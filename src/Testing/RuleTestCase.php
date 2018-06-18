@@ -48,7 +48,7 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 				$this->getStaticMethodTypeSpecifyingExtensions()
 			);
 			$this->analyser = new Analyser(
-				$broker,
+				$this->createScopeFactory($broker, $typeSpecifier),
 				$this->getParser(),
 				$registry,
 				new NodeScopeResolver(
@@ -61,8 +61,6 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 					$this->shouldPolluteCatchScopeWithTryAssignments(),
 					[]
 				),
-				$printer,
-				$typeSpecifier,
 				$fileHelper,
 				[],
 				null,

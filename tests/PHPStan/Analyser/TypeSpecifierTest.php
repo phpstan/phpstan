@@ -36,7 +36,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 		$broker = $this->createBroker();
 		$this->printer = new \PhpParser\PrettyPrinter\Standard();
 		$this->typeSpecifier = $this->createTypeSpecifier($this->printer, $broker);
-		$this->scope = new Scope($broker, $this->printer, $this->typeSpecifier, ScopeContext::create(''));
+		$this->scope = $this->createScopeFactory($broker, $this->typeSpecifier)->create(ScopeContext::create(''));
 		$this->scope = $this->scope->enterClass($broker->getClass('DateTime'));
 		$this->scope = $this->scope->assignVariable('bar', new ObjectType('Bar'), TrinaryLogic::createYes());
 		$this->scope = $this->scope->assignVariable('stringOrNull', new UnionType([new StringType(), new NullType()]), TrinaryLogic::createYes());

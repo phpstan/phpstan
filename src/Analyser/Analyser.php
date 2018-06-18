@@ -2,7 +2,6 @@
 
 namespace PHPStan\Analyser;
 
-use PHPStan\Broker\Broker;
 use PHPStan\File\FileHelper;
 use PHPStan\Parser\Parser;
 use PHPStan\Rules\Registry;
@@ -10,23 +9,17 @@ use PHPStan\Rules\Registry;
 class Analyser
 {
 
+	/** @var \PHPStan\Analyser\ScopeFactory */
+	private $scopeFactory;
+
 	/** @var \PHPStan\Parser\Parser */
 	private $parser;
 
 	/** @var \PHPStan\Rules\Registry */
 	private $registry;
 
-	/** @var \PHPStan\Broker\Broker */
-	private $broker;
-
 	/** @var \PHPStan\Analyser\NodeScopeResolver */
 	private $nodeScopeResolver;
-
-	/** @var \PhpParser\PrettyPrinter\Standard */
-	private $printer;
-
-	/** @var \PHPStan\Analyser\TypeSpecifier */
-	private $typeSpecifier;
 
 	/** @var string[] */
 	private $ignoreErrors;
@@ -41,12 +34,10 @@ class Analyser
 	private $internalErrorsCountLimit;
 
 	/**
-	 * @param \PHPStan\Broker\Broker $broker
+	 * @param \PHPStan\Analyser\ScopeFactory $scopeFactory
 	 * @param \PHPStan\Parser\Parser $parser
 	 * @param \PHPStan\Rules\Registry $registry
 	 * @param \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver
-	 * @param \PhpParser\PrettyPrinter\Standard $printer
-	 * @param \PHPStan\Analyser\TypeSpecifier $typeSpecifier
 	 * @param \PHPStan\File\FileHelper $fileHelper
 	 * @param string[] $ignoreErrors
 	 * @param string|null $bootstrapFile
@@ -54,12 +45,10 @@ class Analyser
 	 * @param int $internalErrorsCountLimit
 	 */
 	public function __construct(
-		Broker $broker,
+		ScopeFactory $scopeFactory,
 		Parser $parser,
 		Registry $registry,
 		NodeScopeResolver $nodeScopeResolver,
-		\PhpParser\PrettyPrinter\Standard $printer,
-		TypeSpecifier $typeSpecifier,
 		FileHelper $fileHelper,
 		array $ignoreErrors,
 		?string $bootstrapFile,
@@ -67,12 +56,10 @@ class Analyser
 		int $internalErrorsCountLimit
 	)
 	{
-		$this->broker = $broker;
+		$this->scopeFactory = $scopeFactory;
 		$this->parser = $parser;
 		$this->registry = $registry;
 		$this->nodeScopeResolver = $nodeScopeResolver;
-		$this->printer = $printer;
-		$this->typeSpecifier = $typeSpecifier;
 		$this->ignoreErrors = $ignoreErrors;
 		$this->bootstrapFile = $bootstrapFile !== null ? $fileHelper->normalizePath($bootstrapFile) : null;
 		$this->reportUnmatchedIgnoredErrors = $reportUnmatchedIgnoredErrors;
@@ -135,7 +122,7 @@ class Analyser
 				}
 				$this->nodeScopeResolver->processNodes(
 					$this->parser->parseFile($file),
-					new Scope($this->broker, $this->printer, $this->typeSpecifier, ScopeContext::create($file)),
+					$this->scopeFactory->create(ScopeContext::create($file)),
 					function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors): void {
 						foreach ($this->registry->getRules(get_class($node)) as $rule) {
 							foreach ($rule->processNode($node, $scope) as $message) {
