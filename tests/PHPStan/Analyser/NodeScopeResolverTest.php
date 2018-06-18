@@ -6405,14 +6405,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			__DIR__ . '/data/methodPhpDocs-trait-defined.php',
 			__DIR__ . '/data/anonymous-class-name-in-trait-trait.php',
 		]);
+
 		$resolver->processNodes(
 			$this->getParser()->parseFile($file),
-			new Scope(
-				$broker,
-				$printer,
-				$typeSpecifier,
-				ScopeContext::create($file)
-			),
+			$this->createScopeFactory($broker, $typeSpecifier)->create(ScopeContext::create($file)),
 			$callback
 		);
 	}

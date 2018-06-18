@@ -129,7 +129,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		$phpDocStringResolver = self::getContainer()->getByType(PhpDocStringResolver::class);
 		$typeSpecifier = $this->createTypeSpecifier($printer, $broker);
 		$analyser = new Analyser(
-			$broker,
+			$this->createScopeFactory($broker, $typeSpecifier),
 			new DirectParser(new \PhpParser\Parser\Php7(new \PhpParser\Lexer()), $traverser),
 			$registry,
 			new NodeScopeResolver(
@@ -142,8 +142,6 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 				false,
 				[]
 			),
-			$printer,
-			$typeSpecifier,
 			$fileHelper,
 			$ignoreErrors,
 			$bootstrapFile,

@@ -92,6 +92,9 @@ services:
 			internalErrorsCountLimit: %internalErrorsCountLimit%
 
 	-
+		implement: PHPStan\Analyser\ScopeFactory
+
+	-
 		class: PHPStan\Analyser\NodeScopeResolver
 		arguments:
 			polluteScopeWithLoopInitialAssignments: %polluteScopeWithLoopInitialAssignments%
