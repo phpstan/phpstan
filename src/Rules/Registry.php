@@ -33,11 +33,11 @@ class Registry
 			$rules = [];
 			foreach ($nodeTypes as $nodeType) {
 				foreach ($this->rules[$nodeType] ?? [] as $rule) {
-					$rules[get_class($rule)] = $rule;
+					$rules[] = $rule;
 				}
 			}
 
-			$this->cache[$nodeType] = array_values($rules);
+			$this->cache[$nodeType] = $rules;
 		}
 
 		return $this->cache[$nodeType];
