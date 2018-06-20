@@ -113,7 +113,7 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 						false
 					),
 					new NativeParameterReflection(
-						'event|...',
+						'event|args',
 						true,
 						new MixedType(),
 						PassedByReference::createNo(),
