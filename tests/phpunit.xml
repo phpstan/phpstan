@@ -10,7 +10,7 @@
 	beStrictAboutOutputDuringTests="true"
 	beStrictAboutTodoAnnotatedTests="true"
 	verbose="false">
-	<testsuite>
+	<testsuite name="PHPStan">
 		<directory suffix="Test.php">.</directory>
 	</testsuite>
 
