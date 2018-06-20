@@ -1995,7 +1995,6 @@ return [
 'DOMNode::replaceChild' => ['DOMNode', 'newnode'=>'DOMNode', 'oldnode'=>'DOMNode'],
 'DOMNodeList::count' => ['int'],
 'DOMNodeList::item' => ['?DOMNode', 'index'=>'int'],
-'DOMNodelist::item' => ['DOMElement', 'index'=>'int'],
 'DOMProcessingInstruction::__construct' => ['void', 'name'=>'string', 'value'=>'string'],
 'DomProcessingInstruction::data' => ['string'],
 'DomProcessingInstruction::target' => ['string'],
