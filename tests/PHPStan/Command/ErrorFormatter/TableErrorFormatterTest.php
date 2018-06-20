@@ -140,6 +140,7 @@ class TableErrorFormatterTest extends TestBaseFormatter
 		string $expected
 	): void
 	{
+		$this->skipIfNotOnUnix();
 		$formatter = new TableErrorFormatter();
 
 		$this->assertSame($exitCode, $formatter->formatErrors(

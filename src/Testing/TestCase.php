@@ -362,4 +362,22 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		return self::getContainer()->getByType(FileHelper::class);
 	}
 
+	protected function skipIfNotOnWindows(): void
+	{
+		if (DIRECTORY_SEPARATOR === '\\') {
+			return;
+		}
+
+		self::markTestSkipped();
+	}
+
+	protected function skipIfNotOnUnix(): void
+	{
+		if (DIRECTORY_SEPARATOR === '/') {
+			return;
+		}
+
+		self::markTestSkipped();
+	}
+
 }
