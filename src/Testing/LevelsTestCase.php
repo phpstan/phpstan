@@ -2,6 +2,8 @@
 
 namespace PHPStan\Testing;
 
+use PHPStan\File\FileHelper;
+
 abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 {
 
@@ -24,6 +26,7 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 		$file = sprintf('%s/%s.php', $this->getDataPath(), $topic);
 		$command = escapeshellcmd($this->getPhpStanExecutablePath());
 		$configPath = $this->getPhpStanConfigPath();
+		$fileHelper = new FileHelper(__DIR__ . '/../..');
 
 		$previousMessages = [];
 
@@ -41,7 +44,7 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 				throw new \Nette\Utils\JsonException(sprintf('Cannot decode: %s', $output));
 			}
 			if (count($actualJson['files']) > 0) {
-				$messagesBeforeDiffing = $actualJson['files'][$file]['messages'];
+				$messagesBeforeDiffing = $actualJson['files'][$fileHelper->normalizePath($file)]['messages'];
 			} else {
 				$messagesBeforeDiffing = [];
 			}
