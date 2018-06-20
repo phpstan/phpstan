@@ -20,33 +20,28 @@ class CheckstyleErrorFormatter implements ErrorFormatter
 		OutputStyle $style
 	): int
 	{
-		$returnCode = 1;
-		if (!$analysisResult->hasErrors()) {
-			$returnCode = 0;
-		}
-
-		$out = '';
+		$style->writeln('<?xml version="1.0" encoding="UTF-8"?>');
+		$style->writeln('<checkstyle>');
 
 		foreach ($this->groupByFile($analysisResult) as $relativeFilePath => $errors) {
-			$out .= '<file name="' . $this->escape($relativeFilePath) . '">' . "\n";
+			$style->writeln(sprintf(
+				'<file name="%s">',
+				$this->escape($relativeFilePath)
+			));
+
 			foreach ($errors as $error) {
-				$out .= sprintf(
-					'  <error line="%d" column="1" severity="error" message="%s" />' . "\n",
+				$style->writeln(sprintf(
+					'  <error line="%d" column="1" severity="error" message="%s" />',
 					$this->escape((string) $error->getLine()),
 					$this->escape((string) $error->getMessage())
-				);
+				));
 			}
-			$out .= '</file>' . "\n";
+			$style->writeln('</file>');
 		}
 
-		$style->write('<?xml version="1.0" encoding="UTF-8"?>' . "\n");
-		$style->write('<checkstyle>' . "\n");
-		if ($out !== '') {
-			$style->write($out);
-		}
-		$style->write('</checkstyle>' . "\n");
+		$style->writeln('</checkstyle>');
 
-		return $returnCode;
+		return $analysisResult->hasErrors() ? 1 : 0;
 	}
 
 	/**
