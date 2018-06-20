@@ -6259,12 +6259,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				'$this(AnonymousClass3301acd9e9d13ba9bbce9581cdb00699)',
+				DIRECTORY_SEPARATOR === '/' ? '$this(AnonymousClass3301acd9e9d13ba9bbce9581cdb00699)' : '$this(AnonymousClass5052ee7b82e2136e86bd50a2b9fee7e0)',
 				'$this',
 				"'inside'",
 			],
 			[
-				'AnonymousClass3301acd9e9d13ba9bbce9581cdb00699',
+				DIRECTORY_SEPARATOR === '/' ? 'AnonymousClass3301acd9e9d13ba9bbce9581cdb00699' : 'AnonymousClass5052ee7b82e2136e86bd50a2b9fee7e0',
 				'$foo',
 				"'outside'",
 			],
@@ -6319,7 +6319,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				'$this(AnonymousClass3de0a9734314db9dec21ba308363ff9a)',
+				DIRECTORY_SEPARATOR === '/' ? '$this(AnonymousClass3de0a9734314db9dec21ba308363ff9a)' : '$this(AnonymousClass3ea972e5426463fa167b4e456b7d6202)',
 				'$this',
 			],
 		];
@@ -6401,11 +6401,13 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				],
 			]
 		);
-		$resolver->setAnalysedFiles([
+		$resolver->setAnalysedFiles(array_map(function (string $file) use ($fileHelper): string {
+			return $fileHelper->normalizePath($file);
+		}, [
 			$file,
 			__DIR__ . '/data/methodPhpDocs-trait-defined.php',
 			__DIR__ . '/data/anonymous-class-name-in-trait-trait.php',
-		]);
+		]));
 
 		$resolver->processNodes(
 			$this->getParser()->parseFile($file),

@@ -70,7 +70,7 @@ class CallCallablesRuleTest extends \PHPStan\Testing\RuleTestCase
 				70,
 			],
 			[
-				'Parameter #1 $str of callable AnonymousClass7bc4507c47746826fae3d9665724d180 expects string, int given.',
+				DIRECTORY_SEPARATOR === '/' ? 'Parameter #1 $str of callable AnonymousClass7bc4507c47746826fae3d9665724d180 expects string, int given.' : 'Parameter #1 $str of callable AnonymousClass49c093c6ce55676fc906e795bc0d425c expects string, int given.',
 				81,
 			],
 			[
