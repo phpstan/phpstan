@@ -552,3 +552,19 @@ class ComparingAgainstEmptyArray
 	}
 
 }
+
+class StaticVar
+{
+
+	public function doFoo()
+	{
+		static $i = null;
+
+		if ($i === 5) {
+
+		}
+
+		$i = rand(0, 1);
+	}
+
+}

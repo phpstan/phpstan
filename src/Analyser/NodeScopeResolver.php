@@ -963,7 +963,7 @@ class NodeScopeResolver
 			}
 			$scope = $scope->assignVariable(
 				$node->var->name,
-				$node->default !== null ? $scope->getType($node->default) : new MixedType(),
+				new MixedType(),
 				$certainty
 			);
 		} elseif ($node instanceof Static_) {
