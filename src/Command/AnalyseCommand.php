@@ -213,6 +213,10 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				$robotLoader->addDirectory($fileHelper->normalizePath($directory));
 			}
 
+			foreach ($container->parameters['excludes_analyse'] as $directory) {
+				$robotLoader->excludeDirectory($fileHelper->normalizePath($directory));
+			}
+
 			$robotLoader->register();
 		}
 
