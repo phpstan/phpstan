@@ -479,7 +479,9 @@ class Broker
 	public function resolveConstantName(\PhpParser\Node\Name $nameNode, ?Scope $scope): ?string
 	{
 		return $this->resolveName($nameNode, function (string $name) use ($scope): bool {
-			if ($name === '__COMPILER_HALT_OFFSET__' && $this->fileHasCompilerHaltStatementCalls($scope->getFile())) {
+			$isCompilerHaltOffset = $name === '__COMPILER_HALT_OFFSET__';
+			$compilerHaltOffsetIsCalled = $scope !== null && $this->fileHasCompilerHaltStatementCalls($scope->getFile());
+			if ($isCompilerHaltOffset && $compilerHaltOffsetIsCalled) {
 				return true;
 			}
 			return defined($name);
