@@ -2,10 +2,10 @@
 
 namespace PHPStan\Broker;
 
+use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Command\ErrorFormatter\RelativePathHelper;
 use PHPStan\Parser\Parser;
-use PhpParser\Node;
 use PHPStan\PhpDoc\Tag\ParamTag;
 use PHPStan\Reflection\BrokerAwareExtension;
 use PHPStan\Reflection\ClassReflection;
@@ -496,12 +496,6 @@ class Broker
 		return count($haltCompilerCalls) > 0;
 	}
 
-	/**
-	 * @param \PhpParser\Node\Name $nameNode
-	 * @param \Closure $existsCallback
-	 * @param \PHPStan\Analyser\Scope|null $scope
-	 * @return string|null
-	 */
 	private function resolveName(
 		\PhpParser\Node\Name $nameNode,
 		\Closure $existsCallback,

@@ -23,18 +23,18 @@ class ConstantRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testCompilerHaltOffsetConstantFalseDetection()
+	public function testCompilerHaltOffsetConstantFalseDetection(): void
 	{
 		$this->analyse([__DIR__ . '/data/compiler-halt-offset-const-defined.php'], []);
 	}
 
-	public function testCompilerHaltOffsetConstantIsUndefinedDetection()
+	public function testCompilerHaltOffsetConstantIsUndefinedDetection(): void
 	{
 		$this->analyse([__DIR__ . '/data/compiler-halt-offset-const-not-defined.php'], [
 			[
 				'Constant __COMPILER_HALT_OFFSET__ not found.',
 				3,
-			]
+			],
 		]);
 	}
 
