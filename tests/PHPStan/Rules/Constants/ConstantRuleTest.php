@@ -23,4 +23,9 @@ class ConstantRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
+	public function testCompilerHaltOffsetConstantFalseDetection()
+	{
+		$this->analyse([__DIR__ . '/data/compiler-halt-offset-const.php'], []);
+	}
+
 }
