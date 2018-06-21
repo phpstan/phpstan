@@ -470,11 +470,33 @@ class Broker
 
 	public function resolveConstantName(\PhpParser\Node\Name $nameNode, ?Scope $scope): ?string
 	{
-		return $this->resolveName($nameNode, function (string $name): bool {
+		return $this->resolveName($nameNode, function (string $name) use ($scope): bool {
+			if ($name === '__COMPILER_HALT_OFFSET__' && $this->fileHasCompilerHaltStatementCalls($scope->getFile())) {
+				return true;
+			}
 			return defined($name);
 		}, $scope);
 	}
 
+	private function fileHasCompilerHaltStatementCalls(string $pathToFile): bool
+	{
+		//todo file is already parsed, it should not be parsed again
+		//todo I've just found no other way to check if __halt_compiler() statement was called in file
+		$parser = new DirectParser((new ParserFactory())->create(ParserFactory::PREFER_PHP7), new NodeTraverser());
+		$nodes = $parser->parseFile($pathToFile);
+		$haltCompilerCalls = array_filter($nodes, function (Node $node) {
+			return $node instanceof Node\Stmt\HaltCompiler;
+		});
+
+		return count($haltCompilerCalls) > 0;
+	}
+
+	/**
+	 * @param \PhpParser\Node\Name $nameNode
+	 * @param \Closure $existsCallback
+	 * @param \PHPStan\Analyser\Scope|null $scope
+	 * @return string|null
+	 */
 	private function resolveName(
 		\PhpParser\Node\Name $nameNode,
 		\Closure $existsCallback,
