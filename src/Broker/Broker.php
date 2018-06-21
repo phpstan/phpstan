@@ -4,6 +4,8 @@ namespace PHPStan\Broker;
 
 use PHPStan\Analyser\Scope;
 use PHPStan\Command\ErrorFormatter\RelativePathHelper;
+use PHPStan\Parser\Parser;
+use PhpParser\Node;
 use PHPStan\PhpDoc\Tag\ParamTag;
 use PHPStan\Reflection\BrokerAwareExtension;
 use PHPStan\Reflection\ClassReflection;
@@ -59,6 +61,9 @@ class Broker
 	/** @var AnonymousClassNameHelper */
 	private $anonymousClassNameHelper;
 
+	/** @var Parser */
+	private $parser;
+
 	/** @var string[] */
 	private $universalObjectCratesClasses;
 
@@ -94,6 +99,7 @@ class Broker
 	 * @param \PHPStan\Reflection\SignatureMap\SignatureMapProvider $signatureMapProvider
 	 * @param \PhpParser\PrettyPrinter\Standard $printer
 	 * @param AnonymousClassNameHelper $anonymousClassNameHelper
+	 * @param Parser $parser
 	 * @param string[] $universalObjectCratesClasses
 	 * @param string $currentWorkingDirectory
 	 */
@@ -108,6 +114,7 @@ class Broker
 		SignatureMapProvider $signatureMapProvider,
 		\PhpParser\PrettyPrinter\Standard $printer,
 		AnonymousClassNameHelper $anonymousClassNameHelper,
+		Parser $parser,
 		array $universalObjectCratesClasses,
 		string $currentWorkingDirectory
 	)
@@ -134,6 +141,7 @@ class Broker
 		$this->signatureMapProvider = $signatureMapProvider;
 		$this->printer = $printer;
 		$this->anonymousClassNameHelper = $anonymousClassNameHelper;
+		$this->parser = $parser;
 		$this->universalObjectCratesClasses = $universalObjectCratesClasses;
 		$this->currentWorkingDirectory = $currentWorkingDirectory;
 	}
@@ -480,10 +488,7 @@ class Broker
 
 	private function fileHasCompilerHaltStatementCalls(string $pathToFile): bool
 	{
-		//todo file is already parsed, it should not be parsed again
-		//todo I've just found no other way to check if __halt_compiler() statement was called in file
-		$parser = new DirectParser((new ParserFactory())->create(ParserFactory::PREFER_PHP7), new NodeTraverser());
-		$nodes = $parser->parseFile($pathToFile);
+		$nodes = $this->parser->parseFile($pathToFile);
 		$haltCompilerCalls = array_filter($nodes, function (Node $node) {
 			return $node instanceof Node\Stmt\HaltCompiler;
 		});
