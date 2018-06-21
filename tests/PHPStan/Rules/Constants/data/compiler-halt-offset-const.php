@@ -1,6 +1,15 @@
 <?php declare(strict_types = 1);
 
-$data = file_get_contents(__FILE__, __COMPILER_HALT_OFFSET__);
+function greet(string $name): string
+{
+	$template = file_get_contents(__FILE__, false, null, __COMPILER_HALT_OFFSET__);
+
+	return strtr($template, [
+		'%name%' => $name,
+	]);
+}
+
+echo greet('Bob');
 
 __halt_compiler();
-some raw data
+Hello, %name%!
