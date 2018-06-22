@@ -44,6 +44,7 @@ use PHPStan\Type\Constant\ConstantFloatType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ConstantScalarType;
+use PHPStan\Type\ConstantType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
@@ -121,6 +122,9 @@ class Scope
 	/** @var string[] */
 	private $currentlyAssignedExpressions = [];
 
+	/** @var string[] */
+	private $dynamicConstantNames;
+
 	/**
 	 * @param  \PHPStan\Analyser\ScopeFactory $scopeFactory
 	 * @param \PHPStan\Broker\Broker $broker
@@ -138,6 +142,7 @@ class Scope
 	 * @param bool $negated
 	 * @param bool $inFirstLevelStatement
 	 * @param string[] $currentlyAssignedExpressions
+	 * @param string[] $dynamicConstantNames
 	 */
 	public function __construct(
 		ScopeFactory $scopeFactory,
@@ -155,7 +160,8 @@ class Scope
 		?Expr $inFunctionCall = null,
 		bool $negated = false,
 		bool $inFirstLevelStatement = true,
-		array $currentlyAssignedExpressions = []
+		array $currentlyAssignedExpressions = [],
+		array $dynamicConstantNames = []
 	)
 	{
 		if ($namespace === '') {
@@ -178,6 +184,7 @@ class Scope
 		$this->negated = $negated;
 		$this->inFirstLevelStatement = $inFirstLevelStatement;
 		$this->currentlyAssignedExpressions = $currentlyAssignedExpressions;
+		$this->dynamicConstantNames = $dynamicConstantNames;
 	}
 
 	public function getFile(): string
@@ -1056,45 +1063,12 @@ class Scope
 						new ConstantStringType("\r\n"),
 					]);
 				}
-				if (in_array($resolvedConstantName, [
-					'ICONV_IMPL',
-					'PHP_VERSION',
-					'PHP_EXTRA_VERSION',
-					'PHP_OS',
-					'PHP_OS_FAMILY',
-					'PHP_SAPI',
-					'DEFAULT_INCLUDE_PATH',
-					'PEAR_INSTALL_DIR',
-					'PEAR_EXTENSION_DIR',
-					'PHP_EXTENSION_DIR',
-					'PHP_PREFIX',
-					'PHP_BINDIR',
-					'PHP_BINARY',
-					'PHP_MANDIR',
-					'PHP_LIBDIR',
-					'PHP_DATADIR',
-					'PHP_SYSCONFDIR',
-					'PHP_LOCALSTATEDIR',
-					'PHP_CONFIG_FILE_PATH',
-					'PHP_CONFIG_FILE_SCAN_DIR',
-					'PHP_SHLIB_SUFFIX',
-					'PHP_FD_SETSIZE',
-				], true)) {
-					return new StringType();
-				}
-				if (in_array($resolvedConstantName, [
-					'PHP_MAJOR_VERSION',
-					'PHP_MINOR_VERSION',
-					'PHP_RELEASE_VERSION',
-					'PHP_VERSION_ID',
-					'PHP_ZTS',
-					'PHP_DEBUG',
-					'PHP_MAXPATHLEN',
-				], true)) {
-					return new IntegerType();
-				}
 
-				return $this->getTypeFromValue(constant($resolvedConstantName));
+				$constantType = $this->getTypeFromValue(constant($resolvedConstantName));
+				if ($constantType instanceof ConstantType && in_array($resolvedConstantName, $this->dynamicConstantNames, true)) {
+					return $constantType->generalize();
+				}
+				return $constantType;
 			}
 
 			return new ErrorType();
@@ -1120,7 +1094,16 @@ class Scope
 			}
 			if ($constantClassType->hasConstant($constantName)) {
 				$constant = $constantClassType->getConstant($constantName);
-				return $this->getTypeFromValue($constant->getValue());
+				$constantType = $this->getTypeFromValue($constant->getValue());
+				$directClassNames = TypeUtils::getDirectClassNames($constantClassType);
+				if (
+					$constantType instanceof ConstantType &&
+					count($directClassNames) === 1 &&
+					in_array(sprintf('%s::%s', $this->broker->getClass($directClassNames[0])->getName(), $constantName), $this->dynamicConstantNames, true)
+				) {
+					return $constantType->generalize();
+				}
+				return $constantType;
 			}
 
 			return new ErrorType();

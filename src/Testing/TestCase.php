@@ -226,9 +226,16 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		return $broker;
 	}
 
-	public function createScopeFactory(Broker $broker, TypeSpecifier $typeSpecifier): ScopeFactory
+	/**
+	 * @param Broker $broker
+	 * @param TypeSpecifier $typeSpecifier
+	 * @param string[] $dynamicConstantNames
+	 *
+	 * @return ScopeFactory
+	 */
+	public function createScopeFactory(Broker $broker, TypeSpecifier $typeSpecifier, array $dynamicConstantNames = []): ScopeFactory
 	{
-		return new class($broker, $typeSpecifier) implements ScopeFactory {
+		return new class($broker, $typeSpecifier, $dynamicConstantNames) implements ScopeFactory {
 
 			/** @var \PHPStan\Broker\Broker */
 			private $broker;
@@ -239,11 +246,20 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			/** @var \PHPStan\Analyser\TypeSpecifier */
 			private $typeSpecifier;
 
-			public function __construct(Broker $broker, TypeSpecifier $typeSpecifier)
+			/** @var string[] */
+			private $dynamicConstantNames;
+
+			/**
+			 * @param Broker $broker
+			 * @param TypeSpecifier $typeSpecifier
+			 * @param string[] $dynamicConstantNames
+			 */
+			public function __construct(Broker $broker, TypeSpecifier $typeSpecifier, array $dynamicConstantNames)
 			{
 				$this->broker = $broker;
 				$this->printer = new \PhpParser\PrettyPrinter\Standard();
 				$this->typeSpecifier = $typeSpecifier;
+				$this->dynamicConstantNames = $dynamicConstantNames;
 			}
 
 			/**
@@ -293,7 +309,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 					$inFunctionCall,
 					$negated,
 					$inFirstLevelStatement,
-					$currentlyAssignedExpressions
+					$currentlyAssignedExpressions,
+					$this->dynamicConstantNames
 				);
 			}
 
