@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace PHPStan\Build;
+namespace PHPStan\Internal;
 
 use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Analyser\Scope;
@@ -17,24 +17,16 @@ use PHPStan\Type\TypeCombinator;
 class ScopeIsInClassTypeSpecifyingExtension implements MethodTypeSpecifyingExtension, TypeSpecifierAwareExtension
 {
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $isInMethodName;
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $removeNullMethodName;
 
-	/**
-	 * @var \PHPStan\Broker\Broker
-	 */
+	/** @var \PHPStan\Broker\Broker */
 	private $broker;
 
-	/**
-	 * @var \PHPStan\Analyser\TypeSpecifier
-	 */
+	/** @var \PHPStan\Analyser\TypeSpecifier */
 	private $typeSpecifier;
 
 	public function __construct(
