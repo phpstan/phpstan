@@ -6455,6 +6455,54 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataDynamicConstants(): array
+	{
+		return [
+			[
+				'string',
+				'DynamicConstants\DynamicConstantClass::DYNAMIC_CONSTANT_IN_CLASS',
+			], [
+				"'abc123def'",
+				'DynamicConstants\DynamicConstantClass::PURE_CONSTANT_IN_CLASS',
+			], [
+				"'xyz'",
+				'DynamicConstants\NoDynamicConstantClass::DYNAMIC_CONSTANT_IN_CLASS',
+			], [
+				'bool',
+				'GLOBAL_DYNAMIC_CONSTANT',
+			], [
+				'123',
+				'GLOBAL_PURE_CONSTANT',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataDynamicConstants
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testDynamicConstants(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/dynamic-constant.php',
+			$description,
+			$expression,
+			[],
+			[],
+			[],
+			[],
+			'die',
+			[
+				'DynamicConstants\\DynamicConstantClass::DYNAMIC_CONSTANT_IN_CLASS',
+				'GLOBAL_DYNAMIC_CONSTANT',
+			]
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $description,
@@ -6463,7 +6511,8 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		array $dynamicStaticMethodReturnTypeExtensions = [],
 		array $methodTypeSpecifyingExtensions = [],
 		array $staticMethodTypeSpecifyingExtensions = [],
-		string $evaluatedPointExpression = 'die'
+		string $evaluatedPointExpression = 'die',
+		array $dynamicConstantNames = []
 	): void
 	{
 		$this->processFile($file, function (\PhpParser\Node $node, Scope $scope) use ($description, $expression, $evaluatedPointExpression): void {
@@ -6481,16 +6530,26 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$type,
 				sprintf('%s at %s', $expression, $evaluatedPointExpression)
 			);
-		}, $dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions, $methodTypeSpecifyingExtensions, $staticMethodTypeSpecifyingExtensions);
+		}, $dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions, $methodTypeSpecifyingExtensions, $staticMethodTypeSpecifyingExtensions, $dynamicConstantNames);
 	}
 
+	/**
+	 * @param string $file
+	 * @param \Closure $callback
+	 * @param array $dynamicMethodReturnTypeExtensions
+	 * @param array $dynamicStaticMethodReturnTypeExtensions
+	 * @param array $methodTypeSpecifyingExtensions
+	 * @param array $staticMethodTypeSpecifyingExtensions
+	 * @param string[] $dynamicConstantNames
+	 */
 	private function processFile(
 		string $file,
 		\Closure $callback,
 		array $dynamicMethodReturnTypeExtensions = [],
 		array $dynamicStaticMethodReturnTypeExtensions = [],
 		array $methodTypeSpecifyingExtensions = [],
-		array $staticMethodTypeSpecifyingExtensions = []
+		array $staticMethodTypeSpecifyingExtensions = [],
+		array $dynamicConstantNames = []
 	): void
 	{
 		$phpDocStringResolver = self::getContainer()->getByType(PhpDocStringResolver::class);
@@ -6524,7 +6583,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 
 		$resolver->processNodes(
 			$this->getParser()->parseFile($file),
-			$this->createScopeFactory($broker, $typeSpecifier)->create(ScopeContext::create($file)),
+			$this->createScopeFactory($broker, $typeSpecifier, $dynamicConstantNames)->create(ScopeContext::create($file)),
 			$callback
 		);
 	}
