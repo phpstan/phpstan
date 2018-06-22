@@ -549,29 +549,31 @@ class NodeScopeResolver
 			$this->processNode($node->cond, $scope, $specifyFetchedProperty);
 			$this->processNodes($node->stmts, $scope->enterFirstLevelStatements(), $nodeCallback);
 
-			$elseifScope = $ifScope->filterByFalseyValue($node->cond);
-			foreach ($node->elseifs as $elseif) {
-				$scope = $elseifScope;
-				$this->processNode($elseif, $scope, $nodeCallback, true);
-				$this->processNode($elseif->cond, $scope->exitFirstLevelStatements(), $nodeCallback);
-				$scope = $this->lookForAssigns(
-					$scope,
-					$elseif->cond,
-					TrinaryLogic::createYes(),
-					LookForAssignsSettings::default()
-				);
-				$scope = $scope->filterByTruthyValue($elseif->cond);
-				$this->processNode($elseif->cond, $scope, $specifyFetchedProperty);
-				$this->processNodes($elseif->stmts, $scope->enterFirstLevelStatements(), $nodeCallback);
-				$elseifScope = $this->lookForAssigns(
-					$elseifScope,
-					$elseif->cond,
-					TrinaryLogic::createYes(),
-					LookForAssignsSettings::default()
-				)->filterByFalseyValue($elseif->cond);
-			}
-			if ($node->else !== null) {
-				$this->processNode($node->else, $elseifScope, $nodeCallback);
+			if (count($node->elseifs) > 0 || $node->else !== null) {
+				$elseifScope = $ifScope->filterByFalseyValue($node->cond);
+				foreach ($node->elseifs as $elseif) {
+					$scope = $elseifScope;
+					$this->processNode($elseif, $scope, $nodeCallback, true);
+					$this->processNode($elseif->cond, $scope->exitFirstLevelStatements(), $nodeCallback);
+					$scope = $this->lookForAssigns(
+						$scope,
+						$elseif->cond,
+						TrinaryLogic::createYes(),
+						LookForAssignsSettings::default()
+					);
+					$scope = $scope->filterByTruthyValue($elseif->cond);
+					$this->processNode($elseif->cond, $scope, $specifyFetchedProperty);
+					$this->processNodes($elseif->stmts, $scope->enterFirstLevelStatements(), $nodeCallback);
+					$elseifScope = $this->lookForAssigns(
+						$elseifScope,
+						$elseif->cond,
+						TrinaryLogic::createYes(),
+						LookForAssignsSettings::default()
+					)->filterByFalseyValue($elseif->cond);
+				}
+				if ($node->else !== null) {
+					$this->processNode($node->else, $elseifScope, $nodeCallback);
+				}
 			}
 
 			return;
