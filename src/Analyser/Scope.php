@@ -2207,6 +2207,10 @@ class Scope
 
 	public function specifyExpressionType(Expr $expr, Type $type): self
 	{
+		if ($expr instanceof Node\Scalar) {
+			return $this;
+		}
+
 		$exprString = $this->printer->prettyPrintExpr($expr);
 
 		if ($expr instanceof Variable && is_string($expr->name)) {
