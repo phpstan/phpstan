@@ -91,7 +91,11 @@ class FileTypeMapper
 	private function getResolvedPhpDocMap(string $fileName): array
 	{
 		if (!isset($this->memoryCache[$fileName])) {
-			$cacheKey = sprintf('%s-%d-v43', $fileName, filemtime($fileName));
+			$modifiedTime = filemtime($fileName);
+			if ($modifiedTime === false) {
+				$modifiedTime = time();
+			}
+			$cacheKey = sprintf('%s-%d-v43', $fileName, $modifiedTime);
 			$map = $this->cache->load($cacheKey);
 
 			if ($map === null) {
@@ -217,7 +221,7 @@ class FileTypeMapper
 							continue;
 						}
 
-						$uses[strtolower($use->getAlias()->name)] = sprintf('%s\\%s', $prefix, $use->name);
+						$uses[strtolower($use->getAlias()->name)] = sprintf('%s\\%s', $prefix, (string) $use->name);
 					}
 					return;
 				} elseif (!in_array(get_class($node), [

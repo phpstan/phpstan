@@ -268,4 +268,18 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->analyse([__DIR__ . '/data/remove-array-from-iterable.php'], []);
 	}
 
+	public function testUnpackOperator(): void
+	{
+		$this->analyse([__DIR__ . '/data/unpack-operator.php'], [
+			[
+				'Parameter #2 ...$vars of function sprintf expects float|int|string|null, array<string> given.',
+				18,
+			],
+			[
+				'Parameter #2 ...$vars of function sprintf expects float|int|string|null, array<int, string> given.',
+				19,
+			],
+		]);
+	}
+
 }

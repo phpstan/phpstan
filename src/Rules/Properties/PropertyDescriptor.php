@@ -14,11 +14,13 @@ class PropertyDescriptor
 	 */
 	public function describeProperty(PropertyReflection $property, $propertyFetch): string
 	{
+		/** @var \PhpParser\Node\Identifier $name */
+		$name = $propertyFetch->name;
 		if ($propertyFetch instanceof \PhpParser\Node\Expr\PropertyFetch) {
-			return sprintf('Property %s::$%s', $property->getDeclaringClass()->getDisplayName(), $propertyFetch->name);
+			return sprintf('Property %s::$%s', $property->getDeclaringClass()->getDisplayName(), $name->name);
 		}
 
-		return sprintf('Static property %s::$%s', $property->getDeclaringClass()->getDisplayName(), $propertyFetch->name);
+		return sprintf('Static property %s::$%s', $property->getDeclaringClass()->getDisplayName(), $name->name);
 	}
 
 }

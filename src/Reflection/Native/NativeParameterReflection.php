@@ -4,6 +4,8 @@ namespace PHPStan\Reflection\Native;
 
 use PHPStan\Reflection\ParameterReflection;
 use PHPStan\Reflection\PassedByReference;
+use PHPStan\Type\ArrayType;
+use PHPStan\Type\IntegerType;
 use PHPStan\Type\Type;
 
 class NativeParameterReflection implements ParameterReflection
@@ -51,7 +53,12 @@ class NativeParameterReflection implements ParameterReflection
 
 	public function getType(): Type
 	{
-		return $this->type;
+		$type = $this->type;
+		if ($this->variadic) {
+			$type = new ArrayType(new IntegerType(), $type);
+		}
+
+		return $type;
 	}
 
 	public function passedByReference(): PassedByReference
