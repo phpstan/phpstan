@@ -480,8 +480,7 @@ class Broker
 	{
 		return $this->resolveName($nameNode, function (string $name) use ($scope): bool {
 			$isCompilerHaltOffset = $name === '__COMPILER_HALT_OFFSET__';
-			$compilerHaltOffsetIsCalled = $scope !== null && $this->fileHasCompilerHaltStatementCalls($scope->getFile());
-			if ($isCompilerHaltOffset && $compilerHaltOffsetIsCalled) {
+			if ($isCompilerHaltOffset && $scope !== null && $this->fileHasCompilerHaltStatementCalls($scope->getFile())) {
 				return true;
 			}
 			return defined($name);
@@ -491,11 +490,13 @@ class Broker
 	private function fileHasCompilerHaltStatementCalls(string $pathToFile): bool
 	{
 		$nodes = $this->parser->parseFile($pathToFile);
-		$haltCompilerCalls = array_filter($nodes, function (Node $node) {
-			return $node instanceof Node\Stmt\HaltCompiler;
-		});
+		foreach ($nodes as $node) {
+			if ($node instanceof Node\Stmt\HaltCompiler) {
+				return true;
+			}
+		}
 
-		return count($haltCompilerCalls) > 0;
+		return false;
 	}
 
 	private function resolveName(
