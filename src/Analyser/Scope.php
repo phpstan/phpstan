@@ -2207,7 +2207,7 @@ class Scope
 
 	public function specifyExpressionType(Expr $expr, Type $type): self
 	{
-		if ($expr instanceof Node\Scalar) {
+		if ($expr instanceof Node\Scalar || $expr instanceof Array_) {
 			return $this;
 		}
 
