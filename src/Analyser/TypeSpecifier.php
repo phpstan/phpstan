@@ -24,7 +24,6 @@ use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
-use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\NonexistentParentClassType;
 use PHPStan\Type\NullType;
@@ -160,16 +159,14 @@ class TypeSpecifier
 				return $leftTypes->unionWith($rightTypes);
 
 			} elseif ($context->false()) {
-				$type = TypeCombinator::intersect($scope->getType($expr->right), $scope->getType($expr->left));
-				if ($type instanceof ConstantScalarType) {
-					$leftTypes = $this->create($expr->left, $type, $context);
-					$rightTypes = $this->create($expr->right, $type, $context);
-					return $leftTypes->unionWith($rightTypes);
-				}
-
-				if ($type instanceof NeverType) {
-					$leftTypes = $this->create($expr->left, $type, $context);
-					$rightTypes = $this->create($expr->right, $type, $context);
+				$identicalType = $scope->getType($expr);
+				if (
+					$identicalType instanceof ConstantBooleanType
+					&& $identicalType->getValue()
+				) {
+					$never = new NeverType();
+					$leftTypes = $this->create($expr->left, $never, TypeSpecifierContext::createTruthy());
+					$rightTypes = $this->create($expr->right, $never, TypeSpecifierContext::createTruthy());
 					return $leftTypes->unionWith($rightTypes);
 				}
 			}

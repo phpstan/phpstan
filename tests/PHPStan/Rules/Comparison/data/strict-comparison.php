@@ -568,3 +568,25 @@ class StaticVar
 	}
 
 }
+
+class DuplicateConditionNeverError
+{
+
+	public function sort(int $a, int $b)
+	{
+		$c = 0;
+
+		if ($c === $a && $c === $b) {
+			return +1;
+		}
+
+		if ($c === $a) {
+			return -1;
+		}
+
+		if ($c === $b) {
+			return +1;
+		}
+	}
+
+}

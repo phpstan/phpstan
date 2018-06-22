@@ -6255,6 +6255,96 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataConstantTypeAfterDuplicateCondition(): array
+	{
+		return [
+			[
+				'0',
+				'$a',
+				"'inCondition'",
+			],
+			[
+				'0',
+				'$b',
+				"'inCondition'",
+			],
+			[
+				'0',
+				'$c',
+				"'inCondition'",
+			],
+			[
+				'int',
+				'$a',
+				"'afterFirst'",
+			],
+			[
+				'int',
+				'$b',
+				"'afterFirst'",
+			],
+			[
+				'0',
+				'$c',
+				"'afterFirst'",
+			],
+			[
+				'int',
+				'$a',
+				"'afterSecond'",
+			],
+			[
+				'int',
+				'$b',
+				"'afterSecond'",
+			],
+			[
+				'0',
+				'$c',
+				"'afterSecond'",
+			],
+			[
+				'int',
+				'$a',
+				"'afterThird'",
+			],
+			[
+				'int',
+				'$b',
+				"'afterThird'",
+			],
+			[
+				'0',
+				'$c',
+				"'afterThird'",
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataConstantTypeAfterDuplicateCondition
+	 * @param string $description
+	 * @param string $expression
+	 * @param string $evaluatedPointExpression
+	 */
+	public function testConstantTypeAfterDuplicateCondition(
+		string $description,
+		string $expression,
+		string $evaluatedPointExpression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/constant-types-duplicate-condition.php',
+			$description,
+			$expression,
+			[],
+			[],
+			[],
+			[],
+			$evaluatedPointExpression
+		);
+	}
+
 	public function dataAnonymousClass(): array
 	{
 		return [
