@@ -22,6 +22,7 @@ class ReplaceFunctionsDynamicReturnTypeExtension implements DynamicFunctionRetur
 		'preg_replace_callback' => 2,
 		'preg_replace_callback_array' => 1,
 		'str_replace' => 2,
+		'substr_replace' => 0,
 	];
 
 	public function isFunctionSupported(FunctionReflection $functionReflection): bool
