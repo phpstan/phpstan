@@ -5445,6 +5445,21 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$integers',
 				"'afterLoop'",
 			],
+			[
+				'array<string, mixed>', // should be 'array<string, 1|2|3>',
+				'$this->property',
+				"'begin'",
+			],
+			[
+				'array<string, mixed>', // should be 'array<string, 1|2|3>',
+				'$this->property',
+				"'end'",
+			],
+			[
+				'array<string, mixed>', // should be 'array<string, 1|2|3>',
+				'$this->property',
+				"'afterLoop'",
+			],
 		];
 	}
 

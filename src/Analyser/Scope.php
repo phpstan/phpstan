@@ -2135,13 +2135,22 @@ class Scope
 			}
 		}
 
+		$moreSpecificTypeHolders = $this->moreSpecificTypes;
+		foreach ($moreSpecificTypeHolders as $exprString => $holder) {
+			if (isset($initialScope->moreSpecificTypes[$exprString])) {
+				continue;
+			}
+
+			unset($moreSpecificTypeHolders[$exprString]);
+		}
+
 		return $this->scopeFactory->create(
 			$this->context,
 			$this->isDeclareStrictTypes(),
 			$this->getFunction(),
 			$this->getNamespace(),
 			$variableTypeHolders,
-			[],
+			$moreSpecificTypeHolders,
 			$this->inClosureBindScopeClass,
 			$this->getAnonymousFunctionReturnType(),
 			$this->getInFunctionCall(),
