@@ -56,4 +56,15 @@ class BooleanOr
 		}
 	}
 
+	public function directorySeparator()
+	{
+		if (DIRECTORY_SEPARATOR === '/' || DIRECTORY_SEPARATOR === '\\') {
+
+		}
+
+		if ('/' === DIRECTORY_SEPARATOR || '\\' === DIRECTORY_SEPARATOR) {
+
+		}
+	}
+
 }

@@ -809,79 +809,6 @@ class Scope
 
 		if ($node instanceof LNumber) {
 			return new ConstantIntegerType($node->value);
-		} elseif ($node instanceof ConstFetch) {
-			$constName = strtolower((string) $node->name);
-			if ($constName === 'true') {
-				return new \PHPStan\Type\Constant\ConstantBooleanType(true);
-			} elseif ($constName === 'false') {
-				return new \PHPStan\Type\Constant\ConstantBooleanType(false);
-			} elseif ($constName === 'null') {
-				return new NullType();
-			}
-
-			if ($this->broker->hasConstant($node->name, $this)) {
-				/** @var string $resolvedConstantName */
-				$resolvedConstantName = $this->broker->resolveConstantName($node->name, $this);
-				if ($resolvedConstantName === 'DIRECTORY_SEPARATOR') {
-					return new UnionType([
-						new ConstantStringType('/'),
-						new ConstantStringType('\\'),
-					]);
-				}
-				if ($resolvedConstantName === 'PATH_SEPARATOR') {
-					return new UnionType([
-						new ConstantStringType(':'),
-						new ConstantStringType(';'),
-					]);
-				}
-				if ($resolvedConstantName === 'PHP_EOL') {
-					return new UnionType([
-						new ConstantStringType("\n"),
-						new ConstantStringType("\r\n"),
-					]);
-				}
-				if (in_array($resolvedConstantName, [
-					'ICONV_IMPL',
-					'PHP_VERSION',
-					'PHP_EXTRA_VERSION',
-					'PHP_OS',
-					'PHP_OS_FAMILY',
-					'PHP_SAPI',
-					'DEFAULT_INCLUDE_PATH',
-					'PEAR_INSTALL_DIR',
-					'PEAR_EXTENSION_DIR',
-					'PHP_EXTENSION_DIR',
-					'PHP_PREFIX',
-					'PHP_BINDIR',
-					'PHP_BINARY',
-					'PHP_MANDIR',
-					'PHP_LIBDIR',
-					'PHP_DATADIR',
-					'PHP_SYSCONFDIR',
-					'PHP_LOCALSTATEDIR',
-					'PHP_CONFIG_FILE_PATH',
-					'PHP_CONFIG_FILE_SCAN_DIR',
-					'PHP_SHLIB_SUFFIX',
-					'PHP_FD_SETSIZE',
-				], true)) {
-					return new StringType();
-				}
-				if (in_array($resolvedConstantName, [
-					'PHP_MAJOR_VERSION',
-					'PHP_MINOR_VERSION',
-					'PHP_RELEASE_VERSION',
-					'PHP_VERSION_ID',
-					'PHP_ZTS',
-					'PHP_DEBUG',
-					'PHP_MAXPATHLEN',
-				], true)) {
-					return new IntegerType();
-				}
-
-				return $this->getTypeFromValue(constant($resolvedConstantName));
-			}
-
-			return new ErrorType();
 		} elseif ($node instanceof String_) {
 			return new ConstantStringType($node->value);
 		} elseif ($node instanceof Node\Scalar\Encapsed) {
@@ -1091,6 +1018,86 @@ class Scope
 			}
 
 			return $varType->toNumber();
+		}
+
+		$exprString = $this->printer->prettyPrintExpr($node);
+		if (isset($this->moreSpecificTypes[$exprString])) {
+			return $this->moreSpecificTypes[$exprString]->getType();
+		}
+
+		if ($node instanceof ConstFetch) {
+			$constName = strtolower((string) $node->name);
+			if ($constName === 'true') {
+				return new \PHPStan\Type\Constant\ConstantBooleanType(true);
+			} elseif ($constName === 'false') {
+				return new \PHPStan\Type\Constant\ConstantBooleanType(false);
+			} elseif ($constName === 'null') {
+				return new NullType();
+			}
+
+			if ($this->broker->hasConstant($node->name, $this)) {
+				/** @var string $resolvedConstantName */
+				$resolvedConstantName = $this->broker->resolveConstantName($node->name, $this);
+				if ($resolvedConstantName === 'DIRECTORY_SEPARATOR') {
+					return new UnionType([
+						new ConstantStringType('/'),
+						new ConstantStringType('\\'),
+					]);
+				}
+				if ($resolvedConstantName === 'PATH_SEPARATOR') {
+					return new UnionType([
+						new ConstantStringType(':'),
+						new ConstantStringType(';'),
+					]);
+				}
+				if ($resolvedConstantName === 'PHP_EOL') {
+					return new UnionType([
+						new ConstantStringType("\n"),
+						new ConstantStringType("\r\n"),
+					]);
+				}
+				if (in_array($resolvedConstantName, [
+					'ICONV_IMPL',
+					'PHP_VERSION',
+					'PHP_EXTRA_VERSION',
+					'PHP_OS',
+					'PHP_OS_FAMILY',
+					'PHP_SAPI',
+					'DEFAULT_INCLUDE_PATH',
+					'PEAR_INSTALL_DIR',
+					'PEAR_EXTENSION_DIR',
+					'PHP_EXTENSION_DIR',
+					'PHP_PREFIX',
+					'PHP_BINDIR',
+					'PHP_BINARY',
+					'PHP_MANDIR',
+					'PHP_LIBDIR',
+					'PHP_DATADIR',
+					'PHP_SYSCONFDIR',
+					'PHP_LOCALSTATEDIR',
+					'PHP_CONFIG_FILE_PATH',
+					'PHP_CONFIG_FILE_SCAN_DIR',
+					'PHP_SHLIB_SUFFIX',
+					'PHP_FD_SETSIZE',
+				], true)) {
+					return new StringType();
+				}
+				if (in_array($resolvedConstantName, [
+					'PHP_MAJOR_VERSION',
+					'PHP_MINOR_VERSION',
+					'PHP_RELEASE_VERSION',
+					'PHP_VERSION_ID',
+					'PHP_ZTS',
+					'PHP_DEBUG',
+					'PHP_MAXPATHLEN',
+				], true)) {
+					return new IntegerType();
+				}
+
+				return $this->getTypeFromValue(constant($resolvedConstantName));
+			}
+
+			return new ErrorType();
 		} elseif ($node instanceof Node\Expr\ClassConstFetch && $node->name instanceof Node\Identifier) {
 			if ($node->class instanceof Name) {
 				$constantClass = (string) $node->class;
@@ -1117,11 +1124,6 @@ class Scope
 			}
 
 			return new ErrorType();
-		}
-
-		$exprString = $this->printer->prettyPrintExpr($node);
-		if (isset($this->moreSpecificTypes[$exprString])) {
-			return $this->moreSpecificTypes[$exprString]->getType();
 		}
 
 		if ($node instanceof Expr\Ternary) {

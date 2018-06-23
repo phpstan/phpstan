@@ -160,14 +160,24 @@ class TypeSpecifier
 
 			} elseif ($context->false()) {
 				$identicalType = $scope->getType($expr);
-				if (
-					$identicalType instanceof ConstantBooleanType
-					&& $identicalType->getValue()
-				) {
+				if ($identicalType instanceof ConstantBooleanType) {
 					$never = new NeverType();
-					$leftTypes = $this->create($expr->left, $never, TypeSpecifierContext::createTruthy());
-					$rightTypes = $this->create($expr->right, $never, TypeSpecifierContext::createTruthy());
+					$contextForTypes = $identicalType->getValue() ? $context->negate() : $context;
+					$leftTypes = $this->create($expr->left, $never, $contextForTypes);
+					$rightTypes = $this->create($expr->right, $never, $contextForTypes);
 					return $leftTypes->unionWith($rightTypes);
+				}
+
+				$leftType = $scope->getType($expr->left);
+				$rightType = $scope->getType($expr->right);
+				if ($expr->left instanceof Node\Scalar && !$expr->right instanceof Node\Scalar) {
+					if ((new ObjectWithoutClassType())->isSuperTypeOf($rightType)->no()) {
+						return $this->create($expr->right, $leftType, $context);
+					}
+				} elseif ($expr->right instanceof Node\Scalar && !$expr->left instanceof Node\Scalar) {
+					if ((new ObjectWithoutClassType())->isSuperTypeOf($leftType)->no()) {
+						return $this->create($expr->left, $rightType, $context);
+					}
 				}
 			}
 

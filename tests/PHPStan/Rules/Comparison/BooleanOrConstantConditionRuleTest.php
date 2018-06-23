@@ -59,6 +59,14 @@ class BooleanOrConstantConditionRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Result of || is always true.',
 				54,
 			],
+			[
+				'Result of || is always true.',
+				61,
+			],
+			[
+				'Result of || is always true.',
+				65,
+			],
 		]);
 	}
 
