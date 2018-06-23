@@ -5977,6 +5977,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'TraitPhpDocsTwo\YetYetAnotherDuplicateMethodType',
 				'$this->aliasedYetYetAnotherMethodInMoreTraits()',
 			],
+			[
+				'int',
+				'$this->propertyFromTraitUsingTrait',
+			],
+			[
+				'string',
+				'$this->methodFromTraitUsingTrait()',
+			],
 		];
 	}
 

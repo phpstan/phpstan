@@ -319,7 +319,11 @@ class PhpClassReflectionExtension
 		}
 
 		$declaringClass = $propertyReflection->getDeclaringClass();
-		foreach ($declaringClass->getTraits() as $traitReflection) {
+		$traits = $declaringClass->getTraits();
+		while (count($traits) > 0) {
+			/** @var \ReflectionClass $traitReflection */
+			$traitReflection = array_pop($traits);
+			$traits = array_merge($traits, $traitReflection->getTraits());
 			if (!$traitReflection->hasProperty($propertyReflection->getName())) {
 				continue;
 			}

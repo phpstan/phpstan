@@ -5,6 +5,8 @@ namespace TraitPhpDocsThree;
 trait BarTrait
 {
 
+	use BazTrait;
+
 	/**
 	 * @return DuplicateMethodType
 	 */
