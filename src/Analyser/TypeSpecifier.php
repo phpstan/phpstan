@@ -168,16 +168,19 @@ class TypeSpecifier
 					return $leftTypes->unionWith($rightTypes);
 				}
 
-				$leftType = $scope->getType($expr->left);
-				$rightType = $scope->getType($expr->right);
 				if ($expr->left instanceof Node\Scalar && !$expr->right instanceof Node\Scalar) {
-					if ((new ObjectWithoutClassType())->isSuperTypeOf($rightType)->no()) {
-						return $this->create($expr->right, $leftType, $context);
-					}
-				} elseif ($expr->right instanceof Node\Scalar && !$expr->left instanceof Node\Scalar) {
-					if ((new ObjectWithoutClassType())->isSuperTypeOf($leftType)->no()) {
-						return $this->create($expr->left, $rightType, $context);
-					}
+					return $this->create(
+						$expr->right,
+						$scope->getType($expr->left),
+						$context
+					);
+				}
+				if ($expr->right instanceof Node\Scalar && !$expr->left instanceof Node\Scalar) {
+					return $this->create(
+						$expr->left,
+						$scope->getType($expr->right),
+						$context
+					);
 				}
 			}
 
