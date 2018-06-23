@@ -26,6 +26,9 @@ class ArrayType implements StaticResolvableType
 
 	public function __construct(Type $keyType, Type $itemType)
 	{
+		if ($keyType->describe(VerbosityLevel::value()) === '(int|string)') {
+			$keyType = new MixedType();
+		}
 		$this->keyType = $keyType;
 		$this->itemType = $itemType;
 	}

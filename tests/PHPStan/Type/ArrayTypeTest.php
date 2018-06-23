@@ -110,4 +110,30 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataDescribe(): array
+	{
+		return [
+			[
+				new ArrayType(new BenevolentUnionType([
+					new IntegerType(),
+					new StringType(),
+				]), new IntegerType()),
+				'array<int>',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataDescribe
+	 * @param ArrayType $type
+	 * @param string $expectedDescription
+	 */
+	public function testDescribe(
+		ArrayType $type,
+		string $expectedDescription
+	): void
+	{
+		$this->assertSame($expectedDescription, $type->describe(VerbosityLevel::value()));
+	}
+
 }
