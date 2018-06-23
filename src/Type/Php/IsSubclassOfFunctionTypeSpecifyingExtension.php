@@ -11,6 +11,8 @@ use PHPStan\Analyser\TypeSpecifierContext;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\FunctionTypeSpecifyingExtension;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\StringType;
 
 class IsSubclassOfFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtension, TypeSpecifierAwareExtension
 {
@@ -28,7 +30,11 @@ class IsSubclassOfFunctionTypeSpecifyingExtension implements FunctionTypeSpecify
 	public function specifyTypes(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
 	{
 		$objectType = $scope->getType($node->args[0]->value);
-		if ((new \PHPStan\Type\StringType())->isSuperTypeOf($objectType)->yes()) {
+		$stringType = new StringType();
+		if (
+			!$objectType instanceof MixedType
+			&& !$stringType->isSuperTypeOf($objectType)->no()
+		) {
 			return new SpecifiedTypes();
 		}
 

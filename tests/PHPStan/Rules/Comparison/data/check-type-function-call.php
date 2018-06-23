@@ -144,3 +144,18 @@ class CheckDefaultArrayKeys
 	}
 
 }
+
+class IsSubclassOfTest
+{
+
+	public function doFoo(
+		string $string,
+		?string $nullableString
+	)
+	{
+		is_subclass_of($string, $nullableString);
+		is_subclass_of($nullableString, $string);
+		is_subclass_of($nullableString, 'Foo');
+	}
+
+}

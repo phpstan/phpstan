@@ -5434,7 +5434,7 @@ return [
 'is_scalar' => ['bool', 'value'=>'mixed'],
 'is_soap_fault' => ['bool', 'object'=>'mixed'],
 'is_string' => ['bool', 'var'=>'mixed'],
-'is_subclass_of' => ['bool', 'object_or_string'=>'mixed', 'class_name'=>'string', 'allow_string='=>'bool'],
+'is_subclass_of' => ['bool', 'object_or_string'=>'object|string', 'class_name'=>'string', 'allow_string='=>'bool'],
 'is_tainted' => ['bool', 'string'=>'string'],
 'is_uploaded_file' => ['bool', 'path'=>'string'],
 'is_writable' => ['bool', 'filename'=>'string'],
