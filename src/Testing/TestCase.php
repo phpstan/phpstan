@@ -217,6 +217,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			$signatureMapProvider,
 			self::getContainer()->getByType(Standard::class),
 			new AnonymousClassNameHelper(new FileHelper($this->getCurrentWorkingDirectory())),
+			self::getContainer()->getByType(Parser::class),
 			self::getContainer()->parameters['universalObjectCratesClasses'],
 			$this->getCurrentWorkingDirectory()
 		);

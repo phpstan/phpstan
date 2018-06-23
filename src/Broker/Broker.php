@@ -2,8 +2,10 @@
 
 namespace PHPStan\Broker;
 
+use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Command\ErrorFormatter\RelativePathHelper;
+use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\Tag\ParamTag;
 use PHPStan\Reflection\BrokerAwareExtension;
 use PHPStan\Reflection\ClassReflection;
@@ -59,6 +61,9 @@ class Broker
 	/** @var AnonymousClassNameHelper */
 	private $anonymousClassNameHelper;
 
+	/** @var Parser */
+	private $parser;
+
 	/** @var string[] */
 	private $universalObjectCratesClasses;
 
@@ -94,6 +99,7 @@ class Broker
 	 * @param \PHPStan\Reflection\SignatureMap\SignatureMapProvider $signatureMapProvider
 	 * @param \PhpParser\PrettyPrinter\Standard $printer
 	 * @param AnonymousClassNameHelper $anonymousClassNameHelper
+	 * @param Parser $parser
 	 * @param string[] $universalObjectCratesClasses
 	 * @param string $currentWorkingDirectory
 	 */
@@ -108,6 +114,7 @@ class Broker
 		SignatureMapProvider $signatureMapProvider,
 		\PhpParser\PrettyPrinter\Standard $printer,
 		AnonymousClassNameHelper $anonymousClassNameHelper,
+		Parser $parser,
 		array $universalObjectCratesClasses,
 		string $currentWorkingDirectory
 	)
@@ -134,6 +141,7 @@ class Broker
 		$this->signatureMapProvider = $signatureMapProvider;
 		$this->printer = $printer;
 		$this->anonymousClassNameHelper = $anonymousClassNameHelper;
+		$this->parser = $parser;
 		$this->universalObjectCratesClasses = $universalObjectCratesClasses;
 		$this->currentWorkingDirectory = $currentWorkingDirectory;
 	}
@@ -470,9 +478,25 @@ class Broker
 
 	public function resolveConstantName(\PhpParser\Node\Name $nameNode, ?Scope $scope): ?string
 	{
-		return $this->resolveName($nameNode, function (string $name): bool {
+		return $this->resolveName($nameNode, function (string $name) use ($scope): bool {
+			$isCompilerHaltOffset = $name === '__COMPILER_HALT_OFFSET__';
+			if ($isCompilerHaltOffset && $scope !== null && $this->fileHasCompilerHaltStatementCalls($scope->getFile())) {
+				return true;
+			}
 			return defined($name);
 		}, $scope);
+	}
+
+	private function fileHasCompilerHaltStatementCalls(string $pathToFile): bool
+	{
+		$nodes = $this->parser->parseFile($pathToFile);
+		foreach ($nodes as $node) {
+			if ($node instanceof Node\Stmt\HaltCompiler) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	private function resolveName(

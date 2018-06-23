@@ -6,6 +6,7 @@ use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Cache\Cache;
 use PHPStan\File\FileHelper;
+use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\PhpDocStringResolver;
 use PHPStan\Reflection\FunctionReflectionFactory;
 use PHPStan\Reflection\SignatureMap\SignatureMapProvider;
@@ -35,6 +36,7 @@ class BrokerTest extends \PHPStan\Testing\TestCase
 			self::getContainer()->getByType(SignatureMapProvider::class),
 			self::getContainer()->getByType(\PhpParser\PrettyPrinter\Standard::class),
 			$anonymousClassNameHelper,
+			self::getContainer()->getByType(Parser::class),
 			[],
 			$workingDirectory
 		);

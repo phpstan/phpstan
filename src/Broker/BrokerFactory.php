@@ -2,6 +2,7 @@
 
 namespace PHPStan\Broker;
 
+use PHPStan\Parser\Parser;
 use PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension;
 use PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension;
 use PHPStan\Reflection\FunctionReflectionFactory;
@@ -51,6 +52,7 @@ class BrokerFactory
 			$this->container->getByType(SignatureMapProvider::class),
 			$this->container->getByType(\PhpParser\PrettyPrinter\Standard::class),
 			$this->container->getByType(AnonymousClassNameHelper::class),
+			$this->container->getByType(Parser::class),
 			$this->container->parameters['universalObjectCratesClasses'],
 			$this->container->parameters['currentWorkingDirectory']
 		);
