@@ -222,7 +222,7 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 				33,
 			],
 			[
-				'Parameter #1 $array_arg of function reset expects array, null given.',
+				'Parameter #1 $array_arg of function reset expects array|object, null given.',
 				39,
 			],
 		]);
