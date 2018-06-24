@@ -3110,7 +3110,7 @@ return [
 'get_magic_quotes_runtime' => ['bool'],
 'get_meta_tags' => ['array', 'filename'=>'string', 'use_include_path='=>'bool'],
 'get_object_vars' => ['array', 'obj'=>'object'],
-'get_parent_class' => ['string', 'object='=>'mixed'],
+'get_parent_class' => ['string|false', 'object='=>'mixed'],
 'get_required_files' => ['string[]'],
 'get_resource_type' => ['string', 'res'=>'resource'],
 'get_resources' => ['resource[]', 'resource_type'=>'string'],
