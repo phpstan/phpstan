@@ -924,7 +924,7 @@ class Scope
 			return new ConstantIntegerType($node->getLine());
 		} elseif ($node instanceof Node\Scalar\MagicConst\Class_) {
 			if (!$this->isInClass()) {
-				throw new \PHPStan\ShouldNotHappenException();
+				return new ConstantStringType('');
 			}
 
 			return new ConstantStringType($this->getClassReflection()->getName());
