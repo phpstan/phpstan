@@ -12,38 +12,54 @@ the logo of your company in PHPStan's README.
 
 # $10+
 
-* Scott Arciszewski
-* Tomáš Votruba
 * Adam Lundrigan
-* Jobs Dev
+* Scott Arciszewski
 
 # $5+
 
-* Pavel Vondrášek
+* Adam Žurek
+* Bart Reunes
+* Carlos C Soto
+* Craig Mayhew
+* David Šolc
+* Dennis Haarbrink
 * Haralan Dobrev
-* Tomas Pesek
+* Ilija Tovilo
+* Jake B
+* Jakub Chábek
+* Jakub Červený
+* Jan Endel
 * Jan Kuchař
-* Sebastian Bergmann
-* Oleg Samorai
+* Lars Roettig
 * Lukas Unger
 * Masaru Yamagishi
-* Vašek Brychta
-* Tommy Muehle
-* Stefan Zielke
-* Dennis Haarbrink
-* Jakub Chábek
-* Carlos C Soto
-* Jan Endel
-* Adam Žurek
+* Michael Moll
+* Pavel Vondrášek
+* René Kliment
 * Rudolph Gottesheim
+* seagoj
+* Stefan Zielke
+* Thomas Daugaard
+* Tomasz
+* Tommy Muehle
+* Vašek Brychta
+* Woda Digital
 
 # $1+
 
-* Oliver Klee
-* Bronek Bialek
-* Ian Den Hartog
 * Andrew Barlow
-* Michal Mleczko
+* Broken Bialek
+* Christian Sjöström
+* Craig Duncan
+* Honza Cerny
+* Ian Den Hartog
+* Ivan Kvasnica
+* korchasa
 * Lucas Dos Santos Abreu
 * Martin Lukeš
-* Ondřej Vodáček
+* Matej Drame
+* Michal Mleczko
+* Michał Włodarczyk
+* Oliver Klee
+* Ondrej Vodacek
+* Wouter Admiraal
