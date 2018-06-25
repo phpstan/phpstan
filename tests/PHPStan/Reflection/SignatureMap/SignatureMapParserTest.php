@@ -402,7 +402,7 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 			}
 		}
 
-		$this->assertSame(13457, $count);
+		$this->assertSame(13458, $count);
 	}
 
 }
