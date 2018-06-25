@@ -14,20 +14,20 @@
 	"prefer-stable": true,
 	"require": {
 		"php": "~7.1",
+		"composer/xdebug-handler": "^1.0",
+		"jean85/pretty-package-versions": "^1.0.3",
 		"nette/bootstrap": "^2.4 || ^3.0",
 		"nette/di": "^2.4.7 || ^3.0",
 		"nette/robot-loader": "^3.0.1",
 		"nette/utils": "^2.4.5 || ^3.0",
 		"nikic/php-parser": "^4.0.2",
-		"symfony/console": "~3.2 || ~4.0",
-		"symfony/finder": "~3.2 || ~4.0",
-		"jean85/pretty-package-versions": "^1.0.3",
 		"phpstan/phpdoc-parser": "^0.3",
-		"composer/xdebug-handler": "^1.0"
+		"symfony/console": "~3.2 || ~4.0",
+		"symfony/finder": "~3.2 || ~4.0"
 	},
 	"require-dev": {
-		"ext-intl": "*",
 		"ext-gd": "*",
+		"ext-intl": "*",
 		"ext-mysqli": "*",
 		"ext-zip": "*",
 		"brianium/paratest": "^2.0",
@@ -46,5 +46,8 @@
 	},
 	"autoload-dev": {
 		"classmap": ["tests/PHPStan"]
+	},
+	"config": {
+		"sort-packages": true
 	}
 }
