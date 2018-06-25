@@ -3101,7 +3101,7 @@ return [
 'get_defined_functions' => ['array<string,array<string,string>>', 'exclude_disabled='=>'bool'],
 'get_defined_vars' => ['array'],
 'get_extension_funcs' => ['array', 'extension_name'=>'string'],
-'get_headers' => ['array', 'url'=>'string', 'format='=>'int'],
+'get_headers' => ['array', 'url'=>'string', 'format='=>'int', 'context='=>'resource'],
 'get_html_translation_table' => ['array', 'table='=>'int', 'flags='=>'int', 'encoding='=>'string'],
 'get_include_path' => ['string'],
 'get_included_files' => ['array'],
