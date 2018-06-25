@@ -10,6 +10,7 @@ use PHPStan\Parser\Parser;
 use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\DeprecatableReflection;
+use PHPStan\Reflection\FinalizableReflection;
 use PHPStan\Reflection\FunctionVariantWithPhpDocs;
 use PHPStan\Reflection\InternableReflection;
 use PHPStan\Reflection\MethodPrototypeReflection;
@@ -28,7 +29,7 @@ use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypehintHelper;
 use PHPStan\Type\VoidType;
 
-class PhpMethodReflection implements MethodReflection, DeprecatableReflection, InternableReflection, ThrowableReflection
+class PhpMethodReflection implements MethodReflection, DeprecatableReflection, InternableReflection, FinalizableReflection, ThrowableReflection
 {
 
 	/** @var \PHPStan\Reflection\ClassReflection */
@@ -70,11 +71,14 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	/** @var \PHPStan\Type\Type */
 	private $nativeReturnType;
 
-	/** @var bool $isDeprecated */
+	/** @var bool */
 	private $isDeprecated;
 
-	/** @var bool $isInternal */
+	/** @var bool */
 	private $isInternal;
+
+	/** @var bool */
+	private $isFinal;
 
 	/** @var FunctionVariantWithPhpDocs[]|null */
 	private $variants;
@@ -92,6 +96,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	 * @param null|Type $phpDocThrowType
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
+	 * @param bool $isFinal
 	 */
 	public function __construct(
 		ClassReflection $declaringClass,
@@ -105,7 +110,8 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 		?Type $phpDocReturnType,
 		?Type $phpDocThrowType,
 		bool $isDeprecated = false,
-		bool $isInternal = false
+		bool $isInternal = false,
+		bool $isFinal = false
 	)
 	{
 		$this->declaringClass = $declaringClass;
@@ -120,6 +126,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 		$this->phpDocThrowType = $phpDocThrowType;
 		$this->isDeprecated = $isDeprecated;
 		$this->isInternal = $isInternal;
+		$this->isFinal = $isFinal;
 	}
 
 	public function getDeclaringClass(): ClassReflection
@@ -388,6 +395,11 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	public function isInternal(): bool
 	{
 		return $this->isInternal;
+	}
+
+	public function isFinal(): bool
+	{
+		return $this->isFinal;
 	}
 
 	public function getThrowType(): ?Type

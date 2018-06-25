@@ -440,6 +440,7 @@ class Broker
 		$phpDocThrowsTag = null;
 		$isDeprecated = false;
 		$isInternal = false;
+		$isFinal = false;
 		if ($reflectionFunction->getFileName() !== false && $reflectionFunction->getDocComment() !== false) {
 			$fileName = $reflectionFunction->getFileName();
 			$docComment = $reflectionFunction->getDocComment();
@@ -449,6 +450,7 @@ class Broker
 			$phpDocThrowsTag = $resolvedPhpDoc->getThrowsTag();
 			$isDeprecated = $resolvedPhpDoc->isDeprecated();
 			$isInternal = $resolvedPhpDoc->isInternal();
+			$isFinal = $resolvedPhpDoc->isFinal();
 		}
 
 		$functionReflection = $this->functionReflectionFactory->create(
@@ -459,7 +461,8 @@ class Broker
 			$phpDocReturnTag !== null ? $phpDocReturnTag->getType() : null,
 			$phpDocThrowsTag !== null ? $phpDocThrowsTag->getType() : null,
 			$isDeprecated,
-			$isInternal
+			$isInternal,
+			$isFinal
 		);
 		$this->customFunctionReflections[$lowerCasedFunctionName] = $functionReflection;
 

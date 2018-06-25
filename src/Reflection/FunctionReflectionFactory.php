@@ -15,6 +15,7 @@ interface FunctionReflectionFactory
 	 * @param null|Type $phpDocThrowType
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
+	 * @param bool $isFinal
 	 * @return PhpFunctionReflection
 	 */
 	public function create(
@@ -23,7 +24,8 @@ interface FunctionReflectionFactory
 		?Type $phpDocReturnType,
 		?Type $phpDocThrowType,
 		bool $isDeprecated,
-		bool $isInternal
+		bool $isInternal,
+		bool $isFinal
 	): PhpFunctionReflection;
 
 }

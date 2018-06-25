@@ -2,7 +2,7 @@
 
 namespace PHPStan\Reflection;
 
-interface FunctionReflection extends DeprecatableReflection, InternableReflection, ThrowableReflection
+interface FunctionReflection extends DeprecatableReflection, InternableReflection, FinalizableReflection, ThrowableReflection
 {
 
 	public function getName(): string;

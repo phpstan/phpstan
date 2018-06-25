@@ -41,7 +41,8 @@ class PhpDocNodeResolver
 			$this->resolveReturnTag($phpDocNode, $nameScope),
 			$this->resolveThrowsTags($phpDocNode, $nameScope),
 			$this->resolveIsDeprecated($phpDocNode),
-			$this->resolveIsInternal($phpDocNode)
+			$this->resolveIsInternal($phpDocNode),
+			$this->resolveIsFinal($phpDocNode)
 		);
 	}
 
@@ -223,6 +224,13 @@ class PhpDocNodeResolver
 		$internalTags = $phpDocNode->getTagsByName('@internal');
 
 		return count($internalTags) > 0;
+	}
+
+	private function resolveIsFinal(PhpDocNode $phpDocNode): bool
+	{
+		$finalTags = $phpDocNode->getTagsByName('@final');
+
+		return count($finalTags) > 0;
 	}
 
 }

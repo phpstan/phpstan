@@ -95,7 +95,7 @@ class FileTypeMapper
 			if ($modifiedTime === false) {
 				$modifiedTime = time();
 			}
-			$cacheKey = sprintf('%s-%d-v44', $fileName, $modifiedTime);
+			$cacheKey = sprintf('%s-%d-v45', $fileName, $modifiedTime);
 			$map = $this->cache->load($cacheKey);
 
 			if ($map === null) {

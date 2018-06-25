@@ -6,11 +6,12 @@ use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\DeprecatableReflection;
+use PHPStan\Reflection\FinalizableReflection;
 use PHPStan\Reflection\InternableReflection;
 use PHPStan\Reflection\MethodPrototypeReflection;
 use PHPStan\Reflection\MethodReflection;
 
-class NativeMethodReflection implements MethodReflection, DeprecatableReflection, InternableReflection
+class NativeMethodReflection implements MethodReflection, DeprecatableReflection, InternableReflection, FinalizableReflection
 {
 
 	/** @var \PHPStan\Broker\Broker */
@@ -100,6 +101,11 @@ class NativeMethodReflection implements MethodReflection, DeprecatableReflection
 	}
 
 	public function isInternal(): bool
+	{
+		return false;
+	}
+
+	public function isFinal(): bool
 	{
 		return false;
 	}

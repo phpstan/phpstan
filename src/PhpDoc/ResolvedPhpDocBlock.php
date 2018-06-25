@@ -32,6 +32,9 @@ class ResolvedPhpDocBlock
 	/** @var bool */
 	private $isInternal;
 
+	/** @var bool */
+	private $isFinal;
+
 	/**
 	 * @param array<string|int, \PHPStan\PhpDoc\Tag\VarTag> $varTags
 	 * @param array<string, \PHPStan\PhpDoc\Tag\MethodTag> $methodTags
@@ -41,6 +44,7 @@ class ResolvedPhpDocBlock
 	 * @param \PHPStan\PhpDoc\Tag\ThrowsTag|null $throwsTags
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
+	 * @param bool $isFinal
 	 */
 	private function __construct(
 		array $varTags,
@@ -50,7 +54,8 @@ class ResolvedPhpDocBlock
 		?ReturnTag $returnTag,
 		?ThrowsTag $throwsTags,
 		bool $isDeprecated,
-		bool $isInternal
+		bool $isInternal,
+		bool $isFinal
 	)
 	{
 		$this->varTags = $varTags;
@@ -61,6 +66,7 @@ class ResolvedPhpDocBlock
 		$this->throwsTag = $throwsTags;
 		$this->isDeprecated = $isDeprecated;
 		$this->isInternal = $isInternal;
+		$this->isFinal = $isFinal;
 	}
 
 	/**
@@ -72,6 +78,7 @@ class ResolvedPhpDocBlock
 	 * @param \PHPStan\PhpDoc\Tag\ThrowsTag|null $throwsTag
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
+	 * @param bool $isFinal
 	 * @return self
 	 */
 	public static function create(
@@ -82,7 +89,8 @@ class ResolvedPhpDocBlock
 		?ReturnTag $returnTag,
 		?ThrowsTag $throwsTag,
 		bool $isDeprecated,
-		bool $isInternal
+		bool $isInternal,
+		bool $isFinal
 	): self
 	{
 		return new self(
@@ -93,13 +101,14 @@ class ResolvedPhpDocBlock
 			$returnTag,
 			$throwsTag,
 			$isDeprecated,
-			$isInternal
+			$isInternal,
+			$isFinal
 		);
 	}
 
 	public static function createEmpty(): self
 	{
-		return new self([], [], [], [], null, null, false, false);
+		return new self([], [], [], [], null, null, false, false, false);
 	}
 
 
@@ -155,6 +164,11 @@ class ResolvedPhpDocBlock
 		return $this->isInternal;
 	}
 
+	public function isFinal(): bool
+	{
+		return $this->isFinal;
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return self
@@ -169,7 +183,8 @@ class ResolvedPhpDocBlock
 			$properties['returnTag'],
 			$properties['throwsTag'],
 			$properties['isDeprecated'],
-			$properties['isInternal']
+			$properties['isInternal'],
+			$properties['isFinal']
 		);
 	}
 
