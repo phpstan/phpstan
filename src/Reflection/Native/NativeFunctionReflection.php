@@ -16,26 +16,20 @@ class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
 	/** @var \PHPStan\Type\Type|null */
 	private $throwType;
 
-	/** @var bool */
-	private $isDeprecated;
-
 	/**
 	 * @param string $name
 	 * @param \PHPStan\Reflection\ParametersAcceptor[] $variants
 	 * @param \PHPStan\Type\Type|null $throwType
-	 * @param bool $isDeprecated
 	 */
 	public function __construct(
 		string $name,
 		array $variants,
-		?Type $throwType,
-		bool $isDeprecated
+		?Type $throwType
 	)
 	{
 		$this->name = $name;
 		$this->variants = $variants;
 		$this->throwType = $throwType;
-		$this->isDeprecated = $isDeprecated;
 	}
 
 	public function getName(): string
@@ -58,7 +52,12 @@ class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
 
 	public function isDeprecated(): bool
 	{
-		return $this->isDeprecated;
+		return false;
+	}
+
+	public function isInternal(): bool
+	{
+		return false;
 	}
 
 }
