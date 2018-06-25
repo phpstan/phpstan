@@ -58,10 +58,6 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 						'foo',
 						'staticFoo',
 					],
-					'property' => [
-						'foo',
-						'staticFoo',
-					],
 				],
 			],
 			[
@@ -72,10 +68,6 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 						'DEPRECATED_FOO',
 					],
 					'method' => [
-						'deprecatedFoo',
-						'deprecatedStaticFoo',
-					],
-					'property' => [
 						'deprecatedFoo',
 						'deprecatedStaticFoo',
 					],

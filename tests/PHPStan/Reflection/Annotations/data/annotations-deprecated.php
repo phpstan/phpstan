@@ -29,7 +29,7 @@ class Foo
 
 	}
 
-	public function staticFoo()
+	public static function staticFoo()
 	{
 
 	}
@@ -68,38 +68,28 @@ class DeprecatedFoo
 	/**
 	 * @deprecated
 	 */
-	public function deprecatedStaticFoo()
+	public static function deprecatedStaticFoo()
 	{
 
 	}
 
 }
 
-class FooInterface
+interface FooInterface
 {
 
 	const FOO = 'foo';
 
-	public $foo;
+	public function foo();
 
-	public static $staticFoo;
-
-	public function foo()
-	{
-
-	}
-
-	public function staticFoo()
-	{
-
-	}
+	public static function staticFoo();
 
 }
 
 /**
  * @deprecated
  */
-class DeprecatedFooInterface
+interface DeprecatedFooInterface
 {
 
 	/**
@@ -110,28 +100,12 @@ class DeprecatedFooInterface
 	/**
 	 * @deprecated
 	 */
-	public $deprecatedFoo;
+	public function deprecatedFoo();
 
 	/**
 	 * @deprecated
 	 */
-	public static $deprecatedStaticFoo;
-
-	/**
-	 * @deprecated
-	 */
-	public function deprecatedFoo()
-	{
-
-	}
-
-	/**
-	 * @deprecated
-	 */
-	public function deprecatedStaticFoo()
-	{
-
-	}
+	public static function deprecatedStaticFoo();
 
 }
 
@@ -147,7 +121,7 @@ trait FooTrait
 
 	}
 
-	public function staticFoo()
+	public static function staticFoo()
 	{
 
 	}
@@ -181,7 +155,7 @@ trait DeprecatedFooTrait
 	/**
 	 * @deprecated
 	 */
-	public function deprecatedStaticFoo()
+	public static function deprecatedStaticFoo()
 	{
 
 	}
