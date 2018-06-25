@@ -4207,6 +4207,38 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'int|false',
 				'$strtotimeCrash',
 			],
+			[
+				'-1',
+				'$versionCompare1',
+			],
+			[
+				'-1|1',
+				'$versionCompare2',
+			],
+			[
+				'-1|0|1',
+				'$versionCompare3',
+			],
+			[
+				'-1|0|1',
+				'$versionCompare4',
+			],
+			[
+				'true',
+				'$versionCompare5',
+			],
+			[
+				'bool',
+				'$versionCompare6',
+			],
+			[
+				'bool',
+				'$versionCompare7',
+			],
+			[
+				'bool',
+				'$versionCompare8',
+			],
 		];
 	}
 
