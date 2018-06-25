@@ -17,6 +17,7 @@ interface PhpMethodReflectionFactory
 	 * @param \PHPStan\Type\Type|null $phpDocThrowType
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
+	 * @param bool $isFinal
 	 * @return \PHPStan\Reflection\Php\PhpMethodReflection
 	 */
 	public function create(
@@ -27,7 +28,8 @@ interface PhpMethodReflectionFactory
 		?Type $phpDocReturnType,
 		?Type $phpDocThrowType,
 		bool $isDeprecated,
-		bool $isInternal
+		bool $isInternal,
+		bool $isFinal
 	): PhpMethodReflection;
 
 }

@@ -1507,6 +1507,7 @@ class Scope
 	 * @param null|Type $throwType
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
+	 * @param bool $isFinal
 	 * @return self
 	 */
 	public function enterClassMethod(
@@ -1515,7 +1516,8 @@ class Scope
 		?Type $phpDocReturnType,
 		?Type $throwType,
 		bool $isDeprecated,
-		bool $isInternal
+		bool $isInternal,
+		bool $isFinal
 	): self
 	{
 		if (!$this->isInClass()) {
@@ -1533,7 +1535,8 @@ class Scope
 				$phpDocReturnType,
 				$throwType,
 				$isDeprecated,
-				$isInternal
+				$isInternal,
+				$isFinal
 			)
 		);
 	}
@@ -1566,6 +1569,7 @@ class Scope
 	 * @param null|Type $throwType
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
+	 * @param bool $isFinal
 	 * @return self
 	 */
 	public function enterFunction(
@@ -1574,7 +1578,8 @@ class Scope
 		?Type $phpDocReturnType,
 		?Type $throwType,
 		bool $isDeprecated,
-		bool $isInternal
+		bool $isInternal,
+		bool $isFinal
 	): self
 	{
 		return $this->enterFunctionLike(
@@ -1587,7 +1592,8 @@ class Scope
 				$phpDocReturnType,
 				$throwType,
 				$isDeprecated,
-				$isInternal
+				$isInternal,
+				$isFinal
 			)
 		);
 	}

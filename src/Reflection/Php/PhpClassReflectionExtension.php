@@ -263,6 +263,7 @@ class PhpClassReflectionExtension
 		$phpDocThrowType = null;
 		$isDeprecated = false;
 		$isInternal = false;
+		$isFinal = false;
 		$declaringTraitName = $this->findMethodTrait($methodReflection);
 		if ($declaringClass->getFileName() !== false) {
 			if ($methodReflection->getDocComment() !== false) {
@@ -287,6 +288,7 @@ class PhpClassReflectionExtension
 				$phpDocThrowType = $resolvedPhpDoc->getThrowsTag() !== null ? $resolvedPhpDoc->getThrowsTag()->getType() : null;
 				$isDeprecated = $resolvedPhpDoc->isDeprecated();
 				$isInternal = $resolvedPhpDoc->isInternal();
+				$isFinal = $resolvedPhpDoc->isFinal();
 			}
 		}
 
@@ -305,7 +307,8 @@ class PhpClassReflectionExtension
 			$phpDocReturnType,
 			$phpDocThrowType,
 			$isDeprecated,
-			$isInternal
+			$isInternal,
+			$isFinal
 		);
 	}
 

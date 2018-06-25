@@ -4,11 +4,12 @@ namespace PHPStan\Reflection;
 
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\PhpDoc\ResolvedPhpDocBlock;
 use PHPStan\Reflection\Php\PhpClassReflectionExtension;
 use PHPStan\Reflection\Php\PhpPropertyReflection;
 use PHPStan\Type\FileTypeMapper;
 
-class ClassReflection implements DeprecatableReflection, InternableReflection
+class ClassReflection implements DeprecatableReflection, InternableReflection, FinalizableReflection
 {
 
 	/** @var \PHPStan\Broker\Broker */
@@ -49,6 +50,9 @@ class ClassReflection implements DeprecatableReflection, InternableReflection
 
 	/** @var bool|null */
 	private $isInternal;
+
+	/** @var bool|null */
+	private $isFinal;
 
 	/**
 	 * @param Broker $broker
@@ -418,18 +422,8 @@ class ClassReflection implements DeprecatableReflection, InternableReflection
 	public function isDeprecated(): bool
 	{
 		if ($this->isDeprecated === null) {
-			$fileName = $this->reflection->getFileName();
-			if ($fileName === false) {
-				return $this->isDeprecated = false;
-			}
-
-			$docComment = $this->reflection->getDocComment();
-			if ($docComment === false) {
-				return $this->isDeprecated = false;
-			}
-			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, $this->getName(), null, $docComment);
-
-			$this->isDeprecated = $resolvedPhpDoc->isDeprecated();
+			$resolvedPhpDoc = $this->getResolvedPhpDoc();
+			$this->isDeprecated = $resolvedPhpDoc !== null && $resolvedPhpDoc->isDeprecated();
 		}
 
 		return $this->isDeprecated;
@@ -438,21 +432,37 @@ class ClassReflection implements DeprecatableReflection, InternableReflection
 	public function isInternal(): bool
 	{
 		if ($this->isInternal === null) {
-			$fileName = $this->reflection->getFileName();
-			if ($fileName === false) {
-				return $this->isInternal = false;
-			}
-
-			$docComment = $this->reflection->getDocComment();
-			if ($docComment === false) {
-				return $this->isInternal = false;
-			}
-			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, $this->getName(), null, $docComment);
-
-			$this->isInternal = $resolvedPhpDoc->isInternal();
+			$resolvedPhpDoc = $this->getResolvedPhpDoc();
+			$this->isInternal = $resolvedPhpDoc !== null && $resolvedPhpDoc->isInternal();
 		}
 
 		return $this->isInternal;
+	}
+
+	public function isFinal(): bool
+	{
+		if ($this->isFinal === null) {
+			$resolvedPhpDoc = $this->getResolvedPhpDoc();
+			$this->isFinal = $this->reflection->isFinal()
+				|| ($resolvedPhpDoc !== null && $resolvedPhpDoc->isFinal());
+		}
+
+		return $this->isFinal;
+	}
+
+	private function getResolvedPhpDoc(): ?ResolvedPhpDocBlock
+	{
+		$fileName = $this->reflection->getFileName();
+		if ($fileName === false) {
+			return null;
+		}
+
+		$docComment = $this->reflection->getDocComment();
+		if ($docComment === false) {
+			return null;
+		}
+
+		return $this->fileTypeMapper->getResolvedPhpDoc($fileName, $this->getName(), null, $docComment);
 	}
 
 }

@@ -1804,7 +1804,7 @@ class NodeScopeResolver
 
 	private function enterClassMethod(Scope $scope, Node\Stmt\ClassMethod $classMethod): Scope
 	{
-		[$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated, $isInternal] = $this->getPhpDocs($scope, $classMethod);
+		[$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated, $isInternal, $isFinal] = $this->getPhpDocs($scope, $classMethod);
 
 		return $scope->enterClassMethod(
 			$classMethod,
@@ -1812,7 +1812,8 @@ class NodeScopeResolver
 			$phpDocReturnType,
 			$phpDocThrowType,
 			$isDeprecated,
-			$isInternal
+			$isInternal,
+			$isFinal
 		);
 	}
 
@@ -1828,6 +1829,7 @@ class NodeScopeResolver
 		$phpDocThrowType = null;
 		$isDeprecated = false;
 		$isInternal = false;
+		$isFinal = false;
 		if ($functionLike->getDocComment() !== null) {
 			$docComment = $functionLike->getDocComment()->getText();
 			$file = $scope->getFile();
@@ -1862,14 +1864,15 @@ class NodeScopeResolver
 			$phpDocThrowType = $resolvedPhpDoc->getThrowsTag() !== null ? $resolvedPhpDoc->getThrowsTag()->getType() : null;
 			$isDeprecated = $resolvedPhpDoc->isDeprecated();
 			$isInternal = $resolvedPhpDoc->isInternal();
+			$isFinal = $resolvedPhpDoc->isFinal();
 		}
 
-		return [$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated, $isInternal];
+		return [$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated, $isInternal, $isFinal];
 	}
 
 	private function enterFunction(Scope $scope, Node\Stmt\Function_ $function): Scope
 	{
-		[$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated, $isInternal] = $this->getPhpDocs($scope, $function);
+		[$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated, $isInternal, $isFinal] = $this->getPhpDocs($scope, $function);
 
 		return $scope->enterFunction(
 			$function,
@@ -1877,7 +1880,8 @@ class NodeScopeResolver
 			$phpDocReturnType,
 			$phpDocThrowType,
 			$isDeprecated,
-			$isInternal
+			$isInternal,
+			$isFinal
 		);
 	}
 

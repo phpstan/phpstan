@@ -60,4 +60,9 @@ class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
 		return false;
 	}
 
+	public function isFinal(): bool
+	{
+		return false;
+	}
+
 }
