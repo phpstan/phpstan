@@ -392,8 +392,7 @@ class Broker
 				$functionReflection = new NativeFunctionReflection(
 					$lowerCasedFunctionName,
 					$variants,
-					null,
-					false
+					null
 				);
 				self::$functionMap[$lowerCasedFunctionName] = $functionReflection;
 				$this->functionReflections[$lowerCasedFunctionName] = $functionReflection;
@@ -440,6 +439,7 @@ class Broker
 		$phpDocReturnTag = null;
 		$phpDocThrowsTag = null;
 		$isDeprecated = false;
+		$isInternal = false;
 		if ($reflectionFunction->getFileName() !== false && $reflectionFunction->getDocComment() !== false) {
 			$fileName = $reflectionFunction->getFileName();
 			$docComment = $reflectionFunction->getDocComment();
@@ -448,6 +448,7 @@ class Broker
 			$phpDocReturnTag = $resolvedPhpDoc->getReturnTag();
 			$phpDocThrowsTag = $resolvedPhpDoc->getThrowsTag();
 			$isDeprecated = $resolvedPhpDoc->isDeprecated();
+			$isInternal = $resolvedPhpDoc->isInternal();
 		}
 
 		$functionReflection = $this->functionReflectionFactory->create(
@@ -457,7 +458,8 @@ class Broker
 			}, $phpDocParameterTags),
 			$phpDocReturnTag !== null ? $phpDocReturnTag->getType() : null,
 			$phpDocThrowsTag !== null ? $phpDocThrowsTag->getType() : null,
-			$isDeprecated
+			$isDeprecated,
+			$isInternal
 		);
 		$this->customFunctionReflections[$lowerCasedFunctionName] = $functionReflection;
 

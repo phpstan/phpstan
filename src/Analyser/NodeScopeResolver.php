@@ -1804,14 +1804,15 @@ class NodeScopeResolver
 
 	private function enterClassMethod(Scope $scope, Node\Stmt\ClassMethod $classMethod): Scope
 	{
-		[$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated] = $this->getPhpDocs($scope, $classMethod);
+		[$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated, $isInternal] = $this->getPhpDocs($scope, $classMethod);
 
 		return $scope->enterClassMethod(
 			$classMethod,
 			$phpDocParameterTypes,
 			$phpDocReturnType,
 			$phpDocThrowType,
-			$isDeprecated
+			$isDeprecated,
+			$isInternal
 		);
 	}
 
@@ -1826,6 +1827,7 @@ class NodeScopeResolver
 		$phpDocReturnType = null;
 		$phpDocThrowType = null;
 		$isDeprecated = false;
+		$isInternal = false;
 		if ($functionLike->getDocComment() !== null) {
 			$docComment = $functionLike->getDocComment()->getText();
 			$file = $scope->getFile();
@@ -1859,21 +1861,23 @@ class NodeScopeResolver
 			$phpDocReturnType = $resolvedPhpDoc->getReturnTag() !== null ? $resolvedPhpDoc->getReturnTag()->getType() : null;
 			$phpDocThrowType = $resolvedPhpDoc->getThrowsTag() !== null ? $resolvedPhpDoc->getThrowsTag()->getType() : null;
 			$isDeprecated = $resolvedPhpDoc->isDeprecated();
+			$isInternal = $resolvedPhpDoc->isInternal();
 		}
 
-		return [$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated];
+		return [$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated, $isInternal];
 	}
 
 	private function enterFunction(Scope $scope, Node\Stmt\Function_ $function): Scope
 	{
-		[$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated] = $this->getPhpDocs($scope, $function);
+		[$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated, $isInternal] = $this->getPhpDocs($scope, $function);
 
 		return $scope->enterFunction(
 			$function,
 			$phpDocParameterTypes,
 			$phpDocReturnType,
 			$phpDocThrowType,
-			$isDeprecated
+			$isDeprecated,
+			$isInternal
 		);
 	}
 

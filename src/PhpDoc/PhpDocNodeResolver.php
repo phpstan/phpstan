@@ -40,7 +40,8 @@ class PhpDocNodeResolver
 			$this->resolveParamTags($phpDocNode, $nameScope),
 			$this->resolveReturnTag($phpDocNode, $nameScope),
 			$this->resolveThrowsTags($phpDocNode, $nameScope),
-			$this->resolveIsDeprecated($phpDocNode)
+			$this->resolveIsDeprecated($phpDocNode),
+			$this->resolveIsInternal($phpDocNode)
 		);
 	}
 
@@ -215,6 +216,13 @@ class PhpDocNodeResolver
 		$deprecatedTags = $phpDocNode->getTagsByName('@deprecated');
 
 		return count($deprecatedTags) > 0;
+	}
+
+	private function resolveIsInternal(PhpDocNode $phpDocNode): bool
+	{
+		$internalTags = $phpDocNode->getTagsByName('@internal');
+
+		return count($internalTags) > 0;
 	}
 
 }

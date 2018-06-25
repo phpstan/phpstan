@@ -11,6 +11,7 @@ use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\DeprecatableReflection;
 use PHPStan\Reflection\FunctionVariantWithPhpDocs;
+use PHPStan\Reflection\InternableReflection;
 use PHPStan\Reflection\MethodPrototypeReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptor;
@@ -27,7 +28,7 @@ use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypehintHelper;
 use PHPStan\Type\VoidType;
 
-class PhpMethodReflection implements MethodReflection, DeprecatableReflection, ThrowableReflection
+class PhpMethodReflection implements MethodReflection, DeprecatableReflection, InternableReflection, ThrowableReflection
 {
 
 	/** @var \PHPStan\Reflection\ClassReflection */
@@ -72,6 +73,9 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, T
 	/** @var bool $isDeprecated */
 	private $isDeprecated;
 
+	/** @var bool $isInternal */
+	private $isInternal;
+
 	/** @var FunctionVariantWithPhpDocs[]|null */
 	private $variants;
 
@@ -87,6 +91,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, T
 	 * @param null|Type $phpDocReturnType
 	 * @param null|Type $phpDocThrowType
 	 * @param bool $isDeprecated
+	 * @param bool $isInternal
 	 */
 	public function __construct(
 		ClassReflection $declaringClass,
@@ -99,7 +104,8 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, T
 		array $phpDocParameterTypes,
 		?Type $phpDocReturnType,
 		?Type $phpDocThrowType,
-		bool $isDeprecated = false
+		bool $isDeprecated = false,
+		bool $isInternal = false
 	)
 	{
 		$this->declaringClass = $declaringClass;
@@ -113,6 +119,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, T
 		$this->phpDocReturnType = $phpDocReturnType;
 		$this->phpDocThrowType = $phpDocThrowType;
 		$this->isDeprecated = $isDeprecated;
+		$this->isInternal = $isInternal;
 	}
 
 	public function getDeclaringClass(): ClassReflection
@@ -376,6 +383,11 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, T
 	public function isDeprecated(): bool
 	{
 		return $this->isDeprecated;
+	}
+
+	public function isInternal(): bool
+	{
+		return $this->isInternal;
 	}
 
 	public function getThrowType(): ?Type

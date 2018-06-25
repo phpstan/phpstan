@@ -38,6 +38,9 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 	/** @var bool */
 	private $isDeprecated;
 
+	/** @var bool */
+	private $isInternal;
+
 	/** @var FunctionVariant[]|null */
 	private $variants;
 
@@ -50,6 +53,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 	 * @param null|Type $phpDocReturnType
 	 * @param null|Type $throwType
 	 * @param bool $isDeprecated
+	 * @param bool $isInternal
 	 */
 	public function __construct(
 		FunctionLike $functionLike,
@@ -59,7 +63,8 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 		Type $realReturnType,
 		?Type $phpDocReturnType = null,
 		?Type $throwType = null,
-		bool $isDeprecated = false
+		bool $isDeprecated = false,
+		bool $isInternal = false
 	)
 	{
 		$this->functionLike = $functionLike;
@@ -70,6 +75,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 		$this->phpDocReturnType = $phpDocReturnType;
 		$this->throwType = $throwType;
 		$this->isDeprecated = $isDeprecated;
+		$this->isInternal = $isInternal;
 	}
 
 	protected function getFunctionLike(): FunctionLike
@@ -164,6 +170,11 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 	public function isDeprecated(): bool
 	{
 		return $this->isDeprecated;
+	}
+
+	public function isInternal(): bool
+	{
+		return $this->isInternal;
 	}
 
 	public function getThrowType(): ?Type

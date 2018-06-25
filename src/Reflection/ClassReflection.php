@@ -8,7 +8,7 @@ use PHPStan\Reflection\Php\PhpClassReflectionExtension;
 use PHPStan\Reflection\Php\PhpPropertyReflection;
 use PHPStan\Type\FileTypeMapper;
 
-class ClassReflection implements DeprecatableReflection
+class ClassReflection implements DeprecatableReflection, InternableReflection
 {
 
 	/** @var \PHPStan\Broker\Broker */
@@ -46,6 +46,9 @@ class ClassReflection implements DeprecatableReflection
 
 	/** @var bool|null */
 	private $isDeprecated;
+
+	/** @var bool|null */
+	private $isInternal;
 
 	/**
 	 * @param Broker $broker
@@ -371,6 +374,7 @@ class ClassReflection implements DeprecatableReflection
 			$reflectionConstant = $this->getNativeReflection()->getReflectionConstant($name);
 
 			$isDeprecated = false;
+			$isInternal = false;
 			if ($reflectionConstant->getDocComment() !== false && $this->getFileName() !== false) {
 				$docComment = $reflectionConstant->getDocComment();
 				$fileName = $this->getFileName();
@@ -378,12 +382,14 @@ class ClassReflection implements DeprecatableReflection
 				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, $className, null, $docComment);
 
 				$isDeprecated = $resolvedPhpDoc->isDeprecated();
+				$isInternal = $resolvedPhpDoc->isInternal();
 			}
 
 			$this->constants[$name] = new ClassConstantReflection(
 				$this->broker->getClass($reflectionConstant->getDeclaringClass()->getName()),
 				$reflectionConstant,
-				$isDeprecated
+				$isDeprecated,
+				$isInternal
 			);
 		}
 		return $this->constants[$name];
@@ -427,6 +433,26 @@ class ClassReflection implements DeprecatableReflection
 		}
 
 		return $this->isDeprecated;
+	}
+
+	public function isInternal(): bool
+	{
+		if ($this->isInternal === null) {
+			$fileName = $this->reflection->getFileName();
+			if ($fileName === false) {
+				return $this->isInternal = false;
+			}
+
+			$docComment = $this->reflection->getDocComment();
+			if ($docComment === false) {
+				return $this->isInternal = false;
+			}
+			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, $this->getName(), null, $docComment);
+
+			$this->isInternal = $resolvedPhpDoc->isInternal();
+		}
+
+		return $this->isInternal;
 	}
 
 }

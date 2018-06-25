@@ -29,6 +29,9 @@ class ResolvedPhpDocBlock
 	/** @var bool */
 	private $isDeprecated;
 
+	/** @var bool */
+	private $isInternal;
+
 	/**
 	 * @param array<string|int, \PHPStan\PhpDoc\Tag\VarTag> $varTags
 	 * @param array<string, \PHPStan\PhpDoc\Tag\MethodTag> $methodTags
@@ -37,6 +40,7 @@ class ResolvedPhpDocBlock
 	 * @param \PHPStan\PhpDoc\Tag\ReturnTag|null $returnTag
 	 * @param \PHPStan\PhpDoc\Tag\ThrowsTag|null $throwsTags
 	 * @param bool $isDeprecated
+	 * @param bool $isInternal
 	 */
 	private function __construct(
 		array $varTags,
@@ -45,7 +49,8 @@ class ResolvedPhpDocBlock
 		array $paramTags,
 		?ReturnTag $returnTag,
 		?ThrowsTag $throwsTags,
-		bool $isDeprecated
+		bool $isDeprecated,
+		bool $isInternal
 	)
 	{
 		$this->varTags = $varTags;
@@ -55,6 +60,7 @@ class ResolvedPhpDocBlock
 		$this->returnTag = $returnTag;
 		$this->throwsTag = $throwsTags;
 		$this->isDeprecated = $isDeprecated;
+		$this->isInternal = $isInternal;
 	}
 
 	/**
@@ -65,6 +71,7 @@ class ResolvedPhpDocBlock
 	 * @param \PHPStan\PhpDoc\Tag\ReturnTag|null $returnTag
 	 * @param \PHPStan\PhpDoc\Tag\ThrowsTag|null $throwsTag
 	 * @param bool $isDeprecated
+	 * @param bool $isInternal
 	 * @return self
 	 */
 	public static function create(
@@ -74,15 +81,25 @@ class ResolvedPhpDocBlock
 		array $paramTags,
 		?ReturnTag $returnTag,
 		?ThrowsTag $throwsTag,
-		bool $isDeprecated
+		bool $isDeprecated,
+		bool $isInternal
 	): self
 	{
-		return new self($varTags, $methodTags, $propertyTags, $paramTags, $returnTag, $throwsTag, $isDeprecated);
+		return new self(
+			$varTags,
+			$methodTags,
+			$propertyTags,
+			$paramTags,
+			$returnTag,
+			$throwsTag,
+			$isDeprecated,
+			$isInternal
+		);
 	}
 
 	public static function createEmpty(): self
 	{
-		return new self([], [], [], [], null, null, false);
+		return new self([], [], [], [], null, null, false, false);
 	}
 
 
@@ -133,6 +150,11 @@ class ResolvedPhpDocBlock
 		return $this->isDeprecated;
 	}
 
+	public function isInternal(): bool
+	{
+		return $this->isInternal;
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return self
@@ -146,7 +168,8 @@ class ResolvedPhpDocBlock
 			$properties['paramTags'],
 			$properties['returnTag'],
 			$properties['throwsTag'],
-			$properties['isDeprecated']
+			$properties['isDeprecated'],
+			$properties['isInternal']
 		);
 	}
 

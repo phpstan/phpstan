@@ -43,6 +43,9 @@ class PhpFunctionReflection implements FunctionReflection
 	/** @var bool */
 	private $isDeprecated;
 
+	/** @var bool */
+	private $isInternal;
+
 	/** @var FunctionVariantWithPhpDocs[]|null */
 	private $variants;
 
@@ -55,6 +58,7 @@ class PhpFunctionReflection implements FunctionReflection
 	 * @param null|Type $phpDocReturnType
 	 * @param null|Type $phpDocThrowType
 	 * @param bool $isDeprecated
+	 * @param bool $isInternal
 	 */
 	public function __construct(
 		\ReflectionFunction $reflection,
@@ -64,7 +68,8 @@ class PhpFunctionReflection implements FunctionReflection
 		array $phpDocParameterTypes,
 		?Type $phpDocReturnType,
 		?Type $phpDocThrowType,
-		bool $isDeprecated
+		bool $isDeprecated,
+		bool $isInternal
 	)
 	{
 		$this->reflection = $reflection;
@@ -75,6 +80,7 @@ class PhpFunctionReflection implements FunctionReflection
 		$this->phpDocReturnType = $phpDocReturnType;
 		$this->phpDocThrowType = $phpDocThrowType;
 		$this->isDeprecated = $isDeprecated;
+		$this->isInternal = $isInternal;
 	}
 
 	public function getName(): string
@@ -206,6 +212,11 @@ class PhpFunctionReflection implements FunctionReflection
 	public function isDeprecated(): bool
 	{
 		return $this->isDeprecated || $this->reflection->isDeprecated();
+	}
+
+	public function isInternal(): bool
+	{
+		return $this->isInternal;
 	}
 
 	public function getThrowType(): ?Type

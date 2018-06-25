@@ -30,6 +30,7 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 	 * @param null|Type $phpDocReturnType
 	 * @param null|Type $throwType
 	 * @param bool $isDeprecated
+	 * @param bool $isInternal
 	 */
 	public function __construct(
 		ClassReflection $declaringClass,
@@ -40,7 +41,8 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 		Type $realReturnType,
 		?Type $phpDocReturnType,
 		?Type $throwType,
-		bool $isDeprecated
+		bool $isDeprecated,
+		bool $isInternal
 	)
 	{
 		parent::__construct(
@@ -51,7 +53,8 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 			$realReturnType,
 			$phpDocReturnType,
 			$throwType,
-			$isDeprecated
+			$isDeprecated,
+			$isInternal
 		);
 		$this->declaringClass = $declaringClass;
 	}
