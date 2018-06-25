@@ -5,11 +5,6 @@
 	"bin": [
 		"bin/phpstan"
 	],
-	"extra": {
-		"branch-alias": {
-			"dev-master": "0.10-dev"
-		}
-	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,
 	"require": {
