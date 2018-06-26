@@ -15,6 +15,7 @@ parameters:
 		- '#Strict comparison using === between PhpParser\\Node\\Expr\\ArrayItem and null will always evaluate to false#'
 		- '#Dynamic call to static method PHPUnit\\Framework\\#'
 		- '#(pre|post)-(de|in)crement, bool\|float\|int\|string\|null given#'
+		- '#Call to an undefined method Nette\\DI\\Container::initialize\(\)#'
 	tmpDir: %rootDir%/tmp
 services:
 	-

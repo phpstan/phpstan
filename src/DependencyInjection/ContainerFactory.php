@@ -5,6 +5,8 @@ namespace PHPStan\DependencyInjection;
 use Nette\DI\Extensions\PhpExtension;
 use PHPStan\Broker\Broker;
 use PHPStan\File\FileHelper;
+use Symfony\Component\Console\Output\NullOutput;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class ContainerFactory
 {
@@ -29,11 +31,13 @@ class ContainerFactory
 	/**
 	 * @param string $tempDirectory
 	 * @param string[] $additionalConfigFiles
+	 * @param \Symfony\Component\Console\Output\OutputInterface|null $output
 	 * @return \Nette\DI\Container
 	 */
 	public function create(
 		string $tempDirectory,
-		array $additionalConfigFiles
+		array $additionalConfigFiles,
+		?OutputInterface $output = null
 	): \Nette\DI\Container
 	{
 		$configurator = new Configurator(new LoaderFactory());
@@ -54,7 +58,9 @@ class ContainerFactory
 			$configurator->addConfig($additionalConfigFile);
 		}
 
+		$configurator->addServices(['output' => $output ?? new NullOutput()]);
 		$container = $configurator->createContainer();
+		$container->initialize();
 
 		/** @var Broker $broker */
 		$broker = $container->getService('broker');

@@ -151,7 +151,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			}
 		}
 
-		$container = $containerFactory->create($tmpDir, $additionalConfigFiles);
+		$container = $containerFactory->create($tmpDir, $additionalConfigFiles, $output);
 		$memoryLimitFile = $container->parameters['memoryLimitFile'];
 		if (file_exists($memoryLimitFile)) {
 			$memoryLimitFileContents = file_get_contents($memoryLimitFile);
