@@ -126,4 +126,13 @@ class Foo
 		echo $null['test'];
 	}
 
+	public $propertyOffsetAssignment;
+
+	public function propertyOffsetAssignment()
+	{
+		$this->propertyOffsetAssignment = [];
+		$this->propertyOffsetAssignment['foo'] = 1;
+		echo $this->propertyOffsetAssignment['foo'];
+	}
+
 }
