@@ -9,19 +9,18 @@ use PHPStan\Type\Type;
 trait MaybeOffsetAccessibleTypeTrait
 {
 
-	public function isOffsetAccessible(): TrinaryLogic
-	{
-		return TrinaryLogic::createMaybe();
-	}
+    public function isOffsetAccessible(): TrinaryLogic
+    {
+        return TrinaryLogic::createMaybe();
+    }
 
-	public function getOffsetValueType(Type $offsetType): Type
-	{
-		return new MixedType();
-	}
+    public function getOffsetValueType(Type $offsetType): Type
+    {
+        return new MixedType();
+    }
 
-	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
-	{
-		return $this;
-	}
-
+    public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
+    {
+        return $this;
+    }
 }

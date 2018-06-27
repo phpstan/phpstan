@@ -4,7 +4,6 @@ namespace DeprecatedAnnotations;
 
 function foo()
 {
-
 }
 
 /**
@@ -12,28 +11,24 @@ function foo()
  */
 function deprecatedFoo()
 {
-
 }
 
 class Foo
 {
 
-	const FOO = 'foo';
+    const FOO = 'foo';
 
-	public $foo;
+    public $foo;
 
-	public static $staticFoo;
+    public static $staticFoo;
 
-	public function foo()
-	{
+    public function foo()
+    {
+    }
 
-	}
-
-	public function staticFoo()
-	{
-
-	}
-
+    public function staticFoo()
+    {
+    }
 }
 
 /**
@@ -42,58 +37,52 @@ class Foo
 class DeprecatedFoo
 {
 
-	/**
-	 * @deprecated
-	 */
-	const DEPRECATED_FOO = 'deprecated_foo';
+    /**
+     * @deprecated
+     */
+    const DEPRECATED_FOO = 'deprecated_foo';
 
-	/**
-	 * @deprecated
-	 */
-	public $deprecatedFoo;
+    /**
+     * @deprecated
+     */
+    public $deprecatedFoo;
 
-	/**
-	 * @deprecated
-	 */
-	public static $deprecatedStaticFoo;
+    /**
+     * @deprecated
+     */
+    public static $deprecatedStaticFoo;
 
-	/**
-	 * @deprecated
-	 */
-	public function deprecatedFoo()
-	{
+    /**
+     * @deprecated
+     */
+    public function deprecatedFoo()
+    {
+    }
 
-	}
-
-	/**
-	 * @deprecated
-	 */
-	public function deprecatedStaticFoo()
-	{
-
-	}
-
+    /**
+     * @deprecated
+     */
+    public function deprecatedStaticFoo()
+    {
+    }
 }
 
 class FooInterface
 {
 
-	const FOO = 'foo';
+    const FOO = 'foo';
 
-	public $foo;
+    public $foo;
 
-	public static $staticFoo;
+    public static $staticFoo;
 
-	public function foo()
-	{
+    public function foo()
+    {
+    }
 
-	}
-
-	public function staticFoo()
-	{
-
-	}
-
+    public function staticFoo()
+    {
+    }
 }
 
 /**
@@ -102,56 +91,50 @@ class FooInterface
 class DeprecatedFooInterface
 {
 
-	/**
-	 * @deprecated
-	 */
-	const DEPRECATED_FOO = 'deprecated_foo';
+    /**
+     * @deprecated
+     */
+    const DEPRECATED_FOO = 'deprecated_foo';
 
-	/**
-	 * @deprecated
-	 */
-	public $deprecatedFoo;
+    /**
+     * @deprecated
+     */
+    public $deprecatedFoo;
 
-	/**
-	 * @deprecated
-	 */
-	public static $deprecatedStaticFoo;
+    /**
+     * @deprecated
+     */
+    public static $deprecatedStaticFoo;
 
-	/**
-	 * @deprecated
-	 */
-	public function deprecatedFoo()
-	{
+    /**
+     * @deprecated
+     */
+    public function deprecatedFoo()
+    {
+    }
 
-	}
-
-	/**
-	 * @deprecated
-	 */
-	public function deprecatedStaticFoo()
-	{
-
-	}
-
+    /**
+     * @deprecated
+     */
+    public function deprecatedStaticFoo()
+    {
+    }
 }
 
 trait FooTrait
 {
 
-	public $foo;
+    public $foo;
 
-	public static $staticFoo;
+    public static $staticFoo;
 
-	public function foo()
-	{
+    public function foo()
+    {
+    }
 
-	}
-
-	public function staticFoo()
-	{
-
-	}
-
+    public function staticFoo()
+    {
+    }
 }
 
 /**
@@ -160,30 +143,27 @@ trait FooTrait
 trait DeprecatedFooTrait
 {
 
-	/**
-	 * @deprecated
-	 */
-	public $deprecatedFoo;
+    /**
+     * @deprecated
+     */
+    public $deprecatedFoo;
 
-	/**
-	 * @deprecated
-	 */
-	public static $deprecatedStaticFoo;
+    /**
+     * @deprecated
+     */
+    public static $deprecatedStaticFoo;
 
-	/**
-	 * @deprecated
-	 */
-	public function deprecatedFoo()
-	{
+    /**
+     * @deprecated
+     */
+    public function deprecatedFoo()
+    {
+    }
 
-	}
-
-	/**
-	 * @deprecated
-	 */
-	public function deprecatedStaticFoo()
-	{
-
-	}
-
+    /**
+     * @deprecated
+     */
+    public function deprecatedStaticFoo()
+    {
+    }
 }

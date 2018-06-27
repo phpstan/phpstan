@@ -16,28 +16,27 @@ use PHPStan\Type\MixedType;
 class IsIterableFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtension, TypeSpecifierAwareExtension
 {
 
-	/** @var \PHPStan\Analyser\TypeSpecifier */
-	private $typeSpecifier;
+    /** @var \PHPStan\Analyser\TypeSpecifier */
+    private $typeSpecifier;
 
-	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, TypeSpecifierContext $context): bool
-	{
-		return strtolower($functionReflection->getName()) === 'is_iterable'
-			&& isset($node->args[0])
-			&& !$context->null();
-	}
+    public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, TypeSpecifierContext $context): bool
+    {
+        return strtolower($functionReflection->getName()) === 'is_iterable'
+            && isset($node->args[0])
+            && !$context->null();
+    }
 
-	public function specifyTypes(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
-	{
-		if ($context->null()) {
-			throw new \PHPStan\ShouldNotHappenException();
-		}
+    public function specifyTypes(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
+    {
+        if ($context->null()) {
+            throw new \PHPStan\ShouldNotHappenException();
+        }
 
-		return $this->typeSpecifier->create($node->args[0]->value, new IterableType(new MixedType(), new MixedType()), $context);
-	}
+        return $this->typeSpecifier->create($node->args[0]->value, new IterableType(new MixedType(), new MixedType()), $context);
+    }
 
-	public function setTypeSpecifier(TypeSpecifier $typeSpecifier): void
-	{
-		$this->typeSpecifier = $typeSpecifier;
-	}
-
+    public function setTypeSpecifier(TypeSpecifier $typeSpecifier): void
+    {
+        $this->typeSpecifier = $typeSpecifier;
+    }
 }

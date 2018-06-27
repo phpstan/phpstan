@@ -8,74 +8,71 @@ use PHPStan\Type\ConstantScalarType;
 class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
 {
 
-	/** @var \PhpParser\PrettyPrinter\Standard */
-	private $printer;
+    /** @var \PhpParser\PrettyPrinter\Standard */
+    private $printer;
 
-	public function __construct(
-		\PhpParser\PrettyPrinter\Standard $printer
-	)
-	{
-		$this->printer = $printer;
-	}
+    public function __construct(
+        \PhpParser\PrettyPrinter\Standard $printer
+    ) {
+        $this->printer = $printer;
+    }
 
-	public function getNodeType(): string
-	{
-		return \PhpParser\Node\Expr\Array_::class;
-	}
+    public function getNodeType(): string
+    {
+        return \PhpParser\Node\Expr\Array_::class;
+    }
 
-	/**
-	 * @param \PhpParser\Node\Expr\Array_ $node
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
-	 */
-	public function processNode(\PhpParser\Node $node, Scope $scope): array
-	{
-		$values = [];
-		$duplicateKeys = [];
-		foreach ($node->items as $item) {
-			if ($item === null) {
-				continue;
-			}
-			if ($item->key === null) {
-				continue;
-			}
+    /**
+     * @param \PhpParser\Node\Expr\Array_ $node
+     * @param \PHPStan\Analyser\Scope $scope
+     * @return string[]
+     */
+    public function processNode(\PhpParser\Node $node, Scope $scope): array
+    {
+        $values = [];
+        $duplicateKeys = [];
+        foreach ($node->items as $item) {
+            if ($item === null) {
+                continue;
+            }
+            if ($item->key === null) {
+                continue;
+            }
 
-			$key = $item->key;
-			$keyType = $scope->getType($key);
-			if (
-				!$keyType instanceof ConstantScalarType
-			) {
-				continue;
-			}
+            $key = $item->key;
+            $keyType = $scope->getType($key);
+            if (!$keyType instanceof ConstantScalarType
+            ) {
+                continue;
+            }
 
-			$printedValue = $this->printer->prettyPrintExpr($key);
-			$value = $keyType->getValue();
+            $printedValue = $this->printer->prettyPrintExpr($key);
+            $value = $keyType->getValue();
 
-			$previousCount = count($values);
-			$values[$value] = $printedValue;
-			if ($previousCount !== count($values)) {
-				continue;
-			}
+            $previousCount = count($values);
+            $values[$value] = $printedValue;
+            if ($previousCount !== count($values)) {
+                continue;
+            }
 
-			if (!isset($duplicateKeys[$value])) {
-				$duplicateKeys[$value] = [$values[$value]];
-			}
+            if (!isset($duplicateKeys[$value])) {
+                $duplicateKeys[$value] = [$values[$value]];
+            }
 
-			$duplicateKeys[$value][] = $printedValue;
-		}
+            $duplicateKeys[$value][] = $printedValue;
+        }
 
-		$messages = [];
-		foreach ($duplicateKeys as $key => $values) {
-			$messages[] = sprintf(
-				'Array has %d %s with value %s (%s).',
-				count($values),
-				count($values) === 1 ? 'duplicate key' : 'duplicate keys',
-				var_export($key, true),
-				implode(', ', $values)
-			);
-		}
+        $messages = [];
+        foreach ($duplicateKeys as $key => $values) {
+            $messages[] = sprintf(
+                'Array has %d %s with value %s (%s).',
+                count($values),
+                count($values) === 1 ? 'duplicate key' : 'duplicate keys',
+                var_export($key, true),
+                implode(', ', $values)
+            );
+        }
 
-		return $messages;
-	}
-
+        return $messages;
+    }
 }

@@ -5,11 +5,10 @@ namespace PHPStan\Reflection;
 interface ConstantReflection extends ClassMemberReflection
 {
 
-	public function getName(): string;
+    public function getName(): string;
 
-	/**
-	 * @return mixed
-	 */
-	public function getValue();
-
+    /**
+     * @return mixed
+     */
+    public function getValue();
 }

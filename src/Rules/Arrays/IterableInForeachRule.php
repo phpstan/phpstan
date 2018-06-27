@@ -12,48 +12,47 @@ use PHPStan\Type\VerbosityLevel;
 class IterableInForeachRule implements \PHPStan\Rules\Rule
 {
 
-	/** @var \PHPStan\Rules\RuleLevelHelper */
-	private $ruleLevelHelper;
+    /** @var \PHPStan\Rules\RuleLevelHelper */
+    private $ruleLevelHelper;
 
-	public function __construct(RuleLevelHelper $ruleLevelHelper)
-	{
-		$this->ruleLevelHelper = $ruleLevelHelper;
-	}
+    public function __construct(RuleLevelHelper $ruleLevelHelper)
+    {
+        $this->ruleLevelHelper = $ruleLevelHelper;
+    }
 
-	public function getNodeType(): string
-	{
-		return \PhpParser\Node\Stmt\Foreach_::class;
-	}
+    public function getNodeType(): string
+    {
+        return \PhpParser\Node\Stmt\Foreach_::class;
+    }
 
-	/**
-	 * @param \PhpParser\Node\Stmt\Foreach_ $node
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
-	 */
-	public function processNode(Node $node, Scope $scope): array
-	{
-		$typeResult = $this->ruleLevelHelper->findTypeToCheck(
-			$scope,
-			$node->expr,
-			'Iterating over an object of an unknown class %s.',
-			function (Type $type): bool {
-				return $type->isIterable()->yes();
-			}
-		);
-		$type = $typeResult->getType();
-		if ($type instanceof ErrorType) {
-			return $typeResult->getUnknownClassErrors();
-		}
-		if ($type->isIterable()->yes()) {
-			return [];
-		}
+    /**
+     * @param \PhpParser\Node\Stmt\Foreach_ $node
+     * @param \PHPStan\Analyser\Scope $scope
+     * @return string[]
+     */
+    public function processNode(Node $node, Scope $scope): array
+    {
+        $typeResult = $this->ruleLevelHelper->findTypeToCheck(
+            $scope,
+            $node->expr,
+            'Iterating over an object of an unknown class %s.',
+            function (Type $type): bool {
+                return $type->isIterable()->yes();
+            }
+        );
+        $type = $typeResult->getType();
+        if ($type instanceof ErrorType) {
+            return $typeResult->getUnknownClassErrors();
+        }
+        if ($type->isIterable()->yes()) {
+            return [];
+        }
 
-		return [
-			sprintf(
-				'Argument of an invalid type %s supplied for foreach, only iterables are supported.',
-				$type->describe(VerbosityLevel::typeOnly())
-			),
-		];
-	}
-
+        return [
+            sprintf(
+                'Argument of an invalid type %s supplied for foreach, only iterables are supported.',
+                $type->describe(VerbosityLevel::typeOnly())
+            ),
+        ];
+    }
 }

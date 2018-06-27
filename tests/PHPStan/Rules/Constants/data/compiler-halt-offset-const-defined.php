@@ -2,11 +2,11 @@
 
 function greet(string $name): string
 {
-	$template = file_get_contents(__FILE__, false, null, __COMPILER_HALT_OFFSET__);
+    $template = file_get_contents(__FILE__, false, null, __COMPILER_HALT_OFFSET__);
 
-	return strtr($template, [
-		'%name%' => $name,
-	]);
+    return strtr($template, [
+        '%name%' => $name,
+    ]);
 }
 
 echo greet('Bob');

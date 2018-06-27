@@ -4,7 +4,6 @@ namespace ThrowsAnnotations;
 
 function withoutThrows()
 {
-
 }
 
 /**
@@ -12,74 +11,64 @@ function withoutThrows()
  */
 function throwsRuntime()
 {
-
 }
 
 class Foo
 {
 
-	public function withoutThrows()
-	{
+    public function withoutThrows()
+    {
+    }
 
-	}
+    /**
+     * @throws \RuntimeException
+     */
+    public function throwsRuntime()
+    {
+    }
 
-	/**
-	 * @throws \RuntimeException
-	 */
-	public function throwsRuntime()
-	{
-
-	}
-
-	/**
-	 * @throws \RuntimeException
-	 */
-	public static function staticThrowsRuntime()
-	{
-
-	}
-
+    /**
+     * @throws \RuntimeException
+     */
+    public static function staticThrowsRuntime()
+    {
+    }
 }
 
 interface FooInterface
 {
 
-	public function withoutThrows();
+    public function withoutThrows();
 
-	/**
-	 * @throws \RuntimeException
-	 */
-	public function throwsRuntime();
+    /**
+     * @throws \RuntimeException
+     */
+    public function throwsRuntime();
 
-	/**
-	 * @throws \RuntimeException
-	 */
-	public static function staticThrowsRuntime();
-
+    /**
+     * @throws \RuntimeException
+     */
+    public static function staticThrowsRuntime();
 }
 
 trait FooTrait
 {
 
-	public function withoutThrows()
-	{
+    public function withoutThrows()
+    {
+    }
 
-	}
+    /**
+     * @throws \RuntimeException
+     */
+    public function throwsRuntime()
+    {
+    }
 
-	/**
-	 * @throws \RuntimeException
-	 */
-	public function throwsRuntime()
-	{
-
-	}
-
-	/**
-	 * @throws \RuntimeException
-	 */
-	public static function staticThrowsRuntime()
-	{
-
-	}
-
+    /**
+     * @throws \RuntimeException
+     */
+    public static function staticThrowsRuntime()
+    {
+    }
 }

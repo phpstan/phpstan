@@ -5,6 +5,5 @@ namespace PHPStan\Reflection;
 interface DeprecatableReflection
 {
 
-	public function isDeprecated(): bool;
-
+    public function isDeprecated(): bool;
 }

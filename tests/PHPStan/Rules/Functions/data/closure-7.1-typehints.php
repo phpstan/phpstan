@@ -7,32 +7,20 @@ class FooFunctionTypehints
 
 }
 
-function (): void
-{
-
+function (): void {
 };
 
-function (): iterable
-{
-
+function (): iterable {
 };
 
-function (): ?iterable
-{
-
+function (): ?iterable {
 };
 
-function (): ?string
-{
-
+function (): ?string {
 };
 
-function (?FooFunctionTypehints $foo): ?FooFunctionTypehints
-{
-
+function (?FooFunctionTypehints $foo): ?FooFunctionTypehints {
 };
 
-function (?NonexistentClass $bar): ?NonexistentClass
-{
-
+function (?NonexistentClass $bar): ?NonexistentClass {
 };

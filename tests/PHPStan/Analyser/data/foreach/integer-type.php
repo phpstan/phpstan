@@ -6,5 +6,5 @@ use AnotherNamespace\Foo;
 $integers = foos();
 
 foreach ($integers as $integer) {
-	die;
+    die;
 }

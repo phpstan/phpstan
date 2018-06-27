@@ -10,71 +10,70 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class AnalyseApplicationIntegrationTest extends \PHPStan\Testing\TestCase
 {
 
-	public function testExecuteOnADirectoryWithoutFiles(): void
-	{
-		$path = __DIR__ . '/test';
-		@mkdir($path);
-		chmod($path, 0777);
-		$output = $this->runPath($path, 0);
-		@unlink($path);
+    public function testExecuteOnADirectoryWithoutFiles(): void
+    {
+        $path = __DIR__ . '/test';
+        @mkdir($path);
+        chmod($path, 0777);
+        $output = $this->runPath($path, 0);
+        @unlink($path);
 
-		$this->assertContains('No errors', $output);
-	}
+        $this->assertContains('No errors', $output);
+    }
 
-	public function testExecuteOnAFile(): void
-	{
-		$output = $this->runPath(__DIR__ . '/data/file-without-errors.php', 0);
-		$this->assertContains('No errors', $output);
-	}
+    public function testExecuteOnAFile(): void
+    {
+        $output = $this->runPath(__DIR__ . '/data/file-without-errors.php', 0);
+        $this->assertContains('No errors', $output);
+    }
 
-	public function testExecuteOnANonExistentPath(): void
-	{
-		$path = __DIR__ . '/foo';
-		$output = $this->runPath($path, 1);
-		$this->assertContains(sprintf(
-			'Path %s does not exist',
-			$path
-		), $output);
-	}
+    public function testExecuteOnANonExistentPath(): void
+    {
+        $path = __DIR__ . '/foo';
+        $output = $this->runPath($path, 1);
+        $this->assertContains(sprintf(
+            'Path %s does not exist',
+            $path
+        ), $output);
+    }
 
-	public function testExecuteOnAFileWithErrors(): void
-	{
-		$path = __DIR__ . '/../Rules/Functions/data/nonexistent-function.php';
-		$output = $this->runPath($path, 1);
-		$this->assertContains('Function foobarNonExistentFunction not found.', $output);
-	}
+    public function testExecuteOnAFileWithErrors(): void
+    {
+        $path = __DIR__ . '/../Rules/Functions/data/nonexistent-function.php';
+        $output = $this->runPath($path, 1);
+        $this->assertContains('Function foobarNonExistentFunction not found.', $output);
+    }
 
-	private function runPath(string $path, int $expectedStatusCode): string
-	{
-		$analyserApplication = self::getContainer()->getByType(AnalyseApplication::class);
-		$resource = fopen('php://memory', 'w', false);
-		if ($resource === false) {
-			throw new \PHPStan\ShouldNotHappenException();
-		}
-		$output = new StreamOutput($resource);
+    private function runPath(string $path, int $expectedStatusCode): string
+    {
+        $analyserApplication = self::getContainer()->getByType(AnalyseApplication::class);
+        $resource = fopen('php://memory', 'w', false);
+        if ($resource === false) {
+            throw new \PHPStan\ShouldNotHappenException();
+        }
+        $output = new StreamOutput($resource);
 
-		$style = new SymfonyStyle(
-			$this->createMock(InputInterface::class),
-			$output
-		);
+        $style = new SymfonyStyle(
+            $this->createMock(InputInterface::class),
+            $output
+        );
 
-		$memoryLimitFile = self::getContainer()->parameters['memoryLimitFile'];
+        $memoryLimitFile = self::getContainer()->parameters['memoryLimitFile'];
 
-		$statusCode = $analyserApplication->analyse(
-			[$path],
-			$style,
-			new TableErrorFormatter(),
-			false,
-			false
-		);
-		if (file_exists($memoryLimitFile)) {
-			unlink($memoryLimitFile);
-		}
-		$this->assertSame($expectedStatusCode, $statusCode);
+        $statusCode = $analyserApplication->analyse(
+            [$path],
+            $style,
+            new TableErrorFormatter(),
+            false,
+            false
+        );
+        if (file_exists($memoryLimitFile)) {
+            unlink($memoryLimitFile);
+        }
+        $this->assertSame($expectedStatusCode, $statusCode);
 
-		rewind($output->getStream());
+        rewind($output->getStream());
 
-		return stream_get_contents($output->getStream());
-	}
-
+        return stream_get_contents($output->getStream());
+    }
 }

@@ -16,23 +16,21 @@ class Foo
 {
 
 
-	public function doSomething()
-	{
-		/** @var Bar */
-		$number = $this;
+    public function doSomething()
+    {
+        /** @var Bar */
+        $number = $this;
 
-		/** @var Foo $something */
-		$something = &$number;
-	}
+        /** @var Foo $something */
+        $something = &$number;
+    }
 
-	public function arrays()
-	{
-		$array = [];
+    public function arrays()
+    {
+        $array = [];
 
-		/** @var int[] $value */
-		foreach ($array as $value) {
-
-		}
-	}
-
+        /** @var int[] $value */
+        foreach ($array as $value) {
+        }
+    }
 }

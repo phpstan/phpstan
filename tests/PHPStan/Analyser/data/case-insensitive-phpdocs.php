@@ -8,15 +8,14 @@ use Foo\Baz as Lorem;
 class Test
 {
 
-	/** @var bar */
-	private $bar;
+    /** @var bar */
+    private $bar;
 
-	/** @var lOREM */
-	private $lorem;
+    /** @var lOREM */
+    private $lorem;
 
-	public function doFoo()
-	{
-		die;
-	}
-
+    public function doFoo()
+    {
+        die;
+    }
 }

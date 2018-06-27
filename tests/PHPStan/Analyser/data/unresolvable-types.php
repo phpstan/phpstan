@@ -8,9 +8,9 @@ namespace UnresolvableTypes;
  * @param \Foo<int> $genericFoo
  */
 function test(
-	$arrayWithTooManyArgs,
-	$iterableWithTooManyArgs,
-	$genericFoo
+    $arrayWithTooManyArgs,
+    $iterableWithTooManyArgs,
+    $genericFoo
 ) {
-	die;
+    die;
 }

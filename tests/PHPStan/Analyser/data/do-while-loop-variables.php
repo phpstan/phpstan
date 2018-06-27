@@ -3,30 +3,30 @@
 namespace LoopVariables;
 
 function () {
-	$foo = null;
-	$i = 0;
-	do {
-		'begin';
-		$foo = new Foo();
-		'afterAssign';
+    $foo = null;
+    $i = 0;
+    do {
+        'begin';
+        $foo = new Foo();
+        'afterAssign';
 
-		if (something()) {
-			$foo = new Bar();
-			break;
-		}
-		if (something()) {
-			$foo = new Baz();
-			return;
-		}
-		if (something()) {
-			$foo = new Lorem();
-			continue;
-		}
+        if (something()) {
+            $foo = new Bar();
+            break;
+        }
+        if (something()) {
+            $foo = new Baz();
+            return;
+        }
+        if (something()) {
+            $foo = new Lorem();
+            continue;
+        }
 
-		$i++;
+        $i++;
 
-		'end';
-	} while (doFoo() && $i++ < 10);
+        'end';
+    } while (doFoo() && $i++ < 10);
 
-	'afterLoop';
+    'afterLoop';
 };

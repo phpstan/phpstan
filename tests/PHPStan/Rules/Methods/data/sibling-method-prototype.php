@@ -5,43 +5,38 @@ namespace SiblingMethodPrototype;
 class Base
 {
 
-	protected function foo()
-	{
-
-	}
-
+    protected function foo()
+    {
+    }
 }
 
 class Other extends Base
 {
 
-	protected function foo()
-	{
-
-	}
-
+    protected function foo()
+    {
+    }
 }
 
-class Child extends Base {
+class Child extends Base
+{
 
-	public function bar()
-	{
-		$other = new Other();
-		$other->foo();
-	}
-
+    public function bar()
+    {
+        $other = new Other();
+        $other->foo();
+    }
 }
 
 function () {
 
-	new class extends Base {
+    new class extends Base {
 
-		public function bar()
-		{
-			$other = new Other();
-			$other->foo();
-		}
+        public function bar()
+        {
+            $other = new Other();
+            $other->foo();
+        }
 
-	};
-
+    };
 };

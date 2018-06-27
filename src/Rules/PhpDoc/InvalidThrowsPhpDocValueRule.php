@@ -11,53 +11,52 @@ use PHPStan\Type\VerbosityLevel;
 class InvalidThrowsPhpDocValueRule implements \PHPStan\Rules\Rule
 {
 
-	/** @var FileTypeMapper */
-	private $fileTypeMapper;
+    /** @var FileTypeMapper */
+    private $fileTypeMapper;
 
-	public function __construct(FileTypeMapper $fileTypeMapper)
-	{
-		$this->fileTypeMapper = $fileTypeMapper;
-	}
+    public function __construct(FileTypeMapper $fileTypeMapper)
+    {
+        $this->fileTypeMapper = $fileTypeMapper;
+    }
 
-	public function getNodeType(): string
-	{
-		return \PhpParser\Node\FunctionLike::class;
-	}
+    public function getNodeType(): string
+    {
+        return \PhpParser\Node\FunctionLike::class;
+    }
 
-	/**
-	 * @param \PhpParser\Node\FunctionLike $node
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
-	 */
-	public function processNode(Node $node, Scope $scope): array
-	{
-		$docComment = $node->getDocComment();
-		if ($docComment === null) {
-			return [];
-		}
+    /**
+     * @param \PhpParser\Node\FunctionLike $node
+     * @param \PHPStan\Analyser\Scope $scope
+     * @return string[]
+     */
+    public function processNode(Node $node, Scope $scope): array
+    {
+        $docComment = $node->getDocComment();
+        if ($docComment === null) {
+            return [];
+        }
 
-		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
-			$scope->getFile(),
-			$scope->isInClass() ? $scope->getClassReflection()->getName() : null,
-			$scope->isInTrait() ? $scope->getTraitReflection()->getName() : null,
-			$docComment->getText()
-		);
+        $resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
+            $scope->getFile(),
+            $scope->isInClass() ? $scope->getClassReflection()->getName() : null,
+            $scope->isInTrait() ? $scope->getTraitReflection()->getName() : null,
+            $docComment->getText()
+        );
 
-		if ($resolvedPhpDoc->getThrowsTag() === null) {
-			return [];
-		}
+        if ($resolvedPhpDoc->getThrowsTag() === null) {
+            return [];
+        }
 
-		$phpDocThrowsType = $resolvedPhpDoc->getThrowsTag()->getType();
+        $phpDocThrowsType = $resolvedPhpDoc->getThrowsTag()->getType();
 
-		$isThrowsSuperType = (new ObjectType(\Throwable::class))->isSuperTypeOf($phpDocThrowsType);
-		if ($isThrowsSuperType->yes()) {
-			return [];
-		}
+        $isThrowsSuperType = (new ObjectType(\Throwable::class))->isSuperTypeOf($phpDocThrowsType);
+        if ($isThrowsSuperType->yes()) {
+            return [];
+        }
 
-		return [sprintf(
-			'PHPDoc tag @throws with type %s is not subtype of Throwable',
-			$phpDocThrowsType->describe(VerbosityLevel::typeOnly())
-		)];
-	}
-
+        return [sprintf(
+            'PHPDoc tag @throws with type %s is not subtype of Throwable',
+            $phpDocThrowsType->describe(VerbosityLevel::typeOnly())
+        )];
+    }
 }

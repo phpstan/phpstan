@@ -11,74 +11,72 @@ use PHPStan\Type\VoidType;
 class FunctionReturnTypeCheck
 {
 
-	/** @var \PHPStan\Rules\RuleLevelHelper */
-	private $ruleLevelHelper;
+    /** @var \PHPStan\Rules\RuleLevelHelper */
+    private $ruleLevelHelper;
 
-	public function __construct(RuleLevelHelper $ruleLevelHelper)
-	{
-		$this->ruleLevelHelper = $ruleLevelHelper;
-	}
+    public function __construct(RuleLevelHelper $ruleLevelHelper)
+    {
+        $this->ruleLevelHelper = $ruleLevelHelper;
+    }
 
-	/**
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @param \PHPStan\Type\Type $returnType
-	 * @param \PhpParser\Node\Expr|null $returnValue
-	 * @param string $emptyReturnStatementMessage
-	 * @param string $voidMessage
-	 * @param string $typeMismatchMessage
-	 * @param bool $isGenerator
-	 * @return string[]
-	 */
-	public function checkReturnType(
-		Scope $scope,
-		Type $returnType,
-		?Expr $returnValue,
-		string $emptyReturnStatementMessage,
-		string $voidMessage,
-		string $typeMismatchMessage,
-		bool $isGenerator
-	): array
-	{
-		if ($isGenerator) {
-			return [];
-		}
+    /**
+     * @param \PHPStan\Analyser\Scope $scope
+     * @param \PHPStan\Type\Type $returnType
+     * @param \PhpParser\Node\Expr|null $returnValue
+     * @param string $emptyReturnStatementMessage
+     * @param string $voidMessage
+     * @param string $typeMismatchMessage
+     * @param bool $isGenerator
+     * @return string[]
+     */
+    public function checkReturnType(
+        Scope $scope,
+        Type $returnType,
+        ?Expr $returnValue,
+        string $emptyReturnStatementMessage,
+        string $voidMessage,
+        string $typeMismatchMessage,
+        bool $isGenerator
+    ): array {
+        if ($isGenerator) {
+            return [];
+        }
 
-		$isVoidSuperType = (new VoidType())->isSuperTypeOf($returnType);
-		if ($returnValue === null) {
-			if (!$isVoidSuperType->no()) {
-				return [];
-			}
+        $isVoidSuperType = (new VoidType())->isSuperTypeOf($returnType);
+        if ($returnValue === null) {
+            if (!$isVoidSuperType->no()) {
+                return [];
+            }
 
-			return [
-				sprintf(
-					$emptyReturnStatementMessage,
-					$returnType->describe(VerbosityLevel::typeOnly())
-				),
-			];
-		}
+            return [
+                sprintf(
+                    $emptyReturnStatementMessage,
+                    $returnType->describe(VerbosityLevel::typeOnly())
+                ),
+            ];
+        }
 
-		$returnValueType = $scope->getType($returnValue);
+        $returnValueType = $scope->getType($returnValue);
 
-		if ($isVoidSuperType->yes()) {
-			return [
-				sprintf(
-					$voidMessage,
-					$returnValueType->describe(VerbosityLevel::typeOnly())
-				),
-			];
-		}
+        if ($isVoidSuperType->yes()) {
+            return [
+                sprintf(
+                    $voidMessage,
+                    $returnValueType->describe(VerbosityLevel::typeOnly())
+                ),
+            ];
+        }
 
-		if (!$this->ruleLevelHelper->accepts($returnType, $returnValueType, $scope->isDeclareStrictTypes())) {
-			return [
-				sprintf(
-					$typeMismatchMessage,
-					$returnType->describe(VerbosityLevel::typeOnly()),
-					$returnValueType->describe(VerbosityLevel::typeOnly())
-				),
-			];
-		}
+        if (!$this->ruleLevelHelper->accepts($returnType, $returnValueType, $scope->isDeclareStrictTypes())) {
+            return [
+                sprintf(
+                    $typeMismatchMessage,
+                    $returnType->describe(VerbosityLevel::typeOnly()),
+                    $returnValueType->describe(VerbosityLevel::typeOnly())
+                ),
+            ];
+        }
 
-		return [];
-	}
-
+        return [];
+    }
 }

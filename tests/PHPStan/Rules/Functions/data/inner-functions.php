@@ -4,21 +4,18 @@ namespace InnerFunctions;
 
 function foo()
 {
-	function bar()
-	{
-
-	}
+    function bar()
+    {
+    }
 }
 
 class Foo
 {
 
-	public function doFoo()
-	{
-		function anotherFoo()
-		{
-
-		}
-	}
-
+    public function doFoo()
+    {
+        function anotherFoo()
+        {
+        }
+    }
 }

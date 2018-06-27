@@ -7,5 +7,5 @@ $values = [];
 
 /** @var \stdClass $value */
 foreach ($values as $value) {
-	die;
+    die;
 }

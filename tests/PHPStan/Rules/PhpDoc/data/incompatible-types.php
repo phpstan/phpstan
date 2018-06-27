@@ -11,7 +11,6 @@ namespace InvalidPhpDoc;
  */
 function paramTest(int $a, string $b, iterable $c, int $d)
 {
-
 }
 
 
@@ -20,7 +19,6 @@ function paramTest(int $a, string $b, iterable $c, int $d)
  */
 function variadicNumbers(int ...$numbers)
 {
-
 }
 
 
@@ -29,7 +27,6 @@ function variadicNumbers(int ...$numbers)
  */
 function variadicStrings(string ...$strings)
 {
-
 }
 
 
@@ -38,7 +35,6 @@ function variadicStrings(string ...$strings)
  */
 function testReturnIntOk(): int
 {
-
 }
 
 
@@ -47,7 +43,6 @@ function testReturnIntOk(): int
  */
 function testReturnBoolOk(): bool
 {
-
 }
 
 
@@ -56,7 +51,6 @@ function testReturnBoolOk(): bool
  */
 function testReturnTrueOk(): bool
 {
-
 }
 
 
@@ -65,7 +59,6 @@ function testReturnTrueOk(): bool
  */
 function testReturnIntInvalid(): int
 {
-
 }
 
 
@@ -74,7 +67,6 @@ function testReturnIntInvalid(): int
  */
 function testReturnIntNotSubType(): int
 {
-
 }
 
 /**
@@ -82,7 +74,6 @@ function testReturnIntNotSubType(): int
  */
 function anotherVariadicStrings(string ...$strings)
 {
-
 }
 
 /**
@@ -90,7 +81,6 @@ function anotherVariadicStrings(string ...$strings)
  */
 function incompatibleVariadicStrings(string ...$strings)
 {
-
 }
 
 /**
@@ -98,7 +88,6 @@ function incompatibleVariadicStrings(string ...$strings)
  */
 function incompatibleVariadicNumbers(int ...$numbers)
 {
-
 }
 
 /**
@@ -106,7 +95,6 @@ function incompatibleVariadicNumbers(int ...$numbers)
  */
 function variadicStringArrays(array ...$strings)
 {
-
 }
 
 /**
@@ -116,5 +104,4 @@ function variadicStringArrays(array ...$strings)
  */
 function unresolvableTypes(array $arr): bool
 {
-
 }

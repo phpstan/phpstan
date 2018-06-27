@@ -8,14 +8,13 @@ use PHPStan\TrinaryLogic;
 trait NonCallableTypeTrait
 {
 
-	public function isCallable(): TrinaryLogic
-	{
-		return TrinaryLogic::createNo();
-	}
+    public function isCallable(): TrinaryLogic
+    {
+        return TrinaryLogic::createNo();
+    }
 
-	public function getCallableParametersAcceptors(Scope $scope): array
-	{
-		throw new \PHPStan\ShouldNotHappenException();
-	}
-
+    public function getCallableParametersAcceptors(Scope $scope): array
+    {
+        throw new \PHPStan\ShouldNotHappenException();
+    }
 }

@@ -12,54 +12,53 @@ use PHPStan\Rules\UnusedFunctionParametersCheck;
 class UnusedConstructorParametersRule implements \PHPStan\Rules\Rule
 {
 
-	/** @var \PHPStan\Rules\UnusedFunctionParametersCheck */
-	private $check;
+    /** @var \PHPStan\Rules\UnusedFunctionParametersCheck */
+    private $check;
 
-	public function __construct(UnusedFunctionParametersCheck $check)
-	{
-		$this->check = $check;
-	}
+    public function __construct(UnusedFunctionParametersCheck $check)
+    {
+        $this->check = $check;
+    }
 
-	public function getNodeType(): string
-	{
-		return ClassMethod::class;
-	}
+    public function getNodeType(): string
+    {
+        return ClassMethod::class;
+    }
 
-	/**
-	 * @param \PhpParser\Node\Stmt\ClassMethod $node
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
-	 */
-	public function processNode(Node $node, Scope $scope): array
-	{
-		if (!$scope->isInClass()) {
-			throw new \PHPStan\ShouldNotHappenException();
-		}
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $node
+     * @param \PHPStan\Analyser\Scope $scope
+     * @return string[]
+     */
+    public function processNode(Node $node, Scope $scope): array
+    {
+        if (!$scope->isInClass()) {
+            throw new \PHPStan\ShouldNotHappenException();
+        }
 
-		if ($node->name->name !== '__construct' || $node->stmts === null) {
-			return [];
-		}
+        if ($node->name->name !== '__construct' || $node->stmts === null) {
+            return [];
+        }
 
-		if (count($node->params) === 0) {
-			return [];
-		}
+        if (count($node->params) === 0) {
+            return [];
+        }
 
-		$message = sprintf('Constructor of class %s has an unused parameter $%%s.', $scope->getClassReflection()->getDisplayName());
-		if ($scope->getClassReflection()->isAnonymous()) {
-			$message = 'Constructor of an anonymous class has an unused parameter $%s.';
-		}
+        $message = sprintf('Constructor of class %s has an unused parameter $%%s.', $scope->getClassReflection()->getDisplayName());
+        if ($scope->getClassReflection()->isAnonymous()) {
+            $message = 'Constructor of an anonymous class has an unused parameter $%s.';
+        }
 
-		return $this->check->getUnusedParameters(
-			$scope,
-			array_map(function (Param $parameter): string {
-				if (!$parameter->var instanceof Variable || !is_string($parameter->var->name)) {
-					throw new \PHPStan\ShouldNotHappenException();
-				}
-				return $parameter->var->name;
-			}, $node->params),
-			$node->stmts,
-			$message
-		);
-	}
-
+        return $this->check->getUnusedParameters(
+            $scope,
+            array_map(function (Param $parameter): string {
+                if (!$parameter->var instanceof Variable || !is_string($parameter->var->name)) {
+                    throw new \PHPStan\ShouldNotHappenException();
+                }
+                return $parameter->var->name;
+            }, $node->params),
+            $node->stmts,
+            $message
+        );
+    }
 }

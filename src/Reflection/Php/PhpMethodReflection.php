@@ -30,357 +30,352 @@ use PHPStan\Type\VoidType;
 class PhpMethodReflection implements MethodReflection, DeprecatableReflection, ThrowableReflection
 {
 
-	/** @var \PHPStan\Reflection\ClassReflection */
-	private $declaringClass;
+    /** @var \PHPStan\Reflection\ClassReflection */
+    private $declaringClass;
 
-	/** @var null|ClassReflection */
-	private $declaringTrait;
+    /** @var null|ClassReflection */
+    private $declaringTrait;
 
-	/** @var \ReflectionMethod */
-	private $reflection;
+    /** @var \ReflectionMethod */
+    private $reflection;
 
-	/** @var \PHPStan\Broker\Broker */
-	private $broker;
+    /** @var \PHPStan\Broker\Broker */
+    private $broker;
 
-	/** @var \PHPStan\Parser\Parser */
-	private $parser;
+    /** @var \PHPStan\Parser\Parser */
+    private $parser;
 
-	/** @var \PHPStan\Parser\FunctionCallStatementFinder */
-	private $functionCallStatementFinder;
+    /** @var \PHPStan\Parser\FunctionCallStatementFinder */
+    private $functionCallStatementFinder;
 
-	/** @var \PHPStan\Cache\Cache */
-	private $cache;
+    /** @var \PHPStan\Cache\Cache */
+    private $cache;
 
-	/** @var \PHPStan\Type\Type[] */
-	private $phpDocParameterTypes;
+    /** @var \PHPStan\Type\Type[] */
+    private $phpDocParameterTypes;
 
-	/** @var \PHPStan\Type\Type|null */
-	private $phpDocReturnType;
+    /** @var \PHPStan\Type\Type|null */
+    private $phpDocReturnType;
 
-	/** @var \PHPStan\Type\Type|null */
-	private $phpDocThrowType;
+    /** @var \PHPStan\Type\Type|null */
+    private $phpDocThrowType;
 
-	/** @var \PHPStan\Reflection\ParameterReflection[] */
-	private $parameters;
+    /** @var \PHPStan\Reflection\ParameterReflection[] */
+    private $parameters;
 
-	/** @var \PHPStan\Type\Type */
-	private $returnType;
+    /** @var \PHPStan\Type\Type */
+    private $returnType;
 
-	/** @var \PHPStan\Type\Type */
-	private $nativeReturnType;
+    /** @var \PHPStan\Type\Type */
+    private $nativeReturnType;
 
-	/** @var bool $isDeprecated */
-	private $isDeprecated;
+    /** @var bool $isDeprecated */
+    private $isDeprecated;
 
-	/** @var FunctionVariantWithPhpDocs[]|null */
-	private $variants;
+    /** @var FunctionVariantWithPhpDocs[]|null */
+    private $variants;
 
-	/**
-	 * @param ClassReflection $declaringClass
-	 * @param ClassReflection|null $declaringTrait
-	 * @param \ReflectionMethod $reflection
-	 * @param Broker $broker
-	 * @param Parser $parser
-	 * @param FunctionCallStatementFinder $functionCallStatementFinder
-	 * @param Cache $cache
-	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
-	 * @param null|Type $phpDocReturnType
-	 * @param null|Type $phpDocThrowType
-	 * @param bool $isDeprecated
-	 */
-	public function __construct(
-		ClassReflection $declaringClass,
-		?ClassReflection $declaringTrait,
-		\ReflectionMethod $reflection,
-		Broker $broker,
-		Parser $parser,
-		FunctionCallStatementFinder $functionCallStatementFinder,
-		Cache $cache,
-		array $phpDocParameterTypes,
-		?Type $phpDocReturnType,
-		?Type $phpDocThrowType,
-		bool $isDeprecated = false
-	)
-	{
-		$this->declaringClass = $declaringClass;
-		$this->declaringTrait = $declaringTrait;
-		$this->reflection = $reflection;
-		$this->broker = $broker;
-		$this->parser = $parser;
-		$this->functionCallStatementFinder = $functionCallStatementFinder;
-		$this->cache = $cache;
-		$this->phpDocParameterTypes = $phpDocParameterTypes;
-		$this->phpDocReturnType = $phpDocReturnType;
-		$this->phpDocThrowType = $phpDocThrowType;
-		$this->isDeprecated = $isDeprecated;
-	}
+    /**
+     * @param ClassReflection $declaringClass
+     * @param ClassReflection|null $declaringTrait
+     * @param \ReflectionMethod $reflection
+     * @param Broker $broker
+     * @param Parser $parser
+     * @param FunctionCallStatementFinder $functionCallStatementFinder
+     * @param Cache $cache
+     * @param \PHPStan\Type\Type[] $phpDocParameterTypes
+     * @param null|Type $phpDocReturnType
+     * @param null|Type $phpDocThrowType
+     * @param bool $isDeprecated
+     */
+    public function __construct(
+        ClassReflection $declaringClass,
+        ?ClassReflection $declaringTrait,
+        \ReflectionMethod $reflection,
+        Broker $broker,
+        Parser $parser,
+        FunctionCallStatementFinder $functionCallStatementFinder,
+        Cache $cache,
+        array $phpDocParameterTypes,
+        ?Type $phpDocReturnType,
+        ?Type $phpDocThrowType,
+        bool $isDeprecated = false
+    ) {
+        $this->declaringClass = $declaringClass;
+        $this->declaringTrait = $declaringTrait;
+        $this->reflection = $reflection;
+        $this->broker = $broker;
+        $this->parser = $parser;
+        $this->functionCallStatementFinder = $functionCallStatementFinder;
+        $this->cache = $cache;
+        $this->phpDocParameterTypes = $phpDocParameterTypes;
+        $this->phpDocReturnType = $phpDocReturnType;
+        $this->phpDocThrowType = $phpDocThrowType;
+        $this->isDeprecated = $isDeprecated;
+    }
 
-	public function getDeclaringClass(): ClassReflection
-	{
-		return $this->declaringClass;
-	}
+    public function getDeclaringClass(): ClassReflection
+    {
+        return $this->declaringClass;
+    }
 
-	/**
-	 * @return string|false
-	 */
-	public function getDocComment()
-	{
-		return $this->reflection->getDocComment();
-	}
+    /**
+     * @return string|false
+     */
+    public function getDocComment()
+    {
+        return $this->reflection->getDocComment();
+    }
 
-	public function getPrototype(): ClassMemberReflection
-	{
-		try {
-			$prototypeMethod = $this->reflection->getPrototype();
-			$prototypeDeclaringClass = $this->broker->getClass($prototypeMethod->getDeclaringClass()->getName());
+    public function getPrototype(): ClassMemberReflection
+    {
+        try {
+            $prototypeMethod = $this->reflection->getPrototype();
+            $prototypeDeclaringClass = $this->broker->getClass($prototypeMethod->getDeclaringClass()->getName());
 
-			return new MethodPrototypeReflection(
-				$prototypeDeclaringClass,
-				$prototypeMethod->isStatic(),
-				$prototypeMethod->isPrivate(),
-				$prototypeMethod->isPublic()
-			);
-		} catch (\ReflectionException $e) {
-			return $this;
-		}
-	}
+            return new MethodPrototypeReflection(
+                $prototypeDeclaringClass,
+                $prototypeMethod->isStatic(),
+                $prototypeMethod->isPrivate(),
+                $prototypeMethod->isPublic()
+            );
+        } catch (\ReflectionException $e) {
+            return $this;
+        }
+    }
 
-	public function isStatic(): bool
-	{
-		return $this->reflection->isStatic();
-	}
+    public function isStatic(): bool
+    {
+        return $this->reflection->isStatic();
+    }
 
-	public function getName(): string
-	{
-		$name = $this->reflection->getName();
-		$lowercaseName = strtolower($name);
-		if ($lowercaseName === $name) {
-			// fix for https://bugs.php.net/bug.php?id=74939
-			foreach ($this->getDeclaringClass()->getNativeReflection()->getTraitAliases() as $traitTarget) {
-				$correctName = $this->getMethodNameWithCorrectCase($name, $traitTarget);
-				if ($correctName !== null) {
-					$name = $correctName;
-					break;
-				}
-			}
-		}
+    public function getName(): string
+    {
+        $name = $this->reflection->getName();
+        $lowercaseName = strtolower($name);
+        if ($lowercaseName === $name) {
+            // fix for https://bugs.php.net/bug.php?id=74939
+            foreach ($this->getDeclaringClass()->getNativeReflection()->getTraitAliases() as $traitTarget) {
+                $correctName = $this->getMethodNameWithCorrectCase($name, $traitTarget);
+                if ($correctName !== null) {
+                    $name = $correctName;
+                    break;
+                }
+            }
+        }
 
-		return $name;
-	}
+        return $name;
+    }
 
-	private function getMethodNameWithCorrectCase(string $lowercaseMethodName, string $traitTarget): ?string
-	{
-		$trait = explode('::', $traitTarget)[0];
-		$traitReflection = $this->broker->getClass($trait)->getNativeReflection();
-		foreach ($traitReflection->getTraitAliases() as $methodAlias => $traitTarget) {
-			if ($lowercaseMethodName === strtolower($methodAlias)) {
-				return $methodAlias;
-			}
+    private function getMethodNameWithCorrectCase(string $lowercaseMethodName, string $traitTarget): ?string
+    {
+        $trait = explode('::', $traitTarget)[0];
+        $traitReflection = $this->broker->getClass($trait)->getNativeReflection();
+        foreach ($traitReflection->getTraitAliases() as $methodAlias => $traitTarget) {
+            if ($lowercaseMethodName === strtolower($methodAlias)) {
+                return $methodAlias;
+            }
 
-			$correctName = $this->getMethodNameWithCorrectCase($lowercaseMethodName, $traitTarget);
-			if ($correctName !== null) {
-				return $correctName;
-			}
-		}
+            $correctName = $this->getMethodNameWithCorrectCase($lowercaseMethodName, $traitTarget);
+            if ($correctName !== null) {
+                return $correctName;
+            }
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	/**
-	 * @return ParametersAcceptorWithPhpDocs[]
-	 */
-	public function getVariants(): array
-	{
-		if ($this->variants === null) {
-			$this->variants = [
-				new FunctionVariantWithPhpDocs(
-					$this->getParameters(),
-					$this->isVariadic(),
-					$this->getReturnType(),
-					$this->getPhpDocReturnType(),
-					$this->getNativeReturnType()
-				),
-			];
-		}
+    /**
+     * @return ParametersAcceptorWithPhpDocs[]
+     */
+    public function getVariants(): array
+    {
+        if ($this->variants === null) {
+            $this->variants = [
+                new FunctionVariantWithPhpDocs(
+                    $this->getParameters(),
+                    $this->isVariadic(),
+                    $this->getReturnType(),
+                    $this->getPhpDocReturnType(),
+                    $this->getNativeReturnType()
+                ),
+            ];
+        }
 
-		return $this->variants;
-	}
+        return $this->variants;
+    }
 
-	/**
-	 * @return \PHPStan\Reflection\Php\PhpParameterReflection[]
-	 */
-	private function getParameters(): array
-	{
-		if ($this->parameters === null) {
-			$this->parameters = array_map(function (\ReflectionParameter $reflection) {
-				return new PhpParameterReflection(
-					$reflection,
-					isset($this->phpDocParameterTypes[$reflection->getName()]) ? $this->phpDocParameterTypes[$reflection->getName()] : null
-				);
-			}, $this->reflection->getParameters());
-		}
+    /**
+     * @return \PHPStan\Reflection\Php\PhpParameterReflection[]
+     */
+    private function getParameters(): array
+    {
+        if ($this->parameters === null) {
+            $this->parameters = array_map(function (\ReflectionParameter $reflection) {
+                return new PhpParameterReflection(
+                    $reflection,
+                    isset($this->phpDocParameterTypes[$reflection->getName()]) ? $this->phpDocParameterTypes[$reflection->getName()] : null
+                );
+            }, $this->reflection->getParameters());
+        }
 
-		return $this->parameters;
-	}
+        return $this->parameters;
+    }
 
-	private function isVariadic(): bool
-	{
-		$isNativelyVariadic = $this->reflection->isVariadic();
-		$declaringClass = $this->declaringClass;
-		$filename = $this->declaringClass->getFileName();
-		if ($this->declaringTrait !== null) {
-			$declaringClass = $this->declaringTrait;
-			$filename = $this->declaringTrait->getFileName();
-		}
+    private function isVariadic(): bool
+    {
+        $isNativelyVariadic = $this->reflection->isVariadic();
+        $declaringClass = $this->declaringClass;
+        $filename = $this->declaringClass->getFileName();
+        if ($this->declaringTrait !== null) {
+            $declaringClass = $this->declaringTrait;
+            $filename = $this->declaringTrait->getFileName();
+        }
 
-		if (!$isNativelyVariadic && $filename !== false) {
-			$key = sprintf('variadic-method-%s-%s-v1', $declaringClass->getName(), $this->reflection->getName());
-			$cachedResult = $this->cache->load($key);
-			if ($cachedResult === null) {
-				$nodes = $this->parser->parseFile($filename);
-				$result = $this->callsFuncGetArgs($declaringClass, $nodes);
-				$this->cache->save($key, $result);
-				return $result;
-			}
+        if (!$isNativelyVariadic && $filename !== false) {
+            $key = sprintf('variadic-method-%s-%s-v1', $declaringClass->getName(), $this->reflection->getName());
+            $cachedResult = $this->cache->load($key);
+            if ($cachedResult === null) {
+                $nodes = $this->parser->parseFile($filename);
+                $result = $this->callsFuncGetArgs($declaringClass, $nodes);
+                $this->cache->save($key, $result);
+                return $result;
+            }
 
-			return $cachedResult;
-		}
+            return $cachedResult;
+        }
 
-		return $isNativelyVariadic;
-	}
+        return $isNativelyVariadic;
+    }
 
-	/**
-	 * @param ClassReflection $declaringClass
-	 * @param mixed $nodes
-	 * @return bool
-	 */
-	private function callsFuncGetArgs(ClassReflection $declaringClass, $nodes): bool
-	{
-		foreach ($nodes as $node) {
-			if (is_array($node)) {
-				if ($this->callsFuncGetArgs($declaringClass, $node)) {
-					return true;
-				}
-			}
+    /**
+     * @param ClassReflection $declaringClass
+     * @param mixed $nodes
+     * @return bool
+     */
+    private function callsFuncGetArgs(ClassReflection $declaringClass, $nodes): bool
+    {
+        foreach ($nodes as $node) {
+            if (is_array($node)) {
+                if ($this->callsFuncGetArgs($declaringClass, $node)) {
+                    return true;
+                }
+            }
 
-			if (!($node instanceof \PhpParser\Node)) {
-				continue;
-			}
+            if (!($node instanceof \PhpParser\Node)) {
+                continue;
+            }
 
-			if (
-				$node instanceof \PhpParser\Node\Stmt\ClassLike
-				&& isset($node->namespacedName)
-				&& $declaringClass->getName() !== (string) $node->namespacedName
-			) {
-				continue;
-			}
+            if ($node instanceof \PhpParser\Node\Stmt\ClassLike
+                && isset($node->namespacedName)
+                && $declaringClass->getName() !== (string) $node->namespacedName
+            ) {
+                continue;
+            }
 
-			if ($node instanceof ClassMethod) {
-				if ($node->getStmts() === null) {
-					continue; // interface
-				}
+            if ($node instanceof ClassMethod) {
+                if ($node->getStmts() === null) {
+                    continue; // interface
+                }
 
-				$methodName = $node->name->name;
-				if ($methodName === $this->reflection->getName()) {
-					return $this->functionCallStatementFinder->findFunctionCallInStatements(ParametersAcceptor::VARIADIC_FUNCTIONS, $node->getStmts()) !== null;
-				}
+                $methodName = $node->name->name;
+                if ($methodName === $this->reflection->getName()) {
+                    return $this->functionCallStatementFinder->findFunctionCallInStatements(ParametersAcceptor::VARIADIC_FUNCTIONS, $node->getStmts()) !== null;
+                }
 
-				continue;
-			}
+                continue;
+            }
 
-			if ($this->callsFuncGetArgs($declaringClass, $node)) {
-				return true;
-			}
-		}
+            if ($this->callsFuncGetArgs($declaringClass, $node)) {
+                return true;
+            }
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	public function isPrivate(): bool
-	{
-		return $this->reflection->isPrivate();
-	}
+    public function isPrivate(): bool
+    {
+        return $this->reflection->isPrivate();
+    }
 
-	public function isPublic(): bool
-	{
-		return $this->reflection->isPublic();
-	}
+    public function isPublic(): bool
+    {
+        return $this->reflection->isPublic();
+    }
 
-	private function getReturnType(): Type
-	{
-		if ($this->returnType === null) {
-			$name = strtolower($this->getName());
-			if (
-				$name === '__construct'
-				|| $name === '__destruct'
-				|| $name === '__unset'
-				|| $name === '__wakeup'
-				|| $name === '__clone'
-			) {
-				return $this->returnType = new VoidType();
-			}
-			if ($name === '__tostring') {
-				return $this->returnType = new StringType();
-			}
-			if ($name === '__isset') {
-				return $this->returnType = new BooleanType();
-			}
-			if ($name === '__sleep') {
-				return $this->returnType = new ArrayType(new IntegerType(), new StringType());
-			}
-			if ($name === '__set_state') {
-				return $this->returnType = new ObjectWithoutClassType();
-			}
+    private function getReturnType(): Type
+    {
+        if ($this->returnType === null) {
+            $name = strtolower($this->getName());
+            if ($name === '__construct'
+                || $name === '__destruct'
+                || $name === '__unset'
+                || $name === '__wakeup'
+                || $name === '__clone'
+            ) {
+                return $this->returnType = new VoidType();
+            }
+            if ($name === '__tostring') {
+                return $this->returnType = new StringType();
+            }
+            if ($name === '__isset') {
+                return $this->returnType = new BooleanType();
+            }
+            if ($name === '__sleep') {
+                return $this->returnType = new ArrayType(new IntegerType(), new StringType());
+            }
+            if ($name === '__set_state') {
+                return $this->returnType = new ObjectWithoutClassType();
+            }
 
-			$returnType = $this->reflection->getReturnType();
-			$phpDocReturnType = $this->phpDocReturnType;
-			if (
-				$returnType !== null
-				&& $phpDocReturnType !== null
-				&& $returnType->allowsNull() !== TypeCombinator::containsNull($phpDocReturnType)
-			) {
-				$phpDocReturnType = null;
-			}
-			$this->returnType = TypehintHelper::decideTypeFromReflection(
-				$returnType,
-				$phpDocReturnType,
-				$this->declaringClass->getName()
-			);
-		}
+            $returnType = $this->reflection->getReturnType();
+            $phpDocReturnType = $this->phpDocReturnType;
+            if ($returnType !== null
+                && $phpDocReturnType !== null
+                && $returnType->allowsNull() !== TypeCombinator::containsNull($phpDocReturnType)
+            ) {
+                $phpDocReturnType = null;
+            }
+            $this->returnType = TypehintHelper::decideTypeFromReflection(
+                $returnType,
+                $phpDocReturnType,
+                $this->declaringClass->getName()
+            );
+        }
 
-		return $this->returnType;
-	}
+        return $this->returnType;
+    }
 
-	private function getPhpDocReturnType(): Type
-	{
-		if ($this->phpDocReturnType !== null) {
-			return $this->phpDocReturnType;
-		}
+    private function getPhpDocReturnType(): Type
+    {
+        if ($this->phpDocReturnType !== null) {
+            return $this->phpDocReturnType;
+        }
 
-		return new MixedType();
-	}
+        return new MixedType();
+    }
 
-	private function getNativeReturnType(): Type
-	{
-		if ($this->nativeReturnType === null) {
-			$this->nativeReturnType = TypehintHelper::decideTypeFromReflection(
-				$this->reflection->getReturnType(),
-				null,
-				$this->declaringClass->getName()
-			);
-		}
+    private function getNativeReturnType(): Type
+    {
+        if ($this->nativeReturnType === null) {
+            $this->nativeReturnType = TypehintHelper::decideTypeFromReflection(
+                $this->reflection->getReturnType(),
+                null,
+                $this->declaringClass->getName()
+            );
+        }
 
-		return $this->nativeReturnType;
-	}
+        return $this->nativeReturnType;
+    }
 
-	public function isDeprecated(): bool
-	{
-		return $this->isDeprecated;
-	}
+    public function isDeprecated(): bool
+    {
+        return $this->isDeprecated;
+    }
 
-	public function getThrowType(): ?Type
-	{
-		return $this->phpDocThrowType;
-	}
-
+    public function getThrowType(): ?Type
+    {
+        return $this->phpDocThrowType;
+    }
 }

@@ -8,12 +8,11 @@ use Nette\DI\Config\Loader;
 class LoaderFactory
 {
 
-	public function createLoader(): Loader
-	{
-		$loader = new Loader();
-		$loader->addAdapter('dist', NeonAdapter::class);
+    public function createLoader(): Loader
+    {
+        $loader = new Loader();
+        $loader->addAdapter('dist', NeonAdapter::class);
 
-		return $loader;
-	}
-
+        return $loader;
+    }
 }

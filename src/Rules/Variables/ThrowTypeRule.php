@@ -13,51 +13,49 @@ use PHPStan\Type\VerbosityLevel;
 class ThrowTypeRule implements \PHPStan\Rules\Rule
 {
 
-	/** @var \PHPStan\Rules\RuleLevelHelper */
-	private $ruleLevelHelper;
+    /** @var \PHPStan\Rules\RuleLevelHelper */
+    private $ruleLevelHelper;
 
-	public function __construct(
-		RuleLevelHelper $ruleLevelHelper
-	)
-	{
-		$this->ruleLevelHelper = $ruleLevelHelper;
-	}
+    public function __construct(
+        RuleLevelHelper $ruleLevelHelper
+    ) {
+        $this->ruleLevelHelper = $ruleLevelHelper;
+    }
 
-	public function getNodeType(): string
-	{
-		return \PhpParser\Node\Stmt\Throw_::class;
-	}
+    public function getNodeType(): string
+    {
+        return \PhpParser\Node\Stmt\Throw_::class;
+    }
 
-	/**
-	 * @param \PhpParser\Node\Stmt\Throw_ $node
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
-	 */
-	public function processNode(Node $node, Scope $scope): array
-	{
-		$throwableType = new ObjectType(\Throwable::class);
-		$typeResult = $this->ruleLevelHelper->findTypeToCheck(
-			$scope,
-			$node->expr,
-			'Throwing object of an unknown class %s.',
-			function (Type $type) use ($throwableType): bool {
-				return $throwableType->isSuperTypeOf($type)->yes();
-			}
-		);
+    /**
+     * @param \PhpParser\Node\Stmt\Throw_ $node
+     * @param \PHPStan\Analyser\Scope $scope
+     * @return string[]
+     */
+    public function processNode(Node $node, Scope $scope): array
+    {
+        $throwableType = new ObjectType(\Throwable::class);
+        $typeResult = $this->ruleLevelHelper->findTypeToCheck(
+            $scope,
+            $node->expr,
+            'Throwing object of an unknown class %s.',
+            function (Type $type) use ($throwableType): bool {
+                return $throwableType->isSuperTypeOf($type)->yes();
+            }
+        );
 
-		$foundType = $typeResult->getType();
-		if ($foundType instanceof ErrorType) {
-			return $typeResult->getUnknownClassErrors();
-		}
+        $foundType = $typeResult->getType();
+        if ($foundType instanceof ErrorType) {
+            return $typeResult->getUnknownClassErrors();
+        }
 
-		$isSuperType = $throwableType->isSuperTypeOf($foundType);
-		if ($isSuperType->yes()) {
-			return [];
-		}
+        $isSuperType = $throwableType->isSuperTypeOf($foundType);
+        if ($isSuperType->yes()) {
+            return [];
+        }
 
-		return [
-			sprintf('Invalid type %s to throw.', $foundType->describe(VerbosityLevel::typeOnly())),
-		];
-	}
-
+        return [
+            sprintf('Invalid type %s to throw.', $foundType->describe(VerbosityLevel::typeOnly())),
+        ];
+    }
 }

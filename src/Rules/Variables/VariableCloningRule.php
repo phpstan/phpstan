@@ -14,55 +14,54 @@ use PHPStan\Type\VerbosityLevel;
 class VariableCloningRule implements \PHPStan\Rules\Rule
 {
 
-	/** @var \PHPStan\Rules\RuleLevelHelper */
-	private $ruleLevelHelper;
+    /** @var \PHPStan\Rules\RuleLevelHelper */
+    private $ruleLevelHelper;
 
-	public function __construct(RuleLevelHelper $ruleLevelHelper)
-	{
-		$this->ruleLevelHelper = $ruleLevelHelper;
-	}
+    public function __construct(RuleLevelHelper $ruleLevelHelper)
+    {
+        $this->ruleLevelHelper = $ruleLevelHelper;
+    }
 
-	public function getNodeType(): string
-	{
-		return Clone_::class;
-	}
+    public function getNodeType(): string
+    {
+        return Clone_::class;
+    }
 
-	/**
-	 * @param \PhpParser\Node\Expr\Clone_ $node
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
-	 */
-	public function processNode(Node $node, Scope $scope): array
-	{
-		$typeResult = $this->ruleLevelHelper->findTypeToCheck(
-			$scope,
-			$node->expr,
-			'Cloning object of an unknown class %s.',
-			function (Type $type): bool {
-				return $type->isCloneable()->yes();
-			}
-		);
-		$type = $typeResult->getType();
-		if ($type instanceof ErrorType) {
-			return $typeResult->getUnknownClassErrors();
-		}
-		if ($type->isCloneable()->yes()) {
-			return [];
-		}
+    /**
+     * @param \PhpParser\Node\Expr\Clone_ $node
+     * @param \PHPStan\Analyser\Scope $scope
+     * @return string[]
+     */
+    public function processNode(Node $node, Scope $scope): array
+    {
+        $typeResult = $this->ruleLevelHelper->findTypeToCheck(
+            $scope,
+            $node->expr,
+            'Cloning object of an unknown class %s.',
+            function (Type $type): bool {
+                return $type->isCloneable()->yes();
+            }
+        );
+        $type = $typeResult->getType();
+        if ($type instanceof ErrorType) {
+            return $typeResult->getUnknownClassErrors();
+        }
+        if ($type->isCloneable()->yes()) {
+            return [];
+        }
 
-		if ($node->expr instanceof Variable && is_string($node->expr->name)) {
-			return [
-				sprintf(
-					'Cannot clone non-object variable $%s of type %s.',
-					$node->expr->name,
-					$type->describe(VerbosityLevel::typeOnly())
-				),
-			];
-		}
+        if ($node->expr instanceof Variable && is_string($node->expr->name)) {
+            return [
+                sprintf(
+                    'Cannot clone non-object variable $%s of type %s.',
+                    $node->expr->name,
+                    $type->describe(VerbosityLevel::typeOnly())
+                ),
+            ];
+        }
 
-		return [
-			sprintf('Cannot clone %s.', $type->describe(VerbosityLevel::typeOnly())),
-		];
-	}
-
+        return [
+            sprintf('Cannot clone %s.', $type->describe(VerbosityLevel::typeOnly())),
+        ];
+    }
 }

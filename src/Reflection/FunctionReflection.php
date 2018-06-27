@@ -5,11 +5,10 @@ namespace PHPStan\Reflection;
 interface FunctionReflection extends DeprecatableReflection, ThrowableReflection
 {
 
-	public function getName(): string;
+    public function getName(): string;
 
-	/**
-	 * @return \PHPStan\Reflection\ParametersAcceptor[]
-	 */
-	public function getVariants(): array;
-
+    /**
+     * @return \PHPStan\Reflection\ParametersAcceptor[]
+     */
+    public function getVariants(): array;
 }

@@ -25,7 +25,7 @@ $a[$stringOrObject];
 
 $constantArray = ['a' => 1];
 if (doFoo()) {
-	$constantArray['b'] = 2;
+    $constantArray['b'] = 2;
 }
 
 $constantArray[new \DateTimeImmutable()] = 1;
@@ -33,5 +33,5 @@ $constantArray[new \DateTimeImmutable()] = 1;
 /** @var string[] $array */
 $array = doFoo();
 foreach ($array as $i => $val) {
-	echo $array[$i];
+    echo $array[$i];
 }

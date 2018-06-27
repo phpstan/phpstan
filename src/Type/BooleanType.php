@@ -15,63 +15,62 @@ use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
 class BooleanType implements Type
 {
 
-	use JustNullableTypeTrait;
-	use NonCallableTypeTrait;
-	use NonIterableTypeTrait;
-	use NonObjectTypeTrait;
-	use NonOffsetAccessibleTypeTrait;
-	use UndecidedBooleanTypeTrait;
+    use JustNullableTypeTrait;
+    use NonCallableTypeTrait;
+    use NonIterableTypeTrait;
+    use NonObjectTypeTrait;
+    use NonOffsetAccessibleTypeTrait;
+    use UndecidedBooleanTypeTrait;
 
-	public function describe(VerbosityLevel $level): string
-	{
-		return 'bool';
-	}
+    public function describe(VerbosityLevel $level): string
+    {
+        return 'bool';
+    }
 
-	public function toNumber(): Type
-	{
-		return $this->toInteger();
-	}
+    public function toNumber(): Type
+    {
+        return $this->toInteger();
+    }
 
-	public function toString(): Type
-	{
-		return TypeCombinator::union(
-			new ConstantStringType(''),
-			new ConstantStringType('1')
-		);
-	}
+    public function toString(): Type
+    {
+        return TypeCombinator::union(
+            new ConstantStringType(''),
+            new ConstantStringType('1')
+        );
+    }
 
-	public function toInteger(): Type
-	{
-		return TypeCombinator::union(
-			new ConstantIntegerType(0),
-			new ConstantIntegerType(1)
-		);
-	}
+    public function toInteger(): Type
+    {
+        return TypeCombinator::union(
+            new ConstantIntegerType(0),
+            new ConstantIntegerType(1)
+        );
+    }
 
-	public function toFloat(): Type
-	{
-		return TypeCombinator::union(
-			new ConstantFloatType(0.0),
-			new ConstantFloatType(1.0)
-		);
-	}
+    public function toFloat(): Type
+    {
+        return TypeCombinator::union(
+            new ConstantFloatType(0.0),
+            new ConstantFloatType(1.0)
+        );
+    }
 
-	public function toArray(): Type
-	{
-		return new ConstantArrayType(
-			[new ConstantIntegerType(0)],
-			[$this],
-			1
-		);
-	}
+    public function toArray(): Type
+    {
+        return new ConstantArrayType(
+            [new ConstantIntegerType(0)],
+            [$this],
+            1
+        );
+    }
 
-	/**
-	 * @param mixed[] $properties
-	 * @return Type
-	 */
-	public static function __set_state(array $properties): Type
-	{
-		return new static();
-	}
-
+    /**
+     * @param mixed[] $properties
+     * @return Type
+     */
+    public static function __set_state(array $properties): Type
+    {
+        return new static();
+    }
 }

@@ -18,195 +18,193 @@ use PHPStan\Type\VerbosityLevel;
 class ConstantStringType extends StringType implements ConstantScalarType
 {
 
-	private const DESCRIBE_LIMIT = 20;
+    private const DESCRIBE_LIMIT = 20;
 
-	use ConstantScalarTypeTrait;
-	use ConstantScalarToBooleanTrait;
+    use ConstantScalarTypeTrait;
+    use ConstantScalarToBooleanTrait;
 
-	/** @var string */
-	private $value;
+    /** @var string */
+    private $value;
 
-	public function __construct(string $value)
-	{
-		$this->value = $value;
-	}
+    public function __construct(string $value)
+    {
+        $this->value = $value;
+    }
 
-	public function getValue(): string
-	{
-		return $this->value;
-	}
+    public function getValue(): string
+    {
+        return $this->value;
+    }
 
-	public function describe(VerbosityLevel $level): string
-	{
-		return $level->handle(
-			function (): string {
-				return 'string';
-			},
-			function (): string {
-				return var_export(
-					\Nette\Utils\Strings::truncate($this->value, self::DESCRIBE_LIMIT),
-					true
-				);
-			}
-		);
-	}
+    public function describe(VerbosityLevel $level): string
+    {
+        return $level->handle(
+            function (): string {
+                return 'string';
+            },
+            function (): string {
+                return var_export(
+                    \Nette\Utils\Strings::truncate($this->value, self::DESCRIBE_LIMIT),
+                    true
+                );
+            }
+        );
+    }
 
-	public function isCallable(): TrinaryLogic
-	{
-		if ($this->value === '') {
-			return TrinaryLogic::createNo();
-		}
+    public function isCallable(): TrinaryLogic
+    {
+        if ($this->value === '') {
+            return TrinaryLogic::createNo();
+        }
 
-		$broker = Broker::getInstance();
+        $broker = Broker::getInstance();
 
-		// 'my_function'
-		if ($broker->hasFunction(new Name($this->value), null)) {
-			return TrinaryLogic::createYes();
-		}
+        // 'my_function'
+        if ($broker->hasFunction(new Name($this->value), null)) {
+            return TrinaryLogic::createYes();
+        }
 
-		// 'MyClass::myStaticFunction'
-		$matches = \Nette\Utils\Strings::match($this->value, '#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\z#');
-		if ($matches !== null) {
-			if (!$broker->hasClass($matches[1])) {
-				return TrinaryLogic::createMaybe();
-			}
+        // 'MyClass::myStaticFunction'
+        $matches = \Nette\Utils\Strings::match($this->value, '#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\z#');
+        if ($matches !== null) {
+            if (!$broker->hasClass($matches[1])) {
+                return TrinaryLogic::createMaybe();
+            }
 
-			$classRef = $broker->getClass($matches[1]);
-			if ($classRef->hasMethod($matches[2])) {
-				return TrinaryLogic::createYes();
-			}
+            $classRef = $broker->getClass($matches[1]);
+            if ($classRef->hasMethod($matches[2])) {
+                return TrinaryLogic::createYes();
+            }
 
-			if (!$classRef->getNativeReflection()->isFinal()) {
-				return TrinaryLogic::createMaybe();
-			}
+            if (!$classRef->getNativeReflection()->isFinal()) {
+                return TrinaryLogic::createMaybe();
+            }
 
-			return TrinaryLogic::createNo();
-		}
+            return TrinaryLogic::createNo();
+        }
 
-		return TrinaryLogic::createNo();
-	}
+        return TrinaryLogic::createNo();
+    }
 
-	/**
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return \PHPStan\Reflection\ParametersAcceptor[]
-	 */
-	public function getCallableParametersAcceptors(Scope $scope): array
-	{
-		$broker = Broker::getInstance();
+    /**
+     * @param \PHPStan\Analyser\Scope $scope
+     * @return \PHPStan\Reflection\ParametersAcceptor[]
+     */
+    public function getCallableParametersAcceptors(Scope $scope): array
+    {
+        $broker = Broker::getInstance();
 
-		// 'my_function'
-		$functionName = new Name($this->value);
-		if ($broker->hasFunction($functionName, null)) {
-			return $broker->getFunction($functionName, null)->getVariants();
-		}
+        // 'my_function'
+        $functionName = new Name($this->value);
+        if ($broker->hasFunction($functionName, null)) {
+            return $broker->getFunction($functionName, null)->getVariants();
+        }
 
-		// 'MyClass::myStaticFunction'
-		$matches = \Nette\Utils\Strings::match($this->value, '#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\z#');
-		if ($matches !== null) {
-			if (!$broker->hasClass($matches[1])) {
-				return [new TrivialParametersAcceptor()];
-			}
+        // 'MyClass::myStaticFunction'
+        $matches = \Nette\Utils\Strings::match($this->value, '#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\z#');
+        if ($matches !== null) {
+            if (!$broker->hasClass($matches[1])) {
+                return [new TrivialParametersAcceptor()];
+            }
 
-			$classReflection = $broker->getClass($matches[1]);
-			if ($classReflection->hasMethod($matches[2])) {
-				$method = $classReflection->getMethod($matches[2], $scope);
-				if (!$scope->canCallMethod($method)) {
-					return [new InaccessibleMethod($method)];
-				}
+            $classReflection = $broker->getClass($matches[1]);
+            if ($classReflection->hasMethod($matches[2])) {
+                $method = $classReflection->getMethod($matches[2], $scope);
+                if (!$scope->canCallMethod($method)) {
+                    return [new InaccessibleMethod($method)];
+                }
 
-				return $method->getVariants();
-			}
+                return $method->getVariants();
+            }
 
-			if (!$classReflection->getNativeReflection()->isFinal()) {
-				return [new TrivialParametersAcceptor()];
-			}
-		}
+            if (!$classReflection->getNativeReflection()->isFinal()) {
+                return [new TrivialParametersAcceptor()];
+            }
+        }
 
-		throw new \PHPStan\ShouldNotHappenException();
-	}
+        throw new \PHPStan\ShouldNotHappenException();
+    }
 
-	public function toNumber(): Type
-	{
-		if (is_numeric($this->value)) {
-			/** @var mixed $value */
-			$value = $this->value;
-			$value = +$value;
-			if (is_float($value)) {
-				return new ConstantFloatType($value);
-			}
+    public function toNumber(): Type
+    {
+        if (is_numeric($this->value)) {
+            /** @var mixed $value */
+            $value = $this->value;
+            $value = +$value;
+            if (is_float($value)) {
+                return new ConstantFloatType($value);
+            }
 
-			return new ConstantIntegerType($value);
-		}
+            return new ConstantIntegerType($value);
+        }
 
-		return new ErrorType();
-	}
+        return new ErrorType();
+    }
 
-	public function toInteger(): Type
-	{
-		$type = $this->toNumber();
-		if ($type instanceof ErrorType) {
-			return $type;
-		}
+    public function toInteger(): Type
+    {
+        $type = $this->toNumber();
+        if ($type instanceof ErrorType) {
+            return $type;
+        }
 
-		return $type->toInteger();
-	}
+        return $type->toInteger();
+    }
 
-	public function toFloat(): Type
-	{
-		$type = $this->toNumber();
-		if ($type instanceof ErrorType) {
-			return $type;
-		}
+    public function toFloat(): Type
+    {
+        $type = $this->toNumber();
+        if ($type instanceof ErrorType) {
+            return $type;
+        }
 
-		return $type->toFloat();
-	}
+        return $type->toFloat();
+    }
 
-	public function getOffsetValueType(Type $offsetType): Type
-	{
-		$offsetNumberType = $offsetType->toNumber();
-		if ($offsetNumberType instanceof ConstantScalarType) {
-			$offsetValue = $offsetNumberType->getValue();
-			if ($offsetValue < strlen($this->value)) {
-				return new self($this->value[$offsetValue]);
-			}
-		} elseif (!$offsetNumberType instanceof ErrorType) {
-			return new StringType();
-		}
+    public function getOffsetValueType(Type $offsetType): Type
+    {
+        $offsetNumberType = $offsetType->toNumber();
+        if ($offsetNumberType instanceof ConstantScalarType) {
+            $offsetValue = $offsetNumberType->getValue();
+            if ($offsetValue < strlen($this->value)) {
+                return new self($this->value[$offsetValue]);
+            }
+        } elseif (!$offsetNumberType instanceof ErrorType) {
+            return new StringType();
+        }
 
-		return new ErrorType();
-	}
+        return new ErrorType();
+    }
 
-	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
-	{
-		$valueStringType = $valueType->toString();
-		if ($valueStringType instanceof ErrorType) {
-			return new ErrorType();
-		}
-		if (
-			$offsetType instanceof ConstantScalarType
-			&& $valueStringType instanceof ConstantStringType
-		) {
-			$value = $this->value;
-			$value[$offsetType->getValue()] = $valueStringType->getValue();
+    public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
+    {
+        $valueStringType = $valueType->toString();
+        if ($valueStringType instanceof ErrorType) {
+            return new ErrorType();
+        }
+        if ($offsetType instanceof ConstantScalarType
+            && $valueStringType instanceof ConstantStringType
+        ) {
+            $value = $this->value;
+            $value[$offsetType->getValue()] = $valueStringType->getValue();
 
-			return new self($value);
-		}
+            return new self($value);
+        }
 
-		return new StringType();
-	}
+        return new StringType();
+    }
 
-	public function append(self $otherString): self
-	{
-		return new self($this->getValue() . $otherString->getValue());
-	}
+    public function append(self $otherString): self
+    {
+        return new self($this->getValue() . $otherString->getValue());
+    }
 
-	/**
-	 * @param mixed[] $properties
-	 * @return Type
-	 */
-	public static function __set_state(array $properties): Type
-	{
-		return new self($properties['value']);
-	}
-
+    /**
+     * @param mixed[] $properties
+     * @return Type
+     */
+    public static function __set_state(array $properties): Type
+    {
+        return new self($properties['value']);
+    }
 }

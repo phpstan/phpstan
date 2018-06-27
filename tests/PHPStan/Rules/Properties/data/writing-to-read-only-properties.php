@@ -10,26 +10,25 @@ namespace WritingToReadOnlyProperties;
 class Foo
 {
 
-	public function doFoo()
-	{
-		$this->readOnlyProperty = 1;
-		$this->readOnlyProperty += 1;
+    public function doFoo()
+    {
+        $this->readOnlyProperty = 1;
+        $this->readOnlyProperty += 1;
 
-		$this->usualProperty = 1;
-		$this->usualProperty .= 1;
+        $this->usualProperty = 1;
+        $this->usualProperty .= 1;
 
-		$this->writeOnlyProperty = 1;
-		$this->writeOnlyProperty .= 1;
+        $this->writeOnlyProperty = 1;
+        $this->writeOnlyProperty .= 1;
 
-		$self = new self();
-		$self->readOnlyProperty = 1;
-		$self->readOnlyProperty += 1;
+        $self = new self();
+        $self->readOnlyProperty = 1;
+        $self->readOnlyProperty += 1;
 
-		$self->usualProperty = 1;
-		$self->usualProperty .= 1;
+        $self->usualProperty = 1;
+        $self->usualProperty .= 1;
 
-		$self->writeOnlyProperty = 1;
-		$self->writeOnlyProperty .= 1;
-	}
-
+        $self->writeOnlyProperty = 1;
+        $self->writeOnlyProperty .= 1;
+    }
 }

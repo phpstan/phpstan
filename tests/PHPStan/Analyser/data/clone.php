@@ -8,7 +8,7 @@ class Foo
 }
 
 function () {
-	$fooObject = new Foo();
+    $fooObject = new Foo();
 
-	die;
+    die;
 };

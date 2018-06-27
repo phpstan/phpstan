@@ -12,32 +12,31 @@ use PHPStan\Type\Type;
 class ArgumentBasedFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
 
-	/** @var int[] */
-	private $functionNames = [
-		'array_unique' => 0,
-		'array_reverse' => 0,
-	];
+    /** @var int[] */
+    private $functionNames = [
+        'array_unique' => 0,
+        'array_reverse' => 0,
+    ];
 
-	public function isFunctionSupported(FunctionReflection $functionReflection): bool
-	{
-		return isset($this->functionNames[$functionReflection->getName()]);
-	}
+    public function isFunctionSupported(FunctionReflection $functionReflection): bool
+    {
+        return isset($this->functionNames[$functionReflection->getName()]);
+    }
 
-	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
-	{
-		$argumentPosition = $this->functionNames[$functionReflection->getName()];
+    public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
+    {
+        $argumentPosition = $this->functionNames[$functionReflection->getName()];
 
-		if (!isset($functionCall->args[$argumentPosition])) {
-			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
-		}
+        if (!isset($functionCall->args[$argumentPosition])) {
+            return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+        }
 
-		$argumentValue = $functionCall->args[$argumentPosition]->value;
-		$argumentType = $scope->getType($argumentValue);
+        $argumentValue = $functionCall->args[$argumentPosition]->value;
+        $argumentType = $scope->getType($argumentValue);
 
-		return new ArrayType(
-			$argumentType->getIterableKeyType(),
-			$argumentType->getIterableValueType()
-		);
-	}
-
+        return new ArrayType(
+            $argumentType->getIterableKeyType(),
+            $argumentType->getIterableValueType()
+        );
+    }
 }

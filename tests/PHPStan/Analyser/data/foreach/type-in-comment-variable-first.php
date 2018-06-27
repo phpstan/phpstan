@@ -7,5 +7,5 @@ $values = [];
 
 /** @var $value callable */
 foreach ($values as $value) {
-	die;
+    die;
 }

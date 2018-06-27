@@ -2,6 +2,5 @@
 
 namespace NonexistentNestedFunction;
 
-if (barNonExistentFunction() === NULL) {
-
+if (barNonExistentFunction() === null) {
 }

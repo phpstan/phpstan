@@ -4,5 +4,4 @@ namespace IncorrectFunctionCase;
 
 function fooBar()
 {
-
 }

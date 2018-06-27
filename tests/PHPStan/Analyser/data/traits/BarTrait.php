@@ -5,38 +5,33 @@ namespace TraitPhpDocsThree;
 trait BarTrait
 {
 
-	use BazTrait;
+    use BazTrait;
 
-	/**
-	 * @return DuplicateMethodType
-	 */
-	public function methodInMoreTraits()
-	{
+    /**
+     * @return DuplicateMethodType
+     */
+    public function methodInMoreTraits()
+    {
+    }
 
-	}
+    /**
+     * @return AnotherDuplicateMethodType
+     */
+    public function anotherMethodInMoreTraits()
+    {
+    }
 
-	/**
-	 * @return AnotherDuplicateMethodType
-	 */
-	public function anotherMethodInMoreTraits()
-	{
+    /**
+     * @return YetAnotherDuplicateMethodType
+     */
+    public function yetAnotherMethodInMoreTraits()
+    {
+    }
 
-	}
-
-	/**
-	 * @return YetAnotherDuplicateMethodType
-	 */
-	public function yetAnotherMethodInMoreTraits()
-	{
-
-	}
-
-	/**
-	 * @return YetYetAnotherDuplicateMethodType
-	 */
-	public function yetYetAnotherMethodInMoreTraits()
-	{
-
-	}
-
+    /**
+     * @return YetYetAnotherDuplicateMethodType
+     */
+    public function yetYetAnotherMethodInMoreTraits()
+    {
+    }
 }

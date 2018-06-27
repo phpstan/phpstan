@@ -11,41 +11,40 @@ use PHPStan\Broker\Broker;
 class NonExistentDefinedFunctionRule implements \PHPStan\Rules\Rule
 {
 
-	/** @var \PHPStan\Broker\Broker */
-	private $broker;
+    /** @var \PHPStan\Broker\Broker */
+    private $broker;
 
-	public function __construct(Broker $broker)
-	{
-		$this->broker = $broker;
-	}
+    public function __construct(Broker $broker)
+    {
+        $this->broker = $broker;
+    }
 
-	public function getNodeType(): string
-	{
-		return Function_::class;
-	}
+    public function getNodeType(): string
+    {
+        return Function_::class;
+    }
 
-	/**
-	 * @param \PhpParser\Node\Stmt\Function_ $node
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
-	 */
-	public function processNode(Node $node, Scope $scope): array
-	{
-		$functionName = $node->name->name;
-		if (isset($node->namespacedName)) {
-			$functionName = (string) $node->namespacedName;
-		}
-		$functionNameName = new Name($functionName);
-		if ($this->broker->hasFunction($functionNameName, null)) {
-			return [];
-		}
+    /**
+     * @param \PhpParser\Node\Stmt\Function_ $node
+     * @param \PHPStan\Analyser\Scope $scope
+     * @return string[]
+     */
+    public function processNode(Node $node, Scope $scope): array
+    {
+        $functionName = $node->name->name;
+        if (isset($node->namespacedName)) {
+            $functionName = (string) $node->namespacedName;
+        }
+        $functionNameName = new Name($functionName);
+        if ($this->broker->hasFunction($functionNameName, null)) {
+            return [];
+        }
 
-		return [
-			sprintf(
-				'Function %s not found while trying to analyse it - autoloading is probably not configured properly.',
-				$functionName
-			),
-		];
-	}
-
+        return [
+            sprintf(
+                'Function %s not found while trying to analyse it - autoloading is probably not configured properly.',
+                $functionName
+            ),
+        ];
+    }
 }

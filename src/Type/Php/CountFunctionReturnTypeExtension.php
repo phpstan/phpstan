@@ -13,31 +13,29 @@ use PHPStan\Type\TypeUtils;
 class CountFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
 
-	public function isFunctionSupported(FunctionReflection $functionReflection): bool
-	{
-		return $functionReflection->getName() === 'count';
-	}
+    public function isFunctionSupported(FunctionReflection $functionReflection): bool
+    {
+        return $functionReflection->getName() === 'count';
+    }
 
-	public function getTypeFromFunctionCall(
-		FunctionReflection $functionReflection,
-		FuncCall $functionCall,
-		Scope $scope
-	): Type
-	{
-		if (count($functionCall->args) < 1) {
-			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
-		}
+    public function getTypeFromFunctionCall(
+        FunctionReflection $functionReflection,
+        FuncCall $functionCall,
+        Scope $scope
+    ): Type {
+        if (count($functionCall->args) < 1) {
+            return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+        }
 
-		$arrays = TypeUtils::getArrays($scope->getType($functionCall->args[0]->value));
-		if (count($arrays) === 0) {
-			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
-		}
-		$countTypes = [];
-		foreach ($arrays as $array) {
-			$countTypes[] = $array->count();
-		}
+        $arrays = TypeUtils::getArrays($scope->getType($functionCall->args[0]->value));
+        if (count($arrays) === 0) {
+            return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+        }
+        $countTypes = [];
+        foreach ($arrays as $array) {
+            $countTypes[] = $array->count();
+        }
 
-		return TypeCombinator::union(...$countTypes);
-	}
-
+        return TypeCombinator::union(...$countTypes);
+    }
 }

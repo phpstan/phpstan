@@ -18,37 +18,36 @@ use PHPStan\Type\UnionType;
 class IsNumericFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtension, TypeSpecifierAwareExtension
 {
 
-	/** @var \PHPStan\Analyser\TypeSpecifier */
-	private $typeSpecifier;
+    /** @var \PHPStan\Analyser\TypeSpecifier */
+    private $typeSpecifier;
 
-	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, TypeSpecifierContext $context): bool
-	{
-		return $functionReflection->getName() === 'is_numeric'
-			&& isset($node->args[0])
-			&& !$context->null();
-	}
+    public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, TypeSpecifierContext $context): bool
+    {
+        return $functionReflection->getName() === 'is_numeric'
+            && isset($node->args[0])
+            && !$context->null();
+    }
 
-	public function specifyTypes(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
-	{
-		if ($context->null()) {
-			throw new \PHPStan\ShouldNotHappenException();
-		}
+    public function specifyTypes(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
+    {
+        if ($context->null()) {
+            throw new \PHPStan\ShouldNotHappenException();
+        }
 
-		$numericTypes = [
-			new IntegerType(),
-			new FloatType(),
-		];
+        $numericTypes = [
+            new IntegerType(),
+            new FloatType(),
+        ];
 
-		if ($context->truthy()) {
-			$numericTypes[] = new StringType();
-		}
+        if ($context->truthy()) {
+            $numericTypes[] = new StringType();
+        }
 
-		return $this->typeSpecifier->create($node->args[0]->value, new UnionType($numericTypes), $context);
-	}
+        return $this->typeSpecifier->create($node->args[0]->value, new UnionType($numericTypes), $context);
+    }
 
-	public function setTypeSpecifier(TypeSpecifier $typeSpecifier): void
-	{
-		$this->typeSpecifier = $typeSpecifier;
-	}
-
+    public function setTypeSpecifier(TypeSpecifier $typeSpecifier): void
+    {
+        $this->typeSpecifier = $typeSpecifier;
+    }
 }

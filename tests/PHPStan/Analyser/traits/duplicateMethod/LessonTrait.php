@@ -5,7 +5,6 @@ namespace DuplicateMethod;
 trait LessonTrait
 {
 
-	use LessonSubtraitOne;
-	use LessonSubtraitTwo;
-
+    use LessonSubtraitOne;
+    use LessonSubtraitTwo;
 }

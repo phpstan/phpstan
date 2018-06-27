@@ -19,172 +19,170 @@ use PHPStan\Type\VerbosityLevel;
 class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 {
 
-	/** @var \PHPStan\Broker\Broker */
-	private $broker;
+    /** @var \PHPStan\Broker\Broker */
+    private $broker;
 
-	/** @var \PHPStan\Rules\RuleLevelHelper */
-	private $ruleLevelHelper;
+    /** @var \PHPStan\Rules\RuleLevelHelper */
+    private $ruleLevelHelper;
 
-	/** @var \PHPStan\Rules\ClassCaseSensitivityCheck */
-	private $classCaseSensitivityCheck;
+    /** @var \PHPStan\Rules\ClassCaseSensitivityCheck */
+    private $classCaseSensitivityCheck;
 
-	public function __construct(
-		Broker $broker,
-		RuleLevelHelper $ruleLevelHelper,
-		ClassCaseSensitivityCheck $classCaseSensitivityCheck
-	)
-	{
-		$this->broker = $broker;
-		$this->ruleLevelHelper = $ruleLevelHelper;
-		$this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
-	}
+    public function __construct(
+        Broker $broker,
+        RuleLevelHelper $ruleLevelHelper,
+        ClassCaseSensitivityCheck $classCaseSensitivityCheck
+    ) {
+        $this->broker = $broker;
+        $this->ruleLevelHelper = $ruleLevelHelper;
+        $this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
+    }
 
-	public function getNodeType(): string
-	{
-		return StaticPropertyFetch::class;
-	}
+    public function getNodeType(): string
+    {
+        return StaticPropertyFetch::class;
+    }
 
-	/**
-	 * @param \PhpParser\Node\Expr\StaticPropertyFetch $node
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
-	 */
-	public function processNode(Node $node, Scope $scope): array
-	{
-		if (!$node->name instanceof Node\VarLikeIdentifier) {
-			return [];
-		}
+    /**
+     * @param \PhpParser\Node\Expr\StaticPropertyFetch $node
+     * @param \PHPStan\Analyser\Scope $scope
+     * @return string[]
+     */
+    public function processNode(Node $node, Scope $scope): array
+    {
+        if (!$node->name instanceof Node\VarLikeIdentifier) {
+            return [];
+        }
 
-		$name = $node->name->name;
-		$messages = [];
-		if ($node->class instanceof Name) {
-			$class = (string) $node->class;
-			$lowercasedClass = strtolower($class);
-			if (in_array($lowercasedClass, ['self', 'static'], true)) {
-				if (!$scope->isInClass()) {
-					return [
-						sprintf(
-							'Accessing %s::$%s outside of class scope.',
-							$class,
-							$name
-						),
-					];
-				}
-				$className = $scope->getClassReflection()->getName();
-			} elseif ($lowercasedClass === 'parent') {
-				if (!$scope->isInClass()) {
-					return [
-						sprintf(
-							'Accessing %s::$%s outside of class scope.',
-							$class,
-							$name
-						),
-					];
-				}
-				if ($scope->getClassReflection()->getParentClass() === false) {
-					return [
-						sprintf(
-							'%s::%s() accesses parent::$%s but %s does not extend any class.',
-							$scope->getClassReflection()->getDisplayName(),
-							$scope->getFunctionName(),
-							$name,
-							$scope->getClassReflection()->getDisplayName()
-						),
-					];
-				}
+        $name = $node->name->name;
+        $messages = [];
+        if ($node->class instanceof Name) {
+            $class = (string) $node->class;
+            $lowercasedClass = strtolower($class);
+            if (in_array($lowercasedClass, ['self', 'static'], true)) {
+                if (!$scope->isInClass()) {
+                    return [
+                        sprintf(
+                            'Accessing %s::$%s outside of class scope.',
+                            $class,
+                            $name
+                        ),
+                    ];
+                }
+                $className = $scope->getClassReflection()->getName();
+            } elseif ($lowercasedClass === 'parent') {
+                if (!$scope->isInClass()) {
+                    return [
+                        sprintf(
+                            'Accessing %s::$%s outside of class scope.',
+                            $class,
+                            $name
+                        ),
+                    ];
+                }
+                if ($scope->getClassReflection()->getParentClass() === false) {
+                    return [
+                        sprintf(
+                            '%s::%s() accesses parent::$%s but %s does not extend any class.',
+                            $scope->getClassReflection()->getDisplayName(),
+                            $scope->getFunctionName(),
+                            $name,
+                            $scope->getClassReflection()->getDisplayName()
+                        ),
+                    ];
+                }
 
-				if ($scope->getFunctionName() === null) {
-					throw new \PHPStan\ShouldNotHappenException();
-				}
+                if ($scope->getFunctionName() === null) {
+                    throw new \PHPStan\ShouldNotHappenException();
+                }
 
-				$currentMethodReflection = $scope->getClassReflection()->getNativeMethod($scope->getFunctionName());
-				if (!$currentMethodReflection->isStatic()) {
-					// calling parent::method() from instance method
-					return [];
-				}
+                $currentMethodReflection = $scope->getClassReflection()->getNativeMethod($scope->getFunctionName());
+                if (!$currentMethodReflection->isStatic()) {
+                    // calling parent::method() from instance method
+                    return [];
+                }
 
-				$className = $scope->getClassReflection()->getParentClass()->getName();
-			} else {
-				if (!$this->broker->hasClass($class)) {
-					return [
-						sprintf(
-							'Access to static property $%s on an unknown class %s.',
-							$name,
-							$class
-						),
-					];
-				} else {
-					$messages = $this->classCaseSensitivityCheck->checkClassNames([$class]);
-				}
-				$className = $this->broker->getClass($class)->getName();
-			}
+                $className = $scope->getClassReflection()->getParentClass()->getName();
+            } else {
+                if (!$this->broker->hasClass($class)) {
+                    return [
+                        sprintf(
+                            'Access to static property $%s on an unknown class %s.',
+                            $name,
+                            $class
+                        ),
+                    ];
+                } else {
+                    $messages = $this->classCaseSensitivityCheck->checkClassNames([$class]);
+                }
+                $className = $this->broker->getClass($class)->getName();
+            }
 
-			$classType = new ObjectType($className);
-		} else {
-			$classTypeResult = $this->ruleLevelHelper->findTypeToCheck(
-				$scope,
-				$node->class,
-				sprintf('Access to static property $%s on an unknown class %%s.', $name),
-				function (Type $type) use ($name): bool {
-					return $type->canAccessProperties()->yes() && $type->hasProperty($name);
-				}
-			);
-			$classType = $classTypeResult->getType();
-			if ($classType instanceof ErrorType) {
-				return $classTypeResult->getUnknownClassErrors();
-			}
-		}
+            $classType = new ObjectType($className);
+        } else {
+            $classTypeResult = $this->ruleLevelHelper->findTypeToCheck(
+                $scope,
+                $node->class,
+                sprintf('Access to static property $%s on an unknown class %%s.', $name),
+                function (Type $type) use ($name): bool {
+                    return $type->canAccessProperties()->yes() && $type->hasProperty($name);
+                }
+            );
+            $classType = $classTypeResult->getType();
+            if ($classType instanceof ErrorType) {
+                return $classTypeResult->getUnknownClassErrors();
+            }
+        }
 
-		if ($classType instanceof StringType) {
-			return [];
-		}
+        if ($classType instanceof StringType) {
+            return [];
+        }
 
-		$typeForDescribe = $classType;
-		$classType = TypeCombinator::remove($classType, new StringType());
+        $typeForDescribe = $classType;
+        $classType = TypeCombinator::remove($classType, new StringType());
 
-		if (!$classType->canAccessProperties()->yes()) {
-			return array_merge($messages, [
-				sprintf('Cannot access static property $%s on %s.', $name, $typeForDescribe->describe(VerbosityLevel::typeOnly())),
-			]);
-		}
+        if (!$classType->canAccessProperties()->yes()) {
+            return array_merge($messages, [
+                sprintf('Cannot access static property $%s on %s.', $name, $typeForDescribe->describe(VerbosityLevel::typeOnly())),
+            ]);
+        }
 
-		if (!$classType->hasProperty($name)) {
-			if ($scope->isSpecified($node)) {
-				return $messages;
-			}
+        if (!$classType->hasProperty($name)) {
+            if ($scope->isSpecified($node)) {
+                return $messages;
+            }
 
-			return array_merge($messages, [
-				sprintf(
-					'Access to an undefined static property %s::$%s.',
-					$typeForDescribe->describe(VerbosityLevel::typeOnly()),
-					$name
-				),
-			]);
-		}
+            return array_merge($messages, [
+                sprintf(
+                    'Access to an undefined static property %s::$%s.',
+                    $typeForDescribe->describe(VerbosityLevel::typeOnly()),
+                    $name
+                ),
+            ]);
+        }
 
-		$property = $classType->getProperty($name, $scope);
-		if (!$property->isStatic()) {
-			return array_merge($messages, [
-				sprintf(
-					'Static access to instance property %s::$%s.',
-					$property->getDeclaringClass()->getDisplayName(),
-					$name
-				),
-			]);
-		}
+        $property = $classType->getProperty($name, $scope);
+        if (!$property->isStatic()) {
+            return array_merge($messages, [
+                sprintf(
+                    'Static access to instance property %s::$%s.',
+                    $property->getDeclaringClass()->getDisplayName(),
+                    $name
+                ),
+            ]);
+        }
 
-		if (!$scope->canAccessProperty($property)) {
-			return array_merge($messages, [
-				sprintf(
-					'Access to %s property $%s of class %s.',
-					$property->isPrivate() ? 'private' : 'protected',
-					$name,
-					$property->getDeclaringClass()->getDisplayName()
-				),
-			]);
-		}
+        if (!$scope->canAccessProperty($property)) {
+            return array_merge($messages, [
+                sprintf(
+                    'Access to %s property $%s of class %s.',
+                    $property->isPrivate() ? 'private' : 'protected',
+                    $name,
+                    $property->getDeclaringClass()->getDisplayName()
+                ),
+            ]);
+        }
 
-		return $messages;
-	}
-
+        return $messages;
+    }
 }

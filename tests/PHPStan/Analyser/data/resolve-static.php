@@ -5,14 +5,13 @@ namespace ResolveStatic;
 class Foo
 {
 
-	/**
-	 * @return static
-	 */
-	public static function create()
-	{
-		return new static();
-	}
-
+    /**
+     * @return static
+     */
+    public static function create()
+    {
+        return new static();
+    }
 }
 
 class Bar extends Foo
@@ -21,5 +20,5 @@ class Bar extends Foo
 }
 
 function () {
-	die;
+    die;
 };

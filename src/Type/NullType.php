@@ -14,120 +14,119 @@ use PHPStan\Type\Traits\NonObjectTypeTrait;
 class NullType implements ConstantScalarType
 {
 
-	use NonCallableTypeTrait;
-	use NonIterableTypeTrait;
-	use NonObjectTypeTrait;
-	use FalseyBooleanTypeTrait;
+    use NonCallableTypeTrait;
+    use NonIterableTypeTrait;
+    use NonObjectTypeTrait;
+    use FalseyBooleanTypeTrait;
 
-	/**
-	 * @return string[]
-	 */
-	public function getReferencedClasses(): array
-	{
-		return [];
-	}
+    /**
+     * @return string[]
+     */
+    public function getReferencedClasses(): array
+    {
+        return [];
+    }
 
-	/**
-	 * @return null
-	 */
-	public function getValue()
-	{
-		return null;
-	}
+    /**
+     * @return null
+     */
+    public function getValue()
+    {
+        return null;
+    }
 
-	public function generalize(): Type
-	{
-		return $this;
-	}
+    public function generalize(): Type
+    {
+        return $this;
+    }
 
-	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
-	{
-		if ($type instanceof self) {
-			return TrinaryLogic::createYes();
-		}
+    public function accepts(Type $type, bool $strictTypes): TrinaryLogic
+    {
+        if ($type instanceof self) {
+            return TrinaryLogic::createYes();
+        }
 
-		if ($type instanceof CompoundType) {
-			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
-		}
+        if ($type instanceof CompoundType) {
+            return CompoundTypeHelper::accepts($type, $this, $strictTypes);
+        }
 
-		return TrinaryLogic::createNo();
-	}
+        return TrinaryLogic::createNo();
+    }
 
-	public function isSuperTypeOf(Type $type): TrinaryLogic
-	{
-		if ($type instanceof self) {
-			return TrinaryLogic::createYes();
-		}
+    public function isSuperTypeOf(Type $type): TrinaryLogic
+    {
+        if ($type instanceof self) {
+            return TrinaryLogic::createYes();
+        }
 
-		if ($type instanceof CompoundType) {
-			return $type->isSubTypeOf($this);
-		}
+        if ($type instanceof CompoundType) {
+            return $type->isSubTypeOf($this);
+        }
 
-		return TrinaryLogic::createNo();
-	}
+        return TrinaryLogic::createNo();
+    }
 
-	public function equals(Type $type): bool
-	{
-		return $type instanceof self;
-	}
+    public function equals(Type $type): bool
+    {
+        return $type instanceof self;
+    }
 
-	public function describe(VerbosityLevel $level): string
-	{
-		return 'null';
-	}
+    public function describe(VerbosityLevel $level): string
+    {
+        return 'null';
+    }
 
-	public function toNumber(): Type
-	{
-		return new ConstantIntegerType(0);
-	}
+    public function toNumber(): Type
+    {
+        return new ConstantIntegerType(0);
+    }
 
-	public function toString(): Type
-	{
-		return new ConstantStringType('');
-	}
+    public function toString(): Type
+    {
+        return new ConstantStringType('');
+    }
 
-	public function toInteger(): Type
-	{
-		return $this->toNumber();
-	}
+    public function toInteger(): Type
+    {
+        return $this->toNumber();
+    }
 
-	public function toFloat(): Type
-	{
-		return $this->toNumber()->toFloat();
-	}
+    public function toFloat(): Type
+    {
+        return $this->toNumber()->toFloat();
+    }
 
-	public function toArray(): Type
-	{
-		return new ConstantArrayType(
-			[new ConstantIntegerType(0)],
-			[$this],
-			1
-		);
-	}
+    public function toArray(): Type
+    {
+        return new ConstantArrayType(
+            [new ConstantIntegerType(0)],
+            [$this],
+            1
+        );
+    }
 
-	public function isOffsetAccessible(): TrinaryLogic
-	{
-		return TrinaryLogic::createYes();
-	}
+    public function isOffsetAccessible(): TrinaryLogic
+    {
+        return TrinaryLogic::createYes();
+    }
 
-	public function getOffsetValueType(Type $offsetType): Type
-	{
-		return new NullType();
-	}
+    public function getOffsetValueType(Type $offsetType): Type
+    {
+        return new NullType();
+    }
 
-	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
-	{
-		$array = new ConstantArrayType([], []);
-		return $array->setOffsetValueType($offsetType, $valueType);
-	}
+    public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
+    {
+        $array = new ConstantArrayType([], []);
+        return $array->setOffsetValueType($offsetType, $valueType);
+    }
 
-	/**
-	 * @param mixed[] $properties
-	 * @return Type
-	 */
-	public static function __set_state(array $properties): Type
-	{
-		return new self();
-	}
-
+    /**
+     * @param mixed[] $properties
+     * @return Type
+     */
+    public static function __set_state(array $properties): Type
+    {
+        return new self();
+    }
 }

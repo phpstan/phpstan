@@ -2,10 +2,10 @@
 
 namespace Uses;
 
-define ('Uses\MY_CONSTANT', 1);
+define('Uses\MY_CONSTANT', 1);
 
-function foo() {
-
+function foo()
+{
 }
 
 class Bar

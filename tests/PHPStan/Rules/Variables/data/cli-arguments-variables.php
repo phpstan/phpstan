@@ -2,10 +2,10 @@
 
 echo $argc;
 function () {
-	echo $argc;
+    echo $argc;
 };
 
 function () {
-	global $argv;
-	var_dump($argv);
+    global $argv;
+    var_dump($argv);
 };

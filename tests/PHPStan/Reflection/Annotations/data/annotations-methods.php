@@ -54,11 +54,9 @@ use OtherNamespace\Test as OtherTest;
 class Foo implements FooInterface
 {
 
-	public function overridenMethodWithAnnotation(): Foo
-	{
-
-	}
-
+    public function overridenMethodWithAnnotation(): Foo
+    {
+    }
 }
 
 /**
@@ -68,16 +66,13 @@ class Foo implements FooInterface
 class Bar extends Foo
 {
 
-	public function overridenMethod(): Bar
-	{
+    public function overridenMethod(): Bar
+    {
+    }
 
-	}
-
-	public function conflictingMethod(): Bar
-	{
-
-	}
-
+    public function conflictingMethod(): Bar
+    {
+    }
 }
 
 /**
@@ -101,8 +96,7 @@ class Bar extends Foo
 class Baz extends Bar
 {
 
-	use FooTrait;
-
+    use FooTrait;
 }
 
 /**

@@ -14,25 +14,24 @@ use PHPStan\Type\UnionType;
 class ArrayKeysFunctionDynamicReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
 
-	public function isFunctionSupported(FunctionReflection $functionReflection): bool
-	{
-		return $functionReflection->getName() === 'array_keys';
-	}
+    public function isFunctionSupported(FunctionReflection $functionReflection): bool
+    {
+        return $functionReflection->getName() === 'array_keys';
+    }
 
-	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
-	{
-		$arrayArg = $functionCall->args[0]->value ?? null;
-		if ($arrayArg !== null) {
-			$valueType = $scope->getType($arrayArg);
-			if ($valueType instanceof ArrayType) {
-				return $valueType->getKeysArray();
-			}
-		}
+    public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
+    {
+        $arrayArg = $functionCall->args[0]->value ?? null;
+        if ($arrayArg !== null) {
+            $valueType = $scope->getType($arrayArg);
+            if ($valueType instanceof ArrayType) {
+                return $valueType->getKeysArray();
+            }
+        }
 
-		return new ArrayType(
-			new IntegerType(),
-			new UnionType([new StringType(), new IntegerType()])
-		);
-	}
-
+        return new ArrayType(
+            new IntegerType(),
+            new UnionType([new StringType(), new IntegerType()])
+        );
+    }
 }

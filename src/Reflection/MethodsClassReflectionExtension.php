@@ -5,8 +5,7 @@ namespace PHPStan\Reflection;
 interface MethodsClassReflectionExtension
 {
 
-	public function hasMethod(ClassReflection $classReflection, string $methodName): bool;
+    public function hasMethod(ClassReflection $classReflection, string $methodName): bool;
 
-	public function getMethod(ClassReflection $classReflection, string $methodName): MethodReflection;
-
+    public function getMethod(ClassReflection $classReflection, string $methodName): MethodReflection;
 }

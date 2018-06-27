@@ -5,12 +5,10 @@ namespace TraitPhpDocsThree;
 trait BazTrait
 {
 
-	/** @var int */
-	private $propertyFromTraitUsingTrait;
+    /** @var int */
+    private $propertyFromTraitUsingTrait;
 
-	public function methodFromTraitUsingTrait(): string
-	{
-
-	}
-
+    public function methodFromTraitUsingTrait(): string
+    {
+    }
 }

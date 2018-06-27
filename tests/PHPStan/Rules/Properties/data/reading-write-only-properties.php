@@ -10,16 +10,15 @@ namespace ReadingWriteOnlyProperties;
 class Foo
 {
 
-	public function doFoo()
-	{
-		echo $this->readOnlyProperty;
-		echo $this->usualProperty;
-		echo $this->writeOnlyProperty;
+    public function doFoo()
+    {
+        echo $this->readOnlyProperty;
+        echo $this->usualProperty;
+        echo $this->writeOnlyProperty;
 
-		$self = new self();
-		echo $self->readOnlyProperty;
-		echo $self->usualProperty;
-		echo $self->writeOnlyProperty;
-	}
-
+        $self = new self();
+        echo $self->readOnlyProperty;
+        echo $self->usualProperty;
+        echo $self->writeOnlyProperty;
+    }
 }

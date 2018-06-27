@@ -2,28 +2,26 @@
 
 namespace CallTraitMethods;
 
-trait Foo {
+trait Foo
+{
 
-	public function fooMethod()
-	{
-
-	}
-
+    public function fooMethod()
+    {
+    }
 }
 
-class Bar {
+class Bar
+{
 
-	use Foo;
-
+    use Foo;
 }
 
 class Baz extends Bar
 {
 
-	public function bazMethod()
-	{
-		$this->fooMethod();
-		$this->unexistentMethod();
-	}
-
+    public function bazMethod()
+    {
+        $this->fooMethod();
+        $this->unexistentMethod();
+    }
 }

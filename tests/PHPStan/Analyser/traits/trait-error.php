@@ -4,15 +4,15 @@ namespace TraitErrors;
 
 trait MyTrait
 {
-	public function test()
-	{
-		echo $undefined;
-		$this->undefined($undefined);
-	}
+    public function test()
+    {
+        echo $undefined;
+        $this->undefined($undefined);
+    }
 }
 
 
 class MyClass
 {
-	use MyTrait;
+    use MyTrait;
 }

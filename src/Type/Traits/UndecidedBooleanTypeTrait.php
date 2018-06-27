@@ -7,9 +7,8 @@ use PHPStan\Type\BooleanType;
 trait UndecidedBooleanTypeTrait
 {
 
-	public function toBoolean(): BooleanType
-	{
-		return new BooleanType();
-	}
-
+    public function toBoolean(): BooleanType
+    {
+        return new BooleanType();
+    }
 }
