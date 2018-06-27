@@ -6279,7 +6279,7 @@ return [
 'ming_useconstants' => ['void', 'use'=>'int'],
 'ming_useswfversion' => ['void', 'version'=>'int'],
 'mkdir' => ['bool', 'pathname'=>'string', 'mode='=>'int', 'recursive='=>'bool', 'context='=>'resource'],
-'mktime' => ['int', 'hour='=>'int', 'min='=>'int', 'sec='=>'int', 'mon='=>'int', 'day='=>'int', 'year='=>'int'],
+'mktime' => ['int|false', 'hour='=>'int', 'min='=>'int', 'sec='=>'int', 'mon='=>'int', 'day='=>'int', 'year='=>'int'],
 'money_format' => ['string', 'format'=>'string', 'value'=>'float'],
 'Mongo::__get' => ['MongoDB', 'dbname'=>'string'],
 'Mongo::__toString' => ['string'],
