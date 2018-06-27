@@ -1,27 +1,27 @@
 <?php
 
 function (
-	string $str
+    string $str
 ) {
-	(string) $str;
-	(string) new \stdClass();
-	(string) new \Test\ClassWithToString();
+    (string) $str;
+    (string) new \stdClass();
+    (string) new \Test\ClassWithToString();
 
-	(object) new \stdClass();
+    (object) new \stdClass();
 
-	(float) 1.2;
-	(int) $str; // ok
-	(float) $str; // ok
+    (float) 1.2;
+    (int) $str; // ok
+    (float) $str; // ok
 
-	(int) [];
+    (int) [];
 
-	(int) true; // ok
-	(float) true; // ok
-	(int) "123"; // ok
-	(int) "blabla";
+    (int) true; // ok
+    (float) true; // ok
+    (int) "123"; // ok
+    (int) "blabla";
 
-	(int) new \stdClass();
-	(float) new \stdClass();
+    (int) new \stdClass();
+    (float) new \stdClass();
 
-	(string) fopen('php://memory', 'r');
+    (string) fopen('php://memory', 'r');
 };

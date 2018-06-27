@@ -11,182 +11,180 @@ use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
 class IterableType implements StaticResolvableType, CompoundType
 {
 
-	use MaybeCallableTypeTrait;
-	use MaybeObjectTypeTrait;
-	use MaybeOffsetAccessibleTypeTrait;
-	use UndecidedBooleanTypeTrait;
+    use MaybeCallableTypeTrait;
+    use MaybeObjectTypeTrait;
+    use MaybeOffsetAccessibleTypeTrait;
+    use UndecidedBooleanTypeTrait;
 
-	/** @var \PHPStan\Type\Type */
-	private $keyType;
+    /** @var \PHPStan\Type\Type */
+    private $keyType;
 
-	/** @var \PHPStan\Type\Type */
-	private $itemType;
+    /** @var \PHPStan\Type\Type */
+    private $itemType;
 
-	public function __construct(
-		Type $keyType,
-		Type $itemType
-	)
-	{
-		$this->keyType = $keyType;
-		$this->itemType = $itemType;
-	}
+    public function __construct(
+        Type $keyType,
+        Type $itemType
+    ) {
+        $this->keyType = $keyType;
+        $this->itemType = $itemType;
+    }
 
-	public function getItemType(): Type
-	{
-		return $this->itemType;
-	}
+    public function getItemType(): Type
+    {
+        return $this->itemType;
+    }
 
-	/**
-	 * @return string[]
-	 */
-	public function getReferencedClasses(): array
-	{
-		return array_merge(
-			$this->keyType->getReferencedClasses(),
-			$this->getItemType()->getReferencedClasses()
-		);
-	}
+    /**
+     * @return string[]
+     */
+    public function getReferencedClasses(): array
+    {
+        return array_merge(
+            $this->keyType->getReferencedClasses(),
+            $this->getItemType()->getReferencedClasses()
+        );
+    }
 
-	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
-	{
-		if ($type instanceof CompoundType) {
-			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
-		}
+    public function accepts(Type $type, bool $strictTypes): TrinaryLogic
+    {
+        if ($type instanceof CompoundType) {
+            return CompoundTypeHelper::accepts($type, $this, $strictTypes);
+        }
 
-		if ($type->isIterable()->yes()) {
-			return $this->getIterableValueType()->accepts($type->getIterableValueType(), $strictTypes)
-				->and($this->getIterableKeyType()->accepts($type->getIterableKeyType(), $strictTypes));
-		}
+        if ($type->isIterable()->yes()) {
+            return $this->getIterableValueType()->accepts($type->getIterableValueType(), $strictTypes)
+                ->and($this->getIterableKeyType()->accepts($type->getIterableKeyType(), $strictTypes));
+        }
 
-		return TrinaryLogic::createNo();
-	}
+        return TrinaryLogic::createNo();
+    }
 
-	public function isSuperTypeOf(Type $type): TrinaryLogic
-	{
-		return $type->isIterable()
-			->and($this->getIterableValueType()->isSuperTypeOf($type->getIterableValueType()))
-			->and($this->getIterableKeyType()->isSuperTypeOf($type->getIterableKeyType()));
-	}
+    public function isSuperTypeOf(Type $type): TrinaryLogic
+    {
+        return $type->isIterable()
+            ->and($this->getIterableValueType()->isSuperTypeOf($type->getIterableValueType()))
+            ->and($this->getIterableKeyType()->isSuperTypeOf($type->getIterableKeyType()));
+    }
 
-	public function isSubTypeOf(Type $otherType): TrinaryLogic
-	{
-		if ($otherType instanceof IntersectionType || $otherType instanceof UnionType) {
-			return $otherType->isSuperTypeOf(new UnionType([
-				new ArrayType($this->keyType, $this->itemType),
-				new IntersectionType([
-					new ObjectType(\Traversable::class),
-					$this,
-				]),
-			]));
-		}
+    public function isSubTypeOf(Type $otherType): TrinaryLogic
+    {
+        if ($otherType instanceof IntersectionType || $otherType instanceof UnionType) {
+            return $otherType->isSuperTypeOf(new UnionType([
+                new ArrayType($this->keyType, $this->itemType),
+                new IntersectionType([
+                    new ObjectType(\Traversable::class),
+                    $this,
+                ]),
+            ]));
+        }
 
-		if ($otherType instanceof self) {
-			$limit = TrinaryLogic::createYes();
-		} else {
-			$limit = TrinaryLogic::createMaybe();
-		}
+        if ($otherType instanceof self) {
+            $limit = TrinaryLogic::createYes();
+        } else {
+            $limit = TrinaryLogic::createMaybe();
+        }
 
-		return $limit->and(
-			$otherType->isIterable(),
-			$otherType->getIterableValueType()->isSuperTypeOf($this->itemType),
-			$otherType->getIterableKeyType()->isSuperTypeOf($this->keyType)
-		);
-	}
+        return $limit->and(
+            $otherType->isIterable(),
+            $otherType->getIterableValueType()->isSuperTypeOf($this->itemType),
+            $otherType->getIterableKeyType()->isSuperTypeOf($this->keyType)
+        );
+    }
 
-	public function equals(Type $type): bool
-	{
-		if (!$type instanceof self) {
-			return false;
-		}
+    public function equals(Type $type): bool
+    {
+        if (!$type instanceof self) {
+            return false;
+        }
 
-		return $this->keyType->equals($type->keyType)
-			&& $this->itemType->equals($type->itemType);
-	}
+        return $this->keyType->equals($type->keyType)
+            && $this->itemType->equals($type->itemType);
+    }
 
-	public function describe(VerbosityLevel $level): string
-	{
-		if ($this->keyType instanceof MixedType) {
-			if ($this->itemType instanceof MixedType) {
-				return 'iterable';
-			}
+    public function describe(VerbosityLevel $level): string
+    {
+        if ($this->keyType instanceof MixedType) {
+            if ($this->itemType instanceof MixedType) {
+                return 'iterable';
+            }
 
-			return sprintf('iterable<%s>', $this->itemType->describe($level));
-		}
+            return sprintf('iterable<%s>', $this->itemType->describe($level));
+        }
 
-		return sprintf('iterable<%s, %s>', $this->keyType->describe($level), $this->itemType->describe($level));
-	}
+        return sprintf('iterable<%s, %s>', $this->keyType->describe($level), $this->itemType->describe($level));
+    }
 
-	public function toNumber(): Type
-	{
-		return new ErrorType();
-	}
+    public function toNumber(): Type
+    {
+        return new ErrorType();
+    }
 
-	public function toString(): Type
-	{
-		return new ErrorType();
-	}
+    public function toString(): Type
+    {
+        return new ErrorType();
+    }
 
-	public function toInteger(): Type
-	{
-		return new ErrorType();
-	}
+    public function toInteger(): Type
+    {
+        return new ErrorType();
+    }
 
-	public function toFloat(): Type
-	{
-		return new ErrorType();
-	}
+    public function toFloat(): Type
+    {
+        return new ErrorType();
+    }
 
-	public function toArray(): Type
-	{
-		return new ArrayType($this->keyType, $this->getItemType());
-	}
+    public function toArray(): Type
+    {
+        return new ArrayType($this->keyType, $this->getItemType());
+    }
 
-	public function resolveStatic(string $className): Type
-	{
-		if ($this->getItemType() instanceof StaticResolvableType) {
-			return new self(
-				$this->keyType,
-				$this->getItemType()->resolveStatic($className)
-			);
-		}
+    public function resolveStatic(string $className): Type
+    {
+        if ($this->getItemType() instanceof StaticResolvableType) {
+            return new self(
+                $this->keyType,
+                $this->getItemType()->resolveStatic($className)
+            );
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function changeBaseClass(string $className): StaticResolvableType
-	{
-		if ($this->getItemType() instanceof StaticResolvableType) {
-			return new self(
-				$this->keyType,
-				$this->getItemType()->changeBaseClass($className)
-			);
-		}
+    public function changeBaseClass(string $className): StaticResolvableType
+    {
+        if ($this->getItemType() instanceof StaticResolvableType) {
+            return new self(
+                $this->keyType,
+                $this->getItemType()->changeBaseClass($className)
+            );
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function isIterable(): TrinaryLogic
-	{
-		return TrinaryLogic::createYes();
-	}
+    public function isIterable(): TrinaryLogic
+    {
+        return TrinaryLogic::createYes();
+    }
 
-	public function getIterableKeyType(): Type
-	{
-		return $this->keyType;
-	}
+    public function getIterableKeyType(): Type
+    {
+        return $this->keyType;
+    }
 
-	public function getIterableValueType(): Type
-	{
-		return $this->getItemType();
-	}
+    public function getIterableValueType(): Type
+    {
+        return $this->getItemType();
+    }
 
-	/**
-	 * @param mixed[] $properties
-	 * @return Type
-	 */
-	public static function __set_state(array $properties): Type
-	{
-		return new self($properties['keyType'], $properties['itemType']);
-	}
-
+    /**
+     * @param mixed[] $properties
+     * @return Type
+     */
+    public static function __set_state(array $properties): Type
+    {
+        return new self($properties['keyType'], $properties['itemType']);
+    }
 }

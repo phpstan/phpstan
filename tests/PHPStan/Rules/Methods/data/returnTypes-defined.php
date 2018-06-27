@@ -5,14 +5,13 @@ namespace ReturnTypes;
 class FooParent
 {
 
-	/**
-	 * @return static
-	 */
-	public function returnStatic(): self
-	{
-		return $this;
-	}
-
+    /**
+     * @return static
+     */
+    public function returnStatic(): self
+    {
+        return $this;
+    }
 }
 
 interface FooInterface

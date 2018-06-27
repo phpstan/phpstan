@@ -39,247 +39,237 @@ use PHPStan\Type\VoidType;
 class TypeNodeResolver
 {
 
-	public function resolve(TypeNode $typeNode, NameScope $nameScope): Type
-	{
-		if ($typeNode instanceof IdentifierTypeNode) {
-			return $this->resolveIdentifierTypeNode($typeNode, $nameScope);
+    public function resolve(TypeNode $typeNode, NameScope $nameScope): Type
+    {
+        if ($typeNode instanceof IdentifierTypeNode) {
+            return $this->resolveIdentifierTypeNode($typeNode, $nameScope);
+        } elseif ($typeNode instanceof ThisTypeNode) {
+            return $this->resolveThisTypeNode($typeNode, $nameScope);
+        } elseif ($typeNode instanceof NullableTypeNode) {
+            return $this->resolveNullableTypeNode($typeNode, $nameScope);
+        } elseif ($typeNode instanceof UnionTypeNode) {
+            return $this->resolveUnionTypeNode($typeNode, $nameScope);
+        } elseif ($typeNode instanceof IntersectionTypeNode) {
+            return $this->resolveIntersectionTypeNode($typeNode, $nameScope);
+        } elseif ($typeNode instanceof ArrayTypeNode) {
+            return $this->resolveArrayTypeNode($typeNode, $nameScope);
+        } elseif ($typeNode instanceof GenericTypeNode) {
+            return $this->resolveGenericTypeNode($typeNode, $nameScope);
+        }
 
-		} elseif ($typeNode instanceof ThisTypeNode) {
-			return $this->resolveThisTypeNode($typeNode, $nameScope);
+        return new ErrorType();
+    }
 
-		} elseif ($typeNode instanceof NullableTypeNode) {
-			return $this->resolveNullableTypeNode($typeNode, $nameScope);
+    private function resolveIdentifierTypeNode(IdentifierTypeNode $typeNode, NameScope $nameScope): Type
+    {
+        switch (strtolower($typeNode->name)) {
+            case 'int':
+            case 'integer':
+                return new IntegerType();
 
-		} elseif ($typeNode instanceof UnionTypeNode) {
-			return $this->resolveUnionTypeNode($typeNode, $nameScope);
+            case 'string':
+                return new StringType();
 
-		} elseif ($typeNode instanceof IntersectionTypeNode) {
-			return $this->resolveIntersectionTypeNode($typeNode, $nameScope);
+            case 'bool':
+            case 'boolean':
+                return new BooleanType();
 
-		} elseif ($typeNode instanceof ArrayTypeNode) {
-			return $this->resolveArrayTypeNode($typeNode, $nameScope);
+            case 'true':
+                return new ConstantBooleanType(true);
 
-		} elseif ($typeNode instanceof GenericTypeNode) {
-			return $this->resolveGenericTypeNode($typeNode, $nameScope);
-		}
+            case 'false':
+                return new ConstantBooleanType(false);
 
-		return new ErrorType();
-	}
+            case 'null':
+                return new NullType();
 
-	private function resolveIdentifierTypeNode(IdentifierTypeNode $typeNode, NameScope $nameScope): Type
-	{
-		switch (strtolower($typeNode->name)) {
-			case 'int':
-			case 'integer':
-				return new IntegerType();
+            case 'float':
+            case 'double':
+                return new FloatType();
 
-			case 'string':
-				return new StringType();
+            case 'array':
+                return new ArrayType(new MixedType(true), new MixedType(true));
 
-			case 'bool':
-			case 'boolean':
-				return new BooleanType();
+            case 'scalar':
+                return new UnionType([
+                    new IntegerType(),
+                    new FloatType(),
+                    new StringType(),
+                    new BooleanType(),
+                ]);
 
-			case 'true':
-				return new ConstantBooleanType(true);
+            case 'number':
+                return new UnionType([
+                    new IntegerType(),
+                    new FloatType(),
+                ]);
 
-			case 'false':
-				return new ConstantBooleanType(false);
+            case 'iterable':
+                return new IterableType(new MixedType(true), new MixedType(true));
 
-			case 'null':
-				return new NullType();
+            case 'callable':
+                return new CallableType();
 
-			case 'float':
-			case 'double':
-				return new FloatType();
+            case 'resource':
+                return new ResourceType();
 
-			case 'array':
-				return new ArrayType(new MixedType(true), new MixedType(true));
+            case 'mixed':
+                return new MixedType(true);
 
-			case 'scalar':
-				return new UnionType([
-					new IntegerType(),
-					new FloatType(),
-					new StringType(),
-					new BooleanType(),
-				]);
+            case 'void':
+                return new VoidType();
 
-			case 'number':
-				return new UnionType([
-					new IntegerType(),
-					new FloatType(),
-				]);
+            case 'object':
+                return new ObjectWithoutClassType();
+        }
 
-			case 'iterable':
-				return new IterableType(new MixedType(true), new MixedType(true));
+        if ($nameScope->getClassName() !== null) {
+            switch (strtolower($typeNode->name)) {
+                case 'self':
+                    return new ObjectType($nameScope->getClassName());
 
-			case 'callable':
-				return new CallableType();
+                case 'static':
+                    return new StaticType($nameScope->getClassName());
 
-			case 'resource':
-				return new ResourceType();
+                case 'parent':
+                    $broker = Broker::getInstance();
+                    if ($broker->hasClass($nameScope->getClassName())) {
+                        $classReflection = $broker->getClass($nameScope->getClassName());
+                        if ($classReflection->getParentClass() !== false) {
+                            return new ObjectType($classReflection->getParentClass()->getName());
+                        }
+                    }
 
-			case 'mixed':
-				return new MixedType(true);
+                    return new NonexistentParentClassType();
+            }
+        }
 
-			case 'void':
-				return new VoidType();
+        return new ObjectType($nameScope->resolveStringName($typeNode->name));
+    }
 
-			case 'object':
-				return new ObjectWithoutClassType();
-		}
+    private function resolveThisTypeNode(ThisTypeNode $typeNode, NameScope $nameScope): Type
+    {
+        if ($nameScope->getClassName() !== null) {
+            return new ThisType($nameScope->getClassName());
+        }
 
-		if ($nameScope->getClassName() !== null) {
-			switch (strtolower($typeNode->name)) {
-				case 'self':
-					return new ObjectType($nameScope->getClassName());
+        return new ErrorType();
+    }
 
-				case 'static':
-					return new StaticType($nameScope->getClassName());
+    private function resolveNullableTypeNode(NullableTypeNode $typeNode, NameScope $nameScope): Type
+    {
+        return TypeCombinator::addNull($this->resolve($typeNode->type, $nameScope));
+    }
 
-				case 'parent':
-					$broker = Broker::getInstance();
-					if ($broker->hasClass($nameScope->getClassName())) {
-						$classReflection = $broker->getClass($nameScope->getClassName());
-						if ($classReflection->getParentClass() !== false) {
-							return new ObjectType($classReflection->getParentClass()->getName());
-						}
-					}
+    private function resolveUnionTypeNode(UnionTypeNode $typeNode, NameScope $nameScope): Type
+    {
+        $iterableTypeNodes = [];
+        $otherTypeNodes = [];
 
-					return new NonexistentParentClassType();
-			}
-		}
+        foreach ($typeNode->types as $innerTypeNode) {
+            if ($innerTypeNode instanceof ArrayTypeNode) {
+                $iterableTypeNodes[] = $innerTypeNode->type;
+            } else {
+                $otherTypeNodes[] = $innerTypeNode;
+            }
+        }
 
-		return new ObjectType($nameScope->resolveStringName($typeNode->name));
-	}
+        $otherTypeTypes = $this->resolveMultiple($otherTypeNodes, $nameScope);
 
-	private function resolveThisTypeNode(ThisTypeNode $typeNode, NameScope $nameScope): Type
-	{
-		if ($nameScope->getClassName() !== null) {
-			return new ThisType($nameScope->getClassName());
-		}
+        if (count($otherTypeTypes) === 2) {
+            static $mockClassNames = [
+                'PHPUnit_Framework_MockObject_MockObject' => true,
+                'PHPUnit\Framework\MockObject\MockObject' => true,
+            ];
 
-		return new ErrorType();
-	}
+            foreach ($otherTypeTypes as $otherType) {
+                if ($otherType instanceof TypeWithClassName && isset($mockClassNames[$otherType->getClassName()])) {
+                    return TypeCombinator::intersect(...$otherTypeTypes);
+                }
+            }
+        }
 
-	private function resolveNullableTypeNode(NullableTypeNode $typeNode, NameScope $nameScope): Type
-	{
-		return TypeCombinator::addNull($this->resolve($typeNode->type, $nameScope));
-	}
+        if (count($iterableTypeNodes) > 0) {
+            $arrayTypeTypes = $this->resolveMultiple($iterableTypeNodes, $nameScope);
+            $arrayTypeType = TypeCombinator::union(...$arrayTypeTypes);
+            $addArray = true;
 
-	private function resolveUnionTypeNode(UnionTypeNode $typeNode, NameScope $nameScope): Type
-	{
-		$iterableTypeNodes = [];
-		$otherTypeNodes = [];
+            foreach ($otherTypeTypes as &$type) {
+                if (!$type->isIterable()->yes() || !$type->getIterableValueType()->isSuperTypeOf($arrayTypeType)->yes()) {
+                    continue;
+                }
 
-		foreach ($typeNode->types as $innerTypeNode) {
-			if ($innerTypeNode instanceof ArrayTypeNode) {
-				$iterableTypeNodes[] = $innerTypeNode->type;
-			} else {
-				$otherTypeNodes[] = $innerTypeNode;
-			}
-		}
+                if ($type instanceof ObjectType) {
+                    $type = new IntersectionType([$type, new IterableType(new MixedType(), $arrayTypeType)]);
+                } elseif ($type instanceof ArrayType) {
+                    $type = new ArrayType(new MixedType(), $arrayTypeType);
+                } elseif ($type instanceof IterableType) {
+                    $type = new IterableType(new MixedType(), $arrayTypeType);
+                } else {
+                    continue;
+                }
 
-		$otherTypeTypes = $this->resolveMultiple($otherTypeNodes, $nameScope);
+                $addArray = false;
+            }
 
-		if (count($otherTypeTypes) === 2) {
-			static $mockClassNames = [
-				'PHPUnit_Framework_MockObject_MockObject' => true,
-				'PHPUnit\Framework\MockObject\MockObject' => true,
-			];
+            if ($addArray) {
+                $otherTypeTypes[] = new ArrayType(new MixedType(), $arrayTypeType);
+            }
+        }
 
-			foreach ($otherTypeTypes as $otherType) {
-				if ($otherType instanceof TypeWithClassName && isset($mockClassNames[$otherType->getClassName()])) {
-					return TypeCombinator::intersect(...$otherTypeTypes);
-				}
-			}
-		}
+        return TypeCombinator::union(...$otherTypeTypes);
+    }
 
-		if (count($iterableTypeNodes) > 0) {
-			$arrayTypeTypes = $this->resolveMultiple($iterableTypeNodes, $nameScope);
-			$arrayTypeType = TypeCombinator::union(...$arrayTypeTypes);
-			$addArray = true;
+    private function resolveIntersectionTypeNode(IntersectionTypeNode $typeNode, NameScope $nameScope): Type
+    {
+        $types = $this->resolveMultiple($typeNode->types, $nameScope);
+        return TypeCombinator::intersect(...$types);
+    }
 
-			foreach ($otherTypeTypes as &$type) {
-				if (!$type->isIterable()->yes() || !$type->getIterableValueType()->isSuperTypeOf($arrayTypeType)->yes()) {
-					continue;
-				}
+    private function resolveArrayTypeNode(ArrayTypeNode $typeNode, NameScope $nameScope): Type
+    {
+        $itemType = $this->resolve($typeNode->type, $nameScope);
+        return new ArrayType(new MixedType(), $itemType);
+    }
 
-				if ($type instanceof ObjectType) {
-					$type = new IntersectionType([$type, new IterableType(new MixedType(), $arrayTypeType)]);
-				} elseif ($type instanceof ArrayType) {
-					$type = new ArrayType(new MixedType(), $arrayTypeType);
-				} elseif ($type instanceof IterableType) {
-					$type = new IterableType(new MixedType(), $arrayTypeType);
-				} else {
-					continue;
-				}
+    private function resolveGenericTypeNode(GenericTypeNode $typeNode, NameScope $nameScope): Type
+    {
+        $mainType = strtolower($typeNode->type->name);
+        $genericTypes = $this->resolveMultiple($typeNode->genericTypes, $nameScope);
 
-				$addArray = false;
-			}
+        if ($mainType === 'array') {
+            if (count($genericTypes) === 1) { // array<ValueType>
+                return new ArrayType(new MixedType(true), $genericTypes[0]);
+            }
 
-			if ($addArray) {
-				$otherTypeTypes[] = new ArrayType(new MixedType(), $arrayTypeType);
-			}
-		}
+            if (count($genericTypes) === 2) { // array<KeyType, ValueType>
+                return new ArrayType($genericTypes[0], $genericTypes[1]);
+            }
+        } elseif ($mainType === 'iterable') {
+            if (count($genericTypes) === 1) { // iterable<ValueType>
+                return new IterableType(new MixedType(true), $genericTypes[0]);
+            }
 
-		return TypeCombinator::union(...$otherTypeTypes);
-	}
+            if (count($genericTypes) === 2) { // iterable<KeyType, ValueType>
+                return new IterableType($genericTypes[0], $genericTypes[1]);
+            }
+        }
 
-	private function resolveIntersectionTypeNode(IntersectionTypeNode $typeNode, NameScope $nameScope): Type
-	{
-		$types = $this->resolveMultiple($typeNode->types, $nameScope);
-		return TypeCombinator::intersect(...$types);
-	}
+        return new ErrorType();
+    }
 
-	private function resolveArrayTypeNode(ArrayTypeNode $typeNode, NameScope $nameScope): Type
-	{
-		$itemType = $this->resolve($typeNode->type, $nameScope);
-		return new ArrayType(new MixedType(), $itemType);
-	}
+    /**
+     * @param TypeNode[] $typeNodes
+     * @param NameScope $nameScope
+     * @return Type[]
+     */
+    private function resolveMultiple(array $typeNodes, NameScope $nameScope): array
+    {
+        $types = [];
+        foreach ($typeNodes as $typeNode) {
+            $types[] = $this->resolve($typeNode, $nameScope);
+        }
 
-	private function resolveGenericTypeNode(GenericTypeNode $typeNode, NameScope $nameScope): Type
-	{
-		$mainType = strtolower($typeNode->type->name);
-		$genericTypes = $this->resolveMultiple($typeNode->genericTypes, $nameScope);
-
-		if ($mainType === 'array') {
-			if (count($genericTypes) === 1) { // array<ValueType>
-				return new ArrayType(new MixedType(true), $genericTypes[0]);
-
-			}
-
-			if (count($genericTypes) === 2) { // array<KeyType, ValueType>
-				return new ArrayType($genericTypes[0], $genericTypes[1]);
-			}
-
-		} elseif ($mainType === 'iterable') {
-			if (count($genericTypes) === 1) { // iterable<ValueType>
-				return new IterableType(new MixedType(true), $genericTypes[0]);
-
-			}
-
-			if (count($genericTypes) === 2) { // iterable<KeyType, ValueType>
-				return new IterableType($genericTypes[0], $genericTypes[1]);
-			}
-		}
-
-		return new ErrorType();
-	}
-
-	/**
-	 * @param TypeNode[] $typeNodes
-	 * @param NameScope $nameScope
-	 * @return Type[]
-	 */
-	private function resolveMultiple(array $typeNodes, NameScope $nameScope): array
-	{
-		$types = [];
-		foreach ($typeNodes as $typeNode) {
-			$types[] = $this->resolve($typeNode, $nameScope);
-		}
-
-		return $types;
-	}
-
+        return $types;
+    }
 }

@@ -9,18 +9,17 @@ use PHPStan\TrinaryLogic;
 trait MaybeCallableTypeTrait
 {
 
-	public function isCallable(): TrinaryLogic
-	{
-		return TrinaryLogic::createMaybe();
-	}
+    public function isCallable(): TrinaryLogic
+    {
+        return TrinaryLogic::createMaybe();
+    }
 
-	/**
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return \PHPStan\Reflection\ParametersAcceptor[]
-	 */
-	public function getCallableParametersAcceptors(Scope $scope): array
-	{
-		return [new TrivialParametersAcceptor()];
-	}
-
+    /**
+     * @param \PHPStan\Analyser\Scope $scope
+     * @return \PHPStan\Reflection\ParametersAcceptor[]
+     */
+    public function getCallableParametersAcceptors(Scope $scope): array
+    {
+        return [new TrivialParametersAcceptor()];
+    }
 }

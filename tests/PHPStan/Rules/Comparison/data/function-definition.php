@@ -2,5 +2,5 @@
 
 function always_true()
 {
-	return true;
+    return true;
 };

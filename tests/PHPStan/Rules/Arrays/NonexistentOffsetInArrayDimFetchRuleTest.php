@@ -7,49 +7,48 @@ use PHPStan\Rules\RuleLevelHelper;
 class NonexistentOffsetInArrayDimFetchRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
-	protected function getRule(): \PHPStan\Rules\Rule
-	{
-		return new NonexistentOffsetInArrayDimFetchRule(
-			new RuleLevelHelper($this->createBroker(), true, false, true)
-		);
-	}
+    protected function getRule(): \PHPStan\Rules\Rule
+    {
+        return new NonexistentOffsetInArrayDimFetchRule(
+            new RuleLevelHelper($this->createBroker(), true, false, true)
+        );
+    }
 
-	public function testRule(): void
-	{
-		$this->analyse([__DIR__ . '/data/nonexistent-offset.php'], [
-			[
-				'Offset \'b\' does not exist on array(\'a\' => stdClass, 0 => 2).',
-				17,
-			],
-			[
-				'Offset 1 does not exist on array(\'a\' => stdClass, 0 => 2).',
-				18,
-			],
-			[
-				'Offset \'a\' does not exist on array(\'b\' => 1).',
-				55,
-			],
-			[
-				'Access to offset \'bar\' on an unknown class NonexistentOffset\Bar.',
-				101,
-			],
-			[
-				'Access to an offset on an unknown class NonexistentOffset\Bar.',
-				102,
-			],
-			[
-				'Offset 0 does not exist on array<string, string>.',
-				111,
-			],
-			[
-				'Offset \'0\' does not exist on array<string, string>.',
-				112,
-			],
-			[
-				'Offset int does not exist on array<string, string>.',
-				114,
-			],
-		]);
-	}
-
+    public function testRule(): void
+    {
+        $this->analyse([__DIR__ . '/data/nonexistent-offset.php'], [
+            [
+                'Offset \'b\' does not exist on array(\'a\' => stdClass, 0 => 2).',
+                17,
+            ],
+            [
+                'Offset 1 does not exist on array(\'a\' => stdClass, 0 => 2).',
+                18,
+            ],
+            [
+                'Offset \'a\' does not exist on array(\'b\' => 1).',
+                55,
+            ],
+            [
+                'Access to offset \'bar\' on an unknown class NonexistentOffset\Bar.',
+                101,
+            ],
+            [
+                'Access to an offset on an unknown class NonexistentOffset\Bar.',
+                102,
+            ],
+            [
+                'Offset 0 does not exist on array<string, string>.',
+                111,
+            ],
+            [
+                'Offset \'0\' does not exist on array<string, string>.',
+                112,
+            ],
+            [
+                'Offset int does not exist on array<string, string>.',
+                114,
+            ],
+        ]);
+    }
 }

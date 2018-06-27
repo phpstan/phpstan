@@ -5,97 +5,96 @@ namespace VarAnnotations;
 class Foo
 {
 
-	public function doFoo()
-	{
-		/** @var int $integer */
-		$integer = getFoo();
+    public function doFoo()
+    {
+        /** @var int $integer */
+        $integer = getFoo();
 
-		/** @var bool $boolean */
-		$boolean = getFoo();
+        /** @var bool $boolean */
+        $boolean = getFoo();
 
-		/** @var string $string */
-		$string = getFoo();
+        /** @var string $string */
+        $string = getFoo();
 
-		/** @var float $float */
-		$float = getFoo();
+        /** @var float $float */
+        $float = getFoo();
 
-		/** @var Lorem $loremObject */
-		$loremObject = getFoo();
+        /** @var Lorem $loremObject */
+        $loremObject = getFoo();
 
-		/** @var \AnotherNamespace\Bar $barObject */
-		$barObject = getFoo();
+        /** @var \AnotherNamespace\Bar $barObject */
+        $barObject = getFoo();
 
-		/** @var mixed $mixed */
-		$mixed = getFoo();
+        /** @var mixed $mixed */
+        $mixed = getFoo();
 
-		/** @var array $array */
-		$array = getFoo();
+        /** @var array $array */
+        $array = getFoo();
 
-		/** @var bool|null $isNullable */
-		$isNullable = getFoo();
+        /** @var bool|null $isNullable */
+        $isNullable = getFoo();
 
-		/** @var callable $callable */
-		$callable = getFoo();
+        /** @var callable $callable */
+        $callable = getFoo();
 
-		/** @var self $self */
-		$self = getFoo();
+        /** @var self $self */
+        $self = getFoo();
 
-		/** @var int $invalidInt */
-		$invalidInteger = $this->getFloat();
+        /** @var int $invalidInt */
+        $invalidInteger = $this->getFloat();
 
-		/** @var static $static */
-		$static = getFoo();
+        /** @var static $static */
+        $static = getFoo();
 
-		die;
-	}
+        die;
+    }
 
-	public function doFooBar()
-	{
-		/** @var int */
-		$integer = getFoo();
+    public function doFooBar()
+    {
+        /** @var int */
+        $integer = getFoo();
 
-		/** @var bool */
-		$boolean = getFoo();
+        /** @var bool */
+        $boolean = getFoo();
 
-		/** @var string */
-		$string = getFoo();
+        /** @var string */
+        $string = getFoo();
 
-		/** @var float */
-		$float = getFoo();
+        /** @var float */
+        $float = getFoo();
 
-		/** @var Lorem */
-		$loremObject = getFoo();
+        /** @var Lorem */
+        $loremObject = getFoo();
 
-		/** @var \AnotherNamespace\Bar */
-		$barObject = getFoo();
+        /** @var \AnotherNamespace\Bar */
+        $barObject = getFoo();
 
-		/** @var mixed */
-		$mixed = getFoo();
+        /** @var mixed */
+        $mixed = getFoo();
 
-		/** @var array */
-		$array = getFoo();
+        /** @var array */
+        $array = getFoo();
 
-		/** @var bool|null */
-		$isNullable = getFoo();
+        /** @var bool|null */
+        $isNullable = getFoo();
 
-		/** @var callable */
-		$callable = getFoo();
+        /** @var callable */
+        $callable = getFoo();
 
-		/** @var self */
-		$self = getFoo();
+        /** @var self */
+        $self = getFoo();
 
-		/** @var float */
-		$invalidInteger = 1.0;
+        /** @var float */
+        $invalidInteger = 1.0;
 
-		/** @var static */
-		$static = getFoo();
+        /** @var static */
+        $static = getFoo();
 
-		die;
-	}
+        die;
+    }
 
-	public function getFloat(): float
-	{
-		return 1.0;
-	}
-
+    public function getFloat(): float
+    {
+        return 1.0;
+    }
 }

@@ -11,85 +11,84 @@ use PHPStan\Type\TypehintHelper;
 class PhpParameterReflection implements ParameterReflection
 {
 
-	/** @var \ReflectionParameter */
-	private $reflection;
+    /** @var \ReflectionParameter */
+    private $reflection;
 
-	/** @var \PHPStan\Type\Type|null */
-	private $phpDocType = null;
+    /** @var \PHPStan\Type\Type|null */
+    private $phpDocType = null;
 
-	/** @var \PHPStan\Type\Type */
-	private $type;
+    /** @var \PHPStan\Type\Type */
+    private $type;
 
-	/** @var \PHPStan\Type\Type */
-	private $nativeType;
+    /** @var \PHPStan\Type\Type */
+    private $nativeType;
 
-	public function __construct(\ReflectionParameter $reflection, ?Type $phpDocType)
-	{
-		$this->reflection = $reflection;
-		$this->phpDocType = $phpDocType;
-	}
+    public function __construct(\ReflectionParameter $reflection, ?Type $phpDocType)
+    {
+        $this->reflection = $reflection;
+        $this->phpDocType = $phpDocType;
+    }
 
-	public function isOptional(): bool
-	{
-		return $this->reflection->isOptional();
-	}
+    public function isOptional(): bool
+    {
+        return $this->reflection->isOptional();
+    }
 
-	public function getName(): string
-	{
-		return $this->reflection->getName();
-	}
+    public function getName(): string
+    {
+        return $this->reflection->getName();
+    }
 
-	public function getType(): Type
-	{
-		if ($this->type === null) {
-			$phpDocType = $this->phpDocType;
-			if ($phpDocType !== null && $this->reflection->isDefaultValueAvailable() && $this->reflection->getDefaultValue() === null) {
-				$phpDocType = \PHPStan\Type\TypeCombinator::addNull($phpDocType);
-			}
-			$this->type = TypehintHelper::decideTypeFromReflection(
-				$this->reflection->getType(),
-				$phpDocType,
-				$this->reflection->getDeclaringClass() !== null ? $this->reflection->getDeclaringClass()->getName() : null,
-				$this->isVariadic()
-			);
-		}
+    public function getType(): Type
+    {
+        if ($this->type === null) {
+            $phpDocType = $this->phpDocType;
+            if ($phpDocType !== null && $this->reflection->isDefaultValueAvailable() && $this->reflection->getDefaultValue() === null) {
+                $phpDocType = \PHPStan\Type\TypeCombinator::addNull($phpDocType);
+            }
+            $this->type = TypehintHelper::decideTypeFromReflection(
+                $this->reflection->getType(),
+                $phpDocType,
+                $this->reflection->getDeclaringClass() !== null ? $this->reflection->getDeclaringClass()->getName() : null,
+                $this->isVariadic()
+            );
+        }
 
-		return $this->type;
-	}
+        return $this->type;
+    }
 
-	public function passedByReference(): PassedByReference
-	{
-		return $this->reflection->isPassedByReference()
-			? PassedByReference::createCreatesNewVariable()
-			: PassedByReference::createNo();
-	}
+    public function passedByReference(): PassedByReference
+    {
+        return $this->reflection->isPassedByReference()
+            ? PassedByReference::createCreatesNewVariable()
+            : PassedByReference::createNo();
+    }
 
-	public function isVariadic(): bool
-	{
-		return $this->reflection->isVariadic();
-	}
+    public function isVariadic(): bool
+    {
+        return $this->reflection->isVariadic();
+    }
 
-	public function getPhpDocType(): Type
-	{
-		if ($this->phpDocType !== null) {
-			return $this->phpDocType;
-		}
+    public function getPhpDocType(): Type
+    {
+        if ($this->phpDocType !== null) {
+            return $this->phpDocType;
+        }
 
-		return new MixedType();
-	}
+        return new MixedType();
+    }
 
-	public function getNativeType(): Type
-	{
-		if ($this->nativeType === null) {
-			$this->nativeType = TypehintHelper::decideTypeFromReflection(
-				$this->reflection->getType(),
-				null,
-				$this->reflection->getDeclaringClass() !== null ? $this->reflection->getDeclaringClass()->getName() : null,
-				$this->isVariadic()
-			);
-		}
+    public function getNativeType(): Type
+    {
+        if ($this->nativeType === null) {
+            $this->nativeType = TypehintHelper::decideTypeFromReflection(
+                $this->reflection->getType(),
+                null,
+                $this->reflection->getDeclaringClass() !== null ? $this->reflection->getDeclaringClass()->getName() : null,
+                $this->isVariadic()
+            );
+        }
 
-		return $this->nativeType;
-	}
-
+        return $this->nativeType;
+    }
 }

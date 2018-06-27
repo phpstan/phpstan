@@ -11,41 +11,40 @@ use PHPStan\Type\Type;
 class DummyPropertyReflection implements PropertyReflection
 {
 
-	public function getDeclaringClass(): ClassReflection
-	{
-		$broker = Broker::getInstance();
+    public function getDeclaringClass(): ClassReflection
+    {
+        $broker = Broker::getInstance();
 
-		return $broker->getClass(\stdClass::class);
-	}
+        return $broker->getClass(\stdClass::class);
+    }
 
-	public function isStatic(): bool
-	{
-		return false;
-	}
+    public function isStatic(): bool
+    {
+        return false;
+    }
 
-	public function isPrivate(): bool
-	{
-		return false;
-	}
+    public function isPrivate(): bool
+    {
+        return false;
+    }
 
-	public function isPublic(): bool
-	{
-		return true;
-	}
+    public function isPublic(): bool
+    {
+        return true;
+    }
 
-	public function getType(): Type
-	{
-		return new MixedType();
-	}
+    public function getType(): Type
+    {
+        return new MixedType();
+    }
 
-	public function isReadable(): bool
-	{
-		return true;
-	}
+    public function isReadable(): bool
+    {
+        return true;
+    }
 
-	public function isWritable(): bool
-	{
-		return true;
-	}
-
+    public function isWritable(): bool
+    {
+        return true;
+    }
 }

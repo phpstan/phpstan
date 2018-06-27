@@ -8,22 +8,21 @@ use PHPStan\Type\Type;
 class TrivialParametersAcceptor implements ParametersAcceptor
 {
 
-	/**
-	 * @return array<int, \PHPStan\Reflection\ParameterReflection>
-	 */
-	public function getParameters(): array
-	{
-		return [];
-	}
+    /**
+     * @return array<int, \PHPStan\Reflection\ParameterReflection>
+     */
+    public function getParameters(): array
+    {
+        return [];
+    }
 
-	public function isVariadic(): bool
-	{
-		return true;
-	}
+    public function isVariadic(): bool
+    {
+        return true;
+    }
 
-	public function getReturnType(): Type
-	{
-		return new MixedType();
-	}
-
+    public function getReturnType(): Type
+    {
+        return new MixedType();
+    }
 }

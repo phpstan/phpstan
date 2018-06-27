@@ -13,29 +13,28 @@ use PHPStan\Type\TypeUtils;
 class ArrayPopFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
 
-	public function isFunctionSupported(FunctionReflection $functionReflection): bool
-	{
-		return $functionReflection->getName() === 'array_pop';
-	}
+    public function isFunctionSupported(FunctionReflection $functionReflection): bool
+    {
+        return $functionReflection->getName() === 'array_pop';
+    }
 
-	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
-	{
-		if (!isset($functionCall->args[0])) {
-			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
-		}
+    public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
+    {
+        if (!isset($functionCall->args[0])) {
+            return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+        }
 
-		$argType = $scope->getType($functionCall->args[0]->value);
-		$arrayTypes = TypeUtils::getArrays($argType);
-		if (count($arrayTypes) > 0) {
-			$resultTypes = [];
-			foreach ($arrayTypes as $arrayType) {
-				$resultTypes[] = $arrayType->getLastValueType();
-			}
+        $argType = $scope->getType($functionCall->args[0]->value);
+        $arrayTypes = TypeUtils::getArrays($argType);
+        if (count($arrayTypes) > 0) {
+            $resultTypes = [];
+            foreach ($arrayTypes as $arrayType) {
+                $resultTypes[] = $arrayType->getLastValueType();
+            }
 
-			return TypeCombinator::union(...$resultTypes);
-		}
+            return TypeCombinator::union(...$resultTypes);
+        }
 
-		return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
-	}
-
+        return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+    }
 }

@@ -5,6 +5,5 @@ namespace PHPStan\Type;
 interface TypeWithClassName extends Type
 {
 
-	public function getClassName(): string;
-
+    public function getClassName(): string;
 }

@@ -5,9 +5,7 @@ namespace DuplicateMethod;
 trait LessonSubtraitOne
 {
 
-	public function doFoo(): bool
-	{
-
-	}
-
+    public function doFoo(): bool
+    {
+    }
 }

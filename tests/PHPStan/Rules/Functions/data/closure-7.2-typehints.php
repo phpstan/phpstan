@@ -2,7 +2,5 @@
 
 namespace TestClosureFunctionTypehintsPhp72;
 
-function (object $foo): object
-{
-
+function (object $foo): object {
 };

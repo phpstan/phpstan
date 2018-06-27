@@ -7,7 +7,6 @@ namespace UnionIterableTypeIssue;
  */
 function foo($var)
 {
-
 }
 
 /**
@@ -15,5 +14,5 @@ function foo($var)
  */
 function bar($var)
 {
-	foo($var);
+    foo($var);
 }

@@ -5,10 +5,9 @@ namespace TypesNamespaceCastUnset;
 class Foo
 {
 
-	public function doFoo()
-	{
-		$castedNull = (unset) foo();
-		die;
-	}
-
+    public function doFoo()
+    {
+        $castedNull = (unset) foo();
+        die;
+    }
 }

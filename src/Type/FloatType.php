@@ -14,95 +14,94 @@ use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
 class FloatType implements Type
 {
 
-	use NonCallableTypeTrait;
-	use NonIterableTypeTrait;
-	use NonObjectTypeTrait;
-	use NonOffsetAccessibleTypeTrait;
-	use UndecidedBooleanTypeTrait;
+    use NonCallableTypeTrait;
+    use NonIterableTypeTrait;
+    use NonObjectTypeTrait;
+    use NonOffsetAccessibleTypeTrait;
+    use UndecidedBooleanTypeTrait;
 
-	/**
-	 * @return string[]
-	 */
-	public function getReferencedClasses(): array
-	{
-		return [];
-	}
+    /**
+     * @return string[]
+     */
+    public function getReferencedClasses(): array
+    {
+        return [];
+    }
 
-	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
-	{
-		if ($type instanceof self || $type instanceof IntegerType) {
-			return TrinaryLogic::createYes();
-		}
+    public function accepts(Type $type, bool $strictTypes): TrinaryLogic
+    {
+        if ($type instanceof self || $type instanceof IntegerType) {
+            return TrinaryLogic::createYes();
+        }
 
-		if ($type instanceof CompoundType) {
-			return CompoundTypeHelper::accepts($type, new UnionType([
-				$this,
-				new IntegerType(),
-			]), $strictTypes);
-		}
+        if ($type instanceof CompoundType) {
+            return CompoundTypeHelper::accepts($type, new UnionType([
+                $this,
+                new IntegerType(),
+            ]), $strictTypes);
+        }
 
-		return TrinaryLogic::createNo();
-	}
+        return TrinaryLogic::createNo();
+    }
 
-	public function isSuperTypeOf(Type $type): TrinaryLogic
-	{
-		if ($type instanceof self) {
-			return TrinaryLogic::createYes();
-		}
+    public function isSuperTypeOf(Type $type): TrinaryLogic
+    {
+        if ($type instanceof self) {
+            return TrinaryLogic::createYes();
+        }
 
-		if ($type instanceof CompoundType) {
-			return $type->isSubTypeOf($this);
-		}
+        if ($type instanceof CompoundType) {
+            return $type->isSubTypeOf($this);
+        }
 
-		return TrinaryLogic::createNo();
-	}
+        return TrinaryLogic::createNo();
+    }
 
-	public function equals(Type $type): bool
-	{
-		return $type instanceof self;
-	}
+    public function equals(Type $type): bool
+    {
+        return $type instanceof self;
+    }
 
-	public function describe(VerbosityLevel $level): string
-	{
-		return 'float';
-	}
+    public function describe(VerbosityLevel $level): string
+    {
+        return 'float';
+    }
 
-	public function toNumber(): Type
-	{
-		return $this;
-	}
+    public function toNumber(): Type
+    {
+        return $this;
+    }
 
-	public function toFloat(): Type
-	{
-		return $this;
-	}
+    public function toFloat(): Type
+    {
+        return $this;
+    }
 
-	public function toInteger(): Type
-	{
-		return new IntegerType();
-	}
+    public function toInteger(): Type
+    {
+        return new IntegerType();
+    }
 
-	public function toString(): Type
-	{
-		return new StringType();
-	}
+    public function toString(): Type
+    {
+        return new StringType();
+    }
 
-	public function toArray(): Type
-	{
-		return new ConstantArrayType(
-			[new ConstantIntegerType(0)],
-			[$this],
-			1
-		);
-	}
+    public function toArray(): Type
+    {
+        return new ConstantArrayType(
+            [new ConstantIntegerType(0)],
+            [$this],
+            1
+        );
+    }
 
-	/**
-	 * @param mixed[] $properties
-	 * @return Type
-	 */
-	public static function __set_state(array $properties): Type
-	{
-		return new self();
-	}
-
+    /**
+     * @param mixed[] $properties
+     * @return Type
+     */
+    public static function __set_state(array $properties): Type
+    {
+        return new self();
+    }
 }

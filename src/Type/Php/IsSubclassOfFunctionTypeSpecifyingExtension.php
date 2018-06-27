@@ -17,45 +17,43 @@ use PHPStan\Type\StringType;
 class IsSubclassOfFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtension, TypeSpecifierAwareExtension
 {
 
-	/** @var \PHPStan\Analyser\TypeSpecifier */
-	private $typeSpecifier;
+    /** @var \PHPStan\Analyser\TypeSpecifier */
+    private $typeSpecifier;
 
-	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, TypeSpecifierContext $context): bool
-	{
-		return strtolower($functionReflection->getName()) === 'is_subclass_of'
-			&& count($node->args) >= 2
-			&& !$context->null();
-	}
+    public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, TypeSpecifierContext $context): bool
+    {
+        return strtolower($functionReflection->getName()) === 'is_subclass_of'
+            && count($node->args) >= 2
+            && !$context->null();
+    }
 
-	public function specifyTypes(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
-	{
-		$objectType = $scope->getType($node->args[0]->value);
-		$stringType = new StringType();
-		if (
-			!$objectType instanceof MixedType
-			&& !$stringType->isSuperTypeOf($objectType)->no()
-		) {
-			return new SpecifiedTypes();
-		}
+    public function specifyTypes(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
+    {
+        $objectType = $scope->getType($node->args[0]->value);
+        $stringType = new StringType();
+        if (!$objectType instanceof MixedType
+            && !$stringType->isSuperTypeOf($objectType)->no()
+        ) {
+            return new SpecifiedTypes();
+        }
 
-		$classType = $scope->getType($node->args[1]->value);
-		if (!$classType instanceof ConstantStringType || $classType->getValue() === '') {
-			return new SpecifiedTypes();
-		}
+        $classType = $scope->getType($node->args[1]->value);
+        if (!$classType instanceof ConstantStringType || $classType->getValue() === '') {
+            return new SpecifiedTypes();
+        }
 
-		return $this->typeSpecifier->specifyTypesInCondition(
-			$scope,
-			new \PhpParser\Node\Expr\Instanceof_(
-				$node->args[0]->value,
-				new \PhpParser\Node\Name($classType->getValue())
-			),
-			$context
-		);
-	}
+        return $this->typeSpecifier->specifyTypesInCondition(
+            $scope,
+            new \PhpParser\Node\Expr\Instanceof_(
+                $node->args[0]->value,
+                new \PhpParser\Node\Name($classType->getValue())
+            ),
+            $context
+        );
+    }
 
-	public function setTypeSpecifier(TypeSpecifier $typeSpecifier): void
-	{
-		$this->typeSpecifier = $typeSpecifier;
-	}
-
+    public function setTypeSpecifier(TypeSpecifier $typeSpecifier): void
+    {
+        $this->typeSpecifier = $typeSpecifier;
+    }
 }

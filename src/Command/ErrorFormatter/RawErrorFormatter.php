@@ -8,31 +8,29 @@ use Symfony\Component\Console\Style\OutputStyle;
 class RawErrorFormatter implements ErrorFormatter
 {
 
-	public function formatErrors(
-		AnalysisResult $analysisResult,
-		OutputStyle $style
-	): int
-	{
-		if (!$analysisResult->hasErrors()) {
-			return 0;
-		}
+    public function formatErrors(
+        AnalysisResult $analysisResult,
+        OutputStyle $style
+    ): int {
+        if (!$analysisResult->hasErrors()) {
+            return 0;
+        }
 
-		foreach ($analysisResult->getNotFileSpecificErrors() as $notFileSpecificError) {
-			$style->writeln(sprintf('?:?:%s', $notFileSpecificError));
-		}
+        foreach ($analysisResult->getNotFileSpecificErrors() as $notFileSpecificError) {
+            $style->writeln(sprintf('?:?:%s', $notFileSpecificError));
+        }
 
-		foreach ($analysisResult->getFileSpecificErrors() as $fileSpecificError) {
-			$style->writeln(
-				sprintf(
-					'%s:%d:%s',
-					$fileSpecificError->getFile(),
-					$fileSpecificError->getLine() !== null ? $fileSpecificError->getLine() : '?',
-					$fileSpecificError->getMessage()
-				)
-			);
-		}
+        foreach ($analysisResult->getFileSpecificErrors() as $fileSpecificError) {
+            $style->writeln(
+                sprintf(
+                    '%s:%d:%s',
+                    $fileSpecificError->getFile(),
+                    $fileSpecificError->getLine() !== null ? $fileSpecificError->getLine() : '?',
+                    $fileSpecificError->getMessage()
+                )
+            );
+        }
 
-		return 1;
-	}
-
+        return 1;
+    }
 }

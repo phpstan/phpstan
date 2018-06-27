@@ -8,9 +8,8 @@ use PHPStan\Type\Constant\ConstantBooleanType;
 trait TruthyBooleanTypeTrait
 {
 
-	public function toBoolean(): BooleanType
-	{
-		return new ConstantBooleanType(true);
-	}
-
+    public function toBoolean(): BooleanType
+    {
+        return new ConstantBooleanType(true);
+    }
 }

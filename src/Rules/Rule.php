@@ -8,16 +8,15 @@ use PHPStan\Analyser\Scope;
 interface Rule
 {
 
-	/**
-	 * @return string Class implementing \PhpParser\Node
-	 */
-	public function getNodeType(): string;
+    /**
+     * @return string Class implementing \PhpParser\Node
+     */
+    public function getNodeType(): string;
 
-	/**
-	 * @param \PhpParser\Node $node
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[] errors
-	 */
-	public function processNode(Node $node, Scope $scope): array;
-
+    /**
+     * @param \PhpParser\Node $node
+     * @param \PHPStan\Analyser\Scope $scope
+     * @return string[] errors
+     */
+    public function processNode(Node $node, Scope $scope): array;
 }

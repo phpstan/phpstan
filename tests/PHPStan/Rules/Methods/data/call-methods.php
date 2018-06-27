@@ -5,356 +5,335 @@ namespace Test;
 class Foo
 {
 
-	private function foo()
-	{
-		$this->protectedMethodFromChild();
-	}
+    private function foo()
+    {
+        $this->protectedMethodFromChild();
+    }
 
-	protected function bar()
-	{
+    protected function bar()
+    {
+    }
 
-	}
+    public function ipsum()
+    {
+    }
 
-	public function ipsum()
-	{
-
-	}
-
-	public function test($bar)
-	{
-
-	}
-
+    public function test($bar)
+    {
+    }
 }
 
 class Bar extends Foo
 {
 
-	private function foobar()
-	{
+    private function foobar()
+    {
+    }
 
-	}
+    public function lorem()
+    {
+        $this->loremipsum(); // nonexistent
+        $this->foo(1); // private from an ancestor
+        $this->bar();
+        $this->ipsum();
+        $this->foobar();
+        $this->lorem();
+        $this->test(); // missing parameter
 
-	public function lorem()
-	{
-		$this->loremipsum(); // nonexistent
-		$this->foo(1); // private from an ancestor
-		$this->bar();
-		$this->ipsum();
-		$this->foobar();
-		$this->lorem();
-		$this->test(); // missing parameter
+        $string = 'foo';
+        $string->method();
+    }
 
-		$string = 'foo';
-		$string->method();
-	}
+    public function dolor($foo, $bar, $baz)
+    {
+        // fixing PHP bug #71416
+        $methodReflection = new \ReflectionMethod(Bar::class, 'dolor');
+        $methodReflection->invoke(new self());
+        $methodReflection->invoke(new self(), 'foo', 'bar', 'baz');
+    }
 
-	public function dolor($foo, $bar, $baz)
-	{
-		// fixing PHP bug #71416
-		$methodReflection = new \ReflectionMethod(Bar::class, 'dolor');
-		$methodReflection->invoke(new self());
-		$methodReflection->invoke(new self(), 'foo', 'bar', 'baz');
-	}
+    protected function protectedMethodFromChild()
+    {
+        $foo = new UnknownClass();
+        $foo->doFoo();
 
-	protected function protectedMethodFromChild()
-	{
-		$foo = new UnknownClass();
-		$foo->doFoo();
+        $this->returnsVoid();
+        $this->dolor($this->returnsVoid(), 'bar', 'baz');
 
-		$this->returnsVoid();
-		$this->dolor($this->returnsVoid(), 'bar', 'baz');
+        foreach ($this->returnsVoid() as $void) {
+            $this->returnsVoid();
+            if ($this->returnsVoid()) {
+                $this->returnsVoid();
+                $this->returnsVoid() ? 'foo' : 'bar';
+                doFoo() ? $this->returnsVoid() : 'bar';
+                doFoo() ? 'foo' : $this->returnsVoid();
+                $void = $this->returnsVoid();
+                $void = $this->returnsVoid() ? 'foo' : 'bar';
+                $void = doFoo() ? $this->returnsVoid() : 'bar';
+                $void = doFoo() ? 'foo' : $this->returnsVoid();
+                $this->returnsVoid() && 'foo';
+                'foo' && $this->returnsVoid();
+                $this->returnsVoid() || 'foo';
+                'foo' || $this->returnsVoid();
+                $void = $this->returnsVoid() && 'foo';
+                $void = 'foo' && $this->returnsVoid();
+                $void = $this->returnsVoid() || 'foo';
+                $void = 'foo' || $this->returnsVoid();
+            }
+        }
 
-		foreach ($this->returnsVoid() as $void) {
-			$this->returnsVoid();
-			if ($this->returnsVoid()) {
-				$this->returnsVoid();
-				$this->returnsVoid() ? 'foo' : 'bar';
-				doFoo() ? $this->returnsVoid() : 'bar';
-				doFoo() ? 'foo' : $this->returnsVoid();
-				$void = $this->returnsVoid();
-				$void = $this->returnsVoid() ? 'foo' : 'bar';
-				$void = doFoo() ? $this->returnsVoid() : 'bar';
-				$void = doFoo() ? 'foo' : $this->returnsVoid();
-				$this->returnsVoid() && 'foo';
-				'foo' && $this->returnsVoid();
-				$this->returnsVoid() || 'foo';
-				'foo' || $this->returnsVoid();
-				$void = $this->returnsVoid() && 'foo';
-				$void = 'foo' && $this->returnsVoid();
-				$void = $this->returnsVoid() || 'foo';
-				$void = 'foo' || $this->returnsVoid();
-			}
-		}
+        switch ($this->returnsVoid()) {
+            case $this->returnsVoid():
+                $this->returnsVoid();
+        }
+    }
 
-		switch ($this->returnsVoid()) {
-			case $this->returnsVoid():
-				$this->returnsVoid();
-		}
-	}
-
-	/**
-	 * @return void
-	 */
-	private function returnsVoid()
-	{
-		@$this->returnsVoid();
-	}
-
+    /**
+     * @return void
+     */
+    private function returnsVoid()
+    {
+        @$this->returnsVoid();
+    }
 }
 
 $f = function () {
-	$arrayOfStdClass = new \ArrayObject([new \stdClass()]);
-	$arrayOfStdClass->doFoo();
+    $arrayOfStdClass = new \ArrayObject([new \stdClass()]);
+    $arrayOfStdClass->doFoo();
 };
 
 $g = function () {
-	$pdo = new \PDO('dsn', 'username', 'password');
-	$pdo->query();
-	$pdo->query('statement');
+    $pdo = new \PDO('dsn', 'username', 'password');
+    $pdo->query();
+    $pdo->query('statement');
 };
 
 class ClassWithToString
 {
 
-	public function __toString()
-	{
-		return 'foo';
-	}
+    public function __toString()
+    {
+        return 'foo';
+    }
 
-	public function acceptsString(string $foo)
-	{
-
-	}
-
+    public function acceptsString(string $foo)
+    {
+    }
 }
 
 function () {
-	$foo = new ClassWithToString();
-	$foo->acceptsString($foo);
+    $foo = new ClassWithToString();
+    $foo->acceptsString($foo);
 
-	$closure = function () {
+    $closure = function () {
+    };
+    $closure->__invoke(1, 2, 3);
 
-	};
-	$closure->__invoke(1, 2, 3);
-
-	$reflectionClass = new \ReflectionClass(Foo::class);
-	$reflectionClass->newInstance();
-	$reflectionClass->newInstance(1, 2, 3);
+    $reflectionClass = new \ReflectionClass(Foo::class);
+    $reflectionClass->newInstance();
+    $reflectionClass->newInstance(1, 2, 3);
 };
 
 class ClassWithNullableProperty
 {
 
-	/** @var self|null */
-	private $foo;
+    /** @var self|null */
+    private $foo;
 
-	public function doFoo()
-	{
-		if ($this->foo === null) {
-			$this->foo = new self();
-			$this->foo->doFoo();
-		}
-	}
+    public function doFoo()
+    {
+        if ($this->foo === null) {
+            $this->foo = new self();
+            $this->foo->doFoo();
+        }
+    }
 
-	public function doBar(&$bar)
-	{
-		$i = 0;
-		$this->doBar($i); // ok
+    public function doBar(&$bar)
+    {
+        $i = 0;
+        $this->doBar($i); // ok
 
-		$arr = [1, 2, 3];
-		$this->doBar($arr[0]); // ok
-		$this->doBar(rand());
-		$this->doBar(null);
-	}
+        $arr = [1, 2, 3];
+        $this->doBar($arr[0]); // ok
+        $this->doBar(rand());
+        $this->doBar(null);
+    }
 
-	public function doBaz()
-	{
-		/** @var Foo|null $foo */
-		$foo = doFoo();
+    public function doBaz()
+    {
+        /** @var Foo|null $foo */
+        $foo = doFoo();
 
-		/** @var Bar|null $bar */
-		$bar = doBar();
+        /** @var Bar|null $bar */
+        $bar = doBar();
 
-		if ($foo === null && $bar === null) {
-			throw new \Exception();
-		}
+        if ($foo === null && $bar === null) {
+            throw new \Exception();
+        }
 
-		$foo->ipsum();
-		$bar->ipsum();
-	}
+        $foo->ipsum();
+        $bar->ipsum();
+    }
 
-	public function doIpsum(): string
-	{
-		/** @var Foo|null $foo */
-		$foo = doFoo();
+    public function doIpsum(): string
+    {
+        /** @var Foo|null $foo */
+        $foo = doFoo();
 
-		/** @var Bar|null $bar */
-		$bar = doBar();
+        /** @var Bar|null $bar */
+        $bar = doBar();
 
-		if ($foo !== null && $bar === null) {
-			return '';
-		} elseif ($bar !== null && $foo === null) {
-			return '';
-		}
+        if ($foo !== null && $bar === null) {
+            return '';
+        } elseif ($bar !== null && $foo === null) {
+            return '';
+        }
 
-		$foo->ipsum();
-		$bar->ipsum();
+        $foo->ipsum();
+        $bar->ipsum();
 
-		return '';
-	}
-
+        return '';
+    }
 }
 
 function () {
-	$dateTimeZone = new \DateTimeZone('Europe/Prague');
-	$dateTimeZone->getTransitions();
-	$dateTimeZone->getTransitions(1);
-	$dateTimeZone->getTransitions(1, 2);
-	$dateTimeZone->getTransitions(1, 2, 3);
+    $dateTimeZone = new \DateTimeZone('Europe/Prague');
+    $dateTimeZone->getTransitions();
+    $dateTimeZone->getTransitions(1);
+    $dateTimeZone->getTransitions(1, 2);
+    $dateTimeZone->getTransitions(1, 2, 3);
 
-	$domDocument = new \DOMDocument('1.0');
-	$domDocument->saveHTML();
-	$domDocument->saveHTML(new \DOMNode());
-	$domDocument->saveHTML(null);
+    $domDocument = new \DOMDocument('1.0');
+    $domDocument->saveHTML();
+    $domDocument->saveHTML(new \DOMNode());
+    $domDocument->saveHTML(null);
 };
 
 class ReturningSomethingFromConstructor
 {
 
-	public function __construct()
-	{
-		return new Foo();
-	}
-
+    public function __construct()
+    {
+        return new Foo();
+    }
 }
 
 function () {
-	$obj = new ReturningSomethingFromConstructor();
-	$foo = $obj->__construct();
+    $obj = new ReturningSomethingFromConstructor();
+    $foo = $obj->__construct();
 };
 
 class IssueWithEliminatingTypes
 {
 
-	public function doBar()
-	{
-		/** @var \DateTimeImmutable|null $date */
-		$date = makeDate();
-		if ($date !== null) {
-			return;
-		}
+    public function doBar()
+    {
+        /** @var \DateTimeImmutable|null $date */
+        $date = makeDate();
+        if ($date !== null) {
+            return;
+        }
 
-		if (something()) {
-			$date = 'foo';
-		} else {
-			$date = 1;
-		}
+        if (something()) {
+            $date = 'foo';
+        } else {
+            $date = 1;
+        }
 
-		echo $date->foo(); // is surely string|int
-	}
-
+        echo $date->foo(); // is surely string|int
+    }
 }
 
 interface FirstInterface
 {
 
-	public function firstMethod();
-
+    public function firstMethod();
 }
 
 interface SecondInterface
 {
 
-	public function secondMethod();
-
+    public function secondMethod();
 }
 
 class UnionInsteadOfIntersection
 {
 
-	public function doFoo($object)
-	{
-		while ($object instanceof FirstInterface && $object instanceof SecondInterface) {
-			$object->firstMethod();
-			$object->secondMethod();
-			$object->firstMethod(1);
-			$object->secondMethod(1);
-		}
-	}
-
+    public function doFoo($object)
+    {
+        while ($object instanceof FirstInterface && $object instanceof SecondInterface) {
+            $object->firstMethod();
+            $object->secondMethod();
+            $object->firstMethod(1);
+            $object->secondMethod(1);
+        }
+    }
 }
 
 class CallingOnNull
 {
 
-	public function doFoo()
-	{
-		$object = null;
+    public function doFoo()
+    {
+        $object = null;
 
-		if ($object === null) {
-			// nothing
-		}
+        if ($object === null) {
+            // nothing
+        }
 
-		$object->foo();
-	}
-
+        $object->foo();
+    }
 }
 
 class MethodsWithUnknownClasses
 {
 
-	/** @var FirstUnknownClass|SecondUnknownClass */
-	private $foo;
+    /** @var FirstUnknownClass|SecondUnknownClass */
+    private $foo;
 
-	public function doFoo()
-	{
-		$this->foo->test();
-	}
-
+    public function doFoo()
+    {
+        $this->foo->test();
+    }
 }
 
 class IgnoreNullableUnionProperty
 {
 
-	/** @var Foo|null */
-	private $foo;
+    /** @var Foo|null */
+    private $foo;
 
-	public function doFoo()
-	{
-		$this->foo->ipsum();
-	}
-
+    public function doFoo()
+    {
+        $this->foo->ipsum();
+    }
 }
 
 interface WithFooMethod
 {
 
-	public function foo(): Foo;
-
+    public function foo(): Foo;
 }
 
 interface WithFooAndBarMethod
 {
 
-	public function foo();
+    public function foo();
 
-	public function bar();
-
+    public function bar();
 }
 
 class MethodsOnUnionType
 {
 
-	/** @var WithFooMethod|WithFooAndBarMethod */
-	private $object;
+    /** @var WithFooMethod|WithFooAndBarMethod */
+    private $object;
 
-	public function doFoo()
-	{
-		$this->object->foo(); // fine
-		$this->object->bar(); // WithFooMethod does not have bar()
-	}
-
+    public function doFoo()
+    {
+        $this->object->foo(); // fine
+        $this->object->bar(); // WithFooMethod does not have bar()
+    }
 }
 
 interface SomeInterface
@@ -365,342 +344,317 @@ interface SomeInterface
 class MethodsOnIntersectionType
 {
 
-	public function doFoo(WithFooMethod $foo)
-	{
-		if ($foo instanceof SomeInterface) {
-			$foo->foo();
-			$foo->bar();
-			$foo->foo()->test();
-		}
-	}
-
+    public function doFoo(WithFooMethod $foo)
+    {
+        if ($foo instanceof SomeInterface) {
+            $foo->foo();
+            $foo->bar();
+            $foo->foo()->test();
+        }
+    }
 }
 
 class ObjectTypehint
 {
 
-	public function doFoo(object $object)
-	{
-		$this->doFoo($object);
-		$this->doBar($object);
-	}
+    public function doFoo(object $object)
+    {
+        $this->doFoo($object);
+        $this->doBar($object);
+    }
 
-	public function doBar(Foo $foo)
-	{
-		$this->doFoo($foo);
-		$this->doBar($foo);
-	}
-
+    public function doBar(Foo $foo)
+    {
+        $this->doFoo($foo);
+        $this->doBar($foo);
+    }
 }
 
 function () {
-	/** @var UnknownClass[] $arrayOfAnUnknownClass */
-	$arrayOfAnUnknownClass = doFoo();
-	$arrayOfAnUnknownClass->test();
+    /** @var UnknownClass[] $arrayOfAnUnknownClass */
+    $arrayOfAnUnknownClass = doFoo();
+    $arrayOfAnUnknownClass->test();
 };
 
 function () {
-	$foo = false;
-	foreach ([] as $val) {
-		if ($foo === false) {
-			$foo = new Foo();
-		} else {
-			$foo->ipsum();
-			$foo->ipsum(1);
-		}
-	}
+    $foo = false;
+    foreach ([] as $val) {
+        if ($foo === false) {
+            $foo = new Foo();
+        } else {
+            $foo->ipsum();
+            $foo->ipsum(1);
+        }
+    }
 };
 
 class NullableInPhpDoc
 {
 
-	/**
-	 * @param string|null $test
-	 */
-	public function doFoo(string $test)
-	{
+    /**
+     * @param string|null $test
+     */
+    public function doFoo(string $test)
+    {
+    }
 
-	}
-
-	public function doBar()
-	{
-		$this->doFoo(null);
-	}
-
+    public function doBar()
+    {
+        $this->doFoo(null);
+    }
 }
 
 class ThreeTypesCall
 {
 
-	public function twoTypes(string $globalTitle)
-	{
-		if (($globalTitle = $this->threeTypes($globalTitle)) !== false) {
-			return '';
-		}
+    public function twoTypes(string $globalTitle)
+    {
+        if (($globalTitle = $this->threeTypes($globalTitle)) !== false) {
+            return '';
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	public function floatType(float $globalTitle)
-	{
-		if (($globalTitle = $this->threeTypes($globalTitle)) !== false) {
-			return '';
-		}
+    public function floatType(float $globalTitle)
+    {
+        if (($globalTitle = $this->threeTypes($globalTitle)) !== false) {
+            return '';
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	/**
-	 * @param string $globalTitle
-	 *
-	 * @return int|bool|string
-	 */
-	private function threeTypes($globalTitle) {
-		return false;
-	}
-
+    /**
+     * @param string $globalTitle
+     *
+     * @return int|bool|string
+     */
+    private function threeTypes($globalTitle)
+    {
+        return false;
+    }
 }
 
 class ScopeBelowInstanceofIsNoLongerChanged
 {
 
-	public function doBar()
-	{
-		$foo = doFoo();
-		if ($foo instanceof Foo) {
-		}
+    public function doBar()
+    {
+        $foo = doFoo();
+        if ($foo instanceof Foo) {
+        }
 
-		$foo->nonexistentMethodOnFoo();
-	}
-
+        $foo->nonexistentMethodOnFoo();
+    }
 }
 
 class CallVariadicMethodWithArrayInPhpDoc
 {
 
-	/**
-	 * @param array ...$args
-	 */
-	public function variadicMethod(...$args)
-	{
+    /**
+     * @param array ...$args
+     */
+    public function variadicMethod(...$args)
+    {
+    }
 
-	}
+    /**
+     * @param string[] ...$args
+     */
+    public function variadicArrayMethod(array ...$args)
+    {
+    }
 
-	/**
-	 * @param string[] ...$args
-	 */
-	public function variadicArrayMethod(array ...$args)
-	{
-
-	}
-
-	public function test()
-	{
-		$this->variadicMethod(1, 2, 3);
-		$this->variadicMethod([1, 2, 3]);
-		$this->variadicMethod(...[1, 2, 3]);
-		$this->variadicArrayMethod(['foo', 'bar'], ['foo', 'bar']);
-		$this->variadicArrayMethod(...[['foo', 'bar'], ['foo', 'bar']]);
-	}
-
+    public function test()
+    {
+        $this->variadicMethod(1, 2, 3);
+        $this->variadicMethod([1, 2, 3]);
+        $this->variadicMethod(...[1, 2, 3]);
+        $this->variadicArrayMethod(['foo', 'bar'], ['foo', 'bar']);
+        $this->variadicArrayMethod(...[['foo', 'bar'], ['foo', 'bar']]);
+    }
 }
 
 class NullCoalesce
 {
 
-	/** @var self|null */
-	private $foo;
+    /** @var self|null */
+    private $foo;
 
-	public function doFoo()
-	{
-		$this->foo->find(1) ?? 'bar';
+    public function doFoo()
+    {
+        $this->foo->find(1) ?? 'bar';
 
-		if ($this->foo->find(1) ?? 'bar') {
+        if ($this->foo->find(1) ?? 'bar') {
+        }
 
-		}
+        ($this->foo->find(1) ?? 'bar') ? 'foo' : 'bar';
 
-		($this->foo->find(1) ?? 'bar') ? 'foo' : 'bar';
+        $this->foo->foo->find(1)->find(1);
+    }
 
-		$this->foo->foo->find(1)->find(1);
-	}
-
-	/**
-	 * @return self|null
-	 */
-	public function find()
-	{
-
-	}
-
+    /**
+     * @return self|null
+     */
+    public function find()
+    {
+    }
 }
 
 class IncompatiblePhpDocNullableTypeIssue
 {
 
-	/**
-	 * @param int|null $param
-	 */
-	public function doFoo(string $param = null)
-	{
+    /**
+     * @param int|null $param
+     */
+    public function doFoo(string $param = null)
+    {
+    }
 
-	}
-
-	public function doBar()
-	{
-		$this->doFoo('foo'); // OK
-		$this->doFoo(123); // error
-	}
-
+    public function doBar()
+    {
+        $this->doFoo('foo'); // OK
+        $this->doFoo(123); // error
+    }
 }
 
 class TernaryEvaluation
 {
 
 
-	/**
-	 * @param Foo|false $fooOrFalse
-	 */
-	public function doFoo($fooOrFalse)
-	{
-		$fooOrFalse ?: $this->doBar($fooOrFalse);
-		$fooOrFalse ?
-			$this->doBar($fooOrFalse)
-			: $this->doBar($fooOrFalse);
-	}
+    /**
+     * @param Foo|false $fooOrFalse
+     */
+    public function doFoo($fooOrFalse)
+    {
+        $fooOrFalse ?: $this->doBar($fooOrFalse);
+        $fooOrFalse ?
+            $this->doBar($fooOrFalse)
+            : $this->doBar($fooOrFalse);
+    }
 
-	public function doBar(int $i)
-	{
-
-	}
-
+    public function doBar(int $i)
+    {
+    }
 }
 
 class ForeachSituation
 {
 
-	public function takesInt(int $s = null)
-	{
+    public function takesInt(int $s = null)
+    {
+    }
 
-	}
-
-	/**
-	 * @param string[] $letters
-	 */
-	public function takesStringArray(array $letters)
-	{
-		$letter = null;
-		foreach ($letters as $letter) {
-
-		}
-		$this->takesInt($letter);
-	}
-
+    /**
+     * @param string[] $letters
+     */
+    public function takesStringArray(array $letters)
+    {
+        $letter = null;
+        foreach ($letters as $letter) {
+        }
+        $this->takesInt($letter);
+    }
 }
 
 class LogicalAndSupport
 {
 
-	public function doFoo()
-	{
-		if (($object = $this->findObject()) and $object instanceof self) {
-			return $object->doFoo();
-		}
-	}
+    public function doFoo()
+    {
+        if (($object = $this->findObject()) and $object instanceof self) {
+            return $object->doFoo();
+        }
+    }
 
-	/**
-	 * @return object|null
-	 */
-	public function findObject()
-	{
-
-	}
-
+    /**
+     * @return object|null
+     */
+    public function findObject()
+    {
+    }
 }
 
 class LiteralArrayTypeCheck
 {
 
-	public function test(string $str)
-	{
-		$data = [
-			'string' => 'foo',
-			'int' => 12,
-			'bool' => true,
-		];
+    public function test(string $str)
+    {
+        $data = [
+            'string' => 'foo',
+            'int' => 12,
+            'bool' => true,
+        ];
 
-		$this->test($data['string']);
-		$this->test($data['int']);
-		$this->test($data['bool']);
-	}
-
+        $this->test($data['string']);
+        $this->test($data['int']);
+        $this->test($data['bool']);
+    }
 }
 
 class CallArrayKeyAfterAssigningToIt
 {
 
-	public function test()
-	{
-		$arr = [null, null];
-		$arr[1] = new \DateTime();
-		$arr[1]->add(new \DateInterval('P1D'));
+    public function test()
+    {
+        $arr = [null, null];
+        $arr[1] = new \DateTime();
+        $arr[1]->add(new \DateInterval('P1D'));
 
-		$arr[0]->add(new \DateInterval('P1D'));
-	}
-
+        $arr[0]->add(new \DateInterval('P1D'));
+    }
 }
 
 class CheckIsCallable
 {
 
-	public function test(callable $str)
-	{
-		$this->test('date');
-		$this->test('nonexistentFunction');
-		$this->test('Test\CheckIsCallable::test');
-		$this->test('Test\CheckIsCallable::test2');
-	}
+    public function test(callable $str)
+    {
+        $this->test('date');
+        $this->test('nonexistentFunction');
+        $this->test('Test\CheckIsCallable::test');
+        $this->test('Test\CheckIsCallable::test2');
+    }
 
-	public function testClosure(\Closure $closure)
-	{
-		$this->testClosure(function () {
-
-		});
-	}
-
+    public function testClosure(\Closure $closure)
+    {
+        $this->testClosure(function () {
+        });
+    }
 }
 
 class ArrayKeysNull
 {
 
-	public function doFoo()
-	{
-		$array = [];
+    public function doFoo()
+    {
+        $array = [];
 
-		/** @var \DateTimeImmutable|null $nullableDateTime */
-		$nullableDateTime = doFoo();
-		$array['key'] = $nullableDateTime;
-		if ($array['key'] === null) {
-			$array['key'] = new \DateTimeImmutable();
-			echo $array['key']->format('j. n. Y');
-		}
-	}
+        /** @var \DateTimeImmutable|null $nullableDateTime */
+        $nullableDateTime = doFoo();
+        $array['key'] = $nullableDateTime;
+        if ($array['key'] === null) {
+            $array['key'] = new \DateTimeImmutable();
+            echo $array['key']->format('j. n. Y');
+        }
+    }
 
-	public function doBar(array $a)
-	{
-		if ($a['key'] === null) {
-			$a['key'] = new \DateTimeImmutable();
-			echo $a['key']->format('j. n. Y');
-		}
-	}
+    public function doBar(array $a)
+    {
+        if ($a['key'] === null) {
+            $a['key'] = new \DateTimeImmutable();
+            echo $a['key']->format('j. n. Y');
+        }
+    }
 
-	public function doBaz(array $array)
-	{
-		if ($array['key'] === null) {
-			$array['key'] = new \DateTimeImmutable();
-			echo $array['key']->format('j. n. Y');
-		}
-	}
-
+    public function doBaz(array $array)
+    {
+        if ($array['key'] === null) {
+            $array['key'] = new \DateTimeImmutable();
+            echo $array['key']->format('j. n. Y');
+        }
+    }
 }
 
 /**
@@ -709,57 +663,53 @@ class ArrayKeysNull
 class VariadicAnnotationMethod
 {
 
-	public function doFoo()
-	{
-		$this->definedInPhpDoc();
-		$this->definedInPhpDoc(42);
-	}
-
+    public function doFoo()
+    {
+        $this->definedInPhpDoc();
+        $this->definedInPhpDoc(42);
+    }
 }
 
 class PreIncString
 {
 
-	public function doFoo(int $i, string $str)
-	{
-		$this->doFoo(1, ++$i);
-	}
-
+    public function doFoo(int $i, string $str)
+    {
+        $this->doFoo(1, ++$i);
+    }
 }
 
 class AnonymousClass
 {
 
-	public function doFoo()
-	{
-		$class = new class() {
+    public function doFoo()
+    {
+        $class = new class() {
 
-			/** @var string */
-			public $bar;
+            /** @var string */
+            public $bar;
 
-			/**
-			 * @return string
-			 */
-			public function doBar()
-			{
-			}
-		};
-		$class->bar->bar();
-		$class->doBar()->bar();
-	}
-
+            /**
+             * @return string
+             */
+            public function doBar()
+            {
+            }
+        };
+        $class->bar->bar();
+        $class->doBar()->bar();
+    }
 }
 
 class WeirdStaticIssueBase
 {
 
-	/**
-	 * @param static|int $value
-	 */
-	public static function get($value)
-	{
-	}
-
+    /**
+     * @param static|int $value
+     */
+    public static function get($value)
+    {
+    }
 }
 
 class WeirdStaticIssueImpl extends WeirdStaticIssueBase
@@ -768,122 +718,112 @@ class WeirdStaticIssueImpl extends WeirdStaticIssueBase
 }
 
 function () {
-	/** @var WeirdStaticIssueImpl|int */
-	$a = new WeirdStaticIssueImpl();
+    /** @var WeirdStaticIssueImpl|int */
+    $a = new WeirdStaticIssueImpl();
 
-	WeirdStaticIssueImpl::get($a);
+    WeirdStaticIssueImpl::get($a);
 };
 
 class CheckDefaultArrayKeys
 {
 
-	/**
-	 * @param string[] $array
-	 */
-	public function doFoo(
-		array $array
-	)
-	{
-		foreach ($array as $key => $val) {
-			$this->doBar($key);
-			$this->doBaz($key);
-			$this->doLorem($key);
-			$this->doAmet($key);
+    /**
+     * @param string[] $array
+     */
+    public function doFoo(
+        array $array
+    ) {
+        foreach ($array as $key => $val) {
+            $this->doBar($key);
+            $this->doBaz($key);
+            $this->doLorem($key);
+            $this->doAmet($key);
 
-			if (rand(0, 1) === 0) {
-				$key = new \stdClass();
-			}
+            if (rand(0, 1) === 0) {
+                $key = new \stdClass();
+            }
 
-			$this->doBar($key);
-			$this->doBaz($key);
-			$this->doLorem($key);
-			$this->doIpsum($key);
-			$this->doDolor($key);
-			$this->doSit($key);
-			$this->doAmet($key);
-		}
-	}
+            $this->doBar($key);
+            $this->doBaz($key);
+            $this->doLorem($key);
+            $this->doIpsum($key);
+            $this->doDolor($key);
+            $this->doSit($key);
+            $this->doAmet($key);
+        }
+    }
 
-	public function doBar(int $i)
-	{
+    public function doBar(int $i)
+    {
+    }
 
-	}
+    public function doBaz(string $str)
+    {
+    }
 
-	public function doBaz(string $str)
-	{
+    /**
+     * @param int|string $intOrString
+     */
+    public function doLorem($intOrString)
+    {
+    }
 
-	}
+    /**
+     * @param \stdClass|int $stdOrInt
+     */
+    public function doIpsum($stdOrInt)
+    {
+    }
 
-	/**
-	 * @param int|string $intOrString
-	 */
-	public function doLorem($intOrString)
-	{
+    /**
+     * @param \stdClass|string $stdOrString
+     */
+    public function doDolor($stdOrString)
+    {
+    }
 
-	}
+    /**
+     * @param \DateTimeImmutable|string $dateOrString
+     */
+    public function doSit($dateOrString)
+    {
+    }
 
-	/**
-	 * @param \stdClass|int $stdOrInt
-	 */
-	public function doIpsum($stdOrInt)
-	{
+    public function doAmet(\stdClass $std)
+    {
+    }
 
-	}
+    /**
+     * @param string[] $array
+     */
+    public function doConsecteur(array $array)
+    {
+        foreach ($array as $key => $val) {
+            if (rand(0, 1) === 0) {
+                $key = 1;
+            } else {
+                $key = 'str';
+            }
 
-	/**
-	 * @param \stdClass|string $stdOrString
-	 */
-	public function doDolor($stdOrString)
-	{
-
-	}
-
-	/**
-	 * @param \DateTimeImmutable|string $dateOrString
-	 */
-	public function doSit($dateOrString)
-	{
-
-	}
-
-	public function doAmet(\stdClass $std)
-	{
-
-	}
-
-	/**
-	 * @param string[] $array
-	 */
-	public function doConsecteur(array $array)
-	{
-		foreach ($array as $key => $val) {
-			if (rand(0, 1) === 0) {
-				$key = 1;
-			} else {
-				$key = 'str';
-			}
-
-			$this->doBar($key);
-			$this->doBaz($key);
-		}
-	}
-
+            $this->doBar($key);
+            $this->doBaz($key);
+        }
+    }
 }
 
 class CallAfterEmpty
 {
 
-	public function doFoo(?string $q, ?Foo $foo)
-	{
-		if (empty($q)) {
-			return;
-		}
-		if (empty($foo)) {
-			return;
-		}
+    public function doFoo(?string $q, ?Foo $foo)
+    {
+        if (empty($q)) {
+            return;
+        }
+        if (empty($foo)) {
+            return;
+        }
 
-		$q->test();
-		$foo->test();
-	}
-
+        $q->test();
+        $foo->test();
+    }
 }

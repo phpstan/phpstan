@@ -7,86 +7,84 @@ use PHPStan\Analyser\Error;
 class AnalysisResult
 {
 
-	/** @var \PHPStan\Analyser\Error[] sorted by their file name, line number and message */
-	private $fileSpecificErrors;
+    /** @var \PHPStan\Analyser\Error[] sorted by their file name, line number and message */
+    private $fileSpecificErrors;
 
-	/** @var string[] */
-	private $notFileSpecificErrors;
+    /** @var string[] */
+    private $notFileSpecificErrors;
 
-	/** @var bool */
-	private $defaultLevelUsed;
+    /** @var bool */
+    private $defaultLevelUsed;
 
-	/** @var string */
-	private $currentDirectory;
+    /** @var string */
+    private $currentDirectory;
 
-	/**
-	 * @param \PHPStan\Analyser\Error[] $fileSpecificErrors
-	 * @param string[] $notFileSpecificErrors
-	 * @param bool $defaultLevelUsed
-	 * @param string $currentDirectory
-	 */
-	public function __construct(
-		array $fileSpecificErrors,
-		array $notFileSpecificErrors,
-		bool $defaultLevelUsed,
-		string $currentDirectory
-	)
-	{
-		usort(
-			$fileSpecificErrors,
-			function (Error $a, Error $b): int {
-				return [
-					$a->getFile(),
-					$a->getLine(),
-					$a->getMessage(),
-				] <=> [
-					$b->getFile(),
-					$b->getLine(),
-					$b->getMessage(),
-				];
-			}
-		);
+    /**
+     * @param \PHPStan\Analyser\Error[] $fileSpecificErrors
+     * @param string[] $notFileSpecificErrors
+     * @param bool $defaultLevelUsed
+     * @param string $currentDirectory
+     */
+    public function __construct(
+        array $fileSpecificErrors,
+        array $notFileSpecificErrors,
+        bool $defaultLevelUsed,
+        string $currentDirectory
+    ) {
+        usort(
+            $fileSpecificErrors,
+            function (Error $a, Error $b): int {
+                return [
+                    $a->getFile(),
+                    $a->getLine(),
+                    $a->getMessage(),
+                ] <=> [
+                    $b->getFile(),
+                    $b->getLine(),
+                    $b->getMessage(),
+                ];
+            }
+        );
 
-		$this->fileSpecificErrors = $fileSpecificErrors;
-		$this->notFileSpecificErrors = $notFileSpecificErrors;
-		$this->defaultLevelUsed = $defaultLevelUsed;
-		$this->currentDirectory = $currentDirectory;
-	}
+        $this->fileSpecificErrors = $fileSpecificErrors;
+        $this->notFileSpecificErrors = $notFileSpecificErrors;
+        $this->defaultLevelUsed = $defaultLevelUsed;
+        $this->currentDirectory = $currentDirectory;
+    }
 
-	public function hasErrors(): bool
-	{
-		return $this->getTotalErrorsCount() > 0;
-	}
+    public function hasErrors(): bool
+    {
+        return $this->getTotalErrorsCount() > 0;
+    }
 
-	public function getTotalErrorsCount(): int
-	{
-		return count($this->fileSpecificErrors) + count($this->notFileSpecificErrors);
-	}
+    public function getTotalErrorsCount(): int
+    {
+        return count($this->fileSpecificErrors) + count($this->notFileSpecificErrors);
+    }
 
-	/**
-	 * @return \PHPStan\Analyser\Error[] sorted by their file name, line number and message
-	 */
-	public function getFileSpecificErrors(): array
-	{
-		return $this->fileSpecificErrors;
-	}
+    /**
+     * @return \PHPStan\Analyser\Error[] sorted by their file name, line number and message
+     */
+    public function getFileSpecificErrors(): array
+    {
+        return $this->fileSpecificErrors;
+    }
 
-	/**
-	 * @return string[]
-	 */
-	public function getNotFileSpecificErrors(): array
-	{
-		return $this->notFileSpecificErrors;
-	}
+    /**
+     * @return string[]
+     */
+    public function getNotFileSpecificErrors(): array
+    {
+        return $this->notFileSpecificErrors;
+    }
 
-	public function isDefaultLevelUsed(): bool
-	{
-		return $this->defaultLevelUsed;
-	}
+    public function isDefaultLevelUsed(): bool
+    {
+        return $this->defaultLevelUsed;
+    }
 
-	public function getCurrentDirectory(): string
-	{
-		return $this->currentDirectory;
-	}
-
+    public function getCurrentDirectory(): string
+    {
+        return $this->currentDirectory;
+    }
 }

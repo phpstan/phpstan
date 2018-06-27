@@ -5,6 +5,5 @@ namespace PHPStan\Analyser;
 interface TypeSpecifierAwareExtension
 {
 
-	public function setTypeSpecifier(TypeSpecifier $typeSpecifier): void;
-
+    public function setTypeSpecifier(TypeSpecifier $typeSpecifier): void;
 }

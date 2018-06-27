@@ -7,17 +7,16 @@ use PHPStan\TrinaryLogic;
 class ThisType extends StaticType
 {
 
-	public function describe(VerbosityLevel $level): string
-	{
-		return sprintf('$this(%s)', $this->getStaticObjectType()->describe($level));
-	}
+    public function describe(VerbosityLevel $level): string
+    {
+        return sprintf('$this(%s)', $this->getStaticObjectType()->describe($level));
+    }
 
-	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
-	{
-		return TrinaryLogic::createFromBoolean(
-			$type instanceof self
-			&& $type->getBaseClass() === $this->getBaseClass()
-		);
-	}
-
+    public function accepts(Type $type, bool $strictTypes): TrinaryLogic
+    {
+        return TrinaryLogic::createFromBoolean(
+            $type instanceof self
+            && $type->getBaseClass() === $this->getBaseClass()
+        );
+    }
 }

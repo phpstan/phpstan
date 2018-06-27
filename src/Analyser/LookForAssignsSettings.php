@@ -8,101 +8,97 @@ use PhpParser\Node\Stmt\Continue_;
 class LookForAssignsSettings
 {
 
-	private const EARLY_TERMINATION_CONTINUE = 1;
-	private const EARLY_TERMINATION_BREAK = 2;
-	private const EARLY_TERMINATION_STOP = 4;
-	private const EARLY_TERMINATION_ALL = self::EARLY_TERMINATION_CONTINUE
-		+ self::EARLY_TERMINATION_BREAK
-		+ self::EARLY_TERMINATION_STOP;
-	private const EARLY_TERMINATION_CLOSURE = 8;
+    private const EARLY_TERMINATION_CONTINUE = 1;
+    private const EARLY_TERMINATION_BREAK = 2;
+    private const EARLY_TERMINATION_STOP = 4;
+    private const EARLY_TERMINATION_ALL = self::EARLY_TERMINATION_CONTINUE
+        + self::EARLY_TERMINATION_BREAK
+        + self::EARLY_TERMINATION_STOP;
+    private const EARLY_TERMINATION_CLOSURE = 8;
 
-	/** @var int */
-	private $respectEarlyTermination;
+    /** @var int */
+    private $respectEarlyTermination;
 
-	/** @var self[] */
-	private static $registry = [];
+    /** @var self[] */
+    private static $registry = [];
 
-	private function __construct(
-		int $respectEarlyTermination
-	)
-	{
-		$this->respectEarlyTermination = $respectEarlyTermination;
-	}
+    private function __construct(
+        int $respectEarlyTermination
+    ) {
+        $this->respectEarlyTermination = $respectEarlyTermination;
+    }
 
-	public static function default(): self
-	{
-		return self::create(self::EARLY_TERMINATION_ALL);
-	}
+    public static function default(): self
+    {
+        return self::create(self::EARLY_TERMINATION_ALL);
+    }
 
-	public static function insideLoop(): self
-	{
-		return self::create(self::EARLY_TERMINATION_STOP + self::EARLY_TERMINATION_BREAK);
-	}
+    public static function insideLoop(): self
+    {
+        return self::create(self::EARLY_TERMINATION_STOP + self::EARLY_TERMINATION_BREAK);
+    }
 
-	public static function afterLoop(): self
-	{
-		return self::create(self::EARLY_TERMINATION_STOP);
-	}
+    public static function afterLoop(): self
+    {
+        return self::create(self::EARLY_TERMINATION_STOP);
+    }
 
-	public static function insideFinally(): self
-	{
-		return self::create(0);
-	}
+    public static function insideFinally(): self
+    {
+        return self::create(0);
+    }
 
-	public static function insideClosure(): self
-	{
-		return self::create(self::EARLY_TERMINATION_CLOSURE);
-	}
+    public static function insideClosure(): self
+    {
+        return self::create(self::EARLY_TERMINATION_CLOSURE);
+    }
 
-	private static function create(int $value): self
-	{
-		self::$registry[$value] = self::$registry[$value] ?? new self($value);
-		return self::$registry[$value];
-	}
+    private static function create(int $value): self
+    {
+        self::$registry[$value] = self::$registry[$value] ?? new self($value);
+        return self::$registry[$value];
+    }
 
-	public function shouldSkipBranch(\PhpParser\Node $earlyTerminationStatement): bool
-	{
-		return $this->isRespected($earlyTerminationStatement);
-	}
+    public function shouldSkipBranch(\PhpParser\Node $earlyTerminationStatement): bool
+    {
+        return $this->isRespected($earlyTerminationStatement);
+    }
 
-	private function isRespected(\PhpParser\Node $earlyTerminationStatement): bool
-	{
-		if (
-			$earlyTerminationStatement instanceof Break_
-		) {
-			return ($this->respectEarlyTermination & self::EARLY_TERMINATION_BREAK) === self::EARLY_TERMINATION_BREAK;
-		}
+    private function isRespected(\PhpParser\Node $earlyTerminationStatement): bool
+    {
+        if ($earlyTerminationStatement instanceof Break_
+        ) {
+            return ($this->respectEarlyTermination & self::EARLY_TERMINATION_BREAK) === self::EARLY_TERMINATION_BREAK;
+        }
 
-		if (
-			$earlyTerminationStatement instanceof Continue_
-		) {
-			return ($this->respectEarlyTermination & self::EARLY_TERMINATION_CONTINUE) === self::EARLY_TERMINATION_CONTINUE;
-		}
+        if ($earlyTerminationStatement instanceof Continue_
+        ) {
+            return ($this->respectEarlyTermination & self::EARLY_TERMINATION_CONTINUE) === self::EARLY_TERMINATION_CONTINUE;
+        }
 
-		return ($this->respectEarlyTermination & self::EARLY_TERMINATION_STOP) === self::EARLY_TERMINATION_STOP;
-	}
+        return ($this->respectEarlyTermination & self::EARLY_TERMINATION_STOP) === self::EARLY_TERMINATION_STOP;
+    }
 
-	public function shouldIntersectVariables(?\PhpParser\Node $earlyTerminationStatement): bool
-	{
-		if ($earlyTerminationStatement === null) {
-			return true;
-		}
+    public function shouldIntersectVariables(?\PhpParser\Node $earlyTerminationStatement): bool
+    {
+        if ($earlyTerminationStatement === null) {
+            return true;
+        }
 
-		if ($this->shouldSkipBranch($earlyTerminationStatement)) {
-			throw new \PHPStan\ShouldNotHappenException();
-		}
+        if ($this->shouldSkipBranch($earlyTerminationStatement)) {
+            throw new \PHPStan\ShouldNotHappenException();
+        }
 
-		return $earlyTerminationStatement instanceof Break_
-			|| $earlyTerminationStatement instanceof Continue_
-			|| ($this->respectEarlyTermination & self::EARLY_TERMINATION_STOP) === 0;
-	}
+        return $earlyTerminationStatement instanceof Break_
+            || $earlyTerminationStatement instanceof Continue_
+            || ($this->respectEarlyTermination & self::EARLY_TERMINATION_STOP) === 0;
+    }
 
-	public function shouldGeneralizeConstantTypesOfNonIdempotentOperations(): bool
-	{
-		return (
-			($this->respectEarlyTermination & self::EARLY_TERMINATION_STOP) === self::EARLY_TERMINATION_STOP
-			&& $this->respectEarlyTermination !== self::EARLY_TERMINATION_ALL
-		) || $this->respectEarlyTermination === self::EARLY_TERMINATION_CLOSURE;
-	}
-
+    public function shouldGeneralizeConstantTypesOfNonIdempotentOperations(): bool
+    {
+        return (
+            ($this->respectEarlyTermination & self::EARLY_TERMINATION_STOP) === self::EARLY_TERMINATION_STOP
+            && $this->respectEarlyTermination !== self::EARLY_TERMINATION_ALL
+        ) || $this->respectEarlyTermination === self::EARLY_TERMINATION_CLOSURE;
+    }
 }

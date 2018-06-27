@@ -13,54 +13,53 @@ use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
 class IntegerType implements Type
 {
 
-	use JustNullableTypeTrait;
-	use NonCallableTypeTrait;
-	use NonIterableTypeTrait;
-	use NonObjectTypeTrait;
-	use NonOffsetAccessibleTypeTrait;
-	use UndecidedBooleanTypeTrait;
+    use JustNullableTypeTrait;
+    use NonCallableTypeTrait;
+    use NonIterableTypeTrait;
+    use NonObjectTypeTrait;
+    use NonOffsetAccessibleTypeTrait;
+    use UndecidedBooleanTypeTrait;
 
-	public function describe(VerbosityLevel $level): string
-	{
-		return 'int';
-	}
+    public function describe(VerbosityLevel $level): string
+    {
+        return 'int';
+    }
 
-	/**
-	 * @param mixed[] $properties
-	 * @return Type
-	 */
-	public static function __set_state(array $properties): Type
-	{
-		return new self();
-	}
+    /**
+     * @param mixed[] $properties
+     * @return Type
+     */
+    public static function __set_state(array $properties): Type
+    {
+        return new self();
+    }
 
-	public function toNumber(): Type
-	{
-		return $this;
-	}
+    public function toNumber(): Type
+    {
+        return $this;
+    }
 
-	public function toFloat(): Type
-	{
-		return new FloatType();
-	}
+    public function toFloat(): Type
+    {
+        return new FloatType();
+    }
 
-	public function toInteger(): Type
-	{
-		return $this;
-	}
+    public function toInteger(): Type
+    {
+        return $this;
+    }
 
-	public function toString(): Type
-	{
-		return new StringType();
-	}
+    public function toString(): Type
+    {
+        return new StringType();
+    }
 
-	public function toArray(): Type
-	{
-		return new ConstantArrayType(
-			[new ConstantIntegerType(0)],
-			[$this],
-			1
-		);
-	}
-
+    public function toArray(): Type
+    {
+        return new ConstantArrayType(
+            [new ConstantIntegerType(0)],
+            [$this],
+            1
+        );
+    }
 }

@@ -7,14 +7,13 @@ use PhpParser\Node;
 class CommentHelper
 {
 
-	public static function getDocComment(Node $node): ?string
-	{
-		$phpDoc = $node->getDocComment();
-		if ($phpDoc !== null) {
-			return $phpDoc->getText();
-		}
+    public static function getDocComment(Node $node): ?string
+    {
+        $phpDoc = $node->getDocComment();
+        if ($phpDoc !== null) {
+            return $phpDoc->getText();
+        }
 
-		return null;
-	}
-
+        return null;
+    }
 }

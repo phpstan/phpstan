@@ -6,5 +6,5 @@ $foo = null;
 $bar = null;
 
 if ((new \PHPStan\Tests\AssertionClass())->assertString($foo) && \PHPStan\Tests\AssertionClass::assertInt($bar)) {
-	die;
+    die;
 }

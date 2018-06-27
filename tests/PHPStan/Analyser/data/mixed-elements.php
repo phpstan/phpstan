@@ -3,5 +3,5 @@
 namespace MixedElements;
 
 function ($mixed) {
-	die;
+    die;
 };

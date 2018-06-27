@@ -5,8 +5,7 @@ namespace ClassAndTrait;
 class Foo
 {
 
-	use FooTrait;
-
+    use FooTrait;
 }
 
 trait FooTrait

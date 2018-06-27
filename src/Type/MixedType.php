@@ -18,146 +18,145 @@ use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
 class MixedType implements CompoundType
 {
 
-	use MaybeCallableTypeTrait;
-	use MaybeIterableTypeTrait;
-	use MaybeOffsetAccessibleTypeTrait;
-	use UndecidedBooleanTypeTrait;
+    use MaybeCallableTypeTrait;
+    use MaybeIterableTypeTrait;
+    use MaybeOffsetAccessibleTypeTrait;
+    use UndecidedBooleanTypeTrait;
 
-	/** @var bool */
-	private $isExplicitMixed;
+    /** @var bool */
+    private $isExplicitMixed;
 
-	public function __construct(bool $isExplicitMixed = false)
-	{
-		$this->isExplicitMixed = $isExplicitMixed;
-	}
+    public function __construct(bool $isExplicitMixed = false)
+    {
+        $this->isExplicitMixed = $isExplicitMixed;
+    }
 
-	/**
-	 * @return string[]
-	 */
-	public function getReferencedClasses(): array
-	{
-		return [];
-	}
+    /**
+     * @return string[]
+     */
+    public function getReferencedClasses(): array
+    {
+        return [];
+    }
 
-	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
-	{
-		return TrinaryLogic::createYes();
-	}
+    public function accepts(Type $type, bool $strictTypes): TrinaryLogic
+    {
+        return TrinaryLogic::createYes();
+    }
 
-	public function isSuperTypeOf(Type $type): TrinaryLogic
-	{
-		return TrinaryLogic::createYes();
-	}
+    public function isSuperTypeOf(Type $type): TrinaryLogic
+    {
+        return TrinaryLogic::createYes();
+    }
 
-	public function equals(Type $type): bool
-	{
-		return $type instanceof self;
-	}
+    public function equals(Type $type): bool
+    {
+        return $type instanceof self;
+    }
 
-	public function isSubTypeOf(Type $otherType): TrinaryLogic
-	{
-		if ($otherType instanceof self) {
-			return TrinaryLogic::createYes();
-		}
+    public function isSubTypeOf(Type $otherType): TrinaryLogic
+    {
+        if ($otherType instanceof self) {
+            return TrinaryLogic::createYes();
+        }
 
-		return TrinaryLogic::createMaybe();
-	}
+        return TrinaryLogic::createMaybe();
+    }
 
-	public function canAccessProperties(): TrinaryLogic
-	{
-		return TrinaryLogic::createYes();
-	}
+    public function canAccessProperties(): TrinaryLogic
+    {
+        return TrinaryLogic::createYes();
+    }
 
-	public function hasProperty(string $propertyName): bool
-	{
-		return true;
-	}
+    public function hasProperty(string $propertyName): bool
+    {
+        return true;
+    }
 
-	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
-	{
-		return new DummyPropertyReflection();
-	}
+    public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+    {
+        return new DummyPropertyReflection();
+    }
 
-	public function canCallMethods(): TrinaryLogic
-	{
-		return TrinaryLogic::createYes();
-	}
+    public function canCallMethods(): TrinaryLogic
+    {
+        return TrinaryLogic::createYes();
+    }
 
-	public function hasMethod(string $methodName): bool
-	{
-		return true;
-	}
+    public function hasMethod(string $methodName): bool
+    {
+        return true;
+    }
 
-	public function getMethod(string $methodName, Scope $scope): MethodReflection
-	{
-		return new DummyMethodReflection($methodName);
-	}
+    public function getMethod(string $methodName, Scope $scope): MethodReflection
+    {
+        return new DummyMethodReflection($methodName);
+    }
 
-	public function canAccessConstants(): TrinaryLogic
-	{
-		return TrinaryLogic::createYes();
-	}
+    public function canAccessConstants(): TrinaryLogic
+    {
+        return TrinaryLogic::createYes();
+    }
 
-	public function hasConstant(string $constantName): bool
-	{
-		return true;
-	}
+    public function hasConstant(string $constantName): bool
+    {
+        return true;
+    }
 
-	public function getConstant(string $constantName): ConstantReflection
-	{
-		return new DummyConstantReflection($constantName);
-	}
+    public function getConstant(string $constantName): ConstantReflection
+    {
+        return new DummyConstantReflection($constantName);
+    }
 
-	public function isCloneable(): TrinaryLogic
-	{
-		return TrinaryLogic::createYes();
-	}
+    public function isCloneable(): TrinaryLogic
+    {
+        return TrinaryLogic::createYes();
+    }
 
-	public function describe(VerbosityLevel $level): string
-	{
-		return 'mixed';
-	}
+    public function describe(VerbosityLevel $level): string
+    {
+        return 'mixed';
+    }
 
-	public function toNumber(): Type
-	{
-		return new UnionType([
-			$this->toInteger(),
-			$this->toFloat(),
-		]);
-	}
+    public function toNumber(): Type
+    {
+        return new UnionType([
+            $this->toInteger(),
+            $this->toFloat(),
+        ]);
+    }
 
-	public function toInteger(): Type
-	{
-		return new IntegerType();
-	}
+    public function toInteger(): Type
+    {
+        return new IntegerType();
+    }
 
-	public function toFloat(): Type
-	{
-		return new FloatType();
-	}
+    public function toFloat(): Type
+    {
+        return new FloatType();
+    }
 
-	public function toString(): Type
-	{
-		return new StringType();
-	}
+    public function toString(): Type
+    {
+        return new StringType();
+    }
 
-	public function toArray(): Type
-	{
-		return new ArrayType(new MixedType(), new MixedType());
-	}
+    public function toArray(): Type
+    {
+        return new ArrayType(new MixedType(), new MixedType());
+    }
 
-	public function isExplicitMixed(): bool
-	{
-		return $this->isExplicitMixed;
-	}
+    public function isExplicitMixed(): bool
+    {
+        return $this->isExplicitMixed;
+    }
 
-	/**
-	 * @param mixed[] $properties
-	 * @return Type
-	 */
-	public static function __set_state(array $properties): Type
-	{
-		return new self($properties['isExplicitMixed']);
-	}
-
+    /**
+     * @param mixed[] $properties
+     * @return Type
+     */
+    public static function __set_state(array $properties): Type
+    {
+        return new self($properties['isExplicitMixed']);
+    }
 }

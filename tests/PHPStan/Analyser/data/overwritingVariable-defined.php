@@ -5,11 +5,9 @@ namespace OverwritingVariable;
 class Bar
 {
 
-	public function methodFoo(): Foo
-	{
-
-	}
-
+    public function methodFoo(): Foo
+    {
+    }
 }
 
 class Foo

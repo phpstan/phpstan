@@ -7,6 +7,5 @@ use PHPStan\Type\Type;
 interface ThrowableReflection
 {
 
-	public function getThrowType(): ?Type;
-
+    public function getThrowType(): ?Type;
 }

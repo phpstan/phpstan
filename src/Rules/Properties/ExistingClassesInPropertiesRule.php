@@ -11,75 +11,73 @@ use PHPStan\Rules\ClassCaseSensitivityCheck;
 class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 {
 
-	/** @var \PHPStan\Broker\Broker */
-	private $broker;
+    /** @var \PHPStan\Broker\Broker */
+    private $broker;
 
-	/** @var \PHPStan\Rules\ClassCaseSensitivityCheck */
-	private $classCaseSensitivityCheck;
+    /** @var \PHPStan\Rules\ClassCaseSensitivityCheck */
+    private $classCaseSensitivityCheck;
 
-	/** @var bool */
-	private $checkClassCaseSensitivity;
+    /** @var bool */
+    private $checkClassCaseSensitivity;
 
-	public function __construct(
-		Broker $broker,
-		ClassCaseSensitivityCheck $classCaseSensitivityCheck,
-		bool $checkClassCaseSensitivity
-	)
-	{
-		$this->broker = $broker;
-		$this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
-		$this->checkClassCaseSensitivity = $checkClassCaseSensitivity;
-	}
+    public function __construct(
+        Broker $broker,
+        ClassCaseSensitivityCheck $classCaseSensitivityCheck,
+        bool $checkClassCaseSensitivity
+    ) {
+        $this->broker = $broker;
+        $this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
+        $this->checkClassCaseSensitivity = $checkClassCaseSensitivity;
+    }
 
-	public function getNodeType(): string
-	{
-		return PropertyProperty::class;
-	}
+    public function getNodeType(): string
+    {
+        return PropertyProperty::class;
+    }
 
-	/**
-	 * @param \PhpParser\Node\Stmt\PropertyProperty $node
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
-	 */
-	public function processNode(Node $node, Scope $scope): array
-	{
-		if (!$scope->isInClass()) {
-			throw new \PHPStan\ShouldNotHappenException();
-		}
+    /**
+     * @param \PhpParser\Node\Stmt\PropertyProperty $node
+     * @param \PHPStan\Analyser\Scope $scope
+     * @return string[]
+     */
+    public function processNode(Node $node, Scope $scope): array
+    {
+        if (!$scope->isInClass()) {
+            throw new \PHPStan\ShouldNotHappenException();
+        }
 
-		$propertyReflection = $scope->getClassReflection()->getNativeProperty($node->name->name);
-		$propertyType = $propertyReflection->getType();
+        $propertyReflection = $scope->getClassReflection()->getNativeProperty($node->name->name);
+        $propertyType = $propertyReflection->getType();
 
-		$errors = [];
-		foreach ($propertyType->getReferencedClasses() as $referencedClass) {
-			if ($this->broker->hasClass($referencedClass)) {
-				if ($this->broker->getClass($referencedClass)->isTrait()) {
-					$errors[] = sprintf(
-						'Property %s::$%s has invalid type %s.',
-						$propertyReflection->getDeclaringClass()->getDisplayName(),
-						$node->name->name,
-						$referencedClass
-					);
-				}
-				continue;
-			}
+        $errors = [];
+        foreach ($propertyType->getReferencedClasses() as $referencedClass) {
+            if ($this->broker->hasClass($referencedClass)) {
+                if ($this->broker->getClass($referencedClass)->isTrait()) {
+                    $errors[] = sprintf(
+                        'Property %s::$%s has invalid type %s.',
+                        $propertyReflection->getDeclaringClass()->getDisplayName(),
+                        $node->name->name,
+                        $referencedClass
+                    );
+                }
+                continue;
+            }
 
-			$errors[] = sprintf(
-				'Property %s::$%s has unknown class %s as its type.',
-				$propertyReflection->getDeclaringClass()->getDisplayName(),
-				$node->name->name,
-				$referencedClass
-			);
-		}
+            $errors[] = sprintf(
+                'Property %s::$%s has unknown class %s as its type.',
+                $propertyReflection->getDeclaringClass()->getDisplayName(),
+                $node->name->name,
+                $referencedClass
+            );
+        }
 
-		if ($this->checkClassCaseSensitivity) {
-			$errors = array_merge(
-				$errors,
-				$this->classCaseSensitivityCheck->checkClassNames($propertyType->getReferencedClasses())
-			);
-		}
+        if ($this->checkClassCaseSensitivity) {
+            $errors = array_merge(
+                $errors,
+                $this->classCaseSensitivityCheck->checkClassNames($propertyType->getReferencedClasses())
+            );
+        }
 
-		return $errors;
-	}
-
+        return $errors;
+    }
 }

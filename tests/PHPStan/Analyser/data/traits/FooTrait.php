@@ -5,87 +5,77 @@ namespace TraitPhpDocsTwo;
 trait FooTrait
 {
 
-	private $propertyWithoutPhpDoc;
+    private $propertyWithoutPhpDoc;
 
-	/** @var TraitPropertyType */
-	private $traitProperty;
+    /** @var TraitPropertyType */
+    private $traitProperty;
 
-	/** @var PropertyTypeFromTrait */
-	private $conflictingProperty;
+    /** @var PropertyTypeFromTrait */
+    private $conflictingProperty;
 
-	/** @var AmbiguousPropertyType */
-	private $bogusProperty;
+    /** @var AmbiguousPropertyType */
+    private $bogusProperty;
 
-	/** @var BogusPropertyType */
-	private $differentBogusProperty;
+    /** @var BogusPropertyType */
+    private $differentBogusProperty;
 
-	public function methodWithoutPhpDoc(): string
-	{
+    public function methodWithoutPhpDoc(): string
+    {
+    }
 
-	}
+    /**
+     * @return TraitMethodType
+     */
+    public function traitMethod()
+    {
+    }
 
-	/**
-	 * @return TraitMethodType
-	 */
-	public function traitMethod()
-	{
+    /**
+     * @return MethodTypeFromTrait
+     */
+    public function conflictingMethod()
+    {
+    }
 
-	}
+    /**
+     * @return AmbiguousMethodType
+     */
+    public function bogusMethod()
+    {
+    }
 
-	/**
-	 * @return MethodTypeFromTrait
-	 */
-	public function conflictingMethod()
-	{
+    /**
+     * @return BogusMethodType
+     */
+    public function differentBogusMethod()
+    {
+    }
 
-	}
+    /**
+     * @return DuplicateMethodType
+     */
+    public function methodInMoreTraits()
+    {
+    }
 
-	/**
-	 * @return AmbiguousMethodType
-	 */
-	public function bogusMethod()
-	{
+    /**
+     * @return AnotherDuplicateMethodType
+     */
+    public function anotherMethodInMoreTraits()
+    {
+    }
 
-	}
+    /**
+     * @return YetAnotherDuplicateMethodType
+     */
+    public function yetAnotherMethodInMoreTraits()
+    {
+    }
 
-	/**
-	 * @return BogusMethodType
-	 */
-	public function differentBogusMethod()
-	{
-
-	}
-
-	/**
-	 * @return DuplicateMethodType
-	 */
-	public function methodInMoreTraits()
-	{
-
-	}
-
-	/**
-	 * @return AnotherDuplicateMethodType
-	 */
-	public function anotherMethodInMoreTraits()
-	{
-
-	}
-
-	/**
-	 * @return YetAnotherDuplicateMethodType
-	 */
-	public function yetAnotherMethodInMoreTraits()
-	{
-
-	}
-
-	/**
-	 * @return YetYetAnotherDuplicateMethodType
-	 */
-	public function yetYetAnotherMethodInMoreTraits()
-	{
-
-	}
-
+    /**
+     * @return YetYetAnotherDuplicateMethodType
+     */
+    public function yetYetAnotherMethodInMoreTraits()
+    {
+    }
 }

@@ -3,7 +3,7 @@
 namespace InvalidKeyList;
 
 list(
-	'test' => $b,
-	new \DateTimeImmutable => $c,
-	[] => $d,
+    'test' => $b,
+    new \DateTimeImmutable => $c,
+    [] => $d,
 ) = $arr;

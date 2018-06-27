@@ -7,5 +7,5 @@ $values = [];
 
 /** @var int $wrongValue */
 foreach ($values as $value) {
-	die;
+    die;
 }

@@ -7,19 +7,18 @@ use Nette\DI\Config\Loader;
 class Configurator extends \Nette\Configurator
 {
 
-	/** @var LoaderFactory */
-	private $loaderFactory;
+    /** @var LoaderFactory */
+    private $loaderFactory;
 
-	public function __construct(LoaderFactory $loaderFactory)
-	{
-		$this->loaderFactory = $loaderFactory;
+    public function __construct(LoaderFactory $loaderFactory)
+    {
+        $this->loaderFactory = $loaderFactory;
 
-		parent::__construct();
-	}
+        parent::__construct();
+    }
 
-	protected function createLoader(): Loader
-	{
-		return $this->loaderFactory->createLoader();
-	}
-
+    protected function createLoader(): Loader
+    {
+        return $this->loaderFactory->createLoader();
+    }
 }

@@ -13,9 +13,8 @@ class BarException extends \Exception
 }
 
 function () {
-	try {
-
-	} catch (FooException | BarException $e) {
-		die;
-	}
+    try {
+    } catch (FooException | BarException $e) {
+        die;
+    }
 };

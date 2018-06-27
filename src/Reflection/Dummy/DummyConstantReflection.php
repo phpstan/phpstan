@@ -9,48 +9,47 @@ use PHPStan\Reflection\ConstantReflection;
 class DummyConstantReflection implements ConstantReflection
 {
 
-	/** @var string */
-	private $name;
+    /** @var string */
+    private $name;
 
-	public function __construct(string $name)
-	{
-		$this->name = $name;
-	}
+    public function __construct(string $name)
+    {
+        $this->name = $name;
+    }
 
-	public function getDeclaringClass(): ClassReflection
-	{
-		$broker = Broker::getInstance();
+    public function getDeclaringClass(): ClassReflection
+    {
+        $broker = Broker::getInstance();
 
-		return $broker->getClass(\stdClass::class);
-	}
+        return $broker->getClass(\stdClass::class);
+    }
 
-	public function isStatic(): bool
-	{
-		return true;
-	}
+    public function isStatic(): bool
+    {
+        return true;
+    }
 
-	public function isPrivate(): bool
-	{
-		return false;
-	}
+    public function isPrivate(): bool
+    {
+        return false;
+    }
 
-	public function isPublic(): bool
-	{
-		return true;
-	}
+    public function isPublic(): bool
+    {
+        return true;
+    }
 
-	public function getName(): string
-	{
-		return $this->name;
-	}
+    public function getName(): string
+    {
+        return $this->name;
+    }
 
-	/**
-	 * @return mixed
-	 */
-	public function getValue()
-	{
-		// so that Scope::getTypeFromValue() returns mixed
-		return new \stdClass();
-	}
-
+    /**
+     * @return mixed
+     */
+    public function getValue()
+    {
+        // so that Scope::getTypeFromValue() returns mixed
+        return new \stdClass();
+    }
 }

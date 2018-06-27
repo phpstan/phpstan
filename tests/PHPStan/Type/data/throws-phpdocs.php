@@ -7,19 +7,19 @@ use RuntimeException;
 
 interface Foo
 {
-	/**
-	 * @throws RuntimeException
-	 */
-	public function throwRuntimeException();
+    /**
+     * @throws RuntimeException
+     */
+    public function throwRuntimeException();
 
-	/**
-	 * @throws RuntimeException|LogicException
-	 */
-	public function throwRuntimeAndLogicException();
+    /**
+     * @throws RuntimeException|LogicException
+     */
+    public function throwRuntimeAndLogicException();
 
-	/**
-	 * @throws RuntimeException
-	 * @throws LogicException
-	 */
-	public function throwRuntimeAndLogicException2();
+    /**
+     * @throws RuntimeException
+     * @throws LogicException
+     */
+    public function throwRuntimeAndLogicException2();
 }

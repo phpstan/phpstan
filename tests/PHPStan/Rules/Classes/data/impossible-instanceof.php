@@ -40,129 +40,103 @@ class FooImpl implements Foo
 class Test
 {
 
-	public function doTest(
-		Foo $foo,
-		Bar $bar,
-		Lorem $lorem,
-		Ipsum $ipsum,
-		Dolor $dolor,
-		FooImpl $fooImpl,
-		BarChild $barChild
-	)
-	{
-		if ($foo instanceof Bar) {
+    public function doTest(
+        Foo $foo,
+        Bar $bar,
+        Lorem $lorem,
+        Ipsum $ipsum,
+        Dolor $dolor,
+        FooImpl $fooImpl,
+        BarChild $barChild
+    ) {
+        if ($foo instanceof Bar) {
+        }
+        if ($bar instanceof Foo) {
+        }
+        if ($lorem instanceof Lorem) {
+        }
+        if ($lorem instanceof Ipsum) {
+        }
+        if ($ipsum instanceof Lorem) {
+        }
+        if ($ipsum instanceof Ipsum) {
+        }
+        if ($dolor instanceof Lorem) {
+        }
+        if ($fooImpl instanceof Foo) {
+        }
+        if ($barChild instanceof Bar) {
+        }
 
-		}
-		if ($bar instanceof Foo) {
+        /** @var Collection|mixed[] $collection */
+        $collection = doFoo();
+        if ($collection instanceof Foo) {
+        }
 
-		}
-		if ($lorem instanceof Lorem) {
+        /** @var object $object */
+        $object = doFoo();
+        if ($object instanceof Foo) {
+        }
 
-		}
-		if ($lorem instanceof Ipsum) {
+        $str = 'str';
+        if ($str instanceof Foo) {
+        }
 
-		}
-		if ($ipsum instanceof Lorem) {
+        if ($str instanceof $str) {
+        }
 
-		}
-		if ($ipsum instanceof Ipsum) {
+        if ($foo instanceof $str) {
+        }
 
-		}
-		if ($dolor instanceof Lorem) {
+        $self = new self();
+        if ($self instanceof self) {
+        }
+    }
 
-		}
-		if ($fooImpl instanceof Foo) {
+    public function foreachWithTypeChange()
+    {
+        $foo = null;
+        foreach ([] as $val) {
+            if ($foo instanceof self) {
+            }
+            if ($foo instanceof Lorem) {
+            }
 
-		}
-		if ($barChild instanceof Bar) {
+            $foo = new self();
+            if ($foo instanceof self) {
+            }
+        }
+    }
 
-		}
+    public function whileWithTypeChange()
+    {
+        $foo = null;
+        while (fetch()) {
+            if ($foo instanceof self) {
+            }
+            if ($foo instanceof Lorem) {
+            }
 
-		/** @var Collection|mixed[] $collection */
-		$collection = doFoo();
-		if ($collection instanceof Foo) {
+            $foo = new self();
+            if ($foo instanceof self) {
+            }
+        }
+    }
 
-		}
+    public function forWithTypeChange()
+    {
+        $foo = null;
+        for (;;) {
+            if ($foo instanceof self) {
+            }
+            if ($foo instanceof Lorem) {
+            }
 
-		/** @var object $object */
-		$object = doFoo();
-		if ($object instanceof Foo) {
-
-		}
-
-		$str = 'str';
-		if ($str instanceof Foo) {
-
-		}
-
-		if ($str instanceof $str) {
-
-		}
-
-		if ($foo instanceof $str) {
-
-		}
-
-		$self = new self();
-		if ($self instanceof self) {
-
-		}
-	}
-
-	public function foreachWithTypeChange()
-	{
-		$foo = null;
-		foreach ([] as $val) {
-			if ($foo instanceof self) {
-
-			}
-			if ($foo instanceof Lorem) {
-
-			}
-
-			$foo = new self();
-			if ($foo instanceof self) {
-
-			}
-		}
-	}
-
-	public function whileWithTypeChange()
-	{
-		$foo = null;
-		while (fetch()) {
-			if ($foo instanceof self) {
-
-			}
-			if ($foo instanceof Lorem) {
-
-			}
-
-			$foo = new self();
-			if ($foo instanceof self) {
-
-			}
-		}
-	}
-
-	public function forWithTypeChange()
-	{
-		$foo = null;
-		for (;;) {
-			if ($foo instanceof self) {
-
-			}
-			if ($foo instanceof Lorem) {
-
-			}
-
-			$foo = new self();
-			if ($foo instanceof self) {
-
-			}
-		}
-	}
-
+            $foo = new self();
+            if ($foo instanceof self) {
+            }
+        }
+    }
 }
 
 interface Collection extends \IteratorAggregate
@@ -173,11 +147,9 @@ interface Collection extends \IteratorAggregate
 final class FinalClassWithInvoke
 {
 
-	public function __invoke()
-	{
-
-	}
-
+    public function __invoke()
+    {
+    }
 }
 
 final class FinalClassWithoutInvoke
@@ -188,58 +160,44 @@ final class FinalClassWithoutInvoke
 class ClassWithInvoke
 {
 
-	public function __invoke()
-	{
+    public function __invoke()
+    {
+    }
 
-	}
-
-	public function doFoo(callable $callable, Foo $foo)
-	{
-		if ($callable instanceof self) {
-
-		}
-		if ($callable instanceof FinalClassWithInvoke) {
-
-		}
-		if ($callable instanceof FinalClassWithoutInvoke) {
-
-		}
-		if ($callable instanceof Foo) {
-
-		}
-		if ($callable instanceof Lorem) {
-
-		}
-	}
-
+    public function doFoo(callable $callable, Foo $foo)
+    {
+        if ($callable instanceof self) {
+        }
+        if ($callable instanceof FinalClassWithInvoke) {
+        }
+        if ($callable instanceof FinalClassWithoutInvoke) {
+        }
+        if ($callable instanceof Foo) {
+        }
+        if ($callable instanceof Lorem) {
+        }
+    }
 }
 
 class EliminateCompoundTypes
 {
 
-	/**
-	 * @param Lorem|Dolor $union
-	 * @param Foo&Bar $intersection
-	 */
-	public function doFoo($union, $intersection)
-	{
-		if ($union instanceof Lorem || $union instanceof Dolor) {
+    /**
+     * @param Lorem|Dolor $union
+     * @param Foo&Bar $intersection
+     */
+    public function doFoo($union, $intersection)
+    {
+        if ($union instanceof Lorem || $union instanceof Dolor) {
+        } elseif ($union instanceof Lorem) {
+        }
 
-		} elseif ($union instanceof Lorem) {
+        if ($intersection instanceof Foo && $intersection instanceof Bar) {
+        } elseif ($intersection instanceof Foo) {
+        }
 
-		}
-
-		if ($intersection instanceof Foo && $intersection instanceof Bar) {
-
-		} elseif ($intersection instanceof Foo) {
-
-		}
-
-		if ($intersection instanceof Foo) {
-
-		} elseif ($intersection instanceof Bar) {
-
-		}
-	}
-
+        if ($intersection instanceof Foo) {
+        } elseif ($intersection instanceof Bar) {
+        }
+    }
 }

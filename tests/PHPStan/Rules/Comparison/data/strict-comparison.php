@@ -5,588 +5,525 @@ namespace StrictComparison;
 class Foo
 {
 
-	public function doFoo()
-	{
-		1 === 1;
-		1 === '1'; // wrong
-		1 !== '1'; // wrong
-		doFoo() === doBar();
-		1 === null;
-		(new Bar()) === 1; // wrong
+    public function doFoo()
+    {
+        1 === 1;
+        1 === '1'; // wrong
+        1 !== '1'; // wrong
+        doFoo() === doBar();
+        1 === null;
+        (new Bar()) === 1; // wrong
 
-		/** @var Foo[]|Collection|bool $unionIterableType */
-		$unionIterableType = doFoo();
-		1 === $unionIterableType;
-		false === $unionIterableType;
-		$unionIterableType === [new Foo()];
-		$unionIterableType === new Collection();
+        /** @var Foo[]|Collection|bool $unionIterableType */
+        $unionIterableType = doFoo();
+        1 === $unionIterableType;
+        false === $unionIterableType;
+        $unionIterableType === [new Foo()];
+        $unionIterableType === new Collection();
 
-		/** @var bool $boolean */
-		$boolean = doFoo();
-		true === $boolean;
-		false === $boolean;
-		$boolean === true;
-		$boolean === false;
-		true === false;
-		false === true;
+        /** @var bool $boolean */
+        $boolean = doFoo();
+        true === $boolean;
+        false === $boolean;
+        $boolean === true;
+        $boolean === false;
+        true === false;
+        false === true;
 
-		$foo = new self();
-		$this === $foo;
+        $foo = new self();
+        $this === $foo;
 
-		$trueOrFalseInSwitch = false;
-		switch ('foo') {
-			case 'foo':
-				$trueOrFalseInSwitch = true;
-				break;
-		}
-		if ($trueOrFalseInSwitch === true) {
+        $trueOrFalseInSwitch = false;
+        switch ('foo') {
+            case 'foo':
+                $trueOrFalseInSwitch = true;
+                break;
+        }
+        if ($trueOrFalseInSwitch === true) {
+        }
 
-		}
+        1.0 === 1;
+        1 === 1.0;
 
-		1.0 === 1;
-		1 === 1.0;
+        /** @var string|mixed $stringOrMixed */
+        $stringOrMixed = doFoo();
+        $stringOrMixed === 'foo';
+    }
 
-		/** @var string|mixed $stringOrMixed */
-		$stringOrMixed = doFoo();
-		$stringOrMixed === 'foo';
-	}
+    public function doBar(string $a = null, string $b = null): string
+    {
+        if ($a === null && $b === null) {
+            return 'no value';
+        }
 
-	public function doBar(string $a = null, string $b = null): string
-	{
-		if ($a === null && $b === null) {
-			return 'no value';
-		}
+        if ($a !== null && $b !== null) {
+            return $a . $b;
+        }
 
-		if ($a !== null && $b !== null) {
-			return $a . $b;
-		}
+        return '';
+    }
 
-		return '';
-	}
+    public function acceptsString(string $a)
+    {
+        if ($a === null) {
+        }
+    }
 
-	public function acceptsString(string $a)
-	{
-		if ($a === null) {
+    public function anotherAcceptsString(string $a)
+    {
+        if ($a !== null) {
+        }
+    }
 
-		}
-	}
+    public function foreachWithTypeChange()
+    {
+        $foo = null;
+        foreach ([] as $val) {
+            if ($foo !== null) {
+            }
+            if ($foo !== 1) {
+            }
 
-	public function anotherAcceptsString(string $a)
-	{
-		if ($a !== null) {
+            if (something()) {
+                $foo = new self();
+            }
+        }
 
-		}
-	}
+        foreach ([1, 2, 3] as $val) {
+            if ($val === null) {
+            }
+            $val = null;
+        }
+    }
 
-	public function foreachWithTypeChange()
-	{
-		$foo = null;
-		foreach ([] as $val) {
-			if ($foo !== null) {
+    /**
+     * @param int[]|true $a
+     */
+    public function unionOfIntegersAndTrue($a)
+    {
+        if ($a !== true) {
+            $a = [];
+        }
 
-			}
-			if ($foo !== 1) {
+        if ($a !== true) {
+            $a[] = 1;
+        }
 
-			}
+        if ($a !== true && count($a) > 0) {
+            $a = reset($a);
+        }
+    }
 
-			if (something()) {
-				$foo = new self();
-			}
-		}
+    public function whileWithTypeChange()
+    {
+        $foo = null;
+        while (fetch()) {
+            if ($foo !== null) {
+            }
+            if ($foo !== 1) {
+            }
 
-		foreach ([1, 2, 3] as $val) {
-			if ($val === null) {
+            if (something()) {
+                $foo = new self();
+            }
+        }
 
-			}
-			$val = null;
-		}
-	}
+        while ($val = $this->returnArray()) {
+            if ($val === null) {
+            }
+            $val = null;
+        }
+    }
 
-	/**
-	 * @param int[]|true $a
-	 */
-	public function unionOfIntegersAndTrue($a)
-	{
-		if ($a !== true) {
-			$a = [];
-		}
+    public function forWithTypeChange()
+    {
+        $foo = null;
+        for (;;) {
+            if ($foo !== null) {
+            }
+            if ($foo !== 1) {
+            }
 
-		if ($a !== true) {
-			$a[] = 1;
-		}
+            if (something()) {
+                $foo = new self();
+            }
+        }
 
-		if ($a !== true && count($a) > 0) {
-			$a = reset($a);
-		}
-	}
+        for (; $val = $this->returnArray();) {
+            if ($val === null) {
+            }
+            $val = null;
+        }
+    }
 
-	public function whileWithTypeChange()
-	{
-		$foo = null;
-		while (fetch()) {
-			if ($foo !== null) {
-
-			}
-			if ($foo !== 1) {
-
-			}
-
-			if (something()) {
-				$foo = new self();
-			}
-		}
-
-		while ($val = $this->returnArray()) {
-			if ($val === null) {
-
-			}
-			$val = null;
-		}
-	}
-
-	public function forWithTypeChange()
-	{
-		$foo = null;
-		for (;;) {
-			if ($foo !== null) {
-
-			}
-			if ($foo !== 1) {
-
-			}
-
-			if (something()) {
-				$foo = new self();
-			}
-		}
-
-		for (; $val = $this->returnArray();) {
-			if ($val === null) {
-
-			}
-			$val = null;
-		}
-	}
-
-	private function returnArray(): array
-	{
-
-	}
-
+    private function returnArray(): array
+    {
+    }
 }
 
 class Node
 {
 
-	/** @var self|null */
-	private $next;
+    /** @var self|null */
+    private $next;
 
-	/** @var int */
-	private $id;
+    /** @var int */
+    private $id;
 
-	public function iterate(): void
-	{
-		for ($node = $this; $node !== null; $node = $node->next) {
-			// ...
-		}
-	}
+    public function iterate(): void
+    {
+        for ($node = $this; $node !== null; $node = $node->next) {
+            // ...
+        }
+    }
 
-	public function checkCycle()
-	{
-		if ($this->next !== null) {
-			$iter = $this->next;
-			while ($iter !== null) {
-				if ($iter->id === $this->id) {
-					throw new \Exception('Cycle detected.');
-				}
+    public function checkCycle()
+    {
+        if ($this->next !== null) {
+            $iter = $this->next;
+            while ($iter !== null) {
+                if ($iter->id === $this->id) {
+                    throw new \Exception('Cycle detected.');
+                }
 
-				$iter = $iter->next;
-			}
-		}
-	}
+                $iter = $iter->next;
+            }
+        }
+    }
 
-	public function checkAnotherCycle()
-	{
-		if ($this->next !== null) {
-			$iter = $this->next;
-			while ($iter !== false) {
-				if ($iter->id === $this->id) {
-					throw new \Exception('Cycle detected.');
-				}
+    public function checkAnotherCycle()
+    {
+        if ($this->next !== null) {
+            $iter = $this->next;
+            while ($iter !== false) {
+                if ($iter->id === $this->id) {
+                    throw new \Exception('Cycle detected.');
+                }
 
-				$iter = $iter->next;
-			}
-		}
-	}
+                $iter = $iter->next;
+            }
+        }
+    }
 
-	public function finallyNullability()
-	{
-		$result = null;
-		try {
-			if (doFoo()) {
-				throw new \Exception();
-			}
-			$result = '1';
-		} finally {
-			if ($result !== null) {
+    public function finallyNullability()
+    {
+        $result = null;
+        try {
+            if (doFoo()) {
+                throw new \Exception();
+            }
+            $result = '1';
+        } finally {
+            if ($result !== null) {
+            }
+        }
+    }
 
-			}
-		}
-	}
+    public function checkForCycle()
+    {
+        if ($this->next !== null) {
+            $iter = $this->next;
+            for (; $iter !== null;) {
+                if ($iter->id === $this->id) {
+                    throw new \Exception('Cycle detected.');
+                }
 
-	public function checkForCycle()
-	{
-		if ($this->next !== null) {
-			$iter = $this->next;
-			for (;$iter !== null;) {
-				if ($iter->id === $this->id) {
-					throw new \Exception('Cycle detected.');
-				}
+                $iter = $iter->next;
+            }
+        }
+    }
 
-				$iter = $iter->next;
-			}
-		}
-	}
+    public function checkAnotherForCycle()
+    {
+        if ($this->next !== null) {
+            $iter = $this->next;
+            for (; $iter !== false;) {
+                if ($iter->id === $this->id) {
+                    throw new \Exception('Cycle detected.');
+                }
 
-	public function checkAnotherForCycle()
-	{
-		if ($this->next !== null) {
-			$iter = $this->next;
-			for (;$iter !== false;) {
-				if ($iter->id === $this->id) {
-					throw new \Exception('Cycle detected.');
-				}
+                $iter = $iter->next;
+            }
+        }
+    }
 
-				$iter = $iter->next;
-			}
-		}
-	}
+    public function looseNullCheck(?\stdClass $foo)
+    {
+        if ($foo == null) {
+            return;
+        }
 
-	public function looseNullCheck(?\stdClass $foo)
-	{
-		if ($foo == null) {
-			return;
-		}
-
-		if ($foo !== null) {
-
-		}
-	}
+        if ($foo !== null) {
+        }
+    }
 }
 
 class ConstantValuesComparison
 {
 
-	function testInt()
-	{
-		$a = 1;
-		$b = 2;
-		$a === $b;
-	}
+    function testInt()
+    {
+        $a = 1;
+        $b = 2;
+        $a === $b;
+    }
 
 
-	function testArray()
-	{
-		$a = ['X' => 1];
-		$b = ['X' => 2];
-		$a === $b;
-	}
+    function testArray()
+    {
+        $a = ['X' => 1];
+        $b = ['X' => 2];
+        $a === $b;
+    }
 
 
-	function testArrayTricky()
-	{
-		$a = ['X' => 1, 'Y' => 2];
-		$b = ['X' => 2, 'Y' => 1];
-		$a === $b;
-	}
+    function testArrayTricky()
+    {
+        $a = ['X' => 1, 'Y' => 2];
+        $b = ['X' => 2, 'Y' => 1];
+        $a === $b;
+    }
 
 
-	function testArrayTrickyAlternative()
-	{
-		$a = ['X' => 1, 'Y' => 2];
-		$b = ['Y' => 2, 'X' => 1];
-		$a === $b;
-	}
-
+    function testArrayTrickyAlternative()
+    {
+        $a = ['X' => 1, 'Y' => 2];
+        $b = ['Y' => 2, 'X' => 1];
+        $a === $b;
+    }
 }
 
 class PredefinedConstants
 {
 
-	public function doFoo()
-	{
-		DIRECTORY_SEPARATOR === '/';
-		DIRECTORY_SEPARATOR === '\\';
-		DIRECTORY_SEPARATOR === '//';
-	}
-
+    public function doFoo()
+    {
+        DIRECTORY_SEPARATOR === '/';
+        DIRECTORY_SEPARATOR === '\\';
+        DIRECTORY_SEPARATOR === '//';
+    }
 }
 
 class ConstantTypeInWhile
 {
 
-	public function doFoo()
-	{
-		$i = 0;
-		while ($i++) {
-			if ($i === 1000000) {
+    public function doFoo()
+    {
+        $i = 0;
+        while ($i++) {
+            if ($i === 1000000) {
+            }
+            if ($i === 'string') {
+            }
+        }
 
-			}
-			if ($i === 'string') {
-
-			}
-		}
-
-		if ($i === 1000000) {
-
-		}
-		if ($i === 'string') {
-
-		}
-	}
-
+        if ($i === 1000000) {
+        }
+        if ($i === 'string') {
+        }
+    }
 }
 
 class ConstantTypeInDoWhile
 {
 
-	public function doFoo()
-	{
-		$i = 0;
-		do {
-			if ($i === 1000000) {
+    public function doFoo()
+    {
+        $i = 0;
+        do {
+            if ($i === 1000000) {
+            }
+            if ($i === 'string') {
+            }
+        } while ($i++);
 
-			}
-			if ($i === 'string') {
-
-			}
-		} while ($i++);
-
-		if ($i === 1000000) {
-
-		}
-		if ($i === 'string') {
-
-		}
-	}
-
+        if ($i === 1000000) {
+        }
+        if ($i === 'string') {
+        }
+    }
 }
 
 class ConstantAssignOperatorInWhile
 {
 
-	public function doFoo()
-	{
-		$i = 10.0;
-		while (true) {
-			$i /= 5;
-			if ($i === 1000000.0) {
+    public function doFoo()
+    {
+        $i = 10.0;
+        while (true) {
+            $i /= 5;
+            if ($i === 1000000.0) {
+            }
+            if ($i === 'string') {
+            }
+        }
 
-			}
-			if ($i === 'string') {
-
-			}
-		}
-
-		if ($i === 1000000.0) {
-
-		}
-		if ($i === 'string') {
-
-		}
-	}
-
+        if ($i === 1000000.0) {
+        }
+        if ($i === 'string') {
+        }
+    }
 }
 
 class NullArrayKey
 {
 
-	public function doFoo()
-	{
-		$array = [];
-		$array['key'] = null;
-		if ($array['key'] !== null) {
-
-		}
-	}
-
+    public function doFoo()
+    {
+        $array = [];
+        $array['key'] = null;
+        if ($array['key'] !== null) {
+        }
+    }
 }
 
 class OverwriteSpecifiedVariable
 {
 
-	public function doFoo()
-	{
-		/** @var int[] $array */
-		$array = doFoo();
-		if ($array['key'] === 1) {
-			$array = [
-				'key' => 0,
-			];
-			$array['key'] === 0;
-		}
-	}
-
+    public function doFoo()
+    {
+        /** @var int[] $array */
+        $array = doFoo();
+        if ($array['key'] === 1) {
+            $array = [
+                'key' => 0,
+            ];
+            $array['key'] === 0;
+        }
+    }
 }
 
 class StrictComparisonOfSpecifiedFunctionCall
 {
 
-	public function doFoo()
-	{
-		if (is_int($this->nullableInt())) {
-			if ($this->nullableInt() ===  null) {
+    public function doFoo()
+    {
+        if (is_int($this->nullableInt())) {
+            if ($this->nullableInt() ===  null) {
+            }
+        }
+    }
 
-			}
-		}
-	}
-
-	public function nullableInt(): ?int
-	{
-
-	}
-
+    public function nullableInt(): ?int
+    {
+    }
 }
 
 class CheckDefaultArrayKeys
 {
 
-	/**
-	 * @param string[] $array
-	 */
-	public function doFoo(array $array)
-	{
-		foreach ($array as $key => $val) {
-			if ($key === 1) {
-
-			} elseif ($key === 'str') {
-
-			} elseif ($key === 1.0) {
-
-			} elseif ($key === new \stdClass()) {
-
-			}
-		}
-	}
-
+    /**
+     * @param string[] $array
+     */
+    public function doFoo(array $array)
+    {
+        foreach ($array as $key => $val) {
+            if ($key === 1) {
+            } elseif ($key === 'str') {
+            } elseif ($key === 1.0) {
+            } elseif ($key === new \stdClass()) {
+            }
+        }
+    }
 }
 
 class DoNotReportPropertyFetchAndNullComparison
 {
 
-	/** @var self */
-	private $foo;
+    /** @var self */
+    private $foo;
 
-	/** @var self */
-	private static $bar;
+    /** @var self */
+    private static $bar;
 
-	public function doFoo()
-	{
-		if ($this->foo === null) {
+    public function doFoo()
+    {
+        if ($this->foo === null) {
+        }
+        if ($this->foo !== null) {
+        }
+        if (null === $this->foo) {
+        }
+        if (null !== $this->foo) {
+        }
+    }
 
-		}
-		if ($this->foo !== null) {
-
-		}
-		if (null === $this->foo) {
-
-		}
-		if (null !== $this->foo) {
-
-		}
-	}
-
-	public function doBar()
-	{
-		if (self::$bar === null) {
-
-		}
-		if (self::$bar !== null) {
-
-		}
-		if (null === self::$bar) {
-
-		}
-		if (null !== self::$bar) {
-
-		}
-	}
-
+    public function doBar()
+    {
+        if (self::$bar === null) {
+        }
+        if (self::$bar !== null) {
+        }
+        if (null === self::$bar) {
+        }
+        if (null !== self::$bar) {
+        }
+    }
 }
 
 class ComparingAgainstEmptyArray
 {
 
-	/**
-	 * @param string[] $strings
-	 * @param mixed[] $mixeds
-	 */
-	public function doFoo(
-		array $strings,
-		array $mixeds
-	)
-	{
-		if ($strings === []) {
+    /**
+     * @param string[] $strings
+     * @param mixed[] $mixeds
+     */
+    public function doFoo(
+        array $strings,
+        array $mixeds
+    ) {
+        if ($strings === []) {
+        }
+        if ($mixeds === []) {
+        }
+    }
 
-		}
-		if ($mixeds === []) {
-
-		}
-	}
-
-	/**
-	 * @param string[] $strings
-	 * @param mixed[] $mixeds
-	 */
-	public function doBar(
-		array $strings,
-		array $mixeds
-	)
-	{
-		if ([] === $strings) {
-
-		}
-		if ([] === $mixeds) {
-
-		}
-	}
-
+    /**
+     * @param string[] $strings
+     * @param mixed[] $mixeds
+     */
+    public function doBar(
+        array $strings,
+        array $mixeds
+    ) {
+        if ([] === $strings) {
+        }
+        if ([] === $mixeds) {
+        }
+    }
 }
 
 class StaticVar
 {
 
-	public function doFoo()
-	{
-		static $i = null;
+    public function doFoo()
+    {
+        static $i = null;
 
-		if ($i === 5) {
+        if ($i === 5) {
+        }
 
-		}
-
-		$i = rand(0, 1);
-	}
-
+        $i = rand(0, 1);
+    }
 }
 
 class DuplicateConditionNeverError
 {
 
-	public function sort(int $a, int $b)
-	{
-		$c = 0;
+    public function sort(int $a, int $b)
+    {
+        $c = 0;
 
-		if ($c === $a && $c === $b) {
-			return +1;
-		}
+        if ($c === $a && $c === $b) {
+            return +1;
+        }
 
-		if ($c === $a) {
-			return -1;
-		}
+        if ($c === $a) {
+            return -1;
+        }
 
-		if ($c === $b) {
-			return +1;
-		}
-	}
-
+        if ($c === $b) {
+            return +1;
+        }
+    }
 }

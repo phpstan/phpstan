@@ -9,10 +9,9 @@ use PHPStan\Reflection\MethodReflection;
 interface DynamicStaticMethodReturnTypeExtension
 {
 
-	public function getClass(): string;
+    public function getClass(): string;
 
-	public function isStaticMethodSupported(MethodReflection $methodReflection): bool;
+    public function isStaticMethodSupported(MethodReflection $methodReflection): bool;
 
-	public function getTypeFromStaticMethodCall(MethodReflection $methodReflection, StaticCall $methodCall, Scope $scope): Type;
-
+    public function getTypeFromStaticMethodCall(MethodReflection $methodReflection, StaticCall $methodCall, Scope $scope): Type;
 }

@@ -2,5 +2,4 @@
 
 function ibase_wait_event()
 {
-
 }

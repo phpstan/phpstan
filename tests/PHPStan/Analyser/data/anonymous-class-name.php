@@ -3,19 +3,19 @@
 namespace AnonymousClassName;
 
 function () {
-	$foo = new class () {
+    $foo = new class () {
 
-		/** @var Foo */
-		public $fooProperty;
+        /** @var Foo */
+        public $fooProperty;
 
-		/**
-		 * @return Foo
-		 */
-		public function doFoo()
-		{
-			'inside';
-		}
-	};
+        /**
+         * @return Foo
+         */
+        public function doFoo()
+        {
+            'inside';
+        }
+    };
 
-	'outside';
+    'outside';
 };

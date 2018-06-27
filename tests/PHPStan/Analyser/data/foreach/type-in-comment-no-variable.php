@@ -7,5 +7,5 @@ $values = [];
 
 /** @var bool */
 foreach ($values as $value) {
-	die;
+    die;
 }

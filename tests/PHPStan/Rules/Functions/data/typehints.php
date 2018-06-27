@@ -14,17 +14,14 @@ trait SomeTrait
 
 function foo(FooFunctionTypehints $foo, $bar, array $lorem): NonexistentClass
 {
-
 }
 
 function bar(BarFunctionTypehints $bar): array
 {
-
 }
 
 function baz(...$bar): FooFunctionTypehints
 {
-
 }
 
 /**
@@ -32,12 +29,10 @@ function baz(...$bar): FooFunctionTypehints
  */
 function returnParent()
 {
-
 }
 
 function badCaseTypehints(fOOFunctionTypehints $foo): fOOFunctionTypehintS
 {
-
 }
 
 /**
@@ -46,7 +41,6 @@ function badCaseTypehints(fOOFunctionTypehints $foo): fOOFunctionTypehintS
  */
 function badCaseInNativeAndPhpDoc(FooFunctionTypehints $foo): FooFunctionTypehints
 {
-
 }
 
 /**
@@ -55,12 +49,10 @@ function badCaseInNativeAndPhpDoc(FooFunctionTypehints $foo): FooFunctionTypehin
  */
 function anotherBadCaseInNativeAndPhpDoc(FOOFunctionTypehints $foo): FOOFunctionTypehints
 {
-
 }
 
 function referencesTraitsInNative(SomeTrait $trait): SomeTrait
 {
-
 }
 
 /**
@@ -69,5 +61,4 @@ function referencesTraitsInNative(SomeTrait $trait): SomeTrait
  */
 function referencesTraitsInPhpDoc($trait)
 {
-
 }

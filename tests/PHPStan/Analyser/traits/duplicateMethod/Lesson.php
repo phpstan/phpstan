@@ -5,11 +5,10 @@ namespace DuplicateMethod;
 class Lesson
 {
 
-	use LessonTrait;
+    use LessonTrait;
 
-	public function test()
-	{
-		$this->doFoo();
-	}
-
+    public function test()
+    {
+        $this->doFoo();
+    }
 }

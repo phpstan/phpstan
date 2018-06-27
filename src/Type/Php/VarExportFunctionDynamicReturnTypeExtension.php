@@ -12,44 +12,43 @@ use PHPStan\Type\TypeCombinator;
 class VarExportFunctionDynamicReturnTypeExtension implements DynamicFunctionReturnTypeExtension
 {
 
-	public function isFunctionSupported(\PHPStan\Reflection\FunctionReflection $functionReflection): bool
-	{
-		return in_array(
-			$functionReflection->getName(),
-			[
-				'var_export',
-				'highlight_file',
-				'highlight_string',
-			],
-			true
-		);
-	}
+    public function isFunctionSupported(\PHPStan\Reflection\FunctionReflection $functionReflection): bool
+    {
+        return in_array(
+            $functionReflection->getName(),
+            [
+                'var_export',
+                'highlight_file',
+                'highlight_string',
+            ],
+            true
+        );
+    }
 
-	public function getTypeFromFunctionCall(\PHPStan\Reflection\FunctionReflection $functionReflection, \PhpParser\Node\Expr\FuncCall $functionCall, \PHPStan\Analyser\Scope $scope): \PHPStan\Type\Type
-	{
-		if ($functionReflection->getName() === 'var_export') {
-			$fallbackReturnType = new NullType();
-		} else {
-			$fallbackReturnType = new BooleanType();
-		}
+    public function getTypeFromFunctionCall(\PHPStan\Reflection\FunctionReflection $functionReflection, \PhpParser\Node\Expr\FuncCall $functionCall, \PHPStan\Analyser\Scope $scope): \PHPStan\Type\Type
+    {
+        if ($functionReflection->getName() === 'var_export') {
+            $fallbackReturnType = new NullType();
+        } else {
+            $fallbackReturnType = new BooleanType();
+        }
 
-		if (count($functionCall->args) < 1) {
-			return TypeCombinator::union(
-				new StringType(),
-				$fallbackReturnType
-			);
-		}
+        if (count($functionCall->args) < 1) {
+            return TypeCombinator::union(
+                new StringType(),
+                $fallbackReturnType
+            );
+        }
 
-		if (count($functionCall->args) < 2) {
-			return $fallbackReturnType;
-		}
+        if (count($functionCall->args) < 2) {
+            return $fallbackReturnType;
+        }
 
-		$returnArgumentType = $scope->getType($functionCall->args[1]->value);
-		if ((new ConstantBooleanType(true))->isSuperTypeOf($returnArgumentType)->yes()) {
-			return new StringType();
-		}
+        $returnArgumentType = $scope->getType($functionCall->args[1]->value);
+        if ((new ConstantBooleanType(true))->isSuperTypeOf($returnArgumentType)->yes()) {
+            return new StringType();
+        }
 
-		return $fallbackReturnType;
-	}
-
+        return $fallbackReturnType;
+    }
 }

@@ -4,46 +4,44 @@ namespace PassedByReference;
 
 function foo(&$foo)
 {
-
 }
 
 class Bar
 {
 
-	private $barProperty;
+    private $barProperty;
 
-	private static $staticBarProperty;
+    private static $staticBarProperty;
 
-	public function doBar()
-	{
-		foo($this->barProperty); // ok
-		foo(self::$staticBarProperty); // ok
-	}
-
+    public function doBar()
+    {
+        foo($this->barProperty); // ok
+        foo(self::$staticBarProperty); // ok
+    }
 }
 
 function () {
-	$i = 0;
-	foo($i); // ok
+    $i = 0;
+    foo($i); // ok
 
-	$arr = [1, 2, 3];
-	foo($arr[0]); // ok
+    $arr = [1, 2, 3];
+    foo($arr[0]); // ok
 
-	foo(rand());
-	foo(null);
+    foo(rand());
+    foo(null);
 
-	$m = null;
-	preg_match('a', 'b', $m);
+    $m = null;
+    preg_match('a', 'b', $m);
 
-	$n = null;
-	reset($n);
+    $n = null;
+    reset($n);
 };
 
-function bar(string &$s) {
-
+function bar(string &$s)
+{
 }
 
 function () {
-	$i = 1;
-	bar($i);
+    $i = 1;
+    bar($i);
 };

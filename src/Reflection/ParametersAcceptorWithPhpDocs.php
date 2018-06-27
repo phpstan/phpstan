@@ -7,13 +7,12 @@ use PHPStan\Type\Type;
 interface ParametersAcceptorWithPhpDocs extends ParametersAcceptor
 {
 
-	/**
-	 * @return array<int, \PHPStan\Reflection\Php\PhpParameterReflection>
-	 */
-	public function getParameters(): array;
+    /**
+     * @return array<int, \PHPStan\Reflection\Php\PhpParameterReflection>
+     */
+    public function getParameters(): array;
 
-	public function getPhpDocReturnType(): Type;
+    public function getPhpDocReturnType(): Type;
 
-	public function getNativeReturnType(): Type;
-
+    public function getNativeReturnType(): Type;
 }

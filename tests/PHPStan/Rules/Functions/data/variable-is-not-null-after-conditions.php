@@ -7,25 +7,23 @@ namespace VariableIsNotNullAfterConditions;
  */
 function stringOrNull()
 {
-
 }
 
 function foo(string $foo)
 {
-
 }
 
 function () {
-	if ($bar) {
-		$class = (string) stringOrNull();
-	} elseif ($baz) {
-		$class = stringOrNull();
-		if ($class === null) {
-			return [];
-		}
-	} else {
-		return [];
-	};
+    if ($bar) {
+        $class = (string) stringOrNull();
+    } elseif ($baz) {
+        $class = stringOrNull();
+        if ($class === null) {
+            return [];
+        }
+    } else {
+        return [];
+    };
 
-	foo($class);
+    foo($class);
 };

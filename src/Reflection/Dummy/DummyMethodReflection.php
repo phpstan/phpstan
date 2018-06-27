@@ -11,54 +11,53 @@ use PHPStan\Reflection\TrivialParametersAcceptor;
 class DummyMethodReflection implements MethodReflection
 {
 
-	/** @var string */
-	private $name;
+    /** @var string */
+    private $name;
 
-	public function __construct(string $name)
-	{
-		$this->name = $name;
-	}
+    public function __construct(string $name)
+    {
+        $this->name = $name;
+    }
 
-	public function getDeclaringClass(): ClassReflection
-	{
-		$broker = Broker::getInstance();
+    public function getDeclaringClass(): ClassReflection
+    {
+        $broker = Broker::getInstance();
 
-		return $broker->getClass(\stdClass::class);
-	}
+        return $broker->getClass(\stdClass::class);
+    }
 
-	public function isStatic(): bool
-	{
-		return false;
-	}
+    public function isStatic(): bool
+    {
+        return false;
+    }
 
-	public function isPrivate(): bool
-	{
-		return false;
-	}
+    public function isPrivate(): bool
+    {
+        return false;
+    }
 
-	public function isPublic(): bool
-	{
-		return true;
-	}
+    public function isPublic(): bool
+    {
+        return true;
+    }
 
-	public function getName(): string
-	{
-		return $this->name;
-	}
+    public function getName(): string
+    {
+        return $this->name;
+    }
 
-	public function getPrototype(): ClassMemberReflection
-	{
-		return $this;
-	}
+    public function getPrototype(): ClassMemberReflection
+    {
+        return $this;
+    }
 
-	/**
-	 * @return \PHPStan\Reflection\ParametersAcceptor[]
-	 */
-	public function getVariants(): array
-	{
-		return [
-			new TrivialParametersAcceptor(),
-		];
-	}
-
+    /**
+     * @return \PHPStan\Reflection\ParametersAcceptor[]
+     */
+    public function getVariants(): array
+    {
+        return [
+            new TrivialParametersAcceptor(),
+        ];
+    }
 }

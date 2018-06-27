@@ -10,66 +10,62 @@ use PHPStan\Broker\Broker;
 class CallToNonExistentFunctionRule implements \PHPStan\Rules\Rule
 {
 
-	/** @var \PHPStan\Broker\Broker */
-	private $broker;
+    /** @var \PHPStan\Broker\Broker */
+    private $broker;
 
-	/** @var bool */
-	private $checkFunctionNameCase;
+    /** @var bool */
+    private $checkFunctionNameCase;
 
-	public function __construct(
-		Broker $broker,
-		bool $checkFunctionNameCase
-	)
-	{
-		$this->broker = $broker;
-		$this->checkFunctionNameCase = $checkFunctionNameCase;
-	}
+    public function __construct(
+        Broker $broker,
+        bool $checkFunctionNameCase
+    ) {
+        $this->broker = $broker;
+        $this->checkFunctionNameCase = $checkFunctionNameCase;
+    }
 
-	public function getNodeType(): string
-	{
-		return FuncCall::class;
-	}
+    public function getNodeType(): string
+    {
+        return FuncCall::class;
+    }
 
-	/**
-	 * @param \PhpParser\Node\Expr\FuncCall $node
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
-	 */
-	public function processNode(Node $node, Scope $scope): array
-	{
-		if (!($node->name instanceof \PhpParser\Node\Name)) {
-			return [];
-		}
+    /**
+     * @param \PhpParser\Node\Expr\FuncCall $node
+     * @param \PHPStan\Analyser\Scope $scope
+     * @return string[]
+     */
+    public function processNode(Node $node, Scope $scope): array
+    {
+        if (!($node->name instanceof \PhpParser\Node\Name)) {
+            return [];
+        }
 
-		$lowercaseFunctionName = strtolower((string) $node->name);
+        $lowercaseFunctionName = strtolower((string) $node->name);
 
-		if (
-			strpos($lowercaseFunctionName, 'apache_') === 0
-			|| strpos($lowercaseFunctionName, 'fastcgi_') === 0
-			|| $lowercaseFunctionName === 'getallheaders'
-		) {
-			return [];
-		}
+        if (strpos($lowercaseFunctionName, 'apache_') === 0
+            || strpos($lowercaseFunctionName, 'fastcgi_') === 0
+            || $lowercaseFunctionName === 'getallheaders'
+        ) {
+            return [];
+        }
 
-		if (!$this->broker->hasFunction($node->name, $scope)) {
-			return [sprintf('Function %s not found.', (string) $node->name)];
-		}
+        if (!$this->broker->hasFunction($node->name, $scope)) {
+            return [sprintf('Function %s not found.', (string) $node->name)];
+        }
 
-		$function = $this->broker->getFunction($node->name, $scope);
-		$name = (string) $node->name;
+        $function = $this->broker->getFunction($node->name, $scope);
+        $name = (string) $node->name;
 
-		if ($this->checkFunctionNameCase) {
-			/** @var string $calledFunctionName */
-			$calledFunctionName = $this->broker->resolveFunctionName($node->name, $scope);
-			if (
-				strtolower($function->getName()) === strtolower($calledFunctionName)
-				&& $function->getName() !== $calledFunctionName
-			) {
-				return [sprintf('Call to function %s() with incorrect case: %s', $function->getName(), $name)];
-			}
-		}
+        if ($this->checkFunctionNameCase) {
+            /** @var string $calledFunctionName */
+            $calledFunctionName = $this->broker->resolveFunctionName($node->name, $scope);
+            if (strtolower($function->getName()) === strtolower($calledFunctionName)
+                && $function->getName() !== $calledFunctionName
+            ) {
+                return [sprintf('Call to function %s() with incorrect case: %s', $function->getName(), $name)];
+            }
+        }
 
-		return [];
-	}
-
+        return [];
+    }
 }

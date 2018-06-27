@@ -15,37 +15,34 @@ interface MyValue
 interface MyIterator extends \Iterator
 {
 
-	public function key(): MyKey;
+    public function key(): MyKey;
 
-	public function current(): MyValue;
-
+    public function current(): MyValue;
 }
 
 interface MyIteratorAggregate extends \IteratorAggregate
 {
 
-	public function getIterator(): MyIterator;
-
+    public function getIterator(): MyIterator;
 }
 
 interface MyIteratorAggregateRecursive extends \IteratorAggregate
 {
 
-	public function getIterator(): MyIteratorAggregateRecursive;
-
+    public function getIterator(): MyIteratorAggregateRecursive;
 }
 
 function test(MyIterator $iterator, MyIteratorAggregate $iteratorAggregate, MyIteratorAggregateRecursive $iteratorAggregateRecursive)
 {
-	foreach ($iterator as $keyFromIterator => $valueFromIterator) {
-		'insideFirstForeach';
-	}
+    foreach ($iterator as $keyFromIterator => $valueFromIterator) {
+        'insideFirstForeach';
+    }
 
-	foreach ($iteratorAggregate as $keyFromAggregate => $valueFromAggregate) {
-		'insideSecondForeach';
-	}
+    foreach ($iteratorAggregate as $keyFromAggregate => $valueFromAggregate) {
+        'insideSecondForeach';
+    }
 
-	foreach ($iteratorAggregateRecursive as $keyFromRecursiveAggregate => $valueFromRecursiveAggregate) {
-		'insideThirdForeach';
-	}
+    foreach ($iteratorAggregateRecursive as $keyFromRecursiveAggregate => $valueFromRecursiveAggregate) {
+        'insideThirdForeach';
+    }
 }

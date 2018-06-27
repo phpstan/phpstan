@@ -3,6 +3,6 @@
 namespace Test;
 
 function () {
-	$foo = new ClassWithToString();
-	$foo->acceptsString($foo);
+    $foo = new ClassWithToString();
+    $foo->acceptsString($foo);
 };

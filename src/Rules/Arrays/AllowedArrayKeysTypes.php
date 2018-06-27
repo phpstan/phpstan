@@ -13,15 +13,14 @@ use PHPStan\Type\UnionType;
 class AllowedArrayKeysTypes
 {
 
-	public static function getType(): Type
-	{
-		return new UnionType([
-			new IntegerType(),
-			new StringType(),
-			new FloatType(),
-			new BooleanType(),
-			new NullType(),
-		]);
-	}
-
+    public static function getType(): Type
+    {
+        return new UnionType([
+            new IntegerType(),
+            new StringType(),
+            new FloatType(),
+            new BooleanType(),
+            new NullType(),
+        ]);
+    }
 }

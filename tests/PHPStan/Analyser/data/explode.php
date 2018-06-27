@@ -4,20 +4,19 @@ namespace ExplodeFunction;
 
 function (string $delimiter, $mixed) {
 
-	/** @var string $str */
-	$str = doFoo();
-	$sureArray = explode(' ', $str);
-	$sureFalse = explode('', $str);
-	$arrayOrFalse = explode($delimiter, $str);
+    /** @var string $str */
+    $str = doFoo();
+    $sureArray = explode(' ', $str);
+    $sureFalse = explode('', $str);
+    $arrayOrFalse = explode($delimiter, $str);
 
-	$emptyOrComma = '';
-	if (doFoo()) {
-		$emptyOrComma = ',';
-	}
+    $emptyOrComma = '';
+    if (doFoo()) {
+        $emptyOrComma = ',';
+    }
 
-	$anotherArrayOrFalse = explode($emptyOrComma, $str);
-	$benevolentArrayOrFalse = explode($mixed, $str);
+    $anotherArrayOrFalse = explode($emptyOrComma, $str);
+    $benevolentArrayOrFalse = explode($mixed, $str);
 
-	die;
-
+    die;
 };

@@ -3,19 +3,16 @@
 class FooClassForNodeScopeResolverTestingWithoutNamespace
 {
 
-	public function misleadingBoolReturnType(): boolean
-	{
+    public function misleadingBoolReturnType(): boolean
+    {
+    }
 
-	}
-
-	public function misleadingIntReturnType(): integer
-	{
-
-	}
-
+    public function misleadingIntReturnType(): integer
+    {
+    }
 }
 
 function () {
-	$foo = new FooClassForNodeScopeResolverTestingWithoutNamespace();
-	die;
+    $foo = new FooClassForNodeScopeResolverTestingWithoutNamespace();
+    die;
 };

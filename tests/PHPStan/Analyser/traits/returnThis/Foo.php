@@ -5,6 +5,5 @@ namespace TraitsReturnThis;
 class Foo
 {
 
-	use FooTrait;
-
+    use FooTrait;
 }

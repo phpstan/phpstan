@@ -8,56 +8,48 @@ use SomeNamespace\Consecteur;
 class FooWithTrait extends FooParent
 {
 
-	use FooTrait;
+    use FooTrait;
 
-	/**
-	 * @return Bar
-	 */
-	public static function doSomethingStatic()
-	{
+    /**
+     * @return Bar
+     */
+    public static function doSomethingStatic()
+    {
+    }
 
-	}
+    /**
+     * @return self[]
+     */
+    public function doBar(): array
+    {
+    }
 
-	/**
-	 * @return self[]
-	 */
-	public function doBar(): array
-	{
+    public function returnParent(): parent
+    {
+    }
 
-	}
+    /**
+     * @return parent
+     */
+    public function returnPhpDocParent()
+    {
+    }
 
-	public function returnParent(): parent
-	{
+    /**
+     * @return NULL[]
+     */
+    public function returnNulls(): array
+    {
+    }
 
-	}
+    public function returnObject(): object
+    {
+    }
 
-	/**
-	 * @return parent
-	 */
-	public function returnPhpDocParent()
-	{
-
-	}
-
-	/**
-	 * @return NULL[]
-	 */
-	public function returnNulls(): array
-	{
-
-	}
-
-	public function returnObject(): object
-	{
-
-	}
-
-	/**
-	 * @return \PHPUnit_Framework_MockObject_MockObject|Foo
-	 */
-	public function returnPhpunitMock(): Foo
-	{
-
-	}
-
+    /**
+     * @return \PHPUnit_Framework_MockObject_MockObject|Foo
+     */
+    public function returnPhpunitMock(): Foo
+    {
+    }
 }

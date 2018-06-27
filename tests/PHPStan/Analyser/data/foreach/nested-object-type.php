@@ -6,7 +6,7 @@ use AnotherNamespace\Foo;
 $fooses = foos();
 
 foreach ($fooses as $foos) {
-	foreach ($foos as $foo) {
-		die;
-	}
+    foreach ($foos as $foo) {
+        die;
+    }
 }

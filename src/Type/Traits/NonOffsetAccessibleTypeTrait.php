@@ -9,19 +9,18 @@ use PHPStan\Type\Type;
 trait NonOffsetAccessibleTypeTrait
 {
 
-	public function isOffsetAccessible(): TrinaryLogic
-	{
-		return TrinaryLogic::createNo();
-	}
+    public function isOffsetAccessible(): TrinaryLogic
+    {
+        return TrinaryLogic::createNo();
+    }
 
-	public function getOffsetValueType(Type $offsetType): Type
-	{
-		return new ErrorType();
-	}
+    public function getOffsetValueType(Type $offsetType): Type
+    {
+        return new ErrorType();
+    }
 
-	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
-	{
-		return $this;
-	}
-
+    public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
+    {
+        return $this;
+    }
 }

@@ -3,15 +3,15 @@
 namespace FunctionWithVariadicParameters;
 
 function () {
-	foo();
+    foo();
 
-	foo(1, 2);
+    foo(1, 2);
 
-	foo(1, 2, 3);
+    foo(1, 2, 3);
 
-	foo(1, 2, null);
+    foo(1, 2, null);
 
-	bar();
+    bar();
 
-	bar(1, 2);
+    bar(1, 2);
 };

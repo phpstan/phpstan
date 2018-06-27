@@ -7,14 +7,13 @@ use PHPStan\Type\Type;
 interface ParameterReflection
 {
 
-	public function getName(): string;
+    public function getName(): string;
 
-	public function isOptional(): bool;
+    public function isOptional(): bool;
 
-	public function getType(): Type;
+    public function getType(): Type;
 
-	public function passedByReference(): PassedByReference;
+    public function passedByReference(): PassedByReference;
 
-	public function isVariadic(): bool;
-
+    public function isVariadic(): bool;
 }

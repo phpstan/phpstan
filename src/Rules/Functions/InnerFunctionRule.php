@@ -9,25 +9,24 @@ use PHPStan\Analyser\Scope;
 class InnerFunctionRule implements \PHPStan\Rules\Rule
 {
 
-	public function getNodeType(): string
-	{
-		return Function_::class;
-	}
+    public function getNodeType(): string
+    {
+        return Function_::class;
+    }
 
-	/**
-	 * @param \PhpParser\Node\Stmt\Function_ $node
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
-	 */
-	public function processNode(Node $node, Scope $scope): array
-	{
-		if ($scope->getFunction() === null) {
-			return [];
-		}
+    /**
+     * @param \PhpParser\Node\Stmt\Function_ $node
+     * @param \PHPStan\Analyser\Scope $scope
+     * @return string[]
+     */
+    public function processNode(Node $node, Scope $scope): array
+    {
+        if ($scope->getFunction() === null) {
+            return [];
+        }
 
-		return [
-			'Inner named functions are not supported by PHPStan. Consider refactoring to an anonymous function, class method, or a top-level-defined function. See issue #165 (https://github.com/phpstan/phpstan/issues/165) for more details.',
-		];
-	}
-
+        return [
+            'Inner named functions are not supported by PHPStan. Consider refactoring to an anonymous function, class method, or a top-level-defined function. See issue #165 (https://github.com/phpstan/phpstan/issues/165) for more details.',
+        ];
+    }
 }
