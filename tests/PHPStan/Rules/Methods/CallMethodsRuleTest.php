@@ -353,6 +353,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Method Test\Foo::test() invoked with 0 parameters, 1 required.',
 				886,
 			],
+			[
+				'Method ReflectionNamedType::getName() invoked with 1 parameter, 0 required.',
+				897,
+			],
 		]);
 	}
 

@@ -887,3 +887,14 @@ class CallAfterEmpty
 	}
 
 }
+
+class ReflectionTypeGetString
+{
+
+	public function doFoo(\ReflectionType $type)
+	{
+		echo $type->getName();
+		echo $type->getName(123);
+	}
+
+}

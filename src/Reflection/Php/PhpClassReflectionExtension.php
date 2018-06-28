@@ -166,11 +166,22 @@ class PhpClassReflectionExtension
 
 	public function hasMethod(ClassReflection $classReflection, string $methodName): bool
 	{
+		if (
+			$classReflection->getName() === \ReflectionType::class
+		) {
+			$classReflection = $this->broker->getClass(\ReflectionNamedType::class);
+		}
 		return $classReflection->getNativeReflection()->hasMethod($methodName);
 	}
 
 	public function getMethod(ClassReflection $classReflection, string $methodName): MethodReflection
 	{
+		if (
+			$classReflection->getName() === \ReflectionType::class
+		) {
+			$classReflection = $this->broker->getClass(\ReflectionNamedType::class);
+		}
+
 		if (isset($this->methodsIncludingAnnotations[$classReflection->getName()][$methodName])) {
 			return $this->methodsIncludingAnnotations[$classReflection->getName()][$methodName];
 		}
