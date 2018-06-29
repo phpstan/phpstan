@@ -47,6 +47,13 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		return ['analyze'];
 	}
 
+	protected function initialize(InputInterface $input, OutputInterface $output): void
+	{
+		if ((bool) $input->getOption('debug')) {
+			$this->getApplication()->setCatchExceptions(false);
+		}
+	}
+
 	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
 		$errOutput = $output instanceof ConsoleOutputInterface ? $output->getErrorOutput() : $output;
