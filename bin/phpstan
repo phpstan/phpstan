@@ -3,7 +3,6 @@
 
 use Composer\XdebugHandler\XdebugHandler;
 use PHPStan\Command\AnalyseCommand;
-use Symfony\Component\Console\Exception\CommandNotFoundException;
 
 gc_disable(); // performance boost
 
@@ -36,10 +35,5 @@ $application = new \Symfony\Component\Console\Application(
 	'PHPStan - PHP Static Analysis Tool',
 	$version
 );
-$application->setCatchExceptions(false);
 $application->add(new AnalyseCommand());
-try {
-    $application->run();
-} catch (CommandNotFoundException $exception) {
-    echo $exception->getMessage()."\n";
-}
+$application->run();
