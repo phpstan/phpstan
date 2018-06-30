@@ -1179,6 +1179,12 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				'array',
 			],
 			[
+				new IterableType(new MixedType(), new MixedType()),
+				new ObjectType(\Iterator::class),
+				IterableType::class,
+				'iterable',
+			],
+			[
 				new BenevolentUnionType([new IntegerType(), new StringType()]),
 				new StringType(),
 				IntegerType::class,
