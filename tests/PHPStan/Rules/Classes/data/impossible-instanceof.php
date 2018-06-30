@@ -243,3 +243,22 @@ class EliminateCompoundTypes
 	}
 
 }
+
+class InstanceOfString
+{
+
+	/**
+	 * @param Foo|Bar|null $fooBarNull
+	 */
+	public function doFoo($fooBarNull)
+	{
+		$string = 'Foo';
+		if (rand(0, 1) === 1) {
+			$string = 'Bar';
+		}
+		if ($fooBarNull instanceof $string) {
+			return;
+		}
+	}
+
+}

@@ -548,7 +548,7 @@ class Scope
 				return new ConstantBooleanType(false);
 			}
 			$isExpressionObject = (new ObjectWithoutClassType())->isSuperTypeOf($expressionType);
-			if (!$isExpressionObject->no() && $type instanceof StringType) {
+			if (!$isExpressionObject->no() && !(new StringType())->isSuperTypeOf($type)->no()) {
 				return new BooleanType();
 			}
 
