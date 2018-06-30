@@ -4,18 +4,9 @@ namespace PHPStan\Rules\Constants;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
-use PHPStan\Broker\Broker;
 
 class ConstantRule implements \PHPStan\Rules\Rule
 {
-
-	/** @var \PHPStan\Broker\Broker */
-	private $broker;
-
-	public function __construct(Broker $broker)
-	{
-		$this->broker = $broker;
-	}
 
 	public function getNodeType(): string
 	{
@@ -29,7 +20,7 @@ class ConstantRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		if (!$this->broker->hasConstant($node->name, $scope)) {
+		if (!$scope->hasConstant($node->name)) {
 			return [
 				sprintf(
 					'Constant %s not found.',

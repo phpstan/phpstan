@@ -353,6 +353,16 @@ services:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
 	-
+		class: PHPStan\Type\Php\DefineConstantTypeSpecifyingExtension
+		tags:
+			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
+
+	-
+		class: PHPStan\Type\Php\DefinedConstantTypeSpecifyingExtension
+		tags:
+			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
+
+	-
 		class: PHPStan\Type\Php\IsIntFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension

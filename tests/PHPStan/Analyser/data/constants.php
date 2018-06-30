@@ -4,4 +4,8 @@ namespace ConstantsForNodeScopeResolverTest;
 
 $foo = FOO_CONSTANT;
 
-die;
+define('BAR_CONSTANT', 'bar');
+
+if (defined('BAZ_CONSTANT')) {
+	die;
+}

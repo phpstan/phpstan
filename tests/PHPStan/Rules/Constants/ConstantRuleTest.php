@@ -7,7 +7,7 @@ class ConstantRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new ConstantRule($this->createBroker());
+		return new ConstantRule();
 	}
 
 	public function testConstants(): void
@@ -20,6 +20,14 @@ class ConstantRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Constant NONEXISTENT_CONSTANT not found.',
 				10,
 			],
+			[
+				'Constant DEFINED_CONSTANT not found.',
+				13,
+			],
+			/*[
+				'Constant DEFINED_CONSTANT_IF not found.',
+				21,
+			],*/
 		]);
 	}
 

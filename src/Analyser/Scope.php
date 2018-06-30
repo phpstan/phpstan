@@ -318,6 +318,15 @@ class Scope
 		], true);
 	}
 
+	public function hasConstant(Name $name): bool
+	{
+		$node = new ConstFetch(new Name\FullyQualified($name->toCodeString()));
+		if ($this->isSpecified($node)) {
+			return true;
+		}
+		return $this->broker->hasConstant($name, $this);
+	}
+
 	public function isInAnonymousFunction(): bool
 	{
 		return $this->inAnonymousFunctionReturnType !== null;

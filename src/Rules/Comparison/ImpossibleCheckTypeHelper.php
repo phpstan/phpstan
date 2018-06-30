@@ -33,19 +33,25 @@ class ImpossibleCheckTypeHelper
 	{
 		if (
 			$node instanceof FuncCall
-			&& $node->name instanceof \PhpParser\Node\Name
-			&& strtolower((string) $node->name) === 'is_numeric'
 			&& count($node->args) > 0
 		) {
-			$argType = $scope->getType($node->args[0]->value);
-			if (count(\PHPStan\Type\TypeUtils::getConstantScalars($argType)) > 0) {
-				return !$argType->toNumber() instanceof ErrorType;
-			}
+			if ($node->name instanceof \PhpParser\Node\Name) {
+				$functionName = strtolower((string) $node->name);
+				if ($functionName === 'is_numeric') {
+					$argType = $scope->getType($node->args[0]->value);
+					if (count(\PHPStan\Type\TypeUtils::getConstantScalars($argType)) > 0) {
+						return !$argType->toNumber() instanceof ErrorType;
+					}
 
-			if (!(new StringType())->isSuperTypeOf($argType)->no()) {
-				return null;
+					if (!(new StringType())->isSuperTypeOf($argType)->no()) {
+						return null;
+					}
+				} elseif ($functionName === 'defined') {
+					return null;
+				}
 			}
 		}
+
 		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($scope, $node, TypeSpecifierContext::createTruthy());
 		$sureTypes = $specifiedTypes->getSureTypes();
 		$sureNotTypes = $specifiedTypes->getSureNotTypes();

@@ -2731,6 +2731,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 
 	public function dataLiteralArraysKeys(): array
 	{
+		define('STRING_ONE', '1');
+		define('INT_ONE', 1);
+		define('STRING_FOO', 'foo');
+
 		return [
 			[
 				'0|1|2',
@@ -2797,12 +2801,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		string $evaluatedPointExpressionType
 	): void
 	{
-		if (!defined('STRING_ONE')) {
-			define('STRING_ONE', '1');
-			define('INT_ONE', 1);
-			define('STRING_FOO', 'foo');
-		}
-
 		$this->assertTypes(
 			__DIR__ . '/data/literal-arrays-keys.php',
 			$description,
@@ -5250,6 +5248,8 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 
 	public function dataConstants(): array
 	{
+		define('ConstantsForNodeScopeResolverTest\\FOO_CONSTANT', 1);
+
 		return [
 			[
 				'1',
@@ -5258,6 +5258,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'*ERROR*',
 				'NONEXISTENT_CONSTANT',
+			],
+			[
+				"'bar'",
+				'\\BAR_CONSTANT',
+			],
+			[
+				'mixed',
+				'\\BAZ_CONSTANT',
 			],
 		];
 	}
@@ -5272,9 +5280,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		string $expression
 	): void
 	{
-		if (!defined('ConstantsForNodeScopeResolverTest\\FOO_CONSTANT')) {
-			define('ConstantsForNodeScopeResolverTest\\FOO_CONSTANT', 1);
-		}
 		$this->assertTypes(
 			__DIR__ . '/data/constants.php',
 			$description,

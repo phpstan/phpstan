@@ -159,3 +159,18 @@ class IsSubclassOfTest
 	}
 
 }
+
+class DefinedConstant
+{
+
+	public function doFoo()
+	{
+		if (defined('DEFINITELY_DOES_NOT_EXIST')) {
+
+		}
+		if (!defined('ANOTHER_DEFINITELY_DOES_NOT_EXIST')) {
+
+		}
+	}
+
+}
