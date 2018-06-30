@@ -9820,7 +9820,7 @@ return [
 'SessionUpdateTimestampHandler::validateId' => ['char', 'id'=>'string'],
 'SessionUpdateTimestampHandlerInterface::updateTimestamp' => ['bool', 'key'=>'string', 'val'=>'string'],
 'SessionUpdateTimestampHandlerInterface::validateId' => ['bool', 'key'=>'string'],
-'set_error_handler' => ['?string', 'error_handler'=>'callable', 'error_types='=>'int'],
+'set_error_handler' => ['?callable', 'error_handler'=>'callable', 'error_types='=>'int'],
 'set_exception_handler' => ['callable', 'exception_handler'=>'callable'],
 'set_file_buffer' => ['int', 'fp'=>'resource', 'buffer'=>'int'],
 'set_include_path' => ['string', 'new_include_path'=>'string'],
