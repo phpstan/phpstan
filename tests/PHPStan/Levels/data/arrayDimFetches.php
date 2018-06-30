@@ -5,9 +5,9 @@ namespace Levels\ArrayDimFetches;
 class Foo
 {
 
-	public function doFoo(bool $bool, ?array $arrayOrNull)
+	public function doFoo(\stdClass $stdClass, ?array $arrayOrNull)
 	{
-		echo $bool[1];
+		echo $stdClass[1];
 		echo $arrayOrNull[0];
 
 		$arr = [
@@ -17,7 +17,7 @@ class Foo
 		echo $arr['b'];
 
 		if (rand(0, 1)) {
-			$arr = 1;
+			$arr = $stdClass;
 		}
 
 		echo $arr['a'];

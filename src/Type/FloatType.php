@@ -8,7 +8,6 @@ use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Traits\NonCallableTypeTrait;
 use PHPStan\Type\Traits\NonIterableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
-use PHPStan\Type\Traits\NonOffsetAccessibleTypeTrait;
 use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
 
 class FloatType implements Type
@@ -17,7 +16,6 @@ class FloatType implements Type
 	use NonCallableTypeTrait;
 	use NonIterableTypeTrait;
 	use NonObjectTypeTrait;
-	use NonOffsetAccessibleTypeTrait;
 	use UndecidedBooleanTypeTrait;
 
 	/**
@@ -94,6 +92,21 @@ class FloatType implements Type
 			[$this],
 			1
 		);
+	}
+
+	public function isOffsetAccessible(): TrinaryLogic
+	{
+		return TrinaryLogic::createYes();
+	}
+
+	public function getOffsetValueType(Type $offsetType): Type
+	{
+		return new NullType();
+	}
+
+	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
+	{
+		return new ErrorType();
 	}
 
 	/**

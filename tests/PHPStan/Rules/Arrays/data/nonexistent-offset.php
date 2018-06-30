@@ -126,4 +126,23 @@ class Foo
 		echo $null['test'];
 	}
 
+	/**
+	 * @param int $int
+	 * @param float $float
+	 * @param bool $bool
+	 * @param resource $resource
+	 */
+	public function offsetAccessibleOnPrimitiveTypes(
+		int $int,
+		float $float,
+		bool $bool,
+		$resource
+	)
+	{
+		$int[42];
+		$float[42];
+		$bool[42];
+		$resource[42];
+	}
+
 }

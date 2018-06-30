@@ -2,6 +2,7 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantFloatType;
 use PHPStan\Type\Constant\ConstantIntegerType;
@@ -9,7 +10,6 @@ use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\Traits\NonCallableTypeTrait;
 use PHPStan\Type\Traits\NonIterableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
-use PHPStan\Type\Traits\NonOffsetAccessibleTypeTrait;
 use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
 
 class BooleanType implements Type
@@ -19,7 +19,6 @@ class BooleanType implements Type
 	use NonCallableTypeTrait;
 	use NonIterableTypeTrait;
 	use NonObjectTypeTrait;
-	use NonOffsetAccessibleTypeTrait;
 	use UndecidedBooleanTypeTrait;
 
 	public function describe(VerbosityLevel $level): string
@@ -63,6 +62,21 @@ class BooleanType implements Type
 			[$this],
 			1
 		);
+	}
+
+	public function isOffsetAccessible(): TrinaryLogic
+	{
+		return TrinaryLogic::createYes();
+	}
+
+	public function getOffsetValueType(Type $offsetType): Type
+	{
+		return new NullType();
+	}
+
+	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
+	{
+		return new ErrorType();
 	}
 
 	/**
