@@ -332,11 +332,11 @@ class ObjectType implements TypeWithClassName
 
 		$classReflection = $broker->getClass($this->className);
 
-		if ($classReflection->isSubclassOf(\Iterator::class) && $classReflection->hasNativeMethod('key')) {
+		if ($this->isInstanceOf(\Iterator::class)->yes()) {
 			return ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('key')->getVariants())->getReturnType();
 		}
 
-		if ($classReflection->isSubclassOf(\IteratorAggregate::class) && $classReflection->hasNativeMethod('getIterator')) {
+		if ($this->isInstanceOf(\IteratorAggregate::class)->yes()) {
 			return RecursionGuard::run($this, function () use ($classReflection) {
 				return ParametersAcceptorSelector::selectSingle(
 					$classReflection->getNativeMethod('getIterator')->getVariants()
@@ -344,7 +344,7 @@ class ObjectType implements TypeWithClassName
 			});
 		}
 
-		if ($classReflection->isSubclassOf(\Traversable::class)) {
+		if ($this->isInstanceOf(\Traversable::class)->yes()) {
 			return new MixedType();
 		}
 
@@ -361,13 +361,13 @@ class ObjectType implements TypeWithClassName
 
 		$classReflection = $broker->getClass($this->className);
 
-		if ($classReflection->isSubclassOf(\Iterator::class) && $classReflection->hasNativeMethod('current')) {
+		if ($this->isInstanceOf(\Iterator::class)->yes()) {
 			return ParametersAcceptorSelector::selectSingle(
 				$classReflection->getNativeMethod('current')->getVariants()
 			)->getReturnType();
 		}
 
-		if ($classReflection->isSubclassOf(\IteratorAggregate::class) && $classReflection->hasNativeMethod('getIterator')) {
+		if ($this->isInstanceOf(\IteratorAggregate::class)->yes()) {
 			return RecursionGuard::run($this, function () use ($classReflection) {
 				return ParametersAcceptorSelector::selectSingle(
 					$classReflection->getNativeMethod('getIterator')->getVariants()
@@ -375,7 +375,7 @@ class ObjectType implements TypeWithClassName
 			});
 		}
 
-		if ($classReflection->isSubclassOf(\Traversable::class)) {
+		if ($this->isInstanceOf(\Traversable::class)->yes()) {
 			return new MixedType();
 		}
 
@@ -419,14 +419,10 @@ class ObjectType implements TypeWithClassName
 
 		$classReflection = $broker->getClass($this->className);
 
-		if ($classReflection->isSubclassOf(\ArrayAccess::class)) {
-			if ($classReflection->hasNativeMethod('offsetGet')) {
-				return RecursionGuard::run($this, function () use ($classReflection) {
-					return ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('offsetGet')->getVariants())->getReturnType();
-				});
-			}
-
-			return new MixedType();
+		if ($this->isInstanceOf(\ArrayAccess::class)->yes()) {
+			return RecursionGuard::run($this, function () use ($classReflection) {
+				return ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('offsetGet')->getVariants())->getReturnType();
+			});
 		}
 
 		return new ErrorType();

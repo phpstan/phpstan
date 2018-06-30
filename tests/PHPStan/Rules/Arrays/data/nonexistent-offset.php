@@ -145,4 +145,11 @@ class Foo
 		$resource[42];
 	}
 
+	public function offsetExistsOnArrayAccess(
+		\ArrayAccess $access
+	)
+	{
+		echo $access['name'];
+	}
+
 }
