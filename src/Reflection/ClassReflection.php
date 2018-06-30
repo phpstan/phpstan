@@ -244,6 +244,20 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 		return $this->getPhpExtension()->getNativeMethod($this, $methodName);
 	}
 
+	public function hasConstructor(): bool
+	{
+		return $this->reflection->getConstructor() !== null;
+	}
+
+	public function getConstructor(): MethodReflection
+	{
+		$constructor = $this->reflection->getConstructor();
+		if ($constructor === null) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+		return $this->getNativeMethod($constructor->getName());
+	}
+
 	private function getPhpExtension(): PhpClassReflectionExtension
 	{
 		$extension = $this->methodsClassReflectionExtensions[0];

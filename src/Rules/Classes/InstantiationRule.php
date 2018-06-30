@@ -116,7 +116,7 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 			];
 		}
 
-		if (!$classReflection->hasNativeMethod('__construct') && !$classReflection->hasNativeMethod($class)) {
+		if (!$classReflection->hasConstructor()) {
 			if (count($node->args) > 0) {
 				return array_merge($messages, [
 					sprintf(
@@ -129,7 +129,7 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 			return $messages;
 		}
 
-		$constructorReflection = $classReflection->hasNativeMethod('__construct') ? $classReflection->getNativeMethod('__construct') : $classReflection->getNativeMethod($class);
+		$constructorReflection = $classReflection->getConstructor();
 		if (!$scope->canCallMethod($constructorReflection)) {
 			$messages[] = sprintf(
 				'Cannot instantiate class %s via %s constructor %s::%s().',
