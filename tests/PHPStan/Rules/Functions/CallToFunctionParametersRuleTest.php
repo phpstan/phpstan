@@ -272,12 +272,20 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 	{
 		$this->analyse([__DIR__ . '/data/unpack-operator.php'], [
 			[
-				'Parameter #2 ...$vars of function sprintf expects float|int|string|null, array<string> given.',
+				'Parameter #2 ...$args of function sprintf expects float|int|string|null, array<string> given.',
 				18,
 			],
 			[
-				'Parameter #2 ...$vars of function sprintf expects float|int|string|null, array<int, string> given.',
+				'Parameter #2 ...$args of function sprintf expects float|int|string|null, array<int, string> given.',
 				19,
+			],
+			[
+				'Parameter #2 ...$args of function sprintf expects float|int|string|null, UnpackOperator\Foo given.',
+				22,
+			],
+			[
+				'Parameter #2 ...$args of function printf expects float|int|string|null, UnpackOperator\Foo given.',
+				24,
 			],
 		]);
 	}

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace UnpackOperator;
 
@@ -19,6 +19,20 @@ class Foo
 		sprintf('%s', $constantArray);
 		sprintf(...$strings);
 		sprintf(...$constantArray);
+		sprintf('%s', new Foo());
+		sprintf('%s', new Bar());
+		printf('%s', new Foo());
+		printf('%s', new Bar());
+	}
+
+}
+
+class Bar
+{
+
+	public function __toString()
+	{
+
 	}
 
 }

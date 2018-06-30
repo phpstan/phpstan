@@ -42,7 +42,7 @@ class StringType implements Type
 
 	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
-		if ($type instanceof static) {
+		if ($type instanceof self) {
 			return TrinaryLogic::createYes();
 		}
 

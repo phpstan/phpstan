@@ -30,7 +30,7 @@ trait JustNullableTypeTrait
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
-		if ($type instanceof static) {
+		if ($type instanceof self) {
 			return TrinaryLogic::createYes();
 		}
 

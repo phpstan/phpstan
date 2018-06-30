@@ -208,7 +208,7 @@ class ObjectType implements TypeWithClassName
 		}
 
 		$classReflection = $broker->getClass($this->className);
-		if ($classReflection->hasMethod('__toString')) {
+		if ($classReflection->hasNativeMethod('__toString')) {
 			return new StringType();
 		}
 

@@ -16,7 +16,12 @@ use PHPStan\Reflection\Native\NativeParameterReflection;
 use PHPStan\Reflection\SignatureMap\ParameterSignature;
 use PHPStan\Reflection\SignatureMap\SignatureMapProvider;
 use PHPStan\Type\FileTypeMapper;
+use PHPStan\Type\FloatType;
+use PHPStan\Type\IntegerType;
+use PHPStan\Type\NullType;
+use PHPStan\Type\StringAlwaysAcceptingObjectWithToStringType;
 use PHPStan\Type\Type;
+use PHPStan\Type\UnionType;
 use ReflectionClass;
 
 class Broker
@@ -373,11 +378,26 @@ class Broker
 				while ($this->signatureMapProvider->hasFunctionSignature($variantName)) {
 					$functionSignature = $this->signatureMapProvider->getFunctionSignature($variantName, null);
 					$variants[] = new FunctionVariant(
-						array_map(function (ParameterSignature $parameterSignature): NativeParameterReflection {
+						array_map(function (ParameterSignature $parameterSignature) use ($lowerCasedFunctionName): NativeParameterReflection {
+							$type = $parameterSignature->getType();
+							if (
+								$parameterSignature->getName() === 'args'
+								&& (
+									$lowerCasedFunctionName === 'printf'
+									|| $lowerCasedFunctionName === 'sprintf'
+								)
+							) {
+								$type = new UnionType([
+									new StringAlwaysAcceptingObjectWithToStringType(),
+									new IntegerType(),
+									new FloatType(),
+									new NullType(),
+								]);
+							}
 							return new NativeParameterReflection(
 								$parameterSignature->getName(),
 								$parameterSignature->isOptional(),
-								$parameterSignature->getType(),
+								$type,
 								$parameterSignature->passedByReference(),
 								$parameterSignature->isVariadic()
 							);
