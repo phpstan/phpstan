@@ -244,6 +244,10 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Method ReturnTypes\ArrayFillKeysIssue::getIPs2() should return array<string, array<ReturnTypes\Foo>> but returns array<string, array<int, ReturnTypes\Bar>>.',
 				625,
 			],
+			[
+				'Method ReturnTypes\AssertThisInstanceOf::doBar() should return $this(ReturnTypes\AssertThisInstanceOf) but returns ReturnTypes\AssertThisInstanceOf&ReturnTypes\FooInterface.',
+				648,
+			],
 		]);
 	}
 

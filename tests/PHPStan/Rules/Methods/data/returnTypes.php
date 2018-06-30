@@ -625,3 +625,27 @@ class ArrayFillKeysIssue
 		return $paired;
 	}
 }
+
+class AssertThisInstanceOf
+{
+
+	/**
+	 * @return $this
+	 */
+	public function doFoo()
+	{
+		assert($this instanceof FooInterface);
+		return $this;
+	}
+
+	/**
+	 * @return $this
+	 */
+	public function doBar()
+	{
+		$otherInstance = new self();
+		assert($otherInstance instanceof FooInterface);
+		return $otherInstance;
+	}
+
+}
