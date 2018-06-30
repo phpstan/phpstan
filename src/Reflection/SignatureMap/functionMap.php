@@ -7636,7 +7636,7 @@ return [
 'ob_get_flush' => ['string|false'],
 'ob_get_length' => ['int|false'],
 'ob_get_level' => ['int'],
-'ob_get_status' => ['false|array', 'full_status='=>'bool'],
+'ob_get_status' => ['array', 'full_status='=>'bool'],
 'ob_gzhandler' => ['string|false', 'data'=>'string', 'flags'=>'int'],
 'ob_iconv_handler' => ['string', 'contents'=>'string', 'status'=>'int'],
 'ob_implicit_flush' => ['void', 'flag='=>'int'],
