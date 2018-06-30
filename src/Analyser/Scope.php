@@ -855,7 +855,7 @@ class Scope
 				$parameters[] = new NativeParameterReflection(
 					$param->var->name,
 					$optional,
-					$this->getFunctionType($param->type, $param->type === null, $param->variadic),
+					$this->getFunctionType($param->type, $param->type === null, false),
 					$param->byRef
 						? PassedByReference::createCreatesNewVariable()
 						: PassedByReference::createNo(),

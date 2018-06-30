@@ -89,3 +89,22 @@ function () {
 function (Bar $bar) {
 	$bar();
 };
+
+class Baz
+{
+
+	/**
+	 * @param Foo[] $foos
+	 */
+	public function doFoo(
+		array $foos
+	)
+	{
+		$f = function (Foo ...$foo) {
+
+		};
+		$f($foos);
+		$f(...$foos);
+	}
+
+}

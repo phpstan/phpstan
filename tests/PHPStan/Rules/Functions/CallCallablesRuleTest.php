@@ -81,6 +81,10 @@ class CallCallablesRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Invoking callable on an unknown class CallCallables\Bar.',
 				90,
 			],
+			[
+				'Parameter #1 ...$foo of closure expects CallCallables\Foo, array<CallCallables\Foo> given.',
+				106,
+			],
 		]);
 	}
 
