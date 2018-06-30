@@ -2752,7 +2752,7 @@ return [
 'filepro_rowcount' => ['int'],
 'filesize' => ['int|false', 'filename'=>'string'],
 'FilesystemIterator::__construct' => ['void', 'path'=>'string', 'flags='=>'int'],
-'FilesystemIterator::current' => ['string'],
+'FilesystemIterator::current' => ['string|SplFileInfo'],
 'FilesystemIterator::getFlags' => ['int'],
 'FilesystemIterator::key' => ['string'],
 'FilesystemIterator::next' => ['void'],
