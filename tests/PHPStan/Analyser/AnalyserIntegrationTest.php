@@ -23,7 +23,7 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 		$errors = $this->runAnalyse(__DIR__ . '/../../notAutoloaded/Foo.php');
 		$this->assertCount(1, $errors);
 		$error = $errors[0];
-		$this->assertSame('Property $fooProperty was not found in reflection of class PHPStan\Tests\Foo - probably the wrong version of class is autoloaded.', $error->getMessage());
+		$this->assertContains('Property $fooProperty was not found in reflection of class PHPStan\Tests\Foo - probably the wrong version of class is autoloaded. The currently loaded version is at', $error->getMessage());
 		$this->assertNull($error->getLine());
 	}
 

@@ -223,7 +223,8 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 		}
 
 		if (!isset($this->methods[$key])) {
-			throw new \PHPStan\Reflection\MissingMethodFromReflectionException($this->getName(), $methodName);
+			$filename = $this->getFileName();
+			throw new \PHPStan\Reflection\MissingMethodFromReflectionException($this->getName(), $methodName, $filename !== false ? $filename : null);
 		}
 
 		return $this->methods[$key];
@@ -237,7 +238,8 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 	public function getNativeMethod(string $methodName): MethodReflection
 	{
 		if (!$this->hasNativeMethod($methodName)) {
-			throw new \PHPStan\Reflection\MissingMethodFromReflectionException($this->getName(), $methodName);
+			$filename = $this->getFileName();
+			throw new \PHPStan\Reflection\MissingMethodFromReflectionException($this->getName(), $methodName, $filename !== false ? $filename : null);
 		}
 		return $this->getPhpExtension()->getNativeMethod($this, $methodName);
 	}
@@ -273,7 +275,8 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 		}
 
 		if (!isset($this->properties[$key])) {
-			throw new \PHPStan\Reflection\MissingPropertyFromReflectionException($this->getName(), $propertyName);
+			$filename = $this->getFileName();
+			throw new \PHPStan\Reflection\MissingPropertyFromReflectionException($this->getName(), $propertyName, $filename !== false ? $filename : null);
 		}
 
 		return $this->properties[$key];
@@ -287,7 +290,8 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 	public function getNativeProperty(string $propertyName): PhpPropertyReflection
 	{
 		if (!$this->hasNativeProperty($propertyName)) {
-			throw new \PHPStan\Reflection\MissingPropertyFromReflectionException($this->getName(), $propertyName);
+			$filename = $this->getFileName();
+			throw new \PHPStan\Reflection\MissingPropertyFromReflectionException($this->getName(), $propertyName, $filename !== false ? $filename : null);
 		}
 		return $this->getPhpExtension()->getNativeProperty($this, $propertyName);
 	}
