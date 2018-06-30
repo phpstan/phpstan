@@ -15,7 +15,7 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 		return [
 			[
 				false,
-				\DeprecatedAnnotations\Foo::class,
+				'\DeprecatedAnnotations\Foo',
 				[
 					'constant' => [
 						'FOO',
@@ -32,7 +32,7 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				true,
-				\DeprecatedAnnotations\DeprecatedFoo::class,
+				'\DeprecatedAnnotations\DeprecatedFoo',
 				[
 					'constant' => [
 						'DEPRECATED_FOO',
@@ -49,7 +49,7 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				false,
-				\DeprecatedAnnotations\FooInterface::class,
+				'\DeprecatedAnnotations\FooInterface',
 				[
 					'constant' => [
 						'FOO',
@@ -62,7 +62,7 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				true,
-				\DeprecatedAnnotations\DeprecatedFooInterface::class,
+				'\DeprecatedAnnotations\DeprecatedFooInterface',
 				[
 					'constant' => [
 						'DEPRECATED_FOO',
@@ -75,7 +75,7 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				false,
-				\DeprecatedAnnotations\FooTrait::class,
+				'\DeprecatedAnnotations\FooTrait',
 				[
 					'method' => [
 						'foo',
@@ -89,7 +89,7 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				true,
-				\DeprecatedAnnotations\DeprecatedFooTrait::class,
+				'\DeprecatedAnnotations\DeprecatedFooTrait',
 				[
 					'method' => [
 						'deprecatedFoo',
