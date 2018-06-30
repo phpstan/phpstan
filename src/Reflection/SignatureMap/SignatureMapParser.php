@@ -6,6 +6,7 @@ use PHPStan\Analyser\NameScope;
 use PHPStan\PhpDoc\TypeStringResolver;
 use PHPStan\Reflection\PassedByReference;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 
@@ -58,7 +59,11 @@ class SignatureMapParser
 				$part = substr($part, 1);
 			}
 
-			$type = $this->typeStringResolver->resolve($part, new NameScope(null, [], $className));
+			if ($part === 'OCI-Lob' || $part === 'OCI-Collection') {
+				$type = new ObjectType($part);
+			} else {
+				$type = $this->typeStringResolver->resolve($part, new NameScope(null, [], $className));
+			}
 			if ($isNullable) {
 				$type = TypeCombinator::addNull($type);
 			}
