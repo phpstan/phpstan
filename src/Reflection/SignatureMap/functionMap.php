@@ -9977,7 +9977,7 @@ return [
 'SoapClient::SoapClient' => ['object', 'wsdl'=>'mixed', 'options='=>'array'],
 'SoapFault::__construct' => ['void', 'faultcode'=>'string', 'faultstring'=>'string', 'faultactor='=>'string', 'detail='=>'string', 'faultname='=>'string', 'headerfault='=>'string'],
 'SoapFault::__toString' => ['string'],
-'SoapFault::SoapFault' => ['object', 'faultcode'=>'string', 'faultstring'=>'string', 'faultactor'=>'string', 'detail'=>'string', 'faultname'=>'string', 'headerfault'=>'string'],
+'SoapFault::SoapFault' => ['object', 'faultcode'=>'string', 'faultstring'=>'string', 'faultactor='=>'string', 'detail='=>'string', 'faultname='=>'string', 'headerfault='=>'string'],
 'SoapHeader::__construct' => ['void', 'namespace'=>'string', 'name'=>'string', 'data='=>'mixed', 'mustunderstand='=>'bool', 'actor='=>'string'],
 'SoapHeader::SoapHeader' => ['object', 'namespace'=>'string', 'name'=>'string', 'data='=>'mixed', 'mustunderstand='=>'bool', 'actor='=>'string'],
 'SoapParam::__construct' => ['void', 'data'=>'mixed', 'name'=>'string'],
