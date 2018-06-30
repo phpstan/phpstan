@@ -135,7 +135,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 			}
 		}
 
-		if ($classType instanceof StringType) {
+		if ((new StringType())->isSuperTypeOf($classType)->yes()) {
 			return [];
 		}
 

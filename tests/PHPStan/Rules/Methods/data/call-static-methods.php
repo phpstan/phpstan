@@ -179,4 +179,14 @@ class ClassOrString
 
 	}
 
+	public function doBar()
+	{
+		if (rand(0, 1)) {
+			$class = 'Blabla';
+		} else {
+			$class = 'Bleble';
+		}
+		$class::calledMethod();
+	}
+
 }
