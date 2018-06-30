@@ -51,6 +51,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 	{
 		if ((bool) $input->getOption('debug')) {
 			$this->getApplication()->setCatchExceptions(false);
+			return;
 		}
 	}
 
