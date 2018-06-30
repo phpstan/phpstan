@@ -1,4 +1,5 @@
 includes:
+	- ../vendor/phpstan/phpstan-deprecation-rules/rules.neon
 	- ../vendor/phpstan/phpstan-php-parser/extension.neon
 	- ../vendor/phpstan/phpstan-phpunit/extension.neon
 	- ../vendor/phpstan/phpstan-phpunit/rules.neon

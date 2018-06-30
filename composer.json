@@ -35,6 +35,7 @@
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
 		"jakub-onderka/php-parallel-lint": "^1.0",
 		"phing/phing": "^2.16.0",
+		"phpstan/phpstan-deprecation-rules": "^0.10.2",
 		"phpstan/phpstan-php-parser": "^0.10",
 		"phpstan/phpstan-phpunit": "^0.10",
 		"phpstan/phpstan-strict-rules": "^0.10",
