@@ -19,4 +19,8 @@ function () {
 	}
 
 	echo DEFINED_CONSTANT_IF;
+
+	if (!defined("OMIT_INDIC_FIX_1") || OMIT_INDIC_FIX_1 != 1) {
+		// ...
+	}
 };
