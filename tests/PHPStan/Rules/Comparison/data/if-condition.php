@@ -99,3 +99,37 @@ class IfCondition
 	}
 
 }
+
+final class FinalClass
+{
+
+	const FOO = true;
+
+	public function doFoo()
+	{
+		if (self::FOO) {
+
+		}
+		if (static::FOO) {
+
+		}
+	}
+
+}
+
+class NotFinalClass
+{
+
+	const FOO = true;
+
+	public function doFoo()
+	{
+		if (self::FOO) {
+
+		}
+		if (static::FOO) {
+
+		}
+	}
+
+}

@@ -1085,11 +1085,18 @@ class Scope
 			if ($node->class instanceof Name) {
 				$constantClass = (string) $node->class;
 				$constantClassType = new ObjectType($constantClass);
-				if (in_array(strtolower($constantClass), [
+				$namesToResolve = [
 					'self',
-					'static',
 					'parent',
-				], true)) {
+				];
+				if ($this->isInClass()) {
+					if ($this->getClassReflection()->isFinal()) {
+						$namesToResolve[] = 'static';
+					} elseif (strtolower($constantClass) === 'static') {
+						return new MixedType();
+					}
+				}
+				if (in_array(strtolower($constantClass), $namesToResolve, true)) {
 					$resolvedName = $this->resolveName($node->class);
 					$constantClassType = new ObjectType($resolvedName);
 				}
