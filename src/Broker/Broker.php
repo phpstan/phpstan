@@ -15,6 +15,7 @@ use PHPStan\Reflection\Native\NativeFunctionReflection;
 use PHPStan\Reflection\Native\NativeParameterReflection;
 use PHPStan\Reflection\SignatureMap\ParameterSignature;
 use PHPStan\Reflection\SignatureMap\SignatureMapProvider;
+use PHPStan\Type\BooleanType;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
@@ -392,6 +393,7 @@ class Broker
 									new IntegerType(),
 									new FloatType(),
 									new NullType(),
+									new BooleanType(),
 								]);
 							}
 							return new NativeParameterReflection(
