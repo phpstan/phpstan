@@ -2,6 +2,7 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Type\Accessory\HasMethodType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
@@ -991,6 +992,71 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				UnionType::class,
 				'int|string',
 			],
+			[
+				[
+					new ObjectType(\Test\Foo::class),
+					new HasMethodType('__toString'),
+				],
+				IntersectionType::class,
+				'Test\Foo&hasMethod(__toString)',
+			],
+			[
+				[
+					new ObjectType(\Test\ClassWithToString::class),
+					new HasMethodType('__toString'),
+				],
+				ObjectType::class,
+				'Test\ClassWithToString',
+			],
+			[
+				[
+					new ObjectWithoutClassType(),
+					new HasMethodType('__toString'),
+				],
+				IntersectionType::class,
+				'object&hasMethod(__toString)',
+			],
+			[
+				[
+					new IntegerType(),
+					new HasMethodType('__toString'),
+				],
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				[
+					new IntersectionType([
+						new ObjectWithoutClassType(),
+						new HasMethodType('__toString'),
+					]),
+					new HasMethodType('__toString'),
+				],
+				IntersectionType::class,
+				'object&hasMethod(__toString)',
+			],
+			[
+				[
+					new IntersectionType([
+						new ObjectWithoutClassType(),
+						new HasMethodType('foo'),
+					]),
+					new HasMethodType('bar'),
+				],
+				IntersectionType::class,
+				'object&hasMethod(bar)&hasMethod(foo)',
+			],
+			[
+				[
+					new UnionType([
+						new ObjectType(\Test\Foo::class),
+						new ObjectType(\Test\FirstInterface::class),
+					]),
+					new HasMethodType('__toString'),
+				],
+				UnionType::class,
+				'(Test\FirstInterface&hasMethod(__toString))|(Test\Foo&hasMethod(__toString))',
+			],
 		];
 	}
 
@@ -1007,8 +1073,8 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$result = TypeCombinator::intersect(...$types);
-		$this->assertInstanceOf($expectedTypeClass, $result);
 		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
+		$this->assertInstanceOf($expectedTypeClass, $result);
 	}
 
 	/**
@@ -1024,8 +1090,8 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$result = TypeCombinator::intersect(...array_reverse($types));
-		$this->assertInstanceOf($expectedTypeClass, $result);
 		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
+		$this->assertInstanceOf($expectedTypeClass, $result);
 	}
 
 	public function dataRemove(): array

@@ -357,6 +357,14 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Method ReflectionNamedType::getName() invoked with 1 parameter, 0 required.',
 				897,
 			],
+			[
+				'Call to an undefined method Test\Foo::lorem().',
+				907,
+			],
+			[
+				'Call to an undefined method Test\Foo::lorem().',
+				911,
+			],
 		]);
 	}
 

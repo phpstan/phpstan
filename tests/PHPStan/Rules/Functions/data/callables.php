@@ -107,4 +107,14 @@ class Baz
 		$f(...$foos);
 	}
 
+	public function doBar()
+	{
+		$baz = new Baz();
+		$baz();
+
+		if (method_exists($baz, '__invoke')) {
+			$baz();
+		}
+	}
+
 }

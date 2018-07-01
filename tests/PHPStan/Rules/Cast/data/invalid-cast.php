@@ -25,3 +25,20 @@ function (
 
 	(string) fopen('php://memory', 'r');
 };
+
+function (
+	\Test\Foo $foo
+) {
+	/** @var object $object */
+	$object = doFoo();
+	(string) $object;
+
+	if (method_exists($object, '__toString')) {
+		(string) $object;
+	}
+
+	(string) $foo;
+	if (method_exists($foo, '__toString')) {
+		(string) $foo;
+	}
+};

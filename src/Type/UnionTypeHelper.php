@@ -2,6 +2,7 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Type\Accessory\HasMethodType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
 use PHPStan\Type\Constant\ConstantIntegerType;
@@ -72,6 +73,18 @@ class UnionTypeHelper
 			} elseif ($b instanceof NullType) {
 				return -1;
 			}
+
+			if ($a instanceof HasMethodType) {
+				if ($b instanceof HasMethodType) {
+					return strcasecmp($a->describe(VerbosityLevel::value()), $b->describe(VerbosityLevel::value()));
+				}
+
+				return 1;
+			}
+			if ($b instanceof HasMethodType) {
+				return -1;
+			}
+
 			$aIsNullOrBool = ($a instanceof NullType || $a instanceof ConstantBooleanType);
 			$bIsNullOrBool = ($b instanceof NullType || $b instanceof ConstantBooleanType);
 			if ($aIsNullOrBool && !$bIsNullOrBool) {

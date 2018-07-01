@@ -33,6 +33,14 @@ class InvalidCastRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Cannot cast stdClass to float.',
 				24,
 			],
+			[
+				'Cannot cast object to string.',
+				34,
+			],
+			[
+				'Cannot cast Test\\Foo to string.',
+				40,
+			],
 		]);
 	}
 

@@ -898,3 +898,17 @@ class ReflectionTypeGetString
 	}
 
 }
+
+class MethodExists
+{
+
+	public function doFoo(Foo $foo)
+	{
+		$foo->lorem();
+		if (method_exists($foo, 'lorem')) {
+			$foo->lorem();
+		}
+		$foo->lorem();
+	}
+
+}
