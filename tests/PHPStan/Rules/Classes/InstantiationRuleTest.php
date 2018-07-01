@@ -136,9 +136,22 @@ class InstantiationRuleTest extends \PHPStan\Testing\RuleTestCase
 					DIRECTORY_SEPARATOR === '/' ? 'Class class@anonymous/tests/PHPStan/Rules/Classes/data/instantiation.php:134 constructor invoked with 3 parameters, 1 required.' : 'Class class@anonymous/tests\PHPStan\Rules\Classes\data\instantiation.php:134 constructor invoked with 3 parameters, 1 required.',
 					134,
 				],
+			]
+		);
+	}
+
+	public function testSoap(): void
+	{
+		if (!extension_loaded('soap')) {
+			$this->markTestSkipped('Extension SOAP needed');
+		}
+
+		$this->analyse(
+			[__DIR__ . '/data/instantiation-soap.php'],
+			[
 				[
 					'Parameter #2 $faultstring of class SoapFault constructor expects string, int given.',
-					143,
+					6,
 				],
 			]
 		);
