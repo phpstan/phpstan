@@ -470,10 +470,6 @@ services:
 		class: PHPStan\Rules\Registry
 		factory: @PHPStan\Rules\RegistryFactory::create
 
-	output:
-		class: Symfony\Component\Console\Output\OutputInterface
-		dynamic: true
-
 	errorFormatter.raw:
 		class: PHPStan\Command\ErrorFormatter\RawErrorFormatter
 
