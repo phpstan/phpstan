@@ -20,6 +20,7 @@ class LevelsIntegrationTest extends \PHPStan\Testing\LevelsTestCase
 			['iterable'],
 			['binaryOps'],
 			['throwValues'],
+			['casts'],
 		];
 	}
 

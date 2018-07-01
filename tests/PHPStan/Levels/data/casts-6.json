@@ -1,0 +1,7 @@
+[
+    {
+        "message": "Cannot cast array|float|int to string.",
+        "line": 21,
+        "ignorable": true
+    }
+]

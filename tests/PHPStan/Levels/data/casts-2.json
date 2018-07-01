@@ -1,0 +1,12 @@
+[
+    {
+        "message": "Cannot cast array to int.",
+        "line": 19,
+        "ignorable": true
+    },
+    {
+        "message": "Cannot cast array|callable to int.",
+        "line": 20,
+        "ignorable": true
+    }
+]

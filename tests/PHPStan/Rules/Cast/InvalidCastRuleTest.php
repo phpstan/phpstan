@@ -2,12 +2,15 @@
 
 namespace PHPStan\Rules\Cast;
 
+use PHPStan\Rules\RuleLevelHelper;
+
 class InvalidCastRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new InvalidCastRule($this->createBroker());
+		$broker = $this->createBroker();
+		return new InvalidCastRule($broker, new RuleLevelHelper($broker, true, false, true));
 	}
 
 	public function testRule(): void
@@ -40,6 +43,10 @@ class InvalidCastRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Cannot cast Test\\Foo to string.',
 				40,
+			],
+			[
+				'Cannot cast array|float|int to string.',
+				47,
 			],
 		]);
 	}

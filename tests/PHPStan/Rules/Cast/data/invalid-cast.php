@@ -41,4 +41,8 @@ function (
 	if (method_exists($foo, '__toString')) {
 		(string) $foo;
 	}
+
+	/** @var array|float|int $arrayOrFloatOrInt */
+	$arrayOrFloatOrInt = doFoo();
+	(string) $arrayOrFloatOrInt;
 };
