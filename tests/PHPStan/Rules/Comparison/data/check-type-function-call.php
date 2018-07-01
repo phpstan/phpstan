@@ -171,6 +171,29 @@ class DefinedConstant
 		if (!defined('ANOTHER_DEFINITELY_DOES_NOT_EXIST')) {
 
 		}
+
+		$foo = new Foo();
+		if (method_exists($foo, 'test')) {
+
+		}
+		if (method_exists($foo, 'doFoo')) {
+
+		}
+	}
+
+}
+
+final class FinalClassWithMethodExists
+{
+
+	public function doFoo()
+	{
+		if (method_exists($this, 'doFoo')) {
+
+		}
+		if (method_exists($this, 'doBar')) {
+
+		}
 	}
 
 }

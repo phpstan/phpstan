@@ -60,6 +60,18 @@ class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestC
 					'Call to function is_numeric() with 123|float will always evaluate to true.',
 					118,
 				],
+				[
+					'Call to function method_exists() with CheckTypeFunctionCall\Foo and \'doFoo\' will always evaluate to true.',
+					179,
+				],
+				[
+					'Call to function method_exists() with $this(CheckTypeFunctionCall\FinalClassWithMethodExists) and \'doFoo\' will always evaluate to true.',
+					191,
+				],
+				[
+					'Call to function method_exists() with $this(CheckTypeFunctionCall\FinalClassWithMethodExists) and \'doBar\' will always evaluate to false.',
+					194,
+				],
 			]
 		);
 	}
@@ -89,6 +101,10 @@ class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestC
 				[
 					'Call to function is_numeric() with \'blabla\' will always evaluate to false.',
 					105,
+				],
+				[
+					'Call to function method_exists() with $this(CheckTypeFunctionCall\FinalClassWithMethodExists) and \'doBar\' will always evaluate to false.',
+					194,
 				],
 			]
 		);

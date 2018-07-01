@@ -1010,6 +1010,14 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
+					new ObjectType(\CheckTypeFunctionCall\FinalClassWithMethodExists::class),
+					new HasMethodType('doBar'),
+				],
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				[
 					new ObjectWithoutClassType(),
 					new HasMethodType('__toString'),
 				],

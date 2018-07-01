@@ -3,6 +3,7 @@
 namespace PHPStan\Type\Accessory;
 
 use PHPStan\Analyser\Scope;
+use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\Dummy\DummyMethodReflection;
 use PHPStan\Reflection\MethodReflection;
@@ -18,6 +19,7 @@ use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Traits\TruthyBooleanTypeTrait;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
 
 class HasMethodType implements CompoundType
@@ -68,6 +70,16 @@ class HasMethodType implements CompoundType
 			return TrinaryLogic::createYes();
 		}
 
+		if ($type instanceof TypeWithClassName) {
+			$broker = Broker::getInstance();
+			if ($broker->hasClass($type->getClassName())) {
+				$classReflection = $broker->getClass($type->getClassName());
+				if ($classReflection->isFinal()) {
+					return TrinaryLogic::createNo();
+				}
+			}
+		}
+
 		return TrinaryLogic::createMaybe();
 	}
 
@@ -83,6 +95,16 @@ class HasMethodType implements CompoundType
 
 		if (!(new ObjectWithoutClassType())->isSuperTypeOf($otherType)->yes()) {
 			return TrinaryLogic::createNo();
+		}
+
+		if ($otherType instanceof TypeWithClassName) {
+			$broker = Broker::getInstance();
+			if ($broker->hasClass($otherType->getClassName())) {
+				$classReflection = $broker->getClass($otherType->getClassName());
+				if ($classReflection->isFinal()) {
+					return TrinaryLogic::createNo();
+				}
+			}
 		}
 
 		return TrinaryLogic::createMaybe();
