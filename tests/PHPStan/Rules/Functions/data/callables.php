@@ -118,3 +118,18 @@ class Baz
 	}
 
 }
+
+class MethodExistsCheckFirst
+{
+
+	public function doFoo(
+		object $object
+	)
+	{
+		if (method_exists($object, 'foo')) {
+			[$object, 'foo']();
+			[$object, 'bar']();
+		}
+	}
+
+}

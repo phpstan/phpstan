@@ -15,10 +15,10 @@ use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\NullType;
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeUtils;
-use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\VerbosityLevel;
 
 /**
@@ -158,13 +158,13 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 	public function isCallable(): TrinaryLogic
 	{
-		$classAndMethod = $this->findClassNameAndMethod();
-		if ($classAndMethod === null) {
+		$typeAndMethod = $this->findTypeAndMethodName();
+		if ($typeAndMethod === null) {
 			return TrinaryLogic::createNo();
 		}
 
-		[$className, $methodName] = $classAndMethod;
-		if ($className === null && $methodName === null) {
+		[$type, $methodName] = $typeAndMethod;
+		if ($type === null && $methodName === null) {
 			return TrinaryLogic::createMaybe();
 		}
 
@@ -177,20 +177,17 @@ class ConstantArrayType extends ArrayType implements ConstantType
 	 */
 	public function getCallableParametersAcceptors(Scope $scope): array
 	{
-		$classAndMethod = $this->findClassNameAndMethod();
-		if ($classAndMethod === null) {
+		$typeAndMethodName = $this->findTypeAndMethodName();
+		if ($typeAndMethodName === null) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
-		[$className, $methodName] = $classAndMethod;
-		if ($className === null && $methodName === null) {
+		[$type, $methodName] = $typeAndMethodName;
+		if ($type === null && $methodName === null) {
 			return [new TrivialParametersAcceptor()];
 		}
 
-		$broker = Broker::getInstance();
-		$classReflection = $broker->getClass($className);
-
-		$method = $classReflection->getMethod($methodName, $scope);
+		$method = $type->getMethod($methodName, $scope);
 		if (!$scope->canCallMethod($method)) {
 			return [new InaccessibleMethod($method)];
 		}
@@ -199,9 +196,9 @@ class ConstantArrayType extends ArrayType implements ConstantType
 	}
 
 	/**
-	 * @return string[]|null[]|null
+	 * @return array<Type|string>|array<null>|null
 	 */
-	private function findClassNameAndMethod(): ?array
+	private function findTypeAndMethodName(): ?array
 	{
 		if (count($this->keyTypes) !== 2) {
 			return null;
@@ -218,37 +215,27 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		$classOrObject = $this->valueTypes[0];
 		$method = $this->valueTypes[1];
 
+		if (!$method instanceof ConstantStringType) {
+			return [null, null];
+		}
+
 		if ($classOrObject instanceof ConstantStringType) {
-			$className = $classOrObject->getValue();
-
-		} elseif ($classOrObject instanceof TypeWithClassName) {
-			$className = $classOrObject->getClassName();
-
+			$broker = Broker::getInstance();
+			if (!$broker->hasClass($classOrObject->getValue())) {
+				return [null, null];
+			}
+			$type = new ObjectType($broker->getClass($classOrObject->getValue())->getName());
+		} elseif ((new \PHPStan\Type\ObjectWithoutClassType())->isSuperTypeOf($classOrObject)->yes()) {
+			$type = $classOrObject;
 		} else {
 			return [null, null];
 		}
 
-		$broker = Broker::getInstance();
-		if (!$broker->hasClass($className)) {
-			return [null, null];
+		if ($type->hasMethod($method->getValue())) {
+			return [$type, $method->getValue()];
 		}
 
-		if (!($method instanceof ConstantStringType)) {
-			return [null, null];
-		}
-
-		$methodName = $method->getValue();
-		$classReflection = $broker->getClass($className);
-
-		if (!$classReflection->hasMethod($methodName)) {
-			if (!$classReflection->getNativeReflection()->isFinal()) {
-				return [null, null];
-			}
-
-			return null;
-		}
-
-		return [$className, $methodName];
+		return null;
 	}
 
 	public function getOffsetValueType(Type $offsetType): Type

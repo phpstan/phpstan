@@ -89,6 +89,10 @@ class CallCallablesRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Trying to invoke CallCallables\Baz but it might not be a callable.',
 				113,
 			],
+			[
+				'Trying to invoke array(object&hasMethod(foo), \'bar\') but it\'s not a callable.',
+				131,
+			],
 		]);
 	}
 
