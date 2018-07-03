@@ -3411,6 +3411,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'DynamicMethodReturnTypesNamespace\Foo',
 				'\DynamicMethodReturnTypesNamespace\InheritedEntityManager::createManagerForEntity(DynamicMethodReturnTypesNamespace\Foo::class)',
 			],
+			[
+				'DynamicMethodReturnTypesNamespace\Foo',
+				'$container[\DynamicMethodReturnTypesNamespace\Foo::class]',
+			],
 		];
 	}
 
@@ -3458,6 +3462,34 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 						}
 
 						return new ObjectType((string) $arg->class);
+					}
+
+				},
+				new class() implements DynamicMethodReturnTypeExtension {
+
+					public function getClass(): string
+					{
+						return \DynamicMethodReturnTypesNamespace\ComponentContainer::class;
+					}
+
+					public function isMethodSupported(MethodReflection $methodReflection): bool
+					{
+						return $methodReflection->getName() === 'offsetGet';
+					}
+
+					public function getTypeFromMethodCall(MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope): Type
+					{
+						$args = $methodCall->args;
+						if (count($args) === 0) {
+							return ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
+						}
+
+						$argType = $scope->getType($args[0]->value);
+						if (!$argType instanceof ConstantStringType) {
+							return ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
+						}
+
+						return new ObjectType($argType->getValue());
 					}
 
 				},

@@ -1184,6 +1184,18 @@ class Scope
 		if ($node instanceof Expr\ArrayDimFetch && $node->dim !== null) {
 			$offsetType = $this->getType($node->dim);
 			$offsetAccessibleType = $this->getType($node->var);
+			if ((new ObjectType(\ArrayAccess::class))->isSuperTypeOf($offsetAccessibleType)->yes()) {
+				return $this->getType(
+					new MethodCall(
+						$node->var,
+						new Node\Identifier('offsetGet'),
+						[
+							new Node\Arg($node->dim),
+						]
+					)
+				);
+			}
+
 			return $offsetAccessibleType->getOffsetValueType($offsetType);
 		}
 

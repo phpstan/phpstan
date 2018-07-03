@@ -22,6 +22,31 @@ class InheritedEntityManager extends EntityManager
 
 }
 
+class ComponentContainer implements \ArrayAccess
+{
+
+	public function offsetExists($offset)
+	{
+
+	}
+
+	public function offsetGet($offset): Entity
+	{
+
+	}
+
+	public function offsetSet($offset, $value)
+	{
+
+	}
+
+	public function offsetUnset($offset)
+	{
+
+	}
+
+}
+
 class Foo
 {
 
@@ -29,6 +54,7 @@ class Foo
 	{
 		$em = new EntityManager();
 		$iem = new InheritedEntityManager();
+		$container = new ComponentContainer();
 		die;
 	}
 
