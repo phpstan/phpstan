@@ -147,7 +147,11 @@ class AccessStaticPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 			],
 			[
 				'Access to an undefined static property ClassOrString|string::$unknownProperty.',
-				139,
+				141,
+			],
+			[
+				'Static access to instance property ClassOrString::$instanceProperty.',
+				152,
 			],
 		]);
 	}

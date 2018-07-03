@@ -2,6 +2,7 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Type\Accessory\HasPropertyType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantStringType;
 
@@ -123,7 +124,7 @@ class TypeUtils
 		return $type;
 	}
 
-	public static function findThisType(Type $type): ?Type
+	public static function findThisType(Type $type): ?ThisType
 	{
 		if ($type instanceof ThisType) {
 			return $type;
@@ -139,6 +140,27 @@ class TypeUtils
 		}
 
 		return null;
+	}
+
+	/**
+	 * @param Type $type
+	 * @return HasPropertyType[]
+	 */
+	public static function getHasPropertyTypes(Type $type): array
+	{
+		if ($type instanceof HasPropertyType) {
+			return [$type];
+		}
+
+		if ($type instanceof UnionType || $type instanceof IntersectionType) {
+			$hasPropertyTypes = [];
+			foreach ($type->getTypes() as $innerType) {
+				$hasPropertyTypes = array_merge($hasPropertyTypes, self::getHasPropertyTypes($innerType));
+			}
+			return $hasPropertyTypes;
+		}
+
+		return [];
 	}
 
 }

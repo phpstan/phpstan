@@ -33,6 +33,11 @@ class HasPropertyType implements CompoundType
 		$this->propertyName = $propertyName;
 	}
 
+	public function getPropertyName(): string
+	{
+		return $this->propertyName;
+	}
+
 	public function getReferencedClasses(): array
 	{
 		return [];

@@ -67,27 +67,27 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 					63,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\FooAccessProperties::$emptyBaz.',
+					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(nonexistent)::$emptyBaz.',
 					68,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\FooAccessProperties::$emptyNonexistent.',
+					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(nonexistent)::$emptyNonexistent.',
 					70,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherNonexistent.',
+					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(emptyNonexistent)&hasProperty(nonexistent)::$anotherNonexistent.',
 					76,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherNonexistent.',
+					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(emptyNonexistent)&hasProperty(nonexistent)::$anotherNonexistent.',
 					77,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherEmptyNonexistent.',
+					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(emptyNonexistent)&hasProperty(nonexistent)::$anotherEmptyNonexistent.',
 					80,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherEmptyNonexistent.',
+					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(emptyNonexistent)&hasProperty(nonexistent)::$anotherEmptyNonexistent.',
 					83,
 				],
 				[
@@ -202,27 +202,27 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 					63,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\FooAccessProperties::$emptyBaz.',
+					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(nonexistent)::$emptyBaz.',
 					68,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\FooAccessProperties::$emptyNonexistent.',
+					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(nonexistent)::$emptyNonexistent.',
 					70,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherNonexistent.',
+					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(emptyNonexistent)&hasProperty(nonexistent)::$anotherNonexistent.',
 					76,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherNonexistent.',
+					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(emptyNonexistent)&hasProperty(nonexistent)::$anotherNonexistent.',
 					77,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherEmptyNonexistent.',
+					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(emptyNonexistent)&hasProperty(nonexistent)::$anotherEmptyNonexistent.',
 					80,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherEmptyNonexistent.',
+					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(emptyNonexistent)&hasProperty(nonexistent)::$anotherEmptyNonexistent.',
 					83,
 				],
 				[

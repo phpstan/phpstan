@@ -232,14 +232,39 @@ class NodeScopeResolver
 
 	private function specifyProperty(Scope $scope, Expr $expr): Scope
 	{
-		if ($expr instanceof PropertyFetch) {
-			return $scope->specifyFetchedPropertyFromIsset($expr);
+		if (
+			$expr instanceof PropertyFetch
+			&& $expr->name instanceof Node\Identifier
+		) {
+			return $scope->filterByTruthyValue(
+				new FuncCall(
+					new Node\Name('property_exists'),
+					[
+						new Arg($expr->var),
+						new Arg(new Node\Scalar\String_($expr->name->name)),
+					]
+				)
+			);
 		} elseif (
 			$expr instanceof Expr\StaticPropertyFetch
-			&& $expr->class instanceof Name
-			&& (string) $expr->class === 'static'
 		) {
-			return $scope->specifyFetchedStaticPropertyFromIsset($expr);
+			if (
+				$expr->class instanceof Name
+			) {
+				if ((string) $expr->class === 'static') {
+					return $scope->specifyFetchedStaticPropertyFromIsset($expr);
+				}
+			} elseif ($expr->name instanceof Node\VarLikeIdentifier) {
+				return $scope->filterByTruthyValue(
+					new FuncCall(
+						new Node\Name('property_exists'),
+						[
+							new Arg($expr->class),
+							new Arg(new Node\Scalar\String_($expr->name->name)),
+						]
+					)
+				);
+			}
 		}
 
 		return $scope;

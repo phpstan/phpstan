@@ -131,6 +131,8 @@ class ClassOrString
 
 	private static $accessedProperty;
 
+	private $instanceProperty;
+
 	public function doFoo()
 	{
 		/** @var self|string $class */
@@ -139,6 +141,16 @@ class ClassOrString
 		$class::$unknownProperty;
 
 		Self::$accessedProperty;
+	}
+
+	public function doBar()
+	{
+		/** @var self|false $class */
+		$class = doFoo();
+		if (isset($class::$anotherProperty)) {
+			echo $class::$anotherProperty;
+			echo $class::$instanceProperty;
+		}
 	}
 
 }

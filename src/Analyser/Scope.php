@@ -2362,15 +2362,6 @@ class Scope
 		return $scope;
 	}
 
-	public function specifyFetchedPropertyFromIsset(PropertyFetch $expr): self
-	{
-		$exprString = $this->printer->prettyPrintExpr($expr);
-
-		return $this->addMoreSpecificTypes([
-			$exprString => new MixedType(),
-		]);
-	}
-
 	public function specifyFetchedStaticPropertyFromIsset(Expr\StaticPropertyFetch $expr): self
 	{
 		$exprString = $this->printer->prettyPrintExpr($expr);

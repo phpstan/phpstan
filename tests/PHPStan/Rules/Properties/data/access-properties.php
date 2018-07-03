@@ -300,3 +300,22 @@ class AnonyousClass
 	}
 
 }
+
+class PropertyIssetOnPossibleFalse
+{
+
+	/** @var int */
+	private $bar;
+
+	/**
+	 * @param self|false $selfOrFalse
+	 */
+	public function doFoo($selfOrFalse)
+	{
+		if (isset($selfOrFalse->foo)) {
+			echo $selfOrFalse->foo;
+			echo $selfOrFalse->bar;
+		}
+	}
+
+}

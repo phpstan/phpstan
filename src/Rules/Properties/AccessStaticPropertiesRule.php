@@ -14,6 +14,7 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\TypeUtils;
 use PHPStan\Type\VerbosityLevel;
 
 class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
@@ -164,6 +165,13 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 
 		$property = $classType->getProperty($name, $scope);
 		if (!$property->isStatic()) {
+			$hasPropertyTypes = TypeUtils::getHasPropertyTypes($classType);
+			foreach ($hasPropertyTypes as $hasPropertyType) {
+				if ($hasPropertyType->getPropertyName() === $name) {
+					return [];
+				}
+			}
+
 			return array_merge($messages, [
 				sprintf(
 					'Static access to instance property %s::$%s.',
