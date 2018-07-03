@@ -32,6 +32,7 @@ class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
 	{
 		$values = [];
 		$duplicateKeys = [];
+		$printedValues = [];
 		foreach ($node->items as $item) {
 			if ($item === null) {
 				continue;
@@ -50,6 +51,7 @@ class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
 
 			$printedValue = $this->printer->prettyPrintExpr($key);
 			$value = $keyType->getValue();
+			$printedValues[$value][] = $printedValue;
 
 			$previousCount = count($values);
 			$values[$value] = $printedValue;
@@ -57,21 +59,17 @@ class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
 				continue;
 			}
 
-			if (!isset($duplicateKeys[$value])) {
-				$duplicateKeys[$value] = [$values[$value]];
-			}
-
-			$duplicateKeys[$value][] = $printedValue;
+			$duplicateKeys[$value] = true;
 		}
 
 		$messages = [];
-		foreach ($duplicateKeys as $key => $values) {
+		foreach ($duplicateKeys as $value => $true) {
 			$messages[] = sprintf(
 				'Array has %d %s with value %s (%s).',
-				count($values),
-				count($values) === 1 ? 'duplicate key' : 'duplicate keys',
-				var_export($key, true),
-				implode(', ', $values)
+				count($printedValues[$value]),
+				count($printedValues[$value]) === 1 ? 'duplicate key' : 'duplicate keys',
+				var_export($value, true),
+				implode(', ', $printedValues[$value])
 			);
 		}
 
