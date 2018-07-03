@@ -772,11 +772,21 @@ class Scope
 					return TypeCombinator::union(...$resultTypes);
 				}
 
-				if ($leftType instanceof ArrayType && $rightType instanceof ArrayType) {
-					return new ArrayType(
-						TypeCombinator::union($leftType->getKeyType(), $rightType->getKeyType()),
-						TypeCombinator::union($leftType->getItemType(), $rightType->getItemType())
-					);
+				$leftArrays = TypeUtils::getArrays($leftType);
+				$rightArrays = TypeUtils::getArrays($rightType);
+
+				if (count($leftArrays) > 0 && count($rightArrays) > 0) {
+					$resultTypes = [];
+					foreach ($rightArrays as $rightArray) {
+						foreach ($leftArrays as $leftArray) {
+							$resultTypes[] = new ArrayType(
+								TypeCombinator::union($leftArray->getKeyType(), $rightArray->getKeyType()),
+								TypeCombinator::union($leftArray->getItemType(), $rightArray->getItemType())
+							);
+						}
+					}
+
+					return TypeCombinator::union(...$resultTypes);
 				}
 
 				if ($leftType instanceof MixedType && $rightType instanceof MixedType) {

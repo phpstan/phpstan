@@ -129,3 +129,19 @@ function ($a, array $b, string $c) {
 
 	echo str_replace('abc', 'def', $a) + 1;
 };
+
+function (array $a) {
+	$b = [];
+	if (rand(0, 1)) {
+		$b['foo'] = 'bar';
+	}
+	$b += $a;
+};
+
+function (array $a) {
+	$b = [];
+	if (rand(0, 1)) {
+		$b['foo'] = 'bar';
+	}
+	$a + $b;
+};
