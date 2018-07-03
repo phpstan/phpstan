@@ -765,6 +765,7 @@ class NodeScopeResolver
 				if ($node instanceof Isset_ && $subNodeName === 'vars') {
 					foreach ($node->vars as $issetVar) {
 						$scope = $this->specifyProperty($scope, $issetVar);
+						$scope = $this->ensureNonNullability($scope, $issetVar, true);
 					}
 				}
 
@@ -778,12 +779,6 @@ class NodeScopeResolver
 						new StatementList($scope, [$node->cond], true),
 						new StatementList($scope, []),
 					], LookForAssignsSettings::insideLoop());
-				}
-
-				if ($node instanceof Isset_ && $subNodeName === 'vars') {
-					foreach ($subNode as $issetVar) {
-						$scope = $this->ensureNonNullability($scope, $issetVar, true);
-					}
 				}
 
 				$this->processNodes($subNode, $scope, $nodeCallback, $argClosureBindScope);
