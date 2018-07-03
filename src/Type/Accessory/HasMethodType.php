@@ -47,7 +47,7 @@ class HasMethodType implements CompoundType
 
 	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
-		throw new \PHPStan\ShouldNotHappenException();
+		return TrinaryLogic::createFromBoolean($this->equals($type));
 	}
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic
@@ -123,7 +123,7 @@ class HasMethodType implements CompoundType
 
 	public function canAccessProperties(): TrinaryLogic
 	{
-		return TrinaryLogic::createNo();
+		return TrinaryLogic::createYes();
 	}
 
 	public function hasProperty(string $propertyName): bool
@@ -153,7 +153,7 @@ class HasMethodType implements CompoundType
 
 	public function canAccessConstants(): TrinaryLogic
 	{
-		return TrinaryLogic::createNo();
+		return TrinaryLogic::createYes();
 	}
 
 	public function hasConstant(string $constantName): bool
