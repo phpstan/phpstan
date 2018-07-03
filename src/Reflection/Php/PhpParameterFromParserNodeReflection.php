@@ -32,7 +32,7 @@ class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\Parame
 	/** @var bool */
 	private $variadic;
 
-	/** @var \PHPStan\Type\Type */
+	/** @var \PHPStan\Type\Type|null */
 	private $type;
 
 	public function __construct(

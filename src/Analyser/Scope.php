@@ -915,13 +915,11 @@ class Scope
 							return new ObjectType($this->getClassReflection()->getName());
 						}
 
-						if ($lowercasedClassName === 'parent') {
-							if ($this->getClassReflection()->getParentClass() !== false) {
-								return new ObjectType($this->getClassReflection()->getParentClass()->getName());
-							}
-
-							return new NonexistentParentClassType();
+						if ($this->getClassReflection()->getParentClass() !== false) {
+							return new ObjectType($this->getClassReflection()->getParentClass()->getName());
 						}
+
+						return new NonexistentParentClassType();
 					}
 				}
 
@@ -976,12 +974,6 @@ class Scope
 			}
 
 			return new ConstantStringType($parts[0]);
-		} elseif ($node instanceof Node\Scalar\MagicConst\Class_) {
-			if (!$this->isInClass()) {
-				return new ConstantStringType('');
-			}
-
-			return new ConstantStringType($this->getClassReflection()->getName());
 		} elseif ($node instanceof Node\Scalar\MagicConst\Method) {
 			if ($this->isInAnonymousFunction()) {
 				return new ConstantStringType('{closure}');
@@ -1763,7 +1755,7 @@ class Scope
 	 * @param bool $isVariadic
 	 * @return Type
 	 */
-	public function getFunctionType($type = null, bool $isNullable, bool $isVariadic): Type
+	public function getFunctionType($type, bool $isNullable, bool $isVariadic): Type
 	{
 		if ($isNullable) {
 			return TypeCombinator::addNull(

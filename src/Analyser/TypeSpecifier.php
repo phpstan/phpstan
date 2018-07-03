@@ -53,10 +53,10 @@ class TypeSpecifier
 	/** @var \PHPStan\Type\StaticMethodTypeSpecifyingExtension[] */
 	private $staticMethodTypeSpecifyingExtensions = [];
 
-	/** @var \PHPStan\Type\MethodTypeSpecifyingExtension[][] */
+	/** @var \PHPStan\Type\MethodTypeSpecifyingExtension[][]|null */
 	private $methodTypeSpecifyingExtensionsByClass;
 
-	/** @var \PHPStan\Type\StaticMethodTypeSpecifyingExtension[][] */
+	/** @var \PHPStan\Type\StaticMethodTypeSpecifyingExtension[][]|null */
 	private $staticMethodTypeSpecifyingExtensionsByClass;
 
 	/**
