@@ -3823,6 +3823,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'float|ForeachWithComplexValueType\Foo',
 				'$value',
 			],
+			[
+				__DIR__ . '/data/foreach/type-in-comment-key.php',
+				'int',
+				'$key',
+			],
 		];
 	}
 

@@ -315,6 +315,7 @@ class NodeScopeResolver
 			$scope = $scope->assignVariable($node->keyVar->name, new MixedType(), TrinaryLogic::createYes());
 		}
 
+		$comment = CommentHelper::getDocComment($node);
 		if ($node->valueVar instanceof Variable && is_string($node->valueVar->name)) {
 			$scope = $scope->enterForeach(
 				$node->expr,
@@ -325,10 +326,16 @@ class NodeScopeResolver
 					? $node->keyVar->name
 					: null
 			);
-			$comment = CommentHelper::getDocComment($node);
 			if ($comment !== null) {
 				$scope = $this->processVarAnnotation($scope, $node->valueVar->name, $comment, true);
 			}
+		}
+
+		if (
+			$node->keyVar instanceof Variable && is_string($node->keyVar->name)
+			&& $comment !== null
+		) {
+			$scope = $this->processVarAnnotation($scope, $node->keyVar->name, $comment, true);
 		}
 
 		if ($node->valueVar instanceof List_ || $node->valueVar instanceof Array_) {
