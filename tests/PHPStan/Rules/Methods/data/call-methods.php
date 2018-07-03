@@ -902,13 +902,29 @@ class ReflectionTypeGetString
 class MethodExists
 {
 
-	public function doFoo(Foo $foo)
+	public function doFoo(Foo $foo, $mixed)
 	{
 		$foo->lorem();
 		if (method_exists($foo, 'lorem')) {
 			$foo->lorem();
 		}
 		$foo->lorem();
+
+		if (method_exists($mixed, 'foo')) {
+			$mixed->foo();
+			$this->doBar([$mixed, 'foo']);
+			$this->doBar([$mixed, 'bar']);
+		}
+
+		if (is_object($mixed) && method_exists($mixed, 'foo')) {
+			$this->doBar([$mixed, 'foo']);
+			$this->doBar([$mixed, 'bar']);
+		}
+	}
+
+	public function doBar(callable $callable)
+	{
+
 	}
 
 }

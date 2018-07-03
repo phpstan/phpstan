@@ -365,6 +365,14 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Call to an undefined method Test\Foo::lorem().',
 				911,
 			],
+			[
+				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable, array(object&hasMethod(foo), \'bar\') given.',
+				916,
+			],
+			[
+				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable, array(object&hasMethod(foo), \'bar\') given.',
+				921,
+			],
 		]);
 	}
 
@@ -561,6 +569,14 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Parameter #1 $str of method Test\CheckDefaultArrayKeys::doBaz() expects string, int|string given.',
 				867,
+			],
+			[
+				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable, array(object&hasMethod(foo), \'bar\') given.',
+				916,
+			],
+			[
+				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable, array(object&hasMethod(foo), \'bar\') given.',
+				921,
 			],
 		]);
 	}

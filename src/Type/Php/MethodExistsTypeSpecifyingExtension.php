@@ -12,6 +12,7 @@ use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\Accessory\HasMethodType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\FunctionTypeSpecifyingExtension;
+use PHPStan\Type\IntersectionType;
 use PHPStan\Type\ObjectWithoutClassType;
 
 class MethodExistsTypeSpecifyingExtension implements FunctionTypeSpecifyingExtension, TypeSpecifierAwareExtension
@@ -43,20 +44,17 @@ class MethodExistsTypeSpecifyingExtension implements FunctionTypeSpecifyingExten
 		TypeSpecifierContext $context
 	): SpecifiedTypes
 	{
-		$objectExpr = $node->args[0]->value;
-		$objectType = $scope->getType($objectExpr);
-		if (!(new ObjectWithoutClassType())->isSuperTypeOf($objectType)->yes()) {
-			return new SpecifiedTypes([], []);
-		}
-
 		$methodNameType = $scope->getType($node->args[1]->value);
 		if (!$methodNameType instanceof ConstantStringType) {
 			return new SpecifiedTypes([], []);
 		}
 
 		return $this->typeSpecifier->create(
-			$objectExpr,
-			new HasMethodType($methodNameType->getValue()),
+			$node->args[0]->value,
+			new IntersectionType([
+				new ObjectWithoutClassType(),
+				new HasMethodType($methodNameType->getValue()),
+			]),
 			$context
 		);
 	}
