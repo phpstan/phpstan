@@ -17,10 +17,10 @@ class PhpParameterReflection implements ParameterReflection
 	/** @var \PHPStan\Type\Type|null */
 	private $phpDocType = null;
 
-	/** @var \PHPStan\Type\Type */
+	/** @var \PHPStan\Type\Type|null */
 	private $type;
 
-	/** @var \PHPStan\Type\Type */
+	/** @var \PHPStan\Type\Type|null */
 	private $nativeType;
 
 	public function __construct(\ReflectionParameter $reflection, ?Type $phpDocType)

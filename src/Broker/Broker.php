@@ -40,10 +40,10 @@ class Broker
 	/** @var \PHPStan\Type\DynamicStaticMethodReturnTypeExtension[] */
 	private $dynamicStaticMethodReturnTypeExtensions = [];
 
-	/** @var \PHPStan\Type\DynamicMethodReturnTypeExtension[][] */
+	/** @var \PHPStan\Type\DynamicMethodReturnTypeExtension[][]|null */
 	private $dynamicMethodReturnTypeExtensionsByClass;
 
-	/** @var \PHPStan\Type\DynamicStaticMethodReturnTypeExtension[][] */
+	/** @var \PHPStan\Type\DynamicStaticMethodReturnTypeExtension[][]|null */
 	private $dynamicStaticMethodReturnTypeExtensionsByClass;
 
 	/** @var \PHPStan\Type\DynamicFunctionReturnTypeExtension[] */

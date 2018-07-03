@@ -62,13 +62,13 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	/** @var \PHPStan\Type\Type|null */
 	private $phpDocThrowType;
 
-	/** @var \PHPStan\Reflection\ParameterReflection[] */
+	/** @var \PHPStan\Reflection\ParameterReflection[]|null */
 	private $parameters;
 
-	/** @var \PHPStan\Type\Type */
+	/** @var \PHPStan\Type\Type|null */
 	private $returnType;
 
-	/** @var \PHPStan\Type\Type */
+	/** @var \PHPStan\Type\Type|null */
 	private $nativeReturnType;
 
 	/** @var bool */
