@@ -282,11 +282,11 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				647,
 			],
 			[
-				'Parameter #1 $str of method Test\CheckIsCallable::test() expects callable, string given.',
+				'Parameter #1 $str of method Test\CheckIsCallable::test() expects callable, \'nonexistentFunction\' given.',
 				658,
 			],
 			[
-				'Parameter #1 $str of method Test\CheckIsCallable::test() expects callable, string given.',
+				'Parameter #1 $str of method Test\CheckIsCallable::test() expects callable, \'Test…\' given.',
 				660,
 			],
 			[
@@ -507,11 +507,11 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				633,
 			],
 			[
-				'Parameter #1 $str of method Test\CheckIsCallable::test() expects callable, string given.',
+				'Parameter #1 $str of method Test\CheckIsCallable::test() expects callable, \'nonexistentFunction\' given.',
 				658,
 			],
 			[
-				'Parameter #1 $str of method Test\CheckIsCallable::test() expects callable, string given.',
+				'Parameter #1 $str of method Test\CheckIsCallable::test() expects callable, \'Test…\' given.',
 				660,
 			],
 			[

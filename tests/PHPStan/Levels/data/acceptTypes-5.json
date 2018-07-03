@@ -45,7 +45,7 @@
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $callable of method Levels\\AcceptTypes\\Foo::expectCallable() expects callable, string given.",
+        "message": "Parameter #1 $callable of method Levels\\AcceptTypes\\Foo::expectCallable() expects callable, 'nonexistentFunction' given.",
         "line": 132,
         "ignorable": true
     },
