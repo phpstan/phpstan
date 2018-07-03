@@ -562,6 +562,18 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 				'array(0 => int|string, ?1 => bool, ?2 => float)',
 				'array<int, bool|float|int|string>',
 			],
+			[
+				TypeCombinator::union(
+					new ConstantArrayType([], []),
+					new ConstantArrayType([
+						new ConstantStringType('foo'),
+					], [
+						new ConstantStringType('bar'),
+					])
+				),
+				'array()|array(\'foo\' => \'bar\')',
+				'array<string, string>',
+			],
 		];
 	}
 
