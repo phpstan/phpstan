@@ -123,4 +123,22 @@ class TypeUtils
 		return $type;
 	}
 
+	public static function findThisType(Type $type): ?Type
+	{
+		if ($type instanceof ThisType) {
+			return $type;
+		}
+
+		if ($type instanceof UnionType || $type instanceof IntersectionType) {
+			foreach ($type->getTypes() as $innerType) {
+				$thisType = self::findThisType($innerType);
+				if ($thisType !== null) {
+					return $thisType;
+				}
+			}
+		}
+
+		return null;
+	}
+
 }

@@ -262,3 +262,22 @@ class InstanceOfString
 	}
 
 }
+
+trait TraitWithInstanceOfThis
+{
+
+	public function doFoo()
+	{
+		if ($this instanceof Foo) {
+
+		}
+	}
+
+}
+
+class ClassUsingTrait implements Foo
+{
+
+	use TraitWithInstanceOfThis;
+
+}

@@ -544,6 +544,12 @@ class Scope
 			}
 
 			$expressionType = $this->getType($node->expr);
+			if (
+				$this->isInTrait()
+				&& TypeUtils::findThisType($expressionType) !== null
+			) {
+				return new BooleanType();
+			}
 			if ($expressionType instanceof NeverType) {
 				return new ConstantBooleanType(false);
 			}
