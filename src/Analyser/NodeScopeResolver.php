@@ -252,19 +252,6 @@ class NodeScopeResolver
 				foreach ($node->vars as $var) {
 					$scope = $this->specifyProperty($scope, $var);
 				}
-			} elseif (
-				$node instanceof FuncCall
-				&& $node->name instanceof Name
-				&& $this->broker->resolveFunctionName($node->name, $scope) === 'property_exists'
-				&& count($node->args) === 2
-			) {
-				$secondArgumentType = $scope->getType($node->args[1]->value);
-
-				if ($secondArgumentType instanceof ConstantStringType) {
-					$scope = $scope->specifyFetchedPropertyFromIsset(
-						new PropertyFetch($node->args[0]->value, $secondArgumentType->getValue())
-					);
-				}
 			}
 		} else {
 			if ($node instanceof Expr\Empty_) {

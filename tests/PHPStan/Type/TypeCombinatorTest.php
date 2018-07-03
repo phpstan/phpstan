@@ -3,6 +3,7 @@
 namespace PHPStan\Type;
 
 use PHPStan\Type\Accessory\HasMethodType;
+use PHPStan\Type\Accessory\HasPropertyType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
@@ -1064,6 +1065,79 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				],
 				UnionType::class,
 				'(Test\FirstInterface&hasMethod(__toString))|(Test\Foo&hasMethod(__toString))',
+			],
+			[
+				[
+					new ObjectType(\Test\Foo::class),
+					new HasPropertyType('fooProperty'),
+				],
+				IntersectionType::class,
+				'Test\Foo&hasProperty(fooProperty)',
+			],
+			[
+				[
+					new ObjectType(\Test\ClassWithNullableProperty::class),
+					new HasPropertyType('foo'),
+				],
+				ObjectType::class,
+				'Test\ClassWithNullableProperty',
+			],
+			[
+				[
+					new ObjectType(\CheckTypeFunctionCall\FinalClassWithPropertyExists::class),
+					new HasPropertyType('barProperty'),
+				],
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				[
+					new ObjectWithoutClassType(),
+					new HasPropertyType('fooProperty'),
+				],
+				IntersectionType::class,
+				'object&hasProperty(fooProperty)',
+			],
+			[
+				[
+					new IntegerType(),
+					new HasPropertyType('fooProperty'),
+				],
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				[
+					new IntersectionType([
+						new ObjectWithoutClassType(),
+						new HasPropertyType('fooProperty'),
+					]),
+					new HasPropertyType('fooProperty'),
+				],
+				IntersectionType::class,
+				'object&hasProperty(fooProperty)',
+			],
+			[
+				[
+					new IntersectionType([
+						new ObjectWithoutClassType(),
+						new HasPropertyType('foo'),
+					]),
+					new HasPropertyType('bar'),
+				],
+				IntersectionType::class,
+				'object&hasProperty(bar)&hasProperty(foo)',
+			],
+			[
+				[
+					new UnionType([
+						new ObjectType(\Test\Foo::class),
+						new ObjectType(\Test\FirstInterface::class),
+					]),
+					new HasPropertyType('fooProperty'),
+				],
+				UnionType::class,
+				'(Test\FirstInterface&hasProperty(fooProperty))|(Test\Foo&hasProperty(fooProperty))',
 			],
 		];
 	}

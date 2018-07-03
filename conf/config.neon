@@ -308,6 +308,11 @@ services:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
 	-
+		class: PHPStan\Type\Php\PropertyExistsTypeSpecifyingExtension
+		tags:
+			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
+
+	-
 		class: PHPStan\Type\Php\MinMaxFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension

@@ -247,6 +247,7 @@ class PropertyExists
 		$foo->lorem;
 		if (property_exists($foo, 'lorem')) {
 			$foo->lorem;
+			$foo->dolor;
 		}
 	}
 

@@ -197,3 +197,21 @@ final class FinalClassWithMethodExists
 	}
 
 }
+
+final class FinalClassWithPropertyExists
+{
+
+	/** @var int */
+	private $fooProperty;
+
+	public function doFoo()
+	{
+		if (property_exists($this, 'fooProperty')) {
+
+		}
+		if (property_exists($this, 'barProperty')) {
+
+		}
+	}
+
+}

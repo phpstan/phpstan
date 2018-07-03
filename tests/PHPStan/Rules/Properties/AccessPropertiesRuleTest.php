@@ -119,32 +119,36 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 					247,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\NullCoalesce::$bar.',
-					263,
+					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(lorem)::$dolor.',
+					250,
 				],
 				[
 					'Access to an undefined property TestAccessProperties\NullCoalesce::$bar.',
-					265,
+					264,
 				],
 				[
 					'Access to an undefined property TestAccessProperties\NullCoalesce::$bar.',
-					269,
+					266,
+				],
+				[
+					'Access to an undefined property TestAccessProperties\NullCoalesce::$bar.',
+					270,
 				],
 				[
 					'Cannot access property $bar on TestAccessProperties\NullCoalesce|null.',
-					271,
+					272,
 				],
 				[
 					'Cannot access property $foo on TestAccessProperties\NullCoalesce|null.',
-					271,
+					272,
 				],
 				[
 					'Cannot access property $foo on TestAccessProperties\NullCoalesce|null.',
-					271,
+					272,
 				],
 				[
-					DIRECTORY_SEPARATOR === '/' ? 'Access to an undefined property class@anonymous/tests/PHPStan/Rules/Properties/data/access-properties.php:293::$barProperty.' : 'Access to an undefined property class@anonymous/tests\PHPStan\Rules\Properties\data\access-properties.php:293::$barProperty.',
-					298,
+					DIRECTORY_SEPARATOR === '/' ? 'Access to an undefined property class@anonymous/tests/PHPStan/Rules/Properties/data/access-properties.php:294::$barProperty.' : 'Access to an undefined property class@anonymous/tests\PHPStan\Rules\Properties\data\access-properties.php:294::$barProperty.',
+					299,
 				],
 			]
 		);
@@ -242,24 +246,28 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 					247,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\NullCoalesce::$bar.',
-					263,
+					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(lorem)::$dolor.',
+					250,
 				],
 				[
 					'Access to an undefined property TestAccessProperties\NullCoalesce::$bar.',
-					265,
+					264,
 				],
 				[
 					'Access to an undefined property TestAccessProperties\NullCoalesce::$bar.',
-					269,
+					266,
+				],
+				[
+					'Access to an undefined property TestAccessProperties\NullCoalesce::$bar.',
+					270,
 				],
 				[
 					'Cannot access property $bar on TestAccessProperties\NullCoalesce|null.',
-					271,
+					272,
 				],
 				[
-					DIRECTORY_SEPARATOR === '/' ? 'Access to an undefined property class@anonymous/tests/PHPStan/Rules/Properties/data/access-properties.php:293::$barProperty.' : 'Access to an undefined property class@anonymous/tests\PHPStan\Rules\Properties\data\access-properties.php:293::$barProperty.',
-					298,
+					DIRECTORY_SEPARATOR === '/' ? 'Access to an undefined property class@anonymous/tests/PHPStan/Rules/Properties/data/access-properties.php:294::$barProperty.' : 'Access to an undefined property class@anonymous/tests\PHPStan\Rules\Properties\data\access-properties.php:294::$barProperty.',
+					299,
 				],
 			]
 		);
