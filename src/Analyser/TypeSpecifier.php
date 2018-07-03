@@ -286,11 +286,11 @@ class TypeSpecifier
 			}
 		} elseif ($expr instanceof BooleanAnd || $expr instanceof LogicalAnd) {
 			$leftTypes = $this->specifyTypesInCondition($scope, $expr->left, $context);
-			$rightTypes = $this->specifyTypesInCondition($scope, $expr->right, $context);
+			$rightTypes = $this->specifyTypesInCondition($scope->filterByTruthyValue($expr->left), $expr->right, $context);
 			return $context->true() ? $leftTypes->unionWith($rightTypes) : $leftTypes->intersectWith($rightTypes);
 		} elseif ($expr instanceof BooleanOr || $expr instanceof LogicalOr) {
 			$leftTypes = $this->specifyTypesInCondition($scope, $expr->left, $context);
-			$rightTypes = $this->specifyTypesInCondition($scope, $expr->right, $context);
+			$rightTypes = $this->specifyTypesInCondition($scope->filterByFalseyValue($expr->left), $expr->right, $context);
 			return $context->true() ? $leftTypes->intersectWith($rightTypes) : $leftTypes->unionWith($rightTypes);
 		} elseif ($expr instanceof Node\Expr\BooleanNot && !$context->null()) {
 			return $this->specifyTypesInCondition($scope, $expr->expr, $context->negate());
