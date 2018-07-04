@@ -4458,6 +4458,42 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'(array(\'sec\' => int, \'usec\' => int, \'minuteswest\' => int, \'dsttime\' => int)|float)',
 				'$gettimeofdayBenevolent',
 			],
+			[
+				'array<int, string>|false',
+				'$strSplitConstantStringWithoutDefinedParameters',
+			],
+			[
+				"array('a', 'b', 'c', 'd', 'e', 'f')",
+				'$strSplitConstantStringWithoutDefinedSplitLength',
+			],
+			[
+				'array<int, string>',
+				'$strSplitStringWithoutDefinedSplitLength',
+			],
+			[
+				"array('a', 'b', 'c', 'd', 'e', 'f')",
+				'$strSplitConstantStringWithOneSplitLength',
+			],
+			[
+				"array('abcdef')",
+				'$strSplitConstantStringWithGreaterSplitLengthThanStringLength',
+			],
+			[
+				'false',
+				'$strSplitConstantStringWithFailureSplitLength',
+			],
+			[
+				'array<int, string>|false',
+				'$strSplitConstantStringWithInvalidSplitLengthType',
+			],
+			[
+				'array<int, string>',
+				'$strSplitConstantStringWithVariableStringAndConstantSplitLength',
+			],
+			[
+				'array<int, string>|false',
+				'$strSplitConstantStringWithVariableStringAndVariableSplitLength',
+			],
 		];
 	}
 

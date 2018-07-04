@@ -33,4 +33,16 @@ $gettimeofdayFloat = gettimeofday(true);
 $gettimeofdayDefault = gettimeofday(null);
 $gettimeofdayBenevolent = gettimeofday($undefined);
 
+// str_split
+/** @var string $string */
+$string = doFoo();
+$strSplitConstantStringWithoutDefinedParameters = str_split();
+$strSplitConstantStringWithoutDefinedSplitLength = str_split('abcdef');
+$strSplitStringWithoutDefinedSplitLength = str_split($string);
+$strSplitConstantStringWithOneSplitLength = str_split('abcdef', 1);
+$strSplitConstantStringWithGreaterSplitLengthThanStringLength = str_split('abcdef', 999);
+$strSplitConstantStringWithFailureSplitLength = str_split('abcdef', 0);
+$strSplitConstantStringWithInvalidSplitLengthType = str_split('abcdef', []);
+$strSplitConstantStringWithVariableStringAndConstantSplitLength = str_split(doFoo() ? 'abcdef' : 'ghijkl', 1);
+$strSplitConstantStringWithVariableStringAndVariableSplitLength = str_split(doFoo() ? 'abcdef' : 'ghijkl', doFoo() ? 1 : 2);
 die;
