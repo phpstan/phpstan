@@ -4274,6 +4274,43 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'bool',
 				'$versionCompare8',
 			],
+			// str_split
+			[
+				'array<int, string>|false',
+				'$strSplitConstantStringWithoutDefinedParameters',
+			],
+			[
+				"array('a', 'b', 'c', 'd', 'e', 'f')",
+				'$strSplitConstantStringWithoutDefinedSplitLength',
+			],
+			[
+				"array('a', 'b', 'c', 'd', 'e', 'f')",
+				'$strSplitConstantStringWithSplitLengthStringType',
+			],
+			[
+				"array('a', 'b', 'c', 'd', 'e', 'f')",
+				'$strSplitConstantStringWithOneSplitLength',
+			],
+			[
+				"array('abcdef')",
+				'$strSplitConstantStringWithGreaterSplitLengthThanStringLength',
+			],
+			[
+				'false',
+				'$strSplitConstantStringWithFailureSplitLength',
+			],
+			[
+				'*ERROR*',
+				'$strSplitConstantStringWithInvalidSplitLengthType',
+			],
+			[
+				'array<int, string>',
+				'$strSplitConstantStringWithVariableStringAndConstantSplitLength',
+			],
+			[
+				'array<int, string>|false',
+				'$strSplitConstantStringWithVariableStringAndVariableSplitLength',
+			],
 		];
 	}
 
