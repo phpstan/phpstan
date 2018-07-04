@@ -10945,7 +10945,7 @@ return [
 'SplFileInfo::getPathInfo' => ['SplFileInfo', 'class_name='=>'string'],
 'SplFileInfo::getPathname' => ['string'],
 'SplFileInfo::getPerms' => ['int'],
-'SplFileInfo::getRealPath' => ['string'],
+'SplFileInfo::getRealPath' => ['string|false'],
 'SplFileInfo::getSize' => ['int'],
 'SplFileInfo::getType' => ['string'],
 'SplFileInfo::isDir' => ['bool'],
