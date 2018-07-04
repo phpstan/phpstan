@@ -74,7 +74,12 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\Testing\TestCase
 
 		rewind($output->getStream());
 
-		return stream_get_contents($output->getStream());
+		$contents = stream_get_contents($output->getStream());
+		if ($contents === false) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		return $contents;
 	}
 
 }
