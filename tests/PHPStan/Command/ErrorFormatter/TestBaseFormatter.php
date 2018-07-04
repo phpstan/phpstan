@@ -37,7 +37,12 @@ abstract class TestBaseFormatter extends \PHPStan\Testing\TestCase
 	{
 		rewind($this->outputStream->getStream());
 
-		return $this->rtrimMultiline(stream_get_contents($this->outputStream->getStream()));
+		$contents = stream_get_contents($this->outputStream->getStream());
+		if ($contents === false) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		return $this->rtrimMultiline($contents);
 	}
 
 	protected function getErrorConsoleStyle(): ErrorsConsoleStyle
