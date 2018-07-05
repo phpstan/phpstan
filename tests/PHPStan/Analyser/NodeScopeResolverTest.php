@@ -4298,6 +4298,26 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'bool',
 				'$versionCompare8',
 			],
+			[
+				'int',
+				'$mbStrlenWithoutEncoding',
+			],
+			[
+				'int',
+				'$mbStrlenWithValidEncoding',
+			],
+			[
+				'false',
+				'$mbStrlenWithInvalidEncoding',
+			],
+			[
+				'int|false',
+				'$mbStrlenWithValidAndInvalidEncoding',
+			],
+			[
+				'int|false',
+				'$mbStrlenWithUnknownEncoding',
+			],
 		];
 	}
 

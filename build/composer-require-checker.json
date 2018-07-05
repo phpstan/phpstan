@@ -13,6 +13,7 @@
     "Reflection",
     "SPL",
     "standard",
-    "pcntl"
+    "pcntl",
+    "mbstring"
   ]
 }
