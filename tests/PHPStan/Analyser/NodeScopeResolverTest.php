@@ -4232,6 +4232,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		return [
 			[
 				'string',
+				'$microtimeStringWithoutArg',
+			],
+			[
+				'string',
 				'$microtimeString',
 			],
 			[
@@ -4317,6 +4321,26 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'int|false',
 				'$mbStrlenWithUnknownEncoding',
+			],
+			[
+				'array(\'sec\' => int, \'usec\' => int, \'minuteswest\' => int, \'dsttime\' => int)',
+				'$gettimeofdayArrayWithoutArg',
+			],
+			[
+				'array(\'sec\' => int, \'usec\' => int, \'minuteswest\' => int, \'dsttime\' => int)',
+				'$gettimeofdayArray',
+			],
+			[
+				'float',
+				'$gettimeofdayFloat',
+			],
+			[
+				'array(\'sec\' => int, \'usec\' => int, \'minuteswest\' => int, \'dsttime\' => int)|float',
+				'$gettimeofdayDefault',
+			],
+			[
+				'(array(\'sec\' => int, \'usec\' => int, \'minuteswest\' => int, \'dsttime\' => int)|float)',
+				'$gettimeofdayBenevolent',
 			],
 		];
 	}

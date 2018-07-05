@@ -27,4 +27,10 @@ $mbStrlenWithInvalidEncoding = mb_strlen('', 'foo');
 $mbStrlenWithValidAndInvalidEncoding = mb_strlen('', doFoo() ? 'utf-8' : 'foo');
 $mbStrlenWithUnknownEncoding = mb_strlen('', doFoo());
 
+$gettimeofdayArrayWithoutArg = gettimeofday();
+$gettimeofdayArray = gettimeofday(false);
+$gettimeofdayFloat = gettimeofday(true);
+$gettimeofdayDefault = gettimeofday(null);
+$gettimeofdayBenevolent = gettimeofday($undefined);
+
 die;
