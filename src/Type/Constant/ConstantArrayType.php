@@ -212,8 +212,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			return null;
 		}
 
-		$classOrObject = $this->valueTypes[0];
-		$method = $this->valueTypes[1];
+		[$classOrObject, $method] = $this->valueTypes;
 
 		if (!$method instanceof ConstantStringType) {
 			return [null, null];
