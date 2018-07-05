@@ -122,7 +122,7 @@ class PhpFunctionReflection implements FunctionReflection
 		return array_map(function (\ReflectionParameter $reflection) {
 			return new PhpParameterReflection(
 				$reflection,
-				isset($this->phpDocParameterTypes[$reflection->getName()]) ? $this->phpDocParameterTypes[$reflection->getName()] : null
+				$this->phpDocParameterTypes[$reflection->getName()] ?? null
 			);
 		}, $this->reflection->getParameters());
 	}

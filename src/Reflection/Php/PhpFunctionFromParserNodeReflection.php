@@ -137,7 +137,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 				$parameter->var->name,
 				$isOptional,
 				$this->realParameterTypes[$parameter->var->name],
-				isset($this->phpDocParameterTypes[$parameter->var->name]) ? $this->phpDocParameterTypes[$parameter->var->name] : null,
+				$this->phpDocParameterTypes[$parameter->var->name] ?? null,
 				$parameter->byRef
 					? PassedByReference::createCreatesNewVariable()
 					: PassedByReference::createNo(),

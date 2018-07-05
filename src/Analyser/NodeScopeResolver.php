@@ -1493,7 +1493,7 @@ class NodeScopeResolver
 	): Scope
 	{
 		if ($var instanceof Variable && is_string($var->name)) {
-			$scope = $scope->assignVariable($var->name, $subNodeType !== null ? $subNodeType : new MixedType(), $certainty);
+			$scope = $scope->assignVariable($var->name, $subNodeType ?? new MixedType(), $certainty);
 		} elseif ($var instanceof ArrayDimFetch) {
 			$subNodeType = $subNodeType ?? new MixedType();
 

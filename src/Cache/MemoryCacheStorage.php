@@ -14,7 +14,7 @@ class MemoryCacheStorage implements CacheStorage
 	 */
 	public function load(string $key)
 	{
-		return array_key_exists($key, $this->storage) ? $this->storage[$key] : null;
+		return $this->storage[$key] ?? null;
 	}
 
 	/**
