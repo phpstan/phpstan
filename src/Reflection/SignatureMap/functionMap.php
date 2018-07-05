@@ -11397,7 +11397,7 @@ return [
 'stream_get_meta_data' => ['array', 'fp'=>'resource'],
 'stream_get_transports' => ['array'],
 'stream_get_wrappers' => ['array'],
-'stream_is_local' => ['bool', 'stream'=>'resource'],
+'stream_is_local' => ['bool', 'stream'=>'resource|string'],
 'stream_isatty' => ['bool', 'stream'=>'resource'],
 'stream_notification_callback' => ['callback', 'notification_code'=>'int', 'severity'=>'int', 'message'=>'string', 'message_code'=>'int', 'bytes_transferred'=>'int', 'bytes_max'=>'int'],
 'stream_resolve_include_path' => ['string', 'filename'=>'string'],
