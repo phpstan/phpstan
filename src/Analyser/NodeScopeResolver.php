@@ -730,6 +730,7 @@ class NodeScopeResolver
 						&& $unsetVar->class instanceof Expr
 					)
 				) {
+					$scope = $scope->enterExpressionAssign($unsetVar);
 					if ($unsetVar instanceof StaticPropertyFetch) {
 						/** @var Expr $unsetVar */
 						$unsetVar = $unsetVar->class;

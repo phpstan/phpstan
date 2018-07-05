@@ -336,7 +336,7 @@ class TypeSpecifier
 			}
 
 			$types = null;
-			foreach ($vars as $var) {
+			foreach (array_reverse($vars) as $var) {
 				if ($expr instanceof Expr\Isset_) {
 					$type = $this->create($var, new NullType(), TypeSpecifierContext::createFalse());
 				} else {

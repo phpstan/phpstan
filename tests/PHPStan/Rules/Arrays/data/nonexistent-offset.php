@@ -152,4 +152,49 @@ class Foo
 		echo $access['name'];
 	}
 
+	public function issetProblem(string $s)
+	{
+		$a = [
+			'b' => ['c' => false],
+			'c' => ['c' => true],
+			'd' => ['e' => true]
+		];
+		if (isset($a[$s]['c'])) {
+			echo $a[$s];
+			echo $a[$s]['c'];
+		}
+		if (isset($a['b']['c'])) {
+			echo $a['b'];
+			echo $a['b']['c'];
+		}
+
+		echo $a[$s]['c'];
+	}
+
+	public function issetProblem2(float $amount, int $bar)
+	{
+		if ($amount > 0) {
+			$map = [
+				1 => 1,
+				2 => 2,
+			];
+		} elseif ($amount < 0) {
+			$map = [
+				3 => 3,
+				4 => 4,
+			];
+		} else {
+			$map = [];
+		}
+
+		echo $map[$bar];
+
+		if (!isset($map[$bar])) {
+			echo $map[$bar];
+			throw new \Exception();
+		}
+
+		return $map[$bar];
+	}
+
 }

@@ -78,7 +78,7 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		if ($scope->isInExpressionAssign($node)) {
+		if ($scope->isInExpressionAssign($node) || $scope->isSpecified($node)) {
 			return [];
 		}
 

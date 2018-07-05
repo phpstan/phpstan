@@ -459,8 +459,8 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					new Variable('barOrNull'),
 				]),
 				[
-					'$stringOrNull' => '~null',
 					'$barOrNull' => '~null',
+					'$stringOrNull' => '~null',
 				],
 				[
 					'isset($stringOrNull, $barOrNull)' => '~object',
