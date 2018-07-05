@@ -296,8 +296,8 @@ class FileTypeMapper
 	): string
 	{
 		$docComment = \Nette\Utils\Strings::replace($docComment, '#\s+#', ' ');
-		$key = md5(sprintf('%s-%s-%s', $class, $trait, $docComment));
-		return $key;
+
+		return md5(sprintf('%s-%s-%s', $class, $trait, $docComment));
 	}
 
 }

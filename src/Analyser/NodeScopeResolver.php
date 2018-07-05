@@ -1628,9 +1628,7 @@ class NodeScopeResolver
 		}
 
 		if ($intersectedScope !== null) {
-			$scope = $initialScope->mergeWithIntersectedScope($intersectedScope);
-
-			return $scope;
+			return $initialScope->mergeWithIntersectedScope($intersectedScope);
 		}
 
 		return $initialScope;
