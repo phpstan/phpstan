@@ -26,7 +26,7 @@ class RawErrorFormatter implements ErrorFormatter
 				sprintf(
 					'%s:%d:%s',
 					$fileSpecificError->getFile(),
-					$fileSpecificError->getLine() !== null ? $fileSpecificError->getLine() : '?',
+					$fileSpecificError->getLine() ?? '?',
 					$fileSpecificError->getMessage()
 				)
 			);
