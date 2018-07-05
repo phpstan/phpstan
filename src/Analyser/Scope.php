@@ -1414,11 +1414,11 @@ class Scope
 			return $this->getTypeFromValue($leftNumberValue ** $rightNumberValue);
 		}
 
-		if (($node instanceof Node\Expr\BinaryOp\Div || $node instanceof Node\Expr\AssignOp\Div)) {
+		if ($node instanceof Node\Expr\BinaryOp\Div || $node instanceof Node\Expr\AssignOp\Div) {
 			return $this->getTypeFromValue($leftNumberValue / $rightNumberValue);
 		}
 
-		if (($node instanceof Node\Expr\BinaryOp\Mod || $node instanceof Node\Expr\AssignOp\Mod)) {
+		if ($node instanceof Node\Expr\BinaryOp\Mod || $node instanceof Node\Expr\AssignOp\Mod) {
 			return $this->getTypeFromValue($leftNumberValue % $rightNumberValue);
 		}
 

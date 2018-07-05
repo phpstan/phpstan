@@ -40,7 +40,7 @@ class TypeCombinator
 			}
 		} elseif ($fromType instanceof IterableType) {
 			$traversableType = new ObjectType(\Traversable::class);
-			$arrayType = (new ArrayType(new MixedType(), new MixedType()));
+			$arrayType = new ArrayType(new MixedType(), new MixedType());
 			if ($typeToRemove->isSuperTypeOf($arrayType)->yes()) {
 				return $traversableType;
 			}
