@@ -4016,6 +4016,26 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$reducedIntegersToString',
 			],
 			[
+				'string|null',
+				'$reducedIntegersToStringWithNull',
+			],
+			[
+				'string',
+				'$reducedIntegersToStringAnother',
+			],
+			[
+				'null',
+				'$reducedToNull',
+			],
+			[
+				'1|string',
+				'$reducedIntegersToStringWithInt',
+			],
+			[
+				'1',
+				'$reducedToInt',
+			],
+			[
 				'1|2|3',
 				'$reversedIntegers[0]',
 			],

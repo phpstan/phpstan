@@ -20,6 +20,21 @@ $uniquedIntegers = array_unique($integers);
 $reducedIntegersToString = array_reduce($integers, function (): string {
 
 });
+$reducedIntegersToStringWithNull = array_reduce($uniquedIntegers, function (): string {
+
+});
+$reducedIntegersToStringAnother = array_reduce($integers, function (): string {
+
+}, 'initial');
+$reducedToNull = array_reduce([], function (): string {
+
+});
+$reducedToInt = array_reduce([], function (): string {
+
+}, 1);
+$reducedIntegersToStringWithInt = array_reduce($uniquedIntegers, function (): string {
+
+}, 1);
 
 $reversedIntegers = array_reverse($integers);
 
