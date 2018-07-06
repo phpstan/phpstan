@@ -90,6 +90,10 @@ class TypeCombinator
 		$typesCount = count($types);
 		$arrayTypes = [];
 		for ($i = 0; $i < $typesCount; $i++) {
+			if ($types[$i] instanceof NeverType) {
+				unset($types[$i]);
+				continue;
+			}
 			if (!$types[$i] instanceof ArrayType) {
 				continue;
 			}

@@ -24,6 +24,8 @@ use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
+use PHPStan\Type\ErrorType;
+use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\NonexistentParentClassType;
 use PHPStan\Type\NullType;
@@ -338,7 +340,37 @@ class TypeSpecifier
 			$types = null;
 			foreach (array_reverse($vars) as $var) {
 				if ($expr instanceof Expr\Isset_) {
-					$type = $this->create($var, new NullType(), TypeSpecifierContext::createFalse());
+					if ($var instanceof ArrayDimFetch && $var->dim !== null) {
+						$arrays = TypeUtils::getConstantArrays($scope->getType($var->var));
+						if (count($arrays) > 0) {
+							$offsetType = $scope->getType($var->dim);
+							$filteredValues = [];
+							foreach ($arrays as $array) {
+								$valueType = $array->getOffsetValueType($offsetType);
+								if ($valueType instanceof ErrorType) {
+									continue;
+								}
+
+								$filteredValues[] = $valueType;
+							}
+
+							if (count($filteredValues) > 0) {
+								$typeToSpecify = TypeCombinator::removeNull(TypeCombinator::union(...$filteredValues));
+							} else {
+								$typeToSpecify = new MixedType();
+							}
+
+							$type = $this->create(
+								$var,
+								$typeToSpecify,
+								$context
+							);
+						} else {
+							$type = $this->create($var, new NullType(), TypeSpecifierContext::createFalse());
+						}
+					} else {
+						$type = $this->create($var, new NullType(), TypeSpecifierContext::createFalse());
+					}
 				} else {
 					$type = $this->create(
 						$var,

@@ -6657,6 +6657,45 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataIsset(): array
+	{
+		return [
+			[
+				'2|3',
+				'$array[\'b\']',
+			],
+			/*[
+				'array(\'a\' => 1|3, \'b\' => 2|3, ?\'c\' => 4)',
+				'$array',
+			],*/
+			[
+				'array<int>',
+				'$integers',
+			],
+			[
+				'int',
+				'$integers[\'a\']',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataIsset
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testIsset(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/isset.php',
+			$description,
+			$expression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $description,
