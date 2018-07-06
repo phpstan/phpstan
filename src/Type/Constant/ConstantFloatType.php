@@ -2,6 +2,8 @@
 
 namespace PHPStan\Type\Constant;
 
+use PHPStan\TrinaryLogic;
+use PHPStan\Type\CompoundType;
 use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\Traits\ConstantScalarTypeTrait;
@@ -42,6 +44,31 @@ class ConstantFloatType extends FloatType implements ConstantScalarType
 				return $formatted;
 			}
 		);
+	}
+
+	public function isSuperTypeOf(Type $type): TrinaryLogic
+	{
+		if ($type instanceof self) {
+			if (!$this->equals($type)) {
+				if ($this->describe(VerbosityLevel::value()) === $type->describe(VerbosityLevel::value())) {
+					return TrinaryLogic::createMaybe();
+				}
+
+				return TrinaryLogic::createNo();
+			}
+
+			return TrinaryLogic::createYes();
+		}
+
+		if ($type instanceof parent) {
+			return TrinaryLogic::createMaybe();
+		}
+
+		if ($type instanceof CompoundType) {
+			return $type->isSubTypeOf($this);
+		}
+
+		return TrinaryLogic::createNo();
 	}
 
 	public function toString(): Type
