@@ -1097,6 +1097,7 @@ class Scope
 
 			return new ErrorType();
 		} elseif ($node instanceof Node\Expr\ClassConstFetch && $node->name instanceof Node\Identifier) {
+			$constantName = $node->name->name;
 			if ($node->class instanceof Name) {
 				$constantClass = (string) $node->class;
 				$constantClassType = new ObjectType($constantClass);
@@ -1108,18 +1109,23 @@ class Scope
 					if ($this->getClassReflection()->isFinal()) {
 						$namesToResolve[] = 'static';
 					} elseif (strtolower($constantClass) === 'static') {
+						if (strtolower($constantName) === 'class') {
+							return new StringType();
+						}
 						return new MixedType();
 					}
 				}
 				if (in_array(strtolower($constantClass), $namesToResolve, true)) {
 					$resolvedName = $this->resolveName($node->class);
+					if ($resolvedName === 'parent' && strtolower($constantName) === 'class') {
+						return new StringType();
+					}
 					$constantClassType = new ObjectType($resolvedName);
 				}
 			} else {
 				$constantClassType = $this->getType($node->class);
 			}
 
-			$constantName = $node->name->name;
 			if (strtolower($constantName) === 'class' && $constantClassType instanceof TypeWithClassName) {
 				return new ConstantStringType($constantClassType->getClassName());
 			}

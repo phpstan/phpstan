@@ -2631,6 +2631,18 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array(1, 2)',
 				'$arrToPop',
 			],
+			[
+				'string',
+				'static::class',
+			],
+			[
+				'\'NonexistentClass\'',
+				'NonexistentClass::class',
+			],
+			[
+				'string',
+				'parent::class',
+			],
 		];
 	}
 
