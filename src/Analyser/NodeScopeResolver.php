@@ -477,7 +477,12 @@ class NodeScopeResolver
 
 			return;
 		} elseif ($node instanceof While_) {
-			$bodyScope = $scope->filterByTruthyValue($node->cond);
+			$bodyScope = $this->lookForAssigns(
+				$scope,
+				$node->cond,
+				TrinaryLogic::createYes(),
+				LookForAssignsSettings::default()
+			)->filterByTruthyValue($node->cond);
 			$condScope = $this->lookForAssignsInBranches($scope, [
 				new StatementList($bodyScope, $node->stmts),
 				new StatementList($scope, []),

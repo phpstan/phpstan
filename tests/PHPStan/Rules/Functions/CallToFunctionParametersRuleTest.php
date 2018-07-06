@@ -290,4 +290,9 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
+	public function testWhileLoopLookForAssignsInBranchesVariableExistence(): void
+	{
+		$this->analyse([__DIR__ . '/data/while-loop-look-for-assigns.php'], []);
+	}
+
 }
