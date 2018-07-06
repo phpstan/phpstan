@@ -22,6 +22,7 @@ use PHPStan\Type\IntegerType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\StringAlwaysAcceptingObjectWithToStringType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeUtils;
 use PHPStan\Type\UnionType;
 use ReflectionClass;
 
@@ -378,6 +379,10 @@ class Broker
 				$i = 0;
 				while ($this->signatureMapProvider->hasFunctionSignature($variantName)) {
 					$functionSignature = $this->signatureMapProvider->getFunctionSignature($variantName, null);
+					$returnType = $functionSignature->getReturnType();
+					if ($lowerCasedFunctionName === 'pow') {
+						$returnType = TypeUtils::toBenevolentUnion($returnType);
+					}
 					$variants[] = new FunctionVariant(
 						array_map(function (ParameterSignature $parameterSignature) use ($lowerCasedFunctionName): NativeParameterReflection {
 							$type = $parameterSignature->getType();
@@ -405,7 +410,7 @@ class Broker
 							);
 						}, $functionSignature->getParameters()),
 						$functionSignature->isVariadic(),
-						$functionSignature->getReturnType()
+						$returnType
 					);
 
 					$i++;
