@@ -386,3 +386,14 @@ $anotherVariableInAssign = &$anotherVariableInAssign;
 
 static $staticVariable = 'foo';
 echo $staticVariable;
+
+function (): \Generator {
+	yield $x = 1;
+	yield $x + 1;
+};
+
+function y()
+{
+	yield from ($x = x());
+	yield $x;
+}

@@ -1380,6 +1380,15 @@ class NodeScopeResolver
 					$newExpressionType
 				);
 			}
+		} elseif ($node instanceof Expr\Yield_) {
+			if ($node->key !== null) {
+				$scope = $this->lookForAssigns($scope, $node->key, $certainty, $lookForAssignsSettings);
+			}
+			if ($node->value !== null) {
+				$scope = $this->lookForAssigns($scope, $node->value, $certainty, $lookForAssignsSettings);
+			}
+		} elseif ($node instanceof Expr\YieldFrom) {
+			$scope = $this->lookForAssigns($scope, $node->expr, $certainty, $lookForAssignsSettings);
 		}
 
 		$scope = $this->updateScopeForVariableAssign($scope, $node, $certainty, $lookForAssignsSettings);
