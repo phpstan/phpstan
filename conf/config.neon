@@ -447,6 +447,11 @@ services:
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
+	-
+		class: PHPStan\Type\Php\StrSplitFunctionReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
 	typeSpecifier:
 		class: PHPStan\Analyser\TypeSpecifier
 		factory: @typeSpecifierFactory::create
