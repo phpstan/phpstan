@@ -823,6 +823,13 @@ class Scope
 				return new FloatType();
 			}
 
+			if ($node instanceof Expr\AssignOp\Pow || $node instanceof Expr\BinaryOp\Pow) {
+				return new BenevolentUnionType([
+					new FloatType(),
+					new IntegerType(),
+				]);
+			}
+
 			$resultType = TypeCombinator::union($leftNumberType, $rightNumberType);
 			if ($node instanceof Expr\AssignOp\Div || $node instanceof Expr\BinaryOp\Div) {
 				if ($types instanceof MixedType || $resultType instanceof IntegerType) {

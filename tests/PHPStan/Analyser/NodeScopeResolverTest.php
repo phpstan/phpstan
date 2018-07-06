@@ -1882,6 +1882,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'1.2 ** 1',
 			],
 			[
+				'(float|int)',
+				'$integer ** $integer',
+			],
+			[
 				$typeCallback(3.2 % 2),
 				'3.2 % 2',
 			],
