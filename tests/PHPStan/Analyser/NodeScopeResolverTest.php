@@ -2588,15 +2588,15 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$decrementedFooString',
 			],
 			[
-				'\'barbar\'|\'barfoo\'|\'foobar\'|\'foofoo\'',
+				'string',
 				'$conditionalString . $conditionalString',
 			],
 			[
-				'\'baripsum\'|\'barlorem\'|\'fooipsum\'|\'foolorem\'',
+				'string',
 				'$conditionalString . $anotherConditionalString',
 			],
 			[
-				'\'ipsumbar\'|\'ipsumfoo\'|\'lorembar\'|\'loremfoo\'',
+				'string',
 				'$anotherConditionalString . $conditionalString',
 			],
 			[
