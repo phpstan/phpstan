@@ -232,7 +232,7 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 
 	public function hasNativeMethod(string $methodName): bool
 	{
-		return $this->getPhpExtension()->hasMethod($this, $methodName);
+		return $this->getPhpExtension()->hasNativeMethod($this, $methodName);
 	}
 
 	public function getNativeMethod(string $methodName): MethodReflection

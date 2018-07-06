@@ -3,7 +3,6 @@
 namespace PHPStan\Reflection\Php;
 
 use PHPStan\Reflection\ClassReflection;
-use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 
 class UniversalObjectCrateProperty implements \PHPStan\Reflection\PropertyReflection
@@ -12,9 +11,16 @@ class UniversalObjectCrateProperty implements \PHPStan\Reflection\PropertyReflec
 	/** @var \PHPStan\Reflection\ClassReflection */
 	private $declaringClass;
 
-	public function __construct(ClassReflection $declaringClass)
+	/** @var \PHPStan\Type\Type */
+	private $type;
+
+	public function __construct(
+		ClassReflection $declaringClass,
+		Type $type
+	)
 	{
 		$this->declaringClass = $declaringClass;
+		$this->type = $type;
 	}
 
 	public function getDeclaringClass(): ClassReflection
@@ -39,7 +45,7 @@ class UniversalObjectCrateProperty implements \PHPStan\Reflection\PropertyReflec
 
 	public function getType(): Type
 	{
-		return new MixedType();
+		return $this->type;
 	}
 
 	public function isReadable(): bool

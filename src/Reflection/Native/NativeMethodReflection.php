@@ -10,6 +10,7 @@ use PHPStan\Reflection\FinalizableReflection;
 use PHPStan\Reflection\InternableReflection;
 use PHPStan\Reflection\MethodPrototypeReflection;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\Php\BuiltinMethodReflection;
 
 class NativeMethodReflection implements MethodReflection, DeprecatableReflection, InternableReflection, FinalizableReflection
 {
@@ -20,7 +21,7 @@ class NativeMethodReflection implements MethodReflection, DeprecatableReflection
 	/** @var \PHPStan\Reflection\ClassReflection */
 	private $declaringClass;
 
-	/** @var \ReflectionMethod */
+	/** @var BuiltinMethodReflection */
 	private $reflection;
 
 	/** @var \PHPStan\Reflection\ParametersAcceptor[] */
@@ -29,13 +30,13 @@ class NativeMethodReflection implements MethodReflection, DeprecatableReflection
 	/**
 	 * @param \PHPStan\Broker\Broker $broker
 	 * @param \PHPStan\Reflection\ClassReflection $declaringClass
-	 * @param \ReflectionMethod $reflection
+	 * @param BuiltinMethodReflection $reflection
 	 * @param \PHPStan\Reflection\ParametersAcceptor[] $variants
 	 */
 	public function __construct(
 		Broker $broker,
 		ClassReflection $declaringClass,
-		\ReflectionMethod $reflection,
+		BuiltinMethodReflection $reflection,
 		array $variants
 	)
 	{

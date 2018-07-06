@@ -38,7 +38,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	/** @var null|ClassReflection */
 	private $declaringTrait;
 
-	/** @var \ReflectionMethod */
+	/** @var BuiltinMethodReflection */
 	private $reflection;
 
 	/** @var \PHPStan\Broker\Broker */
@@ -86,7 +86,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	/**
 	 * @param ClassReflection $declaringClass
 	 * @param ClassReflection|null $declaringTrait
-	 * @param \ReflectionMethod $reflection
+	 * @param BuiltinMethodReflection $reflection
 	 * @param Broker $broker
 	 * @param Parser $parser
 	 * @param FunctionCallStatementFinder $functionCallStatementFinder
@@ -101,7 +101,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	public function __construct(
 		ClassReflection $declaringClass,
 		?ClassReflection $declaringTrait,
-		\ReflectionMethod $reflection,
+		BuiltinMethodReflection $reflection,
 		Broker $broker,
 		Parser $parser,
 		FunctionCallStatementFinder $functionCallStatementFinder,

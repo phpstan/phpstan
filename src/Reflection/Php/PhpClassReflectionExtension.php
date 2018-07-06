@@ -174,6 +174,7 @@ class PhpClassReflectionExtension
 		) {
 			$classReflection = $this->broker->getClass(\ReflectionNamedType::class);
 		}
+
 		return $classReflection->getNativeReflection()->hasMethod($methodName);
 	}
 
@@ -189,7 +190,7 @@ class PhpClassReflectionExtension
 			return $this->methodsIncludingAnnotations[$classReflection->getName()][$methodName];
 		}
 
-		$nativeMethodReflection = $classReflection->getNativeReflection()->getMethod($methodName);
+		$nativeMethodReflection = new NativeBuiltinMethodReflection($classReflection->getNativeReflection()->getMethod($methodName));
 		if (!isset($this->methodsIncludingAnnotations[$classReflection->getName()][$nativeMethodReflection->getName()])) {
 			$method = $this->createMethod($classReflection, $nativeMethodReflection, true);
 			$this->methodsIncludingAnnotations[$classReflection->getName()][$nativeMethodReflection->getName()] = $method;
@@ -201,13 +202,51 @@ class PhpClassReflectionExtension
 		return $this->methodsIncludingAnnotations[$classReflection->getName()][$nativeMethodReflection->getName()];
 	}
 
+	public function hasNativeMethod(ClassReflection $classReflection, string $methodName): bool
+	{
+		$hasMethod = $this->hasMethod($classReflection, $methodName);
+		if ($hasMethod) {
+			return true;
+		}
+
+		if ($methodName === '__get' && UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate(
+			$this->broker,
+			$this->broker->getUniversalObjectCratesClasses(),
+			$classReflection
+		)) {
+			return true;
+		}
+
+		return false;
+	}
+
 	public function getNativeMethod(ClassReflection $classReflection, string $methodName): MethodReflection
 	{
 		if (isset($this->nativeMethods[$classReflection->getName()][$methodName])) {
 			return $this->nativeMethods[$classReflection->getName()][$methodName];
 		}
 
-		$nativeMethodReflection = $classReflection->getNativeReflection()->getMethod($methodName);
+		if ($classReflection->getNativeReflection()->hasMethod($methodName)) {
+			$nativeMethodReflection = new NativeBuiltinMethodReflection(
+				$classReflection->getNativeReflection()->getMethod($methodName)
+			);
+		} else {
+			if (
+				$methodName !== '__get'
+				|| !UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate(
+					$this->broker,
+					$this->broker->getUniversalObjectCratesClasses(),
+					$classReflection
+				)) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+
+			$nativeMethodReflection = new FakeBuiltinMethodReflection(
+				$methodName,
+				$classReflection->getNativeReflection()
+			);
+		}
+
 		if (!isset($this->nativeMethods[$classReflection->getName()][$nativeMethodReflection->getName()])) {
 			$method = $this->createMethod($classReflection, $nativeMethodReflection, false);
 			$this->nativeMethods[$classReflection->getName()][$nativeMethodReflection->getName()] = $method;
@@ -218,7 +257,7 @@ class PhpClassReflectionExtension
 
 	private function createMethod(
 		ClassReflection $classReflection,
-		\ReflectionMethod $methodReflection,
+		BuiltinMethodReflection $methodReflection,
 		bool $includingAnnotations
 	): MethodReflection
 	{
@@ -365,7 +404,7 @@ class PhpClassReflectionExtension
 	}
 
 	private function findMethodTrait(
-		\ReflectionMethod $methodReflection
+		BuiltinMethodReflection $methodReflection
 	): ?string
 	{
 		if (

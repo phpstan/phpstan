@@ -928,3 +928,18 @@ class MethodExists
 	}
 
 }
+
+class SimpleXMLElementPropertyTypehint
+{
+
+	public function doFoo(\SimpleXMLElement $xml)
+	{
+		if (!isset($xml->branches->branch)) {
+			return [];
+		}
+
+		echo $xml->branches->children()->count();
+		echo $xml->branches->children(123);
+	}
+
+}

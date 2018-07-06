@@ -4,7 +4,9 @@ namespace PHPStan\Reflection\Php;
 
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Reflection\PropertyReflection;
+use PHPStan\Type\MixedType;
 
 class UniversalObjectCratesClassReflectionExtension
 	implements \PHPStan\Reflection\PropertiesClassReflectionExtension, \PHPStan\Reflection\BrokerAwareExtension
@@ -68,7 +70,12 @@ class UniversalObjectCratesClassReflectionExtension
 
 	public function getProperty(ClassReflection $classReflection, string $propertyName): PropertyReflection
 	{
-		return new UniversalObjectCrateProperty($classReflection);
+		if ($classReflection->hasNativeMethod('__get')) {
+			$type = ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('__get')->getVariants())->getReturnType();
+		} else {
+			$type = new MixedType();
+		}
+		return new UniversalObjectCrateProperty($classReflection, $type);
 	}
 
 }

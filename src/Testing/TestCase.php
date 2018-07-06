@@ -101,7 +101,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			/**
 			 * @param ClassReflection $declaringClass
 			 * @param ClassReflection|null $declaringTrait
-			 * @param \ReflectionMethod $reflection
+			 * @param \PHPStan\Reflection\Php\BuiltinMethodReflection $reflection
 			 * @param Type[] $phpDocParameterTypes
 			 * @param null|Type $phpDocReturnType
 			 * @param null|Type $phpDocThrowType
@@ -113,7 +113,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			public function create(
 				ClassReflection $declaringClass,
 				?ClassReflection $declaringTrait,
-				\ReflectionMethod $reflection,
+				\PHPStan\Reflection\Php\BuiltinMethodReflection $reflection,
 				array $phpDocParameterTypes,
 				?Type $phpDocReturnType,
 				?Type $phpDocThrowType,

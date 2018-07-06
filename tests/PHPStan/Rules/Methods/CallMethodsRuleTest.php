@@ -373,6 +373,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable, array(object&hasMethod(foo), \'bar\') given.',
 				921,
 			],
+			[
+				'Parameter #1 $ns of method SimpleXMLElement::children() expects string, int given.',
+				942,
+			],
 		]);
 	}
 
