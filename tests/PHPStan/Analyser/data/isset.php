@@ -35,7 +35,23 @@ class Foo
 			return;
 		}
 
-		die;
+		$itemsA = [
+			'foo',
+			'derp',
+			'herp'
+		];
+
+		$itemsB = [
+			'foo',
+			'bar',
+			'baz',
+		];
+
+		$lookup = array_fill_keys($itemsB, true);
+
+		foreach ($itemsA as $a) {
+			die;
+		}
 	}
 
 }

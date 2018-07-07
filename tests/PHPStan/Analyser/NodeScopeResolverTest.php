@@ -2052,7 +2052,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$stringOrNull ?? \'foo\'',
 			],
 			[
-				'int|string',
+				'string',
 				'$string ?? $integer',
 			],
 			[
@@ -6675,6 +6675,18 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'int',
 				'$integers[\'a\']',
+			],
+			[
+				'false',
+				'$lookup[\'derp\'] ?? false',
+			],
+			[
+				'true',
+				'$lookup[\'foo\'] ?? false',
+			],
+			[
+				'bool',
+				'$lookup[$a] ?? false',
 			],
 		];
 	}

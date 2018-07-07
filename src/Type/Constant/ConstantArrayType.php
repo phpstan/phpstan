@@ -19,6 +19,7 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeUtils;
+use PHPStan\Type\UnionType;
 use PHPStan\Type\VerbosityLevel;
 
 /**
@@ -235,6 +236,21 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		}
 
 		return null;
+	}
+
+	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
+	{
+		if ($offsetType instanceof UnionType) {
+			$results = [];
+			foreach ($offsetType->getTypes() as $innerType) {
+				$results[] = $this->hasOffsetValueType($innerType);
+			}
+
+			return TrinaryLogic::extremeIdentity(...$results);
+		}
+		return TrinaryLogic::createFromBoolean(
+			!$this->getOffsetValueType($offsetType) instanceof ErrorType
+		);
 	}
 
 	public function getOffsetValueType(Type $offsetType): Type

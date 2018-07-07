@@ -646,7 +646,12 @@ class Scope
 			}
 		}
 
-		if ($node instanceof Node\Expr\BinaryOp || $node instanceof Node\Expr\AssignOp) {
+		if (
+			(
+				$node instanceof Node\Expr\BinaryOp
+				|| $node instanceof Node\Expr\AssignOp
+			) && !$node instanceof Expr\BinaryOp\Coalesce
+		) {
 			if ($node instanceof Node\Expr\AssignOp) {
 				$left = $node->var;
 				$right = $node->expr;
@@ -678,15 +683,59 @@ class Scope
 		}
 
 		if ($node instanceof Expr\BinaryOp\Coalesce) {
-			$type = TypeCombinator::union(
-				TypeCombinator::removeNull($this->getType($node->left)),
-				$this->getType($node->right)
-			);
-			if ($type instanceof ErrorType) {
-				return new MixedType();
+			if ($node->left instanceof Expr\ArrayDimFetch && $node->left->dim !== null) {
+				$arrays = TypeUtils::getConstantArrays($this->getType($node->left->var));
+				$dimType = $this->getType($node->left->dim);
+				if (count($arrays) > 0) {
+					$filteredValues = [];
+					$hasError = false;
+					foreach ($arrays as $array) {
+						$valueType = $array->getOffsetValueType($dimType);
+						if ($valueType instanceof ErrorType) {
+							$hasError = true;
+							continue;
+						}
+
+						if (!$array->hasOffsetValueType($dimType)->yes()) {
+							$hasError = true;
+						}
+
+						$filteredValues[] = $valueType;
+					}
+
+					if (count($filteredValues) > 0) {
+						if ($hasError) {
+							$filteredValues[] = $this->getType($node->right);
+						}
+
+						return TypeCombinator::union(...$filteredValues);
+					}
+
+					return $this->getType($node->right);
+				}
+
+				$leftType = $this->getType($node->left);
+				$rightType = $this->getType($node->right);
+				return TypeCombinator::union(
+					TypeCombinator::removeNull($leftType),
+					$rightType
+				);
 			}
 
-			return $type;
+			$leftType = $this->getType($node->left);
+			$rightType = $this->getType($node->right);
+			if ($leftType instanceof ErrorType || $leftType instanceof NullType) {
+				return $rightType;
+			}
+
+			if (TypeCombinator::containsNull($leftType) || $node->left instanceof PropertyFetch) {
+				return TypeCombinator::union(
+					TypeCombinator::removeNull($leftType),
+					$rightType
+				);
+			}
+
+			return TypeCombinator::removeNull($leftType);
 		}
 
 		if ($node instanceof Expr\Clone_) {
@@ -1368,10 +1417,6 @@ class Scope
 	{
 		$leftValue = $leftType->getValue();
 		$rightValue = $rightType->getValue();
-
-		if ($node instanceof Node\Expr\BinaryOp\Coalesce) {
-			return $this->getTypeFromValue($leftValue ?? $rightValue);
-		}
 
 		if ($node instanceof Node\Expr\BinaryOp\Spaceship) {
 			return $this->getTypeFromValue($leftValue <=> $rightValue);
