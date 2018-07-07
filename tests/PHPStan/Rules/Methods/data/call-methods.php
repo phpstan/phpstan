@@ -943,3 +943,49 @@ class SimpleXMLElementPropertyTypehint
 	}
 
 }
+
+class IssetCumulativeArray
+{
+
+	public function doFoo()
+	{
+		$arr = [1, 1, 1, 1, 2, 5, 3, 2];
+		$cumulative = [];
+
+		foreach ($arr as $val) {
+			if (!isset($cumulative[$val])) {
+				$cumulative[$val] = 0;
+			}
+
+			$cumulative[$val] = $cumulative[$val] + 1;
+		}
+
+		foreach ($cumulative as $c) {
+			$this->doBar($c);
+		}
+	}
+
+	public function doBar(string $s)
+	{
+
+	}
+
+	public function doBaz()
+	{
+		$arr = [1, 1, 1, 1, 2, 5, 3, 2];
+		$cumulative = [];
+
+		foreach ($arr as $val) {
+			if (isset($cumulative[$val])) {
+				$cumulative[$val] = $cumulative[$val] + 1;
+			} else {
+				$cumulative[$val] = 1;
+			}
+		}
+
+		foreach ($cumulative as $c) {
+			$this->doBar($c);
+		}
+	}
+
+}
