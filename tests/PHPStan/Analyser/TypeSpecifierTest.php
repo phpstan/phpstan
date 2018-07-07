@@ -10,6 +10,7 @@ use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
+use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantBooleanType;
@@ -475,14 +476,17 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					'empty($stringOrNull)' => '~0|0.0|\'\'|array()|false|null',
 				],
 			],
-			/*[
+			[
 				new Expr\BinaryOp\Identical(
 					new Variable('foo'),
 					new LNumber(123)
 				),
-				['$foo' => '123'],
+				[
+					'$foo' => '123',
+					123 => '123',
+				],
 				['$foo' => '~123'],
-			],*/
+			],
 		];
 	}
 
