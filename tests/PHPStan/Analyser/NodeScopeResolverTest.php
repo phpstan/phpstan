@@ -5600,17 +5600,17 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				"'afterLoop'",
 			],
 			[
-				'array<string, mixed>', // should be 'array<string, 1|2|3>',
+				'array<string, 1|2|3>',
 				'$this->property',
 				"'begin'",
 			],
 			[
-				'array<string, mixed>', // should be 'array<string, 1|2|3>',
+				'array<string, 1|2|3>',
 				'$this->property',
 				"'end'",
 			],
 			[
-				'array<string, mixed>', // should be 'array<string, 1|2|3>',
+				'array<string, 1|2|3>',
 				'$this->property',
 				"'afterLoop'",
 			],
@@ -6664,10 +6664,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'2|3',
 				'$array[\'b\']',
 			],
-			/*[
+			[
 				'array(\'a\' => 1|3, \'b\' => 2|3, ?\'c\' => 4)',
 				'$array',
-			],*/
+			],
 			[
 				'array<int>',
 				'$integers',

@@ -2303,6 +2303,8 @@ class Scope
 
 		$exprString = $this->printer->prettyPrintExpr($expr);
 
+		$scope = $this;
+
 		if ($expr instanceof Variable && is_string($expr->name)) {
 			$variableName = $expr->name;
 
@@ -2333,14 +2335,14 @@ class Scope
 				foreach ($constantArrays as $constantArray) {
 					$setArrays[] = $constantArray->setOffsetValueType($dimType, $type);
 				}
-				return $this->specifyExpressionType(
+				$scope = $this->specifyExpressionType(
 					$expr->var,
 					TypeCombinator::union(...$setArrays)
 				);
 			}
 		}
 
-		return $this->addMoreSpecificTypes([
+		return $scope->addMoreSpecificTypes([
 			$exprString => $type,
 		]);
 	}
@@ -2391,14 +2393,45 @@ class Scope
 
 	public function filterBySpecifiedTypes(SpecifiedTypes $specifiedTypes): self
 	{
+		$typeSpecifications = [];
+		foreach ($specifiedTypes->getSureTypes() as $exprString => [$expr, $type]) {
+			$typeSpecifications[] = [
+				'sure' => true,
+				'exprString' => $exprString,
+				'expr' => $expr,
+				'type' => $type,
+			];
+		}
+		foreach ($specifiedTypes->getSureNotTypes() as $exprString => [$expr, $type]) {
+			$typeSpecifications[] = [
+				'sure' => false,
+				'exprString' => $exprString,
+				'expr' => $expr,
+				'type' => $type,
+			];
+		}
+
+		usort($typeSpecifications, function (array $a, array $b): int {
+			$length = strlen((string) $a['exprString']) - strlen((string) $b['exprString']);
+			if ($length !== 0) {
+				return $length;
+			}
+
+			return $b['sure'] - $a['sure'];
+		});
+
 		$scope = $this;
-		foreach ($specifiedTypes->getSureTypes() as [$expr, $type]) {
-			$type = TypeCombinator::intersect($type, $this->getType($expr));
-			$scope = $scope->specifyExpressionType($expr, $type);
+		foreach ($typeSpecifications as $typeSpecification) {
+			$expr = $typeSpecification['expr'];
+			$type = $typeSpecification['type'];
+			if ($typeSpecification['sure']) {
+				$type = TypeCombinator::intersect($type, $this->getType($expr));
+				$scope = $scope->specifyExpressionType($expr, $type);
+			} else {
+				$scope = $scope->removeTypeFromExpression($expr, $type);
+			}
 		}
-		foreach ($specifiedTypes->getSureNotTypes() as [$expr, $type]) {
-			$scope = $scope->removeTypeFromExpression($expr, $type);
-		}
+
 		return $scope;
 	}
 

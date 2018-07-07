@@ -19,11 +19,16 @@ class Foo
 			$array = [
 				'a' => 2,
 			];
-		} else {
+		} elseif (rand(0, 1) === 0) {
 			$array = [
 				'a' => 3,
 				'b' => 3,
 				'c' => 4,
+			];
+		} else {
+			$array = [
+				'a' => 3,
+				'b' => null,
 			];
 		}
 

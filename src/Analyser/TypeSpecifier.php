@@ -338,12 +338,13 @@ class TypeSpecifier
 			}
 
 			$types = null;
-			foreach (array_reverse($vars) as $var) {
+			foreach ($vars as $var) {
 				if ($expr instanceof Expr\Isset_) {
 					if ($var instanceof ArrayDimFetch && $var->dim !== null) {
 						$arrays = TypeUtils::getConstantArrays($scope->getType($var->var));
 						if (count($arrays) > 0) {
 							$offsetType = $scope->getType($var->dim);
+							$filteredArrays = [];
 							$filteredValues = [];
 							foreach ($arrays as $array) {
 								$valueType = $array->getOffsetValueType($offsetType);
@@ -351,20 +352,36 @@ class TypeSpecifier
 									continue;
 								}
 
+								$filteredArrays[] = $array->setOffsetValueType(
+									$offsetType,
+									TypeCombinator::removeNull($valueType)
+								);
 								$filteredValues[] = $valueType;
 							}
 
-							if (count($filteredValues) > 0) {
-								$typeToSpecify = TypeCombinator::removeNull(TypeCombinator::union(...$filteredValues));
+							if (count($filteredArrays) > 0) {
+								$arrayTypeToSpecify = TypeCombinator::union(...$filteredArrays);
 							} else {
-								$typeToSpecify = new MixedType();
+								$arrayTypeToSpecify = new MixedType();
+							}
+
+							if (count($filteredValues) > 0) {
+								$valueTypeToSpecify = TypeCombinator::union(...$filteredValues);
+							} else {
+								$valueTypeToSpecify = new MixedType();
 							}
 
 							$type = $this->create(
-								$var,
-								$typeToSpecify,
+								$var->var,
+								$arrayTypeToSpecify,
 								$context
-							);
+							)/*->unionWith(
+								$this->create(
+									$var,
+									$valueTypeToSpecify,
+									$context
+								)
+							)*/;
 						} else {
 							$type = $this->create($var, new NullType(), TypeSpecifierContext::createFalse());
 						}
@@ -387,6 +404,7 @@ class TypeSpecifier
 					$types = $types->unionWith($type);
 				}
 			}
+
 			return $types;
 		} elseif (!$context->null()) {
 			return $this->handleDefaultTruthyOrFalseyContext($context, $expr);
