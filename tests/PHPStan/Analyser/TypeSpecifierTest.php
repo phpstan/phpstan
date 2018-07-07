@@ -498,11 +498,12 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 			$typesDescription[$exprString][] = '~' . $exprType->describe(VerbosityLevel::value());
 		}
 
+		$descriptions = [];
 		foreach ($typesDescription as $exprString => $exprTypes) {
-			$typesDescription[$exprString] = implode(' & ', $exprTypes);
+			$descriptions[$exprString] = implode(' & ', $exprTypes);
 		}
 
-		return $typesDescription;
+		return $descriptions;
 	}
 
 	private function createInstanceOf(string $className, string $variableName = 'foo'): Expr\Instanceof_

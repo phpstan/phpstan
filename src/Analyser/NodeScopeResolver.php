@@ -1428,20 +1428,7 @@ class NodeScopeResolver
 
 				$type = null;
 				if ($node instanceof Assign || $node instanceof AssignRef) {
-					if (
-						$lookForAssignsSettings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()
-						&& $var instanceof ArrayDimFetch
-						&& $var->dim === null
-					) {
-						$type = $scope->getType($var->var)->setOffsetValueType(
-							null,
-							$scope->getType($node->expr)
-						);
-						$type = TypeUtils::generalizeType($type);
-						$var = $var->var;
-					} else {
-						$type = $scope->getType($node->expr);
-					}
+					$type = $scope->getType($node->expr);
 				} elseif ($node instanceof Expr\AssignOp) {
 					$type = $scope->getType($node);
 					if ($lookForAssignsSettings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()) {
@@ -1450,6 +1437,17 @@ class NodeScopeResolver
 				}
 
 				$scope = $this->assignVariable($scope, $var, $certainty, $type);
+				if (
+					(!$node instanceof Assign && !$node instanceof AssignRef)
+					|| !$lookForAssignsSettings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()
+					|| !($var instanceof ArrayDimFetch)
+					|| $var->dim !== null
+				) {
+					continue;
+				}
+
+				$type = $scope->getType($var->var);
+				$scope = $this->assignVariable($scope, $var->var, $certainty, TypeUtils::generalizeType($type));
 			}
 
 			if ($node instanceof Assign || $node instanceof AssignRef) {

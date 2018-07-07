@@ -649,3 +649,38 @@ class AssertThisInstanceOf
 	}
 
 }
+
+class NestedArrayCheck
+{
+
+	/**
+	 * @return array<string,bool>
+	 */
+	public function doFoo()
+	{
+		$rows = [];
+		$entities = [];
+
+		foreach ($rows as $row) {
+			$entities['string'][] = 'string';
+		}
+
+		return $entities;
+	}
+
+	/**
+	 * @return array<string,bool>
+	 */
+	public function doBar()
+	{
+		$rows = [];
+		$entities = [];
+
+		foreach ($rows as $row) {
+			$entities['string']['foo'] = 'string';
+		}
+
+		return $entities;
+	}
+
+}
