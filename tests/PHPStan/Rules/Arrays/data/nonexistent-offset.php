@@ -197,4 +197,13 @@ class Foo
 		return $map[$bar];
 	}
 
+	private $propertyThatWillBeSetToArray;
+
+	public function assignmentToProperty()
+	{
+		$this->propertyThatWillBeSetToArray = [];
+		$this->propertyThatWillBeSetToArray['foo'] = 1;
+		echo $this->propertyThatWillBeSetToArray['foo'];
+	}
+
 }

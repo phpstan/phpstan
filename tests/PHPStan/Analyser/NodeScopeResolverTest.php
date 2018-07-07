@@ -6708,6 +6708,61 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataPropertyArrayAssignment(): array
+	{
+		return [
+			[
+				'mixed',
+				'$this->property',
+				"'start'",
+			],
+			[
+				'array()',
+				'$this->property',
+				"'emptyArray'",
+			],
+			[
+				'*ERROR*',
+				'$this->property[\'foo\']',
+				"'emptyArray'",
+			],
+			[
+				'array(\'foo\' => 1)',
+				'$this->property',
+				"'afterAssignment'",
+			],
+			[
+				'1',
+				'$this->property[\'foo\']',
+				"'afterAssignment'",
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataPropertyArrayAssignment
+	 * @param string $description
+	 * @param string $expression
+	 * @param string $evaluatedPointExpression
+	 */
+	public function testPropertyArrayAssignment(
+		string $description,
+		string $expression,
+		string $evaluatedPointExpression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/property-array.php',
+			$description,
+			$expression,
+			[],
+			[],
+			[],
+			[],
+			$evaluatedPointExpression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $description,

@@ -1536,48 +1536,49 @@ class NodeScopeResolver
 			// 3. eval assigned expr, unfortunately this was already done
 
 			// 4. compose types
-			if ($var instanceof Variable && is_string($var->name)) {
-				if (!$scope->hasVariableType($var->name)->no()) {
-					$varType = $scope->getVariableType($var->name);
+			$varType = $scope->getType($var);
+			if ($varType instanceof ErrorType) {
+				$varType = new ConstantArrayType([], []);
+			}
+			$offsetValueType = $varType;
+			$offsetValueTypeStack = [$offsetValueType];
+			foreach (array_slice($offsetTypes, 0, -1) as $offsetType) {
+				if ($offsetType === null) {
+					$offsetValueType = new ConstantArrayType([], []);
 
 				} else {
-					$varType = new ConstantArrayType([], []);
-				}
-
-				$offsetValueType = $varType;
-				$offsetValueTypeStack = [$offsetValueType];
-				foreach (array_slice($offsetTypes, 0, -1) as $offsetType) {
-					if ($offsetType === null) {
+					$offsetValueType = $offsetValueType->getOffsetValueType($offsetType);
+					if ($offsetValueType instanceof ErrorType) {
 						$offsetValueType = new ConstantArrayType([], []);
-
-					} else {
-						$offsetValueType = $offsetValueType->getOffsetValueType($offsetType);
-						if ($offsetValueType instanceof ErrorType) {
-							$offsetValueType = new ConstantArrayType([], []);
-						}
 					}
-
-					$offsetValueTypeStack[] = $offsetValueType;
 				}
 
-				$valueToWrite = $subNodeType;
-				foreach (array_reverse($offsetTypes) as $offsetType) {
-					/** @var Type $offsetValueType */
-					$offsetValueType = array_pop($offsetValueTypeStack);
-					$valueToWrite = $offsetValueType->setOffsetValueType($offsetType, $valueToWrite);
-				}
+				$offsetValueTypeStack[] = $offsetValueType;
+			}
 
-				if ($valueToWrite instanceof ErrorType) {
-					$valueToWrite = new ArrayType(new MixedType(), new MixedType());
-				}
+			$valueToWrite = $subNodeType;
+			foreach (array_reverse($offsetTypes) as $offsetType) {
+				/** @var Type $offsetValueType */
+				$offsetValueType = array_pop($offsetValueTypeStack);
+				$valueToWrite = $offsetValueType->setOffsetValueType($offsetType, $valueToWrite);
+			}
 
+			if ($valueToWrite instanceof ErrorType) {
+				$valueToWrite = new ArrayType(new MixedType(), new MixedType());
+			}
+
+			if ($var instanceof Variable && is_string($var->name)) {
 				$scope = $scope->assignVariable(
 					$var->name,
 					$valueToWrite,
 					$certainty
 				);
+			} else {
+				$scope = $scope->specifyExpressionType(
+					$var,
+					$valueToWrite
+				);
 			}
-
 		} elseif ($var instanceof PropertyFetch && $subNodeType !== null) {
 			$scope = $scope->specifyExpressionType($var, $subNodeType);
 		} elseif ($var instanceof Expr\StaticPropertyFetch && $subNodeType !== null) {
