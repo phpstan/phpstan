@@ -6260,7 +6260,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				'array(\'i\' => int, \'j\' => int, \'k\' => int, \'l\' => 1, \'m\' => 5, \'key\' => DateTimeImmutable)',
+				'array(\'i\' => int, \'j\' => int, \'k\' => int, \'l\' => 1, \'m\' => 5, \'key\' => DateTimeImmutable, ?\'n\' => \'str\')',
 				'$array',
 			],
 			[
@@ -6282,6 +6282,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'array<int, \'bar\'|\'baz\'|\'foo\'>',
 				'$anotherArrayAppendedInForeach',
+			],
+			[
+				'\'str\'',
+				'$array[\'n\']',
 			],
 		];
 	}

@@ -42,5 +42,9 @@ function (array $generalArray) {
 	$array['l']++;
 	$array['m'] += 5;
 
+	if (rand(0, 1) === 1) {
+		$array['n'] = 'str';
+	}
+
 	die;
 };

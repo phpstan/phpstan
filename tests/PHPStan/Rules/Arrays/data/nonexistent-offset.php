@@ -194,7 +194,7 @@ class Foo
 			throw new \Exception();
 		}
 
-		//return $map[$bar];
+		return $map[$bar];
 	}
 
 	private $propertyThatWillBeSetToArray;

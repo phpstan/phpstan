@@ -365,23 +365,11 @@ class TypeSpecifier
 								$arrayTypeToSpecify = new MixedType();
 							}
 
-							if (count($filteredValues) > 0) {
-								$valueTypeToSpecify = TypeCombinator::union(...$filteredValues);
-							} else {
-								$valueTypeToSpecify = new MixedType();
-							}
-
 							$type = $this->create(
 								$var->var,
 								$arrayTypeToSpecify,
 								$context
-							)/*->unionWith(
-								$this->create(
-									$var,
-									$valueTypeToSpecify,
-									$context
-								)
-							)*/;
+							);
 						} else {
 							$type = $this->create($var, new NullType(), TypeSpecifierContext::createFalse());
 						}
