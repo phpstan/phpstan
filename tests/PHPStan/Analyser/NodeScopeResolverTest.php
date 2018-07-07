@@ -4052,6 +4052,74 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$reversedIntegers[0]',
 			],
 			[
+				'array<0|1|2, 1|2|3>',
+				'array_change_key_case($integers)',
+			],
+			[
+				'array<0|1|2, 1|2|3>',
+				'array_diff_assoc($integers, [])',
+			],
+			[
+				'array<0|1|2, 1|2|3>',
+				'array_diff_key($integers, [])',
+			],
+			[
+				'array<0|1|2, 1|2|3>',
+				'array_diff_uassoc($integers, [])',
+			],
+			[
+				'array<0|1|2, 1|2|3>',
+				'array_diff_ukey($integers, [])',
+			],
+			[
+				'array<0|1|2, 1|2|3>',
+				'array_diff($integers, [])',
+			],
+			[
+				'array<0|1|2, 1|2|3>',
+				'array_udiff_assoc($integers, [])',
+			],
+			[
+				'array<0|1|2, 1|2|3>',
+				'array_udiff_uassoc($integers, [])',
+			],
+			[
+				'array<0|1|2, 1|2|3>',
+				'array_udiff($integers, [])',
+			],
+			[
+				'array<0|1|2, 1|2|3>',
+				'array_intersect_assoc($integers, [])',
+			],
+			[
+				'array<0|1|2, 1|2|3>',
+				'array_intersect_key($integers, [])',
+			],
+			[
+				'array<0|1|2, 1|2|3>',
+				'array_intersect_uassoc($integers, [])',
+			],
+			[
+				'array<0|1|2, 1|2|3>',
+				'array_intersect_ukey($integers, [])',
+			],
+			[
+				'array<0|1|2, 1|2|3>',
+				'array_intersect($integers, [])',
+			],
+			[
+				'array<0|1|2, 1|2|3>',
+				'array_uintersect_assoc($integers, [])',
+			],
+			[
+				'array<0|1|2, 1|2|3>',
+				'array_uintersect_uassoc($integers, [])',
+			],
+			[
+				'array<0|1|2, 1|2|3>',
+				'array_uintersect($integers, [])',
+			],
+			[
 				'array(1, 1, 1, 1, 1)',
 				'$filledIntegers',
 			],
