@@ -8,6 +8,7 @@ use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Accessory\AccessoryType;
 
 class IntersectionType implements CompoundType, StaticResolvableType
 {
@@ -99,6 +100,9 @@ class IntersectionType implements CompoundType, StaticResolvableType
 			function () use ($level): string {
 				$typeNames = [];
 				foreach ($this->types as $type) {
+					if ($type instanceof AccessoryType) {
+						continue;
+					}
 					$typeNames[] = TypeUtils::generalizeType($type)->describe($level);
 				}
 

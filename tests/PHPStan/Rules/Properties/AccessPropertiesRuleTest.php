@@ -67,27 +67,27 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 					63,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(nonexistent)::$emptyBaz.',
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$emptyBaz.',
 					68,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(nonexistent)::$emptyNonexistent.',
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$emptyNonexistent.',
 					70,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(emptyNonexistent)&hasProperty(nonexistent)::$anotherNonexistent.',
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherNonexistent.',
 					76,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(emptyNonexistent)&hasProperty(nonexistent)::$anotherNonexistent.',
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherNonexistent.',
 					77,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(emptyNonexistent)&hasProperty(nonexistent)::$anotherEmptyNonexistent.',
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherEmptyNonexistent.',
 					80,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(emptyNonexistent)&hasProperty(nonexistent)::$anotherEmptyNonexistent.',
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherEmptyNonexistent.',
 					83,
 				],
 				[
@@ -119,7 +119,7 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 					247,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(lorem)::$dolor.',
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$dolor.',
 					250,
 				],
 				[
@@ -202,27 +202,27 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 					63,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(nonexistent)::$emptyBaz.',
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$emptyBaz.',
 					68,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(nonexistent)::$emptyNonexistent.',
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$emptyNonexistent.',
 					70,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(emptyNonexistent)&hasProperty(nonexistent)::$anotherNonexistent.',
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherNonexistent.',
 					76,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(emptyNonexistent)&hasProperty(nonexistent)::$anotherNonexistent.',
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherNonexistent.',
 					77,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(emptyNonexistent)&hasProperty(nonexistent)::$anotherEmptyNonexistent.',
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherEmptyNonexistent.',
 					80,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(emptyNonexistent)&hasProperty(nonexistent)::$anotherEmptyNonexistent.',
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$anotherEmptyNonexistent.',
 					83,
 				],
 				[
@@ -246,7 +246,7 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 					247,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\FooAccessProperties&hasProperty(lorem)::$dolor.',
+					'Access to an undefined property TestAccessProperties\FooAccessProperties::$dolor.',
 					250,
 				],
 				[
