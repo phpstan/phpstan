@@ -80,6 +80,22 @@ class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestC
 					'Call to function property_exists() with $this(CheckTypeFunctionCall\FinalClassWithPropertyExists) and \'barProperty\' will always evaluate to false.',
 					212,
 				],
+				[
+					'Call to function in_array() with arguments int, array(\'foo\', \'bar\') and true will always evaluate to false.',
+					230,
+				],
+				[
+					'Call to function in_array() with arguments \'bar\'|\'foo\', array(\'baz\', \'lorem\') and true will always evaluate to false.',
+					239,
+				],
+				[
+					'Call to function in_array() with arguments \'bar\'|\'foo\', array(\'foo\', \'bar\') and true will always evaluate to true.',
+					243,
+				],
+				[
+					'Call to function in_array() with arguments \'foo\', array(\'foo\') and true will always evaluate to true.',
+					247,
+				],
 			]
 		);
 	}
@@ -117,6 +133,14 @@ class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestC
 				[
 					'Call to function property_exists() with $this(CheckTypeFunctionCall\FinalClassWithPropertyExists) and \'barProperty\' will always evaluate to false.',
 					212,
+				],
+				[
+					'Call to function in_array() with arguments int, array(\'foo\', \'bar\') and true will always evaluate to false.',
+					230,
+				],
+				[
+					'Call to function in_array() with arguments \'bar\'|\'foo\', array(\'baz\', \'lorem\') and true will always evaluate to false.',
+					239,
 				],
 			]
 		);

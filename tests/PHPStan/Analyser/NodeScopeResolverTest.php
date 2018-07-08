@@ -2624,6 +2624,18 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'is_int($string)',
 			],
 			[
+				'bool',
+				'in_array(\'foo\', [\'foo\', \'bar\'])',
+			],
+			[
+				'true',
+				'in_array(\'foo\', [\'foo\', \'bar\'], true)',
+			],
+			[
+				'false',
+				'in_array(\'baz\', [\'foo\', \'bar\'], true)',
+			],
+			[
 				'array(2, 3)',
 				'$arrToShift',
 			],
@@ -6904,6 +6916,41 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[],
 			[],
 			$evaluatedPointExpression
+		);
+	}
+
+	public function dataInArray(): array
+	{
+		return [
+			[
+				'\'bar\'|\'foo\'',
+				'$s',
+			],
+			[
+				'*NEVER*',
+				'$i',
+			],
+			[
+				'string',
+				'$mixed',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataInArray
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testInArray(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/in-array.php',
+			$description,
+			$expression
 		);
 	}
 

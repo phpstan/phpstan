@@ -36,6 +36,15 @@ class TypeUtils
 		return self::map(ConstantStringType::class, $type);
 	}
 
+	/**
+	 * @param \PHPStan\Type\Type $type
+	 * @return \PHPStan\Type\ConstantType[]
+	 */
+	public static function getConstantTypes(Type $type): array
+	{
+		return self::map(ConstantType::class, $type);
+	}
+
 	public static function generalizeType(Type $type): Type
 	{
 		if ($type instanceof ConstantType) {

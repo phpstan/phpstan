@@ -13,6 +13,7 @@ use PHPStan\Type\ErrorType;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\TypeUtils;
 use PHPStan\Type\VerbosityLevel;
 
 class ImpossibleCheckTypeHelper
@@ -39,7 +40,7 @@ class ImpossibleCheckTypeHelper
 				$functionName = strtolower((string) $node->name);
 				if ($functionName === 'is_numeric') {
 					$argType = $scope->getType($node->args[0]->value);
-					if (count(\PHPStan\Type\TypeUtils::getConstantScalars($argType)) > 0) {
+					if (count(TypeUtils::getConstantScalars($argType)) > 0) {
 						return !$argType->toNumber() instanceof ErrorType;
 					}
 
@@ -48,6 +49,18 @@ class ImpossibleCheckTypeHelper
 					}
 				} elseif ($functionName === 'defined') {
 					return null;
+				} elseif (
+					$functionName === 'in_array'
+					&& count($node->args) >= 3
+				) {
+					$needleType = $scope->getType($node->args[0]->value);
+					$haystackType = $scope->getType($node->args[1]->value);
+					if (
+						$needleType->equals($haystackType->getIterableValueType())
+						&& count(TypeUtils::getConstantTypes($needleType)) === 0
+					) {
+						return null;
+					}
 				}
 			}
 		}

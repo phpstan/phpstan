@@ -1121,10 +1121,7 @@ class NodeScopeResolver
 					}
 
 					$scope = $scope->specifyExpressionType($arrayArg, $arrayType);
-				} elseif (
-					$functionName === 'array_unshift'
-					&& count($constantArrays) > 0
-				) {
+				} elseif (count($constantArrays) > 0) {
 					$defaultArrayBuilder = ConstantArrayTypeBuilder::createEmpty();
 					foreach ($argumentTypes as $argType) {
 						$defaultArrayBuilder->setOffsetValueType(null, $argType);

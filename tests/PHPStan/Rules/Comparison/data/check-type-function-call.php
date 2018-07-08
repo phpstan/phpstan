@@ -215,3 +215,52 @@ final class FinalClassWithPropertyExists
 	}
 
 }
+
+class InArray
+{
+
+	public function doFoo(
+		string $s,
+		int $i
+	)
+	{
+		if (in_array($s, ['foo' ,'bar'], true)) {
+
+		}
+		if (in_array($i, ['foo', 'bar'], true)) {
+
+		}
+
+		$fooOrBar = 'foo';
+		if (rand(0, 1) === 0) {
+			$fooOrBar = 'bar';
+		}
+
+		if (in_array($fooOrBar, ['baz', 'lorem'], true)) {
+
+		}
+
+		if (in_array($fooOrBar, ['foo', 'bar'], true)) {
+
+		}
+
+		if (in_array('foo', ['foo'], true)) {
+
+		}
+	}
+
+	/**
+	 * @param string $s
+	 * @param string[] $strings
+	 */
+	public function doBar(
+		string $s,
+		array $strings
+	)
+	{
+		if (in_array($s, $strings, true)) {
+
+		}
+	}
+
+}
