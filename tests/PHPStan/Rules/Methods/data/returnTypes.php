@@ -684,3 +684,19 @@ class NestedArrayCheck
 	}
 
 }
+
+class CheckNullWithConstantType
+{
+
+	const SOME_NULL_CONST = null;
+
+	public function doFoo(?array $nullableArray): array
+	{
+		if ($nullableArray === self::SOME_NULL_CONST) {
+			$nullableArray = [];
+		}
+
+		return $nullableArray;
+	}
+
+}

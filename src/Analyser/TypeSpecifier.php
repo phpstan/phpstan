@@ -126,31 +126,32 @@ class TypeSpecifier
 				return $this->create($expr->expr, new ObjectWithoutClassType(), $context);
 			}
 		} elseif ($expr instanceof Node\Expr\BinaryOp\Identical) {
-			$expressions = $this->findTypeExpressionsFromBinaryOperation($expr);
+			$expressions = $this->findTypeExpressionsFromBinaryOperation($scope, $expr);
 			if ($expressions !== null) {
-				/** @var ConstFetch $constFetchExpression */
-				$constFetchExpression = $expressions[1];
-				$constantName = strtolower((string) $constFetchExpression->name);
-				if ($constantName === 'false') {
-					$types = $this->create($expressions[0], new ConstantBooleanType(false), $context);
+				/** @var Expr $exprNode */
+				$exprNode = $expressions[0];
+				/** @var \PHPStan\Type\ConstantScalarType $constantType */
+				$constantType = $expressions[1];
+				if ($constantType->getValue() === false) {
+					$types = $this->create($exprNode, $constantType, $context);
 					return $types->unionWith($this->specifyTypesInCondition(
 						$scope,
-						$expressions[0],
+						$exprNode,
 						$context->true() ? TypeSpecifierContext::createFalse() : TypeSpecifierContext::createFalse()->negate()
 					));
 				}
 
-				if ($constantName === 'true') {
-					$types = $this->create($expressions[0], new ConstantBooleanType(true), $context);
+				if ($constantType->getValue() === true) {
+					$types = $this->create($exprNode, $constantType, $context);
 					return $types->unionWith($this->specifyTypesInCondition(
 						$scope,
-						$expressions[0],
+						$exprNode,
 						$context->true() ? TypeSpecifierContext::createTrue() : TypeSpecifierContext::createTrue()->negate()
 					));
 				}
 
-				if ($constantName === 'null') {
-					return $this->create($expressions[0], new NullType(), $context);
+				if ($constantType->getValue() === null) {
+					return $this->create($exprNode, $constantType, $context);
 				}
 			}
 
@@ -193,23 +194,24 @@ class TypeSpecifier
 				$context
 			);
 		} elseif ($expr instanceof Node\Expr\BinaryOp\Equal) {
-			$expressions = $this->findTypeExpressionsFromBinaryOperation($expr);
+			$expressions = $this->findTypeExpressionsFromBinaryOperation($scope, $expr);
 			if ($expressions !== null) {
-				/** @var ConstFetch $constFetchExpression */
-				$constFetchExpression = $expressions[1];
-				$constantName = strtolower((string) $constFetchExpression->name);
-				if ($constantName === 'false' || $constantName === 'null') {
+				/** @var Expr $exprNode */
+				$exprNode = $expressions[0];
+				/** @var \PHPStan\Type\ConstantScalarType $constantType */
+				$constantType = $expressions[1];
+				if ($constantType->getValue() === false || $constantType->getValue() === null) {
 					return $this->specifyTypesInCondition(
 						$scope,
-						$expressions[0],
+						$exprNode,
 						$context->true() ? TypeSpecifierContext::createFalsey() : TypeSpecifierContext::createFalsey()->negate()
 					);
 				}
 
-				if ($constantName === 'true') {
+				if ($constantType->getValue() === true) {
 					return $this->specifyTypesInCondition(
 						$scope,
-						$expressions[0],
+						$exprNode,
 						$context->true() ? TypeSpecifierContext::createTruthy() : TypeSpecifierContext::createTruthy()->negate()
 					);
 				}
@@ -422,15 +424,26 @@ class TypeSpecifier
 	}
 
 	/**
+	 * @param \PHPStan\Analyser\Scope $scope
 	 * @param \PhpParser\Node\Expr\BinaryOp $binaryOperation
-	 * @return Expr[]|null
+	 * @return (Expr|\PHPStan\Type\ConstantScalarType)[]|null
 	 */
-	private function findTypeExpressionsFromBinaryOperation(Node\Expr\BinaryOp $binaryOperation): ?array
+	private function findTypeExpressionsFromBinaryOperation(Scope $scope, Node\Expr\BinaryOp $binaryOperation): ?array
 	{
-		if ($binaryOperation->left instanceof ConstFetch) {
-			return [$binaryOperation->right, $binaryOperation->left];
-		} elseif ($binaryOperation->right instanceof ConstFetch) {
-			return [$binaryOperation->left, $binaryOperation->right];
+		$leftType = $scope->getType($binaryOperation->left);
+		$rightType = $scope->getType($binaryOperation->right);
+		if (
+			$leftType instanceof \PHPStan\Type\ConstantScalarType
+			&& !$binaryOperation->right instanceof ConstFetch
+			&& !$binaryOperation->right instanceof Expr\ClassConstFetch
+		) {
+			return [$binaryOperation->right, $leftType];
+		} elseif (
+			$rightType instanceof \PHPStan\Type\ConstantScalarType
+			&& !$binaryOperation->left instanceof ConstFetch
+			&& !$binaryOperation->left instanceof Expr\ClassConstFetch
+		) {
+			return [$binaryOperation->left, $rightType];
 		}
 
 		return null;
