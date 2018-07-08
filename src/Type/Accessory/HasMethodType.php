@@ -22,7 +22,7 @@ use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
 
-class HasMethodType implements CompoundType
+class HasMethodType implements CompoundType, AccessoryType
 {
 
 	use TruthyBooleanTypeTrait;

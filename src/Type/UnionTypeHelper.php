@@ -2,8 +2,7 @@
 
 namespace PHPStan\Type;
 
-use PHPStan\Type\Accessory\HasMethodType;
-use PHPStan\Type\Accessory\HasPropertyType;
+use PHPStan\Type\Accessory\AccessoryType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
 use PHPStan\Type\Constant\ConstantIntegerType;
@@ -75,14 +74,14 @@ class UnionTypeHelper
 				return -1;
 			}
 
-			if ($a instanceof HasMethodType || $a instanceof HasPropertyType) {
-				if ($b instanceof HasMethodType || $b instanceof HasPropertyType) {
+			if ($a instanceof AccessoryType) {
+				if ($b instanceof AccessoryType) {
 					return strcasecmp($a->describe(VerbosityLevel::value()), $b->describe(VerbosityLevel::value()));
 				}
 
 				return 1;
 			}
-			if ($b instanceof HasMethodType || $b instanceof HasPropertyType) {
+			if ($b instanceof AccessoryType) {
 				return -1;
 			}
 

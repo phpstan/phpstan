@@ -20,7 +20,7 @@ use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
 
-class HasPropertyType implements CompoundType
+class HasPropertyType implements CompoundType, AccessoryType
 {
 
 	use TruthyBooleanTypeTrait;
