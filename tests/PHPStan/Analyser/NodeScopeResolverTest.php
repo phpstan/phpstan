@@ -4506,6 +4506,18 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array<int, string>|false',
 				'$strSplitConstantStringWithVariableStringAndVariableSplitLength',
 			],
+			[
+				'array(0 => int, 1 => int, 2 => int, 3 => int, 4 => int, 5 => int, 6 => int, 7 => int, ...)|false',
+				'$stat',
+			],
+			[
+				'array(0 => int, 1 => int, 2 => int, 3 => int, 4 => int, 5 => int, 6 => int, 7 => int, ...)|false',
+				'$lstat',
+			],
+			[
+				'array(0 => int, 1 => int, 2 => int, 3 => int, 4 => int, 5 => int, 6 => int, 7 => int, ...)|false',
+				'$fstat',
+			],
 		];
 	}
 
@@ -4521,6 +4533,66 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/functions.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataDioFunctions(): array
+	{
+		return [
+			[
+				'array(\'device\' => int, \'inode\' => int, \'mode\' => int, \'nlink\' => int, \'uid\' => int, \'gid\' => int, \'device_type\' => int, \'size\' => int, ...)|null',
+				'$stat',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataDioFunctions
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testDioFunctions(
+		string $description,
+		string $expression
+	): void
+	{
+		if (!extension_loaded('dio')) {
+			$this->markTestSkipped('Direct IO extension needed.');
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/dio-functions.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataSsh2Functions(): array
+	{
+		return [
+			[
+				'array(0 => int, 1 => int, 2 => int, 3 => int, 4 => int, 5 => int, 6 => int, 7 => int, ...)|false',
+				'$ssh2SftpStat',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataSsh2Functions
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testSsh2Functions(
+		string $description,
+		string $expression
+	): void
+	{
+		if (!extension_loaded('ssh2')) {
+			$this->markTestSkipped('SSH2 extension needed.');
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/ssh2-functions.php',
 			$description,
 			$expression
 		);
