@@ -10970,7 +10970,7 @@ return [
 'SplFileObject::flock' => ['bool', 'operation'=>'int', '&w_wouldblock='=>'int'],
 'SplFileObject::fpassthru' => ['int'],
 'SplFileObject::fputcsv' => ['int|false', 'fields'=>'array', 'delimiter='=>'string', 'enclosure='=>'string', 'escape='=>'string'],
-'SplFileObject::fread' => ['string', 'length'=>'int'],
+'SplFileObject::fread' => ['string|false', 'length'=>'int'],
 'SplFileObject::fscanf' => ['bool', 'format'=>'string', '&...w_vars='=>'string|int|float'],
 'SplFileObject::fseek' => ['int', 'pos'=>'int', 'whence='=>'int'],
 'SplFileObject::fstat' => ['bool'],
