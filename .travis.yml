@@ -30,3 +30,4 @@ script:
 cache:
   directories:
     - $HOME/.composer/cache
+    - tmp
