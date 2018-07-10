@@ -36,7 +36,7 @@ class BooleanNotConstantConditionRule implements \PHPStan\Rules\Rule
 		if ($exprType instanceof ConstantBooleanType) {
 			return [
 				sprintf(
-					'Negated boolean is always %s.',
+					'Negated boolean expression is always %s.',
 					$exprType->getValue() ? 'false' : 'true'
 				),
 			];
