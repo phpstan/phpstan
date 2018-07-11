@@ -26,7 +26,7 @@ class CheckstyleErrorFormatterTest extends TestBaseFormatter
 			'<?xml version="1.0" encoding="UTF-8"?>
 <checkstyle>
 <file name="folder with unicode 😃/file name with &quot;spaces&quot; and unicode 😃.php">
-  <error line="4" column="1" severity="error" message="Foo"/>
+  <error line="4" column="1" severity="error" message="Foo" source="PHPStan.Command.ErrorFormatter.TestBaseFormatter"/>
 </file>
 </checkstyle>
 ',
@@ -51,12 +51,12 @@ class CheckstyleErrorFormatterTest extends TestBaseFormatter
 			'<?xml version="1.0" encoding="UTF-8"?>
 <checkstyle>
 <file name="folder with unicode 😃/file name with &quot;spaces&quot; and unicode 😃.php">
-  <error line="2" column="1" severity="error" message="Bar"/>
-  <error line="4" column="1" severity="error" message="Foo"/>
+  <error line="2" column="1" severity="error" message="Bar" source="PHPStan.Command.ErrorFormatter.TestBaseFormatter"/>
+  <error line="4" column="1" severity="error" message="Foo" source="PHPStan.Command.ErrorFormatter.TestBaseFormatter"/>
 </file>
 <file name="foo.php">
-  <error line="1" column="1" severity="error" message="Foo"/>
-  <error line="5" column="1" severity="error" message="Bar"/>
+  <error line="1" column="1" severity="error" message="Foo" source="PHPStan.Command.ErrorFormatter.TestBaseFormatter"/>
+  <error line="5" column="1" severity="error" message="Bar" source="PHPStan.Command.ErrorFormatter.TestBaseFormatter"/>
 </file>
 </checkstyle>
 ',
@@ -81,12 +81,12 @@ class CheckstyleErrorFormatterTest extends TestBaseFormatter
 			'<?xml version="1.0" encoding="UTF-8"?>
 <checkstyle>
 <file name="folder with unicode 😃/file name with &quot;spaces&quot; and unicode 😃.php">
-  <error line="2" column="1" severity="error" message="Bar"/>
-  <error line="4" column="1" severity="error" message="Foo"/>
+  <error line="2" column="1" severity="error" message="Bar" source="PHPStan.Command.ErrorFormatter.TestBaseFormatter"/>
+  <error line="4" column="1" severity="error" message="Foo" source="PHPStan.Command.ErrorFormatter.TestBaseFormatter"/>
 </file>
 <file name="foo.php">
-  <error line="1" column="1" severity="error" message="Foo"/>
-  <error line="5" column="1" severity="error" message="Bar"/>
+  <error line="1" column="1" severity="error" message="Foo" source="PHPStan.Command.ErrorFormatter.TestBaseFormatter"/>
+  <error line="5" column="1" severity="error" message="Bar" source="PHPStan.Command.ErrorFormatter.TestBaseFormatter"/>
 </file>
 </checkstyle>
 ',

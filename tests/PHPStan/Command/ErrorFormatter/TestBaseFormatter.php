@@ -57,10 +57,10 @@ abstract class TestBaseFormatter extends \PHPStan\Testing\TestCase
 		}
 
 		$fileErrors = array_slice([
-			new Error('Foo', self::DIRECTORY_PATH . '/folder with unicode 😃/file name with "spaces" and unicode 😃.php', 4),
-			new Error('Foo', self::DIRECTORY_PATH . '/foo.php', 1),
-			new Error('Bar', self::DIRECTORY_PATH . '/foo.php', 5),
-			new Error('Bar', self::DIRECTORY_PATH . '/folder with unicode 😃/file name with "spaces" and unicode 😃.php', 2),
+			new Error('Foo', self::DIRECTORY_PATH . '/folder with unicode 😃/file name with "spaces" and unicode 😃.php', __CLASS__, 4),
+			new Error('Foo', self::DIRECTORY_PATH . '/foo.php', __CLASS__, 1),
+			new Error('Bar', self::DIRECTORY_PATH . '/foo.php', __CLASS__, 5),
+			new Error('Bar', self::DIRECTORY_PATH . '/folder with unicode 😃/file name with "spaces" and unicode 😃.php', __CLASS__, 2),
 		], 0, $numFileErrors);
 
 		$genericErrors = array_slice([

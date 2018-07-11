@@ -126,7 +126,7 @@ class Analyser
 					function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors): void {
 						foreach ($this->registry->getRules(get_class($node)) as $rule) {
 							foreach ($rule->processNode($node, $scope) as $message) {
-								$fileErrors[] = new Error($message, $scope->getFileDescription(), $node->getLine());
+								$fileErrors[] = new Error($message, $scope->getFileDescription(), get_class($rule), $node->getLine());
 							}
 						}
 					}
@@ -137,9 +137,9 @@ class Analyser
 
 				$errors = array_merge($errors, $fileErrors);
 			} catch (\PhpParser\Error $e) {
-				$errors[] = new Error($e->getMessage(), $file, $e->getStartLine() !== -1 ? $e->getStartLine() : null, false);
+				$errors[] = new Error($e->getMessage(), $file, get_class($e), $e->getStartLine() !== -1 ? $e->getStartLine() : null, false);
 			} catch (\PHPStan\AnalysedCodeException $e) {
-				$errors[] = new Error($e->getMessage(), $file, null, false);
+				$errors[] = new Error($e->getMessage(), $file, get_class($e), null, false);
 			} catch (\Throwable $t) {
 				if ($debug) {
 					throw $t;
@@ -152,7 +152,7 @@ class Analyser
 					"\n",
 					'https://github.com/phpstan/phpstan/issues/new'
 				);
-				$errors[] = new Error($internalErrorMessage, $file);
+				$errors[] = new Error($internalErrorMessage, $file, get_class($t));
 				if ($internalErrorsCount >= $this->internalErrorsCountLimit) {
 					$reachedInternalErrorsCountLimit = true;
 					break;

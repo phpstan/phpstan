@@ -11,16 +11,20 @@ class Error
 	/** @var string */
 	private $file;
 
+	/** @var string */
+	private $source;
+
 	/** @var int|NULL */
 	private $line;
 
 	/** @var bool */
 	private $canBeIgnored;
 
-	public function __construct(string $message, string $file, ?int $line = null, bool $canBeIgnored = true)
+	public function __construct(string $message, string $file, string $source, ?int $line = null, bool $canBeIgnored = true)
 	{
 		$this->message = $message;
 		$this->file = $file;
+		$this->source = str_replace('\\', '.', $source);
 		$this->line = $line;
 		$this->canBeIgnored = $canBeIgnored;
 	}
@@ -33,6 +37,11 @@ class Error
 	public function getFile(): string
 	{
 		return $this->file;
+	}
+
+	public function getSource(): string
+	{
+		return $this->source;
 	}
 
 	public function getLine(): ?int
