@@ -23,6 +23,7 @@ parameters:
 	reportMagicProperties: false
 	ignoreErrors: []
 	internalErrorsCountLimit: 50
+	internalPaths: []
 	reportUnmatchedIgnoredErrors: true
 	universalObjectCratesClasses:
 		- stdClass
@@ -471,6 +472,11 @@ services:
 		class: PHPStan\Type\Php\StrSplitFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	-
+		class: PHPStan\Rules\Internal\InternalScopeHelper
+		arguments:
+			internalPaths: %internalPaths%
 
 	typeSpecifier:
 		class: PHPStan\Analyser\TypeSpecifier

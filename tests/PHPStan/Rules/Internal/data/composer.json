@@ -1,0 +1,5 @@
+{
+	"name": "phpstan/phpstan-internal-rules",
+	"description": "This file hides the repositories main composer.json file",
+	"license": ["MIT"]
+}

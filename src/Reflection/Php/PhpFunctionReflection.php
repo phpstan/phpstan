@@ -235,4 +235,21 @@ class PhpFunctionReflection implements FunctionReflection
 		return $this->phpDocThrowType;
 	}
 
+	/**
+	 * @return string|false
+	 */
+	public function getFileName()
+	{
+		$fileName = $this->reflection->getFileName();
+		if ($fileName === false) {
+			return false;
+		}
+
+		if (!file_exists($fileName)) {
+			return false;
+		}
+
+		return $fileName;
+	}
+
 }

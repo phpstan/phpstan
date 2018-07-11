@@ -1,0 +1,17 @@
+<?php
+
+namespace FetchingClassConstOfInternalClass;
+
+\FetchingClassConstOfInternalClassInInternalPath\Foo::class;
+\FetchingClassConstOfInternalClassInInternalPath\InternalFoo::class;
+\FetchingClassConstOfInternalClassInInternalPath\Foo::FOO;
+\FetchingClassConstOfInternalClassInInternalPath\Foo::INTERNAL_FOO;
+\FetchingClassConstOfInternalClassInInternalPath\InternalFoo::class;
+\FetchingClassConstOfInternalClassInInternalPath\InternalFoo::class;
+
+\FetchingClassConstOfInternalClassInExternalPath\Foo::class;
+\FetchingClassConstOfInternalClassInExternalPath\InternalFoo::class;
+\FetchingClassConstOfInternalClassInExternalPath\Foo::FOO;
+\FetchingClassConstOfInternalClassInExternalPath\Foo::INTERNAL_FOO;
+\FetchingClassConstOfInternalClassInExternalPath\InternalFoo::class;
+\FetchingClassConstOfInternalClassInExternalPath\InternalFoo::class;

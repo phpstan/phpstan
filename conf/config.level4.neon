@@ -9,6 +9,17 @@ rules:
 	- PHPStan\Rules\Comparison\IfConstantConditionRule
 	- PHPStan\Rules\Comparison\TernaryOperatorConstantConditionRule
 	- PHPStan\Rules\Cast\UselessCastRule
+	- PHPStan\Rules\Internal\AccessInternalPropertyRule
+	- PHPStan\Rules\Internal\AccessInternalStaticPropertyRule
+	- PHPStan\Rules\Internal\CallToInternalFunctionRule
+	- PHPStan\Rules\Internal\CallToInternalMethodRule
+	- PHPStan\Rules\Internal\CallToInternalStaticMethodRule
+	- PHPStan\Rules\Internal\FetchingClassConstOfInternalClassRule
+	- PHPStan\Rules\Internal\ImplementationOfInternalInterfaceRule
+	- PHPStan\Rules\Internal\InheritanceOfInternalClassRule
+	- PHPStan\Rules\Internal\InheritanceOfInternalInterfaceRule
+	- PHPStan\Rules\Internal\InstantiationOfInternalClassRule
+	- PHPStan\Rules\Internal\UsageOfInternalTraitRule
 
 services:
 	-
