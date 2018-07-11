@@ -53,7 +53,11 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\Testing\TestCase
 		}
 		$output = new StreamOutput($resource);
 
-		$style = new SymfonyStyle(
+		$consoleStyle = new SymfonyStyle(
+			$this->createMock(InputInterface::class),
+			$output
+		);
+		$reportStyle = new SymfonyStyle(
 			$this->createMock(InputInterface::class),
 			$output
 		);
@@ -62,7 +66,8 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\Testing\TestCase
 
 		$statusCode = $analyserApplication->analyse(
 			[$path],
-			$style,
+			$consoleStyle,
+			$reportStyle,
 			new TableErrorFormatter(),
 			false,
 			false
