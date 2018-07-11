@@ -11223,7 +11223,7 @@ return [
 'ssdeep_fuzzy_hash_filename' => ['string', 'file_name'=>'string'],
 'ssh2_auth_agent' => ['bool', 'session'=>'resource', 'username'=>'string'],
 'ssh2_auth_hostbased_file' => ['bool', 'session'=>'resource', 'username'=>'string', 'hostname'=>'string', 'pubkeyfile'=>'string', 'privkeyfile'=>'string', 'passphrase='=>'string', 'local_username='=>'string'],
-'ssh2_auth_none' => ['true|array', 'session'=>'resource', 'username'=>'string'],
+'ssh2_auth_none' => ['true|string[]', 'session'=>'resource', 'username'=>'string'],
 'ssh2_auth_password' => ['bool', 'session'=>'resource', 'username'=>'string', 'password'=>'string'],
 'ssh2_auth_pubkey_file' => ['bool', 'session'=>'resource', 'username'=>'string', 'pubkeyfile'=>'string', 'privkeyfile'=>'string', 'passphrase='=>'string'],
 'ssh2_connect' => ['resource|false', 'host'=>'string', 'port='=>'int', 'methods='=>'array', 'callbacks='=>'array'],
