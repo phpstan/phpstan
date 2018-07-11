@@ -12,7 +12,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\StreamOutput;
 use Symfony\Component\Console\Style\StyleInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 {
@@ -36,6 +38,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				new InputOption('autoload-file', 'a', InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path'),
 				new InputOption('errorFormat', null, InputOption::VALUE_REQUIRED, 'Format in which to print the result of the analysis', 'table'),
 				new InputOption('memory-limit', null, InputOption::VALUE_REQUIRED, 'Memory limit for analysis'),
+				new InputOption('errorFile', null, InputOption::VALUE_REQUIRED, 'file to write report to', null),
 			]);
 	}
 
@@ -230,10 +233,26 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 		/** @var \PHPStan\Command\AnalyseApplication $application */
 		$application = $container->getByType(AnalyseApplication::class);
+
+		$reportStyle = $consoleStyle;
+		$errorFile = $input->getOption('errorFile');
+		if ($errorFile !== null) {
+			$errOutput->writeln(sprintf('Writing report to file %s', $errorFile));
+			$fileResouce = fopen($errorFile, 'a', false);
+			if ($fileResouce === false) {
+				$errOutput->writeln('');
+				$errOutput->writeln(sprintf('unable to open report file :%s', $errorFile));
+			} else {
+				$reportStream = new StreamOutput($fileResouce);
+				$reportStyle = new SymfonyStyle($input, $reportStream);
+			}
+		}
+
 		return $this->handleReturn(
 			$application->analyse(
 				$paths,
 				$consoleStyle,
+				$reportStyle,
 				$errorFormatter,
 				$defaultLevelUsed,
 				$input->getOption('debug')

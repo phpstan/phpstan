@@ -52,7 +52,8 @@ class AnalyseApplication
 
 	/**
 	 * @param string[] $paths
-	 * @param \Symfony\Component\Console\Style\OutputStyle $style
+	 * @param \Symfony\Component\Console\Style\OutputStyle $consoleStyle
+	 * @param \Symfony\Component\Console\Style\OutputStyle $reportStyle
 	 * @param \PHPStan\Command\ErrorFormatter\ErrorFormatter $errorFormatter
 	 * @param bool $defaultLevelUsed
 	 * @param bool $debug
@@ -60,7 +61,8 @@ class AnalyseApplication
 	 */
 	public function analyse(
 		array $paths,
-		OutputStyle $style,
+		OutputStyle $consoleStyle,
+		OutputStyle $reportStyle,
 		ErrorFormatter $errorFormatter,
 		bool $defaultLevelUsed,
 		bool $debug
@@ -105,20 +107,20 @@ class AnalyseApplication
 			$progressStarted = false;
 			$fileOrder = 0;
 			$preFileCallback = null;
-			$postFileCallback = function () use ($style, &$progressStarted, $files, &$fileOrder): void {
+			$postFileCallback = function () use ($consoleStyle, &$progressStarted, $files, &$fileOrder): void {
 				if (!$progressStarted) {
-					$style->progressStart(count($files));
+					$consoleStyle->progressStart(count($files));
 					$progressStarted = true;
 				}
-				$style->progressAdvance();
+				$consoleStyle->progressAdvance();
 				if ($fileOrder % 100 === 0) {
 					$this->updateMemoryLimitFile();
 				}
 				$fileOrder++;
 			};
 		} else {
-			$preFileCallback = function (string $file) use ($style): void {
-				$style->writeln($file);
+			$preFileCallback = function (string $file) use ($consoleStyle): void {
+				$consoleStyle->writeln($file);
 			};
 			$postFileCallback = null;
 		}
@@ -132,7 +134,7 @@ class AnalyseApplication
 		));
 
 		if (isset($progressStarted) && $progressStarted) {
-			$style->progressFinish();
+			$consoleStyle->progressFinish();
 		}
 
 		$fileSpecificErrors = [];
@@ -152,7 +154,7 @@ class AnalyseApplication
 				$defaultLevelUsed,
 				$this->fileHelper->normalizePath(dirname($paths[0]))
 			),
-			$style
+			$reportStyle
 		);
 	}
 
