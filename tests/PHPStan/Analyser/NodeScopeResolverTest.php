@@ -6180,7 +6180,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$expectedArrayOrString2',
 			],
 			[
-				'array|string',
+				'array|string|null',
 				'$anotherExpectedArrayOrString',
 			],
 			[
