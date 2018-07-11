@@ -12,6 +12,8 @@ use PHPStan\Type\Constant\ConstantFloatType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeUtils;
@@ -98,6 +100,29 @@ class RangeFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionR
 			|| $stepType instanceof FloatType
 		) {
 			return new ArrayType(new IntegerType(), new FloatType());
+		}
+
+		if (
+			$startType instanceof StringType
+			&& $endType instanceof StringType
+		) {
+			return new ArrayType(new IntegerType(), new StringType());
+		}
+
+		if (
+			($startType instanceof StringType
+			&& $endType instanceof IntegerType) ||
+			($startType instanceof IntegerType
+			&& $endType instanceof StringType)
+		) {
+			return new ArrayType(new IntegerType(), new IntegerType());
+		}
+
+		if (
+			$startType instanceof MixedType
+			&& $endType instanceof MixedType
+		) {
+			return new ArrayType(new IntegerType(), new UnionType([new IntegerType(), new FloatType(), new StringType()]));
 		}
 
 		return new ArrayType(new IntegerType(), new UnionType([new IntegerType(), new FloatType()]));

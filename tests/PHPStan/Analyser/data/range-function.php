@@ -9,4 +9,7 @@ $float = doFoo();
 /** @var mixed $mixed */
 $mixed = doFoo();
 
+/** @var string $string */
+$string = doFoo();
+
 die;
