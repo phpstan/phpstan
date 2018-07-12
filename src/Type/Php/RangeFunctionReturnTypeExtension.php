@@ -12,7 +12,6 @@ use PHPStan\Type\Constant\ConstantFloatType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
-use PHPStan\Type\MixedType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
@@ -86,14 +85,7 @@ class RangeFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionR
 		$endType = TypeUtils::generalizeType($endType);
 		$stepType = TypeUtils::generalizeType($stepType);
 
-		if (
-			$startType instanceof IntegerType
-			&& $endType instanceof IntegerType
-			&& $stepType instanceof IntegerType
-		) {
-			return new ArrayType(new IntegerType(), new IntegerType());
-		}
-
+		// Any float anywhere makes an array of doubles at all times
 		if (
 			$startType instanceof FloatType
 			|| $endType instanceof FloatType
@@ -102,30 +94,36 @@ class RangeFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionR
 			return new ArrayType(new IntegerType(), new FloatType());
 		}
 
+		// Only both strings make an array of strings
 		if (
 			$startType instanceof StringType
 			&& $endType instanceof StringType
+			&& $stepType instanceof IntegerType
 		) {
 			return new ArrayType(new IntegerType(), new StringType());
 		}
 
+		/*
+		 * Then it becomes complicated. E.g.:
+		 * - range('a', 1) -> int[]
+		 * - range(1, 'a') -> int[]
+		 *
+		 * This also covers range(int, int) -> int[]
+		 */
 		if (
-			($startType instanceof StringType
-			&& $endType instanceof IntegerType) ||
-			($startType instanceof IntegerType
-			&& $endType instanceof StringType)
+			($startType instanceof IntegerType || $startType instanceof StringType)
+			&& ($endType instanceof StringType || $endType instanceof IntegerType)
+			&& $stepType instanceof IntegerType
 		) {
 			return new ArrayType(new IntegerType(), new IntegerType());
 		}
 
-		if (
-			$startType instanceof MixedType
-			&& $endType instanceof MixedType
-		) {
-			return new ArrayType(new IntegerType(), new UnionType([new IntegerType(), new FloatType(), new StringType()]));
-		}
-
-		return new ArrayType(new IntegerType(), new UnionType([new IntegerType(), new FloatType()]));
+		/*
+		 * And it becomes even more complicated once mixed come into play.
+		 *
+		 * Therefore we resort to:
+		 */
+		return new ArrayType(new IntegerType(), new UnionType([new IntegerType(), new FloatType(), new StringType()]));
 	}
 
 }
