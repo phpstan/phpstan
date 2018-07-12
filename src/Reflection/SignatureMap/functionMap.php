@@ -4425,7 +4425,7 @@ return [
 'imagettftext' => ['array', 'im'=>'resource', 'size'=>'float', 'angle'=>'float', 'x'=>'int', 'y'=>'int', 'col'=>'int', 'font_file'=>'string', 'text'=>'string'],
 'imagetypes' => ['int'],
 'imagewbmp' => ['bool', 'im'=>'resource', 'filename='=>'?string', 'foreground='=>'int'],
-'imagewebp' => ['bool', 'im'=>'resource', 'filename'=>'?string', 'quality'=>'int'],
+'imagewebp' => ['bool', 'im'=>'resource', 'filename='=>'?string', 'quality='=>'int'],
 'imagexbm' => ['bool', 'im'=>'resource', 'filename'=>'?string', 'foreground='=>'int'],
 'Imagick::__construct' => ['void', 'files='=>''],
 'Imagick::__toString' => ['string'],
