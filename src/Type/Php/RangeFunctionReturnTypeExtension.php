@@ -118,8 +118,16 @@ class RangeFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionR
 			return new ArrayType(new IntegerType(), new IntegerType());
 		}
 
+		// Yet range() with any int argument can't possibly produce an array of strings
+		if (
+			$startType instanceof IntegerType
+			|| $endType instanceof IntegerType
+		) {
+			return new ArrayType(new IntegerType(), new UnionType([new IntegerType(), new FloatType()]));
+		}
+
 		/*
-		 * And it becomes even more complicated once mixed come into play.
+		 * And then it becomes even more complicated once mixed come into play.
 		 *
 		 * Therefore we resort to:
 		 */
