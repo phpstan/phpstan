@@ -4577,7 +4577,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array<int, float|int>',
 				'range($mixed, $integer)',
 			],
-
 			[
 				'array<int, string>',
 				'range($string, $string)',
