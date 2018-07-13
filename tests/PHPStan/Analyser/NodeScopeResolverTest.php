@@ -6123,6 +6123,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'string',
 				'str_replace(\'.\', \':\', $intOrStringKey)',
 			],
+			[
+				'string',
+				'str_ireplace(\'.\', \':\', $intOrStringKey)',
+			],
 		];
 	}
 
