@@ -335,7 +335,7 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 		/** @var SignatureMapParser $parser */
 		$parser = self::getContainer()->getByType(SignatureMapParser::class);
 		$functionSignature = $parser->getFunctionSignature($map, $className);
-		$this->assertCount(
+		self::assertCount(
 			count($expectedSignature->getParameters()),
 			$functionSignature->getParameters(),
 			'Number of parameters does not match.'
@@ -343,38 +343,38 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 
 		foreach ($functionSignature->getParameters() as $i => $parameterSignature) {
 			$expectedParameterSignature = $expectedSignature->getParameters()[$i];
-			$this->assertSame(
+			self::assertSame(
 				$expectedParameterSignature->getName(),
 				$parameterSignature->getName(),
 				sprintf('Name of parameter #%d does not match.', $i)
 			);
-			$this->assertSame(
+			self::assertSame(
 				$expectedParameterSignature->isOptional(),
 				$parameterSignature->isOptional(),
 				sprintf('Optionality of parameter $%s does not match.', $parameterSignature->getName())
 			);
-			$this->assertSame(
+			self::assertSame(
 				$expectedParameterSignature->getType()->describe(VerbosityLevel::value()),
 				$parameterSignature->getType()->describe(VerbosityLevel::value()),
 				sprintf('Type of parameter $%s does not match.', $parameterSignature->getName())
 			);
-			$this->assertTrue(
+			self::assertTrue(
 				$expectedParameterSignature->passedByReference()->equals($parameterSignature->passedByReference()),
 				sprintf('Passed-by-reference of parameter $%s does not match.', $parameterSignature->getName())
 			);
-			$this->assertSame(
+			self::assertSame(
 				$expectedParameterSignature->isVariadic(),
 				$parameterSignature->isVariadic(),
 				sprintf('Variadicity of parameter $%s does not match.', $parameterSignature->getName())
 			);
 		}
 
-		$this->assertSame(
+		self::assertSame(
 			$expectedSignature->getReturnType()->describe(VerbosityLevel::value()),
 			$functionSignature->getReturnType()->describe(VerbosityLevel::value()),
 			'Return type does not match.'
 		);
-		$this->assertSame(
+		self::assertSame(
 			$expectedSignature->isVariadic(),
 			$functionSignature->isVariadic(),
 			'Variadicity does not match.'
@@ -398,11 +398,11 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 				$parser->getFunctionSignature($map, $className);
 				$count++;
 			} catch (\PHPStan\PhpDocParser\Parser\ParserException $e) {
-				$this->fail(sprintf('Could not parse %s.', $functionName));
+				self::fail(sprintf('Could not parse %s.', $functionName));
 			}
 		}
 
-		$this->assertGreaterThan(0, $count);
+		self::assertGreaterThan(0, $count);
 	}
 
 }

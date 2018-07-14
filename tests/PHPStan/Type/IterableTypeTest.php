@@ -48,7 +48,7 @@ class IterableTypeTest extends \PHPStan\Testing\TestCase
 	public function testIsSuperTypeOf(IterableType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
 		$actualResult = $type->isSuperTypeOf($otherType);
-		$this->assertSame(
+		self::assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
 			sprintf('%s -> isSuperTypeOf(%s)', $type->describe(VerbosityLevel::value()), $otherType->describe(VerbosityLevel::value()))
@@ -135,7 +135,7 @@ class IterableTypeTest extends \PHPStan\Testing\TestCase
 	public function testIsSubTypeOf(IterableType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
 		$actualResult = $type->isSubTypeOf($otherType);
-		$this->assertSame(
+		self::assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
 			sprintf('%s -> isSubTypeOf(%s)', $type->describe(VerbosityLevel::value()), $otherType->describe(VerbosityLevel::value()))
@@ -151,7 +151,7 @@ class IterableTypeTest extends \PHPStan\Testing\TestCase
 	public function testIsSubTypeOfInversed(IterableType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
 		$actualResult = $otherType->isSuperTypeOf($type);
-		$this->assertSame(
+		self::assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
 			sprintf('%s -> isSuperTypeOf(%s)', $otherType->describe(VerbosityLevel::value()), $type->describe(VerbosityLevel::value()))

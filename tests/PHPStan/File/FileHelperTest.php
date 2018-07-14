@@ -30,7 +30,7 @@ class FileHelperTest extends \PHPStan\Testing\TestCase
 	{
 		$this->skipIfNotOnWindows();
 		$fileHelper = new FileHelper('C:\abcd');
-		$this->assertSame($absolutePath, $fileHelper->absolutizePath($path));
+		self::assertSame($absolutePath, $fileHelper->absolutizePath($path));
 	}
 
 	/**
@@ -58,7 +58,7 @@ class FileHelperTest extends \PHPStan\Testing\TestCase
 	{
 		$this->skipIfNotOnUnix();
 		$fileHelper = new FileHelper('/abcd');
-		$this->assertSame($absolutePath, $fileHelper->absolutizePath($path));
+		self::assertSame($absolutePath, $fileHelper->absolutizePath($path));
 	}
 
 	/**
@@ -85,7 +85,7 @@ class FileHelperTest extends \PHPStan\Testing\TestCase
 	public function testNormalizePathOnWindows(string $path, string $normalizedPath): void
 	{
 		$this->skipIfNotOnWindows();
-		$this->assertSame($normalizedPath, self::getContainer()->getByType(FileHelper::class)->normalizePath($path));
+		self::assertSame($normalizedPath, self::getContainer()->getByType(FileHelper::class)->normalizePath($path));
 	}
 
 	/**
@@ -114,7 +114,7 @@ class FileHelperTest extends \PHPStan\Testing\TestCase
 	public function testNormalizePathOnLinuxOrMac(string $path, string $normalizedPath): void
 	{
 		$this->skipIfNotOnUnix();
-		$this->assertSame($normalizedPath, self::getContainer()->getByType(FileHelper::class)->normalizePath($path));
+		self::assertSame($normalizedPath, self::getContainer()->getByType(FileHelper::class)->normalizePath($path));
 	}
 
 }

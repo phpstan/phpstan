@@ -120,13 +120,13 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 		$scope->method('getClassReflection')->willReturn($class);
 		$scope->method('canAccessProperty')->willReturn(true);
 
-		$this->assertSame($deprecated, $class->isDeprecated());
+		self::assertSame($deprecated, $class->isDeprecated());
 
 		foreach ($deprecatedAnnotations as $memberType => $members) {
 			foreach ($members as $memberName) {
 				$memberAnnotation = $class->{'get' . ucfirst($memberType)}($memberName, $scope);
-				$this->assertInstanceOf(DeprecatableReflection::class, $memberAnnotation);
-				$this->assertSame($deprecated, $memberAnnotation->isDeprecated());
+				self::assertInstanceOf(DeprecatableReflection::class, $memberAnnotation);
+				self::assertSame($deprecated, $memberAnnotation->isDeprecated());
 			}
 		}
 	}
@@ -138,8 +138,8 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 		/** @var Broker $broker */
 		$broker = self::getContainer()->getByType(Broker::class);
 
-		$this->assertFalse($broker->getFunction(new Name('\DeprecatedAnnotations\foo'), null)->isDeprecated());
-		$this->assertTrue($broker->getFunction(new Name('\DeprecatedAnnotations\deprecatedFoo'), null)->isDeprecated());
+		self::assertFalse($broker->getFunction(new Name('\DeprecatedAnnotations\foo'), null)->isDeprecated());
+		self::assertTrue($broker->getFunction(new Name('\DeprecatedAnnotations\deprecatedFoo'), null)->isDeprecated());
 	}
 
 	public function testNonDeprecatedNativeFunctions(): void
@@ -147,9 +147,9 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 		/** @var Broker $broker */
 		$broker = self::getContainer()->getByType(Broker::class);
 
-		$this->assertFalse($broker->getFunction(new Name('str_replace'), null)->isDeprecated());
-		$this->assertFalse($broker->getFunction(new Name('get_class'), null)->isDeprecated());
-		$this->assertFalse($broker->getFunction(new Name('function_exists'), null)->isDeprecated());
+		self::assertFalse($broker->getFunction(new Name('str_replace'), null)->isDeprecated());
+		self::assertFalse($broker->getFunction(new Name('get_class'), null)->isDeprecated());
+		self::assertFalse($broker->getFunction(new Name('function_exists'), null)->isDeprecated());
 	}
 
 }

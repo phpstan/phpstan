@@ -38,7 +38,7 @@ class TrinaryLogicTest extends \PHPStan\Testing\TestCase
 		TrinaryLogic ...$operands
 	): void
 	{
-		$this->assertTrue($expectedResult->equals($value->and(...$operands)));
+		self::assertTrue($expectedResult->equals($value->and(...$operands)));
 	}
 
 	public function dataOr(): array
@@ -74,7 +74,7 @@ class TrinaryLogicTest extends \PHPStan\Testing\TestCase
 		TrinaryLogic ...$operands
 	): void
 	{
-		$this->assertTrue($expectedResult->equals($value->or(...$operands)));
+		self::assertTrue($expectedResult->equals($value->or(...$operands)));
 	}
 
 	public function dataNegate(): array
@@ -93,7 +93,7 @@ class TrinaryLogicTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testNegate(TrinaryLogic $expectedResult, TrinaryLogic $operand): void
 	{
-		$this->assertTrue($expectedResult->equals($operand->negate()));
+		self::assertTrue($expectedResult->equals($operand->negate()));
 	}
 
 	public function dataCompareTo(): array
@@ -143,7 +143,7 @@ class TrinaryLogicTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testCompareTo(TrinaryLogic $first, TrinaryLogic $second, ?TrinaryLogic $expected): void
 	{
-		$this->assertSame(
+		self::assertSame(
 			$expected,
 			$first->compareTo($second)
 		);
@@ -157,7 +157,7 @@ class TrinaryLogicTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testCompareToInversed(TrinaryLogic $first, TrinaryLogic $second, ?TrinaryLogic $expected): void
 	{
-		$this->assertSame(
+		self::assertSame(
 			$expected,
 			$second->compareTo($first)
 		);

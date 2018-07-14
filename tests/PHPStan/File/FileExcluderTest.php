@@ -21,7 +21,7 @@ class FileExcluderTest extends \PHPStan\Testing\TestCase
 
 		$fileExcluder = new FileExcluder($this->getFileHelper(), $analyseExcludes);
 
-		$this->assertSame($isExcluded, $fileExcluder->isExcludedFromAnalysing($filePath));
+		self::assertSame($isExcluded, $fileExcluder->isExcludedFromAnalysing($filePath));
 	}
 
 	public function dataExcludeOnWindows(): array
@@ -116,7 +116,7 @@ class FileExcluderTest extends \PHPStan\Testing\TestCase
 
 		$fileExcluder = new FileExcluder($this->getFileHelper(), $analyseExcludes);
 
-		$this->assertSame($isExcluded, $fileExcluder->isExcludedFromAnalysing($filePath));
+		self::assertSame($isExcluded, $fileExcluder->isExcludedFromAnalysing($filePath));
 	}
 
 	public function dataExcludeOnUnix(): array

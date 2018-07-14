@@ -120,13 +120,13 @@ class InternalAnnotationsTest extends \PHPStan\Testing\TestCase
 		$scope->method('getClassReflection')->willReturn($class);
 		$scope->method('canAccessProperty')->willReturn(true);
 
-		$this->assertSame($internal, $class->isInternal());
+		self::assertSame($internal, $class->isInternal());
 
 		foreach ($internalAnnotations as $memberType => $members) {
 			foreach ($members as $memberName) {
 				$memberAnnotation = $class->{'get' . ucfirst($memberType)}($memberName, $scope);
-				$this->assertInstanceOf(InternableReflection::class, $memberAnnotation);
-				$this->assertSame($internal, $memberAnnotation->isInternal());
+				self::assertInstanceOf(InternableReflection::class, $memberAnnotation);
+				self::assertSame($internal, $memberAnnotation->isInternal());
 			}
 		}
 	}
@@ -138,8 +138,8 @@ class InternalAnnotationsTest extends \PHPStan\Testing\TestCase
 		/** @var Broker $broker */
 		$broker = self::getContainer()->getByType(Broker::class);
 
-		$this->assertFalse($broker->getFunction(new Name('\InternalAnnotations\foo'), null)->isInternal());
-		$this->assertTrue($broker->getFunction(new Name('\InternalAnnotations\internalFoo'), null)->isInternal());
+		self::assertFalse($broker->getFunction(new Name('\InternalAnnotations\foo'), null)->isInternal());
+		self::assertTrue($broker->getFunction(new Name('\InternalAnnotations\internalFoo'), null)->isInternal());
 	}
 
 }

@@ -68,7 +68,7 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 
 			if (count($messages) === 0) {
 				try {
-					$this->assertFileNotExists($expectedJsonFile);
+					self::assertFileNotExists($expectedJsonFile);
 					continue;
 				} catch (\PHPUnit\Framework\AssertionFailedError $e) {
 					unlink($expectedJsonFile);
@@ -80,7 +80,7 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 			$actualOutput = \Nette\Utils\Json::encode($messages, \Nette\Utils\Json::PRETTY);
 
 			try {
-				$this->assertJsonStringEqualsJsonFile(
+				self::assertJsonStringEqualsJsonFile(
 					$expectedJsonFile,
 					$actualOutput,
 					sprintf('Level #%d - file %s', $level, pathinfo($file, PATHINFO_BASENAME))

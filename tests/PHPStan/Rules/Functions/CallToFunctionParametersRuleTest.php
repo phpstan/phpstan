@@ -181,7 +181,7 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 	public function testUnpackOnAfter711(): void
 	{
 		if (PHP_VERSION_ID < 70101) {
-			$this->markTestSkipped('This test requires PHP >= 7.1.1');
+			self::markTestSkipped('This test requires PHP >= 7.1.1');
 		}
 		$this->analyse([__DIR__ . '/data/unpack.php'], [
 			[
@@ -193,9 +193,9 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	public function testUnpackOnBefore711(): void
 	{
-		$this->markTestIncomplete('Requires filtering the functionMap function parameters by current PHP reflection.');
+		self::markTestIncomplete('Requires filtering the functionMap function parameters by current PHP reflection.');
 		if (PHP_VERSION_ID >= 70101) {
-			$this->markTestSkipped('This test requires PHP < 7.1.1');
+			self::markTestSkipped('This test requires PHP < 7.1.1');
 		}
 		$this->analyse([__DIR__ . '/data/unpack.php'], [
 			[

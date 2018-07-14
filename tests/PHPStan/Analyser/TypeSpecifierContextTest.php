@@ -39,7 +39,7 @@ class TypeSpecifierContextTest extends \PHPStan\Testing\TestCase
 	public function testContext(TypeSpecifierContext $context, array $results): void
 	{
 		foreach (['true', 'truthy', 'false', 'falsey', 'null'] as $index => $method) {
-			$this->assertSame($results[$index], $context->$method());
+			self::assertSame($results[$index], $context->$method());
 		}
 	}
 
@@ -73,7 +73,7 @@ class TypeSpecifierContextTest extends \PHPStan\Testing\TestCase
 	public function testNegate(TypeSpecifierContext $context, array $results): void
 	{
 		foreach (['true', 'truthy', 'false', 'falsey', 'null'] as $index => $method) {
-			$this->assertSame($results[$index], $context->$method());
+			self::assertSame($results[$index], $context->$method());
 		}
 	}
 

@@ -98,7 +98,7 @@ class LookForAssignsSettingsTest extends \PHPStan\Testing\TestCase
 		bool $expectedResult
 	): void
 	{
-		$this->assertSame(
+		self::assertSame(
 			$expectedResult,
 			$settings->shouldSkipBranch($earlyTerminationStatement)
 		);
@@ -182,7 +182,7 @@ class LookForAssignsSettingsTest extends \PHPStan\Testing\TestCase
 		bool $expectedResult
 	): void
 	{
-		$this->assertSame(
+		self::assertSame(
 			$expectedResult,
 			$settings->shouldIntersectVariables($earlyTerminationStatement)
 		);
@@ -224,7 +224,7 @@ class LookForAssignsSettingsTest extends \PHPStan\Testing\TestCase
 		bool $expectedResult
 	): void
 	{
-		$this->assertSame(
+		self::assertSame(
 			$expectedResult,
 			$settings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()
 		);

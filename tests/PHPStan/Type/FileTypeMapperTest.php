@@ -22,60 +22,60 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
  * @method Image rotate(float $angle, $backgroundColor)
  * @method int | float paramMultipleTypesWithExtraSpaces(string | null $string, stdClass | null $object)
  */');
-		$this->assertCount(0, $resolvedA->getVarTags());
-		$this->assertCount(0, $resolvedA->getParamTags());
-		$this->assertCount(2, $resolvedA->getPropertyTags());
-		$this->assertNull($resolvedA->getReturnTag());
-		$this->assertSame('float|int', $resolvedA->getPropertyTags()['numericBazBazProperty']->getType()->describe(VerbosityLevel::value()));
-		$this->assertSame('X', $resolvedA->getPropertyTags()['singleLetterObjectName']->getType()->describe(VerbosityLevel::value()));
+		self::assertCount(0, $resolvedA->getVarTags());
+		self::assertCount(0, $resolvedA->getParamTags());
+		self::assertCount(2, $resolvedA->getPropertyTags());
+		self::assertNull($resolvedA->getReturnTag());
+		self::assertSame('float|int', $resolvedA->getPropertyTags()['numericBazBazProperty']->getType()->describe(VerbosityLevel::value()));
+		self::assertSame('X', $resolvedA->getPropertyTags()['singleLetterObjectName']->getType()->describe(VerbosityLevel::value()));
 
-		$this->assertCount(6, $resolvedA->getMethodTags());
-		$this->assertArrayNotHasKey('complicatedParameters', $resolvedA->getMethodTags()); // ambiguous parameter types
+		self::assertCount(6, $resolvedA->getMethodTags());
+		self::assertArrayNotHasKey('complicatedParameters', $resolvedA->getMethodTags()); // ambiguous parameter types
 		$simpleMethod = $resolvedA->getMethodTags()['simpleMethod'];
-		$this->assertSame('void', $simpleMethod->getReturnType()->describe(VerbosityLevel::value()));
-		$this->assertFalse($simpleMethod->isStatic());
-		$this->assertCount(0, $simpleMethod->getParameters());
+		self::assertSame('void', $simpleMethod->getReturnType()->describe(VerbosityLevel::value()));
+		self::assertFalse($simpleMethod->isStatic());
+		self::assertCount(0, $simpleMethod->getParameters());
 
 		$returningMethod = $resolvedA->getMethodTags()['returningMethod'];
-		$this->assertSame('string', $returningMethod->getReturnType()->describe(VerbosityLevel::value()));
-		$this->assertFalse($returningMethod->isStatic());
-		$this->assertCount(0, $returningMethod->getParameters());
+		self::assertSame('string', $returningMethod->getReturnType()->describe(VerbosityLevel::value()));
+		self::assertFalse($returningMethod->isStatic());
+		self::assertCount(0, $returningMethod->getParameters());
 
 		$returningNullableScalar = $resolvedA->getMethodTags()['returningNullableScalar'];
-		$this->assertSame('float|null', $returningNullableScalar->getReturnType()->describe(VerbosityLevel::value()));
-		$this->assertFalse($returningNullableScalar->isStatic());
-		$this->assertCount(0, $returningNullableScalar->getParameters());
+		self::assertSame('float|null', $returningNullableScalar->getReturnType()->describe(VerbosityLevel::value()));
+		self::assertFalse($returningNullableScalar->isStatic());
+		self::assertCount(0, $returningNullableScalar->getParameters());
 
 		$returningNullableObject = $resolvedA->getMethodTags()['returningNullableObject'];
-		$this->assertSame('stdClass|null', $returningNullableObject->getReturnType()->describe(VerbosityLevel::value()));
-		$this->assertFalse($returningNullableObject->isStatic());
-		$this->assertCount(0, $returningNullableObject->getParameters());
+		self::assertSame('stdClass|null', $returningNullableObject->getReturnType()->describe(VerbosityLevel::value()));
+		self::assertFalse($returningNullableObject->isStatic());
+		self::assertCount(0, $returningNullableObject->getParameters());
 
 		$rotate = $resolvedA->getMethodTags()['rotate'];
-		$this->assertSame('Image', $rotate->getReturnType()->describe(VerbosityLevel::value()));
-		$this->assertFalse($rotate->isStatic());
-		$this->assertCount(2, $rotate->getParameters());
-		$this->assertSame('float', $rotate->getParameters()['angle']->getType()->describe(VerbosityLevel::value()));
-		$this->assertTrue($rotate->getParameters()['angle']->passedByReference()->no());
-		$this->assertFalse($rotate->getParameters()['angle']->isOptional());
-		$this->assertFalse($rotate->getParameters()['angle']->isVariadic());
-		$this->assertSame('mixed', $rotate->getParameters()['backgroundColor']->getType()->describe(VerbosityLevel::value()));
-		$this->assertTrue($rotate->getParameters()['backgroundColor']->passedByReference()->no());
-		$this->assertFalse($rotate->getParameters()['backgroundColor']->isOptional());
-		$this->assertFalse($rotate->getParameters()['backgroundColor']->isVariadic());
+		self::assertSame('Image', $rotate->getReturnType()->describe(VerbosityLevel::value()));
+		self::assertFalse($rotate->isStatic());
+		self::assertCount(2, $rotate->getParameters());
+		self::assertSame('float', $rotate->getParameters()['angle']->getType()->describe(VerbosityLevel::value()));
+		self::assertTrue($rotate->getParameters()['angle']->passedByReference()->no());
+		self::assertFalse($rotate->getParameters()['angle']->isOptional());
+		self::assertFalse($rotate->getParameters()['angle']->isVariadic());
+		self::assertSame('mixed', $rotate->getParameters()['backgroundColor']->getType()->describe(VerbosityLevel::value()));
+		self::assertTrue($rotate->getParameters()['backgroundColor']->passedByReference()->no());
+		self::assertFalse($rotate->getParameters()['backgroundColor']->isOptional());
+		self::assertFalse($rotate->getParameters()['backgroundColor']->isVariadic());
 
 		$paramMultipleTypesWithExtraSpaces = $resolvedA->getMethodTags()['paramMultipleTypesWithExtraSpaces'];
-		$this->assertSame('float|int', $paramMultipleTypesWithExtraSpaces->getReturnType()->describe(VerbosityLevel::value()));
-		$this->assertFalse($paramMultipleTypesWithExtraSpaces->isStatic());
-		$this->assertCount(2, $paramMultipleTypesWithExtraSpaces->getParameters());
-		$this->assertSame('string|null', $paramMultipleTypesWithExtraSpaces->getParameters()['string']->getType()->describe(VerbosityLevel::value()));
-		$this->assertTrue($paramMultipleTypesWithExtraSpaces->getParameters()['string']->passedByReference()->no());
-		$this->assertFalse($paramMultipleTypesWithExtraSpaces->getParameters()['string']->isOptional());
-		$this->assertFalse($paramMultipleTypesWithExtraSpaces->getParameters()['string']->isVariadic());
-		$this->assertSame('stdClass|null', $paramMultipleTypesWithExtraSpaces->getParameters()['object']->getType()->describe(VerbosityLevel::value()));
-		$this->assertTrue($paramMultipleTypesWithExtraSpaces->getParameters()['object']->passedByReference()->no());
-		$this->assertFalse($paramMultipleTypesWithExtraSpaces->getParameters()['object']->isOptional());
-		$this->assertFalse($paramMultipleTypesWithExtraSpaces->getParameters()['object']->isVariadic());
+		self::assertSame('float|int', $paramMultipleTypesWithExtraSpaces->getReturnType()->describe(VerbosityLevel::value()));
+		self::assertFalse($paramMultipleTypesWithExtraSpaces->isStatic());
+		self::assertCount(2, $paramMultipleTypesWithExtraSpaces->getParameters());
+		self::assertSame('string|null', $paramMultipleTypesWithExtraSpaces->getParameters()['string']->getType()->describe(VerbosityLevel::value()));
+		self::assertTrue($paramMultipleTypesWithExtraSpaces->getParameters()['string']->passedByReference()->no());
+		self::assertFalse($paramMultipleTypesWithExtraSpaces->getParameters()['string']->isOptional());
+		self::assertFalse($paramMultipleTypesWithExtraSpaces->getParameters()['string']->isVariadic());
+		self::assertSame('stdClass|null', $paramMultipleTypesWithExtraSpaces->getParameters()['object']->getType()->describe(VerbosityLevel::value()));
+		self::assertTrue($paramMultipleTypesWithExtraSpaces->getParameters()['object']->passedByReference()->no());
+		self::assertFalse($paramMultipleTypesWithExtraSpaces->getParameters()['object']->isOptional());
+		self::assertFalse($paramMultipleTypesWithExtraSpaces->getParameters()['object']->isVariadic());
 	}
 
 	public function testFileWithDependentPhpDocs(): void
@@ -95,8 +95,8 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 			'/** @param Foo[]|Foo|\Iterator $pages */'
 		);
 
-		$this->assertCount(1, $resolved->getParamTags());
-		$this->assertSame(
+		self::assertCount(1, $resolved->getParamTags());
+		self::assertSame(
 			'(DependentPhpDocs\Foo&iterable<DependentPhpDocs\Foo>)|(iterable<DependentPhpDocs\Foo>&Iterator)',
 			$resolved->getParamTags()['pages']->getType()->describe(VerbosityLevel::value())
 		);
@@ -116,8 +116,8 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
  * @throws RuntimeException
  */');
 
-		$this->assertNotNull($resolved->getThrowsTag());
-		$this->assertSame(
+		self::assertNotNull($resolved->getThrowsTag());
+		self::assertSame(
 			\RuntimeException::class,
 			$resolved->getThrowsTag()->getType()->describe(VerbosityLevel::value())
 		);
@@ -126,8 +126,8 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
  * @throws RuntimeException|LogicException
  */');
 
-		$this->assertNotNull($resolved->getThrowsTag());
-		$this->assertSame(
+		self::assertNotNull($resolved->getThrowsTag());
+		self::assertSame(
 			'LogicException|RuntimeException',
 			$resolved->getThrowsTag()->getType()->describe(VerbosityLevel::value())
 		);
@@ -137,8 +137,8 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
  * @throws LogicException
  */');
 
-		$this->assertNotNull($resolved->getThrowsTag());
-		$this->assertSame(
+		self::assertNotNull($resolved->getThrowsTag());
+		self::assertSame(
 			'LogicException|RuntimeException',
 			$resolved->getThrowsTag()->getType()->describe(VerbosityLevel::value())
 		);
@@ -165,7 +165,7 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 
 		/** @var \PHPStan\PhpDoc\Tag\ReturnTag $returnTag */
 		$returnTag = $resolved->getReturnTag();
-		$this->assertSame('CyclicPhpDocs\Foo|iterable<CyclicPhpDocs\Foo>', $returnTag->getType()->describe(VerbosityLevel::value()));
+		self::assertSame('CyclicPhpDocs\Foo|iterable<CyclicPhpDocs\Foo>', $returnTag->getType()->describe(VerbosityLevel::value()));
 	}
 
 }

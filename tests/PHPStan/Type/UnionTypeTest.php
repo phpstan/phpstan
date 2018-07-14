@@ -57,7 +57,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 	public function testIsCallable(UnionType $type, TrinaryLogic $expectedResult): void
 	{
 		$actualResult = $type->isCallable();
-		$this->assertSame(
+		self::assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
 			sprintf('%s -> isCallable()', $type->describe(VerbosityLevel::value()))
@@ -251,7 +251,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 	public function testIsSuperTypeOf(UnionType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
 		$actualResult = $type->isSuperTypeOf($otherType);
-		$this->assertSame(
+		self::assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
 			sprintf('%s -> isSuperTypeOf(%s)', $type->describe(VerbosityLevel::value()), $otherType->describe(VerbosityLevel::value()))
@@ -422,7 +422,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 	public function testIsSubTypeOf(UnionType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
 		$actualResult = $type->isSubTypeOf($otherType);
-		$this->assertSame(
+		self::assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
 			sprintf('%s -> isSubTypeOf(%s)', $type->describe(VerbosityLevel::value()), $otherType->describe(VerbosityLevel::value()))
@@ -438,7 +438,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 	public function testIsSubTypeOfInversed(UnionType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
 		$actualResult = $otherType->isSuperTypeOf($type);
-		$this->assertSame(
+		self::assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
 			sprintf('%s -> isSuperTypeOf(%s)', $otherType->describe(VerbosityLevel::value()), $type->describe(VerbosityLevel::value()))
@@ -589,8 +589,8 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 		string $expectedTypeOnlyDescription
 	): void
 	{
-		$this->assertSame($expectedValueDescription, $type->describe(VerbosityLevel::value()));
-		$this->assertSame($expectedTypeOnlyDescription, $type->describe(VerbosityLevel::typeOnly()));
+		self::assertSame($expectedValueDescription, $type->describe(VerbosityLevel::value()));
+		self::assertSame($expectedTypeOnlyDescription, $type->describe(VerbosityLevel::typeOnly()));
 	}
 
 	public function dataAccepts(): array
@@ -616,7 +616,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 		TrinaryLogic $expectedResult
 	): void
 	{
-		$this->assertSame(
+		self::assertSame(
 			$expectedResult->describe(),
 			$type->accepts($acceptedType, true)->describe(),
 			sprintf('%s -> accepts(%s)', $type->describe(VerbosityLevel::value()), $acceptedType->describe(VerbosityLevel::value()))
@@ -661,7 +661,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 		bool $expectedResult
 	): void
 	{
-		$this->assertSame($expectedResult, $type->hasMethod($methodName));
+		self::assertSame($expectedResult, $type->hasMethod($methodName));
 	}
 
 }

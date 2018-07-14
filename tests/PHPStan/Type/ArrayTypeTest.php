@@ -59,7 +59,7 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 	public function testIsSuperTypeOf(ArrayType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
 		$actualResult = $type->isSuperTypeOf($otherType);
-		$this->assertSame(
+		self::assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
 			sprintf('%s -> isSuperTypeOf(%s)', $type->describe(VerbosityLevel::value()), $otherType->describe(VerbosityLevel::value()))
@@ -103,7 +103,7 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$actualResult = $acceptingType->accepts($acceptedType, true);
-		$this->assertSame(
+		self::assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
 			sprintf('%s -> accepts(%s)', $acceptingType->describe(VerbosityLevel::value()), $acceptedType->describe(VerbosityLevel::value()))
@@ -133,7 +133,7 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 		string $expectedDescription
 	): void
 	{
-		$this->assertSame($expectedDescription, $type->describe(VerbosityLevel::value()));
+		self::assertSame($expectedDescription, $type->describe(VerbosityLevel::value()));
 	}
 
 }

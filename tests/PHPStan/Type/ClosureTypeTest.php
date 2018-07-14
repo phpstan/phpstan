@@ -46,7 +46,7 @@ class ClosureTypeTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$actualResult = $type->isSuperTypeOf($otherType);
-		$this->assertSame(
+		self::assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
 			sprintf('%s -> isSuperTypeOf(%s)', $type->describe(VerbosityLevel::value()), $otherType->describe(VerbosityLevel::value()))
@@ -97,7 +97,7 @@ class ClosureTypeTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$actualResult = $type->isSubTypeOf($otherType);
-		$this->assertSame(
+		self::assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
 			sprintf('%s -> isSubTypeOf(%s)', $type->describe(VerbosityLevel::value()), $otherType->describe(VerbosityLevel::value()))

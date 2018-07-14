@@ -64,7 +64,7 @@ class FloatTypeTest extends \PHPStan\Testing\TestCase
 	{
 		$type = new FloatType();
 		$actualResult = $type->accepts($otherType, true);
-		$this->assertSame(
+		self::assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
 			sprintf('%s -> accepts(%s)', $type->describe(VerbosityLevel::value()), $otherType->describe(VerbosityLevel::value()))

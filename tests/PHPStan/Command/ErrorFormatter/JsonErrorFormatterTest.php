@@ -204,12 +204,12 @@ class JsonErrorFormatterTest extends TestBaseFormatter
 	{
 		$formatter = new JsonErrorFormatter(true);
 
-		$this->assertSame($exitCode, $formatter->formatErrors(
+		self::assertSame($exitCode, $formatter->formatErrors(
 			$this->getAnalysisResult($numFileErrors, $numGenericErrors),
 			$this->getErrorConsoleStyle()
 		), $message);
 
-		$this->assertJsonStringEqualsJsonString($expected, $this->getOutputContent());
+		self::assertJsonStringEqualsJsonString($expected, $this->getOutputContent());
 	}
 
 	/**
@@ -232,12 +232,12 @@ class JsonErrorFormatterTest extends TestBaseFormatter
 	{
 		$formatter = new JsonErrorFormatter(false);
 
-		$this->assertSame($exitCode, $formatter->formatErrors(
+		self::assertSame($exitCode, $formatter->formatErrors(
 			$this->getAnalysisResult($numFileErrors, $numGenericErrors),
 			$this->getErrorConsoleStyle()
 		), sprintf('%s: response code do not match', $message));
 
-		$this->assertJsonStringEqualsJsonString($expected, $this->getOutputContent(), sprintf('%s: JSON do not match', $message));
+		self::assertJsonStringEqualsJsonString($expected, $this->getOutputContent(), sprintf('%s: JSON do not match', $message));
 	}
 
 }

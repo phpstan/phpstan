@@ -12,12 +12,12 @@ class IntegerTypeTest extends \PHPStan\Testing\TestCase
 	{
 		$integerType = new IntegerType();
 
-		$this->assertTrue($integerType->accepts(new IntegerType(), true)->yes());
-		$this->assertTrue($integerType->accepts(new ConstantIntegerType(1), true)->yes());
-		$this->assertTrue($integerType->accepts(new NullType(), true)->no());
-		$this->assertTrue($integerType->accepts(new MixedType(), true)->yes());
-		$this->assertTrue($integerType->accepts(new FloatType(), true)->no());
-		$this->assertTrue($integerType->accepts(new StringType(), true)->no());
+		self::assertTrue($integerType->accepts(new IntegerType(), true)->yes());
+		self::assertTrue($integerType->accepts(new ConstantIntegerType(1), true)->yes());
+		self::assertTrue($integerType->accepts(new NullType(), true)->no());
+		self::assertTrue($integerType->accepts(new MixedType(), true)->yes());
+		self::assertTrue($integerType->accepts(new FloatType(), true)->no());
+		self::assertTrue($integerType->accepts(new StringType(), true)->no());
 	}
 
 
@@ -63,7 +63,7 @@ class IntegerTypeTest extends \PHPStan\Testing\TestCase
 	public function testIsSuperTypeOf(IntegerType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
 		$actualResult = $type->isSuperTypeOf($otherType);
-		$this->assertSame(
+		self::assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
 			sprintf('%s -> isSuperTypeOf(%s)', $type->describe(VerbosityLevel::value()), $otherType->describe(VerbosityLevel::value()))

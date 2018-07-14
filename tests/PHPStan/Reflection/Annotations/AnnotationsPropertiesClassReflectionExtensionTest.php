@@ -224,28 +224,28 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\Testing
 		$scope->method('getClassReflection')->willReturn($class);
 		$scope->method('canAccessProperty')->willReturn(true);
 		foreach ($properties as $propertyName => $expectedPropertyData) {
-			$this->assertTrue(
+			self::assertTrue(
 				$class->hasProperty($propertyName),
 				sprintf('Class %s does not define property %s.', $className, $propertyName)
 			);
 
 			$property = $class->getProperty($propertyName, $scope);
-			$this->assertSame(
+			self::assertSame(
 				$expectedPropertyData['class'],
 				$property->getDeclaringClass()->getName(),
 				sprintf('Declaring class of property $%s does not match.', $propertyName)
 			);
-			$this->assertSame(
+			self::assertSame(
 				$expectedPropertyData['type'],
 				$property->getType()->describe(VerbosityLevel::value()),
 				sprintf('Type of property %s::$%s does not match.', $property->getDeclaringClass()->getName(), $propertyName)
 			);
-			$this->assertSame(
+			self::assertSame(
 				$expectedPropertyData['readable'],
 				$property->isReadable(),
 				sprintf('Property %s::$%s readability is not as expected.', $property->getDeclaringClass()->getName(), $propertyName)
 			);
-			$this->assertSame(
+			self::assertSame(
 				$expectedPropertyData['writable'],
 				$property->isWritable(),
 				sprintf('Property %s::$%s writability is not as expected.', $property->getDeclaringClass()->getName(), $propertyName)
@@ -257,8 +257,8 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\Testing
 	{
 		$broker = self::getContainer()->getByType(Broker::class);
 		$class = $broker->getClass(\AnnotationsProperties\Bar::class);
-		$this->assertTrue($class->hasNativeProperty('overridenPropertyWithAnnotation'));
-		$this->assertSame('AnnotationsProperties\Foo', $class->getNativeProperty('overridenPropertyWithAnnotation')->getType()->describe(VerbosityLevel::value()));
+		self::assertTrue($class->hasNativeProperty('overridenPropertyWithAnnotation'));
+		self::assertSame('AnnotationsProperties\Foo', $class->getNativeProperty('overridenPropertyWithAnnotation')->getType()->describe(VerbosityLevel::value()));
 	}
 
 }

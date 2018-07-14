@@ -25,7 +25,7 @@ class StaticTypeTest extends \PHPStan\Testing\TestCase
 	public function testIsIterable(StaticType $type, TrinaryLogic $expectedResult): void
 	{
 		$actualResult = $type->isIterable();
-		$this->assertSame(
+		self::assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
 			sprintf('%s -> isIterable()', $type->describe(VerbosityLevel::value()))
@@ -49,7 +49,7 @@ class StaticTypeTest extends \PHPStan\Testing\TestCase
 	public function testIsCallable(StaticType $type, TrinaryLogic $expectedResult): void
 	{
 		$actualResult = $type->isCallable();
-		$this->assertSame(
+		self::assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
 			sprintf('%s -> isCallable()', $type->describe(VerbosityLevel::value()))
@@ -216,7 +216,7 @@ class StaticTypeTest extends \PHPStan\Testing\TestCase
 	public function testIsSuperTypeOf(StaticType $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
 		$actualResult = $type->isSuperTypeOf($otherType);
-		$this->assertSame(
+		self::assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
 			sprintf('%s -> isSuperTypeOf(%s)', $type->describe(VerbosityLevel::value()), $otherType->describe(VerbosityLevel::value()))

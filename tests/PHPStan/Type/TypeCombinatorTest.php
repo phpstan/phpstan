@@ -88,8 +88,8 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$result = TypeCombinator::addNull($type);
-		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
-		$this->assertInstanceOf($expectedTypeClass, $result);
+		self::assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
+		self::assertInstanceOf($expectedTypeClass, $result);
 	}
 
 	/**
@@ -105,8 +105,8 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$result = TypeCombinator::union($type, new NullType());
-		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
-		$this->assertInstanceOf($expectedTypeClass, $result);
+		self::assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
+		self::assertInstanceOf($expectedTypeClass, $result);
 	}
 
 	public function dataRemoveNull(): array
@@ -200,8 +200,8 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$result = TypeCombinator::removeNull($type);
-		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
-		$this->assertInstanceOf($expectedTypeClass, $result);
+		self::assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
+		self::assertInstanceOf($expectedTypeClass, $result);
 	}
 
 	public function dataUnion(): array
@@ -803,7 +803,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 	{
 		$actualType = TypeCombinator::union(...$types);
 
-		$this->assertSame(
+		self::assertSame(
 			$expectedTypeDescription,
 			$actualType->describe(VerbosityLevel::value()),
 			sprintf('union(%s)', implode(', ', array_map(
@@ -814,7 +814,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			)))
 		);
 
-		$this->assertInstanceOf($expectedTypeClass, $actualType);
+		self::assertInstanceOf($expectedTypeClass, $actualType);
 	}
 
 	/**
@@ -830,8 +830,8 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$result = TypeCombinator::union(...array_reverse($types));
-		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
-		$this->assertInstanceOf($expectedTypeClass, $result);
+		self::assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
+		self::assertInstanceOf($expectedTypeClass, $result);
 	}
 
 	public function dataIntersect(): array
@@ -1155,8 +1155,8 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$result = TypeCombinator::intersect(...$types);
-		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
-		$this->assertInstanceOf($expectedTypeClass, $result);
+		self::assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
+		self::assertInstanceOf($expectedTypeClass, $result);
 	}
 
 	/**
@@ -1172,8 +1172,8 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$result = TypeCombinator::intersect(...array_reverse($types));
-		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
-		$this->assertInstanceOf($expectedTypeClass, $result);
+		self::assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
+		self::assertInstanceOf($expectedTypeClass, $result);
 	}
 
 	public function dataRemove(): array
@@ -1380,8 +1380,8 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$result = TypeCombinator::remove($fromType, $type);
-		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
-		$this->assertInstanceOf($expectedTypeClass, $result);
+		self::assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
+		self::assertInstanceOf($expectedTypeClass, $result);
 	}
 
 	public function testUnionConstantArrays(): void
@@ -1399,8 +1399,8 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			}
 		}
 		$resultType = TypeCombinator::union(...$arrays);
-		$this->assertInstanceOf(UnionType::class, $resultType);
-		$this->assertCount(10, $resultType->getTypes());
+		self::assertInstanceOf(UnionType::class, $resultType);
+		self::assertCount(10, $resultType->getTypes());
 	}
 
 }

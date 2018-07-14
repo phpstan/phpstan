@@ -965,52 +965,52 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\Testing\Te
 		$scope->method('getClassReflection')->willReturn($class);
 		$scope->method('canCallMethod')->willReturn(true);
 		foreach ($methods as $methodName => $expectedMethodData) {
-			$this->assertTrue($class->hasMethod($methodName), sprintf('Method %s() not found in class %s.', $methodName, $className));
+			self::assertTrue($class->hasMethod($methodName), sprintf('Method %s() not found in class %s.', $methodName, $className));
 
 			$method = $class->getMethod($methodName, $scope);
 			$selectedParametersAcceptor = ParametersAcceptorSelector::selectSingle($method->getVariants());
-			$this->assertSame(
+			self::assertSame(
 				$expectedMethodData['class'],
 				$method->getDeclaringClass()->getName(),
 				sprintf('Declaring class of method %s() does not match.', $methodName)
 			);
-			$this->assertSame(
+			self::assertSame(
 				$expectedMethodData['returnType'],
 				$selectedParametersAcceptor->getReturnType()->describe(VerbosityLevel::value()),
 				sprintf('Return type of method %s::%s() does not match', $className, $methodName)
 			);
-			$this->assertSame(
+			self::assertSame(
 				$expectedMethodData['isStatic'],
 				$method->isStatic(),
 				sprintf('Scope of method %s::%s() does not match', $className, $methodName)
 			);
-			$this->assertSame(
+			self::assertSame(
 				$expectedMethodData['isVariadic'],
 				$selectedParametersAcceptor->isVariadic(),
 				sprintf('Method %s::%s() does not match expected variadicity', $className, $methodName)
 			);
-			$this->assertCount(
+			self::assertCount(
 				count($expectedMethodData['parameters']),
 				$selectedParametersAcceptor->getParameters(),
 				sprintf('Method %s::%s() does not match expected count of parameters', $className, $methodName)
 			);
 			foreach ($selectedParametersAcceptor->getParameters() as $i => $parameter) {
-				$this->assertSame(
+				self::assertSame(
 					$expectedMethodData['parameters'][$i]['name'],
 					$parameter->getName()
 				);
-				$this->assertSame(
+				self::assertSame(
 					$expectedMethodData['parameters'][$i]['type'],
 					$parameter->getType()->describe(VerbosityLevel::value())
 				);
-				$this->assertTrue(
+				self::assertTrue(
 					$expectedMethodData['parameters'][$i]['passedByReference']->equals($parameter->passedByReference())
 				);
-				$this->assertSame(
+				self::assertSame(
 					$expectedMethodData['parameters'][$i]['isOptional'],
 					$parameter->isOptional()
 				);
-				$this->assertSame(
+				self::assertSame(
 					$expectedMethodData['parameters'][$i]['isVariadic'],
 					$parameter->isVariadic()
 				);
@@ -1022,8 +1022,8 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\Testing\Te
 	{
 		$broker = self::getContainer()->getByType(Broker::class);
 		$class = $broker->getClass(\AnnotationsMethods\Bar::class);
-		$this->assertTrue($class->hasNativeMethod('overridenMethodWithAnnotation'));
-		$this->assertInstanceOf(PhpMethodReflection::class, $class->getNativeMethod('overridenMethodWithAnnotation'));
+		self::assertTrue($class->hasNativeMethod('overridenMethodWithAnnotation'));
+		self::assertInstanceOf(PhpMethodReflection::class, $class->getNativeMethod('overridenMethodWithAnnotation'));
 	}
 
 }
