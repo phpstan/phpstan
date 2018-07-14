@@ -28,7 +28,14 @@ class Registry
 	public function getRules(string $nodeType): array
 	{
 		if (!isset($this->cache[$nodeType])) {
-			$parentNodeTypes = [$nodeType] + class_parents($nodeType) + class_implements($nodeType);
+			$classParents = class_parents($nodeType);
+			$classImplementations = class_implements($nodeType);
+
+			if ($classParents === false || $classImplementations === false) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+
+			$parentNodeTypes = [$nodeType] + $classParents + $classImplementations;
 
 			$rules = [];
 			foreach ($parentNodeTypes as $parentNodeType) {
