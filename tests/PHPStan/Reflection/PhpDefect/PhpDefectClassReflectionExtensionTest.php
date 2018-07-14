@@ -41,11 +41,11 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\Testing\TestCase
 			/** @var \PHPStan\Broker\Broker $broker */
 			$broker = self::getContainer()->getByType(Broker::class);
 			$classReflection = $broker->getClass($className);
-			$this->assertTrue($classReflection->hasProperty($propertyName), sprintf('%s::$%s', $className, $propertyName));
+			self::assertTrue($classReflection->hasProperty($propertyName), sprintf('%s::$%s', $className, $propertyName));
 			$propertyReflection = $classReflection->getProperty($propertyName, $scope);
-			$this->assertInstanceOf(PhpDefectPropertyReflection::class, $propertyReflection);
-			$this->assertSame($declaringClassName, $propertyReflection->getDeclaringClass()->getName());
-			$this->assertSame($typeDescription, $propertyReflection->getType()->describe(VerbosityLevel::value()), sprintf('%s::$%s', $className, $propertyName));
+			self::assertInstanceOf(PhpDefectPropertyReflection::class, $propertyReflection);
+			self::assertSame($declaringClassName, $propertyReflection->getDeclaringClass()->getName());
+			self::assertSame($typeDescription, $propertyReflection->getType()->describe(VerbosityLevel::value()), sprintf('%s::$%s', $className, $propertyName));
 		}
 	}
 

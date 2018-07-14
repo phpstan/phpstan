@@ -27,7 +27,7 @@ class ClassReflectionTest extends \PHPStan\Testing\TestCase
 		$broker = $this->createMock(Broker::class);
 		$fileTypeMapper = $this->createMock(FileTypeMapper::class);
 		$classReflection = new ClassReflection($broker, $fileTypeMapper, [], [], $className, new \ReflectionClass($className), null);
-		$this->assertSame($has, $classReflection->hasTraitUse(\HasTraitUse\FooTrait::class));
+		self::assertSame($has, $classReflection->hasTraitUse(\HasTraitUse\FooTrait::class));
 	}
 
 	public function dataClassHierarchyDistances(): array
@@ -82,7 +82,7 @@ class ClassReflectionTest extends \PHPStan\Testing\TestCase
 			new \ReflectionClass($class),
 			null
 		);
-		$this->assertSame(
+		self::assertSame(
 			$expectedDistances,
 			$classReflection->getClassHierarchyDistances()
 		);
@@ -95,7 +95,7 @@ class ClassReflectionTest extends \PHPStan\Testing\TestCase
 		$fooReflection = $broker->getClass(\HasTraitUse\Foo::class);
 		$variadicMethod = $fooReflection->getNativeMethod('variadicMethod');
 		$methodVariant = ParametersAcceptorSelector::selectSingle($variadicMethod->getVariants());
-		$this->assertTrue($methodVariant->isVariadic());
+		self::assertTrue($methodVariant->isVariadic());
 	}
 
 }

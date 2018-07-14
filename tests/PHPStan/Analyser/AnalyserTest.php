@@ -17,7 +17,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 	public function testReturnErrorIfIgnoredMessagesDoesNotOccur(): void
 	{
 		$result = $this->runAnalyser(['#Unknown error#'], null, true, __DIR__ . '/data/empty/empty.php', false);
-		$this->assertSame([
+		self::assertSame([
 			'Ignored error pattern #Unknown error# was not matched in reported errors.',
 		], $result);
 	}
@@ -25,19 +25,19 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 	public function testDoNotReturnErrorIfIgnoredMessagesDoesNotOccurWithReportUnmatchedIgnoredErrorsOff(): void
 	{
 		$result = $this->runAnalyser(['#Unknown error#'], null, false, __DIR__ . '/data/empty/empty.php', false);
-		$this->assertEmpty($result);
+		self::assertEmpty($result);
 	}
 
 	public function testDoNotReturnErrorIfIgnoredMessagesDoNotOccurWhileAnalysingIndividualFiles(): void
 	{
 		$result = $this->runAnalyser(['#Unknown error#'], null, true, __DIR__ . '/data/empty/empty.php', true);
-		$this->assertEmpty($result);
+		self::assertEmpty($result);
 	}
 
 	public function testReportInvalidIgnorePatternEarly(): void
 	{
 		$result = $this->runAnalyser(['#Regexp syntax error'], null, true, __DIR__ . '/data/parse-error.php', false);
-		$this->assertSame([
+		self::assertSame([
 			"No ending delimiter '#' found in pattern: #Regexp syntax error",
 		], $result);
 	}
@@ -45,22 +45,22 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 	public function testNonexistentBootstrapFile(): void
 	{
 		$result = $this->runAnalyser([], __DIR__ . '/foo.php', true, __DIR__ . '/data/empty/empty.php', false);
-		$this->assertCount(1, $result);
-		$this->assertContains('does not exist', $result[0]);
+		self::assertCount(1, $result);
+		self::assertContains('does not exist', $result[0]);
 	}
 
 	public function testBootstrapFile(): void
 	{
 		$result = $this->runAnalyser([], __DIR__ . '/data/bootstrap.php', true, __DIR__ . '/data/empty/empty.php', false);
-		$this->assertEmpty($result);
-		$this->assertSame('fooo', PHPSTAN_TEST_CONSTANT);
+		self::assertEmpty($result);
+		self::assertSame('fooo', PHPSTAN_TEST_CONSTANT);
 	}
 
 	public function testBootstrapFileWithAnError(): void
 	{
 		$result = $this->runAnalyser([], __DIR__ . '/data/bootstrap-error.php', true, __DIR__ . '/data/empty/empty.php', false);
-		$this->assertCount(1, $result);
-		$this->assertSame([
+		self::assertCount(1, $result);
+		self::assertSame([
 			'Call to undefined function BootstrapError\doFoo()',
 		], $result);
 	}
@@ -68,16 +68,16 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 	public function testFileWithAnIgnoredError(): void
 	{
 		$result = $this->runAnalyser(['#Fail\.#'], null, true, __DIR__ . '/data/bootstrap-error.php', false);
-		$this->assertEmpty($result);
+		self::assertEmpty($result);
 	}
 
 	public function testIgnoringBrokenConfigurationDoesNotWork(): void
 	{
 		$result = $this->runAnalyser(['#was not found while trying to analyse it#'], null, true, __DIR__ . '/../../notAutoloaded/Baz.php', false);
-		$this->assertCount(2, $result);
+		self::assertCount(2, $result);
 		assert($result[0] instanceof Error);
-		$this->assertSame('Class PHPStan\Tests\Baz was not found while trying to analyse it - autoloading is probably not configured properly.', $result[0]->getMessage());
-		$this->assertSame('Error message "Class PHPStan\Tests\Baz was not found while trying to analyse it - autoloading is probably not configured properly." cannot be ignored, use excludes_analyse instead.', $result[1]);
+		self::assertSame('Class PHPStan\Tests\Baz was not found while trying to analyse it - autoloading is probably not configured properly.', $result[0]->getMessage());
+		self::assertSame('Error message "Class PHPStan\Tests\Baz was not found while trying to analyse it - autoloading is probably not configured properly." cannot be ignored, use excludes_analyse instead.', $result[1]);
 	}
 
 	/**

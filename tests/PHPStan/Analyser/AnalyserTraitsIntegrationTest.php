@@ -21,7 +21,7 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 			__DIR__ . '/traits/Foo.php',
 			__DIR__ . '/traits/FooTrait.php',
 		]);
-		$this->assertEmpty($errors);
+		self::assertEmpty($errors);
 	}
 
 	public function testMethodDoesNotExist(): void
@@ -30,14 +30,14 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 			__DIR__ . '/traits/Bar.php',
 			__DIR__ . '/traits/FooTrait.php',
 		]);
-		$this->assertCount(1, $errors);
+		self::assertCount(1, $errors);
 		$error = $errors[0];
-		$this->assertSame('Call to an undefined method AnalyseTraits\Bar::doFoo().', $error->getMessage());
-		$this->assertSame(
+		self::assertSame('Call to an undefined method AnalyseTraits\Bar::doFoo().', $error->getMessage());
+		self::assertSame(
 			sprintf('%s (in context of class AnalyseTraits\Bar)', $this->fileHelper->normalizePath(__DIR__ . '/traits/FooTrait.php')),
 			$error->getFile()
 		);
-		$this->assertSame(10, $error->getLine());
+		self::assertSame(10, $error->getLine());
 	}
 
 	public function testNestedTraits(): void
@@ -47,51 +47,51 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 			__DIR__ . '/traits/NestedFooTrait.php',
 			__DIR__ . '/traits/FooTrait.php',
 		]);
-		$this->assertCount(2, $errors);
+		self::assertCount(2, $errors);
 		$firstError = $errors[0];
-		$this->assertSame('Call to an undefined method AnalyseTraits\NestedBar::doFoo().', $firstError->getMessage());
-		$this->assertSame(
+		self::assertSame('Call to an undefined method AnalyseTraits\NestedBar::doFoo().', $firstError->getMessage());
+		self::assertSame(
 			sprintf('%s (in context of class AnalyseTraits\NestedBar)', $this->fileHelper->normalizePath(__DIR__ . '/traits/FooTrait.php')),
 			$firstError->getFile()
 		);
-		$this->assertSame(10, $firstError->getLine());
+		self::assertSame(10, $firstError->getLine());
 
 		$secondError = $errors[1];
-		$this->assertSame('Call to an undefined method AnalyseTraits\NestedBar::doNestedFoo().', $secondError->getMessage());
-		$this->assertSame(
+		self::assertSame('Call to an undefined method AnalyseTraits\NestedBar::doNestedFoo().', $secondError->getMessage());
+		self::assertSame(
 			sprintf('%s (in context of class AnalyseTraits\NestedBar)', $this->fileHelper->normalizePath(__DIR__ . '/traits/NestedFooTrait.php')),
 			$secondError->getFile()
 		);
-		$this->assertSame(12, $secondError->getLine());
+		self::assertSame(12, $secondError->getLine());
 	}
 
 	public function testTraitsAreNotAnalysedDirectly(): void
 	{
 		$errors = $this->runAnalyse([__DIR__ . '/traits/FooTrait.php']);
-		$this->assertEmpty($errors);
+		self::assertEmpty($errors);
 		$errors = $this->runAnalyse([__DIR__ . '/traits/NestedFooTrait.php']);
-		$this->assertEmpty($errors);
+		self::assertEmpty($errors);
 	}
 
 	public function testClassAndTraitInTheSameFile(): void
 	{
 		$errors = $this->runAnalyse([__DIR__ . '/traits/classAndTrait.php']);
-		$this->assertEmpty($errors);
+		self::assertEmpty($errors);
 	}
 
 	public function testTraitMethodAlias(): void
 	{
 		$errors = $this->runAnalyse([__DIR__ . '/traits/trait-aliases.php']);
-		$this->assertEmpty($errors);
+		self::assertEmpty($errors);
 	}
 
 	public function testFindErrorsInTrait(): void
 	{
 		$errors = $this->runAnalyse([__DIR__ . '/traits/trait-error.php']);
-		$this->assertCount(3, $errors);
-		$this->assertSame('Undefined variable: $undefined', $errors[0]->getMessage());
-		$this->assertSame('Call to an undefined method TraitErrors\MyClass::undefined().', $errors[1]->getMessage());
-		$this->assertSame('Undefined variable: $undefined', $errors[2]->getMessage());
+		self::assertCount(3, $errors);
+		self::assertSame('Undefined variable: $undefined', $errors[0]->getMessage());
+		self::assertSame('Call to an undefined method TraitErrors\MyClass::undefined().', $errors[1]->getMessage());
+		self::assertSame('Undefined variable: $undefined', $errors[2]->getMessage());
 	}
 
 	public function testTraitInAnonymousClass(): void
@@ -102,44 +102,44 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 				__DIR__ . '/traits/TraitWithTypeSpecification.php',
 			]
 		);
-		$this->assertCount(1, $errors);
-		$this->assertContains('Access to an undefined property', $errors[0]->getMessage());
-		$this->assertSame(18, $errors[0]->getLine());
+		self::assertCount(1, $errors);
+		self::assertContains('Access to an undefined property', $errors[0]->getMessage());
+		self::assertSame(18, $errors[0]->getLine());
 	}
 
 	public function testDuplicateMethodDefinition(): void
 	{
 		$errors = $this->runAnalyse([__DIR__ . '/traits/duplicateMethod/Lesson.php']);
-		$this->assertCount(0, $errors);
+		self::assertCount(0, $errors);
 	}
 
 	public function testWrongPropertyType(): void
 	{
 		$errors = $this->runAnalyse([__DIR__ . '/traits/wrongProperty/Foo.php']);
-		$this->assertCount(2, $errors);
-		$this->assertSame(15, $errors[0]->getLine());
-		$this->assertSame(
+		self::assertCount(2, $errors);
+		self::assertSame(15, $errors[0]->getLine());
+		self::assertSame(
 			$this->fileHelper->normalizePath(__DIR__ . '/traits/wrongProperty/Foo.php'),
 			$errors[0]->getFile()
 		);
-		$this->assertSame('Property TraitsWrongProperty\Foo::$id (int) does not accept string.', $errors[0]->getMessage());
+		self::assertSame('Property TraitsWrongProperty\Foo::$id (int) does not accept string.', $errors[0]->getMessage());
 
-		$this->assertSame(17, $errors[1]->getLine());
-		$this->assertSame(
+		self::assertSame(17, $errors[1]->getLine());
+		self::assertSame(
 			$this->fileHelper->normalizePath(__DIR__ . '/traits/wrongProperty/Foo.php'),
 			$errors[1]->getFile()
 		);
-		$this->assertSame('Property TraitsWrongProperty\Foo::$bar (Ipsum) does not accept int.', $errors[1]->getMessage());
+		self::assertSame('Property TraitsWrongProperty\Foo::$bar (Ipsum) does not accept int.', $errors[1]->getMessage());
 	}
 
 	public function testReturnThis(): void
 	{
 		$errors = $this->runAnalyse([__DIR__ . '/traits/returnThis/Bar.php']);
-		$this->assertCount(2, $errors);
-		$this->assertSame(10, $errors[0]->getLine());
-		$this->assertSame('Call to an undefined method TraitsReturnThis\Foo::doFoo().', $errors[0]->getMessage());
-		$this->assertSame(11, $errors[1]->getLine());
-		$this->assertSame('Call to an undefined method TraitsReturnThis\Foo::doFoo().', $errors[1]->getMessage());
+		self::assertCount(2, $errors);
+		self::assertSame(10, $errors[0]->getLine());
+		self::assertSame('Call to an undefined method TraitsReturnThis\Foo::doFoo().', $errors[0]->getMessage());
+		self::assertSame(11, $errors[1]->getLine());
+		self::assertSame('Call to an undefined method TraitsReturnThis\Foo::doFoo().', $errors[1]->getMessage());
 	}
 
 	/**

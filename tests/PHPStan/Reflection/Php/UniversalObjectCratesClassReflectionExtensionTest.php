@@ -15,7 +15,7 @@ class UniversalObjectCratesClassReflectionExtensionTest extends \PHPStan\Testing
 			'stdClass',
 		]);
 		$extension->setBroker($broker);
-		$this->assertTrue($extension->hasProperty($broker->getClass(\stdClass::class), 'foo'));
+		self::assertTrue($extension->hasProperty($broker->getClass(\stdClass::class), 'foo'));
 	}
 
 }

@@ -249,35 +249,35 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$selectedAcceptor = ParametersAcceptorSelector::selectFromTypes($types, $variants, $unpack);
-		$this->assertCount(count($expected->getParameters()), $selectedAcceptor->getParameters());
+		self::assertCount(count($expected->getParameters()), $selectedAcceptor->getParameters());
 		foreach ($selectedAcceptor->getParameters() as $i => $parameter) {
 			$expectedParameter = $expected->getParameters()[$i];
-			$this->assertSame(
+			self::assertSame(
 				$expectedParameter->getName(),
 				$parameter->getName()
 			);
-			$this->assertSame(
+			self::assertSame(
 				$expectedParameter->isOptional(),
 				$parameter->isOptional()
 			);
-			$this->assertSame(
+			self::assertSame(
 				$expectedParameter->getType()->describe(VerbosityLevel::value()),
 				$parameter->getType()->describe(VerbosityLevel::value())
 			);
-			$this->assertTrue(
+			self::assertTrue(
 				$expectedParameter->passedByReference()->equals($parameter->passedByReference())
 			);
-			$this->assertSame(
+			self::assertSame(
 				$expectedParameter->isVariadic(),
 				$parameter->isVariadic()
 			);
 		}
 
-		$this->assertSame(
+		self::assertSame(
 			$expected->getReturnType()->describe(VerbosityLevel::value()),
 			$selectedAcceptor->getReturnType()->describe(VerbosityLevel::value())
 		);
-		$this->assertSame($expected->isVariadic(), $selectedAcceptor->isVariadic());
+		self::assertSame($expected->isVariadic(), $selectedAcceptor->isVariadic());
 	}
 
 }

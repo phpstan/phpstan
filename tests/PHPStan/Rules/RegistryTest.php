@@ -16,10 +16,10 @@ class RegistryTest extends \PHPStan\Testing\TestCase
 		]);
 
 		$rules = $registry->getRules(\PhpParser\Node\Expr\FuncCall::class);
-		$this->assertCount(1, $rules);
-		$this->assertSame($rule, $rules[0]);
+		self::assertCount(1, $rules);
+		self::assertSame($rule, $rules[0]);
 
-		$this->assertCount(0, $registry->getRules(\PhpParser\Node\Expr\MethodCall::class));
+		self::assertCount(0, $registry->getRules(\PhpParser\Node\Expr\MethodCall::class));
 	}
 
 	public function testGetRulesWithTwoDifferentInstances(): void
@@ -37,11 +37,11 @@ class RegistryTest extends \PHPStan\Testing\TestCase
 		]);
 
 		$rules = $registry->getRules(\PhpParser\Node\Expr\FuncCall::class);
-		$this->assertCount(2, $rules);
-		$this->assertSame($fooRule, $rules[0]);
-		$this->assertSame($barRule, $rules[1]);
+		self::assertCount(2, $rules);
+		self::assertSame($fooRule, $rules[0]);
+		self::assertSame($barRule, $rules[1]);
 
-		$this->assertCount(0, $registry->getRules(\PhpParser\Node\Expr\MethodCall::class));
+		self::assertCount(0, $registry->getRules(\PhpParser\Node\Expr\MethodCall::class));
 	}
 
 }

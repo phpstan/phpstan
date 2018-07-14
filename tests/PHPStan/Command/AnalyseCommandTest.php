@@ -22,7 +22,7 @@ class AnalyseCommandTest extends \PHPStan\Testing\TestCase
 
 		try {
 			$output = $this->runCommand(1);
-			$this->assertContains('Note: Using configuration file ' . $file . '.', $output);
+			self::assertContains('Note: Using configuration file ' . $file . '.', $output);
 		} catch (\Throwable $e) {
 			chdir($originalDir);
 			throw $e;
@@ -58,7 +58,7 @@ class AnalyseCommandTest extends \PHPStan\Testing\TestCase
 			'paths' => [__DIR__ . DIRECTORY_SEPARATOR . 'test'],
 		]);
 
-		$this->assertSame($expectedStatusCode, $commandTester->getStatusCode());
+		self::assertSame($expectedStatusCode, $commandTester->getStatusCode());
 
 		return $commandTester->getDisplay();
 	}

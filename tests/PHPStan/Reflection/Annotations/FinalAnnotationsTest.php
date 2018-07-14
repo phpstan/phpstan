@@ -52,13 +52,13 @@ class FinalAnnotationsTest extends \PHPStan\Testing\TestCase
 		$scope->method('getClassReflection')->willReturn($class);
 		$scope->method('canAccessProperty')->willReturn(true);
 
-		$this->assertSame($final, $class->isFinal());
+		self::assertSame($final, $class->isFinal());
 
 		foreach ($finalAnnotations as $memberType => $members) {
 			foreach ($members as $memberName) {
 				$memberAnnotation = $class->{'get' . ucfirst($memberType)}($memberName, $scope);
-				$this->assertInstanceOf(FinalizableReflection::class, $memberAnnotation);
-				$this->assertSame($final, $memberAnnotation->isFinal());
+				self::assertInstanceOf(FinalizableReflection::class, $memberAnnotation);
+				self::assertSame($final, $memberAnnotation->isFinal());
 			}
 		}
 	}
@@ -70,8 +70,8 @@ class FinalAnnotationsTest extends \PHPStan\Testing\TestCase
 		/** @var Broker $broker */
 		$broker = self::getContainer()->getByType(Broker::class);
 
-		$this->assertFalse($broker->getFunction(new Name('\FinalAnnotations\foo'), null)->isFinal());
-		$this->assertTrue($broker->getFunction(new Name('\FinalAnnotations\finalFoo'), null)->isFinal());
+		self::assertFalse($broker->getFunction(new Name('\FinalAnnotations\foo'), null)->isFinal());
+		self::assertTrue($broker->getFunction(new Name('\FinalAnnotations\finalFoo'), null)->isFinal());
 	}
 
 }

@@ -89,12 +89,12 @@ class RawErrorFormatterTest extends TestBaseFormatter
 	{
 		$formatter = new RawErrorFormatter();
 
-		$this->assertSame($exitCode, $formatter->formatErrors(
+		self::assertSame($exitCode, $formatter->formatErrors(
 			$this->getAnalysisResult($numFileErrors, $numGenericErrors),
 			$this->getErrorConsoleStyle()
 		), sprintf('%s: response code do not match', $message));
 
-		$this->assertEquals($expected, $this->getOutputContent(), sprintf('%s: output do not match', $message));
+		self::assertEquals($expected, $this->getOutputContent(), sprintf('%s: output do not match', $message));
 	}
 
 }

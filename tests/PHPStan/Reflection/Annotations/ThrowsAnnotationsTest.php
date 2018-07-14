@@ -58,9 +58,9 @@ class ThrowsAnnotationsTest extends \PHPStan\Testing\TestCase
 
 		foreach ($throwsAnnotations as $methodName => $type) {
 			$methodAnnotation = $class->getMethod($methodName, $scope);
-			$this->assertInstanceOf(ThrowableReflection::class, $methodAnnotation);
+			self::assertInstanceOf(ThrowableReflection::class, $methodAnnotation);
 			$throwType = $methodAnnotation->getThrowType();
-			$this->assertSame($type, $throwType !== null ? $throwType->describe(VerbosityLevel::typeOnly()) : null);
+			self::assertSame($type, $throwType !== null ? $throwType->describe(VerbosityLevel::typeOnly()) : null);
 		}
 	}
 
@@ -71,11 +71,11 @@ class ThrowsAnnotationsTest extends \PHPStan\Testing\TestCase
 		/** @var Broker $broker */
 		$broker = self::getContainer()->getByType(Broker::class);
 
-		$this->assertNull($broker->getFunction(new Name('\ThrowsAnnotations\withoutThrows'), null)->getThrowType());
+		self::assertNull($broker->getFunction(new Name('\ThrowsAnnotations\withoutThrows'), null)->getThrowType());
 
 		$throwType = $broker->getFunction(new Name('\ThrowsAnnotations\throwsRuntime'), null)->getThrowType();
-		$this->assertNotNull($throwType);
-		$this->assertSame(\RuntimeException::class, $throwType->describe(VerbosityLevel::typeOnly()));
+		self::assertNotNull($throwType);
+		self::assertSame(\RuntimeException::class, $throwType->describe(VerbosityLevel::typeOnly()));
 	}
 
 	public function testThrowsOnNativeFunctions(): void
@@ -83,9 +83,9 @@ class ThrowsAnnotationsTest extends \PHPStan\Testing\TestCase
 		/** @var Broker $broker */
 		$broker = self::getContainer()->getByType(Broker::class);
 
-		$this->assertNull($broker->getFunction(new Name('str_replace'), null)->getThrowType());
-		$this->assertNull($broker->getFunction(new Name('get_class'), null)->getThrowType());
-		$this->assertNull($broker->getFunction(new Name('function_exists'), null)->getThrowType());
+		self::assertNull($broker->getFunction(new Name('str_replace'), null)->getThrowType());
+		self::assertNull($broker->getFunction(new Name('get_class'), null)->getThrowType());
+		self::assertNull($broker->getFunction(new Name('function_exists'), null)->getThrowType());
 	}
 
 }
