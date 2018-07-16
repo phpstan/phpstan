@@ -3718,7 +3718,7 @@ return [
 'headers_sent' => ['bool', '&w_file='=>'string', '&w_line='=>'int'],
 'hebrev' => ['string', 'str'=>'string', 'max_chars_per_line='=>'int'],
 'hebrevc' => ['string', 'str'=>'string', 'max_chars_per_line='=>'int'],
-'hex2bin' => ['string', 'data'=>'string'],
+'hex2bin' => ['string|false', 'data'=>'string'],
 'hexdec' => ['int', 'hexadecimal_number'=>'string'],
 'highlight_file' => ['string|bool', 'file_name'=>'string', 'return='=>'bool'],
 'highlight_string' => ['string|bool', 'string'=>'string', 'return='=>'bool'],
