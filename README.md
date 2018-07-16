@@ -564,7 +564,11 @@ public function isMethodSupported(MethodReflection $methodReflection): bool
 public function getTypeFromMethodCall(MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope): Type
 {
 	if (count($methodCall->args) === 0) {
-		return $methodReflection->getReturnType();
+		return \PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs(
+			$scope,
+			$methodCall->args,
+			$methodReflection->getVariants()
+		)->getReturnType();
 	}
 	$arg = $methodCall->args[0]->value;
 
