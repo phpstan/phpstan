@@ -5032,7 +5032,7 @@ return [
 'imap_mutf7_to_utf8' => ['string', 'in'=>'string'],
 'imap_num_msg' => ['int', 'stream_id'=>'resource'],
 'imap_num_recent' => ['int', 'stream_id'=>'resource'],
-'imap_open' => ['resource', 'mailbox'=>'string', 'user'=>'string', 'password'=>'string', 'options='=>'int', 'n_retries='=>'int'],
+'imap_open' => ['resource', 'mailbox'=>'string', 'user'=>'string', 'password'=>'string', 'options='=>'int', 'n_retries='=>'int', 'params' => 'array|null'],
 'imap_ping' => ['bool', 'stream_id'=>'resource'],
 'imap_qprint' => ['string', 'text'=>'string'],
 'imap_rename' => ['bool', 'stream_id'=>'resource', 'old_name'=>'string', 'new_name'=>'string'],
