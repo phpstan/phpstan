@@ -54,10 +54,18 @@ class ImpossibleCheckTypeHelper
 					&& count($node->args) >= 3
 				) {
 					$needleType = $scope->getType($node->args[0]->value);
-					$haystackType = $scope->getType($node->args[1]->value);
+					$valueType = $scope->getType($node->args[1]->value)->getIterableValueType();
+					$hasConstantNeedleTypes = count(TypeUtils::getConstantScalars($needleType)) > 0;
+					$hasConstantHaystackTypes = count(TypeUtils::getConstantScalars($valueType)) > 0;
 					if (
-						$needleType->equals($haystackType->getIterableValueType())
-						&& count(TypeUtils::getConstantTypes($needleType)) === 0
+						$valueType->isSuperTypeOf($needleType)->yes()
+						&& (
+							(
+								!$hasConstantNeedleTypes
+								&& !$hasConstantHaystackTypes
+							)
+							|| $hasConstantNeedleTypes !== $hasConstantHaystackTypes
+						)
 					) {
 						return null;
 					}

@@ -263,4 +263,29 @@ class InArray
 		}
 	}
 
+	/**
+	 * @param string $s
+	 * @param array $mixedArray
+	 * @param (string|float)[] $stringsOrFloats
+	 */
+	public function doBaz(
+		string $s,
+		array $mixedArray,
+		array $stringsOrFloats
+	)
+	{
+		if (in_array($s, $mixedArray, true)) {
+
+		}
+		if (in_array('s', $mixedArray, true)) {
+
+		}
+		if (in_array($s, $stringsOrFloats, true)) {
+
+		}
+		if (in_array('s', $stringsOrFloats, true)) {
+
+		}
+	}
+
 }
