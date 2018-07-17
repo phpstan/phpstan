@@ -31,9 +31,10 @@ class CheckstyleErrorFormatter implements ErrorFormatter
 
 			foreach ($errors as $error) {
 				$style->writeln(sprintf(
-					'  <error line="%d" column="1" severity="error" message="%s" />',
+					'  <error line="%d" column="1" severity="error" message="%s" source="%s" />',
 					$this->escape((string) $error->getLine()),
-					$this->escape((string) $error->getMessage())
+					$this->escape((string) $error->getMessage()),
+					$this->escape((string) $error->getSource())
 				));
 			}
 			$style->writeln('</file>');
