@@ -7030,6 +7030,80 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataGetParentClass(): array
+	{
+		return [
+			[
+				'false',
+				'get_parent_class()',
+			],
+			[
+				'string|false',
+				'get_parent_class($s)',
+			],
+			[
+				'false',
+				'get_parent_class(\ParentClass\Foo::class)',
+			],
+			[
+				'string|false',
+				'get_parent_class(NonexistentClass::class)',
+			],
+			[
+				'string|false',
+				'get_parent_class(1)',
+			],
+			[
+				"'ParentClass\\\\Foo'",
+				'get_parent_class(\ParentClass\Bar::class)',
+			],
+			[
+				'false',
+				'get_parent_class()',
+				"'inParentClass'",
+			],
+			[
+				'false',
+				'get_parent_class($this)',
+				"'inParentClass'",
+			],
+			[
+				"'ParentClass\\\\Foo'",
+				'get_parent_class()',
+				"'inChildClass'",
+			],
+			[
+				"'ParentClass\\\\Foo'",
+				'get_parent_class($this)',
+				"'inChildClass'",
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataGetParentClass
+	 * @param string $description
+	 * @param string $expression
+	 * @param string $evaluatedPointExpression
+	 */
+	public function testGetParentClass(
+		string $description,
+		string $expression,
+		string $evaluatedPointExpression = 'die'
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/get-parent-class.php',
+			$description,
+			$expression,
+			[],
+			[],
+			[],
+			[],
+			$evaluatedPointExpression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $description,
