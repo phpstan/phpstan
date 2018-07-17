@@ -2794,7 +2794,7 @@ return [
 'forward_static_call_array' => ['mixed', 'function'=>'callable', 'parameters'=>'array<int,mixed>'],
 'fpassthru' => ['int', 'fp'=>'resource'],
 'fprintf' => ['int', 'stream'=>'resource', 'format'=>'string', '...args='=>'string|int|float'],
-'fputcsv' => ['int', 'fp'=>'resource', 'fields'=>'array', 'delimiter='=>'string', 'enclosure='=>'string', 'escape_char='=>'string'],
+'fputcsv' => ['int|false', 'fp'=>'resource', 'fields'=>'array', 'delimiter='=>'string', 'enclosure='=>'string', 'escape_char='=>'string'],
 'fputs' => ['int|false', 'fp'=>'resource', 'str'=>'string', 'length='=>'int'],
 'fread' => ['string|false', 'fp'=>'resource', 'length'=>'int'],
 'frenchtojd' => ['int', 'month'=>'int', 'day'=>'int', 'year'=>'int'],
