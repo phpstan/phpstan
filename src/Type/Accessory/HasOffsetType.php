@@ -9,6 +9,7 @@ use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\CompoundType;
+use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\MixedType;
@@ -148,8 +149,13 @@ class HasOffsetType implements CompoundType, AccessoryType
 
 	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
 	{
-		return $this->offsetType->isSuperTypeOf($offsetType)
-			->or(TrinaryLogic::createMaybe());
+		if ($offsetType instanceof ConstantScalarType) {
+			return TrinaryLogic::createFromBoolean(
+				$offsetType->equals($this->offsetType)
+			);
+		}
+
+		return $this->offsetType->isSuperTypeOf($offsetType)->and(TrinaryLogic::createMaybe());
 	}
 
 	public function getOffsetValueType(Type $offsetType): Type

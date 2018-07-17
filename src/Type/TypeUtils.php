@@ -105,7 +105,7 @@ class TypeUtils
 			return [$type];
 		}
 
-		if ($type instanceof UnionType) {
+		if ($type instanceof UnionType || $type instanceof IntersectionType) {
 			$constantScalarValues = [];
 			foreach ($type->getTypes() as $innerType) {
 				if (!$innerType instanceof $typeClass) {
@@ -152,25 +152,25 @@ class TypeUtils
 		return null;
 	}
 
-	public static function hasGeneralArray(Type $type): bool
+	/**
+	 * @param Type $type
+	 * @return HasOffsetType[]
+	 */
+	public static function getHasOffsetTypes(Type $type): array
 	{
 		if ($type instanceof HasOffsetType) {
-			return true;
-		}
-
-		if ($type instanceof ArrayType && !$type instanceof ConstantArrayType) {
-			return true;
+			return [$type];
 		}
 
 		if ($type instanceof UnionType || $type instanceof IntersectionType) {
+			$hasOffsetTypes = [];
 			foreach ($type->getTypes() as $innerType) {
-				if ($innerType instanceof ArrayType && !$innerType instanceof ConstantArrayType) {
-					return true;
-				}
+				$hasOffsetTypes = array_merge($hasOffsetTypes, self::getHasOffsetTypes($innerType));
 			}
+			return $hasOffsetTypes;
 		}
 
-		return false;
+		return [];
 	}
 
 	/**

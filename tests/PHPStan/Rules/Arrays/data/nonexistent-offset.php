@@ -209,6 +209,38 @@ class Foo
 	public function offsetAccessArrayMaybe(array $strings)
 	{
 		echo $strings[0];
+
+		if (isset($strings['foo'])) {
+			echo $strings['bar'];
+		}
+	}
+
+	public function constantStringStillUndefinedInGeneralStringIsset(string $s)
+	{
+		$a = [
+			'a' => 'blabla',
+		];
+
+		echo $a[$s];
+		echo $a['b'];
+		if (isset($a[$s])) {
+			echo $a[$s];
+			echo $a['b'];
+		}
+	}
+
+	/**
+	 * @param array<int, mixed> $array
+	 */
+	public function generalArrayHasOffsetOfDifferentType(
+		array $array,
+		string $s
+	)
+	{
+		echo $array[$s];
+		if (isset($array[$s])) {
+			echo $array[$s];
+		}
 	}
 
 }
