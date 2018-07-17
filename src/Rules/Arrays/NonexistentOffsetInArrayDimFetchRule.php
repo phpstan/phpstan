@@ -87,18 +87,13 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 
 		$hasOffsetValueType = $type->hasOffsetValueType($dimType);
 		if ($hasOffsetValueType->maybe()) {
-			$arrays = TypeUtils::getArrays($type);
-			if (count($arrays) !== 1 || $arrays[0] instanceof ConstantArrayType) {
-				$results = [];
-				foreach (TypeUtils::getHasOffsetTypes($type) as $hasOffsetType) {
-					$results[] = $hasOffsetType->hasOffsetValueType($dimType);
-				}
+			$results = [];
+			foreach (TypeUtils::getHasOffsetTypes($type) as $hasOffsetType) {
+				$results[] = $hasOffsetType->hasOffsetValueType($dimType);
+			}
 
-				if (count($results) > 0) {
-					$hasOffsetValueType = TrinaryLogic::extremeIdentity(...$results);
-				} elseif (count(TypeUtils::getConstantArrays($type)) > 0) {
-					$hasOffsetValueType = TrinaryLogic::createNo();
-				}
+			if (count($results) > 0) {
+				$hasOffsetValueType = TrinaryLogic::extremeIdentity(...$results);
 			}
 		}
 
