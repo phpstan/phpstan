@@ -163,17 +163,15 @@ class ConstantStringType extends StringType implements ConstantScalarType
 
 	public function getOffsetValueType(Type $offsetType): Type
 	{
-		$offsetNumberType = $offsetType->toNumber();
-		if ($offsetNumberType instanceof ConstantScalarType) {
-			$offsetValue = $offsetNumberType->getValue();
-			if ($offsetValue < strlen($this->value)) {
-				return new self($this->value[$offsetValue]);
+		if ($offsetType instanceof ConstantIntegerType) {
+			if ($offsetType->getValue() < strlen($this->value)) {
+				return new self($this->value[$offsetType->getValue()]);
 			}
-		} elseif (!$offsetNumberType instanceof ErrorType) {
-			return new StringType();
+
+			return new ErrorType();
 		}
 
-		return new ErrorType();
+		return parent::getOffsetValueType($offsetType);
 	}
 
 	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
@@ -183,7 +181,7 @@ class ConstantStringType extends StringType implements ConstantScalarType
 			return new ErrorType();
 		}
 		if (
-			$offsetType instanceof ConstantScalarType
+			$offsetType instanceof ConstantIntegerType
 			&& $valueStringType instanceof ConstantStringType
 		) {
 			$value = $this->value;
@@ -192,7 +190,7 @@ class ConstantStringType extends StringType implements ConstantScalarType
 			return new self($value);
 		}
 
-		return new StringType();
+		return parent::setOffsetValueType($offsetType, $valueType);
 	}
 
 	public function append(self $otherString): self
