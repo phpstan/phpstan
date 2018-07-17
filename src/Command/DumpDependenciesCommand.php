@@ -23,7 +23,7 @@ class DumpDependenciesCommand extends \Symfony\Component\Console\Command\Command
 				new InputArgument('paths', InputArgument::OPTIONAL | InputArgument::IS_ARRAY, 'Paths with source code to run dump on'),
 				new InputOption('paths-file', null, InputOption::VALUE_REQUIRED, 'Path to a file with a list of paths to run analysis on'),
 				new InputOption('configuration', 'c', InputOption::VALUE_REQUIRED, 'Path to project configuration file'),
-				new InputOption(ErrorsConsoleStyle::OPTION_NO_PROGRESS, null, InputOption::VALUE_NONE, 'Do not show progress bar, only results'),
+				new InputOption(AnalyseCommand::OPTION_NO_PROGRESS, null, InputOption::VALUE_NONE, 'Do not show progress bar, only results'),
 				new InputOption('autoload-file', 'a', InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path'),
 				new InputOption('memory-limit', null, InputOption::VALUE_REQUIRED, 'Memory limit for the run'),
 				new InputOption('analysed-paths', null, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Project-scope paths'),

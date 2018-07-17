@@ -633,3 +633,15 @@ services:
 		class: PHPStan\Command\ErrorFormatter\JsonErrorFormatter
 		arguments:
 			pretty: true
+
+	progressPrinter.bar:
+		class: PHPStan\Command\ProgressPrinter\BarProgressPrinter
+
+	progressPrinter.dots:
+		class: PHPStan\Command\ProgressPrinter\DotsProgressPrinter
+
+	progressPrinter.debug:
+		class: PHPStan\Command\ProgressPrinter\DebugProgressPrinter
+
+	progressPrinter.void:
+		class: PHPStan\Command\ProgressPrinter\VoidProgressPrinter

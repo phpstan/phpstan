@@ -3,25 +3,12 @@
 namespace PHPStan\Command;
 
 use Symfony\Component\Console\Helper\ProgressBar;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 
 class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 {
 
-	public const OPTION_NO_PROGRESS = 'no-progress';
-
-	/** @var bool */
-	private $showProgress;
-
 	/** @var \Symfony\Component\Console\Helper\ProgressBar */
 	private $progressBar;
-
-	public function __construct(InputInterface $input, OutputInterface $output)
-	{
-		parent::__construct($input, $output);
-		$this->showProgress = $input->hasOption(self::OPTION_NO_PROGRESS) && !(bool) $input->getOption(self::OPTION_NO_PROGRESS);
-	}
 
 	/**
 	 * @param string[] $headers
@@ -74,25 +61,10 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 
 	/**
 	 * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
-	 * @param int $max
-	 */
-	public function progressStart($max = 0): void
-	{
-		if (!$this->showProgress) {
-			return;
-		}
-		parent::progressStart($max);
-	}
-
-	/**
-	 * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
 	 * @param int $step
 	 */
 	public function progressAdvance($step = 1): void
 	{
-		if (!$this->showProgress) {
-			return;
-		}
 		if ($step > 0) {
 			$stepTime = (time() - $this->progressBar->getStartTime()) / $step;
 			if ($stepTime > 0 && $stepTime < 1) {
@@ -103,14 +75,6 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 		}
 
 		$this->progressBar->setProgress($this->progressBar->getProgress() + $step);
-	}
-
-	public function progressFinish(): void
-	{
-		if (!$this->showProgress) {
-			return;
-		}
-		parent::progressFinish();
 	}
 
 }

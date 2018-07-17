@@ -3,6 +3,7 @@
 namespace PHPStan\Command;
 
 use PHPStan\Command\ErrorFormatter\ErrorFormatter;
+use PHPStan\Command\ProgressPrinter\ProgressPrinter;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -15,6 +16,8 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 	public const OPTION_LEVEL = 'level';
 
+	public const OPTION_NO_PROGRESS = 'no-progress';
+
 	public const DEFAULT_LEVEL = CommandHelper::DEFAULT_LEVEL;
 
 	protected function configure(): void
@@ -26,10 +29,11 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				new InputOption('paths-file', null, InputOption::VALUE_REQUIRED, 'Path to a file with a list of paths to run analysis on'),
 				new InputOption('configuration', 'c', InputOption::VALUE_REQUIRED, 'Path to project configuration file'),
 				new InputOption(self::OPTION_LEVEL, 'l', InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter'),
-				new InputOption(ErrorsConsoleStyle::OPTION_NO_PROGRESS, null, InputOption::VALUE_NONE, 'Do not show progress bar, only results'),
+				new InputOption(self::OPTION_NO_PROGRESS, null, InputOption::VALUE_NONE, 'Do not show progress, only results'),
 				new InputOption('debug', null, InputOption::VALUE_NONE, 'Show debug information - which file is analysed, do not catch internal errors'),
 				new InputOption('autoload-file', 'a', InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path'),
 				new InputOption('error-format', null, InputOption::VALUE_REQUIRED, 'Format in which to print the result of the analysis', 'table'),
+				new InputOption('progress-printer', null, InputOption::VALUE_REQUIRED, 'Type of printer used to output progress', 'bar'),
 				new InputOption('memory-limit', null, InputOption::VALUE_REQUIRED, 'Memory limit for analysis'),
 			]);
 	}
@@ -86,6 +90,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		}
 
 		$errorOutput = $inceptionResult->getErrorOutput();
+		$errorConsoleStyle = new ErrorsConsoleStyle($input, $errorOutput);
 		$errorFormat = $input->getOption('error-format');
 
 		if (!is_string($errorFormat) && $errorFormat !== null) {
@@ -108,6 +113,35 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		/** @var ErrorFormatter $errorFormatter */
 		$errorFormatter = $container->getService($errorFormatterServiceName);
 
+		$debug = (bool) $input->getOption('debug');
+		$noProgress = (bool) $input->getOption(self::OPTION_NO_PROGRESS);
+		if ($debug) {
+			/** @var ProgressPrinter $progressPrinter */
+			$progressPrinter = $container->getService('progressPrinter.debug');
+		} elseif ($noProgress) {
+			/** @var ProgressPrinter $progressPrinter */
+			$progressPrinter = $container->getService('progressPrinter.void');
+		} else {
+			$progressPrinter = $input->getOption('progress-printer');
+			if (!is_string($progressPrinter)) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+
+			$progressPrinterServiceName = sprintf('progressPrinter.%s', $progressPrinter);
+			if (!$container->hasService($progressPrinterServiceName)) {
+				$errorOutput->writeln(sprintf(
+					'Progress printer "%s" not found. Available progress printers are: %s',
+					$progressPrinter,
+					implode(', ', array_map(static function (string $name) {
+						return substr($name, strlen('progressPrinter.'));
+					}, $container->findByType(ProgressPrinter::class)))
+				));
+				return 1;
+			}
+			/** @var ProgressPrinter $progressPrinter */
+			$progressPrinter = $container->getService($progressPrinterServiceName);
+		}
+
 		/** @var AnalyseApplication  $application */
 		$application = $container->getByType(AnalyseApplication::class);
 
@@ -121,7 +155,9 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				$inceptionResult->getFiles(),
 				$inceptionResult->isOnlyFiles(),
 				$inceptionResult->getConsoleStyle(),
+				$errorConsoleStyle,
 				$errorFormatter,
+				$progressPrinter,
 				$inceptionResult->isDefaultLevelUsed(),
 				$debug
 			)

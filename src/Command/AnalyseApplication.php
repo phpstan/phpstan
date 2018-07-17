@@ -4,6 +4,7 @@ namespace PHPStan\Command;
 
 use PHPStan\Analyser\Analyser;
 use PHPStan\Command\ErrorFormatter\ErrorFormatter;
+use PHPStan\Command\ProgressPrinter\ProgressPrinter;
 use PHPStan\File\FileHelper;
 use Symfony\Component\Console\Style\OutputStyle;
 
@@ -39,7 +40,9 @@ class AnalyseApplication
 	 * @param string[] $files
 	 * @param bool $onlyFiles
 	 * @param \Symfony\Component\Console\Style\OutputStyle $style
+	 * @param \Symfony\Component\Console\Style\OutputStyle $errorStyle
 	 * @param \PHPStan\Command\ErrorFormatter\ErrorFormatter $errorFormatter
+	 * @param \PHPStan\Command\ProgressPrinter\ProgressPrinter $progressPrinter
 	 * @param bool $defaultLevelUsed
 	 * @param bool $debug
 	 * @return int Error code.
@@ -48,7 +51,9 @@ class AnalyseApplication
 		array $files,
 		bool $onlyFiles,
 		OutputStyle $style,
+		OutputStyle $errorStyle,
 		ErrorFormatter $errorFormatter,
+		ProgressPrinter $progressPrinter,
 		bool $defaultLevelUsed,
 		bool $debug
 	): int
@@ -56,27 +61,24 @@ class AnalyseApplication
 		$this->updateMemoryLimitFile();
 		$errors = [];
 
-		if (!$debug) {
-			$progressStarted = false;
-			$fileOrder = 0;
-			$preFileCallback = null;
-			$postFileCallback = function () use ($style, &$progressStarted, $files, &$fileOrder): void {
-				if (!$progressStarted) {
-					$style->progressStart(count($files));
-					$progressStarted = true;
-				}
-				$style->progressAdvance();
-				if ($fileOrder % 100 === 0) {
-					$this->updateMemoryLimitFile();
-				}
-				$fileOrder++;
-			};
-		} else {
-			$preFileCallback = static function (string $file) use ($style): void {
-				$style->writeln($file);
-			};
-			$postFileCallback = null;
-		}
+		$progressStarted = false;
+		$fileOrder = 0;
+		$preFileCallback = static function (string $file) use ($errorStyle, $progressPrinter, $files, &$progressStarted): void {
+			if (!$progressStarted) {
+				$progressPrinter->setOutputStyle($errorStyle);
+				$progressPrinter->start(count($files));
+				$progressStarted = true;
+			}
+
+			$progressPrinter->beforeAnalyzingFile($file);
+		};
+		$postFileCallback = function (string $file, array $errors) use ($progressPrinter, &$fileOrder): void {
+			$progressPrinter->afterAnalyzingFile($file, $errors);
+			if ($fileOrder % 100 === 0) {
+				$this->updateMemoryLimitFile();
+			}
+			$fileOrder++;
+		};
 
 		$errors = array_merge($errors, $this->analyser->analyse(
 			$files,
@@ -86,8 +88,8 @@ class AnalyseApplication
 			$debug
 		));
 
-		if (isset($progressStarted) && $progressStarted) {
-			$style->progressFinish();
+		if ($progressStarted) {
+			$progressPrinter->finish();
 		}
 
 		$fileSpecificErrors = [];

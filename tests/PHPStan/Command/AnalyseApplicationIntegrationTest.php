@@ -3,6 +3,7 @@
 namespace PHPStan\Command;
 
 use PHPStan\Command\ErrorFormatter\TableErrorFormatter;
+use PHPStan\Command\ProgressPrinter\BarProgressPrinter;
 use PHPStan\File\RelativePathHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\StreamOutput;
@@ -55,7 +56,9 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\Testing\TestCase
 			[$path],
 			true,
 			$style,
+			$style,
 			new TableErrorFormatter($relativePathHelper),
+			new BarProgressPrinter(),
 			false,
 			false
 		);

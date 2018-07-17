@@ -80,7 +80,7 @@ class Analyser
 	 * @param string[] $files
 	 * @param bool $onlyFiles
 	 * @param \Closure(string $file): void|null $preFileCallback
-	 * @param \Closure(string $file): void|null $postFileCallback
+	 * @param \Closure(string $file, Error[] $errors=): void|null $postFileCallback
 	 * @param bool $debug
 	 * @return string[]|\PHPStan\Analyser\Error[] errors
 	 */
@@ -129,9 +129,11 @@ class Analyser
 		$this->nodeScopeResolver->setAnalysedFiles($files);
 		$internalErrorsCount = 0;
 		$reachedInternalErrorsCountLimit = false;
+		$unmatchedIgnoredErrors = $this->ignoreErrors;
 		foreach ($files as $file) {
+			$fileErrors = [];
+
 			try {
-				$fileErrors = [];
 				if ($preFileCallback !== null) {
 					$preFileCallback($file);
 				}
@@ -195,19 +197,14 @@ class Analyser
 				} else {
 					$fileErrors[] = new Error(sprintf('File %s does not exist.', $file), $file, null, false);
 				}
-				if ($postFileCallback !== null) {
-					$postFileCallback($file);
-				}
-
-				$errors = array_merge($errors, $fileErrors);
 			} catch (\PhpParser\Error $e) {
-				$errors[] = new Error($e->getMessage(), $file, $e->getStartLine() !== -1 ? $e->getStartLine() : null, false);
+				$fileErrors[] = new Error($e->getMessage(), $file, $e->getStartLine() !== -1 ? $e->getStartLine() : null, false);
 			} catch (\PHPStan\Parser\ParserErrorsException $e) {
 				foreach ($e->getErrors() as $error) {
-					$errors[] = new Error($error->getMessage(), $file, $error->getStartLine() !== -1 ? $error->getStartLine() : null, false);
+					$fileErrors[] = new Error($error->getMessage(), $file, $error->getStartLine() !== -1 ? $error->getStartLine() : null, false);
 				}
 			} catch (\PHPStan\AnalysedCodeException $e) {
-				$errors[] = new Error($e->getMessage(), $file, null, false);
+				$fileErrors[] = new Error($e->getMessage(), $file, null, false);
 			} catch (\Throwable $t) {
 				if ($debug) {
 					throw $t;
@@ -220,12 +217,39 @@ class Analyser
 					"\n",
 					'https://github.com/phpstan/phpstan/issues/new'
 				);
-				$errors[] = new Error($internalErrorMessage, $file);
+				$fileErrors[] = new Error($internalErrorMessage, $file);
 				if ($internalErrorsCount >= $this->internalErrorsCountLimit) {
 					$reachedInternalErrorsCountLimit = true;
 					break;
 				}
 			}
+
+			$addErrors = [];
+			$fileErrors = array_values(array_filter($fileErrors, function (Error $error) use (&$unmatchedIgnoredErrors, &$addErrors): bool {
+				foreach ($this->ignoreErrors as $i => $ignore) {
+					if (IgnoredError::shouldIgnore($this->fileHelper, $error, $ignore)) {
+						unset($unmatchedIgnoredErrors[$i]);
+						if (!$error->canBeIgnored()) {
+							$addErrors[] = sprintf(
+								'Error message "%s" cannot be ignored, use excludes_analyse instead.',
+								$error->getMessage()
+							);
+							return true;
+						}
+						return false;
+					}
+				}
+
+				return true;
+			}));
+
+			$errors = array_merge($errors, $fileErrors, $addErrors);
+
+			if ($postFileCallback === null) {
+				continue;
+			}
+
+			$postFileCallback($file, $fileErrors);
 		}
 
 		if ($this->benchmarkFile !== null) {
@@ -234,28 +258,6 @@ class Analyser
 			});
 			file_put_contents($this->benchmarkFile, Json::encode($this->benchmarkData, Json::PRETTY));
 		}
-
-		$unmatchedIgnoredErrors = $this->ignoreErrors;
-		$addErrors = [];
-		$errors = array_values(array_filter($errors, function (Error $error) use (&$unmatchedIgnoredErrors, &$addErrors): bool {
-			foreach ($this->ignoreErrors as $i => $ignore) {
-				if (IgnoredError::shouldIgnore($this->fileHelper, $error, $ignore)) {
-					unset($unmatchedIgnoredErrors[$i]);
-					if (!$error->canBeIgnored()) {
-						$addErrors[] = sprintf(
-							'Error message "%s" cannot be ignored, use excludes_analyse instead.',
-							$error->getMessage()
-						);
-						return true;
-					}
-					return false;
-				}
-			}
-
-			return true;
-		}));
-
-		$errors = array_merge($errors, $addErrors);
 
 		if (!$onlyFiles && $this->reportUnmatchedIgnoredErrors && !$reachedInternalErrorsCountLimit) {
 			foreach ($unmatchedIgnoredErrors as $unmatchedIgnoredError) {
