@@ -38,7 +38,7 @@ class InternalScopeHelper
 		return count($matchedPaths) > 0;
 	}
 
-	private function getInternalPaths(string $fileName): array
+	public function getInternalPaths(string $fileName): array
 	{
 		$composerFilePath = $this->getComposerFilePath($fileName);
 		if ($composerFilePath === null) {
@@ -78,8 +78,7 @@ class InternalScopeHelper
 			$devFiles
 		);
 
-		// Flatten namespaces
-		$composerPaths = iterator_to_array(new \RecursiveIteratorIterator(new \RecursiveArrayIterator($composerPaths)));
+		$composerPaths = \Nette\Utils\Arrays::flatten($composerPaths);
 
 		// Make paths absolute
 		$composerPaths = array_map(function (string $path) use ($composerFilePath) {
@@ -98,7 +97,12 @@ class InternalScopeHelper
 			throw new ShouldNotHappenException();
 		}
 
-		return json_decode($composerFileContent, true);
+		$composerConfig = json_decode($composerFileContent, true);
+		if (json_last_error() !== JSON_ERROR_NONE) {
+			return [];
+		}
+
+		return $composerConfig;
 	}
 
 	private function getComposerFilePath(string $filePath): ?string

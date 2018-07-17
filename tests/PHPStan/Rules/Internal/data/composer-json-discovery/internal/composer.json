@@ -1,0 +1,29 @@
+{
+	"name": "phpstan/phpstan-internal-rules",
+	"description": "",
+	"license": ["MIT"],
+	"autoload": {
+		"psr-0": {
+			"Foo\\Psr0\\": "src/psr-0/foo/",
+			"Bar\\Psr0\\": ["src/psr-0/bar/", "src/psr-0/bar2/"]
+		},
+		"psr-4": {
+			"Foo\\Psr4\\": "src/psr-4/foo/",
+			"Bar\\Psr4\\": ["src/psr-4/bar/", "src/psr-4/bar2/"]
+		},
+		"classmap": ["src/classmap/"],
+		"files": ["src/files/"]
+	},
+	"autoload-dev": {
+		"psr-0": {
+			"Foo\\Dev\\Psr0\\": "src/dev/psr-0/foo/",
+			"Bar\\Dev\\Psr0\\": ["src/dev/psr-0/bar/", "src/dev/psr-0/bar2/"]
+		},
+		"psr-4": {
+			"Foo\\Dev\\Psr4\\": "src/dev/psr-4/foo/",
+			"Bar\\Dev\\Psr4\\": ["src/dev/psr-4/bar/", "src/dev/psr-4/bar2/"]
+		},
+		"classmap": ["src/dev/classmap/"],
+		"files": ["src/dev/files/"]
+	}
+}
