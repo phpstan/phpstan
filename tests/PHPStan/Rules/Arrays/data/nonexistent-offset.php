@@ -209,6 +209,10 @@ class Foo
 	public function offsetAccessArrayMaybe(array $strings)
 	{
 		echo $strings[0];
+
+		if (isset($strings['foo'])) {
+			echo $strings['bar'];
+		}
 	}
 
 }
