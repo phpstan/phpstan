@@ -3,5 +3,10 @@
         "message": "Cannot access offset 'a' on array('a' => 1)|stdClass.",
         "line": 23,
         "ignorable": true
+    },
+    {
+        "message": "Offset 'b' does not exist on array('a' => 1, ?'b' => 1).",
+        "line": 36,
+        "ignorable": true
     }
 ]
