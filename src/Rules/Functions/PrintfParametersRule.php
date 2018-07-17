@@ -40,7 +40,7 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 		];
 
 		$name = strtolower((string) $node->name);
-		if (!isset($functionsArgumentPositions[$name])) {
+		if (!isset($functionsArgumentPositions[$name]) || !isset($minimumNumberOfArguments[$name])) {
 			return [];
 		}
 

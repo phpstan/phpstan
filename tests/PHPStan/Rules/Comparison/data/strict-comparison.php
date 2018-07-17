@@ -590,3 +590,24 @@ class DuplicateConditionNeverError
 	}
 
 }
+
+class CoalesceWithConstantArray
+{
+
+	/** @var string[] */
+	private const B = [
+		'foo' => 'bar',
+	];
+
+	public function doFoo(string $x): string
+	{
+		$class = self::B[$x] ?? null;
+
+		if ($class === null) {
+			throw new \Exception();
+		}
+
+		return $class;
+	}
+
+}

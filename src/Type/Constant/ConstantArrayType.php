@@ -248,9 +248,8 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 			return TrinaryLogic::extremeIdentity(...$results);
 		}
-		return TrinaryLogic::createFromBoolean(
-			!$this->getOffsetValueType($offsetType) instanceof ErrorType
-		);
+
+		return $this->getKeyType()->isSuperTypeOf($offsetType);
 	}
 
 	public function getOffsetValueType(Type $offsetType): Type
