@@ -456,6 +456,9 @@ class Broker
 
 		/** @var string $functionName */
 		$functionName = $this->resolveFunctionName($nameNode, $scope);
+		if (!function_exists($functionName)) {
+			throw new \PHPStan\Broker\FunctionNotFoundException($functionName);
+		}
 		$lowerCasedFunctionName = strtolower($functionName);
 		if (isset($this->customFunctionReflections[$lowerCasedFunctionName])) {
 			return $this->customFunctionReflections[$lowerCasedFunctionName];
@@ -499,7 +502,26 @@ class Broker
 	public function resolveFunctionName(\PhpParser\Node\Name $nameNode, ?Scope $scope): ?string
 	{
 		return $this->resolveName($nameNode, function (string $name): bool {
-			return function_exists($name);
+			$exists = function_exists($name);
+			if ($exists) {
+				return true;
+			}
+
+			$lowercased = strtolower($name);
+			if ($lowercased === 'getallheaders') {
+				return true;
+			}
+			if (\Nette\Utils\Strings::startsWith($lowercased, 'apache_')) {
+				return true;
+			}
+			if (\Nette\Utils\Strings::startsWith($lowercased, 'fastcgi_')) {
+				return true;
+			}
+			if (\Nette\Utils\Strings::startsWith($lowercased, 'xdebug_')) {
+				return true;
+			}
+
+			return false;
 		}, $scope);
 	}
 

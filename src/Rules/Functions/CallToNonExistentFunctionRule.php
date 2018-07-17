@@ -41,16 +41,6 @@ class CallToNonExistentFunctionRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		$lowercaseFunctionName = strtolower((string) $node->name);
-
-		if (
-			strpos($lowercaseFunctionName, 'apache_') === 0
-			|| strpos($lowercaseFunctionName, 'fastcgi_') === 0
-			|| $lowercaseFunctionName === 'getallheaders'
-		) {
-			return [];
-		}
-
 		if (!$this->broker->hasFunction($node->name, $scope)) {
 			return [sprintf('Function %s not found.', (string) $node->name)];
 		}
