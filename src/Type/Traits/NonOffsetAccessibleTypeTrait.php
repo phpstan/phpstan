@@ -14,6 +14,11 @@ trait NonOffsetAccessibleTypeTrait
 		return TrinaryLogic::createNo();
 	}
 
+	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
+	}
+
 	public function getOffsetValueType(Type $offsetType): Type
 	{
 		return new ErrorType();

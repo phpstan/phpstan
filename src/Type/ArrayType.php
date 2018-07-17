@@ -173,6 +173,16 @@ class ArrayType implements StaticResolvableType
 		return TrinaryLogic::createYes();
 	}
 
+	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
+	{
+		$offsetType = self::castToArrayKeyType($offsetType);
+		if ($this->getKeyType()->isSuperTypeOf($offsetType)->no()) {
+			return TrinaryLogic::createNo();
+		}
+
+		return TrinaryLogic::createMaybe();
+	}
+
 	public function getOffsetValueType(Type $offsetType): Type
 	{
 		$offsetType = self::castToArrayKeyType($offsetType);

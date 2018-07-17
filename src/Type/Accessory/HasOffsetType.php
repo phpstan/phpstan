@@ -3,39 +3,27 @@
 namespace PHPStan\Type\Accessory;
 
 use PHPStan\Analyser\Scope;
-use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ConstantReflection;
-use PHPStan\Reflection\Dummy\DummyPropertyReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
-use PHPStan\Type\ArrayType;
+use PHPStan\Type\BooleanType;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\MixedType;
-use PHPStan\Type\ObjectWithoutClassType;
-use PHPStan\Type\Traits\TruthyBooleanTypeTrait;
 use PHPStan\Type\Type;
-use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
 
-class HasPropertyType implements CompoundType, AccessoryType
+class HasOffsetType implements CompoundType, AccessoryType
 {
 
-	use TruthyBooleanTypeTrait;
+	/** @var \PHPStan\Type\Type */
+	private $offsetType;
 
-	/** @var string */
-	private $propertyName;
-
-	public function __construct(string $propertyName)
+	public function __construct(Type $offsetType)
 	{
-		$this->propertyName = $propertyName;
-	}
-
-	public function getPropertyName(): string
-	{
-		return $this->propertyName;
+		$this->offsetType = $offsetType;
 	}
 
 	public function getReferencedClasses(): array
@@ -45,7 +33,7 @@ class HasPropertyType implements CompoundType, AccessoryType
 
 	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
-		return TrinaryLogic::createFromBoolean($this->equals($type));
+		return $type->hasOffsetValueType($this->offsetType);
 	}
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic
@@ -60,25 +48,8 @@ class HasPropertyType implements CompoundType, AccessoryType
 			return $type->isSubTypeOf($this);
 		}
 
-		if (!(new ObjectWithoutClassType())->isSuperTypeOf($type)->yes()) {
-			return TrinaryLogic::createNo();
-		}
-
-		if ($type->hasProperty($this->propertyName)) {
-			return TrinaryLogic::createYes();
-		}
-
-		if ($type instanceof TypeWithClassName) {
-			$broker = Broker::getInstance();
-			if ($broker->hasClass($type->getClassName())) {
-				$classReflection = $broker->getClass($type->getClassName());
-				if ($classReflection->isFinal()) {
-					return TrinaryLogic::createNo();
-				}
-			}
-		}
-
-		return TrinaryLogic::createMaybe();
+		return $type->isOffsetAccessible()
+			->and($type->hasOffsetValueType($this->offsetType));
 	}
 
 	public function isSubTypeOf(Type $otherType): TrinaryLogic
@@ -91,52 +62,43 @@ class HasPropertyType implements CompoundType, AccessoryType
 			return $otherType->isSuperTypeOf($this);
 		}
 
-		if (!(new ObjectWithoutClassType())->isSuperTypeOf($otherType)->yes()) {
-			return TrinaryLogic::createNo();
-		}
-
-		if ($otherType instanceof TypeWithClassName) {
-			$broker = Broker::getInstance();
-			if ($broker->hasClass($otherType->getClassName())) {
-				$classReflection = $broker->getClass($otherType->getClassName());
-				if ($classReflection->isFinal()) {
-					return TrinaryLogic::createNo();
-				}
-			}
-		}
-
-		return TrinaryLogic::createMaybe();
+		return $otherType->isOffsetAccessible()
+			->and($otherType->hasOffsetValueType($this->offsetType))
+			->and(TrinaryLogic::createMaybe());
 	}
 
 	public function equals(Type $type): bool
 	{
 		return $type instanceof self
-			&& $this->propertyName === $type->propertyName;
+			&& $this->offsetType->equals($type->offsetType);
 	}
 
 	public function describe(\PHPStan\Type\VerbosityLevel $level): string
 	{
-		return sprintf('hasProperty(%s)', $this->propertyName);
+		return sprintf('hasOffset(%s)', $this->offsetType->describe($level));
 	}
 
 	public function canAccessProperties(): TrinaryLogic
 	{
-		return TrinaryLogic::createYes();
+		return TrinaryLogic::createNo();
 	}
 
 	public function hasProperty(string $propertyName): bool
 	{
-		return $this->propertyName === $propertyName;
+		return false;
 	}
 
-	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	public function getProperty(
+		string $propertyName,
+		Scope $scope
+	): PropertyReflection
 	{
-		return new DummyPropertyReflection();
+		throw new \PHPStan\ShouldNotHappenException();
 	}
 
 	public function canCallMethods(): TrinaryLogic
 	{
-		return TrinaryLogic::createYes();
+		return TrinaryLogic::createNo();
 	}
 
 	public function hasMethod(string $methodName): bool
@@ -151,7 +113,7 @@ class HasPropertyType implements CompoundType, AccessoryType
 
 	public function canAccessConstants(): TrinaryLogic
 	{
-		return TrinaryLogic::createYes();
+		return TrinaryLogic::createNo();
 	}
 
 	public function hasConstant(string $constantName): bool
@@ -181,17 +143,18 @@ class HasPropertyType implements CompoundType, AccessoryType
 
 	public function isOffsetAccessible(): TrinaryLogic
 	{
-		return TrinaryLogic::createNo();
+		return TrinaryLogic::createYes();
 	}
 
 	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
 	{
-		return TrinaryLogic::createNo();
+		return $this->offsetType->isSuperTypeOf($offsetType)
+			->or(TrinaryLogic::createMaybe());
 	}
 
 	public function getOffsetValueType(Type $offsetType): Type
 	{
-		return new ErrorType();
+		return new MixedType();
 	}
 
 	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
@@ -211,7 +174,7 @@ class HasPropertyType implements CompoundType, AccessoryType
 
 	public function isCloneable(): TrinaryLogic
 	{
-		return TrinaryLogic::createYes();
+		return TrinaryLogic::createNo();
 	}
 
 	public function toNumber(): Type
@@ -236,12 +199,17 @@ class HasPropertyType implements CompoundType, AccessoryType
 
 	public function toArray(): Type
 	{
-		return new ArrayType(new MixedType(), new MixedType());
+		return new ErrorType();
+	}
+
+	public function toBoolean(): BooleanType
+	{
+		return new BooleanType();
 	}
 
 	public static function __set_state(array $properties): Type
 	{
-		return new self($properties['propertyName']);
+		return new self($properties['offsetType']);
 	}
 
 }

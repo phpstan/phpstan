@@ -684,38 +684,20 @@ class Scope
 
 		if ($node instanceof Expr\BinaryOp\Coalesce) {
 			if ($node->left instanceof Expr\ArrayDimFetch && $node->left->dim !== null) {
-				$arrays = TypeUtils::getConstantArrays($this->getType($node->left->var));
 				$dimType = $this->getType($node->left->dim);
-				if (count($arrays) > 0) {
-					$filteredValues = [];
-					$hasError = false;
-					foreach ($arrays as $array) {
-						$valueType = $array->getOffsetValueType($dimType);
-						if ($valueType instanceof ErrorType) {
-							$hasError = true;
-							continue;
-						}
-
-						if (!$array->hasOffsetValueType($dimType)->yes()) {
-							$hasError = true;
-						}
-
-						$filteredValues[] = $valueType;
-					}
-
-					if (count($filteredValues) > 0) {
-						if ($hasError) {
-							$filteredValues[] = $this->getType($node->right);
-						}
-
-						return TypeCombinator::union(...$filteredValues);
-					}
-
-					return $this->getType($node->right);
-				}
-
+				$varType = $this->getType($node->left->var);
+				$hasOffset = $varType->hasOffsetValueType($dimType);
 				$leftType = $this->getType($node->left);
 				$rightType = $this->getType($node->right);
+				if ($hasOffset->no()) {
+					return $rightType;
+				} elseif ($hasOffset->yes()) {
+					$offsetValueType = $varType->getOffsetValueType($dimType);
+					if ($offsetValueType->isSuperTypeOf(new NullType())->no()) {
+						return TypeCombinator::removeNull($leftType);
+					}
+				}
+
 				return TypeCombinator::union(
 					TypeCombinator::removeNull($leftType),
 					$rightType

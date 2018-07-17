@@ -206,4 +206,9 @@ class Foo
 		echo $this->propertyThatWillBeSetToArray['foo'];
 	}
 
+	public function offsetAccessArrayMaybe(array $strings)
+	{
+		echo $strings[0];
+	}
+
 }

@@ -19,13 +19,12 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Name;
 use PHPStan\Broker\Broker;
+use PHPStan\Type\Accessory\HasOffsetType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
-use PHPStan\Type\ErrorType;
-use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\NonexistentParentClassType;
 use PHPStan\Type\NullType;
@@ -343,38 +342,13 @@ class TypeSpecifier
 			foreach ($vars as $var) {
 				if ($expr instanceof Expr\Isset_) {
 					if ($var instanceof ArrayDimFetch && $var->dim !== null) {
-						$arrays = TypeUtils::getConstantArrays($scope->getType($var->var));
-						if (count($arrays) > 0) {
-							$offsetType = $scope->getType($var->dim);
-							$filteredArrays = [];
-							$filteredValues = [];
-							foreach ($arrays as $array) {
-								$valueType = $array->getOffsetValueType($offsetType);
-								if ($valueType instanceof ErrorType) {
-									continue;
-								}
-
-								$filteredArrays[] = $array->setOffsetValueType(
-									$offsetType,
-									TypeCombinator::removeNull($valueType)
-								);
-								$filteredValues[] = $valueType;
-							}
-
-							if (count($filteredArrays) > 0) {
-								$arrayTypeToSpecify = TypeCombinator::union(...$filteredArrays);
-							} else {
-								$arrayTypeToSpecify = new MixedType();
-							}
-
-							$type = $this->create(
-								$var->var,
-								$arrayTypeToSpecify,
-								$context
-							);
-						} else {
-							$type = $this->create($var, new NullType(), TypeSpecifierContext::createFalse());
-						}
+						$type = $this->create(
+							$var->var,
+							new HasOffsetType($scope->getType($var->dim)),
+							$context
+						)->unionWith(
+							$this->create($var, new NullType(), TypeSpecifierContext::createFalse())
+						);
 					} else {
 						$type = $this->create($var, new NullType(), TypeSpecifierContext::createFalse());
 					}

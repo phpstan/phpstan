@@ -405,6 +405,17 @@ class ObjectType implements TypeWithClassName
 		);
 	}
 
+	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
+	{
+		$broker = Broker::getInstance();
+		if (!$broker->hasClass($this->className)) {
+			return TrinaryLogic::createNo();
+		}
+
+		return $this->isExtraOffsetAccessibleClass()
+			->or($this->isInstanceOf(\ArrayAccess::class));
+	}
+
 	public function getOffsetValueType(Type $offsetType): Type
 	{
 		$broker = Broker::getInstance();
@@ -417,9 +428,8 @@ class ObjectType implements TypeWithClassName
 			return new MixedType();
 		}
 
-		$classReflection = $broker->getClass($this->className);
-
 		if ($this->isInstanceOf(\ArrayAccess::class)->yes()) {
+			$classReflection = $broker->getClass($this->className);
 			return RecursionGuard::run($this, function () use ($classReflection) {
 				return ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('offsetGet')->getVariants())->getReturnType();
 			});

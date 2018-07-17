@@ -50,6 +50,8 @@ interface Type
 
 	public function isOffsetAccessible(): TrinaryLogic;
 
+	public function hasOffsetValueType(Type $offsetType): TrinaryLogic;
+
 	public function getOffsetValueType(Type $offsetType): Type;
 
 	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type;

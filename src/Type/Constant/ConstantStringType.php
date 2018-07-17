@@ -161,6 +161,17 @@ class ConstantStringType extends StringType implements ConstantScalarType
 		return $type->toFloat();
 	}
 
+	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
+	{
+		if ($offsetType instanceof ConstantIntegerType) {
+			return TrinaryLogic::createFromBoolean(
+				$offsetType->getValue() < strlen($this->value)
+			);
+		}
+
+		return parent::hasOffsetValueType($offsetType);
+	}
+
 	public function getOffsetValueType(Type $offsetType): Type
 	{
 		if ($offsetType instanceof ConstantIntegerType) {

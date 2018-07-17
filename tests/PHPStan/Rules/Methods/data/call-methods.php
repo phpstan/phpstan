@@ -988,4 +988,22 @@ class IssetCumulativeArray
 		}
 	}
 
+	public function doLorem()
+	{
+		$arr = [1, 2, 3];
+		$cumulative = [];
+
+		foreach ($arr as $val) {
+			if (isset($cumulative[$val])) {
+				$cumulative[$val] = $cumulative[$val];
+			}
+
+			$cumulative[$val] = 1;
+		}
+
+		foreach ($cumulative as $c) {
+			$this->doBar($c);
+		}
+	}
+
 }

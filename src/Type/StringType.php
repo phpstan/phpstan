@@ -30,9 +30,14 @@ class StringType implements Type
 		return TrinaryLogic::createYes();
 	}
 
+	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
+	{
+		return (new IntegerType())->isSuperTypeOf($offsetType);
+	}
+
 	public function getOffsetValueType(Type $offsetType): Type
 	{
-		if ((new IntegerType())->isSuperTypeOf($offsetType)->yes()) {
+		if ($this->hasOffsetValueType($offsetType)->yes()) {
 			return new StringType();
 		}
 

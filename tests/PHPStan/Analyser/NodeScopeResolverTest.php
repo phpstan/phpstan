@@ -6901,7 +6901,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$array',
 			],
 			[
-				'array<int>',
+				'array<int>&hasOffset(\'a\')',
 				'$integers',
 			],
 			[
@@ -6919,6 +6919,18 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'bool',
 				'$lookup[$a] ?? false',
+			],
+			[
+				'\'foo\'|false',
+				'$nullableArray[\'a\'] ?? false',
+			],
+			[
+				'\'bar\'',
+				'$nullableArray[\'b\'] ?? false',
+			],
+			[
+				'\'baz\'|false',
+				'$nullableArray[\'c\'] ?? false',
 			],
 		];
 	}

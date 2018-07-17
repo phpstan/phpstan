@@ -382,8 +382,12 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				964,
 			],
 			[
-				'Parameter #1 $s of method Test\IssetCumulativeArray::doBar() expects string, float|int given.',
+				'Parameter #1 $s of method Test\IssetCumulativeArray::doBar() expects string, int given.',
 				987,
+			],
+			[
+				'Parameter #1 $s of method Test\IssetCumulativeArray::doBar() expects string, int given.',
+				1005,
 			],
 		]);
 	}
@@ -595,8 +599,12 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				964,
 			],
 			[
-				'Parameter #1 $s of method Test\IssetCumulativeArray::doBar() expects string, float|int given.',
+				'Parameter #1 $s of method Test\IssetCumulativeArray::doBar() expects string, int given.',
 				987,
+			],
+			[
+				'Parameter #1 $s of method Test\IssetCumulativeArray::doBar() expects string, int given.',
+				1005,
 			],
 		]);
 	}

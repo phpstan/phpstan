@@ -3,6 +3,7 @@
 namespace PHPStan\Type;
 
 use PHPStan\Type\Accessory\HasMethodType;
+use PHPStan\Type\Accessory\HasOffsetType;
 use PHPStan\Type\Accessory\HasPropertyType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
@@ -1138,6 +1139,75 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				],
 				UnionType::class,
 				'(Test\FirstInterface&hasProperty(fooProperty))|(Test\Foo&hasProperty(fooProperty))',
+			],
+			[
+				[
+					new ArrayType(new StringType(), new StringType()),
+					new HasOffsetType(new ConstantStringType('a')),
+				],
+				IntersectionType::class,
+				'array<string, string>&hasOffset(\'a\')',
+			],
+			[
+				[
+					new ConstantArrayType(
+						[new ConstantStringType('a')],
+						[new ConstantStringType('foo')]
+					),
+					new HasOffsetType(new ConstantStringType('a')),
+				],
+				ConstantArrayType::class,
+				'array(\'a\' => \'foo\')',
+			],
+			[
+				[
+					new ConstantArrayType(
+						[new ConstantStringType('a')],
+						[new ConstantStringType('foo')]
+					),
+					new HasOffsetType(new ConstantStringType('b')),
+				],
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				[
+					new ClosureType([], new MixedType(), false),
+					new HasOffsetType(new ConstantStringType('a')),
+				],
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				[
+					new UnionType([
+						new ConstantArrayType(
+							[new ConstantStringType('a')],
+							[new ConstantStringType('foo')]
+						),
+						new ConstantArrayType(
+							[new ConstantStringType('b')],
+							[new ConstantStringType('foo')]
+						),
+					]),
+					new HasOffsetType(new ConstantStringType('b')),
+				],
+				ConstantArrayType::class,
+				'array(\'b\' => \'foo\')',
+			],
+			[
+				[
+					new UnionType([
+						new ConstantArrayType(
+							[new ConstantStringType('a')],
+							[new ConstantStringType('foo')]
+						),
+						new ClosureType([], new MixedType(), false),
+					]),
+					new HasOffsetType(new ConstantStringType('a')),
+				],
+				ConstantArrayType::class,
+				'array(\'a\' => \'foo\')',
 			],
 		];
 	}

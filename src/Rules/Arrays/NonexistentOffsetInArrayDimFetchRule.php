@@ -6,6 +6,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeUtils;
 use PHPStan\Type\VerbosityLevel;
 
 class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
@@ -48,7 +49,7 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 					return $type->isOffsetAccessible()->yes();
 				}
 
-				return $type->isOffsetAccessible()->yes() && !$type->getOffsetValueType($dimType) instanceof ErrorType;
+				return $type->isOffsetAccessible()->yes() && $type->hasOffsetValueType($dimType)->yes();
 			}
 		);
 		$type = $typeResult->getType();
@@ -78,11 +79,18 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		if ($scope->isInExpressionAssign($node) || $scope->isSpecified($node)) {
+		if ($scope->isInExpressionAssign($node)) {
 			return [];
 		}
 
-		if ($type->getOffsetValueType($dimType) instanceof ErrorType) {
+		$hasOffsetValueType = $type->hasOffsetValueType($dimType);
+		if (TypeUtils::hasGeneralArray($type)) {
+			$report = $hasOffsetValueType->no();
+		} else {
+			$report = !$hasOffsetValueType->yes();
+		}
+
+		if ($report) {
 			return [
 				sprintf('Offset %s does not exist on %s.', $dimType->describe(VerbosityLevel::value()), $type->describe(VerbosityLevel::value())),
 			];

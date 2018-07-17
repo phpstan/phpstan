@@ -117,6 +117,11 @@ class NeverType implements CompoundType
 		return TrinaryLogic::createYes();
 	}
 
+	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
+	{
+		return TrinaryLogic::createYes();
+	}
+
 	public function getOffsetValueType(Type $offsetType): Type
 	{
 		return new NeverType();
