@@ -45,36 +45,30 @@ class StatDynamicReturnTypeExtension implements \PHPStan\Type\DynamicFunctionRet
 	private function getReturnType(): Type
 	{
 		$valueType = new IntegerType();
-
 		$builder = ConstantArrayTypeBuilder::createEmpty();
+		$keys = [
+			'dev',
+			'ino',
+			'mode',
+			'nlink',
+			'uid',
+			'gid',
+			'rdev',
+			'size',
+			'atime',
+			'mtime',
+			'ctime',
+			'blksize',
+			'blocks',
+		];
 
-		$builder->setOffsetValueType(null, $valueType);
-		$builder->setOffsetValueType(null, $valueType);
-		$builder->setOffsetValueType(null, $valueType);
-		$builder->setOffsetValueType(null, $valueType);
-		$builder->setOffsetValueType(null, $valueType);
-		$builder->setOffsetValueType(null, $valueType);
-		$builder->setOffsetValueType(null, $valueType);
-		$builder->setOffsetValueType(null, $valueType);
-		$builder->setOffsetValueType(null, $valueType);
-		$builder->setOffsetValueType(null, $valueType);
-		$builder->setOffsetValueType(null, $valueType);
-		$builder->setOffsetValueType(null, $valueType);
-		$builder->setOffsetValueType(null, $valueType);
+		foreach ($keys as $key) {
+			$builder->setOffsetValueType(null, $valueType);
+		}
 
-		$builder->setOffsetValueType(new ConstantStringType('dev'), $valueType);
-		$builder->setOffsetValueType(new ConstantStringType('ino'), $valueType);
-		$builder->setOffsetValueType(new ConstantStringType('mode'), $valueType);
-		$builder->setOffsetValueType(new ConstantStringType('nlink'), $valueType);
-		$builder->setOffsetValueType(new ConstantStringType('uid'), $valueType);
-		$builder->setOffsetValueType(new ConstantStringType('gid'), $valueType);
-		$builder->setOffsetValueType(new ConstantStringType('rdev'), $valueType);
-		$builder->setOffsetValueType(new ConstantStringType('size'), $valueType);
-		$builder->setOffsetValueType(new ConstantStringType('atime'), $valueType);
-		$builder->setOffsetValueType(new ConstantStringType('mtime'), $valueType);
-		$builder->setOffsetValueType(new ConstantStringType('ctime'), $valueType);
-		$builder->setOffsetValueType(new ConstantStringType('blksize'), $valueType);
-		$builder->setOffsetValueType(new ConstantStringType('blocks'), $valueType);
+		foreach ($keys as $key) {
+			$builder->setOffsetValueType(new ConstantStringType($key), $valueType);
+		}
 
 		return TypeCombinator::union($builder->getArray(), new ConstantBooleanType(false));
 	}

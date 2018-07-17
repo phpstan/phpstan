@@ -22,22 +22,26 @@ class DioStatDynamicFunctionReturnTypeExtension implements \PHPStan\Type\Dynamic
 	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
 	{
 		$valueType = new IntegerType();
-
 		$builder = ConstantArrayTypeBuilder::createEmpty();
+		$keys = [
+			'device',
+			'inode',
+			'mode',
+			'nlink',
+			'uid',
+			'gid',
+			'device_type',
+			'size',
+			'blocksize',
+			'blocks',
+			'atime',
+			'mtime',
+			'ctime',
+		];
 
-		$builder->setOffsetValueType(new ConstantStringType('device'), $valueType);
-		$builder->setOffsetValueType(new ConstantStringType('inode'), $valueType);
-		$builder->setOffsetValueType(new ConstantStringType('mode'), $valueType);
-		$builder->setOffsetValueType(new ConstantStringType('nlink'), $valueType);
-		$builder->setOffsetValueType(new ConstantStringType('uid'), $valueType);
-		$builder->setOffsetValueType(new ConstantStringType('gid'), $valueType);
-		$builder->setOffsetValueType(new ConstantStringType('device_type'), $valueType);
-		$builder->setOffsetValueType(new ConstantStringType('size'), $valueType);
-		$builder->setOffsetValueType(new ConstantStringType('blocksize'), $valueType);
-		$builder->setOffsetValueType(new ConstantStringType('blocks'), $valueType);
-		$builder->setOffsetValueType(new ConstantStringType('atime'), $valueType);
-		$builder->setOffsetValueType(new ConstantStringType('mtime'), $valueType);
-		$builder->setOffsetValueType(new ConstantStringType('ctime'), $valueType);
+		foreach ($keys as $key) {
+			$builder->setOffsetValueType(new ConstantStringType($key), $valueType);
+		}
 
 		return TypeCombinator::addNull($builder->getArray());
 	}
