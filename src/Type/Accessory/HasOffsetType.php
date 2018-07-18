@@ -96,7 +96,7 @@ class HasOffsetType implements CompoundType, AccessoryType
 
 	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
 	{
-		return new MixedType();
+		return $this;
 	}
 
 	public function toNumber(): Type
