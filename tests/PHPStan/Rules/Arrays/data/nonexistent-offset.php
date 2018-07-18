@@ -243,4 +243,22 @@ class Foo
 		}
 	}
 
+	public function issetEliminatesOffsetInaccessibleType()
+	{
+		$a = ['a' => 1, 'b' => 1];
+		if (rand(0, 1) === 1) {
+			$a = function () {
+
+			};
+			if (isset($a['a'])) {
+
+			}
+		}
+
+		if (isset($a['a'])) {
+			echo $a['a'];
+			echo $a['b'];
+		}
+	}
+
 }

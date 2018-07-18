@@ -56,7 +56,14 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 		if ($type instanceof ErrorType) {
 			return $typeResult->getUnknownClassErrors();
 		}
-		if (!$type->isOffsetAccessible()->yes()) {
+
+		$isOffsetAccessible = $type->isOffsetAccessible();
+
+		if ($scope->isInExpressionAssign($node) && !$isOffsetAccessible->no()) {
+			return [];
+		}
+
+		if (!$isOffsetAccessible->yes()) {
 			if ($dimType !== null) {
 				return [
 					sprintf(
@@ -76,10 +83,6 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 		}
 
 		if ($dimType === null) {
-			return [];
-		}
-
-		if ($scope->isInExpressionAssign($node)) {
 			return [];
 		}
 

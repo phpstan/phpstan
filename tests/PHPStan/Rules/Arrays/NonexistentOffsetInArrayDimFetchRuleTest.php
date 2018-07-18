@@ -73,6 +73,10 @@ class NonexistentOffsetInArrayDimFetchRuleTest extends \PHPStan\Testing\RuleTest
 				'Offset string does not exist on array<int, mixed>.',
 				240,
 			],
+			[
+				'Cannot access offset \'a\' on Closure<mixed>.',
+				253,
+			],
 		]);
 	}
 
