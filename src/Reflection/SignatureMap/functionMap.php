@@ -5520,7 +5520,7 @@ return [
 'kadm5_get_principals' => ['array', 'handle'=>'resource'],
 'kadm5_init_with_password' => ['resource', 'admin_server'=>'string', 'realm'=>'string', 'principal'=>'string', 'password'=>'string'],
 'kadm5_modify_principal' => ['bool', 'handle'=>'resource', 'principal'=>'string', 'options'=>'array'],
-'key' => ['int|string|false', 'array_arg'=>'array|object'],
+'key' => ['int|string|null', 'array_arg'=>'array|object'],
 'key_exists' => ['bool', 'key'=>'string|int', 'search'=>'array'],
 'krsort' => ['bool', '&rw_array_arg'=>'array', 'sort_flags='=>'int'],
 'ksort' => ['bool', '&rw_array_arg'=>'array', 'sort_flags='=>'int'],
