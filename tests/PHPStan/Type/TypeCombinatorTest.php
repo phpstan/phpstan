@@ -1225,6 +1225,14 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				ClosureType::class,
 				'Closure<mixed>',
 			],
+			[
+				[
+					new ClosureType([], new MixedType(), false),
+					new ObjectWithoutClassType(),
+				],
+				ClosureType::class,
+				'Closure<mixed>',
+			],
 		];
 	}
 
