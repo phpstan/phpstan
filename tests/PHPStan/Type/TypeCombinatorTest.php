@@ -1209,6 +1209,22 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				ConstantArrayType::class,
 				'array(\'a\' => \'foo\')',
 			],
+			[
+				[
+					new ClosureType([], new MixedType(), false),
+					new ObjectType(\Closure::class),
+				],
+				ClosureType::class,
+				'Closure<mixed>',
+			],
+			[
+				[
+					new ClosureType([], new MixedType(), false),
+					new CallableType(),
+				],
+				ClosureType::class,
+				'Closure<mixed>',
+			],
 		];
 	}
 

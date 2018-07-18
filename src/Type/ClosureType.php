@@ -12,7 +12,7 @@ use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 
-class ClosureType implements CompoundType, ParametersAcceptor
+class ClosureType implements Type, ParametersAcceptor
 {
 
 	/** @var ObjectType */
@@ -67,28 +67,15 @@ class ClosureType implements CompoundType, ParametersAcceptor
 			return $type->isSubTypeOf($this);
 		}
 
-		return TrinaryLogic::createNo();
-	}
+		if ($type instanceof ObjectWithoutClassType) {
+			return TrinaryLogic::createMaybe();
+		}
 
-	public function isSubTypeOf(Type $otherType): TrinaryLogic
-	{
 		if (
-			$otherType instanceof self
-			|| $otherType instanceof UnionType
-			|| $otherType instanceof IntersectionType
+			$type instanceof TypeWithClassName
+			&& $type->getClassName() === \Closure::class
 		) {
-			return $otherType->isSuperTypeOf($this);
-		}
-
-		$otherTypeCallable = $otherType->isCallable();
-		if (!$otherTypeCallable->no()) {
-			return $otherTypeCallable;
-		}
-
-		if ($otherType instanceof TypeWithClassName) {
-			if ($otherType->getClassName() === \Closure::class) {
-				return TrinaryLogic::createYes();
-			}
+			return TrinaryLogic::createMaybe();
 		}
 
 		return TrinaryLogic::createNo();

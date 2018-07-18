@@ -59,6 +59,10 @@ class ObjectWithoutClassType implements Type
 			return TrinaryLogic::createYes();
 		}
 
+		if ($type instanceof ClosureType) {
+			return TrinaryLogic::createYes();
+		}
+
 		return TrinaryLogic::createNo();
 	}
 

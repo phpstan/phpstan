@@ -72,6 +72,10 @@ class ObjectType implements TypeWithClassName
 			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
 		}
 
+		if ($type instanceof ClosureType) {
+			return $this->isInstanceOf(\Closure::class);
+		}
+
 		if (!$type instanceof TypeWithClassName) {
 			return TrinaryLogic::createNo();
 		}
@@ -87,6 +91,10 @@ class ObjectType implements TypeWithClassName
 
 		if ($type instanceof ObjectWithoutClassType) {
 			return TrinaryLogic::createMaybe();
+		}
+
+		if ($type instanceof ClosureType) {
+			return $this->isInstanceOf(\Closure::class);
 		}
 
 		if (!$type instanceof TypeWithClassName) {
