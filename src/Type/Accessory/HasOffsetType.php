@@ -8,6 +8,7 @@ use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\CompoundType;
+use PHPStan\Type\CompoundTypeHelper;
 use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\IntersectionType;
@@ -40,38 +41,29 @@ class HasOffsetType implements CompoundType, AccessoryType
 
 	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
-		return $type->hasOffsetValueType($this->offsetType);
-	}
-
-	public function isSuperTypeOf(Type $type): TrinaryLogic
-	{
-		if ($type instanceof self) {
-			return $this->equals($type)
-				? TrinaryLogic::createYes()
-				: TrinaryLogic::createMaybe();
-		}
-
 		if ($type instanceof CompoundType) {
-			return $type->isSubTypeOf($this);
+			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
 		}
 
 		return $type->isOffsetAccessible()
 			->and($type->hasOffsetValueType($this->offsetType));
 	}
 
+	public function isSuperTypeOf(Type $type): TrinaryLogic
+	{
+		return $type->isOffsetAccessible()
+			->and($type->hasOffsetValueType($this->offsetType));
+	}
+
 	public function isSubTypeOf(Type $otherType): TrinaryLogic
 	{
-		if (
-			$otherType instanceof self
-			|| $otherType instanceof UnionType
-			|| $otherType instanceof IntersectionType
-		) {
+		if ($otherType instanceof UnionType || $otherType instanceof IntersectionType) {
 			return $otherType->isSuperTypeOf($this);
 		}
 
 		return $otherType->isOffsetAccessible()
 			->and($otherType->hasOffsetValueType($this->offsetType))
-			->and(TrinaryLogic::createMaybe());
+			->and($otherType instanceof self ? TrinaryLogic::createYes() : TrinaryLogic::createMaybe());
 	}
 
 	public function equals(Type $type): bool
