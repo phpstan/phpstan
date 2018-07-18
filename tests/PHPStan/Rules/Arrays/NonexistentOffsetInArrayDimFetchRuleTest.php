@@ -53,14 +53,14 @@ class NonexistentOffsetInArrayDimFetchRuleTest extends \PHPStan\Testing\RuleTest
 				'Offset \'c\' does not exist on array(\'c\' => bool)|array(\'e\' => true).',
 				171,
 			],
-			/*[
+			[
 				'Offset int does not exist on array()|array(1 => 1, 2 => 2)|array(3 => 3, 4 => 4).',
 				190,
 			],
 			[
 				'Offset int does not exist on array()|array(1 => 1, 2 => 2)|array(3 => 3, 4 => 4).',
 				193,
-			],*/
+			],
 			[
 				'Offset \'b\' does not exist on array(\'a\' => \'blabla\').',
 				225,
