@@ -2,10 +2,6 @@
 
 namespace PHPStan\Type\Accessory;
 
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ConstantReflection;
-use PHPStan\Reflection\MethodReflection;
-use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\CompoundTypeHelper;
@@ -15,6 +11,7 @@ use PHPStan\Type\IntersectionType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\MaybeIterableTypeTrait;
+use PHPStan\Type\Traits\MaybeObjectTypeTrait;
 use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
@@ -24,6 +21,7 @@ class HasOffsetType implements CompoundType, AccessoryType
 
 	use MaybeCallableTypeTrait;
 	use MaybeIterableTypeTrait;
+	use MaybeObjectTypeTrait;
 	use UndecidedBooleanTypeTrait;
 
 	/** @var \PHPStan\Type\Type */
@@ -77,54 +75,6 @@ class HasOffsetType implements CompoundType, AccessoryType
 		return sprintf('hasOffset(%s)', $this->offsetType->describe($level));
 	}
 
-	public function canAccessProperties(): TrinaryLogic
-	{
-		return TrinaryLogic::createMaybe();
-	}
-
-	public function hasProperty(string $propertyName): bool
-	{
-		return false;
-	}
-
-	public function getProperty(
-		string $propertyName,
-		Scope $scope
-	): PropertyReflection
-	{
-		throw new \PHPStan\ShouldNotHappenException();
-	}
-
-	public function canCallMethods(): TrinaryLogic
-	{
-		return TrinaryLogic::createMaybe();
-	}
-
-	public function hasMethod(string $methodName): bool
-	{
-		return false;
-	}
-
-	public function getMethod(string $methodName, Scope $scope): MethodReflection
-	{
-		throw new \PHPStan\ShouldNotHappenException();
-	}
-
-	public function canAccessConstants(): TrinaryLogic
-	{
-		return TrinaryLogic::createMaybe();
-	}
-
-	public function hasConstant(string $constantName): bool
-	{
-		return false;
-	}
-
-	public function getConstant(string $constantName): ConstantReflection
-	{
-		throw new \PHPStan\ShouldNotHappenException();
-	}
-
 	public function isOffsetAccessible(): TrinaryLogic
 	{
 		return TrinaryLogic::createYes();
@@ -147,11 +97,6 @@ class HasOffsetType implements CompoundType, AccessoryType
 	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
 	{
 		return new MixedType();
-	}
-
-	public function isCloneable(): TrinaryLogic
-	{
-		return TrinaryLogic::createMaybe();
 	}
 
 	public function toNumber(): Type

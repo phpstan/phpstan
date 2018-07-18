@@ -58,7 +58,7 @@ trait MaybeObjectTypeTrait
 
 	public function isCloneable(): TrinaryLogic
 	{
-		return TrinaryLogic::createYes();
+		return TrinaryLogic::createMaybe();
 	}
 
 }
