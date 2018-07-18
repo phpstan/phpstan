@@ -4,6 +4,7 @@ namespace PHPStan\Rules\Arrays;
 
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\RuleLevelHelper;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeUtils;
@@ -84,13 +85,15 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 		}
 
 		$hasOffsetValueType = $type->hasOffsetValueType($dimType);
-		if (TypeUtils::hasGeneralArray($type)) {
-			$report = $hasOffsetValueType->no();
-		} else {
-			$report = !$hasOffsetValueType->yes();
+		if (
+			$hasOffsetValueType->maybe()
+			&& count(TypeUtils::getConstantArrays($type)) > 0
+			&& count(TypeUtils::getConstantScalars($dimType)) > 0
+		) {
+			$hasOffsetValueType = TrinaryLogic::createNo();
 		}
 
-		if ($report) {
+		if ($hasOffsetValueType->no()) {
 			return [
 				sprintf('Offset %s does not exist on %s.', $dimType->describe(VerbosityLevel::value()), $type->describe(VerbosityLevel::value())),
 			];

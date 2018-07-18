@@ -2,7 +2,6 @@
 
 namespace PHPStan\Type;
 
-use PHPStan\Type\Accessory\HasOffsetType;
 use PHPStan\Type\Accessory\HasPropertyType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantStringType;
@@ -105,7 +104,7 @@ class TypeUtils
 			return [$type];
 		}
 
-		if ($type instanceof UnionType) {
+		if ($type instanceof UnionType || $type instanceof IntersectionType) {
 			$constantScalarValues = [];
 			foreach ($type->getTypes() as $innerType) {
 				if (!$innerType instanceof $typeClass) {
@@ -150,27 +149,6 @@ class TypeUtils
 		}
 
 		return null;
-	}
-
-	public static function hasGeneralArray(Type $type): bool
-	{
-		if ($type instanceof HasOffsetType) {
-			return true;
-		}
-
-		if ($type instanceof ArrayType && !$type instanceof ConstantArrayType) {
-			return true;
-		}
-
-		if ($type instanceof UnionType || $type instanceof IntersectionType) {
-			foreach ($type->getTypes() as $innerType) {
-				if ($innerType instanceof ArrayType && !$innerType instanceof ConstantArrayType) {
-					return true;
-				}
-			}
-		}
-
-		return false;
 	}
 
 	/**
