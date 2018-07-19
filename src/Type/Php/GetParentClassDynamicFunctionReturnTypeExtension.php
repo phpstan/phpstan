@@ -39,7 +39,13 @@ class GetParentClassDynamicFunctionReturnTypeExtension implements \PHPStan\Type\
 		Scope $scope
 	): Type
 	{
+		$defaultReturnType = ParametersAcceptorSelector::selectSingle(
+			$functionReflection->getVariants()
+		)->getReturnType();
 		if (count($functionCall->args) === 0) {
+			if ($scope->isInTrait()) {
+				return $defaultReturnType;
+			}
 			if ($scope->isInClass()) {
 				return $this->findParentClassType(
 					$scope->getClassReflection()
@@ -50,6 +56,10 @@ class GetParentClassDynamicFunctionReturnTypeExtension implements \PHPStan\Type\
 		}
 
 		$argType = $scope->getType($functionCall->args[0]->value);
+		if ($scope->isInTrait() && TypeUtils::findThisType($argType) !== null) {
+			return $defaultReturnType;
+		}
+
 		$constantStrings = TypeUtils::getConstantStrings($argType);
 		if (count($constantStrings) > 0) {
 			return \PHPStan\Type\TypeCombinator::union(...array_map(function (ConstantStringType $stringType): Type {
@@ -64,9 +74,7 @@ class GetParentClassDynamicFunctionReturnTypeExtension implements \PHPStan\Type\
 			}, $classNames));
 		}
 
-		return ParametersAcceptorSelector::selectSingle(
-			$functionReflection->getVariants()
-		)->getReturnType();
+		return $defaultReturnType;
 	}
 
 	private function findParentClassNameType(string $className): Type

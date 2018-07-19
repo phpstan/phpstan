@@ -7097,6 +7097,16 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'get_parent_class($this)',
 				"'inChildClass'",
 			],
+			[
+				'string|false',
+				'get_parent_class()',
+				"'inTrait'",
+			],
+			[
+				'string|false',
+				'get_parent_class($this)',
+				"'inTrait'",
+			],
 		];
 	}
 
