@@ -161,3 +161,18 @@ class Collection implements \IteratorAggregate
 	}
 
 }
+
+class SimpleXMLElementAccepts
+{
+
+	public function doFoo(\SimpleXMLElement $xml)
+	{
+		$xml->foo = 'foo';
+		$xml->bar = 1.234;
+		$xml->baz = true;
+		$xml->lorem = false;
+		$xml->ipsum = 1024;
+		$xml->test = $xml;
+	}
+
+}
