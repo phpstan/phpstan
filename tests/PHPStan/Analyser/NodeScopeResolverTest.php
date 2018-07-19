@@ -7022,6 +7022,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'string',
 				'$mixed',
 			],
+			[
+				'string',
+				'$r',
+			],
+			[
+				'\'foo\'',
+				'$fooOrBarOrBaz',
+			],
 		];
 	}
 
