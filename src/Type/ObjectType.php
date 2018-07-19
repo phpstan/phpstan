@@ -77,7 +77,7 @@ class ObjectType implements TypeWithClassName
 		}
 
 		if (
-			$this->isInstanceOf(\SimpleXMLElement::class)->yes()
+			$this->isInstanceOf('SimpleXMLElement')->yes()
 			&& $type->isSuperTypeOf($this)->no()
 		) {
 			return (new UnionType([
@@ -207,7 +207,7 @@ class ObjectType implements TypeWithClassName
 
 	public function toNumber(): Type
 	{
-		if ($this->isInstanceOf(\SimpleXMLElement::class)->yes()) {
+		if ($this->isInstanceOf('SimpleXMLElement')->yes()) {
 			return new UnionType([
 				new FloatType(),
 				new IntegerType(),
@@ -219,7 +219,7 @@ class ObjectType implements TypeWithClassName
 
 	public function toInteger(): Type
 	{
-		if ($this->isInstanceOf(\SimpleXMLElement::class)->yes()) {
+		if ($this->isInstanceOf('SimpleXMLElement')->yes()) {
 			return new IntegerType();
 		}
 
@@ -228,7 +228,7 @@ class ObjectType implements TypeWithClassName
 
 	public function toFloat(): Type
 	{
-		if ($this->isInstanceOf(\SimpleXMLElement::class)->yes()) {
+		if ($this->isInstanceOf('SimpleXMLElement')->yes()) {
 			return new FloatType();
 		}
 		return new ErrorType();
