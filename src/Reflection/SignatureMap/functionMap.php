@@ -1911,7 +1911,7 @@ return [
 'DOMDocument::createEntityReference' => ['DOMEntityReference', 'name'=>'string'],
 'DOMDocument::createProcessingInstruction' => ['DOMProcessingInstruction', 'target'=>'string', 'data='=>'string'],
 'DOMDocument::createTextNode' => ['DOMText', 'content'=>'string'],
-'DOMDocument::getElementById' => ['DOMElement', 'elementid'=>'string'],
+'DOMDocument::getElementById' => ['DOMElement|null', 'elementid'=>'string'],
 'DOMDocument::getElementsByTagName' => ['DOMNodeList', 'name'=>'string'],
 'DOMDocument::getElementsByTagNameNS' => ['DOMNodeList', 'namespaceuri'=>'string', 'localname'=>'string'],
 'DOMDocument::importNode' => ['DOMNode', 'importednode'=>'DOMNode', 'deep='=>'bool'],
