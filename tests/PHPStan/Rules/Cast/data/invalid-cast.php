@@ -46,3 +46,13 @@ function (
 	$arrayOrFloatOrInt = doFoo();
 	(string) $arrayOrFloatOrInt;
 };
+
+function (
+	\SimpleXMLElement $xml
+)
+{
+	(float) $xml;
+	(int) $xml;
+	(string) $xml;
+	(bool) $xml;
+};

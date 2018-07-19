@@ -195,16 +195,30 @@ class ObjectType implements TypeWithClassName
 
 	public function toNumber(): Type
 	{
+		if ($this->isInstanceOf(\SimpleXMLElement::class)->yes()) {
+			return new UnionType([
+				new FloatType(),
+				new IntegerType(),
+			]);
+		}
+
 		return new ErrorType();
 	}
 
 	public function toInteger(): Type
 	{
+		if ($this->isInstanceOf(\SimpleXMLElement::class)->yes()) {
+			return new IntegerType();
+		}
+
 		return new ErrorType();
 	}
 
 	public function toFloat(): Type
 	{
+		if ($this->isInstanceOf(\SimpleXMLElement::class)->yes()) {
+			return new FloatType();
+		}
 		return new ErrorType();
 	}
 
