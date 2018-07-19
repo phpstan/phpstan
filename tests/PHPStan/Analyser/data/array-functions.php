@@ -87,6 +87,9 @@ $generalDateTimeValues = doFoo();
 /** @var int $integer */
 $integer = doFoo();
 
+/** @var string $string */
+$string = doFoo();
+
 $mappedStringKeys = array_map(function (): \stdClass {
 
 }, $generalStringKeys);
