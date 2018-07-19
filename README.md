@@ -70,7 +70,7 @@ Unofficial extensions for other frameworks and libraries are also available:
 
 * [Phony](https://github.com/eloquent/phpstan-phony)
 * [Prophecy](https://github.com/Jan0707/phpstan-prophecy)
-* [Laravel](https://github.com/Weebly/phpstan-laravel)
+* [Laravel](https://github.com/nunomaduro/larastan)
 
 New extensions are becoming available on a regular basis!
 
