@@ -32,7 +32,21 @@ class Foo
 			];
 		}
 
+		$arrayCopy = $array;
+		$anotherArrayCopy = $array;
+		$yetAnotherArrayCopy = $array;
+
 		if (!isset($array['b'])) {
+			return;
+		}
+
+		if (!array_key_exists('b', $arrayCopy)) {
+			return;
+		}
+		if (array_key_exists('b', $anotherArrayCopy)) {
+			return;
+		}
+		if (array_key_exists($string, $yetAnotherArrayCopy)) {
 			return;
 		}
 

@@ -289,3 +289,29 @@ class InArray
 	}
 
 }
+
+class ArrayKeyExists
+{
+
+	public function doFoo(string $s)
+	{
+		$a = ['a' => 1];
+		if (rand(0, 1) === 1) {
+			$a['b'] = 2;
+		}
+
+		if (array_key_exists('a', $a)) {
+
+		}
+		if (array_key_exists('b', $a)) {
+
+		}
+		if (array_key_exists('c', $a)) {
+
+		}
+		if (array_key_exists($s, $a)) {
+
+		}
+	}
+
+}

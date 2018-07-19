@@ -6909,6 +6909,18 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$array',
 			],
 			[
+				'array(\'a\' => 1|3, \'b\' => 2|3|null, ?\'c\' => 4)',
+				'$arrayCopy',
+			],
+			[
+				'array(\'a\' => 2)',
+				'$anotherArrayCopy',
+			],
+			[
+				'array(\'a\' => 1|2|3, ?\'b\' => 2|3|null, ?\'c\' => 4)',
+				'$yetAnotherArrayCopy',
+			],
+			[
 				'array<int>&hasOffset(\'a\')',
 				'$integers',
 			],
