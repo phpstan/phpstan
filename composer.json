@@ -1,17 +1,9 @@
 {
 	"name": "phpstan/phpstan",
 	"description": "PHPStan - PHP Static Analysis Tool",
-	"license": ["MIT"],
-	"bin": [
-		"bin/phpstan"
+	"license": [
+		"MIT"
 	],
-	"extra": {
-		"branch-alias": {
-			"dev-master": "0.10-dev"
-		}
-	},
-	"minimum-stability": "dev",
-	"prefer-stable": true,
 	"require": {
 		"php": "~7.1",
 		"composer/xdebug-handler": "^1.0",
@@ -42,13 +34,30 @@
 		"phpunit/phpunit": "^7.0",
 		"slevomat/coding-standard": "^4.6.2"
 	},
-	"autoload": {
-		"psr-4": {"PHPStan\\": ["src/", "build/PHPStan"]}
-	},
-	"autoload-dev": {
-		"classmap": ["tests/PHPStan"]
-	},
 	"config": {
 		"sort-packages": true
-	}
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "0.10-dev"
+		}
+	},
+	"autoload": {
+		"psr-4": {
+			"PHPStan\\": [
+				"src/",
+				"build/PHPStan"
+			]
+		}
+	},
+	"autoload-dev": {
+		"classmap": [
+			"tests/PHPStan"
+		]
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"bin": [
+		"bin/phpstan"
+	]
 }
