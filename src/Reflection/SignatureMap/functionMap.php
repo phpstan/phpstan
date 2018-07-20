@@ -10026,7 +10026,7 @@ return [
 'socket_sendto' => ['int', 'socket'=>'resource', 'buf'=>'string', 'len'=>'int', 'flags'=>'int', 'addr'=>'string', 'port='=>'int'],
 'socket_set_block' => ['bool', 'socket'=>'resource'],
 'socket_set_nonblock' => ['bool', 'socket'=>'resource'],
-'socket_set_option' => ['bool', 'socket'=>'resource', 'level'=>'int', 'optname'=>'int', 'optval'=>'int|array'],
+'socket_set_option' => ['bool', 'socket'=>'resource', 'level'=>'int', 'optname'=>'int', 'optval'=>'int|string|array'],
 'socket_shutdown' => ['bool', 'socket'=>'resource', 'how='=>'int'],
 'socket_strerror' => ['string', 'errno'=>'int'],
 'socket_write' => ['int|false', 'socket'=>'resource', 'buf'=>'string', 'length='=>'int'],
