@@ -120,11 +120,6 @@ services:
 			internalErrorsCountLimit: %internalErrorsCountLimit%
 
 	-
-		implement: PHPStan\Analyser\ScopeFactory
-		arguments:
-			dynamicConstantNames: %dynamicConstantNames%
-
-	-
 		class: PHPStan\Analyser\NodeScopeResolver
 		arguments:
 			polluteScopeWithLoopInitialAssignments: %polluteScopeWithLoopInitialAssignments%
@@ -520,6 +515,11 @@ services:
 	registry:
 		class: PHPStan\Rules\Registry
 		factory: @PHPStan\Rules\RegistryFactory::create
+
+	scopeFactory:
+		implement: PHPStan\Analyser\ScopeFactory
+		arguments:
+			dynamicConstantNames: %dynamicConstantNames%
 
 	errorFormatter.raw:
 		class: PHPStan\Command\ErrorFormatter\RawErrorFormatter
