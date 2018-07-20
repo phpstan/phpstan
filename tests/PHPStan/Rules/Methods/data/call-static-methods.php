@@ -190,3 +190,27 @@ class ClassOrString
 	}
 
 }
+
+interface InterfaceWithStaticMethod
+{
+
+	public static function doFoo();
+
+	public function doInstanceFoo();
+
+}
+
+class CallStaticMethodOnAnInterface
+{
+
+	public function doFoo(InterfaceWithStaticMethod $foo)
+	{
+		InterfaceWithStaticMethod::doFoo();
+		InterfaceWithStaticMethod::doBar();
+		$foo::doFoo(); // fine - it's an object
+
+		InterfaceWithStaticMethod::doInstanceFoo();
+		$foo::doInstanceFoo();
+	}
+
+}
