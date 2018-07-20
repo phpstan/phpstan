@@ -1,8 +1,8 @@
 <!-- Before reporting an issue please check that you are using the latest PHPStan version! -->
 
-### Summary of a problem or a feature request
+### Summary of the problem
 
-<!-- Please describe your problem/feature request here. -->
+<!-- Please describe your problem here. -->
 
 
 ### Code snippet that reproduces the problem
