@@ -67,6 +67,7 @@
 				passthru="true"
 				checkreturn="true"
 		>
+			<arg value="--colors"/>
 			<arg value="--exclude"/>
 			<arg path="tests/PHPStan/Analyser/data"/>
 			<arg value="--exclude"/>
@@ -87,6 +88,7 @@
 				passthru="true"
 				checkreturn="true"
 		>
+			<arg value="--colors"/>
 			<arg value="--extensions=php"/>
 			<arg value="--encoding=utf-8"/>
 			<arg value="--tab-width=4"/>
@@ -104,6 +106,7 @@
 				passthru="true"
 				checkreturn="true"
 		>
+			<arg value="--colors"/>
 			<arg value="--extensions=php"/>
 			<arg value="--encoding=utf-8"/>
 			<arg value="--tab-width=4"/>
