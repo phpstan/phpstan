@@ -24,6 +24,7 @@ parameters:
 	ignoreErrors: []
 	internalErrorsCountLimit: 50
 	reportUnmatchedIgnoredErrors: true
+	scopeClass: PHPStan\Analyser\Scope
 	universalObjectCratesClasses:
 		- stdClass
 		- SimpleXMLElement
@@ -120,8 +121,9 @@ services:
 			internalErrorsCountLimit: %internalErrorsCountLimit%
 
 	-
-		implement: PHPStan\Analyser\ScopeFactory
+		class: PHPStan\Analyser\ScopeFactory
 		arguments:
+			scopeClass: %scopeClass%
 			dynamicConstantNames: %dynamicConstantNames%
 
 	-

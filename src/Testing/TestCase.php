@@ -2,10 +2,8 @@
 
 namespace PHPStan\Testing;
 
-use PhpParser\Node\Expr;
 use PhpParser\PrettyPrinter\Standard;
 use PHPStan\Analyser\Scope;
-use PHPStan\Analyser\ScopeContext;
 use PHPStan\Analyser\ScopeFactory;
 use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Analyser\TypeSpecifierFactory;
@@ -247,86 +245,13 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	 */
 	public function createScopeFactory(Broker $broker, TypeSpecifier $typeSpecifier, array $dynamicConstantNames = []): ScopeFactory
 	{
-		return new class($broker, $typeSpecifier, $dynamicConstantNames) implements ScopeFactory {
-
-			/** @var \PHPStan\Broker\Broker */
-			private $broker;
-
-			/** @var \PhpParser\PrettyPrinter\Standard */
-			private $printer;
-
-			/** @var \PHPStan\Analyser\TypeSpecifier */
-			private $typeSpecifier;
-
-			/** @var string[] */
-			private $dynamicConstantNames;
-
-			/**
-			 * @param Broker $broker
-			 * @param TypeSpecifier $typeSpecifier
-			 * @param string[] $dynamicConstantNames
-			 */
-			public function __construct(Broker $broker, TypeSpecifier $typeSpecifier, array $dynamicConstantNames)
-			{
-				$this->broker = $broker;
-				$this->printer = new \PhpParser\PrettyPrinter\Standard();
-				$this->typeSpecifier = $typeSpecifier;
-				$this->dynamicConstantNames = $dynamicConstantNames;
-			}
-
-			/**
-			 * @param \PHPStan\Analyser\ScopeContext $context
-			 * @param bool $declareStrictTypes
-			 * @param \PHPStan\Reflection\FunctionReflection|\PHPStan\Reflection\MethodReflection|null $function
-			 * @param string|null $namespace
-			 * @param \PHPStan\Analyser\VariableTypeHolder[] $variablesTypes
-			 * @param \PHPStan\Analyser\VariableTypeHolder[] $moreSpecificTypes
-			 * @param string|null $inClosureBindScopeClass
-			 * @param \PHPStan\Type\Type|null $inAnonymousFunctionReturnType
-			 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null $inFunctionCall
-			 * @param bool $negated
-			 * @param bool $inFirstLevelStatement
-			 * @param string[] $currentlyAssignedExpressions
-			 *
-			 * @return Scope
-			 */
-			public function create(
-				ScopeContext $context,
-				bool $declareStrictTypes = false,
-				$function = null,
-				?string $namespace = null,
-				array $variablesTypes = [],
-				array $moreSpecificTypes = [],
-				?string $inClosureBindScopeClass = null,
-				?Type $inAnonymousFunctionReturnType = null,
-				?Expr $inFunctionCall = null,
-				bool $negated = false,
-				bool $inFirstLevelStatement = true,
-				array $currentlyAssignedExpressions = []
-			): Scope
-			{
-				return new Scope(
-					$this,
-					$this->broker,
-					$this->printer,
-					$this->typeSpecifier,
-					$context,
-					$declareStrictTypes,
-					$function,
-					$namespace,
-					$variablesTypes,
-					$moreSpecificTypes,
-					$inClosureBindScopeClass,
-					$inAnonymousFunctionReturnType,
-					$inFunctionCall,
-					$negated,
-					$inFirstLevelStatement,
-					$currentlyAssignedExpressions,
-					$this->dynamicConstantNames
-				);
-			}
-
-		};
+		return new ScopeFactory(
+			Scope::class,
+			$broker,
+			new \PhpParser\PrettyPrinter\Standard(),
+			$typeSpecifier,
+			$dynamicConstantNames
+		);
 	}
 
 	public function getCurrentWorkingDirectory(): string
