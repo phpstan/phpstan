@@ -7,6 +7,7 @@
 		composer-normalize-check,
 		lint,
 		cs,
+		test-configuration-validate,
 		tests,
 		phpstan
 	"/>
@@ -111,6 +112,10 @@
 			<arg path="src"/>
 			<arg path="tests"/>
 		</exec>
+	</target>
+
+	<target name="test-configuration-validate" depends="composer-install">
+		<xmllint schema="vendor/phpunit/phpunit/phpunit.xsd" file="tests/phpunit.xml"/>
 	</target>
 
 	<target name="tests">
