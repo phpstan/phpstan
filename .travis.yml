@@ -17,7 +17,6 @@ matrix:
 
 before_script:
   - phpenv config-rm xdebug.ini
-  - composer self-update
   - if [ "$dependencies" = "lowest" ]; then composer update --prefer-lowest --no-interaction; fi;
   - if [ "$dependencies" = "highest" ]; then composer update --no-interaction; fi;
 
