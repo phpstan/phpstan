@@ -19,6 +19,7 @@
 				checkreturn="true"
 		>
 			<arg value="validate"/>
+			<arg value="--ansi"/>
 		</exec>
 	</target>
 
@@ -30,6 +31,7 @@
 				checkreturn="true"
 		>
 			<arg value="install"/>
+			<arg value="--ansi"/>
 		</exec>
 	</target>
 
