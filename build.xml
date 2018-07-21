@@ -3,7 +3,6 @@
 
 	<target name="check" depends="
 		composer-validate,
-		composer-install,
 		composer-normalize-check,
 		lint,
 		cs,
@@ -36,7 +35,7 @@
 		</exec>
 	</target>
 
-	<target name="composer-normalize-check">
+	<target name="composer-normalize-check" depends="composer-install">
 		<exec
 				executable="composer"
 				logoutput="true"
@@ -49,7 +48,7 @@
 		</exec>
 	</target>
 
-	<target name="composer-normalize-fix">
+	<target name="composer-normalize-fix" depends="composer-install">
 		<exec
 				executable="composer"
 				logoutput="true"
@@ -61,7 +60,7 @@
 		</exec>
 	</target>
 
-	<target name="lint">
+	<target name="lint" depends="composer-install">
 		<exec
 				executable="vendor/bin/parallel-lint"
 				logoutput="true"
@@ -82,7 +81,7 @@
 		</exec>
 	</target>
 
-	<target name="cs">
+	<target name="cs" depends="composer-install">
 		<exec
 				executable="vendor/bin/phpcs"
 				logoutput="true"
@@ -100,7 +99,7 @@
 		</exec>
 	</target>
 
-	<target name="cs-fix">
+	<target name="cs-fix" depends="composer-install">
 		<exec
 				executable="vendor/bin/phpcbf"
 				logoutput="true"
@@ -121,7 +120,7 @@
 		<xmllint schema="vendor/phpunit/phpunit/phpunit.xsd" file="tests/phpunit.xml"/>
 	</target>
 
-	<target name="tests">
+	<target name="tests" depends="composer-install">
 		<if>
 			<os family="windows"/>
 			<then>
@@ -143,7 +142,7 @@
 		</exec>
 	</target>
 
-	<target name="phpstan">
+	<target name="phpstan" depends="composer-install">
 		<property name="phpstan.config" value="build/phpstan-generated.neon"/>
 		<touch file="${phpstan.config}"/>
 		<append
