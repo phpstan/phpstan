@@ -4,6 +4,7 @@
 	<target name="check" depends="
 		composer-validate,
 		composer-install,
+		composer-normalize-check,
 		lint,
 		cs,
 		tests,
@@ -29,6 +30,31 @@
 				checkreturn="true"
 		>
 			<arg value="install"/>
+		</exec>
+	</target>
+
+	<target name="composer-normalize-check">
+		<exec
+				executable="composer"
+				logoutput="true"
+				passthru="true"
+				checkreturn="true"
+		>
+			<arg value="normalize"/>
+			<arg value="--ansi"/>
+			<arg value="--dry-run"/>
+		</exec>
+	</target>
+
+	<target name="composer-normalize-fix">
+		<exec
+				executable="composer"
+				logoutput="true"
+				passthru="true"
+				checkreturn="true"
+		>
+			<arg value="normalize"/>
+			<arg value="--ansi"/>
 		</exec>
 	</target>
 
