@@ -104,7 +104,7 @@ class TypeUtils
 			return [$type];
 		}
 
-		if ($type instanceof UnionType || $type instanceof IntersectionType) {
+		if ($type instanceof UnionType) {
 			$constantScalarValues = [];
 			foreach ($type->getTypes() as $innerType) {
 				if (!$innerType instanceof $typeClass) {
