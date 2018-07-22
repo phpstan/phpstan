@@ -25,6 +25,7 @@ use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
+use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\NonexistentParentClassType;
 use PHPStan\Type\NullType;
@@ -341,7 +342,11 @@ class TypeSpecifier
 			$types = null;
 			foreach ($vars as $var) {
 				if ($expr instanceof Expr\Isset_) {
-					if ($var instanceof ArrayDimFetch && $var->dim !== null) {
+					if (
+						$var instanceof ArrayDimFetch
+						&& $var->dim !== null
+						&& !$scope->getType($var->var) instanceof MixedType
+					) {
 						$type = $this->create(
 							$var->var,
 							new HasOffsetType($scope->getType($var->dim)),

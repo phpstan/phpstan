@@ -8,7 +8,7 @@ class Foo
 	/**
 	 * @param int[] $integers
 	 */
-	public function doFoo(array $integers, string $string)
+	public function doFoo(array $integers, string $string, $mixedIsset, $mixedArrayKeyExists)
 	{
 		if (rand(0, 1) === 0) {
 			$array = [
@@ -80,6 +80,14 @@ class Foo
 		}
 
 		if (!array_key_exists('c', $nullableArray)) {
+			return;
+		}
+
+		if (!isset($mixedIsset['a'])) {
+			return;
+		}
+
+		if (!array_key_exists('a', $mixedArrayKeyExists)) {
 			return;
 		}
 

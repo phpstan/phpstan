@@ -10,7 +10,10 @@ use PHPStan\Analyser\TypeSpecifierAwareExtension;
 use PHPStan\Analyser\TypeSpecifierContext;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\Accessory\HasOffsetType;
+use PHPStan\Type\ArrayType;
 use PHPStan\Type\FunctionTypeSpecifyingExtension;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\TypeCombinator;
 
 class ArrayKeyExistsFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtension, TypeSpecifierAwareExtension
 {
@@ -45,7 +48,10 @@ class ArrayKeyExistsFunctionTypeSpecifyingExtension implements FunctionTypeSpeci
 
 		return $this->typeSpecifier->create(
 			$node->args[1]->value,
-			new HasOffsetType($keyType),
+			TypeCombinator::intersect(
+				new ArrayType(new MixedType(), new MixedType()),
+				new HasOffsetType($keyType)
+			),
 			$context
 		);
 	}

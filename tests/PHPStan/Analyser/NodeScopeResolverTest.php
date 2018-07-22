@@ -6929,6 +6929,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$yetAnotherArrayCopy',
 			],
 			[
+				'mixed',
+				'$mixedIsset',
+			],
+			[
+				'array&hasOffset(\'a\')',
+				'$mixedArrayKeyExists',
+			],
+			[
 				'array<int>&hasOffset(\'a\')',
 				'$integers',
 			],
