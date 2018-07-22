@@ -51,6 +51,15 @@ $stringKeys = [
 	'bar' => new \stdClass(),
 ];
 
+/** @var \stdClass[] $stdClassesWithIsset */
+$stdClassesWithIsset = doFoo();
+if (rand(0, 1) === 0) {
+	$stdClassesWithIsset[] = new \stdClass();
+}
+if (!isset($stdClassesWithIsset['baz'])) {
+	return;
+}
+
 $stringOrIntegerKeys = [
 	'foo' => new \stdClass(),
 	1 => new \stdClass(),

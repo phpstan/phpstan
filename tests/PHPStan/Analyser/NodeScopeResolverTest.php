@@ -4248,6 +4248,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_pop($stringKeys)',
 			],
 			[
+				'array<stdClass>&hasOffset(\'baz\')',
+				'$stdClassesWithIsset',
+			],
+			[
+				'stdClass|null',
+				'array_pop($stdClassesWithIsset)',
+			],
+			[
 				'\'foo\'',
 				'array_shift($stringKeys)',
 			],
