@@ -12,10 +12,10 @@ parameters:
 		- %rootDir%/tests/PHPStan/Analyser/traits/*
 		- %rootDir%/tests/notAutoloaded/*
 	ignoreErrors:
-		- '#Constant PHPSTAN_TEST_CONSTANT not found#'
-		- '#Strict comparison using === between PhpParser\\Node\\Expr\\ArrayItem and null will always evaluate to false#'
-		- '#Dynamic call to static method PHPUnit\\Framework\\#'
-		- '#(pre|post)-(de|in)crement, bool\|float\|int\|string\|null given#'
+		- '#^Constant PHPSTAN_TEST_CONSTANT not found#'
+		- '#^Strict comparison using === between PhpParser\\Node\\Expr\\ArrayItem and null will always evaluate to false#'
+		- '#^Dynamic call to static method PHPUnit\\Framework\\#'
+		- '#(pre|post)-(de|in)crement, bool\|float\|int\|string\|null given\.$#'
 	tmpDir: %rootDir%/tmp
 services:
 	-
