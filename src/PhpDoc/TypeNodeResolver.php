@@ -66,7 +66,7 @@ class TypeNodeResolver
 		return new ErrorType();
 	}
 
-	private function resolveIdentifierTypeNode(IdentifierTypeNode $typeNode, NameScope $nameScope): Type
+	protected function resolveIdentifierTypeNode(IdentifierTypeNode $typeNode, NameScope $nameScope): Type
 	{
 		switch (strtolower($typeNode->name)) {
 			case 'int':
@@ -153,7 +153,7 @@ class TypeNodeResolver
 		return new ObjectType($nameScope->resolveStringName($typeNode->name));
 	}
 
-	private function resolveThisTypeNode(ThisTypeNode $typeNode, NameScope $nameScope): Type
+	protected function resolveThisTypeNode(ThisTypeNode $typeNode, NameScope $nameScope): Type
 	{
 		if ($nameScope->getClassName() !== null) {
 			return new ThisType($nameScope->getClassName());
@@ -162,12 +162,12 @@ class TypeNodeResolver
 		return new ErrorType();
 	}
 
-	private function resolveNullableTypeNode(NullableTypeNode $typeNode, NameScope $nameScope): Type
+	protected function resolveNullableTypeNode(NullableTypeNode $typeNode, NameScope $nameScope): Type
 	{
 		return TypeCombinator::addNull($this->resolve($typeNode->type, $nameScope));
 	}
 
-	private function resolveUnionTypeNode(UnionTypeNode $typeNode, NameScope $nameScope): Type
+	protected function resolveUnionTypeNode(UnionTypeNode $typeNode, NameScope $nameScope): Type
 	{
 		$iterableTypeNodes = [];
 		$otherTypeNodes = [];
@@ -226,19 +226,19 @@ class TypeNodeResolver
 		return TypeCombinator::union(...$otherTypeTypes);
 	}
 
-	private function resolveIntersectionTypeNode(IntersectionTypeNode $typeNode, NameScope $nameScope): Type
+	protected function resolveIntersectionTypeNode(IntersectionTypeNode $typeNode, NameScope $nameScope): Type
 	{
 		$types = $this->resolveMultiple($typeNode->types, $nameScope);
 		return TypeCombinator::intersect(...$types);
 	}
 
-	private function resolveArrayTypeNode(ArrayTypeNode $typeNode, NameScope $nameScope): Type
+	protected function resolveArrayTypeNode(ArrayTypeNode $typeNode, NameScope $nameScope): Type
 	{
 		$itemType = $this->resolve($typeNode->type, $nameScope);
 		return new ArrayType(new MixedType(), $itemType);
 	}
 
-	private function resolveGenericTypeNode(GenericTypeNode $typeNode, NameScope $nameScope): Type
+	protected function resolveGenericTypeNode(GenericTypeNode $typeNode, NameScope $nameScope): Type
 	{
 		$mainType = strtolower($typeNode->type->name);
 		$genericTypes = $this->resolveMultiple($typeNode->genericTypes, $nameScope);
@@ -272,7 +272,7 @@ class TypeNodeResolver
 	 * @param NameScope $nameScope
 	 * @return Type[]
 	 */
-	private function resolveMultiple(array $typeNodes, NameScope $nameScope): array
+	protected function resolveMultiple(array $typeNodes, NameScope $nameScope): array
 	{
 		$types = [];
 		foreach ($typeNodes as $typeNode) {
