@@ -21,7 +21,7 @@ class CheckstyleErrorFormatter implements ErrorFormatter
 	): int
 	{
 		$style->writeln('<?xml version="1.0" encoding="UTF-8"?>');
-		$style->writeln('<checkstyle>');
+		$style->writeln('<checkstyle version="3.3.0">');
 
 		foreach ($this->groupByFile($analysisResult) as $relativeFilePath => $errors) {
 			$style->writeln(sprintf(
