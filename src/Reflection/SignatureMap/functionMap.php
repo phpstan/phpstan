@@ -12365,7 +12365,7 @@ return [
 'usort' => ['bool', '&rw_array_arg'=>'array', 'cmp_function'=>'callable'],
 'utf8_decode' => ['string', 'data'=>'string'],
 'utf8_encode' => ['string', 'data'=>'string'],
-'V8Js::__construct' => ['void', 'object_name='=>'string', 'variables='=>'array', 'extensions='=>'array', 'report_uncaught_exceptions='=>'bool'],
+'V8Js::__construct' => ['void', 'object_name='=>'string', 'variables='=>'array', 'extensions='=>'array', 'report_uncaught_exceptions='=>'bool', 'snapshot_blob='=>'string'],
 'V8Js::clearPendingException' => [''],
 'V8Js::compileString' => ['resource', 'script'=>'', 'identifier='=>'string'],
 'V8Js::createSnapshot' => ['false|string', 'embed_source'=>'string'],
