@@ -4355,6 +4355,22 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'int|string|false|null',
 				'array_search($generalIntegerOrString, $generalIntegerOrStringKeys, false)',
 			],
+			[
+				'false',
+				'array_search(\'id\', $generalIntegerOrStringKeys, true)',
+			],
+			[
+				'int|string|false',
+				'array_search(\'id\', $generalIntegerOrStringKeysMixedValues, true)',
+			],
+			[
+				'int|string|false|null',
+				'array_search(\'id\', doFoo() ? $generalIntegerOrStringKeys : false, true)',
+			],
+			[
+				'false|null',
+				'array_search(\'id\', doFoo() ? [] : false, true)',
+			],
 		];
 	}
 
