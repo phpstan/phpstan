@@ -4351,6 +4351,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'int|false',
 				'array_search($generalIntegerOrString, $clonedConditionalArray, true)',
 			],
+			[
+				'int|string|false|null',
+				'array_search($generalIntegerOrString, $generalIntegerOrStringKeys, false)',
+			],
 		];
 	}
 

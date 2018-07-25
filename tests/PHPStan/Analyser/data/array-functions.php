@@ -90,6 +90,9 @@ $withPossiblyFalsey = [$bool, $integer, '', 'a' => 0];
 /** @var array<string, int> $generalStringKeys */
 $generalStringKeys = doFoo();
 
+/** @var array<int, int> $generalIntegerKeys */
+$generalIntegerKeys = doFoo();
+
 /** @var array<int, \DateTimeImmutable> $generalDateTimeValues */
 $generalDateTimeValues = doFoo();
 
@@ -129,6 +132,9 @@ $generalIntegerOrString = doFoo();
 
 /** @var array<int, int|string> $generalArrayOfIntegersOrStrings */
 $generalArrayOfIntegersOrStrings = doFoo();
+
+/** @var array<int|string, int> $generalIntegerOrStringKeys */
+$generalIntegerOrStringKeys = doFoo();
 
 $clonedConditionalArray = $conditionalArray;
 $clonedConditionalArray[(int)$generalIntegerOrString] = $generalIntegerOrString;
