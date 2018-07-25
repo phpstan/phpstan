@@ -8191,7 +8191,7 @@ return [
 'PDF_utf16_to_utf8' => ['string', 'pdfdoc'=>'resource', 'utf16string'=>'string'],
 'PDF_utf32_to_utf16' => ['string', 'pdfdoc'=>'resource', 'utf32string'=>'string', 'ordering'=>'string'],
 'PDF_utf8_to_utf16' => ['string', 'pdfdoc'=>'resource', 'utf8string'=>'string', 'ordering'=>'string'],
-'PDO::__construct' => ['void', 'dsn'=>'string', 'username='=>'string', 'passwd='=>'string', 'options='=>'array'],
+'PDO::__construct' => ['void', 'dsn'=>'string', 'username='=>'?string', 'passwd='=>'?string', 'options='=>'?array'],
 'PDO::__sleep' => ['int'],
 'PDO::__wakeup' => ['void'],
 'PDO::beginTransaction' => ['bool'],
