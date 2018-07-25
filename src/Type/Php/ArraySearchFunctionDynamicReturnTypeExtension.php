@@ -15,7 +15,6 @@ use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeUtils;
-use PHPStan\Type\UnionType;
 
 final class ArraySearchFunctionDynamicReturnTypeExtension implements DynamicFunctionReturnTypeExtension
 {
@@ -34,7 +33,7 @@ final class ArraySearchFunctionDynamicReturnTypeExtension implements DynamicFunc
 		$strictArgType = $scope->getType($functionCall->args[2]->value);
 		$haystackArgType = $scope->getType($functionCall->args[1]->value);
 		if (!($strictArgType instanceof ConstantBooleanType) || $strictArgType->getValue() === false) {
-			return new UnionType([$haystackArgType->getIterableKeyType(), new ConstantBooleanType(false), new NullType()]);
+			return TypeCombinator::union($haystackArgType->getIterableKeyType(), new ConstantBooleanType(false), new NullType());
 		}
 
 		$needleArgType = $scope->getType($functionCall->args[0]->value);
