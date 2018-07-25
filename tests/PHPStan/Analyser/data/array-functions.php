@@ -136,6 +136,9 @@ $generalArrayOfIntegersOrStrings = doFoo();
 /** @var array<int|string, int> $generalIntegerOrStringKeys */
 $generalIntegerOrStringKeys = doFoo();
 
+/** @var array<int|string, mixed> $generalIntegerOrStringKeysMixedValues */
+$generalIntegerOrStringKeysMixedValues = doFoo();
+
 $clonedConditionalArray = $conditionalArray;
 $clonedConditionalArray[(int)$generalIntegerOrString] = $generalIntegerOrString;
 
