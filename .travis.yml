@@ -16,9 +16,9 @@ matrix:
       env: dependencies=highest
 
 before_script:
-  - phpenv config-rm xdebug.ini
-  - if [ "$dependencies" = "lowest" ]; then composer update --prefer-lowest --no-interaction; fi;
-  - if [ "$dependencies" = "highest" ]; then composer update --no-interaction; fi;
+  - if php --ri xdebug >/dev/null; then phpenv config-rm xdebug.ini; fi
+  - if [ "$dependencies" = "lowest" ]; then composer update --prefer-lowest --no-interaction; fi
+  - if [ "$dependencies" = "highest" ]; then composer update --no-interaction; fi
 
 script:
   - vendor/bin/phing
