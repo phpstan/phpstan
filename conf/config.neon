@@ -108,6 +108,12 @@ services:
 
 	-
 		class: PHPStan\PhpDoc\TypeNodeResolver
+		factory: @typeNodeResolverFactory::create
+
+	-
+		class: PHPStan\PhpDoc\PhpUnit\MockObjectTypeNodeResolverExtension
+		tags:
+			- phpstan.phpDoc.typeNodeResolverExtension
 
 	-
 		class: PHPStan\PhpDoc\TypeStringResolver
@@ -522,6 +528,9 @@ services:
 	registry:
 		class: PHPStan\Rules\Registry
 		factory: @PHPStan\Rules\RegistryFactory::create
+
+	typeNodeResolverFactory:
+		class: PHPStan\PhpDoc\TypeNodeResolverFactory
 
 	errorFormatter.raw:
 		class: PHPStan\Command\ErrorFormatter\RawErrorFormatter

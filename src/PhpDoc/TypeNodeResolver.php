@@ -32,15 +32,50 @@ use PHPStan\Type\StringType;
 use PHPStan\Type\ThisType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
-use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
 use PHPStan\Type\VoidType;
 
 class TypeNodeResolver
 {
 
+	/** @var TypeNodeResolverExtension[] */
+	private $extensions;
+
+	/**
+	 * @param TypeNodeResolverExtension[] $extensions
+	 */
+	public function __construct(array $extensions)
+	{
+		foreach ($extensions as $extension) {
+			if (!$extension instanceof TypeNodeResolverAwareExtension) {
+				continue;
+			}
+
+			$extension->setTypeNodeResolver($this);
+		}
+
+		$this->extensions = $extensions;
+	}
+
+	public function getCacheKey(): string
+	{
+		$key = 'v46';
+		foreach ($this->extensions as $extension) {
+			$key .= sprintf('-%s', $extension->getCacheKey());
+		}
+
+		return $key;
+	}
+
 	public function resolve(TypeNode $typeNode, NameScope $nameScope): Type
 	{
+		foreach ($this->extensions as $extension) {
+			$type = $extension->resolve($typeNode, $nameScope);
+			if ($type !== null) {
+				return $type;
+			}
+		}
+
 		if ($typeNode instanceof IdentifierTypeNode) {
 			return $this->resolveIdentifierTypeNode($typeNode, $nameScope);
 
@@ -181,20 +216,6 @@ class TypeNodeResolver
 		}
 
 		$otherTypeTypes = $this->resolveMultiple($otherTypeNodes, $nameScope);
-
-		if (count($otherTypeTypes) === 2) {
-			static $mockClassNames = [
-				'PHPUnit_Framework_MockObject_MockObject' => true,
-				'PHPUnit\Framework\MockObject\MockObject' => true,
-			];
-
-			foreach ($otherTypeTypes as $otherType) {
-				if ($otherType instanceof TypeWithClassName && isset($mockClassNames[$otherType->getClassName()])) {
-					return TypeCombinator::intersect(...$otherTypeTypes);
-				}
-			}
-		}
-
 		if (count($iterableTypeNodes) > 0) {
 			$arrayTypeTypes = $this->resolveMultiple($iterableTypeNodes, $nameScope);
 			$arrayTypeType = TypeCombinator::union(...$arrayTypeTypes);
@@ -272,7 +293,7 @@ class TypeNodeResolver
 	 * @param NameScope $nameScope
 	 * @return Type[]
 	 */
-	private function resolveMultiple(array $typeNodes, NameScope $nameScope): array
+	public function resolveMultiple(array $typeNodes, NameScope $nameScope): array
 	{
 		$types = [];
 		foreach ($typeNodes as $typeNode) {

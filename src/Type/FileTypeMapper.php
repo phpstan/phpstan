@@ -9,6 +9,7 @@ use PHPStan\Cache\Cache;
 use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\PhpDocStringResolver;
 use PHPStan\PhpDoc\ResolvedPhpDocBlock;
+use PHPStan\PhpDoc\TypeNodeResolver;
 
 class FileTypeMapper
 {
@@ -25,6 +26,9 @@ class FileTypeMapper
 	/** @var \PHPStan\Broker\AnonymousClassNameHelper */
 	private $anonymousClassNameHelper;
 
+	/** @var \PHPStan\PhpDoc\TypeNodeResolver */
+	private $typeNodeResolver;
+
 	/** @var \PHPStan\PhpDoc\ResolvedPhpDocBlock[][] */
 	private $memoryCache = [];
 
@@ -35,13 +39,15 @@ class FileTypeMapper
 		Parser $phpParser,
 		PhpDocStringResolver $phpDocStringResolver,
 		Cache $cache,
-		AnonymousClassNameHelper $anonymousClassNameHelper
+		AnonymousClassNameHelper $anonymousClassNameHelper,
+		TypeNodeResolver $typeNodeResolver
 	)
 	{
 		$this->phpParser = $phpParser;
 		$this->phpDocStringResolver = $phpDocStringResolver;
 		$this->cache = $cache;
 		$this->anonymousClassNameHelper = $anonymousClassNameHelper;
+		$this->typeNodeResolver = $typeNodeResolver;
 	}
 
 	public function getResolvedPhpDoc(
@@ -95,7 +101,7 @@ class FileTypeMapper
 			if ($modifiedTime === false) {
 				$modifiedTime = time();
 			}
-			$cacheKey = sprintf('%s-%d-v45', $fileName, $modifiedTime);
+			$cacheKey = sprintf('%s-%d-%s', $fileName, $modifiedTime, $this->typeNodeResolver->getCacheKey());
 			$map = $this->cache->load($cacheKey);
 
 			if ($map === null) {
