@@ -7,7 +7,6 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\ShouldNotHappenException;
-use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
@@ -38,7 +37,7 @@ final class ArraySearchFunctionDynamicReturnTypeExtension implements DynamicFunc
 		}
 
 		$haystackArgType = $scope->getType($functionCall->args[1]->value);
-		$haystackIsArray = $this->isArrayType($haystackArgType);
+		$haystackIsArray = (new ArrayType(new MixedType(), new MixedType()))->isSuperTypeOf($haystackArgType);
 		if ($haystackIsArray->no()) {
 			return new NullType();
 		}
@@ -142,29 +141,6 @@ final class ArraySearchFunctionDynamicReturnTypeExtension implements DynamicFunc
 		}
 
 		throw new ShouldNotHappenException();
-	}
-
-	private function isArrayType(Type $type): TrinaryLogic
-	{
-		if ($type instanceof ArrayType) {
-			return TrinaryLogic::createYes();
-		}
-
-		if ($type instanceof MixedType) {
-			return TrinaryLogic::createMaybe();
-		}
-
-		if ($type instanceof UnionType || $type instanceof IntersectionType) {
-			$matches = TrinaryLogic::createNo();
-
-			foreach ($type->getTypes() as $innerType) {
-				$matches = TrinaryLogic::extremeIdentity($matches, $this->isArrayType($innerType));
-			}
-
-			return $matches;
-		}
-
-		return TrinaryLogic::createNo();
 	}
 
 }
