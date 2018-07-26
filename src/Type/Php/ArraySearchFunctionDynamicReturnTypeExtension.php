@@ -32,19 +32,24 @@ final class ArraySearchFunctionDynamicReturnTypeExtension implements DynamicFunc
 
 	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
 	{
-		if (count($functionCall->args) < 3) {
+		$argsCount = count($functionCall->args);
+		if ($argsCount < 2) {
+			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+		}
+
+		$haystackArgType = $scope->getType($functionCall->args[1]->value);
+		$haystackIsArray = $this->isArrayType($haystackArgType);
+		if ($haystackIsArray->no()) {
+			return new NullType();
+		}
+
+		if ($argsCount < 3) {
 			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
 		}
 
 		$strictArgType = $scope->getType($functionCall->args[2]->value);
-		$haystackArgType = $scope->getType($functionCall->args[1]->value);
 		if (!($strictArgType instanceof ConstantBooleanType) || $strictArgType->getValue() === false) {
 			return TypeCombinator::union($haystackArgType->getIterableKeyType(), new ConstantBooleanType(false), new NullType());
-		}
-
-		$haystackIsArray = $this->isArrayType($haystackArgType);
-		if ($haystackIsArray->no()) {
-			return new NullType();
 		}
 
 		$needleArgType = $scope->getType($functionCall->args[0]->value);

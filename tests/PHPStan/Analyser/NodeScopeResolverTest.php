@@ -4371,6 +4371,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'false|null',
 				'array_search(\'id\', doFoo() ? [] : false, true)',
 			],
+			[
+				'null',
+				'array_search(\'id\', false, true)',
+			],
+			[
+				'null',
+				'array_search(\'id\', false)',
+			],
 		];
 	}
 
