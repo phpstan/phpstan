@@ -4379,6 +4379,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'null',
 				'array_search(\'id\', false)',
 			],
+			[
+				'int|string|false',
+				'array_search(\'id\', $thisDoesNotExistAndIsMixed, true)',
+			],
+			[
+				'int|string|false',
+				'array_search(\'id\', doFoo() ? $thisDoesNotExistAndIsMixedInUnion : false, true)',
+			],
 		];
 	}
 
