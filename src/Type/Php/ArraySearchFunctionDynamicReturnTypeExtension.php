@@ -6,12 +6,12 @@ use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
-use PHPStan\ShouldNotHappenException;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\DynamicFunctionReturnTypeExtension;
+use PHPStan\Type\ErrorType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
@@ -71,6 +71,9 @@ final class ArraySearchFunctionDynamicReturnTypeExtension implements DynamicFunc
 		}
 
 		$haystackArrays = $this->pickArrays($haystackArgType);
+		if ($haystackArrays instanceof ErrorType) {
+			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+		}
 
 		$returnType = TypeCombinator::union(
 			$haystackArrays->getIterableKeyType(),
@@ -140,7 +143,7 @@ final class ArraySearchFunctionDynamicReturnTypeExtension implements DynamicFunc
 			return TypeCombinator::union(...$arrayTypes);
 		}
 
-		throw new ShouldNotHappenException();
+		return new ErrorType();
 	}
 
 }
