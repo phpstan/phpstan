@@ -229,7 +229,7 @@ class ClosureType implements Type, ParametersAcceptor
 	}
 
 	/**
-	 * @return array<int, \PHPStan\Reflection\ParameterReflection>
+	 * @return array<int, \PHPStan\Reflection\Native\NativeParameterReflection>
 	 */
 	public function getParameters(): array
 	{
