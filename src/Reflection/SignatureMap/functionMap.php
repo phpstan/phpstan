@@ -11987,7 +11987,7 @@ return [
 'tidyNode::isPhp' => ['bool'],
 'tidyNode::isText' => ['bool'],
 'time' => ['int'],
-'time_nanosleep' => ['array|false', 'seconds'=>'int', 'nanoseconds'=>'int'],
+'time_nanosleep' => ['array|bool', 'seconds'=>'int', 'nanoseconds'=>'int'],
 'time_sleep_until' => ['bool', 'timestamp'=>'float'],
 'timezone_abbreviations_list' => ['array'],
 'timezone_identifiers_list' => ['array', 'what='=>'int', 'country='=>'?string'],
