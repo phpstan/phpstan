@@ -592,6 +592,41 @@ There's also an analogous functionality for:
 and `phpstan.broker.dynamicStaticMethodReturnTypeExtension` service tag.
 * **functions** using `DynamicFunctionReturnTypeExtension` interface and `phpstan.broker.dynamicFunctionReturnTypeExtension` service tag.
 
+For example, if you have your own dependency injection container or a legacy container like Zend Framework 1 eg
+```php
+$databaseConnection = Zend_Registry::get(\My\Database\Connection::class);
+```
+then add a plugin like this. 
+```php
+class ZendRegistry implements DynamicStaticMethodReturnTypeExtension
+{
+    public function getClass(): string
+    {
+        return Zend_Registry::class;
+    }
+
+    public function isStaticMethodSupported(MethodReflection $methodReflection): bool
+    {
+        return $methodReflection->getName() === 'get';
+    }
+
+    public function getTypeFromStaticMethodCall(MethodReflection $methodReflection, StaticCall $methodCall,
+        Scope $scope): Type
+    {
+        if (count($methodCall->args) === 0) {
+		return \PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs(
+			$scope,
+			$methodCall->args,
+			$methodReflection->getVariants()
+		)->getReturnType();
+	}
+        $strings   = TypeUtils::getConstantStrings($scope->getType($methodCall->args[0]->value));
+        $serviceId = count($strings) === 1 ? $strings[0]->getValue() : 'object';
+        return new ObjectType($serviceId);
+    }
+}
+```
+
 ## Type-specifying extensions
 
 These extensions allow you to specify types of expressions based on certain pre-existing conditions. This is best illustrated with couple examples:
