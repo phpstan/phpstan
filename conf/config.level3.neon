@@ -5,6 +5,7 @@ rules:
 	- PHPStan\Rules\Arrays\AppendedArrayItemTypeRule
 	- PHPStan\Rules\Arrays\IterableInForeachRule
 	- PHPStan\Rules\Arrays\NonexistentOffsetInArrayDimFetchRule
+	- PHPStan\Rules\Arrays\OffsetAccessAssignmentToScalarRule
 	- PHPStan\Rules\Functions\ClosureReturnTypeRule
 	- PHPStan\Rules\Functions\ReturnTypeRule
 	- PHPStan\Rules\Methods\ReturnTypeRule

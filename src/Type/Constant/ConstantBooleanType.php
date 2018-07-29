@@ -4,6 +4,8 @@ namespace PHPStan\Type\Constant;
 
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\ConstantScalarType;
+use PHPStan\Type\ErrorType;
+use PHPStan\Type\NullType;
 use PHPStan\Type\Traits\ConstantScalarTypeTrait;
 use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
@@ -54,6 +56,13 @@ class ConstantBooleanType extends BooleanType implements ConstantScalarType
 	public function toFloat(): Type
 	{
 		return new ConstantFloatType((float) $this->value);
+	}
+
+	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
+	{
+		return $this->value
+			? new ErrorType()
+			: new NullType();
 	}
 
 	/**

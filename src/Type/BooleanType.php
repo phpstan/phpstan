@@ -81,7 +81,10 @@ class BooleanType implements Type
 
 	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
 	{
-		return new ErrorType();
+		return new UnionType([
+			new NullType(),
+			new ErrorType(),
+		]);
 	}
 
 	/**
