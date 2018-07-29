@@ -77,6 +77,8 @@
 			<arg path="tests/PHPStan/Rules/Functions/data"/>
 			<arg value="--exclude"/>
 			<arg path="tests/PHPStan/Rules/Operators/data/invalid-inc-dec.php"/>
+			<arg value="--exclude"/>
+			<arg path="tests/PHPStan/Rules/Arrays/data/offset-access-on-string.php"/>
 			<arg path="src" />
 			<arg path="tests" />
 		</exec>

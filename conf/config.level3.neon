@@ -34,3 +34,10 @@ services:
 			reportMaybes: %reportMaybes%
 		tags:
 			- phpstan.rules.rule
+
+	-
+		class: PHPStan\Rules\Arrays\OffsetAccessOnStringRule
+		arguments:
+			reportMaybes: %reportMaybes%
+		tags:
+			- phpstan.rules.rule
