@@ -763,6 +763,10 @@ class NodeScopeResolver
 			$scope = $scope->enterNegation();
 		} elseif ($node instanceof Unset_ || $node instanceof Isset_) {
 			foreach ($node->vars as $unsetVar) {
+				if ($unsetVar instanceof ArrayDimFetch && $unsetVar->dim === null) {
+					continue;
+				}
+
 				while (
 					$unsetVar instanceof ArrayDimFetch
 					|| $unsetVar instanceof PropertyFetch
@@ -827,7 +831,10 @@ class NodeScopeResolver
 			} elseif ($subNode instanceof \PhpParser\Node) {
 				if ($node instanceof Coalesce && $subNodeName === 'left') {
 					$scope = $this->ensureNonNullability($scope, $subNode, false);
-					$scope = $this->lookForEnterVariableAssign($scope, $node->left);
+
+					if (!($node->left instanceof ArrayDimFetch) || $node->left->dim !== null) {
+						$scope = $this->lookForEnterVariableAssign($scope, $node->left);
+					}
 				}
 
 				if (
@@ -855,7 +862,10 @@ class NodeScopeResolver
 
 				if ($node instanceof Expr\Empty_ && $subNodeName === 'expr') {
 					$scope = $this->specifyProperty($scope, $node->expr);
-					$scope = $this->lookForEnterVariableAssign($scope, $node->expr);
+
+					if (!($node->expr instanceof ArrayDimFetch) || $node->expr->dim !== null) {
+						$scope = $this->lookForEnterVariableAssign($scope, $node->expr);
+					}
 				}
 
 				if (
@@ -1396,7 +1406,7 @@ class NodeScopeResolver
 			foreach ($node->vars as $var) {
 				$scope = $this->lookForAssigns($scope, $var, $certainty, $lookForAssignsSettings);
 			}
-		} elseif ($node instanceof Expr\Empty_) {
+		} elseif ($node instanceof Expr\Empty_ && (!($node->expr instanceof ArrayDimFetch) || $node->expr->dim !== null)) {
 			$scope = $this->lookForAssigns($scope, $node->expr, $certainty, $lookForAssignsSettings);
 		} elseif ($node instanceof ArrayDimFetch && $node->dim !== null) {
 			$scope = $this->lookForAssigns($scope, $node->dim, $certainty, $lookForAssignsSettings);
