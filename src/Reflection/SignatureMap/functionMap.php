@@ -9837,7 +9837,7 @@ return [
 'setthreadtitle' => ['bool', 'title'=>'string'],
 'settype' => ['bool', '&rw_var'=>'mixed', 'type'=>'string'],
 'sha1' => ['string', 'str'=>'string', 'raw_output='=>'bool'],
-'sha1_file' => ['string', 'filename'=>'string', 'raw_output='=>'bool'],
+'sha1_file' => ['string|false', 'filename'=>'string', 'raw_output='=>'bool'],
 'sha256' => ['string', 'str'=>'string', 'raw_output='=>'bool'],
 'sha256_file' => ['string', 'filename'=>'string', 'raw_output='=>'bool'],
 'shapefileObj::__construct' => ['void', 'filename'=>'string', 'type'=>'int'],
