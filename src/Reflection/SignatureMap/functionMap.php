@@ -6269,7 +6269,7 @@ return [
 'mhash_get_hash_name' => ['string', 'hash'=>'int'],
 'mhash_keygen_s2k' => ['string', 'hash'=>'int', 'input_password'=>'string', 'salt'=>'string', 'bytes'=>'int'],
 'microtime' => ['mixed', 'get_as_float='=>'bool'],
-'mime_content_type' => ['string', 'filename_or_stream'=>'string'],
+'mime_content_type' => ['string|false', 'filename_or_stream'=>'string'],
 'min' => ['', '...arg1'=>'array'],
 'min\'1' => ['', 'arg1'=>'', 'arg2'=>'', '...args='=>''],
 'ming_keypress' => ['int', 'char'=>'string'],
