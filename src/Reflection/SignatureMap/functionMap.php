@@ -6177,7 +6177,7 @@ return [
 'mcrypt_module_self_test' => ['bool', 'algorithm'=>'string', 'lib_dir='=>'string'],
 'mcrypt_ofb' => ['string', 'cipher'=>'string', 'key'=>'string', 'data'=>'string', 'mode'=>'int', 'iv='=>'string'],
 'md5' => ['string', 'str'=>'string', 'raw_output='=>'bool'],
-'md5_file' => ['string', 'filename'=>'string', 'raw_output='=>'bool'],
+'md5_file' => ['string|false', 'filename'=>'string', 'raw_output='=>'bool'],
 'mdecrypt_generic' => ['string', 'td'=>'resource', 'data'=>'string'],
 'Memcache::add' => ['bool', 'key'=>'string', 'var'=>'mixed', 'flag='=>'int', 'expire='=>'int'],
 'Memcache::addServer' => ['bool', 'host'=>'string', 'port='=>'int', 'persistent='=>'bool', 'weight='=>'int', 'timeout='=>'int', 'retry_interval='=>'int', 'status='=>'bool', 'failure_callback='=>'callable', 'timeoutms='=>'int'],
