@@ -319,3 +319,15 @@ class PropertyIssetOnPossibleFalse
 	}
 
 }
+
+class WeirdErrorWithCall
+{
+
+	private $var;
+
+	public function doFoo()
+	{
+		$this->var->call(1);
+	}
+
+}

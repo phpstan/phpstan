@@ -713,7 +713,7 @@ class NodeScopeResolver
 			$scope = $scope->enterFunctionCall($node);
 		} elseif ($node instanceof MethodCall) {
 			if (
-				!(new ObjectType(\Closure::class))->isSuperTypeOf($scope->getType($node->var))->no()
+				(new ObjectType(\Closure::class))->isSuperTypeOf($scope->getType($node->var))->yes()
 				&& $node->name instanceof Node\Identifier
 				&& $node->name->name === 'call'
 				&& isset($node->args[0])
