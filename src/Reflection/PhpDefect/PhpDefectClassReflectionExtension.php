@@ -113,6 +113,10 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 		'DOMXPath' => [ // extends DOMCharacterData
 			'document' => 'DOMDocument',
 		],
+		'Ds\\Pair' => [
+			'key' => 'mixed',
+			'value' => 'mixed',
+		],
 		'XMLReader' => [
 			'attributeCount' => 'int',
 			'baseURI' => 'string',
