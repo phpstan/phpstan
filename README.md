@@ -361,7 +361,7 @@ Check out also [phpstan-strict-rules](https://github.com/phpstan/phpstan-strict-
 
 ### Custom error formatters
 
-By default, PHPStan outputs found errors into tables grouped by files to be easily human-readable. To change the output, you can use the `--errorFormat` CLI option. There's an additional built-in `raw` format with one-per-line errors intended for easy parsing. You can also create your own error formatter by implementing the `PHPStan\Command\ErrorFormatter\ErrorFormatter` interface:
+By default, PHPStan outputs found errors into tables grouped by files to be easily human-readable. To change the output, you can use the `--error-format` CLI option. There's an additional built-in `raw` format with one-per-line errors intended for easy parsing. You can also create your own error formatter by implementing the `PHPStan\Command\ErrorFormatter\ErrorFormatter` interface:
 
 ```php
 interface ErrorFormatter
@@ -393,7 +393,7 @@ services:
 Use the name part after `errorFormatter.` as the CLI option value:
 
 ```bash
-vendor/bin/phpstan analyse -c phpstan.neon -l 4 --errorFormat awesome src tests
+vendor/bin/phpstan analyse -c phpstan.neon -l 4 --error-format awesome src tests
 ```
 
 ## Class reflection extensions
