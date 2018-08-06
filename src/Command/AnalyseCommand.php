@@ -178,7 +178,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		$errorFormat = $input->getOption('error-format');
 		$oldErrorFormat = $input->getOption('errorFormat');
 
-		if (null !== $oldErrorFormat) {
+		if ($oldErrorFormat !== null) {
 			$errOutput->writeln('Note: Using the option --errorFormat is deprecated. Use --error-format instead.');
 
 			$errorFormat = $oldErrorFormat;
