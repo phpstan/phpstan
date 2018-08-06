@@ -34,7 +34,8 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				new InputOption(ErrorsConsoleStyle::OPTION_NO_PROGRESS, null, InputOption::VALUE_NONE, 'Do not show progress bar, only results'),
 				new InputOption('debug', null, InputOption::VALUE_NONE, 'Show debug information - which file is analysed, do not catch internal errors'),
 				new InputOption('autoload-file', 'a', InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path'),
-				new InputOption('errorFormat', null, InputOption::VALUE_REQUIRED, 'Format in which to print the result of the analysis', 'table'),
+				new InputOption('error-format', null, InputOption::VALUE_REQUIRED, 'Format in which to print the result of the analysis', 'table'),
+				new InputOption('errorFormat', null, InputOption::VALUE_REQUIRED, '[deprecated] Use --error-format instead'),
 				new InputOption('memory-limit', null, InputOption::VALUE_REQUIRED, 'Memory limit for analysis'),
 			]);
 	}
@@ -173,7 +174,15 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			$errOutput->writeln('To avoid this issue, allow to use more memory with the --memory-limit option.');
 			@unlink($memoryLimitFile);
 		}
-		$errorFormat = $input->getOption('errorFormat');
+
+		$errorFormat = $input->getOption('error-format');
+
+		if ($oldErrorFormat = $input->getOption('errorFormat')) {
+			$errOutput->writeln('Note: Using the option --errorFormat is deprecated. Use --error-format instead.');
+
+			$errorFormat = $oldErrorFormat;
+		}
+
 		$errorFormatterServiceName = sprintf('errorFormatter.%s', $errorFormat);
 		if (!$container->hasService($errorFormatterServiceName)) {
 			$errOutput->writeln(sprintf(
