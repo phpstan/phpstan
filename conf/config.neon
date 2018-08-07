@@ -377,7 +377,7 @@ services:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
 	-
-		class: PHPStan\Type\Php\MbStrlenFunctionReturnTypeExtension
+		class: PHPStan\Type\Php\MbStringGenericDynamicFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 

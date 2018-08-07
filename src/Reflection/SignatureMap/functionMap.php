@@ -6127,7 +6127,7 @@ return [
 'mb_strimwidth' => ['string', 'str'=>'string', 'start'=>'int', 'width'=>'int', 'trimmarker='=>'string', 'encoding='=>'string'],
 'mb_stripos' => ['int|false', 'haystack'=>'string', 'needle'=>'string', 'offset='=>'int', 'encoding='=>'string'],
 'mb_stristr' => ['string|false', 'haystack'=>'string', 'needle'=>'string', 'part='=>'bool', 'encoding='=>'string'],
-'mb_strlen' => ['int|false', 'str'=>'string', 'encoding='=>'string'],
+'mb_strlen' => ['int', 'str'=>'string', 'encoding='=>'string'],
 'mb_strpos' => ['int|false', 'haystack'=>'string', 'needle'=>'string', 'offset='=>'int', 'encoding='=>'string'],
 'mb_strrchr' => ['string|false', 'haystack'=>'string', 'needle'=>'string', 'part='=>'bool', 'encoding='=>'string'],
 'mb_strrichr' => ['string|false', 'haystack'=>'string', 'needle'=>'string', 'part='=>'bool', 'encoding='=>'string'],
