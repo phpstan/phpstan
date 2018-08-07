@@ -363,10 +363,32 @@ class Scope
 			|| $node instanceof Expr\BinaryOp\SmallerOrEqual
 			|| $node instanceof Expr\BinaryOp\Equal
 			|| $node instanceof Expr\BinaryOp\NotEqual
-			|| $node instanceof Expr\Isset_
 			|| $node instanceof Expr\Empty_
 		) {
 			return new BooleanType();
+		}
+
+		if ($node instanceof Expr\Isset_) {
+			foreach ($node->vars as $var) {
+				if ($var instanceof Expr\ArrayDimFetch && $var->dim !== null) {
+					$hasOffset = $this->getType($var->var)->hasOffsetValueType(
+						$this->getType($var->dim)
+					)->toBooleanType();
+					if ($hasOffset instanceof ConstantBooleanType) {
+						if (!$hasOffset->getValue()) {
+							return $hasOffset;
+						}
+
+						continue;
+					}
+
+					return $hasOffset;
+				}
+
+				return new BooleanType();
+			}
+
+			return new ConstantBooleanType(true);
 		}
 
 		if ($node instanceof \PhpParser\Node\Expr\BooleanNot) {

@@ -60,6 +60,17 @@ class LookForAssignsSettings
 		return self::$registry[$value];
 	}
 
+	public function skipDeadBranches(): bool
+	{
+		if ($this->respectEarlyTermination === self::EARLY_TERMINATION_STOP) {
+			// after loop
+			return true;
+		}
+
+		// inside loop
+		return $this->respectEarlyTermination === (self::EARLY_TERMINATION_STOP + self::EARLY_TERMINATION_BREAK);
+	}
+
 	public function shouldSkipBranch(\PhpParser\Node $earlyTerminationStatement): bool
 	{
 		return $this->isRespected($earlyTerminationStatement);

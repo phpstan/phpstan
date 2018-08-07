@@ -611,3 +611,32 @@ class CoalesceWithConstantArray
 	}
 
 }
+
+class NonIdempotentOperationInForeach
+{
+
+	public function doFoo(array $array)
+	{
+		$i = 10;
+		foreach ($array as $foo) {
+			if (rand(0, 1) === 100) {
+				$i *= 10;
+				if ($i === 'foo') {
+				}
+			}
+		}
+
+		$nullableVal = null;
+		foreach ($array as $foo) {
+			if ($nullableVal === null) {
+				$nullableVal = 1;
+			} else {
+				$nullableVal *= 10;
+				if ($nullableVal === 'foo') {
+
+				}
+			}
+		}
+	}
+
+}

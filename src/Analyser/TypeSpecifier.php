@@ -374,6 +374,9 @@ class TypeSpecifier
 				}
 			}
 
+			/** @var SpecifiedTypes $types */
+			$types = $types;
+
 			return $types;
 		} elseif (!$context->null()) {
 			return $this->handleDefaultTruthyOrFalseyContext($context, $expr);

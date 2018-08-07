@@ -1878,6 +1878,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'1.2 * 1',
 			],
 			[
+				'int',
+				'$integer * 10',
+			],
+			[
 				$typeCallback(1.2 ** 1),
 				'1.2 ** 1',
 			],
@@ -5828,6 +5832,26 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$i',
 				"'afterLoop'",
 			],
+			[
+				'int|null',
+				'$nullableVal',
+				"'begin'",
+			],
+			[
+				'null',
+				'$nullableVal',
+				"'nullableValIf'",
+			],
+			[
+				'int',
+				'$nullableVal',
+				"'nullableValElse'",
+			],
+			[
+				'int|null',
+				'$nullableVal',
+				"'afterLoop'",
+			],
 		];
 	}
 
@@ -6006,6 +6030,26 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'int',
 				'$i',
+				"'afterLoop'",
+			],
+			[
+				'int|null',
+				'$nullableVal',
+				"'begin'",
+			],
+			[
+				'null',
+				'$nullableVal',
+				"'nullableValIf'",
+			],
+			[
+				'int',
+				'$nullableVal',
+				"'nullableValElse'",
+			],
+			[
+				'int',
+				'$nullableVal',
 				"'afterLoop'",
 			],
 		];

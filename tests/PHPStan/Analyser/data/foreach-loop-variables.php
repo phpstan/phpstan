@@ -13,6 +13,7 @@ class ForeachFoo
 		$foo = null;
 		$key = null;
 		$val = null;
+		$nullableVal = null;
 
 		$this->property = [];
 
@@ -22,6 +23,14 @@ class ForeachFoo
 			'begin';
 			$foo = new Foo();
 			'afterAssign';
+
+			if ($nullableVal === null) {
+				'nullableValIf';
+				$nullableVal = 1;
+			} else {
+				$nullableVal *= 10;
+				'nullableValElse';
+			}
 
 			$foo && $i++;
 
