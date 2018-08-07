@@ -18,9 +18,6 @@ matrix:
 before_script:
   - if php --ri xdebug >/dev/null; then phpenv config-rm xdebug.ini; fi
 
-before_install:
-  - composer self-update --snapshot
-
 install:
   - if [ "$dependencies" = "lowest" ]; then composer update --prefer-lowest --no-interaction; fi
   - if [ "$dependencies" = "highest" ]; then composer update --no-interaction; fi
