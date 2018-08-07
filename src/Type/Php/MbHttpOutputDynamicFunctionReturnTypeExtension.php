@@ -17,7 +17,7 @@ class MbHttpOutputDynamicFunctionReturnTypeExtension extends MbStringAbstractBas
 
 	public function isFunctionSupported(FunctionReflection $functionReflection): bool
 	{
-		return $functionReflection->getName() === 'mb_http_output' && $this->isMbStringExtensionLoaded();
+		return $functionReflection->getName() === 'mb_http_output' && $this->isMbstringExtensionLoaded();
 	}
 
 	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type

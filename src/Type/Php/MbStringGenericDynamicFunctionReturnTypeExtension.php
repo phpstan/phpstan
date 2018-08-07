@@ -47,7 +47,7 @@ class MbStringGenericDynamicFunctionReturnTypeExtension extends MbStringAbstract
 
 	public function isFunctionSupported(FunctionReflection $functionReflection): bool
 	{
-		return isset(self::MBSTRING_FUNCTIONS[$functionReflection->getName()]) && $this->isMbStringExtensionLoaded();
+		return isset(self::MBSTRING_FUNCTIONS[$functionReflection->getName()]) && $this->isMbstringExtensionLoaded();
 	}
 
 	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
