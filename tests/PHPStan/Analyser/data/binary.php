@@ -5,7 +5,7 @@ namespace BinaryOperations;
 class Foo
 {
 
-	public function doFoo()
+	public function doFoo(array $generalArray)
 	{
 		/** @var float $float */
 		$float = doFoo();

@@ -2659,6 +2659,22 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'string',
 				'parent::class',
 			],
+			[
+				'true',
+				'array_key_exists(0, $array)',
+			],
+			[
+				'false',
+				'array_key_exists(3, $array)',
+			],
+			[
+				'bool',
+				'array_key_exists(3, $conditionalArray)',
+			],
+			[
+				'bool',
+				'array_key_exists(\'foo\', $generalArray)',
+			],
 		];
 	}
 
