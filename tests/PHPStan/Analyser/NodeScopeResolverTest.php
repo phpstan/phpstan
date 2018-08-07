@@ -4564,7 +4564,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				'string',
-				'$mbConvertEncodingWithValidFirstAndInvalidSecondEncoding'
+				'$mbConvertEncodingWithValidFirstAndInvalidSecondEncoding',
 			],
 			[
 				'string|false',
@@ -4580,7 +4580,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				'false',
-				'$mbConvertKanaWithInvalidEncoding'
+				'$mbConvertKanaWithInvalidEncoding',
 			],
 			[
 				'string|false',
@@ -4628,7 +4628,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				'string|false',
-				'$mbEncodeNumericEntityWithUnknownEncoding'
+				'$mbEncodeNumericEntityWithUnknownEncoding',
 			],
 			[
 				'array<int, string>',
@@ -4760,7 +4760,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				'int|false',
-				'$mbStriposWithUnknownEncoding'
+				'$mbStriposWithUnknownEncoding',
 			],
 			[
 				'string|false',
