@@ -7842,7 +7842,7 @@ return [
 'openssl_csr_get_public_key' => ['resource|false', 'csr'=>'string|resource', 'use_shortnames='=>'bool'],
 'openssl_csr_get_subject' => ['array', 'csr'=>'string|resource', 'use_shortnames='=>'bool'],
 'openssl_csr_new' => ['resource|false', 'dn'=>'array', '&w_privkey'=>'resource', 'configargs='=>'array', 'extraattribs='=>'array'],
-'openssl_csr_sign' => ['resource|false', 'csr'=>'string|resource', 'x509'=>'string|resource', 'priv_key'=>'string|resource|array', 'days'=>'int', 'config_args='=>'array', 'serial='=>'int'],
+'openssl_csr_sign' => ['resource|false', 'csr'=>'string|resource', 'x509'=>'string|resource|null', 'priv_key'=>'string|resource|array', 'days'=>'int', 'config_args='=>'array', 'serial='=>'int'],
 'openssl_decrypt' => ['string|false', 'data'=>'string', 'method'=>'string', 'key'=>'string', 'options='=>'int', 'iv='=>'string', 'tag='=>'string', 'aad='=>'string'],
 'openssl_dh_compute_key' => ['string|false', 'pub_key'=>'string', 'dh_key'=>'resource'],
 'openssl_digest' => ['string|false', 'data'=>'string', 'method'=>'string', 'raw_output='=>'bool'],
