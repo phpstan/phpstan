@@ -5,11 +5,15 @@ namespace PHPStan\Type;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantArrayTypeBuilder;
 use PHPStan\Type\Constant\ConstantBooleanType;
+use PHPStan\Type\Constant\ConstantFloatType;
+use PHPStan\Type\Constant\ConstantIntegerType;
+use PHPStan\Type\Constant\ConstantStringType;
 
 class TypeCombinator
 {
 
 	private const CONSTANT_ARRAY_UNION_THRESHOLD = 16;
+	private const CONSTANT_SCALAR_UNION_THRESHOLD = 8;
 
 	public static function addNull(Type $type): Type
 	{
@@ -89,10 +93,33 @@ class TypeCombinator
 
 		$typesCount = count($types);
 		$arrayTypes = [];
+		$scalarTypes = [];
+		$hasGenericScalarTypes = [];
 		for ($i = 0; $i < $typesCount; $i++) {
 			if ($types[$i] instanceof NeverType) {
 				unset($types[$i]);
 				continue;
+			}
+			if ($types[$i] instanceof MixedType) {
+				return $types[$i];
+			}
+			if ($types[$i] instanceof ConstantScalarType) {
+				$type = $types[$i];
+				$scalarTypes[get_class($type)][md5($type->describe(VerbosityLevel::value()))] = $type;
+				unset($types[$i]);
+				continue;
+			}
+			if ($types[$i] instanceof BooleanType) {
+				$hasGenericScalarTypes[ConstantBooleanType::class] = true;
+			}
+			if ($types[$i] instanceof FloatType) {
+				$hasGenericScalarTypes[ConstantFloatType::class] = true;
+			}
+			if ($types[$i] instanceof IntegerType) {
+				$hasGenericScalarTypes[ConstantIntegerType::class] = true;
+			}
+			if ($types[$i] instanceof StringType) {
+				$hasGenericScalarTypes[ConstantStringType::class] = true;
 			}
 			if (!$types[$i] instanceof ArrayType) {
 				continue;
@@ -109,16 +136,9 @@ class TypeCombinator
 			array_merge($types, self::processArrayTypes($arrayTypes))
 		);
 
-		// simplify true | false to bool
 		// simplify string[] | int[] to (string|int)[]
 		for ($i = 0; $i < count($types); $i++) {
 			for ($j = $i + 1; $j < count($types); $j++) {
-				if ($types[$i] instanceof ConstantBooleanType && $types[$j] instanceof ConstantBooleanType && $types[$i]->getValue() !== $types[$j]->getValue()) {
-					$types[$i] = new BooleanType();
-					array_splice($types, $j, 1);
-					continue 2;
-				}
-
 				if ($types[$i] instanceof IterableType && $types[$j] instanceof IterableType) {
 					$types[$i] = new IterableType(
 						self::union($types[$i]->getIterableKeyType(), $types[$j]->getIterableKeyType()),
@@ -132,7 +152,6 @@ class TypeCombinator
 
 		// transform A | A to A
 		// transform A | never to A
-		// transform true | bool to bool
 		for ($i = 0; $i < count($types); $i++) {
 			for ($j = $i + 1; $j < count($types); $j++) {
 				if (
@@ -150,6 +169,23 @@ class TypeCombinator
 					array_splice($types, $j--, 1);
 					continue 1;
 				}
+			}
+		}
+
+		foreach ($scalarTypes as $classType => $scalarTypeItems) {
+			if (isset($hasGenericScalarTypes[$classType])) {
+				continue;
+			}
+			if ($classType === ConstantBooleanType::class && count($scalarTypeItems) === 2) {
+				$types[] = new BooleanType();
+				continue;
+			}
+			foreach ($scalarTypeItems as $type) {
+				if (count($scalarTypeItems) > self::CONSTANT_SCALAR_UNION_THRESHOLD) {
+					$types[] = $type->generalize();
+					break;
+				}
+				$types[] = $type;
 			}
 		}
 

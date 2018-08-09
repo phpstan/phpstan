@@ -787,6 +787,33 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				UnionType::class,
 				'float|int|string',
 			],
+			[
+				[
+					new ConstantStringType('foo'),
+					new ConstantStringType('foo'),
+					new ConstantStringType('bar'),
+					new ConstantStringType('baz'),
+					new ConstantStringType('lorem'),
+				],
+				UnionType::class,
+				"'bar'|'baz'|'foo'|'lorem'",
+			],
+			[
+				[
+					new ConstantStringType('foo'),
+					new ConstantStringType('foo'),
+					new ConstantStringType('fooo'),
+					new ConstantStringType('bar'),
+					new ConstantStringType('barr'),
+					new ConstantStringType('baz'),
+					new ConstantStringType('bazz'),
+					new ConstantStringType('lorem'),
+					new ConstantStringType('loremm'),
+					new ConstantStringType('loremmm'),
+				],
+				StringType::class,
+				'string',
+			],
 		];
 	}
 
