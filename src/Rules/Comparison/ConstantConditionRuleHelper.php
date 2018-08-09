@@ -29,6 +29,7 @@ class ConstantConditionRuleHelper
 			|| $expr instanceof Expr\BinaryOp\BooleanOr
 			|| $expr instanceof Expr\BinaryOp\BooleanAnd
 			|| $expr instanceof Expr\Ternary
+			|| $expr instanceof Expr\Isset_
 		) {
 			// already checked by different rules
 			return new BooleanType();
