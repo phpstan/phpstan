@@ -2,6 +2,7 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Type\Accessory\AccessoryType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantArrayTypeBuilder;
 use PHPStan\Type\Constant\ConstantBooleanType;
@@ -93,6 +94,7 @@ class TypeCombinator
 
 		$typesCount = count($types);
 		$arrayTypes = [];
+		$arrayAccessoryTypes = [];
 		$scalarTypes = [];
 		$hasGenericScalarTypes = [];
 		for ($i = 0; $i < $typesCount; $i++) {
@@ -121,6 +123,27 @@ class TypeCombinator
 			if ($types[$i] instanceof StringType) {
 				$hasGenericScalarTypes[ConstantStringType::class] = true;
 			}
+			if ($types[$i] instanceof IntersectionType) {
+				$intermediateArrayType = null;
+				$intermediateAccessoryTypes = [];
+				foreach ($types[$i]->getTypes() as $innerType) {
+					if ($innerType instanceof ArrayType) {
+						$intermediateArrayType = $innerType;
+						continue;
+					}
+					if ($innerType instanceof AccessoryType) {
+						$intermediateAccessoryTypes[] = $innerType;
+						continue;
+					}
+				}
+
+				if ($intermediateArrayType !== null) {
+					$arrayTypes[] = $intermediateArrayType;
+					$arrayAccessoryTypes = array_merge($arrayAccessoryTypes, $intermediateAccessoryTypes);
+					unset($types[$i]);
+					continue;
+				}
+			}
 			if (!$types[$i] instanceof ArrayType) {
 				continue;
 			}
@@ -133,7 +156,7 @@ class TypeCombinator
 		$arrayTypes = $arrayTypes;
 
 		$types = array_values(
-			array_merge($types, self::processArrayTypes($arrayTypes))
+			array_merge($types, self::processArrayTypes($arrayTypes, $arrayAccessoryTypes))
 		);
 
 		// simplify string[] | int[] to (string|int)[]
@@ -201,12 +224,17 @@ class TypeCombinator
 
 	/**
 	 * @param ArrayType[] $arrayTypes
-	 * @return ArrayType[]
+	 * @param AccessoryType[] $accessoryTypes
+	 * @return Type[]
 	 */
-	private static function processArrayTypes(array $arrayTypes): array
+	private static function processArrayTypes(array $arrayTypes, array $accessoryTypes): array
 	{
-		if (count($arrayTypes) < 2) {
-			return $arrayTypes;
+		if (count($arrayTypes) === 0) {
+			return [];
+		} elseif (count($arrayTypes) === 1) {
+			return [
+				self::intersect($arrayTypes[0], ...$accessoryTypes),
+			];
 		}
 
 		$keyTypesForGeneralArray = [];
@@ -243,12 +271,16 @@ class TypeCombinator
 			}
 		}
 
+		$createGeneralArray = function () use ($keyTypesForGeneralArray, $valueTypesForGeneralArray, $accessoryTypes): Type {
+			return TypeCombinator::intersect(new ArrayType(
+				self::union(...$keyTypesForGeneralArray),
+				self::union(...$valueTypesForGeneralArray)
+			), ...$accessoryTypes);
+		};
+
 		if ($generalArrayOcurred) {
 			return [
-				new ArrayType(
-					self::union(...$keyTypesForGeneralArray),
-					self::union(...$valueTypesForGeneralArray)
-				),
+				$createGeneralArray(),
 			];
 		}
 
@@ -290,10 +322,7 @@ class TypeCombinator
 
 		if (count($constantArraysBuckets) > self::CONSTANT_ARRAY_UNION_THRESHOLD) {
 			return [
-				new ArrayType(
-					self::union(...$keyTypesForGeneralArray),
-					self::union(...$valueTypesForGeneralArray)
-				),
+				$createGeneralArray(),
 			];
 		}
 
@@ -304,7 +333,7 @@ class TypeCombinator
 				$builder->setOffsetValueType($data['keyType'], $data['valueType']);
 			}
 
-			$resultArrays[] = $builder->getArray();
+			$resultArrays[] = self::intersect($builder->getArray(), ...$accessoryTypes);
 		}
 
 		return $resultArrays;

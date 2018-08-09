@@ -814,6 +814,34 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				StringType::class,
 				'string',
 			],
+			[
+				[
+					new IntersectionType([
+						new ArrayType(new MixedType(), new StringType()),
+						new HasOffsetType(new StringType()),
+					]),
+					new IntersectionType([
+						new ArrayType(new MixedType(), new StringType()),
+						new HasOffsetType(new StringType()),
+					]),
+				],
+				IntersectionType::class,
+				'array<string>&hasOffset(string)',
+			],
+			[
+				[
+					new IntersectionType([
+						new ObjectWithoutClassType(),
+						new HasPropertyType('foo'),
+					]),
+					new IntersectionType([
+						new ObjectWithoutClassType(),
+						new HasPropertyType('foo'),
+					]),
+				],
+				IntersectionType::class,
+				'object&hasProperty(foo)',
+			],
 		];
 	}
 
@@ -1177,6 +1205,33 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
+					new ArrayType(new StringType(), new StringType()),
+					new HasOffsetType(new ConstantStringType('a')),
+					new HasOffsetType(new ConstantStringType('a')),
+				],
+				IntersectionType::class,
+				'array<string, string>&hasOffset(\'a\')',
+			],
+			[
+				[
+					new ArrayType(new StringType(), new StringType()),
+					new HasOffsetType(new StringType()),
+					new HasOffsetType(new StringType()),
+				],
+				IntersectionType::class,
+				'array<string, string>&hasOffset(string)',
+			],
+			[
+				[
+					new ArrayType(new MixedType(), new MixedType()),
+					new HasOffsetType(new StringType()),
+					new HasOffsetType(new StringType()),
+				],
+				IntersectionType::class,
+				'array&hasOffset(string)',
+			],
+			[
+				[
 					new ConstantArrayType(
 						[new ConstantStringType('a')],
 						[new ConstantStringType('foo')]
@@ -1259,6 +1314,17 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				],
 				ClosureType::class,
 				'Closure<mixed>',
+			],
+			[
+				[
+					new UnionType([
+						new ArrayType(new MixedType(), new StringType()),
+						new NullType(),
+					]),
+					new HasOffsetType(new StringType()),
+				],
+				UnionType::class,
+				'(array<string>&hasOffset(string))|null',
 			],
 		];
 	}

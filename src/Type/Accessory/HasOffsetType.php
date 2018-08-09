@@ -49,6 +49,9 @@ class HasOffsetType implements CompoundType, AccessoryType
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
+		if ($this->equals($type)) {
+			return TrinaryLogic::createYes();
+		}
 		return $type->isOffsetAccessible()
 			->and($type->hasOffsetValueType($this->offsetType));
 	}
