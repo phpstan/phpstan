@@ -125,7 +125,7 @@ class UnionType implements CompoundType, StaticResolvableType
 				}
 			}
 
-			return implode('|', array_unique($typeNames));
+			return implode('|', $typeNames);
 		};
 
 		return $level->handle(
