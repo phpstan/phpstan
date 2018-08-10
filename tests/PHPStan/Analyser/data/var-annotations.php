@@ -37,6 +37,12 @@ class Foo
 		/** @var callable $callable */
 		$callable = getFoo();
 
+		/** @var callable(int $x, string ...$y): void $callableWithTypes */
+		$callableWithTypes = getFoo();
+
+		/** @var \Closure(int $x, string ...$y): void $closureWithTypes */
+		$closureWithTypes = getFoo();
+
 		/** @var self $self */
 		$self = getFoo();
 
@@ -80,6 +86,12 @@ class Foo
 
 		/** @var callable */
 		$callable = getFoo();
+
+		/** @var callable(int $x, string &...$y): void */
+		$callableWithTypes = getFoo();
+
+		/** @var \Closure(int $x, string &...$y): void */
+		$closureWithTypes = getFoo();
 
 		/** @var self */
 		$self = getFoo();
