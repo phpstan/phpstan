@@ -30,6 +30,9 @@ use SomeNodeScopeResolverNamespace\Foo;
 class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 {
 
+	/** @var Scope[][] */
+	private static $assertTypesCache = [];
+
 	public function testClassMethodScope(): void
 	{
 		$this->processFile(__DIR__ . '/data/class.php', function (\PhpParser\Node $node, Scope $scope): void {
@@ -4911,7 +4914,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[],
 			[],
 			[new AssertionClassMethodTypeSpecifyingExtension($nullContext)],
-			[new AssertionClassStaticMethodTypeSpecifyingExtension($nullContext)]
+			[new AssertionClassStaticMethodTypeSpecifyingExtension($nullContext)],
+			'die',
+			[],
+			false
 		);
 	}
 
@@ -5029,7 +5035,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[],
 			[],
 			[new AssertionClassMethodTypeSpecifyingExtension($nullContext)],
-			[new AssertionClassStaticMethodTypeSpecifyingExtension($nullContext)]
+			[new AssertionClassStaticMethodTypeSpecifyingExtension($nullContext)],
+			'die',
+			[],
+			false
 		);
 	}
 
@@ -7287,16 +7296,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		array $methodTypeSpecifyingExtensions = [],
 		array $staticMethodTypeSpecifyingExtensions = [],
 		string $evaluatedPointExpression = 'die',
-		array $dynamicConstantNames = []
+		array $dynamicConstantNames = [],
+		bool $useCache = true
 	): void
 	{
-		$this->processFile($file, function (\PhpParser\Node $node, Scope $scope) use ($description, $expression, $evaluatedPointExpression): void {
-			$printer = new \PhpParser\PrettyPrinter\Standard();
-			$printedNode = $printer->prettyPrint([$node]);
-			if ($printedNode !== $evaluatedPointExpression) {
-				return;
-			}
-
+		$assertType = function (Scope $scope) use ($expression, $description, $evaluatedPointExpression): void {
 			/** @var \PhpParser\Node\Stmt\Expression $expressionNode */
 			$expressionNode = $this->getParser()->parseString(sprintf('<?php %s;', $expression))[0];
 			$type = $scope->getType($expressionNode->expr);
@@ -7305,7 +7309,23 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$type,
 				sprintf('%s at %s', $expression, $evaluatedPointExpression)
 			);
-		}, $dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions, $methodTypeSpecifyingExtensions, $staticMethodTypeSpecifyingExtensions, $dynamicConstantNames);
+		};
+		if ($useCache && isset(self::$assertTypesCache[$file][$evaluatedPointExpression])) {
+			$assertType(self::$assertTypesCache[$file][$evaluatedPointExpression]);
+			return;
+		}
+		$this->processFile($file, function (\PhpParser\Node $node, Scope $scope) use ($file, $evaluatedPointExpression, $assertType): void {
+			$printer = new \PhpParser\PrettyPrinter\Standard();
+			$printedNode = $printer->prettyPrint([$node]);
+			if ($printedNode !== $evaluatedPointExpression) {
+				return;
+			}
+
+			self::$assertTypesCache[$file][$evaluatedPointExpression] = $scope;
+
+			$assertType($scope);
+		}, $dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions, $methodTypeSpecifyingExtensions, $staticMethodTypeSpecifyingExtensions,
+			$dynamicConstantNames);
 	}
 
 	/**
