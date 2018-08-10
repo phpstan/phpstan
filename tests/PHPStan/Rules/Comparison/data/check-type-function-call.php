@@ -315,3 +315,30 @@ class ArrayKeyExists
 	}
 
 }
+
+class PropertyExistsUniversalCrate
+{
+
+	private $foo;
+
+	/**
+	 * @param \stdClass $std
+	 * @param \stdClass|self $stdOrSelf
+	 */
+	public function doFoo(
+		\stdClass $std,
+		$stdOrSelf
+	)
+	{
+		if (property_exists($std, 'foo')) {
+
+		}
+		if (property_exists($stdOrSelf, 'foo')) {
+
+		}
+		if (property_exists($stdOrSelf, 'bar')) {
+
+		}
+	}
+
+}

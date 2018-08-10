@@ -19,6 +19,7 @@ class ImpossibleCheckTypeMethodCallRuleTest extends \PHPStan\Testing\RuleTestCas
 	{
 		return new ImpossibleCheckTypeMethodCallRule(
 			new ImpossibleCheckTypeHelper(
+				$this->createBroker(),
 				$this->getTypeSpecifier()
 			),
 			true

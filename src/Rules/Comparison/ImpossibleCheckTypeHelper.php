@@ -9,6 +9,8 @@ use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Analyser\TypeSpecifierContext;
+use PHPStan\Broker\Broker;
+use PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\StringType;
@@ -19,11 +21,18 @@ use PHPStan\Type\VerbosityLevel;
 class ImpossibleCheckTypeHelper
 {
 
+	/** @var \PHPStan\Broker\Broker */
+	private $broker;
+
 	/** @var \PHPStan\Analyser\TypeSpecifier */
 	private $typeSpecifier;
 
-	public function __construct(TypeSpecifier $typeSpecifier)
+	public function __construct(
+		Broker $broker,
+		TypeSpecifier $typeSpecifier
+	)
 	{
+		$this->broker = $broker;
 		$this->typeSpecifier = $typeSpecifier;
 	}
 
@@ -68,6 +77,26 @@ class ImpossibleCheckTypeHelper
 						)
 					) {
 						return null;
+					}
+				} elseif (
+					$functionName === 'property_exists'
+					&& count($node->args) >= 2
+				) {
+					$classNames = TypeUtils::getDirectClassNames(
+						$scope->getType($node->args[0]->value)
+					);
+					foreach ($classNames as $className) {
+						if (!$this->broker->hasClass($className)) {
+							continue;
+						}
+
+						if (UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate(
+							$this->broker,
+							$this->broker->getUniversalObjectCratesClasses(),
+							$this->broker->getClass($className)
+						)) {
+							return null;
+						}
 					}
 				}
 			}

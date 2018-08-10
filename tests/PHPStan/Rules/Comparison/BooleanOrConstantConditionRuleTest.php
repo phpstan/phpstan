@@ -10,6 +10,7 @@ class BooleanOrConstantConditionRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new BooleanOrConstantConditionRule(
 			new ConstantConditionRuleHelper(
 				new ImpossibleCheckTypeHelper(
+					$this->createBroker(),
 					$this->getTypeSpecifier()
 				)
 			)
