@@ -8,6 +8,7 @@ use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeUtils;
 
 class ArgumentBasedFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
@@ -48,12 +49,18 @@ class ArgumentBasedFunctionReturnTypeExtension implements \PHPStan\Type\DynamicF
 			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
 		}
 
-		$argumentValue = $functionCall->args[$argumentPosition]->value;
-		$argumentType = $scope->getType($argumentValue);
+		$argument = $functionCall->args[$argumentPosition];
+		$argumentType = $scope->getType($argument->value);
+		$argumentKeyType = $argumentType->getIterableKeyType();
+		$argumentValueType = $argumentType->getIterableValueType();
+		if ($argument->unpack) {
+			$argumentKeyType = TypeUtils::generalizeType($argumentKeyType);
+			$argumentValueType = TypeUtils::generalizeType($argumentValueType->getIterableValueType());
+		}
 
 		return new ArrayType(
-			$argumentType->getIterableKeyType(),
-			$argumentType->getIterableValueType()
+			$argumentKeyType,
+			$argumentValueType
 		);
 	}
 

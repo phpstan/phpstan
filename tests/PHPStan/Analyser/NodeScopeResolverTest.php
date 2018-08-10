@@ -4128,6 +4128,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_intersect_key($integers, [])',
 			],
 			[
+				'array<int, int>',
+				'array_intersect_key(...[$integers, [4, 5, 6]])',
+			],
+			[
+				'array<int|string, int>',
+				'array_intersect_key(...$generalIntegersInAnotherArray, [])',
+			],
+			[
 				'array<0|1|2, 1|2|3>',
 				'array_intersect_uassoc($integers, [])',
 			],

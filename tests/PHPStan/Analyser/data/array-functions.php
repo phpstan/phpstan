@@ -105,6 +105,9 @@ $string = doFoo();
 /** @var int[] $generalIntegers */
 $generalIntegers = doFoo();
 
+/** @var int[][] $generalIntegersInAnotherArray */
+$generalIntegersInAnotherArray = doFoo();
+
 $mappedStringKeys = array_map(function (): \stdClass {
 
 }, $generalStringKeys);
