@@ -1162,6 +1162,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$callable',
 			],
 			[
+				'callable',
+				'$callableWithTypes',
+			],
+			[
+				'Closure<void>',
+				'$closureWithTypes',
+			],
+			[
 				'VarAnnotations\Foo',
 				'$self',
 			],
