@@ -356,12 +356,20 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		return new self($properties['types']);
 	}
 
+	/**
+	 * @param callable(Type $type): TrinaryLogic $getResult
+	 * @return TrinaryLogic
+	 */
 	private function intersectResults(callable $getResult): TrinaryLogic
 	{
 		$operands = array_map($getResult, $this->types);
 		return TrinaryLogic::maxMin(...$operands);
 	}
 
+	/**
+	 * @param callable(Type $type): Type $getType
+	 * @return Type
+	 */
 	private function intersectTypes(callable $getType): Type
 	{
 		$operands = array_map($getType, $this->types);

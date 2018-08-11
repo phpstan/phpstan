@@ -223,6 +223,11 @@ class UnionType implements CompoundType, StaticResolvableType
 		);
 	}
 
+	/**
+	 * @param callable(Type $type): TrinaryLogic $canCallback
+	 * @param callable(Type $type): bool $hasCallback
+	 * @return bool
+	 */
 	private function hasInternal(
 		callable $canCallback,
 		callable $hasCallback
@@ -503,11 +508,19 @@ class UnionType implements CompoundType, StaticResolvableType
 		return new self($properties['types']);
 	}
 
+	/**
+	 * @param callable(Type $type): TrinaryLogic $getResult
+	 * @return TrinaryLogic
+	 */
 	private function unionResults(callable $getResult): TrinaryLogic
 	{
 		return TrinaryLogic::extremeIdentity(...array_map($getResult, $this->types));
 	}
 
+	/**
+	 * @param callable(Type $type): Type $getType
+	 * @return Type
+	 */
 	protected function unionTypes(callable $getType): Type
 	{
 		return TypeCombinator::union(...array_map($getType, $this->types));

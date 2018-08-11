@@ -14,14 +14,14 @@ class StatementList
 	/** @var bool */
 	private $filterByTruthyValue;
 
-	/** @var callable|null */
+	/** @var callable(Scope $scope): Scope|null */
 	private $processScope;
 
 	/**
 	 * @param Scope $scope
 	 * @param \PhpParser\Node[] $statements
 	 * @param bool $filterByTruthyValue
-	 * @param callable|null $processScope
+	 * @param callable(Scope $scope): Scope|null $processScope
 	 */
 	public function __construct(
 		Scope $scope,
