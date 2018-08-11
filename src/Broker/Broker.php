@@ -553,6 +553,12 @@ class Broker
 		return false;
 	}
 
+	/**
+	 * @param Node\Name $nameNode
+	 * @param \Closure(string $name): bool $existsCallback
+	 * @param null|Scope $scope
+	 * @return null|string
+	 */
 	private function resolveName(
 		\PhpParser\Node\Name $nameNode,
 		\Closure $existsCallback,

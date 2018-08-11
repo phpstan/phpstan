@@ -273,8 +273,8 @@ class FileTypeMapper
 
 	/**
 	 * @param \PhpParser\Node[]|\PhpParser\Node|scalar $node
-	 * @param \Closure $nodeCallback
-	 * @param \Closure $endNodeCallback
+	 * @param \Closure(\PhpParser\Node $node): mixed $nodeCallback
+	 * @param \Closure(\PhpParser\Node $node): void $endNodeCallback
 	 */
 	private function processNodes($node, \Closure $nodeCallback, \Closure $endNodeCallback): void
 	{

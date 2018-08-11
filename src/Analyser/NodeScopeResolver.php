@@ -149,7 +149,7 @@ class NodeScopeResolver
 	/**
 	 * @param \PhpParser\Node[] $nodes
 	 * @param \PHPStan\Analyser\Scope $scope
-	 * @param \Closure $nodeCallback
+	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
 	 * @param \PHPStan\Analyser\Scope $closureBindScope
 	 */
 	public function processNodes(
@@ -358,6 +358,12 @@ class NodeScopeResolver
 		return $this->lookForAssigns($scope, $node->valueVar, TrinaryLogic::createYes(), LookForAssignsSettings::default());
 	}
 
+	/**
+	 * @param \PhpParser\Node $node
+	 * @param Scope $scope
+	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
+	 * @param bool $stopImmediately
+	 */
 	private function processNode(\PhpParser\Node $node, Scope $scope, \Closure $nodeCallback, bool $stopImmediately = false): void
 	{
 		$nodeCallback($node, $scope);
@@ -1872,7 +1878,7 @@ class NodeScopeResolver
 	 * @param \PhpParser\Node[]|\PhpParser\Node|scalar $node
 	 * @param string $traitName
 	 * @param \PHPStan\Analyser\Scope $classScope
-	 * @param \Closure $nodeCallback
+	 * @param \Closure(\PhpParser\Node $node): void $nodeCallback
 	 */
 	private function processNodesForTraitUse($node, string $traitName, Scope $classScope, \Closure $nodeCallback): void
 	{
