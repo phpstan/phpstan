@@ -50,7 +50,12 @@ class ClosureType implements Type, ParametersAcceptor
 	 */
 	public function getReferencedClasses(): array
 	{
-		return $this->objectType->getReferencedClasses();
+		$classes = $this->objectType->getReferencedClasses();
+		foreach ($this->parameters as $parameter) {
+			$classes = array_merge($classes, $parameter->getType()->getReferencedClasses());
+		}
+
+		return array_merge($classes, $this->returnType->getReferencedClasses());
 	}
 
 	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
