@@ -54,7 +54,35 @@ class ClosureType implements Type, ParametersAcceptor
 
 	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
-		return $this->objectType->accepts($type, $strictTypes);
+		if (!$type instanceof ClosureType) {
+			return $this->objectType->accepts($type, $strictTypes);
+		}
+
+		$theirParameters = $type->parameters;
+		$ourParameters = $this->parameters;
+		if (count($theirParameters) > count($ourParameters)) {
+			return TrinaryLogic::createNo();
+		}
+
+		$result = null;
+		foreach ($theirParameters as $i => $theirParameter) {
+			$ourParameter = $ourParameters[$i];
+			$isSuperType = $theirParameter->getType()->isSuperTypeOf($ourParameter->getType());
+			if ($result === null) {
+				$result = $isSuperType;
+			} else {
+				$result = $result->and($isSuperType);
+			}
+		}
+
+		$isReturnTypeSuperType = $this->returnType->isSuperTypeOf($type->returnType);
+		if ($result === null) {
+			$result = $isReturnTypeSuperType;
+		} else {
+			$result = $result->and($isReturnTypeSuperType);
+		}
+
+		return $result;
 	}
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic

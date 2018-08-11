@@ -53,5 +53,10 @@
         "message": "Parameter #1 $var of function count expects array|Countable, string given.",
         "line": 149,
         "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $closure of method Levels\\AcceptTypes\\ClosureAccepts::doBar() expects Closure<Levels\\AcceptTypes\\FooInterface>, Closure<Levels\\AcceptTypes\\FooInterface> given.",
+        "line": 190,
+        "ignorable": true
     }
 ]
