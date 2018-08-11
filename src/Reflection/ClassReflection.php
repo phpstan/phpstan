@@ -2,7 +2,6 @@
 
 namespace PHPStan\Reflection;
 
-use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\PhpDoc\ResolvedPhpDocBlock;
 use PHPStan\Reflection\Php\PhpClassReflectionExtension;
@@ -202,7 +201,7 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 		return false;
 	}
 
-	public function getMethod(string $methodName, Scope $scope): MethodReflection
+	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
 	{
 		$key = $methodName;
 		if ($scope->isInClass()) {
@@ -268,7 +267,7 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 		return $extension;
 	}
 
-	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
 	{
 		$key = $propertyName;
 		if ($scope->isInClass()) {

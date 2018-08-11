@@ -2,8 +2,8 @@
 
 namespace PHPStan\Type\Accessory;
 
-use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\Dummy\DummyMethodReflection;
 use PHPStan\Reflection\MethodReflection;
@@ -131,7 +131,7 @@ class HasMethodType implements CompoundType, AccessoryType
 		return false;
 	}
 
-	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
 	{
 		throw new \PHPStan\ShouldNotHappenException();
 	}
@@ -146,7 +146,7 @@ class HasMethodType implements CompoundType, AccessoryType
 		return $this->getCanonicalMethodName() === strtolower($methodName);
 	}
 
-	public function getMethod(string $methodName, Scope $scope): MethodReflection
+	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
 	{
 		return new DummyMethodReflection($this->methodName);
 	}
@@ -208,7 +208,7 @@ class HasMethodType implements CompoundType, AccessoryType
 		);
 	}
 
-	public function getCallableParametersAcceptors(Scope $scope): array
+	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array
 	{
 		return [
 			new TrivialParametersAcceptor(),

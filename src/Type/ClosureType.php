@@ -2,7 +2,7 @@
 
 namespace PHPStan\Type;
 
-use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParameterReflection;
@@ -74,31 +74,10 @@ class ClosureType implements Type, ParametersAcceptor
 	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
 		if ($type instanceof self) {
-			$theirParameters = $type->parameters;
-			$ourParameters = $this->parameters;
-			if (count($theirParameters) > count($ourParameters)) {
-				return TrinaryLogic::createNo();
-			}
-
-			$result = null;
-			foreach ($theirParameters as $i => $theirParameter) {
-				$ourParameter = $ourParameters[$i];
-				$isSuperType = $theirParameter->getType()->isSuperTypeOf($ourParameter->getType());
-				if ($result === null) {
-					$result = $isSuperType;
-				} else {
-					$result = $result->and($isSuperType);
-				}
-			}
-
-			$isReturnTypeSuperType = $this->returnType->isSuperTypeOf($type->returnType);
-			if ($result === null) {
-				$result = $isReturnTypeSuperType;
-			} else {
-				$result = $result->and($isReturnTypeSuperType);
-			}
-
-			return $result;
+			return CallableTypeHelper::isParametersAcceptorSuperTypeOf(
+				$this,
+				$type
+			);
 		}
 
 		if ($type instanceof CompoundType) {
@@ -149,7 +128,7 @@ class ClosureType implements Type, ParametersAcceptor
 		return $this->objectType->hasProperty($propertyName);
 	}
 
-	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
 	{
 		return $this->objectType->getProperty($propertyName, $scope);
 	}
@@ -164,7 +143,7 @@ class ClosureType implements Type, ParametersAcceptor
 		return $this->objectType->hasMethod($methodName);
 	}
 
-	public function getMethod(string $methodName, Scope $scope): MethodReflection
+	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
 	{
 		return $this->objectType->getMethod($methodName, $scope);
 	}
@@ -225,10 +204,10 @@ class ClosureType implements Type, ParametersAcceptor
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
 	 * @return \PHPStan\Reflection\ParametersAcceptor[]
 	 */
-	public function getCallableParametersAcceptors(Scope $scope): array
+	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array
 	{
 		return [$this];
 	}

@@ -64,7 +64,7 @@ class TypeNodeResolver
 
 	public function getCacheKey(): string
 	{
-		$key = 'v47';
+		$key = 'v48';
 		foreach ($this->extensions as $extension) {
 			$key .= sprintf('-%s', $extension->getCacheKey());
 		}
@@ -299,26 +299,29 @@ class TypeNodeResolver
 	private function resolveCallableTypeNode(CallableTypeNode $typeNode, NameScope $nameScope): Type
 	{
 		$mainType = $this->resolve($typeNode->identifier, $nameScope);
+		$isVariadic = false;
+		$parameters = array_map(
+			function (CallableTypeParameterNode $parameterNode) use ($nameScope, &$isVariadic): NativeParameterReflection {
+				$isVariadic = $isVariadic || $parameterNode->isVariadic;
+				return new NativeParameterReflection(
+					$parameterNode->parameterName,
+					$parameterNode->isOptional,
+					$this->resolve($parameterNode->type, $nameScope),
+					$parameterNode->isReference ? PassedByReference::createCreatesNewVariable() : PassedByReference::createNo(),
+					$parameterNode->isVariadic
+				);
+			},
+			$typeNode->parameters
+		);
+		$returnType = $this->resolve($typeNode->returnType, $nameScope);
 
 		if ($mainType instanceof CallableType) {
-			return $mainType;
+			return new CallableType($parameters, $returnType, $isVariadic);
 
-		} elseif ($mainType instanceof ObjectType && $mainType->getClassName() === \Closure::class) {
-			$isVariadic = false;
-			$parameters = array_map(
-				function (CallableTypeParameterNode $parameterNode) use ($nameScope, &$isVariadic): NativeParameterReflection {
-					$isVariadic = $isVariadic || $parameterNode->isVariadic;
-					return new NativeParameterReflection(
-						$parameterNode->parameterName,
-						$parameterNode->isOptional,
-						$this->resolve($parameterNode->type, $nameScope),
-						$parameterNode->isReference ? PassedByReference::createCreatesNewVariable() : PassedByReference::createNo(),
-						$parameterNode->isVariadic
-					);
-				},
-				$typeNode->parameters
-			);
-			$returnType = $this->resolve($typeNode->returnType, $nameScope);
+		} elseif (
+			$mainType instanceof ObjectType
+			&& $mainType->getClassName() === \Closure::class
+		) {
 			return new ClosureType($parameters, $returnType, $isVariadic);
 		}
 

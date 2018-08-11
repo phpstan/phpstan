@@ -2,8 +2,8 @@
 
 namespace PHPStan\Type;
 
-use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
@@ -48,7 +48,7 @@ class ObjectType implements TypeWithClassName
 		return $broker->getClass($this->className)->hasProperty($propertyName);
 	}
 
-	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
 	{
 		$broker = Broker::getInstance();
 		return $broker->getClass($this->className)->getProperty($propertyName, $scope);
@@ -324,7 +324,7 @@ class ObjectType implements TypeWithClassName
 		return $broker->getClass($this->className)->hasMethod($methodName);
 	}
 
-	public function getMethod(string $methodName, Scope $scope): MethodReflection
+	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
 	{
 		$broker = Broker::getInstance();
 		return $broker->getClass($this->className)->getMethod($methodName, $scope);
@@ -496,10 +496,10 @@ class ObjectType implements TypeWithClassName
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
 	 * @return \PHPStan\Reflection\ParametersAcceptor[]
 	 */
-	public function getCallableParametersAcceptors(Scope $scope): array
+	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array
 	{
 		if ($this->className === \Closure::class) {
 			return [new TrivialParametersAcceptor()];

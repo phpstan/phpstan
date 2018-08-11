@@ -2,7 +2,7 @@
 
 namespace PHPStan\Type\Traits;
 
-use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
@@ -21,7 +21,7 @@ trait NonObjectTypeTrait
 		return false;
 	}
 
-	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
 	{
 		throw new \PHPStan\ShouldNotHappenException();
 	}
@@ -36,7 +36,7 @@ trait NonObjectTypeTrait
 		return false;
 	}
 
-	public function getMethod(string $methodName, Scope $scope): MethodReflection
+	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
 	{
 		throw new \PHPStan\ShouldNotHappenException();
 	}

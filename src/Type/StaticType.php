@@ -2,7 +2,7 @@
 
 namespace PHPStan\Type;
 
-use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
@@ -91,7 +91,7 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 		return $this->staticObjectType->hasProperty($propertyName);
 	}
 
-	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
 	{
 		return $this->staticObjectType->getProperty($propertyName, $scope);
 	}
@@ -106,7 +106,7 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 		return $this->staticObjectType->hasMethod($methodName);
 	}
 
-	public function getMethod(string $methodName, Scope $scope): MethodReflection
+	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
 	{
 		return $this->staticObjectType->getMethod($methodName, $scope);
 	}
@@ -178,10 +178,10 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
 	 * @return \PHPStan\Reflection\ParametersAcceptor[]
 	 */
-	public function getCallableParametersAcceptors(Scope $scope): array
+	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array
 	{
 		return $this->staticObjectType->getCallableParametersAcceptors($scope);
 	}

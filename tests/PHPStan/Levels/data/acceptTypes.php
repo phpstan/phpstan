@@ -181,27 +181,48 @@ class ClosureAccepts
 
 	public function doFoo()
 	{
-		$this->doBar(function (FooInterface $x, $y): FooInterface {
+		$c = function (FooInterface $x, $y): FooInterface {
 			return new FooImpl();
-		});
-		$this->doBar(function (FooInterface $x): FooInterface { // less parameters - OK
+		};
+		$this->doBar($c);
+		$this->doBaz($c);
+
+		$c = function (FooInterface $x): FooInterface { // less parameters - OK
 			return new FooImpl();
-		});
-		$this->doBar(function (FooInterface $x, $y, $z): FooInterface { // more parameters - error
+		};
+		$this->doBar($c);
+		$this->doBaz($c);
+
+		$c = function (FooInterface $x, $y, $z): FooInterface { // more parameters - error
 			return new FooImpl();
-		});
-		$this->doBar(function (ParentFooInterface $x): FooInterface { // parameter contravariance - OK
+		};
+
+		$this->doBar($c);
+		$this->doBaz($c);
+
+		$c = function (ParentFooInterface $x): FooInterface { // parameter contravariance - OK
 			return new FooImpl();
-		});
-		$this->doBar(function (FooImpl $x): FooInterface { // parameter covariance - error
+		};
+		$this->doBar($c);
+		$this->doBaz($c);
+
+		$c = function (FooImpl $x): FooInterface { // parameter covariance - error
 			return new FooImpl();
-		});
-		$this->doBar(function (FooInterface $x): FooImpl { // return type covariance - OK
+		};
+		$this->doBar($c);
+		$this->doBaz($c);
+
+		$c = function (FooInterface $x): FooImpl { // return type covariance - OK
 			return new FooImpl();
-		});
-		$this->doBar(function (FooInterface $x): ParentFooInterface { // return type contravariance - error
+		};
+		$this->doBar($c);
+		$this->doBaz($c);
+
+		$c = function (FooInterface $x): ParentFooInterface { // return type contravariance - error
 			return new FooImpl();
-		});
+		};
+		$this->doBar($c);
+		$this->doBaz($c);
 	}
 
 	public function doFooUnionClosures()
@@ -216,6 +237,7 @@ class ClosureAccepts
 			$c = $closure;
 		}
 		$this->doBar($c);
+		$this->doBaz($c);
 
 		$c = function (FooInterface $x): FooInterface { // less parameters - OK
 			return new FooImpl();
@@ -224,6 +246,7 @@ class ClosureAccepts
 			$c = $closure;
 		}
 		$this->doBar($c);
+		$this->doBaz($c);
 
 		$c = function (FooInterface $x, $y, $z): FooInterface { // more parameters - error
 			return new FooImpl();
@@ -232,6 +255,7 @@ class ClosureAccepts
 			$c = $closure;
 		}
 		$this->doBar($c);
+		$this->doBaz($c);
 
 		$c = function (ParentFooInterface $x): FooInterface { // parameter contravariance - OK
 			return new FooImpl();
@@ -240,6 +264,7 @@ class ClosureAccepts
 			$c = $closure;
 		}
 		$this->doBar($c);
+		$this->doBaz($c);
 
 		$c = function (FooImpl $x): FooInterface { // parameter covariance - error
 			return new FooImpl();
@@ -248,6 +273,7 @@ class ClosureAccepts
 			$c = $closure;
 		}
 		$this->doBar($c);
+		$this->doBaz($c);
 
 		$c = function (FooInterface $x): FooImpl { // return type covariance - OK
 			return new FooImpl();
@@ -256,6 +282,7 @@ class ClosureAccepts
 			$c = $closure;
 		}
 		$this->doBar($c);
+		$this->doBaz($c);
 
 		$c = function (FooInterface $x): ParentFooInterface { // return type contravariance - error
 			return new FooImpl();
@@ -264,10 +291,13 @@ class ClosureAccepts
 			$c = $closure;
 		}
 		$this->doBar($c);
+		$this->doBaz($c);
 
-		$this->doBar(function () {
+		$c = function () {
 
-		});
+		};
+		$this->doBar($c);
+		$this->doBaz($c);
 	}
 
 	/**
@@ -275,6 +305,16 @@ class ClosureAccepts
 	 */
 	public function doBar(
 		\Closure $closure
+	)
+	{
+
+	}
+
+	/**
+	 * @param callable(FooInterface $x, int $y): FooInterface $callable
+	 */
+	public function doBaz(
+		callable $callable
 	)
 	{
 
