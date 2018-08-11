@@ -1166,7 +1166,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$callableWithTypes',
 			],
 			[
-				'Closure<void>',
+				'Closure(int, array<int, string>): void',
 				'$closureWithTypes',
 			],
 			[

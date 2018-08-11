@@ -74,7 +74,7 @@ class NonexistentOffsetInArrayDimFetchRuleTest extends \PHPStan\Testing\RuleTest
 				240,
 			],
 			[
-				'Cannot access offset \'a\' on Closure<mixed>.',
+				'Cannot access offset \'a\' on Closure(): mixed.',
 				253,
 			],
 		]);

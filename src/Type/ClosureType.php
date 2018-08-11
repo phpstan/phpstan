@@ -5,6 +5,7 @@ namespace PHPStan\Type;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\ParameterReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
@@ -120,7 +121,13 @@ class ClosureType implements Type, ParametersAcceptor
 
 	public function describe(VerbosityLevel $level): string
 	{
-		return sprintf('Closure<%s>', $this->returnType->describe($level));
+		return sprintf(
+			'Closure(%s): %s',
+			implode(', ', array_map(function (ParameterReflection $parameter) use ($level): string {
+				return $parameter->getType()->describe($level);
+			}, $this->parameters)),
+			$this->returnType->describe($level)
+		);
 	}
 
 	public function canAccessProperties(): TrinaryLogic

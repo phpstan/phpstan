@@ -1297,7 +1297,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ObjectType(\Closure::class),
 				],
 				ClosureType::class,
-				'Closure<mixed>',
+				'Closure(): mixed',
 			],
 			[
 				[
@@ -1305,7 +1305,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new CallableType(),
 				],
 				ClosureType::class,
-				'Closure<mixed>',
+				'Closure(): mixed',
 			],
 			[
 				[
@@ -1313,7 +1313,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ObjectWithoutClassType(),
 				],
 				ClosureType::class,
-				'Closure<mixed>',
+				'Closure(): mixed',
 			],
 			[
 				[
