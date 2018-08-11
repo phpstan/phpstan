@@ -43,5 +43,20 @@
         "message": "Parameter #1 $closure of method Levels\\AcceptTypes\\ClosureAccepts::doBar() expects Closure(Levels\\AcceptTypes\\FooInterface, int): Levels\\AcceptTypes\\FooInterface, Closure(Levels\\AcceptTypes\\FooInterface): Levels\\AcceptTypes\\ParentFooInterface given.",
         "line": 202,
         "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $closure of method Levels\\AcceptTypes\\ClosureAccepts::doBar() expects Closure(Levels\\AcceptTypes\\FooInterface, int): Levels\\AcceptTypes\\FooInterface, Closure(Levels\\AcceptTypes\\FooImpl): Levels\\AcceptTypes\\FooInterface given.",
+        "line": 250,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $closure of method Levels\\AcceptTypes\\ClosureAccepts::doBar() expects Closure(Levels\\AcceptTypes\\FooInterface, int): Levels\\AcceptTypes\\FooInterface, Closure(Levels\\AcceptTypes\\FooInterface): Levels\\AcceptTypes\\ParentFooInterface given.",
+        "line": 266,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $closure of method Levels\\AcceptTypes\\ClosureAccepts::doBar() expects Closure(Levels\\AcceptTypes\\FooInterface, int): Levels\\AcceptTypes\\FooInterface, Closure(): mixed given.",
+        "line": 268,
+        "ignorable": true
     }
 ]

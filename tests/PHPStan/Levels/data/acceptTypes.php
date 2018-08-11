@@ -204,6 +204,72 @@ class ClosureAccepts
 		});
 	}
 
+	public function doFooUnionClosures()
+	{
+		$closure = function (): FooInterface {
+
+		};
+		$c = function (FooInterface $x, $y): FooInterface {
+			return new FooImpl();
+		};
+		if (rand(0, 1) === 0) {
+			$c = $closure;
+		}
+		$this->doBar($c);
+
+		$c = function (FooInterface $x): FooInterface { // less parameters - OK
+			return new FooImpl();
+		};
+		if (rand(0, 1) === 0) {
+			$c = $closure;
+		}
+		$this->doBar($c);
+
+		$c = function (FooInterface $x, $y, $z): FooInterface { // more parameters - error
+			return new FooImpl();
+		};
+		if (rand(0, 1) === 0) {
+			$c = $closure;
+		}
+		$this->doBar($c);
+
+		$c = function (ParentFooInterface $x): FooInterface { // parameter contravariance - OK
+			return new FooImpl();
+		};
+		if (rand(0, 1) === 0) {
+			$c = $closure;
+		}
+		$this->doBar($c);
+
+		$c = function (FooImpl $x): FooInterface { // parameter covariance - error
+			return new FooImpl();
+		};
+		if (rand(0, 1) === 0) {
+			$c = $closure;
+		}
+		$this->doBar($c);
+
+		$c = function (FooInterface $x): FooImpl { // return type covariance - OK
+			return new FooImpl();
+		};
+		if (rand(0, 1) === 0) {
+			$c = $closure;
+		}
+		$this->doBar($c);
+
+		$c = function (FooInterface $x): ParentFooInterface { // return type contravariance - error
+			return new FooImpl();
+		};
+		if (rand(0, 1) === 0) {
+			$c = $closure;
+		}
+		$this->doBar($c);
+
+		$this->doBar(function () {
+
+		});
+	}
+
 	/**
 	 * @param \Closure(FooInterface $x, int $y): FooInterface $closure
 	 */
