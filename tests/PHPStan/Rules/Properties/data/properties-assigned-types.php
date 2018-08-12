@@ -176,3 +176,28 @@ class SimpleXMLElementAccepts
 	}
 
 }
+
+class MultipleCallableItems
+{
+
+	/** @var callable[] */
+	private $rules = [];
+
+	public function __construct()
+	{
+		$this->rules = [
+			[$this, 'doSomething'],
+			[$this, 'somethingElse'],
+		];
+	}
+
+	private function doSomething()
+	{
+
+	}
+	private function somethingElse()
+	{
+
+	}
+
+}

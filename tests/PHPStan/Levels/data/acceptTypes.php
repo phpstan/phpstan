@@ -121,6 +121,18 @@ class Foo
 	}
 
 	/**
+	 * @param int|null $intOrNull
+	 * @param int|float $intOrFloat
+	 */
+	public function doBazArrayUnionItemTypes(?int $intOrNull, $intOrFloat)
+	{
+		$intsAndNulls = [1, 2, 3, $intOrNull];
+		$intsAndFloats = [1, 2, 3, $intOrFloat];
+		$this->doBarArray($intsAndNulls);
+		$this->doBarArray($intsAndFloats);
+	}
+
+	/**
 	 * @param array<int, mixed> $array
 	 */
 	public function callableArray(
