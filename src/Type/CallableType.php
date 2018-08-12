@@ -5,7 +5,6 @@ namespace PHPStan\Type;
 use PHPStan\Analyser\OutOfClassScope;
 use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\ParametersAcceptor;
-use PHPStan\ShouldNotHappenException;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Traits\MaybeIterableTypeTrait;
 use PHPStan\Type\Traits\MaybeObjectTypeTrait;
@@ -93,7 +92,7 @@ class CallableType implements CompoundType, ParametersAcceptor
 		}
 
 		if ($variantsResult === null) {
-			throw new ShouldNotHappenException();
+			throw new \PHPStan\ShouldNotHappenException();
 		}
 
 		return $isCallable->and($variantsResult);
