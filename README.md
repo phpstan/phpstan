@@ -65,6 +65,7 @@ You can also install official framework-specific extensions:
 * [beberlei/assert](https://github.com/phpstan/phpstan-beberlei-assert)
 * [webmozart/assert](https://github.com/phpstan/phpstan-webmozart-assert)
 * [Symfony Framework](https://github.com/phpstan/phpstan-symfony)
+* [Mockery](https://github.com/phpstan/phpstan-mockery)
 
 Unofficial extensions for other frameworks and libraries are also available:
 
