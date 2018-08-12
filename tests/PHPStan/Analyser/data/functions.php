@@ -27,12 +27,6 @@ $mbCheckEncodingWithInvalidEncoding = mb_check_encoding('', 'Foo');
 $mbCheckEncodingWithValidAndInvalidEncoding = mb_check_encoding('', doFoo() ? 'UTF-8' : 'Foo');
 $mbCheckEncodingWithUnknownEncoding = mb_check_encoding('', doFoo());
 
-$mbChrWithoutEncoding = mb_chr(65);
-$mbChrWithValidEncoding = mb_chr(65, 'UTF-8');
-$mbChrWithInvalidEncoding = mb_chr(65, 'Foo');
-$mbChrWithValidAndInvalidEncoding = mb_chr(65, doFoo() ? 'UTF-8' : 'Foo');
-$mbChrWithUnknownEncoding = mb_chr(65, doFoo());
-
 $mbConvertCaseWithoutEncoding = mb_convert_case('', MB_CASE_LOWER);
 $mbConvertCaseWithValidEncoding = mb_convert_case('', MB_CASE_LOWER, 'UTF-8');
 $mbConvertCaseWithInvalidEncoding = mb_convert_case('', MB_CASE_LOWER, 'Foo');
@@ -69,22 +63,10 @@ $mbEncodingAliasesWithInvalidEncoding = mb_encoding_aliases('Foo');
 $mbEncodingAliasesWithValidAndInvalidEncoding = mb_encoding_aliases(doFoo() ? 'UTF-8' : 'Foo');
 $mbEncodingAliasesWithUnknownEncoding = mb_encoding_aliases(doFoo());
 
-$mbOrdWithoutEncoding = mb_ord('');
-$mbOrdWithValidEncoding = mb_ord('', 'UTF-8');
-$mbOrdWithInvalidEncoding = mb_ord('', 'Foo');
-$mbOrdWithValidAndInvalidEncoding = mb_ord('', doFoo() ? 'UTF-8' : 'Foo');
-$mbOrdWithUnknownEncoding = mb_ord('', doFoo());
-
 $mbPreferredMimeNameWithValidEncoding = mb_preferred_mime_name('UTF-8');
 $mbPreferredMimeNameWithInvalidEncoding = mb_preferred_mime_name('Foo');
 $mbPreferredMimeNameWithValidAndInvalidEncoding = mb_preferred_mime_name(doFoo() ? 'UTF-8' : 'Foo');
 $mbPreferredMimeNameWithUnknownEncoding = mb_preferred_mime_name(doFoo());
-
-$mbScrubWithoutEncoding = mb_scrub('');
-$mbScrubWithValidEncoding = mb_scrub('', 'UTF-8');
-$mbScrubWithInvalidEncoding = mb_scrub('', 'Foo');
-$mbScrubWithValidAndInvalidEncoding = mb_scrub('', doFoo() ? 'UTF-8' : 'Foo');
-$mbScrubWithUnkownEncoding = mb_scrub('', doFoo());
 
 $mbStrcutWithoutEncoding = mb_strcut('', 1);
 $mbStrcutWithValidEncoding = mb_strcut('', 1, null, 'UTF-8');

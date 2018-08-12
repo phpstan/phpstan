@@ -4508,26 +4508,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				'string',
-				'$mbChrWithoutEncoding',
-			],
-			[
-				'string',
-				'$mbChrWithValidEncoding',
-			],
-			[
-				'false',
-				'$mbChrWithInvalidEncoding',
-			],
-			[
-				'string|false',
-				'$mbChrWithValidAndInvalidEncoding',
-			],
-			[
-				'string|false',
-				'$mbChrWithUnknownEncoding',
-			],
-			[
-				'string',
 				'$mbConvertCaseWithoutEncoding',
 			],
 			[
@@ -4647,26 +4627,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$mbEncodingAliasesWithUnknownEncoding',
 			],
 			[
-				'int',
-				'$mbOrdWithoutEncoding',
-			],
-			[
-				'int',
-				'$mbOrdWithValidEncoding',
-			],
-			[
-				'false',
-				'$mbOrdWithInvalidEncoding',
-			],
-			[
-				'int|false',
-				'$mbOrdWithValidAndInvalidEncoding',
-			],
-			[
-				'int|false',
-				'$mbOrdWithUnknownEncoding',
-			],
-			[
 				'string',
 				'$mbPreferredMimeNameWithValidEncoding',
 			],
@@ -4681,26 +4641,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'string|false',
 				'$mbPreferredMimeNameWithUnknownEncoding',
-			],
-			[
-				'string',
-				'$mbScrubWithoutEncoding',
-			],
-			[
-				'string',
-				'$mbScrubWithValidEncoding',
-			],
-			[
-				'false',
-				'$mbScrubWithInvalidEncoding',
-			],
-			[
-				'string|false',
-				'$mbScrubWithValidAndInvalidEncoding',
-			],
-			[
-				'string|false',
-				'$mbScrubWithUnkownEncoding',
 			],
 			[
 				'string',
@@ -5241,6 +5181,90 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/functions.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataFunctions72(): array
+	{
+		return [
+			[
+				'string',
+				'$mbChrWithoutEncoding',
+			],
+			[
+				'string',
+				'$mbChrWithValidEncoding',
+			],
+			[
+				'false',
+				'$mbChrWithInvalidEncoding',
+			],
+			[
+				'string|false',
+				'$mbChrWithValidAndInvalidEncoding',
+			],
+			[
+				'string|false',
+				'$mbChrWithUnknownEncoding',
+			],
+			[
+				'int',
+				'$mbOrdWithoutEncoding',
+			],
+			[
+				'int',
+				'$mbOrdWithValidEncoding',
+			],
+			[
+				'false',
+				'$mbOrdWithInvalidEncoding',
+			],
+			[
+				'int|false',
+				'$mbOrdWithValidAndInvalidEncoding',
+			],
+			[
+				'int|false',
+				'$mbOrdWithUnknownEncoding',
+			],
+			[
+				'string',
+				'$mbScrubWithoutEncoding',
+			],
+			[
+				'string',
+				'$mbScrubWithValidEncoding',
+			],
+			[
+				'false',
+				'$mbScrubWithInvalidEncoding',
+			],
+			[
+				'string|false',
+				'$mbScrubWithValidAndInvalidEncoding',
+			],
+			[
+				'string|false',
+				'$mbScrubWithUnkownEncoding',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataFunctions72
+	 * @requires PHP 7.2
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testFunctions72(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/functions72.php',
 			$description,
 			$expression
 		);
