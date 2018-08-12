@@ -1279,6 +1279,12 @@ class NodeScopeResolver
 			], LookForAssignsSettings::afterLoop());
 			$scope = $this->lookForAssigns($scope, $node->cond, TrinaryLogic::createYes(), LookForAssignsSettings::afterLoop());
 		} elseif ($node instanceof Switch_) {
+			$scope = $this->lookForAssigns(
+				$scope,
+				$node->cond,
+				TrinaryLogic::createYes(),
+				LookForAssignsSettings::default()
+			);
 			$statementLists = [];
 			$tmpStatements = [];
 			$hasDefault = false;

@@ -397,3 +397,10 @@ function y()
 	yield from ($x = x());
 	yield $x;
 }
+
+switch ($definedInSwitchCond = true) {
+	default:
+		echo $definedInSwitchCond;
+}
+
+echo $definedInSwitchCond;
