@@ -5720,7 +5720,7 @@ return [
 'lineObj::ms_newLineObj' => ['lineObj'],
 'lineObj::point' => ['pointObj', 'i'=>'int'],
 'lineObj::project' => ['int', 'in'=>'projectionObj', 'out'=>'projectionObj'],
-'link' => ['int', 'target'=>'string', 'link'=>'string'],
+'link' => ['bool', 'target'=>'string', 'link'=>'string'],
 'linkinfo' => ['int', 'filename'=>'string'],
 'litespeed_request_headers' => ['array'],
 'litespeed_response_headers' => ['array'],
