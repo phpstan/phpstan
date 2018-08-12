@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <ruleset name="PHPStan">
 	<rule ref="vendor/consistence/coding-standard/Consistence/ruleset.xml">
-		<exclude name="Squiz.Functions.GlobalFunction.Found"/>
 		<exclude name="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration.InvalidFormat"/>
 		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameAfterKeyword"/>
 		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation"/>
