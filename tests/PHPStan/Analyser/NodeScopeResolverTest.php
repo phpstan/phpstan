@@ -4371,6 +4371,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_search(new stdClass, $generalStringKeys, true)',
 			],
 			[
+				'mixed',
+				'array_search($mixed, $array, true)',
+			],
+			[
+				'int|string|false|null',
+				'array_search($mixed, $array, false)',
+			],
+			[
 				'\'a\'|\'b\'|false',
 				'array_search($string, [\'a\' => \'A\', \'b\' => \'B\'], true)',
 			],

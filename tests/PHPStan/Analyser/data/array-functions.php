@@ -148,4 +148,10 @@ $generalIntegerOrStringKeysMixedValues = doFoo();
 $clonedConditionalArray = $conditionalArray;
 $clonedConditionalArray[(int)$generalIntegerOrString] = $generalIntegerOrString;
 
+/** @var mixed $mixed */
+$mixed = doFoo();
+
+/** @var array $array */
+$array = doFoo();
+
 die;
