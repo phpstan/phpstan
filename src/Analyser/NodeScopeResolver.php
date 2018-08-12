@@ -1305,7 +1305,7 @@ class NodeScopeResolver
 				$statementLists[] = new StatementList($scope, []);
 			}
 
-			$scope = $this->lookForAssignsInBranches($scope, $statementLists, LookForAssignsSettings::afterLoop());
+			$scope = $this->lookForAssignsInBranches($scope, $statementLists, LookForAssignsSettings::afterSwitch());
 		} elseif ($node instanceof Cast) {
 			$scope = $this->lookForAssigns($scope, $node->expr, $certainty, $lookForAssignsSettings);
 		} elseif ($node instanceof For_) {
