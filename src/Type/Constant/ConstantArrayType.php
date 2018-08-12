@@ -22,9 +22,6 @@ use PHPStan\Type\TypeUtils;
 use PHPStan\Type\UnionType;
 use PHPStan\Type\VerbosityLevel;
 
-/**
- * @method ConstantIntegerType|ConstantStringType getKeyType()
- */
 class ConstantArrayType extends ArrayType implements ConstantType
 {
 
@@ -61,6 +58,15 @@ class ConstantArrayType extends ArrayType implements ConstantType
 	public function getNextAutoIndex(): int
 	{
 		return $this->nextAutoIndex;
+	}
+
+	public function getKeyType(): Type
+	{
+		if (count($this->keyTypes) > 1) {
+			return new UnionType($this->keyTypes);
+		}
+
+		return parent::getKeyType();
 	}
 
 	/**
