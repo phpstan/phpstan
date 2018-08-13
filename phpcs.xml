@@ -36,10 +36,6 @@
 	<rule ref="SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming"/>
 	<rule ref="SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming"/>
 	<rule ref="SlevomatCodingStandard.ControlStructures.DisallowShortTernaryOperator"/>
-	<rule ref="SlevomatCodingStandard.Namespaces.NamespaceDeclaration"/>
-	<rule ref="SlevomatCodingStandard.Namespaces.NamespaceSpacing"/>
-	<rule ref="SlevomatCodingStandard.Namespaces.RequireOneNamespaceInFile"/>
-	<rule ref="SlevomatCodingStandard.PHP.ShortList"/>
 	<rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">
 		<properties>
 			<property name="rootNamespaces" type="array" value="src=>PHPStan,tests/PHPStan=>PHPStan"/>
