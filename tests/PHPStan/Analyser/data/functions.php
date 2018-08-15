@@ -52,4 +52,10 @@ $stat = stat(__FILE__);
 $lstat = lstat(__FILE__);
 $fstat = fstat($resource);
 
+$base64DecodeWithoutStrict = base64_decode('');
+$base64DecodeWithStrictDisabled = base64_decode('', false);
+$base64DecodeWithStrictEnabled = base64_decode('', true);
+$base64DecodeDefault = base64_decode('', null);
+$base64DecodeBenevolent = base64_decode('', $undefined);
+
 die;
