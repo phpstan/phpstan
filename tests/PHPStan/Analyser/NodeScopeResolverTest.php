@@ -7037,6 +7037,26 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'string',
 				'$string',
 			],
+			[
+				'string',
+				'$base64DecodeWithoutStrict',
+			],
+			[
+				'string',
+				'$base64DecodeWithStrictDisabled',
+			],
+			[
+				'string|false',
+				'$base64DecodeWithStrictEnabled',
+			],
+			[
+				'string|false',
+				'$base64DecodeDefault',
+			],
+			[
+				'(string|false)',
+				'$base64DecodeBenevolent',
+			],
 		];
 	}
 
