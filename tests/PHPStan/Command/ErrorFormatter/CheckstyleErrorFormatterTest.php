@@ -13,7 +13,7 @@ class CheckstyleErrorFormatterTest extends TestBaseFormatter
 			0,
 			0,
 			'<?xml version="1.0" encoding="UTF-8"?>
-<checkstyle>
+<checkstyle version="3.3.0">
 </checkstyle>
 ',
 		];
@@ -24,7 +24,7 @@ class CheckstyleErrorFormatterTest extends TestBaseFormatter
 			1,
 			0,
 			'<?xml version="1.0" encoding="UTF-8"?>
-<checkstyle>
+<checkstyle version="3.3.0">
 <file name="folder with unicode 😃/file name with &quot;spaces&quot; and unicode 😃.php">
   <error line="4" column="1" severity="error" message="Foo"/>
 </file>
@@ -38,7 +38,7 @@ class CheckstyleErrorFormatterTest extends TestBaseFormatter
 			0,
 			1,
 			'<?xml version="1.0" encoding="UTF-8"?>
-<checkstyle>
+<checkstyle version="3.3.0">
 </checkstyle>
 ',
 		];
@@ -49,7 +49,7 @@ class CheckstyleErrorFormatterTest extends TestBaseFormatter
 			4,
 			0,
 			'<?xml version="1.0" encoding="UTF-8"?>
-<checkstyle>
+<checkstyle version="3.3.0">
 <file name="folder with unicode 😃/file name with &quot;spaces&quot; and unicode 😃.php">
   <error line="2" column="1" severity="error" message="Bar"/>
   <error line="4" column="1" severity="error" message="Foo"/>
@@ -68,7 +68,7 @@ class CheckstyleErrorFormatterTest extends TestBaseFormatter
 			0,
 			2,
 			'<?xml version="1.0" encoding="UTF-8"?>
-<checkstyle>
+<checkstyle version="3.3.0">
 </checkstyle>
 ',
 		];
@@ -79,7 +79,7 @@ class CheckstyleErrorFormatterTest extends TestBaseFormatter
 			4,
 			2,
 			'<?xml version="1.0" encoding="UTF-8"?>
-<checkstyle>
+<checkstyle version="3.3.0">
 <file name="folder with unicode 😃/file name with &quot;spaces&quot; and unicode 😃.php">
   <error line="2" column="1" severity="error" message="Bar"/>
   <error line="4" column="1" severity="error" message="Foo"/>
