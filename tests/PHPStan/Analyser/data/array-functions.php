@@ -51,6 +51,15 @@ $stringKeys = [
 	'bar' => new \stdClass(),
 ];
 
+/** @var \stdClass[] $stdClassesWithIsset */
+$stdClassesWithIsset = doFoo();
+if (rand(0, 1) === 0) {
+	$stdClassesWithIsset[] = new \stdClass();
+}
+if (!isset($stdClassesWithIsset['baz'])) {
+	return;
+}
+
 $stringOrIntegerKeys = [
 	'foo' => new \stdClass(),
 	1 => new \stdClass(),
@@ -81,11 +90,23 @@ $withPossiblyFalsey = [$bool, $integer, '', 'a' => 0];
 /** @var array<string, int> $generalStringKeys */
 $generalStringKeys = doFoo();
 
+/** @var array<int, int> $generalIntegerKeys */
+$generalIntegerKeys = doFoo();
+
 /** @var array<int, \DateTimeImmutable> $generalDateTimeValues */
 $generalDateTimeValues = doFoo();
 
 /** @var int $integer */
 $integer = doFoo();
+
+/** @var string $string */
+$string = doFoo();
+
+/** @var int[] $generalIntegers */
+$generalIntegers = doFoo();
+
+/** @var int[][] $generalIntegersInAnotherArray */
+$generalIntegersInAnotherArray = doFoo();
 
 $mappedStringKeys = array_map(function (): \stdClass {
 
@@ -118,7 +139,19 @@ $generalIntegerOrString = doFoo();
 /** @var array<int, int|string> $generalArrayOfIntegersOrStrings */
 $generalArrayOfIntegersOrStrings = doFoo();
 
+/** @var array<int|string, int> $generalIntegerOrStringKeys */
+$generalIntegerOrStringKeys = doFoo();
+
+/** @var array<int|string, mixed> $generalIntegerOrStringKeysMixedValues */
+$generalIntegerOrStringKeysMixedValues = doFoo();
+
 $clonedConditionalArray = $conditionalArray;
 $clonedConditionalArray[(int)$generalIntegerOrString] = $generalIntegerOrString;
+
+/** @var mixed $mixed */
+$mixed = doFoo();
+
+/** @var array $array */
+$array = doFoo();
 
 die;

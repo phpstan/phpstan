@@ -15,7 +15,7 @@ class TypeUtils
 	 */
 	public static function getArrays(Type $type): array
 	{
-		return self::map(ArrayType::class, $type);
+		return self::map(ArrayType::class, $type, true);
 	}
 
 	/**
@@ -24,7 +24,7 @@ class TypeUtils
 	 */
 	public static function getConstantArrays(Type $type): array
 	{
-		return self::map(ConstantArrayType::class, $type);
+		return self::map(ConstantArrayType::class, $type, false);
 	}
 
 	/**
@@ -33,7 +33,7 @@ class TypeUtils
 	 */
 	public static function getConstantStrings(Type $type): array
 	{
-		return self::map(ConstantStringType::class, $type);
+		return self::map(ConstantStringType::class, $type, false);
 	}
 
 	/**
@@ -42,7 +42,7 @@ class TypeUtils
 	 */
 	public static function getConstantTypes(Type $type): array
 	{
-		return self::map(ConstantType::class, $type);
+		return self::map(ConstantType::class, $type, false);
 	}
 
 	public static function generalizeType(Type $type): Type
@@ -90,31 +90,49 @@ class TypeUtils
 	 */
 	public static function getConstantScalars(Type $type): array
 	{
-		return self::map(ConstantScalarType::class, $type);
+		return self::map(ConstantScalarType::class, $type, false);
 	}
 
 	/**
 	 * @param string $typeClass
 	 * @param Type $type
+	 * @param bool $inspectIntersections
 	 * @return mixed[]
 	 */
-	private static function map(string $typeClass, Type $type): array
+	private static function map(
+		string $typeClass,
+		Type $type,
+		bool $inspectIntersections
+	): array
 	{
 		if ($type instanceof $typeClass) {
 			return [$type];
 		}
 
 		if ($type instanceof UnionType) {
-			$constantScalarValues = [];
+			$matchingTypes = [];
 			foreach ($type->getTypes() as $innerType) {
 				if (!$innerType instanceof $typeClass) {
 					return [];
 				}
 
-				$constantScalarValues[] = $innerType;
+				$matchingTypes[] = $innerType;
 			}
 
-			return $constantScalarValues;
+			return $matchingTypes;
+		}
+
+		if ($inspectIntersections && $type instanceof IntersectionType) {
+			$matchingTypes = [];
+			foreach ($type->getTypes() as $innerType) {
+				if (!$innerType instanceof $typeClass) {
+					continue;
+				}
+
+				$matchingTypes[] = $innerType;
+			}
+
+			return $matchingTypes;
 		}
 
 		return [];

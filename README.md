@@ -65,12 +65,14 @@ You can also install official framework-specific extensions:
 * [beberlei/assert](https://github.com/phpstan/phpstan-beberlei-assert)
 * [webmozart/assert](https://github.com/phpstan/phpstan-webmozart-assert)
 * [Symfony Framework](https://github.com/phpstan/phpstan-symfony)
+* [Mockery](https://github.com/phpstan/phpstan-mockery)
 
 Unofficial extensions for other frameworks and libraries are also available:
 
 * [Phony](https://github.com/eloquent/phpstan-phony)
 * [Prophecy](https://github.com/Jan0707/phpstan-prophecy)
-* [Laravel](https://github.com/Weebly/phpstan-laravel)
+* [Laravel](https://github.com/nunomaduro/larastan)
+* [myclabs/php-enum](https://github.com/timeweb/phpstan-enum)
 
 New extensions are becoming available on a regular basis!
 
@@ -360,7 +362,7 @@ Check out also [phpstan-strict-rules](https://github.com/phpstan/phpstan-strict-
 
 ### Custom error formatters
 
-By default, PHPStan outputs found errors into tables grouped by files to be easily human-readable. To change the output, you can use the `--errorFormat` CLI option. There's an additional built-in `raw` format with one-per-line errors intended for easy parsing. You can also create your own error formatter by implementing the `PHPStan\Command\ErrorFormatter\ErrorFormatter` interface:
+By default, PHPStan outputs found errors into tables grouped by files to be easily human-readable. To change the output, you can use the `--error-format` CLI option. There's an additional built-in `raw` format with one-per-line errors intended for easy parsing. You can also create your own error formatter by implementing the `PHPStan\Command\ErrorFormatter\ErrorFormatter` interface:
 
 ```php
 interface ErrorFormatter
@@ -392,7 +394,7 @@ services:
 Use the name part after `errorFormatter.` as the CLI option value:
 
 ```bash
-vendor/bin/phpstan analyse -c phpstan.neon -l 4 --errorFormat awesome src tests
+vendor/bin/phpstan analyse -c phpstan.neon -l 4 --error-format awesome src tests
 ```
 
 ## Class reflection extensions
@@ -564,7 +566,11 @@ public function isMethodSupported(MethodReflection $methodReflection): bool
 public function getTypeFromMethodCall(MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope): Type
 {
 	if (count($methodCall->args) === 0) {
-		return $methodReflection->getReturnType();
+		return \PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs(
+			$scope,
+			$methodCall->args,
+			$methodReflection->getVariants()
+		)->getReturnType();
 	}
 	$arg = $methodCall->args[0]->value;
 

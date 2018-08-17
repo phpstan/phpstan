@@ -199,7 +199,7 @@ class ObjectTypeTest extends \PHPStan\Testing\TestCase
 			[
 				new ObjectType(\stdClass::class),
 				new ClosureType([], new MixedType(), false),
-				TrinaryLogic::createMaybe(),
+				TrinaryLogic::createNo(),
 			],
 			[
 				new ObjectType(\Closure::class),

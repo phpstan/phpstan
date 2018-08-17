@@ -12,6 +12,7 @@ class ImpossibleCheckTypeStaticMethodCallRuleTest extends \PHPStan\Testing\RuleT
 	{
 		return new ImpossibleCheckTypeStaticMethodCallRule(
 			new ImpossibleCheckTypeHelper(
+				$this->createBroker(),
 				$this->getTypeSpecifier()
 			),
 			true

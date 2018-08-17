@@ -2,7 +2,7 @@
 
 namespace PHPStan\Type;
 
-use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
@@ -118,14 +118,14 @@ class UnionType implements CompoundType, StaticResolvableType
 		$joinTypes = function (array $types) use ($level): string {
 			$typeNames = [];
 			foreach ($types as $type) {
-				if ($type instanceof IntersectionType) {
+				if ($type instanceof IntersectionType || $type instanceof ClosureType) {
 					$typeNames[] = sprintf('(%s)', $type->describe($level));
 				} else {
 					$typeNames[] = $type->describe($level);
 				}
 			}
 
-			return implode('|', array_unique($typeNames));
+			return implode('|', $typeNames);
 		};
 
 		return $level->handle(
@@ -223,6 +223,11 @@ class UnionType implements CompoundType, StaticResolvableType
 		);
 	}
 
+	/**
+	 * @param callable(Type $type): TrinaryLogic $canCallback
+	 * @param callable(Type $type): bool $hasCallback
+	 * @return bool
+	 */
 	private function hasInternal(
 		callable $canCallback,
 		callable $hasCallback
@@ -263,7 +268,7 @@ class UnionType implements CompoundType, StaticResolvableType
 		);
 	}
 
-	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
 	{
 		foreach ($this->types as $type) {
 			if ($type->canAccessProperties()->no()) {
@@ -294,7 +299,7 @@ class UnionType implements CompoundType, StaticResolvableType
 		);
 	}
 
-	public function getMethod(string $methodName, Scope $scope): MethodReflection
+	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
 	{
 		foreach ($this->types as $type) {
 			if ($type->canCallMethods()->no()) {
@@ -375,6 +380,13 @@ class UnionType implements CompoundType, StaticResolvableType
 		});
 	}
 
+	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
+	{
+		return $this->unionResults(function (Type $type) use ($offsetType): TrinaryLogic {
+			return $type->hasOffsetValueType($offsetType);
+		});
+	}
+
 	public function getOffsetValueType(Type $offsetType): Type
 	{
 		$types = [];
@@ -409,10 +421,10 @@ class UnionType implements CompoundType, StaticResolvableType
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
 	 * @return \PHPStan\Reflection\ParametersAcceptor[]
 	 */
-	public function getCallableParametersAcceptors(Scope $scope): array
+	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array
 	{
 		foreach ($this->types as $type) {
 			if ($type->isCallable()->no()) {
@@ -496,11 +508,19 @@ class UnionType implements CompoundType, StaticResolvableType
 		return new self($properties['types']);
 	}
 
+	/**
+	 * @param callable(Type $type): TrinaryLogic $getResult
+	 * @return TrinaryLogic
+	 */
 	private function unionResults(callable $getResult): TrinaryLogic
 	{
 		return TrinaryLogic::extremeIdentity(...array_map($getResult, $this->types));
 	}
 
+	/**
+	 * @param callable(Type $type): Type $getType
+	 * @return Type
+	 */
 	protected function unionTypes(callable $getType): Type
 	{
 		return TypeCombinator::union(...array_map($getType, $this->types));

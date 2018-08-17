@@ -67,6 +67,11 @@ class IntegerType implements Type
 		return TrinaryLogic::createYes();
 	}
 
+	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
+	{
+		return TrinaryLogic::createYes();
+	}
+
 	public function getOffsetValueType(Type $offsetType): Type
 	{
 		return new NullType();

@@ -2,7 +2,7 @@
 
 namespace PHPStan\Type;
 
-use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
@@ -137,7 +137,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		return false;
 	}
 
-	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
 	{
 		foreach ($this->types as $type) {
 			if ($type->hasProperty($propertyName)) {
@@ -166,7 +166,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		return false;
 	}
 
-	public function getMethod(string $methodName, Scope $scope): MethodReflection
+	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
 	{
 		foreach ($this->types as $type) {
 			if ($type->hasMethod($methodName)) {
@@ -234,6 +234,13 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		});
 	}
 
+	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
+	{
+		return $this->intersectResults(function (Type $type) use ($offsetType): TrinaryLogic {
+			return $type->hasOffsetValueType($offsetType);
+		});
+	}
+
 	public function getOffsetValueType(Type $offsetType): Type
 	{
 		return $this->intersectTypes(function (Type $type) use ($offsetType): Type {
@@ -256,10 +263,10 @@ class IntersectionType implements CompoundType, StaticResolvableType
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
 	 * @return \PHPStan\Reflection\ParametersAcceptor[]
 	 */
-	public function getCallableParametersAcceptors(Scope $scope): array
+	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array
 	{
 		if ($this->isCallable()->no()) {
 			throw new \PHPStan\ShouldNotHappenException();
@@ -349,12 +356,20 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		return new self($properties['types']);
 	}
 
+	/**
+	 * @param callable(Type $type): TrinaryLogic $getResult
+	 * @return TrinaryLogic
+	 */
 	private function intersectResults(callable $getResult): TrinaryLogic
 	{
 		$operands = array_map($getResult, $this->types);
 		return TrinaryLogic::maxMin(...$operands);
 	}
 
+	/**
+	 * @param callable(Type $type): Type $getType
+	 * @return Type
+	 */
 	private function intersectTypes(callable $getType): Type
 	{
 		$operands = array_map($getType, $this->types);

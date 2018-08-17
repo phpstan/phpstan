@@ -5,10 +5,19 @@ namespace LoopVariables;
 function () {
 	$foo = null;
 	$i = 0;
+	$nullableVal = null;
 	while ($val = fetch() && $i++ < 10) {
 		'begin';
 		$foo = new Foo();
 		'afterAssign';
+
+		if ($nullableVal === null) {
+			'nullableValIf';
+			$nullableVal = 1;
+		} else {
+			$nullableVal *= 10;
+			'nullableValElse';
+		}
 
 		if (something()) {
 			$foo = new Bar();

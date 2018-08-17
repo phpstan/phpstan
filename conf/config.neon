@@ -24,6 +24,7 @@ parameters:
 	ignoreErrors: []
 	internalErrorsCountLimit: 50
 	reportUnmatchedIgnoredErrors: true
+	scopeClass: PHPStan\Analyser\Scope
 	universalObjectCratesClasses:
 		- stdClass
 		- SimpleXMLElement
@@ -107,6 +108,12 @@ services:
 
 	-
 		class: PHPStan\PhpDoc\TypeNodeResolver
+		factory: @typeNodeResolverFactory::create
+
+	-
+		class: PHPStan\PhpDoc\PhpUnit\MockObjectTypeNodeResolverExtension
+		tags:
+			- phpstan.phpDoc.typeNodeResolverExtension
 
 	-
 		class: PHPStan\PhpDoc\TypeStringResolver
@@ -120,8 +127,9 @@ services:
 			internalErrorsCountLimit: %internalErrorsCountLimit%
 
 	-
-		implement: PHPStan\Analyser\ScopeFactory
+		class: PHPStan\Analyser\ScopeFactory
 		arguments:
+			scopeClass: %scopeClass%
 			dynamicConstantNames: %dynamicConstantNames%
 
 	-
@@ -258,6 +266,11 @@ services:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
 	-
+		class: PHPStan\Type\Php\ArrayKeyExistsFunctionTypeSpecifyingExtension
+		tags:
+			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
+
+	-
 		class: PHPStan\Type\Php\ArrayKeysFunctionDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
@@ -303,7 +316,17 @@ services:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
 	-
+		class: PHPStan\Type\Php\DioStatDynamicFunctionReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	-
 		class: PHPStan\Type\Php\ExplodeFunctionDynamicReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	-
+		class: PHPStan\Type\Php\GetParentClassDynamicFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
@@ -311,6 +334,12 @@ services:
 		class: PHPStan\Type\Php\GettimeofdayDynamicFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	-
+		class: PHPStan\Type\Php\StatDynamicReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+			- phpstan.broker.dynamicMethodReturnTypeExtension
 
 	-
 		class: PHPStan\Type\Php\MethodExistsTypeSpecifyingExtension
@@ -499,6 +528,9 @@ services:
 	registry:
 		class: PHPStan\Rules\Registry
 		factory: @PHPStan\Rules\RegistryFactory::create
+
+	typeNodeResolverFactory:
+		class: PHPStan\PhpDoc\TypeNodeResolverFactory
 
 	errorFormatter.raw:
 		class: PHPStan\Command\ErrorFormatter\RawErrorFormatter

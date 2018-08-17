@@ -45,4 +45,11 @@ $strSplitConstantStringWithFailureSplitLength = str_split('abcdef', 0);
 $strSplitConstantStringWithInvalidSplitLengthType = str_split('abcdef', []);
 $strSplitConstantStringWithVariableStringAndConstantSplitLength = str_split(doFoo() ? 'abcdef' : 'ghijkl', 1);
 $strSplitConstantStringWithVariableStringAndVariableSplitLength = str_split(doFoo() ? 'abcdef' : 'ghijkl', doFoo() ? 1 : 2);
+
+/** @var resource $resource */
+$resource = doFoo();
+$stat = stat(__FILE__);
+$lstat = lstat(__FILE__);
+$fstat = fstat($resource);
+
 die;

@@ -2,7 +2,7 @@
 
 namespace PHPStan\Type;
 
-use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
@@ -62,7 +62,7 @@ class NeverType implements CompoundType
 		return false;
 	}
 
-	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
 	{
 		throw new \PHPStan\ShouldNotHappenException();
 	}
@@ -77,7 +77,7 @@ class NeverType implements CompoundType
 		return false;
 	}
 
-	public function getMethod(string $methodName, Scope $scope): MethodReflection
+	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
 	{
 		throw new \PHPStan\ShouldNotHappenException();
 	}
@@ -117,6 +117,11 @@ class NeverType implements CompoundType
 		return TrinaryLogic::createYes();
 	}
 
+	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
+	{
+		return TrinaryLogic::createYes();
+	}
+
 	public function getOffsetValueType(Type $offsetType): Type
 	{
 		return new NeverType();
@@ -133,10 +138,10 @@ class NeverType implements CompoundType
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
 	 * @return \PHPStan\Reflection\ParametersAcceptor[]
 	 */
-	public function getCallableParametersAcceptors(Scope $scope): array
+	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array
 	{
 		return [new TrivialParametersAcceptor()];
 	}

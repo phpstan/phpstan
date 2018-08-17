@@ -178,6 +178,22 @@ class CallStaticMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Static method CallStaticMethods\ClassOrString::calledMethod() invoked with 1 parameter, 0 required.',
 				173,
 			],
+			[
+				'Cannot call static method doFoo() on interface CallStaticMethods\InterfaceWithStaticMethod.',
+				208,
+			],
+			[
+				'Call to an undefined static method CallStaticMethods\InterfaceWithStaticMethod::doBar().',
+				209,
+			],
+			[
+				'Static call to instance method CallStaticMethods\InterfaceWithStaticMethod::doInstanceFoo().',
+				212,
+			],
+			[
+				'Static call to instance method CallStaticMethods\InterfaceWithStaticMethod::doInstanceFoo().',
+				213,
+			],
 		]);
 	}
 

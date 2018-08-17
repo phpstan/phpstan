@@ -28,6 +28,11 @@ function ($mixed) {
 	$expectedArray2 = preg_replace_callback('aaa', function () {}, $array);
 	$expectedArrayOrString2 = preg_replace_callback('aaa', function () {}, $arrayOrString);
 
+	$expectedString3 = str_ireplace('aaa', 'bbb', $string);
+	$expectedArray3 = str_ireplace('aaa', 'bbb', $array);
+	$expectedArrayOrString3 = str_ireplace('aaa', 'bbb', $arrayOrString);
+	$expectedBenevolentArrayOrString3 = str_ireplace('aaa', 'bbb', $mixed);
+
 	/** @var Foo[] $arr */
 	$arr = doFoo();
 

@@ -69,8 +69,8 @@ class Analyser
 	/**
 	 * @param string[] $files
 	 * @param bool $onlyFiles
-	 * @param \Closure|null $preFileCallback
-	 * @param \Closure|null $postFileCallback
+	 * @param \Closure(string $file): void|null $preFileCallback
+	 * @param \Closure(string $file): void|null $postFileCallback
 	 * @param bool $debug
 	 * @return string[]|\PHPStan\Analyser\Error[] errors
 	 */

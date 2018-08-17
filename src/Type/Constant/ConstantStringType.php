@@ -3,8 +3,8 @@
 namespace PHPStan\Type\Constant;
 
 use PhpParser\Node\Name;
-use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\InaccessibleMethod;
 use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
@@ -87,10 +87,10 @@ class ConstantStringType extends StringType implements ConstantScalarType
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
 	 * @return \PHPStan\Reflection\ParametersAcceptor[]
 	 */
-	public function getCallableParametersAcceptors(Scope $scope): array
+	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array
 	{
 		$broker = Broker::getInstance();
 
@@ -161,19 +161,28 @@ class ConstantStringType extends StringType implements ConstantScalarType
 		return $type->toFloat();
 	}
 
-	public function getOffsetValueType(Type $offsetType): Type
+	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
 	{
-		$offsetNumberType = $offsetType->toNumber();
-		if ($offsetNumberType instanceof ConstantScalarType) {
-			$offsetValue = $offsetNumberType->getValue();
-			if ($offsetValue < strlen($this->value)) {
-				return new self($this->value[$offsetValue]);
-			}
-		} elseif (!$offsetNumberType instanceof ErrorType) {
-			return new StringType();
+		if ($offsetType instanceof ConstantIntegerType) {
+			return TrinaryLogic::createFromBoolean(
+				$offsetType->getValue() < strlen($this->value)
+			);
 		}
 
-		return new ErrorType();
+		return parent::hasOffsetValueType($offsetType);
+	}
+
+	public function getOffsetValueType(Type $offsetType): Type
+	{
+		if ($offsetType instanceof ConstantIntegerType) {
+			if ($offsetType->getValue() < strlen($this->value)) {
+				return new self($this->value[$offsetType->getValue()]);
+			}
+
+			return new ErrorType();
+		}
+
+		return parent::getOffsetValueType($offsetType);
 	}
 
 	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
@@ -183,7 +192,7 @@ class ConstantStringType extends StringType implements ConstantScalarType
 			return new ErrorType();
 		}
 		if (
-			$offsetType instanceof ConstantScalarType
+			$offsetType instanceof ConstantIntegerType
 			&& $valueStringType instanceof ConstantStringType
 		) {
 			$value = $this->value;
@@ -192,7 +201,7 @@ class ConstantStringType extends StringType implements ConstantScalarType
 			return new self($value);
 		}
 
-		return new StringType();
+		return parent::setOffsetValueType($offsetType, $valueType);
 	}
 
 	public function append(self $otherString): self

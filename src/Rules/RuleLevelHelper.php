@@ -8,6 +8,7 @@ use PHPStan\Broker\Broker;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BenevolentUnionType;
 use PHPStan\Type\CompoundType;
+use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
@@ -65,18 +66,37 @@ class RuleLevelHelper
 		$acceptedArrays = TypeUtils::getArrays($acceptedType);
 		if ($acceptingType instanceof ArrayType && count($acceptedArrays) > 0) {
 			foreach ($acceptedArrays as $acceptedArray) {
-				if (
-					!self::accepts(
-						$acceptingType->getKeyType(),
-						$acceptedArray->getKeyType(),
-						$strictTypes
-					) || !self::accepts(
-						$acceptingType->getItemType(),
-						$acceptedArray->getItemType(),
-						$strictTypes
-					)
-				) {
-					return false;
+				if ($acceptedArray instanceof ConstantArrayType) {
+					foreach ($acceptedArray->getKeyTypes() as $i => $keyType) {
+						$valueType = $acceptedArray->getValueTypes()[$i];
+						if (
+							!self::accepts(
+								$acceptingType->getKeyType(),
+								$keyType,
+								$strictTypes
+							) || !self::accepts(
+								$acceptingType->getItemType(),
+								$valueType,
+								$strictTypes
+							)
+						) {
+							return false;
+						}
+					}
+				} else {
+					if (
+						!self::accepts(
+							$acceptingType->getKeyType(),
+							$acceptedArray->getKeyType(),
+							$strictTypes
+						) || !self::accepts(
+							$acceptingType->getItemType(),
+							$acceptedArray->getItemType(),
+							$strictTypes
+						)
+					) {
+						return false;
+					}
 				}
 			}
 
@@ -110,6 +130,13 @@ class RuleLevelHelper
 		return $this->checkUnionTypes ? $accepts->yes() : !$accepts->no();
 	}
 
+	/**
+	 * @param Scope $scope
+	 * @param Expr $var
+	 * @param string $unknownClassErrorPattern
+	 * @param callable(Type $type): bool $unionTypeCriteriaCallback
+	 * @return FoundTypeResult
+	 */
 	public function findTypeToCheck(
 		Scope $scope,
 		Expr $var,

@@ -4,10 +4,19 @@ namespace LoopVariables;
 
 function () {
 	$foo = null;
+	$nullableVal = null;
 	for ($i = 0; $i < 10; $i++) {
 		'begin';
 		$foo = new Foo();
 		'afterAssign';
+
+		if ($nullableVal === null) {
+			'nullableValIf';
+			$nullableVal = 1;
+		} else {
+			$nullableVal *= 10;
+			'nullableValElse';
+		}
 
 		if (something()) {
 			$foo = new Bar();

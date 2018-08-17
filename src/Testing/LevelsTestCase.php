@@ -34,7 +34,7 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 
 		foreach (range(0, 7) as $level) {
 			unset($outputLines);
-			exec(sprintf('php %s analyse --no-progress --errorFormat=prettyJson --level=%d %s --autoload-file %s %s', $command, $level, $configPath !== null ? '--configuration ' . escapeshellarg($configPath) : '', escapeshellarg($file), escapeshellarg($file)), $outputLines);
+			exec(sprintf('php %s analyse --no-progress --error-format=prettyJson --level=%d %s --autoload-file %s %s', $command, $level, $configPath !== null ? '--configuration ' . escapeshellarg($configPath) : '', escapeshellarg($file), escapeshellarg($file)), $outputLines);
 
 			$output = implode("\n", $outputLines);
 

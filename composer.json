@@ -1,17 +1,9 @@
 {
 	"name": "phpstan/phpstan",
 	"description": "PHPStan - PHP Static Analysis Tool",
-	"license": ["MIT"],
-	"bin": [
-		"bin/phpstan"
+	"license": [
+		"MIT"
 	],
-	"extra": {
-		"branch-alias": {
-			"dev-master": "0.10-dev"
-		}
-	},
-	"minimum-stability": "dev",
-	"prefer-stable": true,
 	"require": {
 		"php": "~7.1",
 		"composer/xdebug-handler": "^1.0",
@@ -31,9 +23,10 @@
 		"ext-mysqli": "*",
 		"ext-zip": "*",
 		"brianium/paratest": "^2.0",
-		"consistence/coding-standard": "^3.3",
+		"consistence/coding-standard": "^3.4",
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
 		"jakub-onderka/php-parallel-lint": "^1.0",
+		"localheinz/composer-normalize": "~0.8.0",
 		"phing/phing": "^2.16.0",
 		"phpstan/phpstan-deprecation-rules": "^0.10.2",
 		"phpstan/phpstan-php-parser": "^0.10",
@@ -42,13 +35,30 @@
 		"phpunit/phpunit": "^7.0",
 		"slevomat/coding-standard": "^4.6.2"
 	},
-	"autoload": {
-		"psr-4": {"PHPStan\\": ["src/", "build/PHPStan"]}
-	},
-	"autoload-dev": {
-		"classmap": ["tests/PHPStan"]
-	},
 	"config": {
 		"sort-packages": true
-	}
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "0.10-dev"
+		}
+	},
+	"autoload": {
+		"psr-4": {
+			"PHPStan\\": [
+				"src/",
+				"build/PHPStan"
+			]
+		}
+	},
+	"autoload-dev": {
+		"classmap": [
+			"tests/PHPStan"
+		]
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"bin": [
+		"bin/phpstan"
+	]
 }

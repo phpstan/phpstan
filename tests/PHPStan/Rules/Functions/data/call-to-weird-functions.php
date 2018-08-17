@@ -45,3 +45,5 @@ get_defined_functions(); // OK for PHP <7.1.10
 openssl_pkcs12_export('signed-csr', $output, 'private-key', 'password'); // OK
 openssl_pkcs12_export('signed-csr', $output, 'private-key', 'password', ['friendlyname' => 'name']); // OK
 openssl_pkcs12_export('signed-csr', $output, 'private-key', 'password', ['friendlyname' => 'name'], 'bar');  // should report 6 parameters given, 4-5 required
+
+xdebug_call_class('depth');

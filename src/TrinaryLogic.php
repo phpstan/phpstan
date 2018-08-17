@@ -2,6 +2,9 @@
 
 namespace PHPStan;
 
+use PHPStan\Type\BooleanType;
+use PHPStan\Type\Constant\ConstantBooleanType;
+
 /**
  * @see https://en.wikipedia.org/wiki/Three-valued_logic
  */
@@ -62,6 +65,15 @@ class TrinaryLogic
 	public function no(): bool
 	{
 		return $this->value === self::NO;
+	}
+
+	public function toBooleanType(): BooleanType
+	{
+		if ($this->value === self::MAYBE) {
+			return new BooleanType();
+		}
+
+		return new ConstantBooleanType($this->value === self::YES);
 	}
 
 	public function and(self ...$operands): self

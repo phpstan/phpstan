@@ -78,6 +78,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 
 		$class = $node->class;
 		$errors = [];
+		$isInterface = false;
 		if ($class instanceof Name) {
 			$className = (string) $class;
 			$lowercasedClassName = strtolower($className);
@@ -129,7 +130,9 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 					$errors = $this->classCaseSensitivityCheck->checkClassNames([$className]);
 				}
 
-				$className = $this->broker->getClass($className)->getName();
+				$classReflection = $this->broker->getClass($className);
+				$isInterface = $classReflection->isInterface();
+				$className = $classReflection->getName();
 			}
 
 			$classType = new ObjectType($className);
@@ -218,6 +221,16 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 					$method->getDeclaringClass()->getDisplayName()
 				),
 			]);
+		}
+
+		if ($isInterface && $method->isStatic()) {
+			return [
+				sprintf(
+					'Cannot call static method %s() on interface %s.',
+					$method->getName(),
+					$classType->describe(VerbosityLevel::typeOnly())
+				),
+			];
 		}
 
 		$lowercasedMethodName = sprintf(

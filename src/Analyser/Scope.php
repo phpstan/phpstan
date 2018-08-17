@@ -22,6 +22,7 @@ use PhpParser\Node\Scalar\EncapsedStringPart;
 use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ConstantReflection;
@@ -68,7 +69,7 @@ use PHPStan\Type\UnionType;
 use PHPStan\Type\VerbosityLevel;
 use PHPStan\Type\VoidType;
 
-class Scope
+class Scope implements ClassMemberAccessAnswerer
 {
 
 	/** @var \PHPStan\Analyser\ScopeFactory */
@@ -363,10 +364,32 @@ class Scope
 			|| $node instanceof Expr\BinaryOp\SmallerOrEqual
 			|| $node instanceof Expr\BinaryOp\Equal
 			|| $node instanceof Expr\BinaryOp\NotEqual
-			|| $node instanceof Expr\Isset_
 			|| $node instanceof Expr\Empty_
 		) {
 			return new BooleanType();
+		}
+
+		if ($node instanceof Expr\Isset_) {
+			foreach ($node->vars as $var) {
+				if ($var instanceof Expr\ArrayDimFetch && $var->dim !== null) {
+					$hasOffset = $this->getType($var->var)->hasOffsetValueType(
+						$this->getType($var->dim)
+					)->toBooleanType();
+					if ($hasOffset instanceof ConstantBooleanType) {
+						if (!$hasOffset->getValue()) {
+							return $hasOffset;
+						}
+
+						continue;
+					}
+
+					return $hasOffset;
+				}
+
+				return new BooleanType();
+			}
+
+			return new ConstantBooleanType(true);
 		}
 
 		if ($node instanceof \PhpParser\Node\Expr\BooleanNot) {
@@ -684,38 +707,20 @@ class Scope
 
 		if ($node instanceof Expr\BinaryOp\Coalesce) {
 			if ($node->left instanceof Expr\ArrayDimFetch && $node->left->dim !== null) {
-				$arrays = TypeUtils::getConstantArrays($this->getType($node->left->var));
 				$dimType = $this->getType($node->left->dim);
-				if (count($arrays) > 0) {
-					$filteredValues = [];
-					$hasError = false;
-					foreach ($arrays as $array) {
-						$valueType = $array->getOffsetValueType($dimType);
-						if ($valueType instanceof ErrorType) {
-							$hasError = true;
-							continue;
-						}
-
-						if (!$array->hasOffsetValueType($dimType)->yes()) {
-							$hasError = true;
-						}
-
-						$filteredValues[] = $valueType;
-					}
-
-					if (count($filteredValues) > 0) {
-						if ($hasError) {
-							$filteredValues[] = $this->getType($node->right);
-						}
-
-						return TypeCombinator::union(...$filteredValues);
-					}
-
-					return $this->getType($node->right);
-				}
-
+				$varType = $this->getType($node->left->var);
+				$hasOffset = $varType->hasOffsetValueType($dimType);
 				$leftType = $this->getType($node->left);
 				$rightType = $this->getType($node->right);
+				if ($hasOffset->no()) {
+					return $rightType;
+				} elseif ($hasOffset->yes()) {
+					$offsetValueType = $varType->getOffsetValueType($dimType);
+					if ($offsetValueType->isSuperTypeOf(new NullType())->no()) {
+						return TypeCombinator::removeNull($leftType);
+					}
+				}
+
 				return TypeCombinator::union(
 					TypeCombinator::removeNull($leftType),
 					$rightType
@@ -1226,21 +1231,11 @@ class Scope
 		}
 
 		if ($node instanceof Expr\ArrayDimFetch && $node->dim !== null) {
-			$offsetType = $this->getType($node->dim);
-			$offsetAccessibleType = $this->getType($node->var);
-			if ((new ObjectType(\ArrayAccess::class))->isSuperTypeOf($offsetAccessibleType)->yes()) {
-				return $this->getType(
-					new MethodCall(
-						$node->var,
-						new Node\Identifier('offsetGet'),
-						[
-							new Node\Arg($node->dim),
-						]
-					)
-				);
-			}
-
-			return $offsetAccessibleType->getOffsetValueType($offsetType);
+			return $this->getTypeFromArrayDimFetch(
+				$node,
+				$this->getType($node->dim),
+				$this->getType($node->var)
+			);
 		}
 
 		if ($node instanceof MethodCall && $node->name instanceof Node\Identifier) {
@@ -1411,6 +1406,31 @@ class Scope
 		}
 
 		return new MixedType();
+	}
+
+	protected function getTypeFromArrayDimFetch(
+		Expr\ArrayDimFetch $arrayDimFetch,
+		Type $offsetType,
+		Type $offsetAccessibleType
+	): Type
+	{
+		if ($arrayDimFetch->dim === null) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		if ((new ObjectType(\ArrayAccess::class))->isSuperTypeOf($offsetAccessibleType)->yes()) {
+			return $this->getType(
+				new MethodCall(
+					$arrayDimFetch->var,
+					new Node\Identifier('offsetGet'),
+					[
+						new Node\Arg($arrayDimFetch->dim),
+					]
+				)
+			);
+		}
+
+		return $offsetAccessibleType->getOffsetValueType($offsetType);
 	}
 
 	private function calculateFromScalars(Expr $node, ConstantScalarType $leftType, ConstantScalarType $rightType): Type

@@ -988,4 +988,49 @@ class IssetCumulativeArray
 		}
 	}
 
+	public function doLorem()
+	{
+		$arr = [1, 2, 3];
+		$cumulative = [];
+
+		foreach ($arr as $val) {
+			if (isset($cumulative[$val])) {
+				$cumulative[$val] = $cumulative[$val];
+			}
+
+			$cumulative[$val] = 1;
+		}
+
+		foreach ($cumulative as $c) {
+			$this->doBar($c);
+		}
+	}
+
+}
+
+class DoWhileNeverIssue
+{
+
+	public function doFoo(int $i): void
+	{
+		$ipv4Piece = null;
+
+		do {
+			if ($ipv4Piece === null) {
+				$ipv4Piece = $i;
+			} else {
+				$ipv4Piece = $ipv4Piece * 10 + $i;
+			}
+
+			$this->requireInt($ipv4Piece);
+		} while (true);
+
+		$this->requireInt($ipv4Piece);
+	}
+
+	private function requireInt(int $i): void
+	{
+
+	}
+
 }

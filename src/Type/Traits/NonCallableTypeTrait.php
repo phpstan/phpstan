@@ -2,7 +2,7 @@
 
 namespace PHPStan\Type\Traits;
 
-use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\TrinaryLogic;
 
 trait NonCallableTypeTrait
@@ -13,7 +13,7 @@ trait NonCallableTypeTrait
 		return TrinaryLogic::createNo();
 	}
 
-	public function getCallableParametersAcceptors(Scope $scope): array
+	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array
 	{
 		throw new \PHPStan\ShouldNotHappenException();
 	}

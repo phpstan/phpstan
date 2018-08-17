@@ -2,8 +2,8 @@
 
 namespace PHPStan\Type\Constant;
 
-use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\InaccessibleMethod;
 use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
@@ -22,9 +22,6 @@ use PHPStan\Type\TypeUtils;
 use PHPStan\Type\UnionType;
 use PHPStan\Type\VerbosityLevel;
 
-/**
- * @method ConstantIntegerType|ConstantStringType getKeyType()
- */
 class ConstantArrayType extends ArrayType implements ConstantType
 {
 
@@ -61,6 +58,15 @@ class ConstantArrayType extends ArrayType implements ConstantType
 	public function getNextAutoIndex(): int
 	{
 		return $this->nextAutoIndex;
+	}
+
+	public function getKeyType(): Type
+	{
+		if (count($this->keyTypes) > 1) {
+			return new UnionType($this->keyTypes);
+		}
+
+		return parent::getKeyType();
 	}
 
 	/**
@@ -173,10 +179,10 @@ class ConstantArrayType extends ArrayType implements ConstantType
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
 	 * @return \PHPStan\Reflection\ParametersAcceptor[]
 	 */
-	public function getCallableParametersAcceptors(Scope $scope): array
+	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array
 	{
 		$typeAndMethodName = $this->findTypeAndMethodName();
 		if ($typeAndMethodName === null) {
@@ -248,9 +254,8 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 			return TrinaryLogic::extremeIdentity(...$results);
 		}
-		return TrinaryLogic::createFromBoolean(
-			!$this->getOffsetValueType($offsetType) instanceof ErrorType
-		);
+
+		return $this->getKeyType()->isSuperTypeOf($offsetType);
 	}
 
 	public function getOffsetValueType(Type $offsetType): Type

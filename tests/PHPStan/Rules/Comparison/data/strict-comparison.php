@@ -590,3 +590,53 @@ class DuplicateConditionNeverError
 	}
 
 }
+
+class CoalesceWithConstantArray
+{
+
+	/** @var string[] */
+	private const B = [
+		'foo' => 'bar',
+	];
+
+	public function doFoo(string $x): string
+	{
+		$class = self::B[$x] ?? null;
+
+		if ($class === null) {
+			throw new \Exception();
+		}
+
+		return $class;
+	}
+
+}
+
+class NonIdempotentOperationInForeach
+{
+
+	public function doFoo(array $array)
+	{
+		$i = 10;
+		foreach ($array as $foo) {
+			if (rand(0, 1) === 100) {
+				$i *= 10;
+				if ($i === 'foo') {
+				}
+			}
+		}
+
+		$nullableVal = null;
+		foreach ($array as $foo) {
+			if ($nullableVal === null) {
+				$nullableVal = 1;
+			} else {
+				$nullableVal *= 10;
+				if ($nullableVal === 'foo') {
+
+				}
+			}
+		}
+	}
+
+}

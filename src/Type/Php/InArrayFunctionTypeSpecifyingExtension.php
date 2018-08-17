@@ -11,6 +11,7 @@ use PHPStan\Analyser\TypeSpecifierContext;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\FunctionTypeSpecifyingExtension;
+use PHPStan\Type\TypeUtils;
 
 class InArrayFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtension, TypeSpecifierAwareExtension
 {
@@ -37,11 +38,20 @@ class InArrayFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingEx
 			return new SpecifiedTypes([], []);
 		}
 
-		return $this->typeSpecifier->create(
-			$node->args[0]->value,
-			$scope->getType($node->args[1]->value)->getIterableValueType(),
-			$context
-		);
+		$arrayValueType = $scope->getType($node->args[1]->value)->getIterableValueType();
+
+		if (
+			$context->truthy()
+			|| count(TypeUtils::getConstantScalars($arrayValueType)) > 0
+		) {
+			return $this->typeSpecifier->create(
+				$node->args[0]->value,
+				$arrayValueType,
+				$context
+			);
+		}
+
+		return new SpecifiedTypes([], []);
 	}
 
 }

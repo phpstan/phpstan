@@ -9,6 +9,7 @@ use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Analyser\TypeSpecifierAwareExtension;
 use PHPStan\Analyser\TypeSpecifierContext;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\MethodTypeSpecifyingExtension;
@@ -47,7 +48,7 @@ class ScopeIsInClassTypeSpecifyingExtension implements MethodTypeSpecifyingExten
 
 	public function getClass(): string
 	{
-		return Scope::class;
+		return ClassMemberAccessAnswerer::class;
 	}
 
 	public function isMethodSupported(

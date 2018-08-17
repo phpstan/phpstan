@@ -2,7 +2,7 @@
 
 namespace PHPStan\Type;
 
-use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
@@ -25,7 +25,7 @@ class ObjectWithoutClassType implements Type
 		return false;
 	}
 
-	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
 	{
 		throw new \PHPStan\ShouldNotHappenException();
 	}
@@ -59,6 +59,10 @@ class ObjectWithoutClassType implements Type
 			return TrinaryLogic::createYes();
 		}
 
+		if ($type instanceof ClosureType) {
+			return TrinaryLogic::createYes();
+		}
+
 		return TrinaryLogic::createNo();
 	}
 
@@ -87,7 +91,7 @@ class ObjectWithoutClassType implements Type
 		return false;
 	}
 
-	public function getMethod(string $methodName, Scope $scope): MethodReflection
+	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
 	{
 		throw new \PHPStan\ShouldNotHappenException();
 	}

@@ -55,7 +55,7 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 				new NodeScopeResolver(
 					$broker,
 					$this->getParser(),
-					new FileTypeMapper($this->getParser(), self::getContainer()->getByType(PhpDocStringResolver::class), $this->createMock(Cache::class), new AnonymousClassNameHelper(new FileHelper($this->getCurrentWorkingDirectory()))),
+					new FileTypeMapper($this->getParser(), self::getContainer()->getByType(PhpDocStringResolver::class), $this->createMock(Cache::class), new AnonymousClassNameHelper(new FileHelper($this->getCurrentWorkingDirectory())), new \PHPStan\PhpDoc\TypeNodeResolver($this->getTypeNodeResolverExtensions())),
 					$fileHelper,
 					$typeSpecifier,
 					$this->shouldPolluteScopeWithLoopInitialAssignments(),
@@ -85,6 +85,14 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 	 * @return \PHPStan\Type\StaticMethodTypeSpecifyingExtension[]
 	 */
 	protected function getStaticMethodTypeSpecifyingExtensions(): array
+	{
+		return [];
+	}
+
+	/**
+	 * @return \PHPStan\PhpDoc\TypeNodeResolverExtension[]
+	 */
+	protected function getTypeNodeResolverExtensions(): array
 	{
 		return [];
 	}

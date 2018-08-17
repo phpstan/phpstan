@@ -5,6 +5,8 @@ namespace PHPStan\PhpDoc;
 use PHPStan\Analyser\NameScope;
 use PHPStan\Broker\Broker;
 use PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode;
+use PHPStan\PhpDocParser\Ast\Type\CallableTypeNode;
+use PHPStan\PhpDocParser\Ast\Type\CallableTypeParameterNode;
 use PHPStan\PhpDocParser\Ast\Type\GenericTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\IntersectionTypeNode;
@@ -12,9 +14,12 @@ use PHPStan\PhpDocParser\Ast\Type\NullableTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\ThisTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\PhpDocParser\Ast\Type\UnionTypeNode;
+use PHPStan\Reflection\Native\NativeParameterReflection;
+use PHPStan\Reflection\PassedByReference;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
+use PHPStan\Type\ClosureType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FloatType;
@@ -32,15 +37,50 @@ use PHPStan\Type\StringType;
 use PHPStan\Type\ThisType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
-use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
 use PHPStan\Type\VoidType;
 
 class TypeNodeResolver
 {
 
+	/** @var TypeNodeResolverExtension[] */
+	private $extensions;
+
+	/**
+	 * @param TypeNodeResolverExtension[] $extensions
+	 */
+	public function __construct(array $extensions)
+	{
+		foreach ($extensions as $extension) {
+			if (!$extension instanceof TypeNodeResolverAwareExtension) {
+				continue;
+			}
+
+			$extension->setTypeNodeResolver($this);
+		}
+
+		$this->extensions = $extensions;
+	}
+
+	public function getCacheKey(): string
+	{
+		$key = 'v48';
+		foreach ($this->extensions as $extension) {
+			$key .= sprintf('-%s', $extension->getCacheKey());
+		}
+
+		return $key;
+	}
+
 	public function resolve(TypeNode $typeNode, NameScope $nameScope): Type
 	{
+		foreach ($this->extensions as $extension) {
+			$type = $extension->resolve($typeNode, $nameScope);
+			if ($type !== null) {
+				return $type;
+			}
+		}
+
 		if ($typeNode instanceof IdentifierTypeNode) {
 			return $this->resolveIdentifierTypeNode($typeNode, $nameScope);
 
@@ -61,6 +101,9 @@ class TypeNodeResolver
 
 		} elseif ($typeNode instanceof GenericTypeNode) {
 			return $this->resolveGenericTypeNode($typeNode, $nameScope);
+
+		} elseif ($typeNode instanceof CallableTypeNode) {
+			return $this->resolveCallableTypeNode($typeNode, $nameScope);
 		}
 
 		return new ErrorType();
@@ -181,20 +224,6 @@ class TypeNodeResolver
 		}
 
 		$otherTypeTypes = $this->resolveMultiple($otherTypeNodes, $nameScope);
-
-		if (count($otherTypeTypes) === 2) {
-			static $mockClassNames = [
-				'PHPUnit_Framework_MockObject_MockObject' => true,
-				'PHPUnit\Framework\MockObject\MockObject' => true,
-			];
-
-			foreach ($otherTypeTypes as $otherType) {
-				if ($otherType instanceof TypeWithClassName && isset($mockClassNames[$otherType->getClassName()])) {
-					return TypeCombinator::intersect(...$otherTypeTypes);
-				}
-			}
-		}
-
 		if (count($iterableTypeNodes) > 0) {
 			$arrayTypeTypes = $this->resolveMultiple($iterableTypeNodes, $nameScope);
 			$arrayTypeType = TypeCombinator::union(...$arrayTypeTypes);
@@ -267,12 +296,44 @@ class TypeNodeResolver
 		return new ErrorType();
 	}
 
+	private function resolveCallableTypeNode(CallableTypeNode $typeNode, NameScope $nameScope): Type
+	{
+		$mainType = $this->resolve($typeNode->identifier, $nameScope);
+		$isVariadic = false;
+		$parameters = array_map(
+			function (CallableTypeParameterNode $parameterNode) use ($nameScope, &$isVariadic): NativeParameterReflection {
+				$isVariadic = $isVariadic || $parameterNode->isVariadic;
+				return new NativeParameterReflection(
+					$parameterNode->parameterName,
+					$parameterNode->isOptional,
+					$this->resolve($parameterNode->type, $nameScope),
+					$parameterNode->isReference ? PassedByReference::createCreatesNewVariable() : PassedByReference::createNo(),
+					$parameterNode->isVariadic
+				);
+			},
+			$typeNode->parameters
+		);
+		$returnType = $this->resolve($typeNode->returnType, $nameScope);
+
+		if ($mainType instanceof CallableType) {
+			return new CallableType($parameters, $returnType, $isVariadic);
+
+		} elseif (
+			$mainType instanceof ObjectType
+			&& $mainType->getClassName() === \Closure::class
+		) {
+			return new ClosureType($parameters, $returnType, $isVariadic);
+		}
+
+		return new ErrorType();
+	}
+
 	/**
 	 * @param TypeNode[] $typeNodes
 	 * @param NameScope $nameScope
 	 * @return Type[]
 	 */
-	private function resolveMultiple(array $typeNodes, NameScope $nameScope): array
+	public function resolveMultiple(array $typeNodes, NameScope $nameScope): array
 	{
 		$types = [];
 		foreach ($typeNodes as $typeNode) {

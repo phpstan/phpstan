@@ -4,8 +4,10 @@
 	<target name="check" depends="
 		composer-validate,
 		composer-install,
+		composer-normalize-check,
 		lint,
 		cs,
+		test-configuration-validate,
 		tests,
 		phpstan
 	"/>
@@ -18,6 +20,7 @@
 				checkreturn="true"
 		>
 			<arg value="validate"/>
+			<arg value="--ansi"/>
 		</exec>
 	</target>
 
@@ -29,6 +32,32 @@
 				checkreturn="true"
 		>
 			<arg value="install"/>
+			<arg value="--ansi"/>
+		</exec>
+	</target>
+
+	<target name="composer-normalize-check">
+		<exec
+				executable="composer"
+				logoutput="true"
+				passthru="true"
+				checkreturn="true"
+		>
+			<arg value="normalize"/>
+			<arg value="--ansi"/>
+			<arg value="--dry-run"/>
+		</exec>
+	</target>
+
+	<target name="composer-normalize-fix">
+		<exec
+				executable="composer"
+				logoutput="true"
+				passthru="true"
+				checkreturn="true"
+		>
+			<arg value="normalize"/>
+			<arg value="--ansi"/>
 		</exec>
 	</target>
 
@@ -39,6 +68,7 @@
 				passthru="true"
 				checkreturn="true"
 		>
+			<arg value="--colors"/>
 			<arg value="--exclude"/>
 			<arg path="tests/PHPStan/Analyser/data"/>
 			<arg value="--exclude"/>
@@ -59,6 +89,7 @@
 				passthru="true"
 				checkreturn="true"
 		>
+			<arg value="--colors"/>
 			<arg value="--extensions=php"/>
 			<arg value="--encoding=utf-8"/>
 			<arg value="--tab-width=4"/>
@@ -76,6 +107,7 @@
 				passthru="true"
 				checkreturn="true"
 		>
+			<arg value="--colors"/>
 			<arg value="--extensions=php"/>
 			<arg value="--encoding=utf-8"/>
 			<arg value="--tab-width=4"/>
@@ -83,6 +115,10 @@
 			<arg path="src"/>
 			<arg path="tests"/>
 		</exec>
+	</target>
+
+	<target name="test-configuration-validate" depends="composer-install">
+		<xmllint schema="vendor/phpunit/phpunit/phpunit.xsd" file="tests/phpunit.xml"/>
 	</target>
 
 	<target name="tests">
@@ -142,6 +178,7 @@
 			<arg path="${phpstan.config}"/>
 			<arg value="-l"/>
 			<arg value="7"/>
+			<arg value="--ansi"/>
 			<arg path="build/PHPStan"/>
 			<arg path="src"/>
 			<arg path="tests"/>

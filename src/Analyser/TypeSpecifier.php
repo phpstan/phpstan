@@ -19,12 +19,12 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Name;
 use PHPStan\Broker\Broker;
+use PHPStan\Type\Accessory\HasOffsetType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
-use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\NonexistentParentClassType;
@@ -290,11 +290,11 @@ class TypeSpecifier
 			}
 		} elseif ($expr instanceof BooleanAnd || $expr instanceof LogicalAnd) {
 			$leftTypes = $this->specifyTypesInCondition($scope, $expr->left, $context);
-			$rightTypes = $this->specifyTypesInCondition($scope->filterByTruthyValue($expr->left), $expr->right, $context);
+			$rightTypes = $this->specifyTypesInCondition($scope, $expr->right, $context);
 			return $context->true() ? $leftTypes->unionWith($rightTypes) : $leftTypes->intersectWith($rightTypes);
 		} elseif ($expr instanceof BooleanOr || $expr instanceof LogicalOr) {
 			$leftTypes = $this->specifyTypesInCondition($scope, $expr->left, $context);
-			$rightTypes = $this->specifyTypesInCondition($scope->filterByFalseyValue($expr->left), $expr->right, $context);
+			$rightTypes = $this->specifyTypesInCondition($scope, $expr->right, $context);
 			return $context->true() ? $leftTypes->intersectWith($rightTypes) : $leftTypes->unionWith($rightTypes);
 		} elseif ($expr instanceof Node\Expr\BooleanNot && !$context->null()) {
 			return $this->specifyTypesInCondition($scope, $expr->expr, $context->negate());
@@ -342,39 +342,18 @@ class TypeSpecifier
 			$types = null;
 			foreach ($vars as $var) {
 				if ($expr instanceof Expr\Isset_) {
-					if ($var instanceof ArrayDimFetch && $var->dim !== null) {
-						$arrays = TypeUtils::getConstantArrays($scope->getType($var->var));
-						if (count($arrays) > 0) {
-							$offsetType = $scope->getType($var->dim);
-							$filteredArrays = [];
-							$filteredValues = [];
-							foreach ($arrays as $array) {
-								$valueType = $array->getOffsetValueType($offsetType);
-								if ($valueType instanceof ErrorType) {
-									continue;
-								}
-
-								$filteredArrays[] = $array->setOffsetValueType(
-									$offsetType,
-									TypeCombinator::removeNull($valueType)
-								);
-								$filteredValues[] = $valueType;
-							}
-
-							if (count($filteredArrays) > 0) {
-								$arrayTypeToSpecify = TypeCombinator::union(...$filteredArrays);
-							} else {
-								$arrayTypeToSpecify = new MixedType();
-							}
-
-							$type = $this->create(
-								$var->var,
-								$arrayTypeToSpecify,
-								$context
-							);
-						} else {
-							$type = $this->create($var, new NullType(), TypeSpecifierContext::createFalse());
-						}
+					if (
+						$var instanceof ArrayDimFetch
+						&& $var->dim !== null
+						&& !$scope->getType($var->var) instanceof MixedType
+					) {
+						$type = $this->create(
+							$var->var,
+							new HasOffsetType($scope->getType($var->dim)),
+							$context
+						)->unionWith(
+							$this->create($var, new NullType(), TypeSpecifierContext::createFalse())
+						);
 					} else {
 						$type = $this->create($var, new NullType(), TypeSpecifierContext::createFalse());
 					}
@@ -394,6 +373,9 @@ class TypeSpecifier
 					$types = $types->unionWith($type);
 				}
 			}
+
+			/** @var SpecifiedTypes $types */
+			$types = $types;
 
 			return $types;
 		} elseif (!$context->null()) {

@@ -110,6 +110,11 @@ class NullType implements ConstantScalarType
 		return TrinaryLogic::createYes();
 	}
 
+	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
+	{
+		return TrinaryLogic::createYes();
+	}
+
 	public function getOffsetValueType(Type $offsetType): Type
 	{
 		return new NullType();

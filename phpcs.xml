@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <ruleset name="PHPStan">
 	<rule ref="vendor/consistence/coding-standard/Consistence/ruleset.xml">
-		<exclude name="Squiz.Functions.GlobalFunction.Found"/>
 		<exclude name="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration.InvalidFormat"/>
 		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameAfterKeyword"/>
 		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation"/>
-		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedExceptions"/>
 		<exclude name="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly"/>
 		<exclude name="Consistence.Exceptions.ExceptionDeclaration"/>
+		<exclude name="Squiz.Commenting.FunctionComment.MissingParamTag"/>
+		<exclude name="Squiz.Commenting.FunctionComment.ParamNameNoMatch"/>
 	</rule>
 	<rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses">
 		<properties>
@@ -36,10 +36,6 @@
 	<rule ref="SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming"/>
 	<rule ref="SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming"/>
 	<rule ref="SlevomatCodingStandard.ControlStructures.DisallowShortTernaryOperator"/>
-	<rule ref="SlevomatCodingStandard.Namespaces.NamespaceDeclaration"/>
-	<rule ref="SlevomatCodingStandard.Namespaces.NamespaceSpacing"/>
-	<rule ref="SlevomatCodingStandard.Namespaces.RequireOneNamespaceInFile"/>
-	<rule ref="SlevomatCodingStandard.PHP.ShortList"/>
 	<rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">
 		<properties>
 			<property name="rootNamespaces" type="array" value="src=>PHPStan,tests/PHPStan=>PHPStan"/>

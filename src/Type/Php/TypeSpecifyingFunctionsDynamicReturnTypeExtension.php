@@ -6,6 +6,8 @@ use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Analyser\TypeSpecifierAwareExtension;
+use PHPStan\Broker\Broker;
+use PHPStan\Reflection\BrokerAwareExtension;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Rules\Comparison\ImpossibleCheckTypeHelper;
@@ -13,14 +15,22 @@ use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\DynamicFunctionReturnTypeExtension;
 use PHPStan\Type\Type;
 
-class TypeSpecifyingFunctionsDynamicReturnTypeExtension implements DynamicFunctionReturnTypeExtension, TypeSpecifierAwareExtension
+class TypeSpecifyingFunctionsDynamicReturnTypeExtension implements DynamicFunctionReturnTypeExtension, TypeSpecifierAwareExtension, BrokerAwareExtension
 {
+
+	/** @var \PHPStan\Broker\Broker */
+	private $broker;
 
 	/** @var \PHPStan\Analyser\TypeSpecifier */
 	private $typeSpecifier;
 
 	/** @var \PHPStan\Rules\Comparison\ImpossibleCheckTypeHelper|null */
 	private $helper;
+
+	public function setBroker(Broker $broker): void
+	{
+		$this->broker = $broker;
+	}
 
 	public function setTypeSpecifier(TypeSpecifier $typeSpecifier): void
 	{
@@ -30,6 +40,7 @@ class TypeSpecifyingFunctionsDynamicReturnTypeExtension implements DynamicFuncti
 	public function isFunctionSupported(FunctionReflection $functionReflection): bool
 	{
 		return in_array($functionReflection->getName(), [
+			'array_key_exists',
 			'in_array',
 			'is_numeric',
 			'is_int',
@@ -73,7 +84,7 @@ class TypeSpecifyingFunctionsDynamicReturnTypeExtension implements DynamicFuncti
 	private function getHelper(): ImpossibleCheckTypeHelper
 	{
 		if ($this->helper === null) {
-			$this->helper = new ImpossibleCheckTypeHelper($this->typeSpecifier);
+			$this->helper = new ImpossibleCheckTypeHelper($this->broker, $this->typeSpecifier);
 		}
 
 		return $this->helper;

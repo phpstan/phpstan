@@ -12,6 +12,7 @@ class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestC
 	{
 		return new ImpossibleCheckTypeFunctionCallRule(
 			new ImpossibleCheckTypeHelper(
+				$this->createBroker(),
 				$this->getTypeSpecifier()
 			),
 			$this->checkAlwaysTrueCheckTypeFunctionCall
@@ -96,6 +97,14 @@ class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestC
 					'Call to function in_array() with arguments \'foo\', array(\'foo\') and true will always evaluate to true.',
 					247,
 				],
+				[
+					'Call to function array_key_exists() with \'a\' and array(\'a\' => 1, ?\'b\' => 2) will always evaluate to true.',
+					303,
+				],
+				[
+					'Call to function array_key_exists() with \'c\' and array(\'a\' => 1, ?\'b\' => 2) will always evaluate to false.',
+					309,
+				],
 			]
 		);
 	}
@@ -141,6 +150,10 @@ class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestC
 				[
 					'Call to function in_array() with arguments \'bar\'|\'foo\', array(\'baz\', \'lorem\') and true will always evaluate to false.',
 					239,
+				],
+				[
+					'Call to function array_key_exists() with \'c\' and array(\'a\' => 1, ?\'b\' => 2) will always evaluate to false.',
+					309,
 				],
 			]
 		);

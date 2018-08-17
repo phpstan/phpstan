@@ -30,6 +30,9 @@ use SomeNodeScopeResolverNamespace\Foo;
 class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 {
 
+	/** @var Scope[][] */
+	private static $assertTypesCache = [];
+
 	public function testClassMethodScope(): void
 	{
 		$this->processFile(__DIR__ . '/data/class.php', function (\PhpParser\Node $node, Scope $scope): void {
@@ -1159,6 +1162,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$callable',
 			],
 			[
+				'callable',
+				'$callableWithTypes',
+			],
+			[
+				'Closure(int, array<int, string>): void',
+				'$closureWithTypes',
+			],
+			[
 				'VarAnnotations\Foo',
 				'$self',
 			],
@@ -1876,6 +1887,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				$typeCallback(1.2 * 1),
 				'1.2 * 1',
+			],
+			[
+				'int',
+				'$integer * 10',
 			],
 			[
 				$typeCallback(1.2 ** 1),
@@ -2654,6 +2669,22 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'string',
 				'parent::class',
+			],
+			[
+				'true',
+				'array_key_exists(0, $array)',
+			],
+			[
+				'false',
+				'array_key_exists(3, $array)',
+			],
+			[
+				'bool',
+				'array_key_exists(3, $conditionalArray)',
+			],
+			[
+				'bool',
+				'array_key_exists(\'foo\', $generalArray)',
 			],
 		];
 	}
@@ -4108,6 +4139,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_intersect_key($integers, [])',
 			],
 			[
+				'array<int, int>',
+				'array_intersect_key(...[$integers, [4, 5, 6]])',
+			],
+			[
+				'array<int|string, int>',
+				'array_intersect_key(...$generalIntegersInAnotherArray, [])',
+			],
+			[
 				'array<0|1|2, 1|2|3>',
 				'array_intersect_uassoc($integers, [])',
 			],
@@ -4248,6 +4287,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_pop($stringKeys)',
 			],
 			[
+				'array<stdClass>&hasOffset(\'baz\')',
+				'$stdClassesWithIsset',
+			],
+			[
+				'stdClass|null',
+				'array_pop($stdClassesWithIsset)',
+			],
+			[
 				'\'foo\'',
 				'array_shift($stringKeys)',
 			],
@@ -4324,6 +4371,22 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_search(new stdClass, $generalStringKeys, true)',
 			],
 			[
+				'mixed',
+				'array_search($mixed, $array, true)',
+			],
+			[
+				'int|string|false|null',
+				'array_search($mixed, $array, false)',
+			],
+			[
+				'\'a\'|\'b\'|false',
+				'array_search($string, [\'a\' => \'A\', \'b\' => \'B\'], true)',
+			],
+			[
+				'false',
+				'array_search($integer, [\'a\' => \'A\', \'b\' => \'B\'], true)',
+			],
+			[
 				'\'foo\'|false',
 				'array_search($generalIntegerOrString, $stringKeys, true)',
 			],
@@ -4334,6 +4397,46 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'int|false',
 				'array_search($generalIntegerOrString, $clonedConditionalArray, true)',
+			],
+			[
+				'int|string|false|null',
+				'array_search($generalIntegerOrString, $generalIntegerOrStringKeys, false)',
+			],
+			[
+				'false',
+				'array_search(\'id\', $generalIntegerOrStringKeys, true)',
+			],
+			[
+				'int|string|false',
+				'array_search(\'id\', $generalIntegerOrStringKeysMixedValues, true)',
+			],
+			[
+				'int|string|false|null',
+				'array_search(\'id\', doFoo() ? $generalIntegerOrStringKeys : false, true)',
+			],
+			[
+				'false|null',
+				'array_search(\'id\', doFoo() ? [] : false, true)',
+			],
+			[
+				'null',
+				'array_search(\'id\', false, true)',
+			],
+			[
+				'null',
+				'array_search(\'id\', false)',
+			],
+			[
+				'int|string|false',
+				'array_search(\'id\', $thisDoesNotExistAndIsMixed, true)',
+			],
+			[
+				'int|string|false',
+				'array_search(\'id\', doFoo() ? $thisDoesNotExistAndIsMixedInUnion : false, true)',
+			],
+			[
+				'mixed',
+				'array_search(1, $generalIntegers, true)',
 			],
 		];
 	}
@@ -4506,6 +4609,18 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array<int, string>|false',
 				'$strSplitConstantStringWithVariableStringAndVariableSplitLength',
 			],
+			[
+				'array(0 => int, 1 => int, 2 => int, 3 => int, 4 => int, 5 => int, 6 => int, 7 => int, ...)|false',
+				'$stat',
+			],
+			[
+				'array(0 => int, 1 => int, 2 => int, 3 => int, 4 => int, 5 => int, 6 => int, 7 => int, ...)|false',
+				'$lstat',
+			],
+			[
+				'array(0 => int, 1 => int, 2 => int, 3 => int, 4 => int, 5 => int, 6 => int, 7 => int, ...)|false',
+				'$fstat',
+			],
 		];
 	}
 
@@ -4521,6 +4636,66 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/functions.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataDioFunctions(): array
+	{
+		return [
+			[
+				'array(\'device\' => int, \'inode\' => int, \'mode\' => int, \'nlink\' => int, \'uid\' => int, \'gid\' => int, \'device_type\' => int, \'size\' => int, ...)|null',
+				'$stat',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataDioFunctions
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testDioFunctions(
+		string $description,
+		string $expression
+	): void
+	{
+		if (!extension_loaded('dio')) {
+			$this->markTestSkipped('Direct IO extension needed.');
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/dio-functions.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataSsh2Functions(): array
+	{
+		return [
+			[
+				'array(0 => int, 1 => int, 2 => int, 3 => int, 4 => int, 5 => int, 6 => int, 7 => int, ...)|false',
+				'$ssh2SftpStat',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataSsh2Functions
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testSsh2Functions(
+		string $description,
+		string $expression
+	): void
+	{
+		if (!extension_loaded('ssh2')) {
+			$this->markTestSkipped('SSH2 extension needed.');
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/ssh2-functions.php',
 			$description,
 			$expression
 		);
@@ -4803,7 +4978,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[],
 			[],
 			[new AssertionClassMethodTypeSpecifyingExtension($nullContext)],
-			[new AssertionClassStaticMethodTypeSpecifyingExtension($nullContext)]
+			[new AssertionClassStaticMethodTypeSpecifyingExtension($nullContext)],
+			'die',
+			[],
+			false
 		);
 	}
 
@@ -4921,7 +5099,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[],
 			[],
 			[new AssertionClassMethodTypeSpecifyingExtension($nullContext)],
-			[new AssertionClassStaticMethodTypeSpecifyingExtension($nullContext)]
+			[new AssertionClassStaticMethodTypeSpecifyingExtension($nullContext)],
+			'die',
+			[],
+			false
 		);
 	}
 
@@ -5748,6 +5929,26 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$i',
 				"'afterLoop'",
 			],
+			[
+				'int|null',
+				'$nullableVal',
+				"'begin'",
+			],
+			[
+				'null',
+				'$nullableVal',
+				"'nullableValIf'",
+			],
+			[
+				'int',
+				'$nullableVal',
+				"'nullableValElse'",
+			],
+			[
+				'int|null',
+				'$nullableVal',
+				"'afterLoop'",
+			],
 		];
 	}
 
@@ -5800,17 +6001,17 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				"'afterLoop'",
 			],
 			[
-				'array<string, 1|2|3>',
+				'array<string, 1|2|3>&hasOffset(string)',
 				'$this->property',
 				"'begin'",
 			],
 			[
-				'array<string, 1|2|3>',
+				'array<string, 1|2|3>&hasOffset(string)',
 				'$this->property',
 				"'end'",
 			],
 			[
-				'array<string, 1|2|3>',
+				'array<string, 1|2|3>&hasOffset(string)',
 				'$this->property',
 				"'afterLoop'",
 			],
@@ -5926,6 +6127,26 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'int',
 				'$i',
+				"'afterLoop'",
+			],
+			[
+				'int|null',
+				'$nullableVal',
+				"'begin'",
+			],
+			[
+				'null',
+				'$nullableVal',
+				"'nullableValIf'",
+			],
+			[
+				'int',
+				'$nullableVal',
+				"'nullableValElse'",
+			],
+			[
+				'int',
+				'$nullableVal',
 				"'afterLoop'",
 			],
 		];
@@ -6156,7 +6377,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$expectedArrayOrString2',
 			],
 			[
-				'array|string',
+				'array|string|null',
 				'$anotherExpectedArrayOrString',
 			],
 			[
@@ -6170,6 +6391,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'string',
 				'str_replace(\'.\', \':\', $intOrStringKey)',
+			],
+			[
+				'string',
+				'str_ireplace(\'.\', \':\', $intOrStringKey)',
 			],
 		];
 	}
@@ -6873,7 +7098,27 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$array',
 			],
 			[
-				'array<int>',
+				'array(\'a\' => 1|3, \'b\' => 2|3|null, ?\'c\' => 4)',
+				'$arrayCopy',
+			],
+			[
+				'array(\'a\' => 2)',
+				'$anotherArrayCopy',
+			],
+			[
+				'array(\'a\' => 1|2|3, ?\'b\' => 2|3|null, ?\'c\' => 4)',
+				'$yetAnotherArrayCopy',
+			],
+			[
+				'mixed',
+				'$mixedIsset',
+			],
+			[
+				'array&hasOffset(\'a\')',
+				'$mixedArrayKeyExists',
+			],
+			[
+				'array<int>&hasOffset(\'a\')',
 				'$integers',
 			],
 			[
@@ -6891,6 +7136,18 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'bool',
 				'$lookup[$a] ?? false',
+			],
+			[
+				'\'foo\'|false',
+				'$nullableArray[\'a\'] ?? false',
+			],
+			[
+				'\'bar\'',
+				'$nullableArray[\'b\'] ?? false',
+			],
+			[
+				'\'baz\'|false',
+				'$nullableArray[\'c\'] ?? false',
 			],
 		];
 	}
@@ -6982,6 +7239,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'string',
 				'$mixed',
 			],
+			[
+				'string',
+				'$r',
+			],
+			[
+				'\'foo\'',
+				'$fooOrBarOrBaz',
+			],
 		];
 	}
 
@@ -7002,6 +7267,90 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataGetParentClass(): array
+	{
+		return [
+			[
+				'false',
+				'get_parent_class()',
+			],
+			[
+				'string|false',
+				'get_parent_class($s)',
+			],
+			[
+				'false',
+				'get_parent_class(\ParentClass\Foo::class)',
+			],
+			[
+				'string|false',
+				'get_parent_class(NonexistentClass::class)',
+			],
+			[
+				'string|false',
+				'get_parent_class(1)',
+			],
+			[
+				"'ParentClass\\\\Foo'",
+				'get_parent_class(\ParentClass\Bar::class)',
+			],
+			[
+				'false',
+				'get_parent_class()',
+				"'inParentClass'",
+			],
+			[
+				'false',
+				'get_parent_class($this)',
+				"'inParentClass'",
+			],
+			[
+				"'ParentClass\\\\Foo'",
+				'get_parent_class()',
+				"'inChildClass'",
+			],
+			[
+				"'ParentClass\\\\Foo'",
+				'get_parent_class($this)',
+				"'inChildClass'",
+			],
+			[
+				'string|false',
+				'get_parent_class()',
+				"'inTrait'",
+			],
+			[
+				'string|false',
+				'get_parent_class($this)',
+				"'inTrait'",
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataGetParentClass
+	 * @param string $description
+	 * @param string $expression
+	 * @param string $evaluatedPointExpression
+	 */
+	public function testGetParentClass(
+		string $description,
+		string $expression,
+		string $evaluatedPointExpression = 'die'
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/get-parent-class.php',
+			$description,
+			$expression,
+			[],
+			[],
+			[],
+			[],
+			$evaluatedPointExpression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $description,
@@ -7011,16 +7360,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		array $methodTypeSpecifyingExtensions = [],
 		array $staticMethodTypeSpecifyingExtensions = [],
 		string $evaluatedPointExpression = 'die',
-		array $dynamicConstantNames = []
+		array $dynamicConstantNames = [],
+		bool $useCache = true
 	): void
 	{
-		$this->processFile($file, function (\PhpParser\Node $node, Scope $scope) use ($description, $expression, $evaluatedPointExpression): void {
-			$printer = new \PhpParser\PrettyPrinter\Standard();
-			$printedNode = $printer->prettyPrint([$node]);
-			if ($printedNode !== $evaluatedPointExpression) {
-				return;
-			}
-
+		$assertType = function (Scope $scope) use ($expression, $description, $evaluatedPointExpression): void {
 			/** @var \PhpParser\Node\Stmt\Expression $expressionNode */
 			$expressionNode = $this->getParser()->parseString(sprintf('<?php %s;', $expression))[0];
 			$type = $scope->getType($expressionNode->expr);
@@ -7029,7 +7373,23 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$type,
 				sprintf('%s at %s', $expression, $evaluatedPointExpression)
 			);
-		}, $dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions, $methodTypeSpecifyingExtensions, $staticMethodTypeSpecifyingExtensions, $dynamicConstantNames);
+		};
+		if ($useCache && isset(self::$assertTypesCache[$file][$evaluatedPointExpression])) {
+			$assertType(self::$assertTypesCache[$file][$evaluatedPointExpression]);
+			return;
+		}
+		$this->processFile($file, function (\PhpParser\Node $node, Scope $scope) use ($file, $evaluatedPointExpression, $assertType): void {
+			$printer = new \PhpParser\PrettyPrinter\Standard();
+			$printedNode = $printer->prettyPrint([$node]);
+			if ($printedNode !== $evaluatedPointExpression) {
+				return;
+			}
+
+			self::$assertTypesCache[$file][$evaluatedPointExpression] = $scope;
+
+			$assertType($scope);
+		}, $dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions, $methodTypeSpecifyingExtensions, $staticMethodTypeSpecifyingExtensions,
+			$dynamicConstantNames);
 	}
 
 	/**
@@ -7060,7 +7420,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		$resolver = new NodeScopeResolver(
 			$broker,
 			$this->getParser(),
-			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $this->createMock(Cache::class), new AnonymousClassNameHelper($fileHelper)),
+			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $this->createMock(Cache::class), new AnonymousClassNameHelper($fileHelper), self::getContainer()->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class)),
 			$fileHelper,
 			$typeSpecifier,
 			true,

@@ -16,10 +16,11 @@ matrix:
       env: dependencies=highest
 
 before_script:
-  - phpenv config-rm xdebug.ini
-  - composer self-update
-  - if [ "$dependencies" = "lowest" ]; then composer update --prefer-lowest --no-interaction; fi;
-  - if [ "$dependencies" = "highest" ]; then composer update --no-interaction; fi;
+  - if php --ri xdebug >/dev/null; then phpenv config-rm xdebug.ini; fi
+
+install:
+  - if [ "$dependencies" = "lowest" ]; then composer update --prefer-lowest --no-interaction; fi
+  - if [ "$dependencies" = "highest" ]; then composer update --no-interaction; fi
 
 script:
   - vendor/bin/phing
@@ -31,4 +32,3 @@ cache:
   directories:
     - $HOME/.composer/cache
     - tmp
-    - vendor

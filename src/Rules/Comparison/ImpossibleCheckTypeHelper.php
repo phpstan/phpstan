@@ -9,6 +9,8 @@ use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Analyser\TypeSpecifierContext;
+use PHPStan\Broker\Broker;
+use PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\StringType;
@@ -19,11 +21,18 @@ use PHPStan\Type\VerbosityLevel;
 class ImpossibleCheckTypeHelper
 {
 
+	/** @var \PHPStan\Broker\Broker */
+	private $broker;
+
 	/** @var \PHPStan\Analyser\TypeSpecifier */
 	private $typeSpecifier;
 
-	public function __construct(TypeSpecifier $typeSpecifier)
+	public function __construct(
+		Broker $broker,
+		TypeSpecifier $typeSpecifier
+	)
 	{
+		$this->broker = $broker;
 		$this->typeSpecifier = $typeSpecifier;
 	}
 
@@ -54,12 +63,40 @@ class ImpossibleCheckTypeHelper
 					&& count($node->args) >= 3
 				) {
 					$needleType = $scope->getType($node->args[0]->value);
-					$haystackType = $scope->getType($node->args[1]->value);
+					$valueType = $scope->getType($node->args[1]->value)->getIterableValueType();
+					$hasConstantNeedleTypes = count(TypeUtils::getConstantScalars($needleType)) > 0;
+					$hasConstantHaystackTypes = count(TypeUtils::getConstantScalars($valueType)) > 0;
 					if (
-						$needleType->equals($haystackType->getIterableValueType())
-						&& count(TypeUtils::getConstantTypes($needleType)) === 0
+						$valueType->isSuperTypeOf($needleType)->yes()
+						&& (
+							(
+								!$hasConstantNeedleTypes
+								&& !$hasConstantHaystackTypes
+							)
+							|| $hasConstantNeedleTypes !== $hasConstantHaystackTypes
+						)
 					) {
 						return null;
+					}
+				} elseif (
+					$functionName === 'property_exists'
+					&& count($node->args) >= 2
+				) {
+					$classNames = TypeUtils::getDirectClassNames(
+						$scope->getType($node->args[0]->value)
+					);
+					foreach ($classNames as $className) {
+						if (!$this->broker->hasClass($className)) {
+							continue;
+						}
+
+						if (UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate(
+							$this->broker,
+							$this->broker->getUniversalObjectCratesClasses(),
+							$this->broker->getClass($className)
+						)) {
+							return null;
+						}
 					}
 				}
 			}

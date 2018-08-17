@@ -2,9 +2,10 @@
 
 namespace PHPStan\Type;
 
-use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\ParameterReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
@@ -12,7 +13,7 @@ use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 
-class ClosureType implements CompoundType, ParametersAcceptor
+class ClosureType implements Type, ParametersAcceptor
 {
 
 	/** @var ObjectType */
@@ -49,46 +50,49 @@ class ClosureType implements CompoundType, ParametersAcceptor
 	 */
 	public function getReferencedClasses(): array
 	{
-		return $this->objectType->getReferencedClasses();
+		$classes = $this->objectType->getReferencedClasses();
+		foreach ($this->parameters as $parameter) {
+			$classes = array_merge($classes, $parameter->getType()->getReferencedClasses());
+		}
+
+		return array_merge($classes, $this->returnType->getReferencedClasses());
 	}
 
 	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
-		return $this->objectType->accepts($type, $strictTypes);
+		if ($type instanceof CompoundType) {
+			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
+		}
+
+		if (!$type instanceof ClosureType) {
+			return $this->objectType->accepts($type, $strictTypes);
+		}
+
+		return $this->isSuperTypeOf($type);
 	}
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
 		if ($type instanceof self) {
-			return $this->returnType->isSuperTypeOf($type->returnType);
+			return CallableTypeHelper::isParametersAcceptorSuperTypeOf(
+				$this,
+				$type
+			);
 		}
 
 		if ($type instanceof CompoundType) {
 			return $type->isSubTypeOf($this);
 		}
 
-		return TrinaryLogic::createNo();
-	}
+		if ($type instanceof ObjectWithoutClassType) {
+			return TrinaryLogic::createMaybe();
+		}
 
-	public function isSubTypeOf(Type $otherType): TrinaryLogic
-	{
 		if (
-			$otherType instanceof self
-			|| $otherType instanceof UnionType
-			|| $otherType instanceof IntersectionType
+			$type instanceof TypeWithClassName
+			&& $type->getClassName() === \Closure::class
 		) {
-			return $otherType->isSuperTypeOf($this);
-		}
-
-		$otherTypeCallable = $otherType->isCallable();
-		if (!$otherTypeCallable->no()) {
-			return $otherTypeCallable;
-		}
-
-		if ($otherType instanceof TypeWithClassName) {
-			if ($otherType->getClassName() === \Closure::class) {
-				return TrinaryLogic::createYes();
-			}
+			return TrinaryLogic::createMaybe();
 		}
 
 		return TrinaryLogic::createNo();
@@ -105,7 +109,13 @@ class ClosureType implements CompoundType, ParametersAcceptor
 
 	public function describe(VerbosityLevel $level): string
 	{
-		return sprintf('Closure<%s>', $this->returnType->describe($level));
+		return sprintf(
+			'Closure(%s): %s',
+			implode(', ', array_map(function (ParameterReflection $parameter) use ($level): string {
+				return $parameter->getType()->describe($level);
+			}, $this->parameters)),
+			$this->returnType->describe($level)
+		);
 	}
 
 	public function canAccessProperties(): TrinaryLogic
@@ -118,7 +128,7 @@ class ClosureType implements CompoundType, ParametersAcceptor
 		return $this->objectType->hasProperty($propertyName);
 	}
 
-	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
 	{
 		return $this->objectType->getProperty($propertyName, $scope);
 	}
@@ -133,7 +143,7 @@ class ClosureType implements CompoundType, ParametersAcceptor
 		return $this->objectType->hasMethod($methodName);
 	}
 
-	public function getMethod(string $methodName, Scope $scope): MethodReflection
+	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
 	{
 		return $this->objectType->getMethod($methodName, $scope);
 	}
@@ -173,6 +183,11 @@ class ClosureType implements CompoundType, ParametersAcceptor
 		return TrinaryLogic::createNo();
 	}
 
+	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
+	}
+
 	public function getOffsetValueType(Type $offsetType): Type
 	{
 		return new ErrorType();
@@ -189,10 +204,10 @@ class ClosureType implements CompoundType, ParametersAcceptor
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
 	 * @return \PHPStan\Reflection\ParametersAcceptor[]
 	 */
-	public function getCallableParametersAcceptors(Scope $scope): array
+	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array
 	{
 		return [$this];
 	}
@@ -237,7 +252,7 @@ class ClosureType implements CompoundType, ParametersAcceptor
 	}
 
 	/**
-	 * @return array<int, \PHPStan\Reflection\ParameterReflection>
+	 * @return array<int, \PHPStan\Reflection\Native\NativeParameterReflection>
 	 */
 	public function getParameters(): array
 	{

@@ -2,8 +2,8 @@
 
 namespace PHPStan\Type;
 
-use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
@@ -48,7 +48,7 @@ class ObjectType implements TypeWithClassName
 		return $broker->getClass($this->className)->hasProperty($propertyName);
 	}
 
-	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
 	{
 		$broker = Broker::getInstance();
 		return $broker->getClass($this->className)->getProperty($propertyName, $scope);
@@ -72,6 +72,22 @@ class ObjectType implements TypeWithClassName
 			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
 		}
 
+		if ($type instanceof ClosureType) {
+			return $this->isInstanceOf(\Closure::class);
+		}
+
+		if (
+			$this->isInstanceOf('SimpleXMLElement')->yes()
+			&& $type->isSuperTypeOf($this)->no()
+		) {
+			return (new UnionType([
+				new IntegerType(),
+				new FloatType(),
+				new StringType(),
+				new BooleanType(),
+			]))->accepts($type, $strictTypes);
+		}
+
 		if (!$type instanceof TypeWithClassName) {
 			return TrinaryLogic::createNo();
 		}
@@ -87,6 +103,10 @@ class ObjectType implements TypeWithClassName
 
 		if ($type instanceof ObjectWithoutClassType) {
 			return TrinaryLogic::createMaybe();
+		}
+
+		if ($type instanceof ClosureType) {
+			return $this->isInstanceOf(\Closure::class);
 		}
 
 		if (!$type instanceof TypeWithClassName) {
@@ -187,16 +207,30 @@ class ObjectType implements TypeWithClassName
 
 	public function toNumber(): Type
 	{
+		if ($this->isInstanceOf('SimpleXMLElement')->yes()) {
+			return new UnionType([
+				new FloatType(),
+				new IntegerType(),
+			]);
+		}
+
 		return new ErrorType();
 	}
 
 	public function toInteger(): Type
 	{
+		if ($this->isInstanceOf('SimpleXMLElement')->yes()) {
+			return new IntegerType();
+		}
+
 		return new ErrorType();
 	}
 
 	public function toFloat(): Type
 	{
+		if ($this->isInstanceOf('SimpleXMLElement')->yes()) {
+			return new FloatType();
+		}
 		return new ErrorType();
 	}
 
@@ -290,7 +324,7 @@ class ObjectType implements TypeWithClassName
 		return $broker->getClass($this->className)->hasMethod($methodName);
 	}
 
-	public function getMethod(string $methodName, Scope $scope): MethodReflection
+	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
 	{
 		$broker = Broker::getInstance();
 		return $broker->getClass($this->className)->getMethod($methodName, $scope);
@@ -405,6 +439,17 @@ class ObjectType implements TypeWithClassName
 		);
 	}
 
+	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
+	{
+		$broker = Broker::getInstance();
+		if (!$broker->hasClass($this->className)) {
+			return TrinaryLogic::createNo();
+		}
+
+		return $this->isExtraOffsetAccessibleClass()
+			->or($this->isInstanceOf(\ArrayAccess::class));
+	}
+
 	public function getOffsetValueType(Type $offsetType): Type
 	{
 		$broker = Broker::getInstance();
@@ -417,9 +462,8 @@ class ObjectType implements TypeWithClassName
 			return new MixedType();
 		}
 
-		$classReflection = $broker->getClass($this->className);
-
 		if ($this->isInstanceOf(\ArrayAccess::class)->yes()) {
+			$classReflection = $broker->getClass($this->className);
 			return RecursionGuard::run($this, function () use ($classReflection) {
 				return ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('offsetGet')->getVariants())->getReturnType();
 			});
@@ -452,10 +496,10 @@ class ObjectType implements TypeWithClassName
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
 	 * @return \PHPStan\Reflection\ParametersAcceptor[]
 	 */
-	public function getCallableParametersAcceptors(Scope $scope): array
+	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array
 	{
 		if ($this->className === \Closure::class) {
 			return [new TrivialParametersAcceptor()];

@@ -3,6 +3,7 @@
 namespace PHPStan\Type;
 
 use PHPStan\Type\Accessory\HasMethodType;
+use PHPStan\Type\Accessory\HasOffsetType;
 use PHPStan\Type\Accessory\HasPropertyType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
@@ -786,6 +787,61 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				UnionType::class,
 				'float|int|string',
 			],
+			[
+				[
+					new ConstantStringType('foo'),
+					new ConstantStringType('foo'),
+					new ConstantStringType('bar'),
+					new ConstantStringType('baz'),
+					new ConstantStringType('lorem'),
+				],
+				UnionType::class,
+				"'bar'|'baz'|'foo'|'lorem'",
+			],
+			[
+				[
+					new ConstantStringType('foo'),
+					new ConstantStringType('foo'),
+					new ConstantStringType('fooo'),
+					new ConstantStringType('bar'),
+					new ConstantStringType('barr'),
+					new ConstantStringType('baz'),
+					new ConstantStringType('bazz'),
+					new ConstantStringType('lorem'),
+					new ConstantStringType('loremm'),
+					new ConstantStringType('loremmm'),
+				],
+				StringType::class,
+				'string',
+			],
+			[
+				[
+					new IntersectionType([
+						new ArrayType(new MixedType(), new StringType()),
+						new HasOffsetType(new StringType()),
+					]),
+					new IntersectionType([
+						new ArrayType(new MixedType(), new StringType()),
+						new HasOffsetType(new StringType()),
+					]),
+				],
+				IntersectionType::class,
+				'array<string>&hasOffset(string)',
+			],
+			[
+				[
+					new IntersectionType([
+						new ObjectWithoutClassType(),
+						new HasPropertyType('foo'),
+					]),
+					new IntersectionType([
+						new ObjectWithoutClassType(),
+						new HasPropertyType('foo'),
+					]),
+				],
+				IntersectionType::class,
+				'object&hasProperty(foo)',
+			],
 		];
 	}
 
@@ -1138,6 +1194,137 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				],
 				UnionType::class,
 				'(Test\FirstInterface&hasProperty(fooProperty))|(Test\Foo&hasProperty(fooProperty))',
+			],
+			[
+				[
+					new ArrayType(new StringType(), new StringType()),
+					new HasOffsetType(new ConstantStringType('a')),
+				],
+				IntersectionType::class,
+				'array<string, string>&hasOffset(\'a\')',
+			],
+			[
+				[
+					new ArrayType(new StringType(), new StringType()),
+					new HasOffsetType(new ConstantStringType('a')),
+					new HasOffsetType(new ConstantStringType('a')),
+				],
+				IntersectionType::class,
+				'array<string, string>&hasOffset(\'a\')',
+			],
+			[
+				[
+					new ArrayType(new StringType(), new StringType()),
+					new HasOffsetType(new StringType()),
+					new HasOffsetType(new StringType()),
+				],
+				IntersectionType::class,
+				'array<string, string>&hasOffset(string)',
+			],
+			[
+				[
+					new ArrayType(new MixedType(), new MixedType()),
+					new HasOffsetType(new StringType()),
+					new HasOffsetType(new StringType()),
+				],
+				IntersectionType::class,
+				'array&hasOffset(string)',
+			],
+			[
+				[
+					new ConstantArrayType(
+						[new ConstantStringType('a')],
+						[new ConstantStringType('foo')]
+					),
+					new HasOffsetType(new ConstantStringType('a')),
+				],
+				ConstantArrayType::class,
+				'array(\'a\' => \'foo\')',
+			],
+			[
+				[
+					new ConstantArrayType(
+						[new ConstantStringType('a')],
+						[new ConstantStringType('foo')]
+					),
+					new HasOffsetType(new ConstantStringType('b')),
+				],
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				[
+					new ClosureType([], new MixedType(), false),
+					new HasOffsetType(new ConstantStringType('a')),
+				],
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				[
+					new UnionType([
+						new ConstantArrayType(
+							[new ConstantStringType('a')],
+							[new ConstantStringType('foo')]
+						),
+						new ConstantArrayType(
+							[new ConstantStringType('b')],
+							[new ConstantStringType('foo')]
+						),
+					]),
+					new HasOffsetType(new ConstantStringType('b')),
+				],
+				ConstantArrayType::class,
+				'array(\'b\' => \'foo\')',
+			],
+			[
+				[
+					new UnionType([
+						new ConstantArrayType(
+							[new ConstantStringType('a')],
+							[new ConstantStringType('foo')]
+						),
+						new ClosureType([], new MixedType(), false),
+					]),
+					new HasOffsetType(new ConstantStringType('a')),
+				],
+				ConstantArrayType::class,
+				'array(\'a\' => \'foo\')',
+			],
+			[
+				[
+					new ClosureType([], new MixedType(), false),
+					new ObjectType(\Closure::class),
+				],
+				ClosureType::class,
+				'Closure(): mixed',
+			],
+			[
+				[
+					new ClosureType([], new MixedType(), false),
+					new CallableType(),
+				],
+				ClosureType::class,
+				'Closure(): mixed',
+			],
+			[
+				[
+					new ClosureType([], new MixedType(), false),
+					new ObjectWithoutClassType(),
+				],
+				ClosureType::class,
+				'Closure(): mixed',
+			],
+			[
+				[
+					new UnionType([
+						new ArrayType(new MixedType(), new StringType()),
+						new NullType(),
+					]),
+					new HasOffsetType(new StringType()),
+				],
+				UnionType::class,
+				'(array<string>&hasOffset(string))|null',
 			],
 		];
 	}

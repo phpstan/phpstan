@@ -2,8 +2,8 @@
 
 namespace PHPStan\Type\Accessory;
 
-use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\Dummy\DummyPropertyReflection;
 use PHPStan\Reflection\MethodReflection;
@@ -129,7 +129,7 @@ class HasPropertyType implements CompoundType, AccessoryType
 		return $this->propertyName === $propertyName;
 	}
 
-	public function getProperty(string $propertyName, Scope $scope): PropertyReflection
+	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
 	{
 		return new DummyPropertyReflection();
 	}
@@ -144,7 +144,7 @@ class HasPropertyType implements CompoundType, AccessoryType
 		return false;
 	}
 
-	public function getMethod(string $methodName, Scope $scope): MethodReflection
+	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
 	{
 		throw new \PHPStan\ShouldNotHappenException();
 	}
@@ -184,6 +184,11 @@ class HasPropertyType implements CompoundType, AccessoryType
 		return TrinaryLogic::createNo();
 	}
 
+	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
+	}
+
 	public function getOffsetValueType(Type $offsetType): Type
 	{
 		return new ErrorType();
@@ -199,7 +204,7 @@ class HasPropertyType implements CompoundType, AccessoryType
 		return TrinaryLogic::createNo();
 	}
 
-	public function getCallableParametersAcceptors(Scope $scope): array
+	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array
 	{
 		throw new \PHPStan\ShouldNotHappenException();
 	}

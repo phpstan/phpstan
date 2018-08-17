@@ -13,7 +13,7 @@ class ClosureTypeTest extends \PHPStan\Testing\TestCase
 			[
 				new ClosureType([], new MixedType(), false),
 				new ObjectType(\Closure::class),
-				TrinaryLogic::createNo(),
+				TrinaryLogic::createMaybe(),
 			],
 			[
 				new ClosureType([], new MixedType(), false),
@@ -30,17 +30,42 @@ class ClosureTypeTest extends \PHPStan\Testing\TestCase
 				new CallableType(),
 				TrinaryLogic::createMaybe(),
 			],
+			[
+				new ObjectType(\Closure::class),
+				new ClosureType([], new MixedType(), false),
+				TrinaryLogic::createYes(),
+			],
+			[
+				new ClosureType([], new MixedType(), false),
+				new ClosureType([], new MixedType(), false),
+				TrinaryLogic::createYes(),
+			],
+			[
+				new ClosureType([], new IntegerType(), false),
+				new ClosureType([], new UnionType([new IntegerType(), new StringType()]), false),
+				TrinaryLogic::createMaybe(),
+			],
+			[
+				new ClosureType([], new UnionType([new IntegerType(), new StringType()]), false),
+				new ClosureType([], new IntegerType(), false),
+				TrinaryLogic::createYes(),
+			],
+			[
+				new CallableType(),
+				new ClosureType([], new MixedType(), false),
+				TrinaryLogic::createYes(),
+			],
 		];
 	}
 
 	/**
 	 * @dataProvider dataIsSuperTypeOf
-	 * @param ClosureType $type
+	 * @param Type $type
 	 * @param Type $otherType
 	 * @param TrinaryLogic $expectedResult
 	 */
 	public function testIsSuperTypeOf(
-		ClosureType $type,
+		Type $type,
 		Type $otherType,
 		TrinaryLogic $expectedResult
 	): void
@@ -50,57 +75,6 @@ class ClosureTypeTest extends \PHPStan\Testing\TestCase
 			$expectedResult->describe(),
 			$actualResult->describe(),
 			sprintf('%s -> isSuperTypeOf(%s)', $type->describe(VerbosityLevel::value()), $otherType->describe(VerbosityLevel::value()))
-		);
-	}
-
-	public function dataIsSubTypeOf(): array
-	{
-		return [
-			[
-				new ClosureType([], new MixedType(), false),
-				new ObjectType(\Closure::class),
-				TrinaryLogic::createYes(),
-			],
-			[
-				new ClosureType([], new MixedType(), false),
-				new ClosureType([], new MixedType(), false),
-				TrinaryLogic::createYes(),
-			],
-			[
-				new ClosureType([], new UnionType([new IntegerType(), new StringType()]), false),
-				new ClosureType([], new IntegerType(), false),
-				TrinaryLogic::createMaybe(),
-			],
-			[
-				new ClosureType([], new IntegerType(), false),
-				new ClosureType([], new UnionType([new IntegerType(), new StringType()]), false),
-				TrinaryLogic::createYes(),
-			],
-			[
-				new ClosureType([], new MixedType(), false),
-				new CallableType(),
-				TrinaryLogic::createYes(),
-			],
-		];
-	}
-
-	/**
-	 * @dataProvider dataIsSubTypeOf
-	 * @param ClosureType $type
-	 * @param Type $otherType
-	 * @param TrinaryLogic $expectedResult
-	 */
-	public function testIsSubTypeOf(
-		ClosureType $type,
-		Type $otherType,
-		TrinaryLogic $expectedResult
-	): void
-	{
-		$actualResult = $type->isSubTypeOf($otherType);
-		$this->assertSame(
-			$expectedResult->describe(),
-			$actualResult->describe(),
-			sprintf('%s -> isSubTypeOf(%s)', $type->describe(VerbosityLevel::value()), $otherType->describe(VerbosityLevel::value()))
 		);
 	}
 
