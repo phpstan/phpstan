@@ -366,7 +366,7 @@ services:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
 	-
-		class: PHPStan\Type\Php\ResetFunctionDynamicReturnTypeExtension
+		class: PHPStan\Type\Php\ArrayPointerFunctionsDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 

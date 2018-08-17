@@ -11,12 +11,18 @@ use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeUtils;
 
-class ResetFunctionDynamicReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
+class ArrayPointerFunctionsDynamicReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
+
+	/** @var string[] */
+	private $functions = [
+		'reset',
+		'end',
+	];
 
 	public function isFunctionSupported(FunctionReflection $functionReflection): bool
 	{
-		return $functionReflection->getName() === 'reset';
+		return in_array($functionReflection->getName(), $this->functions, true);
 	}
 
 	public function getTypeFromFunctionCall(
@@ -40,7 +46,11 @@ class ResetFunctionDynamicReturnTypeExtension implements \PHPStan\Type\DynamicFu
 					continue;
 				}
 
-				$keyTypes[] = $constantArray->getOffsetValueType($arrayKeyTypes[0]);
+				$valueOffset = $functionReflection->getName() === 'reset'
+					? $arrayKeyTypes[0]
+					: $arrayKeyTypes[count($arrayKeyTypes) - 1];
+
+				$keyTypes[] = $constantArray->getOffsetValueType($valueOffset);
 			}
 
 			return TypeCombinator::union(...$keyTypes);

@@ -6263,7 +6263,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
-	public function dataReset(): array
+	public function dataArrayPointerFunctions(): array
 	{
 		return [
 			[
@@ -6290,21 +6290,45 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'\'baz\'|\'foo\'',
 				'reset($conditionalArray)',
 			],
+			[
+				'mixed',
+				'end()',
+			],
+			[
+				'stdClass|false',
+				'end($generalArray)',
+			],
+			[
+				'mixed',
+				'end($somethingElse)',
+			],
+			[
+				'false',
+				'end($emptyConstantArray)',
+			],
+			[
+				'2',
+				'end($constantArray)',
+			],
+			[
+				'\'bar\'|\'baz\'',
+				'end($secondConditionalArray)',
+			],
 		];
 	}
 
 	/**
-	 * @dataProvider dataReset
+	 * @dataProvider dataArrayPointerFunctions
 	 * @param string $description
 	 * @param string $expression
 	 */
-	public function testReset(
+	public function testArrayPointerFunctions(
 		string $description,
 		string $expression
 	): void
 	{
 		$this->assertTypes(
-			__DIR__ . '/data/reset.php',
+			__DIR__ . '/data/array-pointer-functions.php',
 			$description,
 			$expression
 		);
