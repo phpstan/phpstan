@@ -36,4 +36,5 @@ $application = new \Symfony\Component\Console\Application(
 	$version
 );
 $application->add(new AnalyseCommand());
+$application->setDefaultCommand('analyse');
 $application->run();
