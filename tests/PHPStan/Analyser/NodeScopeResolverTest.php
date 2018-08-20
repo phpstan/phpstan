@@ -4099,6 +4099,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_change_key_case($integers)',
 			],
 			[
+				'array|false',
+				'array_combine([1], [2])',
+			],
+			[
 				'array<0|1|2, 1|2|3>',
 				'array_diff_assoc($integers, [])',
 			],
