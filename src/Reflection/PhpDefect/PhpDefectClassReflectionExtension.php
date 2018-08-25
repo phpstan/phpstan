@@ -23,6 +23,10 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 			'days' => 'mixed',
 			'f' => 'float',
 		],
+		'Directory' => [
+			'handle' => 'resource',
+			'path' => 'string',
+		],
 		'DOMAttr' => [ // extends DOMNode
 			'name' => 'string',
 			'ownerElement' => 'DOMElement',
