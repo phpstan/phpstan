@@ -2,7 +2,6 @@
 
 namespace PHPStan\Rules\Arrays;
 
-use PHPStan\Rules\Properties\PropertyReflectionFinder;
 use PHPStan\Rules\RuleLevelHelper;
 
 class AppendedArrayItemToStringRuleTest extends \PHPStan\Testing\RuleTestCase
@@ -22,7 +21,7 @@ class AppendedArrayItemToStringRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				[
 					'Append array to variable of invalid type string',
-					14,
+					14, //line no
 				],
 			]
 		);
