@@ -123,7 +123,6 @@ services:
 		arguments:
 			ignoreErrors: %ignoreErrors%
 			reportUnmatchedIgnoredErrors: %reportUnmatchedIgnoredErrors%
-			bootstrapFile: %bootstrap%
 			internalErrorsCountLimit: %internalErrorsCountLimit%
 
 	-

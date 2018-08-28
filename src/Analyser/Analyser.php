@@ -2,7 +2,6 @@
 
 namespace PHPStan\Analyser;
 
-use PHPStan\File\FileHelper;
 use PHPStan\Parser\Parser;
 use PHPStan\Rules\Registry;
 
@@ -24,9 +23,6 @@ class Analyser
 	/** @var string[] */
 	private $ignoreErrors;
 
-	/** @var string|null */
-	private $bootstrapFile;
-
 	/** @var bool */
 	private $reportUnmatchedIgnoredErrors;
 
@@ -38,9 +34,7 @@ class Analyser
 	 * @param \PHPStan\Parser\Parser $parser
 	 * @param \PHPStan\Rules\Registry $registry
 	 * @param \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver
-	 * @param \PHPStan\File\FileHelper $fileHelper
 	 * @param string[] $ignoreErrors
-	 * @param string|null $bootstrapFile
 	 * @param bool $reportUnmatchedIgnoredErrors
 	 * @param int $internalErrorsCountLimit
 	 */
@@ -49,9 +43,7 @@ class Analyser
 		Parser $parser,
 		Registry $registry,
 		NodeScopeResolver $nodeScopeResolver,
-		FileHelper $fileHelper,
 		array $ignoreErrors,
-		?string $bootstrapFile,
 		bool $reportUnmatchedIgnoredErrors,
 		int $internalErrorsCountLimit
 	)
@@ -61,7 +53,6 @@ class Analyser
 		$this->registry = $registry;
 		$this->nodeScopeResolver = $nodeScopeResolver;
 		$this->ignoreErrors = $ignoreErrors;
-		$this->bootstrapFile = $bootstrapFile !== null ? $fileHelper->normalizePath($bootstrapFile) : null;
 		$this->reportUnmatchedIgnoredErrors = $reportUnmatchedIgnoredErrors;
 		$this->internalErrorsCountLimit = $internalErrorsCountLimit;
 	}
@@ -83,21 +74,6 @@ class Analyser
 	): array
 	{
 		$errors = [];
-
-		if ($this->bootstrapFile !== null) {
-			if (!is_file($this->bootstrapFile)) {
-				return [
-					sprintf('Bootstrap file %s does not exist.', $this->bootstrapFile),
-				];
-			}
-			try {
-				(function (string $file): void {
-					require_once $file;
-				})($this->bootstrapFile);
-			} catch (\Throwable $e) {
-				return [$e->getMessage()];
-			}
-		}
 
 		foreach ($this->ignoreErrors as $ignoreError) {
 			try {

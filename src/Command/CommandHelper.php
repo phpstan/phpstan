@@ -178,6 +178,23 @@ class CommandHelper
 			$robotLoader->register();
 		}
 
+		$bootstrapFile = $container->parameters['bootstrap'];
+		if ($bootstrapFile !== null) {
+			$bootstrapFile = $fileHelper->normalizePath($bootstrapFile);
+			if (!is_file($bootstrapFile)) {
+				$errorOutput->writeln(sprintf('Bootstrap file %s does not exist.', $bootstrapFile));
+				throw new \PHPStan\Command\InceptionNotSuccessfulException();
+			}
+			try {
+				(function (string $file): void {
+					require_once $file;
+				})($bootstrapFile);
+			} catch (\Throwable $e) {
+				$errorOutput->writeln($e->getMessage());
+				throw new \PHPStan\Command\InceptionNotSuccessfulException();
+			}
+		}
+
 		$paths = array_map(function (string $path) use ($fileHelper): string {
 			return $fileHelper->absolutizePath($path);
 		}, $paths);
