@@ -5,11 +5,13 @@ namespace PHPStan\Command;
 use Nette\DI\Helpers;
 use PHPStan\DependencyInjection\ContainerFactory;
 use PHPStan\DependencyInjection\LoaderFactory;
+use PHPStan\File\FileExcluder;
 use PHPStan\File\FileHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\OutputStyle;
+use Symfony\Component\Finder\Finder;
 
 class CommandHelper
 {
@@ -93,6 +95,11 @@ class CommandHelper
 			}
 		}
 
+		if (count($paths) === 0) {
+			$errorOutput->writeln('At least one path must be specified to analyse.');
+			throw new \PHPStan\Command\InceptionNotSuccessfulException();
+		}
+
 		$additionalConfigFiles = [];
 		if ($level !== null) {
 			$levelConfigFile = sprintf('%s/config.level%s.neon', $containerFactory->getConfigDirectory(), $level);
@@ -171,8 +178,37 @@ class CommandHelper
 			$robotLoader->register();
 		}
 
+		$paths = array_map(function (string $path) use ($fileHelper): string {
+			return $fileHelper->absolutizePath($path);
+		}, $paths);
+
+		$onlyFiles = true;
+		$files = [];
+		$fileExtensions = $container->parameters['fileExtensions'];
+		foreach ($paths as $path) {
+			if (!file_exists($path)) {
+				$errorOutput->writeln(sprintf('<error>Path %s does not exist</error>', $path));
+				throw new \PHPStan\Command\InceptionNotSuccessfulException();
+			} elseif (is_file($path)) {
+				$files[] = $fileHelper->normalizePath($path);
+			} else {
+				$finder = new Finder();
+				$finder->followLinks();
+				foreach ($finder->files()->name('*.{' . implode(',', $fileExtensions) . '}')->in($path) as $fileInfo) {
+					$files[] = $fileHelper->normalizePath($fileInfo->getPathname());
+					$onlyFiles = false;
+				}
+			}
+		}
+
+		$fileExcluder = $container->getByType(FileExcluder::class);
+		$files = array_filter($files, function (string $file) use ($fileExcluder): bool {
+			return !$fileExcluder->isExcludedFromAnalysing($file);
+		});
+
 		return new InceptionResult(
-			$paths,
+			$files,
+			$onlyFiles,
 			$consoleStyle,
 			$errorOutput,
 			$container,

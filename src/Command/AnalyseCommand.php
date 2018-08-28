@@ -95,7 +95,8 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		$application = $container->getByType(AnalyseApplication::class);
 		return $inceptionResult->handleReturn(
 			$application->analyse(
-				$inceptionResult->getPaths(),
+				$inceptionResult->getFiles(),
+				$inceptionResult->isOnlyFiles(),
 				$inceptionResult->getConsoleStyle(),
 				$errorFormatter,
 				$inceptionResult->isDefaultLevelUsed(),

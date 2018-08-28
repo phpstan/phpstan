@@ -120,17 +120,24 @@ class Analyser
 				if ($preFileCallback !== null) {
 					$preFileCallback($file);
 				}
-				$this->nodeScopeResolver->processNodes(
-					$this->parser->parseFile($file),
-					$this->scopeFactory->create(ScopeContext::create($file)),
-					function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors): void {
-						foreach ($this->registry->getRules(get_class($node)) as $rule) {
-							foreach ($rule->processNode($node, $scope) as $message) {
-								$fileErrors[] = new Error($message, $scope->getFileDescription(), $node->getLine());
+
+				if (is_file($file)) {
+					$this->nodeScopeResolver->processNodes(
+						$this->parser->parseFile($file),
+						$this->scopeFactory->create(ScopeContext::create($file)),
+						function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors): void {
+							foreach ($this->registry->getRules(get_class($node)) as $rule) {
+								foreach ($rule->processNode($node, $scope) as $message) {
+									$fileErrors[] = new Error($message, $scope->getFileDescription(), $node->getLine());
+								}
 							}
 						}
-					}
-				);
+					);
+				} elseif (is_dir($file)) {
+					$fileErrors[] = new Error(sprintf('File %s is a directory.', $file), $file, null, false);
+				} else {
+					$fileErrors[] = new Error(sprintf('File %s does not exist.', $file), $file, null, false);
+				}
 				if ($postFileCallback !== null) {
 					$postFileCallback($file);
 				}

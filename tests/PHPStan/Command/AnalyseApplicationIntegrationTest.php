@@ -10,17 +10,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class AnalyseApplicationIntegrationTest extends \PHPStan\Testing\TestCase
 {
 
-	public function testExecuteOnADirectoryWithoutFiles(): void
-	{
-		$path = __DIR__ . '/test';
-		@mkdir($path);
-		chmod($path, 0777);
-		$output = $this->runPath($path, 0);
-		@unlink($path);
-
-		$this->assertContains('No errors', $output);
-	}
-
 	public function testExecuteOnAFile(): void
 	{
 		$output = $this->runPath(__DIR__ . '/data/file-without-errors.php', 0);
@@ -32,7 +21,7 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\Testing\TestCase
 		$path = __DIR__ . '/foo';
 		$output = $this->runPath($path, 1);
 		$this->assertContains(sprintf(
-			'Path %s does not exist',
+			'File %s does not exist.',
 			$path
 		), $output);
 	}
@@ -62,6 +51,7 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\Testing\TestCase
 
 		$statusCode = $analyserApplication->analyse(
 			[$path],
+			true,
 			$style,
 			new TableErrorFormatter(),
 			false,

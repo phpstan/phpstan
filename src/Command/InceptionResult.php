@@ -10,7 +10,10 @@ class InceptionResult
 {
 
 	/** @var string[] */
-	private $paths;
+	private $files;
+
+	/** @var bool */
+	private $onlyFiles;
 
 	/** @var OutputStyle */
 	private $consoleStyle;
@@ -28,7 +31,8 @@ class InceptionResult
 	private $memoryLimitFile;
 
 	/**
-	 * @param string[] $paths
+	 * @param string[] $files
+	 * @param bool $onlyFiles
 	 * @param OutputStyle $consoleStyle
 	 * @param OutputInterface $errorOutput
 	 * @param Container $container
@@ -36,7 +40,8 @@ class InceptionResult
 	 * @param string $memoryLimitFile
 	 */
 	public function __construct(
-		array $paths,
+		array $files,
+		bool $onlyFiles,
 		OutputStyle $consoleStyle,
 		OutputInterface $errorOutput,
 		Container $container,
@@ -44,7 +49,8 @@ class InceptionResult
 		string $memoryLimitFile
 	)
 	{
-		$this->paths = $paths;
+		$this->files = $files;
+		$this->onlyFiles = $onlyFiles;
 		$this->consoleStyle = $consoleStyle;
 		$this->errorOutput = $errorOutput;
 		$this->container = $container;
@@ -55,9 +61,14 @@ class InceptionResult
 	/**
 	 * @return string[]
 	 */
-	public function getPaths(): array
+	public function getFiles(): array
 	{
-		return $this->paths;
+		return $this->files;
+	}
+
+	public function isOnlyFiles(): bool
+	{
+		return $this->onlyFiles;
 	}
 
 	public function getConsoleStyle(): OutputStyle

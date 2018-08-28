@@ -148,7 +148,7 @@ services:
 		class: PHPStan\Command\AnalyseApplication
 		arguments:
 			memoryLimitFile: %memoryLimitFile%
-			fileExtensions: %fileExtensions%
+			currentWorkingDirectory: %currentWorkingDirectory%
 
 	-
 		class: PHPStan\File\FileHelper
