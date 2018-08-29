@@ -1,5 +1,8 @@
 includes:
 	- config.level6.neon
 
+rules:
+	- PHPStan\Rules\Arrays\AppendedArrayItemToStringRule
+
 parameters:
 	checkNullables: true
