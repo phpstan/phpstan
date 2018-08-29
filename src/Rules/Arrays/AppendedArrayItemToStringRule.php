@@ -4,6 +4,7 @@ namespace PHPStan\Rules\Arrays;
 
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\RuleLevelHelper;
+use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\VerbosityLevel;
 
@@ -36,7 +37,19 @@ class AppendedArrayItemToStringRule implements \PHPStan\Rules\Rule
         }
 
         $nodeType = $scope->getType($node->var);
+	    $dimType = $scope->getType($node->dim);
+
         if ($nodeType instanceof ConstantStringType) {
+            if ($dimType instanceof ConstantIntegerType) {
+                return [];
+            }
+
+            if ($dimType instanceof ConstantStringType) {
+                if (ctype_digit($dimType->getValue())) {
+                    return [];
+                }
+            }
+
             return [
                 sprintf(
                     'Append array to variable of invalid type %s',
