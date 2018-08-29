@@ -5700,7 +5700,7 @@ return [
 'libxml_clear_errors' => ['void'],
 'libxml_disable_entity_loader' => ['bool', 'disable='=>'bool'],
 'libxml_get_errors' => ['array<int,libXMLError>'],
-'libxml_get_last_error' => ['object'],
+'libxml_get_last_error' => ['libXMLError|false'],
 'libxml_set_external_entity_loader' => ['bool', 'resolver_function'=>'callable'],
 'libxml_set_streams_context' => ['void', 'streams_context'=>'resource'],
 'libxml_use_internal_errors' => ['bool', 'use_errors='=>'bool'],
