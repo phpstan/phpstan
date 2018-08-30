@@ -39,7 +39,7 @@ class ConstantStringType extends StringType implements ConstantScalarType
 	public function describe(VerbosityLevel $level): string
 	{
 		return $level->handle(
-			static function (): string {
+			function (): string {
 				return 'string';
 			},
 			function (): string {

@@ -81,7 +81,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			$errorOutput->writeln(sprintf(
 				'Error formatter "%s" not found. Available error formatters are: %s',
 				$errorFormat,
-				implode(', ', array_map(static function (string $name) {
+				implode(', ', array_map(function (string $name) {
 					return substr($name, strlen('errorFormatter.'));
 				}, $container->findByType(ErrorFormatter::class)))
 			));

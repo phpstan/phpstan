@@ -438,7 +438,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 	public function describe(VerbosityLevel $level): string
 	{
 		return $level->handle(
-			static function () use ($level): string {
+			function () use ($level): string {
 				return parent::describe($level);
 			},
 			function () use ($level): string {

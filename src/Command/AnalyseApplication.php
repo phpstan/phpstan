@@ -72,7 +72,7 @@ class AnalyseApplication
 				$fileOrder++;
 			};
 		} else {
-			$preFileCallback = static function (string $file) use ($style): void {
+			$preFileCallback = function (string $file) use ($style): void {
 				$style->writeln($file);
 			};
 			$postFileCallback = null;

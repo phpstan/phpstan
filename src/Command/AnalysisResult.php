@@ -34,7 +34,7 @@ class AnalysisResult
 	{
 		usort(
 			$fileSpecificErrors,
-			static function (Error $a, Error $b): int {
+			function (Error $a, Error $b): int {
 				return [
 					$a->getFile(),
 					$a->getLine(),

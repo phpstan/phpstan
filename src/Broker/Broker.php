@@ -384,7 +384,7 @@ class Broker
 						$returnType = TypeUtils::toBenevolentUnion($returnType);
 					}
 					$variants[] = new FunctionVariant(
-						array_map(static function (ParameterSignature $parameterSignature) use ($lowerCasedFunctionName): NativeParameterReflection {
+						array_map(function (ParameterSignature $parameterSignature) use ($lowerCasedFunctionName): NativeParameterReflection {
 							$type = $parameterSignature->getType();
 							if (
 								$parameterSignature->getName() === 'args'
@@ -485,7 +485,7 @@ class Broker
 
 		$functionReflection = $this->functionReflectionFactory->create(
 			$reflectionFunction,
-			array_map(static function (ParamTag $paramTag): Type {
+			array_map(function (ParamTag $paramTag): Type {
 				return $paramTag->getType();
 			}, $phpDocParameterTags),
 			$phpDocReturnTag !== null ? $phpDocReturnTag->getType() : null,
@@ -501,7 +501,7 @@ class Broker
 
 	public function resolveFunctionName(\PhpParser\Node\Name $nameNode, ?Scope $scope): ?string
 	{
-		return $this->resolveName($nameNode, static function (string $name): bool {
+		return $this->resolveName($nameNode, function (string $name): bool {
 			$exists = function_exists($name);
 			if ($exists) {
 				return true;

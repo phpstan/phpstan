@@ -40,7 +40,7 @@ class InvalidCastRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		$castTypeCallback = static function (Type $type) use ($node): ?Type {
+		$castTypeCallback = function (Type $type) use ($node): ?Type {
 			if ($node instanceof \PhpParser\Node\Expr\Cast\Int_) {
 				return $type->toInteger();
 			} elseif ($node instanceof \PhpParser\Node\Expr\Cast\Bool_) {
@@ -58,7 +58,7 @@ class InvalidCastRule implements \PHPStan\Rules\Rule
 			$scope,
 			$node->expr,
 			'',
-			static function (Type $type) use ($castTypeCallback): bool {
+			function (Type $type) use ($castTypeCallback): bool {
 				$castType = $castTypeCallback($type);
 				if ($castType === null) {
 					return true;

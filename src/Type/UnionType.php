@@ -21,11 +21,11 @@ class UnionType implements CompoundType, StaticResolvableType
 	 */
 	public function __construct(array $types)
 	{
-		$throwException = static function () use ($types): void {
+		$throwException = function () use ($types): void {
 			throw new \PHPStan\ShouldNotHappenException(sprintf(
 				'Cannot create %s with: %s',
 				self::class,
-				implode(', ', array_map(static function (Type $type): string {
+				implode(', ', array_map(function (Type $type): string {
 					return $type->describe(VerbosityLevel::value());
 				}, $types))
 			));
@@ -65,7 +65,7 @@ class UnionType implements CompoundType, StaticResolvableType
 			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
 		}
 
-		return $this->unionResults(static function (Type $innerType) use ($strictTypes): TrinaryLogic {
+		return $this->unionResults(function (Type $innerType) use ($strictTypes): TrinaryLogic {
 			return $innerType->accepts($innerType, $strictTypes);
 		});
 	}
@@ -115,7 +115,7 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function describe(VerbosityLevel $level): string
 	{
-		$joinTypes = static function (array $types) use ($level): string {
+		$joinTypes = function (array $types) use ($level): string {
 			$typeNames = [];
 			foreach ($types as $type) {
 				if ($type instanceof IntersectionType || $type instanceof ClosureType) {
@@ -130,7 +130,7 @@ class UnionType implements CompoundType, StaticResolvableType
 
 		return $level->handle(
 			function () use ($joinTypes): string {
-				$types = TypeCombinator::union(...array_map(static function (Type $type): Type {
+				$types = TypeCombinator::union(...array_map(function (Type $type): Type {
 					if (
 						$type instanceof ConstantType
 						&& !$type instanceof ConstantBooleanType
@@ -251,7 +251,7 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function canAccessProperties(): TrinaryLogic
 	{
-		return $this->unionResults(static function (Type $type): TrinaryLogic {
+		return $this->unionResults(function (Type $type): TrinaryLogic {
 			return $type->canAccessProperties();
 		});
 	}
@@ -259,10 +259,10 @@ class UnionType implements CompoundType, StaticResolvableType
 	public function hasProperty(string $propertyName): bool
 	{
 		return $this->hasInternal(
-			static function (Type $type): TrinaryLogic {
+			function (Type $type): TrinaryLogic {
 				return $type->canAccessProperties();
 			},
-			static function (Type $type) use ($propertyName): bool {
+			function (Type $type) use ($propertyName): bool {
 				return $type->hasProperty($propertyName);
 			}
 		);
@@ -282,7 +282,7 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function canCallMethods(): TrinaryLogic
 	{
-		return $this->unionResults(static function (Type $type): TrinaryLogic {
+		return $this->unionResults(function (Type $type): TrinaryLogic {
 			return $type->canCallMethods();
 		});
 	}
@@ -290,10 +290,10 @@ class UnionType implements CompoundType, StaticResolvableType
 	public function hasMethod(string $methodName): bool
 	{
 		return $this->hasInternal(
-			static function (Type $type): TrinaryLogic {
+			function (Type $type): TrinaryLogic {
 				return $type->canCallMethods();
 			},
-			static function (Type $type) use ($methodName): bool {
+			function (Type $type) use ($methodName): bool {
 				return $type->hasMethod($methodName);
 			}
 		);
@@ -313,7 +313,7 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function canAccessConstants(): TrinaryLogic
 	{
-		return $this->unionResults(static function (Type $type): TrinaryLogic {
+		return $this->unionResults(function (Type $type): TrinaryLogic {
 			return $type->canAccessConstants();
 		});
 	}
@@ -321,10 +321,10 @@ class UnionType implements CompoundType, StaticResolvableType
 	public function hasConstant(string $constantName): bool
 	{
 		return $this->hasInternal(
-			static function (Type $type): TrinaryLogic {
+			function (Type $type): TrinaryLogic {
 				return $type->canAccessConstants();
 			},
-			static function (Type $type) use ($constantName): bool {
+			function (Type $type) use ($constantName): bool {
 				return $type->hasConstant($constantName);
 			}
 		);
@@ -354,35 +354,35 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function isIterable(): TrinaryLogic
 	{
-		return $this->unionResults(static function (Type $type): TrinaryLogic {
+		return $this->unionResults(function (Type $type): TrinaryLogic {
 			return $type->isIterable();
 		});
 	}
 
 	public function getIterableKeyType(): Type
 	{
-		return $this->unionTypes(static function (Type $type): Type {
+		return $this->unionTypes(function (Type $type): Type {
 			return $type->getIterableKeyType();
 		});
 	}
 
 	public function getIterableValueType(): Type
 	{
-		return $this->unionTypes(static function (Type $type): Type {
+		return $this->unionTypes(function (Type $type): Type {
 			return $type->getIterableValueType();
 		});
 	}
 
 	public function isOffsetAccessible(): TrinaryLogic
 	{
-		return $this->unionResults(static function (Type $type): TrinaryLogic {
+		return $this->unionResults(function (Type $type): TrinaryLogic {
 			return $type->isOffsetAccessible();
 		});
 	}
 
 	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
 	{
-		return $this->unionResults(static function (Type $type) use ($offsetType): TrinaryLogic {
+		return $this->unionResults(function (Type $type) use ($offsetType): TrinaryLogic {
 			return $type->hasOffsetValueType($offsetType);
 		});
 	}
@@ -408,14 +408,14 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
 	{
-		return $this->unionTypes(static function (Type $type) use ($offsetType, $valueType): Type {
+		return $this->unionTypes(function (Type $type) use ($offsetType, $valueType): Type {
 			return $type->setOffsetValueType($offsetType, $valueType);
 		});
 	}
 
 	public function isCallable(): TrinaryLogic
 	{
-		return $this->unionResults(static function (Type $type): TrinaryLogic {
+		return $this->unionResults(function (Type $type): TrinaryLogic {
 			return $type->isCallable();
 		});
 	}
@@ -439,7 +439,7 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function isCloneable(): TrinaryLogic
 	{
-		return $this->unionResults(static function (Type $type): TrinaryLogic {
+		return $this->unionResults(function (Type $type): TrinaryLogic {
 			return $type->isCloneable();
 		});
 	}
@@ -447,7 +447,7 @@ class UnionType implements CompoundType, StaticResolvableType
 	public function toBoolean(): BooleanType
 	{
 		/** @var BooleanType $type */
-		$type = $this->unionTypes(static function (Type $type): BooleanType {
+		$type = $this->unionTypes(function (Type $type): BooleanType {
 			return $type->toBoolean();
 		});
 
@@ -456,7 +456,7 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function toNumber(): Type
 	{
-		$type = $this->unionTypes(static function (Type $type): Type {
+		$type = $this->unionTypes(function (Type $type): Type {
 			return $type->toNumber();
 		});
 
@@ -465,7 +465,7 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function toString(): Type
 	{
-		$type = $this->unionTypes(static function (Type $type): Type {
+		$type = $this->unionTypes(function (Type $type): Type {
 			return $type->toString();
 		});
 
@@ -474,7 +474,7 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function toInteger(): Type
 	{
-		$type = $this->unionTypes(static function (Type $type): Type {
+		$type = $this->unionTypes(function (Type $type): Type {
 			return $type->toInteger();
 		});
 
@@ -483,7 +483,7 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function toFloat(): Type
 	{
-		$type = $this->unionTypes(static function (Type $type): Type {
+		$type = $this->unionTypes(function (Type $type): Type {
 			return $type->toFloat();
 		});
 
@@ -492,7 +492,7 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function toArray(): Type
 	{
-		$type = $this->unionTypes(static function (Type $type): Type {
+		$type = $this->unionTypes(function (Type $type): Type {
 			return $type->toArray();
 		});
 

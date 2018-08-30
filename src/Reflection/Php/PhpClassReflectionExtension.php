@@ -285,7 +285,7 @@ class PhpClassReflectionExtension
 			while ($this->signatureMapProvider->hasFunctionSignature($variantName)) {
 				$methodSignature = $this->signatureMapProvider->getFunctionSignature($variantName, $declaringClassName);
 				$variants[] = new FunctionVariant(
-					array_map(static function (ParameterSignature $parameterSignature): NativeParameterReflection {
+					array_map(function (ParameterSignature $parameterSignature): NativeParameterReflection {
 						return new NativeParameterReflection(
 							$parameterSignature->getName(),
 							$parameterSignature->isOptional(),
@@ -331,7 +331,7 @@ class PhpClassReflectionExtension
 					$declaringTraitName,
 					$phpDocBlock->getDocComment()
 				);
-				$phpDocParameterTypes = array_map(static function (ParamTag $tag): Type {
+				$phpDocParameterTypes = array_map(function (ParamTag $tag): Type {
 					return $tag->getType();
 				}, $resolvedPhpDoc->getParamTags());
 				$phpDocReturnType = $resolvedPhpDoc->getReturnTag() !== null ? $resolvedPhpDoc->getReturnTag()->getType() : null;

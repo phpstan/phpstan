@@ -67,7 +67,7 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 			$scope,
 			$node->var,
 			sprintf('Call to method %s() on an unknown class %%s.', $name),
-			static function (Type $type) use ($name): bool {
+			function (Type $type) use ($name): bool {
 				return $type->canCallMethods()->yes() && $type->hasMethod($name);
 			}
 		);

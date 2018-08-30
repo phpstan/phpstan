@@ -31,7 +31,7 @@ class StrtotimeFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunct
 		if ($argType instanceof MixedType) {
 			return TypeUtils::toBenevolentUnion($defaultReturnType);
 		}
-		$result = array_unique(array_map(static function (ConstantStringType $string): bool {
+		$result = array_unique(array_map(function (ConstantStringType $string): bool {
 			return is_int(strtotime($string->getValue()));
 		}, TypeUtils::getConstantStrings($argType)));
 

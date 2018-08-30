@@ -141,7 +141,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 				$scope,
 				$class,
 				sprintf('Call to static method %s() on an unknown class %%s.', $methodName),
-				static function (Type $type) use ($methodName): bool {
+				function (Type $type) use ($methodName): bool {
 					return $type->canCallMethods()->yes() && $type->hasMethod($methodName);
 				}
 			);

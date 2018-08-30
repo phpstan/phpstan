@@ -67,7 +67,7 @@ class UnionTypeHelper
 	 */
 	public static function sortTypes(array $types): array
 	{
-		usort($types, static function (Type $a, Type $b): float {
+		usort($types, function (Type $a, Type $b): float {
 			if ($a instanceof NullType) {
 				return 1;
 			} elseif ($b instanceof NullType) {

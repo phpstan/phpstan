@@ -202,8 +202,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
 		};
 
-		$tagToService = static function (array $tags) {
-			return array_map(static function (string $serviceName) {
+		$tagToService = function (array $tags) {
+			return array_map(function (string $serviceName) {
 				return self::getContainer()->getService($serviceName);
 			}, array_keys($tags));
 		};
@@ -297,8 +297,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		array $staticMethodTypeSpecifyingExtensions = []
 	): TypeSpecifier
 	{
-		$tagToService = static function (array $tags) {
-			return array_map(static function (string $serviceName) {
+		$tagToService = function (array $tags) {
+			return array_map(function (string $serviceName) {
 				return self::getContainer()->getService($serviceName);
 			}, array_keys($tags));
 		};

@@ -51,7 +51,7 @@ class UnusedConstructorParametersRule implements \PHPStan\Rules\Rule
 
 		return $this->check->getUnusedParameters(
 			$scope,
-			array_map(static function (Param $parameter): string {
+			array_map(function (Param $parameter): string {
 				if (!$parameter->var instanceof Variable || !is_string($parameter->var->name)) {
 					throw new \PHPStan\ShouldNotHappenException();
 				}

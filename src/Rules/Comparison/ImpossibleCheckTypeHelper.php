@@ -106,7 +106,7 @@ class ImpossibleCheckTypeHelper
 		$sureTypes = $specifiedTypes->getSureTypes();
 		$sureNotTypes = $specifiedTypes->getSureNotTypes();
 
-		$isSpecified = static function (Expr $expr) use ($scope, $node): bool {
+		$isSpecified = function (Expr $expr) use ($scope, $node): bool {
 			return (
 				$node instanceof FuncCall
 				|| $node instanceof MethodCall
@@ -158,7 +158,7 @@ class ImpossibleCheckTypeHelper
 					return null;
 				}
 			}
-			$types = TypeCombinator::union(...array_map(static function ($sureType) {
+			$types = TypeCombinator::union(...array_map(function ($sureType) {
 				return $sureType[1];
 			}, array_values($sureTypes)));
 			if ($types instanceof NeverType) {
@@ -170,7 +170,7 @@ class ImpossibleCheckTypeHelper
 					return null;
 				}
 			}
-			$types = TypeCombinator::union(...array_map(static function ($sureNotType) {
+			$types = TypeCombinator::union(...array_map(function ($sureNotType) {
 				return $sureNotType[1];
 			}, array_values($sureNotTypes)));
 			if ($types instanceof NeverType) {
@@ -195,7 +195,7 @@ class ImpossibleCheckTypeHelper
 			return '';
 		}
 
-		$descriptions = array_map(static function (Arg $arg) use ($scope): string {
+		$descriptions = array_map(function (Arg $arg) use ($scope): string {
 			return $scope->getType($arg->value)->describe(VerbosityLevel::value());
 		}, $args);
 

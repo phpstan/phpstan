@@ -38,7 +38,7 @@ class VariableCloningRule implements \PHPStan\Rules\Rule
 			$scope,
 			$node->expr,
 			'Cloning object of an unknown class %s.',
-			static function (Type $type): bool {
+			function (Type $type): bool {
 				return $type->isCloneable()->yes();
 			}
 		);

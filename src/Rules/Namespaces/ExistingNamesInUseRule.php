@@ -118,7 +118,7 @@ class ExistingNamesInUseRule implements \PHPStan\Rules\Rule
 	private function checkClasses(array $uses): array
 	{
 		return $this->classCaseSensitivityCheck->checkClassNames(
-			array_map(static function (\PhpParser\Node\Stmt\UseUse $use): string {
+			array_map(function (\PhpParser\Node\Stmt\UseUse $use): string {
 				return (string) $use->name;
 			}, $uses)
 		);

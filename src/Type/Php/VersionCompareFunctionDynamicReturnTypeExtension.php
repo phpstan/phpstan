@@ -50,13 +50,13 @@ class VersionCompareFunctionDynamicReturnTypeExtension implements \PHPStan\Type\
 			);
 		}
 
-		if (count(array_filter($counts, static function (int $count): bool {
+		if (count(array_filter($counts, function (int $count): bool {
 				return $count === 0;
 		})) > 0) {
 			return $returnType; // one of the arguments is not a constant string
 		}
 
-		if (count(array_filter($counts, static function (int $count): bool {
+		if (count(array_filter($counts, function (int $count): bool {
 				return $count > 1;
 		})) > 1) {
 			return $returnType; // more than one argument can have multiple possibilities, avoid combinatorial explosion
