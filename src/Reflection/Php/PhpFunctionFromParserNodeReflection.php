@@ -53,8 +53,8 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
 	 * @param bool $realReturnTypePresent
 	 * @param Type $realReturnType
-	 * @param null|Type $phpDocReturnType
-	 * @param null|Type $throwType
+	 * @param Type|null $phpDocReturnType
+	 * @param Type|null $throwType
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
 	 * @param bool $isFinal

@@ -253,7 +253,7 @@ class Scope implements ClassMemberAccessAnswerer
 	}
 
 	/**
-	 * @return null|\PHPStan\Reflection\FunctionReflection|\PHPStan\Reflection\MethodReflection
+	 * @return \PHPStan\Reflection\FunctionReflection|\PHPStan\Reflection\MethodReflection|null
 	 */
 	public function getFunction()
 	{
@@ -1590,8 +1590,8 @@ class Scope implements ClassMemberAccessAnswerer
 	/**
 	 * @param Node\Stmt\ClassMethod $classMethod
 	 * @param Type[] $phpDocParameterTypes
-	 * @param null|Type $phpDocReturnType
-	 * @param null|Type $throwType
+	 * @param Type|null $phpDocReturnType
+	 * @param Type|null $throwType
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
 	 * @param bool $isFinal
@@ -1652,8 +1652,8 @@ class Scope implements ClassMemberAccessAnswerer
 	/**
 	 * @param Node\Stmt\Function_ $function
 	 * @param Type[] $phpDocParameterTypes
-	 * @param null|Type $phpDocReturnType
-	 * @param null|Type $throwType
+	 * @param Type|null $phpDocReturnType
+	 * @param Type|null $throwType
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
 	 * @param bool $isFinal

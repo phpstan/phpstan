@@ -101,8 +101,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			 * @param ClassReflection|null $declaringTrait
 			 * @param \PHPStan\Reflection\Php\BuiltinMethodReflection $reflection
 			 * @param Type[] $phpDocParameterTypes
-			 * @param null|Type $phpDocReturnType
-			 * @param null|Type $phpDocThrowType
+			 * @param Type|null $phpDocReturnType
+			 * @param Type|null $phpDocThrowType
 			 * @param bool $isDeprecated
 			 * @param bool $isInternal
 			 * @param bool $isFinal
@@ -169,8 +169,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			/**
 			 * @param \ReflectionFunction $function
 			 * @param Type[] $phpDocParameterTypes
-			 * @param null|Type $phpDocReturnType
-			 * @param null|Type $phpDocThrowType
+			 * @param Type|null $phpDocReturnType
+			 * @param Type|null $phpDocThrowType
 			 * @param bool $isDeprecated
 			 * @param bool $isInternal
 			 * @param bool $isFinal

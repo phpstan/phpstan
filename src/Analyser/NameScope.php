@@ -15,9 +15,9 @@ class NameScope
 	private $className;
 
 	/**
-	 * @param null|string $namespace
+	 * @param string|null $namespace
 	 * @param string[] $uses alias(string) => fullName(string)
-	 * @param null|string $className
+	 * @param string|null $className
 	 */
 	public function __construct(?string $namespace, array $uses, ?string $className = null)
 	{

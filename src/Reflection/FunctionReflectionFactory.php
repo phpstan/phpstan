@@ -11,8 +11,8 @@ interface FunctionReflectionFactory
 	/**
 	 * @param \ReflectionFunction $reflection
 	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
-	 * @param null|Type $phpDocReturnType
-	 * @param null|Type $phpDocThrowType
+	 * @param Type|null $phpDocReturnType
+	 * @param Type|null $phpDocThrowType
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
 	 * @param bool $isFinal

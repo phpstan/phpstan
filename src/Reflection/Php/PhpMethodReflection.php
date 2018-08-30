@@ -35,7 +35,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	/** @var \PHPStan\Reflection\ClassReflection */
 	private $declaringClass;
 
-	/** @var null|ClassReflection */
+	/** @var ClassReflection|null */
 	private $declaringTrait;
 
 	/** @var BuiltinMethodReflection */
@@ -92,8 +92,8 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	 * @param FunctionCallStatementFinder $functionCallStatementFinder
 	 * @param Cache $cache
 	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
-	 * @param null|Type $phpDocReturnType
-	 * @param null|Type $phpDocThrowType
+	 * @param Type|null $phpDocReturnType
+	 * @param Type|null $phpDocThrowType
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
 	 * @param bool $isFinal

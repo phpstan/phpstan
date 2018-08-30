@@ -83,7 +83,7 @@ class Broker
 	/** @var \PHPStan\Reflection\Php\PhpFunctionReflection[] */
 	private $customFunctionReflections = [];
 
-	/** @var null|self */
+	/** @var self|null */
 	private static $instance;
 
 	/** @var bool[] */
@@ -556,8 +556,8 @@ class Broker
 	/**
 	 * @param Node\Name $nameNode
 	 * @param \Closure(string $name): bool $existsCallback
-	 * @param null|Scope $scope
-	 * @return null|string
+	 * @param Scope|null $scope
+	 * @return string|null
 	 */
 	private function resolveName(
 		\PhpParser\Node\Name $nameNode,
