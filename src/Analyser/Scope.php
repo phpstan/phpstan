@@ -1980,7 +1980,7 @@ class Scope implements ClassMemberAccessAnswerer
 
 		$variableString = $this->printer->prettyPrintExpr(new Variable($variableName));
 		$moreSpecificTypeHolders = $this->moreSpecificTypes;
-		foreach ($moreSpecificTypeHolders as $key => $typeHolder) {
+		foreach (array_keys($moreSpecificTypeHolders) as $key) {
 			$matches = \Nette\Utils\Strings::match((string) $key, '#(\$[a-zA-Z_\x7f-\xff][a-zA-Z_0-9\x7f-\xff]*)#');
 			if ($matches === null) {
 				continue;
@@ -2235,7 +2235,7 @@ class Scope implements ClassMemberAccessAnswerer
 		}
 
 		$moreSpecificTypeHolders = $this->moreSpecificTypes;
-		foreach ($moreSpecificTypeHolders as $exprString => $holder) {
+		foreach (array_keys($moreSpecificTypeHolders) as $exprString) {
 			if (isset($initialScope->moreSpecificTypes[$exprString])) {
 				continue;
 			}

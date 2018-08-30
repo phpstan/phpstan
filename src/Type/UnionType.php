@@ -197,7 +197,7 @@ class UnionType implements CompoundType, StaticResolvableType
 
 				$constantArraysCount = count($constantArrays);
 				$constantArraysDescriptions = [];
-				foreach ($arrayDescription as $keyTypeValue => $value) {
+				foreach ($arrayDescription as $value) {
 					$constantArraysDescriptions[] = sprintf(
 						'%s%s => %s',
 						$value['count'] < $constantArraysCount ? '?' : '',

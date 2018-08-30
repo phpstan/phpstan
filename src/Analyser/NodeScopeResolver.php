@@ -1664,7 +1664,7 @@ class NodeScopeResolver
 	{
 		/** @var \PHPStan\Analyser\Scope|null $intersectedScope */
 		$intersectedScope = null;
-		foreach ($statementsLists as $i => $statementList) {
+		foreach ($statementsLists as $statementList) {
 			$statements = $statementList->getStatements();
 			$branchScope = $statementList->getScope();
 			$branchScopeWithInitialScopeRemoved = $branchScope->removeVariables($initialScope, true);

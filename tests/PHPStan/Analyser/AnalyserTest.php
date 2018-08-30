@@ -100,7 +100,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		$fileHelper = self::getContainer()->getByType(FileHelper::class);
 		$phpDocStringResolver = self::getContainer()->getByType(PhpDocStringResolver::class);
 		$typeSpecifier = $this->createTypeSpecifier($printer, $broker);
-		$analyser = new Analyser(
+		return new Analyser(
 			$this->createScopeFactory($broker, $typeSpecifier),
 			new DirectParser(new \PhpParser\Parser\Php7(new \PhpParser\Lexer()), $traverser),
 			$registry,
@@ -118,8 +118,6 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 			$reportUnmatchedIgnoredErrors,
 			50
 		);
-
-		return $analyser;
 	}
 
 }

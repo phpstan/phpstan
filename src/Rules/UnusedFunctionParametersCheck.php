@@ -32,7 +32,7 @@ class UnusedFunctionParametersCheck
 			unset($unusedParameters[$variableName]);
 		}
 		$errors = [];
-		foreach ($unusedParameters as $name => $bool) {
+		foreach (array_keys($unusedParameters) as $name) {
 			$errors[] = sprintf($unusedParameterMessage, $name);
 		}
 
