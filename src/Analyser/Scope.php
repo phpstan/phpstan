@@ -1057,7 +1057,7 @@ class Scope implements ClassMemberAccessAnswerer
 			}
 			return new ConstantStringType($this->getTraitReflection()->getName());
 		} elseif ($node instanceof Object_) {
-			$castToObject = function (Type $type): Type {
+			$castToObject = static function (Type $type): Type {
 				if ((new ObjectWithoutClassType())->isSuperTypeOf($type)->yes()) {
 					return $type;
 				}
@@ -1901,7 +1901,7 @@ class Scope implements ClassMemberAccessAnswerer
 	 */
 	public function enterCatch(array $classes, string $variableName): self
 	{
-		$type = TypeCombinator::union(...array_map(function (string $class): ObjectType {
+		$type = TypeCombinator::union(...array_map(static function (string $class): ObjectType {
 			return new ObjectType($class);
 		}, $classes));
 
@@ -2431,7 +2431,7 @@ class Scope implements ClassMemberAccessAnswerer
 			];
 		}
 
-		usort($typeSpecifications, function (array $a, array $b): int {
+		usort($typeSpecifications, static function (array $a, array $b): int {
 			$length = strlen((string) $a['exprString']) - strlen((string) $b['exprString']);
 			if ($length !== 0) {
 				return $length;

@@ -271,7 +271,7 @@ class TypeCombinator
 			}
 		}
 
-		$createGeneralArray = function () use ($keyTypesForGeneralArray, $valueTypesForGeneralArray, $accessoryTypes): Type {
+		$createGeneralArray = static function () use ($keyTypesForGeneralArray, $valueTypesForGeneralArray, $accessoryTypes): Type {
 			return TypeCombinator::intersect(new ArrayType(
 				self::union(...$keyTypesForGeneralArray),
 				self::union(...$valueTypesForGeneralArray)

@@ -30,7 +30,7 @@ class ConstantIntegerType extends IntegerType implements ConstantScalarType
 	public function describe(VerbosityLevel $level): string
 	{
 		return $level->handle(
-			function (): string {
+			static function (): string {
 				return 'int';
 			},
 			function (): string {

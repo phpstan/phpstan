@@ -49,7 +49,7 @@ class CommandHelper
 		if ($autoloadFile !== null && is_file($autoloadFile)) {
 			$autoloadFile = $fileHelper->absolutizePath($autoloadFile);
 			if (is_file($autoloadFile)) {
-				(function (string $file): void {
+				(static function (string $file): void {
 					require_once $file;
 				})($autoloadFile);
 			}
@@ -155,14 +155,14 @@ class CommandHelper
 		}
 
 		foreach ($container->parameters['autoload_files'] as $autoloadFile) {
-			(function (string $file): void {
+			(static function (string $file): void {
 				require_once $file;
 			})($fileHelper->normalizePath($autoloadFile));
 		}
 
 		if (count($container->parameters['autoload_directories']) > 0) {
 			$robotLoader = new \Nette\Loaders\RobotLoader();
-			$robotLoader->acceptFiles = array_map(function (string $extension): string {
+			$robotLoader->acceptFiles = array_map(static function (string $extension): string {
 				return sprintf('*.%s', $extension);
 			}, $container->parameters['fileExtensions']);
 
@@ -186,7 +186,7 @@ class CommandHelper
 				throw new \PHPStan\Command\InceptionNotSuccessfulException();
 			}
 			try {
-				(function (string $file): void {
+				(static function (string $file): void {
 					require_once $file;
 				})($bootstrapFile);
 			} catch (\Throwable $e) {
@@ -195,7 +195,7 @@ class CommandHelper
 			}
 		}
 
-		$paths = array_map(function (string $path) use ($fileHelper): string {
+		$paths = array_map(static function (string $path) use ($fileHelper): string {
 			return $fileHelper->absolutizePath($path);
 		}, $paths);
 
@@ -219,7 +219,7 @@ class CommandHelper
 		}
 
 		$fileExcluder = $container->getByType(FileExcluder::class);
-		$files = array_filter($files, function (string $file) use ($fileExcluder): bool {
+		$files = array_filter($files, static function (string $file) use ($fileExcluder): bool {
 			return !$fileExcluder->isExcludedFromAnalysing($file);
 		});
 
@@ -240,7 +240,7 @@ class CommandHelper
 			return;
 		}
 
-		pcntl_signal(SIGINT, function () use ($consoleStyle, $memoryLimitFile): void {
+		pcntl_signal(SIGINT, static function () use ($consoleStyle, $memoryLimitFile): void {
 			if (file_exists($memoryLimitFile)) {
 				@unlink($memoryLimitFile);
 			}

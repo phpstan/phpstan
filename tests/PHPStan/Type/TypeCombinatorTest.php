@@ -863,7 +863,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			$expectedTypeDescription,
 			$actualType->describe(VerbosityLevel::value()),
 			sprintf('union(%s)', implode(', ', array_map(
-				function (Type $type): string {
+				static function (Type $type): string {
 					return $type->describe(VerbosityLevel::value());
 				},
 				$types

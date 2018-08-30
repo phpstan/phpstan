@@ -255,7 +255,7 @@ class FileTypeMapper
 					return $this->phpDocStringResolver->resolve($phpDocString, $nameScope);
 				};
 			},
-			function (\PhpParser\Node $node) use ($lookForTrait, &$namespace, &$classStack, &$uses): void {
+			static function (\PhpParser\Node $node) use ($lookForTrait, &$namespace, &$classStack, &$uses): void {
 				if ($node instanceof Node\Stmt\ClassLike && $lookForTrait === null) {
 					if (count($classStack) === 0) {
 						throw new \PHPStan\ShouldNotHappenException();

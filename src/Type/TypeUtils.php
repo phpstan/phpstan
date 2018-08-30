@@ -50,7 +50,7 @@ class TypeUtils
 		if ($type instanceof ConstantType) {
 			return $type->generalize();
 		} elseif ($type instanceof UnionType) {
-			return TypeCombinator::union(...array_map(function (Type $innerType): Type {
+			return TypeCombinator::union(...array_map(static function (Type $innerType): Type {
 				return self::generalizeType($innerType);
 			}, $type->getTypes()));
 		}
