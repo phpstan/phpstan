@@ -41,6 +41,19 @@
 			<property name="rootNamespaces" type="array" value="src=>PHPStan,tests/PHPStan=>PHPStan"/>
 		</properties>
 	</rule>
+	<rule ref="SlevomatCodingStandard.Classes.ModernClassNameReference"/>
+	<!--<rule ref="SlevomatCodingStandard.Functions.StaticClosure"/>-->
+	<rule ref="SlevomatCodingStandard.Operators.RequireCombinedAssignmentOperator"/>
+	<rule ref="SlevomatCodingStandard.TypeHints.NullTypeHintOnLastPosition"/>
+	<rule ref="SlevomatCodingStandard.Classes.TraitUseDeclaration"/>
+	<rule ref="SlevomatCodingStandard.Classes.TraitUseSpacing"/>
+	<rule ref="SlevomatCodingStandard.Variables.UnusedVariable"/>
+	<rule ref="SlevomatCodingStandard.Variables.UselessVariable"/>
+	<!--<rule ref="SlevomatCodingStandard.Functions.UnusedParameter"/>-->
+	<rule ref="SlevomatCodingStandard.Functions.UnusedInheritedVariablePassedToClosure"/>
+	<rule ref="SlevomatCodingStandard.Namespaces.UselessAlias"/>
+	<rule ref="SlevomatCodingStandard.PHP.UselessSemicolon"/>
+	<rule ref="SlevomatCodingStandard.PHP.UselessParentheses"/>
 	<exclude-pattern>tests/*/data</exclude-pattern>
 	<exclude-pattern>tests/*/traits</exclude-pattern>
 	<exclude-pattern>tests/notAutoloaded</exclude-pattern>
