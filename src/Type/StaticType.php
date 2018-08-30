@@ -133,7 +133,7 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 
 	public function changeBaseClass(string $className): StaticResolvableType
 	{
-		$thisClass = get_class($this);
+		$thisClass = static::class;
 		return new $thisClass($className);
 	}
 
