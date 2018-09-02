@@ -492,7 +492,8 @@ class Broker
 			$phpDocThrowsTag !== null ? $phpDocThrowsTag->getType() : null,
 			$isDeprecated,
 			$isInternal,
-			$isFinal
+			$isFinal,
+			$reflectionFunction->getFileName()
 		);
 		$this->customFunctionReflections[$lowerCasedFunctionName] = $functionReflection;
 

@@ -174,6 +174,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			 * @param bool $isDeprecated
 			 * @param bool $isInternal
 			 * @param bool $isFinal
+			 * @param string|false $filename
 			 * @return PhpFunctionReflection
 			 */
 			public function create(
@@ -183,7 +184,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				?Type $phpDocThrowType,
 				bool $isDeprecated,
 				bool $isInternal,
-				bool $isFinal
+				bool $isFinal,
+				$filename
 			): PhpFunctionReflection
 			{
 				return new PhpFunctionReflection(
@@ -196,7 +198,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 					$phpDocThrowType,
 					$isDeprecated,
 					$isInternal,
-					$isFinal
+					$isFinal,
+					$filename
 				);
 			}
 
