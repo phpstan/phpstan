@@ -59,7 +59,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		/** @var \PHPStan\Analyser\Scope $testScope */
 		$testScope = null;
-		$this->processFile($filename, function (\PhpParser\Node $node, Scope $scope) use (&$testScope): void {
+		$this->processFile($filename, static function (\PhpParser\Node $node, Scope $scope) use (&$testScope): void {
 			if (!($node instanceof Exit_)) {
 				return;
 			}
@@ -1665,7 +1665,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 
 	public function dataBinaryOperations(): array
 	{
-		$typeCallback = function ($value): string {
+		$typeCallback = static function ($value): string {
 			if (is_int($value)) {
 				return (new ConstantIntegerType($value))->describe(VerbosityLevel::value());
 			} elseif (is_float($value)) {
@@ -7330,18 +7330,25 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			$assertType(self::$assertTypesCache[$file][$evaluatedPointExpression]);
 			return;
 		}
-		$this->processFile($file, function (\PhpParser\Node $node, Scope $scope) use ($file, $evaluatedPointExpression, $assertType): void {
-			$printer = new \PhpParser\PrettyPrinter\Standard();
-			$printedNode = $printer->prettyPrint([$node]);
-			if ($printedNode !== $evaluatedPointExpression) {
-				return;
-			}
+		$this->processFile(
+			$file,
+			static function (\PhpParser\Node $node, Scope $scope) use ($file, $evaluatedPointExpression, $assertType): void {
+				$printer = new \PhpParser\PrettyPrinter\Standard();
+				$printedNode = $printer->prettyPrint([$node]);
+				if ($printedNode !== $evaluatedPointExpression) {
+					return;
+				}
 
-			self::$assertTypesCache[$file][$evaluatedPointExpression] = $scope;
+				self::$assertTypesCache[$file][$evaluatedPointExpression] = $scope;
 
-			$assertType($scope);
-		}, $dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions, $methodTypeSpecifyingExtensions, $staticMethodTypeSpecifyingExtensions,
-			$dynamicConstantNames);
+				$assertType($scope);
+			},
+			$dynamicMethodReturnTypeExtensions,
+			$dynamicStaticMethodReturnTypeExtensions,
+			$methodTypeSpecifyingExtensions,
+			$staticMethodTypeSpecifyingExtensions,
+			$dynamicConstantNames
+		);
 	}
 
 	/**
@@ -7384,7 +7391,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				],
 			]
 		);
-		$resolver->setAnalysedFiles(array_map(function (string $file) use ($fileHelper): string {
+		$resolver->setAnalysedFiles(array_map(static function (string $file) use ($fileHelper): string {
 			return $fileHelper->normalizePath($file);
 		}, [
 			$file,

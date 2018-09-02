@@ -111,7 +111,7 @@ class ClosureType implements Type, ParametersAcceptor
 	{
 		return sprintf(
 			'Closure(%s): %s',
-			implode(', ', array_map(function (ParameterReflection $parameter) use ($level): string {
+			implode(', ', array_map(static function (ParameterReflection $parameter) use ($level): string {
 				return $parameter->getType()->describe($level);
 			}, $this->parameters)),
 			$this->returnType->describe($level)

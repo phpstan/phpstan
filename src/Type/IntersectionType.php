@@ -121,7 +121,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 
 	public function canAccessProperties(): TrinaryLogic
 	{
-		return $this->intersectResults(function (Type $type): TrinaryLogic {
+		return $this->intersectResults(static function (Type $type): TrinaryLogic {
 			return $type->canAccessProperties();
 		});
 	}
@@ -150,7 +150,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 
 	public function canCallMethods(): TrinaryLogic
 	{
-		return $this->intersectResults(function (Type $type): TrinaryLogic {
+		return $this->intersectResults(static function (Type $type): TrinaryLogic {
 			return $type->canCallMethods();
 		});
 	}
@@ -179,7 +179,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 
 	public function canAccessConstants(): TrinaryLogic
 	{
-		return $this->intersectResults(function (Type $type): TrinaryLogic {
+		return $this->intersectResults(static function (Type $type): TrinaryLogic {
 			return $type->canAccessConstants();
 		});
 	}
@@ -208,56 +208,56 @@ class IntersectionType implements CompoundType, StaticResolvableType
 
 	public function isIterable(): TrinaryLogic
 	{
-		return $this->intersectResults(function (Type $type): TrinaryLogic {
+		return $this->intersectResults(static function (Type $type): TrinaryLogic {
 			return $type->isIterable();
 		});
 	}
 
 	public function getIterableKeyType(): Type
 	{
-		return $this->intersectTypes(function (Type $type): Type {
+		return $this->intersectTypes(static function (Type $type): Type {
 			return $type->getIterableKeyType();
 		});
 	}
 
 	public function getIterableValueType(): Type
 	{
-		return $this->intersectTypes(function (Type $type): Type {
+		return $this->intersectTypes(static function (Type $type): Type {
 			return $type->getIterableValueType();
 		});
 	}
 
 	public function isOffsetAccessible(): TrinaryLogic
 	{
-		return $this->intersectResults(function (Type $type): TrinaryLogic {
+		return $this->intersectResults(static function (Type $type): TrinaryLogic {
 			return $type->isOffsetAccessible();
 		});
 	}
 
 	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
 	{
-		return $this->intersectResults(function (Type $type) use ($offsetType): TrinaryLogic {
+		return $this->intersectResults(static function (Type $type) use ($offsetType): TrinaryLogic {
 			return $type->hasOffsetValueType($offsetType);
 		});
 	}
 
 	public function getOffsetValueType(Type $offsetType): Type
 	{
-		return $this->intersectTypes(function (Type $type) use ($offsetType): Type {
+		return $this->intersectTypes(static function (Type $type) use ($offsetType): Type {
 			return $type->getOffsetValueType($offsetType);
 		});
 	}
 
 	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
 	{
-		return $this->intersectTypes(function (Type $type) use ($offsetType, $valueType): Type {
+		return $this->intersectTypes(static function (Type $type) use ($offsetType, $valueType): Type {
 			return $type->setOffsetValueType($offsetType, $valueType);
 		});
 	}
 
 	public function isCallable(): TrinaryLogic
 	{
-		return $this->intersectResults(function (Type $type): TrinaryLogic {
+		return $this->intersectResults(static function (Type $type): TrinaryLogic {
 			return $type->isCallable();
 		});
 	}
@@ -277,7 +277,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 
 	public function isCloneable(): TrinaryLogic
 	{
-		return $this->intersectResults(function (Type $type): TrinaryLogic {
+		return $this->intersectResults(static function (Type $type): TrinaryLogic {
 			return $type->isCloneable();
 		});
 	}
@@ -285,7 +285,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 	public function toBoolean(): BooleanType
 	{
 		/** @var BooleanType $type */
-		$type = $this->intersectTypes(function (Type $type): BooleanType {
+		$type = $this->intersectTypes(static function (Type $type): BooleanType {
 			return $type->toBoolean();
 		});
 
@@ -294,7 +294,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 
 	public function toNumber(): Type
 	{
-		$type = $this->intersectTypes(function (Type $type): Type {
+		$type = $this->intersectTypes(static function (Type $type): Type {
 			return $type->toNumber();
 		});
 
@@ -303,7 +303,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 
 	public function toString(): Type
 	{
-		$type = $this->intersectTypes(function (Type $type): Type {
+		$type = $this->intersectTypes(static function (Type $type): Type {
 			return $type->toString();
 		});
 
@@ -312,7 +312,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 
 	public function toInteger(): Type
 	{
-		$type = $this->intersectTypes(function (Type $type): Type {
+		$type = $this->intersectTypes(static function (Type $type): Type {
 			return $type->toInteger();
 		});
 
@@ -321,7 +321,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 
 	public function toFloat(): Type
 	{
-		$type = $this->intersectTypes(function (Type $type): Type {
+		$type = $this->intersectTypes(static function (Type $type): Type {
 			return $type->toFloat();
 		});
 
@@ -330,7 +330,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 
 	public function toArray(): Type
 	{
-		$type = $this->intersectTypes(function (Type $type): Type {
+		$type = $this->intersectTypes(static function (Type $type): Type {
 			return $type->toArray();
 		});
 

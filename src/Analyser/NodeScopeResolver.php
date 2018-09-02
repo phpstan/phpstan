@@ -468,7 +468,7 @@ class NodeScopeResolver
 			$this->processNodes($node->cond, $scopeLoopMightHaveRun, $nodeCallback);
 
 			$scopeLoopDefinitelyRan = $this->lookForAssignsInBranches($scope, [
-				new StatementList($scope, $node->stmts, false, function (Scope $scope) use ($node): Scope {
+				new StatementList($scope, $node->stmts, false, static function (Scope $scope) use ($node): Scope {
 					foreach ($node->cond as $condExpr) {
 						$scope = $scope->filterByTruthyValue($condExpr);
 					}
@@ -497,7 +497,7 @@ class NodeScopeResolver
 				LookForAssignsSettings::default()
 			);
 			$condScope = $this->lookForAssignsInBranches($scope, [
-				new StatementList($bodyScope, $node->stmts, false, function (Scope $scope) use ($node): Scope {
+				new StatementList($bodyScope, $node->stmts, false, static function (Scope $scope) use ($node): Scope {
 					return $scope->filterByTruthyValue($node->cond);
 				}),
 				new StatementList($scope, []),
@@ -505,7 +505,7 @@ class NodeScopeResolver
 			$this->processNode($node->cond, $condScope, $nodeCallback);
 
 			$bodyScope = $this->lookForAssignsInBranches($bodyScope, [
-				new StatementList($bodyScope, $node->stmts, false, function (Scope $scope) use ($node): Scope {
+				new StatementList($bodyScope, $node->stmts, false, static function (Scope $scope) use ($node): Scope {
 					return $scope->filterByTruthyValue($node->cond);
 				}),
 				new StatementList($bodyScope, []),
@@ -1019,7 +1019,7 @@ class NodeScopeResolver
 					$scope,
 					array_merge([$node->cond], $node->stmts),
 					false,
-					function (Scope $scope) use ($node): Scope {
+					static function (Scope $scope) use ($node): Scope {
 						return $scope->filterByTruthyValue($node->cond);
 					}
 				);
@@ -1044,7 +1044,7 @@ class NodeScopeResolver
 						$elseIfScope,
 						array_merge([$elseIf->cond], $elseIf->stmts),
 						false,
-						function (Scope $scope) use ($elseIf): Scope {
+						static function (Scope $scope) use ($elseIf): Scope {
 							return $scope->filterByTruthyValue($elseIf->cond);
 						}
 					);
@@ -1063,7 +1063,7 @@ class NodeScopeResolver
 						$elseIfScope,
 						$node->else !== null ? $node->else->stmts : [],
 						false,
-						function (Scope $scope) use ($lastCond): Scope {
+						static function (Scope $scope) use ($lastCond): Scope {
 							return $scope->filterByFalseyValue($lastCond);
 						}
 					);
@@ -1337,7 +1337,7 @@ class NodeScopeResolver
 			$scope = $this->lookForAssigns($scope, $node->cond, $whileAssignmentsCertainty, LookForAssignsSettings::afterLoop());
 
 			$statements = [
-				new StatementList($scope, $node->stmts, false, function (Scope $scope) use ($node): Scope {
+				new StatementList($scope, $node->stmts, false, static function (Scope $scope) use ($node): Scope {
 					return $scope->filterByTruthyValue($node->cond);
 				}),
 				new StatementList($scope, []), // in order not to add variables existing only inside the for loop
@@ -1962,7 +1962,7 @@ class NodeScopeResolver
 				$trait,
 				$docComment
 			);
-			$phpDocParameterTypes = array_map(function (ParamTag $tag): Type {
+			$phpDocParameterTypes = array_map(static function (ParamTag $tag): Type {
 				return $tag->getType();
 			}, $resolvedPhpDoc->getParamTags());
 			$phpDocReturnType = $resolvedPhpDoc->getReturnTag() !== null ? $resolvedPhpDoc->getReturnTag()->getType() : null;

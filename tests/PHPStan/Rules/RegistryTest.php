@@ -24,10 +24,10 @@ class RegistryTest extends \PHPStan\Testing\TestCase
 
 	public function testGetRulesWithTwoDifferentInstances(): void
 	{
-		$fooRule = new UniversalRule(\PhpParser\Node\Expr\FuncCall::class, function (\PhpParser\Node\Expr\FuncCall $node, Scope $scope): array {
+		$fooRule = new UniversalRule(\PhpParser\Node\Expr\FuncCall::class, static function (\PhpParser\Node\Expr\FuncCall $node, Scope $scope): array {
 			return ['Foo error'];
 		});
-		$barRule = new UniversalRule(\PhpParser\Node\Expr\FuncCall::class, function (\PhpParser\Node\Expr\FuncCall $node, Scope $scope): array {
+		$barRule = new UniversalRule(\PhpParser\Node\Expr\FuncCall::class, static function (\PhpParser\Node\Expr\FuncCall $node, Scope $scope): array {
 			return ['Bar error'];
 		});
 
