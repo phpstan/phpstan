@@ -9231,7 +9231,7 @@ return [
 'Redis::hKeys' => ['array', 'key'=>'string'],
 'Redis::hLen' => ['int', 'key'=>'string'],
 'Redis::hMGet' => ['array', 'key'=>'string', 'hashKeys'=>'array'],
-'Redis::hMset' => ['bool', 'key'=>'string', 'hashKeys'=>'array'],
+'Redis::hMSet' => ['bool', 'key'=>'string', 'hashKeys'=>'array'],
 'Redis::hScan' => ['array', 'key'=>'string', 'iterator'=>'int', 'pattern='=>'string', 'count='=>'int'],
 'Redis::hSet' => ['bool|int', 'key'=>'string', 'hashKey'=>'string', 'value'=>'string'],
 'Redis::hSetNx' => ['bool', 'key'=>'string', 'hashKey'=>'string', 'value'=>'string'],
