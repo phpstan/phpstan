@@ -48,6 +48,10 @@ class FileHelper
 		$path = str_replace('\\', '/', $path);
 		$path = preg_replace('~/{2,}~', '/', $path);
 
+		if ($path === null) {
+			throw new \RuntimeException('preg_replace error: ' . preg_last_error());
+		}
+
 		$pathRoot = strpos($path, '/') === 0 ? DIRECTORY_SEPARATOR : '';
 		$pathParts = explode('/', trim($path, '/'));
 
