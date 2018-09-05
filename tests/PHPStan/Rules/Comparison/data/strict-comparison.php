@@ -640,3 +640,21 @@ class NonIdempotentOperationInForeach
 	}
 
 }
+
+class ArrayWithLongStrings
+{
+
+	public function doFoo()
+	{
+		$array = ['foofoofoofoofoofoofoo','foofoofoofoofoofoofob'];
+
+		foreach ($array as $value) {
+			if ('foofoofoofoofoofoofoo' === $value) {
+				echo 'nope';
+			} elseif ('foofoofoofoofoofoofob' === $value) {
+				echo 'nop nope';
+			}
+		}
+	}
+
+}

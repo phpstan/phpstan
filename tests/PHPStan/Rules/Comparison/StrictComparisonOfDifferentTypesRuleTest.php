@@ -171,6 +171,10 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					'Strict comparison using === between int and \'foo\' will always evaluate to false.',
 					635,
 				],
+				[
+					'Strict comparison using === between \'foofoofoofoofoofoof…\' and \'foofoofoofoofoofoof…\' will always evaluate to true.',
+					654,
+				],
 			]
 		);
 	}
