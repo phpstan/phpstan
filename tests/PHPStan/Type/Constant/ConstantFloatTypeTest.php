@@ -39,7 +39,7 @@ class ConstantFloatTypeTest extends \PHPStan\Testing\TestCase
 		string $expectedDescription
 	): void
 	{
-		$this->assertSame($expectedDescription, $type->describe(VerbosityLevel::value()));
+		$this->assertSame($expectedDescription, $type->describe(VerbosityLevel::precise()));
 	}
 
 }

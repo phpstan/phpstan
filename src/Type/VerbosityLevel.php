@@ -7,6 +7,7 @@ class VerbosityLevel
 
 	private const TYPE_ONLY = 1;
 	private const VALUE = 2;
+	private const PRECISE = 3;
 
 	/** @var self[] */
 	private static $registry;
@@ -35,16 +36,32 @@ class VerbosityLevel
 		return self::create(self::VALUE);
 	}
 
+	public static function precise(): self
+	{
+		return self::create(self::PRECISE);
+	}
+
+	/**
+	 * @param callable(): string $typeOnlyCallback
+	 * @param callable(): string $valueCallback
+	 * @param callable(): string|null $preciseCallback
+	 * @return string
+	 */
 	public function handle(
 		callable $typeOnlyCallback,
-		callable $valueCallback
+		callable $valueCallback,
+		?callable $preciseCallback = null
 	): string
 	{
 		if ($this->value === self::TYPE_ONLY) {
 			return $typeOnlyCallback();
 		}
 
-		return $valueCallback();
+		if ($this->value === self::VALUE || $preciseCallback === null) {
+			return $valueCallback();
+		}
+
+		return $preciseCallback();
 	}
 
 }

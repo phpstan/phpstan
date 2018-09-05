@@ -45,7 +45,7 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\Testing\TestCase
 			$propertyReflection = $classReflection->getProperty($propertyName, $scope);
 			$this->assertInstanceOf(PhpDefectPropertyReflection::class, $propertyReflection);
 			$this->assertSame($declaringClassName, $propertyReflection->getDeclaringClass()->getName());
-			$this->assertSame($typeDescription, $propertyReflection->getType()->describe(VerbosityLevel::value()), sprintf('%s::$%s', $className, $propertyName));
+			$this->assertSame($typeDescription, $propertyReflection->getType()->describe(VerbosityLevel::precise()), sprintf('%s::$%s', $className, $propertyName));
 		}
 	}
 

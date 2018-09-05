@@ -237,7 +237,7 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\Testing
 			);
 			$this->assertSame(
 				$expectedPropertyData['type'],
-				$property->getType()->describe(VerbosityLevel::value()),
+				$property->getType()->describe(VerbosityLevel::precise()),
 				sprintf('Type of property %s::$%s does not match.', $property->getDeclaringClass()->getName(), $propertyName)
 			);
 			$this->assertSame(
@@ -258,7 +258,7 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\Testing
 		$broker = self::getContainer()->getByType(Broker::class);
 		$class = $broker->getClass(\AnnotationsProperties\Bar::class);
 		$this->assertTrue($class->hasNativeProperty('overridenPropertyWithAnnotation'));
-		$this->assertSame('AnnotationsProperties\Foo', $class->getNativeProperty('overridenPropertyWithAnnotation')->getType()->describe(VerbosityLevel::value()));
+		$this->assertSame('AnnotationsProperties\Foo', $class->getNativeProperty('overridenPropertyWithAnnotation')->getType()->describe(VerbosityLevel::precise()));
 	}
 
 }

@@ -976,7 +976,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\Testing\Te
 			);
 			$this->assertSame(
 				$expectedMethodData['returnType'],
-				$selectedParametersAcceptor->getReturnType()->describe(VerbosityLevel::value()),
+				$selectedParametersAcceptor->getReturnType()->describe(VerbosityLevel::precise()),
 				sprintf('Return type of method %s::%s() does not match', $className, $methodName)
 			);
 			$this->assertSame(
@@ -1001,7 +1001,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\Testing\Te
 				);
 				$this->assertSame(
 					$expectedMethodData['parameters'][$i]['type'],
-					$parameter->getType()->describe(VerbosityLevel::value())
+					$parameter->getType()->describe(VerbosityLevel::precise())
 				);
 				$this->assertTrue(
 					$expectedMethodData['parameters'][$i]['passedByReference']->equals($parameter->passedByReference())
