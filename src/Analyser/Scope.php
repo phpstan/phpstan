@@ -321,7 +321,7 @@ class Scope implements ClassMemberAccessAnswerer
 
 	public function hasConstant(Name $name): bool
 	{
-		$node = new ConstFetch(new Name\FullyQualified($name->toCodeString()));
+		$node = new ConstFetch(new Name\FullyQualified($name->toString()));
 		if ($this->isSpecified($node)) {
 			return true;
 		}
