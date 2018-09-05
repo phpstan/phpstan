@@ -2083,11 +2083,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$line',
 			],
 			[
-				"'" . __DIR__ . '/data' . "'",
+				(new ConstantStringType(__DIR__ . '/data'))->describe(VerbosityLevel::precise()),
 				'$dir',
 			],
 			[
-				"'" . __DIR__ . '/data/binary.php' . "'",
+				(new ConstantStringType(__DIR__ . '/data/binary.php'))->describe(VerbosityLevel::precise()),
 				'$file',
 			],
 			[
