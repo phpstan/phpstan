@@ -1192,7 +1192,11 @@ class Scope implements ClassMemberAccessAnswerer
 
 		if ($node instanceof Expr\Ternary) {
 			if ($node->if === null) {
-				$conditionType = $this->filterByTruthyValue($node->cond, true)->getType($node->cond);
+				$conditionType = $this->getType($node->cond);
+				if (!$conditionType instanceof BooleanType) {
+					$conditionType = $this->filterByTruthyValue($node->cond, true)->getType($node->cond);
+				}
+
 				$booleanConditionType = $conditionType->toBoolean();
 				if ($booleanConditionType instanceof ConstantBooleanType) {
 					if ($booleanConditionType->getValue()) {
