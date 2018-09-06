@@ -7598,7 +7598,7 @@ return [
 'newrelic_ignore_apdex' => ['void'],
 'newrelic_ignore_transaction' => ['void'],
 'newrelic_name_transaction' => ['bool', 'name'=>'string'],
-'newrelic_notice_error' => ['void', 'message'=>'string', 'exception='=>'exception'],
+'newrelic_notice_error' => ['void', 'message'=>'string', 'exception='=>'Exception|Throwable'],
 'newrelic_notice_error\'1' => ['void', 'unused_1'=>'string', 'message'=>'string', 'unused_2'=>'string', 'unused_3'=>'int', 'unused_4='=>''],
 'newrelic_record_custom_event' => ['void', 'name'=>'string', 'attributes'=>'array'],
 'newrelic_record_datastore_segment' => ['mixed', 'func'=>'callable', 'parameters'=>'array'],
