@@ -3273,7 +3273,7 @@ return [
 'Generator::next' => [''],
 'Generator::rewind' => [''],
 'Generator::send' => ['', 'value'=>''],
-'Generator::throw' => ['', 'exception'=>'exception'],
+'Generator::throw' => ['', 'exception'=>'Exception|Throwable'],
 'Generator::valid' => ['bool'],
 'geoip_asnum_by_name' => ['string', 'hostname'=>'string'],
 'geoip_continent_code_by_name' => ['string', 'hostname'=>'string'],
