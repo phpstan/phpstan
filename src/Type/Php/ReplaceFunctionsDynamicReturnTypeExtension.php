@@ -49,7 +49,7 @@ class ReplaceFunctionsDynamicReturnTypeExtension implements DynamicFunctionRetur
 		return $type;
 	}
 
-	public function getPreliminarilyResolvedTypeFromFunctionCall(
+	private function getPreliminarilyResolvedTypeFromFunctionCall(
 		FunctionReflection $functionReflection,
 		FuncCall $functionCall,
 		Scope $scope
