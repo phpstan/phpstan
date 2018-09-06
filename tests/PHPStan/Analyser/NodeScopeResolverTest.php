@@ -6301,11 +6301,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$expectedString',
 			],
 			[
-				'string',
+				'string|null',
 				'$expectedString2',
 			],
 			[
-				'string',
+				'string|null',
 				'$anotherExpectedString',
 			],
 			[
@@ -6313,11 +6313,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$expectedArray',
 			],
 			[
-				'array(\'a\' => string, \'b\' => string)',
+				'array(\'a\' => string, \'b\' => string)|null',
 				'$expectedArray2',
 			],
 			[
-				'array(\'a\' => string, \'b\' => string)',
+				'array(\'a\' => string, \'b\' => string)|null',
 				'$anotherExpectedArray',
 			],
 			[
@@ -6329,7 +6329,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$expectedBenevolentArrayOrString',
 			],
 			[
-				'array|string',
+				'array|string|null',
 				'$expectedArrayOrString2',
 			],
 			[
@@ -6337,11 +6337,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$anotherExpectedArrayOrString',
 			],
 			[
-				'array(\'a\' => string, \'b\' => string)',
+				'array(\'a\' => string, \'b\' => string)|null',
 				'preg_replace_callback_array($callbacks, $array)',
 			],
 			[
-				'string',
+				'string|null',
 				'preg_replace_callback_array($callbacks, $string)',
 			],
 			[
