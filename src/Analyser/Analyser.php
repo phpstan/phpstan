@@ -147,7 +147,7 @@ class Analyser
 		$addErrors = [];
 		$errors = array_values(array_filter($errors, function (Error $error) use (&$unmatchedIgnoredErrors, &$addErrors): bool {
 			foreach ($this->ignoreErrors as $i => $ignore) {
-				if (self::shouldErrorBeIgnored($error, $ignore)) {
+				if (IgnoredError::shouldIgnore($error, $ignore)) {
 					unset($unmatchedIgnoredErrors[$i]);
 					if (!$error->canBeIgnored()) {
 						$addErrors[] = sprintf(
@@ -169,7 +169,7 @@ class Analyser
 			foreach ($unmatchedIgnoredErrors as $unmatchedIgnoredError) {
 				$errors[] = sprintf(
 					'Ignored error pattern %s was not matched in reported errors.',
-					$unmatchedIgnoredError
+					IgnoredError::stringifyPattern($unmatchedIgnoredError)
 				);
 			}
 		}
@@ -179,27 +179,6 @@ class Analyser
 		}
 
 		return $errors;
-	}
-
-	/**
-	 * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
-	 * @param Error $error
-	 * @param array<string, string>|string $ignore
-	 * @return bool To ignore or not to ignore?
-	 */
-	private static function shouldErrorBeIgnored(Error $error, $ignore): bool
-	{
-		if (is_array($ignore)) {
-			// ignore by path
-			if (isset($ignore['path'])) {
-				return \Nette\Utils\Strings::match($error->getMessage(), $ignore['message']) !== null
-					&& \Nette\Utils\Strings::match(str_replace('\\', '/', $error->getFile()), $ignore['path']) !== null;
-			}
-
-			return false;
-		}
-
-		return \Nette\Utils\Strings::match($error->getMessage(), $ignore) !== null;
 	}
 
 }
