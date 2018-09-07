@@ -182,6 +182,7 @@ class Analyser
 	}
 
 	/**
+	 * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
 	 * @param Error $error
 	 * @param array<string, string>|string $ignore
 	 * @return bool To ignore or not to ignore?
