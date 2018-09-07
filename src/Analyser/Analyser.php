@@ -21,7 +21,7 @@ class Analyser
 	/** @var \PHPStan\Analyser\NodeScopeResolver */
 	private $nodeScopeResolver;
 
-	/** @var string[] */
+	/** @var (string|array<string, string>)[] */
 	private $ignoreErrors;
 
 	/** @var bool */
@@ -35,7 +35,7 @@ class Analyser
 	 * @param \PHPStan\Parser\Parser $parser
 	 * @param \PHPStan\Rules\Registry $registry
 	 * @param \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver
-	 * @param string[] $ignoreErrors
+	 * @param (string|array<string, string>)[] $ignoreErrors
 	 * @param bool $reportUnmatchedIgnoredErrors
 	 * @param int $internalErrorsCountLimit
 	 */
@@ -78,7 +78,22 @@ class Analyser
 
 		foreach ($this->ignoreErrors as $ignoreError) {
 			try {
-				\Nette\Utils\Strings::match('', $ignoreError);
+				if (is_array($ignoreError)) {
+					if (!isset($ignoreError['message'])) {
+						throw new \LogicException(
+							sprintf(
+								'Bad message structure %s',
+								var_export($ignoreError, true)
+							)
+						);
+					}
+
+					$ignoreMessage = $ignoreError['message'];
+				} else {
+					$ignoreMessage = $ignoreError;
+				}
+
+				\Nette\Utils\Strings::match('', $ignoreMessage);
 			} catch (\Nette\Utils\RegexpException $e) {
 				$errors[] = $e->getMessage();
 			}
@@ -160,7 +175,7 @@ class Analyser
 		$addErrors = [];
 		$errors = array_values(array_filter($errors, function (Error $error) use (&$unmatchedIgnoredErrors, &$addErrors): bool {
 			foreach ($this->ignoreErrors as $i => $ignore) {
-				if (\Nette\Utils\Strings::match($error->getMessage(), $ignore) !== null) {
+				if (IgnoredError::shouldIgnore($error, $ignore)) {
 					unset($unmatchedIgnoredErrors[$i]);
 					if (!$error->canBeIgnored()) {
 						$addErrors[] = sprintf(
@@ -182,7 +197,7 @@ class Analyser
 			foreach ($unmatchedIgnoredErrors as $unmatchedIgnoredError) {
 				$errors[] = sprintf(
 					'Ignored error pattern %s was not matched in reported errors.',
-					$unmatchedIgnoredError
+					IgnoredError::stringifyPattern($unmatchedIgnoredError)
 				);
 			}
 		}
