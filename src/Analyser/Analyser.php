@@ -184,7 +184,7 @@ class Analyser
 	/**
 	 * @param Error $error
 	 * @param array<string, string>|string $ignore
-	 * @return boolean To ignore or not to ignore?
+	 * @return bool To ignore or not to ignore?
 	 */
 	private static function shouldErrorBeIgnored(Error $error, $ignore): bool
 	{
@@ -193,9 +193,9 @@ class Analyser
 			if (isset($ignore['path'])) {
 				return \Nette\Utils\Strings::match($error->getMessage(), $ignore['message']) !== null
 					&& \Nette\Utils\Strings::match(str_replace('\\', '/', $error->getFile()), $ignore['path']) !== null;
-			} else {
-				return false;
 			}
+
+			return false;
 		}
 
 		return \Nette\Utils\Strings::match($error->getMessage(), $ignore) !== null;
