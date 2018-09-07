@@ -57,8 +57,33 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		$this->assertSame('Error message "Class PHPStan\Tests\Baz was not found while trying to analyse it - autoloading is probably not configured properly." cannot be ignored, use excludes_analyse instead.', $result[1]);
 	}
 
+	public function testIgnoreErrorByPath(): void
+	{
+		$ignoreErrors = [
+			[
+				'message' => '#Fail\.#',
+				'path'    => __DIR__ . '/data/bootstrap-error.php',
+			],
+		];
+		$result = $this->runAnalyser($ignoreErrors, true, __DIR__ . '/data/bootstrap-error.php', false);
+		$this->assertCount(0, $result);
+	}
+
+	public function testIgnoreErrorNotFoundInPath(): void
+	{
+		$ignoreErrors = [
+			[
+				'message' => '#Fail\.#',
+				'path'    => __DIR__ . '/data/not-existent-path.php',
+			],
+		];
+		$result = $this->runAnalyser($ignoreErrors, true, __DIR__ . '/data/empty/empty.php', false);
+		$this->assertCount(1, $result);
+		$this->assertSame('Ignored error pattern #Fail\.# in path ' . __DIR__ . '/data/not-existent-path.php was not matched in reported errors.', $result[0]);
+	}
+
 	/**
-	 * @param string[] $ignoreErrors
+	 * @param string[]|array<array<string, string>> $ignoreErrors
 	 * @param bool $reportUnmatchedIgnoredErrors
 	 * @param string $filePath
 	 * @param bool $onlyFiles
@@ -79,7 +104,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 	}
 
 	/**
-	 * @param string[] $ignoreErrors
+	 * @param string[]|array<array<string, string>> $ignoreErrors
 	 * @param bool $reportUnmatchedIgnoredErrors
 	 * @return Analyser
 	 */
