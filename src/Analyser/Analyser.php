@@ -20,7 +20,7 @@ class Analyser
 	/** @var \PHPStan\Analyser\NodeScopeResolver */
 	private $nodeScopeResolver;
 
-	/** @var string[] */
+	/** @var (string|array<string, string>)[] */
 	private $ignoreErrors;
 
 	/** @var bool */
@@ -34,7 +34,7 @@ class Analyser
 	 * @param \PHPStan\Parser\Parser $parser
 	 * @param \PHPStan\Rules\Registry $registry
 	 * @param \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver
-	 * @param string[] $ignoreErrors
+	 * @param (string|array<string, string>)[] $ignoreErrors
 	 * @param bool $reportUnmatchedIgnoredErrors
 	 * @param int $internalErrorsCountLimit
 	 */
@@ -77,7 +77,7 @@ class Analyser
 
 		foreach ($this->ignoreErrors as $ignoreError) {
 			try {
-				\Nette\Utils\Strings::match('', $ignoreError);
+				\Nette\Utils\Strings::match('', $ignoreError['message'] ?? $ignoreError);
 			} catch (\Nette\Utils\RegexpException $e) {
 				$errors[] = $e->getMessage();
 			}
@@ -147,7 +147,7 @@ class Analyser
 		$addErrors = [];
 		$errors = array_values(array_filter($errors, function (Error $error) use (&$unmatchedIgnoredErrors, &$addErrors): bool {
 			foreach ($this->ignoreErrors as $i => $ignore) {
-				if (\Nette\Utils\Strings::match($error->getMessage(), $ignore) !== null) {
+				if (self::shouldErrorBeIgnored($error, $ignore)) {
 					unset($unmatchedIgnoredErrors[$i]);
 					if (!$error->canBeIgnored()) {
 						$addErrors[] = sprintf(
@@ -179,6 +179,26 @@ class Analyser
 		}
 
 		return $errors;
+	}
+
+	/**
+	 * @param Error $error
+	 * @param array<string, string>|string $ignore
+	 * @return boolean To ignore or not to ignore?
+	 */
+	private static function shouldErrorBeIgnored(Error $error, $ignore): bool
+	{
+		if (is_array($ignore)) {
+			// ignore by path
+			if (isset($ignore['path'])) {
+				return \Nette\Utils\Strings::match($error->getMessage(), $ignore['message']) !== null
+					&& \Nette\Utils\Strings::match(str_replace('\\', '/', $error->getFile()), $ignore['path']) !== null;
+			} else {
+				return false;
+			}
+		}
+
+		return \Nette\Utils\Strings::match($error->getMessage(), $ignore) !== null;
 	}
 
 }

@@ -328,6 +328,18 @@ parameters:
 		- '#Call to an undefined method PHPUnit_Framework_MockObject_MockObject::[a-zA-Z0-9_]+\(\)#'
 ```
 
+If you need to exclude a certain error in a specific directory or file, it's easy.
+Just specify a `path` along with the `message` (always use forward slashes, even on Windows):
+
+```
+parameters:
+	ignoreErrors:
+		-
+			message: '#Call to an undefined method [a-zA-Z0-9\\_]+::method\(\)#'
+			path: '#some/dir/SomeFile.php#'
+		- '#Other error to catch anywhere#'
+```
+
 If some of the patterns do not occur in the result anymore, PHPStan will let you know
 and you will have to remove the pattern from the configuration. You can turn off
 this behaviour by setting `reportUnmatchedIgnoredErrors` to `false` in PHPStan configuration.
