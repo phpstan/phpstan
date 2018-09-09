@@ -28,6 +28,26 @@ class TernaryOperatorConstantConditionRuleTest extends \PHPStan\Testing\RuleTest
 				'Ternary operator condition is always false.',
 				15,
 			],
+			[
+				'If end else parts of ternary operator are equal',
+				17,
+			],
+			[
+				'If end else parts of ternary operator are equal',
+				22,
+			],
+			[
+				'If end else parts of ternary operator are equal',
+				24,
+			],
+			[
+				'If end else parts of ternary operator are equal',
+				25,
+			],
+			[
+				'Ternary operator is not needed. Use just condition casted to bool',
+				27,
+			],
 		]);
 	}
 

@@ -3,6 +3,7 @@
 namespace PHPStan\Rules\Comparison;
 
 use PHPStan\Type\Constant\ConstantBooleanType;
+use PHPStan\Type\ConstantType;
 
 class TernaryOperatorConstantConditionRule implements \PHPStan\Rules\Rule
 {
@@ -42,6 +43,17 @@ class TernaryOperatorConstantConditionRule implements \PHPStan\Rules\Rule
 			];
 		}
 
+		$ifType = $node->if === null ? $scope->getType($node->cond) : $scope->getType($node->if);
+		$elseType = $scope->getType($node->else);
+
+		if ($ifType instanceof ConstantType && $elseType instanceof ConstantType) {
+			if ($ifType->equals($elseType)) {
+				return ['If end else parts of ternary operator are equal'];
+			}
+			if ($ifType instanceof ConstantBooleanType && $elseType instanceof ConstantBooleanType) {
+				return ['Ternary operator is not needed. Use just condition casted to bool'];
+			}
+		}
 		return [];
 	}
 
