@@ -917,11 +917,9 @@ class Scope implements ClassMemberAccessAnswerer
 		} elseif ($node instanceof Expr\Closure) {
 			$parameters = [];
 			$isVariadic = false;
-			$optional = false;
 			foreach ($node->params as $param) {
-				if ($param->default !== null) {
-					$optional = true;
-				}
+				$optional = $param->default !== null || $param->variadic;
+
 				if ($param->variadic) {
 					$isVariadic = true;
 				}

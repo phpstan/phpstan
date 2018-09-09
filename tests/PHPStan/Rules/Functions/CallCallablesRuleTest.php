@@ -62,7 +62,7 @@ class CallCallablesRuleTest extends \PHPStan\Testing\RuleTestCase
 				59,
 			],
 			[
-				'Closure invoked with 0 parameters, at least 2 required.',
+				'Closure invoked with 0 parameters, at least 1 required.',
 				64,
 			],
 			[
