@@ -334,7 +334,7 @@ return [
 'ArrayIterator::natcasesort' => ['void'],
 'ArrayIterator::natsort' => ['void'],
 'ArrayIterator::next' => ['void'],
-'ArrayIterator::offsetExists' => ['void', 'index'=>'string'],
+'ArrayIterator::offsetExists' => ['bool', 'index'=>'string'],
 'ArrayIterator::offsetGet' => ['mixed', 'index'=>'string'],
 'ArrayIterator::offsetSet' => ['void', 'index'=>'string', 'newval'=>'string'],
 'ArrayIterator::offsetUnset' => ['void', 'index'=>'string'],
