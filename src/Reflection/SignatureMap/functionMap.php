@@ -336,7 +336,7 @@ return [
 'ArrayIterator::next' => ['void'],
 'ArrayIterator::offsetExists' => ['void', 'index'=>'string'],
 'ArrayIterator::offsetGet' => ['mixed', 'index'=>'string'],
-'ArrayIterator::offsetSet' => ['void', 'index'=>'string', 'newval'=>'string'],
+'ArrayIterator::offsetSet' => ['void', 'index'=>'string', 'newval'=>'mixed'],
 'ArrayIterator::offsetUnset' => ['void', 'index'=>'string'],
 'ArrayIterator::rewind' => ['void'],
 'ArrayIterator::seek' => ['void', 'position'=>'int'],
