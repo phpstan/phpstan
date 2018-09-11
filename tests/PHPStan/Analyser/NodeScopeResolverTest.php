@@ -3363,6 +3363,23 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	/**
+	 * @dataProvider dataSwitchInstanceOf
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testSwitchInstanceofTruthy(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/switch-instanceof-truthy.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataSwitchGetClass(): array
 	{
 		return [

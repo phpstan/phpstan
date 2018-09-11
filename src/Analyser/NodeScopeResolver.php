@@ -628,7 +628,8 @@ class NodeScopeResolver
 				LookForAssignsSettings::default()
 			);
 			$switchScope = $scope;
-			$switchConditionIsTrue = $node->cond instanceof Expr\ConstFetch && strtolower((string) $node->cond->name) === 'true';
+			$switchConditionType = $scope->getType($node->cond)->toBoolean();
+			$switchConditionIsTrue = $switchConditionType instanceof ConstantBooleanType && $switchConditionType->getValue();
 			$switchConditionGetClassExpression = null;
 			if (
 				$node->cond instanceof FuncCall
