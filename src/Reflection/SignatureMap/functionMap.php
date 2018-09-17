@@ -3328,7 +3328,7 @@ return [
 'getenv' => ['string|false', 'varname'=>'string', 'local_only='=>'bool'],
 'getenv\'1' => ['string[]'],
 'gethostbyaddr' => ['string|false', 'ip_address'=>'string'],
-'gethostbyname' => ['string|false', 'hostname'=>'string'],
+'gethostbyname' => ['string', 'hostname'=>'string'],
 'gethostbynamel' => ['array|false', 'hostname'=>'string'],
 'gethostname' => ['string|false'],
 'getimagesize' => ['array|false', 'imagefile'=>'string', '&w_info='=>'array'],
