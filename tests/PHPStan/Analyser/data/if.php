@@ -84,8 +84,6 @@ if ((bool) preg_match('#.*#', 'foo', $matches3)) {
 } elseif (preg_match('#.*#', 'foo', $matches4)) {
 	foo();
 }
-$someArray = [];
-list($listedOne, , $listedTwo['two'], list($listedThree, $listedFour['four'])) = $someArray;
 
 $trueOrFalseFromSwitch = true;
 switch (foo()) {
@@ -228,6 +226,7 @@ while (($frame = $that->getReader()->consumeFrame($that->getReadBuffer())) === n
 	$nonexistentVariableOutsideWhile = 1;
 }
 
+$someArray = [];
 $integerOrNullFromForeach = null;
 foreach ($someArray as $someValue) {
 	$integerOrNullFromForeach = 1;
