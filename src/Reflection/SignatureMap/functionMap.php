@@ -9708,7 +9708,7 @@ return [
 'ReflectionParameter::getDefaultValueConstantName' => ['string'],
 'ReflectionParameter::getName' => ['string'],
 'ReflectionParameter::getPosition' => ['int'],
-'ReflectionParameter::getType' => ['ReflectionType'],
+'ReflectionParameter::getType' => ['ReflectionType|null'],
 'ReflectionParameter::hasType' => ['bool'],
 'ReflectionParameter::isArray' => ['bool'],
 'ReflectionParameter::isCallable' => ['bool'],
