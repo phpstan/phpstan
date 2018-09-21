@@ -9084,7 +9084,7 @@ return [
 'rawurlencode' => ['string', 'str'=>'string'],
 'read_exif_data' => ['array', 'filename'=>'string', 'sections_needed='=>'string', 'sub_arrays='=>'bool', 'read_thumbnail='=>'bool'],
 'readdir' => ['string|false', 'dir_handle='=>'resource'],
-'readfile' => ['int', 'filename'=>'string', 'use_include_path='=>'bool', 'context='=>'resource'],
+'readfile' => ['int|false', 'filename'=>'string', 'use_include_path='=>'bool', 'context='=>'resource'],
 'readgzfile' => ['int|false', 'filename'=>'string', 'use_include_path='=>'int'],
 'readline' => ['string', 'prompt='=>'?string'],
 'readline_add_history' => ['bool', 'prompt'=>'string'],
