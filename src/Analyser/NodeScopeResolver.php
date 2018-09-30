@@ -362,29 +362,15 @@ class NodeScopeResolver
 		}
 
 		if ($node->valueVar instanceof List_ || $node->valueVar instanceof Array_) {
+			$itemTypes = [];
 			$exprType = $scope->getType($node->expr);
-
-			$constantArrays = TypeUtils::getConstantArrays($exprType);
-			$arrays = TypeUtils::getArrays($exprType);
-			if (count($constantArrays) > 0) {
-				$exprTypes = [];
-				foreach ($constantArrays as $constantArray) {
-					$exprTypes[] = TypeCombinator::union(...$constantArray->getValueTypes());
-				}
-
-				$exprType = TypeCombinator::union(...$exprTypes);
-			} elseif (count($arrays) > 0) {
-				$exprTypes = [];
-				foreach ($arrays as $array) {
-					$exprTypes[] = $array->getItemType();
-				}
-
-				$exprType = new ArrayType(new MixedType(), TypeCombinator::union(...$exprTypes));
-			} else {
-				$exprType = new MixedType();
+			$arrayTypes = TypeUtils::getArrays($exprType);
+			foreach ($arrayTypes as $arrayType) {
+				$itemTypes[] = $arrayType->getItemType();
 			}
 
-			$scope = $this->lookForArrayDestructuringArray($scope, $node->valueVar, $exprType);
+			$itemType = count($itemTypes) > 0 ? TypeCombinator::union(...$itemTypes) : new MixedType();
+			$scope = $this->lookForArrayDestructuringArray($scope, $node->valueVar, $itemType);
 		}
 
 		return $this->lookForAssigns($scope, $node->valueVar, TrinaryLogic::createYes(), LookForAssignsSettings::default());
