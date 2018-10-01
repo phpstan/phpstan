@@ -17,6 +17,7 @@ matrix:
 
 before_script:
   - if php --ri xdebug >/dev/null; then phpenv config-rm xdebug.ini; fi
+  - mkdir -p tmp/cache/phpcs
 
 install:
   - if [ "$dependencies" = "lowest" ]; then composer update --prefer-lowest --no-interaction; fi
