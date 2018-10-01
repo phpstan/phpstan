@@ -5337,6 +5337,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'bool',
 				'$bool',
 			],
+			[
+				'bool|null',
+				'$bool ?: null',
+			],
+			[
+				'bool|null',
+				'$result',
+			],
 		];
 	}
 
