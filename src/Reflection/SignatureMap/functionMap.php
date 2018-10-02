@@ -3927,7 +3927,7 @@ return [
 'hebrev' => ['string', 'str'=>'string', 'max_chars_per_line='=>'int'],
 'hebrevc' => ['string', 'str'=>'string', 'max_chars_per_line='=>'int'],
 'hex2bin' => ['string|false', 'data'=>'string'],
-'hexdec' => ['int', 'hexadecimal_number'=>'string'],
+'hexdec' => ['int|float', 'hexadecimal_number'=>'string'],
 'highlight_file' => ['string|bool', 'file_name'=>'string', 'return='=>'bool'],
 'highlight_string' => ['string|bool', 'string'=>'string', 'return='=>'bool'],
 'HRTime\PerformanceCounter::getElapsedTicks' => ['int'],
