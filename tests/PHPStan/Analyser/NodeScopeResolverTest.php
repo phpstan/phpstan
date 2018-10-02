@@ -2363,6 +2363,22 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'highlight_file($string, true)',
 			],
 			[
+				'string|true',
+				'print_r()',
+			],
+			[
+				'true',
+				'print_r($string)',
+			],
+			[
+				'true',
+				'print_r($string, false)',
+			],
+			[
+				'string',
+				'print_r($string, true)',
+			],
+			[
 				'1',
 				'$one++',
 			],

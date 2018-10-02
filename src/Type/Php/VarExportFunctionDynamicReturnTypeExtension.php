@@ -20,6 +20,7 @@ class VarExportFunctionDynamicReturnTypeExtension implements DynamicFunctionRetu
 				'var_export',
 				'highlight_file',
 				'highlight_string',
+				'print_r',
 			],
 			true
 		);
@@ -29,6 +30,8 @@ class VarExportFunctionDynamicReturnTypeExtension implements DynamicFunctionRetu
 	{
 		if ($functionReflection->getName() === 'var_export') {
 			$fallbackReturnType = new NullType();
+		} elseif ($functionReflection->getName() === 'print_r') {
+			$fallbackReturnType = new ConstantBooleanType(true);
 		} else {
 			$fallbackReturnType = new BooleanType();
 		}
