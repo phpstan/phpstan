@@ -1496,7 +1496,7 @@ return [
 'curl_exec' => ['bool|string', 'ch'=>'resource'],
 'curl_file_create' => ['CURLFile', 'filename'=>'string', 'mimetype='=>'string', 'postfilename='=>'string'],
 'curl_getinfo' => ['mixed', 'ch'=>'resource', 'option='=>'int'],
-'curl_init' => ['resource', 'url='=>'string'],
+'curl_init' => ['resource|false', 'url='=>'string'],
 'curl_multi_add_handle' => ['int', 'mh'=>'resource', 'ch'=>'resource'],
 'curl_multi_close' => ['void', 'mh'=>'resource'],
 'curl_multi_errno' => ['int', 'mh'=>'resource'],
