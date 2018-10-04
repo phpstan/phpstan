@@ -89,7 +89,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$result = TypeCombinator::addNull($type);
-		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
+		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::precise()));
 		$this->assertInstanceOf($expectedTypeClass, $result);
 	}
 
@@ -106,7 +106,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$result = TypeCombinator::union($type, new NullType());
-		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
+		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::precise()));
 		$this->assertInstanceOf($expectedTypeClass, $result);
 	}
 
@@ -201,7 +201,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$result = TypeCombinator::removeNull($type);
-		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
+		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::precise()));
 		$this->assertInstanceOf($expectedTypeClass, $result);
 	}
 
@@ -861,10 +861,10 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 
 		$this->assertSame(
 			$expectedTypeDescription,
-			$actualType->describe(VerbosityLevel::value()),
+			$actualType->describe(VerbosityLevel::precise()),
 			sprintf('union(%s)', implode(', ', array_map(
-				function (Type $type): string {
-					return $type->describe(VerbosityLevel::value());
+				static function (Type $type): string {
+					return $type->describe(VerbosityLevel::precise());
 				},
 				$types
 			)))
@@ -886,7 +886,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$result = TypeCombinator::union(...array_reverse($types));
-		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
+		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::precise()));
 		$this->assertInstanceOf($expectedTypeClass, $result);
 	}
 
@@ -1342,7 +1342,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$result = TypeCombinator::intersect(...$types);
-		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
+		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::precise()));
 		$this->assertInstanceOf($expectedTypeClass, $result);
 	}
 
@@ -1359,7 +1359,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$result = TypeCombinator::intersect(...array_reverse($types));
-		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
+		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::precise()));
 		$this->assertInstanceOf($expectedTypeClass, $result);
 	}
 
@@ -1567,7 +1567,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$result = TypeCombinator::remove($fromType, $type);
-		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::value()));
+		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::precise()));
 		$this->assertInstanceOf($expectedTypeClass, $result);
 	}
 

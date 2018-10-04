@@ -96,7 +96,7 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 			return 0;
 		}
 
-		$placeholders = array_filter($matches, function (array $match): bool {
+		$placeholders = array_filter($matches, static function (array $match): bool {
 			return strlen($match['before']) % 2 === 0;
 		});
 

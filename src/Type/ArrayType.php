@@ -271,7 +271,7 @@ class ArrayType implements StaticResolvableType
 	public static function castToArrayKeyType(Type $offsetType): Type
 	{
 		if ($offsetType instanceof UnionType) {
-			return TypeCombinator::union(...array_map(function (Type $type): Type {
+			return TypeCombinator::union(...array_map(static function (Type $type): Type {
 				return self::castToArrayKeyType($type);
 			}, $offsetType->getTypes()));
 		}

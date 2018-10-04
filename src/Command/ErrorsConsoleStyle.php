@@ -23,7 +23,7 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 	public function __construct(InputInterface $input, OutputInterface $output)
 	{
 		parent::__construct($input, $output);
-		$this->showProgress = $input->hasOption(self::OPTION_NO_PROGRESS) && !((bool) $input->getOption(self::OPTION_NO_PROGRESS));
+		$this->showProgress = $input->hasOption(self::OPTION_NO_PROGRESS) && !(bool) $input->getOption(self::OPTION_NO_PROGRESS);
 		$this->output = $output;
 	}
 
@@ -45,9 +45,9 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 			$maxHeaderWidth = $length;
 		}
 
-		$wrap = function ($rows) use ($terminalWidth, $maxHeaderWidth) {
-			return array_map(function ($row) use ($terminalWidth, $maxHeaderWidth) {
-				return array_map(function ($s) use ($terminalWidth, $maxHeaderWidth) {
+		$wrap = static function ($rows) use ($terminalWidth, $maxHeaderWidth) {
+			return array_map(static function ($row) use ($terminalWidth, $maxHeaderWidth) {
+				return array_map(static function ($s) use ($terminalWidth, $maxHeaderWidth) {
 					if ($terminalWidth > $maxHeaderWidth + 5) {
 						return wordwrap(
 							$s,

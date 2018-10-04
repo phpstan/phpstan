@@ -495,11 +495,11 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 		$typesDescription = [];
 
 		foreach ($specifiedTypes->getSureTypes() as $exprString => [$exprNode, $exprType]) {
-			$typesDescription[$exprString][] = $exprType->describe(VerbosityLevel::value());
+			$typesDescription[$exprString][] = $exprType->describe(VerbosityLevel::precise());
 		}
 
 		foreach ($specifiedTypes->getSureNotTypes() as $exprString => [$exprNode, $exprType]) {
-			$typesDescription[$exprString][] = '~' . $exprType->describe(VerbosityLevel::value());
+			$typesDescription[$exprString][] = '~' . $exprType->describe(VerbosityLevel::precise());
 		}
 
 		$descriptions = [];

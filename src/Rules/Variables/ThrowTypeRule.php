@@ -40,7 +40,7 @@ class ThrowTypeRule implements \PHPStan\Rules\Rule
 			$scope,
 			$node->expr,
 			'Throwing object of an unknown class %s.',
-			function (Type $type) use ($throwableType): bool {
+			static function (Type $type) use ($throwableType): bool {
 				return $throwableType->isSuperTypeOf($type)->yes();
 			}
 		);

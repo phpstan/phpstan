@@ -11,6 +11,7 @@ use PHPStan\Type\DynamicFunctionReturnTypeExtension;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeUtils;
 
 class ReplaceFunctionsDynamicReturnTypeExtension implements DynamicFunctionReturnTypeExtension
@@ -32,6 +33,23 @@ class ReplaceFunctionsDynamicReturnTypeExtension implements DynamicFunctionRetur
 	}
 
 	public function getTypeFromFunctionCall(
+		FunctionReflection $functionReflection,
+		FuncCall $functionCall,
+		Scope $scope
+	): Type
+	{
+		$type = $this->getPreliminarilyResolvedTypeFromFunctionCall($functionReflection, $functionCall, $scope);
+
+		$possibleTypes = ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+
+		if (TypeCombinator::containsNull($possibleTypes)) {
+			$type = TypeCombinator::addNull($type);
+		}
+
+		return $type;
+	}
+
+	private function getPreliminarilyResolvedTypeFromFunctionCall(
 		FunctionReflection $functionReflection,
 		FuncCall $functionCall,
 		Scope $scope

@@ -30,7 +30,7 @@ class ExistingClassesInInterfaceExtendsRule implements \PHPStan\Rules\Rule
 	public function processNode(Node $node, Scope $scope): array
 	{
 		return $this->classCaseSensitivityCheck->checkClassNames(
-			array_map(function (Node\Name $traitName): string {
+			array_map(static function (Node\Name $traitName): string {
 				return (string) $traitName;
 			}, $node->extends)
 		);

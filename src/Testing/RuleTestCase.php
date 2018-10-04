@@ -62,9 +62,7 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 					$this->shouldPolluteCatchScopeWithTryAssignments(),
 					[]
 				),
-				$fileHelper,
 				[],
-				null,
 				true,
 				50
 			);
@@ -106,12 +104,12 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 		$files = array_map([$this->getFileHelper(), 'normalizePath'], $files);
 		$actualErrors = $this->getAnalyser()->analyse($files, false);
 
-		$strictlyTypedSprintf = function (int $line, string $message): string {
+		$strictlyTypedSprintf = static function (int $line, string $message): string {
 			return sprintf('%02d: %s', $line, $message);
 		};
 
 		$expectedErrors = array_map(
-			function (array $error) use ($strictlyTypedSprintf): string {
+			static function (array $error) use ($strictlyTypedSprintf): string {
 				if (!isset($error[0])) {
 					throw new \InvalidArgumentException('Missing expected error message.');
 				}
@@ -124,7 +122,7 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 		);
 
 		$actualErrors = array_map(
-			function (Error $error): string {
+			static function (Error $error): string {
 				return sprintf('%02d: %s', $error->getLine(), $error->getMessage());
 			},
 			$actualErrors

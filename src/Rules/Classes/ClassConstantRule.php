@@ -109,7 +109,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 				$scope,
 				$class,
 				sprintf('Access to constant %s on an unknown class %%s.', $constantName),
-				function (Type $type) use ($constantName): bool {
+				static function (Type $type) use ($constantName): bool {
 					return $type->canAccessConstants()->yes() && $type->hasConstant($constantName);
 				}
 			);

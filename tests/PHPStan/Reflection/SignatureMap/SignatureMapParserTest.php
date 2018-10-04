@@ -354,8 +354,8 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 				sprintf('Optionality of parameter $%s does not match.', $parameterSignature->getName())
 			);
 			$this->assertSame(
-				$expectedParameterSignature->getType()->describe(VerbosityLevel::value()),
-				$parameterSignature->getType()->describe(VerbosityLevel::value()),
+				$expectedParameterSignature->getType()->describe(VerbosityLevel::precise()),
+				$parameterSignature->getType()->describe(VerbosityLevel::precise()),
 				sprintf('Type of parameter $%s does not match.', $parameterSignature->getName())
 			);
 			$this->assertTrue(
@@ -370,8 +370,8 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 		}
 
 		$this->assertSame(
-			$expectedSignature->getReturnType()->describe(VerbosityLevel::value()),
-			$functionSignature->getReturnType()->describe(VerbosityLevel::value()),
+			$expectedSignature->getReturnType()->describe(VerbosityLevel::precise()),
+			$functionSignature->getReturnType()->describe(VerbosityLevel::precise()),
 			'Return type does not match.'
 		);
 		$this->assertSame(

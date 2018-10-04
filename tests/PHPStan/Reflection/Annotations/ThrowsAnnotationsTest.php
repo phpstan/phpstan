@@ -71,9 +71,9 @@ class ThrowsAnnotationsTest extends \PHPStan\Testing\TestCase
 		/** @var Broker $broker */
 		$broker = self::getContainer()->getByType(Broker::class);
 
-		$this->assertNull($broker->getFunction(new Name('\ThrowsAnnotations\withoutThrows'), null)->getThrowType());
+		$this->assertNull($broker->getFunction(new Name\FullyQualified('ThrowsAnnotations\withoutThrows'), null)->getThrowType());
 
-		$throwType = $broker->getFunction(new Name('\ThrowsAnnotations\throwsRuntime'), null)->getThrowType();
+		$throwType = $broker->getFunction(new Name\FullyQualified('ThrowsAnnotations\throwsRuntime'), null)->getThrowType();
 		$this->assertNotNull($throwType);
 		$this->assertSame(\RuntimeException::class, $throwType->describe(VerbosityLevel::typeOnly()));
 	}

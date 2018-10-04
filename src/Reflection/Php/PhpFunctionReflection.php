@@ -10,13 +10,14 @@ use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\FunctionVariantWithPhpDocs;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
+use PHPStan\Reflection\ReflectionWithFilename;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypehintHelper;
 
-class PhpFunctionReflection implements FunctionReflection
+class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilename
 {
 
 	/** @var \ReflectionFunction */
@@ -49,6 +50,9 @@ class PhpFunctionReflection implements FunctionReflection
 	/** @var bool */
 	private $isFinal;
 
+	/** @var string|false */
+	private $filename;
+
 	/** @var FunctionVariantWithPhpDocs[]|null */
 	private $variants;
 
@@ -58,11 +62,12 @@ class PhpFunctionReflection implements FunctionReflection
 	 * @param FunctionCallStatementFinder $functionCallStatementFinder
 	 * @param Cache $cache
 	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
-	 * @param null|Type $phpDocReturnType
-	 * @param null|Type $phpDocThrowType
+	 * @param Type|null $phpDocReturnType
+	 * @param Type|null $phpDocThrowType
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
 	 * @param bool $isFinal
+	 * @param string|false $filename
 	 */
 	public function __construct(
 		\ReflectionFunction $reflection,
@@ -74,7 +79,8 @@ class PhpFunctionReflection implements FunctionReflection
 		?Type $phpDocThrowType,
 		bool $isDeprecated,
 		bool $isInternal,
-		bool $isFinal
+		bool $isFinal,
+		$filename
 	)
 	{
 		$this->reflection = $reflection;
@@ -87,11 +93,20 @@ class PhpFunctionReflection implements FunctionReflection
 		$this->isDeprecated = $isDeprecated;
 		$this->isInternal = $isInternal;
 		$this->isFinal = $isFinal;
+		$this->filename = $filename;
 	}
 
 	public function getName(): string
 	{
 		return $this->reflection->getName();
+	}
+
+	/**
+	 * @return string|false
+	 */
+	public function getFileName()
+	{
+		return $this->filename;
 	}
 
 	/**

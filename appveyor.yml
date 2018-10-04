@@ -34,7 +34,6 @@ init:
 install:
   # Install PHP
   - ps: If ((Test-Path $Env:php_directory) -eq $False) { New-Item -Path $Env:php_directory -ItemType 'directory' }
-  - ps: appveyor-retry choco upgrade OpenSSL.Light --yes
   - ps: $php_install_parameters = '"/DontAddToPath /InstallDir:' + $Env:php_directory + '"'
   - ps: appveyor-retry choco upgrade php --yes --version=$Env:exact_php_version --params=$php_install_parameters
 

@@ -27,8 +27,8 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
 	 * @param bool $realReturnTypePresent
 	 * @param Type $realReturnType
-	 * @param null|Type $phpDocReturnType
-	 * @param null|Type $throwType
+	 * @param Type|null $phpDocReturnType
+	 * @param Type|null $throwType
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
 	 * @param bool $isFinal

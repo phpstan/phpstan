@@ -107,7 +107,7 @@ class TypeCombinator
 			}
 			if ($types[$i] instanceof ConstantScalarType) {
 				$type = $types[$i];
-				$scalarTypes[get_class($type)][md5($type->describe(VerbosityLevel::value()))] = $type;
+				$scalarTypes[get_class($type)][md5($type->describe(VerbosityLevel::precise()))] = $type;
 				unset($types[$i]);
 				continue;
 			}
@@ -271,7 +271,7 @@ class TypeCombinator
 			}
 		}
 
-		$createGeneralArray = function () use ($keyTypesForGeneralArray, $valueTypesForGeneralArray, $accessoryTypes): Type {
+		$createGeneralArray = static function () use ($keyTypesForGeneralArray, $valueTypesForGeneralArray, $accessoryTypes): Type {
 			return TypeCombinator::intersect(new ArrayType(
 				self::union(...$keyTypesForGeneralArray),
 				self::union(...$valueTypesForGeneralArray)

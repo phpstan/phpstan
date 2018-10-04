@@ -78,7 +78,7 @@ abstract class TestBaseFormatter extends \PHPStan\Testing\TestCase
 
 	private function rtrimMultiline(string $output): string
 	{
-		$result = array_map(function (string $line): string {
+		$result = array_map(static function (string $line): string {
 			return rtrim($line, " \r\n");
 		}, explode("\n", $output));
 

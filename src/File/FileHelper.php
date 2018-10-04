@@ -2,6 +2,8 @@
 
 namespace PHPStan\File;
 
+use Nette\Utils\Strings;
+
 class FileHelper
 {
 
@@ -46,7 +48,7 @@ class FileHelper
 		/** @var string $path */
 		$path = $path;
 		$path = str_replace('\\', '/', $path);
-		$path = preg_replace('~/{2,}~', '/', $path);
+		$path = Strings::replace($path, '~/{2,}~', '/');
 
 		$pathRoot = strpos($path, '/') === 0 ? DIRECTORY_SEPARATOR : '';
 		$pathParts = explode('/', trim($path, '/'));

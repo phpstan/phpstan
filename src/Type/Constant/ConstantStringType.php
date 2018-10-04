@@ -39,7 +39,7 @@ class ConstantStringType extends StringType implements ConstantScalarType
 	public function describe(VerbosityLevel $level): string
 	{
 		return $level->handle(
-			function (): string {
+			static function (): string {
 				return 'string';
 			},
 			function (): string {
@@ -47,6 +47,9 @@ class ConstantStringType extends StringType implements ConstantScalarType
 					\Nette\Utils\Strings::truncate($this->value, self::DESCRIBE_LIMIT),
 					true
 				);
+			},
+			function (): string {
+				return var_export($this->value, true);
 			}
 		);
 	}

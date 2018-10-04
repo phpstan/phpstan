@@ -23,6 +23,18 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 			'days' => 'mixed',
 			'f' => 'float',
 		],
+		\DatePeriod::class => [
+			'recurrences' => 'int',
+			'include_start_date' => 'bool',
+			'start' => \DateTimeInterface::class,
+			'current' => \DateTimeInterface::class,
+			'end' => \DateTimeInterface::class,
+			'interval' => \DateInterval::class,
+		],
+		'Directory' => [
+			'handle' => 'resource',
+			'path' => 'string',
+		],
 		'DOMAttr' => [ // extends DOMNode
 			'name' => 'string',
 			'ownerElement' => 'DOMElement',
@@ -112,6 +124,10 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 		],
 		'DOMXPath' => [ // extends DOMCharacterData
 			'document' => 'DOMDocument',
+		],
+		'Ds\\Pair' => [
+			'key' => 'mixed',
+			'value' => 'mixed',
 		],
 		'XMLReader' => [
 			'attributeCount' => 'int',

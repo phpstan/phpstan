@@ -62,7 +62,7 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isSuperTypeOf(%s)', $type->describe(VerbosityLevel::value()), $otherType->describe(VerbosityLevel::value()))
+			sprintf('%s -> isSuperTypeOf(%s)', $type->describe(VerbosityLevel::precise()), $otherType->describe(VerbosityLevel::precise()))
 		);
 	}
 
@@ -106,7 +106,7 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> accepts(%s)', $acceptingType->describe(VerbosityLevel::value()), $acceptedType->describe(VerbosityLevel::value()))
+			sprintf('%s -> accepts(%s)', $acceptingType->describe(VerbosityLevel::precise()), $acceptedType->describe(VerbosityLevel::precise()))
 		);
 	}
 
@@ -133,7 +133,7 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 		string $expectedDescription
 	): void
 	{
-		$this->assertSame($expectedDescription, $type->describe(VerbosityLevel::value()));
+		$this->assertSame($expectedDescription, $type->describe(VerbosityLevel::precise()));
 	}
 
 }

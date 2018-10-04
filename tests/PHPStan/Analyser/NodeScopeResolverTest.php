@@ -44,13 +44,13 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			$this->assertTrue($scope->isInClass());
 			$this->assertSame(Foo::class, $scope->getClassReflection()->getName());
 			$this->assertSame('doFoo', $scope->getFunctionName());
-			$this->assertSame('$this(SomeNodeScopeResolverNamespace\Foo)', $scope->getVariableType('this')->describe(VerbosityLevel::value()));
+			$this->assertSame('$this(SomeNodeScopeResolverNamespace\Foo)', $scope->getVariableType('this')->describe(VerbosityLevel::precise()));
 			$this->assertTrue($scope->hasVariableType('baz')->yes());
 			$this->assertTrue($scope->hasVariableType('lorem')->yes());
 			$this->assertFalse($scope->hasVariableType('ipsum')->yes());
 			$this->assertTrue($scope->hasVariableType('i')->yes());
 			$this->assertTrue($scope->hasVariableType('val')->yes());
-			$this->assertSame('SomeNodeScopeResolverNamespace\InvalidArgumentException', $scope->getVariableType('exception')->describe(VerbosityLevel::value()));
+			$this->assertSame('SomeNodeScopeResolverNamespace\InvalidArgumentException', $scope->getVariableType('exception')->describe(VerbosityLevel::precise()));
 			$this->assertTrue($scope->hasVariableType('staticVariable')->yes());
 		});
 	}
@@ -59,7 +59,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		/** @var \PHPStan\Analyser\Scope $testScope */
 		$testScope = null;
-		$this->processFile($filename, function (\PhpParser\Node $node, Scope $scope) use (&$testScope): void {
+		$this->processFile($filename, static function (\PhpParser\Node $node, Scope $scope) use (&$testScope): void {
 			if (!($node instanceof Exit_)) {
 				return;
 			}
@@ -935,14 +935,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 
 			$this->assertSame(
 				$typeDescription,
-				$scope->getVariableType($variableName)->describe(VerbosityLevel::value()),
+				$scope->getVariableType($variableName)->describe(VerbosityLevel::precise()),
 				sprintf('Type of variable $%s does not match the expected one.', $variableName)
 			);
 
 			if ($iterableValueTypeDescription !== null) {
 				$this->assertSame(
 					$iterableValueTypeDescription,
-					$scope->getVariableType($variableName)->getIterableValueType()->describe(VerbosityLevel::value()),
+					$scope->getVariableType($variableName)->getIterableValueType()->describe(VerbosityLevel::precise()),
 					sprintf('Iterable value type of variable $%s does not match the expected one.', $variableName)
 				);
 			}
@@ -1665,15 +1665,15 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 
 	public function dataBinaryOperations(): array
 	{
-		$typeCallback = function ($value): string {
+		$typeCallback = static function ($value): string {
 			if (is_int($value)) {
-				return (new ConstantIntegerType($value))->describe(VerbosityLevel::value());
+				return (new ConstantIntegerType($value))->describe(VerbosityLevel::precise());
 			} elseif (is_float($value)) {
-				return (new ConstantFloatType($value))->describe(VerbosityLevel::value());
+				return (new ConstantFloatType($value))->describe(VerbosityLevel::precise());
 			} elseif (is_bool($value)) {
-				return (new ConstantBooleanType($value))->describe(VerbosityLevel::value());
+				return (new ConstantBooleanType($value))->describe(VerbosityLevel::precise());
 			} elseif (is_string($value)) {
-				return (new ConstantStringType($value))->describe(VerbosityLevel::value());
+				return (new ConstantStringType($value))->describe(VerbosityLevel::precise());
 			}
 
 			throw new \PHPStan\ShouldNotHappenException();
@@ -2083,11 +2083,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$line',
 			],
 			[
-				(new ConstantStringType(__DIR__))->describe(VerbosityLevel::value()),
+				(new ConstantStringType(__DIR__ . '/data'))->describe(VerbosityLevel::precise()),
 				'$dir',
 			],
 			[
-				(new ConstantStringType(__DIR__))->describe(VerbosityLevel::value()),
+				(new ConstantStringType(__DIR__ . '/data/binary.php'))->describe(VerbosityLevel::precise()),
 				'$file',
 			],
 			[
@@ -2099,7 +2099,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$class',
 			],
 			[
-				'\'BinaryOperations…\'',
+				'\'BinaryOperations\\\\Foo::doFoo\'',
 				'$method',
 			],
 			[
@@ -2361,6 +2361,22 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'string',
 				'highlight_file($string, true)',
+			],
+			[
+				'string|true',
+				'print_r()',
+			],
+			[
+				'true',
+				'print_r($string)',
+			],
+			[
+				'true',
+				'print_r($string, false)',
+			],
+			[
+				'string',
+				'print_r($string, true)',
 			],
 			[
 				'1',
@@ -3363,6 +3379,23 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	/**
+	 * @dataProvider dataSwitchInstanceOf
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testSwitchInstanceofTruthy(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/switch-instanceof-truthy.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataSwitchGetClass(): array
 	{
 		return [
@@ -4099,6 +4132,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_change_key_case($integers)',
 			],
 			[
+				'array|false',
+				'array_combine([1], [2])',
+			],
+			[
 				'array<0|1|2, 1|2|3>',
 				'array_diff_assoc($integers, [])',
 			],
@@ -4610,15 +4647,15 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$strSplitConstantStringWithVariableStringAndVariableSplitLength',
 			],
 			[
-				'array(0 => int, 1 => int, 2 => int, 3 => int, 4 => int, 5 => int, 6 => int, 7 => int, ...)|false',
+				'array(0 => int, 1 => int, 2 => int, 3 => int, 4 => int, 5 => int, 6 => int, 7 => int, 8 => int, 9 => int, 10 => int, 11 => int, 12 => int, \'dev\' => int, \'ino\' => int, \'mode\' => int, \'nlink\' => int, \'uid\' => int, \'gid\' => int, \'rdev\' => int, \'size\' => int, \'atime\' => int, \'mtime\' => int, \'ctime\' => int, \'blksize\' => int, \'blocks\' => int)|false',
 				'$stat',
 			],
 			[
-				'array(0 => int, 1 => int, 2 => int, 3 => int, 4 => int, 5 => int, 6 => int, 7 => int, ...)|false',
+				'array(0 => int, 1 => int, 2 => int, 3 => int, 4 => int, 5 => int, 6 => int, 7 => int, 8 => int, 9 => int, 10 => int, 11 => int, 12 => int, \'dev\' => int, \'ino\' => int, \'mode\' => int, \'nlink\' => int, \'uid\' => int, \'gid\' => int, \'rdev\' => int, \'size\' => int, \'atime\' => int, \'mtime\' => int, \'ctime\' => int, \'blksize\' => int, \'blocks\' => int)|false',
 				'$lstat',
 			],
 			[
-				'array(0 => int, 1 => int, 2 => int, 3 => int, 4 => int, 5 => int, 6 => int, 7 => int, ...)|false',
+				'array(0 => int, 1 => int, 2 => int, 3 => int, 4 => int, 5 => int, 6 => int, 7 => int, 8 => int, 9 => int, 10 => int, 11 => int, 12 => int, \'dev\' => int, \'ino\' => int, \'mode\' => int, \'nlink\' => int, \'uid\' => int, \'gid\' => int, \'rdev\' => int, \'size\' => int, \'atime\' => int, \'mtime\' => int, \'ctime\' => int, \'blksize\' => int, \'blocks\' => int)|false',
 				'$fstat',
 			],
 		];
@@ -6345,11 +6382,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$expectedString',
 			],
 			[
-				'string',
+				'string|null',
 				'$expectedString2',
 			],
 			[
-				'string',
+				'string|null',
 				'$anotherExpectedString',
 			],
 			[
@@ -6357,11 +6394,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$expectedArray',
 			],
 			[
-				'array(\'a\' => string, \'b\' => string)',
+				'array(\'a\' => string, \'b\' => string)|null',
 				'$expectedArray2',
 			],
 			[
-				'array(\'a\' => string, \'b\' => string)',
+				'array(\'a\' => string, \'b\' => string)|null',
 				'$anotherExpectedArray',
 			],
 			[
@@ -6373,7 +6410,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$expectedBenevolentArrayOrString',
 			],
 			[
-				'array|string',
+				'array|string|null',
 				'$expectedArrayOrString2',
 			],
 			[
@@ -6381,11 +6418,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$anotherExpectedArrayOrString',
 			],
 			[
-				'array(\'a\' => string, \'b\' => string)',
+				'array(\'a\' => string, \'b\' => string)|null',
 				'preg_replace_callback_array($callbacks, $array)',
 			],
 			[
-				'string',
+				'string|null',
 				'preg_replace_callback_array($callbacks, $string)',
 			],
 			[
@@ -7378,18 +7415,25 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			$assertType(self::$assertTypesCache[$file][$evaluatedPointExpression]);
 			return;
 		}
-		$this->processFile($file, function (\PhpParser\Node $node, Scope $scope) use ($file, $evaluatedPointExpression, $assertType): void {
-			$printer = new \PhpParser\PrettyPrinter\Standard();
-			$printedNode = $printer->prettyPrint([$node]);
-			if ($printedNode !== $evaluatedPointExpression) {
-				return;
-			}
+		$this->processFile(
+			$file,
+			static function (\PhpParser\Node $node, Scope $scope) use ($file, $evaluatedPointExpression, $assertType): void {
+				$printer = new \PhpParser\PrettyPrinter\Standard();
+				$printedNode = $printer->prettyPrint([$node]);
+				if ($printedNode !== $evaluatedPointExpression) {
+					return;
+				}
 
-			self::$assertTypesCache[$file][$evaluatedPointExpression] = $scope;
+				self::$assertTypesCache[$file][$evaluatedPointExpression] = $scope;
 
-			$assertType($scope);
-		}, $dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions, $methodTypeSpecifyingExtensions, $staticMethodTypeSpecifyingExtensions,
-			$dynamicConstantNames);
+				$assertType($scope);
+			},
+			$dynamicMethodReturnTypeExtensions,
+			$dynamicStaticMethodReturnTypeExtensions,
+			$methodTypeSpecifyingExtensions,
+			$staticMethodTypeSpecifyingExtensions,
+			$dynamicConstantNames
+		);
 	}
 
 	/**
@@ -7432,7 +7476,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				],
 			]
 		);
-		$resolver->setAnalysedFiles(array_map(function (string $file) use ($fileHelper): string {
+		$resolver->setAnalysedFiles(array_map(static function (string $file) use ($fileHelper): string {
 			return $fileHelper->normalizePath($file);
 		}, [
 			$file,
@@ -7500,7 +7544,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		string $label = ''
 	): void
 	{
-		$actualDescription = $actualType->describe(VerbosityLevel::value());
+		$actualDescription = $actualType->describe(VerbosityLevel::precise());
 		if ($actualType instanceof ErrorType) {
 			$actualDescription = '*ERROR*';
 		}

@@ -89,13 +89,11 @@ final class ArraySearchFunctionDynamicReturnTypeExtension implements DynamicFunc
 			$iterableKeyType = new MixedType();
 		}
 
-		$returnType = TypeCombinator::union(
+		return TypeCombinator::union(
 			$iterableKeyType,
 			new ConstantBooleanType(false),
 			...$typesFromConstantArrays
 		);
-
-		return $returnType;
 	}
 
 	private function resolveTypeFromConstantHaystackAndNeedle(Type $needle, ConstantArrayType $haystack): Type

@@ -138,8 +138,8 @@ class InternalAnnotationsTest extends \PHPStan\Testing\TestCase
 		/** @var Broker $broker */
 		$broker = self::getContainer()->getByType(Broker::class);
 
-		$this->assertFalse($broker->getFunction(new Name('\InternalAnnotations\foo'), null)->isInternal());
-		$this->assertTrue($broker->getFunction(new Name('\InternalAnnotations\internalFoo'), null)->isInternal());
+		$this->assertFalse($broker->getFunction(new Name\FullyQualified('InternalAnnotations\foo'), null)->isInternal());
+		$this->assertTrue($broker->getFunction(new Name\FullyQualified('InternalAnnotations\internalFoo'), null)->isInternal());
 	}
 
 }

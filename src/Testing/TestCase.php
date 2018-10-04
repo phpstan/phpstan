@@ -101,8 +101,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			 * @param ClassReflection|null $declaringTrait
 			 * @param \PHPStan\Reflection\Php\BuiltinMethodReflection $reflection
 			 * @param Type[] $phpDocParameterTypes
-			 * @param null|Type $phpDocReturnType
-			 * @param null|Type $phpDocThrowType
+			 * @param Type|null $phpDocReturnType
+			 * @param Type|null $phpDocThrowType
 			 * @param bool $isDeprecated
 			 * @param bool $isInternal
 			 * @param bool $isFinal
@@ -169,11 +169,12 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			/**
 			 * @param \ReflectionFunction $function
 			 * @param Type[] $phpDocParameterTypes
-			 * @param null|Type $phpDocReturnType
-			 * @param null|Type $phpDocThrowType
+			 * @param Type|null $phpDocReturnType
+			 * @param Type|null $phpDocThrowType
 			 * @param bool $isDeprecated
 			 * @param bool $isInternal
 			 * @param bool $isFinal
+			 * @param string|false $filename
 			 * @return PhpFunctionReflection
 			 */
 			public function create(
@@ -183,7 +184,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				?Type $phpDocThrowType,
 				bool $isDeprecated,
 				bool $isInternal,
-				bool $isFinal
+				bool $isFinal,
+				$filename
 			): PhpFunctionReflection
 			{
 				return new PhpFunctionReflection(
@@ -196,14 +198,15 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 					$phpDocThrowType,
 					$isDeprecated,
 					$isInternal,
-					$isFinal
+					$isFinal,
+					$filename
 				);
 			}
 
 		};
 
-		$tagToService = function (array $tags) {
-			return array_map(function (string $serviceName) {
+		$tagToService = static function (array $tags) {
+			return array_map(static function (string $serviceName) {
 				return self::getContainer()->getService($serviceName);
 			}, array_keys($tags));
 		};
@@ -297,8 +300,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		array $staticMethodTypeSpecifyingExtensions = []
 	): TypeSpecifier
 	{
-		$tagToService = function (array $tags) {
-			return array_map(function (string $serviceName) {
+		$tagToService = static function (array $tags) {
+			return array_map(static function (string $serviceName) {
 				return self::getContainer()->getService($serviceName);
 			}, array_keys($tags));
 		};

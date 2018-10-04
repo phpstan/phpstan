@@ -83,7 +83,7 @@ class Broker
 	/** @var \PHPStan\Reflection\Php\PhpFunctionReflection[] */
 	private $customFunctionReflections = [];
 
-	/** @var null|self */
+	/** @var self|null */
 	private static $instance;
 
 	/** @var bool[] */
@@ -384,7 +384,7 @@ class Broker
 						$returnType = TypeUtils::toBenevolentUnion($returnType);
 					}
 					$variants[] = new FunctionVariant(
-						array_map(function (ParameterSignature $parameterSignature) use ($lowerCasedFunctionName): NativeParameterReflection {
+						array_map(static function (ParameterSignature $parameterSignature) use ($lowerCasedFunctionName): NativeParameterReflection {
 							$type = $parameterSignature->getType();
 							if (
 								$parameterSignature->getName() === 'args'
@@ -485,14 +485,15 @@ class Broker
 
 		$functionReflection = $this->functionReflectionFactory->create(
 			$reflectionFunction,
-			array_map(function (ParamTag $paramTag): Type {
+			array_map(static function (ParamTag $paramTag): Type {
 				return $paramTag->getType();
 			}, $phpDocParameterTags),
 			$phpDocReturnTag !== null ? $phpDocReturnTag->getType() : null,
 			$phpDocThrowsTag !== null ? $phpDocThrowsTag->getType() : null,
 			$isDeprecated,
 			$isInternal,
-			$isFinal
+			$isFinal,
+			$reflectionFunction->getFileName()
 		);
 		$this->customFunctionReflections[$lowerCasedFunctionName] = $functionReflection;
 
@@ -501,7 +502,7 @@ class Broker
 
 	public function resolveFunctionName(\PhpParser\Node\Name $nameNode, ?Scope $scope): ?string
 	{
-		return $this->resolveName($nameNode, function (string $name): bool {
+		return $this->resolveName($nameNode, static function (string $name): bool {
 			$exists = function_exists($name);
 			if ($exists) {
 				return true;
@@ -556,8 +557,8 @@ class Broker
 	/**
 	 * @param Node\Name $nameNode
 	 * @param \Closure(string $name): bool $existsCallback
-	 * @param null|Scope $scope
-	 * @return null|string
+	 * @param Scope|null $scope
+	 * @return string|null
 	 */
 	private function resolveName(
 		\PhpParser\Node\Name $nameNode,

@@ -37,7 +37,7 @@ class InvalidIncDecOperationRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		$operatorString = ($node instanceof \PhpParser\Node\Expr\PreInc || $node instanceof \PhpParser\Node\Expr\PostInc) ? '++' : '--';
+		$operatorString = $node instanceof \PhpParser\Node\Expr\PreInc || $node instanceof \PhpParser\Node\Expr\PostInc ? '++' : '--';
 
 		if (
 			!$node->var instanceof \PhpParser\Node\Expr\Variable

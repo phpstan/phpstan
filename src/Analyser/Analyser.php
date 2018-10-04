@@ -2,7 +2,6 @@
 
 namespace PHPStan\Analyser;
 
-use PHPStan\File\FileHelper;
 use PHPStan\Parser\Parser;
 use PHPStan\Rules\Registry;
 
@@ -24,9 +23,6 @@ class Analyser
 	/** @var string[] */
 	private $ignoreErrors;
 
-	/** @var string|null */
-	private $bootstrapFile;
-
 	/** @var bool */
 	private $reportUnmatchedIgnoredErrors;
 
@@ -38,9 +34,7 @@ class Analyser
 	 * @param \PHPStan\Parser\Parser $parser
 	 * @param \PHPStan\Rules\Registry $registry
 	 * @param \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver
-	 * @param \PHPStan\File\FileHelper $fileHelper
 	 * @param string[] $ignoreErrors
-	 * @param string|null $bootstrapFile
 	 * @param bool $reportUnmatchedIgnoredErrors
 	 * @param int $internalErrorsCountLimit
 	 */
@@ -49,9 +43,7 @@ class Analyser
 		Parser $parser,
 		Registry $registry,
 		NodeScopeResolver $nodeScopeResolver,
-		FileHelper $fileHelper,
 		array $ignoreErrors,
-		?string $bootstrapFile,
 		bool $reportUnmatchedIgnoredErrors,
 		int $internalErrorsCountLimit
 	)
@@ -61,7 +53,6 @@ class Analyser
 		$this->registry = $registry;
 		$this->nodeScopeResolver = $nodeScopeResolver;
 		$this->ignoreErrors = $ignoreErrors;
-		$this->bootstrapFile = $bootstrapFile !== null ? $fileHelper->normalizePath($bootstrapFile) : null;
 		$this->reportUnmatchedIgnoredErrors = $reportUnmatchedIgnoredErrors;
 		$this->internalErrorsCountLimit = $internalErrorsCountLimit;
 	}
@@ -84,21 +75,6 @@ class Analyser
 	{
 		$errors = [];
 
-		if ($this->bootstrapFile !== null) {
-			if (!is_file($this->bootstrapFile)) {
-				return [
-					sprintf('Bootstrap file %s does not exist.', $this->bootstrapFile),
-				];
-			}
-			try {
-				(function (string $file): void {
-					require_once $file;
-				})($this->bootstrapFile);
-			} catch (\Throwable $e) {
-				return [$e->getMessage()];
-			}
-		}
-
 		foreach ($this->ignoreErrors as $ignoreError) {
 			try {
 				\Nette\Utils\Strings::match('', $ignoreError);
@@ -120,17 +96,24 @@ class Analyser
 				if ($preFileCallback !== null) {
 					$preFileCallback($file);
 				}
-				$this->nodeScopeResolver->processNodes(
-					$this->parser->parseFile($file),
-					$this->scopeFactory->create(ScopeContext::create($file)),
-					function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors): void {
-						foreach ($this->registry->getRules(get_class($node)) as $rule) {
-							foreach ($rule->processNode($node, $scope) as $message) {
-								$fileErrors[] = new Error($message, $scope->getFileDescription(), $node->getLine());
+
+				if (is_file($file)) {
+					$this->nodeScopeResolver->processNodes(
+						$this->parser->parseFile($file),
+						$this->scopeFactory->create(ScopeContext::create($file)),
+						function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors): void {
+							foreach ($this->registry->getRules(get_class($node)) as $rule) {
+								foreach ($rule->processNode($node, $scope) as $message) {
+									$fileErrors[] = new Error($message, $scope->getFileDescription(), $node->getLine());
+								}
 							}
 						}
-					}
-				);
+					);
+				} elseif (is_dir($file)) {
+					$fileErrors[] = new Error(sprintf('File %s is a directory.', $file), $file, null, false);
+				} else {
+					$fileErrors[] = new Error(sprintf('File %s does not exist.', $file), $file, null, false);
+				}
 				if ($postFileCallback !== null) {
 					$postFileCallback($file);
 				}

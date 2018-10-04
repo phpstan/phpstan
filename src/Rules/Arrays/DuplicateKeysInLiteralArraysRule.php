@@ -63,7 +63,7 @@ class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
 		}
 
 		$messages = [];
-		foreach ($duplicateKeys as $value => $true) {
+		foreach (array_keys($duplicateKeys) as $value) {
 			$messages[] = sprintf(
 				'Array has %d %s with value %s (%s).',
 				count($printedValues[$value]),

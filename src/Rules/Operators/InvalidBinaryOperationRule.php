@@ -66,11 +66,11 @@ class InvalidBinaryOperationRule implements \PHPStan\Rules\Rule
 			}
 
 			if ($node instanceof Node\Expr\AssignOp\Concat || $node instanceof Node\Expr\BinaryOp\Concat) {
-				$callback = function (Type $type): bool {
+				$callback = static function (Type $type): bool {
 					return !$type->toString() instanceof ErrorType;
 				};
 			} else {
-				$callback = function (Type $type): bool {
+				$callback = static function (Type $type): bool {
 					return !$type->toNumber() instanceof ErrorType;
 				};
 			}

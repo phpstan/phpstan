@@ -253,7 +253,7 @@ class Scope implements ClassMemberAccessAnswerer
 	}
 
 	/**
-	 * @return null|\PHPStan\Reflection\FunctionReflection|\PHPStan\Reflection\MethodReflection
+	 * @return \PHPStan\Reflection\FunctionReflection|\PHPStan\Reflection\MethodReflection|null
 	 */
 	public function getFunction()
 	{
@@ -321,7 +321,7 @@ class Scope implements ClassMemberAccessAnswerer
 
 	public function hasConstant(Name $name): bool
 	{
-		$node = new ConstFetch(new Name\FullyQualified($name->toCodeString()));
+		$node = new ConstFetch(new Name\FullyQualified($name->toString()));
 		if ($this->isSpecified($node)) {
 			return true;
 		}
@@ -1057,7 +1057,7 @@ class Scope implements ClassMemberAccessAnswerer
 			}
 			return new ConstantStringType($this->getTraitReflection()->getName());
 		} elseif ($node instanceof Object_) {
-			$castToObject = function (Type $type): Type {
+			$castToObject = static function (Type $type): Type {
 				if ((new ObjectWithoutClassType())->isSuperTypeOf($type)->yes()) {
 					return $type;
 				}
@@ -1590,8 +1590,8 @@ class Scope implements ClassMemberAccessAnswerer
 	/**
 	 * @param Node\Stmt\ClassMethod $classMethod
 	 * @param Type[] $phpDocParameterTypes
-	 * @param null|Type $phpDocReturnType
-	 * @param null|Type $throwType
+	 * @param Type|null $phpDocReturnType
+	 * @param Type|null $throwType
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
 	 * @param bool $isFinal
@@ -1652,8 +1652,8 @@ class Scope implements ClassMemberAccessAnswerer
 	/**
 	 * @param Node\Stmt\Function_ $function
 	 * @param Type[] $phpDocParameterTypes
-	 * @param null|Type $phpDocReturnType
-	 * @param null|Type $throwType
+	 * @param Type|null $phpDocReturnType
+	 * @param Type|null $throwType
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
 	 * @param bool $isFinal
@@ -1901,7 +1901,7 @@ class Scope implements ClassMemberAccessAnswerer
 	 */
 	public function enterCatch(array $classes, string $variableName): self
 	{
-		$type = TypeCombinator::union(...array_map(function (string $class): ObjectType {
+		$type = TypeCombinator::union(...array_map(static function (string $class): ObjectType {
 			return new ObjectType($class);
 		}, $classes));
 
@@ -1980,7 +1980,7 @@ class Scope implements ClassMemberAccessAnswerer
 
 		$variableString = $this->printer->prettyPrintExpr(new Variable($variableName));
 		$moreSpecificTypeHolders = $this->moreSpecificTypes;
-		foreach ($moreSpecificTypeHolders as $key => $typeHolder) {
+		foreach (array_keys($moreSpecificTypeHolders) as $key) {
 			$matches = \Nette\Utils\Strings::match((string) $key, '#(\$[a-zA-Z_\x7f-\xff][a-zA-Z_0-9\x7f-\xff]*)#');
 			if ($matches === null) {
 				continue;
@@ -2235,7 +2235,7 @@ class Scope implements ClassMemberAccessAnswerer
 		}
 
 		$moreSpecificTypeHolders = $this->moreSpecificTypes;
-		foreach ($moreSpecificTypeHolders as $exprString => $holder) {
+		foreach (array_keys($moreSpecificTypeHolders) as $exprString) {
 			if (isset($initialScope->moreSpecificTypes[$exprString])) {
 				continue;
 			}
@@ -2431,7 +2431,7 @@ class Scope implements ClassMemberAccessAnswerer
 			];
 		}
 
-		usort($typeSpecifications, function (array $a, array $b): int {
+		usort($typeSpecifications, static function (array $a, array $b): int {
 			$length = strlen((string) $a['exprString']) - strlen((string) $b['exprString']);
 			if ($length !== 0) {
 				return $length;
