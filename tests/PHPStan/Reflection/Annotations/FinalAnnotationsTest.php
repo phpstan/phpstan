@@ -70,8 +70,8 @@ class FinalAnnotationsTest extends \PHPStan\Testing\TestCase
 		/** @var Broker $broker */
 		$broker = self::getContainer()->getByType(Broker::class);
 
-		$this->assertFalse($broker->getFunction(new Name('\FinalAnnotations\foo'), null)->isFinal());
-		$this->assertTrue($broker->getFunction(new Name('\FinalAnnotations\finalFoo'), null)->isFinal());
+		$this->assertFalse($broker->getFunction(new Name\FullyQualified('FinalAnnotations\foo'), null)->isFinal());
+		$this->assertTrue($broker->getFunction(new Name\FullyQualified('FinalAnnotations\finalFoo'), null)->isFinal());
 	}
 
 }

@@ -107,7 +107,7 @@ class TypeCombinator
 			}
 			if ($types[$i] instanceof ConstantScalarType) {
 				$type = $types[$i];
-				$scalarTypes[get_class($type)][md5($type->describe(VerbosityLevel::value()))] = $type;
+				$scalarTypes[get_class($type)][md5($type->describe(VerbosityLevel::precise()))] = $type;
 				unset($types[$i]);
 				continue;
 			}

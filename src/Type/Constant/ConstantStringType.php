@@ -47,6 +47,9 @@ class ConstantStringType extends StringType implements ConstantScalarType
 					\Nette\Utils\Strings::truncate($this->value, self::DESCRIBE_LIMIT),
 					true
 				);
+			},
+			function (): string {
+				return var_export($this->value, true);
 			}
 		);
 	}

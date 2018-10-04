@@ -437,36 +437,42 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 	public function describe(VerbosityLevel $level): string
 	{
+		$describeValue = function (bool $truncate) use ($level): string {
+			$items = [];
+			$values = [];
+			$exportValuesOnly = true;
+			foreach ($this->keyTypes as $i => $keyType) {
+				$valueType = $this->valueTypes[$i];
+				if ($keyType->getValue() !== $i) {
+					$exportValuesOnly = false;
+				}
+
+				$items[] = sprintf('%s => %s', var_export($keyType->getValue(), true), $valueType->describe($level));
+				$values[] = $valueType->describe($level);
+			}
+
+			$append = '';
+			if ($truncate && count($items) > self::DESCRIBE_LIMIT) {
+				$items = array_slice($items, 0, self::DESCRIBE_LIMIT);
+				$values = array_slice($values, 0, self::DESCRIBE_LIMIT);
+				$append = ', ...';
+			}
+
+			return sprintf(
+				'array(%s%s)',
+				implode(', ', $exportValuesOnly ? $values : $items),
+				$append
+			);
+		};
 		return $level->handle(
 			function () use ($level): string {
 				return parent::describe($level);
 			},
-			function () use ($level): string {
-				$items = [];
-				$values = [];
-				$exportValuesOnly = true;
-				foreach ($this->keyTypes as $i => $keyType) {
-					$valueType = $this->valueTypes[$i];
-					if ($keyType->getValue() !== $i) {
-						$exportValuesOnly = false;
-					}
-
-					$items[] = sprintf('%s => %s', var_export($keyType->getValue(), true), $valueType->describe($level));
-					$values[] = $valueType->describe($level);
-				}
-
-				$append = '';
-				if (count($items) > self::DESCRIBE_LIMIT) {
-					$items = array_slice($items, 0, self::DESCRIBE_LIMIT);
-					$values = array_slice($values, 0, self::DESCRIBE_LIMIT);
-					$append = ', ...';
-				}
-
-				return sprintf(
-					'array(%s%s)',
-					implode(', ', $exportValuesOnly ? $values : $items),
-					$append
-				);
+			static function () use ($describeValue): string {
+				return $describeValue(true);
+			},
+			static function () use ($describeValue): string {
+				return $describeValue(false);
 			}
 		);
 	}

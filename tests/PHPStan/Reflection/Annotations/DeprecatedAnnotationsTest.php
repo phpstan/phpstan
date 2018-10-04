@@ -138,8 +138,8 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 		/** @var Broker $broker */
 		$broker = self::getContainer()->getByType(Broker::class);
 
-		$this->assertFalse($broker->getFunction(new Name('\DeprecatedAnnotations\foo'), null)->isDeprecated());
-		$this->assertTrue($broker->getFunction(new Name('\DeprecatedAnnotations\deprecatedFoo'), null)->isDeprecated());
+		$this->assertFalse($broker->getFunction(new Name\FullyQualified('DeprecatedAnnotations\foo'), null)->isDeprecated());
+		$this->assertTrue($broker->getFunction(new Name\FullyQualified('DeprecatedAnnotations\deprecatedFoo'), null)->isDeprecated());
 	}
 
 	public function testNonDeprecatedNativeFunctions(): void

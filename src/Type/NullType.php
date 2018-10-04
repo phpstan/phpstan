@@ -98,11 +98,7 @@ class NullType implements ConstantScalarType
 
 	public function toArray(): Type
 	{
-		return new ConstantArrayType(
-			[new ConstantIntegerType(0)],
-			[$this],
-			1
-		);
+		return new ConstantArrayType([], []);
 	}
 
 	public function isOffsetAccessible(): TrinaryLogic

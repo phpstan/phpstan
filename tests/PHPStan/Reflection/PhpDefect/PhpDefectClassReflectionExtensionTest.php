@@ -13,6 +13,7 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\Testing\TestCase
 
 	/**
 	 * @dataProvider dataDateIntervalProperties
+	 * @dataProvider dataDatePeriodProperties
 	 * @dataProvider dataDomAttrProperties
 	 * @dataProvider dataDomCharacterDataProperties
 	 * @dataProvider dataDomDocumentProperties
@@ -45,7 +46,7 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\Testing\TestCase
 			$propertyReflection = $classReflection->getProperty($propertyName, $scope);
 			$this->assertInstanceOf(PhpDefectPropertyReflection::class, $propertyReflection);
 			$this->assertSame($declaringClassName, $propertyReflection->getDeclaringClass()->getName());
-			$this->assertSame($typeDescription, $propertyReflection->getType()->describe(VerbosityLevel::value()), sprintf('%s::$%s', $className, $propertyName));
+			$this->assertSame($typeDescription, $propertyReflection->getType()->describe(VerbosityLevel::precise()), sprintf('%s::$%s', $className, $propertyName));
 		}
 	}
 
@@ -78,6 +79,36 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\Testing\TestCase
 					's' => 'int',
 					'invert' => 'int',
 					'days' => 'mixed',
+				],
+			],
+		];
+	}
+
+	public function dataDatePeriodProperties(): array
+	{
+		return [
+			[
+				\DatePeriod::class,
+				\DatePeriod::class,
+				[
+					'recurrences' => 'int',
+					'include_start_date' => 'bool',
+					'start' => \DateTimeInterface::class,
+					'current' => \DateTimeInterface::class,
+					'end' => \DateTimeInterface::class,
+					'interval' => \DateInterval::class,
+				],
+			],
+			[
+				\PhpDefectClasses\DatePeriodChild::class,
+				\DatePeriod::class,
+				[
+					'recurrences' => 'int',
+					'include_start_date' => 'bool',
+					'start' => \DateTimeInterface::class,
+					'current' => \DateTimeInterface::class,
+					'end' => \DateTimeInterface::class,
+					'interval' => \DateInterval::class,
 				],
 			],
 		];

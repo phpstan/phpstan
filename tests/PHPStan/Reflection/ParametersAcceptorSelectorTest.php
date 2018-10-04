@@ -261,8 +261,8 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 				$parameter->isOptional()
 			);
 			$this->assertSame(
-				$expectedParameter->getType()->describe(VerbosityLevel::value()),
-				$parameter->getType()->describe(VerbosityLevel::value())
+				$expectedParameter->getType()->describe(VerbosityLevel::precise()),
+				$parameter->getType()->describe(VerbosityLevel::precise())
 			);
 			$this->assertTrue(
 				$expectedParameter->passedByReference()->equals($parameter->passedByReference())
@@ -274,8 +274,8 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 		}
 
 		$this->assertSame(
-			$expected->getReturnType()->describe(VerbosityLevel::value()),
-			$selectedAcceptor->getReturnType()->describe(VerbosityLevel::value())
+			$expected->getReturnType()->describe(VerbosityLevel::precise()),
+			$selectedAcceptor->getReturnType()->describe(VerbosityLevel::precise())
 		);
 		$this->assertSame($expected->isVariadic(), $selectedAcceptor->isVariadic());
 	}

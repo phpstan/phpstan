@@ -1034,3 +1034,29 @@ class DoWhileNeverIssue
 	}
 
 }
+
+class ArrayOrNullCastToArray
+{
+
+	/**
+	 * @return \ArrayObject|\self[]|null
+	 */
+	private function returnsArrayObjectOrNull()
+	{
+
+	}
+
+	/**
+	 * @param \self[] $array
+	 * @return void
+	 */
+	private function operateOnArray(array $array): void {
+	}
+
+	public function doFoo(): void
+	{
+		$this->operateOnArray((array) $this->returnsArrayObjectOrNull());
+		$this->operateOnArray((array) null);
+	}
+
+}

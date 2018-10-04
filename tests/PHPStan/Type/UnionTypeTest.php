@@ -60,7 +60,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isCallable()', $type->describe(VerbosityLevel::value()))
+			sprintf('%s -> isCallable()', $type->describe(VerbosityLevel::precise()))
 		);
 	}
 
@@ -254,7 +254,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isSuperTypeOf(%s)', $type->describe(VerbosityLevel::value()), $otherType->describe(VerbosityLevel::value()))
+			sprintf('%s -> isSuperTypeOf(%s)', $type->describe(VerbosityLevel::precise()), $otherType->describe(VerbosityLevel::precise()))
 		);
 	}
 
@@ -425,7 +425,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isSubTypeOf(%s)', $type->describe(VerbosityLevel::value()), $otherType->describe(VerbosityLevel::value()))
+			sprintf('%s -> isSubTypeOf(%s)', $type->describe(VerbosityLevel::precise()), $otherType->describe(VerbosityLevel::precise()))
 		);
 	}
 
@@ -441,7 +441,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isSuperTypeOf(%s)', $otherType->describe(VerbosityLevel::value()), $type->describe(VerbosityLevel::value()))
+			sprintf('%s -> isSuperTypeOf(%s)', $otherType->describe(VerbosityLevel::precise()), $type->describe(VerbosityLevel::precise()))
 		);
 	}
 
@@ -589,7 +589,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 		string $expectedTypeOnlyDescription
 	): void
 	{
-		$this->assertSame($expectedValueDescription, $type->describe(VerbosityLevel::value()));
+		$this->assertSame($expectedValueDescription, $type->describe(VerbosityLevel::precise()));
 		$this->assertSame($expectedTypeOnlyDescription, $type->describe(VerbosityLevel::typeOnly()));
 	}
 
@@ -619,7 +619,7 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(
 			$expectedResult->describe(),
 			$type->accepts($acceptedType, true)->describe(),
-			sprintf('%s -> accepts(%s)', $type->describe(VerbosityLevel::value()), $acceptedType->describe(VerbosityLevel::value()))
+			sprintf('%s -> accepts(%s)', $type->describe(VerbosityLevel::precise()), $acceptedType->describe(VerbosityLevel::precise()))
 		);
 	}
 

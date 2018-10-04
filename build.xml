@@ -93,6 +93,7 @@
 			<arg value="--extensions=php"/>
 			<arg value="--encoding=utf-8"/>
 			<arg value="--tab-width=4"/>
+			<arg value="--cache=tmp/cache/phpcs"/>
 			<arg value="--ignore=tests/*/data,tests/*/traits,tests/notAutoloaded,src/Reflection/SignatureMap/functionMap.php"/>
 			<arg value="-sp"/>
 			<arg path="src"/>
