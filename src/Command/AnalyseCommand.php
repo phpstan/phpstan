@@ -52,15 +52,31 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
+		$paths = $input->getArgument('paths');
+		$memoryLimit = $input->getOption('memory-limit');
+		$autoloadFile = $input->getOption('autoload-file');
+		$configuration = $input->getOption('configuration');
+		$level = $input->getOption(self::OPTION_LEVEL);
+
+		if (
+			!is_array($paths)
+			|| (!is_string($memoryLimit) && $memoryLimit !== null)
+			|| (!is_string($autoloadFile) && $autoloadFile !== null)
+			|| (!is_string($configuration) && $configuration !== null)
+			|| (!is_string($level) && $level !== null)
+		) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
 		try {
 			$inceptionResult = CommandHelper::begin(
 				$input,
 				$output,
-				$input->getArgument('paths'),
-				$input->getOption('memory-limit'),
-				$input->getOption('autoload-file'),
-				$input->getOption('configuration'),
-				$input->getOption(self::OPTION_LEVEL)
+				$paths,
+				$memoryLimit,
+				$autoloadFile,
+				$configuration,
+				$level
 			);
 		} catch (\PHPStan\Command\InceptionNotSuccessfulException $e) {
 			return 1;
@@ -73,6 +89,10 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			$errorOutput->writeln('Note: Using the option --errorFormat is deprecated. Use --error-format instead.');
 
 			$errorFormat = $oldErrorFormat;
+		}
+
+		if (!is_string($errorFormat) && $errorFormat !== null) {
+			throw new \PHPStan\ShouldNotHappenException();
 		}
 
 		$container = $inceptionResult->getContainer();
@@ -93,6 +113,12 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 		/** @var AnalyseApplication  $application */
 		$application = $container->getByType(AnalyseApplication::class);
+
+		$debug = $input->getOption('debug');
+		if (!is_bool($debug)) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
 		return $inceptionResult->handleReturn(
 			$application->analyse(
 				$inceptionResult->getFiles(),
@@ -100,7 +126,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				$inceptionResult->getConsoleStyle(),
 				$errorFormatter,
 				$inceptionResult->isDefaultLevelUsed(),
-				$input->getOption('debug')
+				$debug
 			)
 		);
 	}
