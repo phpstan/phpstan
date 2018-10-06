@@ -2702,6 +2702,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'bool',
 				'array_key_exists(\'foo\', $generalArray)',
 			],
+			[
+				'resource',
+				'curl_init()',
+			],
+			[
+				'resource|false',
+				'curl_init($string)',
+			],
 		];
 	}
 
