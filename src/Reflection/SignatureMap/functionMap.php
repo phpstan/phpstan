@@ -8015,7 +8015,7 @@ return [
 'odbc_tables' => ['resource', 'connection_id'=>'resource', 'qualifier='=>'string', 'owner='=>'string', 'name='=>'string', 'table_types='=>'string'],
 'opcache_compile_file' => ['bool', 'file'=>'string'],
 'opcache_get_configuration' => ['array'],
-'opcache_get_status' => ['array', 'get_scripts='=>'bool'],
+'opcache_get_status' => ['array|false', 'get_scripts='=>'bool'],
 'opcache_invalidate' => ['bool', 'script'=>'string', 'force='=>'bool'],
 'opcache_is_script_cached' => ['bool', 'script'=>'string'],
 'opcache_reset' => ['bool'],
