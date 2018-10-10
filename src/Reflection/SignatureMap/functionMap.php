@@ -1863,7 +1863,7 @@ return [
 'display_disabled_function' => [''],
 'dl' => ['int', 'extension_filename'=>'string'],
 'dngettext' => ['string', 'domain'=>'string', 'msgid1'=>'string', 'msgid2'=>'string', 'count'=>'int'],
-'dns_check_record' => ['bool', 'host'=>'string', 'type'=>'string'],
+'dns_check_record' => ['bool', 'host'=>'string', 'type='=>'string'],
 'dns_get_mx' => ['bool', 'hostname'=>'string', '&w_mxhosts'=>'array', '&w_weight'=>'array'],
 'dns_get_record' => ['array|false', 'hostname'=>'string', 'type='=>'int', '&w_authns='=>'array', '&w_addtl='=>'array', 'raw='=>'bool'],
 'dom_document_relaxNG_validate_file' => ['bool', 'filename'=>'string'],
