@@ -9979,7 +9979,7 @@ return [
 'session_cache_expire' => ['int', 'new_cache_expire='=>'int'],
 'session_cache_limiter' => ['string', 'new_cache_limiter='=>'string'],
 'session_commit' => ['bool'],
-'session_create_id' => ['string', 'prefix'=>'string'],
+'session_create_id' => ['string', 'prefix='=>'string'],
 'session_decode' => ['bool', 'data'=>'string'],
 'session_destroy' => ['bool'],
 'session_encode' => ['string'],
