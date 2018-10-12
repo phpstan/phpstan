@@ -2631,7 +2631,7 @@ return [
 'Exception::getTrace' => ['array'],
 'Exception::getTraceAsString' => ['string'],
 'exec' => ['string', 'command'=>'string', '&w_output='=>'array', '&w_return_value='=>'int'],
-'exif_imagetype' => ['int', 'imagefile'=>'string'],
+'exif_imagetype' => ['int|false', 'imagefile'=>'string'],
 'exif_read_data' => ['array|false', 'filename'=>'string', 'sections_needed='=>'string', 'sub_arrays='=>'bool', 'read_thumbnail='=>'bool'],
 'exif_tagname' => ['string', 'index'=>'int'],
 'exif_thumbnail' => ['string', 'filename'=>'string', '&w_width='=>'int', '&w_height='=>'int', '&w_imagetype='=>'int'],
