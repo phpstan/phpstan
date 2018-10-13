@@ -1328,68 +1328,40 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 
 	public function dataVarAnnotations(): array
 	{
-		return [
-			[
-				'int',
-				'$integer',
-			],
-			[
-				'bool',
-				'$boolean',
-			],
-			[
-				'string',
-				'$string',
-			],
-			[
-				'float',
-				'$float',
-			],
-			[
-				'VarAnnotations\Lorem',
-				'$loremObject',
-			],
-			[
-				'AnotherNamespace\Bar',
-				'$barObject',
-			],
-			[
-				'mixed',
-				'$mixed',
-			],
-			[
-				'array',
-				'$array',
-			],
-			[
-				'bool|null',
-				'$isNullable',
-			],
-			[
-				'callable',
-				'$callable',
-			],
-			[
-				'callable',
-				'$callableWithTypes',
-			],
-			[
-				'Closure(int, array<int, string>): void',
-				'$closureWithTypes',
-			],
-			[
-				'VarAnnotations\Foo',
-				'$self',
-			],
-			[
-				'float',
-				'$invalidInteger',
-			],
-			[
-				'static(VarAnnotations\Foo)',
-				'$static',
-			],
+		$varAnnotations = [
+			'Integer' => 'int',
+			'Boolean' => 'bool',
+			'String' => 'string',
+			'Float' => 'float',
+			'LoremObject' => 'VarAnnotations\Lorem',
+			'BarObject' => 'AnotherNamespace\Bar',
+			'Mixed' => 'mixed',
+			'Array' => 'array',
+			'IsNullable' => 'bool|null',
+			'Callable' => 'callable',
+			'CallableWithTypes' => 'callable',
+			'ClosureWithTypes' => 'Closure(int, array<int, string>): void',
+			'Self' => 'VarAnnotations\Foo',
+			'InvalidInteger' => 'int',
+			'Static' => 'static(VarAnnotations\Foo)',
 		];
+
+		$varPrefixes = [
+			'withTypeAndVariable',
+			'withTypeOnly',
+		];
+
+		$data = [];
+		foreach ($varPrefixes as $varPrefix) {
+			foreach ($varAnnotations as $varSuffix => $description) {
+				$data[] = [
+					$description,
+					sprintf('$%s%s', $varPrefix, $varSuffix),
+				];
+			}
+		}
+
+		return $data;
 	}
 
 	/**
