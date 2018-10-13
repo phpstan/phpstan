@@ -1405,7 +1405,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		$this->assertTypes(
 			__DIR__ . '/data/var-annotations.php',
 			$description,
-			$expression
+			$expression,
+			[],
+			[],
+			[],
+			[],
+			'die',
+			[],
+			false
 		);
 	}
 
