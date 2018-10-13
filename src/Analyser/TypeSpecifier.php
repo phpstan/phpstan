@@ -260,15 +260,15 @@ class TypeSpecifier
 			if ($defaultHandleFunctions) {
 				return $this->handleDefaultTruthyOrFalseyContext($context, $expr);
 			}
-		} elseif ($expr instanceof StaticCall && (is_string($expr->name) || $expr->name instanceof Node\Identifier)) {
+		} elseif ($expr instanceof StaticCall && $expr->name instanceof Node\Identifier) {
 			if ($expr->class instanceof Name) {
 				$calleeType = new ObjectType($scope->resolveName($expr->class));
 			} else {
 				$calleeType = $scope->getType($expr->class);
 			}
 
-			if ($calleeType->hasMethod((string) $expr->name)) {
-				$staticMethodReflection = $calleeType->getMethod((string) $expr->name, $scope);
+			if ($calleeType->hasMethod($expr->name->name)) {
+				$staticMethodReflection = $calleeType->getMethod($expr->name->name, $scope);
 				$referencedClasses = TypeUtils::getDirectClassNames($calleeType);
 				if (
 					count($referencedClasses) === 1

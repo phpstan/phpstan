@@ -395,9 +395,9 @@ class NodeScopeResolver
 		} elseif (
 			$node instanceof \PhpParser\Node\Expr\StaticCall
 			&& $node->class instanceof \PhpParser\Node\Name
-			&& (is_string($node->name) || $node->name instanceof Node\Identifier)
+			&& $node->name instanceof Node\Identifier
 			&& (string) $node->class === 'Closure'
-			&& (string) $node->name === 'bind'
+			&& $node->name->name === 'bind'
 		) {
 			$thisType = null;
 			if (isset($node->args[1])) {
@@ -1841,15 +1841,16 @@ class NodeScopeResolver
 		} elseif (
 			$functionCall instanceof Expr\StaticCall
 			&& $functionCall->class instanceof Name
-			&& (is_string($functionCall->name) || $functionCall->name instanceof Node\Identifier)) {
+			&& $functionCall->name instanceof Node\Identifier
+		) {
 			$className = $scope->resolveName($functionCall->class);
 			if ($this->broker->hasClass($className)) {
 				$classReflection = $this->broker->getClass($className);
-				if ($classReflection->hasMethod((string) $functionCall->name)) {
+				if ($classReflection->hasMethod($functionCall->name->name)) {
 					return ParametersAcceptorSelector::selectFromArgs(
 						$scope,
 						$functionCall->args,
-						$classReflection->getMethod((string) $functionCall->name, $scope)->getVariants()
+						$classReflection->getMethod($functionCall->name->name, $scope)->getVariants()
 					);
 				}
 			}
