@@ -7,100 +7,97 @@ class Foo
 
 	public function doFoo()
 	{
-		/** @var int $integer */
-		$integer = getFoo();
+		/** @var int $withTypeAndVariableInteger */
+		$withTypeAndVariableInteger = getFoo();
 
-		/** @var bool $boolean */
-		$boolean = getFoo();
+		/** @var bool $withTypeAndVariableBoolean */
+		$withTypeAndVariableBoolean = getFoo();
 
-		/** @var string $string */
-		$string = getFoo();
+		/** @var string $withTypeAndVariableString */
+		$withTypeAndVariableString = getFoo();
 
-		/** @var float $float */
-		$float = getFoo();
+		/** @var float $withTypeAndVariableFloat */
+		$withTypeAndVariableFloat = getFoo();
 
-		/** @var Lorem $loremObject */
-		$loremObject = getFoo();
+		/** @var Lorem $withTypeAndVariableLoremObject */
+		$withTypeAndVariableLoremObject = getFoo();
 
-		/** @var \AnotherNamespace\Bar $barObject */
-		$barObject = getFoo();
+		/** @var \AnotherNamespace\Bar $withTypeAndVariableBarObject */
+		$withTypeAndVariableBarObject = getFoo();
 
-		/** @var mixed $mixed */
-		$mixed = getFoo();
+		/** @var mixed $withTypeAndVariableMixed */
+		$withTypeAndVariableMixed = getFoo();
 
-		/** @var array $array */
-		$array = getFoo();
+		/** @var array $withTypeAndVariableArray */
+		$withTypeAndVariableArray = getFoo();
 
-		/** @var bool|null $isNullable */
-		$isNullable = getFoo();
+		/** @var bool|null $withTypeAndVariableIsNullable */
+		$withTypeAndVariableIsNullable = getFoo();
 
-		/** @var callable $callable */
-		$callable = getFoo();
+		/** @var callable $withTypeAndVariableCallable */
+		$withTypeAndVariableCallable = getFoo();
 
-		/** @var callable(int $x, string ...$y): void $callableWithTypes */
-		$callableWithTypes = getFoo();
+		/** @var callable(int $x, string ...$y): void $withTypeAndVariableCallableWithTypes */
+		$withTypeAndVariableCallableWithTypes = getFoo();
 
-		/** @var \Closure(int $x, string ...$y): void $closureWithTypes */
-		$closureWithTypes = getFoo();
+		/** @var \Closure(int $x, string ...$y): void $withTypeAndVariableClosureWithTypes */
+		$withTypeAndVariableClosureWithTypes = getFoo();
 
-		/** @var self $self */
-		$self = getFoo();
+		/** @var self $withTypeAndVariableSelf */
+		$withTypeAndVariableSelf = getFoo();
 
-		/** @var int $invalidInt */
-		$invalidInteger = $this->getFloat();
+		/** @var int $withTypeAndVariableInvalidInteger */
+		$withTypeAndVariableInvalidInteger = $this->getFloat();
 
-		/** @var static $static */
-		$static = getFoo();
+		/** @var static $withTypeAndVariableStatic */
+		$withTypeAndVariableStatic = getFoo();
 
-		die;
-	}
+		// - - - - - - -
 
-	public function doFooBar()
-	{
 		/** @var int */
-		$integer = getFoo();
+		$withTypeOnlyInteger = getFoo();
 
 		/** @var bool */
-		$boolean = getFoo();
+		$withTypeOnlyBoolean = getFoo();
 
 		/** @var string */
-		$string = getFoo();
+		$withTypeOnlyString = getFoo();
 
 		/** @var float */
-		$float = getFoo();
+		$withTypeOnlyFloat = getFoo();
 
 		/** @var Lorem */
-		$loremObject = getFoo();
+		$withTypeOnlyLoremObject = getFoo();
 
 		/** @var \AnotherNamespace\Bar */
-		$barObject = getFoo();
+		$withTypeOnlyBarObject = getFoo();
 
 		/** @var mixed */
-		$mixed = getFoo();
+		$withTypeOnlyMixed = getFoo();
 
 		/** @var array */
-		$array = getFoo();
+		$withTypeOnlyArray = getFoo();
 
 		/** @var bool|null */
-		$isNullable = getFoo();
+		$withTypeOnlyIsNullable = getFoo();
 
 		/** @var callable */
-		$callable = getFoo();
+		$withTypeOnlyCallable = getFoo();
 
 		/** @var callable(int $x, string &...$y): void */
-		$callableWithTypes = getFoo();
+		$withTypeOnlyCallableWithTypes = getFoo();
 
 		/** @var \Closure(int $x, string &...$y): void */
-		$closureWithTypes = getFoo();
+		$withTypeOnlyClosureWithTypes = getFoo();
 
 		/** @var self */
-		$self = getFoo();
+		$withTypeOnlySelf = getFoo();
 
-		/** @var float */
-		$invalidInteger = 1.0;
+		/** @var int */
+		$withTypeOnlyInvalidInteger = $this->getFloat();
 
 		/** @var static */
-		$static = getFoo();
+		$withTypeOnlyStatic = getFoo();
 
 		die;
 	}
