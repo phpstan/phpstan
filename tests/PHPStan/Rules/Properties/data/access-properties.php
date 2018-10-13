@@ -325,9 +325,20 @@ class WeirdErrorWithCall
 
 	private $var;
 
+	/** @var \Closure */
+	private $closure;
+
+	/** @var object */
+	private $context;
+
 	public function doFoo()
 	{
 		$this->var->call(1);
+	}
+
+	public function doBar()
+	{
+		$this->closure->call($this->context);
 	}
 
 }
