@@ -1282,13 +1282,13 @@ class Scope implements ClassMemberAccessAnswerer
 			}
 			$methodReflection = $methodCalledOnType->getMethod($node->name->name, $this);
 
-			$calledOnThis = $node->var instanceof Variable && is_string($node->var->name) && $node->var->name === 'this';
 			$methodReturnType = ParametersAcceptorSelector::selectFromArgs(
 				$this,
 				$node->args,
 				$methodReflection->getVariants()
 			)->getReturnType();
 			if ($methodReturnType instanceof StaticResolvableType) {
+				$calledOnThis = $this->getType($node->var) instanceof ThisType;
 				if ($calledOnThis) {
 					if ($this->isInClass()) {
 						return $methodReturnType->changeBaseClass($this->getClassReflection()->getName());
@@ -1297,7 +1297,6 @@ class Scope implements ClassMemberAccessAnswerer
 					return $methodReturnType->resolveStatic($referencedClasses[0]);
 				}
 			}
-
 			return $methodReturnType;
 		}
 

@@ -719,3 +719,30 @@ class NullConditionInDoWhile
 	}
 
 }
+
+class RecursiveStaticResolving
+{
+	/**
+	 * @return $this
+	 */
+	public function f2(): self
+	{
+		return $this;
+	}
+
+	/**
+	 * @return $this
+	 */
+	public function f3(): self
+	{
+		return $this;
+	}
+
+	/**
+	 * @return $this
+	 */
+	public function f1(): self
+	{
+		return $this->f2()->f3();
+	}
+}
