@@ -1756,11 +1756,7 @@ class Scope implements ClassMemberAccessAnswerer
 	public function enterClosureCall(Type $thisType): self
 	{
 		$variableTypes = $this->getVariableTypes();
-		if ($thisType !== null) {
-			$variableTypes['this'] = VariableTypeHolder::createYes($thisType);
-		} else {
-			unset($variableTypes['this']);
-		}
+		$variableTypes['this'] = VariableTypeHolder::createYes($thisType);
 
 		return $this->scopeFactory->create(
 			$this->context,
