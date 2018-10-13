@@ -917,11 +917,20 @@ class Scope implements ClassMemberAccessAnswerer
 		} elseif ($node instanceof Expr\Closure) {
 			$parameters = [];
 			$isVariadic = false;
-			$optional = false;
-			foreach ($node->params as $param) {
-				if ($param->default !== null) {
-					$optional = true;
+			$firstOptionalParameterIndex = null;
+			foreach ($node->params as $i => $param) {
+				$isOptionalCandidate = $param->default !== null || $param->variadic;
+
+				if ($isOptionalCandidate) {
+					if ($firstOptionalParameterIndex === null) {
+						$firstOptionalParameterIndex = $i;
+					}
+				} else {
+					$firstOptionalParameterIndex = null;
 				}
+			}
+
+			foreach ($node->params as $i => $param) {
 				if ($param->variadic) {
 					$isVariadic = true;
 				}
@@ -930,7 +939,7 @@ class Scope implements ClassMemberAccessAnswerer
 				}
 				$parameters[] = new NativeParameterReflection(
 					$param->var->name,
-					$optional,
+					$firstOptionalParameterIndex !== null && $i >= $firstOptionalParameterIndex,
 					$this->getFunctionType($param->type, $param->type === null, false),
 					$param->byRef
 						? PassedByReference::createCreatesNewVariable()

@@ -133,3 +133,20 @@ class MethodExistsCheckFirst
 	}
 
 }
+
+class RequiredArgumentsAfterDefaultValues
+{
+
+	public function doFoo()
+	{
+		$c = function ($a, $b = 'b', $c) {
+
+		};
+
+		$c();
+		$c('a');
+		$c('a', 'b');
+		$c('a', 'b', 'c');
+	}
+
+}
