@@ -700,3 +700,22 @@ class CheckNullWithConstantType
 	}
 
 }
+
+class NullConditionInDoWhile
+{
+
+	public function doFoo(): string
+	{
+		do {
+			$string = $this->doBar();
+		} while ($string === null);
+
+		return $string;
+	}
+
+	public function doBar(): ?string
+	{
+
+	}
+
+}

@@ -1297,6 +1297,7 @@ class NodeScopeResolver
 				new StatementList($scope, $node->stmts),
 			], LookForAssignsSettings::afterLoop());
 			$scope = $this->lookForAssigns($scope, $node->cond, TrinaryLogic::createYes(), LookForAssignsSettings::afterLoop());
+			$scope = $scope->filterByFalseyValue($node->cond);
 		} elseif ($node instanceof Switch_) {
 			$scope = $this->lookForAssigns(
 				$scope,
