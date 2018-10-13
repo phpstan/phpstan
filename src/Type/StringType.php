@@ -32,16 +32,16 @@ class StringType implements Type
 
 	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
 	{
-		return (new IntegerType())->isSuperTypeOf($offsetType);
+		return (new IntegerType())->isSuperTypeOf($offsetType)->and(TrinaryLogic::createMaybe());
 	}
 
 	public function getOffsetValueType(Type $offsetType): Type
 	{
-		if ($this->hasOffsetValueType($offsetType)->yes()) {
-			return new StringType();
+		if ($this->hasOffsetValueType($offsetType)->no()) {
+			return new ErrorType();
 		}
 
-		return new ErrorType();
+		return new StringType();
 	}
 
 	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type

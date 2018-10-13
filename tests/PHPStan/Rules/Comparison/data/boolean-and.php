@@ -87,3 +87,15 @@ class NonNullablePropertiesShouldNotReportError
 	}
 
 }
+
+class StringInIsset
+{
+
+	public function doFoo(string $s, string $t)
+	{
+		if (isset($s[1]) && isset($t[1])) {
+
+		}
+	}
+
+}
