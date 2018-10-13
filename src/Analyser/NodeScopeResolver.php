@@ -286,14 +286,18 @@ class NodeScopeResolver
 		}
 	}
 
-	private function lookForArrayDestructuringArray(Scope $scope, Node $node): Scope
+	private function lookForArrayDestructuringArray(Scope $scope, Node $node, Type $valueType): Scope
 	{
-		if ($node instanceof Array_) {
-			foreach ($node->items as $item) {
-				if ($item === null) {
+		if ($node instanceof Array_ || $node instanceof List_) {
+			foreach ($node->items as $key => $item) {
+				/** @var \PhpParser\Node\Expr\ArrayItem|null $itemValue */
+				$itemValue = $item;
+				if ($itemValue === null) {
 					continue;
 				}
-				$scope = $this->lookForArrayDestructuringArray($scope, $item->value);
+
+				$keyType = $itemValue->key === null ? new ConstantIntegerType($key) : $scope->getType($itemValue->key);
+				$scope = $this->specifyItemFromArrayDestructuring($scope, $itemValue, $valueType, $keyType);
 			}
 		} elseif ($node instanceof Variable && is_string($node->name)) {
 			$scope = $scope->assignVariable($node->name, new MixedType(), TrinaryLogic::createYes());
@@ -303,20 +307,26 @@ class NodeScopeResolver
 				new MixedType(),
 				TrinaryLogic::createYes()
 			);
-		} elseif ($node instanceof List_) {
-			foreach ($node->items as $item) {
-				/** @var \PhpParser\Node\Expr\ArrayItem|null $itemValue */
-				$itemValue = $item;
-				if ($itemValue === null) {
-					continue;
-				}
-				$itemValue = $itemValue->value;
-				if ($itemValue instanceof Variable && is_string($itemValue->name)) {
-					$scope = $scope->assignVariable($itemValue->name, new MixedType(), TrinaryLogic::createYes());
-				} else {
-					$scope = $this->lookForArrayDestructuringArray($scope, $itemValue);
-				}
-			}
+		}
+
+		return $scope;
+	}
+
+	private function specifyItemFromArrayDestructuring(Scope $scope, ArrayItem $arrayItem, Type $valueType, Type $keyType): Scope
+	{
+		$type = $valueType->getOffsetValueType($keyType);
+
+		$itemNode = $arrayItem->value;
+		if ($itemNode instanceof Variable && is_string($itemNode->name)) {
+			$scope = $scope->assignVariable($itemNode->name, $type, TrinaryLogic::createYes());
+		} elseif ($itemNode instanceof ArrayDimFetch && $itemNode->var instanceof Variable && is_string($itemNode->var->name)) {
+			$scope = $scope->assignVariable(
+				$itemNode->var->name,
+				$type,
+				TrinaryLogic::createYes()
+			);
+		} else {
+			$scope = $this->lookForArrayDestructuringArray($scope, $itemNode, $type);
 		}
 
 		return $scope;
@@ -352,7 +362,15 @@ class NodeScopeResolver
 		}
 
 		if ($node->valueVar instanceof List_ || $node->valueVar instanceof Array_) {
-			$scope = $this->lookForArrayDestructuringArray($scope, $node->valueVar);
+			$itemTypes = [];
+			$exprType = $scope->getType($node->expr);
+			$arrayTypes = TypeUtils::getArrays($exprType);
+			foreach ($arrayTypes as $arrayType) {
+				$itemTypes[] = $arrayType->getItemType();
+			}
+
+			$itemType = count($itemTypes) > 0 ? TypeCombinator::union(...$itemTypes) : new MixedType();
+			$scope = $this->lookForArrayDestructuringArray($scope, $node->valueVar, $itemType);
 		}
 
 		return $this->lookForAssigns($scope, $node->valueVar, TrinaryLogic::createYes(), LookForAssignsSettings::default());
@@ -1513,7 +1531,7 @@ class NodeScopeResolver
 
 			if ($node instanceof Assign || $node instanceof AssignRef) {
 				if ($node->var instanceof Array_ || $node->var instanceof List_) {
-					$scope = $this->lookForArrayDestructuringArray($scope, $node->var);
+					$scope = $this->lookForArrayDestructuringArray($scope, $node->var, $scope->getType($node->expr));
 				}
 			}
 
