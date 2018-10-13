@@ -1753,6 +1753,29 @@ class Scope implements ClassMemberAccessAnswerer
 		);
 	}
 
+	public function enterClosureCall(Type $thisType): self
+	{
+		$variableTypes = $this->getVariableTypes();
+		if ($thisType !== null) {
+			$variableTypes['this'] = VariableTypeHolder::createYes($thisType);
+		} else {
+			unset($variableTypes['this']);
+		}
+
+		return $this->scopeFactory->create(
+			$this->context,
+			$this->isDeclareStrictTypes(),
+			$this->getFunction(),
+			$this->getNamespace(),
+			$variableTypes,
+			$this->moreSpecificTypes,
+			$thisType instanceof TypeWithClassName ? $thisType->getClassName() : null,
+			$this->getAnonymousFunctionReturnType(),
+			$this->getInFunctionCall(),
+			$this->isNegated()
+		);
+	}
+
 	public function isInClosureBind(): bool
 	{
 		return $this->inClosureBindScopeClass !== null;

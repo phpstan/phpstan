@@ -754,7 +754,7 @@ class NodeScopeResolver
 				&& $node->name->name === 'call'
 				&& isset($node->args[0])
 			) {
-				$closureCallScope = $scope->enterClosureBind($scope->getType($node->args[0]->value), 'static');
+				$closureCallScope = $scope->enterClosureCall($scope->getType($node->args[0]->value));
 			}
 			$scope = $scope->enterFunctionCall($node);
 		} elseif ($node instanceof New_ && $node->class instanceof Class_) {

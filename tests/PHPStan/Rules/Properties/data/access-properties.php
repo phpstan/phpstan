@@ -342,3 +342,16 @@ class WeirdErrorWithCall
 	}
 
 }
+
+class ClosureCallSupport
+{
+
+	public function doFoo()
+	{
+		$foo = new FooAccessProperties();
+		(function () {
+			$this->foo = 'test';
+		})->call($foo);
+	}
+
+}
