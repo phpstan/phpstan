@@ -27,6 +27,7 @@ use PHPStan\Type\IntegerType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\IterableType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\NeverType;
 use PHPStan\Type\NonexistentParentClassType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
@@ -64,7 +65,7 @@ class TypeNodeResolver
 
 	public function getCacheKey(): string
 	{
-		$key = 'v48';
+		$key = 'v49';
 		foreach ($this->extensions as $extension) {
 			$key .= sprintf('-%s', $extension->getCacheKey());
 		}
@@ -170,6 +171,9 @@ class TypeNodeResolver
 
 			case 'object':
 				return new ObjectWithoutClassType();
+
+			case 'never':
+				return new NeverType();
 		}
 
 		if ($nameScope->getClassName() !== null) {

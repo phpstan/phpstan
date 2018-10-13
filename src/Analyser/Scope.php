@@ -1292,17 +1292,17 @@ class Scope implements ClassMemberAccessAnswerer
 			return $methodReturnType;
 		}
 
-		if ($node instanceof Expr\StaticCall && (is_string($node->name) || $node->name instanceof Node\Identifier)) {
+		if ($node instanceof Expr\StaticCall && $node->name instanceof Node\Identifier) {
 			if ($node->class instanceof Name) {
 				$calleeType = new ObjectType($this->resolveName($node->class));
 			} else {
 				$calleeType = $this->getType($node->class);
 			}
 
-			if (!$calleeType->hasMethod((string) $node->name)) {
+			if (!$calleeType->hasMethod($node->name->name)) {
 				return new ErrorType();
 			}
-			$staticMethodReflection = $calleeType->getMethod((string) $node->name, $this);
+			$staticMethodReflection = $calleeType->getMethod($node->name->name, $this);
 			$referencedClasses = TypeUtils::getDirectClassNames($calleeType);
 
 			$resolvedTypes = [];

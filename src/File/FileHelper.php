@@ -45,8 +45,6 @@ class FileHelper
 			$path = $originalPath;
 		}
 
-		/** @var string $path */
-		$path = $path;
 		$path = str_replace('\\', '/', $path);
 		$path = Strings::replace($path, '~/{2,}~', '/');
 

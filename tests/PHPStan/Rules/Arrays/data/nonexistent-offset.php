@@ -261,4 +261,9 @@ class Foo
 		}
 	}
 
+	public function accessOnString(string $s)
+	{
+		echo $s[1];
+	}
+
 }

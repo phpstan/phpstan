@@ -38,7 +38,7 @@ class ImpossibleCheckTypeStaticMethodCallRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		if (!is_string($node->name) && !$node->name instanceof Node\Identifier) {
+		if (!$node->name instanceof Node\Identifier) {
 			return [];
 		}
 
@@ -48,7 +48,7 @@ class ImpossibleCheckTypeStaticMethodCallRule implements \PHPStan\Rules\Rule
 		}
 
 		if (!$isAlways) {
-			$method = $this->getMethod($node->class, (string) $node->name, $scope);
+			$method = $this->getMethod($node->class, $node->name->name, $scope);
 
 			return [sprintf(
 				'Call to static method %s::%s()%s will always evaluate to false.',
@@ -57,7 +57,7 @@ class ImpossibleCheckTypeStaticMethodCallRule implements \PHPStan\Rules\Rule
 				$this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args)
 			)];
 		} elseif ($this->checkAlwaysTrueCheckTypeFunctionCall) {
-			$method = $this->getMethod($node->class, (string) $node->name, $scope);
+			$method = $this->getMethod($node->class, $node->name->name, $scope);
 
 			return [sprintf(
 				'Call to static method %s::%s()%s will always evaluate to true.',
