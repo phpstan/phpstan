@@ -8,6 +8,7 @@ use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Broker\AnonymousClassNameHelper;
 use PHPStan\Cache\Cache;
 use PHPStan\File\FileHelper;
+use PHPStan\File\RelativePathHelper;
 use PHPStan\PhpDoc\PhpDocStringResolver;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
@@ -7635,11 +7636,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		$printer = new \PhpParser\PrettyPrinter\Standard();
 		$broker = $this->createBroker($dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions);
 		$typeSpecifier = $this->createTypeSpecifier($printer, $broker, $methodTypeSpecifyingExtensions, $staticMethodTypeSpecifyingExtensions);
-		$fileHelper = new FileHelper($this->getCurrentWorkingDirectory());
+		$currentWorkingDirectory = $this->getCurrentWorkingDirectory();
+		$fileHelper = new FileHelper($currentWorkingDirectory);
 		$resolver = new NodeScopeResolver(
 			$broker,
 			$this->getParser(),
-			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $this->createMock(Cache::class), new AnonymousClassNameHelper($fileHelper), self::getContainer()->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class)),
+			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $this->createMock(Cache::class), new AnonymousClassNameHelper($fileHelper, new RelativePathHelper($currentWorkingDirectory)), self::getContainer()->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class)),
 			$fileHelper,
 			$typeSpecifier,
 			true,

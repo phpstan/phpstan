@@ -5,6 +5,7 @@ namespace PHPStan\DependencyInjection;
 use Nette\DI\Extensions\PhpExtension;
 use PHPStan\Broker\Broker;
 use PHPStan\File\FileHelper;
+use PHPStan\File\RelativePathHelper;
 
 class ContainerFactory
 {
@@ -53,6 +54,10 @@ class ContainerFactory
 		foreach ($additionalConfigFiles as $additionalConfigFile) {
 			$configurator->addConfig($additionalConfigFile);
 		}
+
+		$configurator->addServices([
+			'relativePathHelper' => new RelativePathHelper($this->currentWorkingDirectory),
+		]);
 
 		$container = $configurator->createContainer();
 

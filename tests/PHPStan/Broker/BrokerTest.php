@@ -6,6 +6,7 @@ use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Cache\Cache;
 use PHPStan\File\FileHelper;
+use PHPStan\File\RelativePathHelper;
 use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\PhpDocStringResolver;
 use PHPStan\Reflection\FunctionReflectionFactory;
@@ -23,7 +24,8 @@ class BrokerTest extends \PHPStan\Testing\TestCase
 		$phpDocStringResolver = self::getContainer()->getByType(PhpDocStringResolver::class);
 
 		$workingDirectory = __DIR__;
-		$anonymousClassNameHelper = new AnonymousClassNameHelper(new FileHelper($workingDirectory));
+		$relativePathHelper = new RelativePathHelper($workingDirectory);
+		$anonymousClassNameHelper = new AnonymousClassNameHelper(new FileHelper($workingDirectory), $relativePathHelper);
 
 		$this->broker = new Broker(
 			[],
@@ -37,8 +39,8 @@ class BrokerTest extends \PHPStan\Testing\TestCase
 			self::getContainer()->getByType(\PhpParser\PrettyPrinter\Standard::class),
 			$anonymousClassNameHelper,
 			self::getContainer()->getByType(Parser::class),
-			[],
-			$workingDirectory
+			$relativePathHelper,
+			[]
 		);
 	}
 
