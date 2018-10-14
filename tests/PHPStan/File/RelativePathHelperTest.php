@@ -69,6 +69,15 @@ class RelativePathHelperTest extends \PHPUnit\Framework\TestCase
 				'tests/test.php',
 			],
 			[
+				'',
+				[
+					'/',
+					'/usr/app/tests',
+				],
+				'/usr/app/tests/test.php',
+				'/usr/app/tests/test.php',
+			],
+			[
 				'/usr',
 				[
 					'/usr/app/src',
