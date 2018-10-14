@@ -24,7 +24,7 @@ class BrokerTest extends \PHPStan\Testing\TestCase
 		$phpDocStringResolver = self::getContainer()->getByType(PhpDocStringResolver::class);
 
 		$workingDirectory = __DIR__;
-		$relativePathHelper = new RelativePathHelper($workingDirectory);
+		$relativePathHelper = new RelativePathHelper($workingDirectory, []);
 		$anonymousClassNameHelper = new AnonymousClassNameHelper(new FileHelper($workingDirectory), $relativePathHelper);
 
 		$this->broker = new Broker(

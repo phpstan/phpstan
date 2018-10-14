@@ -112,7 +112,7 @@ class CheckstyleErrorFormatterTest extends TestBaseFormatter
 		string $expected
 	): void
 	{
-		$formatter = new CheckstyleErrorFormatter(new RelativePathHelper(self::DIRECTORY_PATH));
+		$formatter = new CheckstyleErrorFormatter(new RelativePathHelper(self::DIRECTORY_PATH, []));
 
 		$this->assertSame($exitCode, $formatter->formatErrors(
 			$this->getAnalysisResult($numFileErrors, $numGenericErrors),

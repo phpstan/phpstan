@@ -122,7 +122,10 @@ class CommandHelper
 				throw new \PHPStan\Command\InceptionNotSuccessfulException();
 			}
 		}
-		$container = $containerFactory->create($tmpDir, $additionalConfigFiles);
+		$paths = array_map(static function (string $path) use ($fileHelper): string {
+			return $fileHelper->absolutizePath($path);
+		}, $paths);
+		$container = $containerFactory->create($tmpDir, $additionalConfigFiles, $paths);
 		$memoryLimitFile = $container->parameters['memoryLimitFile'];
 		if (file_exists($memoryLimitFile)) {
 			$memoryLimitFileContents = file_get_contents($memoryLimitFile);
@@ -194,10 +197,6 @@ class CommandHelper
 				throw new \PHPStan\Command\InceptionNotSuccessfulException();
 			}
 		}
-
-		$paths = array_map(static function (string $path) use ($fileHelper): string {
-			return $fileHelper->absolutizePath($path);
-		}, $paths);
 
 		$onlyFiles = true;
 		$files = [];

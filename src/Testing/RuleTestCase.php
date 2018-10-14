@@ -57,7 +57,7 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 				new NodeScopeResolver(
 					$broker,
 					$this->getParser(),
-					new FileTypeMapper($this->getParser(), self::getContainer()->getByType(PhpDocStringResolver::class), $this->createMock(Cache::class), new AnonymousClassNameHelper(new FileHelper($currentWorkingDirectory), new RelativePathHelper($currentWorkingDirectory)), new \PHPStan\PhpDoc\TypeNodeResolver($this->getTypeNodeResolverExtensions())),
+					new FileTypeMapper($this->getParser(), self::getContainer()->getByType(PhpDocStringResolver::class), $this->createMock(Cache::class), new AnonymousClassNameHelper(new FileHelper($currentWorkingDirectory), new RelativePathHelper($currentWorkingDirectory, [])), new \PHPStan\PhpDoc\TypeNodeResolver($this->getTypeNodeResolverExtensions())),
 					$fileHelper,
 					$typeSpecifier,
 					$this->shouldPolluteScopeWithLoopInitialAssignments(),

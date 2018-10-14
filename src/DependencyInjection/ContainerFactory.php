@@ -30,11 +30,13 @@ class ContainerFactory
 	/**
 	 * @param string $tempDirectory
 	 * @param string[] $additionalConfigFiles
+	 * @param string[] $analysedPaths
 	 * @return \Nette\DI\Container
 	 */
 	public function create(
 		string $tempDirectory,
-		array $additionalConfigFiles
+		array $additionalConfigFiles,
+		array $analysedPaths = []
 	): \Nette\DI\Container
 	{
 		$configurator = new Configurator(new LoaderFactory());
@@ -56,7 +58,7 @@ class ContainerFactory
 		}
 
 		$configurator->addServices([
-			'relativePathHelper' => new RelativePathHelper($this->currentWorkingDirectory),
+			'relativePathHelper' => new RelativePathHelper($this->currentWorkingDirectory, $analysedPaths),
 		]);
 
 		$container = $configurator->createContainer();
