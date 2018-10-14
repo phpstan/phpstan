@@ -58,7 +58,7 @@ class ContainerFactory
 		}
 
 		$configurator->addServices([
-			'relativePathHelper' => new RelativePathHelper($this->currentWorkingDirectory, $analysedPaths),
+			'relativePathHelper' => new RelativePathHelper($this->currentWorkingDirectory, DIRECTORY_SEPARATOR, $analysedPaths),
 		]);
 
 		$container = $configurator->createContainer();

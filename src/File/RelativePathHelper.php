@@ -2,30 +2,59 @@
 
 namespace PHPStan\File;
 
-use const DIRECTORY_SEPARATOR;
-use function explode;
-
 class RelativePathHelper
 {
+
+	/** @var string */
+	private $directorySeparator;
 
 	/** @var string|null */
 	private $pathToTrim;
 
 	/**
 	 * @param string $currentWorkingDirectory
+	 * @param string $directorySeparator
 	 * @param string[] $analysedPaths
 	 */
 	public function __construct(
 		string $currentWorkingDirectory,
+		string $directorySeparator,
 		array $analysedPaths
 	)
 	{
+		$this->directorySeparator = $directorySeparator;
+		$pathBeginning = null;
 		$pathToTrimArray = null;
-		if (!in_array($currentWorkingDirectory, ['', '/'], true)) {
-			$pathToTrimArray = explode(DIRECTORY_SEPARATOR, trim($currentWorkingDirectory, DIRECTORY_SEPARATOR));
+		$trimBeginning = static function (string $path): array {
+			if (substr($path, 0, 1) === '/') {
+				return [
+					'/',
+					substr($path, 1),
+				];
+			} elseif (substr($path, 1, 1) === ':') {
+				return [
+					substr($path, 0, 3),
+					substr($path, 3),
+				];
+			}
+
+			return ['', $path];
+		};
+
+		if (
+			!in_array($currentWorkingDirectory, ['', '/'], true)
+			&& !(strlen($currentWorkingDirectory) === 3 && substr($currentWorkingDirectory, 1, 1) === ':')
+		) {
+			[$pathBeginning, $currentWorkingDirectory] = $trimBeginning($currentWorkingDirectory);
+
+			/** @var string[] $pathToTrimArray */
+			$pathToTrimArray = explode($directorySeparator, $currentWorkingDirectory);
 		}
 		foreach ($analysedPaths as $pathNumber => $path) {
-			$pathArray = explode(DIRECTORY_SEPARATOR, trim($path, DIRECTORY_SEPARATOR));
+			[$tempPathBeginning, $path] = $trimBeginning($path);
+
+			/** @var string[] $pathArray */
+			$pathArray = explode($directorySeparator, $path);
 			$pathTempParts = [];
 			foreach ($pathArray as $i => $pathPart) {
 				if (\Nette\Utils\Strings::endsWith($pathPart, '.php')) {
@@ -44,6 +73,7 @@ class RelativePathHelper
 				$pathTempParts[] = $pathPart;
 			}
 
+			$pathBeginning = $tempPathBeginning;
 			$pathToTrimArray = $pathTempParts;
 		}
 
@@ -51,7 +81,7 @@ class RelativePathHelper
 			return;
 		}
 
-		$this->pathToTrim = DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $pathToTrimArray);
+		$this->pathToTrim = $pathBeginning . implode($directorySeparator, $pathToTrimArray);
 	}
 
 	public function getRelativePath(string $filename): string
@@ -60,7 +90,7 @@ class RelativePathHelper
 			$this->pathToTrim !== null
 			&& strpos($filename, $this->pathToTrim) === 0
 		) {
-			return ltrim(substr($filename, strlen($this->pathToTrim)), DIRECTORY_SEPARATOR);
+			return ltrim(substr($filename, strlen($this->pathToTrim)), $this->directorySeparator);
 		}
 
 		return $filename;

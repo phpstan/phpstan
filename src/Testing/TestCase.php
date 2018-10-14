@@ -141,7 +141,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		};
 		$phpDocStringResolver = self::getContainer()->getByType(PhpDocStringResolver::class);
 		$currentWorkingDirectory = $this->getCurrentWorkingDirectory();
-		$fileTypeMapper = new FileTypeMapper($parser, $phpDocStringResolver, $cache, new AnonymousClassNameHelper(new FileHelper($currentWorkingDirectory), new RelativePathHelper($currentWorkingDirectory, [])), self::getContainer()->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class));
+		$fileTypeMapper = new FileTypeMapper($parser, $phpDocStringResolver, $cache, new AnonymousClassNameHelper(new FileHelper($currentWorkingDirectory), new RelativePathHelper($currentWorkingDirectory, DIRECTORY_SEPARATOR, [])), self::getContainer()->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class));
 		$annotationsMethodsClassReflectionExtension = new AnnotationsMethodsClassReflectionExtension($fileTypeMapper);
 		$annotationsPropertiesClassReflectionExtension = new AnnotationsPropertiesClassReflectionExtension($fileTypeMapper);
 		$signatureMapProvider = self::getContainer()->getByType(SignatureMapProvider::class);
@@ -214,7 +214,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		};
 
 		$currentWorkingDirectory = $this->getCurrentWorkingDirectory();
-		$anonymousClassNameHelper = new AnonymousClassNameHelper(new FileHelper($currentWorkingDirectory), new RelativePathHelper($currentWorkingDirectory, []));
+		$anonymousClassNameHelper = new AnonymousClassNameHelper(new FileHelper($currentWorkingDirectory), new RelativePathHelper($currentWorkingDirectory, DIRECTORY_SEPARATOR, []));
 		$broker = new Broker(
 			[
 				$phpExtension,
@@ -235,7 +235,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			self::getContainer()->getByType(Standard::class),
 			$anonymousClassNameHelper,
 			self::getContainer()->getByType(Parser::class),
-			new RelativePathHelper($this->getCurrentWorkingDirectory(), []),
+			new RelativePathHelper($this->getCurrentWorkingDirectory(), DIRECTORY_SEPARATOR, []),
 			self::getContainer()->parameters['universalObjectCratesClasses']
 		);
 		$methodReflectionFactory->broker = $broker;
