@@ -65,7 +65,7 @@ class TypeNodeResolver
 
 	public function getCacheKey(): string
 	{
-		$key = 'v49';
+		$key = 'v50';
 		foreach ($this->extensions as $extension) {
 			$key .= sprintf('-%s', $extension->getCacheKey());
 		}
@@ -273,10 +273,10 @@ class TypeNodeResolver
 
 	private function resolveGenericTypeNode(GenericTypeNode $typeNode, NameScope $nameScope): Type
 	{
-		$mainType = strtolower($typeNode->type->name);
+		$mainTypeName = strtolower($typeNode->type->name);
 		$genericTypes = $this->resolveMultiple($typeNode->genericTypes, $nameScope);
 
-		if ($mainType === 'array') {
+		if ($mainTypeName === 'array') {
 			if (count($genericTypes) === 1) { // array<ValueType>
 				return new ArrayType(new MixedType(true), $genericTypes[0]);
 
@@ -286,7 +286,7 @@ class TypeNodeResolver
 				return new ArrayType($genericTypes[0], $genericTypes[1]);
 			}
 
-		} elseif ($mainType === 'iterable') {
+		} elseif ($mainTypeName === 'iterable') {
 			if (count($genericTypes) === 1) { // iterable<ValueType>
 				return new IterableType(new MixedType(true), $genericTypes[0]);
 
@@ -294,6 +294,23 @@ class TypeNodeResolver
 
 			if (count($genericTypes) === 2) { // iterable<KeyType, ValueType>
 				return new IterableType($genericTypes[0], $genericTypes[1]);
+			}
+		}
+
+		$mainType = $this->resolveIdentifierTypeNode($typeNode->type, $nameScope);
+		if ($mainType->isIterable()->yes()) {
+			if (count($genericTypes) === 1) { // Foo<ValueType>
+				return TypeCombinator::intersect(
+					$mainType,
+					new IterableType(new MixedType(true), $genericTypes[0])
+				);
+			}
+
+			if (count($genericTypes) === 2) { // Foo<KeyType, ValueType>
+				return TypeCombinator::intersect(
+					$mainType,
+					new IterableType($genericTypes[0], $genericTypes[1])
+				);
 			}
 		}
 

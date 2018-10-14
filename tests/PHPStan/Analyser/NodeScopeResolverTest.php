@@ -5446,6 +5446,26 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array<string>|Iterables\CollectionOfIntegers',
 				'$this->collectionOfIntegersOrArrayOfStrings',
 			],
+			[
+				'Generator&iterable<Iterables\Foo>',
+				'$generatorOfFoos',
+			],
+			[
+				'Iterables\Foo',
+				'$fooFromGenerator',
+			],
+			[
+				'ArrayObject&iterable<int, string>',
+				'$arrayObject',
+			],
+			[
+				'int',
+				'$arrayObjectKey',
+			],
+			[
+				'string',
+				'$arrayObjectValue',
+			],
 		];
 	}
 
