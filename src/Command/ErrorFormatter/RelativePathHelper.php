@@ -2,6 +2,9 @@
 
 namespace PHPStan\Command\ErrorFormatter;
 
+/**
+ * @deprecated Use PHPStan\File\RelativePathHelper instead
+ */
 class RelativePathHelper
 {
 

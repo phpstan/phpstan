@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\StreamOutput;
 abstract class TestBaseFormatter extends \PHPStan\Testing\TestCase
 {
 
-	private const DIRECTORY_PATH = '/data/folder/with space/and unicode 😃/project';
+	protected const DIRECTORY_PATH = '/data/folder/with space/and unicode 😃/project';
 
 	/** @var StreamOutput */
 	private $outputStream;
