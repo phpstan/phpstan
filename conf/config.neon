@@ -512,6 +512,10 @@ services:
 	typeSpecifierFactory:
 		class: PHPStan\Analyser\TypeSpecifierFactory
 
+	relativePathHelper:
+		class: PHPStan\File\RelativePathHelper
+		dynamic: true
+
 	broker:
 		class: PHPStan\Broker\Broker
 		factory: @brokerFactory::create
