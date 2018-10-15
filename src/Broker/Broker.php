@@ -641,7 +641,11 @@ class Broker
 				isset($existsCallTypes[$traceStep['function']])
 				&&
 				// We must ignore the self::hasClass calls
-				(!isset($traceStep['file']) || $traceStep['file'] !== __FILE__)
+				(
+					!isset($traceStep['file'])
+					||
+					$traceStep['file'] !== __FILE__
+				)
 			) {
 				return true;
 			}
