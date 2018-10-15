@@ -177,8 +177,7 @@ class FileTypeMapper
 				&$phpDocMap,
 				&$classStack,
 				&$namespace,
-				&
-				$uses
+				&$uses
 			) {
 				if ($node instanceof Node\Stmt\ClassLike) {
 
