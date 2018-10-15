@@ -53,7 +53,8 @@ class StringType implements Type
 
 		if (
 			$offsetType === null
-			|| (new IntegerType())->isSuperTypeOf($offsetType)->yes()
+			||
+			(new IntegerType())->isSuperTypeOf($offsetType)->yes()
 		) {
 			return new StringType();
 		}
@@ -71,13 +72,18 @@ class StringType implements Type
 			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
 		}
 
-		if ($type instanceof TypeWithClassName && !$strictTypes) {
+		if (
+			$type instanceof TypeWithClassName
+			&&
+			!$strictTypes
+		) {
 			$broker = Broker::getInstance();
 			if (!$broker->hasClass($type->getClassName())) {
 				return TrinaryLogic::createNo();
 			}
 
 			$typeClass = $broker->getClass($type->getClassName());
+
 			return TrinaryLogic::createFromBoolean(
 				$typeClass->hasNativeMethod('__toString')
 			);

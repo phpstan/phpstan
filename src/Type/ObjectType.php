@@ -51,6 +51,7 @@ class ObjectType implements TypeWithClassName
 	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
 	{
 		$broker = Broker::getInstance();
+
 		return $broker->getClass($this->className)->getProperty($propertyName, $scope);
 	}
 
@@ -78,7 +79,8 @@ class ObjectType implements TypeWithClassName
 
 		if (
 			$this->isInstanceOf('SimpleXMLElement')->yes()
-			&& $type->isSuperTypeOf($this)->no()
+			&&
+			$type->isSuperTypeOf($this)->no()
 		) {
 			return (new UnionType([
 				new IntegerType(),
@@ -122,7 +124,11 @@ class ObjectType implements TypeWithClassName
 
 		$broker = Broker::getInstance();
 
-		if (!$broker->hasClass($thisClassName) || !$broker->hasClass($thatClassName)) {
+		if (
+			!$broker->hasClass($thisClassName)
+			||
+			!$broker->hasClass($thatClassName)
+		) {
 			return TrinaryLogic::createMaybe();
 		}
 
@@ -141,11 +147,19 @@ class ObjectType implements TypeWithClassName
 			return TrinaryLogic::createMaybe();
 		}
 
-		if ($thisClassReflection->isInterface() && !$thatClassReflection->getNativeReflection()->isFinal()) {
+		if (
+			$thisClassReflection->isInterface()
+			&&
+			!$thatClassReflection->getNativeReflection()->isFinal()
+		) {
 			return TrinaryLogic::createMaybe();
 		}
 
-		if ($thatClassReflection->isInterface() && !$thisClassReflection->getNativeReflection()->isFinal()) {
+		if (
+			$thatClassReflection->isInterface()
+			&&
+			!$thisClassReflection->getNativeReflection()->isFinal()
+		) {
 			return TrinaryLogic::createMaybe();
 		}
 
@@ -154,7 +168,8 @@ class ObjectType implements TypeWithClassName
 
 	public function equals(Type $type): bool
 	{
-		return $type instanceof self && $this->className === $type->className;
+		return $type instanceof self
+			&& $this->className === $type->className;
 	}
 
 	private function checkSubclassAcceptability(string $thatClass): TrinaryLogic
@@ -165,7 +180,11 @@ class ObjectType implements TypeWithClassName
 
 		$broker = Broker::getInstance();
 
-		if (!$broker->hasClass($this->className) || !$broker->hasClass($thatClass)) {
+		if (
+			!$broker->hasClass($this->className)
+			||
+			!$broker->hasClass($thatClass)
+		) {
 			return TrinaryLogic::createNo();
 		}
 
@@ -177,7 +196,11 @@ class ObjectType implements TypeWithClassName
 			return TrinaryLogic::createYes();
 		}
 
-		if ($thisReflection->isInterface() && $thatReflection->isInterface()) {
+		if (
+			$thisReflection->isInterface()
+			&&
+			$thatReflection->isInterface()
+		) {
 			return TrinaryLogic::createFromBoolean(
 				$thatReflection->getNativeReflection()->implementsInterface($this->className)
 			);
@@ -231,6 +254,7 @@ class ObjectType implements TypeWithClassName
 		if ($this->isInstanceOf('SimpleXMLElement')->yes()) {
 			return new FloatType();
 		}
+
 		return new ErrorType();
 	}
 
@@ -259,7 +283,8 @@ class ObjectType implements TypeWithClassName
 		$classReflection = $broker->getClass($this->className);
 		if (
 			!$classReflection->getNativeReflection()->isUserDefined()
-			|| UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate(
+			||
+			UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate(
 				$broker,
 				$broker->getUniversalObjectCratesClasses(),
 				$classReflection
@@ -330,6 +355,7 @@ class ObjectType implements TypeWithClassName
 	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
 	{
 		$broker = Broker::getInstance();
+
 		return $broker->getClass($this->className)->getMethod($methodName, $scope);
 	}
 
@@ -351,6 +377,7 @@ class ObjectType implements TypeWithClassName
 	public function getConstant(string $constantName): ConstantReflection
 	{
 		$broker = Broker::getInstance();
+
 		return $broker->getClass($this->className)->getConstant($constantName);
 	}
 
@@ -467,6 +494,7 @@ class ObjectType implements TypeWithClassName
 
 		if ($this->isInstanceOf(\ArrayAccess::class)->yes()) {
 			$classReflection = $broker->getClass($this->className);
+
 			return RecursionGuard::run($this, static function () use ($classReflection) {
 				return ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('offsetGet')->getVariants())->getReturnType();
 			});
@@ -490,7 +518,8 @@ class ObjectType implements TypeWithClassName
 
 		if (
 			count($parametersAcceptors) === 1
-			&& $parametersAcceptors[0] instanceof TrivialParametersAcceptor
+			&&
+			$parametersAcceptors[0] instanceof TrivialParametersAcceptor
 		) {
 			return TrinaryLogic::createMaybe();
 		}
@@ -507,6 +536,7 @@ class ObjectType implements TypeWithClassName
 		if ($this->className === \Closure::class) {
 			return [new TrivialParametersAcceptor()];
 		}
+
 		$parametersAcceptors = $this->findCallableParametersAcceptors();
 		if ($parametersAcceptors === null) {
 			throw new \PHPStan\ShouldNotHappenException();
@@ -561,7 +591,11 @@ class ObjectType implements TypeWithClassName
 		}
 
 		$classReflection = $broker->getClass($this->className);
-		if ($classReflection->isSubclassOf($className) || $classReflection->getName() === $className) {
+		if (
+			$classReflection->isSubclassOf($className)
+			||
+			$classReflection->getName() === $className
+		) {
 			return TrinaryLogic::createYes();
 		}
 

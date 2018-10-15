@@ -126,13 +126,22 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 
 		/** @var \PhpParser\Node\Param $parameter */
 		foreach (array_reverse($this->functionLike->getParams()) as $parameter) {
-			if (!$isOptional || $parameter->default === null) {
+			if (
+				!$isOptional
+				||
+				$parameter->default === null
+			) {
 				$isOptional = false;
 			}
 
-			if (!$parameter->var instanceof Variable || !is_string($parameter->var->name)) {
+			if (
+				!$parameter->var instanceof Variable
+				||
+				!\is_string($parameter->var->name)
+			) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
+
 			$parameters[] = new PhpParameterFromParserNodeReflection(
 				$parameter->var->name,
 				$isOptional,
@@ -165,11 +174,14 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 		$phpDocReturnType = $this->phpDocReturnType;
 		if (
 			$this->realReturnTypePresent
-			&& $phpDocReturnType !== null
-			&& TypeCombinator::containsNull($this->realReturnType) !== TypeCombinator::containsNull($phpDocReturnType)
+			&&
+			$phpDocReturnType !== null
+			&&
+			TypeCombinator::containsNull($this->realReturnType) !== TypeCombinator::containsNull($phpDocReturnType)
 		) {
 			$phpDocReturnType = null;
 		}
+
 		return TypehintHelper::decideType($this->realReturnType, $phpDocReturnType);
 	}
 

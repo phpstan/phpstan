@@ -47,7 +47,8 @@ class AppendedArrayKeyTypeRule implements \PHPStan\Rules\Rule
 
 		if (
 			!$node->var->var instanceof \PhpParser\Node\Expr\PropertyFetch
-			&& !$node->var->var instanceof \PhpParser\Node\Expr\StaticPropertyFetch
+			&&
+			!$node->var->var instanceof \PhpParser\Node\Expr\StaticPropertyFetch
 		) {
 			return [];
 		}
@@ -71,9 +72,14 @@ class AppendedArrayKeyTypeRule implements \PHPStan\Rules\Rule
 			}
 
 			$keyType = ArrayType::castToArrayKeyType($dimensionType);
-			if (!$this->checkUnionTypes && $keyType instanceof UnionType) {
+			if (
+				!$this->checkUnionTypes
+				&&
+				$keyType instanceof UnionType
+			) {
 				return [];
 			}
+
 		} else {
 			$keyType = new IntegerType();
 		}

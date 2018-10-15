@@ -14,7 +14,7 @@ class VarExportFunctionDynamicReturnTypeExtension implements DynamicFunctionRetu
 
 	public function isFunctionSupported(\PHPStan\Reflection\FunctionReflection $functionReflection): bool
 	{
-		return in_array(
+		return \in_array(
 			$functionReflection->getName(),
 			[
 				'var_export',
@@ -26,7 +26,11 @@ class VarExportFunctionDynamicReturnTypeExtension implements DynamicFunctionRetu
 		);
 	}
 
-	public function getTypeFromFunctionCall(\PHPStan\Reflection\FunctionReflection $functionReflection, \PhpParser\Node\Expr\FuncCall $functionCall, \PHPStan\Analyser\Scope $scope): \PHPStan\Type\Type
+	public function getTypeFromFunctionCall(
+		\PHPStan\Reflection\FunctionReflection $functionReflection,
+		\PhpParser\Node\Expr\FuncCall $functionCall,
+		\PHPStan\Analyser\Scope $scope
+	): \PHPStan\Type\Type
 	{
 		if ($functionReflection->getName() === 'var_export') {
 			$fallbackReturnType = new NullType();

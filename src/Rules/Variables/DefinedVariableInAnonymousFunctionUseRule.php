@@ -31,7 +31,11 @@ class DefinedVariableInAnonymousFunctionUseRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		if ($node->byRef || !is_string($node->var->name)) {
+		if (
+			$node->byRef
+			||
+			!\is_string($node->var->name)
+		) {
 			return [];
 		}
 
@@ -39,9 +43,12 @@ class DefinedVariableInAnonymousFunctionUseRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf('Undefined variable: $%s', $node->var->name),
 			];
-		} elseif (
+		}
+
+		if (
 			$this->checkMaybeUndefinedVariables
-			&& !$scope->hasVariableType($node->var->name)->yes()
+			&&
+			!$scope->hasVariableType($node->var->name)->yes()
 		) {
 			return [
 				sprintf('Variable $%s might not be defined.', $node->var->name),

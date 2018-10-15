@@ -17,15 +17,28 @@ class AssertFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExt
 	/** @var \PHPStan\Analyser\TypeSpecifier */
 	private $typeSpecifier;
 
-	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, TypeSpecifierContext $context): bool
+	public function isFunctionSupported(
+		FunctionReflection $functionReflection,
+		FuncCall $node,
+		TypeSpecifierContext $context
+	): bool
 	{
 		return $functionReflection->getName() === 'assert'
 			&& isset($node->args[0]);
 	}
 
-	public function specifyTypes(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
+	public function specifyTypes(
+		FunctionReflection $functionReflection,
+		FuncCall $node,
+		Scope $scope,
+		TypeSpecifierContext $context
+	): SpecifiedTypes
 	{
-		return $this->typeSpecifier->specifyTypesInCondition($scope, $node->args[0]->value, TypeSpecifierContext::createTruthy());
+		return $this->typeSpecifier->specifyTypesInCondition(
+			$scope,
+			$node->args[0]->value,
+			TypeSpecifierContext::createTruthy()
+		);
 	}
 
 	public function setTypeSpecifier(TypeSpecifier $typeSpecifier): void

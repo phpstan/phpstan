@@ -56,7 +56,11 @@ class GetParentClassDynamicFunctionReturnTypeExtension implements \PHPStan\Type\
 		}
 
 		$argType = $scope->getType($functionCall->args[0]->value);
-		if ($scope->isInTrait() && TypeUtils::findThisType($argType) !== null) {
+		if (
+			$scope->isInTrait()
+			&&
+			TypeUtils::findThisType($argType) !== null
+		) {
 			return $defaultReturnType;
 		}
 

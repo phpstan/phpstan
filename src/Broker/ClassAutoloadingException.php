@@ -16,7 +16,7 @@ class ClassAutoloadingException extends \PHPStan\AnalysedCodeException
 		if ($previous !== null) {
 			parent::__construct(sprintf(
 				'%s (%s) thrown while autoloading class %s.',
-				get_class($previous),
+				\get_class($previous),
 				$previous->getMessage(),
 				$functionName
 			), 0, $previous);

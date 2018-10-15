@@ -56,7 +56,12 @@ class AnalyseApplication
 		$this->updateMemoryLimitFile();
 		$errors = [];
 
-		if (!$debug) {
+		if ($debug) {
+			$preFileCallback = static function (string $file) use ($style): void {
+				$style->writeln($file);
+			};
+			$postFileCallback = null;
+		} else {
 			$progressStarted = false;
 			$fileOrder = 0;
 			$preFileCallback = null;
@@ -71,11 +76,6 @@ class AnalyseApplication
 				}
 				$fileOrder++;
 			};
-		} else {
-			$preFileCallback = static function (string $file) use ($style): void {
-				$style->writeln($file);
-			};
-			$postFileCallback = null;
 		}
 
 		$errors = array_merge($errors, $this->analyser->analyse(
@@ -86,14 +86,18 @@ class AnalyseApplication
 			$debug
 		));
 
-		if (isset($progressStarted) && $progressStarted) {
+		if (
+			isset($progressStarted)
+			&&
+			$progressStarted
+		) {
 			$style->progressFinish();
 		}
 
 		$fileSpecificErrors = [];
 		$notFileSpecificErrors = [];
 		foreach ($errors as $error) {
-			if (is_string($error)) {
+			if (\is_string($error)) {
 				$notFileSpecificErrors[] = $error;
 			} else {
 				$fileSpecificErrors[] = $error;
@@ -117,7 +121,7 @@ class AnalyseApplication
 		$megabytes = ceil($bytes / 1024 / 1024);
 		file_put_contents($this->memoryLimitFile, sprintf('%d MB', $megabytes));
 
-		if (!function_exists('pcntl_signal_dispatch')) {
+		if (!\function_exists('pcntl_signal_dispatch')) {
 			return;
 		}
 

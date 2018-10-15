@@ -26,6 +26,7 @@ class TypeSpecifierContext
 	private static function create(?int $value): self
 	{
 		self::$registry[$value] = self::$registry[$value] ?? new self($value);
+
 		return self::$registry[$value];
 	}
 
@@ -59,6 +60,7 @@ class TypeSpecifierContext
 		if ($this->value === null) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
+
 		return self::create(~$this->value);
 	}
 

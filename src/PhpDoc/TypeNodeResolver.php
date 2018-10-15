@@ -85,25 +85,39 @@ class TypeNodeResolver
 		if ($typeNode instanceof IdentifierTypeNode) {
 			return $this->resolveIdentifierTypeNode($typeNode, $nameScope);
 
-		} elseif ($typeNode instanceof ThisTypeNode) {
+		}
+
+		if ($typeNode instanceof ThisTypeNode) {
 			return $this->resolveThisTypeNode($typeNode, $nameScope);
 
-		} elseif ($typeNode instanceof NullableTypeNode) {
+		}
+
+		if ($typeNode instanceof NullableTypeNode) {
 			return $this->resolveNullableTypeNode($typeNode, $nameScope);
 
-		} elseif ($typeNode instanceof UnionTypeNode) {
+		}
+
+		if ($typeNode instanceof UnionTypeNode) {
 			return $this->resolveUnionTypeNode($typeNode, $nameScope);
 
-		} elseif ($typeNode instanceof IntersectionTypeNode) {
+		}
+
+		if ($typeNode instanceof IntersectionTypeNode) {
 			return $this->resolveIntersectionTypeNode($typeNode, $nameScope);
 
-		} elseif ($typeNode instanceof ArrayTypeNode) {
+		}
+
+		if ($typeNode instanceof ArrayTypeNode) {
 			return $this->resolveArrayTypeNode($typeNode, $nameScope);
 
-		} elseif ($typeNode instanceof GenericTypeNode) {
+		}
+
+		if ($typeNode instanceof GenericTypeNode) {
 			return $this->resolveGenericTypeNode($typeNode, $nameScope);
 
-		} elseif ($typeNode instanceof CallableTypeNode) {
+		}
+
+		if ($typeNode instanceof CallableTypeNode) {
 			return $this->resolveCallableTypeNode($typeNode, $nameScope);
 		}
 
@@ -234,7 +248,11 @@ class TypeNodeResolver
 			$addArray = true;
 
 			foreach ($otherTypeTypes as &$type) {
-				if (!$type->isIterable()->yes() || !$type->getIterableValueType()->isSuperTypeOf($arrayTypeType)->yes()) {
+				if (
+					!$type->isIterable()->yes()
+					||
+					!$type->getIterableValueType()->isSuperTypeOf($arrayTypeType)->yes()
+				) {
 					continue;
 				}
 
@@ -262,12 +280,14 @@ class TypeNodeResolver
 	private function resolveIntersectionTypeNode(IntersectionTypeNode $typeNode, NameScope $nameScope): Type
 	{
 		$types = $this->resolveMultiple($typeNode->types, $nameScope);
+
 		return TypeCombinator::intersect(...$types);
 	}
 
 	private function resolveArrayTypeNode(ArrayTypeNode $typeNode, NameScope $nameScope): Type
 	{
 		$itemType = $this->resolve($typeNode->type, $nameScope);
+
 		return new ArrayType(new MixedType(), $itemType);
 	}
 
@@ -322,8 +342,12 @@ class TypeNodeResolver
 		$mainType = $this->resolve($typeNode->identifier, $nameScope);
 		$isVariadic = false;
 		$parameters = array_map(
-			function (CallableTypeParameterNode $parameterNode) use ($nameScope, &$isVariadic): NativeParameterReflection {
+			function (CallableTypeParameterNode $parameterNode) use (
+				$nameScope,
+				&$isVariadic
+			): NativeParameterReflection {
 				$isVariadic = $isVariadic || $parameterNode->isVariadic;
+
 				return new NativeParameterReflection(
 					$parameterNode->parameterName,
 					$parameterNode->isOptional,
@@ -339,9 +363,11 @@ class TypeNodeResolver
 		if ($mainType instanceof CallableType) {
 			return new CallableType($parameters, $returnType, $isVariadic);
 
-		} elseif (
-			$mainType instanceof ObjectType
-			&& $mainType->getClassName() === \Closure::class
+		}
+
+		if ($mainType instanceof ObjectType
+			&&
+			$mainType->getClassName() === \Closure::class
 		) {
 			return new ClosureType($parameters, $returnType, $isVariadic);
 		}

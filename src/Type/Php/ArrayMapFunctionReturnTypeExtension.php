@@ -21,7 +21,11 @@ class ArrayMapFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFuncti
 		return $functionReflection->getName() === 'array_map';
 	}
 
-	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
+	public function getTypeFromFunctionCall(
+		FunctionReflection $functionReflection,
+		FuncCall $functionCall,
+		Scope $scope
+	): Type
 	{
 		if (count($functionCall->args) < 2) {
 			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
@@ -53,7 +57,9 @@ class ArrayMapFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFuncti
 			}
 
 			return TypeCombinator::union(...$arrayTypes);
-		} elseif ($arrayType instanceof ArrayType) {
+		}
+
+		if ($arrayType instanceof ArrayType) {
 			return new ArrayType(
 				$arrayType->getIterableKeyType(),
 				$valueType

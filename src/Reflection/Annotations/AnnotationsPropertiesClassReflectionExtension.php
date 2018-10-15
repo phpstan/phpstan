@@ -24,7 +24,10 @@ class AnnotationsPropertiesClassReflectionExtension implements PropertiesClassRe
 	public function hasProperty(ClassReflection $classReflection, string $propertyName): bool
 	{
 		if (!isset($this->properties[$classReflection->getName()])) {
-			$this->properties[$classReflection->getName()] = $this->createProperties($classReflection, $classReflection);
+			$this->properties[$classReflection->getName()] = $this->createProperties(
+				$classReflection,
+				$classReflection
+			);
 		}
 
 		return isset($this->properties[$classReflection->getName()][$propertyName]);
@@ -70,7 +73,12 @@ class AnnotationsPropertiesClassReflectionExtension implements PropertiesClassRe
 			return $properties;
 		}
 
-		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, $classReflection->getName(), null, $docComment);
+		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
+			$fileName,
+			$classReflection->getName(),
+			null,
+			$docComment
+		);
 		foreach ($resolvedPhpDoc->getPropertyTags() as $propertyName => $propertyTag) {
 			$properties[$propertyName] = new AnnotationPropertyReflection(
 				$declaringClass,

@@ -56,15 +56,22 @@ class RuleLevelHelper
 	{
 		if (
 			!$this->checkNullables
-			&& !$acceptingType instanceof NullType
-			&& !$acceptedType instanceof NullType
-			&& !$acceptedType instanceof BenevolentUnionType
+			&&
+			!$acceptingType instanceof NullType
+			&&
+			!$acceptedType instanceof NullType
+			&&
+			!$acceptedType instanceof BenevolentUnionType
 		) {
 			$acceptedType = TypeCombinator::removeNull($acceptedType);
 		}
 
 		$acceptedArrays = TypeUtils::getArrays($acceptedType);
-		if ($acceptingType instanceof ArrayType && count($acceptedArrays) > 0) {
+		if (
+			$acceptingType instanceof ArrayType
+			&&
+			count($acceptedArrays) > 0
+		) {
 			foreach ($acceptedArrays as $acceptedArray) {
 				if ($acceptedArray instanceof ConstantArrayType) {
 					foreach ($acceptedArray->getKeyTypes() as $i => $keyType) {
@@ -74,7 +81,9 @@ class RuleLevelHelper
 								$acceptingType->getKeyType(),
 								$keyType,
 								$strictTypes
-							) || !self::accepts(
+							)
+							||
+							!self::accepts(
 								$acceptingType->getItemType(),
 								$valueType,
 								$strictTypes
@@ -89,7 +98,9 @@ class RuleLevelHelper
 							$acceptingType->getKeyType(),
 							$acceptedArray->getKeyType(),
 							$strictTypes
-						) || !self::accepts(
+						)
+						||
+						!self::accepts(
 							$acceptingType->getItemType(),
 							$acceptedArray->getItemType(),
 							$strictTypes
@@ -103,7 +114,11 @@ class RuleLevelHelper
 			return true;
 		}
 
-		if ($acceptingType instanceof UnionType && !$acceptedType instanceof CompoundType) {
+		if (
+			$acceptingType instanceof UnionType
+			&&
+			!$acceptedType instanceof CompoundType
+		) {
 			foreach ($acceptingType->getTypes() as $innerType) {
 				if (self::accepts($innerType, $acceptedType, $strictTypes)) {
 					return true;
@@ -113,16 +128,22 @@ class RuleLevelHelper
 			return false;
 		}
 
-		if ($acceptedType instanceof ArrayType && $acceptingType instanceof ArrayType) {
+		if (
+			$acceptedType instanceof ArrayType
+			&&
+			$acceptingType instanceof ArrayType
+		) {
 			return self::accepts(
 				$acceptingType->getKeyType(),
 				$acceptedType->getKeyType(),
 				$strictTypes
-			) && self::accepts(
-				$acceptingType->getItemType(),
-				$acceptedType->getItemType(),
-				$strictTypes
-			);
+			)
+				&&
+				self::accepts(
+					$acceptingType->getItemType(),
+					$acceptedType->getItemType(),
+					$strictTypes
+				);
 		}
 
 		$accepts = $acceptingType->accepts($acceptedType, $strictTypes);
@@ -144,16 +165,31 @@ class RuleLevelHelper
 		callable $unionTypeCriteriaCallback
 	): FoundTypeResult
 	{
-		if ($this->checkThisOnly && !$this->isThis($var)) {
+		if (
+			$this->checkThisOnly
+			&&
+			!$this->isThis($var)
+		) {
 			return new FoundTypeResult(new ErrorType(), [], []);
 		}
+
 		$type = $scope->getType($var);
-		if (!$this->checkNullables && !$type instanceof NullType) {
+		if (
+			!$this->checkNullables
+			&&
+			!$type instanceof NullType
+		) {
 			$type = \PHPStan\Type\TypeCombinator::removeNull($type);
 		}
-		if ($type instanceof MixedType || $type instanceof NeverType) {
+
+		if (
+			$type instanceof MixedType
+			||
+			$type instanceof NeverType
+		) {
 			return new FoundTypeResult(new ErrorType(), [], []);
 		}
+
 		if ($type instanceof StaticType) {
 			$type = $type->resolveStatic($type->getBaseClass());
 		}
@@ -172,7 +208,11 @@ class RuleLevelHelper
 			return new FoundTypeResult(new ErrorType(), [], $errors);
 		}
 
-		if (!$this->checkUnionTypes && $type instanceof UnionType) {
+		if (
+			!$this->checkUnionTypes
+			&&
+			$type instanceof UnionType
+		) {
 			$newTypes = [];
 			foreach ($type->getTypes() as $innerType) {
 				if (!$unionTypeCriteriaCallback($innerType)) {

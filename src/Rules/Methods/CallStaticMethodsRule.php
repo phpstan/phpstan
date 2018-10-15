@@ -82,7 +82,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 		if ($class instanceof Name) {
 			$className = (string) $class;
 			$lowercasedClassName = strtolower($className);
-			if (in_array($lowercasedClassName, ['self', 'static'], true)) {
+			if (\in_array($lowercasedClassName, ['self', 'static'], true)) {
 				if (!$scope->isInClass()) {
 					return [
 						sprintf(
@@ -126,9 +126,9 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 					return [
 						sprintf('Call to static method %s() on an unknown class %s.', $methodName, $className),
 					];
-				} else {
-					$errors = $this->classCaseSensitivityCheck->checkClassNames([$className]);
 				}
+
+				$errors = $this->classCaseSensitivityCheck->checkClassNames([$className]);
 
 				$classReflection = $this->broker->getClass($className);
 				$isInterface = $classReflection->isInterface();
@@ -160,14 +160,17 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 
 		if (!$classType->canCallMethods()->yes()) {
 			return array_merge($errors, [
-				sprintf('Cannot call static method %s() on %s.', $methodName, $typeForDescribe->describe(VerbosityLevel::typeOnly())),
+				sprintf(
+					'Cannot call static method %s() on %s.',
+					$methodName,
+					$typeForDescribe->describe(VerbosityLevel::typeOnly())
+				),
 			]);
 		}
 
 		if (!$classType->hasMethod($methodName)) {
 			if (!$this->reportMagicMethods) {
-				$directClassNames = TypeUtils::getDirectClassNames($classType);
-				foreach ($directClassNames as $className) {
+				foreach (TypeUtils::getDirectClassNames($classType) as $className) {
 					if (!$this->broker->hasClass($className)) {
 						continue;
 					}
@@ -193,12 +196,17 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 			$function = $scope->getFunction();
 			if (
 				!$function instanceof MethodReflection
-				|| $function->isStatic()
-				|| !$scope->isInClass()
-				|| (
+				||
+				$function->isStatic()
+				||
+				!$scope->isInClass()
+				||
+				(
 					$classType instanceof TypeWithClassName
-					&& $scope->getClassReflection()->getName() !== $classType->getClassName()
-					&& !$scope->getClassReflection()->isSubclassOf($classType->getClassName())
+					&&
+					$scope->getClassReflection()->getName() !== $classType->getClassName()
+					&&
+					!$scope->getClassReflection()->isSubclassOf($classType->getClassName())
 				)
 			) {
 				return array_merge($errors, [
@@ -223,7 +231,11 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 			]);
 		}
 
-		if ($isInterface && $method->isStatic()) {
+		if (
+			$isInterface
+			&&
+			$method->isStatic()
+		) {
 			return [
 				sprintf(
 					'Cannot call static method %s() on interface %s.',
@@ -267,7 +279,8 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 
 		if (
 			$this->checkFunctionNameCase
-			&& $method->getName() !== $methodName
+			&&
+			$method->getName() !== $methodName
 		) {
 			$errors[] = sprintf('Call to %s with incorrect case: %s', $lowercasedMethodName, $methodName);
 		}

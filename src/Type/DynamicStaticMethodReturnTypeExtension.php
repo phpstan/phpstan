@@ -13,6 +13,10 @@ interface DynamicStaticMethodReturnTypeExtension
 
 	public function isStaticMethodSupported(MethodReflection $methodReflection): bool;
 
-	public function getTypeFromStaticMethodCall(MethodReflection $methodReflection, StaticCall $methodCall, Scope $scope): Type;
+	public function getTypeFromStaticMethodCall(
+		MethodReflection $methodReflection,
+		StaticCall $methodCall,
+		Scope $scope
+	): Type;
 
 }

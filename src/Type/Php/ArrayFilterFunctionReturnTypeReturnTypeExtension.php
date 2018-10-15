@@ -31,7 +31,11 @@ class ArrayFilterFunctionReturnTypeReturnTypeExtension implements \PHPStan\Type\
 		return $functionReflection->getName() === 'array_filter';
 	}
 
-	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
+	public function getTypeFromFunctionCall(
+		FunctionReflection $functionReflection,
+		FuncCall $functionCall,
+		Scope $scope
+	): Type
 	{
 		$arrayArg = $functionCall->args[0]->value ?? null;
 		$callbackArg = $functionCall->args[1]->value ?? null;
@@ -48,12 +52,30 @@ class ArrayFilterFunctionReturnTypeReturnTypeExtension implements \PHPStan\Type\
 				);
 			}
 
-			if ($flagArg === null && $callbackArg instanceof Closure && count($callbackArg->stmts) === 1) {
+			if (
+				$flagArg === null
+				&&
+				$callbackArg instanceof Closure
+				&&
+				count($callbackArg->stmts) === 1
+			) {
+
 				$statement = $callbackArg->stmts[0];
-				if ($statement instanceof Return_ && $statement->expr !== null && count($callbackArg->params) > 0) {
-					if (!$callbackArg->params[0]->var instanceof Variable || !is_string($callbackArg->params[0]->var->name)) {
+				if (
+					$statement instanceof Return_
+					&&
+					$statement->expr !== null
+					&&
+					count($callbackArg->params) > 0
+				) {
+					if (
+						!$callbackArg->params[0]->var instanceof Variable
+						||
+						!\is_string($callbackArg->params[0]->var->name)
+					) {
 						throw new \PHPStan\ShouldNotHappenException();
 					}
+
 					$itemVariableName = $callbackArg->params[0]->var->name;
 					$scope = $scope->assignVariable($itemVariableName, $itemType, TrinaryLogic::createYes());
 					$scope = $scope->filterByTruthyValue($statement->expr);

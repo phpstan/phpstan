@@ -44,7 +44,7 @@ class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
 			$key = $item->key;
 			$keyType = $scope->getType($key);
 			if (
-				!$keyType instanceof ConstantScalarType
+			!$keyType instanceof ConstantScalarType
 			) {
 				continue;
 			}

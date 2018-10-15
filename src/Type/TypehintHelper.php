@@ -32,12 +32,17 @@ class TypehintHelper
 				return $selfClass !== null ? new ObjectType($selfClass) : new ErrorType();
 			case 'parent':
 				$broker = Broker::getInstance();
-				if ($selfClass !== null && $broker->hasClass($selfClass)) {
+				if (
+					$selfClass !== null
+					&&
+					$broker->hasClass($selfClass)
+				) {
 					$classReflection = $broker->getClass($selfClass);
 					if ($classReflection->getParentClass() !== false) {
 						return new ObjectType($classReflection->getParentClass()->getName());
 					}
 				}
+
 				return new NonexistentParentClassType();
 			default:
 				return new ObjectType($typeString);
@@ -76,8 +81,16 @@ class TypehintHelper
 		?Type $phpDocType = null
 	): Type
 	{
-		if ($phpDocType !== null && !$phpDocType instanceof ErrorType) {
-			if ($type instanceof VoidType || $phpDocType instanceof VoidType) {
+		if (
+			$phpDocType !== null
+			&&
+			!$phpDocType instanceof ErrorType
+		) {
+			if (
+				$type instanceof VoidType
+				||
+				$phpDocType instanceof VoidType
+			) {
 				return new VoidType();
 			}
 

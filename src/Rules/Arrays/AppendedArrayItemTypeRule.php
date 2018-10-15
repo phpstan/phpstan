@@ -43,7 +43,8 @@ class AppendedArrayItemTypeRule implements \PHPStan\Rules\Rule
 	{
 		if (
 			!$node instanceof Assign
-			&& !$node instanceof AssignOp
+			&&
+			!$node instanceof AssignOp
 		) {
 			return [];
 		}
@@ -54,7 +55,8 @@ class AppendedArrayItemTypeRule implements \PHPStan\Rules\Rule
 
 		if (
 			!$node->var->var instanceof \PhpParser\Node\Expr\PropertyFetch
-			&& !$node->var->var instanceof \PhpParser\Node\Expr\StaticPropertyFetch
+			&&
+			!$node->var->var instanceof \PhpParser\Node\Expr\StaticPropertyFetch
 		) {
 			return [];
 		}
@@ -75,7 +77,11 @@ class AppendedArrayItemTypeRule implements \PHPStan\Rules\Rule
 			$assignedValueType = $scope->getType($node);
 		}
 
-		if (!$this->ruleLevelHelper->accepts($assignedToType->getItemType(), $assignedValueType, $scope->isDeclareStrictTypes())) {
+		if (!$this->ruleLevelHelper->accepts(
+			$assignedToType->getItemType(),
+			$assignedValueType,
+			$scope->isDeclareStrictTypes()
+		)) {
 			return [
 				sprintf(
 					'Array (%s) does not accept %s.',

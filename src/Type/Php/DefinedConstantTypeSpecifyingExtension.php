@@ -45,7 +45,8 @@ class DefinedConstantTypeSpecifyingExtension implements FunctionTypeSpecifyingEx
 		$constantName = $scope->getType($node->args[0]->value);
 		if (
 			!$constantName instanceof ConstantStringType
-			|| $constantName->getValue() === ''
+			||
+			$constantName->getValue() === ''
 		) {
 			return new SpecifiedTypes([], []);
 		}

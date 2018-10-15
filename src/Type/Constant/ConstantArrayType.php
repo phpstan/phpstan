@@ -43,7 +43,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 	 */
 	public function __construct(array $keyTypes, array $valueTypes, int $nextAutoIndex = 0)
 	{
-		assert(count($keyTypes) === count($valueTypes));
+		\assert(count($keyTypes) === count($valueTypes));
 
 		parent::__construct(
 			count($keyTypes) > 0 ? TypeCombinator::union(...$keyTypes) : new NeverType(),
@@ -290,13 +290,18 @@ class ConstantArrayType extends ArrayType implements ConstantType
 	public function unsetOffset(Type $offsetType): self
 	{
 		$offsetType = ArrayType::castToArrayKeyType($offsetType);
-		if ($offsetType instanceof ConstantIntegerType || $offsetType instanceof ConstantStringType) {
+		if (
+			$offsetType instanceof ConstantIntegerType
+			||
+			$offsetType instanceof ConstantStringType
+		) {
 			foreach ($this->keyTypes as $i => $keyType) {
 				if ($keyType->getValue() === $offsetType->getValue()) {
 					$newKeyTypes = $this->keyTypes;
 					unset($newKeyTypes[$i]);
 					$newValueTypes = $this->valueTypes;
 					unset($newValueTypes[$i]);
+
 					return new self(array_values($newKeyTypes), array_values($newValueTypes), $this->nextAutoIndex);
 				}
 			}
@@ -449,9 +454,13 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			}
 
 			$append = '';
-			if ($truncate && count($items) > self::DESCRIBE_LIMIT) {
-				$items = array_slice($items, 0, self::DESCRIBE_LIMIT);
-				$values = array_slice($values, 0, self::DESCRIBE_LIMIT);
+			if (
+				$truncate
+				&&
+				count($items) > self::DESCRIBE_LIMIT
+			) {
+				$items = \array_slice($items, 0, self::DESCRIBE_LIMIT);
+				$values = \array_slice($values, 0, self::DESCRIBE_LIMIT);
 				$append = ', ...';
 			}
 
@@ -461,6 +470,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 				$append
 			);
 		};
+
 		return $level->handle(
 			function () use ($level): string {
 				return parent::describe($level);

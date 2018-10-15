@@ -87,7 +87,11 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 
 	private function getPlaceholdersCount(string $functionName, string $format): int
 	{
-		$specifiers = in_array($functionName, ['sprintf', 'printf'], true) ? '[bcdeEfFgGosuxX]' : '(?:[cdDeEfinosuxX]|\[[^\]]+\])';
+		$specifiers = \in_array(
+			$functionName,
+			['sprintf', 'printf'],
+			true
+		) ? '[bcdeEfFgGosuxX]' : '(?:[cdDeEfinosuxX]|\[[^\]]+\])';
 		$pattern = '~(?<before>%*)%(?:(?<position>\d+)\$)?[-+]?(?:[ 0]|(?:\'[^%]))?-?\d*(?:\.\d*)?' . $specifiers . '~';
 
 		$matches = \Nette\Utils\Strings::matchAll($format, $pattern, PREG_SET_ORDER);
@@ -97,7 +101,7 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 		}
 
 		$placeholders = array_filter($matches, static function (array $match): bool {
-			return strlen($match['before']) % 2 === 0;
+			return \strlen($match['before']) % 2 === 0;
 		});
 
 		if (count($placeholders) === 0) {
@@ -107,7 +111,11 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 		$maxPositionedNumber = 0;
 		$maxOrdinaryNumber = 0;
 		foreach ($placeholders as $placeholder) {
-			if (isset($placeholder['position']) && $placeholder['position'] !== '') {
+			if (
+				isset($placeholder['position'])
+				&&
+				$placeholder['position'] !== ''
+			) {
 				$maxPositionedNumber = max((int) $placeholder['position'], $maxPositionedNumber);
 			} else {
 				$maxOrdinaryNumber++;

@@ -128,7 +128,13 @@ class Broker
 	{
 		$this->propertiesClassReflectionExtensions = $propertiesClassReflectionExtensions;
 		$this->methodsClassReflectionExtensions = $methodsClassReflectionExtensions;
-		foreach (array_merge($propertiesClassReflectionExtensions, $methodsClassReflectionExtensions, $dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions, $dynamicFunctionReturnTypeExtensions) as $extension) {
+		foreach (array_merge(
+			$propertiesClassReflectionExtensions,
+			$methodsClassReflectionExtensions,
+			$dynamicMethodReturnTypeExtensions,
+			$dynamicStaticMethodReturnTypeExtensions,
+			$dynamicFunctionReturnTypeExtensions
+		) as $extension) {
 			if (!($extension instanceof BrokerAwareExtension)) {
 				continue;
 			}
@@ -163,6 +169,7 @@ class Broker
 		if (self::$instance === null) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
+
 		return self::$instance;
 	}
 
@@ -188,6 +195,7 @@ class Broker
 
 			$this->dynamicMethodReturnTypeExtensionsByClass = $byClass;
 		}
+
 		return $this->getDynamicExtensionsForType($this->dynamicMethodReturnTypeExtensionsByClass, $className);
 	}
 
@@ -205,6 +213,7 @@ class Broker
 
 			$this->dynamicStaticMethodReturnTypeExtensionsByClass = $byClass;
 		}
+
 		return $this->getDynamicExtensionsForType($this->dynamicStaticMethodReturnTypeExtensionsByClass, $className);
 	}
 
@@ -225,7 +234,11 @@ class Broker
 	{
 		$extensionsForClass = [];
 		$class = $this->getClass($className);
-		foreach (array_merge([$className], $class->getParentClassesNames(), $class->getNativeReflection()->getInterfaceNames()) as $extensionClassName) {
+		foreach (array_merge(
+			[$className],
+			$class->getParentClassesNames(),
+			$class->getNativeReflection()->getInterfaceNames()
+		) as $extensionClassName) {
 			if (!isset($extensions[$extensionClassName])) {
 				continue;
 			}
@@ -277,13 +290,13 @@ class Broker
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
-		if (!$scope->isInTrait()) {
-			$scopeFile = $scope->getFile();
-		} else {
+		if ($scope->isInTrait()) {
 			$scopeFile = $scope->getTraitReflection()->getFileName();
 			if ($scopeFile === false) {
 				$scopeFile = $scope->getFile();
 			}
+		} else {
+			$scopeFile = $scope->getFile();
 		}
 
 		$filename = $this->relativePathHelper->getRelativePath($scopeFile);
@@ -299,7 +312,9 @@ class Broker
 
 		$classNode = $node->class;
 		$classNode->name = new \PhpParser\Node\Identifier($className);
+		// @codingStandardsIgnoreStart
 		eval($this->printer->prettyPrint([$classNode]));
+		// @codingStandardsIgnoreEnd
 		unset($classNode);
 
 		self::$anonymousClasses[$className] = $this->getClassFromReflection(
@@ -312,7 +327,11 @@ class Broker
 		return self::$anonymousClasses[$className];
 	}
 
-	public function getClassFromReflection(\ReflectionClass $reflectionClass, string $displayName, ?string $anonymousFilename): ClassReflection
+	public function getClassFromReflection(
+		\ReflectionClass $reflectionClass,
+		string $displayName,
+		?string $anonymousFilename
+	): ClassReflection
 	{
 		$className = $reflectionClass->getName();
 		if (!isset($this->classReflections[$className])) {
@@ -338,13 +357,17 @@ class Broker
 		}
 
 		spl_autoload_register($autoloader = function (string $autoloadedClassName) use ($className): void {
-			if ($autoloadedClassName !== $className && !$this->isExistsCheckCall()) {
+			if (
+				$autoloadedClassName !== $className
+				&&
+				!$this->isExistsCheckCall()
+			) {
 				throw new \PHPStan\Broker\ClassAutoloadingException($autoloadedClassName);
 			}
 		});
 
 		try {
-			return $this->hasClassCache[$className] = class_exists($className) || interface_exists($className) || trait_exists($className);
+			return $this->hasClassCache[$className] = (class_exists($className) || interface_exists($className) || trait_exists($className));
 		} catch (\PHPStan\Broker\ClassAutoloadingException $e) {
 			throw $e;
 		} catch (\Throwable $t) {
@@ -381,14 +404,17 @@ class Broker
 						$returnType = TypeUtils::toBenevolentUnion($returnType);
 					}
 					$variants[] = new FunctionVariant(
-						array_map(static function (ParameterSignature $parameterSignature) use ($lowerCasedFunctionName): NativeParameterReflection {
+						array_map(static function (ParameterSignature $parameterSignature) use ($lowerCasedFunctionName
+						): NativeParameterReflection {
 							$type = $parameterSignature->getType();
 							if (
-								$parameterSignature->getName() === 'args'
-								&& (
+								(
 									$lowerCasedFunctionName === 'printf'
-									|| $lowerCasedFunctionName === 'sprintf'
+									||
+									$lowerCasedFunctionName === 'sprintf'
 								)
+								&&
+								$parameterSignature->getName() === 'args'
 							) {
 								$type = new UnionType([
 									new StringAlwaysAcceptingObjectWithToStringType(),
@@ -398,6 +424,7 @@ class Broker
 									new BooleanType(),
 								]);
 							}
+
 							return new NativeParameterReflection(
 								$parameterSignature->getName(),
 								$parameterSignature->isOptional(),
@@ -445,7 +472,10 @@ class Broker
 		return !$this->signatureMapProvider->hasFunctionSignature($lowerCasedFunctionName);
 	}
 
-	public function getCustomFunction(\PhpParser\Node\Name $nameNode, ?Scope $scope): \PHPStan\Reflection\Php\PhpFunctionReflection
+	public function getCustomFunction(
+		\PhpParser\Node\Name $nameNode,
+		?Scope $scope
+	): \PHPStan\Reflection\Php\PhpFunctionReflection
 	{
 		if (!$this->hasCustomFunction($nameNode, $scope)) {
 			throw new \PHPStan\Broker\FunctionNotFoundException((string) $nameNode);
@@ -453,9 +483,10 @@ class Broker
 
 		/** @var string $functionName */
 		$functionName = $this->resolveFunctionName($nameNode, $scope);
-		if (!function_exists($functionName)) {
+		if (!\function_exists($functionName)) {
 			throw new \PHPStan\Broker\FunctionNotFoundException($functionName);
 		}
+
 		$lowerCasedFunctionName = strtolower($functionName);
 		if (isset($this->customFunctionReflections[$lowerCasedFunctionName])) {
 			return $this->customFunctionReflections[$lowerCasedFunctionName];
@@ -468,7 +499,11 @@ class Broker
 		$isDeprecated = false;
 		$isInternal = false;
 		$isFinal = false;
-		if ($reflectionFunction->getFileName() !== false && $reflectionFunction->getDocComment() !== false) {
+		if (
+			$reflectionFunction->getFileName() !== false
+			&&
+			$reflectionFunction->getDocComment() !== false
+		) {
 			$fileName = $reflectionFunction->getFileName();
 			$docComment = $reflectionFunction->getDocComment();
 			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, null, null, $docComment);
@@ -500,7 +535,7 @@ class Broker
 	public function resolveFunctionName(\PhpParser\Node\Name $nameNode, ?Scope $scope): ?string
 	{
 		return $this->resolveName($nameNode, static function (string $name): bool {
-			$exists = function_exists($name);
+			$exists = \function_exists($name);
 			if ($exists) {
 				return true;
 			}
@@ -532,17 +567,23 @@ class Broker
 	{
 		return $this->resolveName($nameNode, function (string $name) use ($scope): bool {
 			$isCompilerHaltOffset = $name === '__COMPILER_HALT_OFFSET__';
-			if ($isCompilerHaltOffset && $scope !== null && $this->fileHasCompilerHaltStatementCalls($scope->getFile())) {
+			if (
+				$isCompilerHaltOffset
+				&&
+				$scope !== null
+				&&
+				$this->fileHasCompilerHaltStatementCalls($scope->getFile())
+			) {
 				return true;
 			}
-			return defined($name);
+
+			return \defined($name);
 		}, $scope);
 	}
 
 	private function fileHasCompilerHaltStatementCalls(string $pathToFile): bool
 	{
-		$nodes = $this->parser->parseFile($pathToFile);
-		foreach ($nodes as $node) {
+		foreach ($this->parser->parseFile($pathToFile) as $node) {
 			if ($node instanceof Node\Stmt\HaltCompiler) {
 				return true;
 			}
@@ -564,7 +605,13 @@ class Broker
 	): ?string
 	{
 		$name = (string) $nameNode;
-		if ($scope !== null && $scope->getNamespace() !== null && !$nameNode->isFullyQualified()) {
+		if (
+			$scope !== null
+			&&
+			$scope->getNamespace() !== null
+			&&
+			!$nameNode->isFullyQualified()
+		) {
 			$namespacedName = sprintf('%s\\%s', $scope->getNamespace(), $name);
 			if ($existsCallback($namespacedName)) {
 				return $namespacedName;
@@ -590,9 +637,15 @@ class Broker
 		foreach ($debugBacktrace as $traceStep) {
 			if (
 				isset($traceStep['function'])
-				&& isset($existsCallTypes[$traceStep['function']])
+				&&
+				isset($existsCallTypes[$traceStep['function']])
+				&&
 				// We must ignore the self::hasClass calls
-				&& (!isset($traceStep['file']) || $traceStep['file'] !== __FILE__)
+				(
+					!isset($traceStep['file'])
+					||
+					$traceStep['file'] !== __FILE__
+				)
 			) {
 				return true;
 			}

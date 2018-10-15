@@ -23,7 +23,11 @@ class GettimeofdayDynamicFunctionReturnTypeExtension implements \PHPStan\Type\Dy
 		return $functionReflection->getName() === 'gettimeofday';
 	}
 
-	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
+	public function getTypeFromFunctionCall(
+		FunctionReflection $functionReflection,
+		FuncCall $functionCall,
+		Scope $scope
+	): Type
 	{
 		$arrayType = new ConstantArrayType([
 			new ConstantStringType('sec'),

@@ -97,8 +97,9 @@ class ParametersAcceptorSelector
 			}
 
 			if (
+				$typesCount > $functionParametersMaxCount
+				&&
 				!$parametersAcceptor->isVariadic()
-				&& $typesCount > $functionParametersMaxCount
 			) {
 				continue;
 			}
@@ -182,7 +183,11 @@ class ParametersAcceptorSelector
 				$acceptorParametersMinCount++;
 			}
 
-			if ($minimumNumberOfParameters !== null && $minimumNumberOfParameters <= $acceptorParametersMinCount) {
+			if (
+				$minimumNumberOfParameters !== null
+				&&
+				$minimumNumberOfParameters <= $acceptorParametersMinCount
+			) {
 				continue;
 			}
 
@@ -216,7 +221,11 @@ class ParametersAcceptorSelector
 				$isVariadic = $parameters[$i]->isVariadic() || $parameter->isVariadic();
 
 				$parameters[$i] = new NativeParameterReflection(
-					$parameters[$i]->getName() !== $parameter->getName() ? sprintf('%s|%s', $parameters[$i]->getName(), $parameter->getName()) : $parameter->getName(),
+					$parameters[$i]->getName() !== $parameter->getName() ? sprintf(
+						'%s|%s',
+						$parameters[$i]->getName(),
+						$parameter->getName()
+					) : $parameter->getName(),
 					$i + 1 > $minimumNumberOfParameters,
 					TypeCombinator::union($parameters[$i]->getType(), $parameter->getType()),
 					$parameters[$i]->passedByReference()->combine($parameter->passedByReference()),
@@ -224,7 +233,7 @@ class ParametersAcceptorSelector
 				);
 
 				if ($isVariadic) {
-					$parameters = array_slice($parameters, 0, $i + 1);
+					$parameters = \array_slice($parameters, 0, $i + 1);
 					break;
 				}
 			}

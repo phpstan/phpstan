@@ -20,6 +20,7 @@ class VariableTypeHolder
 		if ($certainty->no()) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
+
 		$this->type = $type;
 		$this->certainty = $certainty;
 	}

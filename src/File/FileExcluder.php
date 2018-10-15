@@ -46,7 +46,11 @@ class FileExcluder
 				$fnmatchFlags = 0;
 			}
 
-			if ($this->isFnmatchPattern($exclude) && fnmatch($exclude, $file, $fnmatchFlags)) {
+			if (
+				$this->isFnmatchPattern($exclude)
+				&&
+				fnmatch($exclude, $file, $fnmatchFlags)
+			) {
 				return true;
 			}
 		}

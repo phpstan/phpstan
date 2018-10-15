@@ -49,20 +49,31 @@ class ExistingNamesInGroupUseRule implements \PHPStan\Rules\Rule
 
 			/** @var Node\Name $name */
 			$name = Node\Name::concat($node->prefix, $use->name);
+
 			if (
 				$node->type === Use_::TYPE_CONSTANT
-				|| $use->type === Use_::TYPE_CONSTANT
+				||
+				$use->type === Use_::TYPE_CONSTANT
 			) {
+
 				$message = $this->checkConstant($name);
+
 			} elseif (
 				$node->type === Use_::TYPE_FUNCTION
-				|| $use->type === Use_::TYPE_FUNCTION
+				||
+				$use->type === Use_::TYPE_FUNCTION
 			) {
+
 				$message = $this->checkFunction($name);
+
 			} elseif ($use->type === Use_::TYPE_NORMAL) {
+
 				$message = $this->checkClass($name);
+
 			} else {
+
 				throw new \PHPStan\ShouldNotHappenException();
+
 			}
 
 			if ($message === null) {
@@ -95,8 +106,9 @@ class ExistingNamesInGroupUseRule implements \PHPStan\Rules\Rule
 			$realName = $functionReflection->getName();
 			$usedName = (string) $name;
 			if (
+				$realName !== $usedName
+				&&
 				strtolower($realName) === strtolower($usedName)
-				&& $realName !== $usedName
 			) {
 				return sprintf(
 					'Function %s used with incorrect case: %s.',
@@ -114,7 +126,9 @@ class ExistingNamesInGroupUseRule implements \PHPStan\Rules\Rule
 		$messages = $this->classCaseSensitivityCheck->checkClassNames([(string) $name]);
 		if (count($messages) === 0) {
 			return null;
-		} elseif (count($messages) === 1) {
+		}
+
+		if (count($messages) === 1) {
 			return $messages[0];
 		}
 

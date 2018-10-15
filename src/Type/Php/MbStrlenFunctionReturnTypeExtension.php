@@ -20,7 +20,11 @@ class MbStrlenFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFuncti
 		return $functionReflection->getName() === 'mb_strlen';
 	}
 
-	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
+	public function getTypeFromFunctionCall(
+		FunctionReflection $functionReflection,
+		FuncCall $functionCall,
+		Scope $scope
+	): Type
 	{
 		$returnType = ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
 
@@ -31,7 +35,7 @@ class MbStrlenFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFuncti
 			return new IntegerType();
 		}
 
-		if (!extension_loaded('mbstring')) {
+		if (!\extension_loaded('mbstring')) {
 			return $returnType;
 		}
 
@@ -42,6 +46,7 @@ class MbStrlenFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFuncti
 		if (count($result) !== 1) {
 			return $returnType;
 		}
+
 		return $result[0] ? new IntegerType() : new ConstantBooleanType(false);
 	}
 

@@ -34,7 +34,10 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 	{
 		if ($node->dim !== null) {
 			$dimType = $scope->getType($node->dim);
-			$unknownClassPattern = sprintf('Access to offset %s on an unknown class %%s.', $dimType->describe(VerbosityLevel::value()));
+			$unknownClassPattern = sprintf(
+				'Access to offset %s on an unknown class %%s.',
+				$dimType->describe(VerbosityLevel::value())
+			);
 		} else {
 			$dimType = null;
 			$unknownClassPattern = 'Access to an offset on an unknown class %s.';
@@ -59,7 +62,11 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 
 		$isOffsetAccessible = $type->isOffsetAccessible();
 
-		if ($scope->isInExpressionAssign($node) && !$isOffsetAccessible->no()) {
+		if (
+			$scope->isInExpressionAssign($node)
+			&&
+			!$isOffsetAccessible->no()
+		) {
 			return [];
 		}
 
@@ -102,7 +109,11 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 
 		if ($report) {
 			return [
-				sprintf('Offset %s does not exist on %s.', $dimType->describe(VerbosityLevel::value()), $type->describe(VerbosityLevel::value())),
+				sprintf(
+					'Offset %s does not exist on %s.',
+					$dimType->describe(VerbosityLevel::value()),
+					$type->describe(VerbosityLevel::value())
+				),
 			];
 		}
 

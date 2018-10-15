@@ -57,7 +57,16 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 				new NodeScopeResolver(
 					$broker,
 					$this->getParser(),
-					new FileTypeMapper($this->getParser(), self::getContainer()->getByType(PhpDocStringResolver::class), $this->createMock(Cache::class), new AnonymousClassNameHelper(new FileHelper($currentWorkingDirectory), new RelativePathHelper($currentWorkingDirectory, DIRECTORY_SEPARATOR, [])), new \PHPStan\PhpDoc\TypeNodeResolver($this->getTypeNodeResolverExtensions())),
+					new FileTypeMapper(
+						$this->getParser(),
+						self::getContainer()->getByType(PhpDocStringResolver::class),
+						$this->createMock(Cache::class),
+						new AnonymousClassNameHelper(
+							new FileHelper($currentWorkingDirectory),
+							new RelativePathHelper($currentWorkingDirectory, DIRECTORY_SEPARATOR, [])
+						),
+						new \PHPStan\PhpDoc\TypeNodeResolver($this->getTypeNodeResolverExtensions())
+					),
 					$fileHelper,
 					$typeSpecifier,
 					$this->shouldPolluteScopeWithLoopInitialAssignments(),
@@ -115,9 +124,11 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 				if (!isset($error[0])) {
 					throw new \InvalidArgumentException('Missing expected error message.');
 				}
+
 				if (!isset($error[1])) {
 					throw new \InvalidArgumentException('Missing expected file line.');
 				}
+
 				return $strictlyTypedSprintf($error[1], $error[0]);
 			},
 			$expectedErrors

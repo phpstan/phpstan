@@ -43,11 +43,17 @@ class InvalidCastRule implements \PHPStan\Rules\Rule
 		$castTypeCallback = static function (Type $type) use ($node): ?Type {
 			if ($node instanceof \PhpParser\Node\Expr\Cast\Int_) {
 				return $type->toInteger();
-			} elseif ($node instanceof \PhpParser\Node\Expr\Cast\Bool_) {
+			}
+
+			if ($node instanceof \PhpParser\Node\Expr\Cast\Bool_) {
 				return $type->toBoolean();
-			} elseif ($node instanceof \PhpParser\Node\Expr\Cast\Double) {
+			}
+
+			if ($node instanceof \PhpParser\Node\Expr\Cast\Double) {
 				return $type->toFloat();
-			} elseif ($node instanceof \PhpParser\Node\Expr\Cast\String_) {
+			}
+
+			if ($node instanceof \PhpParser\Node\Expr\Cast\String_) {
 				return $type->toString();
 			}
 
@@ -74,7 +80,7 @@ class InvalidCastRule implements \PHPStan\Rules\Rule
 
 		$castType = $castTypeCallback($type);
 		if ($castType instanceof ErrorType) {
-			$classReflection = $this->broker->getClass(get_class($node));
+			$classReflection = $this->broker->getClass(\get_class($node));
 			$shortName = $classReflection->getNativeReflection()->getShortName();
 			$shortName = strtolower($shortName);
 			if ($shortName === 'double') {

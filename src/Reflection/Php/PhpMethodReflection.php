@@ -247,13 +247,18 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 			$filename = $this->declaringTrait->getFileName();
 		}
 
-		if (!$isNativelyVariadic && $filename !== false) {
+		if (
+			!$isNativelyVariadic
+			&&
+			$filename !== false
+		) {
 			$key = sprintf('variadic-method-%s-%s-v1', $declaringClass->getName(), $this->reflection->getName());
 			$cachedResult = $this->cache->load($key);
 			if ($cachedResult === null) {
 				$nodes = $this->parser->parseFile($filename);
 				$result = $this->callsFuncGetArgs($declaringClass, $nodes);
 				$this->cache->save($key, $result);
+
 				return $result;
 			}
 
@@ -271,7 +276,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	private function callsFuncGetArgs(ClassReflection $declaringClass, $nodes): bool
 	{
 		foreach ($nodes as $node) {
-			if (is_array($node)) {
+			if (\is_array($node)) {
 				if ($this->callsFuncGetArgs($declaringClass, $node)) {
 					return true;
 				}
@@ -283,8 +288,10 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 
 			if (
 				$node instanceof \PhpParser\Node\Stmt\ClassLike
-				&& isset($node->namespacedName)
-				&& $declaringClass->getName() !== (string) $node->namespacedName
+				&&
+				isset($node->namespacedName)
+				&&
+				$declaringClass->getName() !== (string) $node->namespacedName
 			) {
 				continue;
 			}
@@ -296,7 +303,10 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 
 				$methodName = $node->name->name;
 				if ($methodName === $this->reflection->getName()) {
-					return $this->functionCallStatementFinder->findFunctionCallInStatements(ParametersAcceptor::VARIADIC_FUNCTIONS, $node->getStmts()) !== null;
+					return $this->functionCallStatementFinder->findFunctionCallInStatements(
+						ParametersAcceptor::VARIADIC_FUNCTIONS,
+						$node->getStmts()
+					) !== null;
 				}
 
 				continue;
@@ -333,15 +343,19 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 			) {
 				return $this->returnType = new VoidType();
 			}
+
 			if ($name === '__tostring') {
 				return $this->returnType = new StringType();
 			}
+
 			if ($name === '__isset') {
 				return $this->returnType = new BooleanType();
 			}
+
 			if ($name === '__sleep') {
 				return $this->returnType = new ArrayType(new IntegerType(), new StringType());
 			}
+
 			if ($name === '__set_state') {
 				return $this->returnType = new ObjectWithoutClassType();
 			}
@@ -350,8 +364,10 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 			$phpDocReturnType = $this->phpDocReturnType;
 			if (
 				$returnType !== null
-				&& $phpDocReturnType !== null
-				&& $returnType->allowsNull() !== TypeCombinator::containsNull($phpDocReturnType)
+				&&
+				$phpDocReturnType !== null
+				&&
+				$returnType->allowsNull() !== TypeCombinator::containsNull($phpDocReturnType)
 			) {
 				$phpDocReturnType = null;
 			}

@@ -102,7 +102,7 @@ class Analyser
 						$this->parser->parseFile($file),
 						$this->scopeFactory->create(ScopeContext::create($file)),
 						function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors): void {
-							foreach ($this->registry->getRules(get_class($node)) as $rule) {
+							foreach ($this->registry->getRules(\get_class($node)) as $rule) {
 								foreach ($rule->processNode($node, $scope) as $message) {
 									$fileErrors[] = new Error($message, $scope->getFileDescription(), $node->getLine());
 								}
@@ -114,19 +114,26 @@ class Analyser
 				} else {
 					$fileErrors[] = new Error(sprintf('File %s does not exist.', $file), $file, null, false);
 				}
+
 				if ($postFileCallback !== null) {
 					$postFileCallback($file);
 				}
 
 				$errors = array_merge($errors, $fileErrors);
 			} catch (\PhpParser\Error $e) {
-				$errors[] = new Error($e->getMessage(), $file, $e->getStartLine() !== -1 ? $e->getStartLine() : null, false);
+				$errors[] = new Error(
+					$e->getMessage(),
+					$file,
+					$e->getStartLine() !== -1 ? $e->getStartLine() : null,
+					false
+				);
 			} catch (\PHPStan\AnalysedCodeException $e) {
 				$errors[] = new Error($e->getMessage(), $file, null, false);
 			} catch (\Throwable $t) {
 				if ($debug) {
 					throw $t;
 				}
+
 				$internalErrorsCount++;
 				$internalErrorMessage = sprintf('Internal error: %s', $t->getMessage());
 				$internalErrorMessage .= sprintf(
@@ -145,27 +152,38 @@ class Analyser
 
 		$unmatchedIgnoredErrors = $this->ignoreErrors;
 		$addErrors = [];
-		$errors = array_values(array_filter($errors, function (Error $error) use (&$unmatchedIgnoredErrors, &$addErrors): bool {
-			foreach ($this->ignoreErrors as $i => $ignore) {
-				if (\Nette\Utils\Strings::match($error->getMessage(), $ignore) !== null) {
-					unset($unmatchedIgnoredErrors[$i]);
-					if (!$error->canBeIgnored()) {
-						$addErrors[] = sprintf(
-							'Error message "%s" cannot be ignored, use excludes_analyse instead.',
-							$error->getMessage()
-						);
-						return true;
-					}
-					return false;
-				}
-			}
+		$errors = array_values(array_filter(
+			$errors,
+			function (Error $error) use (&$unmatchedIgnoredErrors, &$addErrors): bool {
+				foreach ($this->ignoreErrors as $i => $ignore) {
+					if (\Nette\Utils\Strings::match($error->getMessage(), $ignore) !== null) {
+						unset($unmatchedIgnoredErrors[$i]);
+						if (!$error->canBeIgnored()) {
+							$addErrors[] = sprintf(
+								'Error message "%s" cannot be ignored, use excludes_analyse instead.',
+								$error->getMessage()
+							);
 
-			return true;
-		}));
+							return true;
+						}
+
+						return false;
+					}
+				}
+
+				return true;
+			}
+		));
 
 		$errors = array_merge($errors, $addErrors);
 
-		if (!$onlyFiles && $this->reportUnmatchedIgnoredErrors && !$reachedInternalErrorsCountLimit) {
+		if (
+			!$onlyFiles
+			&&
+			$this->reportUnmatchedIgnoredErrors
+			&&
+			!$reachedInternalErrorsCountLimit
+		) {
 			foreach ($unmatchedIgnoredErrors as $unmatchedIgnoredError) {
 				$errors[] = sprintf(
 					'Ignored error pattern %s was not matched in reported errors.',
@@ -175,7 +193,10 @@ class Analyser
 		}
 
 		if ($reachedInternalErrorsCountLimit) {
-			$errors[] = sprintf('Reached internal errors count limit of %d, exiting...', $this->internalErrorsCountLimit);
+			$errors[] = sprintf(
+				'Reached internal errors count limit of %d, exiting...',
+				$this->internalErrorsCountLimit
+			);
 		}
 
 		return $errors;

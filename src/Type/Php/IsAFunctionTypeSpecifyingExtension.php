@@ -25,7 +25,11 @@ class IsAFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtens
 	/** @var \PHPStan\Analyser\TypeSpecifier */
 	private $typeSpecifier;
 
-	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, TypeSpecifierContext $context): bool
+	public function isFunctionSupported(
+		FunctionReflection $functionReflection,
+		FuncCall $node,
+		TypeSpecifierContext $context
+	): bool
 	{
 		return strtolower($functionReflection->getName()) === 'is_a'
 			&& isset($node->args[0])
@@ -33,7 +37,12 @@ class IsAFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtens
 			&& !$context->null();
 	}
 
-	public function specifyTypes(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
+	public function specifyTypes(
+		FunctionReflection $functionReflection,
+		FuncCall $node,
+		Scope $scope,
+		TypeSpecifierContext $context
+	): SpecifiedTypes
 	{
 		if ($context->null()) {
 			throw new \PHPStan\ShouldNotHappenException();
@@ -43,9 +52,12 @@ class IsAFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtens
 		$classNameArgExprType = $scope->getType($classNameArgExpr);
 		if (
 			$classNameArgExpr instanceof ClassConstFetch
-			&& $classNameArgExpr->class instanceof Name
-			&& $classNameArgExpr->name instanceof \PhpParser\Node\Identifier
-			&& strtolower($classNameArgExpr->name->name) === 'class'
+			&&
+			$classNameArgExpr->class instanceof Name
+			&&
+			$classNameArgExpr->name instanceof \PhpParser\Node\Identifier
+			&&
+			strtolower($classNameArgExpr->name->name) === 'class'
 		) {
 			$className = $scope->resolveName($classNameArgExpr->class);
 			if (strtolower($classNameArgExpr->class->toString()) === 'static') {
@@ -64,9 +76,17 @@ class IsAFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtens
 			$types = new SpecifiedTypes();
 		}
 
-		if (isset($node->args[2]) && $context->true()) {
+		if (
+			isset($node->args[2])
+			&&
+			$context->true()
+		) {
 			if (!$scope->getType($node->args[2]->value)->isSuperTypeOf(new ConstantBooleanType(true))->no()) {
-				$types = $types->intersectWith($this->typeSpecifier->create($node->args[0]->value, new StringType(), $context));
+				$types = $types->intersectWith($this->typeSpecifier->create(
+					$node->args[0]->value,
+					new StringType(),
+					$context
+				));
 			}
 		}
 

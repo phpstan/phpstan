@@ -46,8 +46,16 @@ class BrokerFactory
 		$relativePathHelper = $this->container->getService('relativePathHelper');
 
 		return new Broker(
-			array_merge([$phpClassReflectionExtension, $phpDefectClassReflectionExtension], $tagToService($this->container->findByTag(self::PROPERTIES_CLASS_REFLECTION_EXTENSION_TAG)), [$annotationsPropertiesClassReflectionExtension]),
-			array_merge([$phpClassReflectionExtension], $tagToService($this->container->findByTag(self::METHODS_CLASS_REFLECTION_EXTENSION_TAG)), [$annotationsMethodsClassReflectionExtension]),
+			array_merge(
+				[$phpClassReflectionExtension, $phpDefectClassReflectionExtension],
+				$tagToService($this->container->findByTag(self::PROPERTIES_CLASS_REFLECTION_EXTENSION_TAG)),
+				[$annotationsPropertiesClassReflectionExtension]
+			),
+			array_merge(
+				[$phpClassReflectionExtension],
+				$tagToService($this->container->findByTag(self::METHODS_CLASS_REFLECTION_EXTENSION_TAG)),
+				[$annotationsMethodsClassReflectionExtension]
+			),
 			$tagToService($this->container->findByTag(self::DYNAMIC_METHOD_RETURN_TYPE_EXTENSION_TAG)),
 			$tagToService($this->container->findByTag(self::DYNAMIC_STATIC_METHOD_RETURN_TYPE_EXTENSION_TAG)),
 			$tagToService($this->container->findByTag(self::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG)),

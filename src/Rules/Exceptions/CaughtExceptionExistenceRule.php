@@ -50,6 +50,7 @@ class CaughtExceptionExistenceRule implements \PHPStan\Rules\Rule
 		} else {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
+
 		$errors = [];
 		foreach ($classes as $className) {
 			$class = (string) $className;
@@ -59,7 +60,11 @@ class CaughtExceptionExistenceRule implements \PHPStan\Rules\Rule
 			}
 
 			$classReflection = $this->broker->getClass($class);
-			if (!$classReflection->isInterface() && !$classReflection->getNativeReflection()->implementsInterface(\Throwable::class)) {
+			if (
+				!$classReflection->isInterface()
+				&&
+				!$classReflection->getNativeReflection()->implementsInterface(\Throwable::class)
+			) {
 				$errors[] = sprintf('Caught class %s is not an exception.', $classReflection->getDisplayName());
 			}
 

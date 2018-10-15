@@ -63,6 +63,7 @@ class LookForAssignsSettings
 	private static function create(int $value): self
 	{
 		self::$registry[$value] = self::$registry[$value] ?? new self($value);
+
 		return self::$registry[$value];
 	}
 
@@ -78,15 +79,11 @@ class LookForAssignsSettings
 
 	private function isRespected(\PhpParser\Node $earlyTerminationStatement): bool
 	{
-		if (
-			$earlyTerminationStatement instanceof Break_
-		) {
+		if ($earlyTerminationStatement instanceof Break_) {
 			return ($this->respectEarlyTermination & self::EARLY_TERMINATION_BREAK) === self::EARLY_TERMINATION_BREAK;
 		}
 
-		if (
-			$earlyTerminationStatement instanceof Continue_
-		) {
+		if ($earlyTerminationStatement instanceof Continue_) {
 			return ($this->respectEarlyTermination & self::EARLY_TERMINATION_CONTINUE) === self::EARLY_TERMINATION_CONTINUE;
 		}
 
@@ -111,9 +108,12 @@ class LookForAssignsSettings
 	public function shouldGeneralizeConstantTypesOfNonIdempotentOperations(): bool
 	{
 		return (
-			($this->respectEarlyTermination & self::EARLY_TERMINATION_STOP) === self::EARLY_TERMINATION_STOP
-			&& $this->respectEarlyTermination !== self::EARLY_TERMINATION_ALL
-		) || $this->respectEarlyTermination === self::EARLY_TERMINATION_CLOSURE;
+				($this->respectEarlyTermination & self::EARLY_TERMINATION_STOP) === self::EARLY_TERMINATION_STOP
+				&&
+				$this->respectEarlyTermination !== self::EARLY_TERMINATION_ALL
+			)
+			||
+			$this->respectEarlyTermination === self::EARLY_TERMINATION_CLOSURE;
 	}
 
 }

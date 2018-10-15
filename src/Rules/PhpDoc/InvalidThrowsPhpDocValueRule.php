@@ -54,10 +54,12 @@ class InvalidThrowsPhpDocValueRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		return [sprintf(
-			'PHPDoc tag @throws with type %s is not subtype of Throwable',
-			$phpDocThrowsType->describe(VerbosityLevel::typeOnly())
-		)];
+		return [
+			sprintf(
+				'PHPDoc tag @throws with type %s is not subtype of Throwable',
+				$phpDocThrowsType->describe(VerbosityLevel::typeOnly())
+			),
+		];
 	}
 
 }

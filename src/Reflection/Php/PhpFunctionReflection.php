@@ -145,13 +145,18 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 	private function isVariadic(): bool
 	{
 		$isNativelyVariadic = $this->reflection->isVariadic();
-		if (!$isNativelyVariadic && $this->reflection->getFileName() !== false) {
+		if (
+			!$isNativelyVariadic
+			&&
+			$this->reflection->getFileName() !== false
+		) {
 			$key = sprintf('variadic-function-%s-v0', $this->reflection->getName());
 			$cachedResult = $this->cache->load($key);
 			if ($cachedResult === null) {
 				$nodes = $this->parser->parseFile($this->reflection->getFileName());
 				$result = $this->callsFuncGetArgs($nodes);
 				$this->cache->save($key, $result);
+
 				return $result;
 			}
 
@@ -168,7 +173,7 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 	private function callsFuncGetArgs($nodes): bool
 	{
 		foreach ($nodes as $node) {
-			if (is_array($node)) {
+			if (\is_array($node)) {
 				if ($this->callsFuncGetArgs($node)) {
 					return true;
 				}
@@ -182,7 +187,10 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 				$functionName = (string) $node->namespacedName;
 
 				if ($functionName === $this->reflection->getName()) {
-					return $this->functionCallStatementFinder->findFunctionCallInStatements(ParametersAcceptor::VARIADIC_FUNCTIONS, $node->getStmts()) !== null;
+					return $this->functionCallStatementFinder->findFunctionCallInStatements(
+						ParametersAcceptor::VARIADIC_FUNCTIONS,
+						$node->getStmts()
+					) !== null;
 				}
 
 				continue;
@@ -205,11 +213,14 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 		$phpDocReturnType = $this->phpDocReturnType;
 		if (
 			$returnType !== null
-			&& $phpDocReturnType !== null
-			&& $returnType->allowsNull() !== TypeCombinator::containsNull($phpDocReturnType)
+			&&
+			$phpDocReturnType !== null
+			&&
+			$returnType->allowsNull() !== TypeCombinator::containsNull($phpDocReturnType)
 		) {
 			$phpDocReturnType = null;
 		}
+
 		return TypehintHelper::decideTypeFromReflection(
 			$returnType,
 			$phpDocReturnType

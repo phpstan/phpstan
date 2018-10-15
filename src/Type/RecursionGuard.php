@@ -17,6 +17,7 @@ class RecursionGuard
 
 		try {
 			self::$context[$key] = true;
+
 			return $callback();
 		} finally {
 			unset(self::$context[$key]);

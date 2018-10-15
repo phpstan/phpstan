@@ -19,7 +19,11 @@ class DioStatDynamicFunctionReturnTypeExtension implements \PHPStan\Type\Dynamic
 		return $functionReflection->getName() === 'dio_stat';
 	}
 
-	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
+	public function getTypeFromFunctionCall(
+		FunctionReflection $functionReflection,
+		FuncCall $functionCall,
+		Scope $scope
+	): Type
 	{
 		$valueType = new IntegerType();
 		$builder = ConstantArrayTypeBuilder::createEmpty();

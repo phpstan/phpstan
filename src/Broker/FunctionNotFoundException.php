@@ -10,7 +10,10 @@ class FunctionNotFoundException extends \PHPStan\AnalysedCodeException
 
 	public function __construct(string $functionName)
 	{
-		parent::__construct(sprintf('Function %s not found while trying to analyse it - autoloading is probably not configured properly.', $functionName));
+		parent::__construct(sprintf(
+			'Function %s not found while trying to analyse it - autoloading is probably not configured properly.',
+			$functionName
+		));
 		$this->functionName = $functionName;
 	}
 

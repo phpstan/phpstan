@@ -49,7 +49,9 @@ class TypeUtils
 	{
 		if ($type instanceof ConstantType) {
 			return $type->generalize();
-		} elseif ($type instanceof UnionType) {
+		}
+
+		if ($type instanceof UnionType) {
 			return TypeCombinator::union(...array_map(static function (Type $innerType): Type {
 				return self::generalizeType($innerType);
 			}, $type->getTypes()));
@@ -68,7 +70,11 @@ class TypeUtils
 			return [$type->getClassName()];
 		}
 
-		if ($type instanceof UnionType || $type instanceof IntersectionType) {
+		if (
+			$type instanceof UnionType
+			||
+			$type instanceof IntersectionType
+		) {
 			$classNames = [];
 			foreach ($type->getTypes() as $innerType) {
 				if (!$innerType instanceof TypeWithClassName) {
@@ -122,7 +128,11 @@ class TypeUtils
 			return $matchingTypes;
 		}
 
-		if ($inspectIntersections && $type instanceof IntersectionType) {
+		if (
+			$inspectIntersections
+			&&
+			$type instanceof IntersectionType
+		) {
 			$matchingTypes = [];
 			foreach ($type->getTypes() as $innerType) {
 				if (!$innerType instanceof $typeClass) {
@@ -157,7 +167,11 @@ class TypeUtils
 			return $type;
 		}
 
-		if ($type instanceof UnionType || $type instanceof IntersectionType) {
+		if (
+			$type instanceof UnionType
+			||
+			$type instanceof IntersectionType
+		) {
 			foreach ($type->getTypes() as $innerType) {
 				$thisType = self::findThisType($innerType);
 				if ($thisType !== null) {
@@ -179,11 +193,16 @@ class TypeUtils
 			return [$type];
 		}
 
-		if ($type instanceof UnionType || $type instanceof IntersectionType) {
+		if (
+			$type instanceof UnionType
+			||
+			$type instanceof IntersectionType
+		) {
 			$hasPropertyTypes = [];
 			foreach ($type->getTypes() as $innerType) {
 				$hasPropertyTypes = array_merge($hasPropertyTypes, self::getHasPropertyTypes($innerType));
 			}
+
 			return $hasPropertyTypes;
 		}
 

@@ -34,7 +34,14 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 
 		foreach (range(0, 7) as $level) {
 			unset($outputLines);
-			exec(sprintf('php %s analyse --no-progress --error-format=prettyJson --level=%d %s --autoload-file %s %s', $command, $level, $configPath !== null ? '--configuration ' . escapeshellarg($configPath) : '', escapeshellarg($file), escapeshellarg($file)), $outputLines);
+			exec(sprintf(
+				'php %s analyse --no-progress --error-format=prettyJson --level=%d %s --autoload-file %s %s',
+				$command,
+				$level,
+				$configPath !== null ? '--configuration ' . escapeshellarg($configPath) : '',
+				escapeshellarg($file),
+				escapeshellarg($file)
+			), $outputLines);
 
 			$output = implode("\n", $outputLines);
 
@@ -43,6 +50,7 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 			} catch (\Nette\Utils\JsonException $e) {
 				throw new \Nette\Utils\JsonException(sprintf('Cannot decode: %s', $output));
 			}
+
 			if (count($actualJson['files']) > 0) {
 				$messagesBeforeDiffing = $actualJson['files'][$fileHelper->normalizePath($file)]['messages'];
 			} else {
@@ -54,7 +62,8 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 				foreach ($previousMessages as $lastMessage) {
 					if (
 						$message['message'] === $lastMessage['message']
-						&& $message['line'] === $lastMessage['line']
+						&&
+						$message['line'] === $lastMessage['line']
 					) {
 						continue 2;
 					}

@@ -98,8 +98,16 @@ class ArrayType implements StaticResolvableType
 
 	public function describe(VerbosityLevel $level): string
 	{
-		if ($this->keyType instanceof MixedType || $this->keyType instanceof NeverType) {
-			if ($this->itemType instanceof MixedType || $this->itemType instanceof NeverType) {
+		if (
+			$this->keyType instanceof MixedType
+			||
+			$this->keyType instanceof NeverType
+		) {
+			if (
+				$this->itemType instanceof MixedType
+				||
+				$this->itemType instanceof NeverType
+			) {
 				return 'array';
 			}
 
@@ -279,10 +287,17 @@ class ArrayType implements StaticResolvableType
 		if ($offsetType instanceof ConstantScalarType) {
 			/** @var int|string $offsetValue */
 			$offsetValue = key([$offsetType->getValue() => null]);
-			return is_int($offsetValue) ? new ConstantIntegerType($offsetValue) : new ConstantStringType($offsetValue);
+
+			return \is_int($offsetValue) ? new ConstantIntegerType($offsetValue) : new ConstantStringType($offsetValue);
 		}
 
-		if ($offsetType instanceof IntegerType || $offsetType instanceof FloatType || $offsetType instanceof BooleanType) {
+		if (
+			$offsetType instanceof IntegerType
+			||
+			$offsetType instanceof FloatType
+			||
+			$offsetType instanceof BooleanType
+		) {
 			return new IntegerType();
 		}
 

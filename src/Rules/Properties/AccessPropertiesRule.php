@@ -84,7 +84,8 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 					$classReflection = $this->broker->getClass($className);
 					if (
 						$classReflection->hasNativeMethod('__get')
-						|| $classReflection->hasNativeMethod('__set')
+						||
+						$classReflection->hasNativeMethod('__set')
 					) {
 						return [];
 					}

@@ -20,7 +20,11 @@ class ArrayFillFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunct
 		return $functionReflection->getName() === 'array_fill';
 	}
 
-	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
+	public function getTypeFromFunctionCall(
+		FunctionReflection $functionReflection,
+		FuncCall $functionCall,
+		Scope $scope
+	): Type
 	{
 		if (count($functionCall->args) < 3) {
 			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();

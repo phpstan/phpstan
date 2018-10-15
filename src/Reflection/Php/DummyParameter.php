@@ -12,7 +12,7 @@ class DummyParameter implements ParameterReflection
 	/** @var string */
 	private $name;
 
-	/** @var \PHPStan\Type\Type  */
+	/** @var \PHPStan\Type\Type */
 	private $type;
 
 	/** @var bool */
@@ -24,7 +24,13 @@ class DummyParameter implements ParameterReflection
 	/** @var bool */
 	private $variadic;
 
-	public function __construct(string $name, Type $type, bool $optional, ?PassedByReference $passedByReference = null, bool $variadic = false)
+	public function __construct(
+		string $name,
+		Type $type,
+		bool $optional,
+		?PassedByReference $passedByReference = null,
+		bool $variadic = false
+	)
 	{
 		$this->name = $name;
 		$this->type = $type;

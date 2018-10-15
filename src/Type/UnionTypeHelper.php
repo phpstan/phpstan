@@ -70,7 +70,9 @@ class UnionTypeHelper
 		usort($types, static function (Type $a, Type $b): float {
 			if ($a instanceof NullType) {
 				return 1;
-			} elseif ($b instanceof NullType) {
+			}
+
+			if ($b instanceof NullType) {
 				return -1;
 			}
 
@@ -81,42 +83,73 @@ class UnionTypeHelper
 
 				return 1;
 			}
+
 			if ($b instanceof AccessoryType) {
 				return -1;
 			}
 
 			$aIsNullOrBool = ($a instanceof NullType || $a instanceof ConstantBooleanType);
 			$bIsNullOrBool = ($b instanceof NullType || $b instanceof ConstantBooleanType);
-			if ($aIsNullOrBool && !$bIsNullOrBool) {
+
+			if (
+				$aIsNullOrBool
+				&&
+				!$bIsNullOrBool
+			) {
 				return 1;
-			} elseif ($bIsNullOrBool && !$aIsNullOrBool) {
+			}
+
+			if (
+				$bIsNullOrBool
+				&&
+				!$aIsNullOrBool
+			) {
 				return -1;
 			}
-			if ($a instanceof ConstantScalarType && !$b instanceof ConstantScalarType) {
+
+			if (
+				$a instanceof ConstantScalarType
+				&&
+				!$b instanceof ConstantScalarType
+			) {
 				return -1;
-			} elseif (!$a instanceof ConstantScalarType && $b instanceof ConstantScalarType) {
+			}
+
+			if (
+				!$a instanceof ConstantScalarType
+				&&
+				$b instanceof ConstantScalarType
+			) {
 				return 1;
 			}
 
 			if (
 				(
 					$a instanceof ConstantIntegerType
-					|| $a instanceof ConstantFloatType
+					||
+					$a instanceof ConstantFloatType
 				)
-				&& (
+				&&
+				(
 					$b instanceof ConstantIntegerType
-					|| $b instanceof ConstantFloatType
+					||
+					$b instanceof ConstantFloatType
 				)
 			) {
 				return $a->getValue() - $b->getValue();
 			}
 
-			if ($a instanceof ConstantStringType && $b instanceof ConstantStringType) {
+			if (
+				$a instanceof ConstantStringType
+				&&
+				$b instanceof ConstantStringType
+			) {
 				return strcasecmp($a->getValue(), $b->getValue());
 			}
 
 			return strcasecmp($a->describe(VerbosityLevel::typeOnly()), $b->describe(VerbosityLevel::typeOnly()));
 		});
+
 		return $types;
 	}
 

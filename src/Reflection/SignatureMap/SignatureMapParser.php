@@ -30,7 +30,7 @@ class SignatureMapParser
 	 */
 	public function getFunctionSignature(array $map, ?string $className): FunctionSignature
 	{
-		$parameterSignatures = $this->getParameters(array_slice($map, 1));
+		$parameterSignatures = $this->getParameters(\array_slice($map, 1));
 		$hasVariadic = false;
 		foreach ($parameterSignatures as $parameterSignature) {
 			if ($parameterSignature->isVariadic()) {
@@ -38,6 +38,7 @@ class SignatureMapParser
 				break;
 			}
 		}
+
 		return new FunctionSignature(
 			$parameterSignatures,
 			$this->getTypeFromString($map[0], $className),
@@ -54,12 +55,16 @@ class SignatureMapParser
 		$types = [];
 		foreach ($parts as $part) {
 			$isNullable = false;
-			if (substr($part, 0, 1) === '?') {
+			if ($part[0] === '?') {
 				$isNullable = true;
 				$part = substr($part, 1);
 			}
 
-			if ($part === 'OCI-Lob' || $part === 'OCI-Collection') {
+			if (
+				$part === 'OCI-Lob'
+				||
+				$part === 'OCI-Collection'
+			) {
 				$type = new ObjectType($part);
 			} else {
 				$type = $this->typeStringResolver->resolve($part, new NameScope(null, [], $className));
@@ -105,7 +110,12 @@ class SignatureMapParser
 			$parameterNameString,
 			'#^(?P<reference>&(?:\.\.\.)?r?w?_?)?(?P<variadic>\.\.\.)?(?P<name>[^=]+)?(?P<optional>=)?($)#'
 		);
-		if ($matches === null || !isset($matches['optional'])) {
+
+		if (
+			$matches === null
+			||
+			!isset($matches['optional'])
+		) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 

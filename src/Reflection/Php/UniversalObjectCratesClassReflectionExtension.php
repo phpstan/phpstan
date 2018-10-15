@@ -8,8 +8,7 @@ use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Type\MixedType;
 
-class UniversalObjectCratesClassReflectionExtension
-	implements \PHPStan\Reflection\PropertiesClassReflectionExtension, \PHPStan\Reflection\BrokerAwareExtension
+class UniversalObjectCratesClassReflectionExtension implements \PHPStan\Reflection\PropertiesClassReflectionExtension, \PHPStan\Reflection\BrokerAwareExtension
 {
 
 	/** @var string[] */
@@ -59,7 +58,8 @@ class UniversalObjectCratesClassReflectionExtension
 
 			if (
 				$classReflection->getName() === $className
-				|| $classReflection->isSubclassOf($className)
+				||
+				$classReflection->isSubclassOf($className)
 			) {
 				return true;
 			}
@@ -75,6 +75,7 @@ class UniversalObjectCratesClassReflectionExtension
 		} else {
 			$type = new MixedType();
 		}
+
 		return new UniversalObjectCrateProperty($classReflection, $type);
 	}
 

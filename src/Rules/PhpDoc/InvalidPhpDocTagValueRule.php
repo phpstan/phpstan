@@ -38,11 +38,16 @@ class InvalidPhpDocTagValueRule implements \PHPStan\Rules\Rule
 	{
 		if (
 			!$node instanceof Node\Stmt\ClassLike
-			&& !$node instanceof Node\FunctionLike
-			&& !$node instanceof Node\Stmt\Foreach_
-			&& !$node instanceof Node\Stmt\Property
-			&& !$node instanceof Node\Expr\Assign
-			&& !$node instanceof Node\Expr\AssignRef
+			&&
+			!$node instanceof Node\FunctionLike
+			&&
+			!$node instanceof Node\Stmt\Foreach_
+			&&
+			!$node instanceof Node\Stmt\Property
+			&&
+			!$node instanceof Node\Expr\Assign
+			&&
+			!$node instanceof Node\Expr\AssignRef
 		) {
 			return [];
 		}

@@ -101,6 +101,7 @@ class AnnotationMethodReflection implements MethodReflection
 				),
 			];
 		}
+
 		return $this->variants;
 	}
 

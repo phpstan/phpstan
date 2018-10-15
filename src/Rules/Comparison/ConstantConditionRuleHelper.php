@@ -23,13 +23,20 @@ class ConstantConditionRuleHelper
 	{
 		if (
 			$expr instanceof Expr\Instanceof_
-			|| $expr instanceof Expr\BinaryOp\Identical
-			|| $expr instanceof Expr\BinaryOp\NotIdentical
-			|| $expr instanceof Expr\BooleanNot
-			|| $expr instanceof Expr\BinaryOp\BooleanOr
-			|| $expr instanceof Expr\BinaryOp\BooleanAnd
-			|| $expr instanceof Expr\Ternary
-			|| $expr instanceof Expr\Isset_
+			||
+			$expr instanceof Expr\BinaryOp\Identical
+			||
+			$expr instanceof Expr\BinaryOp\NotIdentical
+			||
+			$expr instanceof Expr\BooleanNot
+			||
+			$expr instanceof Expr\BinaryOp\BooleanOr
+			||
+			$expr instanceof Expr\BinaryOp\BooleanAnd
+			||
+			$expr instanceof Expr\Ternary
+			||
+			$expr instanceof Expr\Isset_
 		) {
 			// already checked by different rules
 			return new BooleanType();
@@ -37,8 +44,10 @@ class ConstantConditionRuleHelper
 
 		if (
 			$expr instanceof FuncCall
-			|| $expr instanceof MethodCall
-			|| $expr instanceof Expr\StaticCall
+			||
+			$expr instanceof MethodCall
+			||
+			$expr instanceof Expr\StaticCall
 		) {
 			$isAlways = $this->impossibleCheckTypeHelper->findSpecifiedType($scope, $expr);
 			if ($isAlways !== null) {

@@ -48,22 +48,26 @@ class WritingToReadOnlyPropertiesRule implements \PHPStan\Rules\Rule
 	{
 		if (
 			!$node instanceof Node\Expr\Assign
-			&& !$node instanceof Node\Expr\AssignOp
+			&&
+			!$node instanceof Node\Expr\AssignOp
 		) {
 			return [];
 		}
 
 		if (
 			!($node->var instanceof Node\Expr\PropertyFetch)
-			&& !($node->var instanceof Node\Expr\StaticPropertyFetch)
+			&&
+			!($node->var instanceof Node\Expr\StaticPropertyFetch)
 		) {
 			return [];
 		}
 
 		if (
 			$node->var instanceof Node\Expr\PropertyFetch
-			&& $this->checkThisOnly
-			&& !$this->ruleLevelHelper->isThis($node->var->var)
+			&&
+			$this->checkThisOnly
+			&&
+			!$this->ruleLevelHelper->isThis($node->var->var)
 		) {
 			return [];
 		}

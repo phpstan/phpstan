@@ -48,15 +48,18 @@ class ReadingWriteOnlyPropertiesRule implements \PHPStan\Rules\Rule
 	{
 		if (
 			!($node instanceof Node\Expr\PropertyFetch)
-			&& !($node instanceof Node\Expr\StaticPropertyFetch)
+			&&
+			!($node instanceof Node\Expr\StaticPropertyFetch)
 		) {
 			return [];
 		}
 
 		if (
 			$node instanceof Node\Expr\PropertyFetch
-			&& $this->checkThisOnly
-			&& !$this->ruleLevelHelper->isThis($node->var)
+			&&
+			$this->checkThisOnly
+			&&
+			!$this->ruleLevelHelper->isThis($node->var)
 		) {
 			return [];
 		}

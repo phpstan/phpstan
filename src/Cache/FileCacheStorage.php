@@ -12,7 +12,11 @@ class FileCacheStorage implements CacheStorage
 	{
 		$this->directory = $directory;
 
-		if (@mkdir($this->directory) && !is_dir($this->directory)) {
+		if (
+			@mkdir($this->directory)
+			&&
+			!is_dir($this->directory)
+		) {
 			throw new \InvalidArgumentException(sprintf('Directory "%s" doesn\'t exist.', $this->directory));
 		}
 	}
@@ -25,6 +29,7 @@ class FileCacheStorage implements CacheStorage
 	{
 		return (function (string $key) {
 			$filePath = $this->getFilePath($key);
+
 			return is_file($filePath) ? require $this->getFilePath($key) : null;
 		})($key);
 	}
@@ -40,6 +45,7 @@ class FileCacheStorage implements CacheStorage
 			$this->getFilePath($key),
 			sprintf("<?php declare(strict_types = 1);\n\nreturn %s;", var_export($data, true))
 		);
+
 		return $writtenBytes !== false;
 	}
 

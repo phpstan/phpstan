@@ -20,7 +20,11 @@ class ArrayFillKeysFunctionReturnTypeExtension implements \PHPStan\Type\DynamicF
 		return $functionReflection->getName() === 'array_fill_keys';
 	}
 
-	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
+	public function getTypeFromFunctionCall(
+		FunctionReflection $functionReflection,
+		FuncCall $functionCall,
+		Scope $scope
+	): Type
 	{
 		if (count($functionCall->args) < 2) {
 			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();

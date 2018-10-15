@@ -23,7 +23,8 @@ class InvalidUnaryOperationRule implements \PHPStan\Rules\Rule
 	{
 		if (
 			!$node instanceof \PhpParser\Node\Expr\UnaryPlus
-			&& !$node instanceof \PhpParser\Node\Expr\UnaryMinus
+			&&
+			!$node instanceof \PhpParser\Node\Expr\UnaryMinus
 		) {
 			return [];
 		}

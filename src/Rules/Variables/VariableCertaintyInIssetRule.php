@@ -26,10 +26,13 @@ class VariableCertaintyInIssetRule implements \PHPStan\Rules\Rule
 			$isSubNode = false;
 			while (
 				$var instanceof Node\Expr\ArrayDimFetch
-				|| $var instanceof Node\Expr\PropertyFetch
-				|| (
+				||
+				$var instanceof Node\Expr\PropertyFetch
+				||
+				(
 					$var instanceof Node\Expr\StaticPropertyFetch
-					&& $var->class instanceof Node\Expr
+					&&
+					$var->class instanceof Node\Expr
 				)
 			) {
 				if ($var instanceof Node\Expr\StaticPropertyFetch) {
@@ -37,26 +40,40 @@ class VariableCertaintyInIssetRule implements \PHPStan\Rules\Rule
 				} else {
 					$var = $var->var;
 				}
+
 				$isSubNode = true;
 			}
 
-			if (!$var instanceof Node\Expr\Variable || !is_string($var->name)) {
+			if (
+				!$var instanceof Node\Expr\Variable
+				||
+				!\is_string($var->name)
+			) {
 				continue;
 			}
 
 			$certainty = $scope->hasVariableType($var->name);
+
 			if ($certainty->no()) {
+
 				if (
 					$scope->getFunction() !== null
 					|| $scope->isInAnonymousFunction()
 				) {
 					$messages[] = sprintf('Variable $%s in isset() is never defined.', $var->name);
 				}
-			} elseif ($certainty->yes() && !$isSubNode) {
+
+			} elseif (
+				!$isSubNode
+				&&
+				$certainty->yes()
+			) {
+
 				$variableType = $scope->getVariableType($var->name);
 				if ($variableType->isSuperTypeOf(new NullType())->no()) {
 					$messages[] = sprintf('Variable $%s in isset() always exists and is not nullable.', $var->name);
 				}
+
 			}
 		}
 

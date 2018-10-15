@@ -67,8 +67,11 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 					sprintf('Using %s outside of class scope.', $class),
 				];
 			}
+
 			return [];
-		} elseif ($lowercasedClass === 'self') {
+		}
+
+		if ($lowercasedClass === 'self') {
 			if (!$scope->isInClass()) {
 				return [
 					sprintf('Using %s outside of class scope.', $class),
@@ -97,9 +100,9 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 				return [
 					sprintf('Instantiated class %s not found.', $class),
 				];
-			} else {
-				$messages = $this->classCaseSensitivityCheck->checkClassNames([$class]);
 			}
+
+			$messages = $this->classCaseSensitivityCheck->checkClassNames([$class]);
 
 			$classReflection = $this->broker->getClass($class);
 		}

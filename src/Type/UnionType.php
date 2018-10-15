@@ -30,9 +30,11 @@ class UnionType implements CompoundType, StaticResolvableType
 				}, $types))
 			));
 		};
+
 		if (count($types) < 2) {
 			$throwException();
 		}
+
 		foreach ($types as $type) {
 			if (!($type instanceof UnionType)) {
 				continue;
@@ -40,6 +42,7 @@ class UnionType implements CompoundType, StaticResolvableType
 
 			$throwException();
 		}
+
 		$this->types = UnionTypeHelper::sortTypes($types);
 	}
 
@@ -72,7 +75,11 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function isSuperTypeOf(Type $otherType): TrinaryLogic
 	{
-		if ($otherType instanceof self || $otherType instanceof IterableType) {
+		if (
+			$otherType instanceof self
+			||
+			$otherType instanceof IterableType
+		) {
 			return $otherType->isSubTypeOf($this);
 		}
 
@@ -118,7 +125,11 @@ class UnionType implements CompoundType, StaticResolvableType
 		$joinTypes = static function (array $types) use ($level): string {
 			$typeNames = [];
 			foreach ($types as $type) {
-				if ($type instanceof IntersectionType || $type instanceof ClosureType) {
+				if (
+					$type instanceof IntersectionType
+					||
+					$type instanceof ClosureType
+				) {
 					$typeNames[] = sprintf('(%s)', $type->describe($level));
 				} else {
 					$typeNames[] = $type->describe($level);
@@ -133,7 +144,8 @@ class UnionType implements CompoundType, StaticResolvableType
 				$types = TypeCombinator::union(...array_map(static function (Type $type): Type {
 					if (
 						$type instanceof ConstantType
-						&& !$type instanceof ConstantBooleanType
+						&&
+						!$type instanceof ConstantBooleanType
 					) {
 						return $type->generalize();
 					}
@@ -246,7 +258,8 @@ class UnionType implements CompoundType, StaticResolvableType
 			$typesWithHas++;
 		}
 
-		return $typesWithCan > 0 && $typesWithHas === $typesWithCan;
+		return $typesWithCan > 0
+			&& $typesWithHas === $typesWithCan;
 	}
 
 	public function canAccessProperties(): TrinaryLogic
@@ -274,6 +287,7 @@ class UnionType implements CompoundType, StaticResolvableType
 			if ($type->canAccessProperties()->no()) {
 				continue;
 			}
+
 			return $type->getProperty($propertyName, $scope);
 		}
 
@@ -305,6 +319,7 @@ class UnionType implements CompoundType, StaticResolvableType
 			if ($type->canCallMethods()->no()) {
 				continue;
 			}
+
 			return $type->getMethod($methodName, $scope);
 		}
 
@@ -336,6 +351,7 @@ class UnionType implements CompoundType, StaticResolvableType
 			if ($type->canAccessConstants()->no()) {
 				continue;
 			}
+
 			return $type->getConstant($constantName);
 		}
 

@@ -18,7 +18,11 @@ class ArrayPopFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFuncti
 		return $functionReflection->getName() === 'array_pop';
 	}
 
-	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
+	public function getTypeFromFunctionCall(
+		FunctionReflection $functionReflection,
+		FuncCall $functionCall,
+		Scope $scope
+	): Type
 	{
 		if (!isset($functionCall->args[0])) {
 			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();

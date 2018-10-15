@@ -76,6 +76,7 @@ class FunctionDefinitionCheck
 			if (!$scope->isInClass()) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
+
 			$nativeMethod = $scope->getClassReflection()->getNativeMethod($function->name->name);
 			if (!$nativeMethod instanceof PhpMethodReflection) {
 				return [];
@@ -117,21 +118,34 @@ class FunctionDefinitionCheck
 			$class = $param->type instanceof NullableType
 				? (string) $param->type->type
 				: (string) $param->type;
-			$lowercasedClass = strtolower($class);
-			if ($lowercasedClass === '' || in_array($lowercasedClass, self::VALID_TYPEHINTS, true)) {
+
+			if ($class === '') {
+				continue;
+			}
+
+			if (\in_array(strtolower($class), self::VALID_TYPEHINTS, true)) {
 				continue;
 			}
 
 			if (!$this->broker->hasClass($class)) {
-				if (!$param->var instanceof Variable || !is_string($param->var->name)) {
+
+				if (
+					!$param->var instanceof Variable
+					||
+					!\is_string($param->var->name)
+				) {
 					throw new \PHPStan\ShouldNotHappenException();
 				}
+
 				$errors[] = sprintf($parameterMessage, $param->var->name, $class);
+
 			} elseif ($this->checkClassCaseSensitivity) {
+
 				$errors = array_merge(
 					$errors,
 					$this->classCaseSensitivityCheck->checkClassNames([$class])
 				);
+
 			}
 		}
 
@@ -139,11 +153,10 @@ class FunctionDefinitionCheck
 			? (string) $function->getReturnType()->type
 			: (string) $function->getReturnType();
 
-		$lowercasedReturnType = strtolower($returnType);
-
 		if (
-			$lowercasedReturnType !== ''
-			&& !in_array($lowercasedReturnType, self::VALID_TYPEHINTS, true)
+			$returnType !== ''
+			&&
+			!\in_array(strtolower($returnType), self::VALID_TYPEHINTS, true)
 		) {
 			if (!$this->broker->hasClass($returnType)) {
 				$errors[] = sprintf($returnMessage, $returnType);
@@ -181,7 +194,11 @@ class FunctionDefinitionCheck
 				);
 			}
 			foreach ($referencedClasses as $class) {
-				if ($this->broker->hasClass($class) && !$this->broker->getClass($class)->isTrait()) {
+				if (
+					$this->broker->hasClass($class)
+					&&
+					!$this->broker->getClass($class)->isTrait()
+				) {
 					continue;
 				}
 
@@ -198,7 +215,11 @@ class FunctionDefinitionCheck
 				continue;
 			}
 
-			$errors[] = sprintf($parameterMessage, $parameter->getName(), $parameter->getType()->describe(VerbosityLevel::typeOnly()));
+			$errors[] = sprintf(
+				$parameterMessage,
+				$parameter->getName(),
+				$parameter->getType()->describe(VerbosityLevel::typeOnly())
+			);
 		}
 
 		if ($this->checkThisOnly) {
@@ -225,7 +246,10 @@ class FunctionDefinitionCheck
 			);
 		}
 		if ($parametersAcceptor->getReturnType() instanceof NonexistentParentClassType) {
-			$errors[] = sprintf($returnMessage, $parametersAcceptor->getReturnType()->describe(VerbosityLevel::typeOnly()));
+			$errors[] = sprintf(
+				$returnMessage,
+				$parametersAcceptor->getReturnType()->describe(VerbosityLevel::typeOnly())
+			);
 		}
 
 		return $errors;
