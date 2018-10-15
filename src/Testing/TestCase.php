@@ -56,6 +56,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	{
 		/** @var \PHPStan\Parser\Parser $parser */
 		$parser = self::getContainer()->getService('directParser');
+
 		return $parser;
 	}
 
@@ -72,7 +73,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		$functionCallStatementFinder = new FunctionCallStatementFinder();
 		$parser = $this->getParser();
 		$cache = new Cache(new MemoryCacheStorage());
-		$methodReflectionFactory = new class($parser, $functionCallStatementFinder, $cache) implements PhpMethodReflectionFactory {
+		$methodReflectionFactory = new class($parser, $functionCallStatementFinder, $cache) implements PhpMethodReflectionFactory
+		{
 
 			/** @var \PHPStan\Parser\Parser */
 			private $parser;
@@ -141,12 +143,28 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		};
 		$phpDocStringResolver = self::getContainer()->getByType(PhpDocStringResolver::class);
 		$currentWorkingDirectory = $this->getCurrentWorkingDirectory();
-		$fileTypeMapper = new FileTypeMapper($parser, $phpDocStringResolver, $cache, new AnonymousClassNameHelper(new FileHelper($currentWorkingDirectory), new RelativePathHelper($currentWorkingDirectory, DIRECTORY_SEPARATOR, [])), self::getContainer()->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class));
+		$fileTypeMapper = new FileTypeMapper(
+			$parser,
+			$phpDocStringResolver,
+			$cache,
+			new AnonymousClassNameHelper(
+				new FileHelper($currentWorkingDirectory),
+				new RelativePathHelper($currentWorkingDirectory, DIRECTORY_SEPARATOR, [])
+			),
+			self::getContainer()->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class)
+		);
 		$annotationsMethodsClassReflectionExtension = new AnnotationsMethodsClassReflectionExtension($fileTypeMapper);
 		$annotationsPropertiesClassReflectionExtension = new AnnotationsPropertiesClassReflectionExtension($fileTypeMapper);
 		$signatureMapProvider = self::getContainer()->getByType(SignatureMapProvider::class);
-		$phpExtension = new PhpClassReflectionExtension($methodReflectionFactory, $fileTypeMapper, $annotationsMethodsClassReflectionExtension, $annotationsPropertiesClassReflectionExtension, $signatureMapProvider);
-		$functionReflectionFactory = new class($this->getParser(), $functionCallStatementFinder, $cache) implements FunctionReflectionFactory {
+		$phpExtension = new PhpClassReflectionExtension(
+			$methodReflectionFactory,
+			$fileTypeMapper,
+			$annotationsMethodsClassReflectionExtension,
+			$annotationsPropertiesClassReflectionExtension,
+			$signatureMapProvider
+		);
+		$functionReflectionFactory = new class($this->getParser(), $functionCallStatementFinder, $cache) implements FunctionReflectionFactory
+		{
 
 			/** @var \PHPStan\Parser\Parser */
 			private $parser;
@@ -214,7 +232,10 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		};
 
 		$currentWorkingDirectory = $this->getCurrentWorkingDirectory();
-		$anonymousClassNameHelper = new AnonymousClassNameHelper(new FileHelper($currentWorkingDirectory), new RelativePathHelper($currentWorkingDirectory, DIRECTORY_SEPARATOR, []));
+		$anonymousClassNameHelper = new AnonymousClassNameHelper(
+			new FileHelper($currentWorkingDirectory),
+			new RelativePathHelper($currentWorkingDirectory, DIRECTORY_SEPARATOR, [])
+		);
 		$broker = new Broker(
 			[
 				$phpExtension,
@@ -228,9 +249,18 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			],
 			array_merge($dynamicMethodReturnTypeExtensions, $this->getDynamicMethodReturnTypeExtensions()),
 			array_merge($dynamicStaticMethodReturnTypeExtensions, $this->getDynamicStaticMethodReturnTypeExtensions()),
-			array_merge($tagToService(self::getContainer()->findByTag(BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG)), $this->getDynamicFunctionReturnTypeExtensions()),
+			array_merge(
+				$tagToService(self::getContainer()->findByTag(BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG)),
+				$this->getDynamicFunctionReturnTypeExtensions()
+			),
 			$functionReflectionFactory,
-			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $cache, $anonymousClassNameHelper, self::getContainer()->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class)),
+			new FileTypeMapper(
+				$this->getParser(),
+				$phpDocStringResolver,
+				$cache,
+				$anonymousClassNameHelper,
+				self::getContainer()->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class)
+			),
 			$signatureMapProvider,
 			self::getContainer()->getByType(Standard::class),
 			$anonymousClassNameHelper,
@@ -250,7 +280,11 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	 *
 	 * @return ScopeFactory
 	 */
-	public function createScopeFactory(Broker $broker, TypeSpecifier $typeSpecifier, array $dynamicConstantNames = []): ScopeFactory
+	public function createScopeFactory(
+		Broker $broker,
+		TypeSpecifier $typeSpecifier,
+		array $dynamicConstantNames = []
+	): ScopeFactory
 	{
 		return new ScopeFactory(
 			Scope::class,

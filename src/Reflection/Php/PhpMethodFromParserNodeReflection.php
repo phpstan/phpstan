@@ -76,6 +76,7 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 	{
 		/** @var \PhpParser\Node\Stmt\ClassMethod $functionLike */
 		$functionLike = $this->getFunctionLike();
+
 		return $functionLike;
 	}
 
