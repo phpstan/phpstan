@@ -28,7 +28,11 @@ final class ArraySearchFunctionDynamicReturnTypeExtension implements DynamicFunc
 		return $functionReflection->getName() === 'array_search';
 	}
 
-	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
+	public function getTypeFromFunctionCall(
+		FunctionReflection $functionReflection,
+		FuncCall $functionCall,
+		Scope $scope
+	): Type
 	{
 		$argsCount = count($functionCall->args);
 		if ($argsCount < 2) {
@@ -46,8 +50,16 @@ final class ArraySearchFunctionDynamicReturnTypeExtension implements DynamicFunc
 		}
 
 		$strictArgType = $scope->getType($functionCall->args[2]->value);
-		if (!($strictArgType instanceof ConstantBooleanType) || $strictArgType->getValue() === false) {
-			return TypeCombinator::union($haystackArgType->getIterableKeyType(), new ConstantBooleanType(false), new NullType());
+		if (
+			!($strictArgType instanceof ConstantBooleanType)
+			||
+			$strictArgType->getValue() === false
+		) {
+			return TypeCombinator::union(
+				$haystackArgType->getIterableKeyType(),
+				new ConstantBooleanType(false),
+				new NullType()
+			);
 		}
 
 		$needleArgType = $scope->getType($functionCall->args[0]->value);
@@ -73,13 +85,17 @@ final class ArraySearchFunctionDynamicReturnTypeExtension implements DynamicFunc
 				continue;
 			}
 
-			$typesFromConstantArrays[] = $this->resolveTypeFromConstantHaystackAndNeedle($needleArgType, $haystackArray);
+			$typesFromConstantArrays[] = $this->resolveTypeFromConstantHaystackAndNeedle(
+				$needleArgType,
+				$haystackArray
+			);
 			$typesFromConstantArraysCount++;
 		}
 
 		if (
 			$typesFromConstantArraysCount > 0
-			&& count($haystackArrays) === $typesFromConstantArraysCount
+			&&
+			count($haystackArrays) === $typesFromConstantArraysCount
 		) {
 			return TypeCombinator::union(...$typesFromConstantArrays);
 		}
@@ -107,8 +123,12 @@ final class ArraySearchFunctionDynamicReturnTypeExtension implements DynamicFunc
 				continue;
 			}
 
-			if ($needle instanceof ConstantScalarType && $valueType instanceof ConstantScalarType
-				&& $needle->getValue() === $valueType->getValue()
+			if (
+				$needle instanceof ConstantScalarType
+				&&
+				$valueType instanceof ConstantScalarType
+				&&
+				$needle->getValue() === $valueType->getValue()
 			) {
 				return $haystack->getKeyTypes()[$index];
 			}
@@ -124,7 +144,8 @@ final class ArraySearchFunctionDynamicReturnTypeExtension implements DynamicFunc
 		if (count($matchesByType) > 0) {
 			if (
 				$haystack->getIterableValueType()->accepts($needle, true)->yes()
-				&& $needle->isSuperTypeOf(new ObjectWithoutClassType())->no()
+				&&
+				$needle->isSuperTypeOf(new ObjectWithoutClassType())->no()
 			) {
 				return TypeCombinator::union(...$matchesByType);
 			}
@@ -145,7 +166,11 @@ final class ArraySearchFunctionDynamicReturnTypeExtension implements DynamicFunc
 			return [$type];
 		}
 
-		if ($type instanceof UnionType || $type instanceof IntersectionType) {
+		if (
+			$type instanceof UnionType
+			||
+			$type instanceof IntersectionType
+		) {
 			$arrayTypes = [];
 
 			foreach ($type->getTypes() as $innerType) {

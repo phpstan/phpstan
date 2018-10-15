@@ -61,12 +61,18 @@ class ConstantArrayTypeBuilder
 
 		if (
 			!$this->degradeToGeneralArray
-			&& ($offsetType instanceof ConstantIntegerType || $offsetType instanceof ConstantStringType)
+			&&
+			(
+				$offsetType instanceof ConstantIntegerType
+				||
+				$offsetType instanceof ConstantStringType
+			)
 		) {
 			/** @var ConstantIntegerType|ConstantStringType $keyType */
 			foreach ($this->keyTypes as $i => $keyType) {
 				if ($keyType->getValue() === $offsetType->getValue()) {
 					$this->valueTypes[$i] = $valueType;
+
 					return;
 				}
 			}
@@ -76,6 +82,7 @@ class ConstantArrayTypeBuilder
 			$this->nextAutoIndex = $offsetType instanceof ConstantIntegerType
 				? max($this->nextAutoIndex, $offsetType->getValue() + 1)
 				: $this->nextAutoIndex;
+
 			return;
 		}
 
@@ -89,6 +96,7 @@ class ConstantArrayTypeBuilder
 		if (!$this->degradeToGeneralArray) {
 			/** @var array<int, ConstantIntegerType|ConstantStringType> $keyTypes */
 			$keyTypes = $this->keyTypes;
+
 			return new ConstantArrayType($keyTypes, $this->valueTypes, $this->nextAutoIndex);
 		}
 

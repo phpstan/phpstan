@@ -21,7 +21,11 @@ class MicrotimeFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunct
 		return $functionReflection->getName() === 'microtime';
 	}
 
-	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
+	public function getTypeFromFunctionCall(
+		FunctionReflection $functionReflection,
+		FuncCall $functionCall,
+		Scope $scope
+	): Type
 	{
 		if (count($functionCall->args) < 1) {
 			return new StringType();

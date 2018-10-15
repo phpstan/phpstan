@@ -43,9 +43,16 @@ class PhpParameterReflection implements ParameterReflection
 	{
 		if ($this->type === null) {
 			$phpDocType = $this->phpDocType;
-			if ($phpDocType !== null && $this->reflection->isDefaultValueAvailable() && $this->reflection->getDefaultValue() === null) {
+			if (
+				$phpDocType !== null
+				&&
+				$this->reflection->isDefaultValueAvailable()
+				&&
+				$this->reflection->getDefaultValue() === null
+			) {
 				$phpDocType = \PHPStan\Type\TypeCombinator::addNull($phpDocType);
 			}
+
 			$this->type = TypehintHelper::decideTypeFromReflection(
 				$this->reflection->getType(),
 				$phpDocType,

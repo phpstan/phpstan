@@ -39,12 +39,18 @@ class ScopeContext
 
 	public function enterClass(ClassReflection $classReflection): self
 	{
-		if ($this->classReflection !== null && !$classReflection->isAnonymous()) {
+		if (
+			$this->classReflection !== null
+			&&
+			!$classReflection->isAnonymous()
+		) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
+
 		if ($classReflection->isTrait()) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
+
 		return new self($this->file, $classReflection, null);
 	}
 
@@ -53,6 +59,7 @@ class ScopeContext
 		if ($this->classReflection === null) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
+
 		if (!$traitReflection->isTrait()) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}

@@ -25,6 +25,7 @@ class MemoryCacheStorage implements CacheStorage
 	public function save(string $key, $data): bool
 	{
 		$this->storage[$key] = $data;
+
 		return true;
 	}
 

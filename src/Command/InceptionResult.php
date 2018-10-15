@@ -94,6 +94,7 @@ class InceptionResult
 	public function handleReturn(int $exitCode): int
 	{
 		@unlink($this->memoryLimitFile);
+
 		return $exitCode;
 	}
 

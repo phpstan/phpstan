@@ -73,9 +73,17 @@ class CallCallablesRule implements \PHPStan\Rules\Rule
 				sprintf('Trying to invoke %s but it\'s not a callable.', $type->describe(VerbosityLevel::value())),
 			];
 		}
-		if ($this->reportMaybes && $isCallable->maybe()) {
+
+		if (
+			$this->reportMaybes
+			&&
+			$isCallable->maybe()
+		) {
 			return [
-				sprintf('Trying to invoke %s but it might not be a callable.', $type->describe(VerbosityLevel::value())),
+				sprintf(
+					'Trying to invoke %s but it might not be a callable.',
+					$type->describe(VerbosityLevel::value())
+				),
 			];
 		}
 
@@ -84,7 +92,8 @@ class CallCallablesRule implements \PHPStan\Rules\Rule
 
 		if (
 			count($parametersAcceptors) === 1
-			&& $parametersAcceptors[0] instanceof InaccessibleMethod
+			&&
+			$parametersAcceptors[0] instanceof InaccessibleMethod
 		) {
 			$method = $parametersAcceptors[0]->getMethod();
 			$messages[] = sprintf(

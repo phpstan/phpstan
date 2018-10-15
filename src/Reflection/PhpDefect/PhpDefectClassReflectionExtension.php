@@ -177,6 +177,7 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 	public function hasProperty(ClassReflection $classReflection, string $propertyName): bool
 	{
 		$classWithProperties = $this->getClassWithProperties($classReflection, $propertyName);
+
 		return $classWithProperties !== null;
 	}
 
@@ -185,13 +186,17 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 		/** @var \PHPStan\Reflection\ClassReflection $classWithProperties */
 		$classWithProperties = $this->getClassWithProperties($classReflection, $propertyName);
 		$typeString = $this->properties[$classWithProperties->getName()][$propertyName];
+
 		return new PhpDefectPropertyReflection(
 			$classWithProperties,
 			$this->typeStringResolver->resolve($typeString)
 		);
 	}
 
-	private function getClassWithProperties(ClassReflection $classReflection, string $propertyName): ?\PHPStan\Reflection\ClassReflection
+	private function getClassWithProperties(
+		ClassReflection $classReflection,
+		string $propertyName
+	): ?\PHPStan\Reflection\ClassReflection
 	{
 		if (isset($this->properties[$classReflection->getName()][$propertyName])) {
 			return $classReflection;

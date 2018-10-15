@@ -223,7 +223,11 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 
 		if (!isset($this->methods[$key])) {
 			$filename = $this->getFileName();
-			throw new \PHPStan\Reflection\MissingMethodFromReflectionException($this->getName(), $methodName, $filename !== false ? $filename : null);
+			throw new \PHPStan\Reflection\MissingMethodFromReflectionException(
+				$this->getName(),
+				$methodName,
+				$filename !== false ? $filename : null
+			);
 		}
 
 		return $this->methods[$key];
@@ -238,8 +242,13 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 	{
 		if (!$this->hasNativeMethod($methodName)) {
 			$filename = $this->getFileName();
-			throw new \PHPStan\Reflection\MissingMethodFromReflectionException($this->getName(), $methodName, $filename !== false ? $filename : null);
+			throw new \PHPStan\Reflection\MissingMethodFromReflectionException(
+				$this->getName(),
+				$methodName,
+				$filename !== false ? $filename : null
+			);
 		}
+
 		return $this->getPhpExtension()->getNativeMethod($this, $methodName);
 	}
 
@@ -254,6 +263,7 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 		if ($constructor === null) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
+
 		return $this->getNativeMethod($constructor->getName());
 	}
 
@@ -289,7 +299,11 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 
 		if (!isset($this->properties[$key])) {
 			$filename = $this->getFileName();
-			throw new \PHPStan\Reflection\MissingPropertyFromReflectionException($this->getName(), $propertyName, $filename !== false ? $filename : null);
+			throw new \PHPStan\Reflection\MissingPropertyFromReflectionException(
+				$this->getName(),
+				$propertyName,
+				$filename !== false ? $filename : null
+			);
 		}
 
 		return $this->properties[$key];
@@ -304,8 +318,13 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 	{
 		if (!$this->hasNativeProperty($propertyName)) {
 			$filename = $this->getFileName();
-			throw new \PHPStan\Reflection\MissingPropertyFromReflectionException($this->getName(), $propertyName, $filename !== false ? $filename : null);
+			throw new \PHPStan\Reflection\MissingPropertyFromReflectionException(
+				$this->getName(),
+				$propertyName,
+				$filename !== false ? $filename : null
+			);
 		}
+
 		return $this->getPhpExtension()->getNativeProperty($this, $propertyName);
 	}
 
@@ -396,7 +415,11 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 
 			$isDeprecated = false;
 			$isInternal = false;
-			if ($reflectionConstant->getDocComment() !== false && $this->getFileName() !== false) {
+			if (
+				$reflectionConstant->getDocComment() !== false
+				&&
+				$this->getFileName() !== false
+			) {
 				$docComment = $reflectionConstant->getDocComment();
 				$fileName = $this->getFileName();
 				$className = $reflectionConstant->getDeclaringClass()->getName();
@@ -413,12 +436,13 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 				$isInternal
 			);
 		}
+
 		return $this->constants[$name];
 	}
 
 	public function hasTraitUse(string $traitName): bool
 	{
-		return in_array($traitName, $this->getTraitNames(), true);
+		return \in_array($traitName, $this->getTraitNames(), true);
 	}
 
 	/**
@@ -429,7 +453,10 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 		$class = $this->reflection;
 		$traitNames = $class->getTraitNames();
 		while ($class->getParentClass() !== false) {
-			$traitNames = array_values(array_unique(array_merge($traitNames, $class->getParentClass()->getTraitNames())));
+			$traitNames = array_values(array_unique(array_merge(
+				$traitNames,
+				$class->getParentClass()->getTraitNames()
+			)));
 			$class = $class->getParentClass();
 		}
 
@@ -460,8 +487,7 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 	{
 		if ($this->isFinal === null) {
 			$resolvedPhpDoc = $this->getResolvedPhpDoc();
-			$this->isFinal = $this->reflection->isFinal()
-				|| ($resolvedPhpDoc !== null && $resolvedPhpDoc->isFinal());
+			$this->isFinal = $this->reflection->isFinal() || ($resolvedPhpDoc !== null && $resolvedPhpDoc->isFinal());
 		}
 
 		return $this->isFinal;

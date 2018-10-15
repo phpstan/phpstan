@@ -61,7 +61,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 		if ($node->class instanceof Name) {
 			$class = (string) $node->class;
 			$lowercasedClass = strtolower($class);
-			if (in_array($lowercasedClass, ['self', 'static'], true)) {
+			if (\in_array($lowercasedClass, ['self', 'static'], true)) {
 				if (!$scope->isInClass()) {
 					return [
 						sprintf(
@@ -114,9 +114,9 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 							$class
 						),
 					];
-				} else {
-					$messages = $this->classCaseSensitivityCheck->checkClassNames([$class]);
 				}
+
+				$messages = $this->classCaseSensitivityCheck->checkClassNames([$class]);
 				$className = $this->broker->getClass($class)->getName();
 			}
 
@@ -145,7 +145,11 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 
 		if (!$classType->canAccessProperties()->yes()) {
 			return array_merge($messages, [
-				sprintf('Cannot access static property $%s on %s.', $name, $typeForDescribe->describe(VerbosityLevel::typeOnly())),
+				sprintf(
+					'Cannot access static property $%s on %s.',
+					$name,
+					$typeForDescribe->describe(VerbosityLevel::typeOnly())
+				),
 			]);
 		}
 
@@ -165,8 +169,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 
 		$property = $classType->getProperty($name, $scope);
 		if (!$property->isStatic()) {
-			$hasPropertyTypes = TypeUtils::getHasPropertyTypes($classType);
-			foreach ($hasPropertyTypes as $hasPropertyType) {
+			foreach (TypeUtils::getHasPropertyTypes($classType) as $hasPropertyType) {
 				if ($hasPropertyType->getPropertyName() === $name) {
 					return [];
 				}

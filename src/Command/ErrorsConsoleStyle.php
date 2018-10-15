@@ -35,10 +35,14 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 	{
 		/** @var int $terminalWidth */
 		$terminalWidth = (new \Symfony\Component\Console\Terminal())->getWidth();
-		$maxHeaderWidth = strlen($headers[0]);
+		$maxHeaderWidth = \strlen($headers[0]);
 		foreach ($rows as $row) {
-			$length = strlen($row[0]);
-			if ($maxHeaderWidth !== 0 && $length <= $maxHeaderWidth) {
+			$length = \strlen($row[0]);
+			if (
+				$maxHeaderWidth !== 0
+				&&
+				$length <= $maxHeaderWidth
+			) {
 				continue;
 			}
 
@@ -72,6 +76,7 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 	public function createProgressBar($max = 0): ProgressBar
 	{
 		$this->progressBar = parent::createProgressBar($max);
+
 		return $this->progressBar;
 	}
 
@@ -96,9 +101,18 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 		if (!$this->showProgress) {
 			return;
 		}
-		if ($this->output->isDecorated() && $step > 0) {
+
+		if (
+			$step > 0
+			&&
+			$this->output->isDecorated()
+		) {
 			$stepTime = (time() - $this->progressBar->getStartTime()) / $step;
-			if ($stepTime > 0 && $stepTime < 1) {
+			if (
+				$stepTime > 0
+				&&
+				$stepTime < 1
+			) {
 				$this->progressBar->setRedrawFrequency((int) (1 / $stepTime));
 			} else {
 				$this->progressBar->setRedrawFrequency(1);

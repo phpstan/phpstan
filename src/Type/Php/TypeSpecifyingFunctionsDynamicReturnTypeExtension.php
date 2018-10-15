@@ -39,25 +39,29 @@ class TypeSpecifyingFunctionsDynamicReturnTypeExtension implements DynamicFuncti
 
 	public function isFunctionSupported(FunctionReflection $functionReflection): bool
 	{
-		return in_array($functionReflection->getName(), [
-			'array_key_exists',
-			'in_array',
-			'is_numeric',
-			'is_int',
-			'is_array',
-			'is_bool',
-			'is_callable',
-			'is_float',
-			'is_double',
-			'is_real',
-			'is_iterable',
-			'is_null',
-			'is_object',
-			'is_resource',
-			'is_scalar',
-			'is_string',
-			'is_subclass_of',
-		], true);
+		return \in_array(
+			$functionReflection->getName(),
+			[
+				'array_key_exists',
+				'in_array',
+				'is_numeric',
+				'is_int',
+				'is_array',
+				'is_bool',
+				'is_callable',
+				'is_float',
+				'is_double',
+				'is_real',
+				'is_iterable',
+				'is_null',
+				'is_object',
+				'is_resource',
+				'is_scalar',
+				'is_string',
+				'is_subclass_of',
+			],
+			true
+		);
 	}
 
 	public function getTypeFromFunctionCall(

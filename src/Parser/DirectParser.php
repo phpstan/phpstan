@@ -29,6 +29,7 @@ class DirectParser implements Parser
 		if ($contents === false) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
+
 		return $this->parseString($contents);
 	}
 
@@ -42,6 +43,7 @@ class DirectParser implements Parser
 		if ($nodes === null) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
+
 		return $this->traverser->traverse($nodes);
 	}
 

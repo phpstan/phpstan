@@ -63,7 +63,11 @@ class IntersectionType implements CompoundType, StaticResolvableType
 
 	public function isSubTypeOf(Type $otherType): TrinaryLogic
 	{
-		if ($otherType instanceof self || $otherType instanceof UnionType) {
+		if (
+			$otherType instanceof self
+			||
+			$otherType instanceof UnionType
+		) {
 			return $otherType->isSuperTypeOf($this);
 		}
 
@@ -363,6 +367,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 	private function intersectResults(callable $getResult): TrinaryLogic
 	{
 		$operands = array_map($getResult, $this->types);
+
 		return TrinaryLogic::maxMin(...$operands);
 	}
 
@@ -373,6 +378,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 	private function intersectTypes(callable $getType): Type
 	{
 		$operands = array_map($getType, $this->types);
+
 		return TypeCombinator::intersect(...$operands);
 	}
 

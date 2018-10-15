@@ -24,7 +24,13 @@ class AnnotationsMethodParameterReflection implements ParameterReflection
 	/** @var bool */
 	private $isVariadic;
 
-	public function __construct(string $name, Type $type, PassedByReference $passedByReference, bool $isOptional, bool $isVariadic)
+	public function __construct(
+		string $name,
+		Type $type,
+		PassedByReference $passedByReference,
+		bool $isOptional,
+		bool $isVariadic
+	)
 	{
 		$this->name = $name;
 		$this->type = $type;

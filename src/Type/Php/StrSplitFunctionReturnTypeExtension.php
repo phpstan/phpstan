@@ -24,7 +24,11 @@ final class StrSplitFunctionReturnTypeExtension implements DynamicFunctionReturn
 		return $functionReflection->getName() === 'str_split';
 	}
 
-	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
+	public function getTypeFromFunctionCall(
+		FunctionReflection $functionReflection,
+		FuncCall $functionCall,
+		Scope $scope
+	): Type
 	{
 		$defaultReturnType = ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
 
@@ -51,7 +55,7 @@ final class StrSplitFunctionReturnTypeExtension implements DynamicFunctionReturn
 		$stringValue = $stringType->getValue();
 
 		$items = str_split($stringValue, $splitLength);
-		if (!is_array($items)) {
+		if (!\is_array($items)) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
@@ -70,6 +74,7 @@ final class StrSplitFunctionReturnTypeExtension implements DynamicFunctionReturn
 			if (!$keyType instanceof ConstantIntegerType) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
+
 			$keyTypes[] = $keyType;
 
 			$valueTypes[] = $scope->getTypeFromValue($value);

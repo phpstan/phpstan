@@ -19,10 +19,14 @@ class StatDynamicReturnTypeExtension implements \PHPStan\Type\DynamicFunctionRet
 
 	public function isFunctionSupported(FunctionReflection $functionReflection): bool
 	{
-		return in_array($functionReflection->getName(), ['stat', 'lstat', 'fstat', 'ssh2_sftp_stat'], true);
+		return \in_array($functionReflection->getName(), ['stat', 'lstat', 'fstat', 'ssh2_sftp_stat'], true);
 	}
 
-	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
+	public function getTypeFromFunctionCall(
+		FunctionReflection $functionReflection,
+		FuncCall $functionCall,
+		Scope $scope
+	): Type
 	{
 		return $this->getReturnType();
 	}
@@ -37,7 +41,11 @@ class StatDynamicReturnTypeExtension implements \PHPStan\Type\DynamicFunctionRet
 		return $methodReflection->getName() === 'fstat';
 	}
 
-	public function getTypeFromMethodCall(MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope): Type
+	public function getTypeFromMethodCall(
+		MethodReflection $methodReflection,
+		MethodCall $methodCall,
+		Scope $scope
+	): Type
 	{
 		return $this->getReturnType();
 	}

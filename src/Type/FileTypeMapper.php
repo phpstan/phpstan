@@ -57,7 +57,11 @@ class FileTypeMapper
 		string $docComment
 	): ResolvedPhpDocBlock
 	{
-		if ($className === null && $traitName !== null) {
+		if (
+			$className === null
+			&&
+			$traitName !== null
+		) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
@@ -80,13 +84,13 @@ class FileTypeMapper
 			return ResolvedPhpDocBlock::createEmpty();
 		}
 
-		if (is_callable($this->inProcess[$fileName][$phpDocKey])) {
+		if (\is_callable($this->inProcess[$fileName][$phpDocKey])) {
 			$resolveCallback = $this->inProcess[$fileName][$phpDocKey];
-			$this->inProcess[$fileName][$phpDocKey] = false;
 			$this->inProcess[$fileName][$phpDocKey] = $resolveCallback();
 		}
 
-		assert($this->inProcess[$fileName][$phpDocKey] instanceof ResolvedPhpDocBlock);
+		\assert($this->inProcess[$fileName][$phpDocKey] instanceof ResolvedPhpDocBlock);
+
 		return $this->inProcess[$fileName][$phpDocKey];
 	}
 
@@ -127,7 +131,6 @@ class FileTypeMapper
 			$this->inProcess[$fileName] = $phpDocMap;
 
 			foreach ($phpDocMap as $phpDocKey => $resolveCallback) {
-				$this->inProcess[$fileName][$phpDocKey] = false;
 				$this->inProcess[$fileName][$phpDocKey] = $data = $resolveCallback();
 				$phpDocMap[$phpDocKey] = $data;
 			}
@@ -156,15 +159,29 @@ class FileTypeMapper
 
 		/** @var string[] $classStack */
 		$classStack = [];
-		if ($lookForTrait !== null && $traitUseClass !== null) {
+		if (
+			$lookForTrait !== null
+			&&
+			$traitUseClass !== null
+		) {
 			$classStack[] = $traitUseClass;
 		}
+
 		$namespace = null;
 		$uses = [];
 		$this->processNodes(
 			$this->phpParser->parseFile($fileName),
-			function (\PhpParser\Node $node) use ($fileName, $lookForTrait, &$phpDocMap, &$classStack, &$namespace, &$uses) {
+			function (\PhpParser\Node $node) use (
+				$fileName,
+				$lookForTrait,
+				&$phpDocMap,
+				&$classStack,
+				&$namespace,
+				&
+				$uses
+			) {
 				if ($node instanceof Node\Stmt\ClassLike) {
+
 					if ($lookForTrait !== null) {
 						if (!$node instanceof Node\Stmt\Trait_) {
 							return false;
@@ -187,7 +204,9 @@ class FileTypeMapper
 						}
 						$classStack[] = $className;
 					}
+
 				} elseif ($node instanceof Node\Stmt\TraitUse) {
+
 					foreach ($node->traits as $traitName) {
 						$traitName = (string) $traitName;
 						if (!trait_exists($traitName)) {
@@ -211,36 +230,62 @@ class FileTypeMapper
 						);
 						$phpDocMap = array_merge($phpDocMap, $traitPhpDocMap);
 					}
+
 					return;
+
 				} elseif ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
+
 					$namespace = (string) $node->name;
+
 					return;
-				} elseif ($node instanceof \PhpParser\Node\Stmt\Use_ && $node->type === \PhpParser\Node\Stmt\Use_::TYPE_NORMAL) {
+
+				} elseif (
+					$node instanceof \PhpParser\Node\Stmt\Use_
+					&&
+					$node->type === \PhpParser\Node\Stmt\Use_::TYPE_NORMAL
+				) {
+
 					foreach ($node->uses as $use) {
 						$uses[strtolower($use->getAlias()->name)] = (string) $use->name;
 					}
+
 					return;
+
 				} elseif ($node instanceof \PhpParser\Node\Stmt\GroupUse) {
+
 					$prefix = (string) $node->prefix;
 					foreach ($node->uses as $use) {
-						if ($node->type !== \PhpParser\Node\Stmt\Use_::TYPE_NORMAL && $use->type !== \PhpParser\Node\Stmt\Use_::TYPE_NORMAL) {
+						if (
+							$node->type !== \PhpParser\Node\Stmt\Use_::TYPE_NORMAL
+							&&
+							$use->type !== \PhpParser\Node\Stmt\Use_::TYPE_NORMAL
+						) {
 							continue;
 						}
 
 						$uses[strtolower($use->getAlias()->name)] = sprintf('%s\\%s', $prefix, (string) $use->name);
 					}
+
 					return;
-				} elseif (!in_array(get_class($node), [
-					Node\Stmt\Property::class,
-					Node\Stmt\ClassMethod::class,
-					Node\Stmt\Function_::class,
-					Node\Stmt\Foreach_::class,
-					Node\Expr\Assign::class,
-					Node\Expr\AssignRef::class,
-					Node\Stmt\Class_::class,
-					Node\Stmt\ClassConst::class,
-				], true)) {
+
+				} elseif (!\in_array(
+					\get_class($node),
+					[
+						Node\Stmt\Property::class,
+						Node\Stmt\ClassMethod::class,
+						Node\Stmt\Function_::class,
+						Node\Stmt\Foreach_::class,
+						Node\Expr\Assign::class,
+						Node\Expr\AssignRef::class,
+						Node\Stmt\Class_::class,
+						Node\Stmt\ClassConst::class,
+					],
+					true
+				)
+				) {
+
 					return;
+
 				}
 
 				$phpDocString = CommentHelper::getDocComment($node);
@@ -256,10 +301,15 @@ class FileTypeMapper
 				};
 			},
 			static function (\PhpParser\Node $node) use ($lookForTrait, &$namespace, &$classStack, &$uses): void {
-				if ($node instanceof Node\Stmt\ClassLike && $lookForTrait === null) {
+				if (
+					$node instanceof Node\Stmt\ClassLike
+					&&
+					$lookForTrait === null
+				) {
 					if (count($classStack) === 0) {
 						throw new \PHPStan\ShouldNotHappenException();
 					}
+
 					array_pop($classStack);
 				} elseif ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
 					$namespace = null;
@@ -283,12 +333,13 @@ class FileTypeMapper
 			if ($callbackResult === false) {
 				return;
 			}
+
 			foreach ($node->getSubNodeNames() as $subNodeName) {
 				$subNode = $node->{$subNodeName};
 				$this->processNodes($subNode, $nodeCallback, $endNodeCallback);
 			}
 			$endNodeCallback($node);
-		} elseif (is_array($node)) {
+		} elseif (\is_array($node)) {
 			foreach ($node as $subNode) {
 				$this->processNodes($subNode, $nodeCallback, $endNodeCallback);
 			}

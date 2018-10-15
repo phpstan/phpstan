@@ -87,8 +87,10 @@ class HasMethodType implements CompoundType, AccessoryType
 	{
 		if (
 			$otherType instanceof self
-			|| $otherType instanceof UnionType
-			|| $otherType instanceof IntersectionType
+			||
+			$otherType instanceof UnionType
+			||
+			$otherType instanceof IntersectionType
 		) {
 			return $otherType->isSuperTypeOf($this);
 		}

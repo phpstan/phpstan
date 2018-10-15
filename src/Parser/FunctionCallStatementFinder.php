@@ -16,7 +16,7 @@ class FunctionCallStatementFinder
 	public function findFunctionCallInStatements(array $functionNames, $statements): ?\PhpParser\Node
 	{
 		foreach ($statements as $statement) {
-			if (is_array($statement)) {
+			if (\is_array($statement)) {
 				$result = $this->findFunctionCallInStatements($functionNames, $statement);
 				if ($result !== null) {
 					return $result;
@@ -27,8 +27,12 @@ class FunctionCallStatementFinder
 				continue;
 			}
 
-			if ($statement instanceof FuncCall && $statement->name instanceof Name) {
-				if (in_array((string) $statement->name, $functionNames, true)) {
+			if (
+				$statement instanceof FuncCall
+				&&
+				$statement->name instanceof Name
+			) {
+				if (\in_array((string) $statement->name, $functionNames, true)) {
 					return $statement;
 				}
 			}

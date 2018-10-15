@@ -60,7 +60,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 		if ($class instanceof \PhpParser\Node\Name) {
 			$className = (string) $class;
 			$lowercasedClassName = strtolower($className);
-			if (in_array($lowercasedClassName, ['self', 'static'], true)) {
+			if (\in_array($lowercasedClassName, ['self', 'static'], true)) {
 				if (!$scope->isInClass()) {
 					return [
 						sprintf('Using %s outside of class scope.', $className),
@@ -96,9 +96,9 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 					return [
 						sprintf('Access to constant %s on an unknown class %s.', $constantName, $className),
 					];
-				} else {
-					$messages = $this->classCaseSensitivityCheck->checkClassNames([$className]);
 				}
+
+				$messages = $this->classCaseSensitivityCheck->checkClassNames([$className]);
 
 				$className = $this->broker->getClass($className)->getName();
 			}
@@ -128,7 +128,11 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 
 		if (!$classType->canAccessConstants()->yes()) {
 			return array_merge($messages, [
-				sprintf('Cannot access constant %s on %s.', $constantName, $typeForDescribe->describe(VerbosityLevel::typeOnly())),
+				sprintf(
+					'Cannot access constant %s on %s.',
+					$constantName,
+					$typeForDescribe->describe(VerbosityLevel::typeOnly())
+				),
 			]);
 		}
 

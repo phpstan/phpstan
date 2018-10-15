@@ -19,7 +19,11 @@ class ArrayReduceFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFun
 		return $functionReflection->getName() === 'array_reduce';
 	}
 
-	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
+	public function getTypeFromFunctionCall(
+		FunctionReflection $functionReflection,
+		FuncCall $functionCall,
+		Scope $scope
+	): Type
 	{
 		if (!isset($functionCall->args[1])) {
 			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();

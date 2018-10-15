@@ -98,7 +98,8 @@ class PhpDocBlock
 	{
 		if (
 			preg_match('#\{@inheritdoc\}#i', $docComment) > 0
-			&& $broker->hasClass($class)
+			&&
+			$broker->hasClass($class)
 		) {
 			$classReflection = $broker->getClass($class);
 			if ($classReflection->getParentClass() !== false) {
@@ -143,12 +144,17 @@ class PhpDocBlock
 		string $resolveMethodName
 	): ?self
 	{
-		if ($classReflection->getFileName() !== false && $classReflection->$hasMethodName($name)) {
+		if (
+			$classReflection->getFileName() !== false
+			&&
+			$classReflection->$hasMethodName($name)
+		) {
 			/** @var \PHPStan\Reflection\PropertyReflection|\PHPStan\Reflection\MethodReflection $parentReflection */
 			$parentReflection = $classReflection->$getMethodName($name);
 			if (
 				!$parentReflection instanceof PhpPropertyReflection
-				&& !$parentReflection instanceof PhpMethodReflection
+				&&
+				!$parentReflection instanceof PhpMethodReflection
 			) {
 				return null;
 			}

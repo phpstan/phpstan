@@ -41,7 +41,8 @@ class InvalidBinaryOperationRule implements \PHPStan\Rules\Rule
 	{
 		if (
 			!$node instanceof Node\Expr\BinaryOp
-			&& !$node instanceof Node\Expr\AssignOp
+			&&
+			!$node instanceof Node\Expr\AssignOp
 		) {
 			return [];
 		}
@@ -65,7 +66,11 @@ class InvalidBinaryOperationRule implements \PHPStan\Rules\Rule
 				$newNode->right = $rightVariable;
 			}
 
-			if ($node instanceof Node\Expr\AssignOp\Concat || $node instanceof Node\Expr\BinaryOp\Concat) {
+			if (
+				$node instanceof Node\Expr\AssignOp\Concat
+				||
+				$node instanceof Node\Expr\BinaryOp\Concat
+			) {
 				$callback = static function (Type $type): bool {
 					return !$type->toString() instanceof ErrorType;
 				};
@@ -106,7 +111,11 @@ class InvalidBinaryOperationRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf(
 					'Binary operation "%s" between %s and %s results in an error.',
-					substr(substr($this->printer->prettyPrintExpr($newNode), strlen($leftName) + 2), 0, -(strlen($rightName) + 2)),
+					substr(
+						substr($this->printer->prettyPrintExpr($newNode), \strlen($leftName) + 2),
+						0,
+						-(\strlen($rightName) + 2)
+					),
 					$scope->getType($left)->describe(VerbosityLevel::value()),
 					$scope->getType($right)->describe(VerbosityLevel::value())
 				),

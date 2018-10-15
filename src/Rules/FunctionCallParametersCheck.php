@@ -70,38 +70,59 @@ class FunctionCallParametersCheck
 			}
 		}
 
-		if ($invokedParametersCount < $functionParametersMinCount || $invokedParametersCount > $functionParametersMaxCount) {
+		if (
+			$invokedParametersCount < $functionParametersMinCount
+			||
+			$invokedParametersCount > $functionParametersMaxCount
+		) {
 			if ($functionParametersMinCount === $functionParametersMaxCount) {
+
 				$errors[] = sprintf(
 					$invokedParametersCount === 1 ? $messages[0] : $messages[1],
 					$invokedParametersCount,
 					$functionParametersMinCount
 				);
-			} elseif ($functionParametersMaxCount === -1 && $invokedParametersCount < $functionParametersMinCount) {
+
+			} elseif (
+				$functionParametersMaxCount === -1
+				&&
+				$invokedParametersCount < $functionParametersMinCount
+			) {
+
 				$errors[] = sprintf(
 					$invokedParametersCount === 1 ? $messages[2] : $messages[3],
 					$invokedParametersCount,
 					$functionParametersMinCount
 				);
+
 			} elseif ($functionParametersMaxCount !== -1) {
+
 				$errors[] = sprintf(
 					$invokedParametersCount === 1 ? $messages[4] : $messages[5],
 					$invokedParametersCount,
 					$functionParametersMinCount,
 					$functionParametersMaxCount
 				);
+
 			}
 		}
 
 		if (
 			$parametersAcceptor->getReturnType() instanceof VoidType
-			&& !$scope->isInFirstLevelStatement()
-			&& !$funcCall instanceof \PhpParser\Node\Expr\New_
+			&&
+			!$funcCall instanceof \PhpParser\Node\Expr\New_
+			&&
+			!$scope->isInFirstLevelStatement()
+
 		) {
 			$errors[] = $messages[7];
 		}
 
-		if (!$this->checkArgumentTypes && !$this->checkArgumentsPassedByReference) {
+		if (
+			!$this->checkArgumentTypes
+			&&
+			!$this->checkArgumentsPassedByReference
+		) {
 			return $errors;
 		}
 
@@ -110,8 +131,26 @@ class FunctionCallParametersCheck
 		/** @var array<int, \PhpParser\Node\Arg> $args */
 		$args = $funcCall->args;
 		foreach ($args as $i => $argument) {
-			if (!isset($parameters[$i])) {
-				if (!$parametersAcceptor->isVariadic() || count($parameters) === 0) {
+			if (isset($parameters[$i])) {
+				$parameter = $parameters[$i];
+				$parameterType = $parameter->getType();
+				if ($parameter->isVariadic()) {
+					if (
+						$parameterType instanceof ArrayType
+						&&
+						!$argument->unpack
+					) {
+						$parameterType = $parameterType->getItemType();
+					}
+				} elseif ($argument->unpack) {
+					continue;
+				}
+			} else {
+				if (
+					!$parametersAcceptor->isVariadic()
+					||
+					count($parameters) === 0
+				) {
 					break;
 				}
 
@@ -124,21 +163,15 @@ class FunctionCallParametersCheck
 				if (!$argument->unpack) {
 					$parameterType = $parameterType->getItemType();
 				}
-			} else {
-				$parameter = $parameters[$i];
-				$parameterType = $parameter->getType();
-				if ($parameter->isVariadic()) {
-					if ($parameterType instanceof ArrayType && !$argument->unpack) {
-						$parameterType = $parameterType->getItemType();
-					}
-				} elseif ($argument->unpack) {
-					continue;
-				}
 			}
 
 			$argumentValueType = $scope->getType($argument->value);
 			$secondAccepts = null;
-			if ($parameterType->isIterable()->yes() && $parameter->isVariadic()) {
+			if (
+				$parameter->isVariadic()
+				&&
+				$parameterType->isIterable()->yes()
+			) {
 				$secondAccepts = $this->ruleLevelHelper->accepts(
 					new IterableType(
 						new MixedType(),
@@ -151,9 +184,16 @@ class FunctionCallParametersCheck
 
 			if (
 				$this->checkArgumentTypes
-				&& !$parameter->passedByReference()->createsNewVariable()
-				&& !$this->ruleLevelHelper->accepts($parameterType, $argumentValueType, $scope->isDeclareStrictTypes())
-				&& ($secondAccepts === null || !$secondAccepts)
+				&&
+				(
+					$secondAccepts === null
+					||
+					!$secondAccepts
+				)
+				&&
+				!$parameter->passedByReference()->createsNewVariable()
+				&&
+				!$this->ruleLevelHelper->accepts($parameterType, $argumentValueType, $scope->isDeclareStrictTypes())
 			) {
 				$errors[] = sprintf(
 					$messages[6],
@@ -166,11 +206,16 @@ class FunctionCallParametersCheck
 
 			if (
 				!$this->checkArgumentsPassedByReference
-				|| !$parameter->passedByReference()->yes()
-				|| $argument->value instanceof \PhpParser\Node\Expr\Variable
-				|| $argument->value instanceof \PhpParser\Node\Expr\ArrayDimFetch
-				|| $argument->value instanceof \PhpParser\Node\Expr\PropertyFetch
-				|| $argument->value instanceof \PhpParser\Node\Expr\StaticPropertyFetch
+				||
+				$argument->value instanceof \PhpParser\Node\Expr\Variable
+				||
+				$argument->value instanceof \PhpParser\Node\Expr\ArrayDimFetch
+				||
+				$argument->value instanceof \PhpParser\Node\Expr\PropertyFetch
+				||
+				$argument->value instanceof \PhpParser\Node\Expr\StaticPropertyFetch
+				||
+				!$parameter->passedByReference()->yes()
 			) {
 				continue;
 			}

@@ -41,7 +41,11 @@ class ArgumentBasedFunctionReturnTypeExtension implements \PHPStan\Type\DynamicF
 		return isset($this->functionNames[$functionReflection->getName()]);
 	}
 
-	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
+	public function getTypeFromFunctionCall(
+		FunctionReflection $functionReflection,
+		FuncCall $functionCall,
+		Scope $scope
+	): Type
 	{
 		$argumentPosition = $this->functionNames[$functionReflection->getName()];
 

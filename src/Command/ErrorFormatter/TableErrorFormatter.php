@@ -23,6 +23,7 @@ class TableErrorFormatter implements ErrorFormatter
 					AnalyseCommand::DEFAULT_LEVEL
 				));
 			}
+
 			return 0;
 		}
 
@@ -59,7 +60,11 @@ class TableErrorFormatter implements ErrorFormatter
 			}, $analysisResult->getNotFileSpecificErrors()));
 		}
 
-		$style->error(sprintf($analysisResult->getTotalErrorsCount() === 1 ? 'Found %d error' : 'Found %d errors', $analysisResult->getTotalErrorsCount()));
+		$style->error(sprintf(
+			$analysisResult->getTotalErrorsCount() === 1 ? 'Found %d error' : 'Found %d errors',
+			$analysisResult->getTotalErrorsCount()
+		));
+
 		return 1;
 	}
 

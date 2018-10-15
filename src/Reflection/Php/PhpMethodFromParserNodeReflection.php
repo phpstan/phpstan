@@ -74,9 +74,7 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 
 	private function getClassMethod(): ClassMethod
 	{
-		/** @var \PhpParser\Node\Stmt\ClassMethod $functionLike */
-		$functionLike = $this->getFunctionLike();
-		return $functionLike;
+		return $this->getFunctionLike();
 	}
 
 	public function isStatic(): bool
@@ -106,15 +104,19 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 		) {
 			return new VoidType();
 		}
+
 		if ($name === '__tostring') {
 			return new StringType();
 		}
+
 		if ($name === '__isset') {
 			return new BooleanType();
 		}
+
 		if ($name === '__sleep') {
 			return new ArrayType(new IntegerType(), new StringType());
 		}
+
 		if ($name === '__set_state') {
 			return new ObjectWithoutClassType();
 		}

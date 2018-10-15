@@ -134,7 +134,10 @@ class PhpDocNodeResolver
 			$parameters = [];
 			foreach ($tagValue->parameters as $parameterNode) {
 				$parameterName = substr($parameterNode->parameterName, 1);
-				$type = $parameterNode->type !== null ? $this->typeNodeResolver->resolve($parameterNode->type, $nameScope) : new MixedType();
+				$type = $parameterNode->type !== null ? $this->typeNodeResolver->resolve(
+					$parameterNode->type,
+					$nameScope
+				) : new MixedType();
 				if ($parameterNode->defaultValue instanceof ConstExprNullNode) {
 					$type = TypeCombinator::addNull($type);
 				}
@@ -149,7 +152,10 @@ class PhpDocNodeResolver
 			}
 
 			$resolved[$tagValue->methodName] = new MethodTag(
-				$tagValue->returnType !== null ? $this->typeNodeResolver->resolve($tagValue->returnType, $nameScope) : new MixedType(),
+				$tagValue->returnType !== null ? $this->typeNodeResolver->resolve(
+					$tagValue->returnType,
+					$nameScope
+				) : new MixedType(),
 				$tagValue->isStatic,
 				$parameters
 			);

@@ -52,13 +52,18 @@ class HasOffsetType implements CompoundType, AccessoryType
 		if ($this->equals($type)) {
 			return TrinaryLogic::createYes();
 		}
+
 		return $type->isOffsetAccessible()
 			->and($type->hasOffsetValueType($this->offsetType));
 	}
 
 	public function isSubTypeOf(Type $otherType): TrinaryLogic
 	{
-		if ($otherType instanceof UnionType || $otherType instanceof IntersectionType) {
+		if (
+			$otherType instanceof UnionType
+			||
+			$otherType instanceof IntersectionType
+		) {
 			return $otherType->isSuperTypeOf($this);
 		}
 
@@ -85,7 +90,11 @@ class HasOffsetType implements CompoundType, AccessoryType
 
 	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
 	{
-		if ($offsetType instanceof ConstantScalarType && $offsetType->equals($this->offsetType)) {
+		if (
+			$offsetType instanceof ConstantScalarType
+			&&
+			$offsetType->equals($this->offsetType)
+		) {
 			return TrinaryLogic::createYes();
 		}
 

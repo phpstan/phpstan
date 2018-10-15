@@ -28,7 +28,11 @@ class VersionCompareFunctionDynamicReturnTypeExtension implements \PHPStan\Type\
 	): Type
 	{
 		if (count($functionCall->args) < 2) {
-			return ParametersAcceptorSelector::selectFromArgs($scope, $functionCall->args, $functionReflection->getVariants())->getReturnType();
+			return ParametersAcceptorSelector::selectFromArgs(
+				$scope,
+				$functionCall->args,
+				$functionReflection->getVariants()
+			)->getReturnType();
 		}
 
 		$version1Strings = TypeUtils::getConstantStrings($scope->getType($functionCall->args[0]->value));
@@ -67,7 +71,11 @@ class VersionCompareFunctionDynamicReturnTypeExtension implements \PHPStan\Type\
 			foreach ($version2Strings as $version2String) {
 				if (isset($operatorStrings)) {
 					foreach ($operatorStrings as $operatorString) {
-						$value = version_compare($version1String->getValue(), $version2String->getValue(), $operatorString->getValue());
+						$value = version_compare(
+							$version1String->getValue(),
+							$version2String->getValue(),
+							$operatorString->getValue()
+						);
 						$types[$value] = new ConstantBooleanType($value);
 					}
 				} else {
@@ -76,6 +84,7 @@ class VersionCompareFunctionDynamicReturnTypeExtension implements \PHPStan\Type\
 				}
 			}
 		}
+
 		return TypeCombinator::union(...$types);
 	}
 

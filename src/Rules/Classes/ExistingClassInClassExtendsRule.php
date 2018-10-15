@@ -32,6 +32,7 @@ class ExistingClassInClassExtendsRule implements \PHPStan\Rules\Rule
 		if ($node->extends === null) {
 			return [];
 		}
+
 		return $this->classCaseSensitivityCheck->checkClassNames([(string) $node->extends]);
 	}
 

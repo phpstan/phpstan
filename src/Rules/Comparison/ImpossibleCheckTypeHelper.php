@@ -43,11 +43,13 @@ class ImpossibleCheckTypeHelper
 	{
 		if (
 			$node instanceof FuncCall
-			&& count($node->args) > 0
+			&&
+			count($node->args) > 0
 		) {
 			if ($node->name instanceof \PhpParser\Node\Name) {
 				$functionName = strtolower((string) $node->name);
 				if ($functionName === 'is_numeric') {
+
 					$argType = $scope->getType($node->args[0]->value);
 					if (count(TypeUtils::getConstantScalars($argType)) > 0) {
 						return !$argType->toNumber() instanceof ErrorType;
@@ -56,32 +58,44 @@ class ImpossibleCheckTypeHelper
 					if (!(new StringType())->isSuperTypeOf($argType)->no()) {
 						return null;
 					}
+
 				} elseif ($functionName === 'defined') {
+
 					return null;
+
 				} elseif (
 					$functionName === 'in_array'
-					&& count($node->args) >= 3
+					&&
+					count($node->args) >= 3
 				) {
+
 					$needleType = $scope->getType($node->args[0]->value);
 					$valueType = $scope->getType($node->args[1]->value)->getIterableValueType();
 					$hasConstantNeedleTypes = count(TypeUtils::getConstantScalars($needleType)) > 0;
 					$hasConstantHaystackTypes = count(TypeUtils::getConstantScalars($valueType)) > 0;
+
 					if (
-						$valueType->isSuperTypeOf($needleType)->yes()
-						&& (
+						(
 							(
 								!$hasConstantNeedleTypes
-								&& !$hasConstantHaystackTypes
+								&&
+								!$hasConstantHaystackTypes
 							)
-							|| $hasConstantNeedleTypes !== $hasConstantHaystackTypes
+							||
+							$hasConstantNeedleTypes !== $hasConstantHaystackTypes
 						)
+						&&
+						$valueType->isSuperTypeOf($needleType)->yes()
 					) {
 						return null;
 					}
+
 				} elseif (
 					$functionName === 'property_exists'
-					&& count($node->args) >= 2
+					&&
+					count($node->args) >= 2
 				) {
+
 					$classNames = TypeUtils::getDirectClassNames(
 						$scope->getType($node->args[0]->value)
 					);
@@ -90,11 +104,13 @@ class ImpossibleCheckTypeHelper
 							continue;
 						}
 
-						if (UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate(
+						if (
+						UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate(
 							$this->broker,
 							$this->broker->getUniversalObjectCratesClasses(),
 							$this->broker->getClass($className)
-						)) {
+						)
+						) {
 							return null;
 						}
 					}
@@ -102,16 +118,24 @@ class ImpossibleCheckTypeHelper
 			}
 		}
 
-		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($scope, $node, TypeSpecifierContext::createTruthy());
+		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition(
+			$scope,
+			$node,
+			TypeSpecifierContext::createTruthy()
+		);
 		$sureTypes = $specifiedTypes->getSureTypes();
 		$sureNotTypes = $specifiedTypes->getSureNotTypes();
 
 		$isSpecified = static function (Expr $expr) use ($scope, $node): bool {
 			return (
-				$node instanceof FuncCall
-				|| $node instanceof MethodCall
-				|| $node instanceof Expr\StaticCall
-			) && $scope->isSpecified($expr);
+					$node instanceof FuncCall
+					||
+					$node instanceof MethodCall
+					||
+					$node instanceof Expr\StaticCall
+				)
+				&&
+				$scope->isSpecified($expr);
 		};
 
 		if (count($sureTypes) === 1) {
@@ -128,12 +152,16 @@ class ImpossibleCheckTypeHelper
 			$isSuperType = $resultType->isSuperTypeOf($argumentType);
 			if ($isSuperType->yes()) {
 				return true;
-			} elseif ($isSuperType->no()) {
+			}
+
+			if ($isSuperType->no()) {
 				return false;
 			}
 
 			return null;
-		} elseif (count($sureNotTypes) === 1) {
+		}
+
+		if (count($sureNotTypes) === 1) {
 			$sureNotType = reset($sureNotTypes);
 			if ($isSpecified($sureNotType[0])) {
 				return null;
@@ -147,35 +175,39 @@ class ImpossibleCheckTypeHelper
 			$isSuperType = $resultType->isSuperTypeOf($argumentType);
 			if ($isSuperType->yes()) {
 				return false;
-			} elseif ($isSuperType->no()) {
+			}
+
+			if ($isSuperType->no()) {
 				return true;
 			}
 
 			return null;
-		} elseif (count($sureTypes) > 0) {
+		}
+
+		if (count($sureTypes) > 0) {
+
 			foreach ($sureTypes as $sureType) {
 				if ($isSpecified($sureType[0])) {
 					return null;
 				}
 			}
-			$types = TypeCombinator::union(...array_map(static function ($sureType) {
-				return $sureType[1];
-			}, array_values($sureTypes)));
+			$types = TypeCombinator::union(...array_column($sureTypes, 1));
 			if ($types instanceof NeverType) {
 				return false;
 			}
+
 		} elseif (count($sureNotTypes) > 0) {
+
 			foreach ($sureNotTypes as $sureNotType) {
 				if ($isSpecified($sureNotType[0])) {
 					return null;
 				}
 			}
-			$types = TypeCombinator::union(...array_map(static function ($sureNotType) {
-				return $sureNotType[1];
-			}, array_values($sureNotTypes)));
+			$types = TypeCombinator::union(...array_column($sureNotTypes, 1));
 			if ($types instanceof NeverType) {
 				return true;
 			}
+
 		}
 
 		return null;

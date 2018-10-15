@@ -60,7 +60,7 @@ class CheckstyleErrorFormatter implements ErrorFormatter
 	 *
 	 * @param AnalysisResult $analysisResult
 	 * @return array<string, array> Array that have as key the relative path of file
-	 *                              and as value an array with occured errors.
+	 *                              and as value an array with occurred errors.
 	 */
 	private function groupByFile(AnalysisResult $analysisResult): array
 	{

@@ -29,7 +29,11 @@ class MinMaxFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunction
 		return isset($this->functionNames[$functionReflection->getName()]);
 	}
 
-	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
+	public function getTypeFromFunctionCall(
+		FunctionReflection $functionReflection,
+		FuncCall $functionCall,
+		Scope $scope
+	): Type
 	{
 		if (!isset($functionCall->args[0])) {
 			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
@@ -128,25 +132,30 @@ class MinMaxFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunction
 	{
 		if (
 			$firstType instanceof ConstantArrayType
-			&& $secondType instanceof ConstantScalarType
+			&&
+			$secondType instanceof ConstantScalarType
 		) {
 			return $secondType;
 		}
 
 		if (
 			$firstType instanceof ConstantScalarType
-			&& $secondType instanceof ConstantArrayType
+			&&
+			$secondType instanceof ConstantArrayType
 		) {
 			return $firstType;
 		}
 
 		if (
 			$firstType instanceof ConstantArrayType
-			&& $secondType instanceof ConstantArrayType
+			&&
+			$secondType instanceof ConstantArrayType
 		) {
 			if ($secondType->count() < $firstType->count()) {
 				return $secondType;
-			} elseif ($firstType->count() < $secondType->count()) {
+			}
+
+			if ($firstType->count() < $secondType->count()) {
 				return $firstType;
 			}
 
@@ -167,7 +176,8 @@ class MinMaxFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunction
 
 		if (
 			$firstType instanceof ConstantScalarType
-			&& $secondType instanceof ConstantScalarType
+			&&
+			$secondType instanceof ConstantScalarType
 		) {
 			if ($secondType->getValue() < $firstType->getValue()) {
 				return $secondType;

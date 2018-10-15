@@ -96,8 +96,9 @@ class ExistingNamesInUseRule implements \PHPStan\Rules\Rule
 				$realName = $functionReflection->getName();
 				$usedName = (string) $use->name;
 				if (
+					$realName !== $usedName
+					&&
 					strtolower($realName) === strtolower($usedName)
-					&& $realName !== $usedName
 				) {
 					$messages[] = sprintf(
 						'Function %s used with incorrect case: %s.',

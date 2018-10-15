@@ -55,7 +55,11 @@ class ObjectWithoutClassType implements Type
 			return $type->isSubTypeOf($this);
 		}
 
-		if ($type instanceof self || $type instanceof TypeWithClassName) {
+		if (
+			$type instanceof self
+			||
+			$type instanceof TypeWithClassName
+		) {
 			return TrinaryLogic::createYes();
 		}
 

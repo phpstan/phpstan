@@ -20,14 +20,23 @@ class IsSubclassOfFunctionTypeSpecifyingExtension implements FunctionTypeSpecify
 	/** @var \PHPStan\Analyser\TypeSpecifier */
 	private $typeSpecifier;
 
-	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, TypeSpecifierContext $context): bool
+	public function isFunctionSupported(
+		FunctionReflection $functionReflection,
+		FuncCall $node,
+		TypeSpecifierContext $context
+	): bool
 	{
 		return strtolower($functionReflection->getName()) === 'is_subclass_of'
 			&& count($node->args) >= 2
 			&& !$context->null();
 	}
 
-	public function specifyTypes(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
+	public function specifyTypes(
+		FunctionReflection $functionReflection,
+		FuncCall $node,
+		Scope $scope,
+		TypeSpecifierContext $context
+	): SpecifiedTypes
 	{
 		$objectType = $scope->getType($node->args[0]->value);
 		$stringType = new StringType();
@@ -39,7 +48,11 @@ class IsSubclassOfFunctionTypeSpecifyingExtension implements FunctionTypeSpecify
 		}
 
 		$classType = $scope->getType($node->args[1]->value);
-		if (!$classType instanceof ConstantStringType || $classType->getValue() === '') {
+		if (
+			!$classType instanceof ConstantStringType
+			||
+			$classType->getValue() === ''
+		) {
 			return new SpecifiedTypes();
 		}
 

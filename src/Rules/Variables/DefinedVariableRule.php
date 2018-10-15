@@ -36,14 +36,15 @@ class DefinedVariableRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		if (!is_string($node->name)) {
+		if (!\is_string($node->name)) {
 			return [];
 		}
 
-		if ($this->cliArgumentsVariablesRegistered && in_array($node->name, [
-			'argc',
-			'argv',
-		], true)) {
+		if (
+			$this->cliArgumentsVariablesRegistered
+			&&
+			\in_array($node->name, ['argc', 'argv'], true)
+		) {
 			$isInMain = !$scope->isInClass() && !$scope->isInAnonymousFunction() && $scope->getFunction() === null;
 			if ($isInMain) {
 				return [];
@@ -58,9 +59,12 @@ class DefinedVariableRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf('Undefined variable: $%s', $node->name),
 			];
-		} elseif (
+		}
+
+		if (
 			$this->checkMaybeUndefinedVariables
-			&& !$scope->hasVariableType($node->name)->yes()
+			&&
+			!$scope->hasVariableType($node->name)->yes()
 		) {
 			return [
 				sprintf('Variable $%s might not be defined.', $node->name),

@@ -72,7 +72,11 @@ class CallableType implements CompoundType, ParametersAcceptor
 	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
 		$isCallable = $type->isCallable();
-		if ($isCallable->no() || $this->isCommonCallable) {
+		if (
+			$this->isCommonCallable
+			||
+			$isCallable->no()
+		) {
 			return $isCallable;
 		}
 
@@ -100,12 +104,19 @@ class CallableType implements CompoundType, ParametersAcceptor
 
 	public function isSubTypeOf(Type $otherType): TrinaryLogic
 	{
-		if ($otherType instanceof IntersectionType || $otherType instanceof UnionType) {
+		if (
+			$otherType instanceof IntersectionType
+			||
+			$otherType instanceof UnionType
+		) {
 			return $otherType->isSuperTypeOf($this);
 		}
 
-		return $otherType->isCallable()
-			->and($otherType instanceof self ? TrinaryLogic::createYes() : TrinaryLogic::createMaybe());
+		return $otherType->isCallable()->and(
+			$otherType instanceof self
+				? TrinaryLogic::createYes()
+				: TrinaryLogic::createMaybe()
+		);
 	}
 
 	public function equals(Type $type): bool

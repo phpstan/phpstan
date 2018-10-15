@@ -68,7 +68,10 @@ class ConstantStringType extends StringType implements ConstantScalarType
 		}
 
 		// 'MyClass::myStaticFunction'
-		$matches = \Nette\Utils\Strings::match($this->value, '#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\z#');
+		$matches = \Nette\Utils\Strings::match(
+			$this->value,
+			'#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\z#'
+		);
 		if ($matches !== null) {
 			if (!$broker->hasClass($matches[1])) {
 				return TrinaryLogic::createMaybe();
@@ -104,7 +107,10 @@ class ConstantStringType extends StringType implements ConstantScalarType
 		}
 
 		// 'MyClass::myStaticFunction'
-		$matches = \Nette\Utils\Strings::match($this->value, '#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\z#');
+		$matches = \Nette\Utils\Strings::match(
+			$this->value,
+			'#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\z#'
+		);
 		if ($matches !== null) {
 			if (!$broker->hasClass($matches[1])) {
 				return [new TrivialParametersAcceptor()];
@@ -134,7 +140,7 @@ class ConstantStringType extends StringType implements ConstantScalarType
 			/** @var mixed $value */
 			$value = $this->value;
 			$value = +$value;
-			if (is_float($value)) {
+			if (\is_float($value)) {
 				return new ConstantFloatType($value);
 			}
 
@@ -168,7 +174,7 @@ class ConstantStringType extends StringType implements ConstantScalarType
 	{
 		if ($offsetType instanceof ConstantIntegerType) {
 			return TrinaryLogic::createFromBoolean(
-				$offsetType->getValue() < strlen($this->value)
+				$offsetType->getValue() < \strlen($this->value)
 			);
 		}
 
@@ -178,7 +184,7 @@ class ConstantStringType extends StringType implements ConstantScalarType
 	public function getOffsetValueType(Type $offsetType): Type
 	{
 		if ($offsetType instanceof ConstantIntegerType) {
-			if ($offsetType->getValue() < strlen($this->value)) {
+			if ($offsetType->getValue() < \strlen($this->value)) {
 				return new self($this->value[$offsetType->getValue()]);
 			}
 
@@ -196,7 +202,8 @@ class ConstantStringType extends StringType implements ConstantScalarType
 		}
 		if (
 			$offsetType instanceof ConstantIntegerType
-			&& $valueStringType instanceof ConstantStringType
+			&&
+			$valueStringType instanceof ConstantStringType
 		) {
 			$value = $this->value;
 			$value[$offsetType->getValue()] = $valueStringType->getValue();

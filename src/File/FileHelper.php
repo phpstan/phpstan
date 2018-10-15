@@ -59,7 +59,11 @@ class FileHelper
 			if ($pathPart === '..') {
 				/** @var string $removedPart */
 				$removedPart = array_pop($normalizedPathParts);
-				if ($scheme === 'phar' && substr($removedPart, -5) === '.phar') {
+				if (
+					$scheme === 'phar'
+					&&
+					substr($removedPart, -5) === '.phar'
+				) {
 					$scheme = null;
 				}
 
@@ -68,7 +72,10 @@ class FileHelper
 			}
 		}
 
-		return ($scheme !== null ? $scheme . '://' : '') . $pathRoot . implode(DIRECTORY_SEPARATOR, $normalizedPathParts);
+		return ($scheme !== null ? $scheme . '://' : '') . $pathRoot . implode(
+			DIRECTORY_SEPARATOR,
+			$normalizedPathParts
+		);
 	}
 
 }

@@ -119,6 +119,7 @@ class NullType implements ConstantScalarType
 	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
 	{
 		$array = new ConstantArrayType([], []);
+
 		return $array->setOffsetValueType($offsetType, $valueType);
 	}
 

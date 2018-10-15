@@ -84,7 +84,11 @@ class PhpClassReflectionExtension
 	public function getProperty(ClassReflection $classReflection, string $propertyName): PropertyReflection
 	{
 		if (!isset($this->propertiesIncludingAnnotations[$classReflection->getName()][$propertyName])) {
-			$this->propertiesIncludingAnnotations[$classReflection->getName()][$propertyName] = $this->createProperty($classReflection, $propertyName, true);
+			$this->propertiesIncludingAnnotations[$classReflection->getName()][$propertyName] = $this->createProperty(
+				$classReflection,
+				$propertyName,
+				true
+			);
 		}
 
 		return $this->propertiesIncludingAnnotations[$classReflection->getName()][$propertyName];
@@ -93,9 +97,11 @@ class PhpClassReflectionExtension
 	public function getNativeProperty(ClassReflection $classReflection, string $propertyName): PhpPropertyReflection
 	{
 		if (!isset($this->nativeProperties[$classReflection->getName()][$propertyName])) {
-			/** @var \PHPStan\Reflection\Php\PhpPropertyReflection $property */
-			$property = $this->createProperty($classReflection, $propertyName, false);
-			$this->nativeProperties[$classReflection->getName()][$propertyName] = $property;
+			$this->nativeProperties[$classReflection->getName()][$propertyName] = $this->createProperty(
+				$classReflection,
+				$propertyName,
+				false
+			);
 		}
 
 		return $this->nativeProperties[$classReflection->getName()][$propertyName];
@@ -113,12 +119,24 @@ class PhpClassReflectionExtension
 		$isDeprecated = false;
 		$isInternal = false;
 
-		if ($includingAnnotations && $this->annotationsPropertiesClassReflectionExtension->hasProperty($classReflection, $propertyName)) {
+		if (
+			$includingAnnotations
+			&&
+			$this->annotationsPropertiesClassReflectionExtension->hasProperty(
+				$classReflection,
+				$propertyName
+			)
+		) {
 			$hierarchyDistances = $classReflection->getClassHierarchyDistances();
-			$annotationProperty = $this->annotationsPropertiesClassReflectionExtension->getProperty($classReflection, $propertyName);
+			$annotationProperty = $this->annotationsPropertiesClassReflectionExtension->getProperty(
+				$classReflection,
+				$propertyName
+			);
+
 			if (!isset($hierarchyDistances[$annotationProperty->getDeclaringClass()->getName()])) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
+
 			if (!isset($hierarchyDistances[$propertyReflection->getDeclaringClass()->getName()])) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
@@ -127,6 +145,7 @@ class PhpClassReflectionExtension
 				return $annotationProperty;
 			}
 		}
+
 		if ($propertyReflection->getDocComment() === false) {
 			$type = new MixedType();
 		} elseif ($declaringClassReflection->getFileName() !== false) {
@@ -144,14 +163,20 @@ class PhpClassReflectionExtension
 				$this->findPropertyTrait($phpDocBlock, $propertyReflection),
 				$phpDocBlock->getDocComment()
 			);
+
 			$varTags = $resolvedPhpDoc->getVarTags();
-			if (isset($varTags[0]) && count($varTags) === 1) {
+			if (
+				isset($varTags[0])
+				&&
+				count($varTags) === 1
+			) {
 				$type = $varTags[0]->getType();
 			} elseif (isset($varTags[$propertyName])) {
 				$type = $varTags[$propertyName]->getType();
 			} else {
 				$type = new MixedType();
 			}
+
 			$isDeprecated = $resolvedPhpDoc->isDeprecated();
 			$isInternal = $resolvedPhpDoc->isInternal();
 		} else {
@@ -169,9 +194,7 @@ class PhpClassReflectionExtension
 
 	public function hasMethod(ClassReflection $classReflection, string $methodName): bool
 	{
-		if (
-			$classReflection->getName() === \ReflectionType::class
-		) {
+		if ($classReflection->getName() === \ReflectionType::class) {
 			$classReflection = $this->broker->getClass(\ReflectionNamedType::class);
 		}
 
@@ -180,9 +203,7 @@ class PhpClassReflectionExtension
 
 	public function getMethod(ClassReflection $classReflection, string $methodName): MethodReflection
 	{
-		if (
-			$classReflection->getName() === \ReflectionType::class
-		) {
+		if ($classReflection->getName() === \ReflectionType::class) {
 			$classReflection = $this->broker->getClass(\ReflectionNamedType::class);
 		}
 
@@ -209,11 +230,15 @@ class PhpClassReflectionExtension
 			return true;
 		}
 
-		if ($methodName === '__get' && UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate(
-			$this->broker,
-			$this->broker->getUniversalObjectCratesClasses(),
-			$classReflection
-		)) {
+		if (
+			$methodName === '__get'
+			&&
+			UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate(
+				$this->broker,
+				$this->broker->getUniversalObjectCratesClasses(),
+				$classReflection
+			)
+		) {
 			return true;
 		}
 
@@ -233,11 +258,13 @@ class PhpClassReflectionExtension
 		} else {
 			if (
 				$methodName !== '__get'
-				|| !UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate(
+				||
+				!UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate(
 					$this->broker,
 					$this->broker->getUniversalObjectCratesClasses(),
 					$classReflection
-				)) {
+				)
+			) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
 
@@ -248,8 +275,11 @@ class PhpClassReflectionExtension
 		}
 
 		if (!isset($this->nativeMethods[$classReflection->getName()][$nativeMethodReflection->getName()])) {
-			$method = $this->createMethod($classReflection, $nativeMethodReflection, false);
-			$this->nativeMethods[$classReflection->getName()][$nativeMethodReflection->getName()] = $method;
+			$this->nativeMethods[$classReflection->getName()][$nativeMethodReflection->getName()] = $this->createMethod(
+				$classReflection,
+				$nativeMethodReflection,
+				false
+			);
 		}
 
 		return $this->nativeMethods[$classReflection->getName()][$nativeMethodReflection->getName()];
@@ -261,12 +291,24 @@ class PhpClassReflectionExtension
 		bool $includingAnnotations
 	): MethodReflection
 	{
-		if ($includingAnnotations && $this->annotationsMethodsClassReflectionExtension->hasMethod($classReflection, $methodReflection->getName())) {
+		if (
+			$includingAnnotations
+			&&
+			$this->annotationsMethodsClassReflectionExtension->hasMethod(
+				$classReflection,
+				$methodReflection->getName()
+			)
+		) {
 			$hierarchyDistances = $classReflection->getClassHierarchyDistances();
-			$annotationMethod = $this->annotationsMethodsClassReflectionExtension->getMethod($classReflection, $methodReflection->getName());
+			$annotationMethod = $this->annotationsMethodsClassReflectionExtension->getMethod(
+				$classReflection,
+				$methodReflection->getName()
+			);
+
 			if (!isset($hierarchyDistances[$annotationMethod->getDeclaringClass()->getName()])) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
+
 			if (!isset($hierarchyDistances[$methodReflection->getDeclaringClass()->getName()])) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
@@ -300,6 +342,7 @@ class PhpClassReflectionExtension
 				$i++;
 				$variantName = sprintf($signatureMapMethodName . '\'' . $i);
 			}
+
 			return new NativeMethodReflection(
 				$this->broker,
 				$declaringClass,
@@ -344,7 +387,9 @@ class PhpClassReflectionExtension
 
 		$declaringTrait = null;
 		if (
-			$declaringTraitName !== null && $this->broker->hasClass($declaringTraitName)
+			$declaringTraitName !== null
+			&&
+			$this->broker->hasClass($declaringTraitName)
 		) {
 			$declaringTrait = $this->broker->getClass($declaringTraitName);
 		}
@@ -427,7 +472,8 @@ class PhpClassReflectionExtension
 			$traitMethodReflection = $traitReflection->getMethod($methodReflection->getName());
 			if (
 				$traitMethodReflection->getFileName() === $methodReflection->getFileName()
-				&& $traitMethodReflection->getStartLine() === $methodReflection->getStartLine()
+				&&
+				$traitMethodReflection->getStartLine() === $methodReflection->getStartLine()
 			) {
 				return $traitReflection->getName();
 			}

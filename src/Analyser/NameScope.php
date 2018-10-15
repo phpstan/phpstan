@@ -44,6 +44,7 @@ class NameScope
 				return $this->uses[$firstNamePart];
 			}
 			array_shift($nameParts);
+
 			return sprintf('%s\\%s', $this->uses[$firstNamePart], implode('\\', $nameParts));
 		}
 

@@ -27,7 +27,11 @@ class RangeFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionR
 		return $functionReflection->getName() === 'range';
 	}
 
-	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
+	public function getTypeFromFunctionCall(
+		FunctionReflection $functionReflection,
+		FuncCall $functionCall,
+		Scope $scope
+	): Type
 	{
 		if (count($functionCall->args) < 2) {
 			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
@@ -39,21 +43,30 @@ class RangeFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionR
 
 		$constantReturnTypes = [];
 
-		$startConstants = TypeUtils::getConstantScalars($startType);
-		foreach ($startConstants as $startConstant) {
-			if (!$startConstant instanceof ConstantIntegerType && !$startConstant instanceof ConstantFloatType) {
+		foreach (TypeUtils::getConstantScalars($startType) as $startConstant) {
+			if (
+				!$startConstant instanceof ConstantIntegerType
+				&&
+				!$startConstant instanceof ConstantFloatType
+			) {
 				continue;
 			}
 
-			$endConstants = TypeUtils::getConstantScalars($endType);
-			foreach ($endConstants as $endConstant) {
-				if (!$endConstant instanceof ConstantIntegerType && !$endConstant instanceof ConstantFloatType) {
+			foreach (TypeUtils::getConstantScalars($endType) as $endConstant) {
+				if (
+					!$endConstant instanceof ConstantIntegerType
+					&&
+					!$endConstant instanceof ConstantFloatType
+				) {
 					continue;
 				}
 
-				$stepConstants = TypeUtils::getConstantScalars($stepType);
-				foreach ($stepConstants as $stepConstant) {
-					if (!$stepConstant instanceof ConstantIntegerType && !$stepConstant instanceof ConstantFloatType) {
+				foreach (TypeUtils::getConstantScalars($stepType) as $stepConstant) {
+					if (
+						!$stepConstant instanceof ConstantIntegerType
+						&&
+						!$stepConstant instanceof ConstantFloatType
+					) {
 						continue;
 					}
 
@@ -65,7 +78,11 @@ class RangeFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionR
 					$keyTypes = [];
 					$valueTypes = [];
 
-					$rangeValues = range($startConstant->getValue(), $endConstant->getValue(), $stepConstant->getValue());
+					$rangeValues = range(
+						$startConstant->getValue(),
+						$endConstant->getValue(),
+						$stepConstant->getValue()
+					);
 					foreach ($rangeValues as $key => $value) {
 						$keyTypes[] = new ConstantIntegerType($key);
 						$valueTypes[] = $scope->getTypeFromValue($value);
@@ -86,16 +103,20 @@ class RangeFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionR
 
 		if (
 			$startType instanceof IntegerType
-			&& $endType instanceof IntegerType
-			&& $stepType instanceof IntegerType
+			&&
+			$endType instanceof IntegerType
+			&&
+			$stepType instanceof IntegerType
 		) {
 			return new ArrayType(new IntegerType(), new IntegerType());
 		}
 
 		if (
 			$startType instanceof FloatType
-			|| $endType instanceof FloatType
-			|| $stepType instanceof FloatType
+			||
+			$endType instanceof FloatType
+			||
+			$stepType instanceof FloatType
 		) {
 			return new ArrayType(new IntegerType(), new FloatType());
 		}

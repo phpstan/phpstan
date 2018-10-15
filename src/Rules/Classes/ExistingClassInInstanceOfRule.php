@@ -51,7 +51,7 @@ class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
 		$name = (string) $class;
 		$lowercaseName = strtolower($name);
 
-		if (in_array($lowercaseName, [
+		if (\in_array($lowercaseName, [
 			'self',
 			'static',
 			'parent',
@@ -69,7 +69,9 @@ class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf('Class %s not found.', $name),
 			];
-		} elseif ($this->checkClassCaseSensitivity) {
+		}
+
+		if ($this->checkClassCaseSensitivity) {
 			return $this->classCaseSensitivityCheck->checkClassNames([$name]);
 		}
 

@@ -49,6 +49,7 @@ class TrinaryLogic
 	private static function create(int $value): self
 	{
 		self::$registry[$value] = self::$registry[$value] ?? new self($value);
+
 		return self::$registry[$value];
 	}
 
@@ -80,6 +81,7 @@ class TrinaryLogic
 	{
 		$operandValues = array_column($operands, 'value');
 		$operandValues[] = $this->value;
+
 		return self::create(min($operandValues));
 	}
 
@@ -87,6 +89,7 @@ class TrinaryLogic
 	{
 		$operandValues = array_column($operands, 'value');
 		$operandValues[] = $this->value;
+
 		return self::create(max($operandValues));
 	}
 
@@ -95,12 +98,14 @@ class TrinaryLogic
 		$operandValues = array_column($operands, 'value');
 		$min = min($operandValues);
 		$max = max($operandValues);
+
 		return self::create($min === $max ? $min : self::MAYBE);
 	}
 
 	public static function maxMin(self ...$operands): self
 	{
 		$operandValues = array_column($operands, 'value');
+
 		return self::create(max($operandValues) > 0 ? max($operandValues) : min($operandValues));
 	}
 
@@ -118,7 +123,9 @@ class TrinaryLogic
 	{
 		if ($this->value > $other->value) {
 			return $this;
-		} elseif ($other->value > $this->value) {
+		}
+
+		if ($other->value > $this->value) {
 			return $other;
 		}
 

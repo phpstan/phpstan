@@ -59,7 +59,8 @@ class UniversalObjectCratesClassReflectionExtension
 
 			if (
 				$classReflection->getName() === $className
-				|| $classReflection->isSubclassOf($className)
+				||
+				$classReflection->isSubclassOf($className)
 			) {
 				return true;
 			}
@@ -75,6 +76,7 @@ class UniversalObjectCratesClassReflectionExtension
 		} else {
 			$type = new MixedType();
 		}
+
 		return new UniversalObjectCrateProperty($classReflection, $type);
 	}
 

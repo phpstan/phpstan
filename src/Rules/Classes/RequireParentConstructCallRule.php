@@ -35,7 +35,11 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 		}
 
 		$classReflection = $scope->getClassReflection()->getNativeReflection();
-		if ($classReflection->isInterface() || $classReflection->isAnonymous()) {
+		if (
+			$classReflection->isInterface()
+			||
+			$classReflection->isAnonymous()
+		) {
 			return [];
 		}
 
@@ -88,9 +92,12 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 			if ($statement instanceof \PhpParser\Node\Expr\StaticCall) {
 				if (
 					$statement->class instanceof Name
-					&& ((string) $statement->class === 'parent')
-					&& $statement->name instanceof Node\Identifier
-					&& $statement->name->name === '__construct'
+					&&
+					(string) $statement->class === 'parent'
+					&&
+					$statement->name instanceof Node\Identifier
+					&&
+					$statement->name->name === '__construct'
 				) {
 					return true;
 				}
@@ -116,12 +123,18 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 			if (
 				(
 					$constructor !== null
-					&& $constructor->getDeclaringClass()->getName() === $classReflection->getParentClass()->getName()
-					&& !$constructor->isAbstract()
-				) || (
+					&&
+					$constructor->getDeclaringClass()->getName() === $classReflection->getParentClass()->getName()
+					&&
+					!$constructor->isAbstract()
+				)
+				||
+				(
 					$constructorWithClassName !== null
-					&& $constructorWithClassName->getDeclaringClass()->getName() === $classReflection->getParentClass()->getName()
-					&& !$constructorWithClassName->isAbstract()
+					&&
+					$constructorWithClassName->getDeclaringClass()->getName() === $classReflection->getParentClass()->getName()
+					&&
+					!$constructorWithClassName->isAbstract()
 				)
 			) {
 				return $classReflection->getParentClass();

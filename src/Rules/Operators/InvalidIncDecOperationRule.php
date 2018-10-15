@@ -30,9 +30,12 @@ class InvalidIncDecOperationRule implements \PHPStan\Rules\Rule
 	{
 		if (
 			!$node instanceof \PhpParser\Node\Expr\PreInc
-			&& !$node instanceof \PhpParser\Node\Expr\PostInc
-			&& !$node instanceof \PhpParser\Node\Expr\PreDec
-			&& !$node instanceof \PhpParser\Node\Expr\PostDec
+			&&
+			!$node instanceof \PhpParser\Node\Expr\PostInc
+			&&
+			!$node instanceof \PhpParser\Node\Expr\PreDec
+			&&
+			!$node instanceof \PhpParser\Node\Expr\PostDec
 		) {
 			return [];
 		}
@@ -41,9 +44,12 @@ class InvalidIncDecOperationRule implements \PHPStan\Rules\Rule
 
 		if (
 			!$node->var instanceof \PhpParser\Node\Expr\Variable
-			&& !$node->var instanceof \PhpParser\Node\Expr\ArrayDimFetch
-			&& !$node->var instanceof \PhpParser\Node\Expr\PropertyFetch
-			&& !$node->var instanceof \PhpParser\Node\Expr\StaticPropertyFetch
+			&&
+			!$node->var instanceof \PhpParser\Node\Expr\ArrayDimFetch
+			&&
+			!$node->var instanceof \PhpParser\Node\Expr\PropertyFetch
+			&&
+			!$node->var instanceof \PhpParser\Node\Expr\StaticPropertyFetch
 		) {
 			return [
 				sprintf(
