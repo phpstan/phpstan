@@ -357,7 +357,7 @@ class Scope implements ClassMemberAccessAnswerer
 		return $this->resolvedTypes[$key];
 	}
 
-	private function resolveType(Expr $node): Type
+	private function resolveTypeHelperBoolean(Expr $node): ?Type
 	{
 		if (
 			$node instanceof Expr\BinaryOp\Greater
@@ -641,6 +641,16 @@ class Scope implements ClassMemberAccessAnswerer
 			}
 
 			return new BooleanType();
+		}
+
+		return null;
+	}
+
+	private function resolveType(Expr $node): Type
+	{
+		$type = $this->resolveTypeHelperBoolean($node);
+		if ($type !== null) {
+			return $type;
 		}
 
 		if ($node instanceof Node\Expr\UnaryPlus) {
