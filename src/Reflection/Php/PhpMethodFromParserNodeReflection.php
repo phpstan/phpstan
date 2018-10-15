@@ -74,7 +74,9 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 
 	private function getClassMethod(): ClassMethod
 	{
-		return $this->getFunctionLike();
+		/** @var \PhpParser\Node\Stmt\ClassMethod $functionLike */
+		$functionLike = $this->getFunctionLike();
+		return $functionLike;
 	}
 
 	public function isStatic(): bool

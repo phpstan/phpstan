@@ -97,11 +97,13 @@ class PhpClassReflectionExtension
 	public function getNativeProperty(ClassReflection $classReflection, string $propertyName): PhpPropertyReflection
 	{
 		if (!isset($this->nativeProperties[$classReflection->getName()][$propertyName])) {
-			$this->nativeProperties[$classReflection->getName()][$propertyName] = $this->createProperty(
+			/** @var \PHPStan\Reflection\Php\PhpPropertyReflection $property */
+			$property = $this->createProperty(
 				$classReflection,
 				$propertyName,
 				false
 			);
+			$this->nativeProperties[$classReflection->getName()][$propertyName] = $property;
 		}
 
 		return $this->nativeProperties[$classReflection->getName()][$propertyName];
