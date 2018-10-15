@@ -108,13 +108,13 @@
 	<rule ref="Generic.PHP.DeprecatedFunctions"/>
 
 	<!-- Show warnings on Discouraged Functions: error_log, print_r and var_dump -->
-	<!--<rule ref="Squiz.PHP.DiscouragedFunctions"/>-->
+	<rule ref="Squiz.PHP.DiscouragedFunctions"/>
 
 	<!-- Eval is Evil -->
 	<rule ref="Squiz.PHP.Eval"/>
 
 	<!-- Dont use $GLOBALS -->
-	<!--<rule ref="Squiz.PHP.GlobalKeyword"/>-->
+	<rule ref="Squiz.PHP.GlobalKeyword"/>
 
 	<!-- Forbid `AND` and `OR`, require `&&` and `||` -->
 	<!--
@@ -152,9 +152,6 @@
 
 	<!-- Do not use e.g. "if (true)" -->
 	<rule ref="Generic.CodeAnalysis.UnconditionalIfStatement"/>
-
-	<!-- Use e.g. "function lall() {" in one line. -->
-	<!-- <rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie"/> -->
 
 	<!-- Do not use <? -->
 	<rule ref="Generic.PHP.DisallowShortOpenTag"/>
@@ -209,33 +206,21 @@
 	<!-- The soft limit on line length MUST be "x"-characters; automated style checkers MUST warn but MUST NOT error at the soft limit. -->
 	<rule ref="Generic.Files.LineLength">
 		<properties>
-			<property name="lineLimit" value="999"/>
+			<property name="lineLimit" value="250"/>
 			<property name="absoluteLineLimit" value="0"/>
 		</properties>
 	</rule>
 
 	<!-- There MUST NOT be trailing whitespace at the end of non-blank lines. -->
-	<rule ref="Squiz.WhiteSpace.SuperfluousWhitespace">
-		<properties>
-			<property name="ignoreBlankLines" value="true"/>
-		</properties>
-	</rule>
-	<rule ref="Squiz.WhiteSpace.SuperfluousWhitespace.StartFile">
-		<severity>0</severity>
-	</rule>
-	<rule ref="Squiz.WhiteSpace.SuperfluousWhitespace.EndFile">
-		<severity>0</severity>
-	</rule>
-	<rule ref="Squiz.WhiteSpace.SuperfluousWhitespace.EmptyLines">
-		<severity>0</severity>
-	</rule>
+	<rule ref="Squiz.WhiteSpace.SuperfluousWhitespace"/>
+	<rule ref="Squiz.WhiteSpace.SuperfluousWhitespace.StartFile"/>
+	<rule ref="Squiz.WhiteSpace.SuperfluousWhitespace.EndFile"/>
+	<rule ref="Squiz.WhiteSpace.SuperfluousWhitespace.EmptyLines"/>
 
 	<!-- Force whitespace before and after concatenation -->
 	<rule ref="Squiz.Strings.ConcatenationSpacing">
-		<severity>0</severity>
 		<properties>
 			<property name="spacing" value="1"/>
-			<property name="ignoreNewlines" value="true"/>
 		</properties>
 	</rule>
 
@@ -313,11 +298,7 @@
 	<rule ref="Squiz.WhiteSpace.ScopeKeywordSpacing"/>
 
 	<!-- Spaces for equal symbols -->
-	<rule ref="Squiz.WhiteSpace.OperatorSpacing">
-		<properties>
-			<property name="ignoreNewlines" value="true"/>
-		</properties>
-	</rule>
+	<rule ref="Squiz.WhiteSpace.OperatorSpacing"/>
 
 	<!-- Method names SHOULD NOT be prefixed with a single underscore to indicate protected or private visibility. -->
 	<!-- checked in Methods/MethodDeclarationSniff -->
@@ -334,9 +315,7 @@
 			<property name="equalsSpacing" value="1"/>
 		</properties>
 	</rule>
-	<rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing.SpacingAfterHint">
-		<severity>0</severity>
-	</rule>
+	<rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing.SpacingAfterHint"/>
 
 	<!-- Method arguments with default values MUST go at the end of the argument list. -->
 	<rule ref="PEAR.Functions.ValidDefaultValue"/>
@@ -403,13 +382,9 @@
 	<rule ref="PEAR.Functions.FunctionCallSignature.MultipleArguments">
 		<severity>0</severity>
 	</rule>
-	-->
-	<!--
 	<rule ref="Squiz.Classes.ValidClassName.NotCamelCaps">
 		<severity>0</severity>
 	</rule>
-	-->
-	<!--
     <rule ref="Generic.Functions.FunctionCallArgumentSpacing.TooMuchSpaceAfterComma">
       <severity>0</severity>
     </rule>
