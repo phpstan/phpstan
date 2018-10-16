@@ -2,8 +2,8 @@
 
 namespace PHPStan\Broker;
 
-use PHPStan\Command\ErrorFormatter\RelativePathHelper;
 use PHPStan\File\FileHelper;
+use PHPStan\File\RelativePathHelper;
 
 class AnonymousClassNameHelper
 {
@@ -11,11 +11,16 @@ class AnonymousClassNameHelper
 	/** @var FileHelper */
 	private $fileHelper;
 
+	/** @var RelativePathHelper */
+	private $relativePathHelper;
+
 	public function __construct(
-		FileHelper $fileHelper
+		FileHelper $fileHelper,
+		RelativePathHelper $relativePathHelper
 	)
 	{
 		$this->fileHelper = $fileHelper;
+		$this->relativePathHelper = $relativePathHelper;
 	}
 
 	public function getAnonymousClassName(
@@ -27,8 +32,7 @@ class AnonymousClassNameHelper
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
-		$filename = RelativePathHelper::getRelativePath(
-			$this->fileHelper->getWorkingDirectory(),
+		$filename = $this->relativePathHelper->getRelativePath(
 			$this->fileHelper->normalizePath($filename)
 		);
 

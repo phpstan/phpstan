@@ -7,7 +7,7 @@
 
 ### Code snippet that reproduces the problem
 
-<!-- Try to reproduce the issue you are facing using https://phpstan.org/ (click "Analyze & Store Result" to get a unique URL) -->
+<!-- Try to reproduce the issue you are facing using https://phpstan.org/ (click Preview, check result, and then "Analyze & Persist" to get a unique URL) -->
 
 
 ### Expected output

@@ -700,3 +700,49 @@ class CheckNullWithConstantType
 	}
 
 }
+
+class NullConditionInDoWhile
+{
+
+	public function doFoo(): string
+	{
+		do {
+			$string = $this->doBar();
+		} while ($string === null);
+
+		return $string;
+	}
+
+	public function doBar(): ?string
+	{
+
+	}
+
+}
+
+class RecursiveStaticResolving
+{
+	/**
+	 * @return $this
+	 */
+	public function f2(): self
+	{
+		return $this;
+	}
+
+	/**
+	 * @return $this
+	 */
+	public function f3(): self
+	{
+		return $this;
+	}
+
+	/**
+	 * @return $this
+	 */
+	public function f1(): self
+	{
+		return $this->f2()->f3();
+	}
+}

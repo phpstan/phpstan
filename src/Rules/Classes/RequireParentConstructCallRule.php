@@ -89,8 +89,8 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 				if (
 					$statement->class instanceof Name
 					&& ((string) $statement->class === 'parent')
-					&& (is_string($statement->name) || $statement->name instanceof Node\Identifier)
-					&& (string) $statement->name === '__construct'
+					&& $statement->name instanceof Node\Identifier
+					&& $statement->name->name === '__construct'
 				) {
 					return true;
 				}

@@ -315,6 +315,11 @@ services:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
 	-
+		class: PHPStan\Type\Php\CurlInitReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	-
 		class: PHPStan\Type\Php\DioStatDynamicFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
@@ -506,6 +511,10 @@ services:
 
 	typeSpecifierFactory:
 		class: PHPStan\Analyser\TypeSpecifierFactory
+
+	relativePathHelper:
+		class: PHPStan\File\RelativePathHelper
+		dynamic: true
 
 	broker:
 		class: PHPStan\Broker\Broker

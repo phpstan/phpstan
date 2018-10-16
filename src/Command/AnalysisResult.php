@@ -84,6 +84,10 @@ class AnalysisResult
 		return $this->defaultLevelUsed;
 	}
 
+	/**
+	 * @deprecated Use \PHPStan\File\RelativePathHelper instead
+	 * @return string
+	 */
 	public function getCurrentDirectory(): string
 	{
 		return $this->currentDirectory;

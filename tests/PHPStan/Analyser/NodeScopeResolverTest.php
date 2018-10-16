@@ -8,6 +8,7 @@ use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Broker\AnonymousClassNameHelper;
 use PHPStan\Cache\Cache;
 use PHPStan\File\FileHelper;
+use PHPStan\File\RelativePathHelper;
 use PHPStan\PhpDoc\PhpDocStringResolver;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
@@ -272,30 +273,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				$testScope,
-				'listedOne',
-				TrinaryLogic::createYes(),
-				'mixed',
-			],
-			[
-				$testScope,
-				'listedTwo',
-				TrinaryLogic::createYes(),
-				'mixed',
-			],
-			[
-				$testScope,
-				'listedThree',
-				TrinaryLogic::createYes(),
-				'mixed',
-			],
-			[
-				$testScope,
-				'listedFour',
-				TrinaryLogic::createYes(),
-				'mixed',
-			],
-			[
-				$testScope,
 				'inArray',
 				TrinaryLogic::createYes(),
 				'1',
@@ -459,13 +436,13 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'listOne',
 				TrinaryLogic::createYes(),
-				'mixed', // int
+				'1',
 			],
 			[
 				$testScope,
 				'listTwo',
 				TrinaryLogic::createYes(),
-				'mixed', // int
+				'2',
 			],
 			[
 				$testScope,
@@ -957,19 +934,251 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		}
 	}
 
-	public function testArrayDestructuringShortSyntax(): void
+	public function dataArrayDestructuring(): array
 	{
-		$this->processFile(__DIR__ . '/data/array-destructuring-short.php', function (\PhpParser\Node $node, Scope $scope): void {
-			if (!($node instanceof Exit_)) {
-				return;
-			}
+		return [
+			[
+				'mixed',
+				'$a',
+			],
+			[
+				'mixed',
+				'$b',
+			],
+			[
+				'mixed',
+				'$c',
+			],
+			[
+				'mixed',
+				'$aList',
+			],
+			[
+				'mixed',
+				'$bList',
+			],
+			[
+				'mixed',
+				'$cList',
+			],
+			[
+				'1',
+				'$int',
+			],
+			[
+				'\'foo\'',
+				'$string',
+			],
+			[
+				'true',
+				'$bool',
+			],
+			[
+				'*ERROR*',
+				'$never',
+			],
+			[
+				'*ERROR*',
+				'$nestedNever',
+			],
+			[
+				'1',
+				'$intList',
+			],
+			[
+				'\'foo\'',
+				'$stringList',
+			],
+			[
+				'true',
+				'$boolList',
+			],
+			[
+				'*ERROR*',
+				'$neverList',
+			],
+			[
+				'*ERROR*',
+				'$nestedNeverList',
+			],
+			[
+				'1',
+				'$foreachInt',
+			],
+			[
+				'false',
+				'$foreachBool',
+			],
+			[
+				'*ERROR*',
+				'$foreachNever',
+			],
+			[
+				'*ERROR*',
+				'$foreachNestedNever',
+			],
+			[
+				'1',
+				'$foreachIntList',
+			],
+			[
+				'false',
+				'$foreachBoolList',
+			],
+			[
+				'*ERROR*',
+				'$foreachNeverList',
+			],
+			[
+				'*ERROR*',
+				'$foreachNestedNeverList',
+			],
+			[
+				'1|4',
+				'$u1',
+			],
+			[
+				'2|\'bar\'',
+				'$u2',
+			],
+			[
+				'3',
+				'$u3',
+			],
+			[
+				'1|4',
+				'$foreachU1',
+			],
+			[
+				'2|\'bar\'',
+				'$foreachU2',
+			],
+			[
+				'3',
+				'$foreachU3',
+			],
+			[
+				'string',
+				'$firstStringArray',
+			],
+			[
+				'string',
+				'$secondStringArray',
+			],
+			[
+				'string',
+				'$thirdStringArray',
+			],
+			[
+				'string',
+				'$fourthStringArray',
+			],
+			[
+				'string',
+				'$firstStringArrayList',
+			],
+			[
+				'string',
+				'$secondStringArrayList',
+			],
+			[
+				'string',
+				'$thirdStringArrayList',
+			],
+			[
+				'string',
+				'$fourthStringArrayList',
+			],
+			[
+				'string',
+				'$firstStringArrayForeach',
+			],
+			[
+				'string',
+				'$secondStringArrayForeach',
+			],
+			[
+				'string',
+				'$thirdStringArrayForeach',
+			],
+			[
+				'string',
+				'$fourthStringArrayForeach',
+			],
+			[
+				'string',
+				'$firstStringArrayForeachList',
+			],
+			[
+				'string',
+				'$secondStringArrayForeachList',
+			],
+			[
+				'string',
+				'$thirdStringArrayForeachList',
+			],
+			[
+				'string',
+				'$fourthStringArrayForeachList',
+			],
+			[
+				'true',
+				'$assocKey',
+			],
+			[
+				'\'foo\'',
+				'$assocFoo',
+			],
+			[
+				'1',
+				'$assocOne',
+			],
+			[
+				'*ERROR*',
+				'$assocNonExistent',
+			],
+			[
+				'true',
+				'$dynamicAssocKey',
+			],
+			[
+				'\'123\'|true',
+				'$dynamicAssocStrings',
+			],
+			[
+				'1|\'123\'|\'foo\'|true',
+				'$dynamicAssocMixed',
+			],
+			[
+				'true',
+				'$dynamicAssocKeyForeach',
+			],
+			[
+				'\'123\'|true',
+				'$dynamicAssocStringsForeach',
+			],
+			[
+				'1|\'123\'|\'foo\'|true',
+				'$dynamicAssocMixedForeach',
+			],
+		];
+	}
 
-			$this->assertTrue($scope->hasVariableType('a')->yes());
-			$this->assertTrue($scope->hasVariableType('b')->yes());
-			$this->assertTrue($scope->hasVariableType('c')->yes());
-			$this->assertTrue($scope->hasVariableType('d')->yes());
-			$this->assertTrue($scope->hasVariableType('e')->yes());
-		});
+	/**
+	 * @dataProvider dataArrayDestructuring
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testArrayDestructuring(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/array-destructuring.php',
+			$description,
+			$expression
+		);
 	}
 
 	public function dataParameterTypes(): array
@@ -1197,7 +1406,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		$this->assertTypes(
 			__DIR__ . '/data/var-annotations.php',
 			$description,
-			$expression
+			$expression,
+			[],
+			[],
+			[],
+			[],
+			'die',
+			[],
+			false
 		);
 	}
 
@@ -2701,6 +2917,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'bool',
 				'array_key_exists(\'foo\', $generalArray)',
+			],
+			[
+				'resource',
+				'curl_init()',
+			],
+			[
+				'resource|false',
+				'curl_init($string)',
 			],
 		];
 	}
@@ -5222,6 +5446,26 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array<string>|Iterables\CollectionOfIntegers',
 				'$this->collectionOfIntegersOrArrayOfStrings',
 			],
+			[
+				'Generator&iterable<Iterables\Foo>',
+				'$generatorOfFoos',
+			],
+			[
+				'Iterables\Foo',
+				'$fooFromGenerator',
+			],
+			[
+				'ArrayObject&iterable<int, string>',
+				'$arrayObject',
+			],
+			[
+				'int',
+				'$arrayObjectKey',
+			],
+			[
+				'string',
+				'$arrayObjectValue',
+			],
 		];
 	}
 
@@ -7420,11 +7664,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		$printer = new \PhpParser\PrettyPrinter\Standard();
 		$broker = $this->createBroker($dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions);
 		$typeSpecifier = $this->createTypeSpecifier($printer, $broker, $methodTypeSpecifyingExtensions, $staticMethodTypeSpecifyingExtensions);
-		$fileHelper = new FileHelper($this->getCurrentWorkingDirectory());
+		$currentWorkingDirectory = $this->getCurrentWorkingDirectory();
+		$fileHelper = new FileHelper($currentWorkingDirectory);
 		$resolver = new NodeScopeResolver(
 			$broker,
 			$this->getParser(),
-			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $this->createMock(Cache::class), new AnonymousClassNameHelper($fileHelper), self::getContainer()->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class)),
+			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $this->createMock(Cache::class), new AnonymousClassNameHelper($fileHelper, new RelativePathHelper($currentWorkingDirectory, DIRECTORY_SEPARATOR, [])), self::getContainer()->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class)),
 			$fileHelper,
 			$typeSpecifier,
 			true,

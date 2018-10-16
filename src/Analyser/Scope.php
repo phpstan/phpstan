@@ -917,11 +917,20 @@ class Scope implements ClassMemberAccessAnswerer
 		} elseif ($node instanceof Expr\Closure) {
 			$parameters = [];
 			$isVariadic = false;
-			$optional = false;
-			foreach ($node->params as $param) {
-				if ($param->default !== null) {
-					$optional = true;
+			$firstOptionalParameterIndex = null;
+			foreach ($node->params as $i => $param) {
+				$isOptionalCandidate = $param->default !== null || $param->variadic;
+
+				if ($isOptionalCandidate) {
+					if ($firstOptionalParameterIndex === null) {
+						$firstOptionalParameterIndex = $i;
+					}
+				} else {
+					$firstOptionalParameterIndex = null;
 				}
+			}
+
+			foreach ($node->params as $i => $param) {
 				if ($param->variadic) {
 					$isVariadic = true;
 				}
@@ -930,7 +939,7 @@ class Scope implements ClassMemberAccessAnswerer
 				}
 				$parameters[] = new NativeParameterReflection(
 					$param->var->name,
-					$optional,
+					$firstOptionalParameterIndex !== null && $i >= $firstOptionalParameterIndex,
 					$this->getFunctionType($param->type, $param->type === null, false),
 					$param->byRef
 						? PassedByReference::createCreatesNewVariable()
@@ -1277,13 +1286,13 @@ class Scope implements ClassMemberAccessAnswerer
 			}
 			$methodReflection = $methodCalledOnType->getMethod($node->name->name, $this);
 
-			$calledOnThis = $node->var instanceof Variable && is_string($node->var->name) && $node->var->name === 'this';
 			$methodReturnType = ParametersAcceptorSelector::selectFromArgs(
 				$this,
 				$node->args,
 				$methodReflection->getVariants()
 			)->getReturnType();
 			if ($methodReturnType instanceof StaticResolvableType) {
+				$calledOnThis = $this->getType($node->var) instanceof ThisType;
 				if ($calledOnThis) {
 					if ($this->isInClass()) {
 						return $methodReturnType->changeBaseClass($this->getClassReflection()->getName());
@@ -1292,21 +1301,20 @@ class Scope implements ClassMemberAccessAnswerer
 					return $methodReturnType->resolveStatic($referencedClasses[0]);
 				}
 			}
-
 			return $methodReturnType;
 		}
 
-		if ($node instanceof Expr\StaticCall && (is_string($node->name) || $node->name instanceof Node\Identifier)) {
+		if ($node instanceof Expr\StaticCall && $node->name instanceof Node\Identifier) {
 			if ($node->class instanceof Name) {
 				$calleeType = new ObjectType($this->resolveName($node->class));
 			} else {
 				$calleeType = $this->getType($node->class);
 			}
 
-			if (!$calleeType->hasMethod((string) $node->name)) {
+			if (!$calleeType->hasMethod($node->name->name)) {
 				return new ErrorType();
 			}
-			$staticMethodReflection = $calleeType->getMethod((string) $node->name, $this);
+			$staticMethodReflection = $calleeType->getMethod($node->name->name, $this);
 			$referencedClasses = TypeUtils::getDirectClassNames($calleeType);
 
 			$resolvedTypes = [];
@@ -1742,6 +1750,25 @@ class Scope implements ClassMemberAccessAnswerer
 			$variableTypes,
 			$this->moreSpecificTypes,
 			$scopeClass,
+			$this->getAnonymousFunctionReturnType(),
+			$this->getInFunctionCall(),
+			$this->isNegated()
+		);
+	}
+
+	public function enterClosureCall(Type $thisType): self
+	{
+		$variableTypes = $this->getVariableTypes();
+		$variableTypes['this'] = VariableTypeHolder::createYes($thisType);
+
+		return $this->scopeFactory->create(
+			$this->context,
+			$this->isDeclareStrictTypes(),
+			$this->getFunction(),
+			$this->getNamespace(),
+			$variableTypes,
+			$this->moreSpecificTypes,
+			$thisType instanceof TypeWithClassName ? $thisType->getClassName() : null,
 			$this->getAnonymousFunctionReturnType(),
 			$this->getInFunctionCall(),
 			$this->isNegated()

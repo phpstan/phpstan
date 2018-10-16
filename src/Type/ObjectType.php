@@ -257,11 +257,14 @@ class ObjectType implements TypeWithClassName
 		}
 
 		$classReflection = $broker->getClass($this->className);
-		if (UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate(
-			$broker,
-			$broker->getUniversalObjectCratesClasses(),
-			$classReflection
-		)) {
+		if (
+			!$classReflection->getNativeReflection()->isUserDefined()
+			|| UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate(
+				$broker,
+				$broker->getUniversalObjectCratesClasses(),
+				$classReflection
+			)
+		) {
 			return new ArrayType(new MixedType(), new MixedType());
 		}
 		$arrayKeys = [];
