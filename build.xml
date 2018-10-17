@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="PHPStan" default="check">
-
+	<property name="path.composer-require-checker"
+			  value="tmp/composer-require-checker-1.1.0.phar"/>
+	<property name="url.composer-require-checker"
+			  value="https://github.com/maglnet/ComposerRequireChecker/releases/download/1.1.0/composer-require-checker.phar"/>
 	<target name="check" depends="
 		composer-validate,
 		composer-install,
 		composer-normalize-check,
+		composer-require-checker,
 		lint,
 		cs,
 		test-configuration-validate,
@@ -58,6 +62,38 @@
 		>
 			<arg value="normalize"/>
 			<arg value="--ansi"/>
+		</exec>
+	</target>
+
+	<target name="composer-require-checker">
+		<if>
+			<not>
+				<available property="composer-require-checker" file="${path.composer-require-checker}"/>
+			</not>
+			<then>
+				<exec
+					executable="wget"
+					logoutput="true"
+					passthru="true"
+					checkreturn="true"
+				>
+					<arg value="-O"/>
+					<arg path="${path.composer-require-checker}"/>
+					<arg value="${url.composer-require-checker}"/>
+				</exec>
+			</then>
+		</if>
+		<exec
+			executable="php"
+			logoutput="true"
+			passthru="true"
+			checkreturn="true"
+		>
+			<arg path="${path.composer-require-checker}"/>
+			<arg value="check"/>
+			<arg value="--config-file"/>
+			<arg path="${project.basedir}/build/composer-require-checker.json"/>
+			<arg path="composer.json"/>
 		</exec>
 	</target>
 
