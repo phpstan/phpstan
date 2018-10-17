@@ -24,9 +24,6 @@ install:
 
 script:
   - vendor/bin/phing
-  - >
-    wget https://github.com/maglnet/ComposerRequireChecker/releases/download/0.2.1/composer-require-checker.phar
-    && php composer-require-checker.phar check --config-file=$PWD/build/composer-require-checker.json composer.json
 
 cache:
   directories:
