@@ -2,6 +2,8 @@
 
 namespace PHPStan\Command\ErrorFormatter;
 
+use PHPStan\File\RelativePathHelper;
+
 class TableErrorFormatterTest extends TestBaseFormatter
 {
 
@@ -141,7 +143,7 @@ class TableErrorFormatterTest extends TestBaseFormatter
 	): void
 	{
 		$this->skipIfNotOnUnix();
-		$formatter = new TableErrorFormatter();
+		$formatter = new TableErrorFormatter(new RelativePathHelper(self::DIRECTORY_PATH, '/', []));
 
 		$this->assertSame($exitCode, $formatter->formatErrors(
 			$this->getAnalysisResult($numFileErrors, $numGenericErrors),
