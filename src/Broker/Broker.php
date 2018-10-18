@@ -305,7 +305,7 @@ class Broker
 		self::$anonymousClasses[$className] = $this->getClassFromReflection(
 			new \ReflectionClass('\\' . $className),
 			sprintf('class@anonymous/%s:%s', $filename, $node->getLine()),
-			$filename
+			$scopeFile
 		);
 		$this->classReflections[$className] = self::$anonymousClasses[$className];
 
