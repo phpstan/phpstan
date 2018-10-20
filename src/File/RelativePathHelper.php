@@ -81,7 +81,13 @@ class RelativePathHelper
 			return;
 		}
 
-		$this->pathToTrim = $pathBeginning . implode($directorySeparator, $pathToTrimArray);
+		$pathToTrim = $pathBeginning . implode($directorySeparator, $pathToTrimArray);
+		$realPathToTrim = realpath($pathToTrim);
+		if ($realPathToTrim !== false) {
+			$pathToTrim = $realPathToTrim;
+		}
+
+		$this->pathToTrim = $pathToTrim;
 	}
 
 	public function getRelativePath(string $filename): string
