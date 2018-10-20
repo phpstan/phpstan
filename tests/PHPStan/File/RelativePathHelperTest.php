@@ -189,4 +189,49 @@ class RelativePathHelperTest extends \PHPUnit\Framework\TestCase
 		);
 	}
 
+	public function dataGetRelativePathWindowsSpecific(): array
+	{
+		return [
+			[
+				'C:\www',
+				[
+					'C:\www\project/app/src',
+					'C:\www\project/app/tests',
+				],
+				'C:\www\project\app\src\system\Bootstrap.php',
+				'project\app\src\system\Bootstrap.php', // should be src\system\Bootstrap.php
+			],
+			[
+				'C:\www',
+				[
+					'C:\www\project\app/src',
+					'C:\www\project\app/tests',
+				],
+				'C:\www\project\app\src\system\Bootstrap.php',
+				'app\src\system\Bootstrap.php', // should be src\system\Bootstrap.php
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataGetRelativePathWindowsSpecific
+	 * @param string $currentWorkingDirectory
+	 * @param array $analysedPaths
+	 * @param string $filenameToRelativize
+	 * @param string $expectedResult
+	 */
+	public function testGetRelativePathWindowsSpecific(
+		string $currentWorkingDirectory,
+		array $analysedPaths,
+		string $filenameToRelativize,
+		string $expectedResult
+	): void
+	{
+		$helper = new RelativePathHelper($currentWorkingDirectory, '\\', $analysedPaths);
+		$this->assertSame(
+			$expectedResult,
+			$helper->getRelativePath($filenameToRelativize)
+		);
+	}
+
 }
