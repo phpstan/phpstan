@@ -6,6 +6,8 @@ use PHPStan\Command\AnalyseCommand;
 
 gc_disable(); // performance boost
 
+define('__PHPSTAN_RUNNING__', true);
+
 $composerAutoloadFile = __DIR__ . '/../vendor/autoload.php';
 if (!is_file($composerAutoloadFile)) {
 	$composerAutoloadFile = __DIR__ . '/../../../autoload.php';
