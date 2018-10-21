@@ -13,6 +13,14 @@ class FooParent
 		return $this;
 	}
 
+	/**
+	 * @return int
+	 */
+	public function returnIntFromParent()
+	{
+		return 1;
+	}
+
 }
 
 interface FooInterface

@@ -256,6 +256,14 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Method ReturnTypes\NestedArrayCheck::doBar() should return array<string, bool> but returns array<string, array<string, string>>.',
 				683,
 			],
+			[
+				'Method ReturnTypes\Foo2::returnIntFromParent() should return int but returns string.',
+				755,
+			],
+			[
+				'Method ReturnTypes\Foo2::returnIntFromParent() should return int but returns ReturnTypes\integer.',
+				756,
+			],
 		]);
 	}
 
