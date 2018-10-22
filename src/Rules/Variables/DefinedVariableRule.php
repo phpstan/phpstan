@@ -56,7 +56,7 @@ class DefinedVariableRule implements \PHPStan\Rules\Rule
 
 		if ($scope->hasVariableType($node->name)->no()) {
 			return [
-				sprintf('Undefined variable: $%s', $node->name),
+				sprintf('Undefined variable: $%s.', $node->name),
 			];
 		} elseif (
 			$this->checkMaybeUndefinedVariables
