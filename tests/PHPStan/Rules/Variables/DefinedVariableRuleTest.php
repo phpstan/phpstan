@@ -44,7 +44,7 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->checkMaybeUndefinedVariables = true;
 		$this->analyse([__DIR__ . '/data/defined-variables.php'], [
 			[
-				'Undefined variable: $definedLater',
+				'Undefined variable: $definedLater.',
 				5,
 			],
 			[
@@ -56,35 +56,35 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				21,
 			],
 			[
-				'Undefined variable: $fooParameterBeforeDeclaration',
+				'Undefined variable: $fooParameterBeforeDeclaration.',
 				29,
 			],
 			[
-				'Undefined variable: $parseStrParameter',
+				'Undefined variable: $parseStrParameter.',
 				34,
 			],
 			[
-				'Undefined variable: $foo',
+				'Undefined variable: $foo.',
 				39,
 			],
 			[
-				'Undefined variable: $willBeUnset',
+				'Undefined variable: $willBeUnset.',
 				44,
 			],
 			[
-				'Undefined variable: $mustAlreadyExistWhenDividing',
+				'Undefined variable: $mustAlreadyExistWhenDividing.',
 				50,
 			],
 			[
-				'Undefined variable: $arrayDoesNotExist',
+				'Undefined variable: $arrayDoesNotExist.',
 				57,
 			],
 			[
-				'Undefined variable: $undefinedVariable',
+				'Undefined variable: $undefinedVariable.',
 				59,
 			],
 			[
-				'Undefined variable: $this',
+				'Undefined variable: $this.',
 				96,
 			],
 			[
@@ -92,11 +92,11 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				99,
 			],
 			[
-				'Undefined variable: $variableInEmpty',
+				'Undefined variable: $variableInEmpty.',
 				145,
 			],
 			[
-				'Undefined variable: $variableInEmpty',
+				'Undefined variable: $variableInEmpty.',
 				155,
 			],
 			[
@@ -104,27 +104,27 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				156,
 			],
 			[
-				'Undefined variable: $variableInIsset',
+				'Undefined variable: $variableInIsset.',
 				161,
 			],
 			[
-				'Undefined variable: $anotherVariableInIsset',
+				'Undefined variable: $anotherVariableInIsset.',
 				161,
 			],
 			[
-				'Undefined variable: $http_response_header',
+				'Undefined variable: $http_response_header.',
 				185,
 			],
 			[
-				'Undefined variable: $http_response_header',
+				'Undefined variable: $http_response_header.',
 				191,
 			],
 			[
-				'Undefined variable: $assignedInKey',
+				'Undefined variable: $assignedInKey.',
 				203,
 			],
 			[
-				'Undefined variable: $assignedInKey',
+				'Undefined variable: $assignedInKey.',
 				204,
 			],
 			[
@@ -152,7 +152,7 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				267,
 			],
 			[
-				'Undefined variable: $variableInBitwiseAndAssign',
+				'Undefined variable: $variableInBitwiseAndAssign.',
 				277,
 			],
 			[
@@ -160,11 +160,11 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				282,
 			],
 			[
-				'Undefined variable: $variableInSecondCase',
+				'Undefined variable: $variableInSecondCase.',
 				290,
 			],
 			[
-				'Undefined variable: $variableAssignedInSecondCase',
+				'Undefined variable: $variableAssignedInSecondCase.',
 				300,
 			],
 			[
@@ -176,7 +176,7 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				312,
 			],
 			[
-				'Undefined variable: $undefinedVariableInForeach',
+				'Undefined variable: $undefinedVariableInForeach.',
 				315,
 			],
 			[
@@ -200,15 +200,15 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				360,
 			],
 			[
-				'Undefined variable: $unknownVariablePassedToReset',
+				'Undefined variable: $unknownVariablePassedToReset.',
 				368,
 			],
 			[
-				'Undefined variable: $unknownVariablePassedToReset',
+				'Undefined variable: $unknownVariablePassedToReset.',
 				369,
 			],
 			[
-				'Undefined variable: $variableInAssign',
+				'Undefined variable: $variableInAssign.',
 				384,
 			],
 		]);
@@ -222,11 +222,11 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->checkMaybeUndefinedVariables = true;
 		$this->analyse([__DIR__ . '/data/defined-variables-array-destructuring-short-syntax.php'], [
 			[
-				'Undefined variable: $f',
+				'Undefined variable: $f.',
 				11,
 			],
 			[
-				'Undefined variable: $f',
+				'Undefined variable: $f.',
 				14,
 			],
 			[
@@ -244,11 +244,11 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->checkMaybeUndefinedVariables = true;
 		$this->analyse([__DIR__ . '/data/cli-arguments-variables.php'], [
 			[
-				'Undefined variable: $argc',
+				'Undefined variable: $argc.',
 				3,
 			],
 			[
-				'Undefined variable: $argc',
+				'Undefined variable: $argc.',
 				5,
 			],
 		]);
@@ -262,7 +262,7 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->checkMaybeUndefinedVariables = true;
 		$this->analyse([__DIR__ . '/data/cli-arguments-variables.php'], [
 			[
-				'Undefined variable: $argc',
+				'Undefined variable: $argc.',
 				5,
 			],
 		]);
