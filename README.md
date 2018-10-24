@@ -397,6 +397,14 @@ Use the name part after `errorFormatter.` as the CLI option value:
 vendor/bin/phpstan analyse -c phpstan.neon -l 4 --error-format awesome src tests
 ```
 
+### Existing error formatters to be used
+
+You can pass the following keywords to the `--errorFormat=X` parameter in order to affect the output:
+
+- `table`: Default. Grouped errors by file, colorized. For human consumption.
+- `raw`: Contains one error per line, with path to file, line number, and error description
+- `checkstyle`: Creates a checkstyle.xml compatible output. All violations have severity "ERROR" and are located on column 1. Note that you'd have to redirect output into a file in order to capture the results for later processing.
+
 ## Class reflection extensions
 
 Classes in PHP can expose "magical" properties and methods decided in run-time using
