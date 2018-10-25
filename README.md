@@ -362,7 +362,7 @@ Check out also [phpstan-strict-rules](https://github.com/phpstan/phpstan-strict-
 
 ### Custom error formatters
 
-By default, PHPStan outputs found errors into tables grouped by files to be easily human-readable. To change the output, you can use the `--error-format` CLI option. There's an additional built-in `raw` format with one-per-line errors intended for easy parsing. You can also create your own error formatter by implementing the `PHPStan\Command\ErrorFormatter\ErrorFormatter` interface:
+PHPStan outputs errors via formatters. You can customize the output by implementing the `ErrorFormatter` interface in a new class and add it to the configuration. For existing formatters, see next chapter.
 
 ```php
 interface ErrorFormatter
@@ -403,7 +403,7 @@ You can pass the following keywords to the `--errorFormat=X` parameter in order 
 
 - `table`: Default. Grouped errors by file, colorized. For human consumption.
 - `raw`: Contains one error per line, with path to file, line number, and error description
-- `checkstyle`: Creates a checkstyle.xml compatible output. All violations have severity "ERROR" and are located on column 1. Note that you'd have to redirect output into a file in order to capture the results for later processing.
+- `checkstyle`: Creates a checkstyle.xml compatible output. Note that you'd have to redirect output into a file in order to capture the results for later processing.
 
 ## Class reflection extensions
 
