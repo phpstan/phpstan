@@ -98,12 +98,20 @@ class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestC
 					247,
 				],
 				[
+					'Call to function in_array() with arguments \'foo\', array(\'foo\', \'bar\') and true will always evaluate to true.',
+					251,
+				],
+				[
+					'Call to function in_array() with arguments \'foo\', array() and true will always evaluate to false.',
+					321,
+				],
+				[
 					'Call to function array_key_exists() with \'a\' and array(\'a\' => 1, ?\'b\' => 2) will always evaluate to true.',
-					303,
+					338,
 				],
 				[
 					'Call to function array_key_exists() with \'c\' and array(\'a\' => 1, ?\'b\' => 2) will always evaluate to false.',
-					309,
+					344,
 				],
 			]
 		);
@@ -152,8 +160,12 @@ class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestC
 					239,
 				],
 				[
+					'Call to function in_array() with arguments \'foo\', array() and true will always evaluate to false.',
+					321,
+				],
+				[
 					'Call to function array_key_exists() with \'c\' and array(\'a\' => 1, ?\'b\' => 2) will always evaluate to false.',
-					309,
+					344,
 				],
 			]
 		);

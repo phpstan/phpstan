@@ -247,6 +247,10 @@ class InArray
 		if (in_array('foo', ['foo'], true)) {
 
 		}
+
+		if (in_array('foo', ['foo', 'bar'], true)) {
+
+		}
 	}
 
 	/**
@@ -284,6 +288,37 @@ class InArray
 
 		}
 		if (in_array('s', $stringsOrFloats, true)) {
+
+		}
+	}
+
+	public function checkByCondition(int $x)
+	{
+		$data = [];
+		if ($x === 0) {
+			$data[] = 'foo';
+		}
+
+		if (in_array('foo', $data, true)) {
+
+		}
+	}
+
+	public function checkByConditionWithNonEmpty(int $x)
+	{
+		$data = ['bar'];
+		if ($x === 0) {
+			$data[] = 'foo';
+		}
+
+		if (in_array('foo', $data, true)) {
+
+		}
+	}
+
+	public function checkWithEmpty()
+	{
+		if (in_array('foo', [], true)) {
 
 		}
 	}
