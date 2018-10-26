@@ -399,7 +399,7 @@ vendor/bin/phpstan analyse -c phpstan.neon -l 4 --error-format awesome src tests
 
 ### Existing error formatters to be used
 
-You can pass the following keywords to the `--errorFormat=X` parameter in order to affect the output:
+You can pass the following keywords to the `--error-format=X` parameter in order to affect the output:
 
 - `table`: Default. Grouped errors by file, colorized. For human consumption.
 - `raw`: Contains one error per line, with path to file, line number, and error description
