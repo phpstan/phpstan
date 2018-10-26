@@ -17,6 +17,9 @@
 		"symfony/console": "~3.2 || ~4.0",
 		"symfony/finder": "~3.2 || ~4.0"
 	},
+	"conflict": {
+		"symfony/console": "3.4.16 || 4.1.5"
+	},
 	"require-dev": {
 		"ext-gd": "*",
 		"ext-intl": "*",
