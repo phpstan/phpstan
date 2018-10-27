@@ -3488,6 +3488,34 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	/**
+	 * @dataProvider dataTypeFromFunctionPhpDocs
+	 * @dataProvider dataTypeFromMethodPhpDocs
+	 * @param string $description
+	 * @param string $expression
+	 * @param bool $replaceClass
+	 */
+	public function testTypeFromMethodPhpDocsImplicitInheritance(
+		string $description,
+		string $expression,
+		bool $replaceClass = true
+	): void
+	{
+		if ($replaceClass) {
+			$description = str_replace('$this(MethodPhpDocsNamespace\Foo)', '$this(MethodPhpDocsNamespace\FooPhpDocsImplicitInheritanceChild)', $description);
+			$description = str_replace('static(MethodPhpDocsNamespace\Foo)', 'static(MethodPhpDocsNamespace\FooPhpDocsImplicitInheritanceChild)', $description);
+			$description = str_replace('MethodPhpDocsNamespace\FooParent', 'MethodPhpDocsNamespace\Foo', $description);
+			if ($expression === '$inlineSelf') {
+				$description = 'MethodPhpDocsNamespace\FooPhpDocsImplicitInheritanceChild';
+			}
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/methodPhpDocs-implicitInheritance.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataInstanceOf(): array
 	{
 		return [
