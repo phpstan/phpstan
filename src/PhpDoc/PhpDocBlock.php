@@ -106,7 +106,7 @@ class PhpDocBlock
 			$classReflection = $broker->getClass($class);
 			if ($classReflection->getParentClass() !== false) {
 				$parentClassReflection = $classReflection->getParentClass();
-				$phpDocBlockFromClass = self::resolvePhpDocBlockFromClass(
+				$phpDocBlockFromClass = self::resolvePhpDocBlockRecursive(
 					$broker,
 					$parentClassReflection,
 					$name,
@@ -137,6 +137,43 @@ class PhpDocBlock
 		return $docComment !== null
 			? new self($docComment, $file, $class)
 			: null;
+	}
+
+	private static function resolvePhpDocBlockRecursive(
+		Broker $broker,
+		ClassReflection $classReflection,
+		string $name,
+		string $hasMethodName,
+		string $getMethodName,
+		string $resolveMethodName
+	): ?self
+	{
+		$phpDocBlockFromClass = self::resolvePhpDocBlockFromClass(
+			$broker,
+			$classReflection,
+			$name,
+			$hasMethodName,
+			$getMethodName,
+			$resolveMethodName
+		);
+
+		if ($phpDocBlockFromClass !== null) {
+			return $phpDocBlockFromClass;
+		}
+
+		$parentClassReflection = $classReflection->getParentClass();
+		if ($parentClassReflection !== false) {
+			return self::resolvePhpDocBlockRecursive(
+				$broker,
+				$parentClassReflection,
+				$name,
+				$hasMethodName,
+				$getMethodName,
+				$resolveMethodName
+			);
+		}
+
+		return null;
 	}
 
 	private static function resolvePhpDocBlockFromClass(
