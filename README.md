@@ -104,7 +104,7 @@ You can also use [PHPStan via Docker](https://github.com/phpstan/docker-image).
 
 ## First run
 
-To let PHPStan analyse your codebase, you have use the `analyse` command and point it to the right directories.
+To let PHPStan analyse your codebase, you have to use the `analyse` command and point it to the right directories.
 
 So, for example if you have your classes in directories `src` and `tests`, you can run PHPStan like this:
 
