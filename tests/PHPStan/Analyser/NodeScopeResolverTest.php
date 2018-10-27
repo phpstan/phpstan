@@ -1844,6 +1844,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->inheritDocProperty',
 			],
 			[
+				'PropertiesNamespace\Bar',
+				'$this->implicitInheritDocProperty',
+			],
+			[
 				'PHPUnit_Framework_MockObject_MockObject&PropertiesNamespace\Foo',
 				'$this->phpunitProperty',
 			],
