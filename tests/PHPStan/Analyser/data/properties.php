@@ -142,6 +142,8 @@ abstract class Foo extends Bar
 	 */
 	private $yetYetAnotherPhpunitProperty;
 
+	protected $implicitInheritDocProperty;
+
 	public function doFoo()
 	{
 		die;
