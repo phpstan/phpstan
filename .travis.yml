@@ -1,4 +1,10 @@
 language: php
+
+stages:
+  - test
+  - name: phar
+    if: branch = master && type = push
+
 php:
   - 7.1
   - 7.2
@@ -11,9 +17,7 @@ env:
 matrix:
   allow_failures:
     - php: master
-      env: dependencies=lowest
-    - php: master
-      env: dependencies=highest
+    - stage: phar
 
 before_script:
   - if php --ri xdebug >/dev/null; then phpenv config-rm xdebug.ini; fi
@@ -24,6 +28,14 @@ install:
 
 script:
   - vendor/bin/phing
+
+jobs:
+  include:
+    - stage: phar
+      script:
+        - git clone https://github.com/phpstan/phpstan-compiler && cd phpstan-compiler && ./run-e2e-tests.sh $TRAVIS_COMMIT
+      #after_success:
+      #  - todo commit generated phar to phpstan-shim
 
 cache:
   directories:
