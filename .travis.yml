@@ -2,7 +2,9 @@ language: php
 
 stages:
   - test
-  - name: phar
+  - name: phar-test
+    if: branch = master && type = push
+  - name: phar-push
     if: branch = master && type = push
 
 php:
@@ -34,12 +36,14 @@ script:
 
 jobs:
   include:
-    - stage: phar
+    - stage: phar-test
       script:
         - git clone https://github.com/phpstan/phpstan-compiler && cd phpstan-compiler && ./run-e2e-tests.sh $TRAVIS_COMMIT
-      after_success:
+    - stage: phar-push
+      script:
         - |
-          cd .. && \
+          git clone https://github.com/phpstan/phpstan-compiler && \
+          composer install --working-dir=phpstan-compiler && \
           php phpstan-compiler/bin/compile $TRAVIS_COMMIT && \
           git clone https://${GITHUB_TOKEN}@github.com/phpstan/phpstan-shim.git > /dev/null 2>&1 && \
           cp phpstan-compiler/tmp/phpstan.phar phpstan-shim/phpstan.phar && \
