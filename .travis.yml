@@ -22,7 +22,6 @@ env:
 matrix:
   allow_failures:
     - php: master
-    - stage: phar
 
 before_script:
   - if php --ri xdebug >/dev/null; then phpenv config-rm xdebug.ini; fi
