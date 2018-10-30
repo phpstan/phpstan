@@ -36,7 +36,8 @@
 		"phpstan/phpstan-phpunit": "^0.10",
 		"phpstan/phpstan-strict-rules": "^0.10",
 		"phpunit/phpunit": "^7.0",
-		"slevomat/coding-standard": "^4.7.2"
+		"slevomat/coding-standard": "^4.7.2",
+		"squizlabs/php_codesniffer": "^3.3.2"
 	},
 	"config": {
 		"sort-packages": true
