@@ -1598,7 +1598,7 @@ return [
 'DateTime::__construct' => ['void', 'time='=>'string|null', 'timezone='=>'?DateTimeZone'],
 'DateTime::__set_state' => ['static', 'array'=>'array'],
 'DateTime::__wakeup' => ['void'],
-'DateTime::add' => ['static', 'interval'=>'DateInterval'],
+'DateTime::add' => ['static|false', 'interval'=>'DateInterval'],
 'DateTime::createFromFormat' => ['static|false', 'format'=>'string', 'time'=>'string', 'timezone='=>'DateTimeZone|null'],
 'DateTime::diff' => ['DateInterval', 'datetime2'=>'DateTimeInterface', 'absolute='=>'bool'],
 'DateTime::format' => ['string', 'format'=>'string'],
