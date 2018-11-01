@@ -103,7 +103,12 @@ class Analyser
 						$this->scopeFactory->create(ScopeContext::create($file)),
 						function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors): void {
 							foreach ($this->registry->getRules(get_class($node)) as $rule) {
-								foreach ($rule->processNode($node, $scope) as $message) {
+								foreach ($rule->processNode($node, $scope) as $ruleError) {
+									if (is_string($ruleError)) {
+										$message = $ruleError;
+									} else {
+										$message = $ruleError->getMessage();
+									}
 									$fileErrors[] = new Error($message, $scope->getFileDescription(), $node->getLine());
 								}
 							}
