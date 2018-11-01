@@ -43,6 +43,8 @@ foreach ($mixed as $val) {
 
 }
 
-foreach (new Bar() as $val) {
+foreach (
+	new Bar() as $val
+) {
 
 }
