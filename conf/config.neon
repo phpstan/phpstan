@@ -63,6 +63,7 @@ parameters:
 
 extensions:
 	rules: PHPStan\DependencyInjection\RulesExtension
+	conditionalTags: PHPStan\DependencyInjection\ConditionalTagsExtension
 
 services:
 	-
