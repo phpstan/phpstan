@@ -67,7 +67,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param \PhpParser\Node\Expr\StaticCall $node
 	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
+	 * @return (string|\PHPStan\Rules\RuleError)[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{

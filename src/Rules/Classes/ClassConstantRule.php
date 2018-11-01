@@ -46,7 +46,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param \PhpParser\Node\Expr\ClassConstFetch $node
 	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
+	 * @return (string|\PHPStan\Rules\RuleError)[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{

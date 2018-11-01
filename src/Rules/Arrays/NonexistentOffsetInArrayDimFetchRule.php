@@ -3,6 +3,8 @@
 namespace PHPStan\Rules\Arrays;
 
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleError;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\Type;
@@ -28,7 +30,7 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param \PhpParser\Node\Expr\ArrayDimFetch $node
 	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
+	 * @return RuleError[]
 	 */
 	public function processNode(\PhpParser\Node $node, Scope $scope): array
 	{
@@ -66,19 +68,19 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 		if (!$isOffsetAccessible->yes()) {
 			if ($dimType !== null) {
 				return [
-					sprintf(
+					RuleErrorBuilder::message(sprintf(
 						'Cannot access offset %s on %s.',
 						$dimType->describe(VerbosityLevel::value()),
 						$type->describe(VerbosityLevel::value())
-					),
+					))->build(),
 				];
 			}
 
 			return [
-				sprintf(
+				RuleErrorBuilder::message(sprintf(
 					'Cannot access an offset on %s.',
 					$type->describe(VerbosityLevel::typeOnly())
-				),
+				))->build(),
 			];
 		}
 
@@ -102,7 +104,7 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 
 		if ($report) {
 			return [
-				sprintf('Offset %s does not exist on %s.', $dimType->describe(VerbosityLevel::value()), $type->describe(VerbosityLevel::value())),
+				RuleErrorBuilder::message(sprintf('Offset %s does not exist on %s.', $dimType->describe(VerbosityLevel::value()), $type->describe(VerbosityLevel::value())))->build(),
 			];
 		}
 

@@ -165,7 +165,7 @@ class RuleLevelHelper
 				continue;
 			}
 
-			$errors[] = sprintf($unknownClassErrorPattern, $referencedClass);
+			$errors[] = RuleErrorBuilder::message(sprintf($unknownClassErrorPattern, $referencedClass))->line($var->getLine())->build();
 		}
 
 		if (count($errors) > 0) {
