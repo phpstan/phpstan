@@ -112,11 +112,6 @@ services:
 		factory: @typeNodeResolverFactory::create
 
 	-
-		class: PHPStan\PhpDoc\PhpUnit\MockObjectTypeNodeResolverExtension
-		tags:
-			- phpstan.phpDoc.typeNodeResolverExtension
-
-	-
 		class: PHPStan\PhpDoc\TypeStringResolver
 
 	-
