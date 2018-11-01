@@ -8,6 +8,9 @@ class RuleErrorBuilder
 	/** @var string */
 	private $message;
 
+	/** @var int|null */
+	private $line;
+
 	private function __construct()
 	{
 	}
@@ -20,25 +23,33 @@ class RuleErrorBuilder
 		return $self;
 	}
 
+	public function line(int $line): self
+	{
+		$this->line = $line;
+
+		return $this;
+	}
+
 	public function build(): RuleError
 	{
-		$message = $this->message;
-		return new class ($message) implements RuleError {
+		$interfaces = ['\\PHPStan\\Rules\\RuleError'];
+		$methods = [sprintf('public function getMessage(): string { return %s; }', var_export($this->message, true))];
+		if ($this->line !== null) {
+			$interfaces[] = '\\PHPStan\Rules\LineRuleError';
+			$methods[] = sprintf('public function getLine(): int { return %s; }', var_export($this->line, true));
+		}
 
-			/** @var string */
-			private $message;
+		$className = 'RuleError' . sha1(uniqid());
+		$class = sprintf(
+			'class %s implements %s { %s };',
+			$className,
+			implode(', ', $interfaces),
+			implode("\n\n", $methods)
+		);
 
-			public function __construct(string $message)
-			{
-				$this->message = $message;
-			}
+		eval($class);
 
-			public function getMessage(): string
-			{
-				return $this->message;
-			}
-
-		};
+		return new $className();
 	}
 
 }
