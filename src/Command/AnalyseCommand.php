@@ -29,7 +29,6 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				new InputOption('debug', null, InputOption::VALUE_NONE, 'Show debug information - which file is analysed, do not catch internal errors'),
 				new InputOption('autoload-file', 'a', InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path'),
 				new InputOption('error-format', null, InputOption::VALUE_REQUIRED, 'Format in which to print the result of the analysis', 'table'),
-				new InputOption('errorFormat', null, InputOption::VALUE_REQUIRED, '[deprecated] Use --error-format instead'),
 				new InputOption('memory-limit', null, InputOption::VALUE_REQUIRED, 'Memory limit for analysis'),
 			]);
 	}
@@ -84,12 +83,6 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 		$errorOutput = $inceptionResult->getErrorOutput();
 		$errorFormat = $input->getOption('error-format');
-		$oldErrorFormat = $input->getOption('errorFormat');
-		if ($oldErrorFormat !== null) {
-			$errorOutput->writeln('Note: Using the option --errorFormat is deprecated. Use --error-format instead.');
-
-			$errorFormat = $oldErrorFormat;
-		}
 
 		if (!is_string($errorFormat) && $errorFormat !== null) {
 			throw new \PHPStan\ShouldNotHappenException();
