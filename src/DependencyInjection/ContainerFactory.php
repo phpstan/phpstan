@@ -36,7 +36,7 @@ class ContainerFactory
 	public function create(
 		string $tempDirectory,
 		array $additionalConfigFiles,
-		array $analysedPaths = []
+		array $analysedPaths
 	): \Nette\DI\Container
 	{
 		$configurator = new Configurator(new LoaderFactory());
