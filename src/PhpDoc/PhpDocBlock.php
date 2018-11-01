@@ -47,11 +47,11 @@ class PhpDocBlock
 
 	public static function resolvePhpDocBlockForProperty(
 		Broker $broker,
-		string $docComment,
+		?string $docComment,
 		string $class,
 		string $propertyName,
 		string $file
-	): self
+	): ?self
 	{
 		return self::resolvePhpDocBlock(
 			$broker,
@@ -67,11 +67,11 @@ class PhpDocBlock
 
 	public static function resolvePhpDocBlockForMethod(
 		Broker $broker,
-		string $docComment,
+		?string $docComment,
 		string $class,
 		string $methodName,
 		string $file
-	): self
+	): ?self
 	{
 		return self::resolvePhpDocBlock(
 			$broker,
@@ -87,23 +87,26 @@ class PhpDocBlock
 
 	private static function resolvePhpDocBlock(
 		Broker $broker,
-		string $docComment,
+		?string $docComment,
 		string $class,
 		string $name,
 		string $file,
 		string $hasMethodName,
 		string $getMethodName,
 		string $resolveMethodName
-	): self
+	): ?self
 	{
 		if (
-			preg_match('#\{@inheritdoc\}#i', $docComment) > 0
+			(
+				$docComment === null
+				|| preg_match('#\{@inheritdoc\}#i', $docComment) > 0
+			)
 			&& $broker->hasClass($class)
 		) {
 			$classReflection = $broker->getClass($class);
 			if ($classReflection->getParentClass() !== false) {
 				$parentClassReflection = $classReflection->getParentClass();
-				$phpDocBlockFromClass = self::resolvePhpDocBlockFromClass(
+				$phpDocBlockFromClass = self::resolvePhpDocBlockRecursive(
 					$broker,
 					$parentClassReflection,
 					$name,
@@ -131,7 +134,46 @@ class PhpDocBlock
 			}
 		}
 
-		return new self($docComment, $file, $class);
+		return $docComment !== null
+			? new self($docComment, $file, $class)
+			: null;
+	}
+
+	private static function resolvePhpDocBlockRecursive(
+		Broker $broker,
+		ClassReflection $classReflection,
+		string $name,
+		string $hasMethodName,
+		string $getMethodName,
+		string $resolveMethodName
+	): ?self
+	{
+		$phpDocBlockFromClass = self::resolvePhpDocBlockFromClass(
+			$broker,
+			$classReflection,
+			$name,
+			$hasMethodName,
+			$getMethodName,
+			$resolveMethodName
+		);
+
+		if ($phpDocBlockFromClass !== null) {
+			return $phpDocBlockFromClass;
+		}
+
+		$parentClassReflection = $classReflection->getParentClass();
+		if ($parentClassReflection !== false) {
+			return self::resolvePhpDocBlockRecursive(
+				$broker,
+				$parentClassReflection,
+				$name,
+				$hasMethodName,
+				$getMethodName,
+				$resolveMethodName
+			);
+		}
+
+		return null;
 	}
 
 	private static function resolvePhpDocBlockFromClass(

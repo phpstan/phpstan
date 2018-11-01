@@ -1844,6 +1844,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->inheritDocProperty',
 			],
 			[
+				'PropertiesNamespace\Bar',
+				'$this->implicitInheritDocProperty',
+			],
+			[
 				'PHPUnit_Framework_MockObject_MockObject&PropertiesNamespace\Foo',
 				'$this->phpunitProperty',
 			],
@@ -3483,6 +3487,34 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		}
 		$this->assertTypes(
 			__DIR__ . '/data/method-phpDocs-inheritdoc.php',
+			$description,
+			$expression
+		);
+	}
+
+	/**
+	 * @dataProvider dataTypeFromFunctionPhpDocs
+	 * @dataProvider dataTypeFromMethodPhpDocs
+	 * @param string $description
+	 * @param string $expression
+	 * @param bool $replaceClass
+	 */
+	public function testTypeFromMethodPhpDocsImplicitInheritance(
+		string $description,
+		string $expression,
+		bool $replaceClass = true
+	): void
+	{
+		if ($replaceClass) {
+			$description = str_replace('$this(MethodPhpDocsNamespace\Foo)', '$this(MethodPhpDocsNamespace\FooPhpDocsImplicitInheritanceChild)', $description);
+			$description = str_replace('static(MethodPhpDocsNamespace\Foo)', 'static(MethodPhpDocsNamespace\FooPhpDocsImplicitInheritanceChild)', $description);
+			$description = str_replace('MethodPhpDocsNamespace\FooParent', 'MethodPhpDocsNamespace\Foo', $description);
+			if ($expression === '$inlineSelf') {
+				$description = 'MethodPhpDocsNamespace\FooPhpDocsImplicitInheritanceChild';
+			}
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/methodPhpDocs-implicitInheritance.php',
 			$description,
 			$expression
 		);

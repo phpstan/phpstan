@@ -1956,27 +1956,33 @@ class NodeScopeResolver
 		$isDeprecated = false;
 		$isInternal = false;
 		$isFinal = false;
-		if ($functionLike->getDocComment() !== null) {
-			$docComment = $functionLike->getDocComment()->getText();
-			$file = $scope->getFile();
-			$class = $scope->isInClass() ? $scope->getClassReflection()->getName() : null;
-			$trait = $scope->isInTrait() ? $scope->getTraitReflection()->getName() : null;
-			if ($functionLike instanceof Node\Stmt\ClassMethod) {
-				if (!$scope->isInClass()) {
-					throw new \PHPStan\ShouldNotHappenException();
-				}
-				$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForMethod(
-					$this->broker,
-					$docComment,
-					$scope->getClassReflection()->getName(),
-					$functionLike->name->name,
-					$file
-				);
+		$docComment = $functionLike->getDocComment() !== null
+			? $functionLike->getDocComment()->getText()
+			: null;
+
+		$file = $scope->getFile();
+		$class = $scope->isInClass() ? $scope->getClassReflection()->getName() : null;
+		$trait = $scope->isInTrait() ? $scope->getTraitReflection()->getName() : null;
+		if ($functionLike instanceof Node\Stmt\ClassMethod) {
+			if (!$scope->isInClass()) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+			$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForMethod(
+				$this->broker,
+				$docComment,
+				$scope->getClassReflection()->getName(),
+				$functionLike->name->name,
+				$file
+			);
+
+			if ($phpDocBlock !== null) {
 				$docComment = $phpDocBlock->getDocComment();
 				$file = $phpDocBlock->getFile();
 				$class = $phpDocBlock->getClass();
 			}
+		}
 
+		if ($docComment !== null) {
 			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
 				$file,
 				$class,

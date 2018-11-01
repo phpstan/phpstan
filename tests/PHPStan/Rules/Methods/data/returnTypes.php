@@ -746,3 +746,13 @@ class RecursiveStaticResolving
 		return $this->f2()->f3();
 	}
 }
+
+class Foo2 extends FooParent implements FooInterface
+{
+	public function returnIntFromParent()
+	{
+		return 1;
+		return '1';
+		return new integer();
+	}
+}
