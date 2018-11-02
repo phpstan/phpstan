@@ -8048,7 +8048,7 @@ return [
 'openssl_csr_export' => ['bool', 'csr'=>'string|resource', '&w_out'=>'string', 'notext='=>'bool'],
 'openssl_csr_export_to_file' => ['bool', 'csr'=>'string|resource', 'outfilename'=>'string', 'notext='=>'bool'],
 'openssl_csr_get_public_key' => ['resource|false', 'csr'=>'string|resource', 'use_shortnames='=>'bool'],
-'openssl_csr_get_subject' => ['array', 'csr'=>'string|resource', 'use_shortnames='=>'bool'],
+'openssl_csr_get_subject' => ['array|false', 'csr'=>'string|resource', 'use_shortnames='=>'bool'],
 'openssl_csr_new' => ['resource|false', 'dn'=>'array', '&w_privkey'=>'resource', 'configargs='=>'array', 'extraattribs='=>'array'],
 'openssl_csr_sign' => ['resource|false', 'csr'=>'string|resource', 'x509'=>'string|resource|null', 'priv_key'=>'string|resource|array', 'days'=>'int', 'config_args='=>'array', 'serial='=>'int'],
 'openssl_decrypt' => ['string|false', 'data'=>'string', 'method'=>'string', 'key'=>'string', 'options='=>'int', 'iv='=>'string', 'tag='=>'string', 'aad='=>'string'],
