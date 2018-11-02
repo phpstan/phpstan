@@ -9334,6 +9334,8 @@ return [
 'Redis::time' => ['array'],
 'Redis::ttl' => ['int|false', 'key'=>'string'],
 'Redis::type' => ['int', 'key'=>'string'],
+'Redis::unlink' => ['int', 'key'=>'string', '...args'=>'string'],
+'Redis::unlink\'1' => ['int', 'key'=>'string[]'],
 'Redis::unwatch' => [''],
 'Redis::wait' => ['int', 'numSlaves'=>'int', 'timeout'=>'int'],
 'Redis::watch' => ['void', 'key'=>'string'],
