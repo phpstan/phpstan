@@ -1033,7 +1033,7 @@ class NodeScopeResolver
 			$scope = $this->lookForAssigns($scope, $node->cond, $certainty, $lookForAssignsSettings);
 			$statements = [];
 
-			if (!$conditionType instanceof ConstantBooleanType || $conditionType->getValue() || !$lookForAssignsSettings->skipDeadBranches()) {
+			if (!$conditionType instanceof ConstantBooleanType || $conditionType->getValue()) {
 				$statements[] = new StatementList(
 					$scope,
 					array_merge([$node->cond], $node->stmts),
@@ -1044,7 +1044,7 @@ class NodeScopeResolver
 				);
 			}
 
-			if (!$conditionType instanceof ConstantBooleanType || !$conditionType->getValue() || !$lookForAssignsSettings->skipDeadBranches()) {
+			if (!$conditionType instanceof ConstantBooleanType || !$conditionType->getValue()) {
 				$lastElseIfConditionIsTrue = false;
 				$elseIfScope = $scope;
 				$lastCond = $node->cond;
@@ -1055,7 +1055,6 @@ class NodeScopeResolver
 					if (
 						$elseIfConditionType instanceof ConstantBooleanType
 						&& !$elseIfConditionType->getValue()
-						&& $lookForAssignsSettings->skipDeadBranches()
 					) {
 						break;
 					}
@@ -1070,7 +1069,6 @@ class NodeScopeResolver
 					if (
 						$elseIfConditionType instanceof ConstantBooleanType
 						&& $elseIfConditionType->getValue()
-						&& $lookForAssignsSettings->skipDeadBranches()
 					) {
 						$lastElseIfConditionIsTrue = true;
 						break;
@@ -1725,7 +1723,7 @@ class NodeScopeResolver
 
 		if ($intersectedScope !== null) {
 			$scope = $initialScope->mergeWithIntersectedScope($intersectedScope);
-			if ($counter === 0 && $lookForAssignsSettings->skipDeadBranches()) {
+			if ($counter === 0 && $lookForAssignsSettings->shouldRepeatAnalysis()) {
 				$newStatementLists = [];
 				foreach ($statementsLists as $statementList) {
 					$newStatementLists[] = StatementList::fromList(
