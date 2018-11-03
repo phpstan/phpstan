@@ -1056,7 +1056,7 @@ class NodeScopeResolver
 						$elseIfConditionType instanceof ConstantBooleanType
 						&& !$elseIfConditionType->getValue()
 					) {
-						break;
+						continue;
 					}
 					$statements[] = new StatementList(
 						$elseIfScope,

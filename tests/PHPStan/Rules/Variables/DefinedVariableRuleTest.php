@@ -381,4 +381,34 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->analyse([__DIR__ . '/data/define-variables-class.php'], []);
 	}
 
+	public function testDeadBranches(): void
+	{
+		$this->cliArgumentsVariablesRegistered = true;
+		$this->polluteScopeWithLoopInitialAssignments = false;
+		$this->polluteCatchScopeWithTryAssignments = false;
+		$this->checkMaybeUndefinedVariables = true;
+		$this->analyse([__DIR__ . '/data/dead-branches.php'], [
+			[
+				'Undefined variable: $test',
+				21,
+			],
+			[
+				'Undefined variable: $test',
+				33,
+			],
+			[
+				'Undefined variable: $test',
+				55,
+			],
+			[
+				'Undefined variable: $test',
+				66,
+			],
+			[
+				'Undefined variable: $test',
+				94,
+			],
+		]);
+	}
+
 }
