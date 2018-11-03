@@ -1,11 +1,11 @@
 <?php
 
-function (string $str) {
+function (\stdClass $std, string $str) {
 
 	$str ? 'foo' : 'bar';
-	true ? 'foo' : 'bar'; // unreachable
+	$std instanceof \stdClass ? 'foo' : 'bar'; // unreachable
 
 	$str ?: 'bar';
-	true ?: 'bar'; // unreachable
+	$std instanceof \stdClass ?: 'bar'; // unreachable
 
 };

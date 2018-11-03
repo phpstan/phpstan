@@ -1,16 +1,16 @@
 <?php
 
-function () {
+function (\stdClass $std) {
 
-	if (true) {
+	if ($std instanceof \stdClass) {
 
 	}
 
 };
 
-function () {
+function (\stdClass $std) {
 
-	if (true) {
+	if ($std instanceof \stdClass) {
 
 	} else { // unreachable
 
@@ -18,9 +18,9 @@ function () {
 
 };
 
-function (string $str) {
+function (\stdClass $std, string $str) {
 
-	if (true) {
+	if ($std instanceof \stdClass) {
 
 	} elseif ($str) { // unreachable
 
@@ -30,11 +30,11 @@ function (string $str) {
 
 };
 
-function (string $foo, string $bar) {
+function (\stdClass $std, string $foo, string $bar) {
 
-	if ($str) {
+	if ($foo) {
 
-	} elseif (true) {
+	} elseif ($std instanceof \stdClass) {
 
 	} elseif ($bar) { // unreachable
 

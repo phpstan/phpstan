@@ -10,7 +10,14 @@ class UnreachableTernaryElseBranchRuleTest extends RuleTestCase
 
 	protected function getRule(): Rule
 	{
-		return new UnreachableTernaryElseBranchRule();
+		return new UnreachableTernaryElseBranchRule(
+			new ConstantConditionRuleHelper(
+				new ImpossibleCheckTypeHelper(
+					$this->createBroker(),
+					$this->getTypeSpecifier()
+				)
+			)
+		);
 	}
 
 	public function testRule(): void

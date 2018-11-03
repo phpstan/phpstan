@@ -10,7 +10,14 @@ class UnreachableIfBranchesRuleTest extends RuleTestCase
 
 	protected function getRule(): Rule
 	{
-		return new UnreachableIfBranchesRule();
+		return new UnreachableIfBranchesRule(
+			new ConstantConditionRuleHelper(
+				new ImpossibleCheckTypeHelper(
+					$this->createBroker(),
+					$this->getTypeSpecifier()
+				)
+			)
+		);
 	}
 
 	public function testRule(): void

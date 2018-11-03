@@ -12,6 +12,16 @@ use PHPStan\Type\Constant\ConstantBooleanType;
 class UnreachableTernaryElseBranchRule implements Rule
 {
 
+	/** @var ConstantConditionRuleHelper */
+	private $helper;
+
+	public function __construct(
+		ConstantConditionRuleHelper $helper
+	)
+	{
+		$this->helper = $helper;
+	}
+
 	public function getNodeType(): string
 	{
 		return Node\Expr\Ternary::class;
@@ -25,7 +35,12 @@ class UnreachableTernaryElseBranchRule implements Rule
 	public function processNode(Node $node, Scope $scope): array
 	{
 		$conditionType = $scope->getType($node->cond)->toBoolean();
-		if ($conditionType instanceof ConstantBooleanType && $conditionType->getValue()) {
+		if (
+			$conditionType instanceof ConstantBooleanType
+			&& $conditionType->getValue()
+			&& $this->helper->shouldSkip($scope, $node->cond)
+			&& !$this->helper->shouldReportAlwaysTrueByDefault($node->cond)
+		) {
 			return [
 				RuleErrorBuilder::message('Else branch is unreachable because ternary operator condition is always true.')->line($node->else->getLine())->build(),
 			];

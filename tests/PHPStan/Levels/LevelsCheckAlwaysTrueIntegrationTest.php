@@ -2,25 +2,12 @@
 
 namespace PHPStan\Levels;
 
-class LevelsIntegrationTest extends \PHPStan\Testing\LevelsTestCase
+class LevelsCheckAlwaysTrueIntegrationTest extends \PHPStan\Testing\LevelsTestCase
 {
 
 	public function dataTopics(): array
 	{
 		return [
-			['returnTypes'],
-			['acceptTypes'],
-			['methodCalls'],
-			['propertyAccesses'],
-			['constantAccesses'],
-			['variables'],
-			['callableCalls'],
-			['arrayDimFetches'],
-			['clone'],
-			['iterable'],
-			['binaryOps'],
-			['throwValues'],
-			['casts'],
 			['unreachable'],
 		];
 	}
@@ -37,7 +24,12 @@ class LevelsIntegrationTest extends \PHPStan\Testing\LevelsTestCase
 
 	public function getPhpStanConfigPath(): ?string
 	{
-		return null;
+		return __DIR__ . '/alwaysTrue.neon';
+	}
+
+	protected function getResultSuffix(): string
+	{
+		return '-alwaysTrue';
 	}
 
 }

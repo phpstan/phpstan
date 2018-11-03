@@ -11,6 +11,16 @@ use PHPStan\Type\Constant\ConstantBooleanType;
 class UnreachableIfBranchesRule implements \PHPStan\Rules\Rule
 {
 
+	/** @var ConstantConditionRuleHelper */
+	private $helper;
+
+	public function __construct(
+		ConstantConditionRuleHelper $helper
+	)
+	{
+		$this->helper = $helper;
+	}
+
 	public function getNodeType(): string
 	{
 		return Node\Stmt\If_::class;
@@ -25,7 +35,7 @@ class UnreachableIfBranchesRule implements \PHPStan\Rules\Rule
 	{
 		$errors = [];
 		$conditionType = $scope->getType($node->cond)->toBoolean();
-		$nextBranchIsDead = $conditionType instanceof ConstantBooleanType && $conditionType->getValue();
+		$nextBranchIsDead = $conditionType instanceof ConstantBooleanType && $conditionType->getValue() && $this->helper->shouldSkip($scope, $node->cond) && !$this->helper->shouldReportAlwaysTrueByDefault($node->cond);
 
 		foreach ($node->elseifs as $elseif) {
 			if ($nextBranchIsDead) {
@@ -34,7 +44,7 @@ class UnreachableIfBranchesRule implements \PHPStan\Rules\Rule
 			}
 
 			$elseIfConditionType = $scope->getType($elseif->cond)->toBoolean();
-			$nextBranchIsDead = $elseIfConditionType instanceof ConstantBooleanType && $elseIfConditionType->getValue();
+			$nextBranchIsDead = $elseIfConditionType instanceof ConstantBooleanType && $elseIfConditionType->getValue() && $this->helper->shouldSkip($scope, $elseif->cond) && !$this->helper->shouldReportAlwaysTrueByDefault($elseif->cond);
 		}
 
 		if ($node->else !== null && $nextBranchIsDead) {

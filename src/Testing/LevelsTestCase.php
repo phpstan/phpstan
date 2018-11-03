@@ -15,6 +15,11 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 
 	abstract public function getPhpStanConfigPath(): ?string;
 
+	protected function getResultSuffix(): string
+	{
+		return '';
+	}
+
 	/**
 	 * @dataProvider dataTopics
 	 * @param string $topic
@@ -64,7 +69,7 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 			}
 
 			$previousMessages = array_merge($previousMessages, $messages);
-			$expectedJsonFile = sprintf('%s/%s-%d.json', $this->getDataPath(), $topic, $level);
+			$expectedJsonFile = sprintf('%s/%s-%d%s.json', $this->getDataPath(), $topic, $level, $this->getResultSuffix());
 
 			if (count($messages) === 0) {
 				try {
