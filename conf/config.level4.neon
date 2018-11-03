@@ -8,6 +8,7 @@ rules:
 	- PHPStan\Rules\Comparison\ElseIfConstantConditionRule
 	- PHPStan\Rules\Comparison\IfConstantConditionRule
 	- PHPStan\Rules\Comparison\TernaryOperatorConstantConditionRule
+	- PHPStan\Rules\Comparison\UnreachableIfBranchesRule
 
 services:
 	-
