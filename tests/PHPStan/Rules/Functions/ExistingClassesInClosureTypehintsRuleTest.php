@@ -33,6 +33,14 @@ class ExistingClassesInClosureTypehintsRuleTest extends \PHPStan\Testing\RuleTes
 				'Class TestClosureFunctionTypehints\FooFunctionTypehints referenced with incorrect case: TestClosureFunctionTypehints\FOOfUnctionTypehintS.',
 				30,
 			],
+			[
+				'Parameter $trait of anonymous function has invalid typehint type TestClosureFunctionTypehints\SomeTrait.',
+				45,
+			],
+			[
+				'Return typehint of anonymous function has invalid type TestClosureFunctionTypehints\SomeTrait.',
+				50,
+			],
 		]);
 	}
 

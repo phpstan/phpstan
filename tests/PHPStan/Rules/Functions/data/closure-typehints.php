@@ -36,3 +36,18 @@ $callback = function (\ReturnTypes\FooAliaS $ignoreAlias)
 {
 
 };
+
+trait SomeTrait
+{
+
+}
+
+$callback = function (SomeTrait $trait)
+{
+
+};
+
+$callback = function (): SomeTrait
+{
+
+};

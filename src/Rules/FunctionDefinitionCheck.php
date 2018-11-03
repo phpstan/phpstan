@@ -128,7 +128,7 @@ class FunctionDefinitionCheck
 				continue;
 			}
 
-			if (!$this->broker->hasClass($class)) {
+			if (!$this->broker->hasClass($class) || $this->broker->getClass($class)->isTrait()) {
 				if (!$param->var instanceof Variable || !is_string($param->var->name)) {
 					throw new \PHPStan\ShouldNotHappenException();
 				}
@@ -158,7 +158,7 @@ class FunctionDefinitionCheck
 			$lowercasedReturnType !== ''
 			&& !in_array($lowercasedReturnType, self::VALID_TYPEHINTS, true)
 		) {
-			if (!$this->broker->hasClass($returnType)) {
+			if (!$this->broker->hasClass($returnType) || $this->broker->getClass($returnType)->isTrait()) {
 				$errors[] = RuleErrorBuilder::message(sprintf($returnMessage, $returnType))->line($returnTypeNode->getLine())->build();
 			} elseif ($this->checkClassCaseSensitivity) {
 				$errors = array_merge(
