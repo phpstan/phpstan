@@ -10,6 +10,7 @@ use PHPStan\Broker\Broker;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Rules\ClassCaseSensitivityCheck;
+use PHPStan\Rules\ClassNameNodePair;
 use PHPStan\Rules\FunctionCallParametersCheck;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
@@ -127,7 +128,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 						sprintf('Call to static method %s() on an unknown class %s.', $methodName, $className),
 					];
 				} else {
-					$errors = $this->classCaseSensitivityCheck->checkClassNames([$className]);
+					$errors = $this->classCaseSensitivityCheck->checkClassNames([new ClassNameNodePair($className, $class)]);
 				}
 
 				$classReflection = $this->broker->getClass($className);

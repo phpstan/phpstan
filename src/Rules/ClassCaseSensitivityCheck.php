@@ -17,13 +17,14 @@ class ClassCaseSensitivityCheck
 	}
 
 	/**
-	 * @param string[] $classNames
-	 * @return string[]
+	 * @param ClassNameNodePair[] $pairs
+	 * @return RuleError[]
 	 */
-	public function checkClassNames(array $classNames): array
+	public function checkClassNames(array $pairs): array
 	{
-		$messages = [];
-		foreach ($classNames as $className) {
+		$errors = [];
+		foreach ($pairs as $pair) {
+			$className = $pair->getClassName();
 			if (!$this->broker->hasClass($className)) {
 				continue;
 			}
@@ -36,15 +37,15 @@ class ClassCaseSensitivityCheck
 				continue;
 			}
 
-			$messages[] = sprintf(
+			$errors[] = RuleErrorBuilder::message(sprintf(
 				'%s %s referenced with incorrect case: %s.',
 				$this->getTypeName($classReflection),
 				$realClassName,
 				$className
-			);
+			))->line($pair->getNode()->getLine())->build();
 		}
 
-		return $messages;
+		return $errors;
 	}
 
 	private function getTypeName(ClassReflection $classReflection): string

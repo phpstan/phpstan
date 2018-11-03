@@ -7,6 +7,9 @@ use PhpParser\Node\Stmt\PropertyProperty;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\ClassCaseSensitivityCheck;
+use PHPStan\Rules\ClassNameNodePair;
+use PHPStan\Rules\RuleError;
+use PHPStan\Rules\RuleErrorBuilder;
 
 class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 {
@@ -39,7 +42,7 @@ class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param \PhpParser\Node\Stmt\PropertyProperty $node
 	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
+	 * @return RuleError[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
@@ -54,28 +57,30 @@ class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 		foreach ($propertyType->getReferencedClasses() as $referencedClass) {
 			if ($this->broker->hasClass($referencedClass)) {
 				if ($this->broker->getClass($referencedClass)->isTrait()) {
-					$errors[] = sprintf(
+					$errors[] = RuleErrorBuilder::message(sprintf(
 						'Property %s::$%s has invalid type %s.',
 						$propertyReflection->getDeclaringClass()->getDisplayName(),
 						$node->name->name,
 						$referencedClass
-					);
+					))->build();
 				}
 				continue;
 			}
 
-			$errors[] = sprintf(
+			$errors[] = RuleErrorBuilder::message(sprintf(
 				'Property %s::$%s has unknown class %s as its type.',
 				$propertyReflection->getDeclaringClass()->getDisplayName(),
 				$node->name->name,
 				$referencedClass
-			);
+			))->build();
 		}
 
 		if ($this->checkClassCaseSensitivity) {
 			$errors = array_merge(
 				$errors,
-				$this->classCaseSensitivityCheck->checkClassNames($propertyType->getReferencedClasses())
+				$this->classCaseSensitivityCheck->checkClassNames(array_map(static function (string $class) use ($node): ClassNameNodePair {
+					return new ClassNameNodePair($class, $node);
+				}, $propertyType->getReferencedClasses()))
 			);
 		}
 

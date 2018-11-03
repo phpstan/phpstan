@@ -6,6 +6,9 @@ use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\ClassCaseSensitivityCheck;
+use PHPStan\Rules\ClassNameNodePair;
+use PHPStan\Rules\RuleError;
+use PHPStan\Rules\RuleErrorBuilder;
 
 class ExistingNamesInUseRule implements \PHPStan\Rules\Rule
 {
@@ -38,7 +41,7 @@ class ExistingNamesInUseRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param \PhpParser\Node\Stmt\Use_ $node
 	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
+	 * @return RuleError[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
@@ -65,32 +68,32 @@ class ExistingNamesInUseRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Stmt\UseUse[] $uses
-	 * @return string[]
+	 * @return RuleError[]
 	 */
 	private function checkConstants(array $uses): array
 	{
-		$messages = [];
+		$errors = [];
 		foreach ($uses as $use) {
 			if ($this->broker->hasConstant($use->name, null)) {
 				continue;
 			}
 
-			$messages[] = sprintf('Used constant %s not found.', (string) $use->name);
+			$errors[] = RuleErrorBuilder::message(sprintf('Used constant %s not found.', (string) $use->name))->line($use->name->getLine())->build();
 		}
 
-		return $messages;
+		return $errors;
 	}
 
 	/**
 	 * @param \PhpParser\Node\Stmt\UseUse[] $uses
-	 * @return string[]
+	 * @return RuleError[]
 	 */
 	private function checkFunctions(array $uses): array
 	{
-		$messages = [];
+		$errors = [];
 		foreach ($uses as $use) {
 			if (!$this->broker->hasFunction($use->name, null)) {
-				$messages[] = sprintf('Used function %s not found.', (string) $use->name);
+				$errors[] = RuleErrorBuilder::message(sprintf('Used function %s not found.', (string) $use->name))->line($use->name->getLine())->build();
 			} elseif ($this->checkFunctionNameCase) {
 				$functionReflection = $this->broker->getFunction($use->name, null);
 				$realName = $functionReflection->getName();
@@ -99,27 +102,27 @@ class ExistingNamesInUseRule implements \PHPStan\Rules\Rule
 					strtolower($realName) === strtolower($usedName)
 					&& $realName !== $usedName
 				) {
-					$messages[] = sprintf(
+					$errors[] = RuleErrorBuilder::message(sprintf(
 						'Function %s used with incorrect case: %s.',
 						$realName,
 						$usedName
-					);
+					))->line($use->name->getLine())->build();
 				}
 			}
 		}
 
-		return $messages;
+		return $errors;
 	}
 
 	/**
 	 * @param \PhpParser\Node\Stmt\UseUse[] $uses
-	 * @return string[]
+	 * @return RuleError[]
 	 */
 	private function checkClasses(array $uses): array
 	{
 		return $this->classCaseSensitivityCheck->checkClassNames(
-			array_map(static function (\PhpParser\Node\Stmt\UseUse $use): string {
-				return (string) $use->name;
+			array_map(static function (\PhpParser\Node\Stmt\UseUse $use): ClassNameNodePair {
+				return new ClassNameNodePair((string) $use->name, $use->name);
 			}, $uses)
 		);
 	}
