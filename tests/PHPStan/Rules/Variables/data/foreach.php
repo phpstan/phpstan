@@ -77,3 +77,114 @@ function (array $arr) {
 	echo $test;
 
 };
+
+function (array $arr) {
+
+	if (count($arr) === 0) {
+		return;
+	}
+
+	foreach ($arr as $val) {
+		$test = 1;
+	}
+
+	echo $val;
+	echo $test;
+
+};
+
+function (array $arr) {
+
+	if (count($arr) === 0) {
+		return;
+	}
+
+	if ($arr) {
+		$test = 1;
+	}
+
+	echo $test;
+
+};
+
+/*function (array $arr) {
+
+	if (count($arr) > 0) {
+		foreach ($arr as $val) {
+			$test = 1;
+		}
+
+		echo $val;
+		echo $test;
+	}
+
+};
+
+function (array $arr) {
+
+	if (count($arr) >= 1) {
+		foreach ($arr as $val) {
+			$test = 1;
+		}
+
+		echo $val;
+		echo $test;
+	}
+
+};*/
+
+function (array $arr) {
+
+	if ($arr === []) {
+		return;
+	}
+
+	foreach ($arr as $val) {
+		$test = 1;
+	}
+
+	echo $val;
+	echo $test;
+
+};
+
+function (array $arr) {
+
+	if ($arr !== []) {
+		foreach ($arr as $val) {
+			$test = 1;
+		}
+
+		echo $val;
+		echo $test;
+	}
+
+};
+
+function (array $arr) {
+
+	if (count($arr) === 0) {
+		foreach ($arr as $val) {
+			$test = 1;
+		}
+
+		echo $val;
+		echo $test;
+	}
+
+};
+
+function (array $arr) {
+
+	if (count($arr) !== 0) {
+		return;
+	}
+
+	foreach ($arr as $val) {
+		$test = 1;
+	}
+
+	echo $val;
+	echo $test;
+
+};
