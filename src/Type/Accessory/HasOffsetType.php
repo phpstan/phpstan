@@ -3,10 +3,8 @@
 namespace PHPStan\Type\Accessory;
 
 use PHPStan\TrinaryLogic;
-use PHPStan\Type\BooleanType;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\CompoundTypeHelper;
-use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\IntersectionType;
@@ -14,6 +12,7 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\MaybeIterableTypeTrait;
 use PHPStan\Type\Traits\MaybeObjectTypeTrait;
+use PHPStan\Type\Traits\TruthyBooleanTypeTrait;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
 
@@ -23,6 +22,7 @@ class HasOffsetType implements CompoundType, AccessoryType
 	use MaybeCallableTypeTrait;
 	use MaybeIterableTypeTrait;
 	use MaybeObjectTypeTrait;
+	use TruthyBooleanTypeTrait;
 
 	/** @var \PHPStan\Type\Type */
 	private $offsetType;
@@ -105,11 +105,6 @@ class HasOffsetType implements CompoundType, AccessoryType
 	public function isIterableAtLeastOnce(): TrinaryLogic
 	{
 		return TrinaryLogic::createYes();
-	}
-
-	public function toBoolean(): BooleanType
-	{
-		return new ConstantBooleanType(true);
 	}
 
 	public function toNumber(): Type
