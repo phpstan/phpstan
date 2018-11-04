@@ -47,7 +47,9 @@ class ImpossibleCheckTypeHelper
 		) {
 			if ($node->name instanceof \PhpParser\Node\Name) {
 				$functionName = strtolower((string) $node->name);
-				if ($functionName === 'is_numeric') {
+				if ($functionName === 'count') {
+					return null;
+				} elseif ($functionName === 'is_numeric') {
 					$argType = $scope->getType($node->args[0]->value);
 					if (count(TypeUtils::getConstantScalars($argType)) > 0) {
 						return !$argType->toNumber() instanceof ErrorType;

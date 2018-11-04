@@ -257,6 +257,7 @@ class TypeSpecifier
 				$context
 			);
 		} elseif ($expr instanceof FuncCall && $expr->name instanceof Name) {
+			$types = new SpecifiedTypes();
 			if ($this->broker->hasFunction($expr->name, $scope)) {
 				$functionReflection = $this->broker->getFunction($expr->name, $scope);
 				foreach ($this->getFunctionTypeSpecifyingExtensions() as $extension) {
@@ -266,10 +267,22 @@ class TypeSpecifier
 
 					return $extension->specifyTypes($functionReflection, $expr, $scope, $context);
 				}
+
+				if (
+					!$context->null()
+					&& count($expr->args) === 1
+					&& $functionReflection->getName() === 'count'
+					&& (new ArrayType(new MixedType(), new MixedType()))->isSuperTypeOf($scope->getType($expr->args[0]->value))->yes()
+				) {
+					$types = $this->create($expr->args[0]->value, new NonEmptyArrayType(), $context->negate());
+					if (!$defaultHandleFunctions) {
+						return $types;
+					}
+				}
 			}
 
 			if ($defaultHandleFunctions) {
-				return $this->handleDefaultTruthyOrFalseyContext($context, $expr);
+				return $types->unionWith($this->handleDefaultTruthyOrFalseyContext($context, $expr));
 			}
 		} elseif ($expr instanceof MethodCall && $expr->name instanceof Node\Identifier) {
 			$methodCalledOnType = $scope->getType($expr->var);
