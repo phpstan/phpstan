@@ -223,7 +223,6 @@
 			<arg path="${phpstan.config}"/>
 			<arg value="-l"/>
 			<arg value="7"/>
-			<arg value="--ansi"/>
 			<arg path="build/PHPStan"/>
 			<arg path="src"/>
 			<arg path="tests"/>
