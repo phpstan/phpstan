@@ -4711,6 +4711,114 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'mixed',
 				'array_search(1, $generalIntegers, true)',
 			],
+			[
+				'array<int, int>',
+				'array_slice($generalStringKeys, 0)',
+			],
+			[
+				'array<int, int>',
+				'array_slice($generalStringKeys, 1)',
+			],
+			[
+				'array<string, int>',
+				'array_slice($generalStringKeys, 1, null, true)',
+			],
+			[
+				'array<int, int>',
+				'array_slice($generalStringKeys, 1, 2)',
+			],
+			[
+				'array<string, int>',
+				'array_slice($generalStringKeys, 1, 2, true)',
+			],
+			[
+				'array<int, int>',
+				'array_slice($generalStringKeys, 1, -1)',
+			],
+			[
+				'array<string, int>',
+				'array_slice($generalStringKeys, 1, -1, true)',
+			],
+			[
+				'array<int, int>',
+				'array_slice($generalStringKeys, -2)',
+			],
+			[
+				'array<string, int>',
+				'array_slice($generalStringKeys, -2, 1, true)',
+			],
+			[
+				'array<int, mixed>',
+				'array_slice($unknownArray, 0)',
+			],
+			[
+				'array<int, mixed>',
+				'array_slice($unknownArray, 1)',
+			],
+			[
+				'array',
+				'array_slice($unknownArray, 1, null, true)',
+			],
+			[
+				'array<int, mixed>',
+				'array_slice($unknownArray, 1, 2)',
+			],
+			[
+				'array',
+				'array_slice($unknownArray, 1, 2, true)',
+			],
+			[
+				'array<int, mixed>',
+				'array_slice($unknownArray, 1, -1)',
+			],
+			[
+				'array',
+				'array_slice($unknownArray, 1, -1, true)',
+			],
+			[
+				'array<int, mixed>',
+				'array_slice($unknownArray, -2)',
+			],
+			[
+				'array',
+				'array_slice($unknownArray, -2, 1, true)',
+			],
+			[
+				'array(bool, int, \'\', 0)',
+				'array_slice($withPossiblyFalsey, 0)',
+			],
+			[
+				'array(int, \'\', 0)',
+				'array_slice($withPossiblyFalsey, 1)',
+			],
+			[
+				'array(1 => int, 2 => \'\', \'a\' => 0)',
+				'array_slice($withPossiblyFalsey, 1, null, true)',
+			],
+			[
+				'array(\'\', 0)',
+				'array_slice($withPossiblyFalsey, 2, 3)',
+			],
+			[
+				'array(2 => \'\', \'a\' => 0)',
+				'array_slice($withPossiblyFalsey, 2, 3, true)',
+			],
+			[
+				'array(int, \'\')',
+				'array_slice($withPossiblyFalsey, 1, -1)',
+			],
+			[
+				'array(1 => int, 2 => \'\')',
+				'array_slice($withPossiblyFalsey, 1, -1, true)',
+			],
+			[
+				'array(\'\', 0)',
+				'array_slice($withPossiblyFalsey, -2, null)',
+			],
+			[
+				'array(2 => \'\', \'a\' => 0)',
+				'array_slice($withPossiblyFalsey, -2, null, true)',
+			],
 		];
 	}
 

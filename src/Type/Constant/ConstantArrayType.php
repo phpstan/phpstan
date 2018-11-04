@@ -346,6 +346,22 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		return $builder->getArray();
 	}
 
+	public function slice(int $offset, ?int $limit): self
+	{
+		if (count($this->keyTypes) === 0 || ($offset === 0 && ($limit === null || count($this->keyTypes) === $limit))) {
+			return $this;
+		}
+
+		$keyTypes = array_slice($this->keyTypes, $offset, $limit);
+		$valueTypes = array_slice($this->valueTypes, $offset, $limit);
+
+		return new self(
+			$keyTypes,
+			$valueTypes,
+			$this->nextAutoIndex
+		);
+	}
+
 	public function getFirstValueType(): Type
 	{
 		if (count($this->valueTypes) === 0) {
