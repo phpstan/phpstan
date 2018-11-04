@@ -102,6 +102,11 @@ class NeverType implements CompoundType
 		return TrinaryLogic::createYes();
 	}
 
+	public function isIterableAtLeastOnce(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
+	}
+
 	public function getIterableKeyType(): Type
 	{
 		return new NeverType();

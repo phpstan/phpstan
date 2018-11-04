@@ -305,6 +305,11 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		return $this;
 	}
 
+	public function isIterableAtLeastOnce(): TrinaryLogic
+	{
+		return TrinaryLogic::createFromBoolean(count($this->keyTypes) > 0);
+	}
+
 	public function removeLast(): self
 	{
 		if (count($this->keyTypes) === 0) {

@@ -153,6 +153,11 @@ class ArrayType implements StaticResolvableType
 		return TrinaryLogic::createYes();
 	}
 
+	public function isIterableAtLeastOnce(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
+	}
+
 	public function getIterableKeyType(): Type
 	{
 		$keyType = $this->keyType;

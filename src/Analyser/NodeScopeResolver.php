@@ -1374,17 +1374,24 @@ class NodeScopeResolver
 		} elseif ($node instanceof Print_) {
 			$scope = $this->lookForAssigns($scope, $node->expr, $certainty, $lookForAssignsSettings);
 		} elseif ($node instanceof Foreach_) {
+			$iterableAtLeastOnce = $scope->getType($node->expr)->isIterableAtLeastOnce();
 			$scope = $this->lookForAssigns($scope, $node->expr, $certainty, $lookForAssignsSettings);
-			$statements = [
-				new StatementList($scope, array_merge(
-					[new Node\Stmt\Nop()],
-					$node->stmts
-				), false, function (Scope $scope) use ($node): Scope {
-					return $this->enterForeach($scope, $node);
-				}),
-				new StatementList($scope, []), // in order not to add variables existing only inside the for loop
-			];
-			$scope = $this->lookForAssignsInBranches($scope, $statements, LookForAssignsSettings::afterLoop());
+			if (!$iterableAtLeastOnce->no()) {
+				$statements = [
+					new StatementList($scope, array_merge(
+						[new Node\Stmt\Nop()],
+						$node->stmts
+					), false, function (Scope $scope) use ($node): Scope {
+						return $this->enterForeach($scope, $node);
+					}),
+				];
+
+				if (!$iterableAtLeastOnce->yes()) {
+					$statements[] = new StatementList($scope, []);
+				}
+
+				$scope = $this->lookForAssignsInBranches($scope, $statements, LookForAssignsSettings::afterLoop());
+			}
 		} elseif ($node instanceof Isset_) {
 			foreach ($node->vars as $var) {
 				$scope = $this->lookForAssigns($scope, $var, $certainty, $lookForAssignsSettings);

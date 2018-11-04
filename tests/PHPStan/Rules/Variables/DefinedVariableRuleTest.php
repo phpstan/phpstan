@@ -411,4 +411,38 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
+	public function testForeach(): void
+	{
+		$this->cliArgumentsVariablesRegistered = true;
+		$this->polluteScopeWithLoopInitialAssignments = false;
+		$this->polluteCatchScopeWithTryAssignments = false;
+		$this->checkMaybeUndefinedVariables = true;
+		$this->analyse([__DIR__ . '/data/foreach.php'], [
+			[
+				'Variable $val might not be defined.',
+				9,
+			],
+			[
+				'Variable $test might not be defined.',
+				10,
+			],
+			[
+				'Undefined variable: $val',
+				46,
+			],
+			[
+				'Undefined variable: $test',
+				47,
+			],
+			[
+				'Variable $val might not be defined.',
+				62,
+			],
+			[
+				'Variable $test might not be defined.',
+				63,
+			],
+		]);
+	}
+
 }

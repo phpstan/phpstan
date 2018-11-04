@@ -359,6 +359,12 @@ class ObjectType implements TypeWithClassName
 		return $this->isInstanceOf(\Traversable::class);
 	}
 
+	public function isIterableAtLeastOnce(): TrinaryLogic
+	{
+		return $this->isInstanceOf(\Traversable::class)
+			->and(TrinaryLogic::createMaybe());
+	}
+
 	public function getIterableKeyType(): Type
 	{
 		$broker = Broker::getInstance();

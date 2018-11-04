@@ -14,6 +14,11 @@ trait NonIterableTypeTrait
 		return TrinaryLogic::createNo();
 	}
 
+	public function isIterableAtLeastOnce(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
+	}
+
 	public function getIterableKeyType(): Type
 	{
 		return new ErrorType();

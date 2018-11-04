@@ -654,11 +654,11 @@ class NestedArrayCheck
 {
 
 	/**
+	 * @param mixed[] $rows
 	 * @return array<string,bool>
 	 */
-	public function doFoo()
+	public function doFoo(array $rows)
 	{
-		$rows = [];
 		$entities = [];
 
 		foreach ($rows as $row) {
@@ -669,11 +669,11 @@ class NestedArrayCheck
 	}
 
 	/**
+	 * @param mixed[] $rows
 	 * @return array<string,bool>
 	 */
-	public function doBar()
+	public function doBar(array $rows)
 	{
-		$rows = [];
 		$entities = [];
 
 		foreach ($rows as $row) {

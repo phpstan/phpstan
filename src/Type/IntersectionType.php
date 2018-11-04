@@ -213,6 +213,13 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		});
 	}
 
+	public function isIterableAtLeastOnce(): TrinaryLogic
+	{
+		return $this->intersectResults(static function (Type $type): TrinaryLogic {
+			return $type->isIterableAtLeastOnce();
+		});
+	}
+
 	public function getIterableKeyType(): Type
 	{
 		return $this->intersectTypes(static function (Type $type): Type {

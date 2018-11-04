@@ -102,6 +102,11 @@ class HasOffsetType implements CompoundType, AccessoryType
 		return $this;
 	}
 
+	public function isIterableAtLeastOnce(): TrinaryLogic
+	{
+		return TrinaryLogic::createYes();
+	}
+
 	public function toNumber(): Type
 	{
 		return new ErrorType();
