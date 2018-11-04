@@ -63,3 +63,17 @@ function () {
 	echo $test;
 
 };
+
+function (array $arr) {
+
+	if (!isset($arr['foo'])) {
+		return;
+	}
+
+	if ($arr) {
+		$test = 1;
+	}
+
+	echo $test;
+
+};
