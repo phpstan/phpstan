@@ -263,16 +263,6 @@ class ArrayType implements StaticResolvableType
 		return new IntegerType();
 	}
 
-	public function getFirstValueType(): Type
-	{
-		return TypeCombinator::union($this->getItemType(), new NullType());
-	}
-
-	public function getLastValueType(): Type
-	{
-		return $this->getFirstValueType();
-	}
-
 	public static function castToArrayKeyType(Type $offsetType): Type
 	{
 		if ($offsetType instanceof UnionType) {

@@ -36,6 +36,11 @@ class ArrayPointerFunctionsDynamicReturnTypeExtension implements \PHPStan\Type\D
 		}
 
 		$argType = $scope->getType($functionCall->args[0]->value);
+		$iterableAtLeastOnce = $argType->isIterableAtLeastOnce();
+		if ($iterableAtLeastOnce->no()) {
+			return new ConstantBooleanType(false);
+		}
+
 		$constantArrays = TypeUtils::getConstantArrays($argType);
 		if (count($constantArrays) > 0) {
 			$keyTypes = [];
@@ -56,10 +61,12 @@ class ArrayPointerFunctionsDynamicReturnTypeExtension implements \PHPStan\Type\D
 			return TypeCombinator::union(...$keyTypes);
 		}
 
-		return TypeCombinator::union(
-			$argType->getIterableValueType(),
-			new ConstantBooleanType(false)
-		);
+		$itemType = $argType->getIterableValueType();
+		if ($iterableAtLeastOnce->yes()) {
+			return $itemType;
+		}
+
+		return TypeCombinator::union($itemType, new ConstantBooleanType(false));
 	}
 
 }

@@ -4564,7 +4564,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$stdClassesWithIsset',
 			],
 			[
-				'stdClass|null',
+				'stdClass',
 				'array_pop($stdClassesWithIsset)',
 			],
 			[
