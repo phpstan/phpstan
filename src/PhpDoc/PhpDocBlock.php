@@ -19,15 +19,20 @@ class PhpDocBlock
 	/** @var string */
 	private $class;
 
+	/** @var string|null */
+	private $trait;
+
 	private function __construct(
 		string $docComment,
 		string $file,
-		string $class
+		string $class,
+		?string $trait
 	)
 	{
 		$this->docComment = $docComment;
 		$this->file = $file;
 		$this->class = $class;
+		$this->trait = $trait;
 	}
 
 	public function getDocComment(): string
@@ -45,10 +50,16 @@ class PhpDocBlock
 		return $this->class;
 	}
 
+	public function getTrait(): ?string
+	{
+		return $this->trait;
+	}
+
 	public static function resolvePhpDocBlockForProperty(
 		Broker $broker,
 		?string $docComment,
 		string $class,
+		?string $trait,
 		string $propertyName,
 		string $file
 	): ?self
@@ -57,6 +68,7 @@ class PhpDocBlock
 			$broker,
 			$docComment,
 			$class,
+			$trait,
 			$propertyName,
 			$file,
 			'hasNativeProperty',
@@ -69,6 +81,7 @@ class PhpDocBlock
 		Broker $broker,
 		?string $docComment,
 		string $class,
+		?string $trait,
 		string $methodName,
 		string $file
 	): ?self
@@ -77,6 +90,7 @@ class PhpDocBlock
 			$broker,
 			$docComment,
 			$class,
+			$trait,
 			$methodName,
 			$file,
 			'hasNativeMethod',
@@ -89,6 +103,7 @@ class PhpDocBlock
 		Broker $broker,
 		?string $docComment,
 		string $class,
+		?string $trait,
 		string $name,
 		string $file,
 		string $hasMethodName,
@@ -109,6 +124,7 @@ class PhpDocBlock
 				$phpDocBlockFromClass = self::resolvePhpDocBlockRecursive(
 					$broker,
 					$parentClassReflection,
+					$trait,
 					$name,
 					$hasMethodName,
 					$getMethodName,
@@ -135,13 +151,14 @@ class PhpDocBlock
 		}
 
 		return $docComment !== null
-			? new self($docComment, $file, $class)
+			? new self($docComment, $file, $class, $trait)
 			: null;
 	}
 
 	private static function resolvePhpDocBlockRecursive(
 		Broker $broker,
 		ClassReflection $classReflection,
+		?string $trait,
 		string $name,
 		string $hasMethodName,
 		string $getMethodName,
@@ -166,6 +183,7 @@ class PhpDocBlock
 			return self::resolvePhpDocBlockRecursive(
 				$broker,
 				$parentClassReflection,
+				$trait,
 				$name,
 				$hasMethodName,
 				$getMethodName,
@@ -194,14 +212,27 @@ class PhpDocBlock
 			) {
 				return null;
 			}
-			if ($parentReflection->getDeclaringClass()->getName() !== $classReflection->getName()) {
+			if (
+				!$parentReflection->getDeclaringClass()->isTrait()
+				&& $parentReflection->getDeclaringClass()->getName() !== $classReflection->getName()
+			) {
 				return null;
 			}
+
+			$traitReflection = $parentReflection instanceof PhpMethodReflection
+				? $parentReflection->getDeclaringTrait()
+				: null;
+
+			$trait = $traitReflection !== null
+				? $traitReflection->getName()
+				: null;
+
 			if ($parentReflection->getDocComment() !== false) {
 				return self::$resolveMethodName(
 					$broker,
 					$parentReflection->getDocComment(),
 					$classReflection->getName(),
+					$trait,
 					$name,
 					$classReflection->getFileName()
 				);

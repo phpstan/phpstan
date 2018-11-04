@@ -134,6 +134,11 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 		return $this->declaringClass;
 	}
 
+	public function getDeclaringTrait(): ?ClassReflection
+	{
+		return $this->declaringTrait;
+	}
+
 	/**
 	 * @return string|false
 	 */

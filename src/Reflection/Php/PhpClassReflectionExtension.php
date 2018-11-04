@@ -137,6 +137,7 @@ class PhpClassReflectionExtension
 				$this->broker,
 				$docComment,
 				$declaringClassReflection->getName(),
+				null,
 				$propertyName,
 				$declaringClassReflection->getFileName()
 			);
@@ -331,6 +332,7 @@ class PhpClassReflectionExtension
 				$this->broker,
 				$docComment,
 				$declaringClass->getName(),
+				null,
 				$methodReflection->getName(),
 				$declaringClass->getFileName()
 			);

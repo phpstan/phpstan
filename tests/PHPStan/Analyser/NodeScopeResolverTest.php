@@ -6133,6 +6133,62 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataInheritDocFromTrait(): array
+	{
+		return [
+			[
+				'string',
+				'$string',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataInheritDocFromTrait
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testInheritDocFromTrait(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/inheritdoc-from-trait.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataInheritDocFromTrait2(): array
+	{
+		return [
+			[
+				'string',
+				'$string',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataInheritDocFromTrait2
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testInheritDocFromTrait2(
+		string $description,
+		string $expression
+	): void
+	{
+		require_once __DIR__ . '/data/inheritdoc-from-trait2-definition.php';
+		require_once __DIR__ . '/data/inheritdoc-from-trait2-definition2.php';
+		$this->assertTypes(
+			__DIR__ . '/data/inheritdoc-from-trait2.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataResolveStatic(): array
 	{
 		return [

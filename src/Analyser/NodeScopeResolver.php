@@ -1976,6 +1976,7 @@ class NodeScopeResolver
 				$this->broker,
 				$docComment,
 				$scope->getClassReflection()->getName(),
+				$trait,
 				$functionLike->name->name,
 				$file
 			);
@@ -1984,6 +1985,7 @@ class NodeScopeResolver
 				$docComment = $phpDocBlock->getDocComment();
 				$file = $phpDocBlock->getFile();
 				$class = $phpDocBlock->getClass();
+				$trait = $phpDocBlock->getTrait();
 			}
 		}
 
