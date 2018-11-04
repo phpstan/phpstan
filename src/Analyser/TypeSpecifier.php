@@ -163,11 +163,16 @@ class TypeSpecifier
 					&& $exprNode->name instanceof Name
 					&& strtolower((string) $exprNode->name) === 'count'
 					&& $constantType instanceof ConstantIntegerType
-					&& $constantType->getValue() === 0
 				) {
-					$argType = $scope->getType($exprNode->args[0]->value);
-					if ((new ArrayType(new MixedType(), new MixedType()))->isSuperTypeOf($argType)->yes()) {
-						return $this->create($exprNode->args[0]->value, new NonEmptyArrayType(), $context->negate());
+					if ($context->truthy() || $constantType->getValue() === 0) {
+						$newContext = $context;
+						if ($constantType->getValue() === 0) {
+							$newContext = $newContext->negate();
+						}
+						$argType = $scope->getType($exprNode->args[0]->value);
+						if ((new ArrayType(new MixedType(), new MixedType()))->isSuperTypeOf($argType)->yes()) {
+							return $this->create($exprNode->args[0]->value, new NonEmptyArrayType(), $newContext);
+						}
 					}
 				}
 			}

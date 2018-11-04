@@ -458,6 +458,14 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Undefined variable: $test',
 				188,
 			],
+			[
+				'Variable $val might not be defined.',
+				217,
+			],
+			[
+				'Variable $test might not be defined.',
+				218,
+			],
 		]);
 	}
 

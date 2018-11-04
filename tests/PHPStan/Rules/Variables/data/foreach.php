@@ -188,3 +188,33 @@ function (array $arr) {
 	echo $test;
 
 };
+
+function (array $arr) {
+
+	if (count($arr) !== 1) {
+		return;
+	}
+
+	foreach ($arr as $val) {
+		$test = 1;
+	}
+
+	echo $val;
+	echo $test;
+
+};
+
+function (array $arr) {
+
+	if (count($arr) === 1) {
+		return;
+	}
+
+	foreach ($arr as $val) {
+		$test = 1;
+	}
+
+	echo $val;
+	echo $test;
+
+};
