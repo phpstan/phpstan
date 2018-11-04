@@ -302,6 +302,10 @@ class InArray
 		if (in_array('foo', $data, true)) {
 
 		}
+
+		if (in_array('bar', $data, true)) {
+
+		}
 	}
 
 	public function checkByConditionWithNonEmpty(int $x)
@@ -312,6 +316,10 @@ class InArray
 		}
 
 		if (in_array('foo', $data, true)) {
+
+		}
+
+		if (in_array('baz', $data, true)) {
 
 		}
 	}

@@ -70,17 +70,14 @@ class ImpossibleCheckTypeHelper
 						$needleType = $scope->getType($node->args[0]->value);
 
 						$haystackArrayTypes = TypeUtils::getArrays($haystackType);
-						foreach ($haystackArrayTypes as $haystackArrayType) {
-							$valueType = $haystackArrayType->getIterableValueType();
-							if ($valueType instanceof NeverType) {
-								return null;
-							}
+						if (count($haystackArrayTypes) === 1 && $haystackArrayTypes[0]->getIterableValueType() instanceof NeverType) {
+							return null;
 						}
 
 						$valueType = $haystackType->getIterableValueType();
 						$isNeedleSupertype = $needleType->isSuperTypeOf($valueType);
 
-						if ($isNeedleSupertype->maybe()) {
+						if ($isNeedleSupertype->maybe() || $isNeedleSupertype->yes()) {
 							foreach ($haystackArrayTypes as $haystackArrayType) {
 								foreach (TypeUtils::getConstantScalars($haystackArrayType->getIterableValueType()) as $constantScalarType) {
 									if ($needleType->isSuperTypeOf($constantScalarType)->yes()) {
