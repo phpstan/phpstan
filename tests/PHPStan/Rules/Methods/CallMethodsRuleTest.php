@@ -366,11 +366,11 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				911,
 			],
 			[
-				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable, array(object&hasMethod(foo), \'bar\') given.',
+				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable, array(object, \'bar\') given.',
 				916,
 			],
 			[
-				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable, array(object&hasMethod(foo), \'bar\') given.',
+				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable, array(object, \'bar\') given.',
 				921,
 			],
 			[
@@ -587,11 +587,11 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				867,
 			],
 			[
-				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable, array(object&hasMethod(foo), \'bar\') given.',
+				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable, array(object, \'bar\') given.',
 				916,
 			],
 			[
-				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable, array(object&hasMethod(foo), \'bar\') given.',
+				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable, array(object, \'bar\') given.',
 				921,
 			],
 			[

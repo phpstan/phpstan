@@ -66,7 +66,7 @@ class NonexistentOffsetInArrayDimFetchRuleTest extends \PHPStan\Testing\RuleTest
 				225,
 			],
 			[
-				'Offset \'b\' does not exist on array(\'a\' => \'blabla\')&hasOffset(string).',
+				'Offset \'b\' does not exist on array(\'a\' => \'blabla\').',
 				228,
 			],
 			[
