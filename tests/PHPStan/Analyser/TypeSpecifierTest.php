@@ -6,6 +6,7 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\BinaryOp\Equal;
 use PhpParser\Node\Expr\BinaryOp\Identical;
+use PhpParser\Node\Expr\BooleanNot;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
@@ -13,7 +14,9 @@ use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\ArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
+use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
@@ -43,6 +46,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 		$this->scope = $this->scope->assignVariable('stringOrNull', new UnionType([new StringType(), new NullType()]), TrinaryLogic::createYes());
 		$this->scope = $this->scope->assignVariable('barOrNull', new UnionType([new ObjectType('Bar'), new NullType()]), TrinaryLogic::createYes());
 		$this->scope = $this->scope->assignVariable('stringOrFalse', new UnionType([new StringType(), new ConstantBooleanType(false)]), TrinaryLogic::createYes());
+		$this->scope = $this->scope->assignVariable('array', new ArrayType(new MixedType(), new MixedType()), TrinaryLogic::createYes());
 	}
 
 	/**
@@ -486,6 +490,24 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					123 => '123',
 				],
 				['$foo' => '~123'],
+			],
+			[
+				new Expr\Empty_(new Variable('array')),
+				[
+					'$array' => '~nonEmpty',
+				],
+				[
+					'$array' => 'nonEmpty & ~false|null',
+				],
+			],
+			[
+				new BooleanNot(new Expr\Empty_(new Variable('array'))),
+				[
+					'$array' => 'nonEmpty & ~false|null',
+				],
+				[
+					'$array' => '~nonEmpty',
+				],
 			],
 		];
 	}

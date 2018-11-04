@@ -411,7 +411,20 @@ class TypeSpecifier
 			/** @var SpecifiedTypes $types */
 			$types = $types;
 
+			if (
+				$expr instanceof Expr\Empty_
+				&& (new ArrayType(new MixedType(), new MixedType()))->isSuperTypeOf($scope->getType($expr->expr))->yes()) {
+				$types = $types->unionWith(
+					$this->create($expr->expr, new NonEmptyArrayType(), $context->negate())
+				);
+			}
+
 			return $types;
+		} elseif (
+			$expr instanceof Expr\Empty_ && $context->truthy()
+			&& (new ArrayType(new MixedType(), new MixedType()))->isSuperTypeOf($scope->getType($expr->expr))->yes()
+		) {
+			return $this->create($expr->expr, new NonEmptyArrayType(), $context->negate());
 		} elseif (!$context->null()) {
 			return $this->handleDefaultTruthyOrFalseyContext($context, $expr);
 		}
