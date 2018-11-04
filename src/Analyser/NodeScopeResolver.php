@@ -1033,7 +1033,7 @@ class NodeScopeResolver
 			$scope = $this->lookForAssigns($scope, $node->cond, $certainty, $lookForAssignsSettings);
 			$statements = [];
 
-			if (!$conditionType instanceof ConstantBooleanType || $conditionType->getValue() || !$lookForAssignsSettings->skipDeadBranches()) {
+			if (!$conditionType instanceof ConstantBooleanType || $conditionType->getValue()) {
 				$statements[] = new StatementList(
 					$scope,
 					array_merge([$node->cond], $node->stmts),
@@ -1044,7 +1044,7 @@ class NodeScopeResolver
 				);
 			}
 
-			if (!$conditionType instanceof ConstantBooleanType || !$conditionType->getValue() || !$lookForAssignsSettings->skipDeadBranches()) {
+			if (!$conditionType instanceof ConstantBooleanType || !$conditionType->getValue()) {
 				$lastElseIfConditionIsTrue = false;
 				$elseIfScope = $scope;
 				$lastCond = $node->cond;
@@ -1055,9 +1055,8 @@ class NodeScopeResolver
 					if (
 						$elseIfConditionType instanceof ConstantBooleanType
 						&& !$elseIfConditionType->getValue()
-						&& $lookForAssignsSettings->skipDeadBranches()
 					) {
-						break;
+						continue;
 					}
 					$statements[] = new StatementList(
 						$elseIfScope,
@@ -1070,7 +1069,6 @@ class NodeScopeResolver
 					if (
 						$elseIfConditionType instanceof ConstantBooleanType
 						&& $elseIfConditionType->getValue()
-						&& $lookForAssignsSettings->skipDeadBranches()
 					) {
 						$lastElseIfConditionIsTrue = true;
 						break;
@@ -1376,17 +1374,24 @@ class NodeScopeResolver
 		} elseif ($node instanceof Print_) {
 			$scope = $this->lookForAssigns($scope, $node->expr, $certainty, $lookForAssignsSettings);
 		} elseif ($node instanceof Foreach_) {
+			$iterableAtLeastOnce = $scope->getType($node->expr)->isIterableAtLeastOnce();
 			$scope = $this->lookForAssigns($scope, $node->expr, $certainty, $lookForAssignsSettings);
-			$statements = [
-				new StatementList($scope, array_merge(
-					[new Node\Stmt\Nop()],
-					$node->stmts
-				), false, function (Scope $scope) use ($node): Scope {
-					return $this->enterForeach($scope, $node);
-				}),
-				new StatementList($scope, []), // in order not to add variables existing only inside the for loop
-			];
-			$scope = $this->lookForAssignsInBranches($scope, $statements, LookForAssignsSettings::afterLoop());
+			if (!$iterableAtLeastOnce->no()) {
+				$statements = [
+					new StatementList($scope, array_merge(
+						[new Node\Stmt\Nop()],
+						$node->stmts
+					), false, function (Scope $scope) use ($node): Scope {
+						return $this->enterForeach($scope, $node);
+					}),
+				];
+
+				if (!$iterableAtLeastOnce->yes()) {
+					$statements[] = new StatementList($scope, []);
+				}
+
+				$scope = $this->lookForAssignsInBranches($scope, $statements, LookForAssignsSettings::afterLoop());
+			}
 		} elseif ($node instanceof Isset_) {
 			foreach ($node->vars as $var) {
 				$scope = $this->lookForAssigns($scope, $var, $certainty, $lookForAssignsSettings);
@@ -1725,7 +1730,7 @@ class NodeScopeResolver
 
 		if ($intersectedScope !== null) {
 			$scope = $initialScope->mergeWithIntersectedScope($intersectedScope);
-			if ($counter === 0 && $lookForAssignsSettings->skipDeadBranches()) {
+			if ($counter === 0 && $lookForAssignsSettings->shouldRepeatAnalysis()) {
 				$newStatementLists = [];
 				foreach ($statementsLists as $statementList) {
 					$newStatementLists[] = StatementList::fromList(

@@ -14,7 +14,6 @@ use PHPStan\Type\ConstantType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
-use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
@@ -305,6 +304,11 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		return $this;
 	}
 
+	public function isIterableAtLeastOnce(): TrinaryLogic
+	{
+		return TrinaryLogic::createFromBoolean(count($this->keyTypes) > 0);
+	}
+
 	public function removeLast(): self
 	{
 		if (count($this->keyTypes) === 0) {
@@ -360,25 +364,6 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			$valueTypes,
 			$this->nextAutoIndex
 		);
-	}
-
-	public function getFirstValueType(): Type
-	{
-		if (count($this->valueTypes) === 0) {
-			return new NullType();
-		}
-
-		return $this->valueTypes[0];
-	}
-
-	public function getLastValueType(): Type
-	{
-		$length = count($this->valueTypes);
-		if ($length === 0) {
-			return new NullType();
-		}
-
-		return $this->valueTypes[$length - 1];
 	}
 
 	public function toBoolean(): BooleanType

@@ -111,6 +111,17 @@ class IntersectionType implements CompoundType, StaticResolvableType
 			function () use ($level): string {
 				$typeNames = [];
 				foreach ($this->types as $type) {
+					if ($type instanceof AccessoryType) {
+						continue;
+					}
+					$typeNames[] = $type->describe($level);
+				}
+
+				return implode('&', $typeNames);
+			},
+			function () use ($level): string {
+				$typeNames = [];
+				foreach ($this->types as $type) {
 					$typeNames[] = $type->describe($level);
 				}
 
@@ -210,6 +221,13 @@ class IntersectionType implements CompoundType, StaticResolvableType
 	{
 		return $this->intersectResults(static function (Type $type): TrinaryLogic {
 			return $type->isIterable();
+		});
+	}
+
+	public function isIterableAtLeastOnce(): TrinaryLogic
+	{
+		return $this->intersectResults(static function (Type $type): TrinaryLogic {
+			return $type->isIterableAtLeastOnce();
 		});
 	}
 

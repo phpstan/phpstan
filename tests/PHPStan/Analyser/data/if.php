@@ -226,7 +226,8 @@ while (($frame = $that->getReader()->consumeFrame($that->getReadBuffer())) === n
 	$nonexistentVariableOutsideWhile = 1;
 }
 
-$someArray = [];
+/** @var array $someArray */
+$someArray = doFoo();
 $integerOrNullFromForeach = null;
 foreach ($someArray as $someValue) {
 	$integerOrNullFromForeach = 1;

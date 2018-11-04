@@ -194,6 +194,9 @@ class PhpDocBlock
 			) {
 				return null;
 			}
+			if ($parentReflection->getDeclaringClass()->getName() !== $classReflection->getName()) {
+				return null;
+			}
 			if ($parentReflection->getDocComment() !== false) {
 				return self::$resolveMethodName(
 					$broker,

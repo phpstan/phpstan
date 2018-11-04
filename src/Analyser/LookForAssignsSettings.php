@@ -15,7 +15,7 @@ class LookForAssignsSettings
 		+ self::EARLY_TERMINATION_BREAK
 		+ self::EARLY_TERMINATION_STOP;
 	private const EARLY_TERMINATION_CLOSURE = 8;
-	private const SKIP_DEAD_BRANCHES = 16;
+	private const REPEAT_ANALYSIS = 16;
 
 	/** @var int */
 	private $respectEarlyTermination;
@@ -37,12 +37,12 @@ class LookForAssignsSettings
 
 	public static function insideLoop(): self
 	{
-		return self::create(self::EARLY_TERMINATION_STOP + self::EARLY_TERMINATION_BREAK + self::SKIP_DEAD_BRANCHES);
+		return self::create(self::EARLY_TERMINATION_STOP + self::EARLY_TERMINATION_BREAK + self::REPEAT_ANALYSIS);
 	}
 
 	public static function afterLoop(): self
 	{
-		return self::create(self::EARLY_TERMINATION_STOP + self::SKIP_DEAD_BRANCHES);
+		return self::create(self::EARLY_TERMINATION_STOP + self::REPEAT_ANALYSIS);
 	}
 
 	public static function afterSwitch(): self
@@ -66,9 +66,9 @@ class LookForAssignsSettings
 		return self::$registry[$value];
 	}
 
-	public function skipDeadBranches(): bool
+	public function shouldRepeatAnalysis(): bool
 	{
-		return ($this->respectEarlyTermination & self::SKIP_DEAD_BRANCHES) === self::SKIP_DEAD_BRANCHES;
+		return ($this->respectEarlyTermination & self::REPEAT_ANALYSIS) === self::REPEAT_ANALYSIS;
 	}
 
 	public function shouldSkipBranch(\PhpParser\Node $earlyTerminationStatement): bool

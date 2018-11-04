@@ -20,6 +20,8 @@ use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Name;
 use PHPStan\Broker\Broker;
 use PHPStan\Type\Accessory\HasOffsetType;
+use PHPStan\Type\Accessory\NonEmptyArrayType;
+use PHPStan\Type\ArrayType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
@@ -153,6 +155,26 @@ class TypeSpecifier
 				if ($constantType->getValue() === null) {
 					return $this->create($exprNode, $constantType, $context);
 				}
+
+				if (
+					!$context->null()
+					&& $exprNode instanceof FuncCall
+					&& count($exprNode->args) === 1
+					&& $exprNode->name instanceof Name
+					&& strtolower((string) $exprNode->name) === 'count'
+					&& $constantType instanceof ConstantIntegerType
+				) {
+					if ($context->truthy() || $constantType->getValue() === 0) {
+						$newContext = $context;
+						if ($constantType->getValue() === 0) {
+							$newContext = $newContext->negate();
+						}
+						$argType = $scope->getType($exprNode->args[0]->value);
+						if ((new ArrayType(new MixedType(), new MixedType()))->isSuperTypeOf($argType)->yes()) {
+							return $this->create($exprNode->args[0]->value, new NonEmptyArrayType(), $newContext);
+						}
+					}
+				}
 			}
 
 			if ($context->true()) {
@@ -171,14 +193,26 @@ class TypeSpecifier
 					return $leftTypes->unionWith($rightTypes);
 				}
 
-				if ($expr->left instanceof Node\Scalar && !$expr->right instanceof Node\Scalar) {
+				if (
+					(
+						$expr->left instanceof Node\Scalar
+						|| $expr->left instanceof Expr\Array_
+					)
+					&& !$expr->right instanceof Node\Scalar
+				) {
 					return $this->create(
 						$expr->right,
 						$scope->getType($expr->left),
 						$context
 					);
 				}
-				if ($expr->right instanceof Node\Scalar && !$expr->left instanceof Node\Scalar) {
+				if (
+					(
+						$expr->right instanceof Node\Scalar
+						|| $expr->right instanceof Expr\Array_
+					)
+					&& !$expr->left instanceof Node\Scalar
+				) {
 					return $this->create(
 						$expr->left,
 						$scope->getType($expr->right),
@@ -231,6 +265,15 @@ class TypeSpecifier
 					}
 
 					return $extension->specifyTypes($functionReflection, $expr, $scope, $context);
+				}
+
+				if (
+					!$context->null()
+					&& count($expr->args) === 1
+					&& $functionReflection->getName() === 'count'
+					&& (new ArrayType(new MixedType(), new MixedType()))->isSuperTypeOf($scope->getType($expr->args[0]->value))->yes()
+				) {
+					return $this->create($expr->args[0]->value, new NonEmptyArrayType(), $context);
 				}
 			}
 
@@ -377,7 +420,20 @@ class TypeSpecifier
 			/** @var SpecifiedTypes $types */
 			$types = $types;
 
+			if (
+				$expr instanceof Expr\Empty_
+				&& (new ArrayType(new MixedType(), new MixedType()))->isSuperTypeOf($scope->getType($expr->expr))->yes()) {
+				$types = $types->unionWith(
+					$this->create($expr->expr, new NonEmptyArrayType(), $context->negate())
+				);
+			}
+
 			return $types;
+		} elseif (
+			$expr instanceof Expr\Empty_ && $context->truthy()
+			&& (new ArrayType(new MixedType(), new MixedType()))->isSuperTypeOf($scope->getType($expr->expr))->yes()
+		) {
+			return $this->create($expr->expr, new NonEmptyArrayType(), $context->negate());
 		} elseif (!$context->null()) {
 			return $this->handleDefaultTruthyOrFalseyContext($context, $expr);
 		}

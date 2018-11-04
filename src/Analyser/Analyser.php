@@ -110,7 +110,10 @@ class Analyser
 										$message = $ruleError;
 									} else {
 										$message = $ruleError->getMessage();
-										if ($ruleError instanceof LineRuleError) {
+										if (
+											$ruleError instanceof LineRuleError
+											&& $ruleError->getLine() !== -1
+										) {
 											$line = $ruleError->getLine();
 										}
 									}

@@ -1,0 +1,102 @@
+[
+    {
+        "message": "Strict comparison using === between 5 and 5 will always evaluate to true.",
+        "line": 11,
+        "ignorable": true
+    },
+    {
+        "message": "Else branch is unreachable because previous condition is always true.",
+        "line": 13,
+        "ignorable": true
+    },
+    {
+        "message": "Instanceof between $this(Levels\\Unreachable\\Foo) and Levels\\Unreachable\\Foo will always evaluate to true.",
+        "line": 20,
+        "ignorable": true
+    },
+    {
+        "message": "Else branch is unreachable because previous condition is always true.",
+        "line": 22,
+        "ignorable": true
+    },
+    {
+        "message": "Call to function is_string() with string will always evaluate to true.",
+        "line": 29,
+        "ignorable": true
+    },
+    {
+        "message": "Else branch is unreachable because previous condition is always true.",
+        "line": 31,
+        "ignorable": true
+    },
+    {
+        "message": "If condition is always true.",
+        "line": 38,
+        "ignorable": true
+    },
+    {
+        "message": "If condition is always true.",
+        "line": 47,
+        "ignorable": true
+    },
+    {
+        "message": "Left side of && is always true.",
+        "line": 59,
+        "ignorable": true
+    },
+    {
+        "message": "Right side of && is always true.",
+        "line": 59,
+        "ignorable": true
+    },
+    {
+        "message": "Else branch is unreachable because ternary operator condition is always true.",
+        "line": 74,
+        "ignorable": true
+    },
+    {
+        "message": "Strict comparison using === between 5 and 5 will always evaluate to true.",
+        "line": 74,
+        "ignorable": true
+    },
+    {
+        "message": "Else branch is unreachable because ternary operator condition is always true.",
+        "line": 79,
+        "ignorable": true
+    },
+    {
+        "message": "Instanceof between $this(Levels\\Unreachable\\Bar) and Levels\\Unreachable\\Bar will always evaluate to true.",
+        "line": 79,
+        "ignorable": true
+    },
+    {
+        "message": "Call to function is_string() with string will always evaluate to true.",
+        "line": 84,
+        "ignorable": true
+    },
+    {
+        "message": "Else branch is unreachable because ternary operator condition is always true.",
+        "line": 84,
+        "ignorable": true
+    },
+    {
+        "message": "Ternary operator condition is always true.",
+        "line": 89,
+        "ignorable": true
+    },
+    {
+        "message": "Ternary operator condition is always true.",
+        "line": 94,
+        "ignorable": true
+    },
+    {
+        "message": "Left side of && is always true.",
+        "line": 102,
+        "ignorable": true
+    },
+    {
+        "message": "Right side of && is always true.",
+        "line": 102,
+        "ignorable": true
+    }
+]

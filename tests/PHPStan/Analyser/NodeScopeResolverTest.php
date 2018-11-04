@@ -4564,7 +4564,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$stdClassesWithIsset',
 			],
 			[
-				'stdClass|null',
+				'stdClass',
 				'array_pop($stdClassesWithIsset)',
 			],
 			[
@@ -6208,6 +6208,34 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/inheritdoc-from-interface.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataInheritDocFromInterface2(): array
+	{
+		return [
+			[
+				'int',
+				'$int',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataInheritDocFromInterface2
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testInheritDocFromInterface2(
+		string $description,
+		string $expression
+	): void
+	{
+		require_once __DIR__ . '/data/inheritdoc-from-interface2-definition.php';
+		$this->assertTypes(
+			__DIR__ . '/data/inheritdoc-from-interface2.php',
 			$description,
 			$expression
 		);
