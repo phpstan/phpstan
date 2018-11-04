@@ -514,10 +514,10 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					new Arg(new Variable('array')),
 				]),
 				[
-					'$array' => '~nonEmpty',
+					'$array' => 'nonEmpty',
 				],
 				[
-					'$array' => 'nonEmpty',
+					'$array' => '~nonEmpty',
 				],
 			],
 			[
@@ -525,10 +525,10 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					new Arg(new Variable('array')),
 				])),
 				[
-					'$array' => 'nonEmpty',
+					'$array' => '~nonEmpty',
 				],
 				[
-					'$array' => '~nonEmpty',
+					'$array' => 'nonEmpty',
 				],
 			],
 		];

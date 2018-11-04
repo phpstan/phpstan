@@ -273,7 +273,7 @@ class TypeSpecifier
 					&& $functionReflection->getName() === 'count'
 					&& (new ArrayType(new MixedType(), new MixedType()))->isSuperTypeOf($scope->getType($expr->args[0]->value))->yes()
 				) {
-					return $this->create($expr->args[0]->value, new NonEmptyArrayType(), $context->negate());
+					return $this->create($expr->args[0]->value, new NonEmptyArrayType(), $context);
 				}
 			}
 
