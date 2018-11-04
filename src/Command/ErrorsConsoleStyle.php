@@ -14,9 +14,6 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 	/** @var bool */
 	private $showProgress;
 
-	/** @var \Symfony\Component\Console\Output\OutputInterface */
-	private $output;
-
 	/** @var \Symfony\Component\Console\Helper\ProgressBar */
 	private $progressBar;
 
@@ -24,7 +21,6 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 	{
 		parent::__construct($input, $output);
 		$this->showProgress = $input->hasOption(self::OPTION_NO_PROGRESS) && !(bool) $input->getOption(self::OPTION_NO_PROGRESS);
-		$this->output = $output;
 	}
 
 	/**
