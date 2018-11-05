@@ -9,7 +9,6 @@ use PHPStan\Type\ArrayType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantIntegerType;
-use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
@@ -49,7 +48,7 @@ class ArraySliceFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunc
 
 		if (isset($functionCall->args[1])) {
 			$offset = $scope->getType($functionCall->args[1]->value);
-			if ( ! $offset instanceof ConstantScalarType) {
+			if ( ! $offset instanceof ConstantIntegerType) {
 				$offset = new ConstantIntegerType(0);
 			}
 		} else {
@@ -58,7 +57,7 @@ class ArraySliceFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunc
 
 		if (isset($functionCall->args[2])) {
 			$limit = $scope->getType($functionCall->args[2]->value);
-			if ( ! $limit instanceof ConstantScalarType) {
+			if ( ! $limit instanceof ConstantIntegerType) {
 				$limit = new NullType();
 			}
 		} else {
@@ -66,18 +65,14 @@ class ArraySliceFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunc
 		}
 
 		if (isset($functionCall->args[3])) {
-			$preserveKeys = (new ConstantBooleanType(true))->isSuperTypeOf($scope->getType($functionCall->args[3]->value))->yes();
+			$preserveKeys = $scope->getType($functionCall->args[3]->value);
+			$preserveKeys = (new ConstantBooleanType(true))->isSuperTypeOf($preserveKeys)->yes();
 		} else {
 			$preserveKeys = false;
 		}
 
 		if ($valueType instanceof ConstantArrayType) {
-			$slice = $valueType->slice($offset->getValue(), $limit->getValue());
-			if ($preserveKeys) {
-				return $slice;
-			}
-
-			return $slice->getValuesArray();
+			$valueType = $valueType->slice($offset->getValue(), $limit->getValue());
 		}
 
 		if ($preserveKeys) {
