@@ -9,6 +9,7 @@ use PHPStan\Type\ArrayType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantIntegerType;
+use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
@@ -39,14 +40,27 @@ class ArraySliceFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunc
 
 		$valueType = $scope->getType($arrayArg);
 
+		if ( ! $valueType instanceof ArrayType) {
+			return new ArrayType(
+				new IntegerType(),
+				new MixedType()
+			);
+		}
+
 		if (isset($functionCall->args[1])) {
 			$offset = $scope->getType($functionCall->args[1]->value);
+			if ( ! $offset instanceof ConstantScalarType) {
+				$offset = new ConstantIntegerType(0);
+			}
 		} else {
 			$offset = new ConstantIntegerType(0);
 		}
 
 		if (isset($functionCall->args[2])) {
 			$limit = $scope->getType($functionCall->args[2]->value);
+			if ( ! $limit instanceof ConstantScalarType) {
+				$limit = new NullType();
+			}
 		} else {
 			$limit = new NullType();
 		}
