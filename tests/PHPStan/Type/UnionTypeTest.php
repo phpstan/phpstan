@@ -601,6 +601,16 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 				new ClosureType([], new StringType(), false),
 				TrinaryLogic::createYes(),
 			],
+			[
+				new UnionType([new CallableType(), new NullType()]),
+				new UnionType([new ClosureType([], new StringType(), false), new BooleanType()]),
+				TrinaryLogic::createMaybe(),
+			],
+			[
+				new UnionType([new CallableType(), new NullType()]),
+				new BooleanType(),
+				TrinaryLogic::createNo(),
+			],
 		];
 	}
 
