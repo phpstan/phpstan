@@ -111,7 +111,7 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 				$this->assertFileNotExists($expectedJsonFile);
 				return null;
 			} catch (\PHPUnit\Framework\AssertionFailedError $e) {
-				unlink($expectedJsonFile);
+				//unlink($expectedJsonFile);
 				return $e;
 			}
 		}
