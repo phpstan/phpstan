@@ -6,8 +6,10 @@ parameters:
 	checkThisOnly: false
 
 rules:
+	- PHPStan\Rules\Cast\EchoRule
 	- PHPStan\Rules\Cast\InvalidCastRule
 	- PHPStan\Rules\Cast\InvalidPartOfEncapsedStringRule
+	- PHPStan\Rules\Cast\PrintRule
 	- PHPStan\Rules\Operators\InvalidBinaryOperationRule
 	- PHPStan\Rules\Operators\InvalidUnaryOperationRule
 	- PHPStan\Rules\PhpDoc\IncompatiblePhpDocTypeRule

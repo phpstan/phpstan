@@ -21,6 +21,8 @@ class LevelsIntegrationTest extends \PHPStan\Testing\LevelsTestCase
 			['binaryOps'],
 			['throwValues'],
 			['casts'],
+			['echo_'],
+			['print_'],
 		];
 	}
 
