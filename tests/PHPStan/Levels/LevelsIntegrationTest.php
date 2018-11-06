@@ -22,6 +22,8 @@ class LevelsIntegrationTest extends \PHPStan\Testing\LevelsTestCase
 			['throwValues'],
 			['casts'],
 			['unreachable'],
+			['echo_'],
+			['print_'],
 		];
 	}
 
