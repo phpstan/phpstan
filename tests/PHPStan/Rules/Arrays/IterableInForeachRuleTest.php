@@ -25,7 +25,7 @@ class IterableInForeachRuleTest extends \PHPStan\Testing\RuleTestCase
 			],
 			[
 				'Iterating over an object of an unknown class IterablesInForeach\Bar.',
-				46,
+				47,
 			],
 		]);
 	}

@@ -12,7 +12,7 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\MaybeIterableTypeTrait;
 use PHPStan\Type\Traits\MaybeObjectTypeTrait;
-use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
+use PHPStan\Type\Traits\TruthyBooleanTypeTrait;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
 
@@ -22,7 +22,7 @@ class HasOffsetType implements CompoundType, AccessoryType
 	use MaybeCallableTypeTrait;
 	use MaybeIterableTypeTrait;
 	use MaybeObjectTypeTrait;
-	use UndecidedBooleanTypeTrait;
+	use TruthyBooleanTypeTrait;
 
 	/** @var \PHPStan\Type\Type */
 	private $offsetType;
@@ -100,6 +100,11 @@ class HasOffsetType implements CompoundType, AccessoryType
 	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
 	{
 		return $this;
+	}
+
+	public function isIterableAtLeastOnce(): TrinaryLogic
+	{
+		return TrinaryLogic::createYes();
 	}
 
 	public function toNumber(): Type

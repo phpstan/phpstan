@@ -230,7 +230,7 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				14,
 			],
 			[
-				'Variable $var3 might not be defined.',
+				'Undefined variable: $var3',
 				32,
 			],
 		]);
@@ -379,6 +379,94 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->polluteCatchScopeWithTryAssignments = false;
 		$this->checkMaybeUndefinedVariables = true;
 		$this->analyse([__DIR__ . '/data/define-variables-class.php'], []);
+	}
+
+	public function testDeadBranches(): void
+	{
+		$this->cliArgumentsVariablesRegistered = true;
+		$this->polluteScopeWithLoopInitialAssignments = false;
+		$this->polluteCatchScopeWithTryAssignments = false;
+		$this->checkMaybeUndefinedVariables = true;
+		$this->analyse([__DIR__ . '/data/dead-branches.php'], [
+			[
+				'Undefined variable: $test',
+				21,
+			],
+			[
+				'Undefined variable: $test',
+				33,
+			],
+			[
+				'Undefined variable: $test',
+				55,
+			],
+			[
+				'Undefined variable: $test',
+				66,
+			],
+			[
+				'Undefined variable: $test',
+				94,
+			],
+		]);
+	}
+
+	public function testForeach(): void
+	{
+		$this->cliArgumentsVariablesRegistered = true;
+		$this->polluteScopeWithLoopInitialAssignments = false;
+		$this->polluteCatchScopeWithTryAssignments = false;
+		$this->checkMaybeUndefinedVariables = true;
+		$this->analyse([__DIR__ . '/data/foreach.php'], [
+			[
+				'Variable $val might not be defined.',
+				9,
+			],
+			[
+				'Variable $test might not be defined.',
+				10,
+			],
+			[
+				'Undefined variable: $val',
+				46,
+			],
+			[
+				'Undefined variable: $test',
+				47,
+			],
+			[
+				'Variable $val might not be defined.',
+				62,
+			],
+			[
+				'Variable $test might not be defined.',
+				63,
+			],
+			[
+				'Undefined variable: $val',
+				171,
+			],
+			[
+				'Undefined variable: $test',
+				172,
+			],
+			[
+				'Undefined variable: $val',
+				187,
+			],
+			[
+				'Undefined variable: $test',
+				188,
+			],
+			[
+				'Variable $val might not be defined.',
+				217,
+			],
+			[
+				'Variable $test might not be defined.',
+				218,
+			],
+		]);
 	}
 
 }

@@ -21,6 +21,11 @@ class Foo
 		if (doFoo()) {
 			array_unshift($conditionalArray, 'baz');
 		}
+
+		$secondConditionalArray = ['foo', 'bar'];
+		if (doFoo()) {
+			$secondConditionalArray[] = 'baz';
+		}
 		die;
 	}
 

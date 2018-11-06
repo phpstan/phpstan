@@ -27,7 +27,7 @@ class PrintRule implements Rule
 	}
 
 	/**
-	 * @param Node|Node\Expr\Print_ $node
+	 * @param Node\Expr\Print_ $node
 	 * @param Scope $scope
 	 * @return string[]
 	 */

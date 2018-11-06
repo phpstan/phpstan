@@ -168,17 +168,22 @@ class HasMethodType implements CompoundType, AccessoryType
 
 	public function isIterable(): TrinaryLogic
 	{
-		return TrinaryLogic::createNo();
+		return TrinaryLogic::createMaybe();
+	}
+
+	public function isIterableAtLeastOnce(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
 	}
 
 	public function getIterableKeyType(): Type
 	{
-		return new ErrorType();
+		return new MixedType();
 	}
 
 	public function getIterableValueType(): Type
 	{
-		return new ErrorType();
+		return new MixedType();
 	}
 
 	public function isOffsetAccessible(): TrinaryLogic

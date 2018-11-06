@@ -62,7 +62,7 @@ class CallCallablesRuleTest extends \PHPStan\Testing\RuleTestCase
 				59,
 			],
 			[
-				'Closure invoked with 0 parameters, at least 2 required.',
+				'Closure invoked with 0 parameters, at least 1 required.',
 				64,
 			],
 			[
@@ -90,8 +90,20 @@ class CallCallablesRuleTest extends \PHPStan\Testing\RuleTestCase
 				113,
 			],
 			[
-				'Trying to invoke array(object&hasMethod(foo), \'bar\') but it\'s not a callable.',
+				'Trying to invoke array(object, \'bar\') but it\'s not a callable.',
 				131,
+			],
+			[
+				'Closure invoked with 0 parameters, 3 required.',
+				146,
+			],
+			[
+				'Closure invoked with 1 parameter, 3 required.',
+				147,
+			],
+			[
+				'Closure invoked with 2 parameters, 3 required.',
+				148,
 			],
 		]);
 	}

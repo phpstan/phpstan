@@ -20,6 +20,8 @@ use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Name;
 use PHPStan\Broker\Broker;
 use PHPStan\Type\Accessory\HasOffsetType;
+use PHPStan\Type\Accessory\NonEmptyArrayType;
+use PHPStan\Type\ArrayType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
@@ -153,6 +155,26 @@ class TypeSpecifier
 				if ($constantType->getValue() === null) {
 					return $this->create($exprNode, $constantType, $context);
 				}
+
+				if (
+					!$context->null()
+					&& $exprNode instanceof FuncCall
+					&& count($exprNode->args) === 1
+					&& $exprNode->name instanceof Name
+					&& strtolower((string) $exprNode->name) === 'count'
+					&& $constantType instanceof ConstantIntegerType
+				) {
+					if ($context->truthy() || $constantType->getValue() === 0) {
+						$newContext = $context;
+						if ($constantType->getValue() === 0) {
+							$newContext = $newContext->negate();
+						}
+						$argType = $scope->getType($exprNode->args[0]->value);
+						if ((new ArrayType(new MixedType(), new MixedType()))->isSuperTypeOf($argType)->yes()) {
+							return $this->create($exprNode->args[0]->value, new NonEmptyArrayType(), $newContext);
+						}
+					}
+				}
 			}
 
 			if ($context->true()) {
@@ -171,14 +193,26 @@ class TypeSpecifier
 					return $leftTypes->unionWith($rightTypes);
 				}
 
-				if ($expr->left instanceof Node\Scalar && !$expr->right instanceof Node\Scalar) {
+				if (
+					(
+						$expr->left instanceof Node\Scalar
+						|| $expr->left instanceof Expr\Array_
+					)
+					&& !$expr->right instanceof Node\Scalar
+				) {
 					return $this->create(
 						$expr->right,
 						$scope->getType($expr->left),
 						$context
 					);
 				}
-				if ($expr->right instanceof Node\Scalar && !$expr->left instanceof Node\Scalar) {
+				if (
+					(
+						$expr->right instanceof Node\Scalar
+						|| $expr->right instanceof Expr\Array_
+					)
+					&& !$expr->left instanceof Node\Scalar
+				) {
 					return $this->create(
 						$expr->left,
 						$scope->getType($expr->right),
@@ -232,6 +266,15 @@ class TypeSpecifier
 
 					return $extension->specifyTypes($functionReflection, $expr, $scope, $context);
 				}
+
+				if (
+					!$context->null()
+					&& count($expr->args) === 1
+					&& $functionReflection->getName() === 'count'
+					&& (new ArrayType(new MixedType(), new MixedType()))->isSuperTypeOf($scope->getType($expr->args[0]->value))->yes()
+				) {
+					return $this->create($expr->args[0]->value, new NonEmptyArrayType(), $context);
+				}
 			}
 
 			if ($defaultHandleFunctions) {
@@ -260,15 +303,15 @@ class TypeSpecifier
 			if ($defaultHandleFunctions) {
 				return $this->handleDefaultTruthyOrFalseyContext($context, $expr);
 			}
-		} elseif ($expr instanceof StaticCall && (is_string($expr->name) || $expr->name instanceof Node\Identifier)) {
+		} elseif ($expr instanceof StaticCall && $expr->name instanceof Node\Identifier) {
 			if ($expr->class instanceof Name) {
 				$calleeType = new ObjectType($scope->resolveName($expr->class));
 			} else {
 				$calleeType = $scope->getType($expr->class);
 			}
 
-			if ($calleeType->hasMethod((string) $expr->name)) {
-				$staticMethodReflection = $calleeType->getMethod((string) $expr->name, $scope);
+			if ($calleeType->hasMethod($expr->name->name)) {
+				$staticMethodReflection = $calleeType->getMethod($expr->name->name, $scope);
 				$referencedClasses = TypeUtils::getDirectClassNames($calleeType);
 				if (
 					count($referencedClasses) === 1
@@ -377,7 +420,20 @@ class TypeSpecifier
 			/** @var SpecifiedTypes $types */
 			$types = $types;
 
+			if (
+				$expr instanceof Expr\Empty_
+				&& (new ArrayType(new MixedType(), new MixedType()))->isSuperTypeOf($scope->getType($expr->expr))->yes()) {
+				$types = $types->unionWith(
+					$this->create($expr->expr, new NonEmptyArrayType(), $context->negate())
+				);
+			}
+
 			return $types;
+		} elseif (
+			$expr instanceof Expr\Empty_ && $context->truthy()
+			&& (new ArrayType(new MixedType(), new MixedType()))->isSuperTypeOf($scope->getType($expr->expr))->yes()
+		) {
+			return $this->create($expr->expr, new NonEmptyArrayType(), $context->negate());
 		} elseif (!$context->null()) {
 			return $this->handleDefaultTruthyOrFalseyContext($context, $expr);
 		}

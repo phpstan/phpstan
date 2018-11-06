@@ -1,0 +1,12 @@
+[
+    {
+        "message": "Cannot clone non-object variable $nullableInt of type int.",
+        "line": 34,
+        "ignorable": true
+    },
+    {
+        "message": "Cannot clone non-object variable $nullableUnion of type int|Levels\\Cloning\\Foo.",
+        "line": 35,
+        "ignorable": true
+    }
+]

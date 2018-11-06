@@ -7,6 +7,7 @@ use PhpParser\Node\Expr\ClassConstFetch;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\ClassCaseSensitivityCheck;
+use PHPStan\Rules\ClassNameNodePair;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\ObjectType;
@@ -46,7 +47,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param \PhpParser\Node\Expr\ClassConstFetch $node
 	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
+	 * @return (string|\PHPStan\Rules\RuleError)[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
@@ -97,7 +98,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 						sprintf('Access to constant %s on an unknown class %s.', $constantName, $className),
 					];
 				} else {
-					$messages = $this->classCaseSensitivityCheck->checkClassNames([$className]);
+					$messages = $this->classCaseSensitivityCheck->checkClassNames([new ClassNameNodePair($className, $class)]);
 				}
 
 				$className = $this->broker->getClass($className)->getName();

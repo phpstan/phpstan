@@ -139,7 +139,12 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 
 	public function isIterable(): TrinaryLogic
 	{
-		return $this->staticObjectType->isInstanceOf(\Traversable::class);
+		return $this->staticObjectType->isIterable();
+	}
+
+	public function isIterableAtLeastOnce(): TrinaryLogic
+	{
+		return $this->staticObjectType->isIterableAtLeastOnce();
 	}
 
 	public function getIterableKeyType(): Type

@@ -13,6 +13,7 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\Testing\TestCase
 
 	/**
 	 * @dataProvider dataDateIntervalProperties
+	 * @dataProvider dataDatePeriodProperties
 	 * @dataProvider dataDomAttrProperties
 	 * @dataProvider dataDomCharacterDataProperties
 	 * @dataProvider dataDomDocumentProperties
@@ -78,6 +79,36 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\Testing\TestCase
 					's' => 'int',
 					'invert' => 'int',
 					'days' => 'mixed',
+				],
+			],
+		];
+	}
+
+	public function dataDatePeriodProperties(): array
+	{
+		return [
+			[
+				\DatePeriod::class,
+				\DatePeriod::class,
+				[
+					'recurrences' => 'int',
+					'include_start_date' => 'bool',
+					'start' => \DateTimeInterface::class,
+					'current' => \DateTimeInterface::class,
+					'end' => \DateTimeInterface::class,
+					'interval' => \DateInterval::class,
+				],
+			],
+			[
+				\PhpDefectClasses\DatePeriodChild::class,
+				\DatePeriod::class,
+				[
+					'recurrences' => 'int',
+					'include_start_date' => 'bool',
+					'start' => \DateTimeInterface::class,
+					'current' => \DateTimeInterface::class,
+					'end' => \DateTimeInterface::class,
+					'interval' => \DateInterval::class,
 				],
 			],
 		];

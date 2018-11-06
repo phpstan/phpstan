@@ -5,6 +5,7 @@ namespace PHPStan\Type;
 use PHPStan\Type\Accessory\HasMethodType;
 use PHPStan\Type\Accessory\HasOffsetType;
 use PHPStan\Type\Accessory\HasPropertyType;
+use PHPStan\Type\Accessory\NonEmptyArrayType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
@@ -1326,6 +1327,56 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				UnionType::class,
 				'(array<string>&hasOffset(string))|null',
 			],
+			[
+				[
+					new ArrayType(new MixedType(), new MixedType()),
+					new NonEmptyArrayType(),
+				],
+				IntersectionType::class,
+				'array&nonEmpty',
+			],
+			[
+				[
+					new StringType(),
+					new NonEmptyArrayType(),
+				],
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				[
+					new IntersectionType([
+						new ArrayType(new MixedType(), new MixedType()),
+						new NonEmptyArrayType(),
+					]),
+					new NonEmptyArrayType(),
+				],
+				IntersectionType::class,
+				'array&nonEmpty',
+			],
+			[
+				[
+					new UnionType([
+						new ConstantArrayType([], []),
+						new ConstantArrayType([
+							new ConstantIntegerType(0),
+						], [
+							new StringType(),
+						]),
+					]),
+					new NonEmptyArrayType(),
+				],
+				ConstantArrayType::class,
+				'array(string)',
+			],
+			[
+				[
+					new ConstantArrayType([], []),
+					new NonEmptyArrayType(),
+				],
+				NeverType::class,
+				'*NEVER*',
+			],
 		];
 	}
 
@@ -1548,6 +1599,40 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				new UnionType([new IntegerType(), new StringType()]),
 				NeverType::class,
 				'*NEVER*',
+			],
+			[
+				new ArrayType(new MixedType(), new MixedType()),
+				new ConstantArrayType([], []),
+				IntersectionType::class,
+				'array&nonEmpty',
+			],
+			[
+				new UnionType([
+					new ConstantArrayType([], []),
+					new ConstantArrayType([
+						new ConstantIntegerType(0),
+					], [
+						new StringType(),
+					]),
+				]),
+				new ConstantArrayType([], []),
+				ConstantArrayType::class,
+				'array(string)',
+			],
+			[
+				new IntersectionType([
+					new ArrayType(new MixedType(), new MixedType()),
+					new NonEmptyArrayType(),
+				]),
+				new NonEmptyArrayType(),
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				new ArrayType(new MixedType(), new MixedType()),
+				new NonEmptyArrayType(),
+				ConstantArrayType::class,
+				'array()',
 			],
 		];
 	}

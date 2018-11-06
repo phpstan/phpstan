@@ -359,6 +359,13 @@ class UnionType implements CompoundType, StaticResolvableType
 		});
 	}
 
+	public function isIterableAtLeastOnce(): TrinaryLogic
+	{
+		return $this->unionResults(static function (Type $type): TrinaryLogic {
+			return $type->isIterableAtLeastOnce();
+		});
+	}
+
 	public function getIterableKeyType(): Type
 	{
 		return $this->unionTypes(static function (Type $type): Type {

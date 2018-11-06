@@ -14,17 +14,13 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 	/** @var bool */
 	private $showProgress;
 
-	/** @var \Symfony\Component\Console\Output\OutputInterface */
-	private $output;
-
 	/** @var \Symfony\Component\Console\Helper\ProgressBar */
 	private $progressBar;
 
 	public function __construct(InputInterface $input, OutputInterface $output)
 	{
 		parent::__construct($input, $output);
-		$this->showProgress = $input->hasOption(self::OPTION_NO_PROGRESS) && !((bool) $input->getOption(self::OPTION_NO_PROGRESS));
-		$this->output = $output;
+		$this->showProgress = $input->hasOption(self::OPTION_NO_PROGRESS) && !(bool) $input->getOption(self::OPTION_NO_PROGRESS);
 	}
 
 	/**
@@ -72,6 +68,7 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 	public function createProgressBar($max = 0): ProgressBar
 	{
 		$this->progressBar = parent::createProgressBar($max);
+		$this->progressBar->setOverwrite(true);
 		return $this->progressBar;
 	}
 
@@ -96,7 +93,7 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 		if (!$this->showProgress) {
 			return;
 		}
-		if ($this->output->isDecorated() && $step > 0) {
+		if ($step > 0) {
 			$stepTime = (time() - $this->progressBar->getStartTime()) / $step;
 			if ($stepTime > 0 && $stepTime < 1) {
 				$this->progressBar->setRedrawFrequency((int) (1 / $stepTime));

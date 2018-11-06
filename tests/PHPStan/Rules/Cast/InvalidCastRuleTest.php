@@ -38,15 +38,15 @@ class InvalidCastRuleTest extends \PHPStan\Testing\RuleTestCase
 			],
 			[
 				'Cannot cast object to string.',
-				34,
+				35,
 			],
 			[
 				'Cannot cast Test\\Foo to string.',
-				40,
+				41,
 			],
 			[
 				'Cannot cast array|float|int to string.',
-				47,
+				48,
 			],
 		]);
 	}

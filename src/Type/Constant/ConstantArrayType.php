@@ -14,7 +14,6 @@ use PHPStan\Type\ConstantType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
-use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
@@ -170,8 +169,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			return TrinaryLogic::createNo();
 		}
 
-		[$type, $methodName] = $typeAndMethod;
-		if ($type === null && $methodName === null) {
+		if ($typeAndMethod->isUnknown()) {
 			return TrinaryLogic::createMaybe();
 		}
 
@@ -189,12 +187,13 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
-		[$type, $methodName] = $typeAndMethodName;
-		if ($type === null && $methodName === null) {
+		if ($typeAndMethodName->isUnknown()) {
 			return [new TrivialParametersAcceptor()];
 		}
 
-		$method = $type->getMethod($methodName, $scope);
+		$method = $typeAndMethodName->getType()
+			->getMethod($typeAndMethodName->getMethod(), $scope);
+
 		if (!$scope->canCallMethod($method)) {
 			return [new InaccessibleMethod($method)];
 		}
@@ -202,10 +201,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		return $method->getVariants();
 	}
 
-	/**
-	 * @return array<Type|string>|array<null>|null
-	 */
-	private function findTypeAndMethodName(): ?array
+	private function findTypeAndMethodName(): ?ConstantArrayTypeAndMethod
 	{
 		if (count($this->keyTypes) !== 2) {
 			return null;
@@ -222,23 +218,23 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		[$classOrObject, $method] = $this->valueTypes;
 
 		if (!$method instanceof ConstantStringType) {
-			return [null, null];
+			return ConstantArrayTypeAndMethod::createUnknown();
 		}
 
 		if ($classOrObject instanceof ConstantStringType) {
 			$broker = Broker::getInstance();
 			if (!$broker->hasClass($classOrObject->getValue())) {
-				return [null, null];
+				return ConstantArrayTypeAndMethod::createUnknown();
 			}
 			$type = new ObjectType($broker->getClass($classOrObject->getValue())->getName());
 		} elseif ((new \PHPStan\Type\ObjectWithoutClassType())->isSuperTypeOf($classOrObject)->yes()) {
 			$type = $classOrObject;
 		} else {
-			return [null, null];
+			return ConstantArrayTypeAndMethod::createUnknown();
 		}
 
 		if ($type->hasMethod($method->getValue())) {
-			return [$type, $method->getValue()];
+			return ConstantArrayTypeAndMethod::createConcrete($type, $method->getValue());
 		}
 
 		return null;
@@ -308,6 +304,11 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		return $this;
 	}
 
+	public function isIterableAtLeastOnce(): TrinaryLogic
+	{
+		return TrinaryLogic::createFromBoolean(count($this->keyTypes) > 0);
+	}
+
 	public function removeLast(): self
 	{
 		if (count($this->keyTypes) === 0) {
@@ -347,25 +348,6 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		}
 
 		return $builder->getArray();
-	}
-
-	public function getFirstValueType(): Type
-	{
-		if (count($this->valueTypes) === 0) {
-			return new NullType();
-		}
-
-		return $this->valueTypes[0];
-	}
-
-	public function getLastValueType(): Type
-	{
-		$length = count($this->valueTypes);
-		if ($length === 0) {
-			return new NullType();
-		}
-
-		return $this->valueTypes[$length - 1];
 	}
 
 	public function toBoolean(): BooleanType

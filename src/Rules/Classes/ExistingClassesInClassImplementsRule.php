@@ -5,6 +5,8 @@ namespace PHPStan\Rules\Classes;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\ClassCaseSensitivityCheck;
+use PHPStan\Rules\ClassNameNodePair;
+use PHPStan\Rules\RuleError;
 
 class ExistingClassesInClassImplementsRule implements \PHPStan\Rules\Rule
 {
@@ -25,13 +27,13 @@ class ExistingClassesInClassImplementsRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param \PhpParser\Node\Stmt\Class_ $node
 	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
+	 * @return RuleError[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
 		return $this->classCaseSensitivityCheck->checkClassNames(
-			array_map(static function (Node\Name $traitName): string {
-				return (string) $traitName;
+			array_map(static function (Node\Name $interfaceName): ClassNameNodePair {
+				return new ClassNameNodePair((string) $interfaceName, $interfaceName);
 			}, $node->implements)
 		);
 	}

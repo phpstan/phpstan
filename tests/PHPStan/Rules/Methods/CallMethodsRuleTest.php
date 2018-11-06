@@ -366,11 +366,11 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				911,
 			],
 			[
-				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable, array(object&hasMethod(foo), \'bar\') given.',
+				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable, array(object, \'bar\') given.',
 				916,
 			],
 			[
-				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable, array(object&hasMethod(foo), \'bar\') given.',
+				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable, array(object, \'bar\') given.',
 				921,
 			],
 			[
@@ -587,11 +587,11 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				867,
 			],
 			[
-				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable, array(object&hasMethod(foo), \'bar\') given.',
+				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable, array(object, \'bar\') given.',
 				916,
 			],
 			[
-				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable, array(object&hasMethod(foo), \'bar\') given.',
+				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable, array(object, \'bar\') given.',
 				921,
 			],
 			[
@@ -788,6 +788,23 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Parameter #1 $str of method MethodWithInheritDoc\Foo::doBar() expects string, int given.',
 				67,
+			],
+		]);
+	}
+
+	public function testCallMethodWithPhpDocsImplicitInheritance(): void
+	{
+		$this->checkThisOnly = false;
+		$this->checkNullables = true;
+		$this->checkUnionTypes = true;
+		$this->analyse([__DIR__ . '/data/calling-method-with-phpDocs-implicit-inheritance.php'], [
+			[
+				'Parameter #1 $i of method MethodWithPhpDocsImplicitInheritance\Baz::doFoo() expects int, string given.',
+				56,
+			],
+			[
+				'Parameter #1 $str of method MethodWithPhpDocsImplicitInheritance\Foo::doBar() expects string, int given.',
+				58,
 			],
 		]);
 	}

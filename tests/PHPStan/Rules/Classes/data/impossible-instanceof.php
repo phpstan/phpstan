@@ -281,3 +281,9 @@ class ClassUsingTrait implements Foo
 	use TraitWithInstanceOfThis;
 
 }
+
+function (\Iterator $arg) {
+    foreach ($arg as $key => $value) {
+        assert($key instanceof Foo);
+    }
+};

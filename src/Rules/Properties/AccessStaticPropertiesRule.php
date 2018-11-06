@@ -8,6 +8,7 @@ use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\ClassCaseSensitivityCheck;
+use PHPStan\Rules\ClassNameNodePair;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\ObjectType;
@@ -48,7 +49,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param \PhpParser\Node\Expr\StaticPropertyFetch $node
 	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
+	 * @return (string|\PHPStan\Rules\RuleError)[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
@@ -115,7 +116,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 						),
 					];
 				} else {
-					$messages = $this->classCaseSensitivityCheck->checkClassNames([$class]);
+					$messages = $this->classCaseSensitivityCheck->checkClassNames([new ClassNameNodePair($class, $node->class)]);
 				}
 				$className = $this->broker->getClass($class)->getName();
 			}

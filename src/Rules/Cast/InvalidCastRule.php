@@ -5,6 +5,8 @@ namespace PHPStan\Rules\Cast;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Rules\RuleError;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\Type;
@@ -36,7 +38,7 @@ class InvalidCastRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param \PhpParser\Node\Expr\Cast $node
 	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[] errors
+	 * @return RuleError[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
@@ -84,11 +86,11 @@ class InvalidCastRule implements \PHPStan\Rules\Rule
 			}
 
 			return [
-				sprintf(
+				RuleErrorBuilder::message(sprintf(
 					'Cannot cast %s to %s.',
 					$scope->getType($node->expr)->describe(VerbosityLevel::value()),
 					$shortName
-				),
+				))->build(),
 			];
 		}
 

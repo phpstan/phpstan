@@ -27,7 +27,7 @@ class EchoRule implements Rule
 	}
 
 	/**
-	 * @param Node|Node\Stmt\Echo_ $node
+	 * @param Node\Stmt\Echo_ $node
 	 * @param Scope $scope
 	 * @return string[]
 	 */

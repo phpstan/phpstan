@@ -19,7 +19,11 @@ class ForeachFoo
 
 		$integers = [];
 		$i = 0;
-		foreach ([1, 2, 3] as $key => $val) {
+		$iterableArray = [];
+		if (rand(0, 1) === 0) {
+			$iterableArray = [1, 2, 3];
+		}
+		foreach ($iterableArray as $key => $val) {
 			'begin';
 			$foo = new Foo();
 			'afterAssign';
@@ -69,7 +73,7 @@ class ForeachFoo
 
 		$emptyForeachKey = null;
 		$emptyForeachVal = null;
-		foreach ([1, 2, 3] as $emptyForeachKey => $emptyForeachVal) {
+		foreach ($iterableArray as $emptyForeachKey => $emptyForeachVal) {
 
 		}
 

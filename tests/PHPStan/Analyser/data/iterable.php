@@ -54,6 +54,8 @@ class Foo
 	 * @param Bar[]|Collection $unionIterableIterableType
 	 * @param int[]|iterable $integers
 	 * @param mixed[]|iterable $mixeds
+	 * @param \Generator<Foo> $generatorOfFoos
+	 * @param \ArrayObject<int, string> $arrayObject
 	 */
 	public function doFoo(
 		iterable $iterableWithoutTypehint,
@@ -65,7 +67,9 @@ class Foo
 		iterable $unionIterableIterableType,
 		$iterableSpecifiedLater,
 		iterable $integers,
-		iterable $mixeds
+		iterable $mixeds,
+		$generatorOfFoos,
+		$arrayObject
 	)
 	{
 		if (!is_iterable($iterableSpecifiedLater)) {
@@ -79,7 +83,11 @@ class Foo
 						foreach ($mixedUnionIterableType as $mixedBar) {
 							foreach ($unionIterableIterableType as $iterableUnionBar) {
 								foreach ($this->doUnionIterableWithPhpDoc() as $unionBarFromMethod) {
-									die;
+									foreach ($generatorOfFoos as $fooFromGenerator) {
+										foreach ($arrayObject as $arrayObjectKey => $arrayObjectValue) {
+											die;
+										}
+									}
 								}
 							}
 						}

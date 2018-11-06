@@ -8,6 +8,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Rules\ClassCaseSensitivityCheck;
+use PHPStan\Rules\ClassNameNodePair;
 use PHPStan\Rules\FunctionCallParametersCheck;
 use PHPStan\Type\ObjectType;
 
@@ -42,7 +43,7 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param \PhpParser\Node\Expr\New_ $node
 	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
+	 * @return (string|\PHPStan\Rules\RuleError)[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
@@ -98,7 +99,9 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 					sprintf('Instantiated class %s not found.', $class),
 				];
 			} else {
-				$messages = $this->classCaseSensitivityCheck->checkClassNames([$class]);
+				$messages = $this->classCaseSensitivityCheck->checkClassNames([
+					new ClassNameNodePair($class, $node->class),
+				]);
 			}
 
 			$classReflection = $this->broker->getClass($class);

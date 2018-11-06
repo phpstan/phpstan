@@ -9,6 +9,7 @@ use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Broker\AnonymousClassNameHelper;
 use PHPStan\Cache\Cache;
 use PHPStan\File\FileHelper;
+use PHPStan\File\RelativePathHelper;
 use PHPStan\PhpDoc\PhpDocStringResolver;
 use PHPStan\Rules\Registry;
 use PHPStan\Rules\Rule;
@@ -48,6 +49,7 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 				$this->getMethodTypeSpecifyingExtensions(),
 				$this->getStaticMethodTypeSpecifyingExtensions()
 			);
+			$currentWorkingDirectory = $this->getCurrentWorkingDirectory();
 			$this->analyser = new Analyser(
 				$this->createScopeFactory($broker, $typeSpecifier),
 				$this->getParser(),
@@ -55,7 +57,7 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 				new NodeScopeResolver(
 					$broker,
 					$this->getParser(),
-					new FileTypeMapper($this->getParser(), self::getContainer()->getByType(PhpDocStringResolver::class), $this->createMock(Cache::class), new AnonymousClassNameHelper(new FileHelper($this->getCurrentWorkingDirectory())), new \PHPStan\PhpDoc\TypeNodeResolver($this->getTypeNodeResolverExtensions())),
+					new FileTypeMapper($this->getParser(), self::getContainer()->getByType(PhpDocStringResolver::class), $this->createMock(Cache::class), new AnonymousClassNameHelper(new FileHelper($currentWorkingDirectory), new RelativePathHelper($currentWorkingDirectory, DIRECTORY_SEPARATOR, [])), new \PHPStan\PhpDoc\TypeNodeResolver($this->getTypeNodeResolverExtensions())),
 					$fileHelper,
 					$typeSpecifier,
 					$this->shouldPolluteScopeWithLoopInitialAssignments(),

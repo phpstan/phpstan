@@ -36,7 +36,7 @@ class ResourceType implements Type
 
 	public function toInteger(): Type
 	{
-		return new ErrorType();
+		return new IntegerType();
 	}
 
 	public function toFloat(): Type

@@ -7,6 +7,9 @@ use PhpParser\Node\Expr\Instanceof_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\ClassCaseSensitivityCheck;
+use PHPStan\Rules\ClassNameNodePair;
+use PHPStan\Rules\RuleError;
+use PHPStan\Rules\RuleErrorBuilder;
 
 class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
 {
@@ -39,7 +42,7 @@ class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param \PhpParser\Node\Expr\Instanceof_ $node
 	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
+	 * @return RuleError[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
@@ -58,7 +61,7 @@ class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
 		], true)) {
 			if (!$scope->isInClass()) {
 				return [
-					sprintf('Using %s outside of class scope.', $lowercaseName),
+					RuleErrorBuilder::message(sprintf('Using %s outside of class scope.', $lowercaseName))->line($class->getLine())->build(),
 				];
 			}
 
@@ -67,10 +70,10 @@ class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
 
 		if (!$this->broker->hasClass($name)) {
 			return [
-				sprintf('Class %s not found.', $name),
+				RuleErrorBuilder::message(sprintf('Class %s not found.', $name))->line($class->getLine())->build(),
 			];
 		} elseif ($this->checkClassCaseSensitivity) {
-			return $this->classCaseSensitivityCheck->checkClassNames([$name]);
+			return $this->classCaseSensitivityCheck->checkClassNames([new ClassNameNodePair($name, $class)]);
 		}
 
 		return [];

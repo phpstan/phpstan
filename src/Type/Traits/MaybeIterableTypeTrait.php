@@ -14,6 +14,11 @@ trait MaybeIterableTypeTrait
 		return TrinaryLogic::createMaybe();
 	}
 
+	public function isIterableAtLeastOnce(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
+	}
+
 	public function getIterableKeyType(): Type
 	{
 		return new MixedType();

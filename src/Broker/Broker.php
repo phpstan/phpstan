@@ -4,7 +4,7 @@ namespace PHPStan\Broker;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
-use PHPStan\Command\ErrorFormatter\RelativePathHelper;
+use PHPStan\File\RelativePathHelper;
 use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\Tag\ParamTag;
 use PHPStan\Reflection\BrokerAwareExtension;
@@ -71,11 +71,11 @@ class Broker
 	/** @var Parser */
 	private $parser;
 
+	/** @var RelativePathHelper */
+	private $relativePathHelper;
+
 	/** @var string[] */
 	private $universalObjectCratesClasses;
-
-	/** @var string */
-	private $currentWorkingDirectory;
 
 	/** @var \PHPStan\Reflection\FunctionReflection[] */
 	private $functionReflections = [];
@@ -107,8 +107,8 @@ class Broker
 	 * @param \PhpParser\PrettyPrinter\Standard $printer
 	 * @param AnonymousClassNameHelper $anonymousClassNameHelper
 	 * @param Parser $parser
+	 * @param RelativePathHelper $relativePathHelper
 	 * @param string[] $universalObjectCratesClasses
-	 * @param string $currentWorkingDirectory
 	 */
 	public function __construct(
 		array $propertiesClassReflectionExtensions,
@@ -122,8 +122,8 @@ class Broker
 		\PhpParser\PrettyPrinter\Standard $printer,
 		AnonymousClassNameHelper $anonymousClassNameHelper,
 		Parser $parser,
-		array $universalObjectCratesClasses,
-		string $currentWorkingDirectory
+		RelativePathHelper $relativePathHelper,
+		array $universalObjectCratesClasses
 	)
 	{
 		$this->propertiesClassReflectionExtensions = $propertiesClassReflectionExtensions;
@@ -149,8 +149,8 @@ class Broker
 		$this->printer = $printer;
 		$this->anonymousClassNameHelper = $anonymousClassNameHelper;
 		$this->parser = $parser;
+		$this->relativePathHelper = $relativePathHelper;
 		$this->universalObjectCratesClasses = $universalObjectCratesClasses;
-		$this->currentWorkingDirectory = $currentWorkingDirectory;
 	}
 
 	public static function registerInstance(Broker $broker): void
@@ -286,10 +286,7 @@ class Broker
 			}
 		}
 
-		$filename = RelativePathHelper::getRelativePath(
-			$this->currentWorkingDirectory,
-			$scopeFile
-		);
+		$filename = $this->relativePathHelper->getRelativePath($scopeFile);
 
 		$className = $this->anonymousClassNameHelper->getAnonymousClassName(
 			$node,
@@ -308,7 +305,7 @@ class Broker
 		self::$anonymousClasses[$className] = $this->getClassFromReflection(
 			new \ReflectionClass('\\' . $className),
 			sprintf('class@anonymous/%s:%s', $filename, $node->getLine()),
-			$filename
+			$scopeFile
 		);
 		$this->classReflections[$className] = self::$anonymousClasses[$className];
 

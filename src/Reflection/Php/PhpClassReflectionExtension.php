@@ -127,33 +127,40 @@ class PhpClassReflectionExtension
 				return $annotationProperty;
 			}
 		}
-		if ($propertyReflection->getDocComment() === false) {
-			$type = new MixedType();
-		} elseif ($declaringClassReflection->getFileName() !== false) {
+
+		$docComment = $propertyReflection->getDocComment() !== false
+			? $propertyReflection->getDocComment()
+			: null;
+
+		if ($declaringClassReflection->getFileName() !== false) {
 			$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForProperty(
 				$this->broker,
-				$propertyReflection->getDocComment(),
+				$docComment,
 				$declaringClassReflection->getName(),
 				$propertyName,
 				$declaringClassReflection->getFileName()
 			);
 
-			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
-				$phpDocBlock->getFile(),
-				$phpDocBlock->getClass(),
-				$this->findPropertyTrait($phpDocBlock, $propertyReflection),
-				$phpDocBlock->getDocComment()
-			);
-			$varTags = $resolvedPhpDoc->getVarTags();
-			if (isset($varTags[0]) && count($varTags) === 1) {
-				$type = $varTags[0]->getType();
-			} elseif (isset($varTags[$propertyName])) {
-				$type = $varTags[$propertyName]->getType();
+			if ($phpDocBlock !== null) {
+				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
+					$phpDocBlock->getFile(),
+					$phpDocBlock->getClass(),
+					$this->findPropertyTrait($phpDocBlock, $propertyReflection),
+					$phpDocBlock->getDocComment()
+				);
+				$varTags = $resolvedPhpDoc->getVarTags();
+				if (isset($varTags[0]) && count($varTags) === 1) {
+					$type = $varTags[0]->getType();
+				} elseif (isset($varTags[$propertyName])) {
+					$type = $varTags[$propertyName]->getType();
+				} else {
+					$type = new MixedType();
+				}
+				$isDeprecated = $resolvedPhpDoc->isDeprecated();
+				$isInternal = $resolvedPhpDoc->isInternal();
 			} else {
 				$type = new MixedType();
 			}
-			$isDeprecated = $resolvedPhpDoc->isDeprecated();
-			$isInternal = $resolvedPhpDoc->isInternal();
 		} else {
 			$type = new MixedType();
 		}
@@ -316,15 +323,19 @@ class PhpClassReflectionExtension
 		$isFinal = false;
 		$declaringTraitName = $this->findMethodTrait($methodReflection);
 		if ($declaringClass->getFileName() !== false) {
-			if ($methodReflection->getDocComment() !== false) {
-				$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForMethod(
-					$this->broker,
-					$methodReflection->getDocComment(),
-					$declaringClass->getName(),
-					$methodReflection->getName(),
-					$declaringClass->getFileName()
-				);
+			$docComment = $methodReflection->getDocComment() !== false
+				? $methodReflection->getDocComment()
+				: null;
 
+			$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForMethod(
+				$this->broker,
+				$docComment,
+				$declaringClass->getName(),
+				$methodReflection->getName(),
+				$declaringClass->getFileName()
+			);
+
+			if ($phpDocBlock !== null) {
 				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
 					$phpDocBlock->getFile(),
 					$phpDocBlock->getClass(),

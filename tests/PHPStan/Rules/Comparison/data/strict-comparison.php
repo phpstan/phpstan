@@ -658,3 +658,16 @@ class ArrayWithLongStrings
 	}
 
 }
+
+class ArrayObjectToArrayCount
+{
+
+	public function doFoo()
+	{
+		$rules = (array) new \ArrayObject([1, 2, 3]);
+		if (count($rules) === 1) {
+
+		}
+	}
+
+}

@@ -63,6 +63,7 @@ parameters:
 
 extensions:
 	rules: PHPStan\DependencyInjection\RulesExtension
+	conditionalTags: PHPStan\DependencyInjection\ConditionalTagsExtension
 
 services:
 	-
@@ -109,11 +110,6 @@ services:
 	-
 		class: PHPStan\PhpDoc\TypeNodeResolver
 		factory: @typeNodeResolverFactory::create
-
-	-
-		class: PHPStan\PhpDoc\PhpUnit\MockObjectTypeNodeResolverExtension
-		tags:
-			- phpstan.phpDoc.typeNodeResolverExtension
 
 	-
 		class: PHPStan\PhpDoc\TypeStringResolver
@@ -315,6 +311,11 @@ services:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
 	-
+		class: PHPStan\Type\Php\CurlInitReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	-
 		class: PHPStan\Type\Php\DioStatDynamicFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
@@ -366,7 +367,7 @@ services:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
 	-
-		class: PHPStan\Type\Php\ResetFunctionDynamicReturnTypeExtension
+		class: PHPStan\Type\Php\ArrayPointerFunctionsDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
@@ -506,6 +507,10 @@ services:
 
 	typeSpecifierFactory:
 		class: PHPStan\Analyser\TypeSpecifierFactory
+
+	relativePathHelper:
+		class: PHPStan\File\RelativePathHelper
+		dynamic: true
 
 	broker:
 		class: PHPStan\Broker\Broker

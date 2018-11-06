@@ -654,11 +654,11 @@ class NestedArrayCheck
 {
 
 	/**
+	 * @param mixed[] $rows
 	 * @return array<string,bool>
 	 */
-	public function doFoo()
+	public function doFoo(array $rows)
 	{
-		$rows = [];
 		$entities = [];
 
 		foreach ($rows as $row) {
@@ -669,11 +669,11 @@ class NestedArrayCheck
 	}
 
 	/**
+	 * @param mixed[] $rows
 	 * @return array<string,bool>
 	 */
-	public function doBar()
+	public function doBar(array $rows)
 	{
-		$rows = [];
 		$entities = [];
 
 		foreach ($rows as $row) {
@@ -699,4 +699,60 @@ class CheckNullWithConstantType
 		return $nullableArray;
 	}
 
+}
+
+class NullConditionInDoWhile
+{
+
+	public function doFoo(): string
+	{
+		do {
+			$string = $this->doBar();
+		} while ($string === null);
+
+		return $string;
+	}
+
+	public function doBar(): ?string
+	{
+
+	}
+
+}
+
+class RecursiveStaticResolving
+{
+	/**
+	 * @return $this
+	 */
+	public function f2(): self
+	{
+		return $this;
+	}
+
+	/**
+	 * @return $this
+	 */
+	public function f3(): self
+	{
+		return $this;
+	}
+
+	/**
+	 * @return $this
+	 */
+	public function f1(): self
+	{
+		return $this->f2()->f3();
+	}
+}
+
+class Foo2 extends FooParent implements FooInterface
+{
+	public function returnIntFromParent()
+	{
+		return 1;
+		return '1';
+		return new integer();
+	}
 }
