@@ -4819,6 +4819,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array(2 => \'\', \'a\' => 0)',
 				'array_slice($withPossiblyFalsey, -2, null, true)',
 			],
+			[
+				'array(0 => \'\'|\'qux\', ?1 => 0)',
+				'array_slice($unionArrays, 1)',
+			],
+			[
+				'array(\'a\' => 0)|array(\'baz\' => \'qux\')',
+				'array_slice($unionArrays, -1, null, true)',
+			],
 		];
 	}
 

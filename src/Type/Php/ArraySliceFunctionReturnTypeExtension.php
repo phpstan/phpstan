@@ -6,13 +6,14 @@ use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\ArrayType;
-use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\TypeUtils;
 
 class ArraySliceFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
@@ -39,16 +40,9 @@ class ArraySliceFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunc
 
 		$valueType = $scope->getType($arrayArg);
 
-		if ( ! $valueType instanceof ArrayType) {
-			return new ArrayType(
-				new IntegerType(),
-				new MixedType()
-			);
-		}
-
 		if (isset($functionCall->args[1])) {
 			$offset = $scope->getType($functionCall->args[1]->value);
-			if ( ! $offset instanceof ConstantIntegerType) {
+			if (!$offset instanceof ConstantIntegerType) {
 				$offset = new ConstantIntegerType(0);
 			}
 		} else {
@@ -57,7 +51,7 @@ class ArraySliceFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunc
 
 		if (isset($functionCall->args[2])) {
 			$limit = $scope->getType($functionCall->args[2]->value);
-			if ( ! $limit instanceof ConstantIntegerType) {
+			if (!$limit instanceof ConstantIntegerType) {
 				$limit = new NullType();
 			}
 		} else {
@@ -71,15 +65,33 @@ class ArraySliceFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunc
 			$preserveKeys = false;
 		}
 
-		if ($valueType instanceof ConstantArrayType) {
-			$valueType = $valueType->slice($offset->getValue(), $limit->getValue());
+		$constantArrays = TypeUtils::getConstantArrays($valueType);
+		if (count($constantArrays) === 0) {
+			if (!$valueType instanceof ArrayType) {
+				return new ArrayType(
+					$preserveKeys ? new MixedType() : new IntegerType(),
+					new MixedType()
+				);
+			}
+
+			if ($preserveKeys) {
+				return $valueType;
+			}
+
+			return $valueType->getValuesArray();
 		}
 
-		if ($preserveKeys) {
-			return $valueType;
+		$arrayTypes = [];
+		foreach ($constantArrays as $constantArray) {
+			$valueType = $constantArray->slice($offset->getValue(), $limit->getValue());
+			if ($preserveKeys) {
+				$arrayTypes[] = $valueType;
+			} else {
+				$arrayTypes[] = $valueType->getValuesArray();
+			}
 		}
 
-		return $valueType->getValuesArray();
+		return TypeCombinator::union(...$arrayTypes);
 	}
 
 }

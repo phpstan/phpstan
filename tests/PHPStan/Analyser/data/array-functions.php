@@ -148,6 +148,12 @@ $generalIntegerOrStringKeysMixedValues = doFoo();
 $clonedConditionalArray = $conditionalArray;
 $clonedConditionalArray[(int)$generalIntegerOrString] = $generalIntegerOrString;
 
+if (random_int(0, 1)) {
+	$unionArrays = [1=>1, 2=> '', 'a' => 0];
+} else {
+	$unionArrays = ['foo' => 'bar', 'baz' => 'qux'];
+}
+
 /** @var mixed $mixed */
 $mixed = doFoo();
 
