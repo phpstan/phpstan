@@ -2,6 +2,8 @@
 
 namespace PHPStan\Rules\Comparison;
 
+use PHPStan\Rules\RuleError;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\Constant\ConstantBooleanType;
 
 class BooleanNotConstantConditionRule implements \PHPStan\Rules\Rule
@@ -25,7 +27,7 @@ class BooleanNotConstantConditionRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param \PhpParser\Node\Expr\BooleanNot $node
 	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
+	 * @return RuleError[]
 	 */
 	public function processNode(
 		\PhpParser\Node $node,
@@ -35,10 +37,10 @@ class BooleanNotConstantConditionRule implements \PHPStan\Rules\Rule
 		$exprType = $this->helper->getBooleanType($scope, $node->expr);
 		if ($exprType instanceof ConstantBooleanType) {
 			return [
-				sprintf(
+				RuleErrorBuilder::message(sprintf(
 					'Negated boolean is always %s.',
 					$exprType->getValue() ? 'false' : 'true'
-				),
+				))->line($node->expr->getLine())->build(),
 			];
 		}
 

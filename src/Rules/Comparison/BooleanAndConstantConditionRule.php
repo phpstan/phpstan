@@ -2,6 +2,8 @@
 
 namespace PHPStan\Rules\Comparison;
 
+use PHPStan\Rules\RuleError;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\Constant\ConstantBooleanType;
 
 class BooleanAndConstantConditionRule implements \PHPStan\Rules\Rule
@@ -25,20 +27,20 @@ class BooleanAndConstantConditionRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param \PhpParser\Node\Expr\BinaryOp\BooleanAnd $node
 	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
+	 * @return RuleError[]
 	 */
 	public function processNode(
 		\PhpParser\Node $node,
 		\PHPStan\Analyser\Scope $scope
 	): array
 	{
-		$messages = [];
+		$errors = [];
 		$leftType = $this->helper->getBooleanType($scope, $node->left);
 		if ($leftType instanceof ConstantBooleanType) {
-			$messages[] = sprintf(
+			$errors[] = RuleErrorBuilder::message(sprintf(
 				'Left side of && is always %s.',
 				$leftType->getValue() ? 'true' : 'false'
-			);
+			))->line($node->left->getLine())->build();
 		}
 
 		$rightType = $this->helper->getBooleanType(
@@ -46,23 +48,23 @@ class BooleanAndConstantConditionRule implements \PHPStan\Rules\Rule
 			$node->right
 		);
 		if ($rightType instanceof ConstantBooleanType) {
-			$messages[] = sprintf(
+			$errors[] = RuleErrorBuilder::message(sprintf(
 				'Right side of && is always %s.',
 				$rightType->getValue() ? 'true' : 'false'
-			);
+			))->line($node->right->getLine())->build();
 		}
 
-		if (count($messages) === 0) {
+		if (count($errors) === 0) {
 			$nodeType = $scope->getType($node);
 			if ($nodeType instanceof ConstantBooleanType) {
-				$messages[] = sprintf(
+				$errors[] = RuleErrorBuilder::message(sprintf(
 					'Result of && is always %s.',
 					$nodeType->getValue() ? 'true' : 'false'
-				);
+				))->build();
 			}
 		}
 
-		return $messages;
+		return $errors;
 	}
 
 }
