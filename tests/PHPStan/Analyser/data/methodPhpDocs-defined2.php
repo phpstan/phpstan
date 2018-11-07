@@ -47,4 +47,12 @@ class FooParent
 
 	}
 
+	/**
+	 * @return void
+	 */
+	public function phpDocVoidMethod()
+	{
+
+	}
+
 }

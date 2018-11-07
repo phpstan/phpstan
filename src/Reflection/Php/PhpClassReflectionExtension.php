@@ -347,7 +347,13 @@ class PhpClassReflectionExtension
 				$phpDocParameterTypes = array_map(static function (ParamTag $tag): Type {
 					return $tag->getType();
 				}, $resolvedPhpDoc->getParamTags());
-				$phpDocReturnType = $resolvedPhpDoc->getReturnTag() !== null ? $resolvedPhpDoc->getReturnTag()->getType() : null;
+				$phpDocReturnType = null;
+				if (
+					$methodReflection->getReturnType() === null
+					|| $phpDocBlock->isExplicit()
+				) {
+					$phpDocReturnType = $resolvedPhpDoc->getReturnTag() !== null ? $resolvedPhpDoc->getReturnTag()->getType() : null;
+				}
 				$phpDocThrowType = $resolvedPhpDoc->getThrowsTag() !== null ? $resolvedPhpDoc->getThrowsTag()->getType() : null;
 				$isDeprecated = $resolvedPhpDoc->isDeprecated();
 				$isInternal = $resolvedPhpDoc->isInternal();

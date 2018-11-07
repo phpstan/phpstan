@@ -3395,6 +3395,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'MethodPhpDocsNamespace\Bar',
 				'$inlineBar',
 			],
+			[
+				'MethodPhpDocsNamespace\Foo',
+				'$this->phpDocVoidMethod()',
+			],
 		];
 	}
 

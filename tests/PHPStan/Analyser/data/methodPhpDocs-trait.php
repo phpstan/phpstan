@@ -52,4 +52,9 @@ class FooWithTrait extends FooParent
 
 	}
 
+	public function phpDocVoidMethod(): self
+	{
+
+	}
+
 }

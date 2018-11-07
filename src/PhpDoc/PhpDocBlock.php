@@ -22,17 +22,22 @@ class PhpDocBlock
 	/** @var string|null */
 	private $trait;
 
+	/** @var bool */
+	private $explicit;
+
 	private function __construct(
 		string $docComment,
 		string $file,
 		string $class,
-		?string $trait
+		?string $trait,
+		bool $explicit
 	)
 	{
 		$this->docComment = $docComment;
 		$this->file = $file;
 		$this->class = $class;
 		$this->trait = $trait;
+		$this->explicit = $explicit;
 	}
 
 	public function getDocComment(): string
@@ -55,13 +60,19 @@ class PhpDocBlock
 		return $this->trait;
 	}
 
+	public function isExplicit(): bool
+	{
+		return $this->explicit;
+	}
+
 	public static function resolvePhpDocBlockForProperty(
 		Broker $broker,
 		?string $docComment,
 		string $class,
 		?string $trait,
 		string $propertyName,
-		string $file
+		string $file,
+		?bool $explicit = null
 	): ?self
 	{
 		return self::resolvePhpDocBlock(
@@ -73,7 +84,8 @@ class PhpDocBlock
 			$file,
 			'hasNativeProperty',
 			'getNativeProperty',
-			__FUNCTION__
+			__FUNCTION__,
+			$explicit
 		);
 	}
 
@@ -83,7 +95,8 @@ class PhpDocBlock
 		string $class,
 		?string $trait,
 		string $methodName,
-		string $file
+		string $file,
+		?bool $explicit = null
 	): ?self
 	{
 		return self::resolvePhpDocBlock(
@@ -95,7 +108,8 @@ class PhpDocBlock
 			$file,
 			'hasNativeMethod',
 			'getNativeMethod',
-			__FUNCTION__
+			__FUNCTION__,
+			$explicit
 		);
 	}
 
@@ -108,7 +122,8 @@ class PhpDocBlock
 		string $file,
 		string $hasMethodName,
 		string $getMethodName,
-		string $resolveMethodName
+		string $resolveMethodName,
+		?bool $explicit
 	): ?self
 	{
 		if (
@@ -128,7 +143,8 @@ class PhpDocBlock
 					$name,
 					$hasMethodName,
 					$getMethodName,
-					$resolveMethodName
+					$resolveMethodName,
+					$docComment !== null
 				);
 				if ($phpDocBlockFromClass !== null) {
 					return $phpDocBlockFromClass;
@@ -142,7 +158,8 @@ class PhpDocBlock
 					$name,
 					$hasMethodName,
 					$getMethodName,
-					$resolveMethodName
+					$resolveMethodName,
+					$docComment !== null
 				);
 				if ($phpDocBlockFromClass !== null) {
 					return $phpDocBlockFromClass;
@@ -151,7 +168,7 @@ class PhpDocBlock
 		}
 
 		return $docComment !== null
-			? new self($docComment, $file, $class, $trait)
+			? new self($docComment, $file, $class, $trait, $explicit ?? true)
 			: null;
 	}
 
@@ -162,7 +179,8 @@ class PhpDocBlock
 		string $name,
 		string $hasMethodName,
 		string $getMethodName,
-		string $resolveMethodName
+		string $resolveMethodName,
+		bool $explicit
 	): ?self
 	{
 		$phpDocBlockFromClass = self::resolvePhpDocBlockFromClass(
@@ -171,7 +189,8 @@ class PhpDocBlock
 			$name,
 			$hasMethodName,
 			$getMethodName,
-			$resolveMethodName
+			$resolveMethodName,
+			$explicit
 		);
 
 		if ($phpDocBlockFromClass !== null) {
@@ -187,7 +206,8 @@ class PhpDocBlock
 				$name,
 				$hasMethodName,
 				$getMethodName,
-				$resolveMethodName
+				$resolveMethodName,
+				$explicit
 			);
 		}
 
@@ -200,7 +220,8 @@ class PhpDocBlock
 		string $name,
 		string $hasMethodName,
 		string $getMethodName,
-		string $resolveMethodName
+		string $resolveMethodName,
+		bool $explicit
 	): ?self
 	{
 		if ($classReflection->getFileName() !== false && $classReflection->$hasMethodName($name)) {
@@ -234,7 +255,8 @@ class PhpDocBlock
 					$classReflection->getName(),
 					$trait,
 					$name,
-					$classReflection->getFileName()
+					$classReflection->getFileName(),
+					$explicit
 				);
 			}
 		}
