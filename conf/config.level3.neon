@@ -4,7 +4,6 @@ includes:
 rules:
 	- PHPStan\Rules\Arrays\AppendedArrayItemTypeRule
 	- PHPStan\Rules\Arrays\IterableInForeachRule
-	- PHPStan\Rules\Arrays\NonexistentOffsetInArrayDimFetchRule
 	- PHPStan\Rules\Functions\ClosureReturnTypeRule
 	- PHPStan\Rules\Functions\ReturnTypeRule
 	- PHPStan\Rules\Methods\ReturnTypeRule
@@ -30,6 +29,13 @@ services:
 
 	-
 		class: PHPStan\Rules\Arrays\InvalidKeyInArrayItemRule
+		arguments:
+			reportMaybes: %reportMaybes%
+		tags:
+			- phpstan.rules.rule
+
+	-
+		class: PHPStan\Rules\Arrays\NonexistentOffsetInArrayDimFetchRule
 		arguments:
 			reportMaybes: %reportMaybes%
 		tags:

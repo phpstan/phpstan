@@ -6,6 +6,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\RuleError;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Rules\RuleLevelHelper;
+use PHPStan\Type\BenevolentUnionType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeUtils;
@@ -17,9 +18,16 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 	/** @var RuleLevelHelper */
 	private $ruleLevelHelper;
 
-	public function __construct(RuleLevelHelper $ruleLevelHelper)
+	/** @var bool */
+	private $reportMaybes;
+
+	public function __construct(
+		RuleLevelHelper $ruleLevelHelper,
+		bool $reportMaybes
+	)
 	{
 		$this->ruleLevelHelper = $ruleLevelHelper;
+		$this->reportMaybes = $reportMaybes;
 	}
 
 	public function getNodeType(): string
@@ -95,6 +103,24 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 			if (count($constantArrays) > 0) {
 				foreach ($constantArrays as $constantArray) {
 					if ($constantArray->hasOffsetValueType($dimType)->no()) {
+						$report = true;
+						break;
+					}
+				}
+			}
+		}
+
+		if (!$report && $this->reportMaybes) {
+			foreach (TypeUtils::flattenTypes($type) as $innerType) {
+				if ($dimType instanceof BenevolentUnionType) {
+					if ($innerType->hasOffsetValueType($dimType)->no()) {
+						$report = true;
+						break;
+					}
+					continue;
+				}
+				foreach (TypeUtils::flattenTypes($dimType) as $innerDimType) {
+					if ($innerType->hasOffsetValueType($innerDimType)->no()) {
 						$report = true;
 						break;
 					}
