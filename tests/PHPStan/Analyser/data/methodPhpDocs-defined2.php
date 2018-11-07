@@ -78,4 +78,12 @@ abstract class FooParent extends FooParentParent implements FooInterface
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	public function phpDocVoidParentMethod()
+	{
+
+	}
+
 }
