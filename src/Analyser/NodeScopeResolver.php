@@ -1978,6 +1978,7 @@ class NodeScopeResolver
 		$file = $scope->getFile();
 		$class = $scope->isInClass() ? $scope->getClassReflection()->getName() : null;
 		$trait = $scope->isInTrait() ? $scope->getTraitReflection()->getName() : null;
+		$isExplicitPhpDoc = true;
 		if ($functionLike instanceof Node\Stmt\ClassMethod) {
 			if (!$scope->isInClass()) {
 				throw new \PHPStan\ShouldNotHappenException();
@@ -1996,6 +1997,7 @@ class NodeScopeResolver
 				$file = $phpDocBlock->getFile();
 				$class = $phpDocBlock->getClass();
 				$trait = $phpDocBlock->getTrait();
+				$isExplicitPhpDoc = $phpDocBlock->isExplicit();
 			}
 		}
 
@@ -2009,7 +2011,10 @@ class NodeScopeResolver
 			$phpDocParameterTypes = array_map(static function (ParamTag $tag): Type {
 				return $tag->getType();
 			}, $resolvedPhpDoc->getParamTags());
-			$phpDocReturnType = $resolvedPhpDoc->getReturnTag() !== null ? $resolvedPhpDoc->getReturnTag()->getType() : null;
+			$phpDocReturnType = null;
+			if ($isExplicitPhpDoc || $functionLike->getReturnType() === null) {
+				$phpDocReturnType = $resolvedPhpDoc->getReturnTag() !== null ? $resolvedPhpDoc->getReturnTag()->getType() : null;
+			}
 			$phpDocThrowType = $resolvedPhpDoc->getThrowsTag() !== null ? $resolvedPhpDoc->getThrowsTag()->getType() : null;
 			$isDeprecated = $resolvedPhpDoc->isDeprecated();
 			$isInternal = $resolvedPhpDoc->isInternal();

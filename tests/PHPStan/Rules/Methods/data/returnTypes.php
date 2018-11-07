@@ -755,4 +755,9 @@ class Foo2 extends FooParent implements FooInterface
 		return '1';
 		return new integer();
 	}
+
+	public function returnsVoid(): self
+	{
+		return $this;
+	}
 }
