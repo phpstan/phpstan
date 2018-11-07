@@ -111,4 +111,22 @@ class NonexistentOffsetInArrayDimFetchRuleTest extends \PHPStan\Testing\RuleTest
 		]);
 	}
 
+	public function testAssignOp(): void
+	{
+		$this->analyse([__DIR__ . '/data/offset-access-assignop.php'], [
+			[
+				'Offset \'foo\' does not exist on array().',
+				4,
+			],
+			[
+				'Offset \'foo\' does not exist on \'Foo\'.',
+				10,
+			],
+			[
+				'Cannot access offset \'foo\' on stdClass.',
+				13,
+			],
+		]);
+	}
+
 }

@@ -46,15 +46,16 @@ class StringType implements Type
 
 	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
 	{
+		if ($offsetType === null) {
+			return new ErrorType();
+		}
+
 		$valueStringType = $valueType->toString();
 		if ($valueStringType instanceof ErrorType) {
 			return new ErrorType();
 		}
 
-		if (
-			$offsetType === null
-			|| (new IntegerType())->isSuperTypeOf($offsetType)->yes()
-		) {
+		if ((new IntegerType())->isSuperTypeOf($offsetType)->yes()) {
 			return new StringType();
 		}
 

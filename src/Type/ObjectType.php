@@ -483,6 +483,10 @@ class ObjectType implements TypeWithClassName
 
 	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
 	{
+		if ($this->isOffsetAccessible()->no()) {
+			return new ErrorType();
+		}
+
 		// in the future we may return intersection of $this and OffsetAccessibleType()
 		return $this;
 	}

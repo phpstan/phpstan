@@ -49,6 +49,11 @@ class MixedType implements CompoundType
 		return TrinaryLogic::createYes();
 	}
 
+	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
+	{
+		return new MixedType();
+	}
+
 	public function equals(Type $type): bool
 	{
 		return $type instanceof self;
