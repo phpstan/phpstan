@@ -144,7 +144,7 @@ class PhpDocBlock
 					$hasMethodName,
 					$getMethodName,
 					$resolveMethodName,
-					$docComment !== null
+					$explicit ?? $docComment !== null
 				);
 				if ($phpDocBlockFromClass !== null) {
 					return $phpDocBlockFromClass;
@@ -159,7 +159,7 @@ class PhpDocBlock
 					$hasMethodName,
 					$getMethodName,
 					$resolveMethodName,
-					$docComment !== null
+					$explicit ?? $docComment !== null
 				);
 				if ($phpDocBlockFromClass !== null) {
 					return $phpDocBlockFromClass;

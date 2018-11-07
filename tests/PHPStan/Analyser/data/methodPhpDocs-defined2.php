@@ -14,7 +14,20 @@ interface FooInterface
 
 }
 
-abstract class FooParent implements FooInterface
+class FooParentParent
+{
+
+	/**
+	 * @return void
+	 */
+	public function phpDocVoidParentMethod()
+	{
+
+	}
+
+}
+
+abstract class FooParent extends FooParentParent implements FooInterface
 {
 
 	/**

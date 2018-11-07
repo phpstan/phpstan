@@ -59,7 +59,12 @@ class FooWithTrait extends FooParent
 
 	public function phpDocVoidMethodFromInterface(): self
 	{
-		
+
+	}
+
+	public function phpDocVoidParentMethod(): self
+	{
+
 	}
 
 }

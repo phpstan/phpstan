@@ -148,4 +148,9 @@ class Foo extends FooParent
 
 	}
 
+	public function phpDocVoidParentMethod(): self
+	{
+
+	}
+
 }
