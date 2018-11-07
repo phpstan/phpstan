@@ -332,7 +332,7 @@ class PhpClassReflectionExtension
 				$this->broker,
 				$docComment,
 				$declaringClass->getName(),
-				null,
+				$declaringTraitName,
 				$methodReflection->getName(),
 				$declaringClass->getFileName()
 			);
@@ -341,7 +341,7 @@ class PhpClassReflectionExtension
 				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
 					$phpDocBlock->getFile(),
 					$phpDocBlock->getClass(),
-					$declaringTraitName,
+					$phpDocBlock->getTrait(),
 					$phpDocBlock->getDocComment()
 				);
 				$phpDocParameterTypes = array_map(static function (ParamTag $tag): Type {
