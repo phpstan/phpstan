@@ -3399,6 +3399,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'MethodPhpDocsNamespace\Foo',
 				'$this->phpDocVoidMethod()',
 			],
+			[
+				'MethodPhpDocsNamespace\Foo',
+				'$this->phpDocVoidMethodFromInterface()',
+			],
 		];
 	}
 

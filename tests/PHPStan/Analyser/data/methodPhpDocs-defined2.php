@@ -4,7 +4,17 @@ namespace MethodPhpDocsNamespace;
 
 use SomeNamespace\Amet as Dolor;
 
-class FooParent
+interface FooInterface
+{
+
+	/**
+	 * @return void
+	 */
+	public function phpDocVoidMethodFromInterface();
+
+}
+
+abstract class FooParent implements FooInterface
 {
 
 	/**
