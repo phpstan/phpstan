@@ -21,6 +21,7 @@ use PHPStan\Reflection\SignatureMap\SignatureMapProvider;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypehintHelper;
 
 class PhpClassReflectionExtension
 	implements PropertiesClassReflectionExtension, MethodsClassReflectionExtension, BrokerAwareExtension
@@ -347,12 +348,20 @@ class PhpClassReflectionExtension
 				$phpDocParameterTypes = array_map(static function (ParamTag $tag): Type {
 					return $tag->getType();
 				}, $resolvedPhpDoc->getParamTags());
+				$nativeReturnType = TypehintHelper::decideTypeFromReflection(
+					$methodReflection->getReturnType(),
+					null,
+					$declaringClass->getName()
+				);
 				$phpDocReturnType = null;
 				if (
-					$methodReflection->getReturnType() === null
-					|| $phpDocBlock->isExplicit()
+					$resolvedPhpDoc->getReturnTag() !== null
+					&& (
+						$phpDocBlock->isExplicit()
+						|| $nativeReturnType->isSuperTypeOf($resolvedPhpDoc->getReturnTag()->getType())->yes()
+					)
 				) {
-					$phpDocReturnType = $resolvedPhpDoc->getReturnTag() !== null ? $resolvedPhpDoc->getReturnTag()->getType() : null;
+					$phpDocReturnType = $resolvedPhpDoc->getReturnTag()->getType();
 				}
 				$phpDocThrowType = $resolvedPhpDoc->getThrowsTag() !== null ? $resolvedPhpDoc->getThrowsTag()->getType() : null;
 				$isDeprecated = $resolvedPhpDoc->isDeprecated();
