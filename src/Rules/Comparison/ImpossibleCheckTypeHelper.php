@@ -79,7 +79,7 @@ class ImpossibleCheckTypeHelper
 							return null;
 						}
 
-						$valueType = $haystackType->getIterableValueType();
+						$valueType = TypeCombinator::union(...$haystackArrayTypes)->getIterableValueType();
 						$isNeedleSupertype = $needleType->isSuperTypeOf($valueType);
 
 						if ($isNeedleSupertype->maybe() || $isNeedleSupertype->yes()) {
