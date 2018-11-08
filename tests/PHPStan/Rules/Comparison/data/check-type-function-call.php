@@ -221,9 +221,14 @@ class InArray
 
 	public function doFoo(
 		string $s,
-		int $i
+		int $i,
+		$mixed
 	)
 	{
+		if (in_array('foo', $mixed, true)) {
+
+		}
+
 		if (in_array($s, ['foo' ,'bar'], true)) {
 
 		}
