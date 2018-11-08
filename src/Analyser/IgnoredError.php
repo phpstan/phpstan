@@ -2,6 +2,9 @@
 
 namespace PHPStan\Analyser;
 
+use PHPStan\File\FileExcluder;
+use PHPStan\File\FileHelper;
+
 class IgnoredError
 {
 
@@ -12,16 +15,16 @@ class IgnoredError
 	 */
 	public static function stringifyPattern($ignoredError): string
 	{
-		if (is_array($ignoredError)) {
-			// ignore by path
-			if (isset($ignoredError['path'])) {
-				return sprintf('%s in path %s', $ignoredError['message'], $ignoredError['path']);
-			}
-
-			return $ignoredError['message'];
+		if (!is_array($ignoredError)) {
+			return $ignoredError;
 		}
 
-		return $ignoredError;
+		// ignore by path
+		if (isset($ignoredError['path'])) {
+			return sprintf('%s in path %s', $ignoredError['message'], $ignoredError['path']);
+		}
+
+		return $ignoredError['message'];
 	}
 
 	/**
@@ -35,8 +38,11 @@ class IgnoredError
 		if (is_array($ignoredError)) {
 			// ignore by path
 			if (isset($ignoredError['path'])) {
+				$FileHelper   = new FileHelper(getcwd());
+				$FileExcluder = new FileExcluder($FileHelper, [$ignoredError['path']]);
+
 				return \Nette\Utils\Strings::match($error->getMessage(), $ignoredError['message']) !== null
-					&& \Nette\Utils\Strings::match(str_replace('\\', '/', $error->getFile()), $ignoredError['path']) !== null;
+					&& $FileExcluder->isExcludedFromAnalysing($error->getFile());
 			}
 
 			return false;

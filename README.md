@@ -329,14 +329,17 @@ parameters:
 ```
 
 If you need to exclude a certain error in a specific directory or file, it's easy.
-Just specify a `path` along with the `message` (always use forward slashes, even on Windows):
+Just specify a `path` along with the `message`:
 
 ```
 parameters:
 	ignoreErrors:
 		-
 			message: '#Call to an undefined method [a-zA-Z0-9\\_]+::method\(\)#'
-			path: '#some/dir/SomeFile.php#'
+			path: %currentWorkingDirectory%/some/dir/SomeFile.php
+		-
+			message: '#Call to an undefined method [a-zA-Z0-9\\_]+::method\(\)#'
+			path: %currentWorkingDirectory%/other/dir/*
 		- '#Other error to catch anywhere#'
 ```
 
