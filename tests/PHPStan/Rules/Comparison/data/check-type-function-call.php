@@ -256,6 +256,15 @@ class InArray
 		if (in_array('foo', ['foo', 'bar'], true)) {
 
 		}
+
+		$arr = ['foo', 'bar'];
+		if (rand(0, 1) === 0) {
+			$arr = false;
+		}
+
+		if (in_array('foo', $arr, true)) {
+
+		}
 	}
 
 	/**
