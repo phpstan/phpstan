@@ -83,43 +83,43 @@ class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestC
 				],
 				[
 					'Call to function in_array() with arguments int, array(\'foo\', \'bar\') and true will always evaluate to false.',
-					230,
+					235,
 				],
 				[
 					'Call to function in_array() with arguments \'bar\'|\'foo\', array(\'baz\', \'lorem\') and true will always evaluate to false.',
-					239,
+					244,
 				],
 				[
 					'Call to function in_array() with arguments \'bar\'|\'foo\', array(\'foo\', \'bar\') and true will always evaluate to true.',
-					243,
+					248,
 				],
 				[
 					'Call to function in_array() with arguments \'foo\', array(\'foo\') and true will always evaluate to true.',
-					247,
+					252,
 				],
 				[
 					'Call to function in_array() with arguments \'foo\', array(\'foo\', \'bar\') and true will always evaluate to true.',
-					251,
+					256,
 				],
 				[
 					'Call to function in_array() with arguments \'bar\', array()|array(\'foo\') and true will always evaluate to false.',
-					306,
+					311,
 				],
 				[
 					'Call to function in_array() with arguments \'baz\', array(0 => \'bar\', ?1 => \'foo\') and true will always evaluate to false.',
-					322,
+					327,
 				],
 				[
 					'Call to function in_array() with arguments \'foo\', array() and true will always evaluate to false.',
-					329,
+					334,
 				],
 				[
 					'Call to function array_key_exists() with \'a\' and array(\'a\' => 1, ?\'b\' => 2) will always evaluate to true.',
-					346,
+					351,
 				],
 				[
 					'Call to function array_key_exists() with \'c\' and array(\'a\' => 1, ?\'b\' => 2) will always evaluate to false.',
-					352,
+					357,
 				],
 			]
 		);
@@ -161,27 +161,27 @@ class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestC
 				],
 				[
 					'Call to function in_array() with arguments int, array(\'foo\', \'bar\') and true will always evaluate to false.',
-					230,
+					235,
 				],
 				[
 					'Call to function in_array() with arguments \'bar\'|\'foo\', array(\'baz\', \'lorem\') and true will always evaluate to false.',
-					239,
+					244,
 				],
 				[
 					'Call to function in_array() with arguments \'bar\', array()|array(\'foo\') and true will always evaluate to false.',
-					306,
+					311,
 				],
 				[
 					'Call to function in_array() with arguments \'baz\', array(0 => \'bar\', ?1 => \'foo\') and true will always evaluate to false.',
-					322,
+					327,
 				],
 				[
 					'Call to function in_array() with arguments \'foo\', array() and true will always evaluate to false.',
-					329,
+					334,
 				],
 				[
 					'Call to function array_key_exists() with \'c\' and array(\'a\' => 1, ?\'b\' => 2) will always evaluate to false.',
-					352,
+					357,
 				],
 			]
 		);
