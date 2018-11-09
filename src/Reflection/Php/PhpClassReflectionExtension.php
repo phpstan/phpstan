@@ -426,8 +426,11 @@ class PhpClassReflectionExtension
 		BuiltinMethodReflection $methodReflection
 	): ?string
 	{
+		$declaringClass = $methodReflection->getDeclaringClass();
 		if (
-			$methodReflection->getFileName() === $methodReflection->getDeclaringClass()->getFileName()
+			$methodReflection->getFileName() === $declaringClass->getFileName()
+			&& $methodReflection->getStartLine() >= $declaringClass->getStartLine()
+			&& $methodReflection->getEndLine() <= $declaringClass->getEndLine()
 		) {
 			return null;
 		}
