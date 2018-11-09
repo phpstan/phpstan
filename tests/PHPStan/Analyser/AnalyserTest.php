@@ -57,6 +57,18 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		$this->assertSame('Error message "Class PHPStan\Tests\Baz was not found while trying to analyse it - autoloading is probably not configured properly." cannot be ignored, use excludes_analyse instead.', $result[1]);
 	}
 
+	public function testIgnoreErrorByPath(): void
+	{
+		$ignoreErrors = [
+			[
+				'message' => '#Class IgnoreErrorsByPath\[A-Za-z]+ was not found while trying to analyse it - autoloading is probably not configured properly.#',
+				'path'    => __DIR__ . '/data/ignore-errors-by-path/not-ignored.php',
+			],
+		];
+		$result = $this->runAnalyser($ignoreErrors, true, __DIR__ . '/data/ignore-errors-by-path', false);
+		$this->assertCount(1, $result);
+	}
+
 	/**
 	 * @param string[] $ignoreErrors
 	 * @param bool $reportUnmatchedIgnoredErrors

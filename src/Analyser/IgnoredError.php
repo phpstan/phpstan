@@ -38,11 +38,11 @@ class IgnoredError
 		if (is_array($ignoredError)) {
 			// ignore by path
 			if (isset($ignoredError['path'])) {
-				$FileHelper   = new FileHelper(getcwd());
-				$FileExcluder = new FileExcluder($FileHelper, [$ignoredError['path']]);
+				$fileHelper   = new FileHelper(getcwd());
+				$fileExcluder = new FileExcluder($fileHelper, [$ignoredError['path']]);
 
 				return \Nette\Utils\Strings::match($error->getMessage(), $ignoredError['message']) !== null
-					&& $FileExcluder->isExcludedFromAnalysing($error->getFile());
+					&& $fileExcluder->isExcludedFromAnalysing($error->getFile());
 			}
 
 			return false;
