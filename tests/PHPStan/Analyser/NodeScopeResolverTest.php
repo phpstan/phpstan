@@ -3456,6 +3456,33 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataTypeFromTraitPhpDocsInSameFile(): array
+	{
+		return [
+			[
+				'string',
+				'$this->getFoo()',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataTypeFromTraitPhpDocsInSameFile
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testTypeFromTraitPhpDocsInSameFile(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/methodPhpDocs-traitInSameFileAsClass.php',
+			$description,
+			$expression
+		);
+	}
+
 	/**
 	 * @dataProvider dataTypeFromFunctionPhpDocs
 	 * @dataProvider dataTypeFromMethodPhpDocs
