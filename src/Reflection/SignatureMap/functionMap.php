@@ -13624,7 +13624,7 @@ return [
 'ZipArchive::getExternalAttributesIndex' => ['bool', 'index'=>'int', '&w_opsys'=>'int', '&w_attr'=>'int', 'flags='=>'int'],
 'ZipArchive::getExternalAttributesName' => ['bool', 'name'=>'string', '&w_opsys'=>'int', '&w_attr'=>'int', 'flags='=>'int'],
 'ZipArchive::getFromIndex' => ['string', 'index'=>'int', 'len='=>'int', 'flags='=>'int'],
-'ZipArchive::getFromName' => ['string', 'entryname'=>'string', 'len='=>'int', 'flags='=>'int'],
+'ZipArchive::getFromName' => ['string|false', 'entryname'=>'string', 'len='=>'int', 'flags='=>'int'],
 'ZipArchive::getNameIndex' => ['string', 'index'=>'int', 'flags='=>'int'],
 'ZipArchive::getStatusString' => ['string'],
 'ZipArchive::getStream' => ['resource', 'entryname'=>'string'],
