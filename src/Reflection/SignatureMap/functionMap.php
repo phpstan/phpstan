@@ -1924,7 +1924,7 @@ return [
 'DOMDocument::relaxNGValidate' => ['bool', 'filename'=>'string'],
 'DOMDocument::relaxNGValidateSource' => ['bool', 'source'=>'string'],
 'DOMDocument::save' => ['int', 'filename'=>'string', 'options='=>'int'],
-'DOMDocument::saveHTML' => ['string', 'node='=>'?DOMNode'],
+'DOMDocument::saveHTML' => ['string|false', 'node='=>'?DOMNode'],
 'DOMDocument::saveHTMLFile' => ['int', 'filename'=>'string'],
 'DOMDocument::saveXML' => ['string', 'node='=>'DOMNode', 'options='=>'int'],
 'DOMDocument::schemaValidate' => ['bool', 'filename'=>'string', 'flags='=>'int'],
