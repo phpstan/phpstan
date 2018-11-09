@@ -328,8 +328,7 @@ parameters:
 		- '#Call to an undefined method PHPUnit_Framework_MockObject_MockObject::[a-zA-Z0-9_]+\(\)#'
 ```
 
-If you need to exclude a certain error in a specific directory or file, it's easy.
-Just specify a `path` along with the `message`:
+To exclude an error in a specific directory or file, specify a `path` along with the `message`:
 
 ```
 parameters:
