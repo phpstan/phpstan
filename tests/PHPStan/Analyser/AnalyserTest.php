@@ -61,7 +61,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 	{
 		$ignoreErrors = [
 			[
-				'message' => '#Class IgnoreErrorsByPath\[A-Za-z]+ was not found while trying to analyse it - autoloading is probably not configured properly.#',
+				'message' => '#Class IgnoreErrorsByPath\\[A-Za-z]+ was not found while trying to analyse it - autoloading is probably not configured properly.#',
 				'path'    => __DIR__ . '/data/ignore-errors-by-path/not-ignored.php',
 			],
 		];
