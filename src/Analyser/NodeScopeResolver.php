@@ -829,7 +829,8 @@ class NodeScopeResolver
 
 				$this->processNodes($subNode, $scope, $nodeCallback, $argClosureBindScope);
 			} elseif ($subNode instanceof \PhpParser\Node) {
-				if ($node instanceof Coalesce && $subNodeName === 'left') {
+				if ($node instanceof Coalesce && $subNodeName === 'left' && $subNode instanceof Expr) {
+					$scope = $this->specifyProperty($scope, $subNode);
 					$scope = $this->ensureNonNullability($scope, $subNode, false);
 
 					if (!($node->left instanceof ArrayDimFetch) || $node->left->dim !== null) {

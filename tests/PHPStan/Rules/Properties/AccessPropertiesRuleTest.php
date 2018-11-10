@@ -123,18 +123,6 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 					250,
 				],
 				[
-					'Access to an undefined property TestAccessProperties\NullCoalesce::$bar.',
-					264,
-				],
-				[
-					'Access to an undefined property TestAccessProperties\NullCoalesce::$bar.',
-					266,
-				],
-				[
-					'Access to an undefined property TestAccessProperties\NullCoalesce::$bar.',
-					270,
-				],
-				[
 					'Cannot access property $bar on TestAccessProperties\NullCoalesce|null.',
 					272,
 				],
@@ -248,18 +236,6 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 				[
 					'Access to an undefined property TestAccessProperties\FooAccessProperties::$dolor.',
 					250,
-				],
-				[
-					'Access to an undefined property TestAccessProperties\NullCoalesce::$bar.',
-					264,
-				],
-				[
-					'Access to an undefined property TestAccessProperties\NullCoalesce::$bar.',
-					266,
-				],
-				[
-					'Access to an undefined property TestAccessProperties\NullCoalesce::$bar.',
-					270,
 				],
 				[
 					'Cannot access property $bar on TestAccessProperties\NullCoalesce|null.',
