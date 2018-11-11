@@ -53,6 +53,7 @@
 	<rule ref="SlevomatCodingStandard.Functions.StaticClosure"/>
 	<rule ref="SlevomatCodingStandard.Functions.UselessParameterDefaultValue"/>
 	<rule ref="SlevomatCodingStandard.Operators.RequireCombinedAssignmentOperator"/>
+	<rule ref="SlevomatCodingStandard.Operators.RequireOnlyStandaloneIncrementAndDecrementOperators"/>
 	<rule ref="SlevomatCodingStandard.TypeHints.NullTypeHintOnLastPosition"/>
 	<rule ref="SlevomatCodingStandard.Classes.TraitUseDeclaration"/>
 	<rule ref="SlevomatCodingStandard.Classes.TraitUseSpacing"/>
@@ -72,5 +73,8 @@
 	<exclude-pattern>src/Reflection/SignatureMap/functionMap.php</exclude-pattern>
 	<rule ref="SlevomatCodingStandard.ControlStructures.UselessConditionWithReturn">
 		<exclude-pattern>src/Broker/Broker.php</exclude-pattern>
+	</rule>
+	<rule ref="SlevomatCodingStandard.Operators.RequireOnlyStandaloneIncrementAndDecrementOperators">
+		<exclude-pattern>src/Type/TypeCombinator.php</exclude-pattern>
 	</rule>
 </ruleset>
