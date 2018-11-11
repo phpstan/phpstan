@@ -217,15 +217,11 @@ class PhpClassReflectionExtension
 			return true;
 		}
 
-		if ($methodName === '__get' && UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate(
+		return $methodName === '__get' && UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate(
 			$this->broker,
 			$this->broker->getUniversalObjectCratesClasses(),
 			$classReflection
-		)) {
-			return true;
-		}
-
-		return false;
+		);
 	}
 
 	public function getNativeMethod(ClassReflection $classReflection, string $methodName): MethodReflection
