@@ -21,10 +21,10 @@
 	</rule>
 	<rule ref="SlevomatCodingStandard.TypeHints.TypeHintDeclaration">
 		<properties>
-			<property name="usefulAnnotations" type="array" value="
-				@dataProvider,
-				@requires
-			"/>
+			<property name="usefulAnnotations" type="array">
+				<element value="@dataProvider"/>
+				<element value="@requires"/>
+			</property>
 		</properties>
 		<exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableParameterTypeHintSpecification"/>
 		<exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableReturnTypeHintSpecification"/>
@@ -38,7 +38,10 @@
 	<rule ref="SlevomatCodingStandard.ControlStructures.DisallowShortTernaryOperator"/>
 	<rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">
 		<properties>
-			<property name="rootNamespaces" type="array" value="src=>PHPStan,tests/PHPStan=>PHPStan"/>
+			<property name="rootNamespaces" type="array">
+				<element key="src" value="PHPStan"/>
+				<element key="tests/PHPStan" value="PHPStan"/>
+			</property>
 		</properties>
 	</rule>
 	<rule ref="SlevomatCodingStandard.Classes.ModernClassNameReference"/>
