@@ -50,6 +50,7 @@
 	</rule>
 	<rule ref="SlevomatCodingStandard.Classes.ModernClassNameReference"/>
 	<rule ref="SlevomatCodingStandard.Functions.StaticClosure"/>
+	<rule ref="SlevomatCodingStandard.Functions.UselessParameterDefaultValue"/>
 	<rule ref="SlevomatCodingStandard.Operators.RequireCombinedAssignmentOperator"/>
 	<rule ref="SlevomatCodingStandard.TypeHints.NullTypeHintOnLastPosition"/>
 	<rule ref="SlevomatCodingStandard.Classes.TraitUseDeclaration"/>

@@ -178,7 +178,7 @@ class LookForAssignsSettingsTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testShouldIntersectVariables(
 		LookForAssignsSettings $settings,
-		?\PhpParser\Node $earlyTerminationStatement = null,
+		?\PhpParser\Node $earlyTerminationStatement,
 		bool $expectedResult
 	): void
 	{
