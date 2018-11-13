@@ -73,7 +73,7 @@ class ConstantArrayTypeBuilder
 
 			$this->keyTypes[] = $offsetType;
 			$this->valueTypes[] = $valueType;
-			$this->nextAutoIndex = $offsetType instanceof ConstantIntegerType
+			$this->nextAutoIndex = !$offsetType instanceof ConstantStringType
 				? max($this->nextAutoIndex, $offsetType->getValue() + 1)
 				: $this->nextAutoIndex;
 			return;

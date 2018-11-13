@@ -299,4 +299,19 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->analyse([__DIR__ . '/data/while-loop-look-for-assigns.php'], []);
 	}
 
+	public function testCallToArrayFunction(): void
+	{
+		require_once __DIR__ . '/data/call-to-array-function.php';
+		$this->analyse([__DIR__ . '/data/call-to-array-function.php'], [
+			[
+				'Parameter #1 $array of function CallToArrayFunction\assoc expects array<string, string>, array<int, string> given.',
+				26,
+			],
+			[
+				'Parameter #1 $array of function CallToArrayFunction\numeric expects array<int, string>, array<string, string> given.',
+				31,
+			],
+		]);
+	}
+
 }

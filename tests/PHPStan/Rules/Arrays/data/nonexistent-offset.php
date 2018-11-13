@@ -277,4 +277,47 @@ class Foo
 		}
 	}
 
+	public function numericStringOffsetOnConstantArray()
+	{
+		$array = ['1' => ''];
+		$array['1'];
+		$array['a'];
+		$array[1];
+
+		$strarr = [trim('1') => ''];
+		$strarr['1'];
+		$strarr['a'];
+		$strarr[1];
+
+		$numarr = [1 => ''];
+		$numarr['1'];
+		$numarr['a'];
+		$numarr[1];
+
+		$assoc = ['a' => ''];
+		$assoc['1'];
+		$assoc['a'];
+		$assoc[1];
+
+		$mixarr = ['1' => '', 'a' => ''];
+		$mixarr['1'];
+		$mixarr['a'];
+		$mixarr[1];
+	}
+
+	/**
+	 * @param array<string, string> $strKeys
+	 * @param array<int, string> $intKeys
+	 */
+	public function numericStringOffset(array $strKeys, array $intKeys)
+	{
+		$strKeys['1'];
+		$strKeys['a'];
+		$strKeys[1];
+
+		$intKeys['1'];
+		$intKeys['a'];
+		$intKeys[1];
+	}
+
 }

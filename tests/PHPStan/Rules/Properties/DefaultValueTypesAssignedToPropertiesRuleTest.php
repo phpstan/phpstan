@@ -24,10 +24,6 @@ class DefaultValueTypesAssignedToPropertiesRuleTest extends \PHPStan\Testing\Rul
 				'Static property PropertiesAssignedDefaultValuesTypes\Foo::$staticStringPropertyWithWrongDefaultValue (string) does not accept default value of type int.',
 				18,
 			],
-			[
-				'Static property PropertiesAssignedDefaultValuesTypes\Foo::$windowsNtVersions (array<string, string>) does not accept default value of type array<int|string, string>.',
-				24,
-			],
 		]);
 	}
 

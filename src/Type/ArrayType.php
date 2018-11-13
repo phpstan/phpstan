@@ -6,6 +6,7 @@ use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantIntegerType;
+use PHPStan\Type\Constant\ConstantNumericKeyType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
@@ -266,9 +267,25 @@ class ArrayType implements StaticResolvableType
 	public static function castToArrayKeyType(Type $offsetType): Type
 	{
 		if ($offsetType instanceof UnionType) {
-			return TypeCombinator::union(...array_map(static function (Type $type): Type {
+			$union = TypeCombinator::union(...array_map(static function (Type $type): Type {
 				return self::castToArrayKeyType($type);
 			}, $offsetType->getTypes()));
+
+			return $offsetType instanceof BenevolentUnionType && $union instanceof UnionType
+				? new BenevolentUnionType($union->getTypes())
+				: $union;
+		}
+
+		if ($offsetType instanceof ConstantIntegerType) {
+			return $offsetType;
+		}
+
+		if ($offsetType instanceof ConstantStringType) {
+			/** @var int|string $offsetValue */
+			$offsetValue = key([$offsetType->getValue() => null]);
+			return is_int($offsetValue)
+				? new ConstantNumericKeyType($offsetType->getValue())
+				: new ConstantStringType($offsetValue);
 		}
 
 		if ($offsetType instanceof ConstantScalarType) {

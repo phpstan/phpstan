@@ -9,7 +9,7 @@ trait ConstantScalarToBooleanTrait
 
 	public function toBoolean(): BooleanType
 	{
-		return new ConstantBooleanType((bool) $this->value);
+		return new ConstantBooleanType((bool) $this->getValue());
 	}
 
 }

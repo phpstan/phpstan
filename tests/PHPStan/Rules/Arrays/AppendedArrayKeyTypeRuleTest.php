@@ -35,10 +35,6 @@ class AppendedArrayKeyTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				33,
 			],
 			[
-				'Array (array<string, mixed>) does not accept key 0.',
-				38,
-			],
-			[
 				'Array (array<string, mixed>) does not accept key 1.',
 				46,
 			],
