@@ -63,7 +63,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		$ignoreErrors = [
 			[
 				'message' => '#Fail\.#',
-				'path'    => __DIR__ . '/data/bootstrap-error.php',
+				'path' => __DIR__ . '/data/bootstrap-error.php',
 			],
 		];
 		$result = $this->runAnalyser($ignoreErrors, true, __DIR__ . '/data/bootstrap-error.php', false);
@@ -75,12 +75,49 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		$ignoreErrors = [
 			[
 				'message' => '#Fail\.#',
-				'path'    => __DIR__ . '/data/not-existent-path.php',
+				'path' => __DIR__ . '/data/not-existent-path.php',
 			],
 		];
 		$result = $this->runAnalyser($ignoreErrors, true, __DIR__ . '/data/empty/empty.php', false);
 		$this->assertCount(1, $result);
 		$this->assertSame('Ignored error pattern #Fail\.# in path ' . __DIR__ . '/data/not-existent-path.php was not matched in reported errors.', $result[0]);
+	}
+
+	public function testIgnoredErrorMissingMessage(): void
+	{
+		$ignoreErrors = [
+			[
+				'path' => __DIR__ . '/data/empty/empty.php',
+			],
+		];
+		$result = $this->runAnalyser($ignoreErrors, true, __DIR__ . '/data/empty/empty.php', false);
+		$this->assertCount(1, $result);
+		$this->assertSame('Ignored error {"path":"' . __DIR__ . '/data/empty/empty.php"} is missing a message.', $result[0]);
+	}
+
+	public function testIgnoredErrorMissingPath(): void
+	{
+		$ignoreErrors = [
+			[
+				'message' => '#Fail\.#',
+			],
+		];
+		$result = $this->runAnalyser($ignoreErrors, true, __DIR__ . '/data/empty/empty.php', false);
+		$this->assertCount(1, $result);
+		$this->assertSame('Ignored error {"message":"#Fail\\\\.#"} is missing a path.', $result[0]);
+	}
+
+	public function testIgnoredErrorMessageStillValidatedIfMissingAPath(): void
+	{
+		$ignoreErrors = [
+			[
+				'message' => '#Fail\.',
+			],
+		];
+		$result = $this->runAnalyser($ignoreErrors, true, __DIR__ . '/data/empty/empty.php', false);
+		$this->assertCount(2, $result);
+		$this->assertSame('Ignored error {"message":"#Fail\\\\."} is missing a path.', $result[0]);
+		$this->assertSame('No ending delimiter \'#\' found in pattern: #Fail\.', $result[1]);
 	}
 
 	/**
@@ -143,6 +180,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 				false,
 				[]
 			),
+			$fileHelper,
 			$ignoreErrors,
 			$reportUnmatchedIgnoredErrors,
 			50

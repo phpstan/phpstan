@@ -2,6 +2,8 @@
 
 namespace PHPStan\Analyser;
 
+use Nette\Utils\Json;
+use PHPStan\File\FileHelper;
 use PHPStan\Parser\Parser;
 use PHPStan\Rules\LineRuleError;
 use PHPStan\Rules\Registry;
@@ -21,6 +23,9 @@ class Analyser
 	/** @var \PHPStan\Analyser\NodeScopeResolver */
 	private $nodeScopeResolver;
 
+	/** @var \PHPStan\File\FileHelper */
+	private $fileHelper;
+
 	/** @var (string|array<string, string>)[] */
 	private $ignoreErrors;
 
@@ -35,6 +40,7 @@ class Analyser
 	 * @param \PHPStan\Parser\Parser $parser
 	 * @param \PHPStan\Rules\Registry $registry
 	 * @param \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver
+	 * @param \PHPStan\File\FileHelper $fileHelper
 	 * @param (string|array<string, string>)[] $ignoreErrors
 	 * @param bool $reportUnmatchedIgnoredErrors
 	 * @param int $internalErrorsCountLimit
@@ -44,6 +50,7 @@ class Analyser
 		Parser $parser,
 		Registry $registry,
 		NodeScopeResolver $nodeScopeResolver,
+		FileHelper $fileHelper,
 		array $ignoreErrors,
 		bool $reportUnmatchedIgnoredErrors,
 		int $internalErrorsCountLimit
@@ -53,6 +60,8 @@ class Analyser
 		$this->parser = $parser;
 		$this->registry = $registry;
 		$this->nodeScopeResolver = $nodeScopeResolver;
+		$this->fileHelper = $fileHelper;
+		$this->fileHelper = $fileHelper;
 		$this->ignoreErrors = $ignoreErrors;
 		$this->reportUnmatchedIgnoredErrors = $reportUnmatchedIgnoredErrors;
 		$this->internalErrorsCountLimit = $internalErrorsCountLimit;
@@ -80,11 +89,16 @@ class Analyser
 			try {
 				if (is_array($ignoreError)) {
 					if (!isset($ignoreError['message'])) {
-						throw new \LogicException(
-							sprintf(
-								'Bad message structure %s',
-								var_export($ignoreError, true)
-							)
+						$errors[] = sprintf(
+							'Ignored error %s is missing a message.',
+							Json::encode($ignoreError)
+						);
+						continue;
+					}
+					if (!isset($ignoreError['path'])) {
+						$errors[] = sprintf(
+							'Ignored error %s is missing a path.',
+							Json::encode($ignoreError)
 						);
 					}
 
@@ -175,7 +189,7 @@ class Analyser
 		$addErrors = [];
 		$errors = array_values(array_filter($errors, function (Error $error) use (&$unmatchedIgnoredErrors, &$addErrors): bool {
 			foreach ($this->ignoreErrors as $i => $ignore) {
-				if (IgnoredError::shouldIgnore($error, $ignore)) {
+				if (IgnoredError::shouldIgnore($this->fileHelper, $error, $ignore)) {
 					unset($unmatchedIgnoredErrors[$i]);
 					if (!$error->canBeIgnored()) {
 						$addErrors[] = sprintf(

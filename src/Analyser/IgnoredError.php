@@ -29,28 +29,27 @@ class IgnoredError
 
 	/**
 	 * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
+	 * @param FileHelper $fileHelper
 	 * @param Error $error
 	 * @param array<string, string>|string $ignoredError
 	 * @return bool To ignore or not to ignore?
 	 */
-	public static function shouldIgnore(Error $error, $ignoredError): bool
+	public static function shouldIgnore(
+		FileHelper $fileHelper,
+		Error $error,
+		$ignoredError
+	): bool
 	{
 		if (is_array($ignoredError)) {
 			// ignore by path
 			if (isset($ignoredError['path'])) {
-				$workingDirectory = getcwd();
-				if ($workingDirectory === false) {
-					throw new \LogicException('Can\'t get current working directory');
-				}
-
-				$fileHelper   = new FileHelper($workingDirectory);
 				$fileExcluder = new FileExcluder($fileHelper, [$ignoredError['path']]);
 
 				return \Nette\Utils\Strings::match($error->getMessage(), $ignoredError['message']) !== null
 					&& $fileExcluder->isExcludedFromAnalysing($error->getFile());
 			}
 
-			return false;
+			throw new \PHPStan\ShouldNotHappenException();
 		}
 
 		return \Nette\Utils\Strings::match($error->getMessage(), $ignoredError) !== null;
