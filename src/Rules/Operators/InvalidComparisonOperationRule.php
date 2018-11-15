@@ -5,7 +5,6 @@ namespace PHPStan\Rules\Operators;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\RuleLevelHelper;
-use PHPStan\TrinaryLogic;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
@@ -72,25 +71,20 @@ class InvalidComparisonOperationRule implements \PHPStan\Rules\Rule
 	private function isNumberType(Scope $scope, Node\Expr $expr): bool
 	{
 		$acceptedType = new UnionType([new IntegerType(), new FloatType()]);
-
-		$alwaysYes = static function (): bool {
-			return true;
-		};
 		$onlyNumber = static function (Type $type) use ($acceptedType): bool {
 			return $acceptedType->accepts($type, true)->yes();
 		};
 
 		$type = $this->ruleLevelHelper->findTypeToCheck($scope, $expr, '', $onlyNumber)->getType();
-		$fulltype = $this->ruleLevelHelper->findTypeToCheck($scope, $expr, '', $alwaysYes)->getType();
 
-		if ($type instanceof ErrorType || !$type->equals($fulltype)) {
+		if (
+			$type instanceof ErrorType
+			|| !$type->equals($scope->getType($expr))
+		) {
 			return false;
 		}
 
-		return !TrinaryLogic::createNo()->or(
-			$type->isSuperTypeOf(new IntegerType()),
-			$type->isSuperTypeOf(new FloatType())
-		)->no();
+		return !$acceptedType->isSuperTypeOf($type)->no();
 	}
 
 
