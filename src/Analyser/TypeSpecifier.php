@@ -310,7 +310,7 @@ class TypeSpecifier
 				$calleeType = $scope->getType($expr->class);
 			}
 
-			if ($calleeType->hasMethod($expr->name->name)) {
+			if (!$calleeType->hasMethod($expr->name->name)->no()) {
 				$staticMethodReflection = $calleeType->getMethod($expr->name->name, $scope);
 				$referencedClasses = TypeUtils::getDirectClassNames($calleeType);
 				if (

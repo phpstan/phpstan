@@ -111,7 +111,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 				$class,
 				sprintf('Access to constant %s on an unknown class %%s.', $constantName),
 				static function (Type $type) use ($constantName): bool {
-					return $type->canAccessConstants()->yes() && $type->hasConstant($constantName);
+					return $type->canAccessConstants()->yes() && $type->hasConstant($constantName)->yes();
 				}
 			);
 			$classType = $classTypeResult->getType();
@@ -137,7 +137,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 			return $messages;
 		}
 
-		if (!$classType->hasConstant($constantName)) {
+		if (!$classType->hasConstant($constantName)->yes()) {
 			return array_merge($messages, [
 				sprintf(
 					'Access to undefined constant %s::%s.',

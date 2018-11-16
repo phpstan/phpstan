@@ -26,19 +26,19 @@ interface Type
 
 	public function canAccessProperties(): TrinaryLogic;
 
-	public function hasProperty(string $propertyName): bool;
+	public function hasProperty(string $propertyName): TrinaryLogic;
 
 	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection;
 
 	public function canCallMethods(): TrinaryLogic;
 
-	public function hasMethod(string $methodName): bool;
+	public function hasMethod(string $methodName): TrinaryLogic;
 
 	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection;
 
 	public function canAccessConstants(): TrinaryLogic;
 
-	public function hasConstant(string $constantName): bool;
+	public function hasConstant(string $constantName): TrinaryLogic;
 
 	public function getConstant(string $constantName): ConstantReflection;
 

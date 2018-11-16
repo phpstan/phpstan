@@ -106,7 +106,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->union->foo',
 			],
 			[
-				'*ERROR*',
+				'UnionIntersection\Bar',
 				'$this->union->bar',
 			],
 			[
@@ -146,7 +146,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->union::FOO_CONSTANT',
 			],
 			[
-				'*ERROR*',
+				'1',
 				'$this->union::BAR_CONSTANT',
 			],
 			[
@@ -194,7 +194,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->union::doStaticFoo()',
 			],
 			[
-				'*ERROR*',
+				'UnionIntersection\Bar',
 				'$this->union::doStaticBar()',
 			],
 			[

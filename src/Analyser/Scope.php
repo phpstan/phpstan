@@ -1182,7 +1182,7 @@ class Scope implements ClassMemberAccessAnswerer
 			if (strtolower($constantName) === 'class' && $constantClassType instanceof TypeWithClassName) {
 				return new ConstantStringType($constantClassType->getClassName());
 			}
-			if ($constantClassType->hasConstant($constantName)) {
+			if (!$constantClassType->hasConstant($constantName)->no()) {
 				$constant = $constantClassType->getConstant($constantName);
 				$constantType = $this->getTypeFromValue($constant->getValue());
 				$directClassNames = TypeUtils::getDirectClassNames($constantClassType);
@@ -1277,7 +1277,7 @@ class Scope implements ClassMemberAccessAnswerer
 				return TypeCombinator::union(...$resolvedTypes);
 			}
 
-			if (!$methodCalledOnType->hasMethod($node->name->name)) {
+			if ($methodCalledOnType->hasMethod($node->name->name)->no()) {
 				return new ErrorType();
 			}
 			$methodReflection = $methodCalledOnType->getMethod($node->name->name, $this);
@@ -1307,7 +1307,7 @@ class Scope implements ClassMemberAccessAnswerer
 				$calleeType = $this->getType($node->class);
 			}
 
-			if (!$calleeType->hasMethod($node->name->name)) {
+			if ($calleeType->hasMethod($node->name->name)->no()) {
 				return new ErrorType();
 			}
 			$staticMethodReflection = $calleeType->getMethod($node->name->name, $this);
@@ -1358,7 +1358,7 @@ class Scope implements ClassMemberAccessAnswerer
 
 		if ($node instanceof PropertyFetch && $node->name instanceof Node\Identifier) {
 			$propertyFetchedOnType = $this->getType($node->var);
-			if (!$propertyFetchedOnType->hasProperty($node->name->name)) {
+			if ($propertyFetchedOnType->hasProperty($node->name->name)->no()) {
 				return new ErrorType();
 			}
 

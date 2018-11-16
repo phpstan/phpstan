@@ -233,7 +233,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			return ConstantArrayTypeAndMethod::createUnknown();
 		}
 
-		if ($type->hasMethod($method->getValue())) {
+		if (!$type->hasMethod($method->getValue())->no()) {
 			return ConstantArrayTypeAndMethod::createConcrete($type, $method->getValue());
 		}
 
