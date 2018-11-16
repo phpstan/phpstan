@@ -277,4 +277,14 @@ class Foo
 		}
 	}
 
+	public function castToArrayKeyType()
+	{
+		$array = [
+			'1' => [
+				'foo' => 'bar',
+			],
+		];
+		return $array['1'];
+	}
+
 }
