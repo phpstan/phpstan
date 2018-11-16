@@ -60,6 +60,10 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 			return $this->staticObjectType->isSuperTypeOf($type);
 		}
 
+		if ($type instanceof ObjectWithoutClassType) {
+			return TrinaryLogic::createMaybe();
+		}
+
 		if ($type instanceof ObjectType) {
 			return TrinaryLogic::createMaybe()->and($this->staticObjectType->isSuperTypeOf($type));
 		}
