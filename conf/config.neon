@@ -29,6 +29,7 @@ parameters:
 		- stdClass
 		- SimpleXMLElement
 	earlyTerminatingMethodCalls: []
+	earlyTerminatingFunctionCalls: []
 	memoryLimitFile: %tmpDir%/.memory_limit
 	dynamicConstantNames:
 		- ICONV_IMPL
@@ -133,6 +134,7 @@ services:
 			polluteScopeWithLoopInitialAssignments: %polluteScopeWithLoopInitialAssignments%
 			polluteCatchScopeWithTryAssignments: %polluteCatchScopeWithTryAssignments%
 			earlyTerminatingMethodCalls: %earlyTerminatingMethodCalls%
+			earlyTerminatingFunctionCalls: %earlyTerminatingFunctionCalls%
 
 	-
 		class: PHPStan\Cache\Cache

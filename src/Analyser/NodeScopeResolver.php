@@ -98,6 +98,9 @@ class NodeScopeResolver
 	/** @var bool */
 	private $polluteCatchScopeWithTryAssignments;
 
+	/** @var string[] funcName(string) */
+	private $earlyTerminatingFunctionCalls;
+
 	/** @var string[][] className(string) => methods(string[]) */
 	private $earlyTerminatingMethodCalls;
 
@@ -116,6 +119,7 @@ class NodeScopeResolver
 	 * @param bool $polluteScopeWithLoopInitialAssignments
 	 * @param bool $polluteCatchScopeWithTryAssignments
 	 * @param string[][] $earlyTerminatingMethodCalls className(string) => methods(string[])
+	 * @param string[] $earlyTerminatingFunctionCalls funcName(string)
 	 */
 	public function __construct(
 		Broker $broker,
@@ -125,7 +129,8 @@ class NodeScopeResolver
 		TypeSpecifier $typeSpecifier,
 		bool $polluteScopeWithLoopInitialAssignments,
 		bool $polluteCatchScopeWithTryAssignments,
-		array $earlyTerminatingMethodCalls
+		array $earlyTerminatingMethodCalls,
+		array $earlyTerminatingFunctionCalls = []
 	)
 	{
 		$this->broker = $broker;
@@ -136,6 +141,7 @@ class NodeScopeResolver
 		$this->polluteScopeWithLoopInitialAssignments = $polluteScopeWithLoopInitialAssignments;
 		$this->polluteCatchScopeWithTryAssignments = $polluteCatchScopeWithTryAssignments;
 		$this->earlyTerminatingMethodCalls = $earlyTerminatingMethodCalls;
+		$this->earlyTerminatingFunctionCalls = $earlyTerminatingFunctionCalls;
 	}
 
 	/**
@@ -1824,6 +1830,16 @@ class NodeScopeResolver
 						return $statement;
 					}
 				}
+			}
+
+			return null;
+		} elseif ($statement instanceof FuncCall && count($this->earlyTerminatingFunctionCalls) > 0) {
+			if ($statement->name instanceof Expr) {
+				return null;
+			}
+
+			if (in_array((string) $statement->name, $this->earlyTerminatingFunctionCalls, true)) {
+				return $statement;
 			}
 
 			return null;
