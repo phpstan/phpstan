@@ -66,8 +66,9 @@ class HasPropertyType implements CompoundType, AccessoryType
 			return TrinaryLogic::createNo();
 		}
 
-		if (!$type->hasProperty($this->propertyName)->no()) {
-			return TrinaryLogic::createYes();
+		$hasProperty = $type->hasProperty($this->propertyName);
+		if (!$hasProperty->no()) {
+			return $hasProperty;
 		}
 
 		if ($type instanceof TypeWithClassName) {

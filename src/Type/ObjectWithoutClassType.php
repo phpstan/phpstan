@@ -4,6 +4,9 @@ namespace PHPStan\Type;
 
 use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\ConstantReflection;
+use PHPStan\Reflection\Dummy\DummyConstantReflection;
+use PHPStan\Reflection\Dummy\DummyMethodReflection;
+use PHPStan\Reflection\Dummy\DummyPropertyReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
@@ -22,12 +25,12 @@ class ObjectWithoutClassType implements Type
 
 	public function hasProperty(string $propertyName): TrinaryLogic
 	{
-		return TrinaryLogic::createNo();
+		return TrinaryLogic::createMaybe();
 	}
 
 	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
 	{
-		throw new \PHPStan\ShouldNotHappenException();
+		return new DummyPropertyReflection();
 	}
 
 	/**
@@ -88,12 +91,13 @@ class ObjectWithoutClassType implements Type
 
 	public function hasMethod(string $methodName): TrinaryLogic
 	{
-		return TrinaryLogic::createNo();
+		// todo reproduce and fix https://github.com/phpstan/phpstan/issues/1615
+		return TrinaryLogic::createMaybe();
 	}
 
 	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
 	{
-		throw new \PHPStan\ShouldNotHappenException();
+		return new DummyMethodReflection($methodName);
 	}
 
 	public function canAccessConstants(): TrinaryLogic
@@ -103,12 +107,12 @@ class ObjectWithoutClassType implements Type
 
 	public function hasConstant(string $constantName): TrinaryLogic
 	{
-		return TrinaryLogic::createNo();
+		return TrinaryLogic::createMaybe();
 	}
 
 	public function getConstant(string $constantName): ConstantReflection
 	{
-		throw new \PHPStan\ShouldNotHappenException();
+		return new DummyConstantReflection($constantName);
 	}
 
 	public function isCloneable(): TrinaryLogic

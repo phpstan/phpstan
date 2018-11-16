@@ -68,8 +68,9 @@ class HasMethodType implements CompoundType, AccessoryType
 			return TrinaryLogic::createNo();
 		}
 
-		if (!$type->hasMethod($this->methodName)->no()) {
-			return TrinaryLogic::createYes();
+		$hasMethod = $type->hasMethod($this->methodName);
+		if (!$hasMethod->no()) {
+			return $hasMethod;
 		}
 
 		if ($type instanceof TypeWithClassName) {

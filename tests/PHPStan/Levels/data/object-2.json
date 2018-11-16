@@ -1,0 +1,22 @@
+[
+    {
+        "message": "Cannot call method foo() on int|object.",
+        "line": 37,
+        "ignorable": true
+    },
+    {
+        "message": "Cannot access property $bar on int|object.",
+        "line": 38,
+        "ignorable": true
+    },
+    {
+        "message": "Cannot call static method baz() on int|object.",
+        "line": 40,
+        "ignorable": true
+    },
+    {
+        "message": "Cannot access static property $dolor on int|object.",
+        "line": 41,
+        "ignorable": true
+    }
+]
