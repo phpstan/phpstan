@@ -170,3 +170,19 @@ class ObjectCallable
 
 }
 
+class CallableInForeach
+{
+
+	public function doFoo(bool $foo = true): void
+	{
+		$callback = [self::class, $foo ? 'foo' : 'bar'];
+		$callback();
+		assert(is_callable($callback));
+		$callback();
+
+		foreach ([0, 1] as $i) {
+			echo $callback();
+		}
+	}
+
+}
