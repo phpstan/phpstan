@@ -151,6 +151,19 @@ class TypeUtils
 		return $type;
 	}
 
+	/**
+	 * @param Type $type
+	 * @return Type[]
+	 */
+	public static function flattenTypes(Type $type): array
+	{
+		if ($type instanceof UnionType) {
+			return $type->getTypes();
+		}
+
+		return [$type];
+	}
+
 	public static function findThisType(Type $type): ?ThisType
 	{
 		if ($type instanceof ThisType) {

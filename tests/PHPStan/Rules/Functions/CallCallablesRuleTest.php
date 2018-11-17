@@ -105,6 +105,14 @@ class CallCallablesRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Closure invoked with 2 parameters, 3 required.',
 				148,
 			],
+			[
+				'Trying to invoke array(object, \'yo\') but it might not be a callable.',
+				163,
+			],
+			[
+				'Trying to invoke array(object, \'yo\') but it might not be a callable.',
+				167,
+			],
 		]);
 	}
 

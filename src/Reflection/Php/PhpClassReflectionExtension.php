@@ -137,6 +137,7 @@ class PhpClassReflectionExtension
 				$this->broker,
 				$docComment,
 				$declaringClassReflection->getName(),
+				null,
 				$propertyName,
 				$declaringClassReflection->getFileName()
 			);
@@ -331,6 +332,7 @@ class PhpClassReflectionExtension
 				$this->broker,
 				$docComment,
 				$declaringClass->getName(),
+				$declaringTraitName,
 				$methodReflection->getName(),
 				$declaringClass->getFileName()
 			);
@@ -339,13 +341,19 @@ class PhpClassReflectionExtension
 				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
 					$phpDocBlock->getFile(),
 					$phpDocBlock->getClass(),
-					$declaringTraitName,
+					$phpDocBlock->getTrait(),
 					$phpDocBlock->getDocComment()
 				);
 				$phpDocParameterTypes = array_map(static function (ParamTag $tag): Type {
 					return $tag->getType();
 				}, $resolvedPhpDoc->getParamTags());
-				$phpDocReturnType = $resolvedPhpDoc->getReturnTag() !== null ? $resolvedPhpDoc->getReturnTag()->getType() : null;
+				$phpDocReturnType = null;
+				if (
+					$methodReflection->getReturnType() === null
+					|| $phpDocBlock->isExplicit()
+				) {
+					$phpDocReturnType = $resolvedPhpDoc->getReturnTag() !== null ? $resolvedPhpDoc->getReturnTag()->getType() : null;
+				}
 				$phpDocThrowType = $resolvedPhpDoc->getThrowsTag() !== null ? $resolvedPhpDoc->getThrowsTag()->getType() : null;
 				$isDeprecated = $resolvedPhpDoc->isDeprecated();
 				$isInternal = $resolvedPhpDoc->isInternal();
@@ -418,8 +426,11 @@ class PhpClassReflectionExtension
 		BuiltinMethodReflection $methodReflection
 	): ?string
 	{
+		$declaringClass = $methodReflection->getDeclaringClass();
 		if (
-			$methodReflection->getFileName() === $methodReflection->getDeclaringClass()->getFileName()
+			$methodReflection->getFileName() === $declaringClass->getFileName()
+			&& $methodReflection->getStartLine() >= $declaringClass->getStartLine()
+			&& $methodReflection->getEndLine() <= $declaringClass->getEndLine()
 		) {
 			return null;
 		}

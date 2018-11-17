@@ -25,6 +25,7 @@
 				@dataProvider,
 				@requires
 			"/>
+			<property name="enableObjectTypeHint" value="false"/>
 		</properties>
 		<exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableParameterTypeHintSpecification"/>
 		<exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableReturnTypeHintSpecification"/>

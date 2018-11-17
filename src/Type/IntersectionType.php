@@ -137,21 +137,17 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		});
 	}
 
-	public function hasProperty(string $propertyName): bool
+	public function hasProperty(string $propertyName): TrinaryLogic
 	{
-		foreach ($this->types as $type) {
-			if ($type->hasProperty($propertyName)) {
-				return true;
-			}
-		}
-
-		return false;
+		return $this->intersectResults(static function (Type $type) use ($propertyName): TrinaryLogic {
+			return $type->hasProperty($propertyName);
+		});
 	}
 
 	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
 	{
 		foreach ($this->types as $type) {
-			if ($type->hasProperty($propertyName)) {
+			if (!$type->hasProperty($propertyName)->no()) {
 				return $type->getProperty($propertyName, $scope);
 			}
 		}
@@ -166,21 +162,17 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		});
 	}
 
-	public function hasMethod(string $methodName): bool
+	public function hasMethod(string $methodName): TrinaryLogic
 	{
-		foreach ($this->types as $type) {
-			if ($type->hasMethod($methodName)) {
-				return true;
-			}
-		}
-
-		return false;
+		return $this->intersectResults(static function (Type $type) use ($methodName): TrinaryLogic {
+			return $type->hasMethod($methodName);
+		});
 	}
 
 	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
 	{
 		foreach ($this->types as $type) {
-			if ($type->hasMethod($methodName)) {
+			if (!$type->hasMethod($methodName)->no()) {
 				return $type->getMethod($methodName, $scope);
 			}
 		}
@@ -195,21 +187,17 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		});
 	}
 
-	public function hasConstant(string $constantName): bool
+	public function hasConstant(string $constantName): TrinaryLogic
 	{
-		foreach ($this->types as $type) {
-			if ($type->hasConstant($constantName)) {
-				return true;
-			}
-		}
-
-		return false;
+		return $this->intersectResults(static function (Type $type) use ($constantName): TrinaryLogic {
+			return $type->hasConstant($constantName);
+		});
 	}
 
 	public function getConstant(string $constantName): ConstantReflection
 	{
 		foreach ($this->types as $type) {
-			if ($type->hasConstant($constantName)) {
+			if (!$type->hasConstant($constantName)->no()) {
 				return $type->getConstant($constantName);
 			}
 		}

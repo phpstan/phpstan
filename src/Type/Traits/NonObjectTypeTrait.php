@@ -16,9 +16,9 @@ trait NonObjectTypeTrait
 		return TrinaryLogic::createNo();
 	}
 
-	public function hasProperty(string $propertyName): bool
+	public function hasProperty(string $propertyName): TrinaryLogic
 	{
-		return false;
+		return TrinaryLogic::createNo();
 	}
 
 	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
@@ -31,9 +31,9 @@ trait NonObjectTypeTrait
 		return TrinaryLogic::createNo();
 	}
 
-	public function hasMethod(string $methodName): bool
+	public function hasMethod(string $methodName): TrinaryLogic
 	{
-		return false;
+		return TrinaryLogic::createNo();
 	}
 
 	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
@@ -46,9 +46,9 @@ trait NonObjectTypeTrait
 		return TrinaryLogic::createNo();
 	}
 
-	public function hasConstant(string $constantName): bool
+	public function hasConstant(string $constantName): TrinaryLogic
 	{
-		return false;
+		return TrinaryLogic::createNo();
 	}
 
 	public function getConstant(string $constantName): ConstantReflection

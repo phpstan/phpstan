@@ -58,8 +58,77 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		$this->assertSame('Error message "Class PHPStan\Tests\Baz was not found while trying to analyse it - autoloading is probably not configured properly." cannot be ignored, use excludes_analyse instead.', $result[1]);
 	}
 
+	public function testIgnoreErrorByPath(): void
+	{
+		$ignoreErrors = [
+			[
+				'message' => '#Fail\.#',
+				'path' => __DIR__ . '/data/bootstrap-error.php',
+			],
+		];
+		$result = $this->runAnalyser($ignoreErrors, true, __DIR__ . '/data/bootstrap-error.php', false);
+		$this->assertCount(0, $result);
+	}
+
+	public function testIgnoreErrorNotFoundInPath(): void
+	{
+		$ignoreErrors = [
+			[
+				'message' => '#Fail\.#',
+				'path' => __DIR__ . '/data/not-existent-path.php',
+			],
+		];
+		$result = $this->runAnalyser($ignoreErrors, true, __DIR__ . '/data/empty/empty.php', false);
+		$this->assertCount(1, $result);
+		$this->assertSame('Ignored error pattern #Fail\.# in path ' . __DIR__ . '/data/not-existent-path.php was not matched in reported errors.', $result[0]);
+	}
+
+	public function testIgnoredErrorMissingMessage(): void
+	{
+		$ignoreErrors = [
+			[
+				'path' => __DIR__ . '/data/empty/empty.php',
+			],
+		];
+
+		$expectedPath = __DIR__;
+
+		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+			$expectedPath = str_replace('\\', '\\\\', $expectedPath);
+		}
+
+		$result = $this->runAnalyser($ignoreErrors, true, __DIR__ . '/data/empty/empty.php', false);
+		$this->assertCount(1, $result);
+		$this->assertSame('Ignored error {"path":"' . $expectedPath . '/data/empty/empty.php"} is missing a message.', $result[0]);
+	}
+
+	public function testIgnoredErrorMissingPath(): void
+	{
+		$ignoreErrors = [
+			[
+				'message' => '#Fail\.#',
+			],
+		];
+		$result = $this->runAnalyser($ignoreErrors, true, __DIR__ . '/data/empty/empty.php', false);
+		$this->assertCount(1, $result);
+		$this->assertSame('Ignored error {"message":"#Fail\\\\.#"} is missing a path.', $result[0]);
+	}
+
+	public function testIgnoredErrorMessageStillValidatedIfMissingAPath(): void
+	{
+		$ignoreErrors = [
+			[
+				'message' => '#Fail\.',
+			],
+		];
+		$result = $this->runAnalyser($ignoreErrors, true, __DIR__ . '/data/empty/empty.php', false);
+		$this->assertCount(2, $result);
+		$this->assertSame('Ignored error {"message":"#Fail\\\\."} is missing a path.', $result[0]);
+		$this->assertSame('No ending delimiter \'#\' found in pattern: #Fail\.', $result[1]);
+	}
+
 	/**
-	 * @param string[] $ignoreErrors
+	 * @param string[]|array<array<string, string>> $ignoreErrors
 	 * @param bool $reportUnmatchedIgnoredErrors
 	 * @param string $filePath
 	 * @param bool $onlyFiles
@@ -80,7 +149,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 	}
 
 	/**
-	 * @param string[] $ignoreErrors
+	 * @param string[]|array<array<string, string>> $ignoreErrors
 	 * @param bool $reportUnmatchedIgnoredErrors
 	 * @return Analyser
 	 */
@@ -118,6 +187,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 				false,
 				[]
 			),
+			$fileHelper,
 			$ignoreErrors,
 			$reportUnmatchedIgnoredErrors,
 			50

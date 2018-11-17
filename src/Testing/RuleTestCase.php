@@ -64,6 +64,7 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 					$this->shouldPolluteCatchScopeWithTryAssignments(),
 					[]
 				),
+				$fileHelper,
 				[],
 				true,
 				50

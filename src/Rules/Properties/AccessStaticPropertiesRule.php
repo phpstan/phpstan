@@ -128,7 +128,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 				$node->class,
 				sprintf('Access to static property $%s on an unknown class %%s.', $name),
 				static function (Type $type) use ($name): bool {
-					return $type->canAccessProperties()->yes() && $type->hasProperty($name);
+					return $type->canAccessProperties()->yes() && $type->hasProperty($name)->yes();
 				}
 			);
 			$classType = $classTypeResult->getType();
@@ -150,7 +150,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 			]);
 		}
 
-		if (!$classType->hasProperty($name)) {
+		if (!$classType->hasProperty($name)->yes()) {
 			if ($scope->isSpecified($node)) {
 				return $messages;
 			}

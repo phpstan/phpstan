@@ -60,6 +60,10 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 			return $this->staticObjectType->isSuperTypeOf($type);
 		}
 
+		if ($type instanceof ObjectWithoutClassType) {
+			return TrinaryLogic::createMaybe();
+		}
+
 		if ($type instanceof ObjectType) {
 			return TrinaryLogic::createMaybe()->and($this->staticObjectType->isSuperTypeOf($type));
 		}
@@ -86,7 +90,7 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 		return $this->staticObjectType->canAccessProperties();
 	}
 
-	public function hasProperty(string $propertyName): bool
+	public function hasProperty(string $propertyName): TrinaryLogic
 	{
 		return $this->staticObjectType->hasProperty($propertyName);
 	}
@@ -101,7 +105,7 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 		return $this->staticObjectType->canCallMethods();
 	}
 
-	public function hasMethod(string $methodName): bool
+	public function hasMethod(string $methodName): TrinaryLogic
 	{
 		return $this->staticObjectType->hasMethod($methodName);
 	}
@@ -116,7 +120,7 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 		return $this->staticObjectType->canAccessConstants();
 	}
 
-	public function hasConstant(string $constantName): bool
+	public function hasConstant(string $constantName): TrinaryLogic
 	{
 		return $this->staticObjectType->hasConstant($constantName);
 	}

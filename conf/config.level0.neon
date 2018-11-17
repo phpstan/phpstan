@@ -3,6 +3,7 @@ parameters:
 
 rules:
 	- PHPStan\Rules\Arrays\DuplicateKeysInLiteralArraysRule
+	- PHPStan\Rules\Arrays\OffsetAccessWithoutDimForReadingRule
 	- PHPStan\Rules\Classes\ClassConstantRule
 	- PHPStan\Rules\Classes\ExistingClassesInClassImplementsRule
 	- PHPStan\Rules\Classes\ExistingClassesInInterfaceExtendsRule
@@ -121,5 +122,10 @@ services:
 		class: PHPStan\Rules\Variables\DefinedVariableInAnonymousFunctionUseRule
 		arguments:
 			checkMaybeUndefinedVariables: %checkMaybeUndefinedVariables%
+		tags:
+			- phpstan.rules.rule
+
+	-
+		class: PHPStan\Rules\Regexp\RegularExpressionPatternRule
 		tags:
 			- phpstan.rules.rule

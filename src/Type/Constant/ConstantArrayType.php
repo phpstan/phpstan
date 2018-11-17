@@ -170,11 +170,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			return TrinaryLogic::createNo();
 		}
 
-		if ($typeAndMethod->isUnknown()) {
-			return TrinaryLogic::createMaybe();
-		}
-
-		return TrinaryLogic::createYes();
+		return $typeAndMethod->getCertainty();
 	}
 
 	/**
@@ -234,8 +230,9 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			return ConstantArrayTypeAndMethod::createUnknown();
 		}
 
-		if ($type->hasMethod($method->getValue())) {
-			return ConstantArrayTypeAndMethod::createConcrete($type, $method->getValue());
+		$has = $type->hasMethod($method->getValue());
+		if (!$has->no()) {
+			return ConstantArrayTypeAndMethod::createConcrete($type, $method->getValue(), $has);
 		}
 
 		return null;
@@ -243,6 +240,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
 	{
+		$offsetType = ArrayType::castToArrayKeyType($offsetType);
 		if ($offsetType instanceof UnionType) {
 			$results = [];
 			foreach ($offsetType->getTypes() as $innerType) {

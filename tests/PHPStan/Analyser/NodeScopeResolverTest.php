@@ -106,7 +106,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->union->foo',
 			],
 			[
-				'*ERROR*',
+				'UnionIntersection\Bar',
 				'$this->union->bar',
 			],
 			[
@@ -146,7 +146,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->union::FOO_CONSTANT',
 			],
 			[
-				'*ERROR*',
+				'1',
 				'$this->union::BAR_CONSTANT',
 			],
 			[
@@ -194,7 +194,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->union::doStaticFoo()',
 			],
 			[
-				'*ERROR*',
+				'UnionIntersection\Bar',
 				'$this->union::doStaticBar()',
 			],
 			[
@@ -3395,6 +3395,18 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'MethodPhpDocsNamespace\Bar',
 				'$inlineBar',
 			],
+			[
+				'MethodPhpDocsNamespace\Foo',
+				'$this->phpDocVoidMethod()',
+			],
+			[
+				'MethodPhpDocsNamespace\Foo',
+				'$this->phpDocVoidMethodFromInterface()',
+			],
+			[
+				'MethodPhpDocsNamespace\Foo',
+				'$this->phpDocVoidParentMethod()',
+			],
 		];
 	}
 
@@ -3439,6 +3451,33 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		}
 		$this->assertTypes(
 			__DIR__ . '/data/methodPhpDocs-trait.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataTypeFromTraitPhpDocsInSameFile(): array
+	{
+		return [
+			[
+				'string',
+				'$this->getFoo()',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataTypeFromTraitPhpDocsInSameFile
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testTypeFromTraitPhpDocsInSameFile(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/methodPhpDocs-traitInSameFileAsClass.php',
 			$description,
 			$expression
 		);
@@ -6252,6 +6291,62 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		require_once __DIR__ . '/data/inheritdoc-from-interface2-definition.php';
 		$this->assertTypes(
 			__DIR__ . '/data/inheritdoc-from-interface2.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataInheritDocFromTrait(): array
+	{
+		return [
+			[
+				'string',
+				'$string',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataInheritDocFromTrait
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testInheritDocFromTrait(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/inheritdoc-from-trait.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataInheritDocFromTrait2(): array
+	{
+		return [
+			[
+				'string',
+				'$string',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataInheritDocFromTrait2
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testInheritDocFromTrait2(
+		string $description,
+		string $expression
+	): void
+	{
+		require_once __DIR__ . '/data/inheritdoc-from-trait2-definition.php';
+		require_once __DIR__ . '/data/inheritdoc-from-trait2-definition2.php';
+		$this->assertTypes(
+			__DIR__ . '/data/inheritdoc-from-trait2.php',
 			$description,
 			$expression
 		);

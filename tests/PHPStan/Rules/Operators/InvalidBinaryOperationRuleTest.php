@@ -102,6 +102,10 @@ class InvalidBinaryOperationRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Binary operation "+" between (array|string) and 1 results in an error.',
 				130,
 			],
+			[
+				'Binary operation "+" between stdClass and int results in an error.',
+				151,
+			],
 		]);
 	}
 

@@ -21,6 +21,14 @@ class FooParent
 		return 1;
 	}
 
+	/**
+	 * @return void
+	 */
+	public function returnsVoid()
+	{
+
+	}
+
 }
 
 interface FooInterface

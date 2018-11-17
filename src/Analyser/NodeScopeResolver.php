@@ -763,6 +763,10 @@ class NodeScopeResolver
 			$scope = $scope->enterNegation();
 		} elseif ($node instanceof Unset_ || $node instanceof Isset_) {
 			foreach ($node->vars as $unsetVar) {
+				if ($unsetVar instanceof ArrayDimFetch && $unsetVar->dim === null) {
+					continue;
+				}
+
 				while (
 					$unsetVar instanceof ArrayDimFetch
 					|| $unsetVar instanceof PropertyFetch
@@ -827,7 +831,10 @@ class NodeScopeResolver
 			} elseif ($subNode instanceof \PhpParser\Node) {
 				if ($node instanceof Coalesce && $subNodeName === 'left') {
 					$scope = $this->ensureNonNullability($scope, $subNode, false);
-					$scope = $this->lookForEnterVariableAssign($scope, $node->left);
+
+					if (!($node->left instanceof ArrayDimFetch) || $node->left->dim !== null) {
+						$scope = $this->lookForEnterVariableAssign($scope, $node->left);
+					}
 				}
 
 				if (
@@ -855,7 +862,10 @@ class NodeScopeResolver
 
 				if ($node instanceof Expr\Empty_ && $subNodeName === 'expr') {
 					$scope = $this->specifyProperty($scope, $node->expr);
-					$scope = $this->lookForEnterVariableAssign($scope, $node->expr);
+
+					if (!($node->expr instanceof ArrayDimFetch) || $node->expr->dim !== null) {
+						$scope = $this->lookForEnterVariableAssign($scope, $node->expr);
+					}
 				}
 
 				if (
@@ -1396,7 +1406,7 @@ class NodeScopeResolver
 			foreach ($node->vars as $var) {
 				$scope = $this->lookForAssigns($scope, $var, $certainty, $lookForAssignsSettings);
 			}
-		} elseif ($node instanceof Expr\Empty_) {
+		} elseif ($node instanceof Expr\Empty_ && (!($node->expr instanceof ArrayDimFetch) || $node->expr->dim !== null)) {
 			$scope = $this->lookForAssigns($scope, $node->expr, $certainty, $lookForAssignsSettings);
 		} elseif ($node instanceof ArrayDimFetch && $node->dim !== null) {
 			$scope = $this->lookForAssigns($scope, $node->dim, $certainty, $lookForAssignsSettings);
@@ -1855,7 +1865,7 @@ class NodeScopeResolver
 		} elseif ($functionCall instanceof MethodCall && $functionCall->name instanceof Node\Identifier) {
 			$type = $scope->getType($functionCall->var);
 			$methodName = $functionCall->name->name;
-			if ($type->hasMethod($methodName)) {
+			if (!$type->hasMethod($methodName)->no()) {
 				return ParametersAcceptorSelector::selectFromArgs(
 					$scope,
 					$functionCall->args,
@@ -1968,6 +1978,7 @@ class NodeScopeResolver
 		$file = $scope->getFile();
 		$class = $scope->isInClass() ? $scope->getClassReflection()->getName() : null;
 		$trait = $scope->isInTrait() ? $scope->getTraitReflection()->getName() : null;
+		$isExplicitPhpDoc = true;
 		if ($functionLike instanceof Node\Stmt\ClassMethod) {
 			if (!$scope->isInClass()) {
 				throw new \PHPStan\ShouldNotHappenException();
@@ -1976,6 +1987,7 @@ class NodeScopeResolver
 				$this->broker,
 				$docComment,
 				$scope->getClassReflection()->getName(),
+				$trait,
 				$functionLike->name->name,
 				$file
 			);
@@ -1984,6 +1996,8 @@ class NodeScopeResolver
 				$docComment = $phpDocBlock->getDocComment();
 				$file = $phpDocBlock->getFile();
 				$class = $phpDocBlock->getClass();
+				$trait = $phpDocBlock->getTrait();
+				$isExplicitPhpDoc = $phpDocBlock->isExplicit();
 			}
 		}
 
@@ -1997,7 +2011,10 @@ class NodeScopeResolver
 			$phpDocParameterTypes = array_map(static function (ParamTag $tag): Type {
 				return $tag->getType();
 			}, $resolvedPhpDoc->getParamTags());
-			$phpDocReturnType = $resolvedPhpDoc->getReturnTag() !== null ? $resolvedPhpDoc->getReturnTag()->getType() : null;
+			$phpDocReturnType = null;
+			if ($isExplicitPhpDoc || $functionLike->getReturnType() === null) {
+				$phpDocReturnType = $resolvedPhpDoc->getReturnTag() !== null ? $resolvedPhpDoc->getReturnTag()->getType() : null;
+			}
 			$phpDocThrowType = $resolvedPhpDoc->getThrowsTag() !== null ? $resolvedPhpDoc->getThrowsTag()->getType() : null;
 			$isDeprecated = $resolvedPhpDoc->isDeprecated();
 			$isInternal = $resolvedPhpDoc->isInternal();

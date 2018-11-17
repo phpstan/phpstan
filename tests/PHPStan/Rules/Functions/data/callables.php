@@ -150,3 +150,23 @@ class RequiredArgumentsAfterDefaultValues
 	}
 
 }
+
+class ObjectCallable
+{
+
+	/**
+	 * @param object $object
+	 */
+	public function doFoo($object)
+	{
+		$cb = [$object, 'yo'];
+		$cb();
+		if (is_callable($cb)) {
+			$cb();
+		} else {
+			$cb();
+		}
+	}
+
+}
+

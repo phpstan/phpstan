@@ -145,3 +145,8 @@ function (array $a) {
 	}
 	$a + $b;
 };
+
+function (stdClass $ob, int $n) {
+    $ob == $n;
+    $ob + $n;
+};

@@ -221,9 +221,14 @@ class InArray
 
 	public function doFoo(
 		string $s,
-		int $i
+		int $i,
+		$mixed
 	)
 	{
+		if (in_array('foo', $mixed, true)) {
+
+		}
+
 		if (in_array($s, ['foo' ,'bar'], true)) {
 
 		}
@@ -245,6 +250,19 @@ class InArray
 		}
 
 		if (in_array('foo', ['foo'], true)) {
+
+		}
+
+		if (in_array('foo', ['foo', 'bar'], true)) {
+
+		}
+
+		$arr = ['foo', 'bar'];
+		if (rand(0, 1) === 0) {
+			$arr = false;
+		}
+
+		if (in_array('foo', $arr, true)) {
 
 		}
 	}
@@ -284,6 +302,45 @@ class InArray
 
 		}
 		if (in_array('s', $stringsOrFloats, true)) {
+
+		}
+	}
+
+	public function checkByCondition(int $x)
+	{
+		$data = [];
+		if ($x === 0) {
+			$data[] = 'foo';
+		}
+
+		if (in_array('foo', $data, true)) {
+
+		}
+
+		if (in_array('bar', $data, true)) {
+
+		}
+	}
+
+	public function checkByConditionWithNonEmpty(int $x)
+	{
+		$data = ['bar'];
+		if ($x === 0) {
+			$data[] = 'foo';
+		}
+
+		if (in_array('foo', $data, true)) {
+
+		}
+
+		if (in_array('baz', $data, true)) {
+
+		}
+	}
+
+	public function checkWithEmpty()
+	{
+		if (in_array('foo', [], true)) {
 
 		}
 	}
@@ -421,6 +478,41 @@ class PropertyExistsUniversalCrate
 		if (property_exists($stdOrSelf, 'bar')) {
 
 		}
+	}
+
+}
+
+class ObjectCallable
+{
+
+	/**
+	 * @param object $object
+	 * @return int
+	 */
+	public function isStatic($object): int
+	{
+		return is_callable([$object, 'yo']) ? 1 : 2;
+	}
+
+	/**
+	 * @param mixed $object
+	 */
+	public function isStatic2($object): int
+	{
+		return is_callable([$object, 'yo']) ? 1 : 2;
+	}
+
+
+	/**
+	 * @param mixed $object
+	 */
+	public function isStatic3($object): int
+	{
+		if(is_object($object)) {
+			return is_callable([$object, 'yo']) ? 1 : 2;
+		}
+
+		return 0;
 	}
 
 }

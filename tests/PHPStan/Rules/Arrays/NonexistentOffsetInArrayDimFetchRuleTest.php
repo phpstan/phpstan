@@ -10,7 +10,8 @@ class NonexistentOffsetInArrayDimFetchRuleTest extends \PHPStan\Testing\RuleTest
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
 		return new NonexistentOffsetInArrayDimFetchRule(
-			new RuleLevelHelper($this->createBroker(), true, false, true)
+			new RuleLevelHelper($this->createBroker(), true, false, true),
+			true
 		);
 	}
 
@@ -76,6 +77,54 @@ class NonexistentOffsetInArrayDimFetchRuleTest extends \PHPStan\Testing\RuleTest
 			[
 				'Cannot access offset \'a\' on Closure(): mixed.',
 				253,
+			],
+		]);
+	}
+
+	public function testStrings(): void
+	{
+		$this->analyse([__DIR__ . '/data/strings-offset-access.php'], [
+			[
+				'Offset \'foo\' does not exist on \'foo\'.',
+				10,
+			],
+			[
+				'Offset 12.34 does not exist on \'foo\'.',
+				13,
+			],
+			[
+				'Offset int|object does not exist on \'foo\'.',
+				16,
+			],
+			[
+				'Offset \'foo\' does not exist on array|string.',
+				24,
+			],
+			[
+				'Offset 12.34 does not exist on array|string.',
+				28,
+			],
+			[
+				'Offset int|object does not exist on array|string.',
+				32,
+			],
+		]);
+	}
+
+	public function testAssignOp(): void
+	{
+		$this->analyse([__DIR__ . '/data/offset-access-assignop.php'], [
+			[
+				'Offset \'foo\' does not exist on array().',
+				4,
+			],
+			[
+				'Offset \'foo\' does not exist on \'Foo\'.',
+				10,
+			],
+			[
+				'Cannot access offset \'foo\' on stdClass.',
+				13,
 			],
 		]);
 	}
