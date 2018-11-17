@@ -67,4 +67,12 @@ class FooWithTrait extends FooParent
 
 	}
 
+	/**
+	 * @return string[]
+	 */
+	public function returnsStringArray(): array
+	{
+
+	}
+
 }
