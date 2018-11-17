@@ -91,7 +91,6 @@ class ObjectWithoutClassType implements Type
 
 	public function hasMethod(string $methodName): TrinaryLogic
 	{
-		// todo reproduce and fix https://github.com/phpstan/phpstan/issues/1615
 		return TrinaryLogic::createMaybe();
 	}
 
