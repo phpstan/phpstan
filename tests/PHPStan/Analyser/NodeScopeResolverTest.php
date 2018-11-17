@@ -4827,6 +4827,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array(\'a\' => 0)|array(\'baz\' => \'qux\')',
 				'array_slice($unionArrays, -1, null, true)',
 			],
+			[
+				'array(0 => \'foo\', 1 => \'bar\', \'baz\' => \'qux\', 2 => \'quux\', \'quuz\' => \'corge\', 3 => \'grault\')',
+				'$slicedOffset',
+			],
+			[
+				'array(4 => \'foo\', 1 => \'bar\', \'baz\' => \'qux\', 0 => \'quux\', \'quuz\' => \'corge\', 5 => \'grault\')',
+				'$slicedOffsetWithKeys',
+			],
 		];
 	}
 

@@ -353,7 +353,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 	public function slice(int $offset, ?int $limit, bool $preserveKeys = false): self
 	{
-		if (count($this->keyTypes) === 0 || ($offset === 0 && ($limit === null || count($this->keyTypes) === $limit))) {
+		if (count($this->keyTypes) === 0) {
 			return $this;
 		}
 
@@ -361,19 +361,30 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		$valueTypes = array_slice($this->valueTypes, $offset, $limit);
 
 		if (!$preserveKeys) {
-			$keyTypes = array_map(static function (ConstantScalarType $keyType, int $i): ConstantScalarType {
+			$i = 0;
+			$keyTypes = array_map(static function (ConstantScalarType $keyType) use (&$i): ConstantScalarType {
 				if ($keyType instanceof ConstantIntegerType) {
-					return new ConstantIntegerType($i);
+					$i++;
+					return new ConstantIntegerType($i - 1);
 				}
 
 				return $keyType;
-			}, $keyTypes, array_keys($keyTypes));
+			}, $keyTypes);
+		}
+
+		$nextAutoIndex = 0;
+		foreach ($keyTypes as $keyType) {
+			if (!$keyType instanceof ConstantIntegerType) {
+				continue;
+			}
+
+			$nextAutoIndex = max($nextAutoIndex, $keyType->getValue() + 1);
 		}
 
 		return new self(
 			$keyTypes,
 			$valueTypes,
-			$this->nextAutoIndex
+			(int) $nextAutoIndex
 		);
 	}
 
