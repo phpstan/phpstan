@@ -58,4 +58,9 @@ class FooPhpDocsImplicitInheritanceChild extends Foo
 		}
 	}
 
+	public function returnsStringArray(): array
+	{
+
+	}
+
 }

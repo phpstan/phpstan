@@ -153,4 +153,12 @@ class Foo extends FooParent
 
 	}
 
+	/**
+	 * @return string[]
+	 */
+	public function returnsStringArray(): array
+	{
+
+	}
+
 }
