@@ -752,7 +752,27 @@ class Scope implements ClassMemberAccessAnswerer
 			|| $node instanceof Expr\BinaryOp\ShiftLeft
 			|| $node instanceof Expr\AssignOp\ShiftRight
 			|| $node instanceof Expr\BinaryOp\ShiftRight
-			|| $node instanceof Expr\AssignOp\BitwiseAnd
+		) {
+			if ($node instanceof Node\Expr\AssignOp) {
+				$left = $node->var;
+				$right = $node->expr;
+			} else {
+				$left = $node->left;
+				$right = $node->right;
+			}
+
+			if (TypeCombinator::union(
+				$this->getType($left)->toNumber(),
+				$this->getType($right)->toNumber()
+			) instanceof ErrorType) {
+				return new ErrorType();
+			}
+
+			return new IntegerType();
+		}
+
+		if (
+			$node instanceof Expr\AssignOp\BitwiseAnd
 			|| $node instanceof Expr\BinaryOp\BitwiseAnd
 			|| $node instanceof Expr\AssignOp\BitwiseOr
 			|| $node instanceof Expr\BinaryOp\BitwiseOr
@@ -767,10 +787,14 @@ class Scope implements ClassMemberAccessAnswerer
 				$right = $node->right;
 			}
 
-			if (TypeCombinator::union(
-				$this->getType($left)->toNumber(),
-				$this->getType($right)->toNumber()
-			) instanceof ErrorType) {
+			$leftType = $this->getType($left);
+			$rightType = $this->getType($right);
+
+			if ($leftType instanceof StringType && $rightType instanceof StringType) {
+				return new StringType();
+			}
+
+			if (TypeCombinator::union($leftType->toNumber(), $rightType->toNumber()) instanceof ErrorType) {
 				return new ErrorType();
 			}
 
@@ -1443,6 +1467,25 @@ class Scope implements ClassMemberAccessAnswerer
 
 	private function calculateFromScalars(Expr $node, ConstantScalarType $leftType, ConstantScalarType $rightType): Type
 	{
+		if ($leftType instanceof StringType && $rightType instanceof StringType) {
+			/** @var string $leftValue */
+			$leftValue = $leftType->getValue();
+			/** @var string $rightValue */
+			$rightValue = $rightType->getValue();
+
+			if ($node instanceof Expr\BinaryOp\BitwiseAnd || $node instanceof Expr\AssignOp\BitwiseAnd) {
+				return $this->getTypeFromValue($leftValue & $rightValue);
+			}
+
+			if ($node instanceof Expr\BinaryOp\BitwiseOr || $node instanceof Expr\AssignOp\BitwiseOr) {
+				return $this->getTypeFromValue($leftValue | $rightValue);
+			}
+
+			if ($node instanceof Expr\BinaryOp\BitwiseXor || $node instanceof Expr\AssignOp\BitwiseXor) {
+				return $this->getTypeFromValue($leftValue ^ $rightValue);
+			}
+		}
+
 		$leftValue = $leftType->getValue();
 		$rightValue = $rightType->getValue();
 

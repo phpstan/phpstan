@@ -64,10 +64,16 @@ function (
 	string $string
 ) {
 	$int & 5;
+	$int & "5";
+	$string & "x";
 	$string & 5;
 	$int | 5;
+	$int | "5";
+	$string | "x";
 	$string | 5;
 	$int ^ 5;
+	$int ^ "5";
+	$string ^ "x";
 	$string ^ 5;
 };
 
