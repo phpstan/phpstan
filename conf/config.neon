@@ -150,6 +150,12 @@ services:
 			currentWorkingDirectory: %currentWorkingDirectory%
 
 	-
+		class: PHPStan\Dependency\DependencyDumper
+
+	-
+		class: PHPStan\Dependency\DependencyResolver
+
+	-
 		class: PHPStan\File\FileHelper
 		arguments:
 			workingDirectory: %currentWorkingDirectory%
