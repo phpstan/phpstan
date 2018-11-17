@@ -10,6 +10,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\CompoundType;
+use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\ConstantType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
@@ -350,7 +351,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		return $builder->getArray();
 	}
 
-	public function slice(int $offset, ?int $limit): self
+	public function slice(int $offset, ?int $limit, bool $preserveKeys = false): self
 	{
 		if (count($this->keyTypes) === 0 || ($offset === 0 && ($limit === null || count($this->keyTypes) === $limit))) {
 			return $this;
@@ -358,6 +359,16 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 		$keyTypes = array_slice($this->keyTypes, $offset, $limit);
 		$valueTypes = array_slice($this->valueTypes, $offset, $limit);
+
+		if (!$preserveKeys) {
+			$keyTypes = array_map(static function (ConstantScalarType $keyType, int $i): ConstantScalarType {
+				if ($keyType instanceof ConstantIntegerType) {
+					return new ConstantIntegerType($i);
+				}
+
+				return $keyType;
+			}, $keyTypes, array_keys($keyTypes));
+		}
 
 		return new self(
 			$keyTypes,

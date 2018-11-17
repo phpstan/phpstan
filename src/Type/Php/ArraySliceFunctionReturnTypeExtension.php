@@ -6,6 +6,7 @@ use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\IntegerType;
@@ -58,6 +59,18 @@ class ArraySliceFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunc
 			$limit = new NullType();
 		}
 
+		$constantArrays = TypeUtils::getConstantArrays($valueType);
+		if (count($constantArrays) === 0) {
+			if (!$valueType instanceof ArrayType) {
+				return new ArrayType(
+					new MixedType(),
+					new MixedType()
+				);
+			}
+
+			return $valueType;
+		}
+
 		if (isset($functionCall->args[3])) {
 			$preserveKeys = $scope->getType($functionCall->args[3]->value);
 			$preserveKeys = (new ConstantBooleanType(true))->isSuperTypeOf($preserveKeys)->yes();
@@ -65,31 +78,9 @@ class ArraySliceFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunc
 			$preserveKeys = false;
 		}
 
-		$constantArrays = TypeUtils::getConstantArrays($valueType);
-		if (count($constantArrays) === 0) {
-			if (!$valueType instanceof ArrayType) {
-				return new ArrayType(
-					$preserveKeys ? new MixedType() : new IntegerType(),
-					new MixedType()
-				);
-			}
-
-			if ($preserveKeys) {
-				return $valueType;
-			}
-
-			return $valueType->getValuesArray();
-		}
-
-		$arrayTypes = [];
-		foreach ($constantArrays as $constantArray) {
-			$valueType = $constantArray->slice($offset->getValue(), $limit->getValue());
-			if ($preserveKeys) {
-				$arrayTypes[] = $valueType;
-			} else {
-				$arrayTypes[] = $valueType->getValuesArray();
-			}
-		}
+		$arrayTypes = array_map(static function (ConstantArrayType $constantArray) use ($offset, $limit, $preserveKeys): ConstantArrayType {
+			return $constantArray->slice($offset->getValue(), $limit->getValue(), $preserveKeys);
+		}, $constantArrays);
 
 		return TypeCombinator::union(...$arrayTypes);
 	}

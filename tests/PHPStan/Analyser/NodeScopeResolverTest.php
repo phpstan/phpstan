@@ -4712,11 +4712,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_search(1, $generalIntegers, true)',
 			],
 			[
-				'array<int, int>',
+				'array<string, int>',
 				'array_slice($generalStringKeys, 0)',
 			],
 			[
-				'array<int, int>',
+				'array<string, int>',
 				'array_slice($generalStringKeys, 1)',
 			],
 			[
@@ -4724,7 +4724,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_slice($generalStringKeys, 1, null, true)',
 			],
 			[
-				'array<int, int>',
+				'array<string, int>',
 				'array_slice($generalStringKeys, 1, 2)',
 			],
 			[
@@ -4732,7 +4732,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_slice($generalStringKeys, 1, 2, true)',
 			],
 			[
-				'array<int, int>',
+				'array<string, int>',
 				'array_slice($generalStringKeys, 1, -1)',
 			],
 			[
@@ -4740,7 +4740,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_slice($generalStringKeys, 1, -1, true)',
 			],
 			[
-				'array<int, int>',
+				'array<string, int>',
 				'array_slice($generalStringKeys, -2)',
 			],
 			[
@@ -4748,11 +4748,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_slice($generalStringKeys, -2, 1, true)',
 			],
 			[
-				'array<int, mixed>',
+				'array',
 				'array_slice($unknownArray, 0)',
 			],
 			[
-				'array<int, mixed>',
+				'array',
 				'array_slice($unknownArray, 1)',
 			],
 			[
@@ -4760,7 +4760,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_slice($unknownArray, 1, null, true)',
 			],
 			[
-				'array<int, mixed>',
+				'array',
 				'array_slice($unknownArray, 1, 2)',
 			],
 			[
@@ -4768,7 +4768,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_slice($unknownArray, 1, 2, true)',
 			],
 			[
-				'array<int, mixed>',
+				'array',
 				'array_slice($unknownArray, 1, -1)',
 			],
 			[
@@ -4776,7 +4776,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_slice($unknownArray, 1, -1, true)',
 			],
 			[
-				'array<int, mixed>',
+				'array',
 				'array_slice($unknownArray, -2)',
 			],
 			[
@@ -4784,11 +4784,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_slice($unknownArray, -2, 1, true)',
 			],
 			[
-				'array(bool, int, \'\', 0)',
+				'array(0 => bool, 1 => int, 2 => \'\', \'a\' => 0)',
 				'array_slice($withPossiblyFalsey, 0)',
 			],
 			[
-				'array(int, \'\', 0)',
+				'array(0 => int, 1 => \'\', \'a\' => 0)',
 				'array_slice($withPossiblyFalsey, 1)',
 			],
 			[
@@ -4796,7 +4796,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_slice($withPossiblyFalsey, 1, null, true)',
 			],
 			[
-				'array(\'\', 0)',
+				'array(0 => \'\', \'a\' => 0)',
 				'array_slice($withPossiblyFalsey, 2, 3)',
 			],
 			[
@@ -4812,7 +4812,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_slice($withPossiblyFalsey, 1, -1, true)',
 			],
 			[
-				'array(\'\', 0)',
+				'array(0 => \'\', \'a\' => 0)',
 				'array_slice($withPossiblyFalsey, -2, null)',
 			],
 			[
@@ -4820,7 +4820,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_slice($withPossiblyFalsey, -2, null, true)',
 			],
 			[
-				'array(0 => \'\'|\'qux\', ?1 => 0)',
+				'array(0 => \'\', \'a\' => 0)|array(\'baz\' => \'qux\')',
 				'array_slice($unionArrays, 1)',
 			],
 			[
