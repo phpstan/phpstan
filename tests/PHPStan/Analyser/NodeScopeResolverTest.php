@@ -2671,8 +2671,20 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$integer & 3',
 			],
 			[
+				'\'x\'',
+				'"x" & "y"',
+			],
+			[
+				'string',
+				'$string & "x"',
+			],
+			[
 				'*ERROR*',
 				'"bla" & 3',
+			],
+			[
+				'1',
+				'"5" & 3',
 			],
 			[
 				'7',
@@ -2683,8 +2695,20 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$integer | 3',
 			],
 			[
+				'\'y\'',
+				'"x" | "y"',
+			],
+			[
+				'string',
+				'$string | "x"',
+			],
+			[
 				'*ERROR*',
 				'"bla" | 3',
+			],
+			[
+				'7',
+				'"5" | 3',
 			],
 			[
 				'6',
@@ -2695,8 +2719,20 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$integer ^ 3',
 			],
 			[
+				'\'' . "\x01" . '\'',
+				'"x" ^ "y"',
+			],
+			[
+				'string',
+				'$string ^ "x"',
+			],
+			[
 				'*ERROR*',
 				'"bla" ^ 3',
+			],
+			[
+				'6',
+				'"5" ^ 3',
 			],
 			[
 				'int',
@@ -2707,6 +2743,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$string &= 3',
 			],
 			[
+				'string',
+				'$string &= "x"',
+			],
+			[
 				'int',
 				'$integer |= 3',
 			],
@@ -2715,12 +2755,20 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$string |= 3',
 			],
 			[
+				'string',
+				'$string |= "x"',
+			],
+			[
 				'int',
 				'$integer ^= 3',
 			],
 			[
 				'*ERROR*',
 				'$string ^= 3',
+			],
+			[
+				'string',
+				'$string ^= "x"',
 			],
 			[
 				'\'f\'',
