@@ -5,6 +5,7 @@ namespace PHPStan\Dependency;
 use PHPStan\Analyser\NodeScopeResolver;
 use PHPStan\Analyser\ScopeFactory;
 use PHPStan\Broker\Broker;
+use PHPStan\File\FileFinder;
 use PHPStan\File\FileHelper;
 use PHPStan\Parser\Parser;
 use PHPStan\Reflection\ClassReflection;
@@ -70,12 +71,17 @@ class DependencyDumperTest extends TestCase
 
 		/** @var ScopeFactory $scopeFactory */
 		$scopeFactory = $container->getByType(ScopeFactory::class);
+
+		/** @var FileFinder $fileFinder */
+		$fileFinder = $container->getByType(FileFinder::class);
+
 		$dumper = new DependencyDumper(
 			new DependencyResolver($mockBroker),
 			$nodeScopeResolver,
 			$fileHelper,
 			$mockParser,
-			$scopeFactory
+			$scopeFactory,
+			$fileFinder
 		);
 
 		$dependencies = $dumper->dumpDependencies(
@@ -83,7 +89,8 @@ class DependencyDumperTest extends TestCase
 			static function (): void {
 			},
 			static function (): void {
-			}
+			},
+			null
 		);
 
 		$this->assertCount(count($expectedDependencyTree), $dependencies);
