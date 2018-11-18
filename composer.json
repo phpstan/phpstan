@@ -29,7 +29,7 @@
 		"consistence/coding-standard": "^3.5",
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
 		"jakub-onderka/php-parallel-lint": "^1.0",
-		"localheinz/composer-normalize": "~0.9.0",
+		"localheinz/composer-normalize": "^1.0.0",
 		"phing/phing": "^2.16.0",
 		"phpstan/phpstan-deprecation-rules": "^0.11",
 		"phpstan/phpstan-php-parser": "^0.11",
