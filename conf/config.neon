@@ -162,6 +162,11 @@ services:
 			analyseExcludes: %excludes_analyse%
 
 	-
+		class: PHPStan\File\FileFinder
+		arguments:
+			fileExtensions: %fileExtensions%
+
+	-
 		class: PHPStan\Parser\CachedParser
 		arguments:
 			originalParser: @directParser
