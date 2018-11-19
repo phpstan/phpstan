@@ -2767,7 +2767,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$unshiftedConditionalArray',
 			],
 			[
-				'array(\'dirname\' => string, \'basename\' => string, \'extension\' => string, \'filename\' => string)',
+				'array(\'dirname\' => string, \'basename\' => string, \'filename\' => string, ?\'extension\' => string)',
 				'pathinfo($string)',
 			],
 			[
