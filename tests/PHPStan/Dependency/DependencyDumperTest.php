@@ -40,9 +40,11 @@ class DependencyDumperTest extends TestCase
 		/** @var Broker $realBroker */
 		$realBroker = $container->getByType(Broker::class);
 
+		$fileHelper = new FileHelper(__DIR__);
+
 		$mockBroker = $this->createMock(Broker::class);
 		$mockBroker->method('getClass')
-			->willReturnCallback(function (string $class) use ($realBroker): ClassReflection {
+			->willReturnCallback(function (string $class) use ($realBroker, $fileHelper): ClassReflection {
 				if (in_array($class, [
 					GrandChild::class,
 					Child::class,
@@ -59,13 +61,11 @@ class DependencyDumperTest extends TestCase
 				$classReflection->method('getTraits')->willReturn([]);
 				$classReflection->method('getParentClass')->willReturn(false);
 				$classReflection->method('getFilename')->willReturn(
-					__DIR__ . '/data/' . $shortClass . '.php'
+					$fileHelper->normalizePath(__DIR__ . '/data/' . $shortClass . '.php')
 				);
 
 				return $classReflection;
 			});
-
-		$fileHelper = new FileHelper(__DIR__);
 
 		$expectedDependencyTree = $this->getExpectedDependencyTree($fileHelper);
 
@@ -85,7 +85,10 @@ class DependencyDumperTest extends TestCase
 		);
 
 		$dependencies = $dumper->dumpDependencies(
-			array_merge([__DIR__ . '/data/GrandChild.php'], array_keys($expectedDependencyTree)),
+			array_merge(
+				[$fileHelper->normalizePath(__DIR__ . '/data/GrandChild.php')],
+				array_keys($expectedDependencyTree)
+			),
 			static function (): void {
 			},
 			static function (): void {
