@@ -789,9 +789,10 @@ class Scope implements ClassMemberAccessAnswerer
 
 			$leftType = $this->getType($left);
 			$rightType = $this->getType($right);
+			$stringType = new StringType();
 
-			if ($leftType instanceof StringType && $rightType instanceof StringType) {
-				return new StringType();
+			if ($stringType->isSuperTypeOf($leftType)->yes() && $stringType->isSuperTypeOf($rightType)->yes()) {
+				return $stringType;
 			}
 
 			if (TypeCombinator::union($leftType->toNumber(), $rightType->toNumber()) instanceof ErrorType) {
