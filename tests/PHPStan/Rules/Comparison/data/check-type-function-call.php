@@ -481,3 +481,38 @@ class PropertyExistsUniversalCrate
 	}
 
 }
+
+class ObjectCallable
+{
+
+	/**
+	 * @param object $object
+	 * @return int
+	 */
+	public function isStatic($object): int
+	{
+		return is_callable([$object, 'yo']) ? 1 : 2;
+	}
+
+	/**
+	 * @param mixed $object
+	 */
+	public function isStatic2($object): int
+	{
+		return is_callable([$object, 'yo']) ? 1 : 2;
+	}
+
+
+	/**
+	 * @param mixed $object
+	 */
+	public function isStatic3($object): int
+	{
+		if(is_object($object)) {
+			return is_callable([$object, 'yo']) ? 1 : 2;
+		}
+
+		return 0;
+	}
+
+}

@@ -38,14 +38,16 @@ class ObjectType implements TypeWithClassName
 		return $this->className;
 	}
 
-	public function hasProperty(string $propertyName): bool
+	public function hasProperty(string $propertyName): TrinaryLogic
 	{
 		$broker = Broker::getInstance();
 		if (!$broker->hasClass($this->className)) {
-			return false;
+			return TrinaryLogic::createNo();
 		}
 
-		return $broker->getClass($this->className)->hasProperty($propertyName);
+		return TrinaryLogic::createFromBoolean(
+			$broker->getClass($this->className)->hasProperty($propertyName)
+		);
 	}
 
 	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
@@ -317,14 +319,16 @@ class ObjectType implements TypeWithClassName
 		return TrinaryLogic::createYes();
 	}
 
-	public function hasMethod(string $methodName): bool
+	public function hasMethod(string $methodName): TrinaryLogic
 	{
 		$broker = Broker::getInstance();
 		if (!$broker->hasClass($this->className)) {
-			return false;
+			return TrinaryLogic::createNo();
 		}
 
-		return $broker->getClass($this->className)->hasMethod($methodName);
+		return TrinaryLogic::createFromBoolean(
+			$broker->getClass($this->className)->hasMethod($methodName)
+		);
 	}
 
 	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
@@ -338,14 +342,16 @@ class ObjectType implements TypeWithClassName
 		return TrinaryLogic::createYes();
 	}
 
-	public function hasConstant(string $constantName): bool
+	public function hasConstant(string $constantName): TrinaryLogic
 	{
 		$broker = Broker::getInstance();
 		if (!$broker->hasClass($this->className)) {
-			return false;
+			return TrinaryLogic::createNo();
 		}
 
-		return $broker->getClass($this->className)->hasConstant($constantName);
+		return TrinaryLogic::createFromBoolean(
+			$broker->getClass($this->className)->hasConstant($constantName)
+		);
 	}
 
 	public function getConstant(string $constantName): ConstantReflection

@@ -47,6 +47,14 @@ class FakeBuiltinMethodReflection implements BuiltinMethodReflection
 	}
 
 	/**
+	 * @return int|false
+	 */
+	public function getEndLine()
+	{
+		return false;
+	}
+
+	/**
 	 * @return string|false
 	 */
 	public function getDocComment()

@@ -106,7 +106,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->union->foo',
 			],
 			[
-				'*ERROR*',
+				'UnionIntersection\Bar',
 				'$this->union->bar',
 			],
 			[
@@ -146,7 +146,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->union::FOO_CONSTANT',
 			],
 			[
-				'*ERROR*',
+				'1',
 				'$this->union::BAR_CONSTANT',
 			],
 			[
@@ -194,7 +194,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->union::doStaticFoo()',
 			],
 			[
-				'*ERROR*',
+				'UnionIntersection\Bar',
 				'$this->union::doStaticBar()',
 			],
 			[
@@ -3451,6 +3451,33 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		}
 		$this->assertTypes(
 			__DIR__ . '/data/methodPhpDocs-trait.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataTypeFromTraitPhpDocsInSameFile(): array
+	{
+		return [
+			[
+				'string',
+				'$this->getFoo()',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataTypeFromTraitPhpDocsInSameFile
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testTypeFromTraitPhpDocsInSameFile(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/methodPhpDocs-traitInSameFileAsClass.php',
 			$description,
 			$expression
 		);

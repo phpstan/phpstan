@@ -31,3 +31,5 @@ $foo[] ?? $foo;
 //global $array[]; // Parse error
 //static $array[]; // Parse error
 //function () use ($array[]) {} // Parse error
+
+list($array[], $array[]) = [1, 2];

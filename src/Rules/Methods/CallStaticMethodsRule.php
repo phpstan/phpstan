@@ -143,7 +143,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 				$class,
 				sprintf('Call to static method %s() on an unknown class %%s.', $methodName),
 				static function (Type $type) use ($methodName): bool {
-					return $type->canCallMethods()->yes() && $type->hasMethod($methodName);
+					return $type->canCallMethods()->yes() && $type->hasMethod($methodName)->yes();
 				}
 			);
 			$classType = $classTypeResult->getType();
@@ -165,7 +165,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 			]);
 		}
 
-		if (!$classType->hasMethod($methodName)) {
+		if (!$classType->hasMethod($methodName)->yes()) {
 			if (!$this->reportMagicMethods) {
 				$directClassNames = TypeUtils::getDirectClassNames($classType);
 				foreach ($directClassNames as $className) {

@@ -1865,7 +1865,7 @@ class NodeScopeResolver
 		} elseif ($functionCall instanceof MethodCall && $functionCall->name instanceof Node\Identifier) {
 			$type = $scope->getType($functionCall->var);
 			$methodName = $functionCall->name->name;
-			if ($type->hasMethod($methodName)) {
+			if (!$type->hasMethod($methodName)->no()) {
 				return ParametersAcceptorSelector::selectFromArgs(
 					$scope,
 					$functionCall->args,

@@ -20,6 +20,11 @@ interface BuiltinMethodReflection
 	public function getStartLine();
 
 	/**
+	 * @return int|false
+	 */
+	public function getEndLine();
+
+	/**
 	 * @return string|false
 	 */
 	public function getDocComment();
