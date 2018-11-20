@@ -1302,7 +1302,7 @@ class Scope implements ClassMemberAccessAnswerer
 				return TypeCombinator::union(...$resolvedTypes);
 			}
 
-			if ($methodCalledOnType->hasMethod($node->name->name)->no()) {
+			if (!$methodCalledOnType->hasMethod($node->name->name)->yes()) {
 				return new ErrorType();
 			}
 			$methodReflection = $methodCalledOnType->getMethod($node->name->name, $this);
@@ -1332,7 +1332,7 @@ class Scope implements ClassMemberAccessAnswerer
 				$calleeType = $this->getType($node->class);
 			}
 
-			if ($calleeType->hasMethod($node->name->name)->no()) {
+			if (!$calleeType->hasMethod($node->name->name)->yes()) {
 				return new ErrorType();
 			}
 			$staticMethodReflection = $calleeType->getMethod($node->name->name, $this);

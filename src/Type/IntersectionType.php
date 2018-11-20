@@ -172,7 +172,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
 	{
 		foreach ($this->types as $type) {
-			if (!$type->hasMethod($methodName)->no()) {
+			if ($type->hasMethod($methodName)->yes()) {
 				return $type->getMethod($methodName, $scope);
 			}
 		}

@@ -90,7 +90,7 @@ class CallCallablesRuleTest extends \PHPStan\Testing\RuleTestCase
 				113,
 			],
 			[
-				'Trying to invoke array(object, \'bar\') but it\'s not a callable.',
+				'Trying to invoke array(object, \'bar\') but it might not be a callable.',
 				131,
 			],
 			[
