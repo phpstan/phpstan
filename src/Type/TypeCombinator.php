@@ -145,7 +145,7 @@ class TypeCombinator
 						$intermediateArrayType = $innerType;
 						continue;
 					}
-					if ($innerType instanceof AccessoryType) {
+					if ($innerType instanceof AccessoryType || $innerType instanceof CallableType) {
 						$intermediateAccessoryTypes[] = $innerType;
 						continue;
 					}
@@ -238,7 +238,7 @@ class TypeCombinator
 
 	/**
 	 * @param ArrayType[] $arrayTypes
-	 * @param AccessoryType[] $accessoryTypes
+	 * @param Type[] $accessoryTypes
 	 * @return Type[]
 	 */
 	private static function processArrayTypes(array $arrayTypes, array $accessoryTypes): array

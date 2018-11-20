@@ -843,6 +843,38 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				IntersectionType::class,
 				'object&hasProperty(foo)',
 			],
+			[
+				[
+					new IntersectionType([
+						new ConstantArrayType(
+							[
+								new ConstantIntegerType(0),
+								new ConstantIntegerType(1),
+							],
+							[
+								new ObjectWithoutClassType(),
+								new ConstantStringType('foo'),
+							]
+						),
+						new CallableType(),
+					]),
+					new IntersectionType([
+						new ConstantArrayType(
+							[
+								new ConstantIntegerType(0),
+								new ConstantIntegerType(1),
+							],
+							[
+								new ObjectWithoutClassType(),
+								new ConstantStringType('foo'),
+							]
+						),
+						new CallableType(),
+					]),
+				],
+				IntersectionType::class,
+				'array(object, \'foo\')&callable',
+			],
 		];
 	}
 
