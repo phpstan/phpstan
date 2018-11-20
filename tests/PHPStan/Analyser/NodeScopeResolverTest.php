@@ -194,7 +194,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->union::doStaticFoo()',
 			],
 			[
-				'UnionIntersection\Bar',
+				'*ERROR*',
 				'$this->union::doStaticBar()',
 			],
 			[

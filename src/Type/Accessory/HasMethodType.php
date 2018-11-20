@@ -2,32 +2,19 @@
 
 namespace PHPStan\Type\Accessory;
 
-use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ClassMemberAccessAnswerer;
-use PHPStan\Reflection\ConstantReflection;
-use PHPStan\Reflection\Dummy\DummyConstantReflection;
 use PHPStan\Reflection\Dummy\DummyMethodReflection;
-use PHPStan\Reflection\Dummy\DummyPropertyReflection;
 use PHPStan\Reflection\MethodReflection;
-use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
-use PHPStan\Type\ArrayType;
 use PHPStan\Type\CompoundType;
-use PHPStan\Type\ErrorType;
 use PHPStan\Type\IntersectionType;
-use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectWithoutClassType;
-use PHPStan\Type\StringType;
-use PHPStan\Type\Traits\TruthyBooleanTypeTrait;
 use PHPStan\Type\Type;
-use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
 
-class HasMethodType implements CompoundType, AccessoryType
+class HasMethodType extends ObjectWithoutClassType implements AccessoryType, CompoundType
 {
-
-	use TruthyBooleanTypeTrait;
 
 	/** @var string */
 	private $methodName;
@@ -42,11 +29,6 @@ class HasMethodType implements CompoundType, AccessoryType
 		return strtolower($this->methodName);
 	}
 
-	public function getReferencedClasses(): array
-	{
-		return [];
-	}
-
 	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
 		return TrinaryLogic::createFromBoolean($this->equals($type));
@@ -54,63 +36,22 @@ class HasMethodType implements CompoundType, AccessoryType
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
-		if ($type instanceof self) {
-			return $this->equals($type)
-				? TrinaryLogic::createYes()
-				: TrinaryLogic::createMaybe();
-		}
-
-		if ($type instanceof CompoundType) {
-			return $type->isSubTypeOf($this);
-		}
-
-		if (!(new ObjectWithoutClassType())->isSuperTypeOf($type)->yes()) {
-			return TrinaryLogic::createNo();
-		}
-
-		$hasMethod = $type->hasMethod($this->methodName);
-		if (!$hasMethod->no()) {
-			return $hasMethod;
-		}
-
-		if ($type instanceof TypeWithClassName) {
-			$broker = Broker::getInstance();
-			if ($broker->hasClass($type->getClassName())) {
-				$classReflection = $broker->getClass($type->getClassName());
-				if ($classReflection->isFinal()) {
-					return TrinaryLogic::createNo();
-				}
-			}
-		}
-
-		return TrinaryLogic::createMaybe();
+		return $type->hasMethod($this->methodName);
 	}
 
 	public function isSubTypeOf(Type $otherType): TrinaryLogic
 	{
-		if (
-			$otherType instanceof self
-			|| $otherType instanceof UnionType
-			|| $otherType instanceof IntersectionType
-		) {
+		if ($otherType instanceof UnionType || $otherType instanceof IntersectionType) {
 			return $otherType->isSuperTypeOf($this);
 		}
 
-		if (!(new ObjectWithoutClassType())->isSuperTypeOf($otherType)->yes()) {
-			return TrinaryLogic::createNo();
+		if ($otherType instanceof self) {
+			$limit = TrinaryLogic::createYes();
+		} else {
+			$limit = TrinaryLogic::createMaybe();
 		}
 
-		if ($otherType instanceof TypeWithClassName) {
-			$broker = Broker::getInstance();
-			if ($broker->hasClass($otherType->getClassName())) {
-				$classReflection = $broker->getClass($otherType->getClassName());
-				if ($classReflection->isFinal()) {
-					return TrinaryLogic::createNo();
-				}
-			}
-		}
-
-		return TrinaryLogic::createMaybe();
+		return $limit->and($otherType->hasMethod($this->methodName));
 	}
 
 	public function equals(Type $type): bool
@@ -124,31 +65,13 @@ class HasMethodType implements CompoundType, AccessoryType
 		return sprintf('hasMethod(%s)', $this->methodName);
 	}
 
-	public function canAccessProperties(): TrinaryLogic
-	{
-		return TrinaryLogic::createYes();
-	}
-
-	public function hasProperty(string $propertyName): TrinaryLogic
-	{
-		return TrinaryLogic::createMaybe();
-	}
-
-	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
-	{
-		return new DummyPropertyReflection();
-	}
-
-	public function canCallMethods(): TrinaryLogic
-	{
-		return TrinaryLogic::createYes();
-	}
-
 	public function hasMethod(string $methodName): TrinaryLogic
 	{
-		return TrinaryLogic::createFromBoolean(
-			$this->getCanonicalMethodName() === strtolower($methodName)
-		);
+		if ($this->getCanonicalMethodName() === strtolower($methodName)) {
+			return TrinaryLogic::createYes();
+		}
+
+		return TrinaryLogic::createMaybe();
 	}
 
 	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
@@ -156,66 +79,13 @@ class HasMethodType implements CompoundType, AccessoryType
 		return new DummyMethodReflection($this->methodName);
 	}
 
-	public function canAccessConstants(): TrinaryLogic
-	{
-		return TrinaryLogic::createYes();
-	}
-
-	public function hasConstant(string $constantName): TrinaryLogic
-	{
-		return TrinaryLogic::createMaybe();
-	}
-
-	public function getConstant(string $constantName): ConstantReflection
-	{
-		return new DummyConstantReflection($constantName);
-	}
-
-	public function isIterable(): TrinaryLogic
-	{
-		return TrinaryLogic::createMaybe();
-	}
-
-	public function isIterableAtLeastOnce(): TrinaryLogic
-	{
-		return TrinaryLogic::createMaybe();
-	}
-
-	public function getIterableKeyType(): Type
-	{
-		return new MixedType();
-	}
-
-	public function getIterableValueType(): Type
-	{
-		return new MixedType();
-	}
-
-	public function isOffsetAccessible(): TrinaryLogic
-	{
-		return TrinaryLogic::createNo();
-	}
-
-	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
-	{
-		return TrinaryLogic::createNo();
-	}
-
-	public function getOffsetValueType(Type $offsetType): Type
-	{
-		return new ErrorType();
-	}
-
-	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
-	{
-		return new ErrorType();
-	}
-
 	public function isCallable(): TrinaryLogic
 	{
-		return TrinaryLogic::createFromBoolean(
-			$this->getCanonicalMethodName() === '__invoke'
-		);
+		if ($this->getCanonicalMethodName() === '__invoke') {
+			return TrinaryLogic::createYes();
+		}
+
+		return parent::isCallable();
 	}
 
 	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array
@@ -223,40 +93,6 @@ class HasMethodType implements CompoundType, AccessoryType
 		return [
 			new TrivialParametersAcceptor(),
 		];
-	}
-
-	public function isCloneable(): TrinaryLogic
-	{
-		return TrinaryLogic::createYes();
-	}
-
-	public function toNumber(): Type
-	{
-		return new ErrorType();
-	}
-
-	public function toInteger(): Type
-	{
-		return new ErrorType();
-	}
-
-	public function toFloat(): Type
-	{
-		return new ErrorType();
-	}
-
-	public function toString(): Type
-	{
-		if ($this->getCanonicalMethodName() === '__tostring') {
-			return new StringType();
-		}
-
-		return new ErrorType();
-	}
-
-	public function toArray(): Type
-	{
-		return new ArrayType(new MixedType(), new MixedType());
 	}
 
 	public static function __set_state(array $properties): Type

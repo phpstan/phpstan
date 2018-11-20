@@ -3,6 +3,7 @@
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Accessory\HasMethodType;
 use PHPStan\Type\Constant\ConstantArrayType;
 
 class IterableTypeTest extends \PHPStan\Testing\TestCase
@@ -122,6 +123,11 @@ class IterableTypeTest extends \PHPStan\Testing\TestCase
 				new IterableType(new StringType(), new StringType()),
 				new IterableType(new IntegerType(), new StringType()),
 				TrinaryLogic::createNo(),
+			],
+			[
+				new IterableType(new MixedType(), new StringType()),
+				new HasMethodType('foo'),
+				TrinaryLogic::createMaybe(),
 			],
 		];
 	}

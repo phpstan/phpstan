@@ -265,7 +265,7 @@ class UnionType implements CompoundType, StaticResolvableType
 		$object = null;
 		foreach ($this->types as $type) {
 			$has = $hasCallback($type);
-			if ($has->no()) {
+			if (!$has->yes()) {
 				continue;
 			}
 			if ($result !== null && $result->compareTo($has) !== $has) {
@@ -324,14 +324,9 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function hasMethod(string $methodName): TrinaryLogic
 	{
-		return $this->hasInternal(
-			static function (Type $type): TrinaryLogic {
-				return $type->canCallMethods();
-			},
-			static function (Type $type) use ($methodName): TrinaryLogic {
-				return $type->hasMethod($methodName);
-			}
-		);
+		return $this->unionResults(static function (Type $type) use ($methodName): TrinaryLogic {
+			return $type->hasMethod($methodName);
+		});
 	}
 
 	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
