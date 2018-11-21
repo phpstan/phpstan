@@ -5046,7 +5046,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				'array(\'device\' => int, \'inode\' => int, \'mode\' => int, \'nlink\' => int, \'uid\' => int, \'gid\' => int, \'device_type\' => int, \'size\' => int, ...)|null',
+				'array(\'device\' => int, \'inode\' => int, \'mode\' => int, \'nlink\' => int, \'uid\' => int, \'gid\' => int, \'device_type\' => int, \'size\' => int, \'blocksize\' => int, \'blocks\' => int, \'atime\' => int, \'mtime\' => int, \'ctime\' => int)|null',
 				'$stat',
 			],
 		];
@@ -5062,9 +5062,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		string $expression
 	): void
 	{
-		if (!extension_loaded('dio')) {
-			$this->markTestSkipped('Direct IO extension needed.');
-		}
 		$this->assertTypes(
 			__DIR__ . '/data/dio-functions.php',
 			$description,
@@ -5076,7 +5073,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				'array(0 => int, 1 => int, 2 => int, 3 => int, 4 => int, 5 => int, 6 => int, 7 => int, ...)|false',
+				'array(0 => int, 1 => int, 2 => int, 3 => int, 4 => int, 5 => int, 6 => int, 7 => int, 8 => int, 9 => int, 10 => int, 11 => int, 12 => int, \'dev\' => int, \'ino\' => int, \'mode\' => int, \'nlink\' => int, \'uid\' => int, \'gid\' => int, \'rdev\' => int, \'size\' => int, \'atime\' => int, \'mtime\' => int, \'ctime\' => int, \'blksize\' => int, \'blocks\' => int)|false',
 				'$ssh2SftpStat',
 			],
 		];
@@ -5092,9 +5089,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		string $expression
 	): void
 	{
-		if (!extension_loaded('ssh2')) {
-			$this->markTestSkipped('SSH2 extension needed.');
-		}
 		$this->assertTypes(
 			__DIR__ . '/data/ssh2-functions.php',
 			$description,

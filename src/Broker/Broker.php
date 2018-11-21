@@ -499,27 +499,15 @@ class Broker
 
 	public function resolveFunctionName(\PhpParser\Node\Name $nameNode, ?Scope $scope): ?string
 	{
-		return $this->resolveName($nameNode, static function (string $name): bool {
+		return $this->resolveName($nameNode, function (string $name): bool {
 			$exists = function_exists($name);
 			if ($exists) {
 				return true;
 			}
 
 			$lowercased = strtolower($name);
-			if ($lowercased === 'getallheaders') {
-				return true;
-			}
-			if (\Nette\Utils\Strings::startsWith($lowercased, 'apache_')) {
-				return true;
-			}
-			if (\Nette\Utils\Strings::startsWith($lowercased, 'fastcgi_')) {
-				return true;
-			}
-			if (\Nette\Utils\Strings::startsWith($lowercased, 'xdebug_')) {
-				return true;
-			}
 
-			return false;
+			return $this->signatureMapProvider->hasFunctionSignature($lowercased);
 		}, $scope);
 	}
 

@@ -12,10 +12,6 @@ class RequireParentConstructCallRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	public function testCallToParentConstructor(): void
 	{
-		if (!extension_loaded('soap')) {
-			$this->markTestSkipped('Extension SOAP needed');
-		}
-
 		$this->analyse([__DIR__ . '/data/call-to-parent-constructor.php'], [
 			[
 				'IpsumCallToParentConstructor::__construct() calls parent constructor but parent does not have one.',
