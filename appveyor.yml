@@ -44,6 +44,7 @@ install:
   - ps: Add-Content -Path php.ini -Value 'date.timezone="UTC"'
   - ps: Add-Content -Path php.ini -Value 'extension_dir=ext'
   - ps: Add-Content -Path php.ini -Value 'extension=php_curl.dll'
+  - ps: Add-Content -Path php.ini -Value 'extension=php_mbstring.dll'
   - ps: Add-Content -Path php.ini -Value 'extension=php_openssl.dll'
   - ps: php --version
 
