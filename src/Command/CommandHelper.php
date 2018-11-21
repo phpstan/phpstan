@@ -21,6 +21,7 @@ class CommandHelper
 		InputInterface $input,
 		OutputInterface $output,
 		array $paths,
+		?string $pathsFile,
 		?string $memoryLimit,
 		?string $autoloadFile,
 		?string $projectConfigFile,
@@ -67,6 +68,22 @@ class CommandHelper
 		if ($projectConfigFile === null && $level === null) {
 			$level = self::DEFAULT_LEVEL;
 			$defaultLevelUsed = true;
+		}
+
+		if (count($paths) === 0 && $pathsFile !== null) {
+			if (!file_exists($pathsFile)) {
+				$errorOutput->writeln(sprintf('Paths file %s does not exist.', $pathsFile));
+				throw new \PHPStan\Command\InceptionNotSuccessfulException();
+			}
+
+			$pathsString = file_get_contents($pathsFile);
+			if ($pathsString === false) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+
+			$paths = array_values(array_filter(explode("\n", $pathsString), static function (string $path): bool {
+				return trim($path) !== '';
+			}));
 		}
 
 		$containerFactory = new ContainerFactory($currentWorkingDirectory);
