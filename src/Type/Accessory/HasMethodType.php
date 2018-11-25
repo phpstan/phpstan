@@ -9,12 +9,14 @@ use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\IntersectionType;
-use PHPStan\Type\ObjectWithoutClassType;
+use PHPStan\Type\Traits\ObjectTypeTrait;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
 
-class HasMethodType extends ObjectWithoutClassType implements AccessoryType, CompoundType
+class HasMethodType implements AccessoryType, CompoundType
 {
+
+	use ObjectTypeTrait;
 
 	/** @var string */
 	private $methodName;
@@ -22,6 +24,11 @@ class HasMethodType extends ObjectWithoutClassType implements AccessoryType, Com
 	public function __construct(string $methodName)
 	{
 		$this->methodName = $methodName;
+	}
+
+	public function getReferencedClasses(): array
+	{
+		return [];
 	}
 
 	private function getCanonicalMethodName(): string
@@ -85,7 +92,7 @@ class HasMethodType extends ObjectWithoutClassType implements AccessoryType, Com
 			return TrinaryLogic::createYes();
 		}
 
-		return parent::isCallable();
+		return TrinaryLogic::createMaybe();
 	}
 
 	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array

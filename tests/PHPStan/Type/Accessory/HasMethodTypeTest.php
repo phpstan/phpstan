@@ -178,6 +178,11 @@ class HasMethodTypeTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				new HasMethodType('format'),
+				new ObjectWithoutClassType(),
+				TrinaryLogic::createMaybe(), // an intentional imprecision
+			],
+			[
+				new HasMethodType('format'),
 				new ObjectType(\DateTimeImmutable::class),
 				TrinaryLogic::createMaybe(),
 			],
