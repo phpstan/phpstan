@@ -266,15 +266,6 @@ class TypeSpecifier
 
 					return $extension->specifyTypes($functionReflection, $expr, $scope, $context);
 				}
-
-				if (
-					!$context->null()
-					&& count($expr->args) === 1
-					&& $functionReflection->getName() === 'count'
-					&& (new ArrayType(new MixedType(), new MixedType()))->isSuperTypeOf($scope->getType($expr->args[0]->value))->yes()
-				) {
-					return $this->create($expr->args[0]->value, new NonEmptyArrayType(), $context);
-				}
 			}
 
 			if ($defaultHandleFunctions) {
