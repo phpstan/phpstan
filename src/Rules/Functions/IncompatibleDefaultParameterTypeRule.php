@@ -10,6 +10,8 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleError;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\VerbosityLevel;
 
 class IncompatibleDefaultParameterTypeRule implements Rule
@@ -31,7 +33,7 @@ class IncompatibleDefaultParameterTypeRule implements Rule
 	/**
 	 * @param FunctionLike $node
 	 * @param Scope $scope
-	 * @return string[]
+	 * @return RuleError[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
@@ -80,7 +82,7 @@ class IncompatibleDefaultParameterTypeRule implements Rule
 				continue;
 			}
 
-			$errors[] = sprintf(
+			$errors[] = RuleErrorBuilder::message(sprintf(
 				'Default value of the parameter #%d $%s (%s) of %s %s() is incompatible with type %s.',
 				$paramI + 1,
 				$param->var->name,
@@ -88,7 +90,7 @@ class IncompatibleDefaultParameterTypeRule implements Rule
 				$type,
 				$nameToPrint,
 				$parameterType->describe(VerbosityLevel::value())
-			);
+			))->line($param->getLine())->build();
 		}
 
 		return $errors;

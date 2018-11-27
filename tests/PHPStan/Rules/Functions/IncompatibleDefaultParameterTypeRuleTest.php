@@ -29,11 +29,11 @@ class IncompatibleDefaultParameterTypeRuleTest extends RuleTestCase
 		$this->analyse([__DIR__ . '/data/incompatible-default-parameter-type-methods.php'], [
 			[
 				'Default value of the parameter #6 $resource (false) of method IncompatibleDefaultParameter\Foo::baz() is incompatible with type resource.',
-				39,
+				45,
 			],
 			[
 				'Default value of the parameter #6 $resource (false) of method IncompatibleDefaultParameter\Foo::bar() is incompatible with type resource.',
-				49,
+				55,
 			],
 		]);
 	}
