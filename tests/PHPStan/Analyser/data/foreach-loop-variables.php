@@ -78,6 +78,18 @@ class ForeachFoo
 		}
 
 		'afterLoop';
+
+		$bar = false;
+		foreach ($iterableArray as $emptyForeachVal => $emptyForeachVal) {
+			if (something()) {
+				$bar = true;
+				continue;
+			}
+
+			'afterContinueInLoopWithEarlyTermination';
+
+			return;
+		}
 	}
 
 }

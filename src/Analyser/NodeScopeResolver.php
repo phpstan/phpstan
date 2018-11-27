@@ -1711,6 +1711,13 @@ class NodeScopeResolver
 				$earlyTerminationStatement = $this->findStatementEarlyTermination($statement, $branchScope);
 				if ($earlyTerminationStatement !== null) {
 					if ($lookForAssignsSettings->shouldSkipBranch($earlyTerminationStatement)) {
+						if ($earlyTerminationStatement instanceof Continue_) {
+							if ($intersectedScope === null) {
+								$intersectedScope = $initialScope->createIntersectedScope($branchScopeWithInitialScopeRemoved);
+							} else {
+								$intersectedScope = $intersectedScope->intersectVariables($branchScopeWithInitialScopeRemoved);
+							}
+						}
 						continue 2;
 					}
 					$branchScopeWithInitialScopeRemoved = $branchScopeWithInitialScopeRemoved->removeSpecified($initialScope);

@@ -38,4 +38,16 @@ function () {
 	} while (doFoo() && $i++ < 10);
 
 	'afterLoop';
+
+	$bar = false;
+	do {
+		if (something()) {
+			$bar = true;
+			continue;
+		}
+
+		'afterContinueInLoopWithEarlyTermination';
+
+		return;
+	} while (condition());
 };

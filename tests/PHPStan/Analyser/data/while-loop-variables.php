@@ -36,4 +36,16 @@ function () {
 	}
 
 	'afterLoop';
+
+	$bar = false;
+	while (condition()) {
+		if (something()) {
+			$bar = true;
+			continue;
+		}
+
+		'afterContinueInLoopWithEarlyTermination';
+
+		return;
+	}
 };

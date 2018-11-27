@@ -6356,7 +6356,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				"'afterAssign'",
 			],
 			[
-				'LoopVariables\Foo',
+				'LoopVariables\Foo|LoopVariables\Lorem',
 				'$foo',
 				"'end'",
 			],
@@ -6399,6 +6399,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'int|null',
 				'$nullableVal',
 				"'afterLoop'",
+			],
+			[
+				'bool',
+				'$bar',
+				"'afterContinueInLoopWithEarlyTermination'",
 			],
 		];
 	}
@@ -6556,7 +6561,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				"'afterAssign'",
 			],
 			[
-				'LoopVariables\Foo',
+				'LoopVariables\Foo|LoopVariables\Lorem',
 				'$foo',
 				"'end'",
 			],
@@ -6599,6 +6604,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'int',
 				'$nullableVal',
 				"'afterLoop'",
+			],
+			[
+				'bool',
+				'$bar',
+				"'afterContinueInLoopWithEarlyTermination'",
 			],
 		];
 	}
