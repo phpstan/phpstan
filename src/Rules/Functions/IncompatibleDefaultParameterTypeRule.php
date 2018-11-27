@@ -10,6 +10,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Rules\Rule;
+use PHPStan\ShouldNotHappenException;
 use PHPStan\Type\VerbosityLevel;
 
 class IncompatibleDefaultParameterTypeRule implements Rule
@@ -44,6 +45,7 @@ class IncompatibleDefaultParameterTypeRule implements Rule
 
 			$function = $this->broker->getFunction($name, $scope);
 			$parameters = ParametersAcceptorSelector::selectSingle($function->getVariants());
+			$nameToPrint = $function->getName();
 		} elseif ($node instanceof ClassMethod) {
 			$type = 'method';
 			$name = (string) $node->name;
@@ -55,6 +57,7 @@ class IncompatibleDefaultParameterTypeRule implements Rule
 
 			$method = $class->getNativeMethod($name);
 			$parameters = ParametersAcceptorSelector::selectSingle($method->getVariants());
+			$nameToPrint = sprintf('%s::%s', $method->getDeclaringClass()->getName(), $method->getName());
 		} else {
 			return [];
 		}
@@ -63,6 +66,12 @@ class IncompatibleDefaultParameterTypeRule implements Rule
 		foreach ($node->getParams() as $paramI => $param) {
 			if ($param->default === null) {
 				continue;
+			}
+			if (
+				$param->var instanceof Node\Expr\Error
+				|| !is_string($param->var->name)
+			) {
+				throw new ShouldNotHappenException();
 			}
 
 			$defaultValueType = $scope->getType($param->default);
@@ -75,10 +84,10 @@ class IncompatibleDefaultParameterTypeRule implements Rule
 			$errors[] = sprintf(
 				'Default value of the parameter #%d $%s (%s) of %s %s() is incompatible with type %s.',
 				$paramI + 1,
-				(string) $param->var->name,
+				$param->var->name,
 				$defaultValueType->describe(VerbosityLevel::value()),
 				$type,
-				(string) $name,
+				$nameToPrint,
 				$parameterType->describe(VerbosityLevel::value())
 			);
 		}
