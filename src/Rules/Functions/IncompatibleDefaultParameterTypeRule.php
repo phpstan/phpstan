@@ -10,7 +10,6 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Rules\Rule;
-use PHPStan\ShouldNotHappenException;
 use PHPStan\Type\VerbosityLevel;
 
 class IncompatibleDefaultParameterTypeRule implements Rule
@@ -71,7 +70,7 @@ class IncompatibleDefaultParameterTypeRule implements Rule
 				$param->var instanceof Node\Expr\Error
 				|| !is_string($param->var->name)
 			) {
-				throw new ShouldNotHappenException();
+				throw new \PHPStan\ShouldNotHappenException();
 			}
 
 			$defaultValueType = $scope->getType($param->default);
