@@ -183,7 +183,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
-		if ($typeAndMethodName->isUnknown()) {
+		if ($typeAndMethodName->isUnknown() || !$typeAndMethodName->getCertainty()->yes()) {
 			return [new TrivialParametersAcceptor()];
 		}
 
