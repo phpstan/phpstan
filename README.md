@@ -409,7 +409,7 @@ services:
 Use the name part after `errorFormatter.` as the CLI option value:
 
 ```bash
-vendor/bin/phpstan analyse -c phpstan.neon -l 4 --error-format awesome src tests
+vendor/bin/phpstan analyse -c phpstan.neon -l 4 --errorFormat=awesome src tests
 ```
 
 ### Existing error formatters to be used
