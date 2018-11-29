@@ -23,6 +23,9 @@ parameters:
 	reportMagicProperties: false
 	ignoreErrors: []
 	internalErrorsCountLimit: 50
+	cache:
+	    nodesByFileCountMax: 512
+	    nodesByStringCountMax: 512
 	reportUnmatchedIgnoredErrors: true
 	scopeClass: PHPStan\Analyser\Scope
 	universalObjectCratesClasses:
@@ -170,6 +173,8 @@ services:
 		class: PHPStan\Parser\CachedParser
 		arguments:
 			originalParser: @directParser
+			cachedNodesByFileCountMax: %cache.nodesByFileCountMax%
+			cachedNodesByStringCountMax: %cache.nodesByStringCountMax%
 
 	-
 		class: PHPStan\Parser\FunctionCallStatementFinder
