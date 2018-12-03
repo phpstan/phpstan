@@ -1226,17 +1226,17 @@ class Scope implements ClassMemberAccessAnswerer
 
 		if ($node instanceof Expr\Ternary) {
 			if ($node->if === null) {
-				$conditionType = $this->filterByTruthyValue($node->cond, true)->getType($node->cond);
+				$conditionType = $this->getType($node->cond);
 				$booleanConditionType = $conditionType->toBoolean();
 				if ($booleanConditionType instanceof ConstantBooleanType) {
 					if ($booleanConditionType->getValue()) {
-						return $conditionType;
+						return $this->filterByTruthyValue($node->cond, true)->getType($node->cond);
 					}
 
 					return $this->filterByFalseyValue($node->cond, true)->getType($node->else);
 				}
 				return TypeCombinator::union(
-					$conditionType,
+					$this->filterByTruthyValue($node->cond, true)->getType($node->cond),
 					$this->filterByFalseyValue($node->cond, true)->getType($node->else)
 				);
 			}
