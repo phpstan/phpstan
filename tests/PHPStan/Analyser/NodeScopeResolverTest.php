@@ -7651,6 +7651,52 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataPhp73Functions(): array
+	{
+		return [
+			[
+				'string|false',
+				'json_encode($mixed)',
+			],
+			[
+				'string',
+				'json_encode($mixed,  JSON_THROW_ON_ERROR)',
+			],
+			[
+				'string',
+				'json_encode($mixed,  JSON_THROW_ON_ERROR | JSON_NUMERIC_CHECK)',
+			],
+			[
+				'mixed',
+				'json_decode($mixed)',
+			],
+			[
+				'mixed', // will be difference type (mixed minus false) in the future
+				'json_decode($mixed, false, 512, JSON_THROW_ON_ERROR | JSON_NUMERIC_CHECK)',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataPhp73Functions
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testPhp73Functions(
+		string $description,
+		string $expression
+	): void
+	{
+		if (PHP_VERSION_ID < 70300) {
+			$this->markTestSkipped('Test requires PHP 7.3');
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/php73_functions.php',
+			$description,
+			$expression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $description,
