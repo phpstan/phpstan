@@ -7674,6 +7674,54 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'mixed', // will be difference type (mixed minus false) in the future
 				'json_decode($mixed, false, 512, JSON_THROW_ON_ERROR | JSON_NUMERIC_CHECK)',
 			],
+			[
+				'int|string|null',
+				'array_key_first($mixedArray)',
+			],
+			[
+				'int|string|null',
+				'array_key_last($mixedArray)',
+			],
+			[
+				'int|string',
+				'array_key_first($nonEmptyArray)',
+			],
+			[
+				'int|string',
+				'array_key_last($nonEmptyArray)',
+			],
+			[
+				'string|null',
+				'array_key_first($arrayWithStringKeys)',
+			],
+			[
+				'string|null',
+				'array_key_last($arrayWithStringKeys)',
+			],
+			[
+				'null',
+				'array_key_first($emptyArray)',
+			],
+			[
+				'null',
+				'array_key_last($emptyArray)',
+			],
+			[
+				'0',
+				'array_key_first($literalArray)',
+			],
+			[
+				'2',
+				'array_key_last($literalArray)',
+			],
+			[
+				'0',
+				'array_key_first($anotherLiteralArray)',
+			],
+			[
+				'2|3',
+				'array_key_last($anotherLiteralArray)',
+			],
 		];
 	}
 
