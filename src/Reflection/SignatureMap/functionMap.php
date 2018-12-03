@@ -5620,6 +5620,7 @@ return [
 'is_array' => ['bool', 'var'=>'mixed'],
 'is_bool' => ['bool', 'var'=>'mixed'],
 'is_callable' => ['bool', 'var'=>'mixed', 'syntax_only='=>'bool', '&w_callable_name='=>'string'],
+'is_countable' => ['bool', 'var'=>'mixed'],
 'is_dir' => ['bool', 'filename'=>'string'],
 'is_double' => ['bool', 'var'=>''],
 'is_executable' => ['bool', 'filename'=>'string'],

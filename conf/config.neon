@@ -456,6 +456,11 @@ services:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
 
 	-
+		class: PHPStan\Type\Php\IsCountableFunctionTypeSpecifyingExtension
+		tags:
+			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
+
+	-
 		class: PHPStan\Type\Php\IsResourceFunctionTypeSpecifyingExtension
 		tags:
 			- phpstan.typeSpecifier.functionTypeSpecifyingExtension
