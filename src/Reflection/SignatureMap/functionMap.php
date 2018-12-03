@@ -280,6 +280,8 @@ return [
 'array_intersect_uassoc\'1' => ['array', 'arr1'=>'array', 'arr2'=>'array', 'arr3'=>'array', 'arg4'=>'array|callable', '...rest'=>'array|callable'],
 'array_intersect_ukey' => ['array', 'arr1'=>'array', 'arr2'=>'array', 'key_compare_func'=>'callable'],
 'array_intersect_ukey\'1' => ['array', 'arr1'=>'array', 'arr2'=>'array', 'arr3'=>'array', 'arg4'=>'array|callable', '...rest'=>'array|callable'],
+'array_key_first' => ['int|string|null', 'array' => 'array'],
+'array_key_last' => ['int|string|null', 'array' => 'array'],
 'array_key_exists' => ['bool', 'key'=>'string|int', 'search'=>'array'],
 'array_keys' => ['array', 'input'=>'array', 'search_value='=>'mixed', 'strict='=>'bool'],
 'array_map' => ['array', 'callback'=>'?callable', 'input1'=>'array', '...args='=>'array'],

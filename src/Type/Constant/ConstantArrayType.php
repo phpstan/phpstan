@@ -365,6 +365,25 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		return $this->valueTypes[$length - 1];
 	}
 
+	public function getFirstKeyType(): Type
+	{
+		if (count($this->keyTypes) === 0) {
+			return new NullType();
+		}
+
+		return $this->keyTypes[0];
+	}
+
+	public function getLastKeyType(): Type
+	{
+		$length = count($this->keyTypes);
+		if ($length === 0) {
+			return new NullType();
+		}
+
+		return $this->keyTypes[$length - 1];
+	}
+
 	public function toBoolean(): BooleanType
 	{
 		return new ConstantBooleanType(count($this->keyTypes) > 0);
