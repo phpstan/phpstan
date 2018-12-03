@@ -7608,6 +7608,49 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataIsCountable(): array
+	{
+		return [
+			[
+				'array|Countable',
+				'$union',
+				"'is'",
+			],
+			[
+				'string',
+				'$union',
+				"'is_not'",
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataIsCountable
+	 * @param string $description
+	 * @param string $expression
+	 * @param string $evaluatedPointExpression
+	 */
+	public function testIsCountable(
+		string $description,
+		string $expression,
+		string $evaluatedPointExpression
+	)
+	{
+		if (PHP_VERSION_ID < 70300) {
+			$this->markTestSkipped('Test requires PHP 7.3');
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/is_countable.php',
+			$description,
+			$expression,
+			[],
+			[],
+			[],
+			[],
+			$evaluatedPointExpression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $description,
