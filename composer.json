@@ -44,7 +44,8 @@
 	},
 	"extra": {
 		"branch-alias": {
-			"dev-0.10.x": "0.10-dev"
+			"dev-0.10.x": "0.10-dev",
+			"dev-php7.3": "0.10-dev"
 		}
 	},
 	"autoload": {
