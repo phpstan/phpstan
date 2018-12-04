@@ -7870,9 +7870,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		string $evaluatedPointExpression
 	): void
 	{
-		if (PHP_VERSION_ID < 70300) {
-			$this->markTestSkipped('Test requires PHP 7.3');
-		}
 		$this->assertTypes(
 			__DIR__ . '/data/is_countable.php',
 			$description,
