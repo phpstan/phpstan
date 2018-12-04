@@ -192,6 +192,7 @@
 
 	<target name="phpstan">
 		<property name="phpstan.config" value="build/phpstan-generated.neon"/>
+		<php expression="PHP_VERSION_ID &gt;= 70300 ?'true':'false'" returnProperty="isPHP73" level="verbose" />
 		<touch file="${phpstan.config}"/>
 		<append
 			destFile="${phpstan.config}"
@@ -204,6 +205,15 @@
 				<append
 						destFile="${phpstan.config}"
 						text=", ignore-windows-errors.neon"
+				></append>
+			</then>
+		</if>
+		<if>
+			<equals arg1="${isPHP73}" arg2="false" />
+			<then>
+				<append
+						destFile="${phpstan.config}"
+						text=", ignore-lt-php7.3-errors.neon"
 				></append>
 			</then>
 		</if>

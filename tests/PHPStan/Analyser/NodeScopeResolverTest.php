@@ -7842,6 +7842,143 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataIsCountable(): array
+	{
+		return [
+			[
+				'array|Countable',
+				'$union',
+				"'is'",
+			],
+			[
+				'string',
+				'$union',
+				"'is_not'",
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataIsCountable
+	 * @param string $description
+	 * @param string $expression
+	 * @param string $evaluatedPointExpression
+	 */
+	public function testIsCountable(
+		string $description,
+		string $expression,
+		string $evaluatedPointExpression
+	): void
+	{
+		if (PHP_VERSION_ID < 70300) {
+			$this->markTestSkipped('Test requires PHP 7.3');
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/is_countable.php',
+			$description,
+			$expression,
+			[],
+			[],
+			[],
+			[],
+			$evaluatedPointExpression
+		);
+	}
+
+	public function dataPhp73Functions(): array
+	{
+		return [
+			[
+				'string|false',
+				'json_encode($mixed)',
+			],
+			[
+				'string',
+				'json_encode($mixed,  JSON_THROW_ON_ERROR)',
+			],
+			[
+				'string',
+				'json_encode($mixed,  JSON_THROW_ON_ERROR | JSON_NUMERIC_CHECK)',
+			],
+			[
+				'mixed',
+				'json_decode($mixed)',
+			],
+			[
+				'mixed', // will be difference type (mixed minus false) in the future
+				'json_decode($mixed, false, 512, JSON_THROW_ON_ERROR | JSON_NUMERIC_CHECK)',
+			],
+			[
+				'int|string|null',
+				'array_key_first($mixedArray)',
+			],
+			[
+				'int|string|null',
+				'array_key_last($mixedArray)',
+			],
+			/*[
+				'int|string',
+				'array_key_first($nonEmptyArray)',
+			],
+			[
+				'int|string',
+				'array_key_last($nonEmptyArray)',
+			],*/
+			[
+				'string|null',
+				'array_key_first($arrayWithStringKeys)',
+			],
+			[
+				'string|null',
+				'array_key_last($arrayWithStringKeys)',
+			],
+			[
+				'null',
+				'array_key_first($emptyArray)',
+			],
+			[
+				'null',
+				'array_key_last($emptyArray)',
+			],
+			[
+				'0',
+				'array_key_first($literalArray)',
+			],
+			[
+				'2',
+				'array_key_last($literalArray)',
+			],
+			[
+				'0',
+				'array_key_first($anotherLiteralArray)',
+			],
+			[
+				'2|3',
+				'array_key_last($anotherLiteralArray)',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataPhp73Functions
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testPhp73Functions(
+		string $description,
+		string $expression
+	): void
+	{
+		if (PHP_VERSION_ID < 70300) {
+			$this->markTestSkipped('Test requires PHP 7.3');
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/php73_functions.php',
+			$description,
+			$expression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $description,
