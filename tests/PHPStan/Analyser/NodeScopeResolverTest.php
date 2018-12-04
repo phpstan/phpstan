@@ -7916,14 +7916,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'int|string|null',
 				'array_key_last($mixedArray)',
 			],
-			/*[
+			[
 				'int|string',
 				'array_key_first($nonEmptyArray)',
 			],
 			[
 				'int|string',
 				'array_key_last($nonEmptyArray)',
-			],*/
+			],
 			[
 				'string|null',
 				'array_key_first($arrayWithStringKeys)',
