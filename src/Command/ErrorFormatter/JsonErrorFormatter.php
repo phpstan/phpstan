@@ -12,12 +12,19 @@ class JsonErrorFormatter implements ErrorFormatter
 	/** @var bool */
 	private $pretty;
 
-	public function __construct(bool $pretty)
+	/** @var OutputStyle */
+	private $outputStyle;
+
+	public function __construct(
+		bool $pretty,
+		OutputStyle $outputStyle
+	)
 	{
 		$this->pretty = $pretty;
+		$this->outputStyle = $outputStyle;
 	}
 
-	public function formatErrors(AnalysisResult $analysisResult, OutputStyle $style): int
+	public function formatErrors(AnalysisResult $analysisResult): int
 	{
 		$errorsArray = [
 			'totals' => [
@@ -51,7 +58,7 @@ class JsonErrorFormatter implements ErrorFormatter
 
 		$json = Json::encode($errorsArray, $this->pretty ? Json::PRETTY : 0);
 
-		$style->write($json);
+		$this->outputStyle->write($json);
 
 		return $analysisResult->hasErrors() ? 1 : 0;
 	}

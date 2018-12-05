@@ -13,20 +13,26 @@ class TableErrorFormatter implements ErrorFormatter
 	/** @var RelativePathHelper */
 	private $relativePathHelper;
 
-	public function __construct(RelativePathHelper $relativePathHelper)
+	/** @var OutputStyle */
+	private $outputStyle;
+
+	public function __construct(
+		RelativePathHelper $relativePathHelper,
+		OutputStyle $outputStyle
+	)
 	{
 		$this->relativePathHelper = $relativePathHelper;
+		$this->outputStyle = $outputStyle;
 	}
 
 	public function formatErrors(
-		AnalysisResult $analysisResult,
-		OutputStyle $style
+		AnalysisResult $analysisResult
 	): int
 	{
 		if (!$analysisResult->hasErrors()) {
-			$style->success('No errors');
+			$this->outputStyle->success('No errors');
 			if ($analysisResult->isDefaultLevelUsed()) {
-				$style->note(sprintf(
+				$this->outputStyle->note(sprintf(
 					'PHPStan is performing only the most basic checks. You can pass a higher rule level through the --%s option (the default and current level is %d) to analyse code more thoroughly.',
 					AnalyseCommand::OPTION_LEVEL,
 					AnalyseCommand::DEFAULT_LEVEL
@@ -56,16 +62,16 @@ class TableErrorFormatter implements ErrorFormatter
 
 			$relativeFilePath = $this->relativePathHelper->getRelativePath($file);
 
-			$style->table(['Line', $relativeFilePath], $rows);
+			$this->outputStyle->table(['Line', $relativeFilePath], $rows);
 		}
 
 		if (count($analysisResult->getNotFileSpecificErrors()) > 0) {
-			$style->table(['Error'], array_map(static function (string $error): array {
+			$this->outputStyle->table(['Error'], array_map(static function (string $error): array {
 				return [$error];
 			}, $analysisResult->getNotFileSpecificErrors()));
 		}
 
-		$style->error(sprintf($analysisResult->getTotalErrorsCount() === 1 ? 'Found %d error' : 'Found %d errors', $analysisResult->getTotalErrorsCount()));
+		$this->outputStyle->error(sprintf($analysisResult->getTotalErrorsCount() === 1 ? 'Found %d error' : 'Found %d errors', $analysisResult->getTotalErrorsCount()));
 		return 1;
 	}
 

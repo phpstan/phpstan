@@ -12,7 +12,13 @@ class CheckstyleErrorFormatter implements ErrorFormatter
 	/** @var RelativePathHelper */
 	private $relativePathHelper;
 
-	public function __construct(RelativePathHelper $relativePathHelper)
+	/** @var OutputStyle */
+	private $outputStyle;
+
+	public function __construct(
+		RelativePathHelper $relativePathHelper,
+		OutputStyle $outputStyle
+	)
 	{
 		$this->relativePathHelper = $relativePathHelper;
 	}
@@ -21,34 +27,32 @@ class CheckstyleErrorFormatter implements ErrorFormatter
 	 * Formats the errors and outputs them to the console.
 	 *
 	 * @param \PHPStan\Command\AnalysisResult $analysisResult
-	 * @param \Symfony\Component\Console\Style\OutputStyle $style
 	 * @return int Error code.
 	 */
 	public function formatErrors(
-		AnalysisResult $analysisResult,
-		OutputStyle $style
+		AnalysisResult $analysisResult
 	): int
 	{
-		$style->writeln('<?xml version="1.0" encoding="UTF-8"?>');
-		$style->writeln('<checkstyle>');
+		$this->outputStyle->writeln('<?xml version="1.0" encoding="UTF-8"?>');
+		$this->outputStyle->writeln('<checkstyle>');
 
 		foreach ($this->groupByFile($analysisResult) as $relativeFilePath => $errors) {
-			$style->writeln(sprintf(
+			$this->outputStyle->writeln(sprintf(
 				'<file name="%s">',
 				$this->escape($relativeFilePath)
 			));
 
 			foreach ($errors as $error) {
-				$style->writeln(sprintf(
+				$this->outputStyle->writeln(sprintf(
 					'  <error line="%d" column="1" severity="error" message="%s" />',
 					$this->escape((string) $error->getLine()),
 					$this->escape((string) $error->getMessage())
 				));
 			}
-			$style->writeln('</file>');
+			$this->outputStyle->writeln('</file>');
 		}
 
-		$style->writeln('</checkstyle>');
+		$this->outputStyle->writeln('</checkstyle>');
 
 		return $analysisResult->hasErrors() ? 1 : 0;
 	}

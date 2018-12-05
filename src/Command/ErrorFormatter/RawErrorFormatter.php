@@ -8,9 +8,21 @@ use Symfony\Component\Console\Style\OutputStyle;
 class RawErrorFormatter implements ErrorFormatter
 {
 
+	/** @var OutputStyle */
+	private $outputStyle;
+
+	/**
+	 * RawErrorFormatter constructor.
+	 * @param OutputStyle $outputStyle
+	 */
+	public function __construct(OutputStyle $outputStyle)
+	{
+		$this->outputStyle = $outputStyle;
+	}
+
+
 	public function formatErrors(
-		AnalysisResult $analysisResult,
-		OutputStyle $style
+		AnalysisResult $analysisResult
 	): int
 	{
 		if (!$analysisResult->hasErrors()) {
@@ -18,11 +30,11 @@ class RawErrorFormatter implements ErrorFormatter
 		}
 
 		foreach ($analysisResult->getNotFileSpecificErrors() as $notFileSpecificError) {
-			$style->writeln(sprintf('?:?:%s', $notFileSpecificError));
+			$this->outputStyle->writeln(sprintf('?:?:%s', $notFileSpecificError));
 		}
 
 		foreach ($analysisResult->getFileSpecificErrors() as $fileSpecificError) {
-			$style->writeln(
+			$this->outputStyle->writeln(
 				sprintf(
 					'%s:%d:%s',
 					$fileSpecificError->getFile(),
