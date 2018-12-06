@@ -127,6 +127,22 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		$this->assertSame('No ending delimiter \'#\' found in pattern: #Fail\.', $result[1]);
 	}
 
+	public function testReportMultipleParserErrorsAtOnce(): void
+	{
+		$result = $this->runAnalyser([], false, __DIR__ . '/data/multipleParseErrors.php', false);
+		$this->assertCount(2, $result);
+
+		/** @var Error $errorOne */
+		$errorOne = $result[0];
+		$this->assertSame('Syntax error, unexpected T_IS_EQUAL, expecting T_VARIABLE on line 3', $errorOne->getMessage());
+		$this->assertSame(3, $errorOne->getLine());
+
+		/** @var Error $errorTwo */
+		$errorTwo = $result[1];
+		$this->assertSame('Syntax error, unexpected EOF on line 10', $errorTwo->getMessage());
+		$this->assertSame(10, $errorTwo->getLine());
+	}
+
 	/**
 	 * @param string[]|array<array<string, string>> $ignoreErrors
 	 * @param bool $reportUnmatchedIgnoredErrors

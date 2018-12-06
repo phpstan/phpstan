@@ -5,13 +5,12 @@ namespace PHPStan\Command;
 use Nette\DI\Helpers;
 use PHPStan\DependencyInjection\ContainerFactory;
 use PHPStan\DependencyInjection\LoaderFactory;
-use PHPStan\File\FileExcluder;
+use PHPStan\File\FileFinder;
 use PHPStan\File\FileHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\OutputStyle;
-use Symfony\Component\Finder\Finder;
 
 class CommandHelper
 {
@@ -22,6 +21,7 @@ class CommandHelper
 		InputInterface $input,
 		OutputInterface $output,
 		array $paths,
+		?string $pathsFile,
 		?string $memoryLimit,
 		?string $autoloadFile,
 		?string $projectConfigFile,
@@ -68,6 +68,22 @@ class CommandHelper
 		if ($projectConfigFile === null && $level === null) {
 			$level = self::DEFAULT_LEVEL;
 			$defaultLevelUsed = true;
+		}
+
+		if (count($paths) === 0 && $pathsFile !== null) {
+			if (!file_exists($pathsFile)) {
+				$errorOutput->writeln(sprintf('Paths file %s does not exist.', $pathsFile));
+				throw new \PHPStan\Command\InceptionNotSuccessfulException();
+			}
+
+			$pathsString = file_get_contents($pathsFile);
+			if ($pathsString === false) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+
+			$paths = array_values(array_filter(explode("\n", $pathsString), static function (string $path): bool {
+				return trim($path) !== '';
+			}));
 		}
 
 		$containerFactory = new ContainerFactory($currentWorkingDirectory);
@@ -198,33 +214,19 @@ class CommandHelper
 			}
 		}
 
-		$onlyFiles = true;
-		$files = [];
-		$fileExtensions = $container->parameters['fileExtensions'];
-		foreach ($paths as $path) {
-			if (!file_exists($path)) {
-				$errorOutput->writeln(sprintf('<error>Path %s does not exist</error>', $path));
-				throw new \PHPStan\Command\InceptionNotSuccessfulException();
-			} elseif (is_file($path)) {
-				$files[] = $fileHelper->normalizePath($path);
-			} else {
-				$finder = new Finder();
-				$finder->followLinks();
-				foreach ($finder->files()->name('*.{' . implode(',', $fileExtensions) . '}')->in($path) as $fileInfo) {
-					$files[] = $fileHelper->normalizePath($fileInfo->getPathname());
-					$onlyFiles = false;
-				}
-			}
+		/** @var FileFinder $fileFinder */
+		$fileFinder = $container->getByType(FileFinder::class);
+
+		try {
+			$fileFinderResult = $fileFinder->findFiles($paths);
+		} catch (\PHPStan\File\PathNotFoundException $e) {
+			$errorOutput->writeln(sprintf('<error>%s</error>', $e->getMessage()));
+			throw new \PHPStan\Command\InceptionNotSuccessfulException($e->getMessage(), 0, $e);
 		}
 
-		$fileExcluder = $container->getByType(FileExcluder::class);
-		$files = array_filter($files, static function (string $file) use ($fileExcluder): bool {
-			return !$fileExcluder->isExcludedFromAnalysing($file);
-		});
-
 		return new InceptionResult(
-			$files,
-			$onlyFiles,
+			$fileFinderResult->getFiles(),
+			$fileFinderResult->isOnlyFiles(),
 			$consoleStyle,
 			$errorOutput,
 			$container,

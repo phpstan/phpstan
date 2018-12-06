@@ -47,7 +47,7 @@ class PrintRule implements Rule
 			&& $typeResult->getType()->toString() instanceof ErrorType
 		) {
 			return [sprintf(
-				'Parameter `%s` of print cannot be converted to string',
+				'Parameter %s of print cannot be converted to string.',
 				$typeResult->getType()->describe(VerbosityLevel::value())
 			)];
 		}

@@ -323,12 +323,19 @@ class ObjectType implements TypeWithClassName
 	{
 		$broker = Broker::getInstance();
 		if (!$broker->hasClass($this->className)) {
+			return TrinaryLogic::createMaybe();
+		}
+
+		$classReflection = $broker->getClass($this->className);
+		if ($classReflection->hasMethod($methodName)) {
+			return TrinaryLogic::createYes();
+		}
+
+		if ($classReflection->isFinal()) {
 			return TrinaryLogic::createNo();
 		}
 
-		return TrinaryLogic::createFromBoolean(
-			$broker->getClass($this->className)->hasMethod($methodName)
-		);
+		return TrinaryLogic::createMaybe();
 	}
 
 	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection

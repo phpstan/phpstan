@@ -5,6 +5,7 @@ namespace PHPStan\Dependency;
 use PHPStan\Analyser\NodeScopeResolver;
 use PHPStan\Analyser\ScopeFactory;
 use PHPStan\Broker\Broker;
+use PHPStan\File\FileFinder;
 use PHPStan\File\FileHelper;
 use PHPStan\Parser\Parser;
 use PHPStan\Reflection\ClassReflection;
@@ -39,9 +40,11 @@ class DependencyDumperTest extends TestCase
 		/** @var Broker $realBroker */
 		$realBroker = $container->getByType(Broker::class);
 
+		$fileHelper = new FileHelper(__DIR__);
+
 		$mockBroker = $this->createMock(Broker::class);
 		$mockBroker->method('getClass')
-			->willReturnCallback(function (string $class) use ($realBroker): ClassReflection {
+			->willReturnCallback(function (string $class) use ($realBroker, $fileHelper): ClassReflection {
 				if (in_array($class, [
 					GrandChild::class,
 					Child::class,
@@ -58,32 +61,39 @@ class DependencyDumperTest extends TestCase
 				$classReflection->method('getTraits')->willReturn([]);
 				$classReflection->method('getParentClass')->willReturn(false);
 				$classReflection->method('getFilename')->willReturn(
-					__DIR__ . '/data/' . $shortClass . '.php'
+					$fileHelper->normalizePath(__DIR__ . '/data/' . $shortClass . '.php')
 				);
 
 				return $classReflection;
 			});
 
-		$fileHelper = new FileHelper(__DIR__);
-
 		$expectedDependencyTree = $this->getExpectedDependencyTree($fileHelper);
 
 		/** @var ScopeFactory $scopeFactory */
 		$scopeFactory = $container->getByType(ScopeFactory::class);
+
+		/** @var FileFinder $fileFinder */
+		$fileFinder = $container->getByType(FileFinder::class);
+
 		$dumper = new DependencyDumper(
 			new DependencyResolver($mockBroker),
 			$nodeScopeResolver,
 			$fileHelper,
 			$mockParser,
-			$scopeFactory
+			$scopeFactory,
+			$fileFinder
 		);
 
 		$dependencies = $dumper->dumpDependencies(
-			array_merge([__DIR__ . '/data/GrandChild.php'], array_keys($expectedDependencyTree)),
+			array_merge(
+				[$fileHelper->normalizePath(__DIR__ . '/data/GrandChild.php')],
+				array_keys($expectedDependencyTree)
+			),
 			static function (): void {
 			},
 			static function (): void {
-			}
+			},
+			null
 		);
 
 		$this->assertCount(count($expectedDependencyTree), $dependencies);

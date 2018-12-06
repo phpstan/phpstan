@@ -6,6 +6,7 @@ use PHPStan\Analyser\NodeScopeResolver;
 use PHPStan\Analyser\Scope;
 use PHPStan\Analyser\ScopeContext;
 use PHPStan\Analyser\ScopeFactory;
+use PHPStan\File\FileFinder;
 use PHPStan\File\FileHelper;
 use PHPStan\Parser\Parser;
 
@@ -27,12 +28,16 @@ class DependencyDumper
 	/** @var ScopeFactory */
 	private $scopeFactory;
 
+	/** @var FileFinder */
+	private $fileFinder;
+
 	public function __construct(
 		DependencyResolver $dependencyResolver,
 		NodeScopeResolver $nodeScopeResolver,
 		FileHelper $fileHelper,
 		Parser $parser,
-		ScopeFactory $scopeFactory
+		ScopeFactory $scopeFactory,
+		FileFinder $fileFinder
 	)
 	{
 		$this->dependencyResolver = $dependencyResolver;
@@ -40,22 +45,29 @@ class DependencyDumper
 		$this->fileHelper = $fileHelper;
 		$this->parser = $parser;
 		$this->scopeFactory = $scopeFactory;
+		$this->fileFinder = $fileFinder;
 	}
 
 	/**
 	 * @param string[] $files
 	 * @param callable(int $count): void $countCallback
 	 * @param callable(): void $progressCallback
+	 * @param string[]|null $analysedPaths
 	 * @return string[][]
 	 */
 	public function dumpDependencies(
 		array $files,
 		callable $countCallback,
-		callable $progressCallback
+		callable $progressCallback,
+		?array $analysedPaths
 	): array
 	{
-		$this->nodeScopeResolver->setAnalysedFiles($files);
-		$analysedFiles = array_fill_keys($files, true);
+		$analysedFiles = $files;
+		if ($analysedPaths !== null) {
+			$analysedFiles = $this->fileFinder->findFiles($analysedPaths)->getFiles();
+		}
+		$this->nodeScopeResolver->setAnalysedFiles($analysedFiles);
+		$analysedFiles = array_fill_keys($analysedFiles, true);
 
 		$dependencies = [];
 		$countCallback(count($files));

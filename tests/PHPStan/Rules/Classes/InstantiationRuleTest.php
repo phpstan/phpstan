@@ -142,10 +142,6 @@ class InstantiationRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	public function testSoap(): void
 	{
-		if (!extension_loaded('soap')) {
-			$this->markTestSkipped('Extension SOAP needed');
-		}
-
 		$this->analyse(
 			[__DIR__ . '/data/instantiation-soap.php'],
 			[

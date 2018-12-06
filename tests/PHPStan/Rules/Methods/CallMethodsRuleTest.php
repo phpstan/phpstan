@@ -246,10 +246,6 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				524,
 			],
 			[
-				'Cannot call method find() on Test\NullCoalesce|null.',
-				524,
-			],
-			[
 				'Parameter #1 $param of method Test\IncompatiblePhpDocNullableTypeIssue::doFoo() expects string|null, int given.',
 				551,
 			],

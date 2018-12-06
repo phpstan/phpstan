@@ -73,9 +73,14 @@ class ConstantArrayTypeBuilder
 
 			$this->keyTypes[] = $offsetType;
 			$this->valueTypes[] = $valueType;
-			$this->nextAutoIndex = $offsetType instanceof ConstantIntegerType
+
+			/** @var int|float $newNextAutoIndex */
+			$newNextAutoIndex = $offsetType instanceof ConstantIntegerType
 				? max($this->nextAutoIndex, $offsetType->getValue() + 1)
 				: $this->nextAutoIndex;
+			if (!is_float($newNextAutoIndex)) {
+				$this->nextAutoIndex = $newNextAutoIndex;
+			}
 			return;
 		}
 

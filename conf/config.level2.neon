@@ -10,6 +10,7 @@ rules:
 	- PHPStan\Rules\Cast\InvalidCastRule
 	- PHPStan\Rules\Cast\InvalidPartOfEncapsedStringRule
 	- PHPStan\Rules\Cast\PrintRule
+	- PHPStan\Rules\Functions\IncompatibleDefaultParameterTypeRule
 	- PHPStan\Rules\Operators\InvalidBinaryOperationRule
 	- PHPStan\Rules\Operators\InvalidUnaryOperationRule
 	- PHPStan\Rules\Operators\InvalidComparisonOperationRule

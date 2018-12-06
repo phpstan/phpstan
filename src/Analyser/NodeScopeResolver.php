@@ -1865,7 +1865,7 @@ class NodeScopeResolver
 		} elseif ($functionCall instanceof MethodCall && $functionCall->name instanceof Node\Identifier) {
 			$type = $scope->getType($functionCall->var);
 			$methodName = $functionCall->name->name;
-			if (!$type->hasMethod($methodName)->no()) {
+			if ($type->hasMethod($methodName)->yes()) {
 				return ParametersAcceptorSelector::selectFromArgs(
 					$scope,
 					$functionCall->args,
@@ -2011,9 +2011,16 @@ class NodeScopeResolver
 			$phpDocParameterTypes = array_map(static function (ParamTag $tag): Type {
 				return $tag->getType();
 			}, $resolvedPhpDoc->getParamTags());
+			$nativeReturnType = $scope->getFunctionType($functionLike->getReturnType(), false, false);
 			$phpDocReturnType = null;
-			if ($isExplicitPhpDoc || $functionLike->getReturnType() === null) {
-				$phpDocReturnType = $resolvedPhpDoc->getReturnTag() !== null ? $resolvedPhpDoc->getReturnTag()->getType() : null;
+			if (
+				$resolvedPhpDoc->getReturnTag() !== null
+				&& (
+					$isExplicitPhpDoc
+					|| $nativeReturnType->isSuperTypeOf($resolvedPhpDoc->getReturnTag()->getType())->yes()
+				)
+			) {
+				$phpDocReturnType = $resolvedPhpDoc->getReturnTag()->getType();
 			}
 			$phpDocThrowType = $resolvedPhpDoc->getThrowsTag() !== null ? $resolvedPhpDoc->getThrowsTag()->getType() : null;
 			$isDeprecated = $resolvedPhpDoc->isDeprecated();

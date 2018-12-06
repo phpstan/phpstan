@@ -4,6 +4,7 @@ namespace PHPStan\Command;
 
 use Nette\Utils\Json;
 use PHPStan\Dependency\DependencyDumper;
+use PHPStan\File\FileHelper;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -20,10 +21,12 @@ class DumpDependenciesCommand extends \Symfony\Component\Console\Command\Command
 			->setDescription('Dumps files dependency tree')
 			->setDefinition([
 				new InputArgument('paths', InputArgument::OPTIONAL | InputArgument::IS_ARRAY, 'Paths with source code to run dump on'),
+				new InputOption('paths-file', null, InputOption::VALUE_REQUIRED, 'Path to a file with a list of paths to run analysis on'),
 				new InputOption('configuration', 'c', InputOption::VALUE_REQUIRED, 'Path to project configuration file'),
 				new InputOption(ErrorsConsoleStyle::OPTION_NO_PROGRESS, null, InputOption::VALUE_NONE, 'Do not show progress bar, only results'),
 				new InputOption('autoload-file', 'a', InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path'),
 				new InputOption('memory-limit', null, InputOption::VALUE_REQUIRED, 'Memory limit for the run'),
+				new InputOption('analysed-paths', null, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Project-scope paths'),
 			]);
 	}
 
@@ -41,10 +44,14 @@ class DumpDependenciesCommand extends \Symfony\Component\Console\Command\Command
 
 			/** @var string|null $configurationFile */
 			$configurationFile = $input->getOption('configuration');
+
+			/** @var string|null $pathsFile */
+			$pathsFile = $input->getOption('paths-file');
 			$inceptionResult = CommandHelper::begin(
 				$input,
 				$output,
 				$paths,
+				$pathsFile,
 				$memoryLimit,
 				$autoloadFile,
 				$configurationFile,
@@ -58,6 +65,15 @@ class DumpDependenciesCommand extends \Symfony\Component\Console\Command\Command
 
 		/** @var DependencyDumper $dependencyDumper */
 		$dependencyDumper = $inceptionResult->getContainer()->getByType(DependencyDumper::class);
+
+		/** @var FileHelper $fileHelper */
+		$fileHelper = $inceptionResult->getContainer()->getByType(FileHelper::class);
+
+		/** @var string[] $analysedPaths */
+		$analysedPaths = $input->getOption('analysed-paths');
+		$analysedPaths = array_map(static function (string $path) use ($fileHelper): string {
+			return $fileHelper->absolutizePath($path);
+		}, $analysedPaths);
 		$dependencies = $dependencyDumper->dumpDependencies(
 			$inceptionResult->getFiles(),
 			static function (int $count) use ($consoleStyle): void {
@@ -65,7 +81,8 @@ class DumpDependenciesCommand extends \Symfony\Component\Console\Command\Command
 			},
 			static function () use ($consoleStyle): void {
 				$consoleStyle->progressAdvance();
-			}
+			},
+			count($analysedPaths) > 0 ? $analysedPaths : null
 		);
 		$consoleStyle->progressFinish();
 		$consoleStyle->writeln(Json::encode($dependencies, Json::PRETTY));
