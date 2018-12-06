@@ -27,6 +27,41 @@ $mbStrlenWithInvalidEncoding = mb_strlen('', 'foo');
 $mbStrlenWithValidAndInvalidEncoding = mb_strlen('', doFoo() ? 'utf-8' : 'foo');
 $mbStrlenWithUnknownEncoding = mb_strlen('', doFoo());
 
+$mbHttpOutputWithoutEncoding = mb_http_output();
+$mbHttpOutputWithValidEncoding = mb_http_output('utf-8');
+$mbHttpOutputWithInvalidEncoding = mb_http_output('foo');
+$mbHttpOutputWithValidAndInvalidEncoding = mb_http_output(doFoo() ? 'utf-8' : 'foo');
+$mbHttpOutputWithUnknownEncoding = mb_http_output(doFoo());
+
+$mbRegexEncodingWithoutEncoding = mb_regex_encoding();
+$mbRegexEncodingWithValidEncoding = mb_regex_encoding('utf-8');
+$mbRegexEncodingWithInvalidEncoding = mb_regex_encoding('foo');
+$mbRegexEncodingWithValidAndInvalidEncoding = mb_regex_encoding(doFoo() ? 'utf-8' : 'foo');
+$mbRegexEncodingWithUnknownEncoding = mb_regex_encoding(doFoo());
+
+$mbInternalEncodingWithoutEncoding = mb_internal_encoding();
+$mbInternalEncodingWithValidEncoding = mb_internal_encoding('utf-8');
+$mbInternalEncodingWithInvalidEncoding = mb_internal_encoding('foo');
+$mbInternalEncodingWithValidAndInvalidEncoding = mb_internal_encoding(doFoo() ? 'utf-8' : 'foo');
+$mbInternalEncodingWithUnknownEncoding = mb_internal_encoding(doFoo());
+
+$mbEncodingAliasesWithValidEncoding = mb_encoding_aliases('utf-8');
+$mbEncodingAliasesWithInvalidEncoding = mb_encoding_aliases('foo');
+$mbEncodingAliasesWithValidAndInvalidEncoding = mb_encoding_aliases(doFoo() ? 'utf-8' : 'foo');
+$mbEncodingAliasesWithUnknownEncoding = mb_encoding_aliases(doFoo());
+
+$mbChrWithoutEncoding = mb_chr(68);
+$mbChrWithValidEncoding = mb_chr(68, 'utf-8');
+$mbChrWithInvalidEncoding = mb_chr(68, 'foo');
+$mbChrWithValidAndInvalidEncoding = mb_chr(68, doFoo() ? 'utf-8' : 'foo');
+$mbChrWithUnknownEncoding = mb_chr(68, doFoo());
+
+$mbOrdWithoutEncoding = mb_ord('');
+$mbOrdWithValidEncoding = mb_ord('', 'utf-8');
+$mbOrdWithInvalidEncoding = mb_ord('', 'foo');
+$mbOrdWithValidAndInvalidEncoding = mb_ord('', doFoo() ? 'utf-8' : 'foo');
+$mbOrdWithUnknownEncoding = mb_ord('', doFoo());
+
 $gettimeofdayArrayWithoutArg = gettimeofday();
 $gettimeofdayArray = gettimeofday(false);
 $gettimeofdayFloat = gettimeofday(true);

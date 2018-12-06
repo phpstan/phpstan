@@ -113,6 +113,17 @@ class UnionType implements CompoundType, StaticResolvableType
 		return true;
 	}
 
+	public function contains(Type $type): bool
+	{
+		foreach ($this->types as $innerType) {
+			if ($innerType->equals($type)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public function describe(VerbosityLevel $level): string
 	{
 		$joinTypes = static function (array $types) use ($level): string {
