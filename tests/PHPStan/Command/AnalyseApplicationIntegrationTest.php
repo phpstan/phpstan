@@ -20,10 +20,13 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\Testing\TestCase
 	{
 		$path = __DIR__ . '/foo';
 		$output = $this->runPath($path, 1);
-		$this->assertContains(sprintf(
-			'File %s does not exist.',
-			$path
-		), $output);
+		$this->assertContains(
+			sprintf(
+				'File %s does not exist.',
+				$path
+			),
+			$output
+		);
 	}
 
 	public function testExecuteOnAFileWithErrors(): void

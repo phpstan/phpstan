@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Properties;
 
@@ -47,7 +47,8 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\StaticPropertyFetch $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope                  $scope
+	 *
 	 * @return string[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
@@ -59,9 +60,9 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 		$name = $node->name->name;
 		$messages = [];
 		if ($node->class instanceof Name) {
-			$class = (string) $node->class;
+			$class = (string)$node->class;
 			$lowercasedClass = strtolower($class);
-			if (in_array($lowercasedClass, ['self', 'static'], true)) {
+			if (\in_array($lowercasedClass, ['self', 'static'], true)) {
 				if (!$scope->isInClass()) {
 					return [
 						sprintf(
@@ -144,9 +145,12 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 		$classType = TypeCombinator::remove($classType, new StringType());
 
 		if (!$classType->canAccessProperties()->yes()) {
-			return array_merge($messages, [
-				sprintf('Cannot access static property $%s on %s.', $name, $typeForDescribe->describe(VerbosityLevel::typeOnly())),
-			]);
+			return array_merge(
+				$messages,
+				[
+					sprintf('Cannot access static property $%s on %s.', $name, $typeForDescribe->describe(VerbosityLevel::typeOnly())),
+				]
+			);
 		}
 
 		if (!$classType->hasProperty($name)) {
@@ -154,13 +158,16 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 				return $messages;
 			}
 
-			return array_merge($messages, [
-				sprintf(
-					'Access to an undefined static property %s::$%s.',
-					$typeForDescribe->describe(VerbosityLevel::typeOnly()),
-					$name
-				),
-			]);
+			return array_merge(
+				$messages,
+				[
+					sprintf(
+						'Access to an undefined static property %s::$%s.',
+						$typeForDescribe->describe(VerbosityLevel::typeOnly()),
+						$name
+					),
+				]
+			);
 		}
 
 		$property = $classType->getProperty($name, $scope);
@@ -172,24 +179,30 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 				}
 			}
 
-			return array_merge($messages, [
-				sprintf(
-					'Static access to instance property %s::$%s.',
-					$property->getDeclaringClass()->getDisplayName(),
-					$name
-				),
-			]);
+			return array_merge(
+				$messages,
+				[
+					sprintf(
+						'Static access to instance property %s::$%s.',
+						$property->getDeclaringClass()->getDisplayName(),
+						$name
+					),
+				]
+			);
 		}
 
 		if (!$scope->canAccessProperty($property)) {
-			return array_merge($messages, [
-				sprintf(
-					'Access to %s property $%s of class %s.',
-					$property->isPrivate() ? 'private' : 'protected',
-					$name,
-					$property->getDeclaringClass()->getDisplayName()
-				),
-			]);
+			return array_merge(
+				$messages,
+				[
+					sprintf(
+						'Access to %s property $%s of class %s.',
+						$property->isPrivate() ? 'private' : 'protected',
+						$name,
+						$property->getDeclaringClass()->getDisplayName()
+					),
+				]
+			);
 		}
 
 		return $messages;

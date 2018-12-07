@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type;
 
@@ -13,7 +13,7 @@ use PHPStan\Type\Constant\ConstantStringType;
 class TypeCombinator
 {
 
-	private const CONSTANT_ARRAY_UNION_THRESHOLD = 16;
+	private const CONSTANT_ARRAY_UNION_THRESHOLD  = 16;
 	private const CONSTANT_SCALAR_UNION_THRESHOLD = 8;
 
 	public static function addNull(Type $type): Type
@@ -27,6 +27,7 @@ class TypeCombinator
 			foreach ($typeToRemove->getTypes() as $unionTypeToRemove) {
 				$fromType = self::remove($fromType, $unionTypeToRemove);
 			}
+
 			return $fromType;
 		}
 
@@ -84,7 +85,7 @@ class TypeCombinator
 	public static function union(Type ...$types): Type
 	{
 		// transform A | (B | C) to A | B | C
-		for ($i = 0; $i < count($types); $i++) {
+		for ($i = 0; $i < \count($types); $i++) {
 			if (!($types[$i] instanceof UnionType)) {
 				continue;
 			}
@@ -92,7 +93,7 @@ class TypeCombinator
 			array_splice($types, $i, 1, $types[$i]->getTypes());
 		}
 
-		$typesCount = count($types);
+		$typesCount = \count($types);
 		$arrayTypes = [];
 		$arrayAccessoryTypes = [];
 		$scalarTypes = [];
@@ -107,7 +108,7 @@ class TypeCombinator
 			}
 			if ($types[$i] instanceof ConstantScalarType) {
 				$type = $types[$i];
-				$scalarTypes[get_class($type)][md5($type->describe(VerbosityLevel::precise()))] = $type;
+				$scalarTypes[\get_class($type)][md5($type->describe(VerbosityLevel::precise()))] = $type;
 				unset($types[$i]);
 				continue;
 			}
@@ -160,8 +161,8 @@ class TypeCombinator
 		);
 
 		// simplify string[] | int[] to (string|int)[]
-		for ($i = 0; $i < count($types); $i++) {
-			for ($j = $i + 1; $j < count($types); $j++) {
+		for ($i = 0; $i < \count($types); $i++) {
+			for ($j = $i + 1; $j < \count($types); $j++) {
 				if ($types[$i] instanceof IterableType && $types[$j] instanceof IterableType) {
 					$types[$i] = new IterableType(
 						self::union($types[$i]->getIterableKeyType(), $types[$j]->getIterableKeyType()),
@@ -175,8 +176,8 @@ class TypeCombinator
 
 		// transform A | A to A
 		// transform A | never to A
-		for ($i = 0; $i < count($types); $i++) {
-			for ($j = $i + 1; $j < count($types); $j++) {
+		for ($i = 0; $i < \count($types); $i++) {
+			for ($j = $i + 1; $j < \count($types); $j++) {
 				if (
 					!$types[$j] instanceof ConstantArrayType
 					&& $types[$j]->isSuperTypeOf($types[$i])->yes()
@@ -199,12 +200,12 @@ class TypeCombinator
 			if (isset($hasGenericScalarTypes[$classType])) {
 				continue;
 			}
-			if ($classType === ConstantBooleanType::class && count($scalarTypeItems) === 2) {
+			if ($classType === ConstantBooleanType::class && \count($scalarTypeItems) === 2) {
 				$types[] = new BooleanType();
 				continue;
 			}
 			foreach ($scalarTypeItems as $type) {
-				if (count($scalarTypeItems) > self::CONSTANT_SCALAR_UNION_THRESHOLD) {
+				if (\count($scalarTypeItems) > self::CONSTANT_SCALAR_UNION_THRESHOLD) {
 					$types[] = $type->generalize();
 					break;
 				}
@@ -212,10 +213,10 @@ class TypeCombinator
 			}
 		}
 
-		if (count($types) === 0) {
+		if (\count($types) === 0) {
 			return new NeverType();
 
-		} elseif (count($types) === 1) {
+		} elseif (\count($types) === 1) {
 			return $types[0];
 		}
 
@@ -223,15 +224,16 @@ class TypeCombinator
 	}
 
 	/**
-	 * @param ArrayType[] $arrayTypes
+	 * @param ArrayType[]     $arrayTypes
 	 * @param AccessoryType[] $accessoryTypes
+	 *
 	 * @return Type[]
 	 */
 	private static function processArrayTypes(array $arrayTypes, array $accessoryTypes): array
 	{
-		if (count($arrayTypes) === 0) {
+		if (\count($arrayTypes) === 0) {
 			return [];
-		} elseif (count($arrayTypes) === 1) {
+		} elseif (\count($arrayTypes) === 1) {
 			return [
 				self::intersect($arrayTypes[0], ...$accessoryTypes),
 			];
@@ -264,7 +266,7 @@ class TypeCombinator
 
 				$constantKeyTypesNumbered[$keyTypeValue] = $nextConstantKeyTypeIndex;
 				$nextConstantKeyTypeIndex *= 2;
-				if (!is_int($nextConstantKeyTypeIndex)) {
+				if (!\is_int($nextConstantKeyTypeIndex)) {
 					$generalArrayOcurred = true;
 					continue;
 				}
@@ -272,10 +274,13 @@ class TypeCombinator
 		}
 
 		$createGeneralArray = static function () use ($keyTypesForGeneralArray, $valueTypesForGeneralArray, $accessoryTypes): Type {
-			return TypeCombinator::intersect(new ArrayType(
-				self::union(...$keyTypesForGeneralArray),
-				self::union(...$valueTypesForGeneralArray)
-			), ...$accessoryTypes);
+			return TypeCombinator::intersect(
+				new ArrayType(
+					self::union(...$keyTypesForGeneralArray),
+					self::union(...$valueTypesForGeneralArray)
+				),
+				...$accessoryTypes
+			);
 		};
 
 		if ($generalArrayOcurred) {
@@ -301,7 +306,7 @@ class TypeCombinator
 				$bucket = [];
 				foreach ($arrayType->getKeyTypes() as $i => $keyType) {
 					$bucket[$keyType->getValue()] = [
-						'keyType' => $keyType,
+						'keyType'   => $keyType,
 						'valueType' => $arrayType->getValueTypes()[$i],
 					];
 				}
@@ -320,7 +325,7 @@ class TypeCombinator
 			$constantArraysBuckets[$arrayIndex] = $bucket;
 		}
 
-		if (count($constantArraysBuckets) > self::CONSTANT_ARRAY_UNION_THRESHOLD) {
+		if (\count($constantArraysBuckets) > self::CONSTANT_ARRAY_UNION_THRESHOLD) {
 			return [
 				$createGeneralArray(),
 			];
@@ -348,8 +353,8 @@ class TypeCombinator
 				foreach ($type->getTypes() as $innerUnionSubType) {
 					$topLevelUnionSubTypes[] = self::intersect(
 						$innerUnionSubType,
-						...array_slice($types, 0, $i),
-						...array_slice($types, $i + 1)
+						...\array_slice($types, 0, $i),
+						...\array_slice($types, $i + 1)
 					);
 				}
 
@@ -374,8 +379,8 @@ class TypeCombinator
 		// transform callable & int to never
 		// transform A & ~A to never
 		// transform int & string to never
-		for ($i = 0; $i < count($types); $i++) {
-			for ($j = $i + 1; $j < count($types); $j++) {
+		for ($i = 0; $i < \count($types); $i++) {
+			for ($j = $i + 1; $j < \count($types); $j++) {
 				$isSuperTypeA = $types[$j]->isSuperTypeOf($types[$i]);
 				if ($isSuperTypeA->no()) {
 					return new NeverType();
@@ -398,7 +403,7 @@ class TypeCombinator
 			}
 		}
 
-		if (count($types) === 1) {
+		if (\count($types) === 1) {
 			return $types[0];
 
 		}

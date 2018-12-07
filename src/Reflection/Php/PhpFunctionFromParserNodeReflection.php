@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Reflection\Php;
 
@@ -48,16 +48,16 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 	private $variants;
 
 	/**
-	 * @param FunctionLike $functionLike
+	 * @param FunctionLike         $functionLike
 	 * @param \PHPStan\Type\Type[] $realParameterTypes
 	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
-	 * @param bool $realReturnTypePresent
-	 * @param Type $realReturnType
-	 * @param Type|null $phpDocReturnType
-	 * @param Type|null $throwType
-	 * @param bool $isDeprecated
-	 * @param bool $isInternal
-	 * @param bool $isFinal
+	 * @param bool                 $realReturnTypePresent
+	 * @param Type                 $realReturnType
+	 * @param Type|null            $phpDocReturnType
+	 * @param Type|null            $throwType
+	 * @param bool                 $isDeprecated
+	 * @param bool                 $isInternal
+	 * @param bool                 $isFinal
 	 */
 	public function __construct(
 		FunctionLike $functionLike,
@@ -95,7 +95,8 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 			return $this->functionLike->name->name;
 		}
 
-		return (string) $this->functionLike->namespacedName;
+		/** @noinspection PhpUndefinedFieldInspection */
+		return (string)$this->functionLike->namespacedName;
 	}
 
 	/**
@@ -130,7 +131,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 				$isOptional = false;
 			}
 
-			if (!$parameter->var instanceof Variable || !is_string($parameter->var->name)) {
+			if (!$parameter->var instanceof Variable || !\is_string($parameter->var->name)) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
 			$parameters[] = new PhpParameterFromParserNodeReflection(
@@ -170,6 +171,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 		) {
 			$phpDocReturnType = null;
 		}
+
 		return TypehintHelper::decideType($this->realReturnType, $phpDocReturnType);
 	}
 

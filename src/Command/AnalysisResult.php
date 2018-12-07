@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Command;
 
@@ -21,9 +21,9 @@ class AnalysisResult
 
 	/**
 	 * @param \PHPStan\Analyser\Error[] $fileSpecificErrors
-	 * @param string[] $notFileSpecificErrors
-	 * @param bool $defaultLevelUsed
-	 * @param string $currentDirectory
+	 * @param string[]                  $notFileSpecificErrors
+	 * @param bool                      $defaultLevelUsed
+	 * @param string                    $currentDirectory
 	 */
 	public function __construct(
 		array $fileSpecificErrors,
@@ -36,14 +36,14 @@ class AnalysisResult
 			$fileSpecificErrors,
 			static function (Error $a, Error $b): int {
 				return [
-					$a->getFile(),
-					$a->getLine(),
-					$a->getMessage(),
-				] <=> [
-					$b->getFile(),
-					$b->getLine(),
-					$b->getMessage(),
-				];
+					       $a->getFile(),
+					       $a->getLine(),
+					       $a->getMessage(),
+				       ] <=> [
+					       $b->getFile(),
+					       $b->getLine(),
+					       $b->getMessage(),
+				       ];
 			}
 		);
 
@@ -60,7 +60,7 @@ class AnalysisResult
 
 	public function getTotalErrorsCount(): int
 	{
-		return count($this->fileSpecificErrors) + count($this->notFileSpecificErrors);
+		return \count($this->fileSpecificErrors) + \count($this->notFileSpecificErrors);
 	}
 
 	/**

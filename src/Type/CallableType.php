@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type;
 
@@ -33,8 +33,8 @@ class CallableType implements CompoundType, ParametersAcceptor
 
 	/**
 	 * @param array<int, \PHPStan\Reflection\Native\NativeParameterReflection> $parameters
-	 * @param Type $returnType
-	 * @param bool $variadic
+	 * @param Type                                                             $returnType
+	 * @param bool                                                             $variadic
 	 */
 	public function __construct(
 		?array $parameters = null,
@@ -105,7 +105,7 @@ class CallableType implements CompoundType, ParametersAcceptor
 		}
 
 		return $otherType->isCallable()
-			->and($otherType instanceof self ? TrinaryLogic::createYes() : TrinaryLogic::createMaybe());
+		                 ->and($otherType instanceof self ? TrinaryLogic::createYes() : TrinaryLogic::createMaybe());
 	}
 
 	public function equals(Type $type): bool
@@ -125,6 +125,7 @@ class CallableType implements CompoundType, ParametersAcceptor
 
 	/**
 	 * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
+	 *
 	 * @return \PHPStan\Reflection\ParametersAcceptor[]
 	 */
 	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array
@@ -177,12 +178,13 @@ class CallableType implements CompoundType, ParametersAcceptor
 
 	/**
 	 * @param mixed[] $properties
+	 *
 	 * @return Type
 	 */
 	public static function __set_state(array $properties): Type
 	{
 		return new self(
-			(bool) $properties['isCommonCallable'] ? null : $properties['parameters'],
+			(bool)$properties['isCommonCallable'] ? null : $properties['parameters'],
 			$properties['returnType'],
 			$properties['variadic']
 		);

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules;
 
@@ -23,6 +23,7 @@ class Registry
 
 	/**
 	 * @param string $nodeType
+	 *
 	 * @return \PHPStan\Rules\Rule[]
 	 */
 	public function getRules(string $nodeType): array

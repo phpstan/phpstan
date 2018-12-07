@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Functions;
 
@@ -25,7 +25,8 @@ class ExistingClassesInTypehintsRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Stmt\Function_ $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope        $scope
+	 *
 	 * @return string[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
@@ -35,11 +36,11 @@ class ExistingClassesInTypehintsRule implements \PHPStan\Rules\Rule
 			$scope,
 			sprintf(
 				'Parameter $%%s of function %s() has invalid typehint type %%s.',
-				(string) $node->namespacedName
+				(string)$node->namespacedName
 			),
 			sprintf(
 				'Return typehint of function %s() has invalid type %%s.',
-				(string) $node->namespacedName
+				(string)$node->namespacedName
 			)
 		);
 	}

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Command;
 
@@ -36,12 +36,13 @@ class AnalyseApplication
 	}
 
 	/**
-	 * @param string[] $files
-	 * @param bool $onlyFiles
-	 * @param \Symfony\Component\Console\Style\OutputStyle $style
+	 * @param string[]                                       $files
+	 * @param bool                                           $onlyFiles
+	 * @param \Symfony\Component\Console\Style\OutputStyle   $style
 	 * @param \PHPStan\Command\ErrorFormatter\ErrorFormatter $errorFormatter
-	 * @param bool $defaultLevelUsed
-	 * @param bool $debug
+	 * @param bool                                           $defaultLevelUsed
+	 * @param bool                                           $debug
+	 *
 	 * @return int Error code.
 	 */
 	public function analyse(
@@ -62,7 +63,7 @@ class AnalyseApplication
 			$preFileCallback = null;
 			$postFileCallback = function () use ($style, &$progressStarted, $files, &$fileOrder): void {
 				if (!$progressStarted) {
-					$style->progressStart(count($files));
+					$style->progressStart(\count($files));
 					$progressStarted = true;
 				}
 				$style->progressAdvance();
@@ -78,13 +79,16 @@ class AnalyseApplication
 			$postFileCallback = null;
 		}
 
-		$errors = array_merge($errors, $this->analyser->analyse(
-			$files,
-			$onlyFiles,
-			$preFileCallback,
-			$postFileCallback,
-			$debug
-		));
+		$errors = array_merge(
+			$errors,
+			$this->analyser->analyse(
+				$files,
+				$onlyFiles,
+				$preFileCallback,
+				$postFileCallback,
+				$debug
+			)
+		);
 
 		if (isset($progressStarted) && $progressStarted) {
 			$style->progressFinish();
@@ -93,7 +97,7 @@ class AnalyseApplication
 		$fileSpecificErrors = [];
 		$notFileSpecificErrors = [];
 		foreach ($errors as $error) {
-			if (is_string($error)) {
+			if (\is_string($error)) {
 				$notFileSpecificErrors[] = $error;
 			} else {
 				$fileSpecificErrors[] = $error;
@@ -117,7 +121,7 @@ class AnalyseApplication
 		$megabytes = ceil($bytes / 1024 / 1024);
 		file_put_contents($this->memoryLimitFile, sprintf('%d MB', $megabytes));
 
-		if (!function_exists('pcntl_signal_dispatch')) {
+		if (!\function_exists('pcntl_signal_dispatch')) {
 			return;
 		}
 

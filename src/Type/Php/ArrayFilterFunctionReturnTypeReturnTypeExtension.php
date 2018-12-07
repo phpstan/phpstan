@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Php;
 
@@ -48,10 +48,10 @@ class ArrayFilterFunctionReturnTypeReturnTypeExtension implements \PHPStan\Type\
 				);
 			}
 
-			if ($flagArg === null && $callbackArg instanceof Closure && count($callbackArg->stmts) === 1) {
+			if ($flagArg === null && $callbackArg instanceof Closure && \count($callbackArg->stmts) === 1) {
 				$statement = $callbackArg->stmts[0];
-				if ($statement instanceof Return_ && $statement->expr !== null && count($callbackArg->params) > 0) {
-					if (!$callbackArg->params[0]->var instanceof Variable || !is_string($callbackArg->params[0]->var->name)) {
+				if ($statement instanceof Return_ && $statement->expr !== null && \count($callbackArg->params) > 0) {
+					if (!$callbackArg->params[0]->var instanceof Variable || !\is_string($callbackArg->params[0]->var->name)) {
 						throw new \PHPStan\ShouldNotHappenException();
 					}
 					$itemVariableName = $callbackArg->params[0]->var->name;
@@ -71,14 +71,16 @@ class ArrayFilterFunctionReturnTypeReturnTypeExtension implements \PHPStan\Type\
 
 	public function removeFalsey(Type $type): Type
 	{
-		$falseyTypes = new UnionType([
-			new NullType(),
-			new ConstantBooleanType(false),
-			new ConstantIntegerType(0),
-			new ConstantFloatType(0.0),
-			new ConstantStringType(''),
-			new ConstantArrayType([], []),
-		]);
+		$falseyTypes = new UnionType(
+			[
+				new NullType(),
+				new ConstantBooleanType(false),
+				new ConstantIntegerType(0),
+				new ConstantFloatType(0.0),
+				new ConstantStringType(''),
+				new ConstantArrayType([], []),
+			]
+		);
 
 		if ($type instanceof ConstantArrayType) {
 			$keys = $type->getKeyTypes();

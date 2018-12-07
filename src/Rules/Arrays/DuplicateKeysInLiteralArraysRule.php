@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Arrays;
 
@@ -25,7 +25,8 @@ class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\Array_ $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope     $scope
+	 *
 	 * @return string[]
 	 */
 	public function processNode(\PhpParser\Node $node, Scope $scope): array
@@ -44,7 +45,7 @@ class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
 			$key = $item->key;
 			$keyType = $scope->getType($key);
 			if (
-				!$keyType instanceof ConstantScalarType
+			!$keyType instanceof ConstantScalarType
 			) {
 				continue;
 			}
@@ -53,9 +54,9 @@ class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
 			$value = $keyType->getValue();
 			$printedValues[$value][] = $printedValue;
 
-			$previousCount = count($values);
+			$previousCount = \count($values);
 			$values[$value] = $printedValue;
-			if ($previousCount !== count($values)) {
+			if ($previousCount !== \count($values)) {
 				continue;
 			}
 
@@ -66,8 +67,8 @@ class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
 		foreach (array_keys($duplicateKeys) as $value) {
 			$messages[] = sprintf(
 				'Array has %d %s with value %s (%s).',
-				count($printedValues[$value]),
-				count($printedValues[$value]) === 1 ? 'duplicate key' : 'duplicate keys',
+				\count($printedValues[$value]),
+				\count($printedValues[$value]) === 1 ? 'duplicate key' : 'duplicate keys',
 				var_export($value, true),
 				implode(', ', $printedValues[$value])
 			);

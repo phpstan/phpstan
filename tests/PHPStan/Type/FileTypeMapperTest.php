@@ -10,7 +10,11 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 		/** @var FileTypeMapper $fileTypeMapper */
 		$fileTypeMapper = self::getContainer()->getByType(FileTypeMapper::class);
 
-		$resolvedA = $fileTypeMapper->getResolvedPhpDoc(__DIR__ . '/data/annotations.php', 'Foo', null, '/**
+		$resolvedA = $fileTypeMapper->getResolvedPhpDoc(
+			__DIR__ . '/data/annotations.php',
+			'Foo',
+			null,
+			'/**
  * @property int | float $numericBazBazProperty
  * @property X $singleLetterObjectName
  *
@@ -21,7 +25,8 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
  * @method void complicatedParameters(string $a, ?int|?float|?\stdClass $b, \stdClass $c = null, string|?int $d)
  * @method Image rotate(float $angle, $backgroundColor)
  * @method int | float paramMultipleTypesWithExtraSpaces(string | null $string, stdClass | null $object)
- */');
+ */'
+		);
 		$this->assertCount(0, $resolvedA->getVarTags());
 		$this->assertCount(0, $resolvedA->getParamTags());
 		$this->assertCount(2, $resolvedA->getPropertyTags());
@@ -112,9 +117,14 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
-		$resolved = $fileTypeMapper->getResolvedPhpDoc($realpath, \ThrowsPhpDocs\Foo::class, null, '/**
+		$resolved = $fileTypeMapper->getResolvedPhpDoc(
+			$realpath,
+			\ThrowsPhpDocs\Foo::class,
+			null,
+			'/**
  * @throws RuntimeException
- */');
+ */'
+		);
 
 		$this->assertNotNull($resolved->getThrowsTag());
 		$this->assertSame(
@@ -122,9 +132,14 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 			$resolved->getThrowsTag()->getType()->describe(VerbosityLevel::precise())
 		);
 
-		$resolved = $fileTypeMapper->getResolvedPhpDoc($realpath, \ThrowsPhpDocs\Foo::class, null, '/**
+		$resolved = $fileTypeMapper->getResolvedPhpDoc(
+			$realpath,
+			\ThrowsPhpDocs\Foo::class,
+			null,
+			'/**
  * @throws RuntimeException|LogicException
- */');
+ */'
+		);
 
 		$this->assertNotNull($resolved->getThrowsTag());
 		$this->assertSame(
@@ -132,10 +147,15 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 			$resolved->getThrowsTag()->getType()->describe(VerbosityLevel::precise())
 		);
 
-		$resolved = $fileTypeMapper->getResolvedPhpDoc($realpath, \ThrowsPhpDocs\Foo::class, null, '/**
+		$resolved = $fileTypeMapper->getResolvedPhpDoc(
+			$realpath,
+			\ThrowsPhpDocs\Foo::class,
+			null,
+			'/**
  * @throws RuntimeException
  * @throws LogicException
- */');
+ */'
+		);
 
 		$this->assertNotNull($resolved->getThrowsTag());
 		$this->assertSame(

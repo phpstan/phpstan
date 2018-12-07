@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Testing;
 
@@ -35,9 +35,11 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 	private function getAnalyser(): Analyser
 	{
 		if ($this->analyser === null) {
-			$registry = new Registry([
-				$this->getRule(),
-			]);
+			$registry = new Registry(
+				[
+					$this->getRule(),
+				]
+			);
 
 			$broker = $this->createBroker();
 			$printer = new \PhpParser\PrettyPrinter\Standard();
@@ -55,7 +57,10 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 				new NodeScopeResolver(
 					$broker,
 					$this->getParser(),
-					new FileTypeMapper($this->getParser(), self::getContainer()->getByType(PhpDocStringResolver::class), $this->createMock(Cache::class), new AnonymousClassNameHelper(new FileHelper($this->getCurrentWorkingDirectory())), new \PHPStan\PhpDoc\TypeNodeResolver($this->getTypeNodeResolverExtensions())),
+					new FileTypeMapper(
+						$this->getParser(), self::getContainer()
+						                        ->getByType(PhpDocStringResolver::class), $this->createMock(Cache::class), new AnonymousClassNameHelper(new FileHelper($this->getCurrentWorkingDirectory())), new \PHPStan\PhpDoc\TypeNodeResolver($this->getTypeNodeResolverExtensions())
+					),
 					$fileHelper,
 					$typeSpecifier,
 					$this->shouldPolluteScopeWithLoopInitialAssignments(),
@@ -97,7 +102,7 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 
 	/**
 	 * @param string[] $files
-	 * @param mixed[] $expectedErrors
+	 * @param mixed[]  $expectedErrors
 	 */
 	public function analyse(array $files, array $expectedErrors): void
 	{
@@ -116,6 +121,7 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 				if (!isset($error[1])) {
 					throw new \InvalidArgumentException('Missing expected file line.');
 				}
+
 				return $strictlyTypedSprintf($error[1], $error[0]);
 			},
 			$expectedErrors

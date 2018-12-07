@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Exceptions;
 
@@ -38,7 +38,8 @@ class CaughtExceptionExistenceRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Stmt\Catch_ $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope     $scope
+	 *
 	 * @return string[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
@@ -52,14 +53,15 @@ class CaughtExceptionExistenceRule implements \PHPStan\Rules\Rule
 		}
 		$errors = [];
 		foreach ($classes as $className) {
-			$class = (string) $className;
+			$class = (string)$className;
 			if (!$this->broker->hasClass($class)) {
 				$errors[] = sprintf('Caught class %s not found.', $class);
 				continue;
 			}
 
 			$classReflection = $this->broker->getClass($class);
-			if (!$classReflection->isInterface() && !$classReflection->getNativeReflection()->implementsInterface(\Throwable::class)) {
+			if (!$classReflection->isInterface() && !$classReflection->getNativeReflection()
+			                                                         ->implementsInterface(\Throwable::class)) {
 				$errors[] = sprintf('Caught class %s is not an exception.', $classReflection->getDisplayName());
 			}
 

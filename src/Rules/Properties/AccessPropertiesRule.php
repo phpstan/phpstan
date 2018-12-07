@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Properties;
 
@@ -40,7 +40,8 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\PropertyFetch $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope            $scope
+	 *
 	 * @return string[]
 	 */
 	public function processNode(\PhpParser\Node $node, Scope $scope): array
@@ -91,7 +92,7 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 				}
 			}
 
-			if (count($classNames) === 1) {
+			if (\count($classNames) === 1) {
 				$referencedClass = $typeResult->getReferencedClasses()[0];
 				$propertyClassReflection = $this->broker->getClass($referencedClass);
 				$parentClassReflection = $propertyClassReflection->getParentClass();

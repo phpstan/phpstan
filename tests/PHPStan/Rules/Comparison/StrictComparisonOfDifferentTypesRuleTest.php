@@ -304,12 +304,15 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 	public function testStrictComparisonPhp71(): void
 	{
 		$this->checkAlwaysTrueStrictComparison = true;
-		$this->analyse([__DIR__ . '/data/strict-comparison-71.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/strict-comparison-71.php'],
 			[
-				'Strict comparison using === between null and null will always evaluate to true.',
-				20,
-			],
-		]);
+				[
+					'Strict comparison using === between null and null will always evaluate to true.',
+					20,
+				],
+			]
+		);
 	}
 
 }

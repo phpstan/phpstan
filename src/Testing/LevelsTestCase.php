@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Testing;
 
@@ -17,6 +17,7 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 
 	/**
 	 * @dataProvider dataTopics
+	 *
 	 * @param string $topic
 	 */
 	public function testLevels(
@@ -43,7 +44,7 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 			} catch (\Nette\Utils\JsonException $e) {
 				throw new \Nette\Utils\JsonException(sprintf('Cannot decode: %s', $output));
 			}
-			if (count($actualJson['files']) > 0) {
+			if (\count($actualJson['files']) > 0) {
 				$messagesBeforeDiffing = $actualJson['files'][$fileHelper->normalizePath($file)]['messages'];
 			} else {
 				$messagesBeforeDiffing = [];
@@ -66,7 +67,7 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 			$previousMessages = array_merge($previousMessages, $messages);
 			$expectedJsonFile = sprintf('%s/%s-%d.json', $this->getDataPath(), $topic, $level);
 
-			if (count($messages) === 0) {
+			if (\count($messages) === 0) {
 				try {
 					$this->assertFileNotExists($expectedJsonFile);
 					continue;
@@ -91,7 +92,7 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 			}
 		}
 
-		if (count($exceptions) > 0) {
+		if (\count($exceptions) > 0) {
 			throw $exceptions[0];
 		}
 	}

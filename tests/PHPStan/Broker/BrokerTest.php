@@ -64,9 +64,13 @@ class BrokerTest extends \PHPStan\Testing\TestCase
 	{
 		$this->expectException(\PHPStan\Broker\ClassAutoloadingException::class);
 		$this->expectExceptionMessage("ParseError (syntax error, unexpected '{') thrown while autoloading class NonexistentClass.");
-		spl_autoload_register(static function (): void {
-			require_once __DIR__ . '/../Analyser/data/parse-error.php';
-		}, true, true);
+		spl_autoload_register(
+			static function (): void {
+				require_once __DIR__ . '/../Analyser/data/parse-error.php';
+			},
+			true,
+			true
+		);
 		$this->broker->hasClass('NonexistentClass');
 	}
 

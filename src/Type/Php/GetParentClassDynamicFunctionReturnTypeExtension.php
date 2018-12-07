@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Php;
 
@@ -42,7 +42,7 @@ class GetParentClassDynamicFunctionReturnTypeExtension implements \PHPStan\Type\
 		$defaultReturnType = ParametersAcceptorSelector::selectSingle(
 			$functionReflection->getVariants()
 		)->getReturnType();
-		if (count($functionCall->args) === 0) {
+		if (\count($functionCall->args) === 0) {
 			if ($scope->isInTrait()) {
 				return $defaultReturnType;
 			}
@@ -61,17 +61,27 @@ class GetParentClassDynamicFunctionReturnTypeExtension implements \PHPStan\Type\
 		}
 
 		$constantStrings = TypeUtils::getConstantStrings($argType);
-		if (count($constantStrings) > 0) {
-			return \PHPStan\Type\TypeCombinator::union(...array_map(function (ConstantStringType $stringType): Type {
-				return $this->findParentClassNameType($stringType->getValue());
-			}, $constantStrings));
+		if (\count($constantStrings) > 0) {
+			return \PHPStan\Type\TypeCombinator::union(
+				...array_map(
+					   function (ConstantStringType $stringType): Type {
+						   return $this->findParentClassNameType($stringType->getValue());
+					   },
+					   $constantStrings
+				   )
+			);
 		}
 
 		$classNames = TypeUtils::getDirectClassNames($argType);
-		if (count($classNames) > 0) {
-			return \PHPStan\Type\TypeCombinator::union(...array_map(function (string $classNames): Type {
-				return $this->findParentClassNameType($classNames);
-			}, $classNames));
+		if (\count($classNames) > 0) {
+			return \PHPStan\Type\TypeCombinator::union(
+				...array_map(
+					   function (string $classNames): Type {
+						   return $this->findParentClassNameType($classNames);
+					   },
+					   $classNames
+				   )
+			);
 		}
 
 		return $defaultReturnType;
@@ -80,10 +90,12 @@ class GetParentClassDynamicFunctionReturnTypeExtension implements \PHPStan\Type\
 	private function findParentClassNameType(string $className): Type
 	{
 		if (!$this->broker->hasClass($className)) {
-			return new UnionType([
-				new StringType(),
-				new ConstantBooleanType(false),
-			]);
+			return new UnionType(
+				[
+					new StringType(),
+					new ConstantBooleanType(false),
+				]
+			);
 		}
 
 		return $this->findParentClassType($this->broker->getClass($className));

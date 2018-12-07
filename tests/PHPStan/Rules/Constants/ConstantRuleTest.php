@@ -12,23 +12,26 @@ class ConstantRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	public function testConstants(): void
 	{
-		define('FOO_CONSTANT', 'foo');
-		define('Constants\\BAR_CONSTANT', 'bar');
-		define('OtherConstants\\BAZ_CONSTANT', 'baz');
-		$this->analyse([__DIR__ . '/data/constants.php'], [
+		\define('FOO_CONSTANT', 'foo');
+		\define('Constants\\BAR_CONSTANT', 'bar');
+		\define('OtherConstants\\BAZ_CONSTANT', 'baz');
+		$this->analyse(
+			[__DIR__ . '/data/constants.php'],
 			[
-				'Constant NONEXISTENT_CONSTANT not found.',
-				10,
-			],
-			[
-				'Constant DEFINED_CONSTANT not found.',
-				13,
-			],
+				[
+					'Constant NONEXISTENT_CONSTANT not found.',
+					10,
+				],
+				[
+					'Constant DEFINED_CONSTANT not found.',
+					13,
+				],
 			/*[
 				'Constant DEFINED_CONSTANT_IF not found.',
 				21,
 			],*/
-		]);
+			]
+		);
 	}
 
 	public function testCompilerHaltOffsetConstantFalseDetection(): void
@@ -38,12 +41,15 @@ class ConstantRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	public function testCompilerHaltOffsetConstantIsUndefinedDetection(): void
 	{
-		$this->analyse([__DIR__ . '/data/compiler-halt-offset-const-not-defined.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/compiler-halt-offset-const-not-defined.php'],
 			[
-				'Constant __COMPILER_HALT_OFFSET__ not found.',
-				3,
-			],
-		]);
+				[
+					'Constant __COMPILER_HALT_OFFSET__ not found.',
+					3,
+				],
+			]
+		);
 	}
 
 }

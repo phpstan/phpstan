@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\PhpDoc;
 
@@ -36,15 +36,15 @@ class ResolvedPhpDocBlock
 	private $isFinal;
 
 	/**
-	 * @param array<string|int, \PHPStan\PhpDoc\Tag\VarTag> $varTags
-	 * @param array<string, \PHPStan\PhpDoc\Tag\MethodTag> $methodTags
+	 * @param array<string|int, \PHPStan\PhpDoc\Tag\VarTag>  $varTags
+	 * @param array<string, \PHPStan\PhpDoc\Tag\MethodTag>   $methodTags
 	 * @param array<string, \PHPStan\PhpDoc\Tag\PropertyTag> $propertyTags
-	 * @param array<string, \PHPStan\PhpDoc\Tag\ParamTag> $paramTags
-	 * @param \PHPStan\PhpDoc\Tag\ReturnTag|null $returnTag
-	 * @param \PHPStan\PhpDoc\Tag\ThrowsTag|null $throwsTags
-	 * @param bool $isDeprecated
-	 * @param bool $isInternal
-	 * @param bool $isFinal
+	 * @param array<string, \PHPStan\PhpDoc\Tag\ParamTag>    $paramTags
+	 * @param \PHPStan\PhpDoc\Tag\ReturnTag|null             $returnTag
+	 * @param \PHPStan\PhpDoc\Tag\ThrowsTag|null             $throwsTags
+	 * @param bool                                           $isDeprecated
+	 * @param bool                                           $isInternal
+	 * @param bool                                           $isFinal
 	 */
 	private function __construct(
 		array $varTags,
@@ -70,15 +70,16 @@ class ResolvedPhpDocBlock
 	}
 
 	/**
-	 * @param array<string|int, \PHPStan\PhpDoc\Tag\VarTag> $varTags
-	 * @param array<string, \PHPStan\PhpDoc\Tag\MethodTag> $methodTags
+	 * @param array<string|int, \PHPStan\PhpDoc\Tag\VarTag>  $varTags
+	 * @param array<string, \PHPStan\PhpDoc\Tag\MethodTag>   $methodTags
 	 * @param array<string, \PHPStan\PhpDoc\Tag\PropertyTag> $propertyTags
-	 * @param array<string, \PHPStan\PhpDoc\Tag\ParamTag> $paramTags
-	 * @param \PHPStan\PhpDoc\Tag\ReturnTag|null $returnTag
-	 * @param \PHPStan\PhpDoc\Tag\ThrowsTag|null $throwsTag
-	 * @param bool $isDeprecated
-	 * @param bool $isInternal
-	 * @param bool $isFinal
+	 * @param array<string, \PHPStan\PhpDoc\Tag\ParamTag>    $paramTags
+	 * @param \PHPStan\PhpDoc\Tag\ReturnTag|null             $returnTag
+	 * @param \PHPStan\PhpDoc\Tag\ThrowsTag|null             $throwsTag
+	 * @param bool                                           $isDeprecated
+	 * @param bool                                           $isInternal
+	 * @param bool                                           $isFinal
+	 *
 	 * @return self
 	 */
 	public static function create(
@@ -171,6 +172,7 @@ class ResolvedPhpDocBlock
 
 	/**
 	 * @param mixed[] $properties
+	 *
 	 * @return self
 	 */
 	public static function __set_state(array $properties): self

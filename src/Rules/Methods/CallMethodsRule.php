@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Methods;
 
@@ -53,7 +53,8 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\MethodCall $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope         $scope
+	 *
 	 * @return string[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
@@ -96,7 +97,7 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 				}
 			}
 
-			if (count($directClassNames) === 1) {
+			if (\count($directClassNames) === 1) {
 				$referencedClass = $directClassNames[0];
 				$methodClassReflection = $this->broker->getClass($referencedClass);
 				$parentClassReflection = $methodClassReflection->getParentClass();
@@ -125,7 +126,8 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 		}
 
 		$methodReflection = $type->getMethod($name, $scope);
-		$messagesMethodName = $methodReflection->getDeclaringClass()->getDisplayName() . '::' . $methodReflection->getName() . '()';
+		$messagesMethodName = $methodReflection->getDeclaringClass()
+		                                       ->getDisplayName() . '::' . $methodReflection->getName() . '()';
 		$errors = [];
 		if (!$scope->canCallMethod($methodReflection)) {
 			$errors[] = sprintf(
@@ -136,26 +138,29 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 			);
 		}
 
-		$errors = array_merge($errors, $this->check->check(
-			ParametersAcceptorSelector::selectFromArgs(
+		$errors = array_merge(
+			$errors,
+			$this->check->check(
+				ParametersAcceptorSelector::selectFromArgs(
+					$scope,
+					$node->args,
+					$methodReflection->getVariants()
+				),
 				$scope,
-				$node->args,
-				$methodReflection->getVariants()
-			),
-			$scope,
-			$node,
-			[
-				'Method ' . $messagesMethodName . ' invoked with %d parameter, %d required.',
-				'Method ' . $messagesMethodName . ' invoked with %d parameters, %d required.',
-				'Method ' . $messagesMethodName . ' invoked with %d parameter, at least %d required.',
-				'Method ' . $messagesMethodName . ' invoked with %d parameters, at least %d required.',
-				'Method ' . $messagesMethodName . ' invoked with %d parameter, %d-%d required.',
-				'Method ' . $messagesMethodName . ' invoked with %d parameters, %d-%d required.',
-				'Parameter #%d %s of method ' . $messagesMethodName . ' expects %s, %s given.',
-				'Result of method ' . $messagesMethodName . ' (void) is used.',
-				'Parameter #%d %s of method ' . $messagesMethodName . ' is passed by reference, so it expects variables only.',
-			]
-		));
+				$node,
+				[
+					'Method ' . $messagesMethodName . ' invoked with %d parameter, %d required.',
+					'Method ' . $messagesMethodName . ' invoked with %d parameters, %d required.',
+					'Method ' . $messagesMethodName . ' invoked with %d parameter, at least %d required.',
+					'Method ' . $messagesMethodName . ' invoked with %d parameters, at least %d required.',
+					'Method ' . $messagesMethodName . ' invoked with %d parameter, %d-%d required.',
+					'Method ' . $messagesMethodName . ' invoked with %d parameters, %d-%d required.',
+					'Parameter #%d %s of method ' . $messagesMethodName . ' expects %s, %s given.',
+					'Result of method ' . $messagesMethodName . ' (void) is used.',
+					'Parameter #%d %s of method ' . $messagesMethodName . ' is passed by reference, so it expects variables only.',
+				]
+			)
+		);
 
 		if (
 			$this->checkFunctionNameCase

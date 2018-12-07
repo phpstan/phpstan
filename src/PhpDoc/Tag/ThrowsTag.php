@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\PhpDoc\Tag;
 
@@ -22,6 +22,7 @@ class ThrowsTag
 
 	/**
 	 * @param mixed[] $properties
+	 *
 	 * @return ThrowsTag
 	 */
 	public static function __set_state(array $properties): self

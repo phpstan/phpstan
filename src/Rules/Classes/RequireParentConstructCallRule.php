@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Classes;
 
@@ -17,7 +17,8 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Stmt\ClassMethod $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope          $scope
+	 *
 	 * @return string[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
@@ -88,7 +89,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 			if ($statement instanceof \PhpParser\Node\Expr\StaticCall) {
 				if (
 					$statement->class instanceof Name
-					&& ((string) $statement->class === 'parent')
+					&& ((string)$statement->class === 'parent')
 					&& $statement->name instanceof Node\Identifier
 					&& $statement->name->name === '__construct'
 				) {
@@ -106,13 +107,19 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \ReflectionClass $classReflection
+	 *
 	 * @return \ReflectionClass|false
 	 */
 	private function getParentConstructorClass(\ReflectionClass $classReflection)
 	{
 		while ($classReflection->getParentClass() !== false) {
-			$constructor = $classReflection->getParentClass()->hasMethod('__construct') ? $classReflection->getParentClass()->getMethod('__construct') : null;
-			$constructorWithClassName = $classReflection->getParentClass()->hasMethod($classReflection->getParentClass()->getName()) ? $classReflection->getParentClass()->getMethod($classReflection->getParentClass()->getName()) : null;
+			$constructor = $classReflection->getParentClass()
+			                               ->hasMethod('__construct') ? $classReflection->getParentClass()
+			                                                                            ->getMethod('__construct') : null;
+			$constructorWithClassName = $classReflection->getParentClass()->hasMethod(
+				$classReflection->getParentClass()
+				                ->getName()
+			) ? $classReflection->getParentClass()->getMethod($classReflection->getParentClass()->getName()) : null;
 			if (
 				(
 					$constructor !== null
@@ -120,7 +127,8 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 					&& !$constructor->isAbstract()
 				) || (
 					$constructorWithClassName !== null
-					&& $constructorWithClassName->getDeclaringClass()->getName() === $classReflection->getParentClass()->getName()
+					&& $constructorWithClassName->getDeclaringClass()->getName() === $classReflection->getParentClass()
+					                                                                                 ->getName()
 					&& !$constructorWithClassName->isAbstract()
 				)
 			) {

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Reflection;
 
@@ -18,8 +18,8 @@ class FunctionVariant implements ParametersAcceptor
 
 	/**
 	 * @param array<int, ParameterReflection> $parameters
-	 * @param bool $isVariadic
-	 * @param Type $returnType
+	 * @param bool                            $isVariadic
+	 * @param Type                            $returnType
 	 */
 	public function __construct(
 		array $parameters,

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules;
 
@@ -18,8 +18,8 @@ class FoundTypeResult
 
 	/**
 	 * @param \PHPStan\Type\Type $type
-	 * @param string[] $referencedClasses
-	 * @param string[] $unknownClassErrors
+	 * @param string[]           $referencedClasses
+	 * @param string[]           $unknownClassErrors
 	 */
 	public function __construct(
 		Type $type,

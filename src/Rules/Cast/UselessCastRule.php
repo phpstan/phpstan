@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Cast;
 
@@ -19,7 +19,8 @@ class UselessCastRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\Cast $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope   $scope
+	 *
 	 * @return string[] errors
 	 */
 	public function processNode(Node $node, Scope $scope): array

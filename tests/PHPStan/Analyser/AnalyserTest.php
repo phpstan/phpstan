@@ -17,9 +17,12 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 	public function testReturnErrorIfIgnoredMessagesDoesNotOccur(): void
 	{
 		$result = $this->runAnalyser(['#Unknown error#'], true, __DIR__ . '/data/empty/empty.php', false);
-		$this->assertSame([
-			'Ignored error pattern #Unknown error# was not matched in reported errors.',
-		], $result);
+		$this->assertSame(
+			[
+				'Ignored error pattern #Unknown error# was not matched in reported errors.',
+			],
+			$result
+		);
 	}
 
 	public function testDoNotReturnErrorIfIgnoredMessagesDoesNotOccurWithReportUnmatchedIgnoredErrorsOff(): void
@@ -37,9 +40,12 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 	public function testReportInvalidIgnorePatternEarly(): void
 	{
 		$result = $this->runAnalyser(['#Regexp syntax error'], true, __DIR__ . '/data/parse-error.php', false);
-		$this->assertSame([
-			"No ending delimiter '#' found in pattern: #Regexp syntax error",
-		], $result);
+		$this->assertSame(
+			[
+				"No ending delimiter '#' found in pattern: #Regexp syntax error",
+			],
+			$result
+		);
 	}
 
 	public function testFileWithAnIgnoredError(): void
@@ -52,7 +58,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 	{
 		$result = $this->runAnalyser(['#was not found while trying to analyse it#'], true, __DIR__ . '/../../notAutoloaded/Baz.php', false);
 		$this->assertCount(2, $result);
-		assert($result[0] instanceof Error);
+		\assert($result[0] instanceof Error);
 		$this->assertSame('Class PHPStan\Tests\Baz was not found while trying to analyse it - autoloading is probably not configured properly.', $result[0]->getMessage());
 		$this->assertSame('Error message "Class PHPStan\Tests\Baz was not found while trying to analyse it - autoloading is probably not configured properly." cannot be ignored, use excludes_analyse instead.', $result[1]);
 	}
@@ -88,9 +94,11 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		bool $reportUnmatchedIgnoredErrors = true
 	): \PHPStan\Analyser\Analyser
 	{
-		$registry = new Registry([
-			new AlwaysFailRule(),
-		]);
+		$registry = new Registry(
+			[
+				new AlwaysFailRule(),
+			]
+		);
 
 		$traverser = new \PhpParser\NodeTraverser();
 		$traverser->addVisitor(new \PhpParser\NodeVisitor\NameResolver());

@@ -14,16 +14,19 @@ class UnusedConstructorParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	public function testUnusedConstructorParameters(): void
 	{
-		$this->analyse([__DIR__ . '/data/unused-constructor-parameters.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/unused-constructor-parameters.php'],
 			[
-				'Constructor of class UnusedConstructorParameters\Foo has an unused parameter $unusedParameter.',
-				11,
-			],
-			[
-				'Constructor of class UnusedConstructorParameters\Foo has an unused parameter $anotherUnusedParameter.',
-				11,
-			],
-		]);
+				[
+					'Constructor of class UnusedConstructorParameters\Foo has an unused parameter $unusedParameter.',
+					11,
+				],
+				[
+					'Constructor of class UnusedConstructorParameters\Foo has an unused parameter $anotherUnusedParameter.',
+					11,
+				],
+			]
+		);
 	}
 
 }

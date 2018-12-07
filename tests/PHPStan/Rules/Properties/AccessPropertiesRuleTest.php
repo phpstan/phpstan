@@ -296,52 +296,58 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 	{
 		$this->checkThisOnly = false;
 		$this->checkUnionTypes = true;
-		$this->analyse([__DIR__ . '/data/access-properties-after-isnull.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/access-properties-after-isnull.php'],
 			[
-				'Cannot access property $fooProperty on null.',
-				16,
-			],
-			[
-				'Cannot access property $fooProperty on null.',
-				25,
-			],
-			[
-				'Access to an undefined property AccessPropertiesAfterIsNull\Foo::$barProperty.',
-				28,
-			],
-			[
-				'Access to an undefined property AccessPropertiesAfterIsNull\Foo::$barProperty.',
-				31,
-			],
-			[
-				'Cannot access property $fooProperty on null.',
-				35,
-			],
-			[
-				'Cannot access property $fooProperty on null.',
-				44,
-			],
-			[
-				'Access to an undefined property AccessPropertiesAfterIsNull\Foo::$barProperty.',
-				47,
-			],
-			[
-				'Access to an undefined property AccessPropertiesAfterIsNull\Foo::$barProperty.',
-				50,
-			],
-		]);
+				[
+					'Cannot access property $fooProperty on null.',
+					16,
+				],
+				[
+					'Cannot access property $fooProperty on null.',
+					25,
+				],
+				[
+					'Access to an undefined property AccessPropertiesAfterIsNull\Foo::$barProperty.',
+					28,
+				],
+				[
+					'Access to an undefined property AccessPropertiesAfterIsNull\Foo::$barProperty.',
+					31,
+				],
+				[
+					'Cannot access property $fooProperty on null.',
+					35,
+				],
+				[
+					'Cannot access property $fooProperty on null.',
+					44,
+				],
+				[
+					'Access to an undefined property AccessPropertiesAfterIsNull\Foo::$barProperty.',
+					47,
+				],
+				[
+					'Access to an undefined property AccessPropertiesAfterIsNull\Foo::$barProperty.',
+					50,
+				],
+			]
+		);
 	}
 
 	public function testDateIntervalChildProperties(): void
 	{
 		$this->checkThisOnly = false;
 		$this->checkUnionTypes = true;
-		$this->analyse([__DIR__ . '/data/date-interval-child-properties.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/date-interval-child-properties.php'],
 			[
-				'Access to an undefined property AccessPropertiesDateIntervalChild\DateIntervalChild::$nonexistent.',
-				14,
-			],
-		]);
+				[
+					'Access to an undefined property AccessPropertiesDateIntervalChild\DateIntervalChild::$nonexistent.',
+					14,
+				],
+			]
+		);
 	}
 
 }

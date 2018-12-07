@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Php;
 
@@ -27,8 +27,8 @@ class InArrayFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingEx
 	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, TypeSpecifierContext $context): bool
 	{
 		return strtolower($functionReflection->getName()) === 'in_array'
-			&& count($node->args) >= 3
-			&& !$context->null();
+		       && \count($node->args) >= 3
+		       && !$context->null();
 	}
 
 	public function specifyTypes(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
@@ -42,7 +42,7 @@ class InArrayFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingEx
 
 		if (
 			$context->truthy()
-			|| count(TypeUtils::getConstantScalars($arrayValueType)) > 0
+			|| \count(TypeUtils::getConstantScalars($arrayValueType)) > 0
 		) {
 			return $this->typeSpecifier->create(
 				$node->args[0]->value,

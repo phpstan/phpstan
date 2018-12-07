@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Constant;
 
@@ -38,16 +38,16 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 	/**
 	 * @param array<int, ConstantIntegerType|ConstantStringType> $keyTypes
-	 * @param array<int, Type> $valueTypes
-	 * @param int $nextAutoIndex
+	 * @param array<int, Type>                                   $valueTypes
+	 * @param int                                                $nextAutoIndex
 	 */
 	public function __construct(array $keyTypes, array $valueTypes, int $nextAutoIndex = 0)
 	{
-		assert(count($keyTypes) === count($valueTypes));
+		\assert(\count($keyTypes) === \count($valueTypes));
 
 		parent::__construct(
-			count($keyTypes) > 0 ? TypeCombinator::union(...$keyTypes) : new NeverType(),
-			count($valueTypes) > 0 ? TypeCombinator::union(...$valueTypes) : new NeverType()
+			\count($keyTypes) > 0 ? TypeCombinator::union(...$keyTypes) : new NeverType(),
+			\count($valueTypes) > 0 ? TypeCombinator::union(...$valueTypes) : new NeverType()
 		);
 
 		$this->keyTypes = $keyTypes;
@@ -62,7 +62,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 	public function getKeyType(): Type
 	{
-		if (count($this->keyTypes) > 1) {
+		if (\count($this->keyTypes) > 1) {
 			return new UnionType($this->keyTypes);
 		}
 
@@ -88,7 +88,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
 		if ($type instanceof self) {
-			if (count($this->keyTypes) !== count($type->keyTypes)) {
+			if (\count($this->keyTypes) !== \count($type->keyTypes)) {
 				return TrinaryLogic::createNo();
 			}
 
@@ -108,7 +108,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
 		if ($type instanceof self) {
-			if (count($this->keyTypes) !== count($type->keyTypes)) {
+			if (\count($this->keyTypes) !== \count($type->keyTypes)) {
 				return TrinaryLogic::createNo();
 			}
 
@@ -123,7 +123,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 		if ($type instanceof ArrayType) {
 			$result = TrinaryLogic::createMaybe();
-			if (count($this->keyTypes) === 0) {
+			if (\count($this->keyTypes) === 0) {
 				return $result;
 			}
 
@@ -146,7 +146,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			return false;
 		}
 
-		if (count($this->keyTypes) !== count($type->keyTypes)) {
+		if (\count($this->keyTypes) !== \count($type->keyTypes)) {
 			return false;
 		}
 
@@ -179,6 +179,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 	/**
 	 * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
+	 *
 	 * @return \PHPStan\Reflection\ParametersAcceptor[]
 	 */
 	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array
@@ -193,7 +194,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		}
 
 		$method = $typeAndMethodName->getType()
-			->getMethod($typeAndMethodName->getMethod(), $scope);
+		                            ->getMethod($typeAndMethodName->getMethod(), $scope);
 
 		if (!$scope->canCallMethod($method)) {
 			return [new InaccessibleMethod($method)];
@@ -204,7 +205,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 	private function findTypeAndMethodName(): ?ConstantArrayTypeAndMethod
 	{
-		if (count($this->keyTypes) !== 2) {
+		if (\count($this->keyTypes) !== 2) {
 			return null;
 		}
 
@@ -267,7 +268,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			$matchingValueTypes[] = $this->valueTypes[$i];
 		}
 
-		if (count($matchingValueTypes) > 0) {
+		if (\count($matchingValueTypes) > 0) {
 			$type = TypeCombinator::union(...$matchingValueTypes);
 			if ($type instanceof ErrorType) {
 				return new MixedType();
@@ -297,6 +298,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 					unset($newKeyTypes[$i]);
 					$newValueTypes = $this->valueTypes;
 					unset($newValueTypes[$i]);
+
 					return new self(array_values($newKeyTypes), array_values($newValueTypes), $this->nextAutoIndex);
 				}
 			}
@@ -307,7 +309,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 	public function removeLast(): self
 	{
-		if (count($this->keyTypes) === 0) {
+		if (\count($this->keyTypes) === 0) {
 			return $this;
 		}
 
@@ -348,7 +350,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 	public function getFirstValueType(): Type
 	{
-		if (count($this->valueTypes) === 0) {
+		if (\count($this->valueTypes) === 0) {
 			return new NullType();
 		}
 
@@ -357,7 +359,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 	public function getLastValueType(): Type
 	{
-		$length = count($this->valueTypes);
+		$length = \count($this->valueTypes);
 		if ($length === 0) {
 			return new NullType();
 		}
@@ -367,7 +369,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 	public function toBoolean(): BooleanType
 	{
-		return new ConstantBooleanType(count($this->keyTypes) > 0);
+		return new ConstantBooleanType(\count($this->keyTypes) > 0);
 	}
 
 	public function generalize(): Type
@@ -429,7 +431,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 	public function count(): Type
 	{
-		return new ConstantIntegerType(count($this->getKeyTypes()));
+		return new ConstantIntegerType(\count($this->getKeyTypes()));
 	}
 
 	public function describe(VerbosityLevel $level): string
@@ -449,9 +451,9 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			}
 
 			$append = '';
-			if ($truncate && count($items) > self::DESCRIBE_LIMIT) {
-				$items = array_slice($items, 0, self::DESCRIBE_LIMIT);
-				$values = array_slice($values, 0, self::DESCRIBE_LIMIT);
+			if ($truncate && \count($items) > self::DESCRIBE_LIMIT) {
+				$items = \array_slice($items, 0, self::DESCRIBE_LIMIT);
+				$values = \array_slice($values, 0, self::DESCRIBE_LIMIT);
 				$append = ', ...';
 			}
 
@@ -461,6 +463,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 				$append
 			);
 		};
+
 		return $level->handle(
 			function () use ($level): string {
 				return parent::describe($level);
@@ -476,6 +479,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 	/**
 	 * @param mixed[] $properties
+	 *
 	 * @return Type
 	 */
 	public static function __set_state(array $properties): Type

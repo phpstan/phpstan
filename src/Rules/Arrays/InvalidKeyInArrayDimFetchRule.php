@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Arrays;
 
@@ -25,7 +25,8 @@ class InvalidKeyInArrayDimFetchRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\ArrayDimFetch $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope            $scope
+	 *
 	 * @return string[]
 	 */
 	public function processNode(\PhpParser\Node $node, Scope $scope): array
@@ -35,7 +36,7 @@ class InvalidKeyInArrayDimFetchRule implements \PHPStan\Rules\Rule
 		}
 
 		$varType = $scope->getType($node->var);
-		if (count(TypeUtils::getArrays($varType)) === 0) {
+		if (\count(TypeUtils::getArrays($varType)) === 0) {
 			return [];
 		}
 

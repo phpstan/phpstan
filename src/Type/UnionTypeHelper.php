@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type;
 
@@ -12,8 +12,9 @@ class UnionTypeHelper
 {
 
 	/**
-	 * @param string $className
+	 * @param string               $className
 	 * @param \PHPStan\Type\Type[] $types
+	 *
 	 * @return \PHPStan\Type\Type[]
 	 */
 	public static function resolveStatic(string $className, array $types): array
@@ -30,8 +31,9 @@ class UnionTypeHelper
 	}
 
 	/**
-	 * @param string $className
+	 * @param string               $className
 	 * @param \PHPStan\Type\Type[] $types
+	 *
 	 * @return \PHPStan\Type\Type[]
 	 */
 	public static function changeBaseClass(string $className, array $types): array
@@ -49,6 +51,7 @@ class UnionTypeHelper
 
 	/**
 	 * @param \PHPStan\Type\Type[] $types
+	 *
 	 * @return string[]
 	 */
 	public static function getReferencedClasses(array $types): array
@@ -63,60 +66,65 @@ class UnionTypeHelper
 
 	/**
 	 * @param \PHPStan\Type\Type[] $types
+	 *
 	 * @return \PHPStan\Type\Type[]
 	 */
 	public static function sortTypes(array $types): array
 	{
-		usort($types, static function (Type $a, Type $b): float {
-			if ($a instanceof NullType) {
-				return 1;
-			} elseif ($b instanceof NullType) {
-				return -1;
-			}
-
-			if ($a instanceof AccessoryType) {
-				if ($b instanceof AccessoryType) {
-					return strcasecmp($a->describe(VerbosityLevel::value()), $b->describe(VerbosityLevel::value()));
+		usort(
+			$types,
+			static function (Type $a, Type $b): float {
+				if ($a instanceof NullType) {
+					return 1;
+				} elseif ($b instanceof NullType) {
+					return -1;
 				}
 
-				return 1;
-			}
-			if ($b instanceof AccessoryType) {
-				return -1;
-			}
+				if ($a instanceof AccessoryType) {
+					if ($b instanceof AccessoryType) {
+						return strcasecmp($a->describe(VerbosityLevel::value()), $b->describe(VerbosityLevel::value()));
+					}
 
-			$aIsNullOrBool = ($a instanceof NullType || $a instanceof ConstantBooleanType);
-			$bIsNullOrBool = ($b instanceof NullType || $b instanceof ConstantBooleanType);
-			if ($aIsNullOrBool && !$bIsNullOrBool) {
-				return 1;
-			} elseif ($bIsNullOrBool && !$aIsNullOrBool) {
-				return -1;
-			}
-			if ($a instanceof ConstantScalarType && !$b instanceof ConstantScalarType) {
-				return -1;
-			} elseif (!$a instanceof ConstantScalarType && $b instanceof ConstantScalarType) {
-				return 1;
-			}
+					return 1;
+				}
+				if ($b instanceof AccessoryType) {
+					return -1;
+				}
 
-			if (
-				(
-					$a instanceof ConstantIntegerType
-					|| $a instanceof ConstantFloatType
-				)
-				&& (
-					$b instanceof ConstantIntegerType
-					|| $b instanceof ConstantFloatType
-				)
-			) {
-				return $a->getValue() - $b->getValue();
-			}
+				$aIsNullOrBool = ($a instanceof NullType || $a instanceof ConstantBooleanType);
+				$bIsNullOrBool = ($b instanceof NullType || $b instanceof ConstantBooleanType);
+				if ($aIsNullOrBool && !$bIsNullOrBool) {
+					return 1;
+				} elseif ($bIsNullOrBool && !$aIsNullOrBool) {
+					return -1;
+				}
+				if ($a instanceof ConstantScalarType && !$b instanceof ConstantScalarType) {
+					return -1;
+				} elseif (!$a instanceof ConstantScalarType && $b instanceof ConstantScalarType) {
+					return 1;
+				}
 
-			if ($a instanceof ConstantStringType && $b instanceof ConstantStringType) {
-				return strcasecmp($a->getValue(), $b->getValue());
-			}
+				if (
+					(
+						$a instanceof ConstantIntegerType
+						|| $a instanceof ConstantFloatType
+					)
+					&& (
+						$b instanceof ConstantIntegerType
+						|| $b instanceof ConstantFloatType
+					)
+				) {
+					return $a->getValue() - $b->getValue();
+				}
 
-			return strcasecmp($a->describe(VerbosityLevel::typeOnly()), $b->describe(VerbosityLevel::typeOnly()));
-		});
+				if ($a instanceof ConstantStringType && $b instanceof ConstantStringType) {
+					return strcasecmp($a->getValue(), $b->getValue());
+				}
+
+				return strcasecmp($a->describe(VerbosityLevel::typeOnly()), $b->describe(VerbosityLevel::typeOnly()));
+			}
+		);
+
 		return $types;
 	}
 

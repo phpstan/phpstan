@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\PhpDoc;
 
@@ -48,7 +48,8 @@ class PhpDocNodeResolver
 
 	/**
 	 * @param PhpDocNode $phpDocNode
-	 * @param NameScope $nameScope
+	 * @param NameScope  $nameScope
+	 *
 	 * @return array<string|int, \PHPStan\PhpDoc\Tag\VarTag>
 	 */
 	private function resolveVarTags(PhpDocNode $phpDocNode, NameScope $nameScope): array
@@ -72,7 +73,8 @@ class PhpDocNodeResolver
 
 	/**
 	 * @param PhpDocNode $phpDocNode
-	 * @param NameScope $nameScope
+	 * @param NameScope  $nameScope
+	 *
 	 * @return array<string, \PHPStan\PhpDoc\Tag\PropertyTag>
 	 */
 	private function resolvePropertyTags(PhpDocNode $phpDocNode, NameScope $nameScope): array
@@ -123,7 +125,8 @@ class PhpDocNodeResolver
 
 	/**
 	 * @param PhpDocNode $phpDocNode
-	 * @param NameScope $nameScope
+	 * @param NameScope  $nameScope
+	 *
 	 * @return array<string, \PHPStan\PhpDoc\Tag\MethodTag>
 	 */
 	private function resolveMethodTags(PhpDocNode $phpDocNode, NameScope $nameScope): array
@@ -160,7 +163,8 @@ class PhpDocNodeResolver
 
 	/**
 	 * @param PhpDocNode $phpDocNode
-	 * @param NameScope $nameScope
+	 * @param NameScope  $nameScope
+	 *
 	 * @return array<string, \PHPStan\PhpDoc\Tag\ParamTag>
 	 */
 	private function resolveParamTags(PhpDocNode $phpDocNode, NameScope $nameScope): array
@@ -201,11 +205,14 @@ class PhpDocNodeResolver
 
 	private function resolveThrowsTags(PhpDocNode $phpDocNode, NameScope $nameScope): ?\PHPStan\PhpDoc\Tag\ThrowsTag
 	{
-		$types = array_map(function (ThrowsTagValueNode $throwsTagValue) use ($nameScope): Type {
-			return $this->typeNodeResolver->resolve($throwsTagValue->type, $nameScope);
-		}, $phpDocNode->getThrowsTagValues());
+		$types = array_map(
+			function (ThrowsTagValueNode $throwsTagValue) use ($nameScope): Type {
+				return $this->typeNodeResolver->resolve($throwsTagValue->type, $nameScope);
+			},
+			$phpDocNode->getThrowsTagValues()
+		);
 
-		if (count($types) === 0) {
+		if (\count($types) === 0) {
 			return null;
 		}
 
@@ -216,21 +223,21 @@ class PhpDocNodeResolver
 	{
 		$deprecatedTags = $phpDocNode->getTagsByName('@deprecated');
 
-		return count($deprecatedTags) > 0;
+		return \count($deprecatedTags) > 0;
 	}
 
 	private function resolveIsInternal(PhpDocNode $phpDocNode): bool
 	{
 		$internalTags = $phpDocNode->getTagsByName('@internal');
 
-		return count($internalTags) > 0;
+		return \count($internalTags) > 0;
 	}
 
 	private function resolveIsFinal(PhpDocNode $phpDocNode): bool
 	{
 		$finalTags = $phpDocNode->getTagsByName('@final');
 
-		return count($finalTags) > 0;
+		return \count($finalTags) > 0;
 	}
 
 }

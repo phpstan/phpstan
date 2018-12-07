@@ -56,7 +56,7 @@ class ImpossibleCheckTypeMethodCallRuleTest extends \PHPStan\Testing\RuleTestCas
 				): bool
 				{
 					return $methodReflection->getName() === 'assertNotInt'
-						&& count($node->args) > 0;
+					       && \count($node->args) > 0;
 				}
 
 				public function specifyTypes(
@@ -104,7 +104,7 @@ class ImpossibleCheckTypeMethodCallRuleTest extends \PHPStan\Testing\RuleTestCas
 				): bool
 				{
 					return $methodReflection->getName() === 'isSame'
-						&& count($node->args) >= 2;
+					       && \count($node->args) >= 2;
 				}
 
 				public function specifyTypes(
@@ -148,7 +148,7 @@ class ImpossibleCheckTypeMethodCallRuleTest extends \PHPStan\Testing\RuleTestCas
 				): bool
 				{
 					return $methodReflection->getName() === 'isNotSame'
-						&& count($node->args) >= 2;
+					       && \count($node->args) >= 2;
 				}
 
 				public function specifyTypes(
@@ -174,44 +174,47 @@ class ImpossibleCheckTypeMethodCallRuleTest extends \PHPStan\Testing\RuleTestCas
 
 	public function testRule(): void
 	{
-		$this->analyse([__DIR__ . '/data/impossible-method-call.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/impossible-method-call.php'],
 			[
-				'Call to method PHPStan\Tests\AssertionClass::assertString() with string will always evaluate to true.',
-				14,
-			],
-			[
-				'Call to method PHPStan\Tests\AssertionClass::assertString() with int will always evaluate to false.',
-				15,
-			],
-			[
-				'Call to method PHPStan\Tests\AssertionClass::assertNotInt() with int will always evaluate to false.',
-				30,
-			],
-			[
-				'Call to method PHPStan\Tests\AssertionClass::assertNotInt() with string will always evaluate to true.',
-				36,
-			],
-			[
-				'Call to method ImpossibleMethodCall\Foo::isSame() with 1 and 1 will always evaluate to true.',
-				60,
-			],
-			[
-				'Call to method ImpossibleMethodCall\Foo::isSame() with 1 and 2 will always evaluate to false.',
-				63,
-			],
-			[
-				'Call to method ImpossibleMethodCall\Foo::isNotSame() with 1 and 1 will always evaluate to false.',
-				66,
-			],
-			[
-				'Call to method ImpossibleMethodCall\Foo::isNotSame() with 1 and 2 will always evaluate to true.',
-				69,
-			],
-			[
-				'Call to method ImpossibleMethodCall\Foo::isSame() with stdClass and stdClass will always evaluate to true.',
-				78,
-			],
-		]);
+				[
+					'Call to method PHPStan\Tests\AssertionClass::assertString() with string will always evaluate to true.',
+					14,
+				],
+				[
+					'Call to method PHPStan\Tests\AssertionClass::assertString() with int will always evaluate to false.',
+					15,
+				],
+				[
+					'Call to method PHPStan\Tests\AssertionClass::assertNotInt() with int will always evaluate to false.',
+					30,
+				],
+				[
+					'Call to method PHPStan\Tests\AssertionClass::assertNotInt() with string will always evaluate to true.',
+					36,
+				],
+				[
+					'Call to method ImpossibleMethodCall\Foo::isSame() with 1 and 1 will always evaluate to true.',
+					60,
+				],
+				[
+					'Call to method ImpossibleMethodCall\Foo::isSame() with 1 and 2 will always evaluate to false.',
+					63,
+				],
+				[
+					'Call to method ImpossibleMethodCall\Foo::isNotSame() with 1 and 1 will always evaluate to false.',
+					66,
+				],
+				[
+					'Call to method ImpossibleMethodCall\Foo::isNotSame() with 1 and 2 will always evaluate to true.',
+					69,
+				],
+				[
+					'Call to method ImpossibleMethodCall\Foo::isSame() with stdClass and stdClass will always evaluate to true.',
+					78,
+				],
+			]
+		);
 	}
 
 }

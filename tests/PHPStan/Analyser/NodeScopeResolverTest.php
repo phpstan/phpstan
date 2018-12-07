@@ -35,37 +35,43 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 
 	public function testClassMethodScope(): void
 	{
-		$this->processFile(__DIR__ . '/data/class.php', function (\PhpParser\Node $node, Scope $scope): void {
-			if (!($node instanceof Exit_)) {
-				return;
-			}
+		$this->processFile(
+			__DIR__ . '/data/class.php',
+			function (\PhpParser\Node $node, Scope $scope): void {
+				if (!($node instanceof Exit_)) {
+					return;
+				}
 
-			$this->assertSame('SomeNodeScopeResolverNamespace', $scope->getNamespace());
-			$this->assertTrue($scope->isInClass());
-			$this->assertSame(Foo::class, $scope->getClassReflection()->getName());
-			$this->assertSame('doFoo', $scope->getFunctionName());
-			$this->assertSame('$this(SomeNodeScopeResolverNamespace\Foo)', $scope->getVariableType('this')->describe(VerbosityLevel::precise()));
-			$this->assertTrue($scope->hasVariableType('baz')->yes());
-			$this->assertTrue($scope->hasVariableType('lorem')->yes());
-			$this->assertFalse($scope->hasVariableType('ipsum')->yes());
-			$this->assertTrue($scope->hasVariableType('i')->yes());
-			$this->assertTrue($scope->hasVariableType('val')->yes());
-			$this->assertSame('SomeNodeScopeResolverNamespace\InvalidArgumentException', $scope->getVariableType('exception')->describe(VerbosityLevel::precise()));
-			$this->assertTrue($scope->hasVariableType('staticVariable')->yes());
-		});
+				$this->assertSame('SomeNodeScopeResolverNamespace', $scope->getNamespace());
+				$this->assertTrue($scope->isInClass());
+				$this->assertSame(Foo::class, $scope->getClassReflection()->getName());
+				$this->assertSame('doFoo', $scope->getFunctionName());
+				$this->assertSame('$this(SomeNodeScopeResolverNamespace\Foo)', $scope->getVariableType('this')->describe(VerbosityLevel::precise()));
+				$this->assertTrue($scope->hasVariableType('baz')->yes());
+				$this->assertTrue($scope->hasVariableType('lorem')->yes());
+				$this->assertFalse($scope->hasVariableType('ipsum')->yes());
+				$this->assertTrue($scope->hasVariableType('i')->yes());
+				$this->assertTrue($scope->hasVariableType('val')->yes());
+				$this->assertSame('SomeNodeScopeResolverNamespace\InvalidArgumentException', $scope->getVariableType('exception')->describe(VerbosityLevel::precise()));
+				$this->assertTrue($scope->hasVariableType('staticVariable')->yes());
+			}
+		);
 	}
 
 	private function getFileScope(string $filename): Scope
 	{
 		/** @var \PHPStan\Analyser\Scope $testScope */
 		$testScope = null;
-		$this->processFile($filename, static function (\PhpParser\Node $node, Scope $scope) use (&$testScope): void {
-			if (!($node instanceof Exit_)) {
-				return;
-			}
+		$this->processFile(
+			$filename,
+			static function (\PhpParser\Node $node, Scope $scope) use (&$testScope): void {
+				if (!($node instanceof Exit_)) {
+					return;
+				}
 
-			$testScope = $scope;
-		});
+				$testScope = $scope;
+			}
+		);
 
 		return $testScope;
 	}
@@ -1881,13 +1887,13 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function dataBinaryOperations(): array
 	{
 		$typeCallback = static function ($value): string {
-			if (is_int($value)) {
+			if (\is_int($value)) {
 				return (new ConstantIntegerType($value))->describe(VerbosityLevel::precise());
-			} elseif (is_float($value)) {
+			} elseif (\is_float($value)) {
 				return (new ConstantFloatType($value))->describe(VerbosityLevel::precise());
-			} elseif (is_bool($value)) {
+			} elseif (\is_bool($value)) {
 				return (new ConstantBooleanType($value))->describe(VerbosityLevel::precise());
-			} elseif (is_string($value)) {
+			} elseif (\is_string($value)) {
 				return (new ConstantStringType($value))->describe(VerbosityLevel::precise());
 			}
 
@@ -3029,9 +3035,9 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 
 	public function dataLiteralArraysKeys(): array
 	{
-		define('STRING_ONE', '1');
-		define('INT_ONE', 1);
-		define('STRING_FOO', 'foo');
+		\define('STRING_ONE', '1');
+		\define('INT_ONE', 1);
+		\define('STRING_FOO', 'foo');
 
 		return [
 			[
@@ -3757,13 +3763,13 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 
 					public function isMethodSupported(MethodReflection $methodReflection): bool
 					{
-						return in_array($methodReflection->getName(), ['getByPrimary'], true);
+						return $methodReflection->getName() === 'getByPrimary';
 					}
 
 					public function getTypeFromMethodCall(MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope): \PHPStan\Type\Type
 					{
 						$args = $methodCall->args;
-						if (count($args) === 0) {
+						if (\count($args) === 0) {
 							return ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
 						}
 
@@ -3795,7 +3801,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 					public function getTypeFromMethodCall(MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope): Type
 					{
 						$args = $methodCall->args;
-						if (count($args) === 0) {
+						if (\count($args) === 0) {
 							return ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
 						}
 
@@ -3819,13 +3825,13 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 
 					public function isStaticMethodSupported(MethodReflection $methodReflection): bool
 					{
-						return in_array($methodReflection->getName(), ['createManagerForEntity'], true);
+						return $methodReflection->getName() === 'createManagerForEntity';
 					}
 
 					public function getTypeFromStaticMethodCall(MethodReflection $methodReflection, StaticCall $methodCall, Scope $scope): \PHPStan\Type\Type
 					{
 						$args = $methodCall->args;
-						if (count($args) === 0) {
+						if (\count($args) === 0) {
 							return ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
 						}
 
@@ -4921,7 +4927,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		string $expression
 	): void
 	{
-		if (!extension_loaded('dio')) {
+		if (!\extension_loaded('dio')) {
 			$this->markTestSkipped('Direct IO extension needed.');
 		}
 		$this->assertTypes(
@@ -4951,7 +4957,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		string $expression
 	): void
 	{
-		if (!extension_loaded('ssh2')) {
+		if (!\extension_loaded('ssh2')) {
 			$this->markTestSkipped('SSH2 extension needed.');
 		}
 		$this->assertTypes(
@@ -5958,7 +5964,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 
 	public function dataConstants(): array
 	{
-		define('ConstantsForNodeScopeResolverTest\\FOO_CONSTANT', 1);
+		\define('ConstantsForNodeScopeResolverTest\\FOO_CONSTANT', 1);
 
 		return [
 			[
@@ -7651,13 +7657,18 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				],
 			]
 		);
-		$resolver->setAnalysedFiles(array_map(static function (string $file) use ($fileHelper): string {
-			return $fileHelper->normalizePath($file);
-		}, [
-			$file,
-			__DIR__ . '/data/methodPhpDocs-trait-defined.php',
-			__DIR__ . '/data/anonymous-class-name-in-trait-trait.php',
-		]));
+		$resolver->setAnalysedFiles(
+			array_map(
+				static function (string $file) use ($fileHelper): string {
+					return $fileHelper->normalizePath($file);
+				},
+				[
+					$file,
+					__DIR__ . '/data/methodPhpDocs-trait-defined.php',
+					__DIR__ . '/data/anonymous-class-name-in-trait-trait.php',
+				]
+			)
+		);
 
 		$resolver->processNodes(
 			$this->getParser()->parseFile($file),
@@ -7691,26 +7702,32 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testDeclareStrictTypes(string $file, bool $result): void
 	{
-		$this->processFile($file, function (\PhpParser\Node $node, Scope $scope) use ($result): void {
-			if (!($node instanceof Exit_)) {
-				return;
-			}
+		$this->processFile(
+			$file,
+			function (\PhpParser\Node $node, Scope $scope) use ($result): void {
+				if (!($node instanceof Exit_)) {
+					return;
+				}
 
-			$this->assertSame($result, $scope->isDeclareStrictTypes());
-		});
+				$this->assertSame($result, $scope->isDeclareStrictTypes());
+			}
+		);
 	}
 
 	public function testEarlyTermination(): void
 	{
-		$this->processFile(__DIR__ . '/data/early-termination.php', function (\PhpParser\Node $node, Scope $scope): void {
-			if (!($node instanceof Exit_)) {
-				return;
-			}
+		$this->processFile(
+			__DIR__ . '/data/early-termination.php',
+			function (\PhpParser\Node $node, Scope $scope): void {
+				if (!($node instanceof Exit_)) {
+					return;
+				}
 
-			$this->assertTrue($scope->hasVariableType('something')->yes());
-			$this->assertTrue($scope->hasVariableType('var')->yes());
-			$this->assertTrue($scope->hasVariableType('foo')->no());
-		});
+				$this->assertTrue($scope->hasVariableType('something')->yes());
+				$this->assertTrue($scope->hasVariableType('var')->yes());
+				$this->assertTrue($scope->hasVariableType('foo')->no());
+			}
+		);
 	}
 
 	private function assertTypeDescribe(

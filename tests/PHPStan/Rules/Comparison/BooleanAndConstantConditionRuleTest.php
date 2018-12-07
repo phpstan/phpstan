@@ -19,60 +19,63 @@ class BooleanAndConstantConditionRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	public function testRule(): void
 	{
-		$this->analyse([__DIR__ . '/data/boolean-and.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/boolean-and.php'],
 			[
-				'Left side of && is always true.',
-				15,
-			],
-			[
-				'Right side of && is always true.',
-				19,
-			],
-			[
-				'Left side of && is always false.',
-				24,
-			],
-			[
-				'Right side of && is always false.',
-				27,
-			],
-			[
-				'Right side of && is always false.',
-				30,
-			],
-			[
-				'Right side of && is always true.',
-				33,
-			],
-			[
-				'Right side of && is always true.',
-				36,
-			],
-			[
-				'Right side of && is always true.',
-				39,
-			],
-			[
-				'Result of && is always false.',
-				50,
-			],
-			[
-				'Result of && is always true.',
-				54,
-			],
-			[
-				'Result of && is always false.',
-				60,
-			],
-			[
-				'Result of && is always true.',
-				64,
-			],
-			[
-				'Result of && is always false.',
-				66,
-			],
-		]);
+				[
+					'Left side of && is always true.',
+					15,
+				],
+				[
+					'Right side of && is always true.',
+					19,
+				],
+				[
+					'Left side of && is always false.',
+					24,
+				],
+				[
+					'Right side of && is always false.',
+					27,
+				],
+				[
+					'Right side of && is always false.',
+					30,
+				],
+				[
+					'Right side of && is always true.',
+					33,
+				],
+				[
+					'Right side of && is always true.',
+					36,
+				],
+				[
+					'Right side of && is always true.',
+					39,
+				],
+				[
+					'Result of && is always false.',
+					50,
+				],
+				[
+					'Result of && is always true.',
+					54,
+				],
+				[
+					'Result of && is always false.',
+					60,
+				],
+				[
+					'Result of && is always true.',
+					64,
+				],
+				[
+					'Result of && is always false.',
+					66,
+				],
+			]
+		);
 	}
 
 }

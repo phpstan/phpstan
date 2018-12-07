@@ -19,12 +19,15 @@ class ElseIfConstantConditionRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	public function testRule(): void
 	{
-		$this->analyse([__DIR__ . '/data/elseif-condition.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/elseif-condition.php'],
 			[
-				'Elseif condition is always true.',
-				18,
-			],
-		]);
+				[
+					'Elseif condition is always true.',
+					18,
+				],
+			]
+		);
 	}
 
 }

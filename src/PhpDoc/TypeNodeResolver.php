@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\PhpDoc;
 
@@ -141,18 +141,22 @@ class TypeNodeResolver
 				return new ArrayType(new MixedType(true), new MixedType(true));
 
 			case 'scalar':
-				return new UnionType([
-					new IntegerType(),
-					new FloatType(),
-					new StringType(),
-					new BooleanType(),
-				]);
+				return new UnionType(
+					[
+						new IntegerType(),
+						new FloatType(),
+						new StringType(),
+						new BooleanType(),
+					]
+				);
 
 			case 'number':
-				return new UnionType([
-					new IntegerType(),
-					new FloatType(),
-				]);
+				return new UnionType(
+					[
+						new IntegerType(),
+						new FloatType(),
+					]
+				);
 
 			case 'iterable':
 				return new IterableType(new MixedType(true), new MixedType(true));
@@ -228,13 +232,15 @@ class TypeNodeResolver
 		}
 
 		$otherTypeTypes = $this->resolveMultiple($otherTypeNodes, $nameScope);
-		if (count($iterableTypeNodes) > 0) {
+		if (\count($iterableTypeNodes) > 0) {
 			$arrayTypeTypes = $this->resolveMultiple($iterableTypeNodes, $nameScope);
 			$arrayTypeType = TypeCombinator::union(...$arrayTypeTypes);
 			$addArray = true;
 
 			foreach ($otherTypeTypes as &$type) {
-				if (!$type->isIterable()->yes() || !$type->getIterableValueType()->isSuperTypeOf($arrayTypeType)->yes()) {
+				if (!$type->isIterable()->yes() || !$type->getIterableValueType()
+				                                         ->isSuperTypeOf($arrayTypeType)
+				                                         ->yes()) {
 					continue;
 				}
 
@@ -262,12 +268,14 @@ class TypeNodeResolver
 	private function resolveIntersectionTypeNode(IntersectionTypeNode $typeNode, NameScope $nameScope): Type
 	{
 		$types = $this->resolveMultiple($typeNode->types, $nameScope);
+
 		return TypeCombinator::intersect(...$types);
 	}
 
 	private function resolveArrayTypeNode(ArrayTypeNode $typeNode, NameScope $nameScope): Type
 	{
 		$itemType = $this->resolve($typeNode->type, $nameScope);
+
 		return new ArrayType(new MixedType(), $itemType);
 	}
 
@@ -277,22 +285,22 @@ class TypeNodeResolver
 		$genericTypes = $this->resolveMultiple($typeNode->genericTypes, $nameScope);
 
 		if ($mainType === 'array') {
-			if (count($genericTypes) === 1) { // array<ValueType>
+			if (\count($genericTypes) === 1) { // array<ValueType>
 				return new ArrayType(new MixedType(true), $genericTypes[0]);
 
 			}
 
-			if (count($genericTypes) === 2) { // array<KeyType, ValueType>
+			if (\count($genericTypes) === 2) { // array<KeyType, ValueType>
 				return new ArrayType($genericTypes[0], $genericTypes[1]);
 			}
 
 		} elseif ($mainType === 'iterable') {
-			if (count($genericTypes) === 1) { // iterable<ValueType>
+			if (\count($genericTypes) === 1) { // iterable<ValueType>
 				return new IterableType(new MixedType(true), $genericTypes[0]);
 
 			}
 
-			if (count($genericTypes) === 2) { // iterable<KeyType, ValueType>
+			if (\count($genericTypes) === 2) { // iterable<KeyType, ValueType>
 				return new IterableType($genericTypes[0], $genericTypes[1]);
 			}
 		}
@@ -307,6 +315,7 @@ class TypeNodeResolver
 		$parameters = array_map(
 			function (CallableTypeParameterNode $parameterNode) use ($nameScope, &$isVariadic): NativeParameterReflection {
 				$isVariadic = $isVariadic || $parameterNode->isVariadic;
+
 				return new NativeParameterReflection(
 					$parameterNode->parameterName,
 					$parameterNode->isOptional,
@@ -334,7 +343,8 @@ class TypeNodeResolver
 
 	/**
 	 * @param TypeNode[] $typeNodes
-	 * @param NameScope $nameScope
+	 * @param NameScope  $nameScope
+	 *
 	 * @return Type[]
 	 */
 	public function resolveMultiple(array $typeNodes, NameScope $nameScope): array

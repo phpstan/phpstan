@@ -18,12 +18,15 @@ class ExistingClassesInInterfaceExtendsRuleTest extends \PHPStan\Testing\RuleTes
 
 	public function testRule(): void
 	{
-		$this->analyse([__DIR__ . '/data/extends-implements.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/extends-implements.php'],
 			[
-				'Interface ExtendsImplements\FooInterface referenced with incorrect case: ExtendsImplements\FOOInterface.',
-				30,
-			],
-		]);
+				[
+					'Interface ExtendsImplements\FooInterface referenced with incorrect case: ExtendsImplements\FOOInterface.',
+					30,
+				],
+			]
+		);
 	}
 
 }

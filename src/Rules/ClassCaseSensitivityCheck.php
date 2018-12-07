@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules;
 
@@ -18,6 +18,7 @@ class ClassCaseSensitivityCheck
 
 	/**
 	 * @param string[] $classNames
+	 *
 	 * @return string[]
 	 */
 	public function checkClassNames(array $classNames): array

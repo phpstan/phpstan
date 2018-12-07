@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Reflection;
 
@@ -54,13 +54,13 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 	private $isFinal;
 
 	/**
-	 * @param Broker $broker
-	 * @param \PHPStan\Type\FileTypeMapper $fileTypeMapper
+	 * @param Broker                                                   $broker
+	 * @param \PHPStan\Type\FileTypeMapper                             $fileTypeMapper
 	 * @param \PHPStan\Reflection\PropertiesClassReflectionExtension[] $propertiesClassReflectionExtensions
-	 * @param \PHPStan\Reflection\MethodsClassReflectionExtension[] $methodsClassReflectionExtensions
-	 * @param string $displayName
-	 * @param \ReflectionClass $reflection
-	 * @param string|null $anonymousFilename
+	 * @param \PHPStan\Reflection\MethodsClassReflectionExtension[]    $methodsClassReflectionExtensions
+	 * @param string                                                   $displayName
+	 * @param \ReflectionClass                                         $reflection
+	 * @param string|null                                              $anonymousFilename
 	 */
 	public function __construct(
 		Broker $broker,
@@ -240,6 +240,7 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 			$filename = $this->getFileName();
 			throw new \PHPStan\Reflection\MissingMethodFromReflectionException($this->getName(), $methodName, $filename !== false ? $filename : null);
 		}
+
 		return $this->getPhpExtension()->getNativeMethod($this, $methodName);
 	}
 
@@ -254,6 +255,7 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 		if ($constructor === null) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
+
 		return $this->getNativeMethod($constructor->getName());
 	}
 
@@ -306,6 +308,7 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 			$filename = $this->getFileName();
 			throw new \PHPStan\Reflection\MissingPropertyFromReflectionException($this->getName(), $propertyName, $filename !== false ? $filename : null);
 		}
+
 		return $this->getPhpExtension()->getNativeProperty($this, $propertyName);
 	}
 
@@ -354,9 +357,12 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 	 */
 	public function getInterfaces(): array
 	{
-		return array_map(function (\ReflectionClass $interface) {
-			return $this->broker->getClass($interface->getName());
-		}, $this->getNativeReflection()->getInterfaces());
+		return array_map(
+			function (\ReflectionClass $interface) {
+				return $this->broker->getClass($interface->getName());
+			},
+			$this->getNativeReflection()->getInterfaces()
+		);
 	}
 
 	/**
@@ -364,9 +370,12 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 	 */
 	public function getTraits(): array
 	{
-		return array_map(function (\ReflectionClass $trait) {
-			return $this->broker->getClass($trait->getName());
-		}, $this->getNativeReflection()->getTraits());
+		return array_map(
+			function (\ReflectionClass $trait) {
+				return $this->broker->getClass($trait->getName());
+			},
+			$this->getNativeReflection()->getTraits()
+		);
 	}
 
 	/**
@@ -413,12 +422,13 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 				$isInternal
 			);
 		}
+
 		return $this->constants[$name];
 	}
 
 	public function hasTraitUse(string $traitName): bool
 	{
-		return in_array($traitName, $this->getTraitNames(), true);
+		return \in_array($traitName, $this->getTraitNames(), true);
 	}
 
 	/**
@@ -429,7 +439,14 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 		$class = $this->reflection;
 		$traitNames = $class->getTraitNames();
 		while ($class->getParentClass() !== false) {
-			$traitNames = array_values(array_unique(array_merge($traitNames, $class->getParentClass()->getTraitNames())));
+			$traitNames = array_values(
+				array_unique(
+					array_merge(
+						$traitNames, $class->getParentClass()
+						                   ->getTraitNames()
+					)
+				)
+			);
 			$class = $class->getParentClass();
 		}
 
@@ -461,7 +478,7 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 		if ($this->isFinal === null) {
 			$resolvedPhpDoc = $this->getResolvedPhpDoc();
 			$this->isFinal = $this->reflection->isFinal()
-				|| ($resolvedPhpDoc !== null && $resolvedPhpDoc->isFinal());
+			                 || ($resolvedPhpDoc !== null && $resolvedPhpDoc->isFinal());
 		}
 
 		return $this->isFinal;

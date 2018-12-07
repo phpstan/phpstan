@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Namespaces;
 
@@ -38,7 +38,8 @@ class ExistingNamesInGroupUseRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Stmt\GroupUse $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope       $scope
+	 *
 	 * @return string[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
@@ -78,7 +79,7 @@ class ExistingNamesInGroupUseRule implements \PHPStan\Rules\Rule
 	private function checkConstant(Node\Name $name): ?string
 	{
 		if (!$this->broker->hasConstant($name, null)) {
-			return sprintf('Used constant %s not found.', (string) $name);
+			return sprintf('Used constant %s not found.', (string)$name);
 		}
 
 		return null;
@@ -87,13 +88,13 @@ class ExistingNamesInGroupUseRule implements \PHPStan\Rules\Rule
 	private function checkFunction(Node\Name $name): ?string
 	{
 		if (!$this->broker->hasFunction($name, null)) {
-			return sprintf('Used function %s not found.', (string) $name);
+			return sprintf('Used function %s not found.', (string)$name);
 		}
 
 		if ($this->checkFunctionNameCase) {
 			$functionReflection = $this->broker->getFunction($name, null);
 			$realName = $functionReflection->getName();
-			$usedName = (string) $name;
+			$usedName = (string)$name;
 			if (
 				strtolower($realName) === strtolower($usedName)
 				&& $realName !== $usedName
@@ -111,10 +112,10 @@ class ExistingNamesInGroupUseRule implements \PHPStan\Rules\Rule
 
 	private function checkClass(Node\Name $name): ?string
 	{
-		$messages = $this->classCaseSensitivityCheck->checkClassNames([(string) $name]);
-		if (count($messages) === 0) {
+		$messages = $this->classCaseSensitivityCheck->checkClassNames([(string)$name]);
+		if (\count($messages) === 0) {
 			return null;
-		} elseif (count($messages) === 1) {
+		} elseif (\count($messages) === 1) {
 			return $messages[0];
 		}
 

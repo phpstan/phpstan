@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Command\ErrorFormatter;
 
@@ -21,10 +21,10 @@ class JsonErrorFormatter implements ErrorFormatter
 	{
 		$errorsArray = [
 			'totals' => [
-				'errors' => count($analysisResult->getNotFileSpecificErrors()),
-				'file_errors' => count($analysisResult->getFileSpecificErrors()),
+				'errors'      => \count($analysisResult->getNotFileSpecificErrors()),
+				'file_errors' => \count($analysisResult->getFileSpecificErrors()),
 			],
-			'files' => [],
+			'files'  => [],
 			'errors' => [],
 		];
 
@@ -32,15 +32,15 @@ class JsonErrorFormatter implements ErrorFormatter
 			$file = $fileSpecificError->getFile();
 			if (!array_key_exists($file, $errorsArray['files'])) {
 				$errorsArray['files'][$file] = [
-					'errors' => 0,
+					'errors'   => 0,
 					'messages' => [],
 				];
 			}
 			$errorsArray['files'][$file]['errors']++;
 
 			$errorsArray['files'][$file]['messages'][] = [
-				'message' => $fileSpecificError->getMessage(),
-				'line' => $fileSpecificError->getLine(),
+				'message'   => $fileSpecificError->getMessage(),
+				'line'      => $fileSpecificError->getLine(),
 				'ignorable' => $fileSpecificError->canBeIgnored(),
 			];
 		}

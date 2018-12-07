@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Reflection\Php;
 
@@ -57,17 +57,17 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 	private $variants;
 
 	/**
-	 * @param \ReflectionFunction $reflection
-	 * @param Parser $parser
+	 * @param \ReflectionFunction         $reflection
+	 * @param Parser                      $parser
 	 * @param FunctionCallStatementFinder $functionCallStatementFinder
-	 * @param Cache $cache
-	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
-	 * @param Type|null $phpDocReturnType
-	 * @param Type|null $phpDocThrowType
-	 * @param bool $isDeprecated
-	 * @param bool $isInternal
-	 * @param bool $isFinal
-	 * @param string|false $filename
+	 * @param Cache                       $cache
+	 * @param \PHPStan\Type\Type[]        $phpDocParameterTypes
+	 * @param Type|null                   $phpDocReturnType
+	 * @param Type|null                   $phpDocThrowType
+	 * @param bool                        $isDeprecated
+	 * @param bool                        $isInternal
+	 * @param bool                        $isFinal
+	 * @param string|false                $filename
 	 */
 	public function __construct(
 		\ReflectionFunction $reflection,
@@ -134,12 +134,15 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 	 */
 	private function getParameters(): array
 	{
-		return array_map(function (\ReflectionParameter $reflection) {
-			return new PhpParameterReflection(
-				$reflection,
-				$this->phpDocParameterTypes[$reflection->getName()] ?? null
-			);
-		}, $this->reflection->getParameters());
+		return array_map(
+			function (\ReflectionParameter $reflection) {
+				return new PhpParameterReflection(
+					$reflection,
+					$this->phpDocParameterTypes[$reflection->getName()] ?? null
+				);
+			},
+			$this->reflection->getParameters()
+		);
 	}
 
 	private function isVariadic(): bool
@@ -152,6 +155,7 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 				$nodes = $this->parser->parseFile($this->reflection->getFileName());
 				$result = $this->callsFuncGetArgs($nodes);
 				$this->cache->save($key, $result);
+
 				return $result;
 			}
 
@@ -163,12 +167,13 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 
 	/**
 	 * @param mixed $nodes
+	 *
 	 * @return bool
 	 */
 	private function callsFuncGetArgs($nodes): bool
 	{
 		foreach ($nodes as $node) {
-			if (is_array($node)) {
+			if (\is_array($node)) {
 				if ($this->callsFuncGetArgs($node)) {
 					return true;
 				}
@@ -179,7 +184,7 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 			}
 
 			if ($node instanceof Function_) {
-				$functionName = (string) $node->namespacedName;
+				$functionName = (string)$node->namespacedName;
 
 				if ($functionName === $this->reflection->getName()) {
 					return $this->functionCallStatementFinder->findFunctionCallInStatements(ParametersAcceptor::VARIADIC_FUNCTIONS, $node->getStmts()) !== null;
@@ -210,6 +215,7 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 		) {
 			$phpDocReturnType = null;
 		}
+
 		return TypehintHelper::decideTypeFromReflection(
 			$returnType,
 			$phpDocReturnType

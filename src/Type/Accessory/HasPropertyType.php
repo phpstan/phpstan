@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Accessory;
 
@@ -111,7 +111,7 @@ class HasPropertyType implements CompoundType, AccessoryType
 	public function equals(Type $type): bool
 	{
 		return $type instanceof self
-			&& $this->propertyName === $type->propertyName;
+		       && $this->propertyName === $type->propertyName;
 	}
 
 	public function describe(\PHPStan\Type\VerbosityLevel $level): string

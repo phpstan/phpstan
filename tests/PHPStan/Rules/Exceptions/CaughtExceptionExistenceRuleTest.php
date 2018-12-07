@@ -19,20 +19,23 @@ class CaughtExceptionExistenceRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	public function testCheckCaughtException(): void
 	{
-		$this->analyse([__DIR__ . '/data/catch.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/catch.php'],
 			[
-				'Caught class TestCatch\FooCatch is not an exception.',
-				17,
-			],
-			[
-				'Caught class FooCatchException not found.',
-				29,
-			],
-			[
-				'Class TestCatch\MyCatchException referenced with incorrect case: TestCatch\MyCatchEXCEPTION.',
-				41,
-			],
-		]);
+				[
+					'Caught class TestCatch\FooCatch is not an exception.',
+					17,
+				],
+				[
+					'Caught class FooCatchException not found.',
+					29,
+				],
+				[
+					'Class TestCatch\MyCatchException referenced with incorrect case: TestCatch\MyCatchEXCEPTION.',
+					41,
+				],
+			]
+		);
 	}
 
 }

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Constant;
 
@@ -23,8 +23,8 @@ class ConstantArrayTypeBuilder
 
 	/**
 	 * @param array<int, ConstantIntegerType|ConstantStringType> $keyTypes
-	 * @param array<int, Type> $valueTypes
-	 * @param int $nextAutoIndex
+	 * @param array<int, Type>                                   $valueTypes
+	 * @param int                                                $nextAutoIndex
 	 */
 	private function __construct(
 		array $keyTypes,
@@ -67,6 +67,7 @@ class ConstantArrayTypeBuilder
 			foreach ($this->keyTypes as $i => $keyType) {
 				if ($keyType->getValue() === $offsetType->getValue()) {
 					$this->valueTypes[$i] = $valueType;
+
 					return;
 				}
 			}
@@ -76,6 +77,7 @@ class ConstantArrayTypeBuilder
 			$this->nextAutoIndex = $offsetType instanceof ConstantIntegerType
 				? max($this->nextAutoIndex, $offsetType->getValue() + 1)
 				: $this->nextAutoIndex;
+
 			return;
 		}
 
@@ -89,6 +91,7 @@ class ConstantArrayTypeBuilder
 		if (!$this->degradeToGeneralArray) {
 			/** @var array<int, ConstantIntegerType|ConstantStringType> $keyTypes */
 			$keyTypes = $this->keyTypes;
+
 			return new ConstantArrayType($keyTypes, $this->valueTypes, $this->nextAutoIndex);
 		}
 

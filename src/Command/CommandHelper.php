@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Command;
 
@@ -51,7 +51,9 @@ class CommandHelper
 			if (is_file($autoloadFile)) {
 				(static function (string $file): void {
 					require_once $file;
-				})($autoloadFile);
+				})(
+					$autoloadFile
+				);
 			}
 		}
 		if ($projectConfigFile === null) {
@@ -80,7 +82,7 @@ class CommandHelper
 			$loader = (new LoaderFactory())->createLoader();
 			$projectConfig = $loader->load($projectConfigFile, null);
 			$defaultParameters = [
-				'rootDir' => $containerFactory->getRootDirectory(),
+				'rootDir'                 => $containerFactory->getRootDirectory(),
 				'currentWorkingDirectory' => $containerFactory->getCurrentWorkingDirectory(),
 			];
 
@@ -90,12 +92,12 @@ class CommandHelper
 			if ($level === null && isset($projectConfig['parameters']['level'])) {
 				$level = $projectConfig['parameters']['level'];
 			}
-			if (count($paths) === 0 && isset($projectConfig['parameters']['paths'])) {
+			if (\count($paths) === 0 && isset($projectConfig['parameters']['paths'])) {
 				$paths = Helpers::expand($projectConfig['parameters']['paths'], $defaultParameters);
 			}
 		}
 
-		if (count($paths) === 0) {
+		if (\count($paths) === 0) {
 			$errorOutput->writeln('At least one path must be specified to analyse.');
 			throw new \PHPStan\Command\InceptionNotSuccessfulException();
 		}
@@ -150,21 +152,26 @@ class CommandHelper
 			$errorOutput->writeln('  * in this case, don\'t forget to define parameter <options=bold>customRulesetUsed</> in your config file.');
 			$errorOutput->writeln('');
 			throw new \PHPStan\Command\InceptionNotSuccessfulException();
-		} elseif ((bool) $container->parameters['customRulesetUsed']) {
+		} elseif ((bool)$container->parameters['customRulesetUsed']) {
 			$defaultLevelUsed = false;
 		}
 
 		foreach ($container->parameters['autoload_files'] as $autoloadFile) {
 			(static function (string $file): void {
 				require_once $file;
-			})($fileHelper->normalizePath($autoloadFile));
+			})(
+				$fileHelper->normalizePath($autoloadFile)
+			);
 		}
 
-		if (count($container->parameters['autoload_directories']) > 0) {
+		if (\count($container->parameters['autoload_directories']) > 0) {
 			$robotLoader = new \Nette\Loaders\RobotLoader();
-			$robotLoader->acceptFiles = array_map(static function (string $extension): string {
-				return sprintf('*.%s', $extension);
-			}, $container->parameters['fileExtensions']);
+			$robotLoader->acceptFiles = array_map(
+				static function (string $extension): string {
+					return sprintf('*.%s', $extension);
+				},
+				$container->parameters['fileExtensions']
+			);
 
 			$robotLoader->setTempDirectory($tmpDir);
 			foreach ($container->parameters['autoload_directories'] as $directory) {
@@ -188,16 +195,21 @@ class CommandHelper
 			try {
 				(static function (string $file): void {
 					require_once $file;
-				})($bootstrapFile);
+				})(
+					$bootstrapFile
+				);
 			} catch (\Throwable $e) {
 				$errorOutput->writeln($e->getMessage());
 				throw new \PHPStan\Command\InceptionNotSuccessfulException();
 			}
 		}
 
-		$paths = array_map(static function (string $path) use ($fileHelper): string {
-			return $fileHelper->absolutizePath($path);
-		}, $paths);
+		$paths = array_map(
+			static function (string $path) use ($fileHelper): string {
+				return $fileHelper->absolutizePath($path);
+			},
+			$paths
+		);
 
 		$onlyFiles = true;
 		$files = [];
@@ -219,9 +231,12 @@ class CommandHelper
 		}
 
 		$fileExcluder = $container->getByType(FileExcluder::class);
-		$files = array_filter($files, static function (string $file) use ($fileExcluder): bool {
-			return !$fileExcluder->isExcludedFromAnalysing($file);
-		});
+		$files = array_filter(
+			$files,
+			static function (string $file) use ($fileExcluder): bool {
+				return !$fileExcluder->isExcludedFromAnalysing($file);
+			}
+		);
 
 		return new InceptionResult(
 			$files,
@@ -236,17 +251,20 @@ class CommandHelper
 
 	private static function setUpSignalHandler(OutputStyle $consoleStyle, string $memoryLimitFile): void
 	{
-		if (!function_exists('pcntl_signal')) {
+		if (!\function_exists('pcntl_signal')) {
 			return;
 		}
 
-		pcntl_signal(SIGINT, static function () use ($consoleStyle, $memoryLimitFile): void {
-			if (file_exists($memoryLimitFile)) {
-				@unlink($memoryLimitFile);
+		pcntl_signal(
+			SIGINT,
+			static function () use ($consoleStyle, $memoryLimitFile): void {
+				if (file_exists($memoryLimitFile)) {
+					@unlink($memoryLimitFile);
+				}
+				$consoleStyle->newLine();
+				exit(1);
 			}
-			$consoleStyle->newLine();
-			exit(1);
-		});
+		);
 	}
 
 }

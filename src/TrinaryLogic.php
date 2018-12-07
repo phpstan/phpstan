@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan;
 
@@ -11,9 +11,9 @@ use PHPStan\Type\Constant\ConstantBooleanType;
 class TrinaryLogic
 {
 
-	private const YES = 1;
+	private const YES   = 1;
 	private const MAYBE = 0;
-	private const NO = -1;
+	private const NO    = -1;
 
 	/** @var int */
 	private $value;
@@ -49,6 +49,7 @@ class TrinaryLogic
 	private static function create(int $value): self
 	{
 		self::$registry[$value] = self::$registry[$value] ?? new self($value);
+
 		return self::$registry[$value];
 	}
 
@@ -80,6 +81,7 @@ class TrinaryLogic
 	{
 		$operandValues = array_column($operands, 'value');
 		$operandValues[] = $this->value;
+
 		return self::create(min($operandValues));
 	}
 
@@ -87,6 +89,7 @@ class TrinaryLogic
 	{
 		$operandValues = array_column($operands, 'value');
 		$operandValues[] = $this->value;
+
 		return self::create(max($operandValues));
 	}
 
@@ -95,12 +98,14 @@ class TrinaryLogic
 		$operandValues = array_column($operands, 'value');
 		$min = min($operandValues);
 		$max = max($operandValues);
+
 		return self::create($min === $max ? $min : self::MAYBE);
 	}
 
 	public static function maxMin(self ...$operands): self
 	{
 		$operandValues = array_column($operands, 'value');
+
 		return self::create(max($operandValues) > 0 ? max($operandValues) : min($operandValues));
 	}
 
@@ -128,9 +133,9 @@ class TrinaryLogic
 	public function describe(): string
 	{
 		static $labels = [
-			self::NO => 'No',
+			self::NO    => 'No',
 			self::MAYBE => 'Maybe',
-			self::YES => 'Yes',
+			self::YES   => 'Yes',
 		];
 
 		return $labels[$this->value];
@@ -138,6 +143,7 @@ class TrinaryLogic
 
 	/**
 	 * @param mixed[] $properties
+	 *
 	 * @return self
 	 */
 	public static function __set_state(array $properties): self

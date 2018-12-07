@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Php;
 
@@ -29,13 +29,13 @@ class RangeFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionR
 
 	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
 	{
-		if (count($functionCall->args) < 2) {
+		if (\count($functionCall->args) < 2) {
 			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
 		}
 
 		$startType = $scope->getType($functionCall->args[0]->value);
 		$endType = $scope->getType($functionCall->args[1]->value);
-		$stepType = count($functionCall->args) >= 3 ? $scope->getType($functionCall->args[2]->value) : new ConstantIntegerType(1);
+		$stepType = \count($functionCall->args) >= 3 ? $scope->getType($functionCall->args[2]->value) : new ConstantIntegerType(1);
 
 		$constantReturnTypes = [];
 
@@ -57,7 +57,7 @@ class RangeFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionR
 						continue;
 					}
 
-					$rangeLength = (int) ceil(abs($startConstant->getValue() - $endConstant->getValue()) / $stepConstant->getValue()) + 1;
+					$rangeLength = (int)ceil(abs($startConstant->getValue() - $endConstant->getValue()) / $stepConstant->getValue()) + 1;
 					if ($rangeLength > self::RANGE_LENGTH_THRESHOLD) {
 						continue;
 					}
@@ -76,7 +76,7 @@ class RangeFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionR
 			}
 		}
 
-		if (count($constantReturnTypes) > 0) {
+		if (\count($constantReturnTypes) > 0) {
 			return TypeCombinator::union(...$constantReturnTypes);
 		}
 

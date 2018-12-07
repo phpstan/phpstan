@@ -23,10 +23,12 @@ class FloatTypeTest extends \PHPStan\Testing\TestCase
 				TrinaryLogic::createYes(),
 			],
 			[
-				new UnionType([
-					new IntegerType(),
-					new FloatType(),
-				]),
+				new UnionType(
+					[
+						new IntegerType(),
+						new FloatType(),
+					]
+				),
 				TrinaryLogic::createYes(),
 			],
 			[
@@ -38,18 +40,22 @@ class FloatTypeTest extends \PHPStan\Testing\TestCase
 				TrinaryLogic::createNo(),
 			],
 			[
-				new UnionType([
-					new IntegerType(),
-					new FloatType(),
-					new StringType(),
-				]),
+				new UnionType(
+					[
+						new IntegerType(),
+						new FloatType(),
+						new StringType(),
+					]
+				),
 				TrinaryLogic::createMaybe(),
 			],
 			[
-				new UnionType([
-					new StringType(),
-					new ResourceType(),
-				]),
+				new UnionType(
+					[
+						new StringType(),
+						new ResourceType(),
+					]
+				),
 				TrinaryLogic::createNo(),
 			],
 		];

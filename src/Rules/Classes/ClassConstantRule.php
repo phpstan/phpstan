@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Classes;
 
@@ -45,7 +45,8 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\ClassConstFetch $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope              $scope
+	 *
 	 * @return string[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
@@ -58,9 +59,9 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 		$class = $node->class;
 		$messages = [];
 		if ($class instanceof \PhpParser\Node\Name) {
-			$className = (string) $class;
+			$className = (string)$class;
 			$lowercasedClassName = strtolower($className);
-			if (in_array($lowercasedClassName, ['self', 'static'], true)) {
+			if (\in_array($lowercasedClassName, ['self', 'static'], true)) {
 				if (!$scope->isInClass()) {
 					return [
 						sprintf('Using %s outside of class scope.', $className),
@@ -127,9 +128,12 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 		$classType = TypeCombinator::remove($classType, new StringType());
 
 		if (!$classType->canAccessConstants()->yes()) {
-			return array_merge($messages, [
-				sprintf('Cannot access constant %s on %s.', $constantName, $typeForDescribe->describe(VerbosityLevel::typeOnly())),
-			]);
+			return array_merge(
+				$messages,
+				[
+					sprintf('Cannot access constant %s on %s.', $constantName, $typeForDescribe->describe(VerbosityLevel::typeOnly())),
+				]
+			);
 		}
 
 		if (strtolower($constantName) === 'class') {
@@ -137,25 +141,31 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 		}
 
 		if (!$classType->hasConstant($constantName)) {
-			return array_merge($messages, [
-				sprintf(
-					'Access to undefined constant %s::%s.',
-					$typeForDescribe->describe(VerbosityLevel::typeOnly()),
-					$constantName
-				),
-			]);
+			return array_merge(
+				$messages,
+				[
+					sprintf(
+						'Access to undefined constant %s::%s.',
+						$typeForDescribe->describe(VerbosityLevel::typeOnly()),
+						$constantName
+					),
+				]
+			);
 		}
 
 		$constantReflection = $classType->getConstant($constantName);
 		if (!$scope->canAccessConstant($constantReflection)) {
-			return array_merge($messages, [
-				sprintf(
-					'Access to %s constant %s of class %s.',
-					$constantReflection->isPrivate() ? 'private' : 'protected',
-					$constantName,
-					$constantReflection->getDeclaringClass()->getDisplayName()
-				),
-			]);
+			return array_merge(
+				$messages,
+				[
+					sprintf(
+						'Access to %s constant %s of class %s.',
+						$constantReflection->isPrivate() ? 'private' : 'protected',
+						$constantName,
+						$constantReflection->getDeclaringClass()->getDisplayName()
+					),
+				]
+			);
 		}
 
 		return $messages;

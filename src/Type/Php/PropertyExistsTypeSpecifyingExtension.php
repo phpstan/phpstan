@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Php;
 
@@ -33,8 +33,8 @@ class PropertyExistsTypeSpecifyingExtension implements FunctionTypeSpecifyingExt
 	): bool
 	{
 		return $functionReflection->getName() === 'property_exists'
-			&& $context->truthy()
-			&& count($node->args) >= 2;
+		       && $context->truthy()
+		       && \count($node->args) >= 2;
 	}
 
 	public function specifyTypes(
@@ -51,10 +51,12 @@ class PropertyExistsTypeSpecifyingExtension implements FunctionTypeSpecifyingExt
 
 		return $this->typeSpecifier->create(
 			$node->args[0]->value,
-			new IntersectionType([
-				new ObjectWithoutClassType(),
-				new HasPropertyType($propertyNameType->getValue()),
-			]),
+			new IntersectionType(
+				[
+					new ObjectWithoutClassType(),
+					new HasPropertyType($propertyNameType->getValue()),
+				]
+			),
 			$context
 		);
 	}

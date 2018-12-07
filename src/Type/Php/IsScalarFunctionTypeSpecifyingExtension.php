@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Php;
 
@@ -25,8 +25,8 @@ class IsScalarFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingE
 	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, TypeSpecifierContext $context): bool
 	{
 		return $functionReflection->getName() === 'is_scalar'
-			&& isset($node->args[0])
-			&& !$context->null();
+		       && isset($node->args[0])
+		       && !$context->null();
 	}
 
 	public function specifyTypes(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
@@ -35,12 +35,18 @@ class IsScalarFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingE
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
-		return $this->typeSpecifier->create($node->args[0]->value, new UnionType([
-			new StringType(),
-			new IntegerType(),
-			new FloatType(),
-			new BooleanType(),
-		]), $context);
+		return $this->typeSpecifier->create(
+			$node->args[0]->value,
+			new UnionType(
+				[
+					new StringType(),
+					new IntegerType(),
+					new FloatType(),
+					new BooleanType(),
+				]
+			),
+			$context
+		);
 	}
 
 	public function setTypeSpecifier(TypeSpecifier $typeSpecifier): void

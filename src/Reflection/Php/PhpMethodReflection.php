@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Reflection\Php;
 
@@ -84,19 +84,19 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	private $variants;
 
 	/**
-	 * @param ClassReflection $declaringClass
-	 * @param ClassReflection|null $declaringTrait
-	 * @param BuiltinMethodReflection $reflection
-	 * @param Broker $broker
-	 * @param Parser $parser
+	 * @param ClassReflection             $declaringClass
+	 * @param ClassReflection|null        $declaringTrait
+	 * @param BuiltinMethodReflection     $reflection
+	 * @param Broker                      $broker
+	 * @param Parser                      $parser
 	 * @param FunctionCallStatementFinder $functionCallStatementFinder
-	 * @param Cache $cache
-	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
-	 * @param Type|null $phpDocReturnType
-	 * @param Type|null $phpDocThrowType
-	 * @param bool $isDeprecated
-	 * @param bool $isInternal
-	 * @param bool $isFinal
+	 * @param Cache                       $cache
+	 * @param \PHPStan\Type\Type[]        $phpDocParameterTypes
+	 * @param Type|null                   $phpDocReturnType
+	 * @param Type|null                   $phpDocThrowType
+	 * @param bool                        $isDeprecated
+	 * @param bool                        $isInternal
+	 * @param bool                        $isFinal
 	 */
 	public function __construct(
 		ClassReflection $declaringClass,
@@ -226,12 +226,15 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	private function getParameters(): array
 	{
 		if ($this->parameters === null) {
-			$this->parameters = array_map(function (\ReflectionParameter $reflection) {
-				return new PhpParameterReflection(
-					$reflection,
-					$this->phpDocParameterTypes[$reflection->getName()] ?? null
-				);
-			}, $this->reflection->getParameters());
+			$this->parameters = array_map(
+				function (\ReflectionParameter $reflection) {
+					return new PhpParameterReflection(
+						$reflection,
+						$this->phpDocParameterTypes[$reflection->getName()] ?? null
+					);
+				},
+				$this->reflection->getParameters()
+			);
 		}
 
 		return $this->parameters;
@@ -254,6 +257,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 				$nodes = $this->parser->parseFile($filename);
 				$result = $this->callsFuncGetArgs($declaringClass, $nodes);
 				$this->cache->save($key, $result);
+
 				return $result;
 			}
 
@@ -265,13 +269,14 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 
 	/**
 	 * @param ClassReflection $declaringClass
-	 * @param mixed $nodes
+	 * @param mixed           $nodes
+	 *
 	 * @return bool
 	 */
 	private function callsFuncGetArgs(ClassReflection $declaringClass, $nodes): bool
 	{
 		foreach ($nodes as $node) {
-			if (is_array($node)) {
+			if (\is_array($node)) {
 				if ($this->callsFuncGetArgs($declaringClass, $node)) {
 					return true;
 				}
@@ -284,7 +289,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 			if (
 				$node instanceof \PhpParser\Node\Stmt\ClassLike
 				&& isset($node->namespacedName)
-				&& $declaringClass->getName() !== (string) $node->namespacedName
+				&& $declaringClass->getName() !== (string)$node->namespacedName
 			) {
 				continue;
 			}

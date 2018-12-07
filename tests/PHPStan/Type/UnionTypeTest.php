@@ -16,34 +16,42 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				new UnionType([
-					new ConstantArrayType(
-						[new ConstantIntegerType(0), new ConstantIntegerType(1)],
-						[new ConstantStringType('Closure'), new ConstantStringType('bind')]
-					),
-					new ConstantStringType('array_push'),
-				]),
+				new UnionType(
+					[
+						new ConstantArrayType(
+							[new ConstantIntegerType(0), new ConstantIntegerType(1)],
+							[new ConstantStringType('Closure'), new ConstantStringType('bind')]
+						),
+						new ConstantStringType('array_push'),
+					]
+				),
 				TrinaryLogic::createYes(),
 			],
 			[
-				new UnionType([
-					new ArrayType(new MixedType(), new MixedType()),
-					new StringType(),
-				]),
+				new UnionType(
+					[
+						new ArrayType(new MixedType(), new MixedType()),
+						new StringType(),
+					]
+				),
 				TrinaryLogic::createMaybe(),
 			],
 			[
-				new UnionType([
-					new ArrayType(new MixedType(), new MixedType()),
-					new ObjectType('Closure'),
-				]),
+				new UnionType(
+					[
+						new ArrayType(new MixedType(), new MixedType()),
+						new ObjectType('Closure'),
+					]
+				),
 				TrinaryLogic::createMaybe(),
 			],
 			[
-				new UnionType([
-					new StringType(),
-					new IntegerType(),
-				]),
+				new UnionType(
+					[
+						new StringType(),
+						new IntegerType(),
+					]
+				),
 				TrinaryLogic::createMaybe(),
 			],
 		];
@@ -66,10 +74,12 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 
 	public function dataIsSuperTypeOf(): \Iterator
 	{
-		$unionTypeA = new UnionType([
-			new IntegerType(),
-			new StringType(),
-		]);
+		$unionTypeA = new UnionType(
+			[
+				new IntegerType(),
+				new StringType(),
+			]
+		);
 
 		yield [
 			$unionTypeA,
@@ -149,13 +159,17 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 			TrinaryLogic::createNo(),
 		];
 
-		$unionTypeB = new UnionType([
-			new IntersectionType([
-				new ObjectType('ArrayObject'),
-				new IterableType(new MixedType(), new ObjectType('DatePeriod')),
-			]),
-			new ArrayType(new MixedType(), new ObjectType('DatePeriod')),
-		]);
+		$unionTypeB = new UnionType(
+			[
+				new IntersectionType(
+					[
+						new ObjectType('ArrayObject'),
+						new IterableType(new MixedType(), new ObjectType('DatePeriod')),
+					]
+				),
+				new ArrayType(new MixedType(), new ObjectType('DatePeriod')),
+			]
+		);
 
 		yield [
 			$unionTypeB,
@@ -260,10 +274,12 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 
 	public function dataIsSubTypeOf(): \Iterator
 	{
-		$unionTypeA = new UnionType([
-			new IntegerType(),
-			new StringType(),
-		]);
+		$unionTypeA = new UnionType(
+			[
+				new IntegerType(),
+				new StringType(),
+			]
+		);
 
 		yield [
 			$unionTypeA,
@@ -349,14 +365,18 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 			TrinaryLogic::createNo(),
 		];
 
-		$unionTypeB = new UnionType([
-			new IntersectionType([
-				new ObjectType('ArrayObject'),
-				new IterableType(new MixedType(), new ObjectType('Item')),
-				new CallableType(),
-			]),
-			new ArrayType(new MixedType(), new ObjectType('Item')),
-		]);
+		$unionTypeB = new UnionType(
+			[
+				new IntersectionType(
+					[
+						new ObjectType('ArrayObject'),
+						new IterableType(new MixedType(), new ObjectType('Item')),
+						new CallableType(),
+					]
+				),
+				new ArrayType(new MixedType(), new ObjectType('Item')),
+			]
+		);
 
 		yield [
 			$unionTypeB,
@@ -459,42 +479,50 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 				'int|string|null',
 			],
 			[
-				new UnionType([
-					new ConstantStringType('1aaa'),
-					new ConstantStringType('11aaa'),
-					new ConstantStringType('2aaa'),
-					new ConstantStringType('10aaa'),
-					new ConstantIntegerType(2),
-					new ConstantIntegerType(1),
-					new ConstantIntegerType(10),
-					new ConstantFloatType(2.2),
-					new NullType(),
-					new ConstantStringType('10'),
-					new ObjectType(\stdClass::class),
-					new ConstantBooleanType(true),
-					new ConstantStringType('foo'),
-					new ConstantStringType('2'),
-					new ConstantStringType('1'),
-				]),
+				new UnionType(
+					[
+						new ConstantStringType('1aaa'),
+						new ConstantStringType('11aaa'),
+						new ConstantStringType('2aaa'),
+						new ConstantStringType('10aaa'),
+						new ConstantIntegerType(2),
+						new ConstantIntegerType(1),
+						new ConstantIntegerType(10),
+						new ConstantFloatType(2.2),
+						new NullType(),
+						new ConstantStringType('10'),
+						new ObjectType(\stdClass::class),
+						new ConstantBooleanType(true),
+						new ConstantStringType('foo'),
+						new ConstantStringType('2'),
+						new ConstantStringType('1'),
+					]
+				),
 				"1|2|2.2|10|'1'|'10'|'10aaa'|'11aaa'|'1aaa'|'2'|'2aaa'|'foo'|stdClass|true|null",
 				'float|int|stdClass|string|true|null',
 			],
 			[
 				TypeCombinator::union(
-					new ConstantArrayType([
-						new ConstantStringType('a'),
-						new ConstantStringType('b'),
-					], [
-						new StringType(),
-						new BooleanType(),
-					]),
-					new ConstantArrayType([
-						new ConstantStringType('a'),
-						new ConstantStringType('b'),
-					], [
-						new IntegerType(),
-						new FloatType(),
-					]),
+					new ConstantArrayType(
+						[
+							new ConstantStringType('a'),
+							new ConstantStringType('b'),
+						],
+						[
+							new StringType(),
+							new BooleanType(),
+						]
+					),
+					new ConstantArrayType(
+						[
+							new ConstantStringType('a'),
+							new ConstantStringType('b'),
+						],
+						[
+							new IntegerType(),
+							new FloatType(),
+						]
+					),
 					new ConstantStringType('aaa')
 				),
 				'\'aaa\'|array(\'a\' => int|string, \'b\' => bool|float)',
@@ -502,20 +530,26 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				TypeCombinator::union(
-					new ConstantArrayType([
-						new ConstantStringType('a'),
-						new ConstantStringType('b'),
-					], [
-						new StringType(),
-						new BooleanType(),
-					]),
-					new ConstantArrayType([
-						new ConstantStringType('b'),
-						new ConstantStringType('c'),
-					], [
-						new IntegerType(),
-						new FloatType(),
-					]),
+					new ConstantArrayType(
+						[
+							new ConstantStringType('a'),
+							new ConstantStringType('b'),
+						],
+						[
+							new StringType(),
+							new BooleanType(),
+						]
+					),
+					new ConstantArrayType(
+						[
+							new ConstantStringType('b'),
+							new ConstantStringType('c'),
+						],
+						[
+							new IntegerType(),
+							new FloatType(),
+						]
+					),
 					new ConstantStringType('aaa')
 				),
 				'\'aaa\'|array(?\'a\' => string, \'b\' => bool|int, ?\'c\' => float)',
@@ -523,20 +557,26 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				TypeCombinator::union(
-					new ConstantArrayType([
-						new ConstantStringType('a'),
-						new ConstantStringType('b'),
-					], [
-						new StringType(),
-						new BooleanType(),
-					]),
-					new ConstantArrayType([
-						new ConstantStringType('c'),
-						new ConstantStringType('d'),
-					], [
-						new IntegerType(),
-						new FloatType(),
-					]),
+					new ConstantArrayType(
+						[
+							new ConstantStringType('a'),
+							new ConstantStringType('b'),
+						],
+						[
+							new StringType(),
+							new BooleanType(),
+						]
+					),
+					new ConstantArrayType(
+						[
+							new ConstantStringType('c'),
+							new ConstantStringType('d'),
+						],
+						[
+							new IntegerType(),
+							new FloatType(),
+						]
+					),
 					new ConstantStringType('aaa')
 				),
 				'\'aaa\'|array(\'a\' => string, \'b\' => bool)|array(\'c\' => int, \'d\' => float)',
@@ -544,20 +584,26 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				TypeCombinator::union(
-					new ConstantArrayType([
-						new ConstantIntegerType(0),
-					], [
-						new StringType(),
-					]),
-					new ConstantArrayType([
-						new ConstantIntegerType(0),
-						new ConstantIntegerType(1),
-						new ConstantIntegerType(2),
-					], [
-						new IntegerType(),
-						new BooleanType(),
-						new FloatType(),
-					])
+					new ConstantArrayType(
+						[
+							new ConstantIntegerType(0),
+						],
+						[
+							new StringType(),
+						]
+					),
+					new ConstantArrayType(
+						[
+							new ConstantIntegerType(0),
+							new ConstantIntegerType(1),
+							new ConstantIntegerType(2),
+						],
+						[
+							new IntegerType(),
+							new BooleanType(),
+							new FloatType(),
+						]
+					)
 				),
 				'array(0 => int|string, ?1 => bool, ?2 => float)',
 				'array<int, bool|float|int|string>',
@@ -565,11 +611,14 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 			[
 				TypeCombinator::union(
 					new ConstantArrayType([], []),
-					new ConstantArrayType([
-						new ConstantStringType('foo'),
-					], [
-						new ConstantStringType('bar'),
-					])
+					new ConstantArrayType(
+						[
+							new ConstantStringType('foo'),
+						],
+						[
+							new ConstantStringType('bar'),
+						]
+					)
 				),
 				'array()|array(\'foo\' => \'bar\')',
 				'array<string, string>',

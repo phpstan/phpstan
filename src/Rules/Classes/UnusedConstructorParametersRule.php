@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Classes;
 
@@ -27,7 +27,8 @@ class UnusedConstructorParametersRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Stmt\ClassMethod $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope          $scope
+	 *
 	 * @return string[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
@@ -40,23 +41,30 @@ class UnusedConstructorParametersRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		if (count($node->params) === 0) {
+		if (\count($node->params) === 0) {
 			return [];
 		}
 
-		$message = sprintf('Constructor of class %s has an unused parameter $%%s.', $scope->getClassReflection()->getDisplayName());
+		$message = sprintf(
+			'Constructor of class %s has an unused parameter $%%s.', $scope->getClassReflection()
+			                                                               ->getDisplayName()
+		);
 		if ($scope->getClassReflection()->isAnonymous()) {
 			$message = 'Constructor of an anonymous class has an unused parameter $%s.';
 		}
 
 		return $this->check->getUnusedParameters(
 			$scope,
-			array_map(static function (Param $parameter): string {
-				if (!$parameter->var instanceof Variable || !is_string($parameter->var->name)) {
-					throw new \PHPStan\ShouldNotHappenException();
-				}
-				return $parameter->var->name;
-			}, $node->params),
+			array_map(
+				static function (Param $parameter): string {
+					if (!$parameter->var instanceof Variable || !\is_string($parameter->var->name)) {
+						throw new \PHPStan\ShouldNotHappenException();
+					}
+
+					return $parameter->var->name;
+				},
+				$node->params
+			),
 			$node->stmts,
 			$message
 		);

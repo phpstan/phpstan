@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type;
 
@@ -81,7 +81,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 			return false;
 		}
 
-		if (count($this->types) !== count($type->types)) {
+		if (\count($this->types) !== \count($type->types)) {
 			return false;
 		}
 
@@ -121,9 +121,11 @@ class IntersectionType implements CompoundType, StaticResolvableType
 
 	public function canAccessProperties(): TrinaryLogic
 	{
-		return $this->intersectResults(static function (Type $type): TrinaryLogic {
-			return $type->canAccessProperties();
-		});
+		return $this->intersectResults(
+			static function (Type $type): TrinaryLogic {
+				return $type->canAccessProperties();
+			}
+		);
 	}
 
 	public function hasProperty(string $propertyName): bool
@@ -150,9 +152,11 @@ class IntersectionType implements CompoundType, StaticResolvableType
 
 	public function canCallMethods(): TrinaryLogic
 	{
-		return $this->intersectResults(static function (Type $type): TrinaryLogic {
-			return $type->canCallMethods();
-		});
+		return $this->intersectResults(
+			static function (Type $type): TrinaryLogic {
+				return $type->canCallMethods();
+			}
+		);
 	}
 
 	public function hasMethod(string $methodName): bool
@@ -179,9 +183,11 @@ class IntersectionType implements CompoundType, StaticResolvableType
 
 	public function canAccessConstants(): TrinaryLogic
 	{
-		return $this->intersectResults(static function (Type $type): TrinaryLogic {
-			return $type->canAccessConstants();
-		});
+		return $this->intersectResults(
+			static function (Type $type): TrinaryLogic {
+				return $type->canAccessConstants();
+			}
+		);
 	}
 
 	public function hasConstant(string $constantName): bool
@@ -208,62 +214,79 @@ class IntersectionType implements CompoundType, StaticResolvableType
 
 	public function isIterable(): TrinaryLogic
 	{
-		return $this->intersectResults(static function (Type $type): TrinaryLogic {
-			return $type->isIterable();
-		});
+		return $this->intersectResults(
+			static function (Type $type): TrinaryLogic {
+				return $type->isIterable();
+			}
+		);
 	}
 
 	public function getIterableKeyType(): Type
 	{
-		return $this->intersectTypes(static function (Type $type): Type {
-			return $type->getIterableKeyType();
-		});
+		return $this->intersectTypes(
+			static function (Type $type): Type {
+				return $type->getIterableKeyType();
+			}
+		);
 	}
 
 	public function getIterableValueType(): Type
 	{
-		return $this->intersectTypes(static function (Type $type): Type {
-			return $type->getIterableValueType();
-		});
+		return $this->intersectTypes(
+			static function (Type $type): Type {
+				return $type->getIterableValueType();
+			}
+		);
 	}
 
 	public function isOffsetAccessible(): TrinaryLogic
 	{
-		return $this->intersectResults(static function (Type $type): TrinaryLogic {
-			return $type->isOffsetAccessible();
-		});
+		return $this->intersectResults(
+			static function (Type $type): TrinaryLogic {
+				return $type->isOffsetAccessible();
+			}
+		);
 	}
 
 	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
 	{
-		return $this->intersectResults(static function (Type $type) use ($offsetType): TrinaryLogic {
-			return $type->hasOffsetValueType($offsetType);
-		});
+		return $this->intersectResults(
+			static function (Type $type) use ($offsetType): TrinaryLogic {
+				return $type->hasOffsetValueType($offsetType);
+			}
+		);
 	}
 
 	public function getOffsetValueType(Type $offsetType): Type
 	{
-		return $this->intersectTypes(static function (Type $type) use ($offsetType): Type {
-			return $type->getOffsetValueType($offsetType);
-		});
+		return $this->intersectTypes(
+			static function (Type $type) use ($offsetType): Type {
+				return $type->getOffsetValueType($offsetType);
+			}
+		);
 	}
 
 	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
 	{
-		return $this->intersectTypes(static function (Type $type) use ($offsetType, $valueType): Type {
-			return $type->setOffsetValueType($offsetType, $valueType);
-		});
+		return $this->intersectTypes(
+			static function (Type $type) use ($offsetType, $valueType): Type {
+				return $type->setOffsetValueType($offsetType, $valueType);
+			}
+		);
 	}
 
 	public function isCallable(): TrinaryLogic
 	{
-		return $this->intersectResults(static function (Type $type): TrinaryLogic {
-			return $type->isCallable();
-		});
+		return $this->intersectResults(
+			static function (Type $type): TrinaryLogic {
+				return $type->isCallable();
+			}
+		);
 	}
 
 	/**
 	 * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
+	 *
 	 * @return \PHPStan\Reflection\ParametersAcceptor[]
 	 */
 	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array
@@ -277,62 +300,76 @@ class IntersectionType implements CompoundType, StaticResolvableType
 
 	public function isCloneable(): TrinaryLogic
 	{
-		return $this->intersectResults(static function (Type $type): TrinaryLogic {
-			return $type->isCloneable();
-		});
+		return $this->intersectResults(
+			static function (Type $type): TrinaryLogic {
+				return $type->isCloneable();
+			}
+		);
 	}
 
 	public function toBoolean(): BooleanType
 	{
 		/** @var BooleanType $type */
-		$type = $this->intersectTypes(static function (Type $type): BooleanType {
-			return $type->toBoolean();
-		});
+		$type = $this->intersectTypes(
+			static function (Type $type): BooleanType {
+				return $type->toBoolean();
+			}
+		);
 
 		return $type;
 	}
 
 	public function toNumber(): Type
 	{
-		$type = $this->intersectTypes(static function (Type $type): Type {
-			return $type->toNumber();
-		});
+		$type = $this->intersectTypes(
+			static function (Type $type): Type {
+				return $type->toNumber();
+			}
+		);
 
 		return $type;
 	}
 
 	public function toString(): Type
 	{
-		$type = $this->intersectTypes(static function (Type $type): Type {
-			return $type->toString();
-		});
+		$type = $this->intersectTypes(
+			static function (Type $type): Type {
+				return $type->toString();
+			}
+		);
 
 		return $type;
 	}
 
 	public function toInteger(): Type
 	{
-		$type = $this->intersectTypes(static function (Type $type): Type {
-			return $type->toInteger();
-		});
+		$type = $this->intersectTypes(
+			static function (Type $type): Type {
+				return $type->toInteger();
+			}
+		);
 
 		return $type;
 	}
 
 	public function toFloat(): Type
 	{
-		$type = $this->intersectTypes(static function (Type $type): Type {
-			return $type->toFloat();
-		});
+		$type = $this->intersectTypes(
+			static function (Type $type): Type {
+				return $type->toFloat();
+			}
+		);
 
 		return $type;
 	}
 
 	public function toArray(): Type
 	{
-		$type = $this->intersectTypes(static function (Type $type): Type {
-			return $type->toArray();
-		});
+		$type = $this->intersectTypes(
+			static function (Type $type): Type {
+				return $type->toArray();
+			}
+		);
 
 		return $type;
 	}
@@ -349,6 +386,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 
 	/**
 	 * @param mixed[] $properties
+	 *
 	 * @return Type
 	 */
 	public static function __set_state(array $properties): Type
@@ -358,21 +396,25 @@ class IntersectionType implements CompoundType, StaticResolvableType
 
 	/**
 	 * @param callable(Type $type): TrinaryLogic $getResult
+	 *
 	 * @return TrinaryLogic
 	 */
 	private function intersectResults(callable $getResult): TrinaryLogic
 	{
 		$operands = array_map($getResult, $this->types);
+
 		return TrinaryLogic::maxMin(...$operands);
 	}
 
 	/**
 	 * @param callable(Type $type): Type $getType
+	 *
 	 * @return Type
 	 */
 	private function intersectTypes(callable $getType): Type
 	{
 		$operands = array_map($getType, $this->types);
+
 		return TypeCombinator::intersect(...$operands);
 	}
 

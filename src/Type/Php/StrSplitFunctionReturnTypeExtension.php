@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Php;
 
@@ -26,14 +26,15 @@ final class StrSplitFunctionReturnTypeExtension implements DynamicFunctionReturn
 
 	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
 	{
-		$defaultReturnType = ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+		$defaultReturnType = ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())
+		                                               ->getReturnType();
 
-		if (count($functionCall->args) < 1) {
+		if (\count($functionCall->args) < 1) {
 			return $defaultReturnType;
 		}
 
 		$splitLength = 1;
-		if (count($functionCall->args) >= 2) {
+		if (\count($functionCall->args) >= 2) {
 			$splitLengthType = $scope->getType($functionCall->args[1]->value);
 			if (!$splitLengthType instanceof ConstantIntegerType) {
 				return $defaultReturnType;
@@ -51,7 +52,7 @@ final class StrSplitFunctionReturnTypeExtension implements DynamicFunctionReturn
 		$stringValue = $stringType->getValue();
 
 		$items = str_split($stringValue, $splitLength);
-		if (!is_array($items)) {
+		if (!\is_array($items)) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 

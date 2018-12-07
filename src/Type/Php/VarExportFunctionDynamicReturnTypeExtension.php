@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Php;
 
@@ -14,7 +14,7 @@ class VarExportFunctionDynamicReturnTypeExtension implements DynamicFunctionRetu
 
 	public function isFunctionSupported(\PHPStan\Reflection\FunctionReflection $functionReflection): bool
 	{
-		return in_array(
+		return \in_array(
 			$functionReflection->getName(),
 			[
 				'var_export',
@@ -36,14 +36,14 @@ class VarExportFunctionDynamicReturnTypeExtension implements DynamicFunctionRetu
 			$fallbackReturnType = new BooleanType();
 		}
 
-		if (count($functionCall->args) < 1) {
+		if (\count($functionCall->args) < 1) {
 			return TypeCombinator::union(
 				new StringType(),
 				$fallbackReturnType
 			);
 		}
 
-		if (count($functionCall->args) < 2) {
+		if (\count($functionCall->args) < 2) {
 			return $fallbackReturnType;
 		}
 

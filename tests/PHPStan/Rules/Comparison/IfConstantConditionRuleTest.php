@@ -49,32 +49,35 @@ class IfConstantConditionRuleTest extends \PHPStan\Testing\RuleTestCase
 	public function testRule(): void
 	{
 		require_once __DIR__ . '/data/function-definition.php';
-		$this->analyse([__DIR__ . '/data/if-condition.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/if-condition.php'],
 			[
-				'If condition is always true.',
-				40,
-			],
-			[
-				'If condition is always false.',
-				45,
-			],
-			[
-				'If condition is always true.',
-				96,
-			],
-			[
-				'If condition is always true.',
-				110,
-			],
-			[
-				'If condition is always true.',
-				113,
-			],
-			[
-				'If condition is always true.',
-				127,
-			],
-		]);
+				[
+					'If condition is always true.',
+					40,
+				],
+				[
+					'If condition is always false.',
+					45,
+				],
+				[
+					'If condition is always true.',
+					96,
+				],
+				[
+					'If condition is always true.',
+					110,
+				],
+				[
+					'If condition is always true.',
+					113,
+				],
+				[
+					'If condition is always true.',
+					127,
+				],
+			]
+		);
 	}
 
 }

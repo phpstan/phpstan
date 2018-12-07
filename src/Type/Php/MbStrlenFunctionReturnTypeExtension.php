@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Php;
 
@@ -24,24 +24,30 @@ class MbStrlenFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFuncti
 	{
 		$returnType = ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
 
-		if (count($functionCall->args) < 1) {
+		if (\count($functionCall->args) < 1) {
 			return $returnType;
 		}
 		if (!isset($functionCall->args[1])) {
 			return new IntegerType();
 		}
 
-		if (!extension_loaded('mbstring')) {
+		if (!\extension_loaded('mbstring')) {
 			return $returnType;
 		}
 
-		$result = array_unique(array_map(static function (ConstantStringType $encoding): bool {
-			return @mb_strlen('', $encoding->getValue()) !== false; // @ = silence the undocumented warning
-		}, TypeUtils::getConstantStrings($scope->getType($functionCall->args[1]->value))));
+		$result = array_unique(
+			array_map(
+				static function (ConstantStringType $encoding): bool {
+					return @mb_strlen('', $encoding->getValue()) !== false; // @ = silence the undocumented warning
+				},
+				TypeUtils::getConstantStrings($scope->getType($functionCall->args[1]->value))
+			)
+		);
 
-		if (count($result) !== 1) {
+		if (\count($result) !== 1) {
 			return $returnType;
 		}
+
 		return $result[0] ? new IntegerType() : new ConstantBooleanType(false);
 	}
 

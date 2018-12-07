@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Comparison;
 
@@ -30,7 +30,8 @@ class ImpossibleCheckTypeFunctionCallRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\FuncCall $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope       $scope
+	 *
 	 * @return string[] errors
 	 */
 	public function processNode(Node $node, Scope $scope): array
@@ -39,7 +40,7 @@ class ImpossibleCheckTypeFunctionCallRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		$functionName = (string) $node->name;
+		$functionName = (string)$node->name;
 		if (strtolower($functionName) === 'is_a') {
 			return [];
 		}
@@ -49,17 +50,21 @@ class ImpossibleCheckTypeFunctionCallRule implements \PHPStan\Rules\Rule
 		}
 
 		if (!$isAlways) {
-			return [sprintf(
-				'Call to function %s()%s will always evaluate to false.',
-				$functionName,
-				$this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args)
-			)];
+			return [
+				sprintf(
+					'Call to function %s()%s will always evaluate to false.',
+					$functionName,
+					$this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args)
+				),
+			];
 		} elseif ($this->checkAlwaysTrueCheckTypeFunctionCall) {
-			return [sprintf(
-				'Call to function %s()%s will always evaluate to true.',
-				$functionName,
-				$this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args)
-			)];
+			return [
+				sprintf(
+					'Call to function %s()%s will always evaluate to true.',
+					$functionName,
+					$this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args)
+				),
+			];
 		}
 
 		return [];

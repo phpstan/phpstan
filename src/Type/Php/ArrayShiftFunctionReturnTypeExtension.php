@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Php;
 
@@ -26,7 +26,7 @@ class ArrayShiftFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunc
 
 		$argType = $scope->getType($functionCall->args[0]->value);
 		$arrayTypes = TypeUtils::getArrays($argType);
-		if (count($arrayTypes) > 0) {
+		if (\count($arrayTypes) > 0) {
 			$resultTypes = [];
 			foreach ($arrayTypes as $arrayType) {
 				$resultTypes[] = $arrayType->getFirstValueType();

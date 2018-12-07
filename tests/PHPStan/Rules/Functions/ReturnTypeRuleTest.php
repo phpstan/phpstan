@@ -16,32 +16,35 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 	public function testReturnTypeRule(): void
 	{
 		require_once __DIR__ . '/data/returnTypes.php';
-		$this->analyse([__DIR__ . '/data/returnTypes.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/returnTypes.php'],
 			[
-				'Function ReturnTypes\returnInteger() should return int but returns string.',
-				13,
-			],
-			[
-				'Function ReturnTypes\returnObject() should return ReturnTypes\Bar but returns int.',
-				21,
-			],
-			[
-				'Function ReturnTypes\returnObject() should return ReturnTypes\Bar but returns ReturnTypes\Foo.',
-				22,
-			],
-			[
-				'Function ReturnTypes\returnChild() should return ReturnTypes\Foo but returns ReturnTypes\OtherInterfaceImpl.',
-				30,
-			],
-			[
-				'Function ReturnTypes\returnVoid() with return type void returns null but should not return anything.',
-				53,
-			],
-			[
-				'Function ReturnTypes\returnVoid() with return type void returns int but should not return anything.',
-				54,
-			],
-		]);
+				[
+					'Function ReturnTypes\returnInteger() should return int but returns string.',
+					13,
+				],
+				[
+					'Function ReturnTypes\returnObject() should return ReturnTypes\Bar but returns int.',
+					21,
+				],
+				[
+					'Function ReturnTypes\returnObject() should return ReturnTypes\Bar but returns ReturnTypes\Foo.',
+					22,
+				],
+				[
+					'Function ReturnTypes\returnChild() should return ReturnTypes\Foo but returns ReturnTypes\OtherInterfaceImpl.',
+					30,
+				],
+				[
+					'Function ReturnTypes\returnVoid() with return type void returns null but should not return anything.',
+					53,
+				],
+				[
+					'Function ReturnTypes\returnVoid() with return type void returns int but should not return anything.',
+					54,
+				],
+			]
+		);
 	}
 
 }

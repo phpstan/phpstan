@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules;
 
@@ -60,9 +60,10 @@ class FunctionDefinitionCheck
 
 	/**
 	 * @param \PhpParser\Node\FunctionLike $function
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @param string $parameterMessage
-	 * @param string $returnMessage
+	 * @param \PHPStan\Analyser\Scope      $scope
+	 * @param string                       $parameterMessage
+	 * @param string                       $returnMessage
+	 *
 	 * @return string[]
 	 */
 	public function checkFunction(
@@ -93,7 +94,7 @@ class FunctionDefinitionCheck
 		if ($function instanceof Function_) {
 			$functionName = $function->name->name;
 			if (isset($function->namespacedName)) {
-				$functionName = (string) $function->namespacedName;
+				$functionName = (string)$function->namespacedName;
 			}
 			$functionNameName = new Name($functionName);
 			if (!$this->broker->hasCustomFunction($functionNameName, null)) {
@@ -115,15 +116,15 @@ class FunctionDefinitionCheck
 		$errors = [];
 		foreach ($function->getParams() as $param) {
 			$class = $param->type instanceof NullableType
-				? (string) $param->type->type
-				: (string) $param->type;
+				? (string)$param->type->type
+				: (string)$param->type;
 			$lowercasedClass = strtolower($class);
-			if ($lowercasedClass === '' || in_array($lowercasedClass, self::VALID_TYPEHINTS, true)) {
+			if ($lowercasedClass === '' || \in_array($lowercasedClass, self::VALID_TYPEHINTS, true)) {
 				continue;
 			}
 
 			if (!$this->broker->hasClass($class)) {
-				if (!$param->var instanceof Variable || !is_string($param->var->name)) {
+				if (!$param->var instanceof Variable || !\is_string($param->var->name)) {
 					throw new \PHPStan\ShouldNotHappenException();
 				}
 				$errors[] = sprintf($parameterMessage, $param->var->name, $class);
@@ -136,14 +137,14 @@ class FunctionDefinitionCheck
 		}
 
 		$returnType = $function->getReturnType() instanceof NullableType
-			? (string) $function->getReturnType()->type
-			: (string) $function->getReturnType();
+			? (string)$function->getReturnType()->type
+			: (string)$function->getReturnType();
 
 		$lowercasedReturnType = strtolower($returnType);
 
 		if (
 			$lowercasedReturnType !== ''
-			&& !in_array($lowercasedReturnType, self::VALID_TYPEHINTS, true)
+			&& !\in_array($lowercasedReturnType, self::VALID_TYPEHINTS, true)
 		) {
 			if (!$this->broker->hasClass($returnType)) {
 				$errors[] = sprintf($returnMessage, $returnType);
@@ -160,8 +161,9 @@ class FunctionDefinitionCheck
 
 	/**
 	 * @param ParametersAcceptorWithPhpDocs $parametersAcceptor
-	 * @param string $parameterMessage
-	 * @param string $returnMessage
+	 * @param string                        $parameterMessage
+	 * @param string                        $returnMessage
+	 *
 	 * @return string[]
 	 */
 	private function checkParametersAcceptor(
@@ -198,7 +200,10 @@ class FunctionDefinitionCheck
 				continue;
 			}
 
-			$errors[] = sprintf($parameterMessage, $parameter->getName(), $parameter->getType()->describe(VerbosityLevel::typeOnly()));
+			$errors[] = sprintf(
+				$parameterMessage, $parameter->getName(), $parameter->getType()
+				                                                    ->describe(VerbosityLevel::typeOnly())
+			);
 		}
 
 		if ($this->checkThisOnly) {
@@ -225,7 +230,10 @@ class FunctionDefinitionCheck
 			);
 		}
 		if ($parametersAcceptor->getReturnType() instanceof NonexistentParentClassType) {
-			$errors[] = sprintf($returnMessage, $parametersAcceptor->getReturnType()->describe(VerbosityLevel::typeOnly()));
+			$errors[] = sprintf(
+				$returnMessage, $parametersAcceptor->getReturnType()
+				                                   ->describe(VerbosityLevel::typeOnly())
+			);
 		}
 
 		return $errors;

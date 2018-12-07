@@ -17,19 +17,23 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 
 	public function testMethodIsInClassUsingTrait(): void
 	{
-		$errors = $this->runAnalyse([
-			__DIR__ . '/traits/Foo.php',
-			__DIR__ . '/traits/FooTrait.php',
-		]);
+		$errors = $this->runAnalyse(
+			[
+				__DIR__ . '/traits/Foo.php',
+				__DIR__ . '/traits/FooTrait.php',
+			]
+		);
 		$this->assertEmpty($errors);
 	}
 
 	public function testMethodDoesNotExist(): void
 	{
-		$errors = $this->runAnalyse([
-			__DIR__ . '/traits/Bar.php',
-			__DIR__ . '/traits/FooTrait.php',
-		]);
+		$errors = $this->runAnalyse(
+			[
+				__DIR__ . '/traits/Bar.php',
+				__DIR__ . '/traits/FooTrait.php',
+			]
+		);
 		$this->assertCount(1, $errors);
 		$error = $errors[0];
 		$this->assertSame('Call to an undefined method AnalyseTraits\Bar::doFoo().', $error->getMessage());
@@ -42,11 +46,13 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 
 	public function testNestedTraits(): void
 	{
-		$errors = $this->runAnalyse([
-			__DIR__ . '/traits/NestedBar.php',
-			__DIR__ . '/traits/NestedFooTrait.php',
-			__DIR__ . '/traits/FooTrait.php',
-		]);
+		$errors = $this->runAnalyse(
+			[
+				__DIR__ . '/traits/NestedBar.php',
+				__DIR__ . '/traits/NestedFooTrait.php',
+				__DIR__ . '/traits/FooTrait.php',
+			]
+		);
 		$this->assertCount(2, $errors);
 		$firstError = $errors[0];
 		$this->assertSame('Call to an undefined method AnalyseTraits\NestedBar::doFoo().', $firstError->getMessage());
@@ -148,9 +154,12 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 	 */
 	private function runAnalyse(array $files): array
 	{
-		$files = array_map(function (string $file): string {
-			return $this->getFileHelper()->normalizePath($file);
-		}, $files);
+		$files = array_map(
+			function (string $file): string {
+				return $this->getFileHelper()->normalizePath($file);
+			},
+			$files
+		);
 		/** @var \PHPStan\Analyser\Analyser $analyser */
 		$analyser = self::getContainer()->getByType(Analyser::class);
 		/** @var \PHPStan\Analyser\Error[] $errors */

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Reflection\Php;
 
@@ -8,8 +8,7 @@ use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Type\MixedType;
 
-class UniversalObjectCratesClassReflectionExtension
-	implements \PHPStan\Reflection\PropertiesClassReflectionExtension, \PHPStan\Reflection\BrokerAwareExtension
+class UniversalObjectCratesClassReflectionExtension implements \PHPStan\Reflection\PropertiesClassReflectionExtension, \PHPStan\Reflection\BrokerAwareExtension
 {
 
 	/** @var string[] */
@@ -41,9 +40,10 @@ class UniversalObjectCratesClassReflectionExtension
 	}
 
 	/**
-	 * @param \PHPStan\Broker\Broker $broker
-	 * @param string[] $classes
+	 * @param \PHPStan\Broker\Broker              $broker
+	 * @param string[]                            $classes
 	 * @param \PHPStan\Reflection\ClassReflection $classReflection
+	 *
 	 * @return bool
 	 */
 	public static function isUniversalObjectCrate(
@@ -71,10 +71,12 @@ class UniversalObjectCratesClassReflectionExtension
 	public function getProperty(ClassReflection $classReflection, string $propertyName): PropertyReflection
 	{
 		if ($classReflection->hasNativeMethod('__get')) {
-			$type = ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('__get')->getVariants())->getReturnType();
+			$type = ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('__get')->getVariants())
+			                                  ->getReturnType();
 		} else {
 			$type = new MixedType();
 		}
+
 		return new UniversalObjectCrateProperty($classReflection, $type);
 	}
 

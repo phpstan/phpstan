@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules;
 
@@ -38,6 +38,7 @@ class FunctionCallParametersCheck
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|\PhpParser\Node\Expr\New_ $funcCall
 	 * @param string[] $messages Eight message templates
+	 *
 	 * @return string[]
 	 */
 	public function check(
@@ -62,7 +63,7 @@ class FunctionCallParametersCheck
 		}
 
 		$errors = [];
-		$invokedParametersCount = count($funcCall->args);
+		$invokedParametersCount = \count($funcCall->args);
 		foreach ($funcCall->args as $arg) {
 			if ($arg->unpack) {
 				$invokedParametersCount = max($functionParametersMinCount, $functionParametersMaxCount);
@@ -111,11 +112,11 @@ class FunctionCallParametersCheck
 		$args = $funcCall->args;
 		foreach ($args as $i => $argument) {
 			if (!isset($parameters[$i])) {
-				if (!$parametersAcceptor->isVariadic() || count($parameters) === 0) {
+				if (!$parametersAcceptor->isVariadic() || \count($parameters) === 0) {
 					break;
 				}
 
-				$parameter = $parameters[count($parameters) - 1];
+				$parameter = $parameters[\count($parameters) - 1];
 				$parameterType = $parameter->getType();
 				if (!($parameterType instanceof ArrayType)) {
 					break;
@@ -160,7 +161,10 @@ class FunctionCallParametersCheck
 					$i + 1,
 					sprintf('%s$%s', $parameter->isVariadic() ? '...' : '', $parameter->getName()),
 					$parameterType->describe(VerbosityLevel::typeOnly()),
-					$argumentValueType->describe($parameterType->isCallable()->yes() ? VerbosityLevel::value() : VerbosityLevel::typeOnly())
+					$argumentValueType->describe(
+						$parameterType->isCallable()
+						              ->yes() ? VerbosityLevel::value() : VerbosityLevel::typeOnly()
+					)
 				);
 			}
 

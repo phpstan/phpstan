@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Reflection\Php;
 
@@ -68,14 +68,18 @@ class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\Parame
 	{
 		if ($this->type === null) {
 			$phpDocType = $this->phpDocType;
-			if ($phpDocType !== null && $this->defaultValue !== null) {
-				if (
-					$this->defaultValue instanceof ConstFetch
-					&& strtolower((string) $this->defaultValue->name) === 'null'
-				) {
-					$phpDocType = \PHPStan\Type\TypeCombinator::addNull($phpDocType);
-				}
+			if (
+				$phpDocType !== null
+				&&
+				$this->defaultValue !== null
+				&&
+				$this->defaultValue instanceof ConstFetch
+				&&
+				strtolower((string)$this->defaultValue->name) === 'null'
+			) {
+				$phpDocType = \PHPStan\Type\TypeCombinator::addNull($phpDocType);
 			}
+
 			$this->type = TypehintHelper::decideType($this->realType, $phpDocType);
 		}
 

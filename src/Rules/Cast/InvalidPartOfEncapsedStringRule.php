@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Cast;
 
@@ -25,7 +25,8 @@ class InvalidPartOfEncapsedStringRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Scalar\Encapsed $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope         $scope
+	 *
 	 * @return string[] errors
 	 */
 	public function processNode(Node $node, Scope $scope): array

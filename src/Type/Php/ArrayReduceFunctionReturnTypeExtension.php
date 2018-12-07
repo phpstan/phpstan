@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Php;
 
@@ -44,11 +44,11 @@ class ArrayReduceFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFun
 
 		$arraysType = $scope->getType($functionCall->args[0]->value);
 		$constantArrays = TypeUtils::getConstantArrays($arraysType);
-		if (count($constantArrays) > 0) {
+		if (\count($constantArrays) > 0) {
 			$onlyEmpty = true;
 			$onlyNonEmpty = true;
 			foreach ($constantArrays as $constantArray) {
-				$isEmpty = count($constantArray->getValueTypes()) === 0;
+				$isEmpty = \count($constantArray->getValueTypes()) === 0;
 				$onlyEmpty = $onlyEmpty && $isEmpty;
 				$onlyNonEmpty = $onlyNonEmpty && !$isEmpty;
 			}

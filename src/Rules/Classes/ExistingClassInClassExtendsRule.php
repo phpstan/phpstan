@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Classes;
 
@@ -24,7 +24,8 @@ class ExistingClassInClassExtendsRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Stmt\Class_ $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope     $scope
+	 *
 	 * @return string[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
@@ -32,7 +33,8 @@ class ExistingClassInClassExtendsRule implements \PHPStan\Rules\Rule
 		if ($node->extends === null) {
 			return [];
 		}
-		return $this->classCaseSensitivityCheck->checkClassNames([(string) $node->extends]);
+
+		return $this->classCaseSensitivityCheck->checkClassNames([(string)$node->extends]);
 	}
 
 }

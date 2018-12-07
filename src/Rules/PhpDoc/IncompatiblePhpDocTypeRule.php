@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\PhpDoc;
 
@@ -29,7 +29,8 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\FunctionLike $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope      $scope
+	 *
 	 * @return string[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
@@ -125,7 +126,8 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param Node\FunctionLike $node
-	 * @param Scope $scope
+	 * @param Scope             $scope
+	 *
 	 * @return Type[]
 	 */
 	private function getNativeParameterTypes(\PhpParser\Node\FunctionLike $node, Scope $scope): array
@@ -133,7 +135,7 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 		$nativeParameterTypes = [];
 		foreach ($node->getParams() as $parameter) {
 			$isNullable = $scope->isParameterValueNullable($parameter);
-			if (!$parameter->var instanceof Variable || !is_string($parameter->var->name)) {
+			if (!$parameter->var instanceof Variable || !\is_string($parameter->var->name)) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
 			$nativeParameterTypes[$parameter->var->name] = $scope->getFunctionType(

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Php;
 
@@ -49,6 +49,7 @@ class ArrayMergeFunctionDynamicReturnTypeExtension implements \PHPStan\Type\Dyna
 
 	/**
 	 * @param \PHPStan\Type\Type[] $types
+	 *
 	 * @return Type
 	 */
 	private function processType(

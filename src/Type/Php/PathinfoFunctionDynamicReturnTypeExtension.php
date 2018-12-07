@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Php;
 
@@ -24,23 +24,26 @@ class PathinfoFunctionDynamicReturnTypeExtension implements \PHPStan\Type\Dynami
 		Scope $scope
 	): Type
 	{
-		$argsCount = count($functionCall->args);
+		$argsCount = \count($functionCall->args);
 		if ($argsCount === 0) {
 			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
 		} elseif ($argsCount === 1) {
 			$stringType = new StringType();
 
-			return new ConstantArrayType([
-				new ConstantStringType('dirname'),
-				new ConstantStringType('basename'),
-				new ConstantStringType('extension'),
-				new ConstantStringType('filename'),
-			], [
-				$stringType,
-				$stringType,
-				$stringType,
-				$stringType,
-			]);
+			return new ConstantArrayType(
+				[
+					new ConstantStringType('dirname'),
+					new ConstantStringType('basename'),
+					new ConstantStringType('extension'),
+					new ConstantStringType('filename'),
+				],
+				[
+					$stringType,
+					$stringType,
+					$stringType,
+					$stringType,
+				]
+			);
 		}
 
 		return new StringType();

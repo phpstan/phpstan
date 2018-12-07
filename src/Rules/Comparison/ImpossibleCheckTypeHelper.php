@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Comparison;
 
@@ -43,13 +43,13 @@ class ImpossibleCheckTypeHelper
 	{
 		if (
 			$node instanceof FuncCall
-			&& count($node->args) > 0
+			&& \count($node->args) > 0
 		) {
 			if ($node->name instanceof \PhpParser\Node\Name) {
-				$functionName = strtolower((string) $node->name);
+				$functionName = strtolower((string)$node->name);
 				if ($functionName === 'is_numeric') {
 					$argType = $scope->getType($node->args[0]->value);
-					if (count(TypeUtils::getConstantScalars($argType)) > 0) {
+					if (\count(TypeUtils::getConstantScalars($argType)) > 0) {
 						return !$argType->toNumber() instanceof ErrorType;
 					}
 
@@ -60,12 +60,12 @@ class ImpossibleCheckTypeHelper
 					return null;
 				} elseif (
 					$functionName === 'in_array'
-					&& count($node->args) >= 3
+					&& \count($node->args) >= 3
 				) {
 					$needleType = $scope->getType($node->args[0]->value);
 					$valueType = $scope->getType($node->args[1]->value)->getIterableValueType();
-					$hasConstantNeedleTypes = count(TypeUtils::getConstantScalars($needleType)) > 0;
-					$hasConstantHaystackTypes = count(TypeUtils::getConstantScalars($valueType)) > 0;
+					$hasConstantNeedleTypes = \count(TypeUtils::getConstantScalars($needleType)) > 0;
+					$hasConstantHaystackTypes = \count(TypeUtils::getConstantScalars($valueType)) > 0;
 					if (
 						$valueType->isSuperTypeOf($needleType)->yes()
 						&& (
@@ -80,7 +80,7 @@ class ImpossibleCheckTypeHelper
 					}
 				} elseif (
 					$functionName === 'property_exists'
-					&& count($node->args) >= 2
+					&& \count($node->args) >= 2
 				) {
 					$classNames = TypeUtils::getDirectClassNames(
 						$scope->getType($node->args[0]->value)
@@ -108,13 +108,13 @@ class ImpossibleCheckTypeHelper
 
 		$isSpecified = static function (Expr $expr) use ($scope, $node): bool {
 			return (
-				$node instanceof FuncCall
-				|| $node instanceof MethodCall
-				|| $node instanceof Expr\StaticCall
-			) && $scope->isSpecified($expr);
+				       $node instanceof FuncCall
+				       || $node instanceof MethodCall
+				       || $node instanceof Expr\StaticCall
+			       ) && $scope->isSpecified($expr);
 		};
 
-		if (count($sureTypes) === 1) {
+		if (\count($sureTypes) === 1) {
 			$sureType = reset($sureTypes);
 			if ($isSpecified($sureType[0])) {
 				return null;
@@ -133,7 +133,7 @@ class ImpossibleCheckTypeHelper
 			}
 
 			return null;
-		} elseif (count($sureNotTypes) === 1) {
+		} elseif (\count($sureNotTypes) === 1) {
 			$sureNotType = reset($sureNotTypes);
 			if ($isSpecified($sureNotType[0])) {
 				return null;
@@ -152,27 +152,37 @@ class ImpossibleCheckTypeHelper
 			}
 
 			return null;
-		} elseif (count($sureTypes) > 0) {
+		} elseif (\count($sureTypes) > 0) {
 			foreach ($sureTypes as $sureType) {
 				if ($isSpecified($sureType[0])) {
 					return null;
 				}
 			}
-			$types = TypeCombinator::union(...array_map(static function ($sureType) {
-				return $sureType[1];
-			}, array_values($sureTypes)));
+			$types = TypeCombinator::union(
+				...array_map(
+					   static function ($sureType) {
+						   return $sureType[1];
+					   },
+					   array_values($sureTypes)
+				   )
+			);
 			if ($types instanceof NeverType) {
 				return false;
 			}
-		} elseif (count($sureNotTypes) > 0) {
+		} elseif (\count($sureNotTypes) > 0) {
 			foreach ($sureNotTypes as $sureNotType) {
 				if ($isSpecified($sureNotType[0])) {
 					return null;
 				}
 			}
-			$types = TypeCombinator::union(...array_map(static function ($sureNotType) {
-				return $sureNotType[1];
-			}, array_values($sureNotTypes)));
+			$types = TypeCombinator::union(
+				...array_map(
+					   static function ($sureNotType) {
+						   return $sureNotType[1];
+					   },
+					   array_values($sureNotTypes)
+				   )
+			);
 			if ($types instanceof NeverType) {
 				return true;
 			}
@@ -182,8 +192,9 @@ class ImpossibleCheckTypeHelper
 	}
 
 	/**
-	 * @param Scope $scope
+	 * @param Scope                 $scope
 	 * @param \PhpParser\Node\Arg[] $args
+	 *
 	 * @return string
 	 */
 	public function getArgumentsDescription(
@@ -191,15 +202,18 @@ class ImpossibleCheckTypeHelper
 		array $args
 	): string
 	{
-		if (count($args) === 0) {
+		if (\count($args) === 0) {
 			return '';
 		}
 
-		$descriptions = array_map(static function (Arg $arg) use ($scope): string {
-			return $scope->getType($arg->value)->describe(VerbosityLevel::value());
-		}, $args);
+		$descriptions = array_map(
+			static function (Arg $arg) use ($scope): string {
+				return $scope->getType($arg->value)->describe(VerbosityLevel::value());
+			},
+			$args
+		);
 
-		if (count($descriptions) < 3) {
+		if (\count($descriptions) < 3) {
 			return sprintf(' with %s', implode(' and ', $descriptions));
 		}
 

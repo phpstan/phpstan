@@ -12,24 +12,27 @@ class InvalidUnaryOperationRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	public function testRule(): void
 	{
-		$this->analyse([__DIR__ . '/data/invalid-unary.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/invalid-unary.php'],
 			[
-				'Unary operation "+" on string results in an error.',
-				10,
-			],
-			[
-				'Unary operation "-" on string results in an error.',
-				11,
-			],
-			[
-				'Unary operation "+" on \'bla\' results in an error.',
-				16,
-			],
-			[
-				'Unary operation "-" on \'bla\' results in an error.',
-				17,
-			],
-		]);
+				[
+					'Unary operation "+" on string results in an error.',
+					10,
+				],
+				[
+					'Unary operation "-" on string results in an error.',
+					11,
+				],
+				[
+					'Unary operation "+" on \'bla\' results in an error.',
+					16,
+				],
+				[
+					'Unary operation "-" on \'bla\' results in an error.',
+					17,
+				],
+			]
+		);
 	}
 
 }

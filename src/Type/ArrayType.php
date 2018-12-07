@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type;
 
@@ -57,7 +57,7 @@ class ArrayType implements StaticResolvableType
 	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
 		$arrays = TypeUtils::getArrays($type);
-		if (count($arrays) > 0) {
+		if (\count($arrays) > 0) {
 			$result = TrinaryLogic::createYes();
 			foreach ($arrays as $array) {
 				$result = $result
@@ -79,7 +79,7 @@ class ArrayType implements StaticResolvableType
 	{
 		if ($type instanceof self) {
 			return $this->getItemType()->isSuperTypeOf($type->getItemType())
-				->and($this->keyType->isSuperTypeOf($type->keyType));
+			            ->and($this->keyType->isSuperTypeOf($type->keyType));
 		}
 
 		if ($type instanceof CompoundType) {
@@ -92,8 +92,8 @@ class ArrayType implements StaticResolvableType
 	public function equals(Type $type): bool
 	{
 		return $type instanceof self
-			&& $this->getItemType()->equals($type->getItemType())
-			&& $this->keyType->equals($type->keyType);
+		       && $this->getItemType()->equals($type->getItemType())
+		       && $this->keyType->equals($type->keyType);
 	}
 
 	public function describe(VerbosityLevel $level): string
@@ -217,6 +217,7 @@ class ArrayType implements StaticResolvableType
 
 	/**
 	 * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
+	 *
 	 * @return \PHPStan\Reflection\ParametersAcceptor[]
 	 */
 	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array
@@ -271,15 +272,21 @@ class ArrayType implements StaticResolvableType
 	public static function castToArrayKeyType(Type $offsetType): Type
 	{
 		if ($offsetType instanceof UnionType) {
-			return TypeCombinator::union(...array_map(static function (Type $type): Type {
-				return self::castToArrayKeyType($type);
-			}, $offsetType->getTypes()));
+			return TypeCombinator::union(
+				...array_map(
+					   static function (Type $type): Type {
+						   return self::castToArrayKeyType($type);
+					   },
+					   $offsetType->getTypes()
+				   )
+			);
 		}
 
 		if ($offsetType instanceof ConstantScalarType) {
 			/** @var int|string $offsetValue */
 			$offsetValue = key([$offsetType->getValue() => null]);
-			return is_int($offsetValue) ? new ConstantIntegerType($offsetValue) : new ConstantStringType($offsetValue);
+
+			return \is_int($offsetValue) ? new ConstantIntegerType($offsetValue) : new ConstantStringType($offsetValue);
 		}
 
 		if ($offsetType instanceof IntegerType || $offsetType instanceof FloatType || $offsetType instanceof BooleanType) {
@@ -295,6 +302,7 @@ class ArrayType implements StaticResolvableType
 
 	/**
 	 * @param mixed[] $properties
+	 *
 	 * @return Type
 	 */
 	public static function __set_state(array $properties): Type

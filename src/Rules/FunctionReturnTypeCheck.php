@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules;
 
@@ -20,13 +20,14 @@ class FunctionReturnTypeCheck
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @param \PHPStan\Type\Type $returnType
+	 * @param \PHPStan\Analyser\Scope   $scope
+	 * @param \PHPStan\Type\Type        $returnType
 	 * @param \PhpParser\Node\Expr|null $returnValue
-	 * @param string $emptyReturnStatementMessage
-	 * @param string $voidMessage
-	 * @param string $typeMismatchMessage
-	 * @param bool $isGenerator
+	 * @param string                    $emptyReturnStatementMessage
+	 * @param string                    $voidMessage
+	 * @param string                    $typeMismatchMessage
+	 * @param bool                      $isGenerator
+	 *
 	 * @return string[]
 	 */
 	public function checkReturnType(

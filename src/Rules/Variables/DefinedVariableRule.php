@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Variables;
 
@@ -31,19 +31,24 @@ class DefinedVariableRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\Variable $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope       $scope
+	 *
 	 * @return string[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		if (!is_string($node->name)) {
+		if (!\is_string($node->name)) {
 			return [];
 		}
 
-		if ($this->cliArgumentsVariablesRegistered && in_array($node->name, [
-			'argc',
-			'argv',
-		], true)) {
+		if ($this->cliArgumentsVariablesRegistered && \in_array(
+				$node->name,
+				[
+					'argc',
+					'argv',
+				],
+				true
+			)) {
 			$isInMain = !$scope->isInClass() && !$scope->isInAnonymousFunction() && $scope->getFunction() === null;
 			if ($isInMain) {
 				return [];

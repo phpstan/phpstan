@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Functions;
 
@@ -28,7 +28,8 @@ class ReturnTypeRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Stmt\Return_ $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope      $scope
+	 *
 	 * @return string[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
@@ -50,7 +51,7 @@ class ReturnTypeRule implements \PHPStan\Rules\Rule
 		}
 
 		$reflection = null;
-		if (function_exists($function->getName())) {
+		if (\function_exists($function->getName())) {
 			$reflection = new \ReflectionFunction($function->getName());
 		}
 

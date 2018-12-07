@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type;
 
@@ -30,8 +30,8 @@ class ClosureType implements Type, ParametersAcceptor
 
 	/**
 	 * @param array<int, \PHPStan\Reflection\Native\NativeParameterReflection> $parameters
-	 * @param Type $returnType
-	 * @param bool $variadic
+	 * @param Type                                                             $returnType
+	 * @param bool                                                             $variadic
 	 */
 	public function __construct(
 		array $parameters,
@@ -111,9 +111,15 @@ class ClosureType implements Type, ParametersAcceptor
 	{
 		return sprintf(
 			'Closure(%s): %s',
-			implode(', ', array_map(static function (ParameterReflection $parameter) use ($level): string {
-				return $parameter->getType()->describe($level);
-			}, $this->parameters)),
+			implode(
+				', ',
+				array_map(
+					static function (ParameterReflection $parameter) use ($level): string {
+						return $parameter->getType()->describe($level);
+					},
+					$this->parameters
+				)
+			),
 			$this->returnType->describe($level)
 		);
 	}
@@ -205,6 +211,7 @@ class ClosureType implements Type, ParametersAcceptor
 
 	/**
 	 * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
+	 *
 	 * @return \PHPStan\Reflection\ParametersAcceptor[]
 	 */
 	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array
@@ -271,6 +278,7 @@ class ClosureType implements Type, ParametersAcceptor
 
 	/**
 	 * @param mixed[] $properties
+	 *
 	 * @return Type
 	 */
 	public static function __set_state(array $properties): Type

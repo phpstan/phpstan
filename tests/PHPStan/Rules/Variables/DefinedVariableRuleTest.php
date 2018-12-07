@@ -42,176 +42,179 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->polluteScopeWithLoopInitialAssignments = false;
 		$this->polluteCatchScopeWithTryAssignments = false;
 		$this->checkMaybeUndefinedVariables = true;
-		$this->analyse([__DIR__ . '/data/defined-variables.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/defined-variables.php'],
 			[
-				'Undefined variable: $definedLater',
-				5,
-			],
-			[
-				'Variable $definedInIfOnly might not be defined.',
-				10,
-			],
-			[
-				'Variable $definedInCases might not be defined.',
-				21,
-			],
-			[
-				'Undefined variable: $fooParameterBeforeDeclaration',
-				29,
-			],
-			[
-				'Undefined variable: $parseStrParameter',
-				34,
-			],
-			[
-				'Undefined variable: $foo',
-				39,
-			],
-			[
-				'Undefined variable: $willBeUnset',
-				44,
-			],
-			[
-				'Undefined variable: $mustAlreadyExistWhenDividing',
-				50,
-			],
-			[
-				'Undefined variable: $arrayDoesNotExist',
-				57,
-			],
-			[
-				'Undefined variable: $undefinedVariable',
-				59,
-			],
-			[
-				'Undefined variable: $this',
-				96,
-			],
-			[
-				'Undefined variable: $this',
-				99,
-			],
-			[
-				'Undefined variable: $variableInEmpty',
-				145,
-			],
-			[
-				'Undefined variable: $variableInEmpty',
-				155,
-			],
-			[
-				'Variable $negatedVariableInEmpty might not be defined.',
-				156,
-			],
-			[
-				'Undefined variable: $variableInIsset',
-				161,
-			],
-			[
-				'Undefined variable: $anotherVariableInIsset',
-				161,
-			],
-			[
-				'Undefined variable: $http_response_header',
-				185,
-			],
-			[
-				'Undefined variable: $http_response_header',
-				191,
-			],
-			[
-				'Undefined variable: $assignedInKey',
-				203,
-			],
-			[
-				'Undefined variable: $assignedInKey',
-				204,
-			],
-			[
-				'Variable $forI might not be defined.',
-				250,
-			],
-			[
-				'Variable $forJ might not be defined.',
-				251,
-			],
-			[
-				'Variable $variableDefinedInTry might not be defined.',
-				260,
-			],
-			[
-				'Variable $variableDefinedInTryAndAllCatches might not be defined.',
-				265,
-			],
-			[
-				'Variable $variableAvailableInAllCatches might not be defined.',
-				266,
-			],
-			[
-				'Variable $variableDefinedOnlyInOneCatch might not be defined.',
-				267,
-			],
-			[
-				'Undefined variable: $variableInBitwiseAndAssign',
-				277,
-			],
-			[
-				'Variable $mightBeUndefinedInDoWhile might not be defined.',
-				282,
-			],
-			[
-				'Undefined variable: $variableInSecondCase',
-				290,
-			],
-			[
-				'Undefined variable: $variableAssignedInSecondCase',
-				300,
-			],
-			[
-				'Variable $variableInFallthroughCase might not be defined.',
-				302,
-			],
-			[
-				'Variable $variableFromDefaultFirst might not be defined.',
-				312,
-			],
-			[
-				'Undefined variable: $undefinedVariableInForeach',
-				315,
-			],
-			[
-				'Variable $anotherForLoopVariable might not be defined.',
-				328,
-			],
-			[
-				'Variable $maybeDefinedInTernary might not be defined.',
-				351,
-			],
-			[
-				'Variable $anotherMaybeDefinedInTernary might not be defined.',
-				354,
-			],
-			[
-				'Variable $whileVariableUsedAndThenDefined might not be defined.',
-				356,
-			],
-			[
-				'Variable $forVariableUsedAndThenDefined might not be defined.',
-				360,
-			],
-			[
-				'Undefined variable: $unknownVariablePassedToReset',
-				368,
-			],
-			[
-				'Undefined variable: $unknownVariablePassedToReset',
-				369,
-			],
-			[
-				'Undefined variable: $variableInAssign',
-				384,
-			],
-		]);
+				[
+					'Undefined variable: $definedLater',
+					5,
+				],
+				[
+					'Variable $definedInIfOnly might not be defined.',
+					10,
+				],
+				[
+					'Variable $definedInCases might not be defined.',
+					21,
+				],
+				[
+					'Undefined variable: $fooParameterBeforeDeclaration',
+					29,
+				],
+				[
+					'Undefined variable: $parseStrParameter',
+					34,
+				],
+				[
+					'Undefined variable: $foo',
+					39,
+				],
+				[
+					'Undefined variable: $willBeUnset',
+					44,
+				],
+				[
+					'Undefined variable: $mustAlreadyExistWhenDividing',
+					50,
+				],
+				[
+					'Undefined variable: $arrayDoesNotExist',
+					57,
+				],
+				[
+					'Undefined variable: $undefinedVariable',
+					59,
+				],
+				[
+					'Undefined variable: $this',
+					96,
+				],
+				[
+					'Undefined variable: $this',
+					99,
+				],
+				[
+					'Undefined variable: $variableInEmpty',
+					145,
+				],
+				[
+					'Undefined variable: $variableInEmpty',
+					155,
+				],
+				[
+					'Variable $negatedVariableInEmpty might not be defined.',
+					156,
+				],
+				[
+					'Undefined variable: $variableInIsset',
+					161,
+				],
+				[
+					'Undefined variable: $anotherVariableInIsset',
+					161,
+				],
+				[
+					'Undefined variable: $http_response_header',
+					185,
+				],
+				[
+					'Undefined variable: $http_response_header',
+					191,
+				],
+				[
+					'Undefined variable: $assignedInKey',
+					203,
+				],
+				[
+					'Undefined variable: $assignedInKey',
+					204,
+				],
+				[
+					'Variable $forI might not be defined.',
+					250,
+				],
+				[
+					'Variable $forJ might not be defined.',
+					251,
+				],
+				[
+					'Variable $variableDefinedInTry might not be defined.',
+					260,
+				],
+				[
+					'Variable $variableDefinedInTryAndAllCatches might not be defined.',
+					265,
+				],
+				[
+					'Variable $variableAvailableInAllCatches might not be defined.',
+					266,
+				],
+				[
+					'Variable $variableDefinedOnlyInOneCatch might not be defined.',
+					267,
+				],
+				[
+					'Undefined variable: $variableInBitwiseAndAssign',
+					277,
+				],
+				[
+					'Variable $mightBeUndefinedInDoWhile might not be defined.',
+					282,
+				],
+				[
+					'Undefined variable: $variableInSecondCase',
+					290,
+				],
+				[
+					'Undefined variable: $variableAssignedInSecondCase',
+					300,
+				],
+				[
+					'Variable $variableInFallthroughCase might not be defined.',
+					302,
+				],
+				[
+					'Variable $variableFromDefaultFirst might not be defined.',
+					312,
+				],
+				[
+					'Undefined variable: $undefinedVariableInForeach',
+					315,
+				],
+				[
+					'Variable $anotherForLoopVariable might not be defined.',
+					328,
+				],
+				[
+					'Variable $maybeDefinedInTernary might not be defined.',
+					351,
+				],
+				[
+					'Variable $anotherMaybeDefinedInTernary might not be defined.',
+					354,
+				],
+				[
+					'Variable $whileVariableUsedAndThenDefined might not be defined.',
+					356,
+				],
+				[
+					'Variable $forVariableUsedAndThenDefined might not be defined.',
+					360,
+				],
+				[
+					'Undefined variable: $unknownVariablePassedToReset',
+					368,
+				],
+				[
+					'Undefined variable: $unknownVariablePassedToReset',
+					369,
+				],
+				[
+					'Undefined variable: $variableInAssign',
+					384,
+				],
+			]
+		);
 	}
 
 	public function testDefinedVariablesInShortArrayDestructuringSyntax(): void
@@ -220,20 +223,23 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->polluteScopeWithLoopInitialAssignments = false;
 		$this->polluteCatchScopeWithTryAssignments = false;
 		$this->checkMaybeUndefinedVariables = true;
-		$this->analyse([__DIR__ . '/data/defined-variables-array-destructuring-short-syntax.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/defined-variables-array-destructuring-short-syntax.php'],
 			[
-				'Undefined variable: $f',
-				11,
-			],
-			[
-				'Undefined variable: $f',
-				14,
-			],
-			[
-				'Variable $var3 might not be defined.',
-				32,
-			],
-		]);
+				[
+					'Undefined variable: $f',
+					11,
+				],
+				[
+					'Undefined variable: $f',
+					14,
+				],
+				[
+					'Variable $var3 might not be defined.',
+					32,
+				],
+			]
+		);
 	}
 
 	public function testCliArgumentsVariablesNotRegistered(): void
@@ -242,16 +248,19 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->polluteScopeWithLoopInitialAssignments = false;
 		$this->polluteCatchScopeWithTryAssignments = false;
 		$this->checkMaybeUndefinedVariables = true;
-		$this->analyse([__DIR__ . '/data/cli-arguments-variables.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/cli-arguments-variables.php'],
 			[
-				'Undefined variable: $argc',
-				3,
-			],
-			[
-				'Undefined variable: $argc',
-				5,
-			],
-		]);
+				[
+					'Undefined variable: $argc',
+					3,
+				],
+				[
+					'Undefined variable: $argc',
+					5,
+				],
+			]
+		);
 	}
 
 	public function testCliArgumentsVariablesRegistered(): void
@@ -260,12 +269,15 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->polluteScopeWithLoopInitialAssignments = false;
 		$this->polluteCatchScopeWithTryAssignments = false;
 		$this->checkMaybeUndefinedVariables = true;
-		$this->analyse([__DIR__ . '/data/cli-arguments-variables.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/cli-arguments-variables.php'],
 			[
-				'Undefined variable: $argc',
-				5,
-			],
-		]);
+				[
+					'Undefined variable: $argc',
+					5,
+				],
+			]
+		);
 	}
 
 	public function dataLoopInitialAssignments(): array

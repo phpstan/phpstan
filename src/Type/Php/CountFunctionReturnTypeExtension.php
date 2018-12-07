@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Php;
 
@@ -24,12 +24,12 @@ class CountFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionR
 		Scope $scope
 	): Type
 	{
-		if (count($functionCall->args) < 1) {
+		if (\count($functionCall->args) < 1) {
 			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
 		}
 
 		$arrays = TypeUtils::getArrays($scope->getType($functionCall->args[0]->value));
-		if (count($arrays) === 0) {
+		if (\count($arrays) === 0) {
 			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
 		}
 		$countTypes = [];

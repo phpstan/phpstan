@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Php;
 
@@ -25,17 +25,20 @@ class GettimeofdayDynamicFunctionReturnTypeExtension implements \PHPStan\Type\Dy
 
 	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
 	{
-		$arrayType = new ConstantArrayType([
-			new ConstantStringType('sec'),
-			new ConstantStringType('usec'),
-			new ConstantStringType('minuteswest'),
-			new ConstantStringType('dsttime'),
-		], [
-			new IntegerType(),
-			new IntegerType(),
-			new IntegerType(),
-			new IntegerType(),
-		]);
+		$arrayType = new ConstantArrayType(
+			[
+				new ConstantStringType('sec'),
+				new ConstantStringType('usec'),
+				new ConstantStringType('minuteswest'),
+				new ConstantStringType('dsttime'),
+			],
+			[
+				new IntegerType(),
+				new IntegerType(),
+				new IntegerType(),
+				new IntegerType(),
+			]
+		);
 		$floatType = new FloatType();
 
 		if (!isset($functionCall->args[0])) {

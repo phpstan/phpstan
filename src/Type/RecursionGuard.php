@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type;
 
@@ -17,6 +17,7 @@ class RecursionGuard
 
 		try {
 			self::$context[$key] = true;
+
 			return $callback();
 		} finally {
 			unset(self::$context[$key]);

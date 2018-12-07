@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Analyser;
 
@@ -127,23 +127,23 @@ class Scope implements ClassMemberAccessAnswerer
 	private $dynamicConstantNames;
 
 	/**
-	 * @param  \PHPStan\Analyser\ScopeFactory $scopeFactory
-	 * @param \PHPStan\Broker\Broker $broker
-	 * @param \PhpParser\PrettyPrinter\Standard $printer
-	 * @param \PHPStan\Analyser\TypeSpecifier $typeSpecifier
-	 * @param \PHPStan\Analyser\ScopeContext $context
-	 * @param bool $declareStrictTypes
-	 * @param \PHPStan\Reflection\FunctionReflection|MethodReflection|null $function
-	 * @param string|null $namespace
-	 * @param \PHPStan\Analyser\VariableTypeHolder[] $variablesTypes
-	 * @param \PHPStan\Analyser\VariableTypeHolder[] $moreSpecificTypes
-	 * @param string|null $inClosureBindScopeClass
-	 * @param \PHPStan\Type\Type|null $inAnonymousFunctionReturnType
+	 * @param  \PHPStan\Analyser\ScopeFactory                                                                    $scopeFactory
+	 * @param \PHPStan\Broker\Broker                                                                             $broker
+	 * @param \PhpParser\PrettyPrinter\Standard                                                                  $printer
+	 * @param \PHPStan\Analyser\TypeSpecifier                                                                    $typeSpecifier
+	 * @param \PHPStan\Analyser\ScopeContext                                                                     $context
+	 * @param bool                                                                                               $declareStrictTypes
+	 * @param \PHPStan\Reflection\FunctionReflection|MethodReflection|null                                       $function
+	 * @param string|null                                                                                        $namespace
+	 * @param \PHPStan\Analyser\VariableTypeHolder[]                                                             $variablesTypes
+	 * @param \PHPStan\Analyser\VariableTypeHolder[]                                                             $moreSpecificTypes
+	 * @param string|null                                                                                        $inClosureBindScopeClass
+	 * @param \PHPStan\Type\Type|null                                                                            $inAnonymousFunctionReturnType
 	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null $inFunctionCall
-	 * @param bool $negated
-	 * @param bool $inFirstLevelStatement
-	 * @param string[] $currentlyAssignedExpressions
-	 * @param string[] $dynamicConstantNames
+	 * @param bool                                                                                               $negated
+	 * @param bool                                                                                               $inFirstLevelStatement
+	 * @param string[]                                                                                           $currentlyAssignedExpressions
+	 * @param string[]                                                                                           $dynamicConstantNames
 	 */
 	public function __construct(
 		ScopeFactory $scopeFactory,
@@ -306,17 +306,21 @@ class Scope implements ClassMemberAccessAnswerer
 
 	private function isGlobalVariable(string $variableName): bool
 	{
-		return in_array($variableName, [
-			'GLOBALS',
-			'_SERVER',
-			'_GET',
-			'_POST',
-			'_FILES',
-			'_COOKIE',
-			'_SESSION',
-			'_REQUEST',
-			'_ENV',
-		], true);
+		return \in_array(
+			$variableName,
+			[
+				'GLOBALS',
+				'_SERVER',
+				'_GET',
+				'_POST',
+				'_FILES',
+				'_COOKIE',
+				'_SESSION',
+				'_REQUEST',
+				'_ENV',
+			],
+			true
+		);
 	}
 
 	public function hasConstant(Name $name): bool
@@ -325,6 +329,7 @@ class Scope implements ClassMemberAccessAnswerer
 		if ($this->isSpecified($node)) {
 			return true;
 		}
+
 		return $this->broker->hasConstant($name, $this);
 	}
 
@@ -352,6 +357,7 @@ class Scope implements ClassMemberAccessAnswerer
 		if (!array_key_exists($key, $this->resolvedTypes)) {
 			$this->resolvedTypes[$key] = $this->resolveType($node);
 		}
+
 		return $this->resolvedTypes[$key];
 	}
 
@@ -582,7 +588,7 @@ class Scope implements ClassMemberAccessAnswerer
 			}
 
 			$isSuperType = $type->isSuperTypeOf($expressionType)
-				->and($isExpressionObject);
+			                    ->and($isExpressionObject);
 			if ($isSuperType->no()) {
 				return new ConstantBooleanType(false);
 			} elseif ($isSuperType->yes()) {
@@ -597,7 +603,7 @@ class Scope implements ClassMemberAccessAnswerer
 		}
 
 		if ($node instanceof Expr\ErrorSuppress
-			|| $node instanceof Expr\Assign
+		    || $node instanceof Expr\Assign
 		) {
 			return $this->getType($node->expr);
 		}
@@ -605,7 +611,7 @@ class Scope implements ClassMemberAccessAnswerer
 		if ($node instanceof Node\Expr\UnaryMinus) {
 			$type = $this->getType($node->expr)->toNumber();
 			$scalarValues = TypeUtils::getConstantScalars($type);
-			if (count($scalarValues) > 0) {
+			if (\count($scalarValues) > 0) {
 				$newTypes = [];
 				foreach ($scalarValues as $scalarValue) {
 					if ($scalarValue instanceof ConstantIntegerType) {
@@ -633,9 +639,9 @@ class Scope implements ClassMemberAccessAnswerer
 			$leftStringType = $this->getType($left)->toString();
 			$rightStringType = $this->getType($right)->toString();
 			if (TypeCombinator::union(
-				$leftStringType,
-				$rightStringType
-			) instanceof ErrorType) {
+					$leftStringType,
+					$rightStringType
+				) instanceof ErrorType) {
 				return new ErrorType();
 			}
 
@@ -686,13 +692,14 @@ class Scope implements ClassMemberAccessAnswerer
 			$leftTypes = TypeUtils::getConstantScalars($this->getType($left));
 			$rightTypes = TypeUtils::getConstantScalars($this->getType($right));
 
-			if (count($leftTypes) > 0 && count($rightTypes) > 0) {
+			if (\count($leftTypes) > 0 && \count($rightTypes) > 0) {
 				$resultTypes = [];
 				foreach ($leftTypes as $leftType) {
 					foreach ($rightTypes as $rightType) {
 						$resultTypes[] = $this->calculateFromScalars($node, $leftType, $rightType);
 					}
 				}
+
 				return TypeCombinator::union(...$resultTypes);
 			}
 		}
@@ -768,9 +775,9 @@ class Scope implements ClassMemberAccessAnswerer
 			}
 
 			if (TypeCombinator::union(
-				$this->getType($left)->toNumber(),
-				$this->getType($right)->toNumber()
-			) instanceof ErrorType) {
+					$this->getType($left)->toNumber(),
+					$this->getType($right)->toNumber()
+				) instanceof ErrorType) {
 				return new ErrorType();
 			}
 
@@ -804,7 +811,7 @@ class Scope implements ClassMemberAccessAnswerer
 				$leftConstantArrays = TypeUtils::getConstantArrays($leftType);
 				$rightConstantArrays = TypeUtils::getConstantArrays($rightType);
 
-				if (count($leftConstantArrays) > 0 && count($rightConstantArrays) > 0) {
+				if (\count($leftConstantArrays) > 0 && \count($rightConstantArrays) > 0) {
 					$resultTypes = [];
 					foreach ($rightConstantArrays as $rightConstantArray) {
 						foreach ($leftConstantArrays as $leftConstantArray) {
@@ -825,7 +832,7 @@ class Scope implements ClassMemberAccessAnswerer
 				$leftArrays = TypeUtils::getArrays($leftType);
 				$rightArrays = TypeUtils::getArrays($rightType);
 
-				if (count($leftArrays) > 0 && count($rightArrays) > 0) {
+				if (\count($leftArrays) > 0 && \count($rightArrays) > 0) {
 					$resultTypes = [];
 					foreach ($rightArrays as $rightArray) {
 						foreach ($leftArrays as $leftArray) {
@@ -840,11 +847,13 @@ class Scope implements ClassMemberAccessAnswerer
 				}
 
 				if ($leftType instanceof MixedType && $rightType instanceof MixedType) {
-					return new BenevolentUnionType([
-						new FloatType(),
-						new IntegerType(),
-						new ArrayType(new MixedType(), new MixedType()),
-					]);
+					return new BenevolentUnionType(
+						[
+							new FloatType(),
+							new IntegerType(),
+							new ArrayType(new MixedType(), new MixedType()),
+						]
+					);
 				}
 			}
 
@@ -868,10 +877,12 @@ class Scope implements ClassMemberAccessAnswerer
 			}
 
 			if ($node instanceof Expr\AssignOp\Pow || $node instanceof Expr\BinaryOp\Pow) {
-				return new BenevolentUnionType([
-					new FloatType(),
-					new IntegerType(),
-				]);
+				return new BenevolentUnionType(
+					[
+						new FloatType(),
+						new IntegerType(),
+					]
+				);
 			}
 
 			$resultType = TypeCombinator::union($leftNumberType, $rightNumberType);
@@ -911,6 +922,7 @@ class Scope implements ClassMemberAccessAnswerer
 
 				$constantString = $constantString->append($partStringType);
 			}
+
 			return $constantString;
 		} elseif ($node instanceof DNumber) {
 			return new ConstantFloatType($node->value);
@@ -934,7 +946,7 @@ class Scope implements ClassMemberAccessAnswerer
 				if ($param->variadic) {
 					$isVariadic = true;
 				}
-				if (!$param->var instanceof Variable || !is_string($param->var->name)) {
+				if (!$param->var instanceof Variable || !\is_string($param->var->name)) {
 					throw new \PHPStan\ShouldNotHappenException();
 				}
 				$parameters[] = new NativeParameterReflection(
@@ -956,14 +968,18 @@ class Scope implements ClassMemberAccessAnswerer
 		} elseif ($node instanceof New_) {
 			if ($node->class instanceof Name) {
 				if (
-					count($node->class->parts) === 1
+					\count($node->class->parts) === 1
 				) {
 					$lowercasedClassName = strtolower($node->class->parts[0]);
-					if (in_array($lowercasedClassName, [
-						'self',
-						'static',
-						'parent',
-					], true)) {
+					if (\in_array(
+						$lowercasedClassName,
+						[
+							'self',
+							'static',
+							'parent',
+						],
+						true
+					)) {
 						if (!$this->isInClass()) {
 							throw new \PHPStan\ShouldNotHappenException();
 						}
@@ -983,7 +999,7 @@ class Scope implements ClassMemberAccessAnswerer
 					}
 				}
 
-				return new ObjectType((string) $node->class);
+				return new ObjectType((string)$node->class);
 			}
 			if ($node->class instanceof Node\Stmt\Class_) {
 				$anonymousClassReflection = $this->broker->getAnonymousClassReflection($node, $this);
@@ -998,6 +1014,7 @@ class Scope implements ClassMemberAccessAnswerer
 					$this->getType($arrayItem->value)
 				);
 			}
+
 			return $arrayBuilder->getArray();
 
 		} elseif ($node instanceof Int_) {
@@ -1019,7 +1036,7 @@ class Scope implements ClassMemberAccessAnswerer
 
 			return new ConstantStringType($this->getClassReflection()->getName());
 		} elseif ($node instanceof Node\Scalar\MagicConst\Dir) {
-			return new ConstantStringType(dirname($this->getFile()));
+			return new ConstantStringType(\dirname($this->getFile()));
 		} elseif ($node instanceof Node\Scalar\MagicConst\File) {
 			return new ConstantStringType($this->getFile());
 		} elseif ($node instanceof Node\Scalar\MagicConst\Namespace_) {
@@ -1029,7 +1046,7 @@ class Scope implements ClassMemberAccessAnswerer
 
 			$className = $this->getClassReflection()->getName();
 			$parts = explode('\\', $className);
-			if (count($parts) <= 1) {
+			if (\count($parts) <= 1) {
 				return new ConstantStringType('');
 			}
 
@@ -1064,6 +1081,7 @@ class Scope implements ClassMemberAccessAnswerer
 			if (!$this->isInTrait()) {
 				return new ConstantStringType('');
 			}
+
 			return new ConstantStringType($this->getTraitReflection()->getName());
 		} elseif ($node instanceof Object_) {
 			$castToObject = static function (Type $type): Type {
@@ -1093,6 +1111,7 @@ class Scope implements ClassMemberAccessAnswerer
 				} else {
 					--$varValue;
 				}
+
 				return $this->getTypeFromValue($varValue);
 			}
 
@@ -1110,7 +1129,7 @@ class Scope implements ClassMemberAccessAnswerer
 		}
 
 		if ($node instanceof ConstFetch) {
-			$constName = strtolower((string) $node->name);
+			$constName = strtolower((string)$node->name);
 			if ($constName === 'true') {
 				return new \PHPStan\Type\Constant\ConstantBooleanType(true);
 			} elseif ($constName === 'false') {
@@ -1123,28 +1142,35 @@ class Scope implements ClassMemberAccessAnswerer
 				/** @var string $resolvedConstantName */
 				$resolvedConstantName = $this->broker->resolveConstantName($node->name, $this);
 				if ($resolvedConstantName === 'DIRECTORY_SEPARATOR') {
-					return new UnionType([
-						new ConstantStringType('/'),
-						new ConstantStringType('\\'),
-					]);
+					return new UnionType(
+						[
+							new ConstantStringType('/'),
+							new ConstantStringType('\\'),
+						]
+					);
 				}
 				if ($resolvedConstantName === 'PATH_SEPARATOR') {
-					return new UnionType([
-						new ConstantStringType(':'),
-						new ConstantStringType(';'),
-					]);
+					return new UnionType(
+						[
+							new ConstantStringType(':'),
+							new ConstantStringType(';'),
+						]
+					);
 				}
 				if ($resolvedConstantName === 'PHP_EOL') {
-					return new UnionType([
-						new ConstantStringType("\n"),
-						new ConstantStringType("\r\n"),
-					]);
+					return new UnionType(
+						[
+							new ConstantStringType("\n"),
+							new ConstantStringType("\r\n"),
+						]
+					);
 				}
 
-				$constantType = $this->getTypeFromValue(constant($resolvedConstantName));
-				if ($constantType instanceof ConstantType && in_array($resolvedConstantName, $this->dynamicConstantNames, true)) {
+				$constantType = $this->getTypeFromValue(\constant($resolvedConstantName));
+				if ($constantType instanceof ConstantType && \in_array($resolvedConstantName, $this->dynamicConstantNames, true)) {
 					return $constantType->generalize();
 				}
+
 				return $constantType;
 			}
 
@@ -1152,7 +1178,7 @@ class Scope implements ClassMemberAccessAnswerer
 		} elseif ($node instanceof Node\Expr\ClassConstFetch && $node->name instanceof Node\Identifier) {
 			$constantName = $node->name->name;
 			if ($node->class instanceof Name) {
-				$constantClass = (string) $node->class;
+				$constantClass = (string)$node->class;
 				$constantClassType = new ObjectType($constantClass);
 				$namesToResolve = [
 					'self',
@@ -1165,10 +1191,11 @@ class Scope implements ClassMemberAccessAnswerer
 						if (strtolower($constantName) === 'class') {
 							return new StringType();
 						}
+
 						return new MixedType();
 					}
 				}
-				if (in_array(strtolower($constantClass), $namesToResolve, true)) {
+				if (\in_array(strtolower($constantClass), $namesToResolve, true)) {
 					$resolvedName = $this->resolveName($node->class);
 					if ($resolvedName === 'parent' && strtolower($constantName) === 'class') {
 						return new StringType();
@@ -1188,11 +1215,17 @@ class Scope implements ClassMemberAccessAnswerer
 				$directClassNames = TypeUtils::getDirectClassNames($constantClassType);
 				if (
 					$constantType instanceof ConstantType &&
-					count($directClassNames) === 1 &&
-					in_array(sprintf('%s::%s', $this->broker->getClass($directClassNames[0])->getName(), $constantName), $this->dynamicConstantNames, true)
+					\count($directClassNames) === 1 &&
+					\in_array(
+						sprintf(
+							'%s::%s', $this->broker->getClass($directClassNames[0])
+							                       ->getName(), $constantName
+						), $this->dynamicConstantNames, true
+					)
 				) {
 					return $constantType->generalize();
 				}
+
 				return $constantType;
 			}
 
@@ -1210,6 +1243,7 @@ class Scope implements ClassMemberAccessAnswerer
 
 					return $this->filterByFalseyValue($node->cond, true)->getType($node->else);
 				}
+
 				return TypeCombinator::union(
 					$conditionType,
 					$this->filterByFalseyValue($node->cond, true)->getType($node->else)
@@ -1231,7 +1265,7 @@ class Scope implements ClassMemberAccessAnswerer
 			);
 		}
 
-		if ($node instanceof Variable && is_string($node->name)) {
+		if ($node instanceof Variable && \is_string($node->name)) {
 			if ($this->hasVariableType($node->name)->no()) {
 				return new ErrorType();
 			}
@@ -1261,11 +1295,13 @@ class Scope implements ClassMemberAccessAnswerer
 					if ($methodCalledOnType instanceof IntersectionType) {
 						continue;
 					}
+
 					return new ErrorType();
 				}
 
 				$methodReflection = $methodClassReflection->getMethod($node->name->name, $this);
-				foreach ($this->broker->getDynamicMethodReturnTypeExtensionsForClass($methodClassReflection->getName()) as $dynamicMethodReturnTypeExtension) {
+				foreach ($this->broker->getDynamicMethodReturnTypeExtensionsForClass($methodClassReflection->getName())
+				         as $dynamicMethodReturnTypeExtension) {
 					if (!$dynamicMethodReturnTypeExtension->isMethodSupported($methodReflection)) {
 						continue;
 					}
@@ -1273,7 +1309,7 @@ class Scope implements ClassMemberAccessAnswerer
 					$resolvedTypes[] = $dynamicMethodReturnTypeExtension->getTypeFromMethodCall($methodReflection, $node, $this);
 				}
 			}
-			if (count($resolvedTypes) > 0) {
+			if (\count($resolvedTypes) > 0) {
 				return TypeCombinator::union(...$resolvedTypes);
 			}
 
@@ -1293,10 +1329,11 @@ class Scope implements ClassMemberAccessAnswerer
 					if ($this->isInClass()) {
 						return $methodReturnType->changeBaseClass($this->getClassReflection()->getName());
 					}
-				} elseif (count($referencedClasses) === 1) {
+				} elseif (\count($referencedClasses) === 1) {
 					return $methodReturnType->resolveStatic($referencedClasses[0]);
 				}
 			}
+
 			return $methodReturnType;
 		}
 
@@ -1320,7 +1357,8 @@ class Scope implements ClassMemberAccessAnswerer
 				}
 
 				$staticMethodClassReflection = $this->broker->getClass($referencedClass);
-				foreach ($this->broker->getDynamicStaticMethodReturnTypeExtensionsForClass($staticMethodClassReflection->getName()) as $dynamicStaticMethodReturnTypeExtension) {
+				foreach ($this->broker->getDynamicStaticMethodReturnTypeExtensionsForClass($staticMethodClassReflection->getName())
+				         as $dynamicStaticMethodReturnTypeExtension) {
 					if (!$dynamicStaticMethodReturnTypeExtension->isStaticMethodSupported($staticMethodReflection)) {
 						continue;
 					}
@@ -1328,7 +1366,7 @@ class Scope implements ClassMemberAccessAnswerer
 					$resolvedTypes[] = $dynamicStaticMethodReturnTypeExtension->getTypeFromStaticMethodCall($staticMethodReflection, $node, $this);
 				}
 			}
-			if (count($resolvedTypes) > 0) {
+			if (\count($resolvedTypes) > 0) {
 				return TypeCombinator::union(...$resolvedTypes);
 			}
 
@@ -1340,19 +1378,24 @@ class Scope implements ClassMemberAccessAnswerer
 
 			if ($staticMethodReturnType instanceof StaticResolvableType) {
 				if ($node->class instanceof Name) {
-					$nodeClassString = strtolower((string) $node->class);
-					if (in_array($nodeClassString, [
-						'self',
-						'static',
-						'parent',
-					], true) && $this->isInClass()) {
+					$nodeClassString = strtolower((string)$node->class);
+					if (\in_array(
+						    $nodeClassString,
+						    [
+							    'self',
+							    'static',
+							    'parent',
+						    ],
+						    true
+					    ) && $this->isInClass()) {
 						return $staticMethodReturnType->changeBaseClass($this->getClassReflection()->getName());
 					}
 				}
-				if (count($referencedClasses) === 1) {
+				if (\count($referencedClasses) === 1) {
 					return $staticMethodReturnType->resolveStatic($referencedClasses[0]);
 				}
 			}
+
 			return $staticMethodReturnType;
 		}
 
@@ -1515,12 +1558,16 @@ class Scope implements ClassMemberAccessAnswerer
 
 	public function resolveName(Name $name): string
 	{
-		$originalClass = (string) $name;
+		$originalClass = (string)$name;
 		if ($this->isInClass()) {
-			if (in_array(strtolower($originalClass), [
-				'self',
-				'static',
-			], true)) {
+			if (\in_array(
+				strtolower($originalClass),
+				[
+					'self',
+					'static',
+				],
+				true
+			)) {
 				return $this->getClassReflection()->getName();
 			} elseif ($originalClass === 'parent') {
 				$currentClassReflection = $this->getClassReflection();
@@ -1538,21 +1585,22 @@ class Scope implements ClassMemberAccessAnswerer
 	 */
 	public function getTypeFromValue($value): Type
 	{
-		if (is_int($value)) {
+		if (\is_int($value)) {
 			return new ConstantIntegerType($value);
-		} elseif (is_float($value)) {
+		} elseif (\is_float($value)) {
 			return new ConstantFloatType($value);
-		} elseif (is_bool($value)) {
+		} elseif (\is_bool($value)) {
 			return new ConstantBooleanType($value);
 		} elseif ($value === null) {
 			return new NullType();
-		} elseif (is_string($value)) {
+		} elseif (\is_string($value)) {
 			return new ConstantStringType($value);
-		} elseif (is_array($value)) {
+		} elseif (\is_array($value)) {
 			$arrayBuilder = ConstantArrayTypeBuilder::createEmpty();
 			foreach ($value as $k => $v) {
 				$arrayBuilder->setOffsetValueType($this->getTypeFromValue($k), $this->getTypeFromValue($v));
 			}
+
 			return $arrayBuilder->getArray();
 		}
 
@@ -1597,12 +1645,13 @@ class Scope implements ClassMemberAccessAnswerer
 
 	/**
 	 * @param Node\Stmt\ClassMethod $classMethod
-	 * @param Type[] $phpDocParameterTypes
-	 * @param Type|null $phpDocReturnType
-	 * @param Type|null $throwType
-	 * @param bool $isDeprecated
-	 * @param bool $isInternal
-	 * @param bool $isFinal
+	 * @param Type[]                $phpDocParameterTypes
+	 * @param Type|null             $phpDocReturnType
+	 * @param Type|null             $throwType
+	 * @param bool                  $isDeprecated
+	 * @param bool                  $isInternal
+	 * @param bool                  $isFinal
+	 *
 	 * @return self
 	 */
 	public function enterClassMethod(
@@ -1638,13 +1687,14 @@ class Scope implements ClassMemberAccessAnswerer
 
 	/**
 	 * @param Node\FunctionLike $functionLike
+	 *
 	 * @return Type[]
 	 */
 	private function getRealParameterTypes(Node\FunctionLike $functionLike): array
 	{
 		$realParameterTypes = [];
 		foreach ($functionLike->getParams() as $parameter) {
-			if (!$parameter->var instanceof Variable || !is_string($parameter->var->name)) {
+			if (!$parameter->var instanceof Variable || !\is_string($parameter->var->name)) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
 			$realParameterTypes[$parameter->var->name] = $this->getFunctionType(
@@ -1659,12 +1709,13 @@ class Scope implements ClassMemberAccessAnswerer
 
 	/**
 	 * @param Node\Stmt\Function_ $function
-	 * @param Type[] $phpDocParameterTypes
-	 * @param Type|null $phpDocReturnType
-	 * @param Type|null $throwType
-	 * @param bool $isDeprecated
-	 * @param bool $isInternal
-	 * @param bool $isFinal
+	 * @param Type[]              $phpDocParameterTypes
+	 * @param Type|null           $phpDocReturnType
+	 * @param Type|null           $throwType
+	 * @param bool                $isDeprecated
+	 * @param bool                $isInternal
+	 * @param bool                $isFinal
+	 *
 	 * @return self
 	 */
 	public function enterFunction(
@@ -1698,7 +1749,8 @@ class Scope implements ClassMemberAccessAnswerer
 	): self
 	{
 		$variableTypes = $this->getVariableTypes();
-		foreach (ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getParameters() as $parameter) {
+		foreach (ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getParameters() as
+		         $parameter) {
 			$variableTypes[$parameter->getName()] = VariableTypeHolder::createYes($parameter->getType());
 		}
 
@@ -1789,7 +1841,7 @@ class Scope implements ClassMemberAccessAnswerer
 		foreach ($closure->params as $parameter) {
 			$isNullable = $this->isParameterValueNullable($parameter);
 
-			if (!$parameter->var instanceof Variable || !is_string($parameter->var->name)) {
+			if (!$parameter->var instanceof Variable || !\is_string($parameter->var->name)) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
 			$variableTypes[$parameter->var->name] = VariableTypeHolder::createYes(
@@ -1798,7 +1850,7 @@ class Scope implements ClassMemberAccessAnswerer
 		}
 
 		foreach ($closure->uses as $use) {
-			if (!is_string($use->var->name)) {
+			if (!\is_string($use->var->name)) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
 			if ($this->hasVariableType($use->var->name)->no()) {
@@ -1838,7 +1890,7 @@ class Scope implements ClassMemberAccessAnswerer
 	public function isParameterValueNullable(Node\Param $parameter): bool
 	{
 		if ($parameter->default instanceof ConstFetch) {
-			return strtolower((string) $parameter->default->name) === 'null';
+			return strtolower((string)$parameter->default->name) === 'null';
 		}
 
 		return false;
@@ -1846,8 +1898,9 @@ class Scope implements ClassMemberAccessAnswerer
 
 	/**
 	 * @param \PhpParser\Node\Name|\PhpParser\Node\Identifier|\PhpParser\Node\NullableType|null $type
-	 * @param bool $isNullable
-	 * @param bool $isVariadic
+	 * @param bool                                                                              $isNullable
+	 * @param bool                                                                              $isVariadic
+	 *
 	 * @return Type
 	 */
 	public function getFunctionType($type, bool $isNullable, bool $isVariadic): Type
@@ -1858,18 +1911,21 @@ class Scope implements ClassMemberAccessAnswerer
 			);
 		}
 		if ($isVariadic) {
-			return new ArrayType(new IntegerType(), $this->getFunctionType(
-				$type,
-				false,
-				false
-			));
+			return new ArrayType(
+				new IntegerType(),
+				$this->getFunctionType(
+					$type,
+					false,
+					false
+				)
+			);
 		}
 		if ($type === null) {
 			return new MixedType();
 		} elseif ($type instanceof Name) {
-			$className = (string) $type;
+			$className = (string)$type;
 			$lowercasedClassName = strtolower($className);
-			if ($this->isInClass() && in_array($lowercasedClassName, ['self', 'static'], true)) {
+			if ($this->isInClass() && \in_array($lowercasedClassName, ['self', 'static'], true)) {
 				$className = $this->getClassReflection()->getName();
 			} elseif (
 				$lowercasedClassName === 'parent'
@@ -1880,6 +1936,7 @@ class Scope implements ClassMemberAccessAnswerer
 
 				return new NonexistentParentClassType();
 			}
+
 			return new ObjectType($className);
 		} elseif ($type instanceof Node\NullableType) {
 			return $this->getFunctionType($type->type, true, $isVariadic);
@@ -1923,14 +1980,20 @@ class Scope implements ClassMemberAccessAnswerer
 
 	/**
 	 * @param \PhpParser\Node\Name[] $classes
-	 * @param string $variableName
+	 * @param string                 $variableName
+	 *
 	 * @return Scope
 	 */
 	public function enterCatch(array $classes, string $variableName): self
 	{
-		$type = TypeCombinator::union(...array_map(static function (string $class): ObjectType {
-			return new ObjectType($class);
-		}, $classes));
+		$type = TypeCombinator::union(
+			...array_map(
+				   static function (string $class): ObjectType {
+					   return new ObjectType($class);
+				   },
+				   $classes
+			   )
+		);
 
 		return $this->assignVariable(
 			$variableName,
@@ -1941,6 +2004,7 @@ class Scope implements ClassMemberAccessAnswerer
 
 	/**
 	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall $functionCall
+	 *
 	 * @return self
 	 */
 	public function enterFunctionCall($functionCall): self
@@ -1984,7 +2048,8 @@ class Scope implements ClassMemberAccessAnswerer
 	public function isInExpressionAssign(Expr $expr): bool
 	{
 		$exprString = $this->printer->prettyPrintExpr($expr);
-		return in_array($exprString, $this->currentlyAssignedExpressions, true);
+
+		return \in_array($exprString, $this->currentlyAssignedExpressions, true);
 	}
 
 	public function assignVariable(
@@ -2008,7 +2073,7 @@ class Scope implements ClassMemberAccessAnswerer
 		$variableString = $this->printer->prettyPrintExpr(new Variable($variableName));
 		$moreSpecificTypeHolders = $this->moreSpecificTypes;
 		foreach (array_keys($moreSpecificTypeHolders) as $key) {
-			$matches = \Nette\Utils\Strings::match((string) $key, '#(\$[a-zA-Z_\x7f-\xff][a-zA-Z_0-9\x7f-\xff]*)#');
+			$matches = \Nette\Utils\Strings::match((string)$key, '#(\$[a-zA-Z_\x7f-\xff][a-zA-Z_0-9\x7f-\xff]*)#');
 			if ($matches === null) {
 				continue;
 			}
@@ -2038,7 +2103,7 @@ class Scope implements ClassMemberAccessAnswerer
 
 	public function unsetExpression(Expr $expr): self
 	{
-		if ($expr instanceof Variable && is_string($expr->name)) {
+		if ($expr instanceof Variable && \is_string($expr->name)) {
 			if ($this->hasVariableType($expr->name)->no()) {
 				return $this;
 			}
@@ -2060,12 +2125,13 @@ class Scope implements ClassMemberAccessAnswerer
 			);
 		} elseif ($expr instanceof Expr\ArrayDimFetch && $expr->dim !== null) {
 			$constantArrays = TypeUtils::getConstantArrays($this->getType($expr->var));
-			if (count($constantArrays) > 0) {
+			if (\count($constantArrays) > 0) {
 				$unsetArrays = [];
 				$dimType = $this->getType($expr->dim);
 				foreach ($constantArrays as $constantArray) {
 					$unsetArrays[] = $constantArray->unsetOffset($dimType);
 				}
+
 				return $this->specifyExpressionType(
 					$expr->var,
 					TypeCombinator::union(...$unsetArrays)
@@ -2112,7 +2178,7 @@ class Scope implements ClassMemberAccessAnswerer
 		$intersectedSpecifiedTypes = [];
 
 		foreach ($theirSpecifiedTypeHolders as $exprString => $theirSpecifiedTypeHolder) {
-			$matches = \Nette\Utils\Strings::match((string) $exprString, '#^\$([a-zA-Z_\x7f-\xff][a-zA-Z_0-9\x7f-\xff]*)$#');
+			$matches = \Nette\Utils\Strings::match((string)$exprString, '#^\$([a-zA-Z_\x7f-\xff][a-zA-Z_0-9\x7f-\xff]*)$#');
 			if ($matches !== null) {
 				continue;
 			}
@@ -2124,7 +2190,7 @@ class Scope implements ClassMemberAccessAnswerer
 		}
 
 		foreach ($this->moreSpecificTypes as $exprString => $specificTypeHolder) {
-			$matches = \Nette\Utils\Strings::match((string) $exprString, '#^\$([a-zA-Z_\x7f-\xff][a-zA-Z_0-9\x7f-\xff]*)$#');
+			$matches = \Nette\Utils\Strings::match((string)$exprString, '#^\$([a-zA-Z_\x7f-\xff][a-zA-Z_0-9\x7f-\xff]*)$#');
 			if ($matches !== null) {
 				continue;
 			}
@@ -2168,7 +2234,7 @@ class Scope implements ClassMemberAccessAnswerer
 
 		$specifiedTypes = [];
 		foreach ($otherScope->moreSpecificTypes as $exprString => $specificTypeHolder) {
-			$matches = \Nette\Utils\Strings::match((string) $exprString, '#^\$([a-zA-Z_\x7f-\xff][a-zA-Z_0-9\x7f-\xff]*)$#');
+			$matches = \Nette\Utils\Strings::match((string)$exprString, '#^\$([a-zA-Z_\x7f-\xff][a-zA-Z_0-9\x7f-\xff]*)$#');
 			if ($matches !== null) {
 				$variableTypes[$matches[1]] = $specificTypeHolder;
 				continue;
@@ -2352,7 +2418,7 @@ class Scope implements ClassMemberAccessAnswerer
 
 		$scope = $this;
 
-		if ($expr instanceof Variable && is_string($expr->name)) {
+		if ($expr instanceof Variable && \is_string($expr->name)) {
 			$variableName = $expr->name;
 
 			$variableTypes = $this->getVariableTypes();
@@ -2376,7 +2442,7 @@ class Scope implements ClassMemberAccessAnswerer
 			);
 		} elseif ($expr instanceof Expr\ArrayDimFetch && $expr->dim !== null) {
 			$constantArrays = TypeUtils::getConstantArrays($this->getType($expr->var));
-			if (count($constantArrays) > 0) {
+			if (\count($constantArrays) > 0) {
 				$setArrays = [];
 				$dimType = $this->getType($expr->dim);
 				foreach ($constantArrays as $constantArray) {
@@ -2389,9 +2455,11 @@ class Scope implements ClassMemberAccessAnswerer
 			}
 		}
 
-		return $scope->addMoreSpecificTypes([
-			$exprString => $type,
-		]);
+		return $scope->addMoreSpecificTypes(
+			[
+				$exprString => $type,
+			]
+		);
 	}
 
 	public function unspecifyExpressionType(Expr $expr): self
@@ -2400,6 +2468,7 @@ class Scope implements ClassMemberAccessAnswerer
 		$moreSpecificTypeHolders = $this->moreSpecificTypes;
 		if (isset($moreSpecificTypeHolders[$exprString]) && !$moreSpecificTypeHolders[$exprString]->getType() instanceof MixedType) {
 			unset($moreSpecificTypeHolders[$exprString]);
+
 			return $this->scopeFactory->create(
 				$this->context,
 				$this->isDeclareStrictTypes(),
@@ -2429,12 +2498,14 @@ class Scope implements ClassMemberAccessAnswerer
 	public function filterByTruthyValue(Expr $expr, bool $defaultHandleFunctions = false): self
 	{
 		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this, $expr, TypeSpecifierContext::createTruthy(), $defaultHandleFunctions);
+
 		return $this->filterBySpecifiedTypes($specifiedTypes);
 	}
 
 	public function filterByFalseyValue(Expr $expr, bool $defaultHandleFunctions = false): self
 	{
 		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this, $expr, TypeSpecifierContext::createFalsey(), $defaultHandleFunctions);
+
 		return $this->filterBySpecifiedTypes($specifiedTypes);
 	}
 
@@ -2443,29 +2514,32 @@ class Scope implements ClassMemberAccessAnswerer
 		$typeSpecifications = [];
 		foreach ($specifiedTypes->getSureTypes() as $exprString => [$expr, $type]) {
 			$typeSpecifications[] = [
-				'sure' => true,
+				'sure'       => true,
 				'exprString' => $exprString,
-				'expr' => $expr,
-				'type' => $type,
+				'expr'       => $expr,
+				'type'       => $type,
 			];
 		}
 		foreach ($specifiedTypes->getSureNotTypes() as $exprString => [$expr, $type]) {
 			$typeSpecifications[] = [
-				'sure' => false,
+				'sure'       => false,
 				'exprString' => $exprString,
-				'expr' => $expr,
-				'type' => $type,
+				'expr'       => $expr,
+				'type'       => $type,
 			];
 		}
 
-		usort($typeSpecifications, static function (array $a, array $b): int {
-			$length = strlen((string) $a['exprString']) - strlen((string) $b['exprString']);
-			if ($length !== 0) {
-				return $length;
-			}
+		usort(
+			$typeSpecifications,
+			static function (array $a, array $b): int {
+				$length = \strlen((string)$a['exprString']) - \strlen((string)$b['exprString']);
+				if ($length !== 0) {
+					return $length;
+				}
 
-			return $b['sure'] - $a['sure'];
-		});
+				return $b['sure'] - $a['sure'];
+			}
+		);
 
 		$scope = $this;
 		foreach ($typeSpecifications as $typeSpecification) {
@@ -2486,9 +2560,11 @@ class Scope implements ClassMemberAccessAnswerer
 	{
 		$exprString = $this->printer->prettyPrintExpr($expr);
 
-		return $this->addMoreSpecificTypes([
-			$exprString => new MixedType(),
-		]);
+		return $this->addMoreSpecificTypes(
+			[
+				$exprString => new MixedType(),
+			]
+		);
 	}
 
 	public function enterNegation(): self
@@ -2556,6 +2632,7 @@ class Scope implements ClassMemberAccessAnswerer
 
 	/**
 	 * @param Type[] $types
+	 *
 	 * @return self
 	 */
 	private function addMoreSpecificTypes(array $types): self

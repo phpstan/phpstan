@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Constant;
 
@@ -91,6 +91,7 @@ class ConstantStringType extends StringType implements ConstantScalarType
 
 	/**
 	 * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
+	 *
 	 * @return \PHPStan\Reflection\ParametersAcceptor[]
 	 */
 	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array
@@ -134,7 +135,7 @@ class ConstantStringType extends StringType implements ConstantScalarType
 			/** @var mixed $value */
 			$value = $this->value;
 			$value = +$value;
-			if (is_float($value)) {
+			if (\is_float($value)) {
 				return new ConstantFloatType($value);
 			}
 
@@ -168,7 +169,7 @@ class ConstantStringType extends StringType implements ConstantScalarType
 	{
 		if ($offsetType instanceof ConstantIntegerType) {
 			return TrinaryLogic::createFromBoolean(
-				$offsetType->getValue() < strlen($this->value)
+				$offsetType->getValue() < \strlen($this->value)
 			);
 		}
 
@@ -178,7 +179,7 @@ class ConstantStringType extends StringType implements ConstantScalarType
 	public function getOffsetValueType(Type $offsetType): Type
 	{
 		if ($offsetType instanceof ConstantIntegerType) {
-			if ($offsetType->getValue() < strlen($this->value)) {
+			if ($offsetType->getValue() < \strlen($this->value)) {
 				return new self($this->value[$offsetType->getValue()]);
 			}
 
@@ -214,6 +215,7 @@ class ConstantStringType extends StringType implements ConstantScalarType
 
 	/**
 	 * @param mixed[] $properties
+	 *
 	 * @return Type
 	 */
 	public static function __set_state(array $properties): Type

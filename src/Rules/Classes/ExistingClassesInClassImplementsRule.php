@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Classes;
 
@@ -24,15 +24,19 @@ class ExistingClassesInClassImplementsRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Stmt\Class_ $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope     $scope
+	 *
 	 * @return string[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
 		return $this->classCaseSensitivityCheck->checkClassNames(
-			array_map(static function (Node\Name $traitName): string {
-				return (string) $traitName;
-			}, $node->implements)
+			array_map(
+				static function (Node\Name $traitName): string {
+					return (string)$traitName;
+				},
+				$node->implements
+			)
 		);
 	}
 

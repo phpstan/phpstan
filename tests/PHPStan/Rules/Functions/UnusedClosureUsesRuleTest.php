@@ -14,20 +14,23 @@ class UnusedClosureUsesRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	public function testUnusedClosureUses(): void
 	{
-		$this->analyse([__DIR__ . '/data/unused-closure-uses.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/unused-closure-uses.php'],
 			[
-				'Anonymous function has an unused use $unused.',
-				3,
-			],
-			[
-				'Anonymous function has an unused use $anotherUnused.',
-				3,
-			],
-			[
-				'Anonymous function has an unused use $usedInClosureUse.',
-				10,
-			],
-		]);
+				[
+					'Anonymous function has an unused use $unused.',
+					3,
+				],
+				[
+					'Anonymous function has an unused use $anotherUnused.',
+					3,
+				],
+				[
+					'Anonymous function has an unused use $usedInClosureUse.',
+					10,
+				],
+			]
+		);
 	}
 
 }

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Functions;
 
@@ -26,14 +26,15 @@ class NonExistentDefinedFunctionRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Stmt\Function_ $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope        $scope
+	 *
 	 * @return string[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
 		$functionName = $node->name->name;
 		if (isset($node->namespacedName)) {
-			$functionName = (string) $node->namespacedName;
+			$functionName = (string)$node->namespacedName;
 		}
 		$functionNameName = new Name($functionName);
 		if ($this->broker->hasFunction($functionNameName, null)) {

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Comparison;
 
@@ -26,7 +26,8 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\BinaryOp $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope       $scope
+	 *
 	 * @return string[] errors
 	 */
 	public function processNode(Node $node, Scope $scope): array
@@ -76,10 +77,10 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 	private function isSpecifiedFunctionCall(Scope $scope, Expr $node): bool
 	{
 		return (
-			$node instanceof Expr\FuncCall
-			|| $node instanceof Expr\MethodCall
-			|| $node instanceof Expr\StaticCall
-		) && $scope->isSpecified($node);
+			       $node instanceof Expr\FuncCall
+			       || $node instanceof Expr\MethodCall
+			       || $node instanceof Expr\StaticCall
+		       ) && $scope->isSpecified($node);
 	}
 
 }

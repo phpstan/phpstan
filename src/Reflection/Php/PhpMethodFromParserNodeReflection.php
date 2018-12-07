@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Reflection\Php;
 
@@ -21,17 +21,17 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 	private $declaringClass;
 
 	/**
-	 * @param ClassReflection $declaringClass
-	 * @param ClassMethod $classMethod
+	 * @param ClassReflection      $declaringClass
+	 * @param ClassMethod          $classMethod
 	 * @param \PHPStan\Type\Type[] $realParameterTypes
 	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
-	 * @param bool $realReturnTypePresent
-	 * @param Type $realReturnType
-	 * @param Type|null $phpDocReturnType
-	 * @param Type|null $throwType
-	 * @param bool $isDeprecated
-	 * @param bool $isInternal
-	 * @param bool $isFinal
+	 * @param bool                 $realReturnTypePresent
+	 * @param Type                 $realReturnType
+	 * @param Type|null            $phpDocReturnType
+	 * @param Type|null            $throwType
+	 * @param bool                 $isDeprecated
+	 * @param bool                 $isInternal
+	 * @param bool                 $isFinal
 	 */
 	public function __construct(
 		ClassReflection $declaringClass,
@@ -76,6 +76,7 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 	{
 		/** @var \PhpParser\Node\Stmt\ClassMethod $functionLike */
 		$functionLike = $this->getFunctionLike();
+
 		return $functionLike;
 	}
 

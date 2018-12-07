@@ -112,10 +112,14 @@ class CheckstyleErrorFormatterTest extends TestBaseFormatter
 	{
 		$formatter = new CheckstyleErrorFormatter();
 
-		$this->assertSame($exitCode, $formatter->formatErrors(
-			$this->getAnalysisResult($numFileErrors, $numGenericErrors),
-			$this->getErrorConsoleStyle()
-		), sprintf('%s: response code do not match', $message));
+		$this->assertSame(
+			$exitCode,
+			$formatter->formatErrors(
+				$this->getAnalysisResult($numFileErrors, $numGenericErrors),
+				$this->getErrorConsoleStyle()
+			),
+			sprintf('%s: response code do not match', $message)
+		);
 
 		$this->assertXmlStringEqualsXmlString($expected, $this->getOutputContent(), sprintf('%s: XML do not match', $message));
 	}

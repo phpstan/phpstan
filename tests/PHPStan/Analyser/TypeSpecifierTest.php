@@ -368,65 +368,88 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 				[],
 			],
 			[
-				new FuncCall(new Name('is_a'), [
-					new Arg(new Variable('foo')),
-					new Arg(new String_('Foo')),
-				]),
+				new FuncCall(
+					new Name('is_a'),
+					[
+						new Arg(new Variable('foo')),
+						new Arg(new String_('Foo')),
+					]
+				),
 				['$foo' => 'Foo'],
 				['$foo' => '~Foo'],
 			],
 			[
-				new FuncCall(new Name('is_a'), [
-					new Arg(new Variable('foo')),
-					new Arg(new Variable('className')),
-				]),
+				new FuncCall(
+					new Name('is_a'),
+					[
+						new Arg(new Variable('foo')),
+						new Arg(new Variable('className')),
+					]
+				),
 				['$foo' => 'object'],
 				[],
 			],
 			[
-				new FuncCall(new Name('is_a'), [
-					new Arg(new Variable('foo')),
-					new Arg(new Expr\ClassConstFetch(
-						new Name('static'),
-						'class'
-					)),
-				]),
+				new FuncCall(
+					new Name('is_a'),
+					[
+						new Arg(new Variable('foo')),
+						new Arg(
+							new Expr\ClassConstFetch(
+								new Name('static'),
+								'class'
+							)
+						),
+					]
+				),
 				['$foo' => 'static(DateTime)'],
 				['$foo' => '~static(DateTime)'],
 			],
 			[
-				new FuncCall(new Name('is_a'), [
-					new Arg(new Variable('foo')),
-					new Arg(new String_('Foo')),
-					new Arg(new Expr\ConstFetch(new Name('true'))),
-				]),
+				new FuncCall(
+					new Name('is_a'),
+					[
+						new Arg(new Variable('foo')),
+						new Arg(new String_('Foo')),
+						new Arg(new Expr\ConstFetch(new Name('true'))),
+					]
+				),
 				['$foo' => 'Foo|string'],
 				['$foo' => '~Foo'],
 			],
 			[
-				new FuncCall(new Name('is_a'), [
-					new Arg(new Variable('foo')),
-					new Arg(new Variable('className')),
-					new Arg(new Expr\ConstFetch(new Name('true'))),
-				]),
+				new FuncCall(
+					new Name('is_a'),
+					[
+						new Arg(new Variable('foo')),
+						new Arg(new Variable('className')),
+						new Arg(new Expr\ConstFetch(new Name('true'))),
+					]
+				),
 				['$foo' => 'object|string'],
 				[],
 			],
 			[
-				new FuncCall(new Name('is_a'), [
-					new Arg(new Variable('foo')),
-					new Arg(new String_('Foo')),
-					new Arg(new Variable('unknown')),
-				]),
+				new FuncCall(
+					new Name('is_a'),
+					[
+						new Arg(new Variable('foo')),
+						new Arg(new String_('Foo')),
+						new Arg(new Variable('unknown')),
+					]
+				),
 				['$foo' => 'Foo|string'],
 				['$foo' => '~Foo'],
 			],
 			[
-				new FuncCall(new Name('is_a'), [
-					new Arg(new Variable('foo')),
-					new Arg(new Variable('className')),
-					new Arg(new Variable('unknown')),
-				]),
+				new FuncCall(
+					new Name('is_a'),
+					[
+						new Arg(new Variable('foo')),
+						new Arg(new Variable('className')),
+						new Arg(new Variable('unknown')),
+					]
+				),
 				['$foo' => 'object|string'],
 				[],
 			],
@@ -455,10 +478,12 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 				['$foo' => '~object'],
 			],
 			[
-				new Expr\Isset_([
-					new Variable('stringOrNull'),
-					new Variable('barOrNull'),
-				]),
+				new Expr\Isset_(
+					[
+						new Variable('stringOrNull'),
+						new Variable('barOrNull'),
+					]
+				),
 				[
 					'$stringOrNull' => '~null',
 					'$barOrNull' => '~null',

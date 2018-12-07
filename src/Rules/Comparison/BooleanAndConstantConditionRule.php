@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Comparison;
 
@@ -24,7 +24,8 @@ class BooleanAndConstantConditionRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\BinaryOp\BooleanAnd $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope                  $scope
+	 *
 	 * @return string[]
 	 */
 	public function processNode(
@@ -52,7 +53,7 @@ class BooleanAndConstantConditionRule implements \PHPStan\Rules\Rule
 			);
 		}
 
-		if (count($messages) === 0) {
+		if (\count($messages) === 0) {
 			$nodeType = $scope->getType($node);
 			if ($nodeType instanceof ConstantBooleanType) {
 				$messages[] = sprintf(

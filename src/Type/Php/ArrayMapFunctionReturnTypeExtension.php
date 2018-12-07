@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Php;
 
@@ -23,7 +23,7 @@ class ArrayMapFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFuncti
 
 	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
 	{
-		if (count($functionCall->args) < 2) {
+		if (\count($functionCall->args) < 2) {
 			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
 		}
 
@@ -39,7 +39,7 @@ class ArrayMapFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFuncti
 
 		$arrayType = $scope->getType($functionCall->args[1]->value);
 		$constantArrays = TypeUtils::getConstantArrays($arrayType);
-		if (count($constantArrays) > 0) {
+		if (\count($constantArrays) > 0) {
 			$arrayTypes = [];
 			foreach ($constantArrays as $constantArray) {
 				$returnedArrayBuilder = ConstantArrayTypeBuilder::createEmpty();

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Reflection\SignatureMap;
 
@@ -19,6 +19,7 @@ class SignatureMapProvider
 	public function hasFunctionSignature(string $name): bool
 	{
 		$signatureMap = self::getSignatureMap();
+
 		return array_key_exists($name, $signatureMap);
 	}
 
@@ -43,7 +44,7 @@ class SignatureMapProvider
 	{
 		if (self::$signatureMap === null) {
 			$signatureMap = require __DIR__ . '/functionMap.php';
-			if (!is_array($signatureMap)) {
+			if (!\is_array($signatureMap)) {
 				throw new \PHPStan\ShouldNotHappenException('Signature map could not be loaded.');
 			}
 

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Cache;
 
@@ -19,19 +19,24 @@ class FileCacheStorage implements CacheStorage
 
 	/**
 	 * @param string $key
+	 *
 	 * @return mixed|null
 	 */
 	public function load(string $key)
 	{
 		return (function (string $key) {
 			$filePath = $this->getFilePath($key);
+
 			return is_file($filePath) ? require $this->getFilePath($key) : null;
-		})($key);
+		})(
+			$key
+		);
 	}
 
 	/**
 	 * @param string $key
-	 * @param mixed $data
+	 * @param mixed  $data
+	 *
 	 * @return bool
 	 */
 	public function save(string $key, $data): bool
@@ -40,6 +45,7 @@ class FileCacheStorage implements CacheStorage
 			$this->getFilePath($key),
 			sprintf("<?php declare(strict_types = 1);\n\nreturn %s;", var_export($data, true))
 		);
+
 		return $writtenBytes !== false;
 	}
 

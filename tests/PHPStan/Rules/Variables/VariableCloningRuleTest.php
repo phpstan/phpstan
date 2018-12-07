@@ -14,28 +14,31 @@ class VariableCloningRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	public function testClone(): void
 	{
-		$this->analyse([__DIR__ . '/data/variable-cloning.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/variable-cloning.php'],
 			[
-				'Cannot clone int|string.',
-				11,
-			],
-			[
-				'Cannot clone non-object variable $stringData of type string.',
-				14,
-			],
-			[
-				'Cannot clone string.',
-				15,
-			],
-			[
-				'Cannot clone non-object variable $bar of type string|VariableCloning\Foo.',
-				19,
-			],
-			[
-				'Cloning object of an unknown class VariableCloning\Bar.',
-				23,
-			],
-		]);
+				[
+					'Cannot clone int|string.',
+					11,
+				],
+				[
+					'Cannot clone non-object variable $stringData of type string.',
+					14,
+				],
+				[
+					'Cannot clone string.',
+					15,
+				],
+				[
+					'Cannot clone non-object variable $bar of type string|VariableCloning\Foo.',
+					19,
+				],
+				[
+					'Cloning object of an unknown class VariableCloning\Bar.',
+					23,
+				],
+			]
+		);
 	}
 
 }

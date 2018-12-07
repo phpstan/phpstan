@@ -54,9 +54,11 @@ class AnalyseCommandTest extends \PHPStan\Testing\TestCase
 	{
 		$commandTester = new CommandTester(new AnalyseCommand());
 
-		$commandTester->execute([
-			'paths' => [__DIR__ . DIRECTORY_SEPARATOR . 'test'],
-		]);
+		$commandTester->execute(
+			[
+				'paths' => [__DIR__ . DIRECTORY_SEPARATOR . 'test'],
+			]
+		);
 
 		$this->assertSame($expectedStatusCode, $commandTester->getStatusCode());
 

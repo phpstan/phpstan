@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Internal;
 
@@ -58,7 +58,7 @@ class ScopeIsInClassTypeSpecifyingExtension implements MethodTypeSpecifyingExten
 	): bool
 	{
 		return $methodReflection->getName() === $this->isInMethodName
-			&& !$context->null();
+		       && !$context->null();
 	}
 
 	public function specifyTypes(

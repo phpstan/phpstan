@@ -15,20 +15,23 @@ class DefaultValueTypesAssignedToPropertiesRuleTest extends \PHPStan\Testing\Rul
 
 	public function testDefaultValueTypesAssignedToProperties(): void
 	{
-		$this->analyse([__DIR__ . '/data/properties-assigned-default-value-types.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/properties-assigned-default-value-types.php'],
 			[
-				'Property PropertiesAssignedDefaultValuesTypes\Foo::$stringPropertyWithWrongDefaultValue (string) does not accept default value of type int.',
-				15,
-			],
-			[
-				'Static property PropertiesAssignedDefaultValuesTypes\Foo::$staticStringPropertyWithWrongDefaultValue (string) does not accept default value of type int.',
-				18,
-			],
-			[
-				'Static property PropertiesAssignedDefaultValuesTypes\Foo::$windowsNtVersions (array<string, string>) does not accept default value of type array<int|string, string>.',
-				24,
-			],
-		]);
+				[
+					'Property PropertiesAssignedDefaultValuesTypes\Foo::$stringPropertyWithWrongDefaultValue (string) does not accept default value of type int.',
+					15,
+				],
+				[
+					'Static property PropertiesAssignedDefaultValuesTypes\Foo::$staticStringPropertyWithWrongDefaultValue (string) does not accept default value of type int.',
+					18,
+				],
+				[
+					'Static property PropertiesAssignedDefaultValuesTypes\Foo::$windowsNtVersions (array<string, string>) does not accept default value of type array<int|string, string>.',
+					24,
+				],
+			]
+		);
 	}
 
 }

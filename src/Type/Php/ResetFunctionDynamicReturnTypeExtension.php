@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Php;
 
@@ -25,17 +25,17 @@ class ResetFunctionDynamicReturnTypeExtension implements \PHPStan\Type\DynamicFu
 		Scope $scope
 	): Type
 	{
-		if (count($functionCall->args) === 0) {
+		if (\count($functionCall->args) === 0) {
 			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
 		}
 
 		$argType = $scope->getType($functionCall->args[0]->value);
 		$constantArrays = TypeUtils::getConstantArrays($argType);
-		if (count($constantArrays) > 0) {
+		if (\count($constantArrays) > 0) {
 			$keyTypes = [];
 			foreach ($constantArrays as $constantArray) {
 				$arrayKeyTypes = $constantArray->getKeyTypes();
-				if (count($arrayKeyTypes) === 0) {
+				if (\count($arrayKeyTypes) === 0) {
 					$keyTypes[] = new ConstantBooleanType(false);
 					continue;
 				}

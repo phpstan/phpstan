@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type;
 
@@ -6,8 +6,8 @@ class VerbosityLevel
 {
 
 	private const TYPE_ONLY = 1;
-	private const VALUE = 2;
-	private const PRECISE = 3;
+	private const VALUE     = 2;
+	private const PRECISE   = 3;
 
 	/** @var self[] */
 	private static $registry;
@@ -23,6 +23,7 @@ class VerbosityLevel
 	private static function create(int $value): self
 	{
 		self::$registry[$value] = self::$registry[$value] ?? new self($value);
+
 		return self::$registry[$value];
 	}
 
@@ -45,6 +46,7 @@ class VerbosityLevel
 	 * @param callable(): string $typeOnlyCallback
 	 * @param callable(): string $valueCallback
 	 * @param callable(): string|null $preciseCallback
+	 *
 	 * @return string
 	 */
 	public function handle(

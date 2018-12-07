@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules;
 
@@ -64,7 +64,7 @@ class RuleLevelHelper
 		}
 
 		$acceptedArrays = TypeUtils::getArrays($acceptedType);
-		if ($acceptingType instanceof ArrayType && count($acceptedArrays) > 0) {
+		if ($acceptingType instanceof ArrayType && \count($acceptedArrays) > 0) {
 			foreach ($acceptedArrays as $acceptedArray) {
 				if ($acceptedArray instanceof ConstantArrayType) {
 					foreach ($acceptedArray->getKeyTypes() as $i => $keyType) {
@@ -115,14 +115,14 @@ class RuleLevelHelper
 
 		if ($acceptedType instanceof ArrayType && $acceptingType instanceof ArrayType) {
 			return self::accepts(
-				$acceptingType->getKeyType(),
-				$acceptedType->getKeyType(),
-				$strictTypes
-			) && self::accepts(
-				$acceptingType->getItemType(),
-				$acceptedType->getItemType(),
-				$strictTypes
-			);
+					$acceptingType->getKeyType(),
+					$acceptedType->getKeyType(),
+					$strictTypes
+				) && self::accepts(
+					$acceptingType->getItemType(),
+					$acceptedType->getItemType(),
+					$strictTypes
+				);
 		}
 
 		$accepts = $acceptingType->accepts($acceptedType, $strictTypes);
@@ -131,10 +131,11 @@ class RuleLevelHelper
 	}
 
 	/**
-	 * @param Scope $scope
-	 * @param Expr $var
+	 * @param Scope  $scope
+	 * @param Expr   $var
 	 * @param string $unknownClassErrorPattern
 	 * @param callable(Type $type): bool $unionTypeCriteriaCallback
+	 *
 	 * @return FoundTypeResult
 	 */
 	public function findTypeToCheck(
@@ -168,7 +169,7 @@ class RuleLevelHelper
 			$errors[] = sprintf($unknownClassErrorPattern, $referencedClass);
 		}
 
-		if (count($errors) > 0) {
+		if (\count($errors) > 0) {
 			return new FoundTypeResult(new ErrorType(), [], $errors);
 		}
 
@@ -182,7 +183,7 @@ class RuleLevelHelper
 				$newTypes[] = $innerType;
 			}
 
-			if (count($newTypes) > 0) {
+			if (\count($newTypes) > 0) {
 				return new FoundTypeResult(TypeCombinator::union(...$newTypes), $directClassNames, []);
 			}
 		}

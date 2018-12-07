@@ -16,38 +16,44 @@ class ExistingClassesInClosureTypehintsRuleTest extends \PHPStan\Testing\RuleTes
 
 	public function testExistingClassInTypehint(): void
 	{
-		$this->analyse([__DIR__ . '/data/closure-typehints.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/closure-typehints.php'],
 			[
-				'Return typehint of anonymous function has invalid type TestClosureFunctionTypehints\NonexistentClass.',
-				10,
-			],
-			[
-				'Parameter $bar of anonymous function has invalid typehint type TestClosureFunctionTypehints\BarFunctionTypehints.',
-				15,
-			],
-			[
-				'Class TestClosureFunctionTypehints\FooFunctionTypehints referenced with incorrect case: TestClosureFunctionTypehints\fOOfUnctionTypehints.',
-				30,
-			],
-			[
-				'Class TestClosureFunctionTypehints\FooFunctionTypehints referenced with incorrect case: TestClosureFunctionTypehints\FOOfUnctionTypehintS.',
-				30,
-			],
-		]);
+				[
+					'Return typehint of anonymous function has invalid type TestClosureFunctionTypehints\NonexistentClass.',
+					10,
+				],
+				[
+					'Parameter $bar of anonymous function has invalid typehint type TestClosureFunctionTypehints\BarFunctionTypehints.',
+					15,
+				],
+				[
+					'Class TestClosureFunctionTypehints\FooFunctionTypehints referenced with incorrect case: TestClosureFunctionTypehints\fOOfUnctionTypehints.',
+					30,
+				],
+				[
+					'Class TestClosureFunctionTypehints\FooFunctionTypehints referenced with incorrect case: TestClosureFunctionTypehints\FOOfUnctionTypehintS.',
+					30,
+				],
+			]
+		);
 	}
 
 	public function testValidTypehintPhp71(): void
 	{
-		$this->analyse([__DIR__ . '/data/closure-7.1-typehints.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/closure-7.1-typehints.php'],
 			[
-				'Parameter $bar of anonymous function has invalid typehint type TestClosureFunctionTypehintsPhp71\NonexistentClass.',
-				35,
-			],
-			[
-				'Return typehint of anonymous function has invalid type TestClosureFunctionTypehintsPhp71\NonexistentClass.',
-				35,
-			],
-		]);
+				[
+					'Parameter $bar of anonymous function has invalid typehint type TestClosureFunctionTypehintsPhp71\NonexistentClass.',
+					35,
+				],
+				[
+					'Return typehint of anonymous function has invalid type TestClosureFunctionTypehintsPhp71\NonexistentClass.',
+					35,
+				],
+			]
+		);
 	}
 
 	/**

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\PhpDoc;
 
@@ -26,7 +26,8 @@ class InvalidThrowsPhpDocValueRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\FunctionLike $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope      $scope
+	 *
 	 * @return string[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
@@ -54,10 +55,12 @@ class InvalidThrowsPhpDocValueRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		return [sprintf(
-			'PHPDoc tag @throws with type %s is not subtype of Throwable',
-			$phpDocThrowsType->describe(VerbosityLevel::typeOnly())
-		)];
+		return [
+			sprintf(
+				'PHPDoc tag @throws with type %s is not subtype of Throwable',
+				$phpDocThrowsType->describe(VerbosityLevel::typeOnly())
+			),
+		];
 	}
 
 }

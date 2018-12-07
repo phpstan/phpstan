@@ -12,20 +12,23 @@ class InvalidIncDecOperationRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	public function testRule(): void
 	{
-		$this->analyse([__DIR__ . '/data/invalid-inc-dec.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/invalid-inc-dec.php'],
 			[
-				'Cannot use ++ on a non-variable.',
-				11,
-			],
-			[
-				'Cannot use -- on a non-variable.',
-				12,
-			],
-			[
-				'Cannot use ++ on stdClass.',
-				17,
-			],
-		]);
+				[
+					'Cannot use ++ on a non-variable.',
+					11,
+				],
+				[
+					'Cannot use -- on a non-variable.',
+					12,
+				],
+				[
+					'Cannot use ++ on stdClass.',
+					17,
+				],
+			]
+		);
 	}
 
 }

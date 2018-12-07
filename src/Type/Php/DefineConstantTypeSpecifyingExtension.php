@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Php;
 
@@ -30,8 +30,8 @@ class DefineConstantTypeSpecifyingExtension implements FunctionTypeSpecifyingExt
 	): bool
 	{
 		return $functionReflection->getName() === 'define'
-			&& $context->null()
-			&& count($node->args) >= 2;
+		       && $context->null()
+		       && \count($node->args) >= 2;
 	}
 
 	public function specifyTypes(

@@ -19,16 +19,19 @@ class TernaryOperatorConstantConditionRuleTest extends \PHPStan\Testing\RuleTest
 
 	public function testRule(): void
 	{
-		$this->analyse([__DIR__ . '/data/ternary.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/ternary.php'],
 			[
-				'Ternary operator condition is always true.',
-				11,
-			],
-			[
-				'Ternary operator condition is always false.',
-				15,
-			],
-		]);
+				[
+					'Ternary operator condition is always true.',
+					11,
+				],
+				[
+					'Ternary operator condition is always false.',
+					15,
+				],
+			]
+		);
 	}
 
 }

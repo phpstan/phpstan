@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Php;
 
@@ -35,7 +35,7 @@ class MinMaxFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunction
 			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
 		}
 
-		if (count($functionCall->args) === 1) {
+		if (\count($functionCall->args) === 1) {
 			$argType = $scope->getType($functionCall->args[0]->value);
 			if ($argType instanceof ArrayType) {
 				$iterableValueType = $argType->getIterableValueType();
@@ -82,8 +82,9 @@ class MinMaxFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunction
 	}
 
 	/**
-	 * @param string $functionName
+	 * @param string               $functionName
 	 * @param \PHPStan\Type\Type[] $types
+	 *
 	 * @return Type
 	 */
 	private function processType(

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\PhpDoc;
 
@@ -20,9 +20,12 @@ class TypeNodeResolverFactory
 	public function create(): TypeNodeResolver
 	{
 		$tagToService = function (array $tags) {
-			return array_map(function (string $serviceName) {
-				return $this->container->getService($serviceName);
-			}, array_keys($tags));
+			return array_map(
+				function (string $serviceName) {
+					return $this->container->getService($serviceName);
+				},
+				array_keys($tags)
+			);
 		};
 
 		return new TypeNodeResolver(

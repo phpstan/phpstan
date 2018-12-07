@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Php;
 
@@ -30,7 +30,7 @@ final class ArraySearchFunctionDynamicReturnTypeExtension implements DynamicFunc
 
 	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
 	{
-		$argsCount = count($functionCall->args);
+		$argsCount = \count($functionCall->args);
 		if ($argsCount < 2) {
 			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
 		}
@@ -61,7 +61,7 @@ final class ArraySearchFunctionDynamicReturnTypeExtension implements DynamicFunc
 		}
 
 		$haystackArrays = $this->pickArrays($haystackArgType);
-		if (count($haystackArrays) === 0) {
+		if (\count($haystackArrays) === 0) {
 			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
 		}
 
@@ -79,7 +79,7 @@ final class ArraySearchFunctionDynamicReturnTypeExtension implements DynamicFunc
 
 		if (
 			$typesFromConstantArraysCount > 0
-			&& count($haystackArrays) === $typesFromConstantArraysCount
+			&& \count($haystackArrays) === $typesFromConstantArraysCount
 		) {
 			return TypeCombinator::union(...$typesFromConstantArrays);
 		}
@@ -108,7 +108,7 @@ final class ArraySearchFunctionDynamicReturnTypeExtension implements DynamicFunc
 			}
 
 			if ($needle instanceof ConstantScalarType && $valueType instanceof ConstantScalarType
-				&& $needle->getValue() === $valueType->getValue()
+			    && $needle->getValue() === $valueType->getValue()
 			) {
 				return $haystack->getKeyTypes()[$index];
 			}
@@ -121,7 +121,7 @@ final class ArraySearchFunctionDynamicReturnTypeExtension implements DynamicFunc
 			$matchesByType[] = new ConstantBooleanType(false);
 		}
 
-		if (count($matchesByType) > 0) {
+		if (\count($matchesByType) > 0) {
 			if (
 				$haystack->getIterableValueType()->accepts($needle, true)->yes()
 				&& $needle->isSuperTypeOf(new ObjectWithoutClassType())->no()
@@ -137,6 +137,7 @@ final class ArraySearchFunctionDynamicReturnTypeExtension implements DynamicFunc
 
 	/**
 	 * @param Type $type
+	 *
 	 * @return Type[]
 	 */
 	private function pickArrays(Type $type): array

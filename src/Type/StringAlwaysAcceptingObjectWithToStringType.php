@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type;
 
@@ -17,6 +17,7 @@ class StringAlwaysAcceptingObjectWithToStringType extends StringType
 			}
 
 			$typeClass = $broker->getClass($type->getClassName());
+
 			return TrinaryLogic::createFromBoolean(
 				$typeClass->hasNativeMethod('__toString')
 			);

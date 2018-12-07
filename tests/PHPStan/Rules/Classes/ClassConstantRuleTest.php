@@ -77,64 +77,67 @@ class ClassConstantRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	public function testClassConstantVisibility(): void
 	{
-		$this->analyse([__DIR__ . '/data/class-constant-visibility.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/class-constant-visibility.php'],
 			[
-				'Access to private constant PRIVATE_BAR of class ClassConstantVisibility\Bar.',
-				25,
-			],
-			[
-				'Access to parent::BAZ but ClassConstantVisibility\Foo does not extend any class.',
-				27,
-			],
-			[
-				'Access to undefined constant ClassConstantVisibility\Bar::PRIVATE_FOO.',
-				45,
-			],
-			[
-				'Access to private constant PRIVATE_FOO of class ClassConstantVisibility\Foo.',
-				46,
-			],
-			[
-				'Access to private constant PRIVATE_FOO of class ClassConstantVisibility\Foo.',
-				47,
-			],
-			[
-				'Access to undefined constant ClassConstantVisibility\Bar::PRIVATE_FOO.',
-				60,
-			],
-			[
-				'Access to protected constant PROTECTED_FOO of class ClassConstantVisibility\Foo.',
-				71,
-			],
-			[
-				'Access to undefined constant ClassConstantVisibility\WithFooAndBarConstant&ClassConstantVisibility\WithFooConstant::BAZ.',
-				106,
-			],
-			[
-				'Access to undefined constant ClassConstantVisibility\WithFooAndBarConstant|ClassConstantVisibility\WithFooConstant::BAR.',
-				110,
-			],
-			[
-				'Access to constant FOO on an unknown class ClassConstantVisibility\UnknownClassFirst.',
-				112,
-			],
-			[
-				'Access to constant FOO on an unknown class ClassConstantVisibility\UnknownClassSecond.',
-				112,
-			],
-			[
-				'Cannot access constant FOO on int|string.',
-				116,
-			],
-			[
-				'Class ClassConstantVisibility\Foo referenced with incorrect case: ClassConstantVisibility\FOO.',
-				122,
-			],
-			[
-				'Access to private constant PRIVATE_FOO of class ClassConstantVisibility\Foo.',
-				122,
-			],
-		]);
+				[
+					'Access to private constant PRIVATE_BAR of class ClassConstantVisibility\Bar.',
+					25,
+				],
+				[
+					'Access to parent::BAZ but ClassConstantVisibility\Foo does not extend any class.',
+					27,
+				],
+				[
+					'Access to undefined constant ClassConstantVisibility\Bar::PRIVATE_FOO.',
+					45,
+				],
+				[
+					'Access to private constant PRIVATE_FOO of class ClassConstantVisibility\Foo.',
+					46,
+				],
+				[
+					'Access to private constant PRIVATE_FOO of class ClassConstantVisibility\Foo.',
+					47,
+				],
+				[
+					'Access to undefined constant ClassConstantVisibility\Bar::PRIVATE_FOO.',
+					60,
+				],
+				[
+					'Access to protected constant PROTECTED_FOO of class ClassConstantVisibility\Foo.',
+					71,
+				],
+				[
+					'Access to undefined constant ClassConstantVisibility\WithFooAndBarConstant&ClassConstantVisibility\WithFooConstant::BAZ.',
+					106,
+				],
+				[
+					'Access to undefined constant ClassConstantVisibility\WithFooAndBarConstant|ClassConstantVisibility\WithFooConstant::BAR.',
+					110,
+				],
+				[
+					'Access to constant FOO on an unknown class ClassConstantVisibility\UnknownClassFirst.',
+					112,
+				],
+				[
+					'Access to constant FOO on an unknown class ClassConstantVisibility\UnknownClassSecond.',
+					112,
+				],
+				[
+					'Cannot access constant FOO on int|string.',
+					116,
+				],
+				[
+					'Class ClassConstantVisibility\Foo referenced with incorrect case: ClassConstantVisibility\FOO.',
+					122,
+				],
+				[
+					'Access to private constant PRIVATE_FOO of class ClassConstantVisibility\Foo.',
+					122,
+				],
+			]
+		);
 	}
 
 }

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type;
 
@@ -60,6 +60,7 @@ interface Type
 
 	/**
 	 * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
+	 *
 	 * @return \PHPStan\Reflection\ParametersAcceptor[]
 	 */
 	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array;
@@ -80,6 +81,7 @@ interface Type
 
 	/**
 	 * @param mixed[] $properties
+	 *
 	 * @return self
 	 */
 	public static function __set_state(array $properties): self;

@@ -38,38 +38,48 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				'string|null',
 			],
 			[
-				new UnionType([
-					new StringType(),
-					new IntegerType(),
-				]),
+				new UnionType(
+					[
+						new StringType(),
+						new IntegerType(),
+					]
+				),
 				UnionType::class,
 				'int|string|null',
 			],
 			[
-				new UnionType([
-					new StringType(),
-					new IntegerType(),
-					new NullType(),
-				]),
+				new UnionType(
+					[
+						new StringType(),
+						new IntegerType(),
+						new NullType(),
+					]
+				),
 				UnionType::class,
 				'int|string|null',
 			],
 			[
-				new IntersectionType([
-					new IterableType(new MixedType(), new StringType()),
-					new ObjectType('ArrayObject'),
-				]),
+				new IntersectionType(
+					[
+						new IterableType(new MixedType(), new StringType()),
+						new ObjectType('ArrayObject'),
+					]
+				),
 				UnionType::class,
 				'(ArrayObject&iterable<string>)|null',
 			],
 			[
-				new UnionType([
-					new IntersectionType([
-						new IterableType(new MixedType(), new StringType()),
-						new ObjectType('ArrayObject'),
-					]),
-					new NullType(),
-				]),
+				new UnionType(
+					[
+						new IntersectionType(
+							[
+								new IterableType(new MixedType(), new StringType()),
+								new ObjectType('ArrayObject'),
+							]
+						),
+						new NullType(),
+					]
+				),
 				UnionType::class,
 				'(ArrayObject&iterable<string>)|null',
 			],
@@ -134,54 +144,68 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				'string',
 			],
 			[
-				new UnionType([
-					new StringType(),
-					new IntegerType(),
-					new NullType(),
-				]),
+				new UnionType(
+					[
+						new StringType(),
+						new IntegerType(),
+						new NullType(),
+					]
+				),
 				UnionType::class,
 				'int|string',
 			],
 			[
-				new UnionType([
-					new StringType(),
-					new IntegerType(),
-				]),
+				new UnionType(
+					[
+						new StringType(),
+						new IntegerType(),
+					]
+				),
 				UnionType::class,
 				'int|string',
 			],
 			[
-				new UnionType([
-					new IntersectionType([
+				new UnionType(
+					[
+						new IntersectionType(
+							[
+								new IterableType(new MixedType(), new StringType()),
+								new ObjectType('ArrayObject'),
+							]
+						),
+						new NullType(),
+					]
+				),
+				IntersectionType::class,
+				'ArrayObject&iterable<string>',
+			],
+			[
+				new IntersectionType(
+					[
 						new IterableType(new MixedType(), new StringType()),
 						new ObjectType('ArrayObject'),
-					]),
-					new NullType(),
-				]),
+					]
+				),
 				IntersectionType::class,
 				'ArrayObject&iterable<string>',
 			],
 			[
-				new IntersectionType([
-					new IterableType(new MixedType(), new StringType()),
-					new ObjectType('ArrayObject'),
-				]),
-				IntersectionType::class,
-				'ArrayObject&iterable<string>',
-			],
-			[
-				new UnionType([
-					new ThisType('Foo'),
-					new NullType(),
-				]),
+				new UnionType(
+					[
+						new ThisType('Foo'),
+						new NullType(),
+					]
+				),
 				ThisType::class,
 				'$this(Foo)',
 			],
 			[
-				new UnionType([
-					new IterableType(new MixedType(), new StringType()),
-					new NullType(),
-				]),
+				new UnionType(
+					[
+						new IterableType(new MixedType(), new StringType()),
+						new NullType(),
+					]
+				),
 				IterableType::class,
 				'iterable<string>',
 			],
@@ -242,10 +266,12 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new UnionType([
-						new StringType(),
-						new IntegerType(),
-					]),
+					new UnionType(
+						[
+							new StringType(),
+							new IntegerType(),
+						]
+					),
 					new StringType(),
 				],
 				UnionType::class,
@@ -253,10 +279,12 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new UnionType([
-						new StringType(),
-						new IntegerType(),
-					]),
+					new UnionType(
+						[
+							new StringType(),
+							new IntegerType(),
+						]
+					),
 					new ConstantBooleanType(true),
 				],
 				UnionType::class,
@@ -264,10 +292,12 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new UnionType([
-						new StringType(),
-						new IntegerType(),
-					]),
+					new UnionType(
+						[
+							new StringType(),
+							new IntegerType(),
+						]
+					),
 					new NullType(),
 				],
 				UnionType::class,
@@ -275,11 +305,13 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new UnionType([
-						new StringType(),
-						new IntegerType(),
-						new NullType(),
-					]),
+					new UnionType(
+						[
+							new StringType(),
+							new IntegerType(),
+							new NullType(),
+						]
+					),
 					new NullType(),
 				],
 				UnionType::class,
@@ -287,10 +319,12 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new UnionType([
-						new StringType(),
-						new IntegerType(),
-					]),
+					new UnionType(
+						[
+							new StringType(),
+							new IntegerType(),
+						]
+					),
 					new StringType(),
 				],
 				UnionType::class,
@@ -298,10 +332,12 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new IntersectionType([
-						new IterableType(new MixedType(), new IntegerType()),
-						new ObjectType('ArrayObject'),
-					]),
+					new IntersectionType(
+						[
+							new IterableType(new MixedType(), new IntegerType()),
+							new ObjectType('ArrayObject'),
+						]
+					),
 					new StringType(),
 				],
 				UnionType::class,
@@ -309,10 +345,12 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new IntersectionType([
-						new IterableType(new MixedType(), new IntegerType()),
-						new ObjectType('ArrayObject'),
-					]),
+					new IntersectionType(
+						[
+							new IterableType(new MixedType(), new IntegerType()),
+							new ObjectType('ArrayObject'),
+						]
+					),
 					new ArrayType(new MixedType(), new StringType()),
 				],
 				UnionType::class,
@@ -320,10 +358,12 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new UnionType([
-						new ConstantBooleanType(true),
-						new IntegerType(),
-					]),
+					new UnionType(
+						[
+							new ConstantBooleanType(true),
+							new IntegerType(),
+						]
+					),
 					new ArrayType(new MixedType(), new StringType()),
 				],
 				UnionType::class,
@@ -331,10 +371,12 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new UnionType([
-						new ArrayType(new MixedType(), new ObjectType('Foo')),
-						new ArrayType(new MixedType(), new ObjectType('Bar')),
-					]),
+					new UnionType(
+						[
+							new ArrayType(new MixedType(), new ObjectType('Foo')),
+							new ArrayType(new MixedType(), new ObjectType('Bar')),
+						]
+					),
 					new ArrayType(new MixedType(), new MixedType()),
 				],
 				ArrayType::class,
@@ -384,10 +426,12 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new IntersectionType([
-						new IterableType(new MixedType(), new IntegerType()),
-						new ObjectType('ArrayObject'),
-					]),
+					new IntersectionType(
+						[
+							new IterableType(new MixedType(), new IntegerType()),
+							new ObjectType('ArrayObject'),
+						]
+					),
 					new ArrayType(new MixedType(), new IntegerType()),
 				],
 				UnionType::class,
@@ -403,14 +447,18 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new IntersectionType([
-						new ObjectType('DateTimeInterface'),
-						new ObjectType('Traversable'),
-					]),
-					new IntersectionType([
-						new ObjectType('DateTimeInterface'),
-						new ObjectType('Traversable'),
-					]),
+					new IntersectionType(
+						[
+							new ObjectType('DateTimeInterface'),
+							new ObjectType('Traversable'),
+						]
+					),
+					new IntersectionType(
+						[
+							new ObjectType('DateTimeInterface'),
+							new ObjectType('Traversable'),
+						]
+					),
 				],
 				IntersectionType::class,
 				'DateTimeInterface&Traversable',
@@ -433,10 +481,12 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new IntersectionType([
-						new ObjectType('ArrayObject'),
-						new IterableType(new MixedType(), new StringType()),
-					]),
+					new IntersectionType(
+						[
+							new ObjectType('ArrayObject'),
+							new IterableType(new MixedType(), new StringType()),
+						]
+					),
 					new NeverType(),
 				],
 				IntersectionType::class,
@@ -508,18 +558,24 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new UnionType([
-						new StringType(),
-						new NullType(),
-					]),
-					new UnionType([
-						new StringType(),
-						new NullType(),
-					]),
-					new UnionType([
-						new ObjectType('Unknown'),
-						new NullType(),
-					]),
+					new UnionType(
+						[
+							new StringType(),
+							new NullType(),
+						]
+					),
+					new UnionType(
+						[
+							new StringType(),
+							new NullType(),
+						]
+					),
+					new UnionType(
+						[
+							new ObjectType('Unknown'),
+							new NullType(),
+						]
+					),
 				],
 				UnionType::class,
 				'string|Unknown|null',
@@ -647,60 +703,78 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			[
 				// same keys - can remain ConstantArrayType
 				[
-					new ConstantArrayType([
-						new ConstantStringType('foo'),
-						new ConstantStringType('bar'),
-					], [
-						new ObjectType(\DateTimeImmutable::class),
-						new IntegerType(),
-					]),
-					new ConstantArrayType([
-						new ConstantStringType('foo'),
-						new ConstantStringType('bar'),
-					], [
-						new NullType(),
-						new StringType(),
-					]),
+					new ConstantArrayType(
+						[
+							new ConstantStringType('foo'),
+							new ConstantStringType('bar'),
+						],
+						[
+							new ObjectType(\DateTimeImmutable::class),
+							new IntegerType(),
+						]
+					),
+					new ConstantArrayType(
+						[
+							new ConstantStringType('foo'),
+							new ConstantStringType('bar'),
+						],
+						[
+							new NullType(),
+							new StringType(),
+						]
+					),
 				],
 				ConstantArrayType::class,
 				'array(\'foo\' => DateTimeImmutable|null, \'bar\' => int|string)',
 			],
 			[
 				[
-					new ConstantArrayType([
-						new ConstantStringType('foo'),
-						new ConstantStringType('bar'),
-					], [
-						new ObjectType(\DateTimeImmutable::class),
-						new IntegerType(),
-					]),
-					new ConstantArrayType([
-						new ConstantStringType('foo'),
-					], [
-						new NullType(),
-					]),
+					new ConstantArrayType(
+						[
+							new ConstantStringType('foo'),
+							new ConstantStringType('bar'),
+						],
+						[
+							new ObjectType(\DateTimeImmutable::class),
+							new IntegerType(),
+						]
+					),
+					new ConstantArrayType(
+						[
+							new ConstantStringType('foo'),
+						],
+						[
+							new NullType(),
+						]
+					),
 				],
 				UnionType::class,
 				'array(\'foo\' => DateTimeImmutable|null, ?\'bar\' => int)',
 			],
 			[
 				[
-					new ConstantArrayType([
-						new ConstantStringType('foo'),
-						new ConstantStringType('bar'),
-					], [
-						new ObjectType(\DateTimeImmutable::class),
-						new IntegerType(),
-					]),
-					new ConstantArrayType([
-						new ConstantStringType('foo'),
-						new ConstantStringType('bar'),
-						new ConstantStringType('baz'),
-					], [
-						new NullType(),
-						new StringType(),
-						new IntegerType(),
-					]),
+					new ConstantArrayType(
+						[
+							new ConstantStringType('foo'),
+							new ConstantStringType('bar'),
+						],
+						[
+							new ObjectType(\DateTimeImmutable::class),
+							new IntegerType(),
+						]
+					),
+					new ConstantArrayType(
+						[
+							new ConstantStringType('foo'),
+							new ConstantStringType('bar'),
+							new ConstantStringType('baz'),
+						],
+						[
+							new NullType(),
+							new StringType(),
+							new IntegerType(),
+						]
+					),
 				],
 				UnionType::class,
 				'array(\'foo\' => DateTimeImmutable|null, \'bar\' => int|string, ?\'baz\' => int)',
@@ -711,13 +785,16 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 						new IntegerType(),
 						new ObjectType(\stdClass::class)
 					),
-					new ConstantArrayType([
-						new ConstantStringType('foo'),
-						new ConstantStringType('bar'),
-					], [
-						new ObjectType(\DateTimeImmutable::class),
-						new IntegerType(),
-					]),
+					new ConstantArrayType(
+						[
+							new ConstantStringType('foo'),
+							new ConstantStringType('bar'),
+						],
+						[
+							new ObjectType(\DateTimeImmutable::class),
+							new IntegerType(),
+						]
+					),
 				],
 				ArrayType::class,
 				'array<\'bar\'|\'foo\'|int, DateTimeImmutable|int|stdClass>',
@@ -816,28 +893,36 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new IntersectionType([
-						new ArrayType(new MixedType(), new StringType()),
-						new HasOffsetType(new StringType()),
-					]),
-					new IntersectionType([
-						new ArrayType(new MixedType(), new StringType()),
-						new HasOffsetType(new StringType()),
-					]),
+					new IntersectionType(
+						[
+							new ArrayType(new MixedType(), new StringType()),
+							new HasOffsetType(new StringType()),
+						]
+					),
+					new IntersectionType(
+						[
+							new ArrayType(new MixedType(), new StringType()),
+							new HasOffsetType(new StringType()),
+						]
+					),
 				],
 				IntersectionType::class,
 				'array<string>&hasOffset(string)',
 			],
 			[
 				[
-					new IntersectionType([
-						new ObjectWithoutClassType(),
-						new HasPropertyType('foo'),
-					]),
-					new IntersectionType([
-						new ObjectWithoutClassType(),
-						new HasPropertyType('foo'),
-					]),
+					new IntersectionType(
+						[
+							new ObjectWithoutClassType(),
+							new HasPropertyType('foo'),
+						]
+					),
+					new IntersectionType(
+						[
+							new ObjectWithoutClassType(),
+							new HasPropertyType('foo'),
+						]
+					),
 				],
 				IntersectionType::class,
 				'object&hasProperty(foo)',
@@ -862,12 +947,18 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(
 			$expectedTypeDescription,
 			$actualType->describe(VerbosityLevel::precise()),
-			sprintf('union(%s)', implode(', ', array_map(
-				static function (Type $type): string {
-					return $type->describe(VerbosityLevel::precise());
-				},
-				$types
-			)))
+			sprintf(
+				'union(%s)',
+				implode(
+					', ',
+					array_map(
+						static function (Type $type): string {
+							return $type->describe(VerbosityLevel::precise());
+						},
+						$types
+					)
+				)
+			)
 		);
 
 		$this->assertInstanceOf($expectedTypeClass, $actualType);
@@ -1091,10 +1182,12 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new IntersectionType([
-						new ObjectWithoutClassType(),
-						new HasMethodType('__toString'),
-					]),
+					new IntersectionType(
+						[
+							new ObjectWithoutClassType(),
+							new HasMethodType('__toString'),
+						]
+					),
 					new HasMethodType('__toString'),
 				],
 				IntersectionType::class,
@@ -1102,10 +1195,12 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new IntersectionType([
-						new ObjectWithoutClassType(),
-						new HasMethodType('foo'),
-					]),
+					new IntersectionType(
+						[
+							new ObjectWithoutClassType(),
+							new HasMethodType('foo'),
+						]
+					),
 					new HasMethodType('bar'),
 				],
 				IntersectionType::class,
@@ -1113,10 +1208,12 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new UnionType([
-						new ObjectType(\Test\Foo::class),
-						new ObjectType(\Test\FirstInterface::class),
-					]),
+					new UnionType(
+						[
+							new ObjectType(\Test\Foo::class),
+							new ObjectType(\Test\FirstInterface::class),
+						]
+					),
 					new HasMethodType('__toString'),
 				],
 				UnionType::class,
@@ -1164,10 +1261,12 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new IntersectionType([
-						new ObjectWithoutClassType(),
-						new HasPropertyType('fooProperty'),
-					]),
+					new IntersectionType(
+						[
+							new ObjectWithoutClassType(),
+							new HasPropertyType('fooProperty'),
+						]
+					),
 					new HasPropertyType('fooProperty'),
 				],
 				IntersectionType::class,
@@ -1175,10 +1274,12 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new IntersectionType([
-						new ObjectWithoutClassType(),
-						new HasPropertyType('foo'),
-					]),
+					new IntersectionType(
+						[
+							new ObjectWithoutClassType(),
+							new HasPropertyType('foo'),
+						]
+					),
 					new HasPropertyType('bar'),
 				],
 				IntersectionType::class,
@@ -1186,10 +1287,12 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new UnionType([
-						new ObjectType(\Test\Foo::class),
-						new ObjectType(\Test\FirstInterface::class),
-					]),
+					new UnionType(
+						[
+							new ObjectType(\Test\Foo::class),
+							new ObjectType(\Test\FirstInterface::class),
+						]
+					),
 					new HasPropertyType('fooProperty'),
 				],
 				UnionType::class,
@@ -1262,16 +1365,18 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new UnionType([
-						new ConstantArrayType(
-							[new ConstantStringType('a')],
-							[new ConstantStringType('foo')]
-						),
-						new ConstantArrayType(
-							[new ConstantStringType('b')],
-							[new ConstantStringType('foo')]
-						),
-					]),
+					new UnionType(
+						[
+							new ConstantArrayType(
+								[new ConstantStringType('a')],
+								[new ConstantStringType('foo')]
+							),
+							new ConstantArrayType(
+								[new ConstantStringType('b')],
+								[new ConstantStringType('foo')]
+							),
+						]
+					),
 					new HasOffsetType(new ConstantStringType('b')),
 				],
 				ConstantArrayType::class,
@@ -1279,13 +1384,15 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new UnionType([
-						new ConstantArrayType(
-							[new ConstantStringType('a')],
-							[new ConstantStringType('foo')]
-						),
-						new ClosureType([], new MixedType(), false),
-					]),
+					new UnionType(
+						[
+							new ConstantArrayType(
+								[new ConstantStringType('a')],
+								[new ConstantStringType('foo')]
+							),
+							new ClosureType([], new MixedType(), false),
+						]
+					),
 					new HasOffsetType(new ConstantStringType('a')),
 				],
 				ConstantArrayType::class,
@@ -1317,10 +1424,12 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new UnionType([
-						new ArrayType(new MixedType(), new StringType()),
-						new NullType(),
-					]),
+					new UnionType(
+						[
+							new ArrayType(new MixedType(), new StringType()),
+							new NullType(),
+						]
+					),
 					new HasOffsetType(new StringType()),
 				],
 				UnionType::class,
@@ -1373,39 +1482,47 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				'*NEVER*',
 			],
 			[
-				new UnionType([
-					new IntegerType(),
-					new ConstantBooleanType(true),
-				]),
+				new UnionType(
+					[
+						new IntegerType(),
+						new ConstantBooleanType(true),
+					]
+				),
 				new ConstantBooleanType(true),
 				IntegerType::class,
 				'int',
 			],
 			[
-				new UnionType([
-					new ObjectType('Foo'),
-					new ObjectType('Bar'),
-				]),
+				new UnionType(
+					[
+						new ObjectType('Foo'),
+						new ObjectType('Bar'),
+					]
+				),
 				new ObjectType('Foo'),
 				ObjectType::class,
 				'Bar',
 			],
 			[
-				new UnionType([
-					new ObjectType('Foo'),
-					new ObjectType('Bar'),
-					new ObjectType('Baz'),
-				]),
+				new UnionType(
+					[
+						new ObjectType('Foo'),
+						new ObjectType('Bar'),
+						new ObjectType('Baz'),
+					]
+				),
 				new ObjectType('Foo'),
 				UnionType::class,
 				'Bar|Baz',
 			],
 			[
-				new UnionType([
-					new ArrayType(new MixedType(), new StringType()),
-					new ArrayType(new MixedType(), new IntegerType()),
-					new ObjectType('ArrayObject'),
-				]),
+				new UnionType(
+					[
+						new ArrayType(new MixedType(), new StringType()),
+						new ArrayType(new MixedType(), new IntegerType()),
+						new ObjectType('ArrayObject'),
+					]
+				),
 				new ArrayType(new MixedType(), new IntegerType()),
 				UnionType::class,
 				'array<string>|ArrayObject',
@@ -1453,51 +1570,63 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				'*NEVER*',
 			],
 			[
-				new UnionType([
-					new ConstantBooleanType(true),
-					new IntegerType(),
-				]),
+				new UnionType(
+					[
+						new ConstantBooleanType(true),
+						new IntegerType(),
+					]
+				),
 				new BooleanType(),
 				IntegerType::class,
 				'int',
 			],
 			[
-				new UnionType([
-					new ConstantBooleanType(false),
-					new IntegerType(),
-				]),
+				new UnionType(
+					[
+						new ConstantBooleanType(false),
+						new IntegerType(),
+					]
+				),
 				new BooleanType(),
 				IntegerType::class,
 				'int',
 			],
 			[
-				new UnionType([
-					new BooleanType(),
-					new IntegerType(),
-				]),
+				new UnionType(
+					[
+						new BooleanType(),
+						new IntegerType(),
+					]
+				),
 				new ConstantBooleanType(true),
 				UnionType::class,
 				'int|false',
 			],
 			[
-				new UnionType([
-					new BooleanType(),
-					new IntegerType(),
-				]),
+				new UnionType(
+					[
+						new BooleanType(),
+						new IntegerType(),
+					]
+				),
 				new ConstantBooleanType(false),
 				UnionType::class,
 				'int|true',
 			],
 			[
-				new UnionType([
-					new StringType(),
-					new IntegerType(),
-					new NullType(),
-				]),
-				new UnionType([
-					new NullType(),
-					new StringType(),
-				]),
+				new UnionType(
+					[
+						new StringType(),
+						new IntegerType(),
+						new NullType(),
+					]
+				),
+				new UnionType(
+					[
+						new NullType(),
+						new StringType(),
+					]
+				),
 				IntegerType::class,
 				'int',
 			],

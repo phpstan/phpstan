@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Analyser;
 
@@ -9,13 +9,13 @@ class LookForAssignsSettings
 {
 
 	private const EARLY_TERMINATION_CONTINUE = 1;
-	private const EARLY_TERMINATION_BREAK = 2;
-	private const EARLY_TERMINATION_STOP = 4;
-	private const EARLY_TERMINATION_ALL = self::EARLY_TERMINATION_CONTINUE
-		+ self::EARLY_TERMINATION_BREAK
-		+ self::EARLY_TERMINATION_STOP;
-	private const EARLY_TERMINATION_CLOSURE = 8;
-	private const SKIP_DEAD_BRANCHES = 16;
+	private const EARLY_TERMINATION_BREAK    = 2;
+	private const EARLY_TERMINATION_STOP     = 4;
+	private const EARLY_TERMINATION_ALL      = self::EARLY_TERMINATION_CONTINUE
+	                                           + self::EARLY_TERMINATION_BREAK
+	                                           + self::EARLY_TERMINATION_STOP;
+	private const EARLY_TERMINATION_CLOSURE  = 8;
+	private const SKIP_DEAD_BRANCHES         = 16;
 
 	/** @var int */
 	private $respectEarlyTermination;
@@ -63,6 +63,7 @@ class LookForAssignsSettings
 	private static function create(int $value): self
 	{
 		self::$registry[$value] = self::$registry[$value] ?? new self($value);
+
 		return self::$registry[$value];
 	}
 
@@ -104,16 +105,16 @@ class LookForAssignsSettings
 		}
 
 		return $earlyTerminationStatement instanceof Break_
-			|| $earlyTerminationStatement instanceof Continue_
-			|| ($this->respectEarlyTermination & self::EARLY_TERMINATION_STOP) === 0;
+		       || $earlyTerminationStatement instanceof Continue_
+		       || ($this->respectEarlyTermination & self::EARLY_TERMINATION_STOP) === 0;
 	}
 
 	public function shouldGeneralizeConstantTypesOfNonIdempotentOperations(): bool
 	{
 		return (
-			($this->respectEarlyTermination & self::EARLY_TERMINATION_STOP) === self::EARLY_TERMINATION_STOP
-			&& $this->respectEarlyTermination !== self::EARLY_TERMINATION_ALL
-		) || $this->respectEarlyTermination === self::EARLY_TERMINATION_CLOSURE;
+			       ($this->respectEarlyTermination & self::EARLY_TERMINATION_STOP) === self::EARLY_TERMINATION_STOP
+			       && $this->respectEarlyTermination !== self::EARLY_TERMINATION_ALL
+		       ) || $this->respectEarlyTermination === self::EARLY_TERMINATION_CLOSURE;
 	}
 
 }

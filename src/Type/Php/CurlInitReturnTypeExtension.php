@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Php;
 
@@ -23,15 +23,17 @@ class CurlInitReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturn
 		Scope $scope
 	): Type
 	{
-		$argsCount = count($functionCall->args);
+		$argsCount = \count($functionCall->args);
 		if ($argsCount === 0) {
 			return new ResourceType();
 		}
 
-		return new UnionType([
-			new ResourceType(),
-			new ConstantBooleanType(false),
-		]);
+		return new UnionType(
+			[
+				new ResourceType(),
+				new ConstantBooleanType(false),
+			]
+		);
 	}
 
 }

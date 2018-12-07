@@ -109,10 +109,12 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 						new ParameterSignature(
 							'csr',
 							false,
-							new UnionType([
-								new StringType(),
-								new ResourceType(),
-							]),
+							new UnionType(
+								[
+									new StringType(),
+									new ResourceType(),
+								]
+							),
 							PassedByReference::createNo(),
 							false
 						),
@@ -140,11 +142,13 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 				null,
 				new FunctionSignature(
 					[],
-					new UnionType([
-						new ObjectType(\Throwable::class),
-						new ObjectType('Foo'),
-						new NullType(),
-					]),
+					new UnionType(
+						[
+							new ObjectType(\Throwable::class),
+							new ObjectType('Foo'),
+							new NullType(),
+						]
+					),
 					false
 				),
 			],
@@ -336,7 +340,7 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 		$parser = self::getContainer()->getByType(SignatureMapParser::class);
 		$functionSignature = $parser->getFunctionSignature($map, $className);
 		$this->assertCount(
-			count($expectedSignature->getParameters()),
+			\count($expectedSignature->getParameters()),
 			$functionSignature->getParameters(),
 			'Number of parameters does not match.'
 		);

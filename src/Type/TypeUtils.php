@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type;
 
@@ -11,6 +11,7 @@ class TypeUtils
 
 	/**
 	 * @param \PHPStan\Type\Type $type
+	 *
 	 * @return \PHPStan\Type\ArrayType[]
 	 */
 	public static function getArrays(Type $type): array
@@ -20,6 +21,7 @@ class TypeUtils
 
 	/**
 	 * @param \PHPStan\Type\Type $type
+	 *
 	 * @return \PHPStan\Type\Constant\ConstantArrayType[]
 	 */
 	public static function getConstantArrays(Type $type): array
@@ -29,6 +31,7 @@ class TypeUtils
 
 	/**
 	 * @param \PHPStan\Type\Type $type
+	 *
 	 * @return \PHPStan\Type\Constant\ConstantStringType[]
 	 */
 	public static function getConstantStrings(Type $type): array
@@ -38,6 +41,7 @@ class TypeUtils
 
 	/**
 	 * @param \PHPStan\Type\Type $type
+	 *
 	 * @return \PHPStan\Type\ConstantType[]
 	 */
 	public static function getConstantTypes(Type $type): array
@@ -50,9 +54,14 @@ class TypeUtils
 		if ($type instanceof ConstantType) {
 			return $type->generalize();
 		} elseif ($type instanceof UnionType) {
-			return TypeCombinator::union(...array_map(static function (Type $innerType): Type {
-				return self::generalizeType($innerType);
-			}, $type->getTypes()));
+			return TypeCombinator::union(
+				...array_map(
+					   static function (Type $innerType): Type {
+						   return self::generalizeType($innerType);
+					   },
+					   $type->getTypes()
+				   )
+			);
 		}
 
 		return $type;
@@ -60,6 +69,7 @@ class TypeUtils
 
 	/**
 	 * @param Type $type
+	 *
 	 * @return string[]
 	 */
 	public static function getDirectClassNames(Type $type): array
@@ -86,6 +96,7 @@ class TypeUtils
 
 	/**
 	 * @param Type $type
+	 *
 	 * @return \PHPStan\Type\ConstantScalarType[]
 	 */
 	public static function getConstantScalars(Type $type): array
@@ -95,8 +106,9 @@ class TypeUtils
 
 	/**
 	 * @param string $typeClass
-	 * @param Type $type
-	 * @param bool $inspectIntersections
+	 * @param Type   $type
+	 * @param bool   $inspectIntersections
+	 *
 	 * @return mixed[]
 	 */
 	private static function map(
@@ -171,6 +183,7 @@ class TypeUtils
 
 	/**
 	 * @param Type $type
+	 *
 	 * @return HasPropertyType[]
 	 */
 	public static function getHasPropertyTypes(Type $type): array
@@ -184,6 +197,7 @@ class TypeUtils
 			foreach ($type->getTypes() as $innerType) {
 				$hasPropertyTypes = array_merge($hasPropertyTypes, self::getHasPropertyTypes($innerType));
 			}
+
 			return $hasPropertyTypes;
 		}
 

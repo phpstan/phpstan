@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Constant;
 
@@ -36,7 +36,7 @@ class ConstantFloatType extends FloatType implements ConstantScalarType
 				return 'float';
 			},
 			function (): string {
-				$formatted = (string) $this->value;
+				$formatted = (string)$this->value;
 				if (strpos($formatted, '.') === false) {
 					$formatted .= '.0';
 				}
@@ -73,16 +73,17 @@ class ConstantFloatType extends FloatType implements ConstantScalarType
 
 	public function toString(): Type
 	{
-		return new ConstantStringType((string) $this->value);
+		return new ConstantStringType((string)$this->value);
 	}
 
 	public function toInteger(): Type
 	{
-		return new ConstantIntegerType((int) $this->value);
+		return new ConstantIntegerType((int)$this->value);
 	}
 
 	/**
 	 * @param mixed[] $properties
+	 *
 	 * @return Type
 	 */
 	public static function __set_state(array $properties): Type

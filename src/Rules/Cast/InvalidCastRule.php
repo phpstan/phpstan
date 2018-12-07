@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Cast;
 
@@ -35,7 +35,8 @@ class InvalidCastRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\Cast $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope   $scope
+	 *
 	 * @return string[] errors
 	 */
 	public function processNode(Node $node, Scope $scope): array
@@ -74,7 +75,7 @@ class InvalidCastRule implements \PHPStan\Rules\Rule
 
 		$castType = $castTypeCallback($type);
 		if ($castType instanceof ErrorType) {
-			$classReflection = $this->broker->getClass(get_class($node));
+			$classReflection = $this->broker->getClass(\get_class($node));
 			$shortName = $classReflection->getNativeReflection()->getShortName();
 			$shortName = strtolower($shortName);
 			if ($shortName === 'double') {

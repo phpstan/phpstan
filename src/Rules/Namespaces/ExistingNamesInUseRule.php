@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Namespaces;
 
@@ -37,7 +37,8 @@ class ExistingNamesInUseRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Stmt\Use_ $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope   $scope
+	 *
 	 * @return string[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
@@ -65,6 +66,7 @@ class ExistingNamesInUseRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Stmt\UseUse[] $uses
+	 *
 	 * @return string[]
 	 */
 	private function checkConstants(array $uses): array
@@ -75,7 +77,7 @@ class ExistingNamesInUseRule implements \PHPStan\Rules\Rule
 				continue;
 			}
 
-			$messages[] = sprintf('Used constant %s not found.', (string) $use->name);
+			$messages[] = sprintf('Used constant %s not found.', (string)$use->name);
 		}
 
 		return $messages;
@@ -83,6 +85,7 @@ class ExistingNamesInUseRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Stmt\UseUse[] $uses
+	 *
 	 * @return string[]
 	 */
 	private function checkFunctions(array $uses): array
@@ -90,11 +93,11 @@ class ExistingNamesInUseRule implements \PHPStan\Rules\Rule
 		$messages = [];
 		foreach ($uses as $use) {
 			if (!$this->broker->hasFunction($use->name, null)) {
-				$messages[] = sprintf('Used function %s not found.', (string) $use->name);
+				$messages[] = sprintf('Used function %s not found.', (string)$use->name);
 			} elseif ($this->checkFunctionNameCase) {
 				$functionReflection = $this->broker->getFunction($use->name, null);
 				$realName = $functionReflection->getName();
-				$usedName = (string) $use->name;
+				$usedName = (string)$use->name;
 				if (
 					strtolower($realName) === strtolower($usedName)
 					&& $realName !== $usedName
@@ -113,14 +116,18 @@ class ExistingNamesInUseRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Stmt\UseUse[] $uses
+	 *
 	 * @return string[]
 	 */
 	private function checkClasses(array $uses): array
 	{
 		return $this->classCaseSensitivityCheck->checkClassNames(
-			array_map(static function (\PhpParser\Node\Stmt\UseUse $use): string {
-				return (string) $use->name;
-			}, $uses)
+			array_map(
+				static function (\PhpParser\Node\Stmt\UseUse $use): string {
+					return (string)$use->name;
+				},
+				$uses
+			)
 		);
 	}
 

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Php;
 
@@ -27,20 +27,21 @@ class VersionCompareFunctionDynamicReturnTypeExtension implements \PHPStan\Type\
 		Scope $scope
 	): Type
 	{
-		if (count($functionCall->args) < 2) {
-			return ParametersAcceptorSelector::selectFromArgs($scope, $functionCall->args, $functionReflection->getVariants())->getReturnType();
+		if (\count($functionCall->args) < 2) {
+			return ParametersAcceptorSelector::selectFromArgs($scope, $functionCall->args, $functionReflection->getVariants())
+			                                 ->getReturnType();
 		}
 
 		$version1Strings = TypeUtils::getConstantStrings($scope->getType($functionCall->args[0]->value));
 		$version2Strings = TypeUtils::getConstantStrings($scope->getType($functionCall->args[1]->value));
 		$counts = [
-			count($version1Strings),
-			count($version2Strings),
+			\count($version1Strings),
+			\count($version2Strings),
 		];
 
 		if (isset($functionCall->args[2])) {
 			$operatorStrings = TypeUtils::getConstantStrings($scope->getType($functionCall->args[2]->value));
-			$counts[] = count($operatorStrings);
+			$counts[] = \count($operatorStrings);
 			$returnType = new BooleanType();
 		} else {
 			$returnType = TypeCombinator::union(
@@ -50,15 +51,25 @@ class VersionCompareFunctionDynamicReturnTypeExtension implements \PHPStan\Type\
 			);
 		}
 
-		if (count(array_filter($counts, static function (int $count): bool {
-				return $count === 0;
-		})) > 0) {
+		if (\count(
+			    array_filter(
+				    $counts,
+				    static function (int $count): bool {
+					    return $count === 0;
+				    }
+			    )
+		    ) > 0) {
 			return $returnType; // one of the arguments is not a constant string
 		}
 
-		if (count(array_filter($counts, static function (int $count): bool {
-				return $count > 1;
-		})) > 1) {
+		if (\count(
+			    array_filter(
+				    $counts,
+				    static function (int $count): bool {
+					    return $count > 1;
+				    }
+			    )
+		    ) > 1) {
 			return $returnType; // more than one argument can have multiple possibilities, avoid combinatorial explosion
 		}
 
@@ -76,6 +87,7 @@ class VersionCompareFunctionDynamicReturnTypeExtension implements \PHPStan\Type\
 				}
 			}
 		}
+
 		return TypeCombinator::union(...$types);
 	}
 

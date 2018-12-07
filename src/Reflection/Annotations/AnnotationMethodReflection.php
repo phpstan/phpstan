@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Reflection\Annotations;
 
@@ -33,12 +33,12 @@ class AnnotationMethodReflection implements MethodReflection
 	private $variants;
 
 	/**
-	 * @param string $name
-	 * @param ClassReflection $declaringClass
-	 * @param Type $returnType
+	 * @param string                                                                 $name
+	 * @param ClassReflection                                                        $declaringClass
+	 * @param Type                                                                   $returnType
 	 * @param \PHPStan\Reflection\Annotations\AnnotationsMethodParameterReflection[] $parameters
-	 * @param bool $isStatic
-	 * @param bool $isVariadic
+	 * @param bool                                                                   $isStatic
+	 * @param bool                                                                   $isVariadic
 	 */
 	public function __construct(
 		string $name,
@@ -101,6 +101,7 @@ class AnnotationMethodReflection implements MethodReflection
 				),
 			];
 		}
+
 		return $this->variants;
 	}
 

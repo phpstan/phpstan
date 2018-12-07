@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules;
 
@@ -14,8 +14,9 @@ interface Rule
 	public function getNodeType(): string;
 
 	/**
-	 * @param \PhpParser\Node $node
+	 * @param \PhpParser\Node         $node
 	 * @param \PHPStan\Analyser\Scope $scope
+	 *
 	 * @return string[] errors
 	 */
 	public function processNode(Node $node, Scope $scope): array;

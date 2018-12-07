@@ -71,20 +71,25 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 		return [
 			[
 				new ArrayType(new MixedType(), new StringType()),
-				new UnionType([
-					new ConstantArrayType([], []),
-					new ConstantArrayType(
-						[new ConstantIntegerType(0)],
-						[new MixedType()]
-					),
-					new ConstantArrayType([
-						new ConstantIntegerType(0),
-						new ConstantIntegerType(1),
-					], [
-						new StringType(),
-						new MixedType(),
-					]),
-				]),
+				new UnionType(
+					[
+						new ConstantArrayType([], []),
+						new ConstantArrayType(
+							[new ConstantIntegerType(0)],
+							[new MixedType()]
+						),
+						new ConstantArrayType(
+							[
+								new ConstantIntegerType(0),
+								new ConstantIntegerType(1),
+							],
+							[
+								new StringType(),
+								new MixedType(),
+							]
+						),
+					]
+				),
 				TrinaryLogic::createYes(),
 			],
 		];
@@ -114,10 +119,15 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				new ArrayType(new BenevolentUnionType([
-					new IntegerType(),
-					new StringType(),
-				]), new IntegerType()),
+				new ArrayType(
+					new BenevolentUnionType(
+						[
+							new IntegerType(),
+							new StringType(),
+						]
+					),
+					new IntegerType()
+				),
 				'array<int>',
 			],
 		];

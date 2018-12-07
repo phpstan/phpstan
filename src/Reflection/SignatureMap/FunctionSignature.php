@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Reflection\SignatureMap;
 
@@ -18,8 +18,8 @@ class FunctionSignature
 
 	/**
 	 * @param array<int, \PHPStan\Reflection\SignatureMap\ParameterSignature> $parameters
-	 * @param \PHPStan\Type\Type $returnType
-	 * @param bool $variadic
+	 * @param \PHPStan\Type\Type                                              $returnType
+	 * @param bool                                                            $variadic
 	 */
 	public function __construct(
 		array $parameters,

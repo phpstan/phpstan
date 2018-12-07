@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Analyser;
 
@@ -25,11 +25,11 @@ class ScopeFactory
 	private $dynamicConstantNames;
 
 	/**
-	 * @param string $scopeClass
-	 * @param \PHPStan\Broker\Broker $broker
+	 * @param string                            $scopeClass
+	 * @param \PHPStan\Broker\Broker            $broker
 	 * @param \PhpParser\PrettyPrinter\Standard $printer
-	 * @param \PHPStan\Analyser\TypeSpecifier $typeSpecifier
-	 * @param string[] $dynamicConstantNames
+	 * @param \PHPStan\Analyser\TypeSpecifier   $typeSpecifier
+	 * @param string[]                          $dynamicConstantNames
 	 */
 	public function __construct(
 		string $scopeClass,
@@ -47,18 +47,18 @@ class ScopeFactory
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\ScopeContext $context
-	 * @param bool $declareStrictTypes
-	 * @param \PHPStan\Reflection\FunctionReflection|\PHPStan\Reflection\MethodReflection|null $function
-	 * @param string|null $namespace
-	 * @param \PHPStan\Analyser\VariableTypeHolder[] $variablesTypes
-	 * @param \PHPStan\Analyser\VariableTypeHolder[] $moreSpecificTypes
-	 * @param string|null $inClosureBindScopeClass
-	 * @param \PHPStan\Type\Type|null $inAnonymousFunctionReturnType
+	 * @param \PHPStan\Analyser\ScopeContext                                                                     $context
+	 * @param bool                                                                                               $declareStrictTypes
+	 * @param \PHPStan\Reflection\FunctionReflection|\PHPStan\Reflection\MethodReflection|null                   $function
+	 * @param string|null                                                                                        $namespace
+	 * @param \PHPStan\Analyser\VariableTypeHolder[]                                                             $variablesTypes
+	 * @param \PHPStan\Analyser\VariableTypeHolder[]                                                             $moreSpecificTypes
+	 * @param string|null                                                                                        $inClosureBindScopeClass
+	 * @param \PHPStan\Type\Type|null                                                                            $inAnonymousFunctionReturnType
 	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null $inFunctionCall
-	 * @param bool $negated
-	 * @param bool $inFirstLevelStatement
-	 * @param string[] $currentlyAssignedExpressions
+	 * @param bool                                                                                               $negated
+	 * @param bool                                                                                               $inFirstLevelStatement
+	 * @param string[]                                                                                           $currentlyAssignedExpressions
 	 *
 	 * @return Scope
 	 */

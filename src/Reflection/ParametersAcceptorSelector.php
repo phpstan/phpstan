@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Reflection;
 
@@ -13,13 +13,14 @@ class ParametersAcceptorSelector
 
 	/**
 	 * @param ParametersAcceptor[] $parametersAcceptors
+	 *
 	 * @return ParametersAcceptor
 	 */
 	public static function selectSingle(
 		array $parametersAcceptors
 	): ParametersAcceptor
 	{
-		if (count($parametersAcceptors) !== 1) {
+		if (\count($parametersAcceptors) !== 1) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
@@ -27,9 +28,10 @@ class ParametersAcceptorSelector
 	}
 
 	/**
-	 * @param Scope $scope
+	 * @param Scope                 $scope
 	 * @param \PhpParser\Node\Arg[] $args
-	 * @param ParametersAcceptor[] $parametersAcceptors
+	 * @param ParametersAcceptor[]  $parametersAcceptors
+	 *
 	 * @return ParametersAcceptor
 	 */
 	public static function selectFromArgs(
@@ -38,7 +40,7 @@ class ParametersAcceptorSelector
 		array $parametersAcceptors
 	): ParametersAcceptor
 	{
-		if (count($parametersAcceptors) === 1) {
+		if (\count($parametersAcceptors) === 1) {
 			return $parametersAcceptors[0];
 		}
 
@@ -60,7 +62,8 @@ class ParametersAcceptorSelector
 	/**
 	 * @param \PHPStan\Type\Type[] $types
 	 * @param ParametersAcceptor[] $parametersAcceptors
-	 * @param bool $unpack
+	 * @param bool                 $unpack
+	 *
 	 * @return ParametersAcceptor
 	 */
 	public static function selectFromTypes(
@@ -69,11 +72,12 @@ class ParametersAcceptorSelector
 		bool $unpack
 	): ParametersAcceptor
 	{
-		if (count($parametersAcceptors) === 1) {
+		if (\count($parametersAcceptors) === 1) {
 			return $parametersAcceptors[0];
 		}
 
-		$typesCount = count($types);
+		$typesCount = \count($types);
+		/* @var $acceptableAcceptors ParametersAcceptor[] */
 		$acceptableAcceptors = [];
 
 		foreach ($parametersAcceptors as $parametersAcceptor) {
@@ -85,6 +89,7 @@ class ParametersAcceptorSelector
 			$functionParametersMinCount = 0;
 			$functionParametersMaxCount = 0;
 			foreach ($parametersAcceptor->getParameters() as $parameter) {
+				/* @var $parameter \PHPStan\Reflection\ParameterReflection */
 				if (!$parameter->isOptional()) {
 					$functionParametersMinCount++;
 				}
@@ -97,8 +102,9 @@ class ParametersAcceptorSelector
 			}
 
 			if (
+				$typesCount > $functionParametersMaxCount
+				&&
 				!$parametersAcceptor->isVariadic()
-				&& $typesCount > $functionParametersMaxCount
 			) {
 				continue;
 			}
@@ -106,11 +112,11 @@ class ParametersAcceptorSelector
 			$acceptableAcceptors[] = $parametersAcceptor;
 		}
 
-		if (count($acceptableAcceptors) === 0) {
+		if (\count($acceptableAcceptors) === 0) {
 			return self::combineAcceptors($parametersAcceptors);
 		}
 
-		if (count($acceptableAcceptors) === 1) {
+		if (\count($acceptableAcceptors) === 1) {
 			return $acceptableAcceptors[0];
 		}
 
@@ -119,14 +125,14 @@ class ParametersAcceptorSelector
 		foreach ($acceptableAcceptors as $acceptableAcceptor) {
 			$isSuperType = TrinaryLogic::createYes();
 			foreach ($acceptableAcceptor->getParameters() as $i => $parameter) {
-				if (!isset($types[$i])) {
-					if (!$unpack || count($types) <= 0) {
+				if (isset($types[$i])) {
+					$type = $types[$i];
+				} else {
+					if (!$unpack || \count($types) <= 0) {
 						break;
 					}
 
-					$type = $types[count($types) - 1];
-				} else {
-					$type = $types[$i];
+					$type = $types[\count($types) - 1];
 				}
 
 				if ($parameter->getType() instanceof MixedType) {
@@ -144,6 +150,7 @@ class ParametersAcceptorSelector
 				$winningAcceptors[] = $acceptableAcceptor;
 				$winningCertainty = $isSuperType;
 			} else {
+				/* @var $winningCertainty TrinaryLogic */
 				$comparison = $winningCertainty->compareTo($isSuperType);
 				if ($comparison === $isSuperType) {
 					$winningAcceptors = [$acceptableAcceptor];
@@ -154,7 +161,7 @@ class ParametersAcceptorSelector
 			}
 		}
 
-		if (count($winningAcceptors) === 0) {
+		if (\count($winningAcceptors) === 0) {
 			return self::combineAcceptors($acceptableAcceptors);
 		}
 
@@ -163,11 +170,12 @@ class ParametersAcceptorSelector
 
 	/**
 	 * @param ParametersAcceptor[] $acceptors
+	 *
 	 * @return ParametersAcceptor
 	 */
 	public static function combineAcceptors(array $acceptors): ParametersAcceptor
 	{
-		if (count($acceptors) === 1) {
+		if (\count($acceptors) === 1) {
 			return $acceptors[0];
 		}
 
@@ -175,6 +183,7 @@ class ParametersAcceptorSelector
 		foreach ($acceptors as $acceptor) {
 			$acceptorParametersMinCount = 0;
 			foreach ($acceptor->getParameters() as $parameter) {
+				/* @var $parameter \PHPStan\Reflection\ParameterReflection */
 				if ($parameter->isOptional()) {
 					continue;
 				}
@@ -224,7 +233,7 @@ class ParametersAcceptorSelector
 				);
 
 				if ($isVariadic) {
-					$parameters = array_slice($parameters, 0, $i + 1);
+					$parameters = \array_slice($parameters, 0, $i + 1);
 					break;
 				}
 			}

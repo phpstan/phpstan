@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type;
 
@@ -15,7 +15,7 @@ class CallableTypeHelper
 	{
 		$theirParameters = $theirs->getParameters();
 		$ourParameters = $ours->getParameters();
-		if (count($theirParameters) > count($ourParameters)) {
+		if (\count($theirParameters) > \count($ourParameters)) {
 			return TrinaryLogic::createNo();
 		}
 

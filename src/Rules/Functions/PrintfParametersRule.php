@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Functions;
 
@@ -17,7 +17,8 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\FuncCall $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope       $scope
+	 *
 	 * @return string[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
@@ -27,19 +28,19 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 		}
 
 		$functionsArgumentPositions = [
-			'printf' => 0,
+			'printf'  => 0,
 			'sprintf' => 0,
-			'sscanf' => 1,
-			'fscanf' => 1,
+			'sscanf'  => 1,
+			'fscanf'  => 1,
 		];
 		$minimumNumberOfArguments = [
-			'printf' => 1,
+			'printf'  => 1,
 			'sprintf' => 1,
-			'sscanf' => 3,
-			'fscanf' => 3,
+			'sscanf'  => 3,
+			'fscanf'  => 3,
 		];
 
-		$name = strtolower((string) $node->name);
+		$name = strtolower((string)$node->name);
 		if (!isset($functionsArgumentPositions[$name])) {
 			return [];
 		}
@@ -47,7 +48,7 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 		$formatArgumentPosition = $functionsArgumentPositions[$name];
 
 		$args = $node->args;
-		$argsCount = count($args);
+		$argsCount = \count($args);
 		if ($argsCount < $minimumNumberOfArguments[$name]) {
 			return []; // caught by CallToFunctionParametersRule
 		}
@@ -87,20 +88,28 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 
 	private function getPlaceholdersCount(string $functionName, string $format): int
 	{
-		$specifiers = in_array($functionName, ['sprintf', 'printf'], true) ? '[bcdeEfFgGosuxX]' : '(?:[cdDeEfinosuxX]|\[[^\]]+\])';
+		$specifiers = \in_array(
+			$functionName, [
+			'sprintf',
+			'printf',
+		], true
+		) ? '[bcdeEfFgGosuxX]' : '(?:[cdDeEfinosuxX]|\[[^\]]+\])';
 		$pattern = '~(?<before>%*)%(?:(?<position>\d+)\$)?[-+]?(?:[ 0]|(?:\'[^%]))?-?\d*(?:\.\d*)?' . $specifiers . '~';
 
 		$matches = \Nette\Utils\Strings::matchAll($format, $pattern, PREG_SET_ORDER);
 
-		if (count($matches) === 0) {
+		if (\count($matches) === 0) {
 			return 0;
 		}
 
-		$placeholders = array_filter($matches, static function (array $match): bool {
-			return strlen($match['before']) % 2 === 0;
-		});
+		$placeholders = array_filter(
+			$matches,
+			static function (array $match): bool {
+				return \strlen($match['before']) % 2 === 0;
+			}
+		);
 
-		if (count($placeholders) === 0) {
+		if (\count($placeholders) === 0) {
 			return 0;
 		}
 
@@ -108,7 +117,7 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 		$maxOrdinaryNumber = 0;
 		foreach ($placeholders as $placeholder) {
 			if (isset($placeholder['position']) && $placeholder['position'] !== '') {
-				$maxPositionedNumber = max((int) $placeholder['position'], $maxPositionedNumber);
+				$maxPositionedNumber = max((int)$placeholder['position'], $maxPositionedNumber);
 			} else {
 				$maxOrdinaryNumber++;
 			}

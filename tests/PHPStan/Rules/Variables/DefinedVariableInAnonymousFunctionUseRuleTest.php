@@ -16,32 +16,35 @@ class DefinedVariableInAnonymousFunctionUseRuleTest extends \PHPStan\Testing\Rul
 	public function testDefinedVariables(): void
 	{
 		$this->checkMaybeUndefinedVariables = true;
-		$this->analyse([__DIR__ . '/data/defined-variables-anonymous-function-use.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/defined-variables-anonymous-function-use.php'],
 			[
-				'Undefined variable: $bar',
-				5,
-			],
-			[
-				'Undefined variable: $wrongErrorHandler',
-				22,
-			],
-			[
-				'Variable $onlyInIf might not be defined.',
-				23,
-			],
-			[
-				'Variable $forI might not be defined.',
-				24,
-			],
-			[
-				'Variable $forJ might not be defined.',
-				25,
-			],
-			[
-				'Variable $anotherVariableFromForCond might not be defined.',
-				26,
-			],
-		]);
+				[
+					'Undefined variable: $bar',
+					5,
+				],
+				[
+					'Undefined variable: $wrongErrorHandler',
+					22,
+				],
+				[
+					'Variable $onlyInIf might not be defined.',
+					23,
+				],
+				[
+					'Variable $forI might not be defined.',
+					24,
+				],
+				[
+					'Variable $forJ might not be defined.',
+					25,
+				],
+				[
+					'Variable $anotherVariableFromForCond might not be defined.',
+					26,
+				],
+			]
+		);
 	}
 
 }

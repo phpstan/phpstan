@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Analyser;
 
@@ -45,6 +45,7 @@ class ScopeContext
 		if ($classReflection->isTrait()) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
+
 		return new self($this->file, $classReflection, null);
 	}
 

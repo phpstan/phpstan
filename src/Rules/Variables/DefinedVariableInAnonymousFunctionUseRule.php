@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Variables;
 
@@ -26,12 +26,13 @@ class DefinedVariableInAnonymousFunctionUseRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\ClosureUse $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope         $scope
+	 *
 	 * @return string[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		if ($node->byRef || !is_string($node->var->name)) {
+		if ($node->byRef || !\is_string($node->var->name)) {
 			return [];
 		}
 

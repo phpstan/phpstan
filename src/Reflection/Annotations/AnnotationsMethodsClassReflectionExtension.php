@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Reflection\Annotations;
 
@@ -38,6 +38,7 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 	/**
 	 * @param ClassReflection $classReflection
 	 * @param ClassReflection $declaringClass
+	 *
 	 * @return MethodReflection[]
 	 */
 	private function createMethods(
@@ -71,8 +72,10 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 
 		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, $classReflection->getName(), null, $docComment);
 		foreach ($resolvedPhpDoc->getMethodTags() as $methodName => $methodTag) {
+			/* @var $methodTag \PHPStan\PhpDoc\Tag\MethodTag */
 			$parameters = [];
 			foreach ($methodTag->getParameters() as $parameterName => $parameterTag) {
+				/* @var $parameterTag \PHPStan\PhpDoc\Tag\MethodTagParameter */
 				$parameters[] = new AnnotationsMethodParameterReflection(
 					$parameterName,
 					$parameterTag->getType(),
@@ -91,11 +94,13 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 				$this->detectMethodVariadic($parameters)
 			);
 		}
+
 		return $methods;
 	}
 
 	/**
 	 * @param AnnotationsMethodParameterReflection[] $parameters
+	 *
 	 * @return bool
 	 */
 	private function detectMethodVariadic(array $parameters): bool
@@ -104,10 +109,9 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 			return false;
 		}
 
-		$possibleVariadicParameterIndex = count($parameters) - 1;
-		$possibleVariadicParameter = $parameters[$possibleVariadicParameterIndex];
+		$possibleVariadicParameterIndex = \count($parameters) - 1;
 
-		return $possibleVariadicParameter->isVariadic();
+		return $parameters[$possibleVariadicParameterIndex]->isVariadic();
 	}
 
 }

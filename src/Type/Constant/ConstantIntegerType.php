@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type\Constant;
 
@@ -46,11 +46,12 @@ class ConstantIntegerType extends IntegerType implements ConstantScalarType
 
 	public function toString(): Type
 	{
-		return new ConstantStringType((string) $this->value);
+		return new ConstantStringType((string)$this->value);
 	}
 
 	/**
 	 * @param mixed[] $properties
+	 *
 	 * @return Type
 	 */
 	public static function __set_state(array $properties): Type

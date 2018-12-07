@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Analyser;
 
@@ -18,9 +18,9 @@ class StatementList
 	private $processScope;
 
 	/**
-	 * @param Scope $scope
+	 * @param Scope             $scope
 	 * @param \PhpParser\Node[] $statements
-	 * @param bool $filterByTruthyValue
+	 * @param bool              $filterByTruthyValue
 	 * @param callable(Scope $scope): Scope|null $processScope
 	 */
 	public function __construct(

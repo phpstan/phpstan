@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\PhpDoc\Tag;
 
@@ -17,8 +17,8 @@ class MethodTag
 	private $parameters;
 
 	/**
-	 * @param \PHPStan\Type\Type $returnType
-	 * @param bool $isStatic
+	 * @param \PHPStan\Type\Type                                    $returnType
+	 * @param bool                                                  $isStatic
 	 * @param array<string, \PHPStan\PhpDoc\Tag\MethodTagParameter> $parameters
 	 */
 	public function __construct(
@@ -52,6 +52,7 @@ class MethodTag
 
 	/**
 	 * @param mixed[] $properties
+	 *
 	 * @return self
 	 */
 	public static function __set_state(array $properties): self

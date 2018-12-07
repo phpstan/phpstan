@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Classes;
 
@@ -41,13 +41,14 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\New_ $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope   $scope
+	 *
 	 * @return string[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
 		if ($node->class instanceof \PhpParser\Node\Name) {
-			$class = (string) $node->class;
+			$class = (string)$node->class;
 		} elseif ($node->class instanceof Node\Stmt\Class_) {
 			$anonymousClassType = $scope->getType($node);
 			if (!$anonymousClassType instanceof ObjectType) {
@@ -67,6 +68,7 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 					sprintf('Using %s outside of class scope.', $class),
 				];
 			}
+
 			return [];
 		} elseif ($lowercasedClass === 'self') {
 			if (!$scope->isInClass()) {
@@ -117,13 +119,16 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 		}
 
 		if (!$classReflection->hasConstructor()) {
-			if (count($node->args) > 0) {
-				return array_merge($messages, [
-					sprintf(
-						'Class %s does not have a constructor and must be instantiated without any parameters.',
-						$classReflection->getDisplayName()
-					),
-				]);
+			if (\count($node->args) > 0) {
+				return array_merge(
+					$messages,
+					[
+						sprintf(
+							'Class %s does not have a constructor and must be instantiated without any parameters.',
+							$classReflection->getDisplayName()
+						),
+					]
+				);
 			}
 
 			return $messages;
@@ -140,26 +145,29 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 			);
 		}
 
-		return array_merge($messages, $this->check->check(
-			ParametersAcceptorSelector::selectFromArgs(
+		return array_merge(
+			$messages,
+			$this->check->check(
+				ParametersAcceptorSelector::selectFromArgs(
+					$scope,
+					$node->args,
+					$constructorReflection->getVariants()
+				),
 				$scope,
-				$node->args,
-				$constructorReflection->getVariants()
-			),
-			$scope,
-			$node,
-			[
-				'Class ' . $classReflection->getDisplayName() . ' constructor invoked with %d parameter, %d required.',
-				'Class ' . $classReflection->getDisplayName() . ' constructor invoked with %d parameters, %d required.',
-				'Class ' . $classReflection->getDisplayName() . ' constructor invoked with %d parameter, at least %d required.',
-				'Class ' . $classReflection->getDisplayName() . ' constructor invoked with %d parameters, at least %d required.',
-				'Class ' . $classReflection->getDisplayName() . ' constructor invoked with %d parameter, %d-%d required.',
-				'Class ' . $classReflection->getDisplayName() . ' constructor invoked with %d parameters, %d-%d required.',
-				'Parameter #%d %s of class ' . $classReflection->getDisplayName() . ' constructor expects %s, %s given.',
-				'', // constructor does not have a return type
-				'Parameter #%d %s of class ' . $classReflection->getDisplayName() . ' constructor is passed by reference, so it expects variables only',
-			]
-		));
+				$node,
+				[
+					'Class ' . $classReflection->getDisplayName() . ' constructor invoked with %d parameter, %d required.',
+					'Class ' . $classReflection->getDisplayName() . ' constructor invoked with %d parameters, %d required.',
+					'Class ' . $classReflection->getDisplayName() . ' constructor invoked with %d parameter, at least %d required.',
+					'Class ' . $classReflection->getDisplayName() . ' constructor invoked with %d parameters, at least %d required.',
+					'Class ' . $classReflection->getDisplayName() . ' constructor invoked with %d parameter, %d-%d required.',
+					'Class ' . $classReflection->getDisplayName() . ' constructor invoked with %d parameters, %d-%d required.',
+					'Parameter #%d %s of class ' . $classReflection->getDisplayName() . ' constructor expects %s, %s given.',
+					'', // constructor does not have a return type
+					'Parameter #%d %s of class ' . $classReflection->getDisplayName() . ' constructor is passed by reference, so it expects variables only',
+				]
+			)
+		);
 	}
 
 }

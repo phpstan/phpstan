@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Variables;
 
@@ -16,7 +16,8 @@ class VariableCertaintyInIssetRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\Isset_ $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope     $scope
+	 *
 	 * @return string[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
@@ -40,7 +41,7 @@ class VariableCertaintyInIssetRule implements \PHPStan\Rules\Rule
 				$isSubNode = true;
 			}
 
-			if (!$var instanceof Node\Expr\Variable || !is_string($var->name)) {
+			if (!$var instanceof Node\Expr\Variable || !\is_string($var->name)) {
 				continue;
 			}
 

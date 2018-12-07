@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Reflection\PhpDefect;
 
@@ -12,153 +12,153 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 
 	/** @var array<string, array<string, string>> */
 	private static $defaultProperties = [
-		\DateInterval::class => [
-			'y' => 'int',
-			'm' => 'int',
-			'd' => 'int',
-			'h' => 'int',
-			'i' => 'int',
-			's' => 'int',
+		\DateInterval::class       => [
+			'y'      => 'int',
+			'm'      => 'int',
+			'd'      => 'int',
+			'h'      => 'int',
+			'i'      => 'int',
+			's'      => 'int',
 			'invert' => 'int',
-			'days' => 'mixed',
-			'f' => 'float',
+			'days'   => 'mixed',
+			'f'      => 'float',
 		],
-		\DatePeriod::class => [
-			'recurrences' => 'int',
+		\DatePeriod::class         => [
+			'recurrences'        => 'int',
 			'include_start_date' => 'bool',
-			'start' => \DateTimeInterface::class,
-			'current' => \DateTimeInterface::class,
-			'end' => \DateTimeInterface::class,
-			'interval' => \DateInterval::class,
+			'start'              => \DateTimeInterface::class,
+			'current'            => \DateTimeInterface::class,
+			'end'                => \DateTimeInterface::class,
+			'interval'           => \DateInterval::class,
 		],
-		'Directory' => [
+		'Directory'                => [
 			'handle' => 'resource',
-			'path' => 'string',
+			'path'   => 'string',
 		],
-		'DOMAttr' => [ // extends DOMNode
-			'name' => 'string',
-			'ownerElement' => 'DOMElement',
-			'schemaTypeInfo' => 'bool',
-			'specified' => 'bool',
-			'value' => 'string',
+		'DOMAttr'                  => [ // extends DOMNode
+		                                'name'           => 'string',
+		                                'ownerElement'   => 'DOMElement',
+		                                'schemaTypeInfo' => 'bool',
+		                                'specified'      => 'bool',
+		                                'value'          => 'string',
 		],
-		'DOMCharacterData' => [ // extends DOMNode
-			'data' => 'string',
-			'length' => 'int',
+		'DOMCharacterData'         => [ // extends DOMNode
+		                                'data'   => 'string',
+		                                'length' => 'int',
 		],
-		'DOMDocument' => [
-			'actualEncoding' => 'string',
-			'config' => 'DOMConfiguration',
-			'doctype' => 'DOMDocumentType',
-			'documentElement' => 'DOMElement',
-			'documentURI' => 'string',
-			'encoding' => 'string',
-			'formatOutput' => 'bool',
-			'implementation' => 'DOMImplementation',
-			'preserveWhiteSpace' => 'bool',
-			'recover' => 'bool',
-			'resolveExternals' => 'bool',
-			'standalone' => 'bool',
+		'DOMDocument'              => [
+			'actualEncoding'      => 'string',
+			'config'              => 'DOMConfiguration',
+			'doctype'             => 'DOMDocumentType',
+			'documentElement'     => 'DOMElement',
+			'documentURI'         => 'string',
+			'encoding'            => 'string',
+			'formatOutput'        => 'bool',
+			'implementation'      => 'DOMImplementation',
+			'preserveWhiteSpace'  => 'bool',
+			'recover'             => 'bool',
+			'resolveExternals'    => 'bool',
+			'standalone'          => 'bool',
 			'strictErrorChecking' => 'bool',
-			'substituteEntities' => 'bool',
-			'validateOnParse' => 'bool',
-			'version' => 'string',
-			'xmlEncoding' => 'string',
-			'xmlStandalone' => 'bool',
-			'xmlVersion' => 'string',
+			'substituteEntities'  => 'bool',
+			'validateOnParse'     => 'bool',
+			'version'             => 'string',
+			'xmlEncoding'         => 'string',
+			'xmlStandalone'       => 'bool',
+			'xmlVersion'          => 'string',
 		],
-		'DOMDocumentType' => [ // extends DOMNode
-			'publicId' => 'string',
-			'systemId' => 'string',
-			'name' => 'string',
-			'entities' => 'DOMNamedNodeMap',
-			'notations' => 'DOMNamedNodeMap',
-			'internalSubset' => 'string',
+		'DOMDocumentType'          => [ // extends DOMNode
+		                                'publicId'       => 'string',
+		                                'systemId'       => 'string',
+		                                'name'           => 'string',
+		                                'entities'       => 'DOMNamedNodeMap',
+		                                'notations'      => 'DOMNamedNodeMap',
+		                                'internalSubset' => 'string',
 		],
-		'DOMElement' => [ // extends DOMNode
-			'schemaTypeInfo' => 'bool',
-			'tagName' => 'string',
+		'DOMElement'               => [ // extends DOMNode
+		                                'schemaTypeInfo' => 'bool',
+		                                'tagName'        => 'string',
 		],
-		'DOMEntity' => [ // extends DOMNode
-			'publicId' => 'string',
-			'systemId' => 'string',
-			'notationName' => 'string',
-			'actualEncoding' => 'string',
-			'encoding' => 'string',
-			'version' => 'string',
+		'DOMEntity'                => [ // extends DOMNode
+		                                'publicId'       => 'string',
+		                                'systemId'       => 'string',
+		                                'notationName'   => 'string',
+		                                'actualEncoding' => 'string',
+		                                'encoding'       => 'string',
+		                                'version'        => 'string',
 		],
-		'DOMNamedNodeMap' => [
+		'DOMNamedNodeMap'          => [
 			'length' => 'int',
 		],
-		'DOMNode' => [
-			'nodeName' => 'string',
-			'nodeValue' => 'string',
-			'nodeType' => 'int',
-			'parentNode' => 'DOMNode',
-			'childNodes' => 'DOMNodeList',
-			'firstChild' => 'DOMNode',
-			'lastChild' => 'DOMNode',
+		'DOMNode'                  => [
+			'nodeName'        => 'string',
+			'nodeValue'       => 'string',
+			'nodeType'        => 'int',
+			'parentNode'      => 'DOMNode',
+			'childNodes'      => 'DOMNodeList',
+			'firstChild'      => 'DOMNode',
+			'lastChild'       => 'DOMNode',
 			'previousSibling' => 'DOMNode',
-			'nextSibling' => 'DOMNode',
-			'attributes' => 'DOMNamedNodeMap',
-			'ownerDocument' => 'DOMDocument',
-			'namespaceURI' => 'string',
-			'prefix' => 'string',
-			'localName' => 'string',
-			'baseURI' => 'string',
-			'textContent' => 'string',
+			'nextSibling'     => 'DOMNode',
+			'attributes'      => 'DOMNamedNodeMap',
+			'ownerDocument'   => 'DOMDocument',
+			'namespaceURI'    => 'string',
+			'prefix'          => 'string',
+			'localName'       => 'string',
+			'baseURI'         => 'string',
+			'textContent'     => 'string',
 		],
-		'DOMNodeList' => [
+		'DOMNodeList'              => [
 			'length' => 'int',
 		],
-		'DOMNotation' => [ // extends DOMNode
-			'publicId' => 'string',
-			'systemId' => 'string',
+		'DOMNotation'              => [ // extends DOMNode
+		                                'publicId' => 'string',
+		                                'systemId' => 'string',
 		],
 		'DOMProcessingInstruction' => [ // extends DOMNode
-			'target' => 'string',
-			'data' => 'string',
+		                                'target' => 'string',
+		                                'data'   => 'string',
 		],
-		'DOMText' => [ // extends DOMCharacterData
-			'wholeText' => 'string',
+		'DOMText'                  => [ // extends DOMCharacterData
+		                                'wholeText' => 'string',
 		],
-		'DOMXPath' => [ // extends DOMCharacterData
-			'document' => 'DOMDocument',
+		'DOMXPath'                 => [ // extends DOMCharacterData
+		                                'document' => 'DOMDocument',
 		],
-		'Ds\\Pair' => [
-			'key' => 'mixed',
+		'Ds\\Pair'                 => [
+			'key'   => 'mixed',
 			'value' => 'mixed',
 		],
-		'XMLReader' => [
+		'XMLReader'                => [
 			'attributeCount' => 'int',
-			'baseURI' => 'string',
-			'depth' => 'int',
-			'hasAttributes' => 'bool',
-			'hasValue' => 'bool',
-			'isDefault' => 'bool',
+			'baseURI'        => 'string',
+			'depth'          => 'int',
+			'hasAttributes'  => 'bool',
+			'hasValue'       => 'bool',
+			'isDefault'      => 'bool',
 			'isEmptyElement' => 'bool',
-			'localName' => 'string',
-			'name' => 'string',
-			'namespaceURI' => 'string',
-			'nodeType' => 'int',
-			'prefix' => 'string',
-			'value' => 'string',
-			'xmlLang' => 'string',
+			'localName'      => 'string',
+			'name'           => 'string',
+			'namespaceURI'   => 'string',
+			'nodeType'       => 'int',
+			'prefix'         => 'string',
+			'value'          => 'string',
+			'xmlLang'        => 'string',
 		],
-		'ZipArchive' => [
-			'status' => 'int',
+		'ZipArchive'               => [
+			'status'    => 'int',
 			'statusSys' => 'int',
-			'numFiles' => 'int',
-			'filename' => 'string',
-			'comment' => 'string',
+			'numFiles'  => 'int',
+			'filename'  => 'string',
+			'comment'   => 'string',
 		],
-		'LibXMLError' => [
-			'level' => 'int',
-			'code' => 'int',
-			'column' => 'int',
+		'LibXMLError'              => [
+			'level'   => 'int',
+			'code'    => 'int',
+			'column'  => 'int',
 			'message' => 'string',
-			'file' => 'string',
-			'line' => 'int',
+			'file'    => 'string',
+			'line'    => 'int',
 		],
 	];
 
@@ -166,7 +166,7 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 	private $typeStringResolver;
 
 	/** @var string[][] */
-	private $properties = [];
+	private $properties;
 
 	public function __construct(TypeStringResolver $typeStringResolver)
 	{
@@ -177,6 +177,7 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 	public function hasProperty(ClassReflection $classReflection, string $propertyName): bool
 	{
 		$classWithProperties = $this->getClassWithProperties($classReflection, $propertyName);
+
 		return $classWithProperties !== null;
 	}
 
@@ -185,6 +186,7 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 		/** @var \PHPStan\Reflection\ClassReflection $classWithProperties */
 		$classWithProperties = $this->getClassWithProperties($classReflection, $propertyName);
 		$typeString = $this->properties[$classWithProperties->getName()][$propertyName];
+
 		return new PhpDefectPropertyReflection(
 			$classWithProperties,
 			$this->typeStringResolver->resolve($typeString)

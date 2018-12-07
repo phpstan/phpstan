@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Reflection\SignatureMap;
 
@@ -24,13 +24,14 @@ class SignatureMapParser
 	}
 
 	/**
-	 * @param mixed[] $map
+	 * @param mixed[]     $map
 	 * @param string|null $className
+	 *
 	 * @return \PHPStan\Reflection\SignatureMap\FunctionSignature
 	 */
 	public function getFunctionSignature(array $map, ?string $className): FunctionSignature
 	{
-		$parameterSignatures = $this->getParameters(array_slice($map, 1));
+		$parameterSignatures = $this->getParameters(\array_slice($map, 1));
 		$hasVariadic = false;
 		foreach ($parameterSignatures as $parameterSignature) {
 			if ($parameterSignature->isVariadic()) {
@@ -38,6 +39,7 @@ class SignatureMapParser
 				break;
 			}
 		}
+
 		return new FunctionSignature(
 			$parameterSignatures,
 			$this->getTypeFromString($map[0], $className),
@@ -76,6 +78,7 @@ class SignatureMapParser
 
 	/**
 	 * @param array<string, string> $parameterMap
+	 *
 	 * @return array<int, \PHPStan\Reflection\SignatureMap\ParameterSignature>
 	 */
 	private function getParameters(array $parameterMap): array
@@ -97,6 +100,7 @@ class SignatureMapParser
 
 	/**
 	 * @param string $parameterNameString
+	 *
 	 * @return mixed[]
 	 */
 	private function getParameterInfoFromName(string $parameterNameString): array

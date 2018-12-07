@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Constants;
 
@@ -15,7 +15,8 @@ class ConstantRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\ConstFetch $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope         $scope
+	 *
 	 * @return string[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
@@ -24,7 +25,7 @@ class ConstantRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf(
 					'Constant %s not found.',
-					(string) $node->name
+					(string)$node->name
 				),
 			];
 		}

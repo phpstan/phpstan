@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Reflection;
 
@@ -9,14 +9,15 @@ interface FunctionReflectionFactory
 {
 
 	/**
-	 * @param \ReflectionFunction $reflection
+	 * @param \ReflectionFunction  $reflection
 	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
-	 * @param Type|null $phpDocReturnType
-	 * @param Type|null $phpDocThrowType
-	 * @param bool $isDeprecated
-	 * @param bool $isInternal
-	 * @param bool $isFinal
-	 * @param string|false $filename
+	 * @param Type|null            $phpDocReturnType
+	 * @param Type|null            $phpDocThrowType
+	 * @param bool                 $isDeprecated
+	 * @param bool                 $isInternal
+	 * @param bool                 $isFinal
+	 * @param string|false         $filename
+	 *
 	 * @return PhpFunctionReflection
 	 */
 	public function create(

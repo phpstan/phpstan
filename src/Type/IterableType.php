@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type;
 
@@ -55,7 +55,7 @@ class IterableType implements StaticResolvableType, CompoundType
 
 		if ($type->isIterable()->yes()) {
 			return $this->getIterableValueType()->accepts($type->getIterableValueType(), $strictTypes)
-				->and($this->getIterableKeyType()->accepts($type->getIterableKeyType(), $strictTypes));
+			            ->and($this->getIterableKeyType()->accepts($type->getIterableKeyType(), $strictTypes));
 		}
 
 		return TrinaryLogic::createNo();
@@ -64,20 +64,26 @@ class IterableType implements StaticResolvableType, CompoundType
 	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
 		return $type->isIterable()
-			->and($this->getIterableValueType()->isSuperTypeOf($type->getIterableValueType()))
-			->and($this->getIterableKeyType()->isSuperTypeOf($type->getIterableKeyType()));
+		            ->and($this->getIterableValueType()->isSuperTypeOf($type->getIterableValueType()))
+		            ->and($this->getIterableKeyType()->isSuperTypeOf($type->getIterableKeyType()));
 	}
 
 	public function isSubTypeOf(Type $otherType): TrinaryLogic
 	{
 		if ($otherType instanceof IntersectionType || $otherType instanceof UnionType) {
-			return $otherType->isSuperTypeOf(new UnionType([
-				new ArrayType($this->keyType, $this->itemType),
-				new IntersectionType([
-					new ObjectType(\Traversable::class),
-					$this,
-				]),
-			]));
+			return $otherType->isSuperTypeOf(
+				new UnionType(
+					[
+						new ArrayType($this->keyType, $this->itemType),
+						new IntersectionType(
+							[
+								new ObjectType(\Traversable::class),
+								$this,
+							]
+						),
+					]
+				)
+			);
 		}
 
 		if ($otherType instanceof self) {
@@ -100,7 +106,7 @@ class IterableType implements StaticResolvableType, CompoundType
 		}
 
 		return $this->keyType->equals($type->keyType)
-			&& $this->itemType->equals($type->itemType);
+		       && $this->itemType->equals($type->itemType);
 	}
 
 	public function describe(VerbosityLevel $level): string
@@ -182,6 +188,7 @@ class IterableType implements StaticResolvableType, CompoundType
 
 	/**
 	 * @param mixed[] $properties
+	 *
 	 * @return Type
 	 */
 	public static function __set_state(array $properties): Type

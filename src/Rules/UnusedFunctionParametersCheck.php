@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules;
 
@@ -11,9 +11,10 @@ class UnusedFunctionParametersCheck
 
 	/**
 	 * @param \PHPStan\Analyser\Scope $scope
-	 * @param string[] $parameterNames
-	 * @param \PhpParser\Node[] $statements
-	 * @param string $unusedParameterMessage
+	 * @param string[]                $parameterNames
+	 * @param \PhpParser\Node[]       $statements
+	 * @param string                  $unusedParameterMessage
+	 *
 	 * @return string[]
 	 */
 	public function getUnusedParameters(
@@ -40,24 +41,25 @@ class UnusedFunctionParametersCheck
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope                  $scope
 	 * @param \PhpParser\Node[]|\PhpParser\Node|scalar $node
+	 *
 	 * @return string[]
 	 */
 	private function getUsedVariables(Scope $scope, $node): array
 	{
 		$variableNames = [];
 		if ($node instanceof Node) {
-			if ($node instanceof Node\Expr\Variable && is_string($node->name) && $node->name !== 'this') {
+			if ($node instanceof Node\Expr\Variable && \is_string($node->name) && $node->name !== 'this') {
 				return [$node->name];
 			}
-			if ($node instanceof Node\Expr\ClosureUse && is_string($node->var->name)) {
+			if ($node instanceof Node\Expr\ClosureUse && \is_string($node->var->name)) {
 				return [$node->var->name];
 			}
 			if (
 				$node instanceof Node\Expr\FuncCall
 				&& $node->name instanceof Node\Name
-				&& (string) $node->name === 'compact'
+				&& (string)$node->name === 'compact'
 			) {
 				foreach ($node->args as $arg) {
 					$argType = $scope->getType($arg->value);
@@ -75,7 +77,7 @@ class UnusedFunctionParametersCheck
 				$subNode = $node->{$subNodeName};
 				$variableNames = array_merge($variableNames, $this->getUsedVariables($scope, $subNode));
 			}
-		} elseif (is_array($node)) {
+		} elseif (\is_array($node)) {
 			foreach ($node as $subNode) {
 				$variableNames = array_merge($variableNames, $this->getUsedVariables($scope, $subNode));
 			}

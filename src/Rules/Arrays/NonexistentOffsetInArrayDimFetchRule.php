@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Rules\Arrays;
 
@@ -27,7 +27,8 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\ArrayDimFetch $node
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\Scope            $scope
+	 *
 	 * @return string[]
 	 */
 	public function processNode(\PhpParser\Node $node, Scope $scope): array
@@ -90,7 +91,7 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 		$report = $hasOffsetValueType->no();
 		if ($hasOffsetValueType->maybe()) {
 			$constantArrays = TypeUtils::getConstantArrays($type);
-			if (count($constantArrays) > 0) {
+			if (\count($constantArrays) > 0) {
 				foreach ($constantArrays as $constantArray) {
 					if ($constantArray->hasOffsetValueType($dimType)->no()) {
 						$report = true;

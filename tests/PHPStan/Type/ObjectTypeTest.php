@@ -106,18 +106,22 @@ class ObjectTypeTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				new ObjectType(\DateTimeImmutable::class),
-				new UnionType([
-					new ObjectType(\DateTimeImmutable::class),
-					new StringType(),
-				]),
+				new UnionType(
+					[
+						new ObjectType(\DateTimeImmutable::class),
+						new StringType(),
+					]
+				),
 				TrinaryLogic::createMaybe(),
 			],
 			[
 				new ObjectType(\DateTimeImmutable::class),
-				new UnionType([
-					new ObjectType(\ArrayObject::class),
-					new StringType(),
-				]),
+				new UnionType(
+					[
+						new ObjectType(\ArrayObject::class),
+						new StringType(),
+					]
+				),
 				TrinaryLogic::createNo(),
 			],
 			[
@@ -172,18 +176,22 @@ class ObjectTypeTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				new ObjectType(\DateTimeImmutable::class),
-				new UnionType([
-					new StaticType(\DateTimeImmutable::class),
-					new StringType(),
-				]),
+				new UnionType(
+					[
+						new StaticType(\DateTimeImmutable::class),
+						new StringType(),
+					]
+				),
 				TrinaryLogic::createMaybe(),
 			],
 			[
 				new ObjectType(\DateTimeImmutable::class),
-				new UnionType([
-					new StaticType(\ArrayObject::class),
-					new StringType(),
-				]),
+				new UnionType(
+					[
+						new StaticType(\ArrayObject::class),
+						new StringType(),
+					]
+				),
 				TrinaryLogic::createNo(),
 			],
 			[

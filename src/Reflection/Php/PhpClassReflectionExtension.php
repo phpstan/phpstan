@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Reflection\Php;
 
@@ -22,8 +22,7 @@ use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 
-class PhpClassReflectionExtension
-	implements PropertiesClassReflectionExtension, MethodsClassReflectionExtension, BrokerAwareExtension
+class PhpClassReflectionExtension implements PropertiesClassReflectionExtension, MethodsClassReflectionExtension, BrokerAwareExtension
 {
 
 	/** @var \PHPStan\Reflection\Php\PhpMethodReflectionFactory */
@@ -123,7 +122,9 @@ class PhpClassReflectionExtension
 				throw new \PHPStan\ShouldNotHappenException();
 			}
 
-			if ($hierarchyDistances[$annotationProperty->getDeclaringClass()->getName()] < $hierarchyDistances[$propertyReflection->getDeclaringClass()->getName()]) {
+			if ($hierarchyDistances[$annotationProperty->getDeclaringClass()
+			                                           ->getName()] < $hierarchyDistances[$propertyReflection->getDeclaringClass()
+			                                                                                                 ->getName()]) {
 				return $annotationProperty;
 			}
 		}
@@ -144,8 +145,9 @@ class PhpClassReflectionExtension
 				$this->findPropertyTrait($phpDocBlock, $propertyReflection),
 				$phpDocBlock->getDocComment()
 			);
+			/* @var $varTags \PHPStan\PhpDoc\Tag\VarTag[] */
 			$varTags = $resolvedPhpDoc->getVarTags();
-			if (isset($varTags[0]) && count($varTags) === 1) {
+			if (isset($varTags[0]) && \count($varTags) === 1) {
 				$type = $varTags[0]->getType();
 			} elseif (isset($varTags[$propertyName])) {
 				$type = $varTags[$propertyName]->getType();
@@ -190,7 +192,10 @@ class PhpClassReflectionExtension
 			return $this->methodsIncludingAnnotations[$classReflection->getName()][$methodName];
 		}
 
-		$nativeMethodReflection = new NativeBuiltinMethodReflection($classReflection->getNativeReflection()->getMethod($methodName));
+		$nativeMethodReflection = new NativeBuiltinMethodReflection(
+			$classReflection->getNativeReflection()
+			                ->getMethod($methodName)
+		);
 		if (!isset($this->methodsIncludingAnnotations[$classReflection->getName()][$nativeMethodReflection->getName()])) {
 			$method = $this->createMethod($classReflection, $nativeMethodReflection, true);
 			$this->methodsIncludingAnnotations[$classReflection->getName()][$nativeMethodReflection->getName()] = $method;
@@ -210,10 +215,10 @@ class PhpClassReflectionExtension
 		}
 
 		if ($methodName === '__get' && UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate(
-			$this->broker,
-			$this->broker->getUniversalObjectCratesClasses(),
-			$classReflection
-		)) {
+				$this->broker,
+				$this->broker->getUniversalObjectCratesClasses(),
+				$classReflection
+			)) {
 			return true;
 		}
 
@@ -248,8 +253,7 @@ class PhpClassReflectionExtension
 		}
 
 		if (!isset($this->nativeMethods[$classReflection->getName()][$nativeMethodReflection->getName()])) {
-			$method = $this->createMethod($classReflection, $nativeMethodReflection, false);
-			$this->nativeMethods[$classReflection->getName()][$nativeMethodReflection->getName()] = $method;
+			$this->nativeMethods[$classReflection->getName()][$nativeMethodReflection->getName()] = $this->createMethod($classReflection, $nativeMethodReflection, false);
 		}
 
 		return $this->nativeMethods[$classReflection->getName()][$nativeMethodReflection->getName()];
@@ -271,7 +275,9 @@ class PhpClassReflectionExtension
 				throw new \PHPStan\ShouldNotHappenException();
 			}
 
-			if ($hierarchyDistances[$annotationMethod->getDeclaringClass()->getName()] < $hierarchyDistances[$methodReflection->getDeclaringClass()->getName()]) {
+			if ($hierarchyDistances[$annotationMethod->getDeclaringClass()
+			                                         ->getName()] < $hierarchyDistances[$methodReflection->getDeclaringClass()
+			                                                                                             ->getName()]) {
 				return $annotationMethod;
 			}
 		}
@@ -285,21 +291,25 @@ class PhpClassReflectionExtension
 			while ($this->signatureMapProvider->hasFunctionSignature($variantName)) {
 				$methodSignature = $this->signatureMapProvider->getFunctionSignature($variantName, $declaringClassName);
 				$variants[] = new FunctionVariant(
-					array_map(static function (ParameterSignature $parameterSignature): NativeParameterReflection {
-						return new NativeParameterReflection(
-							$parameterSignature->getName(),
-							$parameterSignature->isOptional(),
-							$parameterSignature->getType(),
-							$parameterSignature->passedByReference(),
-							$parameterSignature->isVariadic()
-						);
-					}, $methodSignature->getParameters()),
+					array_map(
+						static function (ParameterSignature $parameterSignature): NativeParameterReflection {
+							return new NativeParameterReflection(
+								$parameterSignature->getName(),
+								$parameterSignature->isOptional(),
+								$parameterSignature->getType(),
+								$parameterSignature->passedByReference(),
+								$parameterSignature->isVariadic()
+							);
+						},
+						$methodSignature->getParameters()
+					),
 					$methodSignature->isVariadic(),
 					$methodSignature->getReturnType()
 				);
 				$i++;
 				$variantName = sprintf($signatureMapMethodName . '\'' . $i);
 			}
+
 			return new NativeMethodReflection(
 				$this->broker,
 				$declaringClass,
@@ -315,31 +325,38 @@ class PhpClassReflectionExtension
 		$isInternal = false;
 		$isFinal = false;
 		$declaringTraitName = $this->findMethodTrait($methodReflection);
-		if ($declaringClass->getFileName() !== false) {
-			if ($methodReflection->getDocComment() !== false) {
-				$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForMethod(
-					$this->broker,
-					$methodReflection->getDocComment(),
-					$declaringClass->getName(),
-					$methodReflection->getName(),
-					$declaringClass->getFileName()
-				);
+		if (
+			$declaringClass->getFileName() !== false
+			&&
+			$methodReflection->getDocComment() !== false
+		) {
+			$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForMethod(
+				$this->broker,
+				$methodReflection->getDocComment(),
+				$declaringClass->getName(),
+				$methodReflection->getName(),
+				$declaringClass->getFileName()
+			);
 
-				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
-					$phpDocBlock->getFile(),
-					$phpDocBlock->getClass(),
-					$declaringTraitName,
-					$phpDocBlock->getDocComment()
-				);
-				$phpDocParameterTypes = array_map(static function (ParamTag $tag): Type {
+			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
+				$phpDocBlock->getFile(),
+				$phpDocBlock->getClass(),
+				$declaringTraitName,
+				$phpDocBlock->getDocComment()
+			);
+			$phpDocParameterTypes = array_map(
+				static function (ParamTag $tag): Type {
 					return $tag->getType();
-				}, $resolvedPhpDoc->getParamTags());
-				$phpDocReturnType = $resolvedPhpDoc->getReturnTag() !== null ? $resolvedPhpDoc->getReturnTag()->getType() : null;
-				$phpDocThrowType = $resolvedPhpDoc->getThrowsTag() !== null ? $resolvedPhpDoc->getThrowsTag()->getType() : null;
-				$isDeprecated = $resolvedPhpDoc->isDeprecated();
-				$isInternal = $resolvedPhpDoc->isInternal();
-				$isFinal = $resolvedPhpDoc->isFinal();
-			}
+				},
+				$resolvedPhpDoc->getParamTags()
+			);
+			$phpDocReturnType = $resolvedPhpDoc->getReturnTag() !== null ? $resolvedPhpDoc->getReturnTag()
+			                                                                              ->getType() : null;
+			$phpDocThrowType = $resolvedPhpDoc->getThrowsTag() !== null ? $resolvedPhpDoc->getThrowsTag()
+			                                                                             ->getType() : null;
+			$isDeprecated = $resolvedPhpDoc->isDeprecated();
+			$isInternal = $resolvedPhpDoc->isInternal();
+			$isFinal = $resolvedPhpDoc->isFinal();
 		}
 
 		$declaringTrait = null;
@@ -373,13 +390,12 @@ class PhpClassReflectionExtension
 			null,
 			$phpDocBlock->getDocComment()
 		);
-		if (count($resolvedPhpDoc->getVarTags()) > 0) {
+		if (\count($resolvedPhpDoc->getVarTags()) > 0) {
 			return null;
 		}
 
-		$declaringClass = $propertyReflection->getDeclaringClass();
-		$traits = $declaringClass->getTraits();
-		while (count($traits) > 0) {
+		$traits = $propertyReflection->getDeclaringClass()->getTraits();
+		while (\count($traits) > 0) {
 			/** @var \ReflectionClass $traitReflection */
 			$traitReflection = array_pop($traits);
 			$traits = array_merge($traits, $traitReflection->getTraits());
@@ -394,7 +410,7 @@ class PhpClassReflectionExtension
 				$phpDocBlock->getDocComment()
 			);
 			if (
-				count($traitResolvedPhpDoc->getVarTags()) > 0
+				\count($traitResolvedPhpDoc->getVarTags()) > 0
 			) {
 				return $traitReflection->getName();
 			}

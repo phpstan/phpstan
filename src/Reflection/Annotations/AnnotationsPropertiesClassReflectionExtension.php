@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Reflection\Annotations;
 
@@ -38,6 +38,7 @@ class AnnotationsPropertiesClassReflectionExtension implements PropertiesClassRe
 	/**
 	 * @param \PHPStan\Reflection\ClassReflection $classReflection
 	 * @param \PHPStan\Reflection\ClassReflection $declaringClass
+	 *
 	 * @return \PHPStan\Reflection\PropertyReflection[]
 	 */
 	private function createProperties(
@@ -72,6 +73,7 @@ class AnnotationsPropertiesClassReflectionExtension implements PropertiesClassRe
 
 		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, $classReflection->getName(), null, $docComment);
 		foreach ($resolvedPhpDoc->getPropertyTags() as $propertyName => $propertyTag) {
+			/* @var $propertyTag \PHPStan\PhpDoc\Tag\PropertyTag */
 			$properties[$propertyName] = new AnnotationPropertyReflection(
 				$declaringClass,
 				$propertyTag->getType(),

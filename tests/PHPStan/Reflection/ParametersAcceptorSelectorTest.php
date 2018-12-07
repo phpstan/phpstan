@@ -115,10 +115,12 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 					new NativeParameterReflection(
 						'event|args',
 						true,
-						new UnionType([
-							new ArrayType(new IntegerType(), new MixedType()),
-							new StringType(),
-						]),
+						new UnionType(
+							[
+								new ArrayType(new IntegerType(), new MixedType()),
+								new StringType(),
+							]
+						),
 						PassedByReference::createNo(),
 						true
 					),
@@ -249,7 +251,7 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$selectedAcceptor = ParametersAcceptorSelector::selectFromTypes($types, $variants, $unpack);
-		$this->assertCount(count($expected->getParameters()), $selectedAcceptor->getParameters());
+		$this->assertCount(\count($expected->getParameters()), $selectedAcceptor->getParameters());
 		foreach ($selectedAcceptor->getParameters() as $i => $parameter) {
 			$expectedParameter = $expected->getParameters()[$i];
 			$this->assertSame(

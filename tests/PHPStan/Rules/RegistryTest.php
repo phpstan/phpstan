@@ -11,9 +11,11 @@ class RegistryTest extends \PHPStan\Testing\TestCase
 	{
 		$rule = new DummyRule();
 
-		$registry = new Registry([
-			$rule,
-		]);
+		$registry = new Registry(
+			[
+				$rule,
+			]
+		);
 
 		$rules = $registry->getRules(\PhpParser\Node\Expr\FuncCall::class);
 		$this->assertCount(1, $rules);
@@ -24,17 +26,25 @@ class RegistryTest extends \PHPStan\Testing\TestCase
 
 	public function testGetRulesWithTwoDifferentInstances(): void
 	{
-		$fooRule = new UniversalRule(\PhpParser\Node\Expr\FuncCall::class, static function (\PhpParser\Node\Expr\FuncCall $node, Scope $scope): array {
-			return ['Foo error'];
-		});
-		$barRule = new UniversalRule(\PhpParser\Node\Expr\FuncCall::class, static function (\PhpParser\Node\Expr\FuncCall $node, Scope $scope): array {
-			return ['Bar error'];
-		});
+		$fooRule = new UniversalRule(
+			\PhpParser\Node\Expr\FuncCall::class,
+			static function (\PhpParser\Node\Expr\FuncCall $node, Scope $scope): array {
+				return ['Foo error'];
+			}
+		);
+		$barRule = new UniversalRule(
+			\PhpParser\Node\Expr\FuncCall::class,
+			static function (\PhpParser\Node\Expr\FuncCall $node, Scope $scope): array {
+				return ['Bar error'];
+			}
+		);
 
-		$registry = new Registry([
-			$fooRule,
-			$barRule,
-		]);
+		$registry = new Registry(
+			[
+				$fooRule,
+				$barRule,
+			]
+		);
 
 		$rules = $registry->getRules(\PhpParser\Node\Expr\FuncCall::class);
 		$this->assertCount(2, $rules);

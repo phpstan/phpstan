@@ -13,10 +13,12 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 
 	public function dataAccepts(): \Iterator
 	{
-		$intersectionType = new IntersectionType([
-			new ObjectType('Collection'),
-			new IterableType(new MixedType(), new ObjectType('Item')),
-		]);
+		$intersectionType = new IntersectionType(
+			[
+				new ObjectType('Collection'),
+				new IterableType(new MixedType(), new ObjectType('Item')),
+			]
+		);
 
 		yield [
 			$intersectionType,
@@ -57,27 +59,33 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				new IntersectionType([
-					new ConstantArrayType(
-						[new ConstantIntegerType(0), new ConstantIntegerType(1)],
-						[new ConstantStringType('Closure'), new ConstantStringType('bind')]
-					),
-					new IterableType(new MixedType(), new ObjectType('Item')),
-				]),
+				new IntersectionType(
+					[
+						new ConstantArrayType(
+							[new ConstantIntegerType(0), new ConstantIntegerType(1)],
+							[new ConstantStringType('Closure'), new ConstantStringType('bind')]
+						),
+						new IterableType(new MixedType(), new ObjectType('Item')),
+					]
+				),
 				TrinaryLogic::createYes(),
 			],
 			[
-				new IntersectionType([
-					new ArrayType(new MixedType(), new MixedType()),
-					new IterableType(new MixedType(), new ObjectType('Item')),
-				]),
+				new IntersectionType(
+					[
+						new ArrayType(new MixedType(), new MixedType()),
+						new IterableType(new MixedType(), new ObjectType('Item')),
+					]
+				),
 				TrinaryLogic::createMaybe(),
 			],
 			[
-				new IntersectionType([
-					new ObjectType('ArrayObject'),
-					new IterableType(new MixedType(), new ObjectType('Item')),
-				]),
+				new IntersectionType(
+					[
+						new ObjectType('ArrayObject'),
+						new IterableType(new MixedType(), new ObjectType('Item')),
+					]
+				),
 				TrinaryLogic::createMaybe(),
 			],
 		];
@@ -100,10 +108,12 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 
 	public function dataIsSuperTypeOf(): \Iterator
 	{
-		$intersectionTypeA = new IntersectionType([
-			new ObjectType('ArrayObject'),
-			new IterableType(new MixedType(), new ObjectType('Item')),
-		]);
+		$intersectionTypeA = new IntersectionType(
+			[
+				new ObjectType('ArrayObject'),
+				new IterableType(new MixedType(), new ObjectType('Item')),
+			]
+		);
 
 		yield [
 			$intersectionTypeA,
@@ -129,9 +139,11 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 			TrinaryLogic::createNo(),
 		];
 
-		$intersectionTypeB = new IntersectionType([
-			new IntegerType(),
-		]);
+		$intersectionTypeB = new IntersectionType(
+			[
+				new IntegerType(),
+			]
+		);
 
 		yield [
 			$intersectionTypeB,
@@ -140,48 +152,58 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 		];
 
 		yield [
-			new IntersectionType([
-				new ArrayType(new MixedType(), new MixedType()),
-				new HasOffsetType(new StringType()),
-			]),
-			new ConstantArrayType([
-				new ConstantStringType('a'),
-				new ConstantStringType('b'),
-				new ConstantStringType('c'),
-			], [
-				new ConstantIntegerType(1),
-				new ConstantIntegerType(2),
-				new ConstantIntegerType(3),
-			]),
+			new IntersectionType(
+				[
+					new ArrayType(new MixedType(), new MixedType()),
+					new HasOffsetType(new StringType()),
+				]
+			),
+			new ConstantArrayType(
+				[
+					new ConstantStringType('a'),
+					new ConstantStringType('b'),
+					new ConstantStringType('c'),
+				],
+				[
+					new ConstantIntegerType(1),
+					new ConstantIntegerType(2),
+					new ConstantIntegerType(3),
+				]
+			),
 			TrinaryLogic::createMaybe(),
 		];
 
 		yield [
-			new IntersectionType([
-				new ArrayType(new MixedType(), new MixedType()),
-				new HasOffsetType(new StringType()),
-			]),
-			new ConstantArrayType([
-				new ConstantStringType('a'),
-				new ConstantStringType('b'),
-				new ConstantStringType('c'),
-				new ConstantStringType('d'),
-				new ConstantStringType('e'),
-				new ConstantStringType('f'),
-				new ConstantStringType('g'),
-				new ConstantStringType('h'),
-				new ConstantStringType('i'),
-			], [
-				new ConstantIntegerType(1),
-				new ConstantIntegerType(2),
-				new ConstantIntegerType(3),
-				new ConstantIntegerType(1),
-				new ConstantIntegerType(2),
-				new ConstantIntegerType(3),
-				new ConstantIntegerType(1),
-				new ConstantIntegerType(2),
-				new ConstantIntegerType(3),
-			]),
+			new IntersectionType(
+				[
+					new ArrayType(new MixedType(), new MixedType()),
+					new HasOffsetType(new StringType()),
+				]
+			),
+			new ConstantArrayType(
+				[
+					new ConstantStringType('a'),
+					new ConstantStringType('b'),
+					new ConstantStringType('c'),
+					new ConstantStringType('d'),
+					new ConstantStringType('e'),
+					new ConstantStringType('f'),
+					new ConstantStringType('g'),
+					new ConstantStringType('h'),
+					new ConstantStringType('i'),
+				],
+				[
+					new ConstantIntegerType(1),
+					new ConstantIntegerType(2),
+					new ConstantIntegerType(3),
+					new ConstantIntegerType(1),
+					new ConstantIntegerType(2),
+					new ConstantIntegerType(3),
+					new ConstantIntegerType(1),
+					new ConstantIntegerType(2),
+					new ConstantIntegerType(3),
+				]
+			),
 			TrinaryLogic::createMaybe(),
 		];
 	}
@@ -204,10 +226,12 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 
 	public function dataIsSubTypeOf(): \Iterator
 	{
-		$intersectionTypeA = new IntersectionType([
-			new ObjectType('ArrayObject'),
-			new IterableType(new MixedType(), new ObjectType('Item')),
-		]);
+		$intersectionTypeA = new IntersectionType(
+			[
+				new ObjectType('ArrayObject'),
+				new IterableType(new MixedType(), new ObjectType('Item')),
+			]
+		);
 
 		yield [
 			$intersectionTypeA,
@@ -245,9 +269,11 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 			TrinaryLogic::createNo(),
 		];
 
-		$intersectionTypeB = new IntersectionType([
-			new IntegerType(),
-		]);
+		$intersectionTypeB = new IntersectionType(
+			[
+				new IntegerType(),
+			]
+		);
 
 		yield [
 			$intersectionTypeB,
@@ -255,10 +281,12 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 			TrinaryLogic::createYes(),
 		];
 
-		$intersectionTypeC = new IntersectionType([
-			new StringType(),
-			new CallableType(),
-		]);
+		$intersectionTypeC = new IntersectionType(
+			[
+				new StringType(),
+				new CallableType(),
+			]
+		);
 
 		yield [
 			$intersectionTypeC,
@@ -278,10 +306,12 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 			TrinaryLogic::createYes(),
 		];
 
-		$intersectionTypeD = new IntersectionType([
-			new ObjectType('ArrayObject'),
-			new IterableType(new MixedType(), new ObjectType('DatePeriod')),
-		]);
+		$intersectionTypeD = new IntersectionType(
+			[
+				new ObjectType('ArrayObject'),
+				new IterableType(new MixedType(), new ObjectType('DatePeriod')),
+			]
+		);
 
 		yield [
 			$intersectionTypeD,
@@ -291,10 +321,12 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 
 		yield [
 			$intersectionTypeD,
-			new UnionType([
-				$intersectionTypeD,
-				new IntegerType(),
-			]),
+			new UnionType(
+				[
+					$intersectionTypeD,
+					new IntegerType(),
+				]
+			),
 			TrinaryLogic::createYes(),
 		];
 	}

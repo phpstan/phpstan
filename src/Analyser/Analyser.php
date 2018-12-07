@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Analyser;
 
@@ -30,13 +30,13 @@ class Analyser
 	private $internalErrorsCountLimit;
 
 	/**
-	 * @param \PHPStan\Analyser\ScopeFactory $scopeFactory
-	 * @param \PHPStan\Parser\Parser $parser
-	 * @param \PHPStan\Rules\Registry $registry
+	 * @param \PHPStan\Analyser\ScopeFactory      $scopeFactory
+	 * @param \PHPStan\Parser\Parser              $parser
+	 * @param \PHPStan\Rules\Registry             $registry
 	 * @param \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver
-	 * @param string[] $ignoreErrors
-	 * @param bool $reportUnmatchedIgnoredErrors
-	 * @param int $internalErrorsCountLimit
+	 * @param string[]                            $ignoreErrors
+	 * @param bool                                $reportUnmatchedIgnoredErrors
+	 * @param int                                 $internalErrorsCountLimit
 	 */
 	public function __construct(
 		ScopeFactory $scopeFactory,
@@ -59,10 +59,11 @@ class Analyser
 
 	/**
 	 * @param string[] $files
-	 * @param bool $onlyFiles
+	 * @param bool     $onlyFiles
 	 * @param \Closure(string $file): void|null $preFileCallback
 	 * @param \Closure(string $file): void|null $postFileCallback
-	 * @param bool $debug
+	 * @param bool     $debug
+	 *
 	 * @return string[]|\PHPStan\Analyser\Error[] errors
 	 */
 	public function analyse(
@@ -83,7 +84,7 @@ class Analyser
 			}
 		}
 
-		if (count($errors) > 0) {
+		if (\count($errors) > 0) {
 			return $errors;
 		}
 
@@ -102,7 +103,7 @@ class Analyser
 						$this->parser->parseFile($file),
 						$this->scopeFactory->create(ScopeContext::create($file)),
 						function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors): void {
-							foreach ($this->registry->getRules(get_class($node)) as $rule) {
+							foreach ($this->registry->getRules(\get_class($node)) as $rule) {
 								foreach ($rule->processNode($node, $scope) as $message) {
 									$fileErrors[] = new Error($message, $scope->getFileDescription(), $node->getLine());
 								}
@@ -145,23 +146,30 @@ class Analyser
 
 		$unmatchedIgnoredErrors = $this->ignoreErrors;
 		$addErrors = [];
-		$errors = array_values(array_filter($errors, function (Error $error) use (&$unmatchedIgnoredErrors, &$addErrors): bool {
-			foreach ($this->ignoreErrors as $i => $ignore) {
-				if (\Nette\Utils\Strings::match($error->getMessage(), $ignore) !== null) {
-					unset($unmatchedIgnoredErrors[$i]);
-					if (!$error->canBeIgnored()) {
-						$addErrors[] = sprintf(
-							'Error message "%s" cannot be ignored, use excludes_analyse instead.',
-							$error->getMessage()
-						);
-						return true;
-					}
-					return false;
-				}
-			}
+		$errors = array_values(
+			array_filter(
+				$errors,
+				function (Error $error) use (&$unmatchedIgnoredErrors, &$addErrors): bool {
+					foreach ($this->ignoreErrors as $i => $ignore) {
+						if (\Nette\Utils\Strings::match($error->getMessage(), $ignore) !== null) {
+							unset($unmatchedIgnoredErrors[$i]);
+							if (!$error->canBeIgnored()) {
+								$addErrors[] = sprintf(
+									'Error message "%s" cannot be ignored, use excludes_analyse instead.',
+									$error->getMessage()
+								);
 
-			return true;
-		}));
+								return true;
+							}
+
+							return false;
+						}
+					}
+
+					return true;
+				}
+			)
+		);
 
 		$errors = array_merge($errors, $addErrors);
 

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Parser;
 
@@ -10,13 +10,14 @@ class FunctionCallStatementFinder
 
 	/**
 	 * @param string[] $functionNames
-	 * @param mixed $statements
+	 * @param mixed    $statements
+	 *
 	 * @return \PhpParser\Node|null
 	 */
 	public function findFunctionCallInStatements(array $functionNames, $statements): ?\PhpParser\Node
 	{
 		foreach ($statements as $statement) {
-			if (is_array($statement)) {
+			if (\is_array($statement)) {
 				$result = $this->findFunctionCallInStatements($functionNames, $statement);
 				if ($result !== null) {
 					return $result;
@@ -28,7 +29,7 @@ class FunctionCallStatementFinder
 			}
 
 			if ($statement instanceof FuncCall && $statement->name instanceof Name) {
-				if (in_array((string) $statement->name, $functionNames, true)) {
+				if (\in_array((string)$statement->name, $functionNames, true)) {
 					return $statement;
 				}
 			}

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Reflection\Native;
 
@@ -17,9 +17,9 @@ class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
 	private $throwType;
 
 	/**
-	 * @param string $name
+	 * @param string                                   $name
 	 * @param \PHPStan\Reflection\ParametersAcceptor[] $variants
-	 * @param \PHPStan\Type\Type|null $throwType
+	 * @param \PHPStan\Type\Type|null                  $throwType
 	 */
 	public function __construct(
 		string $name,

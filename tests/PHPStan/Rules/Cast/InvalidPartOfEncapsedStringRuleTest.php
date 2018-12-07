@@ -12,12 +12,15 @@ class InvalidPartOfEncapsedStringRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	public function testRule(): void
 	{
-		$this->analyse([__DIR__ . '/data/invalid-encapsed-part.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/invalid-encapsed-part.php'],
 			[
-				'Part $std (stdClass) of encapsed string cannot be cast to string.',
-				8,
-			],
-		]);
+				[
+					'Part $std (stdClass) of encapsed string cannot be cast to string.',
+					8,
+				],
+			]
+		);
 	}
 
 }

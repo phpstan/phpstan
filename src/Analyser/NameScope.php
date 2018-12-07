@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Analyser;
 
@@ -16,7 +16,7 @@ class NameScope
 
 	/**
 	 * @param string|null $namespace
-	 * @param string[] $uses alias(string) => fullName(string)
+	 * @param string[]    $uses alias(string) => fullName(string)
 	 * @param string|null $className
 	 */
 	public function __construct(?string $namespace, array $uses, ?string $className = null)
@@ -40,10 +40,11 @@ class NameScope
 		$nameParts = explode('\\', $name);
 		$firstNamePart = strtolower($nameParts[0]);
 		if (isset($this->uses[$firstNamePart])) {
-			if (count($nameParts) === 1) {
+			if (\count($nameParts) === 1) {
 				return $this->uses[$firstNamePart];
 			}
 			array_shift($nameParts);
+
 			return sprintf('%s\\%s', $this->uses[$firstNamePart], implode('\\', $nameParts));
 		}
 

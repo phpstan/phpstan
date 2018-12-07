@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace PHPStan\Type;
 
@@ -22,7 +22,7 @@ class BenevolentUnionType extends UnionType
 			$resultTypes[] = $result;
 		}
 
-		if (count($resultTypes) === 0) {
+		if (\count($resultTypes) === 0) {
 			return new ErrorType();
 		}
 
