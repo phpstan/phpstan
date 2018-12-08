@@ -23,83 +23,83 @@ class MethodSignatureRuleTest extends \PHPStan\Testing\RuleTestCase
 			],
 			[
 				[
-					'Declaration of MethodSignature\SubClass::parameterTypeTest4(MethodSignature\Dog $animal): mixed should be compatible with MethodSignature\BaseClass::parameterTypeTest4(MethodSignature\Animal $animal): mixed',
+					'Parameter #1 $animal (MethodSignature\Dog) of method MethodSignature\SubClass::parameterTypeTest4() should be compatible with parameter $animal (MethodSignature\Animal) of method MethodSignature\BaseClass::parameterTypeTest4()',
 					36,
 				],
 				[
-					'Declaration of MethodSignature\SubClass::parameterTypeTest4(MethodSignature\Dog $animal): mixed should be compatible with MethodSignature\BaseInterface::parameterTypeTest4(MethodSignature\Animal $animal): mixed',
+					'Parameter #1 $animal (MethodSignature\Dog) of method MethodSignature\SubClass::parameterTypeTest4() should be compatible with parameter $animal (MethodSignature\Animal) of method MethodSignature\BaseInterface::parameterTypeTest4()',
 					36,
 				],
 				[
-					'Declaration of MethodSignature\SubClass::parameterTypeTest5(MethodSignature\Dog $animal): mixed should be compatible with MethodSignature\BaseClass::parameterTypeTest5(MethodSignature\Cat $animal): mixed',
+					'Parameter #1 $animal (MethodSignature\Dog) of method MethodSignature\SubClass::parameterTypeTest5() should be compatible with parameter $animal (MethodSignature\Cat) of method MethodSignature\BaseClass::parameterTypeTest5()',
 					43,
 				],
 				[
-					'Declaration of MethodSignature\SubClass::parameterTypeTest5(MethodSignature\Dog $animal): mixed should be compatible with MethodSignature\BaseInterface::parameterTypeTest5(MethodSignature\Cat $animal): mixed',
+					'Parameter #1 $animal (MethodSignature\Dog) of method MethodSignature\SubClass::parameterTypeTest5() should be compatible with parameter $animal (MethodSignature\Cat) of method MethodSignature\BaseInterface::parameterTypeTest5()',
 					43,
 				],
 				[
-					'Declaration of MethodSignature\SubClass::returnTypeTest1(): mixed should be compatible with MethodSignature\BaseClass::returnTypeTest1(): void',
+					'Return type (mixed) of method MethodSignature\SubClass::returnTypeTest1() should be compatible with return type (void) of method MethodSignature\BaseClass::returnTypeTest1()',
 					68,
 				],
 				[
-					'Declaration of MethodSignature\SubClass::returnTypeTest1(): mixed should be compatible with MethodSignature\BaseInterface::returnTypeTest1(): void',
+					'Return type (mixed) of method MethodSignature\SubClass::returnTypeTest1() should be compatible with return type (void) of method MethodSignature\BaseInterface::returnTypeTest1()',
 					68,
 				],
 				[
-					'Declaration of MethodSignature\SubClass::returnTypeTest4(): MethodSignature\Animal should be compatible with MethodSignature\BaseClass::returnTypeTest4(): MethodSignature\Dog',
+					'Return type (MethodSignature\Animal) of method MethodSignature\SubClass::returnTypeTest4() should be compatible with return type (MethodSignature\Dog) of method MethodSignature\BaseClass::returnTypeTest4()',
 					89,
 				],
 				[
-					'Declaration of MethodSignature\SubClass::returnTypeTest4(): MethodSignature\Animal should be compatible with MethodSignature\BaseInterface::returnTypeTest4(): MethodSignature\Dog',
+					'Return type (MethodSignature\Animal) of method MethodSignature\SubClass::returnTypeTest4() should be compatible with return type (MethodSignature\Dog) of method MethodSignature\BaseInterface::returnTypeTest4()',
 					89,
 				],
 				[
-					'Declaration of MethodSignature\SubClass::returnTypeTest5(): MethodSignature\Cat should be compatible with MethodSignature\BaseClass::returnTypeTest5(): MethodSignature\Dog',
+					'Return type (MethodSignature\Cat) of method MethodSignature\SubClass::returnTypeTest5() should be compatible with return type (MethodSignature\Dog) of method MethodSignature\BaseClass::returnTypeTest5()',
 					96,
 				],
 				[
-					'Declaration of MethodSignature\SubClass::returnTypeTest5(): MethodSignature\Cat should be compatible with MethodSignature\BaseInterface::returnTypeTest5(): MethodSignature\Dog',
+					'Return type (MethodSignature\Cat) of method MethodSignature\SubClass::returnTypeTest5() should be compatible with return type (MethodSignature\Dog) of method MethodSignature\BaseInterface::returnTypeTest5()',
 					96,
 				],
 				[
-					'Declaration of MethodSignature\SubClassUsingTrait::parameterTypeTest4(MethodSignature\Dog $animal): mixed should be compatible with MethodSignature\BaseClass::parameterTypeTest4(MethodSignature\Animal $animal): mixed',
+					'Parameter #1 $animal (MethodSignature\Dog) of method MethodSignature\SubClassUsingTrait::parameterTypeTest4() should be compatible with parameter $animal (MethodSignature\Animal) of method MethodSignature\BaseClass::parameterTypeTest4()',
 					262,
 				],
 				[
-					'Declaration of MethodSignature\SubClassUsingTrait::parameterTypeTest4(MethodSignature\Dog $animal): mixed should be compatible with MethodSignature\BaseInterface::parameterTypeTest4(MethodSignature\Animal $animal): mixed',
+					'Parameter #1 $animal (MethodSignature\Dog) of method MethodSignature\SubClassUsingTrait::parameterTypeTest4() should be compatible with parameter $animal (MethodSignature\Animal) of method MethodSignature\BaseInterface::parameterTypeTest4()',
 					262,
 				],
 				[
-					'Declaration of MethodSignature\SubClassUsingTrait::parameterTypeTest5(MethodSignature\Dog $animal): mixed should be compatible with MethodSignature\BaseClass::parameterTypeTest5(MethodSignature\Cat $animal): mixed',
+					'Parameter #1 $animal (MethodSignature\Dog) of method MethodSignature\SubClassUsingTrait::parameterTypeTest5() should be compatible with parameter $animal (MethodSignature\Cat) of method MethodSignature\BaseClass::parameterTypeTest5()',
 					269,
 				],
 				[
-					'Declaration of MethodSignature\SubClassUsingTrait::parameterTypeTest5(MethodSignature\Dog $animal): mixed should be compatible with MethodSignature\BaseInterface::parameterTypeTest5(MethodSignature\Cat $animal): mixed',
+					'Parameter #1 $animal (MethodSignature\Dog) of method MethodSignature\SubClassUsingTrait::parameterTypeTest5() should be compatible with parameter $animal (MethodSignature\Cat) of method MethodSignature\BaseInterface::parameterTypeTest5()',
 					269,
 				],
 				[
-					'Declaration of MethodSignature\SubClassUsingTrait::returnTypeTest1(): mixed should be compatible with MethodSignature\BaseClass::returnTypeTest1(): void',
+					'Return type (mixed) of method MethodSignature\SubClassUsingTrait::returnTypeTest1() should be compatible with return type (void) of method MethodSignature\BaseClass::returnTypeTest1()',
 					294,
 				],
 				[
-					'Declaration of MethodSignature\SubClassUsingTrait::returnTypeTest1(): mixed should be compatible with MethodSignature\BaseInterface::returnTypeTest1(): void',
+					'Return type (mixed) of method MethodSignature\SubClassUsingTrait::returnTypeTest1() should be compatible with return type (void) of method MethodSignature\BaseInterface::returnTypeTest1()',
 					294,
 				],
 				[
-					'Declaration of MethodSignature\SubClassUsingTrait::returnTypeTest4(): MethodSignature\Animal should be compatible with MethodSignature\BaseClass::returnTypeTest4(): MethodSignature\Dog',
+					'Return type (MethodSignature\Animal) of method MethodSignature\SubClassUsingTrait::returnTypeTest4() should be compatible with return type (MethodSignature\Dog) of method MethodSignature\BaseClass::returnTypeTest4()',
 					315,
 				],
 				[
-					'Declaration of MethodSignature\SubClassUsingTrait::returnTypeTest4(): MethodSignature\Animal should be compatible with MethodSignature\BaseInterface::returnTypeTest4(): MethodSignature\Dog',
+					'Return type (MethodSignature\Animal) of method MethodSignature\SubClassUsingTrait::returnTypeTest4() should be compatible with return type (MethodSignature\Dog) of method MethodSignature\BaseInterface::returnTypeTest4()',
 					315,
 				],
 				[
-					'Declaration of MethodSignature\SubClassUsingTrait::returnTypeTest5(): MethodSignature\Cat should be compatible with MethodSignature\BaseClass::returnTypeTest5(): MethodSignature\Dog',
+					'Return type (MethodSignature\Cat) of method MethodSignature\SubClassUsingTrait::returnTypeTest5() should be compatible with return type (MethodSignature\Dog) of method MethodSignature\BaseClass::returnTypeTest5()',
 					322,
 				],
 				[
-					'Declaration of MethodSignature\SubClassUsingTrait::returnTypeTest5(): MethodSignature\Cat should be compatible with MethodSignature\BaseInterface::returnTypeTest5(): MethodSignature\Dog',
+					'Return type (MethodSignature\Cat) of method MethodSignature\SubClassUsingTrait::returnTypeTest5() should be compatible with return type (MethodSignature\Dog) of method MethodSignature\BaseInterface::returnTypeTest5()',
 					322,
 				],
 			]
@@ -116,35 +116,35 @@ class MethodSignatureRuleTest extends \PHPStan\Testing\RuleTestCase
 			],
 			[
 				[
-					'Declaration of MethodSignature\SubClass::parameterTypeTest5(MethodSignature\Dog $animal): mixed should be compatible with MethodSignature\BaseClass::parameterTypeTest5(MethodSignature\Cat $animal): mixed',
+					'Parameter #1 $animal (MethodSignature\Dog) of method MethodSignature\SubClass::parameterTypeTest5() should be compatible with parameter $animal (MethodSignature\Cat) of method MethodSignature\BaseClass::parameterTypeTest5()',
 					43,
 				],
 				[
-					'Declaration of MethodSignature\SubClass::parameterTypeTest5(MethodSignature\Dog $animal): mixed should be compatible with MethodSignature\BaseInterface::parameterTypeTest5(MethodSignature\Cat $animal): mixed',
+					'Parameter #1 $animal (MethodSignature\Dog) of method MethodSignature\SubClass::parameterTypeTest5() should be compatible with parameter $animal (MethodSignature\Cat) of method MethodSignature\BaseInterface::parameterTypeTest5()',
 					43,
 				],
 				[
-					'Declaration of MethodSignature\SubClass::returnTypeTest5(): MethodSignature\Cat should be compatible with MethodSignature\BaseClass::returnTypeTest5(): MethodSignature\Dog',
+					'Return type (MethodSignature\Cat) of method MethodSignature\SubClass::returnTypeTest5() should be compatible with return type (MethodSignature\Dog) of method MethodSignature\BaseClass::returnTypeTest5()',
 					96,
 				],
 				[
-					'Declaration of MethodSignature\SubClass::returnTypeTest5(): MethodSignature\Cat should be compatible with MethodSignature\BaseInterface::returnTypeTest5(): MethodSignature\Dog',
+					'Return type (MethodSignature\Cat) of method MethodSignature\SubClass::returnTypeTest5() should be compatible with return type (MethodSignature\Dog) of method MethodSignature\BaseInterface::returnTypeTest5()',
 					96,
 				],
 				[
-					'Declaration of MethodSignature\SubClassUsingTrait::parameterTypeTest5(MethodSignature\Dog $animal): mixed should be compatible with MethodSignature\BaseClass::parameterTypeTest5(MethodSignature\Cat $animal): mixed',
+					'Parameter #1 $animal (MethodSignature\Dog) of method MethodSignature\SubClassUsingTrait::parameterTypeTest5() should be compatible with parameter $animal (MethodSignature\Cat) of method MethodSignature\BaseClass::parameterTypeTest5()',
 					269,
 				],
 				[
-					'Declaration of MethodSignature\SubClassUsingTrait::parameterTypeTest5(MethodSignature\Dog $animal): mixed should be compatible with MethodSignature\BaseInterface::parameterTypeTest5(MethodSignature\Cat $animal): mixed',
+					'Parameter #1 $animal (MethodSignature\Dog) of method MethodSignature\SubClassUsingTrait::parameterTypeTest5() should be compatible with parameter $animal (MethodSignature\Cat) of method MethodSignature\BaseInterface::parameterTypeTest5()',
 					269,
 				],
 				[
-					'Declaration of MethodSignature\SubClassUsingTrait::returnTypeTest5(): MethodSignature\Cat should be compatible with MethodSignature\BaseClass::returnTypeTest5(): MethodSignature\Dog',
+					'Return type (MethodSignature\Cat) of method MethodSignature\SubClassUsingTrait::returnTypeTest5() should be compatible with return type (MethodSignature\Dog) of method MethodSignature\BaseClass::returnTypeTest5()',
 					322,
 				],
 				[
-					'Declaration of MethodSignature\SubClassUsingTrait::returnTypeTest5(): MethodSignature\Cat should be compatible with MethodSignature\BaseInterface::returnTypeTest5(): MethodSignature\Dog',
+					'Return type (MethodSignature\Cat) of method MethodSignature\SubClassUsingTrait::returnTypeTest5() should be compatible with return type (MethodSignature\Dog) of method MethodSignature\BaseInterface::returnTypeTest5()',
 					322,
 				],
 			]
