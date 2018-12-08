@@ -102,7 +102,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				'UnionIntersection\Foo',
+				'UnionIntersection\AnotherFoo|UnionIntersection\Foo',
 				'$this->union->foo',
 			],
 			[
@@ -8002,6 +8002,37 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/union-methods.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataUnionProperties(): array
+	{
+		return [
+			[
+				'UnionProperties\Bar|UnionProperties\Foo',
+				'$something->doSomething',
+			],
+			[
+				'UnionProperties\Bar|UnionProperties\Foo',
+				'$something::$doSomething',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataUnionProperties
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testUnionProperties(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/union-properties.php',
 			$description,
 			$expression
 		);

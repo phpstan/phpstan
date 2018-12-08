@@ -54,16 +54,3 @@ class BarStatic
 	}
 
 }
-
-class BazStatic
-{
-
-	/**
-	 * @param Foo|Bar $something
-	 */
-	public function doFoo($something)
-	{
-		die;
-	}
-
-}

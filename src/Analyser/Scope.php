@@ -1412,6 +1412,26 @@ class Scope implements ClassMemberAccessAnswerer
 
 		if ($node instanceof PropertyFetch && $node->name instanceof Node\Identifier) {
 			$propertyFetchedOnType = $this->getType($node->var);
+			$referencedClasses = TypeUtils::getDirectClassNames($propertyFetchedOnType);
+			$propertyName = $node->name->toString();
+			$types = [];
+			foreach ($referencedClasses as $referencedClass) {
+				if (!$this->broker->hasClass($referencedClass)) {
+					continue;
+				}
+
+				$propertyClassReflection = $this->broker->getClass($referencedClass);
+				if (!$propertyClassReflection->hasProperty($propertyName)) {
+					continue;
+				}
+
+				$types[] = $propertyClassReflection->getProperty($propertyName, $this)->getType();
+			}
+
+			if (count($types) > 0) {
+				return TypeCombinator::union(...$types);
+			}
+
 			if ($propertyFetchedOnType->hasProperty($node->name->name)->no()) {
 				return new ErrorType();
 			}
@@ -1419,18 +1439,41 @@ class Scope implements ClassMemberAccessAnswerer
 			return $propertyFetchedOnType->getProperty($node->name->name, $this)->getType();
 		}
 
-		if ($node instanceof Expr\StaticPropertyFetch && $node->name instanceof Node\VarLikeIdentifier && $node->class instanceof Name) {
-			$staticPropertyHolderClass = $this->resolveName($node->class);
-			if ($this->broker->hasClass($staticPropertyHolderClass)) {
-				$staticPropertyClassReflection = $this->broker->getClass(
-					$staticPropertyHolderClass
-				);
-				if (!$staticPropertyClassReflection->hasProperty($node->name->name)) {
-					return new ErrorType();
+		if (
+			$node instanceof Expr\StaticPropertyFetch
+			&& $node->name instanceof Node\VarLikeIdentifier
+		) {
+			if ($node->class instanceof Name) {
+				$calleeType = new ObjectType($this->resolveName($node->class));
+			} else {
+				$calleeType = $this->getType($node->class);
+			}
+
+			$referencedClasses = TypeUtils::getDirectClassNames($calleeType);
+			$propertyName = $node->name->toString();
+			$types = [];
+			foreach ($referencedClasses as $referencedClass) {
+				if (!$this->broker->hasClass($referencedClass)) {
+					continue;
 				}
 
-				return $staticPropertyClassReflection->getProperty($node->name->name, $this)->getType();
+				$propertyClassReflection = $this->broker->getClass($referencedClass);
+				if (!$propertyClassReflection->hasProperty($propertyName)) {
+					continue;
+				}
+
+				$types[] = $propertyClassReflection->getProperty($propertyName, $this)->getType();
 			}
+
+			if (count($types) > 0) {
+				return TypeCombinator::union(...$types);
+			}
+
+			if ($calleeType->hasProperty($node->name->name)->no()) {
+				return new ErrorType();
+			}
+
+			return $calleeType->getProperty($node->name->name, $this)->getType();
 		}
 
 		if ($node instanceof FuncCall) {
