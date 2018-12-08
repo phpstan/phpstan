@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules\Methods;
 
@@ -127,7 +127,7 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 
 		$methodReflection = $type->getMethod($name, $scope);
 		$messagesMethodName = $methodReflection->getDeclaringClass()
-		                                       ->getDisplayName() . '::' . $methodReflection->getName() . '()';
+			->getDisplayName() . '::' . $methodReflection->getName() . '()';
 		$errors = [];
 		if (!$scope->canCallMethod($methodReflection)) {
 			$errors[] = sprintf(
@@ -164,8 +164,10 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 
 		if (
 			$this->checkFunctionNameCase
-			&& strtolower($methodReflection->getName()) === strtolower($name)
-			&& $methodReflection->getName() !== $name
+			&&
+			$methodReflection->getName() !== $name
+			&&
+			strtolower($methodReflection->getName()) === strtolower($name)
 		) {
 			$errors[] = sprintf('Call to method %s with incorrect case: %s', $messagesMethodName, $name);
 		}

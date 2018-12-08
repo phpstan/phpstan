@@ -1,8 +1,7 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Command\ErrorFormatter;
 
-use PHPStan\Analyser\Error;
 use PHPStan\Command\AnalysisResult;
 use Symfony\Component\Console\Style\OutputStyle;
 
@@ -38,8 +37,8 @@ class CheckstyleErrorFormatter implements ErrorFormatter
 				$style->writeln(
 					sprintf(
 						'  <error line="%d" column="1" severity="error" message="%s" />',
-						$this->escape((string)$error->getLine()),
-						$this->escape((string)$error->getMessage())
+						$this->escape((string) $error->getLine()),
+						$this->escape((string) $error->getMessage())
 					)
 				);
 			}

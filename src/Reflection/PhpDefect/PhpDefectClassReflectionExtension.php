@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Reflection\PhpDefect;
 
@@ -36,15 +36,15 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 			'path'   => 'string',
 		],
 		'DOMAttr'                  => [ // extends DOMNode
-		                                'name'           => 'string',
-		                                'ownerElement'   => 'DOMElement',
-		                                'schemaTypeInfo' => 'bool',
-		                                'specified'      => 'bool',
-		                                'value'          => 'string',
+			'name'           => 'string',
+			'ownerElement'   => 'DOMElement',
+			'schemaTypeInfo' => 'bool',
+			'specified'      => 'bool',
+			'value'          => 'string',
 		],
 		'DOMCharacterData'         => [ // extends DOMNode
-		                                'data'   => 'string',
-		                                'length' => 'int',
+			'data'   => 'string',
+			'length' => 'int',
 		],
 		'DOMDocument'              => [
 			'actualEncoding'      => 'string',
@@ -68,24 +68,24 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 			'xmlVersion'          => 'string',
 		],
 		'DOMDocumentType'          => [ // extends DOMNode
-		                                'publicId'       => 'string',
-		                                'systemId'       => 'string',
-		                                'name'           => 'string',
-		                                'entities'       => 'DOMNamedNodeMap',
-		                                'notations'      => 'DOMNamedNodeMap',
-		                                'internalSubset' => 'string',
+			'publicId'       => 'string',
+			'systemId'       => 'string',
+			'name'           => 'string',
+			'entities'       => 'DOMNamedNodeMap',
+			'notations'      => 'DOMNamedNodeMap',
+			'internalSubset' => 'string',
 		],
 		'DOMElement'               => [ // extends DOMNode
-		                                'schemaTypeInfo' => 'bool',
-		                                'tagName'        => 'string',
+			'schemaTypeInfo' => 'bool',
+			'tagName'        => 'string',
 		],
 		'DOMEntity'                => [ // extends DOMNode
-		                                'publicId'       => 'string',
-		                                'systemId'       => 'string',
-		                                'notationName'   => 'string',
-		                                'actualEncoding' => 'string',
-		                                'encoding'       => 'string',
-		                                'version'        => 'string',
+			'publicId'       => 'string',
+			'systemId'       => 'string',
+			'notationName'   => 'string',
+			'actualEncoding' => 'string',
+			'encoding'       => 'string',
+			'version'        => 'string',
 		],
 		'DOMNamedNodeMap'          => [
 			'length' => 'int',
@@ -112,18 +112,18 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 			'length' => 'int',
 		],
 		'DOMNotation'              => [ // extends DOMNode
-		                                'publicId' => 'string',
-		                                'systemId' => 'string',
+			'publicId' => 'string',
+			'systemId' => 'string',
 		],
 		'DOMProcessingInstruction' => [ // extends DOMNode
-		                                'target' => 'string',
-		                                'data'   => 'string',
+			'target' => 'string',
+			'data'   => 'string',
 		],
 		'DOMText'                  => [ // extends DOMCharacterData
-		                                'wholeText' => 'string',
+			'wholeText' => 'string',
 		],
 		'DOMXPath'                 => [ // extends DOMCharacterData
-		                                'document' => 'DOMDocument',
+			'document' => 'DOMDocument',
 		],
 		'Ds\\Pair'                 => [
 			'key'   => 'mixed',

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules\Comparison;
 
@@ -58,7 +58,9 @@ class ImpossibleCheckTypeMethodCallRule implements \PHPStan\Rules\Rule
 					$this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args)
 				),
 			];
-		} elseif ($this->checkAlwaysTrueCheckTypeFunctionCall) {
+		}
+
+		if ($this->checkAlwaysTrueCheckTypeFunctionCall) {
 			$method = $this->getMethod($node->var, $node->name->name, $scope);
 
 			return [

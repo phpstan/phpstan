@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules\Variables;
 
@@ -42,13 +42,13 @@ class DefinedVariableRule implements \PHPStan\Rules\Rule
 		}
 
 		if ($this->cliArgumentsVariablesRegistered && \in_array(
-				$node->name,
-				[
-					'argc',
-					'argv',
-				],
-				true
-			)) {
+			$node->name,
+			[
+				'argc',
+				'argv',
+			],
+			true
+		)) {
 			$isInMain = !$scope->isInClass() && !$scope->isInAnonymousFunction() && $scope->getFunction() === null;
 			if ($isInMain) {
 				return [];
@@ -63,10 +63,10 @@ class DefinedVariableRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf('Undefined variable: $%s', $node->name),
 			];
-		} elseif (
-			$this->checkMaybeUndefinedVariables
-			&& !$scope->hasVariableType($node->name)->yes()
-		) {
+		}
+
+		if ($this->checkMaybeUndefinedVariables
+			&& !$scope->hasVariableType($node->name)->yes()) {
 			return [
 				sprintf('Variable $%s might not be defined.', $node->name),
 			];

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules\Exceptions;
 
@@ -53,7 +53,7 @@ class CaughtExceptionExistenceRule implements \PHPStan\Rules\Rule
 		}
 		$errors = [];
 		foreach ($classes as $className) {
-			$class = (string)$className;
+			$class = (string) $className;
 			if (!$this->broker->hasClass($class)) {
 				$errors[] = sprintf('Caught class %s not found.', $class);
 				continue;
@@ -61,7 +61,7 @@ class CaughtExceptionExistenceRule implements \PHPStan\Rules\Rule
 
 			$classReflection = $this->broker->getClass($class);
 			if (!$classReflection->isInterface() && !$classReflection->getNativeReflection()
-			                                                         ->implementsInterface(\Throwable::class)) {
+				->implementsInterface(\Throwable::class)) {
 				$errors[] = sprintf('Caught class %s is not an exception.', $classReflection->getDisplayName());
 			}
 

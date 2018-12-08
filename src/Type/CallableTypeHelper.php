@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type;
 
@@ -21,11 +21,14 @@ class CallableTypeHelper
 
 		$result = null;
 		foreach ($theirParameters as $i => $theirParameter) {
+			/* @var $theirParameter \PHPStan\Reflection\ParameterReflection */
+			/* @var $ourParameter \PHPStan\Reflection\ParameterReflection */
 			$ourParameter = $ourParameters[$i];
 			$isSuperType = $theirParameter->getType()->isSuperTypeOf($ourParameter->getType());
 			if ($result === null) {
 				$result = $isSuperType;
 			} else {
+				/* @var $result TrinaryLogic */
 				$result = $result->and($isSuperType);
 			}
 		}

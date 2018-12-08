@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Command;
 
@@ -20,20 +20,20 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 	protected function configure(): void
 	{
 		$this->setName(self::NAME)
-		     ->setDescription('Analyses source code')
-		     ->setDefinition(
-			     [
-				     new InputArgument('paths', InputArgument::OPTIONAL | InputArgument::IS_ARRAY, 'Paths with source code to run analysis on'),
-				     new InputOption('configuration', 'c', InputOption::VALUE_REQUIRED, 'Path to project configuration file'),
-				     new InputOption(self::OPTION_LEVEL, 'l', InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter'),
-				     new InputOption(ErrorsConsoleStyle::OPTION_NO_PROGRESS, null, InputOption::VALUE_NONE, 'Do not show progress bar, only results'),
-				     new InputOption('debug', null, InputOption::VALUE_NONE, 'Show debug information - which file is analysed, do not catch internal errors'),
-				     new InputOption('autoload-file', 'a', InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path'),
-				     new InputOption('error-format', null, InputOption::VALUE_REQUIRED, 'Format in which to print the result of the analysis', 'table'),
-				     new InputOption('errorFormat', null, InputOption::VALUE_REQUIRED, '[deprecated] Use --error-format instead'),
-				     new InputOption('memory-limit', null, InputOption::VALUE_REQUIRED, 'Memory limit for analysis'),
-			     ]
-		     );
+			->setDescription('Analyses source code')
+			->setDefinition(
+				[
+					new InputArgument('paths', InputArgument::OPTIONAL | InputArgument::IS_ARRAY, 'Paths with source code to run analysis on'),
+					new InputOption('configuration', 'c', InputOption::VALUE_REQUIRED, 'Path to project configuration file'),
+					new InputOption(self::OPTION_LEVEL, 'l', InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter'),
+					new InputOption(ErrorsConsoleStyle::OPTION_NO_PROGRESS, null, InputOption::VALUE_NONE, 'Do not show progress bar, only results'),
+					new InputOption('debug', null, InputOption::VALUE_NONE, 'Show debug information - which file is analysed, do not catch internal errors'),
+					new InputOption('autoload-file', 'a', InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path'),
+					new InputOption('error-format', null, InputOption::VALUE_REQUIRED, 'Format in which to print the result of the analysis', 'table'),
+					new InputOption('errorFormat', null, InputOption::VALUE_REQUIRED, '[deprecated] Use --error-format instead'),
+					new InputOption('memory-limit', null, InputOption::VALUE_REQUIRED, 'Memory limit for analysis'),
+				]
+			);
 	}
 
 	/**
@@ -46,7 +46,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 	protected function initialize(InputInterface $input, OutputInterface $output): void
 	{
-		if ((bool)$input->getOption('debug')) {
+		if ((bool) $input->getOption('debug')) {
 			$this->getApplication()->setCatchExceptions(false);
 
 			return;

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type\Php;
 
@@ -27,7 +27,9 @@ class PathinfoFunctionDynamicReturnTypeExtension implements \PHPStan\Type\Dynami
 		$argsCount = \count($functionCall->args);
 		if ($argsCount === 0) {
 			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
-		} elseif ($argsCount === 1) {
+		}
+
+		if ($argsCount === 1) {
 			$stringType = new StringType();
 
 			return new ConstantArrayType(

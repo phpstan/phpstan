@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules\Variables;
 
@@ -47,17 +47,25 @@ class VariableCertaintyInIssetRule implements \PHPStan\Rules\Rule
 
 			$certainty = $scope->hasVariableType($var->name);
 			if ($certainty->no()) {
+
 				if (
 					$scope->getFunction() !== null
 					|| $scope->isInAnonymousFunction()
 				) {
 					$messages[] = sprintf('Variable $%s in isset() is never defined.', $var->name);
 				}
-			} elseif ($certainty->yes() && !$isSubNode) {
+
+			} elseif (
+				!$isSubNode
+				&&
+				$certainty->yes()
+			) {
+
 				$variableType = $scope->getVariableType($var->name);
 				if ($variableType->isSuperTypeOf(new NullType())->no()) {
 					$messages[] = sprintf('Variable $%s in isset() always exists and is not nullable.', $var->name);
 				}
+
 			}
 		}
 

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules;
 
@@ -67,14 +67,17 @@ class RuleLevelHelper
 		if ($acceptingType instanceof ArrayType && \count($acceptedArrays) > 0) {
 			foreach ($acceptedArrays as $acceptedArray) {
 				if ($acceptedArray instanceof ConstantArrayType) {
+
 					foreach ($acceptedArray->getKeyTypes() as $i => $keyType) {
 						$valueType = $acceptedArray->getValueTypes()[$i];
 						if (
-							!self::accepts(
+							!$this->accepts(
 								$acceptingType->getKeyType(),
 								$keyType,
 								$strictTypes
-							) || !self::accepts(
+							)
+							||
+							!$this->accepts(
 								$acceptingType->getItemType(),
 								$valueType,
 								$strictTypes
@@ -83,20 +86,23 @@ class RuleLevelHelper
 							return false;
 						}
 					}
-				} else {
-					if (
-						!self::accepts(
-							$acceptingType->getKeyType(),
-							$acceptedArray->getKeyType(),
-							$strictTypes
-						) || !self::accepts(
-							$acceptingType->getItemType(),
-							$acceptedArray->getItemType(),
-							$strictTypes
-						)
-					) {
-						return false;
-					}
+
+				} elseif (
+					!$this->accepts(
+						$acceptingType->getKeyType(),
+						$acceptedArray->getKeyType(),
+						$strictTypes
+					)
+					||
+					!$this->accepts(
+						$acceptingType->getItemType(),
+						$acceptedArray->getItemType(),
+						$strictTypes
+					)
+				) {
+
+					return false;
+
 				}
 			}
 
@@ -105,7 +111,7 @@ class RuleLevelHelper
 
 		if ($acceptingType instanceof UnionType && !$acceptedType instanceof CompoundType) {
 			foreach ($acceptingType->getTypes() as $innerType) {
-				if (self::accepts($innerType, $acceptedType, $strictTypes)) {
+				if ($this->accepts($innerType, $acceptedType, $strictTypes)) {
 					return true;
 				}
 			}
@@ -114,15 +120,15 @@ class RuleLevelHelper
 		}
 
 		if ($acceptedType instanceof ArrayType && $acceptingType instanceof ArrayType) {
-			return self::accepts(
-					$acceptingType->getKeyType(),
-					$acceptedType->getKeyType(),
-					$strictTypes
-				) && self::accepts(
-					$acceptingType->getItemType(),
-					$acceptedType->getItemType(),
-					$strictTypes
-				);
+			return $this->accepts(
+				$acceptingType->getKeyType(),
+				$acceptedType->getKeyType(),
+				$strictTypes
+			) && $this->accepts(
+				$acceptingType->getItemType(),
+				$acceptedType->getItemType(),
+				$strictTypes
+			);
 		}
 
 		$accepts = $acceptingType->accepts($acceptedType, $strictTypes);

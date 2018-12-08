@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type\Php;
 
@@ -57,7 +57,7 @@ class RangeFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionR
 						continue;
 					}
 
-					$rangeLength = (int)ceil(abs($startConstant->getValue() - $endConstant->getValue()) / $stepConstant->getValue()) + 1;
+					$rangeLength = (int) ceil(abs($startConstant->getValue() - $endConstant->getValue()) / $stepConstant->getValue()) + 1;
 					if ($rangeLength > self::RANGE_LENGTH_THRESHOLD) {
 						continue;
 					}

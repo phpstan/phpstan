@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules\Classes;
 
@@ -33,7 +33,7 @@ class ExistingClassesInInterfaceExtendsRule implements \PHPStan\Rules\Rule
 		return $this->classCaseSensitivityCheck->checkClassNames(
 			array_map(
 				static function (Node\Name $traitName): string {
-					return (string)$traitName;
+					return (string) $traitName;
 				},
 				$node->extends
 			)

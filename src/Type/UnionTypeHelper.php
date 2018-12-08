@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type;
 
@@ -76,7 +76,9 @@ class UnionTypeHelper
 			static function (Type $a, Type $b): float {
 				if ($a instanceof NullType) {
 					return 1;
-				} elseif ($b instanceof NullType) {
+				}
+
+				if ($b instanceof NullType) {
 					return -1;
 				}
 
@@ -95,12 +97,16 @@ class UnionTypeHelper
 				$bIsNullOrBool = ($b instanceof NullType || $b instanceof ConstantBooleanType);
 				if ($aIsNullOrBool && !$bIsNullOrBool) {
 					return 1;
-				} elseif ($bIsNullOrBool && !$aIsNullOrBool) {
+				}
+
+				if ($bIsNullOrBool && !$aIsNullOrBool) {
 					return -1;
 				}
 				if ($a instanceof ConstantScalarType && !$b instanceof ConstantScalarType) {
 					return -1;
-				} elseif (!$a instanceof ConstantScalarType && $b instanceof ConstantScalarType) {
+				}
+
+				if (!$a instanceof ConstantScalarType && $b instanceof ConstantScalarType) {
 					return 1;
 				}
 

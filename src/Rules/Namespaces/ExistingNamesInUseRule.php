@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules\Namespaces;
 
@@ -77,7 +77,7 @@ class ExistingNamesInUseRule implements \PHPStan\Rules\Rule
 				continue;
 			}
 
-			$messages[] = sprintf('Used constant %s not found.', (string)$use->name);
+			$messages[] = sprintf('Used constant %s not found.', (string) $use->name);
 		}
 
 		return $messages;
@@ -93,14 +93,15 @@ class ExistingNamesInUseRule implements \PHPStan\Rules\Rule
 		$messages = [];
 		foreach ($uses as $use) {
 			if (!$this->broker->hasFunction($use->name, null)) {
-				$messages[] = sprintf('Used function %s not found.', (string)$use->name);
+				$messages[] = sprintf('Used function %s not found.', (string) $use->name);
 			} elseif ($this->checkFunctionNameCase) {
 				$functionReflection = $this->broker->getFunction($use->name, null);
 				$realName = $functionReflection->getName();
-				$usedName = (string)$use->name;
+				$usedName = (string) $use->name;
 				if (
+					$realName !== $usedName
+					&&
 					strtolower($realName) === strtolower($usedName)
-					&& $realName !== $usedName
 				) {
 					$messages[] = sprintf(
 						'Function %s used with incorrect case: %s.',
@@ -124,7 +125,7 @@ class ExistingNamesInUseRule implements \PHPStan\Rules\Rule
 		return $this->classCaseSensitivityCheck->checkClassNames(
 			array_map(
 				static function (\PhpParser\Node\Stmt\UseUse $use): string {
-					return (string)$use->name;
+					return (string) $use->name;
 				},
 				$uses
 			)

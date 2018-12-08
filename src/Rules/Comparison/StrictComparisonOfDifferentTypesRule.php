@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules\Comparison;
 
@@ -60,7 +60,9 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 					$rightType->describe(VerbosityLevel::value())
 				),
 			];
-		} elseif ($this->checkAlwaysTrueStrictComparison) {
+		}
+
+		if ($this->checkAlwaysTrueStrictComparison) {
 			return [
 				sprintf(
 					'Strict comparison using %s between %s and %s will always evaluate to true.',
@@ -77,10 +79,10 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 	private function isSpecifiedFunctionCall(Scope $scope, Expr $node): bool
 	{
 		return (
-			       $node instanceof Expr\FuncCall
-			       || $node instanceof Expr\MethodCall
-			       || $node instanceof Expr\StaticCall
-		       ) && $scope->isSpecified($node);
+				   $node instanceof Expr\FuncCall
+				   || $node instanceof Expr\MethodCall
+				   || $node instanceof Expr\StaticCall
+			   ) && $scope->isSpecified($node);
 	}
 
 }

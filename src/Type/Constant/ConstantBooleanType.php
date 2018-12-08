@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type\Constant;
 
@@ -38,22 +38,22 @@ class ConstantBooleanType extends BooleanType implements ConstantScalarType
 
 	public function toNumber(): Type
 	{
-		return new ConstantIntegerType((int)$this->value);
+		return new ConstantIntegerType((int) $this->value);
 	}
 
 	public function toString(): Type
 	{
-		return new ConstantStringType((string)$this->value);
+		return new ConstantStringType((string) $this->value);
 	}
 
 	public function toInteger(): Type
 	{
-		return new ConstantIntegerType((int)$this->value);
+		return new ConstantIntegerType((int) $this->value);
 	}
 
 	public function toFloat(): Type
 	{
-		return new ConstantFloatType((float)$this->value);
+		return new ConstantFloatType((float) $this->value);
 	}
 
 	/**

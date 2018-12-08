@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Command;
 
@@ -23,7 +23,7 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 	public function __construct(InputInterface $input, OutputInterface $output)
 	{
 		parent::__construct($input, $output);
-		$this->showProgress = $input->hasOption(self::OPTION_NO_PROGRESS) && !(bool)$input->getOption(self::OPTION_NO_PROGRESS);
+		$this->showProgress = $input->hasOption(self::OPTION_NO_PROGRESS) && !(bool) $input->getOption(self::OPTION_NO_PROGRESS);
 		$this->output = $output;
 	}
 
@@ -75,6 +75,8 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 	 * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
 	 *
 	 * @param int $max
+	 *
+	 * @return ProgressBar
 	 */
 	public function createProgressBar($max = 0): ProgressBar
 	{
@@ -106,10 +108,15 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 		if (!$this->showProgress) {
 			return;
 		}
-		if ($this->output->isDecorated() && $step > 0) {
+
+		if (
+			$step > 0
+			&&
+			$this->output->isDecorated()
+		) {
 			$stepTime = (time() - $this->progressBar->getStartTime()) / $step;
 			if ($stepTime > 0 && $stepTime < 1) {
-				$this->progressBar->setRedrawFrequency((int)(1 / $stepTime));
+				$this->progressBar->setRedrawFrequency((int) (1 / $stepTime));
 			} else {
 				$this->progressBar->setRedrawFrequency(1);
 			}

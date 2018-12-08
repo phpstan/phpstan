@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules\Classes;
 
@@ -59,7 +59,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 		$class = $node->class;
 		$messages = [];
 		if ($class instanceof \PhpParser\Node\Name) {
-			$className = (string)$class;
+			$className = (string) $class;
 			$lowercasedClassName = strtolower($className);
 			if (\in_array($lowercasedClassName, ['self', 'static'], true)) {
 				if (!$scope->isInClass()) {
@@ -97,9 +97,9 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 					return [
 						sprintf('Access to constant %s on an unknown class %s.', $constantName, $className),
 					];
-				} else {
-					$messages = $this->classCaseSensitivityCheck->checkClassNames([$className]);
 				}
+
+				$messages = $this->classCaseSensitivityCheck->checkClassNames([$className]);
 
 				$className = $this->broker->getClass($className)->getName();
 			}

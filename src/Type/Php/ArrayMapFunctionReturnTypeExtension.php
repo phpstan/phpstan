@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type\Php;
 
@@ -53,7 +53,9 @@ class ArrayMapFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFuncti
 			}
 
 			return TypeCombinator::union(...$arrayTypes);
-		} elseif ($arrayType instanceof ArrayType) {
+		}
+
+		if ($arrayType instanceof ArrayType) {
 			return new ArrayType(
 				$arrayType->getIterableKeyType(),
 				$valueType

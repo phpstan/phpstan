@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Analyser;
 
@@ -66,22 +66,22 @@ class TypeSpecifierContext
 
 	public function true(): bool
 	{
-		return $this->value !== null && (bool)($this->value & self::CONTEXT_TRUE);
+		return $this->value !== null && (bool) ($this->value & self::CONTEXT_TRUE);
 	}
 
 	public function truthy(): bool
 	{
-		return $this->value !== null && (bool)($this->value & self::CONTEXT_TRUTHY);
+		return $this->value !== null && (bool) ($this->value & self::CONTEXT_TRUTHY);
 	}
 
 	public function false(): bool
 	{
-		return $this->value !== null && (bool)($this->value & self::CONTEXT_FALSE);
+		return $this->value !== null && (bool) ($this->value & self::CONTEXT_FALSE);
 	}
 
 	public function falsey(): bool
 	{
-		return $this->value !== null && (bool)($this->value & self::CONTEXT_FALSEY);
+		return $this->value !== null && (bool) ($this->value & self::CONTEXT_FALSEY);
 	}
 
 	public function null(): bool

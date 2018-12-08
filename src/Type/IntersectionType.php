@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type;
 
@@ -309,7 +309,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 
 	public function toBoolean(): BooleanType
 	{
-		/** @var BooleanType $type */
+		/* @var BooleanType $type */
 		$type = $this->intersectTypes(
 			static function (Type $type): BooleanType {
 				return $type->toBoolean();

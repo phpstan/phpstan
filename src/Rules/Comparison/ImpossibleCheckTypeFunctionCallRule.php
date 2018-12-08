@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules\Comparison;
 
@@ -40,7 +40,7 @@ class ImpossibleCheckTypeFunctionCallRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		$functionName = (string)$node->name;
+		$functionName = (string) $node->name;
 		if (strtolower($functionName) === 'is_a') {
 			return [];
 		}
@@ -57,7 +57,9 @@ class ImpossibleCheckTypeFunctionCallRule implements \PHPStan\Rules\Rule
 					$this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args)
 				),
 			];
-		} elseif ($this->checkAlwaysTrueCheckTypeFunctionCall) {
+		}
+
+		if ($this->checkAlwaysTrueCheckTypeFunctionCall) {
 			return [
 				sprintf(
 					'Call to function %s()%s will always evaluate to true.',

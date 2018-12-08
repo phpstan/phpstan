@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\File;
 
@@ -57,7 +57,7 @@ class FileHelper
 				continue;
 			}
 			if ($pathPart === '..') {
-				/** @var string $removedPart */
+				/* @var string $removedPart */
 				$removedPart = array_pop($normalizedPathParts);
 				if ($scheme === 'phar' && substr($removedPart, -5) === '.phar') {
 					$scheme = null;

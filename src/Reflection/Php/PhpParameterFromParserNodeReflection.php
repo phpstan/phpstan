@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Reflection\Php;
 
@@ -75,7 +75,7 @@ class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\Parame
 				&&
 				$this->defaultValue instanceof ConstFetch
 				&&
-				strtolower((string)$this->defaultValue->name) === 'null'
+				strtolower((string) $this->defaultValue->name) === 'null'
 			) {
 				$phpDocType = \PHPStan\Type\TypeCombinator::addNull($phpDocType);
 			}

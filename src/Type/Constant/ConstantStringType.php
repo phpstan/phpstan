@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type\Constant;
 
@@ -132,7 +132,7 @@ class ConstantStringType extends StringType implements ConstantScalarType
 	public function toNumber(): Type
 	{
 		if (is_numeric($this->value)) {
-			/** @var mixed $value */
+			/* @var mixed $value */
 			$value = $this->value;
 			$value = +$value;
 			if (\is_float($value)) {

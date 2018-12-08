@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type;
 
@@ -153,7 +153,7 @@ class TypeCombinator
 			unset($types[$i]);
 		}
 
-		/** @var ArrayType[] $arrayTypes */
+		/* @var ArrayType[] $arrayTypes */
 		$arrayTypes = $arrayTypes;
 
 		$types = array_values(
@@ -216,7 +216,9 @@ class TypeCombinator
 		if (\count($types) === 0) {
 			return new NeverType();
 
-		} elseif (\count($types) === 1) {
+		}
+
+		if (\count($types) === 1) {
 			return $types[0];
 		}
 
@@ -233,7 +235,9 @@ class TypeCombinator
 	{
 		if (\count($arrayTypes) === 0) {
 			return [];
-		} elseif (\count($arrayTypes) === 1) {
+		}
+
+		if (\count($arrayTypes) === 1) {
 			return [
 				self::intersect($arrayTypes[0], ...$accessoryTypes),
 			];
@@ -244,7 +248,7 @@ class TypeCombinator
 		$generalArrayOcurred = false;
 		$constantKeyTypesNumbered = [];
 
-		/** @var int|float $nextConstantKeyTypeIndex */
+		/* @var int|float $nextConstantKeyTypeIndex */
 		$nextConstantKeyTypeIndex = 1;
 
 		foreach ($arrayTypes as $arrayType) {
@@ -289,10 +293,10 @@ class TypeCombinator
 			];
 		}
 
-		/** @var ConstantArrayType[] $arrayTypes */
+		/* @var ConstantArrayType[] $arrayTypes */
 		$arrayTypes = $arrayTypes;
 
-		/** @var int[] $constantKeyTypesNumbered */
+		/* @var int[] $constantKeyTypesNumbered */
 		$constantKeyTypesNumbered = $constantKeyTypesNumbered;
 
 		$constantArraysBuckets = [];
@@ -385,7 +389,9 @@ class TypeCombinator
 				if ($isSuperTypeA->no()) {
 					return new NeverType();
 
-				} elseif ($isSuperTypeA->yes()) {
+				}
+
+				if ($isSuperTypeA->yes()) {
 					array_splice($types, $j--, 1);
 					continue;
 				}

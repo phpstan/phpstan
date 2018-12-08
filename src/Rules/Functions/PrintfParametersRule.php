@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules\Functions;
 
@@ -40,7 +40,7 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 			'fscanf'  => 3,
 		];
 
-		$name = strtolower((string)$node->name);
+		$name = strtolower((string) $node->name);
 		if (!isset($functionsArgumentPositions[$name])) {
 			return [];
 		}
@@ -89,10 +89,12 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 	private function getPlaceholdersCount(string $functionName, string $format): int
 	{
 		$specifiers = \in_array(
-			$functionName, [
-			'sprintf',
-			'printf',
-		], true
+			$functionName,
+			[
+				'sprintf',
+				'printf',
+			],
+			true
 		) ? '[bcdeEfFgGosuxX]' : '(?:[cdDeEfinosuxX]|\[[^\]]+\])';
 		$pattern = '~(?<before>%*)%(?:(?<position>\d+)\$)?[-+]?(?:[ 0]|(?:\'[^%]))?-?\d*(?:\.\d*)?' . $specifiers . '~';
 
@@ -117,7 +119,7 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 		$maxOrdinaryNumber = 0;
 		foreach ($placeholders as $placeholder) {
 			if (isset($placeholder['position']) && $placeholder['position'] !== '') {
-				$maxPositionedNumber = max((int)$placeholder['position'], $maxPositionedNumber);
+				$maxPositionedNumber = max((int) $placeholder['position'], $maxPositionedNumber);
 			} else {
 				$maxOrdinaryNumber++;
 			}

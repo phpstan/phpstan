@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type\Constant;
 
@@ -194,7 +194,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		}
 
 		$method = $typeAndMethodName->getType()
-		                            ->getMethod($typeAndMethodName->getMethod(), $scope);
+			->getMethod($typeAndMethodName->getMethod(), $scope);
 
 		if (!$scope->canCallMethod($method)) {
 			return [new InaccessibleMethod($method)];

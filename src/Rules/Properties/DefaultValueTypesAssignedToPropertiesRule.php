@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules\Properties;
 
@@ -44,7 +44,7 @@ class DefaultValueTypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 				continue;
 			}
 
-			if ($property->default instanceof Node\Expr\ConstFetch && (string)$property->default->name === 'null') {
+			if ($property->default instanceof Node\Expr\ConstFetch && (string) $property->default->name === 'null') {
 				continue;
 			}
 

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules;
 
@@ -59,7 +59,7 @@ class UnusedFunctionParametersCheck
 			if (
 				$node instanceof Node\Expr\FuncCall
 				&& $node->name instanceof Node\Name
-				&& (string)$node->name === 'compact'
+				&& (string) $node->name === 'compact'
 			) {
 				foreach ($node->args as $arg) {
 					$argType = $scope->getType($arg->value);

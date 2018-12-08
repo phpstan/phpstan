@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type\Php;
 
@@ -33,8 +33,8 @@ class ArrayKeyExistsFunctionTypeSpecifyingExtension implements FunctionTypeSpeci
 	): bool
 	{
 		return $functionReflection->getName() === 'array_key_exists'
-		       && \count($node->args) >= 2
-		       && !$context->null();
+			   && \count($node->args) >= 2
+			   && !$context->null();
 	}
 
 	public function specifyTypes(

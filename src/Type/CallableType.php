@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type;
 
@@ -72,7 +72,11 @@ class CallableType implements CompoundType, ParametersAcceptor
 	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
 		$isCallable = $type->isCallable();
-		if ($isCallable->no() || $this->isCommonCallable) {
+		if (
+			$this->isCommonCallable
+			||
+			$isCallable->no()
+		) {
 			return $isCallable;
 		}
 
@@ -87,6 +91,7 @@ class CallableType implements CompoundType, ParametersAcceptor
 			if ($variantsResult === null) {
 				$variantsResult = $isSuperType;
 			} else {
+				/* @var $variantsResult TrinaryLogic */
 				$variantsResult = $variantsResult->or($isSuperType);
 			}
 		}
@@ -105,7 +110,7 @@ class CallableType implements CompoundType, ParametersAcceptor
 		}
 
 		return $otherType->isCallable()
-		                 ->and($otherType instanceof self ? TrinaryLogic::createYes() : TrinaryLogic::createMaybe());
+			->and($otherType instanceof self ? TrinaryLogic::createYes() : TrinaryLogic::createMaybe());
 	}
 
 	public function equals(Type $type): bool
@@ -184,7 +189,7 @@ class CallableType implements CompoundType, ParametersAcceptor
 	public static function __set_state(array $properties): Type
 	{
 		return new self(
-			(bool)$properties['isCommonCallable'] ? null : $properties['parameters'],
+			(bool) $properties['isCommonCallable'] ? null : $properties['parameters'],
 			$properties['returnType'],
 			$properties['variadic']
 		);

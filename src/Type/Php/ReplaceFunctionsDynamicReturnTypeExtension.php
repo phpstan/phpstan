@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type\Php;
 
@@ -62,7 +62,7 @@ class ReplaceFunctionsDynamicReturnTypeExtension implements DynamicFunctionRetur
 
 		$subjectArgumentType = $scope->getType($functionCall->args[$argumentPosition]->value);
 		$defaultReturnType = ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())
-		                                               ->getReturnType();
+													   ->getReturnType();
 		if ($subjectArgumentType instanceof MixedType) {
 			return TypeUtils::toBenevolentUnion($defaultReturnType);
 		}
@@ -74,7 +74,9 @@ class ReplaceFunctionsDynamicReturnTypeExtension implements DynamicFunctionRetur
 		$compareSuperTypes = $isStringSuperType->compareTo($isArraySuperType);
 		if ($compareSuperTypes === $isStringSuperType) {
 			return $stringType;
-		} elseif ($compareSuperTypes === $isArraySuperType) {
+		}
+
+		if ($compareSuperTypes === $isArraySuperType) {
 			if ($subjectArgumentType instanceof ArrayType) {
 				return $subjectArgumentType->generalizeValues();
 			}

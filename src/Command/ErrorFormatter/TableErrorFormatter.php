@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Command\ErrorFormatter;
 
@@ -43,7 +43,7 @@ class TableErrorFormatter implements ErrorFormatter
 			$rows = [];
 			foreach ($errors as $error) {
 				$rows[] = [
-					(string)$error->getLine(),
+					(string) $error->getLine(),
 					$error->getMessage(),
 				];
 			}

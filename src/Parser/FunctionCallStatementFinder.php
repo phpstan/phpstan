@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Parser;
 
@@ -28,10 +28,14 @@ class FunctionCallStatementFinder
 				continue;
 			}
 
-			if ($statement instanceof FuncCall && $statement->name instanceof Name) {
-				if (\in_array((string)$statement->name, $functionNames, true)) {
-					return $statement;
-				}
+			if (
+				$statement instanceof FuncCall
+				&&
+				$statement->name instanceof Name
+				&&
+				\in_array((string) $statement->name, $functionNames, true)
+			) {
+				return $statement;
 			}
 
 			$result = $this->findFunctionCallInStatements($functionNames, $statement);

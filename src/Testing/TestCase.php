@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Testing;
 
@@ -147,8 +147,12 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		};
 		$phpDocStringResolver = self::getContainer()->getByType(PhpDocStringResolver::class);
 		$fileTypeMapper = new FileTypeMapper(
-			$parser, $phpDocStringResolver, $cache, new AnonymousClassNameHelper(new FileHelper($this->getCurrentWorkingDirectory())), self::getContainer()
-			                                                                                                                               ->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class)
+			$parser,
+			$phpDocStringResolver,
+			$cache,
+			new AnonymousClassNameHelper(new FileHelper($this->getCurrentWorkingDirectory())),
+			self::getContainer()
+																																		   ->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class)
 		);
 		$annotationsMethodsClassReflectionExtension = new AnnotationsMethodsClassReflectionExtension($fileTypeMapper);
 		$annotationsPropertiesClassReflectionExtension = new AnnotationsPropertiesClassReflectionExtension($fileTypeMapper);
@@ -242,13 +246,18 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			array_merge(
 				$tagToService(
 					self::getContainer()
-					    ->findByTag(BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG)
-				), $this->getDynamicFunctionReturnTypeExtensions()
+						->findByTag(BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG)
+				),
+				$this->getDynamicFunctionReturnTypeExtensions()
 			),
 			$functionReflectionFactory,
 			new FileTypeMapper(
-				$this->getParser(), $phpDocStringResolver, $cache, new AnonymousClassNameHelper(new FileHelper($this->getCurrentWorkingDirectory())), self::getContainer()
-				                                                                                                                                          ->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class)
+				$this->getParser(),
+				$phpDocStringResolver,
+				$cache,
+				new AnonymousClassNameHelper(new FileHelper($this->getCurrentWorkingDirectory())),
+				self::getContainer()
+																																						  ->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class)
 			),
 			$signatureMapProvider,
 			self::getContainer()->getByType(Standard::class),
@@ -338,7 +347,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			$broker,
 			$tagToService(
 				self::getContainer()
-				    ->findByTag(TypeSpecifierFactory::FUNCTION_TYPE_SPECIFYING_EXTENSION_TAG)
+					->findByTag(TypeSpecifierFactory::FUNCTION_TYPE_SPECIFYING_EXTENSION_TAG)
 			),
 			$methodTypeSpecifyingExtensions,
 			$staticMethodTypeSpecifyingExtensions

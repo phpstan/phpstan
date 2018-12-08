@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type;
 
@@ -56,7 +56,7 @@ class TypehintHelper
 			return $phpDocType ?? new MixedType();
 		}
 
-		$reflectionTypeString = (string)$reflectionType;
+		$reflectionTypeString = (string) $reflectionType;
 		if (\Nette\Utils\Strings::endsWith(strtolower($reflectionTypeString), '\\object')) {
 			$reflectionTypeString = 'object';
 		}

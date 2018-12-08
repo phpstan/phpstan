@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules\PhpDoc;
 
@@ -52,6 +52,7 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 		$errors = [];
 
 		foreach ($resolvedPhpDoc->getParamTags() as $parameterName => $phpDocParamTag) {
+			/* @var $phpDocParamTag \PHPStan\PhpDoc\Tag\ParamTag */
 			$phpDocParamType = $phpDocParamTag->getType();
 			if (!isset($nativeParameterTypes[$parameterName])) {
 				$errors[] = sprintf(
@@ -70,9 +71,11 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 				$isParamSuperType = $nativeParamType->isSuperTypeOf($phpDocParamType);
 
 				if (
+					$nativeParamType instanceof ArrayType
+					&&
 					$phpDocParamTag->isVariadic()
-					&& $nativeParamType instanceof ArrayType
-					&& $nativeParamType->getItemType() instanceof ArrayType
+					&&
+					$nativeParamType->getItemType() instanceof ArrayType
 				) {
 					continue;
 				}
@@ -135,9 +138,14 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 		$nativeParameterTypes = [];
 		foreach ($node->getParams() as $parameter) {
 			$isNullable = $scope->isParameterValueNullable($parameter);
-			if (!$parameter->var instanceof Variable || !\is_string($parameter->var->name)) {
+			if (
+				!$parameter->var instanceof Variable
+				||
+				!\is_string($parameter->var->name)
+			) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
+
 			$nativeParameterTypes[$parameter->var->name] = $scope->getFunctionType(
 				$parameter->type,
 				$isNullable,

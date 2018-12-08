@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type;
 
@@ -155,10 +155,10 @@ class FileTypeMapper
 		?string $traitUseClass
 	): array
 	{
-		/** @var callable[] $phpDocMap */
+		/* @var callable[] $phpDocMap */
 		$phpDocMap = [];
 
-		/** @var string[] $classStack */
+		/* @var string[] $classStack */
 		$classStack = [];
 		if ($lookForTrait !== null && $traitUseClass !== null) {
 			$classStack[] = $traitUseClass;
@@ -173,7 +173,7 @@ class FileTypeMapper
 						if (!$node instanceof Node\Stmt\Trait_) {
 							return false;
 						}
-						if ((string)$node->namespacedName !== $lookForTrait) {
+						if ((string) $node->namespacedName !== $lookForTrait) {
 							return false;
 						}
 					} else {
@@ -193,7 +193,7 @@ class FileTypeMapper
 					}
 				} elseif ($node instanceof Node\Stmt\TraitUse) {
 					foreach ($node->traits as $traitName) {
-						$traitName = (string)$traitName;
+						$traitName = (string) $traitName;
 						if (!trait_exists($traitName)) {
 							continue;
 						}
@@ -218,23 +218,23 @@ class FileTypeMapper
 
 					return;
 				} elseif ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
-					$namespace = (string)$node->name;
+					$namespace = (string) $node->name;
 
 					return;
 				} elseif ($node instanceof \PhpParser\Node\Stmt\Use_ && $node->type === \PhpParser\Node\Stmt\Use_::TYPE_NORMAL) {
 					foreach ($node->uses as $use) {
-						$uses[strtolower($use->getAlias()->name)] = (string)$use->name;
+						$uses[strtolower($use->getAlias()->name)] = (string) $use->name;
 					}
 
 					return;
 				} elseif ($node instanceof \PhpParser\Node\Stmt\GroupUse) {
-					$prefix = (string)$node->prefix;
+					$prefix = (string) $node->prefix;
 					foreach ($node->uses as $use) {
 						if ($node->type !== \PhpParser\Node\Stmt\Use_::TYPE_NORMAL && $use->type !== \PhpParser\Node\Stmt\Use_::TYPE_NORMAL) {
 							continue;
 						}
 
-						$uses[strtolower($use->getAlias()->name)] = sprintf('%s\\%s', $prefix, (string)$use->name);
+						$uses[strtolower($use->getAlias()->name)] = sprintf('%s\\%s', $prefix, (string) $use->name);
 					}
 
 					return;

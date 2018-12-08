@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type\Accessory;
 
@@ -44,7 +44,7 @@ class HasOffsetType implements CompoundType, AccessoryType
 		}
 
 		return $type->isOffsetAccessible()
-		            ->and($type->hasOffsetValueType($this->offsetType));
+			->and($type->hasOffsetValueType($this->offsetType));
 	}
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic
@@ -54,7 +54,7 @@ class HasOffsetType implements CompoundType, AccessoryType
 		}
 
 		return $type->isOffsetAccessible()
-		            ->and($type->hasOffsetValueType($this->offsetType));
+			->and($type->hasOffsetValueType($this->offsetType));
 	}
 
 	public function isSubTypeOf(Type $otherType): TrinaryLogic
@@ -64,14 +64,14 @@ class HasOffsetType implements CompoundType, AccessoryType
 		}
 
 		return $otherType->isOffsetAccessible()
-		                 ->and($otherType->hasOffsetValueType($this->offsetType))
-		                 ->and($otherType instanceof self ? TrinaryLogic::createYes() : TrinaryLogic::createMaybe());
+			->and($otherType->hasOffsetValueType($this->offsetType))
+			->and($otherType instanceof self ? TrinaryLogic::createYes() : TrinaryLogic::createMaybe());
 	}
 
 	public function equals(Type $type): bool
 	{
 		return $type instanceof self
-		       && $this->offsetType->equals($type->offsetType);
+			   && $this->offsetType->equals($type->offsetType);
 	}
 
 	public function describe(\PHPStan\Type\VerbosityLevel $level): string

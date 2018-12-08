@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules\Classes;
 
@@ -49,7 +49,7 @@ class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		$name = (string)$class;
+		$name = (string) $class;
 		$lowercaseName = strtolower($name);
 
 		if (\in_array(
@@ -74,7 +74,9 @@ class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf('Class %s not found.', $name),
 			];
-		} elseif ($this->checkClassCaseSensitivity) {
+		}
+
+		if ($this->checkClassCaseSensitivity) {
 			return $this->classCaseSensitivityCheck->checkClassNames([$name]);
 		}
 

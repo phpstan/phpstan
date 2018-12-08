@@ -106,7 +106,9 @@
 	<rule ref="SlevomatCodingStandard.ControlStructures.RequireNullCoalesceOperator"/>
 
 	<!-- MUST use of early exit -->
+    <!-- not working ->
 	<rule ref="SlevomatCodingStandard.ControlStructures.EarlyExit"/>
+    -->
 
 	<!-- MUST NOT use short ternary operator ?: -->
 	<rule ref="SlevomatCodingStandard.ControlStructures.DisallowShortTernaryOperator"/>
@@ -195,7 +197,7 @@
 		</properties>
 	</rule>
 
-	<!-- ? -->
+	<!-- No global function in e.g. classes -->
 	<rule ref="Squiz.Functions.GlobalFunction"/>
 
 	<!-- Check to ensure no PHP deprecated functions have been used -->
@@ -302,10 +304,10 @@
 	<!-- 2.2 Lines -->
 
 	<!-- The soft limit on line length MUST be "x"-characters; automated style checkers MUST warn but MUST NOT error at the soft limit. -->
-	<!-- TODO: decrease value (17.10.2018 | 350) -->
+	<!-- TODO: decrease value (17.10.2018 | 400) -->
 	<rule ref="Generic.Files.LineLength">
 		<properties>
-			<property name="lineLimit" value="350"/>
+			<property name="lineLimit" value="400"/>
 			<property name="absoluteLineLimit" value="0"/>
 			<property name="ignoreComments" value="true" />
 		</properties>
@@ -353,7 +355,7 @@
 		<exclude name="Squiz.Arrays.ArrayBracketSpacing.SpaceBeforeBracket"/><!-- does not handle nested array access across multiple lines -->
 	</rule>
 
-	<!-- ? -->
+	<!-- One space after PHP language construct keywords -->
 	<rule ref="Generic.WhiteSpace.LanguageConstructSpacing"/>
 
 	<!-- MUST use spaces for equal symbols -->

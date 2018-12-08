@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules\Classes;
 
@@ -48,7 +48,7 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 	public function processNode(Node $node, Scope $scope): array
 	{
 		if ($node->class instanceof \PhpParser\Node\Name) {
-			$class = (string)$node->class;
+			$class = (string) $node->class;
 		} elseif ($node->class instanceof Node\Stmt\Class_) {
 			$anonymousClassType = $scope->getType($node);
 			if (!$anonymousClassType instanceof ObjectType) {
@@ -70,7 +70,9 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 			}
 
 			return [];
-		} elseif ($lowercasedClass === 'self') {
+		}
+
+		if ($lowercasedClass === 'self') {
 			if (!$scope->isInClass()) {
 				return [
 					sprintf('Using %s outside of class scope.', $class),
@@ -99,9 +101,9 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 				return [
 					sprintf('Instantiated class %s not found.', $class),
 				];
-			} else {
-				$messages = $this->classCaseSensitivityCheck->checkClassNames([$class]);
 			}
+
+			$messages = $this->classCaseSensitivityCheck->checkClassNames([$class]);
 
 			$classReflection = $this->broker->getClass($class);
 		}

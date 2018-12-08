@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules\Methods;
 
@@ -81,7 +81,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 		$errors = [];
 		$isInterface = false;
 		if ($class instanceof Name) {
-			$className = (string)$class;
+			$className = (string) $class;
 			$lowercasedClassName = strtolower($className);
 			if (\in_array($lowercasedClassName, ['self', 'static'], true)) {
 				if (!$scope->isInClass()) {
@@ -127,9 +127,9 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 					return [
 						sprintf('Call to static method %s() on an unknown class %s.', $methodName, $className),
 					];
-				} else {
-					$errors = $this->classCaseSensitivityCheck->checkClassNames([$className]);
 				}
+
+				$errors = $this->classCaseSensitivityCheck->checkClassNames([$className]);
 
 				$classReflection = $this->broker->getClass($className);
 				$isInterface = $classReflection->isInterface();

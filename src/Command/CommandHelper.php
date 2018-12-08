@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Command;
 
@@ -89,10 +89,20 @@ class CommandHelper
 			if (isset($projectConfig['parameters']['tmpDir'])) {
 				$tmpDir = Helpers::expand($projectConfig['parameters']['tmpDir'], $defaultParameters);
 			}
-			if ($level === null && isset($projectConfig['parameters']['level'])) {
+
+			if (
+				$level === null
+				&&
+				isset($projectConfig['parameters']['level'])
+			) {
 				$level = $projectConfig['parameters']['level'];
 			}
-			if (\count($paths) === 0 && isset($projectConfig['parameters']['paths'])) {
+
+			if (
+				isset($projectConfig['parameters']['paths'])
+				&&
+				\count($paths) === 0
+			) {
 				$paths = Helpers::expand($projectConfig['parameters']['paths'], $defaultParameters);
 			}
 		}
@@ -152,7 +162,9 @@ class CommandHelper
 			$errorOutput->writeln('  * in this case, don\'t forget to define parameter <options=bold>customRulesetUsed</> in your config file.');
 			$errorOutput->writeln('');
 			throw new \PHPStan\Command\InceptionNotSuccessfulException();
-		} elseif ((bool)$container->parameters['customRulesetUsed']) {
+		}
+
+		if ((bool) $container->parameters['customRulesetUsed']) {
 			$defaultLevelUsed = false;
 		}
 
@@ -218,7 +230,9 @@ class CommandHelper
 			if (!file_exists($path)) {
 				$errorOutput->writeln(sprintf('<error>Path %s does not exist</error>', $path));
 				throw new \PHPStan\Command\InceptionNotSuccessfulException();
-			} elseif (is_file($path)) {
+			}
+
+			if (is_file($path)) {
 				$files[] = $fileHelper->normalizePath($path);
 			} else {
 				$finder = new Finder();

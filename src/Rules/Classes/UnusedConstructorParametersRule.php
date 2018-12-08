@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules\Classes;
 
@@ -46,8 +46,9 @@ class UnusedConstructorParametersRule implements \PHPStan\Rules\Rule
 		}
 
 		$message = sprintf(
-			'Constructor of class %s has an unused parameter $%%s.', $scope->getClassReflection()
-			                                                               ->getDisplayName()
+			'Constructor of class %s has an unused parameter $%%s.',
+			$scope->getClassReflection()
+				->getDisplayName()
 		);
 		if ($scope->getClassReflection()->isAnonymous()) {
 			$message = 'Constructor of an anonymous class has an unused parameter $%s.';

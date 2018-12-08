@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type;
 
@@ -53,14 +53,16 @@ class TypeUtils
 	{
 		if ($type instanceof ConstantType) {
 			return $type->generalize();
-		} elseif ($type instanceof UnionType) {
+		}
+
+		if ($type instanceof UnionType) {
 			return TypeCombinator::union(
 				...array_map(
-					   static function (Type $innerType): Type {
+					static function (Type $innerType): Type {
 						   return self::generalizeType($innerType);
-					   },
-					   $type->getTypes()
-				   )
+					},
+					$type->getTypes()
+				)
 			);
 		}
 

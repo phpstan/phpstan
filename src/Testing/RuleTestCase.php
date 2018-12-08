@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Testing;
 
@@ -58,8 +58,12 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 					$broker,
 					$this->getParser(),
 					new FileTypeMapper(
-						$this->getParser(), self::getContainer()
-						                        ->getByType(PhpDocStringResolver::class), $this->createMock(Cache::class), new AnonymousClassNameHelper(new FileHelper($this->getCurrentWorkingDirectory())), new \PHPStan\PhpDoc\TypeNodeResolver($this->getTypeNodeResolverExtensions())
+						$this->getParser(),
+						self::getContainer()
+												->getByType(PhpDocStringResolver::class),
+						$this->createMock(Cache::class),
+						new AnonymousClassNameHelper(new FileHelper($this->getCurrentWorkingDirectory())),
+						new \PHPStan\PhpDoc\TypeNodeResolver($this->getTypeNodeResolverExtensions())
 					),
 					$fileHelper,
 					$typeSpecifier,

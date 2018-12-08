@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules\Classes;
 
@@ -87,18 +87,23 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 
 			$statement = $this->ignoreErrorSuppression($statement);
 			if ($statement instanceof \PhpParser\Node\Expr\StaticCall) {
+
 				if (
 					$statement->class instanceof Name
-					&& ((string)$statement->class === 'parent')
-					&& $statement->name instanceof Node\Identifier
-					&& $statement->name->name === '__construct'
+					&&
+					(string) $statement->class === 'parent'
+					&&
+					$statement->name instanceof Node\Identifier
+					&&
+					$statement->name->name === '__construct'
 				) {
 					return true;
 				}
-			} else {
-				if ($this->callsParentConstruct($statement)) {
-					return true;
-				}
+
+			} elseif ($this->callsParentConstruct($statement)) {
+
+				return true;
+
 			}
 		}
 
@@ -114,11 +119,11 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 	{
 		while ($classReflection->getParentClass() !== false) {
 			$constructor = $classReflection->getParentClass()
-			                               ->hasMethod('__construct') ? $classReflection->getParentClass()
-			                                                                            ->getMethod('__construct') : null;
+				->hasMethod('__construct') ? $classReflection->getParentClass()
+				->getMethod('__construct') : null;
 			$constructorWithClassName = $classReflection->getParentClass()->hasMethod(
 				$classReflection->getParentClass()
-				                ->getName()
+					->getName()
 			) ? $classReflection->getParentClass()->getMethod($classReflection->getParentClass()->getName()) : null;
 			if (
 				(
@@ -128,7 +133,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 				) || (
 					$constructorWithClassName !== null
 					&& $constructorWithClassName->getDeclaringClass()->getName() === $classReflection->getParentClass()
-					                                                                                 ->getName()
+						->getName()
 					&& !$constructorWithClassName->isAbstract()
 				)
 			) {

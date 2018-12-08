@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan;
 
@@ -123,7 +123,9 @@ class TrinaryLogic
 	{
 		if ($this->value > $other->value) {
 			return $this;
-		} elseif ($other->value > $this->value) {
+		}
+
+		if ($other->value > $this->value) {
 			return $other;
 		}
 

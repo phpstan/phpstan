@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Broker;
 
@@ -129,10 +129,12 @@ class Broker
 		$this->propertiesClassReflectionExtensions = $propertiesClassReflectionExtensions;
 		$this->methodsClassReflectionExtensions = $methodsClassReflectionExtensions;
 		foreach (array_merge(
-			         $propertiesClassReflectionExtensions, $methodsClassReflectionExtensions,
-			         $dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions,
-			         $dynamicFunctionReturnTypeExtensions
-		         ) as $extension) {
+			$propertiesClassReflectionExtensions,
+			$methodsClassReflectionExtensions,
+			$dynamicMethodReturnTypeExtensions,
+			$dynamicStaticMethodReturnTypeExtensions,
+			$dynamicFunctionReturnTypeExtensions
+		) as $extension) {
 			if (!($extension instanceof BrokerAwareExtension)) {
 				continue;
 			}
@@ -236,10 +238,10 @@ class Broker
 		$extensionsForClass = [[]];
 		$class = $this->getClass($className);
 		foreach (\array_merge(
-			         [$className],
-			         $class->getParentClassesNames(),
-			         $class->getNativeReflection()->getInterfaceNames()
-		         ) as $extensionClassName) {
+			[$className],
+			$class->getParentClassesNames(),
+			$class->getNativeReflection()->getInterfaceNames()
+		) as $extensionClassName) {
 			if (!isset($extensions[$extensionClassName])) {
 				continue;
 			}
@@ -317,7 +319,9 @@ class Broker
 
 		$classNode = $node->class;
 		$classNode->name = new \PhpParser\Node\Identifier($className);
+		// @codingStandardsIgnoreStart
 		eval($this->printer->prettyPrint([$classNode]));
+		// @codingStandardsIgnoreEnd
 		unset($classNode);
 
 		self::$anonymousClasses[$className] = $this->getClassFromReflection(
@@ -391,7 +395,7 @@ class Broker
 	{
 		$functionName = $this->resolveFunctionName($nameNode, $scope);
 		if ($functionName === null) {
-			throw new \PHPStan\Broker\FunctionNotFoundException((string)$nameNode);
+			throw new \PHPStan\Broker\FunctionNotFoundException((string) $nameNode);
 		}
 
 		$lowerCasedFunctionName = strtolower($functionName);
@@ -490,7 +494,7 @@ class Broker
 	): \PHPStan\Reflection\Php\PhpFunctionReflection
 	{
 		if (!$this->hasCustomFunction($nameNode, $scope)) {
-			throw new \PHPStan\Broker\FunctionNotFoundException((string)$nameNode);
+			throw new \PHPStan\Broker\FunctionNotFoundException((string) $nameNode);
 		}
 
 		/** @var string $functionName */
@@ -617,7 +621,7 @@ class Broker
 		?Scope $scope
 	): ?string
 	{
-		$name = (string)$nameNode;
+		$name = (string) $nameNode;
 		if ($scope !== null && $scope->getNamespace() !== null && !$nameNode->isFullyQualified()) {
 			$namespacedName = sprintf('%s\\%s', $scope->getNamespace(), $name);
 			if ($existsCallback($namespacedName)) {
@@ -643,15 +647,15 @@ class Broker
 
 		foreach ($debugBacktrace as $traceStep) {
 			if (
-				isset(
-					$traceStep['function'],
-					$existsCallTypes[$traceStep['function']]
-				)
-				&&
 				(
 					!isset($traceStep['file'])
 					||
 					$traceStep['file'] !== __FILE__
+				)
+				&&
+				isset(
+					$traceStep['function'],
+					$existsCallTypes[$traceStep['function']]
 				)
 			) {
 				return true;

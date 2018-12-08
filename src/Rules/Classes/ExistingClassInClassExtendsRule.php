@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules\Classes;
 
@@ -34,7 +34,7 @@ class ExistingClassInClassExtendsRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		return $this->classCaseSensitivityCheck->checkClassNames([(string)$node->extends]);
+		return $this->classCaseSensitivityCheck->checkClassNames([(string) $node->extends]);
 	}
 
 }

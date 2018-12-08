@@ -56,7 +56,7 @@ class ImpossibleCheckTypeMethodCallRuleTest extends \PHPStan\Testing\RuleTestCas
 				): bool
 				{
 					return $methodReflection->getName() === 'assertNotInt'
-					       && \count($node->args) > 0;
+						   && \count($node->args) > 0;
 				}
 
 				public function specifyTypes(
@@ -104,7 +104,7 @@ class ImpossibleCheckTypeMethodCallRuleTest extends \PHPStan\Testing\RuleTestCas
 				): bool
 				{
 					return $methodReflection->getName() === 'isSame'
-					       && \count($node->args) >= 2;
+						   && \count($node->args) >= 2;
 				}
 
 				public function specifyTypes(
@@ -148,7 +148,7 @@ class ImpossibleCheckTypeMethodCallRuleTest extends \PHPStan\Testing\RuleTestCas
 				): bool
 				{
 					return $methodReflection->getName() === 'isNotSame'
-					       && \count($node->args) >= 2;
+						   && \count($node->args) >= 2;
 				}
 
 				public function specifyTypes(

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Reflection\Php;
 
@@ -276,10 +276,12 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	private function callsFuncGetArgs(ClassReflection $declaringClass, $nodes): bool
 	{
 		foreach ($nodes as $node) {
-			if (\is_array($node)) {
-				if ($this->callsFuncGetArgs($declaringClass, $node)) {
-					return true;
-				}
+			if (
+				\is_array($node)
+				&&
+				$this->callsFuncGetArgs($declaringClass, $node)
+			) {
+				return true;
 			}
 
 			if (!($node instanceof \PhpParser\Node)) {
@@ -289,7 +291,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 			if (
 				$node instanceof \PhpParser\Node\Stmt\ClassLike
 				&& isset($node->namespacedName)
-				&& $declaringClass->getName() !== (string)$node->namespacedName
+				&& $declaringClass->getName() !== (string) $node->namespacedName
 			) {
 				continue;
 			}

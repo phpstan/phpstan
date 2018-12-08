@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Analyser;
 
@@ -42,12 +42,12 @@ class TypeSpecifierFactory
 		);
 
 		foreach (array_merge(
-			         $tagToService($this->container->findByTag(BrokerFactory::PROPERTIES_CLASS_REFLECTION_EXTENSION_TAG)),
-			         $tagToService($this->container->findByTag(BrokerFactory::METHODS_CLASS_REFLECTION_EXTENSION_TAG)),
-			         $tagToService($this->container->findByTag(BrokerFactory::DYNAMIC_METHOD_RETURN_TYPE_EXTENSION_TAG)),
-			         $tagToService($this->container->findByTag(BrokerFactory::DYNAMIC_STATIC_METHOD_RETURN_TYPE_EXTENSION_TAG)),
-			         $tagToService($this->container->findByTag(BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG))
-		         ) as $extension) {
+			$tagToService($this->container->findByTag(BrokerFactory::PROPERTIES_CLASS_REFLECTION_EXTENSION_TAG)),
+			$tagToService($this->container->findByTag(BrokerFactory::METHODS_CLASS_REFLECTION_EXTENSION_TAG)),
+			$tagToService($this->container->findByTag(BrokerFactory::DYNAMIC_METHOD_RETURN_TYPE_EXTENSION_TAG)),
+			$tagToService($this->container->findByTag(BrokerFactory::DYNAMIC_STATIC_METHOD_RETURN_TYPE_EXTENSION_TAG)),
+			$tagToService($this->container->findByTag(BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG))
+		) as $extension) {
 			if (!($extension instanceof TypeSpecifierAwareExtension)) {
 				continue;
 			}

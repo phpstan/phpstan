@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Reflection\Php;
 
@@ -72,7 +72,7 @@ class UniversalObjectCratesClassReflectionExtension implements \PHPStan\Reflecti
 	{
 		if ($classReflection->hasNativeMethod('__get')) {
 			$type = ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('__get')->getVariants())
-			                                  ->getReturnType();
+											  ->getReturnType();
 		} else {
 			$type = new MixedType();
 		}

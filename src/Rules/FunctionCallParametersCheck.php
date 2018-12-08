@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules;
 
@@ -51,6 +51,7 @@ class FunctionCallParametersCheck
 		$functionParametersMinCount = 0;
 		$functionParametersMaxCount = 0;
 		foreach ($parametersAcceptor->getParameters() as $parameter) {
+			/* @var $parameter \PHPStan\Reflection\ParameterReflection */
 			if (!$parameter->isOptional()) {
 				$functionParametersMinCount++;
 			}
@@ -95,9 +96,11 @@ class FunctionCallParametersCheck
 		}
 
 		if (
+			!$funcCall instanceof \PhpParser\Node\Expr\New_
+			&&
 			$parametersAcceptor->getReturnType() instanceof VoidType
-			&& !$scope->isInFirstLevelStatement()
-			&& !$funcCall instanceof \PhpParser\Node\Expr\New_
+			&&
+			!$scope->isInFirstLevelStatement()
 		) {
 			$errors[] = $messages[7];
 		}
@@ -108,10 +111,21 @@ class FunctionCallParametersCheck
 
 		$parameters = $parametersAcceptor->getParameters();
 
-		/** @var array<int, \PhpParser\Node\Arg> $args */
+		/* @var array<int, \PhpParser\Node\Arg> $args */
 		$args = $funcCall->args;
 		foreach ($args as $i => $argument) {
-			if (!isset($parameters[$i])) {
+			if (isset($parameters[$i])) {
+				$parameter = $parameters[$i];
+				/* @var $parameter \PHPStan\Reflection\ParameterReflection */
+				$parameterType = $parameter->getType();
+				if ($parameter->isVariadic()) {
+					if ($parameterType instanceof ArrayType && !$argument->unpack) {
+						$parameterType = $parameterType->getItemType();
+					}
+				} elseif ($argument->unpack) {
+					continue;
+				}
+			} else {
 				if (!$parametersAcceptor->isVariadic() || \count($parameters) === 0) {
 					break;
 				}
@@ -125,21 +139,15 @@ class FunctionCallParametersCheck
 				if (!$argument->unpack) {
 					$parameterType = $parameterType->getItemType();
 				}
-			} else {
-				$parameter = $parameters[$i];
-				$parameterType = $parameter->getType();
-				if ($parameter->isVariadic()) {
-					if ($parameterType instanceof ArrayType && !$argument->unpack) {
-						$parameterType = $parameterType->getItemType();
-					}
-				} elseif ($argument->unpack) {
-					continue;
-				}
 			}
 
 			$argumentValueType = $scope->getType($argument->value);
 			$secondAccepts = null;
-			if ($parameterType->isIterable()->yes() && $parameter->isVariadic()) {
+			if (
+				$parameter->isVariadic()
+				&&
+				$parameterType->isIterable()->yes()
+			) {
 				$secondAccepts = $this->ruleLevelHelper->accepts(
 					new IterableType(
 						new MixedType(),
@@ -152,9 +160,17 @@ class FunctionCallParametersCheck
 
 			if (
 				$this->checkArgumentTypes
-				&& !$parameter->passedByReference()->createsNewVariable()
-				&& !$this->ruleLevelHelper->accepts($parameterType, $argumentValueType, $scope->isDeclareStrictTypes())
-				&& ($secondAccepts === null || !$secondAccepts)
+				&&
+				(
+					$secondAccepts === null
+					||
+					!$secondAccepts
+				)
+				&&
+				!$parameter->passedByReference()->createsNewVariable()
+				&&
+				!$this->ruleLevelHelper->accepts($parameterType, $argumentValueType, $scope->isDeclareStrictTypes())
+
 			) {
 				$errors[] = sprintf(
 					$messages[6],
@@ -163,18 +179,23 @@ class FunctionCallParametersCheck
 					$parameterType->describe(VerbosityLevel::typeOnly()),
 					$argumentValueType->describe(
 						$parameterType->isCallable()
-						              ->yes() ? VerbosityLevel::value() : VerbosityLevel::typeOnly()
+							->yes() ? VerbosityLevel::value() : VerbosityLevel::typeOnly()
 					)
 				);
 			}
 
 			if (
 				!$this->checkArgumentsPassedByReference
-				|| !$parameter->passedByReference()->yes()
-				|| $argument->value instanceof \PhpParser\Node\Expr\Variable
-				|| $argument->value instanceof \PhpParser\Node\Expr\ArrayDimFetch
-				|| $argument->value instanceof \PhpParser\Node\Expr\PropertyFetch
-				|| $argument->value instanceof \PhpParser\Node\Expr\StaticPropertyFetch
+				||
+				$argument->value instanceof \PhpParser\Node\Expr\Variable
+				||
+				$argument->value instanceof \PhpParser\Node\Expr\ArrayDimFetch
+				||
+				$argument->value instanceof \PhpParser\Node\Expr\PropertyFetch
+				||
+				$argument->value instanceof \PhpParser\Node\Expr\StaticPropertyFetch
+				||
+				!$parameter->passedByReference()->yes()
 			) {
 				continue;
 			}

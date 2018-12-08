@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type\Php;
 
@@ -21,16 +21,16 @@ class IsFloatFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingEx
 	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, TypeSpecifierContext $context): bool
 	{
 		return \in_array(
-			       strtolower($functionReflection->getName()),
-			       [
-				       'is_float',
-				       'is_double',
-				       'is_real',
-			       ],
-			       true
-		       )
-		       && isset($node->args[0])
-		       && !$context->null();
+			strtolower($functionReflection->getName()),
+			[
+				'is_float',
+				'is_double',
+				'is_real',
+			],
+			true
+		)
+			   && isset($node->args[0])
+			   && !$context->null();
 	}
 
 	public function specifyTypes(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes

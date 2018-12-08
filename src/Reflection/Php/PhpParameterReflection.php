@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Reflection\Php;
 
@@ -50,7 +50,7 @@ class PhpParameterReflection implements ParameterReflection
 				$this->reflection->getType(),
 				$phpDocType,
 				$this->reflection->getDeclaringClass() !== null ? $this->reflection->getDeclaringClass()
-				                                                                   ->getName() : null,
+					->getName() : null,
 				$this->isVariadic()
 			);
 		}
@@ -86,7 +86,7 @@ class PhpParameterReflection implements ParameterReflection
 				$this->reflection->getType(),
 				null,
 				$this->reflection->getDeclaringClass() !== null ? $this->reflection->getDeclaringClass()
-				                                                                   ->getName() : null,
+					->getName() : null,
 				$this->isVariadic()
 			);
 		}

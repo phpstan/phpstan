@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Reflection\Php;
 
@@ -96,7 +96,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 		}
 
 		/** @noinspection PhpUndefinedFieldInspection */
-		return (string)$this->functionLike->namespacedName;
+		return (string) $this->functionLike->namespacedName;
 	}
 
 	/**

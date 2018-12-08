@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Reflection;
 
@@ -442,8 +442,9 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 			$traitNames = array_values(
 				array_unique(
 					array_merge(
-						$traitNames, $class->getParentClass()
-						                   ->getTraitNames()
+						$traitNames,
+						$class->getParentClass()
+							->getTraitNames()
 					)
 				)
 			);
@@ -478,7 +479,7 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 		if ($this->isFinal === null) {
 			$resolvedPhpDoc = $this->getResolvedPhpDoc();
 			$this->isFinal = $this->reflection->isFinal()
-			                 || ($resolvedPhpDoc !== null && $resolvedPhpDoc->isFinal());
+							 || ($resolvedPhpDoc !== null && $resolvedPhpDoc->isFinal());
 		}
 
 		return $this->isFinal;

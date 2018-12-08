@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type\Php;
 
@@ -33,8 +33,8 @@ class MethodExistsTypeSpecifyingExtension implements FunctionTypeSpecifyingExten
 	): bool
 	{
 		return $functionReflection->getName() === 'method_exists'
-		       && $context->truthy()
-		       && \count($node->args) >= 2;
+			   && $context->truthy()
+			   && \count($node->args) >= 2;
 	}
 
 	public function specifyTypes(

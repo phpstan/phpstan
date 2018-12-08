@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules;
 
@@ -94,7 +94,7 @@ class FunctionDefinitionCheck
 		if ($function instanceof Function_) {
 			$functionName = $function->name->name;
 			if (isset($function->namespacedName)) {
-				$functionName = (string)$function->namespacedName;
+				$functionName = (string) $function->namespacedName;
 			}
 			$functionNameName = new Name($functionName);
 			if (!$this->broker->hasCustomFunction($functionNameName, null)) {
@@ -116,8 +116,8 @@ class FunctionDefinitionCheck
 		$errors = [];
 		foreach ($function->getParams() as $param) {
 			$class = $param->type instanceof NullableType
-				? (string)$param->type->type
-				: (string)$param->type;
+				? (string) $param->type->type
+				: (string) $param->type;
 			$lowercasedClass = strtolower($class);
 			if ($lowercasedClass === '' || \in_array($lowercasedClass, self::VALID_TYPEHINTS, true)) {
 				continue;
@@ -137,8 +137,8 @@ class FunctionDefinitionCheck
 		}
 
 		$returnType = $function->getReturnType() instanceof NullableType
-			? (string)$function->getReturnType()->type
-			: (string)$function->getReturnType();
+			? (string) $function->getReturnType()->type
+			: (string) $function->getReturnType();
 
 		$lowercasedReturnType = strtolower($returnType);
 
@@ -201,8 +201,10 @@ class FunctionDefinitionCheck
 			}
 
 			$errors[] = sprintf(
-				$parameterMessage, $parameter->getName(), $parameter->getType()
-				                                                    ->describe(VerbosityLevel::typeOnly())
+				$parameterMessage,
+				$parameter->getName(),
+				$parameter->getType()
+					->describe(VerbosityLevel::typeOnly())
 			);
 		}
 
@@ -231,8 +233,9 @@ class FunctionDefinitionCheck
 		}
 		if ($parametersAcceptor->getReturnType() instanceof NonexistentParentClassType) {
 			$errors[] = sprintf(
-				$returnMessage, $parametersAcceptor->getReturnType()
-				                                   ->describe(VerbosityLevel::typeOnly())
+				$returnMessage,
+				$parametersAcceptor->getReturnType()
+					->describe(VerbosityLevel::typeOnly())
 			);
 		}
 

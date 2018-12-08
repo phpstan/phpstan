@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\PhpDoc;
 
@@ -85,25 +85,39 @@ class TypeNodeResolver
 		if ($typeNode instanceof IdentifierTypeNode) {
 			return $this->resolveIdentifierTypeNode($typeNode, $nameScope);
 
-		} elseif ($typeNode instanceof ThisTypeNode) {
+		}
+
+		if ($typeNode instanceof ThisTypeNode) {
 			return $this->resolveThisTypeNode($typeNode, $nameScope);
 
-		} elseif ($typeNode instanceof NullableTypeNode) {
+		}
+
+		if ($typeNode instanceof NullableTypeNode) {
 			return $this->resolveNullableTypeNode($typeNode, $nameScope);
 
-		} elseif ($typeNode instanceof UnionTypeNode) {
+		}
+
+		if ($typeNode instanceof UnionTypeNode) {
 			return $this->resolveUnionTypeNode($typeNode, $nameScope);
 
-		} elseif ($typeNode instanceof IntersectionTypeNode) {
+		}
+
+		if ($typeNode instanceof IntersectionTypeNode) {
 			return $this->resolveIntersectionTypeNode($typeNode, $nameScope);
 
-		} elseif ($typeNode instanceof ArrayTypeNode) {
+		}
+
+		if ($typeNode instanceof ArrayTypeNode) {
 			return $this->resolveArrayTypeNode($typeNode, $nameScope);
 
-		} elseif ($typeNode instanceof GenericTypeNode) {
+		}
+
+		if ($typeNode instanceof GenericTypeNode) {
 			return $this->resolveGenericTypeNode($typeNode, $nameScope);
 
-		} elseif ($typeNode instanceof CallableTypeNode) {
+		}
+
+		if ($typeNode instanceof CallableTypeNode) {
 			return $this->resolveCallableTypeNode($typeNode, $nameScope);
 		}
 
@@ -239,8 +253,8 @@ class TypeNodeResolver
 
 			foreach ($otherTypeTypes as &$type) {
 				if (!$type->isIterable()->yes() || !$type->getIterableValueType()
-				                                         ->isSuperTypeOf($arrayTypeType)
-				                                         ->yes()) {
+					->isSuperTypeOf($arrayTypeType)
+					->yes()) {
 					continue;
 				}
 
@@ -331,10 +345,10 @@ class TypeNodeResolver
 		if ($mainType instanceof CallableType) {
 			return new CallableType($parameters, $returnType, $isVariadic);
 
-		} elseif (
-			$mainType instanceof ObjectType
-			&& $mainType->getClassName() === \Closure::class
-		) {
+		}
+
+		if ($mainType instanceof ObjectType
+			&& $mainType->getClassName() === \Closure::class) {
 			return new ClosureType($parameters, $returnType, $isVariadic);
 		}
 

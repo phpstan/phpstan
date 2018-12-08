@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Reflection\Php;
 
@@ -173,10 +173,12 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 	private function callsFuncGetArgs($nodes): bool
 	{
 		foreach ($nodes as $node) {
-			if (\is_array($node)) {
-				if ($this->callsFuncGetArgs($node)) {
-					return true;
-				}
+			if (
+				\is_array($node)
+				&&
+				$this->callsFuncGetArgs($node)
+			) {
+				return true;
 			}
 
 			if (!($node instanceof \PhpParser\Node)) {
@@ -184,7 +186,7 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 			}
 
 			if ($node instanceof Function_) {
-				$functionName = (string)$node->namespacedName;
+				$functionName = (string) $node->namespacedName;
 
 				if ($functionName === $this->reflection->getName()) {
 					return $this->functionCallStatementFinder->findFunctionCallInStatements(ParametersAcceptor::VARIADIC_FUNCTIONS, $node->getStmts()) !== null;

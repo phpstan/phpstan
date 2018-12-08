@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Reflection\Php;
 
@@ -122,9 +122,7 @@ class PhpClassReflectionExtension implements PropertiesClassReflectionExtension,
 				throw new \PHPStan\ShouldNotHappenException();
 			}
 
-			if ($hierarchyDistances[$annotationProperty->getDeclaringClass()
-			                                           ->getName()] < $hierarchyDistances[$propertyReflection->getDeclaringClass()
-			                                                                                                 ->getName()]) {
+			if ($hierarchyDistances[$annotationProperty->getDeclaringClass()->getName()] < $hierarchyDistances[$propertyReflection->getDeclaringClass()->getName()]) {
 				return $annotationProperty;
 			}
 		}
@@ -193,8 +191,7 @@ class PhpClassReflectionExtension implements PropertiesClassReflectionExtension,
 		}
 
 		$nativeMethodReflection = new NativeBuiltinMethodReflection(
-			$classReflection->getNativeReflection()
-			                ->getMethod($methodName)
+			$classReflection->getNativeReflection()->getMethod($methodName)
 		);
 		if (!isset($this->methodsIncludingAnnotations[$classReflection->getName()][$nativeMethodReflection->getName()])) {
 			$method = $this->createMethod($classReflection, $nativeMethodReflection, true);
@@ -215,10 +212,10 @@ class PhpClassReflectionExtension implements PropertiesClassReflectionExtension,
 		}
 
 		if ($methodName === '__get' && UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate(
-				$this->broker,
-				$this->broker->getUniversalObjectCratesClasses(),
-				$classReflection
-			)) {
+			$this->broker,
+			$this->broker->getUniversalObjectCratesClasses(),
+			$classReflection
+		)) {
 			return true;
 		}
 
@@ -275,9 +272,7 @@ class PhpClassReflectionExtension implements PropertiesClassReflectionExtension,
 				throw new \PHPStan\ShouldNotHappenException();
 			}
 
-			if ($hierarchyDistances[$annotationMethod->getDeclaringClass()
-			                                         ->getName()] < $hierarchyDistances[$methodReflection->getDeclaringClass()
-			                                                                                             ->getName()]) {
+			if ($hierarchyDistances[$annotationMethod->getDeclaringClass()->getName()] < $hierarchyDistances[$methodReflection->getDeclaringClass()->getName()]) {
 				return $annotationMethod;
 			}
 		}
@@ -350,10 +345,8 @@ class PhpClassReflectionExtension implements PropertiesClassReflectionExtension,
 				},
 				$resolvedPhpDoc->getParamTags()
 			);
-			$phpDocReturnType = $resolvedPhpDoc->getReturnTag() !== null ? $resolvedPhpDoc->getReturnTag()
-			                                                                              ->getType() : null;
-			$phpDocThrowType = $resolvedPhpDoc->getThrowsTag() !== null ? $resolvedPhpDoc->getThrowsTag()
-			                                                                             ->getType() : null;
+			$phpDocReturnType = $resolvedPhpDoc->getReturnTag() !== null ? $resolvedPhpDoc->getReturnTag()->getType() : null;
+			$phpDocThrowType = $resolvedPhpDoc->getThrowsTag() !== null ? $resolvedPhpDoc->getThrowsTag()->getType() : null;
 			$isDeprecated = $resolvedPhpDoc->isDeprecated();
 			$isInternal = $resolvedPhpDoc->isInternal();
 			$isFinal = $resolvedPhpDoc->isFinal();

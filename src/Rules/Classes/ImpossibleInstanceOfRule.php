@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules\Classes;
 
@@ -54,7 +54,9 @@ class ImpossibleInstanceOfRule implements \PHPStan\Rules\Rule
 					$type->describe(VerbosityLevel::typeOnly())
 				),
 			];
-		} elseif ($this->checkAlwaysTrueInstanceof) {
+		}
+
+		if ($this->checkAlwaysTrueInstanceof) {
 			return [
 				sprintf(
 					'Instanceof between %s and %s will always evaluate to true.',

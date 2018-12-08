@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type\Php;
 
@@ -64,11 +64,11 @@ class GetParentClassDynamicFunctionReturnTypeExtension implements \PHPStan\Type\
 		if (\count($constantStrings) > 0) {
 			return \PHPStan\Type\TypeCombinator::union(
 				...array_map(
-					   function (ConstantStringType $stringType): Type {
-						   return $this->findParentClassNameType($stringType->getValue());
-					   },
-					   $constantStrings
-				   )
+					function (ConstantStringType $stringType): Type {
+							return $this->findParentClassNameType($stringType->getValue());
+					},
+					$constantStrings
+				)
 			);
 		}
 
@@ -76,11 +76,11 @@ class GetParentClassDynamicFunctionReturnTypeExtension implements \PHPStan\Type\
 		if (\count($classNames) > 0) {
 			return \PHPStan\Type\TypeCombinator::union(
 				...array_map(
-					   function (string $classNames): Type {
-						   return $this->findParentClassNameType($classNames);
-					   },
-					   $classNames
-				   )
+					function (string $classNames): Type {
+							return $this->findParentClassNameType($classNames);
+					},
+					$classNames
+				)
 			);
 		}
 

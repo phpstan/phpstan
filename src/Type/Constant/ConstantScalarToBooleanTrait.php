@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type\Constant;
 
@@ -9,7 +9,7 @@ trait ConstantScalarToBooleanTrait
 
 	public function toBoolean(): BooleanType
 	{
-		return new ConstantBooleanType((bool)$this->value);
+		return new ConstantBooleanType((bool) $this->value);
 	}
 
 }

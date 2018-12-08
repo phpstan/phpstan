@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\DependencyInjection;
 
@@ -13,10 +13,10 @@ class RulesExtension extends \Nette\DI\CompilerExtension
 		$builder = $this->getContainerBuilder();
 
 		foreach ($config as $key => $rule) {
-			$builder->addDefinition($this->prefix((string)$key))
-			        ->setFactory($rule)
-			        ->setAutowired(false)
-			        ->addTag(RegistryFactory::RULE_TAG);
+			$builder->addDefinition($this->prefix((string) $key))
+				->setFactory($rule)
+				->setAutowired(false)
+				->addTag(RegistryFactory::RULE_TAG);
 		}
 	}
 

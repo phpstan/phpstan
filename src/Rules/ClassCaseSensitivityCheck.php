@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules;
 
@@ -52,7 +52,9 @@ class ClassCaseSensitivityCheck
 	{
 		if ($classReflection->isInterface()) {
 			return 'Interface';
-		} elseif ($classReflection->isTrait()) {
+		}
+
+		if ($classReflection->isTrait()) {
 			return 'Trait';
 		}
 

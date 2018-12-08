@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules\Functions;
 
@@ -43,18 +43,19 @@ class CallToNonExistentFunctionRule implements \PHPStan\Rules\Rule
 		}
 
 		if (!$this->broker->hasFunction($node->name, $scope)) {
-			return [sprintf('Function %s not found.', (string)$node->name)];
+			return [sprintf('Function %s not found.', (string) $node->name)];
 		}
 
 		$function = $this->broker->getFunction($node->name, $scope);
-		$name = (string)$node->name;
+		$name = (string) $node->name;
 
 		if ($this->checkFunctionNameCase) {
 			/** @var string $calledFunctionName */
 			$calledFunctionName = $this->broker->resolveFunctionName($node->name, $scope);
 			if (
+				$function->getName() !== $calledFunctionName
+				&&
 				strtolower($function->getName()) === strtolower($calledFunctionName)
-				&& $function->getName() !== $calledFunctionName
 			) {
 				return [sprintf('Call to function %s() with incorrect case: %s', $function->getName(), $name)];
 			}

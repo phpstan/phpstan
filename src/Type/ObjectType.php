@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type;
 
@@ -379,7 +379,7 @@ class ObjectType implements TypeWithClassName
 
 		if ($this->isInstanceOf(\Iterator::class)->yes()) {
 			return ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('key')->getVariants())
-			                                 ->getReturnType();
+											 ->getReturnType();
 		}
 
 		if ($this->isInstanceOf(\IteratorAggregate::class)->yes()) {
@@ -465,7 +465,7 @@ class ObjectType implements TypeWithClassName
 		}
 
 		return $this->isExtraOffsetAccessibleClass()
-		            ->or($this->isInstanceOf(\ArrayAccess::class));
+			->or($this->isInstanceOf(\ArrayAccess::class));
 	}
 
 	public function getOffsetValueType(Type $offsetType): Type
@@ -488,7 +488,7 @@ class ObjectType implements TypeWithClassName
 				static function () use ($classReflection) {
 					return ParametersAcceptorSelector::selectSingle(
 						$classReflection->getNativeMethod('offsetGet')
-						                ->getVariants()
+							->getVariants()
 					)->getReturnType();
 				}
 			);

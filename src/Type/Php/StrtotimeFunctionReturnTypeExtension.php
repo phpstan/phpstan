@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type\Php;
 
@@ -24,7 +24,7 @@ class StrtotimeFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunct
 	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
 	{
 		$defaultReturnType = ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())
-		                                               ->getReturnType();
+													   ->getReturnType();
 		if (\count($functionCall->args) === 0) {
 			return $defaultReturnType;
 		}

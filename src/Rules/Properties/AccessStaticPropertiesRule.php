@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules\Properties;
 
@@ -60,7 +60,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 		$name = $node->name->name;
 		$messages = [];
 		if ($node->class instanceof Name) {
-			$class = (string)$node->class;
+			$class = (string) $node->class;
 			$lowercasedClass = strtolower($class);
 			if (\in_array($lowercasedClass, ['self', 'static'], true)) {
 				if (!$scope->isInClass()) {
@@ -115,9 +115,9 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 							$class
 						),
 					];
-				} else {
-					$messages = $this->classCaseSensitivityCheck->checkClassNames([$class]);
 				}
+
+				$messages = $this->classCaseSensitivityCheck->checkClassNames([$class]);
 				$className = $this->broker->getClass($class)->getName();
 			}
 

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type;
 
@@ -142,18 +142,18 @@ class UnionType implements CompoundType, StaticResolvableType
 			function () use ($joinTypes): string {
 				$types = TypeCombinator::union(
 					...array_map(
-						   static function (Type $type): Type {
-							   if (
+						static function (Type $type): Type {
+							if (
 								   $type instanceof ConstantType
 								   && !$type instanceof ConstantBooleanType
 							   ) {
-								   return $type->generalize();
-							   }
+								return $type->generalize();
+							}
 
 							   return $type;
-						   },
-						   $this->types
-					   )
+						},
+						$this->types
+					)
 				);
 
 				if ($types instanceof UnionType) {
@@ -492,7 +492,7 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function toBoolean(): BooleanType
 	{
-		/** @var BooleanType $type */
+		/* @var BooleanType $type */
 		$type = $this->unionTypes(
 			static function (Type $type): BooleanType {
 				return $type->toBoolean();

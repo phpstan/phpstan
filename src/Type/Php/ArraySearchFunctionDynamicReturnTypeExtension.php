@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type\Php;
 
@@ -108,7 +108,7 @@ final class ArraySearchFunctionDynamicReturnTypeExtension implements DynamicFunc
 			}
 
 			if ($needle instanceof ConstantScalarType && $valueType instanceof ConstantScalarType
-			    && $needle->getValue() === $valueType->getValue()
+				&& $needle->getValue() === $valueType->getValue()
 			) {
 				return $haystack->getKeyTypes()[$index];
 			}

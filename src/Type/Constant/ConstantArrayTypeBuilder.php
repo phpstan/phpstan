@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type\Constant;
 
@@ -63,7 +63,7 @@ class ConstantArrayTypeBuilder
 			!$this->degradeToGeneralArray
 			&& ($offsetType instanceof ConstantIntegerType || $offsetType instanceof ConstantStringType)
 		) {
-			/** @var ConstantIntegerType|ConstantStringType $keyType */
+			/* @var ConstantIntegerType|ConstantStringType $keyType */
 			foreach ($this->keyTypes as $i => $keyType) {
 				if ($keyType->getValue() === $offsetType->getValue()) {
 					$this->valueTypes[$i] = $valueType;
@@ -89,7 +89,7 @@ class ConstantArrayTypeBuilder
 	public function getArray(): ArrayType
 	{
 		if (!$this->degradeToGeneralArray) {
-			/** @var array<int, ConstantIntegerType|ConstantStringType> $keyTypes */
+			/* @var array<int, ConstantIntegerType|ConstantStringType> $keyTypes */
 			$keyTypes = $this->keyTypes;
 
 			return new ConstantArrayType($keyTypes, $this->valueTypes, $this->nextAutoIndex);

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Type;
 
@@ -79,7 +79,7 @@ class ArrayType implements StaticResolvableType
 	{
 		if ($type instanceof self) {
 			return $this->getItemType()->isSuperTypeOf($type->getItemType())
-			            ->and($this->keyType->isSuperTypeOf($type->keyType));
+				->and($this->keyType->isSuperTypeOf($type->keyType));
 		}
 
 		if ($type instanceof CompoundType) {
@@ -92,8 +92,8 @@ class ArrayType implements StaticResolvableType
 	public function equals(Type $type): bool
 	{
 		return $type instanceof self
-		       && $this->getItemType()->equals($type->getItemType())
-		       && $this->keyType->equals($type->keyType);
+			   && $this->getItemType()->equals($type->getItemType())
+			   && $this->keyType->equals($type->keyType);
 	}
 
 	public function describe(VerbosityLevel $level): string
@@ -274,16 +274,16 @@ class ArrayType implements StaticResolvableType
 		if ($offsetType instanceof UnionType) {
 			return TypeCombinator::union(
 				...array_map(
-					   static function (Type $type): Type {
+					static function (Type $type): Type {
 						   return self::castToArrayKeyType($type);
-					   },
-					   $offsetType->getTypes()
-				   )
+					},
+					$offsetType->getTypes()
+				)
 			);
 		}
 
 		if ($offsetType instanceof ConstantScalarType) {
-			/** @var int|string $offsetValue */
+			/* @var int|string $offsetValue */
 			$offsetValue = key([$offsetType->getValue() => null]);
 
 			return \is_int($offsetValue) ? new ConstantIntegerType($offsetValue) : new ConstantStringType($offsetValue);

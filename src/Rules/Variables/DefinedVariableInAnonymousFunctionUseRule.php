@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Rules\Variables;
 
@@ -40,10 +40,10 @@ class DefinedVariableInAnonymousFunctionUseRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf('Undefined variable: $%s', $node->var->name),
 			];
-		} elseif (
-			$this->checkMaybeUndefinedVariables
-			&& !$scope->hasVariableType($node->var->name)->yes()
-		) {
+		}
+
+		if ($this->checkMaybeUndefinedVariables
+			&& !$scope->hasVariableType($node->var->name)->yes()) {
 			return [
 				sprintf('Variable $%s might not be defined.', $node->var->name),
 			];
