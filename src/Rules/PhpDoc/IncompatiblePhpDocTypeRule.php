@@ -8,6 +8,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FileTypeMapper;
+use PHPStan\Type\NeverType;
 use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
 
@@ -58,7 +59,7 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 					$parameterName
 				);
 
-			} elseif ($phpDocParamType instanceof ErrorType) {
+			} elseif ($phpDocParamType instanceof ErrorType || $phpDocParamType instanceof NeverType) {
 				$errors[] = sprintf(
 					'PHPDoc tag @param for parameter $%s contains unresolvable type.',
 					$parameterName
@@ -98,7 +99,7 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 		if ($resolvedPhpDoc->getReturnTag() !== null) {
 			$phpDocReturnType = $resolvedPhpDoc->getReturnTag()->getType();
 
-			if ($phpDocReturnType instanceof ErrorType) {
+			if ($phpDocReturnType instanceof ErrorType || $phpDocReturnType instanceof NeverType) {
 				$errors[] = 'PHPDoc tag @return contains unresolvable type.';
 
 			} else {
