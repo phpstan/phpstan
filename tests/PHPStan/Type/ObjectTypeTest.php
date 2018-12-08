@@ -3,6 +3,7 @@
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Accessory\HasMethodType;
 
 class ObjectTypeTest extends \PHPStan\Testing\TestCase
 {
@@ -217,6 +218,24 @@ class ObjectTypeTest extends \PHPStan\Testing\TestCase
 			[
 				new ObjectType(\Countable::class),
 				new IterableType(new MixedType(), new MixedType()),
+				TrinaryLogic::createMaybe(),
+			],
+			[
+				new ObjectType(\DateTimeImmutable::class),
+				new HasMethodType('format'),
+				TrinaryLogic::createMaybe(),
+			],
+			[
+				new ObjectType(\Closure::class),
+				new HasMethodType('format'),
+				TrinaryLogic::createNo(),
+			],
+			[
+				new ObjectType(\DateTimeImmutable::class),
+				new UnionType([
+					new HasMethodType('format'),
+					new HasMethodType('getTimestamp'),
+				]),
 				TrinaryLogic::createMaybe(),
 			],
 		];

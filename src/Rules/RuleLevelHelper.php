@@ -13,6 +13,7 @@ use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\NullType;
+use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\StaticType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
@@ -172,25 +173,30 @@ class RuleLevelHelper
 				continue;
 			}
 
-			$errors[] = sprintf($unknownClassErrorPattern, $referencedClass);
+			$errors[] = RuleErrorBuilder::message(sprintf($unknownClassErrorPattern, $referencedClass))->line($var->getLine())->build();
 		}
 
 		if (\count($errors) > 0) {
 			return new FoundTypeResult(new ErrorType(), [], $errors);
 		}
 
-		if (!$this->checkUnionTypes && $type instanceof UnionType) {
-			$newTypes = [];
-			foreach ($type->getTypes() as $innerType) {
-				if (!$unionTypeCriteriaCallback($innerType)) {
-					continue;
+		if (!$this->checkUnionTypes) {
+			if ($type instanceof ObjectWithoutClassType) {
+				return new FoundTypeResult(new ErrorType(), [], []);
+			}
+			if ($type instanceof UnionType) {
+				$newTypes = [];
+				foreach ($type->getTypes() as $innerType) {
+					if (!$unionTypeCriteriaCallback($innerType)) {
+						continue;
+					}
+
+					$newTypes[] = $innerType;
 				}
 
-				$newTypes[] = $innerType;
-			}
-
-			if (\count($newTypes) > 0) {
-				return new FoundTypeResult(TypeCombinator::union(...$newTypes), $directClassNames, []);
+				if (\count($newTypes) > 0) {
+					return new FoundTypeResult(TypeCombinator::union(...$newTypes), $directClassNames, []);
+				}
 			}
 		}
 

@@ -153,6 +153,11 @@ class ArrayType implements StaticResolvableType
 		return TrinaryLogic::createYes();
 	}
 
+	public function isIterableAtLeastOnce(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
+	}
+
 	public function getIterableKeyType(): Type
 	{
 		$keyType = $this->keyType;
@@ -257,16 +262,6 @@ class ArrayType implements StaticResolvableType
 	public function count(): Type
 	{
 		return new IntegerType();
-	}
-
-	public function getFirstValueType(): Type
-	{
-		return TypeCombinator::union($this->getItemType(), new NullType());
-	}
-
-	public function getLastValueType(): Type
-	{
-		return $this->getFirstValueType();
 	}
 
 	public static function castToArrayKeyType(Type $offsetType): Type

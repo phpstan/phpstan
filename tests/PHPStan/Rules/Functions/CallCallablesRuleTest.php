@@ -92,7 +92,7 @@ class CallCallablesRuleTest extends \PHPStan\Testing\RuleTestCase
 					113,
 				],
 				[
-					'Trying to invoke array(object&hasMethod(foo), \'bar\') but it\'s not a callable.',
+					'Trying to invoke array(object, \'bar\') but it might not be a callable.',
 					131,
 				],
 				[
@@ -106,6 +106,18 @@ class CallCallablesRuleTest extends \PHPStan\Testing\RuleTestCase
 				[
 					'Closure invoked with 2 parameters, 3 required.',
 					148,
+				],
+				[
+					'Trying to invoke array(object, \'yo\') but it might not be a callable.',
+					163,
+				],
+				[
+					'Trying to invoke array(object, \'yo\') but it might not be a callable.',
+					167,
+				],
+				[
+					'Trying to invoke array(\'CallCallables…\', \'bar\'|\'foo\') but it might not be a callable.',
+					179,
 				],
 			]
 		);

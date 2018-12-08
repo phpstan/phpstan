@@ -8,6 +8,7 @@ use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\ClassCaseSensitivityCheck;
+use PHPStan\Rules\ClassNameNodePair;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\ObjectType;
@@ -47,9 +48,9 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\StaticPropertyFetch $node
-	 * @param \PHPStan\Analyser\Scope                  $scope
+	 * @param \PHPStan\Analyser\Scope $scope
 	 *
-	 * @return string[]
+	 * @return (string|\PHPStan\Rules\RuleError)[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
@@ -117,7 +118,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 					];
 				}
 
-				$messages = $this->classCaseSensitivityCheck->checkClassNames([$class]);
+				$messages = $this->classCaseSensitivityCheck->checkClassNames([new ClassNameNodePair($class, $node->class)]);
 				$className = $this->broker->getClass($class)->getName();
 			}
 
@@ -128,7 +129,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 				$node->class,
 				sprintf('Access to static property $%s on an unknown class %%s.', $name),
 				static function (Type $type) use ($name): bool {
-					return $type->canAccessProperties()->yes() && $type->hasProperty($name);
+					return $type->canAccessProperties()->yes() && $type->hasProperty($name)->yes();
 				}
 			);
 			$classType = $classTypeResult->getType();
@@ -153,7 +154,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 			);
 		}
 
-		if (!$classType->hasProperty($name)) {
+		if (!$classType->hasProperty($name)->yes()) {
 			if ($scope->isSpecified($node)) {
 				return $messages;
 			}

@@ -17,7 +17,7 @@ interface Rule
 	 * @param \PhpParser\Node         $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 *
-	 * @return string[] errors
+	 * @return (string|RuleError)[] errors
 	 */
 	public function processNode(Node $node, Scope $scope): array;
 

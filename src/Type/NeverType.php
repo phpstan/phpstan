@@ -57,9 +57,9 @@ class NeverType implements CompoundType
 		return TrinaryLogic::createYes();
 	}
 
-	public function hasProperty(string $propertyName): bool
+	public function hasProperty(string $propertyName): TrinaryLogic
 	{
-		return false;
+		return TrinaryLogic::createNo();
 	}
 
 	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
@@ -72,9 +72,9 @@ class NeverType implements CompoundType
 		return TrinaryLogic::createYes();
 	}
 
-	public function hasMethod(string $methodName): bool
+	public function hasMethod(string $methodName): TrinaryLogic
 	{
-		return false;
+		return TrinaryLogic::createNo();
 	}
 
 	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
@@ -87,9 +87,9 @@ class NeverType implements CompoundType
 		return TrinaryLogic::createYes();
 	}
 
-	public function hasConstant(string $constantName): bool
+	public function hasConstant(string $constantName): TrinaryLogic
 	{
-		return false;
+		return TrinaryLogic::createNo();
 	}
 
 	public function getConstant(string $constantName): ConstantReflection
@@ -100,6 +100,11 @@ class NeverType implements CompoundType
 	public function isIterable(): TrinaryLogic
 	{
 		return TrinaryLogic::createYes();
+	}
+
+	public function isIterableAtLeastOnce(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
 	}
 
 	public function getIterableKeyType(): Type

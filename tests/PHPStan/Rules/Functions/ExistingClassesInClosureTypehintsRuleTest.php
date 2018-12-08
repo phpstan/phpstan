@@ -16,27 +16,32 @@ class ExistingClassesInClosureTypehintsRuleTest extends \PHPStan\Testing\RuleTes
 
 	public function testExistingClassInTypehint(): void
 	{
-		$this->analyse(
-			[__DIR__ . '/data/closure-typehints.php'],
+		$this->analyse([__DIR__ . '/data/closure-typehints.php'], [
 			[
-				[
-					'Return typehint of anonymous function has invalid type TestClosureFunctionTypehints\NonexistentClass.',
-					10,
-				],
-				[
-					'Parameter $bar of anonymous function has invalid typehint type TestClosureFunctionTypehints\BarFunctionTypehints.',
-					15,
-				],
-				[
-					'Class TestClosureFunctionTypehints\FooFunctionTypehints referenced with incorrect case: TestClosureFunctionTypehints\fOOfUnctionTypehints.',
-					30,
-				],
-				[
-					'Class TestClosureFunctionTypehints\FooFunctionTypehints referenced with incorrect case: TestClosureFunctionTypehints\FOOfUnctionTypehintS.',
-					30,
-				],
-			]
-		);
+				'Return typehint of anonymous function has invalid type TestClosureFunctionTypehints\NonexistentClass.',
+				10,
+			],
+			[
+				'Parameter $bar of anonymous function has invalid typehint type TestClosureFunctionTypehints\BarFunctionTypehints.',
+				15,
+			],
+			[
+				'Class TestClosureFunctionTypehints\FooFunctionTypehints referenced with incorrect case: TestClosureFunctionTypehints\fOOfUnctionTypehints.',
+				30,
+			],
+			[
+				'Class TestClosureFunctionTypehints\FooFunctionTypehints referenced with incorrect case: TestClosureFunctionTypehints\FOOfUnctionTypehintS.',
+				30,
+			],
+			[
+				'Parameter $trait of anonymous function has invalid typehint type TestClosureFunctionTypehints\SomeTrait.',
+				45,
+			],
+			[
+				'Return typehint of anonymous function has invalid type TestClosureFunctionTypehints\SomeTrait.',
+				50,
+			],
+		]);
 	}
 
 	public function testValidTypehintPhp71(): void

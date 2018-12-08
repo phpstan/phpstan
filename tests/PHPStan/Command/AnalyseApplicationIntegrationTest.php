@@ -3,6 +3,7 @@
 namespace PHPStan\Command;
 
 use PHPStan\Command\ErrorFormatter\TableErrorFormatter;
+use PHPStan\File\RelativePathHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\StreamOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -52,11 +53,12 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\Testing\TestCase
 
 		$memoryLimitFile = self::getContainer()->parameters['memoryLimitFile'];
 
+		$relativePathHelper = new RelativePathHelper(__DIR__, DIRECTORY_SEPARATOR, []);
 		$statusCode = $analyserApplication->analyse(
 			[$path],
 			true,
 			$style,
-			new TableErrorFormatter(),
+			new TableErrorFormatter($relativePathHelper),
 			false,
 			false
 		);

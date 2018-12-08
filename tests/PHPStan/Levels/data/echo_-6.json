@@ -1,0 +1,12 @@
+[
+    {
+        "message": "Parameter #3 (array|float|int) of echo cannot be converted to string.",
+        "line": 21,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #4 (array|string) of echo cannot be converted to string.",
+        "line": 21,
+        "ignorable": true
+    }
+]

@@ -3,10 +3,19 @@
 namespace PHPStan\Command\ErrorFormatter;
 
 use PHPStan\Command\AnalysisResult;
+use PHPStan\File\RelativePathHelper;
 use Symfony\Component\Console\Style\OutputStyle;
 
 class CheckstyleErrorFormatter implements ErrorFormatter
 {
+
+	/** @var RelativePathHelper */
+	private $relativePathHelper;
+
+	public function __construct(RelativePathHelper $relativePathHelper)
+	{
+		$this->relativePathHelper = $relativePathHelper;
+	}
 
 	/**
 	 * Formats the errors and outputs them to the console.
@@ -76,8 +85,7 @@ class CheckstyleErrorFormatter implements ErrorFormatter
 
 		/** @var \PHPStan\Analyser\Error $fileSpecificError */
 		foreach ($analysisResult->getFileSpecificErrors() as $fileSpecificError) {
-			$relativeFilePath = RelativePathHelper::getRelativePath(
-				$analysisResult->getCurrentDirectory(),
+			$relativeFilePath = $this->relativePathHelper->getRelativePath(
 				$fileSpecificError->getFile()
 			);
 

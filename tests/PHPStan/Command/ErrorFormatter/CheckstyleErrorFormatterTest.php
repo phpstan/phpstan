@@ -2,6 +2,8 @@
 
 namespace PHPStan\Command\ErrorFormatter;
 
+use PHPStan\File\RelativePathHelper;
+
 class CheckstyleErrorFormatterTest extends TestBaseFormatter
 {
 
@@ -110,7 +112,7 @@ class CheckstyleErrorFormatterTest extends TestBaseFormatter
 		string $expected
 	): void
 	{
-		$formatter = new CheckstyleErrorFormatter();
+		$formatter = new CheckstyleErrorFormatter(new RelativePathHelper(self::DIRECTORY_PATH, '/', []));
 
 		$this->assertSame(
 			$exitCode,

@@ -24,13 +24,13 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			->setDefinition(
 				[
 					new InputArgument('paths', InputArgument::OPTIONAL | InputArgument::IS_ARRAY, 'Paths with source code to run analysis on'),
+					new InputOption('paths-file', null, InputOption::VALUE_REQUIRED, 'Path to a file with a list of paths to run analysis on'),
 					new InputOption('configuration', 'c', InputOption::VALUE_REQUIRED, 'Path to project configuration file'),
 					new InputOption(self::OPTION_LEVEL, 'l', InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter'),
 					new InputOption(ErrorsConsoleStyle::OPTION_NO_PROGRESS, null, InputOption::VALUE_NONE, 'Do not show progress bar, only results'),
 					new InputOption('debug', null, InputOption::VALUE_NONE, 'Show debug information - which file is analysed, do not catch internal errors'),
 					new InputOption('autoload-file', 'a', InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path'),
 					new InputOption('error-format', null, InputOption::VALUE_REQUIRED, 'Format in which to print the result of the analysis', 'table'),
-					new InputOption('errorFormat', null, InputOption::VALUE_REQUIRED, '[deprecated] Use --error-format instead'),
 					new InputOption('memory-limit', null, InputOption::VALUE_REQUIRED, 'Memory limit for analysis'),
 				]
 			);
@@ -60,6 +60,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		$autoloadFile = $input->getOption('autoload-file');
 		$configuration = $input->getOption('configuration');
 		$level = $input->getOption(self::OPTION_LEVEL);
+		$pathsFile = $input->getOption('paths-file');
 
 		if (
 			!\is_array($paths)
@@ -67,6 +68,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			|| (!\is_string($autoloadFile) && $autoloadFile !== null)
 			|| (!\is_string($configuration) && $configuration !== null)
 			|| (!\is_string($level) && $level !== null)
+			|| (!\is_string($pathsFile) && $pathsFile !== null)
 		) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
@@ -76,6 +78,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				$input,
 				$output,
 				$paths,
+				$pathsFile,
 				$memoryLimit,
 				$autoloadFile,
 				$configuration,
@@ -87,12 +90,6 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 		$errorOutput = $inceptionResult->getErrorOutput();
 		$errorFormat = $input->getOption('error-format');
-		$oldErrorFormat = $input->getOption('errorFormat');
-		if ($oldErrorFormat !== null) {
-			$errorOutput->writeln('Note: Using the option --errorFormat is deprecated. Use --error-format instead.');
-
-			$errorFormat = $oldErrorFormat;
-		}
 
 		if (!\is_string($errorFormat) && $errorFormat !== null) {
 			throw new \PHPStan\ShouldNotHappenException();

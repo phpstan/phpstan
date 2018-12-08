@@ -73,6 +73,7 @@ Unofficial extensions for other frameworks and libraries are also available:
 * [Prophecy](https://github.com/Jan0707/phpstan-prophecy)
 * [Laravel](https://github.com/nunomaduro/larastan)
 * [myclabs/php-enum](https://github.com/timeweb/phpstan-enum)
+* [Yii2](https://github.com/proget-hq/phpstan-yii2)
 
 New extensions are becoming available on a regular basis!
 
@@ -103,7 +104,7 @@ You can also use [PHPStan via Docker](https://github.com/phpstan/docker-image).
 
 ## First run
 
-To let PHPStan analyse your codebase, you have use the `analyse` command and point it to the right directories.
+To let PHPStan analyse your codebase, you have to use the `analyse` command and point it to the right directories.
 
 So, for example if you have your classes in directories `src` and `tests`, you can run PHPStan like this:
 
@@ -328,6 +329,20 @@ parameters:
 		- '#Call to an undefined method PHPUnit_Framework_MockObject_MockObject::[a-zA-Z0-9_]+\(\)#'
 ```
 
+To exclude an error in a specific directory or file, specify a `path` along with the `message`:
+
+```
+parameters:
+	ignoreErrors:
+		-
+			message: '#Call to an undefined method [a-zA-Z0-9\\_]+::method\(\)#'
+			path: %currentWorkingDirectory%/some/dir/SomeFile.php
+		-
+			message: '#Call to an undefined method [a-zA-Z0-9\\_]+::method\(\)#'
+			path: %currentWorkingDirectory%/other/dir/*
+		- '#Other error to catch anywhere#'
+```
+
 If some of the patterns do not occur in the result anymore, PHPStan will let you know
 and you will have to remove the pattern from the configuration. You can turn off
 this behaviour by setting `reportUnmatchedIgnoredErrors` to `false` in PHPStan configuration.
@@ -362,7 +377,7 @@ Check out also [phpstan-strict-rules](https://github.com/phpstan/phpstan-strict-
 
 ### Custom error formatters
 
-By default, PHPStan outputs found errors into tables grouped by files to be easily human-readable. To change the output, you can use the `--error-format` CLI option. There's an additional built-in `raw` format with one-per-line errors intended for easy parsing. You can also create your own error formatter by implementing the `PHPStan\Command\ErrorFormatter\ErrorFormatter` interface:
+PHPStan outputs errors via formatters. You can customize the output by implementing the `ErrorFormatter` interface in a new class and add it to the configuration. For existing formatters, see next chapter.
 
 ```php
 interface ErrorFormatter
@@ -396,6 +411,14 @@ Use the name part after `errorFormatter.` as the CLI option value:
 ```bash
 vendor/bin/phpstan analyse -c phpstan.neon -l 4 --error-format awesome src tests
 ```
+
+### Existing error formatters to be used
+
+You can pass the following keywords to the `--error-format=X` parameter in order to affect the output:
+
+- `table`: Default. Grouped errors by file, colorized. For human consumption.
+- `raw`: Contains one error per line, with path to file, line number, and error description
+- `checkstyle`: Creates a checkstyle.xml compatible output. Note that you'd have to redirect output into a file in order to capture the results for later processing.
 
 ## Class reflection extensions
 

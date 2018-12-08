@@ -3,8 +3,16 @@
 
 use Composer\XdebugHandler\XdebugHandler;
 use PHPStan\Command\AnalyseCommand;
+use PHPStan\Command\DumpDependenciesCommand;
 
 gc_disable(); // performance boost
+
+define('__PHPSTAN_RUNNING__', true);
+
+$autoloaderInWorkingDirectory = getcwd() . '/vendor/autoload.php';
+if (is_file($autoloaderInWorkingDirectory)) {
+	require_once $autoloaderInWorkingDirectory;
+}
 
 $composerAutoloadFile = __DIR__ . '/../vendor/autoload.php';
 if (!is_file($composerAutoloadFile)) {
@@ -12,11 +20,6 @@ if (!is_file($composerAutoloadFile)) {
 }
 
 require_once $composerAutoloadFile;
-
-$autoloaderInWorkingDirectory = getcwd() . '/vendor/autoload.php';
-if (is_file($autoloaderInWorkingDirectory)) {
-	require_once $autoloaderInWorkingDirectory;
-}
 
 $xdebug = new XdebugHandler('phpstan', '--ansi');
 $xdebug->check();
@@ -34,4 +37,5 @@ $application = new \Symfony\Component\Console\Application(
 	$version
 );
 $application->add(new AnalyseCommand());
+$application->add(new DumpDependenciesCommand());
 $application->run();

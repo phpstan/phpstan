@@ -5,6 +5,8 @@ namespace PHPStan\Type\Accessory;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\ConstantReflection;
+use PHPStan\Reflection\Dummy\DummyConstantReflection;
+use PHPStan\Reflection\Dummy\DummyMethodReflection;
 use PHPStan\Reflection\Dummy\DummyPropertyReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
@@ -64,8 +66,9 @@ class HasPropertyType implements CompoundType, AccessoryType
 			return TrinaryLogic::createNo();
 		}
 
-		if ($type->hasProperty($this->propertyName)) {
-			return TrinaryLogic::createYes();
+		$hasProperty = $type->hasProperty($this->propertyName);
+		if (!$hasProperty->no()) {
+			return $hasProperty;
 		}
 
 		if ($type instanceof TypeWithClassName) {
@@ -124,9 +127,11 @@ class HasPropertyType implements CompoundType, AccessoryType
 		return TrinaryLogic::createYes();
 	}
 
-	public function hasProperty(string $propertyName): bool
+	public function hasProperty(string $propertyName): TrinaryLogic
 	{
-		return $this->propertyName === $propertyName;
+		return TrinaryLogic::createFromBoolean(
+			$this->propertyName === $propertyName
+		);
 	}
 
 	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
@@ -139,14 +144,14 @@ class HasPropertyType implements CompoundType, AccessoryType
 		return TrinaryLogic::createYes();
 	}
 
-	public function hasMethod(string $methodName): bool
+	public function hasMethod(string $methodName): TrinaryLogic
 	{
-		return false;
+		return TrinaryLogic::createMaybe();
 	}
 
 	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
 	{
-		throw new \PHPStan\ShouldNotHappenException();
+		return new DummyMethodReflection($methodName);
 	}
 
 	public function canAccessConstants(): TrinaryLogic
@@ -154,29 +159,34 @@ class HasPropertyType implements CompoundType, AccessoryType
 		return TrinaryLogic::createYes();
 	}
 
-	public function hasConstant(string $constantName): bool
+	public function hasConstant(string $constantName): TrinaryLogic
 	{
-		return false;
+		return TrinaryLogic::createMaybe();
 	}
 
 	public function getConstant(string $constantName): ConstantReflection
 	{
-		throw new \PHPStan\ShouldNotHappenException();
+		return new DummyConstantReflection($constantName);
 	}
 
 	public function isIterable(): TrinaryLogic
 	{
-		return TrinaryLogic::createNo();
+		return TrinaryLogic::createMaybe();
+	}
+
+	public function isIterableAtLeastOnce(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
 	}
 
 	public function getIterableKeyType(): Type
 	{
-		return new ErrorType();
+		return new MixedType();
 	}
 
 	public function getIterableValueType(): Type
 	{
-		return new ErrorType();
+		return new MixedType();
 	}
 
 	public function isOffsetAccessible(): TrinaryLogic

@@ -7,6 +7,9 @@ use PhpParser\Node\Stmt\Use_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\ClassCaseSensitivityCheck;
+use PHPStan\Rules\ClassNameNodePair;
+use PHPStan\Rules\RuleError;
+use PHPStan\Rules\RuleErrorBuilder;
 
 class ExistingNamesInGroupUseRule implements \PHPStan\Rules\Rule
 {
@@ -38,15 +41,14 @@ class ExistingNamesInGroupUseRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Stmt\GroupUse $node
-	 * @param \PHPStan\Analyser\Scope       $scope
-	 *
-	 * @return string[]
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @return RuleError[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		$messages = [];
+		$errors = [];
 		foreach ($node->uses as $use) {
-			$message = null;
+			$error = null;
 
 			/** @var Node\Name $name */
 			$name = Node\Name::concat($node->prefix, $use->name);
@@ -54,41 +56,41 @@ class ExistingNamesInGroupUseRule implements \PHPStan\Rules\Rule
 				$node->type === Use_::TYPE_CONSTANT
 				|| $use->type === Use_::TYPE_CONSTANT
 			) {
-				$message = $this->checkConstant($name);
+				$error = $this->checkConstant($name);
 			} elseif (
 				$node->type === Use_::TYPE_FUNCTION
 				|| $use->type === Use_::TYPE_FUNCTION
 			) {
-				$message = $this->checkFunction($name);
+				$error = $this->checkFunction($name);
 			} elseif ($use->type === Use_::TYPE_NORMAL) {
-				$message = $this->checkClass($name);
+				$error = $this->checkClass($name);
 			} else {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
 
-			if ($message === null) {
+			if ($error === null) {
 				continue;
 			}
 
-			$messages[] = $message;
+			$errors[] = $error;
 		}
 
-		return $messages;
+		return $errors;
 	}
 
-	private function checkConstant(Node\Name $name): ?string
+	private function checkConstant(Node\Name $name): ?RuleError
 	{
 		if (!$this->broker->hasConstant($name, null)) {
-			return sprintf('Used constant %s not found.', (string) $name);
+			return RuleErrorBuilder::message(sprintf('Used constant %s not found.', (string) $name))->build();
 		}
 
 		return null;
 	}
 
-	private function checkFunction(Node\Name $name): ?string
+	private function checkFunction(Node\Name $name): ?RuleError
 	{
 		if (!$this->broker->hasFunction($name, null)) {
-			return sprintf('Used function %s not found.', (string) $name);
+			return RuleErrorBuilder::message(sprintf('Used function %s not found.', (string) $name))->build();
 		}
 
 		if ($this->checkFunctionNameCase) {
@@ -100,26 +102,26 @@ class ExistingNamesInGroupUseRule implements \PHPStan\Rules\Rule
 				&&
 				strtolower($realName) === strtolower($usedName)
 			) {
-				return sprintf(
+				return RuleErrorBuilder::message(sprintf(
 					'Function %s used with incorrect case: %s.',
 					$realName,
 					$usedName
-				);
+				))->build();
 			}
 		}
 
 		return null;
 	}
 
-	private function checkClass(Node\Name $name): ?string
+	private function checkClass(Node\Name $name): ?RuleError
 	{
-		$messages = $this->classCaseSensitivityCheck->checkClassNames([(string) $name]);
-		if (\count($messages) === 0) {
+		$errors = $this->classCaseSensitivityCheck->checkClassNames([
+			new ClassNameNodePair((string) $name, $name),
+		]);
+		if (count($errors) === 0) {
 			return null;
-		}
-
-		if (\count($messages) === 1) {
-			return $messages[0];
+		} elseif (count($errors) === 1) {
+			return $errors[0];
 		}
 
 		throw new \PHPStan\ShouldNotHappenException();

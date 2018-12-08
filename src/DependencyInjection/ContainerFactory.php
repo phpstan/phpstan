@@ -5,6 +5,7 @@ namespace PHPStan\DependencyInjection;
 use Nette\DI\Extensions\PhpExtension;
 use PHPStan\Broker\Broker;
 use PHPStan\File\FileHelper;
+use PHPStan\File\RelativePathHelper;
 
 class ContainerFactory
 {
@@ -27,14 +28,15 @@ class ContainerFactory
 	}
 
 	/**
-	 * @param string   $tempDirectory
+	 * @param string $tempDirectory
 	 * @param string[] $additionalConfigFiles
-	 *
+	 * @param string[] $analysedPaths
 	 * @return \Nette\DI\Container
 	 */
 	public function create(
 		string $tempDirectory,
-		array $additionalConfigFiles
+		array $additionalConfigFiles,
+		array $analysedPaths
 	): \Nette\DI\Container
 	{
 		$configurator = new Configurator(new LoaderFactory());
@@ -56,6 +58,10 @@ class ContainerFactory
 		foreach ($additionalConfigFiles as $additionalConfigFile) {
 			$configurator->addConfig($additionalConfigFile);
 		}
+
+		$configurator->addServices([
+			'relativePathHelper' => new RelativePathHelper($this->currentWorkingDirectory, DIRECTORY_SEPARATOR, $analysedPaths),
+		]);
 
 		$container = $configurator->createContainer();
 

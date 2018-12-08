@@ -15,9 +15,13 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 
 	abstract public function getPhpStanConfigPath(): ?string;
 
+	protected function getResultSuffix(): string
+	{
+		return '';
+	}
+
 	/**
 	 * @dataProvider dataTopics
-	 *
 	 * @param string $topic
 	 */
 	public function testLevels(
@@ -44,6 +48,7 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 			} catch (\Nette\Utils\JsonException $e) {
 				throw new \Nette\Utils\JsonException(sprintf('Cannot decode: %s', $output));
 			}
+
 			if (\count($actualJson['files']) > 0) {
 				$messagesBeforeDiffing = $actualJson['files'][$fileHelper->normalizePath($file)]['messages'];
 			} else {
@@ -64,37 +69,67 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 				$messages[] = $message;
 			}
 
-			$previousMessages = array_merge($previousMessages, $messages);
-			$expectedJsonFile = sprintf('%s/%s-%d.json', $this->getDataPath(), $topic, $level);
-
-			if (\count($messages) === 0) {
-				try {
-					$this->assertFileNotExists($expectedJsonFile);
-					continue;
-				} catch (\PHPUnit\Framework\AssertionFailedError $e) {
-					unlink($expectedJsonFile);
-					$exceptions[] = $e;
-					continue;
+			$missingMessages = [];
+			foreach ($previousMessages as $previousMessage) {
+				foreach ($messagesBeforeDiffing as $message) {
+					if (
+						$previousMessage['message'] === $message['message']
+						&& $previousMessage['line'] === $message['line']
+					) {
+						continue 2;
+					}
 				}
+
+				$missingMessages[] = $previousMessage;
 			}
 
-			$actualOutput = \Nette\Utils\Json::encode($messages, \Nette\Utils\Json::PRETTY);
+			$previousMessages = array_merge($previousMessages, $messages);
+			$expectedJsonFile = sprintf('%s/%s-%d%s.json', $this->getDataPath(), $topic, $level, $this->getResultSuffix());
 
-			try {
-				$this->assertJsonStringEqualsJsonFile(
-					$expectedJsonFile,
-					$actualOutput,
-					sprintf('Level #%d - file %s', $level, pathinfo($file, PATHINFO_BASENAME))
-				);
-			} catch (\PHPUnit\Framework\AssertionFailedError $e) {
-				file_put_contents($expectedJsonFile, $actualOutput);
-				$exceptions[] = $e;
+			$exception = $this->compareFiles($expectedJsonFile, $messages);
+			if ($exception !== null) {
+				$exceptions[] = $exception;
 			}
+
+			$expectedJsonMissingFile = sprintf('%s/%s-%d-missing%s.json', $this->getDataPath(), $topic, $level, $this->getResultSuffix());
+			$exception = $this->compareFiles($expectedJsonMissingFile, $missingMessages);
+			if ($exception === null) {
+				continue;
+			}
+
+			$exceptions[] = $exception;
 		}
 
-		if (\count($exceptions) > 0) {
+		if (count($exceptions) > 0) {
 			throw $exceptions[0];
 		}
+	}
+
+	private function compareFiles(string $expectedJsonFile, array $expectedMessages): ?\PHPUnit\Framework\AssertionFailedError
+	{
+		if (count($expectedMessages) === 0) {
+			try {
+				$this->assertFileNotExists($expectedJsonFile);
+				return null;
+			} catch (\PHPUnit\Framework\AssertionFailedError $e) {
+				unlink($expectedJsonFile);
+				return $e;
+			}
+		}
+
+		$actualOutput = \Nette\Utils\Json::encode($expectedMessages, \Nette\Utils\Json::PRETTY);
+
+		try {
+			$this->assertJsonStringEqualsJsonFile(
+				$expectedJsonFile,
+				$actualOutput
+			);
+		} catch (\PHPUnit\Framework\AssertionFailedError $e) {
+			file_put_contents($expectedJsonFile, $actualOutput);
+			return $e;
+		}
+
+		return null;
 	}
 
 }

@@ -266,4 +266,25 @@ class Foo
 		echo $s[1];
 	}
 
+	/**
+	 * @param self[] $array
+	 * @param array<int, string> $intKeys
+	 */
+	public function benevolentUnionType(array $array, array $intKeys)
+	{
+		foreach ($array as $key => $foo) {
+			echo $intKeys[$key];
+		}
+	}
+
+	public function castToArrayKeyType()
+	{
+		$array = [
+			'1' => [
+				'foo' => 'bar',
+			],
+		];
+		return $array['1'];
+	}
+
 }

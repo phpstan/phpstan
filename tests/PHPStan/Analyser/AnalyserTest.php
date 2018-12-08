@@ -5,6 +5,7 @@ namespace PHPStan\Analyser;
 use PHPStan\Broker\AnonymousClassNameHelper;
 use PHPStan\Cache\Cache;
 use PHPStan\File\FileHelper;
+use PHPStan\File\RelativePathHelper;
 use PHPStan\Parser\DirectParser;
 use PHPStan\PhpDoc\PhpDocStringResolver;
 use PHPStan\Rules\AlwaysFailRule;
@@ -63,8 +64,93 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		$this->assertSame('Error message "Class PHPStan\Tests\Baz was not found while trying to analyse it - autoloading is probably not configured properly." cannot be ignored, use excludes_analyse instead.', $result[1]);
 	}
 
+	public function testIgnoreErrorByPath(): void
+	{
+		$ignoreErrors = [
+			[
+				'message' => '#Fail\.#',
+				'path' => __DIR__ . '/data/bootstrap-error.php',
+			],
+		];
+		$result = $this->runAnalyser($ignoreErrors, true, __DIR__ . '/data/bootstrap-error.php', false);
+		$this->assertCount(0, $result);
+	}
+
+	public function testIgnoreErrorNotFoundInPath(): void
+	{
+		$ignoreErrors = [
+			[
+				'message' => '#Fail\.#',
+				'path' => __DIR__ . '/data/not-existent-path.php',
+			],
+		];
+		$result = $this->runAnalyser($ignoreErrors, true, __DIR__ . '/data/empty/empty.php', false);
+		$this->assertCount(1, $result);
+		$this->assertSame('Ignored error pattern #Fail\.# in path ' . __DIR__ . '/data/not-existent-path.php was not matched in reported errors.', $result[0]);
+	}
+
+	public function testIgnoredErrorMissingMessage(): void
+	{
+		$ignoreErrors = [
+			[
+				'path' => __DIR__ . '/data/empty/empty.php',
+			],
+		];
+
+		$expectedPath = __DIR__;
+
+		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+			$expectedPath = str_replace('\\', '\\\\', $expectedPath);
+		}
+
+		$result = $this->runAnalyser($ignoreErrors, true, __DIR__ . '/data/empty/empty.php', false);
+		$this->assertCount(1, $result);
+		$this->assertSame('Ignored error {"path":"' . $expectedPath . '/data/empty/empty.php"} is missing a message.', $result[0]);
+	}
+
+	public function testIgnoredErrorMissingPath(): void
+	{
+		$ignoreErrors = [
+			[
+				'message' => '#Fail\.#',
+			],
+		];
+		$result = $this->runAnalyser($ignoreErrors, true, __DIR__ . '/data/empty/empty.php', false);
+		$this->assertCount(1, $result);
+		$this->assertSame('Ignored error {"message":"#Fail\\\\.#"} is missing a path.', $result[0]);
+	}
+
+	public function testIgnoredErrorMessageStillValidatedIfMissingAPath(): void
+	{
+		$ignoreErrors = [
+			[
+				'message' => '#Fail\.',
+			],
+		];
+		$result = $this->runAnalyser($ignoreErrors, true, __DIR__ . '/data/empty/empty.php', false);
+		$this->assertCount(2, $result);
+		$this->assertSame('Ignored error {"message":"#Fail\\\\."} is missing a path.', $result[0]);
+		$this->assertSame('No ending delimiter \'#\' found in pattern: #Fail\.', $result[1]);
+	}
+
+	public function testReportMultipleParserErrorsAtOnce(): void
+	{
+		$result = $this->runAnalyser([], false, __DIR__ . '/data/multipleParseErrors.php', false);
+		$this->assertCount(2, $result);
+
+		/** @var Error $errorOne */
+		$errorOne = $result[0];
+		$this->assertSame('Syntax error, unexpected T_IS_EQUAL, expecting T_VARIABLE on line 3', $errorOne->getMessage());
+		$this->assertSame(3, $errorOne->getLine());
+
+		/** @var Error $errorTwo */
+		$errorTwo = $result[1];
+		$this->assertSame('Syntax error, unexpected EOF on line 10', $errorTwo->getMessage());
+		$this->assertSame(10, $errorTwo->getLine());
+	}
+
 	/**
-	 * @param string[] $ignoreErrors
+	 * @param string[]|array<array<string, string>> $ignoreErrors
 	 * @param bool $reportUnmatchedIgnoredErrors
 	 * @param string $filePath
 	 * @param bool $onlyFiles
@@ -85,7 +171,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 	}
 
 	/**
-	 * @param string[] $ignoreErrors
+	 * @param string[]|array<array<string, string>> $ignoreErrors
 	 * @param bool $reportUnmatchedIgnoredErrors
 	 * @return Analyser
 	 */
@@ -106,6 +192,9 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		$broker = $this->createBroker();
 		$printer = new \PhpParser\PrettyPrinter\Standard();
 		$fileHelper = self::getContainer()->getByType(FileHelper::class);
+
+		/** @var RelativePathHelper $relativePathHelper */
+		$relativePathHelper = self::getContainer()->getService('relativePathHelper');
 		$phpDocStringResolver = self::getContainer()->getByType(PhpDocStringResolver::class);
 		$typeSpecifier = $this->createTypeSpecifier($printer, $broker);
 		return new Analyser(
@@ -115,13 +204,14 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 			new NodeScopeResolver(
 				$broker,
 				$this->getParser(),
-				new FileTypeMapper($this->getParser(), $phpDocStringResolver, $this->createMock(Cache::class), new AnonymousClassNameHelper($fileHelper), new \PHPStan\PhpDoc\TypeNodeResolver([])),
+				new FileTypeMapper($this->getParser(), $phpDocStringResolver, $this->createMock(Cache::class), new AnonymousClassNameHelper($fileHelper, $relativePathHelper), new \PHPStan\PhpDoc\TypeNodeResolver([])),
 				$fileHelper,
 				$typeSpecifier,
 				false,
 				false,
 				[]
 			),
+			$fileHelper,
 			$ignoreErrors,
 			$reportUnmatchedIgnoredErrors,
 			50

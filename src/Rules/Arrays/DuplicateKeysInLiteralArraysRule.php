@@ -3,6 +3,8 @@
 namespace PHPStan\Rules\Arrays;
 
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleError;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ConstantScalarType;
 
 class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
@@ -25,15 +27,15 @@ class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\Array_ $node
-	 * @param \PHPStan\Analyser\Scope     $scope
-	 *
-	 * @return string[]
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @return RuleError[]
 	 */
 	public function processNode(\PhpParser\Node $node, Scope $scope): array
 	{
 		$values = [];
 		$duplicateKeys = [];
 		$printedValues = [];
+		$valueLines = [];
 		foreach ($node->items as $item) {
 			if ($item === null) {
 				continue;
@@ -44,9 +46,7 @@ class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
 
 			$key = $item->key;
 			$keyType = $scope->getType($key);
-			if (
-			!$keyType instanceof ConstantScalarType
-			) {
+			if (!$keyType instanceof ConstantScalarType) {
 				continue;
 			}
 
@@ -54,7 +54,11 @@ class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
 			$value = $keyType->getValue();
 			$printedValues[$value][] = $printedValue;
 
-			$previousCount = \count($values);
+			if (!isset($valueLines[$value])) {
+				$valueLines[$value] = $item->getLine();
+			}
+
+			$previousCount = count($values);
 			$values[$value] = $printedValue;
 			if ($previousCount !== \count($values)) {
 				continue;
@@ -65,13 +69,13 @@ class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
 
 		$messages = [];
 		foreach (array_keys($duplicateKeys) as $value) {
-			$messages[] = sprintf(
+			$messages[] = RuleErrorBuilder::message(sprintf(
 				'Array has %d %s with value %s (%s).',
 				\count($printedValues[$value]),
 				\count($printedValues[$value]) === 1 ? 'duplicate key' : 'duplicate keys',
 				var_export($value, true),
 				implode(', ', $printedValues[$value])
-			);
+			))->line($valueLines[$value])->build();
 		}
 
 		return $messages;

@@ -41,7 +41,7 @@ class PropertyReflectionFinder
 
 	private function findPropertyReflection(Type $propertyHolderType, string $propertyName, Scope $scope): ?\PHPStan\Reflection\PropertyReflection
 	{
-		if (!$propertyHolderType->hasProperty($propertyName)) {
+		if (!$propertyHolderType->hasProperty($propertyName)->yes()) {
 			return null;
 		}
 

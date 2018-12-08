@@ -14,6 +14,7 @@ use PHPStan\Cache\Cache;
 use PHPStan\Cache\MemoryCacheStorage;
 use PHPStan\DependencyInjection\ContainerFactory;
 use PHPStan\File\FileHelper;
+use PHPStan\File\RelativePathHelper;
 use PHPStan\Parser\FunctionCallStatementFinder;
 use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\PhpDocStringResolver;
@@ -43,12 +44,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		if (self::$container === null) {
 			$rootDir = __DIR__ . '/../..';
 			$containerFactory = new ContainerFactory($rootDir);
-			self::$container = $containerFactory->create(
-				$rootDir . '/tmp',
-				[
-					$containerFactory->getConfigDirectory() . '/config.level7.neon',
-				]
-			);
+			self::$container = $containerFactory->create($rootDir . '/tmp', [
+				$containerFactory->getConfigDirectory() . '/config.level7.neon',
+			], []);
 		}
 
 		return self::$container;
@@ -103,15 +101,15 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			}
 
 			/**
-			 * @param ClassReflection                                 $declaringClass
-			 * @param ClassReflection|null                            $declaringTrait
+			 * @param ClassReflection $declaringClass
+			 * @param ClassReflection|null $declaringTrait
 			 * @param \PHPStan\Reflection\Php\BuiltinMethodReflection $reflection
-			 * @param Type[]                                          $phpDocParameterTypes
-			 * @param Type|null                                       $phpDocReturnType
-			 * @param Type|null                                       $phpDocThrowType
-			 * @param bool                                            $isDeprecated
-			 * @param bool                                            $isInternal
-			 * @param bool                                            $isFinal
+			 * @param Type[] $phpDocParameterTypes
+			 * @param Type|null $phpDocReturnType
+			 * @param Type|null $phpDocThrowType
+			 * @param bool $isDeprecated
+			 * @param bool $isInternal
+			 * @param bool $isFinal                                           $isFinal
 			 *
 			 * @return PhpMethodReflection
 			 */
@@ -146,11 +144,12 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
 		};
 		$phpDocStringResolver = self::getContainer()->getByType(PhpDocStringResolver::class);
+		$currentWorkingDirectory = $this->getCurrentWorkingDirectory();
 		$fileTypeMapper = new FileTypeMapper(
 			$parser,
 			$phpDocStringResolver,
 			$cache,
-			new AnonymousClassNameHelper(new FileHelper($this->getCurrentWorkingDirectory())),
+			new AnonymousClassNameHelper(new FileHelper($currentWorkingDirectory), new RelativePathHelper($currentWorkingDirectory, DIRECTORY_SEPARATOR, [])),
 			self::getContainer()
 																																		   ->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class)
 		);
@@ -230,6 +229,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			);
 		};
 
+		$currentWorkingDirectory = $this->getCurrentWorkingDirectory();
+		$anonymousClassNameHelper = new AnonymousClassNameHelper(new FileHelper($currentWorkingDirectory), new RelativePathHelper($currentWorkingDirectory, DIRECTORY_SEPARATOR, []));
 		$broker = new Broker(
 			[
 				$phpExtension,
@@ -255,16 +256,16 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				$this->getParser(),
 				$phpDocStringResolver,
 				$cache,
-				new AnonymousClassNameHelper(new FileHelper($this->getCurrentWorkingDirectory())),
+				$anonymousClassNameHelper,
 				self::getContainer()
 																																						  ->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class)
 			),
 			$signatureMapProvider,
 			self::getContainer()->getByType(Standard::class),
-			new AnonymousClassNameHelper(new FileHelper($this->getCurrentWorkingDirectory())),
+			$anonymousClassNameHelper,
 			self::getContainer()->getByType(Parser::class),
-			self::getContainer()->parameters['universalObjectCratesClasses'],
-			$this->getCurrentWorkingDirectory()
+			new RelativePathHelper($this->getCurrentWorkingDirectory(), DIRECTORY_SEPARATOR, []),
+			self::getContainer()->parameters['universalObjectCratesClasses']
 		);
 		$methodReflectionFactory->broker = $broker;
 

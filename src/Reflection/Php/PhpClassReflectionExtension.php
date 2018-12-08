@@ -21,6 +21,7 @@ use PHPStan\Reflection\SignatureMap\SignatureMapProvider;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypehintHelper;
 
 class PhpClassReflectionExtension implements PropertiesClassReflectionExtension, MethodsClassReflectionExtension, BrokerAwareExtension
 {
@@ -126,34 +127,41 @@ class PhpClassReflectionExtension implements PropertiesClassReflectionExtension,
 				return $annotationProperty;
 			}
 		}
-		if ($propertyReflection->getDocComment() === false) {
-			$type = new MixedType();
-		} elseif ($declaringClassReflection->getFileName() !== false) {
+
+		$docComment = $propertyReflection->getDocComment() !== false
+			? $propertyReflection->getDocComment()
+			: null;
+
+		if ($declaringClassReflection->getFileName() !== false) {
 			$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForProperty(
 				$this->broker,
-				$propertyReflection->getDocComment(),
+				$docComment,
 				$declaringClassReflection->getName(),
+				null,
 				$propertyName,
 				$declaringClassReflection->getFileName()
 			);
 
-			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
-				$phpDocBlock->getFile(),
-				$phpDocBlock->getClass(),
-				$this->findPropertyTrait($phpDocBlock, $propertyReflection),
-				$phpDocBlock->getDocComment()
-			);
-			/* @var $varTags \PHPStan\PhpDoc\Tag\VarTag[] */
-			$varTags = $resolvedPhpDoc->getVarTags();
-			if (isset($varTags[0]) && \count($varTags) === 1) {
-				$type = $varTags[0]->getType();
-			} elseif (isset($varTags[$propertyName])) {
-				$type = $varTags[$propertyName]->getType();
+			if ($phpDocBlock !== null) {
+				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
+					$phpDocBlock->getFile(),
+					$phpDocBlock->getClass(),
+					$this->findPropertyTrait($phpDocBlock, $propertyReflection),
+					$phpDocBlock->getDocComment()
+				);
+				$varTags = $resolvedPhpDoc->getVarTags();
+				if (isset($varTags[0]) && count($varTags) === 1) {
+					$type = $varTags[0]->getType();
+				} elseif (isset($varTags[$propertyName])) {
+					$type = $varTags[$propertyName]->getType();
+				} else {
+					$type = new MixedType();
+				}
+				$isDeprecated = $resolvedPhpDoc->isDeprecated();
+				$isInternal = $resolvedPhpDoc->isInternal();
 			} else {
 				$type = new MixedType();
 			}
-			$isDeprecated = $resolvedPhpDoc->isDeprecated();
-			$isInternal = $resolvedPhpDoc->isInternal();
 		} else {
 			$type = new MixedType();
 		}
@@ -320,36 +328,54 @@ class PhpClassReflectionExtension implements PropertiesClassReflectionExtension,
 		$isInternal = false;
 		$isFinal = false;
 		$declaringTraitName = $this->findMethodTrait($methodReflection);
-		if (
-			$declaringClass->getFileName() !== false
-			&&
-			$methodReflection->getDocComment() !== false
-		) {
+		if ($declaringClass->getFileName() !== false) {
+			$docComment = $methodReflection->getDocComment() !== false
+				? $methodReflection->getDocComment()
+				: null;
+
 			$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForMethod(
 				$this->broker,
-				$methodReflection->getDocComment(),
+				$docComment,
 				$declaringClass->getName(),
+				$declaringTraitName,
 				$methodReflection->getName(),
 				$declaringClass->getFileName()
 			);
 
-			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
-				$phpDocBlock->getFile(),
-				$phpDocBlock->getClass(),
-				$declaringTraitName,
-				$phpDocBlock->getDocComment()
-			);
-			$phpDocParameterTypes = array_map(
-				static function (ParamTag $tag): Type {
-					return $tag->getType();
-				},
-				$resolvedPhpDoc->getParamTags()
-			);
-			$phpDocReturnType = $resolvedPhpDoc->getReturnTag() !== null ? $resolvedPhpDoc->getReturnTag()->getType() : null;
-			$phpDocThrowType = $resolvedPhpDoc->getThrowsTag() !== null ? $resolvedPhpDoc->getThrowsTag()->getType() : null;
-			$isDeprecated = $resolvedPhpDoc->isDeprecated();
-			$isInternal = $resolvedPhpDoc->isInternal();
-			$isFinal = $resolvedPhpDoc->isFinal();
+			if ($phpDocBlock !== null) {
+				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
+					$phpDocBlock->getFile(),
+					$phpDocBlock->getClass(),
+					$phpDocBlock->getTrait(),
+					$phpDocBlock->getDocComment()
+				);
+				$phpDocParameterTypes = array_map(
+					static function (ParamTag $tag): Type {
+						return $tag->getType();
+					}, $resolvedPhpDoc->getParamTags()
+				);
+				$nativeReturnType = TypehintHelper::decideTypeFromReflection(
+					$methodReflection->getReturnType(),
+					null,
+					$declaringClass->getName()
+				);
+				$phpDocReturnType = null;
+				if (
+					$resolvedPhpDoc->getReturnTag() !== null
+					&&
+					(
+						$phpDocBlock->isExplicit()
+						||
+						$nativeReturnType->isSuperTypeOf($resolvedPhpDoc->getReturnTag()->getType())->yes()
+					)
+				) {
+					$phpDocReturnType = $resolvedPhpDoc->getReturnTag()->getType();
+				}
+				$phpDocThrowType = $resolvedPhpDoc->getThrowsTag() !== null ? $resolvedPhpDoc->getThrowsTag()->getType() : null;
+				$isDeprecated = $resolvedPhpDoc->isDeprecated();
+				$isInternal = $resolvedPhpDoc->isInternal();
+				$isFinal = $resolvedPhpDoc->isFinal();
+			}
 		}
 
 		$declaringTrait = null;
@@ -416,8 +442,11 @@ class PhpClassReflectionExtension implements PropertiesClassReflectionExtension,
 		BuiltinMethodReflection $methodReflection
 	): ?string
 	{
+		$declaringClass = $methodReflection->getDeclaringClass();
 		if (
-			$methodReflection->getFileName() === $methodReflection->getDeclaringClass()->getFileName()
+			$methodReflection->getFileName() === $declaringClass->getFileName()
+			&& $methodReflection->getStartLine() >= $declaringClass->getStartLine()
+			&& $methodReflection->getEndLine() <= $declaringClass->getEndLine()
 		) {
 			return null;
 		}

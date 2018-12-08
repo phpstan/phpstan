@@ -15,43 +15,36 @@ class InvalidCastRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	public function testRule(): void
 	{
-		$this->analyse(
-			[__DIR__ . '/data/invalid-cast.php'],
+		$this->analyse([__DIR__ . '/data/invalid-cast.php'], [
 			[
-				[
-					'Cannot cast stdClass to string.',
-					7,
-				],
-				[
-					'Cannot cast array() to int.',
-					16,
-				],
-				[
-					'Cannot cast \'blabla\' to int.',
-					21,
-				],
-				[
-					'Cannot cast stdClass to int.',
-					23,
-				],
-				[
-					'Cannot cast stdClass to float.',
-					24,
-				],
-				[
-					'Cannot cast object to string.',
-					35,
-				],
-				[
-					'Cannot cast Test\\Foo to string.',
-					41,
-				],
-				[
-					'Cannot cast array|float|int to string.',
-					48,
-				],
-			]
-		);
+				'Cannot cast stdClass to string.',
+				7,
+			],
+			[
+				'Cannot cast array() to int.',
+				16,
+			],
+			[
+				'Cannot cast \'blabla\' to int.',
+				21,
+			],
+			[
+				'Cannot cast stdClass to int.',
+				23,
+			],
+			[
+				'Cannot cast stdClass to float.',
+				24,
+			],
+			[
+				'Cannot cast Test\\Foo to string.',
+				41,
+			],
+			[
+				'Cannot cast array|float|int to string.',
+				48,
+			],
+		]);
 	}
 
 }

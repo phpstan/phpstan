@@ -73,11 +73,12 @@ class UnionType implements CompoundType, StaticResolvableType
 			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
 		}
 
-		return $this->unionResults(
-			static function (Type $innerType) use ($strictTypes): TrinaryLogic {
-				return $innerType->accepts($innerType, $strictTypes);
-			}
-		);
+		$results = [];
+		foreach ($this->getTypes() as $innerType) {
+			$results[] = $innerType->accepts($type, $strictTypes);
+		}
+
+		return TrinaryLogic::createNo()->or(...$results);
 	}
 
 	public function isSuperTypeOf(Type $otherType): TrinaryLogic
@@ -244,29 +245,60 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	/**
 	 * @param callable(Type $type): TrinaryLogic $canCallback
-	 * @param callable(Type $type): bool $hasCallback
-	 *
-	 * @return bool
+	 * @param callable(Type $type): TrinaryLogic $hasCallback
+	 * @return TrinaryLogic
 	 */
 	private function hasInternal(
 		callable $canCallback,
 		callable $hasCallback
-	): bool
+	): TrinaryLogic
 	{
-		$typesWithCan = 0;
-		$typesWithHas = 0;
+		$results = [];
 		foreach ($this->types as $type) {
 			if ($canCallback($type)->no()) {
+				$results[] = TrinaryLogic::createNo();
 				continue;
 			}
-			$typesWithCan++;
-			if (!$hasCallback($type)) {
-				continue;
-			}
-			$typesWithHas++;
+			$results[] = $hasCallback($type);
 		}
 
-		return $typesWithCan > 0 && $typesWithHas === $typesWithCan;
+		return TrinaryLogic::extremeIdentity(...$results);
+	}
+
+	/**
+	 * @param callable(Type $type): TrinaryLogic $hasCallback
+	 * @param callable(Type $type): object $getCallback
+	 * @return object
+	 */
+	private function getInternal(
+		callable $hasCallback,
+		callable $getCallback
+	)
+	{
+		/** @var TrinaryLogic|null $result */
+		$result = null;
+
+		/** @var object|null $object */
+		$object = null;
+		foreach ($this->types as $type) {
+			$has = $hasCallback($type);
+			if (!$has->yes()) {
+				continue;
+			}
+			if ($result !== null && $result->compareTo($has) !== $has) {
+				continue;
+			}
+
+			$get = $getCallback($type);
+			$result = $has;
+			$object = $get;
+		}
+
+		if ($object === null) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		return $object;
 	}
 
 	public function canAccessProperties(): TrinaryLogic
@@ -278,13 +310,13 @@ class UnionType implements CompoundType, StaticResolvableType
 		);
 	}
 
-	public function hasProperty(string $propertyName): bool
+	public function hasProperty(string $propertyName): TrinaryLogic
 	{
 		return $this->hasInternal(
 			static function (Type $type): TrinaryLogic {
 				return $type->canAccessProperties();
 			},
-			static function (Type $type) use ($propertyName): bool {
+			static function (Type $type) use ($propertyName): TrinaryLogic {
 				return $type->hasProperty($propertyName);
 			}
 		);
@@ -292,15 +324,14 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
 	{
-		foreach ($this->types as $type) {
-			if ($type->canAccessProperties()->no()) {
-				continue;
+		return $this->getInternal(
+			static function (Type $type) use ($propertyName): TrinaryLogic {
+				return $type->hasProperty($propertyName);
+			},
+			static function (Type $type) use ($propertyName, $scope): PropertyReflection {
+				return $type->getProperty($propertyName, $scope);
 			}
-
-			return $type->getProperty($propertyName, $scope);
-		}
-
-		throw new \PHPStan\ShouldNotHappenException();
+		);
 	}
 
 	public function canCallMethods(): TrinaryLogic
@@ -312,29 +343,23 @@ class UnionType implements CompoundType, StaticResolvableType
 		);
 	}
 
-	public function hasMethod(string $methodName): bool
+	public function hasMethod(string $methodName): TrinaryLogic
 	{
-		return $this->hasInternal(
-			static function (Type $type): TrinaryLogic {
-				return $type->canCallMethods();
-			},
-			static function (Type $type) use ($methodName): bool {
-				return $type->hasMethod($methodName);
-			}
-		);
+		return $this->unionResults(static function (Type $type) use ($methodName): TrinaryLogic {
+			return $type->hasMethod($methodName);
+		});
 	}
 
 	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
 	{
-		foreach ($this->types as $type) {
-			if ($type->canCallMethods()->no()) {
-				continue;
+		return $this->getInternal(
+			static function (Type $type) use ($methodName): TrinaryLogic {
+				return $type->hasMethod($methodName);
+			},
+			static function (Type $type) use ($methodName, $scope): MethodReflection {
+				return $type->getMethod($methodName, $scope);
 			}
-
-			return $type->getMethod($methodName, $scope);
-		}
-
-		throw new \PHPStan\ShouldNotHappenException();
+		);
 	}
 
 	public function canAccessConstants(): TrinaryLogic
@@ -346,13 +371,13 @@ class UnionType implements CompoundType, StaticResolvableType
 		);
 	}
 
-	public function hasConstant(string $constantName): bool
+	public function hasConstant(string $constantName): TrinaryLogic
 	{
 		return $this->hasInternal(
 			static function (Type $type): TrinaryLogic {
 				return $type->canAccessConstants();
 			},
-			static function (Type $type) use ($constantName): bool {
+			static function (Type $type) use ($constantName): TrinaryLogic {
 				return $type->hasConstant($constantName);
 			}
 		);
@@ -360,15 +385,14 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function getConstant(string $constantName): ConstantReflection
 	{
-		foreach ($this->types as $type) {
-			if ($type->canAccessConstants()->no()) {
-				continue;
+		return $this->getInternal(
+			static function (Type $type) use ($constantName): TrinaryLogic {
+				return $type->hasConstant($constantName);
+			},
+			static function (Type $type) use ($constantName): ConstantReflection {
+				return $type->getConstant($constantName);
 			}
-
-			return $type->getConstant($constantName);
-		}
-
-		throw new \PHPStan\ShouldNotHappenException();
+		);
 	}
 
 	public function resolveStatic(string $className): Type
@@ -386,6 +410,15 @@ class UnionType implements CompoundType, StaticResolvableType
 		return $this->unionResults(
 			static function (Type $type): TrinaryLogic {
 				return $type->isIterable();
+			}
+		);
+	}
+
+	public function isIterableAtLeastOnce(): TrinaryLogic
+	{
+		return $this->unionResults(
+			static function (Type $type): TrinaryLogic {
+				return $type->isIterableAtLeastOnce();
 			}
 		);
 	}

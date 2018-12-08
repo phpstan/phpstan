@@ -150,3 +150,39 @@ class RequiredArgumentsAfterDefaultValues
 	}
 
 }
+
+class ObjectCallable
+{
+
+	/**
+	 * @param object $object
+	 */
+	public function doFoo($object)
+	{
+		$cb = [$object, 'yo'];
+		$cb();
+		if (is_callable($cb)) {
+			$cb();
+		} else {
+			$cb();
+		}
+	}
+
+}
+
+class CallableInForeach
+{
+
+	public function doFoo(bool $foo = true): void
+	{
+		$callback = [self::class, $foo ? 'foo' : 'bar'];
+		$callback();
+		assert(is_callable($callback));
+		$callback();
+
+		foreach ([0, 1] as $i) {
+			echo $callback();
+		}
+	}
+
+}

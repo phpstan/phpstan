@@ -789,12 +789,13 @@
 
 	<!-- TypeHints MUST be valid -->
 	<rule ref="SlevomatCodingStandard.TypeHints.TypeHintDeclaration">
-		<properties>
-			<property name="allAnnotationsAreUseful" value="true"/>
-			<property name="traversableTypeHints" type="array">
-				<element value="Traversable"/>
-			</property>
-		</properties>
+        <properties>
+            <property name="usefulAnnotations" type="array" value="
+				@dataProvider,
+				@requires
+			"/>
+            <property name="enableObjectTypeHint" value="false"/>
+        </properties>
 		<exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableParameterTypeHintSpecification"/><!-- this is not working for generics syntax (https://github.com/slevomat/coding-standard/issues/522) -->
 		<exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableReturnTypeHintSpecification"/><!-- this is not working for generics syntax (https://github.com/slevomat/coding-standard/issues/522) -->
 	</rule>

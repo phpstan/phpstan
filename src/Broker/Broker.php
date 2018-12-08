@@ -4,7 +4,7 @@ namespace PHPStan\Broker;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
-use PHPStan\Command\ErrorFormatter\RelativePathHelper;
+use PHPStan\File\RelativePathHelper;
 use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\Tag\ParamTag;
 use PHPStan\Reflection\BrokerAwareExtension;
@@ -71,11 +71,11 @@ class Broker
 	/** @var Parser */
 	private $parser;
 
+	/** @var RelativePathHelper */
+	private $relativePathHelper;
+
 	/** @var string[] */
 	private $universalObjectCratesClasses;
-
-	/** @var string */
-	private $currentWorkingDirectory;
 
 	/** @var \PHPStan\Reflection\FunctionReflection[] */
 	private $functionReflections = [];
@@ -97,18 +97,18 @@ class Broker
 
 	/**
 	 * @param \PHPStan\Reflection\PropertiesClassReflectionExtension[] $propertiesClassReflectionExtensions
-	 * @param \PHPStan\Reflection\MethodsClassReflectionExtension[]    $methodsClassReflectionExtensions
-	 * @param \PHPStan\Type\DynamicMethodReturnTypeExtension[]         $dynamicMethodReturnTypeExtensions
-	 * @param \PHPStan\Type\DynamicStaticMethodReturnTypeExtension[]   $dynamicStaticMethodReturnTypeExtensions
-	 * @param \PHPStan\Type\DynamicFunctionReturnTypeExtension[]       $dynamicFunctionReturnTypeExtensions
-	 * @param \PHPStan\Reflection\FunctionReflectionFactory            $functionReflectionFactory
-	 * @param \PHPStan\Type\FileTypeMapper                             $fileTypeMapper
-	 * @param \PHPStan\Reflection\SignatureMap\SignatureMapProvider    $signatureMapProvider
-	 * @param \PhpParser\PrettyPrinter\Standard                        $printer
-	 * @param AnonymousClassNameHelper                                 $anonymousClassNameHelper
-	 * @param Parser                                                   $parser
-	 * @param string[]                                                 $universalObjectCratesClasses
-	 * @param string                                                   $currentWorkingDirectory
+	 * @param \PHPStan\Reflection\MethodsClassReflectionExtension[] $methodsClassReflectionExtensions
+	 * @param \PHPStan\Type\DynamicMethodReturnTypeExtension[] $dynamicMethodReturnTypeExtensions
+	 * @param \PHPStan\Type\DynamicStaticMethodReturnTypeExtension[] $dynamicStaticMethodReturnTypeExtensions
+	 * @param \PHPStan\Type\DynamicFunctionReturnTypeExtension[] $dynamicFunctionReturnTypeExtensions
+	 * @param \PHPStan\Reflection\FunctionReflectionFactory $functionReflectionFactory
+	 * @param \PHPStan\Type\FileTypeMapper $fileTypeMapper
+	 * @param \PHPStan\Reflection\SignatureMap\SignatureMapProvider $signatureMapProvider
+	 * @param \PhpParser\PrettyPrinter\Standard $printer
+	 * @param AnonymousClassNameHelper $anonymousClassNameHelper
+	 * @param Parser $parser
+	 * @param RelativePathHelper $relativePathHelper
+	 * @param string[] $universalObjectCratesClasses
 	 */
 	public function __construct(
 		array $propertiesClassReflectionExtensions,
@@ -122,8 +122,8 @@ class Broker
 		\PhpParser\PrettyPrinter\Standard $printer,
 		AnonymousClassNameHelper $anonymousClassNameHelper,
 		Parser $parser,
-		array $universalObjectCratesClasses,
-		string $currentWorkingDirectory
+		RelativePathHelper $relativePathHelper,
+		array $universalObjectCratesClasses
 	)
 	{
 		$this->propertiesClassReflectionExtensions = $propertiesClassReflectionExtensions;
@@ -155,8 +155,8 @@ class Broker
 		$this->printer = $printer;
 		$this->anonymousClassNameHelper = $anonymousClassNameHelper;
 		$this->parser = $parser;
+		$this->relativePathHelper = $relativePathHelper;
 		$this->universalObjectCratesClasses = $universalObjectCratesClasses;
-		$this->currentWorkingDirectory = $currentWorkingDirectory;
 	}
 
 	public static function registerInstance(Broker $broker): void
@@ -303,10 +303,7 @@ class Broker
 			$scopeFile = $scope->getFile();
 		}
 
-		$filename = RelativePathHelper::getRelativePath(
-			$this->currentWorkingDirectory,
-			$scopeFile
-		);
+		$filename = $this->relativePathHelper->getRelativePath($scopeFile);
 
 		$className = $this->anonymousClassNameHelper->getAnonymousClassName(
 			$node,
@@ -327,7 +324,7 @@ class Broker
 		self::$anonymousClasses[$className] = $this->getClassFromReflection(
 			new \ReflectionClass('\\' . $className),
 			sprintf('class@anonymous/%s:%s', $filename, $node->getLine()),
-			$filename
+			$scopeFile
 		);
 		$this->classReflections[$className] = self::$anonymousClasses[$className];
 
@@ -548,32 +545,16 @@ class Broker
 
 	public function resolveFunctionName(\PhpParser\Node\Name $nameNode, ?Scope $scope): ?string
 	{
-		return $this->resolveName(
-			$nameNode,
-			static function (string $name): bool {
-				$exists = \function_exists($name);
-				if ($exists) {
-					return true;
-				}
+		return $this->resolveName($nameNode, function (string $name): bool {
+			$exists = function_exists($name);
+			if ($exists) {
+				return true;
+			}
 
-				$lowercased = strtolower($name);
-				if ($lowercased === 'getallheaders') {
-					return true;
-				}
-				if (\Nette\Utils\Strings::startsWith($lowercased, 'apache_')) {
-					return true;
-				}
-				if (\Nette\Utils\Strings::startsWith($lowercased, 'fastcgi_')) {
-					return true;
-				}
-				if (\Nette\Utils\Strings::startsWith($lowercased, 'xdebug_')) {
-					return true;
-				}
+			$lowercased = strtolower($name);
 
-				return false;
-			},
-			$scope
-		);
+			return $this->signatureMapProvider->hasFunctionSignature($lowercased);
+		}, $scope);
 	}
 
 	public function hasConstant(\PhpParser\Node\Name $nameNode, ?Scope $scope): bool

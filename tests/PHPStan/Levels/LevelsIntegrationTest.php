@@ -19,8 +19,14 @@ class LevelsIntegrationTest extends \PHPStan\Testing\LevelsTestCase
 			['clone'],
 			['iterable'],
 			['binaryOps'],
+			['comparison'],
 			['throwValues'],
 			['casts'],
+			['unreachable'],
+			['echo_'],
+			['print_'],
+			['stringOffsetAccess'],
+			['object'],
 		];
 	}
 

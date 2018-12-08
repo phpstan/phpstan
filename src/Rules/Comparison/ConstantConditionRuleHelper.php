@@ -19,7 +19,16 @@ class ConstantConditionRuleHelper
 		$this->impossibleCheckTypeHelper = $impossibleCheckTypeHelper;
 	}
 
-	public function getBooleanType(Scope $scope, Expr $expr): BooleanType
+	public function shouldReportAlwaysTrueByDefault(Expr $expr): bool
+	{
+		return $expr instanceof Expr\BooleanNot
+			|| $expr instanceof Expr\BinaryOp\BooleanOr
+			|| $expr instanceof Expr\BinaryOp\BooleanAnd
+			|| $expr instanceof Expr\Ternary
+			|| $expr instanceof Expr\Isset_;
+	}
+
+	public function shouldSkip(Scope $scope, Expr $expr): bool
 	{
 		if (
 			$expr instanceof Expr\Instanceof_
@@ -32,7 +41,7 @@ class ConstantConditionRuleHelper
 			|| $expr instanceof Expr\Isset_
 		) {
 			// already checked by different rules
-			return new BooleanType();
+			return true;
 		}
 
 		if (
@@ -42,8 +51,17 @@ class ConstantConditionRuleHelper
 		) {
 			$isAlways = $this->impossibleCheckTypeHelper->findSpecifiedType($scope, $expr);
 			if ($isAlways !== null) {
-				return new BooleanType();
+				return true;
 			}
+		}
+
+		return false;
+	}
+
+	public function getBooleanType(Scope $scope, Expr $expr): BooleanType
+	{
+		if ($this->shouldSkip($scope, $expr)) {
+			return new BooleanType();
 		}
 
 		return $scope->getType($expr)->toBoolean();

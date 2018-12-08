@@ -29,9 +29,8 @@ class VariableCloningRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\Clone_ $node
-	 * @param \PHPStan\Analyser\Scope     $scope
-	 *
-	 * @return string[]
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @return (string|\PHPStan\Rules\RuleError)[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
@@ -51,7 +50,11 @@ class VariableCloningRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		if ($node->expr instanceof Variable && \is_string($node->expr->name)) {
+		if (
+			$node->expr instanceof Variable
+			&&
+			\is_string($node->expr->name)
+		) {
 			return [
 				sprintf(
 					'Cannot clone non-object variable $%s of type %s.',

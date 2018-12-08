@@ -4,7 +4,30 @@ namespace MethodPhpDocsNamespace;
 
 use SomeNamespace\Amet as Dolor;
 
-class FooParent
+interface FooInterface
+{
+
+	/**
+	 * @return void
+	 */
+	public function phpDocVoidMethodFromInterface();
+
+}
+
+class FooParentParent
+{
+
+	/**
+	 * @return void
+	 */
+	public function phpDocVoidParentMethod()
+	{
+
+	}
+
+}
+
+abstract class FooParent extends FooParentParent implements FooInterface
 {
 
 	/**
@@ -43,6 +66,22 @@ class FooParent
 	 * @return $this|Bar|null
 	 */
 	public function doThisUnion()
+	{
+
+	}
+
+	/**
+	 * @return void
+	 */
+	public function phpDocVoidMethod()
+	{
+
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function phpDocVoidParentMethod()
 	{
 
 	}

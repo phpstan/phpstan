@@ -44,11 +44,11 @@ install:
   - ps: Add-Content -Path php.ini -Value 'date.timezone="UTC"'
   - ps: Add-Content -Path php.ini -Value 'extension_dir=ext'
   - ps: Add-Content -Path php.ini -Value 'extension=php_curl.dll'
-  - ps: Add-Content -Path php.ini -Value 'extension=php_intl.dll'
   - ps: Add-Content -Path php.ini -Value 'extension=php_mbstring.dll'
   - ps: Add-Content -Path php.ini -Value 'extension=php_openssl.dll'
-  - ps: Add-Content -Path php.ini -Value 'extension=php_gd2.dll'
+  - ps: Add-Content -Path php.ini -Value 'extension=php_soap.dll'
   - ps: Add-Content -Path php.ini -Value 'extension=php_mysqli.dll'
+  - ps: Add-Content -Path php.ini -Value 'extension=php_intl.dll'
   - ps: php --version
 
   # Prepare composer

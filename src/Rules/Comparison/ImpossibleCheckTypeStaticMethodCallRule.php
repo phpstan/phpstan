@@ -97,7 +97,7 @@ class ImpossibleCheckTypeStaticMethodCallRule implements \PHPStan\Rules\Rule
 			$calledOnType = $scope->getType($class);
 		}
 
-		if (!$calledOnType->hasMethod($methodName)) {
+		if (!$calledOnType->hasMethod($methodName)->yes()) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 

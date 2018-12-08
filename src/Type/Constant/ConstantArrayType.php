@@ -14,7 +14,6 @@ use PHPStan\Type\ConstantType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
-use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
@@ -38,8 +37,8 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 	/**
 	 * @param array<int, ConstantIntegerType|ConstantStringType> $keyTypes
-	 * @param array<int, Type>                                   $valueTypes
-	 * @param int                                                $nextAutoIndex
+	 * @param array<int, Type> $valueTypes
+	 * @param int $nextAutoIndex
 	 */
 	public function __construct(array $keyTypes, array $valueTypes, int $nextAutoIndex = 0)
 	{
@@ -170,11 +169,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			return TrinaryLogic::createNo();
 		}
 
-		if ($typeAndMethod->isUnknown()) {
-			return TrinaryLogic::createMaybe();
-		}
-
-		return TrinaryLogic::createYes();
+		return $typeAndMethod->getCertainty();
 	}
 
 	/**
@@ -189,7 +184,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
-		if ($typeAndMethodName->isUnknown()) {
+		if ($typeAndMethodName->isUnknown() || !$typeAndMethodName->getCertainty()->yes()) {
 			return [new TrivialParametersAcceptor()];
 		}
 
@@ -235,8 +230,9 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			return ConstantArrayTypeAndMethod::createUnknown();
 		}
 
-		if ($type->hasMethod($method->getValue())) {
-			return ConstantArrayTypeAndMethod::createConcrete($type, $method->getValue());
+		$has = $type->hasMethod($method->getValue());
+		if (!$has->no()) {
+			return ConstantArrayTypeAndMethod::createConcrete($type, $method->getValue(), $has);
 		}
 
 		return null;
@@ -244,6 +240,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
 	{
+		$offsetType = ArrayType::castToArrayKeyType($offsetType);
 		if ($offsetType instanceof UnionType) {
 			$results = [];
 			foreach ($offsetType->getTypes() as $innerType) {
@@ -307,6 +304,11 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		return $this;
 	}
 
+	public function isIterableAtLeastOnce(): TrinaryLogic
+	{
+		return TrinaryLogic::createFromBoolean(count($this->keyTypes) > 0);
+	}
+
 	public function removeLast(): self
 	{
 		if (\count($this->keyTypes) === 0) {
@@ -346,25 +348,6 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		}
 
 		return $builder->getArray();
-	}
-
-	public function getFirstValueType(): Type
-	{
-		if (\count($this->valueTypes) === 0) {
-			return new NullType();
-		}
-
-		return $this->valueTypes[0];
-	}
-
-	public function getLastValueType(): Type
-	{
-		$length = \count($this->valueTypes);
-		if ($length === 0) {
-			return new NullType();
-		}
-
-		return $this->valueTypes[$length - 1];
 	}
 
 	public function toBoolean(): BooleanType

@@ -52,10 +52,25 @@ class FooWithTrait extends FooParent
 
 	}
 
+	public function phpDocVoidMethod(): self
+	{
+
+	}
+
+	public function phpDocVoidMethodFromInterface(): self
+	{
+
+	}
+
+	public function phpDocVoidParentMethod(): self
+	{
+
+	}
+
 	/**
-	 * @return \PHPUnit_Framework_MockObject_MockObject|Foo
+	 * @return string[]
 	 */
-	public function returnPhpunitMock(): Foo
+	public function returnsStringArray(): array
 	{
 
 	}

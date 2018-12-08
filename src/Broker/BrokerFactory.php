@@ -2,6 +2,7 @@
 
 namespace PHPStan\Broker;
 
+use PHPStan\File\RelativePathHelper;
 use PHPStan\Parser\Parser;
 use PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension;
 use PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension;
@@ -44,6 +45,9 @@ class BrokerFactory
 		$annotationsPropertiesClassReflectionExtension = $this->container->getByType(AnnotationsPropertiesClassReflectionExtension::class);
 		$phpDefectClassReflectionExtension = $this->container->getByType(PhpDefectClassReflectionExtension::class);
 
+		/** @var RelativePathHelper $relativePathHelper */
+		$relativePathHelper = $this->container->getService('relativePathHelper');
+
 		return new Broker(
 			array_merge(
 				[
@@ -63,8 +67,8 @@ class BrokerFactory
 			$this->container->getByType(\PhpParser\PrettyPrinter\Standard::class),
 			$this->container->getByType(AnonymousClassNameHelper::class),
 			$this->container->getByType(Parser::class),
-			$this->container->parameters['universalObjectCratesClasses'],
-			$this->container->parameters['currentWorkingDirectory']
+			$relativePathHelper,
+			$this->container->parameters['universalObjectCratesClasses']
 		);
 	}
 

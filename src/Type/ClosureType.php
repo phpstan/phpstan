@@ -129,7 +129,7 @@ class ClosureType implements Type, ParametersAcceptor
 		return $this->objectType->canAccessProperties();
 	}
 
-	public function hasProperty(string $propertyName): bool
+	public function hasProperty(string $propertyName): TrinaryLogic
 	{
 		return $this->objectType->hasProperty($propertyName);
 	}
@@ -144,7 +144,7 @@ class ClosureType implements Type, ParametersAcceptor
 		return $this->objectType->canCallMethods();
 	}
 
-	public function hasMethod(string $methodName): bool
+	public function hasMethod(string $methodName): TrinaryLogic
 	{
 		return $this->objectType->hasMethod($methodName);
 	}
@@ -159,7 +159,7 @@ class ClosureType implements Type, ParametersAcceptor
 		return $this->objectType->canAccessConstants();
 	}
 
-	public function hasConstant(string $constantName): bool
+	public function hasConstant(string $constantName): TrinaryLogic
 	{
 		return $this->objectType->hasConstant($constantName);
 	}
@@ -170,6 +170,11 @@ class ClosureType implements Type, ParametersAcceptor
 	}
 
 	public function isIterable(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
+	}
+
+	public function isIterableAtLeastOnce(): TrinaryLogic
 	{
 		return TrinaryLogic::createNo();
 	}

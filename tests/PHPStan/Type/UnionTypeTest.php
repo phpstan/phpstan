@@ -650,6 +650,16 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 				new ClosureType([], new StringType(), false),
 				TrinaryLogic::createYes(),
 			],
+			[
+				new UnionType([new CallableType(), new NullType()]),
+				new UnionType([new ClosureType([], new StringType(), false), new BooleanType()]),
+				TrinaryLogic::createMaybe(),
+			],
+			[
+				new UnionType([new CallableType(), new NullType()]),
+				new BooleanType(),
+				TrinaryLogic::createNo(),
+			],
 		];
 	}
 
@@ -678,22 +688,22 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 			[
 				new UnionType([new ObjectType(\DateTimeImmutable::class), new IntegerType()]),
 				'format',
-				true,
+				TrinaryLogic::createMaybe(),
 			],
 			[
 				new UnionType([new ObjectType(\DateTimeImmutable::class), new ObjectType(\DateTime::class)]),
 				'format',
-				true,
+				TrinaryLogic::createYes(),
 			],
 			[
 				new UnionType([new FloatType(), new IntegerType()]),
 				'format',
-				false,
+				TrinaryLogic::createNo(),
 			],
 			[
 				new UnionType([new ObjectType(\DateTimeImmutable::class), new NullType()]),
 				'format',
-				true,
+				TrinaryLogic::createMaybe(),
 			],
 		];
 	}
@@ -702,15 +712,15 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 	 * @dataProvider dataHasMethod
 	 * @param UnionType $type
 	 * @param string $methodName
-	 * @param bool $expectedResult
+	 * @param TrinaryLogic $expectedResult
 	 */
 	public function testHasMethod(
 		UnionType $type,
 		string $methodName,
-		bool $expectedResult
+		TrinaryLogic $expectedResult
 	): void
 	{
-		$this->assertSame($expectedResult, $type->hasMethod($methodName));
+		$this->assertSame($expectedResult->describe(), $type->hasMethod($methodName)->describe());
 	}
 
 }

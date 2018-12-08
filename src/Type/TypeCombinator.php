@@ -3,6 +3,7 @@
 namespace PHPStan\Type;
 
 use PHPStan\Type\Accessory\AccessoryType;
+use PHPStan\Type\Accessory\NonEmptyArrayType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantArrayTypeBuilder;
 use PHPStan\Type\Constant\ConstantBooleanType;
@@ -57,6 +58,19 @@ class TypeCombinator
 
 		if ($typeToRemove->isSuperTypeOf($fromType)->yes()) {
 			return new NeverType();
+		}
+
+		if (
+			(new ArrayType(new MixedType(), new MixedType()))->isSuperTypeOf($fromType)->yes()
+		) {
+			if ($typeToRemove instanceof ConstantArrayType
+				&& $typeToRemove->isIterableAtLeastOnce()->no()) {
+				return self::intersect($fromType, new NonEmptyArrayType());
+			}
+
+			if ($typeToRemove instanceof NonEmptyArrayType) {
+				return new ConstantArrayType([], []);
+			}
 		}
 
 		return $fromType;
@@ -132,7 +146,7 @@ class TypeCombinator
 						$intermediateArrayType = $innerType;
 						continue;
 					}
-					if ($innerType instanceof AccessoryType) {
+					if ($innerType instanceof AccessoryType || $innerType instanceof CallableType) {
 						$intermediateAccessoryTypes[] = $innerType;
 						continue;
 					}
@@ -227,7 +241,7 @@ class TypeCombinator
 
 	/**
 	 * @param ArrayType[]     $arrayTypes
-	 * @param AccessoryType[] $accessoryTypes
+	 * @param Type[] $accessoryTypes
 	 *
 	 * @return Type[]
 	 */

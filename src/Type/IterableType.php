@@ -176,6 +176,11 @@ class IterableType implements StaticResolvableType, CompoundType
 		return TrinaryLogic::createYes();
 	}
 
+	public function isIterableAtLeastOnce(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
+	}
+
 	public function getIterableKeyType(): Type
 	{
 		return $this->keyType;

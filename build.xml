@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="PHPStan" default="check">
-
+	<property name="path.composer-require-checker"
+			  value="tmp/composer-require-checker-1.1.0.phar"/>
+	<property name="url.composer-require-checker"
+			  value="https://github.com/maglnet/ComposerRequireChecker/releases/download/1.1.0/composer-require-checker.phar"/>
 	<target name="check" depends="
 		composer-validate,
 		composer-install,
-		composer-normalize-check,
 		lint,
 		cs,
+		composer-normalize-check,
+		composer-require-checker,
 		test-configuration-validate,
 		tests,
 		phpstan
@@ -61,6 +65,46 @@
 		</exec>
 	</target>
 
+	<target name="composer-require-checker">
+		<if>
+			<and>
+				<not>
+					<available file="${path.composer-require-checker}"/>
+				</not>
+				<not><os family="windows"/></not>
+			</and>
+			<then>
+				<exec
+					executable="wget"
+					logoutput="true"
+					passthru="true"
+					checkreturn="true"
+				>
+					<arg value="-O"/>
+					<arg path="${path.composer-require-checker}"/>
+					<arg value="${url.composer-require-checker}"/>
+				</exec>
+			</then>
+		</if>
+		<if>
+			<available file="${path.composer-require-checker}"/>
+			<then>
+				<exec
+						executable="php"
+						logoutput="true"
+						passthru="true"
+						checkreturn="true"
+				>
+					<arg path="${path.composer-require-checker}"/>
+					<arg value="check"/>
+					<arg value="--config-file"/>
+					<arg path="${project.basedir}/build/composer-require-checker.json"/>
+					<arg path="composer.json"/>
+				</exec>
+			</then>
+		</if>
+	</target>
+
 	<target name="lint">
 		<exec
 				executable="vendor/bin/parallel-lint"
@@ -77,6 +121,8 @@
 			<arg path="tests/PHPStan/Rules/Functions/data"/>
 			<arg value="--exclude"/>
 			<arg path="tests/PHPStan/Rules/Operators/data/invalid-inc-dec.php"/>
+			<arg value="--exclude"/>
+			<arg path="tests/PHPStan/Rules/Arrays/data/offset-access-without-dim-for-reading.php"/>
 			<arg path="src" />
 			<arg path="tests" />
 		</exec>
@@ -146,6 +192,7 @@
 
 	<target name="phpstan">
 		<property name="phpstan.config" value="build/phpstan-generated.neon"/>
+		<php expression="PHP_VERSION_ID &gt;= 70300 ?'true':'false'" returnProperty="isPHP73" level="verbose" />
 		<touch file="${phpstan.config}"/>
 		<append
 			destFile="${phpstan.config}"
@@ -158,6 +205,15 @@
 				<append
 						destFile="${phpstan.config}"
 						text=", ignore-windows-errors.neon"
+				></append>
+			</then>
+		</if>
+		<if>
+			<equals arg1="${isPHP73}" arg2="false" />
+			<then>
+				<append
+						destFile="${phpstan.config}"
+						text=", ignore-lt-php7.3-errors.neon"
 				></append>
 			</then>
 		</if>
@@ -179,7 +235,6 @@
 			<arg path="${phpstan.config}"/>
 			<arg value="-l"/>
 			<arg value="7"/>
-			<arg value="--ansi"/>
 			<arg path="build/PHPStan"/>
 			<arg path="src"/>
 			<arg path="tests"/>

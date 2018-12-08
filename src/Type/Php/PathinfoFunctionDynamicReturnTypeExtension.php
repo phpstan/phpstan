@@ -9,6 +9,7 @@ use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
+use PHPStan\Type\UnionType;
 
 class PathinfoFunctionDynamicReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
@@ -32,20 +33,21 @@ class PathinfoFunctionDynamicReturnTypeExtension implements \PHPStan\Type\Dynami
 		if ($argsCount === 1) {
 			$stringType = new StringType();
 
-			return new ConstantArrayType(
-				[
-					new ConstantStringType('dirname'),
-					new ConstantStringType('basename'),
-					new ConstantStringType('extension'),
-					new ConstantStringType('filename'),
-				],
-				[
-					$stringType,
-					$stringType,
-					$stringType,
-					$stringType,
-				]
-			);
+			$dirname = new ConstantStringType('dirname');
+			$basename = new ConstantStringType('basename');
+			$extension = new ConstantStringType('extension');
+			$filename = new ConstantStringType('filename');
+
+			return new UnionType([
+				new ConstantArrayType(
+					[$dirname, $basename, $filename],
+					[$stringType, $stringType, $stringType]
+				),
+				new ConstantArrayType(
+					[$dirname, $basename, $extension, $filename],
+					[$stringType, $stringType, $stringType, $stringType]
+				),
+			]);
 		}
 
 		return new StringType();

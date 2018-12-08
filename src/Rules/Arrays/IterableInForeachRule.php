@@ -4,6 +4,8 @@ namespace PHPStan\Rules\Arrays;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleError;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\Type;
@@ -29,7 +31,7 @@ class IterableInForeachRule implements \PHPStan\Rules\Rule
 	 * @param \PhpParser\Node\Stmt\Foreach_ $node
 	 * @param \PHPStan\Analyser\Scope       $scope
 	 *
-	 * @return string[]
+	 * @return RuleError[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
@@ -50,10 +52,10 @@ class IterableInForeachRule implements \PHPStan\Rules\Rule
 		}
 
 		return [
-			sprintf(
+			RuleErrorBuilder::message(sprintf(
 				'Argument of an invalid type %s supplied for foreach, only iterables are supported.',
 				$type->describe(VerbosityLevel::typeOnly())
-			),
+			))->line($node->expr->getLine())->build(),
 		];
 	}
 

@@ -11,7 +11,9 @@ use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Analyser\TypeSpecifierContext;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension;
+use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\ErrorType;
+use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\TypeCombinator;
@@ -49,9 +51,11 @@ class ImpossibleCheckTypeHelper
 			\count($node->args) > 0
 		) {
 			$functionName = strtolower((string) $node->name);
-			if ($functionName === 'is_numeric') {
+			if ($functionName === 'count') {
+				return null;
+			} elseif ($functionName === 'is_numeric') {
 				$argType = $scope->getType($node->args[0]->value);
-				if (\count(TypeUtils::getConstantScalars($argType)) > 0) {
+				if (count(TypeUtils::getConstantScalars($argType)) > 0) {
 					return !$argType->toNumber() instanceof ErrorType;
 				}
 
@@ -62,30 +66,53 @@ class ImpossibleCheckTypeHelper
 				return null;
 			} elseif (
 				$functionName === 'in_array'
-				&& \count($node->args) >= 3
+				&& count($node->args) >= 3
 			) {
-				$needleType = $scope->getType($node->args[0]->value);
-				$valueType = $scope->getType($node->args[1]->value)->getIterableValueType();
-				$hasConstantNeedleTypes = \count(TypeUtils::getConstantScalars($needleType)) > 0;
-				$hasConstantHaystackTypes = \count(TypeUtils::getConstantScalars($valueType)) > 0;
-				if (
-					(
-						(
-							!$hasConstantNeedleTypes
-							&&
-							!$hasConstantHaystackTypes
-						)
-						||
-						$hasConstantNeedleTypes !== $hasConstantHaystackTypes
-					)
-					&&
-					$valueType->isSuperTypeOf($needleType)->yes()
-				) {
+				$haystackType = $scope->getType($node->args[1]->value);
+				if ($haystackType instanceof MixedType) {
 					return null;
+				}
+
+				if (!$haystackType instanceof ConstantArrayType || count($haystackType->getValueTypes()) > 1) {
+					$needleType = $scope->getType($node->args[0]->value);
+
+					$haystackArrayTypes = TypeUtils::getArrays($haystackType);
+					if (count($haystackArrayTypes) === 1 && $haystackArrayTypes[0]->getIterableValueType() instanceof NeverType) {
+						return null;
+					}
+
+					$valueType = TypeCombinator::union(...$haystackArrayTypes)->getIterableValueType();
+					$isNeedleSupertype = $needleType->isSuperTypeOf($valueType);
+
+					if ($isNeedleSupertype->maybe() || $isNeedleSupertype->yes()) {
+						foreach ($haystackArrayTypes as $haystackArrayType) {
+							foreach (TypeUtils::getConstantScalars($haystackArrayType->getIterableValueType()) as $constantScalarType) {
+								if ($needleType->isSuperTypeOf($constantScalarType)->yes()) {
+									continue 2;
+								}
+							}
+
+							return null;
+						}
+					}
+
+					if ($isNeedleSupertype->yes()) {
+						$hasConstantNeedleTypes = count(TypeUtils::getConstantScalars($needleType)) > 0;
+						$hasConstantHaystackTypes = count(TypeUtils::getConstantScalars($valueType)) > 0;
+						if (
+							(
+								!$hasConstantNeedleTypes
+								&& !$hasConstantHaystackTypes
+							)
+							|| $hasConstantNeedleTypes !== $hasConstantHaystackTypes
+						) {
+							return null;
+						}
+					}
 				}
 			} elseif (
 				$functionName === 'property_exists'
-				&& \count($node->args) >= 2
+				&& count($node->args) >= 2
 			) {
 				$classNames = TypeUtils::getDirectClassNames(
 					$scope->getType($node->args[0]->value)
@@ -112,10 +139,10 @@ class ImpossibleCheckTypeHelper
 
 		$isSpecified = static function (Expr $expr) use ($scope, $node): bool {
 			return (
-					   $node instanceof FuncCall
-					   || $node instanceof MethodCall
-					   || $node instanceof Expr\StaticCall
-				   ) && $scope->isSpecified($expr);
+				$node instanceof FuncCall
+				|| $node instanceof MethodCall
+				|| $node instanceof Expr\StaticCall
+			) && $scope->isSpecified($expr);
 		};
 
 		if (\count($sureTypes) === 1) {

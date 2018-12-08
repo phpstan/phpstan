@@ -53,9 +53,8 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\MethodCall $node
-	 * @param \PHPStan\Analyser\Scope         $scope
-	 *
-	 * @return string[]
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @return (string|\PHPStan\Rules\RuleError)[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
@@ -69,7 +68,7 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 			$node->var,
 			sprintf('Call to method %s() on an unknown class %%s.', $name),
 			static function (Type $type) use ($name): bool {
-				return $type->canCallMethods()->yes() && $type->hasMethod($name);
+				return $type->canCallMethods()->yes() && $type->hasMethod($name)->yes();
 			}
 		);
 		$type = $typeResult->getType();
@@ -82,7 +81,7 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 			];
 		}
 
-		if (!$type->hasMethod($name)) {
+		if (!$type->hasMethod($name)->yes()) {
 			$directClassNames = $typeResult->getReferencedClasses();
 			if (!$this->reportMagicMethods) {
 				foreach ($directClassNames as $className) {

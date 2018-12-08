@@ -4,10 +4,19 @@ namespace PHPStan\Command\ErrorFormatter;
 
 use PHPStan\Command\AnalyseCommand;
 use PHPStan\Command\AnalysisResult;
+use PHPStan\File\RelativePathHelper;
 use Symfony\Component\Console\Style\OutputStyle;
 
 class TableErrorFormatter implements ErrorFormatter
 {
+
+	/** @var RelativePathHelper */
+	private $relativePathHelper;
+
+	public function __construct(RelativePathHelper $relativePathHelper)
+	{
+		$this->relativePathHelper = $relativePathHelper;
+	}
 
 	public function formatErrors(
 		AnalysisResult $analysisResult,
@@ -48,10 +57,7 @@ class TableErrorFormatter implements ErrorFormatter
 				];
 			}
 
-			$relativeFilePath = RelativePathHelper::getRelativePath(
-				$analysisResult->getCurrentDirectory(),
-				$file
-			);
+			$relativeFilePath = $this->relativePathHelper->getRelativePath($file);
 
 			$style->table(['Line', $relativeFilePath], $rows);
 		}

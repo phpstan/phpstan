@@ -23,8 +23,8 @@ class ConstantArrayTypeBuilder
 
 	/**
 	 * @param array<int, ConstantIntegerType|ConstantStringType> $keyTypes
-	 * @param array<int, Type>                                   $valueTypes
-	 * @param int                                                $nextAutoIndex
+	 * @param array<int, Type> $valueTypes
+	 * @param int $nextAutoIndex
 	 */
 	private function __construct(
 		array $keyTypes,
@@ -74,9 +74,15 @@ class ConstantArrayTypeBuilder
 
 			$this->keyTypes[] = $offsetType;
 			$this->valueTypes[] = $valueType;
-			$this->nextAutoIndex = $offsetType instanceof ConstantIntegerType
+
+			/** @var int|float $newNextAutoIndex */
+			$newNextAutoIndex = $offsetType instanceof ConstantIntegerType
 				? max($this->nextAutoIndex, $offsetType->getValue() + 1)
 				: $this->nextAutoIndex;
+
+			if (!is_float($newNextAutoIndex)) {
+				$this->nextAutoIndex = $newNextAutoIndex;
+			}
 
 			return;
 		}

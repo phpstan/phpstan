@@ -2,7 +2,10 @@
 
 namespace PHPStan\Analyser;
 
+use Nette\Utils\Json;
+use PHPStan\File\FileHelper;
 use PHPStan\Parser\Parser;
+use PHPStan\Rules\LineRuleError;
 use PHPStan\Rules\Registry;
 
 class Analyser
@@ -20,7 +23,10 @@ class Analyser
 	/** @var \PHPStan\Analyser\NodeScopeResolver */
 	private $nodeScopeResolver;
 
-	/** @var string[] */
+	/** @var \PHPStan\File\FileHelper */
+	private $fileHelper;
+
+	/** @var (string|array<string, string>)[] */
 	private $ignoreErrors;
 
 	/** @var bool */
@@ -30,19 +36,21 @@ class Analyser
 	private $internalErrorsCountLimit;
 
 	/**
-	 * @param \PHPStan\Analyser\ScopeFactory      $scopeFactory
-	 * @param \PHPStan\Parser\Parser              $parser
-	 * @param \PHPStan\Rules\Registry             $registry
+	 * @param \PHPStan\Analyser\ScopeFactory $scopeFactory
+	 * @param \PHPStan\Parser\Parser $parser
+	 * @param \PHPStan\Rules\Registry $registry
 	 * @param \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver
-	 * @param string[]                            $ignoreErrors
-	 * @param bool                                $reportUnmatchedIgnoredErrors
-	 * @param int                                 $internalErrorsCountLimit
+	 * @param \PHPStan\File\FileHelper $fileHelper
+	 * @param (string|array<string, string>)[] $ignoreErrors
+	 * @param bool $reportUnmatchedIgnoredErrors
+	 * @param int $internalErrorsCountLimit
 	 */
 	public function __construct(
 		ScopeFactory $scopeFactory,
 		Parser $parser,
 		Registry $registry,
 		NodeScopeResolver $nodeScopeResolver,
+		FileHelper $fileHelper,
 		array $ignoreErrors,
 		bool $reportUnmatchedIgnoredErrors,
 		int $internalErrorsCountLimit
@@ -52,6 +60,7 @@ class Analyser
 		$this->parser = $parser;
 		$this->registry = $registry;
 		$this->nodeScopeResolver = $nodeScopeResolver;
+		$this->fileHelper = $fileHelper;
 		$this->ignoreErrors = $ignoreErrors;
 		$this->reportUnmatchedIgnoredErrors = $reportUnmatchedIgnoredErrors;
 		$this->internalErrorsCountLimit = $internalErrorsCountLimit;
@@ -59,11 +68,10 @@ class Analyser
 
 	/**
 	 * @param string[] $files
-	 * @param bool     $onlyFiles
+	 * @param bool $onlyFiles
 	 * @param \Closure(string $file): void|null $preFileCallback
 	 * @param \Closure(string $file): void|null $postFileCallback
-	 * @param bool     $debug
-	 *
+	 * @param bool $debug
 	 * @return string[]|\PHPStan\Analyser\Error[] errors
 	 */
 	public function analyse(
@@ -78,7 +86,27 @@ class Analyser
 
 		foreach ($this->ignoreErrors as $ignoreError) {
 			try {
-				\Nette\Utils\Strings::match('', $ignoreError);
+				if (is_array($ignoreError)) {
+					if (!isset($ignoreError['message'])) {
+						$errors[] = sprintf(
+							'Ignored error %s is missing a message.',
+							Json::encode($ignoreError)
+						);
+						continue;
+					}
+					if (!isset($ignoreError['path'])) {
+						$errors[] = sprintf(
+							'Ignored error %s is missing a path.',
+							Json::encode($ignoreError)
+						);
+					}
+
+					$ignoreMessage = $ignoreError['message'];
+				} else {
+					$ignoreMessage = $ignoreError;
+				}
+
+				\Nette\Utils\Strings::match('', $ignoreMessage);
 			} catch (\Nette\Utils\RegexpException $e) {
 				$errors[] = $e->getMessage();
 			}
@@ -104,8 +132,21 @@ class Analyser
 						$this->scopeFactory->create(ScopeContext::create($file)),
 						function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors): void {
 							foreach ($this->registry->getRules(\get_class($node)) as $rule) {
-								foreach ($rule->processNode($node, $scope) as $message) {
-									$fileErrors[] = new Error($message, $scope->getFileDescription(), $node->getLine());
+								foreach ($rule->processNode($node, $scope) as $ruleError) {
+									$line = $node->getLine();
+									if (is_string($ruleError)) {
+										$message = $ruleError;
+									} else {
+										$message = $ruleError->getMessage();
+										if (
+											$ruleError instanceof LineRuleError
+											&&
+											$ruleError->getLine() !== -1
+										) {
+											$line = $ruleError->getLine();
+										}
+									}
+									$fileErrors[] = new Error($message, $scope->getFileDescription(), $line);
 								}
 							}
 						}
@@ -122,6 +163,10 @@ class Analyser
 				$errors = array_merge($errors, $fileErrors);
 			} catch (\PhpParser\Error $e) {
 				$errors[] = new Error($e->getMessage(), $file, $e->getStartLine() !== -1 ? $e->getStartLine() : null, false);
+			} catch (\PHPStan\Parser\ParserErrorsException $e) {
+				foreach ($e->getErrors() as $error) {
+					$errors[] = new Error($error->getMessage(), $file, $error->getStartLine() !== -1 ? $error->getStartLine() : null, false);
+				}
 			} catch (\PHPStan\AnalysedCodeException $e) {
 				$errors[] = new Error($e->getMessage(), $file, null, false);
 			} catch (\Throwable $t) {
@@ -151,17 +196,15 @@ class Analyser
 				$errors,
 				function (Error $error) use (&$unmatchedIgnoredErrors, &$addErrors): bool {
 					foreach ($this->ignoreErrors as $i => $ignore) {
-						if (\Nette\Utils\Strings::match($error->getMessage(), $ignore) !== null) {
+						if (IgnoredError::shouldIgnore($this->fileHelper, $error, $ignore)) {
 							unset($unmatchedIgnoredErrors[$i]);
 							if (!$error->canBeIgnored()) {
 								$addErrors[] = sprintf(
 									'Error message "%s" cannot be ignored, use excludes_analyse instead.',
 									$error->getMessage()
 								);
-
 								return true;
 							}
-
 							return false;
 						}
 					}
@@ -177,7 +220,7 @@ class Analyser
 			foreach ($unmatchedIgnoredErrors as $unmatchedIgnoredError) {
 				$errors[] = sprintf(
 					'Ignored error pattern %s was not matched in reported errors.',
-					$unmatchedIgnoredError
+					IgnoredError::stringifyPattern($unmatchedIgnoredError)
 				);
 			}
 		}

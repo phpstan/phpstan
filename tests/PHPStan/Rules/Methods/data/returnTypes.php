@@ -654,11 +654,11 @@ class NestedArrayCheck
 {
 
 	/**
+	 * @param mixed[] $rows
 	 * @return array<string,bool>
 	 */
-	public function doFoo()
+	public function doFoo(array $rows)
 	{
-		$rows = [];
 		$entities = [];
 
 		foreach ($rows as $row) {
@@ -669,11 +669,11 @@ class NestedArrayCheck
 	}
 
 	/**
+	 * @param mixed[] $rows
 	 * @return array<string,bool>
 	 */
-	public function doBar()
+	public function doBar(array $rows)
 	{
-		$rows = [];
 		$entities = [];
 
 		foreach ($rows as $row) {
@@ -744,5 +744,20 @@ class RecursiveStaticResolving
 	public function f1(): self
 	{
 		return $this->f2()->f3();
+	}
+}
+
+class Foo2 extends FooParent implements FooInterface
+{
+	public function returnIntFromParent()
+	{
+		return 1;
+		return '1';
+		return new integer();
+	}
+
+	public function returnsVoid(): self
+	{
+		return $this;
 	}
 }

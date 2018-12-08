@@ -46,6 +46,20 @@ $strSplitConstantStringWithInvalidSplitLengthType = str_split('abcdef', []);
 $strSplitConstantStringWithVariableStringAndConstantSplitLength = str_split(doFoo() ? 'abcdef' : 'ghijkl', 1);
 $strSplitConstantStringWithVariableStringAndVariableSplitLength = str_split(doFoo() ? 'abcdef' : 'ghijkl', doFoo() ? 1 : 2);
 
+// parse_url
+/** @var int $integer */
+$integer = doFoo();
+$parseUrlWithoutParameters = parse_url();
+$parseUrlConstantUrlWithoutComponent1 = parse_url('http://abc.def');
+$parseUrlConstantUrlWithoutComponent2 = parse_url('http://def.abc', -1);
+$parseUrlConstantUrlUnknownComponent = parse_url('http://def.abc', $integer);
+$parseUrlConstantUrlWithComponentNull = parse_url('http://def.abc', PHP_URL_FRAGMENT);
+$parseUrlConstantUrlWithComponentSet = parse_url('http://def.abc#this-is-fragment', PHP_URL_FRAGMENT);
+$parseUrlConstantUrlWithComponentInvalid = parse_url('http://def.abc#this-is-fragment', 9999);
+$parseUrlStringUrlWithComponentInvalid = parse_url($string, 9999);
+$parseUrlStringUrlWithComponentPort = parse_url($string, PHP_URL_PORT);
+$parseUrlStringUrlWithoutComponent = parse_url($string);
+
 /** @var resource $resource */
 $resource = doFoo();
 $stat = stat(__FILE__);

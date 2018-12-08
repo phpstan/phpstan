@@ -76,6 +76,12 @@ class ParametersAcceptorSelector
 			return $parametersAcceptors[0];
 		}
 
+		if (count($parametersAcceptors) === 0) {
+			throw new \PHPStan\ShouldNotHappenException(
+				'getVariants() must return at least one variant.'
+			);
+		}
+
 		$typesCount = \count($types);
 		/* @var $acceptableAcceptors ParametersAcceptor[] */
 		$acceptableAcceptors = [];

@@ -214,16 +214,36 @@ class StaticTypeTest extends \PHPStan\Testing\TestCase
 				new StaticType(\LogicException::class),
 				TrinaryLogic::createMaybe(),
 			],
+			[
+				new StaticType(\stdClass::class),
+				new ObjectWithoutClassType(),
+				TrinaryLogic::createMaybe(),
+			],
+			[
+				new ObjectWithoutClassType(),
+				new StaticType(\stdClass::class),
+				TrinaryLogic::createYes(),
+			],
+			[
+				new ThisType(\stdClass::class),
+				new ObjectWithoutClassType(),
+				TrinaryLogic::createMaybe(),
+			],
+			[
+				new ObjectWithoutClassType(),
+				new ThisType(\stdClass::class),
+				TrinaryLogic::createYes(),
+			],
 		];
 	}
 
 	/**
 	 * @dataProvider dataIsSuperTypeOf
-	 * @param StaticType $type
+	 * @param Type $type
 	 * @param Type $otherType
 	 * @param TrinaryLogic $expectedResult
 	 */
-	public function testIsSuperTypeOf(StaticType $type, Type $otherType, TrinaryLogic $expectedResult): void
+	public function testIsSuperTypeOf(Type $type, Type $otherType, TrinaryLogic $expectedResult): void
 	{
 		$actualResult = $type->isSuperTypeOf($otherType);
 		$this->assertSame(

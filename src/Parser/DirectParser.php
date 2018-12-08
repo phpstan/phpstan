@@ -2,6 +2,7 @@
 
 namespace PHPStan\Parser;
 
+use PhpParser\ErrorHandler\Collecting;
 use PhpParser\NodeTraverser;
 
 class DirectParser implements Parser
@@ -41,7 +42,11 @@ class DirectParser implements Parser
 	 */
 	public function parseString(string $sourceCode): array
 	{
-		$nodes = $this->parser->parse($sourceCode);
+		$errorHandler = new Collecting();
+		$nodes = $this->parser->parse($sourceCode, $errorHandler);
+		if ($errorHandler->hasErrors()) {
+			throw new \PHPStan\Parser\ParserErrorsException($errorHandler->getErrors());
+		}
 		if ($nodes === null) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}

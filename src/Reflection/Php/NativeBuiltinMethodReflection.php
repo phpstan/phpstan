@@ -40,6 +40,14 @@ class NativeBuiltinMethodReflection implements BuiltinMethodReflection
 	}
 
 	/**
+	 * @return int|false
+	 */
+	public function getEndLine()
+	{
+		return $this->reflection->getEndLine();
+	}
+
+	/**
 	 * @return string|false
 	 */
 	public function getDocComment()

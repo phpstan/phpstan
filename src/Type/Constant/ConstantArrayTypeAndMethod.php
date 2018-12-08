@@ -2,6 +2,7 @@
 
 namespace PHPStan\Type\Constant;
 
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
 
 class ConstantArrayTypeAndMethod
@@ -13,20 +14,35 @@ class ConstantArrayTypeAndMethod
 	/** @var string|null */
 	private $method;
 
-	private function __construct(?Type $type, ?string $method)
+	/** @var TrinaryLogic */
+	private $certainty;
+
+	private function __construct(
+		?Type $type,
+		?string $method,
+		TrinaryLogic $certainty
+	)
 	{
 		$this->type = $type;
 		$this->method = $method;
+		$this->certainty = $certainty;
 	}
 
-	public static function createConcrete(Type $type, string $method): self
+	public static function createConcrete(
+		Type $type,
+		string $method,
+		TrinaryLogic $certainty
+	): self
 	{
-		return new self($type, $method);
+		if ($certainty->no()) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+		return new self($type, $method, $certainty);
 	}
 
 	public static function createUnknown(): self
 	{
-		return new self(null, null);
+		return new self(null, null, TrinaryLogic::createMaybe());
 	}
 
 	public function isUnknown(): bool
@@ -50,6 +66,11 @@ class ConstantArrayTypeAndMethod
 		}
 
 		return $this->method;
+	}
+
+	public function getCertainty(): TrinaryLogic
+	{
+		return $this->certainty;
 	}
 
 }

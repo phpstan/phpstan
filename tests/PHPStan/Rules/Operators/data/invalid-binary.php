@@ -64,10 +64,16 @@ function (
 	string $string
 ) {
 	$int & 5;
+	$int & "5";
+	$string & "x";
 	$string & 5;
 	$int | 5;
+	$int | "5";
+	$string | "x";
 	$string | 5;
 	$int ^ 5;
+	$int ^ "5";
+	$string ^ "x";
 	$string ^ 5;
 };
 
@@ -144,4 +150,9 @@ function (array $a) {
 		$b['foo'] = 'bar';
 	}
 	$a + $b;
+};
+
+function (stdClass $ob, int $n) {
+    $ob == $n;
+    $ob + $n;
 };
