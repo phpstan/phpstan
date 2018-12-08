@@ -6,8 +6,6 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
-use PHPStan\Reflection\ParameterReflection;
-use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
@@ -54,19 +52,35 @@ class MethodSignatureRule implements \PHPStan\Rules\Rule
 		foreach ($this->collectParentMethods($methodName, $class, $scope) as $parentMethod) {
 			$parentParameters = ParametersAcceptorSelector::selectSingle($parentMethod->getVariants());
 
-			if ($this->checkParameterCompatibility($parameters, $parentParameters)) {
-				continue;
+			if (!$this->checkReturnTypeCompatibility($parameters->getReturnType(), $parentParameters->getReturnType())) {
+				$errors[] = sprintf(
+					'Return type (%s) of method %s::%s() should be compatible with return type (%s) of method %s::%s()',
+					$parameters->getReturnType()->describe(VerbosityLevel::typeOnly()),
+					$class->getName(),
+					$methodName,
+					$parentParameters->getReturnType()->describe(VerbosityLevel::typeOnly()),
+					$parentMethod->getDeclaringClass()->getName(),
+					$methodName
+				);
 			}
 
-			$errors[] = sprintf(
-				'Declaration of %s::%s%s should be compatible with %s::%s%s',
-				$class->getName(),
-				$methodName,
-				$this->parametersToString($parameters),
-				$parentMethod->getDeclaringClass()->getName(),
-				$methodName,
-				$this->parametersToString($parentParameters)
-			);
+			$invalidParameterIndexes = $this->checkParameterTypeCompatibility($parameters->getParameters(), $parentParameters->getParameters());
+			foreach ($invalidParameterIndexes as $invalidParameterIndex) {
+				$parameter = $parameters->getParameters()[$invalidParameterIndex];
+				$parentParameter = $parentParameters->getParameters()[$invalidParameterIndex];
+				$errors[] = sprintf(
+					'Parameter #%d $%s (%s) of method %s::%s() should be compatible with parameter $%s (%s) of method %s::%s()',
+					$invalidParameterIndex + 1,
+					$parameter->getName(),
+					$parameter->getType()->describe(VerbosityLevel::typeOnly()),
+					$class->getName(),
+					$methodName,
+					$parentParameter->getName(),
+					$parentParameter->getType()->describe(VerbosityLevel::typeOnly()),
+					$parentMethod->getDeclaringClass()->getName(),
+					$methodName
+				);
+			}
 		}
 
 		return $errors;
@@ -98,22 +112,6 @@ class MethodSignatureRule implements \PHPStan\Rules\Rule
 		return $parentMethods;
 	}
 
-	private function checkParameterCompatibility(
-		ParametersAcceptor $parameters,
-		ParametersAcceptor $parentParameters
-	): bool
-	{
-		if (!$this->checkReturnTypeCompatibility($parameters->getReturnType(), $parentParameters->getReturnType())) {
-			return false;
-		}
-
-		if (!$this->checkParameterTypeCompatibility($parameters->getParameters(), $parentParameters->getParameters())) {
-			return false;
-		}
-
-		return true;
-	}
-
 	private function checkReturnTypeCompatibility(
 		Type $returnType,
 		Type $parentReturnType
@@ -131,15 +129,16 @@ class MethodSignatureRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param \PHPStan\Reflection\ParameterReflection[] $parameters
 	 * @param \PHPStan\Reflection\ParameterReflection[] $parentParameters
-	 * @return bool
+	 * @return int[] Indexes of the invalid parameters
 	 */
 	private function checkParameterTypeCompatibility(
 		array $parameters,
 		array $parentParameters
-	): bool
+	): array
 	{
-		$numberOfParameters = min(count($parameters), count($parentParameters));
+		$invalidParameters = [];
 
+		$numberOfParameters = min(count($parameters), count($parentParameters));
 		for ($i = 0; $i < $numberOfParameters; $i++) {
 			$parameter = $parameters[$i];
 			$parentParameter = $parentParameters[$i];
@@ -152,24 +151,10 @@ class MethodSignatureRule implements \PHPStan\Rules\Rule
 				continue;
 			}
 
-			return false;
+			$invalidParameters[] = $i;
 		}
 
-		return true;
-	}
-
-	private function parametersToString(ParametersAcceptor $parameters): string
-	{
-		$parametersAsStrings = array_map(static function (ParameterReflection $parameter) {
-			return sprintf(
-				'%s%s $%s',
-				$parameter->isVariadic() ? '...' : '',
-				$parameter->getType()->describe(VerbosityLevel::typeOnly()),
-				$parameter->getName()
-			);
-		}, $parameters->getParameters());
-
-		return '(' . implode(', ', $parametersAsStrings) . '): ' . $parameters->getReturnType()->describe(VerbosityLevel::typeOnly());
+		return $invalidParameters;
 	}
 
 }
