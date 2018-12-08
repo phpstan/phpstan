@@ -49,7 +49,6 @@ use PHPStan\Type\ConstantType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
-use PHPStan\Type\IntersectionType;
 use PHPStan\Type\IterableType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
@@ -1283,10 +1282,7 @@ class Scope implements ClassMemberAccessAnswerer
 
 				$methodClassReflection = $this->broker->getClass($referencedClass);
 				if (!$methodClassReflection->hasMethod($node->name->name)) {
-					if ($methodCalledOnType instanceof IntersectionType) {
-						continue;
-					}
-					return new ErrorType();
+					continue;
 				}
 
 				$methodReflection = $methodClassReflection->getMethod($node->name->name, $this);
@@ -1352,10 +1348,7 @@ class Scope implements ClassMemberAccessAnswerer
 
 				$staticMethodClassReflection = $this->broker->getClass($referencedClass);
 				if (!$staticMethodClassReflection->hasMethod($node->name->name)) {
-					if ($calleeType instanceof IntersectionType) {
-						continue;
-					}
-					return new ErrorType();
+					continue;
 				}
 
 				$staticMethodReflection = $staticMethodClassReflection->getMethod($node->name->name, $this);

@@ -122,7 +122,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->union->doFoo()',
 			],
 			[
-				'*ERROR*',
+				'UnionIntersection\Bar',
 				'$this->union->doBar()',
 			],
 			[
@@ -194,7 +194,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->union::doStaticFoo()',
 			],
 			[
-				'*ERROR*',
+				'UnionIntersection\Bar',
 				'$this->union::doStaticBar()',
 			],
 			[
