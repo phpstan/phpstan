@@ -118,7 +118,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foo->bar',
 			],
 			[
-				'UnionIntersection\Foo',
+				'UnionIntersection\AnotherFoo|UnionIntersection\Foo',
 				'$this->union->doFoo()',
 			],
 			[
@@ -134,7 +134,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foo->doBar()',
 			],
 			[
-				'UnionIntersection\Foo',
+				'UnionIntersection\AnotherFoo|UnionIntersection\Foo',
 				'$foobar->doFoo()',
 			],
 			[
@@ -182,7 +182,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foo::doStaticBar()',
 			],
 			[
-				'UnionIntersection\Foo',
+				'UnionIntersection\AnotherFoo|UnionIntersection\Foo',
 				'$foobar::doStaticFoo()',
 			],
 			[
@@ -190,7 +190,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foobar::doStaticBar()',
 			],
 			[
-				'UnionIntersection\Foo',
+				'UnionIntersection\AnotherFoo|UnionIntersection\Foo',
 				'$this->union::doStaticFoo()',
 			],
 			[
@@ -7971,6 +7971,37 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		}
 		$this->assertTypes(
 			__DIR__ . '/data/php73_functions.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataUnionMethods(): array
+	{
+		return [
+			[
+				'UnionMethods\Bar|UnionMethods\Foo',
+				'$something->doSomething()',
+			],
+			[
+				'UnionMethods\Bar|UnionMethods\Foo',
+				'$something::doSomething()',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataUnionMethods
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testUnionMethods(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/union-methods.php',
 			$description,
 			$expression
 		);
