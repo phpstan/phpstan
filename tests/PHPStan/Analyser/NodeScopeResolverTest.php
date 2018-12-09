@@ -4711,6 +4711,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_filter($withPossiblyFalsey)',
 			],
 			[
+				'(array|null)',
+				'array_filter($mixed)',
+			],
+			[
 				'1|\'foo\'|false',
 				'array_search(new stdClass, $stringOrIntegerKeys, true)',
 			],

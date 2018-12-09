@@ -10,6 +10,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\BenevolentUnionType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
@@ -41,6 +42,13 @@ class ArrayFilterFunctionReturnTypeReturnTypeExtension implements \PHPStan\Type\
 			$arrayArgType = $scope->getType($arrayArg);
 			$keyType = $arrayArgType->getIterableKeyType();
 			$itemType = $arrayArgType->getIterableValueType();
+
+			if ($arrayArgType instanceof MixedType) {
+				return new BenevolentUnionType([
+					new ArrayType(new MixedType(), new MixedType()),
+					new NullType(),
+				]);
+			}
 
 			if ($callbackArg === null) {
 				return TypeCombinator::union(
