@@ -19,9 +19,16 @@ class MethodSignatureRule implements \PHPStan\Rules\Rule
 	/** @var bool */
 	private $reportMaybes;
 
-	public function __construct(bool $reportMaybes)
+	/** @var bool */
+	private $reportStatic;
+
+	public function __construct(
+		bool $reportMaybes,
+		bool $reportStatic
+	)
 	{
 		$this->reportMaybes = $reportMaybes;
+		$this->reportStatic = $reportStatic;
 	}
 
 	public function getNodeType(): string
@@ -47,6 +54,9 @@ class MethodSignatureRule implements \PHPStan\Rules\Rule
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 		$method = $class->getMethod($methodName, $scope);
+		if (!$this->reportStatic && $method->isStatic()) {
+			return [];
+		}
 		$parameters = ParametersAcceptorSelector::selectSingle($method->getVariants());
 
 		$errors = [];

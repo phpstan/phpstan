@@ -47,5 +47,6 @@ services:
 		class: PHPStan\Rules\Methods\MethodSignatureRule
 		arguments:
 			reportMaybes: %reportMaybesInMethodSignatures%
+			reportStatic: %reportStaticInMethodSignatures%
 		tags:
 			- phpstan.rules.rule

@@ -8,14 +8,18 @@ class MethodSignatureRuleTest extends \PHPStan\Testing\RuleTestCase
 	/** @var bool */
 	private $reportMaybes;
 
+	/** @var bool */
+	private $reportStatic;
+
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new MethodSignatureRule($this->reportMaybes);
+		return new MethodSignatureRule($this->reportMaybes, $this->reportStatic);
 	}
 
 	public function testReturnTypeRule(): void
 	{
 		$this->reportMaybes = true;
+		$this->reportStatic = true;
 		$this->analyse(
 			[
 				__DIR__ . '/data/method-signature-definition.php',
@@ -93,6 +97,7 @@ class MethodSignatureRuleTest extends \PHPStan\Testing\RuleTestCase
 	public function testReturnTypeRuleWithoutMaybes(): void
 	{
 		$this->reportMaybes = false;
+		$this->reportStatic = true;
 		$this->analyse(
 			[
 				__DIR__ . '/data/method-signature-definition.php',
@@ -133,6 +138,25 @@ class MethodSignatureRuleTest extends \PHPStan\Testing\RuleTestCase
 				],
 			]
 		);
+	}
+
+	public function testRuleWithoutStaticMethods(): void
+	{
+		$this->reportMaybes = true;
+		$this->reportStatic = false;
+		$this->analyse([__DIR__ . '/data/method-signature-static.php'], []);
+	}
+
+	public function testRuleWithStaticMethods(): void
+	{
+		$this->reportMaybes = true;
+		$this->reportStatic = true;
+		$this->analyse([__DIR__ . '/data/method-signature-static.php'], [
+			[
+				'Parameter #1 $value (string) of method MethodSignature\Bar::doFoo() should be compatible with parameter $value (int) of method MethodSignature\Foo::doFoo()',
+				24,
+			],
+		]);
 	}
 
 }
