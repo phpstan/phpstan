@@ -17,6 +17,7 @@ parameters:
 	checkThisOnly: true
 	checkUnionTypes: false
 	reportMaybes: false
+	reportMaybesInMethodSignatures: false
 	polluteScopeWithLoopInitialAssignments: true
 	polluteCatchScopeWithTryAssignments: false
 	reportMagicMethods: false
@@ -322,6 +323,11 @@ services:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
 	-
+		class: PHPStan\Type\Php\ArraySliceFunctionReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	-
 		class: PHPStan\Type\Php\ArraySearchFunctionDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
@@ -408,7 +414,7 @@ services:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
 	-
-		class: PHPStan\Type\Php\MbStrlenFunctionReturnTypeExtension
+		class: PHPStan\Type\Php\MbFunctionsReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 

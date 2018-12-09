@@ -118,3 +118,12 @@ function unresolvableTypes(array $arr): bool
 {
 
 }
+
+/**
+ * @param Foo&Bar $foo
+ * @return Foo&Bar
+ */
+function neverTypes($foo)
+{
+
+}

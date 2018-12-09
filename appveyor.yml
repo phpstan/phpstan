@@ -13,6 +13,10 @@ environment:
       php_version: 7.2
     - dependencies: highest
       php_version: 7.2
+    - dependencies: lowest
+      php_version: 7.3
+    - dependencies: highest
+      php_version: 7.3
 
   project_directory: c:\projects\phpstan
   composer_directory: c:\tools\composer

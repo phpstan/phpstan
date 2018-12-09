@@ -148,10 +148,22 @@ $generalIntegerOrStringKeysMixedValues = doFoo();
 $clonedConditionalArray = $conditionalArray;
 $clonedConditionalArray[(int)$generalIntegerOrString] = $generalIntegerOrString;
 
+if (random_int(0, 1)) {
+	$unionArrays = [1=>1, 2=> '', 'a' => 0];
+} else {
+	$unionArrays = ['foo' => 'bar', 'baz' => 'qux'];
+}
+
 /** @var mixed $mixed */
 $mixed = doFoo();
 
 /** @var array $array */
 $array = doFoo();
+
+$slicedOffset = array_slice(['4' => 'foo', 1 => 'bar', 'baz' => 'qux', 0 => 'quux', 'quuz' => 'corge'], 0, null, false);
+$slicedOffsetWithKeys = array_slice(['4' => 'foo', 1 => 'bar', 'baz' => 'qux', 0 => 'quux', 'quuz' => 'corge'], 0, null, true);
+
+$slicedOffset[] = 'grault';
+$slicedOffsetWithKeys[] = 'grault';
 
 die;

@@ -37,12 +37,10 @@ class BooleanNotConstantConditionRule implements \PHPStan\Rules\Rule
 		$exprType = $this->helper->getBooleanType($scope, $node->expr);
 		if ($exprType instanceof ConstantBooleanType) {
 			return [
-				RuleErrorBuilder::message(
-					\sprintf(
-						'Negated boolean is always %s.',
-						$exprType->getValue() ? 'false' : 'true'
-					)
-				)->line($node->expr->getLine())->build(),
+				RuleErrorBuilder::message(sprintf(
+					'Negated boolean expression is always %s.',
+					$exprType->getValue() ? 'false' : 'true'
+				))->line($node->expr->getLine())->build(),
 			];
 		}
 

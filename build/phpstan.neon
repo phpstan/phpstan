@@ -15,6 +15,7 @@ parameters:
 		- '#^Strict comparison using === between PhpParser\\Node\\Expr\\ArrayItem and null will always evaluate to false\.$#'
 		- '#^Dynamic call to static method PHPUnit\\Framework\\\S+\(\)\.$#'
 		- '#^Only numeric types are allowed in (pre|post)-(de|in)crement, bool\|float\|int\|string\|null given\.$#'
+	reportMaybesInMethodSignatures: false
 	tmpDir: %rootDir%/tmp
 services:
 	-

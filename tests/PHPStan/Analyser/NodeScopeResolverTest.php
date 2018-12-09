@@ -108,7 +108,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				'UnionIntersection\Foo',
+				'UnionIntersection\AnotherFoo|UnionIntersection\Foo',
 				'$this->union->foo',
 			],
 			[
@@ -124,11 +124,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foo->bar',
 			],
 			[
-				'UnionIntersection\Foo',
+				'UnionIntersection\AnotherFoo|UnionIntersection\Foo',
 				'$this->union->doFoo()',
 			],
 			[
-				'*ERROR*',
+				'UnionIntersection\Bar',
 				'$this->union->doBar()',
 			],
 			[
@@ -140,7 +140,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foo->doBar()',
 			],
 			[
-				'UnionIntersection\Foo',
+				'UnionIntersection\AnotherFoo|UnionIntersection\Foo',
 				'$foobar->doFoo()',
 			],
 			[
@@ -188,7 +188,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foo::doStaticBar()',
 			],
 			[
-				'UnionIntersection\Foo',
+				'UnionIntersection\AnotherFoo|UnionIntersection\Foo',
 				'$foobar::doStaticFoo()',
 			],
 			[
@@ -196,11 +196,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foobar::doStaticBar()',
 			],
 			[
-				'UnionIntersection\Foo',
+				'UnionIntersection\AnotherFoo|UnionIntersection\Foo',
 				'$this->union::doStaticFoo()',
 			],
 			[
-				'*ERROR*',
+				'UnionIntersection\Bar',
 				'$this->union::doStaticBar()',
 			],
 			[
@@ -4808,6 +4808,130 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'mixed',
 				'array_search(1, $generalIntegers, true)',
 			],
+			[
+				'array<string, int>',
+				'array_slice($generalStringKeys, 0)',
+			],
+			[
+				'array<string, int>',
+				'array_slice($generalStringKeys, 1)',
+			],
+			[
+				'array<string, int>',
+				'array_slice($generalStringKeys, 1, null, true)',
+			],
+			[
+				'array<string, int>',
+				'array_slice($generalStringKeys, 1, 2)',
+			],
+			[
+				'array<string, int>',
+				'array_slice($generalStringKeys, 1, 2, true)',
+			],
+			[
+				'array<string, int>',
+				'array_slice($generalStringKeys, 1, -1)',
+			],
+			[
+				'array<string, int>',
+				'array_slice($generalStringKeys, 1, -1, true)',
+			],
+			[
+				'array<string, int>',
+				'array_slice($generalStringKeys, -2)',
+			],
+			[
+				'array<string, int>',
+				'array_slice($generalStringKeys, -2, 1, true)',
+			],
+			[
+				'array',
+				'array_slice($unknownArray, 0)',
+			],
+			[
+				'array',
+				'array_slice($unknownArray, 1)',
+			],
+			[
+				'array',
+				'array_slice($unknownArray, 1, null, true)',
+			],
+			[
+				'array',
+				'array_slice($unknownArray, 1, 2)',
+			],
+			[
+				'array',
+				'array_slice($unknownArray, 1, 2, true)',
+			],
+			[
+				'array',
+				'array_slice($unknownArray, 1, -1)',
+			],
+			[
+				'array',
+				'array_slice($unknownArray, 1, -1, true)',
+			],
+			[
+				'array',
+				'array_slice($unknownArray, -2)',
+			],
+			[
+				'array',
+				'array_slice($unknownArray, -2, 1, true)',
+			],
+			[
+				'array(0 => bool, 1 => int, 2 => \'\', \'a\' => 0)',
+				'array_slice($withPossiblyFalsey, 0)',
+			],
+			[
+				'array(0 => int, 1 => \'\', \'a\' => 0)',
+				'array_slice($withPossiblyFalsey, 1)',
+			],
+			[
+				'array(1 => int, 2 => \'\', \'a\' => 0)',
+				'array_slice($withPossiblyFalsey, 1, null, true)',
+			],
+			[
+				'array(0 => \'\', \'a\' => 0)',
+				'array_slice($withPossiblyFalsey, 2, 3)',
+			],
+			[
+				'array(2 => \'\', \'a\' => 0)',
+				'array_slice($withPossiblyFalsey, 2, 3, true)',
+			],
+			[
+				'array(int, \'\')',
+				'array_slice($withPossiblyFalsey, 1, -1)',
+			],
+			[
+				'array(1 => int, 2 => \'\')',
+				'array_slice($withPossiblyFalsey, 1, -1, true)',
+			],
+			[
+				'array(0 => \'\', \'a\' => 0)',
+				'array_slice($withPossiblyFalsey, -2, null)',
+			],
+			[
+				'array(2 => \'\', \'a\' => 0)',
+				'array_slice($withPossiblyFalsey, -2, null, true)',
+			],
+			[
+				'array(0 => \'\', \'a\' => 0)|array(\'baz\' => \'qux\')',
+				'array_slice($unionArrays, 1)',
+			],
+			[
+				'array(\'a\' => 0)|array(\'baz\' => \'qux\')',
+				'array_slice($unionArrays, -1, null, true)',
+			],
+			[
+				'array(0 => \'foo\', 1 => \'bar\', \'baz\' => \'qux\', 2 => \'quux\', \'quuz\' => \'corge\', 3 => \'grault\')',
+				'$slicedOffset',
+			],
+			[
+				'array(4 => \'foo\', 1 => \'bar\', \'baz\' => \'qux\', 0 => \'quux\', \'quuz\' => \'corge\', 5 => \'grault\')',
+				'$slicedOffsetWithKeys',
+			],
 		];
 	}
 
@@ -4922,6 +5046,122 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'int|false',
 				'$mbStrlenWithUnknownEncoding',
+			],
+			[
+				'string',
+				'$mbHttpOutputWithoutEncoding',
+			],
+			[
+				'true',
+				'$mbHttpOutputWithValidEncoding',
+			],
+			[
+				'false',
+				'$mbHttpOutputWithInvalidEncoding',
+			],
+			[
+				'bool',
+				'$mbHttpOutputWithValidAndInvalidEncoding',
+			],
+			[
+				'bool',
+				'$mbHttpOutputWithUnknownEncoding',
+			],
+			[
+				'string',
+				'$mbRegexEncodingWithoutEncoding',
+			],
+			[
+				'true',
+				'$mbRegexEncodingWithValidEncoding',
+			],
+			[
+				'false',
+				'$mbRegexEncodingWithInvalidEncoding',
+			],
+			[
+				'bool',
+				'$mbRegexEncodingWithValidAndInvalidEncoding',
+			],
+			[
+				'bool',
+				'$mbRegexEncodingWithUnknownEncoding',
+			],
+			[
+				'string',
+				'$mbInternalEncodingWithoutEncoding',
+			],
+			[
+				'true',
+				'$mbInternalEncodingWithValidEncoding',
+			],
+			[
+				'false',
+				'$mbInternalEncodingWithInvalidEncoding',
+			],
+			[
+				'bool',
+				'$mbInternalEncodingWithValidAndInvalidEncoding',
+			],
+			[
+				'bool',
+				'$mbInternalEncodingWithUnknownEncoding',
+			],
+			[
+				'array',
+				'$mbEncodingAliasesWithValidEncoding',
+			],
+			[
+				'false',
+				'$mbEncodingAliasesWithInvalidEncoding',
+			],
+			[
+				'array|false',
+				'$mbEncodingAliasesWithValidAndInvalidEncoding',
+			],
+			[
+				'array|false',
+				'$mbEncodingAliasesWithUnknownEncoding',
+			],
+			[
+				'string',
+				'$mbChrWithoutEncoding',
+			],
+			[
+				'string',
+				'$mbChrWithValidEncoding',
+			],
+			[
+				'false',
+				'$mbChrWithInvalidEncoding',
+			],
+			[
+				'string|false',
+				'$mbChrWithValidAndInvalidEncoding',
+			],
+			[
+				'string|false',
+				'$mbChrWithUnknownEncoding',
+			],
+			[
+				'int',
+				'$mbOrdWithoutEncoding',
+			],
+			[
+				'int',
+				'$mbOrdWithValidEncoding',
+			],
+			[
+				'false',
+				'$mbOrdWithInvalidEncoding',
+			],
+			[
+				'int|false',
+				'$mbOrdWithValidAndInvalidEncoding',
+			],
+			[
+				'int|false',
+				'$mbOrdWithUnknownEncoding',
 			],
 			[
 				'array(\'sec\' => int, \'usec\' => int, \'minuteswest\' => int, \'dsttime\' => int)',
@@ -7977,6 +8217,68 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		}
 		$this->assertTypes(
 			__DIR__ . '/data/php73_functions.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataUnionMethods(): array
+	{
+		return [
+			[
+				'UnionMethods\Bar|UnionMethods\Foo',
+				'$something->doSomething()',
+			],
+			[
+				'UnionMethods\Bar|UnionMethods\Foo',
+				'$something::doSomething()',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataUnionMethods
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testUnionMethods(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/union-methods.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataUnionProperties(): array
+	{
+		return [
+			[
+				'UnionProperties\Bar|UnionProperties\Foo',
+				'$something->doSomething',
+			],
+			[
+				'UnionProperties\Bar|UnionProperties\Foo',
+				'$something::$doSomething',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataUnionProperties
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testUnionProperties(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/union-properties.php',
 			$description,
 			$expression
 		);
