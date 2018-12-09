@@ -18,7 +18,7 @@ parameters:
 	checkUnionTypes: false
 	reportMaybes: false
 	reportMaybesInMethodSignatures: false
-	reportStaticInMethodSignatures: false
+	reportStaticMethodSignatures: false
 	polluteScopeWithLoopInitialAssignments: true
 	polluteCatchScopeWithTryAssignments: false
 	reportMagicMethods: false
