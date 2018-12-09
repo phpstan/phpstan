@@ -27,10 +27,9 @@ class IsAFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtens
 
 	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, TypeSpecifierContext $context): bool
 	{
-		return strtolower($functionReflection->getName()) === 'is_a'
-			&& isset($node->args[0])
-			&& isset($node->args[1])
-			&& !$context->null();
+		return isset($node->args[0], $node->args[1])
+		       && !$context->null()
+		       && strtolower($functionReflection->getName()) === 'is_a';
 	}
 
 	public function specifyTypes(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
@@ -64,10 +63,12 @@ class IsAFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExtens
 			$types = new SpecifiedTypes();
 		}
 
-		if (isset($node->args[2]) && $context->true()) {
-			if (!$scope->getType($node->args[2]->value)->isSuperTypeOf(new ConstantBooleanType(true))->no()) {
-				$types = $types->intersectWith($this->typeSpecifier->create($node->args[0]->value, new StringType(), $context));
-			}
+		if (
+			isset($node->args[2])
+			&& $context->true()
+			&& !$scope->getType($node->args[2]->value)->isSuperTypeOf(new ConstantBooleanType(true))->no()
+		) {
+			$types = $types->intersectWith($this->typeSpecifier->create($node->args[0]->value, new StringType(), $context));
 		}
 
 		return $types;

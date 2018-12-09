@@ -70,7 +70,7 @@ class CommandHelper
 			$defaultLevelUsed = true;
 		}
 
-		if (count($paths) === 0 && $pathsFile !== null) {
+		if ($pathsFile !== null && count($paths) === 0) {
 			if (!file_exists($pathsFile)) {
 				$errorOutput->writeln(sprintf('Paths file %s does not exist.', $pathsFile));
 				throw new \PHPStan\Command\InceptionNotSuccessfulException();
@@ -106,7 +106,7 @@ class CommandHelper
 			if ($level === null && isset($projectConfig['parameters']['level'])) {
 				$level = $projectConfig['parameters']['level'];
 			}
-			if (count($paths) === 0 && isset($projectConfig['parameters']['paths'])) {
+			if (isset($projectConfig['parameters']['paths']) && count($paths) === 0) {
 				$paths = Helpers::expand($projectConfig['parameters']['paths'], $defaultParameters);
 			}
 		}

@@ -422,8 +422,8 @@ class Scope implements ClassMemberAccessAnswerer
 
 			if (
 				$leftBooleanType instanceof ConstantBooleanType
-				&& $leftBooleanType->getValue()
 				&& $rightBooleanType instanceof ConstantBooleanType
+				&& $leftBooleanType->getValue()
 				&& $rightBooleanType->getValue()
 			) {
 				return new ConstantBooleanType(true);
@@ -454,8 +454,8 @@ class Scope implements ClassMemberAccessAnswerer
 
 			if (
 				$leftBooleanType instanceof ConstantBooleanType
-				&& !$leftBooleanType->getValue()
 				&& $rightBooleanType instanceof ConstantBooleanType
+				&& !$leftBooleanType->getValue()
 				&& !$rightBooleanType->getValue()
 			) {
 				return new ConstantBooleanType(false);
@@ -506,10 +506,12 @@ class Scope implements ClassMemberAccessAnswerer
 			$isSuperset = $leftType->isSuperTypeOf($rightType);
 			if ($isSuperset->no()) {
 				return new ConstantBooleanType(false);
-			} elseif (
-				$isSuperset->yes()
-				&& $leftType instanceof ConstantScalarType
+			}
+
+			if (
+				$leftType instanceof ConstantScalarType
 				&& $rightType instanceof ConstantScalarType
+				&& $isSuperset->yes()
 				&& $leftType->getValue() === $rightType->getValue()
 			) {
 				return new ConstantBooleanType(true);
@@ -545,10 +547,12 @@ class Scope implements ClassMemberAccessAnswerer
 			$isSuperset = $leftType->isSuperTypeOf($rightType);
 			if ($isSuperset->no()) {
 				return new ConstantBooleanType(true);
-			} elseif (
-				$isSuperset->yes()
-				&& $leftType instanceof ConstantScalarType
+			}
+
+			if (
+				$leftType instanceof ConstantScalarType
 				&& $rightType instanceof ConstantScalarType
+				&& $isSuperset->yes()
 				&& $leftType->getValue() === $rightType->getValue()
 			) {
 				return new ConstantBooleanType(false);
@@ -659,9 +663,10 @@ class Scope implements ClassMemberAccessAnswerer
 
 			$rightTypes = TypeUtils::getConstantScalars($this->getType($right)->toNumber());
 			foreach ($rightTypes as $rightType) {
+				$rightTypeValue = $rightType->getValue();
 				if (
-					$rightType->getValue() === 0
-					|| $rightType->getValue() === 0.0
+					$rightTypeValue === 0
+					|| $rightTypeValue === 0.0
 				) {
 					return new ErrorType();
 				}
@@ -732,7 +737,7 @@ class Scope implements ClassMemberAccessAnswerer
 				return $rightType;
 			}
 
-			if (TypeCombinator::containsNull($leftType) || $node->left instanceof PropertyFetch) {
+			if ($node->left instanceof PropertyFetch || TypeCombinator::containsNull($leftType)) {
 				return TypeCombinator::union(
 					TypeCombinator::removeNull($leftType),
 					$rightType
@@ -1203,7 +1208,7 @@ class Scope implements ClassMemberAccessAnswerer
 				$constantClassType = $this->getType($node->class);
 			}
 
-			if (strtolower($constantName) === 'class' && $constantClassType instanceof TypeWithClassName) {
+			if ($constantClassType instanceof TypeWithClassName && strtolower($constantName) === 'class') {
 				return new ConstantStringType($constantClassType->getClassName());
 			}
 			if (!$constantClassType->hasConstant($constantName)->no()) {
@@ -1557,10 +1562,11 @@ class Scope implements ClassMemberAccessAnswerer
 			if ($node instanceof Expr\BinaryOp\BitwiseXor || $node instanceof Expr\AssignOp\BitwiseXor) {
 				return $this->getTypeFromValue($leftValue ^ $rightValue);
 			}
-		}
 
-		$leftValue = $leftType->getValue();
-		$rightValue = $rightType->getValue();
+		} else {
+			$leftValue = $leftType->getValue();
+			$rightValue = $rightType->getValue();
+		}
 
 		if ($node instanceof Node\Expr\BinaryOp\Spaceship) {
 			return $this->getTypeFromValue($leftValue <=> $rightValue);
@@ -1654,17 +1660,27 @@ class Scope implements ClassMemberAccessAnswerer
 	 */
 	public function getTypeFromValue($value): Type
 	{
-		if (is_int($value)) {
-			return new ConstantIntegerType($value);
-		} elseif (is_float($value)) {
-			return new ConstantFloatType($value);
-		} elseif (is_bool($value)) {
-			return new ConstantBooleanType($value);
-		} elseif ($value === null) {
+		if ($value === null) {
 			return new NullType();
-		} elseif (is_string($value)) {
+		}
+
+		if (\is_int($value)) {
+			return new ConstantIntegerType($value);
+		}
+
+		if (\is_float($value)) {
+			return new ConstantFloatType($value);
+		}
+
+		if (\is_bool($value)) {
+			return new ConstantBooleanType($value);
+		}
+
+		if (\is_string($value)) {
 			return new ConstantStringType($value);
-		} elseif (is_array($value)) {
+		}
+
+		if (\is_array($value)) {
 			$arrayBuilder = ConstantArrayTypeBuilder::createEmpty();
 			foreach ($value as $k => $v) {
 				$arrayBuilder->setOffsetValueType($this->getTypeFromValue($k), $this->getTypeFromValue($v));

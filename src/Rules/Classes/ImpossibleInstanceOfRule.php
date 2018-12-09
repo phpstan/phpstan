@@ -37,7 +37,6 @@ class ImpossibleInstanceOfRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		$expressionType = $scope->getType($node->expr);
 		if ($node->class instanceof Node\Name) {
 			$className = $scope->resolveName($node->class);
 			$type = new ObjectType($className);
@@ -46,6 +45,8 @@ class ImpossibleInstanceOfRule implements \PHPStan\Rules\Rule
 		}
 
 		if (!$instanceofType->getValue()) {
+			$expressionType = $scope->getType($node->expr);
+
 			return [
 				sprintf(
 					'Instanceof between %s and %s will always evaluate to false.',
@@ -53,7 +54,11 @@ class ImpossibleInstanceOfRule implements \PHPStan\Rules\Rule
 					$type->describe(VerbosityLevel::typeOnly())
 				),
 			];
-		} elseif ($this->checkAlwaysTrueInstanceof) {
+		}
+
+		if ($this->checkAlwaysTrueInstanceof) {
+			$expressionType = $scope->getType($node->expr);
+
 			return [
 				sprintf(
 					'Instanceof between %s and %s will always evaluate to true.',

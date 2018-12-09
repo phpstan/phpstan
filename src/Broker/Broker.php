@@ -384,11 +384,12 @@ class Broker
 						array_map(static function (ParameterSignature $parameterSignature) use ($lowerCasedFunctionName): NativeParameterReflection {
 							$type = $parameterSignature->getType();
 							if (
-								$parameterSignature->getName() === 'args'
-								&& (
-									$lowerCasedFunctionName === 'printf'
-									|| $lowerCasedFunctionName === 'sprintf'
-								)
+									(
+										$lowerCasedFunctionName === 'printf'
+										|| $lowerCasedFunctionName === 'sprintf'
+									)
+									&&
+									$parameterSignature->getName() === 'args'
 							) {
 								$type = new UnionType([
 									new StringAlwaysAcceptingObjectWithToStringType(),
@@ -577,8 +578,7 @@ class Broker
 
 		foreach ($debugBacktrace as $traceStep) {
 			if (
-				isset($traceStep['function'])
-				&& isset($existsCallTypes[$traceStep['function']])
+				isset($traceStep['function'], $existsCallTypes[$traceStep['function']])
 				// We must ignore the self::hasClass calls
 				&& (!isset($traceStep['file']) || $traceStep['file'] !== __FILE__)
 			) {

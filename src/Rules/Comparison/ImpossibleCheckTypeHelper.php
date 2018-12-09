@@ -45,88 +45,91 @@ class ImpossibleCheckTypeHelper
 	{
 		if (
 			$node instanceof FuncCall
+			&& $node->name instanceof \PhpParser\Node\Name
 			&& count($node->args) > 0
 		) {
-			if ($node->name instanceof \PhpParser\Node\Name) {
-				$functionName = strtolower((string) $node->name);
-				if ($functionName === 'count') {
-					return null;
-				} elseif ($functionName === 'is_numeric') {
-					$argType = $scope->getType($node->args[0]->value);
-					if (count(TypeUtils::getConstantScalars($argType)) > 0) {
-						return !$argType->toNumber() instanceof ErrorType;
-					}
+			$functionName = strtolower((string) $node->name);
+			if ($functionName === 'count') {
+				return null;
+			}
 
-					if (!(new StringType())->isSuperTypeOf($argType)->no()) {
+			if ($functionName === 'is_numeric') {
+
+				$argType = $scope->getType($node->args[0]->value);
+				if (count(TypeUtils::getConstantScalars($argType)) > 0) {
+					return !$argType->toNumber() instanceof ErrorType;
+				}
+
+				if (!(new StringType())->isSuperTypeOf($argType)->no()) {
+					return null;
+				}
+
+			} elseif ($functionName === 'defined') {
+				return null;
+			} elseif (
+				$functionName === 'in_array'
+				&& count($node->args) >= 3
+			) {
+				$haystackType = $scope->getType($node->args[1]->value);
+				if ($haystackType instanceof MixedType) {
+					return null;
+				}
+
+				if (!$haystackType instanceof ConstantArrayType || count($haystackType->getValueTypes()) > 1) {
+					$needleType = $scope->getType($node->args[0]->value);
+
+					$haystackArrayTypes = TypeUtils::getArrays($haystackType);
+					if (count($haystackArrayTypes) === 1 && $haystackArrayTypes[0]->getIterableValueType() instanceof NeverType) {
 						return null;
 					}
-				} elseif ($functionName === 'defined') {
-					return null;
-				} elseif (
-					$functionName === 'in_array'
-					&& count($node->args) >= 3
-				) {
-					$haystackType = $scope->getType($node->args[1]->value);
-					if ($haystackType instanceof MixedType) {
-						return null;
-					}
 
-					if (!$haystackType instanceof ConstantArrayType || count($haystackType->getValueTypes()) > 1) {
-						$needleType = $scope->getType($node->args[0]->value);
+					$valueType = TypeCombinator::union(...$haystackArrayTypes)->getIterableValueType();
+					$isNeedleSupertype = $needleType->isSuperTypeOf($valueType);
 
-						$haystackArrayTypes = TypeUtils::getArrays($haystackType);
-						if (count($haystackArrayTypes) === 1 && $haystackArrayTypes[0]->getIterableValueType() instanceof NeverType) {
-							return null;
-						}
-
-						$valueType = TypeCombinator::union(...$haystackArrayTypes)->getIterableValueType();
-						$isNeedleSupertype = $needleType->isSuperTypeOf($valueType);
-
-						if ($isNeedleSupertype->maybe() || $isNeedleSupertype->yes()) {
-							foreach ($haystackArrayTypes as $haystackArrayType) {
-								foreach (TypeUtils::getConstantScalars($haystackArrayType->getIterableValueType()) as $constantScalarType) {
-									if ($needleType->isSuperTypeOf($constantScalarType)->yes()) {
-										continue 2;
-									}
+					if ($isNeedleSupertype->maybe() || $isNeedleSupertype->yes()) {
+						foreach ($haystackArrayTypes as $haystackArrayType) {
+							foreach (TypeUtils::getConstantScalars($haystackArrayType->getIterableValueType()) as $constantScalarType) {
+								if ($needleType->isSuperTypeOf($constantScalarType)->yes()) {
+									continue 2;
 								}
-
-								return null;
 							}
-						}
 
-						if ($isNeedleSupertype->yes()) {
-							$hasConstantNeedleTypes = count(TypeUtils::getConstantScalars($needleType)) > 0;
-							$hasConstantHaystackTypes = count(TypeUtils::getConstantScalars($valueType)) > 0;
-							if (
-								(
-									!$hasConstantNeedleTypes
-									&& !$hasConstantHaystackTypes
-								)
-								|| $hasConstantNeedleTypes !== $hasConstantHaystackTypes
-							) {
-								return null;
-							}
-						}
-					}
-				} elseif (
-					$functionName === 'property_exists'
-					&& count($node->args) >= 2
-				) {
-					$classNames = TypeUtils::getDirectClassNames(
-						$scope->getType($node->args[0]->value)
-					);
-					foreach ($classNames as $className) {
-						if (!$this->broker->hasClass($className)) {
-							continue;
-						}
-
-						if (UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate(
-							$this->broker,
-							$this->broker->getUniversalObjectCratesClasses(),
-							$this->broker->getClass($className)
-						)) {
 							return null;
 						}
+					}
+
+					if ($isNeedleSupertype->yes()) {
+						$hasConstantNeedleTypes = count(TypeUtils::getConstantScalars($needleType)) > 0;
+						$hasConstantHaystackTypes = count(TypeUtils::getConstantScalars($valueType)) > 0;
+						if (
+							(
+								!$hasConstantNeedleTypes
+								&& !$hasConstantHaystackTypes
+							)
+							|| $hasConstantNeedleTypes !== $hasConstantHaystackTypes
+						) {
+							return null;
+						}
+					}
+				}
+			} elseif (
+				$functionName === 'property_exists'
+				&& count($node->args) >= 2
+			) {
+				$classNames = TypeUtils::getDirectClassNames(
+					$scope->getType($node->args[0]->value)
+				);
+				foreach ($classNames as $className) {
+					if (!$this->broker->hasClass($className)) {
+						continue;
+					}
+
+					if (UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate(
+						$this->broker,
+						$this->broker->getUniversalObjectCratesClasses(),
+						$this->broker->getClass($className)
+					)) {
+						return null;
 					}
 				}
 			}

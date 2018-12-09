@@ -27,10 +27,12 @@ class FunctionCallStatementFinder
 				continue;
 			}
 
-			if ($statement instanceof FuncCall && $statement->name instanceof Name) {
-				if (in_array((string) $statement->name, $functionNames, true)) {
+			if (
+				$statement instanceof FuncCall
+				&& $statement->name instanceof Name
+				&& in_array((string) $statement->name, $functionNames, true)
+			) {
 					return $statement;
-				}
 			}
 
 			$result = $this->findFunctionCallInStatements($functionNames, $statement);

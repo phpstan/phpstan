@@ -103,8 +103,8 @@ class ParametersAcceptorSelector
 			}
 
 			if (
-				!$parametersAcceptor->isVariadic()
-				&& $typesCount > $functionParametersMaxCount
+				$typesCount > $functionParametersMaxCount
+				&& !$parametersAcceptor->isVariadic()
 			) {
 				continue;
 			}

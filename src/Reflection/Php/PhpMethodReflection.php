@@ -276,10 +276,8 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	private function callsFuncGetArgs(ClassReflection $declaringClass, $nodes): bool
 	{
 		foreach ($nodes as $node) {
-			if (is_array($node)) {
-				if ($this->callsFuncGetArgs($declaringClass, $node)) {
-					return true;
-				}
+			if (is_array($node) && $this->callsFuncGetArgs($declaringClass, $node)) {
+				return true;
 			}
 
 			if (!($node instanceof \PhpParser\Node)) {

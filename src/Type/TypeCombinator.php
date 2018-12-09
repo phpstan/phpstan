@@ -393,8 +393,9 @@ class TypeCombinator
 				$isSuperTypeA = $types[$j]->isSuperTypeOf($types[$i]);
 				if ($isSuperTypeA->no()) {
 					return new NeverType();
+				}
 
-				} elseif ($isSuperTypeA->yes()) {
+				if ($isSuperTypeA->yes()) {
 					array_splice($types, $j--, 1);
 					continue;
 				}

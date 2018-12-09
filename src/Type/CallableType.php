@@ -72,7 +72,7 @@ class CallableType implements CompoundType, ParametersAcceptor
 	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
 		$isCallable = $type->isCallable();
-		if ($isCallable->no() || $this->isCommonCallable) {
+		if ($this->isCommonCallable || $isCallable->no()) {
 			return $isCallable;
 		}
 

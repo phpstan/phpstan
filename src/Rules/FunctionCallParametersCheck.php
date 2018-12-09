@@ -94,9 +94,9 @@ class FunctionCallParametersCheck
 		}
 
 		if (
-			$parametersAcceptor->getReturnType() instanceof VoidType
+			!$funcCall instanceof \PhpParser\Node\Expr\New_
+			&& $parametersAcceptor->getReturnType() instanceof VoidType
 			&& !$scope->isInFirstLevelStatement()
-			&& !$funcCall instanceof \PhpParser\Node\Expr\New_
 		) {
 			$errors[] = $messages[7];
 		}
@@ -138,7 +138,7 @@ class FunctionCallParametersCheck
 
 			$argumentValueType = $scope->getType($argument->value);
 			$secondAccepts = null;
-			if ($parameterType->isIterable()->yes() && $parameter->isVariadic()) {
+			if ($parameter->isVariadic() && $parameterType->isIterable()->yes()) {
 				$secondAccepts = $this->ruleLevelHelper->accepts(
 					new IterableType(
 						new MixedType(),
@@ -151,9 +151,10 @@ class FunctionCallParametersCheck
 
 			if (
 				$this->checkArgumentTypes
+				&& ($secondAccepts === null || !$secondAccepts)
 				&& !$parameter->passedByReference()->createsNewVariable()
 				&& !$this->ruleLevelHelper->accepts($parameterType, $argumentValueType, $scope->isDeclareStrictTypes())
-				&& ($secondAccepts === null || !$secondAccepts)
+
 			) {
 				$errors[] = sprintf(
 					$messages[6],
@@ -166,11 +167,11 @@ class FunctionCallParametersCheck
 
 			if (
 				!$this->checkArgumentsPassedByReference
-				|| !$parameter->passedByReference()->yes()
 				|| $argument->value instanceof \PhpParser\Node\Expr\Variable
 				|| $argument->value instanceof \PhpParser\Node\Expr\ArrayDimFetch
 				|| $argument->value instanceof \PhpParser\Node\Expr\PropertyFetch
 				|| $argument->value instanceof \PhpParser\Node\Expr\StaticPropertyFetch
+				|| !$parameter->passedByReference()->yes()
 			) {
 				continue;
 			}

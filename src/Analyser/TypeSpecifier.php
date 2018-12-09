@@ -157,16 +157,17 @@ class TypeSpecifier
 				}
 
 				if (
-					!$context->null()
-					&& $exprNode instanceof FuncCall
-					&& count($exprNode->args) === 1
+					$exprNode instanceof FuncCall
 					&& $exprNode->name instanceof Name
-					&& strtolower((string) $exprNode->name) === 'count'
 					&& $constantType instanceof ConstantIntegerType
+					&& !$context->null()
+					&& count($exprNode->args) === 1
+					&& strtolower((string) $exprNode->name) === 'count'
 				) {
-					if ($context->truthy() || $constantType->getValue() === 0) {
+					$constantTypeValue = $constantType->getValue();
+					if ($constantTypeValue === 0 || $context->truthy()) {
 						$newContext = $context;
-						if ($constantType->getValue() === 0) {
+						if ($constantTypeValue === 0) {
 							$newContext = $newContext->negate();
 						}
 						$argType = $scope->getType($exprNode->args[0]->value);
@@ -234,7 +235,8 @@ class TypeSpecifier
 				$exprNode = $expressions[0];
 				/** @var \PHPStan\Type\ConstantScalarType $constantType */
 				$constantType = $expressions[1];
-				if ($constantType->getValue() === false || $constantType->getValue() === null) {
+				$constantTypeValue = $constantType->getValue();
+				if ($constantTypeValue === false || $constantTypeValue === null) {
 					return $this->specifyTypesInCondition(
 						$scope,
 						$exprNode,
@@ -339,12 +341,12 @@ class TypeSpecifier
 
 			return $this->specifyTypesInCondition($scope, $expr->var, $context);
 		} elseif (
-			(
+			($expr instanceof Expr\Empty_ && $context->falsey())
+			|| (
 				$expr instanceof Expr\Isset_
 				&& count($expr->vars) > 0
 				&& $context->truthy()
 			)
-			|| ($expr instanceof Expr\Empty_ && $context->falsey())
 		) {
 			$vars = [];
 			if ($expr instanceof Expr\Isset_) {

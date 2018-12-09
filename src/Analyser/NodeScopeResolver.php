@@ -165,7 +165,8 @@ class NodeScopeResolver
 			if (!($node instanceof \PhpParser\Node)) {
 				continue;
 			}
-			if ($scope->getInFunctionCall() !== null && $node instanceof Arg) {
+
+			if ($node instanceof Arg && $scope->getInFunctionCall() !== null) {
 				$functionCall = $scope->getInFunctionCall();
 				$value = $node->value;
 
@@ -334,7 +335,7 @@ class NodeScopeResolver
 
 	private function enterForeach(Scope $scope, Foreach_ $node): Scope
 	{
-		if ($node->keyVar !== null && $node->keyVar instanceof Variable && is_string($node->keyVar->name)) {
+		if ($node->keyVar instanceof Variable && is_string($node->keyVar->name)) {
 			$scope = $scope->assignVariable($node->keyVar->name, new MixedType(), TrinaryLogic::createYes());
 		}
 
@@ -437,8 +438,8 @@ class NodeScopeResolver
 				} elseif (
 					$argValue instanceof Expr\ClassConstFetch
 					&& $argValue->name instanceof Node\Identifier
-					&& strtolower($argValue->name->name) === 'class'
 					&& $argValue->class instanceof Name
+					&& strtolower($argValue->name->name) === 'class'
 				) {
 					$scopeClass = $scope->resolveName($argValue->class);
 				} elseif ($argValueType instanceof ConstantStringType) {
@@ -608,7 +609,7 @@ class NodeScopeResolver
 			$this->processNode($node->cond, $scope, $specifyFetchedProperty);
 			$this->processNodes($node->stmts, $scope->enterFirstLevelStatements(), $nodeCallback);
 
-			if (count($node->elseifs) > 0 || $node->else !== null) {
+			if ($node->else !== null || count($node->elseifs) > 0) {
 				$elseifScope = $ifScope->filterByFalseyValue($node->cond);
 				foreach ($node->elseifs as $elseif) {
 					$scope = $elseifScope;
@@ -652,8 +653,8 @@ class NodeScopeResolver
 			if (
 				$node->cond instanceof FuncCall
 				&& $node->cond->name instanceof Name
-				&& strtolower((string) $node->cond->name) === 'get_class'
 				&& isset($node->cond->args[0])
+				&& strtolower((string) $node->cond->name) === 'get_class'
 			) {
 				$switchConditionGetClassExpression = $node->cond->args[0]->value;
 			}
@@ -1165,11 +1166,12 @@ class NodeScopeResolver
 			if (
 				$node instanceof FuncCall
 				&& $node->name instanceof Name
-				&& in_array(strtolower((string) $node->name), [
-					'array_push',
-					'array_unshift',
-				], true)
 				&& count($node->args) >= 2
+				&& in_array(
+					strtolower((string) $node->name),
+					['array_push', 'array_unshift'],
+					true
+				)
 			) {
 				$argumentTypes = [];
 				foreach (array_slice($node->args, 1) as $callArg) {
@@ -1233,11 +1235,12 @@ class NodeScopeResolver
 			if (
 				$node instanceof FuncCall
 				&& $node->name instanceof Name
-				&& in_array(strtolower((string) $node->name), [
-					'array_pop',
-					'array_shift',
-				], true)
 				&& count($node->args) >= 1
+				&& in_array(
+					strtolower((string) $node->name),
+					['array_pop', 'array_shift'],
+					true
+				)
 			) {
 				$arrayArg = $node->args[0]->value;
 				$constantArrays = TypeUtils::getConstantArrays($scope->getType($arrayArg));
@@ -1534,9 +1537,9 @@ class NodeScopeResolver
 				$scope = $this->assignVariable($scope, $var, $certainty, $type);
 				if (
 					(!$node instanceof Assign && !$node instanceof AssignRef)
-					|| !$lookForAssignsSettings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()
-					|| !($var instanceof ArrayDimFetch)
+					|| !$var instanceof ArrayDimFetch
 					|| $var->dim !== null
+					|| !$lookForAssignsSettings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()
 				) {
 					continue;
 				}

@@ -98,8 +98,8 @@ class ExistingNamesInGroupUseRule implements \PHPStan\Rules\Rule
 			$realName = $functionReflection->getName();
 			$usedName = (string) $name;
 			if (
-				strtolower($realName) === strtolower($usedName)
-				&& $realName !== $usedName
+				$realName !== $usedName
+				&& strtolower($realName) === strtolower($usedName)
 			) {
 				return RuleErrorBuilder::message(sprintf(
 					'Function %s used with incorrect case: %s.',

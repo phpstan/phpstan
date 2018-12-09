@@ -52,8 +52,8 @@ class CallToNonExistentFunctionRule implements \PHPStan\Rules\Rule
 			/** @var string $calledFunctionName */
 			$calledFunctionName = $this->broker->resolveFunctionName($node->name, $scope);
 			if (
-				strtolower($function->getName()) === strtolower($calledFunctionName)
-				&& $function->getName() !== $calledFunctionName
+				$function->getName() !== $calledFunctionName
+				&& strtolower($function->getName()) === strtolower($calledFunctionName)
 			) {
 				return [sprintf('Call to function %s() with incorrect case: %s', $function->getName(), $name)];
 			}

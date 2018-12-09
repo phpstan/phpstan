@@ -70,8 +70,8 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 				$isParamSuperType = $nativeParamType->isSuperTypeOf($phpDocParamType);
 
 				if (
-					$phpDocParamTag->isVariadic()
-					&& $nativeParamType instanceof ArrayType
+					$nativeParamType instanceof ArrayType
+					&& $phpDocParamTag->isVariadic()
 					&& $nativeParamType->getItemType() instanceof ArrayType
 				) {
 					continue;
