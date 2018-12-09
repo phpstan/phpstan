@@ -186,7 +186,6 @@ class FunctionDefinitionCheck
 	 * @param FunctionLike $functionNode
 	 * @param string $parameterMessage
 	 * @param string $returnMessage
-	 *
 	 * @return RuleError[]
 	 */
 	private function checkParametersAcceptor(

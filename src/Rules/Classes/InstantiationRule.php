@@ -43,7 +43,6 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param \PhpParser\Node\Expr\New_ $node
 	 * @param \PHPStan\Analyser\Scope $scope
-	 *
 	 * @return (string|\PHPStan\Rules\RuleError)[]
 	 */
 	public function processNode(Node $node, Scope $scope): array

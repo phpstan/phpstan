@@ -58,7 +58,6 @@ class ConstantBooleanType extends BooleanType implements ConstantScalarType
 
 	/**
 	 * @param mixed[] $properties
-	 *
 	 * @return Type
 	 */
 	public static function __set_state(array $properties): Type

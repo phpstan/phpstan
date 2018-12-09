@@ -83,7 +83,6 @@ class FileTypeMapper
 		if (\is_callable($this->inProcess[$fileName][$phpDocKey])) {
 			$resolveCallback = $this->inProcess[$fileName][$phpDocKey];
 			$this->inProcess[$fileName][$phpDocKey] = false;
-			/** @noinspection SuspiciousAssignmentsInspection */
 			$this->inProcess[$fileName][$phpDocKey] = $resolveCallback();
 		}
 
@@ -94,7 +93,6 @@ class FileTypeMapper
 
 	/**
 	 * @param string $fileName
-	 *
 	 * @return \PHPStan\PhpDoc\ResolvedPhpDocBlock[]
 	 */
 	private function getResolvedPhpDocMap(string $fileName): array
@@ -120,7 +118,6 @@ class FileTypeMapper
 
 	/**
 	 * @param string $fileName
-	 *
 	 * @return \PHPStan\PhpDoc\ResolvedPhpDocBlock[]
 	 */
 	private function createResolvedPhpDocMap(string $fileName): array
@@ -132,7 +129,6 @@ class FileTypeMapper
 
 			foreach ($phpDocMap as $phpDocKey => $resolveCallback) {
 				$this->inProcess[$fileName][$phpDocKey] = false;
-				/** @noinspection SuspiciousAssignmentsInspection */
 				$this->inProcess[$fileName][$phpDocKey] = $data = $resolveCallback();
 				$phpDocMap[$phpDocKey] = $data;
 			}
@@ -148,7 +144,6 @@ class FileTypeMapper
 	 * @param string $fileName
 	 * @param string|null $lookForTrait
 	 * @param string|null $traitUseClass
-	 *
 	 * @return callable[]
 	 */
 	private function createFilePhpDocMap(

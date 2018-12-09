@@ -14,7 +14,6 @@ class UnionTypeHelper
 	/**
 	 * @param string $className
 	 * @param \PHPStan\Type\Type[] $types
-	 *
 	 * @return \PHPStan\Type\Type[]
 	 */
 	public static function resolveStatic(string $className, array $types): array
@@ -33,7 +32,6 @@ class UnionTypeHelper
 	/**
 	 * @param string $className
 	 * @param \PHPStan\Type\Type[] $types
-	 *
 	 * @return \PHPStan\Type\Type[]
 	 */
 	public static function changeBaseClass(string $className, array $types): array
@@ -51,7 +49,6 @@ class UnionTypeHelper
 
 	/**
 	 * @param \PHPStan\Type\Type[] $types
-	 *
 	 * @return string[]
 	 */
 	public static function getReferencedClasses(array $types): array
@@ -66,7 +63,6 @@ class UnionTypeHelper
 
 	/**
 	 * @param \PHPStan\Type\Type[] $types
-	 *
 	 * @return \PHPStan\Type\Type[]
 	 */
 	public static function sortTypes(array $types): array
@@ -113,11 +109,13 @@ class UnionTypeHelper
 				if (
 					(
 						$a instanceof ConstantIntegerType
-						|| $a instanceof ConstantFloatType
+						||
+						$a instanceof ConstantFloatType
 					)
 					&& (
 						$b instanceof ConstantIntegerType
-						|| $b instanceof ConstantFloatType
+						||
+						$b instanceof ConstantFloatType
 					)
 				) {
 					return $a->getValue() - $b->getValue();

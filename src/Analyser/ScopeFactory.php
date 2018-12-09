@@ -59,7 +59,6 @@ class ScopeFactory
 	 * @param bool $negated
 	 * @param bool $inFirstLevelStatement
 	 * @param string[] $currentlyAssignedExpressions
-	 *
 	 * @return Scope
 	 */
 	public function create(

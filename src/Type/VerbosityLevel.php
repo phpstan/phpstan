@@ -6,8 +6,8 @@ class VerbosityLevel
 {
 
 	private const TYPE_ONLY = 1;
-	private const VALUE     = 2;
-	private const PRECISE   = 3;
+	private const VALUE = 2;
+	private const PRECISE = 3;
 
 	/** @var self[] */
 	private static $registry;
@@ -46,7 +46,6 @@ class VerbosityLevel
 	 * @param callable(): string $typeOnlyCallback
 	 * @param callable(): string $valueCallback
 	 * @param callable(): string|null $preciseCallback
-	 *
 	 * @return string
 	 */
 	public function handle(

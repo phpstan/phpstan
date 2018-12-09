@@ -93,9 +93,7 @@ class InceptionResult
 
 	public function handleReturn(int $exitCode): int
 	{
-		/** @noinspection PhpUsageOfSilenceOperatorInspection */
 		@\unlink($this->memoryLimitFile);
-
 		return $exitCode;
 	}
 

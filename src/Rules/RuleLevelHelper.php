@@ -140,7 +140,6 @@ class RuleLevelHelper
 	 * @param Expr $var
 	 * @param string $unknownClassErrorPattern
 	 * @param callable(Type $type): bool $unionTypeCriteriaCallback
-	 *
 	 * @return FoundTypeResult
 	 */
 	public function findTypeToCheck(

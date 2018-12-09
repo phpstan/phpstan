@@ -350,7 +350,6 @@ class Issue105
 {
 	/**
 	 * @param string $type
-	 *
 	 * @return array|float|int|null|string
 	 */
 	public function manyTypes(string $type)
@@ -599,7 +598,6 @@ class ArrayFillKeysIssue
 {
 	/**
 	 * @param string[] $stringIds
-	 *
 	 * @return array<string, Foo[]>
 	 */
 	public function getIPs(array $stringIds)
@@ -613,7 +611,6 @@ class ArrayFillKeysIssue
 
 	/**
 	 * @param string[] $stringIds
-	 *
 	 * @return array<string, Foo[]>
 	 */
 	public function getIPs2(array $stringIds)

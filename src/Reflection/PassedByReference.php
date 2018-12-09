@@ -5,8 +5,8 @@ namespace PHPStan\Reflection;
 class PassedByReference
 {
 
-	private const NO                   = 1;
-	private const READS_ARGUMENT       = 2;
+	private const NO = 1;
+	private const READS_ARGUMENT = 2;
 	private const CREATES_NEW_VARIABLE = 3;
 
 	/** @var self[] */
@@ -79,7 +79,6 @@ class PassedByReference
 
 	/**
 	 * @param mixed[] $properties
-	 *
 	 * @return self
 	 */
 	public static function __set_state(array $properties): self

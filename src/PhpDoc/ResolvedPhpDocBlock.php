@@ -79,7 +79,6 @@ class ResolvedPhpDocBlock
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
 	 * @param bool $isFinal
-	 *
 	 * @return self
 	 */
 	public static function create(
@@ -172,7 +171,6 @@ class ResolvedPhpDocBlock
 
 	/**
 	 * @param mixed[] $properties
-	 *
 	 * @return self
 	 */
 	public static function __set_state(array $properties): self

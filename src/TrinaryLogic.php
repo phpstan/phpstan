@@ -11,9 +11,9 @@ use PHPStan\Type\Constant\ConstantBooleanType;
 class TrinaryLogic
 {
 
-	private const YES   = 1;
+	private const YES = 1;
 	private const MAYBE = 0;
-	private const NO    = -1;
+	private const NO = -1;
 
 	/** @var int */
 	private $value;
@@ -135,9 +135,9 @@ class TrinaryLogic
 	public function describe(): string
 	{
 		static $labels = [
-			self::NO    => 'No',
+			self::NO => 'No',
 			self::MAYBE => 'Maybe',
-			self::YES   => 'Yes',
+			self::YES => 'Yes',
 		];
 
 		return $labels[$this->value];
@@ -145,7 +145,6 @@ class TrinaryLogic
 
 	/**
 	 * @param mixed[] $properties
-	 *
 	 * @return self
 	 */
 	public static function __set_state(array $properties): self

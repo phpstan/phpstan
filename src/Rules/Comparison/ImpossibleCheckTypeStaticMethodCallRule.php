@@ -34,7 +34,6 @@ class ImpossibleCheckTypeStaticMethodCallRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param \PhpParser\Node\Expr\StaticCall $node
 	 * @param \PHPStan\Analyser\Scope $scope
-	 *
 	 * @return string[] errors
 	 */
 	public function processNode(Node $node, Scope $scope): array
@@ -81,7 +80,6 @@ class ImpossibleCheckTypeStaticMethodCallRule implements \PHPStan\Rules\Rule
 	 * @param Node\Name|Expr $class
 	 * @param string $methodName
 	 * @param Scope $scope
-	 *
 	 * @return MethodReflection
 	 * @throws \PHPStan\ShouldNotHappenException
 	 */

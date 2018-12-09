@@ -153,7 +153,6 @@ class CommandHelper
 
 		if (!isset($tmpDir)) {
 			$tmpDir = \sys_get_temp_dir() . '/phpstan';
-			/** @noinspection PhpUsageOfSilenceOperatorInspection */
 			if (
 				!@\mkdir($tmpDir, 0777, true)
 				&&
@@ -181,7 +180,6 @@ class CommandHelper
 			$errorOutput->writeln('');
 			$errorOutput->writeln('');
 			$errorOutput->writeln('To avoid this issue, allow to use more memory with the --memory-limit option.');
-			/** @noinspection PhpUsageOfSilenceOperatorInspection */
 			@\unlink($memoryLimitFile);
 		}
 
@@ -281,12 +279,10 @@ class CommandHelper
 			return;
 		}
 
-		/** @noinspection PhpComposerExtensionStubsInspection */
 		\pcntl_signal(
 			\SIGINT,
 			static function () use ($consoleStyle, $memoryLimitFile): void {
 				if (\file_exists($memoryLimitFile)) {
-					/** @noinspection PhpUsageOfSilenceOperatorInspection */
 					@\unlink($memoryLimitFile);
 				}
 				$consoleStyle->newLine();

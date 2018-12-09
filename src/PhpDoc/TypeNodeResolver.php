@@ -380,7 +380,6 @@ class TypeNodeResolver
 	/**
 	 * @param TypeNode[] $typeNodes
 	 * @param NameScope $nameScope
-	 *
 	 * @return Type[]
 	 */
 	public function resolveMultiple(array $typeNodes, NameScope $nameScope): array

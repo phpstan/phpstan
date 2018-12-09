@@ -1940,7 +1940,6 @@ class Scope implements ClassMemberAccessAnswerer
 
 	/**
 	 * @param mixed $value
-	 *
 	 * @return Type
 	 */
 	public function getTypeFromValue($value): Type
@@ -2021,7 +2020,6 @@ class Scope implements ClassMemberAccessAnswerer
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
 	 * @param bool $isFinal
-	 *
 	 * @return self
 	 */
 	public function enterClassMethod(
@@ -2057,7 +2055,6 @@ class Scope implements ClassMemberAccessAnswerer
 
 	/**
 	 * @param Node\FunctionLike $functionLike
-	 *
 	 * @return Type[]
 	 */
 	private function getRealParameterTypes(Node\FunctionLike $functionLike): array
@@ -2072,7 +2069,6 @@ class Scope implements ClassMemberAccessAnswerer
 				throw new \PHPStan\ShouldNotHappenException();
 			}
 
-			/** @noinspection OffsetOperationsInspection */
 			$realParameterTypes[$parameter->var->name] = $this->getFunctionType(
 				$parameter->type,
 				$this->isParameterValueNullable($parameter),
@@ -2091,7 +2087,6 @@ class Scope implements ClassMemberAccessAnswerer
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
 	 * @param bool $isFinal
-	 *
 	 * @return self
 	 */
 	public function enterFunction(
@@ -2225,7 +2220,6 @@ class Scope implements ClassMemberAccessAnswerer
 				throw new \PHPStan\ShouldNotHappenException();
 			}
 
-			/** @noinspection OffsetOperationsInspection */
 			$variableTypes[$parameter->var->name] = VariableTypeHolder::createYes(
 				$this->getFunctionType($parameter->type, $isNullable, $parameter->variadic)
 			);
@@ -2239,21 +2233,19 @@ class Scope implements ClassMemberAccessAnswerer
 			if ($this->hasVariableType($use->var->name)->no()) {
 				if ($use->byRef) {
 					if ($this->isInExpressionAssign(new Variable($use->var->name))) {
-						/** @noinspection OffsetOperationsInspection */
 						$variableTypes[$use->var->name] = VariableTypeHolder::createYes(
 							$this->getType($closure)
 						);
 
 						continue;
 					}
-					/** @noinspection OffsetOperationsInspection */
+
 					$variableTypes[$use->var->name] = VariableTypeHolder::createYes(new NullType());
 				}
 
 				continue;
 			}
 
-			/** @noinspection OffsetOperationsInspection */
 			$variableTypes[$use->var->name] = VariableTypeHolder::createYes($this->getVariableType($use->var->name));
 		}
 
@@ -2289,7 +2281,6 @@ class Scope implements ClassMemberAccessAnswerer
 	 * @param \PhpParser\Node\Name|\PhpParser\Node\Identifier|\PhpParser\Node\NullableType|null $type
 	 * @param bool $isNullable
 	 * @param bool $isVariadic
-	 *
 	 * @return Type
 	 */
 	public function getFunctionType($type, bool $isNullable, bool $isVariadic): Type
@@ -2410,7 +2401,6 @@ class Scope implements ClassMemberAccessAnswerer
 	/**
 	 * @param \PhpParser\Node\Name[] $classes
 	 * @param string $variableName
-	 *
 	 * @return Scope
 	 */
 	public function enterCatch(array $classes, string $variableName): self
@@ -2433,7 +2423,6 @@ class Scope implements ClassMemberAccessAnswerer
 
 	/**
 	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall $functionCall
-	 *
 	 * @return self
 	 */
 	public function enterFunctionCall($functionCall): self
@@ -2538,7 +2527,6 @@ class Scope implements ClassMemberAccessAnswerer
 			}
 
 			$variableTypes = $this->getVariableTypes();
-			/** @noinspection OffsetOperationsInspection */
 			unset($variableTypes[$expr->name]);
 
 			return $this->scopeFactory->create(
@@ -2766,7 +2754,6 @@ class Scope implements ClassMemberAccessAnswerer
 
 			$node = new Variable($name);
 
-			/** @noinspection PhpUndefinedMethodInspection | PhpStorm ? */
 			if (
 				$this->isSpecified($node)
 				&&
@@ -2891,11 +2878,9 @@ class Scope implements ClassMemberAccessAnswerer
 			$variableName = $expr->name;
 
 			$variableTypes = $this->getVariableTypes();
-			/** @noinspection OffsetOperationsInspection */
 			$variableTypes[$variableName] = VariableTypeHolder::createYes($type);
 
 			$moreSpecificTypes = $this->moreSpecificTypes;
-			/** @noinspection OffsetOperationsInspection */
 			$moreSpecificTypes[$exprString] = $variableTypes[$variableName];
 
 			return $this->scopeFactory->create(
@@ -3113,7 +3098,6 @@ class Scope implements ClassMemberAccessAnswerer
 
 	/**
 	 * @param Type[] $types
-	 *
 	 * @return self
 	 */
 	private function addMoreSpecificTypes(array $types): self

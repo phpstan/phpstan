@@ -12,7 +12,6 @@ class PropertyReflectionFinder
 	/**
 	 * @param \PhpParser\Node\Expr\PropertyFetch|\PhpParser\Node\Expr\StaticPropertyFetch $propertyFetch
 	 * @param \PHPStan\Analyser\Scope $scope
-	 *
 	 * @return \PHPStan\Reflection\PropertyReflection|null
 	 */
 	public function findPropertyReflectionFromNode($propertyFetch, Scope $scope): ?\PHPStan\Reflection\PropertyReflection

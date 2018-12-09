@@ -17,7 +17,6 @@ interface FunctionReflectionFactory
 	 * @param bool $isInternal
 	 * @param bool $isFinal
 	 * @param string|false $filename
-	 *
 	 * @return PhpFunctionReflection
 	 */
 	public function create(

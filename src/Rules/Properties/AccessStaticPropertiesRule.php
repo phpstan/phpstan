@@ -49,7 +49,6 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param \PhpParser\Node\Expr\StaticPropertyFetch $node
 	 * @param \PHPStan\Analyser\Scope $scope
-	 *
 	 * @return (string|\PHPStan\Rules\RuleError)[]
 	 */
 	public function processNode(Node $node, Scope $scope): array

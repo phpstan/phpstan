@@ -27,7 +27,6 @@ class DefinedVariableInAnonymousFunctionUseRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param \PhpParser\Node\Expr\ClosureUse $node
 	 * @param \PHPStan\Analyser\Scope $scope
-	 *
 	 * @return string[]
 	 */
 	public function processNode(Node $node, Scope $scope): array

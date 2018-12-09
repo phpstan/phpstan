@@ -25,7 +25,6 @@ class TernaryOperatorConstantConditionRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param \PhpParser\Node\Expr\Ternary $node
 	 * @param \PHPStan\Analyser\Scope $scope
-	 *
 	 * @return string[]
 	 */
 	public function processNode(

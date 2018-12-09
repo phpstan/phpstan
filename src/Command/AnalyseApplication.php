@@ -42,7 +42,6 @@ class AnalyseApplication
 	 * @param \PHPStan\Command\ErrorFormatter\ErrorFormatter $errorFormatter
 	 * @param bool $defaultLevelUsed
 	 * @param bool $debug
-	 *
 	 * @return int Error code.
 	 */
 	public function analyse(
@@ -125,7 +124,6 @@ class AnalyseApplication
 			return;
 		}
 
-		/** @noinspection PhpComposerExtensionStubsInspection */
 		\pcntl_signal_dispatch();
 	}
 

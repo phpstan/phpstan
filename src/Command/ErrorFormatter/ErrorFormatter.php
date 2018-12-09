@@ -12,7 +12,6 @@ interface ErrorFormatter
 	 *
 	 * @param \PHPStan\Command\AnalysisResult $analysisResult
 	 * @param \Symfony\Component\Console\Style\OutputStyle $style
-	 *
 	 * @return int Error code.
 	 */
 	public function formatErrors(

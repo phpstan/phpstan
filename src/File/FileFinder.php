@@ -50,7 +50,6 @@ class FileFinder
 			} else {
 				$finder = new Finder();
 				$finder->followLinks();
-				/** @noinspection ForeachSourceInspection */
 				foreach ($finder->files()->name('*.{' . \implode(',', $this->fileExtensions) . '}')->in($path) as $fileInfo) {
 					/** @var \SplFileInfo $fileInfo */
 					$files[] = $this->fileHelper->normalizePath($fileInfo->getPathname());

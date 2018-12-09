@@ -95,7 +95,6 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 			return $this->functionLike->name->name;
 		}
 
-		/** @noinspection PhpUndefinedFieldInspection */
 		return (string) $this->functionLike->namespacedName;
 	}
 

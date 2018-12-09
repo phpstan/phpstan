@@ -27,7 +27,6 @@ class IfConstantConditionRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param \PhpParser\Node\Stmt\If_ $node
 	 * @param \PHPStan\Analyser\Scope $scope
-	 *
 	 * @return RuleError[]
 	 */
 	public function processNode(

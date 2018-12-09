@@ -65,7 +65,6 @@ final class ParseUrlFunctionDynamicReturnTypeExtension implements DynamicFunctio
 		}
 
 		if ($urlType instanceof ConstantStringType) {
-			/** @noinspection PhpUsageOfSilenceOperatorInspection */
 			$result = @\parse_url($urlType->getValue(), $componentType->getValue());
 
 			return $scope->getTypeFromValue($result);

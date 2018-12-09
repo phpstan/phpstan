@@ -37,7 +37,6 @@ class AppendedArrayKeyTypeRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param \PhpParser\Node\Expr\Assign $node
 	 * @param \PHPStan\Analyser\Scope $scope
-	 *
 	 * @return string[]
 	 */
 	public function processNode(\PhpParser\Node $node, Scope $scope): array

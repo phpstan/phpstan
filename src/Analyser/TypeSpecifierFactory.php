@@ -10,8 +10,8 @@ use PHPStan\Broker\BrokerFactory;
 class TypeSpecifierFactory
 {
 
-	public const FUNCTION_TYPE_SPECIFYING_EXTENSION_TAG      = 'phpstan.typeSpecifier.functionTypeSpecifyingExtension';
-	public const METHOD_TYPE_SPECIFYING_EXTENSION_TAG        = 'phpstan.typeSpecifier.methodTypeSpecifyingExtension';
+	public const FUNCTION_TYPE_SPECIFYING_EXTENSION_TAG = 'phpstan.typeSpecifier.functionTypeSpecifyingExtension';
+	public const METHOD_TYPE_SPECIFYING_EXTENSION_TAG = 'phpstan.typeSpecifier.methodTypeSpecifyingExtension';
 	public const STATIC_METHOD_TYPE_SPECIFYING_EXTENSION_TAG = 'phpstan.typeSpecifier.staticMethodTypeSpecifyingExtension';
 
 	/** @var \Nette\DI\Container */

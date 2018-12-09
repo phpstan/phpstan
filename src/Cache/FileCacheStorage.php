@@ -12,7 +12,6 @@ class FileCacheStorage implements CacheStorage
 	{
 		$this->directory = $directory;
 
-		/** @noinspection PhpUsageOfSilenceOperatorInspection */
 		if (
 			@\mkdir($this->directory)
 			&&
@@ -24,33 +23,23 @@ class FileCacheStorage implements CacheStorage
 
 	/**
 	 * @param string $key
-	 *
 	 * @return mixed|null
 	 */
 	public function load(string $key)
 	{
 		return (function (string $key) {
 			$filePath = $this->getFilePath($key);
-
-			if (\is_file($filePath)) {
-				return require $this->getFilePath($key);
-			}
-
-			return null;
-		})(
-			$key
-		);
+			return \is_file($filePath) ? require $this->getFilePath($key) : null;
+		})($key);
 	}
 
 	/**
 	 * @param string $key
 	 * @param mixed $data
-	 *
 	 * @return bool
 	 */
 	public function save(string $key, $data): bool
 	{
-		/** @noinspection PhpUsageOfSilenceOperatorInspection */
 		$writtenBytes = @\file_put_contents(
 			$this->getFilePath($key),
 			\sprintf("<?php declare(strict_types = 1);\n\nreturn %s;", \var_export($data, true))

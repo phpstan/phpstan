@@ -18,7 +18,6 @@ interface PhpMethodReflectionFactory
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
 	 * @param bool $isFinal
-	 *
 	 * @return \PHPStan\Reflection\Php\PhpMethodReflection
 	 */
 	public function create(

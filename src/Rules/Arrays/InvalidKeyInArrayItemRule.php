@@ -25,7 +25,6 @@ class InvalidKeyInArrayItemRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param \PhpParser\Node\Expr\ArrayItem $node
 	 * @param \PHPStan\Analyser\Scope $scope
-	 *
 	 * @return string[]
 	 */
 	public function processNode(\PhpParser\Node $node, Scope $scope): array

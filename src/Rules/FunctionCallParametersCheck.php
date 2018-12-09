@@ -38,7 +38,6 @@ class FunctionCallParametersCheck
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|\PhpParser\Node\Expr\New_ $funcCall
 	 * @param string[] $messages Eight message templates
-	 *
 	 * @return string[]
 	 */
 	public function check(

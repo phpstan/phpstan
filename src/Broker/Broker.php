@@ -183,7 +183,6 @@ class Broker
 
 	/**
 	 * @param string $className
-	 *
 	 * @return \PHPStan\Type\DynamicMethodReturnTypeExtension[]
 	 */
 	public function getDynamicMethodReturnTypeExtensionsForClass(string $className): array
@@ -202,7 +201,6 @@ class Broker
 
 	/**
 	 * @param string $className
-	 *
 	 * @return \PHPStan\Type\DynamicStaticMethodReturnTypeExtension[]
 	 */
 	public function getDynamicStaticMethodReturnTypeExtensionsForClass(string $className): array
@@ -230,7 +228,6 @@ class Broker
 	/**
 	 * @param \PHPStan\Type\DynamicMethodReturnTypeExtension[][]|\PHPStan\Type\DynamicStaticMethodReturnTypeExtension[][] $extensions
 	 * @param string $className
-	 *
 	 * @return mixed[]
 	 */
 	private function getDynamicExtensionsForType(array $extensions, string $className): array
@@ -596,7 +593,6 @@ class Broker
 	 * @param Node\Name $nameNode
 	 * @param \Closure(string $name): bool $existsCallback
 	 * @param Scope|null $scope
-	 *
 	 * @return string|null
 	 */
 	private function resolveName(

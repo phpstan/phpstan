@@ -576,7 +576,6 @@ class TypeSpecifier
 	/**
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @param \PhpParser\Node\Expr\BinaryOp $binaryOperation
-	 *
 	 * @return (Expr|\PHPStan\Type\ConstantScalarType)[]|null
 	 */
 	private function findTypeExpressionsFromBinaryOperation(Scope $scope, Node\Expr\BinaryOp $binaryOperation): ?array
@@ -636,7 +635,6 @@ class TypeSpecifier
 
 	/**
 	 * @param string $className
-	 *
 	 * @return \PHPStan\Type\MethodTypeSpecifyingExtension[]
 	 */
 	public function getMethodTypeSpecifyingExtensionsForClass(string $className): array
@@ -655,7 +653,6 @@ class TypeSpecifier
 
 	/**
 	 * @param string $className
-	 *
 	 * @return \PHPStan\Type\StaticMethodTypeSpecifyingExtension[]
 	 */
 	public function getStaticMethodTypeSpecifyingExtensionsForClass(string $className): array
@@ -675,7 +672,6 @@ class TypeSpecifier
 	/**
 	 * @param \PHPStan\Type\MethodTypeSpecifyingExtension[][]|\PHPStan\Type\StaticMethodTypeSpecifyingExtension[][] $extensions
 	 * @param string $className
-	 *
 	 * @return mixed[]
 	 */
 	private function getTypeSpecifyingExtensionsForType(array $extensions, string $className): array

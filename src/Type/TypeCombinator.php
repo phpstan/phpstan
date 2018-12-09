@@ -99,7 +99,6 @@ class TypeCombinator
 	public static function union(Type ...$types): Type
 	{
 		// transform A | (B | C) to A | B | C
-		/** @noinspection CallableInLoopTerminationConditionInspection */
 		for ($i = 0; $i < \count($types); $i++) {
 			if (!($types[$i] instanceof UnionType)) {
 				continue;
@@ -191,9 +190,7 @@ class TypeCombinator
 		);
 
 		// simplify string[] | int[] to (string|int)[]
-		/** @noinspection CallableInLoopTerminationConditionInspection */
 		for ($i = 0; $i < \count($types); $i++) {
-			/** @noinspection CallableInLoopTerminationConditionInspection */
 			for ($j = $i + 1; $j < \count($types); $j++) {
 				if ($types[$i] instanceof IterableType && $types[$j] instanceof IterableType) {
 					$types[$i] = new IterableType(
@@ -208,9 +205,7 @@ class TypeCombinator
 
 		// transform A | A to A
 		// transform A | never to A
-		/** @noinspection CallableInLoopTerminationConditionInspection */
 		for ($i = 0; $i < \count($types); $i++) {
-			/** @noinspection CallableInLoopTerminationConditionInspection */
 			for ($j = $i + 1; $j < \count($types); $j++) {
 				if (
 					!$types[$j] instanceof ConstantArrayType
@@ -271,7 +266,6 @@ class TypeCombinator
 	/**
 	 * @param ArrayType[] $arrayTypes
 	 * @param Type[] $accessoryTypes
-	 *
 	 * @return Type[]
 	 */
 	private static function processArrayTypes(array $arrayTypes, array $accessoryTypes): array
@@ -428,9 +422,7 @@ class TypeCombinator
 		// transform callable & int to never
 		// transform A & ~A to never
 		// transform int & string to never
-		/** @noinspection CallableInLoopTerminationConditionInspection */
 		for ($i = 0; $i < \count($types); $i++) {
-			/** @noinspection CallableInLoopTerminationConditionInspection */
 			for ($j = $i + 1; $j < \count($types); $j++) {
 				$isSuperTypeA = $types[$j]->isSuperTypeOf($types[$i]);
 				if ($isSuperTypeA->no()) {

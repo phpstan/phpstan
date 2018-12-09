@@ -22,7 +22,6 @@ class CheckstyleErrorFormatter implements ErrorFormatter
 	 *
 	 * @param \PHPStan\Command\AnalysisResult $analysisResult
 	 * @param \Symfony\Component\Console\Style\OutputStyle $style
-	 *
 	 * @return int Error code.
 	 */
 	public function formatErrors(
@@ -63,7 +62,6 @@ class CheckstyleErrorFormatter implements ErrorFormatter
 	 * Escapes values for using in XML
 	 *
 	 * @param string $string
-	 *
 	 * @return string
 	 */
 	protected function escape(string $string): string
@@ -75,7 +73,6 @@ class CheckstyleErrorFormatter implements ErrorFormatter
 	 * Group errors by file
 	 *
 	 * @param AnalysisResult $analysisResult
-	 *
 	 * @return array<string, array> Array that have as key the relative path of file
 	 *                              and as value an array with occurred errors.
 	 */

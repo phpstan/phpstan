@@ -190,7 +190,6 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	private function getMethodNameWithCorrectCase(string $lowercaseMethodName, string $traitTarget): ?string
 	{
 		$trait = \explode('::', $traitTarget)[0];
-		/** @noinspection SuspiciousLoopInspection */
 		foreach ($this->broker->getClass($trait)->getNativeReflection()->getTraitAliases() as $methodAlias => $traitTarget) {
 			if ($lowercaseMethodName === \strtolower($methodAlias)) {
 				return $methodAlias;
@@ -275,7 +274,6 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	/**
 	 * @param ClassReflection $declaringClass
 	 * @param mixed $nodes
-	 *
 	 * @return bool
 	 */
 	private function callsFuncGetArgs(ClassReflection $declaringClass, $nodes): bool

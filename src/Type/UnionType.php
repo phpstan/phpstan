@@ -511,7 +511,6 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	/**
 	 * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
-	 *
 	 * @return \PHPStan\Reflection\ParametersAcceptor[]
 	 */
 	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array
@@ -605,7 +604,6 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	/**
 	 * @param mixed[] $properties
-	 *
 	 * @return Type
 	 */
 	public static function __set_state(array $properties): Type
@@ -615,7 +613,6 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	/**
 	 * @param callable(Type $type): TrinaryLogic $getResult
-	 *
 	 * @return TrinaryLogic
 	 */
 	private function unionResults(callable $getResult): TrinaryLogic
@@ -625,7 +622,6 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	/**
 	 * @param callable(Type $type): Type $getType
-	 *
 	 * @return Type
 	 */
 	protected function unionTypes(callable $getType): Type

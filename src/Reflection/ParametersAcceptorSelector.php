@@ -13,7 +13,6 @@ class ParametersAcceptorSelector
 
 	/**
 	 * @param ParametersAcceptor[] $parametersAcceptors
-	 *
 	 * @return ParametersAcceptor
 	 */
 	public static function selectSingle(
@@ -31,7 +30,6 @@ class ParametersAcceptorSelector
 	 * @param Scope $scope
 	 * @param \PhpParser\Node\Arg[] $args
 	 * @param ParametersAcceptor[] $parametersAcceptors
-	 *
 	 * @return ParametersAcceptor
 	 */
 	public static function selectFromArgs(
@@ -63,7 +61,6 @@ class ParametersAcceptorSelector
 	 * @param \PHPStan\Type\Type[] $types
 	 * @param ParametersAcceptor[] $parametersAcceptors
 	 * @param bool $unpack
-	 *
 	 * @return ParametersAcceptor
 	 */
 	public static function selectFromTypes(
@@ -176,7 +173,6 @@ class ParametersAcceptorSelector
 
 	/**
 	 * @param ParametersAcceptor[] $acceptors
-	 *
 	 * @return ParametersAcceptor
 	 */
 	public static function combineAcceptors(array $acceptors): ParametersAcceptor

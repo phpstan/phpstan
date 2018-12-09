@@ -49,7 +49,6 @@ class ArrayMergeFunctionDynamicReturnTypeExtension implements \PHPStan\Type\Dyna
 
 	/**
 	 * @param \PHPStan\Type\Type[] $types
-	 *
 	 * @return Type
 	 */
 	private function processType(

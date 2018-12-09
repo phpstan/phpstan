@@ -452,7 +452,6 @@ class ThreeTypesCall
 
 	/**
 	 * @param string $globalTitle
-	 *
 	 * @return int|bool|string
 	 */
 	private function threeTypes($globalTitle) {

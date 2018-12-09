@@ -167,7 +167,6 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 
 	/**
 	 * @param mixed $nodes
-	 *
 	 * @return bool
 	 */
 	private function callsFuncGetArgs($nodes): bool

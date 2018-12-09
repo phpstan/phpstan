@@ -175,7 +175,6 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 	/**
 	 * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
-	 *
 	 * @return \PHPStan\Reflection\ParametersAcceptor[]
 	 */
 	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array
@@ -503,7 +502,6 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 	/**
 	 * @param mixed[] $properties
-	 *
 	 * @return Type
 	 */
 	public static function __set_state(array $properties): Type

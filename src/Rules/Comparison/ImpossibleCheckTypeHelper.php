@@ -243,7 +243,6 @@ class ImpossibleCheckTypeHelper
 	/**
 	 * @param Scope $scope
 	 * @param \PhpParser\Node\Arg[] $args
-	 *
 	 * @return string
 	 */
 	public function getArgumentsDescription(

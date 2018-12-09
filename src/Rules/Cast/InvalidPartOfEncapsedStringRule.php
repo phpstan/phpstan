@@ -26,7 +26,6 @@ class InvalidPartOfEncapsedStringRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param \PhpParser\Node\Scalar\Encapsed $node
 	 * @param \PHPStan\Analyser\Scope $scope
-	 *
 	 * @return string[] errors
 	 */
 	public function processNode(Node $node, Scope $scope): array

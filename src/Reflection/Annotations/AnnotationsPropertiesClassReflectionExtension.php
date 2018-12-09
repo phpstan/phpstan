@@ -38,7 +38,6 @@ class AnnotationsPropertiesClassReflectionExtension implements PropertiesClassRe
 	/**
 	 * @param \PHPStan\Reflection\ClassReflection $classReflection
 	 * @param \PHPStan\Reflection\ClassReflection $declaringClass
-	 *
 	 * @return \PHPStan\Reflection\PropertyReflection[]
 	 */
 	private function createProperties(

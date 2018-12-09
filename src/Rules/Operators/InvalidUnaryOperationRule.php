@@ -17,7 +17,6 @@ class InvalidUnaryOperationRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param \PhpParser\Node\Expr $node
 	 * @param \PHPStan\Analyser\Scope $scope
-	 *
 	 * @return string[]
 	 */
 	public function processNode(\PhpParser\Node $node, Scope $scope): array

@@ -67,7 +67,6 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	/**
 	 * @param \PHPStan\Type\DynamicMethodReturnTypeExtension[] $dynamicMethodReturnTypeExtensions
 	 * @param \PHPStan\Type\DynamicStaticMethodReturnTypeExtension[] $dynamicStaticMethodReturnTypeExtensions
-	 *
 	 * @return \PHPStan\Broker\Broker
 	 */
 	public function createBroker(
@@ -114,7 +113,6 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			 * @param bool $isDeprecated
 			 * @param bool $isInternal
 			 * @param bool $isFinal $isFinal
-			 *
 			 * @return PhpMethodReflection
 			 */
 			public function create(
@@ -193,7 +191,6 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			 * @param bool $isInternal
 			 * @param bool $isFinal
 			 * @param string|false $filename
-			 *
 			 * @return PhpFunctionReflection
 			 */
 			public function create(
@@ -280,7 +277,6 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	 * @param Broker $broker
 	 * @param TypeSpecifier $typeSpecifier
 	 * @param string[] $dynamicConstantNames
-	 *
 	 * @return ScopeFactory
 	 */
 	public function createScopeFactory(Broker $broker, TypeSpecifier $typeSpecifier, array $dynamicConstantNames = []): ScopeFactory
@@ -328,7 +324,6 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	 * @param \PHPStan\Broker\Broker $broker
 	 * @param \PHPStan\Type\MethodTypeSpecifyingExtension[] $methodTypeSpecifyingExtensions
 	 * @param \PHPStan\Type\StaticMethodTypeSpecifyingExtension[] $staticMethodTypeSpecifyingExtensions
-	 *
 	 * @return \PHPStan\Analyser\TypeSpecifier
 	 */
 	public function createTypeSpecifier(
