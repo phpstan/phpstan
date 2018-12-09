@@ -35,20 +35,20 @@ class MbFunctionsReturnTypeExtension implements \PHPStan\Type\DynamicFunctionRet
 	public function __construct()
 	{
 		$supportedEncodings = [];
-		if (function_exists('mb_list_encodings')) {
-			$supportedEncodings = mb_list_encodings();
+		if (\function_exists('mb_list_encodings')) {
+			$supportedEncodings = \mb_list_encodings();
 		}
-		$this->supportedEncodings = array_map('strtoupper', $supportedEncodings);
+		$this->supportedEncodings = \array_map('strtoupper', $supportedEncodings);
 	}
 
 	public function isFunctionSupported(FunctionReflection $functionReflection): bool
 	{
-		return array_key_exists($functionReflection->getName(), $this->encodingPositionMap);
+		return \array_key_exists($functionReflection->getName(), $this->encodingPositionMap);
 	}
 
 	private function isSupportedEncoding(string $encoding): bool
 	{
-		return in_array(strtoupper($encoding), $this->supportedEncodings, true);
+		return \in_array(\strtoupper($encoding), $this->supportedEncodings, true);
 	}
 
 	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope): Type
@@ -56,20 +56,25 @@ class MbFunctionsReturnTypeExtension implements \PHPStan\Type\DynamicFunctionRet
 		$returnType = ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
 		$positionEncodingParam = $this->encodingPositionMap[$functionReflection->getName()];
 
-		if (count($functionCall->args) < $positionEncodingParam) {
+		if (\count($functionCall->args) < $positionEncodingParam) {
 			return TypeCombinator::remove($returnType, new BooleanType());
 		}
 
 		$strings = TypeUtils::getConstantStrings($scope->getType($functionCall->args[$positionEncodingParam - 1]->value));
-		$results = array_unique(array_map(function (ConstantStringType $encoding): bool {
-			return $this->isSupportedEncoding($encoding->getValue());
-		}, $strings));
+		$results = \array_unique(
+			\array_map(
+				function (ConstantStringType $encoding): bool {
+					return $this->isSupportedEncoding($encoding->getValue());
+				},
+				$strings
+			)
+		);
 
 		if ($returnType->equals(new UnionType([new StringType(), new BooleanType()]))) {
-			return count($results) === 1 ? new ConstantBooleanType($results[0]) : new BooleanType();
+			return \count($results) === 1 ? new ConstantBooleanType($results[0]) : new BooleanType();
 		}
 
-		if (count($results) === 1) {
+		if (\count($results) === 1) {
 			return $results[0]
 				? TypeCombinator::remove($returnType, new ConstantBooleanType(false))
 				: new ConstantBooleanType(false);

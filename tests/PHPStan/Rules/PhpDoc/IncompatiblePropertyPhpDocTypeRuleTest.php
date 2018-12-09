@@ -14,16 +14,19 @@ class IncompatiblePropertyPhpDocTypeRuleTest extends \PHPStan\Testing\RuleTestCa
 
 	public function testRule(): void
 	{
-		$this->analyse([__DIR__ . '/data/incompatible-property-phpdoc.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/incompatible-property-phpdoc.php'],
 			[
-				'PHPDoc tag @var for property InvalidPhpDoc\FooWithProperty::$foo contains unresolvable type.',
-				9,
-			],
-			[
-				'PHPDoc tag @var for property InvalidPhpDoc\FooWithProperty::$bar contains unresolvable type.',
-				12,
-			],
-		]);
+				[
+					'PHPDoc tag @var for property InvalidPhpDoc\FooWithProperty::$foo contains unresolvable type.',
+					9,
+				],
+				[
+					'PHPDoc tag @var for property InvalidPhpDoc\FooWithProperty::$bar contains unresolvable type.',
+					12,
+				],
+			]
+		);
 	}
 
 }

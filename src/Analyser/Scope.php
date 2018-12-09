@@ -1514,7 +1514,7 @@ class Scope implements ClassMemberAccessAnswerer
 				}
 			}
 
-if (count($resolvedTypes) > 0) {
+			if (\count($resolvedTypes) > 0) {
 				return TypeCombinator::union(...$resolvedTypes);
 			}
 
@@ -1576,12 +1576,16 @@ if (count($resolvedTypes) > 0) {
 				if ($staticMethodReturnType instanceof StaticResolvableType) {
 					if ($node->class instanceof Name) {
 						$nameNodeClassName = (string) $node->class;
-						$lowercasedNameNodeClassName = strtolower($nameNodeClassName);
-						if (in_array($lowercasedNameNodeClassName, [
-							'self',
-							'static',
-							'parent',
-						], true) && $this->isInClass()) {
+						$lowercasedNameNodeClassName = \strtolower($nameNodeClassName);
+						if (\in_array(
+							$lowercasedNameNodeClassName,
+							[
+								'self',
+								'static',
+								'parent',
+							],
+							true
+						) && $this->isInClass()) {
 							$resolvedTypes[] = $staticMethodReturnType->changeBaseClass($this->getClassReflection()->getName());
 						} elseif ($this->broker->hasClass($nameNodeClassName)) {
 							$classReflection = $this->broker->getClass($nameNodeClassName);
@@ -1635,7 +1639,7 @@ if (count($resolvedTypes) > 0) {
 				$types[] = $propertyClassReflection->getProperty($propertyName, $this)->getType();
 			}
 
-			if (count($types) > 0) {
+			if (\count($types) > 0) {
 				return TypeCombinator::union(...$types);
 			}
 
@@ -1653,8 +1657,8 @@ if (count($resolvedTypes) > 0) {
 			) {
 			if (
 			$node->class instanceof Name
-		) {
-			$calleeType = new ObjectType($this->resolveName($node->class));
+			) {
+				$calleeType = new ObjectType($this->resolveName($node->class));
 			} else {
 				$calleeType = $this->getType($node->class);
 			}
@@ -1675,7 +1679,7 @@ if (count($resolvedTypes) > 0) {
 				$types[] = $propertyClassReflection->getProperty($propertyName, $this)->getType();
 			}
 
-			if (count($types) > 0) {
+			if (\count($types) > 0) {
 				return TypeCombinator::union(...$types);
 			}
 

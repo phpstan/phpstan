@@ -53,7 +53,7 @@ class MethodSignatureRule implements \PHPStan\Rules\Rule
 			$parentParameters = ParametersAcceptorSelector::selectSingle($parentMethod->getVariants());
 
 			if (!$this->checkReturnTypeCompatibility($parameters->getReturnType(), $parentParameters->getReturnType())) {
-				$errors[] = sprintf(
+				$errors[] = \sprintf(
 					'Return type (%s) of method %s::%s() should be compatible with return type (%s) of method %s::%s()',
 					$parameters->getReturnType()->describe(VerbosityLevel::typeOnly()),
 					$class->getName(),
@@ -68,7 +68,7 @@ class MethodSignatureRule implements \PHPStan\Rules\Rule
 			foreach ($invalidParameterIndexes as $invalidParameterIndex) {
 				$parameter = $parameters->getParameters()[$invalidParameterIndex];
 				$parentParameter = $parentParameters->getParameters()[$invalidParameterIndex];
-				$errors[] = sprintf(
+				$errors[] = \sprintf(
 					'Parameter #%d $%s (%s) of method %s::%s() should be compatible with parameter $%s (%s) of method %s::%s()',
 					$invalidParameterIndex + 1,
 					$parameter->getName(),
@@ -138,7 +138,7 @@ class MethodSignatureRule implements \PHPStan\Rules\Rule
 	{
 		$invalidParameters = [];
 
-		$numberOfParameters = min(count($parameters), count($parentParameters));
+		$numberOfParameters = \min(\count($parameters), \count($parentParameters));
 		for ($i = 0; $i < $numberOfParameters; $i++) {
 			$parameter = $parameters[$i];
 			$parentParameter = $parentParameters[$i];

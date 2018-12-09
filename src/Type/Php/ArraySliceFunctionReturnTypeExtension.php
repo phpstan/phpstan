@@ -60,7 +60,7 @@ class ArraySliceFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunc
 		}
 
 		$constantArrays = TypeUtils::getConstantArrays($valueType);
-		if (count($constantArrays) === 0) {
+		if (\count($constantArrays) === 0) {
 			if (!$valueType instanceof ArrayType) {
 				return new ArrayType(
 					new MixedType(),
@@ -78,9 +78,12 @@ class ArraySliceFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunc
 			$preserveKeys = false;
 		}
 
-		$arrayTypes = array_map(static function (ConstantArrayType $constantArray) use ($offset, $limit, $preserveKeys): ConstantArrayType {
-			return $constantArray->slice($offset->getValue(), $limit->getValue(), $preserveKeys);
-		}, $constantArrays);
+		$arrayTypes = \array_map(
+			static function (ConstantArrayType $constantArray) use ($offset, $limit, $preserveKeys): ConstantArrayType {
+				return $constantArray->slice($offset->getValue(), $limit->getValue(), $preserveKeys);
+			},
+			$constantArrays
+		);
 
 		return TypeCombinator::union(...$arrayTypes);
 	}

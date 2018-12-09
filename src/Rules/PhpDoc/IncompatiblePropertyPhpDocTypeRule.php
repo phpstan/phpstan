@@ -34,7 +34,7 @@ class IncompatiblePropertyPhpDocTypeRule implements Rule
 			|| $propertyReflection->getType() instanceof NeverType
 		) {
 			return [
-				sprintf(
+				\sprintf(
 					'PHPDoc tag @var for property %s::$%s contains unresolvable type.',
 					$propertyReflection->getDeclaringClass()->getName(),
 					$propertyName

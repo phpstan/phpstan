@@ -353,23 +353,26 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 	public function slice(int $offset, ?int $limit, bool $preserveKeys = false): self
 	{
-		if (count($this->keyTypes) === 0) {
+		if (\count($this->keyTypes) === 0) {
 			return $this;
 		}
 
-		$keyTypes = array_slice($this->keyTypes, $offset, $limit);
-		$valueTypes = array_slice($this->valueTypes, $offset, $limit);
+		$keyTypes = \array_slice($this->keyTypes, $offset, $limit);
+		$valueTypes = \array_slice($this->valueTypes, $offset, $limit);
 
 		if (!$preserveKeys) {
 			$i = 0;
-			$keyTypes = array_map(static function (ConstantScalarType $keyType) use (&$i): ConstantScalarType {
-				if ($keyType instanceof ConstantIntegerType) {
-					$i++;
-					return new ConstantIntegerType($i - 1);
-				}
+			$keyTypes = \array_map(
+				static function (ConstantScalarType $keyType) use (&$i): ConstantScalarType {
+					if ($keyType instanceof ConstantIntegerType) {
+						$i++;
+						return new ConstantIntegerType($i - 1);
+					}
 
-				return $keyType;
-			}, $keyTypes);
+					return $keyType;
+				},
+				$keyTypes
+			);
 		}
 
 		$nextAutoIndex = 0;
@@ -378,7 +381,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 				continue;
 			}
 
-			$nextAutoIndex = max($nextAutoIndex, $keyType->getValue() + 1);
+			$nextAutoIndex = \max($nextAutoIndex, $keyType->getValue() + 1);
 		}
 
 		return new self(
