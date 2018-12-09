@@ -7,6 +7,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
@@ -52,29 +53,38 @@ class MethodSignatureRule implements \PHPStan\Rules\Rule
 		foreach ($this->collectParentMethods($methodName, $class, $scope) as $parentMethod) {
 			$parentParameters = ParametersAcceptorSelector::selectSingle($parentMethod->getVariants());
 
-			if (!$this->checkReturnTypeCompatibility($parameters->getReturnType(), $parentParameters->getReturnType())) {
+			$returnTypeCompatibility = $this->checkReturnTypeCompatibility($parameters->getReturnType(), $parentParameters->getReturnType());
+			if ($returnTypeCompatibility->no() || (!$returnTypeCompatibility->yes() && $this->reportMaybes)) {
 				$errors[] = sprintf(
-					'Return type (%s) of method %s::%s() should be compatible with return type (%s) of method %s::%s()',
+					'Return type (%s) of method %s::%s() should be %s with return type (%s) of method %s::%s()',
 					$parameters->getReturnType()->describe(VerbosityLevel::typeOnly()),
 					$class->getName(),
 					$methodName,
+					$returnTypeCompatibility->no() ? 'compatible' : 'covariant',
 					$parentParameters->getReturnType()->describe(VerbosityLevel::typeOnly()),
 					$parentMethod->getDeclaringClass()->getName(),
 					$methodName
 				);
 			}
 
-			$invalidParameterIndexes = $this->checkParameterTypeCompatibility($parameters->getParameters(), $parentParameters->getParameters());
-			foreach ($invalidParameterIndexes as $invalidParameterIndex) {
-				$parameter = $parameters->getParameters()[$invalidParameterIndex];
-				$parentParameter = $parentParameters->getParameters()[$invalidParameterIndex];
+			$parameterResults = $this->checkParameterTypeCompatibility($parameters->getParameters(), $parentParameters->getParameters());
+			foreach ($parameterResults as $parameterIndex => $parameterResult) {
+				if ($parameterResult->yes()) {
+					continue;
+				}
+				if (!$parameterResult->no() && !$this->reportMaybes) {
+					continue;
+				}
+				$parameter = $parameters->getParameters()[$parameterIndex];
+				$parentParameter = $parentParameters->getParameters()[$parameterIndex];
 				$errors[] = sprintf(
-					'Parameter #%d $%s (%s) of method %s::%s() should be compatible with parameter $%s (%s) of method %s::%s()',
-					$invalidParameterIndex + 1,
+					'Parameter #%d $%s (%s) of method %s::%s() should be %s with parameter $%s (%s) of method %s::%s()',
+					$parameterIndex + 1,
 					$parameter->getName(),
 					$parameter->getType()->describe(VerbosityLevel::typeOnly()),
 					$class->getName(),
 					$methodName,
+					$parameterResult->no() ? 'compatible' : 'contravariant',
 					$parentParameter->getName(),
 					$parentParameter->getType()->describe(VerbosityLevel::typeOnly()),
 					$parentMethod->getDeclaringClass()->getName(),
@@ -115,28 +125,27 @@ class MethodSignatureRule implements \PHPStan\Rules\Rule
 	private function checkReturnTypeCompatibility(
 		Type $returnType,
 		Type $parentReturnType
-	): bool
+	): TrinaryLogic
 	{
 		// Allow adding `void` return type hints when the parent defines no return type
 		if ($returnType instanceof VoidType && $parentReturnType instanceof MixedType) {
-			return true;
+			return TrinaryLogic::createYes();
 		}
 
-		$isValid = $parentReturnType->isSuperTypeOf($returnType);
-		return $isValid->yes() || (!$this->reportMaybes && $isValid->maybe());
+		return $parentReturnType->isSuperTypeOf($returnType);
 	}
 
 	/**
 	 * @param \PHPStan\Reflection\ParameterReflection[] $parameters
 	 * @param \PHPStan\Reflection\ParameterReflection[] $parentParameters
-	 * @return int[] Indexes of the invalid parameters
+	 * @return array<int, TrinaryLogic>
 	 */
 	private function checkParameterTypeCompatibility(
 		array $parameters,
 		array $parentParameters
 	): array
 	{
-		$invalidParameters = [];
+		$parameterResults = [];
 
 		$numberOfParameters = min(count($parameters), count($parentParameters));
 		for ($i = 0; $i < $numberOfParameters; $i++) {
@@ -146,15 +155,10 @@ class MethodSignatureRule implements \PHPStan\Rules\Rule
 			$parameterType = $parameter->getType();
 			$parentParameterType = $parentParameter->getType();
 
-			$isValid = $parameterType->isSuperTypeOf($parentParameterType);
-			if ($isValid->yes() || (!$this->reportMaybes && $isValid->maybe())) {
-				continue;
-			}
-
-			$invalidParameters[] = $i;
+			$parameterResults[] = $parameterType->isSuperTypeOf($parentParameterType);
 		}
 
-		return $invalidParameters;
+		return $parameterResults;
 	}
 
 }

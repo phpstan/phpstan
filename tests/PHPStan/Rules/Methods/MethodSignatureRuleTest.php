@@ -23,11 +23,11 @@ class MethodSignatureRuleTest extends \PHPStan\Testing\RuleTestCase
 			],
 			[
 				[
-					'Parameter #1 $animal (MethodSignature\Dog) of method MethodSignature\SubClass::parameterTypeTest4() should be compatible with parameter $animal (MethodSignature\Animal) of method MethodSignature\BaseClass::parameterTypeTest4()',
+					'Parameter #1 $animal (MethodSignature\Dog) of method MethodSignature\SubClass::parameterTypeTest4() should be contravariant with parameter $animal (MethodSignature\Animal) of method MethodSignature\BaseClass::parameterTypeTest4()',
 					36,
 				],
 				[
-					'Parameter #1 $animal (MethodSignature\Dog) of method MethodSignature\SubClass::parameterTypeTest4() should be compatible with parameter $animal (MethodSignature\Animal) of method MethodSignature\BaseInterface::parameterTypeTest4()',
+					'Parameter #1 $animal (MethodSignature\Dog) of method MethodSignature\SubClass::parameterTypeTest4() should be contravariant with parameter $animal (MethodSignature\Animal) of method MethodSignature\BaseInterface::parameterTypeTest4()',
 					36,
 				],
 				[
@@ -39,19 +39,19 @@ class MethodSignatureRuleTest extends \PHPStan\Testing\RuleTestCase
 					43,
 				],
 				[
-					'Return type (mixed) of method MethodSignature\SubClass::returnTypeTest1() should be compatible with return type (void) of method MethodSignature\BaseClass::returnTypeTest1()',
+					'Return type (mixed) of method MethodSignature\SubClass::returnTypeTest1() should be covariant with return type (void) of method MethodSignature\BaseClass::returnTypeTest1()',
 					68,
 				],
 				[
-					'Return type (mixed) of method MethodSignature\SubClass::returnTypeTest1() should be compatible with return type (void) of method MethodSignature\BaseInterface::returnTypeTest1()',
+					'Return type (mixed) of method MethodSignature\SubClass::returnTypeTest1() should be covariant with return type (void) of method MethodSignature\BaseInterface::returnTypeTest1()',
 					68,
 				],
 				[
-					'Return type (MethodSignature\Animal) of method MethodSignature\SubClass::returnTypeTest4() should be compatible with return type (MethodSignature\Dog) of method MethodSignature\BaseClass::returnTypeTest4()',
+					'Return type (MethodSignature\Animal) of method MethodSignature\SubClass::returnTypeTest4() should be covariant with return type (MethodSignature\Dog) of method MethodSignature\BaseClass::returnTypeTest4()',
 					89,
 				],
 				[
-					'Return type (MethodSignature\Animal) of method MethodSignature\SubClass::returnTypeTest4() should be compatible with return type (MethodSignature\Dog) of method MethodSignature\BaseInterface::returnTypeTest4()',
+					'Return type (MethodSignature\Animal) of method MethodSignature\SubClass::returnTypeTest4() should be covariant with return type (MethodSignature\Dog) of method MethodSignature\BaseInterface::returnTypeTest4()',
 					89,
 				],
 				[
@@ -63,11 +63,11 @@ class MethodSignatureRuleTest extends \PHPStan\Testing\RuleTestCase
 					96,
 				],
 				[
-					'Parameter #1 $animal (MethodSignature\Dog) of method MethodSignature\SubClassUsingTrait::parameterTypeTest4() should be compatible with parameter $animal (MethodSignature\Animal) of method MethodSignature\BaseClass::parameterTypeTest4()',
+					'Parameter #1 $animal (MethodSignature\Dog) of method MethodSignature\SubClassUsingTrait::parameterTypeTest4() should be contravariant with parameter $animal (MethodSignature\Animal) of method MethodSignature\BaseClass::parameterTypeTest4()',
 					262,
 				],
 				[
-					'Parameter #1 $animal (MethodSignature\Dog) of method MethodSignature\SubClassUsingTrait::parameterTypeTest4() should be compatible with parameter $animal (MethodSignature\Animal) of method MethodSignature\BaseInterface::parameterTypeTest4()',
+					'Parameter #1 $animal (MethodSignature\Dog) of method MethodSignature\SubClassUsingTrait::parameterTypeTest4() should be contravariant with parameter $animal (MethodSignature\Animal) of method MethodSignature\BaseInterface::parameterTypeTest4()',
 					262,
 				],
 				[
@@ -79,19 +79,19 @@ class MethodSignatureRuleTest extends \PHPStan\Testing\RuleTestCase
 					269,
 				],
 				[
-					'Return type (mixed) of method MethodSignature\SubClassUsingTrait::returnTypeTest1() should be compatible with return type (void) of method MethodSignature\BaseClass::returnTypeTest1()',
+					'Return type (mixed) of method MethodSignature\SubClassUsingTrait::returnTypeTest1() should be covariant with return type (void) of method MethodSignature\BaseClass::returnTypeTest1()',
 					294,
 				],
 				[
-					'Return type (mixed) of method MethodSignature\SubClassUsingTrait::returnTypeTest1() should be compatible with return type (void) of method MethodSignature\BaseInterface::returnTypeTest1()',
+					'Return type (mixed) of method MethodSignature\SubClassUsingTrait::returnTypeTest1() should be covariant with return type (void) of method MethodSignature\BaseInterface::returnTypeTest1()',
 					294,
 				],
 				[
-					'Return type (MethodSignature\Animal) of method MethodSignature\SubClassUsingTrait::returnTypeTest4() should be compatible with return type (MethodSignature\Dog) of method MethodSignature\BaseClass::returnTypeTest4()',
+					'Return type (MethodSignature\Animal) of method MethodSignature\SubClassUsingTrait::returnTypeTest4() should be covariant with return type (MethodSignature\Dog) of method MethodSignature\BaseClass::returnTypeTest4()',
 					315,
 				],
 				[
-					'Return type (MethodSignature\Animal) of method MethodSignature\SubClassUsingTrait::returnTypeTest4() should be compatible with return type (MethodSignature\Dog) of method MethodSignature\BaseInterface::returnTypeTest4()',
+					'Return type (MethodSignature\Animal) of method MethodSignature\SubClassUsingTrait::returnTypeTest4() should be covariant with return type (MethodSignature\Dog) of method MethodSignature\BaseInterface::returnTypeTest4()',
 					315,
 				],
 				[
