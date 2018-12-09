@@ -33,7 +33,7 @@ class ImpossibleCheckTypeStaticMethodCallRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\StaticCall $node
-	 * @param \PHPStan\Analyser\Scope         $scope
+	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[] errors
 	 */
@@ -52,7 +52,7 @@ class ImpossibleCheckTypeStaticMethodCallRule implements \PHPStan\Rules\Rule
 			$method = $this->getMethod($node->class, $node->name->name, $scope);
 
 			return [
-				sprintf(
+				\sprintf(
 					'Call to static method %s::%s()%s will always evaluate to false.',
 					$method->getDeclaringClass()->getDisplayName(),
 					$method->getName(),
@@ -65,7 +65,7 @@ class ImpossibleCheckTypeStaticMethodCallRule implements \PHPStan\Rules\Rule
 			$method = $this->getMethod($node->class, $node->name->name, $scope);
 
 			return [
-				sprintf(
+				\sprintf(
 					'Call to static method %s::%s()%s will always evaluate to true.',
 					$method->getDeclaringClass()->getDisplayName(),
 					$method->getName(),
@@ -79,8 +79,8 @@ class ImpossibleCheckTypeStaticMethodCallRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param Node\Name|Expr $class
-	 * @param string         $methodName
-	 * @param Scope          $scope
+	 * @param string $methodName
+	 * @param Scope $scope
 	 *
 	 * @return MethodReflection
 	 * @throws \PHPStan\ShouldNotHappenException

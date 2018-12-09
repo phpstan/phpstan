@@ -24,7 +24,7 @@ class SignatureMapParser
 	}
 
 	/**
-	 * @param mixed[]     $map
+	 * @param mixed[] $map
 	 * @param string|null $className
 	 *
 	 * @return \PHPStan\Reflection\SignatureMap\FunctionSignature
@@ -52,13 +52,13 @@ class SignatureMapParser
 		if ($typeString === '') {
 			return new MixedType(true);
 		}
-		$parts = explode('|', $typeString);
+		$parts = \explode('|', $typeString);
 		$types = [];
 		foreach ($parts as $part) {
 			$isNullable = false;
-			if (substr($part, 0, 1) === '?') {
+			if (\substr($part, 0, 1) === '?') {
 				$isNullable = true;
-				$part = substr($part, 1);
+				$part = \substr($part, 1);
 			}
 
 			if ($part === 'OCI-Lob' || $part === 'OCI-Collection') {
@@ -116,13 +116,13 @@ class SignatureMapParser
 		$isVariadic = $matches['variadic'] !== '';
 
 		$reference = $matches['reference'];
-		if (strpos($reference, '&...') === 0) {
-			$reference = '&' . substr($reference, 4);
+		if (\strpos($reference, '&...') === 0) {
+			$reference = '&' . \substr($reference, 4);
 			$isVariadic = true;
 		}
-		if (strpos($reference, '&rw') === 0) {
+		if (\strpos($reference, '&rw') === 0) {
 			$passedByReference = PassedByReference::createReadsArgument();
-		} elseif (strpos($reference, '&w') === 0) {
+		} elseif (\strpos($reference, '&w') === 0) {
 			$passedByReference = PassedByReference::createCreatesNewVariable();
 		} else {
 			$passedByReference = PassedByReference::createNo();

@@ -13,7 +13,7 @@ class UndefinedVariableException extends \PHPStan\AnalysedCodeException
 
 	public function __construct(Scope $scope, string $variableName)
 	{
-		parent::__construct(sprintf('Undefined variable: $%s', $variableName));
+		parent::__construct(\sprintf('Undefined variable: $%s', $variableName));
 		$this->scope = $scope;
 		$this->variableName = $variableName;
 	}

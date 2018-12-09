@@ -15,7 +15,7 @@ class ConstantRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\ConstFetch $node
-	 * @param \PHPStan\Analyser\Scope         $scope
+	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[]
 	 */
@@ -23,7 +23,7 @@ class ConstantRule implements \PHPStan\Rules\Rule
 	{
 		if (!$scope->hasConstant($node->name)) {
 			return [
-				sprintf(
+				\sprintf(
 					'Constant %s not found.',
 					(string) $node->name
 				),

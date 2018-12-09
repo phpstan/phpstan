@@ -44,14 +44,30 @@ class ArrayFilterFunctionReturnTypeReturnTypeExtension implements \PHPStan\Type\
 
 			if ($callbackArg === null) {
 				return TypeCombinator::union(
-					...array_map([$this, 'removeFalsey'], TypeUtils::getArrays($arrayArgType))
+					...\array_map([$this, 'removeFalsey'], TypeUtils::getArrays($arrayArgType))
 				);
 			}
 
-			if ($flagArg === null && $callbackArg instanceof Closure && \count($callbackArg->stmts) === 1) {
+			if (
+				$flagArg === null
+				&&
+				$callbackArg instanceof Closure
+				&&
+				\count($callbackArg->stmts) === 1
+			) {
 				$statement = $callbackArg->stmts[0];
-				if ($statement instanceof Return_ && $statement->expr !== null && \count($callbackArg->params) > 0) {
-					if (!$callbackArg->params[0]->var instanceof Variable || !\is_string($callbackArg->params[0]->var->name)) {
+				if (
+					$statement instanceof Return_
+					&&
+					$statement->expr !== null
+					&&
+					\count($callbackArg->params) > 0
+				) {
+					if (
+						!$callbackArg->params[0]->var instanceof Variable
+						||
+						!\is_string($callbackArg->params[0]->var->name)
+					) {
 						throw new \PHPStan\ShouldNotHappenException();
 					}
 					$itemVariableName = $callbackArg->params[0]->var->name;
@@ -99,7 +115,7 @@ class ArrayFilterFunctionReturnTypeReturnTypeExtension implements \PHPStan\Type\
 				}
 			}
 
-			$filteredArray = new ConstantArrayType(array_values($keys), array_values($values));
+			$filteredArray = new ConstantArrayType(\array_values($keys), \array_values($values));
 
 			return $generalize ? $filteredArray->generalize() : $filteredArray;
 		}

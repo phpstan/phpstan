@@ -14,17 +14,17 @@ class AnalyseCommandTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testConfigurationAutoDiscovery(string $dir, string $file): void
 	{
-		$originalDir = getcwd();
+		$originalDir = \getcwd();
 		if ($originalDir === false) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
-		chdir($dir);
+		\chdir($dir);
 
 		try {
 			$output = $this->runCommand(1);
 			$this->assertContains('Note: Using configuration file ' . $file . '.', $output);
 		} catch (\Throwable $e) {
-			chdir($originalDir);
+			\chdir($originalDir);
 			throw $e;
 		}
 	}
@@ -37,15 +37,15 @@ class AnalyseCommandTest extends \PHPStan\Testing\TestCase
 		return [
 			[
 				__DIR__ . '/test-autodiscover',
-				__DIR__ . DIRECTORY_SEPARATOR . 'test-autodiscover' . DIRECTORY_SEPARATOR . 'phpstan.neon',
+				__DIR__ . \DIRECTORY_SEPARATOR . 'test-autodiscover' . \DIRECTORY_SEPARATOR . 'phpstan.neon',
 			],
 			[
 				__DIR__ . '/test-autodiscover-dist',
-				__DIR__ . DIRECTORY_SEPARATOR . 'test-autodiscover-dist' . DIRECTORY_SEPARATOR . 'phpstan.neon.dist',
+				__DIR__ . \DIRECTORY_SEPARATOR . 'test-autodiscover-dist' . \DIRECTORY_SEPARATOR . 'phpstan.neon.dist',
 			],
 			[
 				__DIR__ . '/test-autodiscover-priority',
-				__DIR__ . DIRECTORY_SEPARATOR . 'test-autodiscover-priority' . DIRECTORY_SEPARATOR . 'phpstan.neon',
+				__DIR__ . \DIRECTORY_SEPARATOR . 'test-autodiscover-priority' . \DIRECTORY_SEPARATOR . 'phpstan.neon',
 			],
 		];
 	}
@@ -56,7 +56,7 @@ class AnalyseCommandTest extends \PHPStan\Testing\TestCase
 
 		$commandTester->execute(
 			[
-				'paths' => [__DIR__ . DIRECTORY_SEPARATOR . 'test'],
+				'paths' => [__DIR__ . \DIRECTORY_SEPARATOR . 'test'],
 			]
 		);
 

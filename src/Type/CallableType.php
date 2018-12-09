@@ -33,8 +33,8 @@ class CallableType implements CompoundType, ParametersAcceptor
 
 	/**
 	 * @param array<int, \PHPStan\Reflection\Native\NativeParameterReflection> $parameters
-	 * @param Type                                                             $returnType
-	 * @param bool                                                             $variadic
+	 * @param Type $returnType
+	 * @param bool $variadic
 	 */
 	public function __construct(
 		?array $parameters = null,
@@ -91,7 +91,7 @@ class CallableType implements CompoundType, ParametersAcceptor
 			if ($variantsResult === null) {
 				$variantsResult = $isSuperType;
 			} else {
-				/* @var $variantsResult TrinaryLogic */
+				/** @var TrinaryLogic $variantsResult */
 				$variantsResult = $variantsResult->or($isSuperType);
 			}
 		}

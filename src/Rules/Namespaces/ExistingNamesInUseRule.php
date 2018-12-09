@@ -78,7 +78,9 @@ class ExistingNamesInUseRule implements \PHPStan\Rules\Rule
 				continue;
 			}
 
-			$errors[] = RuleErrorBuilder::message(sprintf('Used constant %s not found.', (string) $use->name))->line($use->name->getLine())->build();
+			$errors[] = RuleErrorBuilder::message(\sprintf('Used constant %s not found.', (string) $use->name))
+										->line($use->name->getLine())
+										->build();
 		}
 
 		return $errors;
@@ -93,21 +95,24 @@ class ExistingNamesInUseRule implements \PHPStan\Rules\Rule
 		$errors = [];
 		foreach ($uses as $use) {
 			if (!$this->broker->hasFunction($use->name, null)) {
-				$errors[] = RuleErrorBuilder::message(sprintf('Used function %s not found.', (string) $use->name))->line($use->name->getLine())->build();
+				$errors[] = RuleErrorBuilder::message(\sprintf('Used function %s not found.', (string) $use->name))
+											->line($use->name->getLine())
+											->build();
 			} elseif ($this->checkFunctionNameCase) {
-				$functionReflection = $this->broker->getFunction($use->name, null);
-				$realName = $functionReflection->getName();
+				$realName = $this->broker->getFunction($use->name, null)->getName();
 				$usedName = (string) $use->name;
 				if (
 					$realName !== $usedName
 					&&
-					strtolower($realName) === strtolower($usedName)
+					\strtolower($realName) === \strtolower($usedName)
 				) {
-					$errors[] = RuleErrorBuilder::message(sprintf(
-						'Function %s used with incorrect case: %s.',
-						$realName,
-						$usedName
-					))->line($use->name->getLine())->build();
+					$errors[] = RuleErrorBuilder::message(
+						\sprintf(
+							'Function %s used with incorrect case: %s.',
+							$realName,
+							$usedName
+						)
+					)->line($use->name->getLine())->build();
 				}
 			}
 		}
@@ -122,9 +127,12 @@ class ExistingNamesInUseRule implements \PHPStan\Rules\Rule
 	private function checkClasses(array $uses): array
 	{
 		return $this->classCaseSensitivityCheck->checkClassNames(
-			array_map(static function (\PhpParser\Node\Stmt\UseUse $use): ClassNameNodePair {
-				return new ClassNameNodePair((string) $use->name, $use->name);
-			}, $uses)
+			\array_map(
+				static function (\PhpParser\Node\Stmt\UseUse $use): ClassNameNodePair {
+					return new ClassNameNodePair((string) $use->name, $use->name);
+				},
+				$uses
+			)
 		);
 	}
 

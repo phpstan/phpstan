@@ -40,8 +40,8 @@ class UniversalObjectCratesClassReflectionExtension implements \PHPStan\Reflecti
 	}
 
 	/**
-	 * @param \PHPStan\Broker\Broker              $broker
-	 * @param string[]                            $classes
+	 * @param \PHPStan\Broker\Broker $broker
+	 * @param string[] $classes
 	 * @param \PHPStan\Reflection\ClassReflection $classReflection
 	 *
 	 * @return bool

@@ -15,13 +15,13 @@ class IgnoredError
 	 */
 	public static function stringifyPattern($ignoredError): string
 	{
-		if (!is_array($ignoredError)) {
+		if (!\is_array($ignoredError)) {
 			return $ignoredError;
 		}
 
 		// ignore by path
 		if (isset($ignoredError['path'])) {
-			return sprintf('%s in path %s', $ignoredError['message'], $ignoredError['path']);
+			return \sprintf('%s in path %s', $ignoredError['message'], $ignoredError['path']);
 		}
 
 		return $ignoredError['message'];
@@ -40,13 +40,13 @@ class IgnoredError
 		$ignoredError
 	): bool
 	{
-		if (is_array($ignoredError)) {
+		if (\is_array($ignoredError)) {
 			// ignore by path
 			if (isset($ignoredError['path'])) {
 				$fileExcluder = new FileExcluder($fileHelper, [$ignoredError['path']]);
 
 				return \Nette\Utils\Strings::match($error->getMessage(), $ignoredError['message']) !== null
-					&& $fileExcluder->isExcludedFromAnalysing($error->getFile());
+					   && $fileExcluder->isExcludedFromAnalysing($error->getFile());
 			}
 
 			throw new \PHPStan\ShouldNotHappenException();

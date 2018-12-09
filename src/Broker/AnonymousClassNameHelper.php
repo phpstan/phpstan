@@ -36,9 +36,9 @@ class AnonymousClassNameHelper
 			$this->fileHelper->normalizePath($filename)
 		);
 
-		return sprintf(
+		return \sprintf(
 			'AnonymousClass%s',
-			md5(sprintf('%s:%s', $filename, $node->class->getLine()))
+			\md5(\sprintf('%s:%s', $filename, $node->class->getLine()))
 		);
 	}
 

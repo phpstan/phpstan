@@ -51,12 +51,13 @@ class EchoRule implements Rule
 				continue;
 			}
 
-			$messages[] = sprintf(
+			$messages[] = \sprintf(
 				'Parameter #%d (%s) of echo cannot be converted to string.',
 				$key + 1,
 				$typeResult->getType()->describe(VerbosityLevel::value())
 			);
 		}
+
 		return $messages;
 	}
 

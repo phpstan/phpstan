@@ -21,7 +21,7 @@ class IsIntFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExte
 	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, TypeSpecifierContext $context): bool
 	{
 		return \in_array(
-			strtolower($functionReflection->getName()),
+			\strtolower($functionReflection->getName()),
 			[
 				'is_int',
 				'is_integer',

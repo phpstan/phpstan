@@ -15,10 +15,10 @@ class FunctionVariantWithPhpDocs extends FunctionVariant implements ParametersAc
 
 	/**
 	 * @param array<int, \PHPStan\Reflection\Php\PhpParameterReflection> $parameters
-	 * @param bool                                                       $isVariadic
-	 * @param Type                                                       $returnType
-	 * @param Type                                                       $phpDocReturnType
-	 * @param Type                                                       $nativeReturnType
+	 * @param bool $isVariadic
+	 * @param Type $returnType
+	 * @param Type $phpDocReturnType
+	 * @param Type $nativeReturnType
 	 */
 	public function __construct(
 		array $parameters,

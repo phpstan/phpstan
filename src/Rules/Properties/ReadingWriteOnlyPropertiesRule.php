@@ -41,7 +41,7 @@ class ReadingWriteOnlyPropertiesRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr $node
-	 * @param Scope                $scope
+	 * @param Scope $scope
 	 *
 	 * @return string[]
 	 */
@@ -78,7 +78,7 @@ class ReadingWriteOnlyPropertiesRule implements \PHPStan\Rules\Rule
 			$propertyDescription = $this->propertyDescriptor->describeProperty($propertyReflection, $node);
 
 			return [
-				sprintf(
+				\sprintf(
 					'%s is not readable.',
 					$propertyDescription
 				),

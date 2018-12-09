@@ -226,29 +226,29 @@ class AnnotationsPropertiesClassReflectionExtensionTest extends \PHPStan\Testing
 		foreach ($properties as $propertyName => $expectedPropertyData) {
 			$this->assertTrue(
 				$class->hasProperty($propertyName),
-				sprintf('Class %s does not define property %s.', $className, $propertyName)
+				\sprintf('Class %s does not define property %s.', $className, $propertyName)
 			);
 
 			$property = $class->getProperty($propertyName, $scope);
 			$this->assertSame(
 				$expectedPropertyData['class'],
 				$property->getDeclaringClass()->getName(),
-				sprintf('Declaring class of property $%s does not match.', $propertyName)
+				\sprintf('Declaring class of property $%s does not match.', $propertyName)
 			);
 			$this->assertSame(
 				$expectedPropertyData['type'],
 				$property->getType()->describe(VerbosityLevel::precise()),
-				sprintf('Type of property %s::$%s does not match.', $property->getDeclaringClass()->getName(), $propertyName)
+				\sprintf('Type of property %s::$%s does not match.', $property->getDeclaringClass()->getName(), $propertyName)
 			);
 			$this->assertSame(
 				$expectedPropertyData['readable'],
 				$property->isReadable(),
-				sprintf('Property %s::$%s readability is not as expected.', $property->getDeclaringClass()->getName(), $propertyName)
+				\sprintf('Property %s::$%s readability is not as expected.', $property->getDeclaringClass()->getName(), $propertyName)
 			);
 			$this->assertSame(
 				$expectedPropertyData['writable'],
 				$property->isWritable(),
-				sprintf('Property %s::$%s writability is not as expected.', $property->getDeclaringClass()->getName(), $propertyName)
+				\sprintf('Property %s::$%s writability is not as expected.', $property->getDeclaringClass()->getName(), $propertyName)
 			);
 		}
 	}

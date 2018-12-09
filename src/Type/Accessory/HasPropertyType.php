@@ -119,7 +119,7 @@ class HasPropertyType implements CompoundType, AccessoryType
 
 	public function describe(\PHPStan\Type\VerbosityLevel $level): string
 	{
-		return sprintf('hasProperty(%s)', $this->propertyName);
+		return \sprintf('hasProperty(%s)', $this->propertyName);
 	}
 
 	public function canAccessProperties(): TrinaryLogic

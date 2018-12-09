@@ -22,7 +22,7 @@ class IsSubclassOfFunctionTypeSpecifyingExtension implements FunctionTypeSpecify
 
 	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, TypeSpecifierContext $context): bool
 	{
-		return strtolower($functionReflection->getName()) === 'is_subclass_of'
+		return \strtolower($functionReflection->getName()) === 'is_subclass_of'
 			   && \count($node->args) >= 2
 			   && !$context->null();
 	}

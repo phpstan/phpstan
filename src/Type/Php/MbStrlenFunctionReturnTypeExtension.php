@@ -35,10 +35,11 @@ class MbStrlenFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFuncti
 			return $returnType;
 		}
 
-		$result = array_unique(
-			array_map(
+		$result = \array_unique(
+			\array_map(
 				static function (ConstantStringType $encoding): bool {
-					return @mb_strlen('', $encoding->getValue()) !== false; // @ = silence the undocumented warning
+					/** @noinspection PhpUsageOfSilenceOperatorInspection */
+					return @\mb_strlen('', $encoding->getValue()) !== false; // @ = silence the undocumented warning
 				},
 				TypeUtils::getConstantStrings($scope->getType($functionCall->args[1]->value))
 			)

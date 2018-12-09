@@ -56,7 +56,7 @@ class ThrowTypeRule implements \PHPStan\Rules\Rule
 		}
 
 		return [
-			sprintf('Invalid type %s to throw.', $foundType->describe(VerbosityLevel::typeOnly())),
+			\sprintf('Invalid type %s to throw.', $foundType->describe(VerbosityLevel::typeOnly())),
 		];
 	}
 

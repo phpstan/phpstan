@@ -36,7 +36,7 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PhpParser\Node\Expr    $node
+	 * @param \PhpParser\Node\Expr $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[]
@@ -75,7 +75,7 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 			$propertyDescription = $this->propertyDescriptor->describeProperty($propertyReflection, $propertyFetch);
 
 			return [
-				sprintf(
+				\sprintf(
 					'%s (%s) does not accept %s.',
 					$propertyDescription,
 					$propertyType->describe(VerbosityLevel::typeOnly()),

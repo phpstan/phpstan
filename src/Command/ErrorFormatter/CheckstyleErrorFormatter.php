@@ -20,7 +20,7 @@ class CheckstyleErrorFormatter implements ErrorFormatter
 	/**
 	 * Formats the errors and outputs them to the console.
 	 *
-	 * @param \PHPStan\Command\AnalysisResult              $analysisResult
+	 * @param \PHPStan\Command\AnalysisResult $analysisResult
 	 * @param \Symfony\Component\Console\Style\OutputStyle $style
 	 *
 	 * @return int Error code.
@@ -35,19 +35,19 @@ class CheckstyleErrorFormatter implements ErrorFormatter
 
 		foreach ($this->groupByFile($analysisResult) as $relativeFilePath => $errors) {
 			$style->writeln(
-				sprintf(
+				\sprintf(
 					'<file name="%s">',
 					$this->escape($relativeFilePath)
 				)
 			);
 
-			/* @var $errors Error[] */
+			/** @var \PHPStan\Analyser\Error[] $errors */
 			foreach ($errors as $error) {
 				$style->writeln(
-					sprintf(
+					\sprintf(
 						'  <error line="%d" column="1" severity="error" message="%s" />',
 						$this->escape((string) $error->getLine()),
-						$this->escape((string) $error->getMessage())
+						$this->escape($error->getMessage())
 					)
 				);
 			}
@@ -68,7 +68,7 @@ class CheckstyleErrorFormatter implements ErrorFormatter
 	 */
 	protected function escape(string $string): string
 	{
-		return htmlspecialchars($string, ENT_XML1 | ENT_COMPAT, 'UTF-8');
+		return \htmlspecialchars($string, \ENT_XML1 | \ENT_COMPAT, 'UTF-8');
 	}
 
 	/**
@@ -77,7 +77,7 @@ class CheckstyleErrorFormatter implements ErrorFormatter
 	 * @param AnalysisResult $analysisResult
 	 *
 	 * @return array<string, array> Array that have as key the relative path of file
-	 *                              and as value an array with occured errors.
+	 *                              and as value an array with occurred errors.
 	 */
 	private function groupByFile(AnalysisResult $analysisResult): array
 	{

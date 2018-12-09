@@ -26,7 +26,7 @@ class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\Parame
 	/** @var \PHPStan\Reflection\PassedByReference */
 	private $passedByReference;
 
-	/** @var \PhpParser\Node\Expr|null */
+	/** @var \PhpParser\Node\Expr|ConstFetch|null */
 	private $defaultValue;
 
 	/** @var bool */
@@ -71,11 +71,9 @@ class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\Parame
 			if (
 				$phpDocType !== null
 				&&
-				$this->defaultValue !== null
-				&&
 				$this->defaultValue instanceof ConstFetch
 				&&
-				strtolower((string) $this->defaultValue->name) === 'null'
+				\strtolower((string) $this->defaultValue->name) === 'null'
 			) {
 				$phpDocType = \PHPStan\Type\TypeCombinator::addNull($phpDocType);
 			}

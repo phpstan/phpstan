@@ -10,7 +10,7 @@ class PathNotFoundException extends \Exception
 
 	public function __construct(string $path)
 	{
-		parent::__construct(sprintf('Path %s does not exist', $path));
+		parent::__construct(\sprintf('Path %s does not exist', $path));
 		$this->path = $path;
 	}
 

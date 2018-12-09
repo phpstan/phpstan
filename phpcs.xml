@@ -75,6 +75,12 @@
 	<!-- MUST use short list (list(...) -> [...]) -->
 	<rule ref="SlevomatCodingStandard.PHP.ShortList"/>
 
+	<!-- All references to global constants MUST be referenced via a fully qualified name -->
+	<rule ref="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalConstants"/>
+
+	<!-- All references to global functions MUST be referenced via a fully qualified name -->
+	<rule ref="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalFunctions"/>
+
 	<!-- MUST use shorthand type cast ((integer) -> (int), ...) -->
 	<rule ref="SlevomatCodingStandard.PHP.TypeCast"/>
 
@@ -551,15 +557,15 @@
 	<!-- MOST NOT contains empty comments -->
 	<rule ref="SlevomatCodingStandard.Commenting.EmptyComment"/>
 
-	<!-- ? -->
+	<!-- Reports invalid format of inline phpDocs with @var. -->
 	<rule ref="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration">
 		<exclude name="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration"/><!-- this is not working for generics syntax (https://github.com/slevomat/coding-standard/issues/523) -->
 	</rule>
 
-	<!-- ? -->
+	<!-- Requires comments with single-line content to be written as one-liners -->
 	<rule ref="SlevomatCodingStandard.Commenting.RequireOneLinePropertyDocComment"/>
 
-	<!-- ? -->
+	<!-- Reports documentation comments containing only {@inheritDoc} annotation because inheritance is automatic and it's not needed to use a special annotation for it -->
 	<rule ref="SlevomatCodingStandard.Commenting.UselessInheritDocComment"/>
 
 	<!-- 2.7 Strings -->
@@ -580,7 +586,7 @@
 
 	<!-- 3. Namespace and Use Declarations -->
 
-	<!-- ? -->
+	<!-- autoloading + namespace checks -->
 	<rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">
 		<properties>
 			<!-- phpstan: project specific -->
@@ -588,17 +594,17 @@
 		</properties>
 	</rule>
 
-	<!-- ? -->
+	<!-- Checks whether uses at the top of a file are alphabetically sorted -->
 	<rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses">
 		<properties>
 			<property name="caseSensitive" value="false"/>
 		</properties>
 	</rule>
 
-	<!-- ? -->
+	<!-- Group use declarations are ugly, make diffs ugly and this sniff prohibits them. -->
 	<rule ref="SlevomatCodingStandard.Namespaces.DisallowGroupUse"/>
 
-	<!-- ? -->
+	<!-- Enforces fully qualified type references after configurable set of language keywords -->
 	<!--
 	<rule ref="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameAfterKeyword">
 		<properties>
@@ -611,25 +617,27 @@
 	</rule>
 	-->
 
-	<!-- ? -->
+	<!-- Enforces fully qualified names of classes and interfaces in phpDocs - in @var, @param, @return, @throws. -->
 	<!--<rule ref="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation"/>-->
 
-	<!-- ? -->
+	<!-- MUST use fully qualified names of Exceptions -->
 	<rule ref="SlevomatCodingStandard.Namespaces.FullyQualifiedExceptions"/>
 
-	<!-- ? -->
+	<!-- Prohibits multiple uses separated by commas -->
 	<rule ref="SlevomatCodingStandard.Namespaces.MultipleUsesPerLine"/>
 
-	<!-- ? -->
+	<!-- Enforces one space after namespace, disallows content between namespace name and semicolon and disallows use of bracketed syntax -->
 	<rule ref="SlevomatCodingStandard.Namespaces.NamespaceDeclaration"/>
 
-	<!-- ? -->
+	<!-- Enforces configurable number of lines before and after namespace -->
 	<rule ref="SlevomatCodingStandard.Namespaces.NamespaceSpacing"/>
 
 	<!-- ? -->
 	<rule ref="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly">
 		<properties>
 			<property name="allowFullyQualifiedExceptions" value="true"/>
+			<property name="allowFullyQualifiedGlobalFunctions" value="true"/>
+			<property name="allowFullyQualifiedGlobalConstants" value="true"/>
 			<property name="allowPartialUses" value="false"/>
 			<property name="fullyQualifiedKeywords" type="array">
 				<element value="T_EXTENDS"/>
@@ -641,23 +649,23 @@
 		<exclude name="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly.ReferenceViaFullyQualifiedName"/>
 	</rule>
 
-	<!-- ? -->
+	<!-- Requires only one namespace in a file -->
 	<rule ref="SlevomatCodingStandard.Namespaces.RequireOneNamespaceInFile"/>
 
-	<!-- ? -->
+	<!-- Looks for unused imports from other namespaces -->
 	<rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
 		<properties>
 			<property name="searchAnnotations" value="true"/>
 		</properties>
 	</rule>
 
-	<!-- ? -->
+	<!-- Disallows leading backslash in use statement -->
 	<rule ref="SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash"/>
 
-	<!-- ? -->
+	<!-- Prohibits uses from the same namespace -->
 	<rule ref="SlevomatCodingStandard.Namespaces.UseFromSameNamespace"/>
 
-	<!-- ? -->
+	<!-- Looks for use alias that is same as unqualified name -->
 	<rule ref="SlevomatCodingStandard.Namespaces.UselessAlias"/>
 
 	<!-- When present, all use declarations MUST go after the namespace declaration.
@@ -679,19 +687,19 @@
 	<rule ref="Squiz.Classes.SelfMemberReference"/>
 	<rule ref="Squiz.Classes.ValidClassName"/>
 
-	<!-- ? -->
+	<!-- Reports use of superfluous prefix or suffix "Abstract" for abstract classes -->
 	<rule ref="SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming"/>
 
-	<!-- ? -->
+	<!-- Reports use of superfluous prefix or suffix "Interface" for interfaces -->
 	<rule ref="SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming"/>
 
-	<!-- ? -->
+	<!-- Reports use of __CLASS__, get_parent_class(), get_called_class(), get_class() and get_class($this). Class names should be referenced via ::class constant when possible -->
 	<rule ref="SlevomatCodingStandard.Classes.ModernClassNameReference"/>
 
-	<!-- ? -->
+	<!-- Prohibits multiple traits separated by commas in one use statement -->
 	<rule ref="SlevomatCodingStandard.Classes.TraitUseDeclaration"/>
 
-	<!-- ? -->
+	<!-- Enforces configurable number of lines before first use, after last use and between two use statements -->
 	<rule ref="SlevomatCodingStandard.Classes.TraitUseSpacing"/>
 
 	<!-- 4.2. Properties / Constants -->

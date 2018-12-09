@@ -47,6 +47,7 @@ class OffsetAccessAssignmentRule implements \PHPStan\Rules\Rule
 			'',
 			static function (Type $varType) use ($potentialDimType): bool {
 				$arrayDimType = $varType->setOffsetValueType($potentialDimType, new MixedType());
+
 				return !($arrayDimType instanceof ErrorType);
 			}
 		);
@@ -59,6 +60,7 @@ class OffsetAccessAssignmentRule implements \PHPStan\Rules\Rule
 				'',
 				static function (Type $dimType) use ($varType): bool {
 					$arrayDimType = $varType->setOffsetValueType($dimType, new MixedType());
+
 					return !($arrayDimType instanceof ErrorType);
 				}
 			);
@@ -73,17 +75,21 @@ class OffsetAccessAssignmentRule implements \PHPStan\Rules\Rule
 		}
 
 		if ($dimType === null) {
-			return [sprintf(
-				'Cannot assign new offset to %s.',
-				$varType->describe(VerbosityLevel::typeOnly())
-			)];
+			return [
+				\sprintf(
+					'Cannot assign new offset to %s.',
+					$varType->describe(VerbosityLevel::typeOnly())
+				),
+			];
 		}
 
-		return [sprintf(
-			'Cannot assign offset %s to %s.',
-			$dimType->describe(VerbosityLevel::value()),
-			$varType->describe(VerbosityLevel::typeOnly())
-		)];
+		return [
+			\sprintf(
+				'Cannot assign offset %s to %s.',
+				$dimType->describe(VerbosityLevel::value()),
+				$varType->describe(VerbosityLevel::typeOnly())
+			),
+		];
 	}
 
 }

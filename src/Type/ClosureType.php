@@ -30,8 +30,8 @@ class ClosureType implements Type, ParametersAcceptor
 
 	/**
 	 * @param array<int, \PHPStan\Reflection\Native\NativeParameterReflection> $parameters
-	 * @param Type                                                             $returnType
-	 * @param bool                                                             $variadic
+	 * @param Type $returnType
+	 * @param bool $variadic
 	 */
 	public function __construct(
 		array $parameters,
@@ -52,10 +52,10 @@ class ClosureType implements Type, ParametersAcceptor
 	{
 		$classes = $this->objectType->getReferencedClasses();
 		foreach ($this->parameters as $parameter) {
-			$classes = array_merge($classes, $parameter->getType()->getReferencedClasses());
+			$classes = \array_merge($classes, $parameter->getType()->getReferencedClasses());
 		}
 
-		return array_merge($classes, $this->returnType->getReferencedClasses());
+		return \array_merge($classes, $this->returnType->getReferencedClasses());
 	}
 
 	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
@@ -64,7 +64,7 @@ class ClosureType implements Type, ParametersAcceptor
 			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
 		}
 
-		if (!$type instanceof ClosureType) {
+		if (!$type instanceof self) {
 			return $this->objectType->accepts($type, $strictTypes);
 		}
 
@@ -109,11 +109,11 @@ class ClosureType implements Type, ParametersAcceptor
 
 	public function describe(VerbosityLevel $level): string
 	{
-		return sprintf(
+		return \sprintf(
 			'Closure(%s): %s',
-			implode(
+			\implode(
 				', ',
-				array_map(
+				\array_map(
 					static function (ParameterReflection $parameter) use ($level): string {
 						return $parameter->getType()->describe($level);
 					},

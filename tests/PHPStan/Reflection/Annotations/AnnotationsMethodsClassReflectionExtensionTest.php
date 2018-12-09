@@ -432,7 +432,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\Testing\Te
 				'parameters' => [],
 			],
 		];
-		$barMethods = array_merge(
+		$barMethods = \array_merge(
 			$fooMethods,
 			[
 				'overridenMethod' => [
@@ -458,7 +458,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\Testing\Te
 				],
 			]
 		);
-		$bazMethods = array_merge(
+		$bazMethods = \array_merge(
 			$barMethods,
 			[
 				'doSomething' => [
@@ -646,7 +646,7 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\Testing\Te
 				],
 			]
 		);
-		$bazBazMethods = array_merge(
+		$bazBazMethods = \array_merge(
 			$bazMethods,
 			[
 				'getTest' => [
@@ -965,34 +965,34 @@ class AnnotationsMethodsClassReflectionExtensionTest extends \PHPStan\Testing\Te
 		$scope->method('getClassReflection')->willReturn($class);
 		$scope->method('canCallMethod')->willReturn(true);
 		foreach ($methods as $methodName => $expectedMethodData) {
-			$this->assertTrue($class->hasMethod($methodName), sprintf('Method %s() not found in class %s.', $methodName, $className));
+			$this->assertTrue($class->hasMethod($methodName), \sprintf('Method %s() not found in class %s.', $methodName, $className));
 
 			$method = $class->getMethod($methodName, $scope);
 			$selectedParametersAcceptor = ParametersAcceptorSelector::selectSingle($method->getVariants());
 			$this->assertSame(
 				$expectedMethodData['class'],
 				$method->getDeclaringClass()->getName(),
-				sprintf('Declaring class of method %s() does not match.', $methodName)
+				\sprintf('Declaring class of method %s() does not match.', $methodName)
 			);
 			$this->assertSame(
 				$expectedMethodData['returnType'],
 				$selectedParametersAcceptor->getReturnType()->describe(VerbosityLevel::precise()),
-				sprintf('Return type of method %s::%s() does not match', $className, $methodName)
+				\sprintf('Return type of method %s::%s() does not match', $className, $methodName)
 			);
 			$this->assertSame(
 				$expectedMethodData['isStatic'],
 				$method->isStatic(),
-				sprintf('Scope of method %s::%s() does not match', $className, $methodName)
+				\sprintf('Scope of method %s::%s() does not match', $className, $methodName)
 			);
 			$this->assertSame(
 				$expectedMethodData['isVariadic'],
 				$selectedParametersAcceptor->isVariadic(),
-				sprintf('Method %s::%s() does not match expected variadicity', $className, $methodName)
+				\sprintf('Method %s::%s() does not match expected variadicity', $className, $methodName)
 			);
 			$this->assertCount(
-				count($expectedMethodData['parameters']),
+				\count($expectedMethodData['parameters']),
 				$selectedParametersAcceptor->getParameters(),
-				sprintf('Method %s::%s() does not match expected count of parameters', $className, $methodName)
+				\sprintf('Method %s::%s() does not match expected count of parameters', $className, $methodName)
 			);
 			foreach ($selectedParametersAcceptor->getParameters() as $i => $parameter) {
 				$this->assertSame(

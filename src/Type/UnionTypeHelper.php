@@ -12,7 +12,7 @@ class UnionTypeHelper
 {
 
 	/**
-	 * @param string               $className
+	 * @param string $className
 	 * @param \PHPStan\Type\Type[] $types
 	 *
 	 * @return \PHPStan\Type\Type[]
@@ -31,7 +31,7 @@ class UnionTypeHelper
 	}
 
 	/**
-	 * @param string               $className
+	 * @param string $className
 	 * @param \PHPStan\Type\Type[] $types
 	 *
 	 * @return \PHPStan\Type\Type[]
@@ -61,7 +61,7 @@ class UnionTypeHelper
 			$subTypeClasses[] = $type->getReferencedClasses();
 		}
 
-		return array_merge(...$subTypeClasses);
+		return \array_merge(...$subTypeClasses);
 	}
 
 	/**
@@ -71,7 +71,7 @@ class UnionTypeHelper
 	 */
 	public static function sortTypes(array $types): array
 	{
-		usort(
+		\usort(
 			$types,
 			static function (Type $a, Type $b): float {
 				if ($a instanceof NullType) {
@@ -84,7 +84,7 @@ class UnionTypeHelper
 
 				if ($a instanceof AccessoryType) {
 					if ($b instanceof AccessoryType) {
-						return strcasecmp($a->describe(VerbosityLevel::value()), $b->describe(VerbosityLevel::value()));
+						return \strcasecmp($a->describe(VerbosityLevel::value()), $b->describe(VerbosityLevel::value()));
 					}
 
 					return 1;
@@ -124,10 +124,10 @@ class UnionTypeHelper
 				}
 
 				if ($a instanceof ConstantStringType && $b instanceof ConstantStringType) {
-					return strcasecmp($a->getValue(), $b->getValue());
+					return \strcasecmp($a->getValue(), $b->getValue());
 				}
 
-				return strcasecmp($a->describe(VerbosityLevel::typeOnly()), $b->describe(VerbosityLevel::typeOnly()));
+				return \strcasecmp($a->describe(VerbosityLevel::typeOnly()), $b->describe(VerbosityLevel::typeOnly()));
 			}
 		);
 

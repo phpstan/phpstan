@@ -32,7 +32,7 @@ class CallToNonExistentFunctionRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\FuncCall $node
-	 * @param \PHPStan\Analyser\Scope       $scope
+	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[]
 	 */
@@ -43,7 +43,7 @@ class CallToNonExistentFunctionRule implements \PHPStan\Rules\Rule
 		}
 
 		if (!$this->broker->hasFunction($node->name, $scope)) {
-			return [sprintf('Function %s not found.', (string) $node->name)];
+			return [\sprintf('Function %s not found.', (string) $node->name)];
 		}
 
 		$function = $this->broker->getFunction($node->name, $scope);
@@ -55,9 +55,9 @@ class CallToNonExistentFunctionRule implements \PHPStan\Rules\Rule
 			if (
 				$function->getName() !== $calledFunctionName
 				&&
-				strtolower($function->getName()) === strtolower($calledFunctionName)
+				\strtolower($function->getName()) === \strtolower($calledFunctionName)
 			) {
-				return [sprintf('Call to function %s() with incorrect case: %s', $function->getName(), $name)];
+				return [\sprintf('Call to function %s() with incorrect case: %s', $function->getName(), $name)];
 			}
 		}
 

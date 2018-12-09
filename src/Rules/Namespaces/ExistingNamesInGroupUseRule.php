@@ -81,7 +81,7 @@ class ExistingNamesInGroupUseRule implements \PHPStan\Rules\Rule
 	private function checkConstant(Node\Name $name): ?RuleError
 	{
 		if (!$this->broker->hasConstant($name, null)) {
-			return RuleErrorBuilder::message(sprintf('Used constant %s not found.', (string) $name))->build();
+			return RuleErrorBuilder::message(\sprintf('Used constant %s not found.', (string) $name))->build();
 		}
 
 		return null;
@@ -90,23 +90,24 @@ class ExistingNamesInGroupUseRule implements \PHPStan\Rules\Rule
 	private function checkFunction(Node\Name $name): ?RuleError
 	{
 		if (!$this->broker->hasFunction($name, null)) {
-			return RuleErrorBuilder::message(sprintf('Used function %s not found.', (string) $name))->build();
+			return RuleErrorBuilder::message(\sprintf('Used function %s not found.', (string) $name))->build();
 		}
 
 		if ($this->checkFunctionNameCase) {
-			$functionReflection = $this->broker->getFunction($name, null);
-			$realName = $functionReflection->getName();
+			$realName = $this->broker->getFunction($name, null)->getName();
 			$usedName = (string) $name;
 			if (
 				$realName !== $usedName
 				&&
-				strtolower($realName) === strtolower($usedName)
+				\strtolower($realName) === \strtolower($usedName)
 			) {
-				return RuleErrorBuilder::message(sprintf(
-					'Function %s used with incorrect case: %s.',
-					$realName,
-					$usedName
-				))->build();
+				return RuleErrorBuilder::message(
+					\sprintf(
+						'Function %s used with incorrect case: %s.',
+						$realName,
+						$usedName
+					)
+				)->build();
 			}
 		}
 
@@ -115,12 +116,17 @@ class ExistingNamesInGroupUseRule implements \PHPStan\Rules\Rule
 
 	private function checkClass(Node\Name $name): ?RuleError
 	{
-		$errors = $this->classCaseSensitivityCheck->checkClassNames([
-			new ClassNameNodePair((string) $name, $name),
-		]);
-		if (count($errors) === 0) {
+		$errors = $this->classCaseSensitivityCheck->checkClassNames(
+			[
+				new ClassNameNodePair((string) $name, $name),
+			]
+		);
+
+		if (\count($errors) === 0) {
 			return null;
-		} elseif (count($errors) === 1) {
+		}
+
+		if (\count($errors) === 1) {
 			return $errors[0];
 		}
 

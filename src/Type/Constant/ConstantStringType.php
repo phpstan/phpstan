@@ -43,13 +43,13 @@ class ConstantStringType extends StringType implements ConstantScalarType
 				return 'string';
 			},
 			function (): string {
-				return var_export(
+				return \var_export(
 					\Nette\Utils\Strings::truncate($this->value, self::DESCRIBE_LIMIT),
 					true
 				);
 			},
 			function (): string {
-				return var_export($this->value, true);
+				return \var_export($this->value, true);
 			}
 		);
 	}
@@ -131,8 +131,8 @@ class ConstantStringType extends StringType implements ConstantScalarType
 
 	public function toNumber(): Type
 	{
-		if (is_numeric($this->value)) {
-			/* @var mixed $value */
+		if (\is_numeric($this->value)) {
+			/** @var mixed $value */
 			$value = $this->value;
 			$value = +$value;
 			if (\is_float($value)) {
@@ -197,7 +197,8 @@ class ConstantStringType extends StringType implements ConstantScalarType
 		}
 		if (
 			$offsetType instanceof ConstantIntegerType
-			&& $valueStringType instanceof ConstantStringType
+			&&
+			$valueStringType instanceof self
 		) {
 			$value = $this->value;
 			$value[$offsetType->getValue()] = $valueStringType->getValue();

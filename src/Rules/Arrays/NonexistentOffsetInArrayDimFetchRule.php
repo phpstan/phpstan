@@ -44,7 +44,7 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 	{
 		if ($node->dim !== null) {
 			$dimType = $scope->getType($node->dim);
-			$unknownClassPattern = sprintf('Access to offset %s on an unknown class %%s.', $dimType->describe(VerbosityLevel::value()));
+			$unknownClassPattern = \sprintf('Access to offset %s on an unknown class %%s.', $dimType->describe(VerbosityLevel::value()));
 		} else {
 			$dimType = null;
 			$unknownClassPattern = 'Access to an offset on an unknown class %s.';
@@ -76,19 +76,23 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 		if (!$isOffsetAccessible->yes()) {
 			if ($dimType !== null) {
 				return [
-					RuleErrorBuilder::message(sprintf(
-						'Cannot access offset %s on %s.',
-						$dimType->describe(VerbosityLevel::value()),
-						$type->describe(VerbosityLevel::value())
-					))->build(),
+					RuleErrorBuilder::message(
+						\sprintf(
+							'Cannot access offset %s on %s.',
+							$dimType->describe(VerbosityLevel::value()),
+							$type->describe(VerbosityLevel::value())
+						)
+					)->build(),
 				];
 			}
 
 			return [
-				RuleErrorBuilder::message(sprintf(
-					'Cannot access an offset on %s.',
-					$type->describe(VerbosityLevel::typeOnly())
-				))->build(),
+				RuleErrorBuilder::message(
+					\sprintf(
+						'Cannot access an offset on %s.',
+						$type->describe(VerbosityLevel::typeOnly())
+					)
+				)->build(),
 			];
 		}
 
@@ -130,7 +134,8 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 
 		if ($report) {
 			return [
-				RuleErrorBuilder::message(sprintf('Offset %s does not exist on %s.', $dimType->describe(VerbosityLevel::value()), $type->describe(VerbosityLevel::value())))->build(),
+				RuleErrorBuilder::message(\sprintf('Offset %s does not exist on %s.', $dimType->describe(VerbosityLevel::value()), $type->describe(VerbosityLevel::value())))
+								->build(),
 			];
 		}
 

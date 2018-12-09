@@ -30,7 +30,7 @@ class JsonErrorFormatter implements ErrorFormatter
 
 		foreach ($analysisResult->getFileSpecificErrors() as $fileSpecificError) {
 			$file = $fileSpecificError->getFile();
-			if (!array_key_exists($file, $errorsArray['files'])) {
+			if (!\array_key_exists($file, $errorsArray['files'])) {
 				$errorsArray['files'][$file] = [
 					'errors'   => 0,
 					'messages' => [],

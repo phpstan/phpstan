@@ -56,7 +56,7 @@ class FinalAnnotationsTest extends \PHPStan\Testing\TestCase
 
 		foreach ($finalAnnotations as $memberType => $members) {
 			foreach ($members as $memberName) {
-				$memberAnnotation = $class->{'get' . ucfirst($memberType)}($memberName, $scope);
+				$memberAnnotation = $class->{'get' . \ucfirst($memberType)}($memberName, $scope);
 				$this->assertInstanceOf(FinalizableReflection::class, $memberAnnotation);
 				$this->assertSame($final, $memberAnnotation->isFinal());
 			}

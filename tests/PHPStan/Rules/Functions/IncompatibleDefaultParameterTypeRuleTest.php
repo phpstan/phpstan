@@ -16,26 +16,32 @@ class IncompatibleDefaultParameterTypeRuleTest extends RuleTestCase
 	public function testFunctions(): void
 	{
 		require_once __DIR__ . '/data/incompatible-default-parameter-type-functions.php';
-		$this->analyse([__DIR__ . '/data/incompatible-default-parameter-type-functions.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/incompatible-default-parameter-type-functions.php'],
 			[
-				'Default value of the parameter #1 $string (false) of function IncompatibleDefaultParameter\takesString() is incompatible with type string.',
-				15,
-			],
-		]);
+				[
+					'Default value of the parameter #1 $string (false) of function IncompatibleDefaultParameter\takesString() is incompatible with type string.',
+					15,
+				],
+			]
+		);
 	}
 
 	public function testMethods(): void
 	{
-		$this->analyse([__DIR__ . '/data/incompatible-default-parameter-type-methods.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/incompatible-default-parameter-type-methods.php'],
 			[
-				'Default value of the parameter #6 $resource (false) of method IncompatibleDefaultParameter\Foo::baz() is incompatible with type resource.',
-				45,
-			],
-			[
-				'Default value of the parameter #6 $resource (false) of method IncompatibleDefaultParameter\Foo::bar() is incompatible with type resource.',
-				55,
-			],
-		]);
+				[
+					'Default value of the parameter #6 $resource (false) of method IncompatibleDefaultParameter\Foo::baz() is incompatible with type resource.',
+					45,
+				],
+				[
+					'Default value of the parameter #6 $resource (false) of method IncompatibleDefaultParameter\Foo::bar() is incompatible with type resource.',
+					55,
+				],
+			]
+		);
 	}
 
 }

@@ -12,7 +12,7 @@ class RegularExpressionPatternRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	public function testValidRegexPatternBefore73(): void
 	{
-		if (PHP_VERSION_ID >= 70300) {
+		if (\PHP_VERSION_ID >= 70300) {
 			$this->markTestSkipped('This test requires PHP < 7.3.0');
 		}
 
@@ -113,7 +113,7 @@ class RegularExpressionPatternRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	public function testValidRegexPatternAfter73(): void
 	{
-		if (PHP_VERSION_ID < 70300) {
+		if (\PHP_VERSION_ID < 70300) {
 			$this->markTestSkipped('This test requires PHP >= 7.3.0');
 		}
 

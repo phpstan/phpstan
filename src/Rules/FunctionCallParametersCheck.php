@@ -51,7 +51,7 @@ class FunctionCallParametersCheck
 		$functionParametersMinCount = 0;
 		$functionParametersMaxCount = 0;
 		foreach ($parametersAcceptor->getParameters() as $parameter) {
-			/* @var $parameter \PHPStan\Reflection\ParameterReflection */
+			/** @var \PHPStan\Reflection\ParameterReflection $parameter */
 			if (!$parameter->isOptional()) {
 				$functionParametersMinCount++;
 			}
@@ -67,26 +67,26 @@ class FunctionCallParametersCheck
 		$invokedParametersCount = \count($funcCall->args);
 		foreach ($funcCall->args as $arg) {
 			if ($arg->unpack) {
-				$invokedParametersCount = max($functionParametersMinCount, $functionParametersMaxCount);
+				$invokedParametersCount = \max($functionParametersMinCount, $functionParametersMaxCount);
 				break;
 			}
 		}
 
 		if ($invokedParametersCount < $functionParametersMinCount || $invokedParametersCount > $functionParametersMaxCount) {
 			if ($functionParametersMinCount === $functionParametersMaxCount) {
-				$errors[] = sprintf(
+				$errors[] = \sprintf(
 					$invokedParametersCount === 1 ? $messages[0] : $messages[1],
 					$invokedParametersCount,
 					$functionParametersMinCount
 				);
 			} elseif ($functionParametersMaxCount === -1 && $invokedParametersCount < $functionParametersMinCount) {
-				$errors[] = sprintf(
+				$errors[] = \sprintf(
 					$invokedParametersCount === 1 ? $messages[2] : $messages[3],
 					$invokedParametersCount,
 					$functionParametersMinCount
 				);
 			} elseif ($functionParametersMaxCount !== -1) {
-				$errors[] = sprintf(
+				$errors[] = \sprintf(
 					$invokedParametersCount === 1 ? $messages[4] : $messages[5],
 					$invokedParametersCount,
 					$functionParametersMinCount,
@@ -111,22 +111,33 @@ class FunctionCallParametersCheck
 
 		$parameters = $parametersAcceptor->getParameters();
 
-		/* @var array<int, \PhpParser\Node\Arg> $args */
+		/** @var array<int, \PhpParser\Node\Arg> $args */
 		$args = $funcCall->args;
 		foreach ($args as $i => $argument) {
 			if (isset($parameters[$i])) {
+
 				$parameter = $parameters[$i];
-				/* @var $parameter \PHPStan\Reflection\ParameterReflection */
+				/** @var \PHPStan\Reflection\ParameterReflection $parameter */
 				$parameterType = $parameter->getType();
 				if ($parameter->isVariadic()) {
-					if ($parameterType instanceof ArrayType && !$argument->unpack) {
+					if (
+						$parameterType instanceof ArrayType
+						&&
+						!$argument->unpack
+					) {
 						$parameterType = $parameterType->getItemType();
 					}
 				} elseif ($argument->unpack) {
 					continue;
 				}
+
 			} else {
-				if (!$parametersAcceptor->isVariadic() || \count($parameters) === 0) {
+
+				if (
+					!$parametersAcceptor->isVariadic()
+					||
+					\count($parameters) === 0
+				) {
 					break;
 				}
 
@@ -172,10 +183,10 @@ class FunctionCallParametersCheck
 				!$this->ruleLevelHelper->accepts($parameterType, $argumentValueType, $scope->isDeclareStrictTypes())
 
 			) {
-				$errors[] = sprintf(
+				$errors[] = \sprintf(
 					$messages[6],
 					$i + 1,
-					sprintf('%s$%s', $parameter->isVariadic() ? '...' : '', $parameter->getName()),
+					\sprintf('%s$%s', $parameter->isVariadic() ? '...' : '', $parameter->getName()),
 					$parameterType->describe(VerbosityLevel::typeOnly()),
 					$argumentValueType->describe(
 						$parameterType->isCallable()
@@ -200,10 +211,10 @@ class FunctionCallParametersCheck
 				continue;
 			}
 
-			$errors[] = sprintf(
+			$errors[] = \sprintf(
 				$messages[8],
 				$i + 1,
-				sprintf('%s$%s', $parameter->isVariadic() ? '...' : '', $parameter->getName())
+				\sprintf('%s$%s', $parameter->isVariadic() ? '...' : '', $parameter->getName())
 			);
 		}
 

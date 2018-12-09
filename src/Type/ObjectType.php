@@ -289,13 +289,13 @@ class ObjectType implements TypeWithClassName
 
 				$keyName = $nativeProperty->getName();
 				if ($nativeProperty->isPrivate()) {
-					$keyName = sprintf(
+					$keyName = \sprintf(
 						"\0%s\0%s",
 						$declaringClass->getName(),
 						$keyName
 					);
 				} elseif ($nativeProperty->isProtected()) {
-					$keyName = sprintf(
+					$keyName = \sprintf(
 						"\0*\0%s",
 						$keyName
 					);
@@ -318,7 +318,7 @@ class ObjectType implements TypeWithClassName
 
 	public function canCallMethods(): TrinaryLogic
 	{
-		if (strtolower($this->className) === 'stdclass') {
+		if (\strtolower($this->className) === 'stdclass') {
 			return TrinaryLogic::createNo();
 		}
 
@@ -462,7 +462,7 @@ class ObjectType implements TypeWithClassName
 
 		$classReflection = $broker->getClass($this->className);
 
-		if (array_key_exists($classReflection->getName(), self::EXTRA_OFFSET_CLASSES)) {
+		if (\array_key_exists($classReflection->getName(), self::EXTRA_OFFSET_CLASSES)) {
 			return TrinaryLogic::createYes();
 		}
 

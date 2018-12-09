@@ -17,7 +17,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Stmt\ClassMethod $node
-	 * @param \PHPStan\Analyser\Scope          $scope
+	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[]
 	 */
@@ -36,14 +36,18 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 		}
 
 		$classReflection = $scope->getClassReflection()->getNativeReflection();
-		if ($classReflection->isInterface() || $classReflection->isAnonymous()) {
+		if (
+			$classReflection->isInterface()
+			||
+			$classReflection->isAnonymous()
+		) {
 			return [];
 		}
 
 		if ($this->callsParentConstruct($node)) {
 			if ($classReflection->getParentClass() === false) {
 				return [
-					sprintf(
+					\sprintf(
 						'%s::__construct() calls parent constructor but does not extend any class.',
 						$classReflection->getName()
 					),
@@ -52,7 +56,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 
 			if ($this->getParentConstructorClass($classReflection) === false) {
 				return [
-					sprintf(
+					\sprintf(
 						'%s::__construct() calls parent constructor but parent does not have one.',
 						$classReflection->getName()
 					),
@@ -62,7 +66,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 			$parentClass = $this->getParentConstructorClass($classReflection);
 			if ($parentClass !== false) {
 				return [
-					sprintf(
+					\sprintf(
 						'%s::__construct() does not call parent constructor from %s.',
 						$classReflection->getName(),
 						$parentClass->getName()
@@ -121,20 +125,25 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 			$constructor = $classReflection->getParentClass()
 				->hasMethod('__construct') ? $classReflection->getParentClass()
 				->getMethod('__construct') : null;
-			$constructorWithClassName = $classReflection->getParentClass()->hasMethod(
-				$classReflection->getParentClass()
-					->getName()
-			) ? $classReflection->getParentClass()->getMethod($classReflection->getParentClass()->getName()) : null;
+			$constructorWithClassName = $classReflection->getParentClass()->hasMethod($classReflection->getParentClass()->getName())
+				? $classReflection->getParentClass()->getMethod($classReflection->getParentClass()->getName())
+				: null;
+
 			if (
 				(
 					$constructor !== null
-					&& $constructor->getDeclaringClass()->getName() === $classReflection->getParentClass()->getName()
-					&& !$constructor->isAbstract()
-				) || (
+					&&
+					$constructor->getDeclaringClass()->getName() === $classReflection->getParentClass()->getName()
+					&&
+					!$constructor->isAbstract()
+				)
+				||
+				(
 					$constructorWithClassName !== null
-					&& $constructorWithClassName->getDeclaringClass()->getName() === $classReflection->getParentClass()
-						->getName()
-					&& !$constructorWithClassName->isAbstract()
+					&&
+					$constructorWithClassName->getDeclaringClass()->getName() === $classReflection->getParentClass()->getName()
+					&&
+					!$constructorWithClassName->isAbstract()
 				)
 			) {
 				return $classReflection->getParentClass();

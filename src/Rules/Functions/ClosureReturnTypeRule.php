@@ -26,7 +26,7 @@ class ClosureReturnTypeRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Stmt\Return_ $node
-	 * @param \PHPStan\Analyser\Scope      $scope
+	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[]
 	 */

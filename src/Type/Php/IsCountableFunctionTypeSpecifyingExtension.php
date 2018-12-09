@@ -23,9 +23,9 @@ class IsCountableFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyi
 
 	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, TypeSpecifierContext $context): bool
 	{
-		return strtolower($functionReflection->getName()) === 'is_countable'
-			&& isset($node->args[0])
-			&& !$context->null();
+		return \strtolower($functionReflection->getName()) === 'is_countable'
+			   && isset($node->args[0])
+			   && !$context->null();
 	}
 
 	public function specifyTypes(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
@@ -36,10 +36,12 @@ class IsCountableFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyi
 
 		return $this->typeSpecifier->create(
 			$node->args[0]->value,
-			new UnionType([
-				new ArrayType(new MixedType(), new MixedType()),
-				new ObjectType(\Countable::class),
-			]),
+			new UnionType(
+				[
+					new ArrayType(new MixedType(), new MixedType()),
+					new ObjectType(\Countable::class),
+				]
+			),
 			$context
 		);
 	}

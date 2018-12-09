@@ -16,7 +16,7 @@ class VariableCertaintyInIssetRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\Isset_ $node
-	 * @param \PHPStan\Analyser\Scope     $scope
+	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[]
 	 */
@@ -52,7 +52,7 @@ class VariableCertaintyInIssetRule implements \PHPStan\Rules\Rule
 					$scope->getFunction() !== null
 					|| $scope->isInAnonymousFunction()
 				) {
-					$messages[] = sprintf('Variable $%s in isset() is never defined.', $var->name);
+					$messages[] = \sprintf('Variable $%s in isset() is never defined.', $var->name);
 				}
 
 			} elseif (
@@ -63,7 +63,7 @@ class VariableCertaintyInIssetRule implements \PHPStan\Rules\Rule
 
 				$variableType = $scope->getVariableType($var->name);
 				if ($variableType->isSuperTypeOf(new NullType())->no()) {
-					$messages[] = sprintf('Variable $%s in isset() always exists and is not nullable.', $var->name);
+					$messages[] = \sprintf('Variable $%s in isset() always exists and is not nullable.', $var->name);
 				}
 
 			}

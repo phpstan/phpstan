@@ -29,7 +29,7 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\FunctionLike $node
-	 * @param \PHPStan\Analyser\Scope      $scope
+	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[]
 	 */
@@ -52,16 +52,16 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 		$errors = [];
 
 		foreach ($resolvedPhpDoc->getParamTags() as $parameterName => $phpDocParamTag) {
-			/* @var $phpDocParamTag \PHPStan\PhpDoc\Tag\ParamTag */
+			/** @var \PHPStan\PhpDoc\Tag\ParamTag $phpDocParamTag */
 			$phpDocParamType = $phpDocParamTag->getType();
 			if (!isset($nativeParameterTypes[$parameterName])) {
-				$errors[] = sprintf(
+				$errors[] = \sprintf(
 					'PHPDoc tag @param references unknown parameter $%s',
 					$parameterName
 				);
 
 			} elseif ($phpDocParamType instanceof ErrorType) {
-				$errors[] = sprintf(
+				$errors[] = \sprintf(
 					'PHPDoc tag @param for parameter $%s contains unresolvable type',
 					$parameterName
 				);
@@ -81,7 +81,7 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 				}
 
 				if ($isParamSuperType->no()) {
-					$errors[] = sprintf(
+					$errors[] = \sprintf(
 						'PHPDoc tag @param for parameter $%s with type %s is incompatible with native type %s',
 						$parameterName,
 						$phpDocParamType->describe(VerbosityLevel::typeOnly()),
@@ -89,7 +89,7 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 					);
 
 				} elseif ($isParamSuperType->maybe()) {
-					$errors[] = sprintf(
+					$errors[] = \sprintf(
 						'PHPDoc tag @param for parameter $%s with type %s is not subtype of native type %s',
 						$parameterName,
 						$phpDocParamType->describe(VerbosityLevel::typeOnly()),
@@ -108,14 +108,14 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 			} else {
 				$isReturnSuperType = $nativeReturnType->isSuperTypeOf($phpDocReturnType);
 				if ($isReturnSuperType->no()) {
-					$errors[] = sprintf(
+					$errors[] = \sprintf(
 						'PHPDoc tag @return with type %s is incompatible with native type %s',
 						$phpDocReturnType->describe(VerbosityLevel::typeOnly()),
 						$nativeReturnType->describe(VerbosityLevel::typeOnly())
 					);
 
 				} elseif ($isReturnSuperType->maybe()) {
-					$errors[] = sprintf(
+					$errors[] = \sprintf(
 						'PHPDoc tag @return with type %s is not subtype of native type %s',
 						$phpDocReturnType->describe(VerbosityLevel::typeOnly()),
 						$nativeReturnType->describe(VerbosityLevel::typeOnly())
@@ -129,7 +129,7 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param Node\FunctionLike $node
-	 * @param Scope             $scope
+	 * @param Scope $scope
 	 *
 	 * @return Type[]
 	 */

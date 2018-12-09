@@ -22,10 +22,10 @@ class ConstantConditionRuleHelper
 	public function shouldReportAlwaysTrueByDefault(Expr $expr): bool
 	{
 		return $expr instanceof Expr\BooleanNot
-			|| $expr instanceof Expr\BinaryOp\BooleanOr
-			|| $expr instanceof Expr\BinaryOp\BooleanAnd
-			|| $expr instanceof Expr\Ternary
-			|| $expr instanceof Expr\Isset_;
+			   || $expr instanceof Expr\BinaryOp\BooleanOr
+			   || $expr instanceof Expr\BinaryOp\BooleanAnd
+			   || $expr instanceof Expr\Ternary
+			   || $expr instanceof Expr\Isset_;
 	}
 
 	public function shouldSkip(Scope $scope, Expr $expr): bool

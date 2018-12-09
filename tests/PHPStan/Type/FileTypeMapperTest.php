@@ -88,7 +88,7 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 		/** @var FileTypeMapper $fileTypeMapper */
 		$fileTypeMapper = self::getContainer()->getByType(FileTypeMapper::class);
 
-		$realpath = realpath(__DIR__ . '/data/dependent-phpdocs.php');
+		$realpath = \realpath(__DIR__ . '/data/dependent-phpdocs.php');
 		if ($realpath === false) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
@@ -112,7 +112,7 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 		/** @var FileTypeMapper $fileTypeMapper */
 		$fileTypeMapper = self::getContainer()->getByType(FileTypeMapper::class);
 
-		$realpath = realpath(__DIR__ . '/data/throws-phpdocs.php');
+		$realpath = \realpath(__DIR__ . '/data/throws-phpdocs.php');
 		if ($realpath === false) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
@@ -171,7 +171,7 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 		/** @var FileTypeMapper $fileTypeMapper */
 		$fileTypeMapper = self::getContainer()->getByType(FileTypeMapper::class);
 
-		$realpath = realpath(__DIR__ . '/data/cyclic-phpdocs.php');
+		$realpath = \realpath(__DIR__ . '/data/cyclic-phpdocs.php');
 		if ($realpath === false) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}

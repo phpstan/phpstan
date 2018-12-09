@@ -287,3 +287,25 @@ function (\Iterator $arg) {
         assert($key instanceof Foo);
     }
 };
+
+class ClassWithNullReturn
+{
+
+	public function getDateTimeOrNull(\DateTime $date): ?\DateTime
+	{
+		if (random_int(0, 1) === 0) {
+			return null;
+		}
+
+		return $date;
+	}
+
+	public function checkInstanceOf(): bool
+	{
+		$date = $this->getDateTimeOrNull(new \DateTime());
+
+		if ($date instanceof \DateTime) {
+			return $date->format('Y-m-d');
+		}
+	}
+}

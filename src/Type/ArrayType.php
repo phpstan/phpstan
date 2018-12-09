@@ -48,7 +48,7 @@ class ArrayType implements StaticResolvableType
 	 */
 	public function getReferencedClasses(): array
 	{
-		return array_merge(
+		return \array_merge(
 			$this->keyType->getReferencedClasses(),
 			$this->getItemType()->getReferencedClasses()
 		);
@@ -103,10 +103,10 @@ class ArrayType implements StaticResolvableType
 				return 'array';
 			}
 
-			return sprintf('array<%s>', $this->itemType->describe($level));
+			return \sprintf('array<%s>', $this->itemType->describe($level));
 		}
 
-		return sprintf('array<%s, %s>', $this->keyType->describe($level), $this->itemType->describe($level));
+		return \sprintf('array<%s, %s>', $this->keyType->describe($level), $this->itemType->describe($level));
 	}
 
 	public function generalizeValues(): self
@@ -268,7 +268,7 @@ class ArrayType implements StaticResolvableType
 	{
 		if ($offsetType instanceof UnionType) {
 			return TypeCombinator::union(
-				...array_map(
+				...\array_map(
 					static function (Type $type): Type {
 						   return self::castToArrayKeyType($type);
 					},
@@ -278,8 +278,8 @@ class ArrayType implements StaticResolvableType
 		}
 
 		if ($offsetType instanceof ConstantScalarType) {
-			/* @var int|string $offsetValue */
-			$offsetValue = key([$offsetType->getValue() => null]);
+			/** @var int|string $offsetValue */
+			$offsetValue = \key([$offsetType->getValue() => null]);
 
 			return \is_int($offsetValue) ? new ConstantIntegerType($offsetValue) : new ConstantStringType($offsetValue);
 		}

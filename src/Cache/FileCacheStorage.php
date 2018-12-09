@@ -12,8 +12,13 @@ class FileCacheStorage implements CacheStorage
 	{
 		$this->directory = $directory;
 
-		if (@mkdir($this->directory) && !is_dir($this->directory)) {
-			throw new \InvalidArgumentException(sprintf('Directory "%s" doesn\'t exist.', $this->directory));
+		/** @noinspection PhpUsageOfSilenceOperatorInspection */
+		if (
+			@\mkdir($this->directory)
+			&&
+			!\is_dir($this->directory)
+		) {
+			throw new \InvalidArgumentException(\sprintf('Directory "%s" doesn\'t exist.', $this->directory));
 		}
 	}
 
@@ -27,7 +32,11 @@ class FileCacheStorage implements CacheStorage
 		return (function (string $key) {
 			$filePath = $this->getFilePath($key);
 
-			return is_file($filePath) ? require $this->getFilePath($key) : null;
+			if (\is_file($filePath)) {
+				return require $this->getFilePath($key);
+			}
+
+			return null;
 		})(
 			$key
 		);
@@ -35,15 +44,16 @@ class FileCacheStorage implements CacheStorage
 
 	/**
 	 * @param string $key
-	 * @param mixed  $data
+	 * @param mixed $data
 	 *
 	 * @return bool
 	 */
 	public function save(string $key, $data): bool
 	{
-		$writtenBytes = @file_put_contents(
+		/** @noinspection PhpUsageOfSilenceOperatorInspection */
+		$writtenBytes = @\file_put_contents(
 			$this->getFilePath($key),
-			sprintf("<?php declare(strict_types = 1);\n\nreturn %s;", var_export($data, true))
+			\sprintf("<?php declare(strict_types = 1);\n\nreturn %s;", \var_export($data, true))
 		);
 
 		return $writtenBytes !== false;
@@ -51,7 +61,7 @@ class FileCacheStorage implements CacheStorage
 
 	private function getFilePath(string $key): string
 	{
-		return sprintf('%s/%s.php', $this->directory, preg_replace('~[^-\\w]~', '_', $key));
+		return \sprintf('%s/%s.php', $this->directory, \preg_replace('~[^-\\w]~', '_', $key));
 	}
 
 }

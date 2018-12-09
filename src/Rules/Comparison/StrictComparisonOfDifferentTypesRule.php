@@ -26,7 +26,7 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\BinaryOp $node
-	 * @param \PHPStan\Analyser\Scope       $scope
+	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[] errors
 	 */
@@ -53,7 +53,7 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 
 		if (!$nodeType->getValue()) {
 			return [
-				sprintf(
+				\sprintf(
 					'Strict comparison using %s between %s and %s will always evaluate to false.',
 					$node instanceof Node\Expr\BinaryOp\Identical ? '===' : '!==',
 					$leftType->describe(VerbosityLevel::value()),
@@ -64,7 +64,7 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 
 		if ($this->checkAlwaysTrueStrictComparison) {
 			return [
-				sprintf(
+				\sprintf(
 					'Strict comparison using %s between %s and %s will always evaluate to true.',
 					$node instanceof Node\Expr\BinaryOp\Identical ? '===' : '!==',
 					$leftType->describe(VerbosityLevel::value()),

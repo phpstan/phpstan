@@ -21,9 +21,9 @@ class AnalysisResult
 
 	/**
 	 * @param \PHPStan\Analyser\Error[] $fileSpecificErrors
-	 * @param string[]                  $notFileSpecificErrors
-	 * @param bool                      $defaultLevelUsed
-	 * @param string                    $currentDirectory
+	 * @param string[] $notFileSpecificErrors
+	 * @param bool $defaultLevelUsed
+	 * @param string $currentDirectory
 	 */
 	public function __construct(
 		array $fileSpecificErrors,
@@ -32,7 +32,7 @@ class AnalysisResult
 		string $currentDirectory
 	)
 	{
-		usort(
+		\usort(
 			$fileSpecificErrors,
 			static function (Error $a, Error $b): int {
 				return [
@@ -84,10 +84,6 @@ class AnalysisResult
 		return $this->defaultLevelUsed;
 	}
 
-	/**
-	 * @deprecated Use \PHPStan\File\RelativePathHelper instead
-	 * @return string
-	 */
 	public function getCurrentDirectory(): string
 	{
 		return $this->currentDirectory;

@@ -29,13 +29,15 @@ class DependencyDumperTest extends TestCase
 
 		$mockParser = $this->createMock(Parser::class);
 		$mockParser->method('parseFile')
-			->willReturnCallback(static function (string $file) use ($realParser): array {
-				if (file_exists($file)) {
-					return $realParser->parseFile($file);
-				}
+			->willReturnCallback(
+				static function (string $file) use ($realParser): array {
+					if (\file_exists($file)) {
+						return $realParser->parseFile($file);
+					}
 
-				return [];
-			});
+					return [];
+				}
+			);
 
 		/** @var Broker $realBroker */
 		$realBroker = $container->getByType(Broker::class);
@@ -44,28 +46,34 @@ class DependencyDumperTest extends TestCase
 
 		$mockBroker = $this->createMock(Broker::class);
 		$mockBroker->method('getClass')
-			->willReturnCallback(function (string $class) use ($realBroker, $fileHelper): ClassReflection {
-				if (in_array($class, [
-					GrandChild::class,
-					Child::class,
-					ParentClass::class,
-				], true)) {
-					return $realBroker->getClass($class);
+			->willReturnCallback(
+				function (string $class) use ($realBroker, $fileHelper): ClassReflection {
+					if (\in_array(
+						$class,
+						[
+							GrandChild::class,
+							Child::class,
+							ParentClass::class,
+						],
+						true
+					)) {
+						return $realBroker->getClass($class);
+					}
+
+					$nameParts = \explode('\\', $class);
+					$shortClass = \array_pop($nameParts);
+
+					$classReflection = $this->createMock(ClassReflection::class);
+					$classReflection->method('getInterfaces')->willReturn([]);
+					$classReflection->method('getTraits')->willReturn([]);
+					$classReflection->method('getParentClass')->willReturn(false);
+					$classReflection->method('getFilename')->willReturn(
+						$fileHelper->normalizePath(__DIR__ . '/data/' . $shortClass . '.php')
+					);
+
+					return $classReflection;
 				}
-
-				$nameParts = explode('\\', $class);
-				$shortClass = array_pop($nameParts);
-
-				$classReflection = $this->createMock(ClassReflection::class);
-				$classReflection->method('getInterfaces')->willReturn([]);
-				$classReflection->method('getTraits')->willReturn([]);
-				$classReflection->method('getParentClass')->willReturn(false);
-				$classReflection->method('getFilename')->willReturn(
-					$fileHelper->normalizePath(__DIR__ . '/data/' . $shortClass . '.php')
-				);
-
-				return $classReflection;
-			});
+			);
 
 		$expectedDependencyTree = $this->getExpectedDependencyTree($fileHelper);
 
@@ -85,9 +93,9 @@ class DependencyDumperTest extends TestCase
 		);
 
 		$dependencies = $dumper->dumpDependencies(
-			array_merge(
+			\array_merge(
 				[$fileHelper->normalizePath(__DIR__ . '/data/GrandChild.php')],
-				array_keys($expectedDependencyTree)
+				\array_keys($expectedDependencyTree)
 			),
 			static function (): void {
 			},
@@ -96,7 +104,7 @@ class DependencyDumperTest extends TestCase
 			null
 		);
 
-		$this->assertCount(count($expectedDependencyTree), $dependencies);
+		$this->assertCount(\count($expectedDependencyTree), $dependencies);
 		foreach ($expectedDependencyTree as $file => $files) {
 			$this->assertArrayHasKey($file, $dependencies);
 			$this->assertSame($files, $dependencies[$file]);
@@ -133,9 +141,12 @@ class DependencyDumperTest extends TestCase
 
 		$expectedTree = [];
 		foreach ($tree as $file => $files) {
-			$expectedTree[$fileHelper->normalizePath(__DIR__ . '/data/' . $file)] = array_map(static function (string $file) use ($fileHelper): string {
-				return $fileHelper->normalizePath(__DIR__ . '/data/' . $file);
-			}, $files);
+			$expectedTree[$fileHelper->normalizePath(__DIR__ . '/data/' . $file)] = \array_map(
+				static function (string $file) use ($fileHelper): string {
+					return $fileHelper->normalizePath(__DIR__ . '/data/' . $file);
+				},
+				$files
+			);
 		}
 
 		return $expectedTree;

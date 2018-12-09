@@ -22,7 +22,7 @@ class InvalidIncDecOperationRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PhpParser\Node\Expr    $node
+	 * @param \PhpParser\Node\Expr $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[]
@@ -47,7 +47,7 @@ class InvalidIncDecOperationRule implements \PHPStan\Rules\Rule
 			&& !$node->var instanceof \PhpParser\Node\Expr\StaticPropertyFetch
 		) {
 			return [
-				sprintf(
+				\sprintf(
 					'Cannot use %s on a non-variable.',
 					$operatorString
 				),
@@ -64,7 +64,7 @@ class InvalidIncDecOperationRule implements \PHPStan\Rules\Rule
 			}
 
 			return [
-				sprintf(
+				\sprintf(
 					'Cannot use %s on %s.',
 					$operatorString,
 					$varType->describe(VerbosityLevel::value())

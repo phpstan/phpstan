@@ -57,30 +57,39 @@ class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 		foreach ($propertyType->getReferencedClasses() as $referencedClass) {
 			if ($this->broker->hasClass($referencedClass)) {
 				if ($this->broker->getClass($referencedClass)->isTrait()) {
-					$errors[] = RuleErrorBuilder::message(sprintf(
-						'Property %s::$%s has invalid type %s.',
-						$propertyReflection->getDeclaringClass()->getDisplayName(),
-						$node->name->name,
-						$referencedClass
-					))->build();
+					$errors[] = RuleErrorBuilder::message(
+						\sprintf(
+							'Property %s::$%s has invalid type %s.',
+							$propertyReflection->getDeclaringClass()->getDisplayName(),
+							$node->name->name,
+							$referencedClass
+						)
+					)->build();
 				}
 				continue;
 			}
 
-			$errors[] = RuleErrorBuilder::message(sprintf(
-				'Property %s::$%s has unknown class %s as its type.',
-				$propertyReflection->getDeclaringClass()->getDisplayName(),
-				$node->name->name,
-				$referencedClass
-			))->build();
+			$errors[] = RuleErrorBuilder::message(
+				\sprintf(
+					'Property %s::$%s has unknown class %s as its type.',
+					$propertyReflection->getDeclaringClass()->getDisplayName(),
+					$node->name->name,
+					$referencedClass
+				)
+			)->build();
 		}
 
 		if ($this->checkClassCaseSensitivity) {
-			$errors = array_merge(
+			$errors = \array_merge(
 				$errors,
-				$this->classCaseSensitivityCheck->checkClassNames(array_map(static function (string $class) use ($node): ClassNameNodePair {
-					return new ClassNameNodePair($class, $node);
-				}, $propertyType->getReferencedClasses()))
+				$this->classCaseSensitivityCheck->checkClassNames(
+					\array_map(
+						static function (string $class) use ($node): ClassNameNodePair {
+							return new ClassNameNodePair($class, $node);
+						},
+						$propertyType->getReferencedClasses()
+					)
+				)
 			);
 		}
 

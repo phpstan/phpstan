@@ -124,7 +124,7 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 
 		foreach ($deprecatedAnnotations as $memberType => $members) {
 			foreach ($members as $memberName) {
-				$memberAnnotation = $class->{'get' . ucfirst($memberType)}($memberName, $scope);
+				$memberAnnotation = $class->{'get' . \ucfirst($memberType)}($memberName, $scope);
 				$this->assertInstanceOf(DeprecatableReflection::class, $memberAnnotation);
 				$this->assertSame($deprecated, $memberAnnotation->isDeprecated());
 			}

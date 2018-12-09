@@ -42,12 +42,12 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 		}
 
 		$wrap = static function ($rows) use ($terminalWidth, $maxHeaderWidth) {
-			return array_map(
+			return \array_map(
 				static function ($row) use ($terminalWidth, $maxHeaderWidth) {
-					return array_map(
+					return \array_map(
 						static function ($s) use ($terminalWidth, $maxHeaderWidth) {
 							if ($terminalWidth > $maxHeaderWidth + 5) {
-								return wordwrap(
+								return \wordwrap(
 									$s,
 									$terminalWidth - $maxHeaderWidth - 5,
 									"\n",
@@ -107,7 +107,7 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 		}
 
 		if ($step > 0) {
-			$stepTime = (time() - $this->progressBar->getStartTime()) / $step;
+			$stepTime = (\time() - $this->progressBar->getStartTime()) / $step;
 			if ($stepTime > 0 && $stepTime < 1) {
 				$this->progressBar->setRedrawFrequency((int) (1 / $stepTime));
 			} else {

@@ -30,7 +30,7 @@ class InvalidPhpDocTagValueRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PhpParser\Node         $node
+	 * @param \PhpParser\Node $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[]
@@ -63,7 +63,7 @@ class InvalidPhpDocTagValueRule implements \PHPStan\Rules\Rule
 				continue;
 			}
 
-			$errors[] = sprintf(
+			$errors[] = \sprintf(
 				'PHPDoc tag %s has invalid value (%s): %s',
 				$phpDocTag->name,
 				$phpDocTag->value->value,

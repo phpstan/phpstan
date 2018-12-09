@@ -15,7 +15,7 @@ class InvalidUnaryOperationRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PhpParser\Node\Expr    $node
+	 * @param \PhpParser\Node\Expr $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[]
@@ -31,7 +31,7 @@ class InvalidUnaryOperationRule implements \PHPStan\Rules\Rule
 
 		if ($scope->getType($node) instanceof ErrorType) {
 			return [
-				sprintf(
+				\sprintf(
 					'Unary operation "%s" on %s results in an error.',
 					$node instanceof \PhpParser\Node\Expr\UnaryPlus ? '+' : '-',
 					$scope->getType($node->expr)->describe(VerbosityLevel::value())

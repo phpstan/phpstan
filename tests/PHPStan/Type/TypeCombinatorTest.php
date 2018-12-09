@@ -930,32 +930,36 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new IntersectionType([
-						new ConstantArrayType(
-							[
-								new ConstantIntegerType(0),
-								new ConstantIntegerType(1),
-							],
-							[
-								new ObjectWithoutClassType(),
-								new ConstantStringType('foo'),
-							]
-						),
-						new CallableType(),
-					]),
-					new IntersectionType([
-						new ConstantArrayType(
-							[
-								new ConstantIntegerType(0),
-								new ConstantIntegerType(1),
-							],
-							[
-								new ObjectWithoutClassType(),
-								new ConstantStringType('foo'),
-							]
-						),
-						new CallableType(),
-					]),
+					new IntersectionType(
+						[
+							new ConstantArrayType(
+								[
+									new ConstantIntegerType(0),
+									new ConstantIntegerType(1),
+								],
+								[
+									new ObjectWithoutClassType(),
+									new ConstantStringType('foo'),
+								]
+							),
+							new CallableType(),
+						]
+					),
+					new IntersectionType(
+						[
+							new ConstantArrayType(
+								[
+									new ConstantIntegerType(0),
+									new ConstantIntegerType(1),
+								],
+								[
+									new ObjectWithoutClassType(),
+									new ConstantStringType('foo'),
+								]
+							),
+							new CallableType(),
+						]
+					),
 				],
 				IntersectionType::class,
 				'array(object, \'foo\')&callable',
@@ -980,11 +984,11 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(
 			$expectedTypeDescription,
 			$actualType->describe(VerbosityLevel::precise()),
-			sprintf(
+			\sprintf(
 				'union(%s)',
-				implode(
+				\implode(
 					', ',
-					array_map(
+					\array_map(
 						static function (Type $type): string {
 							return $type->describe(VerbosityLevel::precise());
 						},
@@ -1009,7 +1013,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 		string $expectedTypeDescription
 	): void
 	{
-		$result = TypeCombinator::union(...array_reverse($types));
+		$result = TypeCombinator::union(...\array_reverse($types));
 		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::precise()));
 		$this->assertInstanceOf($expectedTypeClass, $result);
 	}
@@ -1486,10 +1490,12 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new IntersectionType([
-						new ArrayType(new MixedType(), new MixedType()),
-						new NonEmptyArrayType(),
-					]),
+					new IntersectionType(
+						[
+							new ArrayType(new MixedType(), new MixedType()),
+							new NonEmptyArrayType(),
+						]
+					),
 					new NonEmptyArrayType(),
 				],
 				IntersectionType::class,
@@ -1497,14 +1503,19 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new UnionType([
-						new ConstantArrayType([], []),
-						new ConstantArrayType([
-							new ConstantIntegerType(0),
-						], [
-							new StringType(),
-						]),
-					]),
+					new UnionType(
+						[
+							new ConstantArrayType([], []),
+							new ConstantArrayType(
+								[
+									new ConstantIntegerType(0),
+								],
+								[
+									new StringType(),
+								]
+							),
+						]
+					),
 					new NonEmptyArrayType(),
 				],
 				ConstantArrayType::class,
@@ -1550,7 +1561,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 		string $expectedTypeDescription
 	): void
 	{
-		$result = TypeCombinator::intersect(...array_reverse($types));
+		$result = TypeCombinator::intersect(...\array_reverse($types));
 		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::precise()));
 		$this->assertInstanceOf($expectedTypeClass, $result);
 	}
@@ -1768,23 +1779,30 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				'array&nonEmpty',
 			],
 			[
-				new UnionType([
-					new ConstantArrayType([], []),
-					new ConstantArrayType([
-						new ConstantIntegerType(0),
-					], [
-						new StringType(),
-					]),
-				]),
+				new UnionType(
+					[
+						new ConstantArrayType([], []),
+						new ConstantArrayType(
+							[
+								new ConstantIntegerType(0),
+							],
+							[
+								new StringType(),
+							]
+						),
+					]
+				),
 				new ConstantArrayType([], []),
 				ConstantArrayType::class,
 				'array(string)',
 			],
 			[
-				new IntersectionType([
-					new ArrayType(new MixedType(), new MixedType()),
-					new NonEmptyArrayType(),
-				]),
+				new IntersectionType(
+					[
+						new ArrayType(new MixedType(), new MixedType()),
+						new NonEmptyArrayType(),
+					]
+				),
 				new NonEmptyArrayType(),
 				NeverType::class,
 				'*NEVER*',

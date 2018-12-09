@@ -350,26 +350,26 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 			$this->assertSame(
 				$expectedParameterSignature->getName(),
 				$parameterSignature->getName(),
-				sprintf('Name of parameter #%d does not match.', $i)
+				\sprintf('Name of parameter #%d does not match.', $i)
 			);
 			$this->assertSame(
 				$expectedParameterSignature->isOptional(),
 				$parameterSignature->isOptional(),
-				sprintf('Optionality of parameter $%s does not match.', $parameterSignature->getName())
+				\sprintf('Optionality of parameter $%s does not match.', $parameterSignature->getName())
 			);
 			$this->assertSame(
 				$expectedParameterSignature->getType()->describe(VerbosityLevel::precise()),
 				$parameterSignature->getType()->describe(VerbosityLevel::precise()),
-				sprintf('Type of parameter $%s does not match.', $parameterSignature->getName())
+				\sprintf('Type of parameter $%s does not match.', $parameterSignature->getName())
 			);
 			$this->assertTrue(
 				$expectedParameterSignature->passedByReference()->equals($parameterSignature->passedByReference()),
-				sprintf('Passed-by-reference of parameter $%s does not match.', $parameterSignature->getName())
+				\sprintf('Passed-by-reference of parameter $%s does not match.', $parameterSignature->getName())
 			);
 			$this->assertSame(
 				$expectedParameterSignature->isVariadic(),
 				$parameterSignature->isVariadic(),
-				sprintf('Variadicity of parameter $%s does not match.', $parameterSignature->getName())
+				\sprintf('Variadicity of parameter $%s does not match.', $parameterSignature->getName())
 			);
 		}
 
@@ -393,8 +393,8 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 		$count = 0;
 		foreach ($signatureMap as $functionName => $map) {
 			$className = null;
-			if (strpos($functionName, '::') !== false) {
-				$parts = explode('::', $functionName);
+			if (\strpos($functionName, '::') !== false) {
+				$parts = \explode('::', $functionName);
 				$className = $parts[0];
 			}
 
@@ -402,7 +402,7 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 				$parser->getFunctionSignature($map, $className);
 				$count++;
 			} catch (\PHPStan\PhpDocParser\Parser\ParserException $e) {
-				$this->fail(sprintf('Could not parse %s.', $functionName));
+				$this->fail(\sprintf('Could not parse %s.', $functionName));
 			}
 		}
 

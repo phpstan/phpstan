@@ -37,10 +37,12 @@ class BooleanAndConstantConditionRule implements \PHPStan\Rules\Rule
 		$errors = [];
 		$leftType = $this->helper->getBooleanType($scope, $node->left);
 		if ($leftType instanceof ConstantBooleanType) {
-			$errors[] = RuleErrorBuilder::message(sprintf(
-				'Left side of && is always %s.',
-				$leftType->getValue() ? 'true' : 'false'
-			))->line($node->left->getLine())->build();
+			$errors[] = RuleErrorBuilder::message(
+				\sprintf(
+					'Left side of && is always %s.',
+					$leftType->getValue() ? 'true' : 'false'
+				)
+			)->line($node->left->getLine())->build();
 		}
 
 		$rightType = $this->helper->getBooleanType(
@@ -48,19 +50,23 @@ class BooleanAndConstantConditionRule implements \PHPStan\Rules\Rule
 			$node->right
 		);
 		if ($rightType instanceof ConstantBooleanType) {
-			$errors[] = RuleErrorBuilder::message(sprintf(
-				'Right side of && is always %s.',
-				$rightType->getValue() ? 'true' : 'false'
-			))->line($node->right->getLine())->build();
+			$errors[] = RuleErrorBuilder::message(
+				\sprintf(
+					'Right side of && is always %s.',
+					$rightType->getValue() ? 'true' : 'false'
+				)
+			)->line($node->right->getLine())->build();
 		}
 
 		if (\count($errors) === 0) {
 			$nodeType = $scope->getType($node);
 			if ($nodeType instanceof ConstantBooleanType) {
-				$errors[] = RuleErrorBuilder::message(sprintf(
-					'Result of && is always %s.',
-					$nodeType->getValue() ? 'true' : 'false'
-				))->build();
+				$errors[] = RuleErrorBuilder::message(
+					\sprintf(
+						'Result of && is always %s.',
+						$nodeType->getValue() ? 'true' : 'false'
+					)
+				)->build();
 			}
 		}
 

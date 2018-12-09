@@ -29,7 +29,7 @@ class ReplaceFunctionsDynamicReturnTypeExtension implements DynamicFunctionRetur
 
 	public function isFunctionSupported(FunctionReflection $functionReflection): bool
 	{
-		return array_key_exists($functionReflection->getName(), $this->functions);
+		return \array_key_exists($functionReflection->getName(), $this->functions);
 	}
 
 	public function getTypeFromFunctionCall(

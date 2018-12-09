@@ -25,7 +25,7 @@ class Cache
 
 	/**
 	 * @param string $key
-	 * @param mixed  $data
+	 * @param mixed $data
 	 *
 	 * @return bool
 	 */

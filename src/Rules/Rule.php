@@ -14,7 +14,7 @@ interface Rule
 	public function getNodeType(): string;
 
 	/**
-	 * @param \PhpParser\Node         $node
+	 * @param \PhpParser\Node $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return (string|RuleError)[] errors

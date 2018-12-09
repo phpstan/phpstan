@@ -17,7 +17,7 @@ class ThisVariableRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\Variable $node
-	 * @param \PHPStan\Analyser\Scope       $scope
+	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[]
 	 */
@@ -44,7 +44,7 @@ class ThisVariableRule implements \PHPStan\Rules\Rule
 
 		if ($function->isStatic()) {
 			return [
-				sprintf(
+				\sprintf(
 					'Using $this in static method %s::%s().',
 					$scope->getClassReflection()->getDisplayName(),
 					$function->getName()

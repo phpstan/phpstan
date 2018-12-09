@@ -32,9 +32,12 @@ class ExistingClassesInClassImplementsRule implements \PHPStan\Rules\Rule
 	public function processNode(Node $node, Scope $scope): array
 	{
 		return $this->classCaseSensitivityCheck->checkClassNames(
-			array_map(static function (Node\Name $interfaceName): ClassNameNodePair {
-				return new ClassNameNodePair((string) $interfaceName, $interfaceName);
-			}, $node->implements)
+			\array_map(
+				static function (Node\Name $interfaceName): ClassNameNodePair {
+					return new ClassNameNodePair((string) $interfaceName, $interfaceName);
+				},
+				$node->implements
+			)
 		);
 	}
 

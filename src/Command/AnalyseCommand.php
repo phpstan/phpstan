@@ -96,17 +96,17 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		}
 
 		$container = $inceptionResult->getContainer();
-		$errorFormatterServiceName = sprintf('errorFormatter.%s', $errorFormat);
+		$errorFormatterServiceName = \sprintf('errorFormatter.%s', $errorFormat);
 		if (!$container->hasService($errorFormatterServiceName)) {
 			$errorOutput->writeln(
-				sprintf(
+				\sprintf(
 					'Error formatter "%s" not found. Available error formatters are: %s',
 					$errorFormat,
-					implode(
+					\implode(
 						', ',
-						array_map(
+						\array_map(
 							static function (string $name) {
-								return substr($name, \strlen('errorFormatter.'));
+								return \substr($name, \strlen('errorFormatter.'));
 							},
 							$container->findByType(ErrorFormatter::class)
 						)

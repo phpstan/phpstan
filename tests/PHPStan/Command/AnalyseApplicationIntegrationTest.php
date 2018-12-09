@@ -22,7 +22,7 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\Testing\TestCase
 		$path = __DIR__ . '/foo';
 		$output = $this->runPath($path, 1);
 		$this->assertContains(
-			sprintf(
+			\sprintf(
 				'File %s does not exist.',
 				$path
 			),
@@ -40,7 +40,7 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\Testing\TestCase
 	private function runPath(string $path, int $expectedStatusCode): string
 	{
 		$analyserApplication = self::getContainer()->getByType(AnalyseApplication::class);
-		$resource = fopen('php://memory', 'w', false);
+		$resource = \fopen('php://memory', 'w', false);
 		if ($resource === false) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
@@ -53,7 +53,7 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\Testing\TestCase
 
 		$memoryLimitFile = self::getContainer()->parameters['memoryLimitFile'];
 
-		$relativePathHelper = new RelativePathHelper(__DIR__, DIRECTORY_SEPARATOR, []);
+		$relativePathHelper = new RelativePathHelper(__DIR__, \DIRECTORY_SEPARATOR, []);
 		$statusCode = $analyserApplication->analyse(
 			[$path],
 			true,
@@ -62,14 +62,14 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\Testing\TestCase
 			false,
 			false
 		);
-		if (file_exists($memoryLimitFile)) {
-			unlink($memoryLimitFile);
+		if (\file_exists($memoryLimitFile)) {
+			\unlink($memoryLimitFile);
 		}
 		$this->assertSame($expectedStatusCode, $statusCode);
 
-		rewind($output->getStream());
+		\rewind($output->getStream());
 
-		$contents = stream_get_contents($output->getStream());
+		$contents = \stream_get_contents($output->getStream());
 		if ($contents === false) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}

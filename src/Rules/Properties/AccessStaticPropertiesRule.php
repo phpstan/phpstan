@@ -62,11 +62,11 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 		$messages = [];
 		if ($node->class instanceof Name) {
 			$class = (string) $node->class;
-			$lowercasedClass = strtolower($class);
+			$lowercasedClass = \strtolower($class);
 			if (\in_array($lowercasedClass, ['self', 'static'], true)) {
 				if (!$scope->isInClass()) {
 					return [
-						sprintf(
+						\sprintf(
 							'Accessing %s::$%s outside of class scope.',
 							$class,
 							$name
@@ -77,7 +77,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 			} elseif ($lowercasedClass === 'parent') {
 				if (!$scope->isInClass()) {
 					return [
-						sprintf(
+						\sprintf(
 							'Accessing %s::$%s outside of class scope.',
 							$class,
 							$name
@@ -86,7 +86,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 				}
 				if ($scope->getClassReflection()->getParentClass() === false) {
 					return [
-						sprintf(
+						\sprintf(
 							'%s::%s() accesses parent::$%s but %s does not extend any class.',
 							$scope->getClassReflection()->getDisplayName(),
 							$scope->getFunctionName(),
@@ -110,7 +110,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 			} else {
 				if (!$this->broker->hasClass($class)) {
 					return [
-						sprintf(
+						\sprintf(
 							'Access to static property $%s on an unknown class %s.',
 							$name,
 							$class
@@ -127,7 +127,7 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 			$classTypeResult = $this->ruleLevelHelper->findTypeToCheck(
 				$scope,
 				$node->class,
-				sprintf('Access to static property $%s on an unknown class %%s.', $name),
+				\sprintf('Access to static property $%s on an unknown class %%s.', $name),
 				static function (Type $type) use ($name): bool {
 					return $type->canAccessProperties()->yes() && $type->hasProperty($name)->yes();
 				}
@@ -146,10 +146,10 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 		$classType = TypeCombinator::remove($classType, new StringType());
 
 		if (!$classType->canAccessProperties()->yes()) {
-			return array_merge(
+			return \array_merge(
 				$messages,
 				[
-					sprintf('Cannot access static property $%s on %s.', $name, $typeForDescribe->describe(VerbosityLevel::typeOnly())),
+					\sprintf('Cannot access static property $%s on %s.', $name, $typeForDescribe->describe(VerbosityLevel::typeOnly())),
 				]
 			);
 		}
@@ -159,10 +159,10 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 				return $messages;
 			}
 
-			return array_merge(
+			return \array_merge(
 				$messages,
 				[
-					sprintf(
+					\sprintf(
 						'Access to an undefined static property %s::$%s.',
 						$typeForDescribe->describe(VerbosityLevel::typeOnly()),
 						$name
@@ -173,17 +173,16 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 
 		$property = $classType->getProperty($name, $scope);
 		if (!$property->isStatic()) {
-			$hasPropertyTypes = TypeUtils::getHasPropertyTypes($classType);
-			foreach ($hasPropertyTypes as $hasPropertyType) {
+			foreach (TypeUtils::getHasPropertyTypes($classType) as $hasPropertyType) {
 				if ($hasPropertyType->getPropertyName() === $name) {
 					return [];
 				}
 			}
 
-			return array_merge(
+			return \array_merge(
 				$messages,
 				[
-					sprintf(
+					\sprintf(
 						'Static access to instance property %s::$%s.',
 						$property->getDeclaringClass()->getDisplayName(),
 						$name
@@ -193,10 +192,10 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 		}
 
 		if (!$scope->canAccessProperty($property)) {
-			return array_merge(
+			return \array_merge(
 				$messages,
 				[
-					sprintf(
+					\sprintf(
 						'Access to %s property $%s of class %s.',
 						$property->isPrivate() ? 'private' : 'protected',
 						$name,

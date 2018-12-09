@@ -42,7 +42,9 @@ class UnreachableTernaryElseBranchRule implements Rule
 			&& !$this->helper->shouldReportAlwaysTrueByDefault($node->cond)
 		) {
 			return [
-				RuleErrorBuilder::message('Else branch is unreachable because ternary operator condition is always true.')->line($node->else->getLine())->build(),
+				RuleErrorBuilder::message('Else branch is unreachable because ternary operator condition is always true.')
+					->line($node->else->getLine())
+					->build(),
 			];
 		}
 

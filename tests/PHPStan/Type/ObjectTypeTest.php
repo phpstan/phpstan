@@ -29,7 +29,7 @@ class ObjectTypeTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isIterable()', $type->describe(VerbosityLevel::precise()))
+			\sprintf('%s -> isIterable()', $type->describe(VerbosityLevel::precise()))
 		);
 	}
 
@@ -53,7 +53,7 @@ class ObjectTypeTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isCallable()', $type->describe(VerbosityLevel::precise()))
+			\sprintf('%s -> isCallable()', $type->describe(VerbosityLevel::precise()))
 		);
 	}
 
@@ -232,10 +232,12 @@ class ObjectTypeTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				new ObjectType(\DateTimeImmutable::class),
-				new UnionType([
-					new HasMethodType('format'),
-					new HasMethodType('getTimestamp'),
-				]),
+				new UnionType(
+					[
+						new HasMethodType('format'),
+						new HasMethodType('getTimestamp'),
+					]
+				),
 				TrinaryLogic::createMaybe(),
 			],
 		];
@@ -253,7 +255,7 @@ class ObjectTypeTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isSuperTypeOf(%s)', $type->describe(VerbosityLevel::precise()), $otherType->describe(VerbosityLevel::precise()))
+			\sprintf('%s -> isSuperTypeOf(%s)', $type->describe(VerbosityLevel::precise()), $otherType->describe(VerbosityLevel::precise()))
 		);
 	}
 

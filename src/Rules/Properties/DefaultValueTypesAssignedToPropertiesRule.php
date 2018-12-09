@@ -26,7 +26,7 @@ class DefaultValueTypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Stmt\Property $node
-	 * @param \PHPStan\Analyser\Scope       $scope
+	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[]
 	 */
@@ -48,14 +48,13 @@ class DefaultValueTypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 				continue;
 			}
 
-			$propertyReflection = $classReflection->getNativeProperty($property->name->name);
-			$propertyType = $propertyReflection->getType();
+			$propertyType = $classReflection->getNativeProperty($property->name->name)->getType();
 			$defaultValueType = $scope->getType($property->default);
 			if ($this->ruleLevelHelper->accepts($propertyType, $defaultValueType, $scope->isDeclareStrictTypes())) {
 				continue;
 			}
 
-			$errors[] = sprintf(
+			$errors[] = \sprintf(
 				'%s %s::$%s (%s) does not accept default value of type %s.',
 				$node->isStatic() ? 'Static property' : 'Property',
 				$classReflection->getDisplayName(),

@@ -38,16 +38,18 @@ class PathinfoFunctionDynamicReturnTypeExtension implements \PHPStan\Type\Dynami
 			$extension = new ConstantStringType('extension');
 			$filename = new ConstantStringType('filename');
 
-			return new UnionType([
-				new ConstantArrayType(
-					[$dirname, $basename, $filename],
-					[$stringType, $stringType, $stringType]
-				),
-				new ConstantArrayType(
-					[$dirname, $basename, $extension, $filename],
-					[$stringType, $stringType, $stringType, $stringType]
-				),
-			]);
+			return new UnionType(
+				[
+					new ConstantArrayType(
+						[$dirname, $basename, $filename],
+						[$stringType, $stringType, $stringType]
+					),
+					new ConstantArrayType(
+						[$dirname, $basename, $extension, $filename],
+						[$stringType, $stringType, $stringType, $stringType]
+					),
+				]
+			);
 		}
 
 		return new StringType();

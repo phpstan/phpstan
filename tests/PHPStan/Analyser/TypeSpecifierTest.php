@@ -59,11 +59,11 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 	{
 		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this->scope, $expr, TypeSpecifierContext::createTruthy());
 		$actualResult = $this->toReadableResult($specifiedTypes);
-		$this->assertSame($expectedPositiveResult, $actualResult, sprintf('if (%s)', $this->printer->prettyPrintExpr($expr)));
+		$this->assertSame($expectedPositiveResult, $actualResult, \sprintf('if (%s)', $this->printer->prettyPrintExpr($expr)));
 
 		$specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($this->scope, $expr, TypeSpecifierContext::createFalsey());
 		$actualResult = $this->toReadableResult($specifiedTypes);
-		$this->assertSame($expectedNegatedResult, $actualResult, sprintf('if not (%s)', $this->printer->prettyPrintExpr($expr)));
+		$this->assertSame($expectedNegatedResult, $actualResult, \sprintf('if not (%s)', $this->printer->prettyPrintExpr($expr)));
 	}
 
 	public function dataCondition(): array
@@ -535,9 +535,12 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 				],
 			],
 			[
-				new FuncCall(new Name('count'), [
-					new Arg(new Variable('array')),
-				]),
+				new FuncCall(
+					new Name('count'),
+					[
+						new Arg(new Variable('array')),
+					]
+				),
 				[
 					'$array' => 'nonEmpty',
 				],
@@ -546,9 +549,14 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 				],
 			],
 			[
-				new BooleanNot(new FuncCall(new Name('count'), [
-					new Arg(new Variable('array')),
-				])),
+				new BooleanNot(
+					new FuncCall(
+						new Name('count'),
+						[
+							new Arg(new Variable('array')),
+						]
+					)
+				),
 				[
 					'$array' => '~nonEmpty',
 				],
@@ -573,7 +581,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 
 		$descriptions = [];
 		foreach ($typesDescription as $exprString => $exprTypes) {
-			$descriptions[$exprString] = implode(' & ', $exprTypes);
+			$descriptions[$exprString] = \implode(' & ', $exprTypes);
 		}
 
 		return $descriptions;

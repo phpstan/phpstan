@@ -70,12 +70,12 @@ class CallCallablesRule implements \PHPStan\Rules\Rule
 		$isCallable = $type->isCallable();
 		if ($isCallable->no()) {
 			return [
-				sprintf('Trying to invoke %s but it\'s not a callable.', $type->describe(VerbosityLevel::value())),
+				\sprintf('Trying to invoke %s but it\'s not a callable.', $type->describe(VerbosityLevel::value())),
 			];
 		}
 		if ($this->reportMaybes && $isCallable->maybe()) {
 			return [
-				sprintf('Trying to invoke %s but it might not be a callable.', $type->describe(VerbosityLevel::value())),
+				\sprintf('Trying to invoke %s but it might not be a callable.', $type->describe(VerbosityLevel::value())),
 			];
 		}
 
@@ -87,7 +87,7 @@ class CallCallablesRule implements \PHPStan\Rules\Rule
 			&& $parametersAcceptors[0] instanceof InaccessibleMethod
 		) {
 			$method = $parametersAcceptors[0]->getMethod();
-			$messages[] = sprintf(
+			$messages[] = \sprintf(
 				'Call to %s method %s() of class %s.',
 				$method->isPrivate() ? 'private' : 'protected',
 				$method->getName(),
@@ -104,22 +104,22 @@ class CallCallablesRule implements \PHPStan\Rules\Rule
 		if ($type instanceof ClosureType) {
 			$callableDescription = 'closure';
 		} else {
-			$callableDescription = sprintf('callable %s', $type->describe(VerbosityLevel::value()));
+			$callableDescription = \sprintf('callable %s', $type->describe(VerbosityLevel::value()));
 		}
 
-		return array_merge(
+		return \array_merge(
 			$messages,
 			$this->check->check(
 				$parametersAcceptor,
 				$scope,
 				$node,
 				[
-					ucfirst($callableDescription) . ' invoked with %d parameter, %d required.',
-					ucfirst($callableDescription) . ' invoked with %d parameters, %d required.',
-					ucfirst($callableDescription) . ' invoked with %d parameter, at least %d required.',
-					ucfirst($callableDescription) . ' invoked with %d parameters, at least %d required.',
-					ucfirst($callableDescription) . ' invoked with %d parameter, %d-%d required.',
-					ucfirst($callableDescription) . ' invoked with %d parameters, %d-%d required.',
+					\ucfirst($callableDescription) . ' invoked with %d parameter, %d required.',
+					\ucfirst($callableDescription) . ' invoked with %d parameters, %d required.',
+					\ucfirst($callableDescription) . ' invoked with %d parameter, at least %d required.',
+					\ucfirst($callableDescription) . ' invoked with %d parameters, at least %d required.',
+					\ucfirst($callableDescription) . ' invoked with %d parameter, %d-%d required.',
+					\ucfirst($callableDescription) . ' invoked with %d parameters, %d-%d required.',
 					'Parameter #%d %s of ' . $callableDescription . ' expects %s, %s given.',
 					'Result of ' . $callableDescription . ' (void) is used.',
 					'Parameter #%d %s of ' . $callableDescription . ' is passed by reference, so it expects variables only.',

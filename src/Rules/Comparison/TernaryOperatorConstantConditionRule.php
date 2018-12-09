@@ -24,7 +24,7 @@ class TernaryOperatorConstantConditionRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\Ternary $node
-	 * @param \PHPStan\Analyser\Scope      $scope
+	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[]
 	 */
@@ -36,7 +36,7 @@ class TernaryOperatorConstantConditionRule implements \PHPStan\Rules\Rule
 		$exprType = $this->helper->getBooleanType($scope, $node->cond);
 		if ($exprType instanceof ConstantBooleanType) {
 			return [
-				sprintf(
+				\sprintf(
 					'Ternary operator condition is always %s.',
 					$exprType->getValue() ? 'true' : 'false'
 				),

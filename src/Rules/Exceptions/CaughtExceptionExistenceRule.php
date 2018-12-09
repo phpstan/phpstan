@@ -50,20 +50,25 @@ class CaughtExceptionExistenceRule implements \PHPStan\Rules\Rule
 		foreach ($node->types as $class) {
 			$className = (string) $class;
 			if (!$this->broker->hasClass($className)) {
-				$errors[] = RuleErrorBuilder::message(sprintf('Caught class %s not found.', $className))->line($class->getLine())->build();
+				$errors[] = RuleErrorBuilder::message(\sprintf('Caught class %s not found.', $className))
+					->line($class->getLine())
+					->build();
 				continue;
 			}
 
 			$classReflection = $this->broker->getClass($className);
-			if (!$classReflection->isInterface() && !$classReflection->getNativeReflection()->implementsInterface(\Throwable::class)) {
-				$errors[] = RuleErrorBuilder::message(sprintf('Caught class %s is not an exception.', $classReflection->getDisplayName()))->line($class->getLine())->build();
+			if (!$classReflection->isInterface() && !$classReflection->getNativeReflection()
+				->implementsInterface(\Throwable::class)) {
+				$errors[] = RuleErrorBuilder::message(\sprintf('Caught class %s is not an exception.', $classReflection->getDisplayName()))
+											->line($class->getLine())
+											->build();
 			}
 
 			if (!$this->checkClassCaseSensitivity) {
 				continue;
 			}
 
-			$errors = array_merge(
+			$errors = \array_merge(
 				$errors,
 				$this->classCaseSensitivityCheck->checkClassNames([new ClassNameNodePair($className, $class)])
 			);

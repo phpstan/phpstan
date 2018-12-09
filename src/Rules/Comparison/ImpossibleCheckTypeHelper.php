@@ -50,34 +50,42 @@ class ImpossibleCheckTypeHelper
 			&&
 			\count($node->args) > 0
 		) {
-			$functionName = strtolower((string) $node->name);
+			$functionName = \strtolower((string) $node->name);
 			if ($functionName === 'count') {
 				return null;
-			} elseif ($functionName === 'is_numeric') {
+			}
+
+			if ($functionName === 'is_numeric') {
+
 				$argType = $scope->getType($node->args[0]->value);
-				if (count(TypeUtils::getConstantScalars($argType)) > 0) {
+				if (\count(TypeUtils::getConstantScalars($argType)) > 0) {
 					return !$argType->toNumber() instanceof ErrorType;
 				}
 
 				if (!(new StringType())->isSuperTypeOf($argType)->no()) {
 					return null;
 				}
+
 			} elseif ($functionName === 'defined') {
+
 				return null;
+
 			} elseif (
 				$functionName === 'in_array'
-				&& count($node->args) >= 3
+				&&
+				\count($node->args) >= 3
 			) {
+
 				$haystackType = $scope->getType($node->args[1]->value);
 				if ($haystackType instanceof MixedType) {
 					return null;
 				}
 
-				if (!$haystackType instanceof ConstantArrayType || count($haystackType->getValueTypes()) > 1) {
+				if (!$haystackType instanceof ConstantArrayType || \count($haystackType->getValueTypes()) > 1) {
 					$needleType = $scope->getType($node->args[0]->value);
 
 					$haystackArrayTypes = TypeUtils::getArrays($haystackType);
-					if (count($haystackArrayTypes) === 1 && $haystackArrayTypes[0]->getIterableValueType() instanceof NeverType) {
+					if (\count($haystackArrayTypes) === 1 && $haystackArrayTypes[0]->getIterableValueType() instanceof NeverType) {
 						return null;
 					}
 
@@ -86,7 +94,8 @@ class ImpossibleCheckTypeHelper
 
 					if ($isNeedleSupertype->maybe() || $isNeedleSupertype->yes()) {
 						foreach ($haystackArrayTypes as $haystackArrayType) {
-							foreach (TypeUtils::getConstantScalars($haystackArrayType->getIterableValueType()) as $constantScalarType) {
+							foreach (TypeUtils::getConstantScalars($haystackArrayType->getIterableValueType()) as
+									 $constantScalarType) {
 								if ($needleType->isSuperTypeOf($constantScalarType)->yes()) {
 									continue 2;
 								}
@@ -97,8 +106,8 @@ class ImpossibleCheckTypeHelper
 					}
 
 					if ($isNeedleSupertype->yes()) {
-						$hasConstantNeedleTypes = count(TypeUtils::getConstantScalars($needleType)) > 0;
-						$hasConstantHaystackTypes = count(TypeUtils::getConstantScalars($valueType)) > 0;
+						$hasConstantNeedleTypes = \count(TypeUtils::getConstantScalars($needleType)) > 0;
+						$hasConstantHaystackTypes = \count(TypeUtils::getConstantScalars($valueType)) > 0;
 						if (
 							(
 								!$hasConstantNeedleTypes
@@ -110,10 +119,13 @@ class ImpossibleCheckTypeHelper
 						}
 					}
 				}
+
 			} elseif (
 				$functionName === 'property_exists'
-				&& count($node->args) >= 2
+				&&
+				\count($node->args) >= 2
 			) {
+
 				$classNames = TypeUtils::getDirectClassNames(
 					$scope->getType($node->args[0]->value)
 				);
@@ -130,6 +142,7 @@ class ImpossibleCheckTypeHelper
 						return null;
 					}
 				}
+
 			}
 		}
 
@@ -139,14 +152,14 @@ class ImpossibleCheckTypeHelper
 
 		$isSpecified = static function (Expr $expr) use ($scope, $node): bool {
 			return (
-				$node instanceof FuncCall
-				|| $node instanceof MethodCall
-				|| $node instanceof Expr\StaticCall
-			) && $scope->isSpecified($expr);
+					   $node instanceof FuncCall
+					   || $node instanceof MethodCall
+					   || $node instanceof Expr\StaticCall
+				   ) && $scope->isSpecified($expr);
 		};
 
 		if (\count($sureTypes) === 1) {
-			$sureType = reset($sureTypes);
+			$sureType = \reset($sureTypes);
 			if ($isSpecified($sureType[0])) {
 				return null;
 			}
@@ -169,7 +182,7 @@ class ImpossibleCheckTypeHelper
 		}
 
 		if (\count($sureNotTypes) === 1) {
-			$sureNotType = reset($sureNotTypes);
+			$sureNotType = \reset($sureNotTypes);
 			if ($isSpecified($sureNotType[0])) {
 				return null;
 			}
@@ -200,7 +213,7 @@ class ImpossibleCheckTypeHelper
 			}
 
 			$types = TypeCombinator::union(
-				...array_column($sureTypes, 1)
+				...\array_column($sureTypes, 1)
 			);
 
 			if ($types instanceof NeverType) {
@@ -216,7 +229,7 @@ class ImpossibleCheckTypeHelper
 			}
 
 			$types = TypeCombinator::union(
-				...array_column($sureNotTypes, 1)
+				...\array_column($sureNotTypes, 1)
 			);
 
 			if ($types instanceof NeverType) {
@@ -228,7 +241,7 @@ class ImpossibleCheckTypeHelper
 	}
 
 	/**
-	 * @param Scope                 $scope
+	 * @param Scope $scope
 	 * @param \PhpParser\Node\Arg[] $args
 	 *
 	 * @return string
@@ -242,7 +255,7 @@ class ImpossibleCheckTypeHelper
 			return '';
 		}
 
-		$descriptions = array_map(
+		$descriptions = \array_map(
 			static function (Arg $arg) use ($scope): string {
 				return $scope->getType($arg->value)->describe(VerbosityLevel::value());
 			},
@@ -250,14 +263,14 @@ class ImpossibleCheckTypeHelper
 		);
 
 		if (\count($descriptions) < 3) {
-			return sprintf(' with %s', implode(' and ', $descriptions));
+			return \sprintf(' with %s', \implode(' and ', $descriptions));
 		}
 
-		$lastDescription = array_pop($descriptions);
+		$lastDescription = \array_pop($descriptions);
 
-		return sprintf(
+		return \sprintf(
 			' with arguments %s and %s',
-			implode(', ', $descriptions),
+			\implode(', ', $descriptions),
 			$lastDescription
 		);
 	}

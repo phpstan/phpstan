@@ -106,7 +106,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 					$typeNames[] = TypeUtils::generalizeType($type)->describe($level);
 				}
 
-				return implode('&', $typeNames);
+				return \implode('&', $typeNames);
 			},
 			function () use ($level): string {
 				$typeNames = [];
@@ -117,7 +117,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 					$typeNames[] = $type->describe($level);
 				}
 
-				return implode('&', $typeNames);
+				return \implode('&', $typeNames);
 			},
 			function () use ($level): string {
 				$typeNames = [];
@@ -125,7 +125,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 					$typeNames[] = $type->describe($level);
 				}
 
-				return implode('&', $typeNames);
+				return \implode('&', $typeNames);
 			}
 		);
 	}
@@ -141,9 +141,11 @@ class IntersectionType implements CompoundType, StaticResolvableType
 
 	public function hasProperty(string $propertyName): TrinaryLogic
 	{
-		return $this->intersectResults(static function (Type $type) use ($propertyName): TrinaryLogic {
-			return $type->hasProperty($propertyName);
-		});
+		return $this->intersectResults(
+			static function (Type $type) use ($propertyName): TrinaryLogic {
+				return $type->hasProperty($propertyName);
+			}
+		);
 	}
 
 	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
@@ -168,9 +170,11 @@ class IntersectionType implements CompoundType, StaticResolvableType
 
 	public function hasMethod(string $methodName): TrinaryLogic
 	{
-		return $this->intersectResults(static function (Type $type) use ($methodName): TrinaryLogic {
-			return $type->hasMethod($methodName);
-		});
+		return $this->intersectResults(
+			static function (Type $type) use ($methodName): TrinaryLogic {
+				return $type->hasMethod($methodName);
+			}
+		);
 	}
 
 	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
@@ -195,9 +199,11 @@ class IntersectionType implements CompoundType, StaticResolvableType
 
 	public function hasConstant(string $constantName): TrinaryLogic
 	{
-		return $this->intersectResults(static function (Type $type) use ($constantName): TrinaryLogic {
-			return $type->hasConstant($constantName);
-		});
+		return $this->intersectResults(
+			static function (Type $type) use ($constantName): TrinaryLogic {
+				return $type->hasConstant($constantName);
+			}
+		);
 	}
 
 	public function getConstant(string $constantName): ConstantReflection
@@ -222,9 +228,11 @@ class IntersectionType implements CompoundType, StaticResolvableType
 
 	public function isIterableAtLeastOnce(): TrinaryLogic
 	{
-		return $this->intersectResults(static function (Type $type): TrinaryLogic {
-			return $type->isIterableAtLeastOnce();
-		});
+		return $this->intersectResults(
+			static function (Type $type): TrinaryLogic {
+				return $type->isIterableAtLeastOnce();
+			}
+		);
 	}
 
 	public function getIterableKeyType(): Type
@@ -315,7 +323,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 
 	public function toBoolean(): BooleanType
 	{
-		/* @var BooleanType $type */
+		/** @var BooleanType $type */
 		$type = $this->intersectTypes(
 			static function (Type $type): BooleanType {
 				return $type->toBoolean();
@@ -407,7 +415,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 	 */
 	private function intersectResults(callable $getResult): TrinaryLogic
 	{
-		$operands = array_map($getResult, $this->types);
+		$operands = \array_map($getResult, $this->types);
 
 		return TrinaryLogic::maxMin(...$operands);
 	}
@@ -419,7 +427,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 	 */
 	private function intersectTypes(callable $getType): Type
 	{
-		$operands = array_map($getType, $this->types);
+		$operands = \array_map($getType, $this->types);
 
 		return TypeCombinator::intersect(...$operands);
 	}

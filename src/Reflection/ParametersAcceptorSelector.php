@@ -28,9 +28,9 @@ class ParametersAcceptorSelector
 	}
 
 	/**
-	 * @param Scope                 $scope
+	 * @param Scope $scope
 	 * @param \PhpParser\Node\Arg[] $args
-	 * @param ParametersAcceptor[]  $parametersAcceptors
+	 * @param ParametersAcceptor[] $parametersAcceptors
 	 *
 	 * @return ParametersAcceptor
 	 */
@@ -62,7 +62,7 @@ class ParametersAcceptorSelector
 	/**
 	 * @param \PHPStan\Type\Type[] $types
 	 * @param ParametersAcceptor[] $parametersAcceptors
-	 * @param bool                 $unpack
+	 * @param bool $unpack
 	 *
 	 * @return ParametersAcceptor
 	 */
@@ -76,14 +76,14 @@ class ParametersAcceptorSelector
 			return $parametersAcceptors[0];
 		}
 
-		if (count($parametersAcceptors) === 0) {
+		if (\count($parametersAcceptors) === 0) {
 			throw new \PHPStan\ShouldNotHappenException(
 				'getVariants() must return at least one variant.'
 			);
 		}
 
 		$typesCount = \count($types);
-		/* @var $acceptableAcceptors ParametersAcceptor[] */
+		/** @var ParametersAcceptor[] $acceptableAcceptors */
 		$acceptableAcceptors = [];
 
 		foreach ($parametersAcceptors as $parametersAcceptor) {
@@ -95,7 +95,7 @@ class ParametersAcceptorSelector
 			$functionParametersMinCount = 0;
 			$functionParametersMaxCount = 0;
 			foreach ($parametersAcceptor->getParameters() as $parameter) {
-				/* @var $parameter \PHPStan\Reflection\ParameterReflection */
+				/** @var \PHPStan\Reflection\ParameterReflection $parameter */
 				if (!$parameter->isOptional()) {
 					$functionParametersMinCount++;
 				}
@@ -156,7 +156,7 @@ class ParametersAcceptorSelector
 				$winningAcceptors[] = $acceptableAcceptor;
 				$winningCertainty = $isSuperType;
 			} else {
-				/* @var $winningCertainty TrinaryLogic */
+				/** @var TrinaryLogic $winningCertainty */
 				$comparison = $winningCertainty->compareTo($isSuperType);
 				if ($comparison === $isSuperType) {
 					$winningAcceptors = [$acceptableAcceptor];
@@ -189,7 +189,7 @@ class ParametersAcceptorSelector
 		foreach ($acceptors as $acceptor) {
 			$acceptorParametersMinCount = 0;
 			foreach ($acceptor->getParameters() as $parameter) {
-				/* @var $parameter \PHPStan\Reflection\ParameterReflection */
+				/** @var \PHPStan\Reflection\ParameterReflection $parameter */
 				if ($parameter->isOptional()) {
 					continue;
 				}
@@ -231,7 +231,7 @@ class ParametersAcceptorSelector
 				$isVariadic = $parameters[$i]->isVariadic() || $parameter->isVariadic();
 
 				$parameters[$i] = new NativeParameterReflection(
-					$parameters[$i]->getName() !== $parameter->getName() ? sprintf('%s|%s', $parameters[$i]->getName(), $parameter->getName()) : $parameter->getName(),
+					$parameters[$i]->getName() !== $parameter->getName() ? \sprintf('%s|%s', $parameters[$i]->getName(), $parameter->getName()) : $parameter->getName(),
 					$i + 1 > $minimumNumberOfParameters,
 					TypeCombinator::union($parameters[$i]->getType(), $parameter->getType()),
 					$parameters[$i]->passedByReference()->combine($parameter->passedByReference()),

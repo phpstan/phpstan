@@ -128,7 +128,7 @@ class Broker
 	{
 		$this->propertiesClassReflectionExtensions = $propertiesClassReflectionExtensions;
 		$this->methodsClassReflectionExtensions = $methodsClassReflectionExtensions;
-		foreach (array_merge(
+		foreach (\array_merge(
 			$propertiesClassReflectionExtensions,
 			$methodsClassReflectionExtensions,
 			$dynamicMethodReturnTypeExtensions,
@@ -229,7 +229,7 @@ class Broker
 
 	/**
 	 * @param \PHPStan\Type\DynamicMethodReturnTypeExtension[][]|\PHPStan\Type\DynamicStaticMethodReturnTypeExtension[][] $extensions
-	 * @param string                                                                                                      $className
+	 * @param string $className
 	 *
 	 * @return mixed[]
 	 */
@@ -294,7 +294,6 @@ class Broker
 		}
 
 		if ($scope->isInTrait()) {
-			/** @noinspection NullPointerExceptionInspection */
 			$scopeFile = $scope->getTraitReflection()->getFileName();
 			if ($scopeFile === false) {
 				$scopeFile = $scope->getFile();
@@ -323,7 +322,7 @@ class Broker
 
 		self::$anonymousClasses[$className] = $this->getClassFromReflection(
 			new \ReflectionClass('\\' . $className),
-			sprintf('class@anonymous/%s:%s', $filename, $node->getLine()),
+			\sprintf('class@anonymous/%s:%s', $filename, $node->getLine()),
 			$scopeFile
 		);
 		$this->classReflections[$className] = self::$anonymousClasses[$className];
@@ -360,7 +359,7 @@ class Broker
 			return $this->hasClassCache[$className];
 		}
 
-		spl_autoload_register(
+		\spl_autoload_register(
 			$autoloader = function (string $autoloadedClassName) use ($className): void {
 				if ($autoloadedClassName !== $className && !$this->isExistsCheckCall()) {
 					throw new \PHPStan\Broker\ClassAutoloadingException($autoloadedClassName);
@@ -370,11 +369,11 @@ class Broker
 
 		try {
 			return $this->hasClassCache[$className] = (
-				class_exists($className)
+				\class_exists($className)
 				||
-				interface_exists($className)
+				\interface_exists($className)
 				||
-				trait_exists($className)
+				\trait_exists($className)
 			);
 		} catch (\PHPStan\Broker\ClassAutoloadingException $e) {
 			throw $e;
@@ -384,7 +383,7 @@ class Broker
 				$t
 			);
 		} finally {
-			spl_autoload_unregister($autoloader);
+			\spl_autoload_unregister($autoloader);
 		}
 	}
 
@@ -395,7 +394,7 @@ class Broker
 			throw new \PHPStan\Broker\FunctionNotFoundException((string) $nameNode);
 		}
 
-		$lowerCasedFunctionName = strtolower($functionName);
+		$lowerCasedFunctionName = \strtolower($functionName);
 		if (!isset($this->functionReflections[$lowerCasedFunctionName])) {
 			if (isset(self::$functionMap[$lowerCasedFunctionName])) {
 				return $this->functionReflections[$lowerCasedFunctionName] = self::$functionMap[$lowerCasedFunctionName];
@@ -412,7 +411,7 @@ class Broker
 						$returnType = TypeUtils::toBenevolentUnion($returnType);
 					}
 					$variants[] = new FunctionVariant(
-						array_map(
+						\array_map(
 							static function (ParameterSignature $parameterSignature) use ($lowerCasedFunctionName
 							): NativeParameterReflection {
 								$type = $parameterSignature->getType();
@@ -451,7 +450,7 @@ class Broker
 					);
 
 					$i++;
-					$variantName = sprintf($lowerCasedFunctionName . '\'' . $i);
+					$variantName = \sprintf($lowerCasedFunctionName . '\'' . $i);
 				}
 				$functionReflection = new NativeFunctionReflection(
 					$lowerCasedFunctionName,
@@ -480,7 +479,7 @@ class Broker
 			return false;
 		}
 
-		$lowerCasedFunctionName = strtolower($functionName);
+		$lowerCasedFunctionName = \strtolower($functionName);
 
 		return !$this->signatureMapProvider->hasFunctionSignature($lowerCasedFunctionName);
 	}
@@ -499,7 +498,7 @@ class Broker
 		if (!\function_exists($functionName)) {
 			throw new \PHPStan\Broker\FunctionNotFoundException($functionName);
 		}
-		$lowerCasedFunctionName = strtolower($functionName);
+		$lowerCasedFunctionName = \strtolower($functionName);
 		if (isset($this->customFunctionReflections[$lowerCasedFunctionName])) {
 			return $this->customFunctionReflections[$lowerCasedFunctionName];
 		}
@@ -525,7 +524,7 @@ class Broker
 
 		$functionReflection = $this->functionReflectionFactory->create(
 			$reflectionFunction,
-			array_map(
+			\array_map(
 				static function (ParamTag $paramTag): Type {
 					return $paramTag->getType();
 				},
@@ -545,16 +544,20 @@ class Broker
 
 	public function resolveFunctionName(\PhpParser\Node\Name $nameNode, ?Scope $scope): ?string
 	{
-		return $this->resolveName($nameNode, function (string $name): bool {
-			$exists = function_exists($name);
-			if ($exists) {
-				return true;
-			}
+		return $this->resolveName(
+			$nameNode,
+			function (string $name): bool {
+				$exists = \function_exists($name);
+				if ($exists) {
+					return true;
+				}
 
-			$lowercased = strtolower($name);
+				$lowercased = \strtolower($name);
 
-			return $this->signatureMapProvider->hasFunctionSignature($lowercased);
-		}, $scope);
+				return $this->signatureMapProvider->hasFunctionSignature($lowercased);
+			},
+			$scope
+		);
 	}
 
 	public function hasConstant(\PhpParser\Node\Name $nameNode, ?Scope $scope): bool
@@ -590,7 +593,7 @@ class Broker
 	}
 
 	/**
-	 * @param Node\Name  $nameNode
+	 * @param Node\Name $nameNode
 	 * @param \Closure(string $name): bool $existsCallback
 	 * @param Scope|null $scope
 	 *
@@ -604,7 +607,7 @@ class Broker
 	{
 		$name = (string) $nameNode;
 		if ($scope !== null && $scope->getNamespace() !== null && !$nameNode->isFullyQualified()) {
-			$namespacedName = sprintf('%s\\%s', $scope->getNamespace(), $name);
+			$namespacedName = \sprintf('%s\\%s', $scope->getNamespace(), $name);
 			if ($existsCallback($namespacedName)) {
 				return $namespacedName;
 			}
@@ -619,7 +622,7 @@ class Broker
 
 	private function isExistsCheckCall(): bool
 	{
-		$debugBacktrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+		$debugBacktrace = \debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS);
 		$existsCallTypes = [
 			'class_exists'     => true,
 			'interface_exists' => true,

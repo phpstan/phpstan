@@ -67,24 +67,24 @@ class DependencyDumper
 			$analysedFiles = $this->fileFinder->findFiles($analysedPaths)->getFiles();
 		}
 		$this->nodeScopeResolver->setAnalysedFiles($analysedFiles);
-		$analysedFiles = array_fill_keys($analysedFiles, true);
+		$analysedFiles = \array_fill_keys($analysedFiles, true);
 
 		$dependencies = [];
-		$countCallback(count($files));
+		$countCallback(\count($files));
 		foreach ($files as $file) {
 			$fileDependencies = [];
 			$this->nodeScopeResolver->processNodes(
 				$this->parser->parseFile($file),
 				$this->scopeFactory->create(ScopeContext::create($file)),
 				function (\PhpParser\Node $node, Scope $scope) use ($analysedFiles, &$fileDependencies): void {
-					$fileDependencies = array_merge(
+					$fileDependencies = \array_merge(
 						$fileDependencies,
 						$this->resolveDependencies($node, $scope, $analysedFiles)
 					);
 				}
 			);
 
-			foreach (array_unique($fileDependencies) as $fileDependency) {
+			foreach (\array_unique($fileDependencies) as $fileDependency) {
 				$relativeDependencyFile = $fileDependency;
 				$dependencies[$relativeDependencyFile][] = $file;
 			}
@@ -127,7 +127,7 @@ class DependencyDumper
 			$dependencies[$dependencyFile] = $dependencyFile;
 		}
 
-		return array_values($dependencies);
+		return \array_values($dependencies);
 	}
 
 }

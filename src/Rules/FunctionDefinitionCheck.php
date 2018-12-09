@@ -123,7 +123,7 @@ class FunctionDefinitionCheck
 			$class = $param->type instanceof NullableType
 				? (string) $param->type->type
 				: (string) $param->type;
-			$lowercasedClass = strtolower($class);
+			$lowercasedClass = \strtolower($class);
 			if ($lowercasedClass === '' || \in_array($lowercasedClass, self::VALID_TYPEHINTS, true)) {
 				continue;
 			}
@@ -132,13 +132,17 @@ class FunctionDefinitionCheck
 				if (!$param->var instanceof Variable || !\is_string($param->var->name)) {
 					throw new \PHPStan\ShouldNotHappenException();
 				}
-				$errors[] = RuleErrorBuilder::message(sprintf($parameterMessage, $param->var->name, $class))->line($param->type->getLine())->build();
+				$errors[] = RuleErrorBuilder::message(\sprintf($parameterMessage, $param->var->name, $class))
+											->line($param->type->getLine())
+											->build();
 			} elseif ($this->checkClassCaseSensitivity) {
-				$errors = array_merge(
+				$errors = \array_merge(
 					$errors,
-					$this->classCaseSensitivityCheck->checkClassNames([
-						new ClassNameNodePair($class, $param->type),
-					])
+					$this->classCaseSensitivityCheck->checkClassNames(
+						[
+							new ClassNameNodePair($class, $param->type),
+						]
+					)
 				);
 			}
 		}
@@ -152,20 +156,24 @@ class FunctionDefinitionCheck
 			? (string) $returnTypeNode->type
 			: (string) $returnTypeNode;
 
-		$lowercasedReturnType = strtolower($returnType);
+		$lowercasedReturnType = \strtolower($returnType);
 
 		if (
 			$lowercasedReturnType !== ''
 			&& !\in_array($lowercasedReturnType, self::VALID_TYPEHINTS, true)
 		) {
 			if (!$this->broker->hasClass($returnType) || $this->broker->getClass($returnType)->isTrait()) {
-				$errors[] = RuleErrorBuilder::message(sprintf($returnMessage, $returnType))->line($returnTypeNode->getLine())->build();
+				$errors[] = RuleErrorBuilder::message(\sprintf($returnMessage, $returnType))
+					->line($returnTypeNode->getLine())
+					->build();
 			} elseif ($this->checkClassCaseSensitivity) {
-				$errors = array_merge(
+				$errors = \array_merge(
 					$errors,
-					$this->classCaseSensitivityCheck->checkClassNames([
-						new ClassNameNodePair($returnType, $returnTypeNode),
-					])
+					$this->classCaseSensitivityCheck->checkClassNames(
+						[
+							new ClassNameNodePair($returnType, $returnTypeNode),
+						]
+					)
 				);
 			}
 		}
@@ -176,8 +184,8 @@ class FunctionDefinitionCheck
 	/**
 	 * @param ParametersAcceptorWithPhpDocs $parametersAcceptor
 	 * @param FunctionLike $functionNode
-	 * @param string                        $parameterMessage
-	 * @param string                        $returnMessage
+	 * @param string $parameterMessage
+	 * @param string $returnMessage
 	 *
 	 * @return RuleError[]
 	 */
@@ -195,7 +203,7 @@ class FunctionDefinitionCheck
 			if ($this->checkThisOnly) {
 				$referencedClasses = $parameter->getType()->getReferencedClasses();
 			} else {
-				$referencedClasses = array_merge(
+				$referencedClasses = \array_merge(
 					$parameter->getNativeType()->getReferencedClasses(),
 					$parameter->getPhpDocType()->getReferencedClasses()
 				);
@@ -213,37 +221,46 @@ class FunctionDefinitionCheck
 					continue;
 				}
 
-				$errors[] = RuleErrorBuilder::message(sprintf(
-					$parameterMessage,
-					$parameter->getName(),
-					$class
-				))->line($parameterNodeCallback()->getLine())->build();
+				$errors[] = RuleErrorBuilder::message(
+					\sprintf(
+						$parameterMessage,
+						$parameter->getName(),
+						$class
+					)
+				)->line($parameterNodeCallback()->getLine())->build();
 			}
 
 			if ($this->checkClassCaseSensitivity) {
-				$errors = array_merge(
+				$errors = \array_merge(
 					$errors,
-					$this->classCaseSensitivityCheck->checkClassNames(array_map(static function (string $class) use ($parameterNodeCallback): ClassNameNodePair {
-						return new ClassNameNodePair($class, $parameterNodeCallback());
-					}, $referencedClasses))
+					$this->classCaseSensitivityCheck->checkClassNames(
+						\array_map(
+							static function (string $class) use ($parameterNodeCallback): ClassNameNodePair {
+								return new ClassNameNodePair($class, $parameterNodeCallback());
+							},
+							$referencedClasses
+						)
+					)
 				);
 			}
 			if (!($parameter->getType() instanceof NonexistentParentClassType)) {
 				continue;
 			}
 
-			$errors[] = RuleErrorBuilder::message(sprintf(
-				$parameterMessage,
-				$parameter->getName(),
-				$parameter->getType()
-					->describe(VerbosityLevel::typeOnly())
-			))->line($parameterNodeCallback()->getLine())->build();
+			$errors[] = RuleErrorBuilder::message(
+				\sprintf(
+					$parameterMessage,
+					$parameter->getName(),
+					$parameter->getType()
+						->describe(VerbosityLevel::typeOnly())
+				)
+			)->line($parameterNodeCallback()->getLine())->build();
 		}
 
 		if ($this->checkThisOnly) {
 			$returnTypeReferencedClasses = $parametersAcceptor->getReturnType()->getReferencedClasses();
 		} else {
-			$returnTypeReferencedClasses = array_merge(
+			$returnTypeReferencedClasses = \array_merge(
 				$parametersAcceptor->getNativeReturnType()->getReferencedClasses(),
 				$parametersAcceptor->getPhpDocReturnType()->getReferencedClasses()
 			);
@@ -254,23 +271,32 @@ class FunctionDefinitionCheck
 				continue;
 			}
 
-			$errors[] = RuleErrorBuilder::message(sprintf($returnMessage, $class))->line($returnTypeNode->getLine())->build();
+			$errors[] = RuleErrorBuilder::message(\sprintf($returnMessage, $class))
+				->line($returnTypeNode->getLine())
+				->build();
 		}
 
 		if ($this->checkClassCaseSensitivity) {
-			$errors = array_merge(
+			$errors = \array_merge(
 				$errors,
-				$this->classCaseSensitivityCheck->checkClassNames(array_map(static function (string $class) use ($returnTypeNode): ClassNameNodePair {
-					return new ClassNameNodePair($class, $returnTypeNode);
-				}, $returnTypeReferencedClasses))
+				$this->classCaseSensitivityCheck->checkClassNames(
+					\array_map(
+						static function (string $class) use ($returnTypeNode): ClassNameNodePair {
+							return new ClassNameNodePair($class, $returnTypeNode);
+						},
+						$returnTypeReferencedClasses
+					)
+				)
 			);
 		}
 		if ($parametersAcceptor->getReturnType() instanceof NonexistentParentClassType) {
-			$errors[] = RuleErrorBuilder::message(sprintf(
-				$returnMessage,
-				$parametersAcceptor->getReturnType()
-					->describe(VerbosityLevel::typeOnly())
-			))->line($returnTypeNode->getLine())->build();
+			$errors[] = RuleErrorBuilder::message(
+				\sprintf(
+					$returnMessage,
+					$parametersAcceptor->getReturnType()
+						->describe(VerbosityLevel::typeOnly())
+				)
+			)->line($returnTypeNode->getLine())->build();
 		}
 
 		return $errors;
@@ -291,7 +317,7 @@ class FunctionDefinitionCheck
 				continue;
 			}
 
-			if (!is_string($param->var->name)) {
+			if (!\is_string($param->var->name)) {
 				continue;
 			}
 
@@ -300,7 +326,7 @@ class FunctionDefinitionCheck
 			}
 		}
 
-		throw new \PHPStan\ShouldNotHappenException(sprintf('Parameter %s not found.', $parameterName));
+		throw new \PHPStan\ShouldNotHappenException(\sprintf('Parameter %s not found.', $parameterName));
 	}
 
 }

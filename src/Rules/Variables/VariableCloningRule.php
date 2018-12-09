@@ -56,7 +56,7 @@ class VariableCloningRule implements \PHPStan\Rules\Rule
 			\is_string($node->expr->name)
 		) {
 			return [
-				sprintf(
+				\sprintf(
 					'Cannot clone non-object variable $%s of type %s.',
 					$node->expr->name,
 					$type->describe(VerbosityLevel::typeOnly())
@@ -65,7 +65,7 @@ class VariableCloningRule implements \PHPStan\Rules\Rule
 		}
 
 		return [
-			sprintf('Cannot clone %s.', $type->describe(VerbosityLevel::typeOnly())),
+			\sprintf('Cannot clone %s.', $type->describe(VerbosityLevel::typeOnly())),
 		];
 	}
 

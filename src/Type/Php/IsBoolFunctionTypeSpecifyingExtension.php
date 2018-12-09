@@ -20,7 +20,7 @@ class IsBoolFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExt
 
 	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, TypeSpecifierContext $context): bool
 	{
-		return strtolower($functionReflection->getName()) === 'is_bool'
+		return \strtolower($functionReflection->getName()) === 'is_bool'
 			   && isset($node->args[0])
 			   && !$context->null();
 	}

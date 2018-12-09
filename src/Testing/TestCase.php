@@ -44,9 +44,13 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		if (self::$container === null) {
 			$rootDir = __DIR__ . '/../..';
 			$containerFactory = new ContainerFactory($rootDir);
-			self::$container = $containerFactory->create($rootDir . '/tmp', [
-				$containerFactory->getConfigDirectory() . '/config.level7.neon',
-			], []);
+			self::$container = $containerFactory->create(
+				$rootDir . '/tmp',
+				[
+					$containerFactory->getConfigDirectory() . '/config.level7.neon',
+				],
+				[]
+			);
 		}
 
 		return self::$container;
@@ -61,7 +65,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	}
 
 	/**
-	 * @param \PHPStan\Type\DynamicMethodReturnTypeExtension[]       $dynamicMethodReturnTypeExtensions
+	 * @param \PHPStan\Type\DynamicMethodReturnTypeExtension[] $dynamicMethodReturnTypeExtensions
 	 * @param \PHPStan\Type\DynamicStaticMethodReturnTypeExtension[] $dynamicStaticMethodReturnTypeExtensions
 	 *
 	 * @return \PHPStan\Broker\Broker
@@ -109,7 +113,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			 * @param Type|null $phpDocThrowType
 			 * @param bool $isDeprecated
 			 * @param bool $isInternal
-			 * @param bool $isFinal                                           $isFinal
+			 * @param bool $isFinal $isFinal
 			 *
 			 * @return PhpMethodReflection
 			 */
@@ -149,9 +153,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			$parser,
 			$phpDocStringResolver,
 			$cache,
-			new AnonymousClassNameHelper(new FileHelper($currentWorkingDirectory), new RelativePathHelper($currentWorkingDirectory, DIRECTORY_SEPARATOR, [])),
+			new AnonymousClassNameHelper(new FileHelper($currentWorkingDirectory), new RelativePathHelper($currentWorkingDirectory, \DIRECTORY_SEPARATOR, [])),
 			self::getContainer()
-																																		   ->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class)
+				->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class)
 		);
 		$annotationsMethodsClassReflectionExtension = new AnnotationsMethodsClassReflectionExtension($fileTypeMapper);
 		$annotationsPropertiesClassReflectionExtension = new AnnotationsPropertiesClassReflectionExtension($fileTypeMapper);
@@ -182,13 +186,13 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
 			/**
 			 * @param \ReflectionFunction $function
-			 * @param Type[]              $phpDocParameterTypes
-			 * @param Type|null           $phpDocReturnType
-			 * @param Type|null           $phpDocThrowType
-			 * @param bool                $isDeprecated
-			 * @param bool                $isInternal
-			 * @param bool                $isFinal
-			 * @param string|false        $filename
+			 * @param Type[] $phpDocParameterTypes
+			 * @param Type|null $phpDocReturnType
+			 * @param Type|null $phpDocThrowType
+			 * @param bool $isDeprecated
+			 * @param bool $isInternal
+			 * @param bool $isFinal
+			 * @param string|false $filename
 			 *
 			 * @return PhpFunctionReflection
 			 */
@@ -221,16 +225,16 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		};
 
 		$tagToService = static function (array $tags) {
-			return array_map(
+			return \array_map(
 				static function (string $serviceName) {
 					return self::getContainer()->getService($serviceName);
 				},
-				array_keys($tags)
+				\array_keys($tags)
 			);
 		};
 
 		$currentWorkingDirectory = $this->getCurrentWorkingDirectory();
-		$anonymousClassNameHelper = new AnonymousClassNameHelper(new FileHelper($currentWorkingDirectory), new RelativePathHelper($currentWorkingDirectory, DIRECTORY_SEPARATOR, []));
+		$anonymousClassNameHelper = new AnonymousClassNameHelper(new FileHelper($currentWorkingDirectory), new RelativePathHelper($currentWorkingDirectory, \DIRECTORY_SEPARATOR, []));
 		$broker = new Broker(
 			[
 				$phpExtension,
@@ -242,9 +246,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				$phpExtension,
 				$annotationsMethodsClassReflectionExtension,
 			],
-			array_merge($dynamicMethodReturnTypeExtensions, $this->getDynamicMethodReturnTypeExtensions()),
-			array_merge($dynamicStaticMethodReturnTypeExtensions, $this->getDynamicStaticMethodReturnTypeExtensions()),
-			array_merge(
+			\array_merge($dynamicMethodReturnTypeExtensions, $this->getDynamicMethodReturnTypeExtensions()),
+			\array_merge($dynamicStaticMethodReturnTypeExtensions, $this->getDynamicStaticMethodReturnTypeExtensions()),
+			\array_merge(
 				$tagToService(
 					self::getContainer()
 						->findByTag(BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG)
@@ -258,13 +262,13 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				$cache,
 				$anonymousClassNameHelper,
 				self::getContainer()
-																																						  ->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class)
+					->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class)
 			),
 			$signatureMapProvider,
 			self::getContainer()->getByType(Standard::class),
 			$anonymousClassNameHelper,
 			self::getContainer()->getByType(Parser::class),
-			new RelativePathHelper($this->getCurrentWorkingDirectory(), DIRECTORY_SEPARATOR, []),
+			new RelativePathHelper($this->getCurrentWorkingDirectory(), \DIRECTORY_SEPARATOR, []),
 			self::getContainer()->parameters['universalObjectCratesClasses']
 		);
 		$methodReflectionFactory->broker = $broker;
@@ -273,9 +277,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	}
 
 	/**
-	 * @param Broker        $broker
+	 * @param Broker $broker
 	 * @param TypeSpecifier $typeSpecifier
-	 * @param string[]      $dynamicConstantNames
+	 * @param string[] $dynamicConstantNames
 	 *
 	 * @return ScopeFactory
 	 */
@@ -320,9 +324,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	}
 
 	/**
-	 * @param \PhpParser\PrettyPrinter\Standard                   $printer
-	 * @param \PHPStan\Broker\Broker                              $broker
-	 * @param \PHPStan\Type\MethodTypeSpecifyingExtension[]       $methodTypeSpecifyingExtensions
+	 * @param \PhpParser\PrettyPrinter\Standard $printer
+	 * @param \PHPStan\Broker\Broker $broker
+	 * @param \PHPStan\Type\MethodTypeSpecifyingExtension[] $methodTypeSpecifyingExtensions
 	 * @param \PHPStan\Type\StaticMethodTypeSpecifyingExtension[] $staticMethodTypeSpecifyingExtensions
 	 *
 	 * @return \PHPStan\Analyser\TypeSpecifier
@@ -335,11 +339,11 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	): TypeSpecifier
 	{
 		$tagToService = static function (array $tags) {
-			return array_map(
+			return \array_map(
 				static function (string $serviceName) {
 					return self::getContainer()->getService($serviceName);
 				},
-				array_keys($tags)
+				\array_keys($tags)
 			);
 		};
 
@@ -362,7 +366,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
 	protected function skipIfNotOnWindows(): void
 	{
-		if (DIRECTORY_SEPARATOR === '\\') {
+		if (\DIRECTORY_SEPARATOR === '\\') {
 			return;
 		}
 
@@ -371,7 +375,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
 	protected function skipIfNotOnUnix(): void
 	{
-		if (DIRECTORY_SEPARATOR === '/') {
+		if (\DIRECTORY_SEPARATOR === '/') {
 			return;
 		}
 

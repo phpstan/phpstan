@@ -58,7 +58,7 @@ class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
 				$valueLines[$value] = $item->getLine();
 			}
 
-			$previousCount = count($values);
+			$previousCount = \count($values);
 			$values[$value] = $printedValue;
 			if ($previousCount !== \count($values)) {
 				continue;
@@ -68,14 +68,16 @@ class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
 		}
 
 		$messages = [];
-		foreach (array_keys($duplicateKeys) as $value) {
-			$messages[] = RuleErrorBuilder::message(sprintf(
-				'Array has %d %s with value %s (%s).',
-				\count($printedValues[$value]),
-				\count($printedValues[$value]) === 1 ? 'duplicate key' : 'duplicate keys',
-				var_export($value, true),
-				implode(', ', $printedValues[$value])
-			))->line($valueLines[$value])->build();
+		foreach (\array_keys($duplicateKeys) as $value) {
+			$messages[] = RuleErrorBuilder::message(
+				\sprintf(
+					'Array has %d %s with value %s (%s).',
+					\count($printedValues[$value]),
+					\count($printedValues[$value]) === 1 ? 'duplicate key' : 'duplicate keys',
+					\var_export($value, true),
+					\implode(', ', $printedValues[$value])
+				)
+			)->line($valueLines[$value])->build();
 		}
 
 		return $messages;

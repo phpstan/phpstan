@@ -54,7 +54,7 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 		$typeResult = $this->ruleLevelHelper->findTypeToCheck(
 			$scope,
 			$node->var,
-			sprintf('Access to property $%s on an unknown class %%s.', $name),
+			\sprintf('Access to property $%s on an unknown class %%s.', $name),
 			static function (Type $type) use ($name): bool {
 				return $type->canAccessProperties()->yes() && $type->hasProperty($name)->yes();
 			}
@@ -66,7 +66,7 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 
 		if (!$type->canAccessProperties()->yes()) {
 			return [
-				sprintf('Cannot access property $%s on %s.', $name, $type->describe(VerbosityLevel::typeOnly())),
+				\sprintf('Cannot access property $%s on %s.', $name, $type->describe(VerbosityLevel::typeOnly())),
 			];
 		}
 
@@ -94,12 +94,11 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 
 			if (\count($classNames) === 1) {
 				$referencedClass = $typeResult->getReferencedClasses()[0];
-				$propertyClassReflection = $this->broker->getClass($referencedClass);
-				$parentClassReflection = $propertyClassReflection->getParentClass();
+				$parentClassReflection = $this->broker->getClass($referencedClass)->getParentClass();
 				while ($parentClassReflection !== false) {
 					if ($parentClassReflection->hasProperty($name)) {
 						return [
-							sprintf(
+							\sprintf(
 								'Access to private property $%s of parent class %s.',
 								$name,
 								$parentClassReflection->getDisplayName()
@@ -112,7 +111,7 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 			}
 
 			return [
-				sprintf(
+				\sprintf(
 					'Access to an undefined property %s::$%s.',
 					$type->describe(VerbosityLevel::typeOnly()),
 					$name
@@ -123,7 +122,7 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 		$propertyReflection = $type->getProperty($name, $scope);
 		if (!$scope->canAccessProperty($propertyReflection)) {
 			return [
-				sprintf(
+				\sprintf(
 					'Access to %s property %s::$%s.',
 					$propertyReflection->isPrivate() ? 'private' : 'protected',
 					$type->describe(VerbosityLevel::typeOnly()),

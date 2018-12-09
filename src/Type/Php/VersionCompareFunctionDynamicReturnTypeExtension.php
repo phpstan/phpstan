@@ -52,7 +52,7 @@ class VersionCompareFunctionDynamicReturnTypeExtension implements \PHPStan\Type\
 		}
 
 		if (\count(
-			array_filter(
+			\array_filter(
 				$counts,
 				static function (int $count): bool {
 						return $count === 0;
@@ -63,7 +63,7 @@ class VersionCompareFunctionDynamicReturnTypeExtension implements \PHPStan\Type\
 		}
 
 		if (\count(
-			array_filter(
+			\array_filter(
 				$counts,
 				static function (int $count): bool {
 						return $count > 1;
@@ -78,11 +78,11 @@ class VersionCompareFunctionDynamicReturnTypeExtension implements \PHPStan\Type\
 			foreach ($version2Strings as $version2String) {
 				if (isset($operatorStrings)) {
 					foreach ($operatorStrings as $operatorString) {
-						$value = version_compare($version1String->getValue(), $version2String->getValue(), $operatorString->getValue());
+						$value = \version_compare($version1String->getValue(), $version2String->getValue(), $operatorString->getValue());
 						$types[$value] = new ConstantBooleanType($value);
 					}
 				} else {
-					$value = version_compare($version1String->getValue(), $version2String->getValue());
+					$value = \version_compare($version1String->getValue(), $version2String->getValue());
 					$types[$value] = new ConstantIntegerType($value);
 				}
 			}

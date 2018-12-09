@@ -2,7 +2,6 @@
 
 namespace PHPStan\Analyser;
 
-use phpDocumentor\Reflection\Types\Scalar;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -109,14 +108,14 @@ class NodeScopeResolver
 	private $analysedFiles;
 
 	/**
-	 * @param Broker         $broker
-	 * @param Parser         $parser
+	 * @param Broker $broker
+	 * @param Parser $parser
 	 * @param FileTypeMapper $fileTypeMapper
-	 * @param FileHelper     $fileHelper
-	 * @param TypeSpecifier  $typeSpecifier
-	 * @param bool           $polluteScopeWithLoopInitialAssignments
-	 * @param bool           $polluteCatchScopeWithTryAssignments
-	 * @param string[][]     $earlyTerminatingMethodCalls className(string) => methods(string[])
+	 * @param FileHelper $fileHelper
+	 * @param TypeSpecifier $typeSpecifier
+	 * @param bool $polluteScopeWithLoopInitialAssignments
+	 * @param bool $polluteCatchScopeWithTryAssignments
+	 * @param string[][] $earlyTerminatingMethodCalls className(string) => methods(string[])
 	 */
 	public function __construct(
 		Broker $broker,
@@ -144,11 +143,11 @@ class NodeScopeResolver
 	 */
 	public function setAnalysedFiles(array $files): void
 	{
-		$this->analysedFiles = array_fill_keys($files, true);
+		$this->analysedFiles = \array_fill_keys($files, true);
 	}
 
 	/**
-	 * @param \PhpParser\Node[]       $nodes
+	 * @param \PhpParser\Node[] $nodes
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
 	 * @param \PHPStan\Analyser\Scope $closureBindScope
@@ -178,7 +177,7 @@ class NodeScopeResolver
 				$parametersAcceptor = $this->findParametersAcceptorInFunctionCall($functionCall, $scope);
 
 				if ($parametersAcceptor !== null) {
-					/* @var $parameters \PHPStan\Reflection\ParameterReflection[] */
+					/** @var \PHPStan\Reflection\ParameterReflection[] $parameters */
 					$parameters = $parametersAcceptor->getParameters();
 					$assignByReference = false;
 					if (isset($parameters[$i])) {
@@ -247,7 +246,7 @@ class NodeScopeResolver
 	private function specifyProperty(Scope $scope, Expr $expr): Scope
 	{
 		if ($expr instanceof PropertyFetch
-		&& $expr->name instanceof Node\Identifier) {
+			&& $expr->name instanceof Node\Identifier) {
 			return $scope->filterByTruthyValue(
 				new FuncCall(
 					new Node\Name('property_exists'),
@@ -292,10 +291,8 @@ class NodeScopeResolver
 					$scope = $this->specifyProperty($scope, $var);
 				}
 			}
-		} else {
-			if ($node instanceof Expr\Empty_) {
-				$scope = $this->specifyProperty($scope, $node->expr);
-			}
+		} elseif ($node instanceof Expr\Empty_) {
+			$scope = $this->specifyProperty($scope, $node->expr);
 		}
 	}
 
@@ -348,8 +345,6 @@ class NodeScopeResolver
 	private function enterForeach(Scope $scope, Foreach_ $node): Scope
 	{
 		if (
-			$node->keyVar !== null
-			&&
 			$node->keyVar instanceof Variable
 			&&
 			\is_string($node->keyVar->name)
@@ -380,11 +375,14 @@ class NodeScopeResolver
 			$scope = $this->processVarAnnotation($scope, $node->keyVar->name, $comment, true);
 		}
 
-		if ($node->valueVar instanceof List_ || $node->valueVar instanceof Array_) {
+		if (
+			$node->valueVar instanceof List_
+			||
+			$node->valueVar instanceof Array_
+		) {
 			$itemTypes = [];
 			$exprType = $scope->getType($node->expr);
-			$arrayTypes = TypeUtils::getArrays($exprType);
-			foreach ($arrayTypes as $arrayType) {
+			foreach (TypeUtils::getArrays($exprType) as $arrayType) {
 				$itemTypes[] = $arrayType->getItemType();
 			}
 
@@ -397,9 +395,9 @@ class NodeScopeResolver
 
 	/**
 	 * @param \PhpParser\Node $node
-	 * @param Scope           $scope
+	 * @param Scope $scope
 	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
-	 * @param bool            $stopImmediately
+	 * @param bool $stopImmediately
 	 */
 	private function processNode(\PhpParser\Node $node, Scope $scope, \Closure $nodeCallback, bool $stopImmediately = false): void
 	{
@@ -460,7 +458,7 @@ class NodeScopeResolver
 					&&
 					$argValue->class instanceof Name
 					&&
-					strtolower($argValue->name->name) === 'class'
+					\strtolower($argValue->name->name) === 'class'
 				) {
 					$scopeClass = $scope->resolveName($argValue->class);
 				} elseif ($argValueType instanceof ConstantStringType) {
@@ -727,7 +725,7 @@ class NodeScopeResolver
 				&&
 				isset($node->cond->args[0])
 				&&
-				strtolower((string) $node->cond->name) === 'get_class'
+				\strtolower((string) $node->cond->name) === 'get_class'
 			) {
 				$switchConditionGetClassExpression = $node->cond->args[0]->value;
 			}
@@ -756,7 +754,7 @@ class NodeScopeResolver
 						&& $caseNode->cond instanceof Expr\ClassConstFetch
 						&& $caseNode->cond->class instanceof Name
 						&& $caseNode->cond->name instanceof Node\Identifier
-						&& strtolower($caseNode->cond->name->name) === 'class'
+						&& \strtolower($caseNode->cond->name->name) === 'class'
 					) {
 						$caseScope = $caseScope->specifyExpressionType(
 							$switchConditionGetClassExpression,
@@ -855,7 +853,7 @@ class NodeScopeResolver
 				) {
 					$scope = $scope->enterExpressionAssign($unsetVar);
 					if ($unsetVar instanceof StaticPropertyFetch) {
-						/* @var $unsetVar StaticPropertyFetch */
+						/** @var StaticPropertyFetch $unsetVar */
 						$unsetVar = $unsetVar->class;
 					} else {
 						$unsetVar = $unsetVar->var;
@@ -1140,7 +1138,7 @@ class NodeScopeResolver
 			if (!$conditionType instanceof ConstantBooleanType || $conditionType->getValue()) {
 				$statements[] = new StatementList(
 					$scope,
-					array_merge([$node->cond], $node->stmts),
+					\array_merge([$node->cond], $node->stmts),
 					false,
 					static function (Scope $scope) use ($node): Scope {
 						return $scope->filterByTruthyValue($node->cond);
@@ -1164,7 +1162,7 @@ class NodeScopeResolver
 					}
 					$statements[] = new StatementList(
 						$elseIfScope,
-						array_merge([$elseIf->cond], $elseIf->stmts),
+						\array_merge([$elseIf->cond], $elseIf->stmts),
 						false,
 						static function (Scope $scope) use ($elseIf): Scope {
 							return $scope->filterByTruthyValue($elseIf->cond);
@@ -1207,7 +1205,7 @@ class NodeScopeResolver
 						$catch->types,
 						$catch->var->name
 					),
-					array_merge([new Node\Stmt\Nop()], $catch->stmts)
+					\array_merge([new Node\Stmt\Nop()], $catch->stmts)
 				);
 			}
 
@@ -1236,7 +1234,7 @@ class NodeScopeResolver
 			$parametersAcceptor = $this->findParametersAcceptorInFunctionCall($node, $scope);
 
 			if ($parametersAcceptor !== null) {
-				/* @var $parameters \PHPStan\Reflection\ParameterReflection[] */
+				/** @var \PHPStan\Reflection\ParameterReflection[] $parameters */
 				$parameters = $parametersAcceptor->getParameters();
 				foreach ($node->args as $i => $arg) {
 					$assignByReference = false;
@@ -1252,7 +1250,11 @@ class NodeScopeResolver
 					}
 
 					$arg = $node->args[$i]->value;
-					if (!($arg instanceof Variable) || !\is_string($arg->name)) {
+					if (
+						!($arg instanceof Variable)
+						||
+						!\is_string($arg->name)
+					) {
 						continue;
 					}
 
@@ -1285,7 +1287,7 @@ class NodeScopeResolver
 				\count($node->args) >= 2
 				&&
 				\in_array(
-					strtolower((string) $node->name),
+					\strtolower((string) $node->name),
 					[
 						'array_push',
 						'array_unshift',
@@ -1313,7 +1315,7 @@ class NodeScopeResolver
 
 				$arrayArg = $node->args[0]->value;
 				$originalArrayType = $scope->getType($arrayArg);
-				$functionName = strtolower((string) $node->name);
+				$functionName = \strtolower((string) $node->name);
 				$constantArrays = TypeUtils::getConstantArrays($originalArrayType);
 
 				if (
@@ -1371,7 +1373,7 @@ class NodeScopeResolver
 				\count($node->args) >= 1
 				&&
 				\in_array(
-					strtolower((string) $node->name),
+					\strtolower((string) $node->name),
 					[
 						'array_pop',
 						'array_shift',
@@ -1381,7 +1383,7 @@ class NodeScopeResolver
 			) {
 				$arrayArg = $node->args[0]->value;
 				$constantArrays = TypeUtils::getConstantArrays($scope->getType($arrayArg));
-				$functionName = strtolower((string) $node->name);
+				$functionName = \strtolower((string) $node->name);
 				if (\count($constantArrays) > 0) {
 					$resultArrayTypes = [];
 
@@ -1569,12 +1571,17 @@ class NodeScopeResolver
 			$scope = $this->lookForAssigns($scope, $node->expr, $certainty, $lookForAssignsSettings);
 			if (!$iterableAtLeastOnce->no()) {
 				$statements = [
-					new StatementList($scope, array_merge(
-						[new Node\Stmt\Nop()],
-						$node->stmts
-					), false, function (Scope $scope) use ($node): Scope {
-						return $this->enterForeach($scope, $node);
-					}),
+					new StatementList(
+						$scope,
+						\array_merge(
+							[new Node\Stmt\Nop()],
+							$node->stmts
+						),
+						false,
+						function (Scope $scope) use ($node): Scope {
+							return $this->enterForeach($scope, $node);
+						}
+					),
 				];
 
 				if (!$iterableAtLeastOnce->yes()) {
@@ -1603,7 +1610,7 @@ class NodeScopeResolver
 			$statements = [
 				new StatementList(
 					$closureScope,
-					array_merge(
+					\array_merge(
 						[new Node\Stmt\Nop()],
 						$node->stmts
 					)
@@ -1822,7 +1829,7 @@ class NodeScopeResolver
 			$comment
 		);
 
-		/* @var $varTags \PHPStan\PhpDoc\Tag\VarTag[] */
+		/** @var \PHPStan\PhpDoc\Tag\VarTag[] $varTags */
 		$varTags = $resolvedPhpDoc->getVarTags();
 
 		if (isset($varTags[$variableName])) {
@@ -1871,7 +1878,7 @@ class NodeScopeResolver
 
 			// 2. eval dimensions
 			$offsetTypes = [];
-			foreach (array_reverse($dimExprStack) as $dimExpr) {
+			foreach (\array_reverse($dimExprStack) as $dimExpr) {
 				if ($dimExpr === null) {
 					$offsetTypes[] = null;
 
@@ -1905,9 +1912,9 @@ class NodeScopeResolver
 			}
 
 			$valueToWrite = $subNodeType;
-			foreach (array_reverse($offsetTypes) as $offsetType) {
+			foreach (\array_reverse($offsetTypes) as $offsetType) {
 				/** @var Type $offsetValueType */
-				$offsetValueType = array_pop($offsetValueTypeStack);
+				$offsetValueType = \array_pop($offsetValueTypeStack);
 				$valueToWrite = $offsetValueType->setOffsetValueType($offsetType, $valueToWrite);
 			}
 
@@ -1950,10 +1957,10 @@ class NodeScopeResolver
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Scope                  $initialScope
-	 * @param \PHPStan\Analyser\StatementList[]        $statementsLists
+	 * @param \PHPStan\Analyser\Scope $initialScope
+	 * @param \PHPStan\Analyser\StatementList[] $statementsLists
 	 * @param \PHPStan\Analyser\LookForAssignsSettings $lookForAssignsSettings
-	 * @param int                                      $counter
+	 * @param int $counter
 	 *
 	 * @return Scope
 	 */
@@ -2031,7 +2038,7 @@ class NodeScopeResolver
 	}
 
 	/**
-	 * @param \PhpParser\Node[]       $statements
+	 * @param \PhpParser\Node[] $statements
 	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return \PhpParser\Node|null
@@ -2085,14 +2092,13 @@ class NodeScopeResolver
 				$methodCalledOnType = $scope->getType($statement->class);
 			}
 
-			$directClassNames = TypeUtils::getDirectClassNames($methodCalledOnType);
-			foreach ($directClassNames as $referencedClass) {
+			foreach (TypeUtils::getDirectClassNames($methodCalledOnType) as $referencedClass) {
 				if (!$this->broker->hasClass($referencedClass)) {
 					continue;
 				}
 
 				$classReflection = $this->broker->getClass($referencedClass);
-				foreach (array_merge([$referencedClass], $classReflection->getParentClassesNames()) as $className) {
+				foreach (\array_merge([$referencedClass], $classReflection->getParentClassesNames()) as $className) {
 					if (!isset($this->earlyTerminatingMethodCalls[$className])) {
 						continue;
 					}
@@ -2215,9 +2221,9 @@ class NodeScopeResolver
 	}
 
 	/**
-	 * @param \PhpParser\Node[]|\PhpParser\Node|Scalar $node
-	 * @param string                                   $traitName
-	 * @param \PHPStan\Analyser\Scope                  $classScope
+	 * @param \PhpParser\Node[]|\PhpParser\Node|scalar $node
+	 * @param string $traitName
+	 * @param \PHPStan\Analyser\Scope $classScope
 	 * @param \Closure(\PhpParser\Node $node): void $nodeCallback
 	 */
 	private function processNodesForTraitUse($node, string $traitName, Scope $classScope, \Closure $nodeCallback): void
@@ -2271,7 +2277,7 @@ class NodeScopeResolver
 	}
 
 	/**
-	 * @param Scope             $scope
+	 * @param Scope $scope
 	 * @param Node\FunctionLike $functionLike
 	 *
 	 * @return mixed[]
@@ -2292,15 +2298,16 @@ class NodeScopeResolver
 		$class = $scope->isInClass() ? $scope->getClassReflection()->getName() : null;
 		$trait = $scope->isInTrait() ? $scope->getTraitReflection()->getName() : null;
 		$isExplicitPhpDoc = true;
-			if ($functionLike instanceof Node\Stmt\ClassMethod) {
-				if (!$scope->isInClass()) {
-					throw new \PHPStan\ShouldNotHappenException();
-				}
+		if ($functionLike instanceof Node\Stmt\ClassMethod) {
+			if (!$scope->isInClass()) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
 
-				$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForMethod(
-					$this->broker,
-					$docComment,
-					$scope->getClassReflection()->getName(),$trait,
+			$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForMethod(
+				$this->broker,
+				$docComment,
+				$scope->getClassReflection()->getName(),
+				$trait,
 				$functionLike->name->name,
 				$file
 			);
@@ -2321,7 +2328,7 @@ class NodeScopeResolver
 				$trait,
 				$docComment
 			);
-			$phpDocParameterTypes = array_map(
+			$phpDocParameterTypes = \array_map(
 				static function (ParamTag $tag): Type {
 					return $tag->getType();
 				},
@@ -2338,7 +2345,8 @@ class NodeScopeResolver
 			) {
 				$phpDocReturnType = $resolvedPhpDoc->getReturnTag()->getType();
 			}
-			$phpDocThrowType = $resolvedPhpDoc->getThrowsTag() !== null ? $resolvedPhpDoc->getThrowsTag()->getType() : null;
+			$phpDocThrowType = $resolvedPhpDoc->getThrowsTag() !== null ? $resolvedPhpDoc->getThrowsTag()
+				->getType() : null;
 			$isDeprecated = $resolvedPhpDoc->isDeprecated();
 			$isInternal = $resolvedPhpDoc->isInternal();
 			$isFinal = $resolvedPhpDoc->isFinal();

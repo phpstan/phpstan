@@ -101,9 +101,7 @@ class RuleLevelHelper
 						$strictTypes
 					)
 				) {
-
 					return false;
-
 				}
 			}
 
@@ -138,8 +136,8 @@ class RuleLevelHelper
 	}
 
 	/**
-	 * @param Scope  $scope
-	 * @param Expr   $var
+	 * @param Scope $scope
+	 * @param Expr $var
 	 * @param string $unknownClassErrorPattern
 	 * @param callable(Type $type): bool $unionTypeCriteriaCallback
 	 *
@@ -173,7 +171,9 @@ class RuleLevelHelper
 				continue;
 			}
 
-			$errors[] = RuleErrorBuilder::message(sprintf($unknownClassErrorPattern, $referencedClass))->line($var->getLine())->build();
+			$errors[] = RuleErrorBuilder::message(\sprintf($unknownClassErrorPattern, $referencedClass))
+				->line($var->getLine())
+				->build();
 		}
 
 		if (\count($errors) > 0) {

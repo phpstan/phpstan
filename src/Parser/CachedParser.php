@@ -45,7 +45,7 @@ class CachedParser implements Parser
 	public function parseFile(string $file): array
 	{
 		if ($this->cachedNodesByFileCountMax !== 0 && $this->cachedNodesByFileCount >= $this->cachedNodesByFileCountMax) {
-			$this->cachedNodesByFile = array_slice(
+			$this->cachedNodesByFile = \array_slice(
 				$this->cachedNodesByFile,
 				1,
 				null,
@@ -71,7 +71,7 @@ class CachedParser implements Parser
 	public function parseString(string $sourceCode): array
 	{
 		if ($this->cachedNodesByStringCountMax !== 0 && $this->cachedNodesByStringCount >= $this->cachedNodesByStringCountMax) {
-			$this->cachedNodesByString = array_slice(
+			$this->cachedNodesByString = \array_slice(
 				$this->cachedNodesByString,
 				1,
 				null,

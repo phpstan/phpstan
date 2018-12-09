@@ -32,9 +32,12 @@ class ExistingClassInTraitUseRule implements \PHPStan\Rules\Rule
 	public function processNode(Node $node, Scope $scope): array
 	{
 		return $this->classCaseSensitivityCheck->checkClassNames(
-			array_map(static function (Node\Name $traitName): ClassNameNodePair {
-				return new ClassNameNodePair((string) $traitName, $traitName);
-			}, $node->traits)
+			\array_map(
+				static function (Node\Name $traitName): ClassNameNodePair {
+					return new ClassNameNodePair((string) $traitName, $traitName);
+				},
+				$node->traits
+			)
 		);
 	}
 

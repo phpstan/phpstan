@@ -61,7 +61,7 @@ class TypeCombinator
 		}
 
 		if (
-			(new ArrayType(new MixedType(), new MixedType()))->isSuperTypeOf($fromType)->yes()
+		(new ArrayType(new MixedType(), new MixedType()))->isSuperTypeOf($fromType)->yes()
 		) {
 			if ($typeToRemove instanceof ConstantArrayType
 				&& $typeToRemove->isIterableAtLeastOnce()->no()) {
@@ -99,54 +99,67 @@ class TypeCombinator
 	public static function union(Type ...$types): Type
 	{
 		// transform A | (B | C) to A | B | C
+		/** @noinspection CallableInLoopTerminationConditionInspection */
 		for ($i = 0; $i < \count($types); $i++) {
 			if (!($types[$i] instanceof UnionType)) {
 				continue;
 			}
 
-			array_splice($types, $i, 1, $types[$i]->getTypes());
+			/** @var UnionType[] $types */
+			\array_splice($types, $i, 1, $types[$i]->getTypes());
 		}
 
-		$typesCount = \count($types);
 		$arrayTypes = [];
-		$arrayAccessoryTypes = [];
+		$arrayAccessoryTypes = [[]];
 		$scalarTypes = [];
 		$hasGenericScalarTypes = [];
-		for ($i = 0; $i < $typesCount; $i++) {
-			if ($types[$i] instanceof NeverType) {
+		foreach ($types as $i => $iValue) {
+			if ($iValue instanceof NeverType) {
 				unset($types[$i]);
 				continue;
 			}
-			if ($types[$i] instanceof MixedType) {
+
+			if ($iValue instanceof MixedType) {
 				return $types[$i];
 			}
-			if ($types[$i] instanceof ConstantScalarType) {
-				$type = $types[$i];
-				$scalarTypes[\get_class($type)][md5($type->describe(VerbosityLevel::precise()))] = $type;
+
+			if ($iValue instanceof ConstantScalarType) {
+				$type = $iValue;
+				$scalarTypes[\get_class($type)][\md5($type->describe(VerbosityLevel::precise()))] = $type;
 				unset($types[$i]);
 				continue;
 			}
-			if ($types[$i] instanceof BooleanType) {
+
+			if ($iValue instanceof BooleanType) {
 				$hasGenericScalarTypes[ConstantBooleanType::class] = true;
 			}
-			if ($types[$i] instanceof FloatType) {
+
+			if ($iValue instanceof FloatType) {
 				$hasGenericScalarTypes[ConstantFloatType::class] = true;
 			}
-			if ($types[$i] instanceof IntegerType) {
+
+			if ($iValue instanceof IntegerType) {
 				$hasGenericScalarTypes[ConstantIntegerType::class] = true;
 			}
-			if ($types[$i] instanceof StringType) {
+
+			if ($iValue instanceof StringType) {
 				$hasGenericScalarTypes[ConstantStringType::class] = true;
 			}
-			if ($types[$i] instanceof IntersectionType) {
+
+			if ($iValue instanceof IntersectionType) {
 				$intermediateArrayType = null;
 				$intermediateAccessoryTypes = [];
-				foreach ($types[$i]->getTypes() as $innerType) {
+				foreach ($iValue->getTypes() as $innerType) {
 					if ($innerType instanceof ArrayType) {
 						$intermediateArrayType = $innerType;
 						continue;
 					}
-					if ($innerType instanceof AccessoryType || $innerType instanceof CallableType) {
+
+					if (
+						$innerType instanceof AccessoryType
+						||
+						$innerType instanceof CallableType
+					) {
 						$intermediateAccessoryTypes[] = $innerType;
 						continue;
 					}
@@ -154,35 +167,40 @@ class TypeCombinator
 
 				if ($intermediateArrayType !== null) {
 					$arrayTypes[] = $intermediateArrayType;
-					$arrayAccessoryTypes = array_merge($arrayAccessoryTypes, $intermediateAccessoryTypes);
+					$arrayAccessoryTypes[] = $intermediateAccessoryTypes;
 					unset($types[$i]);
 					continue;
 				}
 			}
-			if (!$types[$i] instanceof ArrayType) {
+
+			if (!$iValue instanceof ArrayType) {
 				continue;
 			}
 
-			$arrayTypes[] = $types[$i];
+			$arrayTypes[] = $iValue;
 			unset($types[$i]);
 		}
 
-		/* @var ArrayType[] $arrayTypes */
+		$arrayAccessoryTypes = \array_merge(...$arrayAccessoryTypes);
+
+		/** @var ArrayType[] $arrayTypes */
 		$arrayTypes = $arrayTypes;
 
-		$types = array_values(
-			array_merge($types, self::processArrayTypes($arrayTypes, $arrayAccessoryTypes))
+		$types = \array_values(
+			\array_merge($types, self::processArrayTypes($arrayTypes, $arrayAccessoryTypes))
 		);
 
 		// simplify string[] | int[] to (string|int)[]
+		/** @noinspection CallableInLoopTerminationConditionInspection */
 		for ($i = 0; $i < \count($types); $i++) {
+			/** @noinspection CallableInLoopTerminationConditionInspection */
 			for ($j = $i + 1; $j < \count($types); $j++) {
 				if ($types[$i] instanceof IterableType && $types[$j] instanceof IterableType) {
 					$types[$i] = new IterableType(
 						self::union($types[$i]->getIterableKeyType(), $types[$j]->getIterableKeyType()),
 						self::union($types[$i]->getIterableValueType(), $types[$j]->getIterableValueType())
 					);
-					array_splice($types, $j, 1);
+					\array_splice($types, $j, 1);
 					continue 2;
 				}
 			}
@@ -190,21 +208,25 @@ class TypeCombinator
 
 		// transform A | A to A
 		// transform A | never to A
+		/** @noinspection CallableInLoopTerminationConditionInspection */
 		for ($i = 0; $i < \count($types); $i++) {
+			/** @noinspection CallableInLoopTerminationConditionInspection */
 			for ($j = $i + 1; $j < \count($types); $j++) {
 				if (
 					!$types[$j] instanceof ConstantArrayType
-					&& $types[$j]->isSuperTypeOf($types[$i])->yes()
+					&&
+					$types[$j]->isSuperTypeOf($types[$i])->yes()
 				) {
-					array_splice($types, $i--, 1);
+					\array_splice($types, $i--, 1);
 					continue 2;
 				}
 
 				if (
 					!$types[$i] instanceof ConstantArrayType
-					&& $types[$i]->isSuperTypeOf($types[$j])->yes()
+					&&
+					$types[$i]->isSuperTypeOf($types[$j])->yes()
 				) {
-					array_splice($types, $j--, 1);
+					\array_splice($types, $j--, 1);
 					continue 1;
 				}
 			}
@@ -214,11 +236,18 @@ class TypeCombinator
 			if (isset($hasGenericScalarTypes[$classType])) {
 				continue;
 			}
-			if ($classType === ConstantBooleanType::class && \count($scalarTypeItems) === 2) {
+
+			if (
+				$classType === ConstantBooleanType::class
+				&&
+				\count($scalarTypeItems) === 2
+			) {
 				$types[] = new BooleanType();
 				continue;
 			}
+
 			foreach ($scalarTypeItems as $type) {
+				/** @var ConstantType $type */
 				if (\count($scalarTypeItems) > self::CONSTANT_SCALAR_UNION_THRESHOLD) {
 					$types[] = $type->generalize();
 					break;
@@ -240,7 +269,7 @@ class TypeCombinator
 	}
 
 	/**
-	 * @param ArrayType[]     $arrayTypes
+	 * @param ArrayType[] $arrayTypes
 	 * @param Type[] $accessoryTypes
 	 *
 	 * @return Type[]
@@ -259,33 +288,34 @@ class TypeCombinator
 
 		$keyTypesForGeneralArray = [];
 		$valueTypesForGeneralArray = [];
-		$generalArrayOcurred = false;
+		$generalArrayOccurred = false;
 		$constantKeyTypesNumbered = [];
 
-		/* @var int|float $nextConstantKeyTypeIndex */
+		/** @var int|float $nextConstantKeyTypeIndex */
 		$nextConstantKeyTypeIndex = 1;
 
 		foreach ($arrayTypes as $arrayType) {
-			if (!$arrayType instanceof ConstantArrayType || $generalArrayOcurred) {
+			if (!$arrayType instanceof ConstantArrayType || $generalArrayOccurred) {
 				$keyTypesForGeneralArray[] = $arrayType->getKeyType();
 				$valueTypesForGeneralArray[] = $arrayType->getItemType();
-				$generalArrayOcurred = true;
+				$generalArrayOccurred = true;
 				continue;
 			}
 
 			foreach ($arrayType->getKeyTypes() as $i => $keyType) {
+				/** @var ConstantIntegerType|ConstantStringType $keyType */
 				$keyTypesForGeneralArray[] = $keyType;
 				$valueTypesForGeneralArray[] = $arrayType->getValueTypes()[$i];
 
 				$keyTypeValue = $keyType->getValue();
-				if (array_key_exists($keyTypeValue, $constantKeyTypesNumbered)) {
+				if (\array_key_exists($keyTypeValue, $constantKeyTypesNumbered)) {
 					continue;
 				}
 
 				$constantKeyTypesNumbered[$keyTypeValue] = $nextConstantKeyTypeIndex;
 				$nextConstantKeyTypeIndex *= 2;
 				if (!\is_int($nextConstantKeyTypeIndex)) {
-					$generalArrayOcurred = true;
+					$generalArrayOccurred = true;
 					continue;
 				}
 			}
@@ -301,16 +331,16 @@ class TypeCombinator
 			);
 		};
 
-		if ($generalArrayOcurred) {
+		if ($generalArrayOccurred) {
 			return [
 				$createGeneralArray(),
 			];
 		}
 
-		/* @var ConstantArrayType[] $arrayTypes */
+		/** @var ConstantArrayType[] $arrayTypes */
 		$arrayTypes = $arrayTypes;
 
-		/* @var int[] $constantKeyTypesNumbered */
+		/** @var int[] $constantKeyTypesNumbered */
 		$constantKeyTypesNumbered = $constantKeyTypesNumbered;
 
 		$constantArraysBuckets = [];
@@ -320,7 +350,7 @@ class TypeCombinator
 				$arrayIndex += $constantKeyTypesNumbered[$keyType->getValue()];
 			}
 
-			if (!array_key_exists($arrayIndex, $constantArraysBuckets)) {
+			if (!\array_key_exists($arrayIndex, $constantArraysBuckets)) {
 				$bucket = [];
 				foreach ($arrayType->getKeyTypes() as $i => $keyType) {
 					$bucket[$keyType->getValue()] = [
@@ -334,8 +364,9 @@ class TypeCombinator
 
 			$bucket = $constantArraysBuckets[$arrayIndex];
 			foreach ($arrayType->getKeyTypes() as $i => $keyType) {
-				$bucket[$keyType->getValue()]['valueType'] = self::union(
-					$bucket[$keyType->getValue()]['valueType'],
+				$keyTypeValue = $keyType->getValue();
+				$bucket[$keyTypeValue]['valueType'] = self::union(
+					$bucket[$keyTypeValue]['valueType'],
 					$arrayType->getValueTypes()[$i]
 				);
 			}
@@ -386,7 +417,7 @@ class TypeCombinator
 				continue;
 			}
 
-			array_splice($types, $i, 1, $type->getTypes());
+			\array_splice($types, $i, 1, $type->getTypes());
 		}
 
 		// transform IntegerType & ConstantIntegerType to ConstantIntegerType
@@ -397,16 +428,17 @@ class TypeCombinator
 		// transform callable & int to never
 		// transform A & ~A to never
 		// transform int & string to never
+		/** @noinspection CallableInLoopTerminationConditionInspection */
 		for ($i = 0; $i < \count($types); $i++) {
+			/** @noinspection CallableInLoopTerminationConditionInspection */
 			for ($j = $i + 1; $j < \count($types); $j++) {
 				$isSuperTypeA = $types[$j]->isSuperTypeOf($types[$i]);
 				if ($isSuperTypeA->no()) {
 					return new NeverType();
-
 				}
 
 				if ($isSuperTypeA->yes()) {
-					array_splice($types, $j--, 1);
+					\array_splice($types, $j--, 1);
 					continue;
 				}
 
@@ -417,7 +449,7 @@ class TypeCombinator
 				}
 
 				if ($isSuperTypeB->yes()) {
-					array_splice($types, $i--, 1);
+					\array_splice($types, $i--, 1);
 					continue 2;
 				}
 			}

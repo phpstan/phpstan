@@ -36,7 +36,7 @@ class AppendedArrayKeyTypeRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\Assign $node
-	 * @param \PHPStan\Analyser\Scope     $scope
+	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[]
 	 */
@@ -81,7 +81,7 @@ class AppendedArrayKeyTypeRule implements \PHPStan\Rules\Rule
 
 		if (!$arrayType->getIterableKeyType()->isSuperTypeOf($keyType)->yes()) {
 			return [
-				sprintf(
+				\sprintf(
 					'Array (%s) does not accept key %s.',
 					$arrayType->describe(VerbosityLevel::typeOnly()),
 					$keyType->describe(VerbosityLevel::value())

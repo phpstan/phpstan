@@ -92,7 +92,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			}
 
 			$result = TrinaryLogic::createYes();
-			foreach (array_keys($this->keyTypes) as $i) {
+			foreach (\array_keys($this->keyTypes) as $i) {
 				$result = $result
 					->and($this->keyTypes[$i]->accepts($type->keyTypes[$i], $strictTypes))
 					->and($this->valueTypes[$i]->accepts($type->valueTypes[$i], $strictTypes));
@@ -112,7 +112,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			}
 
 			$results = [];
-			foreach (array_keys($this->keyTypes) as $i) {
+			foreach (\array_keys($this->keyTypes) as $i) {
 				$results[] = $this->keyTypes[$i]->isSuperTypeOf($type->keyTypes[$i]);
 				$results[] = $this->valueTypes[$i]->isSuperTypeOf($type->valueTypes[$i]);
 			}
@@ -296,7 +296,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 					$newValueTypes = $this->valueTypes;
 					unset($newValueTypes[$i]);
 
-					return new self(array_values($newKeyTypes), array_values($newValueTypes), $this->nextAutoIndex);
+					return new self(\array_values($newKeyTypes), \array_values($newValueTypes), $this->nextAutoIndex);
 				}
 			}
 		}
@@ -306,7 +306,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 	public function isIterableAtLeastOnce(): TrinaryLogic
 	{
-		return TrinaryLogic::createFromBoolean(count($this->keyTypes) > 0);
+		return TrinaryLogic::createFromBoolean(\count($this->keyTypes) > 0);
 	}
 
 	public function removeLast(): self
@@ -318,8 +318,8 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		$keyTypes = $this->keyTypes;
 		$valueTypes = $this->valueTypes;
 
-		$removedKeyType = array_pop($keyTypes);
-		array_pop($valueTypes);
+		$removedKeyType = \array_pop($keyTypes);
+		\array_pop($valueTypes);
 		$nextAutoindex = $removedKeyType instanceof ConstantIntegerType
 			? $removedKeyType->getValue()
 			: $this->nextAutoIndex;
@@ -429,7 +429,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 					$exportValuesOnly = false;
 				}
 
-				$items[] = sprintf('%s => %s', var_export($keyType->getValue(), true), $valueType->describe($level));
+				$items[] = \sprintf('%s => %s', \var_export($keyType->getValue(), true), $valueType->describe($level));
 				$values[] = $valueType->describe($level);
 			}
 
@@ -440,9 +440,9 @@ class ConstantArrayType extends ArrayType implements ConstantType
 				$append = ', ...';
 			}
 
-			return sprintf(
+			return \sprintf(
 				'array(%s%s)',
-				implode(', ', $exportValuesOnly ? $values : $items),
+				\implode(', ', $exportValuesOnly ? $values : $items),
 				$append
 			);
 		};

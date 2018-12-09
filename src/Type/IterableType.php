@@ -41,7 +41,7 @@ class IterableType implements StaticResolvableType, CompoundType
 	 */
 	public function getReferencedClasses(): array
 	{
-		return array_merge(
+		return \array_merge(
 			$this->keyType->getReferencedClasses(),
 			$this->getItemType()->getReferencedClasses()
 		);
@@ -116,10 +116,10 @@ class IterableType implements StaticResolvableType, CompoundType
 				return 'iterable';
 			}
 
-			return sprintf('iterable<%s>', $this->itemType->describe($level));
+			return \sprintf('iterable<%s>', $this->itemType->describe($level));
 		}
 
-		return sprintf('iterable<%s, %s>', $this->keyType->describe($level), $this->itemType->describe($level));
+		return \sprintf('iterable<%s, %s>', $this->keyType->describe($level), $this->itemType->describe($level));
 	}
 
 	public function toNumber(): Type

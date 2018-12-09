@@ -22,7 +22,7 @@ class PassedByReference
 
 	private static function create(int $value): self
 	{
-		if (!array_key_exists($value, self::$registry)) {
+		if (!\array_key_exists($value, self::$registry)) {
 			self::$registry[$value] = new self($value);
 		}
 

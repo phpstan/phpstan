@@ -37,19 +37,24 @@ class DependencyResolver
 		$dependenciesReflections = [];
 
 		if ($node instanceof \PhpParser\Node\Stmt\Class_) {
+
 			if ($node->extends !== null) {
 				$this->addClassToDependencies($node->extends->toString(), $dependenciesReflections);
 			}
 			foreach ($node->implements as $className) {
 				$this->addClassToDependencies($className->toString(), $dependenciesReflections);
 			}
+
 		} elseif ($node instanceof \PhpParser\Node\Stmt\Interface_) {
+
 			if ($node->extends !== null) {
 				foreach ($node->extends as $className) {
 					$this->addClassToDependencies($className->toString(), $dependenciesReflections);
 				}
 			}
+
 		} elseif ($node instanceof ClassMethod) {
+
 			if (!$scope->isInClass()) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
@@ -60,7 +65,9 @@ class DependencyResolver
 
 				$this->extractFromParametersAcceptor($parametersAcceptor, $dependenciesReflections);
 			}
+
 		} elseif ($node instanceof Function_) {
+
 			$functionName = $node->name->name;
 			if (isset($node->namespacedName)) {
 				$functionName = (string) $node->namespacedName;
@@ -73,10 +80,13 @@ class DependencyResolver
 				$parametersAcceptor = ParametersAcceptorSelector::selectSingle($functionReflection->getVariants());
 				$this->extractFromParametersAcceptor($parametersAcceptor, $dependenciesReflections);
 			}
+
 		} elseif ($node instanceof Closure) {
+
 			/** @var ClosureType $closureType */
 			$closureType = $scope->getType($node);
 			foreach ($closureType->getParameters() as $parameter) {
+				/** @var \PHPStan\Reflection\Php\PhpParameterReflection $parameter */
 				$referencedClasses = $parameter->getType()->getReferencedClasses();
 				foreach ($referencedClasses as $referencedClass) {
 					$this->addClassToDependencies($referencedClass, $dependenciesReflections);
@@ -87,7 +97,9 @@ class DependencyResolver
 			foreach ($returnTypeReferencedClasses as $referencedClass) {
 				$this->addClassToDependencies($referencedClass, $dependenciesReflections);
 			}
+
 		} elseif ($node instanceof \PhpParser\Node\Expr\FuncCall) {
+
 			$functionName = $node->name;
 			if ($functionName instanceof \PhpParser\Node\Name) {
 				try {
@@ -109,9 +121,14 @@ class DependencyResolver
 			foreach ($returnType->getReferencedClasses() as $referencedClass) {
 				$this->addClassToDependencies($referencedClass, $dependenciesReflections);
 			}
-		} elseif ($node instanceof \PhpParser\Node\Expr\MethodCall || $node instanceof \PhpParser\Node\Expr\PropertyFetch) {
-			$classNames = $scope->getType($node->var)->getReferencedClasses();
-			foreach ($classNames as $className) {
+
+		} elseif (
+			$node instanceof \PhpParser\Node\Expr\MethodCall
+			||
+			$node instanceof \PhpParser\Node\Expr\PropertyFetch
+		) {
+
+			foreach ($scope->getType($node->var)->getReferencedClasses() as $className) {
 				$this->addClassToDependencies($className, $dependenciesReflections);
 			}
 
@@ -119,11 +136,15 @@ class DependencyResolver
 			foreach ($returnType->getReferencedClasses() as $referencedClass) {
 				$this->addClassToDependencies($referencedClass, $dependenciesReflections);
 			}
+
 		} elseif (
 			$node instanceof \PhpParser\Node\Expr\StaticCall
-			|| $node instanceof \PhpParser\Node\Expr\ClassConstFetch
-			|| $node instanceof \PhpParser\Node\Expr\StaticPropertyFetch
+			||
+			$node instanceof \PhpParser\Node\Expr\ClassConstFetch
+			||
+			$node instanceof \PhpParser\Node\Expr\StaticPropertyFetch
 		) {
+
 			if ($node->class instanceof \PhpParser\Node\Name) {
 				$this->addClassToDependencies($scope->resolveName($node->class), $dependenciesReflections);
 			} else {
@@ -136,31 +157,44 @@ class DependencyResolver
 			foreach ($returnType->getReferencedClasses() as $referencedClass) {
 				$this->addClassToDependencies($referencedClass, $dependenciesReflections);
 			}
+
 		} elseif (
 			$node instanceof \PhpParser\Node\Expr\New_
-			&& $node->class instanceof \PhpParser\Node\Name
+			&&
+			$node->class instanceof \PhpParser\Node\Name
 		) {
+
 			$this->addClassToDependencies($scope->resolveName($node->class), $dependenciesReflections);
+
 		} elseif ($node instanceof \PhpParser\Node\Stmt\TraitUse) {
+
 			foreach ($node->traits as $traitName) {
 				$this->addClassToDependencies($traitName->toString(), $dependenciesReflections);
 			}
+
 		} elseif ($node instanceof \PhpParser\Node\Expr\Instanceof_) {
+
 			if ($node->class instanceof Name) {
 				$this->addClassToDependencies($scope->resolveName($node->class), $dependenciesReflections);
 			}
+
 		} elseif ($node instanceof \PhpParser\Node\Stmt\Catch_) {
+
 			foreach ($node->types as $type) {
 				$this->addClassToDependencies($scope->resolveName($type), $dependenciesReflections);
 			}
+
 		} elseif ($node instanceof ArrayDimFetch && $node->dim !== null) {
+
 			$varType = $scope->getType($node->var);
 			$dimType = $scope->getType($node->dim);
 
 			foreach ($varType->getOffsetValueType($dimType)->getReferencedClasses() as $referencedClass) {
 				$this->addClassToDependencies($referencedClass, $dependenciesReflections);
 			}
+
 		} elseif ($node instanceof Foreach_) {
+
 			$exprType = $scope->getType($node->expr);
 			if ($node->keyVar !== null) {
 				foreach ($exprType->getIterableKeyType()->getReferencedClasses() as $referencedClass) {
@@ -171,6 +205,7 @@ class DependencyResolver
 			foreach ($exprType->getIterableValueType()->getReferencedClasses() as $referencedClass) {
 				$this->addClassToDependencies($referencedClass, $dependenciesReflections);
 			}
+
 		}
 
 		return $dependenciesReflections;
@@ -223,7 +258,8 @@ class DependencyResolver
 	): void
 	{
 		foreach ($parametersAcceptor->getParameters() as $parameter) {
-			$referencedClasses = array_merge(
+			/** @var \PHPStan\Reflection\Php\PhpParameterReflection $parameter */
+			$referencedClasses = \array_merge(
 				$parameter->getNativeType()->getReferencedClasses(),
 				$parameter->getPhpDocType()->getReferencedClasses()
 			);
@@ -233,7 +269,7 @@ class DependencyResolver
 			}
 		}
 
-		$returnTypeReferencedClasses = array_merge(
+		$returnTypeReferencedClasses = \array_merge(
 			$parametersAcceptor->getNativeReturnType()->getReferencedClasses(),
 			$parametersAcceptor->getPhpDocReturnType()->getReferencedClasses()
 		);

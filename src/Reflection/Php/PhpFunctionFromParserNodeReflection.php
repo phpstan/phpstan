@@ -48,16 +48,16 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 	private $variants;
 
 	/**
-	 * @param FunctionLike         $functionLike
+	 * @param FunctionLike $functionLike
 	 * @param \PHPStan\Type\Type[] $realParameterTypes
 	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
-	 * @param bool                 $realReturnTypePresent
-	 * @param Type                 $realReturnType
-	 * @param Type|null            $phpDocReturnType
-	 * @param Type|null            $throwType
-	 * @param bool                 $isDeprecated
-	 * @param bool                 $isInternal
-	 * @param bool                 $isFinal
+	 * @param bool $realReturnTypePresent
+	 * @param Type $realReturnType
+	 * @param Type|null $phpDocReturnType
+	 * @param Type|null $throwType
+	 * @param bool $isDeprecated
+	 * @param bool $isInternal
+	 * @param bool $isFinal
 	 */
 	public function __construct(
 		FunctionLike $functionLike,
@@ -126,7 +126,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 		$isOptional = true;
 
 		/** @var \PhpParser\Node\Param $parameter */
-		foreach (array_reverse($this->functionLike->getParams()) as $parameter) {
+		foreach (\array_reverse($this->functionLike->getParams()) as $parameter) {
 			if (!$isOptional || $parameter->default === null) {
 				$isOptional = false;
 			}
@@ -147,7 +147,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 			);
 		}
 
-		return array_reverse($parameters);
+		return \array_reverse($parameters);
 	}
 
 	private function isVariadic(): bool

@@ -63,7 +63,7 @@ class GetParentClassDynamicFunctionReturnTypeExtension implements \PHPStan\Type\
 		$constantStrings = TypeUtils::getConstantStrings($argType);
 		if (\count($constantStrings) > 0) {
 			return \PHPStan\Type\TypeCombinator::union(
-				...array_map(
+				...\array_map(
 					function (ConstantStringType $stringType): Type {
 							return $this->findParentClassNameType($stringType->getValue());
 					},
@@ -75,7 +75,7 @@ class GetParentClassDynamicFunctionReturnTypeExtension implements \PHPStan\Type\
 		$classNames = TypeUtils::getDirectClassNames($argType);
 		if (\count($classNames) > 0) {
 			return \PHPStan\Type\TypeCombinator::union(
-				...array_map(
+				...\array_map(
 					function (string $classNames): Type {
 							return $this->findParentClassNameType($classNames);
 					},

@@ -60,11 +60,11 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 		$messages = [];
 		if ($class instanceof \PhpParser\Node\Name) {
 			$className = (string) $class;
-			$lowercasedClassName = strtolower($className);
+			$lowercasedClassName = \strtolower($className);
 			if (\in_array($lowercasedClassName, ['self', 'static'], true)) {
 				if (!$scope->isInClass()) {
 					return [
-						sprintf('Using %s outside of class scope.', $className),
+						\sprintf('Using %s outside of class scope.', $className),
 					];
 				}
 
@@ -72,13 +72,13 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 			} elseif ($lowercasedClassName === 'parent') {
 				if (!$scope->isInClass()) {
 					return [
-						sprintf('Using %s outside of class scope.', $className),
+						\sprintf('Using %s outside of class scope.', $className),
 					];
 				}
 				$currentClassReflection = $scope->getClassReflection();
 				if ($currentClassReflection->getParentClass() === false) {
 					return [
-						sprintf(
+						\sprintf(
 							'Access to parent::%s but %s does not extend any class.',
 							$constantName,
 							$currentClassReflection->getDisplayName()
@@ -88,14 +88,14 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 				$className = $currentClassReflection->getParentClass()->getName();
 			} else {
 				if (!$this->broker->hasClass($className)) {
-					if (strtolower($constantName) === 'class') {
+					if (\strtolower($constantName) === 'class') {
 						return [
-							sprintf('Class %s not found.', $className),
+							\sprintf('Class %s not found.', $className),
 						];
 					}
 
 					return [
-						sprintf('Access to constant %s on an unknown class %s.', $constantName, $className),
+						\sprintf('Access to constant %s on an unknown class %s.', $constantName, $className),
 					];
 				}
 
@@ -109,7 +109,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 			$classTypeResult = $this->ruleLevelHelper->findTypeToCheck(
 				$scope,
 				$class,
-				sprintf('Access to constant %s on an unknown class %%s.', $constantName),
+				\sprintf('Access to constant %s on an unknown class %%s.', $constantName),
 				static function (Type $type) use ($constantName): bool {
 					return $type->canAccessConstants()->yes() && $type->hasConstant($constantName)->yes();
 				}
@@ -128,34 +128,37 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 		$classType = TypeCombinator::remove($classType, new StringType());
 
 		if (!$classType->canAccessConstants()->yes()) {
-			return array_merge(
+			return \array_merge(
 				$messages,
 				[
-					sprintf('Cannot access constant %s on %s.', $constantName, $typeForDescribe->describe(VerbosityLevel::typeOnly())),
+					\sprintf('Cannot access constant %s on %s.', $constantName, $typeForDescribe->describe(VerbosityLevel::typeOnly())),
 				]
 			);
 		}
 
-		if (strtolower($constantName) === 'class') {
+		if (\strtolower($constantName) === 'class') {
 			return $messages;
 		}
 
 		if (!$classType->hasConstant($constantName)->yes()) {
-			return array_merge($messages, [
-				sprintf(
-					'Access to undefined constant %s::%s.',
-					$typeForDescribe->describe(VerbosityLevel::typeOnly()),
-					$constantName
-				),
-			]);
+			return \array_merge(
+				$messages,
+				[
+					\sprintf(
+						'Access to undefined constant %s::%s.',
+						$typeForDescribe->describe(VerbosityLevel::typeOnly()),
+						$constantName
+					),
+				]
+			);
 		}
 
 		$constantReflection = $classType->getConstant($constantName);
 		if (!$scope->canAccessConstant($constantReflection)) {
-			return array_merge(
+			return \array_merge(
 				$messages,
 				[
-					sprintf(
+					\sprintf(
 						'Access to %s constant %s of class %s.',
 						$constantReflection->isPrivate() ? 'private' : 'protected',
 						$constantName,

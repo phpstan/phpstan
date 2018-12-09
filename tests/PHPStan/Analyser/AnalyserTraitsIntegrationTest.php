@@ -38,7 +38,7 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 		$error = $errors[0];
 		$this->assertSame('Call to an undefined method AnalyseTraits\Bar::doFoo().', $error->getMessage());
 		$this->assertSame(
-			sprintf('%s (in context of class AnalyseTraits\Bar)', $this->fileHelper->normalizePath(__DIR__ . '/traits/FooTrait.php')),
+			\sprintf('%s (in context of class AnalyseTraits\Bar)', $this->fileHelper->normalizePath(__DIR__ . '/traits/FooTrait.php')),
 			$error->getFile()
 		);
 		$this->assertSame(10, $error->getLine());
@@ -57,7 +57,7 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 		$firstError = $errors[0];
 		$this->assertSame('Call to an undefined method AnalyseTraits\NestedBar::doFoo().', $firstError->getMessage());
 		$this->assertSame(
-			sprintf('%s (in context of class AnalyseTraits\NestedBar)', $this->fileHelper->normalizePath(__DIR__ . '/traits/FooTrait.php')),
+			\sprintf('%s (in context of class AnalyseTraits\NestedBar)', $this->fileHelper->normalizePath(__DIR__ . '/traits/FooTrait.php')),
 			$firstError->getFile()
 		);
 		$this->assertSame(10, $firstError->getLine());
@@ -65,7 +65,7 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 		$secondError = $errors[1];
 		$this->assertSame('Call to an undefined method AnalyseTraits\NestedBar::doNestedFoo().', $secondError->getMessage());
 		$this->assertSame(
-			sprintf('%s (in context of class AnalyseTraits\NestedBar)', $this->fileHelper->normalizePath(__DIR__ . '/traits/NestedFooTrait.php')),
+			\sprintf('%s (in context of class AnalyseTraits\NestedBar)', $this->fileHelper->normalizePath(__DIR__ . '/traits/NestedFooTrait.php')),
 			$secondError->getFile()
 		);
 		$this->assertSame(12, $secondError->getLine());
@@ -154,7 +154,7 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 	 */
 	private function runAnalyse(array $files): array
 	{
-		$files = array_map(
+		$files = \array_map(
 			function (string $file): string {
 				return $this->getFileHelper()->normalizePath($file);
 			},

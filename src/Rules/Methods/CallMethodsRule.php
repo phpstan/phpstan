@@ -66,7 +66,7 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 		$typeResult = $this->ruleLevelHelper->findTypeToCheck(
 			$scope,
 			$node->var,
-			sprintf('Call to method %s() on an unknown class %%s.', $name),
+			\sprintf('Call to method %s() on an unknown class %%s.', $name),
 			static function (Type $type) use ($name): bool {
 				return $type->canCallMethods()->yes() && $type->hasMethod($name)->yes();
 			}
@@ -77,7 +77,7 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 		}
 		if (!$type->canCallMethods()->yes()) {
 			return [
-				sprintf('Cannot call method %s() on %s.', $name, $type->describe(VerbosityLevel::typeOnly())),
+				\sprintf('Cannot call method %s() on %s.', $name, $type->describe(VerbosityLevel::typeOnly())),
 			];
 		}
 
@@ -98,12 +98,11 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 
 			if (\count($directClassNames) === 1) {
 				$referencedClass = $directClassNames[0];
-				$methodClassReflection = $this->broker->getClass($referencedClass);
-				$parentClassReflection = $methodClassReflection->getParentClass();
+				$parentClassReflection = $this->broker->getClass($referencedClass)->getParentClass();
 				while ($parentClassReflection !== false) {
 					if ($parentClassReflection->hasMethod($name)) {
 						return [
-							sprintf(
+							\sprintf(
 								'Call to private method %s() of parent class %s.',
 								$parentClassReflection->getMethod($name, $scope)->getName(),
 								$parentClassReflection->getDisplayName()
@@ -116,7 +115,7 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 			}
 
 			return [
-				sprintf(
+				\sprintf(
 					'Call to an undefined method %s::%s().',
 					$type->describe(VerbosityLevel::typeOnly()),
 					$name
@@ -129,7 +128,7 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 			->getDisplayName() . '::' . $methodReflection->getName() . '()';
 		$errors = [];
 		if (!$scope->canCallMethod($methodReflection)) {
-			$errors[] = sprintf(
+			$errors[] = \sprintf(
 				'Call to %s method %s() of class %s.',
 				$methodReflection->isPrivate() ? 'private' : 'protected',
 				$methodReflection->getName(),
@@ -137,7 +136,7 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 			);
 		}
 
-		$errors = array_merge(
+		$errors = \array_merge(
 			$errors,
 			$this->check->check(
 				ParametersAcceptorSelector::selectFromArgs(
@@ -166,9 +165,9 @@ class CallMethodsRule implements \PHPStan\Rules\Rule
 			&&
 			$methodReflection->getName() !== $name
 			&&
-			strtolower($methodReflection->getName()) === strtolower($name)
+			\strtolower($methodReflection->getName()) === \strtolower($name)
 		) {
-			$errors[] = sprintf('Call to method %s with incorrect case: %s', $messagesMethodName, $name);
+			$errors[] = \sprintf('Call to method %s with incorrect case: %s', $messagesMethodName, $name);
 		}
 
 		return $errors;

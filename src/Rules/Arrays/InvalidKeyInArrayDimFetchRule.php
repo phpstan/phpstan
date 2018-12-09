@@ -25,7 +25,7 @@ class InvalidKeyInArrayDimFetchRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\ArrayDimFetch $node
-	 * @param \PHPStan\Analyser\Scope            $scope
+	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[]
 	 */
@@ -44,7 +44,7 @@ class InvalidKeyInArrayDimFetchRule implements \PHPStan\Rules\Rule
 		$isSuperType = AllowedArrayKeysTypes::getType()->isSuperTypeOf($dimensionType);
 		if ($isSuperType->no()) {
 			return [
-				sprintf('Invalid array key type %s.', $dimensionType->describe(VerbosityLevel::typeOnly())),
+				\sprintf('Invalid array key type %s.', $dimensionType->describe(VerbosityLevel::typeOnly())),
 			];
 		}
 
@@ -56,7 +56,7 @@ class InvalidKeyInArrayDimFetchRule implements \PHPStan\Rules\Rule
 			$isSuperType->maybe()
 		) {
 			return [
-				sprintf('Possibly invalid array key type %s.', $dimensionType->describe(VerbosityLevel::typeOnly())),
+				\sprintf('Possibly invalid array key type %s.', $dimensionType->describe(VerbosityLevel::typeOnly())),
 			];
 		}
 

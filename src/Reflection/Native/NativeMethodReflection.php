@@ -28,9 +28,9 @@ class NativeMethodReflection implements MethodReflection, DeprecatableReflection
 	private $variants;
 
 	/**
-	 * @param \PHPStan\Broker\Broker                   $broker
-	 * @param \PHPStan\Reflection\ClassReflection      $declaringClass
-	 * @param BuiltinMethodReflection                  $reflection
+	 * @param \PHPStan\Broker\Broker $broker
+	 * @param \PHPStan\Reflection\ClassReflection $declaringClass
+	 * @param BuiltinMethodReflection $reflection
 	 * @param \PHPStan\Reflection\ParametersAcceptor[] $variants
 	 */
 	public function __construct(

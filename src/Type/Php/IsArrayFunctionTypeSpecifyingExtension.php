@@ -21,7 +21,7 @@ class IsArrayFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingEx
 
 	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, TypeSpecifierContext $context): bool
 	{
-		return strtolower($functionReflection->getName()) === 'is_array'
+		return \strtolower($functionReflection->getName()) === 'is_array'
 			   && isset($node->args[0])
 			   && !$context->null();
 	}

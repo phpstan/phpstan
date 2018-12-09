@@ -37,6 +37,7 @@ class ConstantArrayTypeAndMethod
 		if ($certainty->no()) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
+
 		return new self($type, $method, $certainty);
 	}
 

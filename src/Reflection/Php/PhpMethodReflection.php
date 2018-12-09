@@ -84,19 +84,19 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	private $variants;
 
 	/**
-	 * @param ClassReflection             $declaringClass
-	 * @param ClassReflection|null        $declaringTrait
-	 * @param BuiltinMethodReflection     $reflection
-	 * @param Broker                      $broker
-	 * @param Parser                      $parser
+	 * @param ClassReflection $declaringClass
+	 * @param ClassReflection|null $declaringTrait
+	 * @param BuiltinMethodReflection $reflection
+	 * @param Broker $broker
+	 * @param Parser $parser
 	 * @param FunctionCallStatementFinder $functionCallStatementFinder
-	 * @param Cache                       $cache
-	 * @param \PHPStan\Type\Type[]        $phpDocParameterTypes
-	 * @param Type|null                   $phpDocReturnType
-	 * @param Type|null                   $phpDocThrowType
-	 * @param bool                        $isDeprecated
-	 * @param bool                        $isInternal
-	 * @param bool                        $isFinal
+	 * @param Cache $cache
+	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
+	 * @param Type|null $phpDocReturnType
+	 * @param Type|null $phpDocThrowType
+	 * @param bool $isDeprecated
+	 * @param bool $isInternal
+	 * @param bool $isFinal
 	 */
 	public function __construct(
 		ClassReflection $declaringClass,
@@ -172,7 +172,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	public function getName(): string
 	{
 		$name = $this->reflection->getName();
-		$lowercaseName = strtolower($name);
+		$lowercaseName = \strtolower($name);
 		if ($lowercaseName === $name) {
 			// fix for https://bugs.php.net/bug.php?id=74939
 			foreach ($this->getDeclaringClass()->getNativeReflection()->getTraitAliases() as $traitTarget) {
@@ -189,10 +189,10 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 
 	private function getMethodNameWithCorrectCase(string $lowercaseMethodName, string $traitTarget): ?string
 	{
-		$trait = explode('::', $traitTarget)[0];
-		$traitReflection = $this->broker->getClass($trait)->getNativeReflection();
-		foreach ($traitReflection->getTraitAliases() as $methodAlias => $traitTarget) {
-			if ($lowercaseMethodName === strtolower($methodAlias)) {
+		$trait = \explode('::', $traitTarget)[0];
+		/** @noinspection SuspiciousLoopInspection */
+		foreach ($this->broker->getClass($trait)->getNativeReflection()->getTraitAliases() as $methodAlias => $traitTarget) {
+			if ($lowercaseMethodName === \strtolower($methodAlias)) {
 				return $methodAlias;
 			}
 
@@ -231,7 +231,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	private function getParameters(): array
 	{
 		if ($this->parameters === null) {
-			$this->parameters = array_map(
+			$this->parameters = \array_map(
 				function (\ReflectionParameter $reflection) {
 					return new PhpParameterReflection(
 						$reflection,
@@ -256,7 +256,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 		}
 
 		if (!$isNativelyVariadic && $filename !== false) {
-			$key = sprintf('variadic-method-%s-%s-v1', $declaringClass->getName(), $this->reflection->getName());
+			$key = \sprintf('variadic-method-%s-%s-v1', $declaringClass->getName(), $this->reflection->getName());
 			$cachedResult = $this->cache->load($key);
 			if ($cachedResult === null) {
 				$nodes = $this->parser->parseFile($filename);
@@ -274,7 +274,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 
 	/**
 	 * @param ClassReflection $declaringClass
-	 * @param mixed           $nodes
+	 * @param mixed $nodes
 	 *
 	 * @return bool
 	 */
@@ -335,7 +335,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	private function getReturnType(): Type
 	{
 		if ($this->returnType === null) {
-			$name = strtolower($this->getName());
+			$name = \strtolower($this->getName());
 			if (
 				$name === '__construct'
 				|| $name === '__destruct'

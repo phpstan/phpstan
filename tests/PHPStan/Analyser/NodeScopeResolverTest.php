@@ -904,7 +904,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		$certainty = $scope->hasVariableType($variableName);
 		$this->assertTrue(
 			$expectedCertainty->equals($certainty),
-			sprintf(
+			\sprintf(
 				'Certainty of variable $%s is %s, expected %s',
 				$variableName,
 				$certainty->describe(),
@@ -913,25 +913,25 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 		if (!$expectedCertainty->no()) {
 			if ($typeDescription === null) {
-				$this->fail(sprintf('Missing expected type for defined variable $%s.', $variableName));
+				$this->fail(\sprintf('Missing expected type for defined variable $%s.', $variableName));
 			}
 
 			$this->assertSame(
 				$typeDescription,
 				$scope->getVariableType($variableName)->describe(VerbosityLevel::precise()),
-				sprintf('Type of variable $%s does not match the expected one.', $variableName)
+				\sprintf('Type of variable $%s does not match the expected one.', $variableName)
 			);
 
 			if ($iterableValueTypeDescription !== null) {
 				$this->assertSame(
 					$iterableValueTypeDescription,
 					$scope->getVariableType($variableName)->getIterableValueType()->describe(VerbosityLevel::precise()),
-					sprintf('Iterable value type of variable $%s does not match the expected one.', $variableName)
+					\sprintf('Iterable value type of variable $%s does not match the expected one.', $variableName)
 				);
 			}
 		} elseif ($typeDescription !== null) {
 			$this->fail(
-				sprintf(
+				\sprintf(
 					'No type should be asserted for an undefined variable $%s, %s given.',
 					$variableName,
 					$typeDescription
@@ -1598,7 +1598,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		string $expression
 	): void
 	{
-		if (PHP_VERSION_ID >= 70200) {
+		if (\PHP_VERSION_ID >= 70200) {
 			$this->markTestSkipped(
 				'Test cannot be run on PHP 7.2 and higher - (unset) cast is deprecated.'
 			);
@@ -3499,10 +3499,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		bool $replaceClass = true
 	): void
 	{
-		$description = str_replace('static(MethodPhpDocsNamespace\Foo)', 'static(MethodPhpDocsNamespace\FooWithTrait)', $description);
+		$description = \str_replace('static(MethodPhpDocsNamespace\Foo)', 'static(MethodPhpDocsNamespace\FooWithTrait)', $description);
 
 		if ($replaceClass && $expression !== '$this->doFoo()') {
-			$description = str_replace('$this(MethodPhpDocsNamespace\Foo)', '$this(MethodPhpDocsNamespace\FooWithTrait)', $description);
+			$description = \str_replace('$this(MethodPhpDocsNamespace\Foo)', '$this(MethodPhpDocsNamespace\FooWithTrait)', $description);
 			if ($description === 'MethodPhpDocsNamespace\Foo') {
 				$description = 'MethodPhpDocsNamespace\FooWithTrait';
 			}
@@ -3555,9 +3555,9 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		if ($replaceClass) {
-			$description = str_replace('$this(MethodPhpDocsNamespace\Foo)', '$this(MethodPhpDocsNamespace\FooInheritDocChild)', $description);
-			$description = str_replace('static(MethodPhpDocsNamespace\Foo)', 'static(MethodPhpDocsNamespace\FooInheritDocChild)', $description);
-			$description = str_replace('MethodPhpDocsNamespace\FooParent', 'MethodPhpDocsNamespace\Foo', $description);
+			$description = \str_replace('$this(MethodPhpDocsNamespace\Foo)', '$this(MethodPhpDocsNamespace\FooInheritDocChild)', $description);
+			$description = \str_replace('static(MethodPhpDocsNamespace\Foo)', 'static(MethodPhpDocsNamespace\FooInheritDocChild)', $description);
+			$description = \str_replace('MethodPhpDocsNamespace\FooParent', 'MethodPhpDocsNamespace\Foo', $description);
 			if ($expression === '$inlineSelf') {
 				$description = 'MethodPhpDocsNamespace\FooInheritDocChild';
 			}
@@ -3583,9 +3583,9 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		if ($replaceClass) {
-			$description = str_replace('$this(MethodPhpDocsNamespace\Foo)', '$this(MethodPhpDocsNamespace\FooPhpDocsImplicitInheritanceChild)', $description);
-			$description = str_replace('static(MethodPhpDocsNamespace\Foo)', 'static(MethodPhpDocsNamespace\FooPhpDocsImplicitInheritanceChild)', $description);
-			$description = str_replace('MethodPhpDocsNamespace\FooParent', 'MethodPhpDocsNamespace\Foo', $description);
+			$description = \str_replace('$this(MethodPhpDocsNamespace\Foo)', '$this(MethodPhpDocsNamespace\FooPhpDocsImplicitInheritanceChild)', $description);
+			$description = \str_replace('static(MethodPhpDocsNamespace\Foo)', 'static(MethodPhpDocsNamespace\FooPhpDocsImplicitInheritanceChild)', $description);
+			$description = \str_replace('MethodPhpDocsNamespace\FooParent', 'MethodPhpDocsNamespace\Foo', $description);
 			if ($expression === '$inlineSelf') {
 				$description = 'MethodPhpDocsNamespace\FooPhpDocsImplicitInheritanceChild';
 			}
@@ -7452,12 +7452,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				DIRECTORY_SEPARATOR === '/' ? '$this(AnonymousClass3301acd9e9d13ba9bbce9581cdb00699)' : '$this(AnonymousClass5052ee7b82e2136e86bd50a2b9fee7e0)',
+				\DIRECTORY_SEPARATOR === '/' ? '$this(AnonymousClass3301acd9e9d13ba9bbce9581cdb00699)' : '$this(AnonymousClass5052ee7b82e2136e86bd50a2b9fee7e0)',
 				'$this',
 				"'inside'",
 			],
 			[
-				DIRECTORY_SEPARATOR === '/' ? 'AnonymousClass3301acd9e9d13ba9bbce9581cdb00699' : 'AnonymousClass5052ee7b82e2136e86bd50a2b9fee7e0',
+				\DIRECTORY_SEPARATOR === '/' ? 'AnonymousClass3301acd9e9d13ba9bbce9581cdb00699' : 'AnonymousClass5052ee7b82e2136e86bd50a2b9fee7e0',
 				'$foo',
 				"'outside'",
 			],
@@ -7512,7 +7512,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				DIRECTORY_SEPARATOR === '/' ? '$this(AnonymousClass3de0a9734314db9dec21ba308363ff9a)' : '$this(AnonymousClass3ea972e5426463fa167b4e456b7d6202)',
+				\DIRECTORY_SEPARATOR === '/' ? '$this(AnonymousClass3de0a9734314db9dec21ba308363ff9a)' : '$this(AnonymousClass3ea972e5426463fa167b4e456b7d6202)',
 				'$this',
 			],
 		];
@@ -7972,7 +7972,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		string $expression
 	): void
 	{
-		if (PHP_VERSION_ID < 70300) {
+		if (\PHP_VERSION_ID < 70300) {
 			$this->markTestSkipped('Test requires PHP 7.3');
 		}
 		$this->assertTypes(
@@ -7997,12 +7997,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		$assertType = function (Scope $scope) use ($expression, $description, $evaluatedPointExpression): void {
 			/** @var \PhpParser\Node\Stmt\Expression $expressionNode */
-			$expressionNode = $this->getParser()->parseString(sprintf('<?php %s;', $expression))[0];
+			$expressionNode = $this->getParser()->parseString(\sprintf('<?php %s;', $expression))[0];
 			$type = $scope->getType($expressionNode->expr);
 			$this->assertTypeDescribe(
 				$description,
 				$type,
-				sprintf('%s at %s', $expression, $evaluatedPointExpression)
+				\sprintf('%s at %s', $expression, $evaluatedPointExpression)
 			);
 		};
 		if ($useCache && isset(self::$assertTypesCache[$file][$evaluatedPointExpression])) {
@@ -8059,7 +8059,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		$resolver = new NodeScopeResolver(
 			$broker,
 			$this->getParser(),
-			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $this->createMock(Cache::class), new AnonymousClassNameHelper($fileHelper, new RelativePathHelper($currentWorkingDirectory, DIRECTORY_SEPARATOR, [])), self::getContainer()->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class)),
+			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $this->createMock(Cache::class), new AnonymousClassNameHelper($fileHelper, new RelativePathHelper($currentWorkingDirectory, \DIRECTORY_SEPARATOR, [])), self::getContainer()->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class)),
 			$fileHelper,
 			$typeSpecifier,
 			true,
@@ -8072,7 +8072,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			]
 		);
 		$resolver->setAnalysedFiles(
-			array_map(
+			\array_map(
 				static function (string $file) use ($fileHelper): string {
 					return $fileHelper->normalizePath($file);
 				},

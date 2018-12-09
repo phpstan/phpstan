@@ -24,7 +24,7 @@ class ThisVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 					24,
 				],
 				[
-					DIRECTORY_SEPARATOR === '/' ? 'Using $this in static method class@anonymous/tests/PHPStan/Rules/Variables/data/this.php:27::doBar().' : 'Using $this in static method class@anonymous/tests\PHPStan\Rules\Variables\data\this.php:27::doBar().',
+					\DIRECTORY_SEPARATOR === '/' ? 'Using $this in static method class@anonymous/tests/PHPStan/Rules/Variables/data/this.php:27::doBar().' : 'Using $this in static method class@anonymous/tests\PHPStan\Rules\Variables\data\this.php:27::doBar().',
 					36,
 				],
 			]

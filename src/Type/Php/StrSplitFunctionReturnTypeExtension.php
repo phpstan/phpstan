@@ -51,7 +51,7 @@ final class StrSplitFunctionReturnTypeExtension implements DynamicFunctionReturn
 		}
 		$stringValue = $stringType->getValue();
 
-		$items = str_split($stringValue, $splitLength);
+		$items = \str_split($stringValue, $splitLength);
 		if (!\is_array($items)) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}

@@ -22,7 +22,7 @@ class ArrayPointerFunctionsDynamicReturnTypeExtension implements \PHPStan\Type\D
 
 	public function isFunctionSupported(FunctionReflection $functionReflection): bool
 	{
-		return in_array($functionReflection->getName(), $this->functions, true);
+		return \in_array($functionReflection->getName(), $this->functions, true);
 	}
 
 	public function getTypeFromFunctionCall(
@@ -53,7 +53,7 @@ class ArrayPointerFunctionsDynamicReturnTypeExtension implements \PHPStan\Type\D
 
 				$valueOffset = $functionReflection->getName() === 'reset'
 					? $arrayKeyTypes[0]
-					: $arrayKeyTypes[count($arrayKeyTypes) - 1];
+					: $arrayKeyTypes[\count($arrayKeyTypes) - 1];
 
 				$keyTypes[] = $constantArray->getOffsetValueType($valueOffset);
 			}

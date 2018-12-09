@@ -37,7 +37,7 @@ class InvalidCastRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\Cast $node
-	 * @param \PHPStan\Analyser\Scope   $scope
+	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return RuleError[]
 	 */
@@ -84,20 +84,21 @@ class InvalidCastRule implements \PHPStan\Rules\Rule
 		$castType = $castTypeCallback($type);
 		if ($castType instanceof ErrorType) {
 			$classReflection = $this->broker->getClass(\get_class($node));
-			$shortName = $classReflection->getNativeReflection()->getShortName();
-			$shortName = strtolower($shortName);
+			$shortName = \strtolower($classReflection->getNativeReflection()->getShortName());
 			if ($shortName === 'double') {
 				$shortName = 'float';
 			} else {
-				$shortName = substr($shortName, 0, -1);
+				$shortName = \substr($shortName, 0, -1);
 			}
 
 			return [
-				RuleErrorBuilder::message(sprintf(
-					'Cannot cast %s to %s.',
-					$scope->getType($node->expr)->describe(VerbosityLevel::value()),
-					$shortName
-				))->build(),
+				RuleErrorBuilder::message(
+					\sprintf(
+						'Cannot cast %s to %s.',
+						$scope->getType($node->expr)->describe(VerbosityLevel::value()),
+						$shortName
+					)
+				)->build(),
 			];
 		}
 

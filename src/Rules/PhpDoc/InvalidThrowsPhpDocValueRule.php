@@ -26,7 +26,7 @@ class InvalidThrowsPhpDocValueRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\FunctionLike $node
-	 * @param \PHPStan\Analyser\Scope      $scope
+	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[]
 	 */
@@ -56,7 +56,7 @@ class InvalidThrowsPhpDocValueRule implements \PHPStan\Rules\Rule
 		}
 
 		return [
-			sprintf(
+			\sprintf(
 				'PHPDoc tag @throws with type %s is not subtype of Throwable',
 				$phpDocThrowsType->describe(VerbosityLevel::typeOnly())
 			),

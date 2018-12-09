@@ -31,13 +31,13 @@ class InceptionResult
 	private $memoryLimitFile;
 
 	/**
-	 * @param string[]        $files
-	 * @param bool            $onlyFiles
-	 * @param OutputStyle     $consoleStyle
+	 * @param string[] $files
+	 * @param bool $onlyFiles
+	 * @param OutputStyle $consoleStyle
 	 * @param OutputInterface $errorOutput
-	 * @param Container       $container
-	 * @param bool            $isDefaultLevelUsed
-	 * @param string          $memoryLimitFile
+	 * @param Container $container
+	 * @param bool $isDefaultLevelUsed
+	 * @param string $memoryLimitFile
 	 */
 	public function __construct(
 		array $files,
@@ -93,7 +93,8 @@ class InceptionResult
 
 	public function handleReturn(int $exitCode): int
 	{
-		@unlink($this->memoryLimitFile);
+		/** @noinspection PhpUsageOfSilenceOperatorInspection */
+		@\unlink($this->memoryLimitFile);
 
 		return $exitCode;
 	}

@@ -36,12 +36,12 @@ class ArrayPopFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFuncti
 			$valueTypes = [];
 			foreach ($constantArrays as $constantArray) {
 				$arrayKeyTypes = $constantArray->getKeyTypes();
-				if (count($arrayKeyTypes) === 0) {
+				if (\count($arrayKeyTypes) === 0) {
 					$valueTypes[] = new NullType();
 					continue;
 				}
 
-				$valueTypes[] = $constantArray->getOffsetValueType($arrayKeyTypes[count($arrayKeyTypes) - 1]);
+				$valueTypes[] = $constantArray->getOffsetValueType($arrayKeyTypes[\count($arrayKeyTypes) - 1]);
 			}
 
 			return TypeCombinator::union(...$valueTypes);

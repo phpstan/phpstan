@@ -57,17 +57,17 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 	private $variants;
 
 	/**
-	 * @param \ReflectionFunction         $reflection
-	 * @param Parser                      $parser
+	 * @param \ReflectionFunction $reflection
+	 * @param Parser $parser
 	 * @param FunctionCallStatementFinder $functionCallStatementFinder
-	 * @param Cache                       $cache
-	 * @param \PHPStan\Type\Type[]        $phpDocParameterTypes
-	 * @param Type|null                   $phpDocReturnType
-	 * @param Type|null                   $phpDocThrowType
-	 * @param bool                        $isDeprecated
-	 * @param bool                        $isInternal
-	 * @param bool                        $isFinal
-	 * @param string|false                $filename
+	 * @param Cache $cache
+	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
+	 * @param Type|null $phpDocReturnType
+	 * @param Type|null $phpDocThrowType
+	 * @param bool $isDeprecated
+	 * @param bool $isInternal
+	 * @param bool $isFinal
+	 * @param string|false $filename
 	 */
 	public function __construct(
 		\ReflectionFunction $reflection,
@@ -134,7 +134,7 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 	 */
 	private function getParameters(): array
 	{
-		return array_map(
+		return \array_map(
 			function (\ReflectionParameter $reflection) {
 				return new PhpParameterReflection(
 					$reflection,
@@ -149,7 +149,7 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 	{
 		$isNativelyVariadic = $this->reflection->isVariadic();
 		if (!$isNativelyVariadic && $this->reflection->getFileName() !== false) {
-			$key = sprintf('variadic-function-%s-v0', $this->reflection->getName());
+			$key = \sprintf('variadic-function-%s-v0', $this->reflection->getName());
 			$cachedResult = $this->cache->load($key);
 			if ($cachedResult === null) {
 				$nodes = $this->parser->parseFile($this->reflection->getFileName());

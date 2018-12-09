@@ -25,11 +25,11 @@ class TypeSpecifierFactory
 	public function create(): TypeSpecifier
 	{
 		$tagToService = function (array $tags) {
-			return array_map(
+			return \array_map(
 				function (string $serviceName) {
 					return $this->container->getService($serviceName);
 				},
-				array_keys($tags)
+				\array_keys($tags)
 			);
 		};
 
@@ -41,7 +41,7 @@ class TypeSpecifierFactory
 			$tagToService($this->container->findByTag(self::STATIC_METHOD_TYPE_SPECIFYING_EXTENSION_TAG))
 		);
 
-		foreach (array_merge(
+		foreach (\array_merge(
 			$tagToService($this->container->findByTag(BrokerFactory::PROPERTIES_CLASS_REFLECTION_EXTENSION_TAG)),
 			$tagToService($this->container->findByTag(BrokerFactory::METHODS_CLASS_REFLECTION_EXTENSION_TAG)),
 			$tagToService($this->container->findByTag(BrokerFactory::DYNAMIC_METHOD_RETURN_TYPE_EXTENSION_TAG)),

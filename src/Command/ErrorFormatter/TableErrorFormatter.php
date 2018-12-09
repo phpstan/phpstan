@@ -27,7 +27,7 @@ class TableErrorFormatter implements ErrorFormatter
 			$style->success('No errors');
 			if ($analysisResult->isDefaultLevelUsed()) {
 				$style->note(
-					sprintf(
+					\sprintf(
 						'PHPStan is performing only the most basic checks. You can pass a higher rule level through the --%s option (the default and current level is %d) to analyse code more thoroughly.',
 						AnalyseCommand::OPTION_LEVEL,
 						AnalyseCommand::DEFAULT_LEVEL
@@ -65,7 +65,7 @@ class TableErrorFormatter implements ErrorFormatter
 		if (\count($analysisResult->getNotFileSpecificErrors()) > 0) {
 			$style->table(
 				['Error'],
-				array_map(
+				\array_map(
 					static function (string $error): array {
 						return [$error];
 					},
@@ -74,7 +74,7 @@ class TableErrorFormatter implements ErrorFormatter
 			);
 		}
 
-		$style->error(sprintf($analysisResult->getTotalErrorsCount() === 1 ? 'Found %d error' : 'Found %d errors', $analysisResult->getTotalErrorsCount()));
+		$style->error(\sprintf($analysisResult->getTotalErrorsCount() === 1 ? 'Found %d error' : 'Found %d errors', $analysisResult->getTotalErrorsCount()));
 
 		return 1;
 	}

@@ -36,7 +36,7 @@ class ArrayShiftFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunc
 			$valueTypes = [];
 			foreach ($constantArrays as $constantArray) {
 				$arrayKeyTypes = $constantArray->getKeyTypes();
-				if (count($arrayKeyTypes) === 0) {
+				if (\count($arrayKeyTypes) === 0) {
 					$valueTypes[] = new NullType();
 					continue;
 				}

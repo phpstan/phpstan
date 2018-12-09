@@ -27,8 +27,8 @@ class CountFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExte
 	): bool
 	{
 		return !$context->null()
-			&& count($node->args) === 1
-			&& $functionReflection->getName() === 'count';
+			   && \count($node->args) === 1
+			   && $functionReflection->getName() === 'count';
 	}
 
 	public function specifyTypes(
@@ -38,7 +38,8 @@ class CountFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExte
 		TypeSpecifierContext $context
 	): SpecifiedTypes
 	{
-		if (!(new ArrayType(new MixedType(), new MixedType()))->isSuperTypeOf($scope->getType($node->args[0]->value))->yes()) {
+		if (!(new ArrayType(new MixedType(), new MixedType()))->isSuperTypeOf($scope->getType($node->args[0]->value))
+			->yes()) {
 			return new SpecifiedTypes([], []);
 		}
 

@@ -39,7 +39,9 @@ class UnreachableIfBranchesRule implements \PHPStan\Rules\Rule
 
 		foreach ($node->elseifs as $elseif) {
 			if ($nextBranchIsDead) {
-				$errors[] = RuleErrorBuilder::message('Elseif branch is unreachable because previous condition is always true.')->line($elseif->getLine())->build();
+				$errors[] = RuleErrorBuilder::message('Elseif branch is unreachable because previous condition is always true.')
+					->line($elseif->getLine())
+					->build();
 				continue;
 			}
 
@@ -48,7 +50,9 @@ class UnreachableIfBranchesRule implements \PHPStan\Rules\Rule
 		}
 
 		if ($node->else !== null && $nextBranchIsDead) {
-			$errors[] = RuleErrorBuilder::message('Else branch is unreachable because previous condition is always true.')->line($node->else->getLine())->build();
+			$errors[] = RuleErrorBuilder::message('Else branch is unreachable because previous condition is always true.')
+				->line($node->else->getLine())
+				->build();
 		}
 
 		return $errors;

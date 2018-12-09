@@ -27,7 +27,7 @@ class ReturnTypeRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Stmt\Return_ $node
-	 * @param \PHPStan\Analyser\Scope      $scope
+	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[]
 	 */
@@ -55,17 +55,17 @@ class ReturnTypeRule implements \PHPStan\Rules\Rule
 			$scope,
 			ParametersAcceptorSelector::selectSingle($method->getVariants())->getReturnType(),
 			$node->expr,
-			sprintf(
+			\sprintf(
 				'Method %s::%s() should return %%s but empty return statement found.',
 				$method->getDeclaringClass()->getDisplayName(),
 				$method->getName()
 			),
-			sprintf(
+			\sprintf(
 				'Method %s::%s() with return type void returns %%s but should not return anything.',
 				$method->getDeclaringClass()->getDisplayName(),
 				$method->getName()
 			),
-			sprintf(
+			\sprintf(
 				'Method %s::%s() should return %%s but returns %%s.',
 				$method->getDeclaringClass()->getDisplayName(),
 				$method->getName()

@@ -26,7 +26,7 @@ class InArrayFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingEx
 
 	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, TypeSpecifierContext $context): bool
 	{
-		return strtolower($functionReflection->getName()) === 'in_array'
+		return \strtolower($functionReflection->getName()) === 'in_array'
 			   && \count($node->args) >= 3
 			   && !$context->null();
 	}

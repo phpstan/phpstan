@@ -54,7 +54,7 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 
 	public function testNestedFunctionCallsDoNotCauseExcessiveFunctionNesting(): void
 	{
-		if (extension_loaded('xdebug')) {
+		if (\extension_loaded('xdebug')) {
 			$this->markTestSkipped('This test takes too long with XDebug enabled.');
 		}
 		$errors = $this->runAnalyse(__DIR__ . '/data/nested-functions.php');

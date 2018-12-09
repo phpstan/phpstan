@@ -79,34 +79,34 @@ class TrinaryLogic
 
 	public function and(self ...$operands): self
 	{
-		$operandValues = array_column($operands, 'value');
+		$operandValues = \array_column($operands, 'value');
 		$operandValues[] = $this->value;
 
-		return self::create(min($operandValues));
+		return self::create(\min($operandValues));
 	}
 
 	public function or(self ...$operands): self
 	{
-		$operandValues = array_column($operands, 'value');
+		$operandValues = \array_column($operands, 'value');
 		$operandValues[] = $this->value;
 
-		return self::create(max($operandValues));
+		return self::create(\max($operandValues));
 	}
 
 	public static function extremeIdentity(self ...$operands): self
 	{
-		$operandValues = array_column($operands, 'value');
-		$min = min($operandValues);
-		$max = max($operandValues);
+		$operandValues = \array_column($operands, 'value');
+		$min = \min($operandValues);
+		$max = \max($operandValues);
 
 		return self::create($min === $max ? $min : self::MAYBE);
 	}
 
 	public static function maxMin(self ...$operands): self
 	{
-		$operandValues = array_column($operands, 'value');
+		$operandValues = \array_column($operands, 'value');
 
-		return self::create(max($operandValues) > 0 ? max($operandValues) : min($operandValues));
+		return self::create(\max($operandValues) > 0 ? \max($operandValues) : \min($operandValues));
 	}
 
 	public function negate(): self

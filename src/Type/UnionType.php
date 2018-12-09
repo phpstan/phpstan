@@ -9,6 +9,8 @@ use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
+use PHPStan\Type\Constant\ConstantIntegerType;
+use PHPStan\Type\Constant\ConstantStringType;
 
 class UnionType implements CompoundType, StaticResolvableType
 {
@@ -23,12 +25,12 @@ class UnionType implements CompoundType, StaticResolvableType
 	{
 		$throwException = static function () use ($types): void {
 			throw new \PHPStan\ShouldNotHappenException(
-				sprintf(
+				\sprintf(
 					'Cannot create %s with: %s',
 					self::class,
-					implode(
+					\implode(
 						', ',
-						array_map(
+						\array_map(
 							static function (Type $type): string {
 								return $type->describe(VerbosityLevel::value());
 							},
@@ -42,7 +44,7 @@ class UnionType implements CompoundType, StaticResolvableType
 			$throwException();
 		}
 		foreach ($types as $type) {
-			if (!($type instanceof UnionType)) {
+			if (!($type instanceof self)) {
 				continue;
 			}
 
@@ -130,19 +132,19 @@ class UnionType implements CompoundType, StaticResolvableType
 			$typeNames = [];
 			foreach ($types as $type) {
 				if ($type instanceof IntersectionType || $type instanceof ClosureType) {
-					$typeNames[] = sprintf('(%s)', $type->describe($level));
+					$typeNames[] = \sprintf('(%s)', $type->describe($level));
 				} else {
 					$typeNames[] = $type->describe($level);
 				}
 			}
 
-			return implode('|', $typeNames);
+			return \implode('|', $typeNames);
 		};
 
 		return $level->handle(
 			function () use ($joinTypes): string {
 				$types = TypeCombinator::union(
-					...array_map(
+					...\array_map(
 						static function (Type $type): Type {
 							if (
 								   $type instanceof ConstantType
@@ -176,6 +178,7 @@ class UnionType implements CompoundType, StaticResolvableType
 
 					$constantArrays[] = $type;
 					foreach ($type->getKeyTypes() as $i => $keyType) {
+						/** @var ConstantIntegerType|ConstantStringType $keyType */
 						if (!isset($arrayDescription[$keyType->getValue()])) {
 							$arrayDescription[$keyType->getValue()] = [
 								'key'   => $keyType,
@@ -185,13 +188,14 @@ class UnionType implements CompoundType, StaticResolvableType
 							continue;
 						}
 
+						$keyTypeValue = $keyType->getValue();
 						$arrayDescription[$keyType->getValue()] = [
 							'key'   => $keyType,
 							'value' => TypeCombinator::union(
-								$arrayDescription[$keyType->getValue()]['value'],
+								$arrayDescription[$keyTypeValue]['value'],
 								$type->getValueTypes()[$i]
 							),
-							'count' => $arrayDescription[$keyType->getValue()]['count'] + 1,
+							'count' => $arrayDescription[$keyTypeValue]['count'] + 1,
 						];
 					}
 				}
@@ -207,7 +211,7 @@ class UnionType implements CompoundType, StaticResolvableType
 				if (!$someKeyCountIsHigherThanOne) {
 					return $joinTypes(
 						UnionTypeHelper::sortTypes(
-							array_merge(
+							\array_merge(
 								$commonTypes,
 								$constantArrays
 							)
@@ -218,7 +222,8 @@ class UnionType implements CompoundType, StaticResolvableType
 				$constantArraysCount = \count($constantArrays);
 				$constantArraysDescriptions = [];
 				foreach ($arrayDescription as $value) {
-					$constantArraysDescriptions[] = sprintf(
+					/** @var Type[] $value */
+					$constantArraysDescriptions[] = \sprintf(
 						'%s%s => %s',
 						$value['count'] < $constantArraysCount ? '?' : '',
 						$value['key']->describe(VerbosityLevel::value()),
@@ -235,7 +240,7 @@ class UnionType implements CompoundType, StaticResolvableType
 				}
 
 				if (\count($constantArraysDescriptions) > 0) {
-					$description .= 'array(' . implode(', ', $constantArraysDescriptions) . ')';
+					$description .= 'array(' . \implode(', ', $constantArraysDescriptions) . ')';
 				}
 
 				return $description;
@@ -268,7 +273,7 @@ class UnionType implements CompoundType, StaticResolvableType
 	/**
 	 * @param callable(Type $type): TrinaryLogic $hasCallback
 	 * @param callable(Type $type): object $getCallback
-	 * @return object
+	 * @return MethodReflection|PropertyReflection|ConstantReflection|object
 	 */
 	private function getInternal(
 		callable $hasCallback,
@@ -281,11 +286,17 @@ class UnionType implements CompoundType, StaticResolvableType
 		/** @var object|null $object */
 		$object = null;
 		foreach ($this->types as $type) {
+			/** @var TrinaryLogic $has */
 			$has = $hasCallback($type);
 			if (!$has->yes()) {
 				continue;
 			}
-			if ($result !== null && $result->compareTo($has) !== $has) {
+
+			if (
+				$result !== null
+				&&
+				$result->compareTo($has) !== $has
+			) {
 				continue;
 			}
 
@@ -345,9 +356,11 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function hasMethod(string $methodName): TrinaryLogic
 	{
-		return $this->unionResults(static function (Type $type) use ($methodName): TrinaryLogic {
-			return $type->hasMethod($methodName);
-		});
+		return $this->unionResults(
+			static function (Type $type) use ($methodName): TrinaryLogic {
+				return $type->hasMethod($methodName);
+			}
+		);
 	}
 
 	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
@@ -525,7 +538,7 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function toBoolean(): BooleanType
 	{
-		/* @var BooleanType $type */
+		/** @var BooleanType $type */
 		$type = $this->unionTypes(
 			static function (Type $type): BooleanType {
 				return $type->toBoolean();
@@ -607,7 +620,7 @@ class UnionType implements CompoundType, StaticResolvableType
 	 */
 	private function unionResults(callable $getResult): TrinaryLogic
 	{
-		return TrinaryLogic::extremeIdentity(...array_map($getResult, $this->types));
+		return TrinaryLogic::extremeIdentity(...\array_map($getResult, $this->types));
 	}
 
 	/**
@@ -617,7 +630,7 @@ class UnionType implements CompoundType, StaticResolvableType
 	 */
 	protected function unionTypes(callable $getType): Type
 	{
-		return TypeCombinator::union(...array_map($getType, $this->types));
+		return TypeCombinator::union(...\array_map($getType, $this->types));
 	}
 
 }

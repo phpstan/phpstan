@@ -54,13 +54,13 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 	private $isFinal;
 
 	/**
-	 * @param Broker                                                   $broker
-	 * @param \PHPStan\Type\FileTypeMapper                             $fileTypeMapper
+	 * @param Broker $broker
+	 * @param \PHPStan\Type\FileTypeMapper $fileTypeMapper
 	 * @param \PHPStan\Reflection\PropertiesClassReflectionExtension[] $propertiesClassReflectionExtensions
-	 * @param \PHPStan\Reflection\MethodsClassReflectionExtension[]    $methodsClassReflectionExtensions
-	 * @param string                                                   $displayName
-	 * @param \ReflectionClass                                         $reflection
-	 * @param string|null                                              $anonymousFilename
+	 * @param \PHPStan\Reflection\MethodsClassReflectionExtension[] $methodsClassReflectionExtensions
+	 * @param string $displayName
+	 * @param \ReflectionClass $reflection
+	 * @param string|null $anonymousFilename
 	 */
 	public function __construct(
 		Broker $broker,
@@ -99,7 +99,7 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 			return false;
 		}
 
-		if (!file_exists($fileName)) {
+		if (!\file_exists($fileName)) {
 			return false;
 		}
 
@@ -141,7 +141,7 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 			$currentClassReflection = $this->getNativeReflection();
 			foreach ($this->getNativeReflection()->getTraits() as $trait) {
 				$distance++;
-				if (array_key_exists($trait->getName(), $distances)) {
+				if (\array_key_exists($trait->getName(), $distances)) {
 					continue;
 				}
 
@@ -151,13 +151,13 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 			while ($currentClassReflection->getParentClass() !== false) {
 				$distance++;
 				$parentClassName = $currentClassReflection->getParentClass()->getName();
-				if (!array_key_exists($parentClassName, $distances)) {
+				if (!\array_key_exists($parentClassName, $distances)) {
 					$distances[$parentClassName] = $distance;
 				}
 				$currentClassReflection = $currentClassReflection->getParentClass();
 				foreach ($currentClassReflection->getTraits() as $trait) {
 					$distance++;
-					if (array_key_exists($trait->getName(), $distances)) {
+					if (\array_key_exists($trait->getName(), $distances)) {
 						continue;
 					}
 
@@ -166,7 +166,7 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 			}
 			foreach ($this->getNativeReflection()->getInterfaces() as $interface) {
 				$distance++;
-				if (array_key_exists($interface->getName(), $distances)) {
+				if (\array_key_exists($interface->getName(), $distances)) {
 					continue;
 				}
 
@@ -205,7 +205,7 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 	{
 		$key = $methodName;
 		if ($scope->isInClass()) {
-			$key = sprintf('%s-%s', $key, $scope->getClassReflection()->getName());
+			$key = \sprintf('%s-%s', $key, $scope->getClassReflection()->getName());
 		}
 		if (!isset($this->methods[$key])) {
 			foreach ($this->methodsClassReflectionExtensions as $extension) {
@@ -273,7 +273,7 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 	{
 		$key = $propertyName;
 		if ($scope->isInClass()) {
-			$key = sprintf('%s-%s', $key, $scope->getClassReflection()->getName());
+			$key = \sprintf('%s-%s', $key, $scope->getClassReflection()->getName());
 		}
 		if (!isset($this->properties[$key])) {
 			foreach ($this->propertiesClassReflectionExtensions as $extension) {
@@ -357,7 +357,7 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 	 */
 	public function getInterfaces(): array
 	{
-		return array_map(
+		return \array_map(
 			function (\ReflectionClass $interface) {
 				return $this->broker->getClass($interface->getName());
 			},
@@ -370,7 +370,7 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 	 */
 	public function getTraits(): array
 	{
-		return array_map(
+		return \array_map(
 			function (\ReflectionClass $trait) {
 				return $this->broker->getClass($trait->getName());
 			},
@@ -439,9 +439,9 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 		$class = $this->reflection;
 		$traitNames = $class->getTraitNames();
 		while ($class->getParentClass() !== false) {
-			$traitNames = array_values(
-				array_unique(
-					array_merge(
+			$traitNames = \array_values(
+				\array_unique(
+					\array_merge(
 						$traitNames,
 						$class->getParentClass()
 							->getTraitNames()

@@ -20,7 +20,7 @@ class MemoryCacheStorage implements CacheStorage
 
 	/**
 	 * @param string $key
-	 * @param mixed  $data
+	 * @param mixed $data
 	 *
 	 * @return bool
 	 */

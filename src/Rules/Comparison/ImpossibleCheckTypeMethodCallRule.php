@@ -32,7 +32,7 @@ class ImpossibleCheckTypeMethodCallRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\MethodCall $node
-	 * @param \PHPStan\Analyser\Scope         $scope
+	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[] errors
 	 */
@@ -51,7 +51,7 @@ class ImpossibleCheckTypeMethodCallRule implements \PHPStan\Rules\Rule
 			$method = $this->getMethod($node->var, $node->name->name, $scope);
 
 			return [
-				sprintf(
+				\sprintf(
 					'Call to method %s::%s()%s will always evaluate to false.',
 					$method->getDeclaringClass()->getDisplayName(),
 					$method->getName(),
@@ -64,7 +64,7 @@ class ImpossibleCheckTypeMethodCallRule implements \PHPStan\Rules\Rule
 			$method = $this->getMethod($node->var, $node->name->name, $scope);
 
 			return [
-				sprintf(
+				\sprintf(
 					'Call to method %s::%s()%s will always evaluate to true.',
 					$method->getDeclaringClass()->getDisplayName(),
 					$method->getName(),

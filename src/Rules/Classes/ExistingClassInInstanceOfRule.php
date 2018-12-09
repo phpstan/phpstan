@@ -52,7 +52,7 @@ class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
 		}
 
 		$name = (string) $class;
-		$lowercaseName = strtolower($name);
+		$lowercaseName = \strtolower($name);
 
 		if (\in_array(
 			$lowercaseName,
@@ -65,7 +65,9 @@ class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
 		)) {
 			if (!$scope->isInClass()) {
 				return [
-					RuleErrorBuilder::message(sprintf('Using %s outside of class scope.', $lowercaseName))->line($class->getLine())->build(),
+					RuleErrorBuilder::message(\sprintf('Using %s outside of class scope.', $lowercaseName))
+						->line($class->getLine())
+						->build(),
 				];
 			}
 
@@ -74,7 +76,7 @@ class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
 
 		if (!$this->broker->hasClass($name)) {
 			return [
-				RuleErrorBuilder::message(sprintf('Class %s not found.', $name))->line($class->getLine())->build(),
+				RuleErrorBuilder::message(\sprintf('Class %s not found.', $name))->line($class->getLine())->build(),
 			];
 		}
 

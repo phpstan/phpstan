@@ -10,7 +10,7 @@ class FunctionCallStatementFinder
 
 	/**
 	 * @param string[] $functionNames
-	 * @param mixed    $statements
+	 * @param mixed $statements
 	 *
 	 * @return \PhpParser\Node|null
 	 */

@@ -27,7 +27,7 @@ class AssertionClass
 	 */
 	public function assertNotInt($arg): bool
 	{
-		if (is_int($arg)) {
+		if (\is_int($arg)) {
 			throw new \Exception();
 		}
 

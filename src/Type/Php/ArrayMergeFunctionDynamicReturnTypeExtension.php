@@ -89,7 +89,7 @@ class ArrayMergeFunctionDynamicReturnTypeExtension implements \PHPStan\Type\Dyna
 			}
 		}
 
-		/* @var \PHPStan\Type\Type $arrayType */
+		/** @var \PHPStan\Type\Type $arrayType */
 		$arrayType = $arrayType;
 
 		return $arrayType;

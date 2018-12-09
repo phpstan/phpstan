@@ -29,7 +29,7 @@ class Registry
 	public function getRules(string $nodeType): array
 	{
 		if (!isset($this->cache[$nodeType])) {
-			$parentNodeTypes = [$nodeType] + class_parents($nodeType) + class_implements($nodeType);
+			$parentNodeTypes = [$nodeType] + \class_parents($nodeType) + \class_implements($nodeType);
 
 			$rules = [];
 			foreach ($parentNodeTypes as $parentNodeType) {

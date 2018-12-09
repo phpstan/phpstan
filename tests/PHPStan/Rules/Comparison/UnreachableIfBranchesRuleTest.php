@@ -22,28 +22,31 @@ class UnreachableIfBranchesRuleTest extends RuleTestCase
 
 	public function testRule(): void
 	{
-		$this->analyse([__DIR__ . '/data/unreachable-if-branches.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/unreachable-if-branches.php'],
 			[
-				'Else branch is unreachable because previous condition is always true.',
-				15,
-			],
-			[
-				'Elseif branch is unreachable because previous condition is always true.',
-				25,
-			],
-			[
-				'Else branch is unreachable because previous condition is always true.',
-				27,
-			],
-			[
-				'Elseif branch is unreachable because previous condition is always true.',
-				39,
-			],
-			[
-				'Else branch is unreachable because previous condition is always true.',
-				41,
-			],
-		]);
+				[
+					'Else branch is unreachable because previous condition is always true.',
+					15,
+				],
+				[
+					'Elseif branch is unreachable because previous condition is always true.',
+					25,
+				],
+				[
+					'Else branch is unreachable because previous condition is always true.',
+					27,
+				],
+				[
+					'Elseif branch is unreachable because previous condition is always true.',
+					39,
+				],
+				[
+					'Else branch is unreachable because previous condition is always true.',
+					41,
+				],
+			]
+		);
 	}
 
 }

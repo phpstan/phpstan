@@ -18,8 +18,8 @@ class FunctionSignature
 
 	/**
 	 * @param array<int, \PHPStan\Reflection\SignatureMap\ParameterSignature> $parameters
-	 * @param \PHPStan\Type\Type                                              $returnType
-	 * @param bool                                                            $variadic
+	 * @param \PHPStan\Type\Type $returnType
+	 * @param bool $variadic
 	 */
 	public function __construct(
 		array $parameters,

@@ -176,13 +176,13 @@ class RelativePathHelperTest extends \PHPUnit\Framework\TestCase
 	): void
 	{
 		$sanitize = static function (string $path): string {
-			if (substr($path, 0, 1) === '/') {
-				return 'C:\\' . substr(str_replace('/', '\\', $path), 1);
+			if (\substr($path, 0, 1) === '/') {
+				return 'C:\\' . \substr(\str_replace('/', '\\', $path), 1);
 			}
 
-			return str_replace('/', '\\', $path);
+			return \str_replace('/', '\\', $path);
 		};
-		$helper = new RelativePathHelper($sanitize($currentWorkingDirectory), '\\', array_map($sanitize, $analysedPaths));
+		$helper = new RelativePathHelper($sanitize($currentWorkingDirectory), '\\', \array_map($sanitize, $analysedPaths));
 		$this->assertSame(
 			$sanitize($expectedResult),
 			$helper->getRelativePath($sanitize($filenameToRelativize))

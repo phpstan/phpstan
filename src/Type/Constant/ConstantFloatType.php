@@ -37,7 +37,7 @@ class ConstantFloatType extends FloatType implements ConstantScalarType
 			},
 			function (): string {
 				$formatted = (string) $this->value;
-				if (strpos($formatted, '.') === false) {
+				if (\strpos($formatted, '.') === false) {
 					$formatted .= '.0';
 				}
 

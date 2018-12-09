@@ -41,23 +41,32 @@ class FileFinder
 		$onlyFiles = true;
 		$files = [];
 		foreach ($paths as $path) {
-			if (!file_exists($path)) {
+			if (!\file_exists($path)) {
 				throw new \PHPStan\File\PathNotFoundException($path);
-			} elseif (is_file($path)) {
+			}
+
+			if (\is_file($path)) {
 				$files[] = $this->fileHelper->normalizePath($path);
 			} else {
 				$finder = new Finder();
 				$finder->followLinks();
-				foreach ($finder->files()->name('*.{' . implode(',', $this->fileExtensions) . '}')->in($path) as $fileInfo) {
+				/** @noinspection ForeachSourceInspection */
+				foreach ($finder->files()->name('*.{' . \implode(',', $this->fileExtensions) . '}')->in($path) as $fileInfo) {
+					/** @var \SplFileInfo $fileInfo */
 					$files[] = $this->fileHelper->normalizePath($fileInfo->getPathname());
 					$onlyFiles = false;
 				}
 			}
 		}
 
-		$files = array_values(array_filter($files, function (string $file): bool {
-			return !$this->fileExcluder->isExcludedFromAnalysing($file);
-		}));
+		$files = \array_values(
+			\array_filter(
+				$files,
+				function (string $file): bool {
+					return !$this->fileExcluder->isExcludedFromAnalysing($file);
+				}
+			)
+		);
 
 		return new FileFinderResult($files, $onlyFiles);
 	}

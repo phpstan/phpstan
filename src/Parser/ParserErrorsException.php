@@ -15,9 +15,17 @@ class ParserErrorsException extends \Exception
 	 */
 	public function __construct(array $errors)
 	{
-		parent::__construct(implode(', ', array_map(static function (Error $error) {
-			return $error->getMessage();
-		}, $errors)));
+		parent::__construct(
+			\implode(
+				', ',
+				\array_map(
+					static function (Error $error) {
+						return $error->getMessage();
+					},
+					$errors
+				)
+			)
+		);
 		$this->errors = $errors;
 	}
 

@@ -22,17 +22,15 @@ class FileHelper
 
 	public function absolutizePath(string $path): string
 	{
-		if (DIRECTORY_SEPARATOR === '/') {
-			if (substr($path, 0, 1) === '/') {
+		if (\DIRECTORY_SEPARATOR === '/') {
+			if (\substr($path, 0, 1) === '/') {
 				return $path;
 			}
-		} else {
-			if (substr($path, 1, 1) === ':') {
-				return $path;
-			}
+		} elseif (\substr($path, 1, 1) === ':') {
+			return $path;
 		}
 
-		return rtrim($this->getWorkingDirectory(), '/\\') . DIRECTORY_SEPARATOR . ltrim($path, '/\\');
+		return \rtrim($this->getWorkingDirectory(), '/\\') . \DIRECTORY_SEPARATOR . \ltrim($path, '/\\');
 	}
 
 	public function normalizePath(string $originalPath): string
@@ -45,11 +43,11 @@ class FileHelper
 			$path = $originalPath;
 		}
 
-		$path = str_replace('\\', '/', $path);
+		$path = \str_replace('\\', '/', $path);
 		$path = Strings::replace($path, '~/{2,}~', '/');
 
-		$pathRoot = strpos($path, '/') === 0 ? DIRECTORY_SEPARATOR : '';
-		$pathParts = explode('/', trim($path, '/'));
+		$pathRoot = \strpos($path, '/') === 0 ? \DIRECTORY_SEPARATOR : '';
+		$pathParts = \explode('/', \trim($path, '/'));
 
 		$normalizedPathParts = [];
 		foreach ($pathParts as $pathPart) {
@@ -57,9 +55,9 @@ class FileHelper
 				continue;
 			}
 			if ($pathPart === '..') {
-				/* @var string $removedPart */
-				$removedPart = array_pop($normalizedPathParts);
-				if ($scheme === 'phar' && substr($removedPart, -5) === '.phar') {
+				/** @var string $removedPart */
+				$removedPart = \array_pop($normalizedPathParts);
+				if ($scheme === 'phar' && \substr($removedPart, -5) === '.phar') {
 					$scheme = null;
 				}
 
@@ -68,7 +66,7 @@ class FileHelper
 			}
 		}
 
-		return ($scheme !== null ? $scheme . '://' : '') . $pathRoot . implode(DIRECTORY_SEPARATOR, $normalizedPathParts);
+		return ($scheme !== null ? $scheme . '://' : '') . $pathRoot . \implode(\DIRECTORY_SEPARATOR, $normalizedPathParts);
 	}
 
 }

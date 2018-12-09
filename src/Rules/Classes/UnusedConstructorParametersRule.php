@@ -27,7 +27,7 @@ class UnusedConstructorParametersRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Stmt\ClassMethod $node
-	 * @param \PHPStan\Analyser\Scope          $scope
+	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[]
 	 */
@@ -45,10 +45,9 @@ class UnusedConstructorParametersRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		$message = sprintf(
+		$message = \sprintf(
 			'Constructor of class %s has an unused parameter $%%s.',
-			$scope->getClassReflection()
-				->getDisplayName()
+			$scope->getClassReflection()->getDisplayName()
 		);
 		if ($scope->getClassReflection()->isAnonymous()) {
 			$message = 'Constructor of an anonymous class has an unused parameter $%s.';
@@ -56,7 +55,7 @@ class UnusedConstructorParametersRule implements \PHPStan\Rules\Rule
 
 		return $this->check->getUnusedParameters(
 			$scope,
-			array_map(
+			\array_map(
 				static function (Param $parameter): string {
 					if (!$parameter->var instanceof Variable || !\is_string($parameter->var->name)) {
 						throw new \PHPStan\ShouldNotHappenException();

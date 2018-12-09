@@ -7,6 +7,7 @@ use PHPStan\File\FileHelper;
 use PHPStan\Parser\Parser;
 use PHPStan\Rules\LineRuleError;
 use PHPStan\Rules\Registry;
+use PHPStan\Rules\RuleError;
 
 class Analyser
 {
@@ -86,16 +87,16 @@ class Analyser
 
 		foreach ($this->ignoreErrors as $ignoreError) {
 			try {
-				if (is_array($ignoreError)) {
+				if (\is_array($ignoreError)) {
 					if (!isset($ignoreError['message'])) {
-						$errors[] = sprintf(
+						$errors[] = \sprintf(
 							'Ignored error %s is missing a message.',
 							Json::encode($ignoreError)
 						);
 						continue;
 					}
 					if (!isset($ignoreError['path'])) {
-						$errors[] = sprintf(
+						$errors[] = \sprintf(
 							'Ignored error %s is missing a path.',
 							Json::encode($ignoreError)
 						);
@@ -126,7 +127,7 @@ class Analyser
 					$preFileCallback($file);
 				}
 
-				if (is_file($file)) {
+				if (\is_file($file)) {
 					$this->nodeScopeResolver->processNodes(
 						$this->parser->parseFile($file),
 						$this->scopeFactory->create(ScopeContext::create($file)),
@@ -134,9 +135,10 @@ class Analyser
 							foreach ($this->registry->getRules(\get_class($node)) as $rule) {
 								foreach ($rule->processNode($node, $scope) as $ruleError) {
 									$line = $node->getLine();
-									if (is_string($ruleError)) {
+									if (\is_string($ruleError)) {
 										$message = $ruleError;
 									} else {
+										/** @var RuleError $ruleError */
 										$message = $ruleError->getMessage();
 										if (
 											$ruleError instanceof LineRuleError
@@ -151,16 +153,16 @@ class Analyser
 							}
 						}
 					);
-				} elseif (is_dir($file)) {
-					$fileErrors[] = new Error(sprintf('File %s is a directory.', $file), $file, null, false);
+				} elseif (\is_dir($file)) {
+					$fileErrors[] = new Error(\sprintf('File %s is a directory.', $file), $file, null, false);
 				} else {
-					$fileErrors[] = new Error(sprintf('File %s does not exist.', $file), $file, null, false);
+					$fileErrors[] = new Error(\sprintf('File %s does not exist.', $file), $file, null, false);
 				}
 				if ($postFileCallback !== null) {
 					$postFileCallback($file);
 				}
 
-				$errors = array_merge($errors, $fileErrors);
+				$errors = \array_merge($errors, $fileErrors);
 			} catch (\PhpParser\Error $e) {
 				$errors[] = new Error($e->getMessage(), $file, $e->getStartLine() !== -1 ? $e->getStartLine() : null, false);
 			} catch (\PHPStan\Parser\ParserErrorsException $e) {
@@ -174,8 +176,8 @@ class Analyser
 					throw $t;
 				}
 				$internalErrorsCount++;
-				$internalErrorMessage = sprintf('Internal error: %s', $t->getMessage());
-				$internalErrorMessage .= sprintf(
+				$internalErrorMessage = \sprintf('Internal error: %s', $t->getMessage());
+				$internalErrorMessage .= \sprintf(
 					'%sRun PHPStan with --debug option and post the stack trace to:%s%s',
 					"\n",
 					"\n",
@@ -191,20 +193,22 @@ class Analyser
 
 		$unmatchedIgnoredErrors = $this->ignoreErrors;
 		$addErrors = [];
-		$errors = array_values(
-			array_filter(
+		$errors = \array_values(
+			\array_filter(
 				$errors,
 				function (Error $error) use (&$unmatchedIgnoredErrors, &$addErrors): bool {
 					foreach ($this->ignoreErrors as $i => $ignore) {
 						if (IgnoredError::shouldIgnore($this->fileHelper, $error, $ignore)) {
 							unset($unmatchedIgnoredErrors[$i]);
 							if (!$error->canBeIgnored()) {
-								$addErrors[] = sprintf(
+								$addErrors[] = \sprintf(
 									'Error message "%s" cannot be ignored, use excludes_analyse instead.',
 									$error->getMessage()
 								);
+
 								return true;
 							}
+
 							return false;
 						}
 					}
@@ -214,11 +218,11 @@ class Analyser
 			)
 		);
 
-		$errors = array_merge($errors, $addErrors);
+		$errors = \array_merge($errors, $addErrors);
 
 		if (!$onlyFiles && $this->reportUnmatchedIgnoredErrors && !$reachedInternalErrorsCountLimit) {
 			foreach ($unmatchedIgnoredErrors as $unmatchedIgnoredError) {
-				$errors[] = sprintf(
+				$errors[] = \sprintf(
 					'Ignored error pattern %s was not matched in reported errors.',
 					IgnoredError::stringifyPattern($unmatchedIgnoredError)
 				);
@@ -226,7 +230,7 @@ class Analyser
 		}
 
 		if ($reachedInternalErrorsCountLimit) {
-			$errors[] = sprintf('Reached internal errors count limit of %d, exiting...', $this->internalErrorsCountLimit);
+			$errors[] = \sprintf('Reached internal errors count limit of %d, exiting...', $this->internalErrorsCountLimit);
 		}
 
 		return $errors;

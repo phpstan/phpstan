@@ -14,20 +14,23 @@ class IterableInForeachRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	public function testCheckWithMaybes(): void
 	{
-		$this->analyse([__DIR__ . '/data/foreach-iterable.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/foreach-iterable.php'],
 			[
-				'Argument of an invalid type string supplied for foreach, only iterables are supported.',
-				10,
-			],
-			[
-				'Argument of an invalid type array<int, int>|false supplied for foreach, only iterables are supported.',
-				19,
-			],
-			[
-				'Iterating over an object of an unknown class IterablesInForeach\Bar.',
-				47,
-			],
-		]);
+				[
+					'Argument of an invalid type string supplied for foreach, only iterables are supported.',
+					10,
+				],
+				[
+					'Argument of an invalid type array<int, int>|false supplied for foreach, only iterables are supported.',
+					19,
+				],
+				[
+					'Iterating over an object of an unknown class IterablesInForeach\Bar.',
+					47,
+				],
+			]
+		);
 	}
 
 }

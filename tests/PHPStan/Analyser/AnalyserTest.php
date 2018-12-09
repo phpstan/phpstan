@@ -99,8 +99,8 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 
 		$expectedPath = __DIR__;
 
-		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-			$expectedPath = str_replace('\\', '\\\\', $expectedPath);
+		if (\strtoupper(\substr(\PHP_OS, 0, 3)) === 'WIN') {
+			$expectedPath = \str_replace('\\', '\\\\', $expectedPath);
 		}
 
 		$result = $this->runAnalyser($ignoreErrors, true, __DIR__ . '/data/empty/empty.php', false);

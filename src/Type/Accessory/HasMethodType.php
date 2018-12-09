@@ -33,7 +33,7 @@ class HasMethodType implements AccessoryType, CompoundType
 
 	private function getCanonicalMethodName(): string
 	{
-		return strtolower($this->methodName);
+		return \strtolower($this->methodName);
 	}
 
 	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
@@ -69,12 +69,12 @@ class HasMethodType implements AccessoryType, CompoundType
 
 	public function describe(\PHPStan\Type\VerbosityLevel $level): string
 	{
-		return sprintf('hasMethod(%s)', $this->methodName);
+		return \sprintf('hasMethod(%s)', $this->methodName);
 	}
 
 	public function hasMethod(string $methodName): TrinaryLogic
 	{
-		if ($this->getCanonicalMethodName() === strtolower($methodName)) {
+		if ($this->getCanonicalMethodName() === \strtolower($methodName)) {
 			return TrinaryLogic::createYes();
 		}
 

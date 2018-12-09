@@ -83,6 +83,7 @@ class FileTypeMapper
 		if (\is_callable($this->inProcess[$fileName][$phpDocKey])) {
 			$resolveCallback = $this->inProcess[$fileName][$phpDocKey];
 			$this->inProcess[$fileName][$phpDocKey] = false;
+			/** @noinspection SuspiciousAssignmentsInspection */
 			$this->inProcess[$fileName][$phpDocKey] = $resolveCallback();
 		}
 
@@ -99,11 +100,11 @@ class FileTypeMapper
 	private function getResolvedPhpDocMap(string $fileName): array
 	{
 		if (!isset($this->memoryCache[$fileName])) {
-			$modifiedTime = filemtime($fileName);
+			$modifiedTime = \filemtime($fileName);
 			if ($modifiedTime === false) {
-				$modifiedTime = time();
+				$modifiedTime = \time();
 			}
-			$cacheKey = sprintf('%s-%d-%s', $fileName, $modifiedTime, $this->typeNodeResolver->getCacheKey());
+			$cacheKey = \sprintf('%s-%d-%s', $fileName, $modifiedTime, $this->typeNodeResolver->getCacheKey());
 			$map = $this->cache->load($cacheKey);
 
 			if ($map === null) {
@@ -131,6 +132,7 @@ class FileTypeMapper
 
 			foreach ($phpDocMap as $phpDocKey => $resolveCallback) {
 				$this->inProcess[$fileName][$phpDocKey] = false;
+				/** @noinspection SuspiciousAssignmentsInspection */
 				$this->inProcess[$fileName][$phpDocKey] = $data = $resolveCallback();
 				$phpDocMap[$phpDocKey] = $data;
 			}
@@ -143,7 +145,7 @@ class FileTypeMapper
 	}
 
 	/**
-	 * @param string      $fileName
+	 * @param string $fileName
 	 * @param string|null $lookForTrait
 	 * @param string|null $traitUseClass
 	 *
@@ -155,10 +157,10 @@ class FileTypeMapper
 		?string $traitUseClass
 	): array
 	{
-		/* @var callable[] $phpDocMap */
+		/** @var callable[] $phpDocMap */
 		$phpDocMap = [];
 
-		/* @var string[] $classStack */
+		/** @var string[] $classStack */
 		$classStack = [];
 		if ($lookForTrait !== null && $traitUseClass !== null) {
 			$classStack[] = $traitUseClass;
@@ -187,14 +189,14 @@ class FileTypeMapper
 								$fileName
 							);
 						} else {
-							$className = ltrim(sprintf('%s\\%s', $namespace, $node->name->name), '\\');
+							$className = \ltrim(\sprintf('%s\\%s', $namespace, $node->name->name), '\\');
 						}
 						$classStack[] = $className;
 					}
 				} elseif ($node instanceof Node\Stmt\TraitUse) {
 					foreach ($node->traits as $traitName) {
 						$traitName = (string) $traitName;
-						if (!trait_exists($traitName)) {
+						if (!\trait_exists($traitName)) {
 							continue;
 						}
 
@@ -213,7 +215,7 @@ class FileTypeMapper
 							$traitName,
 							$className
 						);
-						$phpDocMap = array_merge($phpDocMap, $traitPhpDocMap);
+						$phpDocMap = \array_merge($phpDocMap, $traitPhpDocMap);
 					}
 
 					return;
@@ -223,7 +225,7 @@ class FileTypeMapper
 					return;
 				} elseif ($node instanceof \PhpParser\Node\Stmt\Use_ && $node->type === \PhpParser\Node\Stmt\Use_::TYPE_NORMAL) {
 					foreach ($node->uses as $use) {
-						$uses[strtolower($use->getAlias()->name)] = (string) $use->name;
+						$uses[\strtolower($use->getAlias()->name)] = (string) $use->name;
 					}
 
 					return;
@@ -234,7 +236,7 @@ class FileTypeMapper
 							continue;
 						}
 
-						$uses[strtolower($use->getAlias()->name)] = sprintf('%s\\%s', $prefix, (string) $use->name);
+						$uses[\strtolower($use->getAlias()->name)] = \sprintf('%s\\%s', $prefix, (string) $use->name);
 					}
 
 					return;
@@ -272,7 +274,7 @@ class FileTypeMapper
 					if (\count($classStack) === 0) {
 						throw new \PHPStan\ShouldNotHappenException();
 					}
-					array_pop($classStack);
+					\array_pop($classStack);
 				} elseif ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
 					$namespace = null;
 					$uses = [];
@@ -315,7 +317,7 @@ class FileTypeMapper
 	{
 		$docComment = \Nette\Utils\Strings::replace($docComment, '#\s+#', ' ');
 
-		return md5(sprintf('%s-%s-%s', $class, $trait, $docComment));
+		return \md5(\sprintf('%s-%s-%s', $class, $trait, $docComment));
 	}
 
 }

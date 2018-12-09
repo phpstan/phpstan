@@ -67,7 +67,7 @@ class TypeNodeResolver
 	{
 		$key = 'v50';
 		foreach ($this->extensions as $extension) {
-			$key .= sprintf('-%s', $extension->getCacheKey());
+			$key .= \sprintf('-%s', $extension->getCacheKey());
 		}
 
 		return $key;
@@ -126,7 +126,7 @@ class TypeNodeResolver
 
 	private function resolveIdentifierTypeNode(IdentifierTypeNode $typeNode, NameScope $nameScope): Type
 	{
-		switch (strtolower($typeNode->name)) {
+		switch (\strtolower($typeNode->name)) {
 			case 'int':
 			case 'integer':
 				return new IntegerType();
@@ -195,7 +195,7 @@ class TypeNodeResolver
 		}
 
 		if ($nameScope->getClassName() !== null) {
-			switch (strtolower($typeNode->name)) {
+			switch (\strtolower($typeNode->name)) {
 				case 'self':
 					return new ObjectType($nameScope->getClassName());
 
@@ -252,9 +252,11 @@ class TypeNodeResolver
 			$addArray = true;
 
 			foreach ($otherTypeTypes as &$type) {
-				if (!$type->isIterable()->yes() || !$type->getIterableValueType()
-					->isSuperTypeOf($arrayTypeType)
-					->yes()) {
+				if (
+					!$type->isIterable()->yes()
+					||
+					!$type->getIterableValueType()->isSuperTypeOf($arrayTypeType)->yes()
+				) {
 					continue;
 				}
 
@@ -295,10 +297,11 @@ class TypeNodeResolver
 
 	private function resolveGenericTypeNode(GenericTypeNode $typeNode, NameScope $nameScope): Type
 	{
-		$mainTypeName = strtolower($typeNode->type->name);
+		$mainTypeName = \strtolower($typeNode->type->name);
 		$genericTypes = $this->resolveMultiple($typeNode->genericTypes, $nameScope);
 
 		if ($mainTypeName === 'array') {
+
 			if (\count($genericTypes) === 1) { // array<ValueType>
 				return new ArrayType(new MixedType(true), $genericTypes[0]);
 
@@ -309,6 +312,7 @@ class TypeNodeResolver
 			}
 
 		} elseif ($mainTypeName === 'iterable') {
+
 			if (\count($genericTypes) === 1) { // iterable<ValueType>
 				return new IterableType(new MixedType(true), $genericTypes[0]);
 
@@ -317,18 +321,19 @@ class TypeNodeResolver
 			if (\count($genericTypes) === 2) { // iterable<KeyType, ValueType>
 				return new IterableType($genericTypes[0], $genericTypes[1]);
 			}
+
 		}
 
 		$mainType = $this->resolveIdentifierTypeNode($typeNode->type, $nameScope);
 		if ($mainType->isIterable()->yes()) {
-			if (count($genericTypes) === 1) { // Foo<ValueType>
+			if (\count($genericTypes) === 1) { // Foo<ValueType>
 				return TypeCombinator::intersect(
 					$mainType,
 					new IterableType(new MixedType(true), $genericTypes[0])
 				);
 			}
 
-			if (count($genericTypes) === 2) { // Foo<KeyType, ValueType>
+			if (\count($genericTypes) === 2) { // Foo<KeyType, ValueType>
 				return TypeCombinator::intersect(
 					$mainType,
 					new IterableType($genericTypes[0], $genericTypes[1])
@@ -343,7 +348,7 @@ class TypeNodeResolver
 	{
 		$mainType = $this->resolve($typeNode->identifier, $nameScope);
 		$isVariadic = false;
-		$parameters = array_map(
+		$parameters = \array_map(
 			function (CallableTypeParameterNode $parameterNode) use ($nameScope, &$isVariadic): NativeParameterReflection {
 				$isVariadic = $isVariadic || $parameterNode->isVariadic;
 
@@ -374,7 +379,7 @@ class TypeNodeResolver
 
 	/**
 	 * @param TypeNode[] $typeNodes
-	 * @param NameScope  $nameScope
+	 * @param NameScope $nameScope
 	 *
 	 * @return Type[]
 	 */

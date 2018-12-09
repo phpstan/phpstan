@@ -40,7 +40,7 @@ class WritingToReadOnlyPropertiesRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PhpParser\Node\Expr    $node
+	 * @param \PhpParser\Node\Expr $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[]
@@ -84,7 +84,7 @@ class WritingToReadOnlyPropertiesRule implements \PHPStan\Rules\Rule
 			$propertyDescription = $this->propertyDescriptor->describeProperty($propertyReflection, $propertyFetch);
 
 			return [
-				sprintf(
+				\sprintf(
 					'%s is not writable.',
 					$propertyDescription
 				),

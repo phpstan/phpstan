@@ -26,7 +26,7 @@ class NonExistentDefinedFunctionRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Stmt\Function_ $node
-	 * @param \PHPStan\Analyser\Scope        $scope
+	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[]
 	 */
@@ -42,7 +42,7 @@ class NonExistentDefinedFunctionRule implements \PHPStan\Rules\Rule
 		}
 
 		return [
-			sprintf(
+			\sprintf(
 				'Function %s not found while trying to analyse it - autoloading is probably not configured properly.',
 				$functionName
 			),

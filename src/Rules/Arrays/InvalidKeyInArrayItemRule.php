@@ -24,7 +24,7 @@ class InvalidKeyInArrayItemRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\ArrayItem $node
-	 * @param \PHPStan\Analyser\Scope        $scope
+	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[]
 	 */
@@ -38,7 +38,7 @@ class InvalidKeyInArrayItemRule implements \PHPStan\Rules\Rule
 		$isSuperType = AllowedArrayKeysTypes::getType()->isSuperTypeOf($dimensionType);
 		if ($isSuperType->no()) {
 			return [
-				sprintf('Invalid array key type %s.', $dimensionType->describe(VerbosityLevel::typeOnly())),
+				\sprintf('Invalid array key type %s.', $dimensionType->describe(VerbosityLevel::typeOnly())),
 			];
 		}
 
@@ -50,7 +50,7 @@ class InvalidKeyInArrayItemRule implements \PHPStan\Rules\Rule
 			$isSuperType->maybe()
 		) {
 			return [
-				sprintf('Possibly invalid array key type %s.', $dimensionType->describe(VerbosityLevel::typeOnly())),
+				\sprintf('Possibly invalid array key type %s.', $dimensionType->describe(VerbosityLevel::typeOnly())),
 			];
 		}
 

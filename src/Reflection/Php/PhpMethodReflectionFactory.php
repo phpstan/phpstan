@@ -9,15 +9,15 @@ interface PhpMethodReflectionFactory
 {
 
 	/**
-	 * @param \PHPStan\Reflection\ClassReflection      $declaringClass
+	 * @param \PHPStan\Reflection\ClassReflection $declaringClass
 	 * @param \PHPStan\Reflection\ClassReflection|null $declaringTrait
-	 * @param BuiltinMethodReflection                  $reflection
-	 * @param \PHPStan\Type\Type[]                     $phpDocParameterTypes
-	 * @param \PHPStan\Type\Type|null                  $phpDocReturnType
-	 * @param \PHPStan\Type\Type|null                  $phpDocThrowType
-	 * @param bool                                     $isDeprecated
-	 * @param bool                                     $isInternal
-	 * @param bool                                     $isFinal
+	 * @param BuiltinMethodReflection $reflection
+	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
+	 * @param \PHPStan\Type\Type|null $phpDocReturnType
+	 * @param \PHPStan\Type\Type|null $phpDocThrowType
+	 * @param bool $isDeprecated
+	 * @param bool $isInternal
+	 * @param bool $isFinal
 	 *
 	 * @return \PHPStan\Reflection\Php\PhpMethodReflection
 	 */

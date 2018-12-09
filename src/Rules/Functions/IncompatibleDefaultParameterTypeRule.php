@@ -58,7 +58,7 @@ class IncompatibleDefaultParameterTypeRule implements Rule
 
 			$method = $class->getNativeMethod($name);
 			$parameters = ParametersAcceptorSelector::selectSingle($method->getVariants());
-			$nameToPrint = sprintf('%s::%s', $method->getDeclaringClass()->getName(), $method->getName());
+			$nameToPrint = \sprintf('%s::%s', $method->getDeclaringClass()->getName(), $method->getName());
 		} else {
 			return [];
 		}
@@ -70,7 +70,7 @@ class IncompatibleDefaultParameterTypeRule implements Rule
 			}
 			if (
 				$param->var instanceof Node\Expr\Error
-				|| !is_string($param->var->name)
+				|| !\is_string($param->var->name)
 			) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
@@ -82,15 +82,17 @@ class IncompatibleDefaultParameterTypeRule implements Rule
 				continue;
 			}
 
-			$errors[] = RuleErrorBuilder::message(sprintf(
-				'Default value of the parameter #%d $%s (%s) of %s %s() is incompatible with type %s.',
-				$paramI + 1,
-				$param->var->name,
-				$defaultValueType->describe(VerbosityLevel::value()),
-				$type,
-				$nameToPrint,
-				$parameterType->describe(VerbosityLevel::value())
-			))->line($param->getLine())->build();
+			$errors[] = RuleErrorBuilder::message(
+				\sprintf(
+					'Default value of the parameter #%d $%s (%s) of %s %s() is incompatible with type %s.',
+					$paramI + 1,
+					$param->var->name,
+					$defaultValueType->describe(VerbosityLevel::value()),
+					$type,
+					$nameToPrint,
+					$parameterType->describe(VerbosityLevel::value())
+				)
+			)->line($param->getLine())->build();
 		}
 
 		return $errors;

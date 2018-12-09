@@ -14,14 +14,14 @@ class FileExcluder
 
 	/**
 	 * @param FileHelper $fileHelper
-	 * @param string[]   $analyseExcludes
+	 * @param string[] $analyseExcludes
 	 */
 	public function __construct(
 		FileHelper $fileHelper,
 		array $analyseExcludes
 	)
 	{
-		$this->analyseExcludes = array_map(
+		$this->analyseExcludes = \array_map(
 			function (string $exclude) use ($fileHelper): string {
 				$normalized = $fileHelper->normalizePath($exclude);
 
@@ -38,18 +38,18 @@ class FileExcluder
 	public function isExcludedFromAnalysing(string $file): bool
 	{
 		foreach ($this->analyseExcludes as $exclude) {
-			if (strpos($file, $exclude) === 0) {
+			if (\strpos($file, $exclude) === 0) {
 				return true;
 			}
 
-			$isWindows = DIRECTORY_SEPARATOR === '\\';
+			$isWindows = \DIRECTORY_SEPARATOR === '\\';
 			if ($isWindows) {
-				$fnmatchFlags = FNM_NOESCAPE | FNM_CASEFOLD;
+				$fnmatchFlags = \FNM_NOESCAPE | \FNM_CASEFOLD;
 			} else {
 				$fnmatchFlags = 0;
 			}
 
-			if ($this->isFnmatchPattern($exclude) && fnmatch($exclude, $file, $fnmatchFlags)) {
+			if ($this->isFnmatchPattern($exclude) && \fnmatch($exclude, $file, $fnmatchFlags)) {
 				return true;
 			}
 		}
@@ -59,7 +59,7 @@ class FileExcluder
 
 	private function isFnmatchPattern(string $path): bool
 	{
-		return preg_match('~[*?[\]]~', $path) > 0;
+		return \preg_match('~[*?[\]]~', $path) > 0;
 	}
 
 }

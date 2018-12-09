@@ -24,7 +24,7 @@ class BrokerTest extends \PHPStan\Testing\TestCase
 		$phpDocStringResolver = self::getContainer()->getByType(PhpDocStringResolver::class);
 
 		$workingDirectory = __DIR__;
-		$relativePathHelper = new RelativePathHelper($workingDirectory, DIRECTORY_SEPARATOR, []);
+		$relativePathHelper = new RelativePathHelper($workingDirectory, \DIRECTORY_SEPARATOR, []);
 		$anonymousClassNameHelper = new AnonymousClassNameHelper(new FileHelper($workingDirectory), $relativePathHelper);
 
 		$this->broker = new Broker(
@@ -66,7 +66,7 @@ class BrokerTest extends \PHPStan\Testing\TestCase
 	{
 		$this->expectException(\PHPStan\Broker\ClassAutoloadingException::class);
 		$this->expectExceptionMessage("ParseError (syntax error, unexpected '{') thrown while autoloading class NonexistentClass.");
-		spl_autoload_register(
+		\spl_autoload_register(
 			static function (): void {
 				require_once __DIR__ . '/../Analyser/data/parse-error.php';
 			},

@@ -15,7 +15,7 @@ class ClassAutoloadingException extends \PHPStan\AnalysedCodeException
 	{
 		if ($previous !== null) {
 			parent::__construct(
-				sprintf(
+				\sprintf(
 					'%s (%s) thrown while autoloading class %s.',
 					\get_class($previous),
 					$previous->getMessage(),
@@ -26,7 +26,7 @@ class ClassAutoloadingException extends \PHPStan\AnalysedCodeException
 			);
 		} else {
 			parent::__construct(
-				sprintf(
+				\sprintf(
 					'Class %s not found and could not be autoloaded.',
 					$functionName
 				),

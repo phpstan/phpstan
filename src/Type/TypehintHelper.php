@@ -9,7 +9,7 @@ class TypehintHelper
 
 	private static function getTypeObjectFromTypehint(string $typeString, ?string $selfClass): Type
 	{
-		switch (strtolower($typeString)) {
+		switch (\strtolower($typeString)) {
 			case 'int':
 				return new IntegerType();
 			case 'bool':
@@ -57,7 +57,7 @@ class TypehintHelper
 		}
 
 		$reflectionTypeString = (string) $reflectionType;
-		if (\Nette\Utils\Strings::endsWith(strtolower($reflectionTypeString), '\\object')) {
+		if (\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\object')) {
 			$reflectionTypeString = 'object';
 		}
 		$type = self::getTypeObjectFromTypehint($reflectionTypeString, $selfClass);

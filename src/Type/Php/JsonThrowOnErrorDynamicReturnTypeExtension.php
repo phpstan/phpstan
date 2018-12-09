@@ -24,7 +24,7 @@ class JsonThrowOnErrorDynamicReturnTypeExtension implements \PHPStan\Type\Dynami
 		FunctionReflection $functionReflection
 	): bool
 	{
-		return defined('JSON_THROW_ON_ERROR') && in_array(
+		return \defined('JSON_THROW_ON_ERROR') && \in_array(
 			$functionReflection->getName(),
 			[
 				'json_encode',
@@ -41,7 +41,8 @@ class JsonThrowOnErrorDynamicReturnTypeExtension implements \PHPStan\Type\Dynami
 	): Type
 	{
 		$argumentPosition = $this->argumentPositions[$functionReflection->getName()];
-		$defaultReturnType = ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+		$defaultReturnType = ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())
+													   ->getReturnType();
 		if (!isset($functionCall->args[$argumentPosition])) {
 			return $defaultReturnType;
 		}
@@ -52,9 +53,11 @@ class JsonThrowOnErrorDynamicReturnTypeExtension implements \PHPStan\Type\Dynami
 		}
 
 		$value = $valueType->getValue();
-		if (($value & JSON_THROW_ON_ERROR) !== JSON_THROW_ON_ERROR) {
+		// @codingStandardsIgnoreStart
+		if (($value & \JSON_THROW_ON_ERROR) !== \JSON_THROW_ON_ERROR) {
 			return $defaultReturnType;
 		}
+		// @codingStandardsIgnoreEnd
 
 		return TypeCombinator::remove($defaultReturnType, new ConstantBooleanType(false));
 	}

@@ -26,7 +26,7 @@ class DefinedVariableInAnonymousFunctionUseRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\ClosureUse $node
-	 * @param \PHPStan\Analyser\Scope         $scope
+	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[]
 	 */
@@ -38,14 +38,14 @@ class DefinedVariableInAnonymousFunctionUseRule implements \PHPStan\Rules\Rule
 
 		if ($scope->hasVariableType($node->var->name)->no()) {
 			return [
-				sprintf('Undefined variable: $%s', $node->var->name),
+				\sprintf('Undefined variable: $%s', $node->var->name),
 			];
 		}
 
 		if ($this->checkMaybeUndefinedVariables
 			&& !$scope->hasVariableType($node->var->name)->yes()) {
 			return [
-				sprintf('Variable $%s might not be defined.', $node->var->name),
+				\sprintf('Variable $%s might not be defined.', $node->var->name),
 			];
 		}
 

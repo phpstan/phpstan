@@ -16,7 +16,7 @@ class NameScope
 
 	/**
 	 * @param string|null $namespace
-	 * @param string[]    $uses alias(string) => fullName(string)
+	 * @param string[] $uses alias(string) => fullName(string)
 	 * @param string|null $className
 	 */
 	public function __construct(?string $namespace, array $uses, ?string $className = null)
@@ -33,23 +33,23 @@ class NameScope
 
 	public function resolveStringName(string $name): string
 	{
-		if (strpos($name, '\\') === 0) {
-			return ltrim($name, '\\');
+		if (\strpos($name, '\\') === 0) {
+			return \ltrim($name, '\\');
 		}
 
-		$nameParts = explode('\\', $name);
-		$firstNamePart = strtolower($nameParts[0]);
+		$nameParts = \explode('\\', $name);
+		$firstNamePart = \strtolower($nameParts[0]);
 		if (isset($this->uses[$firstNamePart])) {
 			if (\count($nameParts) === 1) {
 				return $this->uses[$firstNamePart];
 			}
-			array_shift($nameParts);
+			\array_shift($nameParts);
 
-			return sprintf('%s\\%s', $this->uses[$firstNamePart], implode('\\', $nameParts));
+			return \sprintf('%s\\%s', $this->uses[$firstNamePart], \implode('\\', $nameParts));
 		}
 
 		if ($this->namespace !== null) {
-			return sprintf('%s\\%s', $this->namespace, $name);
+			return \sprintf('%s\\%s', $this->namespace, $name);
 		}
 
 		return $name;

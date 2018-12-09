@@ -10,10 +10,10 @@ class ConstantArrayTypeBuilder
 {
 
 	/** @var array<int, Type> */
-	private $keyTypes = [];
+	private $keyTypes;
 
 	/** @var array<int, Type> */
-	private $valueTypes = [];
+	private $valueTypes;
 
 	/** @var int */
 	private $nextAutoIndex;
@@ -63,7 +63,7 @@ class ConstantArrayTypeBuilder
 			!$this->degradeToGeneralArray
 			&& ($offsetType instanceof ConstantIntegerType || $offsetType instanceof ConstantStringType)
 		) {
-			/* @var ConstantIntegerType|ConstantStringType $keyType */
+			/** @var ConstantIntegerType|ConstantStringType $keyType */
 			foreach ($this->keyTypes as $i => $keyType) {
 				if ($keyType->getValue() === $offsetType->getValue()) {
 					$this->valueTypes[$i] = $valueType;
@@ -77,10 +77,10 @@ class ConstantArrayTypeBuilder
 
 			/** @var int|float $newNextAutoIndex */
 			$newNextAutoIndex = $offsetType instanceof ConstantIntegerType
-				? max($this->nextAutoIndex, $offsetType->getValue() + 1)
+				? \max($this->nextAutoIndex, $offsetType->getValue() + 1)
 				: $this->nextAutoIndex;
 
-			if (!is_float($newNextAutoIndex)) {
+			if (!\is_float($newNextAutoIndex)) {
 				$this->nextAutoIndex = $newNextAutoIndex;
 			}
 
@@ -95,7 +95,7 @@ class ConstantArrayTypeBuilder
 	public function getArray(): ArrayType
 	{
 		if (!$this->degradeToGeneralArray) {
-			/* @var array<int, ConstantIntegerType|ConstantStringType> $keyTypes */
+			/** @var array<int, ConstantIntegerType|ConstantStringType> $keyTypes */
 			$keyTypes = $this->keyTypes;
 
 			return new ConstantArrayType($keyTypes, $this->valueTypes, $this->nextAutoIndex);

@@ -36,12 +36,12 @@ class AnalyseApplication
 	}
 
 	/**
-	 * @param string[]                                       $files
-	 * @param bool                                           $onlyFiles
-	 * @param \Symfony\Component\Console\Style\OutputStyle   $style
+	 * @param string[] $files
+	 * @param bool $onlyFiles
+	 * @param \Symfony\Component\Console\Style\OutputStyle $style
 	 * @param \PHPStan\Command\ErrorFormatter\ErrorFormatter $errorFormatter
-	 * @param bool                                           $defaultLevelUsed
-	 * @param bool                                           $debug
+	 * @param bool $defaultLevelUsed
+	 * @param bool $debug
 	 *
 	 * @return int Error code.
 	 */
@@ -57,7 +57,12 @@ class AnalyseApplication
 		$this->updateMemoryLimitFile();
 		$errors = [];
 
-		if (!$debug) {
+		if ($debug) {
+			$preFileCallback = static function (string $file) use ($style): void {
+				$style->writeln($file);
+			};
+			$postFileCallback = null;
+		} else {
 			$progressStarted = false;
 			$fileOrder = 0;
 			$preFileCallback = null;
@@ -72,14 +77,9 @@ class AnalyseApplication
 				}
 				$fileOrder++;
 			};
-		} else {
-			$preFileCallback = static function (string $file) use ($style): void {
-				$style->writeln($file);
-			};
-			$postFileCallback = null;
 		}
 
-		$errors = array_merge(
+		$errors = \array_merge(
 			$errors,
 			$this->analyser->analyse(
 				$files,
@@ -117,15 +117,16 @@ class AnalyseApplication
 
 	private function updateMemoryLimitFile(): void
 	{
-		$bytes = memory_get_peak_usage(true);
-		$megabytes = ceil($bytes / 1024 / 1024);
-		file_put_contents($this->memoryLimitFile, sprintf('%d MB', $megabytes));
+		$bytes = \memory_get_peak_usage(true);
+		$megabytes = \ceil($bytes / 1024 / 1024);
+		\file_put_contents($this->memoryLimitFile, \sprintf('%d MB', $megabytes));
 
 		if (!\function_exists('pcntl_signal_dispatch')) {
 			return;
 		}
 
-		pcntl_signal_dispatch();
+		/** @noinspection PhpComposerExtensionStubsInspection */
+		\pcntl_signal_dispatch();
 	}
 
 }

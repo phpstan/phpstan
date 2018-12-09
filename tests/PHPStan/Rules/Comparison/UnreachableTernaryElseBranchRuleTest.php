@@ -22,16 +22,19 @@ class UnreachableTernaryElseBranchRuleTest extends RuleTestCase
 
 	public function testRule(): void
 	{
-		$this->analyse([__DIR__ . '/data/unreachable-ternary-else-branch.php'], [
+		$this->analyse(
+			[__DIR__ . '/data/unreachable-ternary-else-branch.php'],
 			[
-				'Else branch is unreachable because ternary operator condition is always true.',
-				6,
-			],
-			[
-				'Else branch is unreachable because ternary operator condition is always true.',
-				9,
-			],
-		]);
+				[
+					'Else branch is unreachable because ternary operator condition is always true.',
+					6,
+				],
+				[
+					'Else branch is unreachable because ternary operator condition is always true.',
+					9,
+				],
+			]
+		);
 	}
 
 }

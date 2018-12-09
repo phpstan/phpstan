@@ -8,7 +8,7 @@ class PropertyDescriptor
 {
 
 	/**
-	 * @param \PHPStan\Reflection\PropertyReflection                                      $property
+	 * @param \PHPStan\Reflection\PropertyReflection $property
 	 * @param \PhpParser\Node\Expr\PropertyFetch|\PhpParser\Node\Expr\StaticPropertyFetch $propertyFetch
 	 *
 	 * @return string
@@ -18,10 +18,10 @@ class PropertyDescriptor
 		/** @var \PhpParser\Node\Identifier $name */
 		$name = $propertyFetch->name;
 		if ($propertyFetch instanceof \PhpParser\Node\Expr\PropertyFetch) {
-			return sprintf('Property %s::$%s', $property->getDeclaringClass()->getDisplayName(), $name->name);
+			return \sprintf('Property %s::$%s', $property->getDeclaringClass()->getDisplayName(), $name->name);
 		}
 
-		return sprintf('Static property %s::$%s', $property->getDeclaringClass()->getDisplayName(), $name->name);
+		return \sprintf('Static property %s::$%s', $property->getDeclaringClass()->getDisplayName(), $name->name);
 	}
 
 }

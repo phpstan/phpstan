@@ -76,7 +76,7 @@ class HasOffsetType implements CompoundType, AccessoryType
 
 	public function describe(\PHPStan\Type\VerbosityLevel $level): string
 	{
-		return sprintf('hasOffset(%s)', $this->offsetType->describe($level));
+		return \sprintf('hasOffset(%s)', $this->offsetType->describe($level));
 	}
 
 	public function isOffsetAccessible(): TrinaryLogic

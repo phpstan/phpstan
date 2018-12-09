@@ -39,25 +39,34 @@ class RangeFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionR
 
 		$constantReturnTypes = [];
 
-		$startConstants = TypeUtils::getConstantScalars($startType);
-		foreach ($startConstants as $startConstant) {
-			if (!$startConstant instanceof ConstantIntegerType && !$startConstant instanceof ConstantFloatType) {
+		foreach (TypeUtils::getConstantScalars($startType) as $startConstant) {
+			if (
+				!$startConstant instanceof ConstantIntegerType
+				&&
+				!$startConstant instanceof ConstantFloatType
+			) {
 				continue;
 			}
 
-			$endConstants = TypeUtils::getConstantScalars($endType);
-			foreach ($endConstants as $endConstant) {
-				if (!$endConstant instanceof ConstantIntegerType && !$endConstant instanceof ConstantFloatType) {
+			foreach (TypeUtils::getConstantScalars($endType) as $endConstant) {
+				if (
+					!$endConstant instanceof ConstantIntegerType
+					&&
+					!$endConstant instanceof ConstantFloatType
+				) {
 					continue;
 				}
 
-				$stepConstants = TypeUtils::getConstantScalars($stepType);
-				foreach ($stepConstants as $stepConstant) {
-					if (!$stepConstant instanceof ConstantIntegerType && !$stepConstant instanceof ConstantFloatType) {
+				foreach (TypeUtils::getConstantScalars($stepType) as $stepConstant) {
+					if (
+						!$stepConstant instanceof ConstantIntegerType
+						&&
+						!$stepConstant instanceof ConstantFloatType
+					) {
 						continue;
 					}
 
-					$rangeLength = (int) ceil(abs($startConstant->getValue() - $endConstant->getValue()) / $stepConstant->getValue()) + 1;
+					$rangeLength = (int) \ceil(\abs($startConstant->getValue() - $endConstant->getValue()) / $stepConstant->getValue()) + 1;
 					if ($rangeLength > self::RANGE_LENGTH_THRESHOLD) {
 						continue;
 					}
@@ -65,7 +74,7 @@ class RangeFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionR
 					$keyTypes = [];
 					$valueTypes = [];
 
-					$rangeValues = range($startConstant->getValue(), $endConstant->getValue(), $stepConstant->getValue());
+					$rangeValues = \range($startConstant->getValue(), $endConstant->getValue(), $stepConstant->getValue());
 					foreach ($rangeValues as $key => $value) {
 						$keyTypes[] = new ConstantIntegerType($key);
 						$valueTypes[] = $scope->getTypeFromValue($value);

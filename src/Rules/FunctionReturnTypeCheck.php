@@ -20,13 +20,13 @@ class FunctionReturnTypeCheck
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Scope   $scope
-	 * @param \PHPStan\Type\Type        $returnType
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Type\Type $returnType
 	 * @param \PhpParser\Node\Expr|null $returnValue
-	 * @param string                    $emptyReturnStatementMessage
-	 * @param string                    $voidMessage
-	 * @param string                    $typeMismatchMessage
-	 * @param bool                      $isGenerator
+	 * @param string $emptyReturnStatementMessage
+	 * @param string $voidMessage
+	 * @param string $typeMismatchMessage
+	 * @param bool $isGenerator
 	 *
 	 * @return string[]
 	 */
@@ -51,7 +51,7 @@ class FunctionReturnTypeCheck
 			}
 
 			return [
-				sprintf(
+				\sprintf(
 					$emptyReturnStatementMessage,
 					$returnType->describe(VerbosityLevel::typeOnly())
 				),
@@ -62,7 +62,7 @@ class FunctionReturnTypeCheck
 
 		if ($isVoidSuperType->yes()) {
 			return [
-				sprintf(
+				\sprintf(
 					$voidMessage,
 					$returnValueType->describe(VerbosityLevel::typeOnly())
 				),
@@ -71,7 +71,7 @@ class FunctionReturnTypeCheck
 
 		if (!$this->ruleLevelHelper->accepts($returnType, $returnValueType, $scope->isDeclareStrictTypes())) {
 			return [
-				sprintf(
+				\sprintf(
 					$typeMismatchMessage,
 					$returnType->describe(VerbosityLevel::typeOnly()),
 					$returnValueType->describe(VerbosityLevel::typeOnly())

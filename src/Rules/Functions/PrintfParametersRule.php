@@ -17,7 +17,7 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\FuncCall $node
-	 * @param \PHPStan\Analyser\Scope       $scope
+	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[]
 	 */
@@ -40,7 +40,7 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 			'fscanf'  => 3,
 		];
 
-		$name = strtolower((string) $node->name);
+		$name = \strtolower((string) $node->name);
 		if (!isset($functionsArgumentPositions[$name])) {
 			return [];
 		}
@@ -70,8 +70,8 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 
 		if ($argsCount !== $placeHoldersCount + 1) {
 			return [
-				sprintf(
-					sprintf(
+				\sprintf(
+					\sprintf(
 						'%s, %s.',
 						$placeHoldersCount === 1 ? 'Call to %s contains %d placeholder' : 'Call to %s contains %d placeholders',
 						$argsCount - 1 === 1 ? '%d value given' : '%d values given'
@@ -98,13 +98,13 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 		) ? '[bcdeEfFgGosuxX]' : '(?:[cdDeEfinosuxX]|\[[^\]]+\])';
 		$pattern = '~(?<before>%*)%(?:(?<position>\d+)\$)?[-+]?(?:[ 0]|(?:\'[^%]))?-?\d*(?:\.\d*)?' . $specifiers . '~';
 
-		$matches = \Nette\Utils\Strings::matchAll($format, $pattern, PREG_SET_ORDER);
+		$matches = \Nette\Utils\Strings::matchAll($format, $pattern, \PREG_SET_ORDER);
 
 		if (\count($matches) === 0) {
 			return 0;
 		}
 
-		$placeholders = array_filter(
+		$placeholders = \array_filter(
 			$matches,
 			static function (array $match): bool {
 				return \strlen($match['before']) % 2 === 0;
@@ -119,13 +119,13 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 		$maxOrdinaryNumber = 0;
 		foreach ($placeholders as $placeholder) {
 			if (isset($placeholder['position']) && $placeholder['position'] !== '') {
-				$maxPositionedNumber = max((int) $placeholder['position'], $maxPositionedNumber);
+				$maxPositionedNumber = \max((int) $placeholder['position'], $maxPositionedNumber);
 			} else {
 				$maxOrdinaryNumber++;
 			}
 		}
 
-		return max($maxPositionedNumber, $maxOrdinaryNumber);
+		return \max($maxPositionedNumber, $maxOrdinaryNumber);
 	}
 
 }

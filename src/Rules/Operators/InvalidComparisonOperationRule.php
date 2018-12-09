@@ -56,7 +56,7 @@ class InvalidComparisonOperationRule implements \PHPStan\Rules\Rule
 
 		if (($isNumericLeft && $isObjectRight) || ($isObjectLeft && $isNumericRight)) {
 			return [
-				sprintf(
+				\sprintf(
 					'Comparison operation "%s" between %s and %s results in an error.',
 					$node->getOperatorSigil(),
 					$scope->getType($node->left)->describe(VerbosityLevel::value()),

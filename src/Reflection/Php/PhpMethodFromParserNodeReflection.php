@@ -21,17 +21,17 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 	private $declaringClass;
 
 	/**
-	 * @param ClassReflection      $declaringClass
-	 * @param ClassMethod          $classMethod
+	 * @param ClassReflection $declaringClass
+	 * @param ClassMethod $classMethod
 	 * @param \PHPStan\Type\Type[] $realParameterTypes
 	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
-	 * @param bool                 $realReturnTypePresent
-	 * @param Type                 $realReturnType
-	 * @param Type|null            $phpDocReturnType
-	 * @param Type|null            $throwType
-	 * @param bool                 $isDeprecated
-	 * @param bool                 $isInternal
-	 * @param bool                 $isFinal
+	 * @param bool $realReturnTypePresent
+	 * @param Type $realReturnType
+	 * @param Type|null $phpDocReturnType
+	 * @param Type|null $throwType
+	 * @param bool $isDeprecated
+	 * @param bool $isInternal
+	 * @param bool $isFinal
 	 */
 	public function __construct(
 		ClassReflection $declaringClass,
@@ -97,7 +97,7 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 
 	protected function getReturnType(): Type
 	{
-		$name = strtolower($this->getName());
+		$name = \strtolower($this->getName());
 		if (
 			$name === '__construct'
 			|| $name === '__destruct'

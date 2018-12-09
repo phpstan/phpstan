@@ -29,12 +29,14 @@ class UnionTypeGetInternalDynamicReturnTypeExtension implements DynamicMethodRet
 		Scope $scope
 	): Type
 	{
-		if (count($methodCall->args) < 2) {
+		if (\count($methodCall->args) < 2) {
 			return ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
 		}
 
 		$getterClosureType = $scope->getType($methodCall->args[1]->value);
-		return ParametersAcceptorSelector::selectSingle($getterClosureType->getCallableParametersAcceptors($scope))->getReturnType();
+
+		return ParametersAcceptorSelector::selectSingle($getterClosureType->getCallableParametersAcceptors($scope))
+										 ->getReturnType();
 	}
 
 }

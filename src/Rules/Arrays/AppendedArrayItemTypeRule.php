@@ -35,7 +35,7 @@ class AppendedArrayItemTypeRule implements \PHPStan\Rules\Rule
 	}
 
 	/**
-	 * @param \PhpParser\Node\Expr    $node
+	 * @param \PhpParser\Node\Expr $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[]
@@ -78,7 +78,7 @@ class AppendedArrayItemTypeRule implements \PHPStan\Rules\Rule
 
 		if (!$this->ruleLevelHelper->accepts($assignedToType->getItemType(), $assignedValueType, $scope->isDeclareStrictTypes())) {
 			return [
-				sprintf(
+				\sprintf(
 					'Array (%s) does not accept %s.',
 					$assignedToType->describe(VerbosityLevel::typeOnly()),
 					$assignedValueType->describe(VerbosityLevel::typeOnly())

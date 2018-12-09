@@ -124,7 +124,7 @@ class InternalAnnotationsTest extends \PHPStan\Testing\TestCase
 
 		foreach ($internalAnnotations as $memberType => $members) {
 			foreach ($members as $memberName) {
-				$memberAnnotation = $class->{'get' . ucfirst($memberType)}($memberName, $scope);
+				$memberAnnotation = $class->{'get' . \ucfirst($memberType)}($memberName, $scope);
 				$this->assertInstanceOf(InternableReflection::class, $memberAnnotation);
 				$this->assertSame($internal, $memberAnnotation->isInternal());
 			}

@@ -12,12 +12,12 @@ class MissingMethodFromReflectionException extends \PHPStan\AnalysedCodeExceptio
 	)
 	{
 		parent::__construct(
-			sprintf(
+			\sprintf(
 				'Method %s() was not found in reflection of class %s - probably the wrong version of class is autoloaded.%s',
 				$methodName,
 				$className,
 				$currentFilename !== null
-					? sprintf(' The currently loaded version is at: %s', $currentFilename)
+					? \sprintf(' The currently loaded version is at: %s', $currentFilename)
 					: ''
 			)
 		);

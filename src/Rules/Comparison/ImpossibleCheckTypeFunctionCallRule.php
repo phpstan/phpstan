@@ -30,7 +30,7 @@ class ImpossibleCheckTypeFunctionCallRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\FuncCall $node
-	 * @param \PHPStan\Analyser\Scope       $scope
+	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[] errors
 	 */
@@ -41,9 +41,10 @@ class ImpossibleCheckTypeFunctionCallRule implements \PHPStan\Rules\Rule
 		}
 
 		$functionName = (string) $node->name;
-		if (strtolower($functionName) === 'is_a') {
+		if (\strtolower($functionName) === 'is_a') {
 			return [];
 		}
+
 		$isAlways = $this->impossibleCheckTypeHelper->findSpecifiedType($scope, $node);
 		if ($isAlways === null) {
 			return [];
@@ -51,7 +52,7 @@ class ImpossibleCheckTypeFunctionCallRule implements \PHPStan\Rules\Rule
 
 		if (!$isAlways) {
 			return [
-				sprintf(
+				\sprintf(
 					'Call to function %s()%s will always evaluate to false.',
 					$functionName,
 					$this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args)
@@ -61,7 +62,7 @@ class ImpossibleCheckTypeFunctionCallRule implements \PHPStan\Rules\Rule
 
 		if ($this->checkAlwaysTrueCheckTypeFunctionCall) {
 			return [
-				sprintf(
+				\sprintf(
 					'Call to function %s()%s will always evaluate to true.',
 					$functionName,
 					$this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args)

@@ -22,8 +22,7 @@ class ContainerFactory
 	public function __construct(string $currentWorkingDirectory)
 	{
 		$this->currentWorkingDirectory = $currentWorkingDirectory;
-		$fileHelper = new FileHelper($currentWorkingDirectory);
-		$this->rootDirectory = $fileHelper->normalizePath(__DIR__ . '/../..');
+		$this->rootDirectory = (new FileHelper($currentWorkingDirectory))->normalizePath(__DIR__ . '/../..');
 		$this->configDirectory = $this->rootDirectory . '/conf';
 	}
 
@@ -50,7 +49,7 @@ class ContainerFactory
 			[
 				'rootDir'                         => $this->rootDirectory,
 				'currentWorkingDirectory'         => $this->currentWorkingDirectory,
-				'cliArgumentsVariablesRegistered' => ini_get('register_argc_argv') === '1',
+				'cliArgumentsVariablesRegistered' => \ini_get('register_argc_argv') === '1',
 				'tmpDir'                          => $tempDirectory,
 			]
 		);
@@ -59,9 +58,11 @@ class ContainerFactory
 			$configurator->addConfig($additionalConfigFile);
 		}
 
-		$configurator->addServices([
-			'relativePathHelper' => new RelativePathHelper($this->currentWorkingDirectory, DIRECTORY_SEPARATOR, $analysedPaths),
-		]);
+		$configurator->addServices(
+			[
+				'relativePathHelper' => new RelativePathHelper($this->currentWorkingDirectory, \DIRECTORY_SEPARATOR, $analysedPaths),
+			]
+		);
 
 		$container = $configurator->createContainer();
 

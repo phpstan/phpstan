@@ -12,12 +12,12 @@ class MissingPropertyFromReflectionException extends \PHPStan\AnalysedCodeExcept
 	)
 	{
 		parent::__construct(
-			sprintf(
+			\sprintf(
 				'Property $%s was not found in reflection of class %s - probably the wrong version of class is autoloaded.%s',
 				$propertyName,
 				$className,
 				$currentFilename !== null
-					? sprintf(' The currently loaded version is at: %s', $currentFilename)
+					? \sprintf(' The currently loaded version is at: %s', $currentFilename)
 					: ''
 			)
 		);

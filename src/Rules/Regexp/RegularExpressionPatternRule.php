@@ -32,7 +32,7 @@ class RegularExpressionPatternRule implements \PHPStan\Rules\Rule
 				continue;
 			}
 
-			$errors[] = sprintf('Regex pattern is invalid: %s', $errorMessage);
+			$errors[] = \sprintf('Regex pattern is invalid: %s', $errorMessage);
 		}
 
 		return $errors;
@@ -48,7 +48,7 @@ class RegularExpressionPatternRule implements \PHPStan\Rules\Rule
 		if (!$functionCall->name instanceof Node\Name) {
 			return [];
 		}
-		$functionName = strtolower((string) $functionCall->name);
+		$functionName = \strtolower((string) $functionCall->name);
 		if (!\Nette\Utils\Strings::startsWith($functionName, 'preg_')) {
 			return [];
 		}
@@ -63,7 +63,9 @@ class RegularExpressionPatternRule implements \PHPStan\Rules\Rule
 
 		foreach (TypeUtils::getConstantStrings($patternType) as $constantStringType) {
 			if (
-				!in_array($functionName, [
+			!\in_array(
+				$functionName,
+				[
 					'preg_match',
 					'preg_match_all',
 					'preg_split',
@@ -71,7 +73,9 @@ class RegularExpressionPatternRule implements \PHPStan\Rules\Rule
 					'preg_replace',
 					'preg_replace_callback',
 					'preg_filter',
-				], true)
+				],
+				true
+			)
 			) {
 				continue;
 			}
@@ -81,11 +85,15 @@ class RegularExpressionPatternRule implements \PHPStan\Rules\Rule
 
 		foreach (TypeUtils::getConstantArrays($patternType) as $constantArrayType) {
 			if (
-				in_array($functionName, [
+			\in_array(
+				$functionName,
+				[
 					'preg_replace',
 					'preg_replace_callback',
 					'preg_filter',
-				], true)
+				],
+				true
+			)
 			) {
 				foreach ($constantArrayType->getValueTypes() as $arrayKeyType) {
 					if (!$arrayKeyType instanceof ConstantStringType) {

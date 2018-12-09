@@ -151,10 +151,10 @@ class TableErrorFormatterTest extends TestBaseFormatter
 				$this->getAnalysisResult($numFileErrors, $numGenericErrors),
 				$this->getErrorConsoleStyle()
 			),
-			sprintf('%s: response code do not match', $message)
+			\sprintf('%s: response code do not match', $message)
 		);
 
-		$this->assertEquals($expected, $this->getOutputContent(), sprintf('%s: output do not match', $message));
+		$this->assertEquals($expected, $this->getOutputContent(), \sprintf('%s: output do not match', $message));
 	}
 
 }

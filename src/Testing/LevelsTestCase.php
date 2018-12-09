@@ -28,8 +28,8 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 		string $topic
 	): void
 	{
-		$file = sprintf('%s/%s.php', $this->getDataPath(), $topic);
-		$command = escapeshellcmd($this->getPhpStanExecutablePath());
+		$file = \sprintf('%s/%s.php', $this->getDataPath(), $topic);
+		$command = \escapeshellcmd($this->getPhpStanExecutablePath());
 		$configPath = $this->getPhpStanConfigPath();
 		$fileHelper = new FileHelper(__DIR__ . '/../..');
 
@@ -37,16 +37,16 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 
 		$exceptions = [];
 
-		foreach (range(0, 7) as $level) {
+		foreach (\range(0, 7) as $level) {
 			unset($outputLines);
-			exec(sprintf('php %s analyse --no-progress --error-format=prettyJson --level=%d %s --autoload-file %s %s', $command, $level, $configPath !== null ? '--configuration ' . escapeshellarg($configPath) : '', escapeshellarg($file), escapeshellarg($file)), $outputLines);
+			\exec(\sprintf('php %s analyse --no-progress --error-format=prettyJson --level=%d %s --autoload-file %s %s', $command, $level, $configPath !== null ? '--configuration ' . \escapeshellarg($configPath) : '', \escapeshellarg($file), \escapeshellarg($file)), $outputLines);
 
-			$output = implode("\n", $outputLines);
+			$output = \implode("\n", $outputLines);
 
 			try {
 				$actualJson = \Nette\Utils\Json::decode($output, \Nette\Utils\Json::FORCE_ARRAY);
 			} catch (\Nette\Utils\JsonException $e) {
-				throw new \Nette\Utils\JsonException(sprintf('Cannot decode: %s', $output));
+				throw new \Nette\Utils\JsonException(\sprintf('Cannot decode: %s', $output));
 			}
 
 			if (\count($actualJson['files']) > 0) {
@@ -83,15 +83,15 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 				$missingMessages[] = $previousMessage;
 			}
 
-			$previousMessages = array_merge($previousMessages, $messages);
-			$expectedJsonFile = sprintf('%s/%s-%d%s.json', $this->getDataPath(), $topic, $level, $this->getResultSuffix());
+			$previousMessages = \array_merge($previousMessages, $messages);
+			$expectedJsonFile = \sprintf('%s/%s-%d%s.json', $this->getDataPath(), $topic, $level, $this->getResultSuffix());
 
 			$exception = $this->compareFiles($expectedJsonFile, $messages);
 			if ($exception !== null) {
 				$exceptions[] = $exception;
 			}
 
-			$expectedJsonMissingFile = sprintf('%s/%s-%d-missing%s.json', $this->getDataPath(), $topic, $level, $this->getResultSuffix());
+			$expectedJsonMissingFile = \sprintf('%s/%s-%d-missing%s.json', $this->getDataPath(), $topic, $level, $this->getResultSuffix());
 			$exception = $this->compareFiles($expectedJsonMissingFile, $missingMessages);
 			if ($exception === null) {
 				continue;
@@ -100,19 +100,21 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 			$exceptions[] = $exception;
 		}
 
-		if (count($exceptions) > 0) {
+		if (\count($exceptions) > 0) {
 			throw $exceptions[0];
 		}
 	}
 
 	private function compareFiles(string $expectedJsonFile, array $expectedMessages): ?\PHPUnit\Framework\AssertionFailedError
 	{
-		if (count($expectedMessages) === 0) {
+		if (\count($expectedMessages) === 0) {
 			try {
 				$this->assertFileNotExists($expectedJsonFile);
+
 				return null;
 			} catch (\PHPUnit\Framework\AssertionFailedError $e) {
-				unlink($expectedJsonFile);
+				\unlink($expectedJsonFile);
+
 				return $e;
 			}
 		}
@@ -125,7 +127,8 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 				$actualOutput
 			);
 		} catch (\PHPUnit\Framework\AssertionFailedError $e) {
-			file_put_contents($expectedJsonFile, $actualOutput);
+			\file_put_contents($expectedJsonFile, $actualOutput);
+
 			return $e;
 		}
 

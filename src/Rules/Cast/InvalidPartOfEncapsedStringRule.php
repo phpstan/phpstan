@@ -25,7 +25,7 @@ class InvalidPartOfEncapsedStringRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Scalar\Encapsed $node
-	 * @param \PHPStan\Analyser\Scope         $scope
+	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[] errors
 	 */
@@ -43,7 +43,7 @@ class InvalidPartOfEncapsedStringRule implements \PHPStan\Rules\Rule
 				continue;
 			}
 
-			$messages[] = sprintf(
+			$messages[] = \sprintf(
 				'Part %s (%s) of encapsed string cannot be cast to string.',
 				$this->printer->prettyPrintExpr($part),
 				$partType->describe(VerbosityLevel::value())

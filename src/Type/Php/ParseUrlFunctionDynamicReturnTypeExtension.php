@@ -41,14 +41,14 @@ final class ParseUrlFunctionDynamicReturnTypeExtension implements DynamicFunctio
 			$functionReflection->getVariants()
 		)->getReturnType();
 
-		if (count($functionCall->args) < 1) {
+		if (\count($functionCall->args) < 1) {
 			return $defaultReturnType;
 		}
 
 		$this->cacheReturnTypes();
 
 		$urlType = $scope->getType($functionCall->args[0]->value);
-		if (count($functionCall->args) > 1) {
+		if (\count($functionCall->args) > 1) {
 			$componentType = $scope->getType($functionCall->args[1]->value);
 
 			if (!$componentType instanceof ConstantType) {
@@ -65,7 +65,8 @@ final class ParseUrlFunctionDynamicReturnTypeExtension implements DynamicFunctio
 		}
 
 		if ($urlType instanceof ConstantStringType) {
-			$result = @parse_url($urlType->getValue(), $componentType->getValue());
+			/** @noinspection PhpUsageOfSilenceOperatorInspection */
+			$result = @\parse_url($urlType->getValue(), $componentType->getValue());
 
 			return $scope->getTypeFromValue($result);
 		}
@@ -112,22 +113,22 @@ final class ParseUrlFunctionDynamicReturnTypeExtension implements DynamicFunctio
 		$integerOrNull = TypeCombinator::addNull($integer);
 
 		$this->componentTypesPairedConstants = [
-			PHP_URL_SCHEME => $stringOrNull,
-			PHP_URL_HOST => $stringOrNull,
-			PHP_URL_PORT => $integerOrNull,
-			PHP_URL_USER => $stringOrNull,
-			PHP_URL_PASS => $stringOrNull,
-			PHP_URL_QUERY => $stringOrNull,
-			PHP_URL_FRAGMENT => $stringOrNull,
+			\PHP_URL_SCHEME   => $stringOrNull,
+			\PHP_URL_HOST     => $stringOrNull,
+			\PHP_URL_PORT     => $integerOrNull,
+			\PHP_URL_USER     => $stringOrNull,
+			\PHP_URL_PASS     => $stringOrNull,
+			\PHP_URL_QUERY    => $stringOrNull,
+			\PHP_URL_FRAGMENT => $stringOrNull,
 		];
 
 		$this->componentTypesPairedStrings = [
-			'scheme' => $string,
-			'host' => $string,
-			'port' => $integer,
-			'user' => $string,
-			'pass' => $string,
-			'query' => $string,
+			'scheme'   => $string,
+			'host'     => $string,
+			'port'     => $integer,
+			'user'     => $string,
+			'pass'     => $string,
+			'query'    => $string,
 			'fragment' => $string,
 		];
 	}

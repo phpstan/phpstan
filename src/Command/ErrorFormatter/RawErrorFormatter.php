@@ -18,12 +18,12 @@ class RawErrorFormatter implements ErrorFormatter
 		}
 
 		foreach ($analysisResult->getNotFileSpecificErrors() as $notFileSpecificError) {
-			$style->writeln(sprintf('?:?:%s', $notFileSpecificError));
+			$style->writeln(\sprintf('?:?:%s', $notFileSpecificError));
 		}
 
 		foreach ($analysisResult->getFileSpecificErrors() as $fileSpecificError) {
 			$style->writeln(
-				sprintf(
+				\sprintf(
 					'%s:%d:%s',
 					$fileSpecificError->getFile(),
 					$fileSpecificError->getLine() ?? '?',

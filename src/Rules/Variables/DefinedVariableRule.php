@@ -31,7 +31,7 @@ class DefinedVariableRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Expr\Variable $node
-	 * @param \PHPStan\Analyser\Scope       $scope
+	 * @param \PHPStan\Analyser\Scope $scope
 	 *
 	 * @return string[]
 	 */
@@ -61,14 +61,14 @@ class DefinedVariableRule implements \PHPStan\Rules\Rule
 
 		if ($scope->hasVariableType($node->name)->no()) {
 			return [
-				sprintf('Undefined variable: $%s', $node->name),
+				\sprintf('Undefined variable: $%s', $node->name),
 			];
 		}
 
 		if ($this->checkMaybeUndefinedVariables
 			&& !$scope->hasVariableType($node->name)->yes()) {
 			return [
-				sprintf('Variable $%s might not be defined.', $node->name),
+				\sprintf('Variable $%s might not be defined.', $node->name),
 			];
 		}
 

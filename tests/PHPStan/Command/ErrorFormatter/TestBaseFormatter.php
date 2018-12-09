@@ -23,7 +23,7 @@ abstract class TestBaseFormatter extends \PHPStan\Testing\TestCase
 	{
 		parent::setUp();
 
-		$resource = fopen('php://memory', 'w', false);
+		$resource = \fopen('php://memory', 'w', false);
 		if ($resource === false) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
@@ -35,9 +35,9 @@ abstract class TestBaseFormatter extends \PHPStan\Testing\TestCase
 
 	protected function getOutputContent(): string
 	{
-		rewind($this->outputStream->getStream());
+		\rewind($this->outputStream->getStream());
 
-		$contents = stream_get_contents($this->outputStream->getStream());
+		$contents = \stream_get_contents($this->outputStream->getStream());
 		if ($contents === false) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
@@ -86,14 +86,14 @@ abstract class TestBaseFormatter extends \PHPStan\Testing\TestCase
 
 	private function rtrimMultiline(string $output): string
 	{
-		$result = array_map(
+		$result = \array_map(
 			static function (string $line): string {
-				return rtrim($line, " \r\n");
+				return \rtrim($line, " \r\n");
 			},
-			explode("\n", $output)
+			\explode("\n", $output)
 		);
 
-		return implode("\n", $result);
+		return \implode("\n", $result);
 	}
 
 }

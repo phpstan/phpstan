@@ -149,8 +149,9 @@ class PhpClassReflectionExtension implements PropertiesClassReflectionExtension,
 					$this->findPropertyTrait($phpDocBlock, $propertyReflection),
 					$phpDocBlock->getDocComment()
 				);
+				/* @var $varTags \PHPStan\PhpDoc\Tag\VarTag[] */
 				$varTags = $resolvedPhpDoc->getVarTags();
-				if (isset($varTags[0]) && count($varTags) === 1) {
+				if (isset($varTags[0]) && \count($varTags) === 1) {
 					$type = $varTags[0]->getType();
 				} elseif (isset($varTags[$propertyName])) {
 					$type = $varTags[$propertyName]->getType();
@@ -285,7 +286,7 @@ class PhpClassReflectionExtension implements PropertiesClassReflectionExtension,
 			}
 		}
 		$declaringClassName = $methodReflection->getDeclaringClass()->getName();
-		$signatureMapMethodName = sprintf('%s::%s', $declaringClassName, $methodReflection->getName());
+		$signatureMapMethodName = \sprintf('%s::%s', $declaringClassName, $methodReflection->getName());
 		$declaringClass = $this->broker->getClass($declaringClassName);
 		if ($this->signatureMapProvider->hasFunctionSignature($signatureMapMethodName)) {
 			$variantName = $signatureMapMethodName;
@@ -294,7 +295,7 @@ class PhpClassReflectionExtension implements PropertiesClassReflectionExtension,
 			while ($this->signatureMapProvider->hasFunctionSignature($variantName)) {
 				$methodSignature = $this->signatureMapProvider->getFunctionSignature($variantName, $declaringClassName);
 				$variants[] = new FunctionVariant(
-					array_map(
+					\array_map(
 						static function (ParameterSignature $parameterSignature): NativeParameterReflection {
 							return new NativeParameterReflection(
 								$parameterSignature->getName(),
@@ -310,7 +311,7 @@ class PhpClassReflectionExtension implements PropertiesClassReflectionExtension,
 					$methodSignature->getReturnType()
 				);
 				$i++;
-				$variantName = sprintf($signatureMapMethodName . '\'' . $i);
+				$variantName = \sprintf($signatureMapMethodName . '\'' . $i);
 			}
 
 			return new NativeMethodReflection(
@@ -349,10 +350,11 @@ class PhpClassReflectionExtension implements PropertiesClassReflectionExtension,
 					$phpDocBlock->getTrait(),
 					$phpDocBlock->getDocComment()
 				);
-				$phpDocParameterTypes = array_map(
+				$phpDocParameterTypes = \array_map(
 					static function (ParamTag $tag): Type {
 						return $tag->getType();
-					}, $resolvedPhpDoc->getParamTags()
+					},
+					$resolvedPhpDoc->getParamTags()
 				);
 				$nativeReturnType = TypehintHelper::decideTypeFromReflection(
 					$methodReflection->getReturnType(),
@@ -416,8 +418,8 @@ class PhpClassReflectionExtension implements PropertiesClassReflectionExtension,
 		$traits = $propertyReflection->getDeclaringClass()->getTraits();
 		while (\count($traits) > 0) {
 			/** @var \ReflectionClass $traitReflection */
-			$traitReflection = array_pop($traits);
-			$traits = array_merge($traits, $traitReflection->getTraits());
+			$traitReflection = \array_pop($traits);
+			$traits = \array_merge($traits, $traitReflection->getTraits());
 			if (!$traitReflection->hasProperty($propertyReflection->getName())) {
 				continue;
 			}
@@ -453,8 +455,8 @@ class PhpClassReflectionExtension implements PropertiesClassReflectionExtension,
 
 		$declaringClass = $methodReflection->getDeclaringClass();
 		$traitAliases = $declaringClass->getTraitAliases();
-		if (array_key_exists($methodReflection->getName(), $traitAliases)) {
-			return explode('::', $traitAliases[$methodReflection->getName()])[0];
+		if (\array_key_exists($methodReflection->getName(), $traitAliases)) {
+			return \explode('::', $traitAliases[$methodReflection->getName()])[0];
 		}
 
 		foreach ($declaringClass->getTraits() as $traitReflection) {

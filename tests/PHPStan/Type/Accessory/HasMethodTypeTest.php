@@ -87,50 +87,62 @@ class HasMethodTypeTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				new HasMethodType('format'),
-				new UnionType([
-					new ObjectType(\DateTimeImmutable::class),
-					new ObjectType(\DateTime::class),
-				]),
+				new UnionType(
+					[
+						new ObjectType(\DateTimeImmutable::class),
+						new ObjectType(\DateTime::class),
+					]
+				),
 				TrinaryLogic::createYes(),
 			],
 			[
 				new HasMethodType('format'),
-				new UnionType([
-					new ObjectType(\DateTimeImmutable::class),
-					new ObjectType('UnknownClass'),
-				]),
+				new UnionType(
+					[
+						new ObjectType(\DateTimeImmutable::class),
+						new ObjectType('UnknownClass'),
+					]
+				),
 				TrinaryLogic::createMaybe(),
 			],
 			[
 				new HasMethodType('format'),
-				new UnionType([
-					new ObjectType(\DateTimeImmutable::class),
-					new ObjectType(\Closure::class),
-				]),
+				new UnionType(
+					[
+						new ObjectType(\DateTimeImmutable::class),
+						new ObjectType(\Closure::class),
+					]
+				),
 				TrinaryLogic::createMaybe(),
 			],
 			[
 				new HasMethodType('format'),
-				new IntersectionType([
-					new ObjectType(\DateTimeImmutable::class),
-					new IterableType(new MixedType(), new MixedType()),
-				]),
+				new IntersectionType(
+					[
+						new ObjectType(\DateTimeImmutable::class),
+						new IterableType(new MixedType(), new MixedType()),
+					]
+				),
 				TrinaryLogic::createYes(),
 			],
 			[
 				new HasMethodType('format'),
-				new IntersectionType([
-					new ObjectType('UnknownClass'),
-					new HasMethodType('format'),
-				]),
+				new IntersectionType(
+					[
+						new ObjectType('UnknownClass'),
+						new HasMethodType('format'),
+					]
+				),
 				TrinaryLogic::createYes(),
 			],
 			[
 				new HasMethodType('format'),
-				new IntersectionType([
-					new ObjectWithoutClassType(),
-					new HasMethodType('format'),
-				]),
+				new IntersectionType(
+					[
+						new ObjectWithoutClassType(),
+						new HasMethodType('format'),
+					]
+				),
 				TrinaryLogic::createYes(),
 			],
 		];
@@ -148,7 +160,7 @@ class HasMethodTypeTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isSuperTypeOf(%s)', $type->describe(VerbosityLevel::precise()), $otherType->describe(VerbosityLevel::precise()))
+			\sprintf('%s -> isSuperTypeOf(%s)', $type->describe(VerbosityLevel::precise()), $otherType->describe(VerbosityLevel::precise()))
 		);
 	}
 
@@ -162,18 +174,22 @@ class HasMethodTypeTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				new HasMethodType('foo'),
-				new UnionType([
-					new HasMethodType('foo'),
-					new NullType(),
-				]),
+				new UnionType(
+					[
+						new HasMethodType('foo'),
+						new NullType(),
+					]
+				),
 				TrinaryLogic::createYes(),
 			],
 			[
 				new HasMethodType('foo'),
-				new IntersectionType([
-					new HasMethodType('foo'),
-					new HasMethodType('bar'),
-				]),
+				new IntersectionType(
+					[
+						new HasMethodType('foo'),
+						new HasMethodType('bar'),
+					]
+				),
 				TrinaryLogic::createMaybe(),
 			],
 			[
@@ -201,7 +217,7 @@ class HasMethodTypeTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isSubTypeOf(%s)', $type->describe(VerbosityLevel::precise()), $otherType->describe(VerbosityLevel::precise()))
+			\sprintf('%s -> isSubTypeOf(%s)', $type->describe(VerbosityLevel::precise()), $otherType->describe(VerbosityLevel::precise()))
 		);
 	}
 
@@ -217,7 +233,7 @@ class HasMethodTypeTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(
 			$expectedResult->describe(),
 			$actualResult->describe(),
-			sprintf('%s -> isSuperTypeOf(%s)', $otherType->describe(VerbosityLevel::precise()), $type->describe(VerbosityLevel::precise()))
+			\sprintf('%s -> isSuperTypeOf(%s)', $otherType->describe(VerbosityLevel::precise()), $type->describe(VerbosityLevel::precise()))
 		);
 	}
 

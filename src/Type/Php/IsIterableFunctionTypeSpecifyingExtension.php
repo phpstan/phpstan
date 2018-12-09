@@ -21,7 +21,7 @@ class IsIterableFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyin
 
 	public function isFunctionSupported(FunctionReflection $functionReflection, FuncCall $node, TypeSpecifierContext $context): bool
 	{
-		return strtolower($functionReflection->getName()) === 'is_iterable'
+		return \strtolower($functionReflection->getName()) === 'is_iterable'
 			   && isset($node->args[0])
 			   && !$context->null();
 	}

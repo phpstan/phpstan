@@ -30,19 +30,21 @@ class ClassCaseSensitivityCheck
 			}
 			$classReflection = $this->broker->getClass($className);
 			$realClassName = $classReflection->getName();
-			if (strtolower($realClassName) !== strtolower($className)) {
+			if (\strtolower($realClassName) !== \strtolower($className)) {
 				continue; // skip class alias
 			}
 			if ($realClassName === $className) {
 				continue;
 			}
 
-			$errors[] = RuleErrorBuilder::message(sprintf(
-				'%s %s referenced with incorrect case: %s.',
-				$this->getTypeName($classReflection),
-				$realClassName,
-				$className
-			))->line($pair->getNode()->getLine())->build();
+			$errors[] = RuleErrorBuilder::message(
+				\sprintf(
+					'%s %s referenced with incorrect case: %s.',
+					$this->getTypeName($classReflection),
+					$realClassName,
+					$className
+				)
+			)->line($pair->getNode()->getLine())->build();
 		}
 
 		return $errors;

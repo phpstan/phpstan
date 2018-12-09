@@ -62,9 +62,9 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 					new FileTypeMapper(
 						$this->getParser(),
 						self::getContainer()
-												->getByType(PhpDocStringResolver::class),
+							->getByType(PhpDocStringResolver::class),
 						$this->createMock(Cache::class),
-						new AnonymousClassNameHelper(new FileHelper($currentWorkingDirectory), new RelativePathHelper($currentWorkingDirectory, DIRECTORY_SEPARATOR, [])),
+						new AnonymousClassNameHelper(new FileHelper($currentWorkingDirectory), new RelativePathHelper($currentWorkingDirectory, \DIRECTORY_SEPARATOR, [])),
 						new \PHPStan\PhpDoc\TypeNodeResolver($this->getTypeNodeResolverExtensions())
 					),
 					$fileHelper,
@@ -109,18 +109,18 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 
 	/**
 	 * @param string[] $files
-	 * @param mixed[]  $expectedErrors
+	 * @param mixed[] $expectedErrors
 	 */
 	public function analyse(array $files, array $expectedErrors): void
 	{
-		$files = array_map([$this->getFileHelper(), 'normalizePath'], $files);
+		$files = \array_map([$this->getFileHelper(), 'normalizePath'], $files);
 		$actualErrors = $this->getAnalyser()->analyse($files, false);
 
 		$strictlyTypedSprintf = static function (int $line, string $message): string {
-			return sprintf('%02d: %s', $line, $message);
+			return \sprintf('%02d: %s', $line, $message);
 		};
 
-		$expectedErrors = array_map(
+		$expectedErrors = \array_map(
 			static function (array $error) use ($strictlyTypedSprintf): string {
 				if (!isset($error[0])) {
 					throw new \InvalidArgumentException('Missing expected error message.');
@@ -134,14 +134,14 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 			$expectedErrors
 		);
 
-		$actualErrors = array_map(
+		$actualErrors = \array_map(
 			static function (Error $error): string {
-				return sprintf('%02d: %s', $error->getLine(), $error->getMessage());
+				return \sprintf('%02d: %s', $error->getLine(), $error->getMessage());
 			},
 			$actualErrors
 		);
 
-		$this->assertSame(implode("\n", $expectedErrors), implode("\n", $actualErrors));
+		$this->assertSame(\implode("\n", $expectedErrors), \implode("\n", $actualErrors));
 	}
 
 	protected function shouldPolluteScopeWithLoopInitialAssignments(): bool

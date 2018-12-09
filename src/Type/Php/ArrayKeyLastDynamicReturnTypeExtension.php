@@ -32,16 +32,16 @@ class ArrayKeyLastDynamicReturnTypeExtension implements \PHPStan\Type\DynamicFun
 		}
 
 		$constantArrays = TypeUtils::getConstantArrays($argType);
-		if (count($constantArrays) > 0) {
+		if (\count($constantArrays) > 0) {
 			$keyTypes = [];
 			foreach ($constantArrays as $constantArray) {
 				$arrayKeyTypes = $constantArray->getKeyTypes();
-				if (count($arrayKeyTypes) === 0) {
+				if (\count($arrayKeyTypes) === 0) {
 					$keyTypes[] = new NullType();
 					continue;
 				}
 
-				$keyTypes[] = $arrayKeyTypes[count($arrayKeyTypes) - 1];
+				$keyTypes[] = $arrayKeyTypes[\count($arrayKeyTypes) - 1];
 			}
 
 			return TypeCombinator::union(...$keyTypes);

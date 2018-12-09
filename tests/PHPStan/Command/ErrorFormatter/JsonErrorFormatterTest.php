@@ -241,10 +241,10 @@ class JsonErrorFormatterTest extends TestBaseFormatter
 				$this->getAnalysisResult($numFileErrors, $numGenericErrors),
 				$this->getErrorConsoleStyle()
 			),
-			sprintf('%s: response code do not match', $message)
+			\sprintf('%s: response code do not match', $message)
 		);
 
-		$this->assertJsonStringEqualsJsonString($expected, $this->getOutputContent(), sprintf('%s: JSON do not match', $message));
+		$this->assertJsonStringEqualsJsonString($expected, $this->getOutputContent(), \sprintf('%s: JSON do not match', $message));
 	}
 
 }

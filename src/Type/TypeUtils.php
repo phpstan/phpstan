@@ -57,7 +57,7 @@ class TypeUtils
 
 		if ($type instanceof UnionType) {
 			return TypeCombinator::union(
-				...array_map(
+				...\array_map(
 					static function (Type $innerType): Type {
 						   return self::generalizeType($innerType);
 					},
@@ -108,8 +108,8 @@ class TypeUtils
 
 	/**
 	 * @param string $typeClass
-	 * @param Type   $type
-	 * @param bool   $inspectIntersections
+	 * @param Type $type
+	 * @param bool $inspectIntersections
 	 *
 	 * @return mixed[]
 	 */
@@ -207,13 +207,17 @@ class TypeUtils
 			return [$type];
 		}
 
-		if ($type instanceof UnionType || $type instanceof IntersectionType) {
-			$hasPropertyTypes = [];
+		if (
+			$type instanceof UnionType
+			||
+			$type instanceof IntersectionType
+		) {
+			$hasPropertyTypes = [[]];
 			foreach ($type->getTypes() as $innerType) {
-				$hasPropertyTypes = array_merge($hasPropertyTypes, self::getHasPropertyTypes($innerType));
+				$hasPropertyTypes[] = self::getHasPropertyTypes($innerType);
 			}
 
-			return $hasPropertyTypes;
+			return \array_merge(...$hasPropertyTypes);
 		}
 
 		return [];
