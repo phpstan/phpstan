@@ -133,3 +133,13 @@ class SubClassUsingTrait extends BaseClass implements BaseInterface
 	use SubTrait;
 
 }
+
+abstract class ReturnSomethingElseThenVoid implements BaseInterface
+{
+
+	public function returnTypeTest1(): int
+	{
+		return 1;
+	}
+
+}

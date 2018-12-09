@@ -132,6 +132,11 @@ class MethodSignatureRule implements \PHPStan\Rules\Rule
 			return TrinaryLogic::createYes();
 		}
 
+		// We can return anything
+		if ($parentReturnType instanceof VoidType) {
+			return TrinaryLogic::createYes();
+		}
+
 		return $parentReturnType->isSuperTypeOf($returnType);
 	}
 

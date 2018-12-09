@@ -39,14 +39,6 @@ class MethodSignatureRuleTest extends \PHPStan\Testing\RuleTestCase
 					43,
 				],
 				[
-					'Return type (mixed) of method MethodSignature\SubClass::returnTypeTest1() should be covariant with return type (void) of method MethodSignature\BaseClass::returnTypeTest1()',
-					68,
-				],
-				[
-					'Return type (mixed) of method MethodSignature\SubClass::returnTypeTest1() should be covariant with return type (void) of method MethodSignature\BaseInterface::returnTypeTest1()',
-					68,
-				],
-				[
 					'Return type (MethodSignature\Animal) of method MethodSignature\SubClass::returnTypeTest4() should be covariant with return type (MethodSignature\Dog) of method MethodSignature\BaseClass::returnTypeTest4()',
 					89,
 				],
@@ -77,14 +69,6 @@ class MethodSignatureRuleTest extends \PHPStan\Testing\RuleTestCase
 				[
 					'Parameter #1 $animal (MethodSignature\Dog) of method MethodSignature\SubClassUsingTrait::parameterTypeTest5() should be compatible with parameter $animal (MethodSignature\Cat) of method MethodSignature\BaseInterface::parameterTypeTest5()',
 					269,
-				],
-				[
-					'Return type (mixed) of method MethodSignature\SubClassUsingTrait::returnTypeTest1() should be covariant with return type (void) of method MethodSignature\BaseClass::returnTypeTest1()',
-					294,
-				],
-				[
-					'Return type (mixed) of method MethodSignature\SubClassUsingTrait::returnTypeTest1() should be covariant with return type (void) of method MethodSignature\BaseInterface::returnTypeTest1()',
-					294,
 				],
 				[
 					'Return type (MethodSignature\Animal) of method MethodSignature\SubClassUsingTrait::returnTypeTest4() should be covariant with return type (MethodSignature\Dog) of method MethodSignature\BaseClass::returnTypeTest4()',
