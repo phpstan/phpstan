@@ -8197,6 +8197,22 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'2|3',
 				'array_key_last($anotherLiteralArray)',
 			],
+			[
+				'array(int, int)',
+				'$hrtime1',
+			],
+			[
+				'array(int, int)',
+				'$hrtime2',
+			],
+			[
+				'float|int',
+				'$hrtime3',
+			],
+			[
+				'array(int, int)|float|int',
+				'$hrtime4',
+			],
 		];
 	}
 
