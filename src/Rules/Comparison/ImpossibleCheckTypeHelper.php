@@ -188,9 +188,9 @@ class ImpossibleCheckTypeHelper
 					return null;
 				}
 			}
-			$types = TypeCombinator::union(...array_map(static function ($sureType) {
-				return $sureType[1];
-			}, array_values($sureTypes)));
+			$types = TypeCombinator::union(
+				...array_column($sureTypes, 1)
+			);
 			if ($types instanceof NeverType) {
 				return false;
 			}
@@ -200,9 +200,9 @@ class ImpossibleCheckTypeHelper
 					return null;
 				}
 			}
-			$types = TypeCombinator::union(...array_map(static function ($sureNotType) {
-				return $sureNotType[1];
-			}, array_values($sureNotTypes)));
+			$types = TypeCombinator::union(
+				...array_column($sureNotTypes, 1)
+			);
 			if ($types instanceof NeverType) {
 				return true;
 			}
