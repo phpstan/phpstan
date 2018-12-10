@@ -450,21 +450,48 @@ class PhpClassReflectionExtension
 			return explode('::', $traitAliases[$methodReflection->getName()])[0];
 		}
 
-		foreach ($declaringClass->getTraits() as $traitReflection) {
+		foreach ($this->collectTraits($declaringClass) as $traitReflection) {
 			if (!$traitReflection->hasMethod($methodReflection->getName())) {
 				continue;
 			}
 
-			$traitMethodReflection = $traitReflection->getMethod($methodReflection->getName());
 			if (
-				$traitMethodReflection->getFileName() === $methodReflection->getFileName()
-				&& $traitMethodReflection->getStartLine() === $methodReflection->getStartLine()
+				$methodReflection->getFileName() === $traitReflection->getFileName()
+				&& $methodReflection->getStartLine() >= $traitReflection->getStartLine()
+				&& $methodReflection->getEndLine() <= $traitReflection->getEndLine()
 			) {
 				return $traitReflection->getName();
 			}
 		}
 
 		return null;
+	}
+
+	/**
+	 * @param \ReflectionClass $class
+	 * @return \ReflectionClass[]
+	 */
+	private function collectTraits(\ReflectionClass $class): array
+	{
+		$traits = [];
+		$traitsLeftToAnalyze = $class->getTraits();
+
+		while (count($traitsLeftToAnalyze) !== 0) {
+			$trait = reset($traitsLeftToAnalyze);
+			$traits[] = $trait;
+
+			foreach ($trait->getTraits() as $subTrait) {
+				if (in_array($subTrait, $traits, true)) {
+					continue;
+				}
+
+				$traitsLeftToAnalyze[] = $subTrait;
+			}
+
+			array_shift($traitsLeftToAnalyze);
+		}
+
+		return $traits;
 	}
 
 }
