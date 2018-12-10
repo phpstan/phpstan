@@ -36,7 +36,9 @@ class MbFunctionsReturnTypeExtension implements \PHPStan\Type\DynamicFunctionRet
 	{
 		$supportedEncodings = [];
 		if (function_exists('mb_list_encodings')) {
-			$supportedEncodings = mb_list_encodings();
+			foreach (mb_list_encodings() as $encoding) {
+				$supportedEncodings = array_merge($supportedEncodings, mb_encoding_aliases($encoding), [$encoding]);
+			}
 		}
 		$this->supportedEncodings = array_map('strtoupper', $supportedEncodings);
 	}
