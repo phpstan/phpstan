@@ -23,6 +23,7 @@ $versionCompare8 = version_compare('7.0.0', doFoo(), '<');
 
 $mbStrlenWithoutEncoding = mb_strlen('');
 $mbStrlenWithValidEncoding = mb_strlen('', 'utf-8');
+$mbStrlenWithValidEncodingAlias = mb_strlen('', 'utf8');
 $mbStrlenWithInvalidEncoding = mb_strlen('', 'foo');
 $mbStrlenWithValidAndInvalidEncoding = mb_strlen('', doFoo() ? 'utf-8' : 'foo');
 $mbStrlenWithUnknownEncoding = mb_strlen('', doFoo());
@@ -36,7 +37,7 @@ $mbHttpOutputWithUnknownEncoding = mb_http_output(doFoo());
 $mbRegexEncodingWithoutEncoding = mb_regex_encoding();
 $mbRegexEncodingWithValidEncoding = mb_regex_encoding('utf-8');
 $mbRegexEncodingWithInvalidEncoding = mb_regex_encoding('foo');
-$mbRegexEncodingWithValidAndInvalidEncoding = mb_regex_encoding(doFoo() ? 'utf-8' : 'foo');
+$mbRegexEncodingWithValidAndInvalidEncoding = mb_regex_encoding(doFoo() ? 'utf8' : 'foo');
 $mbRegexEncodingWithUnknownEncoding = mb_regex_encoding(doFoo());
 
 $mbInternalEncodingWithoutEncoding = mb_internal_encoding();

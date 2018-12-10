@@ -5034,6 +5034,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$mbStrlenWithValidEncoding',
 			],
 			[
+				'int',
+				'$mbStrlenWithValidEncodingAlias',
+			],
+			[
 				'false',
 				'$mbStrlenWithInvalidEncoding',
 			],
