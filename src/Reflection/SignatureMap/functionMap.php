@@ -3932,6 +3932,7 @@ return [
 'hexdec' => ['int|float', 'hexadecimal_number'=>'string'],
 'highlight_file' => ['string|bool', 'file_name'=>'string', 'return='=>'bool'],
 'highlight_string' => ['string|bool', 'string'=>'string', 'return='=>'bool'],
+'hrtime' => ['array|integer|float', 'get_as_number'=>'bool'],
 'HRTime\PerformanceCounter::getElapsedTicks' => ['int'],
 'HRTime\PerformanceCounter::getFrequency' => ['int'],
 'HRTime\PerformanceCounter::getLastElapsedTicks' => ['int'],
