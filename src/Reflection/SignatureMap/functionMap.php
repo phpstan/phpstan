@@ -8513,7 +8513,7 @@ return [
 'pg_field_size' => ['int', 'result'=>'resource', 'field_number'=>'int'],
 'pg_field_table' => ['mixed', 'result'=>'resource', 'field_number'=>'int', 'oid_only='=>'bool'],
 'pg_field_type' => ['string', 'result'=>'resource', 'field_number'=>'int'],
-'pg_field_type_oid' => ['string', 'result'=>'resource', 'field_number'=>'int'],
+'pg_field_type_oid' => ['int|false', 'result'=>'resource', 'field_number'=>'int'],
 'pg_flush' => ['mixed', 'connection'=>'resource'],
 'pg_free_result' => ['bool', 'result'=>'resource'],
 'pg_get_notify' => ['array', 'connection'=>'resource', 'result_type='=>'int'],
