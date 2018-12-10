@@ -21,11 +21,14 @@ class CallableTypeHelper
 
 		$result = null;
 		foreach ($theirParameters as $i => $theirParameter) {
+			/** @var \PHPStan\Reflection\ParameterReflection $theirParameter */
+			/** @var \PHPStan\Reflection\ParameterReflection $ourParameter */
 			$ourParameter = $ourParameters[$i];
 			$isSuperType = $theirParameter->getType()->isSuperTypeOf($ourParameter->getType());
 			if ($result === null) {
 				$result = $isSuperType;
 			} else {
+				/** @var TrinaryLogic $result */
 				$result = $result->and($isSuperType);
 			}
 		}

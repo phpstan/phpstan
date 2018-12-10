@@ -9,6 +9,8 @@ use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
+use PHPStan\Type\Constant\ConstantIntegerType;
+use PHPStan\Type\Constant\ConstantStringType;
 
 class UnionType implements CompoundType, StaticResolvableType
 {
@@ -163,8 +165,10 @@ class UnionType implements CompoundType, StaticResolvableType
 
 					$constantArrays[] = $type;
 					foreach ($type->getKeyTypes() as $i => $keyType) {
-						if (!isset($arrayDescription[$keyType->getValue()])) {
-							$arrayDescription[$keyType->getValue()] = [
+						/** @var ConstantIntegerType|ConstantStringType $keyType */
+						$keyTypeValue = $keyType->getValue();
+						if (!isset($arrayDescription[$keyTypeValue])) {
+							$arrayDescription[$keyTypeValue] = [
 								'key' => $keyType,
 								'value' => $type->getValueTypes()[$i],
 								'count' => 1,
@@ -172,13 +176,14 @@ class UnionType implements CompoundType, StaticResolvableType
 							continue;
 						}
 
-						$arrayDescription[$keyType->getValue()] = [
+						$keyTypeValue = $keyType->getValue();
+						$arrayDescription[$keyTypeValue] = [
 							'key' => $keyType,
 							'value' => TypeCombinator::union(
-								$arrayDescription[$keyType->getValue()]['value'],
+								$arrayDescription[$keyTypeValue]['value'],
 								$type->getValueTypes()[$i]
 							),
-							'count' => $arrayDescription[$keyType->getValue()]['count'] + 1,
+							'count' => $arrayDescription[$keyTypeValue]['count'] + 1,
 						];
 					}
 				}
@@ -265,6 +270,7 @@ class UnionType implements CompoundType, StaticResolvableType
 		$object = null;
 		foreach ($this->types as $type) {
 			$has = $hasCallback($type);
+			/** @var TrinaryLogic $has */
 			if (!$has->yes()) {
 				continue;
 			}

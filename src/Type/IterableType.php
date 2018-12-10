@@ -143,10 +143,11 @@ class IterableType implements StaticResolvableType, CompoundType
 
 	public function resolveStatic(string $className): Type
 	{
-		if ($this->getItemType() instanceof StaticResolvableType) {
+		$itemType = $this->getItemType();
+		if ($itemType instanceof StaticResolvableType) {
 			return new self(
 				$this->keyType,
-				$this->getItemType()->resolveStatic($className)
+				$itemType->resolveStatic($className)
 			);
 		}
 
@@ -155,10 +156,11 @@ class IterableType implements StaticResolvableType, CompoundType
 
 	public function changeBaseClass(string $className): StaticResolvableType
 	{
-		if ($this->getItemType() instanceof StaticResolvableType) {
+		$itemType = $this->getItemType();
+		if ($itemType instanceof StaticResolvableType) {
 			return new self(
 				$this->keyType,
-				$this->getItemType()->changeBaseClass($className)
+				$itemType->changeBaseClass($className)
 			);
 		}
 

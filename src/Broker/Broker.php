@@ -128,7 +128,13 @@ class Broker
 	{
 		$this->propertiesClassReflectionExtensions = $propertiesClassReflectionExtensions;
 		$this->methodsClassReflectionExtensions = $methodsClassReflectionExtensions;
-		foreach (array_merge($propertiesClassReflectionExtensions, $methodsClassReflectionExtensions, $dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions, $dynamicFunctionReturnTypeExtensions) as $extension) {
+		foreach (array_merge(
+			$propertiesClassReflectionExtensions,
+			$methodsClassReflectionExtensions,
+			$dynamicMethodReturnTypeExtensions,
+			$dynamicStaticMethodReturnTypeExtensions,
+			$dynamicFunctionReturnTypeExtensions
+		) as $extension) {
 			if (!($extension instanceof BrokerAwareExtension)) {
 				continue;
 			}

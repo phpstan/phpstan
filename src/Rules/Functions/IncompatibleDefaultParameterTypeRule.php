@@ -76,7 +76,9 @@ class IncompatibleDefaultParameterTypeRule implements Rule
 			}
 
 			$defaultValueType = $scope->getType($param->default);
-			$parameterType = $parameters->getParameters()[$paramI]->getType();
+			/** @var \PHPStan\Reflection\ParameterReflection $parameter */
+			$parameter = $parameters->getParameters()[$paramI];
+			$parameterType = $parameter->getType();
 
 			if ($parameterType->isSuperTypeOf($defaultValueType)->yes()) {
 				continue;

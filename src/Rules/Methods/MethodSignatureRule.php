@@ -85,7 +85,9 @@ class MethodSignatureRule implements \PHPStan\Rules\Rule
 				if (!$parameterResult->no() && !$this->reportMaybes) {
 					continue;
 				}
+				/** @var \PHPStan\Reflection\ParameterReflection $parameter */
 				$parameter = $parameters->getParameters()[$parameterIndex];
+				/** @var \PHPStan\Reflection\ParameterReflection $parentParameter */
 				$parentParameter = $parentParameters->getParameters()[$parameterIndex];
 				$errors[] = sprintf(
 					'Parameter #%d $%s (%s) of method %s::%s() should be %s with parameter $%s (%s) of method %s::%s()',

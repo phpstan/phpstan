@@ -55,7 +55,7 @@ class ScopeFactory
 	 * @param \PHPStan\Analyser\VariableTypeHolder[] $moreSpecificTypes
 	 * @param string|null $inClosureBindScopeClass
 	 * @param \PHPStan\Type\Type|null $inAnonymousFunctionReturnType
-	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null $inFunctionCall
+	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|\PhpParser\Node\Expr|null $inFunctionCall
 	 * @param bool $negated
 	 * @param bool $inFirstLevelStatement
 	 * @param string[] $currentlyAssignedExpressions

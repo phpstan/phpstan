@@ -87,6 +87,7 @@ class CallableType implements CompoundType, ParametersAcceptor
 			if ($variantsResult === null) {
 				$variantsResult = $isSuperType;
 			} else {
+				/** @var TrinaryLogic $variantsResult */
 				$variantsResult = $variantsResult->or($isSuperType);
 			}
 		}

@@ -26,7 +26,7 @@ class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\Parame
 	/** @var \PHPStan\Reflection\PassedByReference */
 	private $passedByReference;
 
-	/** @var \PhpParser\Node\Expr|null */
+	/** @var \PhpParser\Node\Expr|\PhpParser\Node\Expr\ConstFetch|null */
 	private $defaultValue;
 
 	/** @var bool */

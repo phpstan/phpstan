@@ -101,6 +101,7 @@ final class ArraySearchFunctionDynamicReturnTypeExtension implements DynamicFunc
 		$matchesByType = [];
 
 		foreach ($haystack->getValueTypes() as $index => $valueType) {
+			/** @var Type $valueType */
 			$isNeedleSuperType = $valueType->isSuperTypeOf($needle);
 			if ($isNeedleSuperType->no()) {
 				$matchesByType[] = new ConstantBooleanType(false);

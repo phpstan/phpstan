@@ -60,6 +60,7 @@ class AnalyseApplication
 			$progressStarted = false;
 			$fileOrder = 0;
 			$preFileCallback = null;
+			/** @var ErrorsConsoleStyle $style */
 			$postFileCallback = function () use ($style, &$progressStarted, $files, &$fileOrder): void {
 				if (!$progressStarted) {
 					$style->progressStart(count($files));

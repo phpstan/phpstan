@@ -77,6 +77,7 @@ class DependencyResolver
 			/** @var ClosureType $closureType */
 			$closureType = $scope->getType($node);
 			foreach ($closureType->getParameters() as $parameter) {
+				/** @var \PHPStan\Reflection\Php\PhpParameterReflection $parameter */
 				$referencedClasses = $parameter->getType()->getReferencedClasses();
 				foreach ($referencedClasses as $referencedClass) {
 					$this->addClassToDependencies($referencedClass, $dependenciesReflections);
@@ -223,7 +224,8 @@ class DependencyResolver
 	): void
 	{
 		foreach ($parametersAcceptor->getParameters() as $parameter) {
-			$referencedClasses = array_merge(
+			/** @var \PHPStan\Reflection\Php\PhpParameterReflection $parameter */
+			$referencedClasses = \array_merge(
 				$parameter->getNativeType()->getReferencedClasses(),
 				$parameter->getPhpDocType()->getReferencedClasses()
 			);

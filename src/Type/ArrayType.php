@@ -126,10 +126,11 @@ class ArrayType implements StaticResolvableType
 
 	public function resolveStatic(string $className): Type
 	{
-		if ($this->getItemType() instanceof StaticResolvableType) {
+		$itemType = $this->getItemType();
+		if ($itemType instanceof StaticResolvableType) {
 			return new self(
 				$this->keyType,
-				$this->getItemType()->resolveStatic($className)
+				$itemType->resolveStatic($className)
 			);
 		}
 
@@ -138,10 +139,11 @@ class ArrayType implements StaticResolvableType
 
 	public function changeBaseClass(string $className): StaticResolvableType
 	{
-		if ($this->getItemType() instanceof StaticResolvableType) {
+		$itemType = $this->getItemType();
+		if ($itemType instanceof StaticResolvableType) {
 			return new self(
 				$this->keyType,
-				$this->getItemType()->changeBaseClass($className)
+				$itemType->changeBaseClass($className)
 			);
 		}
 

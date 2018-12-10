@@ -172,6 +172,7 @@ class NodeScopeResolver
 				$parametersAcceptor = $this->findParametersAcceptorInFunctionCall($functionCall, $scope);
 
 				if ($parametersAcceptor !== null) {
+					/** @var \PHPStan\Reflection\ParameterReflection[] $parameters */
 					$parameters = $parametersAcceptor->getParameters();
 					$assignByReference = false;
 					if (isset($parameters[$i])) {
@@ -777,7 +778,7 @@ class NodeScopeResolver
 				) {
 					$scope = $scope->enterExpressionAssign($unsetVar);
 					if ($unsetVar instanceof StaticPropertyFetch) {
-						/** @var Expr $unsetVar */
+						/** @var StaticPropertyFetch $unsetVar */
 						$unsetVar = $unsetVar->class;
 					} else {
 						$unsetVar = $unsetVar->var;
@@ -1129,6 +1130,7 @@ class NodeScopeResolver
 			$parametersAcceptor = $this->findParametersAcceptorInFunctionCall($node, $scope);
 
 			if ($parametersAcceptor !== null) {
+				/** @var \PHPStan\Reflection\ParameterReflection[] $parameters */
 				$parameters = $parametersAcceptor->getParameters();
 				foreach ($node->args as $i => $arg) {
 					$assignByReference = false;
@@ -1576,6 +1578,8 @@ class NodeScopeResolver
 			$scope->isInTrait() ? $scope->getTraitReflection()->getName() : null,
 			$comment
 		);
+
+		/** @var \PHPStan\PhpDoc\Tag\VarTag[] $varTags */
 		$varTags = $resolvedPhpDoc->getVarTags();
 
 		if (isset($varTags[$variableName])) {

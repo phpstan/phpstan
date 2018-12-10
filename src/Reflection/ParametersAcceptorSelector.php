@@ -79,7 +79,8 @@ class ParametersAcceptorSelector
 			);
 		}
 
-		$typesCount = count($types);
+		$typesCount = \count($types);
+		/** @var ParametersAcceptor[] $acceptableAcceptors */
 		$acceptableAcceptors = [];
 
 		foreach ($parametersAcceptors as $parametersAcceptor) {
@@ -91,6 +92,7 @@ class ParametersAcceptorSelector
 			$functionParametersMinCount = 0;
 			$functionParametersMaxCount = 0;
 			foreach ($parametersAcceptor->getParameters() as $parameter) {
+				/** @var \PHPStan\Reflection\ParameterReflection $parameter */
 				if (!$parameter->isOptional()) {
 					$functionParametersMinCount++;
 				}
@@ -150,6 +152,7 @@ class ParametersAcceptorSelector
 				$winningAcceptors[] = $acceptableAcceptor;
 				$winningCertainty = $isSuperType;
 			} else {
+				/** @var TrinaryLogic $winningCertainty */
 				$comparison = $winningCertainty->compareTo($isSuperType);
 				if ($comparison === $isSuperType) {
 					$winningAcceptors = [$acceptableAcceptor];
@@ -181,6 +184,7 @@ class ParametersAcceptorSelector
 		foreach ($acceptors as $acceptor) {
 			$acceptorParametersMinCount = 0;
 			foreach ($acceptor->getParameters() as $parameter) {
+				/** @var \PHPStan\Reflection\ParameterReflection $parameter */
 				if ($parameter->isOptional()) {
 					continue;
 				}

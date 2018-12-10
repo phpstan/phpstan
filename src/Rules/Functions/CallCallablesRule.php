@@ -4,6 +4,7 @@ namespace PHPStan\Rules\Functions;
 
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\InaccessibleMethod;
+use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Rules\FunctionCallParametersCheck;
 use PHPStan\Rules\RuleLevelHelper;
@@ -86,7 +87,10 @@ class CallCallablesRule implements \PHPStan\Rules\Rule
 			count($parametersAcceptors) === 1
 			&& $parametersAcceptors[0] instanceof InaccessibleMethod
 		) {
-			$method = $parametersAcceptors[0]->getMethod();
+			/** @var InaccessibleMethod $inaccessibleMethod */
+			$inaccessibleMethod = $parametersAcceptors[0];
+			/** @var MethodReflection $method */
+			$method = $inaccessibleMethod->getMethod();
 			$messages[] = sprintf(
 				'Call to %s method %s() of class %s.',
 				$method->isPrivate() ? 'private' : 'protected',

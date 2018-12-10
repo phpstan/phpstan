@@ -110,7 +110,7 @@ class Scope implements ClassMemberAccessAnswerer
 	/** @var \PHPStan\Type\Type|null */
 	private $inAnonymousFunctionReturnType;
 
-	/** @var \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null */
+	/** @var \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|\PhpParser\Node\Expr|null */
 	private $inFunctionCall;
 
 	/** @var bool */
@@ -138,7 +138,7 @@ class Scope implements ClassMemberAccessAnswerer
 	 * @param \PHPStan\Analyser\VariableTypeHolder[] $moreSpecificTypes
 	 * @param string|null $inClosureBindScopeClass
 	 * @param \PHPStan\Type\Type|null $inAnonymousFunctionReturnType
-	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null $inFunctionCall
+	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|Expr|null $inFunctionCall
 	 * @param bool $negated
 	 * @param bool $inFirstLevelStatement
 	 * @param string[] $currentlyAssignedExpressions
@@ -338,7 +338,7 @@ class Scope implements ClassMemberAccessAnswerer
 	}
 
 	/**
-	 * @return \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null
+	 * @return \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|\PhpParser\Node\Expr|null
 	 */
 	public function getInFunctionCall()
 	{
@@ -1815,6 +1815,7 @@ class Scope implements ClassMemberAccessAnswerer
 	{
 		$variableTypes = $this->getVariableTypes();
 		foreach (ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getParameters() as $parameter) {
+			/** @var \PHPStan\Reflection\ParameterReflection $parameter */
 			$variableTypes[$parameter->getName()] = VariableTypeHolder::createYes($parameter->getType());
 		}
 
@@ -2312,6 +2313,7 @@ class Scope implements ClassMemberAccessAnswerer
 		$variableTypeHolders = $this->variableTypes;
 		$specifiedTypeHolders = $this->moreSpecificTypes;
 		foreach ($intersectedScope->getVariableTypes() as $name => $theirVariableTypeHolder) {
+			/** @var \PHPStan\Analyser\VariableTypeHolder $theirVariableTypeHolder */
 			if (isset($variableTypeHolders[$name])) {
 				$type = $theirVariableTypeHolder->getType();
 				if ($theirVariableTypeHolder->getCertainty()->maybe()) {
@@ -2330,6 +2332,7 @@ class Scope implements ClassMemberAccessAnswerer
 		}
 
 		foreach ($intersectedScope->moreSpecificTypes as $exprString => $theirTypeHolder) {
+			/** @var \PHPStan\Analyser\VariableTypeHolder $theirTypeHolder */
 			if (isset($specifiedTypeHolders[$exprString])) {
 				$type = $theirTypeHolder->getType();
 				if ($theirTypeHolder->getCertainty()->maybe()) {
@@ -2366,15 +2369,29 @@ class Scope implements ClassMemberAccessAnswerer
 	public function removeSpecified(self $initialScope): self
 	{
 		$variableTypeHolders = $this->variableTypes;
-		foreach ($variableTypeHolders as $name => $holder) {
+		foreach ($variableTypeHolders as $name => &$holder) {
 			if (!$holder->getCertainty()->yes()) {
 				continue;
 			}
+
 			$node = new Variable($name);
-			if ($this->isSpecified($node) && !$initialScope->hasVariableType($name)->no()) {
-				$variableTypeHolders[$name] = VariableTypeHolder::createYes(TypeCombinator::remove($initialScope->getVariableType($name), $this->getType($node)));
+			if (!$this->isSpecified($node)) {
 				continue;
 			}
+
+			if (!\is_string($node->name)) {
+				continue;
+			}
+
+			/** @var TrinaryLogic $hasVariableType */
+			$hasVariableType = $initialScope->hasVariableType($name);
+			if ($hasVariableType->no()) {
+				continue;
+			}
+
+			$holder = VariableTypeHolder::createYes(
+				TypeCombinator::remove($initialScope->getVariableType($name), $this->getType($node))
+			);
 		}
 
 		$moreSpecificTypeHolders = $this->moreSpecificTypes;
@@ -2405,6 +2422,7 @@ class Scope implements ClassMemberAccessAnswerer
 	{
 		$ourVariableTypeHolders = $this->getVariableTypes();
 		foreach ($otherScope->getVariableTypes() as $name => $theirVariableTypeHolder) {
+			/** @var \PHPStan\Analyser\VariableTypeHolder $theirVariableTypeHolder */
 			if ($all) {
 				if (
 					isset($ourVariableTypeHolders[$name])
@@ -2425,6 +2443,7 @@ class Scope implements ClassMemberAccessAnswerer
 
 		$ourTypeHolders = $this->moreSpecificTypes;
 		foreach ($otherScope->moreSpecificTypes as $exprString => $theirTypeHolder) {
+			/** @var \PHPStan\Analyser\VariableTypeHolder $theirTypeHolder */
 			if ($all) {
 				if (
 					isset($ourTypeHolders[$exprString])

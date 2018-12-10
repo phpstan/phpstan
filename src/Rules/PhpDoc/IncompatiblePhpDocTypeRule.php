@@ -52,6 +52,7 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 		$errors = [];
 
 		foreach ($resolvedPhpDoc->getParamTags() as $parameterName => $phpDocParamTag) {
+			/** @var \PHPStan\PhpDoc\Tag\ParamTag $phpDocParamTag */
 			$phpDocParamType = $phpDocParamTag->getType();
 			if (!isset($nativeParameterTypes[$parameterName])) {
 				$errors[] = sprintf(

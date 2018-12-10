@@ -14,6 +14,7 @@ use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
 use PHPStan\Reflection\Php\PhpMethodReflection;
+use PHPStan\Reflection\Php\PhpParameterReflection;
 use PHPStan\Type\NonexistentParentClassType;
 use PHPStan\Type\VerbosityLevel;
 
@@ -191,6 +192,7 @@ class FunctionDefinitionCheck
 		$parameterNodes = $functionNode->getParams();
 		$returnTypeNode = $functionNode->getReturnType() ?? $functionNode;
 		foreach ($parametersAcceptor->getParameters() as $parameter) {
+			/** @var PhpParameterReflection $parameter */
 			if ($this->checkThisOnly) {
 				$referencedClasses = $parameter->getType()->getReferencedClasses();
 			} else {

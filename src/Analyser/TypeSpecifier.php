@@ -364,7 +364,7 @@ class TypeSpecifier
 					)
 				) {
 					if ($var instanceof StaticPropertyFetch) {
-						/** @var Expr $var */
+						/** @var StaticPropertyFetch $var */
 						$var = $var->class;
 					} else {
 						$var = $var->var;
@@ -404,6 +404,7 @@ class TypeSpecifier
 				if ($types === null) {
 					$types = $type;
 				} else {
+					/** @var SpecifiedTypes $types */
 					$types = $types->unionWith($type);
 				}
 			}

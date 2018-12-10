@@ -38,6 +38,7 @@ class CheckstyleErrorFormatter implements ErrorFormatter
 				$this->escape($relativeFilePath)
 			));
 
+			/** @var \PHPStan\Analyser\Error[] $errors */
 			foreach ($errors as $error) {
 				$style->writeln(sprintf(
 					'  <error line="%d" column="1" severity="error" message="%s" />',

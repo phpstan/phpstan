@@ -7,6 +7,7 @@ use PHPStan\File\FileHelper;
 use PHPStan\Parser\Parser;
 use PHPStan\Rules\LineRuleError;
 use PHPStan\Rules\Registry;
+use PHPStan\Rules\RuleError;
 
 class Analyser
 {
@@ -137,6 +138,7 @@ class Analyser
 									if (is_string($ruleError)) {
 										$message = $ruleError;
 									} else {
+										/** @var RuleError $ruleError */
 										$message = $ruleError->getMessage();
 										if (
 											$ruleError instanceof LineRuleError

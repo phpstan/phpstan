@@ -50,6 +50,7 @@ class FunctionCallParametersCheck
 		$functionParametersMinCount = 0;
 		$functionParametersMaxCount = 0;
 		foreach ($parametersAcceptor->getParameters() as $parameter) {
+			/** @var \PHPStan\Reflection\ParameterReflection $parameter */
 			if (!$parameter->isOptional()) {
 				$functionParametersMinCount++;
 			}

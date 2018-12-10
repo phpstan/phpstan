@@ -150,6 +150,7 @@ class PhpClassReflectionExtension
 					$this->findPropertyTrait($phpDocBlock, $propertyReflection),
 					$phpDocBlock->getDocComment()
 				);
+				/** @var \PHPStan\PhpDoc\Tag\VarTag[] $varTags */
 				$varTags = $resolvedPhpDoc->getVarTags();
 				if (isset($varTags[0]) && count($varTags) === 1) {
 					$type = $varTags[0]->getType();

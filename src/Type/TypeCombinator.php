@@ -103,6 +103,7 @@ class TypeCombinator
 				continue;
 			}
 
+			/** @var UnionType[] $types */
 			array_splice($types, $i, 1, $types[$i]->getTypes());
 		}
 
@@ -219,6 +220,7 @@ class TypeCombinator
 			}
 			foreach ($scalarTypeItems as $type) {
 				if (count($scalarTypeItems) > self::CONSTANT_SCALAR_UNION_THRESHOLD) {
+					/** @var ConstantType $type */
 					$types[] = $type->generalize();
 					break;
 				}
@@ -268,6 +270,7 @@ class TypeCombinator
 			}
 
 			foreach ($arrayType->getKeyTypes() as $i => $keyType) {
+				/** @var ConstantIntegerType|ConstantStringType $keyType */
 				$keyTypesForGeneralArray[] = $keyType;
 				$valueTypesForGeneralArray[] = $arrayType->getValueTypes()[$i];
 
@@ -325,8 +328,9 @@ class TypeCombinator
 
 			$bucket = $constantArraysBuckets[$arrayIndex];
 			foreach ($arrayType->getKeyTypes() as $i => $keyType) {
-				$bucket[$keyType->getValue()]['valueType'] = self::union(
-					$bucket[$keyType->getValue()]['valueType'],
+				$keyTypeValue = $keyType->getValue();
+				$bucket[$keyTypeValue]['valueType'] = self::union(
+					$bucket[$keyTypeValue]['valueType'],
 					$arrayType->getValueTypes()[$i]
 				);
 			}

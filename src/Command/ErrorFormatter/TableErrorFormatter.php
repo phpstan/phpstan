@@ -4,6 +4,7 @@ namespace PHPStan\Command\ErrorFormatter;
 
 use PHPStan\Command\AnalyseCommand;
 use PHPStan\Command\AnalysisResult;
+use PHPStan\Command\ErrorsConsoleStyle;
 use PHPStan\File\RelativePathHelper;
 use Symfony\Component\Console\Style\OutputStyle;
 
@@ -23,6 +24,7 @@ class TableErrorFormatter implements ErrorFormatter
 		OutputStyle $style
 	): int
 	{
+		/** @var ErrorsConsoleStyle $style */
 		if (!$analysisResult->hasErrors()) {
 			$style->success('No errors');
 			if ($analysisResult->isDefaultLevelUsed()) {

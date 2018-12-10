@@ -71,8 +71,10 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 
 		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, $classReflection->getName(), null, $docComment);
 		foreach ($resolvedPhpDoc->getMethodTags() as $methodName => $methodTag) {
+			/** @var \PHPStan\PhpDoc\Tag\MethodTag $methodTag */
 			$parameters = [];
 			foreach ($methodTag->getParameters() as $parameterName => $parameterTag) {
+				/** @var \PHPStan\PhpDoc\Tag\MethodTagParameter $parameterTag */
 				$parameters[] = new AnnotationsMethodParameterReflection(
 					$parameterName,
 					$parameterTag->getType(),
