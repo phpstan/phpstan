@@ -1,9 +1,7 @@
 {
 	"name": "phpstan/phpstan",
 	"description": "PHPStan - PHP Static Analysis Tool",
-	"license": [
-		"MIT"
-	],
+	"license": "MIT",
 	"require": {
 		"php": "~7.1",
 		"composer/xdebug-handler": "^1.3.0",
@@ -26,7 +24,8 @@
 		"ext-soap": "*",
 		"brianium/paratest": "^2.0",
 		"consistence/coding-standard": "^3.5",
-		"dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
+		"dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
+		"friendsofphp/php-cs-fixer": "^2.9.3",
 		"jakub-onderka/php-parallel-lint": "^1.0",
 		"localheinz/composer-normalize": "^1.0.0",
 		"phing/phing": "^2.16.0",
@@ -36,7 +35,8 @@
 		"phpstan/phpstan-strict-rules": "^0.11",
 		"phpunit/phpunit": "^7.0",
 		"slevomat/coding-standard": "^4.7.2",
-		"squizlabs/php_codesniffer": "^3.3.2"
+		"squizlabs/php_codesniffer": "^3.3.2",
+		"wimg/php-compatibility": "^9.0"
 	},
 	"config": {
 		"sort-packages": true

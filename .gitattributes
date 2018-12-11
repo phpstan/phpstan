@@ -1,2 +1,8 @@
 /build export-ignore
 /tests export-ignore
+.editorconfig
+.travis.yml
+appveyor.yml
+build.xml
+phpcs.php_cs
+phpcs.xml
