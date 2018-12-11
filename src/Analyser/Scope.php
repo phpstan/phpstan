@@ -1664,23 +1664,23 @@ class Scope implements ClassMemberAccessAnswerer
 			return new NullType();
 		}
 
-		if (\is_int($value)) {
+		if (is_int($value)) {
 			return new ConstantIntegerType($value);
 		}
 
-		if (\is_float($value)) {
+		if (is_float($value)) {
 			return new ConstantFloatType($value);
 		}
 
-		if (\is_bool($value)) {
+		if (is_bool($value)) {
 			return new ConstantBooleanType($value);
 		}
 
-		if (\is_string($value)) {
+		if (is_string($value)) {
 			return new ConstantStringType($value);
 		}
 
-		if (\is_array($value)) {
+		if (is_array($value)) {
 			$arrayBuilder = ConstantArrayTypeBuilder::createEmpty();
 			foreach ($value as $k => $v) {
 				$arrayBuilder->setOffsetValueType($this->getTypeFromValue($k), $this->getTypeFromValue($v));
