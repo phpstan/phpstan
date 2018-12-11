@@ -29,6 +29,14 @@ class Foo
 			$anotherLiteralArray[] = 4;
 		}
 
+		/** @var bool $bool */
+		$bool = doBar();
+
+		$hrtime1 = hrtime();
+		$hrtime2 = hrtime(false);
+		$hrtime3 = hrtime(true);
+		$hrtime4 = hrtime($bool);
+
 		die;
 	}
 

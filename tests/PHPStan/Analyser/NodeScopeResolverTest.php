@@ -3508,6 +3508,34 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	/**
+	 * @dataProvider dataTypeFromFunctionPhpDocs
+	 * @dataProvider dataTypeFromMethodPhpDocs
+	 * @param string $description
+	 * @param string $expression
+	 * @param bool $replaceClass
+	 */
+	public function testTypeFromRecursiveTraitPhpDocs(
+		string $description,
+		string $expression,
+		bool $replaceClass = true
+	): void
+	{
+		$description = str_replace('static(MethodPhpDocsNamespace\Foo)', 'static(MethodPhpDocsNamespace\FooWithRecursiveTrait)', $description);
+
+		if ($replaceClass && $expression !== '$this->doFoo()') {
+			$description = str_replace('$this(MethodPhpDocsNamespace\Foo)', '$this(MethodPhpDocsNamespace\FooWithRecursiveTrait)', $description);
+			if ($description === 'MethodPhpDocsNamespace\Foo') {
+				$description = 'MethodPhpDocsNamespace\FooWithRecursiveTrait';
+			}
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/methodPhpDocs-recursiveTrait.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataTypeFromTraitPhpDocsInSameFile(): array
 	{
 		return [
@@ -5032,6 +5060,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'int',
 				'$mbStrlenWithValidEncoding',
+			],
+			[
+				'int',
+				'$mbStrlenWithValidEncodingAlias',
 			],
 			[
 				'false',
@@ -8196,6 +8228,22 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'2|3',
 				'array_key_last($anotherLiteralArray)',
+			],
+			[
+				'array(int, int)',
+				'$hrtime1',
+			],
+			[
+				'array(int, int)',
+				'$hrtime2',
+			],
+			[
+				'float|int',
+				'$hrtime3',
+			],
+			[
+				'array(int, int)|float|int',
+				'$hrtime4',
 			],
 		];
 	}
