@@ -225,7 +225,7 @@ class Broker
 	{
 		$extensionsForClass = [[]];
 		$class = $this->getClass($className);
-		foreach (\array_merge([$className], $class->getParentClassesNames(), $class->getNativeReflection()->getInterfaceNames()) as $extensionClassName) {
+		foreach (array_merge([$className], $class->getParentClassesNames(), $class->getNativeReflection()->getInterfaceNames()) as $extensionClassName) {
 			if (!isset($extensions[$extensionClassName])) {
 				continue;
 			}
@@ -233,7 +233,7 @@ class Broker
 			$extensionsForClass[] = $extensions[$extensionClassName];
 		}
 
-		return \array_merge(...$extensionsForClass);
+		return array_merge(...$extensionsForClass);
 	}
 
 	public function getClass(string $className): \PHPStan\Reflection\ClassReflection

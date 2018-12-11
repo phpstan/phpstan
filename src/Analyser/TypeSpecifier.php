@@ -548,7 +548,7 @@ class TypeSpecifier
 	{
 		$extensionsForClass = [[]];
 		$class = $this->broker->getClass($className);
-		foreach (\array_merge([$className], $class->getParentClassesNames(), $class->getNativeReflection()->getInterfaceNames()) as $extensionClassName) {
+		foreach (array_merge([$className], $class->getParentClassesNames(), $class->getNativeReflection()->getInterfaceNames()) as $extensionClassName) {
 			if (!isset($extensions[$extensionClassName])) {
 				continue;
 			}
@@ -556,7 +556,7 @@ class TypeSpecifier
 			$extensionsForClass[] = $extensions[$extensionClassName];
 		}
 
-		return \array_merge(...$extensionsForClass);
+		return array_merge(...$extensionsForClass);
 	}
 
 }
