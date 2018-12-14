@@ -48,6 +48,18 @@ class CheckstyleErrorFormatter implements ErrorFormatter
 			$style->writeln('</file>');
 		}
 
+		$notFileSpecificErrors = $analysisResult->getNotFileSpecificErrors();
+
+		if (count($notFileSpecificErrors) > 0) {
+			$style->writeln('<file>');
+
+			foreach ($notFileSpecificErrors as $error) {
+				$style->writeln(sprintf('  <error severity="error" message="%s" />', $this->escape($error)));
+			}
+
+			$style->writeln('</file>');
+		}
+
 		$style->writeln('</checkstyle>');
 
 		return $analysisResult->hasErrors() ? 1 : 0;
