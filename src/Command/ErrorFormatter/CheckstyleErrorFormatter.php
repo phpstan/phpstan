@@ -50,7 +50,7 @@ class CheckstyleErrorFormatter implements ErrorFormatter
 
 		$notFileSpecificErrors = $analysisResult->getNotFileSpecificErrors();
 
-		if (!empty($notFileSpecificErrors)) {
+		if (count($notFileSpecificErrors)) {
 			$style->writeln('<file>');
 
 			foreach ($notFileSpecificErrors as $error) {
