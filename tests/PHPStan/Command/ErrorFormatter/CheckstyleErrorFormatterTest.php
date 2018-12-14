@@ -41,6 +41,9 @@ class CheckstyleErrorFormatterTest extends TestBaseFormatter
 			1,
 			'<?xml version="1.0" encoding="UTF-8"?>
 <checkstyle>
+<file>
+  <error message="first generic error" severity="error"/>
+</file>
 </checkstyle>
 ',
 		];
@@ -71,6 +74,10 @@ class CheckstyleErrorFormatterTest extends TestBaseFormatter
 			2,
 			'<?xml version="1.0" encoding="UTF-8"?>
 <checkstyle>
+<file>
+  <error message="first generic error" severity="error"/>
+  <error message="second generic error" severity="error"/>
+</file>
 </checkstyle>
 ',
 		];
@@ -89,6 +96,10 @@ class CheckstyleErrorFormatterTest extends TestBaseFormatter
 <file name="foo.php">
   <error line="1" column="1" severity="error" message="Foo"/>
   <error line="5" column="1" severity="error" message="Bar"/>
+</file>
+<file>
+  <error message="first generic error" severity="error"/>
+  <error message="second generic error" severity="error"/>
 </file>
 </checkstyle>
 ',
