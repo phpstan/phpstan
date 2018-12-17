@@ -1233,7 +1233,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$anotherBarObject',
 			],
 			[
-				'callable',
+				'callable(): mixed',
 				'$callable',
 			],
 			[
@@ -1300,7 +1300,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$isNullable',
 			],
 			[
-				'callable',
+				'callable(): mixed',
 				'$callable',
 			],
 			[
@@ -1367,11 +1367,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$isNullable',
 			],
 			[
-				'callable',
+				'callable(): mixed',
 				'$callable',
 			],
 			[
-				'callable',
+				'callable(int, array<int, string>): void',
 				'$callableWithTypes',
 			],
 			[
@@ -5487,7 +5487,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$bool',
 			],
 			[
-				'callable',
+				'callable(): mixed',
 				'$callable',
 			],
 			[

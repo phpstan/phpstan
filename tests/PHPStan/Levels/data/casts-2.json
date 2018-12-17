@@ -5,7 +5,7 @@
         "ignorable": true
     },
     {
-        "message": "Cannot cast array|callable to int.",
+        "message": "Cannot cast array|(callable(): mixed) to int.",
         "line": 20,
         "ignorable": true
     }

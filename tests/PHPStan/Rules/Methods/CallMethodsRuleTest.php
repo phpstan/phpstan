@@ -282,11 +282,11 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				647,
 			],
 			[
-				'Parameter #1 $str of method Test\CheckIsCallable::test() expects callable, \'nonexistentFunction\' given.',
+				'Parameter #1 $str of method Test\CheckIsCallable::test() expects callable(): mixed, \'nonexistentFunction\' given.',
 				658,
 			],
 			[
-				'Parameter #1 $str of method Test\CheckIsCallable::test() expects callable, \'Test…\' given.',
+				'Parameter #1 $str of method Test\CheckIsCallable::test() expects callable(): mixed, \'Test…\' given.',
 				660,
 			],
 			[
@@ -366,11 +366,11 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				911,
 			],
 			[
-				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable, array(object, \'bar\') given.',
+				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable(): mixed, array(object, \'bar\') given.',
 				916,
 			],
 			[
-				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable, array(object, \'bar\') given.',
+				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable(): mixed, array(object, \'bar\') given.',
 				921,
 			],
 			[
@@ -531,11 +531,11 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				633,
 			],
 			[
-				'Parameter #1 $str of method Test\CheckIsCallable::test() expects callable, \'nonexistentFunction\' given.',
+				'Parameter #1 $str of method Test\CheckIsCallable::test() expects callable(): mixed, \'nonexistentFunction\' given.',
 				658,
 			],
 			[
-				'Parameter #1 $str of method Test\CheckIsCallable::test() expects callable, \'Test…\' given.',
+				'Parameter #1 $str of method Test\CheckIsCallable::test() expects callable(): mixed, \'Test…\' given.',
 				660,
 			],
 			[
@@ -587,11 +587,11 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				867,
 			],
 			[
-				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable, array(object, \'bar\') given.',
+				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable(): mixed, array(object, \'bar\') given.',
 				916,
 			],
 			[
-				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable, array(object, \'bar\') given.',
+				'Parameter #1 $callable of method Test\MethodExists::doBar() expects callable(): mixed, array(object, \'bar\') given.',
 				921,
 			],
 			[
@@ -824,7 +824,7 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->checkUnionTypes = true;
 		$this->analyse([__DIR__ . '/data/invoke-magic-method.php'], [
 			[
-				'Parameter #1 $foo of method InvokeMagicInvokeMethod\ClassForCallable::doFoo() expects callable, InvokeMagicInvokeMethod\ClassForCallable given.',
+				'Parameter #1 $foo of method InvokeMagicInvokeMethod\ClassForCallable::doFoo() expects callable(): mixed, InvokeMagicInvokeMethod\ClassForCallable given.',
 				27,
 			],
 		]);

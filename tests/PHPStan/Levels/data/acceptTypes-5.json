@@ -55,7 +55,7 @@
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $callable of method Levels\\AcceptTypes\\Foo::expectCallable() expects callable, 'nonexistentFunction' given.",
+        "message": "Parameter #1 $callable of method Levels\\AcceptTypes\\Foo::expectCallable() expects callable(): mixed, 'nonexistentFunction' given.",
         "line": 144,
         "ignorable": true
     },
@@ -70,7 +70,7 @@
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $callable of method Levels\\AcceptTypes\\ClosureAccepts::doBaz() expects callable, Closure(Levels\\AcceptTypes\\FooInterface, mixed, mixed): Levels\\AcceptTypes\\FooInterface given.",
+        "message": "Parameter #1 $callable of method Levels\\AcceptTypes\\ClosureAccepts::doBaz() expects callable(Levels\\AcceptTypes\\FooInterface, int): Levels\\AcceptTypes\\FooInterface, Closure(Levels\\AcceptTypes\\FooInterface, mixed, mixed): Levels\\AcceptTypes\\FooInterface given.",
         "line": 213,
         "ignorable": true
     },
@@ -80,7 +80,7 @@
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $callable of method Levels\\AcceptTypes\\ClosureAccepts::doBaz() expects callable, Closure(Levels\\AcceptTypes\\FooInterface, mixed, mixed): Levels\\AcceptTypes\\FooInterface given.",
+        "message": "Parameter #1 $callable of method Levels\\AcceptTypes\\ClosureAccepts::doBaz() expects callable(Levels\\AcceptTypes\\FooInterface, int): Levels\\AcceptTypes\\FooInterface, Closure(Levels\\AcceptTypes\\FooInterface, mixed, mixed): Levels\\AcceptTypes\\FooInterface given.",
         "line": 270,
         "ignorable": true
     }

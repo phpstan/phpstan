@@ -80,7 +80,7 @@ class ImpossibleInstanceOfRuleTest extends \PHPStan\Testing\RuleTestCase
 					160,
 				],
 				[
-					'Instanceof between callable and ImpossibleInstanceOf\FinalClassWithoutInvoke will always evaluate to false.',
+					'Instanceof between callable(): mixed and ImpossibleInstanceOf\FinalClassWithoutInvoke will always evaluate to false.',
 					204,
 				],
 				[
@@ -146,7 +146,7 @@ class ImpossibleInstanceOfRuleTest extends \PHPStan\Testing\RuleTestCase
 					155,
 				],
 				[
-					'Instanceof between callable and ImpossibleInstanceOf\FinalClassWithoutInvoke will always evaluate to false.',
+					'Instanceof between callable(): mixed and ImpossibleInstanceOf\FinalClassWithoutInvoke will always evaluate to false.',
 					204,
 				],
 				[

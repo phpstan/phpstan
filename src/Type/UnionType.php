@@ -121,7 +121,7 @@ class UnionType implements CompoundType, StaticResolvableType
 		$joinTypes = static function (array $types) use ($level): string {
 			$typeNames = [];
 			foreach ($types as $type) {
-				if ($type instanceof IntersectionType || $type instanceof ClosureType) {
+				if ($type instanceof IntersectionType || $type instanceof ClosureType || $type instanceof CallableType) {
 					$typeNames[] = sprintf('(%s)', $type->describe($level));
 				} else {
 					$typeNames[] = $type->describe($level);

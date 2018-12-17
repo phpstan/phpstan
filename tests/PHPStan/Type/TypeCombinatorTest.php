@@ -531,7 +531,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new CallableType(),
 				],
 				UnionType::class,
-				'callable|RecursionCallable\Foo',
+				'(callable(): mixed)|RecursionCallable\Foo',
 			],
 			[
 				[
@@ -643,7 +643,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new CallableType(),
 				],
 				CallableType::class,
-				'callable',
+				'callable(): mixed',
 			],
 			[
 				// same keys - can remain ConstantArrayType
@@ -873,7 +873,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					]),
 				],
 				IntersectionType::class,
-				'array(object, \'foo\')&callable',
+				'array(object, \'foo\')&callable(): mixed',
 			],
 		];
 	}
