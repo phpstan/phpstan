@@ -369,6 +369,7 @@ class Scope implements ClassMemberAccessAnswerer
 		}
 
 		if ($node instanceof Expr\Isset_) {
+			$result = new ConstantBooleanType(true);
 			foreach ($node->vars as $var) {
 				if ($var instanceof Expr\ArrayDimFetch && $var->dim !== null) {
 					$hasOffset = $this->getType($var->var)->hasOffsetValueType(
@@ -382,13 +383,26 @@ class Scope implements ClassMemberAccessAnswerer
 						continue;
 					}
 
-					return $hasOffset;
+					$result = $hasOffset;
+					continue;
+				}
+
+				if ($var instanceof Expr\Variable && is_string($var->name)) {
+
+					if ($this->hasVariableType($var->name)->no() || $this->resolveType($var)->equals(new NullType())) {
+						return new ConstantBooleanType(false);
+					}
+
+					if (TypeCombinator::containsNull($this->resolveType($var))) {
+						$result = new BooleanType();
+					}
+					continue;
 				}
 
 				return new BooleanType();
 			}
 
-			return new ConstantBooleanType(true);
+			return $result;
 		}
 
 		if ($node instanceof \PhpParser\Node\Expr\BooleanNot) {
