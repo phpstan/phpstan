@@ -75,12 +75,14 @@ class AppendedArrayItemTypeRule implements \PHPStan\Rules\Rule
 			$assignedValueType = $scope->getType($node);
 		}
 
-		if (!$this->ruleLevelHelper->accepts($assignedToType->getItemType(), $assignedValueType, $scope->isDeclareStrictTypes())) {
+		$itemType = $assignedToType->getItemType();
+		if (!$this->ruleLevelHelper->accepts($itemType, $assignedValueType, $scope->isDeclareStrictTypes())) {
+			$verbosityLevel = $itemType->isCallable()->and($assignedValueType->isCallable())->yes() ? VerbosityLevel::value() : VerbosityLevel::typeOnly();
 			return [
 				sprintf(
 					'Array (%s) does not accept %s.',
-					$assignedToType->describe(VerbosityLevel::typeOnly()),
-					$assignedValueType->describe(VerbosityLevel::typeOnly())
+					$assignedToType->describe($verbosityLevel),
+					$assignedValueType->describe($verbosityLevel)
 				),
 			];
 		}

@@ -31,3 +31,25 @@ class Foo
 	}
 
 }
+
+class Bar
+{
+
+	/** @var (callable(): string)[] */
+	private $stringCallables;
+
+	public function doFoo()
+	{
+		$this->stringCallables[] = function (): int {
+			return 1;
+		};
+	}
+
+	public function doBar()
+	{
+		$this->stringCallables[] = function (): string {
+			return 1;
+		};
+	}
+
+}
