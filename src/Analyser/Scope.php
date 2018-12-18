@@ -1206,21 +1206,38 @@ class Scope implements ClassMemberAccessAnswerer
 			if (strtolower($constantName) === 'class' && $constantClassType instanceof TypeWithClassName) {
 				return new ConstantStringType($constantClassType->getClassName());
 			}
-			if ($constantClassType->hasConstant($constantName)->yes()) {
-				$constant = $constantClassType->getConstant($constantName);
-				$constantType = $this->getTypeFromValue($constant->getValue());
-				$directClassNames = TypeUtils::getDirectClassNames($constantClassType);
-				if (
-					$constantType instanceof ConstantType &&
-					count($directClassNames) === 1 &&
-					in_array(sprintf('%s::%s', $this->broker->getClass($directClassNames[0])->getName(), $constantName), $this->dynamicConstantNames, true)
-				) {
-					return $constantType->generalize();
+
+			$referencedClasses = TypeUtils::getDirectClassNames($constantClassType);
+			$types = [];
+			foreach ($referencedClasses as $referencedClass) {
+				if (!$this->broker->hasClass($referencedClass)) {
+					continue;
 				}
-				return $constantType;
+
+				$propertyClassReflection = $this->broker->getClass($referencedClass);
+				if (!$propertyClassReflection->hasConstant($constantName)) {
+					continue;
+				}
+
+				$constantType = $this->getTypeFromValue($propertyClassReflection->getConstant($constantName)->getValue());
+				if (
+					$constantType instanceof ConstantType
+					&& in_array(sprintf('%s::%s', $propertyClassReflection->getName(), $constantName), $this->dynamicConstantNames, true)
+				) {
+					$constantType = $constantType->generalize();
+				}
+				$types[] = $constantType;
 			}
 
-			return new ErrorType();
+			if (count($types) > 0) {
+				return TypeCombinator::union(...$types);
+			}
+
+			if (!$constantClassType->hasConstant($constantName)->yes()) {
+				return new ErrorType();
+			}
+
+			return $this->getTypeFromValue($constantClassType->getConstant($constantName)->getValue());
 		}
 
 		if ($node instanceof Expr\Ternary) {
