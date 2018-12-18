@@ -147,7 +147,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
 	{
 		foreach ($this->types as $type) {
-			if (!$type->hasProperty($propertyName)->no()) {
+			if ($type->hasProperty($propertyName)->yes()) {
 				return $type->getProperty($propertyName, $scope);
 			}
 		}
