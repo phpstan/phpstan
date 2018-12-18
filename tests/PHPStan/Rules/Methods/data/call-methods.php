@@ -1060,3 +1060,17 @@ class ArrayOrNullCastToArray
 	}
 
 }
+
+class CallAfterPropertyEmpty
+{
+
+	private $foo = 1;
+
+	public function doFoo()
+	{
+		if (!empty($this->foo)) {
+			$this->doBar();
+		}
+	}
+
+}

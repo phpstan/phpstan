@@ -389,6 +389,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Parameter #1 $s of method Test\IssetCumulativeArray::doBar() expects string, int given.',
 				1005,
 			],
+			[
+				'Call to an undefined method Test\CallAfterPropertyEmpty::doBar().',
+				1072,
+			],
 		]);
 	}
 
@@ -605,6 +609,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Parameter #1 $s of method Test\IssetCumulativeArray::doBar() expects string, int given.',
 				1005,
+			],
+			[
+				'Call to an undefined method Test\CallAfterPropertyEmpty::doBar().',
+				1072,
 			],
 		]);
 	}
