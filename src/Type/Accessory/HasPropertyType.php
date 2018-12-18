@@ -3,20 +3,18 @@
 namespace PHPStan\Type\Accessory;
 
 use PHPStan\Reflection\ClassMemberAccessAnswerer;
+use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\CompoundType;
-use PHPStan\Type\ErrorType;
 use PHPStan\Type\IntersectionType;
-use PHPStan\Type\MixedType;
-use PHPStan\Type\ObjectWithoutClassType;
-use PHPStan\Type\Traits\TruthyBooleanTypeTrait;
+use PHPStan\Type\Traits\ObjectTypeTrait;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
 
-class HasPropertyType extends ObjectWithoutClassType implements CompoundType, AccessoryType
+class HasPropertyType implements AccessoryType, CompoundType
 {
 
-	use TruthyBooleanTypeTrait;
+	use ObjectTypeTrait;
 
 	/** @var string */
 	private $propertyName;
@@ -24,6 +22,14 @@ class HasPropertyType extends ObjectWithoutClassType implements CompoundType, Ac
 	public function __construct(string $propertyName)
 	{
 		$this->propertyName = $propertyName;
+	}
+
+	/**
+	 * @return string[]
+	 */
+	public function getReferencedClasses(): array
+	{
+		return [];
 	}
 
 	public function getPropertyName(): string
@@ -69,64 +75,16 @@ class HasPropertyType extends ObjectWithoutClassType implements CompoundType, Ac
 
 	public function hasProperty(string $propertyName): TrinaryLogic
 	{
-		return TrinaryLogic::createFromBoolean(
-			$this->propertyName === $propertyName
-		);
-	}
+		if ($this->propertyName === $propertyName) {
+			return TrinaryLogic::createYes();
+		}
 
-	public function isIterable(): TrinaryLogic
-	{
 		return TrinaryLogic::createMaybe();
-	}
-
-	public function isIterableAtLeastOnce(): TrinaryLogic
-	{
-		return TrinaryLogic::createMaybe();
-	}
-
-	public function getIterableKeyType(): Type
-	{
-		return new MixedType();
-	}
-
-	public function getIterableValueType(): Type
-	{
-		return new MixedType();
-	}
-
-	public function isOffsetAccessible(): TrinaryLogic
-	{
-		return TrinaryLogic::createNo();
-	}
-
-	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
-	{
-		return TrinaryLogic::createNo();
-	}
-
-	public function getOffsetValueType(Type $offsetType): Type
-	{
-		return new ErrorType();
-	}
-
-	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
-	{
-		return new ErrorType();
-	}
-
-	public function isCallable(): TrinaryLogic
-	{
-		return TrinaryLogic::createNo();
 	}
 
 	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array
 	{
-		throw new \PHPStan\ShouldNotHappenException();
-	}
-
-	public function toString(): Type
-	{
-		return new ErrorType();
+		return [new TrivialParametersAcceptor()];
 	}
 
 	public static function __set_state(array $properties): Type

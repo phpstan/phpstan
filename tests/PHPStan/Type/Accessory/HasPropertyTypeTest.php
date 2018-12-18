@@ -28,7 +28,7 @@ class HasPropertyTypeTest extends \PHPStan\Testing\TestCase
 			[
 				new HasPropertyType('format'),
 				new HasPropertyType('FORMAT'),
-				TrinaryLogic::createNo(),
+				TrinaryLogic::createMaybe(),
 			],
 			[
 				new HasPropertyType('d'),
