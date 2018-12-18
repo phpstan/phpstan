@@ -299,4 +299,10 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->analyse([__DIR__ . '/data/while-loop-look-for-assigns.php'], []);
 	}
 
+	public function testCallableOrClosureProblem(): void
+	{
+		require_once __DIR__ . '/data/callable-or-closure-problem.php';
+		$this->analyse([__DIR__ . '/data/callable-or-closure-problem.php'], []);
+	}
+
 }
