@@ -26,15 +26,15 @@ class AppendedArrayItemTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 					18,
 				],
 				[
-					'Array (array<callable(): mixed>) does not accept array<int, int>.',
+					'Array (array<callable>) does not accept array<int, int>.',
 					20,
 				],
 				[
-					'Array (array<callable(): mixed>) does not accept array<int, string>.',
+					'Array (array<callable>) does not accept array<int, string>.',
 					23,
 				],
 				[
-					'Array (array<callable(): mixed>) does not accept array<int, string>.',
+					'Array (array<callable>) does not accept array<int, string>.',
 					25,
 				],
 				[

@@ -155,12 +155,13 @@ class FunctionCallParametersCheck
 				&& !$this->ruleLevelHelper->accepts($parameterType, $argumentValueType, $scope->isDeclareStrictTypes())
 				&& ($secondAccepts === null || !$secondAccepts)
 			) {
+				$verbosityLevel = $parameterType->isCallable()->yes() ? VerbosityLevel::value() : VerbosityLevel::typeOnly();
 				$errors[] = sprintf(
 					$messages[6],
 					$i + 1,
 					sprintf('%s$%s', $parameter->isVariadic() ? '...' : '', $parameter->getName()),
-					$parameterType->describe(VerbosityLevel::typeOnly()),
-					$argumentValueType->describe($parameterType->isCallable()->yes() ? VerbosityLevel::value() : VerbosityLevel::typeOnly())
+					$parameterType->describe($verbosityLevel),
+					$argumentValueType->describe($verbosityLevel)
 				);
 			}
 
