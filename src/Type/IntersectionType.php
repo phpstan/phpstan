@@ -197,7 +197,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 	public function getConstant(string $constantName): ConstantReflection
 	{
 		foreach ($this->types as $type) {
-			if (!$type->hasConstant($constantName)->no()) {
+			if ($type->hasConstant($constantName)->yes()) {
 				return $type->getConstant($constantName);
 			}
 		}

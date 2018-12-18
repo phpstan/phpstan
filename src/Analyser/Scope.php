@@ -1206,7 +1206,7 @@ class Scope implements ClassMemberAccessAnswerer
 			if (strtolower($constantName) === 'class' && $constantClassType instanceof TypeWithClassName) {
 				return new ConstantStringType($constantClassType->getClassName());
 			}
-			if (!$constantClassType->hasConstant($constantName)->no()) {
+			if ($constantClassType->hasConstant($constantName)->yes()) {
 				$constant = $constantClassType->getConstant($constantName);
 				$constantType = $this->getTypeFromValue($constant->getValue());
 				$directClassNames = TypeUtils::getDirectClassNames($constantClassType);
