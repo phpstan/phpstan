@@ -1432,7 +1432,7 @@ class Scope implements ClassMemberAccessAnswerer
 				return TypeCombinator::union(...$types);
 			}
 
-			if ($propertyFetchedOnType->hasProperty($node->name->name)->no()) {
+			if (!$propertyFetchedOnType->hasProperty($node->name->name)->yes()) {
 				return new ErrorType();
 			}
 
@@ -1469,7 +1469,7 @@ class Scope implements ClassMemberAccessAnswerer
 				return TypeCombinator::union(...$types);
 			}
 
-			if ($calleeType->hasProperty($node->name->name)->no()) {
+			if (!$calleeType->hasProperty($node->name->name)->yes()) {
 				return new ErrorType();
 			}
 

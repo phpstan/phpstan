@@ -2,30 +2,19 @@
 
 namespace PHPStan\Type\Accessory;
 
-use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ClassMemberAccessAnswerer;
-use PHPStan\Reflection\ConstantReflection;
-use PHPStan\Reflection\Dummy\DummyConstantReflection;
-use PHPStan\Reflection\Dummy\DummyMethodReflection;
-use PHPStan\Reflection\Dummy\DummyPropertyReflection;
-use PHPStan\Reflection\MethodReflection;
-use PHPStan\Reflection\PropertyReflection;
+use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
-use PHPStan\Type\ArrayType;
 use PHPStan\Type\CompoundType;
-use PHPStan\Type\ErrorType;
 use PHPStan\Type\IntersectionType;
-use PHPStan\Type\MixedType;
-use PHPStan\Type\ObjectWithoutClassType;
-use PHPStan\Type\Traits\TruthyBooleanTypeTrait;
+use PHPStan\Type\Traits\ObjectTypeTrait;
 use PHPStan\Type\Type;
-use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
 
-class HasPropertyType implements CompoundType, AccessoryType
+class HasPropertyType implements AccessoryType, CompoundType
 {
 
-	use TruthyBooleanTypeTrait;
+	use ObjectTypeTrait;
 
 	/** @var string */
 	private $propertyName;
@@ -35,14 +24,17 @@ class HasPropertyType implements CompoundType, AccessoryType
 		$this->propertyName = $propertyName;
 	}
 
-	public function getPropertyName(): string
-	{
-		return $this->propertyName;
-	}
-
+	/**
+	 * @return string[]
+	 */
 	public function getReferencedClasses(): array
 	{
 		return [];
+	}
+
+	public function getPropertyName(): string
+	{
+		return $this->propertyName;
 	}
 
 	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
@@ -52,63 +44,22 @@ class HasPropertyType implements CompoundType, AccessoryType
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
-		if ($type instanceof self) {
-			return $this->equals($type)
-				? TrinaryLogic::createYes()
-				: TrinaryLogic::createMaybe();
-		}
-
-		if ($type instanceof CompoundType) {
-			return $type->isSubTypeOf($this);
-		}
-
-		if (!(new ObjectWithoutClassType())->isSuperTypeOf($type)->yes()) {
-			return TrinaryLogic::createNo();
-		}
-
-		$hasProperty = $type->hasProperty($this->propertyName);
-		if (!$hasProperty->no()) {
-			return $hasProperty;
-		}
-
-		if ($type instanceof TypeWithClassName) {
-			$broker = Broker::getInstance();
-			if ($broker->hasClass($type->getClassName())) {
-				$classReflection = $broker->getClass($type->getClassName());
-				if ($classReflection->isFinal()) {
-					return TrinaryLogic::createNo();
-				}
-			}
-		}
-
-		return TrinaryLogic::createMaybe();
+		return $type->hasProperty($this->propertyName);
 	}
 
 	public function isSubTypeOf(Type $otherType): TrinaryLogic
 	{
-		if (
-			$otherType instanceof self
-			|| $otherType instanceof UnionType
-			|| $otherType instanceof IntersectionType
-		) {
+		if ($otherType instanceof UnionType || $otherType instanceof IntersectionType) {
 			return $otherType->isSuperTypeOf($this);
 		}
 
-		if (!(new ObjectWithoutClassType())->isSuperTypeOf($otherType)->yes()) {
-			return TrinaryLogic::createNo();
+		if ($otherType instanceof self) {
+			$limit = TrinaryLogic::createYes();
+		} else {
+			$limit = TrinaryLogic::createMaybe();
 		}
 
-		if ($otherType instanceof TypeWithClassName) {
-			$broker = Broker::getInstance();
-			if ($broker->hasClass($otherType->getClassName())) {
-				$classReflection = $broker->getClass($otherType->getClassName());
-				if ($classReflection->isFinal()) {
-					return TrinaryLogic::createNo();
-				}
-			}
-		}
-
-		return TrinaryLogic::createMaybe();
+		return $limit->and($otherType->hasProperty($this->propertyName));
 	}
 
 	public function equals(Type $type): bool
@@ -122,131 +73,18 @@ class HasPropertyType implements CompoundType, AccessoryType
 		return sprintf('hasProperty(%s)', $this->propertyName);
 	}
 
-	public function canAccessProperties(): TrinaryLogic
-	{
-		return TrinaryLogic::createYes();
-	}
-
 	public function hasProperty(string $propertyName): TrinaryLogic
 	{
-		return TrinaryLogic::createFromBoolean(
-			$this->propertyName === $propertyName
-		);
-	}
+		if ($this->propertyName === $propertyName) {
+			return TrinaryLogic::createYes();
+		}
 
-	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
-	{
-		return new DummyPropertyReflection();
-	}
-
-	public function canCallMethods(): TrinaryLogic
-	{
-		return TrinaryLogic::createYes();
-	}
-
-	public function hasMethod(string $methodName): TrinaryLogic
-	{
 		return TrinaryLogic::createMaybe();
-	}
-
-	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
-	{
-		return new DummyMethodReflection($methodName);
-	}
-
-	public function canAccessConstants(): TrinaryLogic
-	{
-		return TrinaryLogic::createYes();
-	}
-
-	public function hasConstant(string $constantName): TrinaryLogic
-	{
-		return TrinaryLogic::createMaybe();
-	}
-
-	public function getConstant(string $constantName): ConstantReflection
-	{
-		return new DummyConstantReflection($constantName);
-	}
-
-	public function isIterable(): TrinaryLogic
-	{
-		return TrinaryLogic::createMaybe();
-	}
-
-	public function isIterableAtLeastOnce(): TrinaryLogic
-	{
-		return TrinaryLogic::createMaybe();
-	}
-
-	public function getIterableKeyType(): Type
-	{
-		return new MixedType();
-	}
-
-	public function getIterableValueType(): Type
-	{
-		return new MixedType();
-	}
-
-	public function isOffsetAccessible(): TrinaryLogic
-	{
-		return TrinaryLogic::createNo();
-	}
-
-	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
-	{
-		return TrinaryLogic::createNo();
-	}
-
-	public function getOffsetValueType(Type $offsetType): Type
-	{
-		return new ErrorType();
-	}
-
-	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
-	{
-		return new ErrorType();
-	}
-
-	public function isCallable(): TrinaryLogic
-	{
-		return TrinaryLogic::createNo();
 	}
 
 	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array
 	{
-		throw new \PHPStan\ShouldNotHappenException();
-	}
-
-	public function isCloneable(): TrinaryLogic
-	{
-		return TrinaryLogic::createYes();
-	}
-
-	public function toNumber(): Type
-	{
-		return new ErrorType();
-	}
-
-	public function toInteger(): Type
-	{
-		return new ErrorType();
-	}
-
-	public function toFloat(): Type
-	{
-		return new ErrorType();
-	}
-
-	public function toString(): Type
-	{
-		return new ErrorType();
-	}
-
-	public function toArray(): Type
-	{
-		return new ArrayType(new MixedType(), new MixedType());
+		return [new TrivialParametersAcceptor()];
 	}
 
 	public static function __set_state(array $properties): Type

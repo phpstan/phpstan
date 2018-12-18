@@ -293,14 +293,9 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function hasProperty(string $propertyName): TrinaryLogic
 	{
-		return $this->hasInternal(
-			static function (Type $type): TrinaryLogic {
-				return $type->canAccessProperties();
-			},
-			static function (Type $type) use ($propertyName): TrinaryLogic {
-				return $type->hasProperty($propertyName);
-			}
-		);
+		return $this->unionResults(static function (Type $type) use ($propertyName): TrinaryLogic {
+			return $type->hasProperty($propertyName);
+		});
 	}
 
 	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection

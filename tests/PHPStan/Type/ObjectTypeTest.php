@@ -4,6 +4,7 @@ namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Accessory\HasMethodType;
+use PHPStan\Type\Accessory\HasPropertyType;
 
 class ObjectTypeTest extends \PHPStan\Testing\TestCase
 {
@@ -227,6 +228,24 @@ class ObjectTypeTest extends \PHPStan\Testing\TestCase
 				new UnionType([
 					new HasMethodType('format'),
 					new HasMethodType('getTimestamp'),
+				]),
+				TrinaryLogic::createMaybe(),
+			],
+			[
+				new ObjectType(\DateInterval::class),
+				new HasPropertyType('d'),
+				TrinaryLogic::createMaybe(),
+			],
+			[
+				new ObjectType(\Closure::class),
+				new HasPropertyType('d'),
+				TrinaryLogic::createNo(),
+			],
+			[
+				new ObjectType(\DateInterval::class),
+				new UnionType([
+					new HasPropertyType('d'),
+					new HasPropertyType('m'),
 				]),
 				TrinaryLogic::createMaybe(),
 			],
