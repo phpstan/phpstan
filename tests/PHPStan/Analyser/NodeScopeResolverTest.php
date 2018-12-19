@@ -4958,6 +4958,22 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array(4 => \'foo\', 1 => \'bar\', \'baz\' => \'qux\', 0 => \'quux\', \'quuz\' => \'corge\', 5 => \'grault\')',
 				'$slicedOffsetWithKeys',
 			],
+			[
+				'0|1',
+				'key($mixedValues)',
+			],
+			[
+				'int|null',
+				'key($falsey)',
+			],
+			[
+				'string|null',
+				'key($generalStringKeys)',
+			],
+			[
+				'int|string|null',
+				'key($generalIntegerOrStringKeysMixedValues)',
+			],
 		];
 	}
 
