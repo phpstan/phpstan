@@ -294,6 +294,16 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
+	public function testFunctionWithNumericParameterThatCreatedByAddition(): void
+	{
+		$this->analyse([__DIR__ . '/data/function-with-int-parameter-that-created-by-addition.php'], [
+			[
+				'Parameter #1 $decimal_number of function dechex expects int, float|int given.',
+				20,
+			],
+		]);
+	}
+
 	public function testWhileLoopLookForAssignsInBranchesVariableExistence(): void
 	{
 		$this->analyse([__DIR__ . '/data/while-loop-look-for-assigns.php'], []);

@@ -2471,11 +2471,79 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foo instanceof Bar',
 			],
 			[
-				'bool',
+				'true',
 				'isset($foo)',
 			],
 			[
+				'true',
+				'isset($foo, $one)',
+			],
+			[
+				'false',
+				'isset($null)',
+			],
+			[
+				'false',
+				'isset($undefinedVariable)',
+			],
+			[
+				'false',
+				'isset($foo, $undefinedVariable)',
+			],
+			[
 				'bool',
+				'isset($stringOrNull)',
+			],
+			[
+				'false',
+				'isset($stringOrNull, $null)',
+			],
+			[
+				'false',
+				'isset($stringOrNull, $undefinedVariable)',
+			],
+			[
+				'bool',
+				'isset($foo, $stringOrNull)',
+			],
+			[
+				'bool',
+				'isset($foo, $stringOrNull)',
+			],
+			[
+				'true',
+				'isset($array[\'0\'])',
+			],
+			[
+				'bool',
+				'isset($array[$integer])',
+			],
+			[
+				'false',
+				'isset($array[$integer], $array[1000])',
+			],
+			[
+				'false',
+				'isset($array[$integer], $null)',
+			],
+			[
+				'bool',
+				'isset($array[\'0\'], $array[$integer])',
+			],
+			[
+				'bool',
+				'isset($foo, $array[$integer])',
+			],
+			[
+				'false',
+				'isset($foo, $array[1000])',
+			],
+			[
+				'false',
+				'isset($foo, $array[1000])',
+			],
+			[
+				'false',
 				'!isset($foo)',
 			],
 			[
