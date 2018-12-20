@@ -9559,7 +9559,7 @@ return [
 'ReflectionClass::getParentClass' => ['ReflectionClass|false'],
 'ReflectionClass::getProperties' => ['ReflectionProperty[]', 'filter='=>'int'],
 'ReflectionClass::getProperty' => ['ReflectionProperty', 'name'=>'string'],
-'ReflectionClass::getReflectionConstant' => ['ReflectionClassConstant', 'name'=>'string'],
+'ReflectionClass::getReflectionConstant' => ['ReflectionClassConstant|false', 'name'=>'string'],
 'ReflectionClass::getReflectionConstants' => ['array<int,ReflectionClassConstant>'],
 'ReflectionClass::getShortName' => ['string'],
 'ReflectionClass::getStartLine' => ['int|false'],

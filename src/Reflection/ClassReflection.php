@@ -393,6 +393,10 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 	{
 		if (!isset($this->constants[$name])) {
 			$reflectionConstant = $this->getNativeReflection()->getReflectionConstant($name);
+			if ($reflectionConstant === false) {
+				$fileName = $this->getFileName();
+				throw new \PHPStan\Reflection\MissingConstantFromReflectionException($this->getName(), $name, $fileName !== false ? $fileName : null);
+			}
 
 			$isDeprecated = false;
 			$isInternal = false;
