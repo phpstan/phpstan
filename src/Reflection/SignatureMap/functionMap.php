@@ -6776,7 +6776,7 @@ return [
 'MongoDB\Driver\Server::isPassive' => [''],
 'MongoDB\Driver\Server::isPrimary' => ['bool'],
 'MongoDB\Driver\Server::isSecondary' => ['bool'],
-'MongoDB\Driver\WriteConcern::__construct' => ['void', 'wstring'=>'string', 'wtimeout='=>'int', 'journal='=>'bool', 'fsync='=>'bool'],
+'MongoDB\Driver\WriteConcern::__construct' => ['void', 'w'=>'string|int', 'wtimeout='=>'int', 'journal='=>'bool', 'fsync='=>'bool'],
 'MongoDB\Driver\WriteConcern::getJurnal' => ['bool|null'],
 'MongoDB\Driver\WriteConcern::getW' => ['int|null|string'],
 'MongoDB\Driver\WriteConcern::getWtimeout' => ['int'],
