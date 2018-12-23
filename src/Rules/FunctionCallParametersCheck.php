@@ -94,7 +94,7 @@ class FunctionCallParametersCheck
 		}
 
 		if (
-			$parametersAcceptor->getReturnType() instanceof VoidType
+			$scope->getType($funcCall) instanceof VoidType
 			&& !$scope->isInFirstLevelStatement()
 			&& !$funcCall instanceof \PhpParser\Node\Expr\New_
 		) {
