@@ -320,9 +320,15 @@ class NodeScopeResolver
 		if ($itemNode instanceof Variable && is_string($itemNode->name)) {
 			$scope = $scope->assignVariable($itemNode->name, $type, TrinaryLogic::createYes());
 		} elseif ($itemNode instanceof ArrayDimFetch && $itemNode->var instanceof Variable && is_string($itemNode->var->name)) {
+			if ($itemNode->dim === null) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+			$currentType = $scope->hasVariableType($itemNode->var->name)->no()
+				? new ConstantArrayType([], [])
+				: $scope->getVariableType($itemNode->var->name);
 			$scope = $scope->assignVariable(
 				$itemNode->var->name,
-				$type,
+				$currentType->setOffsetValueType($scope->getType($itemNode->dim), $type),
 				TrinaryLogic::createYes()
 			);
 		} else {

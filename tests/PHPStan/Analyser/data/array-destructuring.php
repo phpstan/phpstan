@@ -37,6 +37,23 @@ foreach ($stringArray as list($firstStringArrayForeachList, $secondStringArrayFo
 
 }
 
+/** @var int $dayInt */
+$dayInt = getInt($dayInt);
+$dateArray = ['d' => $dayInt];
+[$dateArray['Y'], $dateArray['m']] = explode('-', '2018-12-19');
+
+/** @var int $firstIntElement */
+$firstIntElement = getInt();
+/** @var int $secondIntElement */
+$secondIntElement = getInt();
+$intArrayForRewritingFirstElement = [$firstIntElement, $secondIntElement];
+[$intArrayForRewritingFirstElement[0]] = explode('*', '');
+
+[$newArray['newKey']] = [new stdClass(), new stdClass()];
+
+$obj = new stdClass();
+[$obj[0]] = ['error', 'error-error'];
+
 $constantAssocArray = [1, 'foo', 'key' => true, 'value' => '123'];
 ['key' => $assocKey, 0 => $assocOne, 1 => $assocFoo, 'non-existent' => $assocNonExistent] = $constantAssocArray;
 
