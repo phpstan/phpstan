@@ -1122,6 +1122,34 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$fourthStringArrayForeachList',
 			],
 			[
+				'string',
+				'$dateArray[\'Y\']',
+			],
+			[
+				'string',
+				'$dateArray[\'m\']',
+			],
+			[
+				'int',
+				'$dateArray[\'d\']',
+			],
+			[
+				'string',
+				'$intArrayForRewritingFirstElement[0]',
+			],
+			[
+				'int',
+				'$intArrayForRewritingFirstElement[1]',
+			],
+			[
+				'*ERROR*',
+				'$obj',
+			],
+			[
+				'stdClass',
+				'$newArray[\'newKey\']',
+			],
+			[
 				'true',
 				'$assocKey',
 			],
