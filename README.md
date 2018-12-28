@@ -29,29 +29,6 @@ can be checked before you run the actual line.
 
 *I offer to issue invoices for contributions on PayPal and Patreon! [Contact me](mailto:ondrej@mirtes.cz) for details.*
 
-It currently performs the following checks on your code:
-
-* Existence of classes and interfaces in `instanceof`, `catch`, typehints, other language constructs and even annotations. PHP does not do this and just stays silent instead.
-* Existence of variables while respecting scopes of branches and loops.
-* Existence and visibility of called methods and functions.
-* Existence and visibility of accessed properties and constants.
-* Correct types assigned to properties.
-* Correct number and types of parameters passed to constructors, methods and functions.
-* Correct types returned from methods and functions.
-* Correct number of parameters passed to `sprintf`/`printf` calls based on format strings.
-* Useless casts like `(string) 'foo'`.
-* Unused constructor parameters - they can either be deleted or the author forgot to
-use them in the method body.
-* Require calling `parent::__construct()` if the parent constructor exists.
-* Only valid array key types are used (only integers, strings, floats, booleans and nulls).
-* Duplicate array keys in literal arrays.
-* Only iterables are passed to `foreach`.
-* Correct case when referencing classes. Class names are case insensitive, but taking advantage of this is dangerous with autoloading on case-insensitive filesystems.
-* Impossible checks (dead code) of incompatible types with `instanceof`, `===`, `!==` and various function checks like `is_int` or `is_null`.
-* Always-defined and never-defined variables in `isset()` call.
-* Validating phpDocs - finding incompatible types between phpDocs and native typehints.
-* That only objects are passed to the `clone` keyword.
-
 ## Prerequisites
 
 PHPStan requires PHP >= 7.1. You have to run it in environment with PHP 7.x but the actual code does not have to use
