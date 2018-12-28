@@ -14,14 +14,8 @@
 
 ------
 
-[![Donate on PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/phpstan)
-
 PHPStan focuses on finding errors in your code without actually running it. It catches whole classes of bugs
-even before you write tests for the code.
-
-![PHPStan](build/phpstan.gif)
-
-PHPStan moves PHP closer to compiled languages in the sense that the correctness of each line of the code
+even before you write tests for the code. It moves PHP closer to compiled languages in the sense that the correctness of each line of the code
 can be checked before you run the actual line.
 
 **[Read more about PHPStan on Medium.com »](https://medium.com/@ondrejmirtes/phpstan-2939cd0ad0e3)**
@@ -30,6 +24,8 @@ can be checked before you run the actual line.
 
 ## Is PHPStan helping you to avoid bugs in production?
 ## Consider [supporting it on Patreon](https://www.patreon.com/phpstan) so I'm able to make it even more awesome!
+
+[![Donate on PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/phpstan)
 
 *I offer to issue invoices for contributions on PayPal and Patreon! [Contact me](mailto:ondrej@mirtes.cz) for details.*
 
