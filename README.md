@@ -52,36 +52,6 @@ use them in the method body.
 * Validating phpDocs - finding incompatible types between phpDocs and native typehints.
 * That only objects are passed to the `clone` keyword.
 
-## Extensibility
-
-Unique feature of PHPStan is the ability to define and statically check "magic" behaviour of classes -
-accessing properties that are not defined in the class but are created in `__get` and `__set`
-and invoking methods using `__call`.
-
-See [Class reflection extensions](#class-reflection-extensions), [Dynamic return type extensions](#dynamic-return-type-extensions) and [Type-specifying extensions](#type-specifying-extensions).
-
-You can also install official framework-specific extensions:
-
-* [Doctrine](https://github.com/phpstan/phpstan-doctrine)
-* [PHPUnit](https://github.com/phpstan/phpstan-phpunit)
-* [Nette Framework](https://github.com/phpstan/phpstan-nette)
-* [Dibi - Database Abstraction Library](https://github.com/phpstan/phpstan-dibi)
-* [PHP-Parser](https://github.com/phpstan/phpstan-php-parser)
-* [beberlei/assert](https://github.com/phpstan/phpstan-beberlei-assert)
-* [webmozart/assert](https://github.com/phpstan/phpstan-webmozart-assert)
-* [Symfony Framework](https://github.com/phpstan/phpstan-symfony)
-* [Mockery](https://github.com/phpstan/phpstan-mockery)
-
-Unofficial extensions for other frameworks and libraries are also available:
-
-* [Phony](https://github.com/eloquent/phpstan-phony)
-* [Prophecy](https://github.com/Jan0707/phpstan-prophecy)
-* [Laravel](https://github.com/nunomaduro/larastan)
-* [myclabs/php-enum](https://github.com/timeweb/phpstan-enum)
-* [Yii2](https://github.com/proget-hq/phpstan-yii2)
-
-New extensions are becoming available on a regular basis!
-
 ## Prerequisites
 
 PHPStan requires PHP >= 7.1. You have to run it in environment with PHP 7.x but the actual code does not have to use
@@ -139,6 +109,36 @@ This feature enables incremental adoption of PHPStan checks. You can start using
 with a lower rule level and increase it when you feel like it.
 
 You can also use `--level max` as an alias for the highest level. This will ensure that you will always use the highest level when upgrading to new versions of PHPStan. Please note that this can create a significant obstacle when upgrading to a newer version because you might have to fix a lot of code to bring the number of errors down to zero.
+
+## Extensibility
+
+Unique feature of PHPStan is the ability to define and statically check "magic" behaviour of classes -
+accessing properties that are not defined in the class but are created in `__get` and `__set`
+and invoking methods using `__call`.
+
+See [Class reflection extensions](#class-reflection-extensions), [Dynamic return type extensions](#dynamic-return-type-extensions) and [Type-specifying extensions](#type-specifying-extensions).
+
+You can also install official framework-specific extensions:
+
+* [Doctrine](https://github.com/phpstan/phpstan-doctrine)
+* [PHPUnit](https://github.com/phpstan/phpstan-phpunit)
+* [Nette Framework](https://github.com/phpstan/phpstan-nette)
+* [Dibi - Database Abstraction Library](https://github.com/phpstan/phpstan-dibi)
+* [PHP-Parser](https://github.com/phpstan/phpstan-php-parser)
+* [beberlei/assert](https://github.com/phpstan/phpstan-beberlei-assert)
+* [webmozart/assert](https://github.com/phpstan/phpstan-webmozart-assert)
+* [Symfony Framework](https://github.com/phpstan/phpstan-symfony)
+* [Mockery](https://github.com/phpstan/phpstan-mockery)
+
+Unofficial extensions for other frameworks and libraries are also available:
+
+* [Phony](https://github.com/eloquent/phpstan-phony)
+* [Prophecy](https://github.com/Jan0707/phpstan-prophecy)
+* [Laravel](https://github.com/nunomaduro/larastan)
+* [myclabs/php-enum](https://github.com/timeweb/phpstan-enum)
+* [Yii2](https://github.com/proget-hq/phpstan-yii2)
+
+New extensions are becoming available on a regular basis!
 
 ## Configuration
 
