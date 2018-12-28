@@ -73,8 +73,13 @@ class DependencyDumper
 		$countCallback(count($files));
 		foreach ($files as $file) {
 			$fileDependencies = [];
+			try {
+				$parserNodes = $this->parser->parseFile($file);
+			} catch (\PhpParser\Error $e) {
+				continue;
+			}
 			$this->nodeScopeResolver->processNodes(
-				$this->parser->parseFile($file),
+				$parserNodes,
 				$this->scopeFactory->create(ScopeContext::create($file)),
 				function (\PhpParser\Node $node, Scope $scope) use ($analysedFiles, &$fileDependencies): void {
 					$fileDependencies = array_merge(
