@@ -22,12 +22,11 @@ can be checked before you run the actual line.
 
 **[Try out PHPStan on the on-line playground! »](https://phpstan.org/)**
 
-## Is PHPStan helping you to avoid bugs in production?
-## Consider [supporting it on Patreon](https://www.patreon.com/phpstan) so I'm able to make it even more awesome!
+## Sponsors
 
-[![Donate on PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/phpstan)
+<a href="https://mike-pretzlaw.de/"><img src="https://i.imgur.com/TW2US6H.png" alt="Mike Pretzlaw" width="247" height="64"></a>
 
-*I offer to issue invoices for contributions on PayPal and Patreon! [Contact me](mailto:ondrej@mirtes.cz) for details.*
+Check out [PHPStan's Patreon](https://www.patreon.com/phpstan) for different sponsoring options. One-time donations [through PayPal](https://paypal.me/phpstan) are also accepted. To request an invoice, [contact me](mailto:ondrej@mirtes.cz) through e-mail.
 
 ## Prerequisites
 
