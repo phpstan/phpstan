@@ -1,5 +1,5 @@
 <p align="center">
-	<img src="https://i.imgur.com/s9Z4NLy.png" alt="PHPStan" width="300" height="300" style="border-radius: 10px">
+	<img src="https://i.imgur.com/MOt7taM.png" alt="PHPStan" width="300" height="300">
 </p>
 
 ------
