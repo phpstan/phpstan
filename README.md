@@ -25,6 +25,8 @@ can be checked before you run the actual line.
 ## Sponsors
 
 <a href="https://mike-pretzlaw.de/"><img src="https://i.imgur.com/TW2US6H.png" alt="Mike Pretzlaw" width="247" height="64"></a>
+&nbsp;&nbsp;&nbsp;
+<a href="https://goo.gl/forms/4mg4kkfHg4IaQNy12"><img src="https://i.imgur.com/Wjo6gxI.png" alt="Want your logo here?" width="247" height="66"></a>
 
 Check out [PHPStan's Patreon](https://www.patreon.com/phpstan) for different sponsoring options. One-time donations [through PayPal](https://paypal.me/phpstan) are also accepted. To request an invoice, [contact me](mailto:ondrej@mirtes.cz) through e-mail.
 
