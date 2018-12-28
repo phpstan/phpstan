@@ -1,16 +1,18 @@
+<h1 align="center">PHPStan - PHP Static Analysis Tool</h1>
+
 <p align="center">
 	<img src="https://i.imgur.com/MOt7taM.png" alt="PHPStan" width="300" height="300">
 </p>
 
+<p align="center">
+	<a href="https://travis-ci.org/phpstan/phpstan"><img src="https://travis-ci.org/phpstan/phpstan.svg" alt="Build Status"></a>
+	<a href="https://packagist.org/packages/phpstan/phpstan"><img src="https://poser.pugx.org/phpstan/phpstan/v/stable" alt="Latest Stable Version"></a>
+	<a href="https://packagist.org/packages/phpstan/phpstan"><img src="https://poser.pugx.org/phpstan/phpstan/downloads" alt="Total Downloads"></a>
+	<a href="https://packagist.org/packages/phpstan/phpstan"><img src="https://poser.pugx.org/phpstan/phpstan/license" alt="License"></a>
+	<a href="https://github.com/phpstan/phpstan"><img src="https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat" alt="PHPStan Enabled"></a>
+</p>
+
 ------
-
-# PHPStan - PHP Static Analysis Tool
-
-[![Build Status](https://travis-ci.org/phpstan/phpstan.svg)](https://travis-ci.org/phpstan/phpstan)
-[![Latest Stable Version](https://poser.pugx.org/phpstan/phpstan/v/stable)](https://packagist.org/packages/phpstan/phpstan)
-[![Total Downloads](https://poser.pugx.org/phpstan/phpstan/downloads)](https://packagist.org/packages/phpstan/phpstan)
-[![License](https://poser.pugx.org/phpstan/phpstan/license)](https://packagist.org/packages/phpstan/phpstan)
-[![PHPStan](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat)](https://github.com/phpstan/phpstan)
 
 [![Donate on PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/phpstan)
 
