@@ -5,6 +5,8 @@ namespace PHPStan\Tests;
 class Foo
 {
 
+	const FOO_CONST = 'foo';
+
 	/** @var string */
 	private $fooProperty;
 

@@ -130,9 +130,22 @@ class Analyser
 					$this->nodeScopeResolver->processNodes(
 						$this->parser->parseFile($file),
 						$this->scopeFactory->create(ScopeContext::create($file)),
-						function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors): void {
+						function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors, $file): void {
+							$uniquedAnalysedCodeExceptionMessages = [];
 							foreach ($this->registry->getRules(get_class($node)) as $rule) {
-								foreach ($rule->processNode($node, $scope) as $ruleError) {
+								try {
+									$ruleErrors = $rule->processNode($node, $scope);
+								} catch (\PHPStan\AnalysedCodeException $e) {
+									if (isset($uniquedAnalysedCodeExceptionMessages[$e->getMessage()])) {
+										continue;
+									}
+
+									$uniquedAnalysedCodeExceptionMessages[$e->getMessage()] = true;
+									$fileErrors[] = new Error($e->getMessage(), $file, $node->getLine(), false);
+									continue;
+								}
+
+								foreach ($ruleErrors as $ruleError) {
 									$line = $node->getLine();
 									if (is_string($ruleError)) {
 										$message = $ruleError;

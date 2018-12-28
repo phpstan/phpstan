@@ -21,10 +21,15 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 	public function testMissingPropertyAndMethod(): void
 	{
 		$errors = $this->runAnalyse(__DIR__ . '/../../notAutoloaded/Foo.php');
-		$this->assertCount(1, $errors);
-		$error = $errors[0];
-		$this->assertContains('Property $fooProperty was not found in reflection of class PHPStan\Tests\Foo - probably the wrong version of class is autoloaded. The currently loaded version is at', $error->getMessage());
-		$this->assertNull($error->getLine());
+		$this->assertCount(4, $errors);
+		$this->assertContains('Constant FOO_CONST was not found in reflection of class PHPStan\Tests\Foo - probably the wrong version of class is autoloaded. The currently loaded version is at', $errors[0]->getMessage());
+		$this->assertSame(8, $errors[0]->getLine());
+		$this->assertContains('Property $fooProperty was not found in reflection of class PHPStan\Tests\Foo - probably the wrong version of class is autoloaded. The currently loaded version is at', $errors[1]->getMessage());
+		$this->assertSame(11, $errors[1]->getLine());
+		$this->assertContains('Method doFoo() was not found in reflection of class PHPStan\Tests\Foo - probably the wrong version of class is autoloaded. The currently loaded version is at', $errors[2]->getMessage());
+		$this->assertSame(13, $errors[2]->getLine());
+		$this->assertContains('Access to an undefined property PHPStan\Tests\Foo::$fooProperty.', $errors[3]->getMessage());
+		$this->assertSame(15, $errors[3]->getLine());
 	}
 
 	public function testMissingClassErrorAboutMisconfiguredAutoloader(): void
