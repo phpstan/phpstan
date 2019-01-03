@@ -10108,7 +10108,7 @@ return [
 'shm_remove_var' => ['bool', 'shm_identifier'=>'resource', 'variable_key'=>'int'],
 'shmop_close' => ['void', 'shmid'=>'resource'],
 'shmop_delete' => ['bool', 'shmid'=>'resource'],
-'shmop_open' => ['resource', 'key'=>'int', 'flags'=>'string', 'mode'=>'int', 'size'=>'int'],
+'shmop_open' => ['resource|false', 'key'=>'int', 'flags'=>'string', 'mode'=>'int', 'size'=>'int'],
 'shmop_read' => ['string', 'shmid'=>'resource', 'start'=>'int', 'count'=>'int'],
 'shmop_size' => ['int', 'shmid'=>'resource'],
 'shmop_write' => ['int', 'shmid'=>'resource', 'data'=>'string', 'offset'=>'int'],
