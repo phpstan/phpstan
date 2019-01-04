@@ -6,6 +6,8 @@
 	],
 	"require": {
 		"php": "~7.1",
+		"ext-dom": "*",
+		"ext-libxml": "*",
 		"composer/xdebug-handler": "^1.3.0",
 		"jean85/pretty-package-versions": "^1.0.3",
 		"nette/bootstrap": "^2.4 || ^3.0",

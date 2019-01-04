@@ -24,6 +24,7 @@ use PHPStan\Type\DynamicStaticMethodReturnTypeExtension;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\Php\DOMXPathDynamicReturnTypeExtension;
 use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
 use SomeNodeScopeResolverNamespace\Foo;
@@ -8392,6 +8393,98 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$something::doSomething()',
 			],
 		];
+	}
+
+	public function dataDOMXPath(): array
+	{
+		return [
+			[
+				'false',
+				'',
+			],
+			[
+				'false',
+				'false',
+			],
+			[
+				'false',
+				'""',
+			],
+			[
+				'bool',
+				'"1 = 1"',
+			],
+			[
+				'bool',
+				'"boolean(//foo:bar)"',
+			],
+			[
+				'float',
+				'"count(//foo:bar)"',
+			],
+			[
+				'float',
+				'"number(//foo:bar)"',
+			],
+			[
+				'string',
+				'"string(//foo:bar)"',
+			],
+			[
+				'DOMNodeList&iterable<int, DOMNode>',
+				'"//foo:bar/baz:qux"',
+			],
+			[
+				'string',
+				'$string1',
+			],
+			[
+				'string',
+				'$string1or2',
+			],
+			[
+				'bool|(DOMNodeList&iterable<int, DOMNode>)|float|string',
+				'$string1or3',
+			],
+			[
+				'DOMNodeList&iterable<int, DOMNode>',
+				'$selector1',
+			],
+			[
+				'DOMNodeList&iterable<int, DOMNode>',
+				'$selector1or2',
+			],
+			[
+				'(DOMNodeList&iterable<int, DOMNode>)|string',
+				'$string1orSelector1',
+			],
+			[
+				'bool|(DOMNodeList&iterable<int, DOMNode>)|float|string',
+				'$string1orFalse',
+			],
+			[
+				'bool|(DOMNodeList&iterable<int, DOMNode>)|float|string',
+				'$selector1orFalse',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataDOMXPath
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testDOMXPath(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/domxpath.php',
+			$description,
+			'$xpath->evaluate(' . $expression . ')',
+			[new DOMXPathDynamicReturnTypeExtension()]
+		);
 	}
 
 	/**

@@ -2014,7 +2014,7 @@ return [
 'domxml_xslt_stylesheet_file' => ['DomXsltStylesheet', 'xsl_file'=>'string'],
 'domxml_xslt_version' => ['int'],
 'DOMXPath::__construct' => ['void', 'doc'=>'DOMDocument'],
-'DOMXPath::evaluate' => ['mixed', 'expression'=>'string', 'contextnode='=>'DOMNode', 'registernodens='=>'bool'],
+'DOMXPath::evaluate' => ['DOMNodeList&iterable<int,DOMNode>|string|float|bool', 'expression'=>'string', 'contextnode='=>'DOMNode', 'registernodens='=>'bool'],
 'DOMXPath::query' => ['DOMNodeList', 'expression'=>'string', 'contextnode='=>'DOMNode', 'registernodens='=>'bool'],
 'DOMXPath::registerNamespace' => ['bool', 'prefix'=>'string', 'namespaceuri'=>'string'],
 'DOMXPath::registerPhpFunctions' => ['void', 'restrict='=>'mixed'],
