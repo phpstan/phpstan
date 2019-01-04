@@ -35,6 +35,7 @@ parameters:
 		- SimpleXMLElement
 	earlyTerminatingMethodCalls: []
 	memoryLimitFile: %tmpDir%/.memory_limit
+	benchmarkFile: null
 	dynamicConstantNames:
 		- ICONV_IMPL
 		- PHP_VERSION
@@ -125,6 +126,7 @@ services:
 			ignoreErrors: %ignoreErrors%
 			reportUnmatchedIgnoredErrors: %reportUnmatchedIgnoredErrors%
 			internalErrorsCountLimit: %internalErrorsCountLimit%
+			benchmarkFile: %benchmarkFile%
 
 	-
 		class: PHPStan\Analyser\ScopeFactory
