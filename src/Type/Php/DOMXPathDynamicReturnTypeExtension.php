@@ -33,20 +33,6 @@ use function preg_match_all;
 class DOMXPathDynamicReturnTypeExtension implements DynamicMethodReturnTypeExtension
 {
 
-	/** @var DOMXPath|null */
-	private $xpath;
-
-	public function __construct()
-	{
-		if (!class_exists(DOMDocument::class)) {
-			return;
-		}
-
-		$doc = new DOMDocument();
-		$doc->loadXML('<dummy/>');
-		$this->xpath = new DOMXPath($doc);
-	}
-
 	public function getClass(): string
 	{
 		return DOMXPath::class;
@@ -63,7 +49,7 @@ class DOMXPathDynamicReturnTypeExtension implements DynamicMethodReturnTypeExten
 		Scope $scope
 	): Type
 	{
-		if ($this->xpath === null) {
+		if (!class_exists(DOMDocument::class)) {
 			return new MixedType();
 		}
 
@@ -91,17 +77,21 @@ class DOMXPathDynamicReturnTypeExtension implements DynamicMethodReturnTypeExten
 		}
 
 		$returnTypes = array_map(
-			function (ConstantStringType $constantString): Type {
+			static function (ConstantStringType $constantString): Type {
 				libxml_clear_errors();
 				libxml_use_internal_errors(true);
 
 				preg_match_all('~([^\/\s:]+?):[^\/\s:]+?~', $constantString->getValue(), $namespaces);
 
+				$doc = new DOMDocument();
+				$doc->loadXML('<dummy/>');
+				$xpath = new DOMXPath($doc);
+
 				foreach ($namespaces[1] ?? [] as $prefix) {
-					$this->xpath->registerNamespace($prefix, 'http://example.com');
+					$xpath->registerNamespace($prefix, 'http://example.com');
 				}
 
-				$result = $this->xpath->evaluate($constantString->getValue());
+				$result = $xpath->evaluate($constantString->getValue());
 
 				if ($result === false) {
 					$errors = libxml_get_errors();
