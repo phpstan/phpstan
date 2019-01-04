@@ -4691,7 +4691,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_values($generalStringKeys)',
 			],
 			[
-				'array(\'foo\' => stdClass, 0 => stdClass)',
+				'array<int|string, stdClass>',
 				'array_merge($stringOrIntegerKeys)',
 			],
 			[
@@ -4699,23 +4699,23 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_merge($generalStringKeys, $generalDateTimeValues)',
 			],
 			[
-				'array<1|string, int|stdClass>',
+				'array<int|string, int|stdClass>',
 				'array_merge($generalStringKeys, $stringOrIntegerKeys)',
 			],
 			[
-				'array<1|string, int|stdClass>',
+				'array<int|string, int|stdClass>',
 				'array_merge($stringOrIntegerKeys, $generalStringKeys)',
 			],
 			[
-				'array(\'foo\' => stdClass, \'bar\' => stdClass, 0 => stdClass)',
+				'array<int|string, \'foo\'|stdClass>',
 				'array_merge($stringKeys, $stringOrIntegerKeys)',
 			],
 			[
-				'array(\'foo\' => \'foo\', 0 => stdClass, \'bar\' => stdClass)',
+				'array<int|string, \'foo\'|stdClass>',
 				'array_merge($stringOrIntegerKeys, $stringKeys)',
 			],
 			[
-				'array(\'color\' => \'green\', 0 => 2, 1 => 4, 2 => \'a\', 3 => \'b\', \'shape\' => \'trapezoid\', 4 => 4)',
+				'array<int|string, 2|4|\'a\'|\'b\'|\'green\'|\'red\'|\'trapezoid\'>',
 				'array_merge(array("color" => "red", 2, 4), array("a", "b", "color" => "green", "shape" => "trapezoid", 4))',
 			],
 			[
