@@ -1875,6 +1875,18 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'PropertiesNamespace\Bar',
 				'$this->implicitInheritDocProperty',
 			],
+			[
+				'int',
+				'$this->readOnlyProperty',
+			],
+			[
+				'string',
+				'$this->overriddenReadOnlyProperty',
+			],
+			[
+				'string',
+				'$this->documentElement',
+			],
 		];
 	}
 

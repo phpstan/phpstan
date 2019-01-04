@@ -218,9 +218,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		$broker = new Broker(
 			[
 				$phpExtension,
+				$annotationsPropertiesClassReflectionExtension,
 				new PhpDefectClassReflectionExtension(self::getContainer()->getByType(TypeStringResolver::class)),
 				new UniversalObjectCratesClassReflectionExtension([\stdClass::class]),
-				$annotationsPropertiesClassReflectionExtension,
 			],
 			[
 				$phpExtension,

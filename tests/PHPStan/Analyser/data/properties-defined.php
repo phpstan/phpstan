@@ -2,9 +2,14 @@
 
 namespace PropertiesNamespace;
 
+use DOMDocument;
 use SomeNamespace\Sit as Dolor;
 
-class Bar
+/**
+ * @property-read int $readOnlyProperty
+ * @property-read int $overriddenReadOnlyProperty
+ */
+class Bar extends DOMDocument
 {
 
 	/**
