@@ -18,11 +18,13 @@ use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\IterableType;
+use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeUtils;
+use function class_exists;
 use function gettype;
 use function is_float;
 use function is_string;
@@ -31,11 +33,15 @@ use function preg_match_all;
 class DOMXPathDynamicReturnTypeExtension implements DynamicMethodReturnTypeExtension
 {
 
-	/** @var DOMXPath */
+	/** @var DOMXPath|null */
 	private $xpath;
 
 	public function __construct()
 	{
+		if (!class_exists(DOMDocument::class)) {
+			return;
+		}
+
 		$doc = new DOMDocument();
 		$doc->loadXML('<dummy/>');
 		$this->xpath = new DOMXPath($doc);
@@ -57,6 +63,10 @@ class DOMXPathDynamicReturnTypeExtension implements DynamicMethodReturnTypeExten
 		Scope $scope
 	): Type
 	{
+		if ($this->xpath === null) {
+			return new MixedType();
+		}
+
 		$expressionArg = $methodCall->args[0]->value ?? null;
 
 		if ($expressionArg === null) {
