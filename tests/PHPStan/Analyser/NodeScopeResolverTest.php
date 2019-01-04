@@ -8455,16 +8455,28 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$selector1or2',
 			],
 			[
+				'bool|(DOMNodeList&iterable<int, DOMNode>)|float|string',
+				'$mixed',
+			],
+			[
 				'(DOMNodeList&iterable<int, DOMNode>)|string',
 				'$string1orSelector1',
 			],
 			[
-				'bool|(DOMNodeList&iterable<int, DOMNode>)|float|string',
+				'string|false',
 				'$string1orFalse',
 			],
 			[
-				'bool|(DOMNodeList&iterable<int, DOMNode>)|float|string',
+				'(DOMNodeList&iterable<int, DOMNode>)|false',
 				'$selector1orFalse',
+			],
+			[
+				'bool|(DOMNodeList&iterable<int, DOMNode>)|float|string',
+				'$string1orMixed',
+			],
+			[
+				'bool|(DOMNodeList&iterable<int, DOMNode>)|float|string',
+				'$selector1orMixed',
 			],
 		];
 	}

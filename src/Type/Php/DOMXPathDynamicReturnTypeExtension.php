@@ -23,7 +23,7 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
-use PHPStan\Type\TypeUtils;
+use PHPStan\Type\UnionType;
 use function class_exists;
 use function gettype;
 use function is_float;
@@ -59,70 +59,75 @@ class DOMXPathDynamicReturnTypeExtension implements DynamicMethodReturnTypeExten
 			return new ConstantBooleanType(false);
 		}
 
-		$expressionType = $scope->getType($expressionArg);
+		return $this->determineReturnType($scope->getType($expressionArg), $methodReflection);
+	}
 
-		$constantStrings = TypeUtils::getConstantStrings($expressionType);
-
-		if (count($constantStrings) === 0) {
-			$expressionTypes = TypeUtils::flattenTypes($expressionType);
-
-			foreach ($expressionTypes as $type) {
-				if ($type instanceof StringType) {
-					return ParametersAcceptorSelector::combineAcceptors($methodReflection->getVariants())
-						->getReturnType();
-				}
-			}
-
-			return new ConstantBooleanType(false);
+	private function determineReturnType(Type $type, MethodReflection $methodReflection): Type
+	{
+		if ($type instanceof ConstantStringType) {
+			return $this->determineXpathReturnType($type);
 		}
 
-		$returnTypes = array_map(
-			static function (ConstantStringType $constantString): Type {
-				libxml_clear_errors();
-				libxml_use_internal_errors(true);
+		if ($type instanceof StringType || $type instanceof MixedType) {
+			return ParametersAcceptorSelector::combineAcceptors($methodReflection->getVariants())->getReturnType();
+		}
 
-				preg_match_all('~([^\/\s:]+?):[^\/\s:]+?~', $constantString->getValue(), $namespaces);
+		if ($type instanceof UnionType) {
+			return TypeCombinator::union(
+				...array_map(
+					function (Type $type) use ($methodReflection): Type {
+						return $this->determineReturnType($type, $methodReflection);
+					},
+					$type->getTypes()
+				)
+			);
+		}
 
-				$doc = new DOMDocument();
-				$doc->loadXML('<dummy/>');
-				$xpath = new DOMXPath($doc);
+		return new ConstantBooleanType(false);
+	}
 
-				foreach ($namespaces[1] ?? [] as $prefix) {
-					$xpath->registerNamespace($prefix, 'http://example.com');
-				}
+	private function determineXpathReturnType(ConstantStringType $expression): Type
+	{
+		libxml_clear_errors();
+		libxml_use_internal_errors(true);
 
-				$result = $xpath->evaluate($constantString->getValue());
+		preg_match_all('~([^\/\s:]+?):[^\/\s:]+?~', $expression->getValue(), $namespaces);
 
-				if ($result === false) {
-					$errors = libxml_get_errors();
-					libxml_clear_errors();
+		$doc = new DOMDocument();
+		$doc->loadXML('<dummy/>');
+		$xpath = new DOMXPath($doc);
 
-					if (count($errors) > 0) {
-						return new ConstantBooleanType(false);
-					}
-				}
+		foreach ($namespaces[1] ?? [] as $prefix) {
+			$xpath->registerNamespace($prefix, 'http://example.com');
+		}
 
-				if ($result instanceof DOMNodeList) {
-					return new IntersectionType(
-						[
-							new ObjectType(DOMNodeList::class),
-							new IterableType(new IntegerType(), new ObjectType(DOMNode::class)),
-						]
-					);
-				} elseif (is_bool($result)) {
-					return new BooleanType();
-				} elseif (is_float($result)) {
-					return new FloatType();
-				} elseif (is_string($result)) {
-					return new StringType();
-				}
+		$result = $xpath->evaluate($expression->getValue());
 
-				throw new \PHPStan\ShouldNotHappenException('Unexpected type ' . gettype($result));
-			},
-			$constantStrings
-		);
+		if ($result === false) {
+			$errors = libxml_get_errors();
+			libxml_clear_errors();
 
-		return TypeCombinator::union(...$returnTypes);
+			if (count($errors) > 0) {
+				return new ConstantBooleanType(false);
+			}
+		}
+
+		if ($result instanceof DOMNodeList) {
+			return new IntersectionType(
+				[
+					new ObjectType(DOMNodeList::class),
+					new IterableType(new IntegerType(), new ObjectType(DOMNode::class)),
+				]
+			);
+		} elseif (is_bool($result)) {
+			return new BooleanType();
+		} elseif (is_float($result)) {
+			return new FloatType();
+		} elseif (is_string($result)) {
+			return new StringType();
+		}
+
+		throw new \PHPStan\ShouldNotHappenException('Unexpected type ' . gettype($result));
 	}
 
 }

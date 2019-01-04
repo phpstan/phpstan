@@ -14,9 +14,15 @@ $selector1 = '/selector1';
 $selector2 = '/selector2';
 $selector1or2 = random_int(0, 1) ? $selector1 : $selector2;
 
+/** @var mixed $mixed */
+$mixed = doFoo();
+
 $string1orSelector1 = random_int(0, 1) ? $string1 : $selector1;
 
 $string1orFalse = random_int(0, 1) ? $string1 : false;
-$selector1orFalse = random_int(0, 1) ? $string1 : false;
+$selector1orFalse = random_int(0, 1) ? $selector1 : false;
+
+$string1orMixed = random_int(0, 1) ? $string1 : $mixed;
+$selector1orMixed = random_int(0, 1) ? $string1 : $mixed;
 
 die;
