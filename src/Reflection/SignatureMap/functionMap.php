@@ -7962,7 +7962,7 @@ return [
 'oci_set_action' => ['bool', 'connection'=>'resource', 'value'=>'string'],
 'oci_set_client_identifier' => ['bool', 'connection'=>'resource', 'value'=>'string'],
 'oci_set_client_info' => ['bool', 'connection'=>'resource', 'value'=>'string'],
-'oci_set_db_operation' => ['bool', 'connection'=>'', 'value'=>'string'],
+'oci_set_db_operation' => ['bool', 'connection'=>'resource', 'value'=>'string'],
 'oci_set_edition' => ['bool', 'value'=>'string'],
 'oci_set_module_name' => ['bool', 'connection'=>'resource', 'value'=>'string'],
 'oci_set_prefetch' => ['bool', 'stmt'=>'resource', 'prefetch_rows'=>'int'],
