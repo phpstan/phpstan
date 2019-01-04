@@ -5,7 +5,6 @@ includes:
 	- ../vendor/phpstan/phpstan-phpunit/rules.neon
 	- ../vendor/phpstan/phpstan-strict-rules/rules.neon
 parameters:
-	benchmarkFile: %rootDir%/benchmark.json
 	bootstrap: %rootDir%/tests/phpstan-bootstrap.php
 	excludes_analyse:
 		- %rootDir%/src/Reflection/SignatureMap/functions/*
