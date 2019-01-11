@@ -27,6 +27,7 @@ class LevelsIntegrationTest extends \PHPStan\Testing\LevelsTestCase
 			['print_'],
 			['stringOffsetAccess'],
 			['object'],
+			['encapsedString'],
 		];
 	}
 
