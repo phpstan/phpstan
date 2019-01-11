@@ -103,7 +103,12 @@ class TypehintHelper
 				}
 			}
 
-			return $type->isSuperTypeOf($phpDocType)->yes() ? $phpDocType : $type;
+			$resultType = $type->isSuperTypeOf($phpDocType)->yes() ? $phpDocType : $type;
+			if (TypeCombinator::containsNull($type)) {
+				$type = TypeCombinator::addNull($resultType);
+			} else {
+				$type = $resultType;
+			}
 		}
 
 		return $type;

@@ -671,3 +671,38 @@ class ArrayObjectToArrayCount
 	}
 
 }
+
+class WrongNullabilityInPhpDoc
+{
+
+	/**
+	 * @param string $str
+	 */
+	public function doFoo(?string $str)
+	{
+		$str === 'str';
+		$str === null;
+		$str === 1;
+	}
+
+	/**
+	 * @param string $str
+	 */
+	public function doBar(?string $str = null)
+	{
+		$str === 'str';
+		$str === null;
+		$str === 1;
+	}
+
+	/**
+	 * @param string $str
+	 */
+	public function doBaz(?string $str = '')
+	{
+		$str === 'str';
+		$str === null;
+		$str === 1;
+	}
+
+}
