@@ -2,6 +2,7 @@
 
 namespace PHPStan\Dependency;
 
+use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Name;
@@ -170,6 +171,16 @@ class DependencyResolver
 
 			foreach ($exprType->getIterableValueType()->getReferencedClasses() as $referencedClass) {
 				$this->addClassToDependencies($referencedClass, $dependenciesReflections);
+			}
+		} elseif ($node instanceof Array_) {
+			$arrayType = $scope->getType($node);
+			if (!$arrayType->isCallable()->no()) {
+				foreach ($arrayType->getCallableParametersAcceptors($scope) as $variant) {
+					$referencedClasses = $variant->getReturnType()->getReferencedClasses();
+					foreach ($referencedClasses as $referencedClass) {
+						$this->addClassToDependencies($referencedClass, $dependenciesReflections);
+					}
+				}
 			}
 		}
 
