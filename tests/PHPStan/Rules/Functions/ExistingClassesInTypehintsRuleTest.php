@@ -73,4 +73,63 @@ class ExistingClassesInTypehintsRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
+	public function testWithoutNamespace(): void
+	{
+		require_once __DIR__ . '/data/typehintsWithoutNamespace.php';
+		$this->analyse([__DIR__ . '/data/typehintsWithoutNamespace.php'], [
+			[
+				'Return typehint of function fooWithoutNamespace() has invalid type NonexistentClass.',
+				13,
+			],
+			[
+				'Parameter $bar of function barWithoutNamespace() has invalid typehint type BarFunctionTypehints.',
+				18,
+			],
+			[
+				'Return typehint of function returnParentWithoutNamespace() has invalid type parent.',
+				31,
+			],
+			[
+				'Class FooFunctionTypehints referenced with incorrect case: fOOFunctionTypehints.',
+				36,
+			],
+			[
+				'Class FooFunctionTypehints referenced with incorrect case: fOOFunctionTypehintS.',
+				36,
+			],
+			[
+				'Class FooFunctionTypehints referenced with incorrect case: FOOFunctionTypehints.',
+				45,
+			],
+			[
+				'Class FooFunctionTypehints referenced with incorrect case: FOOFunctionTypehints.',
+				45,
+			],
+			[
+				'Class FooFunctionTypehints referenced with incorrect case: FOOFunctionTypehints.',
+				54,
+			],
+			[
+				'Class FooFunctionTypehints referenced with incorrect case: FOOFunctionTypehints.',
+				54,
+			],
+			[
+				'Parameter $trait of function referencesTraitsInNativeWithoutNamespace() has invalid typehint type SomeTraitWithoutNamespace.',
+				59,
+			],
+			[
+				'Return typehint of function referencesTraitsInNativeWithoutNamespace() has invalid type SomeTraitWithoutNamespace.',
+				59,
+			],
+			[
+				'Parameter $trait of function referencesTraitsInPhpDocWithoutNamespace() has invalid typehint type SomeTraitWithoutNamespace.',
+				68,
+			],
+			[
+				'Return typehint of function referencesTraitsInPhpDocWithoutNamespace() has invalid type SomeTraitWithoutNamespace.',
+				68,
+			],
+		]);
+	}
+
 }
