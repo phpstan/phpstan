@@ -5676,7 +5676,7 @@ return [
 'java_set_ignore_case' => ['void', 'ignore'=>'ignore'],
 'java_throw_exceptions' => ['void', 'throw'=>'throw'],
 'JavaException::getCause' => ['object'],
-'jddayofweek' => ['mixed', 'juliandaycount'=>'int', 'mode'=>'int'],
+'jddayofweek' => ['mixed', 'juliandaycount'=>'int', 'mode='=>'int'],
 'jdmonthname' => ['string', 'juliandaycount'=>'int', 'mode'=>'int'],
 'jdtofrench' => ['string', 'juliandaycount'=>'int'],
 'jdtogregorian' => ['string', 'juliandaycount'=>'int'],
