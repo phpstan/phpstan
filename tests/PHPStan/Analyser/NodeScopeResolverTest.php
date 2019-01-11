@@ -4723,6 +4723,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_merge(...[$generalStringKeys, $generalDateTimeValues])',
 			],
 			[
+				'array<int|string, int>',
+				'$mergedInts',
+			],
+			[
 				'array(5 => \'banana\', 6 => \'banana\', 7 => \'banana\', 8 => \'banana\', 9 => \'banana\', 10 => \'banana\')',
 				'array_fill(5, 6, \'banana\')',
 			],
