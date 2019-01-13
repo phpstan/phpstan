@@ -132,7 +132,6 @@ services:
 		class: PHPStan\Analyser\ScopeFactory
 		arguments:
 			scopeClass: %scopeClass%
-			dynamicConstantNames: %dynamicConstantNames%
 
 	-
 		class: PHPStan\Analyser\NodeScopeResolver

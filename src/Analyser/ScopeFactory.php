@@ -29,21 +29,21 @@ class ScopeFactory
 	 * @param \PHPStan\Broker\Broker $broker
 	 * @param \PhpParser\PrettyPrinter\Standard $printer
 	 * @param \PHPStan\Analyser\TypeSpecifier $typeSpecifier
-	 * @param string[] $dynamicConstantNames
+	 * @param \Nette\DI\Container $container
 	 */
 	public function __construct(
 		string $scopeClass,
 		Broker $broker,
 		\PhpParser\PrettyPrinter\Standard $printer,
 		TypeSpecifier $typeSpecifier,
-		array $dynamicConstantNames
+		\Nette\DI\Container $container
 	)
 	{
 		$this->scopeClass = $scopeClass;
 		$this->broker = $broker;
 		$this->printer = $printer;
 		$this->typeSpecifier = $typeSpecifier;
-		$this->dynamicConstantNames = $dynamicConstantNames;
+		$this->dynamicConstantNames = $container->parameters['dynamicConstantNames'];
 	}
 
 	/**
