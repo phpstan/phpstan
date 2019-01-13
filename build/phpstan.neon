@@ -17,6 +17,16 @@ parameters:
 		- '#^Only numeric types are allowed in (pre|post)-(de|in)crement, bool\|float\|int\|string\|null given\.$#'
 		- '#^Parameter \#1 \$node \(.*\) of method .*Rule::processNode\(\) should be contravariant with parameter \$node \(PhpParser\\Node\) of method PHPStan\\Rules\\Rule::processNode\(\)$#'
 		- '#^Parameter .* of method PHPStan\\Command\\ErrorsConsoleStyle::.*\(\) should be contravariant with parameter .* of method Symfony\\Component\\Console\\Style\\(StyleInterface|SymfonyStyle)::.*()$#'
+		- '#Variable property access on PhpParser\\Node\.#'
+		-
+			message: '#Variable method call on PHPStan\\Reflection\\ClassReflection\.#'
+			path: %rootDir%/src/PhpDoc/PhpDocBlock.php
+		-
+			message: '#Variable static method call on PHPStan\\PhpDoc\\PhpDocBlock\.#'
+			path: %rootDir%/src/PhpDoc/PhpDocBlock.php
+		- '#Foreach overwrites \$key with its value variable\.#'
+		- '#Foreach overwrites \$arrayType with its value variable\.#'
+
 	reportStaticMethodSignatures: true
 	tmpDir: %rootDir%/tmp
 services:

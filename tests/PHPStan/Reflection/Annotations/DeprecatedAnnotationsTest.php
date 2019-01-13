@@ -122,12 +122,22 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 
 		$this->assertSame($deprecated, $class->isDeprecated());
 
-		foreach ($deprecatedAnnotations as $memberType => $members) {
-			foreach ($members as $memberName) {
-				$memberAnnotation = $class->{'get' . ucfirst($memberType)}($memberName, $scope);
-				$this->assertInstanceOf(DeprecatableReflection::class, $memberAnnotation);
-				$this->assertSame($deprecated, $memberAnnotation->isDeprecated());
-			}
+		foreach ($deprecatedAnnotations['method'] ?? [] as $methodName) {
+			$methodAnnotation = $class->getMethod($methodName, $scope);
+			$this->assertInstanceOf(DeprecatableReflection::class, $methodAnnotation);
+			$this->assertSame($deprecated, $methodAnnotation->isDeprecated());
+		}
+
+		foreach ($deprecatedAnnotations['property'] ?? [] as $propertyName) {
+			$propertyAnnotation = $class->getProperty($propertyName, $scope);
+			$this->assertInstanceOf(DeprecatableReflection::class, $propertyAnnotation);
+			$this->assertSame($deprecated, $propertyAnnotation->isDeprecated());
+		}
+
+		foreach ($deprecatedAnnotations['constant'] ?? [] as $constantName) {
+			$constantAnnotation = $class->getConstant($constantName);
+			$this->assertInstanceOf(DeprecatableReflection::class, $constantAnnotation);
+			$this->assertSame($deprecated, $constantAnnotation->isDeprecated());
 		}
 	}
 

@@ -191,12 +191,12 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	{
 		$trait = explode('::', $traitTarget)[0];
 		$traitReflection = $this->broker->getClass($trait)->getNativeReflection();
-		foreach ($traitReflection->getTraitAliases() as $methodAlias => $traitTarget) {
+		foreach ($traitReflection->getTraitAliases() as $methodAlias => $aliasTraitTarget) {
 			if ($lowercaseMethodName === strtolower($methodAlias)) {
 				return $methodAlias;
 			}
 
-			$correctName = $this->getMethodNameWithCorrectCase($lowercaseMethodName, $traitTarget);
+			$correctName = $this->getMethodNameWithCorrectCase($lowercaseMethodName, $aliasTraitTarget);
 			if ($correctName !== null) {
 				return $correctName;
 			}
