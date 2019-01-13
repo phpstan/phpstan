@@ -26,7 +26,6 @@ parameters:
 			path: %rootDir%/src/PhpDoc/PhpDocBlock.php
 		- '#Foreach overwrites \$key with its value variable\.#'
 		- '#Foreach overwrites \$arrayType with its value variable\.#'
-
 	reportStaticMethodSignatures: true
 	tmpDir: %rootDir%/tmp
 services:

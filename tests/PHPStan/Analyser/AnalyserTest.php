@@ -201,6 +201,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 				$typeSpecifier,
 				false,
 				false,
+				true,
 				[]
 			),
 			$fileHelper,

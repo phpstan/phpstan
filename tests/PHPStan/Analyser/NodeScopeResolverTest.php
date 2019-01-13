@@ -8528,6 +8528,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			$typeSpecifier,
 			true,
 			true,
+			true,
 			[
 				\EarlyTermination\Foo::class => [
 					'doFoo',

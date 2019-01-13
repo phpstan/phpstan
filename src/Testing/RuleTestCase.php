@@ -62,6 +62,7 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 					$typeSpecifier,
 					$this->shouldPolluteScopeWithLoopInitialAssignments(),
 					$this->shouldPolluteCatchScopeWithTryAssignments(),
+					$this->shouldPolluteScopeWithAlwaysIterableForeach(),
 					[]
 				),
 				$fileHelper,
@@ -142,6 +143,11 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 	protected function shouldPolluteCatchScopeWithTryAssignments(): bool
 	{
 		return false;
+	}
+
+	protected function shouldPolluteScopeWithAlwaysIterableForeach(): bool
+	{
+		return true;
 	}
 
 }

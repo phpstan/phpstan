@@ -98,6 +98,9 @@ class NodeScopeResolver
 	/** @var bool */
 	private $polluteCatchScopeWithTryAssignments;
 
+	/** @var bool */
+	private $polluteScopeWithAlwaysIterableForeach;
+
 	/** @var string[][] className(string) => methods(string[]) */
 	private $earlyTerminatingMethodCalls;
 
@@ -115,6 +118,7 @@ class NodeScopeResolver
 	 * @param TypeSpecifier $typeSpecifier
 	 * @param bool $polluteScopeWithLoopInitialAssignments
 	 * @param bool $polluteCatchScopeWithTryAssignments
+	 * @param bool $polluteScopeWithAlwaysIterableForeach
 	 * @param string[][] $earlyTerminatingMethodCalls className(string) => methods(string[])
 	 */
 	public function __construct(
@@ -125,6 +129,7 @@ class NodeScopeResolver
 		TypeSpecifier $typeSpecifier,
 		bool $polluteScopeWithLoopInitialAssignments,
 		bool $polluteCatchScopeWithTryAssignments,
+		bool $polluteScopeWithAlwaysIterableForeach,
 		array $earlyTerminatingMethodCalls
 	)
 	{
@@ -135,6 +140,7 @@ class NodeScopeResolver
 		$this->typeSpecifier = $typeSpecifier;
 		$this->polluteScopeWithLoopInitialAssignments = $polluteScopeWithLoopInitialAssignments;
 		$this->polluteCatchScopeWithTryAssignments = $polluteCatchScopeWithTryAssignments;
+		$this->polluteScopeWithAlwaysIterableForeach = $polluteScopeWithAlwaysIterableForeach;
 		$this->earlyTerminatingMethodCalls = $earlyTerminatingMethodCalls;
 	}
 
@@ -1402,7 +1408,7 @@ class NodeScopeResolver
 					}),
 				];
 
-				if (!$iterableAtLeastOnce->yes()) {
+				if (!$iterableAtLeastOnce->yes() || !$this->polluteScopeWithAlwaysIterableForeach) {
 					$statements[] = new StatementList($scope, []);
 				}
 

@@ -20,6 +20,7 @@ parameters:
 	reportMaybesInMethodSignatures: false
 	reportStaticMethodSignatures: false
 	polluteScopeWithLoopInitialAssignments: true
+	polluteScopeWithAlwaysIterableForeach: true
 	polluteCatchScopeWithTryAssignments: false
 	reportMagicMethods: false
 	reportMagicProperties: false
@@ -138,6 +139,7 @@ services:
 		arguments:
 			polluteScopeWithLoopInitialAssignments: %polluteScopeWithLoopInitialAssignments%
 			polluteCatchScopeWithTryAssignments: %polluteCatchScopeWithTryAssignments%
+			polluteScopeWithAlwaysIterableForeach: %polluteScopeWithAlwaysIterableForeach%
 			earlyTerminatingMethodCalls: %earlyTerminatingMethodCalls%
 
 	-
