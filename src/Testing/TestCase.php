@@ -252,12 +252,18 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	 */
 	public function createScopeFactory(Broker $broker, TypeSpecifier $typeSpecifier, array $dynamicConstantNames = []): ScopeFactory
 	{
+		$container = self::getContainer();
+
+		if (count($dynamicConstantNames) > 0) {
+			$container->parameters['dynamicConstantNames'] = array_merge($container->parameters['dynamicConstantNames'], $dynamicConstantNames);
+		}
+
 		return new ScopeFactory(
 			Scope::class,
 			$broker,
 			new \PhpParser\PrettyPrinter\Standard(),
 			$typeSpecifier,
-			$dynamicConstantNames
+			$container
 		);
 	}
 
