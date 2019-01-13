@@ -24,13 +24,6 @@ class ScopeFactory
 	/** @var string[] */
 	private $dynamicConstantNames;
 
-	/**
-	 * @param string $scopeClass
-	 * @param \PHPStan\Broker\Broker $broker
-	 * @param \PhpParser\PrettyPrinter\Standard $printer
-	 * @param \PHPStan\Analyser\TypeSpecifier $typeSpecifier
-	 * @param \Nette\DI\Container $container
-	 */
 	public function __construct(
 		string $scopeClass,
 		Broker $broker,
