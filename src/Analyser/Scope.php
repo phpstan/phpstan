@@ -1031,6 +1031,9 @@ class Scope implements ClassMemberAccessAnswerer
 		} elseif ($node instanceof Array_) {
 			$arrayBuilder = ConstantArrayTypeBuilder::createEmpty();
 			foreach ($node->items as $arrayItem) {
+				if ($arrayItem === null) {
+					continue;
+				}
 				$arrayBuilder->setOffsetValueType(
 					$arrayItem->key !== null ? $this->getType($arrayItem->key) : null,
 					$this->getType($arrayItem->value)
