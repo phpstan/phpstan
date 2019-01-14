@@ -52,6 +52,7 @@ class ScopeFactory
 	 * @param bool $negated
 	 * @param bool $inFirstLevelStatement
 	 * @param string[] $currentlyAssignedExpressions
+	 * @param string[] $currentlyProcessedPreOperators
 	 *
 	 * @return Scope
 	 */
@@ -67,7 +68,8 @@ class ScopeFactory
 		?Expr $inFunctionCall = null,
 		bool $negated = false,
 		bool $inFirstLevelStatement = true,
-		array $currentlyAssignedExpressions = []
+		array $currentlyAssignedExpressions = [],
+		array $currentlyProcessedPreOperators = []
 	): Scope
 	{
 		$scopeClass = $this->scopeClass;
@@ -92,7 +94,8 @@ class ScopeFactory
 			$negated,
 			$inFirstLevelStatement,
 			$currentlyAssignedExpressions,
-			$this->dynamicConstantNames
+			$this->dynamicConstantNames,
+			$currentlyProcessedPreOperators
 		);
 	}
 

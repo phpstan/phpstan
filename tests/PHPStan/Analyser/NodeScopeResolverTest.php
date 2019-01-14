@@ -2695,6 +2695,22 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'--$one',
 			],
 			[
+				'*ERROR*',
+				'$preIncArray[0]',
+			],
+			[
+				'1',
+				'$preIncArray[1]',
+			],
+			[
+				'2',
+				'$preIncArray[2]',
+			],
+			[
+				'*ERROR*',
+				'$preIncArray[3]',
+			],
+			[
 				'3',
 				'count($array)',
 			],

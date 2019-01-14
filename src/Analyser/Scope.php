@@ -89,6 +89,9 @@ class Scope implements ClassMemberAccessAnswerer
 	/** @var \PHPStan\Type\Type[] */
 	private $resolvedTypes = [];
 
+	/** @var string[] */
+	private $currentlyProcessedPreOperators = [];
+
 	/** @var bool */
 	private $declareStrictTypes;
 
@@ -143,6 +146,7 @@ class Scope implements ClassMemberAccessAnswerer
 	 * @param bool $inFirstLevelStatement
 	 * @param string[] $currentlyAssignedExpressions
 	 * @param string[] $dynamicConstantNames
+	 * @param string[] $currentlyProcessedPreOperators
 	 */
 	public function __construct(
 		ScopeFactory $scopeFactory,
@@ -161,7 +165,8 @@ class Scope implements ClassMemberAccessAnswerer
 		bool $negated = false,
 		bool $inFirstLevelStatement = true,
 		array $currentlyAssignedExpressions = [],
-		array $dynamicConstantNames = []
+		array $dynamicConstantNames = [],
+		array $currentlyProcessedPreOperators = []
 	)
 	{
 		if ($namespace === '') {
@@ -185,6 +190,7 @@ class Scope implements ClassMemberAccessAnswerer
 		$this->inFirstLevelStatement = $inFirstLevelStatement;
 		$this->currentlyAssignedExpressions = $currentlyAssignedExpressions;
 		$this->dynamicConstantNames = $dynamicConstantNames;
+		$this->currentlyProcessedPreOperators = $currentlyProcessedPreOperators;
 	}
 
 	public function getFile(): string
@@ -1127,6 +1133,20 @@ class Scope implements ClassMemberAccessAnswerer
 			return $this->getType($node->var);
 		} elseif ($node instanceof Expr\PreInc || $node instanceof Expr\PreDec) {
 			$varType = $this->getType($node->var);
+
+			$nodeKey = sprintf(
+				'%s:%d:%d',
+				$this->printer->prettyPrintExpr($node),
+				$node->getLine(),
+				$node->getStartTokenPos()
+			);
+
+			if (in_array($nodeKey, $this->currentlyProcessedPreOperators, true)) {
+				return $varType;
+			}
+
+			$this->currentlyProcessedPreOperators[] = $nodeKey;
+
 			if ($varType instanceof ConstantScalarType) {
 				$varValue = $varType->getValue();
 				if ($node instanceof Expr\PreInc) {
@@ -2127,7 +2147,8 @@ class Scope implements ClassMemberAccessAnswerer
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->isInFirstLevelStatement(),
-			$currentlyAssignedExpressions
+			$currentlyAssignedExpressions,
+			$this->currentlyProcessedPreOperators
 		);
 	}
 
@@ -2182,7 +2203,8 @@ class Scope implements ClassMemberAccessAnswerer
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->inFirstLevelStatement,
-			$this->currentlyAssignedExpressions
+			$this->currentlyAssignedExpressions,
+			$this->currentlyProcessedPreOperators
 		);
 	}
 
@@ -2672,7 +2694,8 @@ class Scope implements ClassMemberAccessAnswerer
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			true,
-			$this->currentlyAssignedExpressions
+			$this->currentlyAssignedExpressions,
+			$this->currentlyProcessedPreOperators
 		);
 	}
 
