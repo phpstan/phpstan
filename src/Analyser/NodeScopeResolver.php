@@ -1468,15 +1468,12 @@ class NodeScopeResolver
 				|| $node->var instanceof StaticPropertyFetch
 			)
 		) {
-			$expressionType = $scope->getType($node->var);
+			$expressionType = $scope->getType($node);
 			if ($expressionType instanceof ConstantScalarType) {
 				$afterValue = $expressionType->getValue();
-				if (
-					$node instanceof Expr\PostInc
-					|| $node instanceof Expr\PreInc
-				) {
+				if ($node instanceof Expr\PostInc) {
 					$afterValue++;
-				} else {
+				} elseif ($node instanceof Expr\PostDec) {
 					$afterValue--;
 				}
 
@@ -1633,6 +1630,9 @@ class NodeScopeResolver
 					$offsetTypes[] = null;
 
 				} else {
+					if ($dimExpr instanceof Expr\PreInc || $dimExpr instanceof Expr\PreDec) {
+						$dimExpr = $dimExpr->var;
+					}
 					$scope = $this->lookForAssigns($scope, $dimExpr, TrinaryLogic::createYes(), LookForAssignsSettings::default());
 					$offsetTypes[] = $scope->getType($dimExpr);
 				}

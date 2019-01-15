@@ -89,6 +89,11 @@ class Foo
 		$decrementedFooString = $fooString;
 		$decrementedFooString--;
 
+		$index = 0;
+		$preIncArray = [];
+		$preIncArray[++$index] = $index;
+		$preIncArray[++$index] = $index;
+
 		$conditionalArray = [1, 1, 1];
 		$conditionalInt = 1;
 		$conditionalString = 'foo';
