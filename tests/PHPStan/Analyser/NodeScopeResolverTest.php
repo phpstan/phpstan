@@ -2340,7 +2340,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'\Foo::class',
 			],
 			[
-				'72',
+				'74',
 				'$line',
 			],
 			[
@@ -2822,6 +2822,22 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'array<int>',
 				'$arrayOfUnknownIntegers + [1, 2, 3]',
+			],
+			[
+				'(float|int)',
+				'$sumWithStaticConst',
+			],
+			[
+				'(float|int)',
+				'$severalSumWithStaticConst1',
+			],
+			[
+				'(float|int)',
+				'$severalSumWithStaticConst2',
+			],
+			[
+				'(float|int)',
+				'$severalSumWithStaticConst3',
 			],
 			[
 				'1',

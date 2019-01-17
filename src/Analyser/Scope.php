@@ -937,7 +937,10 @@ class Scope implements ClassMemberAccessAnswerer
 				return new UnionType([new IntegerType(), new FloatType()]);
 			}
 
-			if ($types instanceof MixedType) {
+			if ($types instanceof MixedType
+				|| $leftType instanceof BenevolentUnionType
+				|| $rightType instanceof BenevolentUnionType
+			) {
 				return TypeUtils::toBenevolentUnion($resultType);
 			}
 

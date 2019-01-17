@@ -829,3 +829,28 @@ class VariableOverwrittenInForeach
 	}
 
 }
+
+class WithIntegerConst
+{
+	public const INTEGER_CONST = 1;
+
+	public function returnIntegerBySumWithStaticConst(): int
+	{
+		return static::INTEGER_CONST + 1;
+	}
+
+	public function returnIntegerBySumWithStaticConst1(): int
+	{
+		return static::INTEGER_CONST + 1 + 1;
+	}
+
+	public function returnIntegerBySumWithStaticConst2(): int
+	{
+		return 1 + static::INTEGER_CONST + 1;
+	}
+
+	public function returnIntegerBySumWithStaticConst3(): int
+	{
+		return 1 + 1 + static::INTEGER_CONST;
+	}
+}

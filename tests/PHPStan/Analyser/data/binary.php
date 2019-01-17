@@ -5,6 +5,8 @@ namespace BinaryOperations\NestedNamespace;
 class Foo
 {
 
+	public const INT_CONST = 1;
+
 	public function doFoo(array $generalArray)
 	{
 		/** @var float $float */
@@ -124,6 +126,11 @@ class Foo
 
 		$arrToPop = [1, 2, 3];
 		array_pop($arrToPop);
+
+		$sumWithStaticConst = static::INT_CONST + 1;
+		$severalSumWithStaticConst1 = static::INT_CONST + 1 + 1;
+		$severalSumWithStaticConst2 = 1 + static::INT_CONST + 1;
+		$severalSumWithStaticConst3 = 1 + 1 + static::INT_CONST;
 
 		die;
 	}
