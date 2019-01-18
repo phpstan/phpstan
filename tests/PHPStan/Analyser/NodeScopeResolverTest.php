@@ -5839,12 +5839,72 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$anotherFoo',
 			],
 			[
-				'Foo',
+				'Foo|string',
 				'$subClassOfFoo',
 			],
 			[
 				'\'str\'',
 				'$subClassAsString',
+			],
+			[
+				'Foo',
+				'$subClassOfFoo2',
+			],
+			[
+				'object|string',
+				'$subClassOfFoo3',
+			],
+			[
+				'object',
+				'$subClassOfFoo4',
+			],
+			[
+				'Foo|string',
+				'$subClassOfFoo5',
+			],
+			[
+				'object|string',
+				'$subClassOfFoo6',
+			],
+			[
+				'Foo',
+				'$subClassOfFoo7',
+			],
+			[
+				'object',
+				'$subClassOfFoo8',
+			],
+			[
+				'object',
+				'$subClassOfFoo9',
+			],
+			[
+				'object',
+				'$subClassOfFoo10',
+			],
+			[
+				'Foo',
+				'$subClassOfFoo11',
+			],
+			[
+				'Foo',
+				'$subClassOfFoo12',
+			],
+			[
+				'Foo',
+				'$subClassOfFoo13',
+			],
+			[
+				'object',
+				'$subClassOfFoo14',
+			],
+			[
+				'Foo|string',
+				'$subClassOfFoo15',
+			],
+			[
+				'Bar|Foo|string',
+				'$subClassOfFoo16',
 			],
 		];
 	}
