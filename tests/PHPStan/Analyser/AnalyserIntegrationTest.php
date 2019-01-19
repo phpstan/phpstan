@@ -138,6 +138,15 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(24, $errors[1]->getLine());
 	}
 
+	public function testExtendsPdoStatementCrash(): void
+	{
+		if (!extension_loaded('PDO')) {
+			$this->markTestSkipped('PDO has to be loaded.');
+		}
+		$errors = $this->runAnalyse(__DIR__ . '/data/extends-pdo-statement.php');
+		$this->assertCount(0, $errors);
+	}
+
 	/**
 	 * @param string $file
 	 * @return \PHPStan\Analyser\Error[]
