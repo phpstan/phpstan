@@ -1,13 +1,12 @@
 <?php declare(strict_types = 1);
 
-namespace PHPStan\Rules\Functions;
+namespace PHPStan\Rules\Methods;
 
 use PhpParser\Node;
-use PhpParser\Node\FunctionLike;
-use PhpParser\Node\Stmt\Function_;
 use PHPStan\Analyser\Scope;
-use PHPStan\Broker\Broker;
+use PHPStan\Node\InClassMethodNode;
 use PHPStan\Reflection\ParametersAcceptorSelector;
+use PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
 use PHPStan\Rules\RuleErrorBuilder;
@@ -16,40 +15,27 @@ use PHPStan\Type\VerbosityLevel;
 class IncompatibleDefaultParameterTypeRule implements Rule
 {
 
-	/** @var Broker */
-	private $broker;
-
-	public function __construct(Broker $broker)
-	{
-		$this->broker = $broker;
-	}
-
 	public function getNodeType(): string
 	{
-		return FunctionLike::class;
+		return InClassMethodNode::class;
 	}
 
 	/**
-	 * @param FunctionLike $node
+	 * @param InClassMethodNode $node
 	 * @param Scope $scope
 	 * @return RuleError[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		if (!($node instanceof Function_)) {
+		$method = $scope->getFunction();
+		if (!$method instanceof PhpMethodFromParserNodeReflection) {
 			return [];
 		}
 
-		$name = $node->namespacedName;
-		if (!$this->broker->hasFunction($name, $scope)) {
-			return [];
-		}
-
-		$function = $this->broker->getFunction($name, $scope);
-		$parameters = ParametersAcceptorSelector::selectSingle($function->getVariants());
+		$parameters = ParametersAcceptorSelector::selectSingle($method->getVariants());
 
 		$errors = [];
-		foreach ($node->getParams() as $paramI => $param) {
+		foreach ($node->getOriginalNode()->getParams() as $paramI => $param) {
 			if ($param->default === null) {
 				continue;
 			}
@@ -68,11 +54,12 @@ class IncompatibleDefaultParameterTypeRule implements Rule
 			}
 
 			$errors[] = RuleErrorBuilder::message(sprintf(
-				'Default value of the parameter #%d $%s (%s) of function %s() is incompatible with type %s.',
+				'Default value of the parameter #%d $%s (%s) of method %s::%s() is incompatible with type %s.',
 				$paramI + 1,
 				$param->var->name,
 				$defaultValueType->describe(VerbosityLevel::value()),
-				$function->getName(),
+				$method->getDeclaringClass()->getDisplayName(),
+				$method->getName(),
 				$parameterType->describe(VerbosityLevel::value())
 			))->line($param->getLine())->build();
 		}
