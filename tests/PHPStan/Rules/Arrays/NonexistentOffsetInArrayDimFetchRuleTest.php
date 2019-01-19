@@ -78,6 +78,18 @@ class NonexistentOffsetInArrayDimFetchRuleTest extends \PHPStan\Testing\RuleTest
 				'Cannot access offset \'a\' on Closure(): mixed.',
 				253,
 			],
+			[
+				'Offset string does not exist on array<int, string>.',
+				308,
+			],
+			[
+				'Offset null does not exist on array<int, string>.',
+				310,
+			],
+			[
+				'Offset int does not exist on array<string, string>.',
+				312,
+			],
 		]);
 	}
 
@@ -93,20 +105,12 @@ class NonexistentOffsetInArrayDimFetchRuleTest extends \PHPStan\Testing\RuleTest
 				13,
 			],
 			[
-				'Offset int|object does not exist on \'foo\'.',
-				16,
-			],
-			[
 				'Offset \'foo\' does not exist on array|string.',
 				24,
 			],
 			[
 				'Offset 12.34 does not exist on array|string.',
 				28,
-			],
-			[
-				'Offset int|object does not exist on array|string.',
-				32,
 			],
 		]);
 	}

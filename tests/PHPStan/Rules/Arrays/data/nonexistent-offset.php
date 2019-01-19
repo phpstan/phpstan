@@ -287,4 +287,37 @@ class Foo
 		return $array['1'];
 	}
 
+	/**
+	 * @param array<int, string> $intArray
+	 * @param array<string, string> $stringArray
+	 * @param array<int|string, string> $intOrStringArray
+	 * @param int $int
+	 * @param string $string
+	 * @param int|null $intOrNull
+	 */
+	public function arraysWithNull(
+		array $intArray,
+		array $stringArray,
+		array $intOrStringArray,
+		int $int,
+		string $string,
+		$intOrNull
+	)
+	{
+		echo $intArray[$int];
+		echo $intArray[$string];
+		echo $intArray[$intOrNull];
+		echo $intArray[null];
+
+		echo $stringArray[$int];
+		echo $stringArray[$string];
+		echo $stringArray[$intOrNull];
+		echo $stringArray[null];
+
+		echo $intOrStringArray[$int];
+		echo $intOrStringArray[$string];
+		echo $intOrStringArray[$intOrNull];
+		echo $intOrStringArray[null];
+	}
+
 }

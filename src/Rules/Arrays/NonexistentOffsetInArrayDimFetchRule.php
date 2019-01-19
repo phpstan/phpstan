@@ -6,10 +6,10 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\RuleError;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Rules\RuleLevelHelper;
-use PHPStan\Type\BenevolentUnionType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeUtils;
+use PHPStan\Type\UnionType;
 use PHPStan\Type\VerbosityLevel;
 
 class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
@@ -112,7 +112,7 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
 
 		if (!$report && $this->reportMaybes) {
 			foreach (TypeUtils::flattenTypes($type) as $innerType) {
-				if ($dimType instanceof BenevolentUnionType) {
+				if ($dimType instanceof UnionType) {
 					if ($innerType->hasOffsetValueType($dimType)->no()) {
 						$report = true;
 						break;

@@ -1,10 +1,5 @@
 [
     {
-        "message": "Offset int|object does not exist on 'foo'.",
-        "line": 19,
-        "ignorable": true
-    },
-    {
         "message": "Offset 'foo' does not exist on array|string.",
         "line": 27,
         "ignorable": true
@@ -12,11 +7,6 @@
     {
         "message": "Offset 12.34 does not exist on array|string.",
         "line": 31,
-        "ignorable": true
-    },
-    {
-        "message": "Offset int|object does not exist on array|string.",
-        "line": 35,
         "ignorable": true
     }
 ]
