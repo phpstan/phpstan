@@ -50,6 +50,7 @@ use PhpParser\Node\Stmt\Unset_;
 use PhpParser\Node\Stmt\While_;
 use PHPStan\Broker\Broker;
 use PHPStan\File\FileHelper;
+use PHPStan\Node\InClassMethodNode;
 use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\PhpDocBlock;
 use PHPStan\PhpDoc\Tag\ParamTag;
@@ -420,6 +421,7 @@ class NodeScopeResolver
 			$scope = $this->enterFunction($scope, $node);
 		} elseif ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
 			$scope = $this->enterClassMethod($scope, $node);
+			$nodeCallback(new InClassMethodNode($node), $scope);
 		} elseif ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
 			$scope = $scope->enterNamespace((string) $node->name);
 		} elseif (

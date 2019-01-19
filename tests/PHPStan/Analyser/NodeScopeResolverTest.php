@@ -9,6 +9,7 @@ use PHPStan\Broker\AnonymousClassNameHelper;
 use PHPStan\Cache\Cache;
 use PHPStan\File\FileHelper;
 use PHPStan\File\RelativePathHelper;
+use PHPStan\Node\VirtualNode;
 use PHPStan\PhpDoc\PhpDocStringResolver;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
@@ -8496,6 +8497,9 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		$this->processFile(
 			$file,
 			static function (\PhpParser\Node $node, Scope $scope) use ($file, $evaluatedPointExpression, $assertType): void {
+				if ($node instanceof VirtualNode) {
+					return;
+				}
 				$printer = new \PhpParser\PrettyPrinter\Standard();
 				$printedNode = $printer->prettyPrint([$node]);
 				if ($printedNode !== $evaluatedPointExpression) {

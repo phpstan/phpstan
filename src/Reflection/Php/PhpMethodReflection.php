@@ -226,7 +226,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	}
 
 	/**
-	 * @return \PHPStan\Reflection\Php\PhpParameterReflection[]
+	 * @return \PHPStan\Reflection\ParameterReflectionWithPhpDocs[]
 	 */
 	private function getParameters(): array
 	{

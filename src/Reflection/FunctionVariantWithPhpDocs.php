@@ -14,7 +14,7 @@ class FunctionVariantWithPhpDocs extends FunctionVariant implements ParametersAc
 	private $nativeReturnType;
 
 	/**
-	 * @param array<int, \PHPStan\Reflection\Php\PhpParameterReflection> $parameters
+	 * @param array<int, \PHPStan\Reflection\ParameterReflectionWithPhpDocs> $parameters
 	 * @param bool $isVariadic
 	 * @param Type $returnType
 	 * @param Type $phpDocReturnType
@@ -38,11 +38,11 @@ class FunctionVariantWithPhpDocs extends FunctionVariant implements ParametersAc
 	}
 
 	/**
-	 * @return array<int, \PHPStan\Reflection\Php\PhpParameterReflection>
+	 * @return array<int, \PHPStan\Reflection\ParameterReflectionWithPhpDocs>
 	 */
 	public function getParameters(): array
 	{
-		/** @var \PHPStan\Reflection\Php\PhpParameterReflection[] $parameters */
+		/** @var \PHPStan\Reflection\ParameterReflectionWithPhpDocs[] $parameters */
 		$parameters = parent::getParameters();
 
 		return $parameters;

@@ -9,11 +9,10 @@ use PhpParser\Node\NullableType;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
-use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
-use PHPStan\Reflection\Php\PhpMethodReflection;
+use PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection;
 use PHPStan\Type\NonexistentParentClassType;
 use PHPStan\Type\VerbosityLevel;
 
@@ -61,36 +60,18 @@ class FunctionDefinitionCheck
 
 	/**
 	 * @param \PhpParser\Node\FunctionLike $function
-	 * @param \PHPStan\Analyser\Scope $scope
 	 * @param string $parameterMessage
 	 * @param string $returnMessage
 	 * @return RuleError[]
 	 */
 	public function checkFunction(
 		FunctionLike $function,
-		Scope $scope,
 		string $parameterMessage,
 		string $returnMessage
 	): array
 	{
 		if ($function instanceof ClassMethod) {
-			if (!$scope->isInClass()) {
-				throw new \PHPStan\ShouldNotHappenException();
-			}
-			$nativeMethod = $scope->getClassReflection()->getNativeMethod($function->name->name);
-			if (!$nativeMethod instanceof PhpMethodReflection) {
-				return [];
-			}
-
-			/** @var \PHPStan\Reflection\ParametersAcceptorWithPhpDocs $parametersAcceptor */
-			$parametersAcceptor = ParametersAcceptorSelector::selectSingle($nativeMethod->getVariants());
-
-			return $this->checkParametersAcceptor(
-				$parametersAcceptor,
-				$function,
-				$parameterMessage,
-				$returnMessage
-			);
+			throw new \PHPStan\ShouldNotHappenException('Use FunctionDefinitionCheck::checkClassMethod() instead.');
 		}
 		if ($function instanceof Function_) {
 			$functionName = $function->name->name;
@@ -171,6 +152,31 @@ class FunctionDefinitionCheck
 		}
 
 		return $errors;
+	}
+
+	/**
+	 * @param PhpMethodFromParserNodeReflection $methodReflection
+	 * @param ClassMethod $methodNode
+	 * @param string $parameterMessage
+	 * @param string $returnMessage
+	 * @return RuleError[]
+	 */
+	public function checkClassMethod(
+		PhpMethodFromParserNodeReflection $methodReflection,
+		ClassMethod $methodNode,
+		string $parameterMessage,
+		string $returnMessage
+	): array
+	{
+		/** @var \PHPStan\Reflection\ParametersAcceptorWithPhpDocs $parametersAcceptor */
+		$parametersAcceptor = ParametersAcceptorSelector::selectSingle($methodReflection->getVariants());
+
+		return $this->checkParametersAcceptor(
+			$parametersAcceptor,
+			$methodNode,
+			$parameterMessage,
+			$returnMessage
+		);
 	}
 
 	/**

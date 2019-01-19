@@ -5,10 +5,11 @@ namespace PHPStan\Reflection\Php;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ConstFetch;
 use PHPStan\Reflection\PassedByReference;
+use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
 
-class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\ParameterReflection
+class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\ParameterReflectionWithPhpDocs
 {
 
 	/** @var string */
@@ -80,6 +81,16 @@ class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\Parame
 		}
 
 		return $this->type;
+	}
+
+	public function getPhpDocType(): Type
+	{
+		return $this->phpDocType ?? new MixedType();
+	}
+
+	public function getNativeType(): Type
+	{
+		return $this->realType ?? new MixedType();
 	}
 
 	public function passedByReference(): PassedByReference

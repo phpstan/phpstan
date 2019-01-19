@@ -3,8 +3,9 @@
 namespace PHPStan\Rules\Methods;
 
 use PhpParser\Node;
-use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
+use PHPStan\Node\InClassMethodNode;
+use PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection;
 use PHPStan\Rules\FunctionDefinitionCheck;
 use PHPStan\Rules\RuleError;
 
@@ -21,32 +22,36 @@ class ExistingClassesInTypehintsRule implements \PHPStan\Rules\Rule
 
 	public function getNodeType(): string
 	{
-		return ClassMethod::class;
+		return InClassMethodNode::class;
 	}
 
 	/**
-	 * @param \PhpParser\Node\Stmt\ClassMethod $node
+	 * @param \PHPStan\Node\InClassMethodNode $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return RuleError[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
+		$methodReflection = $scope->getFunction();
+		if (!$methodReflection instanceof PhpMethodFromParserNodeReflection) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
 		if (!$scope->isInClass()) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
-		return $this->check->checkFunction(
-			$node,
-			$scope,
+		return $this->check->checkClassMethod(
+			$methodReflection,
+			$node->getOriginalNode(),
 			sprintf(
 				'Parameter $%%s of method %s::%s() has invalid typehint type %%s.',
 				$scope->getClassReflection()->getDisplayName(),
-				$node->name->name
+				$methodReflection->getName()
 			),
 			sprintf(
 				'Return typehint of method %s::%s() has invalid type %%s.',
 				$scope->getClassReflection()->getDisplayName(),
-				$node->name->name
+				$methodReflection->getName()
 			)
 		);
 	}
