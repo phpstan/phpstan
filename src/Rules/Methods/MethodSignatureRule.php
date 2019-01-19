@@ -71,12 +71,12 @@ class MethodSignatureRule implements \PHPStan\Rules\Rule
 				$errors[] = sprintf(
 					'Return type (%s) of method %s::%s() should be %s with return type (%s) of method %s::%s()',
 					$parameters->getReturnType()->describe(VerbosityLevel::typeOnly()),
-					$class->getName(),
-					$methodName,
+					$method->getDeclaringClass()->getDisplayName(),
+					$method->getName(),
 					$returnTypeCompatibility->no() ? 'compatible' : 'covariant',
 					$parentParameters->getReturnType()->describe(VerbosityLevel::typeOnly()),
-					$parentMethod->getDeclaringClass()->getName(),
-					$methodName
+					$parentMethod->getDeclaringClass()->getDisplayName(),
+					$parentMethod->getName()
 				);
 			}
 
@@ -95,13 +95,13 @@ class MethodSignatureRule implements \PHPStan\Rules\Rule
 					$parameterIndex + 1,
 					$parameter->getName(),
 					$parameter->getType()->describe(VerbosityLevel::typeOnly()),
-					$class->getName(),
-					$methodName,
+					$method->getDeclaringClass()->getDisplayName(),
+					$method->getName(),
 					$parameterResult->no() ? 'compatible' : 'contravariant',
 					$parentParameter->getName(),
 					$parentParameter->getType()->describe(VerbosityLevel::typeOnly()),
-					$parentMethod->getDeclaringClass()->getName(),
-					$methodName
+					$parentMethod->getDeclaringClass()->getDisplayName(),
+					$parentMethod->getName()
 				);
 			}
 		}
