@@ -82,7 +82,7 @@ final class ParseUrlFunctionDynamicReturnTypeExtension implements DynamicFunctio
 		if ($this->allComponentsTogetherType === null) {
 			$returnTypes = [
 				new ConstantBooleanType(false),
-				new ConstantArrayType([new ConstantStringType('scheme')], [$this->componentTypesPairedStrings['scheme']]),
+				new ConstantArrayType([], []),
 			];
 
 			$builder = ConstantArrayTypeBuilder::createEmpty();

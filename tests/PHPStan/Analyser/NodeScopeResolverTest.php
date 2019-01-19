@@ -5400,7 +5400,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$parseUrlConstantUrlWithoutComponent2',
 			],
 			[
-				"false|array('scheme' => string, ?'host' => string, ?'port' => int, ?'user' => string, ?'pass' => string, ?'path' => string, ?'query' => string, ?'fragment' => string)",
+				"array()|array('scheme' => string, 'host' => string, 'port' => int, 'user' => string, 'pass' => string, 'path' => string, 'query' => string, 'fragment' => string)|false",
 				'$parseUrlConstantUrlUnknownComponent',
 			],
 			[
@@ -5424,8 +5424,20 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$parseUrlStringUrlWithComponentPort',
 			],
 			[
-				"false|array('scheme' => string, ?'host' => string, ?'port' => int, ?'user' => string, ?'pass' => string, ?'path' => string, ?'query' => string, ?'fragment' => string)",
+				"array()|array('scheme' => string, 'host' => string, 'port' => int, 'user' => string, 'pass' => string, 'path' => string, 'query' => string, 'fragment' => string)|false",
 				'$parseUrlStringUrlWithoutComponent',
+			],
+			[
+				"array('path' => 'abc.def')",
+				"parse_url('abc.def')",
+			],
+			[
+				'null',
+				"parse_url('abc.def', PHP_URL_SCHEME)",
+			],
+			[
+				"'http'",
+				"parse_url('http://abc.def', PHP_URL_SCHEME)",
 			],
 			[
 				'array(0 => int, 1 => int, 2 => int, 3 => int, 4 => int, 5 => int, 6 => int, 7 => int, 8 => int, 9 => int, 10 => int, 11 => int, 12 => int, \'dev\' => int, \'ino\' => int, \'mode\' => int, \'nlink\' => int, \'uid\' => int, \'gid\' => int, \'rdev\' => int, \'size\' => int, \'atime\' => int, \'mtime\' => int, \'ctime\' => int, \'blksize\' => int, \'blocks\' => int)|false',
