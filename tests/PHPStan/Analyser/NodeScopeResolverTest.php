@@ -5400,7 +5400,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$parseUrlConstantUrlWithoutComponent2',
 			],
 			[
-				"false|array('scheme' => string, ?'host' => string, ?'port' => int, ?'user' => string, ?'pass' => string, ?'query' => string, ?'fragment' => string)",
+				"false|array('scheme' => string, ?'host' => string, ?'port' => int, ?'user' => string, ?'pass' => string, ?'path' => string, ?'query' => string, ?'fragment' => string)",
 				'$parseUrlConstantUrlUnknownComponent',
 			],
 			[
@@ -5424,7 +5424,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$parseUrlStringUrlWithComponentPort',
 			],
 			[
-				"false|array('scheme' => string, ?'host' => string, ?'port' => int, ?'user' => string, ?'pass' => string, ?'query' => string, ?'fragment' => string)",
+				"false|array('scheme' => string, ?'host' => string, ?'port' => int, ?'user' => string, ?'pass' => string, ?'path' => string, ?'query' => string, ?'fragment' => string)",
 				'$parseUrlStringUrlWithoutComponent',
 			],
 			[
