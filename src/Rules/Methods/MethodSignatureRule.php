@@ -54,7 +54,7 @@ class MethodSignatureRule implements \PHPStan\Rules\Rule
 		if ($class === null) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
-		$method = $class->getMethod($methodName, $scope);
+		$method = $class->getNativeMethod($methodName);
 		if (!$this->reportStatic && $method->isStatic()) {
 			return [];
 		}
