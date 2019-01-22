@@ -30,6 +30,9 @@ can be checked before you run the actual line.
 
 Check out [PHPStan's Patreon](https://www.patreon.com/phpstan) for sponsoring options. One-time donations [through PayPal](https://paypal.me/phpstan) are also accepted. To request an invoice, [contact me](mailto:ondrej@mirtes.cz) through e-mail.
 
+BTC: bc1qd5s06wjtf8rzag08mk3s264aekn52jze9zeapt
+<br>LTC: LSU5xLsWEfrVx1P9yJwmhziHAXikiE8xtC
+
 ## Prerequisites
 
 PHPStan requires PHP >= 7.1. You have to run it in environment with PHP 7.x but the actual code does not have to use
