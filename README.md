@@ -28,7 +28,7 @@ can be checked before you run the actual line.
 &nbsp;&nbsp;&nbsp;
 <a href="https://coders.thecodingmachine.com/phpstan"><img src="https://i.imgur.com/kQhNOTP.png" alt="TheCodingMachine" width="247" height="64"></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://www.wispay.io/t/JdL" target="_blank"><img src="https://assets.wispay.io/wgt2_d_o.png" style="height: 60px;"></a>
+<a href="https://www.wispay.io/t/JdL" target="_blank"><img src="https://assets.wispay.io/wgt2_d_o.png" width="247" height="78"></a>
 
 Check out [PHPStan's Patreon](https://www.patreon.com/phpstan) for sponsoring options. One-time donations [through PayPal](https://paypal.me/phpstan) are also accepted. To request an invoice, [contact me](mailto:ondrej@mirtes.cz) through e-mail.
 
