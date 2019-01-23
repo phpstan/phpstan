@@ -352,3 +352,36 @@ trait SubTrait
 	}
 
 }
+
+class BaseClassWithPrivateMethods
+{
+
+	/**
+	 * @param Animal $animal
+	 */
+	private function parameterTypeTest1($animal)
+	{
+	}
+
+	/**
+	 * @return Animal
+	 */
+	private function returnTypeTest1()
+	{
+	}
+
+	/**
+	 * @param Animal $animal
+	 */
+	private function parameterTypeTest2($animal)
+	{
+	}
+
+	/**
+	 * @return Animal
+	 */
+	private function returnTypeTest2()
+	{
+	}
+
+}

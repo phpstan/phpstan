@@ -58,6 +58,9 @@ class MethodSignatureRule implements \PHPStan\Rules\Rule
 		if (!$this->reportStatic && $method->isStatic()) {
 			return [];
 		}
+		if ($method->isPrivate()) {
+			return [];
+		}
 		$parameters = ParametersAcceptorSelector::selectSingle($method->getVariants());
 
 		$errors = [];
@@ -121,7 +124,10 @@ class MethodSignatureRule implements \PHPStan\Rules\Rule
 
 		$parentClass = $class->getParentClass();
 		if ($parentClass !== false && $parentClass->hasMethod($methodName)) {
-			$parentMethods[] = $parentClass->getMethod($methodName, $scope);
+			$parentMethod = $parentClass->getMethod($methodName, $scope);
+			if (!$parentMethod->isPrivate()) {
+				$parentMethods[] = $parentMethod;
+			}
 		}
 
 		foreach ($class->getInterfaces() as $interface) {
