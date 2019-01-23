@@ -40,7 +40,14 @@ parameters:
 	dynamicConstantNames:
 		- ICONV_IMPL
 		- PHP_VERSION
+		- PHP_MAJOR_VERSION
+		- PHP_MINOR_VERSION
+		- PHP_RELEASE_VERSION
+		- PHP_VERSION_ID
 		- PHP_EXTRA_VERSION
+		- PHP_ZTS
+		- PHP_DEBUG
+		- PHP_MAXPATHLEN
 		- PHP_OS
 		- PHP_OS_FAMILY
 		- PHP_SAPI
@@ -60,13 +67,6 @@ parameters:
 		- PHP_CONFIG_FILE_SCAN_DIR
 		- PHP_SHLIB_SUFFIX
 		- PHP_FD_SETSIZE
-		- PHP_MAJOR_VERSION
-		- PHP_MINOR_VERSION
-		- PHP_RELEASE_VERSION
-		- PHP_VERSION_ID
-		- PHP_ZTS
-		- PHP_DEBUG
-		- PHP_MAXPATHLEN
 
 extensions:
 	rules: PHPStan\DependencyInjection\RulesExtension
