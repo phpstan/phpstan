@@ -219,3 +219,10 @@ function () {
 	rand(0, 1) && ($a = rand(0, 5));
 	isset($a);
 };
+
+function () {
+    $null = null;
+    if (isset($null)) { // always false
+
+    }
+};
