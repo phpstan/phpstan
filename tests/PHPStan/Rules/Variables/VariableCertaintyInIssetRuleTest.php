@@ -77,6 +77,10 @@ class VariableCertaintyInIssetRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Variable $a in isset() always exists and is not nullable.',
 				214,
 			],
+			[
+				'Variable $null in isset() is always null.',
+				225,
+			],
 		]);
 	}
 

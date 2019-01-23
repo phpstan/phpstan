@@ -56,6 +56,8 @@ class VariableCertaintyInIssetRule implements \PHPStan\Rules\Rule
 				$variableType = $scope->getVariableType($var->name);
 				if ($variableType->isSuperTypeOf(new NullType())->no()) {
 					$messages[] = sprintf('Variable $%s in isset() always exists and is not nullable.', $var->name);
+				} elseif ((new NullType())->isSuperTypeOf($variableType)->yes()) {
+					$messages[] = sprintf('Variable $%s in isset() is always null.', $var->name);
 				}
 			}
 		}
