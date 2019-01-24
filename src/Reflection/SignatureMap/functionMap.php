@@ -7077,7 +7077,7 @@ return [
 'mt_rand' => ['int', 'min'=>'int', 'max'=>'int'],
 'mt_rand\'1' => ['int'],
 'mt_srand' => ['void', 'seed='=>'int', 'mode='=>'int'],
-'MultipleIterator::__construct' => ['void', 'flags'=>'int'],
+'MultipleIterator::__construct' => ['void', 'flags='=>'int'],
 'MultipleIterator::attachIterator' => ['void', 'iterator'=>'iterator', 'infos='=>'string'],
 'MultipleIterator::containsIterator' => ['bool', 'iterator'=>'iterator'],
 'MultipleIterator::countIterators' => ['int'],
