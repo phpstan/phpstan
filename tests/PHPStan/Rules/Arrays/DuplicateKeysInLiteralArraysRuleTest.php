@@ -18,19 +18,19 @@ class DuplicateKeysInLiteralArraysRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->analyse([__DIR__ . '/data/duplicate-keys.php'], [
 			[
 				'Array has 2 duplicate keys with value \'\' (null, NULL).',
-				15,
+				16,
 			],
 			[
 				'Array has 4 duplicate keys with value 1 (1, 1, 1.0, true).',
-				17,
+				18,
 			],
 			[
 				'Array has 3 duplicate keys with value 0 (false, 0, PHPSTAN_DUPLICATE_KEY).',
-				23,
+				24,
 			],
 			[
 				'Array has 2 duplicate keys with value \'=\' (self::EQ, self::IS).',
-				32,
+				35,
 			],
 		]);
 	}

@@ -11,6 +11,7 @@ class Foo
 
 	public function doFoo()
 	{
+		$idx = 0;
 		$a = [
 			null => true,
 			NULL => false,
@@ -23,6 +24,8 @@ class Foo
 			false => 'aaa',
 			0 => 'aaa',
 			PHPSTAN_DUPLICATE_KEY => 'aaa',
+			$idx++ => 'aaa',
+			$idx++ => 'aaa',
 		];
 	}
 

@@ -2,6 +2,8 @@
 
 namespace PHPStan\Rules\Arrays;
 
+use PhpParser\Node\Expr\PostInc;
+use PhpParser\Node\Expr\PreInc;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\RuleError;
 use PHPStan\Rules\RuleErrorBuilder;
@@ -45,6 +47,12 @@ class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
 			}
 
 			$key = $item->key;
+			// Because post/pre increments guarantee the variable will me mutated on its next appearance we can safely
+			// ignore it
+			if ($key instanceof PostInc || $key instanceof PreInc) {
+				continue;
+			}
+
 			$keyType = $scope->getType($key);
 			if (
 				!$keyType instanceof ConstantScalarType
