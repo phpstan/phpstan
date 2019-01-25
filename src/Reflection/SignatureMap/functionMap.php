@@ -11203,7 +11203,7 @@ return [
 'SplFileInfo::setInfoClass' => ['void', 'class_name='=>'string'],
 'SplFileObject::__construct' => ['void', 'filename'=>'string', 'mode='=>'string', 'use_include_path='=>'bool', 'context='=>''],
 'SplFileObject::__toString' => ['string'],
-'SplFileObject::current' => ['string|array'],
+'SplFileObject::current' => ['string|array|false'],
 'SplFileObject::eof' => ['bool'],
 'SplFileObject::fflush' => ['bool'],
 'SplFileObject::fgetc' => ['string|false'],
