@@ -9798,7 +9798,7 @@ return [
 'register_tick_function' => ['bool', 'function'=>'callable', '...args='=>'mixed'],
 'rename' => ['bool', 'old_name'=>'string', 'new_name'=>'string', 'context='=>'resource'],
 'rename_function' => ['bool', 'original_name'=>'string', 'new_name'=>'string'],
-'reset' => ['mixed', '&rw_array_arg'=>'array|object'],
+'reset' => ['mixed|false', '&rw_array_arg'=>'array|object'],
 'ResourceBundle::__construct' => ['void', 'locale'=>'string', 'bundlename'=>'string', 'fallback='=>'bool'],
 'ResourceBundle::count' => ['int'],
 'ResourceBundle::create' => ['?ResourceBundle', 'locale'=>'string', 'bundlename'=>'string', 'fallback='=>'bool'],
