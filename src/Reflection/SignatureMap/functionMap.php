@@ -299,7 +299,7 @@ return [
 'array_replace_recursive' => ['array', 'arr1'=>'array', 'arr2'=>'array', '...args='=>'array'],
 'array_reverse' => ['array', 'input'=>'array', 'preserve='=>'bool'],
 'array_search' => ['int|string|false', 'needle'=>'mixed', 'haystack'=>'array', 'strict='=>'bool'],
-'array_shift' => ['mixed', '&rw_stack'=>'array'],
+'array_shift' => ['mixed|null', '&rw_stack'=>'array'],
 'array_slice' => ['array', 'input'=>'array', 'offset'=>'int', 'length='=>'?int', 'preserve_keys='=>'bool'],
 'array_splice' => ['array', '&rw_input'=>'array', 'offset'=>'int', 'length='=>'int', 'replacement='=>'array|string'],
 'array_sum' => ['int|float', 'input'=>'array'],

@@ -4808,7 +4808,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_pop($stdClassesWithIsset)',
 			],
 			[
-				'\'foo\'',
+				'\'foo\'|null',
 				'array_shift($stringKeys)',
 			],
 			[
