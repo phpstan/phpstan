@@ -3,6 +3,7 @@
 namespace PHPStan\Reflection\PhpDefect;
 
 use PHPStan\PhpDoc\TypeStringResolver;
+use PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\PropertiesClassReflectionExtension;
 use PHPStan\Reflection\PropertyReflection;
@@ -162,16 +163,23 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 		],
 	];
 
+	/** @var \PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension */
+	private $annotationsPropertiesClassReflectionExtension;
+
 	/** @var TypeStringResolver */
 	private $typeStringResolver;
 
 	/** @var string[][] */
 	private $properties = [];
 
-	public function __construct(TypeStringResolver $typeStringResolver)
+	public function __construct(
+		TypeStringResolver $typeStringResolver,
+		AnnotationsPropertiesClassReflectionExtension $annotationsPropertiesClassReflectionExtension
+	)
 	{
 		$this->typeStringResolver = $typeStringResolver;
 		$this->properties = self::$defaultProperties;
+		$this->annotationsPropertiesClassReflectionExtension = $annotationsPropertiesClassReflectionExtension;
 	}
 
 	public function hasProperty(ClassReflection $classReflection, string $propertyName): bool
@@ -184,6 +192,22 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 	{
 		/** @var \PHPStan\Reflection\ClassReflection $classWithProperties */
 		$classWithProperties = $this->getClassWithProperties($classReflection, $propertyName);
+
+		if ($this->annotationsPropertiesClassReflectionExtension->hasProperty($classReflection, $propertyName)) {
+			$hierarchyDistances = $classReflection->getClassHierarchyDistances();
+			$annotationProperty = $this->annotationsPropertiesClassReflectionExtension->getProperty($classReflection, $propertyName);
+			if (!isset($hierarchyDistances[$annotationProperty->getDeclaringClass()->getName()])) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+			if (!isset($hierarchyDistances[$classWithProperties->getName()])) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+
+			if ($hierarchyDistances[$annotationProperty->getDeclaringClass()->getName()] < $hierarchyDistances[$classWithProperties->getName()]) {
+				return $annotationProperty;
+			}
+		}
+
 		$typeString = $this->properties[$classWithProperties->getName()][$propertyName];
 		return new PhpDefectPropertyReflection(
 			$classWithProperties,
