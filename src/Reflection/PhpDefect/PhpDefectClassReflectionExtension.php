@@ -37,6 +37,7 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 		],
 		'DOMAttr' => [ // extends DOMNode
 			'name' => 'string',
+			'ownerDocument' => 'DOMDocument',
 			'ownerElement' => 'DOMElement',
 			'schemaTypeInfo' => 'bool',
 			'specified' => 'bool',
@@ -45,6 +46,7 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 		'DOMCharacterData' => [ // extends DOMNode
 			'data' => 'string',
 			'length' => 'int',
+			'ownerDocument' => 'DOMDocument',
 		],
 		'DOMDocument' => [
 			'actualEncoding' => 'string',
@@ -55,6 +57,7 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 			'encoding' => 'string',
 			'formatOutput' => 'bool',
 			'implementation' => 'DOMImplementation',
+			'ownerDocument' => 'null',
 			'preserveWhiteSpace' => 'bool',
 			'recover' => 'bool',
 			'resolveExternals' => 'bool',
@@ -73,9 +76,11 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 			'name' => 'string',
 			'entities' => 'DOMNamedNodeMap',
 			'notations' => 'DOMNamedNodeMap',
+			'ownerDocument' => 'DOMDocument',
 			'internalSubset' => 'string',
 		],
 		'DOMElement' => [ // extends DOMNode
+			'ownerDocument' => 'DOMDocument',
 			'schemaTypeInfo' => 'bool',
 			'tagName' => 'string',
 		],
@@ -85,6 +90,7 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 			'notationName' => 'string',
 			'actualEncoding' => 'string',
 			'encoding' => 'string',
+			'ownerDocument' => 'DOMDocument',
 			'version' => 'string',
 		],
 		'DOMNamedNodeMap' => [
@@ -101,7 +107,7 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 			'previousSibling' => 'DOMNode',
 			'nextSibling' => 'DOMNode',
 			'attributes' => 'DOMNamedNodeMap',
-			'ownerDocument' => 'DOMDocument',
+			'ownerDocument' => 'DOMDocument|null',
 			'namespaceURI' => 'string',
 			'prefix' => 'string',
 			'localName' => 'string',
@@ -112,10 +118,12 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 			'length' => 'int',
 		],
 		'DOMNotation' => [ // extends DOMNode
+			'ownerDocument' => 'DOMDocument',
 			'publicId' => 'string',
 			'systemId' => 'string',
 		],
 		'DOMProcessingInstruction' => [ // extends DOMNode
+			'ownerDocument' => 'DOMDocument',
 			'target' => 'string',
 			'data' => 'string',
 		],
