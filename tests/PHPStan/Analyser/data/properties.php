@@ -5,6 +5,10 @@ namespace PropertiesNamespace;
 use SomeNamespace\Amet as Dolor;
 use SomeGroupNamespace\{One, Two as Too, Three};
 
+/**
+ * @property-read string $overriddenReadOnlyProperty
+ * @property-read string $documentElement
+ */
 abstract class Foo extends Bar
 {
 
