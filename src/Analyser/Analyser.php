@@ -5,6 +5,7 @@ namespace PHPStan\Analyser;
 use Nette\Utils\Json;
 use PHPStan\File\FileHelper;
 use PHPStan\Parser\Parser;
+use PHPStan\Rules\FileRuleError;
 use PHPStan\Rules\LineRuleError;
 use PHPStan\Rules\Registry;
 
@@ -164,6 +165,7 @@ class Analyser
 
 								foreach ($ruleErrors as $ruleError) {
 									$line = $node->getLine();
+									$fileName = $scope->getFileDescription();
 									if (is_string($ruleError)) {
 										$message = $ruleError;
 									} else {
@@ -174,8 +176,14 @@ class Analyser
 										) {
 											$line = $ruleError->getLine();
 										}
+										if (
+											$ruleError instanceof FileRuleError
+											&& $ruleError->getFile() !== ''
+										) {
+											$fileName = $ruleError->getFile();
+										}
 									}
-									$fileErrors[] = new Error($message, $scope->getFileDescription(), $line);
+									$fileErrors[] = new Error($message, $fileName, $line);
 								}
 							}
 

@@ -24,4 +24,26 @@ class RuleErrorBuilderTest extends TestCase
 		$this->assertSame(25, $ruleError->getLine());
 	}
 
+	public function testMessageAndFileAndBuild(): void
+	{
+		$builder = RuleErrorBuilder::message('Foo')->file('Bar.php');
+		$ruleError = $builder->build();
+		$this->assertSame('Foo', $ruleError->getMessage());
+
+		$this->assertInstanceOf(FileRuleError::class, $ruleError);
+		$this->assertSame('Bar.php', $ruleError->getFile());
+	}
+
+	public function testMessageAndLineAndFileAndBuild(): void
+	{
+		$builder = RuleErrorBuilder::message('Foo')->line(25)->file('Bar.php');
+		$ruleError = $builder->build();
+		$this->assertSame('Foo', $ruleError->getMessage());
+
+		$this->assertInstanceOf(LineRuleError::class, $ruleError);
+		$this->assertInstanceOf(FileRuleError::class, $ruleError);
+		$this->assertSame(25, $ruleError->getLine());
+		$this->assertSame('Bar.php', $ruleError->getFile());
+	}
+
 }
