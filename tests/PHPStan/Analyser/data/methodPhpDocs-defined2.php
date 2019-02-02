@@ -86,4 +86,12 @@ abstract class FooParent extends FooParentParent implements FooInterface
 
 	}
 
+	/**
+	 * @return string[]
+	 */
+	private function privateMethodWithPhpDoc()
+	{
+
+	}
+
 }

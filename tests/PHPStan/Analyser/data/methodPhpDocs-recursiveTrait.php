@@ -82,4 +82,9 @@ class FooWithRecursiveTrait extends FooParent
 
 	}
 
+	private function privateMethodWithPhpDoc()
+	{
+
+	}
+
 }

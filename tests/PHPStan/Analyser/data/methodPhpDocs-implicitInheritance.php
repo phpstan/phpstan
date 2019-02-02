@@ -63,4 +63,9 @@ class FooPhpDocsImplicitInheritanceChild extends Foo
 
 	}
 
+	private function privateMethodWithPhpDoc()
+	{
+
+	}
+
 }

@@ -75,4 +75,9 @@ class FooWithTrait extends FooParent
 
 	}
 
+	private function privateMethodWithPhpDoc()
+	{
+
+	}
+
 }
