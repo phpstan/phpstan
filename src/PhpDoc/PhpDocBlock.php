@@ -233,6 +233,9 @@ class PhpDocBlock
 			) {
 				return null;
 			}
+			if ($parentReflection->isPrivate()) {
+				return null;
+			}
 			if (
 				!$parentReflection->getDeclaringClass()->isTrait()
 				&& $parentReflection->getDeclaringClass()->getName() !== $classReflection->getName()

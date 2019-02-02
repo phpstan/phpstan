@@ -3576,6 +3576,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array<string>',
 				'$this->returnsStringArray()',
 			],
+			[
+				'mixed',
+				'$this->privateMethodWithPhpDoc()',
+			],
 		];
 	}
 

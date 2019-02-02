@@ -161,4 +161,9 @@ class Foo extends FooParent
 
 	}
 
+	private function privateMethodWithPhpDoc()
+	{
+
+	}
+
 }
