@@ -148,11 +148,14 @@ class CommandHelper
 			if ($memoryLimitFileContents === false) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
-			$errorOutput->writeln('PHPStan crashed in the previous run probably because of excessive memory consumption.');
-			$errorOutput->writeln(sprintf('It consumed around %s of memory.', $memoryLimitFileContents));
+			$errorOutput->writeln('PHPStan crashed in the previous run. It may be because:');
+			$errorOutput->writeln('  - there was a fatal error while parsing:');
+			$errorOutput->writeln('    ex: a class is in the wrong namespace, or there is a linting error in one of you files.');
+			$errorOutput->writeln('  - an excessive memory consumption:');
+			$errorOutput->writeln(sprintf('    (It consumed around %s of memory.)', $memoryLimitFileContents));
 			$errorOutput->writeln('');
 			$errorOutput->writeln('');
-			$errorOutput->writeln('To avoid this issue, allow to use more memory with the --memory-limit option.');
+			$errorOutput->writeln('If the issue is related to memory consumtion, allow to use more memory with the --memory-limit option.');
 			@unlink($memoryLimitFile);
 		}
 
