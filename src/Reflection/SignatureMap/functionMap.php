@@ -3999,7 +3999,7 @@ return [
 'http\Url::toArray' => ['string[]'],
 'http\Url::toString' => ['string'],
 'http_build_cookie' => ['string', 'cookie'=>'array'],
-'http_build_query' => ['string', 'querydata'=>'array|object', 'prefix='=>'?string', 'arg_separator='=>'string', 'enc_type='=>'int'],
+'http_build_query' => ['string', 'querydata'=>'array|object', 'prefix='=>'string', 'arg_separator='=>'string', 'enc_type='=>'int'],
 'http_build_str' => ['string', 'query'=>'array', 'prefix='=>'?string', 'arg_separator='=>'string'],
 'http_build_url' => ['string', 'url='=>'string|array', 'parts='=>'string|array', 'flags='=>'int', 'new_url='=>'array'],
 'http_cache_etag' => ['bool', 'etag='=>'string'],
