@@ -155,7 +155,7 @@ class CommandHelper
 			$errorOutput->writeln(sprintf('    (It consumed around %s of memory.)', $memoryLimitFileContents));
 			$errorOutput->writeln('');
 			$errorOutput->writeln('');
-			$errorOutput->writeln('If the issue is related to memory consumtion, allow to use more memory with the --memory-limit option.');
+			$errorOutput->writeln('If the issue is related to memory consumption, allow to use more memory with the --memory-limit option.');
 			@unlink($memoryLimitFile);
 		}
 
