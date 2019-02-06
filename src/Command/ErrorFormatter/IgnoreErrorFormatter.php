@@ -33,8 +33,9 @@ class IgnoreErrorFormatter implements ErrorFormatter
 
 		foreach ($analysisResult->getFileSpecificErrors() as $fileSpecificError) {
 			$file = $fileSpecificError->getFile();
-			$file = Strings::before($file, ' (in context of class ') ?: $file;
-			$errors[$file][] = $fileSpecificError->getMessage();
+			$filename = Strings::before($file, ' (in context of class ');
+			$filename = $filename ? $filename : $file;
+			$errors[$filename][] = $fileSpecificError->getMessage();
 		}
 
 		foreach ($errors as $filename => $fileErrors) {
