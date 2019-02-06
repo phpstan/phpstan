@@ -54,7 +54,7 @@ class IgnoreErrorFormatter implements ErrorFormatter
 	{
 		return sprintf(
 			"        -\n            message: %s\n            path: %s",
-			Neon::encode('~' . preg_quote(substr($message, 0, -1), '~') . '~'),
+			Neon::encode('~' . preg_quote($message, '~') . '~'),
 			Neon::encode('%currentWorkingDirectory%' . Strings::after($filename, getcwd()))
 		);
 	}
