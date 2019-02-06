@@ -635,3 +635,6 @@ services:
 		class: PHPStan\Command\ErrorFormatter\JsonErrorFormatter
 		arguments:
 			pretty: true
+
+	errorFormatter.ignore:
+		class: PHPStan\Command\ErrorFormatter\IgnoreErrorFormatter
