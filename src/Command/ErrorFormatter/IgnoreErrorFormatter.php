@@ -2,15 +2,14 @@
 
 namespace PHPStan\Command\ErrorFormatter;
 
+use Nette\Neon\Neon;
 use Nette\Utils\Strings;
 use PHPStan\Command\AnalysisResult;
-use PHPStan\Command\ErrorFormatter\ErrorFormatter;
-use PHPStan\File\RelativePathHelper;
 use Symfony\Component\Console\Style\OutputStyle;
-use Nette\Neon\Neon;
 
 class IgnoreErrorFormatter implements ErrorFormatter
 {
+
 	public function formatErrors(
 		AnalysisResult $analysisResult,
 		OutputStyle $style
