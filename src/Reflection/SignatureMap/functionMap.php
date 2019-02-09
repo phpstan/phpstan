@@ -6699,7 +6699,7 @@ return [
 'MongoDB\BSON\toJSON' => ['string', 'bson'=>'string'],
 'MongoDB\BSON\toPHP' => ['object', 'bson'=>'string', 'typeMap'=>'array'],
 'MongoDB\BSON\Unserializable::bsonUnserialize' => ['', 'data'=>'array'],
-'MongoDB\BSON\UTCDateTime::__construct' => ['void', 'milliseconds='=>'int'],
+'MongoDB\BSON\UTCDateTime::__construct' => ['void', 'milliseconds='=>'int|DateTimeInterface'],
 'MongoDB\BSON\UTCDateTime::__toString' => ['string'],
 'MongoDB\BSON\UTCDateTime::toDateTime' => ['DateTime'],
 'MongoDB\Driver\BulkWrite::__construct' => ['void', 'ordered='=>'bool'],
