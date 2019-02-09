@@ -8457,7 +8457,7 @@ return [
 'PDOStatement::execute' => ['bool', 'bound_input_params='=>'?array'],
 'PDOStatement::fetch' => ['mixed', 'how='=>'int', 'orientation='=>'int', 'offset='=>'int'],
 'PDOStatement::fetchAll' => ['array|false', 'how='=>'int', 'fetch_argument='=>'int|string|callable', 'ctor_args='=>'?array'],
-'PDOStatement::fetchColumn' => ['string|false', 'column_number='=>'int'],
+'PDOStatement::fetchColumn' => ['string|null|false', 'column_number='=>'int'],
 'PDOStatement::fetchObject' => ['mixed', 'class_name='=>'string', 'ctor_args='=>'?array'],
 'PDOStatement::getAttribute' => ['mixed', 'attribute'=>'int'],
 'PDOStatement::getColumnMeta' => ['array', 'column'=>'int'],
