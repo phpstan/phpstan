@@ -875,6 +875,14 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				IntersectionType::class,
 				'array(object, \'foo\')&callable(): mixed',
 			],
+			[
+				[
+					new IntersectionType([new ArrayType(new MixedType(), new MixedType()), new NonEmptyArrayType()]),
+					new ConstantArrayType([], []),
+				],
+				ArrayType::class,
+				'array',
+			],
 		];
 	}
 

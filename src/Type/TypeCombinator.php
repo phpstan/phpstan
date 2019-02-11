@@ -243,6 +243,23 @@ class TypeCombinator
 	 */
 	private static function processArrayTypes(array $arrayTypes, array $accessoryTypes): array
 	{
+		foreach ($arrayTypes as $arrayType) {
+			if (!$arrayType instanceof ConstantArrayType) {
+				continue;
+			}
+			if (count($arrayType->getKeyTypes()) > 0) {
+				continue;
+			}
+
+			foreach ($accessoryTypes as $i => $accessoryType) {
+				if (!$accessoryType instanceof NonEmptyArrayType) {
+					continue;
+				}
+
+				unset($accessoryTypes[$i]);
+				break 2;
+			}
+		}
 		if (count($arrayTypes) === 0) {
 			return [];
 		} elseif (count($arrayTypes) === 1) {
