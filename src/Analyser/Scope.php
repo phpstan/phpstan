@@ -388,12 +388,13 @@ class Scope implements ClassMemberAccessAnswerer
 				}
 
 				if ($var instanceof Expr\Variable && is_string($var->name)) {
-
-					if ($this->hasVariableType($var->name)->no() || $this->resolveType($var)->equals(new NullType())) {
+					$variableType = $this->resolveType($var);
+					$isNullSuperType = (new NullType())->isSuperTypeOf($variableType);
+					if ($this->hasVariableType($var->name)->no() || $isNullSuperType->yes()) {
 						return new ConstantBooleanType(false);
 					}
 
-					if (TypeCombinator::containsNull($this->resolveType($var))) {
+					if (!$isNullSuperType->no()) {
 						$result = new BooleanType();
 					}
 					continue;

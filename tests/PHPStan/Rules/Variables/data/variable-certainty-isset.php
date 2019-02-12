@@ -182,3 +182,14 @@ function () {
 
 	}
 };
+
+function () {
+	/** @var mixed $bar */
+	$bar = $this->get('bar');
+	if (isset($bar)) {
+		$bar = (int) $bar;
+	}
+	if (isset($bar)) {
+		echo $bar;
+	}
+};
