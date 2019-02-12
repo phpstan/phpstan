@@ -7344,6 +7344,38 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'(array<string>|string)',
 				'$expectedBenevolentArrayOrString3',
 			],
+			[
+				'string',
+				'$expectedStringFromInt',
+			],
+			[
+				'string',
+				'$expectedStringFromStringConvertible',
+			],
+			[
+				'string|null',
+				'$anotherExpectedStringFromInt',
+			],
+			[
+				'string|null',
+				'$anotherExpectedStringFromStringConvertible',
+			],
+			[
+				'string|null',
+				'$expectedStringFromInt2',
+			],
+			[
+				'string|null',
+				'$expectedStringFromStringConvertible2',
+			],
+			[
+				'string',
+				'$anotherExpectedStringFromInt3',
+			],
+			[
+				'string',
+				'$anotherExpectedStringFromStringConvertible3',
+			],
 		];
 	}
 
