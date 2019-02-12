@@ -47,6 +47,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 		$this->scope = $this->scope->assignVariable('barOrNull', new UnionType([new ObjectType('Bar'), new NullType()]), TrinaryLogic::createYes());
 		$this->scope = $this->scope->assignVariable('stringOrFalse', new UnionType([new StringType(), new ConstantBooleanType(false)]), TrinaryLogic::createYes());
 		$this->scope = $this->scope->assignVariable('array', new ArrayType(new MixedType(), new MixedType()), TrinaryLogic::createYes());
+		$this->scope = $this->scope->assignVariable('foo', new MixedType(), TrinaryLogic::createYes());
 	}
 
 	/**
@@ -165,7 +166,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 			[
 				new Variable('foo'),
 				['$foo' => '~0|0.0|\'\'|array()|false|null'],
-				['$foo' => '~object'],
+				['$foo' => '~object|nonEmpty'],
 			],
 			[
 				new Expr\BinaryOp\BooleanAnd(
@@ -181,18 +182,18 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					$this->createFunctionCall('random')
 				),
 				[],
-				['$foo' => '~object'],
+				['$foo' => '~object|nonEmpty'],
 			],
 			[
 				new Expr\BooleanNot(new Variable('bar')),
-				['$bar' => '~object'],
+				['$bar' => '~object|nonEmpty'],
 				['$bar' => '~0|0.0|\'\'|array()|false|null'],
 			],
 
 			[
 				new PropertyFetch(new Variable('this'), 'foo'),
 				['$this->foo' => '~0|0.0|\'\'|array()|false|null'],
-				['$this->foo' => '~object'],
+				['$this->foo' => '~object|nonEmpty'],
 			],
 			[
 				new Expr\BinaryOp\BooleanAnd(
@@ -208,11 +209,11 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					$this->createFunctionCall('random')
 				),
 				[],
-				['$this->foo' => '~object'],
+				['$this->foo' => '~object|nonEmpty'],
 			],
 			[
 				new Expr\BooleanNot(new PropertyFetch(new Variable('this'), 'foo')),
-				['$this->foo' => '~object'],
+				['$this->foo' => '~object|nonEmpty'],
 				['$this->foo' => '~0|0.0|\'\'|array()|false|null'],
 			],
 
@@ -312,7 +313,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					new Variable('foo'),
 					new Expr\ConstFetch(new Name('false'))
 				),
-				['$foo' => 'false & ~object'],
+				['$foo' => 'false & ~object|nonEmpty'],
 				['$foo' => '~false'],
 			],
 			[
@@ -352,7 +353,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					new Variable('foo'),
 					new Expr\ConstFetch(new Name('false'))
 				),
-				['$foo' => '~object'],
+				['$foo' => '~object|nonEmpty'],
 				['$foo' => '~0|0.0|\'\'|array()|false|null'],
 			],
 			[
@@ -360,7 +361,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					new Variable('foo'),
 					new Expr\ConstFetch(new Name('null'))
 				),
-				['$foo' => '~object'],
+				['$foo' => '~object|nonEmpty'],
 				['$foo' => '~0|0.0|\'\'|array()|false|null'],
 			],
 			[
@@ -440,7 +441,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					new Variable('stringOrNull')
 				),
 				['$foo' => '~0|0.0|\'\'|array()|false|null'],
-				['$foo' => '~object'],
+				['$foo' => '~object|nonEmpty'],
 			],
 			[
 				new Expr\Assign(
@@ -448,7 +449,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					new Variable('stringOrFalse')
 				),
 				['$foo' => '~0|0.0|\'\'|array()|false|null'],
-				['$foo' => '~object'],
+				['$foo' => '~object|nonEmpty'],
 			],
 			[
 				new Expr\Assign(
@@ -456,7 +457,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					new Variable('bar')
 				),
 				['$foo' => '~0|0.0|\'\'|array()|false|null'],
-				['$foo' => '~object'],
+				['$foo' => '~object|nonEmpty'],
 			],
 			[
 				new Expr\Isset_([
@@ -468,7 +469,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					'$barOrNull' => '~null',
 				],
 				[
-					'isset($stringOrNull, $barOrNull)' => '~object',
+					'isset($stringOrNull, $barOrNull)' => '~object|nonEmpty',
 				],
 			],
 			[
@@ -529,6 +530,24 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 				],
 				[
 					'$array' => 'nonEmpty',
+				],
+			],
+			[
+				new Variable('foo'),
+				[
+					'$foo' => '~0|0.0|\'\'|array()|false|null',
+				],
+				[
+					'$foo' => '~object|nonEmpty',
+				],
+			],
+			[
+				new Variable('array'),
+				[
+					'$array' => '~0|0.0|\'\'|array()|false|null',
+				],
+				[
+					'$array' => '~object|nonEmpty',
 				],
 			],
 		];
