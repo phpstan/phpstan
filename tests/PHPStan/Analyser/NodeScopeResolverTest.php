@@ -7328,6 +7328,22 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'string',
 				'str_ireplace(\'.\', \':\', $intOrStringKey)',
 			],
+			[
+				'string',
+				'$expectedString3',
+			],
+			[
+				'array(\'a\' => string, \'b\' => string)',
+				'$expectedArray3',
+			],
+			[
+				'array<string>|string',
+				'$expectedArrayOrString3',
+			],
+			[
+				'(array<string>|string)',
+				'$expectedBenevolentArrayOrString3',
+			],
 		];
 	}
 
