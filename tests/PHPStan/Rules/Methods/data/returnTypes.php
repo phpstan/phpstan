@@ -761,3 +761,19 @@ class Foo2 extends FooParent implements FooInterface
 		return $this;
 	}
 }
+
+class HelloWorld
+{
+	/**
+	 * @param string $column Columna
+	 * @return string
+	 */
+	public function columnToField(string $column) : string
+	{
+		$idx = strrpos($column, '.');
+		$field = str_replace('.', '_', $column);
+		$field[$idx] = '.';
+
+		return $field;
+	}
+}

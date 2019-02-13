@@ -52,3 +52,10 @@ $value['foo'] = null;
 /** @var array|int $value */
 $value = [];
 $value['foo'] = null;
+
+$string1 = 'Foo';
+$string1[999] = 'B';
+$string2 = 'Foo';
+$string2[false] = 'C';
+$string3 = 'Foo';
+$string3[new stdClass()] = 'E';
