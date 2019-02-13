@@ -507,6 +507,38 @@ class ObjectType implements TypeWithClassName
 			return new ErrorType();
 		}
 
+		$broker = Broker::getInstance();
+		if ($this->isInstanceOf(\ArrayAccess::class)->yes()) {
+			$classReflection = $broker->getClass($this->className);
+			$acceptedDataType = new NeverType();
+			$acceptedOffsetType = RecursionGuard::run($this, static function () use ($classReflection, &$acceptedDataType) {
+				$parameters = ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('offsetSet')->getVariants())->getParameters();
+				if (count($parameters) < 2) {
+					throw new \PHPStan\ShouldNotHappenException(sprintf(
+						'Method %s::%s has less than 2 parameters.',
+						$this->className,
+						'offsetSet'
+					));
+				}
+
+				$offsetParameter = $parameters[0];
+				$acceptedDataType = $parameters[1]->getType();
+
+				return $offsetParameter->getType();
+			});
+
+			if ($offsetType === null) {
+				$offsetType = new NullType();
+			}
+
+			if (
+				$offsetType->isSuperTypeOf($acceptedOffsetType)->no()
+				|| $valueType->isSuperTypeOf($acceptedDataType)->no()
+			) {
+				return new ErrorType();
+			}
+		}
+
 		// in the future we may return intersection of $this and OffsetAccessibleType()
 		return $this;
 	}

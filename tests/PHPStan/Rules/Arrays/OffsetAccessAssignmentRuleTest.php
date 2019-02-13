@@ -24,63 +24,75 @@ class OffsetAccessAssignmentRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				[
 					'Cannot assign offset \'foo\' to string.',
-					7,
+					14,
 				],
 				[
 					'Cannot assign new offset to string.',
-					10,
+					17,
 				],
 				[
 					'Cannot assign offset 12.34 to string.',
-					13,
+					20,
 				],
 				[
 					'Cannot assign offset \'foo\' to array|string.',
-					21,
-				],
-				[
-					'Cannot assign offset int|object to array|string.',
 					28,
 				],
 				[
+					'Cannot assign offset int|object to array|string.',
+					35,
+				],
+				[
 					'Cannot assign offset int|object to string.',
-					31,
+					38,
 				],
 				[
 					'Cannot assign offset \'foo\' to stdClass.',
-					34,
+					41,
 				],
 				[
 					'Cannot assign offset \'foo\' to true.',
-					37,
-				],
-				[
-					'Cannot assign offset \'foo\' to false.',
-					40,
-				],
-				[
-					'Cannot assign offset \'foo\' to resource.',
 					44,
 				],
 				[
-					'Cannot assign offset \'foo\' to int.',
+					'Cannot assign offset \'foo\' to false.',
 					47,
 				],
 				[
-					'Cannot assign offset \'foo\' to float.',
-					50,
+					'Cannot assign offset \'foo\' to resource.',
+					51,
 				],
 				[
-					'Cannot assign offset \'foo\' to array|int.',
+					'Cannot assign offset \'foo\' to int.',
 					54,
 				],
 				[
+					'Cannot assign offset \'foo\' to float.',
+					57,
+				],
+				[
+					'Cannot assign offset \'foo\' to array|int.',
+					61,
+				],
+				[
 					'Cannot assign offset false to string.',
-					59,
+					66,
 				],
 				[
 					'Cannot assign offset stdClass to string.',
-					61,
+					68,
+				],
+				[
+					'Cannot assign offset array(1, 2, 3) to SplObjectStorage.',
+					72,
+				],
+				[
+					'Cannot assign offset false to OffsetAccessAssignment\ObjectWithOffsetAccess.',
+					75,
+				],
+				[
+					'Cannot assign new offset to OffsetAccessAssignment\ObjectWithOffsetAccess.',
+					81,
 				],
 			]
 		);
@@ -94,47 +106,59 @@ class OffsetAccessAssignmentRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				[
 					'Cannot assign offset \'foo\' to string.',
-					7,
+					14,
 				],
 				[
 					'Cannot assign new offset to string.',
-					10,
+					17,
 				],
 				[
 					'Cannot assign offset 12.34 to string.',
-					13,
+					20,
 				],
 				[
 					'Cannot assign offset \'foo\' to stdClass.',
-					34,
+					41,
 				],
 				[
 					'Cannot assign offset \'foo\' to true.',
-					37,
-				],
-				[
-					'Cannot assign offset \'foo\' to false.',
-					40,
-				],
-				[
-					'Cannot assign offset \'foo\' to resource.',
 					44,
 				],
 				[
-					'Cannot assign offset \'foo\' to int.',
+					'Cannot assign offset \'foo\' to false.',
 					47,
 				],
 				[
+					'Cannot assign offset \'foo\' to resource.',
+					51,
+				],
+				[
+					'Cannot assign offset \'foo\' to int.',
+					54,
+				],
+				[
 					'Cannot assign offset \'foo\' to float.',
-					50,
+					57,
 				],
 				[
 					'Cannot assign offset false to string.',
-					59,
+					66,
 				],
 				[
 					'Cannot assign offset stdClass to string.',
-					61,
+					68,
+				],
+				[
+					'Cannot assign offset array(1, 2, 3) to SplObjectStorage.',
+					72,
+				],
+				[
+					'Cannot assign offset false to OffsetAccessAssignment\ObjectWithOffsetAccess.',
+					75,
+				],
+				[
+					'Cannot assign new offset to OffsetAccessAssignment\ObjectWithOffsetAccess.',
+					81,
 				],
 			]
 		);
