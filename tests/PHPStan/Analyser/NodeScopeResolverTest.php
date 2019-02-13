@@ -3277,6 +3277,49 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataStringArrayAccess(): array
+	{
+		return [
+			[
+				'*ERROR*',
+				'$stringFalse',
+			],
+			[
+				'*ERROR*',
+				'$stringObject',
+			],
+			[
+				'*ERROR*',
+				'$stringFloat',
+			],
+			[
+				'*ERROR*',
+				'$stringString',
+			],
+			[
+				'*ERROR*',
+				'$stringArray',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataStringArrayAccess
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testStringArrayAccess(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/string-array-access.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataTypeFromFunctionPhpDocs(): array
 	{
 		return [

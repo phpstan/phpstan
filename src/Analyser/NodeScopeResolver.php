@@ -1671,10 +1671,6 @@ class NodeScopeResolver
 				$valueToWrite = $offsetValueType->setOffsetValueType($offsetType, $valueToWrite);
 			}
 
-			if ($valueToWrite instanceof ErrorType) {
-				$valueToWrite = new ArrayType(new MixedType(), new MixedType());
-			}
-
 			if ($var instanceof Variable && is_string($var->name)) {
 				$scope = $scope->assignVariable(
 					$var->name,
