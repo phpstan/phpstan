@@ -1967,7 +1967,7 @@ class Scope implements ClassMemberAccessAnswerer
 			$variableTypes[$use->var->name] = VariableTypeHolder::createYes($this->getVariableType($use->var->name));
 		}
 
-		if ($this->hasVariableType('this')->yes()) {
+		if ($this->hasVariableType('this')->yes() && !$closure->static) {
 			$variableTypes['this'] = VariableTypeHolder::createYes($this->getVariableType('this'));
 		}
 

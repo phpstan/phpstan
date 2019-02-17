@@ -7471,6 +7471,33 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataStaticClosure(): array
+	{
+		return [
+			[
+				'*ERROR*',
+				'$this',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataStaticClosure
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testStaticClosure(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/static-closure.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataTraitsPhpDocs(): array
 	{
 		return [
