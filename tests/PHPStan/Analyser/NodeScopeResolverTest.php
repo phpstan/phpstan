@@ -7391,6 +7391,93 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataFilterVar(): array
+	{
+		return [
+			[
+				'string|false',
+				'filter_var($mixed, FILTER_SANITIZE_EMAIL)',
+			],
+			[
+				'string|false',
+				'filter_var($mixed, FILTER_SANITIZE_ENCODED)',
+			],
+			[
+				'string|false',
+				'filter_var($mixed, FILTER_SANITIZE_MAGIC_QUOTES)',
+			],
+			[
+				'string|false',
+				'filter_var($mixed, FILTER_SANITIZE_NUMBER_FLOAT)',
+			],
+			[
+				'string|false',
+				'filter_var($mixed, FILTER_SANITIZE_NUMBER_INT)',
+			],
+			[
+				'string|false',
+				'filter_var($mixed, FILTER_SANITIZE_SPECIAL_CHARS)',
+			],
+			[
+				'string|false',
+				'filter_var($mixed, FILTER_SANITIZE_STRING)',
+			],
+			[
+				'string|false',
+				'filter_var($mixed, FILTER_SANITIZE_URL)',
+			],
+			[
+				'bool',
+				'filter_var($mixed, FILTER_VALIDATE_BOOLEAN)',
+			],
+			[
+				'string|false',
+				'filter_var($mixed, FILTER_VALIDATE_EMAIL)',
+			],
+			[
+				'float|false',
+				'filter_var($mixed, FILTER_VALIDATE_FLOAT)',
+			],
+			[
+				'int|false',
+				'filter_var($mixed, FILTER_VALIDATE_INT)',
+			],
+			[
+				'string|false',
+				'filter_var($mixed, FILTER_VALIDATE_IP)',
+			],
+			[
+				'string|false',
+				'filter_var($mixed, FILTER_VALIDATE_MAC)',
+			],
+			[
+				'string|false',
+				'filter_var($mixed, FILTER_VALIDATE_REGEXP)',
+			],
+			[
+				'string|false',
+				'filter_var($mixed, FILTER_VALIDATE_URL)',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataFilterVar
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testFilterVar(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/filterVar.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataClosureWithUsePassedByReference(): array
 	{
 		return [
