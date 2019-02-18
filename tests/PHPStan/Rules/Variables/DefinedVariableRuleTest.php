@@ -220,6 +220,10 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Undefined variable: $variableInAssign',
 				384,
 			],
+			[
+				'Undefined variable: $this',
+				417,
+			],
 		]);
 	}
 

@@ -404,3 +404,17 @@ switch ($definedInSwitchCond = true) {
 }
 
 echo $definedInSwitchCond;
+
+class Foo
+{
+	public function doFoo()
+	{
+		function () {
+			var_dump($this);
+		};
+
+		static function () {
+			var_dump($this);
+		};
+	}
+}
