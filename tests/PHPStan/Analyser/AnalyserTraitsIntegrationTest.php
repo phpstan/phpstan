@@ -142,6 +142,12 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertSame('Call to an undefined method TraitsReturnThis\Foo::doFoo().', $errors[1]->getMessage());
 	}
 
+	public function testTraitInEval(): void
+	{
+		$errors = $this->runAnalyse([__DIR__ . '/traits/TraitInEvalUse.php']);
+		$this->assertCount(0, $errors);
+	}
+
 	public function testParameterNotFoundCrash(): void
 	{
 		$errors = $this->runAnalyse([__DIR__ . '/traits/parameter-not-found.php']);

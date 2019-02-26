@@ -1914,7 +1914,7 @@ class NodeScopeResolver
 			$traitReflection = $this->broker->getClass($traitName);
 			$traitFileName = $traitReflection->getFileName();
 			if ($traitFileName === false) {
-				throw new \PHPStan\ShouldNotHappenException();
+				continue; // trait from eval or from PHP itself
 			}
 			$fileName = $this->fileHelper->normalizePath($traitFileName);
 			if (!isset($this->analysedFiles[$fileName])) {
