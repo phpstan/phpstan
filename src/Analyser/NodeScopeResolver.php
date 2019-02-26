@@ -1918,7 +1918,7 @@ class NodeScopeResolver
 			}
 			$fileName = $this->fileHelper->normalizePath($traitFileName);
 			if (!isset($this->analysedFiles[$fileName])) {
-				return;
+				continue;
 			}
 			$parserNodes = $this->parser->parseFile($fileName);
 			$classScope = $classScope->enterTrait($traitReflection);
