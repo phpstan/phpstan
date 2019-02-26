@@ -1074,3 +1074,22 @@ class CallAfterPropertyEmpty
 	}
 
 }
+
+class ArraySliceWithNonEmptyArray
+{
+
+	/**
+	 * @param array<int, self> $a
+	 */
+	public function doFoo(array $a)
+	{
+		if (count($a) === 0) {
+			return;
+		}
+
+		$a = array_slice($a, 0, 2);
+
+		$a[0]->doesNotExist();
+	}
+
+}

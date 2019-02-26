@@ -360,7 +360,8 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 		if (!$preserveKeys) {
 			$i = 0;
-			$keyTypes = array_map(static function (ConstantScalarType $keyType) use (&$i): ConstantScalarType {
+			/** @var array<int, ConstantIntegerType|ConstantStringType> $keyTypes */
+			$keyTypes = array_map(static function ($keyType) use (&$i) {
 				if ($keyType instanceof ConstantIntegerType) {
 					$i++;
 					return new ConstantIntegerType($i - 1);
@@ -376,6 +377,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 				continue;
 			}
 
+			/** @var int|float $nextAutoIndex */
 			$nextAutoIndex = max($nextAutoIndex, $keyType->getValue() + 1);
 		}
 
