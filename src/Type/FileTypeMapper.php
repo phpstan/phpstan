@@ -198,6 +198,9 @@ class FileTypeMapper
 						if ($traitReflection->getFileName() === false) {
 							continue;
 						}
+						if (!file_exists($traitReflection->getFileName())) {
+							continue;
+						}
 
 						$className = $classStack[count($classStack) - 1] ?? null;
 						if ($className === null) {
