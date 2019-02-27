@@ -320,4 +320,14 @@ class Foo
 		echo $intOrStringArray[null];
 	}
 
+	public function xmlSubclassArrayAccess(SubClassSimpleXMLElement $xml)
+	{
+		echo $xml['asdf'];
+	}
+
+}
+
+class SubClassSimpleXMLElement extends \SimpleXMLElement
+{
+
 }

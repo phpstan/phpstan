@@ -454,7 +454,8 @@ class ObjectType implements TypeWithClassName
 
 		$classReflection = $broker->getClass($this->className);
 
-		if (array_key_exists($classReflection->getName(), self::EXTRA_OFFSET_CLASSES)) {
+		if (array_key_exists($classReflection->getName(), self::EXTRA_OFFSET_CLASSES)
+			|| array_intersect($classReflection->getParentClassesNames(), array_keys(self::EXTRA_OFFSET_CLASSES)) !== []) {
 			return TrinaryLogic::createYes();
 		}
 
