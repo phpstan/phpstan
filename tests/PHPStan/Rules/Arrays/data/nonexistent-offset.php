@@ -319,5 +319,18 @@ class Foo
 		echo $intOrStringArray[$intOrNull];
 		echo $intOrStringArray[null];
 	}
+	
+	public function simpleXMLElementArrayAccess(\SimpleXMLElement $xml)
+	{
+		echo $xml['asdf'];
+	}
+	
+	public function simpleXMLElementSubclassArrayAccess(SubClassSimpleXMLElement $xml)
+	{
+		echo $xml['asdf'];
+	}
+}
 
+class SubClassSimpleXMLElement extends \SimpleXMLElement
+{
 }
