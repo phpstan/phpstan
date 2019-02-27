@@ -20,10 +20,7 @@ class ObjectType implements TypeWithClassName
 
 	use TruthyBooleanTypeTrait;
 
-	private const EXTRA_OFFSET_CLASSES = [
-		'SimpleXMLElement' => true,
-		'DOMNodeList' => true,
-	];
+	private const EXTRA_OFFSET_CLASSES = ['SimpleXMLElement', 'DOMNodeList'];
 
 	/** @var string */
 	private $className;
@@ -454,8 +451,13 @@ class ObjectType implements TypeWithClassName
 
 		$classReflection = $broker->getClass($this->className);
 
-		if (array_key_exists($classReflection->getName(), self::EXTRA_OFFSET_CLASSES)) {
-			return TrinaryLogic::createYes();
+		foreach (self::EXTRA_OFFSET_CLASSES as $extraOffsetClass) {
+			if ($classReflection->getName() === $extraOffsetClass) {
+				return TrinaryLogic::createYes();
+			}
+			if ($classReflection->isSubclassOf($extraOffsetClass)) {
+				return TrinaryLogic::createYes();
+			}
 		}
 
 		return TrinaryLogic::createNo();
