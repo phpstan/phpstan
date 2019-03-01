@@ -5270,7 +5270,7 @@ return [
 'imap_sort' => ['array|false', 'stream_id'=>'resource', 'criteria'=>'int', 'reverse'=>'int', 'options='=>'int', 'search_criteria='=>'string', 'charset='=>'string'],
 'imap_status' => ['stdClass|false', 'stream_id'=>'resource', 'mailbox'=>'string', 'options'=>'int'],
 'imap_subscribe' => ['bool', 'stream_id'=>'resource', 'mailbox'=>'string'],
-'imap_thread' => ['array', 'stream_id'=>'resource', 'options='=>'int'],
+'imap_thread' => ['array|false', 'stream_id'=>'resource', 'options='=>'int'],
 'imap_timeout' => ['mixed', 'timeout_type'=>'int', 'timeout='=>'int'],
 'imap_uid' => ['int|false', 'stream_id'=>'resource', 'msg_no'=>'int'],
 'imap_undelete' => ['bool', 'stream_id'=>'resource', 'msg_no'=>'int', 'flags='=>'int'],
