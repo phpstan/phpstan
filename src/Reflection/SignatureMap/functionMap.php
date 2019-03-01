@@ -1369,7 +1369,7 @@ return [
 'Couchbase\WildcardSearchQuery::jsonSerialize' => ['array'],
 'Couchbase\zlibCompress' => ['string', 'data'=>'string'],
 'Couchbase\zlibDecompress' => ['string', 'data'=>'string'],
-'count' => ['int', 'var'=>'Countable|array', 'mode='=>'int'],
+'count' => ['int', 'var'=>'SimpleXMLElement|ResourceBundle|Countable|array', 'mode='=>'int'],
 'count_chars' => ['mixed', 'input'=>'string', 'mode='=>'int'],
 'Countable::count' => ['int'],
 'crack_check' => ['bool', 'dictionary'=>'', 'password'=>'string'],

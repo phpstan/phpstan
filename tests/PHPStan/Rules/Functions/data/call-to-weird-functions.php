@@ -47,3 +47,6 @@ openssl_pkcs12_export('signed-csr', $output, 'private-key', 'password', ['friend
 openssl_pkcs12_export('signed-csr', $output, 'private-key', 'password', ['friendlyname' => 'name'], 'bar');  // should report 6 parameters given, 4-5 required
 
 xdebug_call_class('depth');
+
+count(new SimpleXMLElement('<data><a>a</a><b>b</b></data>')); // OK
+count(new ResourceBundle('en_US', __DIR__.'/_files/ResourceBundle')); // OK
