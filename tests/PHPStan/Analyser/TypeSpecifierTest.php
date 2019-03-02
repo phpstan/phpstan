@@ -10,10 +10,12 @@ use PhpParser\Node\Expr\BooleanNot;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\TrinaryLogic;
+use PhpParser\Node\VarLikeIdentifier;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\MixedType;
@@ -601,6 +603,33 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 				[],
 				[
 					'$foo' => 'object',
+				],
+			],
+			[
+				new Expr\Isset_(
+					[
+						new PropertyFetch(new Variable('foo'), new Identifier('bar')),
+					]
+				),
+				[
+					'$foo' => 'object&hasProperty(bar) & ~null',
+					'$foo->bar' => '~null',
+				],
+				[
+					'isset($foo->bar)' => '~object|nonEmpty',
+				],
+			],
+			[
+				new Expr\Isset_(
+					[
+						new Expr\StaticPropertyFetch(new Name('Foo'), new VarLikeIdentifier('bar')),
+					]
+				),
+				[
+					'Foo::$bar' => '~null',
+				],
+				[
+					'isset(Foo::$bar)' => '~object|nonEmpty',
 				],
 			],
 		];
