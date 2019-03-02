@@ -36,8 +36,13 @@ class VariableTypeHolder
 
 	public function and(self $other): self
 	{
+		if ($this->getType()->equals($other->getType())) {
+			$type = $this->getType();
+		} else {
+			$type = TypeCombinator::union($this->getType(), $other->getType());
+		}
 		return new self(
-			TypeCombinator::union($this->getType(), $other->getType()),
+			$type,
 			$this->getCertainty()->and($other->getCertainty())
 		);
 	}
