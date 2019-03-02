@@ -52,13 +52,16 @@ class CommandHelper
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 		$fileHelper = new FileHelper($currentWorkingDirectory);
-		if ($autoloadFile !== null && is_file($autoloadFile)) {
+		if ($autoloadFile !== null) {
 			$autoloadFile = $fileHelper->absolutizePath($autoloadFile);
-			if (is_file($autoloadFile)) {
-				(static function (string $file): void {
-					require_once $file;
-				})($autoloadFile);
+			if (!is_file($autoloadFile)) {
+				$errorOutput->writeln(sprintf('Autoload file "%s" not found.', $autoloadFile));
+				throw new \PHPStan\Command\InceptionNotSuccessfulException();
 			}
+
+			(static function (string $file): void {
+				require_once $file;
+			})($autoloadFile);
 		}
 		if ($projectConfigFile === null) {
 			foreach (['phpstan.neon', 'phpstan.neon.dist'] as $discoverableConfigName) {
