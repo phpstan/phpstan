@@ -22,6 +22,7 @@ use PHPStan\Broker\Broker;
 use PHPStan\Type\Accessory\HasOffsetType;
 use PHPStan\Type\Accessory\NonEmptyArrayType;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\BooleanType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
@@ -249,6 +250,32 @@ class TypeSpecifier
 						$context->true() ? TypeSpecifierContext::createTruthy() : TypeSpecifierContext::createTruthy()->negate()
 					);
 				}
+			}
+
+			$leftType = $scope->getType($expr->left);
+			$leftBooleanType = $leftType->toBoolean();
+			$rightType = $scope->getType($expr->right);
+			if ($leftBooleanType instanceof ConstantBooleanType && $rightType instanceof BooleanType) {
+				return $this->specifyTypesInCondition(
+					$scope,
+					new Expr\BinaryOp\Identical(
+						new ConstFetch(new Name($leftBooleanType->getValue() ? 'true' : 'false')),
+						$expr->right
+					),
+					$context
+				);
+			}
+
+			$rightBooleanType = $rightType->toBoolean();
+			if ($rightBooleanType instanceof ConstantBooleanType && $leftType instanceof BooleanType) {
+				return $this->specifyTypesInCondition(
+					$scope,
+					new Expr\BinaryOp\Identical(
+						$expr->left,
+						new ConstFetch(new Name($rightBooleanType->getValue() ? 'true' : 'false'))
+					),
+					$context
+				);
 			}
 		} elseif ($expr instanceof Node\Expr\BinaryOp\NotEqual) {
 			return $this->specifyTypesInCondition(
@@ -480,7 +507,7 @@ class TypeSpecifier
 
 	public function create(Expr $expr, Type $type, TypeSpecifierContext $context): SpecifiedTypes
 	{
-		if ($expr instanceof New_) {
+		if ($expr instanceof New_ || $expr instanceof Instanceof_) {
 			return new SpecifiedTypes();
 		}
 
