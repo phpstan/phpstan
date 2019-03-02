@@ -3,6 +3,7 @@
 namespace PHPStan\Command;
 
 use Symfony\Component\Console\Tester\CommandTester;
+use const DIRECTORY_SEPARATOR;
 
 class AnalyseCommandTest extends \PHPStan\Testing\TestCase
 {
@@ -29,6 +30,25 @@ class AnalyseCommandTest extends \PHPStan\Testing\TestCase
 		}
 	}
 
+	public function testInvalidAutoloadFile(): void
+	{
+		$dir = realpath(__DIR__ . '/../../../');
+		$autoloadFile = $dir . DIRECTORY_SEPARATOR . 'phpstan.123456789.php';
+
+		$output = $this->runCommand(1, ['--autoload-file' => $autoloadFile]);
+		$this->assertSame(sprintf('Autoload file "%s" not found.' . PHP_EOL, $autoloadFile), $output);
+	}
+
+	public function testValidAutoloadFile(): void
+	{
+		$autoloadFile = __DIR__ . DIRECTORY_SEPARATOR . 'data/autoload-file.php';
+
+		$output = $this->runCommand(0, ['--autoload-file' => $autoloadFile]);
+		$this->assertStringContainsString('[OK] No errors', $output);
+		$this->assertStringNotContainsString(sprintf('Autoload file "%s" not found.' . PHP_EOL, $autoloadFile), $output);
+		$this->assertSame(SOME_CONSTANT_IN_AUTOLOAD_FILE, 'magic value');
+	}
+
 	/**
 	 * @return string[][]
 	 */
@@ -50,13 +70,13 @@ class AnalyseCommandTest extends \PHPStan\Testing\TestCase
 		];
 	}
 
-	private function runCommand(int $expectedStatusCode): string
+	private function runCommand(int $expectedStatusCode, array $parameters = []): string
 	{
 		$commandTester = new CommandTester(new AnalyseCommand());
 
 		$commandTester->execute([
 			'paths' => [__DIR__ . DIRECTORY_SEPARATOR . 'test'],
-		]);
+		] + $parameters);
 
 		$this->assertSame($expectedStatusCode, $commandTester->getStatusCode());
 
