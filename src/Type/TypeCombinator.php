@@ -146,14 +146,14 @@ class TypeCombinator
 						continue;
 					}
 					if ($innerType instanceof AccessoryType || $innerType instanceof CallableType) {
-						$intermediateAccessoryTypes[] = $innerType;
+						$intermediateAccessoryTypes[$innerType->describe(VerbosityLevel::precise())] = $innerType;
 						continue;
 					}
 				}
 
 				if ($intermediateArrayType !== null) {
 					$arrayTypes[] = $intermediateArrayType;
-					$arrayAccessoryTypes = array_merge($arrayAccessoryTypes, $intermediateAccessoryTypes);
+					$arrayAccessoryTypes[] = $intermediateAccessoryTypes;
 					unset($types[$i]);
 					continue;
 				}
@@ -163,14 +163,25 @@ class TypeCombinator
 			}
 
 			$arrayTypes[] = $types[$i];
+			$arrayAccessoryTypes[] = [];
 			unset($types[$i]);
 		}
 
 		/** @var ArrayType[] $arrayTypes */
 		$arrayTypes = $arrayTypes;
 
+		$arrayAccessoryTypesToProcess = [];
+		if (count($arrayAccessoryTypes) > 1) {
+			$arrayAccessoryTypesToProcess = array_values(array_intersect_key(...$arrayAccessoryTypes));
+		} elseif (count($arrayAccessoryTypes) > 0) {
+			$arrayAccessoryTypesToProcess = array_values($arrayAccessoryTypes[0]);
+		}
+
 		$types = array_values(
-			array_merge($types, self::processArrayTypes($arrayTypes, $arrayAccessoryTypes))
+			array_merge(
+				$types,
+				self::processArrayTypes($arrayTypes, $arrayAccessoryTypesToProcess)
+			)
 		);
 
 		// simplify string[] | int[] to (string|int)[]

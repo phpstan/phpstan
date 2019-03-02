@@ -156,3 +156,10 @@ function (stdClass $ob, int $n) {
     $ob == $n;
     $ob + $n;
 };
+
+function (array $args) {
+	if (isset($args['class'])) {
+	}
+
+	[] + $args;
+};

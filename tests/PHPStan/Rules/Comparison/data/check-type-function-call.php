@@ -516,3 +516,19 @@ class ObjectCallable
 	}
 
 }
+
+class ArrayKeyExistsRepeated
+{
+
+	public function doFoo(array $data)
+	{
+		if (array_key_exists('dealers_dealers_id', $data)) {
+			$has = true;
+		}
+
+		if (!array_key_exists('dealers_dealers_id', $data)) {
+			$has = false;
+		}
+	}
+
+}

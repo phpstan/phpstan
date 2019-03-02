@@ -6952,17 +6952,17 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				"'afterLoop'",
 			],
 			[
-				'array<string, 1|2|3>&hasOffset(string)',
+				'array<string, 1|2|3>',
 				'$this->property',
 				"'begin'",
 			],
 			[
-				'array<string, 1|2|3>&hasOffset(string)',
+				'array<string, 1|2|3>',
 				'$this->property',
 				"'end'",
 			],
 			[
-				'array<string, 1|2|3>&hasOffset(string)',
+				'array<string, 1|2|3>',
 				'$this->property',
 				"'afterLoop'",
 			],

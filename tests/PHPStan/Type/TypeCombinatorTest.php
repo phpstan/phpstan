@@ -883,6 +883,46 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				ArrayType::class,
 				'array',
 			],
+			[
+				[
+					new IntersectionType([
+						new ArrayType(new MixedType(), new MixedType()),
+						new HasOffsetType(new ConstantStringType('foo')),
+					]),
+					new ArrayType(new MixedType(), new MixedType()),
+				],
+				ArrayType::class,
+				'array',
+			],
+			[
+				[
+					new IntersectionType([
+						new ArrayType(new MixedType(), new MixedType()),
+						new HasOffsetType(new ConstantStringType('foo')),
+					]),
+					new IntersectionType([
+						new ArrayType(new MixedType(), new MixedType()),
+						new HasOffsetType(new ConstantStringType('bar')),
+					]),
+				],
+				ArrayType::class,
+				'array',
+			],
+			[
+				[
+					new IntersectionType([
+						new ArrayType(new MixedType(), new MixedType()),
+						new HasOffsetType(new ConstantStringType('foo')),
+					]),
+					new IntersectionType([
+						new ArrayType(new MixedType(), new MixedType()),
+						new HasOffsetType(new ConstantStringType('foo')),
+						new HasOffsetType(new ConstantStringType('bar')),
+					]),
+				],
+				IntersectionType::class,
+				'array&hasOffset(\'foo\')',
+			],
 		];
 	}
 
