@@ -21,7 +21,8 @@ rules:
 	- PHPStan\Rules\Functions\PrintfParametersRule
 	- PHPStan\Rules\Functions\UnusedClosureUsesRule
 	- PHPStan\Rules\Methods\ExistingClassesInTypehintsRule
-	- PHPStan\Rules\Properties\AccessStaticPropertiesRule
+	- PHPStan\Rules\Properties\AccessPropertiesInAssignRule
+	- PHPStan\Rules\Properties\AccessStaticPropertiesInAssignRule
 	- PHPStan\Rules\Variables\ThisVariableRule
 
 services:
@@ -89,6 +90,11 @@ services:
 			- phpstan.rules.rule
 		arguments:
 			reportMagicProperties: %reportMagicProperties%
+
+	-
+		class: PHPStan\Rules\Properties\AccessStaticPropertiesRule
+		tags:
+			- phpstan.rules.rule
 
 	-
 		class: PHPStan\Rules\Properties\ExistingClassesInPropertiesRule

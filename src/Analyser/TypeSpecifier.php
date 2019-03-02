@@ -495,9 +495,6 @@ class TypeSpecifier
 				}
 			}
 
-			/** @var SpecifiedTypes $types */
-			$types = $types;
-
 			if (
 				$expr instanceof Expr\Empty_
 				&& (new ArrayType(new MixedType(), new MixedType()))->isSuperTypeOf($scope->getType($expr->expr))->yes()) {

@@ -6,8 +6,10 @@ function () {
 
 	$progressStarted = false;
 	$anotherVariable = false;
+	$incrementedInside = 1;
+	$fooOrNull = null;
 	'beforeCallback';
-	$callback = function () use (&$progressStarted, $anotherVariable, &$untouchedPassedByRef): void {
+	$callback = function () use (&$progressStarted, $anotherVariable, &$untouchedPassedByRef, &$incrementedInside, &$fooOrNull): void {
 		'inCallbackBeforeAssign';
 		if (doFoo()) {
 			$progressStarted = 1;
@@ -19,6 +21,11 @@ function () {
 		if (!$anotherVariable) {
 			$anotherVariable = true;
 		}
+		if ($fooOrNull === null) {
+			$fooOrNull = new Foo();
+		}
+
+		$incrementedInside++;
 
 		'inCallbackAfterAssign';
 	};

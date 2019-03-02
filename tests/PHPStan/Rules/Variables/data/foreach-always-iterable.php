@@ -27,5 +27,6 @@ function () {
 		$test = 1;
 	}
 
+	echo $val;
 	echo $test;
 };

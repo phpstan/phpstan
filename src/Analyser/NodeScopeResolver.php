@@ -3,7 +3,6 @@
 namespace PHPStan\Analyser;
 
 use PhpParser\Node;
-use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayDimFetch;
@@ -20,11 +19,9 @@ use PhpParser\Node\Expr\ErrorSuppress;
 use PhpParser\Node\Expr\Exit_;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\Instanceof_;
-use PhpParser\Node\Expr\Isset_;
 use PhpParser\Node\Expr\List_;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
-use PhpParser\Node\Expr\Print_;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\StaticPropertyFetch;
@@ -32,7 +29,6 @@ use PhpParser\Node\Expr\Ternary;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Break_;
-use PhpParser\Node\Stmt\Catch_;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Continue_;
 use PhpParser\Node\Stmt\Do_;
@@ -54,8 +50,9 @@ use PHPStan\Node\InClassMethodNode;
 use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\PhpDocBlock;
 use PHPStan\PhpDoc\Tag\ParamTag;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\ParametersAcceptorSelector;
-use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\CommentHelper;
 use PHPStan\Type\Constant\ConstantArrayType;
@@ -63,12 +60,11 @@ use PHPStan\Type\Constant\ConstantArrayTypeBuilder;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
-use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
-use PHPStan\Type\ObjectType;
+use PHPStan\Type\NullType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
@@ -77,6 +73,9 @@ use PHPStan\Type\UnionType;
 
 class NodeScopeResolver
 {
+
+	private const LOOP_SCOPE_ITERATIONS = 3;
+	private const GENERALIZE_AFTER_ITERATION = 1;
 
 	/** @var \PHPStan\Broker\Broker */
 	private $broker;
@@ -104,9 +103,6 @@ class NodeScopeResolver
 
 	/** @var string[][] className(string) => methods(string[]) */
 	private $earlyTerminatingMethodCalls;
-
-	/** @var \PHPStan\Reflection\ClassReflection|null */
-	private $anonymousClassReflection;
 
 	/** @var bool[] filePath(string) => bool(true) */
 	private $analysedFiles;
@@ -157,1037 +153,989 @@ class NodeScopeResolver
 	 * @param \PhpParser\Node[] $nodes
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
-	 * @param \PHPStan\Analyser\Scope $closureBindScope
 	 */
 	public function processNodes(
 		array $nodes,
 		Scope $scope,
-		\Closure $nodeCallback,
-		?Scope $closureBindScope = null
+		\Closure $nodeCallback
 	): void
 	{
-		$nodesCount = count($nodes);
-		/** @var \PhpParser\Node|string $node */
-		foreach ($nodes as $i => $node) {
-			if (!($node instanceof \PhpParser\Node)) {
+		foreach ($nodes as $node) {
+			if (!$node instanceof Node\Stmt) {
 				continue;
 			}
-			if ($scope->getInFunctionCall() !== null && $node instanceof Arg) {
-				$functionCall = $scope->getInFunctionCall();
-				$value = $node->value;
 
-				$parametersAcceptor = $this->findParametersAcceptorInFunctionCall($functionCall, $scope);
+			$statementResult = $this->processStmtNode($node, $scope, $nodeCallback);
+			/*if ($statementResult->isAlwaysTerminating()) {
+				// todo virtual dead code node
+				// todo test various pollute* settings
+				//break;
+			}*/
 
-				if ($parametersAcceptor !== null) {
-					$parameters = $parametersAcceptor->getParameters();
-					$assignByReference = false;
-					if (isset($parameters[$i])) {
-						$assignByReference = $parameters[$i]->passedByReference()->createsNewVariable();
-					} elseif (count($parameters) > 0 && $parametersAcceptor->isVariadic()) {
-						$lastParameter = $parameters[count($parameters) - 1];
-						$assignByReference = $lastParameter->passedByReference()->createsNewVariable();
-					}
-					if ($assignByReference && $value instanceof Variable && is_string($value->name)) {
-						$scope = $scope->assignVariable($value->name, new MixedType(), TrinaryLogic::createYes());
-					}
-				}
-			}
-
-			$nodeScope = $scope;
-			if ($i === 0 && $closureBindScope !== null) {
-				$nodeScope = $closureBindScope;
-			}
-
-			$this->processNode($node, $nodeScope, $nodeCallback);
-
-			if ($i === $nodesCount - 1) {
-				break;
-			}
-			$scope = $this->lookForAssigns(
-				$scope,
-				$node,
-				TrinaryLogic::createYes(),
-				LookForAssignsSettings::default()
-			);
-
-			if ($node instanceof If_) {
-				if ($this->findEarlyTermination($node->stmts, $scope) !== null) {
-					$scope = $scope->filterByFalseyValue($node->cond);
-					$this->processNode($node->cond, $scope, function (Node $node, Scope $inScope) use (&$scope): void {
-						$this->specifyFetchedPropertyForInnerScope($node, $inScope, true, $scope);
-					});
-				}
-			} elseif ($node instanceof Node\Stmt\Declare_) {
-				foreach ($node->declares as $declare) {
-					if (
-						$declare->key->name === 'strict_types'
-						&& $declare->value instanceof Node\Scalar\LNumber
-						&& $declare->value->value === 1
-					) {
-						$scope = $scope->enterDeclareStrictTypes();
-						break;
-					}
-				}
-			} elseif ($node instanceof Node\Stmt\Expression) {
-				$scope = $scope->filterBySpecifiedTypes($this->typeSpecifier->specifyTypesInCondition(
-					$scope,
-					$node->expr,
-					TypeSpecifierContext::createNull()
-				));
-			}
+			$scope = $statementResult->getScope();
 		}
-	}
-
-	private function specifyProperty(Scope $scope, Expr $expr): Scope
-	{
-		if (
-			$expr instanceof PropertyFetch
-			&& $expr->name instanceof Node\Identifier
-		) {
-			return $scope->filterByTruthyValue(
-				new FuncCall(
-					new Node\Name('property_exists'),
-					[
-						new Arg($expr->var),
-						new Arg(new Node\Scalar\String_($expr->name->name)),
-					]
-				)
-			);
-		} elseif (
-			$expr instanceof Expr\StaticPropertyFetch
-		) {
-			if (
-				$expr->class instanceof Name
-			) {
-				if ((string) $expr->class === 'static') {
-					return $scope->specifyFetchedStaticPropertyFromIsset($expr);
-				}
-			} elseif ($expr->name instanceof Node\VarLikeIdentifier) {
-				return $scope->filterByTruthyValue(
-					new FuncCall(
-						new Node\Name('property_exists'),
-						[
-							new Arg($expr->class),
-							new Arg(new Node\Scalar\String_($expr->name->name)),
-						]
-					)
-				);
-			}
-		}
-
-		return $scope;
-	}
-
-	private function specifyFetchedPropertyForInnerScope(Node $node, Scope $inScope, bool $inEarlyTermination, Scope &$scope): void
-	{
-		if ($inEarlyTermination === $inScope->isNegated()) {
-			if ($node instanceof Isset_) {
-				foreach ($node->vars as $var) {
-					$scope = $this->specifyProperty($scope, $var);
-				}
-			}
-		} else {
-			if ($node instanceof Expr\Empty_) {
-				$scope = $this->specifyProperty($scope, $node->expr);
-			}
-		}
-	}
-
-	private function lookForArrayDestructuringArray(Scope $scope, Node $node, Type $valueType): Scope
-	{
-		if ($node instanceof Array_ || $node instanceof List_) {
-			foreach ($node->items as $key => $item) {
-				/** @var \PhpParser\Node\Expr\ArrayItem|null $itemValue */
-				$itemValue = $item;
-				if ($itemValue === null) {
-					continue;
-				}
-
-				$keyType = $itemValue->key === null ? new ConstantIntegerType($key) : $scope->getType($itemValue->key);
-				$scope = $this->specifyItemFromArrayDestructuring($scope, $itemValue, $valueType, $keyType);
-			}
-		} elseif ($node instanceof Variable && is_string($node->name)) {
-			$scope = $scope->assignVariable($node->name, new MixedType(), TrinaryLogic::createYes());
-		} elseif ($node instanceof ArrayDimFetch && $node->var instanceof Variable && is_string($node->var->name)) {
-			$scope = $scope->assignVariable(
-				$node->var->name,
-				new MixedType(),
-				TrinaryLogic::createYes()
-			);
-		}
-
-		return $scope;
-	}
-
-	private function specifyItemFromArrayDestructuring(Scope $scope, ArrayItem $arrayItem, Type $valueType, Type $keyType): Scope
-	{
-		$type = $valueType->getOffsetValueType($keyType);
-
-		$itemNode = $arrayItem->value;
-		if ($itemNode instanceof Variable && is_string($itemNode->name)) {
-			$scope = $scope->assignVariable($itemNode->name, $type, TrinaryLogic::createYes());
-		} elseif ($itemNode instanceof ArrayDimFetch && $itemNode->var instanceof Variable && is_string($itemNode->var->name)) {
-			$currentType = $scope->hasVariableType($itemNode->var->name)->no()
-				? new ConstantArrayType([], [])
-				: $scope->getVariableType($itemNode->var->name);
-			$dimType = null;
-			if ($itemNode->dim !== null) {
-				$dimType = $scope->getType($itemNode->dim);
-			}
-			$scope = $scope->assignVariable(
-				$itemNode->var->name,
-				$currentType->setOffsetValueType($dimType, $type),
-				TrinaryLogic::createYes()
-			);
-		} else {
-			$scope = $this->lookForArrayDestructuringArray($scope, $itemNode, $type);
-		}
-
-		return $scope;
-	}
-
-	private function enterForeach(Scope $scope, Foreach_ $node): Scope
-	{
-		if ($node->keyVar !== null && $node->keyVar instanceof Variable && is_string($node->keyVar->name)) {
-			$scope = $scope->assignVariable($node->keyVar->name, new MixedType(), TrinaryLogic::createYes());
-		}
-
-		$comment = CommentHelper::getDocComment($node);
-		if ($node->valueVar instanceof Variable && is_string($node->valueVar->name)) {
-			$scope = $scope->enterForeach(
-				$node->expr,
-				$node->valueVar->name,
-				$node->keyVar !== null
-				&& $node->keyVar instanceof Variable
-				&& is_string($node->keyVar->name)
-					? $node->keyVar->name
-					: null
-			);
-			if ($comment !== null) {
-				$scope = $this->processVarAnnotation($scope, $node->valueVar->name, $comment, true);
-			}
-		}
-
-		if (
-			$node->keyVar instanceof Variable && is_string($node->keyVar->name)
-			&& $comment !== null
-		) {
-			$scope = $this->processVarAnnotation($scope, $node->keyVar->name, $comment, true);
-		}
-
-		if ($node->valueVar instanceof List_ || $node->valueVar instanceof Array_) {
-			$itemTypes = [];
-			$exprType = $scope->getType($node->expr);
-			$arrayTypes = TypeUtils::getArrays($exprType);
-			foreach ($arrayTypes as $arrayType) {
-				$itemTypes[] = $arrayType->getItemType();
-			}
-
-			$itemType = count($itemTypes) > 0 ? TypeCombinator::union(...$itemTypes) : new MixedType();
-			$scope = $this->lookForArrayDestructuringArray($scope, $node->valueVar, $itemType);
-		}
-
-		return $this->lookForAssigns($scope, $node->valueVar, TrinaryLogic::createYes(), LookForAssignsSettings::default());
 	}
 
 	/**
-	 * @param \PhpParser\Node $node
-	 * @param Scope $scope
+	 * @param \PhpParser\Node\Stmt[] $stmts
+	 * @param \PHPStan\Analyser\Scope $scope
 	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
-	 * @param bool $stopImmediately
+	 * @return StatementResult
 	 */
-	private function processNode(\PhpParser\Node $node, Scope $scope, \Closure $nodeCallback, bool $stopImmediately = false): void
+	public function processStmtNodes(
+		array $stmts,
+		Scope $scope,
+		\Closure $nodeCallback
+	): StatementResult
 	{
-		$nodeCallback($node, $scope);
-		if ($stopImmediately) {
-			return;
+		$exitPoints = [];
+		$alwaysTerminatingStatements = [];
+		$alreadyTerminated = false;
+		foreach ($stmts as $stmt) {
+			$statementResult = $this->processStmtNode($stmt, $scope, $nodeCallback);
+			$exitPoints = array_merge($exitPoints, $statementResult->getExitPoints());
+
+			if ($statementResult->isAlwaysTerminating() && !$alreadyTerminated) {
+				$alwaysTerminatingStatements = array_merge($alwaysTerminatingStatements, $statementResult->getAlwaysTerminatingStatements());
+				$alreadyTerminated = true;
+				// todo break;
+			}
+
+			$scope = $statementResult->getScope();
 		}
 
-		if (
-			$node instanceof \PhpParser\Node\Stmt\ClassLike
-		) {
-			if ($node instanceof Node\Stmt\Trait_) {
-				return;
+		return new StatementResult($scope, $alwaysTerminatingStatements, $exitPoints);
+	}
+
+	/**
+	 * @param \PhpParser\Node\Stmt $stmt
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
+	 * @return StatementResult
+	 */
+	private function processStmtNode(
+		Node\Stmt $stmt,
+		Scope $scope,
+		\Closure $nodeCallback
+	): StatementResult
+	{
+		$nodeCallback($stmt, $scope);
+
+		// todo handle all stmt descendants
+		if ($stmt instanceof Node\Stmt\Declare_) {
+			foreach ($stmt->declares as $declare) {
+				$nodeCallback($declare, $scope);
+				$nodeCallback($declare->value, $scope);
+				if (
+					$declare->key->name !== 'strict_types'
+					|| !($declare->value instanceof Node\Scalar\LNumber)
+					|| $declare->value->value !== 1
+				) {
+					continue;
+				}
+
+				$scope = $scope->enterDeclareStrictTypes();
 			}
-			if (isset($node->namespacedName)) {
-				$scope = $scope->enterClass($this->broker->getClass((string) $node->namespacedName));
-			} elseif ($this->anonymousClassReflection !== null) {
-				$scope = $scope->enterAnonymousClass($this->anonymousClassReflection);
+		} elseif ($stmt instanceof Node\Stmt\Function_) {
+			[$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated, $isInternal, $isFinal] = $this->getPhpDocs($scope, $stmt);
+
+			foreach ($stmt->params as $param) {
+				$this->processParamNode($param, $scope, $nodeCallback);
+			}
+
+			if ($stmt->returnType !== null) {
+				$nodeCallback($stmt->returnType, $scope);
+			}
+
+			$functionScope = $scope->enterFunction(
+				$stmt,
+				$phpDocParameterTypes,
+				$phpDocReturnType,
+				$phpDocThrowType,
+				$isDeprecated,
+				$isInternal,
+				$isFinal
+			);
+			$this->processStmtNodes($stmt->stmts, $functionScope, $nodeCallback);
+		} elseif ($stmt instanceof Node\Stmt\ClassMethod) {
+			[$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated, $isInternal, $isFinal] = $this->getPhpDocs($scope, $stmt);
+
+			foreach ($stmt->params as $param) {
+				$this->processParamNode($param, $scope, $nodeCallback);
+			}
+
+			if ($stmt->returnType !== null) {
+				$nodeCallback($stmt->returnType, $scope);
+			}
+
+			$methodScope = $scope->enterClassMethod(
+				$stmt,
+				$phpDocParameterTypes,
+				$phpDocReturnType,
+				$phpDocThrowType,
+				$isDeprecated,
+				$isInternal,
+				$isFinal
+			);
+			$nodeCallback(new InClassMethodNode($stmt), $methodScope);
+
+			if ($stmt->stmts !== null) {
+				$this->processStmtNodes($stmt->stmts, $methodScope, $nodeCallback);
+			}
+		} elseif ($stmt instanceof Echo_) {
+			foreach ($stmt->exprs as $echoExpr) {
+				$scope = $this->processExprNode($echoExpr, $scope, $nodeCallback, 1);
+			}
+		} elseif ($stmt instanceof Return_) {
+			if ($stmt->expr !== null) {
+				$scope = $this->processExprNode($stmt->expr, $scope, $nodeCallback, 1);
+			}
+
+			return new StatementResult($scope, [$stmt], [
+				new StatementExitPoint($stmt, $scope),
+			]);
+		} elseif ($stmt instanceof Continue_) {
+			if ($stmt->num !== null) {
+				$scope = $this->processExprNode($stmt->num, $scope, $nodeCallback, 1);
+			}
+
+			return new StatementResult($scope, [$stmt], [
+				new StatementExitPoint($stmt, $scope),
+			]);
+		} elseif ($stmt instanceof Break_) {
+			if ($stmt->num !== null) {
+				$scope = $this->processExprNode($stmt->num, $scope, $nodeCallback, 1);
+			}
+
+			return new StatementResult($scope, [$stmt], [
+				new StatementExitPoint($stmt, $scope),
+			]);
+		} elseif ($stmt instanceof Node\Stmt\Expression) {
+			$earlyTerminationExpr = $this->findEarlyTerminatingExpr($stmt->expr, $scope);
+			$scope = $this->processExprNode($stmt->expr, $scope, $nodeCallback, 0);
+			$scope = $scope->filterBySpecifiedTypes($this->typeSpecifier->specifyTypesInCondition(
+				$scope,
+				$stmt->expr,
+				TypeSpecifierContext::createNull()
+			));
+			if ($earlyTerminationExpr !== null) {
+				return new StatementResult($scope, [$stmt], [
+					new StatementExitPoint($stmt, $scope),
+				]);
+			}
+		} elseif ($stmt instanceof Node\Stmt\Namespace_) {
+			if ($stmt->name !== null) {
+				$scope = $scope->enterNamespace($stmt->name->toString());
+			}
+
+			$scope = $this->processStmtNodes($stmt->stmts, $scope, $nodeCallback)->getScope();
+		} elseif ($stmt instanceof Node\Stmt\Trait_) {
+			return new StatementResult($scope, [], []);
+		} elseif ($stmt instanceof Node\Stmt\ClassLike) {
+			if (isset($stmt->namespacedName)) {
+				$classScope = $scope->enterClass($this->broker->getClass((string) $stmt->namespacedName));
+			} elseif ($stmt instanceof Class_) {
+				$classScope = $scope->enterAnonymousClass($this->broker->getAnonymousClassReflection($stmt, $scope));
 			} else {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
-		} elseif ($node instanceof Node\Stmt\TraitUse) {
-			$this->processTraitUse($node, $scope, $nodeCallback);
-		} elseif ($node instanceof \PhpParser\Node\Stmt\Function_) {
-			$scope = $this->enterFunction($scope, $node);
-		} elseif ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
-			$scope = $this->enterClassMethod($scope, $node);
-			$nodeCallback(new InClassMethodNode($node), $scope);
-		} elseif ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
-			$scope = $scope->enterNamespace((string) $node->name);
-		} elseif (
-			$node instanceof \PhpParser\Node\Expr\StaticCall
-			&& $node->class instanceof \PhpParser\Node\Name
-			&& $node->name instanceof Node\Identifier
-			&& (string) $node->class === 'Closure'
-			&& $node->name->name === 'bind'
-		) {
-			$thisType = null;
-			if (isset($node->args[1])) {
-				$argValue = $node->args[1]->value;
-				if ($argValue instanceof Expr\ConstFetch && ((string) $argValue->name === 'null')) {
-					$thisType = null;
-				} else {
-					$thisType = $scope->getType($argValue);
+
+			$this->processStmtNodes($stmt->stmts, $classScope, $nodeCallback);
+		} elseif ($stmt instanceof Node\Stmt\Property) {
+			foreach ($stmt->props as $prop) {
+				$this->processStmtNode($prop, $scope, $nodeCallback);
+			}
+
+			if ($stmt->type !== null) {
+				$nodeCallback($stmt->type, $scope);
+			}
+		} elseif ($stmt instanceof Node\Stmt\PropertyProperty) {
+			if ($stmt->default !== null) {
+				$this->processExprNode($stmt->default, $scope, $nodeCallback, 1);
+			}
+		} elseif ($stmt instanceof Throw_) {
+			$scope = $this->processExprNode($stmt->expr, $scope, $nodeCallback, 1);
+			return new StatementResult($scope, [$stmt], [
+				new StatementExitPoint($stmt, $scope),
+			]);
+		} elseif ($stmt instanceof If_) {
+			$conditionType = $scope->getType($stmt->cond)->toBoolean();
+			$ifAlwaysTrue = $conditionType instanceof ConstantBooleanType && $conditionType->getValue();
+			$scope = $this->processExprNode($stmt->cond, $scope, $nodeCallback, 1);
+			$exitPoints = [];
+			$finalScope = null;
+			$alwaysTerminatingStatements = [];
+			$alwaysTerminating = true;
+
+			$branchScopeStatementResult = $this->processStmtNodes($stmt->stmts, $scope->filterByTruthyValue($stmt->cond), $nodeCallback);
+
+			if (!$conditionType instanceof ConstantBooleanType || $conditionType->getValue()) {
+				$exitPoints = $branchScopeStatementResult->getExitPoints();
+				$branchScope = $branchScopeStatementResult->getScope();
+				$finalScope = $branchScopeStatementResult->isAlwaysTerminating() ? null : $branchScope;
+				$alwaysTerminating = $branchScopeStatementResult->isAlwaysTerminating();
+				if ($branchScopeStatementResult->isAlwaysTerminating()) {
+					$alwaysTerminatingStatements = array_merge($alwaysTerminatingStatements, $branchScopeStatementResult->getAlwaysTerminatingStatements());
 				}
 			}
-			$scopeClass = 'static';
-			if (isset($node->args[2])) {
-				$argValue = $node->args[2]->value;
-				$argValueType = $scope->getType($argValue);
 
-				$directClassNames = TypeUtils::getDirectClassNames($argValueType);
-				if (count($directClassNames) === 1) {
-					$scopeClass = $directClassNames[0];
-				} elseif (
-					$argValue instanceof Expr\ClassConstFetch
-					&& $argValue->name instanceof Node\Identifier
-					&& strtolower($argValue->name->name) === 'class'
-					&& $argValue->class instanceof Name
+			$scope = $scope->filterByFalseyValue($stmt->cond);
+			$lastElseIfConditionIsTrue = false;
+
+			$condScope = $scope;
+			foreach ($stmt->elseifs as $elseif) {
+				$nodeCallback($elseif, $scope);
+				$elseIfConditionType = $condScope->getType($elseif->cond)->toBoolean();
+				$condScope = $this->processExprNode($elseif->cond, $condScope, $nodeCallback, 1);
+				$branchScopeStatementResult = $this->processStmtNodes($elseif->stmts, $condScope->filterByTruthyValue($elseif->cond), $nodeCallback);
+
+				if (
+					!$ifAlwaysTrue
+					&& (
+						!$lastElseIfConditionIsTrue
+						&& (
+							!$elseIfConditionType instanceof ConstantBooleanType
+							|| $elseIfConditionType->getValue()
+						)
+					)
 				) {
-					$scopeClass = $scope->resolveName($argValue->class);
-				} elseif ($argValueType instanceof ConstantStringType) {
-					$scopeClass = $argValueType->getValue();
+					$exitPoints = array_merge($exitPoints, $branchScopeStatementResult->getExitPoints());
+					$branchScope = $branchScopeStatementResult->getScope();
+					$finalScope = $branchScopeStatementResult->isAlwaysTerminating() ? $finalScope : $branchScope->mergeWith($finalScope);
+					$alwaysTerminating = $alwaysTerminating && $branchScopeStatementResult->isAlwaysTerminating();
+					if ($branchScopeStatementResult->isAlwaysTerminating()) {
+						$alwaysTerminatingStatements = array_merge($alwaysTerminatingStatements, $branchScopeStatementResult->getAlwaysTerminatingStatements());
+					}
+				}
+
+				if (
+					$elseIfConditionType instanceof ConstantBooleanType
+					&& $elseIfConditionType->getValue()
+				) {
+					$lastElseIfConditionIsTrue = true;
+				}
+
+				$condScope = $condScope->filterByFalseyValue($elseif->cond);
+				$scope = $condScope;
+			}
+
+			if ($stmt->else === null) {
+				if (!$ifAlwaysTrue) {
+					$finalScope = $scope->mergeWith($finalScope);
+					$alwaysTerminating = false;
+				}
+			} else {
+				$nodeCallback($stmt->else, $scope);
+				$branchScopeStatementResult = $this->processStmtNodes($stmt->else->stmts, $scope, $nodeCallback);
+
+				if (!$ifAlwaysTrue && !$lastElseIfConditionIsTrue) {
+					$exitPoints = array_merge($exitPoints, $branchScopeStatementResult->getExitPoints());
+					$branchScope = $branchScopeStatementResult->getScope();
+					$finalScope = $branchScopeStatementResult->isAlwaysTerminating() ? $finalScope : $branchScope->mergeWith($finalScope);
+					$alwaysTerminating = $alwaysTerminating && $branchScopeStatementResult->isAlwaysTerminating();
+					if ($branchScopeStatementResult->isAlwaysTerminating()) {
+						$alwaysTerminatingStatements = array_merge($alwaysTerminatingStatements, $branchScopeStatementResult->getAlwaysTerminatingStatements());
+					}
 				}
 			}
-			$closureBindScope = $scope->enterClosureBind($thisType, $scopeClass);
-		} elseif ($node instanceof Foreach_) {
-			$scope = $scope->exitFirstLevelStatements();
-			$this->processNode($node->expr, $scope, $nodeCallback);
-			$scope = $this->lookForAssigns($scope, $node->expr, TrinaryLogic::createYes(), LookForAssignsSettings::default());
-			if ($node->keyVar !== null) {
-				$this->processNode($node->keyVar, $scope->enterExpressionAssign($node->keyVar), $nodeCallback);
+
+			if ($finalScope === null) {
+				$finalScope = $scope;
 			}
-			$this->processNode(
-				$node->valueVar,
-				$this->lookForEnterVariableAssign($scope, $node->valueVar),
-				$nodeCallback
-			);
 
-			$scope = $this->lookForAssignsInBranches($scope, [
-				new StatementList($scope, $node->stmts, false, function (Scope $scope) use ($node): Scope {
-					return $this->enterForeach($scope, $node);
-				}),
-				new StatementList($scope, []),
-			], LookForAssignsSettings::insideLoop());
-			$scope = $this->enterForeach($scope, $node);
+			return new StatementResult($finalScope, $alwaysTerminating ? $alwaysTerminatingStatements : [], $exitPoints);
+		} elseif ($stmt instanceof Node\Stmt\TraitUse) {
+			$this->processTraitUse($stmt, $scope, $nodeCallback);
+		} elseif ($stmt instanceof Foreach_) {
+			$scope = $this->processExprNode($stmt->expr, $scope, $nodeCallback, 1);
+			$bodyScope = $this->enterForeach($scope, $stmt);
+			$count = 0;
+			do {
+				$prevScope = $bodyScope;
+				$bodyScope = $bodyScope->mergeWith($scope);
+				$bodyScope = $this->enterForeach($bodyScope, $stmt);
+				$bodyScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, static function (): void {
+				})->filterOutLoopTerminationStatements();
+				$alwaysTerminating = $bodyScopeResult->isAlwaysTerminating();
+				$bodyScope = $bodyScopeResult->getScope();
+				foreach ($bodyScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
+					$bodyScope = $bodyScope->mergeWith($continueExitPoint->getScope());
+				}
+				if ($bodyScope->equals($prevScope)) {
+					break;
+				}
 
-			$this->processNodes($node->stmts, $scope->enterFirstLevelStatements(), $nodeCallback);
+				if ($count >= self::GENERALIZE_AFTER_ITERATION) {
+					$bodyScope = $bodyScope->generalizeWith($prevScope);
+				}
+				$count++;
+			} while (!$alwaysTerminating && $count < self::LOOP_SCOPE_ITERATIONS);
 
-			return;
-		} elseif ($node instanceof For_) {
-			$this->processNodes($node->init, $scope, $nodeCallback);
-
-			foreach ($node->init as $initExpr) {
-				$scope = $this->lookForAssigns($scope, $initExpr, TrinaryLogic::createYes(), LookForAssignsSettings::insideLoop());
+			$bodyScope = $bodyScope->mergeWith($scope);
+			$bodyScope = $this->enterForeach($bodyScope, $stmt);
+			$finalScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, $nodeCallback)->filterOutLoopTerminationStatements();
+			$alwaysTerminatingStatements = $finalScopeResult->getAlwaysTerminatingStatements();
+			$finalScope = $finalScopeResult->getScope();
+			foreach ($finalScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
+				$finalScope = $continueExitPoint->getScope()->mergeWith($finalScope);
 			}
-			$scopeLoopMightHaveRun = $this->lookForAssignsInBranches($scope, [
-				new StatementList($scope, $node->cond),
-				new StatementList($scope, $node->stmts),
-				new StatementList($scope, $node->loop),
-				new StatementList($scope, []),
-			], LookForAssignsSettings::insideLoop());
+			foreach ($finalScopeResult->getExitPointsByType(Break_::class) as $breakExitPoint) {
+				$finalScope = $breakExitPoint->getScope()->mergeWith($finalScope);
+			}
 
-			$this->processNodes($node->cond, $scopeLoopMightHaveRun, $nodeCallback);
+			$isIterableAtLeastOnce = $scope->getType($stmt->expr)->isIterableAtLeastOnce();
+			if ($isIterableAtLeastOnce->no() || $finalScopeResult->isAlwaysTerminating()) {
+				$finalScope = $scope;
+			} elseif ($isIterableAtLeastOnce->maybe()) {
+				$finalScope = $finalScope->mergeWith($scope);
+			} elseif (!$this->polluteScopeWithAlwaysIterableForeach) {
+				$finalScope = $scope->processAlwaysIterableForeachScopeWithoutPollute($finalScope);
+				// get types from finalScope, but don't create new variables
+			}
 
-			$scopeLoopDefinitelyRan = $this->lookForAssignsInBranches($scope, [
-				new StatementList($scope, $node->stmts, false, static function (Scope $scope) use ($node): Scope {
-					foreach ($node->cond as $condExpr) {
-						$scope = $scope->filterByTruthyValue($condExpr);
+			return new StatementResult($finalScope, $alwaysTerminating ? $alwaysTerminatingStatements : [], []);
+		} elseif ($stmt instanceof While_) {
+			$condScope = $this->processExprNode($stmt->cond, $scope, static function (): void {
+			}, 1);
+			//TODO if (!$condScope->equals($scope)) {
+			//	$condScope = $condScope->generalizeWith($scope);
+			//}
+			$bodyScope = $condScope->filterByTruthyValue($stmt->cond);
+			$count = 0;
+			do {
+				$prevScope = $bodyScope;
+				$bodyScope = $bodyScope->mergeWith($scope);
+				$bodyScope = $this->processExprNode($stmt->cond, $bodyScope, static function (): void {
+				}, 1)->filterByTruthyValue($stmt->cond);
+				$bodyScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, static function (): void {
+				})->filterOutLoopTerminationStatements();
+				$alwaysTerminating = $bodyScopeResult->isAlwaysTerminating();
+				$alwaysTerminatingStatements = $bodyScopeResult->getAlwaysTerminatingStatements();
+				$bodyScope = $bodyScopeResult->getScope();
+				foreach ($bodyScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
+					$bodyScope = $bodyScope->mergeWith($continueExitPoint->getScope());
+				}
+				if ($bodyScope->equals($prevScope)) {
+					break;
+				}
+
+				if ($count >= self::GENERALIZE_AFTER_ITERATION) {
+					$bodyScope = $bodyScope->generalizeWith($prevScope);
+				}
+				$count++;
+			} while (!$alwaysTerminating && $count < self::LOOP_SCOPE_ITERATIONS);
+
+			$bodyScope = $bodyScope->mergeWith($scope);
+			$bodyScope = $this->processExprNode($stmt->cond, $bodyScope, $nodeCallback, 1)->filterByTruthyValue($stmt->cond);
+			$finalScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, $nodeCallback);
+			$finalScope = $finalScopeResult->getScope();
+			foreach ($finalScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
+				$finalScope = $finalScope->mergeWith($continueExitPoint->getScope());
+			}
+			foreach ($finalScopeResult->getExitPointsByType(Break_::class) as $breakExitPoint) {
+				$finalScope = $finalScope->mergeWith($breakExitPoint->getScope());
+			}
+
+			$condBooleanType = $scope->getType($stmt->cond)->toBoolean();
+			$isIterableAtLeastOnce = $condBooleanType instanceof ConstantBooleanType && $condBooleanType->getValue();
+			// todo for all loops - is not falsey when the loop is exited via break
+			$condScope = $condScope->filterByFalseyValue($stmt->cond);
+			if (!$isIterableAtLeastOnce) {
+				if (!$this->polluteScopeWithLoopInitialAssignments) {
+					$condScope = $condScope->mergeWith($scope);
+				}
+				$finalScope = $finalScope->mergeWith($condScope);
+			}
+
+			return new StatementResult($finalScope, $alwaysTerminatingStatements, []);
+		} elseif ($stmt instanceof Do_) {
+			$finalScope = null;
+			$bodyScope = $scope;
+			$count = 0;
+			do {
+				$prevScope = $bodyScope;
+				$bodyScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, static function (): void {
+				})->filterOutLoopTerminationStatements();
+				$alwaysTerminating = $bodyScopeResult->isAlwaysTerminating();
+				$bodyScope = $bodyScopeResult->getScope();
+				foreach ($bodyScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
+					$bodyScope = $bodyScope->mergeWith($continueExitPoint->getScope());
+				}
+				$finalScope = $alwaysTerminating ? $finalScope : $bodyScope->mergeWith($finalScope);
+				foreach ($bodyScopeResult->getExitPointsByType(Break_::class) as $breakExitPoint) {
+					$finalScope = $breakExitPoint->getScope()->mergeWith($finalScope);
+				}
+				$bodyScope = $this->processExprNode($stmt->cond, $bodyScope, static function (): void {
+				}, 1)->filterByTruthyValue($stmt->cond);
+				if ($bodyScope->equals($prevScope)) {
+					break;
+				}
+
+				if ($count >= self::GENERALIZE_AFTER_ITERATION) {
+					$bodyScope = $bodyScope->generalizeWith($prevScope);
+				}
+				$count++;
+			} while (!$alwaysTerminating && $count < self::LOOP_SCOPE_ITERATIONS);
+
+			$bodyScope = $bodyScope->mergeWith($scope);
+
+			$bodyScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, $nodeCallback)->filterOutLoopTerminationStatements();
+			$alwaysTerminating = $bodyScopeResult->isAlwaysTerminating();
+			$alwaysTerminatingStatements = $bodyScopeResult->getAlwaysTerminatingStatements();
+			$bodyScope = $bodyScopeResult->getScope();
+			foreach ($bodyScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
+				$bodyScope = $bodyScope->mergeWith($continueExitPoint->getScope());
+			}
+			$finalScope = $alwaysTerminating ? $finalScope : $bodyScope->mergeWith($finalScope);
+			if ($finalScope === null) {
+				$finalScope = $scope;
+			}
+			if (!$alwaysTerminating) {
+				$finalScope = $this->processExprNode($stmt->cond, $bodyScope, $nodeCallback, 1);
+				// todo not if it breaks out of the loop using break;
+				$finalScope = $finalScope->filterByFalseyValue($stmt->cond);
+			}
+			foreach ($bodyScopeResult->getExitPointsByType(Break_::class) as $breakExitPoint) {
+				$finalScope = $breakExitPoint->getScope()->mergeWith($finalScope);
+			}
+
+			return new StatementResult($finalScope, $alwaysTerminatingStatements, []);
+		} elseif ($stmt instanceof For_) {
+			$initScope = $scope;
+			foreach ($stmt->init as $initExpr) {
+				$initScope = $this->processExprNode($initExpr, $initScope, $nodeCallback, 0);
+			}
+
+			$bodyScope = $initScope;
+			foreach ($stmt->cond as $condExpr) {
+				$bodyScope = $this->processExprNode($condExpr, $bodyScope, static function (): void {
+				}, 1)->filterByTruthyValue($condExpr);
+			}
+
+			$count = 0;
+			do {
+				$prevScope = $bodyScope;
+				$bodyScope = $bodyScope->mergeWith($initScope);
+				foreach ($stmt->cond as $condExpr) {
+					$bodyScope = $this->processExprNode($condExpr, $bodyScope, static function (): void {
+					}, 1)->filterByTruthyValue($condExpr);
+				}
+				$bodyScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, static function (): void {
+				})->filterOutLoopTerminationStatements();
+				$alwaysTerminating = $bodyScopeResult->isAlwaysTerminating();
+				$alwaysTerminatingStatements = $bodyScopeResult->getAlwaysTerminatingStatements();
+				$bodyScope = $bodyScopeResult->getScope();
+				foreach ($bodyScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
+					$bodyScope = $bodyScope->mergeWith($continueExitPoint->getScope());
+				}
+				foreach ($stmt->loop as $loopExpr) {
+					$bodyScope = $this->processExprNode($loopExpr, $bodyScope, static function (): void {
+					}, 0);
+				}
+
+				if ($bodyScope->equals($prevScope)) {
+					break;
+				}
+
+				if ($count >= self::GENERALIZE_AFTER_ITERATION) {
+					$bodyScope = $bodyScope->generalizeWith($prevScope);
+				}
+				$count++;
+			} while (!$alwaysTerminating && $count < self::LOOP_SCOPE_ITERATIONS);
+
+			$bodyScope = $bodyScope->mergeWith($initScope);
+			foreach ($stmt->cond as $condExpr) {
+				$bodyScope = $this->processExprNode($condExpr, $bodyScope, $nodeCallback, 1)->filterByTruthyValue($condExpr);
+			}
+
+			$finalScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, $nodeCallback);
+			$finalScope = $finalScopeResult->getScope();
+			foreach ($finalScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
+				$finalScope = $continueExitPoint->getScope()->mergeWith($finalScope);
+			}
+			foreach ($stmt->loop as $loopExpr) {
+				$finalScope = $this->processExprNode($loopExpr, $finalScope, $nodeCallback, 0);
+			}
+			foreach ($finalScopeResult->getExitPointsByType(Break_::class) as $breakExitPoint) {
+				$finalScope = $breakExitPoint->getScope()->mergeWith($finalScope);
+			}
+
+			if ($this->polluteScopeWithLoopInitialAssignments) {
+				$scope = $initScope;
+			}
+
+			$finalScope = $finalScope->mergeWith($scope);
+
+			/*foreach ($stmt->cond as $condExpr) {
+				// todo not if breaks out of the loop using break;
+				//$finalScope = $finalScope->filterByFalseyValue($condExpr);
+			}*/
+
+			return new StatementResult($finalScope, $alwaysTerminatingStatements, []);
+		} elseif ($stmt instanceof Switch_) {
+			$scope = $this->processExprNode($stmt->cond, $scope, $nodeCallback, 1);
+			$scopeForBranches = $scope;
+			$finalScope = null;
+			$prevScope = null;
+			$hasDefaultCase = false;
+			$alwaysTerminating = true;
+			$alwaysTerminatingStatements = [];
+			foreach ($stmt->cases as $i => $caseNode) {
+				if ($caseNode->cond !== null) {
+					$condExpr = new BinaryOp\Equal($stmt->cond, $caseNode->cond);
+					$scopeForBranches = $this->processExprNode($caseNode->cond, $scopeForBranches, $nodeCallback, 1);
+					if ($prevScope === null) {
+						$branchScope = $scopeForBranches->filterByTruthyValue($condExpr);
+						$scopeForBranches = $scopeForBranches->filterByFalseyValue($condExpr);
+					} else {
+						$branchScope = $scopeForBranches;
 					}
+				} else {
+					$hasDefaultCase = true;
+					$branchScope = $scopeForBranches;
+				}
 
-					return $scope;
-				}),
-			], LookForAssignsSettings::insideLoop());
+				$branchScope = $branchScope->mergeWith($prevScope);
+				$branchScopeResult = $this->processStmtNodes($caseNode->stmts, $branchScope, $nodeCallback);
+				$branchScope = $branchScopeResult->getScope();
+				$branchFinalScopeResult = $branchScopeResult->filterOutLoopTerminationStatements();
+				$alwaysTerminating = $alwaysTerminating && $branchFinalScopeResult->isAlwaysTerminating();
+				if ($branchFinalScopeResult->isAlwaysTerminating()) {
+					$alwaysTerminatingStatements = array_merge($alwaysTerminatingStatements, $branchFinalScopeResult->getAlwaysTerminatingStatements());
+				}
+				$isLastCase = ($i === count($stmt->cases) - 1);
+				if (
+					$branchScopeResult->areAllAlwaysTerminatingStatementsLoopTerminationStatements()
+					|| (
+						$isLastCase
+						&& !$branchFinalScopeResult->isAlwaysTerminating()
+					)
+				) {
+					$finalScope = $branchScope->mergeWith($finalScope);
+					foreach ($branchScopeResult->getExitPointsByType(Break_::class) as $breakExitPoint) {
+						$finalScope = $finalScope->mergeWith($breakExitPoint->getScope());
+					}
+					foreach ($branchScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
+						$finalScope = $finalScope->mergeWith($continueExitPoint->getScope());
+					}
+				}
 
-			$this->processNodes($node->loop, $scopeLoopDefinitelyRan, $nodeCallback);
-
-			foreach ($node->cond as $condExpr) {
-				$scopeLoopMightHaveRun = $this->lookForAssigns($scopeLoopMightHaveRun, $condExpr, TrinaryLogic::createYes(), LookForAssignsSettings::insideLoop());
+				$prevScope = $branchScopeResult->isAlwaysTerminating() ? null : $branchScope;
 			}
 
-			foreach ($node->cond as $condExpr) {
-				$scopeLoopMightHaveRun = $scopeLoopMightHaveRun->filterByTruthyValue($condExpr);
+			if (!$hasDefaultCase) {
+				$alwaysTerminating = false;
 			}
-			$this->processNodes($node->stmts, $scopeLoopMightHaveRun, $nodeCallback);
 
-			return;
-		} elseif ($node instanceof While_) {
-			$bodyScope = $this->lookForAssigns(
-				$scope,
-				$node->cond,
-				TrinaryLogic::createYes(),
-				LookForAssignsSettings::default()
-			);
-			$condScope = $this->lookForAssignsInBranches($scope, [
-				new StatementList($bodyScope, $node->stmts, false, static function (Scope $scope) use ($node): Scope {
-					return $scope->filterByTruthyValue($node->cond);
-				}),
-				new StatementList($scope, []),
-			], LookForAssignsSettings::insideLoop());
-			$this->processNode($node->cond, $condScope, $nodeCallback);
+			if (!$hasDefaultCase || $finalScope === null) {
+				$finalScope = $scope->mergeWith($finalScope);
+			}
 
-			$bodyScope = $this->lookForAssignsInBranches($bodyScope, [
-				new StatementList($bodyScope, $node->stmts, false, static function (Scope $scope) use ($node): Scope {
-					return $scope->filterByTruthyValue($node->cond);
-				}),
-				new StatementList($bodyScope, []),
-			], LookForAssignsSettings::insideLoop());
-			$bodyScope = $this->lookForAssigns($bodyScope, $node->cond, TrinaryLogic::createYes(), LookForAssignsSettings::insideLoop());
-			$bodyScope = $bodyScope->filterByTruthyValue($node->cond);
-			$this->processNodes($node->stmts, $bodyScope, $nodeCallback);
-			return;
-		} elseif ($node instanceof Catch_) {
-			if (!is_string($node->var->name)) {
+			// todo
+			// todo StatementResultTest
+			return new StatementResult($finalScope, $alwaysTerminating ? $alwaysTerminatingStatements : [], []);
+		} elseif ($stmt instanceof TryCatch) {
+			// todo polluteCatchScopeWithTryAssignments
+			$branchScopeResult = $this->processStmtNodes($stmt->stmts, $scope, $nodeCallback);
+			$branchScope = $branchScopeResult->getScope();
+			$tryScope = $branchScope;
+			$exitPoints = [];
+			$alwaysTerminatingStatements = [];
+			$finalScope = $branchScopeResult->isAlwaysTerminating() ? null : $branchScope;
+			$alwaysTerminating = $branchScopeResult->isAlwaysTerminating();
+			if ($branchScopeResult->isAlwaysTerminating()) {
+				$alwaysTerminatingStatements = array_merge($alwaysTerminatingStatements, $branchScopeResult->getAlwaysTerminatingStatements());
+			}
+			// todo process finallyScope only if the block exists
+			$finallyScope = $branchScope;
+			foreach ($branchScopeResult->getExitPoints() as $exitPoint) {
+				$finallyScope = $finallyScope->mergeWith($exitPoint->getScope());
+				$exitPoints[] = $exitPoint;
+			}
+
+			foreach ($stmt->catches as $catchNode) {
+				$nodeCallback($catchNode, $scope);
+
+				if ($this->polluteCatchScopeWithTryAssignments) {
+					$catchScope = $tryScope;
+				} else {
+					$catchScope = $scope->mergeWith($tryScope);
+				}
+
+				if (!is_string($catchNode->var->name)) {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
+
+				$catchScope = $catchScope->enterCatch($catchNode->types, $catchNode->var->name);
+				$catchScopeResult = $this->processStmtNodes($catchNode->stmts, $catchScope, $nodeCallback);
+				$catchScope = $catchScopeResult->getScope();
+				$finalScope = $catchScopeResult->isAlwaysTerminating() ? $finalScope : $catchScope->mergeWith($finalScope);
+				$alwaysTerminating = $alwaysTerminating && $catchScopeResult->isAlwaysTerminating();
+				if ($catchScopeResult->isAlwaysTerminating()) {
+					$alwaysTerminatingStatements = array_merge($alwaysTerminatingStatements, $catchScopeResult->getAlwaysTerminatingStatements());
+				}
+				$finallyScope = $finallyScope->mergeWith($catchScope);
+				foreach ($catchScopeResult->getExitPoints() as $exitPoint) {
+					$finallyScope = $finallyScope->mergeWith($exitPoint->getScope());
+					$exitPoints[] = $exitPoint;
+				}
+			}
+
+			if ($finalScope === null) {
+				$finalScope = $scope;
+			}
+
+			if ($stmt->finally !== null) {
+				$originalFinallyScope = $finallyScope;
+				$finallyResult = $this->processStmtNodes($stmt->finally->stmts, $finallyScope, $nodeCallback);
+				$finallyScope = $finallyResult->getScope();
+				$finalScope = $finallyResult->isAlwaysTerminating() ? $finalScope : $finalScope->processFinallyScope($finallyScope, $originalFinallyScope);
+				if ($finallyResult->isAlwaysTerminating()) {
+					$alwaysTerminatingStatements = array_merge($alwaysTerminatingStatements, $finallyResult->getAlwaysTerminatingStatements());
+				}
+			}
+
+			// todo StatementResultTest
+			return new StatementResult($finalScope, $alwaysTerminating ? $alwaysTerminatingStatements : [], $exitPoints);
+		} elseif ($stmt instanceof Unset_) {
+			foreach ($stmt->vars as $var) {
+				$scope = $this->lookForEnterVariableAssign($scope, $var);
+				$scope = $this->processExprNode($var, $scope, $nodeCallback, 1);
+				$scope = $this->lookForExitVariableAssign($scope, $var);
+				$scope = $scope->unsetExpression($var);
+			}
+		} elseif ($stmt instanceof Node\Stmt\Use_) {
+			foreach ($stmt->uses as $use) {
+				$this->processStmtNode($use, $scope, $nodeCallback);
+			}
+		} elseif ($stmt instanceof Node\Stmt\Global_) {
+			foreach ($stmt->vars as $var) {
+				if (!$var instanceof Variable) {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
+				if (!is_string($var->name)) {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
+				$scope = $this->lookForEnterVariableAssign($scope, $var);
+				$this->processExprNode($var, $scope, $nodeCallback, 1);
+				$scope = $this->lookForExitVariableAssign($scope, $var);
+				$scope = $scope->assignVariable($var->name, new MixedType());
+			}
+		} elseif ($stmt instanceof Static_) {
+			foreach ($stmt->vars as $var) {
+				$scope = $this->processStmtNode($var, $scope, $nodeCallback)->getScope();
+			}
+		} elseif ($stmt instanceof StaticVar) {
+			if (!is_string($stmt->var->name)) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
-			$scope = $scope->enterCatch(
-				$node->types,
-				$node->var->name
-			);
-		} elseif ($node instanceof Array_) {
-			$scope = $scope->exitFirstLevelStatements();
-			foreach ($node->items as $item) {
+			if ($stmt->default !== null) {
+				$this->processExprNode($stmt->default, $scope, $nodeCallback, 1);
+			}
+			$scope = $scope->enterExpressionAssign($stmt->var);
+			$this->processExprNode($stmt->var, $scope, $nodeCallback, 1);
+			$scope = $scope->exitExpressionAssign($stmt->var);
+			$scope = $scope->assignVariable($stmt->var->name, new MixedType());
+		} elseif ($stmt instanceof Node\Stmt\Const_ || $stmt instanceof Node\Stmt\ClassConst) {
+			foreach ($stmt->consts as $const) {
+				$nodeCallback($const, $scope);
+				$this->processExprNode($const->value, $scope, $nodeCallback, 1);
+			}
+		}
+
+		return new StatementResult($scope, [], []);
+	}
+
+	private function lookForEnterVariableAssign(Scope $scope, Expr $expr): Scope
+	{
+		if (!$expr instanceof ArrayDimFetch || $expr->dim !== null) {
+			$scope = $scope->enterExpressionAssign($expr);
+		}
+		if (!$expr instanceof Variable) {
+			return $this->lookForVariableAssignCallback($scope, $expr, static function (Scope $scope, Expr $expr): Scope {
+				return $scope->enterExpressionAssign($expr);
+			});
+		}
+
+		return $scope;
+	}
+
+	private function lookForExitVariableAssign(Scope $scope, Expr $expr): Scope
+	{
+		$scope = $scope->exitExpressionAssign($expr);
+		if (!$expr instanceof Variable) {
+			return $this->lookForVariableAssignCallback($scope, $expr, static function (Scope $scope, Expr $expr): Scope {
+				return $scope->exitExpressionAssign($expr);
+			});
+		}
+
+		return $scope;
+	}
+
+	/**
+	 * @param Scope $scope
+	 * @param Expr $expr
+	 * @param \Closure(Scope $scope, Expr $expr): Scope $callback
+	 * @return Scope
+	 */
+	private function lookForVariableAssignCallback(Scope $scope, Expr $expr, \Closure $callback): Scope
+	{
+		if ($expr instanceof Variable) {
+			$scope = $callback($scope, $expr);
+		} elseif ($expr instanceof ArrayDimFetch) {
+			while ($expr instanceof ArrayDimFetch) {
+				$expr = $expr->var;
+			}
+
+			$scope = $this->lookForVariableAssignCallback($scope, $expr, $callback);
+		} elseif ($expr instanceof PropertyFetch) {
+			$scope = $this->lookForVariableAssignCallback($scope, $expr->var, $callback);
+		} elseif ($expr instanceof StaticPropertyFetch) {
+			if ($expr->class instanceof Expr) {
+				$scope = $this->lookForVariableAssignCallback($scope, $expr->class, $callback);
+			}
+		} elseif ($expr instanceof Array_ || $expr instanceof List_) {
+			foreach ($expr->items as $item) {
 				if ($item === null) {
 					continue;
 				}
-				$this->processNode($item, $scope, $nodeCallback);
-				if ($item->key !== null) {
-					$scope = $this->lookForAssigns($scope, $item->key, TrinaryLogic::createYes(), LookForAssignsSettings::default());
-				}
-				$scope = $this->lookForAssigns($scope, $item->value, TrinaryLogic::createYes(), LookForAssignsSettings::default());
-			}
 
-			return;
-		} elseif ($node instanceof Expr\Closure) {
-			$this->processNodes($node->uses, $scope, $nodeCallback);
-			$usesByRef = [];
-			foreach ($node->uses as $closureUse) {
-				if (!$closureUse->byRef) {
-					continue;
-				}
-
-				$usesByRef[] = $closureUse;
-			}
-
-			if (count($usesByRef) > 0) {
-				$closureScope = $this->lookForAssignsInBranches($scope, [
-					new StatementList($scope, $node->stmts),
-					new StatementList($scope, []),
-				], LookForAssignsSettings::insideClosure());
-				/** @var Expr\ClosureUse $closureUse */
-				foreach ($usesByRef as $closureUse) {
-					if (!is_string($closureUse->var->name)) {
-						throw new \PHPStan\ShouldNotHappenException();
-					}
-					$variableCertainty = $closureScope->hasVariableType($closureUse->var->name);
-					if ($variableCertainty->no()) {
-						continue;
-					}
-					$scope = $scope->assignVariable(
-						$closureUse->var->name,
-						$closureScope->getVariableType($closureUse->var->name),
-						$variableCertainty
-					);
-				}
-			}
-
-			$scope = $scope->enterAnonymousFunction($node);
-			$this->processNodes($node->stmts, $scope, $nodeCallback);
-
-			return;
-		} elseif ($node instanceof If_) {
-			$this->processNode($node->cond, $scope->exitFirstLevelStatements(), $nodeCallback);
-			$scope = $this->lookForAssigns(
-				$scope,
-				$node->cond,
-				TrinaryLogic::createYes(),
-				LookForAssignsSettings::default()
-			);
-			$ifScope = $scope;
-			$scope = $scope->filterByTruthyValue($node->cond);
-
-			$specifyFetchedProperty = function (Node $node, Scope $inScope) use (&$scope): void {
-				$this->specifyFetchedPropertyForInnerScope($node, $inScope, false, $scope);
-			};
-			$this->processNode($node->cond, $scope, $specifyFetchedProperty);
-			$this->processNodes($node->stmts, $scope->enterFirstLevelStatements(), $nodeCallback);
-
-			if (count($node->elseifs) > 0 || $node->else !== null) {
-				$elseifScope = $ifScope->filterByFalseyValue($node->cond);
-				foreach ($node->elseifs as $elseif) {
-					$scope = $elseifScope;
-					$this->processNode($elseif, $scope, $nodeCallback, true);
-					$this->processNode($elseif->cond, $scope->exitFirstLevelStatements(), $nodeCallback);
-					$scope = $this->lookForAssigns(
-						$scope,
-						$elseif->cond,
-						TrinaryLogic::createYes(),
-						LookForAssignsSettings::default()
-					);
-					$scope = $scope->filterByTruthyValue($elseif->cond);
-					$this->processNode($elseif->cond, $scope, $specifyFetchedProperty);
-					$this->processNodes($elseif->stmts, $scope->enterFirstLevelStatements(), $nodeCallback);
-					$elseifScope = $this->lookForAssigns(
-						$elseifScope,
-						$elseif->cond,
-						TrinaryLogic::createYes(),
-						LookForAssignsSettings::default()
-					)->filterByFalseyValue($elseif->cond);
-				}
-				if ($node->else !== null) {
-					$this->processNode($node->else, $elseifScope, $nodeCallback);
-				}
-			}
-
-			return;
-		} elseif ($node instanceof Switch_) {
-			$scope = $scope->exitFirstLevelStatements();
-			$this->processNode($node->cond, $scope, $nodeCallback);
-			$scope = $this->lookForAssigns(
-				$scope,
-				$node->cond,
-				TrinaryLogic::createYes(),
-				LookForAssignsSettings::default()
-			);
-			$switchScope = $scope;
-			$switchConditionType = $scope->getType($node->cond)->toBoolean();
-			$switchConditionIsTrue = $switchConditionType instanceof ConstantBooleanType && $switchConditionType->getValue();
-			$switchConditionGetClassExpression = null;
-			if (
-				$node->cond instanceof FuncCall
-				&& $node->cond->name instanceof Name
-				&& strtolower((string) $node->cond->name) === 'get_class'
-				&& isset($node->cond->args[0])
-			) {
-				$switchConditionGetClassExpression = $node->cond->args[0]->value;
-			}
-			foreach ($node->cases as $caseNode) {
-				$this->processNode($caseNode, $scope, $nodeCallback, true);
-				if ($caseNode->cond !== null) {
-					$this->processNode($caseNode->cond, $switchScope, $nodeCallback);
-					$switchScope = $this->lookForAssigns(
-						$switchScope,
-						$caseNode->cond,
-						TrinaryLogic::createYes(),
-						LookForAssignsSettings::default()
-					);
-					$scope = $this->lookForAssigns(
-						$scope,
-						$caseNode->cond,
-						TrinaryLogic::createYes(),
-						LookForAssignsSettings::default()
-					);
-
-					$caseScope = $switchScope;
-					if ($switchConditionIsTrue) {
-						$caseScope = $caseScope->filterByTruthyValue($caseNode->cond);
-					} elseif (
-						$switchConditionGetClassExpression !== null
-						&& $caseNode->cond instanceof Expr\ClassConstFetch
-						&& $caseNode->cond->class instanceof Name
-						&& $caseNode->cond->name instanceof Node\Identifier
-						&& strtolower($caseNode->cond->name->name) === 'class'
-					) {
-						$caseScope = $caseScope->specifyExpressionType(
-							$switchConditionGetClassExpression,
-							new ObjectType($scope->resolveName($caseNode->cond->class))
-						);
-					}
-				} else {
-					$caseScope = $switchScope;
-				}
-				$this->processNodes(
-					$caseNode->stmts,
-					$caseScope->enterFirstLevelStatements(),
-					$nodeCallback
-				);
-				if ($this->findEarlyTermination($caseNode->stmts, $switchScope) === null) {
-					foreach ($caseNode->stmts as $statement) {
-						$switchScope = $this->lookForAssigns($switchScope, $statement, TrinaryLogic::createMaybe(), LookForAssignsSettings::default());
-					}
-				} else {
-					$switchScope = $scope;
-				}
-			}
-			return;
-		} elseif ($node instanceof TryCatch) {
-			$statements = [];
-			$this->processNodes($node->stmts, $scope->enterFirstLevelStatements(), $nodeCallback);
-
-			$scopeForLookForAssignsInBranches = $scope;
-			$tryAssignmentsCertainty = $this->polluteCatchScopeWithTryAssignments ? TrinaryLogic::createYes() : TrinaryLogic::createMaybe();
-			foreach ($node->stmts as $statement) {
-				$scope = $this->lookForAssigns($scope, $statement, $tryAssignmentsCertainty, LookForAssignsSettings::default());
-			}
-
-			if ($node->finally !== null) {
-				$statements[] = new StatementList($scopeForLookForAssignsInBranches, $node->stmts);
-				$statements[] = new StatementList($scopeForLookForAssignsInBranches, []);
-			}
-
-			foreach ($node->catches as $catch) {
-				$this->processNode($catch, $scope, $nodeCallback);
-				if ($node->finally === null) {
-					continue;
-				}
-
-				if (!is_string($catch->var->name)) {
-					throw new \PHPStan\ShouldNotHappenException();
-				}
-				$statements[] = new StatementList($scope->enterCatch(
-					$catch->types,
-					$catch->var->name
-				), $catch->stmts);
-			}
-
-			if ($node->finally !== null) {
-				$finallyScope = $this->lookForAssignsInBranches($scopeForLookForAssignsInBranches, $statements, LookForAssignsSettings::insideFinally());
-
-				$this->processNode($node->finally, $finallyScope, $nodeCallback);
-			}
-
-			return;
-		} elseif ($node instanceof FuncCall) {
-			$scope = $scope->enterFunctionCall($node);
-		} elseif ($node instanceof Expr\StaticCall) {
-			$scope = $scope->enterFunctionCall($node);
-		} elseif ($node instanceof MethodCall) {
-			if (
-				$node->var instanceof Expr\Closure
-				&& $node->name instanceof Node\Identifier
-				&& $node->name->name === 'call'
-				&& isset($node->args[0])
-			) {
-				$closureCallScope = $scope->enterClosureCall($scope->getType($node->args[0]->value));
-			}
-			$scope = $scope->enterFunctionCall($node);
-		} elseif ($node instanceof New_ && $node->class instanceof Class_) {
-			$this->anonymousClassReflection = $this->broker->getAnonymousClassReflection($node, $scope);
-		} elseif ($node instanceof BooleanNot) {
-			$scope = $scope->enterNegation();
-		} elseif ($node instanceof Unset_ || $node instanceof Isset_) {
-			foreach ($node->vars as $unsetVar) {
-				if ($unsetVar instanceof ArrayDimFetch && $unsetVar->dim === null) {
-					continue;
-				}
-
-				while (
-					$unsetVar instanceof ArrayDimFetch
-					|| $unsetVar instanceof PropertyFetch
-					|| (
-						$unsetVar instanceof StaticPropertyFetch
-						&& $unsetVar->class instanceof Expr
-					)
-				) {
-					$scope = $scope->enterExpressionAssign($unsetVar);
-					if ($unsetVar instanceof StaticPropertyFetch) {
-						/** @var Expr $unsetVar */
-						$unsetVar = $unsetVar->class;
-					} else {
-						$unsetVar = $unsetVar->var;
-					}
-				}
-
-				$scope = $scope->enterExpressionAssign($unsetVar);
-			}
-		} elseif ($node instanceof Node\Stmt\Global_) {
-			foreach ($node->vars as $var) {
-				$scope = $scope->enterExpressionAssign($var);
+				$scope = $this->lookForVariableAssignCallback($scope, $item->value, $callback);
 			}
 		}
 
-		$originalScope = $scope;
-		foreach ($node->getSubNodeNames() as $subNodeName) {
-			$scope = $originalScope;
-			$subNode = $node->{$subNodeName};
-
-			if (is_array($subNode)) {
-				$argClosureBindScope = null;
-				if (isset($closureBindScope) && $subNodeName === 'args') {
-					$argClosureBindScope = $closureBindScope;
-				}
-				if ($subNodeName === 'stmts') {
-					$scope = $scope->enterFirstLevelStatements();
-				} else {
-					$scope = $scope->exitFirstLevelStatements();
-				}
-
-				if ($node instanceof Isset_ && $subNodeName === 'vars') {
-					foreach ($node->vars as $issetVar) {
-						$scope = $this->specifyProperty($scope, $issetVar);
-						$scope = $this->ensureNonNullability($scope, $issetVar, true);
-					}
-				}
-
-				if ($node instanceof MethodCall && $subNodeName === 'args') {
-					$scope = $this->lookForAssigns($scope, $node->var, TrinaryLogic::createYes(), LookForAssignsSettings::default());
-				}
-
-				if ($node instanceof Do_ && $subNodeName === 'stmts') {
-					$scope = $this->lookForAssignsInBranches($scope, [
-						new StatementList($scope, $node->stmts),
-						new StatementList($scope, [$node->cond], true),
-						new StatementList($scope, []),
-					], LookForAssignsSettings::insideLoop());
-				}
-
-				$this->processNodes($subNode, $scope, $nodeCallback, $argClosureBindScope);
-			} elseif ($subNode instanceof \PhpParser\Node) {
-				if ($node instanceof Coalesce && $subNodeName === 'left') {
-					$scope = $this->ensureNonNullability($scope, $subNode, false);
-
-					if (!($node->left instanceof ArrayDimFetch) || $node->left->dim !== null) {
-						$scope = $this->lookForEnterVariableAssign($scope, $node->left);
-					}
-				}
-
-				if (
-					($node instanceof BooleanAnd || $node instanceof BinaryOp\LogicalAnd)
-					&& $subNodeName === 'right') {
-					$scope = $scope->filterByTruthyValue($node->left);
-				}
-				if (
-					($node instanceof BooleanOr || $node instanceof BinaryOp\LogicalOr)
-					&& $subNodeName === 'right') {
-					$scope = $scope->filterByFalseyValue($node->left);
-				}
-
-				if ($node instanceof Assign || $node instanceof AssignRef) {
-					if ($subNodeName === 'var') {
-						$scope = $this->lookForEnterVariableAssign($scope, $node->var);
-					} elseif ($subNodeName === 'expr') {
-						$scope = $this->lookForEnterVariableAssign($scope, $node);
-					}
-				}
-
-				if ($node instanceof BinaryOp && $subNodeName === 'right') {
-					$scope = $this->lookForAssigns($scope, $node->left, TrinaryLogic::createYes(), LookForAssignsSettings::default());
-				}
-
-				if ($node instanceof Expr\Empty_ && $subNodeName === 'expr') {
-					$scope = $this->specifyProperty($scope, $node->expr);
-
-					if (!($node->expr instanceof ArrayDimFetch) || $node->expr->dim !== null) {
-						$scope = $this->lookForEnterVariableAssign($scope, $node->expr);
-					}
-				}
-
-				if (
-					$node instanceof ArrayItem
-					&& $subNodeName === 'value'
-					&& $node->key !== null
-				) {
-					$scope = $this->lookForAssigns($scope, $node->key, TrinaryLogic::createYes(), LookForAssignsSettings::default());
-				}
-
-				if (
-					$node instanceof Ternary
-					&& $subNodeName !== 'cond'
-				) {
-					$scope = $this->lookForAssigns($scope, $node->cond, TrinaryLogic::createYes(), LookForAssignsSettings::default());
-					if ($subNodeName === 'if') {
-						$scope = $scope->filterByTruthyValue($node->cond);
-						$this->processNode($node->cond, $scope, function (Node $node, Scope $inScope) use (&$scope): void {
-							$this->specifyFetchedPropertyForInnerScope($node, $inScope, false, $scope);
-						});
-					} elseif ($subNodeName === 'else') {
-						$scope = $scope->filterByFalseyValue($node->cond);
-						$this->processNode($node->cond, $scope, function (Node $node, Scope $inScope) use (&$scope): void {
-							$this->specifyFetchedPropertyForInnerScope($node, $inScope, true, $scope);
-						});
-					}
-				}
-
-				if ($node instanceof Do_ && $subNodeName === 'cond') {
-					foreach ($node->stmts as $statement) {
-						$scope = $this->lookForAssigns($scope, $statement, TrinaryLogic::createYes(), LookForAssignsSettings::default());
-					}
-				}
-
-				if ($node instanceof Expr\Empty_ && $subNodeName === 'expr') {
-					$scope = $this->ensureNonNullability($scope, $subNode, true);
-				}
-
-				if ($node instanceof StaticVar && $subNodeName === 'var') {
-					$scope = $scope->enterExpressionAssign($node->var);
-				} elseif ($node instanceof Expr\ClosureUse && $subNodeName === 'var') {
-					$scope = $scope->enterExpressionAssign($node->var);
-				}
-
-				$nodeScope = $scope;
-				if (!$node instanceof ErrorSuppress && !$node instanceof Node\Stmt\Expression) {
-					$nodeScope = $nodeScope->exitFirstLevelStatements();
-				}
-				if ($scope->isInFirstLevelStatement()) {
-					if ($node instanceof Ternary && $subNodeName !== 'cond') {
-						$nodeScope = $scope->enterFirstLevelStatements();
-					} elseif (
-						($node instanceof BooleanAnd || $node instanceof BinaryOp\BooleanOr)
-						&& $subNodeName === 'right'
-					) {
-						$nodeScope = $scope->enterFirstLevelStatements();
-					}
-				}
-
-				if ($node instanceof MethodCall && $subNodeName === 'var' && isset($closureCallScope)) {
-					$nodeScope = $closureCallScope->exitFirstLevelStatements();
-				}
-
-				$this->processNode($subNode, $nodeScope, $nodeCallback);
-			}
-		}
+		return $scope;
 	}
 
-	private function ensureNonNullability(
-		Scope $scope,
-		Node $node,
-		bool $findMethods
-	): Scope
+	private function ensureNonNullability(Scope $scope, Expr $expr, bool $findMethods): EnsuredNonNullabilityResult
 	{
-		$nodeToSpecify = $node;
+		$exprToSpecify = $expr;
+		$specifiedExpressions = [];
 		while (
-			$nodeToSpecify instanceof PropertyFetch
-			|| $nodeToSpecify instanceof StaticPropertyFetch
+			$exprToSpecify instanceof PropertyFetch
+			|| $exprToSpecify instanceof StaticPropertyFetch
 			|| (
 				$findMethods && (
-					$nodeToSpecify instanceof MethodCall
-					|| $nodeToSpecify instanceof StaticCall
+					$exprToSpecify instanceof MethodCall
+					|| $exprToSpecify instanceof StaticCall
 				)
 			)
 		) {
 			if (
-				$nodeToSpecify instanceof PropertyFetch
-				|| $nodeToSpecify instanceof MethodCall
+				$exprToSpecify instanceof PropertyFetch
+				|| $exprToSpecify instanceof MethodCall
 			) {
-				$nodeToSpecify = $nodeToSpecify->var;
-			} elseif ($nodeToSpecify->class instanceof Expr) {
-				$nodeToSpecify = $nodeToSpecify->class;
+				$exprToSpecify = $exprToSpecify->var;
+			} elseif ($exprToSpecify->class instanceof Expr) {
+				$exprToSpecify = $exprToSpecify->class;
 			} else {
 				break;
 			}
 
-			$scope = $scope->specifyExpressionType(
-				$nodeToSpecify,
-				TypeCombinator::removeNull($scope->getType($nodeToSpecify))
-			);
+			$exprType = $scope->getType($exprToSpecify);
+			$exprTypeWithoutNull = TypeCombinator::removeNull($exprType);
+			if ($exprType->equals($exprTypeWithoutNull)) {
+				continue;
+			}
+
+			$specifiedExpressions[] = new EnsuredNonNullabilityResultExpression($exprToSpecify, $exprType);
+
+			$scope = $scope->specifyExpressionType($exprToSpecify, $exprTypeWithoutNull);
+		}
+
+		return new EnsuredNonNullabilityResult($scope, $specifiedExpressions);
+	}
+
+	/**
+	 * @param Scope $scope
+	 * @param EnsuredNonNullabilityResultExpression[] $specifiedExpressions
+	 * @return Scope
+	 */
+	private function revertNonNullability(Scope $scope, array $specifiedExpressions): Scope
+	{
+		foreach ($specifiedExpressions as $specifiedExpressionResult) {
+			$scope = $scope->specifyExpressionType($specifiedExpressionResult->getExpression(), $specifiedExpressionResult->getOriginalType());
 		}
 
 		return $scope;
 	}
 
-	private function lookForEnterVariableAssign(Scope $scope, Expr $node): Scope
+	private function findEarlyTerminatingExpr(Expr $expr, Scope $scope): ?Expr
 	{
-		if ($node instanceof Variable) {
-			$scope = $scope->enterExpressionAssign($node);
-		} elseif ($node instanceof ArrayDimFetch) {
-			while ($node instanceof ArrayDimFetch) {
-				$scope = $scope->enterExpressionAssign($node);
-				$node = $node->var;
+		if (($expr instanceof MethodCall || $expr instanceof Expr\StaticCall) && count($this->earlyTerminatingMethodCalls) > 0) {
+			if ($expr->name instanceof Expr) {
+				return null;
 			}
 
-			if ($node instanceof Variable) {
-				$scope = $scope->enterExpressionAssign($node);
+			if ($expr instanceof MethodCall) {
+				$methodCalledOnType = $scope->getType($expr->var);
+			} else {
+				if ($expr->class instanceof Name) {
+					$methodCalledOnType = $scope->getFunctionType($expr->class, false, false);
+				} else {
+					$methodCalledOnType = $scope->getType($expr->class);
+				}
 			}
-		} elseif ($node instanceof List_ || $node instanceof Array_) {
-			foreach ($node->items as $listItem) {
-				if ($listItem === null) {
+
+			$directClassNames = TypeUtils::getDirectClassNames($methodCalledOnType);
+			foreach ($directClassNames as $referencedClass) {
+				if (!$this->broker->hasClass($referencedClass)) {
 					continue;
 				}
 
-				$scope = $this->lookForEnterVariableAssign($scope, $listItem->value);
-			}
-		} elseif ($node instanceof AssignRef) {
-			$scope = $scope->enterExpressionAssign($node->expr);
-		} elseif ($node instanceof Assign && $node->expr instanceof Expr\Closure) {
-			foreach ($node->expr->uses as $closureUse) {
-				if (
-					!$closureUse->byRef
-					|| !$node->var instanceof Variable
-					|| !is_string($closureUse->var->name)
-					|| $node->var->name !== $closureUse->var->name
-				) {
-					continue;
-				}
-
-				$scope = $scope->enterExpressionAssign(new Variable($closureUse->var->name));
-			}
-		} else {
-			$scope = $scope->enterExpressionAssign($node);
-		}
-
-		return $scope;
-	}
-
-	private function lookForAssigns(
-		Scope $scope,
-		\PhpParser\Node $node,
-		TrinaryLogic $certainty,
-		LookForAssignsSettings $lookForAssignsSettings
-	): Scope
-	{
-		if ($node instanceof Node\Stmt\Expression) {
-			$node = $node->expr;
-		}
-
-		if ($node instanceof StaticVar) {
-			if (!is_string($node->var->name)) {
-				throw new \PHPStan\ShouldNotHappenException();
-			}
-			$scope = $scope->assignVariable(
-				$node->var->name,
-				new MixedType(),
-				$certainty
-			);
-		} elseif ($node instanceof Static_) {
-			foreach ($node->vars as $var) {
-				$scope = $this->lookForAssigns($scope, $var, $certainty, $lookForAssignsSettings);
-			}
-		} elseif ($node instanceof If_) {
-			$conditionType = $scope->getType($node->cond)->toBoolean();
-			$scope = $this->lookForAssigns($scope, $node->cond, $certainty, $lookForAssignsSettings);
-			$statements = [];
-
-			if (!$conditionType instanceof ConstantBooleanType || $conditionType->getValue()) {
-				$statements[] = new StatementList(
-					$scope,
-					array_merge([$node->cond], $node->stmts),
-					false,
-					static function (Scope $scope) use ($node): Scope {
-						return $scope->filterByTruthyValue($node->cond);
+				$classReflection = $this->broker->getClass($referencedClass);
+				foreach (array_merge([$referencedClass], $classReflection->getParentClassesNames()) as $className) {
+					if (!isset($this->earlyTerminatingMethodCalls[$className])) {
+						continue;
 					}
+
+					if (in_array((string) $expr->name, $this->earlyTerminatingMethodCalls[$className], true)) {
+						return $expr;
+					}
+				}
+			}
+		}
+
+		if ($expr instanceof Exit_) {
+			return $expr;
+		}
+
+		return null;
+	}
+
+	/**
+	 * @param \PhpParser\Node\Expr $expr
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
+	 * @param int $depth
+	 * @return \PHPStan\Analyser\Scope $scope
+	 */
+	private function processExprNode(Expr $expr, Scope $scope, \Closure $nodeCallback, int $depth): Scope
+	{
+		if ($depth === 0 && !$scope->isInFirstLevelStatement()) {
+			$scope = $scope->enterFirstLevelStatements();
+		} elseif ($depth > 0 && $scope->isInFirstLevelStatement()) {
+			$scope = $scope->exitFirstLevelStatements();
+		}
+
+		$nodeCallback($expr, $scope);
+
+		// todo handle all expr descendants
+		if ($expr instanceof Variable) {
+			if ($expr->name instanceof Expr) {
+				$scope = $this->processExprNode($expr->name, $scope, $nodeCallback, $depth + 1);
+			}
+		} elseif ($expr instanceof Assign || $expr instanceof AssignRef) {
+			if (!$expr->var instanceof Array_ && !$expr->var instanceof List_) {
+				$scope = $this->processAssignVar(
+					$scope,
+					$expr->var,
+					$expr->expr,
+					$nodeCallback,
+					function (Scope $scope) use ($expr, $nodeCallback, $depth): Scope {
+						if ($expr instanceof AssignRef) {
+							$scope = $scope->enterExpressionAssign($expr->expr);
+						}
+
+						if ($expr->expr instanceof Expr\Closure) {
+							$assignedVariable = null;
+							if ($expr->var instanceof Variable && is_string($expr->var->name)) {
+								$assignedVariable = $expr->var->name;
+							}
+							$nodeCallback($expr->expr, $scope);
+							$scope = $this->processClosureNode($expr->expr, $scope, $nodeCallback, $depth + 1, $assignedVariable);
+						} else {
+							$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, $depth + 1);
+						}
+
+						if ($expr instanceof AssignRef) {
+							$scope = $scope->exitExpressionAssign($expr->expr);
+						}
+
+						return $scope;
+					},
+					true
+				);
+			} else {
+				$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, 1);
+				foreach ($expr->var->items as $arrayItem) {
+					if ($arrayItem === null) {
+						continue;
+					}
+
+					$itemScope = $scope;
+					if ($arrayItem->value instanceof ArrayDimFetch && $arrayItem->value->dim === null) {
+						$itemScope = $itemScope->enterExpressionAssign($arrayItem->value);
+					}
+					$itemScope = $this->lookForEnterVariableAssign($itemScope, $arrayItem->value);
+
+					$this->processExprNode($arrayItem, $itemScope, $nodeCallback, 1);
+				}
+				$scope = $this->lookForArrayDestructuringArray($scope, $expr->var, $scope->getType($expr->expr));
+			}
+
+			if ($expr->var instanceof Variable && is_string($expr->var->name)) {
+				$comment = CommentHelper::getDocComment($expr);
+				if ($comment !== null) {
+					$scope = $this->processVarAnnotation($scope, $expr->var->name, $comment, false);
+				}
+			}
+		} elseif ($expr instanceof Expr\AssignOp) {
+			$scope = $this->processAssignVar(
+				$scope,
+				$expr->var,
+				$expr,
+				$nodeCallback,
+				function (Scope $scope) use ($expr, $nodeCallback, $depth): Scope {
+					return $this->processExprNode($expr->expr, $scope, $nodeCallback, $depth + 1);
+				},
+				false
+			);
+		} elseif ($expr instanceof FuncCall) {
+			$parametersAcceptor = null;
+			if ($expr->name instanceof Expr) {
+				$scope = $this->processExprNode($expr->name, $scope, $nodeCallback, $depth + 1);
+			} elseif ($this->broker->hasFunction($expr->name, $scope)) {
+				$function = $this->broker->getFunction($expr->name, $scope);
+				$parametersAcceptor = ParametersAcceptorSelector::selectFromArgs(
+					$scope,
+					$expr->args,
+					$function->getVariants()
 				);
 			}
-
-			if (!$conditionType instanceof ConstantBooleanType || !$conditionType->getValue()) {
-				$lastElseIfConditionIsTrue = false;
-				$elseIfScope = $scope;
-				$lastCond = $node->cond;
-				foreach ($node->elseifs as $elseIf) {
-					$elseIfScope = $elseIfScope->filterByFalseyValue($lastCond);
-					$lastCond = $elseIf->cond;
-					$elseIfConditionType = $elseIfScope->getType($elseIf->cond)->toBoolean();
-					if (
-						$elseIfConditionType instanceof ConstantBooleanType
-						&& !$elseIfConditionType->getValue()
-					) {
-						continue;
-					}
-					$statements[] = new StatementList(
-						$elseIfScope,
-						array_merge([$elseIf->cond], $elseIf->stmts),
-						false,
-						static function (Scope $scope) use ($elseIf): Scope {
-							return $scope->filterByTruthyValue($elseIf->cond);
-						}
-					);
-					if (
-						$elseIfConditionType instanceof ConstantBooleanType
-						&& $elseIfConditionType->getValue()
-					) {
-						$lastElseIfConditionIsTrue = true;
-						break;
-					}
-				}
-
-				if (!$lastElseIfConditionIsTrue) {
-					$statements[] = new StatementList(
-						$elseIfScope,
-						$node->else !== null ? $node->else->stmts : [],
-						false,
-						static function (Scope $scope) use ($lastCond): Scope {
-							return $scope->filterByFalseyValue($lastCond);
-						}
-					);
-				}
-			}
-
-			$scope = $this->lookForAssignsInBranches($scope, $statements, $lookForAssignsSettings);
-		} elseif ($node instanceof TryCatch) {
-			$statements = [
-				new StatementList($scope, $node->stmts),
-			];
-			foreach ($node->catches as $catch) {
-				if (!is_string($catch->var->name)) {
-					throw new \PHPStan\ShouldNotHappenException();
-				}
-				$statements[] = new StatementList($scope->enterCatch(
-					$catch->types,
-					$catch->var->name
-				), array_merge([new Node\Stmt\Nop()], $catch->stmts));
-			}
-
-			$scope = $this->lookForAssignsInBranches($scope, $statements, $lookForAssignsSettings);
-			if ($node->finally !== null) {
-				foreach ($node->finally->stmts as $statement) {
-					$scope = $this->lookForAssigns($scope, $statement, $certainty, $lookForAssignsSettings);
-				}
-			}
-		} elseif ($node instanceof MethodCall || $node instanceof FuncCall || $node instanceof Expr\StaticCall) {
-			if ($node instanceof MethodCall) {
-				$scope = $this->lookForAssigns($scope, $node->var, $certainty, $lookForAssignsSettings);
-			}
-			foreach ($node->args as $argument) {
-				$scope = $this->lookForAssigns($scope, $argument, $certainty, $lookForAssignsSettings);
-			}
-
-			$parametersAcceptor = $this->findParametersAcceptorInFunctionCall($node, $scope);
-
-			if ($parametersAcceptor !== null) {
-				$parameters = $parametersAcceptor->getParameters();
-				foreach ($node->args as $i => $arg) {
-					$assignByReference = false;
-					if (isset($parameters[$i])) {
-						$assignByReference = $parameters[$i]->passedByReference()->createsNewVariable();
-					} elseif (count($parameters) > 0 && $parametersAcceptor->isVariadic()) {
-						$lastParameter = $parameters[count($parameters) - 1];
-						$assignByReference = $lastParameter->passedByReference()->createsNewVariable();
-					}
-
-					if (!$assignByReference) {
-						continue;
-					}
-
-					$arg = $node->args[$i]->value;
-					if (!($arg instanceof Variable) || !is_string($arg->name)) {
-						continue;
-					}
-
-					$scope = $scope->assignVariable($arg->name, new MixedType(), $certainty);
-				}
-			}
+			$scope = $this->processArgs($parametersAcceptor, $expr->args, $scope, $nodeCallback, $depth);
 			if (
-				$node instanceof FuncCall
-				&& $node->name instanceof Name
-				&& in_array((string) $node->name, [
-					'fopen',
-					'file_get_contents',
-				], true)
+				isset($function)
+				&& in_array($function->getName(), ['array_pop', 'array_shift'], true)
+				&& count($expr->args) >= 1
 			) {
-				$scope = $scope->assignVariable('http_response_header', new ArrayType(new IntegerType(), new StringType()), $certainty);
+				$arrayArg = $expr->args[0]->value;
+				$constantArrays = TypeUtils::getConstantArrays($scope->getType($arrayArg));
+				if (count($constantArrays) > 0) {
+					$resultArrayTypes = [];
+
+					foreach ($constantArrays as $constantArray) {
+						if ($function->getName() === 'array_pop') {
+							$resultArrayTypes[] = $constantArray->removeLast();
+						} else {
+							$resultArrayTypes[] = $constantArray->removeFirst();
+						}
+					}
+
+					$scope = $scope->specifyExpressionType(
+						$arrayArg,
+						TypeCombinator::union(...$resultArrayTypes)
+					);
+				}
 			}
 
 			if (
-				$node instanceof FuncCall
-				&& $node->name instanceof Name
-				&& in_array(strtolower((string) $node->name), [
-					'array_push',
-					'array_unshift',
-				], true)
-				&& count($node->args) >= 2
+				isset($function)
+				&& in_array($function->getName(), ['array_push', 'array_unshift'], true)
+				&& count($expr->args) >= 2
 			) {
 				$argumentTypes = [];
-				foreach (array_slice($node->args, 1) as $callArg) {
+				foreach (array_slice($expr->args, 1) as $callArg) {
 					$callArgType = $scope->getType($callArg->value);
 					if ($callArg->unpack) {
 						$iterableValueType = $callArgType->getIterableValueType();
@@ -1204,12 +1152,11 @@ class NodeScopeResolver
 					$argumentTypes[] = $callArgType;
 				}
 
-				$arrayArg = $node->args[0]->value;
+				$arrayArg = $expr->args[0]->value;
 				$originalArrayType = $scope->getType($arrayArg);
-				$functionName = strtolower((string) $node->name);
 				$constantArrays = TypeUtils::getConstantArrays($originalArrayType);
 				if (
-					$functionName === 'array_push'
+					$function->getName() === 'array_push'
 					|| ($originalArrayType instanceof ArrayType && count($constantArrays) === 0)
 				) {
 					$arrayType = $originalArrayType;
@@ -1245,378 +1192,517 @@ class NodeScopeResolver
 					);
 				}
 			}
+
 			if (
-				$node instanceof FuncCall
-				&& $node->name instanceof Name
-				&& in_array(strtolower((string) $node->name), [
-					'array_pop',
-					'array_shift',
-				], true)
-				&& count($node->args) >= 1
+				isset($function)
+				&& in_array($function->getName(), ['fopen', 'file_get_contents'], true)
 			) {
-				$arrayArg = $node->args[0]->value;
-				$constantArrays = TypeUtils::getConstantArrays($scope->getType($arrayArg));
-				$functionName = strtolower((string) $node->name);
-				if (count($constantArrays) > 0) {
-					$resultArrayTypes = [];
+				$scope = $scope->assignVariable('http_response_header', new ArrayType(new IntegerType(), new StringType()));
+			}
+		} elseif ($expr instanceof MethodCall) {
+			$originalScope = $scope;
+			if (
+				$expr->var instanceof Expr\Closure
+				&& $expr->name instanceof Node\Identifier
+				&& strtolower($expr->name->name) === 'call'
+				&& isset($expr->args[0])
+			) {
+				$closureCallScope = $scope->enterClosureCall($scope->getType($expr->args[0]->value));
+			}
 
-					foreach ($constantArrays as $constantArray) {
-						if ($functionName === 'array_pop') {
-							$resultArrayTypes[] = $constantArray->removeLast();
-						} else {
-							$resultArrayTypes[] = $constantArray->removeFirst();
-						}
-					}
-
-					$scope = $scope->specifyExpressionType(
-						$arrayArg,
-						TypeCombinator::union(...$resultArrayTypes)
+			$scope = $this->processExprNode($expr->var, $closureCallScope ?? $scope, $nodeCallback, $depth + 1);
+			if (isset($closureCallScope)) {
+				$scope = $scope->restoreOriginalScopeAfterClosureBind($originalScope);
+			}
+			$parametersAcceptor = null;
+			if ($expr->name instanceof Expr) {
+				$scope = $this->processExprNode($expr->name, $scope, $nodeCallback, $depth + 1);
+			} else {
+				$calledOnType = $scope->getType($expr->var);
+				$methodName = $expr->name->name;
+				if ($calledOnType->hasMethod($methodName)->yes()) {
+					$parametersAcceptor = ParametersAcceptorSelector::selectFromArgs(
+						$scope,
+						$expr->args,
+						$calledOnType->getMethod($methodName, $scope)->getVariants()
 					);
 				}
 			}
-		} elseif ($node instanceof BinaryOp) {
-			$scope = $this->lookForAssigns($scope, $node->left, $certainty, $lookForAssignsSettings);
-			$scope = $this->lookForAssigns($scope, $node->right, $certainty, $lookForAssignsSettings);
-		} elseif ($node instanceof Arg) {
-			$scope = $this->lookForAssigns($scope, $node->value, $certainty, $lookForAssignsSettings);
-		} elseif ($node instanceof BooleanNot) {
-			$scope = $this->lookForAssigns($scope, $node->expr, $certainty, $lookForAssignsSettings);
-		} elseif ($node instanceof Ternary) {
-			$scope = $this->lookForAssigns($scope, $node->cond, $certainty, $lookForAssignsSettings);
-			$statements = [];
-			if ($node->if !== null) {
-				$statements[] = new StatementList(
-					$scope->filterByTruthyValue($node->cond),
-					[$node->if]
-				);
-			} else {
-				$statements[] = new StatementList(
-					$scope->filterByTruthyValue($node->cond),
-					[$node->cond]
-				);
+			$scope = $this->processArgs($parametersAcceptor, $expr->args, $scope, $nodeCallback, $depth);
+		} elseif ($expr instanceof StaticCall) {
+			if ($expr->class instanceof Expr) {
+				$scope = $this->processExprNode($expr->class, $scope, $nodeCallback, $depth + 1);
 			}
 
-			$statements[] = new StatementList(
-				$scope->filterByFalseyValue($node->cond),
-				[$node->else]
-			);
-			$scope = $this->lookForAssignsInBranches($scope, $statements, $lookForAssignsSettings);
-		} elseif ($node instanceof Array_) {
-			foreach ($node->items as $item) {
-				if ($item === null) {
-					continue;
-				}
-				if ($item->key !== null) {
-					$scope = $this->lookForAssigns($scope, $item->key, $certainty, $lookForAssignsSettings);
-				}
-				$scope = $this->lookForAssigns($scope, $item->value, $certainty, $lookForAssignsSettings);
-			}
-		} elseif ($node instanceof New_) {
-			foreach ($node->args as $arg) {
-				$scope = $this->lookForAssigns($scope, $arg, $certainty, $lookForAssignsSettings);
-			}
-		} elseif ($node instanceof Do_) {
-			$scope = $this->lookForAssignsInBranches($scope, [
-				new StatementList($scope, $node->stmts),
-			], LookForAssignsSettings::afterLoop());
-			$scope = $this->lookForAssigns($scope, $node->cond, TrinaryLogic::createYes(), LookForAssignsSettings::afterLoop());
-			$scope = $scope->filterByFalseyValue($node->cond);
-		} elseif ($node instanceof Switch_) {
-			$scope = $this->lookForAssigns(
-				$scope,
-				$node->cond,
-				TrinaryLogic::createYes(),
-				LookForAssignsSettings::default()
-			);
-			$statementLists = [];
-			$tmpStatements = [];
-			$hasDefault = false;
-			foreach ($node->cases as $case) {
-				if ($case->cond === null) {
-					$hasDefault = true;
-				}
+			$parametersAcceptor = null;
+			if ($expr->name instanceof Expr) {
+				$scope = $this->processExprNode($expr->name, $scope, $nodeCallback, $depth + 1);
+			} elseif ($expr->class instanceof Name) {
+				$className = $scope->resolveName($expr->class);
+				if ($this->broker->hasClass($className)) {
+					$classReflection = $this->broker->getClass($className);
+					if ($classReflection->hasMethod($expr->name->name)) {
+						$parametersAcceptor = ParametersAcceptorSelector::selectFromArgs(
+							$scope,
+							$expr->args,
+							$classReflection->getMethod($expr->name->name, $scope)->getVariants()
+						);
+						if (
+							$classReflection->getName() === 'Closure'
+							&& strtolower($expr->name->name) === 'bind'
+						) {
+							$thisType = null;
+							if (isset($expr->args[1])) {
+								$argType = $scope->getType($expr->args[1]->value);
+								if ($argType instanceof NullType) {
+									$thisType = null;
+								} else {
+									$thisType = $argType;
+								}
+							}
+							$scopeClass = 'static';
+							if (isset($expr->args[2])) {
+								$argValue = $expr->args[2]->value;
+								$argValueType = $scope->getType($argValue);
 
-				foreach ($case->stmts as $statement) {
-					$tmpStatements[] = $statement;
-					if ($this->findStatementEarlyTermination($statement, $scope) !== null) {
-						$statementLists[] = new StatementList($scope, $tmpStatements);
-						$tmpStatements = [];
-						break;
+								$directClassNames = TypeUtils::getDirectClassNames($argValueType);
+								if (count($directClassNames) === 1) {
+									$scopeClass = $directClassNames[0];
+								} elseif (
+									$argValue instanceof Expr\ClassConstFetch
+									&& $argValue->name instanceof Node\Identifier
+									&& strtolower($argValue->name->name) === 'class'
+									&& $argValue->class instanceof Name
+								) {
+									$scopeClass = $scope->resolveName($argValue->class);
+								} elseif ($argValueType instanceof ConstantStringType) {
+									$scopeClass = $argValueType->getValue();
+								}
+							}
+							$closureBindScope = $scope->enterClosureBind($thisType, $scopeClass);
+						}
 					}
 				}
 			}
-
-			if (count($tmpStatements) > 0) {
-				$statementLists[] = new StatementList($scope, $tmpStatements);
+			$scope = $this->processArgs($parametersAcceptor, $expr->args, $scope, $nodeCallback, $depth, $closureBindScope ?? null);
+		} elseif ($expr instanceof PropertyFetch) {
+			$scope = $this->processExprNode($expr->var, $scope, $nodeCallback, $depth + 1);
+			if ($expr->name instanceof Expr) {
+				$scope = $this->processExprNode($expr->name, $scope, $nodeCallback, $depth + 1);
+			}
+		} elseif ($expr instanceof StaticPropertyFetch) {
+			if ($expr->class instanceof Expr) {
+				$scope = $this->processExprNode($expr->class, $scope, $nodeCallback, $depth + 1);
+			}
+			if ($expr->name instanceof Expr) {
+				$scope = $this->processExprNode($expr->name, $scope, $nodeCallback, $depth + 1);
+			}
+		} elseif ($expr instanceof Expr\Closure) {
+			$scope = $this->processClosureNode($expr, $scope, $nodeCallback, $depth, null);
+		} elseif ($expr instanceof Expr\ClosureUse) {
+			$this->processExprNode($expr->var, $scope, $nodeCallback, $depth);
+		} elseif ($expr instanceof ErrorSuppress) {
+			$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, $depth);
+		} elseif ($expr instanceof Exit_) {
+			if ($expr->expr !== null) {
+				$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, $depth + 1);
+			}
+		} elseif ($expr instanceof Node\Scalar\Encapsed) {
+			foreach ($expr->parts as $part) {
+				$scope = $this->processExprNode($part, $scope, $nodeCallback, $depth + 1);
+			}
+		} elseif ($expr instanceof ArrayDimFetch) {
+			if ($expr->dim !== null) {
+				$scope = $this->processExprNode($expr->dim, $scope, $nodeCallback, $depth + 1);
 			}
 
-			if (!$hasDefault) {
-				$statementLists[] = new StatementList($scope, []);
+			$scope = $this->processExprNode($expr->var, $scope, $nodeCallback, $depth + 1);
+		} elseif ($expr instanceof Array_) {
+			foreach ($expr->items as $arrayItem) {
+				$scope = $this->processExprNode($arrayItem, $scope, $nodeCallback, $depth + 1);
 			}
+		} elseif ($expr instanceof ArrayItem) {
+			if ($expr->key !== null) {
+				$scope = $this->processExprNode($expr->key, $scope, $nodeCallback, $depth + 1);
+			}
+			$scope = $this->processExprNode($expr->value, $scope, $nodeCallback, $depth + 1);
+		} elseif ($expr instanceof BooleanAnd || $expr instanceof BinaryOp\LogicalAnd) {
+			$leftScope = $this->processExprNode($expr->left, $scope, $nodeCallback, $depth + 1);
+			$rightScope = $this->processExprNode($expr->right, $leftScope->filterByTruthyValue($expr->left), $nodeCallback, $depth);
 
-			$scope = $this->lookForAssignsInBranches($scope, $statementLists, LookForAssignsSettings::afterSwitch());
-		} elseif ($node instanceof Cast) {
-			$scope = $this->lookForAssigns($scope, $node->expr, $certainty, $lookForAssignsSettings);
-		} elseif ($node instanceof For_) {
-			$forAssignmentsCertainty = $this->polluteScopeWithLoopInitialAssignments ? TrinaryLogic::createYes() : TrinaryLogic::createMaybe();
-			foreach ($node->init as $initExpr) {
-				$scope = $this->lookForAssigns($scope, $initExpr, $forAssignmentsCertainty, LookForAssignsSettings::afterLoop());
-			}
+			return $leftScope->mergeWith($rightScope);
+			// todo do not execute right side if the left is false
+		} elseif ($expr instanceof BooleanOr || $expr instanceof BinaryOp\LogicalOr) {
+			$leftScope = $this->processExprNode($expr->left, $scope, $nodeCallback, $depth + 1);
+			$rightScope = $this->processExprNode($expr->right, $leftScope->filterByFalseyValue($expr->left), $nodeCallback, $depth);
+			return $leftScope->mergeWith($rightScope);
+			// todo do not execute right side if the left is true
+		} elseif ($expr instanceof Coalesce) {
+			$nonNullabilityResult = $this->ensureNonNullability($scope, $expr->left, false);
 
-			foreach ($node->cond as $condExpr) {
-				$scope = $this->lookForAssigns($scope, $condExpr, $forAssignmentsCertainty, LookForAssignsSettings::afterLoop());
+			if ($expr->left instanceof PropertyFetch) {
+				$scope = $nonNullabilityResult->getScope();
+			} else {
+				$scope = $this->lookForEnterVariableAssign($nonNullabilityResult->getScope(), $expr->left);
 			}
+			$scope = $this->processExprNode($expr->left, $scope, $nodeCallback, $depth + 1);
+			$scope = $this->revertNonNullability($scope, $nonNullabilityResult->getSpecifiedExpressions());
 
-			$statements = [
-				new StatementList($scope, $node->stmts),
-				new StatementList($scope, []), // in order not to add variables existing only inside the for loop
-			];
-			$scope = $this->lookForAssignsInBranches($scope, $statements, LookForAssignsSettings::afterLoop());
-			foreach ($node->loop as $loopExpr) {
-				$scope = $this->lookForAssigns($scope, $loopExpr, TrinaryLogic::createMaybe(), LookForAssignsSettings::afterLoop());
+			if (!$expr->left instanceof PropertyFetch) {
+				$scope = $this->lookForExitVariableAssign($scope, $expr->left);
 			}
-		} elseif ($node instanceof While_) {
-			$whileAssignmentsCertainty = $this->polluteScopeWithLoopInitialAssignments ? TrinaryLogic::createYes() : TrinaryLogic::createMaybe();
-			$scope = $this->lookForAssigns($scope, $node->cond, $whileAssignmentsCertainty, LookForAssignsSettings::afterLoop());
-
-			$statements = [
-				new StatementList($scope, $node->stmts, false, static function (Scope $scope) use ($node): Scope {
-					return $scope->filterByTruthyValue($node->cond);
-				}),
-				new StatementList($scope, []), // in order not to add variables existing only inside the for loop
-			];
-			$scope = $this->lookForAssignsInBranches($scope, $statements, LookForAssignsSettings::afterLoop());
-		} elseif ($node instanceof ErrorSuppress) {
-			$scope = $this->lookForAssigns($scope, $node->expr, $certainty, $lookForAssignsSettings);
-		} elseif ($node instanceof \PhpParser\Node\Stmt\Unset_) {
-			foreach ($node->vars as $var) {
-				$scope = $scope->unsetExpression($var);
-			}
-		} elseif ($node instanceof Echo_) {
-			foreach ($node->exprs as $echoedExpr) {
-				$scope = $this->lookForAssigns($scope, $echoedExpr, $certainty, $lookForAssignsSettings);
-			}
-		} elseif ($node instanceof Print_) {
-			$scope = $this->lookForAssigns($scope, $node->expr, $certainty, $lookForAssignsSettings);
-		} elseif ($node instanceof Foreach_) {
-			$iterableAtLeastOnce = $scope->getType($node->expr)->isIterableAtLeastOnce();
-			$scope = $this->lookForAssigns($scope, $node->expr, $certainty, $lookForAssignsSettings);
-			if (!$iterableAtLeastOnce->no()) {
-				$statements = [
-					new StatementList($scope, array_merge(
-						[new Node\Stmt\Nop()],
-						$node->stmts
-					), false, function (Scope $scope) use ($node): Scope {
-						return $this->enterForeach($scope, $node);
-					}),
-				];
-
-				if (!$iterableAtLeastOnce->yes() || !$this->polluteScopeWithAlwaysIterableForeach) {
-					$statements[] = new StatementList($scope, []);
-				}
-
-				$scope = $this->lookForAssignsInBranches($scope, $statements, LookForAssignsSettings::afterLoop());
-			}
-		} elseif ($node instanceof Isset_) {
-			foreach ($node->vars as $var) {
-				$scope = $this->lookForAssigns($scope, $var, $certainty, $lookForAssignsSettings);
-			}
-		} elseif ($node instanceof Expr\Empty_ && (!($node->expr instanceof ArrayDimFetch) || $node->expr->dim !== null)) {
-			$scope = $this->lookForAssigns($scope, $node->expr, $certainty, $lookForAssignsSettings);
-		} elseif ($node instanceof ArrayDimFetch && $node->dim !== null) {
-			$scope = $this->lookForAssigns($scope, $node->dim, $certainty, $lookForAssignsSettings);
-		} elseif ($node instanceof Expr\Closure) {
-			$closureScope = $scope->enterAnonymousFunction($node);
-			$statements = [
-				new StatementList($closureScope, array_merge(
-					[new Node\Stmt\Nop()],
-					$node->stmts
-				)),
-				new StatementList($closureScope, []),
-			];
-			$closureScope = $this->lookForAssignsInBranches($scope, $statements, LookForAssignsSettings::insideClosure());
-			foreach ($node->uses as $closureUse) {
-				if (!$closureUse->byRef) {
-					continue;
-				}
-
-				if (!is_string($closureUse->var->name)) {
-					throw new \PHPStan\ShouldNotHappenException();
-				}
-				$variableCertainty = $closureScope->hasVariableType($closureUse->var->name);
-				if ($variableCertainty->no()) {
-					continue;
-				}
-
-				$scope = $scope->assignVariable(
-					$closureUse->var->name,
-					$closureScope->getVariableType($closureUse->var->name),
-					$variableCertainty
-				);
-			}
-		} elseif ($node instanceof Instanceof_) {
-			$scope = $this->lookForAssigns($scope, $node->expr, $certainty, $lookForAssignsSettings);
-		} elseif ($node instanceof Expr\Include_) {
-			$scope = $this->lookForAssigns($scope, $node->expr, $certainty, $lookForAssignsSettings);
+			$scope = $this->processExprNode($expr->right, $scope, $nodeCallback, $depth + 1);
+		} elseif ($expr instanceof BinaryOp) {
+			$scope = $this->processExprNode($expr->left, $scope, $nodeCallback, $depth + 1);
+			$scope = $this->processExprNode($expr->right, $scope, $nodeCallback, $depth + 1);
 		} elseif (
-			(
-				$node instanceof Expr\PostInc
-				|| $node instanceof Expr\PostDec
-				|| $node instanceof Expr\PreInc
-				|| $node instanceof Expr\PreDec
-			) && (
-				$node->var instanceof Variable
-				|| $node->var instanceof ArrayDimFetch
-				|| $node->var instanceof PropertyFetch
-				|| $node->var instanceof StaticPropertyFetch
-			)
+			$expr instanceof Expr\BitwiseNot
+			|| $expr instanceof Cast
+			|| $expr instanceof Expr\Clone_
+			|| $expr instanceof Expr\Eval_
+			|| $expr instanceof Expr\Include_
+			|| $expr instanceof Expr\Print_
+			|| $expr instanceof Expr\UnaryMinus
+			|| $expr instanceof Expr\UnaryPlus
+			|| $expr instanceof Expr\YieldFrom
 		) {
-			$expressionType = $scope->getType($node);
-			if ($expressionType instanceof ConstantScalarType) {
-				$afterValue = $expressionType->getValue();
-				if ($node instanceof Expr\PostInc) {
-					$afterValue++;
-				} elseif ($node instanceof Expr\PostDec) {
-					$afterValue--;
+			$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, $depth + 1);
+		} elseif ($expr instanceof BooleanNot) {
+			$scope = $scope->enterNegation();
+			$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, $depth + 1);
+			$scope = $scope->enterNegation();
+		} elseif ($expr instanceof Expr\ClassConstFetch) {
+			if ($expr->class instanceof Expr) {
+				$scope = $this->processExprNode($expr->class, $scope, $nodeCallback, $depth + 1);
+			}
+		} elseif ($expr instanceof Expr\Empty_) {
+			$nonNullabilityResult = $this->ensureNonNullability($scope, $expr->expr, true);
+			$scope = $this->lookForEnterVariableAssign($nonNullabilityResult->getScope(), $expr->expr);
+			$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, $depth + 1);
+			$scope = $this->revertNonNullability($scope, $nonNullabilityResult->getSpecifiedExpressions());
+			$scope = $this->lookForExitVariableAssign($scope, $expr->expr);
+		} elseif ($expr instanceof Expr\Isset_) {
+			foreach ($expr->vars as $var) {
+				$nonNullabilityResult = $this->ensureNonNullability($scope, $var, true);
+				$scope = $this->lookForEnterVariableAssign($nonNullabilityResult->getScope(), $var);
+				$scope = $this->processExprNode($var, $scope, $nodeCallback, $depth + 1);
+				$scope = $this->revertNonNullability($scope, $nonNullabilityResult->getSpecifiedExpressions());
+				$scope = $this->lookForExitVariableAssign($scope, $var);
+			}
+		} elseif ($expr instanceof Instanceof_) {
+			$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, $depth + 1);
+			if ($expr->class instanceof Expr) {
+				$scope = $this->processExprNode($expr->class, $scope, $nodeCallback, $depth + 1);
+			}
+		} elseif ($expr instanceof List_) {
+			// only in assign and foreach, processed elsewhere
+			return $scope;
+		} elseif ($expr instanceof New_) {
+			$parametersAcceptor = null;
+			if ($expr->class instanceof Expr) {
+				$scope = $this->processExprNode($expr->class, $scope, $nodeCallback, $depth + 1);
+			} elseif ($expr->class instanceof Class_) {
+				$this->processStmtNode($expr->class, $scope, $nodeCallback);
+			} elseif ($this->broker->hasClass($expr->class->toString())) {
+				$classReflection = $this->broker->getClass($expr->class->toString());
+				if ($classReflection->hasConstructor()) {
+					$parametersAcceptor = ParametersAcceptorSelector::selectFromArgs(
+						$scope,
+						$expr->args,
+						$classReflection->getConstructor()->getVariants()
+					);
 				}
+			}
+			$scope = $this->processArgs($parametersAcceptor, $expr->args, $scope, $nodeCallback, $depth);
+		} elseif (
+			$expr instanceof Expr\PreInc
+			|| $expr instanceof Expr\PostInc
+			|| $expr instanceof Expr\PreDec
+			|| $expr instanceof Expr\PostDec
+		) {
+			$scope = $this->processExprNode($expr->var, $scope, $nodeCallback, $depth + 1);
+			if (
+				$expr->var instanceof Variable
+				|| $expr->var instanceof ArrayDimFetch
+				|| $expr->var instanceof PropertyFetch
+				|| $expr->var instanceof StaticPropertyFetch
+			) {
+				$expressionType = $scope->getType($expr);
+				if (count(TypeUtils::getConstantScalars($expressionType)) > 0) {
+					$newExpr = $expr;
+					if ($expr instanceof Expr\PostInc) {
+						$newExpr = new Expr\PreInc($expr->var);
+					} elseif ($expr instanceof Expr\PostDec) {
+						$newExpr = new Expr\PreDec($expr->var);
+					}
 
-				$newExpressionType = $scope->getTypeFromValue($afterValue);
-				if ($lookForAssignsSettings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()) {
-					$newExpressionType = TypeUtils::generalizeType($newExpressionType);
+					$scope = $this->processAssignVar(
+						$scope,
+						$expr->var,
+						$newExpr,
+						static function (): void {
+						},
+						static function (Scope $scope): Scope {
+							return $scope;
+						},
+						false
+					);
 				}
-
-				$scope = $this->assignVariable(
-					$scope,
-					$node->var,
-					$certainty,
-					$newExpressionType
-				);
 			}
-		} elseif ($node instanceof Expr\Yield_) {
-			if ($node->key !== null) {
-				$scope = $this->lookForAssigns($scope, $node->key, $certainty, $lookForAssignsSettings);
-			}
-			if ($node->value !== null) {
-				$scope = $this->lookForAssigns($scope, $node->value, $certainty, $lookForAssignsSettings);
-			}
-		} elseif ($node instanceof Expr\YieldFrom) {
-			$scope = $this->lookForAssigns($scope, $node->expr, $certainty, $lookForAssignsSettings);
-		}
+		} elseif ($expr instanceof Ternary) {
+			$scope = $this->processExprNode($expr->cond, $scope, $nodeCallback, $depth + 1);
+			$ifTrueScope = $scope->filterByTruthyValue($expr->cond);
+			$ifFalseScope = $scope->filterByFalseyValue($expr->cond);
 
-		$scope = $this->updateScopeForVariableAssign($scope, $node, $certainty, $lookForAssignsSettings);
-
-		return $scope;
-	}
-
-	private function updateScopeForVariableAssign(
-		Scope $scope,
-		\PhpParser\Node $node,
-		TrinaryLogic $certainty,
-		LookForAssignsSettings $lookForAssignsSettings
-	): Scope
-	{
-		if ($node instanceof Assign || $node instanceof AssignRef || $node instanceof Expr\AssignOp || $node instanceof Node\Stmt\Global_) {
-			if ($node instanceof Assign || $node instanceof AssignRef || $node instanceof Expr\AssignOp) {
-				$scope = $this->lookForAssigns($scope, $node->var, TrinaryLogic::createYes(), $lookForAssignsSettings);
-				$vars = [$node->var];
+			if ($expr->if !== null) {
+				$ifTrueScope = $this->processExprNode($expr->if, $ifTrueScope, $nodeCallback, $depth);
+				$ifFalseScope = $this->processExprNode($expr->else, $ifFalseScope, $nodeCallback, $depth);
 			} else {
-				$vars = $node->vars;
+				$ifFalseScope = $this->processExprNode($expr->else, $ifFalseScope, $nodeCallback, $depth);
 			}
 
-			foreach ($vars as $var) {
-				if (
-					!$var instanceof Variable
-					&& !$var instanceof ArrayDimFetch
-					&& !$var instanceof PropertyFetch
-					&& !$var instanceof StaticPropertyFetch
-				) {
-					continue;
-				}
+			return $ifTrueScope->mergeWith($ifFalseScope);
 
-				$type = null;
-				if ($node instanceof Assign || $node instanceof AssignRef) {
-					$type = $scope->getType($node->expr);
-				} elseif ($node instanceof Expr\AssignOp) {
-					$type = $scope->getType($node);
-					if ($lookForAssignsSettings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()) {
-						$type = TypeUtils::generalizeType($type);
-					}
-				}
-
-				$scope = $this->assignVariable($scope, $var, $certainty, $type);
-				if (
-					(!$node instanceof Assign && !$node instanceof AssignRef)
-					|| !$lookForAssignsSettings->shouldGeneralizeConstantTypesOfNonIdempotentOperations()
-					|| !($var instanceof ArrayDimFetch)
-					|| $var->dim !== null
-				) {
-					continue;
-				}
-
-				$type = $scope->getType($var->var);
-				$scope = $this->assignVariable($scope, $var->var, $certainty, TypeUtils::generalizeType($type));
+			// todo do not run else if cond is always true
+			// todo do not run if branch if cond is always false
+		} elseif ($expr instanceof Expr\Yield_) {
+			if ($expr->key !== null) {
+				$scope = $this->processExprNode($expr->key, $scope, $nodeCallback, $depth + 1);
 			}
-
-			if ($node instanceof Assign || $node instanceof AssignRef) {
-				if ($node->var instanceof Array_ || $node->var instanceof List_) {
-					$scope = $this->lookForArrayDestructuringArray($scope, $node->var, $scope->getType($node->expr));
-				}
-			}
-
-			if (!$node instanceof Node\Stmt\Global_) {
-				$scope = $this->lookForAssigns($scope, $node->expr, TrinaryLogic::createYes(), $lookForAssignsSettings);
-			}
-
-			if ($node instanceof Assign || $node instanceof AssignRef) {
-				if ($node->var instanceof Variable && is_string($node->var->name)) {
-					$comment = CommentHelper::getDocComment($node);
-					if ($comment !== null) {
-						$scope = $this->processVarAnnotation($scope, $node->var->name, $comment, false);
-					}
-				}
+			if ($expr->value !== null) {
+				$scope = $this->processExprNode($expr->value, $scope, $nodeCallback, $depth + 1);
 			}
 		}
 
 		return $scope;
 	}
 
-	private function processVarAnnotation(Scope $scope, string $variableName, string $comment, bool $strict): Scope
-	{
-		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
-			$scope->getFile(),
-			$scope->isInClass() ? $scope->getClassReflection()->getName() : null,
-			$scope->isInTrait() ? $scope->getTraitReflection()->getName() : null,
-			$comment
-		);
-		$varTags = $resolvedPhpDoc->getVarTags();
-
-		if (isset($varTags[$variableName])) {
-			$variableType = $varTags[$variableName]->getType();
-			return $scope->assignVariable($variableName, $variableType, TrinaryLogic::createYes());
-
-		}
-
-		if (!$strict && count($varTags) === 1 && isset($varTags[0])) {
-			$variableType = $varTags[0]->getType();
-			return $scope->assignVariable($variableName, $variableType, TrinaryLogic::createYes());
-
-		}
-
-		return $scope;
-	}
-
-	private function assignVariable(
+	/**
+	 * @param \PhpParser\Node\Expr\Closure $expr
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
+	 * @param int $depth
+	 * @param string $assignedVariable
+	 * @return \PHPStan\Analyser\Scope $scope
+	 */
+	private function processClosureNode(
+		Expr\Closure $expr,
 		Scope $scope,
-		Node $var,
-		TrinaryLogic $certainty,
-		?Type $subNodeType = null
+		\Closure $nodeCallback,
+		int $depth,
+		?string $assignedVariable
 	): Scope
 	{
-		if ($var instanceof Variable && is_string($var->name)) {
-			$scope = $scope->assignVariable($var->name, $subNodeType ?? new MixedType(), $certainty);
-		} elseif ($var instanceof ArrayDimFetch) {
-			$subNodeType = $subNodeType ?? new MixedType();
+		foreach ($expr->params as $param) {
+			$this->processParamNode($param, $scope, $nodeCallback);
+		}
 
+		$byRefUses = [];
+		$assignSelf = false;
+		foreach ($expr->uses as $use) {
+			if ($use->byRef) {
+				$byRefUses[] = $use;
+				$scope = $scope->enterExpressionAssign($use->var);
+			}
+			$this->processExprNode($use, $scope, $nodeCallback, $depth);
+			if (!$use->byRef) {
+				continue;
+			}
+
+			$scope = $scope->exitExpressionAssign($use->var);
+			if ($assignedVariable !== $use->var->name) {
+				continue;
+			}
+
+			$assignSelf = true;
+		}
+
+		if ($expr->returnType !== null) {
+			$nodeCallback($expr->returnType, $scope);
+		}
+
+		if ($assignedVariable !== null && $assignSelf) {
+			$scope = $scope->assignVariable($assignedVariable, $scope->getType($expr));
+		}
+		$closureScope = $scope->enterAnonymousFunction($expr);
+		$closureScope = $closureScope->processClosureScope($scope, null, $byRefUses);
+		if (count($byRefUses) === 0) {
+			$this->processStmtNodes($expr->stmts, $closureScope, $nodeCallback);
+			return $scope;
+		}
+
+		$count = 0;
+		do {
+			$prevScope = $closureScope;
+
+			$intermediaryClosureScopeResult = $this->processStmtNodes($expr->stmts, $closureScope, static function (): void {
+			});
+			$intermediaryClosureScope = $intermediaryClosureScopeResult->getScope();
+			foreach ($intermediaryClosureScopeResult->getExitPoints() as $exitPoint) {
+				$intermediaryClosureScope = $intermediaryClosureScope->mergeWith($exitPoint->getScope());
+			}
+			$closureScope = $scope->enterAnonymousFunction($expr);
+			$closureScope = $closureScope->processClosureScope($intermediaryClosureScope, $prevScope, $byRefUses);
+			if ($closureScope->equals($prevScope)) {
+				break;
+			}
+			$count++;
+		} while ($count < self::LOOP_SCOPE_ITERATIONS);
+
+		$this->processStmtNodes($expr->stmts, $closureScope, $nodeCallback);
+
+		return $scope->processClosureScope($closureScope, null, $byRefUses);
+	}
+
+	private function lookForArrayDestructuringArray(Scope $scope, Expr $expr, Type $valueType): Scope
+	{
+		if ($expr instanceof Array_ || $expr instanceof List_) {
+			foreach ($expr->items as $key => $item) {
+				/** @var \PhpParser\Node\Expr\ArrayItem|null $itemValue */
+				$itemValue = $item;
+				if ($itemValue === null) {
+					continue;
+				}
+
+				$keyType = $itemValue->key === null ? new ConstantIntegerType($key) : $scope->getType($itemValue->key);
+				$scope = $this->specifyItemFromArrayDestructuring($scope, $itemValue, $valueType, $keyType);
+			}
+		} elseif ($expr instanceof Variable && is_string($expr->name)) {
+			$scope = $scope->assignVariable($expr->name, new MixedType());
+		} elseif ($expr instanceof ArrayDimFetch && $expr->var instanceof Variable && is_string($expr->var->name)) {
+			$scope = $scope->assignVariable($expr->var->name, new MixedType());
+		}
+
+		return $scope;
+	}
+
+	private function specifyItemFromArrayDestructuring(Scope $scope, ArrayItem $arrayItem, Type $valueType, Type $keyType): Scope
+	{
+		$type = $valueType->getOffsetValueType($keyType);
+
+		$itemNode = $arrayItem->value;
+		if ($itemNode instanceof Variable && is_string($itemNode->name)) {
+			$scope = $scope->assignVariable($itemNode->name, $type);
+		} elseif ($itemNode instanceof ArrayDimFetch && $itemNode->var instanceof Variable && is_string($itemNode->var->name)) {
+			$currentType = $scope->hasVariableType($itemNode->var->name)->no()
+				? new ConstantArrayType([], [])
+				: $scope->getVariableType($itemNode->var->name);
+			$dimType = null;
+			if ($itemNode->dim !== null) {
+				$dimType = $scope->getType($itemNode->dim);
+			}
+			$scope = $scope->assignVariable($itemNode->var->name, $currentType->setOffsetValueType($dimType, $type));
+		} else {
+			$scope = $this->lookForArrayDestructuringArray($scope, $itemNode, $type);
+		}
+
+		return $scope;
+	}
+
+	/**
+	 * @param \PhpParser\Node\Param $param
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
+	 */
+	private function processParamNode(
+		Node\Param $param,
+		Scope $scope,
+		\Closure $nodeCallback
+	): void
+	{
+		if ($param->type !== null) {
+			$nodeCallback($param->type, $scope);
+		}
+		if ($param->default === null) {
+			return;
+		}
+
+		$this->processExprNode($param->default, $scope, $nodeCallback, 1);
+	}
+
+	/**
+	 * @param ParametersAcceptor|null $parametersAcceptor
+	 * @param \PhpParser\Node\Arg[] $args
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
+	 * @param int $depth
+	 * @param \PHPStan\Analyser\Scope|null $closureBindScope
+	 * @return \PHPStan\Analyser\Scope
+	 */
+	private function processArgs(
+		?ParametersAcceptor $parametersAcceptor,
+		array $args,
+		Scope $scope,
+		\Closure $nodeCallback,
+		int $depth,
+		?Scope $closureBindScope = null
+	): Scope
+	{
+		// todo $scope = $scope->enterFunctionCall();
+		if ($parametersAcceptor !== null) {
+			$parameters = $parametersAcceptor->getParameters();
+		}
+
+		foreach ($args as $i => $arg) {
+			$nodeCallback($arg, $scope);
+			if (isset($parameters) && $parametersAcceptor !== null) {
+				$assignByReference = false;
+				if (isset($parameters[$i])) {
+					$assignByReference = $parameters[$i]->passedByReference()->createsNewVariable();
+				} elseif (count($parameters) > 0 && $parametersAcceptor->isVariadic()) {
+					$lastParameter = $parameters[count($parameters) - 1];
+					$assignByReference = $lastParameter->passedByReference()->createsNewVariable();
+				}
+
+				if ($assignByReference) {
+					$argValue = $arg->value;
+					if ($argValue instanceof Variable && is_string($argValue->name)) {
+						$scope = $scope->assignVariable($argValue->name, new MixedType());
+					}
+				}
+			}
+
+			$originalScope = $scope;
+			$scopeToPass = $scope;
+			if ($i === 0 && $closureBindScope !== null) {
+				$scopeToPass = $closureBindScope;
+			}
+			$scope = $this->processExprNode($arg->value, $scopeToPass, $nodeCallback, $depth + 1);
+			if ($i !== 0 || $closureBindScope === null) {
+				continue;
+			}
+
+			$scope = $scope->restoreOriginalScopeAfterClosureBind($originalScope);
+		}
+
+		// todo $scope = $scope->exitFunctionCall();
+
+		return $scope;
+	}
+
+	/**
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PhpParser\Node\Expr $var
+	 * @param \PhpParser\Node\Expr $assignedExpr
+	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
+	 * @param \Closure(Scope $scope): Scope $processExprCallback
+	 * @param bool $enterExpressionAssign
+	 * @return Scope
+	 */
+	private function processAssignVar(
+		Scope $scope,
+		Expr $var,
+		Expr $assignedExpr,
+		\Closure $nodeCallback,
+		\Closure $processExprCallback,
+		bool $enterExpressionAssign
+	): Scope
+	{
+		$nodeCallback($var, $enterExpressionAssign ? $scope->enterExpressionAssign($var) : $scope);
+		if ($var instanceof Variable && is_string($var->name)) {
+			$scope = $processExprCallback($scope);
+			$scope = $scope->assignVariable($var->name, $scope->getType($assignedExpr));
+		} elseif ($var instanceof ArrayDimFetch) {
 			$dimExprStack = [];
 			while ($var instanceof ArrayDimFetch) {
 				$dimExprStack[] = $var->dim;
@@ -1624,7 +1710,13 @@ class NodeScopeResolver
 			}
 
 			// 1. eval root expr
-			$scope = $this->lookForAssigns($scope, $var, TrinaryLogic::createYes(), LookForAssignsSettings::default());
+			if ($enterExpressionAssign && $var instanceof Variable) {
+				$scope = $scope->enterExpressionAssign($var);
+			}
+			$scope = $this->processExprNode($var, $scope, $nodeCallback, 1);
+			if ($enterExpressionAssign && $var instanceof Variable) {
+				$scope = $scope->exitExpressionAssign($var);
+			}
 
 			// 2. eval dimensions
 			$offsetTypes = [];
@@ -1633,15 +1725,23 @@ class NodeScopeResolver
 					$offsetTypes[] = null;
 
 				} else {
-					if ($dimExpr instanceof Expr\PreInc || $dimExpr instanceof Expr\PreDec) {
-						$dimExpr = $dimExpr->var;
-					}
-					$scope = $this->lookForAssigns($scope, $dimExpr, TrinaryLogic::createYes(), LookForAssignsSettings::default());
 					$offsetTypes[] = $scope->getType($dimExpr);
+
+					if ($enterExpressionAssign) {
+						$scope->enterExpressionAssign($dimExpr);
+					}
+					$scope = $this->processExprNode($dimExpr, $scope, $nodeCallback, 1);
+
+					if ($enterExpressionAssign) {
+						$scope = $scope->exitExpressionAssign($dimExpr);
+					}
 				}
 			}
 
-			// 3. eval assigned expr, unfortunately this was already done
+			$valueToWrite = $scope->getType($assignedExpr);
+
+			// 3. eval assigned expr
+			$scope = $processExprCallback($scope);
 
 			// 4. compose types
 			$varType = $scope->getType($var);
@@ -1664,7 +1764,6 @@ class NodeScopeResolver
 				$offsetValueTypeStack[] = $offsetValueType;
 			}
 
-			$valueToWrite = $subNodeType;
 			foreach (array_reverse($offsetTypes) as $offsetType) {
 				/** @var Type $offsetValueType */
 				$offsetValueType = array_pop($offsetValueTypeStack);
@@ -1672,236 +1771,91 @@ class NodeScopeResolver
 			}
 
 			if ($var instanceof Variable && is_string($var->name)) {
-				$scope = $scope->assignVariable(
-					$var->name,
-					$valueToWrite,
-					$certainty
-				);
+				$scope = $scope->assignVariable($var->name, $valueToWrite);
 			} else {
 				$scope = $scope->specifyExpressionType(
 					$var,
 					$valueToWrite
 				);
 			}
-		} elseif ($var instanceof PropertyFetch && $subNodeType !== null) {
-			$scope = $scope->specifyExpressionType($var, $subNodeType);
-		} elseif ($var instanceof Expr\StaticPropertyFetch && $subNodeType !== null) {
-			$scope = $scope->specifyExpressionType($var, $subNodeType);
-		} else {
-			$scope = $this->lookForAssigns($scope, $var, TrinaryLogic::createYes(), LookForAssignsSettings::default());
+		} elseif ($var instanceof PropertyFetch) {
+			$scope = $processExprCallback($scope);
+			$scope = $scope->specifyExpressionType($var, $scope->getType($assignedExpr));
+		} elseif ($var instanceof Expr\StaticPropertyFetch) {
+			$scope = $processExprCallback($scope);
+			$scope = $scope->specifyExpressionType($var, $scope->getType($assignedExpr));
 		}
 
 		return $scope;
 	}
 
-	/**
-	 * @param \PHPStan\Analyser\Scope $initialScope
-	 * @param \PHPStan\Analyser\StatementList[] $statementsLists
-	 * @param \PHPStan\Analyser\LookForAssignsSettings $lookForAssignsSettings
-	 * @param int $counter
-	 * @return Scope
-	 */
-	private function lookForAssignsInBranches(
-		Scope $initialScope,
-		array $statementsLists,
-		LookForAssignsSettings $lookForAssignsSettings,
-		int $counter = 0
-	): Scope
+	private function processVarAnnotation(Scope $scope, string $variableName, string $comment, bool $strict): Scope
 	{
-		/** @var \PHPStan\Analyser\Scope|null $intersectedScope */
-		$intersectedScope = null;
-		foreach ($statementsLists as $statementList) {
-			$statements = $statementList->getStatements();
-			$branchScope = $statementList->getScope();
-			$branchScopeWithInitialScopeRemoved = $branchScope->removeVariables($initialScope, true);
+		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
+			$scope->getFile(),
+			$scope->isInClass() ? $scope->getClassReflection()->getName() : null,
+			$scope->isInTrait() ? $scope->getTraitReflection()->getName() : null,
+			$comment
+		);
+		$varTags = $resolvedPhpDoc->getVarTags();
 
-			$earlyTerminationStatement = null;
-			foreach ($statements as $statement) {
-				$branchScope = $this->lookForAssigns($branchScope, $statement, TrinaryLogic::createYes(), $lookForAssignsSettings);
-				$branchScopeWithInitialScopeRemoved = $branchScope->removeVariables($initialScope, false);
-				$earlyTerminationStatement = $this->findStatementEarlyTermination($statement, $branchScope);
-				if ($earlyTerminationStatement !== null) {
-					if ($lookForAssignsSettings->shouldSkipBranch($earlyTerminationStatement)) {
-						continue 2;
-					}
-					$branchScopeWithInitialScopeRemoved = $branchScopeWithInitialScopeRemoved->removeSpecified($initialScope);
-					break;
-				}
-			}
+		if (isset($varTags[$variableName])) {
+			$variableType = $varTags[$variableName]->getType();
+			return $scope->assignVariable($variableName, $variableType);
 
-			if (!$lookForAssignsSettings->shouldIntersectVariables($earlyTerminationStatement)) {
-				continue;
-			}
-
-			if ($intersectedScope === null) {
-				$intersectedScope = $initialScope->createIntersectedScope($branchScopeWithInitialScopeRemoved);
-			} else {
-				$intersectedScope = $intersectedScope->intersectVariables($branchScopeWithInitialScopeRemoved);
-			}
-
-			if (!$statementList->shouldFilterByTruthyValue()) {
-				continue;
-			}
-
-			/** @var \PhpParser\Node\Expr $statement */
-			foreach ($statements as $statement) {
-				$intersectedScope = $intersectedScope->filterByTruthyValue($statement);
-			}
 		}
 
-		if ($intersectedScope !== null) {
-			$scope = $initialScope->mergeWithIntersectedScope($intersectedScope);
-			if ($counter === 0 && $lookForAssignsSettings->shouldRepeatAnalysis()) {
-				$newStatementLists = [];
-				foreach ($statementsLists as $statementList) {
-					$newStatementLists[] = StatementList::fromList(
-						$scope,
-						$statementList
-					);
-				}
-				return $this->lookForAssignsInBranches(
-					$scope,
-					$newStatementLists,
-					$lookForAssignsSettings,
-					$counter + 1
-				);
-			}
+		if (!$strict && count($varTags) === 1 && isset($varTags[0])) {
+			$variableType = $varTags[0]->getType();
+			return $scope->assignVariable($variableName, $variableType);
 
-			return $scope;
 		}
 
-		return $initialScope;
+		return $scope;
 	}
 
-	/**
-	 * @param \PhpParser\Node[] $statements
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return \PhpParser\Node|null
-	 */
-	private function findEarlyTermination(array $statements, Scope $scope): ?\PhpParser\Node
+	private function enterForeach(Scope $scope, Foreach_ $stmt): Scope
 	{
-		foreach ($statements as $statement) {
-			$statement = $this->findStatementEarlyTermination($statement, $scope);
-			if ($statement !== null) {
-				return $statement;
-			}
+		if ($stmt->keyVar !== null && $stmt->keyVar instanceof Variable && is_string($stmt->keyVar->name)) {
+			$scope = $scope->assignVariable($stmt->keyVar->name, new MixedType());
 		}
 
-		return null;
-	}
-
-	private function findStatementEarlyTermination(Node $statement, Scope $scope): ?\PhpParser\Node
-	{
-		if ($statement instanceof Node\Stmt\Expression) {
-			$statement = $statement->expr;
+		$comment = CommentHelper::getDocComment($stmt);
+		if ($stmt->valueVar instanceof Variable && is_string($stmt->valueVar->name)) {
+			$scope = $scope->enterForeach(
+				$stmt->expr,
+				$stmt->valueVar->name,
+				$stmt->keyVar !== null
+				&& $stmt->keyVar instanceof Variable
+				&& is_string($stmt->keyVar->name)
+					? $stmt->keyVar->name
+					: null
+			);
+			if ($comment !== null) {
+				$scope = $this->processVarAnnotation($scope, $stmt->valueVar->name, $comment, true);
+			}
 		}
 
 		if (
-			$statement instanceof Throw_
-			|| $statement instanceof Return_
-			|| $statement instanceof Continue_
-			|| $statement instanceof Break_
-			|| $statement instanceof Exit_
+			$stmt->keyVar instanceof Variable && is_string($stmt->keyVar->name)
+			&& $comment !== null
 		) {
-			return $statement;
-		} elseif (($statement instanceof MethodCall || $statement instanceof Expr\StaticCall) && count($this->earlyTerminatingMethodCalls) > 0) {
-			if ($statement->name instanceof Expr) {
-				return null;
-			}
-
-			if ($statement instanceof MethodCall) {
-				$methodCalledOnType = $scope->getType($statement->var);
-			} else {
-				if ($statement->class instanceof Name) {
-					$methodCalledOnType = $scope->getFunctionType($statement->class, false, false);
-				} else {
-					$methodCalledOnType = $scope->getType($statement->class);
-				}
-			}
-
-			$directClassNames = TypeUtils::getDirectClassNames($methodCalledOnType);
-			foreach ($directClassNames as $referencedClass) {
-				if (!$this->broker->hasClass($referencedClass)) {
-					continue;
-				}
-
-				$classReflection = $this->broker->getClass($referencedClass);
-				foreach (array_merge([$referencedClass], $classReflection->getParentClassesNames()) as $className) {
-					if (!isset($this->earlyTerminatingMethodCalls[$className])) {
-						continue;
-					}
-
-					if (in_array((string) $statement->name, $this->earlyTerminatingMethodCalls[$className], true)) {
-						return $statement;
-					}
-				}
-			}
-
-			return null;
-		} elseif ($statement instanceof If_) {
-			if ($statement->else === null) {
-				return null;
-			}
-
-			if ($this->findEarlyTermination($statement->stmts, $scope) === null) {
-				return null;
-			}
-
-			foreach ($statement->elseifs as $elseIfStatement) {
-				if ($this->findEarlyTermination($elseIfStatement->stmts, $scope) === null) {
-					return null;
-				}
-			}
-
-			if ($this->findEarlyTermination($statement->else->stmts, $scope) === null) {
-				return null;
-			}
-
-			return $statement;
+			$scope = $this->processVarAnnotation($scope, $stmt->keyVar->name, $comment, true);
 		}
 
-		return null;
-	}
+		if ($stmt->valueVar instanceof List_ || $stmt->valueVar instanceof Array_) {
+			$itemTypes = [];
+			$exprType = $scope->getType($stmt->expr);
+			$arrayTypes = TypeUtils::getArrays($exprType);
+			foreach ($arrayTypes as $arrayType) {
+				$itemTypes[] = $arrayType->getItemType();
+			}
 
-	private function findParametersAcceptorInFunctionCall(Expr $functionCall, Scope $scope): ?\PHPStan\Reflection\ParametersAcceptor
-	{
-		if ($functionCall instanceof FuncCall && $functionCall->name instanceof Name) {
-			if ($this->broker->hasFunction($functionCall->name, $scope)) {
-				return ParametersAcceptorSelector::selectFromArgs(
-					$scope,
-					$functionCall->args,
-					$this->broker->getFunction($functionCall->name, $scope)->getVariants()
-				);
-			}
-		} elseif ($functionCall instanceof MethodCall && $functionCall->name instanceof Node\Identifier) {
-			$type = $scope->getType($functionCall->var);
-			$methodName = $functionCall->name->name;
-			if ($type->hasMethod($methodName)->yes()) {
-				return ParametersAcceptorSelector::selectFromArgs(
-					$scope,
-					$functionCall->args,
-					$type->getMethod($methodName, $scope)->getVariants()
-				);
-			}
-		} elseif (
-			$functionCall instanceof Expr\StaticCall
-			&& $functionCall->class instanceof Name
-			&& $functionCall->name instanceof Node\Identifier
-		) {
-			$className = $scope->resolveName($functionCall->class);
-			if ($this->broker->hasClass($className)) {
-				$classReflection = $this->broker->getClass($className);
-				if ($classReflection->hasMethod($functionCall->name->name)) {
-					return ParametersAcceptorSelector::selectFromArgs(
-						$scope,
-						$functionCall->args,
-						$classReflection->getMethod($functionCall->name->name, $scope)->getVariants()
-					);
-				}
-			}
+			$itemType = count($itemTypes) > 0 ? TypeCombinator::union(...$itemTypes) : new MixedType();
+			$scope = $this->lookForArrayDestructuringArray($scope, $stmt->valueVar, $itemType);
 		}
 
-		return null;
+		return $scope;
 	}
 
 	private function processTraitUse(Node\Stmt\TraitUse $node, Scope $classScope, \Closure $nodeCallback): void
@@ -1921,52 +1875,38 @@ class NodeScopeResolver
 				continue;
 			}
 			$parserNodes = $this->parser->parseFile($fileName);
-			$classScope = $classScope->enterTrait($traitReflection);
-
-			$this->processNodesForTraitUse($parserNodes, $traitName, $classScope, $nodeCallback);
+			$this->processNodesForTraitUse($parserNodes, $traitReflection, $classScope, $nodeCallback);
 		}
 	}
 
 	/**
 	 * @param \PhpParser\Node[]|\PhpParser\Node|scalar $node
-	 * @param string $traitName
-	 * @param \PHPStan\Analyser\Scope $classScope
+	 * @param ClassReflection $traitReflection
+	 * @param \PHPStan\Analyser\Scope $scope
 	 * @param \Closure(\PhpParser\Node $node): void $nodeCallback
 	 */
-	private function processNodesForTraitUse($node, string $traitName, Scope $classScope, \Closure $nodeCallback): void
+	private function processNodesForTraitUse($node, ClassReflection $traitReflection, Scope $scope, \Closure $nodeCallback): void
 	{
 		if ($node instanceof Node) {
-			if ($node instanceof Node\Stmt\Trait_ && $traitName === (string) $node->namespacedName) {
-				$this->processNodes($node->stmts, $classScope->enterFirstLevelStatements(), $nodeCallback);
+			if ($node instanceof Node\Stmt\Trait_ && $traitReflection->getName() === (string) $node->namespacedName) {
+				$this->processStmtNodes($node->stmts, $scope->enterTrait($traitReflection), $nodeCallback);
 				return;
 			}
 			if ($node instanceof Node\Stmt\ClassLike) {
 				return;
 			}
+			if ($node instanceof Node\FunctionLike) {
+				return;
+			}
 			foreach ($node->getSubNodeNames() as $subNodeName) {
 				$subNode = $node->{$subNodeName};
-				$this->processNodesForTraitUse($subNode, $traitName, $classScope, $nodeCallback);
+				$this->processNodesForTraitUse($subNode, $traitReflection, $scope, $nodeCallback);
 			}
 		} elseif (is_array($node)) {
 			foreach ($node as $subNode) {
-				$this->processNodesForTraitUse($subNode, $traitName, $classScope, $nodeCallback);
+				$this->processNodesForTraitUse($subNode, $traitReflection, $scope, $nodeCallback);
 			}
 		}
-	}
-
-	private function enterClassMethod(Scope $scope, Node\Stmt\ClassMethod $classMethod): Scope
-	{
-		[$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated, $isInternal, $isFinal] = $this->getPhpDocs($scope, $classMethod);
-
-		return $scope->enterClassMethod(
-			$classMethod,
-			$phpDocParameterTypes,
-			$phpDocReturnType,
-			$phpDocThrowType,
-			$isDeprecated,
-			$isInternal,
-			$isFinal
-		);
 	}
 
 	/**
@@ -2040,21 +1980,6 @@ class NodeScopeResolver
 		}
 
 		return [$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated, $isInternal, $isFinal];
-	}
-
-	private function enterFunction(Scope $scope, Node\Stmt\Function_ $function): Scope
-	{
-		[$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated, $isInternal, $isFinal] = $this->getPhpDocs($scope, $function);
-
-		return $scope->enterFunction(
-			$function,
-			$phpDocParameterTypes,
-			$phpDocReturnType,
-			$phpDocThrowType,
-			$isDeprecated,
-			$isInternal,
-			$isFinal
-		);
 	}
 
 }

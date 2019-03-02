@@ -241,9 +241,6 @@ class ParametersAcceptorSelector
 			}
 		}
 
-		/** @var \PHPStan\Type\Type $returnType */
-		$returnType = $returnType;
-
 		return new FunctionVariant($parameters, $isVariadic, $returnType);
 	}
 
