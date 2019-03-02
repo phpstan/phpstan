@@ -24,11 +24,11 @@ class AnonymousClassNameHelper
 	}
 
 	public function getAnonymousClassName(
-		\PhpParser\Node\Expr\New_ $node,
+		\PhpParser\Node\Stmt\Class_ $classNode,
 		string $filename
 	): string
 	{
-		if (!$node->class instanceof \PhpParser\Node\Stmt\Class_) {
+		if (isset($classNode->namespacedName)) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
@@ -38,7 +38,7 @@ class AnonymousClassNameHelper
 
 		return sprintf(
 			'AnonymousClass%s',
-			md5(sprintf('%s:%s', $filename, $node->class->getLine()))
+			md5(sprintf('%s:%s', $filename, $classNode->getLine()))
 		);
 	}
 

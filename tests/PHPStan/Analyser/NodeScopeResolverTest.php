@@ -239,7 +239,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				$testScope,
 				'foo',
-				TrinaryLogic::createYes(),
+				TrinaryLogic::createMaybe(),
 				'bool', // mixed?
 			],
 			[
@@ -340,7 +340,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				$testScope,
 				'matches2',
-				TrinaryLogic::createYes(),
+				TrinaryLogic::createMaybe(),
 				'mixed',
 			],
 			[
@@ -460,7 +460,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				$testScope,
 				'inTryNotInCatch',
-				TrinaryLogic::createMaybe(),
+				TrinaryLogic::createYes(),
 				'1',
 			],
 			[
@@ -473,7 +473,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'mixedVarFromTryCatch',
 				TrinaryLogic::createYes(),
-				'1|1.0',
+				'1.0|1',
 			],
 			[
 				$testScope,
@@ -857,7 +857,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				$testScope,
 				'yetAnotherVariableInClosurePassedByReference',
-				'0|1',
+				'int',
 			],
 			[
 				$testScope,
@@ -2728,6 +2728,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$preIncArray',
 			],
 			[
+				'array(0 => 1, 2 => 3)',
+				'$postIncArray',
+			],
+			[
+				'array(0 => array(1 => array(2 => 3)), 4 => array(5 => array(6 => 7)))',
+				'$anotherPostIncArray',
+			],
+			[
 				'3',
 				'count($array)',
 			],
@@ -4280,23 +4288,23 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$bar',
 			],
 			[
-				'*ERROR*',
+				'mixed',
 				'$lorem',
 			],
 			[
-				'*ERROR*',
+				'mixed',
 				'$dolor',
 			],
 			[
-				'*ERROR*',
+				'mixed',
 				'$sit',
 			],
 			[
-				'*ERROR*',
+				'mixed',
 				'$mixedFoo',
 			],
 			[
-				'*ERROR*',
+				'mixed',
 				'$mixedBar',
 			],
 			[
@@ -6900,6 +6908,21 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$nullableVal',
 				"'afterLoop'",
 			],
+			[
+				'LoopVariables\Foo|false',
+				'$falseOrObject',
+				"'begin'",
+			],
+			[
+				'LoopVariables\Foo',
+				'$falseOrObject',
+				"'end'",
+			],
+			[
+				'LoopVariables\Foo|false',
+				'$falseOrObject',
+				"'afterLoop'",
+			],
 		];
 	}
 
@@ -7098,6 +7121,36 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'int',
 				'$nullableVal',
+				"'afterLoop'",
+			],
+			[
+				'LoopVariables\Foo|false',
+				'$falseOrObject',
+				"'begin'",
+			],
+			[
+				'LoopVariables\Foo',
+				'$falseOrObject',
+				"'end'",
+			],
+			[
+				'LoopVariables\Foo|false',
+				'$falseOrObject',
+				"'afterLoop'",
+			],
+			[
+				'LoopVariables\Foo|false',
+				'$anotherFalseOrObject',
+				"'begin'",
+			],
+			[
+				'LoopVariables\Foo',
+				'$anotherFalseOrObject',
+				"'end'",
+			],
+			[
+				'LoopVariables\Foo',
+				'$anotherFalseOrObject',
 				"'afterLoop'",
 			],
 		];
@@ -7531,6 +7584,46 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$untouchedPassedByRef',
 				"'afterCallback'",
 			],
+			[
+				'1',
+				'$incrementedInside',
+				"'beforeCallback'",
+			],
+			[
+				'int',
+				'$incrementedInside',
+				"'inCallbackBeforeAssign'",
+			],
+			[
+				'int',
+				'$incrementedInside',
+				"'inCallbackAfterAssign'",
+			],
+			[
+				'int',
+				'$incrementedInside',
+				"'afterCallback'",
+			],
+			[
+				'null',
+				'$fooOrNull',
+				"'beforeCallback'",
+			],
+			[
+				'ClosurePassedByReference\Foo|null',
+				'$fooOrNull',
+				"'inCallbackBeforeAssign'",
+			],
+			[
+				'ClosurePassedByReference\Foo',
+				'$fooOrNull',
+				"'inCallbackAfterAssign'",
+			],
+			[
+				'ClosurePassedByReference\Foo|null',
+				'$fooOrNull',
+				"'afterCallback'",
+			],
 		];
 	}
 
@@ -7558,6 +7651,32 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataClosureWithUsePassedByReferenceReturn(): array
+	{
+		return [
+			[
+				'null',
+				'$fooOrNull',
+				"'beforeCallback'",
+			],
+			[
+				'ClosurePassedByReference\Foo|null',
+				'$fooOrNull',
+				"'inCallbackBeforeAssign'",
+			],
+			[
+				'ClosurePassedByReference\Foo',
+				'$fooOrNull',
+				"'inCallbackAfterAssign'",
+			],
+			[
+				'ClosurePassedByReference\Foo|null',
+				'$fooOrNull',
+				"'afterCallback'",
+			],
+		];
+	}
+
 	public function dataStaticClosure(): array
 	{
 		return [
@@ -7582,6 +7701,30 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			__DIR__ . '/data/static-closure.php',
 			$description,
 			$expression
+		);
+	}
+
+	/**
+	 * @dataProvider dataClosureWithUsePassedByReferenceReturn
+	 * @param string $description
+	 * @param string $expression
+	 * @param string $evaluatedPointExpression
+	 */
+	public function testClosureWithUsePassedByReferenceReturn(
+		string $description,
+		string $expression,
+		string $evaluatedPointExpression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/closure-passed-by-reference-return.php',
+			$description,
+			$expression,
+			[],
+			[],
+			[],
+			[],
+			$evaluatedPointExpression
 		);
 	}
 
@@ -7774,7 +7917,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				'array(\'i\' => int, \'j\' => int, \'k\' => int, \'l\' => 1, \'m\' => 5, \'key\' => DateTimeImmutable, ?\'n\' => \'str\')',
+				'array(\'i\' => int, \'j\' => int, \'k\' => int, \'key\' => DateTimeImmutable, \'l\' => 1, \'m\' => 5, ?\'n\' => \'str\')',
 				'$array',
 			],
 			[
@@ -7800,6 +7943,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'\'str\'',
 				'$array[\'n\']',
+			],
+			[
+				'int',
+				'$incremented',
+			],
+			[
+				'0|1',
+				'$setFromZeroToOne',
 			],
 		];
 	}

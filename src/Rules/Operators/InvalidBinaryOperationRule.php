@@ -96,8 +96,8 @@ class InvalidBinaryOperationRule implements \PHPStan\Rules\Rule
 			}
 
 			$scope = $scope
-				->assignVariable($leftName, $leftType, \PHPStan\TrinaryLogic::createYes())
-				->assignVariable($rightName, $rightType, \PHPStan\TrinaryLogic::createYes());
+				->assignVariable($leftName, $leftType)
+				->assignVariable($rightName, $rightType);
 
 			if (!$scope->getType($newNode) instanceof ErrorType) {
 				return [];

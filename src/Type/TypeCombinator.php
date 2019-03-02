@@ -337,18 +337,18 @@ class TypeCombinator
 		$constantKeyTypesNumbered = $constantKeyTypesNumbered;
 
 		$constantArraysBuckets = [];
-		foreach ($arrayTypes as $arrayType) {
+		foreach ($arrayTypes as $arrayTypeAgain) {
 			$arrayIndex = 0;
-			foreach ($arrayType->getKeyTypes() as $keyType) {
+			foreach ($arrayTypeAgain->getKeyTypes() as $keyType) {
 				$arrayIndex += $constantKeyTypesNumbered[$keyType->getValue()];
 			}
 
 			if (!array_key_exists($arrayIndex, $constantArraysBuckets)) {
 				$bucket = [];
-				foreach ($arrayType->getKeyTypes() as $i => $keyType) {
+				foreach ($arrayTypeAgain->getKeyTypes() as $i => $keyType) {
 					$bucket[$keyType->getValue()] = [
 						'keyType' => $keyType,
-						'valueType' => $arrayType->getValueTypes()[$i],
+						'valueType' => $arrayTypeAgain->getValueTypes()[$i],
 					];
 				}
 				$constantArraysBuckets[$arrayIndex] = $bucket;
@@ -356,10 +356,10 @@ class TypeCombinator
 			}
 
 			$bucket = $constantArraysBuckets[$arrayIndex];
-			foreach ($arrayType->getKeyTypes() as $i => $keyType) {
+			foreach ($arrayTypeAgain->getKeyTypes() as $i => $keyType) {
 				$bucket[$keyType->getValue()]['valueType'] = self::union(
 					$bucket[$keyType->getValue()]['valueType'],
-					$arrayType->getValueTypes()[$i]
+					$arrayTypeAgain->getValueTypes()[$i]
 				);
 			}
 

@@ -405,16 +405,13 @@ switch ($definedInSwitchCond = true) {
 
 echo $definedInSwitchCond;
 
-class Foo
-{
-	public function doFoo()
-	{
-		function () {
-			var_dump($this);
-		};
+$someOtherArray = [];
+$someOtherArray[$undefinedArrayIndex][$anotherUndefinedArrayIndex] = 0;
 
-		static function () {
-			var_dump($this);
-		};
+function () {
+	if (rand(0, 1)) {
+		$test = 1;
 	}
-}
+
+	echo $test ?? 'foo';
+};

@@ -8,7 +8,6 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
-use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BenevolentUnionType;
 use PHPStan\Type\Constant\ConstantArrayType;
@@ -63,7 +62,7 @@ class ArrayFilterFunctionReturnTypeReturnTypeExtension implements \PHPStan\Type\
 						throw new \PHPStan\ShouldNotHappenException();
 					}
 					$itemVariableName = $callbackArg->params[0]->var->name;
-					$scope = $scope->assignVariable($itemVariableName, $itemType, TrinaryLogic::createYes());
+					$scope = $scope->assignVariable($itemVariableName, $itemType);
 					$scope = $scope->filterByTruthyValue($statement->expr);
 					$itemType = $scope->getVariableType($itemVariableName);
 				}

@@ -42,4 +42,18 @@ class InvalidKeyInArrayItemRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
+	public function testInvalidKeyShortArray(): void
+	{
+		$this->analyse([__DIR__ . '/data/invalid-key-short-array.php'], [
+			[
+				'Invalid array key type DateTimeImmutable.',
+				7,
+			],
+			[
+				'Invalid array key type array.',
+				8,
+			],
+		]);
+	}
+
 }

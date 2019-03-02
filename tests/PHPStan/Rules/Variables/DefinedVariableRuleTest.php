@@ -113,7 +113,7 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				156,
 			],
 			[
-				'Undefined variable: $variableInIsset',
+				'Variable $variableInIsset might not be defined.',
 				161,
 			],
 			[
@@ -149,10 +149,6 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				260,
 			],
 			[
-				'Variable $variableDefinedInTryAndAllCatches might not be defined.',
-				265,
-			],
-			[
 				'Variable $variableAvailableInAllCatches might not be defined.',
 				266,
 			],
@@ -171,6 +167,10 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Undefined variable: $variableInSecondCase',
 				290,
+			],
+			[
+				'Variable $variableInSecondCase might not be defined.',
+				293,
 			],
 			[
 				'Undefined variable: $variableAssignedInSecondCase',
@@ -220,6 +220,16 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Undefined variable: $variableInAssign',
 				384,
 			],
+			[
+				'Undefined variable: $undefinedArrayIndex',
+				409,
+			],
+			[
+				'Undefined variable: $anotherUndefinedArrayIndex',
+				409,
+			],
+		]);
+	}
 
 	public function testDefinedVariablesInClosures(): void
 	{
@@ -513,6 +523,10 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 						'Undefined variable: $test',
 						9,
 					],
+					[
+						'Variable $test might not be defined.',
+						31,
+					],
 				],
 			],
 			[
@@ -535,8 +549,12 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 						19,
 					],
 					[
-						'Variable $test might not be defined.',
+						'Variable $val might not be defined.',
 						30,
+					],
+					[
+						'Variable $test might not be defined.',
+						31,
 					],
 				],
 			],
