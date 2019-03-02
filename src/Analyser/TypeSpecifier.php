@@ -436,6 +436,10 @@ class TypeSpecifier
 				}
 			}
 
+			if (count($vars) === 0) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+
 			$types = null;
 			foreach ($vars as $var) {
 				if ($expr instanceof Expr\Isset_) {
