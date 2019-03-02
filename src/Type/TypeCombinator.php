@@ -77,7 +77,11 @@ class TypeCombinator
 
 	public static function removeNull(Type $type): Type
 	{
-		return self::remove($type, new NullType());
+		if (self::containsNull($type)) {
+			return self::remove($type, new NullType());
+		}
+
+		return $type;
 	}
 
 	public static function containsNull(Type $type): bool
