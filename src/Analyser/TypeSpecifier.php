@@ -584,7 +584,7 @@ class TypeSpecifier
 	/**
 	 * @return \PHPStan\Type\FunctionTypeSpecifyingExtension[]
 	 */
-	public function getFunctionTypeSpecifyingExtensions(): array
+	private function getFunctionTypeSpecifyingExtensions(): array
 	{
 		return $this->functionTypeSpecifyingExtensions;
 	}
@@ -593,7 +593,7 @@ class TypeSpecifier
 	 * @param string $className
 	 * @return \PHPStan\Type\MethodTypeSpecifyingExtension[]
 	 */
-	public function getMethodTypeSpecifyingExtensionsForClass(string $className): array
+	private function getMethodTypeSpecifyingExtensionsForClass(string $className): array
 	{
 		if ($this->methodTypeSpecifyingExtensionsByClass === null) {
 			$byClass = [];
@@ -610,7 +610,7 @@ class TypeSpecifier
 	 * @param string $className
 	 * @return \PHPStan\Type\StaticMethodTypeSpecifyingExtension[]
 	 */
-	public function getStaticMethodTypeSpecifyingExtensionsForClass(string $className): array
+	private function getStaticMethodTypeSpecifyingExtensionsForClass(string $className): array
 	{
 		if ($this->staticMethodTypeSpecifyingExtensionsByClass === null) {
 			$byClass = [];
