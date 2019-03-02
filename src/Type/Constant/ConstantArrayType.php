@@ -370,6 +370,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			}, $keyTypes);
 		}
 
+		/** @var int|float $nextAutoIndex */
 		$nextAutoIndex = 0;
 		foreach ($keyTypes as $keyType) {
 			if (!$keyType instanceof ConstantIntegerType) {
