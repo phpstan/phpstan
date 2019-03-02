@@ -29,6 +29,47 @@ class AnalyseCommandTest extends \PHPStan\Testing\TestCase
 		}
 	}
 
+	public function testInvalidAutoloadFile(): void
+	{
+		$autoloadFile = 'phpstan.123456789.php';
+		$dir = realpath(__DIR__ . '/../../../');
+
+		$originalDir = getcwd();
+		if ($originalDir === false) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+		chdir($dir);
+
+		try {
+			$output = $this->runCommand(1, ['--autoload-file' => $autoloadFile]);
+			$this->assertEquals(sprintf('Autoload file "%s" not found.' . PHP_EOL, $dir . DIRECTORY_SEPARATOR . $autoloadFile), $output);
+		} catch (\Throwable $e) {
+			chdir($originalDir);
+			throw $e;
+		}
+	}
+
+	public function testValidAutoloadFile(): void
+	{
+		$autoloadFile = 'vendor/autoload.php';
+		$dir = realpath(__DIR__ . '/../../../');
+
+		$originalDir = getcwd();
+		if ($originalDir === false) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+		chdir($dir);
+
+		try {
+			$output = $this->runCommand(0, ['--autoload-file' => $autoloadFile]);
+			$this->assertContains('[OK] No errors', $output);
+			$this->assertNotContains(sprintf('Autoload file "%s" not found.' . PHP_EOL, $dir . DIRECTORY_SEPARATOR . $autoloadFile), $output);
+		} catch (\Throwable $e) {
+			chdir($originalDir);
+			throw $e;
+		}
+	}
+
 	/**
 	 * @return string[][]
 	 */
@@ -50,13 +91,13 @@ class AnalyseCommandTest extends \PHPStan\Testing\TestCase
 		];
 	}
 
-	private function runCommand(int $expectedStatusCode): string
+	private function runCommand(int $expectedStatusCode, array $parameters = []): string
 	{
 		$commandTester = new CommandTester(new AnalyseCommand());
 
 		$commandTester->execute([
 			'paths' => [__DIR__ . DIRECTORY_SEPARATOR . 'test'],
-		]);
+		] + $parameters);
 
 		$this->assertSame($expectedStatusCode, $commandTester->getStatusCode());
 
