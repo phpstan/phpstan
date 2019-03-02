@@ -923,6 +923,14 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				IntersectionType::class,
 				'array&hasOffset(\'foo\')',
 			],
+			[
+				[
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+				],
+				UnionType::class, // I'd be more happy with preserving BenevolentUnionType
+				'int|string',
+			],
 		];
 	}
 
