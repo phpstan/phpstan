@@ -163,6 +163,26 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 				[],
 			],
 			[
+				new Equal(
+					new FuncCall(new Name('get_class'), [
+						new Arg(new Variable('foo')),
+					]),
+					new String_('Foo')
+				),
+				['$foo' => 'Foo'],
+				['$foo' => '~Foo'],
+			],
+			[
+				new Equal(
+					new String_('Foo'),
+					new FuncCall(new Name('get_class'), [
+						new Arg(new Variable('foo')),
+					])
+				),
+				['$foo' => 'Foo'],
+				['$foo' => '~Foo'],
+			],
+			[
 				new BooleanNot(
 					new Expr\Instanceof_(
 						new Variable('foo'),
