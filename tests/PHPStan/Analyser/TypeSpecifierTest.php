@@ -162,7 +162,16 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 				['$foo' => 'object'],
 				[],
 			],
-
+			[
+				new BooleanNot(
+					new Expr\Instanceof_(
+						new Variable('foo'),
+						new Variable('className')
+					),
+				),
+				[],
+				['$foo' => 'object'],
+			],
 			[
 				new Variable('foo'),
 				['$foo' => '~0|0.0|\'\'|array()|false|null'],
@@ -548,6 +557,30 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 				],
 				[
 					'$array' => '~object|nonEmpty',
+				],
+			],
+			[
+				new Equal(
+					new Expr\Instanceof_(
+						new Variable('foo'),
+						new Variable('className')
+					),
+					new LNumber(1)
+				),
+				['$foo' => 'object'],
+				[],
+			],
+			[
+				new Equal(
+					new Expr\Instanceof_(
+						new Variable('foo'),
+						new Variable('className')
+					),
+					new LNumber(0)
+				),
+				[],
+				[
+					'$foo' => 'object',
 				],
 			],
 		];
