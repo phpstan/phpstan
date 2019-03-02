@@ -277,6 +277,40 @@ class TypeSpecifier
 					$context
 				);
 			}
+
+			if (
+				$expr->left instanceof FuncCall
+				&& $expr->left->name instanceof Name
+				&& strtolower($expr->left->name->toString()) === 'get_class'
+				&& isset($expr->left->args[0])
+				&& $rightType instanceof ConstantStringType
+			) {
+				return $this->specifyTypesInCondition(
+					$scope,
+					new Instanceof_(
+						$expr->left->args[0]->value,
+						new Name($rightType->getValue())
+					),
+					$context
+				);
+			}
+
+			if (
+				$expr->right instanceof FuncCall
+				&& $expr->right->name instanceof Name
+				&& strtolower($expr->right->name->toString()) === 'get_class'
+				&& isset($expr->right->args[0])
+				&& $leftType instanceof ConstantStringType
+			) {
+				return $this->specifyTypesInCondition(
+					$scope,
+					new Instanceof_(
+						$expr->right->args[0]->value,
+						new Name($leftType->getValue())
+					),
+					$context
+				);
+			}
 		} elseif ($expr instanceof Node\Expr\BinaryOp\NotEqual) {
 			return $this->specifyTypesInCondition(
 				$scope,
