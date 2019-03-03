@@ -319,12 +319,12 @@ class Foo
 		echo $intOrStringArray[$intOrNull];
 		echo $intOrStringArray[null];
 	}
-	
+
 	public function simpleXMLElementArrayAccess(\SimpleXMLElement $xml)
 	{
 		echo $xml['asdf'];
 	}
-	
+
 	public function simpleXMLElementSubclassArrayAccess(SubClassSimpleXMLElement $xml)
 	{
 		echo $xml['asdf'];
@@ -333,4 +333,19 @@ class Foo
 
 class SubClassSimpleXMLElement extends \SimpleXMLElement
 {
+}
+
+class OffsetAfterForLoop
+{
+
+	public function doFoo(int $x)
+	{
+		$tags = [];
+		for ($i = 0; $i < 10; $i ++) {
+			$tags[$i] = $x;
+		}
+
+		$tags[1] === $tags[1];
+	}
+
 }
