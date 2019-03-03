@@ -798,3 +798,34 @@ class AssertInIf
 	}
 
 }
+
+class VariableOverwrittenInForeach
+{
+
+	public function doFoo(): int
+	{
+		$x = 0;
+		$y = 1;
+		foreach ([0, 1, 2] as $i) {
+			$x = $y;
+			$y = "hello";
+		}
+		return $x;
+	}
+
+	/**
+	 * @param int[] $arrayOfIntegers
+	 * @return int
+	 */
+	public function doBar(array $arrayOfIntegers): int
+	{
+		$x = 0;
+		$y = 1;
+		foreach ($arrayOfIntegers as $i) {
+			$x = $y;
+			$y = "hello";
+		}
+		return $x;
+	}
+
+}
