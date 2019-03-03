@@ -1237,15 +1237,20 @@ class NodeScopeResolver
 				$className = $scope->resolveName($expr->class);
 				if ($this->broker->hasClass($className)) {
 					$classReflection = $this->broker->getClass($className);
-					if ($classReflection->hasMethod($expr->name->name)) {
+					if (is_string($expr->name)) {
+						$methodName = $expr->name;
+					} else {
+						$methodName = $expr->name->name;
+					}
+					if ($classReflection->hasMethod($methodName)) {
 						$parametersAcceptor = ParametersAcceptorSelector::selectFromArgs(
 							$scope,
 							$expr->args,
-							$classReflection->getMethod($expr->name->name, $scope)->getVariants()
+							$classReflection->getMethod($methodName, $scope)->getVariants()
 						);
 						if (
 							$classReflection->getName() === 'Closure'
-							&& strtolower($expr->name->name) === 'bind'
+							&& strtolower($methodName) === 'bind'
 						) {
 							$thisType = null;
 							if (isset($expr->args[1])) {
