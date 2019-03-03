@@ -1093,3 +1093,23 @@ class ArraySliceWithNonEmptyArray
 	}
 
 }
+
+class SwitchWithTypeEliminatingCase
+{
+
+	public function doFoo(?string $variable)
+	{
+		switch (true) {
+			case $variable === null:
+				throw new \Exception('gotcha');
+			default:
+				$this->doBar($variable);
+		}
+	}
+
+	public function doBar(string $str)
+	{
+
+	}
+
+}
