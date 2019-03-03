@@ -532,3 +532,18 @@ class ArrayKeyExistsRepeated
 	}
 
 }
+
+class ArrayKeyExistsWithConstantArray
+{
+
+	public function test()
+	{
+		$array = [];
+		for ($i = 0; $i < 2; $i++) {
+			if (!array_key_exists('x', $array)) {
+				$array['x'] = 1;
+			}
+		}
+	}
+
+}
