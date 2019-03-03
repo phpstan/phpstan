@@ -188,7 +188,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					new Expr\Instanceof_(
 						new Variable('foo'),
 						new Variable('className')
-					),
+					)
 				),
 				[],
 				['$foo' => 'object'],
