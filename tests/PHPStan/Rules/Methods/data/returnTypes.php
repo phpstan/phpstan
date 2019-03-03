@@ -777,3 +777,24 @@ class HelloWorld
 		return $field;
 	}
 }
+
+class AssertInIf
+{
+
+	/** @var string|null */
+	private $foo;
+
+	public function doFoo(): string
+	{
+		if ($this->foo === null) {
+			$foo = getenv('FOO');
+			assert($foo !== false);
+			assert(is_string($foo));
+
+			$this->foo = $foo;
+		}
+
+		return $this->foo;
+	}
+
+}
