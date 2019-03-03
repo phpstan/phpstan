@@ -1134,6 +1134,30 @@ class AssertInIf
 
 	}
 
+	public function doBar()
+	{
+		$array = [new Foo(), new Bar()];
+
+		$arrayToPass = [];
+		foreach($array as $item) {
+			if(!$item instanceof Bar) {
+				continue;
+			}
+
+			$arrayToPass[] = $item;
+		}
+
+		$this->requireChilds($arrayToPass);
+	}
+
+	/**
+	 * @param Bar[] $bs
+	 */
+	public function requireChilds(array $bs)
+	{
+
+	}
+
 }
 
 class AssertInForeach
