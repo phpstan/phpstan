@@ -156,4 +156,32 @@ class IgnoredBreakBranch
 		return 'default';
 	}
 
+	public function doBar()
+	{
+		$a = false;
+
+		foreach ([1, 2, 3] as $_) {
+			if (rand(0, 1)) {
+				break;
+			}
+			$a = true;
+		}
+
+		if ($a) {}
+	}
+
+	public function doBaz(array $arr)
+	{
+		$a = false;
+
+		foreach ($arr as $_) {
+			if (rand(0, 1)) {
+				break;
+			}
+			$a = true;
+		}
+
+		if ($a) {}
+	}
+
 }
