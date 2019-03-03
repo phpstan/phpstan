@@ -1209,3 +1209,31 @@ class AssertInFor
 	}
 
 }
+
+class AssignmentInConditionEliminatingNull
+{
+
+	public function sayHello(): void
+	{
+		$edits = [];
+
+		if ($foo = $this->createEdit()) {
+			$edits[] = $foo;
+		}
+
+		$this->applyEdits($edits);
+	}
+
+	/**
+	 * @param self[] $edits
+	 */
+	private function applyEdits(array $edits)
+	{
+	}
+
+	private function createEdit(): ?self
+	{
+		return rand(0,1) ? new self() : null;
+	}
+
+}
