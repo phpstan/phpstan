@@ -706,3 +706,32 @@ class WrongNullabilityInPhpDoc
 	}
 
 }
+
+class ComplexSwitch
+{
+
+	public function testing(array $types): void {
+		$test = null;
+		foreach ($types as $t) {
+			switch ($t) {
+				case 'foo':
+					$test = 'fff';
+					break;
+
+				case 'bar':
+					$test = 'bbb';
+					break;
+			}
+
+			if ($test !== null) {
+				echo "Found";
+				break;
+			}
+		}
+
+		if ($test === null) {
+			echo "Is null";
+		}
+	}
+
+}
