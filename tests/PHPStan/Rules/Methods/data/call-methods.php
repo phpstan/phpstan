@@ -1135,3 +1135,30 @@ class AssertInIf
 	}
 
 }
+
+class AssertInForeach
+{
+
+	/**
+	 * @param (self|null)[] $a
+	 */
+	public function doFoo(iterable $as)
+	{
+		$bs = [];
+		foreach ($as as $a) {
+			assert($a !== null);
+			$bs[] = $a;
+		}
+
+		$this->doBar($bs);
+	}
+
+	/**
+	 * @param self[] $as
+	 */
+	public function doBar(array $as)
+	{
+
+	}
+
+}
