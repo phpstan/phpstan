@@ -231,3 +231,22 @@ class ForeachWithContinue
 	}
 
 }
+
+class BreaklessSwitch
+{
+
+	public function doFoo(string $country)
+	{
+		switch ($country) {
+			case 'us':
+				$country = '';
+			// Intentionally no break
+			default:
+				if ($country) {
+					// do something
+				}
+				break;
+		}
+	}
+
+}
