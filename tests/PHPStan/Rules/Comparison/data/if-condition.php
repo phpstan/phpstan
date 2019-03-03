@@ -185,3 +185,25 @@ class IgnoredBreakBranch
 	}
 
 }
+
+class ClosureWithReturn
+{
+
+	public function doFoo(self $foo)
+	{
+		$f = function ($cond) use (&$var) {
+			if ($cond) {
+				$var = true;
+				return;
+			}
+			$var = false;
+		};
+
+		$foo->doFoo($foo);
+
+		if ($var) {
+
+		}
+	}
+
+}
