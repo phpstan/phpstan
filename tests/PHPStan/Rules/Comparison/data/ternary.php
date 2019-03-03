@@ -38,4 +38,26 @@ class Ternary
 		print $a ? 'aa' : 'bb';
 	}
 
+	public function doIpsum(array $keys, string $value): void
+	{
+		if ($value) {
+			$params = [];
+
+			foreach ($keys as $k) {
+				$operator = $params ? ' OR ' : '';
+				$likeParam = true;
+
+				switch ($k) {
+					case 'abc':
+						$likeParam = false;
+						break;
+				}
+
+				if ($likeParam) {
+					$params[] = 'like...';
+				}
+			}
+		}
+	}
+
 }
