@@ -397,6 +397,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Call to an undefined method Test\ArraySliceWithNonEmptyArray::doesNotExist().',
 				1092,
 			],
+			[
+				'Call to an undefined method Test\AssertInFor::doBar().',
+				1207,
+			],
 		]);
 	}
 
