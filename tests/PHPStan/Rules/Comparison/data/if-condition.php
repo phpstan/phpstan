@@ -207,3 +207,27 @@ class ClosureWithReturn
 	}
 
 }
+
+class ForeachWithContinue
+{
+
+	public function doFoo()
+	{
+		$tokens = token_get_all('<?php echo "hello";');
+
+		$potential = false;
+		foreach ($tokens as $token) {
+
+			if (T_VARIABLE === $token[0]) {
+				$potential = true;
+				continue;
+			}
+
+			if ($potential) {
+			}
+
+			return false;
+		}
+	}
+
+}
