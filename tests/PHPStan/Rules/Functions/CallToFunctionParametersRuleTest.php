@@ -42,6 +42,11 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
+	public function testcallToFunctionWithCorrectParameters(): void
+	{
+		$this->analyse([__DIR__ . '/data/call-functions.php'], []);
+	}
+
 	public function testCallToFunctionWithOptionalParameters(): void
 	{
 		require_once __DIR__ . '/data/call-to-function-with-optional-parameters-definition.php';
