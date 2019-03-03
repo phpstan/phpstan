@@ -735,3 +735,23 @@ class ComplexSwitch
 	}
 
 }
+
+class IgnoredBreakBranchInForeach
+{
+
+	public function doFoo(string $xvalue, array $allVowels)
+	{
+		$lastLetter = null;
+		foreach ($allVowels as $yvalue) {
+			if (strcmp($xvalue, $yvalue) == 0 ) {
+				$lastLetter = $xvalue;
+				break;
+			} else {
+				continue;
+			}
+		}
+		if ($lastLetter !== null) {
+		}
+	}
+
+}

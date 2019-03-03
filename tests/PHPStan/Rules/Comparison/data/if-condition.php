@@ -133,3 +133,27 @@ class NotFinalClass
 	}
 
 }
+
+class IgnoredBreakBranch
+{
+
+	public function doFoo()
+	{
+		$hasBar = false;
+		foreach (['a','b'] as $key) {
+			if (rand(0,100) > 50) {
+				if (rand(0,100) > 50) {
+					$hasBar = true;
+					break;
+				}
+				return 'foo';
+			}
+		}
+
+		if ($hasBar) {
+			return 'bar';
+		}
+		return 'default';
+	}
+
+}
