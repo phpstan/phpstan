@@ -1186,3 +1186,26 @@ class AssertInForeach
 	}
 
 }
+
+class AssertInFor
+{
+
+	/**
+	 * @param object[] $objects
+	 */
+	public function doFoo(array $objects)
+	{
+		$selfs = [];
+		for ($i = 1; $i <= 10; ++$i) {
+			$self = $objects[$i];
+			assert($self instanceof self);
+			$selfs[] = $self;
+		}
+
+		foreach ($selfs as $self) {
+			$self->doFoo([]);
+			$self->doBar([]);
+		}
+	}
+
+}
