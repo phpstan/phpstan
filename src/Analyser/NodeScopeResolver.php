@@ -335,7 +335,10 @@ class NodeScopeResolver
 			if (isset($stmt->namespacedName)) {
 				$classScope = $scope->enterClass($this->broker->getClass((string) $stmt->namespacedName));
 			} elseif ($stmt instanceof Class_) {
-				$classScope = $scope->enterAnonymousClass($this->broker->getAnonymousClassReflection($stmt, $scope));
+				if ($stmt->name === null) {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
+				$classScope = $scope->enterClass($this->broker->getClass($stmt->name->toString()));
 			} else {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
@@ -1403,6 +1406,7 @@ class NodeScopeResolver
 			if ($expr->class instanceof Expr) {
 				$scope = $this->processExprNode($expr->class, $scope, $nodeCallback, $depth + 1);
 			} elseif ($expr->class instanceof Class_) {
+				$this->broker->getAnonymousClassReflection($expr->class, $scope); // populates $expr->class->name
 				$this->processStmtNode($expr->class, $scope, $nodeCallback);
 			} elseif ($this->broker->hasClass($expr->class->toString())) {
 				$classReflection = $this->broker->getClass($expr->class->toString());

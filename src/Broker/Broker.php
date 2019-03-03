@@ -292,12 +292,12 @@ class Broker
 			$classNode,
 			$filename
 		);
+		$classNode->name = new \PhpParser\Node\Identifier($className);
 
 		if (isset(self::$anonymousClasses[$className])) {
 			return self::$anonymousClasses[$className];
 		}
 
-		$classNode->name = new \PhpParser\Node\Identifier($className);
 		eval($this->printer->prettyPrint([$classNode]));
 
 		self::$anonymousClasses[$className] = $this->getClassFromReflection(

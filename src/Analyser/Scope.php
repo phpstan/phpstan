@@ -1972,11 +1972,6 @@ class Scope implements ClassMemberAccessAnswerer
 		return $this->inClosureBindScopeClass !== null;
 	}
 
-	public function enterAnonymousClass(ClassReflection $anonymousClass): self
-	{
-		return $this->enterClass($anonymousClass);
-	}
-
 	public function enterAnonymousFunction(
 		Expr\Closure $closure
 	): self
