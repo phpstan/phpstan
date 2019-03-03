@@ -345,10 +345,6 @@ class NodeScopeResolver
 			foreach ($stmt->props as $prop) {
 				$this->processStmtNode($prop, $scope, $nodeCallback);
 			}
-
-			if ($stmt->type !== null) {
-				$nodeCallback($stmt->type, $scope);
-			}
 		} elseif ($stmt instanceof Node\Stmt\PropertyProperty) {
 			if ($stmt->default !== null) {
 				$this->processExprNode($stmt->default, $scope, $nodeCallback, 1);
