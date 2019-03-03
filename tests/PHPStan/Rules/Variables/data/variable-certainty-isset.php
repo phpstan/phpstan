@@ -193,3 +193,18 @@ function () {
 		echo $bar;
 	}
 };
+
+function () {
+	while (true) {
+		if (rand() === 1) {
+			$a = 'a';
+			continue;
+		}
+
+		if (!isset($a)) {
+			continue;
+		}
+
+		unset($a);
+	}
+};
