@@ -755,3 +755,21 @@ class IgnoredBreakBranchInForeach
 	}
 
 }
+
+class DecrementInForeachWithBreak
+{
+
+	public function doFoo()
+	{
+		$max = 0 === rand(0, 1) ? 2 : 3;
+		foreach ([1, 2, 3, 4, 5] as $number) {
+			if (0 === $max) {
+				break;
+			}
+
+			echo $number;
+			$max--;
+		}
+	}
+
+}
