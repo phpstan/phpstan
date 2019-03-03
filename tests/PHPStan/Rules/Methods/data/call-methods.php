@@ -1113,3 +1113,25 @@ class SwitchWithTypeEliminatingCase
 	}
 
 }
+
+class AssertInIf
+{
+
+	public function doFoo(bool $x)
+	{
+		if ($x) {
+			$o = new Foo();
+			assert($o instanceof Bar);
+		} else {
+			$o = new Bar();
+		}
+
+		$this->requireChild($o);
+	}
+
+	public function requireChild(Bar $child)
+	{
+
+	}
+
+}
