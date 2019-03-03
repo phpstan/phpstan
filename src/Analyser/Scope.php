@@ -860,22 +860,31 @@ class Scope implements ClassMemberAccessAnswerer
 
 					return TypeCombinator::union(...$resultTypes);
 				}
+				$arrayType = new ArrayType(new MixedType(), new MixedType());
 
-				$leftArrays = TypeUtils::getArrays($leftType);
-				$rightArrays = TypeUtils::getArrays($rightType);
+				if ($arrayType->isSuperTypeOf($leftType)->yes() && $arrayType->isSuperTypeOf($rightType)->yes()) {
+					if ($leftType->getIterableKeyType()->equals($rightType->getIterableKeyType())) {
+						// to preserve BenevolentUnionType
+						$keyType = $leftType->getIterableKeyType();
+					} else {
+						$keyTypes = [];
+						foreach ([
+							$leftType->getIterableKeyType(),
+							$rightType->getIterableKeyType(),
+						] as $keyType) {
+							if ($keyType instanceof BenevolentUnionType) {
+								$keyTypes[] = new MixedType();
+								continue;
+							}
 
-				if (count($leftArrays) > 0 && count($rightArrays) > 0) {
-					$resultTypes = [];
-					foreach ($rightArrays as $rightArray) {
-						foreach ($leftArrays as $leftArray) {
-							$resultTypes[] = new ArrayType(
-								TypeCombinator::union($leftArray->getKeyType(), $rightArray->getKeyType()),
-								TypeCombinator::union($leftArray->getItemType(), $rightArray->getItemType())
-							);
+							$keyTypes[] = $keyType;
 						}
+						$keyType = TypeCombinator::union(...$keyTypes);
 					}
-
-					return TypeCombinator::union(...$resultTypes);
+					return new ArrayType(
+						$keyType,
+						TypeCombinator::union($leftType->getIterableValueType(), $rightType->getIterableValueType())
+					);
 				}
 
 				if ($leftType instanceof MixedType && $rightType instanceof MixedType) {

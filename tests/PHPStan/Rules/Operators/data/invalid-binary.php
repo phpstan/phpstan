@@ -163,3 +163,13 @@ function (array $args) {
 
 	[] + $args;
 };
+
+function (array $args) {
+	if (isset($args['class'])) {
+		[] + $args;
+	}
+};
+
+function (array $args) {
+	isset($args['y']) ? $args + [] : $args;
+};
