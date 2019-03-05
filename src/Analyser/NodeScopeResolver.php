@@ -1338,7 +1338,6 @@ class NodeScopeResolver
 			return new ExpressionResult(
 				$leftMergedWithRightScope,
 				static function () use ($expr, $rightResult): Scope {
-					// todo nestaci $rightResult->getTruthyScope?
 					return $rightResult->getScope()->filterByTruthyValue($expr);
 				},
 				static function () use ($leftMergedWithRightScope, $expr): Scope {
