@@ -15,4 +15,11 @@ class Foo
 		}
 	}
 
+	public function doBar()
+	{
+		while (false !== $lines = fgets(STDIN)) {
+			$linesArray = preg_split('/\s+/', $lines);
+		}
+	}
+
 }
