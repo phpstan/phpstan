@@ -1256,4 +1256,11 @@ class AssignmentInInstanceOf
 
 	}
 
+	public function doBaz()
+	{
+		if (($foo = $this->doBar()) instanceof self && 'baz' === $foo->doFoo()) {
+
+		}
+	}
+
 }
