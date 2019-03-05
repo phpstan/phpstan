@@ -773,3 +773,21 @@ class DecrementInForeachWithBreak
 	}
 
 }
+
+class RewrittenArray
+{
+
+	public function doFoo(array $args)
+	{
+		if (isset($args[0]) === true) {
+			if (is_array($args[0]) === true) {
+				$args = $args[0];
+			}
+
+			if (isset($args[0]) === false) {
+				echo 'foo';
+			}
+		}
+	}
+
+}
