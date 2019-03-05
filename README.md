@@ -41,8 +41,7 @@ PHP 7.x features. (Code written for PHP 5.6 and earlier can run on 7.x mostly un
 PHPStan works best with modern object-oriented code. The more strongly-typed your code is, the more information
 you give PHPStan to work with.
 
-Properly annotated and typehinted code (class properties, function and method arguments, return types) helps
-not only static analysis tools but also other people that work with the code to understand it.
+Annotation and type hinting (class properties, function and method arguments, return types) helps static analysis tools and developers to understand the code.
 
 ## Installation
 
