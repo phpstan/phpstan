@@ -208,3 +208,14 @@ function () {
 		unset($a);
 	}
 };
+
+function () {
+	($a = rand(0, 5)) && rand(0, 1);
+	isset($a);
+};
+
+
+function () {
+	rand(0, 1) && ($a = rand(0, 5));
+	isset($a);
+};
