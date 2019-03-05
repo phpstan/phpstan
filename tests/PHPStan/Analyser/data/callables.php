@@ -2,6 +2,8 @@
 
 namespace Callables;
 
+use PHPStan\Testing\AnalysisBased\Utils;
+
 class Foo
 {
 
@@ -14,7 +16,13 @@ class Foo
 		$arrayWithStaticMethod = ['Callables\\Foo', 'doBar'];
 		$stringWithStaticMethod = 'Callables\\Foo::doFoo';
 		$arrayWithInstanceMethod = [$this, 'doFoo'];
-		die;
+
+		Utils::assertTypeDescription($foo(), 'int');
+		Utils::assertTypeDescription($closure(), 'string');
+		Utils::assertTypeDescription($arrayWithStaticMethod(), 'Callables\\Bar');
+		Utils::assertTypeDescription($stringWithStaticMethod(), 'float');
+		Utils::assertTypeDescription($arrayWithInstanceMethod(), 'float');
+		Utils::assertTypeDescription($closureObject(), 'mixed');
 	}
 
 	public function doBar(): Bar

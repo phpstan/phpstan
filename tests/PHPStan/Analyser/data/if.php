@@ -1,5 +1,8 @@
 <?php
 
+use PHPStan\Testing\AnalysisBased\Utils;
+use PHPStan\TrinaryLogic;
+
 if (foo()) {
 	$ifVar = 1;
 	$issetFoo = new Foo();
@@ -68,11 +71,17 @@ try {
 	doFoo();
 }
 
+Utils::assertExistence($exceptionFromTryCatch, '(AnotherException&Throwable)|(Throwable&YetAnotherException)|null');
+
 $lorem = 1;
 $arrOne[] = 'one';
 $arrTwo['test'] = 'two';
 $anotherArray['test'][] = 'another';
+
 doSomething($one, $callParameter = 3);
+
+Utils::assertExistence($callParameter, '3');
+
 $arrTwo[] = new Foo([
 	$inArray = 1,
 ]);
@@ -369,3 +378,7 @@ try {
 		}
 	}
 }
+
+Utils::assertNoExistence($nonexistentVariable);
+Utils::assertMaybeExistence($foo, 'bool');
+Utils::assertExistence($lorem, '1');

@@ -747,29 +747,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		];
 	}
 
-	/**
-	 * @dataProvider dataAssignInIf
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @param string $variableName
-	 * @param \PHPStan\TrinaryLogic $expectedCertainty
-	 * @param string|null $typeDescription
-	 * @param string|null $iterableValueTypeDescription
-	 */
-	public function testAssignInIf(
-		Scope $scope,
-		string $variableName,
-		TrinaryLogic $expectedCertainty,
-		?string $typeDescription = null,
-		?string $iterableValueTypeDescription = null
-	): void
+	public function testAssignInIf(): void
 	{
-		$this->assertVariables(
-			$scope,
-			$variableName,
-			$expectedCertainty,
-			$typeDescription,
-			$iterableValueTypeDescription
-		);
+		$this->createTestBuilder()
+			->checkFile(__DIR__ . '/data/if.php');
 	}
 
 	public function dataConstantTypes(): array
@@ -8102,21 +8083,9 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		];
 	}
 
-	/**
-	 * @dataProvider dataCallables
-	 * @param string $description
-	 * @param string $expression
-	 */
-	public function testCallables(
-		string $description,
-		string $expression
-	): void
+	public function testCallables(): void
 	{
-		$this->assertTypes(
-			__DIR__ . '/data/callables.php',
-			$description,
-			$expression
-		);
+		$this->createTestBuilder()->checkFile(__DIR__ . '/data/callables.php');
 	}
 
 	public function dataArrayKeysInBranches(): array

@@ -31,6 +31,7 @@ use PHPStan\Reflection\Php\PhpMethodReflectionFactory;
 use PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension;
 use PHPStan\Reflection\PhpDefect\PhpDefectClassReflectionExtension;
 use PHPStan\Reflection\SignatureMap\SignatureMapProvider;
+use PHPStan\Testing\AnalysisBased\TestBuilder;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Type;
 
@@ -329,6 +330,13 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	public function getFileHelper(): FileHelper
 	{
 		return self::getContainer()->getByType(FileHelper::class);
+	}
+
+	public function createTestBuilder(): TestBuilder
+	{
+		return new TestBuilder(
+			$this->createMock(Cache::class)
+		);
 	}
 
 	protected function skipIfNotOnWindows(): void
