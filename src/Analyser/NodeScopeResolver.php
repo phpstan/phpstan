@@ -284,11 +284,11 @@ class NodeScopeResolver
 			}
 		} elseif ($stmt instanceof Echo_) {
 			foreach ($stmt->exprs as $echoExpr) {
-				$scope = $this->processExprNode($echoExpr, $scope, $nodeCallback, 1);
+				$scope = $this->processExprNode($echoExpr, $scope, $nodeCallback, 1)->getScope();
 			}
 		} elseif ($stmt instanceof Return_) {
 			if ($stmt->expr !== null) {
-				$scope = $this->processExprNode($stmt->expr, $scope, $nodeCallback, 1);
+				$scope = $this->processExprNode($stmt->expr, $scope, $nodeCallback, 1)->getScope();
 			}
 
 			return new StatementResult($scope, [$stmt], [
@@ -296,7 +296,7 @@ class NodeScopeResolver
 			]);
 		} elseif ($stmt instanceof Continue_) {
 			if ($stmt->num !== null) {
-				$scope = $this->processExprNode($stmt->num, $scope, $nodeCallback, 1);
+				$scope = $this->processExprNode($stmt->num, $scope, $nodeCallback, 1)->getScope();
 			}
 
 			return new StatementResult($scope, [$stmt], [
@@ -304,7 +304,7 @@ class NodeScopeResolver
 			]);
 		} elseif ($stmt instanceof Break_) {
 			if ($stmt->num !== null) {
-				$scope = $this->processExprNode($stmt->num, $scope, $nodeCallback, 1);
+				$scope = $this->processExprNode($stmt->num, $scope, $nodeCallback, 1)->getScope();
 			}
 
 			return new StatementResult($scope, [$stmt], [
@@ -312,7 +312,7 @@ class NodeScopeResolver
 			]);
 		} elseif ($stmt instanceof Node\Stmt\Expression) {
 			$earlyTerminationExpr = $this->findEarlyTerminatingExpr($stmt->expr, $scope);
-			$scope = $this->processExprNode($stmt->expr, $scope, $nodeCallback, 0);
+			$scope = $this->processExprNode($stmt->expr, $scope, $nodeCallback, 0)->getScope();
 			$scope = $scope->filterBySpecifiedTypes($this->typeSpecifier->specifyTypesInCondition(
 				$scope,
 				$stmt->expr,
@@ -353,20 +353,20 @@ class NodeScopeResolver
 				$this->processExprNode($stmt->default, $scope, $nodeCallback, 1);
 			}
 		} elseif ($stmt instanceof Throw_) {
-			$scope = $this->processExprNode($stmt->expr, $scope, $nodeCallback, 1);
+			$scope = $this->processExprNode($stmt->expr, $scope, $nodeCallback, 1)->getScope();
 			return new StatementResult($scope, [$stmt], [
 				new StatementExitPoint($stmt, $scope),
 			]);
 		} elseif ($stmt instanceof If_) {
 			$conditionType = $scope->getType($stmt->cond)->toBoolean();
 			$ifAlwaysTrue = $conditionType instanceof ConstantBooleanType && $conditionType->getValue();
-			$scope = $this->processExprNode($stmt->cond, $scope, $nodeCallback, 1);
+			$condResult = $this->processExprNode($stmt->cond, $scope, $nodeCallback, 1);
 			$exitPoints = [];
 			$finalScope = null;
 			$alwaysTerminatingStatements = [];
 			$alwaysTerminating = true;
 
-			$branchScopeStatementResult = $this->processStmtNodes($stmt->stmts, $scope->filterByTruthyValue($stmt->cond), $nodeCallback);
+			$branchScopeStatementResult = $this->processStmtNodes($stmt->stmts, $condResult->getTruthyScope(), $nodeCallback);
 
 			if (!$conditionType instanceof ConstantBooleanType || $conditionType->getValue()) {
 				$exitPoints = $branchScopeStatementResult->getExitPoints();
@@ -378,15 +378,16 @@ class NodeScopeResolver
 				}
 			}
 
-			$scope = $scope->filterByFalseyValue($stmt->cond);
+			$scope = $condResult->getFalseyScope();
 			$lastElseIfConditionIsTrue = false;
 
 			$condScope = $scope;
 			foreach ($stmt->elseifs as $elseif) {
 				$nodeCallback($elseif, $scope);
 				$elseIfConditionType = $condScope->getType($elseif->cond)->toBoolean();
-				$condScope = $this->processExprNode($elseif->cond, $condScope, $nodeCallback, 1);
-				$branchScopeStatementResult = $this->processStmtNodes($elseif->stmts, $condScope->filterByTruthyValue($elseif->cond), $nodeCallback);
+				$condResult = $this->processExprNode($elseif->cond, $condScope, $nodeCallback, 1);
+				$condScope = $condResult->getScope();
+				$branchScopeStatementResult = $this->processStmtNodes($elseif->stmts, $condResult->getTruthyScope(), $nodeCallback);
 
 				if (
 					!$ifAlwaysTrue
@@ -446,7 +447,7 @@ class NodeScopeResolver
 		} elseif ($stmt instanceof Node\Stmt\TraitUse) {
 			$this->processTraitUse($stmt, $scope, $nodeCallback);
 		} elseif ($stmt instanceof Foreach_) {
-			$scope = $this->processExprNode($stmt->expr, $scope, $nodeCallback, 1);
+			$scope = $this->processExprNode($stmt->expr, $scope, $nodeCallback, 1)->getScope();
 			$bodyScope = $this->enterForeach($scope, $stmt);
 			$count = 0;
 			do {
@@ -494,18 +495,18 @@ class NodeScopeResolver
 
 			return new StatementResult($finalScope, $alwaysTerminating ? $alwaysTerminatingStatements : [], []);
 		} elseif ($stmt instanceof While_) {
-			$condScope = $this->processExprNode($stmt->cond, $scope, static function (): void {
+			$condResult = $this->processExprNode($stmt->cond, $scope, static function (): void {
 			}, 1);
 			//TODO if (!$condScope->equals($scope)) {
 			//	$condScope = $condScope->generalizeWith($scope);
 			//}
-			$bodyScope = $condScope->filterByTruthyValue($stmt->cond);
+			$bodyScope = $condResult->getTruthyScope();
 			$count = 0;
 			do {
 				$prevScope = $bodyScope;
 				$bodyScope = $bodyScope->mergeWith($scope);
 				$bodyScope = $this->processExprNode($stmt->cond, $bodyScope, static function (): void {
-				}, 1)->filterByTruthyValue($stmt->cond);
+				}, 1)->getTruthyScope();
 				$bodyScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, static function (): void {
 				})->filterOutLoopTerminationStatements();
 				$alwaysTerminating = $bodyScopeResult->isAlwaysTerminating();
@@ -525,7 +526,7 @@ class NodeScopeResolver
 			} while (!$alwaysTerminating && $count < self::LOOP_SCOPE_ITERATIONS);
 
 			$bodyScope = $bodyScope->mergeWith($scope);
-			$bodyScope = $this->processExprNode($stmt->cond, $bodyScope, $nodeCallback, 1)->filterByTruthyValue($stmt->cond);
+			$bodyScope = $this->processExprNode($stmt->cond, $bodyScope, $nodeCallback, 1)->getTruthyScope();
 			$finalScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, $nodeCallback);
 			$finalScope = $finalScopeResult->getScope();
 			foreach ($finalScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
@@ -538,7 +539,7 @@ class NodeScopeResolver
 			$condBooleanType = $scope->getType($stmt->cond)->toBoolean();
 			$isIterableAtLeastOnce = $condBooleanType instanceof ConstantBooleanType && $condBooleanType->getValue();
 			// todo for all loops - is not falsey when the loop is exited via break
-			$condScope = $condScope->filterByFalseyValue($stmt->cond);
+			$condScope = $condResult->getFalseyScope();
 			if (!$isIterableAtLeastOnce) {
 				if (!$this->polluteScopeWithLoopInitialAssignments) {
 					$condScope = $condScope->mergeWith($scope);
@@ -565,7 +566,7 @@ class NodeScopeResolver
 					$finalScope = $breakExitPoint->getScope()->mergeWith($finalScope);
 				}
 				$bodyScope = $this->processExprNode($stmt->cond, $bodyScope, static function (): void {
-				}, 1)->filterByTruthyValue($stmt->cond);
+				}, 1)->getTruthyScope();
 				if ($bodyScope->equals($prevScope)) {
 					break;
 				}
@@ -590,9 +591,8 @@ class NodeScopeResolver
 				$finalScope = $scope;
 			}
 			if (!$alwaysTerminating) {
-				$finalScope = $this->processExprNode($stmt->cond, $bodyScope, $nodeCallback, 1);
-				// todo not if it breaks out of the loop using break;
-				$finalScope = $finalScope->filterByFalseyValue($stmt->cond);
+				$finalScope = $this->processExprNode($stmt->cond, $bodyScope, $nodeCallback, 1)->getFalseyScope();
+				// todo not falsey if it breaks out of the loop using break;
 			}
 			foreach ($bodyScopeResult->getExitPointsByType(Break_::class) as $breakExitPoint) {
 				$finalScope = $breakExitPoint->getScope()->mergeWith($finalScope);
@@ -602,13 +602,13 @@ class NodeScopeResolver
 		} elseif ($stmt instanceof For_) {
 			$initScope = $scope;
 			foreach ($stmt->init as $initExpr) {
-				$initScope = $this->processExprNode($initExpr, $initScope, $nodeCallback, 0);
+				$initScope = $this->processExprNode($initExpr, $initScope, $nodeCallback, 0)->getScope();
 			}
 
 			$bodyScope = $initScope;
 			foreach ($stmt->cond as $condExpr) {
 				$bodyScope = $this->processExprNode($condExpr, $bodyScope, static function (): void {
-				}, 1)->filterByTruthyValue($condExpr);
+				}, 1)->getTruthyScope();
 			}
 
 			$count = 0;
@@ -617,7 +617,7 @@ class NodeScopeResolver
 				$bodyScope = $bodyScope->mergeWith($initScope);
 				foreach ($stmt->cond as $condExpr) {
 					$bodyScope = $this->processExprNode($condExpr, $bodyScope, static function (): void {
-					}, 1)->filterByTruthyValue($condExpr);
+					}, 1)->getTruthyScope();
 				}
 				$bodyScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, static function (): void {
 				})->filterOutLoopTerminationStatements();
@@ -629,7 +629,7 @@ class NodeScopeResolver
 				}
 				foreach ($stmt->loop as $loopExpr) {
 					$bodyScope = $this->processExprNode($loopExpr, $bodyScope, static function (): void {
-					}, 0);
+					}, 0)->getScope();
 				}
 
 				if ($bodyScope->equals($prevScope)) {
@@ -644,7 +644,7 @@ class NodeScopeResolver
 
 			$bodyScope = $bodyScope->mergeWith($initScope);
 			foreach ($stmt->cond as $condExpr) {
-				$bodyScope = $this->processExprNode($condExpr, $bodyScope, $nodeCallback, 1)->filterByTruthyValue($condExpr);
+				$bodyScope = $this->processExprNode($condExpr, $bodyScope, $nodeCallback, 1)->getTruthyScope();
 			}
 
 			$finalScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, $nodeCallback);
@@ -653,7 +653,7 @@ class NodeScopeResolver
 				$finalScope = $continueExitPoint->getScope()->mergeWith($finalScope);
 			}
 			foreach ($stmt->loop as $loopExpr) {
-				$finalScope = $this->processExprNode($loopExpr, $finalScope, $nodeCallback, 0);
+				$finalScope = $this->processExprNode($loopExpr, $finalScope, $nodeCallback, 0)->getScope();
 			}
 			foreach ($finalScopeResult->getExitPointsByType(Break_::class) as $breakExitPoint) {
 				$finalScope = $breakExitPoint->getScope()->mergeWith($finalScope);
@@ -672,7 +672,7 @@ class NodeScopeResolver
 
 			return new StatementResult($finalScope, $alwaysTerminatingStatements, []);
 		} elseif ($stmt instanceof Switch_) {
-			$scope = $this->processExprNode($stmt->cond, $scope, $nodeCallback, 1);
+			$scope = $this->processExprNode($stmt->cond, $scope, $nodeCallback, 1)->getScope();
 			$scopeForBranches = $scope;
 			$finalScope = null;
 			$prevScope = null;
@@ -682,7 +682,7 @@ class NodeScopeResolver
 			foreach ($stmt->cases as $i => $caseNode) {
 				if ($caseNode->cond !== null) {
 					$condExpr = new BinaryOp\Equal($stmt->cond, $caseNode->cond);
-					$scopeForBranches = $this->processExprNode($caseNode->cond, $scopeForBranches, $nodeCallback, 1);
+					$scopeForBranches = $this->processExprNode($caseNode->cond, $scopeForBranches, $nodeCallback, 1)->getScope();
 					if ($prevScope === null) {
 						$branchScope = $scopeForBranches->filterByTruthyValue($condExpr);
 						$scopeForBranches = $scopeForBranches->filterByFalseyValue($condExpr);
@@ -799,7 +799,7 @@ class NodeScopeResolver
 		} elseif ($stmt instanceof Unset_) {
 			foreach ($stmt->vars as $var) {
 				$scope = $this->lookForEnterVariableAssign($scope, $var);
-				$scope = $this->processExprNode($var, $scope, $nodeCallback, 1);
+				$scope = $this->processExprNode($var, $scope, $nodeCallback, 1)->getScope();
 				$scope = $this->lookForExitVariableAssign($scope, $var);
 				$scope = $scope->unsetExpression($var);
 			}
@@ -1007,9 +1007,9 @@ class NodeScopeResolver
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
 	 * @param int $depth
-	 * @return \PHPStan\Analyser\Scope $scope
+	 * @return \PHPStan\Analyser\ExpressionResult
 	 */
-	private function processExprNode(Expr $expr, Scope $scope, \Closure $nodeCallback, int $depth): Scope
+	private function processExprNode(Expr $expr, Scope $scope, \Closure $nodeCallback, int $depth): ExpressionResult
 	{
 		if ($depth === 0 && !$scope->isInFirstLevelStatement()) {
 			$scope = $scope->enterFirstLevelStatements();
@@ -1022,7 +1022,7 @@ class NodeScopeResolver
 		// todo handle all expr descendants
 		if ($expr instanceof Variable) {
 			if ($expr->name instanceof Expr) {
-				$scope = $this->processExprNode($expr->name, $scope, $nodeCallback, $depth + 1);
+				return $this->processExprNode($expr->name, $scope, $nodeCallback, $depth + 1);
 			}
 		} elseif ($expr instanceof Assign || $expr instanceof AssignRef) {
 			if (!$expr->var instanceof Array_ && !$expr->var instanceof List_) {
@@ -1044,7 +1044,7 @@ class NodeScopeResolver
 							$nodeCallback($expr->expr, $scope);
 							$scope = $this->processClosureNode($expr->expr, $scope, $nodeCallback, $depth + 1, $assignedVariable);
 						} else {
-							$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, $depth + 1);
+							$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, $depth + 1)->getScope();
 						}
 
 						if ($expr instanceof AssignRef) {
@@ -1056,7 +1056,7 @@ class NodeScopeResolver
 					true
 				);
 			} else {
-				$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, 1);
+				$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, 1)->getScope();
 				foreach ($expr->var->items as $arrayItem) {
 					if ($arrayItem === null) {
 						continue;
@@ -1086,14 +1086,14 @@ class NodeScopeResolver
 				$expr,
 				$nodeCallback,
 				function (Scope $scope) use ($expr, $nodeCallback, $depth): Scope {
-					return $this->processExprNode($expr->expr, $scope, $nodeCallback, $depth + 1);
+					return $this->processExprNode($expr->expr, $scope, $nodeCallback, $depth + 1)->getScope();
 				},
 				false
 			);
 		} elseif ($expr instanceof FuncCall) {
 			$parametersAcceptor = null;
 			if ($expr->name instanceof Expr) {
-				$scope = $this->processExprNode($expr->name, $scope, $nodeCallback, $depth + 1);
+				$scope = $this->processExprNode($expr->name, $scope, $nodeCallback, $depth + 1)->getScope();
 			} elseif ($this->broker->hasFunction($expr->name, $scope)) {
 				$function = $this->broker->getFunction($expr->name, $scope);
 				$parametersAcceptor = ParametersAcceptorSelector::selectFromArgs(
@@ -1209,13 +1209,13 @@ class NodeScopeResolver
 				$closureCallScope = $scope->enterClosureCall($scope->getType($expr->args[0]->value));
 			}
 
-			$scope = $this->processExprNode($expr->var, $closureCallScope ?? $scope, $nodeCallback, $depth + 1);
+			$scope = $this->processExprNode($expr->var, $closureCallScope ?? $scope, $nodeCallback, $depth + 1)->getScope();
 			if (isset($closureCallScope)) {
 				$scope = $scope->restoreOriginalScopeAfterClosureBind($originalScope);
 			}
 			$parametersAcceptor = null;
 			if ($expr->name instanceof Expr) {
-				$scope = $this->processExprNode($expr->name, $scope, $nodeCallback, $depth + 1);
+				$scope = $this->processExprNode($expr->name, $scope, $nodeCallback, $depth + 1)->getScope();
 			} else {
 				$calledOnType = $scope->getType($expr->var);
 				$methodName = $expr->name->name;
@@ -1230,12 +1230,12 @@ class NodeScopeResolver
 			$scope = $this->processArgs($parametersAcceptor, $expr->args, $scope, $nodeCallback, $depth);
 		} elseif ($expr instanceof StaticCall) {
 			if ($expr->class instanceof Expr) {
-				$scope = $this->processExprNode($expr->class, $scope, $nodeCallback, $depth + 1);
+				$scope = $this->processExprNode($expr->class, $scope, $nodeCallback, $depth + 1)->getScope();
 			}
 
 			$parametersAcceptor = null;
 			if ($expr->name instanceof Expr) {
-				$scope = $this->processExprNode($expr->name, $scope, $nodeCallback, $depth + 1);
+				$scope = $this->processExprNode($expr->name, $scope, $nodeCallback, $depth + 1)->getScope();
 			} elseif ($expr->class instanceof Name) {
 				$className = $scope->resolveName($expr->class);
 				if ($this->broker->hasClass($className)) {
@@ -1290,56 +1290,77 @@ class NodeScopeResolver
 			}
 			$scope = $this->processArgs($parametersAcceptor, $expr->args, $scope, $nodeCallback, $depth, $closureBindScope ?? null);
 		} elseif ($expr instanceof PropertyFetch) {
-			$scope = $this->processExprNode($expr->var, $scope, $nodeCallback, $depth + 1);
+			$scope = $this->processExprNode($expr->var, $scope, $nodeCallback, $depth + 1)->getScope();
 			if ($expr->name instanceof Expr) {
-				$scope = $this->processExprNode($expr->name, $scope, $nodeCallback, $depth + 1);
+				$scope = $this->processExprNode($expr->name, $scope, $nodeCallback, $depth + 1)->getScope();
 			}
 		} elseif ($expr instanceof StaticPropertyFetch) {
 			if ($expr->class instanceof Expr) {
-				$scope = $this->processExprNode($expr->class, $scope, $nodeCallback, $depth + 1);
+				$scope = $this->processExprNode($expr->class, $scope, $nodeCallback, $depth + 1)->getScope();
 			}
 			if ($expr->name instanceof Expr) {
-				$scope = $this->processExprNode($expr->name, $scope, $nodeCallback, $depth + 1);
+				$scope = $this->processExprNode($expr->name, $scope, $nodeCallback, $depth + 1)->getScope();
 			}
 		} elseif ($expr instanceof Expr\Closure) {
 			$scope = $this->processClosureNode($expr, $scope, $nodeCallback, $depth, null);
 		} elseif ($expr instanceof Expr\ClosureUse) {
-			$this->processExprNode($expr->var, $scope, $nodeCallback, $depth);
+			$this->processExprNode($expr->var, $scope, $nodeCallback, $depth)->getScope();
 		} elseif ($expr instanceof ErrorSuppress) {
-			$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, $depth);
+			$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, $depth)->getScope();
 		} elseif ($expr instanceof Exit_) {
 			if ($expr->expr !== null) {
-				$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, $depth + 1);
+				$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, $depth + 1)->getScope();
 			}
 		} elseif ($expr instanceof Node\Scalar\Encapsed) {
 			foreach ($expr->parts as $part) {
-				$scope = $this->processExprNode($part, $scope, $nodeCallback, $depth + 1);
+				$scope = $this->processExprNode($part, $scope, $nodeCallback, $depth + 1)->getScope();
 			}
 		} elseif ($expr instanceof ArrayDimFetch) {
 			if ($expr->dim !== null) {
-				$scope = $this->processExprNode($expr->dim, $scope, $nodeCallback, $depth + 1);
+				$scope = $this->processExprNode($expr->dim, $scope, $nodeCallback, $depth + 1)->getScope();
 			}
 
-			$scope = $this->processExprNode($expr->var, $scope, $nodeCallback, $depth + 1);
+			$scope = $this->processExprNode($expr->var, $scope, $nodeCallback, $depth + 1)->getScope();
 		} elseif ($expr instanceof Array_) {
 			foreach ($expr->items as $arrayItem) {
-				$scope = $this->processExprNode($arrayItem, $scope, $nodeCallback, $depth + 1);
+				$scope = $this->processExprNode($arrayItem, $scope, $nodeCallback, $depth + 1)->getScope();
 			}
 		} elseif ($expr instanceof ArrayItem) {
 			if ($expr->key !== null) {
-				$scope = $this->processExprNode($expr->key, $scope, $nodeCallback, $depth + 1);
+				$scope = $this->processExprNode($expr->key, $scope, $nodeCallback, $depth + 1)->getScope();
 			}
-			$scope = $this->processExprNode($expr->value, $scope, $nodeCallback, $depth + 1);
+			$scope = $this->processExprNode($expr->value, $scope, $nodeCallback, $depth + 1)->getScope();
 		} elseif ($expr instanceof BooleanAnd || $expr instanceof BinaryOp\LogicalAnd) {
-			$leftScope = $this->processExprNode($expr->left, $scope, $nodeCallback, $depth + 1);
-			$rightScope = $this->processExprNode($expr->right, $leftScope->filterByTruthyValue($expr->left), $nodeCallback, $depth);
+			$leftResult = $this->processExprNode($expr->left, $scope, $nodeCallback, $depth + 1);
+			$rightResult = $this->processExprNode($expr->right, $leftResult->getTruthyScope(), $nodeCallback, $depth);
+			$leftMergedWithRightScope = $leftResult->getScope()->mergeWith($rightResult->getScope());
 
-			return $leftScope->mergeWith($rightScope);
+			return new ExpressionResult(
+				$leftMergedWithRightScope,
+				static function () use ($expr, $rightResult): Scope {
+					// todo nestaci $rightResult->getTruthyScope?
+					return $rightResult->getScope()->filterByTruthyValue($expr);
+				},
+				static function () use ($leftMergedWithRightScope, $expr): Scope {
+					return $leftMergedWithRightScope->filterByFalseyValue($expr);
+				}
+			);
 			// todo do not execute right side if the left is false
 		} elseif ($expr instanceof BooleanOr || $expr instanceof BinaryOp\LogicalOr) {
-			$leftScope = $this->processExprNode($expr->left, $scope, $nodeCallback, $depth + 1);
-			$rightScope = $this->processExprNode($expr->right, $leftScope->filterByFalseyValue($expr->left), $nodeCallback, $depth);
-			return $leftScope->mergeWith($rightScope);
+			$leftResult = $this->processExprNode($expr->left, $scope, $nodeCallback, $depth + 1);
+			$rightResult = $this->processExprNode($expr->right, $leftResult->getFalseyScope(), $nodeCallback, $depth);
+			$leftMergedWithRightScope = $leftResult->getScope()->mergeWith($rightResult->getScope());
+
+			return new ExpressionResult(
+				$leftMergedWithRightScope,
+				static function () use ($leftMergedWithRightScope, $expr): Scope {
+					return $leftMergedWithRightScope->filterByTruthyValue($expr);
+				},
+				static function () use ($expr, $rightResult): Scope {
+					// todo nestaci $rightResult->getTruthyScope?
+					return $rightResult->getScope()->filterByFalseyValue($expr);
+				}
+			);
 			// todo do not execute right side if the left is true
 		} elseif ($expr instanceof Coalesce) {
 			$nonNullabilityResult = $this->ensureNonNullability($scope, $expr->left, false);
@@ -1349,16 +1370,16 @@ class NodeScopeResolver
 			} else {
 				$scope = $this->lookForEnterVariableAssign($nonNullabilityResult->getScope(), $expr->left);
 			}
-			$scope = $this->processExprNode($expr->left, $scope, $nodeCallback, $depth + 1);
+			$scope = $this->processExprNode($expr->left, $scope, $nodeCallback, $depth + 1)->getScope();
 			$scope = $this->revertNonNullability($scope, $nonNullabilityResult->getSpecifiedExpressions());
 
 			if (!$expr->left instanceof PropertyFetch) {
 				$scope = $this->lookForExitVariableAssign($scope, $expr->left);
 			}
-			$scope = $this->processExprNode($expr->right, $scope, $nodeCallback, $depth + 1);
+			$scope = $this->processExprNode($expr->right, $scope, $nodeCallback, $depth + 1)->getScope();
 		} elseif ($expr instanceof BinaryOp) {
-			$scope = $this->processExprNode($expr->left, $scope, $nodeCallback, $depth + 1);
-			$scope = $this->processExprNode($expr->right, $scope, $nodeCallback, $depth + 1);
+			$scope = $this->processExprNode($expr->left, $scope, $nodeCallback, $depth + 1)->getScope();
+			$scope = $this->processExprNode($expr->right, $scope, $nodeCallback, $depth + 1)->getScope();
 		} elseif (
 			$expr instanceof Expr\BitwiseNot
 			|| $expr instanceof Cast
@@ -1370,41 +1391,41 @@ class NodeScopeResolver
 			|| $expr instanceof Expr\UnaryPlus
 			|| $expr instanceof Expr\YieldFrom
 		) {
-			$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, $depth + 1);
+			$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, $depth + 1)->getScope();
 		} elseif ($expr instanceof BooleanNot) {
 			$scope = $scope->enterNegation();
-			$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, $depth + 1);
+			$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, $depth + 1)->getScope();
 			$scope = $scope->enterNegation();
 		} elseif ($expr instanceof Expr\ClassConstFetch) {
 			if ($expr->class instanceof Expr) {
-				$scope = $this->processExprNode($expr->class, $scope, $nodeCallback, $depth + 1);
+				$scope = $this->processExprNode($expr->class, $scope, $nodeCallback, $depth + 1)->getScope();
 			}
 		} elseif ($expr instanceof Expr\Empty_) {
 			$nonNullabilityResult = $this->ensureNonNullability($scope, $expr->expr, true);
 			$scope = $this->lookForEnterVariableAssign($nonNullabilityResult->getScope(), $expr->expr);
-			$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, $depth + 1);
+			$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, $depth + 1)->getScope();
 			$scope = $this->revertNonNullability($scope, $nonNullabilityResult->getSpecifiedExpressions());
 			$scope = $this->lookForExitVariableAssign($scope, $expr->expr);
 		} elseif ($expr instanceof Expr\Isset_) {
 			foreach ($expr->vars as $var) {
 				$nonNullabilityResult = $this->ensureNonNullability($scope, $var, true);
 				$scope = $this->lookForEnterVariableAssign($nonNullabilityResult->getScope(), $var);
-				$scope = $this->processExprNode($var, $scope, $nodeCallback, $depth + 1);
+				$scope = $this->processExprNode($var, $scope, $nodeCallback, $depth + 1)->getScope();
 				$scope = $this->revertNonNullability($scope, $nonNullabilityResult->getSpecifiedExpressions());
 				$scope = $this->lookForExitVariableAssign($scope, $var);
 			}
 		} elseif ($expr instanceof Instanceof_) {
-			$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, $depth + 1);
+			$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, $depth + 1)->getScope();
 			if ($expr->class instanceof Expr) {
-				$scope = $this->processExprNode($expr->class, $scope, $nodeCallback, $depth + 1);
+				$scope = $this->processExprNode($expr->class, $scope, $nodeCallback, $depth + 1)->getScope();
 			}
 		} elseif ($expr instanceof List_) {
 			// only in assign and foreach, processed elsewhere
-			return $scope;
+			return new ExpressionResult($scope);
 		} elseif ($expr instanceof New_) {
 			$parametersAcceptor = null;
 			if ($expr->class instanceof Expr) {
-				$scope = $this->processExprNode($expr->class, $scope, $nodeCallback, $depth + 1);
+				$scope = $this->processExprNode($expr->class, $scope, $nodeCallback, $depth + 1)->getScope();
 			} elseif ($expr->class instanceof Class_) {
 				$this->broker->getAnonymousClassReflection($expr->class, $scope); // populates $expr->class->name
 				$this->processStmtNode($expr->class, $scope, $nodeCallback);
@@ -1425,7 +1446,7 @@ class NodeScopeResolver
 			|| $expr instanceof Expr\PreDec
 			|| $expr instanceof Expr\PostDec
 		) {
-			$scope = $this->processExprNode($expr->var, $scope, $nodeCallback, $depth + 1);
+			$scope = $this->processExprNode($expr->var, $scope, $nodeCallback, $depth + 1)->getScope();
 			if (
 				$expr->var instanceof Variable
 				|| $expr->var instanceof ArrayDimFetch
@@ -1455,31 +1476,49 @@ class NodeScopeResolver
 				}
 			}
 		} elseif ($expr instanceof Ternary) {
-			$scope = $this->processExprNode($expr->cond, $scope, $nodeCallback, $depth + 1);
-			$ifTrueScope = $scope->filterByTruthyValue($expr->cond);
-			$ifFalseScope = $scope->filterByFalseyValue($expr->cond);
+			$ternaryCondResult = $this->processExprNode($expr->cond, $scope, $nodeCallback, $depth + 1);
+			$ifTrueScope = $ternaryCondResult->getTruthyScope();
+			$ifFalseScope = $ternaryCondResult->getFalseyScope();
 
 			if ($expr->if !== null) {
-				$ifTrueScope = $this->processExprNode($expr->if, $ifTrueScope, $nodeCallback, $depth);
-				$ifFalseScope = $this->processExprNode($expr->else, $ifFalseScope, $nodeCallback, $depth);
+				$ifTrueScope = $this->processExprNode($expr->if, $ifTrueScope, $nodeCallback, $depth)->getScope();
+				$ifFalseScope = $this->processExprNode($expr->else, $ifFalseScope, $nodeCallback, $depth)->getScope();
 			} else {
-				$ifFalseScope = $this->processExprNode($expr->else, $ifFalseScope, $nodeCallback, $depth);
+				$ifFalseScope = $this->processExprNode($expr->else, $ifFalseScope, $nodeCallback, $depth)->getScope();
 			}
 
-			return $ifTrueScope->mergeWith($ifFalseScope);
+			$finalScope = $ifTrueScope->mergeWith($ifFalseScope);
+
+			return new ExpressionResult(
+				$finalScope,
+				static function () use ($finalScope, $expr): Scope {
+					return $finalScope->filterByTruthyValue($expr);
+				},
+				static function () use ($finalScope, $expr): Scope {
+					return $finalScope->filterByFalseyValue($expr);
+				}
+			);
 
 			// todo do not run else if cond is always true
 			// todo do not run if branch if cond is always false
 		} elseif ($expr instanceof Expr\Yield_) {
 			if ($expr->key !== null) {
-				$scope = $this->processExprNode($expr->key, $scope, $nodeCallback, $depth + 1);
+				$scope = $this->processExprNode($expr->key, $scope, $nodeCallback, $depth + 1)->getScope();
 			}
 			if ($expr->value !== null) {
-				$scope = $this->processExprNode($expr->value, $scope, $nodeCallback, $depth + 1);
+				$scope = $this->processExprNode($expr->value, $scope, $nodeCallback, $depth + 1)->getScope();
 			}
 		}
 
-		return $scope;
+		return new ExpressionResult(
+			$scope,
+			static function () use ($scope, $expr): Scope {
+				return $scope->filterByTruthyValue($expr);
+			},
+			static function () use ($scope, $expr): Scope {
+				return $scope->filterByFalseyValue($expr);
+			}
+		);
 	}
 
 	/**
@@ -1672,7 +1711,7 @@ class NodeScopeResolver
 			if ($i === 0 && $closureBindScope !== null) {
 				$scopeToPass = $closureBindScope;
 			}
-			$scope = $this->processExprNode($arg->value, $scopeToPass, $nodeCallback, $depth + 1);
+			$scope = $this->processExprNode($arg->value, $scopeToPass, $nodeCallback, $depth + 1)->getScope();
 			if ($i !== 0 || $closureBindScope === null) {
 				continue;
 			}
@@ -1718,7 +1757,7 @@ class NodeScopeResolver
 			if ($enterExpressionAssign && $var instanceof Variable) {
 				$scope = $scope->enterExpressionAssign($var);
 			}
-			$scope = $this->processExprNode($var, $scope, $nodeCallback, 1);
+			$scope = $this->processExprNode($var, $scope, $nodeCallback, 1)->getScope();
 			if ($enterExpressionAssign && $var instanceof Variable) {
 				$scope = $scope->exitExpressionAssign($var);
 			}
@@ -1735,7 +1774,7 @@ class NodeScopeResolver
 					if ($enterExpressionAssign) {
 						$scope->enterExpressionAssign($dimExpr);
 					}
-					$scope = $this->processExprNode($dimExpr, $scope, $nodeCallback, 1);
+					$scope = $this->processExprNode($dimExpr, $scope, $nodeCallback, 1)->getScope();
 
 					if ($enterExpressionAssign) {
 						$scope = $scope->exitExpressionAssign($dimExpr);

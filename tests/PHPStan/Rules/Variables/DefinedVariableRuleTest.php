@@ -577,4 +577,23 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->analyse([__DIR__ . '/data/foreach-always-iterable.php'], $errors);
 	}
 
+	public function testBooleanOperatorsTruthyFalsey(): void
+	{
+		$this->cliArgumentsVariablesRegistered = true;
+		$this->polluteScopeWithLoopInitialAssignments = false;
+		$this->polluteCatchScopeWithTryAssignments = false;
+		$this->checkMaybeUndefinedVariables = true;
+		$this->polluteScopeWithAlwaysIterableForeach = true;
+		$this->analyse([__DIR__ . '/data/boolean-op-truthy-falsey.php'], [
+			[
+				'Variable $matches might not be defined.',
+				9,
+			],
+			[
+				'Variable $matches might not be defined.',
+				15,
+			],
+		]);
+	}
+
 }
