@@ -214,3 +214,28 @@ class CallStaticMethodOnAnInterface
 	}
 
 }
+
+class CallStaticMethodAfterAssignmentInBooleanAnd
+{
+
+	public static function generateDeliverSmDlrForMessage()
+	{
+		if (
+			($messageState = self::getMessageStateByStatusId())
+			&& self::isMessageStateRequested($messageState)
+		) {
+		}
+	}
+
+	/**
+	 * @return false|string
+	 */
+	public static function getMessageStateByStatusId()
+	{
+	}
+
+	public static function isMessageStateRequested (string $messageState): bool
+	{
+	}
+
+}
