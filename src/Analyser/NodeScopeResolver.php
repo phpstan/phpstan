@@ -1356,7 +1356,6 @@ class NodeScopeResolver
 					return $leftMergedWithRightScope->filterByTruthyValue($expr);
 				},
 				static function () use ($expr, $rightResult): Scope {
-					// todo nestaci $rightResult->getTruthyScope?
 					return $rightResult->getScope()->filterByFalseyValue($expr);
 				}
 			);
