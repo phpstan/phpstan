@@ -105,6 +105,10 @@ class TypeSpecifier
 	): SpecifiedTypes
 	{
 		if ($expr instanceof Instanceof_) {
+			$exprNode = $expr->expr;
+			if ($exprNode instanceof Expr\Assign) {
+				$exprNode = $exprNode->var;
+			}
 			if ($expr->class instanceof Name) {
 				$className = (string) $expr->class;
 				$lowercasedClassName = strtolower($className);
@@ -124,11 +128,11 @@ class TypeSpecifier
 				} else {
 					$type = new ObjectType($className);
 				}
-				return $this->create($expr->expr, $type, $context);
+				return $this->create($exprNode, $type, $context);
 			}
 
 			if ($context->true()) {
-				return $this->create($expr->expr, new ObjectWithoutClassType(), $context);
+				return $this->create($exprNode, new ObjectWithoutClassType(), $context);
 			}
 		} elseif ($expr instanceof Node\Expr\BinaryOp\Identical) {
 			$expressions = $this->findTypeExpressionsFromBinaryOperation($scope, $expr);

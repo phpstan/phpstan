@@ -1237,3 +1237,23 @@ class AssignmentInConditionEliminatingNull
 	}
 
 }
+
+class AssignmentInInstanceOf
+{
+
+	public function doFoo()
+	{
+		$x = ($foo = $this->doBar()) instanceof self
+			? $foo->doFoo()
+			: [];
+	}
+
+	/**
+	 * @return self|bool
+	 */
+	public function doBar()
+	{
+
+	}
+
+}

@@ -741,6 +741,21 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					'$notFalseBar' => 'false & ~object|nonEmpty',
 				],
 			],
+			[
+				new Expr\Instanceof_(
+					new Expr\Assign(
+						new Variable('notFalseBar'),
+						new Variable('barOrFalse')
+					),
+					new Name('Bar')
+				),
+				[
+					'$notFalseBar' => 'Bar',
+				],
+				[
+					'$notFalseBar' => '~Bar',
+				],
+			],
 		];
 	}
 
