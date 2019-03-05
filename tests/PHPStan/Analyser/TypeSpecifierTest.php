@@ -6,6 +6,7 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\BinaryOp\Equal;
 use PhpParser\Node\Expr\BinaryOp\Identical;
+use PhpParser\Node\Expr\BinaryOp\NotIdentical;
 use PhpParser\Node\Expr\BooleanNot;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\PropertyFetch;
@@ -46,6 +47,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 		$this->scope = $this->scope->assignVariable('bar', new ObjectType('Bar'));
 		$this->scope = $this->scope->assignVariable('stringOrNull', new UnionType([new StringType(), new NullType()]));
 		$this->scope = $this->scope->assignVariable('barOrNull', new UnionType([new ObjectType('Bar'), new NullType()]));
+		$this->scope = $this->scope->assignVariable('barOrFalse', new UnionType([new ObjectType('Bar'), new ConstantBooleanType(false)]));
 		$this->scope = $this->scope->assignVariable('stringOrFalse', new UnionType([new StringType(), new ConstantBooleanType(false)]));
 		$this->scope = $this->scope->assignVariable('array', new ArrayType(new MixedType(), new MixedType()));
 		$this->scope = $this->scope->assignVariable('foo', new MixedType());
@@ -629,6 +631,114 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 				],
 				[
 					'isset(Foo::$bar)' => '~object|nonEmpty',
+				],
+			],
+			[
+				new Identical(
+					new Variable('barOrNull'),
+					new Expr\ConstFetch(new Name('null'))
+				),
+				[
+					'$barOrNull' => 'null',
+				],
+				[
+					'$barOrNull' => '~null',
+				],
+			],
+			[
+				new Identical(
+					new Expr\Assign(
+						new Variable('notNullBar'),
+						new Variable('barOrNull')
+					),
+					new Expr\ConstFetch(new Name('null'))
+				),
+				[
+					'$notNullBar' => 'null',
+				],
+				[
+					'$notNullBar' => '~null',
+				],
+			],
+			[
+				new NotIdentical(
+					new Variable('barOrNull'),
+					new Expr\ConstFetch(new Name('null'))
+				),
+				[
+					'$barOrNull' => '~null',
+				],
+				[
+					'$barOrNull' => 'null',
+				],
+			],
+			[
+				new NotIdentical(
+					new Expr\Assign(
+						new Variable('notNullBar'),
+						new Variable('barOrNull')
+					),
+					new Expr\ConstFetch(new Name('null'))
+				),
+				[
+					'$notNullBar' => '~null',
+				],
+				[
+					'$notNullBar' => 'null',
+				],
+			],
+			[
+				new Identical(
+					new Variable('barOrFalse'),
+					new Expr\ConstFetch(new Name('false'))
+				),
+				[
+					'$barOrFalse' => 'false & ~object|nonEmpty',
+				],
+				[
+					'$barOrFalse' => '~false',
+				],
+			],
+			[
+				new Identical(
+					new Expr\Assign(
+						new Variable('notFalseBar'),
+						new Variable('barOrFalse')
+					),
+					new Expr\ConstFetch(new Name('false'))
+				),
+				[
+					'$notFalseBar' => 'false & ~object|nonEmpty',
+				],
+				[
+					'$notFalseBar' => '~false',
+				],
+			],
+			[
+				new NotIdentical(
+					new Variable('barOrFalse'),
+					new Expr\ConstFetch(new Name('false'))
+				),
+				[
+					'$barOrFalse' => '~false',
+				],
+				[
+					'$barOrFalse' => 'false & ~object|nonEmpty',
+				],
+			],
+			[
+				new NotIdentical(
+					new Expr\Assign(
+						new Variable('notFalseBar'),
+						new Variable('barOrFalse')
+					),
+					new Expr\ConstFetch(new Name('false'))
+				),
+				[
+					'$notFalseBar' => '~false',
+				],
+				[
+					'$notFalseBar' => 'false & ~object|nonEmpty',
 				],
 			],
 		];

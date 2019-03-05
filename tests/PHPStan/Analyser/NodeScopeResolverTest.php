@@ -8803,6 +8803,33 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataAssignmentInCondition(): array
+	{
+		return [
+			[
+				'AssignmentInCondition\Foo',
+				'$bar',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataAssignmentInCondition
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testAssignmentInCondition(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/assignment-in-condition.php',
+			$description,
+			$expression
+		);
+	}
+
 	private function assertTypes(
 		string $file,
 		string $description,

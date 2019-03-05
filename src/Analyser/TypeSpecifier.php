@@ -135,6 +135,9 @@ class TypeSpecifier
 			if ($expressions !== null) {
 				/** @var Expr $exprNode */
 				$exprNode = $expressions[0];
+				if ($exprNode instanceof Expr\Assign) {
+					$exprNode = $exprNode->var;
+				}
 				/** @var \PHPStan\Type\ConstantScalarType $constantType */
 				$constantType = $expressions[1];
 				if ($constantType->getValue() === false) {
