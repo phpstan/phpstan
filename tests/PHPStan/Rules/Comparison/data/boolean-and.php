@@ -99,3 +99,20 @@ class StringInIsset
 	}
 
 }
+
+class IssetBug
+{
+
+	public function doFoo(string $alias, array $options = [])
+	{
+		list($name, $p) = explode('.', $alias);
+		if (isset($options['c']) && !\strpos($options['c'], '\\')) {
+			// ...
+		}
+
+		if (!isset($options['c']) && \strpos($p, 'X') === 0) {
+			// ?
+		}
+	}
+
+}
