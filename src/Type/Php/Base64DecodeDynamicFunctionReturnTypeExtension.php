@@ -47,7 +47,11 @@ class Base64DecodeDynamicFunctionReturnTypeExtension implements \PHPStan\Type\Dy
 		}
 
 		// second argument could be interpreted as true
-		return new UnionType([new StringType(), new ConstantBooleanType(false)]);
+		if (!$isTrueType->no()) {
+			return new UnionType([new StringType(), new ConstantBooleanType(false)]);
+		}
+
+		return new StringType();
 	}
 
 }
