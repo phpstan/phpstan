@@ -2174,7 +2174,7 @@ return [
 'Ds\Set::contains' => ['bool', '...values='=>'mixed'],
 'Ds\Set::diff' => ['Ds\Set', 'set'=>'Ds\Set'],
 'Ds\Set::filter' => ['Ds\Set', 'callback='=>'callable'],
-'Ds\Set::first' => ['void'],
+'Ds\Set::first' => ['mixed'],
 'Ds\Set::get' => ['mixed', 'index'=>'int'],
 'Ds\Set::intersect' => ['Ds\Set', 'set'=>'Ds\Set'],
 'Ds\Set::join' => ['void', 'glue='=>'string'],
