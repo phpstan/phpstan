@@ -63,7 +63,7 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		$propertyType = $propertyReflection->getType();
+		$propertyType = $propertyReflection->getWriteableType();
 
 		if ($node instanceof Node\Expr\Assign) {
 			$assignedValueType = $scope->getType($node->expr);

@@ -57,7 +57,7 @@ class AppendedArrayKeyTypeRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		$arrayType = $propertyReflection->getType();
+		$arrayType = $propertyReflection->getReadableType();
 		if (!$arrayType instanceof ArrayType) {
 			return [];
 		}

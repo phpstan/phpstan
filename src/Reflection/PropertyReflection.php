@@ -7,7 +7,9 @@ use PHPStan\Type\Type;
 interface PropertyReflection extends ClassMemberReflection
 {
 
-	public function getType(): Type;
+	public function getReadableType(): Type;
+
+	public function getWriteableType(): Type;
 
 	public function isReadable(): bool;
 

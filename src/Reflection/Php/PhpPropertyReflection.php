@@ -74,7 +74,12 @@ class PhpPropertyReflection implements PropertyReflection, DeprecatableReflectio
 		return $this->reflection->isPublic();
 	}
 
-	public function getType(): Type
+	public function getReadableType(): Type
+	{
+		return $this->type;
+	}
+
+	public function getWriteableType(): Type
 	{
 		return $this->type;
 	}

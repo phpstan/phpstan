@@ -1525,7 +1525,11 @@ class Scope implements ClassMemberAccessAnswerer
 					continue;
 				}
 
-				$types[] = $propertyClassReflection->getProperty($propertyName, $this)->getType();
+				if ($this->isInExpressionAssign($node)) {
+					$types[] = $propertyClassReflection->getProperty($propertyName, $this)->getWriteableType();
+				} else {
+					$types[] = $propertyClassReflection->getProperty($propertyName, $this)->getReadableType();
+				}
 			}
 
 			if (count($types) > 0) {
@@ -1536,7 +1540,10 @@ class Scope implements ClassMemberAccessAnswerer
 				return new ErrorType();
 			}
 
-			return $propertyFetchedOnType->getProperty($node->name->name, $this)->getType();
+			if ($this->isInExpressionAssign($node)) {
+				return $propertyFetchedOnType->getProperty($node->name->name, $this)->getWriteableType();
+			}
+			return $propertyFetchedOnType->getProperty($node->name->name, $this)->getReadableType();
 		}
 
 		if (
@@ -1562,7 +1569,11 @@ class Scope implements ClassMemberAccessAnswerer
 					continue;
 				}
 
-				$types[] = $propertyClassReflection->getProperty($propertyName, $this)->getType();
+				if ($this->isInExpressionAssign($node)) {
+					$types[] = $propertyClassReflection->getProperty($propertyName, $this)->getWriteableType();
+				} else {
+					$types[] = $propertyClassReflection->getProperty($propertyName, $this)->getReadableType();
+				}
 			}
 
 			if (count($types) > 0) {
@@ -1573,7 +1584,10 @@ class Scope implements ClassMemberAccessAnswerer
 				return new ErrorType();
 			}
 
-			return $calleeType->getProperty($node->name->name, $this)->getType();
+			if ($this->isInExpressionAssign($node)) {
+				return $calleeType->getProperty($node->name->name, $this)->getWriteableType();
+			}
+			return $calleeType->getProperty($node->name->name, $this)->getReadableType();
 		}
 
 		if ($node instanceof FuncCall) {
