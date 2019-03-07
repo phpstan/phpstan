@@ -235,7 +235,13 @@ class Analyser
 			file_put_contents($this->benchmarkFile, Json::encode($this->benchmarkData, Json::PRETTY));
 		}
 
-		$unmatchedIgnoredErrors = $this->ignoreErrors;
+		$unmatchedIgnoredErrors = array_values(array_filter($this->ignoreErrors, static function ($ignoreError): bool {
+			if (!is_array($ignoreError) || !isset($ignoreError['reportUnmatched'])) {
+				return true;
+			}
+
+			return $ignoreError['reportUnmatched'];
+		}));
 		$addErrors = [];
 		$errors = array_values(array_filter($errors, function (Error $error) use (&$unmatchedIgnoredErrors, &$addErrors): bool {
 			foreach ($this->ignoreErrors as $i => $ignore) {

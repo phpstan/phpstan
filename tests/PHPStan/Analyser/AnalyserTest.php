@@ -127,6 +127,33 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		$this->assertSame('No ending delimiter \'#\' found in pattern: #Fail\.', $result[1]);
 	}
 
+	public function testIgnoredErrorMessageUnmatchedIgnored(): void
+	{
+		$ignoreErrors = [
+			[
+				'message' => '#Fail\.#',
+				'path' => __DIR__ . '/data/not-existent-path.php',
+				'reportUnmatched' => true,
+			],
+		];
+		$result = $this->runAnalyser($ignoreErrors, true, __DIR__ . '/data/empty/empty.php', false);
+		$this->assertCount(1, $result);
+		$this->assertSame('Ignored error pattern #Fail\.# in path ' . __DIR__ . '/data/not-existent-path.php was not matched in reported errors.', $result[0]);
+	}
+
+	public function testIgnoredErrorMessageReportUnmatched(): void
+	{
+		$ignoreErrors = [
+			[
+				'message' => '#Fail\.#',
+				'path' => __DIR__ . '/data/not-existent-path.php',
+				'reportUnmatched' => false,
+			],
+		];
+		$result = $this->runAnalyser($ignoreErrors, true, __DIR__ . '/data/empty/empty.php', false);
+		$this->assertSame([], $result);
+	}
+
 	public function testReportMultipleParserErrorsAtOnce(): void
 	{
 		$result = $this->runAnalyser([], false, __DIR__ . '/data/multipleParseErrors.php', false);
