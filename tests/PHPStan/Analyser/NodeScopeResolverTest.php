@@ -32,6 +32,9 @@ use SomeNodeScopeResolverNamespace\Foo;
 class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 {
 
+	/** @var bool */
+	private $polluteCatchScopeWithTryAssignments = true;
+
 	/** @var Scope[][] */
 	private static $assertTypesCache = [];
 
@@ -460,7 +463,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				$testScope,
 				'inTryNotInCatch',
-				TrinaryLogic::createYes(),
+				TrinaryLogic::createMaybe(),
 				'1',
 			],
 			[
@@ -8830,6 +8833,68 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataTryCatchScope(): array
+	{
+		return [
+			[
+				'TryCatchScope\Foo',
+				'$resource',
+				"'first'",
+			],
+			[
+				'TryCatchScope\Foo|null',
+				'$resource',
+				"'second'",
+			],
+			[
+				'TryCatchScope\Foo|null',
+				'$resource',
+				"'third'",
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataTryCatchScope
+	 * @param string $description
+	 * @param string $expression
+	 * @param string $evaluatedPointExpression
+	 */
+	public function testTryCatchScope(
+		string $description,
+		string $expression,
+		string $evaluatedPointExpression
+	): void
+	{
+		foreach ([true, false] as $polluteCatchScopeWithTryAssignments) {
+			$this->polluteCatchScopeWithTryAssignments = $polluteCatchScopeWithTryAssignments;
+
+			try {
+				$this->assertTypes(
+					__DIR__ . '/data/try-catch-scope.php',
+					$description,
+					$expression,
+					[],
+					[],
+					[],
+					[],
+					$evaluatedPointExpression,
+					[],
+					false
+				);
+			} catch (\PHPUnit\Framework\ExpectationFailedException $e) {
+				throw new \PHPUnit\Framework\ExpectationFailedException(
+					sprintf(
+						'%s (polluteCatchScopeWithTryAssignments: %s)',
+						$e->getMessage(),
+						$polluteCatchScopeWithTryAssignments ? 'true' : 'false'
+					),
+					$e->getComparisonFailure()
+				);
+			}
+		}
+	}
+
 	private function assertTypes(
 		string $file,
 		string $description,
@@ -8914,7 +8979,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			$fileHelper,
 			$typeSpecifier,
 			true,
-			true,
+			$this->polluteCatchScopeWithTryAssignments,
 			true,
 			[
 				\EarlyTermination\Foo::class => [

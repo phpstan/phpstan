@@ -734,7 +734,6 @@ class NodeScopeResolver
 			// todo StatementResultTest
 			return new StatementResult($finalScope, $alwaysTerminating ? $alwaysTerminatingStatements : [], []);
 		} elseif ($stmt instanceof TryCatch) {
-			// todo polluteCatchScopeWithTryAssignments
 			$branchScopeResult = $this->processStmtNodes($stmt->stmts, $scope, $nodeCallback);
 			$branchScope = $branchScopeResult->getScope();
 			$tryScope = $branchScope;
@@ -754,26 +753,26 @@ class NodeScopeResolver
 
 			foreach ($stmt->catches as $catchNode) {
 				$nodeCallback($catchNode, $scope);
-
-				if ($this->polluteCatchScopeWithTryAssignments) {
-					$catchScope = $tryScope;
-				} else {
-					$catchScope = $scope->mergeWith($tryScope);
-				}
-
 				if (!is_string($catchNode->var->name)) {
 					throw new \PHPStan\ShouldNotHappenException();
 				}
 
-				$catchScope = $catchScope->enterCatch($catchNode->types, $catchNode->var->name);
-				$catchScopeResult = $this->processStmtNodes($catchNode->stmts, $catchScope, $nodeCallback);
-				$catchScope = $catchScopeResult->getScope();
-				$finalScope = $catchScopeResult->isAlwaysTerminating() ? $finalScope : $catchScope->mergeWith($finalScope);
+				if (!$this->polluteCatchScopeWithTryAssignments) {
+					$catchScopeResult = $this->processCatchNode($catchNode, $scope->mergeWith($tryScope), $nodeCallback);
+					$catchScopeForFinally = $catchScopeResult->getScope();
+				} else {
+					$catchScopeForFinally = $this->processCatchNode($catchNode, $tryScope, $nodeCallback)->getScope();
+					$catchScopeResult = $this->processCatchNode($catchNode, $scope->mergeWith($tryScope), static function (): void {
+					});
+				}
+
+				$finalScope = $catchScopeResult->isAlwaysTerminating() ? $finalScope : $catchScopeResult->getScope()->mergeWith($finalScope);
 				$alwaysTerminating = $alwaysTerminating && $catchScopeResult->isAlwaysTerminating();
+
 				if ($catchScopeResult->isAlwaysTerminating()) {
 					$alwaysTerminatingStatements = array_merge($alwaysTerminatingStatements, $catchScopeResult->getAlwaysTerminatingStatements());
 				}
-				$finallyScope = $finallyScope->mergeWith($catchScope);
+				$finallyScope = $finallyScope->mergeWith($catchScopeForFinally);
 				foreach ($catchScopeResult->getExitPoints() as $exitPoint) {
 					$finallyScope = $finallyScope->mergeWith($exitPoint->getScope());
 					$exitPoints[] = $exitPoint;
@@ -843,6 +842,26 @@ class NodeScopeResolver
 		}
 
 		return new StatementResult($scope, [], []);
+	}
+
+	/**
+	 * @param Node\Stmt\Catch_ $catchNode
+	 * @param Scope $catchScope
+	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
+	 * @return StatementResult
+	 */
+	private function processCatchNode(
+		Node\Stmt\Catch_ $catchNode,
+		Scope $catchScope,
+		\Closure $nodeCallback
+	): StatementResult
+	{
+		if (!is_string($catchNode->var->name)) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		$catchScope = $catchScope->enterCatch($catchNode->types, $catchNode->var->name);
+		return $this->processStmtNodes($catchNode->stmts, $catchScope, $nodeCallback);
 	}
 
 	private function lookForEnterVariableAssign(Scope $scope, Expr $expr): Scope
