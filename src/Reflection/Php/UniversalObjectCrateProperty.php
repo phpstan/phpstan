@@ -63,4 +63,9 @@ class UniversalObjectCrateProperty implements \PHPStan\Reflection\PropertyReflec
 		return true;
 	}
 
+	public function canChangeTypeAfterAssignment(): bool
+	{
+		return true;
+	}
+
 }

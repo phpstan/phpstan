@@ -75,6 +75,7 @@ use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
@@ -2162,12 +2163,47 @@ class NodeScopeResolver
 			$result = $processExprCallback($scope);
 			$hasYield = $result->hasYield();
 			$scope = $result->getScope();
-			$scope = $scope->specifyExpressionType($var, $scope->getType($assignedExpr));
+
+			/** @var ObjectType $propertyHolderType */
+			$propertyHolderType = $scope->getType($var->var);
+			$propertyName = null;
+			if ($var->name instanceof Node\Identifier) {
+				$propertyName = $var->name->name;
+			}
+			if ($propertyName !== null && $propertyHolderType->hasProperty($propertyName)->yes()) {
+				$propertyReflection = $propertyHolderType->getProperty($propertyName, $scope);
+				if ($propertyReflection->canChangeTypeAfterAssignment()) {
+					$scope = $scope->specifyExpressionType($var, $scope->getType($assignedExpr));
+				}
+			} else {
+				// fallback
+				$scope = $scope->specifyExpressionType($var, $scope->getType($assignedExpr));
+			}
+
 		} elseif ($var instanceof Expr\StaticPropertyFetch) {
 			$result = $processExprCallback($scope);
 			$hasYield = $result->hasYield();
 			$scope = $result->getScope();
-			$scope = $scope->specifyExpressionType($var, $scope->getType($assignedExpr));
+
+			if ($var->class instanceof \PhpParser\Node\Name) {
+				$propertyHolderType = new ObjectType($scope->resolveName($var->class));
+			} else {
+				/** @var ObjectType $propertyHolderType */
+				$propertyHolderType = $scope->getType($var->class);
+			}
+			$propertyName = null;
+			if ($var->name instanceof Node\Identifier) {
+				$propertyName = $var->name->name;
+			}
+			if ($propertyName !== null && $propertyHolderType->hasProperty($propertyName)->yes()) {
+				$propertyReflection = $propertyHolderType->getProperty($propertyName, $scope);
+				if ($propertyReflection->canChangeTypeAfterAssignment()) {
+					$scope = $scope->specifyExpressionType($var, $scope->getType($assignedExpr));
+				}
+			} else {
+				// fallback
+				$scope = $scope->specifyExpressionType($var, $scope->getType($assignedExpr));
+			}
 		}
 
 		return new ExpressionResult($scope, $hasYield);
