@@ -2428,24 +2428,6 @@ class Scope implements ClassMemberAccessAnswerer
 		);
 	}
 
-	public function enterFirstLevelStatements(): self
-	{
-		return $this->scopeFactory->create(
-			$this->context,
-			$this->isDeclareStrictTypes(),
-			$this->getFunction(),
-			$this->getNamespace(),
-			$this->getVariableTypes(),
-			$this->moreSpecificTypes,
-			$this->inClosureBindScopeClass,
-			$this->getAnonymousFunctionReturnType(),
-			$this->getInFunctionCall(),
-			$this->isNegated(),
-			true,
-			$this->currentlyAssignedExpressions
-		);
-	}
-
 	public function exitFirstLevelStatements(): self
 	{
 		return $this->scopeFactory->create(
