@@ -1050,13 +1050,16 @@ class NodeScopeResolver
 							$scope = $scope->enterExpressionAssign($expr->expr);
 						}
 
+						if ($expr->var instanceof Variable && is_string($expr->var->name)) {
+							$context = $context->enterRightSideAssign(
+								$expr->var->name,
+								$scope->getType($expr->expr)
+							);
+						}
+
 						if ($expr->expr instanceof Expr\Closure) {
-							$assignedVariable = null;
-							if ($expr->var instanceof Variable && is_string($expr->var->name)) {
-								$assignedVariable = $expr->var->name;
-							}
 							$nodeCallback($expr->expr, $scope);
-							$scope = $this->processClosureNode($expr->expr, $scope, $nodeCallback, $context->enterDeep(), $assignedVariable);
+							$scope = $this->processClosureNode($expr->expr, $scope, $nodeCallback, $context->enterDeep());
 						} else {
 							$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, $context->enterDeep())->getScope();
 						}
@@ -1317,7 +1320,7 @@ class NodeScopeResolver
 				$scope = $this->processExprNode($expr->name, $scope, $nodeCallback, $context->enterDeep())->getScope();
 			}
 		} elseif ($expr instanceof Expr\Closure) {
-			$scope = $this->processClosureNode($expr, $scope, $nodeCallback, $context, null);
+			$scope = $this->processClosureNode($expr, $scope, $nodeCallback, $context);
 		} elseif ($expr instanceof Expr\ClosureUse) {
 			$this->processExprNode($expr->var, $scope, $nodeCallback, $context)->getScope();
 		} elseif ($expr instanceof ErrorSuppress) {
@@ -1559,15 +1562,13 @@ class NodeScopeResolver
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
 	 * @param ExpressionContext $context
-	 * @param string $assignedVariable
 	 * @return \PHPStan\Analyser\Scope $scope
 	 */
 	private function processClosureNode(
 		Expr\Closure $expr,
 		Scope $scope,
 		\Closure $nodeCallback,
-		ExpressionContext $context,
-		?string $assignedVariable
+		ExpressionContext $context
 	): Scope
 	{
 		foreach ($expr->params as $param) {
@@ -1575,32 +1576,40 @@ class NodeScopeResolver
 		}
 
 		$byRefUses = [];
-		$assignSelf = false;
+
+		$useScope = $scope;
 		foreach ($expr->uses as $use) {
 			if ($use->byRef) {
 				$byRefUses[] = $use;
-				$scope = $scope->enterExpressionAssign($use->var);
+				$useScope = $useScope->enterExpressionAssign($use->var);
+
+				$inAssignRightSideVariableName = $context->getInAssignRightSideVariableName();
+				$inAssignRightSideType = $context->getInAssignRightSideType();
+				if (
+					$inAssignRightSideVariableName === $use->var->name
+					&& $inAssignRightSideType !== null
+				) {
+					$alreadyHasVariableType = $scope->hasVariableType($inAssignRightSideVariableName);
+					if ($alreadyHasVariableType->no()) {
+						$variableType = TypeCombinator::union(new NullType(), $inAssignRightSideType);
+					} else {
+						$variableType = TypeCombinator::union($scope->getVariableType($inAssignRightSideVariableName), $inAssignRightSideType);
+					}
+					$scope = $scope->assignVariable($inAssignRightSideVariableName, $variableType);
+				}
 			}
-			$this->processExprNode($use, $scope, $nodeCallback, $context);
+			$this->processExprNode($use, $useScope, $nodeCallback, $context);
 			if (!$use->byRef) {
 				continue;
 			}
 
-			$scope = $scope->exitExpressionAssign($use->var);
-			if ($assignedVariable !== $use->var->name) {
-				continue;
-			}
-
-			$assignSelf = true;
+			$useScope = $useScope->exitExpressionAssign($use->var);
 		}
 
 		if ($expr->returnType !== null) {
 			$nodeCallback($expr->returnType, $scope);
 		}
 
-		if ($assignedVariable !== null && $assignSelf) {
-			$scope = $scope->assignVariable($assignedVariable, $scope->getType($expr));
-		}
 		$closureScope = $scope->enterAnonymousFunction($expr);
 		$closureScope = $closureScope->processClosureScope($scope, null, $byRefUses);
 		if (count($byRefUses) === 0) {

@@ -7654,6 +7654,33 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataClosureWithUsePassedByReferenceInMethodCall(): array
+	{
+		return [
+			[
+				'int|null',
+				'$five',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataClosureWithUsePassedByReferenceInMethodCall
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testClosureWithUsePassedByReferenceInMethodCall(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/closure-passed-by-reference-in-call.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataClosureWithUsePassedByReferenceReturn(): array
 	{
 		return [
