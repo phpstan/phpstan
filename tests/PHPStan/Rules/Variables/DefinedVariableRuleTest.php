@@ -516,16 +516,20 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				true,
 				[
 					[
-						'Undefined variable: $val',
+						'Undefined variable: $key',
 						8,
 					],
 					[
-						'Undefined variable: $test',
+						'Undefined variable: $val',
 						9,
 					],
 					[
+						'Undefined variable: $test',
+						10,
+					],
+					[
 						'Variable $test might not be defined.',
-						31,
+						34,
 					],
 				],
 			],
@@ -533,28 +537,40 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				false,
 				[
 					[
-						'Undefined variable: $val',
+						'Undefined variable: $key',
 						8,
 					],
 					[
-						'Undefined variable: $test',
+						'Undefined variable: $val',
 						9,
 					],
 					[
-						'Variable $val might not be defined.',
-						18,
+						'Undefined variable: $test',
+						10,
 					],
 					[
-						'Variable $test might not be defined.',
+						'Variable $key might not be defined.',
 						19,
 					],
 					[
 						'Variable $val might not be defined.',
-						30,
+						20,
 					],
 					[
 						'Variable $test might not be defined.',
-						31,
+						21,
+					],
+					[
+						'Variable $key might not be defined.',
+						32,
+					],
+					[
+						'Variable $val might not be defined.',
+						33,
+					],
+					[
+						'Variable $test might not be defined.',
+						34,
 					],
 				],
 			],
