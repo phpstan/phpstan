@@ -2979,11 +2979,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'"$std bar"',
 			],
 			[
-				'array<\'foo\'|int|stdClass>',
+				'array<\'foo\'|int|stdClass>&nonEmpty',
 				'$arrToPush',
 			],
 			[
-				'array<\'foo\'|int|stdClass>',
+				'array<\'foo\'|int|stdClass>&nonEmpty',
 				'$arrToPush2',
 			],
 			[
@@ -2991,7 +2991,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$arrToUnshift',
 			],
 			[
-				'array<\'lorem\'|int|stdClass>',
+				'array<\'lorem\'|int|stdClass>&nonEmpty',
 				'$arrToUnshift2',
 			],
 			[
@@ -3161,6 +3161,22 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'array<int, 1|2|3>',
 				'$arrayToBeUnset',
+			],
+			[
+				'array',
+				'$shiftedNonEmptyArray',
+			],
+			[
+				'array&nonEmpty',
+				'$unshiftedArray',
+			],
+			[
+				'array',
+				'$poppedNonEmptyArray',
+			],
+			[
+				'array&nonEmpty',
+				'$pushedArray',
 			],
 		];
 	}
