@@ -125,6 +125,31 @@ class Foo
 		$arrToPop = [1, 2, 3];
 		array_pop($arrToPop);
 
+		/** @var array $shiftedNonEmptyArray */
+		$shiftedNonEmptyArray = doFoo();
+
+		if (count($shiftedNonEmptyArray) === 0) {
+			return;
+		}
+
+		array_shift($shiftedNonEmptyArray);
+
+		/** @var array $unshiftedArray */
+		$unshiftedArray = doFoo();
+		array_unshift($unshiftedArray, 1);
+
+		/** @var array $poppedNonEmptyArray */
+		$poppedNonEmptyArray = doFoo();
+		if (count($poppedNonEmptyArray) === 0) {
+			return;
+		}
+
+		array_pop($poppedNonEmptyArray);
+
+		/** @var array $pushedArray */
+		$pushedArray = doFoo();
+		array_push($pushedArray, 1);
+
 		die;
 	}
 

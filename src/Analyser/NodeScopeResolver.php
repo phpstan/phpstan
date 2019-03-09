@@ -53,6 +53,7 @@ use PHPStan\PhpDoc\Tag\ParamTag;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\ParametersAcceptorSelector;
+use PHPStan\Type\Accessory\NonEmptyArrayType;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\CommentHelper;
 use PHPStan\Type\Constant\ConstantArrayType;
@@ -1144,6 +1145,8 @@ class NodeScopeResolver
 						$arrayArg,
 						TypeCombinator::union(...$resultArrayTypes)
 					);
+				} else {
+					$scope = $scope->removeTypeFromExpression($arrayArg, new NonEmptyArrayType());
 				}
 			}
 
@@ -1182,7 +1185,7 @@ class NodeScopeResolver
 						$arrayType = $arrayType->setOffsetValueType(null, $argType);
 					}
 
-					$scope = $scope->specifyExpressionType($arrayArg, $arrayType);
+					$scope = $scope->specifyExpressionType($arrayArg, TypeCombinator::intersect($arrayType, new NonEmptyArrayType()));
 				} elseif (count($constantArrays) > 0) {
 					$defaultArrayBuilder = ConstantArrayTypeBuilder::createEmpty();
 					foreach ($argumentTypes as $argType) {

@@ -1713,8 +1713,8 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new NonEmptyArrayType(),
 				]),
 				new NonEmptyArrayType(),
-				NeverType::class,
-				'*NEVER*',
+				ArrayType::class,
+				'array',
 			],
 			[
 				new ArrayType(new MixedType(), new MixedType()),
