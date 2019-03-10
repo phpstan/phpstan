@@ -169,7 +169,6 @@ class NodeScopeResolver
 			$statementResult = $this->processStmtNode($node, $scope, $nodeCallback);
 			/*if ($statementResult->isAlwaysTerminating()) {
 				// todo virtual dead code node
-				// todo test various pollute* settings
 				//break;
 			}*/
 
@@ -498,9 +497,6 @@ class NodeScopeResolver
 		} elseif ($stmt instanceof While_) {
 			$condResult = $this->processExprNode($stmt->cond, $scope, static function (): void {
 			}, ExpressionContext::createDeep());
-			//TODO if (!$condScope->equals($scope)) {
-			//	$condScope = $condScope->generalizeWith($scope);
-			//}
 			$bodyScope = $condResult->getTruthyScope();
 			$count = 0;
 			do {
@@ -731,7 +727,6 @@ class NodeScopeResolver
 				$finalScope = $scope->mergeWith($finalScope);
 			}
 
-			// todo
 			// todo StatementResultTest
 			return new StatementResult($finalScope, $alwaysTerminating ? $alwaysTerminatingStatements : [], []);
 		} elseif ($stmt instanceof TryCatch) {
@@ -745,10 +740,16 @@ class NodeScopeResolver
 			if ($branchScopeResult->isAlwaysTerminating()) {
 				$alwaysTerminatingStatements = array_merge($alwaysTerminatingStatements, $branchScopeResult->getAlwaysTerminatingStatements());
 			}
-			// todo process finallyScope only if the block exists
-			$finallyScope = $branchScope;
+
+			if ($stmt->finally !== null) {
+				$finallyScope = $branchScope;
+			} else {
+				$finallyScope = null;
+			}
 			foreach ($branchScopeResult->getExitPoints() as $exitPoint) {
-				$finallyScope = $finallyScope->mergeWith($exitPoint->getScope());
+				if ($finallyScope !== null) {
+					$finallyScope = $finallyScope->mergeWith($exitPoint->getScope());
+				}
 				$exitPoints[] = $exitPoint;
 			}
 
@@ -773,9 +774,14 @@ class NodeScopeResolver
 				if ($catchScopeResult->isAlwaysTerminating()) {
 					$alwaysTerminatingStatements = array_merge($alwaysTerminatingStatements, $catchScopeResult->getAlwaysTerminatingStatements());
 				}
-				$finallyScope = $finallyScope->mergeWith($catchScopeForFinally);
+
+				if ($finallyScope !== null) {
+					$finallyScope = $finallyScope->mergeWith($catchScopeForFinally);
+				}
 				foreach ($catchScopeResult->getExitPoints() as $exitPoint) {
-					$finallyScope = $finallyScope->mergeWith($exitPoint->getScope());
+					if ($finallyScope !== null) {
+						$finallyScope = $finallyScope->mergeWith($exitPoint->getScope());
+					}
 					$exitPoints[] = $exitPoint;
 				}
 			}
@@ -784,7 +790,7 @@ class NodeScopeResolver
 				$finalScope = $scope;
 			}
 
-			if ($stmt->finally !== null) {
+			if ($finallyScope !== null && $stmt->finally !== null) {
 				$originalFinallyScope = $finallyScope;
 				$finallyResult = $this->processStmtNodes($stmt->finally->stmts, $finallyScope, $nodeCallback);
 				$finallyScope = $finallyResult->getScope();
