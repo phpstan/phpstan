@@ -2740,6 +2740,7 @@ class Scope implements ClassMemberAccessAnswerer
 		$constantBooleans = ['a' => [], 'b' => []];
 		$constantStrings = ['a' => [], 'b' => []];
 		$constantArrays = ['a' => [], 'b' => []];
+		$generalArrays = ['a' => [], 'b' => []];
 		$otherTypes = [];
 
 		foreach ([
@@ -2765,6 +2766,10 @@ class Scope implements ClassMemberAccessAnswerer
 				}
 				if ($type instanceof ConstantArrayType) {
 					$constantArrays[$key][] = $type;
+					continue;
+				}
+				if ($type instanceof ArrayType) {
+					$generalArrays[$key][] = $type;
 					continue;
 				}
 
@@ -2822,6 +2827,19 @@ class Scope implements ClassMemberAccessAnswerer
 						TypeCombinator::union(self::generalizeType($constantArraysA->getIterableValueType(), $constantArraysB->getIterableValueType()))
 					);
 				}
+			}
+		}
+
+		if (count($generalArrays['a']) > 0) {
+			if (count($generalArrays['b']) === 0) {
+				$resultTypes[] = TypeCombinator::union(...$generalArrays['a']);
+			} else {
+				$generalArraysA = TypeCombinator::union(...$generalArrays['a']);
+				$generalArraysB = TypeCombinator::union(...$generalArrays['b']);
+				$resultTypes[] = new ArrayType(
+					TypeCombinator::union(self::generalizeType($generalArraysA->getIterableKeyType(), $generalArraysB->getIterableKeyType())),
+					TypeCombinator::union(self::generalizeType($generalArraysA->getIterableValueType(), $generalArraysB->getIterableValueType()))
+				);
 			}
 		}
 

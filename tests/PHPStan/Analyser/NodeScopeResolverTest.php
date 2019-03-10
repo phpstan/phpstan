@@ -8860,6 +8860,33 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataGeneralizeScope(): array
+	{
+		return [
+			[
+				"array<int|string, array<int|string, array('hitCount' => int, 'loadCount' => int, 'removeCount' => int, 'saveCount' => int)>>",
+				'$statistics',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataGeneralizeScope
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testGeneralizeScope(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/generalize-scope.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataTryCatchScope(): array
 	{
 		return [
