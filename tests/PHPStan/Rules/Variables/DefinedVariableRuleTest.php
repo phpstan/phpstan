@@ -531,6 +531,22 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 						'Variable $test might not be defined.',
 						34,
 					],
+					[
+						'Variable $key might not be defined.',
+						47,
+					],
+					[
+						'Variable $test might not be defined.',
+						48,
+					],
+					[
+						'Variable $key might not be defined.',
+						61,
+					],
+					[
+						'Variable $test might not be defined.',
+						62,
+					],
 				],
 			],
 			[
@@ -571,6 +587,30 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 					[
 						'Variable $test might not be defined.',
 						34,
+					],
+					[
+						'Variable $key might not be defined.',
+						47,
+					],
+					[
+						'Variable $test might not be defined.',
+						48,
+					],
+					[
+						'Variable $key might not be defined.',
+						61,
+					],
+					[
+						'Variable $test might not be defined.',
+						62,
+					],
+					[
+						'Variable $key might not be defined.',
+						75,
+					],
+					[
+						'Variable $test might not be defined.',
+						76,
 					],
 				],
 			],

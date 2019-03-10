@@ -2650,7 +2650,10 @@ class Scope implements ClassMemberAccessAnswerer
 				continue;
 			}
 
-			$variableTypeHolders[$name] = $variableTypeHolder;
+			$variableTypeHolders[$name] = new VariableTypeHolder(
+				$variableTypeHolder->getType(),
+				$variableTypeHolder->getCertainty()->and($variableTypeHolders[$name]->getCertainty())
+			);
 		}
 
 		$moreSpecificTypes = $this->moreSpecificTypes;
@@ -2660,7 +2663,10 @@ class Scope implements ClassMemberAccessAnswerer
 				continue;
 			}
 
-			$moreSpecificTypes[$exprString] = $variableTypeHolder;
+			$moreSpecificTypes[$exprString] = new VariableTypeHolder(
+				$variableTypeHolder->getType(),
+				$variableTypeHolder->getCertainty()->and($moreSpecificTypes[$exprString]->getCertainty())
+			);
 		}
 
 		return $this->scopeFactory->create(
