@@ -120,7 +120,7 @@ class Scope implements ClassMemberAccessAnswerer
 	/** @var bool */
 	private $inFirstLevelStatement;
 
-	/** @var string[] */
+	/** @var array<string, true> */
 	private $currentlyAssignedExpressions = [];
 
 	/** @var string[] */
@@ -142,7 +142,7 @@ class Scope implements ClassMemberAccessAnswerer
 	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null $inFunctionCall
 	 * @param bool $negated
 	 * @param bool $inFirstLevelStatement
-	 * @param string[] $currentlyAssignedExpressions
+	 * @param array<string, true> $currentlyAssignedExpressions
 	 * @param string[] $dynamicConstantNames
 	 */
 	public function __construct(
@@ -2148,8 +2148,9 @@ class Scope implements ClassMemberAccessAnswerer
 
 	public function enterExpressionAssign(Expr $expr): self
 	{
+		$exprString = $this->printer->prettyPrintExpr($expr);
 		$currentlyAssignedExpressions = $this->currentlyAssignedExpressions;
-		$currentlyAssignedExpressions[] = $this->printer->prettyPrintExpr($expr);
+		$currentlyAssignedExpressions[$exprString] = true;
 
 		return $this->scopeFactory->create(
 			$this->context,
@@ -2169,11 +2170,9 @@ class Scope implements ClassMemberAccessAnswerer
 
 	public function exitExpressionAssign(Expr $expr): self
 	{
-		// todo rework with array keys
 		$exprString = $this->printer->prettyPrintExpr($expr);
-		$currentlyAssignedExpressions = array_values(array_filter($this->currentlyAssignedExpressions, static function (string $evaluatedExprString) use ($exprString): bool {
-			return $evaluatedExprString !== $exprString;
-		}));
+		$currentlyAssignedExpressions = $this->currentlyAssignedExpressions;
+		unset($currentlyAssignedExpressions[$exprString]);
 
 		return $this->scopeFactory->create(
 			$this->context,
@@ -2194,7 +2193,7 @@ class Scope implements ClassMemberAccessAnswerer
 	public function isInExpressionAssign(Expr $expr): bool
 	{
 		$exprString = $this->printer->prettyPrintExpr($expr);
-		return in_array($exprString, $this->currentlyAssignedExpressions, true);
+		return array_key_exists($exprString, $this->currentlyAssignedExpressions);
 	}
 
 	public function assignVariable(string $variableName, Type $type): self

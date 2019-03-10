@@ -51,7 +51,7 @@ class ScopeFactory
 	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null $inFunctionCall
 	 * @param bool $negated
 	 * @param bool $inFirstLevelStatement
-	 * @param string[] $currentlyAssignedExpressions
+	 * @param array<string, true> $currentlyAssignedExpressions
 	 *
 	 * @return Scope
 	 */
