@@ -54,6 +54,15 @@ class TypeUtils
 		return self::map(ConstantType::class, $type, false, false);
 	}
 
+	/**
+	 * @param \PHPStan\Type\Type $type
+	 * @return \PHPStan\Type\ArrayType[]
+	 */
+	public static function getAnyArrays(Type $type): array
+	{
+		return self::map(ArrayType::class, $type, true, false);
+	}
+
 	public static function generalizeType(Type $type): Type
 	{
 		if ($type instanceof ConstantType) {

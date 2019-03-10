@@ -2836,14 +2836,53 @@ class Scope implements ClassMemberAccessAnswerer
 			} else {
 				$generalArraysA = TypeCombinator::union(...$generalArrays['a']);
 				$generalArraysB = TypeCombinator::union(...$generalArrays['b']);
+
+				$aValueType = $generalArraysA->getIterableValueType();
+				$bValueType = $generalArraysB->getIterableValueType();
+				$aArrays = TypeUtils::getAnyArrays($aValueType);
+				$bArrays = TypeUtils::getAnyArrays($bValueType);
+				if (
+					count($aArrays) === 1
+					&& !$aArrays[0] instanceof ConstantArrayType
+					&& count($bArrays) === 1
+					&& !$bArrays[0] instanceof ConstantArrayType
+				) {
+					$aDepth = $this->getArrayDepth($aArrays[0]);
+					$bDepth = $this->getArrayDepth($bArrays[0]);
+					if (
+						($aDepth > 2 || $bDepth > 2)
+						&& abs($aDepth - $bDepth) > 0
+					) {
+						$aValueType = new MixedType();
+						$bValueType = new MixedType();
+					}
+				}
+
 				$resultTypes[] = new ArrayType(
 					TypeCombinator::union(self::generalizeType($generalArraysA->getIterableKeyType(), $generalArraysB->getIterableKeyType())),
-					TypeCombinator::union(self::generalizeType($generalArraysA->getIterableValueType(), $generalArraysB->getIterableValueType()))
+					TypeCombinator::union(self::generalizeType($aValueType, $bValueType))
 				);
 			}
 		}
 
 		return TypeCombinator::union(...$resultTypes, ...$otherTypes);
+	}
+
+	private function getArrayDepth(ArrayType $type): int
+	{
+		$depth = 0;
+		while ($type instanceof ArrayType) {
+			$temp = $type->getIterableValueType();
+			$arrays = TypeUtils::getAnyArrays($temp);
+			if (count($arrays) === 1) {
+				$type = $arrays[0];
+			} else {
+				$type = $temp;
+			}
+			$depth++;
+		}
+
+		return $depth;
 	}
 
 	public function equals(self $otherScope): bool

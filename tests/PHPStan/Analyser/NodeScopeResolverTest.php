@@ -8887,6 +8887,33 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataGeneralizeScopeRecursiveType(): array
+	{
+		return [
+			[
+				'array()|array(\'foo\' => array<int|string, array>)',
+				'$data',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataGeneralizeScopeRecursiveType
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testGeneralizeScopeRecursiveType(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/generalize-scope-recursive.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataTryCatchScope(): array
 	{
 		return [
