@@ -727,7 +727,6 @@ class NodeScopeResolver
 				$finalScope = $scope->mergeWith($finalScope);
 			}
 
-			// todo StatementResultTest
 			return new StatementResult($finalScope, $alwaysTerminating ? $alwaysTerminatingStatements : [], []);
 		} elseif ($stmt instanceof TryCatch) {
 			$branchScopeResult = $this->processStmtNodes($stmt->stmts, $scope, $nodeCallback);
@@ -800,7 +799,6 @@ class NodeScopeResolver
 				}
 			}
 
-			// todo StatementResultTest
 			return new StatementResult($finalScope, $alwaysTerminating ? $alwaysTerminatingStatements : [], $exitPoints);
 		} elseif ($stmt instanceof Unset_) {
 			foreach ($stmt->vars as $var) {

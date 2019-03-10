@@ -95,6 +95,90 @@ class StatementResultTest extends \PHPStan\Testing\TestCase
 				'foreach ($x as $v) { if (doFoo()) { if (doBar()) { return; } else { break; } } else { break; } }',
 				false,
 			],
+			[
+				'switch ($x) { case 1: return; default: return; }',
+				true,
+			],
+			[
+				'switch ($x) { case 1: return; }',
+				false,
+			],
+			[
+				'switch ($x) { case 1: if (doFoo()) return; default: return; }',
+				false,
+			],
+			[
+				'switch ($x) { case 1: break; default: return; }',
+				false,
+			],
+			[
+				'switch ($x) { case 1: if (doFoo()) { break; } else { break; }; default: return; }',
+				false,
+			],
+			[
+				'switch ($x) { case 1: if (doFoo()) { return; } else { break; }; default: return; }',
+				false,
+			],
+			[
+				'try { return; } finally { }',
+				true,
+			],
+			[
+				'try { return; } catch (Exception $e) { return; }',
+				true,
+			],
+			[
+				'try { return; } catch (Exception $e) { }',
+				false,
+			],
+			[
+				'try { break; } catch (Exception $e) { break; }',
+				true,
+			],
+			[
+				'try { break; } catch (Exception $e) { break; } catch (OtherException $e) { return; }',
+				true,
+			],
+			[
+				'try { break; } catch (Exception $e) { break; } catch (OtherException $e) { }',
+				false,
+			],
+			[
+				'while (doFoo()) { }',
+				false,
+			],
+			[
+				'while (doFoo()) { return; }',
+				true,
+			],
+			[
+				'while (doFoo()) { break; }',
+				false,
+			],
+			[
+				'do { } while (doFoo());',
+				false,
+			],
+			[
+				'do { return; } while (doFoo());',
+				true,
+			],
+			[
+				'do { break; } while (doFoo());',
+				false,
+			],
+			[
+				'for ($i = 0; $i < 5; $i++) { }',
+				false,
+			],
+			[
+				'for ($i = 0; $i < 5; $i++) { break; }',
+				false,
+			],
+			[
+				'for ($i = 0; $i < 5; $i++) { return; }',
+				true,
+			],
 		];
 	}
 
