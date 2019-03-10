@@ -54,6 +54,7 @@ use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\ClosureType;
 use PHPStan\Type\CommentHelper;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantArrayTypeBuilder;
@@ -1589,11 +1590,15 @@ class NodeScopeResolver
 					$inAssignRightSideVariableName === $use->var->name
 					&& $inAssignRightSideType !== null
 				) {
-					$alreadyHasVariableType = $scope->hasVariableType($inAssignRightSideVariableName);
-					if ($alreadyHasVariableType->no()) {
-						$variableType = TypeCombinator::union(new NullType(), $inAssignRightSideType);
+					if ($inAssignRightSideType instanceof ClosureType) {
+						$variableType = $inAssignRightSideType;
 					} else {
-						$variableType = TypeCombinator::union($scope->getVariableType($inAssignRightSideVariableName), $inAssignRightSideType);
+						$alreadyHasVariableType = $scope->hasVariableType($inAssignRightSideVariableName);
+						if ($alreadyHasVariableType->no()) {
+							$variableType = TypeCombinator::union(new NullType(), $inAssignRightSideType);
+						} else {
+							$variableType = TypeCombinator::union($scope->getVariableType($inAssignRightSideVariableName), $inAssignRightSideType);
+						}
 					}
 					$scope = $scope->assignVariable($inAssignRightSideVariableName, $variableType);
 				}
