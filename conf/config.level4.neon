@@ -12,6 +12,14 @@ rules:
 	- PHPStan\Rules\Comparison\UnreachableIfBranchesRule
 	- PHPStan\Rules\Comparison\UnreachableTernaryElseBranchRule
 
+parameters:
+	featureToggles:
+		deadCatchesRule: false
+
+conditionalTags:
+	PHPStan\Rules\Exceptions\DeadCatchRule:
+		phpstan.rules.rule: %featureToggles.deadCatchesRule%
+
 services:
 	-
 		class: PHPStan\Rules\Classes\ImpossibleInstanceOfRule
@@ -47,3 +55,6 @@ services:
 			checkAlwaysTrueStrictComparison: %checkAlwaysTrueStrictComparison%
 		tags:
 			- phpstan.rules.rule
+
+	-
+		class: PHPStan\Rules\Exceptions\DeadCatchRule
