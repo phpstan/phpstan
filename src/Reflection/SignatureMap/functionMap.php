@@ -6428,7 +6428,7 @@ return [
 'Memcached::fetchAll' => ['array'],
 'Memcached::flush' => ['bool', 'delay='=>'int'],
 'Memcached::get' => ['mixed', 'key'=>'string', 'cache_cb='=>'?callable', 'flags='=>'int'],
-'Memcached::getAllKeys' => ['array'],
+'Memcached::getAllKeys' => ['array|false'],
 'Memcached::getByKey' => ['mixed', 'server_key'=>'string', 'key'=>'string', 'value_cb='=>'?callable', 'flags='=>'int'],
 'Memcached::getDelayed' => ['bool', 'keys'=>'array', 'with_cas='=>'bool', 'value_cb='=>'callable'],
 'Memcached::getDelayedByKey' => ['bool', 'server_key'=>'string', 'keys'=>'array', 'with_cas='=>'bool', 'value_cb='=>'?callable'],
