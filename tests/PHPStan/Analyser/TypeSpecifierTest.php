@@ -756,6 +756,54 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					'$notFalseBar' => '~Bar',
 				],
 			],
+			[
+				new Expr\BinaryOp\BooleanOr(
+					new FuncCall(new Name('array_key_exists'), [
+						new Arg(new String_('foo')),
+						new Arg(new Variable('array')),
+					]),
+					new FuncCall(new Name('array_key_exists'), [
+						new Arg(new String_('bar')),
+						new Arg(new Variable('array')),
+					])
+				),
+				[
+					'$array' => 'array',
+				],
+				[
+					'$array' => '~hasOffset(\'bar\')|hasOffset(\'foo\')',
+				],
+			],
+			[
+				new BooleanNot(new Expr\BinaryOp\BooleanOr(
+					new FuncCall(new Name('array_key_exists'), [
+						new Arg(new String_('foo')),
+						new Arg(new Variable('array')),
+					]),
+					new FuncCall(new Name('array_key_exists'), [
+						new Arg(new String_('bar')),
+						new Arg(new Variable('array')),
+					])
+				)),
+				[
+					'$array' => '~hasOffset(\'bar\')|hasOffset(\'foo\')',
+				],
+				[
+					'$array' => 'array',
+				],
+			],
+			[
+				new FuncCall(new Name('array_key_exists'), [
+					new Arg(new String_('foo')),
+					new Arg(new Variable('array')),
+				]),
+				[
+					'$array' => 'array&hasOffset(\'foo\')',
+				],
+				[
+					'$array' => '~hasOffset(\'foo\')',
+				],
+			],
 		];
 	}
 

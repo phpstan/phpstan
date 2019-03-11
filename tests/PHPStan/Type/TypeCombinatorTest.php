@@ -1465,6 +1465,20 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				NeverType::class,
 				'*NEVER*',
 			],
+			[
+				[
+					new IntersectionType([
+						new ArrayType(new MixedType(), new MixedType()),
+						new HasOffsetType(new ConstantStringType('foo')),
+					]),
+					new IntersectionType([
+						new ArrayType(new MixedType(), new MixedType()),
+						new HasOffsetType(new ConstantStringType('bar')),
+					]),
+				],
+				IntersectionType::class,
+				'array&hasOffset(\'bar\')&hasOffset(\'foo\')',
+			],
 		];
 	}
 
@@ -1721,6 +1735,15 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				new NonEmptyArrayType(),
 				ConstantArrayType::class,
 				'array()',
+			],
+			[
+				new ArrayType(new MixedType(), new MixedType()),
+				new IntersectionType([
+					new ArrayType(new MixedType(), new MixedType()),
+					new HasOffsetType(new ConstantStringType('foo')),
+				]),
+				ArrayType::class,
+				'array',
 			],
 		];
 	}

@@ -46,12 +46,18 @@ class ArrayKeyExistsFunctionTypeSpecifyingExtension implements FunctionTypeSpeci
 	{
 		$keyType = $scope->getType($node->args[0]->value);
 
-		return $this->typeSpecifier->create(
-			$node->args[1]->value,
-			TypeCombinator::intersect(
+		if ($context->truthy()) {
+			$type = TypeCombinator::intersect(
 				new ArrayType(new MixedType(), new MixedType()),
 				new HasOffsetType($keyType)
-			),
+			);
+		} else {
+			$type = new HasOffsetType($keyType);
+		}
+
+		return $this->typeSpecifier->create(
+			$node->args[1]->value,
+			$type,
 			$context
 		);
 	}
