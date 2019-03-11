@@ -10,25 +10,25 @@ class StatementResult
 	/** @var Scope */
 	private $scope;
 
-	/** @var Stmt[] */
-	private $alwaysTerminatingStatements;
+	/** @var bool */
+	private $isAlwaysTerminating;
 
 	/** @var StatementExitPoint[] */
 	private $exitPoints;
 
 	/**
 	 * @param Scope $scope
-	 * @param Stmt[] $alwaysTerminatingStatements
+	 * @param bool $isAlwaysTerminating
 	 * @param StatementExitPoint[] $exitPoints
 	 */
 	public function __construct(
 		Scope $scope,
-		array $alwaysTerminatingStatements,
+		bool $isAlwaysTerminating,
 		array $exitPoints
 	)
 	{
 		$this->scope = $scope;
-		$this->alwaysTerminatingStatements = $alwaysTerminatingStatements;
+		$this->isAlwaysTerminating = $isAlwaysTerminating;
 		$this->exitPoints = $exitPoints;
 	}
 
@@ -37,25 +37,22 @@ class StatementResult
 		return $this->scope;
 	}
 
-	/**
-	 * @return Stmt[]
-	 */
-	public function getAlwaysTerminatingStatements(): array
+	public function isAlwaysTerminating(): bool
 	{
-		return $this->alwaysTerminatingStatements;
+		return $this->isAlwaysTerminating;
 	}
 
-	public function areAllAlwaysTerminatingStatementsLoopTerminationStatements(): bool
+	public function areAllExitPointsLoopTerminationStatements(): bool
 	{
-		if (count($this->alwaysTerminatingStatements) === 0) {
+		if (count($this->exitPoints) === 0) {
 			return false;
 		}
 
-		foreach ($this->alwaysTerminatingStatements as $statement) {
-			if ($statement instanceof Stmt\Break_) {
+		foreach ($this->exitPoints as $exitPoint) {
+			if ($exitPoint->getStatement() instanceof Stmt\Break_) {
 				continue;
 			}
-			if ($statement instanceof Stmt\Continue_) {
+			if ($exitPoint->getStatement() instanceof Stmt\Continue_) {
 				continue;
 			}
 
@@ -65,16 +62,19 @@ class StatementResult
 		return true;
 	}
 
-	public function isAlwaysTerminating(): bool
+	public function filterOutLoopExitPoints(): self
 	{
-		return count($this->alwaysTerminatingStatements) > 0;
-	}
+		if (!$this->isAlwaysTerminating) {
+			return $this;
+		}
 
-	public function filterOutLoopTerminationStatements(): self
-	{
-		foreach ($this->alwaysTerminatingStatements as $statement) {
-			if ($statement instanceof Stmt\Break_ || $statement instanceof Stmt\Continue_) {
-				return new self($this->scope, [], $this->exitPoints);
+		foreach ($this->exitPoints as $exitPoint) {
+			$statement = $exitPoint->getStatement();
+			if (
+				$statement instanceof Stmt\Break_
+				|| $statement instanceof Stmt\Continue_
+			) {
+				return new self($this->scope, false, $this->exitPoints);
 			}
 		}
 

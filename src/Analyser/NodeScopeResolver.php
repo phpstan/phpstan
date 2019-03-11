@@ -189,22 +189,26 @@ class NodeScopeResolver
 	): StatementResult
 	{
 		$exitPoints = [];
-		$alwaysTerminatingStatements = [];
 		$alreadyTerminated = false;
 		foreach ($stmts as $stmt) {
 			$statementResult = $this->processStmtNode($stmt, $scope, $nodeCallback);
-			$exitPoints = array_merge($exitPoints, $statementResult->getExitPoints());
+			$scope = $statementResult->getScope();
 
-			if ($statementResult->isAlwaysTerminating() && !$alreadyTerminated) {
-				$alwaysTerminatingStatements = array_merge($alwaysTerminatingStatements, $statementResult->getAlwaysTerminatingStatements());
-				$alreadyTerminated = true;
-				// todo break;
+			if ($alreadyTerminated) {
+				continue;
 			}
 
-			$scope = $statementResult->getScope();
+			$exitPoints = array_merge($exitPoints, $statementResult->getExitPoints());
+
+			if (!$statementResult->isAlwaysTerminating()) {
+				continue;
+			}
+
+			$alreadyTerminated = true;
+			// todo break
 		}
 
-		return new StatementResult($scope, $alwaysTerminatingStatements, $exitPoints);
+		return new StatementResult($scope, $alreadyTerminated, $exitPoints);
 	}
 
 	/**
@@ -291,7 +295,7 @@ class NodeScopeResolver
 				$scope = $this->processExprNode($stmt->expr, $scope, $nodeCallback, ExpressionContext::createDeep())->getScope();
 			}
 
-			return new StatementResult($scope, [$stmt], [
+			return new StatementResult($scope, true, [
 				new StatementExitPoint($stmt, $scope),
 			]);
 		} elseif ($stmt instanceof Continue_) {
@@ -299,7 +303,7 @@ class NodeScopeResolver
 				$scope = $this->processExprNode($stmt->num, $scope, $nodeCallback, ExpressionContext::createDeep())->getScope();
 			}
 
-			return new StatementResult($scope, [$stmt], [
+			return new StatementResult($scope, true, [
 				new StatementExitPoint($stmt, $scope),
 			]);
 		} elseif ($stmt instanceof Break_) {
@@ -307,7 +311,7 @@ class NodeScopeResolver
 				$scope = $this->processExprNode($stmt->num, $scope, $nodeCallback, ExpressionContext::createDeep())->getScope();
 			}
 
-			return new StatementResult($scope, [$stmt], [
+			return new StatementResult($scope, true, [
 				new StatementExitPoint($stmt, $scope),
 			]);
 		} elseif ($stmt instanceof Node\Stmt\Expression) {
@@ -319,7 +323,7 @@ class NodeScopeResolver
 				TypeSpecifierContext::createNull()
 			));
 			if ($earlyTerminationExpr !== null) {
-				return new StatementResult($scope, [$stmt], [
+				return new StatementResult($scope, true, [
 					new StatementExitPoint($stmt, $scope),
 				]);
 			}
@@ -330,7 +334,7 @@ class NodeScopeResolver
 
 			$scope = $this->processStmtNodes($stmt->stmts, $scope, $nodeCallback)->getScope();
 		} elseif ($stmt instanceof Node\Stmt\Trait_) {
-			return new StatementResult($scope, [], []);
+			return new StatementResult($scope, false, []);
 		} elseif ($stmt instanceof Node\Stmt\ClassLike) {
 			if (isset($stmt->namespacedName)) {
 				$classScope = $scope->enterClass($this->broker->getClass((string) $stmt->namespacedName));
@@ -354,7 +358,7 @@ class NodeScopeResolver
 			}
 		} elseif ($stmt instanceof Throw_) {
 			$scope = $this->processExprNode($stmt->expr, $scope, $nodeCallback, ExpressionContext::createDeep())->getScope();
-			return new StatementResult($scope, [$stmt], [
+			return new StatementResult($scope, true, [
 				new StatementExitPoint($stmt, $scope),
 			]);
 		} elseif ($stmt instanceof If_) {
@@ -363,7 +367,6 @@ class NodeScopeResolver
 			$condResult = $this->processExprNode($stmt->cond, $scope, $nodeCallback, ExpressionContext::createDeep());
 			$exitPoints = [];
 			$finalScope = null;
-			$alwaysTerminatingStatements = [];
 			$alwaysTerminating = true;
 
 			$branchScopeStatementResult = $this->processStmtNodes($stmt->stmts, $condResult->getTruthyScope(), $nodeCallback);
@@ -373,9 +376,6 @@ class NodeScopeResolver
 				$branchScope = $branchScopeStatementResult->getScope();
 				$finalScope = $branchScopeStatementResult->isAlwaysTerminating() ? null : $branchScope;
 				$alwaysTerminating = $branchScopeStatementResult->isAlwaysTerminating();
-				if ($branchScopeStatementResult->isAlwaysTerminating()) {
-					$alwaysTerminatingStatements = array_merge($alwaysTerminatingStatements, $branchScopeStatementResult->getAlwaysTerminatingStatements());
-				}
 			}
 
 			$scope = $condResult->getFalseyScope();
@@ -403,9 +403,6 @@ class NodeScopeResolver
 					$branchScope = $branchScopeStatementResult->getScope();
 					$finalScope = $branchScopeStatementResult->isAlwaysTerminating() ? $finalScope : $branchScope->mergeWith($finalScope);
 					$alwaysTerminating = $alwaysTerminating && $branchScopeStatementResult->isAlwaysTerminating();
-					if ($branchScopeStatementResult->isAlwaysTerminating()) {
-						$alwaysTerminatingStatements = array_merge($alwaysTerminatingStatements, $branchScopeStatementResult->getAlwaysTerminatingStatements());
-					}
 				}
 
 				if (
@@ -433,9 +430,6 @@ class NodeScopeResolver
 					$branchScope = $branchScopeStatementResult->getScope();
 					$finalScope = $branchScopeStatementResult->isAlwaysTerminating() ? $finalScope : $branchScope->mergeWith($finalScope);
 					$alwaysTerminating = $alwaysTerminating && $branchScopeStatementResult->isAlwaysTerminating();
-					if ($branchScopeStatementResult->isAlwaysTerminating()) {
-						$alwaysTerminatingStatements = array_merge($alwaysTerminatingStatements, $branchScopeStatementResult->getAlwaysTerminatingStatements());
-					}
 				}
 			}
 
@@ -443,7 +437,7 @@ class NodeScopeResolver
 				$finalScope = $scope;
 			}
 
-			return new StatementResult($finalScope, $alwaysTerminating ? $alwaysTerminatingStatements : [], $exitPoints);
+			return new StatementResult($finalScope, $alwaysTerminating, $exitPoints);
 		} elseif ($stmt instanceof Node\Stmt\TraitUse) {
 			$this->processTraitUse($stmt, $scope, $nodeCallback);
 		} elseif ($stmt instanceof Foreach_) {
@@ -455,7 +449,7 @@ class NodeScopeResolver
 				$bodyScope = $bodyScope->mergeWith($scope);
 				$bodyScope = $this->enterForeach($bodyScope, $stmt);
 				$bodyScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, static function (): void {
-				})->filterOutLoopTerminationStatements();
+				})->filterOutLoopExitPoints();
 				$alwaysTerminating = $bodyScopeResult->isAlwaysTerminating();
 				$bodyScope = $bodyScopeResult->getScope();
 				foreach ($bodyScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
@@ -473,8 +467,7 @@ class NodeScopeResolver
 
 			$bodyScope = $bodyScope->mergeWith($scope);
 			$bodyScope = $this->enterForeach($bodyScope, $stmt);
-			$finalScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, $nodeCallback)->filterOutLoopTerminationStatements();
-			$alwaysTerminatingStatements = $finalScopeResult->getAlwaysTerminatingStatements();
+			$finalScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, $nodeCallback)->filterOutLoopExitPoints();
 			$finalScope = $finalScopeResult->getScope();
 			foreach ($finalScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
 				$finalScope = $continueExitPoint->getScope()->mergeWith($finalScope);
@@ -493,7 +486,7 @@ class NodeScopeResolver
 				// get types from finalScope, but don't create new variables
 			}
 
-			return new StatementResult($finalScope, $alwaysTerminating ? $alwaysTerminatingStatements : [], []);
+			return new StatementResult($finalScope, $finalScopeResult->isAlwaysTerminating(), []);
 		} elseif ($stmt instanceof While_) {
 			$condResult = $this->processExprNode($stmt->cond, $scope, static function (): void {
 			}, ExpressionContext::createDeep());
@@ -505,9 +498,8 @@ class NodeScopeResolver
 				$bodyScope = $this->processExprNode($stmt->cond, $bodyScope, static function (): void {
 				}, ExpressionContext::createDeep())->getTruthyScope();
 				$bodyScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, static function (): void {
-				})->filterOutLoopTerminationStatements();
+				})->filterOutLoopExitPoints();
 				$alwaysTerminating = $bodyScopeResult->isAlwaysTerminating();
-				$alwaysTerminatingStatements = $bodyScopeResult->getAlwaysTerminatingStatements();
 				$bodyScope = $bodyScopeResult->getScope();
 				foreach ($bodyScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
 					$bodyScope = $bodyScope->mergeWith($continueExitPoint->getScope());
@@ -524,7 +516,7 @@ class NodeScopeResolver
 
 			$bodyScope = $bodyScope->mergeWith($scope);
 			$bodyScope = $this->processExprNode($stmt->cond, $bodyScope, $nodeCallback, ExpressionContext::createDeep())->getTruthyScope();
-			$finalScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, $nodeCallback);
+			$finalScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, $nodeCallback)->filterOutLoopExitPoints();
 			$finalScope = $finalScopeResult->getScope();
 			foreach ($finalScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
 				$finalScope = $finalScope->mergeWith($continueExitPoint->getScope());
@@ -544,7 +536,7 @@ class NodeScopeResolver
 				$finalScope = $finalScope->mergeWith($condScope);
 			}
 
-			return new StatementResult($finalScope, $alwaysTerminatingStatements, []);
+			return new StatementResult($finalScope, $finalScopeResult->isAlwaysTerminating(), []);
 		} elseif ($stmt instanceof Do_) {
 			$finalScope = null;
 			$bodyScope = $scope;
@@ -552,7 +544,7 @@ class NodeScopeResolver
 			do {
 				$prevScope = $bodyScope;
 				$bodyScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, static function (): void {
-				})->filterOutLoopTerminationStatements();
+				})->filterOutLoopExitPoints();
 				$alwaysTerminating = $bodyScopeResult->isAlwaysTerminating();
 				$bodyScope = $bodyScopeResult->getScope();
 				foreach ($bodyScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
@@ -576,9 +568,8 @@ class NodeScopeResolver
 
 			$bodyScope = $bodyScope->mergeWith($scope);
 
-			$bodyScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, $nodeCallback)->filterOutLoopTerminationStatements();
+			$bodyScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, $nodeCallback)->filterOutLoopExitPoints();
 			$alwaysTerminating = $bodyScopeResult->isAlwaysTerminating();
-			$alwaysTerminatingStatements = $bodyScopeResult->getAlwaysTerminatingStatements();
 			$bodyScope = $bodyScopeResult->getScope();
 			foreach ($bodyScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
 				$bodyScope = $bodyScope->mergeWith($continueExitPoint->getScope());
@@ -595,7 +586,7 @@ class NodeScopeResolver
 				$finalScope = $breakExitPoint->getScope()->mergeWith($finalScope);
 			}
 
-			return new StatementResult($finalScope, $alwaysTerminatingStatements, []);
+			return new StatementResult($finalScope, $alwaysTerminating, []);
 		} elseif ($stmt instanceof For_) {
 			$initScope = $scope;
 			foreach ($stmt->init as $initExpr) {
@@ -617,9 +608,8 @@ class NodeScopeResolver
 					}, ExpressionContext::createDeep())->getTruthyScope();
 				}
 				$bodyScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, static function (): void {
-				})->filterOutLoopTerminationStatements();
+				})->filterOutLoopExitPoints();
 				$alwaysTerminating = $bodyScopeResult->isAlwaysTerminating();
-				$alwaysTerminatingStatements = $bodyScopeResult->getAlwaysTerminatingStatements();
 				$bodyScope = $bodyScopeResult->getScope();
 				foreach ($bodyScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
 					$bodyScope = $bodyScope->mergeWith($continueExitPoint->getScope());
@@ -644,7 +634,7 @@ class NodeScopeResolver
 				$bodyScope = $this->processExprNode($condExpr, $bodyScope, $nodeCallback, ExpressionContext::createDeep())->getTruthyScope();
 			}
 
-			$finalScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, $nodeCallback);
+			$finalScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, $nodeCallback)->filterOutLoopExitPoints();
 			$finalScope = $finalScopeResult->getScope();
 			foreach ($finalScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
 				$finalScope = $continueExitPoint->getScope()->mergeWith($finalScope);
@@ -667,7 +657,7 @@ class NodeScopeResolver
 				//$finalScope = $finalScope->filterByFalseyValue($condExpr);
 			}*/
 
-			return new StatementResult($finalScope, $alwaysTerminatingStatements, []);
+			return new StatementResult($finalScope, $finalScopeResult->isAlwaysTerminating(), []);
 		} elseif ($stmt instanceof Switch_) {
 			$scope = $this->processExprNode($stmt->cond, $scope, $nodeCallback, ExpressionContext::createDeep())->getScope();
 			$scopeForBranches = $scope;
@@ -675,7 +665,6 @@ class NodeScopeResolver
 			$prevScope = null;
 			$hasDefaultCase = false;
 			$alwaysTerminating = true;
-			$alwaysTerminatingStatements = [];
 			foreach ($stmt->cases as $i => $caseNode) {
 				if ($caseNode->cond !== null) {
 					$condExpr = new BinaryOp\Equal($stmt->cond, $caseNode->cond);
@@ -694,14 +683,11 @@ class NodeScopeResolver
 				$branchScope = $branchScope->mergeWith($prevScope);
 				$branchScopeResult = $this->processStmtNodes($caseNode->stmts, $branchScope, $nodeCallback);
 				$branchScope = $branchScopeResult->getScope();
-				$branchFinalScopeResult = $branchScopeResult->filterOutLoopTerminationStatements();
+				$branchFinalScopeResult = $branchScopeResult->filterOutLoopExitPoints();
 				$alwaysTerminating = $alwaysTerminating && $branchFinalScopeResult->isAlwaysTerminating();
-				if ($branchFinalScopeResult->isAlwaysTerminating()) {
-					$alwaysTerminatingStatements = array_merge($alwaysTerminatingStatements, $branchFinalScopeResult->getAlwaysTerminatingStatements());
-				}
 				$isLastCase = ($i === count($stmt->cases) - 1);
 				if (
-					$branchScopeResult->areAllAlwaysTerminatingStatementsLoopTerminationStatements()
+					$branchScopeResult->areAllExitPointsLoopTerminationStatements()
 					|| (
 						$isLastCase
 						&& !$branchFinalScopeResult->isAlwaysTerminating()
@@ -727,18 +713,14 @@ class NodeScopeResolver
 				$finalScope = $scope->mergeWith($finalScope);
 			}
 
-			return new StatementResult($finalScope, $alwaysTerminating ? $alwaysTerminatingStatements : [], []);
+			return new StatementResult($finalScope, $alwaysTerminating, []);
 		} elseif ($stmt instanceof TryCatch) {
 			$branchScopeResult = $this->processStmtNodes($stmt->stmts, $scope, $nodeCallback);
 			$branchScope = $branchScopeResult->getScope();
 			$tryScope = $branchScope;
 			$exitPoints = [];
-			$alwaysTerminatingStatements = [];
 			$finalScope = $branchScopeResult->isAlwaysTerminating() ? null : $branchScope;
 			$alwaysTerminating = $branchScopeResult->isAlwaysTerminating();
-			if ($branchScopeResult->isAlwaysTerminating()) {
-				$alwaysTerminatingStatements = array_merge($alwaysTerminatingStatements, $branchScopeResult->getAlwaysTerminatingStatements());
-			}
 
 			if ($stmt->finally !== null) {
 				$finallyScope = $branchScope;
@@ -770,10 +752,6 @@ class NodeScopeResolver
 				$finalScope = $catchScopeResult->isAlwaysTerminating() ? $finalScope : $catchScopeResult->getScope()->mergeWith($finalScope);
 				$alwaysTerminating = $alwaysTerminating && $catchScopeResult->isAlwaysTerminating();
 
-				if ($catchScopeResult->isAlwaysTerminating()) {
-					$alwaysTerminatingStatements = array_merge($alwaysTerminatingStatements, $catchScopeResult->getAlwaysTerminatingStatements());
-				}
-
 				if ($finallyScope !== null) {
 					$finallyScope = $finallyScope->mergeWith($catchScopeForFinally);
 				}
@@ -792,14 +770,13 @@ class NodeScopeResolver
 			if ($finallyScope !== null && $stmt->finally !== null) {
 				$originalFinallyScope = $finallyScope;
 				$finallyResult = $this->processStmtNodes($stmt->finally->stmts, $finallyScope, $nodeCallback);
+				$alwaysTerminating = $alwaysTerminating || $finallyResult->isAlwaysTerminating();
 				$finallyScope = $finallyResult->getScope();
 				$finalScope = $finallyResult->isAlwaysTerminating() ? $finalScope : $finalScope->processFinallyScope($finallyScope, $originalFinallyScope);
-				if ($finallyResult->isAlwaysTerminating()) {
-					$alwaysTerminatingStatements = array_merge($alwaysTerminatingStatements, $finallyResult->getAlwaysTerminatingStatements());
-				}
+				$exitPoints = array_merge($exitPoints, $finallyResult->getExitPoints());
 			}
 
-			return new StatementResult($finalScope, $alwaysTerminating ? $alwaysTerminatingStatements : [], $exitPoints);
+			return new StatementResult($finalScope, $alwaysTerminating, $exitPoints);
 		} elseif ($stmt instanceof Unset_) {
 			foreach ($stmt->vars as $var) {
 				$scope = $this->lookForEnterVariableAssign($scope, $var);
@@ -846,7 +823,7 @@ class NodeScopeResolver
 			}
 		}
 
-		return new StatementResult($scope, [], []);
+		return new StatementResult($scope, false, []);
 	}
 
 	/**

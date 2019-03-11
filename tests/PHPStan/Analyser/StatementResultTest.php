@@ -48,6 +48,14 @@ class StatementResultTest extends \PHPStan\Testing\TestCase
 				true,
 			],
 			[
+				'if (doFoo()) { continue; }',
+				false,
+			],
+			[
+				'if (doFoo()) { continue; } else { continue; }',
+				true,
+			],
+			[
 				'if (doFoo()) { if (true) { return; } } else { }',
 				false,
 			],
@@ -124,6 +132,10 @@ class StatementResultTest extends \PHPStan\Testing\TestCase
 				true,
 			],
 			[
+				'try { } finally { return; }',
+				true,
+			],
+			[
 				'try { return; } catch (Exception $e) { return; }',
 				true,
 			],
@@ -177,6 +189,22 @@ class StatementResultTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				'for ($i = 0; $i < 5; $i++) { return; }',
+				true,
+			],
+			[
+				'foreach ($array as $val) { if ($val === 1) { continue; } else { throw new \Exception(); } }',
+				false,
+			],
+			[
+				'foreach ($array as $val) { if ($val === 1) { continue; } throw new \Exception(); }',
+				false,
+			],
+			[
+				'{ if ($val === 1) { continue; } throw new \Exception(); }',
+				true,
+			],
+			[
+				'throw new \Exception();',
 				true,
 			],
 		];
