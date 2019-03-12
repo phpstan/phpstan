@@ -1089,7 +1089,7 @@ class Scope implements ClassMemberAccessAnswerer
 				return new ConstantStringType('');
 			}
 
-			return new ConstantStringType($parts[0]);
+			return new ConstantStringType($className);
 		} elseif ($node instanceof Node\Scalar\MagicConst\Method) {
 			if ($this->isInAnonymousFunction()) {
 				return new ConstantStringType('{closure}');
