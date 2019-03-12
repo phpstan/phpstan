@@ -1928,7 +1928,7 @@ return [
 'DOMDocument::save' => ['int', 'filename'=>'string', 'options='=>'int'],
 'DOMDocument::saveHTML' => ['string|false', 'node='=>'?DOMNode'],
 'DOMDocument::saveHTMLFile' => ['int', 'filename'=>'string'],
-'DOMDocument::saveXML' => ['string', 'node='=>'DOMNode', 'options='=>'int'],
+'DOMDocument::saveXML' => ['string', 'node='=>'?DOMNode', 'options='=>'int'],
 'DOMDocument::schemaValidate' => ['bool', 'filename'=>'string', 'flags='=>'int'],
 'DOMDocument::schemaValidateSource' => ['bool', 'source'=>'string', 'flags='=>'int'],
 'DOMDocument::validate' => ['bool'],
