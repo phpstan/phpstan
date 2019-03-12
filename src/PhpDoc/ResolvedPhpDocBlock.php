@@ -2,6 +2,7 @@
 
 namespace PHPStan\PhpDoc;
 
+use PHPStan\PhpDoc\Tag\DeprecatedTag;
 use PHPStan\PhpDoc\Tag\ReturnTag;
 use PHPStan\PhpDoc\Tag\ThrowsTag;
 
@@ -26,6 +27,9 @@ class ResolvedPhpDocBlock
 	/** @var \PHPStan\PhpDoc\Tag\ThrowsTag|null */
 	private $throwsTag;
 
+	/** @var \PHPStan\PhpDoc\Tag\DeprecatedTag|null */
+	private $deprecatedTag;
+
 	/** @var bool */
 	private $isDeprecated;
 
@@ -42,6 +46,7 @@ class ResolvedPhpDocBlock
 	 * @param array<string, \PHPStan\PhpDoc\Tag\ParamTag> $paramTags
 	 * @param \PHPStan\PhpDoc\Tag\ReturnTag|null $returnTag
 	 * @param \PHPStan\PhpDoc\Tag\ThrowsTag|null $throwsTags
+	 * @param \PHPStan\PhpDoc\Tag\DeprecatedTag|null $deprecatedTag
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
 	 * @param bool $isFinal
@@ -53,6 +58,7 @@ class ResolvedPhpDocBlock
 		array $paramTags,
 		?ReturnTag $returnTag,
 		?ThrowsTag $throwsTags,
+		?DeprecatedTag $deprecatedTag,
 		bool $isDeprecated,
 		bool $isInternal,
 		bool $isFinal
@@ -64,6 +70,7 @@ class ResolvedPhpDocBlock
 		$this->paramTags = $paramTags;
 		$this->returnTag = $returnTag;
 		$this->throwsTag = $throwsTags;
+		$this->deprecatedTag = $deprecatedTag;
 		$this->isDeprecated = $isDeprecated;
 		$this->isInternal = $isInternal;
 		$this->isFinal = $isFinal;
@@ -76,6 +83,7 @@ class ResolvedPhpDocBlock
 	 * @param array<string, \PHPStan\PhpDoc\Tag\ParamTag> $paramTags
 	 * @param \PHPStan\PhpDoc\Tag\ReturnTag|null $returnTag
 	 * @param \PHPStan\PhpDoc\Tag\ThrowsTag|null $throwsTag
+	 * @param \PHPStan\PhpDoc\Tag\DeprecatedTag|null $deprecatedTag
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
 	 * @param bool $isFinal
@@ -88,6 +96,7 @@ class ResolvedPhpDocBlock
 		array $paramTags,
 		?ReturnTag $returnTag,
 		?ThrowsTag $throwsTag,
+		?DeprecatedTag $deprecatedTag,
 		bool $isDeprecated,
 		bool $isInternal,
 		bool $isFinal
@@ -100,6 +109,7 @@ class ResolvedPhpDocBlock
 			$paramTags,
 			$returnTag,
 			$throwsTag,
+			$deprecatedTag,
 			$isDeprecated,
 			$isInternal,
 			$isFinal
@@ -108,7 +118,7 @@ class ResolvedPhpDocBlock
 
 	public static function createEmpty(): self
 	{
-		return new self([], [], [], [], null, null, false, false, false);
+		return new self([], [], [], [], null, null, null, false, false, false);
 	}
 
 	/**
@@ -153,6 +163,11 @@ class ResolvedPhpDocBlock
 		return $this->throwsTag;
 	}
 
+	public function getDeprecatedTag(): ?\PHPStan\PhpDoc\Tag\DeprecatedTag
+	{
+		return $this->deprecatedTag;
+	}
+
 	public function isDeprecated(): bool
 	{
 		return $this->isDeprecated;
@@ -181,6 +196,7 @@ class ResolvedPhpDocBlock
 			$properties['paramTags'],
 			$properties['returnTag'],
 			$properties['throwsTag'],
+			$properties['deprecatedTag'],
 			$properties['isDeprecated'],
 			$properties['isInternal'],
 			$properties['isFinal']

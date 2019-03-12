@@ -3,6 +3,7 @@
 namespace PHPStan\PhpDoc;
 
 use PHPStan\Analyser\NameScope;
+use PHPStan\PhpDoc\Tag\DeprecatedTag;
 use PHPStan\PhpDoc\Tag\MethodTag;
 use PHPStan\PhpDoc\Tag\MethodTagParameter;
 use PHPStan\PhpDoc\Tag\ParamTag;
@@ -11,7 +12,9 @@ use PHPStan\PhpDoc\Tag\ReturnTag;
 use PHPStan\PhpDoc\Tag\ThrowsTag;
 use PHPStan\PhpDoc\Tag\VarTag;
 use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNullNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ThrowsTagValueNode;
 use PHPStan\Reflection\PassedByReference;
 use PHPStan\Type\ArrayType;
@@ -40,6 +43,7 @@ class PhpDocNodeResolver
 			$this->resolveParamTags($phpDocNode, $nameScope),
 			$this->resolveReturnTag($phpDocNode, $nameScope),
 			$this->resolveThrowsTags($phpDocNode, $nameScope),
+			$this->resolveDeprecatedTag($phpDocNode, $nameScope),
 			$this->resolveIsDeprecated($phpDocNode),
 			$this->resolveIsInternal($phpDocNode),
 			$this->resolveIsFinal($phpDocNode)
@@ -210,6 +214,37 @@ class PhpDocNodeResolver
 		}
 
 		return new ThrowsTag(TypeCombinator::union(...$types));
+	}
+
+	private function resolveDeprecatedTag(PhpDocNode $phpDocNode, NameScope $nameScope): ?\PHPStan\PhpDoc\Tag\DeprecatedTag
+	{
+		foreach ($phpDocNode->getTagsByName('@deprecated') as $key => $tagValue) {
+			$totalChildren = count($phpDocNode->children);
+			/** @var \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode[] $textNodes */
+			$textNodes = array_filter($phpDocNode->children, static function (PhpDocChildNode $child): bool {
+				return $child instanceof PhpDocTextNode;
+			});
+			$deprecatedMessage = (string) $tagValue->value;
+			if (count($textNodes) > 0) {
+				for ($i = $key; $i < $totalChildren; $i++) {
+					// Skip invalid children.
+					if (!isset($textNodes[$i])) {
+						continue;
+					}
+					$textNodeText = trim($textNodes[$i]->text);
+					// Break at the first empty new line, as this is probably
+					// leading to a new tag and no longer part of the multiline
+					// deprecation message.
+					if ($textNodeText === '') {
+						break;
+					}
+					$deprecatedMessage .= ' ' . $textNodeText;
+				}
+			}
+			return new DeprecatedTag($deprecatedMessage);
+		}
+
+		return null;
 	}
 
 	private function resolveIsDeprecated(PhpDocNode $phpDocNode): bool

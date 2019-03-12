@@ -15,89 +15,61 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 		return [
 			[
 				false,
-				'\DeprecatedAnnotations\Foo',
+				\DeprecatedAnnotations\Foo::class,
+				null,
 				[
 					'constant' => [
-						'FOO',
+						'FOO' => null,
 					],
 					'method' => [
-						'foo',
-						'staticFoo',
+						'foo' => null,
+						'staticFoo' => null,
 					],
 					'property' => [
-						'foo',
-						'staticFoo',
+						'foo' => null,
+						'staticFoo' => null,
 					],
 				],
 			],
 			[
 				true,
-				'\DeprecatedAnnotations\DeprecatedFoo',
+				\DeprecatedAnnotations\DeprecatedFoo::class,
+				'DeprecatedAnnotations\DeprecatedFoo is deprecated in 1.0.0.',
 				[
 					'constant' => [
-						'DEPRECATED_FOO',
+						'DEPRECATED_FOO' => 'DEPRECATED_FOO is deprecated Deprecated constant.',
 					],
 					'method' => [
-						'deprecatedFoo',
-						'deprecatedStaticFoo',
+						'deprecatedFoo' => 'DeprecatedAnnotations\DeprecatedFoo::deprecatedFoo is deprecated method.',
+						'deprecatedStaticFoo' => 'DeprecatedAnnotations\DeprecatedFoo::deprecatedStaticFoo is deprecated static method.',
 					],
 					'property' => [
-						'deprecatedFoo',
-						'deprecatedStaticFoo',
+						'deprecatedFoo' => 'DeprecatedAnnotations\DeprecatedFoo::deprecatedFoo is deprecated.',
+						'deprecatedStaticFoo' => 'DeprecatedAnnotations\DeprecatedFoo::deprecatedStaticFoo is deprecated.',
 					],
 				],
 			],
 			[
 				false,
-				'\DeprecatedAnnotations\FooInterface',
+				\DeprecatedAnnotations\FooInterface::class,
+				null,
 				[
 					'constant' => [
-						'FOO',
+						'FOO' => null,
 					],
 					'method' => [
-						'foo',
-						'staticFoo',
+						'foo' => null,
+						'staticFoo' => null,
 					],
 				],
 			],
 			[
 				true,
-				'\DeprecatedAnnotations\DeprecatedFooInterface',
-				[
-					'constant' => [
-						'DEPRECATED_FOO',
-					],
-					'method' => [
-						'deprecatedFoo',
-						'deprecatedStaticFoo',
-					],
-				],
-			],
-			[
-				false,
-				'\DeprecatedAnnotations\FooTrait',
+				\DeprecatedAnnotations\DeprecatedWithMultipleTags::class,
+				'DeprecatedAnnotations\DeprecatedWithMultipleTags is deprecated in Foo 1.1.0 and will be removed in 1.5.0, use \Foo\Bar\NotDeprecated instead.',
 				[
 					'method' => [
-						'foo',
-						'staticFoo',
-					],
-					'property' => [
-						'foo',
-						'staticFoo',
-					],
-				],
-			],
-			[
-				true,
-				'\DeprecatedAnnotations\DeprecatedFooTrait',
-				[
-					'method' => [
-						'deprecatedFoo',
-						'deprecatedStaticFoo',
-					],
-					'property' => [
-						'deprecatedFoo',
-						'deprecatedStaticFoo',
+						'deprecatedFoo' => 'DeprecatedAnnotations\DeprecatedWithMultipleTags::deprecatedFoo is deprecated in Foo 1.1.0, will be removed in Foo 1.5.0, use \Foo\Bar\NotDeprecated::replacementFoo() instead.',
 					],
 				],
 			],
@@ -108,9 +80,10 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 	 * @dataProvider dataDeprecatedAnnotations
 	 * @param bool $deprecated
 	 * @param string $className
+	 * @param string|null $classDeprecation
 	 * @param array<string, mixed> $deprecatedAnnotations
 	 */
-	public function testDeprecatedAnnotations(bool $deprecated, string $className, array $deprecatedAnnotations): void
+	public function testDeprecatedAnnotations(bool $deprecated, string $className, ?string $classDeprecation, array $deprecatedAnnotations): void
 	{
 		/** @var Broker $broker */
 		$broker = self::getContainer()->getByType(Broker::class);
@@ -121,23 +94,27 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 		$scope->method('canAccessProperty')->willReturn(true);
 
 		$this->assertSame($deprecated, $class->isDeprecated());
+		$this->assertSame($classDeprecation, $class->getDeprecatedDescription());
 
-		foreach ($deprecatedAnnotations['method'] ?? [] as $methodName) {
+		foreach ($deprecatedAnnotations['method'] ?? [] as $methodName => $deprecatedMessage) {
 			$methodAnnotation = $class->getMethod($methodName, $scope);
 			$this->assertInstanceOf(DeprecatableReflection::class, $methodAnnotation);
 			$this->assertSame($deprecated, $methodAnnotation->isDeprecated());
+			$this->assertSame($deprecatedMessage, $methodAnnotation->getDeprecatedDescription());
 		}
 
-		foreach ($deprecatedAnnotations['property'] ?? [] as $propertyName) {
+		foreach ($deprecatedAnnotations['property'] ?? [] as $propertyName => $deprecatedMessage) {
 			$propertyAnnotation = $class->getProperty($propertyName, $scope);
 			$this->assertInstanceOf(DeprecatableReflection::class, $propertyAnnotation);
 			$this->assertSame($deprecated, $propertyAnnotation->isDeprecated());
+			$this->assertSame($deprecatedMessage, $propertyAnnotation->getDeprecatedDescription());
 		}
 
-		foreach ($deprecatedAnnotations['constant'] ?? [] as $constantName) {
+		foreach ($deprecatedAnnotations['constant'] ?? [] as $constantName => $deprecatedMessage) {
 			$constantAnnotation = $class->getConstant($constantName);
 			$this->assertInstanceOf(DeprecatableReflection::class, $constantAnnotation);
 			$this->assertSame($deprecated, $constantAnnotation->isDeprecated());
+			$this->assertSame($deprecatedMessage, $constantAnnotation->getDeprecatedDescription());
 		}
 	}
 

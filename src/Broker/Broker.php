@@ -481,6 +481,7 @@ class Broker
 		$phpDocParameterTags = [];
 		$phpDocReturnTag = null;
 		$phpDocThrowsTag = null;
+		$deprecatedTag = null;
 		$isDeprecated = false;
 		$isInternal = false;
 		$isFinal = false;
@@ -491,6 +492,7 @@ class Broker
 			$phpDocParameterTags = $resolvedPhpDoc->getParamTags();
 			$phpDocReturnTag = $resolvedPhpDoc->getReturnTag();
 			$phpDocThrowsTag = $resolvedPhpDoc->getThrowsTag();
+			$deprecatedTag = $resolvedPhpDoc->getDeprecatedTag();
 			$isDeprecated = $resolvedPhpDoc->isDeprecated();
 			$isInternal = $resolvedPhpDoc->isInternal();
 			$isFinal = $resolvedPhpDoc->isFinal();
@@ -503,6 +505,7 @@ class Broker
 			}, $phpDocParameterTags),
 			$phpDocReturnTag !== null ? $phpDocReturnTag->getType() : null,
 			$phpDocThrowsTag !== null ? $phpDocThrowsTag->getType() : null,
+			$deprecatedTag !== null ? $deprecatedTag->getMessage() : null,
 			$isDeprecated,
 			$isInternal,
 			$isFinal,
