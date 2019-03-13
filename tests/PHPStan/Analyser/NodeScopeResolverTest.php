@@ -3569,6 +3569,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->doBar()[0]',
 			],
 			[
+				'MethodPhpDocsNamespace\Foo',
+				'$this->doAnotherBar()[0]',
+			],
+			[
 				'MethodPhpDocsNamespace\Bar',
 				'self::doSomethingStatic()',
 			],
@@ -5998,6 +6002,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'iterable',
 				'$this->doBar()',
+			],
+			[
+				'iterable',
+				'$this->doAnotherBar()',
 			],
 			[
 				'iterable<Iterables\Baz>',

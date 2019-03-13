@@ -106,6 +106,14 @@ class Foo
 	}
 
 	/**
+	 * @return iterable
+	 */
+	public function doAnotherBar(): iterable
+	{
+
+	}
+
+	/**
 	 * @return Baz[]
 	 */
 	public function doBaz(): iterable

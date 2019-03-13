@@ -112,6 +112,14 @@ class Foo extends FooParent
 
 	}
 
+	/**
+	 * @return self[]
+	 */
+	public function doAnotherBar(): array
+	{
+
+	}
+
 	public function returnParent(): parent
 	{
 

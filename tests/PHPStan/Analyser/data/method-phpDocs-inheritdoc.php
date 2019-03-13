@@ -69,4 +69,12 @@ class FooInheritDocChild extends Foo
 
 	}
 
+	/**
+	 * @inheritdoc
+	 */
+	public function doAnotherBar(): array
+	{
+		parent::doSomethingStatic();
+	}
+
 }
