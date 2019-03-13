@@ -451,10 +451,6 @@ interface PropertyReflection
 
 	public function getType(): Type;
 
-	public function getDeclaringClass(): ClassReflection;
-
-	public function isStatic(): bool;
-
 	public function isPrivate(): bool;
 
 	public function isPublic(): bool;
