@@ -1,6 +1,6 @@
 <?php
 
-namespace BinaryOperations;
+namespace BinaryOperations\NestedNamespace;
 
 class Foo
 {

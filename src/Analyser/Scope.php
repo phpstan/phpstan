@@ -1079,17 +1079,7 @@ class Scope implements ClassMemberAccessAnswerer
 		} elseif ($node instanceof Node\Scalar\MagicConst\File) {
 			return new ConstantStringType($this->getFile());
 		} elseif ($node instanceof Node\Scalar\MagicConst\Namespace_) {
-			if (!$this->isInClass()) {
-				return new ConstantStringType('');
-			}
-
-			$className = $this->getClassReflection()->getName();
-			$parts = explode('\\', $className);
-			if (count($parts) <= 1) {
-				return new ConstantStringType('');
-			}
-
-			return new ConstantStringType($parts[0]);
+			return new ConstantStringType($this->namespace ?? '');
 		} elseif ($node instanceof Node\Scalar\MagicConst\Method) {
 			if ($this->isInAnonymousFunction()) {
 				return new ConstantStringType('{closure}');

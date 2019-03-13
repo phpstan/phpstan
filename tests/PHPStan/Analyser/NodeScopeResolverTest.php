@@ -2339,15 +2339,15 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$file',
 			],
 			[
-				'\'BinaryOperations\'',
+				'\'BinaryOperations\\\\NestedNamespace\'',
 				'$namespace',
 			],
 			[
-				'\'BinaryOperations\\\\Foo\'',
+				'\'BinaryOperations\\\\NestedNamespace\\\\Foo\'',
 				'$class',
 			],
 			[
-				'\'BinaryOperations\\\\Foo::doFoo\'',
+				'\'BinaryOperations\\\\NestedNamespace\\\\Foo::doFoo\'',
 				'$method',
 			],
 			[
@@ -2508,7 +2508,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				'true',
-				'$foo instanceof \BinaryOperations\Foo',
+				'$foo instanceof \BinaryOperations\NestedNamespace\Foo',
 			],
 			[
 				'bool',
