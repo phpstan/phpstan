@@ -47,6 +47,8 @@ use PhpParser\Node\Stmt\While_;
 use PHPStan\Broker\Broker;
 use PHPStan\File\FileHelper;
 use PHPStan\Node\InClassMethodNode;
+use PHPStan\Node\LiteralArrayItem;
+use PHPStan\Node\LiteralArrayNode;
 use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\PhpDocBlock;
 use PHPStan\PhpDoc\Tag\ParamTag;
@@ -1322,9 +1324,12 @@ class NodeScopeResolver
 
 			$scope = $this->processExprNode($expr->var, $scope, $nodeCallback, $context->enterDeep())->getScope();
 		} elseif ($expr instanceof Array_) {
+			$itemNodes = [];
 			foreach ($expr->items as $arrayItem) {
+				$itemNodes[] = new LiteralArrayItem($scope, $arrayItem);
 				$scope = $this->processExprNode($arrayItem, $scope, $nodeCallback, $context->enterDeep())->getScope();
 			}
+			$nodeCallback(new LiteralArrayNode($expr, $itemNodes), $scope);
 		} elseif ($expr instanceof ArrayItem) {
 			if ($expr->key !== null) {
 				$scope = $this->processExprNode($expr->key, $scope, $nodeCallback, $context->enterDeep())->getScope();

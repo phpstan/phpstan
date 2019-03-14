@@ -32,6 +32,10 @@ class DuplicateKeysInLiteralArraysRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Array has 2 duplicate keys with value \'=\' (self::EQ, self::IS).',
 				32,
 			],
+			[
+				'Array has 2 duplicate keys with value 2 ($idx, $idx).',
+				55,
+			],
 		]);
 	}
 

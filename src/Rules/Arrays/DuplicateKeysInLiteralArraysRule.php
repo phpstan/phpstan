@@ -3,6 +3,7 @@
 namespace PHPStan\Rules\Arrays;
 
 use PHPStan\Analyser\Scope;
+use PHPStan\Node\LiteralArrayNode;
 use PHPStan\Rules\RuleError;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ConstantScalarType;
@@ -22,11 +23,11 @@ class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
 
 	public function getNodeType(): string
 	{
-		return \PhpParser\Node\Expr\Array_::class;
+		return LiteralArrayNode::class;
 	}
 
 	/**
-	 * @param \PhpParser\Node\Expr\Array_ $node
+	 * @param LiteralArrayNode $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return RuleError[]
 	 */
@@ -36,16 +37,14 @@ class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
 		$duplicateKeys = [];
 		$printedValues = [];
 		$valueLines = [];
-		foreach ($node->items as $item) {
-			if ($item === null) {
-				continue;
-			}
+		foreach ($node->getItemNodes() as $itemNode) {
+			$item = $itemNode->getArrayItem();
 			if ($item->key === null) {
 				continue;
 			}
 
 			$key = $item->key;
-			$keyType = $scope->getType($key);
+			$keyType = $itemNode->getScope()->getType($key);
 			if (
 				!$keyType instanceof ConstantScalarType
 			) {
