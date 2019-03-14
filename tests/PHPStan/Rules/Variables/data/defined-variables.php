@@ -415,3 +415,16 @@ function () {
 
 	echo $test ?? 'foo';
 };
+
+function () {
+	if (rand(0, 1)) {
+		functionWithByRefParameter($str);
+	}
+	if ($str === "hello") {}
+};
+
+function () {
+	if (rand(0, 1) || functionWithByRefParameter($str)) {
+		if ($str === "hello") {}
+	}
+};
