@@ -129,7 +129,7 @@ class PhpDocBlock
 		if (
 			(
 				$docComment === null
-				|| preg_match('#[\s\{]@inheritdoc[\s\}]#i', $docComment) > 0
+				|| preg_match('#(@inheritdoc)|({@inheritdoc})#i', $docComment) > 0
 			)
 			&& $broker->hasClass($class)
 		) {
