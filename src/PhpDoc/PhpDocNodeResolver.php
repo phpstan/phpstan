@@ -8,6 +8,7 @@ use PHPStan\PhpDoc\Tag\MethodTagParameter;
 use PHPStan\PhpDoc\Tag\ParamTag;
 use PHPStan\PhpDoc\Tag\PropertyTag;
 use PHPStan\PhpDoc\Tag\ReturnTag;
+use PHPStan\PhpDoc\Tag\SingleThrowsTag;
 use PHPStan\PhpDoc\Tag\ThrowsTag;
 use PHPStan\PhpDoc\Tag\VarTag;
 use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNullNode;
@@ -201,15 +202,22 @@ class PhpDocNodeResolver
 
 	private function resolveThrowsTags(PhpDocNode $phpDocNode, NameScope $nameScope): ?\PHPStan\PhpDoc\Tag\ThrowsTag
 	{
-		$types = array_map(function (ThrowsTagValueNode $throwsTagValue) use ($nameScope): Type {
-			return $this->typeNodeResolver->resolve($throwsTagValue->type, $nameScope);
+		$throwsTags = array_map(function (ThrowsTagValueNode $throwsTagValue) use ($nameScope): SingleThrowsTag {
+			return new SingleThrowsTag(
+				$this->typeNodeResolver->resolve($throwsTagValue->type, $nameScope),
+				$throwsTagValue->description
+			);
 		}, $phpDocNode->getThrowsTagValues());
 
-		if (count($types) === 0) {
+		if (count($throwsTags) === 0) {
 			return null;
 		}
 
-		return new ThrowsTag(TypeCombinator::union(...$types));
+		$types = array_map(static function (SingleThrowsTag $throwsTag): Type {
+			return $throwsTag->getType();
+		}, $throwsTags);
+
+		return new ThrowsTag(TypeCombinator::union(...$types), $throwsTags);
 	}
 
 	private function resolveIsDeprecated(PhpDocNode $phpDocNode): bool

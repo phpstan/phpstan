@@ -15,6 +15,7 @@ interface PhpMethodReflectionFactory
 	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
 	 * @param \PHPStan\Type\Type|null $phpDocReturnType
 	 * @param \PHPStan\Type\Type|null $phpDocThrowType
+	 * @param array<array<\PHPStan\Type\Type|string>> $phpDocThrowDescriptions
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
 	 * @param bool $isFinal
@@ -27,6 +28,7 @@ interface PhpMethodReflectionFactory
 		array $phpDocParameterTypes,
 		?Type $phpDocReturnType,
 		?Type $phpDocThrowType,
+		array $phpDocThrowDescriptions,
 		bool $isDeprecated,
 		bool $isInternal,
 		bool $isFinal

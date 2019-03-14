@@ -5,6 +5,7 @@ namespace PHPStan\Reflection\Php;
 use PHPStan\Broker\Broker;
 use PHPStan\PhpDoc\PhpDocBlock;
 use PHPStan\PhpDoc\Tag\ParamTag;
+use PHPStan\PhpDoc\Tag\SingleThrowsTag;
 use PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension;
 use PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension;
 use PHPStan\Reflection\BrokerAwareExtension;
@@ -320,6 +321,7 @@ class PhpClassReflectionExtension
 		$phpDocParameterTypes = [];
 		$phpDocReturnType = null;
 		$phpDocThrowType = null;
+		$phpDocThrowDescriptions = [];
 		$isDeprecated = false;
 		$isInternal = false;
 		$isFinal = false;
@@ -367,6 +369,15 @@ class PhpClassReflectionExtension
 				$isDeprecated = $resolvedPhpDoc->isDeprecated();
 				$isInternal = $resolvedPhpDoc->isInternal();
 				$isFinal = $resolvedPhpDoc->isFinal();
+
+				$throwsTag = $resolvedPhpDoc->getThrowsTag();
+
+				if ($throwsTag !== null) {
+					$phpDocThrowType = $throwsTag->getType();
+					$phpDocThrowDescriptions = array_map(static function (SingleThrowsTag $tag): array {
+						return [$tag->getType(), $tag->getDescription()];
+					}, $throwsTag->getThrowsTags());
+				}
 			}
 		}
 
@@ -384,6 +395,7 @@ class PhpClassReflectionExtension
 			$phpDocParameterTypes,
 			$phpDocReturnType,
 			$phpDocThrowType,
+			$phpDocThrowDescriptions,
 			$isDeprecated,
 			$isInternal,
 			$isFinal

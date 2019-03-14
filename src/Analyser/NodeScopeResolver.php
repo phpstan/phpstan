@@ -50,6 +50,7 @@ use PHPStan\Node\InClassMethodNode;
 use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\PhpDocBlock;
 use PHPStan\PhpDoc\Tag\ParamTag;
+use PHPStan\PhpDoc\Tag\SingleThrowsTag;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\ParametersAcceptorSelector;
@@ -241,7 +242,7 @@ class NodeScopeResolver
 				$scope = $scope->enterDeclareStrictTypes();
 			}
 		} elseif ($stmt instanceof Node\Stmt\Function_) {
-			[$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated, $isInternal, $isFinal] = $this->getPhpDocs($scope, $stmt);
+			[$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $phpDocThrowDescriptions, $isDeprecated, $isInternal, $isFinal] = $this->getPhpDocs($scope, $stmt);
 
 			foreach ($stmt->params as $param) {
 				$this->processParamNode($param, $scope, $nodeCallback);
@@ -256,13 +257,14 @@ class NodeScopeResolver
 				$phpDocParameterTypes,
 				$phpDocReturnType,
 				$phpDocThrowType,
+				$phpDocThrowDescriptions,
 				$isDeprecated,
 				$isInternal,
 				$isFinal
 			);
 			$this->processStmtNodes($stmt->stmts, $functionScope, $nodeCallback);
 		} elseif ($stmt instanceof Node\Stmt\ClassMethod) {
-			[$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated, $isInternal, $isFinal] = $this->getPhpDocs($scope, $stmt);
+			[$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $phpDocThrowDescriptions, $isDeprecated, $isInternal, $isFinal] = $this->getPhpDocs($scope, $stmt);
 
 			foreach ($stmt->params as $param) {
 				$this->processParamNode($param, $scope, $nodeCallback);
@@ -277,6 +279,7 @@ class NodeScopeResolver
 				$phpDocParameterTypes,
 				$phpDocReturnType,
 				$phpDocThrowType,
+				$phpDocThrowDescriptions,
 				$isDeprecated,
 				$isInternal,
 				$isFinal
@@ -1993,6 +1996,7 @@ class NodeScopeResolver
 		$phpDocParameterTypes = [];
 		$phpDocReturnType = null;
 		$phpDocThrowType = null;
+		$phpDocThrowDescriptions = [];
 		$isDeprecated = false;
 		$isInternal = false;
 		$isFinal = false;
@@ -2047,13 +2051,21 @@ class NodeScopeResolver
 			) {
 				$phpDocReturnType = $resolvedPhpDoc->getReturnTag()->getType();
 			}
-			$phpDocThrowType = $resolvedPhpDoc->getThrowsTag() !== null ? $resolvedPhpDoc->getThrowsTag()->getType() : null;
 			$isDeprecated = $resolvedPhpDoc->isDeprecated();
 			$isInternal = $resolvedPhpDoc->isInternal();
 			$isFinal = $resolvedPhpDoc->isFinal();
+
+			$throwsTag = $resolvedPhpDoc->getThrowsTag();
+
+			if ($throwsTag !== null) {
+				$phpDocThrowType = $throwsTag->getType();
+				$phpDocThrowDescriptions = array_map(static function (SingleThrowsTag $tag): array {
+					return [$tag->getType(), $tag->getDescription()];
+				}, $throwsTag->getThrowsTags());
+			}
 		}
 
-		return [$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated, $isInternal, $isFinal];
+		return [$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $phpDocThrowDescriptions, $isDeprecated, $isInternal, $isFinal];
 	}
 
 }

@@ -22,4 +22,10 @@ interface Foo
 	 * @throws LogicException
 	 */
 	public function throwRuntimeAndLogicException2();
+
+	/**
+	 * @throws RuntimeException Runtime description
+	 * @throws LogicException Logic description
+	 */
+	public function throwRuntimeAndLogicExceptionDescriptive();
 }

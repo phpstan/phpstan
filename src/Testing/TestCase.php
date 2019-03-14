@@ -104,6 +104,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			 * @param Type[] $phpDocParameterTypes
 			 * @param Type|null $phpDocReturnType
 			 * @param Type|null $phpDocThrowType
+			 * @param array<array<\PHPStan\Type\Type|string>> $phpDocThrowDescriptions
 			 * @param bool $isDeprecated
 			 * @param bool $isInternal
 			 * @param bool $isFinal
@@ -116,6 +117,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				array $phpDocParameterTypes,
 				?Type $phpDocReturnType,
 				?Type $phpDocThrowType,
+				array $phpDocThrowDescriptions,
 				bool $isDeprecated,
 				bool $isInternal,
 				bool $isFinal
@@ -132,6 +134,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 					$phpDocParameterTypes,
 					$phpDocReturnType,
 					$phpDocThrowType,
+					$phpDocThrowDescriptions,
 					$isDeprecated,
 					$isInternal,
 					$isFinal

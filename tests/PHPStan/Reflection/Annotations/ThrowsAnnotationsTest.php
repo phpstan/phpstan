@@ -5,7 +5,8 @@ namespace PHPStan\Reflection\Annotations;
 use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
-use PHPStan\Reflection\ThrowableReflection;
+use PHPStan\Reflection\Php\PhpMethodReflection;
+use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
 
 class ThrowsAnnotationsTest extends \PHPStan\Testing\TestCase
@@ -17,28 +18,58 @@ class ThrowsAnnotationsTest extends \PHPStan\Testing\TestCase
 			[
 				\ThrowsAnnotations\Foo::class,
 				[
-					'withoutThrows' => null,
-					'throwsRuntime' => \RuntimeException::class,
-					'staticThrowsRuntime' => \RuntimeException::class,
-
+					'withoutThrows' => [null, []],
+					'throwsRuntime' => [
+						\RuntimeException::class,
+						[
+							[\RuntimeException::class, 'Class instance method description 1.'],
+							[\RuntimeException::class, 'Class instance method description 2.'],
+						],
+					],
+					'staticThrowsRuntime' => [
+						\RuntimeException::class,
+						[
+							[\RuntimeException::class, 'Class static method description.'],
+						],
+					],
 				],
 			],
 			[
 				\ThrowsAnnotations\FooInterface::class,
 				[
-					'withoutThrows' => null,
-					'throwsRuntime' => \RuntimeException::class,
-					'staticThrowsRuntime' => \RuntimeException::class,
-
+					'withoutThrows' => [null, []],
+					'throwsRuntime' => [
+						\RuntimeException::class,
+						[
+							[\RuntimeException::class, 'Interface instance method description.'],
+						],
+					],
+					'staticThrowsRuntime' => [
+						\RuntimeException::class,
+						[
+							[\RuntimeException::class, 'Interface static method description 1.'],
+							[\RuntimeException::class, 'Interface static method description 2.'],
+						],
+					],
 				],
 			],
 			[
 				\ThrowsAnnotations\FooTrait::class,
 				[
-					'withoutThrows' => null,
-					'throwsRuntime' => \RuntimeException::class,
-					'staticThrowsRuntime' => \RuntimeException::class,
-
+					'withoutThrows' => [null, []],
+					'throwsRuntime' => [
+						\RuntimeException::class,
+						[
+							[\RuntimeException::class, 'Trait instance method description 1.'],
+							[\RuntimeException::class, 'Trait instance method description 2.'],
+						],
+					],
+					'staticThrowsRuntime' => [
+						\RuntimeException::class,
+						[
+							[\RuntimeException::class, 'Trait static method description.'],
+						],
+					],
 				],
 			],
 		];
@@ -56,11 +87,27 @@ class ThrowsAnnotationsTest extends \PHPStan\Testing\TestCase
 		$class = $broker->getClass($className);
 		$scope = $this->createMock(Scope::class);
 
-		foreach ($throwsAnnotations as $methodName => $type) {
+		foreach ($throwsAnnotations as $methodName => [$type, $descriptions]) {
 			$methodAnnotation = $class->getMethod($methodName, $scope);
-			$this->assertInstanceOf(ThrowableReflection::class, $methodAnnotation);
+			// @todo Expect ThrowableReflection as soon as getThrowDescriptions() is added
+			$this->assertInstanceOf(PhpMethodReflection::class, $methodAnnotation);
 			$throwType = $methodAnnotation->getThrowType();
 			$this->assertSame($type, $throwType !== null ? $throwType->describe(VerbosityLevel::typeOnly()) : null);
+
+			$throwDescriptions = $methodAnnotation->getThrowDescriptions();
+
+			$this->assertSameSize($descriptions, $throwDescriptions);
+
+			foreach ($descriptions as $index => [$expectedThrowType, $expectedDescription]) {
+				$this->assertArrayHasKey($index, $throwDescriptions);
+
+				[$actualThrowType, $actualThrowDescription] = $throwDescriptions[$index];
+
+				$this->assertInstanceOf(Type::class, $actualThrowType);
+
+				$this->assertSame($expectedThrowType, $actualThrowType->describe(VerbosityLevel::typeOnly()));
+				$this->assertSame($expectedDescription, $actualThrowDescription);
+			}
 		}
 	}
 

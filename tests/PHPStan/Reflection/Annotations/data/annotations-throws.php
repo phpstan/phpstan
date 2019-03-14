@@ -8,7 +8,8 @@ function withoutThrows()
 }
 
 /**
- * @throws \RuntimeException
+ * @throws \RuntimeException Function description 1.
+ * @throws \RuntimeException Function description 2.
  */
 function throwsRuntime()
 {
@@ -24,7 +25,8 @@ class Foo
 	}
 
 	/**
-	 * @throws \RuntimeException
+	 * @throws \RuntimeException Class instance method description 1.
+	 * @throws \RuntimeException Class instance method description 2.
 	 */
 	public function throwsRuntime()
 	{
@@ -32,7 +34,7 @@ class Foo
 	}
 
 	/**
-	 * @throws \RuntimeException
+	 * @throws \RuntimeException Class static method description.
 	 */
 	public static function staticThrowsRuntime()
 	{
@@ -47,12 +49,13 @@ interface FooInterface
 	public function withoutThrows();
 
 	/**
-	 * @throws \RuntimeException
+	 * @throws \RuntimeException Interface instance method description.
 	 */
 	public function throwsRuntime();
 
 	/**
-	 * @throws \RuntimeException
+	 * @throws \RuntimeException Interface static method description 1.
+	 * @throws \RuntimeException Interface static method description 2.
 	 */
 	public static function staticThrowsRuntime();
 
@@ -67,7 +70,8 @@ trait FooTrait
 	}
 
 	/**
-	 * @throws \RuntimeException
+	 * @throws \RuntimeException Trait instance method description 1.
+	 * @throws \RuntimeException Trait instance method description 2.
 	 */
 	public function throwsRuntime()
 	{
@@ -75,7 +79,7 @@ trait FooTrait
 	}
 
 	/**
-	 * @throws \RuntimeException
+	 * @throws \RuntimeException Trait static method description.
 	 */
 	public static function staticThrowsRuntime()
 	{

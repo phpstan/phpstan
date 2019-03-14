@@ -62,6 +62,9 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	/** @var \PHPStan\Type\Type|null */
 	private $phpDocThrowType;
 
+	/** @var array<array<\PHPStan\Type\Type|string>> $phpDocThrowDescriptions */
+	private $phpDocThrowDescriptions;
+
 	/** @var \PHPStan\Reflection\ParameterReflection[]|null */
 	private $parameters;
 
@@ -94,6 +97,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
 	 * @param Type|null $phpDocReturnType
 	 * @param Type|null $phpDocThrowType
+	 * @param array<array<\PHPStan\Type\Type|string>> $phpDocThrowDescriptions
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
 	 * @param bool $isFinal
@@ -109,6 +113,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 		array $phpDocParameterTypes,
 		?Type $phpDocReturnType,
 		?Type $phpDocThrowType,
+		array $phpDocThrowDescriptions,
 		bool $isDeprecated = false,
 		bool $isInternal = false,
 		bool $isFinal = false
@@ -124,6 +129,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 		$this->phpDocParameterTypes = $phpDocParameterTypes;
 		$this->phpDocReturnType = $phpDocReturnType;
 		$this->phpDocThrowType = $phpDocThrowType;
+		$this->phpDocThrowDescriptions = $phpDocThrowDescriptions;
 		$this->isDeprecated = $isDeprecated;
 		$this->isInternal = $isInternal;
 		$this->isFinal = $isFinal;
@@ -410,6 +416,14 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	public function getThrowType(): ?Type
 	{
 		return $this->phpDocThrowType;
+	}
+
+	/**
+	 * @return array<array<\PHPStan\Type\Type|string>>
+	 */
+	public function getThrowDescriptions(): array
+	{
+		return $this->phpDocThrowDescriptions;
 	}
 
 }

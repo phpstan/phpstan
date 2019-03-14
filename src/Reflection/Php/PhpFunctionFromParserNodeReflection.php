@@ -36,6 +36,9 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 	/** @var \PHPStan\Type\Type|null */
 	private $throwType;
 
+	/** @var array<array<\PHPStan\Type\Type|string>> */
+	private $throwDescriptions;
+
 	/** @var bool */
 	private $isDeprecated;
 
@@ -56,6 +59,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 	 * @param Type $realReturnType
 	 * @param Type|null $phpDocReturnType
 	 * @param Type|null $throwType
+	 * @param array<array<\PHPStan\Type\Type|string>> $throwDescriptions
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
 	 * @param bool $isFinal
@@ -68,6 +72,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 		Type $realReturnType,
 		?Type $phpDocReturnType = null,
 		?Type $throwType = null,
+		array $throwDescriptions = [],
 		bool $isDeprecated = false,
 		bool $isInternal = false,
 		bool $isFinal = false
@@ -80,6 +85,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 		$this->realReturnType = $realReturnType;
 		$this->phpDocReturnType = $phpDocReturnType;
 		$this->throwType = $throwType;
+		$this->throwDescriptions = $throwDescriptions;
 		$this->isDeprecated = $isDeprecated;
 		$this->isInternal = $isInternal;
 		$this->isFinal = $isFinal;
@@ -194,6 +200,14 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 	public function getThrowType(): ?Type
 	{
 		return $this->throwType;
+	}
+
+	/**
+	 * @return array<array<\PHPStan\Type\Type|string>>
+	 */
+	public function getThrowDescriptions(): array
+	{
+		return $this->throwDescriptions;
 	}
 
 }

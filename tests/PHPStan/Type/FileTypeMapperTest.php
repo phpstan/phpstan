@@ -2,6 +2,8 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\PhpDoc\Tag\SingleThrowsTag;
+
 class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 {
 
@@ -142,6 +144,26 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 			'LogicException|RuntimeException',
 			$resolved->getThrowsTag()->getType()->describe(VerbosityLevel::precise())
 		);
+
+		$resolved = $fileTypeMapper->getResolvedPhpDoc($realpath, \ThrowsPhpDocs\Foo::class, null, '/**
+ * @throws RuntimeException Runtime description
+ * @throws LogicException Logic description
+ */');
+
+		$this->assertNotNull($resolved->getThrowsTag());
+		$this->assertSame(
+			'LogicException|RuntimeException',
+			$resolved->getThrowsTag()->getType()->describe(VerbosityLevel::precise())
+		);
+
+		$descriptions = array_map(static function (SingleThrowsTag $singleThrowsTag): string {
+			return $singleThrowsTag->getDescription();
+		}, $resolved->getThrowsTag()->getThrowsTags());
+
+		$this->assertCount(2, $descriptions);
+
+		$this->assertContains('Runtime description', $descriptions);
+		$this->assertContains('Logic description', $descriptions);
 	}
 
 	public function testFileWithCyclicPhpDocs(): void
