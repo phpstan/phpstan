@@ -153,6 +153,14 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertCount(0, $errors);
 	}
 
+	public function testNestedNamespaces(): void
+	{
+		$errors = $this->runAnalyse(__DIR__ . '/data/nested-namespaces.php');
+		$this->assertCount(1, $errors);
+		$this->assertSame('Parameter $baz of method y\x::__construct() has invalid typehint type x\baz.', $errors[0]->getMessage());
+		$this->assertSame(13, $errors[0]->getLine());
+	}
+
 	/**
 	 * @param string $file
 	 * @return \PHPStan\Analyser\Error[]
