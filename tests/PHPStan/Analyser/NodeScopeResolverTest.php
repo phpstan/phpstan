@@ -3335,142 +3335,353 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
+				'die',
 				'mixed',
 				'$mixedParameter',
 			],
 			[
+				'die',
 				'MethodPhpDocsNamespace\Bar|MethodPhpDocsNamespace\Foo',
 				'$unionTypeParameter',
 			],
 			[
+				'die',
 				'mixed',
 				'$anotherMixedParameter',
 			],
 			[
+				'die',
 				'mixed',
 				'$yetAnotherMixedParameter',
 			],
 			[
+				'die',
 				'int',
 				'$integerParameter',
 			],
 			[
+				'die',
 				'int',
 				'$anotherIntegerParameter',
 			],
 			[
+				'die',
 				'array',
 				'$arrayParameterOne',
 			],
 			[
+				'die',
 				'array',
 				'$arrayParameterOther',
 			],
 			[
+				'die',
 				'MethodPhpDocsNamespace\\Lorem',
 				'$objectRelative',
 			],
 			[
+				'die',
 				'SomeOtherNamespace\\Ipsum',
 				'$objectFullyQualified',
 			],
 			[
+				'die',
 				'SomeNamespace\\Amet',
 				'$objectUsed',
 			],
 			[
+				'die',
 				'*ERROR*',
 				'$nonexistentParameter',
 			],
 			[
+				'die',
 				'int|null',
 				'$nullableInteger',
 			],
 			[
+				'die',
 				'SomeNamespace\Amet|null',
 				'$nullableObject',
 			],
 			[
+				'die',
 				'SomeNamespace\Amet|null',
 				'$anotherNullableObject',
 			],
 			[
+				'die',
 				'null',
 				'$nullType',
 			],
 			[
+				'die',
 				'MethodPhpDocsNamespace\Bar',
 				'$barObject->doBar()',
 			],
 			[
+				'die',
 				'MethodPhpDocsNamespace\Bar',
 				'$conflictedObject',
 			],
 			[
+				'die',
 				'MethodPhpDocsNamespace\Baz',
 				'$moreSpecifiedObject',
 			],
 			[
+				'die',
 				'MethodPhpDocsNamespace\Baz',
 				'$moreSpecifiedObject->doFluent()',
 			],
 			[
+				'die',
 				'MethodPhpDocsNamespace\Baz|null',
 				'$moreSpecifiedObject->doFluentNullable()',
 			],
 			[
+				'die',
 				'MethodPhpDocsNamespace\Baz',
 				'$moreSpecifiedObject->doFluentArray()[0]',
 			],
 			[
+				'die',
 				'iterable<MethodPhpDocsNamespace\Baz>&MethodPhpDocsNamespace\Collection',
 				'$moreSpecifiedObject->doFluentUnionIterable()',
 			],
 			[
+				'die',
 				'MethodPhpDocsNamespace\Baz',
 				'$fluentUnionIterableBaz',
 			],
 			[
+				'die',
 				'resource',
 				'$resource',
 			],
 			[
+				'die',
 				'mixed',
 				'$yetAnotherAnotherMixedParameter',
 			],
 			[
+				'die',
 				'mixed',
 				'$yetAnotherAnotherAnotherMixedParameter',
 			],
 			[
+				'die',
 				'void',
 				'$voidParameter',
 			],
 			[
+				'die',
 				'SomeNamespace\Consecteur',
 				'$useWithoutAlias',
 			],
 			[
+				'die',
 				'true',
 				'$true',
 			],
 			[
+				'die',
 				'false',
 				'$false',
 			],
 			[
+				'die',
 				'true',
 				'$boolTrue',
 			],
 			[
+				'die',
 				'false',
 				'$boolFalse',
 			],
 			[
+				'die',
 				'bool',
 				'$trueBoolean',
 			],
 			[
+				'die',
+				'bool',
+				'$parameterWithDefaultValueFalse',
+			],
+			// @inheritdoc
+			[
+				'exit',
+				'mixed',
+				'$mixedParameter',
+			],
+			[
+				'exit',
+				'MethodPhpDocsNamespace\Bar|MethodPhpDocsNamespace\Foo',
+				'$unionTypeParameter',
+			],
+			[
+				'exit',
+				'mixed',
+				'$anotherMixedParameter',
+			],
+			[
+				'exit',
+				'mixed',
+				'$yetAnotherMixedParameter',
+			],
+			[
+				'exit',
+				'int',
+				'$integerParameter',
+			],
+			[
+				'exit',
+				'int',
+				'$anotherIntegerParameter',
+			],
+			[
+				'exit',
+				'array',
+				'$arrayParameterOne',
+			],
+			[
+				'exit',
+				'array',
+				'$arrayParameterOther',
+			],
+			[
+				'exit',
+				'MethodPhpDocsNamespace\\Lorem',
+				'$objectRelative',
+			],
+			[
+				'exit',
+				'SomeOtherNamespace\\Ipsum',
+				'$objectFullyQualified',
+			],
+			[
+				'exit',
+				'SomeNamespace\\Amet',
+				'$objectUsed',
+			],
+			[
+				'exit',
+				'*ERROR*',
+				'$nonexistentParameter',
+			],
+			[
+				'exit',
+				'int|null',
+				'$nullableInteger',
+			],
+			[
+				'exit',
+				'SomeNamespace\Amet|null',
+				'$nullableObject',
+			],
+			[
+				'exit',
+				'SomeNamespace\Amet|null',
+				'$anotherNullableObject',
+			],
+			[
+				'exit',
+				'null',
+				'$nullType',
+			],
+			[
+				'exit',
+				'MethodPhpDocsNamespace\Bar',
+				'$barObject->doBar()',
+			],
+			[
+				'exit',
+				'MethodPhpDocsNamespace\Bar',
+				'$conflictedObject',
+			],
+			[
+				'exit',
+				'MethodPhpDocsNamespace\Baz',
+				'$moreSpecifiedObject',
+			],
+			[
+				'exit',
+				'MethodPhpDocsNamespace\Baz',
+				'$moreSpecifiedObject->doFluent()',
+			],
+			[
+				'exit',
+				'MethodPhpDocsNamespace\Baz|null',
+				'$moreSpecifiedObject->doFluentNullable()',
+			],
+			[
+				'exit',
+				'MethodPhpDocsNamespace\Baz',
+				'$moreSpecifiedObject->doFluentArray()[0]',
+			],
+			[
+				'exit',
+				'iterable<MethodPhpDocsNamespace\Baz>&MethodPhpDocsNamespace\Collection',
+				'$moreSpecifiedObject->doFluentUnionIterable()',
+			],
+			[
+				'exit',
+				'MethodPhpDocsNamespace\Baz',
+				'$fluentUnionIterableBaz',
+			],
+			[
+				'exit',
+				'resource',
+				'$resource',
+			],
+			[
+				'exit',
+				'mixed',
+				'$yetAnotherAnotherMixedParameter',
+			],
+			[
+				'exit',
+				'mixed',
+				'$yetAnotherAnotherAnotherMixedParameter',
+			],
+			[
+				'exit',
+				'void',
+				'$voidParameter',
+			],
+			[
+				'exit',
+				'SomeNamespace\Consecteur',
+				'$useWithoutAlias',
+			],
+			[
+				'exit',
+				'true',
+				'$true',
+			],
+			[
+				'exit',
+				'false',
+				'$false',
+			],
+			[
+				'exit',
+				'true',
+				'$boolTrue',
+			],
+			[
+				'exit',
+				'false',
+				'$boolFalse',
+			],
+			[
+				'exit',
+				'bool',
+				'$trueBoolean',
+			],
+			[
+				'exit',
 				'bool',
 				'$parameterWithDefaultValueFalse',
 			],
@@ -3480,11 +3691,25 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	public function dataTypeFromFunctionFunctionPhpDocs(): array
 	{
 		return [
+			// {@inheritdoc}
 			[
+				'die',
 				'MethodPhpDocsNamespace\Foo',
 				'$fooFunctionResult',
 			],
 			[
+				'die',
+				'MethodPhpDocsNamespace\Bar',
+				'$barFunctionResult',
+			],
+			// @inheritdoc
+			[
+				'exit',
+				'MethodPhpDocsNamespace\Foo',
+				'$fooFunctionResult',
+			],
+			[
+				'exit',
 				'MethodPhpDocsNamespace\Bar',
 				'$barFunctionResult',
 			],
@@ -3494,10 +3719,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	/**
 	 * @dataProvider dataTypeFromFunctionPhpDocs
 	 * @dataProvider dataTypeFromFunctionFunctionPhpDocs
+	 * @param string $evaluatedPointExpression
 	 * @param string $description
 	 * @param string $expression
 	 */
 	public function testTypeFromFunctionPhpDocs(
+		string $evaluatedPointExpression,
 		string $description,
 		string $expression
 	): void
@@ -3506,147 +3733,359 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		$this->assertTypes(
 			__DIR__ . '/data/functionPhpDocs.php',
 			$description,
-			$expression
+			$expression,
+			[],
+			[],
+			[],
+			[],
+			$evaluatedPointExpression,
+			[],
+			false
 		);
 	}
 
 	public function dataTypeFromMethodPhpDocs(): array
 	{
 		return [
+			// {@inheritdoc}
 			[
+				'die',
 				'MethodPhpDocsNamespace\\Foo',
 				'$selfType',
 			],
 			[
+				'die',
 				'static(MethodPhpDocsNamespace\Foo)',
 				'$staticType',
 				false,
 			],
 			[
+				'die',
 				'MethodPhpDocsNamespace\Foo',
 				'$this->doFoo()',
 			],
 			[
+				'die',
 				'MethodPhpDocsNamespace\Bar',
 				'static::doSomethingStatic()',
 			],
 			[
+				'die',
 				'static(MethodPhpDocsNamespace\Foo)',
 				'parent::doLorem()',
 			],
 			[
+				'die',
 				'MethodPhpDocsNamespace\FooParent',
 				'$parent->doLorem()',
 				false,
 			],
 			[
+				'die',
 				'static(MethodPhpDocsNamespace\Foo)',
 				'$this->doLorem()',
 			],
 			[
+				'die',
 				'MethodPhpDocsNamespace\Foo',
 				'$differentInstance->doLorem()',
 			],
 			[
+				'die',
 				'static(MethodPhpDocsNamespace\Foo)',
 				'parent::doIpsum()',
 			],
 			[
+				'die',
 				'MethodPhpDocsNamespace\FooParent',
 				'$parent->doIpsum()',
 				false,
 			],
 			[
+				'die',
 				'MethodPhpDocsNamespace\Foo',
 				'$differentInstance->doIpsum()',
 			],
 			[
+				'die',
 				'static(MethodPhpDocsNamespace\Foo)',
 				'$this->doIpsum()',
 			],
 			[
+				'die',
 				'MethodPhpDocsNamespace\Foo',
 				'$this->doBar()[0]',
 			],
 			[
+				'die',
 				'MethodPhpDocsNamespace\Foo',
 				'$this->doAnotherBar()[0]',
 			],
 			[
+				'die',
 				'MethodPhpDocsNamespace\Bar',
 				'self::doSomethingStatic()',
 			],
 			[
+				'die',
 				'MethodPhpDocsNamespace\Bar',
 				'\MethodPhpDocsNamespace\Foo::doSomethingStatic()',
 			],
 			[
+				'die',
 				'$this(MethodPhpDocsNamespace\Foo)',
 				'parent::doThis()',
 			],
 			[
+				'die',
 				'$this(MethodPhpDocsNamespace\Foo)|null',
 				'parent::doThisNullable()',
 			],
 			[
+				'die',
 				'$this(MethodPhpDocsNamespace\Foo)|MethodPhpDocsNamespace\Bar|null',
 				'parent::doThisUnion()',
 			],
 			[
+				'die',
 				'MethodPhpDocsNamespace\FooParent',
 				'$this->returnParent()',
 				false,
 			],
 			[
+				'die',
 				'MethodPhpDocsNamespace\FooParent',
 				'$this->returnPhpDocParent()',
 				false,
 			],
 			[
+				'die',
 				'array<null>',
 				'$this->returnNulls()',
 			],
 			[
+				'die',
 				'object',
 				'$objectWithoutNativeTypehint',
 			],
 			[
+				'die',
 				'object',
 				'$objectWithNativeTypehint',
 			],
 			[
+				'die',
 				'object',
 				'$this->returnObject()',
 			],
 			[
+				'die',
 				'MethodPhpDocsNamespace\FooParent',
 				'new parent()',
 			],
 			[
+				'die',
 				'MethodPhpDocsNamespace\Foo',
 				'$inlineSelf',
 			],
 			[
+				'die',
 				'MethodPhpDocsNamespace\Bar',
 				'$inlineBar',
 			],
 			[
+				'die',
 				'MethodPhpDocsNamespace\Foo',
 				'$this->phpDocVoidMethod()',
 			],
 			[
+				'die',
 				'MethodPhpDocsNamespace\Foo',
 				'$this->phpDocVoidMethodFromInterface()',
 			],
 			[
+				'die',
 				'MethodPhpDocsNamespace\Foo',
 				'$this->phpDocVoidParentMethod()',
 			],
 			[
+				'die',
 				'array<string>',
 				'$this->returnsStringArray()',
 			],
 			[
+				'die',
+				'mixed',
+				'$this->privateMethodWithPhpDoc()',
+			],
+			// @inheritdoc
+			[
+				'exit',
+				'MethodPhpDocsNamespace\\Foo',
+				'$selfType',
+			],
+			[
+				'exit',
+				'static(MethodPhpDocsNamespace\Foo)',
+				'$staticType',
+				false,
+			],
+			[
+				'exit',
+				'MethodPhpDocsNamespace\Foo',
+				'$this->doAnotherFoo()',
+			],
+			[
+				'exit',
+				'MethodPhpDocsNamespace\Bar',
+				'static::doSomethingStatic()',
+			],
+			[
+				'exit',
+				'static(MethodPhpDocsNamespace\Foo)',
+				'parent::doLorem()',
+			],
+			[
+				'exit',
+				'MethodPhpDocsNamespace\FooParent',
+				'$parent->doLorem()',
+				false,
+			],
+			[
+				'exit',
+				'static(MethodPhpDocsNamespace\Foo)',
+				'$this->doLorem()',
+			],
+			[
+				'exit',
+				'MethodPhpDocsNamespace\Foo',
+				'$differentInstance->doLorem()',
+			],
+			[
+				'exit',
+				'static(MethodPhpDocsNamespace\Foo)',
+				'parent::doIpsum()',
+			],
+			[
+				'exit',
+				'MethodPhpDocsNamespace\FooParent',
+				'$parent->doIpsum()',
+				false,
+			],
+			[
+				'exit',
+				'MethodPhpDocsNamespace\Foo',
+				'$differentInstance->doIpsum()',
+			],
+			[
+				'exit',
+				'static(MethodPhpDocsNamespace\Foo)',
+				'$this->doIpsum()',
+			],
+			[
+				'exit',
+				'MethodPhpDocsNamespace\Foo',
+				'$this->doAnotherBar()[0]',
+			],
+			[
+				'exit',
+				'MethodPhpDocsNamespace\Foo',
+				'$this->doAnotherBar()[0]',
+			],
+			[
+				'exit',
+				'MethodPhpDocsNamespace\Bar',
+				'self::doSomethingStatic()',
+			],
+			[
+				'exit',
+				'MethodPhpDocsNamespace\Bar',
+				'\MethodPhpDocsNamespace\Foo::doSomethingStatic()',
+			],
+			[
+				'exit',
+				'$this(MethodPhpDocsNamespace\Foo)',
+				'parent::doThis()',
+			],
+			[
+				'exit',
+				'$this(MethodPhpDocsNamespace\Foo)|null',
+				'parent::doThisNullable()',
+			],
+			[
+				'exit',
+				'$this(MethodPhpDocsNamespace\Foo)|MethodPhpDocsNamespace\Bar|null',
+				'parent::doThisUnion()',
+			],
+			[
+				'exit',
+				'MethodPhpDocsNamespace\FooParent',
+				'$this->returnParent()',
+				false,
+			],
+			[
+				'exit',
+				'MethodPhpDocsNamespace\FooParent',
+				'$this->returnPhpDocParent()',
+				false,
+			],
+			[
+				'exit',
+				'array<null>',
+				'$this->returnNulls()',
+			],
+			[
+				'exit',
+				'object',
+				'$objectWithoutNativeTypehint',
+			],
+			[
+				'exit',
+				'object',
+				'$objectWithNativeTypehint',
+			],
+			[
+				'exit',
+				'object',
+				'$this->returnObject()',
+			],
+			[
+				'exit',
+				'MethodPhpDocsNamespace\FooParent',
+				'new parent()',
+			],
+			[
+				'exit',
+				'MethodPhpDocsNamespace\Foo',
+				'$inlineSelf',
+			],
+			[
+				'exit',
+				'MethodPhpDocsNamespace\Bar',
+				'$inlineBar',
+			],
+			[
+				'exit',
+				'MethodPhpDocsNamespace\Foo',
+				'$this->phpDocVoidMethod()',
+			],
+			[
+				'exit',
+				'MethodPhpDocsNamespace\Foo',
+				'$this->phpDocVoidMethodFromInterface()',
+			],
+			[
+				'exit',
+				'MethodPhpDocsNamespace\Foo',
+				'$this->phpDocVoidParentMethod()',
+			],
+			[
+				'exit',
+				'array<string>',
+				'$this->returnsStringArray()',
+			],
+			[
+				'exit',
 				'mixed',
 				'$this->privateMethodWithPhpDoc()',
 			],
@@ -3656,10 +4095,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	/**
 	 * @dataProvider dataTypeFromFunctionPhpDocs
 	 * @dataProvider dataTypeFromMethodPhpDocs
+	 * @param string $evaluatedPointExpression
 	 * @param string $description
 	 * @param string $expression
 	 */
 	public function testTypeFromMethodPhpDocs(
+		string $evaluatedPointExpression,
 		string $description,
 		string $expression
 	): void
@@ -3667,18 +4108,26 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		$this->assertTypes(
 			__DIR__ . '/data/methodPhpDocs.php',
 			$description,
-			$expression
+			$expression,
+			[],
+			[],
+			[],
+			[],
+			$evaluatedPointExpression,
+			[],
+			false
 		);
 	}
 
 	/**
 	 * @dataProvider dataTypeFromFunctionPhpDocs
 	 * @dataProvider dataTypeFromMethodPhpDocs
+	 * @param string $evaluatedPointExpression
 	 * @param string $description
 	 * @param string $expression
-	 * @param bool $replaceClass
 	 */
 	public function testTypeFromTraitPhpDocs(
+		string $evaluatedPointExpression,
 		string $description,
 		string $expression,
 		bool $replaceClass = true
@@ -3686,7 +4135,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		$description = str_replace('static(MethodPhpDocsNamespace\Foo)', 'static(MethodPhpDocsNamespace\FooWithTrait)', $description);
 
-		if ($replaceClass && $expression !== '$this->doFoo()') {
+		if ($replaceClass && $expression !== '$this->doFoo()' && $expression !== '$this->doAnotherFoo()') {
 			$description = str_replace('$this(MethodPhpDocsNamespace\Foo)', '$this(MethodPhpDocsNamespace\FooWithTrait)', $description);
 			if ($description === 'MethodPhpDocsNamespace\Foo') {
 				$description = 'MethodPhpDocsNamespace\FooWithTrait';
@@ -3695,18 +4144,27 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		$this->assertTypes(
 			__DIR__ . '/data/methodPhpDocs-trait.php',
 			$description,
-			$expression
+			$expression,
+			[],
+			[],
+			[],
+			[],
+			$evaluatedPointExpression,
+			[],
+			false
 		);
 	}
 
 	/**
 	 * @dataProvider dataTypeFromFunctionPhpDocs
 	 * @dataProvider dataTypeFromMethodPhpDocs
+	 * @param string $evaluatedPointExpression
 	 * @param string $description
 	 * @param string $expression
 	 * @param bool $replaceClass
 	 */
 	public function testTypeFromRecursiveTraitPhpDocs(
+		string $evaluatedPointExpression,
 		string $description,
 		string $expression,
 		bool $replaceClass = true
@@ -3714,7 +4172,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		$description = str_replace('static(MethodPhpDocsNamespace\Foo)', 'static(MethodPhpDocsNamespace\FooWithRecursiveTrait)', $description);
 
-		if ($replaceClass && $expression !== '$this->doFoo()') {
+		if ($replaceClass && $expression !== '$this->doFoo()' && $expression !== '$this->doAnotherFoo()') {
 			$description = str_replace('$this(MethodPhpDocsNamespace\Foo)', '$this(MethodPhpDocsNamespace\FooWithRecursiveTrait)', $description);
 			if ($description === 'MethodPhpDocsNamespace\Foo') {
 				$description = 'MethodPhpDocsNamespace\FooWithRecursiveTrait';
@@ -3723,7 +4181,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		$this->assertTypes(
 			__DIR__ . '/data/methodPhpDocs-recursiveTrait.php',
 			$description,
-			$expression
+			$expression,
+			[],
+			[],
+			[],
+			[],
+			$evaluatedPointExpression,
+			[],
+			false
 		);
 	}
 
@@ -3757,11 +4222,13 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	/**
 	 * @dataProvider dataTypeFromFunctionPhpDocs
 	 * @dataProvider dataTypeFromMethodPhpDocs
+	 * @param string $evaluatedPointExpression
 	 * @param string $description
 	 * @param string $expression
 	 * @param bool $replaceClass
 	 */
 	public function testTypeFromMethodPhpDocsInheritDoc(
+		string $evaluatedPointExpression,
 		string $description,
 		string $expression,
 		bool $replaceClass = true
@@ -3778,18 +4245,27 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		$this->assertTypes(
 			__DIR__ . '/data/method-phpDocs-inheritdoc.php',
 			$description,
-			$expression
+			$expression,
+			[],
+			[],
+			[],
+			[],
+			$evaluatedPointExpression,
+			[],
+			false
 		);
 	}
 
 	/**
 	 * @dataProvider dataTypeFromFunctionPhpDocs
 	 * @dataProvider dataTypeFromMethodPhpDocs
+	 * @param string $evaluatedPointExpression
 	 * @param string $description
 	 * @param string $expression
 	 * @param bool $replaceClass
 	 */
 	public function testTypeFromMethodPhpDocsImplicitInheritance(
+		string $evaluatedPointExpression,
 		string $description,
 		string $expression,
 		bool $replaceClass = true
@@ -3806,7 +4282,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		$this->assertTypes(
 			__DIR__ . '/data/methodPhpDocs-implicitInheritance.php',
 			$description,
-			$expression
+			$expression,
+			[],
+			[],
+			[],
+			[],
+			$evaluatedPointExpression,
+			[],
+			false
 		);
 	}
 
@@ -9025,7 +9508,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 
 				self::$assertTypesCache[$file][$evaluatedPointExpression] = $scope;
 
-				$assertType($scope);
+					$assertType($scope);
 			},
 			$dynamicMethodReturnTypeExtensions,
 			$dynamicStaticMethodReturnTypeExtensions,

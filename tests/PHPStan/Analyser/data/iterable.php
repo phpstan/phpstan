@@ -98,6 +98,58 @@ class Foo
 	}
 
 	/**
+	 * @param iterable $iterableWithIterableTypehint
+	 * @param Bar[] $iterableWithConcreteTypehint
+	 * @param iterable $arrayWithIterableTypehint
+	 * @param Bar[]|Collection $unionIterableType
+	 * @param Foo[]|Bar[]|Collection|array $mixedUnionIterableType
+	 * @param Bar[]|Collection $unionIterableIterableType
+	 * @param int[]|iterable $integers
+	 * @param mixed[]|iterable $mixeds
+	 * @param \Generator<Foo> $generatorOfFoos
+	 * @param \ArrayObject<int, string> $arrayObject
+	 */
+	public function doAnotherFoo(
+		iterable $iterableWithoutTypehint,
+		iterable $iterableWithIterableTypehint,
+		iterable $iterableWithConcreteTypehint,
+		array $arrayWithIterableTypehint,
+		Collection $unionIterableType,
+		array $mixedUnionIterableType,
+		iterable $unionIterableIterableType,
+		$iterableSpecifiedLater,
+		iterable $integers,
+		iterable $mixeds,
+		$generatorOfFoos,
+		$arrayObject
+	)
+	{
+		if (!is_iterable($iterableSpecifiedLater)) {
+			return;
+		}
+
+		foreach ($iterableWithIterableTypehint as $mixed) {
+			foreach ($iterableWithConcreteTypehint as $bar) {
+				foreach ($this->doBaz() as $baz) {
+					foreach ($unionIterableType as $unionBar) {
+						foreach ($mixedUnionIterableType as $mixedBar) {
+							foreach ($unionIterableIterableType as $iterableUnionBar) {
+								foreach ($this->doUnionIterableWithPhpDoc() as $unionBarFromMethod) {
+									foreach ($generatorOfFoos as $fooFromGenerator) {
+										foreach ($arrayObject as $arrayObjectKey => $arrayObjectValue) {
+											exit;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	/**
 	 * @return iterable
 	 */
 	public function doBar(): iterable
