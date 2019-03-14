@@ -39,7 +39,7 @@ class FileExcluderTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				__DIR__ . '\Foo\data\excluded-file.php',
-				[__DIR__ . '/*/data/*'],
+				[__DIR__ . '/*\/data/*'],
 				true,
 			],
 			[
@@ -96,6 +96,21 @@ class FileExcluderTest extends \PHPStan\Testing\TestCase
 				'c:\Data\data\parse-error.php',
 				['C:/Temp/*'],
 				false,
+			],
+			[
+				'c:\etc\phpstan\dummy-1.php',
+				['c:\etc\phpstan\\'],
+				true,
+			],
+			[
+				'c:\etc\phpstan-test\dummy-2.php',
+				['c:\etc\phpstan\\'],
+				false,
+			],
+			[
+				'c:\etc\phpstan-test\dummy-2.php',
+				['c:\etc\phpstan'],
+				true,
 			],
 		];
 	}
@@ -176,6 +191,21 @@ class FileExcluderTest extends \PHPStan\Testing\TestCase
 				'/home/myname/data/parse-error.php',
 				['/tmp/*'],
 				false,
+			],
+			[
+				'/etc/phpstan/dummy-1.php',
+				['/etc/phpstan/'],
+				true,
+			],
+			[
+				'/etc/phpstan-test/dummy-2.php',
+				['/etc/phpstan/'],
+				false,
+			],
+			[
+				'/etc/phpstan-test/dummy-2.php',
+				['/etc/phpstan'],
+				true,
 			],
 		];
 	}
