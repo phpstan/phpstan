@@ -15,10 +15,13 @@ rules:
 parameters:
 	featureToggles:
 		deadCatchesRule: false
+		noopRule: false
 
 conditionalTags:
 	PHPStan\Rules\Exceptions\DeadCatchRule:
 		phpstan.rules.rule: %featureToggles.deadCatchesRule%
+	PHPStan\Rules\DeadCode\NoopRule:
+		phpstan.rules.rule: %featureToggles.noopRule%
 
 services:
 	-
@@ -58,3 +61,6 @@ services:
 
 	-
 		class: PHPStan\Rules\Exceptions\DeadCatchRule
+
+	-
+		class: PHPStan\Rules\DeadCode\NoopRule
