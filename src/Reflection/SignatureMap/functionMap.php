@@ -8773,7 +8773,7 @@ return [
 'posix_getgrnam' => ['array|false', 'groupname'=>'string'],
 'posix_getgroups' => ['array'],
 'posix_getlogin' => ['string'],
-'posix_getpgid' => ['int', 'pid'=>'int'],
+'posix_getpgid' => ['int|false', 'pid'=>'int'],
 'posix_getpgrp' => ['int'],
 'posix_getpid' => ['int'],
 'posix_getppid' => ['int'],
