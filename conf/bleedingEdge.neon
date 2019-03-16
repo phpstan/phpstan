@@ -2,3 +2,4 @@ parameters:
 	featureToggles:
 		deadCatchesRule: true
 		noopRule: true
+		unreachableStatement: true

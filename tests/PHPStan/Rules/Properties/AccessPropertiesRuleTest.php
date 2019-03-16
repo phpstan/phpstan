@@ -372,12 +372,4 @@ class AccessPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testIssetSpecify(): void
-	{
-		$this->markTestIncomplete('TODO: This will get solved once NodeScopeResolver AST pass will include TypeSpecifier responsibilities. https://github.com/phpstan/phpstan/issues/1884');
-		$this->checkThisOnly = false;
-		$this->checkUnionTypes = true;
-		$this->analyse([__DIR__ . '/data/isset-specify.php'], []);
-	}
-
 }

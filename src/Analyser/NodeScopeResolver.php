@@ -49,6 +49,7 @@ use PHPStan\File\FileHelper;
 use PHPStan\Node\InClassMethodNode;
 use PHPStan\Node\LiteralArrayItem;
 use PHPStan\Node\LiteralArrayNode;
+use PHPStan\Node\UnreachableStatementNode;
 use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\PhpDocBlock;
 use PHPStan\PhpDoc\Tag\ParamTag;
@@ -192,7 +193,8 @@ class NodeScopeResolver
 	{
 		$exitPoints = [];
 		$alreadyTerminated = false;
-		foreach ($stmts as $stmt) {
+		$stmtCount = count($stmts);
+		foreach ($stmts as $i => $stmt) {
 			$statementResult = $this->processStmtNode($stmt, $scope, $nodeCallback);
 			$scope = $statementResult->getScope();
 
@@ -207,6 +209,11 @@ class NodeScopeResolver
 			}
 
 			$alreadyTerminated = true;
+			if ($i < $stmtCount - 1) {
+				$nextStmt = $stmts[$i + 1];
+				$nodeCallback(new UnreachableStatementNode($nextStmt), $scope);
+			}
+
 			// todo break
 		}
 
@@ -488,7 +495,7 @@ class NodeScopeResolver
 				// get types from finalScope, but don't create new variables
 			}
 
-			return new StatementResult($finalScope, $finalScopeResult->isAlwaysTerminating(), []);
+			return new StatementResult($finalScope, $isIterableAtLeastOnce->yes() && $finalScopeResult->isAlwaysTerminating(), []);
 		} elseif ($stmt instanceof While_) {
 			$condResult = $this->processExprNode($stmt->cond, $scope, static function (): void {
 			}, ExpressionContext::createDeep());
@@ -538,7 +545,7 @@ class NodeScopeResolver
 				$finalScope = $finalScope->mergeWith($condScope);
 			}
 
-			return new StatementResult($finalScope, $finalScopeResult->isAlwaysTerminating(), []);
+			return new StatementResult($finalScope, $finalScopeResult->isAlwaysTerminating() && $isIterableAtLeastOnce, []);
 		} elseif ($stmt instanceof Do_) {
 			$finalScope = null;
 			$bodyScope = $scope;
@@ -659,7 +666,7 @@ class NodeScopeResolver
 				//$finalScope = $finalScope->filterByFalseyValue($condExpr);
 			}*/
 
-			return new StatementResult($finalScope, $finalScopeResult->isAlwaysTerminating(), []);
+			return new StatementResult($finalScope, false/* $finalScopeResult->isAlwaysTerminating() && $isAlwaysIterable*/, []);
 		} elseif ($stmt instanceof Switch_) {
 			$scope = $this->processExprNode($stmt->cond, $scope, $nodeCallback, ExpressionContext::createDeep())->getScope();
 			$scopeForBranches = $scope;

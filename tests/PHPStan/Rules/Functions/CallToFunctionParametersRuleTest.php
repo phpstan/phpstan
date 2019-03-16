@@ -200,24 +200,6 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testUnpackOnBefore711(): void
-	{
-		$this->markTestIncomplete('Requires filtering the functionMap function parameters by current PHP reflection.');
-		if (PHP_VERSION_ID >= 70101) {
-			$this->markTestSkipped('This test requires PHP < 7.1.1');
-		}
-		$this->analyse([__DIR__ . '/data/unpack.php'], [
-			[
-				'Function unpack invoked with 0 parameters, 2 required.',
-				3,
-			],
-			[
-				'Function unpack invoked with 3 parameters, 2 required.',
-				4,
-			],
-		]);
-	}
-
 	public function testPassingNonVariableToParameterPassedByReference(): void
 	{
 		require_once __DIR__ . '/data/passed-by-reference.php';

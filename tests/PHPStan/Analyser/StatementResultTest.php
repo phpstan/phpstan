@@ -64,43 +64,43 @@ class StatementResultTest extends \PHPStan\Testing\TestCase
 				true,
 			],
 			[
-				'foreach ($x as $v) { return; }',
+				'foreach ([1, 2, 3] as $v) { return; }',
 				true,
 			],
 			[
-				'foreach ($x as $v) { break; }',
+				'foreach ([1, 2, 3] as $v) { break; }',
 				false,
 			],
 			[
-				'foreach ($x as $v) { continue; }',
+				'foreach ([1, 2, 3] as $v) { continue; }',
 				false,
 			],
 			[
-				'foreach ($x as $v) { if (doFoo()) { return; } }',
+				'foreach ([1, 2, 3] as $v) { if (doFoo()) { return; } }',
 				false,
 			],
 			[
-				'foreach ($x as $v) { if (doFoo()) { return; } else { return; } }',
+				'foreach ([1, 2, 3] as $v) { if (doFoo()) { return; } else { return; } }',
 				true,
 			],
 			[
-				'foreach ($x as $v) { if (true) { return; } }',
+				'foreach ([1, 2, 3] as $v) { if (true) { return; } }',
 				true,
 			],
 			[
-				'foreach ($x as $v) { if (true) { break; } }',
+				'foreach ([1, 2, 3] as $v) { if (true) { break; } }',
 				false,
 			],
 			[
-				'foreach ($x as $v) { if (true) { continue; } }',
+				'foreach ([1, 2, 3] as $v) { if (true) { continue; } }',
 				false,
 			],
 			[
-				'foreach ($x as $v) { if (doFoo()) { return; } else { break; } }',
+				'foreach ([1, 2, 3] as $v) { if (doFoo()) { return; } else { break; } }',
 				false,
 			],
 			[
-				'foreach ($x as $v) { if (doFoo()) { if (doBar()) { return; } else { break; } } else { break; } }',
+				'foreach ([1, 2, 3] as $v) { if (doFoo()) { if (doBar()) { return; } else { break; } } else { break; } }',
 				false,
 			],
 			[
@@ -156,15 +156,15 @@ class StatementResultTest extends \PHPStan\Testing\TestCase
 				false,
 			],
 			[
-				'while (doFoo()) { }',
+				'while (true) { }',
 				false,
 			],
 			[
-				'while (doFoo()) { return; }',
+				'while (true) { return; }',
 				true,
 			],
 			[
-				'while (doFoo()) { break; }',
+				'while (true) { break; }',
 				false,
 			],
 			[
@@ -188,15 +188,11 @@ class StatementResultTest extends \PHPStan\Testing\TestCase
 				false,
 			],
 			[
-				'for ($i = 0; $i < 5; $i++) { return; }',
-				true,
-			],
-			[
-				'foreach ($array as $val) { if ($val === 1) { continue; } else { throw new \Exception(); } }',
+				'foreach ([1, 2, 3] as $val) { if ($val === 1) { continue; } else { throw new \Exception(); } }',
 				false,
 			],
 			[
-				'foreach ($array as $val) { if ($val === 1) { continue; } throw new \Exception(); }',
+				'foreach ([1, 2, 3] as $val) { if ($val === 1) { continue; } throw new \Exception(); }',
 				false,
 			],
 			[
@@ -205,6 +201,50 @@ class StatementResultTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				'throw new \Exception();',
+				true,
+			],
+			[
+				'foreach ([] as $val) { return; }',
+				false,
+			],
+			[
+				'foreach ($arr as $val) { return; }',
+				false,
+			],
+			[
+				'foreach ([1, 2, 3] as $val) { return; }',
+				true,
+			],
+			[
+				'while (true) { return; }',
+				true,
+			],
+			[
+				'while ($bool) { return; }',
+				false,
+			],
+			[
+				'for ($i = 0; $i < 10; $i++) { return; }',
+				false, // will be true with range types
+			],
+			[
+				'for ($i = 0; $i < 0; $i++) { return; }',
+				false,
+			],
+			[
+				'for ($i = 0; $i < count($arr); $i++) { return; }',
+				false,
+			],
+			[
+				'do { return; } while (true);',
+				true,
+			],
+			[
+				'do { return; } while (false);',
+				true,
+			],
+			[
+				'do { return; } while ($maybe);',
 				true,
 			],
 		];
