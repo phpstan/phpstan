@@ -30,13 +30,26 @@ class NoopRule implements Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		$expr = $node->expr;
+		$originalExpr = $node->expr;
+		$expr = $originalExpr;
+		if (
+			$expr instanceof Node\Expr\Cast
+			|| $expr instanceof Node\Expr\UnaryMinus
+			|| $expr instanceof Node\Expr\UnaryPlus
+			|| $expr instanceof Node\Expr\ErrorSuppress
+		) {
+			$expr = $expr->expr;
+		}
 		if (
 			!$expr instanceof Node\Expr\Variable
 			&& !$expr instanceof Node\Expr\PropertyFetch
 			&& !$expr instanceof Node\Expr\StaticPropertyFetch
 			&& !$expr instanceof Node\Expr\ArrayDimFetch
 			&& !$expr instanceof Node\Scalar
+			&& !$expr instanceof Node\Expr\Isset_
+			&& !$expr instanceof Node\Expr\Empty_
+			&& !$expr instanceof Node\Expr\ConstFetch
+			&& !$expr instanceof Node\Expr\ClassConstFetch
 		) {
 			return [];
 		}
@@ -44,7 +57,7 @@ class NoopRule implements Rule
 		return [
 			sprintf(
 				'Expression "%s" on a separate line does not do anything.',
-				$this->printer->prettyPrintExpr($expr)
+				$this->printer->prettyPrintExpr($originalExpr)
 			),
 		];
 	}
