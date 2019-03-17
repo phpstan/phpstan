@@ -27,7 +27,7 @@ class CountFunctionTypeSpecifyingExtension implements FunctionTypeSpecifyingExte
 	): bool
 	{
 		return !$context->null()
-			&& count($node->args) === 1
+			&& count($node->args) >= 1
 			&& $functionReflection->getName() === 'count';
 	}
 
