@@ -2480,6 +2480,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'count($arrayOfIntegers)',
 			],
 			[
+				'int',
+				'count($arrayOfIntegers, \COUNT_RECURSIVE)',
+			],
+			[
+				'3',
+				'count($arrayOfIntegers, 5)',
+			],
+			[
 				'6',
 				'count($arrayOfIntegers) + count($arrayOfIntegers)',
 			],
