@@ -1,5 +1,11 @@
 parameters:
 	customRulesetUsed: false
+	featureToggles:
+		missingReturnRule: false
+
+conditionalTags:
+	PHPStan\Rules\Missing\MissingReturnRule:
+		phpstan.rules.rule: %featureToggles.missingReturnRule%
 
 rules:
 	- PHPStan\Rules\Arrays\DuplicateKeysInLiteralArraysRule
@@ -62,6 +68,9 @@ services:
 		arguments:
 			checkFunctionNameCase: %checkFunctionNameCase%
 			reportMagicMethods: %reportMagicMethods%
+
+	-
+		class: PHPStan\Rules\Missing\MissingReturnRule
 
 	-
 		class: PHPStan\Rules\Namespaces\ExistingNamesInGroupUseRule

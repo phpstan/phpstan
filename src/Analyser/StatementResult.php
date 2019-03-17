@@ -11,6 +11,9 @@ class StatementResult
 	private $scope;
 
 	/** @var bool */
+	private $hasYield;
+
+	/** @var bool */
 	private $isAlwaysTerminating;
 
 	/** @var StatementExitPoint[] */
@@ -18,16 +21,19 @@ class StatementResult
 
 	/**
 	 * @param Scope $scope
+	 * @param bool $hasYield
 	 * @param bool $isAlwaysTerminating
 	 * @param StatementExitPoint[] $exitPoints
 	 */
 	public function __construct(
 		Scope $scope,
+		bool $hasYield,
 		bool $isAlwaysTerminating,
 		array $exitPoints
 	)
 	{
 		$this->scope = $scope;
+		$this->hasYield = $hasYield;
 		$this->isAlwaysTerminating = $isAlwaysTerminating;
 		$this->exitPoints = $exitPoints;
 	}
@@ -35,6 +41,11 @@ class StatementResult
 	public function getScope(): Scope
 	{
 		return $this->scope;
+	}
+
+	public function hasYield(): bool
+	{
+		return $this->hasYield;
 	}
 
 	public function isAlwaysTerminating(): bool
@@ -74,7 +85,7 @@ class StatementResult
 				$statement instanceof Stmt\Break_
 				|| $statement instanceof Stmt\Continue_
 			) {
-				return new self($this->scope, false, $this->exitPoints);
+				return new self($this->scope, $this->hasYield, false, $this->exitPoints);
 			}
 		}
 

@@ -8,6 +8,9 @@ class ExpressionResult
 	/** @var Scope */
 	private $scope;
 
+	/** @var bool */
+	private $hasYield;
+
 	/** @var (callable(): Scope)|null */
 	private $truthyScopeCallback;
 
@@ -22,16 +25,19 @@ class ExpressionResult
 
 	/**
 	 * @param Scope $scope
+	 * @param bool $hasYield
 	 * @param (callable(): Scope)|null $truthyScopeCallback
 	 * @param (callable(): Scope)|null $falseyScopeCallback
 	 */
 	public function __construct(
 		Scope $scope,
+		bool $hasYield,
 		?callable $truthyScopeCallback = null,
 		?callable $falseyScopeCallback = null
 	)
 	{
 		$this->scope = $scope;
+		$this->hasYield = $hasYield;
 		$this->truthyScopeCallback = $truthyScopeCallback;
 		$this->falseyScopeCallback = $falseyScopeCallback;
 	}
@@ -39,6 +45,11 @@ class ExpressionResult
 	public function getScope(): Scope
 	{
 		return $this->scope;
+	}
+
+	public function hasYield(): bool
+	{
+		return $this->hasYield;
 	}
 
 	public function getTruthyScope(): Scope

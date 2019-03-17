@@ -271,8 +271,10 @@ class StatementResultTest extends \PHPStan\Testing\TestCase
 		/** @var ScopeFactory $scopeFactory */
 		$scopeFactory = self::getContainer()->getByType(ScopeFactory::class);
 		$result = $nodeScopeResolver->processStmtNodes(
+			new Stmt\Namespace_(null, $stmts),
 			$stmts,
 			$scopeFactory->create(ScopeContext::create('test.php')),
+			StatementContext::createNull(),
 			static function (): void {
 			}
 		);

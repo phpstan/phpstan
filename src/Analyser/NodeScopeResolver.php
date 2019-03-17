@@ -46,6 +46,7 @@ use PhpParser\Node\Stmt\Unset_;
 use PhpParser\Node\Stmt\While_;
 use PHPStan\Broker\Broker;
 use PHPStan\File\FileHelper;
+use PHPStan\Node\ExecutionEndNode;
 use PHPStan\Node\InClassMethodNode;
 use PHPStan\Node\LiteralArrayItem;
 use PHPStan\Node\LiteralArrayNode;
@@ -164,12 +165,13 @@ class NodeScopeResolver
 		\Closure $nodeCallback
 	): void
 	{
+		$context = StatementContext::createNull();
 		foreach ($nodes as $node) {
 			if (!$node instanceof Node\Stmt) {
 				continue;
 			}
 
-			$statementResult = $this->processStmtNode($node, $scope, $nodeCallback);
+			$statementResult = $this->processStmtNode($node, $scope, $context, $nodeCallback);
 			/*if ($statementResult->isAlwaysTerminating()) {
 				// todo virtual dead code node
 				//break;
@@ -180,26 +182,52 @@ class NodeScopeResolver
 	}
 
 	/**
+	 * @param \PhpParser\Node $parentNode
 	 * @param \PhpParser\Node\Stmt[] $stmts
 	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param StatementContext $context
 	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
 	 * @return StatementResult
 	 */
 	public function processStmtNodes(
+		Node $parentNode,
 		array $stmts,
 		Scope $scope,
+		StatementContext $context,
 		\Closure $nodeCallback
 	): StatementResult
 	{
 		$exitPoints = [];
 		$alreadyTerminated = false;
+		$hasYield = false;
 		$stmtCount = count($stmts);
+		$nullContext = StatementContext::createNull();
 		foreach ($stmts as $i => $stmt) {
-			$statementResult = $this->processStmtNode($stmt, $scope, $nodeCallback);
+			$isLast = $i === $stmtCount - 1;
+			$statementResult = $this->processStmtNode(
+				$stmt,
+				$scope,
+				$context->shouldCheckLastStatement() && $isLast ? $context : $nullContext,
+				$nodeCallback
+			);
 			$scope = $statementResult->getScope();
+			$hasYield = $hasYield || $statementResult->hasYield();
 
 			if ($alreadyTerminated) {
 				continue;
+			}
+
+			if ($context->shouldCheckLastStatement() && $isLast && !$parentNode instanceof Node\Stmt\Finally_) {
+				// todo remove finally
+				$nodeCallback(new ExecutionEndNode(
+					$stmt,
+					new StatementResult(
+						$scope,
+						$hasYield,
+						$statementResult->isAlwaysTerminating(),
+						$statementResult->getExitPoints()
+					)
+				), $scope);
 			}
 
 			$exitPoints = array_merge($exitPoints, $statementResult->getExitPoints());
@@ -217,18 +245,28 @@ class NodeScopeResolver
 			// todo break
 		}
 
-		return new StatementResult($scope, $alreadyTerminated, $exitPoints);
+		$statementResult = new StatementResult($scope, $hasYield, $alreadyTerminated, $exitPoints);
+		if ($stmtCount === 0 && $context->shouldCheckLastStatement()) {
+			$nodeCallback(new ExecutionEndNode(
+				$parentNode,
+				$statementResult
+			), $scope);
+		}
+
+		return $statementResult;
 	}
 
 	/**
 	 * @param \PhpParser\Node\Stmt $stmt
 	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param StatementContext $context
 	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
 	 * @return StatementResult
 	 */
 	private function processStmtNode(
 		Node\Stmt $stmt,
 		Scope $scope,
+		StatementContext $context,
 		\Closure $nodeCallback
 	): StatementResult
 	{
@@ -236,6 +274,7 @@ class NodeScopeResolver
 
 		// todo handle all stmt descendants
 		if ($stmt instanceof Node\Stmt\Declare_) {
+			$hasYield = false;
 			foreach ($stmt->declares as $declare) {
 				$nodeCallback($declare, $scope);
 				$nodeCallback($declare->value, $scope);
@@ -250,6 +289,7 @@ class NodeScopeResolver
 				$scope = $scope->enterDeclareStrictTypes();
 			}
 		} elseif ($stmt instanceof Node\Stmt\Function_) {
+			$hasYield = false;
 			[$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated, $isInternal, $isFinal] = $this->getPhpDocs($scope, $stmt);
 
 			foreach ($stmt->params as $param) {
@@ -269,8 +309,9 @@ class NodeScopeResolver
 				$isInternal,
 				$isFinal
 			);
-			$this->processStmtNodes($stmt->stmts, $functionScope, $nodeCallback);
+			$this->processStmtNodes($stmt, $stmt->stmts, $functionScope, StatementContext::createCheckLastStatement(), $nodeCallback);
 		} elseif ($stmt instanceof Node\Stmt\ClassMethod) {
+			$hasYield = false;
 			[$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated, $isInternal, $isFinal] = $this->getPhpDocs($scope, $stmt);
 
 			foreach ($stmt->params as $param) {
@@ -293,46 +334,51 @@ class NodeScopeResolver
 			$nodeCallback(new InClassMethodNode($stmt), $methodScope);
 
 			if ($stmt->stmts !== null) {
-				$this->processStmtNodes($stmt->stmts, $methodScope, $nodeCallback);
+				$this->processStmtNodes($stmt, $stmt->stmts, $methodScope, StatementContext::createCheckLastStatement(), $nodeCallback);
 			}
 		} elseif ($stmt instanceof Echo_) {
+			$hasYield = false;
 			foreach ($stmt->exprs as $echoExpr) {
-				$scope = $this->processExprNode($echoExpr, $scope, $nodeCallback, ExpressionContext::createDeep())->getScope();
+				$result = $this->processExprNode($echoExpr, $scope, $nodeCallback, ExpressionContext::createDeep());
+				$scope = $result->getScope();
+				$hasYield = $hasYield || $result->hasYield();
 			}
 		} elseif ($stmt instanceof Return_) {
 			if ($stmt->expr !== null) {
-				$scope = $this->processExprNode($stmt->expr, $scope, $nodeCallback, ExpressionContext::createDeep())->getScope();
+				$result = $this->processExprNode($stmt->expr, $scope, $nodeCallback, ExpressionContext::createDeep());
+				$scope = $result->getScope();
+				$hasYield = $result->hasYield();
+			} else {
+				$hasYield = false;
 			}
 
-			return new StatementResult($scope, true, [
+			return new StatementResult($scope, $hasYield, true, [
 				new StatementExitPoint($stmt, $scope),
 			]);
-		} elseif ($stmt instanceof Continue_) {
+		} elseif ($stmt instanceof Continue_ || $stmt instanceof Break_) {
 			if ($stmt->num !== null) {
-				$scope = $this->processExprNode($stmt->num, $scope, $nodeCallback, ExpressionContext::createDeep())->getScope();
+				$result = $this->processExprNode($stmt->num, $scope, $nodeCallback, ExpressionContext::createDeep());
+				$scope = $result->getScope();
+				$hasYield = $result->hasYield();
+			} else {
+				$hasYield = false;
 			}
 
-			return new StatementResult($scope, true, [
-				new StatementExitPoint($stmt, $scope),
-			]);
-		} elseif ($stmt instanceof Break_) {
-			if ($stmt->num !== null) {
-				$scope = $this->processExprNode($stmt->num, $scope, $nodeCallback, ExpressionContext::createDeep())->getScope();
-			}
-
-			return new StatementResult($scope, true, [
+			return new StatementResult($scope, $hasYield, true, [
 				new StatementExitPoint($stmt, $scope),
 			]);
 		} elseif ($stmt instanceof Node\Stmt\Expression) {
 			$earlyTerminationExpr = $this->findEarlyTerminatingExpr($stmt->expr, $scope);
-			$scope = $this->processExprNode($stmt->expr, $scope, $nodeCallback, ExpressionContext::createTopLevel())->getScope();
+			$result = $this->processExprNode($stmt->expr, $scope, $nodeCallback, ExpressionContext::createTopLevel());
+			$scope = $result->getScope();
 			$scope = $scope->filterBySpecifiedTypes($this->typeSpecifier->specifyTypesInCondition(
 				$scope,
 				$stmt->expr,
 				TypeSpecifierContext::createNull()
 			));
+			$hasYield = $result->hasYield();
 			if ($earlyTerminationExpr !== null) {
-				return new StatementResult($scope, true, [
+				return new StatementResult($scope, $hasYield, true, [
 					new StatementExitPoint($stmt, $scope),
 				]);
 			}
@@ -341,10 +387,12 @@ class NodeScopeResolver
 				$scope = $scope->enterNamespace($stmt->name->toString());
 			}
 
-			$scope = $this->processStmtNodes($stmt->stmts, $scope, $nodeCallback)->getScope();
+			$scope = $this->processStmtNodes($stmt, $stmt->stmts, $scope, StatementContext::createNull(), $nodeCallback)->getScope();
+			$hasYield = false;
 		} elseif ($stmt instanceof Node\Stmt\Trait_) {
-			return new StatementResult($scope, false, []);
+			return new StatementResult($scope, false, false, []);
 		} elseif ($stmt instanceof Node\Stmt\ClassLike) {
+			$hasYield = false;
 			if (isset($stmt->namespacedName)) {
 				$classScope = $scope->enterClass($this->broker->getClass((string) $stmt->namespacedName));
 			} elseif ($stmt instanceof Class_) {
@@ -356,18 +404,20 @@ class NodeScopeResolver
 				throw new \PHPStan\ShouldNotHappenException();
 			}
 
-			$this->processStmtNodes($stmt->stmts, $classScope, $nodeCallback);
+			$this->processStmtNodes($stmt, $stmt->stmts, $classScope, StatementContext::createNull(), $nodeCallback);
 		} elseif ($stmt instanceof Node\Stmt\Property) {
+			$hasYield = false;
 			foreach ($stmt->props as $prop) {
-				$this->processStmtNode($prop, $scope, $nodeCallback);
+				$this->processStmtNode($prop, $scope, StatementContext::createNull(), $nodeCallback);
 			}
 		} elseif ($stmt instanceof Node\Stmt\PropertyProperty) {
+			$hasYield = false;
 			if ($stmt->default !== null) {
 				$this->processExprNode($stmt->default, $scope, $nodeCallback, ExpressionContext::createDeep());
 			}
 		} elseif ($stmt instanceof Throw_) {
-			$scope = $this->processExprNode($stmt->expr, $scope, $nodeCallback, ExpressionContext::createDeep())->getScope();
-			return new StatementResult($scope, true, [
+			$result = $this->processExprNode($stmt->expr, $scope, $nodeCallback, ExpressionContext::createDeep());
+			return new StatementResult($result->getScope(), $result->hasYield(), true, [
 				new StatementExitPoint($stmt, $scope),
 			]);
 		} elseif ($stmt instanceof If_) {
@@ -377,14 +427,16 @@ class NodeScopeResolver
 			$exitPoints = [];
 			$finalScope = null;
 			$alwaysTerminating = true;
+			$hasYield = true;
 
-			$branchScopeStatementResult = $this->processStmtNodes($stmt->stmts, $condResult->getTruthyScope(), $nodeCallback);
+			$branchScopeStatementResult = $this->processStmtNodes($stmt, $stmt->stmts, $condResult->getTruthyScope(), $context, $nodeCallback);
 
 			if (!$conditionType instanceof ConstantBooleanType || $conditionType->getValue()) {
 				$exitPoints = $branchScopeStatementResult->getExitPoints();
 				$branchScope = $branchScopeStatementResult->getScope();
 				$finalScope = $branchScopeStatementResult->isAlwaysTerminating() ? null : $branchScope;
 				$alwaysTerminating = $branchScopeStatementResult->isAlwaysTerminating();
+				$hasYield = $branchScopeStatementResult->hasYield();
 			}
 
 			$scope = $condResult->getFalseyScope();
@@ -396,7 +448,7 @@ class NodeScopeResolver
 				$elseIfConditionType = $condScope->getType($elseif->cond)->toBoolean();
 				$condResult = $this->processExprNode($elseif->cond, $condScope, $nodeCallback, ExpressionContext::createDeep());
 				$condScope = $condResult->getScope();
-				$branchScopeStatementResult = $this->processStmtNodes($elseif->stmts, $condResult->getTruthyScope(), $nodeCallback);
+				$branchScopeStatementResult = $this->processStmtNodes($elseif, $elseif->stmts, $condResult->getTruthyScope(), $context, $nodeCallback);
 
 				if (
 					!$ifAlwaysTrue
@@ -412,6 +464,7 @@ class NodeScopeResolver
 					$branchScope = $branchScopeStatementResult->getScope();
 					$finalScope = $branchScopeStatementResult->isAlwaysTerminating() ? $finalScope : $branchScope->mergeWith($finalScope);
 					$alwaysTerminating = $alwaysTerminating && $branchScopeStatementResult->isAlwaysTerminating();
+					$hasYield = $hasYield && $branchScopeStatementResult->hasYield();
 				}
 
 				if (
@@ -429,16 +482,18 @@ class NodeScopeResolver
 				if (!$ifAlwaysTrue) {
 					$finalScope = $scope->mergeWith($finalScope);
 					$alwaysTerminating = false;
+					$hasYield = false;
 				}
 			} else {
 				$nodeCallback($stmt->else, $scope);
-				$branchScopeStatementResult = $this->processStmtNodes($stmt->else->stmts, $scope, $nodeCallback);
+				$branchScopeStatementResult = $this->processStmtNodes($stmt->else, $stmt->else->stmts, $scope, $context, $nodeCallback);
 
 				if (!$ifAlwaysTrue && !$lastElseIfConditionIsTrue) {
 					$exitPoints = array_merge($exitPoints, $branchScopeStatementResult->getExitPoints());
 					$branchScope = $branchScopeStatementResult->getScope();
 					$finalScope = $branchScopeStatementResult->isAlwaysTerminating() ? $finalScope : $branchScope->mergeWith($finalScope);
 					$alwaysTerminating = $alwaysTerminating && $branchScopeStatementResult->isAlwaysTerminating();
+					$hasYield = $hasYield && $branchScopeStatementResult->hasYield();
 				}
 			}
 
@@ -446,8 +501,9 @@ class NodeScopeResolver
 				$finalScope = $scope;
 			}
 
-			return new StatementResult($finalScope, $alwaysTerminating, $exitPoints);
+			return new StatementResult($finalScope, $hasYield, $alwaysTerminating, $exitPoints);
 		} elseif ($stmt instanceof Node\Stmt\TraitUse) {
+			$hasYield = false;
 			$this->processTraitUse($stmt, $scope, $nodeCallback);
 		} elseif ($stmt instanceof Foreach_) {
 			$scope = $this->processExprNode($stmt->expr, $scope, $nodeCallback, ExpressionContext::createDeep())->getScope();
@@ -457,7 +513,7 @@ class NodeScopeResolver
 				$prevScope = $bodyScope;
 				$bodyScope = $bodyScope->mergeWith($scope);
 				$bodyScope = $this->enterForeach($bodyScope, $stmt);
-				$bodyScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, static function (): void {
+				$bodyScopeResult = $this->processStmtNodes($stmt, $stmt->stmts, $bodyScope, $context, static function (): void {
 				})->filterOutLoopExitPoints();
 				$alwaysTerminating = $bodyScopeResult->isAlwaysTerminating();
 				$bodyScope = $bodyScopeResult->getScope();
@@ -476,7 +532,7 @@ class NodeScopeResolver
 
 			$bodyScope = $bodyScope->mergeWith($scope);
 			$bodyScope = $this->enterForeach($bodyScope, $stmt);
-			$finalScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, $nodeCallback)->filterOutLoopExitPoints();
+			$finalScopeResult = $this->processStmtNodes($stmt, $stmt->stmts, $bodyScope, $context, $nodeCallback)->filterOutLoopExitPoints();
 			$finalScope = $finalScopeResult->getScope();
 			foreach ($finalScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
 				$finalScope = $continueExitPoint->getScope()->mergeWith($finalScope);
@@ -495,7 +551,12 @@ class NodeScopeResolver
 				// get types from finalScope, but don't create new variables
 			}
 
-			return new StatementResult($finalScope, $isIterableAtLeastOnce->yes() && $finalScopeResult->isAlwaysTerminating(), []);
+			return new StatementResult(
+				$finalScope,
+				$isIterableAtLeastOnce->yes() && $finalScopeResult->hasYield(),
+				$isIterableAtLeastOnce->yes() && $finalScopeResult->isAlwaysTerminating(),
+				[]
+			);
 		} elseif ($stmt instanceof While_) {
 			$condResult = $this->processExprNode($stmt->cond, $scope, static function (): void {
 			}, ExpressionContext::createDeep());
@@ -506,7 +567,7 @@ class NodeScopeResolver
 				$bodyScope = $bodyScope->mergeWith($scope);
 				$bodyScope = $this->processExprNode($stmt->cond, $bodyScope, static function (): void {
 				}, ExpressionContext::createDeep())->getTruthyScope();
-				$bodyScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, static function (): void {
+				$bodyScopeResult = $this->processStmtNodes($stmt, $stmt->stmts, $bodyScope, $context, static function (): void {
 				})->filterOutLoopExitPoints();
 				$alwaysTerminating = $bodyScopeResult->isAlwaysTerminating();
 				$bodyScope = $bodyScopeResult->getScope();
@@ -525,7 +586,7 @@ class NodeScopeResolver
 
 			$bodyScope = $bodyScope->mergeWith($scope);
 			$bodyScope = $this->processExprNode($stmt->cond, $bodyScope, $nodeCallback, ExpressionContext::createDeep())->getTruthyScope();
-			$finalScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, $nodeCallback)->filterOutLoopExitPoints();
+			$finalScopeResult = $this->processStmtNodes($stmt, $stmt->stmts, $bodyScope, $context, $nodeCallback)->filterOutLoopExitPoints();
 			$finalScope = $finalScopeResult->getScope();
 			foreach ($finalScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
 				$finalScope = $finalScope->mergeWith($continueExitPoint->getScope());
@@ -545,14 +606,19 @@ class NodeScopeResolver
 				$finalScope = $finalScope->mergeWith($condScope);
 			}
 
-			return new StatementResult($finalScope, $finalScopeResult->isAlwaysTerminating() && $isIterableAtLeastOnce, []);
+			return new StatementResult(
+				$finalScope,
+				$finalScopeResult->hasYield() && $isIterableAtLeastOnce,
+				$finalScopeResult->isAlwaysTerminating() && $isIterableAtLeastOnce,
+				[]
+			);
 		} elseif ($stmt instanceof Do_) {
 			$finalScope = null;
 			$bodyScope = $scope;
 			$count = 0;
 			do {
 				$prevScope = $bodyScope;
-				$bodyScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, static function (): void {
+				$bodyScopeResult = $this->processStmtNodes($stmt, $stmt->stmts, $bodyScope, $context, static function (): void {
 				})->filterOutLoopExitPoints();
 				$alwaysTerminating = $bodyScopeResult->isAlwaysTerminating();
 				$bodyScope = $bodyScopeResult->getScope();
@@ -577,7 +643,7 @@ class NodeScopeResolver
 
 			$bodyScope = $bodyScope->mergeWith($scope);
 
-			$bodyScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, $nodeCallback)->filterOutLoopExitPoints();
+			$bodyScopeResult = $this->processStmtNodes($stmt, $stmt->stmts, $bodyScope, $context, $nodeCallback)->filterOutLoopExitPoints();
 			$alwaysTerminating = $bodyScopeResult->isAlwaysTerminating();
 			$bodyScope = $bodyScopeResult->getScope();
 			foreach ($bodyScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
@@ -595,7 +661,7 @@ class NodeScopeResolver
 				$finalScope = $breakExitPoint->getScope()->mergeWith($finalScope);
 			}
 
-			return new StatementResult($finalScope, $alwaysTerminating, []);
+			return new StatementResult($finalScope, $bodyScopeResult->hasYield(), $alwaysTerminating, []);
 		} elseif ($stmt instanceof For_) {
 			$initScope = $scope;
 			foreach ($stmt->init as $initExpr) {
@@ -616,7 +682,7 @@ class NodeScopeResolver
 					$bodyScope = $this->processExprNode($condExpr, $bodyScope, static function (): void {
 					}, ExpressionContext::createDeep())->getTruthyScope();
 				}
-				$bodyScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, static function (): void {
+				$bodyScopeResult = $this->processStmtNodes($stmt, $stmt->stmts, $bodyScope, $context, static function (): void {
 				})->filterOutLoopExitPoints();
 				$alwaysTerminating = $bodyScopeResult->isAlwaysTerminating();
 				$bodyScope = $bodyScopeResult->getScope();
@@ -643,7 +709,7 @@ class NodeScopeResolver
 				$bodyScope = $this->processExprNode($condExpr, $bodyScope, $nodeCallback, ExpressionContext::createDeep())->getTruthyScope();
 			}
 
-			$finalScopeResult = $this->processStmtNodes($stmt->stmts, $bodyScope, $nodeCallback)->filterOutLoopExitPoints();
+			$finalScopeResult = $this->processStmtNodes($stmt, $stmt->stmts, $bodyScope, $context, $nodeCallback)->filterOutLoopExitPoints();
 			$finalScope = $finalScopeResult->getScope();
 			foreach ($finalScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
 				$finalScope = $continueExitPoint->getScope()->mergeWith($finalScope);
@@ -666,7 +732,7 @@ class NodeScopeResolver
 				//$finalScope = $finalScope->filterByFalseyValue($condExpr);
 			}*/
 
-			return new StatementResult($finalScope, false/* $finalScopeResult->isAlwaysTerminating() && $isAlwaysIterable*/, []);
+			return new StatementResult($finalScope, false, false/* $finalScopeResult->isAlwaysTerminating() && $isAlwaysIterable*/, []);
 		} elseif ($stmt instanceof Switch_) {
 			$scope = $this->processExprNode($stmt->cond, $scope, $nodeCallback, ExpressionContext::createDeep())->getScope();
 			$scopeForBranches = $scope;
@@ -674,6 +740,7 @@ class NodeScopeResolver
 			$prevScope = null;
 			$hasDefaultCase = false;
 			$alwaysTerminating = true;
+			$hasYield = true;
 			foreach ($stmt->cases as $i => $caseNode) {
 				if ($caseNode->cond !== null) {
 					$condExpr = new BinaryOp\Equal($stmt->cond, $caseNode->cond);
@@ -690,10 +757,11 @@ class NodeScopeResolver
 				}
 
 				$branchScope = $branchScope->mergeWith($prevScope);
-				$branchScopeResult = $this->processStmtNodes($caseNode->stmts, $branchScope, $nodeCallback);
+				$branchScopeResult = $this->processStmtNodes($caseNode, $caseNode->stmts, $branchScope, $context, $nodeCallback);
 				$branchScope = $branchScopeResult->getScope();
 				$branchFinalScopeResult = $branchScopeResult->filterOutLoopExitPoints();
 				$alwaysTerminating = $alwaysTerminating && $branchFinalScopeResult->isAlwaysTerminating();
+				$hasYield = $hasYield && $branchFinalScopeResult->hasYield();
 				$isLastCase = ($i === count($stmt->cases) - 1);
 				if (
 					$branchScopeResult->areAllExitPointsLoopTerminationStatements()
@@ -716,20 +784,22 @@ class NodeScopeResolver
 
 			if (!$hasDefaultCase) {
 				$alwaysTerminating = false;
+				$hasYield = false;
 			}
 
 			if (!$hasDefaultCase || $finalScope === null) {
 				$finalScope = $scope->mergeWith($finalScope);
 			}
 
-			return new StatementResult($finalScope, $alwaysTerminating, []);
+			return new StatementResult($finalScope, $hasYield, $alwaysTerminating, []);
 		} elseif ($stmt instanceof TryCatch) {
-			$branchScopeResult = $this->processStmtNodes($stmt->stmts, $scope, $nodeCallback);
+			$branchScopeResult = $this->processStmtNodes($stmt, $stmt->stmts, $scope, $context, $nodeCallback);
 			$branchScope = $branchScopeResult->getScope();
 			$tryScope = $branchScope;
 			$exitPoints = [];
 			$finalScope = $branchScopeResult->isAlwaysTerminating() ? null : $branchScope;
 			$alwaysTerminating = $branchScopeResult->isAlwaysTerminating();
+			$hasYield = $branchScopeResult->hasYield();
 
 			if ($stmt->finally !== null) {
 				$finallyScope = $branchScope;
@@ -750,16 +820,17 @@ class NodeScopeResolver
 				}
 
 				if (!$this->polluteCatchScopeWithTryAssignments) {
-					$catchScopeResult = $this->processCatchNode($catchNode, $scope->mergeWith($tryScope), $nodeCallback);
+					$catchScopeResult = $this->processCatchNode($catchNode, $scope->mergeWith($tryScope), $context, $nodeCallback);
 					$catchScopeForFinally = $catchScopeResult->getScope();
 				} else {
-					$catchScopeForFinally = $this->processCatchNode($catchNode, $tryScope, $nodeCallback)->getScope();
-					$catchScopeResult = $this->processCatchNode($catchNode, $scope->mergeWith($tryScope), static function (): void {
+					$catchScopeForFinally = $this->processCatchNode($catchNode, $tryScope, $context, $nodeCallback)->getScope();
+					$catchScopeResult = $this->processCatchNode($catchNode, $scope->mergeWith($tryScope), $context, static function (): void {
 					});
 				}
 
 				$finalScope = $catchScopeResult->isAlwaysTerminating() ? $finalScope : $catchScopeResult->getScope()->mergeWith($finalScope);
 				$alwaysTerminating = $alwaysTerminating && $catchScopeResult->isAlwaysTerminating();
+				$hasYield = $hasYield && $catchScopeResult->hasYield();
 
 				if ($finallyScope !== null) {
 					$finallyScope = $finallyScope->mergeWith($catchScopeForFinally);
@@ -778,15 +849,17 @@ class NodeScopeResolver
 
 			if ($finallyScope !== null && $stmt->finally !== null) {
 				$originalFinallyScope = $finallyScope;
-				$finallyResult = $this->processStmtNodes($stmt->finally->stmts, $finallyScope, $nodeCallback);
+				$finallyResult = $this->processStmtNodes($stmt->finally, $stmt->finally->stmts, $finallyScope, $context, $nodeCallback);
 				$alwaysTerminating = $alwaysTerminating || $finallyResult->isAlwaysTerminating();
+				$hasYield = $hasYield || $finallyResult->hasYield();
 				$finallyScope = $finallyResult->getScope();
 				$finalScope = $finallyResult->isAlwaysTerminating() ? $finalScope : $finalScope->processFinallyScope($finallyScope, $originalFinallyScope);
 				$exitPoints = array_merge($exitPoints, $finallyResult->getExitPoints());
 			}
 
-			return new StatementResult($finalScope, $alwaysTerminating, $exitPoints);
+			return new StatementResult($finalScope, $hasYield, $alwaysTerminating, $exitPoints);
 		} elseif ($stmt instanceof Unset_) {
+			$hasYield = false;
 			foreach ($stmt->vars as $var) {
 				$scope = $this->lookForEnterVariableAssign($scope, $var);
 				$scope = $this->processExprNode($var, $scope, $nodeCallback, ExpressionContext::createDeep())->getScope();
@@ -794,10 +867,12 @@ class NodeScopeResolver
 				$scope = $scope->unsetExpression($var);
 			}
 		} elseif ($stmt instanceof Node\Stmt\Use_) {
+			$hasYield = false;
 			foreach ($stmt->uses as $use) {
-				$this->processStmtNode($use, $scope, $nodeCallback);
+				$this->processStmtNode($use, $scope, StatementContext::createNull(), $nodeCallback);
 			}
 		} elseif ($stmt instanceof Node\Stmt\Global_) {
+			$hasYield = false;
 			foreach ($stmt->vars as $var) {
 				if (!$var instanceof Variable) {
 					throw new \PHPStan\ShouldNotHappenException();
@@ -811,10 +886,12 @@ class NodeScopeResolver
 				$scope = $scope->assignVariable($var->name, new MixedType());
 			}
 		} elseif ($stmt instanceof Static_) {
+			$hasYield = false;
 			foreach ($stmt->vars as $var) {
-				$scope = $this->processStmtNode($var, $scope, $nodeCallback)->getScope();
+				$scope = $this->processStmtNode($var, $scope, StatementContext::createNull(), $nodeCallback)->getScope();
 			}
 		} elseif ($stmt instanceof StaticVar) {
+			$hasYield = false;
 			if (!is_string($stmt->var->name)) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
@@ -826,24 +903,31 @@ class NodeScopeResolver
 			$scope = $scope->exitExpressionAssign($stmt->var);
 			$scope = $scope->assignVariable($stmt->var->name, new MixedType());
 		} elseif ($stmt instanceof Node\Stmt\Const_ || $stmt instanceof Node\Stmt\ClassConst) {
+			$hasYield = false;
 			foreach ($stmt->consts as $const) {
 				$nodeCallback($const, $scope);
 				$this->processExprNode($const->value, $scope, $nodeCallback, ExpressionContext::createDeep());
 			}
+		} elseif ($stmt instanceof Node\Stmt\Nop) {
+			$hasYield = false;
+		} else {
+			$hasYield = false;
 		}
 
-		return new StatementResult($scope, false, []);
+		return new StatementResult($scope, $hasYield, false, []);
 	}
 
 	/**
 	 * @param Node\Stmt\Catch_ $catchNode
 	 * @param Scope $catchScope
+	 * @param StatementContext $context
 	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
 	 * @return StatementResult
 	 */
 	private function processCatchNode(
 		Node\Stmt\Catch_ $catchNode,
 		Scope $catchScope,
+		StatementContext $context,
 		\Closure $nodeCallback
 	): StatementResult
 	{
@@ -852,7 +936,7 @@ class NodeScopeResolver
 		}
 
 		$catchScope = $catchScope->enterCatch($catchNode->types, $catchNode->var->name);
-		return $this->processStmtNodes($catchNode->stmts, $catchScope, $nodeCallback);
+		return $this->processStmtNodes($catchNode, $catchNode->stmts, $catchScope, $context, $nodeCallback);
 	}
 
 	private function lookForEnterVariableAssign(Scope $scope, Expr $expr): Scope
@@ -1111,7 +1195,9 @@ class NodeScopeResolver
 					$function->getVariants()
 				);
 			}
-			$scope = $this->processArgs($parametersAcceptor, $expr->args, $scope, $nodeCallback, $context);
+			$result = $this->processArgs($parametersAcceptor, $expr->args, $scope, $nodeCallback, $context);
+			$scope = $result->getScope();
+			$hasYield = $result->hasYield();
 			if (
 				isset($function)
 				&& in_array($function->getName(), ['array_pop', 'array_shift'], true)
@@ -1236,7 +1322,9 @@ class NodeScopeResolver
 					);
 				}
 			}
-			$scope = $this->processArgs($parametersAcceptor, $expr->args, $scope, $nodeCallback, $context);
+			$result = $this->processArgs($parametersAcceptor, $expr->args, $scope, $nodeCallback, $context);
+			$scope = $result->getScope();
+			$hasYield = $result->hasYield();
 		} elseif ($expr instanceof StaticCall) {
 			if ($expr->class instanceof Expr) {
 				$scope = $this->processExprNode($expr->class, $scope, $nodeCallback, $context->enterDeep())->getScope();
@@ -1297,7 +1385,9 @@ class NodeScopeResolver
 					}
 				}
 			}
-			$scope = $this->processArgs($parametersAcceptor, $expr->args, $scope, $nodeCallback, $context, $closureBindScope ?? null);
+			$result = $this->processArgs($parametersAcceptor, $expr->args, $scope, $nodeCallback, $context, $closureBindScope ?? null);
+			$scope = $result->getScope();
+			$hasYield = $result->hasYield();
 		} elseif ($expr instanceof PropertyFetch) {
 			$scope = $this->processExprNode($expr->var, $scope, $nodeCallback, $context->enterDeep())->getScope();
 			if ($expr->name instanceof Expr) {
@@ -1349,6 +1439,7 @@ class NodeScopeResolver
 
 			return new ExpressionResult(
 				$leftMergedWithRightScope,
+				$leftResult->hasYield(),
 				static function () use ($expr, $rightResult): Scope {
 					return $rightResult->getScope()->filterByTruthyValue($expr);
 				},
@@ -1364,6 +1455,7 @@ class NodeScopeResolver
 
 			return new ExpressionResult(
 				$leftMergedWithRightScope,
+				$leftResult->hasYield(),
 				static function () use ($leftMergedWithRightScope, $expr): Scope {
 					return $leftMergedWithRightScope->filterByTruthyValue($expr);
 				},
@@ -1401,7 +1493,14 @@ class NodeScopeResolver
 			|| $expr instanceof Expr\UnaryPlus
 			|| $expr instanceof Expr\YieldFrom
 		) {
-			$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, $context->enterDeep())->getScope();
+			$result = $this->processExprNode($expr->expr, $scope, $nodeCallback, $context->enterDeep());
+			if ($expr instanceof Expr\YieldFrom) {
+				$hasYield = true;
+			} else {
+				$hasYield = $result->hasYield();
+			}
+
+			$scope = $result->getScope();
 		} elseif ($expr instanceof BooleanNot) {
 			$scope = $scope->enterNegation();
 			$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, $context->enterDeep())->getScope();
@@ -1431,14 +1530,14 @@ class NodeScopeResolver
 			}
 		} elseif ($expr instanceof List_) {
 			// only in assign and foreach, processed elsewhere
-			return new ExpressionResult($scope);
+			return new ExpressionResult($scope, false);
 		} elseif ($expr instanceof New_) {
 			$parametersAcceptor = null;
 			if ($expr->class instanceof Expr) {
 				$scope = $this->processExprNode($expr->class, $scope, $nodeCallback, $context->enterDeep())->getScope();
 			} elseif ($expr->class instanceof Class_) {
 				$this->broker->getAnonymousClassReflection($expr->class, $scope); // populates $expr->class->name
-				$this->processStmtNode($expr->class, $scope, $nodeCallback);
+				$this->processStmtNode($expr->class, $scope, StatementContext::createNull(), $nodeCallback);
 			} elseif ($this->broker->hasClass($expr->class->toString())) {
 				$classReflection = $this->broker->getClass($expr->class->toString());
 				if ($classReflection->hasConstructor()) {
@@ -1449,7 +1548,9 @@ class NodeScopeResolver
 					);
 				}
 			}
-			$scope = $this->processArgs($parametersAcceptor, $expr->args, $scope, $nodeCallback, $context);
+			$result = $this->processArgs($parametersAcceptor, $expr->args, $scope, $nodeCallback, $context);
+			$scope = $result->getScope();
+			$hasYield = $result->hasYield();
 		} elseif (
 			$expr instanceof Expr\PreInc
 			|| $expr instanceof Expr\PostInc
@@ -1502,6 +1603,7 @@ class NodeScopeResolver
 
 			return new ExpressionResult(
 				$finalScope,
+				$ternaryCondResult->hasYield(),
 				static function () use ($finalScope, $expr): Scope {
 					return $finalScope->filterByTruthyValue($expr);
 				},
@@ -1519,10 +1621,17 @@ class NodeScopeResolver
 			if ($expr->value !== null) {
 				$scope = $this->processExprNode($expr->value, $scope, $nodeCallback, $context->enterDeep())->getScope();
 			}
+			$hasYield = true;
+		}
+
+		if (!isset($hasYield)) {
+			// todo
+			$hasYield = false;
 		}
 
 		return new ExpressionResult(
 			$scope,
+			$hasYield,
 			static function () use ($scope, $expr): Scope {
 				return $scope->filterByTruthyValue($expr);
 			},
@@ -1611,7 +1720,7 @@ class NodeScopeResolver
 		$closureScope = $scope->enterAnonymousFunction($expr);
 		$closureScope = $closureScope->processClosureScope($scope, null, $byRefUses);
 		if (count($byRefUses) === 0) {
-			$this->processStmtNodes($expr->stmts, $closureScope, $nodeCallback);
+			$this->processStmtNodes($expr, $expr->stmts, $closureScope, StatementContext::createCheckLastStatement(), $nodeCallback);
 			return $scope;
 		}
 
@@ -1619,7 +1728,7 @@ class NodeScopeResolver
 		do {
 			$prevScope = $closureScope;
 
-			$intermediaryClosureScopeResult = $this->processStmtNodes($expr->stmts, $closureScope, static function (): void {
+			$intermediaryClosureScopeResult = $this->processStmtNodes($expr, $expr->stmts, $closureScope, StatementContext::createCheckLastStatement(), static function (): void {
 			});
 			$intermediaryClosureScope = $intermediaryClosureScopeResult->getScope();
 			foreach ($intermediaryClosureScopeResult->getExitPoints() as $exitPoint) {
@@ -1633,7 +1742,7 @@ class NodeScopeResolver
 			$count++;
 		} while ($count < self::LOOP_SCOPE_ITERATIONS);
 
-		$this->processStmtNodes($expr->stmts, $closureScope, $nodeCallback);
+		$this->processStmtNodes($expr, $expr->stmts, $closureScope, StatementContext::createCheckLastStatement(), $nodeCallback);
 
 		return $scope->processClosureScope($closureScope, null, $byRefUses);
 	}
@@ -1711,7 +1820,7 @@ class NodeScopeResolver
 	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
 	 * @param ExpressionContext $context
 	 * @param \PHPStan\Analyser\Scope|null $closureBindScope
-	 * @return \PHPStan\Analyser\Scope
+	 * @return \PHPStan\Analyser\ExpressionResult
 	 */
 	private function processArgs(
 		?ParametersAcceptor $parametersAcceptor,
@@ -1720,13 +1829,14 @@ class NodeScopeResolver
 		\Closure $nodeCallback,
 		ExpressionContext $context,
 		?Scope $closureBindScope = null
-	): Scope
+	): ExpressionResult
 	{
 		// todo $scope = $scope->enterFunctionCall();
 		if ($parametersAcceptor !== null) {
 			$parameters = $parametersAcceptor->getParameters();
 		}
 
+		$hasYield = false;
 		foreach ($args as $i => $arg) {
 			$nodeCallback($arg, $scope);
 			if (isset($parameters) && $parametersAcceptor !== null) {
@@ -1751,7 +1861,9 @@ class NodeScopeResolver
 			if ($i === 0 && $closureBindScope !== null) {
 				$scopeToPass = $closureBindScope;
 			}
-			$scope = $this->processExprNode($arg->value, $scopeToPass, $nodeCallback, $context->enterDeep())->getScope();
+			$result = $this->processExprNode($arg->value, $scopeToPass, $nodeCallback, $context->enterDeep());
+			$scope = $result->getScope();
+			$hasYield = $hasYield || $result->hasYield();
 			if ($i !== 0 || $closureBindScope === null) {
 				continue;
 			}
@@ -1761,7 +1873,7 @@ class NodeScopeResolver
 
 		// todo $scope = $scope->exitFunctionCall();
 
-		return $scope;
+		return new ExpressionResult($scope, $hasYield);
 	}
 
 	/**
@@ -1784,6 +1896,7 @@ class NodeScopeResolver
 		bool $enterExpressionAssign
 	): Scope
 	{
+		// todo return hasYield too
 		$nodeCallback($var, $enterExpressionAssign ? $scope->enterExpressionAssign($var) : $scope);
 		if ($var instanceof Variable && is_string($var->name)) {
 			$scope = $processExprCallback($scope);
@@ -1975,7 +2088,7 @@ class NodeScopeResolver
 	{
 		if ($node instanceof Node) {
 			if ($node instanceof Node\Stmt\Trait_ && $traitReflection->getName() === (string) $node->namespacedName) {
-				$this->processStmtNodes($node->stmts, $scope->enterTrait($traitReflection), $nodeCallback);
+				$this->processStmtNodes($node, $node->stmts, $scope->enterTrait($traitReflection), StatementContext::createNull(), $nodeCallback);
 				return;
 			}
 			if ($node instanceof Node\Stmt\ClassLike) {
