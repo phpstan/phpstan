@@ -25,6 +25,7 @@ use PHPStan\Type\DynamicStaticMethodReturnTypeExtension;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
 use SomeNodeScopeResolverNamespace\Foo;
@@ -4049,6 +4050,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'DynamicMethodReturnTypesNamespace\Foo',
 				'$container[\DynamicMethodReturnTypesNamespace\Foo::class]',
 			],
+			[
+				'object',
+				'new \DynamicMethodReturnTypesNamespace\Foo()',
+			],
 		];
 	}
 
@@ -4158,6 +4163,24 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 						}
 
 						return new ObjectType((string) $arg->class);
+					}
+
+				},
+				new class() implements DynamicStaticMethodReturnTypeExtension {
+
+					public function getClass(): string
+					{
+						return \DynamicMethodReturnTypesNamespace\Foo::class;
+					}
+
+					public function isStaticMethodSupported(MethodReflection $methodReflection): bool
+					{
+						return $methodReflection->getName() === '__construct';
+					}
+
+					public function getTypeFromStaticMethodCall(MethodReflection $methodReflection, StaticCall $methodCall, Scope $scope): \PHPStan\Type\Type
+					{
+						return new ObjectWithoutClassType();
 					}
 
 				},

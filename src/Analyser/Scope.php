@@ -1008,35 +1008,51 @@ class Scope implements ClassMemberAccessAnswerer
 			);
 		} elseif ($node instanceof New_) {
 			if ($node->class instanceof Name) {
-				if (
-					count($node->class->parts) === 1
-				) {
-					$lowercasedClassName = strtolower($node->class->parts[0]);
-					if (in_array($lowercasedClassName, [
-						'self',
-						'static',
-						'parent',
-					], true)) {
-						if (!$this->isInClass()) {
-							throw new \PHPStan\ShouldNotHappenException();
-						}
-						if ($lowercasedClassName === 'static') {
-							return new StaticType($this->getClassReflection()->getName());
+				$className = $node->class->toString();
+				$lowercasedClassName = strtolower($className);
+				$resolvedClassName = $this->resolveName($node->class);
+				if ($this->broker->hasClass($resolvedClassName)) {
+					$classReflection = $this->broker->getClass($resolvedClassName);
+					if ($classReflection->hasConstructor()) {
+						$constructorMethod = $classReflection->getConstructor();
+						$resolvedTypes = [];
+						$methodCall = new Expr\StaticCall(
+							$node->class,
+							new Node\Identifier($constructorMethod->getName()),
+							$node->args
+						);
+						foreach ($this->broker->getDynamicStaticMethodReturnTypeExtensionsForClass($classReflection->getName()) as $dynamicStaticMethodReturnTypeExtension) {
+							if (!$dynamicStaticMethodReturnTypeExtension->isStaticMethodSupported($constructorMethod)) {
+								continue;
+							}
+
+							$resolvedTypes[] = $dynamicStaticMethodReturnTypeExtension->getTypeFromStaticMethodCall($constructorMethod, $methodCall, $this);
 						}
 
-						if ($lowercasedClassName === 'self') {
-							return new ObjectType($this->getClassReflection()->getName());
+						if (count($resolvedTypes) > 0) {
+							return TypeCombinator::union(...$resolvedTypes);
 						}
-
-						if ($this->getClassReflection()->getParentClass() !== false) {
-							return new ObjectType($this->getClassReflection()->getParentClass()->getName());
-						}
-
-						return new NonexistentParentClassType();
 					}
 				}
+				if (in_array($lowercasedClassName, [
+					'static',
+					'parent',
+				], true)) {
+					if (!$this->isInClass()) {
+						throw new \PHPStan\ShouldNotHappenException();
+					}
+					if ($lowercasedClassName === 'static') {
+						return new StaticType($this->getClassReflection()->getName());
+					}
 
-				return new ObjectType((string) $node->class);
+					if ($this->getClassReflection()->getParentClass() !== false) {
+						return new ObjectType($this->getClassReflection()->getParentClass()->getName());
+					}
+
+					return new NonexistentParentClassType();
+				}
+
+				return new ObjectType($resolvedClassName);
 			}
 			if ($node->class instanceof Node\Stmt\Class_) {
 				$anonymousClassReflection = $this->broker->getAnonymousClassReflection($node->class, $this);
