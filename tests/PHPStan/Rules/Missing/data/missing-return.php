@@ -113,3 +113,89 @@ function doFoo(): int
 {
 
 }
+
+class Yielding
+{
+
+	public function doFoo(bool $bool): iterable
+	{
+		while ($bool) {
+			yield 1;
+		}
+	}
+
+}
+
+class SwitchBranches
+{
+
+	public function doFoo(int $i): int
+	{
+		switch ($i) {
+			case 0:
+			case 1:
+			case 2:
+				return 1;
+			default:
+				return 2;
+		}
+	}
+
+	public function doBar(int $i): int
+	{
+		switch ($i) {
+			case 0:
+				return 0;
+			case 1:
+				return 1;
+			case 2:
+				return 2;
+		}
+	}
+
+	public function doBaz(int $i): int
+	{
+		switch ($i) {
+			case 0:
+				return 0;
+			case 1:
+				return 1;
+			case 2:
+				return 2;
+			default:
+				return 3;
+		}
+	}
+
+	public function doLorem(int $i): int
+	{
+		switch ($i) {
+			case 0:
+			case 1:
+			case 2:
+				return 1;
+		}
+	}
+
+	public function doIpsum(int $i): int
+	{
+		switch ($i) {
+			case 0:
+				return 1;
+			case 1:
+			case 2:
+			default:
+		}
+	}
+
+	public function doDolor(int $i): int
+	{
+		switch ($i) {
+			case 0:
+				return 1;
+			case 1:
+			case 2:
+		}
+	}
+
+}

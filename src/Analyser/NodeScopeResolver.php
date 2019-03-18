@@ -427,7 +427,7 @@ class NodeScopeResolver
 			$exitPoints = [];
 			$finalScope = null;
 			$alwaysTerminating = true;
-			$hasYield = true;
+			$hasYield = false;
 
 			$branchScopeStatementResult = $this->processStmtNodes($stmt, $stmt->stmts, $condResult->getTruthyScope(), $context, $nodeCallback);
 
@@ -464,7 +464,7 @@ class NodeScopeResolver
 					$branchScope = $branchScopeStatementResult->getScope();
 					$finalScope = $branchScopeStatementResult->isAlwaysTerminating() ? $finalScope : $branchScope->mergeWith($finalScope);
 					$alwaysTerminating = $alwaysTerminating && $branchScopeStatementResult->isAlwaysTerminating();
-					$hasYield = $hasYield && $branchScopeStatementResult->hasYield();
+					$hasYield = $hasYield || $branchScopeStatementResult->hasYield();
 				}
 
 				if (
@@ -493,7 +493,7 @@ class NodeScopeResolver
 					$branchScope = $branchScopeStatementResult->getScope();
 					$finalScope = $branchScopeStatementResult->isAlwaysTerminating() ? $finalScope : $branchScope->mergeWith($finalScope);
 					$alwaysTerminating = $alwaysTerminating && $branchScopeStatementResult->isAlwaysTerminating();
-					$hasYield = $hasYield && $branchScopeStatementResult->hasYield();
+					$hasYield = $hasYield || $branchScopeStatementResult->hasYield();
 				}
 			}
 
@@ -553,7 +553,7 @@ class NodeScopeResolver
 
 			return new StatementResult(
 				$finalScope,
-				$isIterableAtLeastOnce->yes() && $finalScopeResult->hasYield(),
+				$finalScopeResult->hasYield(),
 				$isIterableAtLeastOnce->yes() && $finalScopeResult->isAlwaysTerminating(),
 				[]
 			);
@@ -608,7 +608,7 @@ class NodeScopeResolver
 
 			return new StatementResult(
 				$finalScope,
-				$finalScopeResult->hasYield() && $isIterableAtLeastOnce,
+				$finalScopeResult->hasYield(),
 				$finalScopeResult->isAlwaysTerminating() && $isIterableAtLeastOnce,
 				[]
 			);
@@ -732,7 +732,7 @@ class NodeScopeResolver
 				//$finalScope = $finalScope->filterByFalseyValue($condExpr);
 			}*/
 
-			return new StatementResult($finalScope, false, false/* $finalScopeResult->isAlwaysTerminating() && $isAlwaysIterable*/, []);
+			return new StatementResult($finalScope, $finalScopeResult->hasYield(), false/* $finalScopeResult->isAlwaysTerminating() && $isAlwaysIterable*/, []);
 		} elseif ($stmt instanceof Switch_) {
 			$scope = $this->processExprNode($stmt->cond, $scope, $nodeCallback, ExpressionContext::createDeep())->getScope();
 			$scopeForBranches = $scope;
@@ -740,7 +740,7 @@ class NodeScopeResolver
 			$prevScope = null;
 			$hasDefaultCase = false;
 			$alwaysTerminating = true;
-			$hasYield = true;
+			$hasYield = false;
 			foreach ($stmt->cases as $i => $caseNode) {
 				if ($caseNode->cond !== null) {
 					$condExpr = new BinaryOp\Equal($stmt->cond, $caseNode->cond);
@@ -761,7 +761,7 @@ class NodeScopeResolver
 				$branchScope = $branchScopeResult->getScope();
 				$branchFinalScopeResult = $branchScopeResult->filterOutLoopExitPoints();
 				$alwaysTerminating = $alwaysTerminating && $branchFinalScopeResult->isAlwaysTerminating();
-				$hasYield = $hasYield && $branchFinalScopeResult->hasYield();
+				$hasYield = $hasYield || $branchFinalScopeResult->hasYield();
 				$isLastCase = ($i === count($stmt->cases) - 1);
 				if (
 					$branchScopeResult->areAllExitPointsLoopTerminationStatements()
@@ -784,7 +784,6 @@ class NodeScopeResolver
 
 			if (!$hasDefaultCase) {
 				$alwaysTerminating = false;
-				$hasYield = false;
 			}
 
 			if (!$hasDefaultCase || $finalScope === null) {
@@ -830,7 +829,7 @@ class NodeScopeResolver
 
 				$finalScope = $catchScopeResult->isAlwaysTerminating() ? $finalScope : $catchScopeResult->getScope()->mergeWith($finalScope);
 				$alwaysTerminating = $alwaysTerminating && $catchScopeResult->isAlwaysTerminating();
-				$hasYield = $hasYield && $catchScopeResult->hasYield();
+				$hasYield = $hasYield || $catchScopeResult->hasYield();
 
 				if ($finallyScope !== null) {
 					$finallyScope = $finallyScope->mergeWith($catchScopeForFinally);

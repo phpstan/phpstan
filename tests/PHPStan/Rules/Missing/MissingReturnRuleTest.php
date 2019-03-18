@@ -64,6 +64,22 @@ class MissingReturnRuleTest extends RuleTestCase
 				'Function MissingReturn\doFoo() should return int but return statement is missing.',
 				112,
 			],
+			[
+				'Method MissingReturn\SwitchBranches::doBar() should return int but return statement is missing.',
+				146,
+			],
+			[
+				'Method MissingReturn\SwitchBranches::doLorem() should return int but return statement is missing.',
+				172,
+			],
+			[
+				'Method MissingReturn\SwitchBranches::doIpsum() should return int but return statement is missing.',
+				182,
+			],
+			[
+				'Method MissingReturn\SwitchBranches::doDolor() should return int but return statement is missing.',
+				193,
+			],
 		]);
 	}
 
