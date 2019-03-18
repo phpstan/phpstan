@@ -486,7 +486,6 @@ class NodeScopeResolver
 				if (!$ifAlwaysTrue) {
 					$finalScope = $scope->mergeWith($finalScope);
 					$alwaysTerminating = false;
-					$hasYield = false;
 				}
 			} else {
 				$nodeCallback($stmt->else, $scope);

@@ -268,3 +268,15 @@ class TryCatchFinally
 	}
 
 }
+
+class MoreYielding
+{
+
+	public function doFoo(bool $foo): iterable
+	{
+		if ($foo) {
+			yield 1;
+		}
+	}
+
+}
