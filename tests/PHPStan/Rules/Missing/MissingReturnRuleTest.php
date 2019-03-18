@@ -49,14 +49,6 @@ class MissingReturnRuleTest extends RuleTestCase
 				47,
 			],
 			[
-				'Method MissingReturn\Foo::doLorem() should return int but return statement is missing.',
-				49,
-			],
-			[
-				'Method MissingReturn\Foo::doLorem() should return int but return statement is missing.',
-				47,
-			],
-			[
 				'Anonymous function should return int but return statement is missing.',
 				105,
 			],
@@ -79,6 +71,14 @@ class MissingReturnRuleTest extends RuleTestCase
 			[
 				'Method MissingReturn\SwitchBranches::doDolor() should return int but return statement is missing.',
 				193,
+			],
+			[
+				'Method MissingReturn\TryCatchFinally::doBaz() should return int but return statement is missing.',
+				234,
+			],
+			[
+				'Method MissingReturn\TryCatchFinally::doDolor() should return int but return statement is missing.',
+				263,
 			],
 		]);
 	}

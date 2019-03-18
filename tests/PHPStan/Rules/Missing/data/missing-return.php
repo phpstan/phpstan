@@ -199,3 +199,72 @@ class SwitchBranches
 	}
 
 }
+
+class TryCatchFinally
+{
+
+	public function doFoo(): int
+	{
+		try {
+
+		} catch (\Exception $e) {
+
+		} catch (\Throwable $e) {
+
+		} finally {
+			return 1;
+		}
+	}
+
+	public function doBar(): int
+	{
+		try {
+			return 1;
+		} catch (\Exception $e) {
+			return 1;
+		} catch (\Throwable $e) {
+			return 1;
+		} finally {
+
+		}
+	}
+
+	public function doBaz(): int
+	{
+		try {
+			return 1;
+		} catch (\Exception $e) {
+			return 1;
+		} catch (\Throwable $e) {
+
+		}
+	}
+
+	public function doLorem(): int
+	{
+		try {
+			return 1;
+		} finally {
+
+		}
+	}
+
+	public function doIpsum(): int
+	{
+		try {
+
+		} finally {
+			return 1;
+		}
+	}
+
+	public function doDolor(): int
+	{
+		try {
+
+		} finally {
+
+		}
+	}
+
+}

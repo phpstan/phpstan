@@ -54,8 +54,6 @@ class MissingReturnRule implements Rule
 			return [];
 		}
 
-		// todo pokud neni v try nebo v catches, tak muze byt alespon ve finally
-
 		$anonymousFunctionReturnType = $scope->getAnonymousFunctionReturnType();
 		$scopeFunction = $scope->getFunction();
 		if ($anonymousFunctionReturnType !== null) {

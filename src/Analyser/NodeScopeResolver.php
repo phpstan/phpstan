@@ -220,10 +220,9 @@ class NodeScopeResolver
 			if (
 				$context->shouldCheckLastStatement()
 				&& $isLast
-				&& !$parentNode instanceof Node\Stmt\Finally_
 				&& !$stmt instanceof Switch_
+				&& !$stmt instanceof TryCatch
 			) {
-				// todo remove finally
 				$nodeCallback(new ExecutionEndNode(
 					$stmt,
 					new StatementResult(
@@ -805,7 +804,8 @@ class NodeScopeResolver
 
 			return $statementResult;
 		} elseif ($stmt instanceof TryCatch) {
-			$branchScopeResult = $this->processStmtNodes($stmt, $stmt->stmts, $scope, $context, $nodeCallback);
+			$tryCatchContext = StatementContext::createNull();
+			$branchScopeResult = $this->processStmtNodes($stmt, $stmt->stmts, $scope, $tryCatchContext, $nodeCallback);
 			$branchScope = $branchScopeResult->getScope();
 			$tryScope = $branchScope;
 			$exitPoints = [];
@@ -832,11 +832,11 @@ class NodeScopeResolver
 				}
 
 				if (!$this->polluteCatchScopeWithTryAssignments) {
-					$catchScopeResult = $this->processCatchNode($catchNode, $scope->mergeWith($tryScope), $context, $nodeCallback);
+					$catchScopeResult = $this->processCatchNode($catchNode, $scope->mergeWith($tryScope), $tryCatchContext, $nodeCallback);
 					$catchScopeForFinally = $catchScopeResult->getScope();
 				} else {
-					$catchScopeForFinally = $this->processCatchNode($catchNode, $tryScope, $context, $nodeCallback)->getScope();
-					$catchScopeResult = $this->processCatchNode($catchNode, $scope->mergeWith($tryScope), $context, static function (): void {
+					$catchScopeForFinally = $this->processCatchNode($catchNode, $tryScope, $tryCatchContext, $nodeCallback)->getScope();
+					$catchScopeResult = $this->processCatchNode($catchNode, $scope->mergeWith($tryScope), $tryCatchContext, static function (): void {
 					});
 				}
 
@@ -861,7 +861,7 @@ class NodeScopeResolver
 
 			if ($finallyScope !== null && $stmt->finally !== null) {
 				$originalFinallyScope = $finallyScope;
-				$finallyResult = $this->processStmtNodes($stmt->finally, $stmt->finally->stmts, $finallyScope, $context, $nodeCallback);
+				$finallyResult = $this->processStmtNodes($stmt->finally, $stmt->finally->stmts, $finallyScope, $tryCatchContext, $nodeCallback);
 				$alwaysTerminating = $alwaysTerminating || $finallyResult->isAlwaysTerminating();
 				$hasYield = $hasYield || $finallyResult->hasYield();
 				$finallyScope = $finallyResult->getScope();
@@ -869,7 +869,13 @@ class NodeScopeResolver
 				$exitPoints = array_merge($exitPoints, $finallyResult->getExitPoints());
 			}
 
-			return new StatementResult($finalScope, $hasYield, $alwaysTerminating, $exitPoints);
+			$statementResult = new StatementResult($finalScope, $hasYield, $alwaysTerminating, $exitPoints);
+
+			if ($context->shouldCheckLastStatement() && !$alwaysTerminating) {
+				$nodeCallback(new ExecutionEndNode($stmt, $statementResult), $scope);
+			}
+
+			return $statementResult;
 		} elseif ($stmt instanceof Unset_) {
 			$hasYield = false;
 			foreach ($stmt->vars as $var) {
