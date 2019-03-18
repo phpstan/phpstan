@@ -894,12 +894,14 @@ class NodeScopeResolver
 				if (!$var instanceof Variable) {
 					throw new \PHPStan\ShouldNotHappenException();
 				}
-				if (!is_string($var->name)) {
-					throw new \PHPStan\ShouldNotHappenException();
-				}
 				$scope = $this->lookForEnterVariableAssign($scope, $var);
 				$this->processExprNode($var, $scope, $nodeCallback, ExpressionContext::createDeep());
 				$scope = $this->lookForExitVariableAssign($scope, $var);
+
+				if (!is_string($var->name)) {
+					continue;
+				}
+
 				$scope = $scope->assignVariable($var->name, new MixedType());
 			}
 		} elseif ($stmt instanceof Static_) {
