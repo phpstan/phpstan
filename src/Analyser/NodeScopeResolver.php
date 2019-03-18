@@ -217,7 +217,12 @@ class NodeScopeResolver
 				continue;
 			}
 
-			if ($context->shouldCheckLastStatement() && $isLast && !$parentNode instanceof Node\Stmt\Finally_) {
+			if (
+				$context->shouldCheckLastStatement()
+				&& $isLast
+				&& !$parentNode instanceof Node\Stmt\Finally_
+				&& !$stmt instanceof Switch_
+			) {
 				// todo remove finally
 				$nodeCallback(new ExecutionEndNode(
 					$stmt,
@@ -741,6 +746,7 @@ class NodeScopeResolver
 			$hasDefaultCase = false;
 			$alwaysTerminating = true;
 			$hasYield = false;
+			$caseContext = StatementContext::createNull();
 			foreach ($stmt->cases as $i => $caseNode) {
 				if ($caseNode->cond !== null) {
 					$condExpr = new BinaryOp\Equal($stmt->cond, $caseNode->cond);
@@ -757,12 +763,14 @@ class NodeScopeResolver
 				}
 
 				$branchScope = $branchScope->mergeWith($prevScope);
-				$branchScopeResult = $this->processStmtNodes($caseNode, $caseNode->stmts, $branchScope, $context, $nodeCallback);
+				$branchScopeResult = $this->processStmtNodes($caseNode, $caseNode->stmts, $branchScope, $caseContext, $nodeCallback);
 				$branchScope = $branchScopeResult->getScope();
 				$branchFinalScopeResult = $branchScopeResult->filterOutLoopExitPoints();
-				$alwaysTerminating = $alwaysTerminating && $branchFinalScopeResult->isAlwaysTerminating();
 				$hasYield = $hasYield || $branchFinalScopeResult->hasYield();
 				$isLastCase = ($i === count($stmt->cases) - 1);
+				if (count($branchScopeResult->getExitPoints()) > 0 || $isLastCase) {
+					$alwaysTerminating = $alwaysTerminating && $branchFinalScopeResult->isAlwaysTerminating();
+				}
 				if (
 					$branchScopeResult->areAllExitPointsLoopTerminationStatements()
 					|| (
@@ -790,7 +798,12 @@ class NodeScopeResolver
 				$finalScope = $scope->mergeWith($finalScope);
 			}
 
-			return new StatementResult($finalScope, $hasYield, $alwaysTerminating, []);
+			$statementResult = new StatementResult($finalScope, $hasYield, $alwaysTerminating, []);
+			if ($context->shouldCheckLastStatement() && !$alwaysTerminating) {
+				$nodeCallback(new ExecutionEndNode($stmt, $statementResult), $scope);
+			}
+
+			return $statementResult;
 		} elseif ($stmt instanceof TryCatch) {
 			$branchScopeResult = $this->processStmtNodes($stmt, $stmt->stmts, $scope, $context, $nodeCallback);
 			$branchScope = $branchScopeResult->getScope();

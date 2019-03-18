@@ -247,6 +247,26 @@ class StatementResultTest extends \PHPStan\Testing\TestCase
 				'do { return; } while ($maybe);',
 				true,
 			],
+			[
+				'switch ($cond) { case 1: case 2: return; default: return; }',
+				true,
+			],
+			[
+				'switch ($cond) { case 1: case 2: return; }',
+				false,
+			],
+			[
+				'switch ($cond) { case 1: break; case 2: return; }',
+				false,
+			],
+			[
+				'switch ($cond) { case 1: break; case 2: return; default: return; }',
+				false,
+			],
+			[
+				'switch ($i) { case 0: return 1; case 1: case 2: default: }',
+				false,
+			],
 		];
 	}
 

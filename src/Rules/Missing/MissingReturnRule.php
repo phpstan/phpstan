@@ -49,7 +49,6 @@ class MissingReturnRule implements Rule
 				|| ($originalNode instanceof Node\Stmt\Do_)
 				|| ($originalNode instanceof Node\Stmt\For_)
 				|| ($originalNode instanceof Node\Stmt\Foreach_)
-				|| ($originalNode instanceof Node\Stmt\Case_)
 			) && !$this->shouldBeReported($originalNode->stmts)
 		) {
 			return [];
