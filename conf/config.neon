@@ -20,6 +20,7 @@ parameters:
 	reportMaybesInMethodSignatures: false
 	reportStaticMethodSignatures: false
 	polluteScopeWithLoopInitialAssignments: true
+	polluteScopeWithAlwaysIterableForeach: true
 	polluteCatchScopeWithTryAssignments: false
 	reportMagicMethods: false
 	reportMagicProperties: false
@@ -35,13 +36,29 @@ parameters:
 		- SimpleXMLElement
 	earlyTerminatingMethodCalls: []
 	memoryLimitFile: %tmpDir%/.memory_limit
+	benchmarkFile: null
 	dynamicConstantNames:
 		- ICONV_IMPL
 		- PHP_VERSION
+		- PHP_MAJOR_VERSION
+		- PHP_MINOR_VERSION
+		- PHP_RELEASE_VERSION
+		- PHP_VERSION_ID
 		- PHP_EXTRA_VERSION
+		- PHP_ZTS
+		- PHP_DEBUG
+		- PHP_MAXPATHLEN
 		- PHP_OS
 		- PHP_OS_FAMILY
 		- PHP_SAPI
+		- PHP_EOL
+		- PHP_INT_MAX
+		- PHP_INT_MIN
+		- PHP_INT_SIZE
+		- PHP_FLOAT_DIG
+		- PHP_FLOAT_EPSILON
+		- PHP_FLOAT_MIN
+		- PHP_FLOAT_MAX
 		- DEFAULT_INCLUDE_PATH
 		- PEAR_INSTALL_DIR
 		- PEAR_EXTENSION_DIR
@@ -58,13 +75,6 @@ parameters:
 		- PHP_CONFIG_FILE_SCAN_DIR
 		- PHP_SHLIB_SUFFIX
 		- PHP_FD_SETSIZE
-		- PHP_MAJOR_VERSION
-		- PHP_MINOR_VERSION
-		- PHP_RELEASE_VERSION
-		- PHP_VERSION_ID
-		- PHP_ZTS
-		- PHP_DEBUG
-		- PHP_MAXPATHLEN
 
 extensions:
 	rules: PHPStan\DependencyInjection\RulesExtension
@@ -125,18 +135,19 @@ services:
 			ignoreErrors: %ignoreErrors%
 			reportUnmatchedIgnoredErrors: %reportUnmatchedIgnoredErrors%
 			internalErrorsCountLimit: %internalErrorsCountLimit%
+			benchmarkFile: %benchmarkFile%
 
 	-
 		class: PHPStan\Analyser\ScopeFactory
 		arguments:
 			scopeClass: %scopeClass%
-			dynamicConstantNames: %dynamicConstantNames%
 
 	-
 		class: PHPStan\Analyser\NodeScopeResolver
 		arguments:
 			polluteScopeWithLoopInitialAssignments: %polluteScopeWithLoopInitialAssignments%
 			polluteCatchScopeWithTryAssignments: %polluteCatchScopeWithTryAssignments%
+			polluteScopeWithAlwaysIterableForeach: %polluteScopeWithAlwaysIterableForeach%
 			earlyTerminatingMethodCalls: %earlyTerminatingMethodCalls%
 
 	-
@@ -365,6 +376,11 @@ services:
 
 	-
 		class: PHPStan\Type\Php\ExplodeFunctionDynamicReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	-
+		class: PHPStan\Type\Php\FilterVarDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 

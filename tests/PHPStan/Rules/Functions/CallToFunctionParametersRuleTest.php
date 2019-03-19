@@ -42,6 +42,11 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
+	public function testcallToFunctionWithCorrectParameters(): void
+	{
+		$this->analyse([__DIR__ . '/data/call-functions.php'], []);
+	}
+
 	public function testCallToFunctionWithOptionalParameters(): void
 	{
 		require_once __DIR__ . '/data/call-to-function-with-optional-parameters-definition.php';
@@ -195,24 +200,6 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
-	public function testUnpackOnBefore711(): void
-	{
-		$this->markTestIncomplete('Requires filtering the functionMap function parameters by current PHP reflection.');
-		if (PHP_VERSION_ID >= 70101) {
-			$this->markTestSkipped('This test requires PHP < 7.1.1');
-		}
-		$this->analyse([__DIR__ . '/data/unpack.php'], [
-			[
-				'Function unpack invoked with 0 parameters, 2 required.',
-				3,
-			],
-			[
-				'Function unpack invoked with 3 parameters, 2 required.',
-				4,
-			],
-		]);
-	}
-
 	public function testPassingNonVariableToParameterPassedByReference(): void
 	{
 		require_once __DIR__ . '/data/passed-by-reference.php';
@@ -258,12 +245,7 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 	public function testCallToFunctionInDoWhileLoop(): void
 	{
 		require_once __DIR__ . '/data/do-while-loop.php';
-		$this->analyse([__DIR__ . '/data/do-while-loop.php'], [
-			[
-				'Parameter #1 $object of function CallToFunctionDoWhileLoop\requireStdClass expects stdClass, stdClass|null given.',
-				18,
-			],
-		]);
+		$this->analyse([__DIR__ . '/data/do-while-loop.php'], []);
 	}
 
 	public function testRemoveArrayFromIterable(): void

@@ -144,6 +144,10 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 		$typeForDescribe = $classType;
 		$classType = TypeCombinator::remove($classType, new StringType());
 
+		if ($scope->isInExpressionAssign($node)) {
+			return [];
+		}
+
 		if (!$classType->canAccessProperties()->yes()) {
 			return array_merge($messages, [
 				sprintf('Cannot access static property $%s on %s.', $name, $typeForDescribe->describe(VerbosityLevel::typeOnly())),

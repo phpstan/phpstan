@@ -3,6 +3,7 @@
 namespace PHPStan\Reflection\PhpDefect;
 
 use PHPStan\PhpDoc\TypeStringResolver;
+use PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\PropertiesClassReflectionExtension;
 use PHPStan\Reflection\PropertyReflection;
@@ -37,6 +38,7 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 		],
 		'DOMAttr' => [ // extends DOMNode
 			'name' => 'string',
+			'ownerDocument' => 'DOMDocument',
 			'ownerElement' => 'DOMElement',
 			'schemaTypeInfo' => 'bool',
 			'specified' => 'bool',
@@ -45,6 +47,7 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 		'DOMCharacterData' => [ // extends DOMNode
 			'data' => 'string',
 			'length' => 'int',
+			'ownerDocument' => 'DOMDocument',
 		],
 		'DOMDocument' => [
 			'actualEncoding' => 'string',
@@ -55,6 +58,7 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 			'encoding' => 'string',
 			'formatOutput' => 'bool',
 			'implementation' => 'DOMImplementation',
+			'ownerDocument' => 'null',
 			'preserveWhiteSpace' => 'bool',
 			'recover' => 'bool',
 			'resolveExternals' => 'bool',
@@ -73,9 +77,11 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 			'name' => 'string',
 			'entities' => 'DOMNamedNodeMap<string,DOMEntity>',
 			'notations' => 'DOMNamedNodeMap<string,DOMNotation>',
+			'ownerDocument' => 'DOMDocument',
 			'internalSubset' => 'string',
 		],
 		'DOMElement' => [ // extends DOMNode
+			'ownerDocument' => 'DOMDocument',
 			'schemaTypeInfo' => 'bool',
 			'tagName' => 'string',
 		],
@@ -85,6 +91,7 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 			'notationName' => 'string',
 			'actualEncoding' => 'string',
 			'encoding' => 'string',
+			'ownerDocument' => 'DOMDocument',
 			'version' => 'string',
 		],
 		'DOMNamedNodeMap' => [
@@ -101,7 +108,7 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 			'previousSibling' => 'DOMNode',
 			'nextSibling' => 'DOMNode',
 			'attributes' => 'DOMNamedNodeMap&iterable<string,DOMAttr>',
-			'ownerDocument' => 'DOMDocument',
+			'ownerDocument' => 'DOMDocument|null',
 			'namespaceURI' => 'string',
 			'prefix' => 'string',
 			'localName' => 'string',
@@ -112,10 +119,12 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 			'length' => 'int',
 		],
 		'DOMNotation' => [ // extends DOMNode
+			'ownerDocument' => 'DOMDocument',
 			'publicId' => 'string',
 			'systemId' => 'string',
 		],
 		'DOMProcessingInstruction' => [ // extends DOMNode
+			'ownerDocument' => 'DOMDocument',
 			'target' => 'string',
 			'data' => 'string',
 		],
@@ -162,16 +171,23 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 		],
 	];
 
+	/** @var \PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension */
+	private $annotationsPropertiesClassReflectionExtension;
+
 	/** @var TypeStringResolver */
 	private $typeStringResolver;
 
 	/** @var string[][] */
 	private $properties = [];
 
-	public function __construct(TypeStringResolver $typeStringResolver)
+	public function __construct(
+		TypeStringResolver $typeStringResolver,
+		AnnotationsPropertiesClassReflectionExtension $annotationsPropertiesClassReflectionExtension
+	)
 	{
 		$this->typeStringResolver = $typeStringResolver;
 		$this->properties = self::$defaultProperties;
+		$this->annotationsPropertiesClassReflectionExtension = $annotationsPropertiesClassReflectionExtension;
 	}
 
 	public function hasProperty(ClassReflection $classReflection, string $propertyName): bool
@@ -184,6 +200,22 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 	{
 		/** @var \PHPStan\Reflection\ClassReflection $classWithProperties */
 		$classWithProperties = $this->getClassWithProperties($classReflection, $propertyName);
+
+		if ($this->annotationsPropertiesClassReflectionExtension->hasProperty($classReflection, $propertyName)) {
+			$hierarchyDistances = $classReflection->getClassHierarchyDistances();
+			$annotationProperty = $this->annotationsPropertiesClassReflectionExtension->getProperty($classReflection, $propertyName);
+			if (!isset($hierarchyDistances[$annotationProperty->getDeclaringClass()->getName()])) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+			if (!isset($hierarchyDistances[$classWithProperties->getName()])) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+
+			if ($hierarchyDistances[$annotationProperty->getDeclaringClass()->getName()] < $hierarchyDistances[$classWithProperties->getName()]) {
+				return $annotationProperty;
+			}
+		}
+
 		$typeString = $this->properties[$classWithProperties->getName()][$propertyName];
 		return new PhpDefectPropertyReflection(
 			$classWithProperties,

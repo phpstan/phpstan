@@ -243,4 +243,42 @@ class StaticTypeTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataEquals(): array
+	{
+		return [
+			[
+				new ThisType('Foo'),
+				new ThisType('Foo'),
+				true,
+			],
+			[
+				new ThisType('Foo'),
+				new ThisType('Bar'),
+				false,
+			],
+			[
+				new ThisType('Foo'),
+				new StaticType('Foo'),
+				false,
+			],
+			[
+				new ThisType('Foo'),
+				new StaticType('Bar'),
+				false,
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataEquals
+	 * @param StaticType $type
+	 * @param StaticType $otherType
+	 * @param bool $expected
+	 */
+	public function testEquals(StaticType $type, StaticType $otherType, bool $expected): void
+	{
+		$this->assertSame($expected, $type->equals($otherType));
+		$this->assertSame($expected, $otherType->equals($type));
+	}
+
 }

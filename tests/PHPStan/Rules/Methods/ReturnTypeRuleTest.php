@@ -264,6 +264,14 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Method ReturnTypes\Foo2::returnIntFromParent() should return int but returns ReturnTypes\integer.',
 				756,
 			],
+			[
+				'Method ReturnTypes\VariableOverwrittenInForeach::doFoo() should return int but returns int|string.',
+				813,
+			],
+			[
+				'Method ReturnTypes\VariableOverwrittenInForeach::doBar() should return int but returns int|string.',
+				828,
+			],
 		]);
 	}
 

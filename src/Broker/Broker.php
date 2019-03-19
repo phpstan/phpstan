@@ -269,11 +269,11 @@ class Broker
 	}
 
 	public function getAnonymousClassReflection(
-		\PhpParser\Node\Expr\New_ $node,
+		\PhpParser\Node\Stmt\Class_ $classNode,
 		Scope $scope
 	): ClassReflection
 	{
-		if (!$node->class instanceof \PhpParser\Node\Stmt\Class_) {
+		if (isset($classNode->namespacedName)) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
@@ -289,22 +289,20 @@ class Broker
 		$filename = $this->relativePathHelper->getRelativePath($scopeFile);
 
 		$className = $this->anonymousClassNameHelper->getAnonymousClassName(
-			$node,
+			$classNode,
 			$filename
 		);
+		$classNode->name = new \PhpParser\Node\Identifier($className);
 
 		if (isset(self::$anonymousClasses[$className])) {
 			return self::$anonymousClasses[$className];
 		}
 
-		$classNode = $node->class;
-		$classNode->name = new \PhpParser\Node\Identifier($className);
 		eval($this->printer->prettyPrint([$classNode]));
-		unset($classNode);
 
 		self::$anonymousClasses[$className] = $this->getClassFromReflection(
 			new \ReflectionClass('\\' . $className),
-			sprintf('class@anonymous/%s:%s', $filename, $node->getLine()),
+			sprintf('class@anonymous/%s:%s', $filename, $classNode->getLine()),
 			$scopeFile
 		);
 		$this->classReflections[$className] = self::$anonymousClasses[$className];

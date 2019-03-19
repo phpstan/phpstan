@@ -11,6 +11,10 @@ function funcWithSpecialParameter($one, $two, &$three) {
 	$three = 'test';
 }
 
+function functionWithByRefParameter(&$test) {
+
+}
+
 class Foo
 {
 

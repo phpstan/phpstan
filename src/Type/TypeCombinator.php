@@ -77,7 +77,11 @@ class TypeCombinator
 
 	public static function removeNull(Type $type): Type
 	{
-		return self::remove($type, new NullType());
+		if (self::containsNull($type)) {
+			return self::remove($type, new NullType());
+		}
+
+		return $type;
 	}
 
 	public static function containsNull(Type $type): bool
@@ -146,14 +150,14 @@ class TypeCombinator
 						continue;
 					}
 					if ($innerType instanceof AccessoryType || $innerType instanceof CallableType) {
-						$intermediateAccessoryTypes[] = $innerType;
+						$intermediateAccessoryTypes[$innerType->describe(VerbosityLevel::precise())] = $innerType;
 						continue;
 					}
 				}
 
 				if ($intermediateArrayType !== null) {
 					$arrayTypes[] = $intermediateArrayType;
-					$arrayAccessoryTypes = array_merge($arrayAccessoryTypes, $intermediateAccessoryTypes);
+					$arrayAccessoryTypes[] = $intermediateAccessoryTypes;
 					unset($types[$i]);
 					continue;
 				}
@@ -163,14 +167,25 @@ class TypeCombinator
 			}
 
 			$arrayTypes[] = $types[$i];
+			$arrayAccessoryTypes[] = [];
 			unset($types[$i]);
 		}
 
 		/** @var ArrayType[] $arrayTypes */
 		$arrayTypes = $arrayTypes;
 
+		$arrayAccessoryTypesToProcess = [];
+		if (count($arrayAccessoryTypes) > 1) {
+			$arrayAccessoryTypesToProcess = array_values(array_intersect_key(...$arrayAccessoryTypes));
+		} elseif (count($arrayAccessoryTypes) > 0) {
+			$arrayAccessoryTypesToProcess = array_values($arrayAccessoryTypes[0]);
+		}
+
 		$types = array_values(
-			array_merge($types, self::processArrayTypes($arrayTypes, $arrayAccessoryTypes))
+			array_merge(
+				$types,
+				self::processArrayTypes($arrayTypes, $arrayAccessoryTypesToProcess)
+			)
 		);
 
 		// simplify string[] | int[] to (string|int)[]
@@ -243,6 +258,23 @@ class TypeCombinator
 	 */
 	private static function processArrayTypes(array $arrayTypes, array $accessoryTypes): array
 	{
+		foreach ($arrayTypes as $arrayType) {
+			if (!$arrayType instanceof ConstantArrayType) {
+				continue;
+			}
+			if (count($arrayType->getKeyTypes()) > 0) {
+				continue;
+			}
+
+			foreach ($accessoryTypes as $i => $accessoryType) {
+				if (!$accessoryType instanceof NonEmptyArrayType) {
+					continue;
+				}
+
+				unset($accessoryTypes[$i]);
+				break 2;
+			}
+		}
 		if (count($arrayTypes) === 0) {
 			return [];
 		} elseif (count($arrayTypes) === 1) {
@@ -305,18 +337,18 @@ class TypeCombinator
 		$constantKeyTypesNumbered = $constantKeyTypesNumbered;
 
 		$constantArraysBuckets = [];
-		foreach ($arrayTypes as $arrayType) {
+		foreach ($arrayTypes as $arrayTypeAgain) {
 			$arrayIndex = 0;
-			foreach ($arrayType->getKeyTypes() as $keyType) {
+			foreach ($arrayTypeAgain->getKeyTypes() as $keyType) {
 				$arrayIndex += $constantKeyTypesNumbered[$keyType->getValue()];
 			}
 
 			if (!array_key_exists($arrayIndex, $constantArraysBuckets)) {
 				$bucket = [];
-				foreach ($arrayType->getKeyTypes() as $i => $keyType) {
+				foreach ($arrayTypeAgain->getKeyTypes() as $i => $keyType) {
 					$bucket[$keyType->getValue()] = [
 						'keyType' => $keyType,
-						'valueType' => $arrayType->getValueTypes()[$i],
+						'valueType' => $arrayTypeAgain->getValueTypes()[$i],
 					];
 				}
 				$constantArraysBuckets[$arrayIndex] = $bucket;
@@ -324,10 +356,10 @@ class TypeCombinator
 			}
 
 			$bucket = $constantArraysBuckets[$arrayIndex];
-			foreach ($arrayType->getKeyTypes() as $i => $keyType) {
+			foreach ($arrayTypeAgain->getKeyTypes() as $i => $keyType) {
 				$bucket[$keyType->getValue()]['valueType'] = self::union(
 					$bucket[$keyType->getValue()]['valueType'],
-					$arrayType->getValueTypes()[$i]
+					$arrayTypeAgain->getValueTypes()[$i]
 				);
 			}
 

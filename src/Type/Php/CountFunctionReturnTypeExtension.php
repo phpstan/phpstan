@@ -6,6 +6,7 @@ use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
+use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeUtils;
@@ -26,6 +27,13 @@ class CountFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionR
 	{
 		if (count($functionCall->args) < 1) {
 			return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+		}
+
+		if (count($functionCall->args) > 1) {
+			$mode = $scope->getType($functionCall->args[1]->value);
+			if ($mode->isSuperTypeOf(new ConstantIntegerType(\COUNT_RECURSIVE))->yes()) {
+				return ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+			}
 		}
 
 		$arrays = TypeUtils::getArrays($scope->getType($functionCall->args[0]->value));

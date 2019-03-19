@@ -313,6 +313,13 @@ if (is_bool($mixed)) {
 	$mixed = 1;
 }
 
+if (rand(0, 1)) {
+	/** @var mixed $issetBar */
+	$issetBar = doFoo();
+	/** @var mixed $issetBaz */
+	$issetBaz = doFoo();
+}
+
 try {
 	$inTryTwo = 1;
 } catch (\Exception $e) {

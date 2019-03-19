@@ -5,6 +5,8 @@ namespace Levels\Comparison;
 class Foo
 {
 
+	private const FOO_CONST = 'foo';
+
 	/**
      * @param \stdClass $object
 	 * @param int $int
@@ -27,6 +29,8 @@ class Foo
         $object == $string;
         $object == $intOrString;
         $object == $intOrObject;
+
+        self::FOO_CONST === 'bar';
 	}
 
 }

@@ -761,3 +761,71 @@ class Foo2 extends FooParent implements FooInterface
 		return $this;
 	}
 }
+
+class HelloWorld
+{
+	/**
+	 * @param string $column Columna
+	 * @return string
+	 */
+	public function columnToField(string $column) : string
+	{
+		$idx = strrpos($column, '.');
+		$field = str_replace('.', '_', $column);
+		$field[$idx] = '.';
+
+		return $field;
+	}
+}
+
+class AssertInIf
+{
+
+	/** @var string|null */
+	private $foo;
+
+	public function doFoo(): string
+	{
+		if ($this->foo === null) {
+			$foo = getenv('FOO');
+			assert($foo !== false);
+			assert(is_string($foo));
+
+			$this->foo = $foo;
+		}
+
+		return $this->foo;
+	}
+
+}
+
+class VariableOverwrittenInForeach
+{
+
+	public function doFoo(): int
+	{
+		$x = 0;
+		$y = 1;
+		foreach ([0, 1, 2] as $i) {
+			$x = $y;
+			$y = "hello";
+		}
+		return $x;
+	}
+
+	/**
+	 * @param int[] $arrayOfIntegers
+	 * @return int
+	 */
+	public function doBar(array $arrayOfIntegers): int
+	{
+		$x = 0;
+		$y = 1;
+		foreach ($arrayOfIntegers as $i) {
+			$x = $y;
+			$y = "hello";
+		}
+		return $x;
+	}
+
+}

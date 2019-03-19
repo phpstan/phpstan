@@ -27,6 +27,7 @@ class LevelsIntegrationTest extends \PHPStan\Testing\LevelsTestCase
 			['print_'],
 			['stringOffsetAccess'],
 			['object'],
+			['encapsedString'],
 		];
 	}
 
@@ -42,7 +43,7 @@ class LevelsIntegrationTest extends \PHPStan\Testing\LevelsTestCase
 
 	public function getPhpStanConfigPath(): ?string
 	{
-		return null;
+		return __DIR__ . '/dynamicConstantNames.neon';
 	}
 
 }

@@ -62,6 +62,10 @@ class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestC
 					118,
 				],
 				[
+					'Call to function is_string() with string will always evaluate to true.',
+					140,
+				],
+				[
 					'Call to function method_exists() with CheckTypeFunctionCall\Foo and \'doFoo\' will always evaluate to true.',
 					179,
 				],

@@ -1,0 +1,12 @@
+[
+    {
+        "message": "Part $array (array) of encapsed string cannot be cast to string.",
+        "line": 21,
+        "ignorable": true
+    },
+    {
+        "message": "Part $arrayOrCallable (array|(callable(): mixed)) of encapsed string cannot be cast to string.",
+        "line": 22,
+        "ignorable": true
+    }
+]

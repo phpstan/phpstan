@@ -5,7 +5,7 @@ namespace NegatedInstanceOf;
 class Foo
 {
 
-	public function someMethod()
+	public function someMethod($foo, $bar, $otherBar, $lorem, $otherLorem, $dolor, $sit, $mixedFoo, $mixedBar, $self, $static, $anotherFoo, $fooAndBar)
 	{
 		if (!$foo instanceof Foo) {
 			return;

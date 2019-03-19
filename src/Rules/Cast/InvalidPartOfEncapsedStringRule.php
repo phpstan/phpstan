@@ -4,7 +4,9 @@ namespace PHPStan\Rules\Cast;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
+use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
 
 class InvalidPartOfEncapsedStringRule implements \PHPStan\Rules\Rule
@@ -13,9 +15,16 @@ class InvalidPartOfEncapsedStringRule implements \PHPStan\Rules\Rule
 	/** @var \PhpParser\PrettyPrinter\Standard */
 	private $printer;
 
-	public function __construct(\PhpParser\PrettyPrinter\Standard $printer)
+	/** @var \PHPStan\Rules\RuleLevelHelper */
+	private $ruleLevelHelper;
+
+	public function __construct(
+		\PhpParser\PrettyPrinter\Standard $printer,
+		RuleLevelHelper $ruleLevelHelper
+	)
 	{
 		$this->printer = $printer;
+		$this->ruleLevelHelper = $ruleLevelHelper;
 	}
 
 	public function getNodeType(): string
@@ -36,7 +45,19 @@ class InvalidPartOfEncapsedStringRule implements \PHPStan\Rules\Rule
 				continue;
 			}
 
-			$partType = $scope->getType($part);
+			$typeResult = $this->ruleLevelHelper->findTypeToCheck(
+				$scope,
+				$part,
+				'',
+				static function (Type $type): bool {
+					return !$type->toString() instanceof ErrorType;
+				}
+			);
+			$partType = $typeResult->getType();
+			if ($partType instanceof ErrorType) {
+				continue;
+			}
+
 			$stringPartType = $partType->toString();
 			if (!$stringPartType instanceof ErrorType) {
 				continue;

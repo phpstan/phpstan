@@ -138,6 +138,29 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(24, $errors[1]->getLine());
 	}
 
+	public function testExtendsPdoStatementCrash(): void
+	{
+		if (!extension_loaded('PDO')) {
+			$this->markTestSkipped('PDO has to be loaded.');
+		}
+		$errors = $this->runAnalyse(__DIR__ . '/data/extends-pdo-statement.php');
+		$this->assertCount(0, $errors);
+	}
+
+	public function testArrayDestructuringArrayDimFetch(): void
+	{
+		$errors = $this->runAnalyse(__DIR__ . '/data/array-destructuring-array-dim-fetch.php');
+		$this->assertCount(0, $errors);
+	}
+
+	public function testNestedNamespaces(): void
+	{
+		$errors = $this->runAnalyse(__DIR__ . '/data/nested-namespaces.php');
+		$this->assertCount(1, $errors);
+		$this->assertSame('Parameter $baz of method y\x::__construct() has invalid typehint type x\baz.', $errors[0]->getMessage());
+		$this->assertSame(13, $errors[0]->getLine());
+	}
+
 	/**
 	 * @param string $file
 	 * @return \PHPStan\Analyser\Error[]

@@ -17,6 +17,9 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 	/** @var bool */
 	private $polluteCatchScopeWithTryAssignments;
 
+	/** @var bool */
+	private $polluteScopeWithAlwaysIterableForeach;
+
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
 		return new DefinedVariableRule(
@@ -35,6 +38,11 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		return $this->polluteCatchScopeWithTryAssignments;
 	}
 
+	protected function shouldPolluteScopeWithAlwaysIterableForeach(): bool
+	{
+		return $this->polluteScopeWithAlwaysIterableForeach;
+	}
+
 	public function testDefinedVariables(): void
 	{
 		require_once __DIR__ . '/data/defined-variables-definition.php';
@@ -42,6 +50,7 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->polluteScopeWithLoopInitialAssignments = false;
 		$this->polluteCatchScopeWithTryAssignments = false;
 		$this->checkMaybeUndefinedVariables = true;
+		$this->polluteScopeWithAlwaysIterableForeach = true;
 		$this->analyse([__DIR__ . '/data/defined-variables.php'], [
 			[
 				'Undefined variable: $definedLater',
@@ -104,7 +113,7 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				156,
 			],
 			[
-				'Undefined variable: $variableInIsset',
+				'Variable $variableInIsset might not be defined.',
 				161,
 			],
 			[
@@ -140,10 +149,6 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				260,
 			],
 			[
-				'Variable $variableDefinedInTryAndAllCatches might not be defined.',
-				265,
-			],
-			[
 				'Variable $variableAvailableInAllCatches might not be defined.',
 				266,
 			],
@@ -162,6 +167,10 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Undefined variable: $variableInSecondCase',
 				290,
+			],
+			[
+				'Variable $variableInSecondCase might not be defined.',
+				293,
 			],
 			[
 				'Undefined variable: $variableAssignedInSecondCase',
@@ -211,6 +220,37 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Undefined variable: $variableInAssign',
 				384,
 			],
+			[
+				'Undefined variable: $undefinedArrayIndex',
+				409,
+			],
+			[
+				'Undefined variable: $anotherUndefinedArrayIndex',
+				409,
+			],
+			[
+				'Variable $str might not be defined.',
+				423,
+			],
+			[
+				'Variable $str might not be defined.',
+				428,
+			],
+		]);
+	}
+
+	public function testDefinedVariablesInClosures(): void
+	{
+		$this->cliArgumentsVariablesRegistered = true;
+		$this->polluteScopeWithLoopInitialAssignments = false;
+		$this->polluteCatchScopeWithTryAssignments = false;
+		$this->checkMaybeUndefinedVariables = true;
+		$this->polluteScopeWithAlwaysIterableForeach = true;
+		$this->analyse([__DIR__ . '/data/defined-variables-closures.php'], [
+			[
+				'Undefined variable: $this',
+				14,
+			],
 		]);
 	}
 
@@ -220,6 +260,7 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->polluteScopeWithLoopInitialAssignments = false;
 		$this->polluteCatchScopeWithTryAssignments = false;
 		$this->checkMaybeUndefinedVariables = true;
+		$this->polluteScopeWithAlwaysIterableForeach = true;
 		$this->analyse([__DIR__ . '/data/defined-variables-array-destructuring-short-syntax.php'], [
 			[
 				'Undefined variable: $f',
@@ -242,6 +283,7 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->polluteScopeWithLoopInitialAssignments = false;
 		$this->polluteCatchScopeWithTryAssignments = false;
 		$this->checkMaybeUndefinedVariables = true;
+		$this->polluteScopeWithAlwaysIterableForeach = true;
 		$this->analyse([__DIR__ . '/data/cli-arguments-variables.php'], [
 			[
 				'Undefined variable: $argc',
@@ -260,6 +302,7 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->polluteScopeWithLoopInitialAssignments = false;
 		$this->polluteCatchScopeWithTryAssignments = false;
 		$this->checkMaybeUndefinedVariables = true;
+		$this->polluteScopeWithAlwaysIterableForeach = true;
 		$this->analyse([__DIR__ . '/data/cli-arguments-variables.php'], [
 			[
 				'Undefined variable: $argc',
@@ -319,6 +362,7 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->polluteCatchScopeWithTryAssignments = false;
 		$this->polluteScopeWithLoopInitialAssignments = $polluteScopeWithLoopInitialAssignments;
 		$this->checkMaybeUndefinedVariables = $checkMaybeUndefinedVariables;
+		$this->polluteScopeWithAlwaysIterableForeach = true;
 		$this->analyse([__DIR__ . '/data/loop-initial-assignments.php'], $expectedErrors);
 	}
 
@@ -369,6 +413,7 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->polluteScopeWithLoopInitialAssignments = false;
 		$this->polluteCatchScopeWithTryAssignments = $polluteCatchScopeWithTryAssignments;
 		$this->checkMaybeUndefinedVariables = $checkMaybeUndefinedVariables;
+		$this->polluteScopeWithAlwaysIterableForeach = true;
 		$this->analyse([__DIR__ . '/data/catch-scope-polluted-with-try-assignments.php'], $expectedErrors);
 	}
 
@@ -378,6 +423,7 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->polluteScopeWithLoopInitialAssignments = false;
 		$this->polluteCatchScopeWithTryAssignments = false;
 		$this->checkMaybeUndefinedVariables = true;
+		$this->polluteScopeWithAlwaysIterableForeach = true;
 		$this->analyse([__DIR__ . '/data/define-variables-class.php'], []);
 	}
 
@@ -387,6 +433,7 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->polluteScopeWithLoopInitialAssignments = false;
 		$this->polluteCatchScopeWithTryAssignments = false;
 		$this->checkMaybeUndefinedVariables = true;
+		$this->polluteScopeWithAlwaysIterableForeach = true;
 		$this->analyse([__DIR__ . '/data/dead-branches.php'], [
 			[
 				'Undefined variable: $test',
@@ -417,6 +464,7 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->polluteScopeWithLoopInitialAssignments = false;
 		$this->polluteCatchScopeWithTryAssignments = false;
 		$this->checkMaybeUndefinedVariables = true;
+		$this->polluteScopeWithAlwaysIterableForeach = true;
 		$this->analyse([__DIR__ . '/data/foreach.php'], [
 			[
 				'Variable $val might not be defined.',
@@ -465,6 +513,149 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Variable $test might not be defined.',
 				218,
+			],
+		]);
+	}
+
+	public function dataForeachPolluteScopeWithAlwaysIterableForeach(): array
+	{
+		return [
+			[
+				true,
+				[
+					[
+						'Undefined variable: $key',
+						8,
+					],
+					[
+						'Undefined variable: $val',
+						9,
+					],
+					[
+						'Undefined variable: $test',
+						10,
+					],
+					[
+						'Variable $test might not be defined.',
+						34,
+					],
+					[
+						'Variable $key might not be defined.',
+						47,
+					],
+					[
+						'Variable $test might not be defined.',
+						48,
+					],
+					[
+						'Variable $key might not be defined.',
+						61,
+					],
+					[
+						'Variable $test might not be defined.',
+						62,
+					],
+				],
+			],
+			[
+				false,
+				[
+					[
+						'Undefined variable: $key',
+						8,
+					],
+					[
+						'Undefined variable: $val',
+						9,
+					],
+					[
+						'Undefined variable: $test',
+						10,
+					],
+					[
+						'Variable $key might not be defined.',
+						19,
+					],
+					[
+						'Variable $val might not be defined.',
+						20,
+					],
+					[
+						'Variable $test might not be defined.',
+						21,
+					],
+					[
+						'Variable $key might not be defined.',
+						32,
+					],
+					[
+						'Variable $val might not be defined.',
+						33,
+					],
+					[
+						'Variable $test might not be defined.',
+						34,
+					],
+					[
+						'Variable $key might not be defined.',
+						47,
+					],
+					[
+						'Variable $test might not be defined.',
+						48,
+					],
+					[
+						'Variable $key might not be defined.',
+						61,
+					],
+					[
+						'Variable $test might not be defined.',
+						62,
+					],
+					[
+						'Variable $key might not be defined.',
+						75,
+					],
+					[
+						'Variable $test might not be defined.',
+						76,
+					],
+				],
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataForeachPolluteScopeWithAlwaysIterableForeach
+	 *
+	 * @param bool $polluteScopeWithAlwaysIterableForeach
+	 * @param mixed[] $errors
+	 */
+	public function testForeachPolluteScopeWithAlwaysIterableForeach(bool $polluteScopeWithAlwaysIterableForeach, array $errors): void
+	{
+		$this->cliArgumentsVariablesRegistered = true;
+		$this->polluteScopeWithLoopInitialAssignments = false;
+		$this->polluteCatchScopeWithTryAssignments = false;
+		$this->checkMaybeUndefinedVariables = true;
+		$this->polluteScopeWithAlwaysIterableForeach = $polluteScopeWithAlwaysIterableForeach;
+		$this->analyse([__DIR__ . '/data/foreach-always-iterable.php'], $errors);
+	}
+
+	public function testBooleanOperatorsTruthyFalsey(): void
+	{
+		$this->cliArgumentsVariablesRegistered = true;
+		$this->polluteScopeWithLoopInitialAssignments = false;
+		$this->polluteCatchScopeWithTryAssignments = false;
+		$this->checkMaybeUndefinedVariables = true;
+		$this->polluteScopeWithAlwaysIterableForeach = true;
+		$this->analyse([__DIR__ . '/data/boolean-op-truthy-falsey.php'], [
+			[
+				'Variable $matches might not be defined.',
+				9,
+			],
+			[
+				'Variable $matches might not be defined.',
+				15,
 			],
 		]);
 	}

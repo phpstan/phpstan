@@ -5,6 +5,7 @@ namespace LoopVariables;
 function () {
 	$foo = null;
 	$nullableVal = null;
+	$falseOrObject = false;
 	for ($i = 0; $i < 10; $i++) {
 		'begin';
 		$foo = new Foo();
@@ -16,6 +17,10 @@ function () {
 		} else {
 			$nullableVal *= 10;
 			'nullableValElse';
+		}
+
+		if ($falseOrObject === false) {
+			$falseOrObject = new Foo();
 		}
 
 		if (something()) {

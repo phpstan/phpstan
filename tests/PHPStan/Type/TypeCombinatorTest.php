@@ -875,6 +875,62 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				IntersectionType::class,
 				'array(object, \'foo\')&callable(): mixed',
 			],
+			[
+				[
+					new IntersectionType([new ArrayType(new MixedType(), new MixedType()), new NonEmptyArrayType()]),
+					new ConstantArrayType([], []),
+				],
+				ArrayType::class,
+				'array',
+			],
+			[
+				[
+					new IntersectionType([
+						new ArrayType(new MixedType(), new MixedType()),
+						new HasOffsetType(new ConstantStringType('foo')),
+					]),
+					new ArrayType(new MixedType(), new MixedType()),
+				],
+				ArrayType::class,
+				'array',
+			],
+			[
+				[
+					new IntersectionType([
+						new ArrayType(new MixedType(), new MixedType()),
+						new HasOffsetType(new ConstantStringType('foo')),
+					]),
+					new IntersectionType([
+						new ArrayType(new MixedType(), new MixedType()),
+						new HasOffsetType(new ConstantStringType('bar')),
+					]),
+				],
+				ArrayType::class,
+				'array',
+			],
+			[
+				[
+					new IntersectionType([
+						new ArrayType(new MixedType(), new MixedType()),
+						new HasOffsetType(new ConstantStringType('foo')),
+					]),
+					new IntersectionType([
+						new ArrayType(new MixedType(), new MixedType()),
+						new HasOffsetType(new ConstantStringType('foo')),
+						new HasOffsetType(new ConstantStringType('bar')),
+					]),
+				],
+				IntersectionType::class,
+				'array&hasOffset(\'foo\')',
+			],
+			[
+				[
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+				],
+				UnionType::class, // I'd be more happy with preserving BenevolentUnionType
+				'int|string',
+			],
 		];
 	}
 
@@ -1409,6 +1465,20 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				NeverType::class,
 				'*NEVER*',
 			],
+			[
+				[
+					new IntersectionType([
+						new ArrayType(new MixedType(), new MixedType()),
+						new HasOffsetType(new ConstantStringType('foo')),
+					]),
+					new IntersectionType([
+						new ArrayType(new MixedType(), new MixedType()),
+						new HasOffsetType(new ConstantStringType('bar')),
+					]),
+				],
+				IntersectionType::class,
+				'array&hasOffset(\'bar\')&hasOffset(\'foo\')',
+			],
 		];
 	}
 
@@ -1665,6 +1735,15 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				new NonEmptyArrayType(),
 				ConstantArrayType::class,
 				'array()',
+			],
+			[
+				new ArrayType(new MixedType(), new MixedType()),
+				new IntersectionType([
+					new ArrayType(new MixedType(), new MixedType()),
+					new HasOffsetType(new ConstantStringType('foo')),
+				]),
+				ArrayType::class,
+				'array',
 			],
 		];
 	}

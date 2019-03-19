@@ -45,6 +45,24 @@ class TypeUtils
 		return self::map(ConstantType::class, $type, false);
 	}
 
+	/**
+	 * @param \PHPStan\Type\Type $type
+	 * @return \PHPStan\Type\ConstantType[]
+	 */
+	public static function getAnyConstantTypes(Type $type): array
+	{
+		return self::map(ConstantType::class, $type, false, false);
+	}
+
+	/**
+	 * @param \PHPStan\Type\Type $type
+	 * @return \PHPStan\Type\ArrayType[]
+	 */
+	public static function getAnyArrays(Type $type): array
+	{
+		return self::map(ArrayType::class, $type, true, false);
+	}
+
 	public static function generalizeType(Type $type): Type
 	{
 		if ($type instanceof ConstantType) {
@@ -97,12 +115,14 @@ class TypeUtils
 	 * @param string $typeClass
 	 * @param Type $type
 	 * @param bool $inspectIntersections
+	 * @param bool $stopOnUnmatched
 	 * @return mixed[]
 	 */
 	private static function map(
 		string $typeClass,
 		Type $type,
-		bool $inspectIntersections
+		bool $inspectIntersections,
+		bool $stopOnUnmatched = true
 	): array
 	{
 		if ($type instanceof $typeClass) {
@@ -113,7 +133,11 @@ class TypeUtils
 			$matchingTypes = [];
 			foreach ($type->getTypes() as $innerType) {
 				if (!$innerType instanceof $typeClass) {
-					return [];
+					if ($stopOnUnmatched) {
+						return [];
+					}
+
+					continue;
 				}
 
 				$matchingTypes[] = $innerType;
@@ -126,6 +150,10 @@ class TypeUtils
 			$matchingTypes = [];
 			foreach ($type->getTypes() as $innerType) {
 				if (!$innerType instanceof $typeClass) {
+					if ($stopOnUnmatched) {
+						return [];
+					}
+
 					continue;
 				}
 

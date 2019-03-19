@@ -23,6 +23,7 @@ class ForeachFoo
 		if (rand(0, 1) === 0) {
 			$iterableArray = [1, 2, 3];
 		}
+		$falseOrObject = false;
 		foreach ($iterableArray as $key => $val) {
 			'begin';
 			$foo = new Foo();
@@ -34,6 +35,10 @@ class ForeachFoo
 			} else {
 				$nullableVal *= 10;
 				'nullableValElse';
+			}
+
+			if ($falseOrObject === false) {
+				$falseOrObject = new Foo();
 			}
 
 			$foo && $i++;

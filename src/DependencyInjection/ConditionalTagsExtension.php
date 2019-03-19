@@ -11,7 +11,11 @@ class ConditionalTagsExtension extends \Nette\DI\CompilerExtension
 		$builder = $this->getContainerBuilder();
 
 		foreach ($config as $type => $tags) {
-			foreach ($builder->findByType($type) as $service) {
+			$services = $builder->findByType($type);
+			if (count($services) === 0) {
+				throw new \PHPStan\ShouldNotHappenException(sprintf('No services of type "%s" found.', $type));
+			}
+			foreach ($services as $service) {
 				foreach ($tags as $tag => $parameter) {
 					if ((bool) $parameter) {
 						$service->addTag($tag);

@@ -10,7 +10,6 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\CompoundType;
-use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\ConstantType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
@@ -360,7 +359,8 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 		if (!$preserveKeys) {
 			$i = 0;
-			$keyTypes = array_map(static function (ConstantScalarType $keyType) use (&$i): ConstantScalarType {
+			/** @var array<int, ConstantIntegerType|ConstantStringType> $keyTypes */
+			$keyTypes = array_map(static function ($keyType) use (&$i) {
 				if ($keyType instanceof ConstantIntegerType) {
 					$i++;
 					return new ConstantIntegerType($i - 1);
@@ -370,12 +370,14 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			}, $keyTypes);
 		}
 
+		/** @var int|float $nextAutoIndex */
 		$nextAutoIndex = 0;
 		foreach ($keyTypes as $keyType) {
 			if (!$keyType instanceof ConstantIntegerType) {
 				continue;
 			}
 
+			/** @var int|float $nextAutoIndex */
 			$nextAutoIndex = max($nextAutoIndex, $keyType->getValue() + 1);
 		}
 

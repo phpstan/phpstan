@@ -33,10 +33,15 @@ function (array $generalArray) {
 	$arrayAppendedInForeach = ['foo', 'bar'];
 	$anotherArrayAppendedInForeach = ['foo', 'bar'];
 	$i = 0;
+
+	$incremented = 0;
+	$setFromZeroToOne = 0;
 	foreach ($ints as $x) {
 		$array['j'] += $x;
 		$arrayAppendedInForeach[] = 'baz';
 		$anotherArrayAppendedInForeach[$i++] = 'baz';
+		$incremented++;
+		$setFromZeroToOne = 1;
 	}
 
 	$array['l']++;

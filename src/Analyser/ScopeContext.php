@@ -60,6 +60,31 @@ class ScopeContext
 		return new self($this->file, $this->classReflection, $traitReflection);
 	}
 
+	public function equals(self $otherContext): bool
+	{
+		if ($this->file !== $otherContext->file) {
+			return false;
+		}
+
+		if ($this->getClassReflection() === null) {
+			return $otherContext->getClassReflection() === null;
+		} elseif ($otherContext->getClassReflection() === null) {
+			return false;
+		}
+
+		$isSameClass = $this->getClassReflection()->getName() === $otherContext->getClassReflection()->getName();
+
+		if ($this->getTraitReflection() === null) {
+			return $otherContext->getTraitReflection() === null && $isSameClass;
+		} elseif ($otherContext->getTraitReflection() === null) {
+			return false;
+		}
+
+		$isSameTrait = $this->getTraitReflection()->getName() === $otherContext->getTraitReflection()->getName();
+
+		return $isSameClass && $isSameTrait;
+	}
+
 	public function getFile(): string
 	{
 		return $this->file;

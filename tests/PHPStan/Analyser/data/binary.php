@@ -1,6 +1,6 @@
 <?php
 
-namespace BinaryOperations;
+namespace BinaryOperations\NestedNamespace;
 
 class Foo
 {
@@ -88,6 +88,21 @@ class Foo
 
 		$decrementedFooString = $fooString;
 		$decrementedFooString--;
+
+		$index = 0;
+		$preIncArray = [];
+		$preIncArray[++$index] = $index;
+		$preIncArray[++$index] = $index;
+
+		$anotherIndex = 0;
+		$postIncArray = [];
+		$postIncArray[$anotherIndex++] = $anotherIndex++;
+		$postIncArray[$anotherIndex++] = $anotherIndex++;
+
+		$anotherPostIncArray = [];
+		$anotherAnotherIndex = 0;
+		$anotherPostIncArray[$anotherAnotherIndex++][$anotherAnotherIndex++][$anotherAnotherIndex++] = $anotherAnotherIndex++;
+		$anotherPostIncArray[$anotherAnotherIndex++][$anotherAnotherIndex++][$anotherAnotherIndex++] = $anotherAnotherIndex++;
 
 		$conditionalArray = [1, 1, 1];
 		$conditionalInt = 1;

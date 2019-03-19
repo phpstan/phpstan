@@ -6,14 +6,16 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\BinaryOp\Equal;
 use PhpParser\Node\Expr\BinaryOp\Identical;
+use PhpParser\Node\Expr\BinaryOp\NotIdentical;
 use PhpParser\Node\Expr\BooleanNot;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
-use PHPStan\TrinaryLogic;
+use PhpParser\Node\VarLikeIdentifier;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\MixedType;
@@ -42,11 +44,13 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 		$this->typeSpecifier = $this->createTypeSpecifier($this->printer, $broker);
 		$this->scope = $this->createScopeFactory($broker, $this->typeSpecifier)->create(ScopeContext::create(''));
 		$this->scope = $this->scope->enterClass($broker->getClass('DateTime'));
-		$this->scope = $this->scope->assignVariable('bar', new ObjectType('Bar'), TrinaryLogic::createYes());
-		$this->scope = $this->scope->assignVariable('stringOrNull', new UnionType([new StringType(), new NullType()]), TrinaryLogic::createYes());
-		$this->scope = $this->scope->assignVariable('barOrNull', new UnionType([new ObjectType('Bar'), new NullType()]), TrinaryLogic::createYes());
-		$this->scope = $this->scope->assignVariable('stringOrFalse', new UnionType([new StringType(), new ConstantBooleanType(false)]), TrinaryLogic::createYes());
-		$this->scope = $this->scope->assignVariable('array', new ArrayType(new MixedType(), new MixedType()), TrinaryLogic::createYes());
+		$this->scope = $this->scope->assignVariable('bar', new ObjectType('Bar'));
+		$this->scope = $this->scope->assignVariable('stringOrNull', new UnionType([new StringType(), new NullType()]));
+		$this->scope = $this->scope->assignVariable('barOrNull', new UnionType([new ObjectType('Bar'), new NullType()]));
+		$this->scope = $this->scope->assignVariable('barOrFalse', new UnionType([new ObjectType('Bar'), new ConstantBooleanType(false)]));
+		$this->scope = $this->scope->assignVariable('stringOrFalse', new UnionType([new StringType(), new ConstantBooleanType(false)]));
+		$this->scope = $this->scope->assignVariable('array', new ArrayType(new MixedType(), new MixedType()));
+		$this->scope = $this->scope->assignVariable('foo', new MixedType());
 	}
 
 	/**
@@ -161,11 +165,40 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 				['$foo' => 'object'],
 				[],
 			],
-
+			[
+				new Equal(
+					new FuncCall(new Name('get_class'), [
+						new Arg(new Variable('foo')),
+					]),
+					new String_('Foo')
+				),
+				['$foo' => 'Foo'],
+				['$foo' => '~Foo'],
+			],
+			[
+				new Equal(
+					new String_('Foo'),
+					new FuncCall(new Name('get_class'), [
+						new Arg(new Variable('foo')),
+					])
+				),
+				['$foo' => 'Foo'],
+				['$foo' => '~Foo'],
+			],
+			[
+				new BooleanNot(
+					new Expr\Instanceof_(
+						new Variable('foo'),
+						new Variable('className')
+					)
+				),
+				[],
+				['$foo' => 'object'],
+			],
 			[
 				new Variable('foo'),
 				['$foo' => '~0|0.0|\'\'|array()|false|null'],
-				['$foo' => '~object'],
+				['$foo' => '~object|nonEmpty'],
 			],
 			[
 				new Expr\BinaryOp\BooleanAnd(
@@ -181,18 +214,18 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					$this->createFunctionCall('random')
 				),
 				[],
-				['$foo' => '~object'],
+				['$foo' => '~object|nonEmpty'],
 			],
 			[
 				new Expr\BooleanNot(new Variable('bar')),
-				['$bar' => '~object'],
+				['$bar' => '~object|nonEmpty'],
 				['$bar' => '~0|0.0|\'\'|array()|false|null'],
 			],
 
 			[
 				new PropertyFetch(new Variable('this'), 'foo'),
 				['$this->foo' => '~0|0.0|\'\'|array()|false|null'],
-				['$this->foo' => '~object'],
+				['$this->foo' => '~object|nonEmpty'],
 			],
 			[
 				new Expr\BinaryOp\BooleanAnd(
@@ -208,11 +241,11 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					$this->createFunctionCall('random')
 				),
 				[],
-				['$this->foo' => '~object'],
+				['$this->foo' => '~object|nonEmpty'],
 			],
 			[
 				new Expr\BooleanNot(new PropertyFetch(new Variable('this'), 'foo')),
-				['$this->foo' => '~object'],
+				['$this->foo' => '~object|nonEmpty'],
 				['$this->foo' => '~0|0.0|\'\'|array()|false|null'],
 			],
 
@@ -312,7 +345,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					new Variable('foo'),
 					new Expr\ConstFetch(new Name('false'))
 				),
-				['$foo' => 'false & ~object'],
+				['$foo' => 'false & ~object|nonEmpty'],
 				['$foo' => '~false'],
 			],
 			[
@@ -352,7 +385,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					new Variable('foo'),
 					new Expr\ConstFetch(new Name('false'))
 				),
-				['$foo' => '~object'],
+				['$foo' => '~object|nonEmpty'],
 				['$foo' => '~0|0.0|\'\'|array()|false|null'],
 			],
 			[
@@ -360,7 +393,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					new Variable('foo'),
 					new Expr\ConstFetch(new Name('null'))
 				),
-				['$foo' => '~object'],
+				['$foo' => '~object|nonEmpty'],
 				['$foo' => '~0|0.0|\'\'|array()|false|null'],
 			],
 			[
@@ -440,7 +473,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					new Variable('stringOrNull')
 				),
 				['$foo' => '~0|0.0|\'\'|array()|false|null'],
-				['$foo' => '~object'],
+				['$foo' => '~object|nonEmpty'],
 			],
 			[
 				new Expr\Assign(
@@ -448,7 +481,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					new Variable('stringOrFalse')
 				),
 				['$foo' => '~0|0.0|\'\'|array()|false|null'],
-				['$foo' => '~object'],
+				['$foo' => '~object|nonEmpty'],
 			],
 			[
 				new Expr\Assign(
@@ -456,7 +489,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					new Variable('bar')
 				),
 				['$foo' => '~0|0.0|\'\'|array()|false|null'],
-				['$foo' => '~object'],
+				['$foo' => '~object|nonEmpty'],
 			],
 			[
 				new Expr\Isset_([
@@ -468,7 +501,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					'$barOrNull' => '~null',
 				],
 				[
-					'isset($stringOrNull, $barOrNull)' => '~object',
+					'isset($stringOrNull, $barOrNull)' => '~object|nonEmpty',
 				],
 			],
 			[
@@ -529,6 +562,246 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 				],
 				[
 					'$array' => 'nonEmpty',
+				],
+			],
+			[
+				new Variable('foo'),
+				[
+					'$foo' => '~0|0.0|\'\'|array()|false|null',
+				],
+				[
+					'$foo' => '~object|nonEmpty',
+				],
+			],
+			[
+				new Variable('array'),
+				[
+					'$array' => '~0|0.0|\'\'|array()|false|null',
+				],
+				[
+					'$array' => '~object|nonEmpty',
+				],
+			],
+			[
+				new Equal(
+					new Expr\Instanceof_(
+						new Variable('foo'),
+						new Variable('className')
+					),
+					new LNumber(1)
+				),
+				['$foo' => 'object'],
+				[],
+			],
+			[
+				new Equal(
+					new Expr\Instanceof_(
+						new Variable('foo'),
+						new Variable('className')
+					),
+					new LNumber(0)
+				),
+				[],
+				[
+					'$foo' => 'object',
+				],
+			],
+			[
+				new Expr\Isset_(
+					[
+						new PropertyFetch(new Variable('foo'), new Identifier('bar')),
+					]
+				),
+				[
+					'$foo' => 'object&hasProperty(bar) & ~null',
+					'$foo->bar' => '~null',
+				],
+				[
+					'isset($foo->bar)' => '~object|nonEmpty',
+				],
+			],
+			[
+				new Expr\Isset_(
+					[
+						new Expr\StaticPropertyFetch(new Name('Foo'), new VarLikeIdentifier('bar')),
+					]
+				),
+				[
+					'Foo::$bar' => '~null',
+				],
+				[
+					'isset(Foo::$bar)' => '~object|nonEmpty',
+				],
+			],
+			[
+				new Identical(
+					new Variable('barOrNull'),
+					new Expr\ConstFetch(new Name('null'))
+				),
+				[
+					'$barOrNull' => 'null',
+				],
+				[
+					'$barOrNull' => '~null',
+				],
+			],
+			[
+				new Identical(
+					new Expr\Assign(
+						new Variable('notNullBar'),
+						new Variable('barOrNull')
+					),
+					new Expr\ConstFetch(new Name('null'))
+				),
+				[
+					'$notNullBar' => 'null',
+				],
+				[
+					'$notNullBar' => '~null',
+				],
+			],
+			[
+				new NotIdentical(
+					new Variable('barOrNull'),
+					new Expr\ConstFetch(new Name('null'))
+				),
+				[
+					'$barOrNull' => '~null',
+				],
+				[
+					'$barOrNull' => 'null',
+				],
+			],
+			[
+				new NotIdentical(
+					new Expr\Assign(
+						new Variable('notNullBar'),
+						new Variable('barOrNull')
+					),
+					new Expr\ConstFetch(new Name('null'))
+				),
+				[
+					'$notNullBar' => '~null',
+				],
+				[
+					'$notNullBar' => 'null',
+				],
+			],
+			[
+				new Identical(
+					new Variable('barOrFalse'),
+					new Expr\ConstFetch(new Name('false'))
+				),
+				[
+					'$barOrFalse' => 'false & ~object|nonEmpty',
+				],
+				[
+					'$barOrFalse' => '~false',
+				],
+			],
+			[
+				new Identical(
+					new Expr\Assign(
+						new Variable('notFalseBar'),
+						new Variable('barOrFalse')
+					),
+					new Expr\ConstFetch(new Name('false'))
+				),
+				[
+					'$notFalseBar' => 'false & ~object|nonEmpty',
+				],
+				[
+					'$notFalseBar' => '~false',
+				],
+			],
+			[
+				new NotIdentical(
+					new Variable('barOrFalse'),
+					new Expr\ConstFetch(new Name('false'))
+				),
+				[
+					'$barOrFalse' => '~false',
+				],
+				[
+					'$barOrFalse' => 'false & ~object|nonEmpty',
+				],
+			],
+			[
+				new NotIdentical(
+					new Expr\Assign(
+						new Variable('notFalseBar'),
+						new Variable('barOrFalse')
+					),
+					new Expr\ConstFetch(new Name('false'))
+				),
+				[
+					'$notFalseBar' => '~false',
+				],
+				[
+					'$notFalseBar' => 'false & ~object|nonEmpty',
+				],
+			],
+			[
+				new Expr\Instanceof_(
+					new Expr\Assign(
+						new Variable('notFalseBar'),
+						new Variable('barOrFalse')
+					),
+					new Name('Bar')
+				),
+				[
+					'$notFalseBar' => 'Bar',
+				],
+				[
+					'$notFalseBar' => '~Bar',
+				],
+			],
+			[
+				new Expr\BinaryOp\BooleanOr(
+					new FuncCall(new Name('array_key_exists'), [
+						new Arg(new String_('foo')),
+						new Arg(new Variable('array')),
+					]),
+					new FuncCall(new Name('array_key_exists'), [
+						new Arg(new String_('bar')),
+						new Arg(new Variable('array')),
+					])
+				),
+				[
+					'$array' => 'array',
+				],
+				[
+					'$array' => '~hasOffset(\'bar\')|hasOffset(\'foo\')',
+				],
+			],
+			[
+				new BooleanNot(new Expr\BinaryOp\BooleanOr(
+					new FuncCall(new Name('array_key_exists'), [
+						new Arg(new String_('foo')),
+						new Arg(new Variable('array')),
+					]),
+					new FuncCall(new Name('array_key_exists'), [
+						new Arg(new String_('bar')),
+						new Arg(new Variable('array')),
+					])
+				)),
+				[
+					'$array' => '~hasOffset(\'bar\')|hasOffset(\'foo\')',
+				],
+				[
+					'$array' => 'array',
+				],
+			],
+			[
+				new FuncCall(new Name('array_key_exists'), [
+					new Arg(new String_('foo')),
+					new Arg(new Variable('array')),
+				]),
+				[
+					'$array' => 'array&hasOffset(\'foo\')',
+				],
+				[
+					'$array' => '~hasOffset(\'foo\')',
 				],
 			],
 		];

@@ -28,7 +28,7 @@ class UniversalRule implements Rule
 	public function processNode(Node $node, Scope $scope): array
 	{
 		$callback = $this->processNodeCallback;
-		$callback($node, $scope);
+		return $callback($node, $scope);
 	}
 
 }

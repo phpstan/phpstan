@@ -2,13 +2,13 @@
 
 namespace PHPStan\Reflection\Php;
 
-use PHPStan\Reflection\ParameterReflection;
+use PHPStan\Reflection\ParameterReflectionWithPhpDocs;
 use PHPStan\Reflection\PassedByReference;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
 
-class PhpParameterReflection implements ParameterReflection
+class PhpParameterReflection implements ParameterReflectionWithPhpDocs
 {
 
 	/** @var \ReflectionParameter */

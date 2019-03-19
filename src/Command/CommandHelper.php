@@ -173,10 +173,10 @@ class CommandHelper
 			$defaultLevelUsed = false;
 		}
 
-		foreach ($container->parameters['autoload_files'] as $autoloadFile) {
+		foreach ($container->parameters['autoload_files'] as $parameterAutoloadFile) {
 			(static function (string $file): void {
 				require_once $file;
-			})($fileHelper->normalizePath($autoloadFile));
+			})($fileHelper->normalizePath($parameterAutoloadFile));
 		}
 
 		if (count($container->parameters['autoload_directories']) > 0) {

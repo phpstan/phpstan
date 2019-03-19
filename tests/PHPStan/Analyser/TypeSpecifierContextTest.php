@@ -38,9 +38,11 @@ class TypeSpecifierContextTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testContext(TypeSpecifierContext $context, array $results): void
 	{
-		foreach (['true', 'truthy', 'false', 'falsey', 'null'] as $index => $method) {
-			$this->assertSame($results[$index], $context->$method());
-		}
+		$this->assertSame($results[0], $context->true());
+		$this->assertSame($results[1], $context->truthy());
+		$this->assertSame($results[2], $context->false());
+		$this->assertSame($results[3], $context->falsey());
+		$this->assertSame($results[4], $context->null());
 	}
 
 	public function dataNegate(): array
@@ -72,9 +74,11 @@ class TypeSpecifierContextTest extends \PHPStan\Testing\TestCase
 	 */
 	public function testNegate(TypeSpecifierContext $context, array $results): void
 	{
-		foreach (['true', 'truthy', 'false', 'falsey', 'null'] as $index => $method) {
-			$this->assertSame($results[$index], $context->$method());
-		}
+		$this->assertSame($results[0], $context->true());
+		$this->assertSame($results[1], $context->truthy());
+		$this->assertSame($results[2], $context->false());
+		$this->assertSame($results[3], $context->falsey());
+		$this->assertSame($results[4], $context->null());
 	}
 
 	public function testNegateNull(): void

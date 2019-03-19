@@ -20,13 +20,16 @@ use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Name;
 use PHPStan\Broker\Broker;
 use PHPStan\Type\Accessory\HasOffsetType;
+use PHPStan\Type\Accessory\HasPropertyType;
 use PHPStan\Type\Accessory\NonEmptyArrayType;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\BooleanType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
+use PHPStan\Type\IntersectionType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\NonexistentParentClassType;
@@ -102,6 +105,10 @@ class TypeSpecifier
 	): SpecifiedTypes
 	{
 		if ($expr instanceof Instanceof_) {
+			$exprNode = $expr->expr;
+			if ($exprNode instanceof Expr\Assign) {
+				$exprNode = $exprNode->var;
+			}
 			if ($expr->class instanceof Name) {
 				$className = (string) $expr->class;
 				$lowercasedClassName = strtolower($className);
@@ -121,17 +128,20 @@ class TypeSpecifier
 				} else {
 					$type = new ObjectType($className);
 				}
-				return $this->create($expr->expr, $type, $context);
+				return $this->create($exprNode, $type, $context);
 			}
 
 			if ($context->true()) {
-				return $this->create($expr->expr, new ObjectWithoutClassType(), $context);
+				return $this->create($exprNode, new ObjectWithoutClassType(), $context);
 			}
 		} elseif ($expr instanceof Node\Expr\BinaryOp\Identical) {
 			$expressions = $this->findTypeExpressionsFromBinaryOperation($scope, $expr);
 			if ($expressions !== null) {
 				/** @var Expr $exprNode */
 				$exprNode = $expressions[0];
+				if ($exprNode instanceof Expr\Assign) {
+					$exprNode = $exprNode->var;
+				}
 				/** @var \PHPStan\Type\ConstantScalarType $constantType */
 				$constantType = $expressions[1];
 				if ($constantType->getValue() === false) {
@@ -249,6 +259,66 @@ class TypeSpecifier
 						$context->true() ? TypeSpecifierContext::createTruthy() : TypeSpecifierContext::createTruthy()->negate()
 					);
 				}
+			}
+
+			$leftType = $scope->getType($expr->left);
+			$leftBooleanType = $leftType->toBoolean();
+			$rightType = $scope->getType($expr->right);
+			if ($leftBooleanType instanceof ConstantBooleanType && $rightType instanceof BooleanType) {
+				return $this->specifyTypesInCondition(
+					$scope,
+					new Expr\BinaryOp\Identical(
+						new ConstFetch(new Name($leftBooleanType->getValue() ? 'true' : 'false')),
+						$expr->right
+					),
+					$context
+				);
+			}
+
+			$rightBooleanType = $rightType->toBoolean();
+			if ($rightBooleanType instanceof ConstantBooleanType && $leftType instanceof BooleanType) {
+				return $this->specifyTypesInCondition(
+					$scope,
+					new Expr\BinaryOp\Identical(
+						$expr->left,
+						new ConstFetch(new Name($rightBooleanType->getValue() ? 'true' : 'false'))
+					),
+					$context
+				);
+			}
+
+			if (
+				$expr->left instanceof FuncCall
+				&& $expr->left->name instanceof Name
+				&& strtolower($expr->left->name->toString()) === 'get_class'
+				&& isset($expr->left->args[0])
+				&& $rightType instanceof ConstantStringType
+			) {
+				return $this->specifyTypesInCondition(
+					$scope,
+					new Instanceof_(
+						$expr->left->args[0]->value,
+						new Name($rightType->getValue())
+					),
+					$context
+				);
+			}
+
+			if (
+				$expr->right instanceof FuncCall
+				&& $expr->right->name instanceof Name
+				&& strtolower($expr->right->name->toString()) === 'get_class'
+				&& isset($expr->right->args[0])
+				&& $leftType instanceof ConstantStringType
+			) {
+				return $this->specifyTypesInCondition(
+					$scope,
+					new Instanceof_(
+						$expr->right->args[0]->value,
+						new Name($leftType->getValue())
+					),
+					$context
+				);
 			}
 		} elseif ($expr instanceof Node\Expr\BinaryOp\NotEqual) {
 			return $this->specifyTypesInCondition(
@@ -373,6 +443,10 @@ class TypeSpecifier
 				}
 			}
 
+			if (count($vars) === 0) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+
 			$types = null;
 			foreach ($vars as $var) {
 				if ($expr instanceof Expr\Isset_) {
@@ -401,15 +475,32 @@ class TypeSpecifier
 						TypeSpecifierContext::createFalse()
 					);
 				}
+
+				if (
+					$var instanceof PropertyFetch
+					&& $var->name instanceof Node\Identifier
+				) {
+					$type = $type->unionWith($this->create($var->var, new IntersectionType([
+						new ObjectWithoutClassType(),
+						new HasPropertyType($var->name->toString()),
+					]), TypeSpecifierContext::createTruthy()));
+				} elseif (
+					$var instanceof StaticPropertyFetch
+					&& $var->class instanceof Expr
+					&& $var->name instanceof Node\VarLikeIdentifier
+				) {
+					$type = $type->unionWith($this->create($var->class, new IntersectionType([
+						new ObjectWithoutClassType(),
+						new HasPropertyType($var->name->toString()),
+					]), TypeSpecifierContext::createTruthy()));
+				}
+
 				if ($types === null) {
 					$types = $type;
 				} else {
 					$types = $types->unionWith($type);
 				}
 			}
-
-			/** @var SpecifiedTypes $types */
-			$types = $types;
 
 			if (
 				$expr instanceof Expr\Empty_
@@ -435,7 +526,7 @@ class TypeSpecifier
 	private function handleDefaultTruthyOrFalseyContext(TypeSpecifierContext $context, Expr $expr): SpecifiedTypes
 	{
 		if (!$context->truthy()) {
-			$type = new ObjectWithoutClassType();
+			$type = new UnionType([new ObjectWithoutClassType(), new NonEmptyArrayType()]);
 			return $this->create($expr, $type, TypeSpecifierContext::createFalse());
 		} elseif (!$context->falsey()) {
 			$type = new UnionType([
@@ -480,7 +571,7 @@ class TypeSpecifier
 
 	public function create(Expr $expr, Type $type, TypeSpecifierContext $context): SpecifiedTypes
 	{
-		if ($expr instanceof New_) {
+		if ($expr instanceof New_ || $expr instanceof Instanceof_) {
 			return new SpecifiedTypes();
 		}
 
@@ -500,7 +591,7 @@ class TypeSpecifier
 	/**
 	 * @return \PHPStan\Type\FunctionTypeSpecifyingExtension[]
 	 */
-	public function getFunctionTypeSpecifyingExtensions(): array
+	private function getFunctionTypeSpecifyingExtensions(): array
 	{
 		return $this->functionTypeSpecifyingExtensions;
 	}
@@ -509,7 +600,7 @@ class TypeSpecifier
 	 * @param string $className
 	 * @return \PHPStan\Type\MethodTypeSpecifyingExtension[]
 	 */
-	public function getMethodTypeSpecifyingExtensionsForClass(string $className): array
+	private function getMethodTypeSpecifyingExtensionsForClass(string $className): array
 	{
 		if ($this->methodTypeSpecifyingExtensionsByClass === null) {
 			$byClass = [];
@@ -526,7 +617,7 @@ class TypeSpecifier
 	 * @param string $className
 	 * @return \PHPStan\Type\StaticMethodTypeSpecifyingExtension[]
 	 */
-	public function getStaticMethodTypeSpecifyingExtensionsForClass(string $className): array
+	private function getStaticMethodTypeSpecifyingExtensionsForClass(string $className): array
 	{
 		if ($this->staticMethodTypeSpecifyingExtensionsByClass === null) {
 			$byClass = [];

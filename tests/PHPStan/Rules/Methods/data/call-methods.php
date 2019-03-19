@@ -1074,3 +1074,193 @@ class CallAfterPropertyEmpty
 	}
 
 }
+
+class ArraySliceWithNonEmptyArray
+{
+
+	/**
+	 * @param array<int, self> $a
+	 */
+	public function doFoo(array $a)
+	{
+		if (count($a) === 0) {
+			return;
+		}
+
+		$a = array_slice($a, 0, 2);
+
+		$a[0]->doesNotExist();
+	}
+
+}
+
+class SwitchWithTypeEliminatingCase
+{
+
+	public function doFoo(?string $variable)
+	{
+		switch (true) {
+			case $variable === null:
+				throw new \Exception('gotcha');
+			default:
+				$this->doBar($variable);
+		}
+	}
+
+	public function doBar(string $str)
+	{
+
+	}
+
+}
+
+class AssertInIf
+{
+
+	public function doFoo(bool $x)
+	{
+		if ($x) {
+			$o = new Foo();
+			assert($o instanceof Bar);
+		} else {
+			$o = new Bar();
+		}
+
+		$this->requireChild($o);
+	}
+
+	public function requireChild(Bar $child)
+	{
+
+	}
+
+	public function doBar()
+	{
+		$array = [new Foo(), new Bar()];
+
+		$arrayToPass = [];
+		foreach($array as $item) {
+			if(!$item instanceof Bar) {
+				continue;
+			}
+
+			$arrayToPass[] = $item;
+		}
+
+		$this->requireChilds($arrayToPass);
+	}
+
+	/**
+	 * @param Bar[] $bs
+	 */
+	public function requireChilds(array $bs)
+	{
+
+	}
+
+}
+
+class AssertInForeach
+{
+
+	/**
+	 * @param (self|null)[] $a
+	 */
+	public function doFoo(iterable $as)
+	{
+		$bs = [];
+		foreach ($as as $a) {
+			assert($a !== null);
+			$bs[] = $a;
+		}
+
+		$this->doBar($bs);
+	}
+
+	/**
+	 * @param self[] $as
+	 */
+	public function doBar(array $as)
+	{
+
+	}
+
+}
+
+class AssertInFor
+{
+
+	/**
+	 * @param object[] $objects
+	 */
+	public function doFoo(array $objects)
+	{
+		$selfs = [];
+		for ($i = 1; $i <= 10; ++$i) {
+			$self = $objects[$i];
+			assert($self instanceof self);
+			$selfs[] = $self;
+		}
+
+		foreach ($selfs as $self) {
+			$self->doFoo([]);
+			$self->doBar([]);
+		}
+	}
+
+}
+
+class AssignmentInConditionEliminatingNull
+{
+
+	public function sayHello(): void
+	{
+		$edits = [];
+
+		if ($foo = $this->createEdit()) {
+			$edits[] = $foo;
+		}
+
+		$this->applyEdits($edits);
+	}
+
+	/**
+	 * @param self[] $edits
+	 */
+	private function applyEdits(array $edits)
+	{
+	}
+
+	private function createEdit(): ?self
+	{
+		return rand(0,1) ? new self() : null;
+	}
+
+}
+
+class AssignmentInInstanceOf
+{
+
+	public function doFoo()
+	{
+		$x = ($foo = $this->doBar()) instanceof self
+			? $foo->doFoo()
+			: [];
+	}
+
+	/**
+	 * @return self|bool
+	 */
+	public function doBar()
+	{
+
+	}
+
+	public function doBaz()
+	{
+		if (($foo = $this->doBar()) instanceof self && 'baz' === $foo->doFoo()) {
+
+		}
+	}
+
+}

@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ParameterReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\MixedType;
@@ -53,27 +54,32 @@ class MethodSignatureRule implements \PHPStan\Rules\Rule
 		if ($class === null) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
-		$method = $class->getMethod($methodName, $scope);
+		$method = $class->getNativeMethod($methodName);
 		if (!$this->reportStatic && $method->isStatic()) {
+			return [];
+		}
+		if ($method->isPrivate()) {
 			return [];
 		}
 		$parameters = ParametersAcceptorSelector::selectSingle($method->getVariants());
 
 		$errors = [];
 		foreach ($this->collectParentMethods($methodName, $class, $scope) as $parentMethod) {
-			$parentParameters = ParametersAcceptorSelector::selectSingle($parentMethod->getVariants());
+			$parentParameters = ParametersAcceptorSelector::selectFromTypes(array_map(static function (ParameterReflection $parameter): Type {
+				return $parameter->getType();
+			}, $parameters->getParameters()), $parentMethod->getVariants(), false);
 
 			$returnTypeCompatibility = $this->checkReturnTypeCompatibility($parameters->getReturnType(), $parentParameters->getReturnType());
 			if ($returnTypeCompatibility->no() || (!$returnTypeCompatibility->yes() && $this->reportMaybes)) {
 				$errors[] = sprintf(
 					'Return type (%s) of method %s::%s() should be %s with return type (%s) of method %s::%s()',
 					$parameters->getReturnType()->describe(VerbosityLevel::typeOnly()),
-					$class->getName(),
-					$methodName,
+					$method->getDeclaringClass()->getDisplayName(),
+					$method->getName(),
 					$returnTypeCompatibility->no() ? 'compatible' : 'covariant',
 					$parentParameters->getReturnType()->describe(VerbosityLevel::typeOnly()),
-					$parentMethod->getDeclaringClass()->getName(),
-					$methodName
+					$parentMethod->getDeclaringClass()->getDisplayName(),
+					$parentMethod->getName()
 				);
 			}
 
@@ -92,13 +98,13 @@ class MethodSignatureRule implements \PHPStan\Rules\Rule
 					$parameterIndex + 1,
 					$parameter->getName(),
 					$parameter->getType()->describe(VerbosityLevel::typeOnly()),
-					$class->getName(),
-					$methodName,
+					$method->getDeclaringClass()->getDisplayName(),
+					$method->getName(),
 					$parameterResult->no() ? 'compatible' : 'contravariant',
 					$parentParameter->getName(),
 					$parentParameter->getType()->describe(VerbosityLevel::typeOnly()),
-					$parentMethod->getDeclaringClass()->getName(),
-					$methodName
+					$parentMethod->getDeclaringClass()->getDisplayName(),
+					$parentMethod->getName()
 				);
 			}
 		}
@@ -118,7 +124,10 @@ class MethodSignatureRule implements \PHPStan\Rules\Rule
 
 		$parentClass = $class->getParentClass();
 		if ($parentClass !== false && $parentClass->hasMethod($methodName)) {
-			$parentMethods[] = $parentClass->getMethod($methodName, $scope);
+			$parentMethod = $parentClass->getMethod($methodName, $scope);
+			if (!$parentMethod->isPrivate()) {
+				$parentMethods[] = $parentMethod;
+			}
 		}
 
 		foreach ($class->getInterfaces() as $interface) {

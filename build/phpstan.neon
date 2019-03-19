@@ -4,6 +4,7 @@ includes:
 	- ../vendor/phpstan/phpstan-phpunit/extension.neon
 	- ../vendor/phpstan/phpstan-phpunit/rules.neon
 	- ../vendor/phpstan/phpstan-strict-rules/rules.neon
+	- ../conf/bleedingEdge.neon
 parameters:
 	bootstrap: %rootDir%/tests/phpstan-bootstrap.php
 	excludes_analyse:
@@ -13,10 +14,18 @@ parameters:
 		- %rootDir%/tests/notAutoloaded/*
 	ignoreErrors:
 		- '#^Strict comparison using === between PhpParser\\Node\\Expr\\ArrayItem and null will always evaluate to false\.$#'
+		- '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
 		- '#^Dynamic call to static method PHPUnit\\Framework\\\S+\(\)\.$#'
 		- '#^Only numeric types are allowed in (pre|post)-(de|in)crement, bool\|float\|int\|string\|null given\.$#'
 		- '#^Parameter \#1 \$node \(.*\) of method .*Rule::processNode\(\) should be contravariant with parameter \$node \(PhpParser\\Node\) of method PHPStan\\Rules\\Rule::processNode\(\)$#'
 		- '#^Parameter .* of method PHPStan\\Command\\ErrorsConsoleStyle::.*\(\) should be contravariant with parameter .* of method Symfony\\Component\\Console\\Style\\(StyleInterface|SymfonyStyle)::.*()$#'
+		- '#Variable property access on PhpParser\\Node\.#'
+		-
+			message: '#Variable method call on PHPStan\\Reflection\\ClassReflection\.#'
+			path: %rootDir%/src/PhpDoc/PhpDocBlock.php
+		-
+			message: '#Variable static method call on PHPStan\\PhpDoc\\PhpDocBlock\.#'
+			path: %rootDir%/src/PhpDoc/PhpDocBlock.php
 	reportStaticMethodSignatures: true
 	tmpDir: %rootDir%/tmp
 services:

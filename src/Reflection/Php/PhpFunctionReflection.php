@@ -130,7 +130,7 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 	}
 
 	/**
-	 * @return \PHPStan\Reflection\Php\PhpParameterReflection[]
+	 * @return \PHPStan\Reflection\ParameterReflectionWithPhpDocs[]
 	 */
 	private function getParameters(): array
 	{

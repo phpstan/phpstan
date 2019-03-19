@@ -5,8 +5,9 @@ namespace PHPStan\Reflection\Php;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Stmt\ClassMethod;
-use PHPStan\Reflection\FunctionVariant;
+use PHPStan\Reflection\FunctionVariantWithPhpDocs;
 use PHPStan\Reflection\PassedByReference;
+use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypehintHelper;
@@ -44,7 +45,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 	/** @var bool */
 	private $isFinal;
 
-	/** @var FunctionVariant[]|null */
+	/** @var FunctionVariantWithPhpDocs[]|null */
 	private $variants;
 
 	/**
@@ -99,16 +100,18 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 	}
 
 	/**
-	 * @return \PHPStan\Reflection\ParametersAcceptor[]
+	 * @return \PHPStan\Reflection\ParametersAcceptorWithPhpDocs[]
 	 */
 	public function getVariants(): array
 	{
 		if ($this->variants === null) {
 			$this->variants = [
-				new FunctionVariant(
+				new FunctionVariantWithPhpDocs(
 					$this->getParameters(),
 					$this->isVariadic(),
-					$this->getReturnType()
+					$this->getReturnType(),
+					$this->phpDocReturnType ?? new MixedType(),
+					$this->realReturnType ?? new MixedType()
 				),
 			];
 		}
@@ -117,7 +120,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 	}
 
 	/**
-	 * @return \PHPStan\Reflection\ParameterReflection[]
+	 * @return \PHPStan\Reflection\ParameterReflectionWithPhpDocs[]
 	 */
 	private function getParameters(): array
 	{

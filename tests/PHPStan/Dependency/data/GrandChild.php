@@ -11,7 +11,7 @@ class GrandChild extends Child
 	 */
 	public function doFoo(ParamNativeReturnTypehint $param): MethodNativeReturnTypehint
 	{
-
+		[, $a, $b] = [1, 2, 3];
 	}
 
 }

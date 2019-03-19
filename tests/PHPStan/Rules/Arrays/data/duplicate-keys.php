@@ -35,4 +35,26 @@ class Foo
 		];
 	}
 
+	public function doIncrement()
+	{
+		$idx = 0;
+
+		$foo = [
+			$idx++ => 'test',
+			$idx++ => 'presto',
+		];
+	}
+
+	public function doIncrement2()
+	{
+		$idx = 0;
+
+		$foo = [
+			$idx++ => 'test',
+			$idx++ => 'presto',
+			$idx => 'lorem',
+			$idx => 'ipsum',
+		];
+	}
+
 }

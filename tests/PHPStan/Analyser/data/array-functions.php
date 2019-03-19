@@ -166,4 +166,9 @@ $slicedOffsetWithKeys = array_slice(['4' => 'foo', 1 => 'bar', 'baz' => 'qux', 0
 $slicedOffset[] = 'grault';
 $slicedOffsetWithKeys[] = 'grault';
 
+$mergedInts = [];
+foreach ($array as $val) {
+	$mergedInts = array_merge($mergedInts, $generalIntegers);
+}
+
 die;

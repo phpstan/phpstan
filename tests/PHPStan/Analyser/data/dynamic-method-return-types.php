@@ -50,6 +50,10 @@ class ComponentContainer implements \ArrayAccess
 class Foo
 {
 
+	public function __construct()
+	{
+	}
+
 	public function doFoo()
 	{
 		$em = new EntityManager();

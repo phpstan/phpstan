@@ -24,18 +24,4 @@ class IncompatibleDefaultParameterTypeRuleTest extends RuleTestCase
 		]);
 	}
 
-	public function testMethods(): void
-	{
-		$this->analyse([__DIR__ . '/data/incompatible-default-parameter-type-methods.php'], [
-			[
-				'Default value of the parameter #6 $resource (false) of method IncompatibleDefaultParameter\Foo::baz() is incompatible with type resource.',
-				45,
-			],
-			[
-				'Default value of the parameter #6 $resource (false) of method IncompatibleDefaultParameter\Foo::bar() is incompatible with type resource.',
-				55,
-			],
-		]);
-	}
-
 }

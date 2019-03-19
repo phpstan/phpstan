@@ -54,12 +54,22 @@ class FinalAnnotationsTest extends \PHPStan\Testing\TestCase
 
 		$this->assertSame($final, $class->isFinal());
 
-		foreach ($finalAnnotations as $memberType => $members) {
-			foreach ($members as $memberName) {
-				$memberAnnotation = $class->{'get' . ucfirst($memberType)}($memberName, $scope);
-				$this->assertInstanceOf(FinalizableReflection::class, $memberAnnotation);
-				$this->assertSame($final, $memberAnnotation->isFinal());
-			}
+		foreach ($finalAnnotations['method'] ?? [] as $methodName) {
+			$methodAnnotation = $class->getMethod($methodName, $scope);
+			$this->assertInstanceOf(FinalizableReflection::class, $methodAnnotation);
+			$this->assertSame($final, $methodAnnotation->isFinal());
+		}
+
+		foreach ($finalAnnotations['property'] ?? [] as $propertyName) {
+			$propertyAnnotation = $class->getProperty($propertyName, $scope);
+			$this->assertInstanceOf(FinalizableReflection::class, $propertyAnnotation);
+			$this->assertSame($final, $propertyAnnotation->isFinal());
+		}
+
+		foreach ($finalAnnotations['constant'] ?? [] as $constantName) {
+			$constantAnnotation = $class->getConstant($constantName);
+			$this->assertInstanceOf(FinalizableReflection::class, $constantAnnotation);
+			$this->assertSame($final, $constantAnnotation->isFinal());
 		}
 	}
 

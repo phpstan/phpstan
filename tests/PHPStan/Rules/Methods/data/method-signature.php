@@ -143,3 +143,36 @@ abstract class ReturnSomethingElseThenVoid implements BaseInterface
 	}
 
 }
+
+class SubClassWithPrivateMethods extends BaseClassWithPrivateMethods
+{
+
+	/**
+	 * @param int $animal
+	 */
+	private function parameterTypeTest1($animal)
+	{
+	}
+
+	/**
+	 * @return string
+	 */
+	private function returnTypeTest1()
+	{
+	}
+
+	/**
+	 * @param int $animal
+	 */
+	public function parameterTypeTest2($animal)
+	{
+	}
+
+	/**
+	 * @return string
+	 */
+	public function returnTypeTest2()
+	{
+	}
+
+}

@@ -173,6 +173,11 @@ class ParametersAcceptorSelector
 	 */
 	public static function combineAcceptors(array $acceptors): ParametersAcceptor
 	{
+		if (count($acceptors) === 0) {
+			throw new \PHPStan\ShouldNotHappenException(
+				'getVariants() must return at least one variant.'
+			);
+		}
 		if (count($acceptors) === 1) {
 			return $acceptors[0];
 		}
@@ -235,9 +240,6 @@ class ParametersAcceptorSelector
 				}
 			}
 		}
-
-		/** @var \PHPStan\Type\Type $returnType */
-		$returnType = $returnType;
 
 		return new FunctionVariant($parameters, $isVariadic, $returnType);
 	}

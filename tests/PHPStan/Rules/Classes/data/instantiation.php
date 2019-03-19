@@ -138,3 +138,21 @@ function () {
 		}
 	};
 };
+
+class DoWhileVariableReassignment
+{
+
+	public function doFoo()
+	{
+		$arr = [];
+		do {
+			$arr = new self($arr);
+		} while ($arr = [1]);
+	}
+
+	public function __construct(array $arr)
+	{
+
+	}
+
+}

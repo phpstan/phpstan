@@ -178,10 +178,7 @@ class FileTypeMapper
 								throw new \PHPStan\ShouldNotHappenException();
 							}
 
-							$className = $this->anonymousClassNameHelper->getAnonymousClassName(
-								new Node\Expr\New_($node),
-								$fileName
-							);
+							$className = $this->anonymousClassNameHelper->getAnonymousClassName($node, $fileName);
 						} else {
 							$className = ltrim(sprintf('%s\\%s', $namespace, $node->name->name), '\\');
 						}
@@ -196,6 +193,9 @@ class FileTypeMapper
 
 						$traitReflection = new \ReflectionClass($traitName);
 						if ($traitReflection->getFileName() === false) {
+							continue;
+						}
+						if (!file_exists($traitReflection->getFileName())) {
 							continue;
 						}
 

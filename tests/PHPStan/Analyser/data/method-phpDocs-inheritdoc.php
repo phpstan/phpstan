@@ -61,4 +61,12 @@ class FooInheritDocChild extends Foo
 		}
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
+	private function privateMethodWithPhpDoc()
+	{
+
+	}
+
 }

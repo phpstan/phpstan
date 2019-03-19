@@ -182,3 +182,40 @@ function () {
 
 	}
 };
+
+function () {
+	/** @var mixed $bar */
+	$bar = $this->get('bar');
+	if (isset($bar)) {
+		$bar = (int) $bar;
+	}
+	if (isset($bar)) {
+		echo $bar;
+	}
+};
+
+function () {
+	while (true) {
+		if (rand() === 1) {
+			$a = 'a';
+			continue;
+		}
+
+		if (!isset($a)) {
+			continue;
+		}
+
+		unset($a);
+	}
+};
+
+function () {
+	($a = rand(0, 5)) && rand(0, 1);
+	isset($a);
+};
+
+
+function () {
+	rand(0, 1) && ($a = rand(0, 5));
+	isset($a);
+};

@@ -404,3 +404,27 @@ switch ($definedInSwitchCond = true) {
 }
 
 echo $definedInSwitchCond;
+
+$someOtherArray = [];
+$someOtherArray[$undefinedArrayIndex][$anotherUndefinedArrayIndex] = 0;
+
+function () {
+	if (rand(0, 1)) {
+		$test = 1;
+	}
+
+	echo $test ?? 'foo';
+};
+
+function () {
+	if (rand(0, 1)) {
+		functionWithByRefParameter($str);
+	}
+	if ($str === "hello") {}
+};
+
+function () {
+	if (rand(0, 1) || functionWithByRefParameter($str)) {
+		if ($str === "hello") {}
+	}
+};

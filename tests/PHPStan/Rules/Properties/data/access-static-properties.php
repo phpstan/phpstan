@@ -154,3 +154,37 @@ class ClassOrString
 	}
 
 }
+
+class AccessPropertyWithDimFetch
+{
+
+	public function doFoo()
+	{
+		self::$foo['foo'] = 'test';
+	}
+
+	public function doBar()
+	{
+		self::$foo = 'test'; // reported by a separate rule
+	}
+
+}
+
+class AccessInIsset
+{
+
+	public function doFoo()
+	{
+		if (isset(self::$foo)) {
+
+		}
+	}
+
+	public function doBar()
+	{
+		if (isset(self::$foo['foo'])) {
+
+		}
+	}
+
+}

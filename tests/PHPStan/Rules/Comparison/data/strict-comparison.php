@@ -671,3 +671,123 @@ class ArrayObjectToArrayCount
 	}
 
 }
+
+class WrongNullabilityInPhpDoc
+{
+
+	/**
+	 * @param string $str
+	 */
+	public function doFoo(?string $str)
+	{
+		$str === 'str';
+		$str === null;
+		$str === 1;
+	}
+
+	/**
+	 * @param string $str
+	 */
+	public function doBar(?string $str = null)
+	{
+		$str === 'str';
+		$str === null;
+		$str === 1;
+	}
+
+	/**
+	 * @param string $str
+	 */
+	public function doBaz(?string $str = '')
+	{
+		$str === 'str';
+		$str === null;
+		$str === 1;
+	}
+
+}
+
+class ComplexSwitch
+{
+
+	public function testing(array $types): void {
+		$test = null;
+		foreach ($types as $t) {
+			switch ($t) {
+				case 'foo':
+					$test = 'fff';
+					break;
+
+				case 'bar':
+					$test = 'bbb';
+					break;
+			}
+
+			if ($test !== null) {
+				echo "Found";
+				break;
+			}
+		}
+
+		if ($test === null) {
+			echo "Is null";
+		}
+	}
+
+}
+
+class IgnoredBreakBranchInForeach
+{
+
+	public function doFoo(string $xvalue, array $allVowels)
+	{
+		$lastLetter = null;
+		foreach ($allVowels as $yvalue) {
+			if (strcmp($xvalue, $yvalue) == 0 ) {
+				$lastLetter = $xvalue;
+				break;
+			} else {
+				continue;
+			}
+		}
+		if ($lastLetter !== null) {
+		}
+	}
+
+}
+
+class DecrementInForeachWithBreak
+{
+
+	public function doFoo()
+	{
+		$max = 0 === rand(0, 1) ? 2 : 3;
+		foreach ([1, 2, 3, 4, 5] as $number) {
+			if (0 === $max) {
+				break;
+			}
+
+			echo $number;
+			$max--;
+		}
+	}
+
+}
+
+class RewrittenArray
+{
+
+	public function doFoo(array $args)
+	{
+		if (isset($args[0]) === true) {
+			if (is_array($args[0]) === true) {
+				$args = $args[0];
+			}
+
+			if (isset($args[0]) === false) {
+				echo 'foo';
+			}
+		}
+	}
+
+}

@@ -7,8 +7,8 @@
 <p align="center">
 	<a href="https://travis-ci.org/phpstan/phpstan"><img src="https://travis-ci.org/phpstan/phpstan.svg" alt="Build Status"></a>
 	<a href="https://packagist.org/packages/phpstan/phpstan"><img src="https://poser.pugx.org/phpstan/phpstan/v/stable" alt="Latest Stable Version"></a>
-	<a href="https://packagist.org/packages/phpstan/phpstan"><img src="https://poser.pugx.org/phpstan/phpstan/downloads" alt="Total Downloads"></a>
-	<a href="https://packagist.org/packages/phpstan/phpstan"><img src="https://poser.pugx.org/phpstan/phpstan/license" alt="License"></a>
+	<a href="https://packagist.org/packages/phpstan/phpstan/stats"><img src="https://poser.pugx.org/phpstan/phpstan/downloads" alt="Total Downloads"></a>
+	<a href="https://choosealicense.com/licenses/mit/"><img src="https://poser.pugx.org/phpstan/phpstan/license" alt="License"></a>
 	<a href="https://github.com/phpstan/phpstan"><img src="https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat" alt="PHPStan Enabled"></a>
 </p>
 
@@ -28,9 +28,12 @@ can be checked before you run the actual line.
 &nbsp;&nbsp;&nbsp;
 <a href="https://coders.thecodingmachine.com/phpstan"><img src="https://i.imgur.com/kQhNOTP.png" alt="TheCodingMachine" width="247" height="64"></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://goo.gl/forms/4mg4kkfHg4IaQNy12"><img src="https://i.imgur.com/Wjo6gxI.png" alt="Want your logo here?" width="247" height="66"></a>
+<a href="https://packagist.com/?utm_source=phpstan&utm_medium=readme&utm_campaign=sponsorlogo"><img src="https://i.imgur.com/PmMC45f.png" alt="Private Packagist" width="326" height="64"></a>
 
-Check out [PHPStan's Patreon](https://www.patreon.com/phpstan) for different sponsoring options. One-time donations [through PayPal](https://paypal.me/phpstan) are also accepted. To request an invoice, [contact me](mailto:ondrej@mirtes.cz) through e-mail.
+Check out [PHPStan's Patreon](https://www.patreon.com/phpstan) for sponsoring options. One-time donations [through PayPal](https://paypal.me/phpstan) are also accepted. To request an invoice, [contact me](mailto:ondrej@mirtes.cz) through e-mail.
+
+BTC: bc1qd5s06wjtf8rzag08mk3s264aekn52jze9zeapt
+<br>LTC: LSU5xLsWEfrVx1P9yJwmhziHAXikiE8xtC
 
 ## Prerequisites
 
@@ -118,6 +121,8 @@ Unofficial extensions for other frameworks and libraries are also available:
 * [myclabs/php-enum](https://github.com/timeweb/phpstan-enum)
 * [Yii2](https://github.com/proget-hq/phpstan-yii2)
 * [PhpSpec](https://github.com/proget-hq/phpstan-phpspec)
+* [TYPO3](https://github.com/sascha-egerer/phpstan-typo3)
+* [moneyphp/money](https://github.com/JohnstonCode/phpstan-moneyphp)
 
 New extensions are becoming available on a regular basis!
 
@@ -405,6 +410,8 @@ You can pass the following keywords to the `--error-format=X` parameter in order
 - `table`: Default. Grouped errors by file, colorized. For human consumption.
 - `raw`: Contains one error per line, with path to file, line number, and error description
 - `checkstyle`: Creates a checkstyle.xml compatible output. Note that you'd have to redirect output into a file in order to capture the results for later processing.
+- `json`: Creates minified .json output without whitespaces. Note that you'd have to redirect output into a file in order to capture the results for later processing.
+- `prettyJson`: Creates human readable .json output with whitespaces and indentations. Note that you'd have to redirect output into a file in order to capture the results for later processing.
 
 ## Class reflection extensions
 

@@ -74,6 +74,14 @@ class OffsetAccessAssignmentRuleTest extends \PHPStan\Testing\RuleTestCase
 					'Cannot assign offset \'foo\' to array|int.',
 					54,
 				],
+				[
+					'Cannot assign offset false to string.',
+					59,
+				],
+				[
+					'Cannot assign offset stdClass to string.',
+					61,
+				],
 			]
 		);
 	}
@@ -119,6 +127,14 @@ class OffsetAccessAssignmentRuleTest extends \PHPStan\Testing\RuleTestCase
 				[
 					'Cannot assign offset \'foo\' to float.',
 					50,
+				],
+				[
+					'Cannot assign offset false to string.',
+					59,
+				],
+				[
+					'Cannot assign offset stdClass to string.',
+					61,
 				],
 			]
 		);

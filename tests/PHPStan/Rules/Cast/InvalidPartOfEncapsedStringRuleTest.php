@@ -2,12 +2,17 @@
 
 namespace PHPStan\Rules\Cast;
 
+use PHPStan\Rules\RuleLevelHelper;
+
 class InvalidPartOfEncapsedStringRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new InvalidPartOfEncapsedStringRule(new \PhpParser\PrettyPrinter\Standard());
+		return new InvalidPartOfEncapsedStringRule(
+			new \PhpParser\PrettyPrinter\Standard(),
+			new RuleLevelHelper($this->createBroker(), true, false, true)
+		);
 	}
 
 	public function testRule(): void
