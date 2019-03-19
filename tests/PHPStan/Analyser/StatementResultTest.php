@@ -294,7 +294,6 @@ class StatementResultTest extends \PHPStan\Testing\TestCase
 			new Stmt\Namespace_(null, $stmts),
 			$stmts,
 			$scopeFactory->create(ScopeContext::create('test.php')),
-			StatementContext::createNull(),
 			static function (): void {
 			}
 		);

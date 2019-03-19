@@ -37,23 +37,6 @@ class MissingReturnRule implements Rule
 			return [];
 		}
 
-		$originalNode = $node->getNode();
-		if (
-			(
-				($originalNode instanceof Node\Stmt\If_)
-				|| ($originalNode instanceof Node\Stmt\ElseIf_)
-				|| ($originalNode instanceof Node\Stmt\Else_)
-				|| ($originalNode instanceof Node\Stmt\TryCatch)
-				|| ($originalNode instanceof Node\Stmt\Catch_)
-				|| ($originalNode instanceof Node\Stmt\While_)
-				|| ($originalNode instanceof Node\Stmt\Do_)
-				|| ($originalNode instanceof Node\Stmt\For_)
-				|| ($originalNode instanceof Node\Stmt\Foreach_)
-			) && !$this->shouldBeReported($originalNode->stmts)
-		) {
-			return [];
-		}
-
 		$anonymousFunctionReturnType = $scope->getAnonymousFunctionReturnType();
 		$scopeFunction = $scope->getFunction();
 		if ($anonymousFunctionReturnType !== null) {
@@ -78,34 +61,12 @@ class MissingReturnRule implements Rule
 		}
 
 		// todo native typehint level 0, phpDocs level 2, explicit mixed level 6
-		// todo ignore control flow like If_, Do_, Foreach_... will be inspected deeper
 
 		return [
 			RuleErrorBuilder::message(
 				sprintf('%s should return %s but return statement is missing.', $description, $returnType->describe(VerbosityLevel::typeOnly()))
-			)->line($originalNode->getStartLine())->build(),
+			)->line($node->getNode()->getStartLine())->build(),
 		];
-	}
-
-	/**
-	 * @param Node\Stmt[] $stmts
-	 * @return bool
-	 */
-	private function shouldBeReported(array $stmts): bool
-	{
-		if (count($stmts) === 0) {
-			return true;
-		}
-
-		$lastStmt = $stmts[count($stmts) - 1];
-
-		return !$lastStmt instanceof Node\Stmt\If_
-			&& !$lastStmt instanceof Node\Stmt\TryCatch
-			&& !$lastStmt instanceof Node\Stmt\While_
-			&& !$lastStmt instanceof Node\Stmt\Do_
-			&& !$lastStmt instanceof Node\Stmt\For_
-			&& !$lastStmt instanceof Node\Stmt\Foreach_
-			&& !$lastStmt instanceof Node\Stmt\Switch_;
 	}
 
 }

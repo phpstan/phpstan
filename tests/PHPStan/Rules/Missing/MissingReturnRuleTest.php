@@ -30,23 +30,7 @@ class MissingReturnRuleTest extends RuleTestCase
 			],
 			[
 				'Method MissingReturn\Foo::doLorem() should return int but return statement is missing.',
-				39,
-			],
-			[
-				'Method MissingReturn\Foo::doLorem() should return int but return statement is missing.',
-				41,
-			],
-			[
-				'Method MissingReturn\Foo::doLorem() should return int but return statement is missing.',
-				43,
-			],
-			[
-				'Method MissingReturn\Foo::doLorem() should return int but return statement is missing.',
-				39,
-			],
-			[
-				'Method MissingReturn\Foo::doLorem() should return int but return statement is missing.',
-				47,
+				36,
 			],
 			[
 				'Anonymous function should return int but return statement is missing.',
