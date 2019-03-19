@@ -36,4 +36,20 @@ class Foo
 		// this is why...
 	}
 
+	/**
+	 * @param \stdClass[] $all
+	 */
+	public function doIpsum(array $all)
+	{
+		foreach ($all as $a) {
+
+		}
+
+		if (isset($a)) {
+			throw new \Exception();
+		}
+
+		var_dump($a);
+	}
+
 }
