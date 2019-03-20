@@ -11719,7 +11719,7 @@ return [
 'strtr' => ['string', 'str'=>'string', 'from'=>'string', 'to'=>'string'],
 'strtr\'1' => ['string', 'str'=>'string', 'replace_pairs'=>'array'],
 'strval' => ['string', 'var'=>'mixed'],
-'substr' => ['string', 'str'=>'string', 'start'=>'int', 'length='=>'int'],
+'substr' => ['string|false', 'str'=>'string', 'start'=>'int', 'length='=>'int'],
 'substr_compare' => ['int|false', 'main_str'=>'string', 'str'=>'string', 'offset'=>'int', 'length='=>'int', 'case_sensitivity='=>'bool'],
 'substr_count' => ['int', 'haystack'=>'string', 'needle'=>'string', 'offset='=>'int', 'length='=>'int'],
 'substr_replace' => ['string|array', 'str'=>'string|array', 'repl'=>'mixed', 'start'=>'mixed', 'length='=>'mixed'],
