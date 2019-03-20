@@ -5865,7 +5865,7 @@ return [
 'ldap_free_result' => ['bool', 'result_identifier'=>'resource'],
 'ldap_get_attributes' => ['array', 'link_identifier'=>'resource', 'result_entry_identifier'=>'resource'],
 'ldap_get_dn' => ['string', 'link_identifier'=>'resource', 'result_entry_identifier'=>'resource'],
-'ldap_get_entries' => ['array', 'link_identifier'=>'resource', 'result_identifier'=>'resource'],
+'ldap_get_entries' => ['array|false', 'link_identifier'=>'resource', 'result_identifier'=>'resource'],
 'ldap_get_option' => ['bool', 'link_identifier'=>'resource', 'option'=>'int', '&w_retval'=>'mixed'],
 'ldap_get_values' => ['array', 'link_identifier'=>'resource', 'result_entry_identifier'=>'resource', 'attribute'=>'string'],
 'ldap_get_values_len' => ['array', 'link_identifier'=>'resource', 'result_entry_identifier'=>'resource', 'attribute'=>'string'],
