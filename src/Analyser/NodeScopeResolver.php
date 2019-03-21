@@ -585,12 +585,22 @@ class NodeScopeResolver
 			foreach ($finalScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
 				$finalScope = $finalScope->mergeWith($continueExitPoint->getScope());
 			}
-			foreach ($finalScopeResult->getExitPointsByType(Break_::class) as $breakExitPoint) {
+			$breakExitPoints = $finalScopeResult->getExitPointsByType(Break_::class);
+			foreach ($breakExitPoints as $breakExitPoint) {
 				$finalScope = $finalScope->mergeWith($breakExitPoint->getScope());
 			}
 
 			$condBooleanType = $scope->getType($stmt->cond)->toBoolean();
 			$isIterableAtLeastOnce = $condBooleanType instanceof ConstantBooleanType && $condBooleanType->getValue();
+			$isAlwaysTerminating = $finalScopeResult->isAlwaysTerminating() && $isIterableAtLeastOnce;
+			if (
+				!$isAlwaysTerminating
+				&& $isIterableAtLeastOnce
+				&& count($breakExitPoints) === 0
+				&& count($finalScopeResult->getTerminatingExitPoints()) > 0
+			) {
+				$isAlwaysTerminating = true;
+			}
 			// todo for all loops - is not falsey when the loop is exited via break
 			$condScope = $condResult->getFalseyScope();
 			if (!$isIterableAtLeastOnce) {
@@ -603,7 +613,7 @@ class NodeScopeResolver
 			return new StatementResult(
 				$finalScope,
 				$finalScopeResult->hasYield(),
-				$finalScopeResult->isAlwaysTerminating() && $isIterableAtLeastOnce,
+				$isAlwaysTerminating,
 				[]
 			);
 		} elseif ($stmt instanceof Do_) {
@@ -649,6 +659,15 @@ class NodeScopeResolver
 			}
 			if (!$alwaysTerminating) {
 				$finalScope = $this->processExprNode($stmt->cond, $bodyScope, $nodeCallback, ExpressionContext::createDeep())->getFalseyScope();
+
+				$condType = $bodyScope->getType($stmt->cond);
+				if (
+					$condType instanceof ConstantBooleanType && $condType->getValue()
+					&& count($bodyScopeResult->getExitPointsByType(Break_::class)) === 0
+					&& count($bodyScopeResult->getTerminatingExitPoints()) > 0
+				) {
+					$alwaysTerminating = true;
+				}
 				// todo not falsey if it breaks out of the loop using break;
 			}
 			foreach ($bodyScopeResult->getExitPointsByType(Break_::class) as $breakExitPoint) {

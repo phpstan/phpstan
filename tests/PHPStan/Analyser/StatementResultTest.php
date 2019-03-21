@@ -267,6 +267,42 @@ class StatementResultTest extends \PHPStan\Testing\TestCase
 				'switch ($i) { case 0: return 1; case 1: case 2: default: }',
 				false,
 			],
+			[
+				'while (true) { break; }',
+				false,
+			],
+			[
+				'while (true) { continue; }',
+				false,
+			],
+			[
+				'while (true) { if (doFoo()) { continue; } else { return; } }',
+				true,
+			],
+			[
+				'while (true) { if (doFoo()) { continue; } else { throw new \Exception(); } }',
+				true,
+			],
+			[
+				'while (doFoo()) { if (doFoo()) { continue; } else { return; } }',
+				false,
+			],
+			[
+				'do { break; } while (true);',
+				false,
+			],
+			[
+				'do { continue; } while (true);',
+				false,
+			],
+			[
+				'do { if (doFoo()) { continue; } else { return; } } while (true);',
+				true,
+			],
+			[
+				'do { if (doFoo()) { continue; } else { return; } } while (doFoo());',
+				false,
+			],
 		];
 	}
 
