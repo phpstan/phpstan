@@ -42,8 +42,7 @@ class IgnoreErrorFormatter implements ErrorFormatter
 			$fileErrors = array_unique($fileErrors);
 
 			foreach ($fileErrors as $message) {
-				// Can't use $style->writeln() because it messes up neon formatting.
-				echo $this->formatError($filename, $message) . PHP_EOL;
+				$style->writeln($this->formatError($filename, $message), OutputStyle::OUTPUT_RAW);
 			}
 		}
 
