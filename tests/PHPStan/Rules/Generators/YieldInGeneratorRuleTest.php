@@ -26,20 +26,12 @@ class YieldInGeneratorRuleTest extends RuleTestCase
 			],
 			[
 				'Yield can be used only with these return types: Generator, Iterator, Traversable, iterable.',
-				31,
-			],
-			[
-				'Yield can be used only with these return types: Generator, Iterator, Traversable, iterable.',
-				32,
-			],
-			/*[
-				'Yield can be used only with these return types: Generator, Iterator, Traversable, iterable.',
 				37,
 			],
 			[
 				'Yield can be used only with these return types: Generator, Iterator, Traversable, iterable.',
 				38,
-			],*/
+			],
 			[
 				'Yield can be used only with these return types: Generator, Iterator, Traversable, iterable.',
 				55,

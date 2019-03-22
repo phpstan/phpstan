@@ -6,8 +6,8 @@ use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Rules\Rule;
-use PHPStan\Type\IterableType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\ObjectType;
 
 class YieldInGeneratorRule implements Rule
 {
@@ -52,9 +52,7 @@ class YieldInGeneratorRule implements Rule
 			return [];
 		}
 
-		$iterableType = new IterableType(new MixedType(), new MixedType());
-
-		$isSuperType = $iterableType->isSuperTypeOf($returnType);
+		$isSuperType = $returnType->isSuperTypeOf(new ObjectType(\Generator::class));
 		if ($isSuperType->yes()) {
 			return [];
 		}
