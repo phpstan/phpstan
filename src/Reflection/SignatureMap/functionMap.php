@@ -5845,7 +5845,7 @@ return [
 'ldap_close' => ['bool', 'link_identifier'=>'resource'],
 'ldap_compare' => ['bool', 'link_identifier'=>'resource', 'dn'=>'string', 'attr'=>'string', 'value'=>'string'],
 'ldap_connect' => ['resource|false', 'host='=>'string', 'port='=>'int', 'wallet='=>'string', 'wallet_passwd='=>'string', 'authmode='=>'int'],
-'ldap_control_paged_result' => ['bool', 'link_identifier'=>'resource', 'pagesize'=>'int', 'iscritical'=>'bool', 'cookie'=>'string'],
+'ldap_control_paged_result' => ['bool', 'link_identifier'=>'resource', 'pagesize'=>'int', 'iscritical='=>'bool', 'cookie='=>'string'],
 'ldap_control_paged_result_response' => ['bool', 'link_identifier'=>'resource', 'result_identifier'=>'resource', '&w_cookie='=>'string', '&w_estimated='=>'int'],
 'ldap_count_entries' => ['int', 'link_identifier'=>'resource', 'result'=>'resource'],
 'ldap_delete' => ['bool', 'link_identifier'=>'resource', 'dn'=>'string'],
