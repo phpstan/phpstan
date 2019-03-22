@@ -31,4 +31,14 @@ class UnreachableStatementRuleTest extends RuleTestCase
 		]);
 	}
 
+	public function testRuleTopLevel(): void
+	{
+		$this->analyse([__DIR__ . '/data/unreachable-top-level.php'], [
+			[
+				'Unreachable statement - code above always terminates.',
+				5,
+			],
+		]);
+	}
+
 }

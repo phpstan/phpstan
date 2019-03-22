@@ -165,18 +165,32 @@ class NodeScopeResolver
 		\Closure $nodeCallback
 	): void
 	{
-		foreach ($nodes as $node) {
+		$nodesCount = count($nodes);
+		$alreadyTerminated = false;
+		foreach ($nodes as $i => $node) {
 			if (!$node instanceof Node\Stmt) {
 				continue;
 			}
 
 			$statementResult = $this->processStmtNode($node, $scope, $nodeCallback);
-			/*if ($statementResult->isAlwaysTerminating()) {
-				// todo virtual dead code node
-				//break;
-			}*/
-
 			$scope = $statementResult->getScope();
+			if ($alreadyTerminated) {
+				continue;
+			}
+			if (!$statementResult->isAlwaysTerminating()) {
+				continue;
+			}
+
+			$alreadyTerminated = true;
+			if ($i < $nodesCount - 1) {
+				$nextStmt = $nodes[$i + 1];
+				if (!$nextStmt instanceof Node\Stmt) {
+					continue;
+				}
+
+				$nodeCallback(new UnreachableStatementNode($nextStmt), $scope);
+			}
+			// todo break;
 		}
 	}
 
