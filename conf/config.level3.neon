@@ -19,6 +19,8 @@ parameters:
 		yieldRules: false
 
 conditionalTags:
+	PHPStan\Rules\Generators\YieldFromTypeRule:
+		phpstan.rules.rule: %featureToggles.yieldRules%
 	PHPStan\Rules\Generators\YieldInGeneratorRule:
 		phpstan.rules.rule: %featureToggles.yieldRules%
 
@@ -50,6 +52,11 @@ services:
 			reportMaybes: %reportMaybes%
 		tags:
 			- phpstan.rules.rule
+
+	-
+		class: PHPStan\Rules\Generators\YieldFromTypeRule
+		arguments:
+			reportMaybes: %reportMaybes%
 
 	-
 		class: PHPStan\Rules\Generators\YieldInGeneratorRule
