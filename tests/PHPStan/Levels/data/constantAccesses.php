@@ -17,10 +17,10 @@ class Foo
 		echo Foo::BAR_CONSTANT;
 		echo Bar::FOO_CONSTANT;
 
-		$this::BAR_CONSTANT;
+		echo $this::BAR_CONSTANT;
 
 		$foo = new self();
-		$foo::BAR_CONSTANT;
+		echo $foo::BAR_CONSTANT;
 	}
 
 }
@@ -46,16 +46,16 @@ class Baz
 		$barOrBaz
 	)
 	{
-		$fooOrBar::FOO_CONSTANT;
-		$fooOrBar::BAR_CONSTANT;
+		echo $fooOrBar::FOO_CONSTANT;
+		echo $fooOrBar::BAR_CONSTANT;
 
-		$fooOrNull::FOO_CONSTANT;
-		$fooOrNull::BAR_CONSTANT;
+		echo $fooOrNull::FOO_CONSTANT;
+		echo $fooOrNull::BAR_CONSTANT;
 
-		$fooOrBarOrNull::FOO_CONSTANT;
-		$fooOrBarOrNull::BAR_CONSTANT;
+		echo $fooOrBarOrNull::FOO_CONSTANT;
+		echo $fooOrBarOrNull::BAR_CONSTANT;
 
-		$barOrBaz::FOO_CONSTANT;
+		echo $barOrBaz::FOO_CONSTANT;
 	}
 
 }

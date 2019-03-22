@@ -7,46 +7,46 @@ function () {
 	$maybeInt = null;
 
 	$string = 'foo';
-	$string[0];
+	echo $string[0];
 
 	$string = 'foo';
-	$string['foo'];
+	echo $string['foo'];
 
 	$string = 'foo';
-	$string[12.34];
+	echo $string[12.34];
 
 	$string = 'foo';
-	$string[$maybeInt];
+	echo $string[$maybeInt];
 
 	/** @var string|array $maybeString */
 	$maybeString = [];
-	$maybeString[0];
+	echo $maybeString[0];
 
 	/** @var string|array $maybeString */
 	$maybeString = [];
-	$maybeString['foo'];
+	echo $maybeString['foo'];
 
 	/** @var string|array $maybeString */
 	$maybeString = [];
-	$maybeString[12.34];
+	echo $maybeString[12.34];
 
 	/** @var string|array $maybeString */
 	$maybeString = [];
-	$maybeString[$maybeInt];
+	echo $maybeString[$maybeInt];
 
 	/** @var mixed $mixed */
 	$mixed = null;
-	$mixed[0];
+	echo $mixed[0];
 
 	/** @var mixed $mixed */
 	$mixed = null;
-	$mixed['foo'];
+	echo $mixed['foo'];
 
 	/** @var mixed $mixed */
 	$mixed = null;
-	$mixed[12.34];
+	echo $mixed[12.34];
 
 	/** @var mixed $mixed */
 	$mixed = null;
-	$mixed[$maybeInt];
+	echo $mixed[$maybeInt];
 };

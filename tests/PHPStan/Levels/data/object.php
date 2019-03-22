@@ -11,10 +11,10 @@ class Foo
 	public function doFoo($object)
 	{
 		$object->foo();
-		$object->bar;
+		echo $object->bar;
 
 		$object::baz();
-		$object::$dolor;
+		echo $object::$dolor;
 	}
 
 	/**
@@ -23,10 +23,10 @@ class Foo
 	public function doBar($objectOrNull)
 	{
 		$objectOrNull->foo();
-		$objectOrNull->bar;
+		echo $objectOrNull->bar;
 
 		$objectOrNull::baz();
-		$objectOrNull::$dolor;
+		echo $objectOrNull::$dolor;
 	}
 
 	/**
@@ -35,10 +35,10 @@ class Foo
 	public function doBaz($objectOrInt)
 	{
 		$objectOrInt->foo();
-		$objectOrInt->bar;
+		echo $objectOrInt->bar;
 
 		$objectOrInt::baz();
-		$objectOrInt::$dolor;
+		echo $objectOrInt::$dolor;
 	}
 
 }

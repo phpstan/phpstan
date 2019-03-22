@@ -10,12 +10,12 @@ class Foo
 
 	public function doFoo(int $i)
 	{
-		$this->foo;
-		$this->bar;
+		$foo = $this->foo;
+		echo $this->bar;
 
 		$foo = new self();
-		$foo->foo;
-		$foo->bar;
+		$foo = $foo->foo;
+		echo $foo->bar;
 	}
 
 }
@@ -28,12 +28,12 @@ class Bar
 
 	public static function doBar(int $i)
 	{
-		Bar::$bar;
-		Lorem::$bar;
+		$bar = Bar::$bar;
+		echo Lorem::$bar;
 
 		$bar = new Bar();
-		$bar::$bar;
-		$bar::$foo;
+		$bar = $bar::$bar;
+		echo $bar::$foo;
 	}
 
 }
@@ -54,16 +54,16 @@ class Baz
 		$barOrBaz
 	)
 	{
-		$fooOrBar->foo;
-		$fooOrBar->bar;
+		$foo = $fooOrBar->foo;
+		$bar =$fooOrBar->bar;
 
-		$fooOrNull->foo;
-		$fooOrNull->bar;
+		$foo = $fooOrNull->foo;
+		$bar = $fooOrNull->bar;
 
-		$fooOrBarOrNull->foo;
-		$fooOrBarOrNull->bar;
+		$foo = $fooOrBarOrNull->foo;
+		$bar = $fooOrBarOrNull->bar;
 
-		$barOrBaz->foo;
+		$foo = $barOrBaz->foo;
 	}
 
 }

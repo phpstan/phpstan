@@ -16,9 +16,9 @@ class Foo
 		$arrayOrFloatOrInt
 	)
 	{
-		(int) $array;
-		(int) $arrayOrCallable;
-		(string) $arrayOrFloatOrInt;
+		$test = (int) $array;
+		$test = (int) $arrayOrCallable;
+		$test = (string) $arrayOrFloatOrInt;
 	}
 
 }

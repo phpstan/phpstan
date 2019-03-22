@@ -240,7 +240,7 @@ class ClosureAccepts
 	public function doFooUnionClosures()
 	{
 		$closure = function (): FooInterface {
-
+			return new FooImpl();
 		};
 		$c = function (FooInterface $x, $y): FooInterface {
 			return new FooImpl();

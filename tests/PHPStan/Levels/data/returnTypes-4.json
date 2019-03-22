@@ -1,0 +1,12 @@
+[
+    {
+        "message": "Unreachable statement - code above always terminates.",
+        "line": 25,
+        "ignorable": true
+    },
+    {
+        "message": "Unreachable statement - code above always terminates.",
+        "line": 49,
+        "ignorable": true
+    }
+]
