@@ -10,7 +10,7 @@ class MissingReturnRuleTest extends RuleTestCase
 
 	protected function getRule(): Rule
 	{
-		return new MissingReturnRule();
+		return new MissingReturnRule(true, true);
 	}
 
 	public function testRule(): void
@@ -63,6 +63,10 @@ class MissingReturnRuleTest extends RuleTestCase
 			[
 				'Method MissingReturn\TryCatchFinally::doDolor() should return int but return statement is missing.',
 				263,
+			],
+			[
+				'Method MissingReturn\ReturnInPhpDoc::doFoo() should return int but return statement is missing.',
+				290,
 			],
 		]);
 	}

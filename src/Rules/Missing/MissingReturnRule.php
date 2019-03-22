@@ -17,6 +17,21 @@ use PHPStan\Type\VoidType;
 class MissingReturnRule implements Rule
 {
 
+	/** @var bool */
+	private $checkExplicitMixedMissingReturn;
+
+	/** @var bool */
+	private $checkPhpDocMissingReturn;
+
+	public function __construct(
+		bool $checkExplicitMixedMissingReturn,
+		bool $checkPhpDocMissingReturn
+	)
+	{
+		$this->checkExplicitMixedMissingReturn = $checkExplicitMixedMissingReturn;
+		$this->checkPhpDocMissingReturn = $checkPhpDocMissingReturn;
+	}
+
 	public function getNodeType(): string
 	{
 		return ExecutionEndNode::class;
@@ -37,6 +52,10 @@ class MissingReturnRule implements Rule
 			return [];
 		}
 
+		if (!$node->hasNativeReturnTypehint() && !$this->checkPhpDocMissingReturn) {
+			return [];
+		}
+
 		$anonymousFunctionReturnType = $scope->getAnonymousFunctionReturnType();
 		$scopeFunction = $scope->getFunction();
 		if ($anonymousFunctionReturnType !== null) {
@@ -53,14 +72,19 @@ class MissingReturnRule implements Rule
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
-		if (
-			$returnType instanceof VoidType
-			|| ($returnType instanceof MixedType && !$returnType->isExplicitMixed())
-		) {
+		if ($returnType instanceof VoidType) {
 			return [];
 		}
 
-		// todo native typehint level 0, phpDocs level 2, explicit mixed level 6
+		if (
+			$returnType instanceof MixedType
+			&& (
+				!$returnType->isExplicitMixed()
+				|| !$this->checkExplicitMixedMissingReturn
+			)
+		) {
+			return [];
+		}
 
 		return [
 			RuleErrorBuilder::message(

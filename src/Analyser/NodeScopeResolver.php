@@ -230,6 +230,8 @@ class NodeScopeResolver
 			}
 
 			if ($shouldCheckLastStatement && $isLast) {
+				/** @var Node\Stmt\Function_|Node\Stmt\ClassMethod|Expr\Closure $parentNode */
+				$parentNode = $parentNode;
 				$nodeCallback(new ExecutionEndNode(
 					$stmt,
 					new StatementResult(
@@ -237,7 +239,8 @@ class NodeScopeResolver
 						$hasYield,
 						$statementResult->isAlwaysTerminating(),
 						$statementResult->getExitPoints()
-					)
+					),
+					$parentNode->returnType !== null
 				), $scope);
 			}
 
@@ -258,9 +261,12 @@ class NodeScopeResolver
 
 		$statementResult = new StatementResult($scope, $hasYield, $alreadyTerminated, $exitPoints);
 		if ($stmtCount === 0 && $shouldCheckLastStatement) {
+			/** @var Node\Stmt\Function_|Node\Stmt\ClassMethod|Expr\Closure $parentNode */
+			$parentNode = $parentNode;
 			$nodeCallback(new ExecutionEndNode(
 				$parentNode,
-				$statementResult
+				$statementResult,
+				$parentNode->returnType !== null
 			), $scope);
 		}
 

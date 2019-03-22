@@ -280,3 +280,16 @@ class MoreYielding
 	}
 
 }
+
+class ReturnInPhpDoc
+{
+
+	/**
+	 * @return int
+	 */
+	public function doFoo()
+	{
+
+	}
+
+}

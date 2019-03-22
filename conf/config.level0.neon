@@ -71,6 +71,9 @@ services:
 
 	-
 		class: PHPStan\Rules\Missing\MissingReturnRule
+		arguments:
+			checkExplicitMixedMissingReturn: %checkExplicitMixedMissingReturn%
+			checkPhpDocMissingReturn: %checkPhpDocMissingReturn%
 
 	-
 		class: PHPStan\Rules\Namespaces\ExistingNamesInGroupUseRule

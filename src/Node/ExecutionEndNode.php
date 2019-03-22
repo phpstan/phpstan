@@ -15,11 +15,19 @@ class ExecutionEndNode extends NodeAbstract implements VirtualNode
 	/** @var StatementResult */
 	private $statementResult;
 
-	public function __construct(Node $node, StatementResult $statementResult)
+	/** @var bool */
+	private $hasNativeReturnTypehint;
+
+	public function __construct(
+		Node $node,
+		StatementResult $statementResult,
+		bool $hasNativeReturnTypehint
+	)
 	{
 		parent::__construct($node->getAttributes());
 		$this->node = $node;
 		$this->statementResult = $statementResult;
+		$this->hasNativeReturnTypehint = $hasNativeReturnTypehint;
 	}
 
 	public function getNode(): Node
@@ -30,6 +38,11 @@ class ExecutionEndNode extends NodeAbstract implements VirtualNode
 	public function getStatementResult(): StatementResult
 	{
 		return $this->statementResult;
+	}
+
+	public function hasNativeReturnTypehint(): bool
+	{
+		return $this->hasNativeReturnTypehint;
 	}
 
 	public function getType(): string
