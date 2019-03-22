@@ -14,6 +14,14 @@ rules:
 	- PHPStan\Rules\Variables\ThrowTypeRule
 	- PHPStan\Rules\Variables\VariableCloningRule
 
+parameters:
+	featureToggles:
+		yieldRules: false
+
+conditionalTags:
+	PHPStan\Rules\Generators\YieldInGeneratorRule:
+		phpstan.rules.rule: %featureToggles.yieldRules%
+
 services:
 	-
 		class: PHPStan\Rules\Arrays\AppendedArrayKeyTypeRule
@@ -42,6 +50,11 @@ services:
 			reportMaybes: %reportMaybes%
 		tags:
 			- phpstan.rules.rule
+
+	-
+		class: PHPStan\Rules\Generators\YieldInGeneratorRule
+		arguments:
+			reportMaybes: %reportMaybes%
 
 	-
 		class: PHPStan\Rules\Methods\MethodSignatureRule

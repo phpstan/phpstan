@@ -4,3 +4,4 @@ parameters:
 		missingReturnRule: true
 		noopRule: true
 		unreachableStatement: true
+		yieldRules: true
