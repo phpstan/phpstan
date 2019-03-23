@@ -77,14 +77,14 @@ class YieldFromTypeRule implements Rule
 			$messages[] = sprintf(
 				'Generator expects key type %s, %s given.',
 				$returnType->getIterableKeyType()->describe(VerbosityLevel::typeOnly()),
-				$exprType->getIterableKeyType()->describe(VerbosityLevel::typeOnly()),
+				$exprType->getIterableKeyType()->describe(VerbosityLevel::typeOnly())
 			);
 		}
 		if (!$this->ruleLevelHelper->accepts($returnType->getIterableValueType(), $exprType->getIterableValueType(), $scope->isDeclareStrictTypes())) {
 			$messages[] = sprintf(
 				'Generator expects value type %s, %s given.',
 				$returnType->getIterableValueType()->describe(VerbosityLevel::typeOnly()),
-				$exprType->getIterableValueType()->describe(VerbosityLevel::typeOnly()),
+				$exprType->getIterableValueType()->describe(VerbosityLevel::typeOnly())
 			);
 		}
 
