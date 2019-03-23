@@ -393,7 +393,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'switchVar',
 				TrinaryLogic::createYes(),
-				'1|2|3',
+				'1|2|3|4',
 			],
 			[
 				$testScope,
@@ -724,6 +724,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'exceptionFromTryCatch',
 				TrinaryLogic::createYes(),
 				'(AnotherException&Throwable)|(Throwable&YetAnotherException)|null',
+			],
+			[
+				$testScope,
+				'nullOverwrittenInSwitchToOne',
+				TrinaryLogic::createYes(),
+				'1',
 			],
 		];
 	}
@@ -3984,6 +3990,60 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[],
 			[],
 			$evaluatedPointExpression
+		);
+	}
+
+	public function dataSwitchInstanceOfFallthrough(): array
+	{
+		return [
+			[
+				'SwitchInstanceOfFallthrough\A|SwitchInstanceOfFallthrough\B',
+				'$object',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataSwitchInstanceOfFallthrough
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testSwitchInstanceOfFallthrough(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/switch-instanceof-fallthrough.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataSwitchTypeElimination(): array
+	{
+		return [
+			[
+				'string',
+				'$stringOrInt',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataSwitchTypeElimination
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testSwitchTypeElimination(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/switch-type-elimination.php',
+			$description,
+			$expression
 		);
 	}
 

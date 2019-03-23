@@ -53,26 +53,6 @@ class StatementResult
 		return $this->isAlwaysTerminating;
 	}
 
-	public function areAllExitPointsLoopTerminationStatements(): bool
-	{
-		if (count($this->exitPoints) === 0) {
-			return false;
-		}
-
-		foreach ($this->exitPoints as $exitPoint) {
-			if ($exitPoint->getStatement() instanceof Stmt\Break_) {
-				continue;
-			}
-			if ($exitPoint->getStatement() instanceof Stmt\Continue_) {
-				continue;
-			}
-
-			return false;
-		}
-
-		return true;
-	}
-
 	public function filterOutLoopExitPoints(): self
 	{
 		if (!$this->isAlwaysTerminating) {

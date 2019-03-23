@@ -113,7 +113,7 @@ class StatementResultTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				'switch ($x) { case 1: if (doFoo()) return; default: return; }',
-				false,
+				true,
 			],
 			[
 				'switch ($x) { case 1: break; default: return; }',

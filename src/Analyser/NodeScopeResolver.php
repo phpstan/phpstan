@@ -774,16 +774,11 @@ class NodeScopeResolver
 			$hasDefaultCase = false;
 			$alwaysTerminating = true;
 			$hasYield = false;
-			foreach ($stmt->cases as $i => $caseNode) {
+			foreach ($stmt->cases as $caseNode) {
 				if ($caseNode->cond !== null) {
 					$condExpr = new BinaryOp\Equal($stmt->cond, $caseNode->cond);
 					$scopeForBranches = $this->processExprNode($caseNode->cond, $scopeForBranches, $nodeCallback, ExpressionContext::createDeep())->getScope();
-					if ($prevScope === null) {
-						$branchScope = $scopeForBranches->filterByTruthyValue($condExpr);
-						$scopeForBranches = $scopeForBranches->filterByFalseyValue($condExpr);
-					} else {
-						$branchScope = $scopeForBranches;
-					}
+					$branchScope = $scopeForBranches->filterByTruthyValue($condExpr);
 				} else {
 					$hasDefaultCase = true;
 					$branchScope = $scopeForBranches;
@@ -794,31 +789,39 @@ class NodeScopeResolver
 				$branchScope = $branchScopeResult->getScope();
 				$branchFinalScopeResult = $branchScopeResult->filterOutLoopExitPoints();
 				$hasYield = $hasYield || $branchFinalScopeResult->hasYield();
-				$isLastCase = ($i === count($stmt->cases) - 1);
-				if (count($branchScopeResult->getExitPoints()) > 0 || $isLastCase) {
+				if ($branchScopeResult->isAlwaysTerminating()) {
 					$alwaysTerminating = $alwaysTerminating && $branchFinalScopeResult->isAlwaysTerminating();
-				}
-				if (
-					$branchScopeResult->areAllExitPointsLoopTerminationStatements()
-					|| (
-						$isLastCase
-						&& !$branchFinalScopeResult->isAlwaysTerminating()
-					)
-				) {
-					$finalScope = $branchScope->mergeWith($finalScope);
-					foreach ($branchScopeResult->getExitPointsByType(Break_::class) as $breakExitPoint) {
-						$finalScope = $finalScope->mergeWith($breakExitPoint->getScope());
+					$prevScope = null;
+					if (isset($condExpr)) {
+						$scopeForBranches = $scopeForBranches->filterByFalseyValue($condExpr);
 					}
-					foreach ($branchScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
-						$finalScope = $finalScope->mergeWith($continueExitPoint->getScope());
+					if (!$branchFinalScopeResult->isAlwaysTerminating()) {
+						$finalScope = $branchScope->mergeWith($finalScope);
+						foreach ($branchScopeResult->getExitPointsByType(Break_::class) as $breakExitPoint) {
+							$finalScope = $finalScope->mergeWith($breakExitPoint->getScope());
+						}
+						foreach ($branchScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
+							$finalScope = $finalScope->mergeWith($continueExitPoint->getScope());
+						}
 					}
+				} else {
+					$prevScope = $branchScope;
 				}
-
-				$prevScope = $branchScopeResult->isAlwaysTerminating() ? null : $branchScope;
 			}
 
 			if (!$hasDefaultCase) {
 				$alwaysTerminating = false;
+			}
+
+			if ($prevScope !== null && isset($branchFinalScopeResult)) {
+				$finalScope = $prevScope->mergeWith($finalScope);
+				$alwaysTerminating = $alwaysTerminating && $branchFinalScopeResult->isAlwaysTerminating();
+				foreach ($branchFinalScopeResult->getExitPointsByType(Break_::class) as $breakExitPoint) {
+					$finalScope = $finalScope->mergeWith($breakExitPoint->getScope());
+				}
+				foreach ($branchFinalScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
+					$finalScope = $finalScope->mergeWith($continueExitPoint->getScope());
+				}
 			}
 
 			if (!$hasDefaultCase || $finalScope === null) {

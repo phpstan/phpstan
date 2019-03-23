@@ -103,6 +103,10 @@ switch (foo()) {
 	case 4:
 	default:
 		$switchVar = 3;
+		if (doFoo()) {
+			$switchVar = 4;
+			break;
+		}
 }
 
 $trueOrFalseInSwitchWithDefault = false;
@@ -208,6 +212,18 @@ switch (doFoo()) {
 
 	default:
 		$alwaysDefinedFromSwitch = null;
+}
+
+$nullOverwrittenInSwitchToOne = null;
+switch (doFoo()) {
+	case 1:
+		if (doFoo()) {
+			throw new \Exception();
+		}
+		$nullOverwrittenInSwitchToOne = 1;
+		break;
+	default:
+		throw new \Exception();
 }
 
 do {
