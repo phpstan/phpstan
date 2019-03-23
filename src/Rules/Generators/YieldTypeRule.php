@@ -3,61 +3,40 @@
 namespace PHPStan\Rules\Generators;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\YieldFrom;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleLevelHelper;
+use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\NullType;
 use PHPStan\Type\VerbosityLevel;
 
-class YieldFromTypeRule implements Rule
+class YieldTypeRule implements Rule
 {
 
 	/** @var RuleLevelHelper */
 	private $ruleLevelHelper;
 
-	/** @var bool */
-	private $reportMaybes;
-
 	public function __construct(
-		RuleLevelHelper $ruleLevelHelper,
-		bool $reportMaybes
+		RuleLevelHelper $ruleLevelHelper
 	)
 	{
 		$this->ruleLevelHelper = $ruleLevelHelper;
-		$this->reportMaybes = $reportMaybes;
 	}
 
 	public function getNodeType(): string
 	{
-		return YieldFrom::class;
+		return Node\Expr\Yield_::class;
 	}
 
 	/**
-	 * @param YieldFrom $node
+	 * @param Node\Expr\Yield_ $node
 	 * @param Scope $scope
 	 * @return string[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		$exprType = $scope->getType($node->expr);
-		$isIterable = $exprType->isIterable();
-		$messagePattern = 'Argument of an invalid type %s passed to yield from, only iterables are supported.';
-		if ($isIterable->no()) {
-			return [
-				sprintf($messagePattern, $exprType->describe(VerbosityLevel::typeOnly())),
-			];
-		} elseif (
-			!$exprType instanceof MixedType
-			&& $this->reportMaybes
-			&& $isIterable->maybe()
-		) {
-			return [
-				sprintf($messagePattern, $exprType->describe(VerbosityLevel::typeOnly())),
-			];
-		}
-
 		$anonymousFunctionReturnType = $scope->getAnonymousFunctionReturnType();
 		$scopeFunction = $scope->getFunction();
 		if ($anonymousFunctionReturnType !== null) {
@@ -72,19 +51,31 @@ class YieldFromTypeRule implements Rule
 			return [];
 		}
 
+		if ($node->key === null) {
+			$keyType = new IntegerType();
+		} else {
+			$keyType = $scope->getType($node->key);
+		}
+
+		if ($node->value === null) {
+			$valueType = new NullType();
+		} else {
+			$valueType = $scope->getType($node->value);
+		}
+
 		$messages = [];
-		if (!$this->ruleLevelHelper->accepts($returnType->getIterableKeyType(), $exprType->getIterableKeyType(), $scope->isDeclareStrictTypes())) {
+		if (!$this->ruleLevelHelper->accepts($returnType->getIterableKeyType(), $keyType, $scope->isDeclareStrictTypes())) {
 			$messages[] = sprintf(
 				'Generator expects key type %s, %s given.',
 				$returnType->getIterableKeyType()->describe(VerbosityLevel::typeOnly()),
-				$exprType->getIterableKeyType()->describe(VerbosityLevel::typeOnly())
+				$keyType->describe(VerbosityLevel::typeOnly())
 			);
 		}
-		if (!$this->ruleLevelHelper->accepts($returnType->getIterableValueType(), $exprType->getIterableValueType(), $scope->isDeclareStrictTypes())) {
+		if (!$this->ruleLevelHelper->accepts($returnType->getIterableValueType(), $valueType, $scope->isDeclareStrictTypes())) {
 			$messages[] = sprintf(
 				'Generator expects value type %s, %s given.',
 				$returnType->getIterableValueType()->describe(VerbosityLevel::typeOnly()),
-				$exprType->getIterableValueType()->describe(VerbosityLevel::typeOnly())
+				$valueType->describe(VerbosityLevel::typeOnly())
 			);
 		}
 

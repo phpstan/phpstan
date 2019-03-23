@@ -23,6 +23,8 @@ conditionalTags:
 		phpstan.rules.rule: %featureToggles.yieldRules%
 	PHPStan\Rules\Generators\YieldInGeneratorRule:
 		phpstan.rules.rule: %featureToggles.yieldRules%
+	PHPStan\Rules\Generators\YieldTypeRule:
+		phpstan.rules.rule: %featureToggles.yieldRules%
 
 services:
 	-
@@ -62,6 +64,9 @@ services:
 		class: PHPStan\Rules\Generators\YieldInGeneratorRule
 		arguments:
 			reportMaybes: %reportMaybes%
+
+	-
+		class: PHPStan\Rules\Generators\YieldTypeRule
 
 	-
 		class: PHPStan\Rules\Methods\MethodSignatureRule
