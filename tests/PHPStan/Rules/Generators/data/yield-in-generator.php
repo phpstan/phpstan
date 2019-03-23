@@ -70,3 +70,11 @@ function doConstecteur()
 	yield 1;
 	yield from doFoo();
 }
+
+/**
+ * @return iterable<string>
+ */
+function doFooBar()
+{
+	yield 'test';
+}

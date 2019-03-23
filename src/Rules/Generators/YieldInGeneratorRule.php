@@ -6,8 +6,9 @@ use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Rules\Rule;
+use PHPStan\TrinaryLogic;
+use PHPStan\Type\ArrayType;
 use PHPStan\Type\MixedType;
-use PHPStan\Type\ObjectType;
 
 class YieldInGeneratorRule implements Rule
 {
@@ -52,7 +53,9 @@ class YieldInGeneratorRule implements Rule
 			return [];
 		}
 
-		$isSuperType = $returnType->isSuperTypeOf(new ObjectType(\Generator::class));
+		$isSuperType = $returnType->isIterable()->and(TrinaryLogic::createFromBoolean(
+			$returnType instanceof ArrayType
+		)->negate());
 		if ($isSuperType->yes()) {
 			return [];
 		}
