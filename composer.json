@@ -24,6 +24,7 @@
 	"require-dev": {
 		"ext-intl": "*",
 		"ext-mysqli": "*",
+		"ext-simplexml": "*",
 		"ext-soap": "*",
 		"ext-zip": "*",
 		"brianium/paratest": "^2.0",
