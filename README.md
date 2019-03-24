@@ -123,6 +123,7 @@ Unofficial extensions for other frameworks and libraries are also available:
 * [PhpSpec](https://github.com/proget-hq/phpstan-phpspec)
 * [TYPO3](https://github.com/sascha-egerer/phpstan-typo3)
 * [moneyphp/money](https://github.com/JohnstonCode/phpstan-moneyphp)
+* [Drupal](https://github.com/mglaman/phpstan-drupal)
 
 New extensions are becoming available on a regular basis!
 
