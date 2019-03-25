@@ -731,6 +731,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				TrinaryLogic::createYes(),
 				'1',
 			],
+			[
+				$testScope,
+				'variableFromSwitchShouldBeBool',
+				TrinaryLogic::createYes(),
+				'bool',
+			],
 		];
 	}
 

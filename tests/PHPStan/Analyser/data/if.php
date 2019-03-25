@@ -226,6 +226,17 @@ switch (doFoo()) {
 		throw new \Exception();
 }
 
+switch (doFoo()) {
+	case 1:
+		if (rand(0, 1)) {
+			$variableFromSwitchShouldBeBool = true;
+			break;
+		}
+
+	default:
+		$variableFromSwitchShouldBeBool = false;
+}
+
 do {
 	$doWhileVar = 1;
 } while (something());

@@ -789,6 +789,12 @@ class NodeScopeResolver
 				$branchScope = $branchScopeResult->getScope();
 				$branchFinalScopeResult = $branchScopeResult->filterOutLoopExitPoints();
 				$hasYield = $hasYield || $branchFinalScopeResult->hasYield();
+				foreach ($branchScopeResult->getExitPointsByType(Break_::class) as $breakExitPoint) {
+					$finalScope = $breakExitPoint->getScope()->mergeWith($finalScope);
+				}
+				foreach ($branchScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
+					$finalScope = $continueExitPoint->getScope()->mergeWith($finalScope);
+				}
 				if ($branchScopeResult->isAlwaysTerminating()) {
 					$alwaysTerminating = $alwaysTerminating && $branchFinalScopeResult->isAlwaysTerminating();
 					$prevScope = null;
@@ -797,12 +803,6 @@ class NodeScopeResolver
 					}
 					if (!$branchFinalScopeResult->isAlwaysTerminating()) {
 						$finalScope = $branchScope->mergeWith($finalScope);
-						foreach ($branchScopeResult->getExitPointsByType(Break_::class) as $breakExitPoint) {
-							$finalScope = $finalScope->mergeWith($breakExitPoint->getScope());
-						}
-						foreach ($branchScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
-							$finalScope = $finalScope->mergeWith($continueExitPoint->getScope());
-						}
 					}
 				} else {
 					$prevScope = $branchScope;
@@ -816,12 +816,6 @@ class NodeScopeResolver
 			if ($prevScope !== null && isset($branchFinalScopeResult)) {
 				$finalScope = $prevScope->mergeWith($finalScope);
 				$alwaysTerminating = $alwaysTerminating && $branchFinalScopeResult->isAlwaysTerminating();
-				foreach ($branchFinalScopeResult->getExitPointsByType(Break_::class) as $breakExitPoint) {
-					$finalScope = $finalScope->mergeWith($breakExitPoint->getScope());
-				}
-				foreach ($branchFinalScopeResult->getExitPointsByType(Continue_::class) as $continueExitPoint) {
-					$finalScope = $finalScope->mergeWith($continueExitPoint->getScope());
-				}
 			}
 
 			if (!$hasDefaultCase || $finalScope === null) {
