@@ -1108,7 +1108,7 @@ class NodeScopeResolver
 				}
 
 				$classReflection = $this->broker->getClass($referencedClass);
-				foreach (array_merge([$referencedClass], $classReflection->getParentClassesNames()) as $className) {
+				foreach (array_merge([$referencedClass], $classReflection->getParentClassesNames(), $classReflection->getNativeReflection()->getInterfaceNames()) as $className) {
 					if (!isset($this->earlyTerminatingMethodCalls[$className])) {
 						continue;
 					}
