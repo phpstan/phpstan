@@ -8058,7 +8058,7 @@ return [
 'openssl_decrypt' => ['string|false', 'data'=>'string', 'method'=>'string', 'key'=>'string', 'options='=>'int', 'iv='=>'string', 'tag='=>'string', 'aad='=>'string'],
 'openssl_dh_compute_key' => ['string|false', 'pub_key'=>'string', 'dh_key'=>'resource'],
 'openssl_digest' => ['string|false', 'data'=>'string', 'method'=>'string', 'raw_output='=>'bool'],
-'openssl_encrypt' => ['string|false', 'data'=>'string', 'method'=>'string', 'key'=>'string', 'options='=>'int', 'iv='=>'string', '&rw_tag='=>'string', 'aad='=>'string', 'tag_length='=>'int'],
+'openssl_encrypt' => ['string|false', 'data'=>'string', 'method'=>'string', 'key'=>'string', 'options='=>'int', 'iv='=>'string', '&rw_tag'=>'string', 'aad='=>'string', 'tag_length='=>'int'],
 'openssl_error_string' => ['string|false'],
 'openssl_free_key' => ['void', 'key_identifier'=>'resource'],
 'openssl_get_cert_locations' => ['array'],
