@@ -33,12 +33,7 @@ class DummyPropertyReflection implements PropertyReflection
 		return true;
 	}
 
-	public function getReadableType(): Type
-	{
-		return new MixedType();
-	}
-
-	public function getWriteableType(): Type
+	public function getType(): Type
 	{
 		return new MixedType();
 	}
@@ -49,11 +44,6 @@ class DummyPropertyReflection implements PropertyReflection
 	}
 
 	public function isWritable(): bool
-	{
-		return true;
-	}
-
-	public function canChangeTypeAfterAssignment(): bool
 	{
 		return true;
 	}

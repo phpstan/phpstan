@@ -10,7 +10,6 @@ use PHPStan\Rules\ClassCaseSensitivityCheck;
 use PHPStan\Rules\ClassNameNodePair;
 use PHPStan\Rules\RuleError;
 use PHPStan\Rules\RuleErrorBuilder;
-use PHPStan\Type\TypeCombinator;
 
 class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 {
@@ -52,9 +51,7 @@ class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 		}
 
 		$propertyReflection = $scope->getClassReflection()->getNativeProperty($node->name->name);
-		$readablePropertyType = $propertyReflection->getReadableType();
-		$writeablePropertyType = $propertyReflection->getWriteableType();
-		$referencedClasses = TypeCombinator::union($readablePropertyType, $writeablePropertyType)->getReferencedClasses();
+		$referencedClasses = $propertyReflection->getType()->getReferencedClasses();
 
 		$errors = [];
 		foreach ($referencedClasses as $referencedClass) {

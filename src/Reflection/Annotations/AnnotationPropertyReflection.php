@@ -54,12 +54,7 @@ class AnnotationPropertyReflection implements PropertyReflection
 		return true;
 	}
 
-	public function getReadableType(): Type
-	{
-		return $this->type;
-	}
-
-	public function getWriteableType(): Type
+	public function getType(): Type
 	{
 		return $this->type;
 	}
@@ -72,11 +67,6 @@ class AnnotationPropertyReflection implements PropertyReflection
 	public function isWritable(): bool
 	{
 		return $this->writable;
-	}
-
-	public function canChangeTypeAfterAssignment(): bool
-	{
-		return true;
 	}
 
 }

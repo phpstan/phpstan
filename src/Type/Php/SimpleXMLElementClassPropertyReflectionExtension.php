@@ -13,13 +13,13 @@ class SimpleXMLElementClassPropertyReflectionExtension implements PropertiesClas
 
 	public function hasProperty(ClassReflection $classReflection, string $propertyName): bool
 	{
-		return $classReflection->getName() === \SimpleXMLElement::class;
+		return $classReflection->getName() === 'SimpleXMLElement';
 	}
 
 
 	public function getProperty(ClassReflection $classReflection, string $propertyName): PropertyReflection
 	{
-		return new SimpleXMLElementProperty($classReflection, new ObjectType(\SimpleXMLElement::class));
+		return new SimpleXMLElementProperty($classReflection, new ObjectType('SimpleXMLElement'));
 	}
 
 }

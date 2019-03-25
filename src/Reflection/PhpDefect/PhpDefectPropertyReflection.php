@@ -44,12 +44,7 @@ class PhpDefectPropertyReflection implements PropertyReflection
 		return true;
 	}
 
-	public function getReadableType(): Type
-	{
-		return $this->type;
-	}
-
-	public function getWriteableType(): Type
+	public function getType(): Type
 	{
 		return $this->type;
 	}
@@ -60,11 +55,6 @@ class PhpDefectPropertyReflection implements PropertyReflection
 	}
 
 	public function isWritable(): bool
-	{
-		return true;
-	}
-
-	public function canChangeTypeAfterAssignment(): bool
 	{
 		return true;
 	}

@@ -27,6 +27,7 @@ use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ConstantReflection;
+use PHPStan\Reflection\ExtendedPropertyReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\Native\NativeParameterReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
@@ -1525,10 +1526,15 @@ class Scope implements ClassMemberAccessAnswerer
 					continue;
 				}
 
+				$property = $propertyClassReflection->getProperty($propertyName, $this);
 				if ($this->isInExpressionAssign($node)) {
-					$types[] = $propertyClassReflection->getProperty($propertyName, $this)->getWriteableType();
+					if ($property instanceof ExtendedPropertyReflection) {
+						$types[] = $property->getWritableType();
+					} else {
+						$types[] = $property->getType();
+					}
 				} else {
-					$types[] = $propertyClassReflection->getProperty($propertyName, $this)->getReadableType();
+					$types[] = $property->getType();
 				}
 			}
 
@@ -1540,10 +1546,14 @@ class Scope implements ClassMemberAccessAnswerer
 				return new ErrorType();
 			}
 
-			if ($this->isInExpressionAssign($node)) {
-				return $propertyFetchedOnType->getProperty($node->name->name, $this)->getWriteableType();
+			$property = $propertyFetchedOnType->getProperty($node->name->name, $this);
+			if (
+				$this->isInExpressionAssign($node)
+				&& $property instanceof ExtendedPropertyReflection
+			) {
+				return $property->getWritableType();
 			}
-			return $propertyFetchedOnType->getProperty($node->name->name, $this)->getReadableType();
+			return $property->getType();
 		}
 
 		if (
@@ -1569,10 +1579,15 @@ class Scope implements ClassMemberAccessAnswerer
 					continue;
 				}
 
+				$property = $propertyClassReflection->getProperty($propertyName, $this);
 				if ($this->isInExpressionAssign($node)) {
-					$types[] = $propertyClassReflection->getProperty($propertyName, $this)->getWriteableType();
+					if ($property instanceof ExtendedPropertyReflection) {
+						$types[] = $property->getWritableType();
+					} else {
+						$types[] = $property->getType();
+					}
 				} else {
-					$types[] = $propertyClassReflection->getProperty($propertyName, $this)->getReadableType();
+					$types[] = $propertyClassReflection->getProperty($propertyName, $this)->getType();
 				}
 			}
 
@@ -1584,10 +1599,14 @@ class Scope implements ClassMemberAccessAnswerer
 				return new ErrorType();
 			}
 
-			if ($this->isInExpressionAssign($node)) {
-				return $calleeType->getProperty($node->name->name, $this)->getWriteableType();
+			$property = $calleeType->getProperty($node->name->name, $this);
+			if (
+				$this->isInExpressionAssign($node)
+				&& $property instanceof ExtendedPropertyReflection
+			) {
+				return $property->getWritableType();
 			}
-			return $calleeType->getProperty($node->name->name, $this)->getReadableType();
+			return $property->getType();
 		}
 
 		if ($node instanceof FuncCall) {

@@ -344,7 +344,7 @@ class ObjectType implements TypeWithClassName, SubtractableType
 				}
 
 				$arrayKeys[] = new ConstantStringType($keyName);
-				$arrayValues[] = $property->getReadableType();
+				$arrayValues[] = $property->getType();
 			}
 
 			$classReflection = $classReflection->getParentClass();

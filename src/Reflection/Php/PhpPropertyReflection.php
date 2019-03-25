@@ -74,12 +74,7 @@ class PhpPropertyReflection implements PropertyReflection, DeprecatableReflectio
 		return $this->reflection->isPublic();
 	}
 
-	public function getReadableType(): Type
-	{
-		return $this->type;
-	}
-
-	public function getWriteableType(): Type
+	public function getType(): Type
 	{
 		return $this->type;
 	}
@@ -111,11 +106,6 @@ class PhpPropertyReflection implements PropertyReflection, DeprecatableReflectio
 	public function isInternal(): bool
 	{
 		return $this->isInternal;
-	}
-
-	public function canChangeTypeAfterAssignment(): bool
-	{
-		return true;
 	}
 
 }

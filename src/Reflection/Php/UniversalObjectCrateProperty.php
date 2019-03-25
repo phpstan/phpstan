@@ -43,12 +43,7 @@ class UniversalObjectCrateProperty implements \PHPStan\Reflection\PropertyReflec
 		return true;
 	}
 
-	public function getReadableType(): Type
-	{
-		return $this->type;
-	}
-
-	public function getWriteableType(): Type
+	public function getType(): Type
 	{
 		return $this->type;
 	}
@@ -59,11 +54,6 @@ class UniversalObjectCrateProperty implements \PHPStan\Reflection\PropertyReflec
 	}
 
 	public function isWritable(): bool
-	{
-		return true;
-	}
-
-	public function canChangeTypeAfterAssignment(): bool
 	{
 		return true;
 	}

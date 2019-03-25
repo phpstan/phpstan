@@ -64,7 +64,7 @@ class AppendedArrayItemTypeRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		$assignedToType = $propertyReflection->getReadableType();
+		$assignedToType = $propertyReflection->getType();
 		if (!($assignedToType instanceof ArrayType)) {
 			return [];
 		}
