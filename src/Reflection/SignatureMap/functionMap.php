@@ -3351,7 +3351,7 @@ return [
 'gettext' => ['string', 'msgid'=>'string'],
 'gettimeofday' => ['array|float', 'get_as_float='=>'bool'],
 'gettype' => ['string', 'var'=>'mixed'],
-'glob' => ['array<int, string>', 'pattern'=>'string', 'flags='=>'int'],
+'glob' => ['array<int, string>|false', 'pattern'=>'string', 'flags='=>'int'],
 'GlobIterator::__construct' => ['void', 'path'=>'string', 'flags='=>'int'],
 'GlobIterator::cont' => ['int'],
 'GlobIterator::count' => ['int'],
