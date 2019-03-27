@@ -325,6 +325,11 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 		return $this->reflection->isPublic();
 	}
 
+	public function isAbstract(): bool
+	{
+		return $this->reflection->isAbstract();
+	}
+
 	private function getReturnType(): Type
 	{
 		if ($this->returnType === null) {

@@ -82,6 +82,11 @@ class AnnotationMethodReflection implements MethodReflection
 		return true;
 	}
 
+	public function isAbstract(): bool
+	{
+		return false;
+	}
+
 	public function getName(): string
 	{
 		return $this->name;

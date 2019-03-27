@@ -35,6 +35,8 @@ interface BuiltinMethodReflection
 
 	public function isPublic(): bool;
 
+	public function isAbstract(): bool;
+
 	public function getPrototype(): self;
 
 	public function isDeprecated(): bool;

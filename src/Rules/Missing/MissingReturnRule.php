@@ -64,6 +64,10 @@ class MissingReturnRule implements Rule
 		} elseif ($scopeFunction !== null) {
 			$returnType = ParametersAcceptorSelector::selectSingle($scopeFunction->getVariants())->getReturnType();
 			if ($scopeFunction instanceof MethodReflection) {
+				if ($scopeFunction->isAbstract()) {
+					return [];
+				}
+
 				$description = sprintf('Method %s::%s()', $scopeFunction->getDeclaringClass()->getDisplayName(), $scopeFunction->getName());
 			} else {
 				$description = sprintf('Function %s()', $scopeFunction->getName());

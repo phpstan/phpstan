@@ -14,4 +14,6 @@ interface MethodReflection extends ClassMemberReflection
 	 */
 	public function getVariants(): array;
 
+	public function isAbstract(): bool;
+
 }

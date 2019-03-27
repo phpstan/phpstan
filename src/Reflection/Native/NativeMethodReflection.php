@@ -66,6 +66,11 @@ class NativeMethodReflection implements MethodReflection, DeprecatableReflection
 		return $this->reflection->isPublic();
 	}
 
+	public function isAbstract(): bool
+	{
+		return $this->reflection->isAbstract();
+	}
+
 	public function getPrototype(): ClassMemberReflection
 	{
 		try {
