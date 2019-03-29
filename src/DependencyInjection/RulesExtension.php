@@ -9,6 +9,7 @@ class RulesExtension extends \Nette\DI\CompilerExtension
 
 	public function loadConfiguration(): void
 	{
+		/** @var mixed[] $config */
 		$config = $this->config;
 		$builder = $this->getContainerBuilder();
 
