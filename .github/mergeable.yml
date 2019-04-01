@@ -1,0 +1,20 @@
+version: 2
+mergeable:
+  - when: issues.opened
+    validate:
+      - do: description
+        or:
+          - and:
+              - must_include:
+                  regex: '^# Bug report'
+              - must_include:
+                  regex: 'https:\/\/phpstan\.org\/r\/'
+          - must_exclude:
+              regex: '^# Bug report'
+    fail:
+      - do: comment
+        payload:
+          body: >
+            This bug report is missing a link to reproduction on [phpstan.org](https://phpstan.org/).
+
+            It will most likely be closed after manual review.
