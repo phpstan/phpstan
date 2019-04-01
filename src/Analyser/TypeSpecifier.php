@@ -404,10 +404,10 @@ class TypeSpecifier
 			return $this->specifyTypesInCondition($scope, $expr->expr, $context->negate());
 		} elseif ($expr instanceof Node\Expr\Assign) {
 			if ($context->null()) {
-				return $this->specifyTypesInCondition($scope, $expr->expr, $context);
+				return $this->specifyTypesInCondition($scope->exitFirstLevelStatements(), $expr->expr, $context);
 			}
 
-			return $this->specifyTypesInCondition($scope, $expr->var, $context);
+			return $this->specifyTypesInCondition($scope->exitFirstLevelStatements(), $expr->var, $context);
 		} elseif (
 			(
 				$expr instanceof Expr\Isset_
