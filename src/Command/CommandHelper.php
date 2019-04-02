@@ -241,6 +241,7 @@ class CommandHelper
 			return;
 		}
 
+		pcntl_async_signals(true);
 		pcntl_signal(SIGINT, static function () use ($consoleStyle, $memoryLimitFile): void {
 			if (file_exists($memoryLimitFile)) {
 				@unlink($memoryLimitFile);
