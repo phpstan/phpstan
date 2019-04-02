@@ -116,12 +116,6 @@ class AnalyseApplication
 		$bytes = memory_get_peak_usage(true);
 		$megabytes = ceil($bytes / 1024 / 1024);
 		file_put_contents($this->memoryLimitFile, sprintf('%d MB', $megabytes));
-
-		if (!function_exists('pcntl_signal_dispatch')) {
-			return;
-		}
-
-		pcntl_signal_dispatch();
 	}
 
 }
