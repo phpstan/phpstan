@@ -16,6 +16,9 @@ if (is_file($autoloaderInWorkingDirectory)) {
 
 $composerAutoloadFile = __DIR__ . '/../vendor/autoload.php';
 if (!is_file($composerAutoloadFile)) {
+	$composerAutoloadFile = __DIR__ . '/../../autoload.php';
+}
+if (!is_file($composerAutoloadFile)) {
 	$composerAutoloadFile = __DIR__ . '/../../../autoload.php';
 }
 
