@@ -125,7 +125,7 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				173,
 			],
 			[
-				'Method ReturnTypes\Foo::returnScalar() should return bool|float|int|string but returns stdClass.',
+				'Method ReturnTypes\Foo::returnScalar() should return bool|float|int|string|null but returns stdClass.',
 				185,
 			],
 			[
