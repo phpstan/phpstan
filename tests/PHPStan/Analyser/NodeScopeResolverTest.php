@@ -3123,6 +3123,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'resource|false',
 				'curl_init($string)',
 			],
+			[
+				'string',
+				'sprintf($string, $string, 1)',
+			],
+			[
+				'\'foo bar\'',
+				"sprintf('%s %s', 'foo', 'bar')",
+			],
 		];
 	}
 
