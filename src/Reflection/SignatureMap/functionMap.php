@@ -6755,7 +6755,7 @@ return [
 'MongoDB\Driver\ReadConcern::__construct' => ['void', 'level='=>'string'],
 'MongoDB\Driver\ReadConcern::bsonSerialize' => ['object'],
 'MongoDB\Driver\ReadConcern::getLevel' => ['null|string'],
-'MongoDB\Driver\ReadPreference::__construct' => ['void', 'readPreference'=>'string', 'tagSets='=>'array'],
+'MongoDB\Driver\ReadPreference::__construct' => ['void', 'readPreference'=>'string', 'tagSets='=>'array', 'options='=>'array'],
 'MongoDB\Driver\ReadPreference::bsonSerialize' => ['object'],
 'MongoDB\Driver\ReadPreference::getMode' => ['int'],
 'MongoDB\Driver\ReadPreference::getTagSets' => ['array'],
