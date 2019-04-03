@@ -153,6 +153,11 @@ class Foo extends FooParent
 
 	}
 
+	public function phpDocWithoutCurlyBracesVoidParentMethod(): self
+	{
+
+	}
+
 	/**
 	 * @return string[]
 	 */

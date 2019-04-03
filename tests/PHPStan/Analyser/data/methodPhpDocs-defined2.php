@@ -25,6 +25,14 @@ class FooParentParent
 
 	}
 
+	/**
+	 * @return void
+	 */
+	public function phpDocWithoutCurlyBracesVoidParentMethod()
+	{
+
+	}
+
 }
 
 abstract class FooParent extends FooParentParent implements FooInterface
@@ -82,6 +90,14 @@ abstract class FooParent extends FooParentParent implements FooInterface
 	 * {@inheritDoc}
 	 */
 	public function phpDocVoidParentMethod()
+	{
+
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function phpDocWithoutCurlyBracesVoidParentMethod()
 	{
 
 	}

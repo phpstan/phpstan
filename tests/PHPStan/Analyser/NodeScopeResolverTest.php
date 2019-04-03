@@ -1909,6 +1909,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				'PropertiesNamespace\Bar',
+				'$this->inheritDocWithoutCurlyBracesProperty',
+			],
+			[
+				'PropertiesNamespace\Bar',
 				'$this->implicitInheritDocProperty',
 			],
 			[
@@ -3742,6 +3746,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->phpDocVoidParentMethod()',
 			],
 			[
+				'MethodPhpDocsNamespace\Foo',
+				'$this->phpDocWithoutCurlyBracesVoidParentMethod()',
+			],
+			[
 				'array<string>',
 				'$this->returnsStringArray()',
 			],
@@ -3793,6 +3801,34 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		}
 		$this->assertTypes(
 			__DIR__ . '/data/methodPhpDocs-trait.php',
+			$description,
+			$expression
+		);
+	}
+
+	/**
+	 * @dataProvider dataTypeFromFunctionPhpDocs
+	 * @dataProvider dataTypeFromMethodPhpDocs
+	 * @param string $description
+	 * @param string $expression
+	 * @param bool $replaceClass
+	 */
+	public function testTypeFromMethodPhpDocsInheritDocWithoutCurlyBraces(
+		string $description,
+		string $expression,
+		bool $replaceClass = true
+	): void
+	{
+		if ($replaceClass) {
+			$description = str_replace('$this(MethodPhpDocsNamespace\Foo)', '$this(MethodPhpDocsNamespace\FooInheritDocChild)', $description);
+			$description = str_replace('static(MethodPhpDocsNamespace\Foo)', 'static(MethodPhpDocsNamespace\FooInheritDocChild)', $description);
+			$description = str_replace('MethodPhpDocsNamespace\FooParent', 'MethodPhpDocsNamespace\Foo', $description);
+			if ($expression === '$inlineSelf') {
+				$description = 'MethodPhpDocsNamespace\FooInheritDocChild';
+			}
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/method-phpDocs-inheritdoc-without-curly-braces.php',
 			$description,
 			$expression
 		);
@@ -7003,6 +7039,23 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	/**
+	 * @dataProvider dataInheritDocFromInterface
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testInheritDocWithoutCurlyBracesFromInterface(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/inheritdoc-without-curly-braces-from-interface.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataInheritDocFromInterface2(): array
 	{
 		return [
@@ -7026,6 +7079,24 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		require_once __DIR__ . '/data/inheritdoc-from-interface2-definition.php';
 		$this->assertTypes(
 			__DIR__ . '/data/inheritdoc-from-interface2.php',
+			$description,
+			$expression
+		);
+	}
+
+	/**
+	 * @dataProvider dataInheritDocFromInterface2
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testInheritDocWithoutCurlyBracesFromInterface2(
+		string $description,
+		string $expression
+	): void
+	{
+		require_once __DIR__ . '/data/inheritdoc-without-curly-braces-from-interface2-definition.php';
+		$this->assertTypes(
+			__DIR__ . '/data/inheritdoc-without-curly-braces-from-interface2.php',
 			$description,
 			$expression
 		);
@@ -7058,6 +7129,23 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	/**
+	 * @dataProvider dataInheritDocFromTrait
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testInheritDocWithoutCurlyBracesFromTrait(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/inheritdoc-without-curly-braces-from-trait.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataInheritDocFromTrait2(): array
 	{
 		return [
@@ -7082,6 +7170,25 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		require_once __DIR__ . '/data/inheritdoc-from-trait2-definition2.php';
 		$this->assertTypes(
 			__DIR__ . '/data/inheritdoc-from-trait2.php',
+			$description,
+			$expression
+		);
+	}
+
+	/**
+	 * @dataProvider dataInheritDocFromTrait2
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testInheritDocWithoutCurlyBracesFromTrait2(
+		string $description,
+		string $expression
+	): void
+	{
+		require_once __DIR__ . '/data/inheritdoc-without-curly-braces-from-trait2-definition.php';
+		require_once __DIR__ . '/data/inheritdoc-without-curly-braces-from-trait2-definition2.php';
+		$this->assertTypes(
+			__DIR__ . '/data/inheritdoc-without-curly-braces-from-trait2.php',
 			$description,
 			$expression
 		);

@@ -125,6 +125,11 @@ abstract class Foo extends Bar
 	 */
 	protected $inheritDocProperty;
 
+	/**
+	 * @inheritDoc
+	 */
+	protected $inheritDocWithoutCurlyBracesProperty;
+
 	protected $implicitInheritDocProperty;
 
 	public function doFoo()

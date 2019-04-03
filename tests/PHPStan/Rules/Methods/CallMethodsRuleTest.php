@@ -832,6 +832,23 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
+	public function testCallMethodWithInheritDocWithoutCurlyBraces(): void
+	{
+		$this->checkThisOnly = false;
+		$this->checkNullables = true;
+		$this->checkUnionTypes = true;
+		$this->analyse([__DIR__ . '/data/calling-method-with-inheritdoc-without-curly-braces.php'], [
+			[
+				'Parameter #1 $i of method MethodWithInheritDocWithoutCurlyBraces\Baz::doFoo() expects int, string given.',
+				65,
+			],
+			[
+				'Parameter #1 $str of method MethodWithInheritDocWithoutCurlyBraces\Foo::doBar() expects string, int given.',
+				67,
+			],
+		]);
+	}
+
 	public function testCallMethodWithPhpDocsImplicitInheritance(): void
 	{
 		$this->checkThisOnly = false;
