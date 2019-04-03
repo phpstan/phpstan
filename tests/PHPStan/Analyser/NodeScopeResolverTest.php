@@ -1888,10 +1888,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'PropertiesNamespace\Bar',
 				'$this->inheritDocProperty',
 			],
-            [
-                'PropertiesNamespace\Bar',
-                '$this->inheritDocWithoutCurlyBracesProperty',
-            ],
+			[
+				'PropertiesNamespace\Bar',
+				'$this->inheritDocWithoutCurlyBracesProperty',
+			],
 			[
 				'PropertiesNamespace\Bar',
 				'$this->implicitInheritDocProperty',
