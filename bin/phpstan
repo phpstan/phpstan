@@ -14,15 +14,15 @@ if (is_file($autoloaderInWorkingDirectory)) {
 	require_once $autoloaderInWorkingDirectory;
 }
 
-$composerAutoloadFile = __DIR__ . '/../vendor/autoload.php';
-if (!is_file($composerAutoloadFile)) {
-	$composerAutoloadFile = __DIR__ . '/../../autoload.php';
-}
-if (!is_file($composerAutoloadFile)) {
-	$composerAutoloadFile = __DIR__ . '/../../../autoload.php';
+$projectAutoloadFile = __DIR__ . '/../../../autoload.php';
+if (is_file($projectAutoloadFile)) {
+	require_once $projectAutoloadFile;
 }
 
-require_once $composerAutoloadFile;
+$devOrPharAutoloadFile = __DIR__ . '/../vendor/autoload.php';
+if (is_file($devOrPharAutoloadFile)) {
+	require_once $devOrPharAutoloadFile;
+}
 
 $xdebug = new XdebugHandler('phpstan', '--ansi');
 $xdebug->check();
