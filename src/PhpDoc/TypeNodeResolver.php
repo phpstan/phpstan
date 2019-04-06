@@ -65,7 +65,7 @@ class TypeNodeResolver
 
 	public function getCacheKey(): string
 	{
-		$key = 'v51';
+		$key = 'v50';
 		foreach ($this->extensions as $extension) {
 			$key .= sprintf('-%s', $extension->getCacheKey());
 		}
@@ -146,7 +146,6 @@ class TypeNodeResolver
 					new FloatType(),
 					new StringType(),
 					new BooleanType(),
-					new NullType(),
 				]);
 
 			case 'number':
