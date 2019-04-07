@@ -17,20 +17,17 @@ if (is_file($autoloaderInWorkingDirectory)) {
 $autoloadProjectAutoloaderFile = function (string $file): void {
 	$path = dirname(__DIR__) . $file;
 	if (!extension_loaded('phar')) {
-		var_dump($path);
 		if (is_file($path)) {
 			require_once $path;
 		}
 	} else {
 		$pharPath = \Phar::running(false);
 		if ($pharPath === '') {
-			var_dump($path);
 			if (is_file($path)) {
 				require_once $path;
 			}
 		} else {
 			$path = dirname($pharPath) . $file;
-        	var_dump($path);
         	if (is_file($path)) {
         		require_once $path;
         	}
