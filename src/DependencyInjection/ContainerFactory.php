@@ -3,6 +3,7 @@
 namespace PHPStan\DependencyInjection;
 
 use Nette\DI\Extensions\PhpExtension;
+use Phar;
 use PHPStan\Broker\Broker;
 use PHPStan\File\FileHelper;
 use PHPStan\File\RelativePathHelper;
@@ -23,7 +24,15 @@ class ContainerFactory
 	{
 		$this->currentWorkingDirectory = $currentWorkingDirectory;
 		$fileHelper = new FileHelper($currentWorkingDirectory);
-		$this->rootDirectory = $fileHelper->normalizePath(__DIR__ . '/../..');
+
+		$rootDir = __DIR__ . '/../..';
+		if (extension_loaded('phar')) {
+			$pharPath = Phar::running(false);
+			if ($pharPath !== '') {
+				$rootDir = dirname($pharPath);
+			}
+		}
+		$this->rootDirectory = $fileHelper->normalizePath($rootDir);
 		$this->configDirectory = $this->rootDirectory . '/conf';
 	}
 
