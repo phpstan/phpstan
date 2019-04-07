@@ -26,6 +26,7 @@ class ContainerFactory
 		$fileHelper = new FileHelper($currentWorkingDirectory);
 
 		$rootDir = __DIR__ . '/../..';
+		$originalRootDir = $fileHelper->normalizePath($rootDir);
 		if (extension_loaded('phar')) {
 			$pharPath = Phar::running(false);
 			if ($pharPath !== '') {
@@ -33,7 +34,7 @@ class ContainerFactory
 			}
 		}
 		$this->rootDirectory = $fileHelper->normalizePath($rootDir);
-		$this->configDirectory = $this->rootDirectory . '/conf';
+		$this->configDirectory = $originalRootDir . '/conf';
 	}
 
 	/**
