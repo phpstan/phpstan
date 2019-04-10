@@ -82,3 +82,10 @@ function notThrowableInUnionThrows()
 function notThrowableInIntersectThrows()
 {
 }
+
+/**
+ * @throws void
+ */
+function voidThrows()
+{
+}
