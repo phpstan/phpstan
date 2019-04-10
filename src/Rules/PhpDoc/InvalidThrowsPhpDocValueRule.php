@@ -49,7 +49,7 @@ class InvalidThrowsPhpDocValueRule implements \PHPStan\Rules\Rule
 		}
 
 		$phpDocThrowsType = $resolvedPhpDoc->getThrowsTag()->getType();
-		if ((new VoidType())->accepts($phpDocThrowsType, $scope->isDeclareStrictTypes())->yes()) {
+		if ((new VoidType())->isSuperTypeOf($phpDocThrowsType)->yes()) {
 			return [];
 		}
 
