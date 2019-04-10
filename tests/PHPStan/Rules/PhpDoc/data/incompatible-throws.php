@@ -89,3 +89,17 @@ function notThrowableInIntersectThrows()
 function voidThrows()
 {
 }
+
+/**
+ * @throws \Throwable|void
+ */
+function voidUnionThrows()
+{
+}
+
+/**
+ * @throws \stdClass|void
+ */
+function voidUnionWithNotThrowableThrows()
+{
+}
