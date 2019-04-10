@@ -37,6 +37,14 @@ class InvalidThrowsPhpDocValueRuleTest extends \PHPStan\Testing\RuleTestCase
 				'PHPDoc tag @throws with type DateTimeImmutable&IteratorAggregate is not subtype of Throwable',
 				82,
 			],
+			[
+				'PHPDoc tag @throws with type Throwable|void is not subtype of Throwable',
+				96,
+			],
+			[
+				'PHPDoc tag @throws with type stdClass|void is not subtype of Throwable',
+				103,
+			],
 		]);
 	}
 
