@@ -5450,7 +5450,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$mbInternalEncodingWithUnknownEncoding',
 			],
 			[
-				'array',
+				'array<string>',
 				'$mbEncodingAliasesWithValidEncoding',
 			],
 			[
@@ -5458,11 +5458,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$mbEncodingAliasesWithInvalidEncoding',
 			],
 			[
-				'array|false',
+				'array<string>|false',
 				'$mbEncodingAliasesWithValidAndInvalidEncoding',
 			],
 			[
-				'array|false',
+				'array<string>|false',
 				'$mbEncodingAliasesWithUnknownEncoding',
 			],
 			[
@@ -7561,19 +7561,19 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$anotherExpectedArray',
 			],
 			[
-				'array|string',
+				'array<string>|string',
 				'$expectedArrayOrString',
 			],
 			[
-				'(array|string)',
+				'(array<string>|string)',
 				'$expectedBenevolentArrayOrString',
 			],
 			[
-				'array|string|null',
+				'array<string>|string|null',
 				'$expectedArrayOrString2',
 			],
 			[
-				'array|string|null',
+				'array<string>|string|null',
 				'$anotherExpectedArrayOrString',
 			],
 			[

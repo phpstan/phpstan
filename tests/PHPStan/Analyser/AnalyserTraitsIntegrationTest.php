@@ -145,7 +145,7 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 	public function testTraitInEval(): void
 	{
 		$errors = $this->runAnalyse([__DIR__ . '/traits/TraitInEvalUse.php']);
-		$this->assertCount(0, $errors);
+		$this->assertCount(0, $errors, 'errors: ' . print_r($errors, true));
 	}
 
 	public function testParameterNotFoundCrash(): void
