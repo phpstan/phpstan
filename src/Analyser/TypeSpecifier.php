@@ -569,7 +569,12 @@ class TypeSpecifier
 		return null;
 	}
 
-	public function create(Expr $expr, Type $type, TypeSpecifierContext $context): SpecifiedTypes
+	public function create(
+		Expr $expr,
+		Type $type,
+		TypeSpecifierContext $context,
+		bool $overwrite = false
+	): SpecifiedTypes
 	{
 		if ($expr instanceof New_ || $expr instanceof Instanceof_) {
 			return new SpecifiedTypes();
@@ -585,7 +590,7 @@ class TypeSpecifier
 			$sureTypes[$exprString] = [$expr, $type];
 		}
 
-		return new SpecifiedTypes($sureTypes, $sureNotTypes);
+		return new SpecifiedTypes($sureTypes, $sureNotTypes, $overwrite);
 	}
 
 	/**

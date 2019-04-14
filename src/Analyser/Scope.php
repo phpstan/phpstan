@@ -2407,7 +2407,9 @@ class Scope implements ClassMemberAccessAnswerer
 			$expr = $typeSpecification['expr'];
 			$type = $typeSpecification['type'];
 			if ($typeSpecification['sure']) {
-				$type = TypeCombinator::intersect($type, $this->getType($expr));
+				if (!$specifiedTypes->shouldOverwrite()) {
+					$type = TypeCombinator::intersect($type, $this->getType($expr));
+				}
 				$scope = $scope->specifyExpressionType($expr, $type);
 			} else {
 				$scope = $scope->removeTypeFromExpression($expr, $type);
