@@ -13160,7 +13160,7 @@ return [
 'Spoofchecker::isSuspicious' => ['bool', 'text'=>'string', '&w_error='=>'string'],
 'Spoofchecker::setAllowedLocales' => ['void', 'locale_list'=>'string'],
 'Spoofchecker::setChecks' => ['void', 'checks'=>'long'],
-'sprintf' => ['string', 'format'=>'string', '...vars='=>'string|int|float'],
+'sprintf' => ['string', 'format'=>'string', '...args='=>'string|int|float'],
 'SQLite3::__construct' => ['void', 'filename'=>'string', 'flags='=>'int', 'encryption_key='=>'?string'],
 'SQLite3::busyTimeout' => ['bool', 'msecs'=>'int'],
 'SQLite3::changes' => ['int'],

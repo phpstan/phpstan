@@ -148,42 +148,45 @@ class Analyser
 						function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors, $file, &$scopeBenchmarkTime): void {
 							$this->benchmarkEnd($scopeBenchmarkTime, 'scope');
 							$uniquedAnalysedCodeExceptionMessages = [];
-							foreach ($this->registry->getRules(get_class($node)) as $rule) {
-								try {
-									$ruleBenchmarkTime = $this->benchmarkStart();
-									$ruleErrors = $rule->processNode($node, $scope);
-									$this->benchmarkEnd($ruleBenchmarkTime, sprintf('rule-%s', get_class($rule)));
-								} catch (\PHPStan\AnalysedCodeException $e) {
-									if (isset($uniquedAnalysedCodeExceptionMessages[$e->getMessage()])) {
+							$classFromNode = get_class($node);
+							if ($classFromNode !== false) {
+								foreach ($this->registry->getRules($classFromNode) as $rule) {
+									try {
+										$ruleBenchmarkTime = $this->benchmarkStart();
+										$ruleErrors = $rule->processNode($node, $scope);
+										$this->benchmarkEnd($ruleBenchmarkTime, sprintf('rule-%s', get_class($rule)));
+									} catch (\PHPStan\AnalysedCodeException $e) {
+										if (isset($uniquedAnalysedCodeExceptionMessages[$e->getMessage()])) {
+											continue;
+										}
+
+										$uniquedAnalysedCodeExceptionMessages[$e->getMessage()] = true;
+										$fileErrors[] = new Error($e->getMessage(), $file, $node->getLine(), false);
 										continue;
 									}
 
-									$uniquedAnalysedCodeExceptionMessages[$e->getMessage()] = true;
-									$fileErrors[] = new Error($e->getMessage(), $file, $node->getLine(), false);
-									continue;
-								}
-
-								foreach ($ruleErrors as $ruleError) {
-									$line = $node->getLine();
-									$fileName = $scope->getFileDescription();
-									if (is_string($ruleError)) {
-										$message = $ruleError;
-									} else {
-										$message = $ruleError->getMessage();
-										if (
-											$ruleError instanceof LineRuleError
-											&& $ruleError->getLine() !== -1
-										) {
-											$line = $ruleError->getLine();
+									foreach ($ruleErrors as $ruleError) {
+										$line = $node->getLine();
+										$fileName = $scope->getFileDescription();
+										if (is_string($ruleError)) {
+											$message = $ruleError;
+										} else {
+											$message = $ruleError->getMessage();
+											if (
+												$ruleError instanceof LineRuleError
+												&& $ruleError->getLine() !== -1
+											) {
+												$line = $ruleError->getLine();
+											}
+											if (
+												$ruleError instanceof FileRuleError
+												&& $ruleError->getFile() !== ''
+											) {
+												$fileName = $ruleError->getFile();
+											}
 										}
-										if (
-											$ruleError instanceof FileRuleError
-											&& $ruleError->getFile() !== ''
-										) {
-											$fileName = $ruleError->getFile();
-										}
+										$fileErrors[] = new Error($message, $fileName, $line);
 									}
-									$fileErrors[] = new Error($message, $fileName, $line);
 								}
 							}
 

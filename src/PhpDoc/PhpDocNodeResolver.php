@@ -80,7 +80,7 @@ class PhpDocNodeResolver
 		$resolved = [];
 
 		foreach ($phpDocNode->getPropertyTagValues() as $tagValue) {
-			$propertyName = substr($tagValue->propertyName, 1);
+			$propertyName = (string) substr($tagValue->propertyName, 1);
 			$propertyType = !isset($resolved[$propertyName])
 				? $this->typeNodeResolver->resolve($tagValue->type, $nameScope)
 				: new MixedType();
@@ -93,7 +93,7 @@ class PhpDocNodeResolver
 		}
 
 		foreach ($phpDocNode->getPropertyReadTagValues() as $tagValue) {
-			$propertyName = substr($tagValue->propertyName, 1);
+			$propertyName = (string) substr($tagValue->propertyName, 1);
 			$propertyType = !isset($resolved[$propertyName])
 				? $this->typeNodeResolver->resolve($tagValue->type, $nameScope)
 				: new MixedType();
@@ -106,7 +106,7 @@ class PhpDocNodeResolver
 		}
 
 		foreach ($phpDocNode->getPropertyWriteTagValues() as $tagValue) {
-			$propertyName = substr($tagValue->propertyName, 1);
+			$propertyName = (string) substr($tagValue->propertyName, 1);
 			$propertyType = !isset($resolved[$propertyName])
 				? $this->typeNodeResolver->resolve($tagValue->type, $nameScope)
 				: new MixedType();
@@ -133,7 +133,7 @@ class PhpDocNodeResolver
 		foreach ($phpDocNode->getMethodTagValues() as $tagValue) {
 			$parameters = [];
 			foreach ($tagValue->parameters as $parameterNode) {
-				$parameterName = substr($parameterNode->parameterName, 1);
+				$parameterName = (string) substr($parameterNode->parameterName, 1);
 				$type = $parameterNode->type !== null ? $this->typeNodeResolver->resolve($parameterNode->type, $nameScope) : new MixedType();
 				if ($parameterNode->defaultValue instanceof ConstExprNullNode) {
 					$type = TypeCombinator::addNull($type);
@@ -167,7 +167,7 @@ class PhpDocNodeResolver
 	{
 		$resolved = [];
 		foreach ($phpDocNode->getParamTagValues() as $tagValue) {
-			$parameterName = substr($tagValue->parameterName, 1);
+			$parameterName = (string) substr($tagValue->parameterName, 1);
 			$parameterType = !isset($resolved[$parameterName])
 				? $this->typeNodeResolver->resolve($tagValue->type, $nameScope)
 				: new MixedType();

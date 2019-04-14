@@ -56,7 +56,7 @@ class SignatureMapParser
 			$isNullable = false;
 			if (substr($part, 0, 1) === '?') {
 				$isNullable = true;
-				$part = substr($part, 1);
+				$part = (string) substr($part, 1);
 			}
 
 			if ($part === 'OCI-Lob' || $part === 'OCI-Collection') {

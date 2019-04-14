@@ -106,7 +106,7 @@ class InvalidBinaryOperationRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf(
 					'Binary operation "%s" between %s and %s results in an error.',
-					substr(substr($this->printer->prettyPrintExpr($newNode), strlen($leftName) + 2), 0, -(strlen($rightName) + 2)),
+					(string) substr((string) substr($this->printer->prettyPrintExpr($newNode), strlen($leftName) + 2), 0, -(strlen($rightName) + 2)),
 					$scope->getType($left)->describe(VerbosityLevel::value()),
 					$scope->getType($right)->describe(VerbosityLevel::value())
 				),

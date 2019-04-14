@@ -76,7 +76,7 @@ class InvalidCastRule implements \PHPStan\Rules\Rule
 
 		$castType = $castTypeCallback($type);
 		if ($castType instanceof ErrorType) {
-			$classReflection = $this->broker->getClass(get_class($node));
+			$classReflection = $this->broker->getClass((string) get_class($node));
 			$shortName = $classReflection->getNativeReflection()->getShortName();
 			$shortName = strtolower($shortName);
 			if ($shortName === 'double') {

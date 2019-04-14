@@ -175,7 +175,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 		$lowercaseName = strtolower($name);
 		if ($lowercaseName === $name) {
 			// fix for https://bugs.php.net/bug.php?id=74939
-			foreach ($this->getDeclaringClass()->getNativeReflection()->getTraitAliases() as $traitTarget) {
+			foreach ((array) $this->getDeclaringClass()->getNativeReflection()->getTraitAliases() as $traitTarget) {
 				$correctName = $this->getMethodNameWithCorrectCase($name, $traitTarget);
 				if ($correctName !== null) {
 					$name = $correctName;
@@ -191,7 +191,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	{
 		$trait = explode('::', $traitTarget)[0];
 		$traitReflection = $this->broker->getClass($trait)->getNativeReflection();
-		foreach ($traitReflection->getTraitAliases() as $methodAlias => $aliasTraitTarget) {
+		foreach ((array) $traitReflection->getTraitAliases() as $methodAlias => $aliasTraitTarget) {
 			if ($lowercaseMethodName === strtolower($methodAlias)) {
 				return $methodAlias;
 			}

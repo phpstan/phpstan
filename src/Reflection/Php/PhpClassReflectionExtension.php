@@ -445,7 +445,7 @@ class PhpClassReflectionExtension
 		}
 
 		$declaringClass = $methodReflection->getDeclaringClass();
-		$traitAliases = $declaringClass->getTraitAliases();
+		$traitAliases = (array) $declaringClass->getTraitAliases();
 		if (array_key_exists($methodReflection->getName(), $traitAliases)) {
 			return explode('::', $traitAliases[$methodReflection->getName()])[0];
 		}

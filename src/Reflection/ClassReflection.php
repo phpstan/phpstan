@@ -431,9 +431,9 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 	private function getTraitNames(): array
 	{
 		$class = $this->reflection;
-		$traitNames = $class->getTraitNames();
+		$traitNames = (array) $class->getTraitNames();
 		while ($class->getParentClass() !== false) {
-			$traitNames = array_values(array_unique(array_merge($traitNames, $class->getParentClass()->getTraitNames())));
+			$traitNames = array_values(array_unique(array_merge($traitNames, (array) $class->getParentClass()->getTraitNames())));
 			$class = $class->getParentClass();
 		}
 

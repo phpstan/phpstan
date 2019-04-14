@@ -187,7 +187,8 @@ class FileTypeMapper
 				} elseif ($node instanceof Node\Stmt\TraitUse) {
 					foreach ($node->traits as $traitName) {
 						$traitName = (string) $traitName;
-						if (!trait_exists($traitName)) {
+						$traitExists = trait_exists($traitName);
+						if ($traitExists === false || $traitExists === null) {
 							continue;
 						}
 
