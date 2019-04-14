@@ -7125,7 +7125,7 @@ return [
 'mb_detect_encoding' => ['string|false', 'str'=>'string', 'encoding_list='=>'mixed', 'strict='=>'bool'],
 'mb_detect_order' => ['bool|string[]', 'encoding_list='=>'mixed'],
 'mb_encode_mimeheader' => ['string|false', 'str'=>'string', 'charset='=>'string', 'transfer_encoding='=>'string', 'linefeed='=>'string', 'indent='=>'int'],
-'mb_encode_numericentity' => ['string|false', 'string'=>'string', 'convmap'=>'array', 'encoding'=>'string', 'is_hex='=>'bool'],
+'mb_encode_numericentity' => ['string|false', 'string'=>'string', 'convmap'=>'array', 'encoding='=>'string', 'is_hex='=>'bool'],
 'mb_encoding_aliases' => ['string[]|false', 'encoding'=>'string'],
 'mb_ereg' => ['int|false', 'pattern'=>'string', 'string'=>'string', '&w_registers='=>'array'],
 'mb_ereg_match' => ['bool', 'pattern'=>'string', 'string'=>'string', 'option='=>'string'],
