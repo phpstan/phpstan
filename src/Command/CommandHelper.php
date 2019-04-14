@@ -3,6 +3,7 @@
 namespace PHPStan\Command;
 
 use Nette\DI\Helpers;
+use PHPStan\DependencyInjection\Container;
 use PHPStan\DependencyInjection\ContainerFactory;
 use PHPStan\DependencyInjection\LoaderFactory;
 use PHPStan\File\FileFinder;
@@ -173,8 +174,9 @@ class CommandHelper
 			$defaultLevelUsed = false;
 		}
 
+		$container = $netteContainer->getByType(Container::class);
 		foreach ($netteContainer->parameters['autoload_files'] as $parameterAutoloadFile) {
-			(static function (string $file): void {
+			(static function (string $file) use ($container): void {
 				require_once $file;
 			})($fileHelper->normalizePath($parameterAutoloadFile));
 		}
@@ -205,7 +207,7 @@ class CommandHelper
 				throw new \PHPStan\Command\InceptionNotSuccessfulException();
 			}
 			try {
-				(static function (string $file): void {
+				(static function (string $file) use ($container): void {
 					require_once $file;
 				})($bootstrapFile);
 			} catch (\Throwable $e) {
