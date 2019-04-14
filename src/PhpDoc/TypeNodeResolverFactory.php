@@ -2,14 +2,14 @@
 
 namespace PHPStan\PhpDoc;
 
-use Nette\DI\Container;
+use PHPStan\DependencyInjection\Container;
 
 class TypeNodeResolverFactory
 {
 
 	public const EXTENSION_TAG = 'phpstan.phpDoc.typeNodeResolverExtension';
 
-	/** @var \Nette\DI\Container */
+	/** @var \PHPStan\DependencyInjection\Container */
 	private $container;
 
 	public function __construct(Container $container)
@@ -19,14 +19,8 @@ class TypeNodeResolverFactory
 
 	public function create(): TypeNodeResolver
 	{
-		$tagToService = function (array $tags) {
-			return array_map(function (string $serviceName) {
-				return $this->container->getService($serviceName);
-			}, array_keys($tags));
-		};
-
 		return new TypeNodeResolver(
-			$tagToService($this->container->findByTag(self::EXTENSION_TAG))
+			$this->container->getServicesByTag(self::EXTENSION_TAG)
 		);
 	}
 

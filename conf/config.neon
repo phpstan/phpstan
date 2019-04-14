@@ -170,6 +170,10 @@ services:
 		class: PHPStan\Dependency\DependencyResolver
 
 	-
+		class: PHPStan\DependencyInjection\Container
+		factory: PHPStan\DependencyInjection\Nette\NetteContainer
+
+	-
 		class: PHPStan\File\FileHelper
 		arguments:
 			workingDirectory: %currentWorkingDirectory%

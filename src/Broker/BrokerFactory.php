@@ -2,6 +2,7 @@
 
 namespace PHPStan\Broker;
 
+use PHPStan\DependencyInjection\Container;
 use PHPStan\File\RelativePathHelper;
 use PHPStan\Parser\Parser;
 use PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension;
@@ -21,22 +22,16 @@ class BrokerFactory
 	public const DYNAMIC_STATIC_METHOD_RETURN_TYPE_EXTENSION_TAG = 'phpstan.broker.dynamicStaticMethodReturnTypeExtension';
 	public const DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG = 'phpstan.broker.dynamicFunctionReturnTypeExtension';
 
-	/** @var \Nette\DI\Container */
+	/** @var \PHPStan\DependencyInjection\Container */
 	private $container;
 
-	public function __construct(\Nette\DI\Container $container)
+	public function __construct(Container $container)
 	{
 		$this->container = $container;
 	}
 
 	public function create(): Broker
 	{
-		$tagToService = function (array $tags) {
-			return array_map(function (string $serviceName) {
-				return $this->container->getService($serviceName);
-			}, array_keys($tags));
-		};
-
 		$phpClassReflectionExtension = $this->container->getByType(PhpClassReflectionExtension::class);
 		$annotationsMethodsClassReflectionExtension = $this->container->getByType(AnnotationsMethodsClassReflectionExtension::class);
 		$annotationsPropertiesClassReflectionExtension = $this->container->getByType(AnnotationsPropertiesClassReflectionExtension::class);
@@ -46,11 +41,11 @@ class BrokerFactory
 		$relativePathHelper = $this->container->getService('relativePathHelper');
 
 		return new Broker(
-			array_merge([$phpClassReflectionExtension, $phpDefectClassReflectionExtension], $tagToService($this->container->findByTag(self::PROPERTIES_CLASS_REFLECTION_EXTENSION_TAG)), [$annotationsPropertiesClassReflectionExtension]),
-			array_merge([$phpClassReflectionExtension], $tagToService($this->container->findByTag(self::METHODS_CLASS_REFLECTION_EXTENSION_TAG)), [$annotationsMethodsClassReflectionExtension]),
-			$tagToService($this->container->findByTag(self::DYNAMIC_METHOD_RETURN_TYPE_EXTENSION_TAG)),
-			$tagToService($this->container->findByTag(self::DYNAMIC_STATIC_METHOD_RETURN_TYPE_EXTENSION_TAG)),
-			$tagToService($this->container->findByTag(self::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG)),
+			array_merge([$phpClassReflectionExtension, $phpDefectClassReflectionExtension], $this->container->getServicesByTag(self::PROPERTIES_CLASS_REFLECTION_EXTENSION_TAG), [$annotationsPropertiesClassReflectionExtension]),
+			array_merge([$phpClassReflectionExtension], $this->container->getServicesByTag(self::METHODS_CLASS_REFLECTION_EXTENSION_TAG), [$annotationsMethodsClassReflectionExtension]),
+			$this->container->getServicesByTag(self::DYNAMIC_METHOD_RETURN_TYPE_EXTENSION_TAG),
+			$this->container->getServicesByTag(self::DYNAMIC_STATIC_METHOD_RETURN_TYPE_EXTENSION_TAG),
+			$this->container->getServicesByTag(self::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG),
 			$this->container->getByType(FunctionReflectionFactory::class),
 			$this->container->getByType(FileTypeMapper::class),
 			$this->container->getByType(SignatureMapProvider::class),
@@ -58,7 +53,7 @@ class BrokerFactory
 			$this->container->getByType(AnonymousClassNameHelper::class),
 			$this->container->getByType(Parser::class),
 			$relativePathHelper,
-			$this->container->parameters['universalObjectCratesClasses']
+			$this->container->getParameter('universalObjectCratesClasses')
 		);
 	}
 
