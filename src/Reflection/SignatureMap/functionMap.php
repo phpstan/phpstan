@@ -3960,7 +3960,7 @@ return [
 'grapheme_extract' => ['string|false', 'str'=>'string', 'size'=>'int', 'extract_type='=>'int', 'start='=>'int', '&w_next='=>'int'],
 'grapheme_stripos' => ['int|false', 'haystack'=>'string', 'needle'=>'string', 'offset='=>'int'],
 'grapheme_stristr' => ['string|false', 'haystack'=>'string', 'needle'=>'string', 'part='=>'bool'],
-'grapheme_strlen' => ['int|false', 'str'=>'string'],
+'grapheme_strlen' => ['int|false|null', 'str'=>'string'],
 'grapheme_strpos' => ['int|false', 'haystack'=>'string', 'needle'=>'string', 'offset='=>'int'],
 'grapheme_strripos' => ['int|false', 'haystack'=>'string', 'needle'=>'string', 'offset='=>'int'],
 'grapheme_strrpos' => ['int|false', 'haystack'=>'string', 'needle'=>'string', 'offset='=>'int'],
