@@ -5128,7 +5128,7 @@ return [
 'iconv_mime_decode_headers' => ['array|false', 'headers'=>'string', 'mode='=>'int', 'charset='=>'string'],
 'iconv_mime_encode' => ['string|false', 'field_name'=>'string', 'field_value'=>'string', 'preference='=>'array'],
 'iconv_set_encoding' => ['bool', 'type'=>'string', 'charset'=>'string'],
-'iconv_strlen' => ['int', 'str'=>'string', 'charset='=>'string'],
+'iconv_strlen' => ['int|false', 'str'=>'string', 'charset='=>'string'],
 'iconv_strpos' => ['int|false', 'haystack'=>'string', 'needle'=>'string', 'offset='=>'int', 'charset='=>'string'],
 'iconv_strrpos' => ['int|false', 'haystack'=>'string', 'needle'=>'string', 'charset='=>'string'],
 'iconv_substr' => ['string|false', 'str'=>'string', 'offset'=>'int', 'length='=>'int', 'charset='=>'string'],
