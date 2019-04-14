@@ -284,6 +284,6 @@ class ClassUsingTrait implements Foo
 
 function (\Iterator $arg) {
     foreach ($arg as $key => $value) {
-        assert($key instanceof Foo);
+        assert($value instanceof Foo);
     }
 };
