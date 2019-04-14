@@ -32,6 +32,10 @@ services:
 		class: PHPStan\Build\ServiceLocatorDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicMethodReturnTypeExtension
+	-
+		class: PHPStan\Internal\ContainerDynamicReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicMethodReturnTypeExtension
 
 	-
 		class: PHPStan\Internal\UnionTypeGetInternalDynamicReturnTypeExtension

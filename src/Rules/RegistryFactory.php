@@ -2,29 +2,25 @@
 
 namespace PHPStan\Rules;
 
+use PHPStan\DependencyInjection\Container;
+
 class RegistryFactory
 {
 
 	public const RULE_TAG = 'phpstan.rules.rule';
 
-	/** @var \Nette\DI\Container */
+	/** @var Container */
 	private $container;
 
-	public function __construct(\Nette\DI\Container $container)
+	public function __construct(Container $container)
 	{
 		$this->container = $container;
 	}
 
 	public function create(): Registry
 	{
-		$tagToService = function (array $tags) {
-			return array_map(function (string $serviceName) {
-				return $this->container->getService($serviceName);
-			}, array_keys($tags));
-		};
-
 		return new Registry(
-			$tagToService($this->container->findByTag(self::RULE_TAG))
+			$this->container->getServicesByTag(self::RULE_TAG)
 		);
 	}
 

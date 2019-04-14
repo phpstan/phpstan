@@ -12,6 +12,7 @@ use PHPStan\Broker\Broker;
 use PHPStan\Broker\BrokerFactory;
 use PHPStan\Cache\Cache;
 use PHPStan\Cache\MemoryCacheStorage;
+use PHPStan\DependencyInjection\Container;
 use PHPStan\DependencyInjection\ContainerFactory;
 use PHPStan\File\FileHelper;
 use PHPStan\File\RelativePathHelper;
@@ -263,7 +264,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			$broker,
 			new \PhpParser\PrettyPrinter\Standard(),
 			$typeSpecifier,
-			$container
+			$container->getByType(Container::class)
 		);
 	}
 

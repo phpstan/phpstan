@@ -4,6 +4,7 @@ namespace PHPStan\Analyser;
 
 use PhpParser\Node\Expr;
 use PHPStan\Broker\Broker;
+use PHPStan\DependencyInjection\Container;
 use PHPStan\Type\Type;
 
 class ScopeFactory
@@ -29,14 +30,14 @@ class ScopeFactory
 		Broker $broker,
 		\PhpParser\PrettyPrinter\Standard $printer,
 		TypeSpecifier $typeSpecifier,
-		\Nette\DI\Container $container
+		Container $container
 	)
 	{
 		$this->scopeClass = $scopeClass;
 		$this->broker = $broker;
 		$this->printer = $printer;
 		$this->typeSpecifier = $typeSpecifier;
-		$this->dynamicConstantNames = $container->parameters['dynamicConstantNames'];
+		$this->dynamicConstantNames = $container->getParameter('dynamicConstantNames');
 	}
 
 	/**

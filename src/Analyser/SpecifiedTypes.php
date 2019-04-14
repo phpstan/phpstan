@@ -13,14 +13,23 @@ class SpecifiedTypes
 	/** @var mixed[] */
 	private $sureNotTypes;
 
+	/** @var bool */
+	private $overwrite;
+
 	/**
 	 * @param mixed[] $sureTypes
 	 * @param mixed[] $sureNotTypes
+	 * @param bool $overwrite
 	 */
-	public function __construct(array $sureTypes = [], array $sureNotTypes = [])
+	public function __construct(
+		array $sureTypes = [],
+		array $sureNotTypes = [],
+		bool $overwrite = false
+	)
 	{
 		$this->sureTypes = $sureTypes;
 		$this->sureNotTypes = $sureNotTypes;
+		$this->overwrite = $overwrite;
 	}
 
 	/**
@@ -37,6 +46,11 @@ class SpecifiedTypes
 	public function getSureNotTypes(): array
 	{
 		return $this->sureNotTypes;
+	}
+
+	public function shouldOverwrite(): bool
+	{
+		return $this->overwrite;
 	}
 
 	public function intersectWith(SpecifiedTypes $other): self
