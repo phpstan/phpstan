@@ -1602,7 +1602,7 @@ return [
 'DateTime::__wakeup' => ['void'],
 'DateTime::add' => ['static', 'interval'=>'DateInterval'],
 'DateTime::createFromFormat' => ['static|false', 'format'=>'string', 'time'=>'string', 'timezone='=>'DateTimeZone|null'],
-'DateTime::createFromImmutable' => ['static|null', 'object'=>'DateTimeImmutable'],
+'DateTime::createFromImmutable' => ['static', 'object'=>'DateTimeImmutable'],
 'DateTime::diff' => ['DateInterval', 'datetime2'=>'DateTimeInterface', 'absolute='=>'bool'],
 'DateTime::format' => ['string', 'format'=>'string'],
 'DateTime::getLastErrors' => ['array'],
