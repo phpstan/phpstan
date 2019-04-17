@@ -25,6 +25,9 @@ parameters:
 		-
 			message: '#Variable static method call on PHPStan\\PhpDoc\\PhpDocBlock\.#'
 			path: %rootDir%/src/PhpDoc/PhpDocBlock.php
+		-
+			message: '#Anonymous function has an unused use \$container\.#'
+			path: %rootDir%/src/Command/CommandHelper.php
 	reportStaticMethodSignatures: true
 	tmpDir: %rootDir%/tmp
 services:
