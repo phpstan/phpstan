@@ -1974,6 +1974,7 @@ return [
 'DOMImplementation::createDocument' => ['DOMDocument', 'namespaceuri='=>'string', 'qualifiedname='=>'string', 'doctype='=>'DOMDocumentType'],
 'DOMImplementation::createDocumentType' => ['DOMDocumentType', 'qualifiedname='=>'string', 'publicid='=>'string', 'systemid='=>'string'],
 'DOMImplementation::hasFeature' => ['bool', 'feature'=>'string', 'version'=>'string'],
+'DOMNamedNodeMap::count' => ['int'],
 'DOMNamedNodeMap::getNamedItem' => ['?DOMNode', 'name'=>'string'],
 'DOMNamedNodeMap::getNamedItemNS' => ['?DOMNode', 'namespaceuri'=>'string', 'localname'=>'string'],
 'DOMNamedNodeMap::item' => ['?DOMNode', 'index'=>'int'],
