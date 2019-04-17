@@ -2179,7 +2179,7 @@ return [
 'Ds\Set::first' => ['mixed'],
 'Ds\Set::get' => ['mixed', 'index'=>'int'],
 'Ds\Set::intersect' => ['Ds\Set', 'set'=>'Ds\Set'],
-'Ds\Set::join' => ['void', 'glue='=>'string'],
+'Ds\Set::join' => ['string', 'glue='=>'string'],
 'Ds\Set::last' => ['mixed'],
 'Ds\Set::merge' => ['Ds\Set', 'values'=>'mixed'],
 'Ds\Set::reduce' => ['mixed', 'callback'=>'callable', 'initial='=>'mixed'],
