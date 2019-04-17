@@ -3,6 +3,7 @@
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Accessory\NonEmptyArrayType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 
@@ -86,6 +87,22 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 					]),
 				]),
 				TrinaryLogic::createYes(),
+			],
+			[
+				new ArrayType(new IntegerType(), new IntegerType()),
+				new IntersectionType([
+					new ArrayType(new MixedType(), new MixedType()),
+					new NonEmptyArrayType(),
+				]),
+				TrinaryLogic::createYes(),
+			],
+			[
+				new ArrayType(new IntegerType(), new IntegerType()),
+				new IntersectionType([
+					new ArrayType(new IntegerType(), new StringType()),
+					new NonEmptyArrayType(),
+				]),
+				TrinaryLogic::createNo(),
 			],
 		];
 	}
