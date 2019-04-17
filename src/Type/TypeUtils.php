@@ -2,8 +2,8 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Type\Accessory\AccessoryType;
 use PHPStan\Type\Accessory\HasPropertyType;
-use PHPStan\Type\Accessory\NonEmptyArrayType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantStringType;
 
@@ -133,7 +133,7 @@ class TypeUtils
 		if ($type instanceof UnionType) {
 			$matchingTypes = [];
 			foreach ($type->getTypes() as $innerType) {
-				if ($typeClass === ArrayType::class && $innerType instanceof NonEmptyArrayType) {
+				if ($typeClass === ArrayType::class && $innerType instanceof AccessoryType) {
 					continue;
 				}
 
@@ -154,7 +154,7 @@ class TypeUtils
 		if ($inspectIntersections && $type instanceof IntersectionType) {
 			$matchingTypes = [];
 			foreach ($type->getTypes() as $innerType) {
-				if ($typeClass === ArrayType::class && $innerType instanceof NonEmptyArrayType) {
+				if ($typeClass === ArrayType::class && $innerType instanceof AccessoryType) {
 					continue;
 				}
 
