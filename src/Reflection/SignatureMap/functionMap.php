@@ -7178,7 +7178,7 @@ return [
 'mysqli::next_result' => ['bool'],
 'mysqli::options' => ['bool', 'option'=>'int', 'value'=>'mixed'],
 'mysqli::ping' => ['bool'],
-'mysqli::poll' => ['int|false', '&read'=>'array', '&error'=>'array', '&reject'=>'array', 'sec'=>'int', 'usec='=>'int'],
+'mysqli::poll' => ['int|false', '&w_read'=>'array', '&w_error'=>'array', '&w_reject'=>'array', 'sec'=>'int', 'usec='=>'int'],
 'mysqli::prepare' => ['mysqli_stmt|false', 'query'=>'string'],
 'mysqli::query' => ['bool|mysqli_result', 'query'=>'string', 'resultmode='=>'int'],
 'mysqli::real_connect' => ['bool', 'host='=>'string', 'username='=>'string', 'passwd='=>'string', 'dbname='=>'string', 'port='=>'int', 'socket='=>'string', 'flags='=>'int'],
