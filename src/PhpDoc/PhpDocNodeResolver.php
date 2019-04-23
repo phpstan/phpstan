@@ -218,13 +218,13 @@ class PhpDocNodeResolver
 
 	private function resolveDeprecatedTag(PhpDocNode $phpDocNode, NameScope $nameScope): ?\PHPStan\PhpDoc\Tag\DeprecatedTag
 	{
-		foreach ($phpDocNode->getTagsByName('@deprecated') as $key => $tagValue) {
+		foreach ($phpDocNode->getDeprecatedTagValues() as $key => $deprecatedTagValue) {
 			$totalChildren = count($phpDocNode->children);
 			/** @var \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode[] $textNodes */
 			$textNodes = array_filter($phpDocNode->children, static function (PhpDocChildNode $child): bool {
 				return $child instanceof PhpDocTextNode;
 			});
-			$deprecatedMessage = (string) $tagValue->value;
+			$deprecatedMessage = $deprecatedTagValue->description;
 			if (count($textNodes) > 0) {
 				for ($i = $key; $i < $totalChildren; $i++) {
 					// Skip invalid children.
