@@ -34,18 +34,18 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 			[
 				true,
 				\DeprecatedAnnotations\DeprecatedFoo::class,
-				'DeprecatedAnnotations\DeprecatedFoo is deprecated in 1.0.0.',
+				'in 1.0.0.',
 				[
 					'constant' => [
-						'DEPRECATED_FOO' => 'DEPRECATED_FOO is deprecated Deprecated constant.',
+						'DEPRECATED_FOO' => 'Deprecated constant.',
 					],
 					'method' => [
-						'deprecatedFoo' => 'DeprecatedAnnotations\DeprecatedFoo::deprecatedFoo is deprecated method.',
-						'deprecatedStaticFoo' => 'DeprecatedAnnotations\DeprecatedFoo::deprecatedStaticFoo is deprecated static method.',
+						'deprecatedFoo' => 'method.',
+						'deprecatedStaticFoo' => 'static method.',
 					],
 					'property' => [
-						'deprecatedFoo' => 'DeprecatedAnnotations\DeprecatedFoo::deprecatedFoo is deprecated.',
-						'deprecatedStaticFoo' => 'DeprecatedAnnotations\DeprecatedFoo::deprecatedStaticFoo is deprecated.',
+						'deprecatedFoo' => null,
+						'deprecatedStaticFoo' => null,
 					],
 				],
 			],
@@ -66,10 +66,10 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 			[
 				true,
 				\DeprecatedAnnotations\DeprecatedWithMultipleTags::class,
-				'DeprecatedAnnotations\DeprecatedWithMultipleTags is deprecated in Foo 1.1.0 and will be removed in 1.5.0, use \Foo\Bar\NotDeprecated instead.',
+				'in Foo 1.1.0 and will be removed in 1.5.0, use \Foo\Bar\NotDeprecated instead.',
 				[
 					'method' => [
-						'deprecatedFoo' => 'DeprecatedAnnotations\DeprecatedWithMultipleTags::deprecatedFoo is deprecated in Foo 1.1.0, will be removed in Foo 1.5.0, use \Foo\Bar\NotDeprecated::replacementFoo() instead.',
+						'deprecatedFoo' => 'in Foo 1.1.0, will be removed in Foo 1.5.0, use \Foo\Bar\NotDeprecated::replacementFoo() instead.',
 					],
 				],
 			],

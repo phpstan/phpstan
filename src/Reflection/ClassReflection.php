@@ -44,7 +44,7 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 	/** @var int[]|null */
 	private $classHierarchyDistances;
 
-	/** @var string */
+	/** @var string|null */
 	private $deprecatedDescription;
 
 	/** @var bool|null */
@@ -448,10 +448,10 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 
 	public function getDeprecatedDescription(): ?string
 	{
-		if ($this->deprecatedDescription === null) {
+		if ($this->deprecatedDescription === null && $this->isDeprecated()) {
 			$resolvedPhpDoc = $this->getResolvedPhpDoc();
 			if ($resolvedPhpDoc !== null && $resolvedPhpDoc->getDeprecatedTag() !== null) {
-				$this->deprecatedDescription = $this->getDisplayName() . ' is deprecated ' . $resolvedPhpDoc->getDeprecatedTag()->getMessage();
+				$this->deprecatedDescription = $resolvedPhpDoc->getDeprecatedTag()->getMessage();
 			}
 		}
 

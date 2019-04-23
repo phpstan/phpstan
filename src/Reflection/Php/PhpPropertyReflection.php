@@ -92,11 +92,7 @@ class PhpPropertyReflection implements PropertyReflection, DeprecatableReflectio
 	public function getDeprecatedDescription(): ?string
 	{
 		if ($this->isDeprecated) {
-			$displayName = $this->declaringClass->getDisplayName() . '::' . $this->reflection->getName();
-			if ($this->deprecatedDescription !== null && $this->deprecatedDescription !== '') {
-				return $displayName . ' is deprecated ' . $this->deprecatedDescription;
-			}
-			return $displayName . ' is deprecated.';
+			return $this->deprecatedDescription;
 		}
 
 		return null;

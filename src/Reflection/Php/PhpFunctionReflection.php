@@ -239,10 +239,7 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 	public function getDeprecatedDescription(): ?string
 	{
 		if ($this->isDeprecated) {
-			if ($this->deprecatedDescription !== null && $this->deprecatedDescription !== '') {
-				return $this->getName() . ' is deprecated ' . $this->deprecatedDescription;
-			}
-			return $this->getName() . ' is deprecated.';
+			return $this->deprecatedDescription;
 		}
 
 		return null;

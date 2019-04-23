@@ -241,7 +241,8 @@ class PhpDocNodeResolver
 					$deprecatedMessage .= ' ' . $textNodeText;
 				}
 			}
-			return new DeprecatedTag($deprecatedMessage);
+			$deprecatedMessage = trim($deprecatedMessage);
+			return new DeprecatedTag($deprecatedMessage === '' ? null : $deprecatedMessage);
 		}
 
 		return null;

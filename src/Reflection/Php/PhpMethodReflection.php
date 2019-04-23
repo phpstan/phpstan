@@ -401,11 +401,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	public function getDeprecatedDescription(): ?string
 	{
 		if ($this->isDeprecated) {
-			$displayName = $this->declaringClass->getDisplayName() . '::' . $this->getName();
-			if ($this->deprecatedDescription !== null && $this->deprecatedDescription !== '') {
-				return $displayName . ' is deprecated ' . $this->deprecatedDescription;
-			}
-			return $displayName . ' is deprecated.';
+			return $this->deprecatedDescription;
 		}
 
 		return null;
