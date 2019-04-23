@@ -601,6 +601,7 @@ services:
 	relativePathHelper:
 		class: PHPStan\File\RelativePathHelper
 		dynamic: true
+		autowired: true
 
 	broker:
 		class: PHPStan\Broker\Broker

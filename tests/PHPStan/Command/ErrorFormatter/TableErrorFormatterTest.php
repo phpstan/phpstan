@@ -2,7 +2,7 @@
 
 namespace PHPStan\Command\ErrorFormatter;
 
-use PHPStan\File\RelativePathHelper;
+use PHPStan\File\FuzzyRelativePathHelper;
 
 class TableErrorFormatterTest extends TestBaseFormatter
 {
@@ -143,7 +143,7 @@ class TableErrorFormatterTest extends TestBaseFormatter
 	): void
 	{
 		$this->skipIfNotOnUnix();
-		$formatter = new TableErrorFormatter(new RelativePathHelper(self::DIRECTORY_PATH, '/', []));
+		$formatter = new TableErrorFormatter(new FuzzyRelativePathHelper(self::DIRECTORY_PATH, '/', []));
 
 		$this->assertSame($exitCode, $formatter->formatErrors(
 			$this->getAnalysisResult($numFileErrors, $numGenericErrors),
