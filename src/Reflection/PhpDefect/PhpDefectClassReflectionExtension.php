@@ -53,7 +53,7 @@ class PhpDefectClassReflectionExtension implements PropertiesClassReflectionExte
 			'actualEncoding' => 'string',
 			'config' => 'DOMConfiguration',
 			'doctype' => 'DOMDocumentType',
-			'documentElement' => 'DOMElement',
+			'documentElement' => 'DOMElement|null',
 			'documentURI' => 'string',
 			'encoding' => 'string',
 			'formatOutput' => 'bool',
