@@ -4927,11 +4927,15 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array_fill(5, 6, \'banana\')',
 			],
 			[
+				'array<int, \'apple\'>&nonEmpty',
+				'array_fill(0, 101, \'apple\')',
+			],
+			[
 				'array(-2 => \'pear\', 0 => \'pear\', 1 => \'pear\', 2 => \'pear\')',
 				'array_fill(-2, 4, \'pear\')',
 			],
 			[
-				'array<int, stdClass>',
+				'array<int, stdClass>&nonEmpty',
 				'array_fill($integer, 2, new \stdClass())',
 			],
 			[
