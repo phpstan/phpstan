@@ -96,7 +96,7 @@ class FuzzyRelativePathHelper implements RelativePathHelper
 			$this->pathToTrim !== null
 			&& strpos($filename, $this->pathToTrim) === 0
 		) {
-			return ltrim(substr($filename, strlen($this->pathToTrim)), $this->directorySeparator);
+			return ltrim((string) substr($filename, strlen($this->pathToTrim)), $this->directorySeparator);
 		}
 
 		return $filename;
