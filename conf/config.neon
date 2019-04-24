@@ -601,6 +601,14 @@ services:
 	relativePathHelper:
 		class: PHPStan\File\RelativePathHelper
 		dynamic: true
+		autowired: true
+
+	simpleRelativePathHelper:
+		class: PHPStan\File\RelativePathHelper
+		factory: PHPStan\File\SimpleRelativePathHelper
+		arguments:
+			currentWorkingDirectory: %currentWorkingDirectory%
+		autowired: false
 
 	broker:
 		class: PHPStan\Broker\Broker
@@ -634,6 +642,8 @@ services:
 
 	errorFormatter.checkstyle:
 		class: PHPStan\Command\ErrorFormatter\CheckstyleErrorFormatter
+		arguments:
+			relativePathHelper: @simpleRelativePathHelper
 
 	errorFormatter.json:
 		class: PHPStan\Command\ErrorFormatter\JsonErrorFormatter

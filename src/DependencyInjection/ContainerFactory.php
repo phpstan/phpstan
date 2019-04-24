@@ -6,7 +6,7 @@ use Nette\DI\Extensions\PhpExtension;
 use Phar;
 use PHPStan\Broker\Broker;
 use PHPStan\File\FileHelper;
-use PHPStan\File\RelativePathHelper;
+use PHPStan\File\FuzzyRelativePathHelper;
 
 class ContainerFactory
 {
@@ -68,7 +68,7 @@ class ContainerFactory
 		}
 
 		$configurator->addServices([
-			'relativePathHelper' => new RelativePathHelper($this->currentWorkingDirectory, DIRECTORY_SEPARATOR, $analysedPaths),
+			'relativePathHelper' => new FuzzyRelativePathHelper($this->currentWorkingDirectory, DIRECTORY_SEPARATOR, $analysedPaths),
 		]);
 
 		$container = $configurator->createContainer();
