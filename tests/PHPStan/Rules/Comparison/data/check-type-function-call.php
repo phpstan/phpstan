@@ -547,3 +547,89 @@ class ArrayKeyExistsWithConstantArray
 	}
 
 }
+
+class MethodExists
+{
+	public function testWithStringFirstArgument(): void
+	{
+		/** @var string $string */
+		$string = doFoo();
+
+		if (method_exists(MethodExists::class, 'testWithStringFirstArgument')) {
+		}
+
+		if (method_exists(MethodExists::class, 'undefinedMethod')) {
+		}
+
+		if (method_exists(MethodExists::class, $string)) {
+		}
+
+		if (method_exists('UndefinedClass', $string)) {
+		}
+
+		if (method_exists('UndefinedClass', 'test')) {
+		}
+	}
+
+	public function testWithNewObjectInFirstArgument(): void
+	{
+		/** @var string $string */
+		$string = doFoo();
+
+		if (method_exists((new MethodExists()), 'testWithNewObjectInFirstArgument')) {
+		}
+
+		if (method_exists((new MethodExists()), 'undefinedMethod')) {
+		}
+
+		if (method_exists((new MethodExists()), $string)) {
+		}
+	}
+}
+
+trait MethodExistsTrait
+{
+	public function test()
+	{
+		if (method_exists($this, 'method')) {
+		}
+
+		if (method_exists($this, 'someAnother')) {
+		}
+
+		if (method_exists($this, 'unknown')) {
+		}
+
+		if (method_exists(get_called_class(), 'method')) {
+		}
+
+		if (method_exists(get_called_class(), 'someAnother')) {
+		}
+
+		if (method_exists(get_called_class(), 'unknown')) {
+		}
+
+		if (method_exists(static::class, 'method')) {
+		}
+
+		if (method_exists(static::class, 'someAnother')) {
+		}
+
+		if (method_exists(static::class, 'unknown')) {
+		}
+	}
+
+	public function method()
+	{
+	}
+}
+
+final class MethodExistsWithTrait
+{
+	use MethodExistsTrait;
+
+	public function someAnother()
+	{
+		$this->test();
+	}
+}

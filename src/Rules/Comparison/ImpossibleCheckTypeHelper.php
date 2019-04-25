@@ -12,12 +12,15 @@ use PHPStan\Analyser\TypeSpecifierContext;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension;
 use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeUtils;
+use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\VerbosityLevel;
 
 class ImpossibleCheckTypeHelper
@@ -126,6 +129,31 @@ class ImpossibleCheckTypeHelper
 							$this->broker->getClass($className)
 						)) {
 							return null;
+						}
+					}
+				} elseif ($functionName === 'method_exists') {
+					$objectType = $scope->getType($node->args[0]->value);
+					$methodType = $scope->getType($node->args[1]->value);
+
+					if ($objectType instanceof ConstantStringType
+						&& !$this->broker->hasClass($objectType->getValue())
+					) {
+						return false;
+					}
+
+					if ($methodType instanceof ConstantStringType) {
+						if ($objectType instanceof ConstantStringType) {
+							$objectType = new ObjectType($objectType->getValue());
+						}
+
+						if ($objectType instanceof TypeWithClassName) {
+							if ($objectType->hasMethod($methodType->getValue())->yes()) {
+								return true;
+							}
+
+							if ($objectType->hasMethod($methodType->getValue())->no()) {
+								return false;
+							}
 						}
 					}
 				}
