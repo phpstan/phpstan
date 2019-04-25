@@ -30,7 +30,7 @@ function () {
 	new IpsumInstantiation(); // interface
 
 	$test = 'Test';
-	new $test(); // skip
+	new $test();
 
 	new ClassWithVariadicConstructor(1, 2, 3);
 	new \DatePeriod();
@@ -153,6 +153,27 @@ class DoWhileVariableReassignment
 	public function __construct(array $arr)
 	{
 
+	}
+
+}
+
+class ClassInExpression
+{
+
+	public static function doFoo(string $key): void
+	{
+		$a = 'UndefinedClass1';
+		new $a();
+
+		$b = ['UndefinedClass2'];
+		new $b[0]();
+
+		$classes = [
+			'key1' => self::class,
+			'key2' => 'UndefinedClass3',
+		];
+
+		new $classes[$key]();
 	}
 
 }

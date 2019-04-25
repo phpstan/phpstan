@@ -10,7 +10,10 @@ use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Rules\ClassCaseSensitivityCheck;
 use PHPStan\Rules\ClassNameNodePair;
 use PHPStan\Rules\FunctionCallParametersCheck;
+use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\Type;
+use PHPStan\Type\UnionType;
 
 class InstantiationRule implements \PHPStan\Rules\Rule
 {
@@ -47,19 +50,21 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		if ($node->class instanceof \PhpParser\Node\Name) {
-			$class = (string) $node->class;
-		} elseif ($node->class instanceof Node\Stmt\Class_) {
-			$anonymousClassType = $scope->getType($node);
-			if (!$anonymousClassType instanceof ObjectType) {
-				throw new \PHPStan\ShouldNotHappenException();
-			}
-
-			$class = $anonymousClassType->getClassName();
-		} else {
-			return [];
+		$errors = [];
+		foreach ($this->getClassName($node, $scope) as $class) {
+			$errors = array_merge($errors, $this->checkClassName($class, $node, $scope));
 		}
+		return $errors;
+	}
 
+	/**
+	 * @param string $class
+	 * @param \PhpParser\Node\Expr\New_ $node
+	 * @param Scope $scope
+	 * @return (string|\PHPStan\Rules\RuleError)[]
+	 */
+	private function checkClassName(string $class, Node $node, Scope $scope): array
+	{
 		$lowercasedClass = strtolower($class);
 		$messages = [];
 		if ($lowercasedClass === 'static') {
@@ -163,6 +168,49 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 				'Parameter #%d %s of class ' . $classReflection->getDisplayName() . ' constructor is passed by reference, so it expects variables only',
 			]
 		));
+	}
+
+	/**
+	 * @param \PhpParser\Node\Expr\New_ $node $node
+	 * @param Scope $scope
+	 * @return string[]
+	 */
+	private function getClassName(Node $node, Scope $scope): array
+	{
+		if ($node->class instanceof \PhpParser\Node\Name) {
+			return [(string) $node->class];
+		}
+
+		if ($node->class instanceof Node\Stmt\Class_) {
+			$anonymousClassType = $scope->getType($node);
+			if (!$anonymousClassType instanceof ObjectType) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+
+			return [$anonymousClassType->getClassName()];
+		}
+
+		$classType = $scope->getType($node->class);
+
+		if ($classType instanceof ConstantStringType) {
+			return [$classType->getValue()];
+		}
+
+		if ($classType instanceof UnionType) {
+			return array_map(
+				static function (ConstantStringType $type) {
+					return $type->getValue();
+				},
+				array_filter(
+					$classType->getTypes(),
+					static function (Type $type) {
+						return $type instanceof ConstantStringType;
+					}
+				)
+			);
+		}
+
+		return [];
 	}
 
 }
