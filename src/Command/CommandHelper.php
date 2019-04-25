@@ -128,6 +128,23 @@ class CommandHelper
 			$additionalConfigFiles[] = $levelConfigFile;
 		}
 
+		if (class_exists('PHPStan\ExtensionInstaller\GeneratedConfig')) {
+			foreach (\PHPStan\ExtensionInstaller\GeneratedConfig::EXTENSIONS as $name => $extensionConfig) {
+				foreach ($extensionConfig['extra']['include'] ?? [] as $includedFile) {
+					if (!is_string($includedFile)) {
+						$errorOutput->writeln(sprintf('Cannot include config from package %s, expecting string file path but got %s', $name, gettype($includedFile)));
+						throw new \PHPStan\Command\InceptionNotSuccessfulException();
+					}
+					$includedFilePath = sprintf('%s/%s', $extensionConfig['install_path'], $includedFile);
+					if (!file_exists($includedFilePath) || !is_readable($includedFilePath)) {
+						$errorOutput->writeln(sprintf('Config file %s does not exists or isn\'t readable', $includedFilePath));
+						throw new \PHPStan\Command\InceptionNotSuccessfulException();
+					}
+					$additionalConfigFiles[] = $includedFilePath;
+				}
+			}
+		}
+
 		if ($projectConfigFile !== null) {
 			$additionalConfigFiles[] = $projectConfigFile;
 		}

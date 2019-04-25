@@ -28,6 +28,9 @@ parameters:
 		-
 			message: '#Anonymous function has an unused use \$container\.#'
 			path: %rootDir%/src/Command/CommandHelper.php
+		-
+			message: '#Access to constant EXTENSIONS on an unknown class PHPStan\\ExtensionInstaller\\GeneratedConfig\.#'
+			path: %rootDir%/src/Command/CommandHelper.php
 	reportStaticMethodSignatures: true
 	tmpDir: %rootDir%/tmp
 services:
