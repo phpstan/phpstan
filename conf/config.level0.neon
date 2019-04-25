@@ -41,6 +41,13 @@ services:
 			checkClassCaseSensitivity: %checkClassCaseSensitivity%
 
 	-
+		class: PHPStan\Rules\Functions\ExistingClassInMethodExistsRule
+		tags:
+			- phpstan.rules.rule
+		arguments:
+			checkClassCaseSensitivity: %checkClassCaseSensitivity%
+
+	-
 		class: PHPStan\Rules\Exceptions\CaughtExceptionExistenceRule
 		tags:
 			- phpstan.rules.rule

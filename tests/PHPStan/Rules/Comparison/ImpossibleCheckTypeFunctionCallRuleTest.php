@@ -133,6 +133,62 @@ class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestC
 					'Call to function is_callable() with mixed will always evaluate to false.',
 					571,
 				],
+				[
+					'Call to function method_exists() with \'CheckTypeFunctionCa…\' and \'testWithStringFirst…\' will always evaluate to true.',
+					585,
+				],
+				[
+					'Call to function method_exists() with \'CheckTypeFunctionCa…\' and \'undefinedMethod\' will always evaluate to false.',
+					588,
+				],
+				[
+					'Call to function method_exists() with \'UndefinedClass\' and string will always evaluate to false.',
+					594,
+				],
+				[
+					'Call to function method_exists() with \'UndefinedClass\' and \'test\' will always evaluate to false.',
+					597,
+				],
+				[
+					'Call to function method_exists() with CheckTypeFunctionCall\MethodExists and \'testWithNewObjectIn…\' will always evaluate to true.',
+					606,
+				],
+				[
+					'Call to function method_exists() with $this(CheckTypeFunctionCall\MethodExistsWithTrait) and \'method\' will always evaluate to true.',
+					621,
+				],
+				[
+					'Call to function method_exists() with $this(CheckTypeFunctionCall\MethodExistsWithTrait) and \'someAnother\' will always evaluate to true.',
+					624,
+				],
+				[
+					'Call to function method_exists() with $this(CheckTypeFunctionCall\MethodExistsWithTrait) and \'unknown\' will always evaluate to false.',
+					627,
+				],
+				[
+					'Call to function method_exists() with \'CheckTypeFunctionCa…\' and \'method\' will always evaluate to true.',
+					630,
+				],
+				[
+					'Call to function method_exists() with \'CheckTypeFunctionCa…\' and \'someAnother\' will always evaluate to true.',
+					633,
+				],
+				[
+					'Call to function method_exists() with \'CheckTypeFunctionCa…\' and \'unknown\' will always evaluate to false.',
+					636,
+				],
+				[
+					'Call to function method_exists() with \'CheckTypeFunctionCa…\' and \'method\' will always evaluate to true.',
+					639,
+				],
+				[
+					'Call to function method_exists() with \'CheckTypeFunctionCa…\' and \'someAnother\' will always evaluate to true.',
+					642,
+				],
+				[
+					'Call to function method_exists() with \'CheckTypeFunctionCa…\' and \'unknown\' will always evaluate to false.',
+					645,
+				],
 			]
 		);
 	}
@@ -202,6 +258,30 @@ class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestC
 				[
 					'Call to function is_callable() with mixed will always evaluate to false.',
 					571,
+				],
+				[
+					'Call to function method_exists() with \'CheckTypeFunctionCa…\' and \'undefinedMethod\' will always evaluate to false.',
+					588,
+				],
+				[
+					'Call to function method_exists() with \'UndefinedClass\' and string will always evaluate to false.',
+					594,
+				],
+				[
+					'Call to function method_exists() with \'UndefinedClass\' and \'test\' will always evaluate to false.',
+					597,
+				],
+				[
+					'Call to function method_exists() with $this(CheckTypeFunctionCall\MethodExistsWithTrait) and \'unknown\' will always evaluate to false.',
+					627,
+				],
+				[
+					'Call to function method_exists() with \'CheckTypeFunctionCa…\' and \'unknown\' will always evaluate to false.',
+					636,
+				],
+				[
+					'Call to function method_exists() with \'CheckTypeFunctionCa…\' and \'unknown\' will always evaluate to false.',
+					645,
 				],
 			]
 		);

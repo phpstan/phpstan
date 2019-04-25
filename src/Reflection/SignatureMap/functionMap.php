@@ -3302,7 +3302,7 @@ return [
 'geoip_time_zone_by_country_and_region' => ['string|false', 'country_code'=>'string', 'region_code='=>'string'],
 'get_browser' => ['mixed', 'browser_name='=>'string', 'return_array='=>'bool'],
 'get_call_stack' => [''],
-'get_called_class' => ['string'],
+'get_called_class' => ['string|false'],
 'get_cfg_var' => ['mixed', 'option_name'=>'string'],
 'get_class' => ['string', 'object='=>'object'],
 'get_class_methods' => ['array', 'class'=>'mixed'],
