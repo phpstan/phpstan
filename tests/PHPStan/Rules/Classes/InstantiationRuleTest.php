@@ -53,6 +53,10 @@ class InstantiationRuleTest extends \PHPStan\Testing\RuleTestCase
 					30,
 				],
 				[
+					'Instantiated class Test not found.',
+					33,
+				],
+				[
 					'Class DatePeriod constructor invoked with 0 parameters, 1-4 required.',
 					36,
 				],
@@ -135,6 +139,18 @@ class InstantiationRuleTest extends \PHPStan\Testing\RuleTestCase
 				[
 					DIRECTORY_SEPARATOR === '/' ? 'Class class@anonymous/tests/PHPStan/Rules/Classes/data/instantiation.php:134 constructor invoked with 3 parameters, 1 required.' : 'Class class@anonymous/tests\PHPStan\Rules\Classes\data\instantiation.php:134 constructor invoked with 3 parameters, 1 required.',
 					134,
+				],
+				[
+					'Instantiated class UndefinedClass1 not found.',
+					166,
+				],
+				[
+					'Instantiated class UndefinedClass2 not found.',
+					169,
+				],
+				[
+					'Instantiated class UndefinedClass3 not found.',
+					176,
 				],
 			]
 		);
