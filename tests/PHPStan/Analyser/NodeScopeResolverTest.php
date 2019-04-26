@@ -7427,7 +7427,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				'array<int, string>',
+				'array<int, string>&nonEmpty',
 				'$sureArray',
 			],
 			[
@@ -7435,16 +7435,24 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$sureFalse',
 			],
 			[
-				'array<int, string>|false',
+				'(array<int, string>&nonEmpty)|false',
 				'$arrayOrFalse',
 			],
 			[
-				'array<int, string>|false',
+				'(array<int, string>&nonEmpty)|false',
 				'$anotherArrayOrFalse',
 			],
 			[
-				'(array<int, string>|false)',
+				'((array<int, string>&nonEmpty)|false)',
 				'$benevolentArrayOrFalse',
+			],
+			[
+				'array(\'\')',
+				'explode(\'.\', \'\')',
+			],
+			[
+				'array(\'foo\', \'bar\', \'baz\')',
+				'explode(\'.\', \'foo.bar.baz\')',
 			],
 		];
 	}
