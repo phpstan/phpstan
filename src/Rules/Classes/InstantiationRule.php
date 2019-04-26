@@ -11,9 +11,8 @@ use PHPStan\Rules\ClassCaseSensitivityCheck;
 use PHPStan\Rules\ClassNameNodePair;
 use PHPStan\Rules\FunctionCallParametersCheck;
 use PHPStan\Type\Constant\ConstantStringType;
-use PHPStan\Type\ObjectType;
-use PHPStan\Type\Type;
-use PHPStan\Type\UnionType;
+use PHPStan\Type\TypeUtils;
+use PHPStan\Type\TypeWithClassName;
 
 class InstantiationRule implements \PHPStan\Rules\Rule
 {
@@ -51,7 +50,7 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 	public function processNode(Node $node, Scope $scope): array
 	{
 		$errors = [];
-		foreach ($this->getClassName($node, $scope) as $class) {
+		foreach ($this->getClassNames($node, $scope) as $class) {
 			$errors = array_merge($errors, $this->checkClassName($class, $node, $scope));
 		}
 		return $errors;
@@ -175,7 +174,7 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 	 * @param Scope $scope
 	 * @return string[]
 	 */
-	private function getClassName(Node $node, Scope $scope): array
+	private function getClassNames(Node $node, Scope $scope): array
 	{
 		if ($node->class instanceof \PhpParser\Node\Name) {
 			return [(string) $node->class];
@@ -183,34 +182,19 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 
 		if ($node->class instanceof Node\Stmt\Class_) {
 			$anonymousClassType = $scope->getType($node);
-			if (!$anonymousClassType instanceof ObjectType) {
+			if (!$anonymousClassType instanceof TypeWithClassName) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
 
 			return [$anonymousClassType->getClassName()];
 		}
 
-		$classType = $scope->getType($node->class);
-
-		if ($classType instanceof ConstantStringType) {
-			return [$classType->getValue()];
-		}
-
-		if ($classType instanceof UnionType) {
-			return array_map(
-				static function (ConstantStringType $type) {
-					return $type->getValue();
-				},
-				array_filter(
-					$classType->getTypes(),
-					static function (Type $type) {
-						return $type instanceof ConstantStringType;
-					}
-				)
-			);
-		}
-
-		return [];
+		return array_map(
+			static function (ConstantStringType $type) {
+				return $type->getValue();
+			},
+			TypeUtils::getConstantStrings($scope->getType($node->class))
+		);
 	}
 
 }
