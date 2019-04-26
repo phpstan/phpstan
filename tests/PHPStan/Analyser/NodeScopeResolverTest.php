@@ -1139,11 +1139,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$fourthStringArrayForeachList',
 			],
 			[
-				'string',
+				'\'2018\'',
 				'$dateArray[\'Y\']',
 			],
 			[
-				'string',
+				'\'12\'',
 				'$dateArray[\'m\']',
 			],
 			[
@@ -1151,7 +1151,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$dateArray[\'d\']',
 			],
 			[
-				'string',
+				'\'\'',
 				'$intArrayForRewritingFirstElement[0]',
 			],
 			[
