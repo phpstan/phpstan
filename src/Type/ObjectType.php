@@ -397,7 +397,7 @@ class ObjectType implements TypeWithClassName
 		}
 
 		if ($this->isInstanceOf(\IteratorAggregate::class)->yes()) {
-			return RecursionGuard::run($this, static function () use ($classReflection) {
+			return RecursionGuard::run($this, static function () use ($classReflection): Type {
 				return ParametersAcceptorSelector::selectSingle(
 					$classReflection->getNativeMethod('getIterator')->getVariants()
 				)->getReturnType()->getIterableKeyType();
@@ -428,7 +428,7 @@ class ObjectType implements TypeWithClassName
 		}
 
 		if ($this->isInstanceOf(\IteratorAggregate::class)->yes()) {
-			return RecursionGuard::run($this, static function () use ($classReflection) {
+			return RecursionGuard::run($this, static function () use ($classReflection): Type {
 				return ParametersAcceptorSelector::selectSingle(
 					$classReflection->getNativeMethod('getIterator')->getVariants()
 				)->getReturnType()->getIterableValueType();
@@ -495,7 +495,7 @@ class ObjectType implements TypeWithClassName
 
 		if ($this->isInstanceOf(\ArrayAccess::class)->yes()) {
 			$classReflection = $broker->getClass($this->className);
-			return RecursionGuard::run($this, static function () use ($classReflection) {
+			return RecursionGuard::run($this, static function () use ($classReflection): Type {
 				return ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('offsetGet')->getVariants())->getReturnType();
 			});
 		}

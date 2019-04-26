@@ -12,6 +12,8 @@ parameters:
 		- %rootDir%/tests/*/data/*
 		- %rootDir%/tests/PHPStan/Analyser/traits/*
 		- %rootDir%/tests/notAutoloaded/*
+	featureToggles:
+		missingClosureNativeReturnTypehintRule: true
 	ignoreErrors:
 		- '#^Strict comparison using === between PhpParser\\Node\\Expr\\ArrayItem and null will always evaluate to false\.$#'
 		- '#^Dynamic call to static method PHPUnit\\Framework\\\S+\(\)\.$#'

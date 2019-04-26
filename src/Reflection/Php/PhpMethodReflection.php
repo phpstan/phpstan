@@ -62,7 +62,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	/** @var \PHPStan\Type\Type|null */
 	private $phpDocThrowType;
 
-	/** @var \PHPStan\Reflection\ParameterReflection[]|null */
+	/** @var \PHPStan\Reflection\Php\PhpParameterReflection[]|null */
 	private $parameters;
 
 	/** @var \PHPStan\Type\Type|null */
@@ -231,7 +231,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	private function getParameters(): array
 	{
 		if ($this->parameters === null) {
-			$this->parameters = array_map(function (\ReflectionParameter $reflection) {
+			$this->parameters = array_map(function (\ReflectionParameter $reflection): PhpParameterReflection {
 				return new PhpParameterReflection(
 					$reflection,
 					$this->phpDocParameterTypes[$reflection->getName()] ?? null

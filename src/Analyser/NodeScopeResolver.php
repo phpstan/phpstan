@@ -46,6 +46,7 @@ use PhpParser\Node\Stmt\Unset_;
 use PhpParser\Node\Stmt\While_;
 use PHPStan\Broker\Broker;
 use PHPStan\File\FileHelper;
+use PHPStan\Node\ClosureReturnStatementsNode;
 use PHPStan\Node\ExecutionEndNode;
 use PHPStan\Node\InClassMethodNode;
 use PHPStan\Node\LiteralArrayItem;
@@ -1750,8 +1751,24 @@ class NodeScopeResolver
 
 		$closureScope = $scope->enterAnonymousFunction($expr);
 		$closureScope = $closureScope->processClosureScope($scope, null, $byRefUses);
+
+		$gatheredReturnNodes = [];
+		$closureStmtsCallback = static function (\PhpParser\Node $node, Scope $scope) use ($nodeCallback, &$gatheredReturnNodes): void {
+			$nodeCallback($node, $scope);
+			if (!$node instanceof Return_) {
+				return;
+			}
+
+			$gatheredReturnNodes[] = $node;
+		};
 		if (count($byRefUses) === 0) {
-			$this->processStmtNodes($expr, $expr->stmts, $closureScope, $nodeCallback);
+			$statementResult = $this->processStmtNodes($expr, $expr->stmts, $closureScope, $closureStmtsCallback);
+			$nodeCallback(new ClosureReturnStatementsNode(
+				$expr,
+				$gatheredReturnNodes,
+				$statementResult
+			), $scope);
+
 			return $scope;
 		}
 
@@ -1773,7 +1790,12 @@ class NodeScopeResolver
 			$count++;
 		} while ($count < self::LOOP_SCOPE_ITERATIONS);
 
-		$this->processStmtNodes($expr, $expr->stmts, $closureScope, $nodeCallback);
+		$statementResult = $this->processStmtNodes($expr, $expr->stmts, $closureScope, $closureStmtsCallback);
+		$nodeCallback(new ClosureReturnStatementsNode(
+			$expr,
+			$gatheredReturnNodes,
+			$statementResult
+		), $scope);
 
 		return $scope->processClosureScope($closureScope, null, $byRefUses);
 	}

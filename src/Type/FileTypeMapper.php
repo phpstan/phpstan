@@ -211,15 +211,15 @@ class FileTypeMapper
 						);
 						$phpDocMap = array_merge($phpDocMap, $traitPhpDocMap);
 					}
-					return;
+					return null;
 				} elseif ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
 					$namespace = (string) $node->name;
-					return;
+					return null;
 				} elseif ($node instanceof \PhpParser\Node\Stmt\Use_ && $node->type === \PhpParser\Node\Stmt\Use_::TYPE_NORMAL) {
 					foreach ($node->uses as $use) {
 						$uses[strtolower($use->getAlias()->name)] = (string) $use->name;
 					}
-					return;
+					return null;
 				} elseif ($node instanceof \PhpParser\Node\Stmt\GroupUse) {
 					$prefix = (string) $node->prefix;
 					foreach ($node->uses as $use) {
@@ -229,7 +229,7 @@ class FileTypeMapper
 
 						$uses[strtolower($use->getAlias()->name)] = sprintf('%s\\%s', $prefix, (string) $use->name);
 					}
-					return;
+					return null;
 				} elseif (!in_array(get_class($node), [
 					Node\Stmt\Property::class,
 					Node\Stmt\ClassMethod::class,
@@ -240,12 +240,12 @@ class FileTypeMapper
 					Node\Stmt\Class_::class,
 					Node\Stmt\ClassConst::class,
 				], true)) {
-					return;
+					return null;
 				}
 
 				$phpDocString = CommentHelper::getDocComment($node);
 				if ($phpDocString === null) {
-					return;
+					return null;
 				}
 
 				$className = $classStack[count($classStack) - 1] ?? null;

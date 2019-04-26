@@ -2,8 +2,12 @@ parameters:
 	customRulesetUsed: false
 	featureToggles:
 		missingReturnRule: false
+		missingClosureNativeReturnTypehintRule: false
+	missingClosureNativeReturnCheckObjectTypehint: false
 
 conditionalTags:
+	PHPStan\Rules\Missing\MissingClosureNativeReturnTypehintRule:
+		phpstan.rules.rule: %featureToggles.missingClosureNativeReturnTypehintRule%
 	PHPStan\Rules\Missing\MissingReturnRule:
 		phpstan.rules.rule: %featureToggles.missingReturnRule%
 
@@ -68,6 +72,11 @@ services:
 		arguments:
 			checkFunctionNameCase: %checkFunctionNameCase%
 			reportMagicMethods: %reportMagicMethods%
+
+	-
+		class: PHPStan\Rules\Missing\MissingClosureNativeReturnTypehintRule
+		arguments:
+			checkObjectTypehint: %missingClosureNativeReturnCheckObjectTypehint%
 
 	-
 		class: PHPStan\Rules\Missing\MissingReturnRule

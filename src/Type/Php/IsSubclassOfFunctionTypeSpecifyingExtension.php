@@ -52,7 +52,7 @@ class IsSubclassOfFunctionTypeSpecifyingExtension implements FunctionTypeSpecify
 		} elseif ($objectType instanceof UnionType) {
 			$type = TypeCombinator::union(...array_filter(
 				$objectType->getTypes(),
-				static function (Type $type) {
+				static function (Type $type): bool {
 					return $type instanceof ObjectWithoutClassType || $type instanceof TypeWithClassName;
 				}
 			));

@@ -354,7 +354,7 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 	 */
 	public function getInterfaces(): array
 	{
-		return array_map(function (\ReflectionClass $interface) {
+		return array_map(function (\ReflectionClass $interface): ClassReflection {
 			return $this->broker->getClass($interface->getName());
 		}, $this->getNativeReflection()->getInterfaces());
 	}
@@ -364,7 +364,7 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 	 */
 	public function getTraits(): array
 	{
-		return array_map(function (\ReflectionClass $trait) {
+		return array_map(function (\ReflectionClass $trait): ClassReflection {
 			return $this->broker->getClass($trait->getName());
 		}, $this->getNativeReflection()->getTraits());
 	}
