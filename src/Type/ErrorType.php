@@ -20,11 +20,6 @@ class ErrorType extends MixedType
 		return new self();
 	}
 
-	public function combineWith(Type $type): Type
-	{
-		return new self();
-	}
-
 	/**
 	 * @param mixed[] $properties
 	 * @return Type
