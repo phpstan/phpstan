@@ -1007,6 +1007,38 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				MixedType::class,
 				'mixed',
 			],
+			[
+				[
+					new MixedType(),
+					new ObjectWithoutClassType(),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(),
+					new ObjectWithoutClassType(new ObjectType('A')),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(false, new IntegerType()),
+					new ObjectWithoutClassType(new ObjectType('A')),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(false, new ObjectType('A')),
+					new ObjectWithoutClassType(new ObjectType('A')),
+				],
+				MixedType::class,
+				'mixed~A',
+			],
 		];
 	}
 

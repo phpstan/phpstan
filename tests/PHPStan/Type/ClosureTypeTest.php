@@ -55,6 +55,31 @@ class ClosureTypeTest extends \PHPStan\Testing\TestCase
 				new ClosureType([], new MixedType(), false),
 				TrinaryLogic::createYes(),
 			],
+			[
+				new ObjectWithoutClassType(),
+				new ClosureType([], new MixedType(), false),
+				TrinaryLogic::createYes(),
+			],
+			[
+				new ClosureType([], new MixedType(), false),
+				new ObjectWithoutClassType(),
+				TrinaryLogic::createMaybe(),
+			],
+			[
+				new ObjectWithoutClassType(new ClosureType([], new MixedType(), false)),
+				new ClosureType([], new MixedType(), false),
+				TrinaryLogic::createNo(),
+			],
+			[
+				new ObjectWithoutClassType(new ObjectType(\Closure::class)),
+				new ClosureType([], new MixedType(), false),
+				TrinaryLogic::createNo(),
+			],
+			[
+				new ClosureType([], new MixedType(), false),
+				new ObjectWithoutClassType(new ObjectType(\Closure::class)),
+				TrinaryLogic::createNo(),
+			],
 		];
 	}
 

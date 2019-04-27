@@ -108,6 +108,12 @@ class ObjectType implements TypeWithClassName
 		}
 
 		if ($type instanceof ObjectWithoutClassType) {
+			if ($type->getSubtractedType() !== null) {
+				$isSuperType = $type->getSubtractedType()->isSuperTypeOf($this);
+				if ($isSuperType->yes()) {
+					return TrinaryLogic::createNo();
+				}
+			}
 			return TrinaryLogic::createMaybe();
 		}
 

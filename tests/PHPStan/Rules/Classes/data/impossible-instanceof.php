@@ -287,3 +287,26 @@ function (\Iterator $arg) {
         assert($key instanceof Foo);
     }
 };
+
+class ObjectSubtracted
+{
+
+	/**
+	 * @param object $object
+	 */
+	public function doBar($object)
+	{
+		if ($object instanceof \Exception) {
+			return;
+		}
+
+		if ($object instanceof \Exception) {
+
+		}
+
+		if ($object instanceof \InvalidArgumentException) {
+
+		}
+	}
+
+}

@@ -532,6 +532,7 @@ class TypeCombinator
 					if (self::$enableSubtractableTypes) {
 						if (
 							$types[$i] instanceof SubtractableType
+							&& !$types[$j] instanceof AccessoryType
 						) {
 							$subtractedType = null;
 							if ($types[$j] instanceof SubtractableType) {

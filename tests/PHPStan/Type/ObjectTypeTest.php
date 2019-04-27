@@ -249,6 +249,26 @@ class ObjectTypeTest extends \PHPStan\Testing\TestCase
 				]),
 				TrinaryLogic::createMaybe(),
 			],
+			[
+				new ObjectType('Exception'),
+				new ObjectWithoutClassType(),
+				TrinaryLogic::createMaybe(),
+			],
+			[
+				new ObjectType('Exception'),
+				new ObjectWithoutClassType(new ObjectType('Exception')),
+				TrinaryLogic::createNo(),
+			],
+			[
+				new ObjectType('Exception'),
+				new ObjectWithoutClassType(new ObjectType(\InvalidArgumentException::class)),
+				TrinaryLogic::createMaybe(),
+			],
+			[
+				new ObjectType(\InvalidArgumentException::class),
+				new ObjectWithoutClassType(new ObjectType('Exception')),
+				TrinaryLogic::createNo(),
+			],
 		];
 	}
 

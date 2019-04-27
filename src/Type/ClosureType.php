@@ -13,7 +13,7 @@ use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 
-class ClosureType implements Type, ParametersAcceptor
+class ClosureType implements TypeWithClassName, ParametersAcceptor
 {
 
 	/** @var ObjectType */
@@ -43,6 +43,11 @@ class ClosureType implements Type, ParametersAcceptor
 		$this->parameters = $parameters;
 		$this->returnType = $returnType;
 		$this->variadic = $variadic;
+	}
+
+	public function getClassName(): string
+	{
+		return $this->objectType->getClassName();
 	}
 
 	/**
@@ -80,14 +85,6 @@ class ClosureType implements Type, ParametersAcceptor
 			);
 		}
 
-		if ($type instanceof CompoundType) {
-			return $type->isSubTypeOf($this);
-		}
-
-		if ($type instanceof ObjectWithoutClassType) {
-			return TrinaryLogic::createMaybe();
-		}
-
 		if (
 			$type instanceof TypeWithClassName
 			&& $type->getClassName() === \Closure::class
@@ -95,7 +92,7 @@ class ClosureType implements Type, ParametersAcceptor
 			return TrinaryLogic::createMaybe();
 		}
 
-		return TrinaryLogic::createNo();
+		return $this->objectType->isSuperTypeOf($type);
 	}
 
 	public function equals(Type $type): bool
