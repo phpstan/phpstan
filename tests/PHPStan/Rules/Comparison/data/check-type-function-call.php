@@ -547,3 +547,19 @@ class ArrayKeyExistsWithConstantArray
 	}
 
 }
+
+class CheckIsStringOnSubtractedMixed
+{
+
+	public function doFoo($mixed)
+	{
+		if (is_string($mixed)) {
+			return;
+		}
+
+		if (is_string($mixed)) {
+			return;
+		}
+	}
+
+}

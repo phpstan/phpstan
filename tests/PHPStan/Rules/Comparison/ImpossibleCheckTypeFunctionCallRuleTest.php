@@ -125,6 +125,10 @@ class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestC
 					'Call to function array_key_exists() with \'c\' and array(\'a\' => 1, ?\'b\' => 2) will always evaluate to false.',
 					366,
 				],
+				[
+					'Call to function is_string() with mixed will always evaluate to false.',
+					560,
+				],
 			]
 		);
 	}
@@ -186,6 +190,10 @@ class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestC
 				[
 					'Call to function array_key_exists() with \'c\' and array(\'a\' => 1, ?\'b\' => 2) will always evaluate to false.',
 					366,
+				],
+				[
+					'Call to function is_string() with mixed will always evaluate to false.',
+					560,
 				],
 			]
 		);

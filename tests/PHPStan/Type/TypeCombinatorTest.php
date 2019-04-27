@@ -1555,6 +1555,30 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				NeverType::class,
 				'*NEVER*',
 			],
+			[
+				[
+					new MixedType(false, new StringType()),
+					new StringType(),
+				],
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				[
+					new MixedType(false, new StringType()),
+					new ConstantStringType('foo'),
+				],
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				[
+					new MixedType(false, new StringType()),
+					new ConstantIntegerType(1),
+				],
+				ConstantIntegerType::class,
+				'1',
+			],
 		];
 	}
 
