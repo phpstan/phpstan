@@ -218,18 +218,29 @@ class TypeCombinator
 		for ($i = 0; $i < count($types); $i++) {
 			for ($j = $i + 1; $j < count($types); $j++) {
 				if (self::$enableSubtractableTypes) {
+
 					if (
 						$types[$i] instanceof SubtractableType
+						&& $types[$i]->getTypeWithoutSubtractedType()->isSuperTypeOf($types[$j])->yes()
 					) {
-						$types[$i] = $types[$i]->combineWith($types[$j]);
+						$subtractedType = null;
+						if ($types[$j] instanceof SubtractableType) {
+							$subtractedType = $types[$j]->getSubtractedType();
+						}
+						$types[$i] = self::intersectWithSubtractedType($types[$i], $subtractedType);
 						array_splice($types, $j--, 1);
 						continue 1;
 					}
 
 					if (
 						$types[$j] instanceof SubtractableType
+						&& $types[$j]->getTypeWithoutSubtractedType()->isSuperTypeOf($types[$i])->yes()
 					) {
-						$types[$j] = $types[$j]->combineWith($types[$i]);
+						$subtractedType = null;
+						if ($types[$i] instanceof SubtractableType) {
+							$subtractedType = $types[$i]->getSubtractedType();
+						}
+						$types[$j] = self::intersectWithSubtractedType($types[$j], $subtractedType);
 						array_splice($types, $i--, 1);
 						continue 2;
 					}
@@ -286,6 +297,54 @@ class TypeCombinator
 		}
 
 		return new UnionType($types);
+	}
+
+	private static function unionWithSubtractedType(
+		SubtractableType $subtractableType,
+		?Type $subtractedType
+	): Type
+	{
+		if ($subtractedType === null) {
+			return $subtractableType;
+		}
+
+		if ($subtractableType->getSubtractedType() === null) {
+			return $subtractableType->changeSubtractedType($subtractableType);
+		}
+
+		$subtractedType = self::union(
+			$subtractableType->getSubtractedType(),
+			$subtractedType
+		);
+		if ($subtractedType instanceof NeverType) {
+			$subtractedType = null;
+		}
+
+		return $subtractableType->changeSubtractedType($subtractedType);
+	}
+
+	private static function intersectWithSubtractedType(
+		SubtractableType $subtractableType,
+		?Type $subtractedType
+	): Type
+	{
+		if ($subtractableType->getSubtractedType() === null) {
+			return $subtractableType;
+		}
+
+		if ($subtractedType === null) {
+			return $subtractableType->getTypeWithoutSubtractedType();
+		}
+
+		$subtractedType = self::intersect(
+			$subtractableType->getSubtractedType(),
+			$subtractedType
+		);
+		if ($subtractedType instanceof NeverType) {
+			$subtractedType = null;
+		}
+
+		return $subtractableType->changeSubtractedType($subtractedType);
 	}
 
 	/**
@@ -470,8 +529,20 @@ class TypeCombinator
 
 				$isSuperTypeB = $types[$i]->isSuperTypeOf($types[$j]);
 				if ($isSuperTypeB->maybe()) {
+					if (self::$enableSubtractableTypes) {
+						if (
+							$types[$i] instanceof SubtractableType
+						) {
+							$subtractedType = null;
+							if ($types[$j] instanceof SubtractableType) {
+								$subtractedType = $types[$j]->getSubtractedType();
+							}
+							$types[$j] = self::unionWithSubtractedType($types[$i], $subtractedType);
+							array_splice($types, $i--, 1);
+							continue 2;
+						}
+					}
 					continue;
-
 				}
 
 				if ($isSuperTypeB->yes()) {

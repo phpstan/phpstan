@@ -999,6 +999,14 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				MixedType::class,
 				'mixed',
 			],
+			[
+				[
+					new MixedType(false, new StringType()),
+					new MixedType(false, new IntegerType()),
+				],
+				MixedType::class,
+				'mixed',
+			],
 		];
 	}
 
@@ -1042,8 +1050,18 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 		string $expectedTypeDescription
 	): void
 	{
-		$result = TypeCombinator::union(...array_reverse($types));
-		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::precise()));
+		$types = array_reverse($types);
+		$result = TypeCombinator::union(...$types);
+		$this->assertSame(
+			$expectedTypeDescription,
+			$result->describe(VerbosityLevel::precise()),
+			sprintf('union(%s)', implode(', ', array_map(
+				static function (Type $type): string {
+					return $type->describe(VerbosityLevel::precise());
+				},
+				$types
+			)))
+		);
 		$this->assertInstanceOf($expectedTypeClass, $result);
 	}
 
@@ -1578,6 +1596,14 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				],
 				ConstantIntegerType::class,
 				'1',
+			],
+			[
+				[
+					new MixedType(false, new StringType()),
+					new MixedType(false, new IntegerType()),
+				],
+				MixedType::class,
+				'mixed~int|string',
 			],
 		];
 	}

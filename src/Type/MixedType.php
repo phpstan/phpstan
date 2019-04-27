@@ -63,7 +63,10 @@ class MixedType implements CompoundType, SubtractableType
 
 		if ($type instanceof self) {
 			if ($type->subtractedType !== null) {
-				return $type->subtractedType->isSuperTypeOf($this->subtractedType);
+				$isSuperType = $type->subtractedType->isSuperTypeOf($this->subtractedType);
+				if ($isSuperType->yes()) {
+					return TrinaryLogic::createYes();
+				}
 			}
 
 			return TrinaryLogic::createMaybe();
@@ -213,36 +216,19 @@ class MixedType implements CompoundType, SubtractableType
 		return new static($this->isExplicitMixed, $type);
 	}
 
-	public function combineWith(Type $type): Type
+	public function getTypeWithoutSubtractedType(): Type
 	{
-		if (!$type instanceof self) {
-			if ($this->subtractedType === null) {
-				return $this;
-			}
+		return new self($this->isExplicitMixed);
+	}
 
-			return new self($this->isExplicitMixed);
-		}
+	public function changeSubtractedType(?Type $subtractedType): Type
+	{
+		return new self($this->isExplicitMixed, $subtractedType);
+	}
 
-		if ($this->subtractedType === null) {
-			return $this;
-		}
-
-		if ($type->subtractedType === null) {
-			return $type;
-		}
-
-		$subtractableType = TypeCombinator::intersect(
-			$this->subtractedType,
-			$type->subtractedType
-		);
-		if ($subtractableType instanceof NeverType) {
-			$subtractableType = null;
-		}
-
-		return new self(
-			$this->isExplicitMixed && $type->isExplicitMixed,
-			$subtractableType
-		);
+	public function getSubtractedType(): ?Type
+	{
+		return $this->subtractedType;
 	}
 
 	/**
