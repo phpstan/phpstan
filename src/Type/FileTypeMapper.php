@@ -239,6 +239,7 @@ class FileTypeMapper
 					Node\Expr\AssignRef::class,
 					Node\Stmt\Class_::class,
 					Node\Stmt\ClassConst::class,
+					Node\Stmt\Static_::class,
 				], true)) {
 					return null;
 				}
