@@ -1264,3 +1264,23 @@ class AssignmentInInstanceOf
 	}
 
 }
+
+class MethodExists2
+{
+
+	public function doFoo(): void
+	{
+		/** @var object|string $objectOrString */
+		$objectOrString = doBar();
+		if (method_exists($objectOrString, 'doFoo')) {
+			$objectOrString->doFoo();
+		}
+
+		/** @var object $object */
+		$object = doBar();
+		if (method_exists($object, 'doFoo')) {
+			$object->doFoo();
+		}
+	}
+
+}

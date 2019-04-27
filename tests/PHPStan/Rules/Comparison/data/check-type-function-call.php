@@ -574,3 +574,29 @@ class CheckIsStringOnSubtractedMixed
 	}
 
 }
+
+class MethodExistsWitClassAsString
+{
+
+	public function doFoo(): void
+	{
+		if (method_exists(MethodExistsWitClassAsString::class, 'doFoo')) {
+			return;
+		}
+
+		if (method_exists(MethodExistsWitClassAsString::class, 'doBar')) {
+			return;
+		}
+
+		if (method_exists('InexistentClass', 'doFoo')) {
+			return;
+		}
+
+		/** @var string $string */
+		$string = doBar();
+		if (method_exists($string, 'doFoo')) {
+			return;
+		}
+	}
+
+}
