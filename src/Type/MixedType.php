@@ -9,8 +9,8 @@ use PHPStan\Reflection\Dummy\DummyMethodReflection;
 use PHPStan\Reflection\Dummy\DummyPropertyReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
+use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
-use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\MaybeIterableTypeTrait;
 use PHPStan\Type\Traits\MaybeOffsetAccessibleTypeTrait;
 use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
@@ -18,7 +18,6 @@ use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
 class MixedType implements CompoundType, SubtractableType
 {
 
-	use MaybeCallableTypeTrait;
 	use MaybeIterableTypeTrait;
 	use MaybeOffsetAccessibleTypeTrait;
 	use UndecidedBooleanTypeTrait;
@@ -78,6 +77,27 @@ class MixedType implements CompoundType, SubtractableType
 	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
 	{
 		return new MixedType();
+	}
+
+	public function isCallable(): TrinaryLogic
+	{
+		if (
+			$this->subtractedType !== null
+			&& $this->subtractedType->isCallable()->yes()
+		) {
+			return TrinaryLogic::createNo();
+		}
+
+		return TrinaryLogic::createMaybe();
+	}
+
+	/**
+	 * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
+	 * @return \PHPStan\Reflection\ParametersAcceptor[]
+	 */
+	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array
+	{
+		return [new TrivialParametersAcceptor()];
 	}
 
 	public function equals(Type $type): bool

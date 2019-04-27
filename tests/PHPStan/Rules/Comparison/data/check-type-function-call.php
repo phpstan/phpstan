@@ -562,4 +562,15 @@ class CheckIsStringOnSubtractedMixed
 		}
 	}
 
+	public function doBar($mixed)
+	{
+		if (is_callable($mixed)) {
+			return;
+		}
+
+		if (is_callable($mixed)) {
+
+		}
+	}
+
 }
