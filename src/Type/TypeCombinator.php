@@ -17,6 +17,9 @@ class TypeCombinator
 	private const CONSTANT_ARRAY_UNION_THRESHOLD = 16;
 	private const CONSTANT_SCALAR_UNION_THRESHOLD = 8;
 
+	/** @var bool */
+	public static $enableSubtractableTypes = false;
+
 	public static function addNull(Type $type): Type
 	{
 		return self::union($type, new NullType());
@@ -72,6 +75,14 @@ class TypeCombinator
 			}
 		}
 
+		if (
+			$fromType instanceof SubtractableType
+			&& $fromType->isSuperTypeOf($typeToRemove)->yes()
+			&& $typeToRemove->isSuperTypeOf($fromType)->maybe()
+		) {
+			return $fromType->subtract($typeToRemove);
+		}
+
 		return $fromType;
 	}
 
@@ -120,7 +131,7 @@ class TypeCombinator
 				unset($types[$i]);
 				continue;
 			}
-			if ($types[$i] instanceof MixedType) {
+			if (!self::$enableSubtractableTypes && $types[$i] instanceof MixedType) {
 				return $types[$i];
 			}
 			if ($types[$i] instanceof ConstantScalarType) {
@@ -206,6 +217,24 @@ class TypeCombinator
 		// transform A | never to A
 		for ($i = 0; $i < count($types); $i++) {
 			for ($j = $i + 1; $j < count($types); $j++) {
+				if (self::$enableSubtractableTypes) {
+					if (
+						$types[$i] instanceof SubtractableType
+					) {
+						$types[$i] = $types[$i]->combineWith($types[$j]);
+						array_splice($types, $j--, 1);
+						continue 1;
+					}
+
+					if (
+						$types[$j] instanceof SubtractableType
+					) {
+						$types[$j] = $types[$j]->combineWith($types[$i]);
+						array_splice($types, $i--, 1);
+						continue 2;
+					}
+				}
+
 				if (
 					!$types[$j] instanceof ConstantArrayType
 					&& $types[$j]->isSuperTypeOf($types[$i])->yes()
@@ -238,6 +267,14 @@ class TypeCombinator
 					break;
 				}
 				$types[] = $type;
+			}
+		}
+
+		if (self::$enableSubtractableTypes) {
+			foreach ($types as $type) {
+				if ($type instanceof MixedType) {
+					return $type;
+				}
 			}
 		}
 

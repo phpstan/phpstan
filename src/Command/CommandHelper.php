@@ -8,6 +8,7 @@ use PHPStan\DependencyInjection\ContainerFactory;
 use PHPStan\DependencyInjection\LoaderFactory;
 use PHPStan\File\FileFinder;
 use PHPStan\File\FileHelper;
+use PHPStan\Type\TypeCombinator;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -160,6 +161,7 @@ class CommandHelper
 			return $fileHelper->absolutizePath($path);
 		}, $paths);
 		$netteContainer = $containerFactory->create($tmpDir, $additionalConfigFiles, $paths);
+		TypeCombinator::$enableSubtractableTypes = $netteContainer->parameters['featureToggles']['subtractableTypes'];
 		$memoryLimitFile = $netteContainer->parameters['memoryLimitFile'];
 		if (file_exists($memoryLimitFile)) {
 			$memoryLimitFileContents = file_get_contents($memoryLimitFile);

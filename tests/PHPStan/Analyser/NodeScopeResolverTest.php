@@ -375,13 +375,13 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'issetBar',
 				TrinaryLogic::createYes(),
-				'mixed',
+				'mixed~null',
 			],
 			[
 				$testScope,
 				'issetBaz',
 				TrinaryLogic::createYes(),
-				'mixed',
+				'mixed~null',
 			],
 			[
 				$testScope,
@@ -435,7 +435,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'frame',
 				TrinaryLogic::createYes(),
-				'mixed',
+				'mixed~null',
 			],
 			[
 				$testScope,
@@ -699,7 +699,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'mixed',
 				TrinaryLogic::createYes(),
-				'mixed',
+				'mixed~bool',
 			],
 			[
 				$testScope,
@@ -4400,11 +4400,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$lorem',
 			],
 			[
-				'mixed',
+				'mixed~NegatedInstanceOf\Dolor',
 				'$dolor',
 			],
 			[
-				'mixed',
+				'mixed~NegatedInstanceOf\Sit',
 				'$sit',
 			],
 			[
@@ -8549,7 +8549,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$yetAnotherArrayCopy',
 			],
 			[
-				'mixed',
+				'mixed~null',
 				'$mixedIsset',
 			],
 			[
@@ -8850,7 +8850,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'json_decode($mixed)',
 			],
 			[
-				'mixed', // will be difference type (mixed minus false) in the future
+				'mixed~false',
 				'json_decode($mixed, false, 512, JSON_THROW_ON_ERROR | JSON_NUMERIC_CHECK)',
 			],
 			[

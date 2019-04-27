@@ -15,7 +15,7 @@ use PHPStan\Type\Traits\MaybeIterableTypeTrait;
 use PHPStan\Type\Traits\MaybeOffsetAccessibleTypeTrait;
 use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
 
-class MixedType implements CompoundType
+class MixedType implements CompoundType, SubtractableType
 {
 
 	use MaybeCallableTypeTrait;
@@ -26,9 +26,16 @@ class MixedType implements CompoundType
 	/** @var bool */
 	private $isExplicitMixed;
 
-	public function __construct(bool $isExplicitMixed = false)
+	/** @var \PHPStan\Type\Type|null */
+	private $subtractedType;
+
+	public function __construct(
+		bool $isExplicitMixed = false,
+		?Type $subtractedType = null
+	)
 	{
 		$this->isExplicitMixed = $isExplicitMixed;
+		$this->subtractedType = $subtractedType;
 	}
 
 	/**
@@ -46,6 +53,22 @@ class MixedType implements CompoundType
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
+		if ($this->subtractedType === null) {
+			return TrinaryLogic::createYes();
+		}
+
+		if ($this->subtractedType->isSuperTypeOf($type)->yes()) {
+			return TrinaryLogic::createNo();
+		}
+
+		if ($type instanceof self) {
+			if ($type->subtractedType !== null) {
+				return $type->subtractedType->isSuperTypeOf($this->subtractedType);
+			}
+
+			return TrinaryLogic::createMaybe();
+		}
+
 		return TrinaryLogic::createYes();
 	}
 
@@ -120,7 +143,22 @@ class MixedType implements CompoundType
 
 	public function describe(VerbosityLevel $level): string
 	{
-		return 'mixed';
+		return $level->handle(
+			static function (): string {
+				return 'mixed';
+			},
+			static function (): string {
+				return 'mixed';
+			},
+			function () use ($level): string {
+				$description = 'mixed';
+				if ($this->subtractedType !== null) {
+					$description .= sprintf('~%s', $this->subtractedType->describe($level));
+				}
+
+				return $description;
+			}
+		);
 	}
 
 	public function toNumber(): Type
@@ -156,13 +194,60 @@ class MixedType implements CompoundType
 		return $this->isExplicitMixed;
 	}
 
+	public function subtract(Type $type): Type
+	{
+		if ($type instanceof self) {
+			return new NeverType();
+		}
+		if ($this->subtractedType !== null) {
+			$type = TypeCombinator::union($this->subtractedType, $type);
+		}
+
+		return new static($this->isExplicitMixed, $type);
+	}
+
+	public function combineWith(Type $type): Type
+	{
+		if (!$type instanceof self) {
+			if ($this->subtractedType === null) {
+				return $this;
+			}
+
+			return new self($this->isExplicitMixed);
+		}
+
+		if ($this->subtractedType === null) {
+			return $this;
+		}
+
+		if ($type->subtractedType === null) {
+			return $type;
+		}
+
+		$subtractableType = TypeCombinator::intersect(
+			$this->subtractedType,
+			$type->subtractedType
+		);
+		if ($subtractableType instanceof NeverType) {
+			$subtractableType = null;
+		}
+
+		return new self(
+			$this->isExplicitMixed && $type->isExplicitMixed,
+			$subtractableType
+		);
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type
 	 */
 	public static function __set_state(array $properties): Type
 	{
-		return new self($properties['isExplicitMixed']);
+		return new self(
+			$properties['isExplicitMixed'],
+			$properties['subtractedType'] ?? null
+		);
 	}
 
 }

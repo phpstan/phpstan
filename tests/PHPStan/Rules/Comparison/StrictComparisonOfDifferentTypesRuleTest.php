@@ -187,6 +187,14 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					'Strict comparison using === between string|null and 1 will always evaluate to false.',
 					705,
 				],
+				[
+					'Strict comparison using === between mixed and \'foo\' will always evaluate to false.',
+					808,
+				],
+				[
+					'Strict comparison using !== between mixed and 1 will always evaluate to true.',
+					812,
+				],
 			]
 		);
 	}
@@ -320,6 +328,10 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 				[
 					'Strict comparison using === between string|null and 1 will always evaluate to false.',
 					705,
+				],
+				[
+					'Strict comparison using === between mixed and \'foo\' will always evaluate to false.',
+					808,
 				],
 			]
 		);

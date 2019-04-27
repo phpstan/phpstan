@@ -791,3 +791,27 @@ class RewrittenArray
 	}
 
 }
+
+class SubtractedMixed
+{
+
+	public function doFoo($mixed)
+	{
+		if ($mixed === 1) {
+			return;
+		}
+
+		if (is_string($mixed)) {
+			return;
+		}
+
+		if ($mixed === 'foo') {
+			return;
+		}
+
+		if ($mixed !== 1) {
+			return;
+		}
+	}
+
+}

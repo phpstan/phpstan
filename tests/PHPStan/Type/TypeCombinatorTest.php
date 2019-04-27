@@ -931,6 +931,74 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				UnionType::class, // I'd be more happy with preserving BenevolentUnionType
 				'int|string',
 			],
+			[
+				[
+					new MixedType(false, new IntegerType()),
+					new MixedType(false, new StringType()),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(false, new IntegerType()),
+					new MixedType(false, new UnionType([
+						new IntegerType(),
+						new StringType(),
+					])),
+				],
+				MixedType::class,
+				'mixed~int',
+			],
+			[
+				[
+					new MixedType(false, new IntegerType()),
+					new MixedType(false, new UnionType([
+						new ConstantIntegerType(1),
+						new StringType(),
+					])),
+				],
+				MixedType::class,
+				'mixed~1',
+			],
+			[
+				[
+					new MixedType(false, new ConstantIntegerType(2)),
+					new MixedType(false, new UnionType([
+						new ConstantIntegerType(1),
+						new StringType(),
+					])),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(false, new IntegerType()),
+					new MixedType(false, new ConstantIntegerType(1)),
+				],
+				MixedType::class,
+				'mixed~1',
+			],
+			[
+				[
+					new MixedType(false),
+					new MixedType(false, new ConstantIntegerType(1)),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(false, new NullType()),
+					new UnionType([
+						new StringType(),
+						new NullType(),
+					]),
+				],
+				MixedType::class,
+				'mixed',
+			],
 		];
 	}
 
@@ -1479,6 +1547,14 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				IntersectionType::class,
 				'array&hasOffset(\'bar\')&hasOffset(\'foo\')',
 			],
+			[
+				[
+					new StringType(),
+					new IntegerType(),
+				],
+				NeverType::class,
+				'*NEVER*',
+			],
 		];
 	}
 
@@ -1744,6 +1820,48 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				]),
 				ArrayType::class,
 				'array',
+			],
+			[
+				new MixedType(),
+				new IntegerType(),
+				MixedType::class,
+				'mixed~int',
+			],
+			[
+				new MixedType(false, new IntegerType()),
+				new IntegerType(),
+				MixedType::class,
+				'mixed~int',
+			],
+			[
+				new MixedType(false, new IntegerType()),
+				new StringType(),
+				MixedType::class,
+				'mixed~int|string',
+			],
+			[
+				new MixedType(false),
+				new MixedType(),
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				new MixedType(false, new StringType()),
+				new MixedType(),
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				new MixedType(false),
+				new MixedType(false, new StringType()),
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				new MixedType(false, new StringType()),
+				new NeverType(),
+				MixedType::class,
+				'mixed~string',
 			],
 		];
 	}

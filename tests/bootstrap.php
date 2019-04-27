@@ -1,6 +1,7 @@
 <?php declare(strict_types = 1);
 
 use PHPStan\Testing\TestCase;
+use PHPStan\Type\TypeCombinator;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/PHPStan/Rules/AlwaysFailRule.php';
@@ -19,3 +20,4 @@ eval('trait TraitInEval {
 }');
 
 TestCase::getContainer();
+TypeCombinator::$enableSubtractableTypes = true;
