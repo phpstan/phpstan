@@ -921,8 +921,13 @@ class NodeScopeResolver
 			}
 		} elseif ($stmt instanceof Static_) {
 			$hasYield = false;
+			$comment = CommentHelper::getDocComment($stmt);
 			foreach ($stmt->vars as $var) {
 				$scope = $this->processStmtNode($var, $scope, $nodeCallback)->getScope();
+				if ($comment === null || !is_string($var->var->name)) {
+					continue;
+				}
+				$scope = $this->processVarAnnotation($scope, $var->var->name, $comment, false);
 			}
 		} elseif ($stmt instanceof StaticVar) {
 			$hasYield = false;
