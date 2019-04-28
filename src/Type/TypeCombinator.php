@@ -309,7 +309,7 @@ class TypeCombinator
 		}
 
 		if ($subtractableType->getSubtractedType() === null) {
-			return $subtractableType->changeSubtractedType($subtractableType);
+			return $subtractableType;
 		}
 
 		$subtractedType = self::union(
@@ -523,6 +523,15 @@ class TypeCombinator
 					return new NeverType();
 
 				} elseif ($isSuperTypeA->yes()) {
+					if (self::$enableSubtractableTypes) {
+						if ($types[$i] instanceof SubtractableType) {
+							$subtractedType = null;
+							if ($types[$j] instanceof SubtractableType) {
+								$subtractedType = $types[$j]->getSubtractedType();
+							}
+							$types[$i] = self::unionWithSubtractedType($types[$i], $subtractedType);
+						}
+					}
 					array_splice($types, $j--, 1);
 					continue;
 				}
@@ -530,23 +539,27 @@ class TypeCombinator
 				$isSuperTypeB = $types[$i]->isSuperTypeOf($types[$j]);
 				if ($isSuperTypeB->maybe()) {
 					if (self::$enableSubtractableTypes) {
-						if (
-							$types[$i] instanceof SubtractableType
-							&& !$types[$j] instanceof AccessoryType
-						) {
+						if ($types[$i] instanceof SubtractableType) {
 							$subtractedType = null;
 							if ($types[$j] instanceof SubtractableType) {
 								$subtractedType = $types[$j]->getSubtractedType();
 							}
-							$types[$j] = self::unionWithSubtractedType($types[$i], $subtractedType);
-							array_splice($types, $i--, 1);
-							continue 2;
+							$types[$i] = self::unionWithSubtractedType($types[$i], $subtractedType);
 						}
 					}
 					continue;
 				}
 
 				if ($isSuperTypeB->yes()) {
+					if (self::$enableSubtractableTypes) {
+						if ($types[$j] instanceof SubtractableType) {
+							$subtractedType = null;
+							if ($types[$i] instanceof SubtractableType) {
+								$subtractedType = $types[$i]->getSubtractedType();
+							}
+							$types[$j] = self::unionWithSubtractedType($types[$j], $subtractedType);
+						}
+					}
 					array_splice($types, $i--, 1);
 					continue 2;
 				}

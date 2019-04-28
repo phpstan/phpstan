@@ -54,7 +54,7 @@ class MixedTypeTest extends \PHPStan\Testing\TestCase
 			[
 				new MixedType(false, new IntegerType()),
 				new MixedType(false, new ConstantIntegerType(1)),
-				TrinaryLogic::createMaybe(),
+				TrinaryLogic::createYes(),
 			],
 			[
 				new MixedType(false, new ConstantIntegerType(1)),
@@ -64,7 +64,7 @@ class MixedTypeTest extends \PHPStan\Testing\TestCase
 			[
 				new MixedType(false, new StringType()),
 				new MixedType(false, new IntegerType()),
-				TrinaryLogic::createMaybe(),
+				TrinaryLogic::createYes(),
 			],
 			[
 				new MixedType(),

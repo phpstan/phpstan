@@ -56,19 +56,19 @@ class MixedType implements CompoundType, SubtractableType
 			return TrinaryLogic::createYes();
 		}
 
-		if ($this->subtractedType->isSuperTypeOf($type)->yes()) {
-			return TrinaryLogic::createNo();
-		}
-
 		if ($type instanceof self) {
 			if ($type->subtractedType !== null) {
-				$isSuperType = $type->subtractedType->isSuperTypeOf($this->subtractedType);
+				$isSuperType = $this->subtractedType->isSuperTypeOf($this->subtractedType);
 				if ($isSuperType->yes()) {
 					return TrinaryLogic::createYes();
 				}
 			}
 
 			return TrinaryLogic::createMaybe();
+		}
+
+		if ($this->subtractedType->isSuperTypeOf($type)->yes()) {
+			return TrinaryLogic::createNo();
 		}
 
 		return TrinaryLogic::createYes();
