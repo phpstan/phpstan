@@ -516,6 +516,8 @@ class TypeSpecifier
 			&& (new ArrayType(new MixedType(), new MixedType()))->isSuperTypeOf($scope->getType($expr->expr))->yes()
 		) {
 			return $this->create($expr->expr, new NonEmptyArrayType(), $context->negate());
+		} elseif ($expr instanceof Expr\ErrorSuppress) {
+			return $this->specifyTypesInCondition($scope, $expr->expr, $context, $defaultHandleFunctions);
 		} elseif (!$context->null()) {
 			return $this->handleDefaultTruthyOrFalseyContext($context, $expr);
 		}
