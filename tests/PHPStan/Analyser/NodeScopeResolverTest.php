@@ -4787,7 +4787,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				'array|false',
-				'array_combine([1], [2])',
+				'array_combine($array, $array)',
 			],
 			[
 				'array<0|1|2, 1|2|3>',
@@ -4928,6 +4928,26 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[
 				'array<int|string, int>',
 				'$mergedInts',
+			],
+			[
+				'false',
+				'array_combine([1, 2], [3])',
+			],
+			[
+				'array(\'a\' => \'d\', \'b\' => \'e\', \'c\' => \'f\')',
+				'array_combine([\'a\', \'b\', \'c\'], [\'d\', \'e\', \'f\'])',
+			],
+			[
+				'array<1|2|3, mixed>|false',
+				'array_combine([1, 2, 3], $array)',
+			],
+			[
+				'array<1|2|3>|false',
+				'array_combine($array, [1, 2, 3])',
+			],
+			[
+				'array<string, string>|false',
+				'array_combine($stringArray, $stringArray)',
 			],
 			[
 				'array(5 => \'banana\', 6 => \'banana\', 7 => \'banana\', 8 => \'banana\', 9 => \'banana\', 10 => \'banana\')',

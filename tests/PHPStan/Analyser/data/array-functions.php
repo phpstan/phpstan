@@ -171,4 +171,7 @@ foreach ($array as $val) {
 	$mergedInts = array_merge($mergedInts, $generalIntegers);
 }
 
+/** @var string[] $stringArray */
+$stringArray = doFoo();
+
 die;
