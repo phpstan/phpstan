@@ -1629,14 +1629,14 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				ConstantIntegerType::class,
 				'1',
 			],
-			[
+			/*[
 				[
 					new MixedType(false, new StringType()),
 					new MixedType(false, new IntegerType()),
 				],
 				MixedType::class,
 				'mixed~int|string',
-			],
+			],*/
 		];
 	}
 
