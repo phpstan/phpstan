@@ -18,6 +18,7 @@ class CrashTwo extends \PDOStatement
 	 */
 	public function setFetchMode($mode, $params = null)
 	{
+		return true;
 	}
 
 }
@@ -32,6 +33,7 @@ class CrashThree extends \PDOStatement
 	 */
 	public function setFetchMode($fetch_column, $colno = null)
 	{
+		return true;
 	}
 
 }
@@ -47,6 +49,7 @@ class CrashFour extends \PDOStatement
 	 */
 	public function setFetchMode($fetch_class, $classname = null, $ctorargs = null)
 	{
+		return true;
 	}
 
 }
@@ -62,6 +65,7 @@ class CrashFive extends \PDOStatement
 	 */
 	public function setFetchMode($fetch_class, $classname = null, $ctorargs = null)
 	{
+		return true;
 	}
 
 }
@@ -76,6 +80,7 @@ class CrashSix extends \PDOStatement
 	 */
 	public function setFetchMode($fetch_into, $object = null)
 	{
+		return true;
 	}
 
 }

@@ -1,1 +1,4 @@
+includes:
+	- ../../../../conf/bleedingEdge.neon
+
 parameters:
