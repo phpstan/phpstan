@@ -20,7 +20,6 @@ class IntegerTypeTest extends \PHPStan\Testing\TestCase
 		$this->assertTrue($integerType->accepts(new StringType(), true)->no());
 	}
 
-
 	public function dataIsSuperTypeOf(): iterable
 	{
 		yield [

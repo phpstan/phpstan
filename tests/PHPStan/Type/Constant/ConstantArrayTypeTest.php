@@ -70,7 +70,6 @@ class ConstantArrayTypeTest extends \PHPStan\Testing\TestCase
 		];
 	}
 
-
 	/**
 	 * @dataProvider dataAccepts
 	 * @param ConstantArrayType $type
@@ -86,7 +85,6 @@ class ConstantArrayTypeTest extends \PHPStan\Testing\TestCase
 			sprintf('%s -> accepts(%s)', $type->describe(VerbosityLevel::precise()), $otherType->describe(VerbosityLevel::precise()))
 		);
 	}
-
 
 	public function dataIsSuperTypeOf(): iterable
 	{

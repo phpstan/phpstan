@@ -58,6 +58,13 @@
 	<rule ref="SlevomatCodingStandard.Namespaces.UselessAlias"/>
 	<rule ref="SlevomatCodingStandard.PHP.UselessSemicolon"/>
 	<rule ref="SlevomatCodingStandard.PHP.UselessParentheses"/>
+	<rule ref="Squiz.WhiteSpace.FunctionSpacing">
+		<properties>
+			<property name="spacing" value="1" />
+			<property name="spacingBeforeFirst" value="1"/>
+			<property name="spacingAfterLast" value="1"/>
+		</properties>
+	</rule>
 	<exclude-pattern>tests/*/data</exclude-pattern>
 	<exclude-pattern>tests/*/traits</exclude-pattern>
 	<exclude-pattern>tests/notAutoloaded</exclude-pattern>

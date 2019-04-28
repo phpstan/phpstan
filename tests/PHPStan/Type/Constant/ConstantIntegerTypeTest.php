@@ -31,7 +31,6 @@ class ConstantIntegerTypeTest extends \PHPStan\Testing\TestCase
 		];
 	}
 
-
 	/**
 	 * @dataProvider dataAccepts
 	 * @param ConstantIntegerType $type
@@ -47,7 +46,6 @@ class ConstantIntegerTypeTest extends \PHPStan\Testing\TestCase
 			sprintf('%s -> accepts(%s)', $type->describe(VerbosityLevel::precise()), $otherType->describe(VerbosityLevel::precise()))
 		);
 	}
-
 
 	public function dataIsSuperTypeOf(): iterable
 	{

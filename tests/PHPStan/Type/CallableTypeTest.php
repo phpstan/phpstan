@@ -45,7 +45,6 @@ class CallableTypeTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
-
 	public function dataIsSubTypeOf(): array
 	{
 		return [

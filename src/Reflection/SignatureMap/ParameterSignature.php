@@ -38,7 +38,6 @@ class ParameterSignature
 		$this->variadic = $variadic;
 	}
 
-
 	public function getName(): string
 	{
 		return $this->name;
