@@ -1945,6 +1945,30 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				MixedType::class,
 				'mixed~string',
 			],
+			[
+				new ObjectType('Exception'),
+				new ObjectType('InvalidArgumentException'),
+				ObjectType::class,
+				'Exception~InvalidArgumentException',
+			],
+			[
+				new ObjectType('Exception', new ObjectType('InvalidArgumentException')),
+				new ObjectType('LengthException'),
+				ObjectType::class,
+				'Exception~InvalidArgumentException|LengthException',
+			],
+			[
+				new ObjectType('Exception'),
+				new ObjectType('Throwable'),
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				new ObjectType('Exception', new ObjectType('InvalidArgumentException')),
+				new ObjectType('InvalidArgumentException'),
+				ObjectType::class,
+				'Exception~InvalidArgumentException',
+			],
 		];
 	}
 

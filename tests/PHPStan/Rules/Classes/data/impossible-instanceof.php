@@ -309,4 +309,24 @@ class ObjectSubtracted
 		}
 	}
 
+	public function doBaz(Bar $bar)
+	{
+		if ($bar instanceof BarChild) {
+			return;
+		}
+
+		if ($bar instanceof BarChild) {
+
+		}
+
+		if ($bar instanceof BarGrandChild) {
+
+		}
+	}
+
+}
+
+class BarGrandChild implements BarChild
+{
+
 }

@@ -269,6 +269,46 @@ class ObjectTypeTest extends \PHPStan\Testing\TestCase
 				new ObjectWithoutClassType(new ObjectType('Exception')),
 				TrinaryLogic::createNo(),
 			],
+			[
+				new ObjectType(\Throwable::class, new ObjectType(\InvalidArgumentException::class)),
+				new ObjectType(\InvalidArgumentException::class),
+				TrinaryLogic::createNo(),
+			],
+			[
+				new ObjectType(\Throwable::class, new ObjectType(\InvalidArgumentException::class)),
+				new ObjectType('Exception'),
+				TrinaryLogic::createYes(),
+			],
+			[
+				new ObjectType(\Throwable::class, new ObjectType('Exception')),
+				new ObjectType(\InvalidArgumentException::class),
+				TrinaryLogic::createNo(),
+			],
+			[
+				new ObjectType(\Throwable::class, new ObjectType('Exception')),
+				new ObjectType('Exception'),
+				TrinaryLogic::createNo(),
+			],
+			[
+				new ObjectType(\Throwable::class, new ObjectType('Exception')),
+				new ObjectType(\Throwable::class),
+				TrinaryLogic::createYes(),
+			],
+			[
+				new ObjectType(\Throwable::class),
+				new ObjectType(\Throwable::class, new ObjectType('Exception')),
+				TrinaryLogic::createYes(),
+			],
+			[
+				new ObjectType(\Throwable::class),
+				new ObjectType(\Throwable::class, new ObjectType('Exception')),
+				TrinaryLogic::createYes(),
+			],
+			[
+				new ObjectType('Exception'),
+				new ObjectType(\Throwable::class, new ObjectType('Exception')),
+				TrinaryLogic::createNo(),
+			],
 		];
 	}
 

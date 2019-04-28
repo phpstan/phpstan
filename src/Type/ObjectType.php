@@ -15,7 +15,7 @@ use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\Traits\TruthyBooleanTypeTrait;
 
-class ObjectType implements TypeWithClassName
+class ObjectType implements TypeWithClassName, SubtractableType
 {
 
 	use TruthyBooleanTypeTrait;
@@ -25,9 +25,16 @@ class ObjectType implements TypeWithClassName
 	/** @var string */
 	private $className;
 
-	public function __construct(string $className)
+	/** @var \PHPStan\Type\Type|null */
+	private $subtractedType;
+
+	public function __construct(
+		string $className,
+		?Type $subtractedType = null
+	)
 	{
 		$this->className = $className;
+		$this->subtractedType = $subtractedType;
 	}
 
 	public function getClassName(): string
@@ -117,12 +124,25 @@ class ObjectType implements TypeWithClassName
 			return TrinaryLogic::createMaybe();
 		}
 
-		if ($type instanceof ClosureType) {
-			return $this->isInstanceOf(\Closure::class);
-		}
-
 		if (!$type instanceof TypeWithClassName) {
 			return TrinaryLogic::createNo();
+		}
+
+		if ($this->subtractedType !== null) {
+			$isSuperType = $this->subtractedType->isSuperTypeOf($type);
+			if ($isSuperType->yes()) {
+				return TrinaryLogic::createNo();
+			}
+		}
+
+		if (
+			$type instanceof SubtractableType
+			&& $type->getSubtractedType() !== null
+		) {
+			$isSuperType = $type->getSubtractedType()->isSuperTypeOf($this);
+			if ($isSuperType->yes()) {
+				return TrinaryLogic::createNo();
+			}
 		}
 
 		$thisClassName = $this->className;
@@ -213,6 +233,14 @@ class ObjectType implements TypeWithClassName
 			},
 			function (): string {
 				return $this->className;
+			},
+			function () use ($level): string {
+				$description = $this->className;
+				if ($this->subtractedType !== null) {
+					$description .= sprintf('~%s', $this->subtractedType->describe($level));
+				}
+
+				return $description;
 			}
 		);
 	}
@@ -587,7 +615,10 @@ class ObjectType implements TypeWithClassName
 	 */
 	public static function __set_state(array $properties): Type
 	{
-		return new self($properties['className']);
+		return new self(
+			$properties['className'],
+			$properties['subtractedType'] ?? null
+		);
 	}
 
 	public function isInstanceOf(string $className): TrinaryLogic
@@ -608,6 +639,30 @@ class ObjectType implements TypeWithClassName
 		}
 
 		return TrinaryLogic::createNo();
+	}
+
+	public function subtract(Type $type): Type
+	{
+		if ($this->subtractedType !== null) {
+			$type = TypeCombinator::union($this->subtractedType, $type);
+		}
+
+		return new self($this->className, $type);
+	}
+
+	public function getTypeWithoutSubtractedType(): Type
+	{
+		return new self($this->className);
+	}
+
+	public function changeSubtractedType(?Type $subtractedType): Type
+	{
+		return new self($this->className, $subtractedType);
+	}
+
+	public function getSubtractedType(): ?Type
+	{
+		return $this->subtractedType;
 	}
 
 }

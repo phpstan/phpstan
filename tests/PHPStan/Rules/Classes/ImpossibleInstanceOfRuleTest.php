@@ -119,6 +119,14 @@ class ImpossibleInstanceOfRuleTest extends \PHPStan\Testing\RuleTestCase
 					'Instanceof between object and InvalidArgumentException will always evaluate to false.',
 					307,
 				],
+				[
+					'Instanceof between ImpossibleInstanceOf\Bar and ImpossibleInstanceOf\BarChild will always evaluate to false.',
+					318,
+				],
+				[
+					'Instanceof between ImpossibleInstanceOf\Bar and ImpossibleInstanceOf\BarGrandChild will always evaluate to false.',
+					322,
+				],
 			]
 		);
 	}
@@ -176,6 +184,14 @@ class ImpossibleInstanceOfRuleTest extends \PHPStan\Testing\RuleTestCase
 				[
 					'Instanceof between object and InvalidArgumentException will always evaluate to false.',
 					307,
+				],
+				[
+					'Instanceof between ImpossibleInstanceOf\Bar and ImpossibleInstanceOf\BarChild will always evaluate to false.',
+					318,
+				],
+				[
+					'Instanceof between ImpossibleInstanceOf\Bar and ImpossibleInstanceOf\BarGrandChild will always evaluate to false.',
+					322,
 				],
 			]
 		);
