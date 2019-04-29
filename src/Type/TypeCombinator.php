@@ -213,6 +213,23 @@ class TypeCombinator
 			}
 		}
 
+		foreach ($scalarTypes as $classType => $scalarTypeItems) {
+			if (isset($hasGenericScalarTypes[$classType])) {
+				continue;
+			}
+			if ($classType === ConstantBooleanType::class && count($scalarTypeItems) === 2) {
+				$types[] = new BooleanType();
+				continue;
+			}
+			foreach ($scalarTypeItems as $type) {
+				if (count($scalarTypeItems) > self::CONSTANT_SCALAR_UNION_THRESHOLD) {
+					$types[] = $type->generalize();
+					break;
+				}
+				$types[] = $type;
+			}
+		}
+
 		// transform A | A to A
 		// transform A | never to A
 		for ($i = 0; $i < count($types); $i++) {
@@ -264,31 +281,6 @@ class TypeCombinator
 			}
 		}
 
-		foreach ($scalarTypes as $classType => $scalarTypeItems) {
-			if (isset($hasGenericScalarTypes[$classType])) {
-				continue;
-			}
-			if ($classType === ConstantBooleanType::class && count($scalarTypeItems) === 2) {
-				$types[] = new BooleanType();
-				continue;
-			}
-			foreach ($scalarTypeItems as $type) {
-				if (count($scalarTypeItems) > self::CONSTANT_SCALAR_UNION_THRESHOLD) {
-					$types[] = $type->generalize();
-					break;
-				}
-				$types[] = $type;
-			}
-		}
-
-		if (self::$enableSubtractableTypes) {
-			foreach ($types as $type) {
-				if ($type instanceof MixedType) {
-					return $type;
-				}
-			}
-		}
-
 		if (count($types) === 0) {
 			return new NeverType();
 
@@ -300,27 +292,35 @@ class TypeCombinator
 	}
 
 	private static function unionWithSubtractedType(
-		SubtractableType $subtractableType,
+		Type $type,
 		?Type $subtractedType
 	): Type
 	{
 		if ($subtractedType === null) {
-			return $subtractableType;
+			return $type;
 		}
 
-		if ($subtractableType->getSubtractedType() === null) {
-			return $subtractableType;
+		if ($type instanceof SubtractableType) {
+			if ($type->getSubtractedType() === null) {
+				return $type;
+			}
+
+			$subtractedType = self::union(
+				$type->getSubtractedType(),
+				$subtractedType
+			);
+			if ($subtractedType instanceof NeverType) {
+				$subtractedType = null;
+			}
+
+			return $type->changeSubtractedType($subtractedType);
 		}
 
-		$subtractedType = self::union(
-			$subtractableType->getSubtractedType(),
-			$subtractedType
-		);
-		if ($subtractedType instanceof NeverType) {
-			$subtractedType = null;
+		if ($subtractedType->isSuperTypeOf($type)->yes()) {
+			return new NeverType();
 		}
 
-		return $subtractableType->changeSubtractedType($subtractedType);
+		return $type;
 	}
 
 	private static function intersectWithSubtractedType(
@@ -518,48 +518,40 @@ class TypeCombinator
 		// transform int & string to never
 		for ($i = 0; $i < count($types); $i++) {
 			for ($j = $i + 1; $j < count($types); $j++) {
+				if (self::$enableSubtractableTypes) {
+					if ($types[$j] instanceof SubtractableType) {
+						$isSuperTypeSubtractableA = $types[$j]->getTypeWithoutSubtractedType()->isSuperTypeOf($types[$i]);
+						if ($isSuperTypeSubtractableA->yes()) {
+							$types[$i] = self::unionWithSubtractedType($types[$i], $types[$j]->getSubtractedType());
+							array_splice($types, $j--, 1);
+							continue 1;
+						}
+					}
+
+					if ($types[$i] instanceof SubtractableType) {
+						$isSuperTypeSubtractableB = $types[$i]->getTypeWithoutSubtractedType()->isSuperTypeOf($types[$j]);
+						if ($isSuperTypeSubtractableB->yes()) {
+							$types[$j] = self::unionWithSubtractedType($types[$j], $types[$i]->getSubtractedType());
+							array_splice($types, $i--, 1);
+							continue 2;
+						}
+					}
+				}
 				$isSuperTypeA = $types[$j]->isSuperTypeOf($types[$i]);
 				if ($isSuperTypeA->no()) {
 					return new NeverType();
 
 				} elseif ($isSuperTypeA->yes()) {
-					if (self::$enableSubtractableTypes) {
-						if ($types[$i] instanceof SubtractableType) {
-							$subtractedType = null;
-							if ($types[$j] instanceof SubtractableType) {
-								$subtractedType = $types[$j]->getSubtractedType();
-							}
-							$types[$i] = self::unionWithSubtractedType($types[$i], $subtractedType);
-						}
-					}
 					array_splice($types, $j--, 1);
 					continue;
 				}
 
 				$isSuperTypeB = $types[$i]->isSuperTypeOf($types[$j]);
 				if ($isSuperTypeB->maybe()) {
-					if (self::$enableSubtractableTypes) {
-						if ($types[$i] instanceof SubtractableType) {
-							$subtractedType = null;
-							if ($types[$j] instanceof SubtractableType) {
-								$subtractedType = $types[$j]->getSubtractedType();
-							}
-							$types[$i] = self::unionWithSubtractedType($types[$i], $subtractedType);
-						}
-					}
 					continue;
 				}
 
 				if ($isSuperTypeB->yes()) {
-					if (self::$enableSubtractableTypes) {
-						if ($types[$j] instanceof SubtractableType) {
-							$subtractedType = null;
-							if ($types[$i] instanceof SubtractableType) {
-								$subtractedType = $types[$i]->getSubtractedType();
-							}
-							$types[$j] = self::unionWithSubtractedType($types[$j], $subtractedType);
-						}
-					}
 					array_splice($types, $i--, 1);
 					continue 2;
 				}

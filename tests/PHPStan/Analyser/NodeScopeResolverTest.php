@@ -442,7 +442,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'frame',
 				TrinaryLogic::createYes(),
-				'mixed~null',
+				'mixed',
 			],
 			[
 				$testScope,
@@ -706,7 +706,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'mixed',
 				TrinaryLogic::createYes(),
-				'mixed~bool',
+				'mixed', // should be mixed~bool+1
 			],
 			[
 				$testScope,

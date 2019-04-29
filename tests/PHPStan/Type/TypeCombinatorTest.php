@@ -1001,14 +1001,6 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new MixedType(false, new StringType()),
-					new MixedType(false, new IntegerType()),
-				],
-				MixedType::class,
-				'mixed',
-			],
-			[
-				[
 					new MixedType(),
 					new ObjectWithoutClassType(),
 				],
@@ -1038,6 +1030,54 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				],
 				MixedType::class,
 				'mixed~A',
+			],
+			[
+				[
+					new MixedType(false, new NullType()),
+					new NullType(),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(false, new IntegerType()),
+					new IntegerType(),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(false, new ConstantIntegerType(1)),
+					new ConstantIntegerType(1),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(false, new ObjectType('Exception')),
+					new ObjectType('Throwable'),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(false, new ObjectType('Exception')),
+					new ObjectType('Exception'),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(false, new ObjectType('Exception')),
+					new ObjectType('InvalidArgumentException'),
+				],
+				MixedType::class,
+				'mixed', // should be MixedType~Exception+InvalidArgumentException
 			],
 		];
 	}
@@ -1629,14 +1669,14 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				ConstantIntegerType::class,
 				'1',
 			],
-			/*[
+			[
 				[
 					new MixedType(false, new StringType()),
 					new MixedType(false, new IntegerType()),
 				],
 				MixedType::class,
 				'mixed~int|string',
-			],*/
+			],
 		];
 	}
 
