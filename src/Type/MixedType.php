@@ -68,11 +68,7 @@ class MixedType implements CompoundType, SubtractableType
 			return TrinaryLogic::createMaybe();
 		}
 
-		if ($this->subtractedType->isSuperTypeOf($type)->yes()) {
-			return TrinaryLogic::createNo();
-		}
-
-		return TrinaryLogic::createYes();
+		return $this->subtractedType->isSuperTypeOf($type)->negate();
 	}
 
 	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type

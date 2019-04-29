@@ -64,12 +64,7 @@ class ObjectWithoutClassType implements SubtractableType
 				return TrinaryLogic::createYes();
 			}
 
-			$isSuperType = $this->subtractedType->isSuperTypeOf($type);
-			if ($isSuperType->yes()) {
-				return TrinaryLogic::createNo();
-			}
-
-			return TrinaryLogic::createYes();
+			return $this->subtractedType->isSuperTypeOf($type)->negate();
 		}
 
 		return TrinaryLogic::createNo();

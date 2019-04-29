@@ -34,7 +34,7 @@ class MixedTypeTest extends \PHPStan\Testing\TestCase
 			[
 				new MixedType(false, new ConstantIntegerType(1)),
 				new IntegerType(),
-				TrinaryLogic::createYes(),
+				TrinaryLogic::createMaybe(),
 			],
 			[
 				new MixedType(false, new ConstantIntegerType(1)),
@@ -79,7 +79,7 @@ class MixedTypeTest extends \PHPStan\Testing\TestCase
 			[
 				new MixedType(false, new ObjectType('Exception')),
 				new ObjectWithoutClassType(),
-				TrinaryLogic::createYes(),
+				TrinaryLogic::createMaybe(),
 			],
 			[
 				new MixedType(false, new ObjectType('Exception')),
@@ -89,7 +89,7 @@ class MixedTypeTest extends \PHPStan\Testing\TestCase
 			[
 				new MixedType(false, new ObjectType('Exception')),
 				new ObjectWithoutClassType(new ObjectType('InvalidArgumentException')),
-				TrinaryLogic::createYes(),
+				TrinaryLogic::createMaybe(),
 			],
 			[
 				new MixedType(false, new ObjectType('InvalidArgumentException')),
@@ -104,7 +104,7 @@ class MixedTypeTest extends \PHPStan\Testing\TestCase
 			[
 				new MixedType(false, new ObjectType('InvalidArgumentException')),
 				new ObjectType('Exception'),
-				TrinaryLogic::createYes(),
+				TrinaryLogic::createMaybe(),
 			],
 			[
 				new MixedType(false, new ObjectType('Exception')),

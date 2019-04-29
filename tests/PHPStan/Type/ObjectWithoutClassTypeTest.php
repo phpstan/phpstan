@@ -28,7 +28,7 @@ class ObjectWithoutClassTypeTest extends \PHPStan\Testing\TestCase
 			[
 				new ObjectWithoutClassType(new ObjectType(\InvalidArgumentException::class)),
 				new ObjectType('Exception'),
-				TrinaryLogic::createYes(),
+				TrinaryLogic::createMaybe(),
 			],
 			[
 				new ObjectWithoutClassType(new ObjectType('Exception')),
