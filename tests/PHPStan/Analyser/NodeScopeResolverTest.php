@@ -58,6 +58,13 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			$this->assertTrue($scope->hasVariableType('val')->yes());
 			$this->assertSame('SomeNodeScopeResolverNamespace\InvalidArgumentException', $scope->getVariableType('exception')->describe(VerbosityLevel::precise()));
 			$this->assertTrue($scope->hasVariableType('staticVariable')->yes());
+			$this->assertSame($scope->getVariableType('staticVariable')->describe(VerbosityLevel::precise()), 'mixed');
+			$this->assertTrue($scope->hasVariableType('staticVariableWithPhpDocType')->yes());
+			$this->assertSame($scope->getVariableType('staticVariableWithPhpDocType')->describe(VerbosityLevel::precise()), 'string');
+			$this->assertTrue($scope->hasVariableType('staticVariableWithPhpDocType2')->yes());
+			$this->assertSame($scope->getVariableType('staticVariableWithPhpDocType2')->describe(VerbosityLevel::precise()), 'int');
+			$this->assertTrue($scope->hasVariableType('staticVariableWithPhpDocType3')->yes());
+			$this->assertSame($scope->getVariableType('staticVariableWithPhpDocType3')->describe(VerbosityLevel::precise()), 'float');
 		});
 	}
 
@@ -375,13 +382,13 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'issetBar',
 				TrinaryLogic::createYes(),
-				'mixed',
+				'mixed~null',
 			],
 			[
 				$testScope,
 				'issetBaz',
 				TrinaryLogic::createYes(),
-				'mixed',
+				'mixed~null',
 			],
 			[
 				$testScope,
@@ -699,7 +706,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'mixed',
 				TrinaryLogic::createYes(),
-				'mixed',
+				'mixed', // should be mixed~bool+1
 			],
 			[
 				$testScope,
@@ -4400,11 +4407,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$lorem',
 			],
 			[
-				'mixed',
+				'mixed~NegatedInstanceOf\Dolor',
 				'$dolor',
 			],
 			[
-				'mixed',
+				'mixed~NegatedInstanceOf\Sit',
 				'$sit',
 			],
 			[
@@ -8549,7 +8556,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$yetAnotherArrayCopy',
 			],
 			[
-				'mixed',
+				'mixed~null',
 				'$mixedIsset',
 			],
 			[
@@ -8850,7 +8857,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'json_decode($mixed)',
 			],
 			[
-				'mixed', // will be difference type (mixed minus false) in the future
+				'mixed~false',
 				'json_decode($mixed, false, 512, JSON_THROW_ON_ERROR | JSON_NUMERIC_CHECK)',
 			],
 			[

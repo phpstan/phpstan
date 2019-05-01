@@ -4,7 +4,7 @@
     "static", "self", "parent",
     "array", "string", "int", "float", "bool", "iterable", "callable", "void", "object",
     "PHPUnit\\Framework\\TestCase", "PHPUnit\\Framework\\AssertionFailedError",
-    "JSON_THROW_ON_ERROR"
+    "JSON_THROW_ON_ERROR", "PHPStan\\ExtensionInstaller\\GeneratedConfig"
   ],
   "php-core-extensions" : [
     "Core",

@@ -3,6 +3,8 @@ parameters:
 	excludes_analyse: []
 	autoload_directories: []
 	autoload_files: []
+	featureToggles:
+		subtractableTypes: false
 	fileExtensions:
 		- php
 	checkAlwaysTrueCheckTypeFunctionCall: false

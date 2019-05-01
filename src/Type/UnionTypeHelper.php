@@ -85,11 +85,11 @@ class UnionTypeHelper
 				return -1;
 			}
 
-			$aIsNullOrBool = ($a instanceof NullType || $a instanceof ConstantBooleanType);
-			$bIsNullOrBool = ($b instanceof NullType || $b instanceof ConstantBooleanType);
-			if ($aIsNullOrBool && !$bIsNullOrBool) {
+			$aIsBool = $a instanceof ConstantBooleanType;
+			$bIsBool = $b instanceof ConstantBooleanType;
+			if ($aIsBool && !$bIsBool) {
 				return 1;
-			} elseif ($bIsNullOrBool && !$aIsNullOrBool) {
+			} elseif ($bIsBool && !$aIsBool) {
 				return -1;
 			}
 			if ($a instanceof ConstantScalarType && !$b instanceof ConstantScalarType) {

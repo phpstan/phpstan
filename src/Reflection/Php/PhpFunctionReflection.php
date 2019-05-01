@@ -134,7 +134,7 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 	 */
 	private function getParameters(): array
 	{
-		return array_map(function (\ReflectionParameter $reflection) {
+		return array_map(function (\ReflectionParameter $reflection): PhpParameterReflection {
 			return new PhpParameterReflection(
 				$reflection,
 				$this->phpDocParameterTypes[$reflection->getName()] ?? null

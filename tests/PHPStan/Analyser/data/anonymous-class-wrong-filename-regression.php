@@ -15,7 +15,7 @@ class Foo
 			 */
 			public function doBar($test): Bar
 			{
-
+				return new Bar();
 			}
 
 		};

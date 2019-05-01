@@ -9,16 +9,15 @@ use PHPStan\Reflection\Dummy\DummyMethodReflection;
 use PHPStan\Reflection\Dummy\DummyPropertyReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
+use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
-use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\MaybeIterableTypeTrait;
 use PHPStan\Type\Traits\MaybeOffsetAccessibleTypeTrait;
 use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
 
-class MixedType implements CompoundType
+class MixedType implements CompoundType, SubtractableType
 {
 
-	use MaybeCallableTypeTrait;
 	use MaybeIterableTypeTrait;
 	use MaybeOffsetAccessibleTypeTrait;
 	use UndecidedBooleanTypeTrait;
@@ -26,9 +25,16 @@ class MixedType implements CompoundType
 	/** @var bool */
 	private $isExplicitMixed;
 
-	public function __construct(bool $isExplicitMixed = false)
+	/** @var \PHPStan\Type\Type|null */
+	private $subtractedType;
+
+	public function __construct(
+		bool $isExplicitMixed = false,
+		?Type $subtractedType = null
+	)
 	{
 		$this->isExplicitMixed = $isExplicitMixed;
+		$this->subtractedType = $subtractedType;
 	}
 
 	/**
@@ -46,12 +52,49 @@ class MixedType implements CompoundType
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
-		return TrinaryLogic::createYes();
+		if ($this->subtractedType === null) {
+			return TrinaryLogic::createYes();
+		}
+
+		if ($type instanceof self) {
+			if ($type->subtractedType === null) {
+				return TrinaryLogic::createMaybe();
+			}
+			$isSuperType = $type->subtractedType->isSuperTypeOf($this->subtractedType);
+			if ($isSuperType->yes()) {
+				return TrinaryLogic::createYes();
+			}
+
+			return TrinaryLogic::createMaybe();
+		}
+
+		return $this->subtractedType->isSuperTypeOf($type)->negate();
 	}
 
 	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
 	{
 		return new MixedType();
+	}
+
+	public function isCallable(): TrinaryLogic
+	{
+		if (
+			$this->subtractedType !== null
+			&& $this->subtractedType->isCallable()->yes()
+		) {
+			return TrinaryLogic::createNo();
+		}
+
+		return TrinaryLogic::createMaybe();
+	}
+
+	/**
+	 * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
+	 * @return \PHPStan\Reflection\ParametersAcceptor[]
+	 */
+	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array
+	{
+		return [new TrivialParametersAcceptor()];
 	}
 
 	public function equals(Type $type): bool
@@ -63,6 +106,13 @@ class MixedType implements CompoundType
 	{
 		if ($otherType instanceof self) {
 			return TrinaryLogic::createYes();
+		}
+
+		if ($this->subtractedType !== null) {
+			$isSuperType = $this->subtractedType->isSuperTypeOf($otherType);
+			if ($isSuperType->yes()) {
+				return TrinaryLogic::createNo();
+			}
 		}
 
 		return TrinaryLogic::createMaybe();
@@ -120,7 +170,22 @@ class MixedType implements CompoundType
 
 	public function describe(VerbosityLevel $level): string
 	{
-		return 'mixed';
+		return $level->handle(
+			static function (): string {
+				return 'mixed';
+			},
+			static function (): string {
+				return 'mixed';
+			},
+			function () use ($level): string {
+				$description = 'mixed';
+				if ($this->subtractedType !== null) {
+					$description .= sprintf('~%s', $this->subtractedType->describe($level));
+				}
+
+				return $description;
+			}
+		);
 	}
 
 	public function toNumber(): Type
@@ -156,13 +221,43 @@ class MixedType implements CompoundType
 		return $this->isExplicitMixed;
 	}
 
+	public function subtract(Type $type): Type
+	{
+		if ($type instanceof self) {
+			return new NeverType();
+		}
+		if ($this->subtractedType !== null) {
+			$type = TypeCombinator::union($this->subtractedType, $type);
+		}
+
+		return new static($this->isExplicitMixed, $type);
+	}
+
+	public function getTypeWithoutSubtractedType(): Type
+	{
+		return new self($this->isExplicitMixed);
+	}
+
+	public function changeSubtractedType(?Type $subtractedType): Type
+	{
+		return new self($this->isExplicitMixed, $subtractedType);
+	}
+
+	public function getSubtractedType(): ?Type
+	{
+		return $this->subtractedType;
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type
 	 */
 	public static function __set_state(array $properties): Type
 	{
-		return new self($properties['isExplicitMixed']);
+		return new self(
+			$properties['isExplicitMixed'],
+			$properties['subtractedType'] ?? null
+		);
 	}
 
 }

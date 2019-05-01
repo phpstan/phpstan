@@ -24,7 +24,6 @@ class InvalidComparisonOperationRule implements \PHPStan\Rules\Rule
 		$this->ruleLevelHelper = $ruleLevelHelper;
 	}
 
-
 	public function getNodeType(): string
 	{
 		return Node\Expr\BinaryOp::class;
@@ -86,7 +85,6 @@ class InvalidComparisonOperationRule implements \PHPStan\Rules\Rule
 
 		return !$acceptedType->isSuperTypeOf($type)->no();
 	}
-
 
 	private function isObjectType(Scope $scope, Node\Expr $expr): bool
 	{

@@ -17,6 +17,9 @@ class TypeCombinator
 	private const CONSTANT_ARRAY_UNION_THRESHOLD = 16;
 	private const CONSTANT_SCALAR_UNION_THRESHOLD = 8;
 
+	/** @var bool */
+	public static $enableSubtractableTypes = false;
+
 	public static function addNull(Type $type): Type
 	{
 		return self::union($type, new NullType());
@@ -72,6 +75,14 @@ class TypeCombinator
 			}
 		}
 
+		if (
+			$fromType instanceof SubtractableType
+			&& $fromType->isSuperTypeOf($typeToRemove)->yes()
+			&& $typeToRemove->isSuperTypeOf($fromType)->maybe()
+		) {
+			return $fromType->subtract($typeToRemove);
+		}
+
 		return $fromType;
 	}
 
@@ -120,7 +131,7 @@ class TypeCombinator
 				unset($types[$i]);
 				continue;
 			}
-			if ($types[$i] instanceof MixedType) {
+			if (!self::$enableSubtractableTypes && $types[$i] instanceof MixedType) {
 				return $types[$i];
 			}
 			if ($types[$i] instanceof ConstantScalarType) {
@@ -202,10 +213,56 @@ class TypeCombinator
 			}
 		}
 
+		foreach ($scalarTypes as $classType => $scalarTypeItems) {
+			if (isset($hasGenericScalarTypes[$classType])) {
+				continue;
+			}
+			if ($classType === ConstantBooleanType::class && count($scalarTypeItems) === 2) {
+				$types[] = new BooleanType();
+				continue;
+			}
+			foreach ($scalarTypeItems as $type) {
+				if (count($scalarTypeItems) > self::CONSTANT_SCALAR_UNION_THRESHOLD) {
+					$types[] = $type->generalize();
+					break;
+				}
+				$types[] = $type;
+			}
+		}
+
 		// transform A | A to A
 		// transform A | never to A
 		for ($i = 0; $i < count($types); $i++) {
 			for ($j = $i + 1; $j < count($types); $j++) {
+				if (self::$enableSubtractableTypes) {
+
+					if (
+						$types[$i] instanceof SubtractableType
+						&& $types[$i]->getTypeWithoutSubtractedType()->isSuperTypeOf($types[$j])->yes()
+					) {
+						$subtractedType = null;
+						if ($types[$j] instanceof SubtractableType) {
+							$subtractedType = $types[$j]->getSubtractedType();
+						}
+						$types[$i] = self::intersectWithSubtractedType($types[$i], $subtractedType);
+						array_splice($types, $j--, 1);
+						continue 1;
+					}
+
+					if (
+						$types[$j] instanceof SubtractableType
+						&& $types[$j]->getTypeWithoutSubtractedType()->isSuperTypeOf($types[$i])->yes()
+					) {
+						$subtractedType = null;
+						if ($types[$i] instanceof SubtractableType) {
+							$subtractedType = $types[$i]->getSubtractedType();
+						}
+						$types[$j] = self::intersectWithSubtractedType($types[$j], $subtractedType);
+						array_splice($types, $i--, 1);
+						continue 2;
+					}
+				}
+
 				if (
 					!$types[$j] instanceof ConstantArrayType
 					&& $types[$j]->isSuperTypeOf($types[$i])->yes()
@@ -224,23 +281,6 @@ class TypeCombinator
 			}
 		}
 
-		foreach ($scalarTypes as $classType => $scalarTypeItems) {
-			if (isset($hasGenericScalarTypes[$classType])) {
-				continue;
-			}
-			if ($classType === ConstantBooleanType::class && count($scalarTypeItems) === 2) {
-				$types[] = new BooleanType();
-				continue;
-			}
-			foreach ($scalarTypeItems as $type) {
-				if (count($scalarTypeItems) > self::CONSTANT_SCALAR_UNION_THRESHOLD) {
-					$types[] = $type->generalize();
-					break;
-				}
-				$types[] = $type;
-			}
-		}
-
 		if (count($types) === 0) {
 			return new NeverType();
 
@@ -249,6 +289,62 @@ class TypeCombinator
 		}
 
 		return new UnionType($types);
+	}
+
+	private static function unionWithSubtractedType(
+		Type $type,
+		?Type $subtractedType
+	): Type
+	{
+		if ($subtractedType === null) {
+			return $type;
+		}
+
+		if ($type instanceof SubtractableType) {
+			if ($type->getSubtractedType() === null) {
+				return $type;
+			}
+
+			$subtractedType = self::union(
+				$type->getSubtractedType(),
+				$subtractedType
+			);
+			if ($subtractedType instanceof NeverType) {
+				$subtractedType = null;
+			}
+
+			return $type->changeSubtractedType($subtractedType);
+		}
+
+		if ($subtractedType->isSuperTypeOf($type)->yes()) {
+			return new NeverType();
+		}
+
+		return $type;
+	}
+
+	private static function intersectWithSubtractedType(
+		SubtractableType $subtractableType,
+		?Type $subtractedType
+	): Type
+	{
+		if ($subtractableType->getSubtractedType() === null) {
+			return $subtractableType;
+		}
+
+		if ($subtractedType === null) {
+			return $subtractableType->getTypeWithoutSubtractedType();
+		}
+
+		$subtractedType = self::intersect(
+			$subtractableType->getSubtractedType(),
+			$subtractedType
+		);
+		if ($subtractedType instanceof NeverType) {
+			$subtractedType = null;
+		}
+
+		return $subtractableType->changeSubtractedType($subtractedType);
 	}
 
 	/**
@@ -422,6 +518,25 @@ class TypeCombinator
 		// transform int & string to never
 		for ($i = 0; $i < count($types); $i++) {
 			for ($j = $i + 1; $j < count($types); $j++) {
+				if (self::$enableSubtractableTypes) {
+					if ($types[$j] instanceof SubtractableType) {
+						$isSuperTypeSubtractableA = $types[$j]->getTypeWithoutSubtractedType()->isSuperTypeOf($types[$i]);
+						if ($isSuperTypeSubtractableA->yes()) {
+							$types[$i] = self::unionWithSubtractedType($types[$i], $types[$j]->getSubtractedType());
+							array_splice($types, $j--, 1);
+							continue 1;
+						}
+					}
+
+					if ($types[$i] instanceof SubtractableType) {
+						$isSuperTypeSubtractableB = $types[$i]->getTypeWithoutSubtractedType()->isSuperTypeOf($types[$j]);
+						if ($isSuperTypeSubtractableB->yes()) {
+							$types[$j] = self::unionWithSubtractedType($types[$j], $types[$i]->getSubtractedType());
+							array_splice($types, $i--, 1);
+							continue 2;
+						}
+					}
+				}
 				$isSuperTypeA = $types[$j]->isSuperTypeOf($types[$i]);
 				if ($isSuperTypeA->no()) {
 					return new NeverType();
@@ -434,7 +549,6 @@ class TypeCombinator
 				$isSuperTypeB = $types[$i]->isSuperTypeOf($types[$j]);
 				if ($isSuperTypeB->maybe()) {
 					continue;
-
 				}
 
 				if ($isSuperTypeB->yes()) {

@@ -8,6 +8,7 @@ use PHPStan\DependencyInjection\ContainerFactory;
 use PHPStan\DependencyInjection\LoaderFactory;
 use PHPStan\File\FileFinder;
 use PHPStan\File\FileHelper;
+use PHPStan\Type\TypeCombinator;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -128,6 +129,23 @@ class CommandHelper
 			$additionalConfigFiles[] = $levelConfigFile;
 		}
 
+		if (class_exists('PHPStan\ExtensionInstaller\GeneratedConfig')) {
+			foreach (\PHPStan\ExtensionInstaller\GeneratedConfig::EXTENSIONS as $name => $extensionConfig) {
+				foreach ($extensionConfig['extra']['includes'] ?? [] as $includedFile) {
+					if (!is_string($includedFile)) {
+						$errorOutput->writeln(sprintf('Cannot include config from package %s, expecting string file path but got %s', $name, gettype($includedFile)));
+						throw new \PHPStan\Command\InceptionNotSuccessfulException();
+					}
+					$includedFilePath = sprintf('%s/%s', $extensionConfig['install_path'], $includedFile);
+					if (!file_exists($includedFilePath) || !is_readable($includedFilePath)) {
+						$errorOutput->writeln(sprintf('Config file %s does not exists or isn\'t readable', $includedFilePath));
+						throw new \PHPStan\Command\InceptionNotSuccessfulException();
+					}
+					$additionalConfigFiles[] = $includedFilePath;
+				}
+			}
+		}
+
 		if ($projectConfigFile !== null) {
 			$additionalConfigFiles[] = $projectConfigFile;
 		}
@@ -143,6 +161,7 @@ class CommandHelper
 			return $fileHelper->absolutizePath($path);
 		}, $paths);
 		$netteContainer = $containerFactory->create($tmpDir, $additionalConfigFiles, $paths);
+		TypeCombinator::$enableSubtractableTypes = $netteContainer->parameters['featureToggles']['subtractableTypes'];
 		$memoryLimitFile = $netteContainer->parameters['memoryLimitFile'];
 		if (file_exists($memoryLimitFile)) {
 			$memoryLimitFileContents = file_get_contents($memoryLimitFile);

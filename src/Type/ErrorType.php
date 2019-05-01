@@ -15,6 +15,11 @@ class ErrorType extends MixedType
 		return new ErrorType();
 	}
 
+	public function subtract(Type $type): Type
+	{
+		return new self();
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

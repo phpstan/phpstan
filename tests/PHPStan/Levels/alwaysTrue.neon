@@ -1,3 +1,6 @@
+includes:
+	- ../../../conf/bleedingEdge.neon
+
 parameters:
 	checkAlwaysTrueCheckTypeFunctionCall: true
 	checkAlwaysTrueInstanceof: true

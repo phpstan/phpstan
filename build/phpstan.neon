@@ -12,6 +12,8 @@ parameters:
 		- %rootDir%/tests/*/data/*
 		- %rootDir%/tests/PHPStan/Analyser/traits/*
 		- %rootDir%/tests/notAutoloaded/*
+	featureToggles:
+		missingClosureNativeReturnTypehintRule: true
 	ignoreErrors:
 		- '#^Strict comparison using === between PhpParser\\Node\\Expr\\ArrayItem and null will always evaluate to false\.$#'
 		- '#^Dynamic call to static method PHPUnit\\Framework\\\S+\(\)\.$#'
@@ -27,6 +29,9 @@ parameters:
 			path: %rootDir%/src/PhpDoc/PhpDocBlock.php
 		-
 			message: '#Anonymous function has an unused use \$container\.#'
+			path: %rootDir%/src/Command/CommandHelper.php
+		-
+			message: '#Access to constant EXTENSIONS on an unknown class PHPStan\\ExtensionInstaller\\GeneratedConfig\.#'
 			path: %rootDir%/src/Command/CommandHelper.php
 	reportStaticMethodSignatures: true
 	tmpDir: %rootDir%/tmp

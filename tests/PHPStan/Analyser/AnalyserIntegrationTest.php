@@ -131,11 +131,13 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 	public function testAnonymousClassWithWrongFilename(): void
 	{
 		$errors = $this->runAnalyse(__DIR__ . '/data/anonymous-class-wrong-filename-regression.php');
-		$this->assertCount(2, $errors);
+		$this->assertCount(3, $errors);
 		$this->assertContains('Return typehint of method', $errors[0]->getMessage());
 		$this->assertSame(16, $errors[0]->getLine());
-		$this->assertSame('Call to method test() on an unknown class AnonymousClassWrongFilename\Bar.', $errors[1]->getMessage());
-		$this->assertSame(24, $errors[1]->getLine());
+		$this->assertSame('Instantiated class AnonymousClassWrongFilename\Bar not found.', $errors[1]->getMessage());
+		$this->assertSame(18, $errors[1]->getLine());
+		$this->assertSame('Call to method test() on an unknown class AnonymousClassWrongFilename\Bar.', $errors[2]->getMessage());
+		$this->assertSame(24, $errors[2]->getLine());
 	}
 
 	public function testExtendsPdoStatementCrash(): void

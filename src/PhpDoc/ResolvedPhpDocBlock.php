@@ -111,7 +111,6 @@ class ResolvedPhpDocBlock
 		return new self([], [], [], [], null, null, false, false, false);
 	}
 
-
 	/**
 	 * @return array<string|int, \PHPStan\PhpDoc\Tag\VarTag>
 	 */

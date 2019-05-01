@@ -931,6 +931,154 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				UnionType::class, // I'd be more happy with preserving BenevolentUnionType
 				'int|string',
 			],
+			[
+				[
+					new MixedType(false, new IntegerType()),
+					new MixedType(false, new StringType()),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(false, new IntegerType()),
+					new MixedType(false, new UnionType([
+						new IntegerType(),
+						new StringType(),
+					])),
+				],
+				MixedType::class,
+				'mixed~int',
+			],
+			[
+				[
+					new MixedType(false, new IntegerType()),
+					new MixedType(false, new UnionType([
+						new ConstantIntegerType(1),
+						new StringType(),
+					])),
+				],
+				MixedType::class,
+				'mixed~1',
+			],
+			[
+				[
+					new MixedType(false, new ConstantIntegerType(2)),
+					new MixedType(false, new UnionType([
+						new ConstantIntegerType(1),
+						new StringType(),
+					])),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(false, new IntegerType()),
+					new MixedType(false, new ConstantIntegerType(1)),
+				],
+				MixedType::class,
+				'mixed~1',
+			],
+			[
+				[
+					new MixedType(false),
+					new MixedType(false, new ConstantIntegerType(1)),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(false, new NullType()),
+					new UnionType([
+						new StringType(),
+						new NullType(),
+					]),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(),
+					new ObjectWithoutClassType(),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(),
+					new ObjectWithoutClassType(new ObjectType('A')),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(false, new IntegerType()),
+					new ObjectWithoutClassType(new ObjectType('A')),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(false, new ObjectType('A')),
+					new ObjectWithoutClassType(new ObjectType('A')),
+				],
+				MixedType::class,
+				'mixed~A',
+			],
+			[
+				[
+					new MixedType(false, new NullType()),
+					new NullType(),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(false, new IntegerType()),
+					new IntegerType(),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(false, new ConstantIntegerType(1)),
+					new ConstantIntegerType(1),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(false, new ObjectType('Exception')),
+					new ObjectType('Throwable'),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(false, new ObjectType('Exception')),
+					new ObjectType('Exception'),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(false, new ObjectType('Exception')),
+					new ObjectType('InvalidArgumentException'),
+				],
+				MixedType::class,
+				'mixed', // should be MixedType~Exception+InvalidArgumentException
+			],
 		];
 	}
 
@@ -974,8 +1122,18 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 		string $expectedTypeDescription
 	): void
 	{
-		$result = TypeCombinator::union(...array_reverse($types));
-		$this->assertSame($expectedTypeDescription, $result->describe(VerbosityLevel::precise()));
+		$types = array_reverse($types);
+		$result = TypeCombinator::union(...$types);
+		$this->assertSame(
+			$expectedTypeDescription,
+			$result->describe(VerbosityLevel::precise()),
+			sprintf('union(%s)', implode(', ', array_map(
+				static function (Type $type): string {
+					return $type->describe(VerbosityLevel::precise());
+				},
+				$types
+			)))
+		);
 		$this->assertInstanceOf($expectedTypeClass, $result);
 	}
 
@@ -1479,6 +1637,46 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				IntersectionType::class,
 				'array&hasOffset(\'bar\')&hasOffset(\'foo\')',
 			],
+			[
+				[
+					new StringType(),
+					new IntegerType(),
+				],
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				[
+					new MixedType(false, new StringType()),
+					new StringType(),
+				],
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				[
+					new MixedType(false, new StringType()),
+					new ConstantStringType('foo'),
+				],
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				[
+					new MixedType(false, new StringType()),
+					new ConstantIntegerType(1),
+				],
+				ConstantIntegerType::class,
+				'1',
+			],
+			[
+				[
+					new MixedType(false, new StringType()),
+					new MixedType(false, new IntegerType()),
+				],
+				MixedType::class,
+				'mixed~int|string',
+			],
 		];
 	}
 
@@ -1744,6 +1942,72 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				]),
 				ArrayType::class,
 				'array',
+			],
+			[
+				new MixedType(),
+				new IntegerType(),
+				MixedType::class,
+				'mixed~int',
+			],
+			[
+				new MixedType(false, new IntegerType()),
+				new IntegerType(),
+				MixedType::class,
+				'mixed~int',
+			],
+			[
+				new MixedType(false, new IntegerType()),
+				new StringType(),
+				MixedType::class,
+				'mixed~int|string',
+			],
+			[
+				new MixedType(false),
+				new MixedType(),
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				new MixedType(false, new StringType()),
+				new MixedType(),
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				new MixedType(false),
+				new MixedType(false, new StringType()),
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				new MixedType(false, new StringType()),
+				new NeverType(),
+				MixedType::class,
+				'mixed~string',
+			],
+			[
+				new ObjectType('Exception'),
+				new ObjectType('InvalidArgumentException'),
+				ObjectType::class,
+				'Exception~InvalidArgumentException',
+			],
+			[
+				new ObjectType('Exception', new ObjectType('InvalidArgumentException')),
+				new ObjectType('LengthException'),
+				ObjectType::class,
+				'Exception~InvalidArgumentException|LengthException',
+			],
+			[
+				new ObjectType('Exception'),
+				new ObjectType('Throwable'),
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				new ObjectType('Exception', new ObjectType('InvalidArgumentException')),
+				new ObjectType('InvalidArgumentException'),
+				ObjectType::class,
+				'Exception~InvalidArgumentException',
 			],
 		];
 	}
