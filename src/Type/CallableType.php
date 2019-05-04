@@ -124,7 +124,7 @@ class CallableType implements CompoundType, ParametersAcceptor
 				return sprintf(
 					'callable(%s): %s',
 					implode(', ', array_map(
-						static function (NativeParameterReflection $param) use ($level) {
+						static function (NativeParameterReflection $param) use ($level): string {
 							return $param->getType()->describe($level);
 						},
 						$this->getParameters()

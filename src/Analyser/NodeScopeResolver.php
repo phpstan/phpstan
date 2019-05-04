@@ -51,6 +51,7 @@ use PHPStan\Node\ExecutionEndNode;
 use PHPStan\Node\InClassMethodNode;
 use PHPStan\Node\LiteralArrayItem;
 use PHPStan\Node\LiteralArrayNode;
+use PHPStan\Node\ReturnStatement;
 use PHPStan\Node\UnreachableStatementNode;
 use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\PhpDocBlock;
@@ -1757,20 +1758,20 @@ class NodeScopeResolver
 		$closureScope = $scope->enterAnonymousFunction($expr);
 		$closureScope = $closureScope->processClosureScope($scope, null, $byRefUses);
 
-		$gatheredReturnNodes = [];
-		$closureStmtsCallback = static function (\PhpParser\Node $node, Scope $scope) use ($nodeCallback, &$gatheredReturnNodes): void {
+		$gatheredReturnStatements = [];
+		$closureStmtsCallback = static function (\PhpParser\Node $node, Scope $scope) use ($nodeCallback, &$gatheredReturnStatements): void {
 			$nodeCallback($node, $scope);
 			if (!$node instanceof Return_) {
 				return;
 			}
 
-			$gatheredReturnNodes[] = $node;
+			$gatheredReturnStatements[] = new ReturnStatement($scope, $node);
 		};
 		if (count($byRefUses) === 0) {
 			$statementResult = $this->processStmtNodes($expr, $expr->stmts, $closureScope, $closureStmtsCallback);
 			$nodeCallback(new ClosureReturnStatementsNode(
 				$expr,
-				$gatheredReturnNodes,
+				$gatheredReturnStatements,
 				$statementResult
 			), $scope);
 
@@ -1798,7 +1799,7 @@ class NodeScopeResolver
 		$statementResult = $this->processStmtNodes($expr, $expr->stmts, $closureScope, $closureStmtsCallback);
 		$nodeCallback(new ClosureReturnStatementsNode(
 			$expr,
-			$gatheredReturnNodes,
+			$gatheredReturnStatements,
 			$statementResult
 		), $scope);
 

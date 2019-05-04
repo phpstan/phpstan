@@ -190,7 +190,7 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 		}
 
 		return array_map(
-			static function (ConstantStringType $type) {
+			static function (ConstantStringType $type): string {
 				return $type->getValue();
 			},
 			TypeUtils::getConstantStrings($scope->getType($node->class))
