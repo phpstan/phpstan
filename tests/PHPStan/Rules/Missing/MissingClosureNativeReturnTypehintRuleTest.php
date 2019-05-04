@@ -45,7 +45,7 @@ class MissingClosureNativeReturnTypehintRuleTest extends RuleTestCase
 				40,
 			],
 			[
-				'Anonymous function should have native typehint "array<string, string>".',
+				'Anonymous function should have native typehint "array".',
 				46,
 			],
 		]);

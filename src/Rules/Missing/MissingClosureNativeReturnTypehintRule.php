@@ -8,6 +8,7 @@ use PHPStan\Node\ClosureReturnStatementsNode;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
 use PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Type\ArrayType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
@@ -111,15 +112,18 @@ class MissingClosureNativeReturnTypehintRule implements Rule
 			return $messages;
 		}
 
-		$returnType = TypeUtils::generalizeType($returnType);
-		$description = $returnType->describe(VerbosityLevel::typeOnly());
-		if ($hasNull) {
-			$description = '?' . $description;
-		}
-
 		if (!$statementResult->isAlwaysTerminating()) {
 			$messages[] = RuleErrorBuilder::message('Anonymous function sometimes return something but return statement at the end is missing.')->build();
 			return $messages;
+		}
+
+		$returnType = TypeUtils::generalizeType($returnType);
+		$description = $returnType->describe(VerbosityLevel::typeOnly());
+		if ($returnType instanceof ArrayType) {
+			$description = 'array';
+		}
+		if ($hasNull) {
+			$description = '?' . $description;
 		}
 
 		if (
