@@ -128,6 +128,7 @@ Unofficial extensions for other frameworks and libraries are also available:
 * [TYPO3](https://github.com/sascha-egerer/phpstan-typo3)
 * [moneyphp/money](https://github.com/JohnstonCode/phpstan-moneyphp)
 * [Drupal](https://github.com/mglaman/phpstan-drupal)
+* [WordPress](https://github.com/szepeviktor/phpstan-wordpress)
 
 New extensions are becoming available on a regular basis!
 
