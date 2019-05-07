@@ -230,6 +230,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			array_merge($dynamicMethodReturnTypeExtensions, $this->getDynamicMethodReturnTypeExtensions()),
 			array_merge($dynamicStaticMethodReturnTypeExtensions, $this->getDynamicStaticMethodReturnTypeExtensions()),
 			array_merge($tagToService(self::getContainer()->findByTag(BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG)), $this->getDynamicFunctionReturnTypeExtensions()),
+			$this->getOperatorTypeSpecifyingExtensions(),
 			$functionReflectionFactory,
 			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $cache, $anonymousClassNameHelper, self::getContainer()->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class)),
 			$signatureMapProvider,
@@ -293,6 +294,14 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	 * @return \PHPStan\Type\DynamicFunctionReturnTypeExtension[]
 	 */
 	public function getDynamicFunctionReturnTypeExtensions(): array
+	{
+		return [];
+	}
+
+	/**
+	 * @return \PHPStan\Type\OperatorTypeSpecifyingExtension[]
+	 */
+	public function getOperatorTypeSpecifyingExtensions(): array
 	{
 		return [];
 	}

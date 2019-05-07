@@ -20,6 +20,7 @@ use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\NullType;
+use PHPStan\Type\OperatorTypeSpecifyingExtension;
 use PHPStan\Type\StringAlwaysAcceptingObjectWithToStringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeUtils;
@@ -95,12 +96,16 @@ class Broker
 	/** @var \PHPStan\Reflection\ClassReflection[] */
 	private static $anonymousClasses = [];
 
+	/** @var \PHPStan\Type\OperatorTypeSpecifyingExtension[] */
+	private $operatorTypeSpecifyingExtensions;
+
 	/**
 	 * @param \PHPStan\Reflection\PropertiesClassReflectionExtension[] $propertiesClassReflectionExtensions
 	 * @param \PHPStan\Reflection\MethodsClassReflectionExtension[] $methodsClassReflectionExtensions
 	 * @param \PHPStan\Type\DynamicMethodReturnTypeExtension[] $dynamicMethodReturnTypeExtensions
 	 * @param \PHPStan\Type\DynamicStaticMethodReturnTypeExtension[] $dynamicStaticMethodReturnTypeExtensions
 	 * @param \PHPStan\Type\DynamicFunctionReturnTypeExtension[] $dynamicFunctionReturnTypeExtensions
+	 * @param \PHPStan\Type\OperatorTypeSpecifyingExtension[] $operatorTypeSpecifyingExtensions
 	 * @param \PHPStan\Reflection\FunctionReflectionFactory $functionReflectionFactory
 	 * @param \PHPStan\Type\FileTypeMapper $fileTypeMapper
 	 * @param \PHPStan\Reflection\SignatureMap\SignatureMapProvider $signatureMapProvider
@@ -116,6 +121,7 @@ class Broker
 		array $dynamicMethodReturnTypeExtensions,
 		array $dynamicStaticMethodReturnTypeExtensions,
 		array $dynamicFunctionReturnTypeExtensions,
+		array $operatorTypeSpecifyingExtensions,
 		FunctionReflectionFactory $functionReflectionFactory,
 		FileTypeMapper $fileTypeMapper,
 		SignatureMapProvider $signatureMapProvider,
@@ -138,6 +144,7 @@ class Broker
 
 		$this->dynamicMethodReturnTypeExtensions = $dynamicMethodReturnTypeExtensions;
 		$this->dynamicStaticMethodReturnTypeExtensions = $dynamicStaticMethodReturnTypeExtensions;
+		$this->operatorTypeSpecifyingExtensions = $operatorTypeSpecifyingExtensions;
 
 		foreach ($dynamicFunctionReturnTypeExtensions as $functionReturnTypeExtension) {
 			$this->dynamicFunctionReturnTypeExtensions[] = $functionReturnTypeExtension;
@@ -206,6 +213,16 @@ class Broker
 			$this->dynamicStaticMethodReturnTypeExtensionsByClass = $byClass;
 		}
 		return $this->getDynamicExtensionsForType($this->dynamicStaticMethodReturnTypeExtensionsByClass, $className);
+	}
+
+	/**
+	 * @return OperatorTypeSpecifyingExtension[]
+	 */
+	public function getOperatorTypeSpecifyingExtensions(string $operator, Type $leftType, Type $rightType): array
+	{
+		return array_filter($this->operatorTypeSpecifyingExtensions, function (OperatorTypeSpecifyingExtension $extension) use ($operator, $leftType, $rightType) {
+			return $extension->isOperatorSupported($operator, $leftType, $rightType);
+		});
 	}
 
 	/**

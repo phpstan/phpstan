@@ -21,6 +21,7 @@ class BrokerFactory
 	public const DYNAMIC_METHOD_RETURN_TYPE_EXTENSION_TAG = 'phpstan.broker.dynamicMethodReturnTypeExtension';
 	public const DYNAMIC_STATIC_METHOD_RETURN_TYPE_EXTENSION_TAG = 'phpstan.broker.dynamicStaticMethodReturnTypeExtension';
 	public const DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG = 'phpstan.broker.dynamicFunctionReturnTypeExtension';
+	public const OPERATOR_TYPE_SPECIFYING_EXTENSION_TAG = 'phpstan.broker.operatorTypeSpecifyingExtension';
 
 	/** @var \PHPStan\DependencyInjection\Container */
 	private $container;
@@ -46,6 +47,7 @@ class BrokerFactory
 			$this->container->getServicesByTag(self::DYNAMIC_METHOD_RETURN_TYPE_EXTENSION_TAG),
 			$this->container->getServicesByTag(self::DYNAMIC_STATIC_METHOD_RETURN_TYPE_EXTENSION_TAG),
 			$this->container->getServicesByTag(self::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG),
+			$this->container->getServicesByTag(self::OPERATOR_TYPE_SPECIFYING_EXTENSION_TAG),
 			$this->container->getByType(FunctionReflectionFactory::class),
 			$this->container->getByType(FileTypeMapper::class),
 			$this->container->getByType(SignatureMapProvider::class),

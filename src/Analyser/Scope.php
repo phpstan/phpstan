@@ -845,6 +845,19 @@ class Scope implements ClassMemberAccessAnswerer
 			$leftType = $this->getType($left);
 			$rightType = $this->getType($right);
 
+			$extensions = $this->broker->getOperatorTypeSpecifyingExtensions($node->getOperatorSigil(), $leftType, $rightType);
+
+			/** @var SpecifiedTypes[] $extensionTypes */
+			$extensionTypes = [];
+
+			foreach ($extensions as $extension) {
+				$extensionTypes[] = $extension->specifyType($node->getOperatorSigil(), $leftType, $rightType);
+			}
+
+			if (count($extensionTypes) > 0) {
+				return TypeCombinator::union(...$extensionTypes);
+			}
+
 			if ($node instanceof Expr\AssignOp\Plus || $node instanceof Expr\BinaryOp\Plus) {
 				$leftConstantArrays = TypeUtils::getConstantArrays($leftType);
 				$rightConstantArrays = TypeUtils::getConstantArrays($rightType);
