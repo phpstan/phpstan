@@ -814,4 +814,15 @@ class SubtractedMixed
 		}
 	}
 
+	public function doBar($mixed)
+	{
+		if ($mixed === null) {
+
+		} elseif ($this->foo === 'bbb') {
+
+		}
+
+		$mixed === null;
+	}
+
 }

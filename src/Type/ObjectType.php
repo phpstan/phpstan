@@ -186,7 +186,27 @@ class ObjectType implements TypeWithClassName, SubtractableType
 
 	public function equals(Type $type): bool
 	{
-		return $type instanceof self && $this->className === $type->className;
+		if (!$type instanceof self) {
+			return false;
+		}
+
+		if ($this->className !== $type->className) {
+			return false;
+		}
+
+		if ($this->subtractedType === null) {
+			if ($type->subtractedType === null) {
+				return true;
+			}
+
+			return false;
+		}
+
+		if ($type->subtractedType === null) {
+			return false;
+		}
+
+		return $this->subtractedType->equals($type->subtractedType);
 	}
 
 	private function checkSubclassAcceptability(string $thatClass): TrinaryLogic
