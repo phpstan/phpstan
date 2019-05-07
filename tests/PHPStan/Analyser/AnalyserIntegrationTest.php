@@ -131,13 +131,18 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 	public function testAnonymousClassWithWrongFilename(): void
 	{
 		$errors = $this->runAnalyse(__DIR__ . '/data/anonymous-class-wrong-filename-regression.php');
-		$this->assertCount(3, $errors);
+		$this->assertCount(5, $errors);
 		$this->assertContains('Return typehint of method', $errors[0]->getMessage());
 		$this->assertSame(16, $errors[0]->getLine());
-		$this->assertSame('Instantiated class AnonymousClassWrongFilename\Bar not found.', $errors[1]->getMessage());
-		$this->assertSame(18, $errors[1]->getLine());
-		$this->assertSame('Call to method test() on an unknown class AnonymousClassWrongFilename\Bar.', $errors[2]->getMessage());
-		$this->assertSame(24, $errors[2]->getLine());
+		$this->assertContains('Return typehint of method', $errors[1]->getMessage());
+		$this->assertSame(16, $errors[1]->getLine());
+		$this->assertSame('Instantiated class AnonymousClassWrongFilename\Bar not found.', $errors[2]->getMessage());
+		$this->assertSame(18, $errors[2]->getLine());
+		$this->assertContains('Parameter #1 $test of method', $errors[3]->getMessage());
+		$this->assertContains('$this(AnonymousClassWrongFilename\Foo) given', $errors[3]->getMessage());
+		$this->assertSame(23, $errors[3]->getLine());
+		$this->assertSame('Call to method test() on an unknown class AnonymousClassWrongFilename\Bar.', $errors[4]->getMessage());
+		$this->assertSame(24, $errors[4]->getLine());
 	}
 
 	public function testExtendsPdoStatementCrash(): void

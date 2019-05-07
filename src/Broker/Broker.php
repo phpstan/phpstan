@@ -293,6 +293,7 @@ class Broker
 			$filename
 		);
 		$classNode->name = new \PhpParser\Node\Identifier($className);
+		$classNode->setAttribute('anonymousClass', true);
 
 		if (isset(self::$anonymousClasses[$className])) {
 			return self::$anonymousClasses[$className];
