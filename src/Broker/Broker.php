@@ -290,7 +290,7 @@ class Broker
 
 		$className = $this->anonymousClassNameHelper->getAnonymousClassName(
 			$classNode,
-			$filename
+			$scopeFile
 		);
 		$classNode->name = new \PhpParser\Node\Identifier($className);
 		$classNode->setAttribute('anonymousClass', true);
