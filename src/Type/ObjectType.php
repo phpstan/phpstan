@@ -588,8 +588,8 @@ class ObjectType implements TypeWithClassName, SubtractableType
 			}
 
 			if (
-				$acceptedOffsetType->isSuperTypeOf($offsetType)->no()
-				|| $acceptedValueType->isSuperTypeOf($valueType)->no()
+				(!$offsetType instanceof MixedType && !$acceptedOffsetType->isSuperTypeOf($offsetType)->yes())
+				|| (!$valueType instanceof MixedType && !$acceptedValueType->isSuperTypeOf($valueType)->yes())
 			) {
 				return new ErrorType();
 			}
