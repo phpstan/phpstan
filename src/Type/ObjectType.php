@@ -566,19 +566,19 @@ class ObjectType implements TypeWithClassName, SubtractableType
 		$broker = Broker::getInstance();
 		if ($this->isInstanceOf(\ArrayAccess::class)->yes()) {
 			$classReflection = $broker->getClass($this->className);
-			$acceptedDataType = new NeverType();
-			$acceptedOffsetType = RecursionGuard::run($this, static function () use ($classReflection, &$acceptedDataType) {
+			$acceptedValueType = new NeverType();
+			$acceptedOffsetType = RecursionGuard::run($this, function () use ($classReflection, &$acceptedValueType): Type {
 				$parameters = ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('offsetSet')->getVariants())->getParameters();
 				if (count($parameters) < 2) {
 					throw new \PHPStan\ShouldNotHappenException(sprintf(
-						'Method %s::%s has less than 2 parameters.',
+						'Method %s::%s() has less than 2 parameters.',
 						$this->className,
 						'offsetSet'
 					));
 				}
 
 				$offsetParameter = $parameters[0];
-				$acceptedDataType = $parameters[1]->getType();
+				$acceptedValueType = $parameters[1]->getType();
 
 				return $offsetParameter->getType();
 			});
@@ -588,8 +588,8 @@ class ObjectType implements TypeWithClassName, SubtractableType
 			}
 
 			if (
-				$offsetType->isSuperTypeOf($acceptedOffsetType)->no()
-				|| $valueType->isSuperTypeOf($acceptedDataType)->no()
+				$acceptedOffsetType->isSuperTypeOf($offsetType)->no()
+				|| $acceptedValueType->isSuperTypeOf($valueType)->no()
 			) {
 				return new ErrorType();
 			}
