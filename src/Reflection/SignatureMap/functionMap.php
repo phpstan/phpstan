@@ -1,7 +1,7 @@
 <?php // @codingStandardsIgnoreFile (phpcs runs out of memory)
 
 /**
- * Copied over from https://raw.githubusercontent.com/voku/phpstorm-stubs/return_type_fixes/tests/TestData/psalm/CallMap.php
+ * Copied over from https://github.com/vimeo/psalm/blob/1a4e52c6454deb0347043af1632079e96aed1a36/src/Psalm/Internal/CallMap.php
  * with some changes like removal of specific array keys and callable definitions
  * Copyright (c) 2015 Rasmus Lerdorf
  * Copyright (c) 2015 Andrew Morrison
@@ -334,7 +334,7 @@ return [
 'ArithmeticError::getPrevious' => ['?Throwable'],
 'ArithmeticError::getTrace' => ['array<int,array<string,mixed>>'],
 'ArithmeticError::getTraceAsString' => ['string'],
-'array_change_key_case' => ['array|false', 'input'=>'array', 'case='=>'int'],
+'array_change_key_case' => ['array', 'input'=>'array', 'case='=>'int'],
 'array_chunk' => ['array[]', 'input'=>'array', 'size'=>'int', 'preserve_keys='=>'bool'],
 'array_column' => ['array', 'array'=>'array', 'column_key'=>'mixed', 'index_key='=>'mixed'],
 'array_combine' => ['array|false', 'keys'=>'string[]|int[]', 'values'=>'array'],
@@ -372,8 +372,8 @@ return [
 'array_rand' => ['int|string|array<int,int>|array<int,string>', 'input'=>'array', 'num_req'=>'int'],
 'array_rand\'1' => ['int|string', 'input'=>'array'],
 'array_reduce' => ['mixed', 'input'=>'array', 'callback'=>'callable', 'initial='=>'mixed'],
-'array_replace' => ['?array', 'arr1'=>'array', 'arr2'=>'array', '...args='=>'array'],
-'array_replace_recursive' => ['?array', 'arr1'=>'array', 'arr2'=>'array', '...args='=>'array'],
+'array_replace' => ['array', 'arr1'=>'array', 'arr2'=>'array', '...args='=>'array'],
+'array_replace_recursive' => ['array', 'arr1'=>'array', 'arr2'=>'array', '...args='=>'array'],
 'array_reverse' => ['array', 'input'=>'array', 'preserve='=>'bool'],
 'array_search' => ['int|string|false', 'needle'=>'mixed', 'haystack'=>'array', 'strict='=>'bool'],
 'array_shift' => ['mixed|null', '&rw_stack'=>'array'],
@@ -11223,7 +11223,7 @@ return [
 'ReflectionParameter::getDeclaringClass' => ['?ReflectionClass'],
 'ReflectionParameter::getDeclaringFunction' => ['ReflectionFunctionAbstract'],
 'ReflectionParameter::getDefaultValue' => ['mixed'],
-'ReflectionParameter::getDefaultValueConstantName' => ['string'],
+'ReflectionParameter::getDefaultValueConstantName' => ['?string'],
 'ReflectionParameter::getName' => ['string'],
 'ReflectionParameter::getPosition' => ['int'],
 'ReflectionParameter::getType' => ['?ReflectionType'],
