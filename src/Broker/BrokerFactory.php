@@ -38,7 +38,7 @@ class BrokerFactory
 		$phpDefectClassReflectionExtension = $this->container->getByType(PhpDefectClassReflectionExtension::class);
 
 		/** @var RelativePathHelper $relativePathHelper */
-		$relativePathHelper = $this->container->getService('relativePathHelper');
+		$relativePathHelper = $this->container->getService('simpleRelativePathHelper');
 
 		return new Broker(
 			array_merge([$phpClassReflectionExtension, $phpDefectClassReflectionExtension], $this->container->getServicesByTag(self::PROPERTIES_CLASS_REFLECTION_EXTENSION_TAG), [$annotationsPropertiesClassReflectionExtension]),

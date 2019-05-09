@@ -42,6 +42,14 @@ class Foo
 				return 1;
 			}
 		};
+
+		function () {
+			$array = [
+				'foo' => 'bar',
+			];
+
+			return $array;
+		};
 	}
 
 }

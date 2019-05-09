@@ -76,7 +76,8 @@ class TypeCombinator
 		}
 
 		if (
-			$fromType instanceof SubtractableType
+			self::$enableSubtractableTypes
+			&& $fromType instanceof SubtractableType
 			&& $fromType->isSuperTypeOf($typeToRemove)->yes()
 			&& $typeToRemove->isSuperTypeOf($fromType)->maybe()
 		) {

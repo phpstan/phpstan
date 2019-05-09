@@ -2315,6 +2315,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$stringOrNull ?: 12',
 			],
 			[
+				'12|string',
+				'@$stringOrNull ?: 12',
+			],
+			[
 				'int',
 				'$integer ?: 12',
 			],

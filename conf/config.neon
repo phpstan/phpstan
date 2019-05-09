@@ -107,6 +107,8 @@ services:
 
 	-
 		class: PHPStan\Broker\AnonymousClassNameHelper
+		arguments:
+			relativePathHelper: @simpleRelativePathHelper
 
 	-
 		class: PHPStan\PhpDocParser\Lexer\Lexer

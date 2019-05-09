@@ -1079,6 +1079,22 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				MixedType::class,
 				'mixed', // should be MixedType~Exception+InvalidArgumentException
 			],
+			[
+				[
+					new NullType(),
+					new MixedType(false, new NullType()),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(),
+					new MixedType(false, new NullType()),
+				],
+				MixedType::class,
+				'mixed',
+			],
 		];
 	}
 

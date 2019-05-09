@@ -72,7 +72,23 @@ class ObjectWithoutClassType implements SubtractableType
 
 	public function equals(Type $type): bool
 	{
-		return $type instanceof self;
+		if (!$type instanceof self) {
+			return false;
+		}
+
+		if ($this->subtractedType === null) {
+			if ($type->subtractedType === null) {
+				return true;
+			}
+
+			return false;
+		}
+
+		if ($type->subtractedType === null) {
+			return false;
+		}
+
+		return $this->subtractedType->equals($type->subtractedType);
 	}
 
 	public function describe(VerbosityLevel $level): string

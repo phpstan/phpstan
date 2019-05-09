@@ -2,10 +2,16 @@
 
 namespace PHPStan\DependencyInjection;
 
+use Nette\Schema\Expect;
 use PHPStan\Rules\RegistryFactory;
 
 class RulesExtension extends \Nette\DI\CompilerExtension
 {
+
+	public function getConfigSchema(): \Nette\Schema\Schema
+	{
+		return Expect::listOf('string');
+	}
 
 	public function loadConfiguration(): void
 	{

@@ -2996,7 +2996,7 @@ class Scope implements ClassMemberAccessAnswerer
 		$descriptions = [];
 		foreach ($this->getVariableTypes() as $name => $variableTypeHolder) {
 			$key = sprintf('$%s (%s)', $name, $variableTypeHolder->getCertainty()->describe());
-			$descriptions[$key] = $variableTypeHolder->getType()->describe(VerbosityLevel::value());
+			$descriptions[$key] = $variableTypeHolder->getType()->describe(VerbosityLevel::precise());
 		}
 		foreach ($this->moreSpecificTypes as $exprString => $typeHolder) {
 			$key = sprintf(
@@ -3004,7 +3004,7 @@ class Scope implements ClassMemberAccessAnswerer
 				$exprString,
 				$typeHolder->getCertainty()->describe()
 			);
-			$descriptions[$key] = $typeHolder->getType()->describe(VerbosityLevel::value());
+			$descriptions[$key] = $typeHolder->getType()->describe(VerbosityLevel::precise());
 		}
 
 		return $descriptions;

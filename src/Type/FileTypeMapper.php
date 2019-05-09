@@ -179,6 +179,8 @@ class FileTypeMapper
 							}
 
 							$className = $this->anonymousClassNameHelper->getAnonymousClassName($node, $fileName);
+						} elseif ((bool) $node->getAttribute('anonymousClass', false)) {
+							$className = $node->name->name;
 						} else {
 							$className = ltrim(sprintf('%s\\%s', $namespace, $node->name->name), '\\');
 						}

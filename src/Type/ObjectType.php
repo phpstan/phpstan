@@ -186,7 +186,27 @@ class ObjectType implements TypeWithClassName, SubtractableType
 
 	public function equals(Type $type): bool
 	{
-		return $type instanceof self && $this->className === $type->className;
+		if (!$type instanceof self) {
+			return false;
+		}
+
+		if ($this->className !== $type->className) {
+			return false;
+		}
+
+		if ($this->subtractedType === null) {
+			if ($type->subtractedType === null) {
+				return true;
+			}
+
+			return false;
+		}
+
+		if ($type->subtractedType === null) {
+			return false;
+		}
+
+		return $this->subtractedType->equals($type->subtractedType);
 	}
 
 	private function checkSubclassAcceptability(string $thatClass): TrinaryLogic
@@ -541,6 +561,38 @@ class ObjectType implements TypeWithClassName, SubtractableType
 	{
 		if ($this->isOffsetAccessible()->no()) {
 			return new ErrorType();
+		}
+
+		$broker = Broker::getInstance();
+		if ($this->isInstanceOf(\ArrayAccess::class)->yes()) {
+			$classReflection = $broker->getClass($this->className);
+			$acceptedValueType = new NeverType();
+			$acceptedOffsetType = RecursionGuard::run($this, function () use ($classReflection, &$acceptedValueType): Type {
+				$parameters = ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('offsetSet')->getVariants())->getParameters();
+				if (count($parameters) < 2) {
+					throw new \PHPStan\ShouldNotHappenException(sprintf(
+						'Method %s::%s() has less than 2 parameters.',
+						$this->className,
+						'offsetSet'
+					));
+				}
+
+				$offsetParameter = $parameters[0];
+				$acceptedValueType = $parameters[1]->getType();
+
+				return $offsetParameter->getType();
+			});
+
+			if ($offsetType === null) {
+				$offsetType = new NullType();
+			}
+
+			if (
+				(!$offsetType instanceof MixedType && !$acceptedOffsetType->isSuperTypeOf($offsetType)->yes())
+				|| (!$valueType instanceof MixedType && !$acceptedValueType->isSuperTypeOf($valueType)->yes())
+			) {
+				return new ErrorType();
+			}
 		}
 
 		// in the future we may return intersection of $this and OffsetAccessibleType()

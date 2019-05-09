@@ -44,6 +44,10 @@ class MissingClosureNativeReturnTypehintRuleTest extends RuleTestCase
 				'Anonymous function sometimes return something but return statement at the end is missing.',
 				40,
 			],
+			[
+				'Anonymous function should have native typehint "array".',
+				46,
+			],
 		]);
 	}
 

@@ -2,8 +2,32 @@
 
 namespace PHPStan\DependencyInjection;
 
+use Nette;
+use Nette\Schema\Expect;
+use PHPStan\Analyser\TypeSpecifierFactory;
+use PHPStan\Broker\BrokerFactory;
+use PHPStan\PhpDoc\TypeNodeResolverFactory;
+use PHPStan\Rules\RegistryFactory;
+
 class ConditionalTagsExtension extends \Nette\DI\CompilerExtension
 {
+
+	public function getConfigSchema(): Nette\Schema\Schema
+	{
+		$bool = Expect::bool();
+		return Expect::arrayOf(Expect::structure([
+			BrokerFactory::PROPERTIES_CLASS_REFLECTION_EXTENSION_TAG => $bool,
+			BrokerFactory::METHODS_CLASS_REFLECTION_EXTENSION_TAG => $bool,
+			BrokerFactory::DYNAMIC_METHOD_RETURN_TYPE_EXTENSION_TAG => $bool,
+			BrokerFactory::DYNAMIC_STATIC_METHOD_RETURN_TYPE_EXTENSION_TAG => $bool,
+			BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG => $bool,
+			RegistryFactory::RULE_TAG => $bool,
+			TypeNodeResolverFactory::EXTENSION_TAG => $bool,
+			TypeSpecifierFactory::FUNCTION_TYPE_SPECIFYING_EXTENSION_TAG => $bool,
+			TypeSpecifierFactory::METHOD_TYPE_SPECIFYING_EXTENSION_TAG => $bool,
+			TypeSpecifierFactory::STATIC_METHOD_TYPE_SPECIFYING_EXTENSION_TAG => $bool,
+		])->min(1));
+	}
 
 	public function beforeCompile(): void
 	{

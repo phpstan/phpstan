@@ -8,6 +8,7 @@ use PHPStan\Node\ClosureReturnStatementsNode;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
 use PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Type\ArrayType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
@@ -63,16 +64,17 @@ class MissingClosureNativeReturnTypehintRule implements Rule
 		}
 
 		$returnTypes = [];
-		$voidReturnStatements = [];
+		$voidReturnNodes = [];
 		$hasNull = false;
 		foreach ($returnStatements as $returnStatement) {
-			if ($returnStatement->expr === null) {
-				$voidReturnStatements[] = $returnStatement;
+			$returnNode = $returnStatement->getReturnNode();
+			if ($returnNode->expr === null) {
+				$voidReturnNodes[] = $returnNode;
 				$hasNull = true;
 				continue;
 			}
 
-			$returnTypes[] = $scope->getType($returnStatement->expr);
+			$returnTypes[] = $returnStatement->getScope()->getType($returnNode->expr);
 		}
 
 		if (count($returnTypes) === 0) {
@@ -82,7 +84,7 @@ class MissingClosureNativeReturnTypehintRule implements Rule
 		}
 
 		$messages = [];
-		foreach ($voidReturnStatements as $voidReturnStatement) {
+		foreach ($voidReturnNodes as $voidReturnStatement) {
 			$messages[] = RuleErrorBuilder::message('Mixing returning values with empty return statements - return null should be used here.')
 				->line($voidReturnStatement->getLine())
 				->build();
@@ -110,15 +112,18 @@ class MissingClosureNativeReturnTypehintRule implements Rule
 			return $messages;
 		}
 
-		$returnType = TypeUtils::generalizeType($returnType);
-		$description = $returnType->describe(VerbosityLevel::typeOnly());
-		if ($hasNull) {
-			$description = '?' . $description;
-		}
-
 		if (!$statementResult->isAlwaysTerminating()) {
 			$messages[] = RuleErrorBuilder::message('Anonymous function sometimes return something but return statement at the end is missing.')->build();
 			return $messages;
+		}
+
+		$returnType = TypeUtils::generalizeType($returnType);
+		$description = $returnType->describe(VerbosityLevel::typeOnly());
+		if ($returnType instanceof ArrayType) {
+			$description = 'array';
+		}
+		if ($hasNull) {
+			$description = '?' . $description;
 		}
 
 		if (

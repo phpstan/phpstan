@@ -12,7 +12,7 @@ class ClosureReturnStatementsNode extends NodeAbstract implements VirtualNode
 	/** @var \PhpParser\Node\Expr\Closure */
 	private $closureExpr;
 
-	/** @var \PhpParser\Node\Stmt\Return_[] */
+	/** @var \PHPStan\Node\ReturnStatement[] */
 	private $returnStatements;
 
 	/** @var StatementResult */
@@ -20,7 +20,7 @@ class ClosureReturnStatementsNode extends NodeAbstract implements VirtualNode
 
 	/**
 	 * @param \PhpParser\Node\Expr\Closure $closureExpr
-	 * @param \PhpParser\Node\Stmt\Return_[] $returnStatements
+	 * @param \PHPStan\Node\ReturnStatement[] $returnStatements
 	 * @param \PHPStan\Analyser\StatementResult $statementResult
 	 */
 	public function __construct(
@@ -41,7 +41,7 @@ class ClosureReturnStatementsNode extends NodeAbstract implements VirtualNode
 	}
 
 	/**
-	 * @return \PhpParser\Node\Stmt\Return_[]
+	 * @return \PHPStan\Node\ReturnStatement[]
 	 */
 	public function getReturnStatements(): array
 	{
