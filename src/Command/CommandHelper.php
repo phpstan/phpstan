@@ -160,7 +160,14 @@ class CommandHelper
 		$paths = array_map(static function (string $path) use ($fileHelper): string {
 			return $fileHelper->absolutizePath($path);
 		}, $paths);
-		$netteContainer = $containerFactory->create($tmpDir, $additionalConfigFiles, $paths);
+
+		try {
+			$netteContainer = $containerFactory->create($tmpDir, $additionalConfigFiles, $paths);
+		} catch (\Nette\DI\InvalidConfigurationException | \Nette\Utils\AssertionException $e) {
+			$errorOutput->writeln(sprintf('<error>Invalid configuration: %s</error>', $e->getMessage()));
+			throw new \PHPStan\Command\InceptionNotSuccessfulException();
+		}
+
 		TypeCombinator::$enableSubtractableTypes = $netteContainer->parameters['featureToggles']['subtractableTypes'];
 		$memoryLimitFile = $netteContainer->parameters['memoryLimitFile'];
 		if (file_exists($memoryLimitFile)) {
