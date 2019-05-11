@@ -24,3 +24,6 @@ function () {
 		// ...
 	}
 };
+
+const CONSTANT_IN_CONST_ASSIGN = 1;
+echo CONSTANT_IN_CONST_ASSIGN;

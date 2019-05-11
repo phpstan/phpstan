@@ -15,6 +15,7 @@ use PhpParser\Node\Expr\BinaryOp\BooleanOr;
 use PhpParser\Node\Expr\BinaryOp\Coalesce;
 use PhpParser\Node\Expr\BooleanNot;
 use PhpParser\Node\Expr\Cast;
+use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\ErrorSuppress;
 use PhpParser\Node\Expr\Exit_;
 use PhpParser\Node\Expr\FuncCall;
@@ -947,6 +948,7 @@ class NodeScopeResolver
 			foreach ($stmt->consts as $const) {
 				$nodeCallback($const, $scope);
 				$this->processExprNode($const->value, $scope, $nodeCallback, ExpressionContext::createDeep());
+				$scope = $scope->specifyExpressionType(new ConstFetch(new Name\FullyQualified($const->name->toString())), $scope->getType($const->value));
 			}
 		} elseif ($stmt instanceof Node\Stmt\Nop) {
 			$hasYield = false;
