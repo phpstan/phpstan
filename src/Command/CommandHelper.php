@@ -3,6 +3,8 @@
 namespace PHPStan\Command;
 
 use Nette\DI\Helpers;
+use Nette\Schema\Context as SchemaContext;
+use Nette\Schema\Processor;
 use PHPStan\DependencyInjection\Container;
 use PHPStan\DependencyInjection\ContainerFactory;
 use PHPStan\DependencyInjection\LoaderFactory;
@@ -164,8 +166,27 @@ class CommandHelper
 		try {
 			$netteContainer = $containerFactory->create($tmpDir, $additionalConfigFiles, $paths);
 		} catch (\Nette\DI\InvalidConfigurationException | \Nette\Utils\AssertionException $e) {
-			$errorOutput->writeln(sprintf('<error>Invalid configuration: %s</error>', $e->getMessage()));
+			$errorOutput->writeln('<error>Invalid configuration:</error>');
+			$errorOutput->writeln($e->getMessage());
 			throw new \PHPStan\Command\InceptionNotSuccessfulException();
+		}
+
+		if ($netteContainer->parameters['featureToggles']['validateParameters']) {
+			$schema = $netteContainer->parameters['__parametersSchema'];
+			$processor = new Processor();
+			$processor->onNewContext[] = static function (SchemaContext $context): void {
+				$context->path = ['parameters'];
+			};
+
+			try {
+				$processor->process($schema, $netteContainer->parameters);
+			} catch (\Nette\Schema\ValidationException $e) {
+				foreach ($e->getMessages() as $message) {
+					$errorOutput->writeln('<error>Invalid configuration:</error>');
+					$errorOutput->writeln($message);
+				}
+				throw new \PHPStan\Command\InceptionNotSuccessfulException();
+			}
 		}
 
 		TypeCombinator::$enableSubtractableTypes = $netteContainer->parameters['featureToggles']['subtractableTypes'];
