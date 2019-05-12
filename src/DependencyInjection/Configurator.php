@@ -22,4 +22,12 @@ class Configurator extends \Nette\Configurator
 		return $this->loaderFactory->createLoader();
 	}
 
+	/**
+	 * @return mixed[]
+	 */
+	protected function getDefaultParameters(): array
+	{
+		return [];
+	}
+
 }
