@@ -2,8 +2,6 @@
 
 namespace PHPStan\Type;
 
-use PHPStan\Analyser\SpecifiedTypes;
-
 interface OperatorTypeSpecifyingExtension
 {
 

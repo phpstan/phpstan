@@ -845,12 +845,12 @@ class Scope implements ClassMemberAccessAnswerer
 			$leftType = $this->getType($left);
 			$rightType = $this->getType($right);
 
-			$extensions = $this->broker->getOperatorTypeSpecifyingExtensions($node->getOperatorSigil(), $leftType, $rightType);
+			$operatorTypeSpecifyingExtensions = $this->broker->getOperatorTypeSpecifyingExtensions($node->getOperatorSigil(), $leftType, $rightType);
 
 			/** @var SpecifiedTypes[] $extensionTypes */
 			$extensionTypes = [];
 
-			foreach ($extensions as $extension) {
+			foreach ($operatorTypeSpecifyingExtensions as $extension) {
 				$extensionTypes[] = $extension->specifyType($node->getOperatorSigil(), $leftType, $rightType);
 			}
 
