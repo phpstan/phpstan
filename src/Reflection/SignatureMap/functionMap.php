@@ -493,7 +493,7 @@ return [
 'CachingIterator::__construct' => ['void', 'it'=>'iterator', 'flags='=>''],
 'CachingIterator::__toString' => ['string'],
 'CachingIterator::count' => ['int'],
-'CachingIterator::current' => ['void'],
+'CachingIterator::current' => ['mixed'],
 'CachingIterator::getCache' => ['array'],
 'CachingIterator::getFlags' => ['int'],
 'CachingIterator::getInnerIterator' => ['Iterator'],
