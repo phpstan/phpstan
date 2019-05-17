@@ -130,6 +130,12 @@ Unofficial extensions for other frameworks and libraries are also available:
 * [Drupal](https://github.com/mglaman/phpstan-drupal)
 * [WordPress](https://github.com/szepeviktor/phpstan-wordpress)
 
+Unofficial extensions with third-party rules:
+
+* [thecodingmachine / phpstan-strict-rules](https://github.com/thecodingmachine/phpstan-strict-rules)
+* [localheinz / phpstan-rules](https://github.com/localheinz/phpstan-rules)
+* [Slamdunk / phpstan-extensions](https://github.com/Slamdunk/phpstan-extensions)
+
 New extensions are becoming available on a regular basis!
 
 ## Configuration
