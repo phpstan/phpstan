@@ -87,7 +87,6 @@ extensions:
 	parametersSchema: PHPStan\DependencyInjection\ParametersSchemaExtension
 
 parametersSchema:
-	__parametersSchema: Nette\Schema\Schema()
 	bootstrap: schema(string(), nullable())
 	excludes_analyse: listOf(string())
 	autoload_directories: listOf(string())

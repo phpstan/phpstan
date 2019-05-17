@@ -16,10 +16,12 @@ class ParametersSchemaExtension extends \Nette\DI\CompilerExtension
 
 	public function loadConfiguration(): void
 	{
+		$config = $this->config;
+		$config['__parametersSchema'] = new Statement(Schema::class);
 		$builder = $this->getContainerBuilder();
 		$builder->parameters['__parametersSchema'] = $this->processArgument(
 			new Statement('schema', [
-				new Statement('structure', [$this->config]),
+				new Statement('structure', [$config]),
 			])
 		);
 	}
