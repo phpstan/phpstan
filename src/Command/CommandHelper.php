@@ -97,7 +97,10 @@ class CommandHelper
 				throw new \PHPStan\Command\InceptionNotSuccessfulException();
 			}
 
-			$loader = (new LoaderFactory())->createLoader();
+			$loader = (new LoaderFactory(
+				$containerFactory->getRootDirectory(),
+				$containerFactory->getCurrentWorkingDirectory()
+			))->createLoader();
 			$projectConfig = $loader->load($projectConfigFile, null);
 			$defaultParameters = [
 				'rootDir' => $containerFactory->getRootDirectory(),

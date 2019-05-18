@@ -49,7 +49,10 @@ class ContainerFactory
 		array $analysedPaths
 	): \Nette\DI\Container
 	{
-		$configurator = new Configurator(new LoaderFactory());
+		$configurator = new Configurator(new LoaderFactory(
+			$this->rootDirectory,
+			$this->currentWorkingDirectory
+		));
 		$configurator->defaultExtensions = [
 			'php' => PhpExtension::class,
 			'extensions' => \Nette\DI\Extensions\ExtensionsExtension::class,
