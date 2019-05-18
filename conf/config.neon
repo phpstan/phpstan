@@ -120,6 +120,10 @@ parametersSchema:
 			structure([
 				message: string()
 				path: string()
+			]),
+			structure([
+				message: string()
+				paths: listOf(string())
 			])
 		)
 	)

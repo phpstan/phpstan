@@ -332,7 +332,7 @@ parameters:
 		- '#Call to an undefined method PHPUnit_Framework_MockObject_MockObject::[a-zA-Z0-9_]+\(\)#'
 ```
 
-To exclude an error in a specific directory or file, specify a `path` along with the `message`:
+To exclude an error in a specific directory or file, specify a `path` or `paths` along with the `message`:
 
 ```
 parameters:
@@ -342,7 +342,9 @@ parameters:
 			path: %currentWorkingDirectory%/some/dir/SomeFile.php
 		-
 			message: '#Call to an undefined method [a-zA-Z0-9\\_]+::method\(\)#'
-			path: %currentWorkingDirectory%/other/dir/*
+			paths:
+				- %currentWorkingDirectory%/some/dir/*
+				- %currentWorkingDirectory%/other/dir/*
 		- '#Other error to catch anywhere#'
 ```
 

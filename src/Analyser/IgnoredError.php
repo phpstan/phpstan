@@ -31,7 +31,7 @@ class IgnoredError
 	 * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
 	 * @param FileHelper $fileHelper
 	 * @param Error $error
-	 * @param array<string, string>|string $ignoredError
+	 * @param mixed[]|string $ignoredError
 	 * @return bool To ignore or not to ignore?
 	 */
 	public static function shouldIgnore(
@@ -41,15 +41,18 @@ class IgnoredError
 	): bool
 	{
 		if (is_array($ignoredError)) {
-			// ignore by path
 			if (isset($ignoredError['path'])) {
-				$fileExcluder = new FileExcluder($fileHelper, [$ignoredError['path']]);
-
-				return \Nette\Utils\Strings::match($error->getMessage(), $ignoredError['message']) !== null
-					&& $fileExcluder->isExcludedFromAnalysing($error->getFile());
+				$ignoredPaths = [$ignoredError['path']];
+			} elseif (isset($ignoredError['paths'])) {
+				$ignoredPaths = $ignoredError['paths'];
+			} else {
+				throw new \PHPStan\ShouldNotHappenException();
 			}
 
-			throw new \PHPStan\ShouldNotHappenException();
+			$fileExcluder = new FileExcluder($fileHelper, $ignoredPaths);
+
+			return \Nette\Utils\Strings::match($error->getMessage(), $ignoredError['message']) !== null
+				&& $fileExcluder->isExcludedFromAnalysing($error->getFile());
 		}
 
 		return \Nette\Utils\Strings::match($error->getMessage(), $ignoredError) !== null;

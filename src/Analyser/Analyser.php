@@ -104,7 +104,7 @@ class Analyser
 						);
 						continue;
 					}
-					if (!isset($ignoreError['path'])) {
+					if (!isset($ignoreError['path']) && !isset($ignoreError['paths'])) {
 						$errors[] = sprintf(
 							'Ignored error %s is missing a path.',
 							Json::encode($ignoreError)
@@ -240,7 +240,11 @@ class Analyser
 		$errors = array_values(array_filter($errors, function (Error $error) use (&$unmatchedIgnoredErrors, &$addErrors): bool {
 			foreach ($this->ignoreErrors as $i => $ignore) {
 				if (IgnoredError::shouldIgnore($this->fileHelper, $error, $ignore)) {
-					unset($unmatchedIgnoredErrors[$i]);
+					if (is_string($ignore)) {
+						unset($unmatchedIgnoredErrors[$i]);
+					} elseif (!isset($ignore['paths'])) {
+						unset($unmatchedIgnoredErrors[$i]);
+					}
 					if (!$error->canBeIgnored()) {
 						$addErrors[] = sprintf(
 							'Error message "%s" cannot be ignored, use excludes_analyse instead.',
@@ -259,6 +263,12 @@ class Analyser
 
 		if (!$onlyFiles && $this->reportUnmatchedIgnoredErrors && !$reachedInternalErrorsCountLimit) {
 			foreach ($unmatchedIgnoredErrors as $unmatchedIgnoredError) {
+				if (
+					is_array($unmatchedIgnoredError)
+					&& isset($unmatchedIgnoredError['paths'])
+				) {
+					continue;
+				}
 				$errors[] = sprintf(
 					'Ignored error pattern %s was not matched in reported errors.',
 					IgnoredError::stringifyPattern($unmatchedIgnoredError)
