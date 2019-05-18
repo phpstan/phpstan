@@ -401,6 +401,18 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Call to an undefined method Test\AssertInFor::doBar().',
 				1207,
 			],
+			[
+				'Parameter #1 $i of method Test\SubtractedMixed::requireInt() expects int, mixed given.',
+				1277,
+			],
+			[
+				'Parameter #1 $i of method Test\SubtractedMixed::requireInt() expects int, mixed given.',
+				1284,
+			],
+			[
+				'Parameter #1 $parameter of method Test\SubtractedMixed::requireIntOrString() expects int|string, mixed given.',
+				1285,
+			],
 		]);
 	}
 
@@ -621,6 +633,18 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Call to an undefined method Test\CallAfterPropertyEmpty::doBar().',
 				1072,
+			],
+			[
+				'Parameter #1 $i of method Test\SubtractedMixed::requireInt() expects int, mixed given.',
+				1277,
+			],
+			[
+				'Parameter #1 $i of method Test\SubtractedMixed::requireInt() expects int, mixed given.',
+				1284,
+			],
+			[
+				'Parameter #1 $parameter of method Test\SubtractedMixed::requireIntOrString() expects int|string, mixed given.',
+				1285,
 			],
 		]);
 	}
