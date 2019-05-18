@@ -220,7 +220,7 @@ class Broker
 	 */
 	public function getOperatorTypeSpecifyingExtensions(string $operator, Type $leftType, Type $rightType): array
 	{
-		return array_filter($this->operatorTypeSpecifyingExtensions, function (OperatorTypeSpecifyingExtension $extension) use ($operator, $leftType, $rightType) {
+		return array_filter($this->operatorTypeSpecifyingExtensions, static function (OperatorTypeSpecifyingExtension $extension) use ($operator, $leftType, $rightType) {
 			return $extension->isOperatorSupported($operator, $leftType, $rightType);
 		});
 	}
