@@ -5,6 +5,7 @@ namespace PHPStan\Analyser;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\BinaryOp;
 use PhpParser\Node\Expr\Cast\Bool_;
 use PhpParser\Node\Expr\Cast\Double;
 use PhpParser\Node\Expr\Cast\Int_;
@@ -845,17 +846,19 @@ class Scope implements ClassMemberAccessAnswerer
 			$leftType = $this->getType($left);
 			$rightType = $this->getType($right);
 
-			$operatorTypeSpecifyingExtensions = $this->broker->getOperatorTypeSpecifyingExtensions($node->getOperatorSigil(), $leftType, $rightType);
+			if ($node instanceof BinaryOp) {
+				$operatorTypeSpecifyingExtensions = $this->broker->getOperatorTypeSpecifyingExtensions($node->getOperatorSigil(), $leftType, $rightType);
 
-			/** @var SpecifiedTypes[] $extensionTypes */
-			$extensionTypes = [];
+				/** @var Type[] $extensionTypes */
+				$extensionTypes = [];
 
-			foreach ($operatorTypeSpecifyingExtensions as $extension) {
-				$extensionTypes[] = $extension->specifyType($node->getOperatorSigil(), $leftType, $rightType);
-			}
+				foreach ($operatorTypeSpecifyingExtensions as $extension) {
+					$extensionTypes[] = $extension->specifyType($node->getOperatorSigil(), $leftType, $rightType);
+				}
 
-			if (count($extensionTypes) > 0) {
-				return TypeCombinator::union(...$extensionTypes);
+				if (count($extensionTypes) > 0) {
+					return TypeCombinator::union(...$extensionTypes);
+				}
 			}
 
 			if ($node instanceof Expr\AssignOp\Plus || $node instanceof Expr\BinaryOp\Plus) {
