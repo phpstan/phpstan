@@ -3,6 +3,8 @@ parameters:
 	excludes_analyse: []
 	autoload_directories: []
 	autoload_files: []
+	level: null
+	paths: []
 	featureToggles:
 		subtractableTypes: false
 		validateParameters: false
@@ -91,6 +93,8 @@ parametersSchema:
 	excludes_analyse: listOf(string())
 	autoload_directories: listOf(string())
 	autoload_files: listOf(string())
+	level: schema(anyOf(int(), string()), nullable())
+	paths: listOf(string())
 	featureToggles: arrayOf(bool())
 	fileExtensions: listOf(string())
 	checkAlwaysTrueCheckTypeFunctionCall: bool()
