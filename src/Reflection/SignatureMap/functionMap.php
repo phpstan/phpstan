@@ -9218,7 +9218,7 @@ return [
 'Redis::brpoplpush' => ['string|false', 'srcKey'=>'string', 'dstKey'=>'string', 'timeout'=>'int'],
 'Redis::clearLastError' => ['bool'],
 'Redis::client' => ['mixed', 'command'=>'string', 'arg='=>'string'],
-'Redis::close' => ['void'],
+'Redis::close' => ['bool'],
 'Redis::config' => ['string', 'key'=>'string', 'value='=>'string'],
 'Redis::connect' => ['bool', 'host'=>'string', 'port='=>'int', 'timeout='=>'float', 'retry_interval='=>'?int'],
 'Redis::dbSize' => ['int'],
