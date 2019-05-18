@@ -532,7 +532,8 @@ class ObjectType implements TypeWithClassName, SubtractableType
 		}
 
 		return $this->isExtraOffsetAccessibleClass()
-			->or($this->isInstanceOf(\ArrayAccess::class));
+			->or($this->isInstanceOf(\ArrayAccess::class))
+			->and(TrinaryLogic::createMaybe());
 	}
 
 	public function getOffsetValueType(Type $offsetType): Type
