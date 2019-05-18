@@ -284,7 +284,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		return $builder->getArray();
 	}
 
-	public function unsetOffset(Type $offsetType): self
+	public function unsetOffset(Type $offsetType): Type
 	{
 		$offsetType = ArrayType::castToArrayKeyType($offsetType);
 		if ($offsetType instanceof ConstantIntegerType || $offsetType instanceof ConstantStringType) {
@@ -299,7 +299,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 			}
 		}
 
-		return $this;
+		return $this->generalize();
 	}
 
 	public function isIterableAtLeastOnce(): TrinaryLogic

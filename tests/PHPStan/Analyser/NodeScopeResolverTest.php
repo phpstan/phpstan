@@ -3146,6 +3146,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array(?0 => \'password\'|\'username\', ?1 => \'password\')',
 				'$coalesceArray',
 			],
+			[
+				'array<int, 1|2|3>',
+				'$arrayToBeUnset',
+			],
 		];
 	}
 

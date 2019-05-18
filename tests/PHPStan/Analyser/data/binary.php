@@ -129,6 +129,9 @@ class Foo
 		$arrayOfUnknownIntegers[42] ?? $coalesceArray[] = 'username';
 		$arrayOfUnknownIntegers[108] ?? $coalesceArray[] = 'password';
 
+		$arrayToBeUnset = $array;
+		unset($arrayToBeUnset[$string]);
+
 		die;
 	}
 
