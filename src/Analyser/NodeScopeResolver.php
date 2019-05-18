@@ -1518,7 +1518,7 @@ class NodeScopeResolver
 			if (!$expr->left instanceof PropertyFetch) {
 				$scope = $this->lookForExitVariableAssign($scope, $expr->left);
 			}
-			$scope = $this->processExprNode($expr->right, $scope, $nodeCallback, $context->enterDeep())->getScope();
+			$scope = $this->processExprNode($expr->right, $scope, $nodeCallback, $context->enterDeep())->getScope()->mergeWith($scope);
 		} elseif ($expr instanceof BinaryOp) {
 			$scope = $this->processExprNode($expr->left, $scope, $nodeCallback, $context->enterDeep())->getScope();
 			$scope = $this->processExprNode($expr->right, $scope, $nodeCallback, $context->enterDeep())->getScope();
