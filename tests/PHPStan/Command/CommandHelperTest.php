@@ -30,6 +30,22 @@ class CommandHelperTest extends TestCase
 				[],
 				true,
 			],
+			[
+				'',
+				'does not exist',
+				__DIR__ . '/data/nonexistent.neon',
+				null,
+				[],
+				true,
+			],
+			[
+				'',
+				'is missing or is not readable',
+				__DIR__ . '/data/containsNonexistent.neon',
+				null,
+				[],
+				true,
+			],
 		];
 	}
 
