@@ -2,9 +2,10 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Fixture\TestDecimal;
 use PHPUnit\Framework\TestCase;
 
-class PhpDecimalOperatorTypeSpecifyingExtensionTest extends TestCase
+class TestDecimalOperatorTypeSpecifyingExtensionTest extends TestCase
 {
 
 	/**
@@ -12,7 +13,7 @@ class PhpDecimalOperatorTypeSpecifyingExtensionTest extends TestCase
 	 */
 	public function testSupportsMatchingSigilsAndSides(string $sigil, Type $leftType, Type $rightType): void
 	{
-		$extension = new PhpDecimalOperatorTypeSpecifyingExtension();
+		$extension = new TestDecimalOperatorTypeSpecifyingExtension();
 
 		$result = $extension->isOperatorSupported($sigil, $leftType, $rightType);
 
@@ -23,26 +24,26 @@ class PhpDecimalOperatorTypeSpecifyingExtensionTest extends TestCase
 	{
 		yield '+' => [
 			'+',
-			new ObjectType(\Decimal\Decimal::class),
-			new ObjectType(\Decimal\Decimal::class),
+			new ObjectType(TestDecimal::class),
+			new ObjectType(TestDecimal::class),
 		];
 
 		yield '-' => [
 			'-',
-			new ObjectType(\Decimal\Decimal::class),
-			new ObjectType(\Decimal\Decimal::class),
+			new ObjectType(TestDecimal::class),
+			new ObjectType(TestDecimal::class),
 		];
 
 		yield '*' => [
 			'*',
-			new ObjectType(\Decimal\Decimal::class),
-			new ObjectType(\Decimal\Decimal::class),
+			new ObjectType(TestDecimal::class),
+			new ObjectType(TestDecimal::class),
 		];
 
 		yield '/' => [
 			'/',
-			new ObjectType(\Decimal\Decimal::class),
-			new ObjectType(\Decimal\Decimal::class),
+			new ObjectType(TestDecimal::class),
+			new ObjectType(TestDecimal::class),
 		];
 	}
 
@@ -51,7 +52,7 @@ class PhpDecimalOperatorTypeSpecifyingExtensionTest extends TestCase
 	 */
 	public function testNotSupportsNotMatchingSides(string $sigil, Type $leftType, Type $rightType): void
 	{
-		$extension = new PhpDecimalOperatorTypeSpecifyingExtension();
+		$extension = new TestDecimalOperatorTypeSpecifyingExtension();
 
 		$result = $extension->isOperatorSupported($sigil, $leftType, $rightType);
 
@@ -63,12 +64,12 @@ class PhpDecimalOperatorTypeSpecifyingExtensionTest extends TestCase
 		yield 'left' => [
 			'+',
 			new ObjectType(\stdClass::class),
-			new ObjectType(\Decimal\Decimal::class),
+			new ObjectType(TestDecimal::class),
 		];
 
 		yield 'right' => [
 			'+',
-			new ObjectType(\Decimal\Decimal::class),
+			new ObjectType(TestDecimal::class),
 			new ObjectType(\stdClass::class),
 		];
 	}

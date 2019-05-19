@@ -32,7 +32,6 @@
 		"jakub-onderka/php-parallel-lint": "^1.0",
 		"localheinz/composer-normalize": "^1.1.0",
 		"phing/phing": "^2.16.0",
-		"php-decimal/stubs": "^1.1",
 		"phpstan/phpstan-deprecation-rules": "^0.11",
 		"phpstan/phpstan-php-parser": "^0.11",
 		"phpstan/phpstan-phpunit": "^0.11",
