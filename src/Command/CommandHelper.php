@@ -192,25 +192,7 @@ class CommandHelper
 			throw new \PHPStan\Command\InceptionNotSuccessfulException();
 		}
 
-		if ($netteContainer->parameters['featureToggles']['validateParameters']) {
-			$schema = $netteContainer->parameters['__parametersSchema'];
-			$processor = new Processor();
-			$processor->onNewContext[] = static function (SchemaContext $context): void {
-				$context->path = ['parameters'];
-			};
-
-			try {
-				$processor->process($schema, $netteContainer->parameters);
-			} catch (\Nette\Schema\ValidationException $e) {
-				foreach ($e->getMessages() as $message) {
-					$errorOutput->writeln('<error>Invalid configuration:</error>');
-					$errorOutput->writeln($message);
-				}
-				throw new \PHPStan\Command\InceptionNotSuccessfulException();
-			}
-		}
-
-		TypeCombinator::$enableSubtractableTypes = $netteContainer->parameters['featureToggles']['subtractableTypes'];
+		TypeCombinator::$enableSubtractableTypes = (bool) $netteContainer->parameters['featureToggles']['subtractableTypes'];
 		$memoryLimitFile = $netteContainer->parameters['memoryLimitFile'];
 		if (file_exists($memoryLimitFile)) {
 			$memoryLimitFileContents = file_get_contents($memoryLimitFile);
@@ -240,6 +222,24 @@ class CommandHelper
 			throw new \PHPStan\Command\InceptionNotSuccessfulException();
 		} elseif ((bool) $netteContainer->parameters['customRulesetUsed']) {
 			$defaultLevelUsed = false;
+		}
+
+		if ($netteContainer->parameters['featureToggles']['validateParameters']) {
+			$schema = $netteContainer->parameters['__parametersSchema'];
+			$processor = new Processor();
+			$processor->onNewContext[] = static function (SchemaContext $context): void {
+				$context->path = ['parameters'];
+			};
+
+			try {
+				$processor->process($schema, $netteContainer->parameters);
+			} catch (\Nette\Schema\ValidationException $e) {
+				foreach ($e->getMessages() as $message) {
+					$errorOutput->writeln('<error>Invalid configuration:</error>');
+					$errorOutput->writeln($message);
+				}
+				throw new \PHPStan\Command\InceptionNotSuccessfulException();
+			}
 		}
 
 		$container = $netteContainer->getByType(Container::class);
