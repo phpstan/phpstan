@@ -33,6 +33,7 @@ class BrokerTest extends \PHPStan\Testing\TestCase
 			[],
 			[],
 			[],
+			[],
 			$this->createMock(FunctionReflectionFactory::class),
 			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $this->createMock(Cache::class), $anonymousClassNameHelper, new \PHPStan\PhpDoc\TypeNodeResolver([])),
 			self::getContainer()->getByType(SignatureMapProvider::class),
