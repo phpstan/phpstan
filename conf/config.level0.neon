@@ -11,6 +11,9 @@ conditionalTags:
 	PHPStan\Rules\Missing\MissingReturnRule:
 		phpstan.rules.rule: %featureToggles.missingReturnRule%
 
+parametersSchema:
+	missingClosureNativeReturnCheckObjectTypehint: bool()
+
 rules:
 	- PHPStan\Rules\Arrays\DuplicateKeysInLiteralArraysRule
 	- PHPStan\Rules\Arrays\OffsetAccessWithoutDimForReadingRule

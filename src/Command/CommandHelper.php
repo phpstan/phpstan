@@ -6,6 +6,7 @@ use Nette\DI\Config\Adapters\NeonAdapter;
 use Nette\DI\Helpers;
 use Nette\Schema\Context as SchemaContext;
 use Nette\Schema\Processor;
+use Nette\Utils\Strings;
 use Nette\Utils\Validators;
 use PHPStan\DependencyInjection\Container;
 use PHPStan\DependencyInjection\ContainerFactory;
@@ -383,7 +384,7 @@ class CommandHelper
 
 	private static function expandIncludedFile(string $includedFile, string $mainFile): string
 	{
-		return preg_match('#([a-z]+:)?[/\\\\]#Ai', $includedFile) // is absolute
+		return Strings::match($includedFile, '#([a-z]+:)?[/\\\\]#Ai') !== null // is absolute
 			? $includedFile
 			: dirname($mainFile) . '/' . $includedFile;
 	}

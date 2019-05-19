@@ -144,7 +144,6 @@ parametersSchema:
 	benchmarkFile: schema(string(), nullable())
 	dynamicConstantNames: listOf(string())
 	customRulesetUsed: bool()
-	missingClosureNativeReturnCheckObjectTypehint: bool()
 	rootDir: string()
 	tmpDir: string()
 	currentWorkingDirectory: string()
