@@ -73,6 +73,14 @@ use PHPStan\Type\VoidType;
 class Scope implements ClassMemberAccessAnswerer
 {
 
+	private const OPERATOR_SIGIL_MAP = [
+		Node\Expr\AssignOp\Plus::class => '+',
+		Node\Expr\AssignOp\Minus::class => '-',
+		Node\Expr\AssignOp\Mul::class => '*',
+		Node\Expr\AssignOp\Pow::class => '^',
+		Node\Expr\AssignOp\Div::class => '/',
+	];
+
 	/** @var \PHPStan\Analyser\ScopeFactory */
 	private $scopeFactory;
 
@@ -846,14 +854,24 @@ class Scope implements ClassMemberAccessAnswerer
 			$leftType = $this->getType($left);
 			$rightType = $this->getType($right);
 
+			$operatorSigil = null;
+
 			if ($node instanceof BinaryOp) {
-				$operatorTypeSpecifyingExtensions = $this->broker->getOperatorTypeSpecifyingExtensions($node->getOperatorSigil(), $leftType, $rightType);
+				$operatorSigil = $node->getOperatorSigil();
+			}
+
+			if ($operatorSigil === null) {
+				$operatorSigil = self::OPERATOR_SIGIL_MAP[get_class($node)] ?? null;
+			}
+
+			if ($operatorSigil !== null) {
+				$operatorTypeSpecifyingExtensions = $this->broker->getOperatorTypeSpecifyingExtensions($operatorSigil, $leftType, $rightType);
 
 				/** @var Type[] $extensionTypes */
 				$extensionTypes = [];
 
 				foreach ($operatorTypeSpecifyingExtensions as $extension) {
-					$extensionTypes[] = $extension->specifyType($node->getOperatorSigil(), $leftType, $rightType);
+					$extensionTypes[] = $extension->specifyType($operatorSigil, $leftType, $rightType);
 				}
 
 				if (count($extensionTypes) > 0) {
