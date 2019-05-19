@@ -101,7 +101,13 @@ class CommandHelper
 				$containerFactory->getRootDirectory(),
 				$containerFactory->getCurrentWorkingDirectory()
 			))->createLoader();
-			$projectConfig = $loader->load($projectConfigFile, null);
+
+			try {
+				$projectConfig = $loader->load($projectConfigFile, null);
+			} catch (\Nette\InvalidStateException $e) {
+				$errorOutput->writeln($e->getMessage());
+				throw new \PHPStan\Command\InceptionNotSuccessfulException();
+			}
 			$defaultParameters = [
 				'rootDir' => $containerFactory->getRootDirectory(),
 				'currentWorkingDirectory' => $containerFactory->getCurrentWorkingDirectory(),

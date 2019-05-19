@@ -20,6 +20,15 @@ class CommandHelperTest extends TestCase
 				[
 					'level' => 'max',
 				],
+				false,
+			],
+			[
+				'',
+				'Recursive included file',
+				__DIR__ . '/data/1.neon',
+				null,
+				[],
+				true,
 			],
 		];
 	}
@@ -31,13 +40,15 @@ class CommandHelperTest extends TestCase
 	 * @param string|null $projectConfigFile
 	 * @param string|null $level
 	 * @param mixed[] $expectedParameters
+	 * @param bool $expectException
 	 */
 	public function testBegin(
 		string $input,
 		string $expectedOutput,
 		?string $projectConfigFile,
 		?string $level,
-		array $expectedParameters
+		array $expectedParameters,
+		bool $expectException
 	): void
 	{
 		$resource = fopen('php://memory', 'w', false);
@@ -46,16 +57,25 @@ class CommandHelperTest extends TestCase
 		}
 		$output = new StreamOutput($resource);
 
-		$result = CommandHelper::begin(
-			new StringInput($input),
-			$output,
-			[__DIR__],
-			null,
-			null,
-			null,
-			$projectConfigFile,
-			$level
-		);
+		try {
+			$result = CommandHelper::begin(
+				new StringInput($input),
+				$output,
+				[__DIR__],
+				null,
+				null,
+				null,
+				$projectConfigFile,
+				$level
+			);
+			if ($expectException) {
+				$this->fail();
+			}
+		} catch (\PHPStan\Command\InceptionNotSuccessfulException $e) {
+			if (!$expectException) {
+				throw $e;
+			}
+		}
 
 		rewind($output->getStream());
 
@@ -65,10 +85,14 @@ class CommandHelperTest extends TestCase
 		}
 		$this->assertContains($expectedOutput, $contents);
 
-		$parameters = $result->getContainer()->parameters;
-		foreach ($expectedParameters as $name => $expectedValue) {
-			$this->assertArrayHasKey($name, $parameters);
-			$this->assertSame($expectedValue, $parameters[$name]);
+		if (isset($result)) {
+			$parameters = $result->getContainer()->parameters;
+			foreach ($expectedParameters as $name => $expectedValue) {
+				$this->assertArrayHasKey($name, $parameters);
+				$this->assertSame($expectedValue, $parameters[$name]);
+			}
+		} else {
+			$this->assertCount(0, $expectedParameters);
 		}
 	}
 
