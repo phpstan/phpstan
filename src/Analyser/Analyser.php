@@ -27,7 +27,7 @@ class Analyser
 	/** @var \PHPStan\File\FileHelper */
 	private $fileHelper;
 
-	/** @var (string|array<string, string>)[] */
+	/** @var (string|mixed[])[] */
 	private $ignoreErrors;
 
 	/** @var bool */
@@ -239,12 +239,40 @@ class Analyser
 		$addErrors = [];
 		$errors = array_values(array_filter($errors, function (Error $error) use (&$unmatchedIgnoredErrors, &$addErrors): bool {
 			foreach ($this->ignoreErrors as $i => $ignore) {
-				if (IgnoredError::shouldIgnore($this->fileHelper, $error, $ignore)) {
-					if (is_string($ignore)) {
-						unset($unmatchedIgnoredErrors[$i]);
-					} elseif (!isset($ignore['paths'])) {
+				$shouldBeIgnored = false;
+				if (is_string($ignore)) {
+					$shouldBeIgnored = IgnoredError::shouldIgnore($this->fileHelper, $error, $ignore, null);
+					if ($shouldBeIgnored) {
 						unset($unmatchedIgnoredErrors[$i]);
 					}
+				} else {
+					if (isset($ignore['path'])) {
+						$shouldBeIgnored = IgnoredError::shouldIgnore($this->fileHelper, $error, $ignore['message'], $ignore['path']);
+						if ($shouldBeIgnored) {
+							unset($unmatchedIgnoredErrors[$i]);
+						}
+					} elseif (isset($ignore['paths'])) {
+						foreach ($ignore['paths'] as $j => $ignorePath) {
+							$shouldBeIgnored = IgnoredError::shouldIgnore($this->fileHelper, $error, $ignore['message'], $ignorePath);
+							if ($shouldBeIgnored) {
+								if (isset($unmatchedIgnoredErrors[$i])) {
+									if (!is_array($unmatchedIgnoredErrors[$i])) {
+										throw new \PHPStan\ShouldNotHappenException();
+									}
+									unset($unmatchedIgnoredErrors[$i]['paths'][$j]);
+									if (isset($unmatchedIgnoredErrors[$i]['paths']) && count($unmatchedIgnoredErrors[$i]['paths']) === 0) {
+										unset($unmatchedIgnoredErrors[$i]);
+									}
+								}
+								break;
+							}
+						}
+					} else {
+						throw new \PHPStan\ShouldNotHappenException();
+					}
+				}
+
+				if ($shouldBeIgnored) {
 					if (!$error->canBeIgnored()) {
 						$addErrors[] = sprintf(
 							'Error message "%s" cannot be ignored, use excludes_analyse instead.',
@@ -263,12 +291,6 @@ class Analyser
 
 		if (!$onlyFiles && $this->reportUnmatchedIgnoredErrors && !$reachedInternalErrorsCountLimit) {
 			foreach ($unmatchedIgnoredErrors as $unmatchedIgnoredError) {
-				if (
-					is_array($unmatchedIgnoredError)
-					&& isset($unmatchedIgnoredError['paths'])
-				) {
-					continue;
-				}
 				$errors[] = sprintf(
 					'Ignored error pattern %s was not matched in reported errors.',
 					IgnoredError::stringifyPattern($unmatchedIgnoredError)
