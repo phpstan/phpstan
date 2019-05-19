@@ -46,6 +46,30 @@ class CommandHelperTest extends TestCase
 				[],
 				true,
 			],
+			[
+				'',
+				'These files are included multiple times',
+				__DIR__ . '/../../../conf/config.level7.neon',
+				'7',
+				[],
+				true,
+			],
+			[
+				'',
+				'These files are included multiple times',
+				__DIR__ . '/../../../conf/config.level7.neon',
+				'6',
+				[],
+				true,
+			],
+			[
+				'',
+				'These files are included multiple times',
+				__DIR__ . '/../../../conf/config.level6.neon',
+				'7',
+				[],
+				true,
+			],
 		];
 	}
 

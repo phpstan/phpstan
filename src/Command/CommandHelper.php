@@ -2,9 +2,11 @@
 
 namespace PHPStan\Command;
 
+use Nette\DI\Config\Adapters\NeonAdapter;
 use Nette\DI\Helpers;
 use Nette\Schema\Context as SchemaContext;
 use Nette\Schema\Processor;
+use Nette\Utils\Validators;
 use PHPStan\DependencyInjection\Container;
 use PHPStan\DependencyInjection\ContainerFactory;
 use PHPStan\DependencyInjection\LoaderFactory;
@@ -158,8 +160,18 @@ class CommandHelper
 		}
 
 		if ($projectConfigFile !== null) {
-			$additionalConfigFiles[] = $projectConfigFile;
+			$additionalConfigFiles[] = $fileHelper->absolutizePath($projectConfigFile);
 		}
+
+		self::detectDuplicateIncludedFiles(
+			$errorOutput,
+			$fileHelper,
+			$additionalConfigFiles,
+			[
+				'rootDir' => $containerFactory->getRootDirectory(),
+				'currentWorkingDirectory' => $containerFactory->getCurrentWorkingDirectory(),
+			]
+		);
 
 		if (!isset($tmpDir)) {
 			$tmpDir = sys_get_temp_dir() . '/phpstan';
@@ -307,6 +319,73 @@ class CommandHelper
 			$consoleStyle->newLine();
 			exit(1);
 		});
+	}
+
+	private static function detectDuplicateIncludedFiles(
+		OutputInterface $output,
+		FileHelper $fileHelper,
+		array $configFiles,
+		array $loaderParameters
+	): void
+	{
+		$neonAdapter = new NeonAdapter();
+		$allConfigFiles = $configFiles;
+		foreach ($configFiles as $configFile) {
+			$allConfigFiles = array_merge($allConfigFiles, self::getConfigFiles($neonAdapter, $configFile, $loaderParameters));
+		}
+
+		$normalized = array_map(static function (string $file) use ($fileHelper): string {
+			return $fileHelper->absolutizePath($fileHelper->normalizePath($file));
+		}, $allConfigFiles);
+
+		$deduplicated = array_unique($normalized);
+		if (count($normalized) > count($deduplicated)) {
+			$duplicateFiles = array_unique(array_diff_key($normalized, $deduplicated));
+
+			$format = "<error>These files are included multiple times:</error>\n- %s";
+			if (count($duplicateFiles) === 1) {
+				$format = "<error>This file is included multiple times:</error>\n- %s";
+			}
+			$output->writeln(sprintf($format, implode("\n- ", $duplicateFiles)));
+
+			if (class_exists('PHPStan\ExtensionInstaller\GeneratedConfig')) {
+				$output->writeln('');
+				$output->writeln('It can lead to unexpected results. If you\'re using phpstan/extension-installer, make sure you have removed corresponding neon files from your project config file.');
+			}
+			throw new \PHPStan\Command\InceptionNotSuccessfulException();
+		}
+	}
+
+	private static function getConfigFiles(
+		NeonAdapter $neonAdapter,
+		string $configFile,
+		array $loaderParameters
+	): array
+	{
+		if (!is_file($configFile) || !is_readable($configFile)) {
+			return [];
+		}
+
+		$data = $neonAdapter->load($configFile);
+		$allConfigFiles = [];
+		if (isset($data['includes'])) {
+			Validators::assert($data['includes'], 'list', sprintf("section 'includes' in file '%s'", $configFile));
+			$includes = Helpers::expand($data['includes'], $loaderParameters);
+			foreach ($includes as $include) {
+				$include = self::expandIncludedFile($include, $configFile);
+				$allConfigFiles[] = $include;
+				$allConfigFiles = array_merge($allConfigFiles, self::getConfigFiles($neonAdapter, $include, $loaderParameters));
+			}
+		}
+
+		return $allConfigFiles;
+	}
+
+	private static function expandIncludedFile(string $includedFile, string $mainFile): string
+	{
+		return preg_match('#([a-z]+:)?[/\\\\]#Ai', $includedFile) // is absolute
+			? $includedFile
+			: dirname($mainFile) . '/' . $includedFile;
 	}
 
 }
