@@ -13684,7 +13684,7 @@ return [
 'ZipArchive::getFromName' => ['string|false', 'entryname'=>'string', 'len='=>'int', 'flags='=>'int'],
 'ZipArchive::getNameIndex' => ['string|false', 'index'=>'int', 'flags='=>'int'],
 'ZipArchive::getStatusString' => ['string'],
-'ZipArchive::getStream' => ['resource', 'entryname'=>'string'],
+'ZipArchive::getStream' => ['resource|false', 'entryname'=>'string'],
 'ZipArchive::locateName' => ['int', 'filename'=>'string', 'flags='=>'int'],
 'ZipArchive::open' => ['mixed', 'source'=>'string', 'flags='=>'int'],
 'ZipArchive::renameIndex' => ['bool', 'index'=>'int', 'new_name'=>'string'],
