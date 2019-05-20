@@ -169,16 +169,6 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 	}
 
 	/**
-	 * @see https://www.php.net/manual/de/ziparchive.getstream.php PHP documentation for ZipArchive::getStream()
-	 * @see https://github.com/phpstan/phpstan/pull/2133 Related PR with bug report
-	 */
-	public function testZipArchiveGetStreamReturnType(): void
-	{
-		$errors = $this->runAnalyse(__DIR__ . '/data/ZipArchive-getStream.php');
-		$this->assertCount(0, $errors);
-	}
-
-	/**
 	 * @param string $file
 	 * @return \PHPStan\Analyser\Error[]
 	 */
