@@ -134,6 +134,7 @@ Unofficial extensions with third-party rules:
 
 * [thecodingmachine / phpstan-strict-rules](https://github.com/thecodingmachine/phpstan-strict-rules)
 * [localheinz / phpstan-rules](https://github.com/localheinz/phpstan-rules)
+* [pepakriz / phpstan-exception-rules](https://github.com/pepakriz/phpstan-exception-rules)
 * [Slamdunk / phpstan-extensions](https://github.com/Slamdunk/phpstan-extensions)
 
 New extensions are becoming available on a regular basis!
