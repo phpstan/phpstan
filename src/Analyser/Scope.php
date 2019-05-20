@@ -1244,6 +1244,9 @@ class Scope implements ClassMemberAccessAnswerer
 						new ConstantStringType("\r\n"),
 					]);
 				}
+				if ($resolvedConstantName === '__COMPILER_HALT_OFFSET__') {
+					return new IntegerType();
+				}
 
 				$constantType = $this->getTypeFromValue(constant($resolvedConstantName));
 				if ($constantType instanceof ConstantType && in_array($resolvedConstantName, $this->dynamicConstantNames, true)) {
