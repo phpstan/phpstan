@@ -2,6 +2,8 @@
 
 namespace PHPStan\Analyser;
 
+use PhpParser\Node\Expr\ConstFetch;
+use PhpParser\Node\Name\FullyQualified;
 use PHPStan\Testing\TestCase;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
@@ -170,6 +172,16 @@ class ScopeTest extends TestCase
 		$scopeB = $scopeFactory->create(ScopeContext::create('file.php'))->assignVariable('a', $b);
 		$resultScope = $scopeA->generalizeWith($scopeB);
 		$this->assertSame($expectedTypeDescription, $resultScope->getVariableType('a')->describe(VerbosityLevel::precise()));
+	}
+
+	public function testGetConstantType(): void
+	{
+		/** @var ScopeFactory $scopeFactory */
+		$scopeFactory = self::getContainer()->getByType(ScopeFactory::class);
+		$scope = $scopeFactory->create(ScopeContext::create(__DIR__ . '/data/compiler-halt-offset.php'));
+		$node = new ConstFetch(new FullyQualified('__COMPILER_HALT_OFFSET__'));
+		$type = $scope->getType($node);
+		$this->assertSame('int', $type->describe(VerbosityLevel::precise()));
 	}
 
 }
