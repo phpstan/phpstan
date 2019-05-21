@@ -83,5 +83,25 @@
         "message": "Parameter #1 $callable of method Levels\\AcceptTypes\\ClosureAccepts::doBaz() expects callable(Levels\\AcceptTypes\\FooInterface, int): Levels\\AcceptTypes\\FooInterface, Closure(): mixed given.",
         "line": 312,
         "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Baz::doBar() expects int, float|int given.",
+        "line": 401,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $a of method Levels\\AcceptTypes\\Baz::doIpsum() expects float, float|string given.",
+        "line": 415,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $a of method Levels\\AcceptTypes\\Baz::doIpsum() expects float, float|string|null given.",
+        "line": 416,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Baz::doBarArray() expects array<int>, array<float|int> given.",
+        "line": 482,
+        "ignorable": true
     }
 ]

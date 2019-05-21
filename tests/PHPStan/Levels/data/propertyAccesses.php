@@ -101,3 +101,76 @@ class AnotherClassWithMagicMethod
 	}
 
 }
+
+class Ipsum
+{
+
+	/**
+	 * @return Foo|Bar
+	 */
+	private function makeFooOrBar()
+	{
+		if (rand(0, 1) === 0) {
+			return new Foo();
+		} else {
+			return new Bar();
+		}
+	}
+
+	/**
+	 * @return Foo|null
+	 */
+	private function makeFooOrNull()
+	{
+		if (rand(0, 1) === 0) {
+			return new Foo();
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * @return Foo|Bar|null
+	 */
+	public function makeFooOrBarOrNull()
+	{
+		if (rand(0, 1) === 0) {
+			return new Foo();
+		} elseif (rand(0, 1) === 1) {
+			return new Bar();
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * @return Bar|Baz
+	 */
+	public function makeBarOrBaz()
+	{
+		if (rand(0, 1) === 0) {
+			return new Bar();
+		} else {
+			return new Baz();
+		}
+	}
+
+	public function doBaz()
+	{
+		$fooOrBar = $this->makeFooOrBar();
+		$foo = $fooOrBar->foo;
+		$bar =$fooOrBar->bar;
+
+		$fooOrNull = $this->makeFooOrNull();
+		$foo = $fooOrNull->foo;
+		$bar = $fooOrNull->bar;
+
+		$fooOrBarOrNull = $this->makeFooOrBarOrNull();
+		$foo = $fooOrBarOrNull->foo;
+		$bar = $fooOrBarOrNull->bar;
+
+		$barOrBaz = $this->makeBarOrBaz();
+		$foo = $barOrBaz->foo;
+	}
+
+}

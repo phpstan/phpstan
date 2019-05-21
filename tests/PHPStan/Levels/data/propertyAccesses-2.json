@@ -18,5 +18,15 @@
         "message": "Access to an undefined property Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Baz::$foo.",
         "line": 66,
         "ignorable": true
+    },
+    {
+        "message": "Access to an undefined property Levels\\PropertyAccesses\\Foo::$bar.",
+        "line": 166,
+        "ignorable": true
+    },
+    {
+        "message": "Access to an undefined property Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Baz::$foo.",
+        "line": 173,
+        "ignorable": true
     }
 ]
