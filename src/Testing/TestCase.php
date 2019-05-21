@@ -43,9 +43,14 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	public static function getContainer(): \Nette\DI\Container
 	{
 		if (self::$container === null) {
+			$tmpDir = sys_get_temp_dir() . '/phpstan-tests';
+			if (!@mkdir($tmpDir, 0777, true) && !is_dir($tmpDir)) {
+				self::fail(sprintf('Cannot create temp directory %s', $tmpDir));
+			}
+
 			$rootDir = __DIR__ . '/../..';
 			$containerFactory = new ContainerFactory($rootDir);
-			self::$container = $containerFactory->create($rootDir . '/tmp', [
+			self::$container = $containerFactory->create($tmpDir, [
 				$containerFactory->getConfigDirectory() . '/config.level7.neon',
 			], []);
 		}
