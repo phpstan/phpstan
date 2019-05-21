@@ -103,5 +103,25 @@
         "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Baz::doBarArray() expects array<int>, array<float|int> given.",
         "line": 482,
         "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $array of method Levels\\AcceptTypes\\Baz::requireArray() expects array, array|Levels\\AcceptTypes\\Foo given.",
+        "line": 517,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $foo of method Levels\\AcceptTypes\\Baz::requireFoo() expects Levels\\AcceptTypes\\Foo, array|Levels\\AcceptTypes\\Foo given.",
+        "line": 518,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $array of method Levels\\AcceptTypes\\Baz::requireArray() expects array, array|Levels\\AcceptTypes\\Foo given.",
+        "line": 528,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $foo of method Levels\\AcceptTypes\\Baz::requireFoo() expects Levels\\AcceptTypes\\Foo, array|Levels\\AcceptTypes\\Foo given.",
+        "line": 529,
+        "ignorable": true
     }
 ]

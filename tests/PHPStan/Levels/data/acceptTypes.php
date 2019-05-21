@@ -490,4 +490,53 @@ class Baz
 
 	}
 
+	public function makeFoo(): Foo
+	{
+		return new Foo();
+	}
+
+	/**
+	 * @return Foo|array
+	 */
+	public function makeFooOrArray()
+	{
+		if (rand(0, 1) === 0) {
+			return new Foo();
+		}
+
+		return [];
+	}
+
+	public function testUnions()
+	{
+		$a = [];
+		if (rand(0, 1) === 0) {
+			$a = $this->makeFoo();
+		}
+
+		$this->requireArray($a);
+		$this->requireFoo($a);
+	}
+
+	public function testUnions2()
+	{
+		$a = [];
+		if (rand(0, 1) === 0) {
+			$a = $this->makeFooOrArray();
+		}
+
+		$this->requireArray($a);
+		$this->requireFoo($a);
+	}
+
+	private function requireArray(array $array)
+	{
+
+	}
+
+	private function requireFoo(Foo $foo)
+	{
+
+	}
+
 }
