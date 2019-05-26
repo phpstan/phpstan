@@ -21,6 +21,7 @@ class ConditionalTagsExtension extends \Nette\DI\CompilerExtension
 			BrokerFactory::DYNAMIC_METHOD_RETURN_TYPE_EXTENSION_TAG => $bool,
 			BrokerFactory::DYNAMIC_STATIC_METHOD_RETURN_TYPE_EXTENSION_TAG => $bool,
 			BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG => $bool,
+			BrokerFactory::OPERATOR_TYPE_SPECIFYING_EXTENSION_TAG => $bool,
 			RegistryFactory::RULE_TAG => $bool,
 			TypeNodeResolverFactory::EXTENSION_TAG => $bool,
 			TypeSpecifierFactory::FUNCTION_TYPE_SPECIFYING_EXTENSION_TAG => $bool,

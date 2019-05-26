@@ -43,9 +43,14 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	public static function getContainer(): \Nette\DI\Container
 	{
 		if (self::$container === null) {
+			$tmpDir = sys_get_temp_dir() . '/phpstan-tests';
+			if (!@mkdir($tmpDir, 0777, true) && !is_dir($tmpDir)) {
+				self::fail(sprintf('Cannot create temp directory %s', $tmpDir));
+			}
+
 			$rootDir = __DIR__ . '/../..';
 			$containerFactory = new ContainerFactory($rootDir);
-			self::$container = $containerFactory->create($rootDir . '/tmp', [
+			self::$container = $containerFactory->create($tmpDir, [
 				$containerFactory->getConfigDirectory() . '/config.level7.neon',
 			], []);
 		}
@@ -230,6 +235,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			array_merge($dynamicMethodReturnTypeExtensions, $this->getDynamicMethodReturnTypeExtensions()),
 			array_merge($dynamicStaticMethodReturnTypeExtensions, $this->getDynamicStaticMethodReturnTypeExtensions()),
 			array_merge($tagToService(self::getContainer()->findByTag(BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG)), $this->getDynamicFunctionReturnTypeExtensions()),
+			$this->getOperatorTypeSpecifyingExtensions(),
 			$functionReflectionFactory,
 			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $cache, $anonymousClassNameHelper, self::getContainer()->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class)),
 			$signatureMapProvider,
@@ -293,6 +299,14 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	 * @return \PHPStan\Type\DynamicFunctionReturnTypeExtension[]
 	 */
 	public function getDynamicFunctionReturnTypeExtensions(): array
+	{
+		return [];
+	}
+
+	/**
+	 * @return \PHPStan\Type\OperatorTypeSpecifyingExtension[]
+	 */
+	public function getOperatorTypeSpecifyingExtensions(): array
 	{
 		return [];
 	}

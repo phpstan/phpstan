@@ -18,5 +18,20 @@
         "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Foo::doBarArray() expects array<int>, array<int, int|null> given.",
         "line": 131,
         "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Baz::doBar() expects int, int|null given.",
+        "line": 400,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $a of method Levels\\AcceptTypes\\Baz::doLorem() expects int|resource, int|null given.",
+        "line": 414,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Baz::doBarArray() expects array<int>, array<int|null> given.",
+        "line": 481,
+        "ignorable": true
     }
 ]

@@ -6,3 +6,4 @@ parameters:
 		subtractableTypes: true
 		unreachableStatement: true
 		yieldRules: true
+		validateParameters: true

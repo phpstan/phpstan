@@ -125,6 +125,13 @@ class Foo
 		$arrToPop = [1, 2, 3];
 		array_pop($arrToPop);
 
+		$coalesceArray = [];
+		$arrayOfUnknownIntegers[42] ?? $coalesceArray[] = 'username';
+		$arrayOfUnknownIntegers[108] ?? $coalesceArray[] = 'password';
+
+		$arrayToBeUnset = $array;
+		unset($arrayToBeUnset[$string]);
+
 		die;
 	}
 

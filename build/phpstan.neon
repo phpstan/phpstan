@@ -33,6 +33,9 @@ parameters:
 		-
 			message: '#Access to constant EXTENSIONS on an unknown class PHPStan\\ExtensionInstaller\\GeneratedConfig\.#'
 			path: %rootDir%/src/Command/CommandHelper.php
+		-
+			message: '#Variable (?:static )?method call#'
+			path: %rootDir%/src/DependencyInjection/ParametersSchemaExtension.php
 	reportStaticMethodSignatures: true
 	tmpDir: %rootDir%/tmp
 services:

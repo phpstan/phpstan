@@ -70,6 +70,46 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		$this->assertCount(0, $result);
 	}
 
+	public function testIgnoreErrorByPaths(): void
+	{
+		$ignoreErrors = [
+			[
+				'message' => '#Fail\.#',
+				'paths' => [__DIR__ . '/data/bootstrap-error.php'],
+			],
+		];
+		$result = $this->runAnalyser($ignoreErrors, true, __DIR__ . '/data/bootstrap-error.php', false);
+		$this->assertCount(0, $result);
+	}
+
+	public function testIgnoreErrorByPathsMultipleUnmatched(): void
+	{
+		$ignoreErrors = [
+			[
+				'message' => '#Fail\.#',
+				'paths' => [__DIR__ . '/data/bootstrap-error.php', __DIR__ . '/data/another-path.php', '/data/yet-another-path.php'],
+			],
+		];
+		$result = $this->runAnalyser($ignoreErrors, true, __DIR__ . '/data/bootstrap-error.php', false);
+		$this->assertCount(1, $result);
+		$this->assertContains('Ignored error pattern #Fail\.# in paths: ', $result[0]);
+		$this->assertContains('was not matched in reported errors', $result[0]);
+	}
+
+	public function testIgnoreErrorByPathsUnmatched(): void
+	{
+		$ignoreErrors = [
+			[
+				'message' => '#Fail\.#',
+				'paths' => [__DIR__ . '/data/bootstrap-error.php', __DIR__ . '/data/another-path.php'],
+			],
+		];
+		$result = $this->runAnalyser($ignoreErrors, true, __DIR__ . '/data/bootstrap-error.php', false);
+		$this->assertCount(1, $result);
+		$this->assertContains('Ignored error pattern #Fail\.# in path ', $result[0]);
+		$this->assertContains('was not matched in reported errors', $result[0]);
+	}
+
 	public function testIgnoreErrorNotFoundInPath(): void
 	{
 		$ignoreErrors = [
@@ -144,7 +184,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 	}
 
 	/**
-	 * @param string[]|array<array<string, string>> $ignoreErrors
+	 * @param mixed[] $ignoreErrors
 	 * @param bool $reportUnmatchedIgnoredErrors
 	 * @param string $filePath
 	 * @param bool $onlyFiles

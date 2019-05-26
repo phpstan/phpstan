@@ -130,6 +130,13 @@ Unofficial extensions for other frameworks and libraries are also available:
 * [Drupal](https://github.com/mglaman/phpstan-drupal)
 * [WordPress](https://github.com/szepeviktor/phpstan-wordpress)
 
+Unofficial extensions with third-party rules:
+
+* [thecodingmachine / phpstan-strict-rules](https://github.com/thecodingmachine/phpstan-strict-rules)
+* [localheinz / phpstan-rules](https://github.com/localheinz/phpstan-rules)
+* [pepakriz / phpstan-exception-rules](https://github.com/pepakriz/phpstan-exception-rules)
+* [Slamdunk / phpstan-extensions](https://github.com/Slamdunk/phpstan-extensions)
+
 New extensions are becoming available on a regular basis!
 
 ## Configuration
@@ -326,7 +333,7 @@ parameters:
 		- '#Call to an undefined method PHPUnit_Framework_MockObject_MockObject::[a-zA-Z0-9_]+\(\)#'
 ```
 
-To exclude an error in a specific directory or file, specify a `path` along with the `message`:
+To exclude an error in a specific directory or file, specify a `path` or `paths` along with the `message`:
 
 ```
 parameters:
@@ -336,7 +343,9 @@ parameters:
 			path: %currentWorkingDirectory%/some/dir/SomeFile.php
 		-
 			message: '#Call to an undefined method [a-zA-Z0-9\\_]+::method\(\)#'
-			path: %currentWorkingDirectory%/other/dir/*
+			paths:
+				- %currentWorkingDirectory%/some/dir/*
+				- %currentWorkingDirectory%/other/dir/*
 		- '#Other error to catch anywhere#'
 ```
 

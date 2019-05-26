@@ -5,6 +5,7 @@ namespace PHPStan\Analyser;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\BinaryOp;
 use PhpParser\Node\Expr\Cast\Bool_;
 use PhpParser\Node\Expr\Cast\Double;
 use PhpParser\Node\Expr\Cast\Int_;
@@ -71,6 +72,14 @@ use PHPStan\Type\VoidType;
 
 class Scope implements ClassMemberAccessAnswerer
 {
+
+	private const OPERATOR_SIGIL_MAP = [
+		Node\Expr\AssignOp\Plus::class => '+',
+		Node\Expr\AssignOp\Minus::class => '-',
+		Node\Expr\AssignOp\Mul::class => '*',
+		Node\Expr\AssignOp\Pow::class => '^',
+		Node\Expr\AssignOp\Div::class => '/',
+	];
 
 	/** @var \PHPStan\Analyser\ScopeFactory */
 	private $scopeFactory;
@@ -845,6 +854,31 @@ class Scope implements ClassMemberAccessAnswerer
 			$leftType = $this->getType($left);
 			$rightType = $this->getType($right);
 
+			$operatorSigil = null;
+
+			if ($node instanceof BinaryOp) {
+				$operatorSigil = $node->getOperatorSigil();
+			}
+
+			if ($operatorSigil === null) {
+				$operatorSigil = self::OPERATOR_SIGIL_MAP[get_class($node)] ?? null;
+			}
+
+			if ($operatorSigil !== null) {
+				$operatorTypeSpecifyingExtensions = $this->broker->getOperatorTypeSpecifyingExtensions($operatorSigil, $leftType, $rightType);
+
+				/** @var Type[] $extensionTypes */
+				$extensionTypes = [];
+
+				foreach ($operatorTypeSpecifyingExtensions as $extension) {
+					$extensionTypes[] = $extension->specifyType($operatorSigil, $leftType, $rightType);
+				}
+
+				if (count($extensionTypes) > 0) {
+					return TypeCombinator::union(...$extensionTypes);
+				}
+			}
+
 			if ($node instanceof Expr\AssignOp\Plus || $node instanceof Expr\BinaryOp\Plus) {
 				$leftConstantArrays = TypeUtils::getConstantArrays($leftType);
 				$rightConstantArrays = TypeUtils::getConstantArrays($rightType);
@@ -1209,6 +1243,9 @@ class Scope implements ClassMemberAccessAnswerer
 						new ConstantStringType("\n"),
 						new ConstantStringType("\r\n"),
 					]);
+				}
+				if ($resolvedConstantName === '__COMPILER_HALT_OFFSET__') {
+					return new IntegerType();
 				}
 
 				$constantType = $this->getTypeFromValue(constant($resolvedConstantName));

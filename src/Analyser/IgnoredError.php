@@ -10,7 +10,7 @@ class IgnoredError
 
 	/**
 	 * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
-	 * @param array<string, string>|string $ignoredError
+	 * @param mixed[]|string $ignoredError
 	 * @return string Representation of the ignored error
 	 */
 	public static function stringifyPattern($ignoredError): string
@@ -22,6 +22,12 @@ class IgnoredError
 		// ignore by path
 		if (isset($ignoredError['path'])) {
 			return sprintf('%s in path %s', $ignoredError['message'], $ignoredError['path']);
+		} elseif (isset($ignoredError['paths'])) {
+			if (count($ignoredError['paths']) === 1) {
+				return sprintf('%s in path %s', $ignoredError['message'], implode(', ', $ignoredError['paths']));
+
+			}
+			return sprintf('%s in paths: %s', $ignoredError['message'], implode(', ', $ignoredError['paths']));
 		}
 
 		return $ignoredError['message'];
@@ -31,28 +37,25 @@ class IgnoredError
 	 * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
 	 * @param FileHelper $fileHelper
 	 * @param Error $error
-	 * @param array<string, string>|string $ignoredError
+	 * @param string $ignoredErrorPattern
+	 * @param string|null $path
 	 * @return bool To ignore or not to ignore?
 	 */
 	public static function shouldIgnore(
 		FileHelper $fileHelper,
 		Error $error,
-		$ignoredError
+		string $ignoredErrorPattern,
+		?string $path
 	): bool
 	{
-		if (is_array($ignoredError)) {
-			// ignore by path
-			if (isset($ignoredError['path'])) {
-				$fileExcluder = new FileExcluder($fileHelper, [$ignoredError['path']]);
+		if ($path !== null) {
+			$fileExcluder = new FileExcluder($fileHelper, [$path]);
 
-				return \Nette\Utils\Strings::match($error->getMessage(), $ignoredError['message']) !== null
-					&& $fileExcluder->isExcludedFromAnalysing($error->getFile());
-			}
-
-			throw new \PHPStan\ShouldNotHappenException();
+			return \Nette\Utils\Strings::match($error->getMessage(), $ignoredErrorPattern) !== null
+				&& $fileExcluder->isExcludedFromAnalysing($error->getFile());
 		}
 
-		return \Nette\Utils\Strings::match($error->getMessage(), $ignoredError) !== null;
+		return \Nette\Utils\Strings::match($error->getMessage(), $ignoredErrorPattern) !== null;
 	}
 
 }

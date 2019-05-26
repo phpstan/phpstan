@@ -5,6 +5,11 @@
         "ignorable": true
     },
     {
+        "message": "Access to an undefined property Levels\\PropertyAccesses\\Foo::$bar.",
+        "line": 166,
+        "ignorable": true
+    },
+    {
         "message": "Access to an undefined property Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo::$foo.",
         "line": 63,
         "ignorable": true
@@ -12,6 +17,16 @@
     {
         "message": "Access to an undefined property Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo::$bar.",
         "line": 64,
+        "ignorable": true
+    },
+    {
+        "message": "Access to an undefined property Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo::$foo.",
+        "line": 169,
+        "ignorable": true
+    },
+    {
+        "message": "Access to an undefined property Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo::$bar.",
+        "line": 170,
         "ignorable": true
     }
 ]

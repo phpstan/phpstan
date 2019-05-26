@@ -333,3 +333,210 @@ class ClosureAccepts
 	}
 
 }
+
+class Baz
+{
+
+	public function makeInt(): int
+	{
+		return 1;
+	}
+
+	public function makeFloat(): float
+	{
+		return 1.0;
+	}
+
+	/**
+	 * @return float|string
+	 */
+	public function makeFloatOrString()
+	{
+		if (rand(0, 1) === 0) {
+			return 1;
+		} else {
+			return 'foo';
+		}
+	}
+
+	/**
+	 * @return float|string|null
+	 */
+	public function makeFloatOrStringOrNull()
+	{
+		if (rand(0, 1) === 0) {
+			return 1;
+		} else {
+			return 'foo';
+		}
+	}
+
+	public function makeIntOrNull(): ?int
+	{
+		if (rand(0, 1) === 0) {
+			return 1;
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * @return int|float
+	 */
+	public function makeIntOrFloat()
+	{
+		if (rand(0, 1) === 0) {
+			return 1;
+		} else {
+			return 1.0;
+		}
+	}
+
+	public function doFoo()
+	{
+		$this->doBar($this->makeInt());
+		$this->doBar($this->makeFloat());
+		$this->doBar($this->makeFloatOrString());
+		$this->doBar($this->makeIntOrNull());
+		$this->doBar($this->makeIntOrFloat());
+	}
+
+	public function doBar(int $i)
+	{
+
+	}
+
+	public function doBaz()
+	{
+		$this->doLorem($this->makeFloatOrString());
+		$this->doLorem($this->makeFloatOrStringOrNull());
+		$this->doLorem($this->makeInt());
+		$this->doLorem($this->makeIntOrNull());
+		$this->doIpsum($this->makeFloatOrString());
+		$this->doIpsum($this->makeFloatOrStringOrNull());
+		$this->doBar(null);
+	}
+
+	/**
+	 * @param int|resource $a
+	 */
+	public function doLorem($a)
+	{
+
+	}
+
+	/**
+	 * @param float $a
+	 */
+	public function doIpsum($a)
+	{
+
+	}
+
+	/**
+	 * @return int[]
+	 */
+	public function makeIntArray(): array
+	{
+		return [1, 2, 3];
+	}
+
+	/**
+	 * @return float[]
+	 */
+	public function makeFloatArray(): array
+	{
+		return [1.0, 2.0, 3.0];
+	}
+
+	/**
+	 * @return (float|string)[]
+	 */
+	public function makeFloatOrStringArray(): array
+	{
+		return [1.0, 2.0, '3.0'];
+	}
+
+	/**
+	 * @return (int|null)[]
+	 */
+	public function makeIntOrNullArray(): array
+	{
+		return [1, 2, null];
+	}
+
+	/**
+	 * @return (int|float)[]
+	 */
+	public function makeIntOrFloatArray(): array
+	{
+		return [1.0, 2.0, 3];
+	}
+
+	public function doFooArray()
+	{
+		$this->doBarArray($this->makeIntArray());
+		$this->doBarArray($this->makeFloatArray());
+		$this->doBarArray($this->makeFloatOrStringArray());
+		$this->doBarArray($this->makeIntOrNullArray());
+		$this->doBarArray($this->makeIntOrFloatArray());
+	}
+
+	/**
+	 * @param int[] $i
+	 */
+	public function doBarArray(array $i)
+	{
+
+	}
+
+	public function makeFoo(): Foo
+	{
+		return new Foo();
+	}
+
+	/**
+	 * @return Foo|array
+	 */
+	public function makeFooOrArray()
+	{
+		if (rand(0, 1) === 0) {
+			return new Foo();
+		}
+
+		return [];
+	}
+
+	public function testUnions()
+	{
+		$a = [];
+		if (rand(0, 1) === 0) {
+			$a = $this->makeFoo();
+		}
+
+		$this->requireArray($a);
+		$this->requireFoo($a);
+	}
+
+	public function testUnions2()
+	{
+		$a = [];
+		if (rand(0, 1) === 0) {
+			$a = $this->makeFooOrArray();
+		}
+
+		$this->requireArray($a);
+		$this->requireFoo($a);
+	}
+
+	private function requireArray(array $array)
+	{
+
+	}
+
+	private function requireFoo(Foo $foo)
+	{
+
+	}
+
+}

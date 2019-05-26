@@ -18,5 +18,25 @@
         "message": "Cannot call method doFoo() on Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Foo|null.",
         "line": 60,
         "ignorable": true
+    },
+    {
+        "message": "Cannot call method doFoo() on Levels\\MethodCalls\\Foo|null.",
+        "line": 158,
+        "ignorable": true
+    },
+    {
+        "message": "Cannot call method doFoo() on Levels\\MethodCalls\\Foo|null.",
+        "line": 159,
+        "ignorable": true
+    },
+    {
+        "message": "Cannot call method doFoo() on Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Foo|null.",
+        "line": 162,
+        "ignorable": true
+    },
+    {
+        "message": "Cannot call method doFoo() on Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Foo|null.",
+        "line": 163,
+        "ignorable": true
     }
 ]

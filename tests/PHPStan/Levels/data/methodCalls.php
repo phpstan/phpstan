@@ -93,3 +93,124 @@ class AnotherClassWithMagicMethod
 	}
 
 }
+
+class Ipsum
+{
+
+	/**
+	 * @return Foo|Bar
+	 */
+	private function makeFooOrBar()
+	{
+		if (rand(0, 1) === 0) {
+			return new Foo();
+		} else {
+			return new Bar();
+		}
+	}
+
+	/**
+	 * @return Foo|null
+	 */
+	private function makeFooOrNull()
+	{
+		if (rand(0, 1) === 0) {
+			return new Foo();
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * @return Foo|Bar|null
+	 */
+	public function makeFooOrBarOrNull()
+	{
+		if (rand(0, 1) === 0) {
+			return new Foo();
+		} elseif (rand(0, 1) === 1) {
+			return new Bar();
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * @return Bar|Baz
+	 */
+	public function makeBarOrBaz()
+	{
+		if (rand(0, 1) === 0) {
+			return new Bar();
+		} else {
+			return new Baz();
+		}
+	}
+
+	public function doLorem()
+	{
+		$fooOrBar = $this->makeFooOrBar();
+		$fooOrBar->doFoo(1);
+		$fooOrBar->doFoo();
+		$fooOrBar->doBaz();
+
+		$fooOrNull = $this->makeFooOrNull();
+		$fooOrNull->doFoo();
+		$fooOrNull->doFoo(1);
+
+		$fooOrBarOrNull = $this->makeFooOrBarOrNull();
+		$fooOrBarOrNull->doFoo();
+		$fooOrBarOrNull->doFoo(1);
+
+		$barOrBaz = $this->makeBarOrBaz();
+		$barOrBaz->doFoo();
+	}
+
+}
+
+class FooException extends \Exception
+{
+
+	public function commonMethod()
+	{
+
+	}
+
+	public function doFoo()
+	{
+
+	}
+
+}
+
+class BarException extends \Exception
+{
+
+	public function commonMethod()
+	{
+
+	}
+
+	public function doBar()
+	{
+
+	}
+
+}
+
+class TestExceptions
+{
+
+	public function doFoo()
+	{
+		try {
+
+		} catch (FooException | BarException $e) {
+			$e->commonMethod();
+			$e->doFoo();
+			$e->doBar();
+			$e->doBaz();
+		}
+	}
+
+}

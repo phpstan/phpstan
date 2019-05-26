@@ -3,8 +3,11 @@ parameters:
 	excludes_analyse: []
 	autoload_directories: []
 	autoload_files: []
+	level: null
+	paths: []
 	featureToggles:
 		subtractableTypes: false
+		validateParameters: false
 	fileExtensions:
 		- php
 	checkAlwaysTrueCheckTypeFunctionCall: false
@@ -83,6 +86,73 @@ parameters:
 extensions:
 	rules: PHPStan\DependencyInjection\RulesExtension
 	conditionalTags: PHPStan\DependencyInjection\ConditionalTagsExtension
+	parametersSchema: PHPStan\DependencyInjection\ParametersSchemaExtension
+
+parametersSchema:
+	bootstrap: schema(string(), nullable())
+	excludes_analyse: listOf(string())
+	autoload_directories: listOf(string())
+	autoload_files: listOf(string())
+	level: schema(anyOf(int(), string()), nullable())
+	paths: listOf(string())
+	featureToggles: arrayOf(bool())
+	fileExtensions: listOf(string())
+	checkAlwaysTrueCheckTypeFunctionCall: bool()
+	checkAlwaysTrueInstanceof: bool()
+	checkAlwaysTrueStrictComparison: bool()
+	checkClassCaseSensitivity: bool()
+	checkFunctionArgumentTypes: bool()
+	checkFunctionNameCase: bool()
+	checkArgumentsPassedByReference: bool()
+	checkMaybeUndefinedVariables: bool()
+	checkNullables: bool()
+	checkThisOnly: bool()
+	checkUnionTypes: bool()
+	checkExplicitMixedMissingReturn: bool()
+	checkPhpDocMissingReturn: bool()
+	reportMaybes: bool()
+	reportMaybesInMethodSignatures: bool()
+	reportStaticMethodSignatures: bool()
+	polluteScopeWithLoopInitialAssignments: bool()
+	polluteScopeWithAlwaysIterableForeach: bool()
+	polluteCatchScopeWithTryAssignments: bool()
+	reportMagicMethods: bool()
+	reportMagicProperties: bool()
+	ignoreErrors: listOf(
+		anyOf(
+			string(),
+			structure([
+				message: string()
+				path: string()
+			]),
+			structure([
+				message: string()
+				paths: listOf(string())
+			])
+		)
+	)
+	internalErrorsCountLimit: int()
+	cache: structure([
+		nodesByFileCountMax: int()
+		nodesByStringCountMax: int()
+	])
+	reportUnmatchedIgnoredErrors: bool()
+	scopeClass: string()
+	universalObjectCratesClasses: listOf(string())
+	earlyTerminatingMethodCalls: arrayOf(listOf(string()))
+	memoryLimitFile: string()
+	benchmarkFile: schema(string(), nullable())
+	dynamicConstantNames: listOf(string())
+	customRulesetUsed: bool()
+	rootDir: string()
+	tmpDir: string()
+	currentWorkingDirectory: string()
+	cliArgumentsVariablesRegistered: bool()
+
+	# irrelevant Nette parameters
+	debugMode: bool()
+	productionMode: bool()
+	tempDir: string()
 
 services:
 	-

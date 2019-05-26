@@ -3142,6 +3142,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'\'foo bar\'',
 				"sprintf('%s %s', 'foo', 'bar')",
 			],
+			[
+				'array(?0 => \'password\'|\'username\', ?1 => \'password\')',
+				'$coalesceArray',
+			],
+			[
+				'array<int, 1|2|3>',
+				'$arrayToBeUnset',
+			],
 		];
 	}
 

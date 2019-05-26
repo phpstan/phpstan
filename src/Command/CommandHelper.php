@@ -2,7 +2,12 @@
 
 namespace PHPStan\Command;
 
+use Nette\DI\Config\Adapters\NeonAdapter;
 use Nette\DI\Helpers;
+use Nette\Schema\Context as SchemaContext;
+use Nette\Schema\Processor;
+use Nette\Utils\Strings;
+use Nette\Utils\Validators;
 use PHPStan\DependencyInjection\Container;
 use PHPStan\DependencyInjection\ContainerFactory;
 use PHPStan\DependencyInjection\LoaderFactory;
@@ -95,8 +100,17 @@ class CommandHelper
 				throw new \PHPStan\Command\InceptionNotSuccessfulException();
 			}
 
-			$loader = (new LoaderFactory())->createLoader();
-			$projectConfig = $loader->load($projectConfigFile, null);
+			$loader = (new LoaderFactory(
+				$containerFactory->getRootDirectory(),
+				$containerFactory->getCurrentWorkingDirectory()
+			))->createLoader();
+
+			try {
+				$projectConfig = $loader->load($projectConfigFile, null);
+			} catch (\Nette\InvalidStateException | \Nette\FileNotFoundException $e) {
+				$errorOutput->writeln($e->getMessage());
+				throw new \PHPStan\Command\InceptionNotSuccessfulException();
+			}
 			$defaultParameters = [
 				'rootDir' => $containerFactory->getRootDirectory(),
 				'currentWorkingDirectory' => $containerFactory->getCurrentWorkingDirectory(),
@@ -147,8 +161,18 @@ class CommandHelper
 		}
 
 		if ($projectConfigFile !== null) {
-			$additionalConfigFiles[] = $projectConfigFile;
+			$additionalConfigFiles[] = $fileHelper->absolutizePath($projectConfigFile);
 		}
+
+		self::detectDuplicateIncludedFiles(
+			$errorOutput,
+			$fileHelper,
+			$additionalConfigFiles,
+			[
+				'rootDir' => $containerFactory->getRootDirectory(),
+				'currentWorkingDirectory' => $containerFactory->getCurrentWorkingDirectory(),
+			]
+		);
 
 		if (!isset($tmpDir)) {
 			$tmpDir = sys_get_temp_dir() . '/phpstan';
@@ -164,11 +188,12 @@ class CommandHelper
 		try {
 			$netteContainer = $containerFactory->create($tmpDir, $additionalConfigFiles, $paths);
 		} catch (\Nette\DI\InvalidConfigurationException | \Nette\Utils\AssertionException $e) {
-			$errorOutput->writeln(sprintf('<error>Invalid configuration: %s</error>', $e->getMessage()));
+			$errorOutput->writeln('<error>Invalid configuration:</error>');
+			$errorOutput->writeln($e->getMessage());
 			throw new \PHPStan\Command\InceptionNotSuccessfulException();
 		}
 
-		TypeCombinator::$enableSubtractableTypes = $netteContainer->parameters['featureToggles']['subtractableTypes'];
+		TypeCombinator::$enableSubtractableTypes = (bool) $netteContainer->parameters['featureToggles']['subtractableTypes'];
 		$memoryLimitFile = $netteContainer->parameters['memoryLimitFile'];
 		if (file_exists($memoryLimitFile)) {
 			$memoryLimitFileContents = file_get_contents($memoryLimitFile);
@@ -198,6 +223,24 @@ class CommandHelper
 			throw new \PHPStan\Command\InceptionNotSuccessfulException();
 		} elseif ((bool) $netteContainer->parameters['customRulesetUsed']) {
 			$defaultLevelUsed = false;
+		}
+
+		if ($netteContainer->parameters['featureToggles']['validateParameters']) {
+			$schema = $netteContainer->parameters['__parametersSchema'];
+			$processor = new Processor();
+			$processor->onNewContext[] = static function (SchemaContext $context): void {
+				$context->path = ['parameters'];
+			};
+
+			try {
+				$processor->process($schema, $netteContainer->parameters);
+			} catch (\Nette\Schema\ValidationException $e) {
+				foreach ($e->getMessages() as $message) {
+					$errorOutput->writeln('<error>Invalid configuration:</error>');
+					$errorOutput->writeln($message);
+				}
+				throw new \PHPStan\Command\InceptionNotSuccessfulException();
+			}
 		}
 
 		$container = $netteContainer->getByType(Container::class);
@@ -277,6 +320,73 @@ class CommandHelper
 			$consoleStyle->newLine();
 			exit(1);
 		});
+	}
+
+	private static function detectDuplicateIncludedFiles(
+		OutputInterface $output,
+		FileHelper $fileHelper,
+		array $configFiles,
+		array $loaderParameters
+	): void
+	{
+		$neonAdapter = new NeonAdapter();
+		$allConfigFiles = $configFiles;
+		foreach ($configFiles as $configFile) {
+			$allConfigFiles = array_merge($allConfigFiles, self::getConfigFiles($neonAdapter, $configFile, $loaderParameters));
+		}
+
+		$normalized = array_map(static function (string $file) use ($fileHelper): string {
+			return $fileHelper->absolutizePath($fileHelper->normalizePath($file));
+		}, $allConfigFiles);
+
+		$deduplicated = array_unique($normalized);
+		if (count($normalized) > count($deduplicated)) {
+			$duplicateFiles = array_unique(array_diff_key($normalized, $deduplicated));
+
+			$format = "<error>These files are included multiple times:</error>\n- %s";
+			if (count($duplicateFiles) === 1) {
+				$format = "<error>This file is included multiple times:</error>\n- %s";
+			}
+			$output->writeln(sprintf($format, implode("\n- ", $duplicateFiles)));
+
+			if (class_exists('PHPStan\ExtensionInstaller\GeneratedConfig')) {
+				$output->writeln('');
+				$output->writeln('It can lead to unexpected results. If you\'re using phpstan/extension-installer, make sure you have removed corresponding neon files from your project config file.');
+			}
+			throw new \PHPStan\Command\InceptionNotSuccessfulException();
+		}
+	}
+
+	private static function getConfigFiles(
+		NeonAdapter $neonAdapter,
+		string $configFile,
+		array $loaderParameters
+	): array
+	{
+		if (!is_file($configFile) || !is_readable($configFile)) {
+			return [];
+		}
+
+		$data = $neonAdapter->load($configFile);
+		$allConfigFiles = [];
+		if (isset($data['includes'])) {
+			Validators::assert($data['includes'], 'list', sprintf("section 'includes' in file '%s'", $configFile));
+			$includes = Helpers::expand($data['includes'], $loaderParameters);
+			foreach ($includes as $include) {
+				$include = self::expandIncludedFile($include, $configFile);
+				$allConfigFiles[] = $include;
+				$allConfigFiles = array_merge($allConfigFiles, self::getConfigFiles($neonAdapter, $include, $loaderParameters));
+			}
+		}
+
+		return $allConfigFiles;
+	}
+
+	private static function expandIncludedFile(string $includedFile, string $mainFile): string
+	{
+		return Strings::match($includedFile, '#([a-z]+:)?[/\\\\]#Ai') !== null // is absolute
+			? $includedFile
+			: dirname($mainFile) . '/' . $includedFile;
 	}
 
 }

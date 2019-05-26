@@ -250,3 +250,16 @@ class BreaklessSwitch
 	}
 
 }
+
+class UnsetConstantArrayWithGeneralKey
+{
+
+	public function foo(string $s) : void {
+		$dict = ['a' => 1];
+		unset($dict[$s]);
+		if ($dict) {
+
+		}
+	}
+
+}

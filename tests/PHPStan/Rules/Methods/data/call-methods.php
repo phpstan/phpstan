@@ -1264,3 +1264,38 @@ class AssignmentInInstanceOf
 	}
 
 }
+
+class SubtractedMixed
+{
+
+	public function doFoo($mixed)
+	{
+		if (is_int($mixed)) {
+			return;
+		}
+
+		$this->requireInt($mixed);
+		$this->requireIntOrString($mixed);
+
+		if (is_string($mixed)) {
+			return;
+		}
+
+		$this->requireInt($mixed);
+		$this->requireIntOrString($mixed);
+	}
+
+	public function requireInt(int $i)
+	{
+
+	}
+
+	/**
+	 * @param int|string $parameter
+	 */
+	public function requireIntOrString($parameter)
+	{
+
+	}
+
+}
