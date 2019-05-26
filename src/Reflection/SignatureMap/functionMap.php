@@ -6722,7 +6722,7 @@ return [
 'LevelDBIterator::valid' => ['bool'],
 'LevelDBSnapshot::__construct' => ['void', 'db'=>'LevelDB'],
 'LevelDBSnapshot::release' => [''],
-'LevelDBWriteBatch::__construct' => ['void', 'name'=>'', 'options='=>'array', 'read_options='=>'array', 'write_options='=>'array'],
+'LevelDBWriteBatch::__construct' => ['void'],
 'LevelDBWriteBatch::clear' => [''],
 'LevelDBWriteBatch::delete' => ['', 'key'=>'', 'write_options='=>'array'],
 'LevelDBWriteBatch::put' => ['', 'key'=>'', 'value'=>'', 'write_options='=>'array'],
