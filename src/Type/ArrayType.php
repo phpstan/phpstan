@@ -195,7 +195,14 @@ class ArrayType implements Type
 			$offsetType = new IntegerType();
 		}
 
-		return new ArrayType(
+		if ($this->itemType->isArray()->yes() && $valueType->isArray()->yes()) {
+			return new self(
+				TypeCombinator::union($this->keyType, self::castToArrayKeyType($offsetType)),
+				$valueType
+			);
+		}
+
+		return new self(
 			TypeCombinator::union($this->keyType, self::castToArrayKeyType($offsetType)),
 			TypeCombinator::union($this->itemType, $valueType)
 		);

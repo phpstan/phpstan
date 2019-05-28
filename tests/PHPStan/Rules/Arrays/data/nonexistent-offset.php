@@ -329,6 +329,45 @@ class Foo
 	{
 		echo $xml['asdf'];
 	}
+
+	public function arrayWithMultipleKeysAfterForeaches(int $i, int $j)
+	{
+		// Must fail
+		$array = [];
+
+		$array[$i]['bar'] = 1;
+		if ((bool) rand(0, 1)) {
+		  $array[$i]['baz'] = 2;
+		}
+
+		echo $array[$i]['bar'];
+		echo $array[$i]['baz'];
+
+		// Must work
+		$array = [];
+
+		$array['bar'] = 1;
+		$array['baz'] = 2;
+
+		echo $array['bar'];
+		echo $array['baz'];
+
+		$array = [];
+
+		$array[$i]['bar'] = 1;
+		$array[$i]['baz'] = 2;
+
+		echo $array[$i]['bar'];
+		echo $array[$i]['baz'];
+
+		$array = [];
+
+		$array[$i][$j]['bar'] = 1;
+		$array[$i][$j]['baz'] = 2;
+
+		echo $array[$i][$j]['bar'];
+		echo $array[$i][$j]['baz'];
+	}
 }
 
 class SubClassSimpleXMLElement extends \SimpleXMLElement
