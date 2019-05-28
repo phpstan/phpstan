@@ -36,6 +36,9 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 	/** @var \PHPStan\Type\Type|null */
 	private $throwType;
 
+	/** @var string|null */
+	private $deprecatedDescription;
+
 	/** @var bool */
 	private $isDeprecated;
 
@@ -56,6 +59,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 	 * @param Type $realReturnType
 	 * @param Type|null $phpDocReturnType
 	 * @param Type|null $throwType
+	 * @param string|null $deprecatedDescription
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
 	 * @param bool $isFinal
@@ -68,6 +72,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 		Type $realReturnType,
 		?Type $phpDocReturnType = null,
 		?Type $throwType = null,
+		?string $deprecatedDescription = null,
 		bool $isDeprecated = false,
 		bool $isInternal = false,
 		bool $isFinal = false
@@ -80,6 +85,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 		$this->realReturnType = $realReturnType;
 		$this->phpDocReturnType = $phpDocReturnType;
 		$this->throwType = $throwType;
+		$this->deprecatedDescription = $deprecatedDescription;
 		$this->isDeprecated = $isDeprecated;
 		$this->isInternal = $isInternal;
 		$this->isFinal = $isFinal;
@@ -174,6 +180,15 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 			$phpDocReturnType = null;
 		}
 		return TypehintHelper::decideType($this->realReturnType, $phpDocReturnType);
+	}
+
+	public function getDeprecatedDescription(): ?string
+	{
+		if ($this->isDeprecated) {
+			return $this->deprecatedDescription;
+		}
+
+		return null;
 	}
 
 	public function isDeprecated(): bool

@@ -11,6 +11,9 @@ class ClassConstantReflection implements ConstantReflection, DeprecatableReflect
 	/** @var \ReflectionClassConstant */
 	private $reflection;
 
+	/** @var string|null */
+	private $deprecatedDescription;
+
 	/** @var bool */
 	private $isDeprecated;
 
@@ -20,12 +23,14 @@ class ClassConstantReflection implements ConstantReflection, DeprecatableReflect
 	public function __construct(
 		ClassReflection $declaringClass,
 		\ReflectionClassConstant $reflection,
+		?string $deprecatedDescription,
 		bool $isDeprecated,
 		bool $isInternal
 	)
 	{
 		$this->declaringClass = $declaringClass;
 		$this->reflection = $reflection;
+		$this->deprecatedDescription = $deprecatedDescription;
 		$this->isDeprecated = $isDeprecated;
 		$this->isInternal = $isInternal;
 	}
@@ -66,6 +71,15 @@ class ClassConstantReflection implements ConstantReflection, DeprecatableReflect
 	public function isDeprecated(): bool
 	{
 		return $this->isDeprecated;
+	}
+
+	public function getDeprecatedDescription(): ?string
+	{
+		if ($this->isDeprecated) {
+			return $this->deprecatedDescription;
+		}
+
+		return null;
 	}
 
 	public function isInternal(): bool

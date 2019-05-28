@@ -29,6 +29,7 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 	 * @param Type $realReturnType
 	 * @param Type|null $phpDocReturnType
 	 * @param Type|null $throwType
+	 * @param string|null $deprecatedDescription
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
 	 * @param bool $isFinal
@@ -42,6 +43,7 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 		Type $realReturnType,
 		?Type $phpDocReturnType,
 		?Type $throwType,
+		?string $deprecatedDescription,
 		bool $isDeprecated,
 		bool $isInternal,
 		bool $isFinal
@@ -55,6 +57,7 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 			$realReturnType,
 			$phpDocReturnType,
 			$throwType,
+			$deprecatedDescription,
 			$isDeprecated,
 			$isInternal,
 			$isFinal

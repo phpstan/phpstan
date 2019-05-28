@@ -1817,6 +1817,7 @@ class Scope implements ClassMemberAccessAnswerer
 	 * @param Type[] $phpDocParameterTypes
 	 * @param Type|null $phpDocReturnType
 	 * @param Type|null $throwType
+	 * @param string|null $deprecatedDescription
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
 	 * @param bool $isFinal
@@ -1827,6 +1828,7 @@ class Scope implements ClassMemberAccessAnswerer
 		array $phpDocParameterTypes,
 		?Type $phpDocReturnType,
 		?Type $throwType,
+		?string $deprecatedDescription,
 		bool $isDeprecated,
 		bool $isInternal,
 		bool $isFinal
@@ -1846,6 +1848,7 @@ class Scope implements ClassMemberAccessAnswerer
 				$this->getFunctionType($classMethod->returnType, $classMethod->returnType === null, false),
 				$phpDocReturnType,
 				$throwType,
+				$deprecatedDescription,
 				$isDeprecated,
 				$isInternal,
 				$isFinal
@@ -1879,6 +1882,7 @@ class Scope implements ClassMemberAccessAnswerer
 	 * @param Type[] $phpDocParameterTypes
 	 * @param Type|null $phpDocReturnType
 	 * @param Type|null $throwType
+	 * @param string|null $deprecatedDescription
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
 	 * @param bool $isFinal
@@ -1889,6 +1893,7 @@ class Scope implements ClassMemberAccessAnswerer
 		array $phpDocParameterTypes,
 		?Type $phpDocReturnType,
 		?Type $throwType,
+		?string $deprecatedDescription,
 		bool $isDeprecated,
 		bool $isInternal,
 		bool $isFinal
@@ -1903,6 +1908,7 @@ class Scope implements ClassMemberAccessAnswerer
 				$this->getFunctionType($function->returnType, $function->returnType === null, false),
 				$phpDocReturnType,
 				$throwType,
+				$deprecatedDescription,
 				$isDeprecated,
 				$isInternal,
 				$isFinal

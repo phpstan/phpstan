@@ -15,9 +15,11 @@ interface PhpMethodReflectionFactory
 	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
 	 * @param \PHPStan\Type\Type|null $phpDocReturnType
 	 * @param \PHPStan\Type\Type|null $phpDocThrowType
+	 * @param string|null $deprecatedDescription
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
 	 * @param bool $isFinal
+	 *
 	 * @return \PHPStan\Reflection\Php\PhpMethodReflection
 	 */
 	public function create(
@@ -27,6 +29,7 @@ interface PhpMethodReflectionFactory
 		array $phpDocParameterTypes,
 		?Type $phpDocReturnType,
 		?Type $phpDocThrowType,
+		?string $deprecatedDescription,
 		bool $isDeprecated,
 		bool $isInternal,
 		bool $isFinal

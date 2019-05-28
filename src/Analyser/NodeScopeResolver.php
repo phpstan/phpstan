@@ -308,7 +308,7 @@ class NodeScopeResolver
 			}
 		} elseif ($stmt instanceof Node\Stmt\Function_) {
 			$hasYield = false;
-			[$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated, $isInternal, $isFinal] = $this->getPhpDocs($scope, $stmt);
+			[$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $deprecatedDescription, $isDeprecated, $isInternal, $isFinal] = $this->getPhpDocs($scope, $stmt);
 
 			foreach ($stmt->params as $param) {
 				$this->processParamNode($param, $scope, $nodeCallback);
@@ -323,6 +323,7 @@ class NodeScopeResolver
 				$phpDocParameterTypes,
 				$phpDocReturnType,
 				$phpDocThrowType,
+				$deprecatedDescription,
 				$isDeprecated,
 				$isInternal,
 				$isFinal
@@ -330,7 +331,7 @@ class NodeScopeResolver
 			$this->processStmtNodes($stmt, $stmt->stmts, $functionScope, $nodeCallback);
 		} elseif ($stmt instanceof Node\Stmt\ClassMethod) {
 			$hasYield = false;
-			[$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated, $isInternal, $isFinal] = $this->getPhpDocs($scope, $stmt);
+			[$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $deprecatedDescription, $isDeprecated, $isInternal, $isFinal] = $this->getPhpDocs($scope, $stmt);
 
 			foreach ($stmt->params as $param) {
 				$this->processParamNode($param, $scope, $nodeCallback);
@@ -345,6 +346,7 @@ class NodeScopeResolver
 				$phpDocParameterTypes,
 				$phpDocReturnType,
 				$phpDocThrowType,
+				$deprecatedDescription,
 				$isDeprecated,
 				$isInternal,
 				$isFinal
@@ -2179,6 +2181,7 @@ class NodeScopeResolver
 		$phpDocParameterTypes = [];
 		$phpDocReturnType = null;
 		$phpDocThrowType = null;
+		$deprecatedDescription = null;
 		$isDeprecated = false;
 		$isInternal = false;
 		$isFinal = false;
@@ -2234,12 +2237,13 @@ class NodeScopeResolver
 				$phpDocReturnType = $resolvedPhpDoc->getReturnTag()->getType();
 			}
 			$phpDocThrowType = $resolvedPhpDoc->getThrowsTag() !== null ? $resolvedPhpDoc->getThrowsTag()->getType() : null;
+			$deprecatedDescription = $resolvedPhpDoc->getDeprecatedTag() !== null ? $resolvedPhpDoc->getDeprecatedTag()->getMessage() : null;
 			$isDeprecated = $resolvedPhpDoc->isDeprecated();
 			$isInternal = $resolvedPhpDoc->isInternal();
 			$isFinal = $resolvedPhpDoc->isFinal();
 		}
 
-		return [$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $isDeprecated, $isInternal, $isFinal];
+		return [$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $deprecatedDescription, $isDeprecated, $isInternal, $isFinal];
 	}
 
 }

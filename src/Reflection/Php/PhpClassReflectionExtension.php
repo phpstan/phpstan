@@ -111,6 +111,7 @@ class PhpClassReflectionExtension
 		$propertyReflection = $classReflection->getNativeReflection()->getProperty($propertyName);
 		$propertyName = $propertyReflection->getName();
 		$declaringClassReflection = $this->broker->getClass($propertyReflection->getDeclaringClass()->getName());
+		$deprecatedDescription = null;
 		$isDeprecated = false;
 		$isInternal = false;
 
@@ -158,6 +159,7 @@ class PhpClassReflectionExtension
 				} else {
 					$type = new MixedType();
 				}
+				$deprecatedDescription = $resolvedPhpDoc->getDeprecatedTag() !== null ? $resolvedPhpDoc->getDeprecatedTag()->getMessage() : null;
 				$isDeprecated = $resolvedPhpDoc->isDeprecated();
 				$isInternal = $resolvedPhpDoc->isInternal();
 			} else {
@@ -171,6 +173,7 @@ class PhpClassReflectionExtension
 			$declaringClassReflection,
 			$type,
 			$propertyReflection,
+			$deprecatedDescription,
 			$isDeprecated,
 			$isInternal
 		);
@@ -320,6 +323,7 @@ class PhpClassReflectionExtension
 		$phpDocParameterTypes = [];
 		$phpDocReturnType = null;
 		$phpDocThrowType = null;
+		$deprecatedDescription = null;
 		$isDeprecated = false;
 		$isInternal = false;
 		$isFinal = false;
@@ -364,6 +368,7 @@ class PhpClassReflectionExtension
 					$phpDocReturnType = $resolvedPhpDoc->getReturnTag()->getType();
 				}
 				$phpDocThrowType = $resolvedPhpDoc->getThrowsTag() !== null ? $resolvedPhpDoc->getThrowsTag()->getType() : null;
+				$deprecatedDescription = $resolvedPhpDoc->getDeprecatedTag() !== null ? $resolvedPhpDoc->getDeprecatedTag()->getMessage() : null;
 				$isDeprecated = $resolvedPhpDoc->isDeprecated();
 				$isInternal = $resolvedPhpDoc->isInternal();
 				$isFinal = $resolvedPhpDoc->isFinal();
@@ -384,6 +389,7 @@ class PhpClassReflectionExtension
 			$phpDocParameterTypes,
 			$phpDocReturnType,
 			$phpDocThrowType,
+			$deprecatedDescription,
 			$isDeprecated,
 			$isInternal,
 			$isFinal
