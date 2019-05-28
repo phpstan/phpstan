@@ -66,10 +66,10 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 			[
 				true,
 				\DeprecatedAnnotations\DeprecatedWithMultipleTags::class,
-				'in Foo 1.1.0 and will be removed in 1.5.0, use \Foo\Bar\NotDeprecated instead.',
+				"in Foo 1.1.0 and will be removed in 1.5.0, use\n\\Foo\\Bar\\NotDeprecated instead.",
 				[
 					'method' => [
-						'deprecatedFoo' => 'in Foo 1.1.0, will be removed in Foo 1.5.0, use \Foo\Bar\NotDeprecated::replacementFoo() instead.',
+						'deprecatedFoo' => "in Foo 1.1.0, will be removed in Foo 1.5.0, use\n\\Foo\\Bar\\NotDeprecated::replacementFoo() instead.",
 					],
 				],
 			],
