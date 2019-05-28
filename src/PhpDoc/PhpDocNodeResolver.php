@@ -12,10 +12,7 @@ use PHPStan\PhpDoc\Tag\ReturnTag;
 use PHPStan\PhpDoc\Tag\ThrowsTag;
 use PHPStan\PhpDoc\Tag\VarTag;
 use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNullNode;
-use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
-use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
-use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ThrowsTagValueNode;
 use PHPStan\Reflection\PassedByReference;
 use PHPStan\Type\ArrayType;
@@ -220,37 +217,8 @@ class PhpDocNodeResolver
 	private function resolveDeprecatedTag(PhpDocNode $phpDocNode, NameScope $nameScope): ?\PHPStan\PhpDoc\Tag\DeprecatedTag
 	{
 		foreach ($phpDocNode->getDeprecatedTagValues() as $deprecatedTagValue) {
-			$totalChildren = count($phpDocNode->children);
-			// Find the original key in the child array so we can join together
-			// multiple line deprecation messages.
-			$deprecatedTagKey = (int) key(array_filter($phpDocNode->children, static function (PhpDocChildNode $child) use ($deprecatedTagValue): bool {
-				return $child instanceof PhpDocTagNode && $child->value === $deprecatedTagValue;
-			}));
-
-			$deprecatedMessage = $deprecatedTagValue->description;
-
-			/** @var \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode[] $textNodes */
-			$textNodes = array_filter($phpDocNode->children, static function (PhpDocChildNode $child): bool {
-				return $child instanceof PhpDocTextNode;
-			});
-			if (count($textNodes) > 0) {
-				for ($i = $deprecatedTagKey; $i < $totalChildren; $i++) {
-					// Skip invalid children.
-					if (!isset($textNodes[$i])) {
-						continue;
-					}
-					$textNodeText = trim($textNodes[$i]->text);
-					// Break at the first empty new line, as this is probably
-					// leading to a new tag and no longer part of the multiline
-					// deprecation message.
-					if ($textNodeText === '') {
-						break;
-					}
-					$deprecatedMessage .= ' ' . $textNodeText;
-				}
-			}
-			$deprecatedMessage = trim($deprecatedMessage);
-			return new DeprecatedTag($deprecatedMessage === '' ? null : $deprecatedMessage);
+			$description = (string) $deprecatedTagValue;
+			return new DeprecatedTag($description === '' ? null : $description);
 		}
 
 		return null;
