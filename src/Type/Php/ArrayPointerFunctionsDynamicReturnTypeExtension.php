@@ -18,6 +18,9 @@ class ArrayPointerFunctionsDynamicReturnTypeExtension implements \PHPStan\Type\D
 	private $functions = [
 		'reset',
 		'end',
+		'current',
+		'prev',
+		'next',
 	];
 
 	public function isFunctionSupported(FunctionReflection $functionReflection): bool

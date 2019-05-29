@@ -7536,6 +7536,78 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'\'bar\'|\'baz\'',
 				'end($secondConditionalArray)',
 			],
+			[
+				'mixed',
+				'current()',
+			],
+			[
+				'stdClass|false',
+				'current($generalArray)',
+			],
+			[
+				'mixed',
+				'current($somethingElse)',
+			],
+			[
+				'false',
+				'current($emptyConstantArray)',
+			],
+			// [
+			//     '2',
+			//     'current($constantArray)',
+			// ],
+			// [
+			//     '\'bar\'|\'baz\'',
+			//     'current($secondConditionalArray)',
+			// ],
+			[
+				'mixed',
+				'next()',
+			],
+			[
+				'stdClass|false',
+				'next($generalArray)',
+			],
+			[
+				'mixed',
+				'next($somethingElse)',
+			],
+			[
+				'false',
+				'next($emptyConstantArray)',
+			],
+			// [
+			//     '2',
+			//     'next($constantArray)',
+			// ],
+			// [
+			//     '\'bar\'|\'baz\'',
+			//     'next($secondConditionalArray)',
+			// ],
+			[
+				'mixed',
+				'prev()',
+			],
+			[
+				'stdClass|false',
+				'prev($generalArray)',
+			],
+			[
+				'mixed',
+				'prev($somethingElse)',
+			],
+			[
+				'false',
+				'prev($emptyConstantArray)',
+			],
+			// [
+			//     '2',
+			//     'prev($constantArray)',
+			// ],
+			// [
+			//     '\'bar\'|\'baz\'',
+			//     'prev($secondConditionalArray)',
+			// ],
 		];
 	}
 
