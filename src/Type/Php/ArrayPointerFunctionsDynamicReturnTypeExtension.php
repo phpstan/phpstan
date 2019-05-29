@@ -23,6 +23,13 @@ class ArrayPointerFunctionsDynamicReturnTypeExtension implements \PHPStan\Type\D
 		'next',
 	];
 
+	/** @var string[] */
+	private $statefulFunctions = [
+		'current',
+		'prev',
+		'next',
+	];
+
 	public function isFunctionSupported(FunctionReflection $functionReflection): bool
 	{
 		return in_array($functionReflection->getName(), $this->functions, true);
@@ -54,11 +61,17 @@ class ArrayPointerFunctionsDynamicReturnTypeExtension implements \PHPStan\Type\D
 					continue;
 				}
 
-				$valueOffset = $functionReflection->getName() === 'reset'
-					? $arrayKeyTypes[0]
-					: $arrayKeyTypes[count($arrayKeyTypes) - 1];
+				if ($functionReflection->getName() === 'reset') {
+					$keyTypes[] = $constantArray->getOffsetValueType($arrayKeyTypes[0]);
+				} elseif ($functionReflection->getName() === 'end') {
+					$keyTypes[] = $constantArray->getOffsetValueType($arrayKeyTypes[count($arrayKeyTypes) - 1]);
+				} else {
+					$keyTypes[] = $constantArray->getItemType();
+				}
+			}
 
-				$keyTypes[] = $constantArray->getOffsetValueType($valueOffset);
+			if (in_array($functionReflection->getName(), $this->statefulFunctions, true)) {
+				$keyTypes[] = new ConstantBooleanType(false);
 			}
 
 			return TypeCombinator::union(...$keyTypes);

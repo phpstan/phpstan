@@ -7552,14 +7552,18 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'false',
 				'current($emptyConstantArray)',
 			],
-			// [
-			//     '2',
-			//     'current($constantArray)',
-			// ],
-			// [
-			//     '\'bar\'|\'baz\'',
-			//     'current($secondConditionalArray)',
-			// ],
+			[
+				'1|2|false',
+				'current($constantArray)',
+			],
+			[
+				'\'bar\'|\'baz\'|\'foo\'|false',
+				'current($conditionalArray)',
+			],
+			[
+				'\'bar\'|\'baz\'|\'foo\'|false',
+				'current($secondConditionalArray)',
+			],
 			[
 				'mixed',
 				'next()',
@@ -7576,14 +7580,18 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'false',
 				'next($emptyConstantArray)',
 			],
-			// [
-			//     '2',
-			//     'next($constantArray)',
-			// ],
-			// [
-			//     '\'bar\'|\'baz\'',
-			//     'next($secondConditionalArray)',
-			// ],
+			[
+				'1|2|false',
+				'next($constantArray)',
+			],
+			[
+				'\'bar\'|\'baz\'|\'foo\'|false',
+				'next($conditionalArray)',
+			],
+			[
+				'\'bar\'|\'baz\'|\'foo\'|false',
+				'next($secondConditionalArray)',
+			],
 			[
 				'mixed',
 				'prev()',
@@ -7600,14 +7608,18 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'false',
 				'prev($emptyConstantArray)',
 			],
-			// [
-			//     '2',
-			//     'prev($constantArray)',
-			// ],
-			// [
-			//     '\'bar\'|\'baz\'',
-			//     'prev($secondConditionalArray)',
-			// ],
+			[
+				'1|2|false',
+				'prev($constantArray)',
+			],
+			[
+				'\'bar\'|\'baz\'|\'foo\'|false',
+				'prev($conditionalArray)',
+			],
+			[
+				'\'bar\'|\'baz\'|\'foo\'|false',
+				'prev($secondConditionalArray)',
+			],
 		];
 	}
 
