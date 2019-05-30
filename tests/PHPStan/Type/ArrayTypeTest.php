@@ -5,6 +5,7 @@ namespace PHPStan\Type;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantIntegerType;
+use PHPStan\Type\Generic\TemplateMixedType;
 
 class ArrayTypeTest extends \PHPStan\Testing\TestCase
 {
@@ -134,6 +135,87 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$this->assertSame($expectedDescription, $type->describe(VerbosityLevel::precise()));
+	}
+
+	public function dataInferTemplateTypes(): array
+	{
+		return [
+			'valid templated item' => [
+				new ArrayType(
+					new MixedType(),
+					new ObjectType('DateTime')
+				),
+				new ArrayType(
+					new MixedType(),
+					new TemplateMixedType('T')
+				),
+				['T' => 'DateTime'],
+			],
+			'receive mixed' => [
+				new MixedType(),
+				new ArrayType(
+					new MixedType(),
+					new TemplateMixedType('T')
+				),
+				['T' => '*NEVER*'],
+			],
+			'receive non-accepted' => [
+				new StringType(),
+				new ArrayType(
+					new MixedType(),
+					new TemplateMixedType('T')
+				),
+				['T' => '*NEVER*'],
+			],
+			'receive union items' => [
+				new ArrayType(
+					new MixedType(),
+					new UnionType([
+						new StringType(),
+						new IntegerType(),
+					])
+				),
+				new ArrayType(
+					new MixedType(),
+					new TemplateMixedType('T')
+				),
+				['T' => 'int|string'],
+			],
+			'receive union' => [
+				new UnionType([
+					new StringType(),
+					new ArrayType(
+						new MixedType(),
+						new StringType()
+					),
+					new ArrayType(
+						new MixedType(),
+						new IntegerType()
+					),
+				]),
+				new ArrayType(
+					new MixedType(),
+					new TemplateMixedType('T')
+				),
+				['T' => 'int|string'],
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataInferTemplateTypes
+	 * @param array<string,string> $expectedTypes
+	 */
+	public function testResolveTemplateTypes(Type $received, Type $template, array $expectedTypes): void
+	{
+		$result = $template->inferTemplateTypes($received);
+
+		$this->assertSame(
+			$expectedTypes,
+			array_map(static function (Type $type): string {
+				return $type->describe(VerbosityLevel::precise());
+			}, $result->getTypes())
+		);
 	}
 
 }

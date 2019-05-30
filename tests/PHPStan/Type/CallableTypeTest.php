@@ -2,8 +2,11 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Reflection\Native\NativeParameterReflection;
+use PHPStan\Reflection\PassedByReference;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Accessory\HasMethodType;
+use PHPStan\Type\Generic\TemplateMixedType;
 
 class CallableTypeTest extends \PHPStan\Testing\TestCase
 {
@@ -145,6 +148,116 @@ class CallableTypeTest extends \PHPStan\Testing\TestCase
 			$expectedResult->describe(),
 			$actualResult->describe(),
 			sprintf('%s -> isSuperTypeOf(%s)', $otherType->describe(VerbosityLevel::precise()), $type->describe(VerbosityLevel::precise()))
+		);
+	}
+
+	public function dataInferTemplateTypes(): array
+	{
+		$param = static function (Type $type): NativeParameterReflection {
+			return new NativeParameterReflection(
+				'',
+				false,
+				$type,
+				PassedByReference::createNo(),
+				false
+			);
+		};
+
+		return [
+			'template param' => [
+				new CallableType(
+					[
+						$param(new StringType()),
+					],
+					new IntegerType()
+				),
+				new CallableType(
+					[
+						$param(new TemplateMixedType('T')),
+					],
+					new IntegerType()
+				),
+				['T' => 'string'],
+			],
+			'template return' => [
+				new CallableType(
+					[
+						$param(new StringType()),
+					],
+					new IntegerType()
+				),
+				new CallableType(
+					[
+						$param(new StringType()),
+					],
+					new TemplateMixedType('T')
+				),
+				['T' => 'int'],
+			],
+			'multiple templates' => [
+				new CallableType(
+					[
+						$param(new StringType()),
+						$param(new ObjectType('DateTime')),
+					],
+					new IntegerType()
+				),
+				new CallableType(
+					[
+						$param(new StringType()),
+						$param(new TemplateMixedType('A')),
+					],
+					new TemplateMixedType('B')
+				),
+				['A' => 'DateTime', 'B' => 'int'],
+			],
+			'receive union' => [
+				new UnionType([
+					new NullType(),
+					new CallableType(
+						[
+							$param(new StringType()),
+							$param(new ObjectType('DateTime')),
+						],
+						new IntegerType()
+					),
+				]),
+				new CallableType(
+					[
+						$param(new StringType()),
+						$param(new TemplateMixedType('A')),
+					],
+					new TemplateMixedType('B')
+				),
+				['A' => 'DateTime', 'B' => 'int'],
+			],
+			'receive non-accepted' => [
+				new NullType(),
+				new CallableType(
+					[
+						$param(new StringType()),
+						$param(new TemplateMixedType('A')),
+					],
+					new TemplateMixedType('B')
+				),
+				[],
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataInferTemplateTypes
+	 * @param array<string,string> $expectedTypes
+	 */
+	public function testResolveTemplateTypes(Type $received, Type $template, array $expectedTypes): void
+	{
+		$result = $template->inferTemplateTypes($received);
+
+		$this->assertSame(
+			$expectedTypes,
+			array_map(static function (Type $type): string {
+				return $type->describe(VerbosityLevel::precise());
+			}, $result->getTypes())
 		);
 	}
 

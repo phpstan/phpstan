@@ -7,6 +7,7 @@ use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\IntersectionType;
+use PHPStan\Type\Traits\NonGenericTypeTrait;
 use PHPStan\Type\Traits\ObjectTypeTrait;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
@@ -15,6 +16,7 @@ class HasPropertyType implements AccessoryType, CompoundType
 {
 
 	use ObjectTypeTrait;
+	use NonGenericTypeTrait;
 
 	/** @var string */
 	private $propertyName;

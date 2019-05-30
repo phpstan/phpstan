@@ -7,12 +7,14 @@ use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Traits\NonGenericTypeTrait;
 use PHPStan\Type\Traits\TruthyBooleanTypeTrait;
 
 class StaticType implements StaticResolvableType, TypeWithClassName
 {
 
 	use TruthyBooleanTypeTrait;
+	use NonGenericTypeTrait;
 
 	/** @var string */
 	private $baseClass;
