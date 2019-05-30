@@ -171,7 +171,7 @@ class TypeSpecifier
 					&& $exprNode instanceof FuncCall
 					&& count($exprNode->args) === 1
 					&& $exprNode->name instanceof Name
-					&& strtolower((string) $exprNode->name) === 'count'
+					&& in_array(strtolower((string) $exprNode->name), ['count', 'sizeof'], true)
 					&& $constantType instanceof ConstantIntegerType
 				) {
 					if ($context->truthy() || $constantType->getValue() === 0) {
@@ -259,6 +259,26 @@ class TypeSpecifier
 						$context->true() ? TypeSpecifierContext::createTruthy() : TypeSpecifierContext::createTruthy()->negate()
 					);
 				}
+
+				if (
+					!$context->null()
+					&& $exprNode instanceof FuncCall
+					&& count($exprNode->args) === 1
+					&& $exprNode->name instanceof Name
+					&& in_array(strtolower((string) $exprNode->name), ['count', 'sizeof'], true)
+					&& $constantType instanceof ConstantIntegerType
+				) {
+					if ($context->truthy() || $constantType->getValue() === 0) {
+						$newContext = $context;
+						if ($constantType->getValue() === 0) {
+							$newContext = $newContext->negate();
+						}
+						$argType = $scope->getType($exprNode->args[0]->value);
+						if ((new ArrayType(new MixedType(), new MixedType()))->isSuperTypeOf($argType)->yes()) {
+							return $this->create($exprNode->args[0]->value, new NonEmptyArrayType(), $newContext);
+						}
+					}
+				}
 			}
 
 			$leftType = $scope->getType($expr->left);
@@ -326,6 +346,80 @@ class TypeSpecifier
 				new Node\Expr\BooleanNot(new Node\Expr\BinaryOp\Equal($expr->left, $expr->right)),
 				$context
 			);
+		} elseif (
+			$expr instanceof Node\Expr\BinaryOp\Smaller
+			|| $expr instanceof Node\Expr\BinaryOp\SmallerOrEqual
+			|| $expr instanceof Node\Expr\BinaryOp\Greater
+			|| $expr instanceof Node\Expr\BinaryOp\GreaterOrEqual
+		) {
+			$expressions = $this->findTypeExpressionsFromBinaryOperation($scope, $expr);
+			if ($expressions !== null) {
+				/** @var Expr $exprNode */
+				$exprNode = $expressions[0];
+				/** @var \PHPStan\Type\ConstantScalarType $constantType */
+				$constantType = $expressions[1];
+
+				if (
+					$exprNode instanceof FuncCall
+					&& count($exprNode->args) === 1
+					&& $exprNode->name instanceof Name
+					&& in_array(strtolower((string)$exprNode->name), ['count', 'sizeof'], true)
+					&& $constantType instanceof ConstantIntegerType
+				) {
+					if ($context->truthy()) {
+						if (
+							(
+								$constantType->getValue() <= 0 && $expr instanceof Node\Expr\BinaryOp\SmallerOrEqual
+							)
+							||
+							(
+								$constantType->getValue() <= 1 && $expr instanceof Node\Expr\BinaryOp\Smaller
+							)
+						) {
+							$newContext = $context->negate();
+						} elseif (
+							(
+								$constantType->getValue() >= 1 && $expr instanceof Node\Expr\BinaryOp\GreaterOrEqual
+							)
+							||
+							(
+								$constantType->getValue() >= 0 && $expr instanceof Node\Expr\BinaryOp\Greater
+							)
+						) {
+							$newContext = $context;
+						}
+					} elseif ($context->falsey()) {
+						if (
+							(
+								$constantType->getValue() >= 0 && $expr instanceof Node\Expr\BinaryOp\SmallerOrEqual
+							)
+							||
+							(
+								$constantType->getValue() >= 1 && $expr instanceof Node\Expr\BinaryOp\Smaller
+							)
+						) {
+							$newContext = $context->negate();
+						} elseif (
+							(
+								$constantType->getValue() <= 1 && $expr instanceof Node\Expr\BinaryOp\GreaterOrEqual
+							)
+							||
+							(
+								$constantType->getValue() <= 0 && $expr instanceof Node\Expr\BinaryOp\Greater
+							)
+						) {
+							$newContext = $context;
+						}
+					}
+
+					if (isset($newContext)) {
+						$argType = $scope->getType($exprNode->args[0]->value);
+						if ((new ArrayType(new MixedType(), new MixedType()))->isSuperTypeOf($argType)->yes()) {
+							return $this->create($exprNode->args[0]->value, new NonEmptyArrayType(), $newContext);
+						}
+					}
+				}
+			}
 		} elseif ($expr instanceof FuncCall && $expr->name instanceof Name) {
 			if ($this->broker->hasFunction($expr->name, $scope)) {
 				$functionReflection = $this->broker->getFunction($expr->name, $scope);

@@ -329,6 +329,29 @@ class Foo
 	{
 		echo $xml['asdf'];
 	}
+
+	function offsetExistsFromCount(array $arrayAccessoryTypes)
+	{
+		$arrayAccessoryTypesToProcess = [];
+		if (count($arrayAccessoryTypes) > 1) {
+			$arrayAccessoryTypesToProcess = array_values(array_intersect_key(...$arrayAccessoryTypes));
+		} elseif (count($arrayAccessoryTypes) > 0) {
+			$arrayAccessoryTypesToProcess = array_values($arrayAccessoryTypes[0]);
+		}
+	}
+
+	function offsetNotExistsFromCount(array $arrayAccessoryTypes)
+	{
+		$arrayAccessoryTypesToProcess = [];
+		if (count($arrayAccessoryTypes) < 0) {
+			$arrayAccessoryTypesToProcess = array_values($arrayAccessoryTypes[0]);
+		} elseif (count($arrayAccessoryTypes) < -1) {
+			$arrayAccessoryTypesToProcess = array_values($arrayAccessoryTypes[0]);
+		} else {
+			$arrayAccessoryTypesToProcess = array_values($arrayAccessoryTypes[0]);
+		}
+	}
+
 }
 
 class SubClassSimpleXMLElement extends \SimpleXMLElement

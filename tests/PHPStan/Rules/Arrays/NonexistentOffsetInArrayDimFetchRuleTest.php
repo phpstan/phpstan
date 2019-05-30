@@ -90,6 +90,14 @@ class NonexistentOffsetInArrayDimFetchRuleTest extends \PHPStan\Testing\RuleTest
 				'Offset int does not exist on array<string, string>.',
 				312,
 			],
+			[
+				'Offset 0 does not exist on array().',
+				347,
+			],
+			[
+				'Offset 0 does not exist on array().',
+				349,
+			],
 		]);
 	}
 

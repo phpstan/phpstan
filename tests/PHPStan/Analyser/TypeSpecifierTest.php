@@ -5,8 +5,12 @@ namespace PHPStan\Analyser;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\BinaryOp\Equal;
+use PhpParser\Node\Expr\BinaryOp\Greater;
+use PhpParser\Node\Expr\BinaryOp\GreaterOrEqual;
 use PhpParser\Node\Expr\BinaryOp\Identical;
 use PhpParser\Node\Expr\BinaryOp\NotIdentical;
+use PhpParser\Node\Expr\BinaryOp\Smaller;
+use PhpParser\Node\Expr\BinaryOp\SmallerOrEqual;
 use PhpParser\Node\Expr\BooleanNot;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\PropertyFetch;
@@ -560,6 +564,186 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 				[
 					'$array' => '~nonEmpty',
 				],
+				[
+					'$array' => 'nonEmpty',
+				],
+			],
+			[
+				new Greater(new FuncCall(new Name('count'), [
+					new Arg(new Variable('array')),
+				]), new LNumber(-1)),
+				[],
+				[
+					'$array' => '~nonEmpty',
+				],
+			],
+			[
+				new GreaterOrEqual(new FuncCall(new Name('count'), [
+					new Arg(new Variable('array')),
+				]), new LNumber(-1)),
+				[],
+				[
+					'$array' => '~nonEmpty',
+				],
+			],
+			[
+				new Greater(new FuncCall(new Name('count'), [
+					new Arg(new Variable('array')),
+				]), new LNumber(0)),
+				[
+					'$array' => 'nonEmpty',
+				],
+				[
+					'$array' => '~nonEmpty',
+				],
+			],
+			[
+				new GreaterOrEqual(new FuncCall(new Name('count'), [
+					new Arg(new Variable('array')),
+				]), new LNumber(0)),
+				[],
+				[
+					'$array' => '~nonEmpty',
+				],
+			],
+			[
+				new Greater(new FuncCall(new Name('sizeof'), [
+					new Arg(new Variable('array')),
+				]), new LNumber(1)),
+				[
+					'$array' => 'nonEmpty',
+				],
+				[],
+			],
+			[
+				new GreaterOrEqual(new FuncCall(new Name('sizeof'), [
+					new Arg(new Variable('array')),
+				]), new LNumber(1)),
+				[
+					'$array' => 'nonEmpty',
+				],
+				[
+					'$array' => '~nonEmpty',
+				],
+			],
+			[
+				new Greater(new FuncCall(new Name('sizeof'), [
+					new Arg(new Variable('array')),
+				]), new LNumber(5)),
+				[
+					'$array' => 'nonEmpty',
+				],
+				[],
+			],
+			[
+				new Smaller(new FuncCall(new Name('count'), [
+					new Arg(new Variable('array')),
+				]), new LNumber(0)),
+				[
+					'$array' => '~nonEmpty',
+				],
+				[],
+			],
+			[
+				new SmallerOrEqual(new FuncCall(new Name('count'), [
+					new Arg(new Variable('array')),
+				]), new LNumber(0)),
+				[
+					'$array' => '~nonEmpty',
+				],
+				[
+					'$array' => 'nonEmpty',
+				],
+			],
+			[
+				new Identical(new FuncCall(new Name('count'), [
+					new Arg(new Variable('array')),
+				]), new LNumber(0)),
+				[
+					'$array' => '~nonEmpty',
+				],
+				[
+					'$array' => 'nonEmpty',
+				],
+			],
+			[
+				new Equal(new FuncCall(new Name('count'), [
+					new Arg(new Variable('array')),
+				]), new LNumber(0)),
+				[
+					'$array' => '~nonEmpty',
+				],
+				[
+					'$array' => 'nonEmpty',
+				],
+			],
+			[
+				new Identical(new FuncCall(new Name('count'), [
+					new Arg(new Variable('array')),
+				]), new LNumber(1)),
+				[
+					'$array' => 'nonEmpty',
+				],
+				[
+					'count($array)' => '~1',
+				],
+			],
+			[
+				new Equal(new FuncCall(new Name('count'), [
+					new Arg(new Variable('array')),
+				]), new LNumber(1)),
+				[
+					'$array' => 'nonEmpty',
+				],
+				[],
+			],
+			/*
+			[
+				new Identical(new FuncCall(new Name('count'), [
+					new Arg(new Variable('array')),
+				]), new LNumber(-1)),
+				[
+					'$array' => '~nonEmpty',
+				],
+				[
+					'count($array)' => '~-1',
+				],
+			],
+			[
+				new Equal(new FuncCall(new Name('count'), [
+					new Arg(new Variable('array')),
+				]), new LNumber(-1)),
+				[
+					'$array' => '~nonEmpty',
+				],
+				[],
+			],
+			*/
+			[
+				new Smaller(new FuncCall(new Name('sizeof'), [
+					new Arg(new Variable('array')),
+				]), new LNumber(1)),
+				[
+					'$array' => '~nonEmpty',
+				],
+				[
+					'$array' => 'nonEmpty',
+				],
+			],
+			[
+				new SmallerOrEqual(new FuncCall(new Name('sizeof'), [
+					new Arg(new Variable('array')),
+				]), new LNumber(1)),
+				[],
+				[
+					'$array' => 'nonEmpty',
+				],
+			],
+			[
+				new Smaller(new FuncCall(new Name('sizeof'), [
+					new Arg(new Variable('array')),
+				]), new LNumber(5)),
+				[],
 				[
 					'$array' => 'nonEmpty',
 				],
