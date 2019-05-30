@@ -7,6 +7,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Traits\MaybeCallableTypeTrait;
+use PHPStan\Type\Traits\NonGenericTypeTrait;
 use PHPStan\Type\Traits\NonIterableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
 use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
@@ -19,6 +20,7 @@ class StringType implements Type
 	use NonIterableTypeTrait;
 	use NonObjectTypeTrait;
 	use UndecidedBooleanTypeTrait;
+	use NonGenericTypeTrait;
 
 	public function describe(VerbosityLevel $level): string
 	{

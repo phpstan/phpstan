@@ -6,6 +6,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\MaybeObjectTypeTrait;
 use PHPStan\Type\Traits\MaybeOffsetAccessibleTypeTrait;
+use PHPStan\Type\Traits\NonGenericTypeTrait;
 use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
 
 class IterableType implements StaticResolvableType, CompoundType
@@ -15,6 +16,7 @@ class IterableType implements StaticResolvableType, CompoundType
 	use MaybeObjectTypeTrait;
 	use MaybeOffsetAccessibleTypeTrait;
 	use UndecidedBooleanTypeTrait;
+	use NonGenericTypeTrait;
 
 	/** @var \PHPStan\Type\Type */
 	private $keyType;

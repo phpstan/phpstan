@@ -10,6 +10,7 @@ use PHPStan\Type\ErrorType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Traits\MaybeCallableTypeTrait;
+use PHPStan\Type\Traits\NonGenericTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
 use PHPStan\Type\Traits\TruthyBooleanTypeTrait;
 use PHPStan\Type\Type;
@@ -21,6 +22,7 @@ class NonEmptyArrayType implements CompoundType, AccessoryType
 	use MaybeCallableTypeTrait;
 	use NonObjectTypeTrait;
 	use TruthyBooleanTypeTrait;
+	use NonGenericTypeTrait;
 
 	public function getReferencedClasses(): array
 	{

@@ -3,12 +3,14 @@
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Traits\NonGenericTypeTrait;
 use PHPStan\Type\Traits\ObjectTypeTrait;
 
 class ObjectWithoutClassType implements SubtractableType
 {
 
 	use ObjectTypeTrait;
+	use NonGenericTypeTrait;
 
 	/** @var \PHPStan\Type\Type|null */
 	private $subtractedType;

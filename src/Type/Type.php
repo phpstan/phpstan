@@ -7,6 +7,7 @@ use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Generic\TemplateTypeMap;
 
 interface Type
 {
@@ -79,6 +80,14 @@ interface Type
 	public function toString(): Type;
 
 	public function toArray(): Type;
+
+	/**
+	 * Infers template types
+	 *
+	 * Infers the real Type of the TemplateTypes found in $this, based on
+	 * the received Type.
+	 */
+	public function inferTemplateTypes(Type $receivedType): TemplateTypeMap;
 
 	/**
 	 * @param mixed[] $properties

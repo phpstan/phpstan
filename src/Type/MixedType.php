@@ -13,6 +13,7 @@ use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Traits\MaybeIterableTypeTrait;
 use PHPStan\Type\Traits\MaybeOffsetAccessibleTypeTrait;
+use PHPStan\Type\Traits\NonGenericTypeTrait;
 use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
 
 class MixedType implements CompoundType, SubtractableType
@@ -21,6 +22,7 @@ class MixedType implements CompoundType, SubtractableType
 	use MaybeIterableTypeTrait;
 	use MaybeOffsetAccessibleTypeTrait;
 	use UndecidedBooleanTypeTrait;
+	use NonGenericTypeTrait;
 
 	/** @var bool */
 	private $isExplicitMixed;
