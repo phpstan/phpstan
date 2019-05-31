@@ -578,6 +578,10 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\Testing\TestCase
 
 	public function dataZipArchiveProperties(): array
 	{
+		if (!class_exists('ZipArchive')) {
+			return [];
+		}
+
 		return [
 			[
 				ZipArchive::class,
