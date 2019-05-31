@@ -1217,6 +1217,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'string',
 				'$stringFromIterable',
 			],
+			[
+				'string',
+				'$stringWithVarAnnotation',
+			],
 		];
 	}
 

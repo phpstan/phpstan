@@ -74,4 +74,7 @@ foreach ($iterableOverStringArrays as [$stringFromIterable]) {
 
 }
 
+/** @var string $stringWithVarAnnotation  */
+[$stringWithVarAnnotation] = doFoo();
+
 die;

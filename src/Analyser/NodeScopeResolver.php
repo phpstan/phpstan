@@ -1189,6 +1189,12 @@ class NodeScopeResolver
 					},
 					true
 				);
+				if ($expr->var instanceof Variable && is_string($expr->var->name)) {
+					$comment = CommentHelper::getDocComment($expr);
+					if ($comment !== null) {
+						$scope = $this->processVarAnnotation($scope, $expr->var->name, $comment, false);
+					}
+				}
 			} else {
 				$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, $context->enterDeep())->getScope();
 				foreach ($expr->var->items as $arrayItem) {
@@ -1205,12 +1211,18 @@ class NodeScopeResolver
 					$this->processExprNode($arrayItem, $itemScope, $nodeCallback, $context->enterDeep());
 				}
 				$scope = $this->lookForArrayDestructuringArray($scope, $expr->var, $scope->getType($expr->expr));
-			}
-
-			if ($expr->var instanceof Variable && is_string($expr->var->name)) {
 				$comment = CommentHelper::getDocComment($expr);
 				if ($comment !== null) {
-					$scope = $this->processVarAnnotation($scope, $expr->var->name, $comment, false);
+					foreach ($expr->var->items as $arrayItem) {
+						if ($arrayItem === null) {
+							continue;
+						}
+						if (!$arrayItem->value instanceof Variable || !is_string($arrayItem->value->name)) {
+							continue;
+						}
+
+						$scope = $this->processVarAnnotation($scope, $arrayItem->value->name, $comment, true);
+					}
 				}
 			}
 		} elseif ($expr instanceof Expr\AssignOp) {
