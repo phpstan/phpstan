@@ -1213,6 +1213,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'1|\'123\'|\'foo\'|true',
 				'$dynamicAssocMixedForeach',
 			],
+			[
+				'string',
+				'$stringFromIterable',
+			],
 		];
 	}
 

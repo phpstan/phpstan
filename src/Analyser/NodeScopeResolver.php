@@ -2106,14 +2106,8 @@ class NodeScopeResolver
 		}
 
 		if ($stmt->valueVar instanceof List_ || $stmt->valueVar instanceof Array_) {
-			$itemTypes = [];
 			$exprType = $scope->getType($stmt->expr);
-			$arrayTypes = TypeUtils::getArrays($exprType);
-			foreach ($arrayTypes as $arrayType) {
-				$itemTypes[] = $arrayType->getItemType();
-			}
-
-			$itemType = count($itemTypes) > 0 ? TypeCombinator::union(...$itemTypes) : new MixedType();
+			$itemType = $exprType->getIterableValueType();
 			$scope = $this->lookForArrayDestructuringArray($scope, $stmt->valueVar, $itemType);
 		}
 

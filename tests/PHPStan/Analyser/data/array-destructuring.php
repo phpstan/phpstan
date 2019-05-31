@@ -68,4 +68,10 @@ foreach ([$constantAssocArray] as [$fooKey => $dynamicAssocKeyForeach, $stringKe
 
 }
 
+/** @var iterable<array<string>> $iterableOverStringArrays */
+$iterableOverStringArrays = doFoo();
+foreach ($iterableOverStringArrays as [$stringFromIterable]) {
+
+}
+
 die;
