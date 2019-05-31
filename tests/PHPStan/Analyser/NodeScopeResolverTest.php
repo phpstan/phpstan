@@ -1221,6 +1221,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'string',
 				'$stringWithVarAnnotation',
 			],
+			[
+				'string',
+				'$stringWithVarAnnotationInForeach',
+			],
 		];
 	}
 

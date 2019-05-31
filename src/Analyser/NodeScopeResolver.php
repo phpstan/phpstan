@@ -2121,6 +2121,19 @@ class NodeScopeResolver
 			$exprType = $scope->getType($stmt->expr);
 			$itemType = $exprType->getIterableValueType();
 			$scope = $this->lookForArrayDestructuringArray($scope, $stmt->valueVar, $itemType);
+			$comment = CommentHelper::getDocComment($stmt);
+			if ($comment !== null) {
+				foreach ($stmt->valueVar->items as $arrayItem) {
+					if ($arrayItem === null) {
+						continue;
+					}
+					if (!$arrayItem->value instanceof Variable || !is_string($arrayItem->value->name)) {
+						continue;
+					}
+
+					$scope = $this->processVarAnnotation($scope, $arrayItem->value->name, $comment, true);
+				}
+			}
 		}
 
 		return $scope;
