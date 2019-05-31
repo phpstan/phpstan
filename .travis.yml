@@ -13,6 +13,7 @@ php:
   - 7.2
   - 7.3
   - 7.4snapshot
+  - master
 
 env:
   matrix:
@@ -23,6 +24,7 @@ env:
 matrix:
   allow_failures:
     - php: 7.4snapshot
+    - php: master
 
 before_script:
   - if php --ri xdebug >/dev/null; then phpenv config-rm xdebug.ini; fi
