@@ -1156,13 +1156,14 @@ class NodeScopeResolver
 			}
 		} elseif ($expr instanceof Assign || $expr instanceof AssignRef) {
 			if (!$expr->var instanceof Array_ && !$expr->var instanceof List_) {
-				$scope = $this->processAssignVar(
+				$result = $this->processAssignVar(
 					$scope,
 					$expr->var,
 					$expr->expr,
 					$nodeCallback,
 					$context,
-					function (Scope $scope) use ($expr, $nodeCallback, $context): Scope {
+					function (Scope $scope) use ($expr, $nodeCallback, $context): ExpressionResult {
+						$hasYield = false;
 						if ($expr instanceof AssignRef) {
 							$scope = $scope->enterExpressionAssign($expr->expr);
 						}
@@ -1178,17 +1179,21 @@ class NodeScopeResolver
 							$nodeCallback($expr->expr, $scope);
 							$scope = $this->processClosureNode($expr->expr, $scope, $nodeCallback, $context->enterDeep());
 						} else {
-							$scope = $this->processExprNode($expr->expr, $scope, $nodeCallback, $context->enterDeep())->getScope();
+							$result = $this->processExprNode($expr->expr, $scope, $nodeCallback, $context->enterDeep());
+							$hasYield = $result->hasYield();
+							$scope = $result->getScope();
 						}
 
 						if ($expr instanceof AssignRef) {
 							$scope = $scope->exitExpressionAssign($expr->expr);
 						}
 
-						return $scope;
+						return new ExpressionResult($scope, $hasYield);
 					},
 					true
 				);
+				$scope = $result->getScope();
+				$hasYield = $result->hasYield();
 				if ($expr->var instanceof Variable && is_string($expr->var->name)) {
 					$comment = CommentHelper::getDocComment($expr);
 					if ($comment !== null) {
@@ -1226,17 +1231,19 @@ class NodeScopeResolver
 				}
 			}
 		} elseif ($expr instanceof Expr\AssignOp) {
-			$scope = $this->processAssignVar(
+			$result = $this->processAssignVar(
 				$scope,
 				$expr->var,
 				$expr,
 				$nodeCallback,
 				$context,
-				function (Scope $scope) use ($expr, $nodeCallback, $context): Scope {
-					return $this->processExprNode($expr->expr, $scope, $nodeCallback, $context->enterDeep())->getScope();
+				function (Scope $scope) use ($expr, $nodeCallback, $context): ExpressionResult {
+					return $this->processExprNode($expr->expr, $scope, $nodeCallback, $context->enterDeep());
 				},
 				false
 			);
+			$scope = $result->getScope();
+			$hasYield = $result->hasYield();
 		} elseif ($expr instanceof FuncCall) {
 			$parametersAcceptor = null;
 			if ($expr->name instanceof Expr) {
@@ -1627,18 +1634,20 @@ class NodeScopeResolver
 						$newExpr = new Expr\PreDec($expr->var);
 					}
 
-					$scope = $this->processAssignVar(
+					$result = $this->processAssignVar(
 						$scope,
 						$expr->var,
 						$newExpr,
 						static function (): void {
 						},
 						$context,
-						static function (Scope $scope): Scope {
-							return $scope;
+						static function (Scope $scope): ExpressionResult {
+							return new ExpressionResult($scope, false);
 						},
 						false
 					);
+					$hasYield = $result->hasYield();
+					$scope = $result->getScope();
 				}
 			}
 		} elseif ($expr instanceof Ternary) {
@@ -1957,9 +1966,9 @@ class NodeScopeResolver
 	 * @param \PhpParser\Node\Expr $assignedExpr
 	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
 	 * @param ExpressionContext $context
-	 * @param \Closure(Scope $scope): Scope $processExprCallback
+	 * @param \Closure(Scope $scope): ExpressionResult $processExprCallback
 	 * @param bool $enterExpressionAssign
-	 * @return Scope
+	 * @return ExpressionResult
 	 */
 	private function processAssignVar(
 		Scope $scope,
@@ -1969,12 +1978,14 @@ class NodeScopeResolver
 		ExpressionContext $context,
 		\Closure $processExprCallback,
 		bool $enterExpressionAssign
-	): Scope
+	): ExpressionResult
 	{
-		// todo return hasYield too
 		$nodeCallback($var, $enterExpressionAssign ? $scope->enterExpressionAssign($var) : $scope);
+		$hasYield = false;
 		if ($var instanceof Variable && is_string($var->name)) {
-			$scope = $processExprCallback($scope);
+			$result = $processExprCallback($scope);
+			$hasYield = $result->hasYield();
+			$scope = $result->getScope();
 			$scope = $scope->assignVariable($var->name, $scope->getType($assignedExpr));
 		} elseif ($var instanceof ArrayDimFetch) {
 			$dimExprStack = [];
@@ -1987,7 +1998,9 @@ class NodeScopeResolver
 			if ($enterExpressionAssign && $var instanceof Variable) {
 				$scope = $scope->enterExpressionAssign($var);
 			}
-			$scope = $this->processExprNode($var, $scope, $nodeCallback, $context->enterDeep())->getScope();
+			$result = $this->processExprNode($var, $scope, $nodeCallback, $context->enterDeep());
+			$hasYield = $result->hasYield();
+			$scope = $result->getScope();
 			if ($enterExpressionAssign && $var instanceof Variable) {
 				$scope = $scope->exitExpressionAssign($var);
 			}
@@ -2004,7 +2017,9 @@ class NodeScopeResolver
 					if ($enterExpressionAssign) {
 						$scope->enterExpressionAssign($dimExpr);
 					}
-					$scope = $this->processExprNode($dimExpr, $scope, $nodeCallback, $context->enterDeep())->getScope();
+					$result = $this->processExprNode($dimExpr, $scope, $nodeCallback, $context->enterDeep());
+					$hasYield = $hasYield || $result->hasYield();
+					$scope = $result->getScope();
 
 					if ($enterExpressionAssign) {
 						$scope = $scope->exitExpressionAssign($dimExpr);
@@ -2015,7 +2030,9 @@ class NodeScopeResolver
 			$valueToWrite = $scope->getType($assignedExpr);
 
 			// 3. eval assigned expr
-			$scope = $processExprCallback($scope);
+			$result = $processExprCallback($scope);
+			$hasYield = $hasYield || $result->hasYield();
+			$scope = $result->getScope();
 
 			// 4. compose types
 			$varType = $scope->getType($var);
@@ -2053,14 +2070,18 @@ class NodeScopeResolver
 				);
 			}
 		} elseif ($var instanceof PropertyFetch) {
-			$scope = $processExprCallback($scope);
+			$result = $processExprCallback($scope);
+			$hasYield = $result->hasYield();
+			$scope = $result->getScope();
 			$scope = $scope->specifyExpressionType($var, $scope->getType($assignedExpr));
 		} elseif ($var instanceof Expr\StaticPropertyFetch) {
-			$scope = $processExprCallback($scope);
+			$result = $processExprCallback($scope);
+			$hasYield = $result->hasYield();
+			$scope = $result->getScope();
 			$scope = $scope->specifyExpressionType($var, $scope->getType($assignedExpr));
 		}
 
-		return $scope;
+		return new ExpressionResult($scope, $hasYield);
 	}
 
 	private function processVarAnnotation(Scope $scope, string $variableName, string $comment, bool $strict): Scope
