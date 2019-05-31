@@ -171,3 +171,23 @@ class BarCallToMutedParentConstructor extends FooCallToParentConstructor
 	}
 
 }
+
+class PrivateConstructor
+{
+
+	private function __construct()
+	{
+
+	}
+
+}
+
+class ExtendsPrivateConstructor extends PrivateConstructor
+{
+
+	public function __construct()
+	{
+		// cannot call parent
+	}
+
+}
