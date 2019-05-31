@@ -3,6 +3,7 @@
 namespace PHPStan\Command;
 
 use Nette\DI\Config\Adapters\NeonAdapter;
+use Nette\DI\Config\Adapters\PhpAdapter;
 use Nette\DI\Helpers;
 use Nette\Schema\Context as SchemaContext;
 use Nette\Schema\Processor;
@@ -329,10 +330,9 @@ class CommandHelper
 		array $loaderParameters
 	): void
 	{
-		$neonAdapter = new NeonAdapter();
 		$allConfigFiles = $configFiles;
 		foreach ($configFiles as $configFile) {
-			$allConfigFiles = array_merge($allConfigFiles, self::getConfigFiles($neonAdapter, $configFile, $loaderParameters));
+			$allConfigFiles = array_merge($allConfigFiles, self::getConfigFiles($configFile, $loaderParameters));
 		}
 
 		$normalized = array_map(static function (string $file) use ($fileHelper): string {
@@ -358,7 +358,6 @@ class CommandHelper
 	}
 
 	private static function getConfigFiles(
-		NeonAdapter $neonAdapter,
 		string $configFile,
 		array $loaderParameters
 	): array
@@ -367,6 +366,11 @@ class CommandHelper
 			return [];
 		}
 
+		if (strpos('.php', $configFile) !== false) {
+			$neonAdapter = new PhpAdapter();
+		} else {
+			$neonAdapter = new NeonAdapter();
+		}
 		$data = $neonAdapter->load($configFile);
 		$allConfigFiles = [];
 		if (isset($data['includes'])) {
@@ -375,7 +379,7 @@ class CommandHelper
 			foreach ($includes as $include) {
 				$include = self::expandIncludedFile($include, $configFile);
 				$allConfigFiles[] = $include;
-				$allConfigFiles = array_merge($allConfigFiles, self::getConfigFiles($neonAdapter, $include, $loaderParameters));
+				$allConfigFiles = array_merge($allConfigFiles, self::getConfigFiles($include, $loaderParameters));
 			}
 		}
 
