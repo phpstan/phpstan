@@ -290,7 +290,6 @@ class NodeScopeResolver
 	{
 		$nodeCallback($stmt, $scope);
 
-		// todo handle all stmt descendants
 		if ($stmt instanceof Node\Stmt\Declare_) {
 			$hasYield = false;
 			foreach ($stmt->declares as $declare) {
@@ -1149,7 +1148,6 @@ class NodeScopeResolver
 	{
 		$this->callNodeCallbackWithExpression($nodeCallback, $expr, $scope, $context);
 
-		// todo handle all expr descendants
 		if ($expr instanceof Variable) {
 			$hasYield = false;
 			if ($expr->name instanceof Expr) {
@@ -1585,7 +1583,6 @@ class NodeScopeResolver
 			$scope = $result->getScope()->mergeWith($scope);
 			$hasYield = $hasYield || $result->hasYield();
 		} elseif ($expr instanceof BinaryOp) {
-			// todo $hasYield continue here
 			$result = $this->processExprNode($expr->left, $scope, $nodeCallback, $context->enterDeep());
 			$scope = $result->getScope();
 			$hasYield = $result->hasYield();
