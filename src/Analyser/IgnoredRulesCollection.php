@@ -37,7 +37,7 @@ final class IgnoredRulesCollection
 	{
 		$ignoredRules = array_filter(
 			$this->ignoredRules,
-			static function (array $ignoredRule) use ($node, $ruleName) {
+			static function (array $ignoredRule) use ($node, $ruleName): bool {
 				$line = $node->getLine();
 
 				return $ignoredRule['rule'] === $ruleName &&
