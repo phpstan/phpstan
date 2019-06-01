@@ -30,7 +30,7 @@
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $var of function count expects array|Countable, iterable given.",
+        "message": "Parameter #1 $var of function count expects array|Countable|ResourceBundle|SimpleXMLElement, iterable given.",
         "line": 159,
         "ignorable": true
     },

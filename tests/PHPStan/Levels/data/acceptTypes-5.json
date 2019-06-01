@@ -60,11 +60,6 @@
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $var of function count expects array|Countable, string given.",
-        "line": 161,
-        "ignorable": true
-    },
-    {
         "message": "Parameter #1 $closure of method Levels\\AcceptTypes\\ClosureAccepts::doBar() expects Closure(Levels\\AcceptTypes\\FooInterface, int): Levels\\AcceptTypes\\FooInterface, Closure(Levels\\AcceptTypes\\FooInterface, mixed, mixed): Levels\\AcceptTypes\\FooInterface given.",
         "line": 212,
         "ignorable": true
