@@ -141,13 +141,28 @@ class Analyser
 					$parserNodes = $this->parser->parseFile($file);
 					$this->benchmarkEnd($parserBenchmarkTime, 'parser');
 
+					$ignoredRules = new IgnoredRulesCollection();
+
 					$scopeBenchmarkTime = $this->benchmarkStart();
 					$this->nodeScopeResolver->processNodes(
 						$parserNodes,
 						$this->scopeFactory->create(ScopeContext::create($file)),
-						function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors, $file, &$scopeBenchmarkTime): void {
+						function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors, $file, &$scopeBenchmarkTime, $ignoredRules): void {
 							$this->benchmarkEnd($scopeBenchmarkTime, 'scope');
 							$uniquedAnalysedCodeExceptionMessages = [];
+
+                            foreach ($node->getComments() as $comment) {
+                                preg_match(
+                                    '/[(\/\*\*)|(\/\/)] \@phpstan\-ignore ([^\* \/]+)( \*\/)?/',
+                                    trim($comment->getText()),
+                                    $ignoreCommentMatches
+                                );
+
+                                if (count($ignoreCommentMatches) > 0) {
+                                    $ignoredRules->add($node, trim($ignoreCommentMatches[1]));
+                                }
+                            }
+
 							foreach ($this->registry->getRules(get_class($node)) as $rule) {
 								try {
 									$ruleBenchmarkTime = $this->benchmarkStart();
@@ -164,6 +179,11 @@ class Analyser
 								}
 
 								foreach ($ruleErrors as $ruleError) {
+                                    $ruleName = str_replace('\\', '.', get_class($rule));
+                                    if ($ignoredRules->isIgnored($node, $ruleName)) {
+                                        continue;
+                                    }
+
 									$line = $node->getLine();
 									$fileName = $scope->getFileDescription();
 									if (is_string($ruleError)) {

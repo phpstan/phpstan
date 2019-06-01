@@ -49,6 +49,17 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		$this->assertEmpty($result);
 	}
 
+	public function testFileWithIgnoreErrorComments(): void
+	{
+	    include __DIR__ . '/data/ignore-error-comments.php';
+
+		$result = $this->runAnalyser([], true, __DIR__ . '/data/ignore-error-comments.php', false);
+		$this->assertCount(1, $result);
+        assert($result[0] instanceof Error);
+        $this->assertSame('Fail.', $result[0]->getMessage());
+        $this->assertSame(28, $result[0]->getLine());
+	}
+
 	public function testIgnoringBrokenConfigurationDoesNotWork(): void
 	{
 		$result = $this->runAnalyser(['#was not found while trying to analyse it#'], true, __DIR__ . '/../../notAutoloaded/Baz.php', false);
