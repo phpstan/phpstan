@@ -5,34 +5,34 @@ namespace IgnoreErrorComments;
 class Stub
 {
 
-    /**
-     * Ignore rule inside whole method
-     *
-     * @phpstan-ignore PHPStan.Rules.AlwaysFailRule
-     */
-    public function wholeMethodIgnored(): int
-    {
-        echo $baz;
+	/**
+	 * Ignore rule inside whole method
+	 *
+	 * @phpstan-ignore PHPStan.Rules.AlwaysFailRule
+	 */
+	public function wholeMethodIgnored(): int
+	{
+		echo $baz;
 
-        return 'wrong type';
-    }
+		return 'wrong type';
+	}
 
-    /**
-     * Ignore some rules with inline comments
-     */
-    public function someNodesIgnored()
-    {
+	/**
+	 * Ignore some rules with inline comments
+	 */
+	public function someNodesIgnored()
+	{
 
-        // @phpstan-ignore PHPStan.Rules.AlwaysFailRule
-        doFoo();
-        doBar();
+		// @phpstan-ignore PHPStan.Rules.AlwaysFailRule
+		doFoo();
+		doBar();
 
-        echo 'This is valid.';
+		echo 'This is valid.';
 
-        /** @phpstan-ignore PHPStan.Rules.AlwaysFailRule */
-        echo $ignoreWithDocBlock;
+		/** @phpstan-ignore PHPStan.Rules.AlwaysFailRule */
+		echo $ignoreWithDocBlock;
 
-    }
+	}
 
 }
 
@@ -41,11 +41,12 @@ class Stub
  *
  * @phpstan-ignore PHPStan.Rules.AlwaysFailRule
  */
-class IgnoredClassStub {
-    public function run(): int
-    {
-        echo $baz;
+class IgnoredClassStub
+{
+	public function run(): int
+	{
+		echo $baz;
 
-        return 'wrong type';
-    }
+		return 'wrong type';
+	}
 }

@@ -51,13 +51,13 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 
 	public function testFileWithIgnoreErrorComments(): void
 	{
-	    include __DIR__ . '/data/ignore-error-comments.php';
+		include __DIR__ . '/data/ignore-error-comments.php';
 
 		$result = $this->runAnalyser([], true, __DIR__ . '/data/ignore-error-comments.php', false);
 		$this->assertCount(1, $result);
-        assert($result[0] instanceof Error);
-        $this->assertSame('Fail.', $result[0]->getMessage());
-        $this->assertSame(28, $result[0]->getLine());
+		assert($result[0] instanceof Error);
+		$this->assertSame('Fail.', $result[0]->getMessage());
+		$this->assertSame(28, $result[0]->getLine());
 	}
 
 	public function testIgnoringBrokenConfigurationDoesNotWork(): void

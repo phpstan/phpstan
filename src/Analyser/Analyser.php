@@ -151,17 +151,19 @@ class Analyser
 							$this->benchmarkEnd($scopeBenchmarkTime, 'scope');
 							$uniquedAnalysedCodeExceptionMessages = [];
 
-                            foreach ($node->getComments() as $comment) {
-                                preg_match(
-                                    '/[(\/\*\*)|(\/\/)] \@phpstan\-ignore ([^\* \/]+)( \*\/)?/',
-                                    trim($comment->getText()),
-                                    $ignoreCommentMatches
-                                );
+							foreach ($node->getComments() as $comment) {
+								preg_match(
+									'/[(\/\*\*)|(\/\/)] \@phpstan\-ignore ([^\* \/]+)( \*\/)?/',
+									trim($comment->getText()),
+									$ignoreCommentMatches
+								);
 
-                                if (count($ignoreCommentMatches) > 0) {
-                                    $ignoredRules->add($node, trim($ignoreCommentMatches[1]));
-                                }
-                            }
+								if (count($ignoreCommentMatches) <= 0) {
+									continue;
+								}
+
+								$ignoredRules->add($node, trim($ignoreCommentMatches[1]));
+							}
 
 							foreach ($this->registry->getRules(get_class($node)) as $rule) {
 								try {
@@ -179,10 +181,10 @@ class Analyser
 								}
 
 								foreach ($ruleErrors as $ruleError) {
-                                    $ruleName = str_replace('\\', '.', get_class($rule));
-                                    if ($ignoredRules->isIgnored($node, $ruleName)) {
-                                        continue;
-                                    }
+									$ruleName = str_replace('\\', '.', get_class($rule));
+									if ($ignoredRules->isIgnored($node, $ruleName)) {
+										continue;
+									}
 
 									$line = $node->getLine();
 									$fileName = $scope->getFileDescription();
