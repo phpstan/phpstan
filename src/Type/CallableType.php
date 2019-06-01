@@ -43,14 +43,10 @@ class CallableType implements CompoundType, ParametersAcceptor
 		bool $variadic = true
 	)
 	{
-		if ($returnType === null) {
-			$returnType = new MixedType();
-		}
-
 		$this->parameters = $parameters ?? [];
-		$this->returnType = $returnType;
+		$this->returnType = $returnType ?? new MixedType();
 		$this->variadic = $variadic;
-		$this->isCommonCallable = $parameters === null;
+		$this->isCommonCallable = $parameters === null && $returnType === null;
 	}
 
 	/**
@@ -63,7 +59,7 @@ class CallableType implements CompoundType, ParametersAcceptor
 
 	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
-		if ($type instanceof CompoundType) {
+		if ($type instanceof CompoundType && !$type instanceof self) {
 			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
 		}
 
@@ -200,7 +196,7 @@ class CallableType implements CompoundType, ParametersAcceptor
 	{
 		return new self(
 			(bool) $properties['isCommonCallable'] ? null : $properties['parameters'],
-			$properties['returnType'],
+			(bool) $properties['isCommonCallable'] ? null : $properties['returnType'],
 			$properties['variadic']
 		);
 	}
