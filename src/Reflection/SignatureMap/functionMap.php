@@ -514,7 +514,7 @@ return [
 'bcompiler_write_included_filename' => ['bool', 'filehandle'=>'resource', 'filename'=>'string'],
 'bcpow' => ['string', 'base'=>'string', 'exponent'=>'string', 'scale='=>'int'],
 'bcpowmod' => ['?string', 'base'=>'string', 'exponent'=>'string', 'modulus'=>'string', 'scale='=>'int'],
-'bcscale' => ['bool', 'scale='=>'int'],
+'bcscale' => ['int', 'scale='=>'int'],
 'bcsqrt' => ['string', 'operand'=>'string', 'scale='=>'int'],
 'bcsub' => ['string', 'left_operand'=>'string', 'right_operand'=>'string', 'scale='=>'int'],
 'bin2hex' => ['string', 'data'=>'string'],

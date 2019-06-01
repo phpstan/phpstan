@@ -36,6 +36,16 @@ parameters:
 		-
 			message: '#Variable (?:static )?method call#'
 			path: %rootDir%/src/DependencyInjection/ParametersSchemaExtension.php
+		-
+			message: '#Fetching class constant class of deprecated class DeprecatedAnnotations\\DeprecatedFoo.#'
+			path: %rootDir%/tests/PHPStan/Reflection/Annotations/DeprecatedAnnotationsTest.php
+		-
+			message: '#Fetching class constant class of deprecated class DeprecatedAnnotations\\DeprecatedWithMultipleTags.#'
+			path: %rootDir%/tests/PHPStan/Reflection/Annotations/DeprecatedAnnotationsTest.php
+		-
+			# Remove when method can be added to DeprecatableReflection interface.
+			message: '#^Call to an undefined method PHPStan\\Reflection(.*)::getDeprecatedDescription\(\).#'
+			path: %rootDir%/tests/PHPStan/Reflection/Annotations/DeprecatedAnnotationsTest.php
 	reportStaticMethodSignatures: true
 	tmpDir: %rootDir%/tmp
 services:

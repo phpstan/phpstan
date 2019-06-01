@@ -12,6 +12,7 @@ php:
   - 7.1
   - 7.2
   - 7.3
+  - 7.4snapshot
   - master
 
 env:
@@ -22,6 +23,7 @@ env:
     secure: Wxs9IuFkyacKk/Cu4qxFkkSldob6AhJtx3MDS6Nehz/VF4M88awmI/GcVzfcXjFIA2+EJlkA+X0ymxP9xY5sp+vvmF4mkBIOvSvQdIOLsy73Ixpji3nqc8+epuvtBUGA4Y2xlLmBxSPYZlpVc/DRR2mIlzqDfOQc+gUmJ1aOZPUvs533cl4k0V23hU7L3LxgAnNY7j5vfNgYUhLqBHnqZ0yHt+m0x56wTOBHIBXH+LVNdgsl07fZnuC9HBb3lZKhtCtJiMyC0SsFQLljESaedTHRzptcOuvO+3dmt9R+AP/WxbdmleBaozCrwpdCK3Lqwrt9DXkxtn9ERjtVg0uT2KV5Mm5y4W0w9EXzX/8iUexlJaYOP7OYBtaV0R65w+oiC9dupKiFFvQtJkWcMg+4FCqEjNVM/smXin7+4dLgXiioLtqbjyQQqVwy/U+UmkQ5KIcWjJZGWkL79j1z1e29esNudieXqrX/yvGUW7Ng+4U3G2IHdWH3nMmjwx5/oBuOlc+6vu5aXdDRZVE12CJZ2X/uyJW2Ls5YLJsThAJ9roxsZ29MNZRihUOGk2lLDy/Q5TS6VcsaUmRaZHngM7Xt7v7pJLLbPIomgqGshPKxEXFO3vowZ7nXT1gJX0/FaBBqOahW0scGnxfZlJRZPWbvTg8gxhIGRxhNNYaX5Bb2hw8=
 matrix:
   allow_failures:
+    - php: 7.4snapshot
     - php: master
 
 before_script:

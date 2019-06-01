@@ -41,6 +41,9 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 	/** @var \PHPStan\Type\Type|null */
 	private $phpDocThrowType;
 
+	/** @var string|null  */
+	private $deprecatedDescription;
+
 	/** @var bool */
 	private $isDeprecated;
 
@@ -64,6 +67,7 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
 	 * @param Type|null $phpDocReturnType
 	 * @param Type|null $phpDocThrowType
+	 * @param string|null $deprecatedDescription
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
 	 * @param bool $isFinal
@@ -77,6 +81,7 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 		array $phpDocParameterTypes,
 		?Type $phpDocReturnType,
 		?Type $phpDocThrowType,
+		?string $deprecatedDescription,
 		bool $isDeprecated,
 		bool $isInternal,
 		bool $isFinal,
@@ -91,6 +96,7 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 		$this->phpDocReturnType = $phpDocReturnType;
 		$this->phpDocThrowType = $phpDocThrowType;
 		$this->isDeprecated = $isDeprecated;
+		$this->deprecatedDescription = $deprecatedDescription;
 		$this->isInternal = $isInternal;
 		$this->isFinal = $isFinal;
 		$this->filename = $filename;
@@ -228,6 +234,15 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 	private function getNativeReturnType(): Type
 	{
 		return TypehintHelper::decideTypeFromReflection($this->reflection->getReturnType());
+	}
+
+	public function getDeprecatedDescription(): ?string
+	{
+		if ($this->isDeprecated) {
+			return $this->deprecatedDescription;
+		}
+
+		return null;
 	}
 
 	public function isDeprecated(): bool

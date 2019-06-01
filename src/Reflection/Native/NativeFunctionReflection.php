@@ -50,6 +50,11 @@ class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
 		return $this->throwType;
 	}
 
+	public function getDeprecatedDescription(): ?string
+	{
+		return null;
+	}
+
 	public function isDeprecated(): bool
 	{
 		return false;

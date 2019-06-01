@@ -3,6 +3,7 @@
 namespace PHPStan\PhpDoc;
 
 use PHPStan\Analyser\NameScope;
+use PHPStan\PhpDoc\Tag\DeprecatedTag;
 use PHPStan\PhpDoc\Tag\MethodTag;
 use PHPStan\PhpDoc\Tag\MethodTagParameter;
 use PHPStan\PhpDoc\Tag\ParamTag;
@@ -40,6 +41,7 @@ class PhpDocNodeResolver
 			$this->resolveParamTags($phpDocNode, $nameScope),
 			$this->resolveReturnTag($phpDocNode, $nameScope),
 			$this->resolveThrowsTags($phpDocNode, $nameScope),
+			$this->resolveDeprecatedTag($phpDocNode, $nameScope),
 			$this->resolveIsDeprecated($phpDocNode),
 			$this->resolveIsInternal($phpDocNode),
 			$this->resolveIsFinal($phpDocNode)
@@ -210,6 +212,16 @@ class PhpDocNodeResolver
 		}
 
 		return new ThrowsTag(TypeCombinator::union(...$types));
+	}
+
+	private function resolveDeprecatedTag(PhpDocNode $phpDocNode, NameScope $nameScope): ?\PHPStan\PhpDoc\Tag\DeprecatedTag
+	{
+		foreach ($phpDocNode->getDeprecatedTagValues() as $deprecatedTagValue) {
+			$description = (string) $deprecatedTagValue;
+			return new DeprecatedTag($description === '' ? null : $description);
+		}
+
+		return null;
 	}
 
 	private function resolveIsDeprecated(PhpDocNode $phpDocNode): bool

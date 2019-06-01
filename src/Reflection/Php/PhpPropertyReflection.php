@@ -20,6 +20,9 @@ class PhpPropertyReflection implements PropertyReflection, DeprecatableReflectio
 	/** @var \ReflectionProperty */
 	private $reflection;
 
+	/** @var string|null */
+	private $deprecatedDescription;
+
 	/** @var bool */
 	private $isDeprecated;
 
@@ -30,6 +33,7 @@ class PhpPropertyReflection implements PropertyReflection, DeprecatableReflectio
 		ClassReflection $declaringClass,
 		Type $type,
 		\ReflectionProperty $reflection,
+		?string $deprecatedDescription,
 		bool $isDeprecated,
 		bool $isInternal
 	)
@@ -37,6 +41,7 @@ class PhpPropertyReflection implements PropertyReflection, DeprecatableReflectio
 		$this->declaringClass = $declaringClass;
 		$this->type = $type;
 		$this->reflection = $reflection;
+		$this->deprecatedDescription = $deprecatedDescription;
 		$this->isDeprecated = $isDeprecated;
 		$this->isInternal = $isInternal;
 	}
@@ -82,6 +87,15 @@ class PhpPropertyReflection implements PropertyReflection, DeprecatableReflectio
 	public function isWritable(): bool
 	{
 		return true;
+	}
+
+	public function getDeprecatedDescription(): ?string
+	{
+		if ($this->isDeprecated) {
+			return $this->deprecatedDescription;
+		}
+
+		return null;
 	}
 
 	public function isDeprecated(): bool

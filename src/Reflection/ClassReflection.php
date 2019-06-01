@@ -44,6 +44,9 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 	/** @var int[]|null */
 	private $classHierarchyDistances;
 
+	/** @var string|null */
+	private $deprecatedDescription;
+
 	/** @var bool|null */
 	private $isDeprecated;
 
@@ -398,6 +401,7 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 				throw new \PHPStan\Reflection\MissingConstantFromReflectionException($this->getName(), $name, $fileName !== false ? $fileName : null);
 			}
 
+			$deprecatedDescription = null;
 			$isDeprecated = false;
 			$isInternal = false;
 			if ($reflectionConstant->getDocComment() !== false && $this->getFileName() !== false) {
@@ -406,6 +410,7 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 				$className = $reflectionConstant->getDeclaringClass()->getName();
 				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, $className, null, $docComment);
 
+				$deprecatedDescription = $resolvedPhpDoc->getDeprecatedTag() !== null ? $resolvedPhpDoc->getDeprecatedTag()->getMessage() : null;
 				$isDeprecated = $resolvedPhpDoc->isDeprecated();
 				$isInternal = $resolvedPhpDoc->isInternal();
 			}
@@ -413,6 +418,7 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 			$this->constants[$name] = new ClassConstantReflection(
 				$this->broker->getClass($reflectionConstant->getDeclaringClass()->getName()),
 				$reflectionConstant,
+				$deprecatedDescription,
 				$isDeprecated,
 				$isInternal
 			);
@@ -438,6 +444,18 @@ class ClassReflection implements DeprecatableReflection, InternableReflection, F
 		}
 
 		return $traitNames;
+	}
+
+	public function getDeprecatedDescription(): ?string
+	{
+		if ($this->deprecatedDescription === null && $this->isDeprecated()) {
+			$resolvedPhpDoc = $this->getResolvedPhpDoc();
+			if ($resolvedPhpDoc !== null && $resolvedPhpDoc->getDeprecatedTag() !== null) {
+				$this->deprecatedDescription = $resolvedPhpDoc->getDeprecatedTag()->getMessage();
+			}
+		}
+
+		return $this->deprecatedDescription;
 	}
 
 	public function isDeprecated(): bool

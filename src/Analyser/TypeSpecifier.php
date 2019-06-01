@@ -644,17 +644,17 @@ class TypeSpecifier
 	 */
 	private function getTypeSpecifyingExtensionsForType(array $extensions, string $className): array
 	{
-		$extensionsForClass = [];
+		$extensionsForClass = [[]];
 		$class = $this->broker->getClass($className);
 		foreach (array_merge([$className], $class->getParentClassesNames(), $class->getNativeReflection()->getInterfaceNames()) as $extensionClassName) {
 			if (!isset($extensions[$extensionClassName])) {
 				continue;
 			}
 
-			$extensionsForClass = array_merge($extensionsForClass, $extensions[$extensionClassName]);
+			$extensionsForClass[] = $extensions[$extensionClassName];
 		}
 
-		return $extensionsForClass;
+		return array_merge(...$extensionsForClass);
 	}
 
 }

@@ -96,6 +96,11 @@ class NativeMethodReflection implements MethodReflection, DeprecatableReflection
 		return $this->variants;
 	}
 
+	public function getDeprecatedDescription(): ?string
+	{
+		return null;
+	}
+
 	public function isDeprecated(): bool
 	{
 		return $this->reflection->isDeprecated();

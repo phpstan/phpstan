@@ -293,3 +293,19 @@ class ReturnInPhpDoc
 	}
 
 }
+
+class YieldInAssign
+{
+
+	public function doFoo(\Generator $items): \Generator
+	{
+		while ($items->valid()) {
+			$item = $items->current();
+
+			$state = yield $item;
+
+			$items->send($state);
+		}
+	}
+
+}

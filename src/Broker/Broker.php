@@ -240,17 +240,17 @@ class Broker
 	 */
 	private function getDynamicExtensionsForType(array $extensions, string $className): array
 	{
-		$extensionsForClass = [];
+		$extensionsForClass = [[]];
 		$class = $this->getClass($className);
 		foreach (array_merge([$className], $class->getParentClassesNames(), $class->getNativeReflection()->getInterfaceNames()) as $extensionClassName) {
 			if (!isset($extensions[$extensionClassName])) {
 				continue;
 			}
 
-			$extensionsForClass = array_merge($extensionsForClass, $extensions[$extensionClassName]);
+			$extensionsForClass[] = $extensions[$extensionClassName];
 		}
 
-		return $extensionsForClass;
+		return array_merge(...$extensionsForClass);
 	}
 
 	public function getClass(string $className): \PHPStan\Reflection\ClassReflection
@@ -481,6 +481,7 @@ class Broker
 		$phpDocParameterTags = [];
 		$phpDocReturnTag = null;
 		$phpDocThrowsTag = null;
+		$deprecatedTag = null;
 		$isDeprecated = false;
 		$isInternal = false;
 		$isFinal = false;
@@ -491,6 +492,7 @@ class Broker
 			$phpDocParameterTags = $resolvedPhpDoc->getParamTags();
 			$phpDocReturnTag = $resolvedPhpDoc->getReturnTag();
 			$phpDocThrowsTag = $resolvedPhpDoc->getThrowsTag();
+			$deprecatedTag = $resolvedPhpDoc->getDeprecatedTag();
 			$isDeprecated = $resolvedPhpDoc->isDeprecated();
 			$isInternal = $resolvedPhpDoc->isInternal();
 			$isFinal = $resolvedPhpDoc->isFinal();
@@ -503,6 +505,7 @@ class Broker
 			}, $phpDocParameterTags),
 			$phpDocReturnTag !== null ? $phpDocReturnTag->getType() : null,
 			$phpDocThrowsTag !== null ? $phpDocThrowsTag->getType() : null,
+			$deprecatedTag !== null ? $deprecatedTag->getMessage() : null,
 			$isDeprecated,
 			$isInternal,
 			$isFinal,

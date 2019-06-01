@@ -118,6 +118,7 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 					$constructor !== null
 					&& $constructor->getDeclaringClass()->getName() === $classReflection->getParentClass()->getName()
 					&& !$constructor->isAbstract()
+					&& !$constructor->isPrivate()
 				) || (
 					$constructorWithClassName !== null
 					&& $constructorWithClassName->getDeclaringClass()->getName() === $classReflection->getParentClass()->getName()
