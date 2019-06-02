@@ -35,7 +35,7 @@ class CommentParser
 		);
 
 		if (count($ignoreNextLineMatches) > 0) {
-			return new IgnoreComment($comment, $node, true);
+			return IgnoreComment::createIgnoreNextLine($comment, $node);
 		}
 
 		preg_match(
@@ -45,7 +45,7 @@ class CommentParser
 		);
 
 		if (count($ignoreMessageMatches) > 0) {
-			return new IgnoreComment($comment, $node, false, trim($ignoreMessageMatches[1]));
+			return IgnoreComment::createIgnoreMessage($comment, $node, trim($ignoreMessageMatches[1]));
 		}
 
 		preg_match(
@@ -55,7 +55,7 @@ class CommentParser
 		);
 
 		if (count($ignoreMessageRegexpMatches) > 0) {
-			return new IgnoreComment($comment, $node, false, trim($ignoreMessageRegexpMatches[1]), true);
+			return IgnoreComment::createIgnoreRegexp($comment, $node, trim($ignoreMessageRegexpMatches[1]));
 		}
 
 		return null;

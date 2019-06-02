@@ -17,18 +17,18 @@ class IgnoreComment
 	/** @var bool */
 	private $ignoreNextLine;
 
-	/**  @var string */
+	/**  @var string|null */
 	private $message;
 
 	/** @var bool */
 	private $isRegexp;
 
-	public function __construct(
+	private function __construct(
 		Comment $comment,
 		Node $node,
 		bool $ignoreNextLine,
-		string $message = '',
-		bool $isRegexp = false
+		?string $message,
+		bool $isRegexp
 	)
 	{
 		$this->comment = $comment;
@@ -36,6 +36,21 @@ class IgnoreComment
 		$this->ignoreNextLine = $ignoreNextLine;
 		$this->message = $message;
 		$this->isRegexp = $isRegexp;
+	}
+
+	public static function createIgnoreNextLine(Comment $comment, Node $node): self
+	{
+		return new self($comment, $node, true, null, false);
+	}
+
+	public static function createIgnoreMessage(Comment $comment, Node $node, string $message): self
+	{
+		return new self($comment, $node, false, $message, false);
+	}
+
+	public static function createIgnoreRegexp(Comment $comment, Node $node, string $pattern): self
+	{
+		return new self($comment, $node, false, $pattern, true);
 	}
 
 	public function getComment(): Comment
@@ -63,7 +78,7 @@ class IgnoreComment
 		return $this->isRegexp;
 	}
 
-	public function getMessage(): string
+	public function getMessage(): ?string
 	{
 		return $this->message;
 	}
