@@ -50,6 +50,7 @@ class IgnoreComment
 
 	public static function createIgnoreRegexp(Comment $comment, Node $node, string $pattern): self
 	{
+		\Nette\Utils\Strings::match('', '/' . $pattern . '/');
 		return new self($comment, $node, false, $pattern, true);
 	}
 

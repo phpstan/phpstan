@@ -167,7 +167,12 @@ class Analyser
 								&& $scope->isInFirstLevelStatement()
 							) {
 								foreach ($node->getComments() as $comment) {
-									$ignoreComment = $this->commentParser->parseIgnoreComment($comment, $node);
+									try {
+										$ignoreComment = $this->commentParser->parseIgnoreComment($comment, $node);
+									} catch (\Nette\Utils\RegexpException $e) {
+										$fileErrors[] = new Error($e->getMessage(), $file, $comment->getLine(), false);
+										continue;
+									}
 									if ($ignoreComment === null) {
 										continue;
 									}

@@ -40,6 +40,9 @@ class Stub
 
 		/** @phpstan-ignore-next-line */
 		echo 'Foo'; // no error reported
+
+		/* @phpstan-ignore-message-regex ^Fai[a-z\.$ */
+		doFoo();
 	}
 
 }
