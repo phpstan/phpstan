@@ -11,26 +11,11 @@ class IgnoreCommentsCollection
 	/** @var array<int, true> */
 	private $usedIgnores = [];
 
-	/**
-	 * Add a rule to ignore
-	 *
-	 * @param IgnoreComment $ignoreComment
-	 *
-	 * @return void
-	 */
 	public function add(IgnoreComment $ignoreComment): void
 	{
 		$this->ignoreComments[] = $ignoreComment;
 	}
 
-	/**
-	 * Check if a rule is to be ignored for a certain node
-	 *
-	 * @param \PhpParser\Node $node The node where the rule found an error
-	 * @param string $message
-	 *
-	 * @return bool
-	 */
 	public function isIgnored(\PhpParser\Node $node, string $message): bool
 	{
 		foreach ($this->ignoreComments as $i => $ignoreComment) {

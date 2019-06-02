@@ -12,14 +12,6 @@ class CommentParser
 	public const ANNOTATION_REGEX_IGNORE_MESSAGE = '/[(\/\*\*)|(\/\/)] \@phpstan\-ignore-message ([^\*\/]+)( \*\/)?/';
 	public const ANNOTATION_REGEX_IGNORE_MESSAGE_REGEXP = '/[(\/\*\*)|(\/\/)] \@phpstan\-ignore-message-regexp? ([^\*\/]+)( \*\/)?/';
 
-	/**
-	 * Try to parse a comment and create an ignored comment
-	 *
-	 * @param Comment $comment
-	 * @param Node $node
-	 *
-	 * @return IgnoreComment|null
-	 */
 	public function parseIgnoreComment(Comment $comment, Node $node): ?IgnoreComment
 	{
 		$commentText = trim($comment->getText());
