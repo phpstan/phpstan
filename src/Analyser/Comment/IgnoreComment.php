@@ -81,4 +81,34 @@ class IgnoreComment
 		return count($matches) > 0;
 	}
 
+	public function describe(): string
+	{
+		if ($this->ignoreNextLine) {
+			return sprintf('There is no error to ignore on %s.', $this->describeLines());
+		}
+
+		if ($this->isRegexp) {
+			return sprintf('There is no error matching regular expression "%s" on %s.', $this->message, $this->describeLines());
+		}
+
+		return sprintf('There is no error "%s" on %s.', $this->message, $this->describeLines());
+	}
+
+	private function describeLines(): string
+	{
+		$startLine = $this->node->getStartLine();
+		$endLine = $this->node->getEndLine();
+
+		if ($startLine === $endLine) {
+			return 'the next line';
+		}
+
+		return sprintf('lines %d-%d', $startLine, $endLine);
+	}
+
+	public function getLine(): int
+	{
+		return $this->comment->getLine();
+	}
+
 }

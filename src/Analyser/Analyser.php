@@ -3,9 +3,11 @@
 namespace PHPStan\Analyser;
 
 use Nette\Utils\Json;
+use PhpParser\Node\Stmt\Expression;
 use PHPStan\Analyser\Comment\CommentParser;
 use PHPStan\Analyser\Comment\IgnoreCommentsCollection;
 use PHPStan\File\FileHelper;
+use PHPStan\Node\VirtualNode;
 use PHPStan\Parser\Parser;
 use PHPStan\Rules\FileRuleError;
 use PHPStan\Rules\LineRuleError;
@@ -159,13 +161,19 @@ class Analyser
 							$this->benchmarkEnd($scopeBenchmarkTime, 'scope');
 							$uniquedAnalysedCodeExceptionMessages = [];
 
-							foreach ($node->getComments() as $comment) {
-								$ignoreComment = $this->commentParser->parseIgnoreComment($comment, $node);
-								if ($ignoreComment === null) {
-									continue;
-								}
+							if (
+								!$node instanceof VirtualNode
+								&& !$node instanceof Expression
+								&& $scope->isInFirstLevelStatement()
+							) {
+								foreach ($node->getComments() as $comment) {
+									$ignoreComment = $this->commentParser->parseIgnoreComment($comment, $node);
+									if ($ignoreComment === null) {
+										continue;
+									}
 
-								$ignoreComments->add($ignoreComment);
+									$ignoreComments->add($ignoreComment);
+								}
 							}
 
 							foreach ($this->registry->getRules(get_class($node)) as $rule) {
@@ -215,6 +223,11 @@ class Analyser
 							$scopeBenchmarkTime = $this->benchmarkStart();
 						}
 					);
+
+					foreach ($ignoreComments->getUnusedIgnores() as $ignoreComment) {
+						$fileErrors[] = new Error($ignoreComment->describe(), $file, $ignoreComment->getLine(), false);
+					}
+
 				} elseif (is_dir($file)) {
 					$fileErrors[] = new Error(sprintf('File %s is a directory.', $file), $file, null, false);
 				} else {

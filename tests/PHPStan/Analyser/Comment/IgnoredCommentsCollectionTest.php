@@ -79,7 +79,7 @@ final class IgnoredCommentsCollectionTest extends TestCase
 
 	/**
 	 * @dataProvider dataIsIgnoredCheck
-	 * @param bool $ignoreNextLine
+	 * @param IgnoreComment $ignoreComment
 	 * @param int $line
 	 * @param bool $expectErrorToBeIgnored
 	 */

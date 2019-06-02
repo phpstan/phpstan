@@ -5,8 +5,11 @@ namespace PHPStan\Analyser\Comment;
 class IgnoreCommentsCollection
 {
 
-	/** @var array<IgnoreComment> */
-	private $ignoredRules = [];
+	/** @var array<int, IgnoreComment> */
+	private $ignoreComments = [];
+
+	/** @var array<int, true> */
+	private $usedIgnores = [];
 
 	/**
 	 * Add a rule to ignore
@@ -17,7 +20,7 @@ class IgnoreCommentsCollection
 	 */
 	public function add(IgnoreComment $ignoreComment): void
 	{
-		$this->ignoredRules[] = $ignoreComment;
+		$this->ignoreComments[] = $ignoreComment;
 	}
 
 	/**
@@ -30,14 +33,33 @@ class IgnoreCommentsCollection
 	 */
 	public function isIgnored(\PhpParser\Node $node, string $message): bool
 	{
-		$ignoredRules = array_filter(
-			$this->ignoredRules,
-			static function (IgnoreComment $ignoreComment) use ($node, $message): bool {
-				return $ignoreComment->ignores($node, $message);
+		foreach ($this->ignoreComments as $i => $ignoreComment) {
+			if (!$ignoreComment->ignores($node, $message)) {
+				continue;
 			}
-		);
 
-		return count($ignoredRules) > 0;
+			$this->usedIgnores[$i] = true;
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * @return array<IgnoreComment>
+	 */
+	public function getUnusedIgnores(): array
+	{
+		$comments = [];
+		foreach ($this->ignoreComments as $i => $ignoreComment) {
+			if (isset($this->usedIgnores[$i])) {
+				continue;
+			}
+
+			$comments[] = $ignoreComment;
+		}
+
+		return $comments;
 	}
 
 }
