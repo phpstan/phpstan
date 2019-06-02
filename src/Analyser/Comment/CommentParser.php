@@ -5,7 +5,7 @@ namespace PHPStan\Analyser\Comment;
 use PhpParser\Comment;
 use PhpParser\Node;
 
-final class CommentParser
+class CommentParser
 {
 
 	public const ANNOTATION_REGEX_IGNORE_NEXT_LINE = '/[(\/\*\*)|(\/\/)] (\@phpstan\-ignore-next-line)( \*\/)?/';

@@ -5,7 +5,7 @@ namespace PHPStan\Analyser\Comment;
 use PhpParser\Comment;
 use PhpParser\Node;
 
-final class IgnoreComment
+class IgnoreComment
 {
 
 	/** @var Comment */

@@ -2,7 +2,7 @@
 
 namespace PHPStan\Analyser\Comment;
 
-final class IgnoreCommentsCollection
+class IgnoreCommentsCollection
 {
 
 	/** @var array<IgnoreComment> */
