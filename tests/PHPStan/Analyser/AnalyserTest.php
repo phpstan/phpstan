@@ -53,7 +53,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 	public function testFileWithIgnoreErrorComments(): void
 	{
 		$result = $this->runAnalyser([], true, __DIR__ . '/data/ignore-error-comments.php', false);
-		$this->assertCount(5, $result);
+		$this->assertCount(8, $result);
 		$this->assertInstanceOf(Error::class, $result[0]);
 		$this->assertSame('Fail.', $result[0]->getMessage());
 		$this->assertSame(28, $result[0]->getLine());
@@ -73,6 +73,18 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		$this->assertInstanceOf(Error::class, $result[4]);
 		$this->assertSame('There is no error to ignore on the next line.', $result[4]->getMessage());
 		$this->assertSame(41, $result[4]->getLine());
+
+		$this->assertInstanceOf(Error::class, $result[5]);
+		$this->assertSame('There is no error "Test" on the next line.', $result[5]->getMessage());
+		$this->assertSame(47, $result[5]->getLine());
+
+		$this->assertInstanceOf(Error::class, $result[6]);
+		$this->assertSame('There is no error matching regular expression "^Test$" on the next line.', $result[6]->getMessage());
+		$this->assertSame(50, $result[6]->getLine());
+
+		$this->assertInstanceOf(Error::class, $result[7]);
+		$this->assertSame('There is no error "Test" on lines 54-56.', $result[7]->getMessage());
+		$this->assertSame(53, $result[7]->getLine());
 	}
 
 	public function testIgnoringBrokenConfigurationDoesNotWork(): void

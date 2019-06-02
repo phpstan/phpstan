@@ -43,6 +43,18 @@ class Stub
 
 		/* @phpstan-ignore-message-regex ^Fai[a-z\.$ */
 		doFoo();
+
+		/** @phpstan-ignore-message Test */
+		echo 'Foo';
+
+		/** @phpstan-ignore-message-regex ^Test$ */
+		echo 'Foo';
+
+		/** @phpstan-ignore-message Test */
+		if (true) {
+
+		}
+
 	}
 
 }
