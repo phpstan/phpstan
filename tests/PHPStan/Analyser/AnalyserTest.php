@@ -56,7 +56,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 
 		$result = $this->runAnalyser([], true, __DIR__ . '/data/ignore-error-comments.php', false);
 		$this->assertCount(1, $result);
-		assert($result[0] instanceof Error);
+		$this->assertInstanceOf(Error::class, $result[0]);
 		$this->assertSame('Fail.', $result[0]->getMessage());
 		$this->assertSame(28, $result[0]->getLine());
 	}
@@ -65,7 +65,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 	{
 		$result = $this->runAnalyser(['#was not found while trying to analyse it#'], true, __DIR__ . '/../../notAutoloaded/Baz.php', false);
 		$this->assertCount(2, $result);
-		assert($result[0] instanceof Error);
+		$this->assertInstanceOf(Error::class, $result[0]);
 		$this->assertSame('Class PHPStan\Tests\Baz was not found while trying to analyse it - autoloading is probably not configured properly.', $result[0]->getMessage());
 		$this->assertSame('Error message "Class PHPStan\Tests\Baz was not found while trying to analyse it - autoloading is probably not configured properly." cannot be ignored, use excludes_analyse instead.', $result[1]);
 	}
