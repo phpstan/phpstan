@@ -55,10 +55,14 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		include __DIR__ . '/data/ignore-error-comments.php';
 
 		$result = $this->runAnalyser([], true, __DIR__ . '/data/ignore-error-comments.php', false);
-		$this->assertCount(1, $result);
+		$this->assertCount(2, $result);
 		$this->assertInstanceOf(Error::class, $result[0]);
 		$this->assertSame('Fail.', $result[0]->getMessage());
 		$this->assertSame(28, $result[0]->getLine());
+
+		$this->assertInstanceOf(Error::class, $result[1]);
+		$this->assertSame('Fail.', $result[1]->getMessage());
+		$this->assertSame(30, $result[1]->getLine());
 	}
 
 	public function testIgnoringBrokenConfigurationDoesNotWork(): void

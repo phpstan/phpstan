@@ -10,11 +10,11 @@ class Stub
 	 *
 	 * @phpstan-ignore-message Fail.
 	 */
-	public function wholeMethodIgnored(): int
+	public function wholeMethodIgnored()
 	{
-		echo $baz;
+		doFoo();
 
-		return 'wrong type';
+		doFoo();
 	}
 
 	/**
@@ -27,10 +27,10 @@ class Stub
 		doFoo();
 		doBar();
 
-		echo 'This is valid.';
+		doFoo();
 
 		/** @phpstan-ignore-message-regexp ^Fai[a-z]\.$ */
-		echo $ignoreWithDocBlock;
+		doFoo();
 
 	}
 
@@ -43,10 +43,10 @@ class Stub
  */
 class IgnoredClassStub
 {
-	public function run(): int
+	public function run()
 	{
-		echo $baz;
+		doFoo();
 
-		return 'wrong type';
+		doFoo();
 	}
 }
