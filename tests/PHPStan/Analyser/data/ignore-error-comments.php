@@ -8,7 +8,7 @@ class Stub
 	/**
 	 * Ignore rule inside whole method
 	 *
-	 * @phpstan-ignore PHPStan.Rules.AlwaysFailRule
+	 * @phpstan-ignore-message Fail.
 	 */
 	public function wholeMethodIgnored(): int
 	{
@@ -23,13 +23,13 @@ class Stub
 	public function someNodesIgnored()
 	{
 
-		// @phpstan-ignore PHPStan.Rules.AlwaysFailRule
+		// @phpstan-ignore-next-line
 		doFoo();
 		doBar();
 
 		echo 'This is valid.';
 
-		/** @phpstan-ignore PHPStan.Rules.AlwaysFailRule */
+		/** @phpstan-ignore-message-regexp ^Fai[a-z]\.$ */
 		echo $ignoreWithDocBlock;
 
 	}
@@ -39,7 +39,7 @@ class Stub
 /**
  * Ignore rules inside whole class
  *
- * @phpstan-ignore PHPStan.Rules.AlwaysFailRule
+ * @phpstan-ignore-next-line
  */
 class IgnoredClassStub
 {

@@ -2,6 +2,7 @@
 
 namespace PHPStan\Analyser;
 
+use PHPStan\Analyser\Comment\CommentParser;
 use PHPStan\Broker\AnonymousClassNameHelper;
 use PHPStan\Cache\Cache;
 use PHPStan\File\FileHelper;
@@ -235,6 +236,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		$broker = $this->createBroker();
 		$printer = new \PhpParser\PrettyPrinter\Standard();
 		$fileHelper = self::getContainer()->getByType(FileHelper::class);
+		$commentParser = self::getContainer()->getByType(CommentParser::class);
 
 		/** @var RelativePathHelper $relativePathHelper */
 		$relativePathHelper = self::getContainer()->getService('relativePathHelper');
@@ -256,6 +258,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 				[]
 			),
 			$fileHelper,
+			$commentParser,
 			$ignoreErrors,
 			$reportUnmatchedIgnoredErrors,
 			50

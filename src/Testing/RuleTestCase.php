@@ -3,6 +3,7 @@
 namespace PHPStan\Testing;
 
 use PHPStan\Analyser\Analyser;
+use PHPStan\Analyser\Comment\CommentParser;
 use PHPStan\Analyser\Error;
 use PHPStan\Analyser\NodeScopeResolver;
 use PHPStan\Analyser\TypeSpecifier;
@@ -43,6 +44,7 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 			$broker = $this->createBroker();
 			$printer = new \PhpParser\PrettyPrinter\Standard();
 			$fileHelper = $this->getFileHelper();
+			$commentParser = self::getContainer()->getByType(CommentParser::class);
 			$typeSpecifier = $this->createTypeSpecifier(
 				$printer,
 				$broker,
@@ -66,6 +68,7 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 					[]
 				),
 				$fileHelper,
+				$commentParser,
 				[],
 				true,
 				50

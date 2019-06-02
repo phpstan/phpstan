@@ -3,6 +3,8 @@
 namespace PHPStan\Analyser;
 
 use Nette\Utils\Json;
+use PHPStan\Analyser\Comment\CommentParser;
+use PHPStan\Analyser\Comment\IgnoreCommentsCollection;
 use PHPStan\File\FileHelper;
 use PHPStan\Parser\Parser;
 use PHPStan\Rules\FileRuleError;
@@ -27,6 +29,9 @@ class Analyser
 	/** @var \PHPStan\File\FileHelper */
 	private $fileHelper;
 
+	/** @var CommentParser */
+	private $commentParser;
+
 	/** @var (string|mixed[])[] */
 	private $ignoreErrors;
 
@@ -48,6 +53,7 @@ class Analyser
 	 * @param \PHPStan\Rules\Registry $registry
 	 * @param \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver
 	 * @param \PHPStan\File\FileHelper $fileHelper
+	 * @param CommentParser $commentParser
 	 * @param (string|array<string, string>)[] $ignoreErrors
 	 * @param bool $reportUnmatchedIgnoredErrors
 	 * @param int $internalErrorsCountLimit
@@ -59,6 +65,7 @@ class Analyser
 		Registry $registry,
 		NodeScopeResolver $nodeScopeResolver,
 		FileHelper $fileHelper,
+		CommentParser $commentParser,
 		array $ignoreErrors,
 		bool $reportUnmatchedIgnoredErrors,
 		int $internalErrorsCountLimit,
@@ -70,6 +77,7 @@ class Analyser
 		$this->registry = $registry;
 		$this->nodeScopeResolver = $nodeScopeResolver;
 		$this->fileHelper = $fileHelper;
+		$this->commentParser = $commentParser;
 		$this->ignoreErrors = $ignoreErrors;
 		$this->reportUnmatchedIgnoredErrors = $reportUnmatchedIgnoredErrors;
 		$this->internalErrorsCountLimit = $internalErrorsCountLimit;
@@ -141,28 +149,23 @@ class Analyser
 					$parserNodes = $this->parser->parseFile($file);
 					$this->benchmarkEnd($parserBenchmarkTime, 'parser');
 
-					$ignoredRules = new IgnoredRulesCollection();
+					$ignoreComments = new IgnoreCommentsCollection();
 
 					$scopeBenchmarkTime = $this->benchmarkStart();
 					$this->nodeScopeResolver->processNodes(
 						$parserNodes,
 						$this->scopeFactory->create(ScopeContext::create($file)),
-						function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors, $file, &$scopeBenchmarkTime, $ignoredRules): void {
+						function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors, $file, &$scopeBenchmarkTime, $ignoreComments): void {
 							$this->benchmarkEnd($scopeBenchmarkTime, 'scope');
 							$uniquedAnalysedCodeExceptionMessages = [];
 
 							foreach ($node->getComments() as $comment) {
-								preg_match(
-									'/[(\/\*\*)|(\/\/)] \@phpstan\-ignore ([^\* \/]+)( \*\/)?/',
-									trim($comment->getText()),
-									$ignoreCommentMatches
-								);
-
-								if (count($ignoreCommentMatches) <= 0) {
+								$ignoreComment = $this->commentParser->parseIgnoreComment($comment, $node);
+								if ($ignoreComment === null) {
 									continue;
 								}
 
-								$ignoredRules->add($node, trim($ignoreCommentMatches[1]));
+								$ignoreComments->add($ignoreComment);
 							}
 
 							foreach ($this->registry->getRules(get_class($node)) as $rule) {
@@ -181,11 +184,6 @@ class Analyser
 								}
 
 								foreach ($ruleErrors as $ruleError) {
-									$ruleName = str_replace('\\', '.', get_class($rule));
-									if ($ignoredRules->isIgnored($node, $ruleName)) {
-										continue;
-									}
-
 									$line = $node->getLine();
 									$fileName = $scope->getFileDescription();
 									if (is_string($ruleError)) {
@@ -205,6 +203,11 @@ class Analyser
 											$fileName = $ruleError->getFile();
 										}
 									}
+
+									if ($ignoreComments->isIgnored($node, $message)) {
+										continue;
+									}
+
 									$fileErrors[] = new Error($message, $fileName, $line);
 								}
 							}

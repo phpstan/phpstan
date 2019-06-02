@@ -665,6 +665,9 @@ services:
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 
+	-
+		class: PHPStan\Analyser\Comment\CommentParser
+
 	typeSpecifier:
 		class: PHPStan\Analyser\TypeSpecifier
 		factory: @typeSpecifierFactory::create
