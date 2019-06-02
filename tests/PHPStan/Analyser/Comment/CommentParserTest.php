@@ -8,23 +8,77 @@ use PHPUnit\Framework\TestCase;
 final class CommentParserTest extends TestCase
 {
 
+	public function dataParseIgnoreComment(): array
+	{
+		return [
+			'ignore next single line comment' => [
+				'// @phpstan-ignore-next-line',
+				true,
+			],
+			'ignore next single line doc block comment' => [
+				'/** @phpstan-ignore-next-line */',
+				true,
+			],
+			'ignore next multi line doc block comment' => [
+				'/**' . PHP_EOL .
+				' * Lorem ipsum' . PHP_EOL .
+				' *' . PHP_EOL .
+				' * @phpstan-ignore-next-line' . PHP_EOL .
+				' */',
+				true,
+			],
+
+			'ignore message single line comment' => [
+				'// @phpstan-ignore-message Function doSomething not found.',
+				true,
+			],
+			'ignore message single line comment - wrong message' => [
+				'// @phpstan-ignore-message Function doSomethingElse not found.',
+				false,
+			],
+			'ignore message single line doc block comment' => [
+				'/** @phpstan-ignore-message Function doSomething not found. */',
+				true,
+			],
+			'ignore message multi line doc block comment' => [
+				'/**' . PHP_EOL .
+				' * Lorem ipsum' . PHP_EOL .
+				' *' . PHP_EOL .
+				' * @phpstan-ignore-message Function doSomething not found.' . PHP_EOL .
+				' */',
+				true,
+			],
+			'ignore message pattern single line comment' => [
+				'// @phpstan-ignore-message-regexp Function [a-zA-Z]+ not found.',
+				true,
+			],
+			'ignore message pattern single line comment - wrong pattern' => [
+				'// @phpstan-ignore-message-regexp Function [0-9]+ not found.',
+				false,
+			],
+			'ignore message pattern single line doc block comment' => [
+				'/** @phpstan-ignore-message-regexp Function [a-zA-Z]+ not found. */',
+				true,
+			],
+			'ignore message pattern multi line doc block comment' => [
+				'/**' . PHP_EOL .
+				' * Lorem ipsum' . PHP_EOL .
+				' *' . PHP_EOL .
+				' * @phpstan-ignore-message-regexp Function [a-zA-Z]+ not found.' . PHP_EOL .
+				' */',
+				true,
+			],
+		];
+	}
+
 	/**
-	 * Test if a comment is parsed to an ignore comment
-	 *
+	 * @dataProvider dataParseIgnoreComment
 	 * @param string $commentText
-	 * @param bool $expectIgnoreNextLine
-	 * @param string $expectedMessage
-	 * @param bool $expectRegexp
-	 *
-	 * @dataProvider commentsDataProvider
-	 *
-	 * @return void
+	 * @param bool $ignores
 	 */
 	public function testParseIgnoreComment(
 		string $commentText,
-		bool $expectIgnoreNextLine,
-		string $expectedMessage = '',
-		bool $expectRegexp = false
+		bool $ignores
 	): void
 	{
 		$comment = new Comment($commentText);
@@ -37,21 +91,23 @@ final class CommentParserTest extends TestCase
 		$subject = new CommentParser();
 
 		$ignoreComment = $subject->parseIgnoreComment($comment, $callToNonExistingMethodNode);
+		$this->assertNotNull($ignoreComment);
+		$this->assertSame($ignores, $ignoreComment->ignores($callToNonExistingMethodNode, 'Function doSomething not found.'));
+	}
 
-		$this->assertInstanceOf(IgnoreComment::class, $ignoreComment);
-		$this->assertSame($expectIgnoreNextLine, $ignoreComment->shouldIgnoreNextLine());
-		$this->assertSame($expectRegexp, $ignoreComment->isRegexp());
-		$this->assertSame($expectedMessage, $ignoreComment->getMessage());
+	public function dataInvalidIgnoreComment(): array
+	{
+		return [
+			['@phpstan-ignore'],
+			['@phpstan-'],
+			['@foo'],
+			['phpstan-ignore-'],
+		];
 	}
 
 	/**
-	 * Test if invalid ignore comments are parsed to a null value
-	 *
+	 * @dataProvider dataInvalidIgnoreComment
 	 * @param string $commentText
-	 *
-	 * @dataProvider invalidIgnoreCommentsDataProvider
-	 *
-	 * @return void
 	 */
 	public function testInvalidIgnoreComment(string $commentText): void
 	{
@@ -63,85 +119,8 @@ final class CommentParserTest extends TestCase
 		);
 
 		$subject = new CommentParser();
-
 		$ignoreComment = $subject->parseIgnoreComment($comment, $callToNonExistingMethodNode);
-
 		$this->assertNull($ignoreComment);
-	}
-
-	public function commentsDataProvider(): array
-	{
-		return [
-			'ignore next single line comment'           => [
-				'commentText'          => '// @phpstan-ignore-next-line',
-				'expectIgnoreNextLine' => true,
-			],
-			'ignore next single line doc block comment' => [
-				'commentText'          => '/** @phpstan-ignore-next-line */',
-				'expectIgnoreNextLine' => true,
-			],
-			'ignore next multi line doc block comment'  => [
-				'commentText'          => '/**' . PHP_EOL .
-					' * Lorem ipsum' . PHP_EOL .
-					' *' . PHP_EOL .
-					' * @phpstan-ignore-next-line' . PHP_EOL .
-					' */',
-				'expectIgnoreNextLine' => true,
-			],
-
-			'ignore message single line comment'           => [
-				'commentText'          => '// @phpstan-ignore-message Function doSomething not found.',
-				'expectIgnoreNextLine' => false,
-				'expectedMessage'      => 'Function doSomething not found.',
-			],
-			'ignore message single line doc block comment' => [
-				'commentText'          => '/** @phpstan-ignore-message Function doSomething not found. */',
-				'expectIgnoreNextLine' => false,
-				'expectedMessage'      => 'Function doSomething not found.',
-			],
-			'ignore message multi line doc block comment'  => [
-				'commentText'          => '/**' . PHP_EOL .
-					' * Lorem ipsum' . PHP_EOL .
-					' *' . PHP_EOL .
-					' * @phpstan-ignore-message Function doSomething not found.' . PHP_EOL .
-					' */',
-				'expectIgnoreNextLine' => false,
-				'expectedMessage'      => 'Function doSomething not found.',
-			],
-
-			'ignore message pattern single line comment'           => [
-				'commentText'          => '// @phpstan-ignore-message-regexp Function [a-zA-Z]+ not found.',
-				'expectIgnoreNextLine' => false,
-				'expectedMessage'      => 'Function [a-zA-Z]+ not found.',
-				'expectRegexp'         => true,
-			],
-			'ignore message pattern single line doc block comment' => [
-				'commentText'          => '/** @phpstan-ignore-message-regexp Function [a-zA-Z]+ not found. */',
-				'expectIgnoreNextLine' => false,
-				'expectedMessage'      => 'Function [a-zA-Z]+ not found.',
-				'expectRegexp'         => true,
-			],
-			'ignore message pattern multi line doc block comment'  => [
-				'commentText'          => '/**' . PHP_EOL .
-					' * Lorem ipsum' . PHP_EOL .
-					' *' . PHP_EOL .
-					' * @phpstan-ignore-message-regexp Function [a-zA-Z]+ not found.' . PHP_EOL .
-					' */',
-				'expectIgnoreNextLine' => false,
-				'expectedMessage'      => 'Function [a-zA-Z]+ not found.',
-				'expectRegexp'         => true,
-			],
-		];
-	}
-
-	public function invalidIgnoreCommentsDataProvider(): array
-	{
-		return [
-			['@phpstan-ignore'],
-			['@phpstan-'],
-			['@foo'],
-			['phpstan-ignore-'],
-		];
 	}
 
 }

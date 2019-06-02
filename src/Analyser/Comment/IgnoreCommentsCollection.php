@@ -33,30 +33,7 @@ class IgnoreCommentsCollection
 		$ignoredRules = array_filter(
 			$this->ignoredRules,
 			static function (IgnoreComment $ignoreComment) use ($node, $message): bool {
-				$line = $node->getLine();
-
-				if (
-					$line < $ignoreComment->getStartLine() ||
-					$line > $ignoreComment->getEndLine()
-				) {
-					return false;
-				}
-
-				if ($ignoreComment->shouldIgnoreNextLine()) {
-					return true;
-				}
-
-				if (!$ignoreComment->isRegexp()) {
-					return $message === $ignoreComment->getMessage();
-				}
-
-				preg_match(
-					sprintf('/%s/', $ignoreComment->getMessage()),
-					$message,
-					$matches
-				);
-
-				return count($matches) > 0;
+				return $ignoreComment->ignores($node, $message);
 			}
 		);
 

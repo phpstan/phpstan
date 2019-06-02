@@ -53,34 +53,32 @@ class IgnoreComment
 		return new self($comment, $node, false, $pattern, true);
 	}
 
-	public function getComment(): Comment
+	public function ignores(Node $node, string $message): bool
 	{
-		return $this->comment;
-	}
+		$line = $node->getLine();
 
-	public function getStartLine(): int
-	{
-		return $this->node->getStartLine();
-	}
+		if (
+			$line < $this->node->getStartLine() ||
+			$line > $this->node->getEndLine()
+		) {
+			return false;
+		}
 
-	public function getEndLine(): int
-	{
-		return $this->node->getEndLine();
-	}
+		if ($this->ignoreNextLine) {
+			return true;
+		}
 
-	public function shouldIgnoreNextLine(): bool
-	{
-		return $this->ignoreNextLine;
-	}
+		if (!$this->isRegexp) {
+			return $message === $this->message;
+		}
 
-	public function isRegexp(): bool
-	{
-		return $this->isRegexp;
-	}
+		preg_match(
+			sprintf('/%s/', $this->message),
+			$message,
+			$matches
+		);
 
-	public function getMessage(): ?string
-	{
-		return $this->message;
+		return count($matches) > 0;
 	}
 
 }
