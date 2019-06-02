@@ -34,6 +34,9 @@ class Stub
 
 		/** @phpstan-ignore-message-regex ^Fai[a-z]\.$ */
 		doFoo();
+
+		/* @phpstan-ignore-message-regex ^Fai[a-z]\.$ */
+		doFoo();
 	}
 
 }
