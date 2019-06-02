@@ -52,8 +52,6 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 
 	public function testFileWithIgnoreErrorComments(): void
 	{
-		include __DIR__ . '/data/ignore-error-comments.php';
-
 		$result = $this->runAnalyser([], true, __DIR__ . '/data/ignore-error-comments.php', false);
 		$this->assertCount(2, $result);
 		$this->assertInstanceOf(Error::class, $result[0]);
