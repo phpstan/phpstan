@@ -187,6 +187,19 @@ class IterableType implements StaticResolvableType, CompoundType
 		return $this->getItemType();
 	}
 
+
+	public function map(callable $cb): Type
+	{
+		$keyType = $this->keyType->map($cb);
+		$itemType = $this->itemType->map($cb);
+
+		if ($keyType !== $this->keyType || $itemType !== $this->itemType) {
+			return $cb(new static($keyType, $itemType));
+		}
+
+		return $cb($this);
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

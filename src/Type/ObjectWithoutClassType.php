@@ -140,6 +140,18 @@ class ObjectWithoutClassType implements SubtractableType
 		return $this->subtractedType;
 	}
 
+
+	public function map(callable $cb): Type
+	{
+		$subtractedType = $this->subtractedType !== null ? $this->subtractedType->map($cb) : null;
+
+		if ($subtractedType !== $this->subtractedType) {
+			return $cb(new static($subtractedType));
+		}
+
+		return $cb($this);
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

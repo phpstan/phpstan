@@ -555,6 +555,26 @@ class UnionType implements CompoundType, StaticResolvableType
 		return $types;
 	}
 
+	public function map(callable $cb): Type
+	{
+		$types = [];
+		$changed = false;
+
+		foreach ($this->types as $type) {
+			$newType = $type->map($cb);
+			if ($type !== $newType) {
+				$changed = true;
+			}
+			$types[] = $newType;
+		}
+
+		if ($changed) {
+			return $cb(new static($types));
+		}
+
+		return $cb($this);
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

@@ -317,6 +317,18 @@ class ArrayType implements StaticResolvableType
 		return $keyTypeMap->union($itemTypeMap);
 	}
 
+	public function map(callable $cb): Type
+	{
+		$keyType = $this->keyType->map($cb);
+		$itemType = $this->itemType->map($cb);
+
+		if ($keyType !== $this->keyType || $itemType !== $this->itemType) {
+			return $cb(new static($keyType, $itemType));
+		}
+
+		return $cb($this);
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type
