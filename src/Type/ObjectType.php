@@ -720,4 +720,18 @@ class ObjectType implements TypeWithClassName, SubtractableType
 		return $this->subtractedType;
 	}
 
+	public function map(callable $cb): Type
+	{
+		$subtractedType = $this->subtractedType !== null ? $this->subtractedType->map($cb) : null;
+
+		if ($subtractedType !== $this->subtractedType) {
+			return $cb(new static(
+				$this->className,
+				$subtractedType
+			));
+		}
+
+		return $cb($this);
+	}
+
 }

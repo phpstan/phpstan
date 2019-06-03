@@ -90,6 +90,13 @@ interface Type
 	public function inferTemplateTypes(Type $receivedType): TemplateTypeMap;
 
 	/**
+	 * Transforms $this with the given callable
+	 *
+	 * @param callable(Type):Type $cb
+	 */
+	public function map(callable $cb): Type;
+
+	/**
 	 * @param mixed[] $properties
 	 * @return self
 	 */

@@ -116,6 +116,11 @@ class FloatType implements Type
 		return new ErrorType();
 	}
 
+	public function map(callable $cb): Type
+	{
+		return $cb($this);
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

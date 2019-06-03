@@ -6,7 +6,8 @@ use PHPStan\Reflection\Native\NativeParameterReflection;
 use PHPStan\Reflection\PassedByReference;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Accessory\HasMethodType;
-use PHPStan\Type\Generic\TemplateMixedType;
+use PHPStan\Type\Generic\TemplateTypeFactory;
+use PHPStan\Type\Generic\TemplateTypeScope;
 
 class CallableTypeTest extends \PHPStan\Testing\TestCase
 {
@@ -163,6 +164,14 @@ class CallableTypeTest extends \PHPStan\Testing\TestCase
 			);
 		};
 
+		$templateType = static function (string $name): Type {
+			return TemplateTypeFactory::create(
+				new TemplateTypeScope(null, null),
+				$name,
+				new MixedType()
+			);
+		};
+
 		return [
 			'template param' => [
 				new CallableType(
@@ -173,7 +182,7 @@ class CallableTypeTest extends \PHPStan\Testing\TestCase
 				),
 				new CallableType(
 					[
-						$param(new TemplateMixedType('T')),
+						$param($templateType('T')),
 					],
 					new IntegerType()
 				),
@@ -190,7 +199,7 @@ class CallableTypeTest extends \PHPStan\Testing\TestCase
 					[
 						$param(new StringType()),
 					],
-					new TemplateMixedType('T')
+					$templateType('T')
 				),
 				['T' => 'int'],
 			],
@@ -205,9 +214,9 @@ class CallableTypeTest extends \PHPStan\Testing\TestCase
 				new CallableType(
 					[
 						$param(new StringType()),
-						$param(new TemplateMixedType('A')),
+						$param($templateType('A')),
 					],
-					new TemplateMixedType('B')
+					$templateType('B')
 				),
 				['A' => 'DateTime', 'B' => 'int'],
 			],
@@ -225,9 +234,9 @@ class CallableTypeTest extends \PHPStan\Testing\TestCase
 				new CallableType(
 					[
 						$param(new StringType()),
-						$param(new TemplateMixedType('A')),
+						$param($templateType('A')),
 					],
-					new TemplateMixedType('B')
+					$templateType('B')
 				),
 				['A' => 'DateTime', 'B' => 'int'],
 			],
@@ -236,9 +245,9 @@ class CallableTypeTest extends \PHPStan\Testing\TestCase
 				new CallableType(
 					[
 						$param(new StringType()),
-						$param(new TemplateMixedType('A')),
+						$param($templateType('A')),
 					],
-					new TemplateMixedType('B')
+					$templateType('B')
 				),
 				[],
 			],

@@ -2,6 +2,7 @@
 
 namespace PHPStan\Type\Generic;
 
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
@@ -12,23 +13,38 @@ use PHPStan\Type\VerbosityLevel;
 final class TemplateObjectType extends ObjectType implements TemplateType
 {
 
+	/** @var TemplateTypeScope */
+	private $scope;
+
 	/** @var string */
 	private $name;
 
+	/** @var TemplateTypeStrategy */
+	private $strategy;
+
 	public function __construct(
+		TemplateTypeScope $scope,
 		string $name,
 		string $class,
-		?Type $subtractedType = null
+		?Type $subtractedType = null,
+		?TemplateTypeStrategy $templateTypeStrategy = null
 	)
 	{
 		parent::__construct($class, $subtractedType);
 
+		$this->scope = $scope;
 		$this->name = $name;
+		$this->strategy = $templateTypeStrategy ?? new TemplateTypeParameterStrategy();
 	}
 
 	public function getName(): string
 	{
 		return $this->name;
+	}
+
+	public function getScope(): TemplateTypeScope
+	{
+		return $this->scope;
 	}
 
 	public function describe(VerbosityLevel $level): string
@@ -43,7 +59,32 @@ final class TemplateObjectType extends ObjectType implements TemplateType
 	public function equals(Type $type): bool
 	{
 		return $type instanceof self
-			&& $type->name === $this->name;
+			&& $type->scope->equals($this->scope)
+			&& $type->name === $this->name
+			&& parent::equals($type);
+	}
+
+	public function getBound(): Type
+	{
+		return new ObjectType(
+			$this->getClassName(),
+			$this->getSubtractedType()
+		);
+	}
+
+	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
+	{
+		return $this->strategy->accepts($this, $type, $strictTypes);
+	}
+
+	public function isSuperTypeOf(Type $type): TrinaryLogic
+	{
+		return $this->strategy->isSuperTypeOf($this, $type);
+	}
+
+	public function isSubTypeOf(Type $type): TrinaryLogic
+	{
+		return $this->strategy->isSubTypeOf($this, $type);
 	}
 
 	public function inferTemplateTypes(Type $receivedType): TemplateTypeMap
@@ -61,6 +102,22 @@ final class TemplateObjectType extends ObjectType implements TemplateType
 		]);
 	}
 
+	public function isArgument(): bool
+	{
+		return $this->strategy->isArgument();
+	}
+
+	public function toArgument(): TemplateType
+	{
+		return new self(
+			$this->scope,
+			$this->name,
+			$this->getClassName(),
+			$this->getSubtractedType(),
+			new TemplateTypeArgumentStrategy()
+		);
+	}
+
 	public function subtract(Type $type): Type
 	{
 		if ($this->getSubtractedType() !== null) {
@@ -68,27 +125,33 @@ final class TemplateObjectType extends ObjectType implements TemplateType
 		}
 
 		return new self(
+			$this->scope,
 			$this->name,
 			$this->getClassName(),
-			$type
+			$type,
+			$this->strategy
 		);
 	}
 
 	public function getTypeWithoutSubtractedType(): Type
 	{
 		return new self(
+			$this->scope,
 			$this->name,
 			$this->getClassName(),
-			null
+			null,
+			$this->strategy
 		);
 	}
 
 	public function changeSubtractedType(?Type $subtractedType): Type
 	{
 		return new self(
+			$this->scope,
 			$this->name,
 			$this->getClassName(),
-			$subtractedType
+			$subtractedType,
+			$this->strategy
 		);
 	}
 
@@ -99,9 +162,11 @@ final class TemplateObjectType extends ObjectType implements TemplateType
 	public static function __set_state(array $properties): Type
 	{
 		return new self(
+			$properties['scope'],
 			$properties['name'],
 			$properties['className'],
-			$properties['subtractedType']
+			$properties['subtractedType'],
+			$properties['strategy']
 		);
 	}
 

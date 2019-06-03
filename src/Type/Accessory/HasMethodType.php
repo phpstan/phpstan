@@ -104,6 +104,11 @@ class HasMethodType implements AccessoryType, CompoundType
 		];
 	}
 
+	public function map(callable $cb): Type
+	{
+		return $cb($this);
+	}
+
 	public static function __set_state(array $properties): Type
 	{
 		return new self($properties['methodName']);

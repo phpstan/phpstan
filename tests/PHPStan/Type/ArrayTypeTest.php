@@ -5,7 +5,8 @@ namespace PHPStan\Type;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantIntegerType;
-use PHPStan\Type\Generic\TemplateMixedType;
+use PHPStan\Type\Generic\TemplateTypeFactory;
+use PHPStan\Type\Generic\TemplateTypeScope;
 
 class ArrayTypeTest extends \PHPStan\Testing\TestCase
 {
@@ -139,6 +140,14 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 
 	public function dataInferTemplateTypes(): array
 	{
+		$templateType = static function (string $name): Type {
+			return TemplateTypeFactory::create(
+				new TemplateTypeScope(null, null),
+				$name,
+				new MixedType()
+			);
+		};
+
 		return [
 			'valid templated item' => [
 				new ArrayType(
@@ -147,7 +156,7 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 				),
 				new ArrayType(
 					new MixedType(),
-					new TemplateMixedType('T')
+					$templateType('T')
 				),
 				['T' => 'DateTime'],
 			],
@@ -155,7 +164,7 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 				new MixedType(),
 				new ArrayType(
 					new MixedType(),
-					new TemplateMixedType('T')
+					$templateType('T')
 				),
 				['T' => '*NEVER*'],
 			],
@@ -163,7 +172,7 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 				new StringType(),
 				new ArrayType(
 					new MixedType(),
-					new TemplateMixedType('T')
+					$templateType('T')
 				),
 				['T' => '*NEVER*'],
 			],
@@ -177,7 +186,7 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 				),
 				new ArrayType(
 					new MixedType(),
-					new TemplateMixedType('T')
+					$templateType('T')
 				),
 				['T' => 'int|string'],
 			],
@@ -195,7 +204,7 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 				]),
 				new ArrayType(
 					new MixedType(),
-					new TemplateMixedType('T')
+					$templateType('T')
 				),
 				['T' => 'int|string'],
 			],
