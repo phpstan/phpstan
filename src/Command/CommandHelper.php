@@ -370,7 +370,7 @@ class CommandHelper
 			return [];
 		}
 
-		if (strpos($configFile, '.php') !== false) {
+		if (Strings::endsWith($configFile, '.php')) {
 			$data = $phpAdapter->load($configFile);
 		} else {
 			$data = $neonAdapter->load($configFile);
