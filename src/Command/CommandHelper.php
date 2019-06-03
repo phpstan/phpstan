@@ -330,9 +330,11 @@ class CommandHelper
 		array $loaderParameters
 	): void
 	{
+		$neonAdapter = new NeonAdapter();
+		$phpAdapter = new PhpAdapter();
 		$allConfigFiles = $configFiles;
 		foreach ($configFiles as $configFile) {
-			$allConfigFiles = array_merge($allConfigFiles, self::getConfigFiles($configFile, $loaderParameters));
+			$allConfigFiles = array_merge($allConfigFiles, self::getConfigFiles($neonAdapter, $phpAdapter, $configFile, $loaderParameters));
 		}
 
 		$normalized = array_map(static function (string $file) use ($fileHelper): string {
@@ -358,6 +360,8 @@ class CommandHelper
 	}
 
 	private static function getConfigFiles(
+		NeonAdapter $neonAdapter,
+		PhpAdapter $phpAdapter,
 		string $configFile,
 		array $loaderParameters
 	): array
@@ -366,12 +370,11 @@ class CommandHelper
 			return [];
 		}
 
-		if (strpos('.php', $configFile) !== false) {
-			$neonAdapter = new PhpAdapter();
+		if (strpos($configFile, '.php') !== false) {
+			$data = $phpAdapter->load($configFile);
 		} else {
-			$neonAdapter = new NeonAdapter();
+			$data = $neonAdapter->load($configFile);
 		}
-		$data = $neonAdapter->load($configFile);
 		$allConfigFiles = [];
 		if (isset($data['includes'])) {
 			Validators::assert($data['includes'], 'list', sprintf("section 'includes' in file '%s'", $configFile));
@@ -379,7 +382,7 @@ class CommandHelper
 			foreach ($includes as $include) {
 				$include = self::expandIncludedFile($include, $configFile);
 				$allConfigFiles[] = $include;
-				$allConfigFiles = array_merge($allConfigFiles, self::getConfigFiles($include, $loaderParameters));
+				$allConfigFiles = array_merge($allConfigFiles, self::getConfigFiles($neonAdapter, $phpAdapter, $include, $loaderParameters));
 			}
 		}
 

@@ -70,6 +70,16 @@ class CommandHelperTest extends TestCase
 				[],
 				true,
 			],
+			[
+				'',
+				'',
+				__DIR__ . '/data/includePhp.neon',
+				null,
+				[
+					'level' => '3',
+				],
+				false,
+			],
 		];
 	}
 
