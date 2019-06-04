@@ -129,6 +129,7 @@ Unofficial extensions for other frameworks and libraries are also available:
 * [moneyphp/money](https://github.com/JohnstonCode/phpstan-moneyphp)
 * [Drupal](https://github.com/mglaman/phpstan-drupal)
 * [WordPress](https://github.com/szepeviktor/phpstan-wordpress)
+* [SilverStripe](https://github.com/symbiote/silverstripe-phpstan)
 
 Unofficial extensions with third-party rules:
 
