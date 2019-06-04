@@ -7193,7 +7193,7 @@ return [
 'mcrypt_generic_end' => ['bool', 'td'=>'resource'],
 'mcrypt_generic_init' => ['int|false', 'td'=>'resource', 'key'=>'string', 'iv'=>'string'],
 'mcrypt_get_block_size' => ['int', 'cipher'=>'int|string', 'module'=>'string'],
-'mcrypt_get_cipher_name' => ['string|false', 'int|cipher'=>'string'],
+'mcrypt_get_cipher_name' => ['string|false', 'cipher'=>'int|string'],
 'mcrypt_get_iv_size' => ['int|false', 'cipher'=>'int|string', 'module'=>'string'],
 'mcrypt_get_key_size' => ['int', 'cipher'=>'int|string', 'module'=>'string'],
 'mcrypt_list_algorithms' => ['array', 'lib_dir='=>'string'],
