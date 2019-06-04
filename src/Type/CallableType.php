@@ -7,6 +7,7 @@ use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\Native\NativeParameterReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Traits\MaybeIterableTypeTrait;
 use PHPStan\Type\Traits\MaybeObjectTypeTrait;
 use PHPStan\Type\Traits\MaybeOffsetAccessibleTypeTrait;
@@ -43,14 +44,10 @@ class CallableType implements CompoundType, ParametersAcceptor
 		bool $variadic = true
 	)
 	{
-		if ($returnType === null) {
-			$returnType = new MixedType();
-		}
-
 		$this->parameters = $parameters ?? [];
-		$this->returnType = $returnType;
+		$this->returnType = $returnType ?? new MixedType();
 		$this->variadic = $variadic;
-		$this->isCommonCallable = $parameters === null;
+		$this->isCommonCallable = $parameters === null && $returnType === null;
 	}
 
 	/**
@@ -63,7 +60,7 @@ class CallableType implements CompoundType, ParametersAcceptor
 
 	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
-		if ($type instanceof CompoundType) {
+		if ($type instanceof CompoundType && !$type instanceof self) {
 			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
 		}
 
@@ -192,6 +189,42 @@ class CallableType implements CompoundType, ParametersAcceptor
 		return $this->returnType;
 	}
 
+	public function inferTemplateTypes(Type $receivedType): TemplateTypeMap
+	{
+		if ($receivedType instanceof UnionType || $receivedType instanceof IntersectionType) {
+			return $receivedType->inferTemplateTypesOn($this);
+		}
+
+		if ($receivedType->isCallable()->no()) {
+			return TemplateTypeMap::empty();
+		}
+
+		$parametersAcceptors = $receivedType->getCallableParametersAcceptors(new OutOfClassScope());
+
+		$typeMap = TemplateTypeMap::empty();
+
+		foreach ($parametersAcceptors as $parametersAcceptor) {
+			$typeMap = $typeMap->union($this->inferTemplateTypesOnParametersAcceptor($receivedType, $parametersAcceptor));
+		}
+
+		return $typeMap;
+	}
+
+	private function inferTemplateTypesOnParametersAcceptor(Type $receivedType, ParametersAcceptor $parametersAcceptor): TemplateTypeMap
+	{
+		$typeMap = TemplateTypeMap::empty();
+		$args = $parametersAcceptor->getParameters();
+		$returnType = $parametersAcceptor->getReturnType();
+
+		foreach ($this->getParameters() as $i => $param) {
+			$argType = isset($args[$i]) ? $args[$i]->getType() : new NeverType();
+			$paramType = $param->getType();
+			$typeMap = $typeMap->union($paramType->inferTemplateTypes($argType));
+		}
+
+		return $typeMap->union($this->getReturnType()->inferTemplateTypes($returnType));
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type
@@ -200,7 +233,7 @@ class CallableType implements CompoundType, ParametersAcceptor
 	{
 		return new self(
 			(bool) $properties['isCommonCallable'] ? null : $properties['parameters'],
-			$properties['returnType'],
+			(bool) $properties['isCommonCallable'] ? null : $properties['returnType'],
 			$properties['variadic']
 		);
 	}

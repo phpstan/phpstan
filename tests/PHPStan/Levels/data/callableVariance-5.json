@@ -1,0 +1,7 @@
+[
+    {
+        "message": "Parameter #1 $ of callable callable(Levels\\CallableVariance\\B): void expects Levels\\CallableVariance\\B, Levels\\CallableVariance\\A given.",
+        "line": 14,
+        "ignorable": true
+    }
+]

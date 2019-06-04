@@ -12,9 +12,12 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantIntegerType;
+use PHPStan\Type\Traits\NonGenericTypeTrait;
 
 class ClosureType implements TypeWithClassName, ParametersAcceptor
 {
+
+	use NonGenericTypeTrait;
 
 	/** @var ObjectType */
 	private $objectType;

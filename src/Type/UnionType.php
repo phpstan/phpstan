@@ -9,6 +9,7 @@ use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
+use PHPStan\Type\Generic\TemplateTypeMap;
 
 class UnionType implements CompoundType, StaticResolvableType
 {
@@ -529,6 +530,29 @@ class UnionType implements CompoundType, StaticResolvableType
 		});
 
 		return $type;
+	}
+
+	public function inferTemplateTypes(Type $receivedType): TemplateTypeMap
+	{
+		$types = TemplateTypeMap::empty();
+
+		foreach ($this->types as $type) {
+			$receive = $type->isSuperTypeOf($receivedType)->yes() ? $receivedType : new NeverType();
+			$types = $types->union($type->inferTemplateTypes($receive));
+		}
+
+		return $types;
+	}
+
+	public function inferTemplateTypesOn(Type $templateType): TemplateTypeMap
+	{
+		$types = TemplateTypeMap::empty();
+
+		foreach ($this->types as $type) {
+			$types = $types->union($templateType->inferTemplateTypes($type));
+		}
+
+		return $types;
 	}
 
 	/**

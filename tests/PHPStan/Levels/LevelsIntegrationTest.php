@@ -15,6 +15,7 @@ class LevelsIntegrationTest extends \PHPStan\Testing\LevelsTestCase
 			['constantAccesses'],
 			['variables'],
 			['callableCalls'],
+			['callableVariance'],
 			['arrayDimFetches'],
 			['clone'],
 			['iterable'],

@@ -9,11 +9,13 @@ use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Traits\FalseyBooleanTypeTrait;
+use PHPStan\Type\Traits\NonGenericTypeTrait;
 
 class NeverType implements CompoundType
 {
 
 	use FalseyBooleanTypeTrait;
+	use NonGenericTypeTrait;
 
 	/**
 	 * @return string[]

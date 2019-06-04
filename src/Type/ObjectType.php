@@ -13,12 +13,14 @@ use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantStringType;
+use PHPStan\Type\Traits\NonGenericTypeTrait;
 use PHPStan\Type\Traits\TruthyBooleanTypeTrait;
 
 class ObjectType implements TypeWithClassName, SubtractableType
 {
 
 	use TruthyBooleanTypeTrait;
+	use NonGenericTypeTrait;
 
 	private const EXTRA_OFFSET_CLASSES = ['SimpleXMLElement', 'DOMNodeList'];
 
