@@ -12,12 +12,14 @@ final class TemplateTypeFactory
 
 	public static function create(TemplateTypeScope $scope, string $name, ?Type $bound): Type
 	{
+		$strategy = new TemplateTypeParameterStrategy();
+
 		if ($bound instanceof ObjectType) {
-			return new TemplateObjectType($scope, $name, $bound->getClassName());
+			return new TemplateObjectType($scope, $strategy, $name, $bound->getClassName());
 		}
 
 		if ($bound === null || $bound instanceof MixedType) {
-			return new TemplateMixedType($scope, $name);
+			return new TemplateMixedType($scope, $strategy, $name);
 		}
 
 		return new ErrorType();
