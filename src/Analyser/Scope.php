@@ -136,7 +136,7 @@ class Scope implements ClassMemberAccessAnswerer
 	private $dynamicConstantNames;
 
 	/**
-	 * @param  \PHPStan\Analyser\ScopeFactory $scopeFactory
+	 * @param \PHPStan\Analyser\ScopeFactory $scopeFactory
 	 * @param \PHPStan\Broker\Broker $broker
 	 * @param \PhpParser\PrettyPrinter\Standard $printer
 	 * @param \PHPStan\Analyser\TypeSpecifier $typeSpecifier
