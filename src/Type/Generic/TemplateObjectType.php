@@ -24,17 +24,17 @@ final class TemplateObjectType extends ObjectType implements TemplateType
 
 	public function __construct(
 		TemplateTypeScope $scope,
+		TemplateTypeStrategy $templateTypeStrategy,
 		string $name,
 		string $class,
-		?Type $subtractedType = null,
-		?TemplateTypeStrategy $templateTypeStrategy = null
+		?Type $subtractedType = null
 	)
 	{
 		parent::__construct($class, $subtractedType);
 
 		$this->scope = $scope;
+		$this->strategy = $templateTypeStrategy;
 		$this->name = $name;
-		$this->strategy = $templateTypeStrategy ?? new TemplateTypeParameterStrategy();
 	}
 
 	public function getName(): string
@@ -111,10 +111,10 @@ final class TemplateObjectType extends ObjectType implements TemplateType
 	{
 		return new self(
 			$this->scope,
+			new TemplateTypeArgumentStrategy(),
 			$this->name,
 			$this->getClassName(),
-			$this->getSubtractedType(),
-			new TemplateTypeArgumentStrategy()
+			$this->getSubtractedType()
 		);
 	}
 
@@ -126,10 +126,10 @@ final class TemplateObjectType extends ObjectType implements TemplateType
 
 		return new self(
 			$this->scope,
+			$this->strategy,
 			$this->name,
 			$this->getClassName(),
-			$type,
-			$this->strategy
+			$type
 		);
 	}
 
@@ -137,10 +137,10 @@ final class TemplateObjectType extends ObjectType implements TemplateType
 	{
 		return new self(
 			$this->scope,
+			$this->strategy,
 			$this->name,
 			$this->getClassName(),
-			null,
-			$this->strategy
+			null
 		);
 	}
 
@@ -148,10 +148,10 @@ final class TemplateObjectType extends ObjectType implements TemplateType
 	{
 		return new self(
 			$this->scope,
+			$this->strategy,
 			$this->name,
 			$this->getClassName(),
-			$subtractedType,
-			$this->strategy
+			$subtractedType
 		);
 	}
 
@@ -163,10 +163,10 @@ final class TemplateObjectType extends ObjectType implements TemplateType
 	{
 		return new self(
 			$properties['scope'],
+			$properties['strategy'],
 			$properties['name'],
 			$properties['className'],
-			$properties['subtractedType'],
-			$properties['strategy']
+			$properties['subtractedType']
 		);
 	}
 
