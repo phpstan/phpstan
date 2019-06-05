@@ -31,6 +31,9 @@ class FileHelper
 				return $path;
 			}
 		}
+		if (\Nette\Utils\Strings::contains($path, '://')) {
+			return $path;
+		}
 
 		return rtrim($this->getWorkingDirectory(), '/\\') . DIRECTORY_SEPARATOR . ltrim($path, '/\\');
 	}
