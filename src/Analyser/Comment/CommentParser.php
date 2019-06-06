@@ -27,6 +27,7 @@ class CommentParser
 		);
 
 		if (count($ignoreNextLineMatches) > 0) {
+			$this->validateNode($comment, $node);
 			return IgnoreComment::createIgnoreNextLine($comment, $node);
 		}
 
@@ -37,6 +38,7 @@ class CommentParser
 		);
 
 		if (count($ignoreMessageMatches) > 0) {
+			$this->validateNode($comment, $node);
 			return IgnoreComment::createIgnoreMessage($comment, $node, trim($ignoreMessageMatches[1]));
 		}
 
@@ -47,10 +49,26 @@ class CommentParser
 		);
 
 		if (count($ignoreMessageRegexpMatches) > 0) {
+			$this->validateNode($comment, $node);
 			return IgnoreComment::createIgnoreRegexp($comment, $node, trim($ignoreMessageRegexpMatches[1]));
 		}
 
 		return null;
+	}
+
+	private function validateNode(Comment $comment, Node $node): void
+	{
+		$invalidNodes = [
+			Node\Stmt\ClassLike::class,
+			Node\Stmt\ClassMethod::class,
+			Node\Stmt\Function_::class,
+		];
+
+		foreach ($invalidNodes as $invalidNode) {
+			if ($node instanceof $invalidNode) {
+				throw new \PHPStan\Analyser\Comment\Exception\InvalidIgnoreNextLineNodeException($comment, $node->getType());
+			}
+		}
 	}
 
 }
