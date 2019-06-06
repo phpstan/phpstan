@@ -301,8 +301,8 @@ class ArrayType implements StaticResolvableType
 
 		if (
 			$receivedType instanceof ArrayType
-			&& $this->getKeyType()->isSuperTypeOf($receivedType->getKeyType())->yes()
-			&& $this->getItemType()->isSuperTypeOf($receivedType->getItemType())->yes()
+			&& !$this->getKeyType()->isSuperTypeOf($receivedType->getKeyType())->no()
+			&& !$this->getItemType()->isSuperTypeOf($receivedType->getItemType())->no()
 		) {
 			$receivedKey = $receivedType->getKeyType();
 			$receivedItem = $receivedType->getItemType();
