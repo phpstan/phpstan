@@ -11,6 +11,9 @@ use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
+use PHPStan\Type\Generic\TemplateType;
+use PHPStan\Type\Generic\TemplateTypeFactory;
+use PHPStan\Type\Generic\TemplateTypeScope;
 
 class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 {
@@ -1095,6 +1098,62 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				MixedType::class,
 				'mixed',
 			],
+			[
+				[
+					TemplateTypeFactory::create(
+						new TemplateTypeScope(null, null),
+						'T',
+						null
+					),
+					new ObjectType('DateTime'),
+				],
+				UnionType::class,
+				'DateTime|T',
+			],
+			[
+				[
+					TemplateTypeFactory::create(
+						new TemplateTypeScope(null, null),
+						'T',
+						new ObjectType('DateTime')
+					),
+					new ObjectType('DateTime'),
+				],
+				UnionType::class,
+				'DateTime|T of DateTime',
+			],
+			[
+				[
+					TemplateTypeFactory::create(
+						new TemplateTypeScope(null, null),
+						'T',
+						new ObjectType('DateTime')
+					),
+					TemplateTypeFactory::create(
+						new TemplateTypeScope(null, null),
+						'T',
+						new ObjectType('DateTime')
+					),
+				],
+				TemplateType::class,
+				'T of DateTime',
+			],
+			[
+				[
+					TemplateTypeFactory::create(
+						new TemplateTypeScope(null, null),
+						'T',
+						new ObjectType('DateTime')
+					),
+					TemplateTypeFactory::create(
+						new TemplateTypeScope(null, null),
+						'U',
+						new ObjectType('DateTime')
+					),
+				],
+				UnionType::class,
+				'T of DateTime|U of DateTime',
+			],
 		];
 	}
 
@@ -1692,6 +1751,62 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				],
 				MixedType::class,
 				'mixed~int|string',
+			],
+			[
+				[
+					TemplateTypeFactory::create(
+						new TemplateTypeScope(null, null),
+						'T',
+						null
+					),
+					new ObjectType('DateTime'),
+				],
+				IntersectionType::class,
+				'DateTime&T',
+			],
+			[
+				[
+					TemplateTypeFactory::create(
+						new TemplateTypeScope(null, null),
+						'T',
+						new ObjectType('DateTime')
+					),
+					new ObjectType('DateTime'),
+				],
+				IntersectionType::class,
+				'DateTime&T of DateTime',
+			],
+			[
+				[
+					TemplateTypeFactory::create(
+						new TemplateTypeScope(null, null),
+						'T',
+						new ObjectType('DateTime')
+					),
+					TemplateTypeFactory::create(
+						new TemplateTypeScope(null, null),
+						'T',
+						new ObjectType('DateTime')
+					),
+				],
+				TemplateType::class,
+				'T of DateTime',
+			],
+			[
+				[
+					TemplateTypeFactory::create(
+						new TemplateTypeScope(null, null),
+						'T',
+						new ObjectType('DateTime')
+					),
+					TemplateTypeFactory::create(
+						new TemplateTypeScope(null, null),
+						'U',
+						new ObjectType('DateTime')
+					),
+				],
+				IntersectionType::class,
+				'T of DateTime&U of DateTime',
 			],
 		];
 	}

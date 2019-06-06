@@ -3,6 +3,7 @@
 namespace PHPStan\Type\Generic;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\CompoundType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
@@ -75,12 +76,31 @@ final class TemplateMixedType extends MixedType implements TemplateType
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
-		return $this->strategy->isSuperTypeOf($this, $type);
+		if ($type instanceof CompoundType) {
+			return $type->isSubTypeOf($this);
+		}
+
+		return $this->getBound()->isSuperTypeOf($type)
+			->and(TrinaryLogic::createMaybe());
 	}
 
 	public function isSubTypeOf(Type $type): TrinaryLogic
 	{
-		return $this->strategy->isSubTypeOf($this, $type);
+		if ($type instanceof UnionType || $type instanceof IntersectionType) {
+			return $type->isSuperTypeOf($this);
+		}
+
+		if (!$type instanceof TemplateType) {
+			return $type->isSuperTypeOf($this->getBound())
+				->and(TrinaryLogic::createMaybe());
+		}
+
+		if ($this->equals($type)) {
+			return TrinaryLogic::createYes();
+		}
+
+		return $type->getBound()->isSuperTypeOf($this->getBound())
+			->and(TrinaryLogic::createMaybe());
 	}
 
 	public function inferTemplateTypes(Type $receivedType): TemplateTypeMap
@@ -89,7 +109,7 @@ final class TemplateMixedType extends MixedType implements TemplateType
 			return $receivedType->inferTemplateTypesOn($this);
 		}
 
-		if (!$this->isSuperTypeOf($receivedType)->yes()) {
+		if ($this->isSuperTypeOf($receivedType)->no()) {
 			return TemplateTypeMap::empty();
 		}
 
