@@ -124,9 +124,9 @@ class NullType implements ConstantScalarType
 		return $array->setOffsetValueType($offsetType, $valueType);
 	}
 
-	public function map(callable $cb): Type
+	public function traverse(callable $cb): Type
 	{
-		return $cb($this);
+		return $this;
 	}
 
 	/**

@@ -4,6 +4,7 @@ namespace PHPStan\Type\Generic;
 
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeTraverser;
 
 class TemplateTypeHelper
 {
@@ -13,7 +14,7 @@ class TemplateTypeHelper
 	 */
 	public static function resolveTemplateTypes(Type $type, TemplateTypeMap $standins): Type
 	{
-		return $type->map(static function (Type $type) use ($standins): Type {
+		return TypeTraverser::map($type, static function (Type $type, callable $traverse) use ($standins): Type {
 			if ($type instanceof TemplateType && !$type->isArgument()) {
 				$newType = $standins->getType($type->getName());
 
@@ -21,10 +22,10 @@ class TemplateTypeHelper
 					return new ErrorType();
 				}
 
-				return $newType;
+				return $traverse($newType);
 			}
 
-			return $type;
+			return $traverse($type);
 		});
 	}
 
@@ -33,12 +34,12 @@ class TemplateTypeHelper
 	 */
 	public static function toArgument(Type $type): Type
 	{
-		return $type->map(static function (Type $type): Type {
+		return TypeTraverser::map($type, static function (Type $type, callable $traverse): Type {
 			if ($type instanceof TemplateType) {
-				return $type->toArgument();
+				return $traverse($type->toArgument());
 			}
 
-			return $type;
+			return $traverse($type);
 		});
 	}
 

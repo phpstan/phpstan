@@ -81,9 +81,9 @@ class VoidType implements Type
 		return new ErrorType();
 	}
 
-	public function map(callable $cb): Type
+	public function traverse(callable $cb): Type
 	{
-		return $cb($this);
+		return $this;
 	}
 
 	/**

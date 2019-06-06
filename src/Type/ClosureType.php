@@ -275,21 +275,21 @@ class ClosureType implements TypeWithClassName, ParametersAcceptor
 		return $this->returnType;
 	}
 
-	public function map(callable $cb): Type
+	public function traverse(callable $cb): Type
 	{
-		return $cb(new static(
+		return new static(
 			array_map(static function (NativeParameterReflection $param) use ($cb): NativeParameterReflection {
 				return new NativeParameterReflection(
 					$param->getName(),
 					$param->isOptional(),
-					$param->getType()->map($cb),
+					$cb($param->getType()),
 					$param->passedByReference(),
 					$param->isVariadic()
 				);
 			}, $this->getParameters()),
-			$this->getReturnType()->map($cb),
+			$cb($this->getReturnType()),
 			$this->isVariadic()
-		));
+		);
 	}
 
 	/**

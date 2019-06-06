@@ -266,9 +266,9 @@ class MixedType implements CompoundType, SubtractableType
 		return $this->subtractedType;
 	}
 
-	public function map(callable $cb): Type
+	public function traverse(callable $cb): Type
 	{
-		return $cb($this);
+		return $this;
 	}
 
 	/**

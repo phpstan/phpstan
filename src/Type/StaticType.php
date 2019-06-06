@@ -233,9 +233,9 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 		return $this->staticObjectType->toArray();
 	}
 
-	public function map(callable $cb): Type
+	public function traverse(callable $cb): Type
 	{
-		return $cb($this);
+		return $this;
 	}
 
 	/**
