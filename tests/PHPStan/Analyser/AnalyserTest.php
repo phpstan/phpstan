@@ -56,35 +56,35 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		$this->assertCount(8, $result);
 		$this->assertInstanceOf(Error::class, $result[0]);
 		$this->assertSame('Fail.', $result[0]->getMessage());
-		$this->assertSame(28, $result[0]->getLine());
+		$this->assertSame(16, $result[0]->getLine());
 
 		$this->assertInstanceOf(Error::class, $result[1]);
 		$this->assertSame('Fail.', $result[1]->getMessage());
-		$this->assertSame(30, $result[1]->getLine());
+		$this->assertSame(18, $result[1]->getLine());
 
 		$this->assertInstanceOf(Error::class, $result[2]);
 		$this->assertSame('Compilation failed: missing terminating ] for character class at offset 11 in pattern: /^Fai[a-z\.$/', $result[2]->getMessage());
-		$this->assertSame(44, $result[2]->getLine());
+		$this->assertSame(32, $result[2]->getLine());
 
 		$this->assertInstanceOf(Error::class, $result[3]);
 		$this->assertSame('Fail.', $result[3]->getMessage());
-		$this->assertSame(45, $result[3]->getLine());
+		$this->assertSame(33, $result[3]->getLine());
 
 		$this->assertInstanceOf(Error::class, $result[4]);
 		$this->assertSame('There is no error to ignore on the next line.', $result[4]->getMessage());
-		$this->assertSame(41, $result[4]->getLine());
+		$this->assertSame(29, $result[4]->getLine());
 
 		$this->assertInstanceOf(Error::class, $result[5]);
 		$this->assertSame('There is no error "Test" on the next line.', $result[5]->getMessage());
-		$this->assertSame(47, $result[5]->getLine());
+		$this->assertSame(35, $result[5]->getLine());
 
 		$this->assertInstanceOf(Error::class, $result[6]);
 		$this->assertSame('There is no error matching regular expression "^Test$" on the next line.', $result[6]->getMessage());
-		$this->assertSame(50, $result[6]->getLine());
+		$this->assertSame(38, $result[6]->getLine());
 
 		$this->assertInstanceOf(Error::class, $result[7]);
-		$this->assertSame('There is no error "Test" on lines 54-56.', $result[7]->getMessage());
-		$this->assertSame(53, $result[7]->getLine());
+		$this->assertSame('There is no error "Test" on lines 42-44.', $result[7]->getMessage());
+		$this->assertSame(41, $result[7]->getLine());
 	}
 
 	public function testIgnoringBrokenConfigurationDoesNotWork(): void

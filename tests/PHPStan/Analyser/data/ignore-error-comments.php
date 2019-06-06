@@ -6,18 +6,6 @@ class Stub
 {
 
 	/**
-	 * Ignore rule inside whole method
-	 *
-	 * @phpstan-ignore-message Fail.
-	 */
-	public function wholeMethodIgnored()
-	{
-		doFoo();
-
-		doFoo();
-	}
-
-	/**
 	 * Ignore some rules with inline comments
 	 */
 	public function someNodesIgnored()
@@ -57,19 +45,4 @@ class Stub
 
 	}
 
-}
-
-/**
- * Ignore rules inside whole class
- *
- * @phpstan-ignore-next-line
- */
-class IgnoredClassStub
-{
-	public function run()
-	{
-		doFoo();
-
-		doFoo();
-	}
 }

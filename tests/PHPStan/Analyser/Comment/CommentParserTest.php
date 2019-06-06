@@ -3,6 +3,7 @@
 namespace PHPStan\Analyser\Comment;
 
 use PhpParser\Comment;
+use PhpParser\Node;
 use PHPUnit\Framework\TestCase;
 
 final class CommentParserTest extends TestCase
@@ -121,6 +122,43 @@ final class CommentParserTest extends TestCase
 		$subject = new CommentParser();
 		$ignoreComment = $subject->parseIgnoreComment($comment, $callToNonExistingMethodNode);
 		$this->assertNull($ignoreComment);
+	}
+
+	public function dataInvalidNodeType(): array
+	{
+		return [
+			'Class node' => [
+				'node' => new Node\Stmt\Class_('SomeClassToAnalyse'),
+				'commentText' => '// @phpstan-ignore-next-line',
+			],
+			'Class method node' => [
+				'node' => new Node\Stmt\ClassMethod('someClassMethod'),
+				'commentText' => '// @phpstan-ignore-message Function doSomething not found.',
+			],
+			'Function node' => [
+				'node' => new Node\Stmt\Function_('someFunction'),
+				'commentText' => '// @phpstan-ignore-message-regexp ^Function [a-zA-Z]+ not found.$',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataInvalidNodeType
+	 * @param Node $node
+	 * @param string $commentText
+	 */
+	public function testInvalidNodeType(Node $node, string $commentText): void
+	{
+		$comment = new Comment($commentText);
+		$expectedException = new \PHPStan\Analyser\Comment\Exception\InvalidIgnoreNextLineNodeException(
+			$comment,
+			$node->getType()
+		);
+
+		$this->expectExceptionObject($expectedException);
+
+		$subject = new CommentParser();
+		$subject->parseIgnoreComment($comment, $node);
 	}
 
 }
