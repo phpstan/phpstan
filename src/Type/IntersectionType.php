@@ -377,13 +377,13 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		return $types;
 	}
 
-	public function map(callable $cb): Type
+	public function traverse(callable $cb): Type
 	{
 		$types = [];
 		$changed = false;
 
 		foreach ($this->types as $type) {
-			$newType = $type->map($cb);
+			$newType = $cb($type);
 			if ($type !== $newType) {
 				$changed = true;
 			}
@@ -391,10 +391,10 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		}
 
 		if ($changed) {
-			return $cb(new static($types));
+			return TypeCombinator::intersect(...$types);
 		}
 
-		return $cb($this);
+		return $this;
 	}
 
 	/**

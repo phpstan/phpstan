@@ -183,9 +183,9 @@ class NeverType implements CompoundType
 		return $this;
 	}
 
-	public function map(callable $cb): Type
+	public function traverse(callable $cb): Type
 	{
-		return $cb($this);
+		return $this;
 	}
 
 	/**

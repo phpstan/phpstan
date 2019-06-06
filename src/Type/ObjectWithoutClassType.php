@@ -141,15 +141,15 @@ class ObjectWithoutClassType implements SubtractableType
 	}
 
 
-	public function map(callable $cb): Type
+	public function traverse(callable $cb): Type
 	{
-		$subtractedType = $this->subtractedType !== null ? $this->subtractedType->map($cb) : null;
+		$subtractedType = $this->subtractedType !== null ? $cb($this->subtractedType) : null;
 
 		if ($subtractedType !== $this->subtractedType) {
-			return $cb(new static($subtractedType));
+			return new static($subtractedType);
 		}
 
-		return $cb($this);
+		return $this;
 	}
 
 	/**
