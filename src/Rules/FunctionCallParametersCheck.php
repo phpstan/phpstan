@@ -7,6 +7,7 @@ use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\IterableType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\TypeUtils;
 use PHPStan\Type\VerbosityLevel;
 use PHPStan\Type\VoidType;
 
@@ -155,7 +156,9 @@ class FunctionCallParametersCheck
 				&& !$this->ruleLevelHelper->accepts($parameterType, $argumentValueType, $scope->isDeclareStrictTypes())
 				&& ($secondAccepts === null || !$secondAccepts)
 			) {
-				$verbosityLevel = $parameterType->isCallable()->yes() ? VerbosityLevel::value() : VerbosityLevel::typeOnly();
+				$verbosityLevel = $parameterType->isCallable()->yes() || count(TypeUtils::getConstantArrays($parameterType)) > 0
+					? VerbosityLevel::value()
+					: VerbosityLevel::typeOnly();
 				$errors[] = sprintf(
 					$messages[6],
 					$i + 1,

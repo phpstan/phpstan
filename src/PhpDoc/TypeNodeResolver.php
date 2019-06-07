@@ -4,6 +4,8 @@ namespace PHPStan\PhpDoc;
 
 use PHPStan\Analyser\NameScope;
 use PHPStan\Broker\Broker;
+use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprIntegerNode;
+use PHPStan\PhpDocParser\Ast\Type\ArrayShapeNode;
 use PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\CallableTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\CallableTypeParameterNode;
@@ -20,7 +22,10 @@ use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
 use PHPStan\Type\ClosureType;
+use PHPStan\Type\Constant\ConstantArrayTypeBuilder;
 use PHPStan\Type\Constant\ConstantBooleanType;
+use PHPStan\Type\Constant\ConstantIntegerType;
+use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
@@ -65,7 +70,7 @@ class TypeNodeResolver
 
 	public function getCacheKey(): string
 	{
-		$key = 'v56';
+		$key = 'v57-arrayshapes';
 		foreach ($this->extensions as $extension) {
 			$key .= sprintf('-%s', $extension->getCacheKey());
 		}
@@ -105,6 +110,8 @@ class TypeNodeResolver
 
 		} elseif ($typeNode instanceof CallableTypeNode) {
 			return $this->resolveCallableTypeNode($typeNode, $nameScope);
+		} elseif ($typeNode instanceof ArrayShapeNode) {
+			return $this->resolveArrayShapeNode($typeNode, $nameScope);
 		}
 
 		return new ErrorType();
@@ -347,6 +354,47 @@ class TypeNodeResolver
 		}
 
 		return new ErrorType();
+	}
+
+	private function resolveArrayShapeNode(ArrayShapeNode $typeNode, NameScope $nameScope): Type
+	{
+		$requiredItems = [];
+		$optionalItems = [];
+		foreach ($typeNode->items as $itemNode) {
+			if ($itemNode->optional) {
+				$optionalItems[] = $itemNode;
+				continue;
+			}
+
+			$requiredItems[] = $itemNode;
+		}
+
+		$builder = ConstantArrayTypeBuilder::createEmpty();
+
+		$addToBuilder = function (ConstantArrayTypeBuilder $builder, array $items) use ($nameScope): void {
+			foreach ($items as $itemNode) {
+				$offsetType = null;
+				if ($itemNode->keyName instanceof ConstExprIntegerNode) {
+					$offsetType = new ConstantIntegerType((int) $itemNode->keyName->value);
+				} elseif ($itemNode->keyName instanceof IdentifierTypeNode) {
+					$offsetType = new ConstantStringType($itemNode->keyName->name);
+				}
+				$builder->setOffsetValueType($offsetType, $this->resolve($itemNode->valueType, $nameScope));
+			}
+		};
+
+		$arrays = [];
+		$addToBuilder($builder, $requiredItems);
+		$arrays[] = $builder->getArray();
+
+		if (count($optionalItems) === 0) {
+			return $arrays[0];
+		}
+
+		$addToBuilder($builder, $optionalItems);
+		$arrays[] = $builder->getArray();
+
+		return TypeCombinator::union(...$arrays);
 	}
 
 	/**

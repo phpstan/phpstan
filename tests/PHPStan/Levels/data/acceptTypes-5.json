@@ -118,5 +118,30 @@
         "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Baz::doBarArray() expects array<int>, array<float|string> given.",
         "line": 480,
         "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $one of method Levels\\AcceptTypes\\ArrayShapes::doBar() expects array('foo' => callable(): mixed), array<int> given.",
+        "line": 562,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $one of method Levels\\AcceptTypes\\ArrayShapes::doBar() expects array('foo' => callable(): mixed), array() given.",
+        "line": 563,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $one of method Levels\\AcceptTypes\\ArrayShapes::doBar() expects array('foo' => callable(): mixed), array('foo' => 1) given.",
+        "line": 565,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $one of method Levels\\AcceptTypes\\ArrayShapes::doBar() expects array('foo' => callable(): mixed), array('foo' => 'nonexistent') given.",
+        "line": 567,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $one of method Levels\\AcceptTypes\\ArrayShapes::doBar() expects array('foo' => callable(): mixed), array('bar' => 'date') given.",
+        "line": 568,
+        "ignorable": true
     }
 ]

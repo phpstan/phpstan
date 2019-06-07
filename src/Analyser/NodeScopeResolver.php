@@ -2273,7 +2273,7 @@ class NodeScopeResolver
 	/**
 	 * @param Scope $scope
 	 * @param Node\FunctionLike $functionLike
-	 * @return mixed[]
+	 * @return array{Type[], ?Type, ?Type, ?string, bool, bool, bool}
 	 */
 	private function getPhpDocs(Scope $scope, Node\FunctionLike $functionLike): array
 	{

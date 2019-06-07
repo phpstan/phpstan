@@ -123,5 +123,25 @@
         "message": "Parameter #1 $foo of method Levels\\AcceptTypes\\Baz::requireFoo() expects Levels\\AcceptTypes\\Foo, array|Levels\\AcceptTypes\\Foo given.",
         "line": 529,
         "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $one of method Levels\\AcceptTypes\\ArrayShapes::doBar() expects array('foo' => callable(): mixed), array<callable(): mixed> given.",
+        "line": 560,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $one of method Levels\\AcceptTypes\\ArrayShapes::doBar() expects array('foo' => callable(): mixed), array<string> given.",
+        "line": 561,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $one of method Levels\\AcceptTypes\\ArrayShapes::doBar() expects array('foo' => callable(): mixed), array()|array('foo' => 'date') given.",
+        "line": 579,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $one of method Levels\\AcceptTypes\\ArrayShapes::doBar() expects array('foo' => callable(): mixed), iterable<callable(): mixed> given.",
+        "line": 580,
+        "ignorable": true
     }
 ]

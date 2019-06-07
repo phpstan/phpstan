@@ -9114,6 +9114,41 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataArrayShapesInPhpDoc(): array
+	{
+		return [
+			[
+				'array(0 => string, 1 => ArrayShapesInPhpDoc\Foo, \'foo\' => ArrayShapesInPhpDoc\Bar, 2 => ArrayShapesInPhpDoc\Baz)',
+				'$one',
+			],
+			[
+				'array(0 => string, ?1 => ArrayShapesInPhpDoc\Foo, ?\'foo\' => ArrayShapesInPhpDoc\Bar)',
+				'$two',
+			],
+			[
+				'array()|array(0 => string, 1 => ArrayShapesInPhpDoc\Foo, \'foo\' => ArrayShapesInPhpDoc\Bar)',
+				'$three',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataArrayShapesInPhpDoc
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testArrayShapesInPhpDoc(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/array-shapes.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataTryCatchScope(): array
 	{
 		return [
