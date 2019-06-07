@@ -33,6 +33,8 @@ can be checked before you run the actual line.
 <a href="https://app.ncoreplat.com/jobposition/3054/php-backend-developer-milan-it/musement"><img src="https://i.imgur.com/uw5rAlR.png" alt="Musement" width="247" height="49"></a>
 &nbsp;&nbsp;&nbsp;
 <a href="https://blackfire.io/docs/introduction?utm_source=phpstan&utm_medium=github_readme&utm_campaign=logo"><img src="https://i.imgur.com/zR8rsqk.png" alt="Blackfire.io" width="254" height="64"></a>
+&nbsp;&nbsp;&nbsp;
+<a href="https://www.intracto.com/"><img src="https://i.imgur.com/XRCDGZi.png" alt="Intracto" width="254" height="65"></a>
 
 Check out [PHPStan's Patreon](https://www.patreon.com/phpstan) for sponsoring options. One-time donations [through PayPal](https://paypal.me/phpstan) are also accepted. To request an invoice, [contact me](mailto:ondrej@mirtes.cz) through e-mail.
 
