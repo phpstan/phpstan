@@ -77,15 +77,21 @@ class ClosureType implements TypeWithClassName, ParametersAcceptor
 			return $this->objectType->accepts($type, $strictTypes);
 		}
 
-		return $this->isSuperTypeOf($type);
+		return $this->isSuperTypeOfInternal($type, true);
 	}
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
+		return $this->isSuperTypeOfInternal($type, false);
+	}
+
+	private function isSuperTypeOfInternal(Type $type, bool $treatMixedAsAny): TrinaryLogic
+	{
 		if ($type instanceof self) {
 			return CallableTypeHelper::isParametersAcceptorSuperTypeOf(
 				$this,
-				$type
+				$type,
+				$treatMixedAsAny
 			);
 		}
 

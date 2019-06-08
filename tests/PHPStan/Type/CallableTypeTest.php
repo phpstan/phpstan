@@ -30,6 +30,16 @@ class CallableTypeTest extends \PHPStan\Testing\TestCase
 				new HasMethodType('__invoke'),
 				TrinaryLogic::createYes(),
 			],
+			[
+				new CallableType([new NativeParameterReflection('foo', false, new MixedType(), PassedByReference::createNo(), false)], new MixedType(), false),
+				new CallableType([new NativeParameterReflection('foo', false, new IntegerType(), PassedByReference::createNo(), false)], new MixedType(), false),
+				TrinaryLogic::createMaybe(),
+			],
+			[
+				new CallableType([new NativeParameterReflection('foo', false, new IntegerType(), PassedByReference::createNo(), false)], new MixedType(), false),
+				new CallableType([new NativeParameterReflection('foo', false, new MixedType(), PassedByReference::createNo(), false)], new MixedType(), false),
+				TrinaryLogic::createYes(),
+			],
 		];
 	}
 
@@ -267,6 +277,78 @@ class CallableTypeTest extends \PHPStan\Testing\TestCase
 			array_map(static function (Type $type): string {
 				return $type->describe(VerbosityLevel::precise());
 			}, $result->getTypes())
+		);
+	}
+
+	public function dataAccepts(): array
+	{
+		return [
+			[
+				new CallableType([new NativeParameterReflection('foo', false, new MixedType(), PassedByReference::createNo(), false)], new MixedType(), false),
+				new CallableType([new NativeParameterReflection('foo', false, new IntegerType(), PassedByReference::createNo(), false)], new MixedType(), false),
+				TrinaryLogic::createYes(),
+			],
+			[
+				new CallableType([new NativeParameterReflection('foo', false, new IntegerType(), PassedByReference::createNo(), false)], new MixedType(), false),
+				new CallableType([new NativeParameterReflection('foo', false, new MixedType(), PassedByReference::createNo(), false)], new MixedType(), false),
+				TrinaryLogic::createYes(),
+			],
+			[
+				new CallableType([
+					new NativeParameterReflection('foo', false, new IntegerType(), PassedByReference::createNo(), false),
+				], new MixedType(), false),
+				new CallableType([
+					new NativeParameterReflection('foo', false, new IntegerType(), PassedByReference::createNo(), false),
+					new NativeParameterReflection('bar', true, new IntegerType(), PassedByReference::createNo(), false),
+					new NativeParameterReflection('bar', true, new IntegerType(), PassedByReference::createNo(), false),
+				], new MixedType(), false),
+				TrinaryLogic::createYes(),
+			],
+			[
+				new CallableType([
+					new NativeParameterReflection('foo', false, new IntegerType(), PassedByReference::createNo(), false),
+					new NativeParameterReflection('bar', false, new StringType(), PassedByReference::createNo(), false),
+				], new MixedType(), false),
+				new CallableType([
+					new NativeParameterReflection('foo', false, new IntegerType(), PassedByReference::createNo(), false),
+					new NativeParameterReflection('bar', true, new IntegerType(), PassedByReference::createNo(), false),
+				], new MixedType(), false),
+				TrinaryLogic::createNo(),
+			],
+			[
+				new CallableType([], new MixedType(), false),
+				new CallableType([], new MixedType(), false),
+				TrinaryLogic::createYes(),
+			],
+			[
+				new CallableType([], new IntegerType(), false),
+				new CallableType([], new MixedType(), false),
+				TrinaryLogic::createYes(),
+			],
+			[
+				new CallableType([], new MixedType(), false),
+				new CallableType([], new IntegerType(), false),
+				TrinaryLogic::createYes(),
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataAccepts
+	 * @param \PHPStan\Type\CallableType $type
+	 * @param Type $acceptedType
+	 * @param TrinaryLogic $expectedResult
+	 */
+	public function testAccepts(
+		CallableType $type,
+		Type $acceptedType,
+		TrinaryLogic $expectedResult
+	): void
+	{
+		$this->assertSame(
+			$expectedResult->describe(),
+			$type->accepts($acceptedType, true)->describe(),
+			sprintf('%s -> accepts(%s)', $type->describe(VerbosityLevel::precise()), $acceptedType->describe(VerbosityLevel::precise()))
 		);
 	}
 
