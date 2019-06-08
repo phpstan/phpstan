@@ -5,10 +5,11 @@ namespace PHPStan\Reflection\SignatureMap;
 use PHPStan\Analyser\NameScope;
 use PHPStan\PhpDoc\TypeStringResolver;
 use PHPStan\Reflection\PassedByReference;
+use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
-use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\UnionType;
 
 class SignatureMapParser
 {
@@ -50,28 +51,20 @@ class SignatureMapParser
 		if ($typeString === '') {
 			return new MixedType(true);
 		}
-		$parts = explode('|', $typeString);
-		$types = [];
-		foreach ($parts as $part) {
-			$isNullable = false;
-			if (substr($part, 0, 1) === '?') {
-				$isNullable = true;
-				$part = substr($part, 1);
-			}
 
-			if ($part === 'OCI-Lob' || $part === 'OCI-Collection') {
-				$type = new ObjectType($part);
-			} else {
-				$type = $this->typeStringResolver->resolve($part, new NameScope(null, [], $className));
-			}
-			if ($isNullable) {
-				$type = TypeCombinator::addNull($type);
-			}
-
-			$types[] = $type;
+		if ($typeString === 'OCI-Lob' || $typeString === 'OCI-Collection') {
+			return new ObjectType($typeString);
 		}
 
-		return TypeCombinator::union(...$types);
+		if ($typeString === 'OCI-Collection|false') {
+			return new UnionType([new ObjectType('OCI-Collection'), new ConstantBooleanType(false)]);
+		}
+
+		if ($typeString === 'OCI-Lob|false') {
+			return new UnionType([new ObjectType('OCI-Lob'), new ConstantBooleanType(false)]);
+		}
+
+		return $this->typeStringResolver->resolve($typeString, new NameScope(null, [], $className));
 	}
 
 	/**
