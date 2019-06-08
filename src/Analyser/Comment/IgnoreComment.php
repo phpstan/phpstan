@@ -59,8 +59,8 @@ class IgnoreComment
 		$line = $node->getLine();
 
 		if (
-			$line < $this->node->getStartLine() ||
-			$line > $this->node->getEndLine()
+			$line < $this->getStartLine() ||
+			$line > $this->getEndLine()
 		) {
 			return false;
 		}
@@ -97,14 +97,34 @@ class IgnoreComment
 
 	private function describeLines(): string
 	{
-		$startLine = $this->node->getStartLine();
-		$endLine = $this->node->getEndLine();
+		$startLine = $this->getStartLine();
+		$endLine = $this->getEndLine();
 
 		if ($startLine === $endLine) {
 			return 'the next line';
 		}
 
 		return sprintf('lines %d-%d', $startLine, $endLine);
+	}
+
+	public function getStartLine(): int
+	{
+		return $this->node->getStartLine();
+	}
+
+	public function getEndLine(): int
+	{
+		if (property_exists($this->node, 'cond')
+			&& $this->node->cond instanceof Node\Expr) {
+			return $this->node->cond->getAttributes()['endLine'];
+		}
+
+		if (property_exists($this->node, 'expr')
+			&& $this->node->expr instanceof Node\Expr) {
+			return $this->node->expr->getAttributes()['endLine'];
+		}
+
+		return $this->node->getStartLine();
 	}
 
 	public function getLine(): int

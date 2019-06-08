@@ -53,18 +53,19 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 	public function testFileWithIgnoreErrorComments(): void
 	{
 		$result = $this->runAnalyser([], true, __DIR__ . '/data/ignore-error-comments.php', false);
-		$this->assertCount(8, $result);
+		$this->assertCount(9, $result);
+
 		$this->assertInstanceOf(Error::class, $result[0]);
-		$this->assertSame('Fail.', $result[0]->getMessage());
-		$this->assertSame(16, $result[0]->getLine());
+		$this->assertSame('Compilation failed: missing terminating ] for character class at offset 11 in pattern: /^Fai[a-z\.$/', $result[0]->getMessage());
+		$this->assertSame(32, $result[0]->getLine());
 
 		$this->assertInstanceOf(Error::class, $result[1]);
 		$this->assertSame('Fail.', $result[1]->getMessage());
-		$this->assertSame(18, $result[1]->getLine());
+		$this->assertSame(16, $result[1]->getLine());
 
 		$this->assertInstanceOf(Error::class, $result[2]);
-		$this->assertSame('Compilation failed: missing terminating ] for character class at offset 11 in pattern: /^Fai[a-z\.$/', $result[2]->getMessage());
-		$this->assertSame(32, $result[2]->getLine());
+		$this->assertSame('Fail.', $result[2]->getMessage());
+		$this->assertSame(18, $result[2]->getLine());
 
 		$this->assertInstanceOf(Error::class, $result[3]);
 		$this->assertSame('Fail.', $result[3]->getMessage());
@@ -83,8 +84,12 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(38, $result[6]->getLine());
 
 		$this->assertInstanceOf(Error::class, $result[7]);
-		$this->assertSame('There is no error "Test" on lines 42-44.', $result[7]->getMessage());
+		$this->assertSame('There is no error "Test" on the next line.', $result[7]->getMessage());
 		$this->assertSame(41, $result[7]->getLine());
+
+		$this->assertInstanceOf(Error::class, $result[8]);
+		$this->assertSame('There is no error to ignore on lines 47-49.', $result[8]->getMessage());
+		$this->assertSame(46, $result[8]->getLine());
 	}
 
 	public function testIgnoringBrokenConfigurationDoesNotWork(): void

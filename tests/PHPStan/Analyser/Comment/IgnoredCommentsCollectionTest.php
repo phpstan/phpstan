@@ -3,6 +3,9 @@
 namespace PHPStan\Analyser\Comment;
 
 use PhpParser\Comment;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Name;
+use PhpParser\Node\Stmt\If_;
 use PHPUnit\Framework\TestCase;
 
 final class IgnoredCommentsCollectionTest extends TestCase
@@ -10,68 +13,68 @@ final class IgnoredCommentsCollectionTest extends TestCase
 
 	public function dataIsIgnoredCheck(): array
 	{
-		$methodNode = new \PhpParser\Node\Stmt\ClassMethod(
-			'helloWorld',
+		$returnStmtNode = new If_(
+			new FuncCall(new Name('doSomething'), [], ['startLine' => 5, 'endLine' => 10]),
 			[],
 			['startLine' => 4, 'endLine' => 19]
 		);
 
 		return [
 			'ignored next line' => [
-				IgnoreComment::createIgnoreNextLine(new Comment(''), $methodNode),
+				IgnoreComment::createIgnoreNextLine(new Comment(''), $returnStmtNode),
 				10,
 				true,
 			],
 			'error before comment' => [
-				IgnoreComment::createIgnoreNextLine(new Comment(''), $methodNode),
+				IgnoreComment::createIgnoreNextLine(new Comment(''), $returnStmtNode),
 				3,
 				false,
 			],
 			'error after comment' => [
-				IgnoreComment::createIgnoreNextLine(new Comment(''), $methodNode),
-				20,
+				IgnoreComment::createIgnoreNextLine(new Comment(''), $returnStmtNode),
+				11,
 				false,
 			],
 
 			'ignore message' => [
-				IgnoreComment::createIgnoreMessage(new Comment(''), $methodNode, 'Function doSomething not found.'),
+				IgnoreComment::createIgnoreMessage(new Comment(''), $returnStmtNode, 'Function doSomething not found.'),
 				10,
 				true,
 			],
 			'error message not matching' => [
-				IgnoreComment::createIgnoreMessage(new Comment(''), $methodNode, 'Function doFoo not found.'),
+				IgnoreComment::createIgnoreMessage(new Comment(''), $returnStmtNode, 'Function doFoo not found.'),
 				10,
 				false,
 			],
 			'error message before comment' => [
-				IgnoreComment::createIgnoreMessage(new Comment(''), $methodNode, 'Function doSomething not found.'),
+				IgnoreComment::createIgnoreMessage(new Comment(''), $returnStmtNode, 'Function doSomething not found.'),
 				3,
 				false,
 			],
 			'error message after comment' => [
-				IgnoreComment::createIgnoreMessage(new Comment(''), $methodNode, 'Function doSomething not found.'),
-				20,
+				IgnoreComment::createIgnoreMessage(new Comment(''), $returnStmtNode, 'Function doSomething not found.'),
+				11,
 				false,
 			],
 
 			'ignore message pattern' => [
-				IgnoreComment::createIgnoreRegexp(new Comment(''), $methodNode, '^Function [a-zA-Z]+ not found\.$'),
+				IgnoreComment::createIgnoreRegexp(new Comment(''), $returnStmtNode, '^Function [a-zA-Z]+ not found\.$'),
 				10,
 				true,
 			],
 			'error message pattern not matching' => [
-				IgnoreComment::createIgnoreRegexp(new Comment(''), $methodNode, '^Function [0-9]+ not found\.$'),
+				IgnoreComment::createIgnoreRegexp(new Comment(''), $returnStmtNode, '^Function [0-9]+ not found\.$'),
 				10,
 				false,
 			],
 			'error message pattern before comment' => [
-				IgnoreComment::createIgnoreRegexp(new Comment(''), $methodNode, '^Function [a-zA-Z]+ not found\.$'),
+				IgnoreComment::createIgnoreRegexp(new Comment(''), $returnStmtNode, '^Function [a-zA-Z]+ not found\.$'),
 				3,
 				false,
 			],
 			'error message pattern after comment' => [
-				IgnoreComment::createIgnoreRegexp(new Comment(''), $methodNode, '^Function [a-zA-Z]+ not found\.$'),
-				20,
+				IgnoreComment::createIgnoreRegexp(new Comment(''), $returnStmtNode, '^Function [a-zA-Z]+ not found\.$'),
+				11,
 				false,
 			],
 		];

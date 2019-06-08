@@ -43,6 +43,13 @@ class Stub
 
 		}
 
+		/** @phpstan-ignore-next-line */
+		if (true
+			&& 1 == 1
+			&& 2 === 2) {
+
+		}
+
 	}
 
 }

@@ -153,6 +153,34 @@ class Analyser
 
 					$ignoreComments = new IgnoreCommentsCollection();
 
+					$this->nodeScopeResolver->processNodes(
+						$parserNodes,
+						$this->scopeFactory->create(ScopeContext::create($file)),
+						function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors, $file, $ignoreComments): void {
+							if (
+								$node instanceof VirtualNode
+								|| $node instanceof Expression
+								|| !$scope->isInFirstLevelStatement()
+							) {
+								return;
+							}
+
+							foreach ($node->getComments() as $comment) {
+								try {
+									$ignoreComment = $this->commentParser->parseIgnoreComment($comment, $node);
+								} catch (\Nette\Utils\RegexpException $e) {
+									$fileErrors[] = new Error($e->getMessage(), $file, $comment->getLine(), false);
+									continue;
+								}
+								if ($ignoreComment === null) {
+									continue;
+								}
+
+								$ignoreComments->add($ignoreComment);
+							}
+						}
+					);
+
 					$scopeBenchmarkTime = $this->benchmarkStart();
 					$this->nodeScopeResolver->processNodes(
 						$parserNodes,
@@ -160,26 +188,6 @@ class Analyser
 						function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors, $file, &$scopeBenchmarkTime, $ignoreComments): void {
 							$this->benchmarkEnd($scopeBenchmarkTime, 'scope');
 							$uniquedAnalysedCodeExceptionMessages = [];
-
-							if (
-								!$node instanceof VirtualNode
-								&& !$node instanceof Expression
-								&& $scope->isInFirstLevelStatement()
-							) {
-								foreach ($node->getComments() as $comment) {
-									try {
-										$ignoreComment = $this->commentParser->parseIgnoreComment($comment, $node);
-									} catch (\Nette\Utils\RegexpException $e) {
-										$fileErrors[] = new Error($e->getMessage(), $file, $comment->getLine(), false);
-										continue;
-									}
-									if ($ignoreComment === null) {
-										continue;
-									}
-
-									$ignoreComments->add($ignoreComment);
-								}
-							}
 
 							foreach ($this->registry->getRules(get_class($node)) as $rule) {
 								try {
