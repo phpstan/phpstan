@@ -5,7 +5,7 @@ namespace PHPStan\Analyser;
 use Nette\Utils\Json;
 use PhpParser\Node\Stmt\Expression;
 use PHPStan\Analyser\Comment\CommentParser;
-use PHPStan\Analyser\Comment\IgnoreCommentsCollection;
+use PHPStan\Analyser\Comment\IgnoreNextLineCommentsCollection;
 use PHPStan\File\FileHelper;
 use PHPStan\Node\VirtualNode;
 use PHPStan\Parser\Parser;
@@ -151,7 +151,7 @@ class Analyser
 					$parserNodes = $this->parser->parseFile($file);
 					$this->benchmarkEnd($parserBenchmarkTime, 'parser');
 
-					$ignoreComments = new IgnoreCommentsCollection();
+					$ignoreComments = new IgnoreNextLineCommentsCollection();
 
 					$this->nodeScopeResolver->processNodes(
 						$parserNodes,

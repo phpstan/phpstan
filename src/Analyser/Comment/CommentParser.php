@@ -12,7 +12,7 @@ class CommentParser
 	public const ANNOTATION_REGEX_IGNORE_MESSAGE = '/[(\/\*\*)|(\/\/)] phpstan\-ignore\-next\-line\-message ([^\*\/]+)( \*\/)?/';
 	public const ANNOTATION_REGEX_IGNORE_MESSAGE_REGEXP = '/[(\/\*\*)|(\/\/)] phpstan\-ignore\-next\-line\-message\-regexp? ([^\*\/]+)( \*\/)?/';
 
-	public function parseIgnoreComment(Comment $comment, Node $node): ?IgnoreComment
+	public function parseIgnoreComment(Comment $comment, Node $node): ?IgnoreNextLineComment
 	{
 		$commentText = trim($comment->getText());
 
@@ -28,7 +28,7 @@ class CommentParser
 
 		if (count($ignoreMessageRegexpMatches) > 0) {
 			$this->validateNode($comment, $node);
-			return IgnoreComment::createIgnoreRegexp($comment, $node, trim($ignoreMessageRegexpMatches[1]));
+			return IgnoreNextLineComment::createIgnoreRegexp($comment, $node, trim($ignoreMessageRegexpMatches[1]));
 		}
 
 		preg_match(
@@ -39,7 +39,7 @@ class CommentParser
 
 		if (count($ignoreMessageMatches) > 0) {
 			$this->validateNode($comment, $node);
-			return IgnoreComment::createIgnoreMessage($comment, $node, trim($ignoreMessageMatches[1]));
+			return IgnoreNextLineComment::createIgnoreMessage($comment, $node, trim($ignoreMessageMatches[1]));
 		}
 
 		preg_match(
@@ -50,7 +50,7 @@ class CommentParser
 
 		if (count($ignoreNextLineMatches) > 0) {
 			$this->validateNode($comment, $node);
-			return IgnoreComment::createIgnoreNextLine($comment, $node);
+			return IgnoreNextLineComment::createIgnoreNextLine($comment, $node);
 		}
 
 		return null;

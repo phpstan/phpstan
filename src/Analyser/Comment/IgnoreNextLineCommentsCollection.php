@@ -2,16 +2,16 @@
 
 namespace PHPStan\Analyser\Comment;
 
-class IgnoreCommentsCollection
+class IgnoreNextLineCommentsCollection
 {
 
-	/** @var array<int, IgnoreComment> */
+	/** @var array<int, IgnoreNextLineComment> */
 	private $ignoreComments = [];
 
 	/** @var array<int, true> */
 	private $usedIgnores = [];
 
-	public function add(IgnoreComment $ignoreComment): void
+	public function add(IgnoreNextLineComment $ignoreComment): void
 	{
 		$this->ignoreComments[] = $ignoreComment;
 	}
