@@ -8,15 +8,15 @@ use PhpParser\Node;
 class CommentParser
 {
 
-	public const ANNOTATION_REGEX_IGNORE_NEXT_LINE = '/[(\/\*\*)|(\/\/)] (\@phpstan\-ignore-next-line)( \*\/)?/';
-	public const ANNOTATION_REGEX_IGNORE_MESSAGE = '/[(\/\*\*)|(\/\/)] \@phpstan\-ignore-message ([^\*\/]+)( \*\/)?/';
-	public const ANNOTATION_REGEX_IGNORE_MESSAGE_REGEXP = '/[(\/\*\*)|(\/\/)] \@phpstan\-ignore-message-regexp? ([^\*\/]+)( \*\/)?/';
+	public const ANNOTATION_REGEX_IGNORE_NEXT_LINE = '/[(\/\*\*)|(\/\/)] (phpstan\-ignore-next-line)( \*\/)?/';
+	public const ANNOTATION_REGEX_IGNORE_MESSAGE = '/[(\/\*\*)|(\/\/)] phpstan\-ignore-message ([^\*\/]+)( \*\/)?/';
+	public const ANNOTATION_REGEX_IGNORE_MESSAGE_REGEXP = '/[(\/\*\*)|(\/\/)] phpstan\-ignore-message-regexp? ([^\*\/]+)( \*\/)?/';
 
 	public function parseIgnoreComment(Comment $comment, Node $node): ?IgnoreComment
 	{
 		$commentText = trim($comment->getText());
 
-		if (strpos($commentText, '@phpstan-ignore-') === false) {
+		if (strpos($commentText, 'phpstan-ignore-') === false) {
 			return null;
 		}
 
