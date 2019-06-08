@@ -8,9 +8,9 @@ use PhpParser\Node;
 class CommentParser
 {
 
-	public const ANNOTATION_REGEX_IGNORE_NEXT_LINE = '/[(\/\*\*)|(\/\/)] (phpstan\-ignore-next-line)( \*\/)?/';
-	public const ANNOTATION_REGEX_IGNORE_MESSAGE = '/[(\/\*\*)|(\/\/)] phpstan\-ignore-message ([^\*\/]+)( \*\/)?/';
-	public const ANNOTATION_REGEX_IGNORE_MESSAGE_REGEXP = '/[(\/\*\*)|(\/\/)] phpstan\-ignore-message-regexp? ([^\*\/]+)( \*\/)?/';
+	public const ANNOTATION_REGEX_IGNORE_NEXT_LINE = '/[(\/\*\*)|(\/\/)] (phpstan\-ignore\-next\-line)( \*\/)?/';
+	public const ANNOTATION_REGEX_IGNORE_MESSAGE = '/[(\/\*\*)|(\/\/)] phpstan\-ignore\-next\-line\-message ([^\*\/]+)( \*\/)?/';
+	public const ANNOTATION_REGEX_IGNORE_MESSAGE_REGEXP = '/[(\/\*\*)|(\/\/)] phpstan\-ignore\-next\-line\-message\-regexp? ([^\*\/]+)( \*\/)?/';
 
 	public function parseIgnoreComment(Comment $comment, Node $node): ?IgnoreComment
 	{
@@ -21,14 +21,14 @@ class CommentParser
 		}
 
 		preg_match(
-			self::ANNOTATION_REGEX_IGNORE_NEXT_LINE,
+			self::ANNOTATION_REGEX_IGNORE_MESSAGE_REGEXP,
 			$commentText,
-			$ignoreNextLineMatches
+			$ignoreMessageRegexpMatches
 		);
 
-		if (count($ignoreNextLineMatches) > 0) {
+		if (count($ignoreMessageRegexpMatches) > 0) {
 			$this->validateNode($comment, $node);
-			return IgnoreComment::createIgnoreNextLine($comment, $node);
+			return IgnoreComment::createIgnoreRegexp($comment, $node, trim($ignoreMessageRegexpMatches[1]));
 		}
 
 		preg_match(
@@ -43,14 +43,14 @@ class CommentParser
 		}
 
 		preg_match(
-			self::ANNOTATION_REGEX_IGNORE_MESSAGE_REGEXP,
+			self::ANNOTATION_REGEX_IGNORE_NEXT_LINE,
 			$commentText,
-			$ignoreMessageRegexpMatches
+			$ignoreNextLineMatches
 		);
 
-		if (count($ignoreMessageRegexpMatches) > 0) {
+		if (count($ignoreNextLineMatches) > 0) {
 			$this->validateNode($comment, $node);
-			return IgnoreComment::createIgnoreRegexp($comment, $node, trim($ignoreMessageRegexpMatches[1]));
+			return IgnoreComment::createIgnoreNextLine($comment, $node);
 		}
 
 		return null;

@@ -17,28 +17,28 @@ class Stub
 
 		doFoo();
 
-		/** phpstan-ignore-message-regexp ^Fai[a-z]\.$ */
+		/** phpstan-ignore-next-line-message-regexp ^Fai[a-z]\.$ */
 		doFoo();
 
-		/** phpstan-ignore-message-regex ^Fai[a-z]\.$ */
+		/** phpstan-ignore-next-line-message-regex ^Fai[a-z]\.$ */
 		doFoo();
 
-		/* phpstan-ignore-message-regex ^Fai[a-z]\.$ */
+		/* phpstan-ignore-next-line-message-regex ^Fai[a-z]\.$ */
 		doFoo();
 
 		/** phpstan-ignore-next-line */
 		echo 'Foo'; // no error reported
 
-		/* phpstan-ignore-message-regex ^Fai[a-z\.$ */
+		/* phpstan-ignore-next-line-message-regex ^Fai[a-z\.$ */
 		doFoo();
 
-		/** phpstan-ignore-message Test */
+		/** phpstan-ignore-next-line-message Test */
 		echo 'Foo';
 
-		/** phpstan-ignore-message-regex ^Test$ */
+		/** phpstan-ignore-next-line-message-regex ^Test$ */
 		echo 'Foo';
 
-		/** phpstan-ignore-message Test */
+		/** phpstan-ignore-next-line-message Test */
 		if (true) {
 
 		}
