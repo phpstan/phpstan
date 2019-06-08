@@ -381,36 +381,28 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
-	public function dataParseAll(): iterable
-	{
-		$signatureMap = require __DIR__ . '/../../../../src/Reflection/SignatureMap/functionMap.php';
-
-		foreach ($signatureMap as $name => $map) {
-			yield [$name, $map];
-		}
-	}
-
-	/**
-	 * @dataProvider dataParseAll
-	 * @param string $functionName
-	 * @param mixed[] $map
-	 */
-	public function testParseAll(string $functionName, array $map): void
+	public function testParseAll(): void
 	{
 		$parser = self::getContainer()->getByType(SignatureMapParser::class);
+		$signatureMap = require __DIR__ . '/../../../../src/Reflection/SignatureMap/functionMap.php';
 
-		$className = null;
-		if (strpos($functionName, '::') !== false) {
-			$parts = explode('::', $functionName);
-			$className = $parts[0];
+		$count = 0;
+		foreach ($signatureMap as $functionName => $map) {
+			$className = null;
+			if (strpos($functionName, '::') !== false) {
+				$parts = explode('::', $functionName);
+				$className = $parts[0];
+			}
+
+			try {
+				$parser->getFunctionSignature($map, $className);
+				$count++;
+			} catch (\PHPStan\PhpDocParser\Parser\ParserException $e) {
+				$this->fail(sprintf('Could not parse %s.', $functionName));
+			}
 		}
 
-		try {
-			$parser->getFunctionSignature($map, $className);
-			$this->expectNotToPerformAssertions();
-		} catch (\PHPStan\PhpDocParser\Parser\ParserException $e) {
-			$this->fail(sprintf('Could not parse %s: %s', $functionName, $e->getMessage()));
-		}
+		$this->assertGreaterThan(0, $count);
 	}
 
 }
