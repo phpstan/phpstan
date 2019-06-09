@@ -51,10 +51,10 @@ class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 		}
 
 		$propertyReflection = $scope->getClassReflection()->getNativeProperty($node->name->name);
-		$propertyType = $propertyReflection->getType();
+		$referencedClasses = $propertyReflection->getType()->getReferencedClasses();
 
 		$errors = [];
-		foreach ($propertyType->getReferencedClasses() as $referencedClass) {
+		foreach ($referencedClasses as $referencedClass) {
 			if ($this->broker->hasClass($referencedClass)) {
 				if ($this->broker->getClass($referencedClass)->isTrait()) {
 					$errors[] = RuleErrorBuilder::message(sprintf(
@@ -80,7 +80,7 @@ class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 				$errors,
 				$this->classCaseSensitivityCheck->checkClassNames(array_map(static function (string $class) use ($node): ClassNameNodePair {
 					return new ClassNameNodePair($class, $node);
-				}, $propertyType->getReferencedClasses()))
+				}, $referencedClasses))
 			);
 		}
 

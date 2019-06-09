@@ -91,18 +91,6 @@ class ObjectType implements TypeWithClassName, SubtractableType
 			return $this->isInstanceOf(\Closure::class);
 		}
 
-		if (
-			$this->isInstanceOf('SimpleXMLElement')->yes()
-			&& $type->isSuperTypeOf($this)->no()
-		) {
-			return (new UnionType([
-				new IntegerType(),
-				new FloatType(),
-				new StringType(),
-				new BooleanType(),
-			]))->accepts($type, $strictTypes);
-		}
-
 		if (!$type instanceof TypeWithClassName) {
 			return TrinaryLogic::createNo();
 		}

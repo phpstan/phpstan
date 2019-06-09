@@ -5,6 +5,7 @@ namespace PHPStan\Type;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Accessory\HasMethodType;
 use PHPStan\Type\Accessory\HasPropertyType;
+use PHPStan\Type\Constant\ConstantStringType;
 
 class ObjectTypeTest extends \PHPStan\Testing\TestCase
 {
@@ -326,6 +327,15 @@ class ObjectTypeTest extends \PHPStan\Testing\TestCase
 			$actualResult->describe(),
 			sprintf('%s -> isSuperTypeOf(%s)', $type->describe(VerbosityLevel::precise()), $otherType->describe(VerbosityLevel::precise()))
 		);
+	}
+
+	public function testAccept(): void
+	{
+		$simpleXmlElementType = new ObjectType(\SimpleXMLElement::class);
+		$this->assertTrue($simpleXmlElementType->accepts(new IntegerType(), true)->no());
+		$this->assertTrue($simpleXmlElementType->accepts(new ConstantStringType('foo'), true)->no());
+		$this->assertTrue($simpleXmlElementType->accepts(new IntegerType(), false)->no());
+		$this->assertTrue($simpleXmlElementType->accepts(new ConstantStringType('foo'), false)->no());
 	}
 
 }
