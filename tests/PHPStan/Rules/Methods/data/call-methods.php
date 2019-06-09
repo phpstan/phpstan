@@ -1299,3 +1299,18 @@ class SubtractedMixed
 	}
 
 }
+
+class IsCallableResultsInMethodExists
+{
+
+	/**
+	 * @param object $value
+	 */
+	public function doFoo($value): void
+	{
+		if (is_callable([$value, 'toArray'])) {
+			$value->toArray();
+		}
+	}
+
+}
