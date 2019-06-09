@@ -49,6 +49,7 @@ use PHPStan\Broker\Broker;
 use PHPStan\File\FileHelper;
 use PHPStan\Node\ClosureReturnStatementsNode;
 use PHPStan\Node\ExecutionEndNode;
+use PHPStan\Node\FunctionReturnStatementsNode;
 use PHPStan\Node\InClassMethodNode;
 use PHPStan\Node\LiteralArrayItem;
 use PHPStan\Node\LiteralArrayNode;
@@ -327,7 +328,22 @@ class NodeScopeResolver
 				$isInternal,
 				$isFinal
 			);
-			$this->processStmtNodes($stmt, $stmt->stmts, $functionScope, $nodeCallback);
+
+			$gatheredReturnStatements = [];
+			$statementResult = $this->processStmtNodes($stmt, $stmt->stmts, $functionScope, static function (\PhpParser\Node $node, Scope $scope) use ($nodeCallback, &$gatheredReturnStatements): void {
+				$nodeCallback($node, $scope);
+				if (!$node instanceof Return_) {
+					return;
+				}
+
+				$gatheredReturnStatements[] = new ReturnStatement($scope, $node);
+			});
+
+			$nodeCallback(new FunctionReturnStatementsNode(
+				$stmt,
+				$gatheredReturnStatements,
+				$statementResult
+			), $functionScope);
 		} elseif ($stmt instanceof Node\Stmt\ClassMethod) {
 			$hasYield = false;
 			[$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $deprecatedDescription, $isDeprecated, $isInternal, $isFinal] = $this->getPhpDocs($scope, $stmt);

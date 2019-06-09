@@ -28,6 +28,8 @@ conditionalTags:
 		phpstan.rules.rule: %featureToggles.unreachableStatement%
 	PHPStan\Rules\TooWideTypehints\TooWideClosureReturnTypehintRule:
 		phpstan.rules.rule: %featureToggles.tooWideTypehints%
+	PHPStan\Rules\TooWideTypehints\TooWideFunctionReturnTypehintRule:
+		phpstan.rules.rule: %featureToggles.tooWideTypehints%
 
 services:
 	-
@@ -76,3 +78,6 @@ services:
 
 	-
 		class: PHPStan\Rules\TooWideTypehints\TooWideClosureReturnTypehintRule
+
+	-
+		class: PHPStan\Rules\TooWideTypehints\TooWideFunctionReturnTypehintRule
