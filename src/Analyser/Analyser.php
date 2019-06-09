@@ -4,6 +4,7 @@ namespace PHPStan\Analyser;
 
 use Nette\Utils\Json;
 use PHPStan\File\FileHelper;
+use PHPStan\Node\FileNode;
 use PHPStan\Parser\Parser;
 use PHPStan\Rules\FileRuleError;
 use PHPStan\Rules\LineRuleError;
@@ -140,55 +141,58 @@ class Analyser
 					$parserBenchmarkTime = $this->benchmarkStart();
 					$parserNodes = $this->parser->parseFile($file);
 					$this->benchmarkEnd($parserBenchmarkTime, 'parser');
-
-					$scopeBenchmarkTime = $this->benchmarkStart();
-					$this->nodeScopeResolver->processNodes(
-						$parserNodes,
-						$this->scopeFactory->create(ScopeContext::create($file)),
-						function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors, $file, &$scopeBenchmarkTime): void {
-							$this->benchmarkEnd($scopeBenchmarkTime, 'scope');
-							$uniquedAnalysedCodeExceptionMessages = [];
-							foreach ($this->registry->getRules(get_class($node)) as $rule) {
-								try {
-									$ruleBenchmarkTime = $this->benchmarkStart();
-									$ruleErrors = $rule->processNode($node, $scope);
-									$this->benchmarkEnd($ruleBenchmarkTime, sprintf('rule-%s', get_class($rule)));
-								} catch (\PHPStan\AnalysedCodeException $e) {
-									if (isset($uniquedAnalysedCodeExceptionMessages[$e->getMessage()])) {
-										continue;
-									}
-
-									$uniquedAnalysedCodeExceptionMessages[$e->getMessage()] = true;
-									$fileErrors[] = new Error($e->getMessage(), $file, $node->getLine(), false);
+					$nodeCallback = function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors, $file, &$scopeBenchmarkTime): void {
+						$this->benchmarkEnd($scopeBenchmarkTime, 'scope');
+						$uniquedAnalysedCodeExceptionMessages = [];
+						foreach ($this->registry->getRules(get_class($node)) as $rule) {
+							try {
+								$ruleBenchmarkTime = $this->benchmarkStart();
+								$ruleErrors = $rule->processNode($node, $scope);
+								$this->benchmarkEnd($ruleBenchmarkTime, sprintf('rule-%s', get_class($rule)));
+							} catch (\PHPStan\AnalysedCodeException $e) {
+								if (isset($uniquedAnalysedCodeExceptionMessages[$e->getMessage()])) {
 									continue;
 								}
 
-								foreach ($ruleErrors as $ruleError) {
-									$line = $node->getLine();
-									$fileName = $scope->getFileDescription();
-									if (is_string($ruleError)) {
-										$message = $ruleError;
-									} else {
-										$message = $ruleError->getMessage();
-										if (
-											$ruleError instanceof LineRuleError
-											&& $ruleError->getLine() !== -1
-										) {
-											$line = $ruleError->getLine();
-										}
-										if (
-											$ruleError instanceof FileRuleError
-											&& $ruleError->getFile() !== ''
-										) {
-											$fileName = $ruleError->getFile();
-										}
-									}
-									$fileErrors[] = new Error($message, $fileName, $line);
-								}
+								$uniquedAnalysedCodeExceptionMessages[$e->getMessage()] = true;
+								$fileErrors[] = new Error($e->getMessage(), $file, $node->getLine(), false);
+								continue;
 							}
 
-							$scopeBenchmarkTime = $this->benchmarkStart();
+							foreach ($ruleErrors as $ruleError) {
+								$line = $node->getLine();
+								$fileName = $scope->getFileDescription();
+								if (is_string($ruleError)) {
+									$message = $ruleError;
+								} else {
+									$message = $ruleError->getMessage();
+									if (
+										$ruleError instanceof LineRuleError
+										&& $ruleError->getLine() !== -1
+									) {
+										$line = $ruleError->getLine();
+									}
+									if (
+										$ruleError instanceof FileRuleError
+										&& $ruleError->getFile() !== ''
+									) {
+										$fileName = $ruleError->getFile();
+									}
+								}
+								$fileErrors[] = new Error($message, $fileName, $line);
+							}
 						}
+
+						$scopeBenchmarkTime = $this->benchmarkStart();
+					};
+
+					$scopeBenchmarkTime = $this->benchmarkStart();
+					$scope = $this->scopeFactory->create(ScopeContext::create($file));
+					$nodeCallback(new FileNode($parserNodes), $scope);
+					$this->nodeScopeResolver->processNodes(
+						$parserNodes,
+						$scope,
+						$nodeCallback
 					);
 				} elseif (is_dir($file)) {
 					$fileErrors[] = new Error(sprintf('File %s is a directory.', $file), $file, null, false);
