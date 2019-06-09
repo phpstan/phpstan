@@ -30,6 +30,8 @@ conditionalTags:
 		phpstan.rules.rule: %featureToggles.tooWideTypehints%
 	PHPStan\Rules\TooWideTypehints\TooWideFunctionReturnTypehintRule:
 		phpstan.rules.rule: %featureToggles.tooWideTypehints%
+	PHPStan\Rules\TooWideTypehints\TooWidePrivateMethodReturnTypehintRule:
+		phpstan.rules.rule: %featureToggles.tooWideTypehints%
 
 services:
 	-
@@ -81,3 +83,6 @@ services:
 
 	-
 		class: PHPStan\Rules\TooWideTypehints\TooWideFunctionReturnTypehintRule
+
+	-
+		class: PHPStan\Rules\TooWideTypehints\TooWidePrivateMethodReturnTypehintRule
