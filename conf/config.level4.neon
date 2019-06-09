@@ -16,6 +16,7 @@ parameters:
 	featureToggles:
 		deadCatchesRule: false
 		noopRule: false
+		tooWideTypehints: false
 		unreachableStatement: false
 
 conditionalTags:
@@ -25,6 +26,8 @@ conditionalTags:
 		phpstan.rules.rule: %featureToggles.noopRule%
 	PHPStan\Rules\DeadCode\UnreachableStatementRule:
 		phpstan.rules.rule: %featureToggles.unreachableStatement%
+	PHPStan\Rules\TooWideTypehints\TooWideClosureReturnTypehintRule:
+		phpstan.rules.rule: %featureToggles.tooWideTypehints%
 
 services:
 	-
@@ -70,3 +73,6 @@ services:
 
 	-
 		class: PHPStan\Rules\DeadCode\UnreachableStatementRule
+
+	-
+		class: PHPStan\Rules\TooWideTypehints\TooWideClosureReturnTypehintRule

@@ -1857,7 +1857,7 @@ class NodeScopeResolver
 				$expr,
 				$gatheredReturnStatements,
 				$statementResult
-			), $scope);
+			), $closureScope);
 
 			return $scope;
 		}
@@ -1885,7 +1885,7 @@ class NodeScopeResolver
 			$expr,
 			$gatheredReturnStatements,
 			$statementResult
-		), $scope);
+		), $closureScope);
 
 		return $scope->processClosureScope($closureScope, null, $byRefUses);
 	}
