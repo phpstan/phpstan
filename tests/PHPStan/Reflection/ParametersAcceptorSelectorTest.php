@@ -110,7 +110,8 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 						false,
 						new MixedType(),
 						PassedByReference::createNo(),
-						false
+						false,
+						null
 					),
 					new NativeParameterReflection(
 						'event|args',
@@ -120,7 +121,8 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 							new StringType(),
 						]),
 						PassedByReference::createNo(),
-						true
+						true,
+						null
 					),
 				],
 				true,
@@ -159,14 +161,16 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 						false,
 						new StringType(),
 						PassedByReference::createNo(),
-						false
+						false,
+						null
 					),
 					new NativeParameterReflection(
 						'token',
 						true,
 						new StringType(),
 						PassedByReference::createNo(),
-						false
+						false,
+						null
 					),
 				],
 				false,
@@ -190,14 +194,16 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 						false,
 						new IntegerType(),
 						PassedByReference::createNo(),
-						false
+						false,
+						null
 					),
 					new NativeParameterReflection(
 						'intVariadic',
 						true,
 						new IntegerType(),
 						PassedByReference::createNo(),
-						true
+						true,
+						null
 					),
 				],
 				true,
@@ -210,14 +216,16 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 						false,
 						new IntegerType(),
 						PassedByReference::createNo(),
-						false
+						false,
+						null
 					),
 					new NativeParameterReflection(
 						'floatVariadic',
 						true,
 						new FloatType(),
 						PassedByReference::createNo(),
-						true
+						true,
+						null
 					),
 				],
 				true,

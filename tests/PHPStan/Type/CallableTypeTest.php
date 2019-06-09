@@ -31,13 +31,13 @@ class CallableTypeTest extends \PHPStan\Testing\TestCase
 				TrinaryLogic::createYes(),
 			],
 			[
-				new CallableType([new NativeParameterReflection('foo', false, new MixedType(), PassedByReference::createNo(), false)], new MixedType(), false),
-				new CallableType([new NativeParameterReflection('foo', false, new IntegerType(), PassedByReference::createNo(), false)], new MixedType(), false),
+				new CallableType([new NativeParameterReflection('foo', false, new MixedType(), PassedByReference::createNo(), false, null)], new MixedType(), false),
+				new CallableType([new NativeParameterReflection('foo', false, new IntegerType(), PassedByReference::createNo(), false, null)], new MixedType(), false),
 				TrinaryLogic::createMaybe(),
 			],
 			[
-				new CallableType([new NativeParameterReflection('foo', false, new IntegerType(), PassedByReference::createNo(), false)], new MixedType(), false),
-				new CallableType([new NativeParameterReflection('foo', false, new MixedType(), PassedByReference::createNo(), false)], new MixedType(), false),
+				new CallableType([new NativeParameterReflection('foo', false, new IntegerType(), PassedByReference::createNo(), false, null)], new MixedType(), false),
+				new CallableType([new NativeParameterReflection('foo', false, new MixedType(), PassedByReference::createNo(), false, null)], new MixedType(), false),
 				TrinaryLogic::createYes(),
 			],
 		];
@@ -170,7 +170,8 @@ class CallableTypeTest extends \PHPStan\Testing\TestCase
 				false,
 				$type,
 				PassedByReference::createNo(),
-				false
+				false,
+				null
 			);
 		};
 
@@ -284,34 +285,34 @@ class CallableTypeTest extends \PHPStan\Testing\TestCase
 	{
 		return [
 			[
-				new CallableType([new NativeParameterReflection('foo', false, new MixedType(), PassedByReference::createNo(), false)], new MixedType(), false),
-				new CallableType([new NativeParameterReflection('foo', false, new IntegerType(), PassedByReference::createNo(), false)], new MixedType(), false),
+				new CallableType([new NativeParameterReflection('foo', false, new MixedType(), PassedByReference::createNo(), false, null)], new MixedType(), false),
+				new CallableType([new NativeParameterReflection('foo', false, new IntegerType(), PassedByReference::createNo(), false, null)], new MixedType(), false),
 				TrinaryLogic::createYes(),
 			],
 			[
-				new CallableType([new NativeParameterReflection('foo', false, new IntegerType(), PassedByReference::createNo(), false)], new MixedType(), false),
-				new CallableType([new NativeParameterReflection('foo', false, new MixedType(), PassedByReference::createNo(), false)], new MixedType(), false),
-				TrinaryLogic::createYes(),
-			],
-			[
-				new CallableType([
-					new NativeParameterReflection('foo', false, new IntegerType(), PassedByReference::createNo(), false),
-				], new MixedType(), false),
-				new CallableType([
-					new NativeParameterReflection('foo', false, new IntegerType(), PassedByReference::createNo(), false),
-					new NativeParameterReflection('bar', true, new IntegerType(), PassedByReference::createNo(), false),
-					new NativeParameterReflection('bar', true, new IntegerType(), PassedByReference::createNo(), false),
-				], new MixedType(), false),
+				new CallableType([new NativeParameterReflection('foo', false, new IntegerType(), PassedByReference::createNo(), false, null)], new MixedType(), false),
+				new CallableType([new NativeParameterReflection('foo', false, new MixedType(), PassedByReference::createNo(), false, null)], new MixedType(), false),
 				TrinaryLogic::createYes(),
 			],
 			[
 				new CallableType([
-					new NativeParameterReflection('foo', false, new IntegerType(), PassedByReference::createNo(), false),
-					new NativeParameterReflection('bar', false, new StringType(), PassedByReference::createNo(), false),
+					new NativeParameterReflection('foo', false, new IntegerType(), PassedByReference::createNo(), false, null),
 				], new MixedType(), false),
 				new CallableType([
-					new NativeParameterReflection('foo', false, new IntegerType(), PassedByReference::createNo(), false),
-					new NativeParameterReflection('bar', true, new IntegerType(), PassedByReference::createNo(), false),
+					new NativeParameterReflection('foo', false, new IntegerType(), PassedByReference::createNo(), false, null),
+					new NativeParameterReflection('bar', true, new IntegerType(), PassedByReference::createNo(), false, null),
+					new NativeParameterReflection('bar', true, new IntegerType(), PassedByReference::createNo(), false, null),
+				], new MixedType(), false),
+				TrinaryLogic::createYes(),
+			],
+			[
+				new CallableType([
+					new NativeParameterReflection('foo', false, new IntegerType(), PassedByReference::createNo(), false, null),
+					new NativeParameterReflection('bar', false, new StringType(), PassedByReference::createNo(), false, null),
+				], new MixedType(), false),
+				new CallableType([
+					new NativeParameterReflection('foo', false, new IntegerType(), PassedByReference::createNo(), false, null),
+					new NativeParameterReflection('bar', true, new IntegerType(), PassedByReference::createNo(), false, null),
 				], new MixedType(), false),
 				TrinaryLogic::createNo(),
 			],

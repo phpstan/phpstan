@@ -336,7 +336,8 @@ class TypeNodeResolver
 					$parameterNode->isOptional,
 					$this->resolve($parameterNode->type, $nameScope),
 					$parameterNode->isReference ? PassedByReference::createCreatesNewVariable() : PassedByReference::createNo(),
-					$parameterNode->isVariadic
+					$parameterNode->isVariadic,
+					null
 				);
 			},
 			$typeNode->parameters

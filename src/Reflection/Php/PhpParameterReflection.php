@@ -4,6 +4,7 @@ namespace PHPStan\Reflection\Php;
 
 use PHPStan\Reflection\ParameterReflectionWithPhpDocs;
 use PHPStan\Reflection\PassedByReference;
+use PHPStan\Type\ConstantTypeHelper;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
@@ -46,6 +47,7 @@ class PhpParameterReflection implements ParameterReflectionWithPhpDocs
 			if ($phpDocType !== null && $this->reflection->isDefaultValueAvailable() && $this->reflection->getDefaultValue() === null) {
 				$phpDocType = \PHPStan\Type\TypeCombinator::addNull($phpDocType);
 			}
+
 			$this->type = TypehintHelper::decideTypeFromReflection(
 				$this->reflection->getType(),
 				$phpDocType,
@@ -90,6 +92,15 @@ class PhpParameterReflection implements ParameterReflectionWithPhpDocs
 		}
 
 		return $this->nativeType;
+	}
+
+	public function getDefaultValue(): ?Type
+	{
+		if ($this->reflection->isDefaultValueAvailable()) {
+			return ConstantTypeHelper::getTypeFromValue($this->reflection->getDefaultValue());
+		}
+
+		return null;
 	}
 
 }

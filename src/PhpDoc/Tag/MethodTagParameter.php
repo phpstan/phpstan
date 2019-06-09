@@ -20,17 +20,22 @@ class MethodTagParameter
 	/** @var bool */
 	private $isVariadic;
 
+	/** @var \PHPStan\Type\Type|null */
+	private $defaultValue;
+
 	public function __construct(
 		Type $type,
 		PassedByReference $passedByReference,
 		bool $isOptional,
-		bool $isVariadic
+		bool $isVariadic,
+		?Type $defaultValue
 	)
 	{
 		$this->type = $type;
 		$this->passedByReference = $passedByReference;
 		$this->isOptional = $isOptional;
 		$this->isVariadic = $isVariadic;
+		$this->defaultValue = $defaultValue;
 	}
 
 	public function getType(): Type
@@ -53,6 +58,11 @@ class MethodTagParameter
 		return $this->isVariadic;
 	}
 
+	public function getDefaultValue(): ?Type
+	{
+		return $this->defaultValue;
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return self
@@ -63,7 +73,8 @@ class MethodTagParameter
 			$properties['type'],
 			$properties['passedByReference'],
 			$properties['isOptional'],
-			$properties['isVariadic']
+			$properties['isVariadic'],
+			$properties['defaultValue']
 		);
 	}
 

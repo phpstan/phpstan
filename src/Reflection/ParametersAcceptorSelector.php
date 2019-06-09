@@ -219,19 +219,28 @@ class ParametersAcceptorSelector
 						$i + 1 > $minimumNumberOfParameters,
 						$parameter->getType(),
 						$parameter->passedByReference(),
-						$parameter->isVariadic()
+						$parameter->isVariadic(),
+						$parameter->getDefaultValue()
 					);
 					continue;
 				}
 
 				$isVariadic = $parameters[$i]->isVariadic() || $parameter->isVariadic();
+				$defaultValueLeft = $parameters[$i]->getDefaultValue();
+				$defaultValueRight = $parameter->getDefaultValue();
+				if ($defaultValueLeft !== null && $defaultValueRight !== null) {
+					$defaultValue = TypeCombinator::union($defaultValue, $prevDefaultValue);
+				} else {
+					$defaultValue = null;
+				}
 
 				$parameters[$i] = new NativeParameterReflection(
 					$parameters[$i]->getName() !== $parameter->getName() ? sprintf('%s|%s', $parameters[$i]->getName(), $parameter->getName()) : $parameter->getName(),
 					$i + 1 > $minimumNumberOfParameters,
 					TypeCombinator::union($parameters[$i]->getType(), $parameter->getType()),
 					$parameters[$i]->passedByReference()->combine($parameter->passedByReference()),
-					$isVariadic
+					$isVariadic,
+					$defaultValue
 				);
 
 				if ($isVariadic) {
