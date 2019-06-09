@@ -2165,7 +2165,6 @@ class NodeScopeResolver
 			$hasYield = $result->hasYield();
 			$scope = $result->getScope();
 
-			/** @var ObjectType $propertyHolderType */
 			$propertyHolderType = $scope->getType($var->var);
 			$propertyName = null;
 			if ($var->name instanceof Node\Identifier) {
@@ -2189,7 +2188,6 @@ class NodeScopeResolver
 			if ($var->class instanceof \PhpParser\Node\Name) {
 				$propertyHolderType = new ObjectType($scope->resolveName($var->class));
 			} else {
-				/** @var ObjectType $propertyHolderType */
 				$propertyHolderType = $scope->getType($var->class);
 			}
 			$propertyName = null;
