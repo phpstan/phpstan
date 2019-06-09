@@ -1,3 +1,4 @@
+os: linux
 dist: xenial
 language: php
 
@@ -38,6 +39,28 @@ script:
 
 jobs:
   include:
+    - stage: test
+      os: windows
+      dist: 1803-containers
+      language: sh # No PHP currently
+      env: PHP_VERSION=7.3.5 DEPENDENCIES=lowest
+      install:
+        - choco install php --version=${PHP_VERSION} --package-parameters="/InstallDir:c:\tools\php"
+        - choco install composer --ia "/DEV=C:\tools\php"
+        - export PATH=/c/tools/php:$PATH
+      script:
+        - vendor/bin/phing
+    - stage: test
+      os: windows
+      dist: 1803-containers
+      language: sh # No PHP currently
+      env: PHP_VERSION=7.3.5 DEPENDENCIES=highest
+      install:
+        - choco install php --version=${PHP_VERSION} --package-parameters="/InstallDir:c:\tools\php"
+        - choco install composer --ia "/DEV=C:\tools\php"
+        - export PATH=/c/tools/php:$PATH
+      script:
+        - vendor/bin/phing
     - stage: phar-test
       script:
         - git clone https://github.com/phpstan/phpstan-compiler && cd phpstan-compiler && ./run-e2e-tests.sh $TRAVIS_COMMIT
