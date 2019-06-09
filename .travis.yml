@@ -2,6 +2,9 @@ os: linux
 dist: xenial
 language: php
 
+git:
+  depth: 1
+
 stages:
   - test
   - name: phar-test
