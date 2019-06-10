@@ -1960,7 +1960,7 @@ class Scope implements ClassMemberAccessAnswerer
 	): self
 	{
 		$variableTypes = $this->getVariableTypes();
-		foreach (ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getParameters() as $parameter) {
+		foreach (ParametersAcceptorSelector::selectArguments($functionReflection->getVariants())->getParameters() as $parameter) {
 			$variableTypes[$parameter->getName()] = VariableTypeHolder::createYes($parameter->getType());
 		}
 
