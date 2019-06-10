@@ -28,6 +28,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				new InputOption(self::OPTION_LEVEL, 'l', InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter'),
 				new InputOption(ErrorsConsoleStyle::OPTION_NO_PROGRESS, null, InputOption::VALUE_NONE, 'Do not show progress bar, only results'),
 				new InputOption('debug', null, InputOption::VALUE_NONE, 'Show debug information - which file is analysed, do not catch internal errors'),
+				new InputOption('snippet', null, InputOption::VALUE_NONE, 'Show code snippet for found errors'),
 				new InputOption('autoload-file', 'a', InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path'),
 				new InputOption('error-format', null, InputOption::VALUE_REQUIRED, 'Format in which to print the result of the analysis', 'table'),
 				new InputOption('memory-limit', null, InputOption::VALUE_REQUIRED, 'Memory limit for analysis'),
@@ -112,6 +113,8 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		$application = $container->getByType(AnalyseApplication::class);
 
 		$debug = $input->getOption('debug');
+		$showSnippet = $input->getOption('snippet');
+
 		if (!is_bool($debug)) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
@@ -123,7 +126,8 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				$inceptionResult->getConsoleStyle(),
 				$errorFormatter,
 				$inceptionResult->isDefaultLevelUsed(),
-				$debug
+				$debug,
+				$showSnippet
 			)
 		);
 	}

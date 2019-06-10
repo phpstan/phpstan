@@ -159,7 +159,8 @@ services:
 
 	-
 		class: PhpParser\Lexer
-
+		arguments:
+			- usedAttributes: ['comments', 'startLine', 'endLine', 'startFilePos', 'endFilePos']
 	-
 		class: PhpParser\NodeTraverser
 		setup:

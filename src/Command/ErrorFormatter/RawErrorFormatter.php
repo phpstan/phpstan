@@ -28,7 +28,8 @@ class RawErrorFormatter implements ErrorFormatter
 					$fileSpecificError->getFile(),
 					$fileSpecificError->getLine() ?? '?',
 					$fileSpecificError->getMessage()
-				)
+				) . "\n" .
+                    $fileSpecificError->getSnippet()
 			);
 		}
 

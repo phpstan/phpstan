@@ -17,12 +17,16 @@ class Error
 	/** @var bool */
 	private $canBeIgnored;
 
-	public function __construct(string $message, string $file, ?int $line = null, bool $canBeIgnored = true)
+	/** @var string */
+	private $snippet;
+
+	public function __construct(string $message, string $file, ?int $line = null, bool $canBeIgnored = true, ?string $snippet = null)
 	{
 		$this->message = $message;
 		$this->file = $file;
 		$this->line = $line;
 		$this->canBeIgnored = $canBeIgnored;
+		$this->snippet = $snippet;
 	}
 
 	public function getMessage(): string
@@ -45,4 +49,8 @@ class Error
 		return $this->canBeIgnored;
 	}
 
+	public function getSnippet(): ?string
+    {
+        return $this->snippet;
+    }
 }

@@ -42,6 +42,7 @@ class AnalyseApplication
 	 * @param \PHPStan\Command\ErrorFormatter\ErrorFormatter $errorFormatter
 	 * @param bool $defaultLevelUsed
 	 * @param bool $debug
+	 * @param bool $showSnippet
 	 * @return int Error code.
 	 */
 	public function analyse(
@@ -50,7 +51,8 @@ class AnalyseApplication
 		OutputStyle $style,
 		ErrorFormatter $errorFormatter,
 		bool $defaultLevelUsed,
-		bool $debug
+		bool $debug,
+		bool $showSnippet = false
 	): int
 	{
 		$this->updateMemoryLimitFile();
@@ -83,7 +85,8 @@ class AnalyseApplication
 			$onlyFiles,
 			$preFileCallback,
 			$postFileCallback,
-			$debug
+			$debug,
+			$showSnippet
 		));
 
 		if (isset($progressStarted) && $progressStarted) {
