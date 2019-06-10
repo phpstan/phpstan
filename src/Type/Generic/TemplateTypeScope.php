@@ -11,7 +11,17 @@ class TemplateTypeScope
 	/** @var string|null */
 	private $functionName;
 
-	public function __construct(?string $className, ?string $functionName)
+	public static function createWithFunction(string $functionName): self
+	{
+		return new self(null, $functionName);
+	}
+
+	public static function createWithMethod(string $className, string $functionName): self
+	{
+		return new self($className, $functionName);
+	}
+
+	private function __construct(?string $className, ?string $functionName)
 	{
 		$this->className = $className;
 		$this->functionName = $functionName;

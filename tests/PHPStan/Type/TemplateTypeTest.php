@@ -14,7 +14,7 @@ class TemplateTypeTest extends \PHPStan\Testing\TestCase
 	{
 		$templateType = static function (string $name, ?Type $bound, ?string $functionName = null): Type {
 			return TemplateTypeFactory::create(
-				new TemplateTypeScope(null, $functionName),
+				TemplateTypeScope::createWithFunction($functionName ?? '_'),
 				$name,
 				$bound
 			);
@@ -81,7 +81,7 @@ class TemplateTypeTest extends \PHPStan\Testing\TestCase
 	{
 		$templateType = static function (string $name, Type $bound, ?string $functionName = null): Type {
 			return TemplateTypeFactory::create(
-				new TemplateTypeScope(null, $functionName),
+				TemplateTypeScope::createWithFunction($functionName ?? '_'),
 				$name,
 				$bound
 			);

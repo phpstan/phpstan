@@ -1101,7 +1101,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			[
 				[
 					TemplateTypeFactory::create(
-						new TemplateTypeScope(null, null),
+						TemplateTypeScope::createWithFunction('a'),
 						'T',
 						null
 					),
@@ -1113,7 +1113,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			[
 				[
 					TemplateTypeFactory::create(
-						new TemplateTypeScope(null, null),
+						TemplateTypeScope::createWithFunction('a'),
 						'T',
 						new ObjectType('DateTime')
 					),
@@ -1125,12 +1125,12 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			[
 				[
 					TemplateTypeFactory::create(
-						new TemplateTypeScope(null, null),
+						TemplateTypeScope::createWithFunction('a'),
 						'T',
 						new ObjectType('DateTime')
 					),
 					TemplateTypeFactory::create(
-						new TemplateTypeScope(null, null),
+						TemplateTypeScope::createWithFunction('a'),
 						'T',
 						new ObjectType('DateTime')
 					),
@@ -1141,12 +1141,12 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			[
 				[
 					TemplateTypeFactory::create(
-						new TemplateTypeScope(null, null),
+						TemplateTypeScope::createWithFunction('a'),
 						'T',
 						new ObjectType('DateTime')
 					),
 					TemplateTypeFactory::create(
-						new TemplateTypeScope(null, null),
+						TemplateTypeScope::createWithFunction('a'),
 						'U',
 						new ObjectType('DateTime')
 					),
@@ -1755,7 +1755,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			[
 				[
 					TemplateTypeFactory::create(
-						new TemplateTypeScope(null, null),
+						TemplateTypeScope::createWithFunction('a'),
 						'T',
 						null
 					),
@@ -1767,7 +1767,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			[
 				[
 					TemplateTypeFactory::create(
-						new TemplateTypeScope(null, null),
+						TemplateTypeScope::createWithFunction('a'),
 						'T',
 						new ObjectType('DateTime')
 					),
@@ -1779,12 +1779,12 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			[
 				[
 					TemplateTypeFactory::create(
-						new TemplateTypeScope(null, null),
+						TemplateTypeScope::createWithFunction('a'),
 						'T',
 						new ObjectType('DateTime')
 					),
 					TemplateTypeFactory::create(
-						new TemplateTypeScope(null, null),
+						TemplateTypeScope::createWithFunction('a'),
 						'T',
 						new ObjectType('DateTime')
 					),
@@ -1795,12 +1795,12 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			[
 				[
 					TemplateTypeFactory::create(
-						new TemplateTypeScope(null, null),
+						TemplateTypeScope::createWithFunction('a'),
 						'T',
 						new ObjectType('DateTime')
 					),
 					TemplateTypeFactory::create(
-						new TemplateTypeScope(null, null),
+						TemplateTypeScope::createWithFunction('a'),
 						'U',
 						new ObjectType('DateTime')
 					),
