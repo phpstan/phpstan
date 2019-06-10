@@ -362,7 +362,7 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 					new DummyParameter(
 						'a',
 						TemplateTypeFactory::create(
-							new TemplateTypeScope(null, null),
+							TemplateTypeScope::createWithFunction('a'),
 							'T',
 							null
 						),

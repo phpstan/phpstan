@@ -27,7 +27,7 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 	{
 		$templateType = static function (string $name, ?Type $type = null): Type {
 			return TemplateTypeFactory::create(
-				new TemplateTypeScope(null, null),
+				TemplateTypeScope::createWithFunction('a'),
 				$name,
 				$type
 			);
