@@ -4,11 +4,17 @@ namespace PHPStan\Reflection;
 
 use PhpParser\Node\Name;
 use PHPStan\Reflection\Native\NativeParameterReflection;
+use PHPStan\Reflection\Php\DummyParameter;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
+use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\FloatType;
+use PHPStan\Type\Generic\TemplateType;
+use PHPStan\Type\Generic\TemplateTypeFactory;
+use PHPStan\Type\Generic\TemplateTypeScope;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\ResourceType;
 use PHPStan\Type\StringType;
@@ -232,6 +238,7 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 				new IntegerType()
 			),
 		];
+
 		yield [
 			[
 				new IntegerType(),
@@ -239,6 +246,158 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 			$variadicVariants,
 			true,
 			ParametersAcceptorSelector::combineAcceptors($variadicVariants),
+		];
+
+		$defaultValuesVariants1 = [
+			new FunctionVariant(
+				[
+					new DummyParameter(
+						'a',
+						new MixedType(),
+						false,
+						PassedByReference::createNo(),
+						false,
+						new ConstantIntegerType(1)
+					),
+				],
+				false,
+				new NullType()
+			),
+			new FunctionVariant(
+				[
+					new DummyParameter(
+						'a',
+						new MixedType(),
+						false,
+						PassedByReference::createNo(),
+						false,
+						new ConstantIntegerType(2)
+					),
+				],
+				false,
+				new NullType()
+			),
+		];
+
+		yield [
+			[
+				new IntegerType(),
+			],
+			$defaultValuesVariants1,
+			true,
+			new FunctionVariant(
+				[
+					new DummyParameter(
+						'a',
+						new MixedType(),
+						false,
+						PassedByReference::createNo(),
+						false,
+						new UnionType([
+							new ConstantIntegerType(1),
+							new ConstantIntegerType(2),
+						])
+					),
+				],
+				false,
+				new NullType()
+			),
+		];
+
+		$defaultValuesVariants2 = [
+			new FunctionVariant(
+				[
+					new DummyParameter(
+						'a',
+						new MixedType(),
+						false,
+						PassedByReference::createNo(),
+						false,
+						new ConstantIntegerType(1)
+					),
+				],
+				false,
+				new NullType()
+			),
+			new FunctionVariant(
+				[
+					new DummyParameter(
+						'a',
+						new MixedType(),
+						false,
+						PassedByReference::createNo(),
+						false,
+						null
+					),
+				],
+				false,
+				new NullType()
+			),
+		];
+
+		yield [
+			[
+				new IntegerType(),
+			],
+			$defaultValuesVariants2,
+			true,
+			new FunctionVariant(
+				[
+					new DummyParameter(
+						'a',
+						new MixedType(),
+						false,
+						PassedByReference::createNo(),
+						false,
+						null
+					),
+				],
+				false,
+				new NullType()
+			),
+		];
+
+		$genericVariants = [
+			new FunctionVariant(
+				[
+					new DummyParameter(
+						'a',
+						TemplateTypeFactory::create(
+							new TemplateTypeScope(null, null),
+							'T',
+							null
+						),
+						false,
+						PassedByReference::createNo(),
+						false,
+						null
+					),
+				],
+				false,
+				new NullType()
+			),
+		];
+
+		yield [
+			[
+				new IntegerType(),
+			],
+			$genericVariants,
+			true,
+			new FunctionVariant(
+				[
+					new DummyParameter(
+						'a',
+						new IntegerType(),
+						false,
+						PassedByReference::createNo(),
+						false,
+						null
+					),
+				],
+				false,
+				new NullType()
+			),
 		];
 	}
 
@@ -279,6 +438,14 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 				$expectedParameter->isVariadic(),
 				$parameter->isVariadic()
 			);
+			if ($expectedParameter->getDefaultValue() === null) {
+				$this->assertNull($parameter->getDefaultValue());
+			} else {
+				$this->assertSame(
+					$expectedParameter->getDefaultValue()->describe(VerbosityLevel::precise()),
+					$parameter->getDefaultValue() !== null ? $parameter->getDefaultValue()->describe(VerbosityLevel::precise()) : null
+				);
+			}
 		}
 
 		$this->assertSame(
@@ -286,6 +453,43 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 			$selectedAcceptor->getReturnType()->describe(VerbosityLevel::precise())
 		);
 		$this->assertSame($expected->isVariadic(), $selectedAcceptor->isVariadic());
+	}
+
+	public function testSelectArguments(): void
+	{
+		$templateType = TemplateTypeFactory::create(
+			new TemplateTypeScope(null, null),
+			'T',
+			null
+		);
+
+		$acceptors = [
+			new FunctionVariant(
+				[
+					new DummyParameter(
+						'a',
+						$templateType,
+						false,
+						PassedByReference::createNo(),
+						false,
+						null
+					),
+				],
+				false,
+				$templateType
+			),
+		];
+
+		$acceptor = ParametersAcceptorSelector::selectArguments($acceptors);
+
+		$argument = $acceptor->getParameters()[0];
+		$type = $argument->getType();
+		$this->assertInstanceOf(TemplateType::class, $type);
+		$this->assertTrue($type->isArgument());
+
+		$returnType = $acceptor->getReturnType();
+		$this->assertInstanceOf(TemplateType::class, $returnType);
+		$this->assertTrue($returnType->isArgument());
 	}
 
 }
