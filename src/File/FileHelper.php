@@ -31,7 +31,7 @@ class FileHelper
 				return $path;
 			}
 		}
-		if (\Nette\Utils\Strings::contains($path, '://')) {
+		if (\Nette\Utils\Strings::startsWith($path, 'phar://')) {
 			return $path;
 		}
 
