@@ -52,6 +52,9 @@ class TableErrorFormatter implements ErrorFormatter
 					(string) $error->getLine(),
 					$error->getMessage(),
 				];
+				if ($error->getSnippet() !== null) {
+				    $rows[] = ['', $error->getSnippet()];
+                }
 			}
 
 			$relativeFilePath = $this->relativePathHelper->getRelativePath($file);

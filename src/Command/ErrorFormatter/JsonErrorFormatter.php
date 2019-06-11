@@ -40,6 +40,7 @@ class JsonErrorFormatter implements ErrorFormatter
 
 			$errorsArray['files'][$file]['messages'][] = [
 				'message' => $fileSpecificError->getMessage(),
+                'snippet' => $fileSpecificError->getSnippet(),
 				'line' => $fileSpecificError->getLine(),
 				'ignorable' => $fileSpecificError->canBeIgnored(),
 			];
