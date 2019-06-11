@@ -1,7 +1,6 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace PHPStan\Parser;
-
 
 class SnippetLocation
 {
@@ -17,9 +16,7 @@ class SnippetLocation
         $fileStart = (int)$stmt->getAttribute('startFilePos');
         $fileEnd = (int)$stmt->getAttribute('endFilePos');
 
-
-        //get start position of snippet
-        $phpDocComment = $stmt->getDocComment(); //если есть пхпдок - то показываем начиная от него
+        $phpDocComment = $stmt->getDocComment(); //include phpdoc into snippet, if we have any
         $previewStart = $phpDocComment ? $phpDocComment->getFilePos() : $fileStart;
         $previewStart = (int)mb_strrpos(
                 $fileContents,
@@ -27,7 +24,6 @@ class SnippetLocation
                 min($previewStart, $fileStart) - mb_strlen($fileContents)
             ) + 1;
 
-        //get end position of snippet
         $selectionEnd = $fileEnd + 1;
         $previewEnd = $selectionEnd;
         if ($selectionEnd <= $fileLength) {
