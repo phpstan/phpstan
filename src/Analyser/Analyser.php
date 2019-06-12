@@ -338,4 +338,5 @@ class Analyser
 
 		$this->benchmarkData[$description] += $elapsedTime;
 	}
+
 }
